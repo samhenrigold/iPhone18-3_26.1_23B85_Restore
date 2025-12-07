@@ -34,22 +34,22 @@ void ___LayoutConstantsExtraLarge_block_invoke(void *a1@<X1>, uint64_t a2@<X8>)
   os_unfair_lock_unlock(&_block_invoke_lock_15);
 }
 
-void ___LayoutConstantsExtraLarge_block_invoke_2(void *a1@<X1>, void *a2@<X8>)
+void ___LayoutConstantsExtraLarge_block_invoke_2(void *a1@<X1>, double *a2@<X8>)
 {
   v3 = a1;
   ___LayoutConstantsModularSmall_block_invoke(v3, a2);
   CLKRoundForDevice();
   *a2 = v4;
   CLKRoundForDevice();
-  a2[3] = v5;
+  *(a2 + 3) = v5;
   CLKRoundForDevice();
-  a2[2] = v6;
+  *(a2 + 2) = v6;
   CLKRoundForDevice();
-  a2[1] = v7;
+  *(a2 + 1) = v7;
   CLKRoundForDevice();
   v9 = v8;
 
-  a2[4] = v9;
+  *(a2 + 4) = v9;
 }
 
 double ___LayoutConstantsExtraLarge_block_invoke_0(uint64_t a1, void *a2)
@@ -236,7 +236,7 @@ void ___LayoutConstantsExtraLarge_block_invoke_5(void *a1@<X1>, _OWORD *a2@<X8>)
   {
     _block_invoke___cachedDevice_44 = v6;
     _block_invoke___previousCLKDeviceVersion_44 = [v6 version];
-    ___LayoutConstantsExtraLarge_block_invoke_2_3(v6, v7);
+    ___LayoutConstantsExtraLarge_block_invoke_2_3(_block_invoke___previousCLKDeviceVersion_44, v6, v7);
     _block_invoke_value_31 = v7[0];
     unk_27DA30000 = v7[1];
     xmmword_27DA30010 = v7[2];
@@ -249,16 +249,16 @@ void ___LayoutConstantsExtraLarge_block_invoke_5(void *a1@<X1>, _OWORD *a2@<X8>)
   os_unfair_lock_unlock(&_block_invoke_lock_44);
 }
 
-float64x2_t ___LayoutConstantsExtraLarge_block_invoke_2_3@<Q0>(void *a1@<X1>, uint64_t a2@<X8>)
+float64x2_t ___LayoutConstantsExtraLarge_block_invoke_2_3@<Q0>(uint64_t a1@<X0>, void *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  ___LayoutConstantsModularSmall_block_invoke_1(a1, a2);
-  *a2 = *a2 * 3.0;
+  ___LayoutConstantsModularSmall_block_invoke_1(a2, a3);
+  a3->f64[0] = a3->f64[0] * 3.0;
   __asm { FMOV            V0.2D, #3.0 }
 
-  v8 = vmulq_f64(*(a2 + 16), _Q0);
-  result = vmulq_f64(*(a2 + 32), _Q0);
-  *(a2 + 16) = v8;
-  *(a2 + 32) = result;
+  v9 = vmulq_f64(a3[1], _Q0);
+  result = vmulq_f64(a3[2], _Q0);
+  a3[1] = v9;
+  a3[2] = result;
   return result;
 }
 
@@ -280,7 +280,7 @@ void ___LayoutConstantsExtraLarge_block_invoke_6(void *a1@<X1>, _OWORD *a2@<X8>)
   {
     _block_invoke___cachedDevice_65 = v7;
     _block_invoke___previousCLKDeviceVersion_65 = [v7 version];
-    ___LayoutConstantsExtraLarge_block_invoke_2_4(v7, v8);
+    ___LayoutConstantsExtraLarge_block_invoke_2_4(_block_invoke___previousCLKDeviceVersion_65, v7, v8);
     xmmword_27DA31448 = v8[2];
     unk_27DA31458 = v8[3];
     xmmword_27DA31468 = v8[4];
@@ -298,19 +298,19 @@ void ___LayoutConstantsExtraLarge_block_invoke_6(void *a1@<X1>, _OWORD *a2@<X8>)
   os_unfair_lock_unlock(&_block_invoke_lock_65);
 }
 
-float64x2_t ___LayoutConstantsExtraLarge_block_invoke_2_4@<Q0>(void *a1@<X1>, uint64_t a2@<X8>)
+float64x2_t ___LayoutConstantsExtraLarge_block_invoke_2_4@<Q0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  ___LayoutConstantsModularSmall_block_invoke_3(a1, a2);
+  ___LayoutConstantsModularSmall_block_invoke_3(a2, a3);
   __asm { FMOV            V0.2D, #3.0 }
 
-  v8 = vmulq_f64(*(a2 + 16), _Q0);
-  *a2 = vmulq_f64(*a2, _Q0);
-  *(a2 + 16) = v8;
-  v9 = vmulq_f64(*(a2 + 48), _Q0);
-  *(a2 + 32) = vmulq_f64(*(a2 + 32), _Q0);
-  *(a2 + 48) = v9;
-  result = vmulq_f64(*(a2 + 64), _Q0);
-  *(a2 + 64) = result;
+  v9 = vmulq_f64(*(a3 + 16), _Q0);
+  *a3 = vmulq_f64(*a3, _Q0);
+  *(a3 + 16) = v9;
+  v10 = vmulq_f64(*(a3 + 48), _Q0);
+  *(a3 + 32) = vmulq_f64(*(a3 + 32), _Q0);
+  *(a3 + 48) = v10;
+  result = vmulq_f64(*(a3 + 64), _Q0);
+  *(a3 + 64) = result;
   return result;
 }
 

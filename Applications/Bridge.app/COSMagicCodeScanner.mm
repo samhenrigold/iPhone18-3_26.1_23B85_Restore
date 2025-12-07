@@ -504,8 +504,8 @@ LABEL_31:
       v27 = pbb_setupflow_log();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(pixelBufferOut) = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "4 second timeout elapsed; resetting", &pixelBufferOut, 2u);
+        LOWORD(pixelBufferOut[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "4 second timeout elapsed; resetting", pixelBufferOut, 2u);
       }
 
       self->_lastWmTime = Current;
@@ -626,8 +626,8 @@ LABEL_94:
         v47 = pbb_setupflow_log();
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(pixelBufferOut) = 0;
-          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Started Writing...", &pixelBufferOut, 2u);
+          LOWORD(pixelBufferOut[0]) = 0;
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Started Writing...", pixelBufferOut, 2u);
         }
 
         [(COSMagicCodeScanner *)self writeSampleBuffer:bufferCopy ofType:AVMediaTypeVideo];
@@ -638,18 +638,18 @@ LABEL_94:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         v50 = (Current - self->_lastFrameTime) * 1000.0;
-        pixelBufferOut = 134219008;
+        pixelBufferOut[0] = 134219008;
         v51 = Current - self->_lastWmTime;
-        pixelBufferOut_4 = v45 * 100.0;
-        v83 = 2048;
-        v84 = v49 * 100.0;
-        v85 = 1024;
-        v86 = v36;
-        v87 = 2048;
-        v88 = v50;
-        v89 = 2048;
-        v90 = v51 * 1000.0;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Progress: %.2f%%  delta: %5.2f%%;  level: %d; frame %.2fms; wm %.2fms", &pixelBufferOut, 0x30u);
+        *&pixelBufferOut[1] = v45 * 100.0;
+        v82 = 2048;
+        v83 = v49 * 100.0;
+        v84 = 1024;
+        v85 = v36;
+        v86 = 2048;
+        v87 = v50;
+        v88 = 2048;
+        v89 = v51 * 1000.0;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Progress: %.2f%%  delta: %5.2f%%;  level: %d; frame %.2fms; wm %.2fms", pixelBufferOut, 0x30u);
       }
 
       self->_lastWmProgress = v45;
@@ -707,8 +707,8 @@ LABEL_78:
             v60 = pbb_setupflow_log();
             if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(pixelBufferOut) = 0;
-              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Finish Writing With Completion", &pixelBufferOut, 2u);
+              LOWORD(pixelBufferOut[0]) = 0;
+              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Finish Writing With Completion", pixelBufferOut, 2u);
             }
 
             assetWriter = self->_assetWriter;

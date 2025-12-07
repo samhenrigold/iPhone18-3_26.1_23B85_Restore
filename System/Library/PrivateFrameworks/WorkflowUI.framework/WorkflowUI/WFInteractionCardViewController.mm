@@ -158,14 +158,14 @@ void __57__WFInteractionCardViewController_updateWithInteraction___block_invoke_
   [v5 setStyle:0];
   [v5 setShowThumbnailImage:1];
   [v5 setShowActionButton:0];
-  [v5 setShowAppFootnote:0];
-  v6 = [objc_alloc(getAPUIActionCardRequestClass()) initWithCardViewConfig:v5];
-  [v6 setFormat:1];
-  [v6 setContent:interactionCopy];
+  v6 = [v5 setShowAppFootnote:0];
+  v7 = [objc_alloc(getAPUIActionCardRequestClass(v6)) initWithCardViewConfig:v5];
+  [v7 setFormat:1];
+  [v7 setContent:interactionCopy];
 
-  [v6 setLoadsBundleServices:0];
+  [v7 setLoadsBundleServices:0];
 
-  return v6;
+  return v7;
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -360,9 +360,9 @@ void __49__WFInteractionCardViewController_viewDidAppear___block_invoke_179(uint
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFInteractionCardViewController.m" lineNumber:62 description:{@"Invalid parameter not satisfying: %@", @"interaction"}];
   }
 
-  v14.receiver = self;
-  v14.super_class = WFInteractionCardViewController;
-  v7 = [(WFInteractionCardViewController *)&v14 initWithNibName:0 bundle:0];
+  v15.receiver = self;
+  v15.super_class = WFInteractionCardViewController;
+  v7 = [(WFInteractionCardViewController *)&v15 initWithNibName:0 bundle:0];
   v8 = v7;
   if (v7)
   {
@@ -371,9 +371,9 @@ void __49__WFInteractionCardViewController_viewDidAppear___block_invoke_179(uint
     unlockService = v8->_unlockService;
     v8->_unlockService = v9;
 
-    softLinkAPUIRegisterCardServicesIfNeeded();
-    softLinkAPUIRegisterCardKitProvidersIfNeeded();
-    v11 = v8;
+    v11 = softLinkAPUIRegisterCardServicesIfNeeded();
+    softLinkAPUIRegisterCardKitProvidersIfNeeded(v11);
+    v12 = v8;
   }
 
   return v8;

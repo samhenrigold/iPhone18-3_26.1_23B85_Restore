@@ -1,6 +1,7 @@
 @interface ReadingListFetcherDocument
 + (BOOL)_shouldAutoSizeText;
 - (BOOL)_isDeallocating;
+- (BOOL)_shouldArchiveBookmarkWithID:(int)d;
 - (BOOL)_tryRetain;
 - (ReadingListFetcherDocument)init;
 - (ReadingListFetcherDocument)retain;
@@ -286,27 +287,30 @@ LABEL_10:
     return;
   }
 
-  if ((+[WebBookmarkCollection lockSync]& 1) != 0)
+  v3 = +[WebBookmarkCollection lockSync];
+  if (v3)
   {
     self->_isLoading = 0;
     [(WebBookmark *)self->_bookmark setDateLastArchived:+[NSDate date]];
-    v3 = 0;
-    if ([(ReadingListFetcherDocument *)self _shouldArchiveBookmarkWithID:[(WebBookmark *)self->_bookmark identifier]])
+    v5 = [(ReadingListFetcherDocument *)self _shouldArchiveBookmarkWithID:[(WebBookmark *)self->_bookmark identifier]];
+    v7 = 0;
+    if (v5)
     {
-      v3 = [+[WebBookmarkCollection safariBookmarkCollection](WebBookmarkCollection "safariBookmarkCollection")] ^ 1;
+      v5 = [+[WebBookmarkCollection safariBookmarkCollection](WebBookmarkCollection "safariBookmarkCollection")];
+      v7 = v5 ^ 1;
     }
 
-    v4 = sub_100009E64();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100009E64(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000AC58(v3, v4);
-      if (!v3)
+      sub_10000AC58(v7, v8);
+      if (!v7)
       {
         goto LABEL_9;
       }
     }
 
-    else if (!v3)
+    else if (!v7)
     {
 LABEL_9:
       +[WebBookmarkCollection unlockSync];
@@ -315,17 +319,17 @@ LABEL_9:
       return;
     }
 
-    v5 = +[ReadingListFetcher sharedReadingListFetcher];
-    [v5 queueChangeForBookmark:self->_bookmark archiveStatus:{-[WebBookmark archiveStatus](self->_bookmark, "archiveStatus")}];
-    [v5 queueChangeForBookmark:self->_bookmark dateLastArchived:{+[NSDate date](NSDate, "date")}];
+    v9 = +[ReadingListFetcher sharedReadingListFetcher];
+    [v9 queueChangeForBookmark:self->_bookmark archiveStatus:{-[WebBookmark archiveStatus](self->_bookmark, "archiveStatus")}];
+    [v9 queueChangeForBookmark:self->_bookmark dateLastArchived:{+[NSDate date](NSDate, "date")}];
     goto LABEL_9;
   }
 
-  v6 = sub_100009E64();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v10 = sub_100009E64(v3, v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Failed to acquire lock, retrying after delay", v7, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Failed to acquire lock, retrying after delay", v11, 2u);
   }
 
   [(ReadingListFetcherDocument *)self performSelector:"_saveAndSelfExpire" withObject:0 afterDelay:3.0];
@@ -333,7 +337,7 @@ LABEL_9:
 
 - (void)_loadDidFail
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000ACE8();
@@ -345,7 +349,7 @@ LABEL_9:
 
 - (void)_slowLoadTimeoutExpired
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AD28();
@@ -357,7 +361,7 @@ LABEL_9:
 
 - (void)_readerPageTimeoutExpired
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AD5C();
@@ -369,7 +373,7 @@ LABEL_9:
 
 - (void)_dataCheckTimeoutExpired
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AD90();
@@ -390,6 +394,27 @@ LABEL_9:
   }
 }
 
+- (BOOL)_shouldArchiveBookmarkWithID:(int)d
+{
+  v3 = [+[WebBookmarkCollection safariBookmarkCollection](WebBookmarkCollection "safariBookmarkCollection")];
+  if (v3)
+  {
+    if ([v3 shouldArchive])
+    {
+      LOBYTE(v3) = 1;
+    }
+
+    else
+    {
+      v4 = +[NSUserDefaults safari_browserDefaults];
+
+      LOBYTE(v3) = [v4 safari_shouldAutomaticallyDownloadReadingListItems];
+    }
+  }
+
+  return v3;
+}
+
 - (void)_writeOfflineWebViewWithOptions:(unint64_t)options completion:(id)completion
 {
   v4 = 96;
@@ -403,10 +428,11 @@ LABEL_9:
 
 - (void)_killWebProcessIfNeededAndFail
 {
-  if (([(WKWebView *)self->_webView _webProcessIsResponsive]& 1) == 0)
+  _webProcessIsResponsive = [(WKWebView *)self->_webView _webProcessIsResponsive];
+  if ((_webProcessIsResponsive & 1) == 0)
   {
-    v3 = sub_100009E64();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = sub_100009E64(_webProcessIsResponsive, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_10000ADC4();
     }
@@ -420,10 +446,11 @@ LABEL_9:
 - (void)loadBookmark:(id)bookmark
 {
   self->_bookmark = bookmark;
-  if ([bookmark archiveStatus] && objc_msgSend(bookmark, "archiveStatus") != 6)
+  archiveStatus = [bookmark archiveStatus];
+  if (archiveStatus && (archiveStatus = [bookmark archiveStatus], archiveStatus != 6))
   {
-    v6 = sub_100009E64();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100009E64(archiveStatus, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_10000AE04(bookmark);
     }
@@ -431,8 +458,8 @@ LABEL_9:
 
   else
   {
-    v5 = sub_100009E64();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = sub_100009E64(archiveStatus, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_10000AE7C(bookmark);
     }
@@ -465,7 +492,7 @@ LABEL_9:
 
 - (void)_didCancelLoad
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AEF4();
@@ -513,16 +540,16 @@ LABEL_9:
       v10 = [NSURL safari_URLWithUserTypedString:v7];
       if (v10)
       {
-        v11 = v10;
-        v12 = sub_100009E64();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v12 = v10;
+        v13 = sub_100009E64(v10, v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           sub_10000AF28();
         }
 
-        v13 = [[SiteIconDownloadRequest alloc] initWithBookmark:self->_bookmark singleResourceURL:v11];
-        self->_thumbnailDownloadRequest = v13;
-        [(SiteIconDownloadRequest *)v13 setDelegate:self];
+        v14 = [[SiteIconDownloadRequest alloc] initWithBookmark:self->_bookmark singleResourceURL:v12];
+        self->_thumbnailDownloadRequest = v14;
+        [(SiteIconDownloadRequest *)v14 setDelegate:self];
         [(SiteIconDownloadRequest *)self->_thumbnailDownloadRequest start];
       }
     }
@@ -567,15 +594,15 @@ LABEL_10:
 
   if (self->_mainPageArchived)
   {
-    v14 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v14 = 3;
+    v15 = 3;
   }
 
-  [(WebBookmark *)self->_bookmark setArchiveStatus:v14];
+  [(WebBookmark *)self->_bookmark setArchiveStatus:v15];
   [(ReadingListFetcherDocument *)self _saveAndSelfExpire];
 }
 
@@ -691,27 +718,27 @@ LABEL_10:
 
   else
   {
-    v9 = code;
-    v10 = self->_slowLoadTimer;
-    if (v10)
-    {
-      [(NSTimer *)v10 invalidate];
-
-      self->_slowLoadTimer = 0;
-    }
-
-    v11 = self->_dataCheckTimer;
+    v10 = code;
+    v11 = self->_slowLoadTimer;
     if (v11)
     {
       [(NSTimer *)v11 invalidate];
 
+      self->_slowLoadTimer = 0;
+    }
+
+    dataCheckTimer = self->_dataCheckTimer;
+    if (dataCheckTimer)
+    {
+      [(NSTimer *)dataCheckTimer invalidate];
+
       self->_dataCheckTimer = 0;
     }
 
-    if (v9 != -1005 && v9 != -1009)
+    if (v10 != -1005 && v10 != -1009)
     {
 LABEL_18:
-      v12 = sub_100009E64();
+      v12 = sub_100009E64(dataCheckTimer, v7);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10000AF5C(error, v12);
@@ -770,8 +797,8 @@ LABEL_18:
   [(WKWebView *)self->_readerWebView setUIDelegate:self->_readerContext];
   [(_SFReaderController *)self->_readerContext didCreateReaderWebView:self->_readerWebView];
   readerURL = [(_SFReaderController *)self->_readerContext readerURL];
-  v12 = sub_100009E64();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = sub_100009E64(readerURL, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AFE4();
   }

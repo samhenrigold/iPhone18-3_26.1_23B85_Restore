@@ -37,9 +37,9 @@
 
 - (_MFTiltedTabItemView)init
 {
-  v20.receiver = self;
-  v20.super_class = _MFTiltedTabItemView;
-  v2 = [(_MFTiltedTabItemView *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = _MFTiltedTabItemView;
+  v2 = [(_MFTiltedTabItemView *)&v22 init];
   v3 = v2;
   v4 = v2;
   if (v2)
@@ -78,15 +78,15 @@
     contentShadowView = v4->_contentShadowView;
     v4->_contentShadowView = _newContentShadowView;
 
-    [(_MFTiltedTabItemView *)v4 addSubview:v4->_contentShadowView];
-    if ((sub_10020B844() & 1) == 0)
+    v16 = [(_MFTiltedTabItemView *)v4 addSubview:v4->_contentShadowView];
+    if ((sub_10020B844(v16, v17) & 1) == 0)
     {
       [(_TabGradientView *)v4->_contentShadowView setHidden:1];
     }
 
-    v16 = [UIButton buttonWithType:1];
+    v18 = [UIButton buttonWithType:1];
     closeButton = v4->_closeButton;
-    v4->_closeButton = v16;
+    v4->_closeButton = v18;
 
     [(UIView *)v4->_closeButtonWrapperView addSubview:v4->_closeButton];
     size = CGRectNull.size;
@@ -155,7 +155,7 @@
   v6 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else
@@ -268,13 +268,13 @@
     v4 = v8 - (v13 + v10);
   }
 
-  [(UIView *)self->_contentClipperView setFrame:CGPointZero.x, CGPointZero.y, v3, v4];
-  if ((sub_10020B844() & 1) == 0)
+  v14 = [(UIView *)self->_contentClipperView setFrame:CGPointZero.x, CGPointZero.y, v3, v4];
+  if ((sub_10020B844(v14, v15) & 1) == 0)
   {
     contentShadowView = self->_contentShadowView;
-    v15 = self->_borrowedContentView == 0;
+    v17 = self->_borrowedContentView == 0;
 
-    [(_TabGradientView *)contentShadowView setHidden:v15];
+    [(_TabGradientView *)contentShadowView setHidden:v17];
   }
 }
 

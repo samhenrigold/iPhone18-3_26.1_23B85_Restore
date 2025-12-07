@@ -10,6 +10,7 @@
 - (void)_depPushReceived;
 - (void)_migrationEligibilityChanged;
 - (void)_queue_retryPushTokenSync;
+- (void)_queue_retryPushTokenSyncAfterInterval:(double)interval shouldForce:(BOOL)force shouldScheduleRetry:(BOOL)retry shouldCallCompletion:(BOOL)completion reason:(id)reason;
 - (void)_queue_scheduleAppTokenSync;
 - (void)_queue_scheduleMandatoryDEPPushTokenSyncWithDelay:(double)delay reason:(id)reason isRetry:(BOOL)retry;
 - (void)_queue_setDeadlineToSync:(id)sync;
@@ -31,12 +32,12 @@
 
 - (MDMDEPPushTokenManager)initWithPushServiceManager:(id)manager networkMonitor:(id)monitor
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   monitorCopy = monitor;
-  v29.receiver = self;
-  v29.super_class = MDMDEPPushTokenManager;
-  v9 = [(MDMDEPPushTokenManager *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = MDMDEPPushTokenManager;
+  v9 = [(MDMDEPPushTokenManager *)&v28 init];
   if (v9)
   {
     v10 = dispatch_queue_create("MDMDEPPushTokenManager_worker_queue", 0);
@@ -66,9 +67,9 @@
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
       v24 = MDMDEPPushServiceDirectory();
-      v30 = *MEMORY[0x277CCA180];
-      v31[0] = &unk_2868503B0;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277CCA180];
+      v30[0] = &unk_2868503B0;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
       [defaultManager2 createDirectoryAtPath:v24 withIntermediateDirectories:1 attributes:v25 error:0];
     }
 
@@ -76,7 +77,6 @@
     [defaultCenter addObserver:v9 selector:sel__migrationEligibilityChanged name:*MEMORY[0x277D24600] object:0];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -139,10 +139,7 @@ void __71__MDMDEPPushTokenManager_startMonitoringDEPPushTokenChangeShouldForce__
 
 uint64_t __38__MDMDEPPushTokenManager_depPushToken__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) appToken];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) appToken];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -204,21 +201,19 @@ uint64_t __63__MDMDEPPushTokenManager_syncDEPPushTokenWithDelay_completion___blo
   dispatch_async(workerQueue, v6);
 }
 
-uint64_t __67__MDMDEPPushTokenManager_schedulePeriodicMandatoryDEPPushTokenSync__block_invoke(uint64_t a1)
+uint64_t __67__MDMDEPPushTokenManager_schedulePeriodicMandatoryDEPPushTokenSync__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(DMCLogObjects() + 8);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: scheduling periodic DEP push token sync with delay: %.1f", &v6, 0xCu);
+    v5 = *(a1 + 40);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: scheduling periodic DEP push token sync with delay: %.1f", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) _queue_scheduleMandatoryDEPPushTokenSyncWithDelay:@"schedulePeriodicMandatoryDEPPushTokenSync called" reason:0 isRetry:*(a1 + 40)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_scheduleMandatoryDEPPushTokenSyncWithDelay:@"schedulePeriodicMandatoryDEPPushTokenSync called" reason:0 isRetry:*(a1 + 40)];
 }
 
 - (void)_queue_startMonitoringDEPPushTokenChange
@@ -297,16 +292,16 @@ void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSchedul
 
 void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) appToken];
   v3 = [MEMORY[0x277D24640] sharedConfiguration];
   v4 = [v3 details];
 
   if ([MEMORY[0x277D034F8] isMigrationEligibilityReportEnabled])
   {
-    v20 = 0;
-    v5 = [MEMORY[0x277D031B0] isDeviceEligibleForMigrationWithExistingCloudConfig:v4 outReason:&v20];
-    v6 = v20;
+    v19 = 0;
+    v5 = [MEMORY[0x277D031B0] isDeviceEligibleForMigrationWithExistingCloudConfig:v4 outReason:&v19];
+    v6 = v19;
   }
 
   else
@@ -324,25 +319,25 @@ void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSchedul
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v22 = v6;
-      v23 = 1024;
-      v24 = v5;
+      v21 = v6;
+      v22 = 1024;
+      v23 = v5;
       _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Syncing DEP push token... reason: %{public}@, eligible for migration: %d", buf, 0x12u);
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_36;
-    v13[3] = &unk_27982BBE0;
-    v13[4] = *(a1 + 32);
-    v14 = v2;
-    v15 = v7;
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 57);
-    v19 = v5;
-    v17 = *(a1 + 48);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_36;
+    v12[3] = &unk_27982BBE0;
+    v12[4] = *(a1 + 32);
+    v13 = v2;
+    v14 = v7;
+    v15 = *(a1 + 40);
+    v17 = *(a1 + 57);
+    v18 = v5;
+    v16 = *(a1 + 48);
     v10 = v7;
-    [v8 syncDEPPushToken:v14 pushTopic:0x2868486F0 eligibleForMigration:v5 eligibilityDescription:v6 completionBlock:v13];
+    [v8 syncDEPPushToken:v13 pushTopic:0x2868486F0 eligibleForMigration:v5 eligibilityDescription:v6 completionBlock:v12];
   }
 
   else
@@ -357,8 +352,6 @@ void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSchedul
     (*(*(a1 + 48) + 16))();
     [*(a1 + 40) setCompleted];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_36(uint64_t a1, char a2, void *a3, void *a4)
@@ -389,36 +382,36 @@ void __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSchedul
   dispatch_async(v9, v17);
 }
 
-uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_2_37(uint64_t a1)
+uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldScheduleRetry_reason_backgroundTask_completionHandler___block_invoke_2_37(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 88))
   {
-    [*(a1 + 72) setSyncInterval:300.0];
-    v2 = *(DMCLogObjects() + 8);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    [*(a1 + 72) setSyncInterval:{a3, 300.0}];
+    v4 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138543362;
-      v29 = v3;
-      _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Push token sync succeed. Response: %{public}@", buf, 0xCu);
+      v27 = v5;
+      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Push token sync succeed. Response: %{public}@", buf, 0xCu);
     }
 
     [*(a1 + 72) _queue_setLastPushTokenHash:*(a1 + 56)];
-    v4 = *(a1 + 72);
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 90)];
-    [v4 _queue_setLastSyncedEligibility:v5];
+    v6 = *(a1 + 72);
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 90)];
+    [v6 _queue_setLastSyncedEligibility:v7];
 
-    v6 = objc_opt_new();
-    v7 = *MEMORY[0x277D03318];
-    v24[0] = @"Token";
-    v24[1] = @"Token hash";
-    v25 = vbslq_s8(vceqzq_s64(*(a1 + 48)), vdupq_n_s64(&stru_2868451F0), *(a1 + 48));
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:v24 count:2];
-    [v6 logRegularEventForTopic:v7 reason:@"App Push Token Synced" details:v8];
+    v8 = objc_opt_new();
+    v9 = *MEMORY[0x277D03318];
+    v22[0] = @"Token";
+    v22[1] = @"Token hash";
+    v23 = vbslq_s8(vceqzq_s64(*(a1 + 48)), vdupq_n_s64(&stru_2868451F0), *(a1 + 48));
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:v22 count:2];
+    [v8 logRegularEventForTopic:v9 reason:@"App Push Token Synced" details:v10];
 
     [*(a1 + 72) _queue_setDeadlineToSync:0];
-    if (!*(a1 + 56) || ([*(a1 + 72) _queue_lastestPushTokenHashToSync], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToData:", *(a1 + 56)), v9, v10))
+    if (!*(a1 + 56) || ([*(a1 + 72) _queue_lastestPushTokenHashToSync], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToData:", *(a1 + 56)), v11, v12))
     {
       [*(a1 + 72) _queue_setLastestPushTokenHashToSync:0];
     }
@@ -433,52 +426,47 @@ uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSch
 
   else
   {
-    v11 = *(DMCLogObjects() + 8);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
       *buf = 138543618;
-      v29 = v12;
-      v30 = 2114;
-      v31 = v13;
-      _os_log_impl(&dword_2561F5000, v11, OS_LOG_TYPE_ERROR, "MDMDEPPushTokenManager: Failed to upload push token with reponse: %{public}@, error: %{public}@", buf, 0x16u);
+      v27 = v14;
+      v28 = 2114;
+      v29 = v15;
+      _os_log_impl(&dword_2561F5000, v13, OS_LOG_TYPE_ERROR, "MDMDEPPushTokenManager: Failed to upload push token with reponse: %{public}@, error: %{public}@", buf, 0x16u);
     }
 
-    v14 = objc_opt_new();
-    v15 = *MEMORY[0x277D03318];
-    v16 = *(a1 + 40);
-    v26[0] = @"Token";
-    v26[1] = @"Token hash";
-    v27 = vbslq_s8(vceqzq_s64(*(a1 + 48)), vdupq_n_s64(&stru_2868451F0), *(a1 + 48));
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:v26 count:2];
-    [v14 logErrorEventForTopic:v15 reason:@"App Push Token Sync Failed" error:v16 details:v17];
+    v16 = objc_opt_new();
+    v17 = *MEMORY[0x277D03318];
+    v18 = *(a1 + 40);
+    v24[0] = @"Token";
+    v24[1] = @"Token hash";
+    v25 = vbslq_s8(vceqzq_s64(*(a1 + 48)), vdupq_n_s64(&stru_2868451F0), *(a1 + 48));
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:v24 count:2];
+    [v16 logErrorEventForTopic:v17 reason:@"App Push Token Sync Failed" error:v18 details:v19];
 
     [*(a1 + 64) setCompleted];
     if (*(a1 + 89) == 1)
     {
-      v18 = *(DMCLogObjects() + 8);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = *(DMCLogObjects() + 8);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2561F5000, v18, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Retrying push token sync...", buf, 2u);
+        _os_log_impl(&dword_2561F5000, v20, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Retrying push token sync...", buf, 2u);
       }
 
       [*(a1 + 72) _queue_retryPushTokenSync];
     }
   }
 
-  v19 = *(a1 + 88);
-  v20 = *(a1 + 32);
-  v21 = *(a1 + 40);
-  result = (*(*(a1 + 80) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 80) + 16))();
 }
 
 - (void)_queue_scheduleMandatoryDEPPushTokenSyncWithDelay:(double)delay reason:(id)reason isRetry:(BOOL)retry
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if ([(MDMDEPPushTokenManager *)self isMonitoringTokenChanges])
   {
@@ -508,9 +496,9 @@ uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSch
     v15 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134217984;
-      v19 = v10;
-      _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: scheduling mandatory DEP push token sync with delay: %.1f", &v18, 0xCu);
+      v17 = 134217984;
+      v18 = v10;
+      _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: scheduling mandatory DEP push token sync with delay: %.1f", &v17, 0xCu);
     }
 
     v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v10];
@@ -518,8 +506,6 @@ uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSch
 
     [(MDMDEPPushTokenManager *)self _queue_retryPushTokenSyncAfterInterval:1 shouldForce:1 shouldScheduleRetry:0 shouldCallCompletion:reasonCopy reason:v10];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_scheduleAppTokenSync
@@ -574,6 +560,86 @@ uint64_t __118__MDMDEPPushTokenManager__queue_syncPushTokenShouldForce_shouldSch
   }
 
   [(MDMDEPPushTokenManager *)self setSyncInterval:v4];
+}
+
+- (void)_queue_retryPushTokenSyncAfterInterval:(double)interval shouldForce:(BOOL)force shouldScheduleRetry:(BOOL)retry shouldCallCompletion:(BOOL)completion reason:(id)reason
+{
+  retryCopy = retry;
+  forceCopy = force;
+  v42 = *MEMORY[0x277D85DE8];
+  reasonCopy = reason;
+  objc_initWeak(&location, self);
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __125__MDMDEPPushTokenManager__queue_retryPushTokenSyncAfterInterval_shouldForce_shouldScheduleRetry_shouldCallCompletion_reason___block_invoke;
+  aBlock[3] = &unk_27982BC30;
+  objc_copyWeak(&v35, &location);
+  completionCopy = completion;
+  v12 = _Block_copy(aBlock);
+  if (interval <= 0.0)
+  {
+    v26 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2561F5000, v26, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: syncInterval <= 0. Syncing now", buf, 2u);
+    }
+
+    [(MDMDEPPushTokenManager *)self _queue_syncPushTokenShouldForce:forceCopy shouldScheduleRetry:retryCopy reason:reasonCopy backgroundTask:0 completionHandler:v12];
+  }
+
+  else
+  {
+    retryPushTokenSyncTask = [(MDMDEPPushTokenManager *)self retryPushTokenSyncTask];
+    v14 = retryPushTokenSyncTask == 0;
+
+    if (v14)
+    {
+      v15 = objc_alloc(MEMORY[0x277D032B8]);
+      workerQueue = [(MDMDEPPushTokenManager *)self workerQueue];
+      v17 = [v15 initWithName:@"com.apple.mdmd.MDMDEPPushTokenManager.sync" queue:workerQueue];
+      [(MDMDEPPushTokenManager *)self setRetryPushTokenSyncTask:v17];
+    }
+
+    v18 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      intervalCopy = interval;
+      _os_log_impl(&dword_2561F5000, v18, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Scheduling push token sync after %.1f seconds", buf, 0xCu);
+    }
+
+    v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:interval];
+    v20 = objc_opt_new();
+    v38[0] = @"Interval";
+    v21 = [MEMORY[0x277CCABB0] numberWithDouble:interval];
+    v39[0] = v21;
+    v39[1] = v19;
+    v38[1] = @"Target Sync Date";
+    v38[2] = @"Localized Target Sync Date";
+    isoLocalTimeZoneDateFormatter = [MEMORY[0x277D034E0] isoLocalTimeZoneDateFormatter];
+    v23 = [isoLocalTimeZoneDateFormatter stringFromDate:v19];
+    v39[2] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+    [v20 logRegularEventForTopic:*MEMORY[0x277D03318] reason:@"App Push Token Sync Scheduled" details:v24];
+
+    retryPushTokenSyncTask2 = [(MDMDEPPushTokenManager *)self retryPushTokenSyncTask];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __125__MDMDEPPushTokenManager__queue_retryPushTokenSyncAfterInterval_shouldForce_shouldScheduleRetry_shouldCallCompletion_reason___block_invoke_81;
+    v28[3] = &unk_27982BC80;
+    objc_copyWeak(&v31, &location);
+    v32 = forceCopy;
+    v33 = retryCopy;
+    v29 = reasonCopy;
+    v30 = v12;
+    [retryPushTokenSyncTask2 submitRequestWithInterval:4 tolerance:v28 requirements:interval completion:interval / 10.0];
+
+    objc_destroyWeak(&v31);
+  }
+
+  objc_destroyWeak(&v35);
+  objc_destroyWeak(&location);
 }
 
 void __125__MDMDEPPushTokenManager__queue_retryPushTokenSyncAfterInterval_shouldForce_shouldScheduleRetry_shouldCallCompletion_reason___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -681,13 +747,13 @@ void __125__MDMDEPPushTokenManager__queue_retryPushTokenSyncAfterInterval_should
   dispatch_async(workerQueue, block);
 }
 
-uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke(uint64_t a1)
+uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(DMCLogObjects() + 8);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *(DMCLogObjects() + 8);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: migration eligibility might have changed, will check if we need to sync push token again...", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: migration eligibility might have changed, will check if we need to sync push token again...", v5, 2u);
   }
 
   return [*(a1 + 32) _queue_retryPushTokenSyncAfterInterval:0 shouldForce:1 shouldScheduleRetry:0 shouldCallCompletion:@"Migration eligibility changed" reason:0.0];
@@ -695,11 +761,11 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
 
 - (id)_queue_lastPushTokenHash
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v8 = 0;
-  v3 = [syncInfoPlist retrieveValueForKey:@"LastPushTokenHash" error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [syncInfoPlist retrieveValueForKey:@"LastPushTokenHash" error:&v7];
+  v4 = v7;
 
   if (v4)
   {
@@ -707,69 +773,63 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "Failed to get lastPushTokenHash with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_queue_setLastPushTokenHash:(id)hash
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v9 = 0;
-  [syncInfoPlist saveValue:hashCopy forKey:@"LastPushTokenHash" error:&v9];
+  v8 = 0;
+  [syncInfoPlist saveValue:hashCopy forKey:@"LastPushTokenHash" error:&v8];
 
-  v6 = v9;
+  v6 = v8;
   if (v6)
   {
     v7 = *DMCLogObjects();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Failed to set lastPushTokenHash with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setDeadlineToSync:(id)sync
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   syncCopy = sync;
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v9 = 0;
-  [syncInfoPlist saveValue:syncCopy forKey:@"DeadlineToSync" error:&v9];
+  v8 = 0;
+  [syncInfoPlist saveValue:syncCopy forKey:@"DeadlineToSync" error:&v8];
 
-  v6 = v9;
+  v6 = v8;
   if (v6)
   {
     v7 = *DMCLogObjects();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Failed to set deadlineToSync with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_deadlineToSync
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v8 = 0;
-  v3 = [syncInfoPlist retrieveValueForKey:@"DeadlineToSync" error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [syncInfoPlist retrieveValueForKey:@"DeadlineToSync" error:&v7];
+  v4 = v7;
 
   if (v4)
   {
@@ -777,46 +837,42 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "Failed to get deadlineToSync with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_queue_setLastSyncedEligibility:(id)eligibility
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   eligibilityCopy = eligibility;
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v9 = 0;
-  [syncInfoPlist saveValue:eligibilityCopy forKey:@"LastSyncedEligibility" error:&v9];
+  v8 = 0;
+  [syncInfoPlist saveValue:eligibilityCopy forKey:@"LastSyncedEligibility" error:&v8];
 
-  v6 = v9;
+  v6 = v8;
   if (v6)
   {
     v7 = *DMCLogObjects();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Failed to set lastSyncedEligibility with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_lastSyncedEligibility
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   syncInfoPlist = [(MDMDEPPushTokenManager *)self syncInfoPlist];
-  v8 = 0;
-  v3 = [syncInfoPlist retrieveValueForKey:@"LastSyncedEligibility" error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [syncInfoPlist retrieveValueForKey:@"LastSyncedEligibility" error:&v7];
+  v4 = v7;
 
   if (v4)
   {
@@ -824,37 +880,35 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "Failed to get lastSyncedEligibility with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_queue_setLastestPushTokenHashToSync:(id)sync
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   syncCopy = sync;
   syncActivityPlist = [(MDMDEPPushTokenManager *)self syncActivityPlist];
   v6 = syncActivityPlist;
   if (syncCopy)
   {
-    v15 = @"LatestPushTokenHashToSync";
-    v16[0] = syncCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v11 = 0;
-    [v6 saveKeyValuePairs:v7 error:&v11];
-    v8 = v11;
+    v14 = @"LatestPushTokenHashToSync";
+    v15[0] = syncCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v10 = 0;
+    [v6 saveKeyValuePairs:v7 error:&v10];
+    v8 = v10;
   }
 
   else
   {
-    v12 = 0;
-    [syncActivityPlist clearAllKeyValueStorageWithError:&v12];
-    v8 = v12;
+    v11 = 0;
+    [syncActivityPlist clearAllKeyValueStorageWithError:&v11];
+    v8 = v11;
   }
 
   if (v8)
@@ -863,21 +917,19 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_ERROR, "Failed to set lastestPushTokenHash with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_lastestPushTokenHashToSync
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   syncActivityPlist = [(MDMDEPPushTokenManager *)self syncActivityPlist];
-  v8 = 0;
-  v3 = [syncActivityPlist retrieveValueForKey:@"LatestPushTokenHashToSync" error:&v8];
-  v4 = v8;
+  v7 = 0;
+  v3 = [syncActivityPlist retrieveValueForKey:@"LatestPushTokenHashToSync" error:&v7];
+  v4 = v7;
 
   if (v4)
   {
@@ -885,12 +937,10 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "Failed to get lastestPushTokenHash with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -907,7 +957,7 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
 
 - (void)pushServiceManager:(id)manager didReceiveAppToken:(id)token forTopic:(id)topic environment:(unint64_t)environment
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   topicCopy = topic;
   v11 = topicCopy;
@@ -917,23 +967,21 @@ uint64_t __54__MDMDEPPushTokenManager__migrationEligibilityChanged__block_invoke
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v18 = v11;
-      v19 = 2114;
-      v20 = tokenCopy;
+      v17 = v11;
+      v18 = 2114;
+      v19 = tokenCopy;
       _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "MDMDEPPushTokenManager: Received app token for topic: %{public}@, appToken: %{public}@", buf, 0x16u);
     }
 
     workerQueue = [(MDMDEPPushTokenManager *)self workerQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __85__MDMDEPPushTokenManager_pushServiceManager_didReceiveAppToken_forTopic_environment___block_invoke;
-    v15[3] = &unk_27982BAC8;
-    v15[4] = self;
-    v16 = tokenCopy;
-    dispatch_async(workerQueue, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __85__MDMDEPPushTokenManager_pushServiceManager_didReceiveAppToken_forTopic_environment___block_invoke;
+    v14[3] = &unk_27982BAC8;
+    v14[4] = self;
+    v15 = tokenCopy;
+    dispatch_async(workerQueue, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __85__MDMDEPPushTokenManager_pushServiceManager_didReceiveAppToken_forTopic_environment___block_invoke(uint64_t a1)
@@ -961,22 +1009,20 @@ void __85__MDMDEPPushTokenManager_pushServiceManager_didReceiveAppToken_forTopic
 
 - (void)pushServiceManager:(id)manager didReceivePublicToken:(id)token forEnvironment:(unint64_t)environment
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!environment)
   {
     v6 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315138;
-      v10 = "[MDMDEPPushTokenManager pushServiceManager:didReceivePublicToken:forEnvironment:]";
-      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_DEBUG, "MDMDEPPushTokenManager: %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[MDMDEPPushTokenManager pushServiceManager:didReceivePublicToken:forEnvironment:]";
+      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_DEBUG, "MDMDEPPushTokenManager: %s", &v8, 0xCu);
     }
 
     pushServiceManager = [(MDMDEPPushTokenManager *)self pushServiceManager];
     [pushServiceManager requestAppTokenForTopic:0x2868486F0 environment:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -214,7 +214,7 @@
   }
 
   [v7 setObject:v9 forKey:@"NTKDigitalWorldClockGraphicCircularViewCityNameKey"];
-  v26 = userInfo;
+  v24 = userInfo;
   v10 = [userInfo objectForKey:@"cityID"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -245,37 +245,30 @@
   [v16 setOverrideDate:dateCopy];
   [v16 setPaused:dateCopy != 0];
   [v7 setObject:v16 forKey:@"NTKDigitalWorldClockGraphicCircularViewTimeTextProviderKey"];
-  v17 = &off_10268;
   if (family == &dword_C)
   {
-    v17 = off_10260;
-  }
-
-  v18 = *v17;
-  if (family == &dword_C)
-  {
-    v19 = CLKComplicationTemplateGraphicExtraLargeCircularImage_ptr;
+    v17 = CLKComplicationTemplateGraphicExtraLargeCircularImage_ptr;
   }
 
   else
   {
-    v19 = CLKComplicationTemplateGraphicCircularImage_ptr;
+    v17 = CLKComplicationTemplateGraphicCircularImage_ptr;
   }
 
-  v20 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
-  v21 = [v7 copy];
-  [v20 setMetadata:v21];
+  v18 = [CLKFullColorImageProvider fullColorImageProviderWithImageViewClass:objc_opt_class()];
+  v19 = [v7 copy];
+  [v18 setMetadata:v19];
 
-  v22 = [objc_alloc(*v19) initWithImageProvider:v20];
-  if (*(v25 + 8) == 1)
+  v20 = [objc_alloc(*v17) initWithImageProvider:v18];
+  if (*(v23 + 8) == 1)
   {
-    v28 = NTKRichComplicationViewUsePlatterKey;
-    v29 = &__kCFBooleanTrue;
-    v23 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    [v22 setMetadata:v23];
+    v26 = NTKRichComplicationViewUsePlatterKey;
+    v27 = &__kCFBooleanTrue;
+    v21 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    [v20 setMetadata:v21];
   }
 
-  return v22;
+  return v20;
 }
 
 @end

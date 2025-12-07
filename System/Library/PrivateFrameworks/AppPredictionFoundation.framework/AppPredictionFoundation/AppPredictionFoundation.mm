@@ -11,14 +11,16 @@ void ATXCacheFileRead(int a1, void **a2, double *a3, double a4)
     *a2 = 0;
   }
 
-  if (flock(a1, 1) != -1)
+  v9 = flock(a1, 1);
+  if (v9 != -1)
   {
     lseek(a1, 0, 0);
-    memset(&v23, 0, sizeof(v23));
-    if (fstat(a1, &v23) < 0)
+    memset(&v25, 0, sizeof(v25));
+    v10 = fstat(a1, &v25);
+    if ((v10 & 0x80000000) != 0)
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_default(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         ATXCacheFileRead_cold_6();
       }
@@ -31,33 +33,33 @@ void ATXCacheFileRead(int a1, void **a2, double *a3, double a4)
         goto LABEL_16;
       }
 
-      v9 = objc_opt_new();
-      [v9 timeIntervalSince1970];
-      v11 = v10;
+      v11 = objc_opt_new();
+      [v11 timeIntervalSince1970];
+      v13 = v12;
 
-      tv_sec = v23.st_mtimespec.tv_sec;
+      tv_sec = v25.st_mtimespec.tv_sec;
       if (a3)
       {
-        *a3 = v11 - tv_sec;
+        *a3 = v13 - tv_sec;
       }
 
-      if (v11 - a4 <= tv_sec)
+      if (v13 - a4 <= tv_sec)
       {
 LABEL_16:
-        st_size = v23.st_size;
-        if (v23.st_size)
+        st_size = v25.st_size;
+        if (v25.st_size)
         {
           if (a2)
           {
-            v16 = malloc_type_malloc(v23.st_size, 0x49ABC88EuLL);
-            if (v16)
+            v18 = malloc_type_malloc(v25.st_size, 0x49ABC88EuLL);
+            if (v18)
             {
-              v17 = v16;
-              v18 = read(a1, v16, st_size);
-              if (v18 == -1)
+              v19 = v18;
+              v20 = read(a1, v18, st_size);
+              if (v20 == -1)
               {
-                v19 = __atxlog_handle_default();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                v21 = __atxlog_handle_default(-1);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
                   ATXCacheFileRead_cold_2();
                 }
@@ -65,30 +67,30 @@ LABEL_16:
 
               else
               {
-                if (v18 >= st_size)
+                if (v20 >= st_size)
                 {
-                  v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v17 length:st_size];
-                  v21 = *a2;
-                  *a2 = v20;
+                  v22 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v19 length:st_size];
+                  v23 = *a2;
+                  *a2 = v22;
 
                   goto LABEL_32;
                 }
 
-                v19 = __atxlog_handle_default();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                v21 = __atxlog_handle_default(v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
                   ATXCacheFileRead_cold_1();
                 }
               }
 
-              free(v17);
+              free(v19);
 LABEL_32:
               flock(a1, 8);
               return;
             }
 
-            v13 = __atxlog_handle_default();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v15 = __atxlog_handle_default(0);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               ATXCacheFileRead_cold_3();
             }
@@ -96,31 +98,31 @@ LABEL_32:
 
           else
           {
-            v13 = __atxlog_handle_default();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            v15 = __atxlog_handle_default(v10);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              ATXCacheFileRead_cold_4(v13);
+              ATXCacheFileRead_cold_4(v15);
             }
           }
         }
 
         else
         {
-          v13 = __atxlog_handle_default();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = __atxlog_handle_default(v10);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            ATXCacheFileRead_cold_5(v13);
+            ATXCacheFileRead_cold_5(v15);
           }
         }
       }
 
       else
       {
-        v13 = __atxlog_handle_default();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = __atxlog_handle_default(v10);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          *v22 = 0;
-          _os_log_impl(&dword_226368000, v13, OS_LOG_TYPE_INFO, "ATXCache is no longer valid -- skipping read", v22, 2u);
+          *v24 = 0;
+          _os_log_impl(&dword_226368000, v15, OS_LOG_TYPE_INFO, "ATXCache is no longer valid -- skipping read", v24, 2u);
         }
       }
     }
@@ -128,8 +130,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v14 = __atxlog_handle_default();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = __atxlog_handle_default(v9);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     ATXCacheFileWriteChunks_cold_7();
   }
@@ -157,12 +159,14 @@ uint64_t ATXCacheFileWrite(int a1, void *a2)
     ATXCacheFileWrite_cold_1();
   }
 
-  if (flock(a1, 2) != -1)
+  v4 = flock(a1, 2);
+  if (v4 != -1)
   {
-    if (ftruncate(a1, 0) == -1)
+    v5 = ftruncate(a1, 0);
+    if (v5 == -1)
     {
-      v7 = __atxlog_handle_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         ATXCacheFileWriteChunks_cold_6();
       }
@@ -170,11 +174,11 @@ uint64_t ATXCacheFileWrite(int a1, void *a2)
 
     else
     {
-      v4 = pwrite(a1, [v3 bytes], objc_msgSend(v3, "length"), 0);
-      if (v4 == -1)
+      v6 = pwrite(a1, [v3 bytes], objc_msgSend(v3, "length"), 0);
+      if (v6 == -1)
       {
-        v7 = __atxlog_handle_default();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v11 = __atxlog_handle_default(-1);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           ATXCacheFileWrite_cold_3();
         }
@@ -182,36 +186,38 @@ uint64_t ATXCacheFileWrite(int a1, void *a2)
 
       else
       {
-        if (v4 == [v3 length])
+        v7 = v6;
+        v8 = [v3 length];
+        if (v7 == v8)
         {
-          v5 = 1;
+          v9 = 1;
 LABEL_18:
           flock(a1, 8);
           goto LABEL_19;
         }
 
-        v7 = __atxlog_handle_default();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v11 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           ATXCacheFileWrite_cold_2(v3);
         }
       }
     }
 
-    v5 = 0;
+    v9 = 0;
     goto LABEL_18;
   }
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v10 = __atxlog_handle_default(v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     ATXCacheFileWriteChunks_cold_7();
   }
 
-  v5 = 0;
+  v9 = 0;
 LABEL_19:
 
-  return v5;
+  return v9;
 }
 
 uint64_t shouldDenyConnectionForCurrentProcess()
@@ -264,63 +270,63 @@ id prepareXPCConnection()
   return v0;
 }
 
-id __atxlog_handle_intents_helper()
+id __atxlog_handle_intents_helper(uint64_t a1)
 {
   if (__atxlog_handle_intents_helper_onceToken != -1)
   {
     __atxlog_handle_intents_helper_cold_1();
   }
 
-  v1 = __atxlog_handle_intents_helper_log;
+  v2 = __atxlog_handle_intents_helper_log;
 
-  return v1;
+  return v2;
 }
 
-id __atxlog_handle_default()
+id __atxlog_handle_default(uint64_t a1)
 {
   if (__atxlog_handle_default_onceToken != -1)
   {
     __atxlog_handle_default_cold_1();
   }
 
-  v1 = __atxlog_handle_default_log;
+  v2 = __atxlog_handle_default_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
     ATXCacheFileWriteChunks_cold_1();
   }
 
-  v35 = a1;
+  v36 = a1;
   v4 = headerForChunks(v3);
   [v3 count];
-  v36 = &v32;
+  v37 = &v33;
   MEMORY[0x28223BE20]();
-  v34 = v5;
-  v6 = (&v32 - 2 * v5);
+  v35 = v5;
+  v6 = (&v33 - 2 * v5);
   v7 = [v4 bytes];
   v8 = [v4 length];
   v6->iov_base = v7;
   v6->iov_len = v8;
-  v37 = v4;
+  v38 = v4;
   v9 = [v4 length];
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v10 = v3;
-  v11 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  v33 = v6;
+  v11 = [v10 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v34 = v6;
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
+    v13 = *v40;
     p_iov_len = &v6->iov_len;
     v15 = 1;
     do
@@ -329,12 +335,12 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
       v17 = &p_iov_len[2 * v15];
       do
       {
-        if (*v39 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v18 = *(*(&v38 + 1) + 8 * v16);
+        v18 = *(*(&v39 + 1) + 8 * v16);
         ++v15;
         v19 = [v18 bytes];
         v20 = [v18 length];
@@ -346,19 +352,21 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
       }
 
       while (v12 != v16);
-      v12 = [v10 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v12);
   }
 
-  v21 = v35;
-  if (flock(v35, 2) != -1)
+  v21 = v36;
+  v22 = flock(v36, 2);
+  if (v22 != -1)
   {
-    if (ftruncate(v21, 0) == -1)
+    v23 = ftruncate(v21, 0);
+    if (v23 == -1)
     {
-      v23 = __atxlog_handle_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = __atxlog_handle_default(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         ATXCacheFileWriteChunks_cold_6();
       }
@@ -366,15 +374,15 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
 
     else
     {
-      v22 = lseek(v21, 0, 0);
-      if (v22)
+      v24 = lseek(v21, 0, 0);
+      if (v24)
       {
-        if (v22 == -1)
+        if (v24 == -1)
         {
-          v23 = __atxlog_handle_default();
-          v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-          v25 = v37;
-          if (v24)
+          v25 = __atxlog_handle_default(-1);
+          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          v27 = v38;
+          if (v26)
           {
             ATXCacheFileWriteChunks_cold_4();
           }
@@ -382,10 +390,10 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
 
         else
         {
-          v23 = __atxlog_handle_default();
-          v29 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-          v25 = v37;
-          if (v29)
+          v25 = __atxlog_handle_default(v24);
+          v31 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          v27 = v38;
+          if (v31)
           {
             ATXCacheFileWriteChunks_cold_5();
           }
@@ -394,11 +402,11 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
         goto LABEL_27;
       }
 
-      v28 = writev(v21, v33, v34);
-      if (v28 == -1)
+      v30 = writev(v21, v34, v35);
+      if (v30 == -1)
       {
-        v23 = __atxlog_handle_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = __atxlog_handle_default(-1);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           ATXCacheFileWriteChunks_cold_3();
         }
@@ -406,76 +414,75 @@ uint64_t ATXCacheFileWriteChunks(int a1, void *a2)
 
       else
       {
-        if (v28 == v9)
+        if (v30 == v9)
         {
-          v27 = 1;
-          v25 = v37;
+          v29 = 1;
+          v27 = v38;
 LABEL_28:
           flock(v21, 8);
           goto LABEL_29;
         }
 
-        v23 = __atxlog_handle_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = __atxlog_handle_default(v30);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           ATXCacheFileWriteChunks_cold_2();
         }
       }
     }
 
-    v25 = v37;
+    v27 = v38;
 LABEL_27:
 
-    v27 = 0;
+    v29 = 0;
     goto LABEL_28;
   }
 
-  v26 = __atxlog_handle_default();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v28 = __atxlog_handle_default(v22);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     ATXCacheFileWriteChunks_cold_7();
   }
 
-  v27 = 0;
-  v25 = v37;
+  v29 = 0;
+  v27 = v38;
 LABEL_29:
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v27;
+  return v29;
 }
 
 id headerForChunks(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = 8 * [v1 count] + 8;
   v3 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:v2];
   v4 = [v3 mutableBytes];
   *v4 = 197626155;
   v4[1] = [v1 count];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v1;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = v4 + 2;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * v10) length];
+        v12 = [*(*(&v14 + 1) + 8 * v10) length];
         v8 = v11 + 2;
         *v11 = v2;
         v11[1] = v12;
@@ -485,20 +492,18 @@ id headerForChunks(void *a1)
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 __CFString *ATXBundleIdReplacementForBundleIdWithWebpageURLHint(void *a1, void *a2)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [(__CFString *)v3 hasPrefix:@"remote:"];
@@ -529,13 +534,13 @@ __CFString *ATXBundleIdReplacementForBundleIdWithWebpageURLHint(void *a1, void *
       v7 = @"com.apple.mobilephone";
     }
 
-    v19[0] = @"com.apple.FaceTimeLinkTrampoline";
-    v19[1] = @"com.apple.callhistory.sync-helper";
-    v20[0] = @"com.apple.facetime";
-    v20[1] = @"com.apple.mobilephone";
-    v19[2] = @"com.apple.InCallService";
-    v20[2] = v7;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v18[0] = @"com.apple.FaceTimeLinkTrampoline";
+    v18[1] = @"com.apple.callhistory.sync-helper";
+    v19[0] = @"com.apple.facetime";
+    v19[1] = @"com.apple.mobilephone";
+    v18[2] = @"com.apple.InCallService";
+    v19[2] = v7;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
     v12 = [v11 objectForKeyedSubscript:v3];
     v13 = v12;
     if (v12)
@@ -581,8 +586,6 @@ __CFString *ATXBundleIdReplacementForBundleIdWithWebpageURLHint(void *a1, void *
     v10 = v3;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -613,9 +616,9 @@ uint64_t ATXBundleIdIsFakeContainerBundleId(void *a1)
   return v2;
 }
 
-void sub_22636AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22636AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -685,7 +688,7 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
 
 id ATXCacheFileJoinChunks(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (!v1)
   {
@@ -694,29 +697,29 @@ id ATXCacheFileJoinChunks(void *a1)
 
   v2 = headerForChunks(v1);
   v3 = [v2 length];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = v1;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v3 += [*(*(&v21 + 1) + 8 * i) length];
+        v3 += [*(*(&v20 + 1) + 8 * i) length];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
@@ -724,35 +727,33 @@ id ATXCacheFileJoinChunks(void *a1)
 
   v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:v3];
   [v9 appendData:v2];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [v9 appendData:{*(*(&v17 + 1) + 8 * j), v17}];
+        [v9 appendData:{*(*(&v16 + 1) + 8 * j), v16}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -794,24 +795,25 @@ double ATXMemoryUsageInMBOfCurrentProcess()
   return result;
 }
 
-void sub_22636B58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22636B58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22636BB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22636BB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id ATXCacheFileSplitChunks(void *a1)
@@ -827,7 +829,7 @@ id ATXCacheFileSplitChunks(void *a1)
   v4 = [v1 bytes];
   if (*v4 != 197626155)
   {
-    v12 = __atxlog_handle_default();
+    v12 = __atxlog_handle_default(v4);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       ATXCacheFileSplitChunks_cold_1(v12);
@@ -896,82 +898,70 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_22636C820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22636C9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22636E994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22636C820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22636ECD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22636C9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22636E994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22636ECD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22636F6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22636F978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22636F6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22636FC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a15);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22636F978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_22636FC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_2_0@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*result + 40);
-  return result;
-}
-
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_0_3@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 16);
-  return result;
-}
-
-uint64_t ATXDetailedActionLoggingEnabled()
+uint64_t ATXDetailedActionLoggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (ATXDetailedActionLoggingEnabled_onceToken != -1)
   {
@@ -995,18 +985,19 @@ void __ATXDetailedActionLoggingEnabled_block_invoke()
   }
 }
 
-void sub_226372184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_226372184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637272C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22637272C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1052,16 +1043,18 @@ uint64_t ATXBucketUInt32BetweenValuesWithRounding(uint64_t a1, uint64_t a2, unsi
   return a2;
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t ATXPBPersonaSessionEventReadFrom(uint64_t a1, void *a2)
@@ -1208,80 +1201,81 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-void sub_22637B4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22637B4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637C590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22637C590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637C714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637C714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637C8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637C8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637CA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637CA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637CCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22637CCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637D468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22637D468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637D5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637D5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637D798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637D798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22637D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22637D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t ____atxlog_handle_default_block_invoke()
@@ -1291,16 +1285,16 @@ uint64_t ____atxlog_handle_default_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_xpc()
+id __atxlog_handle_xpc(uint64_t a1)
 {
   if (__atxlog_handle_xpc_onceToken != -1)
   {
     __atxlog_handle_xpc_cold_1();
   }
 
-  v1 = __atxlog_handle_xpc_log;
+  v2 = __atxlog_handle_xpc_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_xpc_block_invoke()
@@ -1310,16 +1304,16 @@ uint64_t ____atxlog_handle_xpc_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_heuristic()
+id __atxlog_handle_heuristic(uint64_t a1)
 {
   if (__atxlog_handle_heuristic_onceToken != -1)
   {
     __atxlog_handle_heuristic_cold_1();
   }
 
-  v1 = __atxlog_handle_heuristic_log;
+  v2 = __atxlog_handle_heuristic_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_heuristic_block_invoke()
@@ -1329,16 +1323,16 @@ uint64_t ____atxlog_handle_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notifications()
+id __atxlog_handle_notifications(uint64_t a1)
 {
   if (__atxlog_handle_notifications_onceToken != -1)
   {
     __atxlog_handle_notifications_cold_1();
   }
 
-  v1 = __atxlog_handle_notifications_log;
+  v2 = __atxlog_handle_notifications_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notifications_block_invoke()
@@ -1348,16 +1342,16 @@ uint64_t ____atxlog_handle_notifications_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_pmm()
+id __atxlog_handle_pmm(uint64_t a1)
 {
   if (__atxlog_handle_pmm_onceToken != -1)
   {
     __atxlog_handle_pmm_cold_1();
   }
 
-  v1 = __atxlog_handle_pmm_log;
+  v2 = __atxlog_handle_pmm_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_pmm_block_invoke()
@@ -1367,16 +1361,16 @@ uint64_t ____atxlog_handle_pmm_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_dailyroutines()
+id __atxlog_handle_dailyroutines(uint64_t a1)
 {
   if (__atxlog_handle_dailyroutines_onceToken != -1)
   {
     __atxlog_handle_dailyroutines_cold_1();
   }
 
-  v1 = __atxlog_handle_dailyroutines_log;
+  v2 = __atxlog_handle_dailyroutines_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_dailyroutines_block_invoke()
@@ -1386,16 +1380,16 @@ uint64_t ____atxlog_handle_dailyroutines_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_feedback()
+id __atxlog_handle_feedback(uint64_t a1)
 {
   if (__atxlog_handle_feedback_onceToken != -1)
   {
     __atxlog_handle_feedback_cold_1();
   }
 
-  v1 = __atxlog_handle_feedback_log;
+  v2 = __atxlog_handle_feedback_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_feedback_block_invoke()
@@ -1405,16 +1399,16 @@ uint64_t ____atxlog_handle_feedback_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_modes()
+id __atxlog_handle_modes(uint64_t a1)
 {
   if (__atxlog_handle_modes_onceToken != -1)
   {
     __atxlog_handle_modes_cold_1();
   }
 
-  v1 = __atxlog_handle_modes_log;
+  v2 = __atxlog_handle_modes_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_modes_block_invoke()
@@ -1424,16 +1418,16 @@ uint64_t ____atxlog_handle_modes_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_hero()
+id __atxlog_handle_hero(uint64_t a1)
 {
   if (__atxlog_handle_hero_onceToken != -1)
   {
     __atxlog_handle_hero_cold_1();
   }
 
-  v1 = __atxlog_handle_hero_log;
+  v2 = __atxlog_handle_hero_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_hero_block_invoke()
@@ -1443,16 +1437,16 @@ uint64_t ____atxlog_handle_hero_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_deletions()
+id __atxlog_handle_deletions(uint64_t a1)
 {
   if (__atxlog_handle_deletions_onceToken != -1)
   {
     __atxlog_handle_deletions_cold_1();
   }
 
-  v1 = __atxlog_handle_deletions_log;
+  v2 = __atxlog_handle_deletions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_deletions_block_invoke()
@@ -1462,16 +1456,16 @@ uint64_t ____atxlog_handle_deletions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_gi()
+id __atxlog_handle_gi(uint64_t a1)
 {
   if (__atxlog_handle_gi_onceToken != -1)
   {
     __atxlog_handle_gi_cold_1();
   }
 
-  v1 = __atxlog_handle_gi_log;
+  v2 = __atxlog_handle_gi_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_gi_block_invoke()
@@ -1481,16 +1475,16 @@ uint64_t ____atxlog_handle_gi_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_timeline()
+id __atxlog_handle_timeline(uint64_t a1)
 {
   if (__atxlog_handle_timeline_onceToken != -1)
   {
     __atxlog_handle_timeline_cold_1();
   }
 
-  v1 = __atxlog_handle_timeline_log;
+  v2 = __atxlog_handle_timeline_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_timeline_block_invoke()
@@ -1500,16 +1494,16 @@ uint64_t ____atxlog_handle_timeline_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevant_shortcut()
+id __atxlog_handle_relevant_shortcut(uint64_t a1)
 {
   if (__atxlog_handle_relevant_shortcut_onceToken != -1)
   {
     __atxlog_handle_relevant_shortcut_cold_1();
   }
 
-  v1 = __atxlog_handle_relevant_shortcut_log;
+  v2 = __atxlog_handle_relevant_shortcut_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
@@ -1519,16 +1513,16 @@ uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevance_model()
+id __atxlog_handle_relevance_model(uint64_t a1)
 {
   if (__atxlog_handle_relevance_model_onceToken != -1)
   {
     __atxlog_handle_relevance_model_cold_1();
   }
 
-  v1 = __atxlog_handle_relevance_model_log;
+  v2 = __atxlog_handle_relevance_model_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevance_model_block_invoke()
@@ -1538,16 +1532,16 @@ uint64_t ____atxlog_handle_relevance_model_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_watch()
+id __atxlog_handle_watch(uint64_t a1)
 {
   if (__atxlog_handle_watch_onceToken != -1)
   {
     __atxlog_handle_watch_cold_1();
   }
 
-  v1 = __atxlog_handle_watch_log;
+  v2 = __atxlog_handle_watch_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_watch_block_invoke()
@@ -1557,16 +1551,16 @@ uint64_t ____atxlog_handle_watch_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ui()
+id __atxlog_handle_ui(uint64_t a1)
 {
   if (__atxlog_handle_ui_onceToken != -1)
   {
     __atxlog_handle_ui_cold_1();
   }
 
-  v1 = __atxlog_handle_ui_log;
+  v2 = __atxlog_handle_ui_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ui_block_invoke()
@@ -1576,16 +1570,16 @@ uint64_t ____atxlog_handle_ui_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending()
+id __atxlog_handle_blending(uint64_t a1)
 {
   if (__atxlog_handle_blending_onceToken != -1)
   {
     __atxlog_handle_blending_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_log;
+  v2 = __atxlog_handle_blending_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_block_invoke()
@@ -1595,16 +1589,16 @@ uint64_t ____atxlog_handle_blending_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_internal_cache()
+id __atxlog_handle_blending_internal_cache(uint64_t a1)
 {
   if (__atxlog_handle_blending_internal_cache_onceToken != -1)
   {
     __atxlog_handle_blending_internal_cache_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_internal_cache_log;
+  v2 = __atxlog_handle_blending_internal_cache_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
@@ -1614,16 +1608,16 @@ uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_ecosystem()
+id __atxlog_handle_blending_ecosystem(uint64_t a1)
 {
   if (__atxlog_handle_blending_ecosystem_onceToken != -1)
   {
     __atxlog_handle_blending_ecosystem_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_ecosystem_log;
+  v2 = __atxlog_handle_blending_ecosystem_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
@@ -1633,16 +1627,16 @@ uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_home_screen()
+id __atxlog_handle_home_screen(uint64_t a1)
 {
   if (__atxlog_handle_home_screen_onceToken != -1)
   {
     __atxlog_handle_home_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_home_screen_log;
+  v2 = __atxlog_handle_home_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_home_screen_block_invoke()
@@ -1652,16 +1646,16 @@ uint64_t ____atxlog_handle_home_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_sleep_schedule()
+id __atxlog_handle_sleep_schedule(uint64_t a1)
 {
   if (__atxlog_handle_sleep_schedule_onceToken != -1)
   {
     __atxlog_handle_sleep_schedule_cold_1();
   }
 
-  v1 = __atxlog_handle_sleep_schedule_log;
+  v2 = __atxlog_handle_sleep_schedule_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
@@ -1671,16 +1665,16 @@ uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_lock_screen()
+id __atxlog_handle_lock_screen(uint64_t a1)
 {
   if (__atxlog_handle_lock_screen_onceToken != -1)
   {
     __atxlog_handle_lock_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_lock_screen_log;
+  v2 = __atxlog_handle_lock_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_lock_screen_block_invoke()
@@ -1690,16 +1684,16 @@ uint64_t ____atxlog_handle_lock_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_anchor()
+id __atxlog_handle_anchor(uint64_t a1)
 {
   if (__atxlog_handle_anchor_onceToken != -1)
   {
     __atxlog_handle_anchor_cold_1();
   }
 
-  v1 = __atxlog_handle_anchor_log;
+  v2 = __atxlog_handle_anchor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_anchor_block_invoke()
@@ -1709,16 +1703,16 @@ uint64_t ____atxlog_handle_anchor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_prediction()
+id __atxlog_handle_app_prediction(uint64_t a1)
 {
   if (__atxlog_handle_app_prediction_onceToken != -1)
   {
     __atxlog_handle_app_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_app_prediction_log;
+  v2 = __atxlog_handle_app_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_prediction_block_invoke()
@@ -1728,16 +1722,16 @@ uint64_t ____atxlog_handle_app_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_action_prediction()
+id __atxlog_handle_action_prediction(uint64_t a1)
 {
   if (__atxlog_handle_action_prediction_onceToken != -1)
   {
     __atxlog_handle_action_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_action_prediction_log;
+  v2 = __atxlog_handle_action_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_action_prediction_block_invoke()
@@ -1747,16 +1741,16 @@ uint64_t ____atxlog_handle_action_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_library()
+id __atxlog_handle_app_library(uint64_t a1)
 {
   if (__atxlog_handle_app_library_onceToken != -1)
   {
     __atxlog_handle_app_library_cold_1();
   }
 
-  v1 = __atxlog_handle_app_library_log;
+  v2 = __atxlog_handle_app_library_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_library_block_invoke()
@@ -1766,16 +1760,16 @@ uint64_t ____atxlog_handle_app_library_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_install()
+id __atxlog_handle_app_install(uint64_t a1)
 {
   if (__atxlog_handle_app_install_onceToken != -1)
   {
     __atxlog_handle_app_install_cold_1();
   }
 
-  v1 = __atxlog_handle_app_install_log;
+  v2 = __atxlog_handle_app_install_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_install_block_invoke()
@@ -1785,16 +1779,16 @@ uint64_t ____atxlog_handle_app_install_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_backup()
+id __atxlog_handle_backup(uint64_t a1)
 {
   if (__atxlog_handle_backup_onceToken != -1)
   {
     __atxlog_handle_backup_cold_1();
   }
 
-  v1 = __atxlog_handle_backup_log;
+  v2 = __atxlog_handle_backup_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_backup_block_invoke()
@@ -1804,16 +1798,16 @@ uint64_t ____atxlog_handle_backup_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_metrics()
+id __atxlog_handle_metrics(uint64_t a1)
 {
   if (__atxlog_handle_metrics_onceToken != -1)
   {
     __atxlog_handle_metrics_cold_1();
   }
 
-  v1 = __atxlog_handle_metrics_log;
+  v2 = __atxlog_handle_metrics_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_metrics_block_invoke()
@@ -1823,16 +1817,16 @@ uint64_t ____atxlog_handle_metrics_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_trial_assets()
+id __atxlog_handle_trial_assets(uint64_t a1)
 {
   if (__atxlog_handle_trial_assets_onceToken != -1)
   {
     __atxlog_handle_trial_assets_cold_1();
   }
 
-  v1 = __atxlog_handle_trial_assets_log;
+  v2 = __atxlog_handle_trial_assets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_trial_assets_block_invoke()
@@ -1842,16 +1836,16 @@ uint64_t ____atxlog_handle_trial_assets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_management()
+id __atxlog_handle_notification_management(uint64_t a1)
 {
   if (__atxlog_handle_notification_management_onceToken != -1)
   {
     __atxlog_handle_notification_management_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_management_log;
+  v2 = __atxlog_handle_notification_management_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_management_block_invoke()
@@ -1861,16 +1855,16 @@ uint64_t ____atxlog_handle_notification_management_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_actions()
+id __atxlog_handle_contextual_actions(uint64_t a1)
 {
   if (__atxlog_handle_contextual_actions_onceToken != -1)
   {
     __atxlog_handle_contextual_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_actions_log;
+  v2 = __atxlog_handle_contextual_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_actions_block_invoke()
@@ -1887,16 +1881,16 @@ uint64_t ____atxlog_handle_intents_helper_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_heuristic()
+id __atxlog_handle_context_heuristic(uint64_t a1)
 {
   if (__atxlog_handle_context_heuristic_onceToken != -1)
   {
     __atxlog_handle_context_heuristic_cold_1();
   }
 
-  v1 = __atxlog_handle_context_heuristic_log;
+  v2 = __atxlog_handle_context_heuristic_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_heuristic_block_invoke()
@@ -1906,16 +1900,16 @@ uint64_t ____atxlog_handle_context_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_zkw_hide()
+id __atxlog_handle_zkw_hide(uint64_t a1)
 {
   if (__atxlog_handle_zkw_hide_onceToken != -1)
   {
     __atxlog_handle_zkw_hide_cold_1();
   }
 
-  v1 = __atxlog_handle_zkw_hide_log;
+  v2 = __atxlog_handle_zkw_hide_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_zkw_hide_block_invoke()
@@ -1925,16 +1919,16 @@ uint64_t ____atxlog_handle_zkw_hide_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_user_education_suggestions()
+id __atxlog_handle_context_user_education_suggestions(uint64_t a1)
 {
   if (__atxlog_handle_context_user_education_suggestions_onceToken != -1)
   {
     __atxlog_handle_context_user_education_suggestions_cold_1();
   }
 
-  v1 = __atxlog_handle_context_user_education_suggestions_log;
+  v2 = __atxlog_handle_context_user_education_suggestions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
@@ -1944,16 +1938,16 @@ uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_time_intelligence()
+id __atxlog_handle_time_intelligence(uint64_t a1)
 {
   if (__atxlog_handle_time_intelligence_onceToken != -1)
   {
     __atxlog_handle_time_intelligence_cold_1();
   }
 
-  v1 = __atxlog_handle_time_intelligence_log;
+  v2 = __atxlog_handle_time_intelligence_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_time_intelligence_block_invoke()
@@ -1963,16 +1957,16 @@ uint64_t ____atxlog_handle_time_intelligence_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_engine()
+id __atxlog_handle_contextual_engine(uint64_t a1)
 {
   if (__atxlog_handle_contextual_engine_onceToken != -1)
   {
     __atxlog_handle_contextual_engine_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_engine_log;
+  v2 = __atxlog_handle_contextual_engine_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_engine_block_invoke()
@@ -1982,16 +1976,16 @@ uint64_t ____atxlog_handle_contextual_engine_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_usage_insights()
+id __atxlog_handle_usage_insights(uint64_t a1)
 {
   if (__atxlog_handle_usage_insights_onceToken != -1)
   {
     __atxlog_handle_usage_insights_cold_1();
   }
 
-  v1 = __atxlog_handle_usage_insights_log;
+  v2 = __atxlog_handle_usage_insights_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_usage_insights_block_invoke()
@@ -2001,16 +1995,16 @@ uint64_t ____atxlog_handle_usage_insights_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_categorization()
+id __atxlog_handle_notification_categorization(uint64_t a1)
 {
   if (__atxlog_handle_notification_categorization_onceToken != -1)
   {
     __atxlog_handle_notification_categorization_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_categorization_log;
+  v2 = __atxlog_handle_notification_categorization_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_categorization_block_invoke()
@@ -2020,16 +2014,16 @@ uint64_t ____atxlog_handle_notification_categorization_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_settings_actions()
+id __atxlog_handle_settings_actions(uint64_t a1)
 {
   if (__atxlog_handle_settings_actions_onceToken != -1)
   {
     __atxlog_handle_settings_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_settings_actions_log;
+  v2 = __atxlog_handle_settings_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_settings_actions_block_invoke()
@@ -2039,16 +2033,16 @@ uint64_t ____atxlog_handle_settings_actions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_client_donations()
+id __atxlog_handle_client_donations(uint64_t a1)
 {
   if (__atxlog_handle_client_donations_onceToken != -1)
   {
     __atxlog_handle_client_donations_cold_1();
   }
 
-  v1 = __atxlog_handle_client_donations_log;
+  v2 = __atxlog_handle_client_donations_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_client_donations_block_invoke()
@@ -2058,16 +2052,16 @@ uint64_t ____atxlog_handle_client_donations_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_carPlay_widgets()
+id __atxlog_handle_carPlay_widgets(uint64_t a1)
 {
   if (__atxlog_handle_carPlay_widgets_onceToken != -1)
   {
     __atxlog_handle_carPlay_widgets_cold_1();
   }
 
-  v1 = __atxlog_handle_carPlay_widgets_log;
+  v2 = __atxlog_handle_carPlay_widgets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
@@ -2077,16 +2071,16 @@ uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_screen_entities()
+id __atxlog_handle_screen_entities(uint64_t a1)
 {
   if (__atxlog_handle_screen_entities_onceToken != -1)
   {
     __atxlog_handle_screen_entities_cold_1();
   }
 
-  v1 = __atxlog_handle_screen_entities_log;
+  v2 = __atxlog_handle_screen_entities_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_screen_entities_block_invoke()
@@ -2096,16 +2090,16 @@ uint64_t ____atxlog_handle_screen_entities_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_document_predictor()
+id __atxlog_handle_document_predictor(uint64_t a1)
 {
   if (__atxlog_handle_document_predictor_onceToken != -1)
   {
     __atxlog_handle_document_predictor_cold_1();
   }
 
-  v1 = __atxlog_handle_document_predictor_log;
+  v2 = __atxlog_handle_document_predictor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_document_predictor_block_invoke()
@@ -2115,16 +2109,16 @@ uint64_t ____atxlog_handle_document_predictor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ml_inference()
+id __atxlog_handle_ml_inference(uint64_t a1)
 {
   if (__atxlog_handle_ml_inference_onceToken != -1)
   {
     __atxlog_handle_ml_inference_cold_1();
   }
 
-  v1 = __atxlog_handle_ml_inference_log;
+  v2 = __atxlog_handle_ml_inference_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ml_inference_block_invoke()
@@ -2134,16 +2128,16 @@ uint64_t ____atxlog_handle_ml_inference_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_menu_items()
+id __atxlog_handle_menu_items(uint64_t a1)
 {
   if (__atxlog_handle_menu_items_onceToken != -1)
   {
     __atxlog_handle_menu_items_cold_1();
   }
 
-  v1 = __atxlog_handle_menu_items_log;
+  v2 = __atxlog_handle_menu_items_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_menu_items_block_invoke()
@@ -2153,30 +2147,30 @@ uint64_t ____atxlog_handle_menu_items_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_226380FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226380FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2263818A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2263818A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226382C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226382C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226382DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226382DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2248,68 +2242,57 @@ void ATXCacheFileWriteChunks_cold_1()
 
 void ATXCacheFileWriteChunks_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "writev returned offset of %zd, expected %zd", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "writev returned offset of %zd, expected %zd", v2, v3);
 }
 
 void ATXCacheFileWriteChunks_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileWriteChunks_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileWriteChunks_cold_5()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v3 = 0;
-  _os_log_error_impl(&dword_226368000, v0, OS_LOG_TYPE_ERROR, "lseek returned offset of %lld, expected %lld", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  _os_log_error_impl(&dword_226368000, v0, OS_LOG_TYPE_ERROR, "lseek returned offset of %lld, expected %lld", v1, 0x16u);
 }
 
 void ATXCacheFileWriteChunks_cold_6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileWriteChunks_cold_7()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileWrite_cold_1()
@@ -2321,66 +2304,54 @@ void ATXCacheFileWrite_cold_1()
 
 void ATXCacheFileWrite_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 length];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ATXCacheFileWrite_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileRead_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "Wrong ATXCache length; expected %lu, got %lu", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_4(&dword_226368000, v0, v1, "Wrong ATXCache length; expected %lu, got %lu", v2, v3);
 }
 
 void ATXCacheFileRead_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileRead_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void ATXCacheFileRead_cold_6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }

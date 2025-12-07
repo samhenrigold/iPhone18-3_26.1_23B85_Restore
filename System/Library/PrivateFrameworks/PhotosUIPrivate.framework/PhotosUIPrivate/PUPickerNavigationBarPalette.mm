@@ -9,15 +9,16 @@
 
 - (PUPickerNavigationBarPalette)initWithTopView:(id)view topViewShouldIgnoreHorizontalMargins:(BOOL)margins bottomView:(id)bottomView bottomViewShouldIgnoreHorizontalMargins:(BOOL)horizontalMargins
 {
+  horizontalMarginsCopy = horizontalMargins;
   viewCopy = view;
   bottomViewCopy = bottomView;
-  return sub_1B3796A44(view, margins, bottomView, horizontalMargins);
+  return sub_1B3796A44(view, margins, bottomView, horizontalMarginsCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1B3796FDC();
+  sub_1B3796FDC(selfCopy);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -65,7 +66,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_1B3798710(&qword_1EB850FE0, type metadata accessor for NSKeyValueChangeKey);
+  sub_1B3798710(&qword_1EB850FE0, type metadata accessor for NSKeyValueChangeKey, &unk_1B3CF9480);
   v15 = sub_1B3C9C4C8();
 
 LABEL_8:

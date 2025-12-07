@@ -78,7 +78,7 @@
       v17 = [UIColor colorWithWhite:0.0 alpha:0.05];
       cGColor = [v17 CGColor];
 
-      v19 = +[UIColor blackColor];
+      v19 = objc_msgSend_blackColor(UIColor);
       cGColor2 = [v19 CGColor];
 
       v38.width = 0.0;

@@ -112,38 +112,38 @@
 
 - (void)appendSegmentWithData:(id)data completionHandler:(id)handler
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
-  v63 = 0;
-  v8 = _CKCheckArgument("data", dataCopy, 0, 0, 0, &v63);
-  v9 = v63;
+  v62 = 0;
+  v8 = _CKCheckArgument("data", dataCopy, 0, 0, 0, &v62);
+  v9 = v62;
   v10 = v9;
   if ((v8 & 1) == 0)
   {
-    v34 = [CKException alloc];
-    v37 = objc_msgSend_code(v10, v35, v36);
-    v40 = objc_msgSend_localizedDescription(v10, v38, v39);
-    v42 = objc_msgSend_initWithCode_format_(v34, v41, v37, @"%@", v40);
-    v43 = v42;
+    v33 = [CKException alloc];
+    v36 = objc_msgSend_code(v10, v34, v35);
+    v39 = objc_msgSend_localizedDescription(v10, v37, v38);
+    v41 = objc_msgSend_initWithCode_format_(v33, v40, v36, @"%@", v39);
+    v42 = v41;
 
-    objc_exception_throw(v42);
+    objc_exception_throw(v41);
   }
 
   v11 = _Block_copy(handlerCopy);
-  v62 = 0;
-  v12 = _CKCheckArgument("completionHandler", v11, 0, 0, 0, &v62);
-  v13 = v62;
+  v61 = 0;
+  v12 = _CKCheckArgument("completionHandler", v11, 0, 0, 0, &v61);
+  v13 = v61;
 
   if ((v12 & 1) == 0)
   {
-    v44 = [CKException alloc];
-    v47 = objc_msgSend_code(v13, v45, v46);
-    v50 = objc_msgSend_localizedDescription(v13, v48, v49);
-    v52 = objc_msgSend_initWithCode_format_(v44, v51, v47, @"%@", v50);
-    v53 = v52;
+    v43 = [CKException alloc];
+    v46 = objc_msgSend_code(v13, v44, v45);
+    v49 = objc_msgSend_localizedDescription(v13, v47, v48);
+    v51 = objc_msgSend_initWithCode_format_(v43, v50, v46, @"%@", v49);
+    v52 = v51;
 
-    objc_exception_throw(v52);
+    objc_exception_throw(v51);
   }
 
   v14 = _os_activity_create(&dword_1883EA000, "client/streaming-asset-append", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -161,13 +161,13 @@
   v21 = ck_log_facility_ck;
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v33 = objc_msgSend_length(dataCopy, v22, v23);
+    v32 = objc_msgSend_length(dataCopy, v22, v23);
     *buf = 134218498;
-    v65 = v33;
-    v66 = 2112;
+    v64 = v32;
+    v65 = 2112;
     selfCopy = self;
-    v68 = 2114;
-    v69 = v20;
+    v67 = 2114;
+    v68 = v20;
     _os_log_debug_impl(&dword_1883EA000, v21, OS_LOG_TYPE_DEBUG, "Appending segment of length %ld to %@ with requestUUID %{public}@", buf, 0x20u);
   }
 
@@ -179,10 +179,10 @@
     block[2] = sub_18852FF78;
     block[3] = &unk_1E70BC310;
     block[4] = self;
-    v58 = handlerCopy;
-    v55 = dataCopy;
-    v56 = v20;
-    v57 = v14;
+    v57 = handlerCopy;
+    v54 = dataCopy;
+    v55 = v20;
+    v56 = v14;
     v29 = handlerCopy;
     dispatch_async(v28, block);
   }
@@ -190,22 +190,21 @@
   else
   {
     v30 = objc_msgSend_callbackQueue(self, v26, v27);
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = sub_18852FEF4;
-    v59[3] = &unk_1E70BC2C0;
-    v60 = handlerCopy;
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = sub_18852FEF4;
+    v58[3] = &unk_1E70BC2C0;
+    v59 = handlerCopy;
     v31 = handlerCopy;
-    dispatch_async(v30, v59);
+    dispatch_async(v30, v58);
   }
 
   os_activity_scope_leave(&state);
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (id)requestToAppendSegmentData:(id)data uploadURL:(id)l requestUUID:(id)d offset:(unint64_t)offset
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E696AD68];
   dCopy = d;
   lCopy = l;
@@ -230,8 +229,8 @@
 
   v36 = objc_msgSend_data(v22, v34, v35);
   v39 = objc_msgSend_length(v36, v37, v38);
-  v66 = bswap32(v39);
-  v41 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v40, &v66, 4);
+  v65 = bswap32(v39);
+  v41 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v40, &v65, 4);
   v42 = objc_alloc(MEMORY[0x1E695DF88]);
   v45 = objc_msgSend_length(dataCopy, v43, v44);
   v48 = objc_msgSend_length(v36, v46, v47);
@@ -254,15 +253,13 @@
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v68 = v39;
+      v67 = v39;
       _os_log_debug_impl(&dword_1883EA000, v60, OS_LOG_TYPE_DEBUG, "Overriding max footer length with %u", buf, 8u);
     }
 
     v62 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v61, @"%u", v39);
     objc_msgSend_setValue_forHTTPHeaderField_(v15, v63, v62, @"x-apple-sa-footer-max-size");
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

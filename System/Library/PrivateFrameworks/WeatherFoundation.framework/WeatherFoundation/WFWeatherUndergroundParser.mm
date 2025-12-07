@@ -623,4 +623,25 @@ LABEL_14:
   return v8;
 }
 
+- (void)parseForecastData:(uint64_t)a3 types:(uint64_t)a4 location:(uint64_t)a5 locale:(uint64_t)a6 date:(uint64_t)a7 error:(uint64_t)a8 rules:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_272B94000, a2, a3, "Failed to parse JSON data with error %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)parseHistoricalForecast:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_272B94000, a2, a3, "Received error response %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)logParsingErrorAtKeyPath:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_272B94000, a2, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

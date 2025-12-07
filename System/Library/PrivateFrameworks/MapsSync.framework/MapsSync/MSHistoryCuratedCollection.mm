@@ -1,5 +1,6 @@
 @interface MSHistoryCuratedCollection
 + (Class)managedClass;
+- (MSHistoryCuratedCollection)initWithCuratedCollectionIdentifier:(unint64_t)identifier resultProviderIdentifier:(int)providerIdentifier;
 - (MSHistoryCuratedCollection)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (int)resultProviderIdentifier;
 - (unint64_t)curatedCollectionIdentifier;
@@ -9,6 +10,21 @@
 @end
 
 @implementation MSHistoryCuratedCollection
+
+- (MSHistoryCuratedCollection)initWithCuratedCollectionIdentifier:(unint64_t)identifier resultProviderIdentifier:(int)providerIdentifier
+{
+  v4 = *&providerIdentifier;
+  if (qword_1EDB0F2A0 != -1)
+  {
+    selfCopy = self;
+    swift_once();
+    self = selfCopy;
+  }
+
+  v6 = qword_1EDB0F2A8;
+
+  return [(MSHistoryCuratedCollection *)self initWithStore:v6 curatedCollectionIdentifier:identifier resultProviderIdentifier:v4];
+}
 
 + (Class)managedClass
 {

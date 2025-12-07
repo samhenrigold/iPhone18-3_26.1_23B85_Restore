@@ -25,36 +25,13 @@
   v14.receiver = self;
   v14.super_class = WFWorkflowFileDescriptor;
   v5 = [(WFWorkflowFileDescriptor *)&v14 init];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"file"];
-  file = v5->_file;
-  v5->_file = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-  name = v5->_name;
-  v5->_name = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sourceAppIdentifier"];
-  sourceAppIdentifier = v5->_sourceAppIdentifier;
-  v5->_sourceAppIdentifier = v10;
-
-  if (!v5->_file)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_name)
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"file"], v6 = objc_claimAutoreleasedReturnValue(), file = v5->_file, v5->_file = v6, file, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"name"), v8 = objc_claimAutoreleasedReturnValue(), name = v5->_name, v5->_name = v8, name, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"sourceAppIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), sourceAppIdentifier = v5->_sourceAppIdentifier, v5->_sourceAppIdentifier = v10, sourceAppIdentifier, v5->_file) && v5->_name)
   {
     v12 = v5;
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

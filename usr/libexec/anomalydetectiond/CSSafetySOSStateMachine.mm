@@ -497,25 +497,26 @@
     [(NSUserDefaults *)*p_defaults doubleForKey:@"SimulateCrashProbability"];
     if (drand48() < v5)
     {
-      v7 = sub_1002EFAE8(p_defaults);
+      sub_1002EFAE8(p_defaults);
+      v8 = v7;
       objc_destroyWeak(v4 + 5);
 
       objc_destroyWeak(&location);
-      _Unwind_Resume(v7);
+      _Unwind_Resume(v8);
     }
   }
 
   objc_initWeak(&location, self);
   v6 = +[SOSKappaManager sharedInstance];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1002EED54;
-  v8[3] = &unk_1004325F8;
-  objc_copyWeak(&v9, &location);
-  v8[4] = self;
-  [v6 triggerKappaWithCompletion:v8];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1002EED54;
+  v9[3] = &unk_1004325F8;
+  objc_copyWeak(&v10, &location);
+  v9[4] = self;
+  [v6 triggerKappaWithCompletion:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 
@@ -725,31 +726,29 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     sosStatus = [statusCopy sosStatus];
-    v13 = 134218496;
+    v11 = 134218496;
     flowState = [sosStatus flowState];
-    v15 = 1024;
+    v13 = 1024;
     isKappaFlow = [statusCopy isKappaFlow];
-    v17 = 1024;
+    v15 = 1024;
     isKappaFlowActive = [statusCopy isKappaFlowActive];
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "updatedSOSSafetyStatus state:%ld, isKappaFlow:%d, isKappaFlowActive:%d", &v13, 0x18u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "updatedSOSSafetyStatus state:%ld, isKappaFlow:%d, isKappaFlowActive:%d", &v11, 0x18u);
   }
 
   if ([statusCopy isKappaFlow])
   {
     objc_storeStrong(&self->_sosStatus, status);
-    isKappaFlowActive2 = [statusCopy isKappaFlowActive];
-    hsm = self->_hsm;
-    if (isKappaFlowActive2)
+    if ([statusCopy isKappaFlowActive])
     {
-      v10 = 7;
+      v8 = 7;
     }
 
     else
     {
-      v10 = 8;
+      v8 = 8;
     }
 
-    [(CSHSMObjc *)self->_hsm signal:v10 data:0];
+    [(CSHSMObjc *)self->_hsm signal:v8 data:0];
     if ([statusCopy sosKappaState] == 1)
     {
       if (qword_100456948 != -1)
@@ -757,11 +756,11 @@
         sub_1002EFAC0();
       }
 
-      v11 = qword_100456950;
+      v9 = qword_100456950;
       if (os_log_type_enabled(qword_100456950, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "updatedSOSSafetyStatus received alert and notifying AOP", &v13, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "updatedSOSSafetyStatus received alert and notifying AOP", &v11, 2u);
       }
 
       [(CSSafetySOSStateMachine *)self notifySOStoAOP];
@@ -775,11 +774,11 @@
       sub_1002EFAC0();
     }
 
-    v12 = qword_100456950;
+    v10 = qword_100456950;
     if (os_log_type_enabled(qword_100456950, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Received non-Kappa flow state, ignoring", &v13, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Received non-Kappa flow state, ignoring", &v11, 2u);
     }
   }
 }

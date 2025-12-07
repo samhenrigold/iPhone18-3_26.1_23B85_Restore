@@ -341,7 +341,7 @@ void __70__PXCuratedLibraryAssetsDataSourceManager__updateDataSourceProperties__
 
 - (void)_updateDataSource
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   if ([(PXCuratedLibraryAssetsDataSourceManager *)self canLoadData])
   {
     zoomLevelForCurrentDataSourceManager = [(PXCuratedLibraryAssetsDataSourceManager *)self zoomLevelForCurrentDataSourceManager];
@@ -472,15 +472,15 @@ LABEL_128:
     memset(buf, 0, 32);
     if (currentDataSource)
     {
-      [currentDataSource indexPathForAssetCollectionReference:v87];
+      objc_msgSend_indexPathForAssetCollectionReference_(currentDataSource);
     }
 
-    v113 = 0u;
-    v114 = 0u;
+    v115 = 0u;
+    v116 = 0u;
     if (dataSource)
     {
-      [dataSource indexPathForAssetCollectionReference:oslog];
-      v18 = v113;
+      objc_msgSend_indexPathForAssetCollectionReference_(dataSource);
+      v18 = v115;
     }
 
     else
@@ -501,7 +501,7 @@ LABEL_127:
     numberOfSections = [currentDataSource numberOfSections];
     numberOfSections2 = [dataSource numberOfSections];
     v91 = *&buf[8];
-    v84 = *(&v113 + 1);
+    v84 = *(&v115 + 1);
     if (!self->_delegateRespondsTo.transitionTypeFromZoomLevelToZoomLevel || (v89 = [delegate curatedLibraryAssetsDataSourceManager:self transitionTypeFromZoomLevel:currentDataSourceZoomLevel toZoomLevel:zoomLevelForCurrentDataSourceManager]) == 0)
     {
       PXAssertGetLog();
@@ -519,19 +519,19 @@ LABEL_127:
       v20 = 0;
     }
 
-    *v116 = 0;
-    v117 = v116;
-    v118 = 0x2020000000;
-    v119 = 0;
-    v112[0] = MEMORY[0x1E69E9820];
-    v112[1] = 3221225472;
-    v112[2] = __60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke;
-    v112[3] = &unk_1E774A618;
-    v112[4] = v116;
-    v112[5] = v84;
-    v112[6] = v20;
-    [v9 performChanges:v112];
-    if (v117[24] == 1)
+    *v118 = 0;
+    v119 = v118;
+    v120 = 0x2020000000;
+    v121 = 0;
+    v114[0] = MEMORY[0x1E69E9820];
+    v114[1] = 3221225472;
+    v114[2] = __60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke;
+    v114[3] = &unk_1E774A618;
+    v114[4] = v118;
+    v114[5] = v84;
+    v114[6] = v20;
+    [v9 performChanges:v114];
+    if (v119[24] == 1)
     {
       dataSource2 = [v9 dataSource];
 
@@ -619,11 +619,11 @@ LABEL_127:
         goto LABEL_75;
       }
 
-      v110 = *buf + __PAIR128__(1, 0);
+      v112 = *buf + __PAIR128__(1, 0);
       v32.f64[0] = NAN;
       v32.f64[1] = NAN;
-      v111 = vnegq_f64(v32);
-      v33 = [currentDataSource assetCollectionAtSectionIndexPath:&v110];
+      v113 = vnegq_f64(v32);
+      v33 = [currentDataSource assetCollectionAtSectionIndexPath:&v112];
       assetCollection2 = [oslog assetCollection];
       v35 = [v33 isEqual:assetCollection2];
     }
@@ -757,15 +757,15 @@ LABEL_109:
         v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
         changeDetailsWithNoIncrementalChanges = [off_1E7721450 changeDetailsWithNoIncrementalChanges];
         changedIndexes = [v92 changedIndexes];
-        v107[0] = MEMORY[0x1E69E9820];
-        v107[1] = 3221225472;
-        v107[2] = __60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke_4;
-        v107[3] = &unk_1E774A7B8;
+        v109[0] = MEMORY[0x1E69E9820];
+        v109[1] = 3221225472;
+        v109[2] = __60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke_4;
+        v109[3] = &unk_1E774A7B8;
         v78 = v55;
-        v108 = v78;
+        v110 = v78;
         v74 = changeDetailsWithNoIncrementalChanges;
-        v109 = v74;
-        [changedIndexes enumerateIndexesUsingBlock:v107];
+        v111 = v74;
+        [changedIndexes enumerateIndexesUsingBlock:v109];
 
         v58 = v84 - 1;
         v59 = 3;
@@ -780,55 +780,55 @@ LABEL_109:
             numberOfSections3 = [currentDataSource numberOfSections];
             if ((v58 & 0x8000000000000000) == 0 && v61 < numberOfSections3 && v58 < [dataSource2 numberOfSections])
             {
-              v110 = 0u;
-              v111 = 0u;
-              v105[0] = [currentDataSource identifier];
-              v105[1] = v61;
-              v106 = v85;
+              v112 = 0u;
+              v113 = 0u;
+              identifier = [currentDataSource identifier];
+              v107 = v61;
+              v108 = v85;
               if (currentDataSource)
               {
-                [currentDataSource keyAssetIndexPathForSectionIndexPath:v105];
+                objc_msgSend_keyAssetIndexPathForSectionIndexPath_(currentDataSource);
                 v63 = 0uLL;
               }
 
               else
               {
                 v63 = 0uLL;
-                v110 = 0u;
-                v111 = 0u;
+                v112 = 0u;
+                v113 = 0u;
               }
 
-              v103 = v63;
               v104 = v63;
-              v101[0] = [dataSource2 identifier];
-              v101[1] = v58;
-              v102 = v85;
+              v105 = v63;
+              identifier2 = [dataSource2 identifier];
+              v102 = v58;
+              v103 = v85;
               if (dataSource2)
               {
-                [dataSource2 keyAssetIndexPathForSectionIndexPath:v101];
-                v64 = v103;
+                objc_msgSend_keyAssetIndexPathForSectionIndexPath_(dataSource2);
+                v64 = v104;
               }
 
               else
               {
                 v64 = 0;
-                v103 = 0u;
                 v104 = 0u;
+                v105 = 0u;
               }
 
-              if (v110 != v83 && v64 != v83)
+              if (v112 != v83 && v64 != v83)
               {
-                v99 = v110;
-                v100 = v111;
+                v99 = v112;
+                v100 = v113;
                 v80 = [currentDataSource assetAtItemIndexPath:&v99];
-                v99 = v103;
-                v100 = v104;
+                v99 = v104;
+                v100 = v105;
                 v82 = [dataSource2 assetAtItemIndexPath:&v99];
                 if ([v80 isEqual:v82])
                 {
-                  v72 = v111.f64[0];
-                  v65 = [currentDataSource numberOfItemsInSection:*(&v110 + 1)];
-                  v66 = [off_1E7721450 changeDetailsWithOldKeyItemIndex:*&v72 oldCount:v65 newKeyItemIndex:*&v104.f64[0] newCount:{objc_msgSend(dataSource2, "numberOfItemsInSection:", *(&v103 + 1))}];
+                  v72 = v113.f64[0];
+                  v65 = [currentDataSource numberOfItemsInSection:*(&v112 + 1)];
+                  v66 = [off_1E7721450 changeDetailsWithOldKeyItemIndex:*&v72 oldCount:v65 newKeyItemIndex:*&v105.f64[0] newCount:{objc_msgSend(dataSource2, "numberOfItemsInSection:", *(&v104 + 1))}];
                   v67 = [MEMORY[0x1E696AD98] numberWithInteger:v58];
                   [v78 setObject:v66 forKeyedSubscript:v67];
                 }
@@ -842,10 +842,10 @@ LABEL_109:
 
         while (v59);
         v68 = [[off_1E77218B0 alloc] initWithFromDataSourceIdentifier:objc_msgSend(currentDataSource toDataSourceIdentifier:"identifier") sectionChanges:objc_msgSend(dataSource2 itemChangeDetailsBySection:"identifier") subitemChangeDetailsByItemBySection:{v92, v78, 0}];
-        v115 = v68;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v115 count:1];
+        v117 = v68;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v117 count:1];
 
-        _Block_object_dispose(v116, 8);
+        _Block_object_dispose(v118, 8);
         dataSource = dataSource2;
         goto LABEL_127;
       }
@@ -957,7 +957,7 @@ void __72__PXCuratedLibraryAssetsDataSourceManager_observable_didChange_context_
   [v3 setCanIncludeUnsavedSyndicatedAssets:{objc_msgSend(v2, "showUnsavedSyndicatedContentInPhotosGrids")}];
 }
 
-uint64_t __60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke(void *a1, void *a2)
+void *__60__PXCuratedLibraryAssetsDataSourceManager__updateDataSource__block_invoke(void *a1, void *a2)
 {
   result = [a2 forceAccurateSection:a1[5] andSectionsBeforeAndAfter:a1[6]];
   *(*(a1[4] + 8) + 24) = result;
@@ -1100,7 +1100,7 @@ void __85__PXCuratedLibraryAssetsDataSourceManager_pauseChangeDeliveryWithTimeou
   return self;
 }
 
-uint64_t __85__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSectionsIfNeeded_inZoomLevel___block_invoke(uint64_t a1, void *a2)
+void *__85__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSectionsIfNeeded_inZoomLevel___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 forceAccurateSectionsIfNeeded:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1152,7 +1152,7 @@ uint64_t __85__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSectionsIfNe
   return v7;
 }
 
-uint64_t __75__PXCuratedLibraryAssetsDataSourceManager_forceAccurateAllSectionsIfNeeded__block_invoke(uint64_t a1, void *a2)
+void *__75__PXCuratedLibraryAssetsDataSourceManager_forceAccurateAllSectionsIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 forceAccurateAllSectionsIfNeeded];
   if (result)
@@ -1184,7 +1184,7 @@ uint64_t __75__PXCuratedLibraryAssetsDataSourceManager_forceAccurateAllSectionsI
   return after;
 }
 
-uint64_t __90__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSection_andSectionsBeforeAndAfter___block_invoke(void *a1, void *a2)
+void *__90__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSection_andSectionsBeforeAndAfter___block_invoke(void *a1, void *a2)
 {
   result = [a2 forceAccurateSection:a1[5] andSectionsBeforeAndAfter:a1[6]];
   *(*(a1[4] + 8) + 24) = result;
@@ -1271,7 +1271,7 @@ uint64_t __90__PXCuratedLibraryAssetsDataSourceManager_forceAccurateSection_andS
   return v6;
 }
 
-uint64_t __73__PXCuratedLibraryAssetsDataSourceManager_forceAllPhotosAccurateIfNeeded__block_invoke(uint64_t a1, void *a2)
+void *__73__PXCuratedLibraryAssetsDataSourceManager_forceAllPhotosAccurateIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 forceAccurateAllSectionsIfNeeded];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1513,7 +1513,7 @@ uint64_t __73__PXCuratedLibraryAssetsDataSourceManager_forceAllPhotosAccurateIfN
     v9 = [v7 initWithAssetCollection:collectionCopy keyAssetReference:0 indexPath:&v13];
     v13 = 0u;
     v14 = 0u;
-    [dataSource indexPathForAssetCollectionReference:v9];
+    objc_msgSend_indexPathForAssetCollectionReference_(dataSource);
     v10 = 0;
     if (v13 != *off_1E7721F68)
     {

@@ -67,7 +67,7 @@
 
 - (void)reconcileAllObjectsWithWindow:(id)window
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   v5 = MFReconciliationSignpostLog();
   v6 = os_signpost_id_generate(v5);
@@ -75,16 +75,16 @@
   v7 = MFReconciliationLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Starting thread reconciliation for all threads", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Starting thread reconciliation for all threads", &v17, 2u);
   }
 
   v8 = MFReconciliationSignpostLog();
   v9 = v8;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    LOWORD(v18) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MFLibraryThreadReconciliation", "Starting reconciliation of all threads enableTelemetry=YES ", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MFLibraryThreadReconciliation", "Starting reconciliation of all threads enableTelemetry=YES ", &v17, 2u);
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E695DF00]);
@@ -93,18 +93,18 @@
   v13 = MFReconciliationLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134217984;
-    v19 = v12;
-    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Finished thread reconciliation for all threads. Reconciled %lu threads", &v18, 0xCu);
+    v17 = 134217984;
+    v18 = v12;
+    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Finished thread reconciliation for all threads. Reconciled %lu threads", &v17, 0xCu);
   }
 
   v14 = MFReconciliationSignpostLog();
   v15 = v14;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    v18 = 134349056;
-    v19 = v12;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v15, OS_SIGNPOST_INTERVAL_END, v6, "MFLibraryThreadReconciliation", "ThreadsReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v18, 0xCu);
+    v17 = 134349056;
+    v18 = v12;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v15, OS_SIGNPOST_INTERVAL_END, v6, "MFLibraryThreadReconciliation", "ThreadsReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v17, 0xCu);
   }
 
   [v10 timeIntervalSinceNow];
@@ -112,8 +112,6 @@
   {
     EFSaveTailspin();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_performReconciliationWithExpression:(void *)expression window:
@@ -178,7 +176,7 @@
 
 - (void)reconcileWithThreadsWithConversationIDs:(id)ds window:(id)window
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   windowCopy = window;
   v8 = MFReconciliationSignpostLog();
@@ -187,43 +185,43 @@
   v10 = MFReconciliationLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "Starting context based thread reconciliation for threads", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "Starting context based thread reconciliation for threads", &v24, 2u);
   }
 
   v11 = MFReconciliationSignpostLog();
   v12 = v11;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    LOWORD(v25) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MFLibraryThreadContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v25, 2u);
+    LOWORD(v24) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MFLibraryThreadContextBasedReconciliation", "Starting context based reconciliation enableTelemetry=YES ", &v24, 2u);
   }
 
   v13 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v14 = objc_alloc(MEMORY[0x1E699B898]);
   _journaledExpression = [(MFLibraryThreadReconciler *)self _journaledExpression];
-  v27[0] = _journaledExpression;
+  v26[0] = _journaledExpression;
   v16 = [(MFLibraryThreadReconciler *)self _expressionForConversationIDs:dsCopy];
-  v27[1] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[1] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v18 = [v14 initWithExpressions:v17];
 
   v19 = [(MFLibraryThreadReconciler *)self _performReconciliationWithExpression:v18 window:windowCopy];
   v20 = MFReconciliationLog();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 134217984;
-    v26 = v19;
-    _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_DEFAULT, "Finished context based thread reconciliation for threads. Reconciled %lu threads", &v25, 0xCu);
+    v24 = 134217984;
+    v25 = v19;
+    _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_DEFAULT, "Finished context based thread reconciliation for threads. Reconciled %lu threads", &v24, 0xCu);
   }
 
   v21 = MFReconciliationSignpostLog();
   v22 = v21;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v25 = 134349056;
-    v26 = v19;
-    _os_signpost_emit_with_name_impl(&dword_1B0389000, v22, OS_SIGNPOST_INTERVAL_END, v9, "MFLibraryThreadContextBasedReconciliation", "ThreadsReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v25, 0xCu);
+    v24 = 134349056;
+    v25 = v19;
+    _os_signpost_emit_with_name_impl(&dword_1B0389000, v22, OS_SIGNPOST_INTERVAL_END, v9, "MFLibraryThreadContextBasedReconciliation", "ThreadsReconciled=%{public,signpost.telemetry:number1}lu enableTelemetry=YES ", &v24, 0xCu);
   }
 
   [v13 timeIntervalSinceNow];
@@ -231,57 +229,55 @@
   {
     EFSaveTailspin();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 protectedDatabaseAttached])
   {
     [*(a1 + 32) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
-    v27 = [*(*(a1 + 40) + 24) threadScopesByDatabaseID];
-    v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v26 = [*(*(a1 + 40) + 24) threadScopesByDatabaseID];
+    v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v5 = *(a1 + 48);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_2;
-    v36[3] = &unk_1E7AA6150;
-    v30 = v27;
-    v37 = v30;
-    v6 = v28;
-    v38 = v6;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_2;
+    v35[3] = &unk_1E7AA6150;
+    v29 = v26;
+    v36 = v29;
+    v6 = v27;
+    v37 = v6;
     v7 = v4;
-    v39 = v7;
-    if ([v3 executeSelectStatement:v5 withBlock:v36 error:0])
+    v38 = v7;
+    if ([v3 executeSelectStatement:v5 withBlock:v35 error:0])
     {
       v8 = [v7 count];
       *(*(*(a1 + 64) + 8) + 24) += v8;
       *(*(*(a1 + 72) + 8) + 24) = v8 > 0x18;
       v9 = MFReconciliationLog();
-      v29 = v8;
+      v28 = v8;
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_1(v8, v9);
       }
 
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v10 = v6;
-      v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v11)
       {
-        v12 = *v33;
+        v12 = *v32;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v33 != v12)
+            if (*v32 != v12)
             {
               objc_enumerationMutation(v10);
             }
@@ -292,12 +288,12 @@ uint64_t __73__MFLibraryThreadReconciler__performReconciliationWithExpression_wi
               v14 = v14[3];
             }
 
-            v15 = *(*(&v32 + 1) + 8 * i);
+            v15 = *(*(&v31 + 1) + 8 * i);
             v16 = v14;
             [v16 setPriorityForDisplayMessageSenderForThreadObjectID:v15];
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
         while (v11);
@@ -309,22 +305,22 @@ uint64_t __73__MFLibraryThreadReconciler__performReconciliationWithExpression_wi
       v19 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
       [v19 setObject:&unk_1F27759D0 forKeyedSubscript:@"journaled"];
       [v19 setWhereClause:v18];
-      v31 = 0;
-      v20 = [v3 executeUpdateStatement:v19 rowsChanged:&v31];
+      v30 = 0;
+      v20 = [v3 executeUpdateStatement:v19 rowsChanged:&v30];
       if (v20)
       {
         v21 = MFReconciliationLog();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_2(&v31, v21);
+          __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_2(&v30, v21);
         }
 
-        if (v31 != v29)
+        if (v30 != v28)
         {
           v22 = MFReconciliationLog();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
-            __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_3(&v31, v29, v22);
+            __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_3(&v30, v28, v22);
           }
         }
 
@@ -355,7 +351,6 @@ uint64_t __73__MFLibraryThreadReconciler__performReconciliationWithExpression_wi
     v20 = 1;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -379,33 +374,30 @@ void __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window
 
 void __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Reconciling %lu threads in batch", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Reconciling %lu threads in batch", &v2, 0xCu);
 }
 
 void __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Marked %lu threads as reconciled", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Marked %lu threads as reconciled", &v3, 0xCu);
 }
 
 void __73__MFLibraryThreadReconciler__performReconciliationWithExpression_window___block_invoke_cold_3(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = a2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_fault_impl(&dword_1B0389000, log, OS_LOG_TYPE_FAULT, "Reconciled %lu threads in batch, but marked %lu threads as reconciled", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = a2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_fault_impl(&dword_1B0389000, log, OS_LOG_TYPE_FAULT, "Reconciled %lu threads in batch, but marked %lu threads as reconciled", &v4, 0x16u);
 }
 
 @end

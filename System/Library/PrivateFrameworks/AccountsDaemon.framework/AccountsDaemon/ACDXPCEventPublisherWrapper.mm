@@ -7,8 +7,8 @@
 
 + (void)notifySubscribersOfAccountChange:(id)change type:(int)type
 {
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CFE89D0, &qword_221DB1570) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CFE89D0, &qword_221DB1570);
+  MEMORY[0x28223BE20](v6 - 8);
   v8 = &v12 - v7;
   if (change)
   {

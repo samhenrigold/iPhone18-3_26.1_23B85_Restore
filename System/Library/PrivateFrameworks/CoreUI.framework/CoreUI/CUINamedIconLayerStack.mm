@@ -43,16 +43,16 @@
 - (CUINamedIconLayerStack)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme resolvingWithBlock:(id)block
 {
   nameCopy = name;
-  v20.receiver = self;
-  v20.super_class = CUINamedIconLayerStack;
-  v9 = [(CUINamedLookup *)&v20 initWithName:name usingRenditionKey:key fromTheme:?];
+  v14.receiver = self;
+  v14.super_class = CUINamedIconLayerStack;
+  v9 = [(CUINamedLookup *)&v14 initWithName:name usingRenditionKey:key fromTheme:?];
   v10 = v9;
   if (v9)
   {
     _rendition = [(CUINamedLookup *)v9 _rendition];
     if ([(CUIThemeRendition *)_rendition type]!= 1019)
     {
-      _CUILog(4, "CoreUI: Attempting to create named icon layer stack '%@' from inappropriate rendition type: %@", v12, v13, v14, v15, v16, v17, nameCopy);
+      _CUILog(4, "CoreUI: Attempting to create named icon layer stack '%@' from inappropriate rendition type: %@", nameCopy, _rendition);
 LABEL_8:
 
       return 0;
@@ -64,9 +64,9 @@ LABEL_8:
       nameCopy = [(CUIThemeRendition *)_rendition name];
     }
 
-    v18 = [objc_opt_class() _createLayers:nameCopy fromTheme:theme baseRendition:_rendition withBlock:block];
-    v10->_layers = v18;
-    if (!v18)
+    v12 = [objc_opt_class() _createLayers:nameCopy fromTheme:theme baseRendition:_rendition withBlock:block];
+    v10->_layers = v12;
+    if (!v12)
     {
       goto LABEL_8;
     }
@@ -77,15 +77,15 @@ LABEL_8:
 
 - (BOOL)_updateLayers:(id)layers fromCatalog:(id)catalog displayGamut:(int64_t)gamut deviceIdiom:(int64_t)idiom appearanceName:(id)name
 {
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v12 = [layers countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v12 = [layers countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v22;
     v15 = &selRef_encodeBytes_length_forKey_;
     while (2)
     {
@@ -93,17 +93,16 @@ LABEL_8:
       v17 = v15[395];
       do
       {
-        if (*v29 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(layers);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * v16);
+        v18 = *(*(&v21 + 1) + 8 * v16);
         [v18 _updateFromCatalog:catalog displayGamut:gamut deviceIdiom:idiom appearanceName:name];
         if ((objc_opt_respondsToSelector() & 1) != 0 && !-[CUINamedIconLayerStack _updateLayers:fromCatalog:displayGamut:deviceIdiom:appearanceName:](self, "_updateLayers:fromCatalog:displayGamut:deviceIdiom:appearanceName:", [v18 performSelector:v17], catalog, gamut, idiom, name))
         {
-          name = [(CUINamedLookup *)self name];
-          _CUILog(4, "CoreUI: Couldn't resolve colors for icon layer stack %@", v21, v22, v23, v24, v25, v26, name);
+          _CUILog(4, "CoreUI: Couldn't resolve colors for icon layer stack %@", [(CUINamedLookup *)self name]);
           return 0;
         }
 
@@ -111,7 +110,7 @@ LABEL_8:
       }
 
       while (v13 != v16);
-      v13 = [layers countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v13 = [layers countByEnumeratingWithState:&v21 objects:v25 count:16];
       v15 = &selRef_encodeBytes_length_forKey_;
       if (v13)
       {
@@ -140,72 +139,72 @@ LABEL_8:
 
 + (id)_createLayers:(id)layers fromTheme:(unint64_t)theme baseRendition:(id)rendition withBlock:(id)block
 {
-  v9 = _LookupStructuredThemeProvider(theme, a2);
-  v10 = objc_alloc_init(NSMutableArray);
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v10 = _LookupStructuredThemeProvider();
+  v11 = objc_alloc_init(NSMutableArray);
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = [rendition layerReferences];
-  v11 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
-  if (!v11)
+  v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (!v12)
   {
-    return v10;
+    return v11;
   }
 
-  v12 = v11;
-  v40 = 0;
-  v13 = *v43;
+  v13 = v12;
+  layersCopy = layers;
+  v30 = 0;
+  v14 = *v33;
   while (2)
   {
-    for (i = 0; i != v12; i = i + 1)
+    for (i = 0; i != v13; i = i + 1)
     {
-      if (*v43 != v13)
+      if (*v33 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v41 = *(*(&v42 + 1) + 8 * i);
-      referenceKey = [v41 referenceKey];
-      v16 = CUIRenditionKeyValueForAttribute([referenceKey keyList], 12);
-      v17 = (*(block + 2))(block, referenceKey, v16);
-      if (!v17)
+      v31 = *(*(&v32 + 1) + 8 * i);
+      referenceKey = [v31 referenceKey];
+      v17 = CUIRenditionKeyValueForAttribute([referenceKey keyList], 12);
+      v18 = (*(block + 2))(block, referenceKey, v17);
+      if (!v18)
       {
-        v17 = (*(block + 2))(block, referenceKey, -1.0);
-        if (!v17)
+        v18 = (*(block + 2))(block, referenceKey, -1.0);
+        if (!v18)
         {
-          [v41 referenceKey];
-          _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v32, v33, v34, v35, v36, v37, v41);
+          _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v31, layersCopy, [v31 referenceKey]);
           goto LABEL_31;
         }
       }
 
-      v18 = v17;
-      v19 = [objc_msgSend(v9 "themeStore")];
-      if (![(NSString *)v19 length])
+      v19 = v18;
+      v20 = [objc_msgSend(v10 "themeStore")];
+      if (![(NSString *)v20 length])
       {
-        v19 = [NSString stringWithFormat:@"Layer %d", v40];
-        v40 = (v40 + 1);
+        v20 = [NSString stringWithFormat:@"Layer %d", v30];
+        v30 = (v30 + 1);
       }
 
-      v20 = [objc_msgSend(v9 renditionWithKey:objc_msgSend(v18 usingKeySignature:{"keyList"), 0), "type"}];
-      if (v20 > 8)
+      v21 = [objc_msgSend(v10 renditionWithKey:objc_msgSend(v19 usingKeySignature:{"keyList"), 0), "type"}];
+      if (v21 > 8)
       {
-        if (v20 <= 1019)
+        if (v21 <= 1019)
         {
-          if (v20 == 9)
+          if (v21 == 9)
           {
-            v27 = [[CUINamedLayerVectorSVGImage alloc] initWithName:v19 usingRenditionKey:v18 fromTheme:theme];
-            [v41 frame];
-            [(CUINamedLayerVectorSVGImage *)v27 setFrame:?];
-            [v41 blurStrength];
-            [(CUINamedLayerVectorSVGImage *)v27 setBlurStrength:v30];
-            -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v27, "setGradientOrColorName:", [v41 gradientOrColorName]);
-            -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v27, "setHasLightingEffects:", [v41 hasLightingEffects]);
-            -[CUINamedLayerVectorSVGImage _setBlendMode:](v27, "_setBlendMode:", [v41 blendMode]);
-            [v41 opacity];
-            [(CUINamedLayerVectorSVGImage *)v27 setOpacity:?];
-            if (!v27)
+            v22 = [[CUINamedLayerVectorSVGImage alloc] initWithName:v20 usingRenditionKey:v19 fromTheme:theme];
+            [v31 frame];
+            [(CUINamedLayerVectorSVGImage *)v22 setFrame:?];
+            [v31 blurStrength];
+            [(CUINamedLayerVectorSVGImage *)v22 setBlurStrength:v25];
+            -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v22, "setGradientOrColorName:", [v31 gradientOrColorName]);
+            -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v22, "setHasLightingEffects:", [v31 hasLightingEffects]);
+            -[CUINamedLayerVectorSVGImage _setBlendMode:](v22, "_setBlendMode:", [v31 blendMode]);
+            [v31 opacity];
+            [(CUINamedLayerVectorSVGImage *)v22 setOpacity:?];
+            if (!v22)
             {
               goto LABEL_31;
             }
@@ -213,15 +212,15 @@ LABEL_8:
             goto LABEL_26;
           }
 
-          if (v20 != 1009)
+          if (v21 != 1009)
           {
             goto LABEL_30;
           }
 
-          v29 = CUINamedColor;
+          v24 = CUINamedColor;
 LABEL_21:
-          v27 = [[v29 alloc] initWithName:v19 usingRenditionKey:v18 fromTheme:theme];
-          if (!v27)
+          v22 = [[v24 alloc] initWithName:v20 usingRenditionKey:v19 fromTheme:theme];
+          if (!v22)
           {
             goto LABEL_31;
           }
@@ -229,24 +228,24 @@ LABEL_21:
           goto LABEL_26;
         }
 
-        if (v20 == 1020)
+        if (v21 == 1020)
         {
-          v27 = [[CUINamedIconLayerGroup alloc] initWithName:v19 usingRenditionKey:v18 fromTheme:theme resolvingWithBlock:block];
-          [v41 blurStrength];
-          [(CUINamedLayerVectorSVGImage *)v27 setBlurStrength:v31];
-          -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v27, "setGradientOrColorName:", [v41 gradientOrColorName]);
-          -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v27, "setHasLightingEffects:", [v41 hasLightingEffects]);
-          -[CUINamedLayerVectorSVGImage setGathersSpecularByElement:](v27, "setGathersSpecularByElement:", [v41 gathersSpecularByElement]);
-          -[CUINamedLayerVectorSVGImage setBlendMode:](v27, "setBlendMode:", [v41 blendMode]);
-          [v41 opacity];
-          [(CUINamedLayerVectorSVGImage *)v27 setOpacity:?];
-          -[CUINamedLayerVectorSVGImage setHasSpecular:](v27, "setHasSpecular:", [v41 hasSpecular]);
-          [v41 translucency];
-          [(CUINamedLayerVectorSVGImage *)v27 setTranslucency:?];
-          [v41 shadowOpacity];
-          [(CUINamedLayerVectorSVGImage *)v27 setShadowOpacity:?];
-          -[CUINamedLayerVectorSVGImage setShadowStyle:](v27, "setShadowStyle:", [v41 shadowStyle]);
-          if (!v27)
+          v22 = [[CUINamedIconLayerGroup alloc] initWithName:v20 usingRenditionKey:v19 fromTheme:theme resolvingWithBlock:block];
+          [v31 blurStrength];
+          [(CUINamedLayerVectorSVGImage *)v22 setBlurStrength:v26];
+          -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v22, "setGradientOrColorName:", [v31 gradientOrColorName]);
+          -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v22, "setHasLightingEffects:", [v31 hasLightingEffects]);
+          -[CUINamedLayerVectorSVGImage setGathersSpecularByElement:](v22, "setGathersSpecularByElement:", [v31 gathersSpecularByElement]);
+          -[CUINamedLayerVectorSVGImage setBlendMode:](v22, "setBlendMode:", [v31 blendMode]);
+          [v31 opacity];
+          [(CUINamedLayerVectorSVGImage *)v22 setOpacity:?];
+          -[CUINamedLayerVectorSVGImage setHasSpecular:](v22, "setHasSpecular:", [v31 hasSpecular]);
+          [v31 translucency];
+          [(CUINamedLayerVectorSVGImage *)v22 setTranslucency:?];
+          [v31 shadowOpacity];
+          [(CUINamedLayerVectorSVGImage *)v22 setShadowOpacity:?];
+          -[CUINamedLayerVectorSVGImage setShadowStyle:](v22, "setShadowStyle:", [v31 shadowStyle]);
+          if (!v22)
           {
             goto LABEL_31;
           }
@@ -254,50 +253,50 @@ LABEL_21:
           goto LABEL_26;
         }
 
-        if (v20 == 1021)
+        if (v21 == 1021)
         {
-          v29 = CUINamedGradient;
+          v24 = CUINamedGradient;
           goto LABEL_21;
         }
 
 LABEL_30:
-        _CUILog(4, "CoreUI: Unable to connect a layer reference '%@' unsupported type to NamedIconLayerStack '%@' layerRef referenceKey '%@'", v21, v22, v23, v24, v25, v26, v19);
+        _CUILog(4, "CoreUI: Unable to connect a layer reference '%@' unsupported type to NamedIconLayerStack '%@' layerRef referenceKey '%@'", v20, layersCopy);
 LABEL_31:
 
         return 0;
       }
 
-      if (v20 >= 6)
+      if (v21 >= 6)
       {
         goto LABEL_30;
       }
 
-      v27 = [[CUINamedLayerImage alloc] initWithName:v19 usingRenditionKey:v18 fromTheme:theme];
-      [v41 frame];
-      [(CUINamedLayerVectorSVGImage *)v27 _setFrame:?];
-      [v41 blurStrength];
-      [(CUINamedLayerVectorSVGImage *)v27 setBlurStrength:v28];
-      -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v27, "setGradientOrColorName:", [v41 gradientOrColorName]);
-      -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v27, "setHasLightingEffects:", [v41 hasLightingEffects]);
-      -[CUINamedLayerVectorSVGImage _setBlendMode:](v27, "_setBlendMode:", [v41 blendMode]);
-      [v41 opacity];
-      [(CUINamedLayerVectorSVGImage *)v27 _setOpacity:?];
-      if (!v27)
+      v22 = [[CUINamedLayerImage alloc] initWithName:v20 usingRenditionKey:v19 fromTheme:theme];
+      [v31 frame];
+      [(CUINamedLayerVectorSVGImage *)v22 _setFrame:?];
+      [v31 blurStrength];
+      [(CUINamedLayerVectorSVGImage *)v22 setBlurStrength:v23];
+      -[CUINamedLayerVectorSVGImage setGradientOrColorName:](v22, "setGradientOrColorName:", [v31 gradientOrColorName]);
+      -[CUINamedLayerVectorSVGImage setHasLightingEffects:](v22, "setHasLightingEffects:", [v31 hasLightingEffects]);
+      -[CUINamedLayerVectorSVGImage _setBlendMode:](v22, "_setBlendMode:", [v31 blendMode]);
+      [v31 opacity];
+      [(CUINamedLayerVectorSVGImage *)v22 _setOpacity:?];
+      if (!v22)
       {
         goto LABEL_31;
       }
 
 LABEL_26:
-      [v10 addObject:v27];
+      [v11 addObject:v22];
     }
 
-    v12 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
-    if (v12)
+    v13 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v13)
     {
       continue;
     }
 
-    return v10;
+    return v11;
   }
 }
 

@@ -57,7 +57,7 @@
 
 - (void)messageEntry:(id)entry didAppearFromTargetWithIdentifier:(id)identifier atTime:(id)time
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   identifierCopy = identifier;
   if (![(IAMImpressionManager *)self _startImpressionForMessageEntry:entryCopy fromTargetWithIdentifier:identifierCopy displayStartTime:time])
@@ -67,20 +67,18 @@
     {
       applicationMessage = [entryCopy applicationMessage];
       identifier = [applicationMessage identifier];
-      v14 = 138543618;
-      v15 = identifier;
-      v16 = 2114;
-      v17 = identifierCopy;
-      _os_log_impl(&dword_254AF4000, v10, OS_LOG_TYPE_DEFAULT, "Appearance has already been reported for message with identifier = %{public}@ from target with identifier = %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = identifier;
+      v15 = 2114;
+      v16 = identifierCopy;
+      _os_log_impl(&dword_254AF4000, v10, OS_LOG_TYPE_DEFAULT, "Appearance has already been reported for message with identifier = %{public}@ from target with identifier = %{public}@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageWithIdentifier:(id)identifier didDisappearFromTargetWithIdentifier:(id)withIdentifier atTime:(id)time
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   withIdentifierCopy = withIdentifier;
   if (![(IAMImpressionManager *)self _endImpressionForMessageWithIdentifier:identifierCopy fromTargetWithIdentifier:withIdentifierCopy displayEndTime:time])
@@ -88,15 +86,13 @@
     v10 = IAMLogCategoryDefault();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
-      v13 = identifierCopy;
-      v14 = 2114;
-      v15 = withIdentifierCopy;
-      _os_log_impl(&dword_254AF4000, v10, OS_LOG_TYPE_DEFAULT, "Appearance of message with identifier = %{public}@ has not previously been reported from target with identifier = %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = identifierCopy;
+      v13 = 2114;
+      v14 = withIdentifierCopy;
+      _os_log_impl(&dword_254AF4000, v10, OS_LOG_TYPE_DEFAULT, "Appearance of message with identifier = %{public}@ has not previously been reported from target with identifier = %{public}@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_startImpressionForMessageEntry:(id)entry fromTargetWithIdentifier:(id)identifier displayStartTime:(id)time
@@ -186,51 +182,51 @@
 
 - (void)_transitionToActiveState
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   os_unfair_lock_lock(&self->_lock);
   self->_isApplicationActive = 1;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_inactiveImpressionForMessageIdentifierFromTargetIdentifier;
-  v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [(NSMutableDictionary *)self->_inactiveImpressionForMessageIdentifierFromTargetIdentifier objectForKeyedSubscript:*(*(&v22 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_inactiveImpressionForMessageIdentifierFromTargetIdentifier objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v7)];
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v18;
           do
           {
             v12 = 0;
             do
             {
-              if (*v19 != v11)
+              if (*v18 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [v8 objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v12)];
+              v13 = [v8 objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v12)];
               [v13 setDisplayStartTime:date];
               [v13 setDisplayEndTime:0];
 
@@ -238,7 +234,7 @@
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v10);
@@ -248,7 +244,7 @@
       }
 
       while (v7 != v5);
-      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
@@ -260,56 +256,55 @@
   self->_inactiveImpressionForMessageIdentifierFromTargetIdentifier = v14;
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToInactiveState
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   os_unfair_lock_lock(&self->_lock);
   self->_isApplicationActive = 0;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_activeImpressionForMessageIdentifierFromTargetIdentifier;
-  v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [(NSMutableDictionary *)self->_activeImpressionForMessageIdentifierFromTargetIdentifier objectForKeyedSubscript:*(*(&v22 + 1) + 8 * v7)];
+        v8 = [(NSMutableDictionary *)self->_activeImpressionForMessageIdentifierFromTargetIdentifier objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v7)];
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v19;
+          v11 = *v18;
           do
           {
             v12 = 0;
             do
             {
-              if (*v19 != v11)
+              if (*v18 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [v8 objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v12)];
+              v13 = [v8 objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v12)];
               [v13 setDisplayEndTime:date];
               [(IAMImpressionManager *)self _reportImpression:v13];
 
@@ -317,7 +312,7 @@
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v10);
@@ -327,7 +322,7 @@
       }
 
       while (v7 != v5);
-      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
@@ -339,12 +334,11 @@
   self->_activeImpressionForMessageIdentifierFromTargetIdentifier = v14;
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportImpression:(id)impression
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   impressionCopy = impression;
   displayStartTime = [impressionCopy displayStartTime];
 
@@ -355,13 +349,13 @@
     {
       messageIdentifier = [impressionCopy messageIdentifier];
       targetIdentifier = [impressionCopy targetIdentifier];
-      v17 = 138543618;
-      v18 = messageIdentifier;
-      v19 = 2114;
-      v20 = targetIdentifier;
+      v16 = 138543618;
+      v17 = messageIdentifier;
+      v18 = 2114;
+      v19 = targetIdentifier;
       v15 = "Impression for message with identifier = %{public}@ from target with identifier = %{public}@ could not be reported without a display start time";
 LABEL_12:
-      _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_ERROR, v15, &v17, 0x16u);
+      _os_log_impl(&dword_254AF4000, v12, OS_LOG_TYPE_ERROR, v15, &v16, 0x16u);
     }
 
 LABEL_13:
@@ -378,10 +372,10 @@ LABEL_13:
     {
       messageIdentifier = [impressionCopy messageIdentifier];
       targetIdentifier = [impressionCopy targetIdentifier];
-      v17 = 138543618;
-      v18 = messageIdentifier;
-      v19 = 2114;
-      v20 = targetIdentifier;
+      v16 = 138543618;
+      v17 = messageIdentifier;
+      v18 = 2114;
+      v19 = targetIdentifier;
       v15 = "Impression for message with identifier = %{public}@ from target with identifier = %{public}@ could not be reported without a display end time";
       goto LABEL_12;
     }
@@ -406,7 +400,6 @@ LABEL_13:
   }
 
 LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportImpressionEventWithDictionary:(id)dictionary

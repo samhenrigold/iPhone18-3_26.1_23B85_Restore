@@ -160,9 +160,9 @@
     [(SBApplicationAppProtectionAssistant *)a2 initWithApplication:?];
   }
 
-  v27.receiver = self;
-  v27.super_class = SBApplicationAppProtectionAssistant;
-  v6 = [(SBApplicationAppProtectionAssistant *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = SBApplicationAppProtectionAssistant;
+  v6 = [(SBApplicationAppProtectionAssistant *)&v28 init];
   if (v6)
   {
     v7 = MEMORY[0x277CEBE80];
@@ -182,21 +182,21 @@
     v16 = NSStringFromClass(v15);
     bundleIdentifier2 = [applicationCopy bundleIdentifier];
     v18 = [v14 stringWithFormat:@"%@: %p - %@", v16, v6, bundleIdentifier2];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __59__SBApplicationAppProtectionAssistant_initWithApplication___block_invoke;
-    v24[3] = &unk_2783AD688;
-    objc_copyWeak(&v25, &location);
-    v19 = [v13 assertionWithIdentifier:v18 stateDidChangeHandler:v24];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __59__SBApplicationAppProtectionAssistant_initWithApplication___block_invoke;
+    v25[3] = &unk_2783AD688;
+    objc_copyWeak(&v26, &location);
+    v19 = [v13 assertionWithIdentifier:v18 stateDidChangeHandler:v25];
     visibilityAssertions = v6->_visibilityAssertions;
     v6->_visibilityAssertions = v19;
 
     v21 = v6->_visibilityAssertions;
-    v22 = SBLogAppProtection();
-    [(BSCompoundAssertion *)v21 setLog:v22];
+    v23 = SBLogAppProtection(v22);
+    [(BSCompoundAssertion *)v21 setLog:v23];
 
     v6->_shouldHide = [(APApplication *)v6->_appProtectionApplication isHidden];
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 
@@ -236,7 +236,7 @@ void __59__SBApplicationAppProtectionAssistant_initWithApplication___block_invok
   {
     shieldCopy = shield;
     self->_shouldShield = shield;
-    v5 = SBLogAppProtection();
+    v5 = SBLogAppProtection(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       succinctDescription = [(SBApplicationAppProtectionAssistant *)self succinctDescription];
@@ -443,7 +443,7 @@ void __55__SBApplicationAppProtectionAssistant_setShouldShield___block_invoke(ui
 - (void)requestUnshielding
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = SBLogAppProtection();
+  v3 = SBLogAppProtection(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     succinctDescription = [(SBApplicationAppProtectionAssistant *)self succinctDescription];
@@ -466,7 +466,7 @@ void __57__SBApplicationAppProtectionAssistant_requestUnshielding__block_invoke(
 {
   v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SBLogAppProtection();
+  v6 = SBLogAppProtection(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) succinctDescription];

@@ -15,28 +15,26 @@
 
 - (NSDictionary)eventProperties
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v11[0] = @"folderData";
+  v11[6] = *MEMORY[0x277D85DE8];
+  v10[0] = @"folderData";
   v2 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[0] = v2;
-  v11[1] = @"folderContentData";
+  v11[0] = v2;
+  v10[1] = @"folderContentData";
   v3 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[1] = v3;
-  v11[2] = @"accountData";
+  v11[1] = v3;
+  v10[2] = @"accountData";
   v4 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[2] = v4;
-  v11[3] = @"privateUserData";
+  v11[2] = v4;
+  v10[3] = @"privateUserData";
   v5 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[3] = v5;
-  v11[4] = @"privateEventData";
+  v11[3] = v5;
+  v10[4] = @"privateEventData";
   v6 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[4] = v6;
-  v11[5] = @"eventData";
+  v11[4] = v6;
+  v10[5] = @"eventData";
   v7 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v12[5] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[5] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:6];
 
   return v8;
 }

@@ -104,7 +104,7 @@
 
   v6 = sub_214FF3B2C(v8);
 
-  sub_214F302D4(v8, &qword_27CA42178);
+  sub_214F302D4(v8, &qword_27CA42178, &qword_2150C6010);
   return v6 & 1;
 }
 
@@ -151,14 +151,14 @@
   v2 = swift_allocObject();
   *(v2 + 16) = 0;
   v3 = v2 | 0x5000000000000000;
-  v4 = type metadata accessor for ICQuery();
-  v5 = objc_allocWithZone(v4);
-  *&v5[OBJC_IVAR___ICQueryObjC_type] = v3;
-  v8.receiver = v5;
-  v8.super_class = v4;
-  v6 = objc_msgSendSuper2(&v8, sel_init);
+  v5 = type metadata accessor for ICQuery(v2, v4);
+  v6 = objc_allocWithZone(v5);
+  *&v6[OBJC_IVAR___ICQueryObjC_type] = v3;
+  v9.receiver = v6;
+  v9.super_class = v5;
+  v7 = objc_msgSendSuper2(&v9, sel_init);
 
-  return v6;
+  return v7;
 }
 
 + (id)objc_queryForPinnedNotes:(BOOL)notes allowsRecentlyDeleted:(BOOL)deleted

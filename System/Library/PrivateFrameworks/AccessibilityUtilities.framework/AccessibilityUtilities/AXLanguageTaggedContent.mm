@@ -775,24 +775,24 @@ LABEL_13:
   return v4;
 }
 
-uint64_t __42__AXLanguageTaggedContent__isNamedEntity___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+uint64_t __42__AXLanguageTaggedContent__isNamedEntity___block_invoke(void *a1, uint64_t a2, _BYTE *a3)
 {
   v5 = NLTaggerCopyTagForCurrentToken();
   v6 = v5;
-  if (++*(*(*(a1 + 40) + 8) + 24) < 2uLL)
+  if (++*(*(a1[5] + 8) + 24) < 2uLL)
   {
     v8 = v5;
     v5 = [v5 isEqualToString:*MEMORY[0x1E69980A0]];
     v6 = v8;
     if (v5 & 1) != 0 || (v5 = [v8 isEqualToString:*MEMORY[0x1E69980A8]], v6 = v8, (v5) || (v5 = objc_msgSend(v8, "isEqualToString:", *MEMORY[0x1E6998098]), v6 = v8, v5))
     {
-      *(*(*(a1 + 48) + 8) + 24) = 1;
+      *(*(a1[6] + 8) + 24) = 1;
     }
   }
 
   else
   {
-    *(*(*(a1 + 48) + 8) + 24) = 0;
+    *(*(a1[6] + 8) + 24) = 0;
     *a3 = 1;
   }
 
@@ -2585,7 +2585,7 @@ LABEL_68:
 LABEL_69:
 }
 
-uint64_t __60__AXLanguageTaggedContent__manuallyProcessContentWithRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__AXLanguageTaggedContent__manuallyProcessContentWithRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 canSpeakString:*(a1 + 32) allowsTransliteration:0];
   if (result)

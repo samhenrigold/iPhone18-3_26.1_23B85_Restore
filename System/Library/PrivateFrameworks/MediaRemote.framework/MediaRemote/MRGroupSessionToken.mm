@@ -25,7 +25,7 @@
 
 + (id)tokenForJoinURLString:(id)string
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = [MEMORY[0x1E695DFF8] URLWithString:stringCopy];
   v5 = v4;
@@ -74,12 +74,12 @@ LABEL_37:
   }
 
   v12 = [objc_alloc(MEMORY[0x1E696AF20]) initWithString:stringCopy];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   queryItems = [v12 queryItems];
-  v14 = [queryItems countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v14 = [queryItems countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (!v14)
   {
 
@@ -98,24 +98,24 @@ LABEL_40:
   }
 
   v15 = v14;
-  v44 = v12;
-  v45 = stringCopy;
+  v43 = v12;
+  v44 = stringCopy;
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = *v49;
+  v18 = *v48;
   do
   {
     v19 = 0;
     do
     {
-      if (*v49 != v18)
+      if (*v48 != v18)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v20 = *(*(&v48 + 1) + 8 * v19);
+      v20 = *(*(&v47 + 1) + 8 * v19);
       name = [v20 name];
       v22 = [name isEqual:@"v"];
 
@@ -130,21 +130,21 @@ LABEL_19:
       }
 
       name2 = [v20 name];
-      v26 = [name2 isEqualToString:@"p"];
+      isEqualToString = objc_msgSend_isEqualToString_(name2);
 
-      if (v26)
+      if (isEqualToString)
       {
         value2 = [v20 value];
         v24 = v16;
         v28 = 1;
 LABEL_18:
-        v47 = v28;
+        v46 = v28;
         v16 = value2;
         goto LABEL_19;
       }
 
       name3 = [v20 name];
-      v30 = [name3 isEqualToString:@"d"];
+      v30 = objc_msgSend_isEqualToString_(name3);
 
       if (v30)
       {
@@ -155,7 +155,7 @@ LABEL_18:
       }
 
       name4 = [v20 name];
-      v32 = [name4 isEqualToString:@"h"];
+      v32 = objc_msgSend_isEqualToString_(name4);
 
       if (v32)
       {
@@ -165,8 +165,8 @@ LABEL_18:
         if (supportGroupSessionHome)
         {
           value3 = [v20 value];
-          v24 = v46;
-          v46 = value3;
+          v24 = v45;
+          v45 = value3;
           goto LABEL_19;
         }
       }
@@ -176,7 +176,7 @@ LABEL_20:
     }
 
     while (v15 != v19);
-    v36 = [queryItems countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v36 = [queryItems countByEnumeratingWithState:&v47 objects:v51 count:16];
     v15 = v36;
   }
 
@@ -184,15 +184,15 @@ LABEL_20:
 
   if (!v16)
   {
-    stringCopy = v45;
-    v12 = v44;
-    v38 = v46;
+    stringCopy = v44;
+    v12 = v43;
+    v38 = v45;
     goto LABEL_40;
   }
 
   v37 = [MEMORY[0x1E695DEF0] tu_dataForURLSafeBase64EncodedString:v16];
-  stringCopy = v45;
-  v38 = v46;
+  stringCopy = v44;
+  v38 = v45;
   if (!v37)
   {
     v39 = _MRLogForCategory(0xCuLL);
@@ -204,7 +204,7 @@ LABEL_20:
     goto LABEL_51;
   }
 
-  if (v47 == 2)
+  if (v46 == 2)
   {
     v39 = [[MRDiscoveredGroupSession alloc] initWithData:v37];
     v40 = [[MRGroupSessionToken alloc] initWithDiscoveredSession:v39];
@@ -213,12 +213,12 @@ LABEL_46:
     goto LABEL_52;
   }
 
-  if (v47 == 1)
+  if (v46 == 1)
   {
     v39 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v17, "intValue")}];
     if (v17 && ([&unk_1F1577638 containsObject:v39] & 1) != 0)
     {
-      v40 = MRGroupSessionTokenCreateWithInvitationData(v37, v46, v39);
+      v40 = MRGroupSessionTokenCreateWithInvitationData(v37, v45, v39);
       goto LABEL_46;
     }
 
@@ -238,13 +238,11 @@ LABEL_52:
     v7 = 0;
   }
 
-  v12 = v44;
+  v12 = v43;
 LABEL_54:
 
 LABEL_55:
 LABEL_56:
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -358,21 +356,21 @@ LABEL_56:
 
 - (MRGroupSessionToken)initWithData:(id)data
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = MSVPropertyListDataClasses();
   v6 = [v5 mutableCopy];
 
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v14[2] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v13[2] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   [v6 addObjectsFromArray:v7];
 
-  v13 = 0;
-  v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v6 fromData:dataCopy error:&v13];
+  v12 = 0;
+  v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v6 fromData:dataCopy error:&v12];
 
-  v9 = v13;
+  v9 = v12;
   if (v9)
   {
     v10 = _MRLogForCategory(0xCuLL);
@@ -382,7 +380,6 @@ LABEL_56:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -742,53 +739,11 @@ LABEL_11:
   return v6;
 }
 
-+ (void)tokenForJoinURLString:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] [tokenForJoinURLString] URL doesn't have group session host domain: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)tokenForJoinURLString:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] [tokenForJoinURLString] URL isn't group session join: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)tokenForJoinURLString:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] [tokenForJoinURLString] Unexpected URL version: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)tokenForJoinURLString:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_14();
   OUTLINED_FUNCTION_1_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)tokenForJoinURLString:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] [tokenForJoinURLString] No payload encoded in URL: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] Failed to decode MRGroupSessionToken: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

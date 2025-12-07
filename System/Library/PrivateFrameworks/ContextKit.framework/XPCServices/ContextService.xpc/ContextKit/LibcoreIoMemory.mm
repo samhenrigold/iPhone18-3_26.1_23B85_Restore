@@ -25,7 +25,7 @@
   result = *long;
   if (boolean)
   {
-    return JavaLangLong_reverseBytesWithLong_(result);
+    return JavaLangLong_reverseBytesWithLong_(result, a2);
   }
 
   return result;
@@ -36,7 +36,7 @@
   v4 = *long;
   if (boolean)
   {
-    LOWORD(v4) = JavaLangShort_reverseBytesWithShort_(v4);
+    LOWORD(v4) = JavaLangShort_reverseBytesWithShort_(v4, a2);
   }
 
   return v4;
@@ -58,7 +58,7 @@
   withLongCopy = withLong;
   if (boolean)
   {
-    withLongCopy = JavaLangLong_reverseBytesWithLong_(withLong);
+    withLongCopy = JavaLangLong_reverseBytesWithLong_(withLong, a2);
   }
 
   *long = withLongCopy;
@@ -69,7 +69,7 @@
   shortCopy = short;
   if (boolean)
   {
-    shortCopy = JavaLangShort_reverseBytesWithShort_(short);
+    shortCopy = JavaLangShort_reverseBytesWithShort_(short, a2);
   }
 
   *long = shortCopy;

@@ -6,7 +6,7 @@
 
 - (BOOL)improveEntry:(id)entry
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = entryCopy;
   if (!entryCopy)
@@ -14,15 +14,15 @@
     v7 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v32 = 136446978;
-      v33 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsCalendarEventImprover.m";
-      v34 = 1024;
-      v35 = 27;
-      v36 = 2082;
-      v37 = "[MapsSuggestionsCalendarEventImprover improveEntry:]";
+      v34 = 136446978;
+      v35 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsCalendarEventImprover.m";
+      v36 = 1024;
+      v37 = 27;
       v38 = 2082;
-      v39 = "nil == (entry)";
-      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", &v32, 0x26u);
+      v39 = "[MapsSuggestionsCalendarEventImprover improveEntry:]";
+      v40 = 2082;
+      v41 = "nil == (entry)";
+      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", &v34, 0x26u);
     }
 
     goto LABEL_8;
@@ -134,31 +134,32 @@ LABEL_26:
   }
 
   v26 = [v5 BOOLeanForKey:@"MapsSuggestionsCalendarIsInvitationKey" is:1];
-  if ([v5 BOOLeanForKey:@"MapsSuggestionsCalendarEventIsRecurringKey" is:1])
+  v27 = [v5 BOOLeanForKey:@"MapsSuggestionsCalendarEventIsRecurringKey" is:1];
+  if (v27)
   {
-    v27 = MapsSuggestionsLocalizedSnoozeInMapsString();
-    [v5 setString:v27 forKey:@"MapsSuggestionsRemovalBehaviorStringForSnooze"];
+    v28 = MapsSuggestionsLocalizedSnoozeInMapsString(v27);
+    [v5 setString:v28 forKey:@"MapsSuggestionsRemovalBehaviorStringForSnooze"];
   }
 
-  v28 = MapsSuggestionsLocalizedHideInMapsString();
-  [v5 setString:v28 forKey:@"MapsSuggestionsRemovalBehaviorStringForHide"];
+  v29 = MapsSuggestionsLocalizedHideInMapsString(v27);
+  [v5 setString:v29 forKey:@"MapsSuggestionsRemovalBehaviorStringForHide"];
 
   if (v26)
   {
-    MapsSuggestionsLocalizedDeclineCalendarEventString();
+    MapsSuggestionsLocalizedDeclineCalendarEventString(v30);
   }
 
   else
   {
-    MapsSuggestionsLocalizedDeleteFromCalendarString();
+    MapsSuggestionsLocalizedDeleteFromCalendarString(v30);
   }
-  v29 = ;
-  [v5 setString:v29 forKey:@"MapsSuggestionsRemovalBehaviorStringForDelete"];
+  v31 = ;
+  [v5 setString:v31 forKey:@"MapsSuggestionsRemovalBehaviorStringForDelete"];
 
   if (GEOConfigGetBOOL())
   {
-    v30 = MapsSuggestionsLocalizedSiriFoundInCalendarString();
-    [v5 setString:v30 forKey:@"MapsSuggestionsSiriFoundLineKey"];
+    v32 = MapsSuggestionsLocalizedSiriFoundInCalendarString();
+    [v5 setString:v32 forKey:@"MapsSuggestionsSiriFoundLineKey"];
   }
 
 LABEL_42:

@@ -53,7 +53,7 @@ LABEL_8:
 
 - (void)_tripleClickSpeakMenuProcessTouch:(id)touch
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   touchCopy = touch;
   v5 = [(AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride *)self _accessibilityValueForKey:@"TripleClickTitle"];
   v6 = [(AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride *)self _accessibilityTripleClickElementHitTest:touchCopy];
@@ -70,8 +70,8 @@ LABEL_8:
     v11 = v10;
     if (v10 && ([v10 isHidden] & 1) == 0)
     {
-      v30 = SBAXLocalizedString(@"selected");
-      v31 = @"__AXStringForVariablesSentinel";
+      v29 = SBAXLocalizedString(@"selected");
+      v30 = @"__AXStringForVariablesSentinel";
       v12 = __AXStringForVariables();
 
       title = v12;
@@ -108,7 +108,7 @@ LABEL_16:
           if (os_log_type_enabled(v25, v26))
           {
             *buf = 138543362;
-            v33 = v28;
+            v32 = v28;
             _os_log_impl(&dword_21FE6B000, v25, v26, "%{public}@", buf, 0xCu);
           }
         }
@@ -120,7 +120,7 @@ LABEL_16:
     }
   }
 
-  if (([v5 isEqualToString:{title, v30, v31}] & 1) == 0)
+  if (([v5 isEqualToString:{title, v29, v30}] & 1) == 0)
   {
     mEMORY[0x277D65370]2 = [MEMORY[0x277D65370] sharedInstance];
     _AXSVoiceOverTouchSpeakingRate();
@@ -143,7 +143,7 @@ LABEL_16:
         if (os_log_type_enabled(v17, v18))
         {
           *buf = 138543362;
-          v33 = v20;
+          v32 = v20;
           _os_log_impl(&dword_21FE6B000, v17, v18, "%{public}@", buf, 0xCu);
         }
       }
@@ -151,8 +151,6 @@ LABEL_16:
   }
 
 LABEL_23:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processEventForVOSpeakage:(id)speakage
@@ -186,37 +184,37 @@ LABEL_23:
 
 - (void)sendEvent:(id)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   accessibilityIdentifier = [(AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride *)self accessibilityIdentifier];
   v6 = [accessibilityIdentifier isEqualToString:@"TripleClickAskWindow"];
 
   if (v6 && ![eventCopy type])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v15 = eventCopy;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v14 = eventCopy;
     allTouches = [eventCopy allTouches];
-    v8 = [allTouches countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [allTouches countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (!v8)
     {
       goto LABEL_18;
     }
 
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(allTouches);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if (![v12 phase] || objc_msgSend(v12, "phase") == 1)
         {
           v13 = _AXSTripleClickCopyOptions();
@@ -240,22 +238,20 @@ LABEL_15:
         }
       }
 
-      v9 = [allTouches countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [allTouches countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (!v9)
       {
 LABEL_18:
 
-        eventCopy = v15;
+        eventCopy = v14;
         break;
       }
     }
   }
 
-  v16.receiver = self;
-  v16.super_class = AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride;
-  [(AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride *)&v16 sendEvent:eventCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride;
+  [(AX_AX_SBSecureMainScreenActiveInterfaceOrientationWindowOverride *)&v15 sendEvent:eventCopy];
 }
 
 @end

@@ -78,7 +78,7 @@
 
 - (void)selectSubscription:(id)subscription withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   completionCopy = completion;
   if (completionCopy)
@@ -90,19 +90,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = subscriptionCopy;
+        v30 = subscriptionCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Selecting subscription with completion {subscription: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADB200;
-      v27[3] = &unk_1E74424F0;
-      v28 = subscriptionCopy;
-      v29 = completionCopy;
-      sub_195ADAF28(v27, v29);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADB200;
+      v26[3] = &unk_1E74424F0;
+      v27 = subscriptionCopy;
+      v28 = completionCopy;
+      sub_195ADAF28(v26, v28);
 
-      registration2 = v28;
+      registration2 = v27;
     }
 
     else
@@ -113,9 +113,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Subscription info is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Subscription info is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -129,13 +129,11 @@
       sub_195B3CA34(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unselectSubscription:(id)subscription withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   completionCopy = completion;
   if (completionCopy)
@@ -147,19 +145,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = subscriptionCopy;
+        v30 = subscriptionCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Unselecting subscription with completion {subscription: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADB414;
-      v27[3] = &unk_1E74424F0;
-      v28 = subscriptionCopy;
-      v29 = completionCopy;
-      sub_195ADAF28(v27, v29);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADB414;
+      v26[3] = &unk_1E74424F0;
+      v27 = subscriptionCopy;
+      v28 = completionCopy;
+      sub_195ADAF28(v26, v28);
 
-      registration2 = v28;
+      registration2 = v27;
     }
 
     else
@@ -170,9 +168,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Subscription info is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Subscription info is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -186,13 +184,11 @@
       sub_195B3CB24(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSelectedSubscriptions:(id)subscriptions withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   completionCopy = completion;
   if (completionCopy)
@@ -204,19 +200,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = subscriptionsCopy;
+        v30 = subscriptionsCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Setting selected subscriptions with completion {subscriptions: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADB628;
-      v27[3] = &unk_1E74424F0;
-      v28 = subscriptionsCopy;
-      v29 = completionCopy;
-      sub_195ADAF28(v27, v29);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADB628;
+      v26[3] = &unk_1E74424F0;
+      v27 = subscriptionsCopy;
+      v28 = completionCopy;
+      sub_195ADAF28(v26, v28);
 
-      registration2 = v28;
+      registration2 = v27;
     }
 
     else
@@ -227,9 +223,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Subscription infos is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Subscription infos is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -243,13 +239,11 @@
       sub_195B3CC14(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeTemporaryPhoneAlias:(id)alias withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   completionCopy = completion;
   if (completionCopy)
@@ -261,19 +255,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = aliasCopy;
+        v30 = aliasCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Removing temporary phone alias with completion {alias: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADB844;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = aliasCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADB844;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = aliasCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      registration2 = v29;
+      registration2 = v28;
     }
 
     else
@@ -284,9 +278,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Alias is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Alias is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -300,13 +294,11 @@
       sub_195B3CD04(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableTemporaryPhoneAlias:(id)alias withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   completionCopy = completion;
   if (completionCopy)
@@ -318,19 +310,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = aliasCopy;
+        v30 = aliasCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Disabling temporary phone alias with completion {alias: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADBB78;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = aliasCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADBB78;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = aliasCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      registration2 = v29;
+      registration2 = v28;
     }
 
     else
@@ -341,9 +333,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Alias is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Alias is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -357,13 +349,11 @@
       sub_195B3CE5C(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableTemporaryPhoneAlias:(id)alias withCompletion:(id)completion
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   completionCopy = completion;
   if (completionCopy)
@@ -375,19 +365,19 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = aliasCopy;
+        v30 = aliasCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Enabling temporary phone alias with completion {alias: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195ADBEAC;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = aliasCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195ADBEAC;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = aliasCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      registration2 = v29;
+      registration2 = v28;
     }
 
     else
@@ -398,9 +388,9 @@
       }
 
       v24 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A278];
-      v33[0] = @"Alias is nil";
-      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A278];
+      v32[0] = @"Alias is nil";
+      registration2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v25 = [v24 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:registration2];
       (*(completionCopy + 2))(completionCopy, 0, v25);
     }
@@ -414,8 +404,6 @@
       sub_195B3CF4C(registration2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestUnselectedTemporaryPhoneAliasesWithError:(id)error
@@ -506,26 +494,26 @@
 
 - (id)selectSubscription:(id)subscription withError:(id *)error
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   if (subscriptionCopy)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = sub_195A007C4;
-    v46 = sub_195A03D88;
-    v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = sub_195A007C4;
-    v40 = sub_195A03D88;
     v41 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = sub_195A007C4;
+    v45 = sub_195A03D88;
+    v46 = 0;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = sub_195A007C4;
+    v39 = sub_195A03D88;
+    v40 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
@@ -533,37 +521,37 @@
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Selecting subscription synchronously", buf, 2u);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADC78C;
-    v26 = &unk_1E7442568;
-    v27 = subscriptionCopy;
-    v28 = &v36;
-    v29 = &v42;
-    v30 = &v32;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v33[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADC78C;
+    v25 = &unk_1E7442568;
+    v26 = subscriptionCopy;
+    v27 = &v35;
+    v28 = &v41;
+    v29 = &v31;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v32[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v43[5];
-      v43[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v42[5];
+      v42[5] = v8;
     }
 
     if (error)
     {
-      v10 = v43[5];
+      v10 = v42[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    error = v37[5];
+    error = v36[5];
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   else
@@ -577,42 +565,40 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v48 = *MEMORY[0x1E696A278];
-      v49[0] = @"Subscription info is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v47 = *MEMORY[0x1E696A278];
+      v48[0] = @"Subscription info is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       error = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (id)unselectSubscription:(id)subscription withError:(id *)error
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   if (subscriptionCopy)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = sub_195A007C4;
-    v46 = sub_195A03D88;
-    v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = sub_195A007C4;
-    v40 = sub_195A03D88;
     v41 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = sub_195A007C4;
+    v45 = sub_195A03D88;
+    v46 = 0;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = sub_195A007C4;
+    v39 = sub_195A03D88;
+    v40 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
@@ -620,37 +606,37 @@
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Unselecting subscription synchronously", buf, 2u);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADCBF8;
-    v26 = &unk_1E7442568;
-    v27 = subscriptionCopy;
-    v28 = &v36;
-    v29 = &v42;
-    v30 = &v32;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v33[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADCBF8;
+    v25 = &unk_1E7442568;
+    v26 = subscriptionCopy;
+    v27 = &v35;
+    v28 = &v41;
+    v29 = &v31;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v32[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v43[5];
-      v43[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v42[5];
+      v42[5] = v8;
     }
 
     if (error)
     {
-      v10 = v43[5];
+      v10 = v42[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    error = v37[5];
+    error = v36[5];
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   else
@@ -664,42 +650,40 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v48 = *MEMORY[0x1E696A278];
-      v49[0] = @"Subscription info is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v47 = *MEMORY[0x1E696A278];
+      v48[0] = @"Subscription info is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       error = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (id)setSelectedSubscriptions:(id)subscriptions withError:(id *)error
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   if (subscriptionsCopy)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x3032000000;
-    v45 = sub_195A007C4;
-    v46 = sub_195A03D88;
-    v47 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = sub_195A007C4;
-    v40 = sub_195A03D88;
     v41 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v42 = &v41;
+    v43 = 0x3032000000;
+    v44 = sub_195A007C4;
+    v45 = sub_195A03D88;
+    v46 = 0;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = sub_195A007C4;
+    v39 = sub_195A03D88;
+    v40 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
@@ -707,37 +691,37 @@
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Setting selected subscriptions synchronously", buf, 2u);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADD064;
-    v26 = &unk_1E7442568;
-    v27 = subscriptionsCopy;
-    v28 = &v36;
-    v29 = &v42;
-    v30 = &v32;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v33[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADD064;
+    v25 = &unk_1E7442568;
+    v26 = subscriptionsCopy;
+    v27 = &v35;
+    v28 = &v41;
+    v29 = &v31;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v32[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v43[5];
-      v43[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v42[5];
+      v42[5] = v8;
     }
 
     if (error)
     {
-      v10 = v43[5];
+      v10 = v42[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    error = v37[5];
+    error = v36[5];
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
   }
 
   else
@@ -751,78 +735,76 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v48 = *MEMORY[0x1E696A278];
-      v49[0] = @"Subscription info is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v47 = *MEMORY[0x1E696A278];
+      v48[0] = @"Subscription info is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       error = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (BOOL)removeTemporaryPhoneAlias:(id)alias withError:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   if (aliasCopy)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
-    v42 = sub_195A007C4;
-    v43 = sub_195A03D88;
-    v44 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
     v38 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = sub_195A007C4;
+    v42 = sub_195A03D88;
+    v43 = 0;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = aliasCopy;
+      v45 = aliasCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Removing temporary phone alias synchronously {alias: %@}", buf, 0xCu);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADD498;
-    v26 = &unk_1E7442568;
-    v27 = aliasCopy;
-    v28 = &v35;
-    v29 = &v39;
-    v30 = &v31;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v32[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADD498;
+    v25 = &unk_1E7442568;
+    v26 = aliasCopy;
+    v27 = &v34;
+    v28 = &v38;
+    v29 = &v30;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v31[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v40[5];
-      v40[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v39[5];
+      v39[5] = v8;
     }
 
     if (error)
     {
-      v10 = v40[5];
+      v10 = v39[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    LOBYTE(error) = *(v36 + 24);
+    LOBYTE(error) = *(v35 + 24);
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
@@ -836,77 +818,76 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v47 = *MEMORY[0x1E696A278];
-      v48[0] = @"Alias is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x1E696A278];
+      v47[0] = @"Alias is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
 - (BOOL)enableTemporaryPhoneAlias:(id)alias withError:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   if (aliasCopy)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
-    v42 = sub_195A007C4;
-    v43 = sub_195A03D88;
-    v44 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
     v38 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = sub_195A007C4;
+    v42 = sub_195A03D88;
+    v43 = 0;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = aliasCopy;
+      v45 = aliasCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Enabling temporary phone alias synchronously {alias: %@}", buf, 0xCu);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADD8C4;
-    v26 = &unk_1E7442568;
-    v27 = aliasCopy;
-    v28 = &v35;
-    v29 = &v39;
-    v30 = &v31;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v32[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADD8C4;
+    v25 = &unk_1E7442568;
+    v26 = aliasCopy;
+    v27 = &v34;
+    v28 = &v38;
+    v29 = &v30;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v31[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v40[5];
-      v40[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v39[5];
+      v39[5] = v8;
     }
 
     if (error)
     {
-      v10 = v40[5];
+      v10 = v39[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    LOBYTE(error) = *(v36 + 24);
+    LOBYTE(error) = *(v35 + 24);
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
@@ -920,77 +901,76 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v47 = *MEMORY[0x1E696A278];
-      v48[0] = @"Alias is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x1E696A278];
+      v47[0] = @"Alias is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
 - (BOOL)disableTemporaryPhoneAlias:(id)alias withError:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   if (aliasCopy)
   {
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
-    v42 = sub_195A007C4;
-    v43 = sub_195A03D88;
-    v44 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
     v38 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = sub_195A007C4;
+    v42 = sub_195A03D88;
+    v43 = 0;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = aliasCopy;
+      v45 = aliasCopy;
       _os_log_impl(&dword_1959FF000, registration, OS_LOG_TYPE_DEFAULT, "Disabling temporary phone alias synchronously {alias: %@}", buf, 0xCu);
     }
 
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_195ADDCF0;
-    v26 = &unk_1E7442568;
-    v27 = aliasCopy;
-    v28 = &v35;
-    v29 = &v39;
-    v30 = &v31;
-    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v23];
-    if ((v32[3] & 1) == 0)
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = sub_195ADDCF0;
+    v25 = &unk_1E7442568;
+    v26 = aliasCopy;
+    v27 = &v34;
+    v28 = &v38;
+    v29 = &v30;
+    [(IDSPhoneSubscriptionSelector *)self _performSyncAction:&v22];
+    if ((v31[3] & 1) == 0)
     {
-      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v23, v24, v25, v26}];
-      v9 = v40[5];
-      v40[5] = v8;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:100 userInfo:{0, v22, v23, v24, v25}];
+      v9 = v39[5];
+      v39[5] = v8;
     }
 
     if (error)
     {
-      v10 = v40[5];
+      v10 = v39[5];
       if (v10)
       {
         *error = v10;
       }
     }
 
-    LOBYTE(error) = *(v36 + 24);
+    LOBYTE(error) = *(v35 + 24);
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
@@ -1004,16 +984,15 @@
     if (error)
     {
       v19 = MEMORY[0x1E696ABC0];
-      v47 = *MEMORY[0x1E696A278];
-      v48[0] = @"Alias is nil";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x1E696A278];
+      v47[0] = @"Alias is nil";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
       *error = [v19 errorWithDomain:@"IDSPhoneSubscriptionSelectorErrorDomain" code:300 userInfo:v20];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 

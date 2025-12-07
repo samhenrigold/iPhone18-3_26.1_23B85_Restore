@@ -2,12 +2,25 @@
 + (ISTransitionApplier)defaultApplier;
 - (void)_applyAlpha:(double)alpha blurRadius:(double)radius toLayer:(id)layer withTransitionOptions:(id)options completion:(id)completion;
 - (void)_applyScale:(double)scale toLayer:(id)layer withTransitionOptions:(id)options completion:(id)completion;
+- (void)animationDidStop:(id)stop finished:(BOOL)finished;
 - (void)applyOutputInfo:(id)info withTransitionOptions:(id)options toPhotoLayer:(id)layer videoLayer:(id)videoLayer completion:(id)completion;
 - (void)applyScale:(double)scale withTransitionOptions:(id)options toPhotoLayer:(id)layer videoLayer:(id)videoLayer completion:(id)completion;
 - (void)setValue:(id)value forKeyPath:(id)path ofLayer:(id)layer withTransitionOptions:(id)options completion:(id)completion;
 @end
 
 @implementation ISTransitionApplier
+
+- (void)animationDidStop:(id)stop finished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v5 = [stop valueForKey:@"ISTransitionApplierAnimationCompletionHandlerKey"];
+  if (v5)
+  {
+    v6 = v5;
+    v5[2](v5, finishedCopy);
+    v5 = v6;
+  }
+}
 
 - (void)setValue:(id)value forKeyPath:(id)path ofLayer:(id)layer withTransitionOptions:(id)options completion:(id)completion
 {

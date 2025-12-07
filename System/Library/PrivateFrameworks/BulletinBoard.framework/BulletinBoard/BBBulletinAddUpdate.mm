@@ -1,4 +1,5 @@
 @interface BBBulletinAddUpdate
++ (id)updateWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldPlayLightsAndSirens:(BOOL)sirens;
 - (BBBulletinAddUpdate)initWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldPlayLightsAndSirens:(BOOL)sirens;
 - (BBBulletinAddUpdate)initWithCoder:(id)coder;
 - (BOOL)isEqual:(id)equal;
@@ -8,6 +9,15 @@
 @end
 
 @implementation BBBulletinAddUpdate
+
++ (id)updateWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldPlayLightsAndSirens:(BOOL)sirens
+{
+  sirensCopy = sirens;
+  bulletinCopy = bulletin;
+  v9 = [[self alloc] initWithBulletin:bulletinCopy feeds:feeds shouldPlayLightsAndSirens:sirensCopy];
+
+  return v9;
+}
 
 - (BBBulletinAddUpdate)initWithBulletin:(id)bulletin feeds:(unint64_t)feeds shouldPlayLightsAndSirens:(BOOL)sirens
 {

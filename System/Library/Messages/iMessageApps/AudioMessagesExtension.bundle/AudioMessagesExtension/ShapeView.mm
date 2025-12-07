@@ -9,7 +9,7 @@
 
 + (Class)layerClass
 {
-  sub_3094C(0, &qword_81BF8);
+  sub_3094C(0, &qword_81BF8, CAShapeLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

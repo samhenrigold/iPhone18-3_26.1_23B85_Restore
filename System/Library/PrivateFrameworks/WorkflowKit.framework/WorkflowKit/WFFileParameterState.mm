@@ -11,7 +11,7 @@
 
 - (void)requestAccessToFileWithContext:(id)context completionHandler:(id)handler
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   value = [(WFVariableSubstitutableParameterState *)self value];
@@ -21,24 +21,22 @@
   {
     variableSource = [contextCopy variableSource];
     fileLocation2 = [value fileLocation];
-    v18[0] = fileLocation2;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __73__WFFileParameterState_requestAccessToFileWithContext_completionHandler___block_invoke;
-    v14[3] = &unk_1E8375A88;
-    v17 = handlerCopy;
-    v15 = contextCopy;
-    v16 = value;
-    [variableSource requestAccessToFileAtLocations:v12 completionHandler:v14];
+    v17[0] = fileLocation2;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__WFFileParameterState_requestAccessToFileWithContext_completionHandler___block_invoke;
+    v13[3] = &unk_1E8375A88;
+    v16 = handlerCopy;
+    v14 = contextCopy;
+    v15 = value;
+    [variableSource requestAccessToFileAtLocations:v12 completionHandler:v13];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __73__WFFileParameterState_requestAccessToFileWithContext_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -236,14 +234,14 @@ void __81__WFFileParameterState_processWithContext_userInputRequiredHandler_valu
 {
   if (a2)
   {
-    v8 = [MEMORY[0x1E6996E20] fileWithURL:a2 options:8];
-    v3 = [v8 fileURL];
+    v7 = [MEMORY[0x1E6996E20] fileWithURL:a2 options:8];
+    v3 = [v7 fileURL];
     v4 = [v3 wf_fileIsDirectory];
 
     if (v4)
     {
       v5 = [*(a1 + 32) variableSource];
-      [v5 captureFileRepresentation:v8];
+      [v5 captureFileRepresentation:v7];
     }
 
     (*(*(a1 + 40) + 16))();
@@ -251,10 +249,9 @@ void __81__WFFileParameterState_processWithContext_userInputRequiredHandler_valu
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 

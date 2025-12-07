@@ -53,7 +53,7 @@ void __36__SPBLEStateMonitor_startMonitoring__block_invoke(uint64_t a1)
 
 - (void)centralManagerDidUpdateState:(id)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   bleState = [(SPBLEStateMonitor *)self bleState];
   if ([stateCopy state] == 5)
@@ -66,17 +66,15 @@ void __36__SPBLEStateMonitor_startMonitoring__block_invoke(uint64_t a1)
     v6 = 2;
   }
 
-  [(SPBLEStateMonitor *)self setBleState:v6];
-  v7 = LogCategory_Unspecified();
+  v7 = LogCategory_Unspecified([(SPBLEStateMonitor *)self setBleState:v6]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     state = [stateCopy state];
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "BluetoothState: %lu", &v9, 0xCu);
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "BluetoothState: %lu", &v8, 0xCu);
   }
 
   [(SPBLEStateMonitor *)self notifyDelegate:bleState];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SPBLEStateMonitorDelegate)delegate

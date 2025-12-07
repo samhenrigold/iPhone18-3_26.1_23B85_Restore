@@ -7,66 +7,66 @@ void sub_265F55B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t SWCPatternStorage::evaluate(SWCPatternStorage *this, NSURLComponents *a2, const SWCFNMatch *a3, audit_token_t *a4)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   if (!a2 || (v6 = this, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v53 = [MEMORY[0x277CCA890] currentHandler];
-    v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"SWCPatternMatchResult SWCPatternStorage::evaluate(NSURLComponents *const __strong, const SWCFNMatch *, const audit_token_t *) const"}];
-    [v53 handleFailureInFunction:v50 file:@"SWCPattern.mm" lineNumber:1503 description:{@"Invalid parameter not satisfying: %@", @"components && [components isKindOfClass:[NSURLComponents class]]"}];
+    v52 = [MEMORY[0x277CCA890] currentHandler];
+    v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"SWCPatternMatchResult SWCPatternStorage::evaluate(NSURLComponents *const __strong, const SWCFNMatch *, const audit_token_t *) const"}];
+    [v52 handleFailureInFunction:v49 file:@"SWCPattern.mm" lineNumber:1503 description:{@"Invalid parameter not satisfying: %@", @"components && [components isKindOfClass:[NSURLComponents class]]"}];
     v6 = this;
   }
 
   context = objc_autoreleasePoolPush();
   cStrings = v6->cStrings;
   v8 = *v6;
-  LOBYTE(v67) = 0;
-  v69 = 0;
+  LOBYTE(v66) = 0;
+  v68 = 0;
   if ((v8 & 2) != 0)
   {
-    v67 = cStrings;
-    v68 = strlen(cStrings);
-    v69 = 1;
-    cStrings += v68 + 1;
+    v66 = cStrings;
+    v67 = strlen(cStrings);
+    v68 = 1;
+    cStrings += v67 + 1;
   }
 
-  LOBYTE(v64) = 0;
-  v66 = 0;
+  LOBYTE(v63) = 0;
+  v65 = 0;
   if ((v8 & 4) != 0)
   {
-    v64 = cStrings;
-    v65 = strlen(cStrings);
-    v66 = 1;
-    cStrings += v65 + 1;
+    v63 = cStrings;
+    v64 = strlen(cStrings);
+    v65 = 1;
+    cStrings += v64 + 1;
   }
 
-  LOBYTE(v61) = 0;
-  v63 = 0;
+  LOBYTE(v60) = 0;
+  v62 = 0;
   v9 = ((v8 >> 3) & 3) - 1;
   if (v9 <= 1)
   {
-    v61 = cStrings;
-    v62 = strlen(cStrings);
-    v63 = 1;
-    cStrings += v62 + 1;
+    v60 = cStrings;
+    v61 = strlen(cStrings);
+    v62 = 1;
+    cStrings += v61 + 1;
   }
 
   if ((v8 & 0x80) != 0)
   {
-    v59[0] = cStrings;
-    v59[1] = strlen(cStrings);
-    v60 = 1;
-    if (!SWCPatternStorage::_CheckEntitlement(a4, v59))
+    v58[0] = cStrings;
+    v58[1] = strlen(cStrings);
+    v59 = 1;
+    if (!SWCPatternStorage::_CheckEntitlement(a4, v58))
     {
-      v87 = "com.apple.private.associated-domains.ignore-required-entitlements";
-      v88 = 65;
-      if (!SWCPatternStorage::_CheckEntitlement(a4, &v87))
+      v86 = "com.apple.private.associated-domains.ignore-required-entitlements";
+      v87 = 65;
+      if (!SWCPatternStorage::_CheckEntitlement(a4, &v86))
       {
         goto LABEL_43;
       }
     }
   }
 
-  v57 = (v8 >> 1) & 0x10;
+  v56 = (v8 >> 1) & 0x10;
   if ((v8 & 2) != 0)
   {
     if ((v8 & 0x40) != 0)
@@ -88,7 +88,7 @@ uint64_t SWCPatternStorage::evaluate(SWCPatternStorage *this, NSURLComponents *a
 
     v13 = v12;
 
-    v56 = SWCPatternStorage::_EvaluateString(v13, &v67, a3, v57, 1);
+    v55 = SWCPatternStorage::_EvaluateString(v13, &v66, a3, v56, 1);
     if ((v8 & 4) == 0)
     {
 LABEL_32:
@@ -98,7 +98,7 @@ LABEL_32:
         goto LABEL_39;
       }
 
-      if (v56)
+      if (v55)
       {
 LABEL_34:
         v20 = this;
@@ -125,7 +125,7 @@ LABEL_34:
           v46 = v48;
 
           v20 = this;
-          v45 = SWCPatternStorage::_EvaluateString(v46, &v61, a3, v57, 0);
+          v45 = SWCPatternStorage::_EvaluateString(v46, &v60, a3, v56, 0);
           goto LABEL_69;
         }
 
@@ -148,42 +148,42 @@ LABEL_34:
             v27 = v22;
           }
 
-          v52 = v27;
+          v51 = v27;
 
-          v82 = 0;
-          v83 = &v82;
-          v84 = 0x2020000000;
-          v85 = 200;
-          v51 = objc_autoreleasePoolPush();
-          v87 = 0;
-          v88 = &v87;
-          v89 = 0x43012000000;
-          v90 = __Block_byref_object_copy_;
-          v91 = __Block_byref_object_dispose_;
-          v92 = &unk_265F70387;
-          v28 = SWCPatternStorage::_ReconstituteQueryJSON(&v61);
+          v81 = 0;
+          v82 = &v81;
+          v83 = 0x2020000000;
+          v84 = 200;
+          v50 = objc_autoreleasePoolPush();
+          v86 = 0;
+          v87 = &v86;
+          v88 = 0x43012000000;
+          v89 = __Block_byref_object_copy_;
+          v90 = __Block_byref_object_dispose_;
+          v91 = &unk_265F70387;
+          v28 = SWCPatternStorage::_ReconstituteQueryJSON(&v60);
           if (v28)
           {
             v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v80 = 0u;
-            v81 = 0u;
-            v78 = 0u;
             v79 = 0u;
-            v30 = v52;
-            v31 = [(__CFString *)v30 countByEnumeratingWithState:&v78 objects:v86 count:16];
+            v80 = 0u;
+            v77 = 0u;
+            v78 = 0u;
+            v30 = v51;
+            v31 = [(__CFString *)v30 countByEnumeratingWithState:&v77 objects:v85 count:16];
             if (v31)
             {
-              v32 = *v79;
+              v32 = *v78;
               do
               {
                 for (i = 0; i != v31; ++i)
                 {
-                  if (*v79 != v32)
+                  if (*v78 != v32)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  v34 = *(*(&v78 + 1) + 8 * i);
+                  v34 = *(*(&v77 + 1) + 8 * i);
                   v35 = [v34 name];
                   v36 = [v34 value];
                   v37 = v36;
@@ -200,12 +200,12 @@ LABEL_34:
                   v39 = v38;
 
                   v40 = [v28 objectForKeyedSubscript:v35];
-                  SWCGetFastUTF8String<1024ul>(v70, v40, (v88 + 48));
+                  SWCGetFastUTF8String<1024ul>(v69, v40, (v87 + 48));
 
-                  if (v71 == 1)
+                  if (v70 == 1)
                   {
-                    v41 = v83[3];
-                    v42 = SWCPatternStorage::_EvaluateString(v39, v70, a3, v57, 0);
+                    v41 = v82[3];
+                    v42 = SWCPatternStorage::_EvaluateString(v39, v69, a3, v56, 0);
                     if (v41 >= v42)
                     {
                       v43 = v42;
@@ -216,40 +216,40 @@ LABEL_34:
                       v43 = v41;
                     }
 
-                    v83[3] = v43;
+                    v82[3] = v43;
                   }
 
                   [v29 addObject:v35];
                 }
 
-                v31 = [(__CFString *)v30 countByEnumeratingWithState:&v78 objects:v86 count:16];
+                v31 = [(__CFString *)v30 countByEnumeratingWithState:&v77 objects:v85 count:16];
               }
 
               while (v31);
             }
 
-            v70[0] = MEMORY[0x277D85DD0];
-            v70[1] = 3221225472;
-            v71 = ___ZN17SWCPatternStorage18_EvaluateQueryJSONEP7NSArrayIP14NSURLQueryItemERKNSt3__117basic_string_viewIcNS5_11char_traitsIcEEEEPK10SWCFNMatchi_block_invoke;
-            v72 = &unk_279BBDE20;
+            v69[0] = MEMORY[0x277D85DD0];
+            v69[1] = 3221225472;
+            v70 = ___ZN17SWCPatternStorage18_EvaluateQueryJSONEP7NSArrayIP14NSURLQueryItemERKNSt3__117basic_string_viewIcNS5_11char_traitsIcEEEEPK10SWCFNMatchi_block_invoke;
+            v71 = &unk_279BBDE20;
             v44 = v29;
-            v73 = v44;
-            v74 = &v87;
-            v75 = &v82;
-            v76 = a3;
-            v77 = v57;
-            [v28 enumerateKeysAndObjectsUsingBlock:v70];
+            v72 = v44;
+            v73 = &v86;
+            v74 = &v81;
+            v75 = a3;
+            v76 = v56;
+            [v28 enumerateKeysAndObjectsUsingBlock:v69];
           }
 
-          _Block_object_dispose(&v87, 8);
-          objc_autoreleasePoolPop(v51);
-          v45 = v83[3];
-          _Block_object_dispose(&v82, 8);
-          v46 = v52;
+          _Block_object_dispose(&v86, 8);
+          objc_autoreleasePoolPop(v50);
+          v45 = v82[3];
+          _Block_object_dispose(&v81, 8);
+          v46 = v51;
           v20 = this;
 LABEL_69:
-          v23 = v56;
-          if (v45 < v56)
+          v23 = v55;
+          if (v45 < v55)
           {
             v23 = v45;
           }
@@ -259,24 +259,23 @@ LABEL_72:
           result = v23;
           if (v23 != 200)
           {
-            goto LABEL_76;
+            return result;
           }
 
           goto LABEL_73;
         }
 
 LABEL_39:
-        v23 = v56;
+        v23 = v55;
         goto LABEL_72;
       }
 
 LABEL_43:
       objc_autoreleasePoolPop(context);
-      result = 0;
-      goto LABEL_76;
+      return 0;
     }
 
-    if (!v56)
+    if (!v55)
     {
       goto LABEL_43;
     }
@@ -301,27 +300,27 @@ LABEL_24:
 
     v17 = v16;
 
-    v18 = SWCPatternStorage::_EvaluateString(v17, &v64, a3, v57, 0);
-    v19 = v56;
-    if (v18 < v56)
+    v18 = SWCPatternStorage::_EvaluateString(v17, &v63, a3, v56, 0);
+    v19 = v55;
+    if (v18 < v55)
     {
       v19 = v18;
     }
 
-    v56 = v19;
+    v55 = v19;
 
     goto LABEL_32;
   }
 
   if ((v8 & 4) != 0)
   {
-    v56 = 200;
+    v55 = 200;
     goto LABEL_24;
   }
 
   if (v9 < 2)
   {
-    v56 = 200;
+    v55 = 200;
     goto LABEL_34;
   }
 
@@ -330,17 +329,13 @@ LABEL_24:
 LABEL_73:
   if (*v20)
   {
-    result = 100;
+    return 100;
   }
 
   else
   {
-    result = 200;
+    return 200;
   }
-
-LABEL_76:
-  v49 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t SWCPatternStorage::getSize(SWCPatternStorage *this)
@@ -498,13 +493,13 @@ id SWCSubstitutionVariable::getNameNoCopy(SWCSubstitutionVariable *this)
 
 uint64_t SWCPatternStorage::_EvaluateString(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v9 = a1;
   if (!v9)
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static SWCPatternMatchResult SWCPatternStorage::_EvaluateString(NSString *__strong, const std::string_view &, const SWCFNMatch *, int, BOOL)"}];
-    [v16 handleFailureInFunction:v17 file:@"SWCPattern.mm" lineNumber:1252 description:{@"Invalid parameter not satisfying: %@", @"component != nil"}];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static SWCPatternMatchResult SWCPatternStorage::_EvaluateString(NSString *__strong, const std::string_view &, const SWCFNMatch *, int, BOOL)"}];
+    [v15 handleFailureInFunction:v16 file:@"SWCPattern.mm" lineNumber:1252 description:{@"Invalid parameter not satisfying: %@", @"component != nil"}];
 
     if (a3)
     {
@@ -512,9 +507,9 @@ uint64_t SWCPatternStorage::_EvaluateString(void *a1, unint64_t a2, uint64_t a3,
     }
 
 LABEL_24:
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static SWCPatternMatchResult SWCPatternStorage::_EvaluateString(NSString *__strong, const std::string_view &, const SWCFNMatch *, int, BOOL)"}];
-    [v18 handleFailureInFunction:v19 file:@"SWCPattern.mm" lineNumber:1253 description:{@"Invalid parameter not satisfying: %@", @"fnmatch != NULL"}];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"static SWCPatternMatchResult SWCPatternStorage::_EvaluateString(NSString *__strong, const std::string_view &, const SWCFNMatch *, int, BOOL)"}];
+    [v17 handleFailureInFunction:v18 file:@"SWCPattern.mm" lineNumber:1253 description:{@"Invalid parameter not satisfying: %@", @"fnmatch != NULL"}];
 
     goto LABEL_3;
   }
@@ -545,17 +540,17 @@ LABEL_3:
     {
       if (*(a3 + 32))
       {
-        v20 = [MEMORY[0x277CCA890] currentHandler];
-        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::execute(const std::string_view &, NSString *const __strong, int) const"}];
-        [v20 handleFailureInFunction:v21 file:@"SWCPattern.mm" lineNumber:2258 description:{@"Entered SWCFNMatch::execute() with non-zero recursion depth (%i).", *(a3 + 32)}];
+        v19 = [MEMORY[0x277CCA890] currentHandler];
+        v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::execute(const std::string_view &, NSString *const __strong, int) const"}];
+        [v19 handleFailureInFunction:v20 file:@"SWCPattern.mm" lineNumber:2258 description:{@"Entered SWCFNMatch::execute() with non-zero recursion depth (%i).", *(a3 + 32)}];
       }
 
-      SWCGetFastUTF8String<1024ul>(v24, v9, v25);
-      if (v24[16] == 1)
+      SWCGetFastUTF8String<1024ul>(v23, v9, v24);
+      if (v23[16] == 1)
       {
         *(a3 + 8) = *a2;
         *a3 = 0;
-        v13 = SWCFNMatch::_execute(a3, a2, v24, a4);
+        v13 = SWCFNMatch::_execute(a3, a2, v23, a4);
       }
 
       else
@@ -565,9 +560,9 @@ LABEL_3:
 
       if (*(a3 + 32))
       {
-        v22 = [MEMORY[0x277CCA890] currentHandler];
-        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::execute(const std::string_view &, NSString *const __strong, int) const"}];
-        [v22 handleFailureInFunction:v23 file:@"SWCPattern.mm" lineNumber:2267 description:{@"Exited SWCFNMatch::execute() with non-zero recursion depth (%i).", *(a3 + 32)}];
+        v21 = [MEMORY[0x277CCA890] currentHandler];
+        v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::execute(const std::string_view &, NSString *const __strong, int) const"}];
+        [v21 handleFailureInFunction:v22 file:@"SWCPattern.mm" lineNumber:2267 description:{@"Exited SWCFNMatch::execute() with non-zero recursion depth (%i).", *(a3 + 32)}];
       }
 
       if (v13)
@@ -592,7 +587,6 @@ LABEL_3:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -639,9 +633,9 @@ id SWCPatternStorage::_ReconstituteQueryJSON(void *a1)
   return v5;
 }
 
-void sub_265F5A320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265F5A320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -718,7 +712,7 @@ void ___ZN17SWCPatternStorage18_EvaluateQueryJSONEP7NSArrayIP14NSURLQueryItemERK
   }
 }
 
-BOOL SWCPatternStorage::_CheckEntitlement(__int128 *a1, const char **a2)
+BOOL SWCPatternStorage::_CheckEntitlement(_OWORD *a1, const char **a2)
 {
   if (qword_280B21750 && (+[_SWCPrefs sharedPrefs](_SWCPrefs, "sharedPrefs"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 isAppleInternal], v4, v5))
   {
@@ -727,22 +721,18 @@ BOOL SWCPatternStorage::_CheckEntitlement(__int128 *a1, const char **a2)
 
   else if (a1)
   {
-    v12 = *a1;
-    v13 = a1[1];
-    v7 = *a2;
     v6 = xpc_copy_entitlement_for_token();
   }
 
   else
   {
-    v8 = *a2;
     v6 = xpc_copy_entitlement_for_self();
   }
 
-  v9 = v6;
-  v10 = v6 && MEMORY[0x266773A10](v6) == MEMORY[0x277D86448] && xpc_BOOL_get_value(v9);
+  v7 = v6;
+  v8 = v6 && MEMORY[0x266773A10](v6) == MEMORY[0x277D86448] && xpc_BOOL_get_value(v7);
 
-  return v10;
+  return v8;
 }
 
 uint64_t std::string_view::find[abi:nn200100](char *__s, uint64_t a2)
@@ -922,20 +912,20 @@ LABEL_20:
 
 uint64_t SWCFNMatch::_execute(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   if (!*a2)
   {
-    v58 = [MEMORY[0x277CCA890] currentHandler];
-    v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
-    [v58 handleFailureInFunction:v59 file:@"SWCPattern.mm" lineNumber:2043 description:{@"Invalid parameter not satisfying: %@", @"pattern.data() != NULL"}];
+    v57 = [MEMORY[0x277CCA890] currentHandler];
+    v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
+    [v57 handleFailureInFunction:v58 file:@"SWCPattern.mm" lineNumber:2043 description:{@"Invalid parameter not satisfying: %@", @"pattern.data() != NULL"}];
   }
 
   v7 = *a3;
   if (!*a3)
   {
-    v60 = [MEMORY[0x277CCA890] currentHandler];
-    v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
-    [v60 handleFailureInFunction:v61 file:@"SWCPattern.mm" lineNumber:2044 description:{@"Invalid parameter not satisfying: %@", @"string.data() != NULL"}];
+    v59 = [MEMORY[0x277CCA890] currentHandler];
+    v60 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
+    [v59 handleFailureInFunction:v60 file:@"SWCPattern.mm" lineNumber:2044 description:{@"Invalid parameter not satisfying: %@", @"string.data() != NULL"}];
 
     v7 = *a3;
   }
@@ -945,16 +935,16 @@ uint64_t SWCFNMatch::_execute(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t 
   v10 = *(a3 + 8);
   if (*(*a2 + v9))
   {
-    v62 = [MEMORY[0x277CCA890] currentHandler];
-    v63 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
-    [v62 handleFailureInFunction:v63 file:@"SWCPattern.mm" lineNumber:2052 description:{@"Invalid parameter not satisfying: %@", @"*pEnd == '\\0'"}];
+    v61 = [MEMORY[0x277CCA890] currentHandler];
+    v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
+    [v61 handleFailureInFunction:v62 file:@"SWCPattern.mm" lineNumber:2052 description:{@"Invalid parameter not satisfying: %@", @"*pEnd == '\\0'"}];
   }
 
   if (v7[v10])
   {
-    v64 = [MEMORY[0x277CCA890] currentHandler];
-    v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
-    [v64 handleFailureInFunction:v65 file:@"SWCPattern.mm" lineNumber:2053 description:{@"Invalid parameter not satisfying: %@", @"*sEnd == '\\0'"}];
+    v63 = [MEMORY[0x277CCA890] currentHandler];
+    v64 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL SWCFNMatch::_execute(const std::string_view &, const std::string_view &, int) const"}];
+    [v63 handleFailureInFunction:v64 file:@"SWCPattern.mm" lineNumber:2053 description:{@"Invalid parameter not satisfying: %@", @"*sEnd == '\\0'"}];
   }
 
   if (a1->i8[0])
@@ -964,18 +954,18 @@ uint64_t SWCFNMatch::_execute(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t 
 
   if (a1[4].i32[0] >= 65)
   {
-    v66 = getLog();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+    v65 = getLog();
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
     {
-      v67 = SWCGetNSStringFromStringViewNoCopy(&a1[1]);
+      v66 = SWCGetNSStringFromStringViewNoCopy(&a1[1]);
       LODWORD(s1) = 138412290;
-      *(&s1 + 4) = v67;
-      _os_log_impl(&dword_265F54000, v66, OS_LOG_TYPE_INFO, "Pattern %@ was too complex. Stopping evaluation.", &s1, 0xCu);
+      *(&s1 + 4) = v66;
+      _os_log_impl(&dword_265F54000, v65, OS_LOG_TYPE_INFO, "Pattern %@ was too complex. Stopping evaluation.", &s1, 0xCu);
     }
 
     LOBYTE(v30) = 0;
     a1->i8[0] = 1;
-    goto LABEL_103;
+    return v30 & 1;
   }
 
   v11 = *v8;
@@ -985,7 +975,7 @@ uint64_t SWCFNMatch::_execute(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t 
     {
 LABEL_102:
       LOBYTE(v30) = 0;
-      goto LABEL_103;
+      return v30 & 1;
     }
   }
 
@@ -1036,7 +1026,7 @@ LABEL_102:
             *&s1 = v12;
             *(&s1 + 1) = v26;
             *s2 = v13;
-            v77 = v41;
+            v76 = v41;
             LOBYTE(v30) = SWCFNMatch::_execute(a1, &s1, s2, a4);
             v40 = a1[4].i32[0];
             a1[4].i32[0] = v40 - 1;
@@ -1050,12 +1040,12 @@ LABEL_102:
           }
 
           while (v42);
-          goto LABEL_103;
+          return v30 & 1;
         }
 
 LABEL_57:
         LOBYTE(v30) = 1;
-        goto LABEL_103;
+        return v30 & 1;
     }
 
 LABEL_29:
@@ -1158,13 +1148,13 @@ LABEL_53:
   v30 = strchr(v12 + 2, 41);
   if (!v30)
   {
-    goto LABEL_103;
+    return v30 & 1;
   }
 
   v31 = v30;
   v32 = v30 - v29;
-  v72[0] = v12 + 2;
-  v72[1] = v30 - v29;
+  v71[0] = v12 + 2;
+  v71[1] = v30 - v29;
   *s2 = 0;
   v33 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100]((v12 + 2), v30 - v29);
   v34 = a1[6];
@@ -1200,8 +1190,8 @@ LABEL_81:
     if (a1[10].i8[0] != 1)
     {
       *&s1 = a1;
-      *(&s1 + 1) = v72;
-      v80 = s2;
+      *(&s1 + 1) = v71;
+      v79 = s2;
       v46 = a1[3];
       if (!*&v46 || (SWCEnumerateStructureSequence<SWCSubstitutionVariable,SWCFNMatch::_getVariable(std::string_view const&)::$_0>(*&v46 + 8, &s1), (v47 = *s2) == 0))
       {
@@ -1279,27 +1269,27 @@ LABEL_80:
   }
 
 LABEL_88:
-  v70 = v31 + 1;
-  v71 = strlen(v31 + 1);
-  v69[0] = v13;
+  v69 = v31 + 1;
+  v70 = strlen(v31 + 1);
+  v68[0] = v13;
   v50 = strlen(v13);
   LOBYTE(v30) = 0;
-  v69[1] = v50;
-  v75 = a4;
-  v74 = 0;
-  v73 = v71;
-  *&s1 = &v73;
-  *(&s1 + 1) = &v70;
-  v80 = a1;
-  v81 = v69;
-  v82 = &v75;
-  v83 = &v74;
+  v68[1] = v50;
+  v74 = a4;
+  v73 = 0;
+  v72 = v70;
+  *&s1 = &v72;
+  *(&s1 + 1) = &v69;
+  v79 = a1;
+  v80 = v68;
+  v81 = &v74;
+  v82 = &v73;
   v51 = *v47;
   if ((*v47 & 1) == 0)
   {
-    v78 = 0;
+    v77 = 0;
     v52 = strlen(v47 + 1);
-    if ((v51 & 2) == 0 || (*s2 = "", v77 = 0, SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(&s1, s2, &v78), (v78 & 1) == 0))
+    if ((v51 & 2) == 0 || (*s2 = "", v76 = 0, SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(&s1, s2, &v77), (v77 & 1) == 0))
     {
       for (i = &v47[v52 + 2]; *i; i += v55)
       {
@@ -1314,9 +1304,9 @@ LABEL_88:
         }
 
         *s2 = i;
-        v77 = v54;
-        SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(&s1, s2, &v78);
-        if (v78 == 1)
+        v76 = v54;
+        SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(&s1, s2, &v77);
+        if (v77 == 1)
         {
           break;
         }
@@ -1325,11 +1315,9 @@ LABEL_88:
       }
     }
 
-    LOBYTE(v30) = v74;
+    LOBYTE(v30) = v73;
   }
 
-LABEL_103:
-  v56 = *MEMORY[0x277D85DE8];
   return v30 & 1;
 }
 
@@ -1570,22 +1558,22 @@ LABEL_13:
   return (0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ ((0x9DDFEA08EB382D69 * (v3 ^ *a1)) >> 47) ^ (0x9DDFEA08EB382D69 * (v3 ^ *a1)))) ^ ((0x9DDFEA08EB382D69 * (v3 ^ ((0x9DDFEA08EB382D69 * (v3 ^ *a1)) >> 47) ^ (0x9DDFEA08EB382D69 * (v3 ^ *a1)))) >> 47))) ^ v2;
 }
 
-void SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(uint64_t a1, uint64_t a2, _BYTE *a3)
+void SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string_view const&,std::string_view const&,int)const::$_0::operator()(uint64_t **a1, uint64_t a2, _BYTE *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 8);
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   v6 = **a1 + v4;
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v7 = a1[2];
+  v8 = a1[3];
+  v10 = a1[4];
+  v9 = a1[5];
   v11 = v6 + 1;
   if (v6 == -1)
   {
-    v17 = [MEMORY[0x277CCA890] currentHandler];
-    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void SWCWithFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 128UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/EmbeddedSharedWebCredentials/Sources/SWCPattern.mm:2001:65)]"}];
-    [v17 handleFailureInFunction:v18 file:@"SWCLogging.h" lineNumber:157 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void SWCWithFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 128UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/EmbeddedSharedWebCredentials/Sources/SWCPattern.mm:2001:65)]"}];
+    [v16 handleFailureInFunction:v17 file:@"SWCLogging.h" lineNumber:157 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
 
     v12 = *(a2 + 8);
   }
@@ -1610,19 +1598,19 @@ void SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string
     memmove(__dst, *a2, v12);
   }
 
-  v13 = *(v5 + 8);
+  v13 = v5[1];
   if (v13)
   {
     memmove(__dst + v4, *v5, v13);
   }
 
-  *v23 = __dst;
-  v24 = v6;
+  *v22 = __dst;
+  v23 = v6;
   if (std::string_view::find[abi:nn200100](__dst, v6) >= v12)
   {
-    ++*(v7 + 32);
-    v15 = SWCFNMatch::_execute(v7, v23, v8, *v10);
-    --*(v7 + 32);
+    ++v7[4].i32[0];
+    v15 = SWCFNMatch::_execute(v7, v22, v8, *v10);
+    --v7[4].i32[0];
     if (v15)
     {
       *v9 = 1;
@@ -1641,12 +1629,10 @@ void SWCFNMatch::_tryMatchingVariable(SWCSubstitutionVariable const*,std::string
     if (os_log_type_enabled(qword_280B217F0, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = __dst;
+      v21 = __dst;
       _os_log_impl(&dword_265F54000, v14, OS_LOG_TYPE_INFO, "Substitution variable value composed to another substitution variable: %s. Rejecting.", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<std::string_view,SWCSubstitutionVariable const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,SWCSubstitutionVariable const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,SWCSubstitutionVariable const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,SWCSubstitutionVariable const*>>>::~__hash_table(uint64_t a1)
@@ -1674,7 +1660,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string_view,SWCSubstituti
   return a1;
 }
 
-void sub_265F5C258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_265F5C258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1689,7 +1675,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_265F5CB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_265F5CB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1711,7 +1697,7 @@ void sub_265F5D994(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_265F5DD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_265F5DD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1719,7 +1705,7 @@ void sub_265F5DD0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_265F5DFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_265F5DFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1917,11 +1903,12 @@ LABEL_16:
   }
 }
 
-void logApprovalState(__sFILE *a1, void *a2, unsigned int a3)
+void logApprovalState(__sFILE *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v8 = a2;
-  v5 = _SWCServiceApprovalStateGetDebugDescription(a3);
-  if (a3 == 2)
+  v5 = _SWCServiceApprovalStateGetDebugDescription(v3);
+  if (v3 == 2)
   {
     v6 = 160;
   }
@@ -1931,7 +1918,7 @@ void logApprovalState(__sFILE *a1, void *a2, unsigned int a3)
     v6 = 8;
   }
 
-  if (a3 == 1)
+  if (v3 == 1)
   {
     v7 = 42;
   }
@@ -2068,23 +2055,14 @@ BOOL _SWCGetAuditTokenForSelf(_OWORD *a1)
   return v2 == 0;
 }
 
-BOOL _SWCCanAuditTokenConnect(__int128 *a1)
-{
-  v1 = *MEMORY[0x277D861D8];
-  v3 = *a1;
-  v4 = a1[1];
-  [@"com.apple.SharedWebCredentials" UTF8String];
-  return sandbox_check_by_audit_token() == 0;
-}
-
 uint64_t _SWCIsAuditTokenEntitled(_OWORD *a1, int a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = a1[1];
-  *v31.val = *a1;
-  *&v31.val[4] = v5;
-  v6 = audit_token_to_pid(&v31);
+  *v29.val = *a1;
+  *&v29.val[4] = v5;
+  v6 = audit_token_to_pid(&v29);
   if (qword_280B21908 != -1)
   {
     dispatch_once(&qword_280B21908, &__block_literal_global_101);
@@ -2093,9 +2071,9 @@ uint64_t _SWCIsAuditTokenEntitled(_OWORD *a1, int a2)
   v7 = qword_280B21900;
   if (os_log_type_enabled(qword_280B21900, OS_LOG_TYPE_DEBUG))
   {
-    v31.val[0] = 134217984;
-    *&v31.val[1] = v6;
-    _os_log_debug_impl(&dword_265F54000, v7, OS_LOG_TYPE_DEBUG, "Checking connection from %llu for various SWC-tracked entitlements", &v31, 0xCu);
+    v29.val[0] = 134217984;
+    *&v29.val[1] = v6;
+    _os_log_debug_impl(&dword_265F54000, v7, OS_LOG_TYPE_DEBUG, "Checking connection from %llu for various SWC-tracked entitlements", &v29, 0xCu);
   }
 
   if (qword_280B21760 && (+[_SWCPrefs sharedPrefs](_SWCPrefs, "sharedPrefs"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 isAppleInternal], v8, v9))
@@ -2108,11 +2086,11 @@ uint64_t _SWCIsAuditTokenEntitled(_OWORD *a1, int a2)
     v10 = qword_280B21900;
     if (os_log_type_enabled(qword_280B21900, OS_LOG_TYPE_DEFAULT))
     {
-      v31.val[0] = 134218242;
-      *&v31.val[1] = v6;
-      LOWORD(v31.val[3]) = 2114;
-      *(&v31.val[3] + 2) = qword_280B21760;
-      _os_log_impl(&dword_265F54000, v10, OS_LOG_TYPE_DEFAULT, "Using artificially-enforced entitlements for %llu: %{public}@", &v31, 0x16u);
+      v29.val[0] = 134218242;
+      *&v29.val[1] = v6;
+      LOWORD(v29.val[3]) = 2114;
+      *(&v29.val[3] + 2) = qword_280B21760;
+      _os_log_impl(&dword_265F54000, v10, OS_LOG_TYPE_DEFAULT, "Using artificially-enforced entitlements for %llu: %{public}@", &v29, 0x16u);
     }
 
     v11 = qword_280B21760;
@@ -2131,14 +2109,13 @@ uint64_t _SWCIsAuditTokenEntitled(_OWORD *a1, int a2)
         dispatch_once(&qword_280B21918, &__block_literal_global_104);
       }
 
-      *v31.val = 0;
-      v16 = *MEMORY[0x277CBECE8];
+      *v29.val = 0;
       Filtered = _CFPropertyListCreateFiltered();
-      v18 = *v31.val;
-      if (Filtered && (v19 = _NSIsNSDictionary(), v18 = *v31.val, v19))
+      v17 = *v29.val;
+      if (Filtered && (v18 = _NSIsNSDictionary(), v17 = *v29.val, v18))
       {
-        v18 = *v31.val;
-        v11 = v18;
+        v17 = *v29.val;
+        v11 = v17;
       }
 
       else
@@ -2155,44 +2132,44 @@ uint64_t _SWCIsAuditTokenEntitled(_OWORD *a1, int a2)
 
   if (v11)
   {
-    v20 = [v11 objectForKeyedSubscript:@"com.apple.private.associated-domains"];
-    v21 = [v20 isEqual:MEMORY[0x277CBEC38]];
+    v19 = [v11 objectForKeyedSubscript:@"com.apple.private.associated-domains"];
+    v20 = [v19 isEqual:MEMORY[0x277CBEC38]];
 
-    if (((v21 | a2) & 1) == 0)
+    if (((v20 | a2) & 1) == 0)
     {
-      v22 = [v11 objectForKeyedSubscript:@"com.apple.private.canGetAppLinkInfo"];
-      LOBYTE(v21) = [v22 isEqual:MEMORY[0x277CBEC38]];
+      v21 = [v11 objectForKeyedSubscript:@"com.apple.private.canGetAppLinkInfo"];
+      LOBYTE(v20) = [v21 isEqual:MEMORY[0x277CBEC38]];
     }
 
-    if (v21 & 1) != 0 || ([v11 objectForKeyedSubscript:@"com.apple.private.canModifyAppLinkPermissions"], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "isEqual:", MEMORY[0x277CBEC38]), v23, (v24))
+    if (v20 & 1) != 0 || ([v11 objectForKeyedSubscript:@"com.apple.private.canModifyAppLinkPermissions"], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqual:", MEMORY[0x277CBEC38]), v22, (v23))
     {
-      v25 = 1;
+      v24 = 1;
 LABEL_36:
       if (qword_280B21908 != -1)
       {
         dispatch_once(&qword_280B21908, &__block_literal_global_101);
       }
 
-      v27 = qword_280B21900;
+      v26 = qword_280B21900;
       if (os_log_type_enabled(qword_280B21900, OS_LOG_TYPE_DEBUG))
       {
-        v31.val[0] = 134218498;
-        *&v31.val[1] = v6;
+        v29.val[0] = 134218498;
+        *&v29.val[1] = v6;
         if (a2)
         {
-          v30 = "read-write";
+          v28 = "read-write";
         }
 
         else
         {
-          v30 = "read-only";
+          v28 = "read-only";
         }
 
-        LOWORD(v31.val[3]) = 2082;
-        *(&v31.val[3] + 2) = v30;
-        HIWORD(v31.val[5]) = 1024;
-        v31.val[6] = v25;
-        _os_log_debug_impl(&dword_265F54000, v27, OS_LOG_TYPE_DEBUG, "Connection from %llu entitled for %{public}s access? %{BOOL}i", &v31, 0x1Cu);
+        LOWORD(v29.val[3]) = 2082;
+        *(&v29.val[3] + 2) = v28;
+        HIWORD(v29.val[5]) = 1024;
+        v29.val[6] = v24;
+        _os_log_debug_impl(&dword_265F54000, v26, OS_LOG_TYPE_DEBUG, "Connection from %llu entitled for %{public}s access? %{BOOL}i", &v29, 0x1Cu);
       }
 
       goto LABEL_39;
@@ -2201,7 +2178,7 @@ LABEL_36:
 
   if (qword_280B21760 || v6 != getpid())
   {
-    v25 = 0;
+    v24 = 0;
     goto LABEL_36;
   }
 
@@ -2210,20 +2187,19 @@ LABEL_36:
     dispatch_once(&qword_280B21908, &__block_literal_global_101);
   }
 
-  v26 = qword_280B21900;
+  v25 = qword_280B21900;
   if (os_log_type_enabled(qword_280B21900, OS_LOG_TYPE_DEBUG))
   {
-    v31.val[0] = 134217984;
-    *&v31.val[1] = v6;
-    _os_log_debug_impl(&dword_265F54000, v26, OS_LOG_TYPE_DEBUG, "Treating connection from self (%llu) as entitled", &v31, 0xCu);
+    v29.val[0] = 134217984;
+    *&v29.val[1] = v6;
+    _os_log_debug_impl(&dword_265F54000, v25, OS_LOG_TYPE_DEBUG, "Treating connection from self (%llu) as entitled", &v29, 0xCu);
   }
 
-  v25 = 1;
+  v24 = 1;
 LABEL_39:
 
   objc_autoreleasePoolPop(v4);
-  v28 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v24;
 }
 
 void ___ZL6getLogv_block_invoke_3()
@@ -2300,21 +2276,19 @@ void *_SWCServiceTypeCanonicalize(void *a1)
 
 void ___ZL28_SWCServiceTypeGetCanonicalsv_block_invoke()
 {
-  v5[7] = *MEMORY[0x277D85DE8];
+  v4[7] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v5[0] = @"activitycontinuation";
-  v5[1] = @"applinks";
-  v5[2] = @"webcredentials";
-  v5[3] = @"messagefilter";
-  v5[4] = @"classificationreport";
-  v5[5] = @"authsrv";
-  v5[6] = @"appclips";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
+  v4[0] = @"activitycontinuation";
+  v4[1] = @"applinks";
+  v4[2] = @"webcredentials";
+  v4[3] = @"messagefilter";
+  v4[4] = @"classificationreport";
+  v4[5] = @"authsrv";
+  v4[6] = @"appclips";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:7];
   v2 = [v0 initWithArray:v1];
   v3 = _MergedGlobals_4;
   _MergedGlobals_4 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 id _SWCGetBundle()
@@ -2329,7 +2303,7 @@ id _SWCGetBundle()
   return v1;
 }
 
-void sub_265F65350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_265F65350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -2344,15 +2318,15 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_265F6618C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265F6618C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_265F6660C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
+void sub_265F6660C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -2367,7 +2341,7 @@ void sub_265F66898(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_265F66CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_265F66CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2422,24 +2396,22 @@ _DWORD *_SWCForceTTY()
 
 uint64_t _SWCLogSeparator(FILE *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 0;
   *&v2 = 0x2D2D2D2D2D2D2D2DLL;
   *(&v2 + 1) = 0x2D2D2D2D2D2D2D2DLL;
-  v5[0] = v2;
-  v5[1] = v2;
-  v5[2] = v2;
-  v5[3] = v2;
-  v5[4] = v2;
-  fputs(v5, a1);
-  result = fputc(10, a1);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = v2;
+  v4[1] = v2;
+  v4[2] = v2;
+  v4[3] = v2;
+  v4[4] = v2;
+  fputs(v4, a1);
+  return fputc(10, a1);
 }
 
 void _SWCLogHeader(FILE *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   fputc(10, a1);
   IsTTY = _SWCFileIsTTY(a1);
@@ -2455,20 +2427,20 @@ void _SWCLogHeader(FILE *a1, void *a2)
   if (v7 < 0x4E)
   {
     v8 = v7;
-    v14 = 0;
+    v13 = 0;
     *&v9 = 0x3D3D3D3D3D3D3D3DLL;
     *(&v9 + 1) = 0x3D3D3D3D3D3D3D3DLL;
-    v13[0] = v9;
-    v13[1] = v9;
-    v13[2] = v9;
-    v13[3] = v9;
-    v13[4] = v9;
+    v12[0] = v9;
+    v12[1] = v9;
+    v12[2] = v9;
+    v12[3] = v9;
+    v12[4] = v9;
     v10 = 80 - v7;
-    v11 = v13 + ((80 - v7) >> 1);
+    v11 = v12 + ((80 - v7) >> 1);
     *(v11 - 1) = 32;
     memcpy(v11, v6, v8);
-    *(v13 + v8 + (v10 >> 1)) = 32;
-    fputs(v13, a1);
+    *(v12 + v8 + (v10 >> 1)) = 32;
+    fputs(v12, a1);
   }
 
   else
@@ -2482,8 +2454,6 @@ void _SWCLogHeader(FILE *a1, void *a2)
   }
 
   fputc(10, a1);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void logValueForOptionalKey(__sFILE *a1, NSString *a2, objc_object *a3, int a4, int a5, int a6)

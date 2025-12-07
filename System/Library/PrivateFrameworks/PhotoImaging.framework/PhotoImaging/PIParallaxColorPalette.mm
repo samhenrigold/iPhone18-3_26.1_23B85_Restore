@@ -676,9 +676,11 @@ LABEL_20:
 
 uint64_t __51__PIParallaxColorPalette_greenScreenVibrantPalette__block_invoke(uint64_t a1)
 {
-  greenScreenVibrantPalette_palette = [*(a1 + 32) loadPaletteWithName:@"GreenScreenVibrantPalette"];
+  v1 = [*(a1 + 32) loadPaletteWithName:@"GreenScreenVibrantPalette"];
+  v2 = greenScreenVibrantPalette_palette;
+  greenScreenVibrantPalette_palette = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)greenScreenMutedPalette
@@ -700,9 +702,11 @@ uint64_t __51__PIParallaxColorPalette_greenScreenVibrantPalette__block_invoke(ui
 
 uint64_t __49__PIParallaxColorPalette_greenScreenMutedPalette__block_invoke(uint64_t a1)
 {
-  greenScreenMutedPalette_palette = [*(a1 + 32) loadPaletteWithName:@"GreenScreenMutedPalette"];
+  v1 = [*(a1 + 32) loadPaletteWithName:@"GreenScreenMutedPalette"];
+  v2 = greenScreenMutedPalette_palette;
+  greenScreenMutedPalette_palette = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)colorWashDuotonePalette
@@ -724,9 +728,11 @@ uint64_t __49__PIParallaxColorPalette_greenScreenMutedPalette__block_invoke(uint
 
 uint64_t __49__PIParallaxColorPalette_colorWashDuotonePalette__block_invoke(uint64_t a1)
 {
-  colorWashDuotonePalette_palette = [*(a1 + 32) loadPaletteWithName:@"ColorWashDuotonePalette"];
+  v1 = [*(a1 + 32) loadPaletteWithName:@"ColorWashDuotonePalette"];
+  v2 = colorWashDuotonePalette_palette;
+  colorWashDuotonePalette_palette = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)colorWashSinglePalette
@@ -748,9 +754,11 @@ uint64_t __49__PIParallaxColorPalette_colorWashDuotonePalette__block_invoke(uint
 
 uint64_t __48__PIParallaxColorPalette_colorWashSinglePalette__block_invoke(uint64_t a1)
 {
-  colorWashSinglePalette_palette = [*(a1 + 32) loadPaletteWithName:@"ColorWashSinglePalette"];
+  v1 = [*(a1 + 32) loadPaletteWithName:@"ColorWashSinglePalette"];
+  v2 = colorWashSinglePalette_palette;
+  colorWashSinglePalette_palette = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)colorBGPalette
@@ -772,9 +780,11 @@ uint64_t __48__PIParallaxColorPalette_colorWashSinglePalette__block_invoke(uint6
 
 uint64_t __40__PIParallaxColorPalette_colorBGPalette__block_invoke(uint64_t a1)
 {
-  colorBGPalette_palette = [*(a1 + 32) loadPaletteWithName:@"ColorBGPalette"];
+  v1 = [*(a1 + 32) loadPaletteWithName:@"ColorBGPalette"];
+  v2 = colorBGPalette_palette;
+  colorBGPalette_palette = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)_loadColorsFromValues:(id)values mode:(id)mode space:(id)space error:(id *)error

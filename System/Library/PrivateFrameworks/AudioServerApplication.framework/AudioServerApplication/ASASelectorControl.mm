@@ -2,6 +2,7 @@
 - (NSArray)availableItems;
 - (NSArray)currentItems;
 - (id)coreAudioClassName;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)nameForItem:(unsigned int)item;
 - (unsigned)currentItem;
 - (void)setCurrentItem:(unsigned int)item;
@@ -159,6 +160,84 @@
 LABEL_7:
 
   return v3;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v36 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v33.receiver = self;
+  v33.super_class = ASASelectorControl;
+  v7 = [(ASAControl *)&v33 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  [v7 appendFormat:@"%@|    Current Item: %u\n", indentCopy, -[ASASelectorControl currentItem](self, "currentItem")];
+  [v7 appendFormat:@"%@|    Current Items:\n", indentCopy];
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  obj = [(ASASelectorControl *)self currentItems];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = 0;
+    v11 = *v30;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v30 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = *(*(&v29 + 1) + 8 * i);
+        v14 = -[ASASelectorControl nameForItem:](self, "nameForItem:", [v13 unsignedIntValue]);
+        [v7 appendFormat:@"%@|        %u: %u %@\n", indentCopy, v10, objc_msgSend(v13, "unsignedIntValue"), v14];
+        v10 = (v10 + 1);
+      }
+
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+    }
+
+    while (v9);
+  }
+
+  [v7 appendFormat:@"%@|    Available Items:\n", indentCopy];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  obja = [(ASASelectorControl *)self availableItems];
+  v15 = [obja countByEnumeratingWithState:&v25 objects:v34 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = 0;
+    v18 = *v26;
+    do
+    {
+      for (j = 0; j != v16; ++j)
+      {
+        if (*v26 != v18)
+        {
+          objc_enumerationMutation(obja);
+        }
+
+        v20 = *(*(&v25 + 1) + 8 * j);
+        v21 = -[ASASelectorControl nameForItem:](self, "nameForItem:", [v20 unsignedIntValue]);
+        [v7 appendFormat:@"%@|        %u: %u %@\n", indentCopy, v17, objc_msgSend(v20, "unsignedIntValue"), v21];
+        v17 = (v17 + 1);
+      }
+
+      v16 = [obja countByEnumeratingWithState:&v25 objects:v34 count:16];
+    }
+
+    while (v16);
+  }
+
+  return v7;
 }
 
 - (id)coreAudioClassName

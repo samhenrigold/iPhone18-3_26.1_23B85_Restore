@@ -57,7 +57,7 @@
 
 void __26__SPCalculatorQuery_start__block_invoke(uint64_t a1)
 {
-  v27[7] = *MEMORY[0x277D85DE8];
+  v26[7] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 setUsesGroupingSeparator:1];
   [v2 setMaximumIntegerDigits:20];
@@ -65,56 +65,54 @@ void __26__SPCalculatorQuery_start__block_invoke(uint64_t a1)
   [v2 setNumberStyle:1];
   v3 = MEMORY[0x277CBEC38];
   v4 = *MEMORY[0x277CF70E8];
-  v26[0] = *MEMORY[0x277CF70C0];
-  v26[1] = v4;
-  v27[0] = MEMORY[0x277CBEC38];
-  v27[1] = v2;
-  v26[2] = *MEMORY[0x277CF70B0];
+  v25[0] = *MEMORY[0x277CF70C0];
+  v25[1] = v4;
+  v26[0] = MEMORY[0x277CBEC38];
+  v26[1] = v2;
+  v25[2] = *MEMORY[0x277CF70B0];
   v5 = [MEMORY[0x277CCABB0] numberWithBool:enableConversion];
-  v27[2] = v5;
+  v26[2] = v5;
   v6 = *MEMORY[0x277CF70D0];
-  v26[3] = *MEMORY[0x277CF70C8];
-  v26[4] = v6;
-  v27[3] = v3;
-  v27[4] = v3;
+  v25[3] = *MEMORY[0x277CF70C8];
+  v25[4] = v6;
+  v26[3] = v3;
+  v26[4] = v3;
   v7 = *MEMORY[0x277CF70B8];
-  v26[5] = *MEMORY[0x277CF70D8];
-  v26[6] = v7;
-  v27[5] = v3;
-  v27[6] = v3;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v25[5] = *MEMORY[0x277CF70D8];
+  v25[6] = v7;
+  v26[5] = v3;
+  v26[6] = v3;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:7];
 
   v9 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __26__SPCalculatorQuery_start__block_invoke_2;
-  v21[3] = &unk_279CFE010;
-  objc_copyWeak(v24, &location);
-  v20 = *(a1 + 32);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __26__SPCalculatorQuery_start__block_invoke_2;
+  v20[3] = &unk_279CFE010;
+  objc_copyWeak(v23, &location);
+  v19 = *(a1 + 32);
   v10 = *(a1 + 40);
   v11 = *(a1 + 48);
   v12 = *(a1 + 56);
-  v24[1] = *(a1 + 64);
+  v23[1] = *(a1 + 64);
   v13 = v12;
   *&v14 = v11;
   *(&v14 + 1) = v13;
-  v22 = v20;
-  v23 = v14;
-  v15 = MEMORY[0x26D67F7A0](v21);
+  v21 = v19;
+  v22 = v14;
+  v15 = MEMORY[0x26D67F7A0](v20);
   v16 = MEMORY[0x277CF70F0];
   v17 = [*v9 userQueryString];
   v18 = [v16 evaluate:v17 options:v8 resultHandler:v15];
 
-  objc_destroyWeak(v24);
+  objc_destroyWeak(v23);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SPCalculatorQuery_start__block_invoke_2(uint64_t a1, void *a2)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
@@ -151,121 +149,121 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        v17 = [*(a1 + 40) length];
+        v16 = [*(a1 + 40) length];
 
-        if (v17 < 2)
+        if (v16 < 2)
         {
           goto LABEL_7;
         }
 
-        v18 = [v3 unitType];
-        v19 = [v3 conversions];
-        v51 = v10;
-        if ([v19 count])
+        v17 = [v3 unitType];
+        v18 = [v3 conversions];
+        v50 = v10;
+        if ([v18 count])
         {
         }
 
         else
         {
-          v20 = [v3 inputValueAndUnit];
+          v19 = [v3 inputValueAndUnit];
 
-          if (!v20)
+          if (!v19)
           {
-            v22 = 1;
+            v21 = 1;
             goto LABEL_18;
           }
         }
 
-        v21 = objc_opt_new();
-        [v21 setNumberStyle:1];
-        [v21 setUsesGroupingSeparator:1];
-        [v21 setMaximumFractionDigits:2];
-        [v3 setNumberFormatter:v21];
+        v20 = objc_opt_new();
+        [v20 setNumberStyle:1];
+        [v20 setUsesGroupingSeparator:1];
+        [v20 setMaximumFractionDigits:2];
+        [v3 setNumberFormatter:v20];
 
-        v22 = 0;
+        v21 = 0;
 LABEL_18:
-        v23 = objc_opt_new();
-        [v23 beginDictionary];
-        v24 = [v3 formattedExpression];
-        [v23 encodeObject:v24 withKey:@"SSAttributeCalculatorInput"];
+        v22 = objc_opt_new();
+        [v22 beginDictionary];
+        v23 = [v3 formattedExpression];
+        [v22 encodeObject:v23 withKey:@"SSAttributeCalculatorInput"];
 
-        v25 = [v3 formattedResult];
-        v52 = v23;
-        [v23 encodeObject:v25 withKey:@"SSAttributeCalculatorOutput"];
+        v24 = [v3 formattedResult];
+        v51 = v22;
+        [v22 encodeObject:v24 withKey:@"SSAttributeCalculatorOutput"];
 
-        if (v22)
+        if (v21)
+        {
+          v25 = [MEMORY[0x277CCABB0] numberWithBool:1];
+          [v22 encodeObject:v25 withKey:@"SSAttributeIsCalculation"];
+        }
+
+        LODWORD(v47) = v21;
+        if (v17 == 16)
         {
           v26 = [MEMORY[0x277CCABB0] numberWithBool:1];
-          [v23 encodeObject:v26 withKey:@"SSAttributeIsCalculation"];
+          [v22 encodeObject:v26 withKey:@"SSAttributeIsCurrencyConversion"];
         }
 
-        LODWORD(v48) = v22;
-        if (v18 == 16)
+        [v22 endDictionary];
+        v27 = objc_alloc_init(MEMORY[0x277D4BE90]);
+        v28 = [*(a1 + 32) queryContext];
+        v29 = [v28 getTrimmedSearchString];
+        v30 = [@"calculation-" stringByAppendingString:v29];
+        [v27 setIdentifier:v30];
+
+        v31 = [*(a1 + 32) queryContext];
+        [v27 setQueryId:{objc_msgSend(v31, "queryIdent")}];
+
+        [v27 setUserInput:*(a1 + 40)];
+        [v27 setPlacement:3];
+        [v27 setScore:{9, 0}];
+        v32 = [v22 data];
+        v33 = [v32 copy];
+        [v27 setAttributeData:v33];
+
+        [v27 setSectionBundleIdentifier:*MEMORY[0x277D65A10]];
+        v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v35 = v34;
+        if (v48)
         {
-          v27 = [MEMORY[0x277CCABB0] numberWithBool:1];
-          [v23 encodeObject:v27 withKey:@"SSAttributeIsCurrencyConversion"];
-        }
+          v36 = [v34 localizedStringForKey:@"CALCULATION_SECTION_TITLE" value:&stru_287C35638 table:@"SpotlightServices"];
+          [v27 setSectionHeader:v36];
 
-        [v23 endDictionary];
-        v28 = objc_alloc_init(MEMORY[0x277D4BE90]);
-        v29 = [*(a1 + 32) queryContext];
-        v30 = [v29 getTrimmedSearchString];
-        v31 = [@"calculation-" stringByAppendingString:v30];
-        [v28 setIdentifier:v31];
-
-        v32 = [*(a1 + 32) queryContext];
-        [v28 setQueryId:{objc_msgSend(v32, "queryIdent")}];
-
-        [v28 setUserInput:*(a1 + 40)];
-        [v28 setPlacement:3];
-        [v28 setScore:{9, 0}];
-        v33 = [v23 data];
-        v34 = [v33 copy];
-        [v28 setAttributeData:v34];
-
-        [v28 setSectionBundleIdentifier:*MEMORY[0x277D65A10]];
-        v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v36 = v35;
-        if (v49)
-        {
-          v37 = [v35 localizedStringForKey:@"CALCULATION_SECTION_TITLE" value:&stru_287C35638 table:@"SpotlightServices"];
-          [v28 setSectionHeader:v37];
-
-          v38 = SSSetTopHitWithReasonString();
-          v39 = @"com.apple.calculation";
+          v37 = SSSetTopHitWithReasonString();
+          v38 = @"com.apple.calculation";
         }
 
         else
         {
-          v40 = [v35 localizedStringForKey:@"CONVERSION_SECTION_TITLE" value:&stru_287C35638 table:@"SpotlightServices"];
-          [v28 setSectionHeader:v40];
+          v39 = [v34 localizedStringForKey:@"CONVERSION_SECTION_TITLE" value:&stru_287C35638 table:@"SpotlightServices"];
+          [v27 setSectionHeader:v39];
 
-          v38 = SSSetTopHitWithReasonString();
-          v39 = @"com.apple.conversion";
+          v37 = SSSetTopHitWithReasonString();
+          v38 = @"com.apple.conversion";
         }
 
-        [v28 setTopHit:v38];
-        v41 = objc_alloc_init(MEMORY[0x277D65848]);
-        [v41 setBundleIdentifier:v39];
-        v42 = [v28 sectionHeader];
-        [v41 setTitle:v42];
+        [v27 setTopHit:v37];
+        v40 = objc_alloc_init(MEMORY[0x277D65848]);
+        [v40 setBundleIdentifier:v38];
+        v41 = [v27 sectionHeader];
+        [v40 setTitle:v41];
 
-        v54[0] = v28;
-        v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
-        [v41 setResults:v43];
+        v53[0] = v27;
+        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+        [v40 setResults:v42];
 
-        v53 = v41;
-        v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
-        v44 = [objc_alloc(MEMORY[0x277D65860]) initWithQueryID:objc_msgSend(*(a1 + 32) sourceKind:"queryGroupId") sections:{4, v50}];
-        [v44 setTopHitIsIn:1];
-        v45 = [WeakRetained responseHandler];
-        (v45)[2](v45, v44);
+        v52 = v40;
+        v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+        v43 = [objc_alloc(MEMORY[0x277D65860]) initWithQueryID:objc_msgSend(*(a1 + 32) sourceKind:"queryGroupId") sections:{4, v49}];
+        [v43 setTopHitIsIn:1];
+        v44 = [WeakRetained responseHandler];
+        (v44)[2](v44, v43);
 
-        v46 = [objc_alloc(MEMORY[0x277D4C348]) initWithStartSearch:*(a1 + 48)];
-        v47 = [MEMORY[0x277D4BEC0] sharedProxy];
-        [v47 sendFeedbackType:6 feedback:v46 queryId:*(a1 + 72) clientID:*(a1 + 56)];
+        v45 = [objc_alloc(MEMORY[0x277D4C348]) initWithStartSearch:*(a1 + 48)];
+        v46 = [MEMORY[0x277D4BEC0] sharedProxy];
+        [v46 sendFeedbackType:6 feedback:v45 queryId:*(a1 + 72) clientID:*(a1 + 56)];
 
-        v10 = v51;
+        v10 = v50;
         goto LABEL_8;
       }
     }
@@ -282,8 +280,6 @@ LABEL_18:
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

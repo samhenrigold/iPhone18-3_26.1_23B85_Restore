@@ -1020,8 +1020,8 @@ LABEL_17:
   }
 
   session = [(VIOSessionAnalyticsCapturer *)self session];
-  configuration = [session configuration];
-  isVLF = [configuration isVLF];
+  v10 = objc_msgSend_configuration(session);
+  isVLF = [v10 isVLF];
 
   stateManager = [(VIOSessionAnalyticsCapturer *)self stateManager];
   [stateManager removeObserver:self];

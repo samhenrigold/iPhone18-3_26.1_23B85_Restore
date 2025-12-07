@@ -117,7 +117,7 @@
   return v7;
 }
 
-uint64_t __73__ABSQLPredicate_predicateForContactsWithUUIDs_ignoreUnifiedIdentifiers___block_invoke(uint64_t a1, void *a2)
+void *__73__ABSQLPredicate_predicateForContactsWithUUIDs_ignoreUnifiedIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v21 = 0u;
@@ -143,7 +143,7 @@ uint64_t __73__ABSQLPredicate_predicateForContactsWithUUIDs_ignoreUnifiedIdentif
         v9 = *(*(&v21 + 1) + 8 * v8);
         v10 = [a2 stringBinder];
         (*(v10 + 16))(v10, v9);
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -179,7 +179,7 @@ uint64_t __73__ABSQLPredicate_predicateForContactsWithUUIDs_ignoreUnifiedIdentif
           v15 = *(*(&v17 + 1) + 8 * v14);
           v16 = [a2 stringBinder];
           (*(v16 + 16))(v16, v15);
-          ++v14;
+          v14 = v14 + 1;
         }
 
         while (v12 != v14);
@@ -726,7 +726,7 @@ uint64_t __127__ABSQLPredicate_predicateForContactsMatchingPhoneNumber_country_h
   return result;
 }
 
-uint64_t __84__ABSQLPredicate_predicateForContactsMatchingPhoneNumbers_containerIdentifiers_map___block_invoke(void *a1, void *a2)
+void *__84__ABSQLPredicate_predicateForContactsMatchingPhoneNumbers_containerIdentifiers_map___block_invoke(void *a1, void *a2)
 {
   v20 = *MEMORY[0x1E69E9840];
   v4 = a1[4];
@@ -767,7 +767,7 @@ uint64_t __84__ABSQLPredicate_predicateForContactsMatchingPhoneNumbers_container
         v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = [a2 stringBinder];
         (*(v13 + 16))(v13, v12);
-        ++v11;
+        v11 = v11 + 1;
       }
 
       while (v9 != v11);
@@ -1056,21 +1056,21 @@ void *__99__ABSQLPredicate_predicateForContactsMatchingPhoneNumbers_emailAddress
   v11 = ABTokenListCreate();
   ABTokenListPopulateFromString(v11, tokenizer, collator, text, 0, 1, 0);
   array = [MEMORY[0x1E695DF70] array];
-  Count = ABTokenListGetCount(v11);
-  v14 = [@"SELECT rowid from ABPersonFullTextSearch WHERE ABPersonFullTextSearch MATCH " mutableCopy];
-  [v10 setQuery:v14];
+  Count = ABTokenListGetCount(v11, v13);
+  v15 = [@"SELECT rowid from ABPersonFullTextSearch WHERE ABPersonFullTextSearch MATCH " mutableCopy];
+  [v10 setQuery:v15];
 
   if (Count < 1)
   {
     if (onlyCopy)
     {
-      v18 = @"'";
-      [v14 appendString:@"'"];
+      v19 = @"'";
+      [v15 appendString:@"'"];
       goto LABEL_18;
     }
 
 LABEL_17:
-    v18 = @"?";
+    v19 = @"?";
     goto LABEL_18;
   }
 
@@ -1084,56 +1084,56 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  [v14 appendString:@"'"];
-  v20 = onlyCopy;
-  v21 = v10;
+  [v15 appendString:@"'"];
+  v21 = onlyCopy;
+  v22 = v10;
   for (j = 0; j != Count; ++j)
   {
     if (j)
     {
-      [v14 appendString:@" AND "];
+      [v15 appendString:@" AND "];
     }
 
-    objc_msgSend(v14, "appendString:", @"(");
-    v17 = 0;
+    objc_msgSend(v15, "appendString:", @"(");
+    v18 = 0;
     while (1)
     {
       do
       {
-        [v14 appendString:FTSearchNameOnlyProperties[v17]];
-        [v14 appendString:@":' || ? || '"];
-        ++v17;
+        [v15 appendString:FTSearchNameOnlyProperties[v18]];
+        [v15 appendString:@":' || ? || '"];
+        ++v18;
       }
 
-      while (!v17);
-      if (v17 == 15)
+      while (!v18);
+      if (v18 == 15)
       {
         break;
       }
 
-      [v14 appendString:@" OR "];
+      [v15 appendString:@" OR "];
     }
 
-    [v14 appendString:@""]);
+    [v15 appendString:@""]);
   }
 
-  v10 = v21;
-  LOBYTE(onlyCopy) = v20;
-  v18 = @"'";
+  v10 = v22;
+  LOBYTE(onlyCopy) = v21;
+  v19 = @"'";
 LABEL_18:
-  [v14 appendString:v18];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collator_matchNameFieldsOnly___block_invoke;
-  v22[3] = &unk_1E7CCD1A8;
-  v23 = onlyCopy;
-  v22[4] = array;
-  [v10 setBindBlock:v22];
+  [v15 appendString:v19];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collator_matchNameFieldsOnly___block_invoke;
+  v23[3] = &unk_1E7CCD1A8;
+  v24 = onlyCopy;
+  v23[4] = array;
+  [v10 setBindBlock:v23];
   CFRelease(v11);
   return v10;
 }
 
-uint64_t __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collator_matchNameFieldsOnly___block_invoke(uint64_t a1, void *a2)
+void *__90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collator_matchNameFieldsOnly___block_invoke(uint64_t a1, void *a2)
 {
   v29 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40))
@@ -1168,7 +1168,7 @@ uint64_t __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collato
           }
 
           while (v10);
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v8 != v6);
@@ -1224,21 +1224,21 @@ uint64_t __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collato
   v9 = ABTokenListCreate();
   ABTokenListPopulateFromString(v9, tokenizer, collator, string, 0, 1, 0);
   array = [MEMORY[0x1E695DF70] array];
-  Count = ABTokenListGetCount(v9);
-  v12 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:0];
-  v13 = @"ab_cf_tokenizer_sd_match_collect(?, matchinfo(ABPersonSmartDialerFullTextSearch), ?, rowid)";
-  v14 = @"rowid";
-  if (v12)
+  Count = ABTokenListGetCount(v9, v11);
+  v13 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:0];
+  v14 = @"ab_cf_tokenizer_sd_match_collect(?, matchinfo(ABPersonSmartDialerFullTextSearch), ?, rowid)";
+  v15 = @"rowid";
+  if (v13)
   {
-    v14 = @"ab_cf_tokenizer_match_collect(?, matchinfo(ABPersonFullTextSearch), ?, rowid)";
+    v15 = @"ab_cf_tokenizer_match_collect(?, matchinfo(ABPersonFullTextSearch), ?, rowid)";
   }
 
   else
   {
-    v13 = @"rowid";
+    v14 = @"rowid";
   }
 
-  [v8 setQuery:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"SELECT %@ from ABPersonSmartDialerFullTextSearch WHERE ABPersonSmartDialerFullTextSearch MATCH ? UNION SELECT %@ from ABPersonFullTextSearch WHERE ABPersonFullTextSearch.Phone MATCH ? ", v13, v14)}];
+  [v8 setQuery:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"SELECT %@ from ABPersonSmartDialerFullTextSearch WHERE ABPersonSmartDialerFullTextSearch MATCH ? UNION SELECT %@ from ABPersonFullTextSearch WHERE ABPersonFullTextSearch.Phone MATCH ? ", v14, v15)}];
   string = [MEMORY[0x1E696AD60] string];
   if (Count >= 1)
   {
@@ -1250,20 +1250,20 @@ uint64_t __90__ABSQLPredicate_predicateForContactsMatchingText_tokenizer_collato
     }
   }
 
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __83__ABSQLPredicate_predicateForContactsMatchingSmartDialerString_tokenizer_collator___block_invoke;
+  v21[3] = &unk_1E7CCD448;
+  v21[4] = v13;
+  v21[5] = array;
+  v21[6] = string;
+  [v8 setBindBlock:v21];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __83__ABSQLPredicate_predicateForContactsMatchingSmartDialerString_tokenizer_collator___block_invoke;
-  v20[3] = &unk_1E7CCD448;
-  v20[4] = v12;
-  v20[5] = array;
-  v20[6] = string;
-  [v8 setBindBlock:v20];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __83__ABSQLPredicate_predicateForContactsMatchingSmartDialerString_tokenizer_collator___block_invoke_2;
-  v19[3] = &unk_1E7CCD3A0;
-  v19[4] = v12;
-  [v8 setMatchInfoProvider:v19];
+  v20[2] = __83__ABSQLPredicate_predicateForContactsMatchingSmartDialerString_tokenizer_collator___block_invoke_2;
+  v20[3] = &unk_1E7CCD3A0;
+  v20[4] = v13;
+  [v8 setMatchInfoProvider:v20];
   CFRelease(v9);
   return v8;
 }
@@ -1313,7 +1313,7 @@ void *__83__ABSQLPredicate_predicateForContactsMatchingSmartDialerString_tokeniz
   return v5;
 }
 
-uint64_t __56__ABSQLPredicate_predicateForContactsWithExternalUUIDs___block_invoke(uint64_t a1, void *a2)
+void *__56__ABSQLPredicate_predicateForContactsWithExternalUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -1339,7 +1339,7 @@ uint64_t __56__ABSQLPredicate_predicateForContactsWithExternalUUIDs___block_invo
         v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [a2 stringBinder];
         (*(v9 + 16))(v9, v8);
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -1367,7 +1367,7 @@ uint64_t __56__ABSQLPredicate_predicateForContactsWithExternalUUIDs___block_invo
   return v5;
 }
 
-uint64_t __62__ABSQLPredicate_predicateForContactsWithExternalIdentifiers___block_invoke(uint64_t a1, void *a2)
+void *__62__ABSQLPredicate_predicateForContactsWithExternalIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -1393,7 +1393,7 @@ uint64_t __62__ABSQLPredicate_predicateForContactsWithExternalIdentifiers___bloc
         v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [a2 stringBinder];
         (*(v9 + 16))(v9, v8);
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);

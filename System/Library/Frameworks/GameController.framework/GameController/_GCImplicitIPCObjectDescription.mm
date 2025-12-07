@@ -33,18 +33,19 @@
 - (_GCImplicitIPCObjectDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10.receiver = self;
-  v10.super_class = _GCImplicitIPCObjectDescription;
-  v5 = [(_GCImplicitIPCObjectDescription *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = _GCImplicitIPCObjectDescription;
+  v5 = [(_GCImplicitIPCObjectDescription *)&v11 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)materializeWithContext:(id)context

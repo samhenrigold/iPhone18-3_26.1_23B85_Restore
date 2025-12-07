@@ -45,7 +45,7 @@
 
 - (void)_getTrendsFromFinHealthForSummary:(id)summary previousSummary:(id)previousSummary completion:(id)completion
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   previousSummaryCopy = previousSummary;
   completionCopy = completion;
@@ -83,33 +83,33 @@
 
     v16 = v15;
 
-    objc_initWeak(&location, self);
+    inited = objc_initWeak(&location, self);
     searchSuggestionController = self->_searchSuggestionController;
-    v18 = _MergedGlobals_182();
-    v29[0] = v18;
-    v19 = off_1ED6D11A0();
-    v29[1] = v19;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v19 = _MergedGlobals_182(inited);
+    v30[0] = v19;
+    v20 = off_1ED6D11A0();
+    v30[1] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     if (summaryType == 2)
     {
-      v21 = 3;
+      v22 = 3;
     }
 
     else
     {
-      v21 = v12;
+      v22 = v12;
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __90__PKSpendingInsightsFetcher__getTrendsFromFinHealthForSummary_previousSummary_completion___block_invoke;
-    v24[3] = &unk_1E79E49E8;
-    v25 = summaryCopy;
-    objc_copyWeak(&v27, &location);
-    v26 = completionCopy;
-    [(FHSearchSuggestionController *)searchSuggestionController allFeatureInsightsWithStartDate:startDate endDate:v16 insightTypeItems:v20 trendWindow:v21 completion:v24];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __90__PKSpendingInsightsFetcher__getTrendsFromFinHealthForSummary_previousSummary_completion___block_invoke;
+    v25[3] = &unk_1E79E49E8;
+    v26 = summaryCopy;
+    objc_copyWeak(&v28, &location);
+    v27 = completionCopy;
+    [(FHSearchSuggestionController *)searchSuggestionController allFeatureInsightsWithStartDate:startDate endDate:v16 insightTypeItems:v21 trendWindow:v22 completion:v25];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
   }
 }

@@ -1,13 +1,13 @@
 @interface UITableViewUpdateGap
 - (id)description;
+- (id)initWithUpdateItem:(void *)item;
 - (id)updateItems;
-- (uint64_t)initWithUpdateItem:(void *)item;
 - (void)addUpdateItem:(uint64_t)item;
 @end
 
 @implementation UITableViewUpdateGap
 
-- (uint64_t)initWithUpdateItem:(void *)item
+- (id)initWithUpdateItem:(void *)item
 {
   if (!item)
   {

@@ -8,7 +8,7 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v171 = *MEMORY[0x277D85DE8];
+  v173 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_opt_class();
   v6 = contextCopy;
@@ -33,14 +33,14 @@
   }
 
   v9 = v8;
-  v109 = v7;
+  v111 = v7;
 
-  v158 = 0;
-  v159 = &v158;
-  v160 = 0x3032000000;
-  v161 = __Block_byref_object_copy__25;
-  v162 = __Block_byref_object_dispose__25;
-  v113 = v9;
+  v160 = 0;
+  v161 = &v160;
+  v162 = 0x3032000000;
+  v163 = __Block_byref_object_copy__25;
+  v164 = __Block_byref_object_dispose__25;
+  v115 = v9;
   preferences = [v9 preferences];
   v11 = objc_opt_class();
   v12 = preferences;
@@ -64,16 +64,16 @@
 
   v14 = v13;
 
-  v163 = v14;
-  containerViewDescriptions = [v159[5] containerViewDescriptions];
-  v115 = [containerViewDescriptions mutableCopy];
+  v165 = v14;
+  containerViewDescriptions = [v161[5] containerViewDescriptions];
+  v117 = [containerViewDescriptions mutableCopy];
 
-  elementDescriptions = [v159[5] elementDescriptions];
-  v110 = [elementDescriptions mutableCopy];
+  elementDescriptions = [v161[5] elementDescriptions];
+  v112 = [elementDescriptions mutableCopy];
 
-  v119 = [MEMORY[0x277CBEB58] set];
+  v121 = [MEMORY[0x277CBEB58] set];
+  v116 = [MEMORY[0x277CBEB58] set];
   v114 = [MEMORY[0x277CBEB58] set];
-  v112 = [MEMORY[0x277CBEB58] set];
   elementIdentitiesWaitingToExpandBeforeInflation = self->_elementIdentitiesWaitingToExpandBeforeInflation;
   if (elementIdentitiesWaitingToExpandBeforeInflation)
   {
@@ -116,48 +116,48 @@
   v25 = self->_pendingMilestonePropertyIdentitiesToElementIdentities;
   self->_pendingMilestonePropertyIdentitiesToElementIdentities = strongToStrongObjectsMapTable;
 
-  [(SBSAContainerDynamicsInflateAnimationProvider *)self _identitiesWithMilestoneReached:v113];
+  [(SBSAContainerDynamicsInflateAnimationProvider *)self _identitiesWithMilestoneReached:v115];
+  v158 = 0u;
+  v159 = 0u;
   v156 = 0u;
-  v157 = 0u;
-  v154 = 0u;
-  obj = v155 = 0u;
-  v26 = [obj countByEnumeratingWithState:&v154 objects:v170 count:16];
+  obj = v157 = 0u;
+  v26 = [obj countByEnumeratingWithState:&v156 objects:v172 count:16];
   if (v26)
   {
-    v117 = *v155;
+    v119 = *v157;
     do
     {
-      v120 = 0;
-      v118 = v26;
+      v122 = 0;
+      v120 = v26;
       do
       {
-        if (*v155 != v117)
+        if (*v157 != v119)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v154 + 1) + 8 * v120);
-        v150 = 0u;
-        v151 = 0u;
+        v27 = *(*(&v156 + 1) + 8 * v122);
         v152 = 0u;
         v153 = 0u;
+        v154 = 0u;
+        v155 = 0u;
         keyEnumerator = [(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities keyEnumerator];
         allObjects = [keyEnumerator allObjects];
 
-        v30 = [allObjects countByEnumeratingWithState:&v150 objects:v169 count:16];
+        v30 = [allObjects countByEnumeratingWithState:&v152 objects:v171 count:16];
         if (v30)
         {
-          v31 = *v151;
+          v31 = *v153;
           do
           {
             for (i = 0; i != v30; ++i)
             {
-              if (*v151 != v31)
+              if (*v153 != v31)
               {
                 objc_enumerationMutation(allObjects);
               }
 
-              v33 = *(*(&v150 + 1) + 8 * i);
+              v33 = *(*(&v152 + 1) + 8 * i);
               v34 = [(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities objectForKey:v33];
               v35 = SAElementIdentityEqualToIdentity();
 
@@ -167,7 +167,7 @@
               }
             }
 
-            v30 = [allObjects countByEnumeratingWithState:&v150 objects:v169 count:16];
+            v30 = [allObjects countByEnumeratingWithState:&v152 objects:v171 count:16];
           }
 
           while (v30);
@@ -175,30 +175,30 @@
 
         [(NSMutableSet *)self->_elementIdentitiesWaitingToExpandBeforeInflation removeObject:v27];
         [(NSMutableSet *)self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation addObject:v27];
-        ++v120;
+        ++v122;
       }
 
-      while (v120 != v118);
-      v26 = [obj countByEnumeratingWithState:&v154 objects:v170 count:16];
+      while (v122 != v120);
+      v26 = [obj countByEnumeratingWithState:&v156 objects:v172 count:16];
     }
 
     while (v26);
   }
 
-  for (j = 0; j < [v115 count]; ++j)
+  for (j = 0; j < [v117 count]; ++j)
   {
-    v37 = [v115 objectAtIndexedSubscript:j];
+    v37 = [v117 objectAtIndexedSubscript:j];
     v38 = [SBSAElementIdentification alloc];
     associatedSystemApertureElementIdentity = [v37 associatedSystemApertureElementIdentity];
     v40 = [(SBSAElementIdentification *)v38 initWithElementIdentification:associatedSystemApertureElementIdentity];
 
-    elementContexts = [v113 elementContexts];
+    elementContexts = [v115 elementContexts];
     v42 = SBSAElementContextAssociatedWithContainerViewDescription(v37, elementContexts, 0);
 
     activeDynamicAnimation = [v42 activeDynamicAnimation];
     if (activeDynamicAnimation == 2)
     {
-      [v119 addObject:v40];
+      [v121 addObject:v40];
       if (j)
       {
         goto LABEL_56;
@@ -207,7 +207,7 @@
 
     else
     {
-      v44 = [(NSSet *)self->_elementIdentitiesWithInflateApplied containsObject:v40];
+      v44 = objc_msgSend_containsObject_(self->_elementIdentitiesWithInflateApplied);
       if (j)
       {
         v45 = 0;
@@ -218,13 +218,13 @@
         v45 = v44;
       }
 
-      if (!v45)
+      if ((v45 & 1) == 0)
       {
         goto LABEL_56;
       }
     }
 
-    preferences2 = [v113 preferences];
+    preferences2 = [v115 preferences];
     lastChangingElementLayoutTransition = [preferences2 lastChangingElementLayoutTransition];
 
     targetElementContexts = [lastChangingElementLayoutTransition targetElementContexts];
@@ -236,30 +236,30 @@
 LABEL_52:
       if (activeDynamicAnimation == 2)
       {
-        v50 = v114;
+        v50 = v116;
       }
 
       else
       {
-        v50 = v112;
+        v50 = v114;
       }
 
       [v50 addObject:v40];
       goto LABEL_56;
     }
 
-    if (([(NSMutableSet *)self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation containsObject:v40]& 1) == 0)
+    if ((objc_msgSend_containsObject_(self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation) & 1) == 0)
     {
       [(NSMutableSet *)self->_elementIdentitiesWaitingToExpandBeforeInflation addObject:v40];
     }
 
-    if ([(NSMutableSet *)self->_elementIdentitiesWaitingToExpandBeforeInflation containsObject:v40])
+    if (objc_msgSend_containsObject_(self->_elementIdentitiesWaitingToExpandBeforeInflation))
     {
 
       goto LABEL_56;
     }
 
-    v51 = [(NSMutableSet *)self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation containsObject:v40];
+    v51 = objc_msgSend_containsObject_(self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation);
 
     if (v51)
     {
@@ -269,31 +269,31 @@ LABEL_52:
 LABEL_56:
   }
 
-  [(NSMutableSet *)self->_elementIdentitiesWaitingToExpandBeforeInflation intersectSet:v119];
-  [(NSMutableSet *)self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation intersectSet:v119];
+  [(NSMutableSet *)self->_elementIdentitiesWaitingToExpandBeforeInflation intersectSet:v121];
+  [(NSMutableSet *)self->_elementIdentitiesThatFinishedWaitingToExpandBeforeInflation intersectSet:v121];
+  v150 = 0u;
+  v151 = 0u;
   v148 = 0u;
   v149 = 0u;
-  v146 = 0u;
-  v147 = 0u;
   keyEnumerator2 = [(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities keyEnumerator];
   allObjects2 = [keyEnumerator2 allObjects];
 
-  v54 = [allObjects2 countByEnumeratingWithState:&v146 objects:v168 count:16];
+  v54 = [allObjects2 countByEnumeratingWithState:&v148 objects:v170 count:16];
   if (v54)
   {
-    v55 = *v147;
+    v55 = *v149;
     do
     {
       for (k = 0; k != v54; ++k)
       {
-        if (*v147 != v55)
+        if (*v149 != v55)
         {
           objc_enumerationMutation(allObjects2);
         }
 
-        v57 = *(*(&v146 + 1) + 8 * k);
+        v57 = *(*(&v148 + 1) + 8 * k);
         v58 = [(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities objectForKey:v57];
-        v59 = [v119 containsObject:v58];
+        v59 = objc_msgSend_containsObject_(v121);
 
         if ((v59 & 1) == 0)
         {
@@ -301,223 +301,231 @@ LABEL_56:
         }
       }
 
-      v54 = [allObjects2 countByEnumeratingWithState:&v146 objects:v168 count:16];
+      v54 = [allObjects2 countByEnumeratingWithState:&v148 objects:v170 count:16];
     }
 
     while (v54);
   }
 
-  v60 = v159[5];
-  v143[0] = MEMORY[0x277D85DD0];
-  v143[1] = 3221225472;
-  v143[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke;
-  v143[3] = &unk_2783AD750;
-  v145 = a2;
-  v143[4] = self;
-  v121 = v113;
-  v144 = v121;
-  v61 = [v60 copyWithBlock:v143];
-  v62 = v159[5];
-  v159[5] = v61;
+  v60 = v161[5];
+  v145[0] = MEMORY[0x277D85DD0];
+  v145[1] = 3221225472;
+  v145[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke;
+  v145[3] = &unk_2783AD750;
+  v147 = a2;
+  v145[4] = self;
+  v123 = v115;
+  v146 = v123;
+  v61 = [v60 copyWithBlock:v145];
+  v62 = v161[5];
+  v161[5] = v61;
 
-  for (m = 0; m < [v115 count]; ++m)
+  for (m = 0; m < [v117 count]; ++m)
   {
-    v64 = [v115 objectAtIndexedSubscript:m];
+    v64 = [v117 objectAtIndexedSubscript:m];
     v65 = [SBSAElementIdentification alloc];
     associatedSystemApertureElementIdentity2 = [v64 associatedSystemApertureElementIdentity];
     v67 = [(SBSAElementIdentification *)v65 initWithElementIdentification:associatedSystemApertureElementIdentity2];
 
-    elementContexts2 = [v121 elementContexts];
+    elementContexts2 = [v123 elementContexts];
     v69 = SBSAElementContextAssociatedWithContainerViewDescription(v64, elementContexts2, 0);
 
-    v70 = [v114 containsObject:v67];
-    if ([v112 containsObject:v67])
+    v70 = objc_msgSend_containsObject_(v116);
+    systemApertureLayoutCustomizingOptions = objc_msgSend_containsObject_(v114);
+    if (systemApertureLayoutCustomizingOptions)
     {
-      v71 = ([v69 systemApertureLayoutCustomizingOptions] & 1) == 0;
+      systemApertureLayoutCustomizingOptions = [v69 systemApertureLayoutCustomizingOptions];
+      v72 = (systemApertureLayoutCustomizingOptions & 1) == 0;
     }
 
     else
     {
-      v71 = 0;
+      v72 = 0;
     }
 
-    if ((v70 | v71))
+    if ((v70 | v72))
     {
-      elementContexts3 = [v121 elementContexts];
-      v73 = SBSAElementContextAssociatedWithContainerViewDescription(v64, elementContexts3, 0);
+      elementContexts3 = [v123 elementContexts];
+      v74 = SBSAElementContextAssociatedWithContainerViewDescription(v64, elementContexts3, 0);
 
       *buf = 0x7FFFFFFFFFFFFFFFLL;
-      v74 = SBSAElementDescriptionAssociatedWithElementIdentity(v73, v110, buf);
+      v75 = SBSAElementDescriptionAssociatedWithElementIdentity(v74, v112, buf);
       if (v70)
       {
-        [v114 addObject:v67];
-        v139[0] = MEMORY[0x277D85DD0];
-        v139[1] = 3221225472;
-        v139[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_2;
-        v139[3] = &unk_2783AD778;
-        v142 = a2;
-        v139[4] = self;
-        v75 = v64;
-        v140 = v75;
-        v141 = v121;
-        v64 = [v75 copyWithBlock:v139];
+        [v116 addObject:v67];
+        v141[0] = MEMORY[0x277D85DD0];
+        v141[1] = 3221225472;
+        v141[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_2;
+        v141[3] = &unk_2783AD778;
+        v144 = a2;
+        v141[4] = self;
+        v76 = v64;
+        v142 = v76;
+        v143 = v123;
+        v64 = [v76 copyWithBlock:v141];
 
-        [v115 replaceObjectAtIndex:m withObject:v64];
-        if (v74)
+        [v117 replaceObjectAtIndex:m withObject:v64];
+        if (v75)
         {
-          v138[0] = MEMORY[0x277D85DD0];
-          v138[1] = 3221225472;
-          v138[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_3;
-          v138[3] = &unk_2783A93E8;
-          v138[4] = self;
-          v138[5] = a2;
-          v76 = [v74 copyWithBlock:v138];
-          [v110 replaceObjectAtIndex:*buf withObject:v76];
+          v140[0] = MEMORY[0x277D85DD0];
+          v140[1] = 3221225472;
+          v140[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_3;
+          v140[3] = &unk_2783A93E8;
+          v140[4] = self;
+          v140[5] = a2;
+          v77 = [v75 copyWithBlock:v140];
+          [v112 replaceObjectAtIndex:*buf withObject:v77];
         }
       }
 
-      v77 = v159[5];
-      v131[0] = MEMORY[0x277D85DD0];
-      v131[1] = 3221225472;
-      v131[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_4;
-      v131[3] = &unk_2783B01C0;
-      v136 = a2;
-      v131[4] = self;
-      v137 = v70;
+      v78 = v161[5];
+      v133[0] = MEMORY[0x277D85DD0];
+      v133[1] = 3221225472;
+      v133[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_4;
+      v133[3] = &unk_2783B01C0;
+      v138 = a2;
+      v133[4] = self;
+      v139 = v70;
       v64 = v64;
-      v132 = v64;
-      v78 = v74;
-      v133 = v78;
-      v135 = &v158;
-      v134 = v121;
-      v79 = [v77 copyWithBlock:v131];
-      v80 = v159[5];
-      v159[5] = v79;
+      v134 = v64;
+      v79 = v75;
+      v135 = v79;
+      v137 = &v160;
+      v136 = v123;
+      v80 = [v78 copyWithBlock:v133];
+      v81 = v161[5];
+      v161[5] = v80;
     }
 
-    if (v71)
+    if (v72)
     {
-      v81 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+      v82 = SBLogSystemAperturePreferencesStackDynamicsAnimations(systemApertureLayoutCustomizingOptions);
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
       {
-        queryIteration = [v121 queryIteration];
+        queryIteration = [v123 queryIteration];
         *buf = 134349314;
         *&buf[4] = queryIteration;
-        v166 = 2112;
-        v167 = v67;
-        _os_log_debug_impl(&dword_21ED4E000, v81, OS_LOG_TYPE_DEBUG, "[%{public}lu] [Inflate] Applying deflate to element:'%@'", buf, 0x16u);
+        v168 = 2112;
+        v169 = v67;
+        _os_log_debug_impl(&dword_21ED4E000, v82, OS_LOG_TYPE_DEBUG, "[%{public}lu] [Inflate] Applying deflate to element:'%@'", buf, 0x16u);
       }
     }
   }
 
-  v83 = [v114 mutableCopy];
+  v84 = [v116 mutableCopy];
   elementIdentitiesWithInflateApplied = self->_elementIdentitiesWithInflateApplied;
-  v85 = elementIdentitiesWithInflateApplied;
+  v86 = elementIdentitiesWithInflateApplied;
   if (!elementIdentitiesWithInflateApplied)
   {
-    v85 = [MEMORY[0x277CBEB98] set];
+    v86 = [MEMORY[0x277CBEB98] set];
   }
 
-  [v83 minusSet:v85];
+  [v84 minusSet:v86];
   if (!elementIdentitiesWithInflateApplied)
   {
   }
 
+  v131 = 0u;
+  v132 = 0u;
   v129 = 0u;
   v130 = 0u;
-  v127 = 0u;
-  v128 = 0u;
-  v86 = v83;
-  v87 = [v86 countByEnumeratingWithState:&v127 objects:v164 count:16];
-  if (v87)
+  v87 = v84;
+  v88 = [v87 countByEnumeratingWithState:&v129 objects:v166 count:16];
+  v89 = v88;
+  if (v88)
   {
-    v88 = *v128;
+    v90 = *v130;
     do
     {
-      for (n = 0; n != v87; ++n)
+      v91 = 0;
+      do
       {
-        if (*v128 != v88)
+        if (*v130 != v90)
         {
-          objc_enumerationMutation(v86);
+          objc_enumerationMutation(v87);
         }
 
-        v90 = *(*(&v127 + 1) + 8 * n);
-        v91 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
-        if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+        v92 = *(*(&v129 + 1) + 8 * v91);
+        v93 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v88);
+        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
         {
-          queryIteration2 = [v121 queryIteration];
+          queryIteration2 = [v123 queryIteration];
           *buf = 134349314;
           *&buf[4] = queryIteration2;
-          v166 = 2112;
-          v167 = v90;
-          _os_log_debug_impl(&dword_21ED4E000, v91, OS_LOG_TYPE_DEBUG, "[%{public}lu] [Inflate] Applying inflate to element:'%@'", buf, 0x16u);
+          v168 = 2112;
+          v169 = v92;
+          _os_log_debug_impl(&dword_21ED4E000, v93, OS_LOG_TYPE_DEBUG, "[%{public}lu] [Inflate] Applying inflate to element:'%@'", buf, 0x16u);
         }
+
+        ++v91;
       }
 
-      v87 = [v86 countByEnumeratingWithState:&v127 objects:v164 count:16];
+      while (v89 != v91);
+      v88 = [v87 countByEnumeratingWithState:&v129 objects:v166 count:16];
+      v89 = v88;
     }
 
-    while (v87);
+    while (v88);
   }
 
-  v93 = [v114 copy];
-  v94 = self->_elementIdentitiesWithInflateApplied;
-  self->_elementIdentitiesWithInflateApplied = v93;
+  v95 = [v116 copy];
+  v96 = self->_elementIdentitiesWithInflateApplied;
+  self->_elementIdentitiesWithInflateApplied = v95;
 
-  v95 = v159[5];
-  v123[0] = MEMORY[0x277D85DD0];
-  v123[1] = 3221225472;
-  v123[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_52;
-  v123[3] = &unk_2783AD778;
-  v126 = a2;
-  v123[4] = self;
-  v96 = v115;
-  v124 = v96;
-  v97 = v110;
-  v125 = v97;
-  v98 = [v95 copyWithBlock:v123];
-  v99 = v159[5];
-  v159[5] = v98;
+  v97 = v161[5];
+  v125[0] = MEMORY[0x277D85DD0];
+  v125[1] = 3221225472;
+  v125[2] = __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke_52;
+  v125[3] = &unk_2783AD778;
+  v128 = a2;
+  v125[4] = self;
+  v98 = v117;
+  v126 = v98;
+  v99 = v112;
+  v127 = v99;
+  v100 = [v97 copyWithBlock:v125];
+  v101 = v161[5];
+  v161[5] = v100;
 
-  v100 = [v121 copyByUpdatingPreferences:v159[5]];
-  v122.receiver = self;
-  v122.super_class = SBSAContainerDynamicsInflateAnimationProvider;
-  v101 = [(SBSABasePreferencesProvider *)&v122 preferencesFromContext:v100];
-  v102 = objc_opt_class();
-  v103 = v101;
-  if (v102)
+  v102 = [v123 copyByUpdatingPreferences:v161[5]];
+  v124.receiver = self;
+  v124.super_class = SBSAContainerDynamicsInflateAnimationProvider;
+  v103 = [(SBSABasePreferencesProvider *)&v124 preferencesFromContext:v102];
+  v104 = objc_opt_class();
+  v105 = v103;
+  if (v104)
   {
     if (objc_opt_isKindOfClass())
     {
-      v104 = v103;
+      v106 = v105;
     }
 
     else
     {
-      v104 = 0;
+      v106 = 0;
     }
   }
 
   else
   {
-    v104 = 0;
+    v106 = 0;
   }
 
-  v105 = v104;
+  v107 = v106;
 
-  v106 = v159[5];
-  v159[5] = v105;
+  v108 = v161[5];
+  v161[5] = v107;
 
-  if (![v119 count])
+  if (![v121 count])
   {
     [(SBSABasePreferencesProvider *)self removeFromParentProvider];
   }
 
-  v107 = v159[5];
+  v109 = v161[5];
 
-  _Block_object_dispose(&v158, 8);
+  _Block_object_dispose(&v160, 8);
 
-  return v107;
+  return v109;
 }
 
 void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext___block_invoke(uint64_t a1, void *a2)
@@ -599,8 +607,8 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
     v7 = 0;
   }
 
-  v43 = 0u;
-  v44 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v8 = [objc_opt_class() settings];
   [v8 inflateAnimationScale];
   v10 = v9;
@@ -615,19 +623,19 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
   v22 = v21;
   v23 = [objc_opt_class() settings];
   [v23 inflateVerticalOffsetProportion];
-  SBSAScaledAndClippedFrameByScalingLeadingTrailingViews(&v43, *(a1 + 48), v12, v14, v16, v18, v20, v22, v10, v10, v24, v25, v26, v27, v28, v29, v30);
+  SBSAScaledAndClippedFrameByScalingLeadingTrailingViews(&v37, *(a1 + 48), v12, v14, v16, v18, v20, v22, v10, v10, v24);
 
   BSRectWithSize();
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
   v32 = v31;
+  UIRectGetCenter();
   v34 = v33;
   v36 = v35;
-  v38 = v37;
-  UIRectGetCenter();
-  v40 = v39;
-  v42 = v41;
-  [v7 setBounds:{v32, v34, v36, v38}];
-  [v7 setCenter:{v40, v42}];
-  [v7 setContentBounds:{v43, v44}];
+  [v7 setBounds:{v26, v28, v30, v32}];
+  [v7 setCenter:{v34, v36}];
+  [v7 setContentBounds:{v37, v38}];
   UIRectGetCenter();
   [v7 setContentCenter:?];
 }
@@ -676,7 +684,7 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
 
   if (v6)
   {
-    [v6 leadingViewTransform];
+    objc_msgSend_leadingViewTransform(v6);
   }
 
   else
@@ -688,7 +696,7 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
   [v6 setLeadingViewTransform:&v11];
   if (v6)
   {
-    [v6 trailingViewTransform];
+    objc_msgSend_trailingViewTransform(v6);
   }
 
   else
@@ -700,7 +708,7 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
   [v6 setTrailingViewTransform:&v11];
   if (v6)
   {
-    [v6 minimalViewTransform];
+    objc_msgSend_minimalViewTransform(v6);
   }
 
   else
@@ -1130,8 +1138,7 @@ void __72__SBSAContainerDynamicsInflateAnimationProvider_preferencesFromContext_
                   }
                 }
 
-                [v4 addObject:v10];
-                associatedInterfaceElementPropertyIdentity = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+                associatedInterfaceElementPropertyIdentity = SBLogSystemAperturePreferencesStackDynamicsAnimations([v4 addObject:v10]);
                 if (os_log_type_enabled(associatedInterfaceElementPropertyIdentity, OS_LOG_TYPE_DEBUG))
                 {
                   queryIteration = [reachedCopy queryIteration];
@@ -1222,8 +1229,7 @@ LABEL_21:
         v30 = [v28 setWithObject:v29];
         [mutatorCopy addMilestones:v30 forPropertyIdentity:v24];
 
-        [(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities setObject:v18 forKey:v24];
-        v31 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+        v31 = SBLogSystemAperturePreferencesStackDynamicsAnimations([(NSMapTable *)self->_pendingMilestonePropertyIdentitiesToElementIdentities setObject:v18 forKey:v24]);
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           queryIteration = [contextCopy queryIteration];

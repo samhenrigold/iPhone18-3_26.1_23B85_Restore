@@ -31,13 +31,6 @@
   return result;
 }
 
-uint64_t __25__RadioArtwork_pointSize__block_invoke()
-{
-  result = GSMainScreenScaleFactor();
-  pointSize___screenScale = v1;
-  return result;
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;

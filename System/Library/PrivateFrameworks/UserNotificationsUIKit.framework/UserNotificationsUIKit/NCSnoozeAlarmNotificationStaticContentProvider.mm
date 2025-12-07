@@ -74,7 +74,7 @@
 
 - (id)title
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ALARM_TITLE" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -120,7 +120,7 @@
   v10 = _backlightLuminance != 1 || [(NCSnoozeAlarmNotificationStaticContentProvider *)self _hasOneMinuteOrLessRemainingForTime:time];
   v11 = [(NCSnoozeAlarmNotificationStaticContentProvider *)self _formatDuration:v10 includeSeconds:v6];
   v12 = MEMORY[0x277CCACA8];
-  v13 = NCUserNotificationsUIKitFrameworkBundle();
+  v13 = NCUserNotificationsUIKitFrameworkBundle(v11);
   v14 = [v13 localizedStringForKey:@"ALARM_SNOOZE_TIME_REMAINING" value:&stru_282FE84F8 table:0];
   v15 = [v12 stringWithFormat:v14, v11];
 

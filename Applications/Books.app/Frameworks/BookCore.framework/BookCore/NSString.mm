@@ -62,39 +62,40 @@
   selfCopy = self;
   if ([(NSString *)selfCopy hasPrefix:@"epubcfi(")]
   {
-    v10 = 0;
-    v3 = [NSRegularExpression regularExpressionWithPattern:@"\\[\\w+\\]" options:1 error:&v10];
-    v4 = v10;
+    v11 = 0;
+    v3 = [NSRegularExpression regularExpressionWithPattern:@"\\[\\w+\\]" options:1 error:&v11];
+    v4 = v11;
+    v5 = v4;
     if (!v3)
     {
-      v5 = BCIMLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = BCIMLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1E65CC(v4, v5);
+        sub_1E65CC(v5, v6);
       }
     }
 
-    v6 = [v3 stringByReplacingMatchesInString:selfCopy options:0 range:0 withTemplate:{-[NSString length](selfCopy, "length"), @"[redacted]"}];
+    v7 = [v3 stringByReplacingMatchesInString:selfCopy options:0 range:0 withTemplate:{-[NSString length](selfCopy, "length"), @"[redacted]"}];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = v6;
+    v8 = v7;
   }
 
   else
   {
-    v7 = selfCopy;
+    v8 = selfCopy;
   }
 
-  v8 = v7;
+  v9 = v8;
 
-  return v7;
+  return v8;
 }
 
 - (id)URLFragmentString
@@ -275,6 +276,7 @@ LABEL_6:
   }
 
   v14 = [v11 stringFromTimeInterval:v10];
+  v15 = v14;
   if (v10 < 1.0)
   {
     goto LABEL_7;
@@ -282,7 +284,7 @@ LABEL_6:
 
   if (duration >= 0.0 && positive)
   {
-    v16 = @"+%@";
+    v17 = @"+%@";
   }
 
   else
@@ -290,20 +292,20 @@ LABEL_6:
     if (duration >= 0.0)
     {
 LABEL_7:
-      v15 = @"%@";
+      v16 = @"%@";
       goto LABEL_14;
     }
 
-    v16 = @"-%@";
+    v17 = @"-%@";
   }
 
-  v17 = IMCommonCoreBundle();
-  v15 = [v17 localizedStringForKey:v16 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v18 = IMCommonCoreBundle(v14);
+  v16 = [v18 localizedStringForKey:v17 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
 LABEL_14:
-  v18 = [NSString stringWithFormat:v15, v14];
+  v19 = [NSString stringWithFormat:v16, v15];
 
-  return v18;
+  return v19;
 }
 
 + (NSString)stringWithDuration:(double)duration explicitPositive:(BOOL)positive adjustedForRate:(double)rate
@@ -430,7 +432,7 @@ LABEL_14:
 - (id)stringByEnclosingInQuotes
 {
   stringByRemovingEnclosingQuotations = [(NSString *)self stringByRemovingEnclosingQuotations];
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(stringByRemovingEnclosingQuotations);
   v4 = [v3 localizedStringForKey:@"\\U201C%@\\U201D" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   v5 = [NSString stringWithFormat:v4, stringByRemovingEnclosingQuotations];
 

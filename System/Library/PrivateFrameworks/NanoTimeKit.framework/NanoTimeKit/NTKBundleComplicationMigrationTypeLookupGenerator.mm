@@ -7,7 +7,7 @@
 
 + (void)generateLookupUsingService:(NTKBundleComplicationMigrationService *)service device:(CLKDevice *)device completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
   MEMORY[0x28223BE20](v9 - 8, v10, v11);
   v13 = &v21 - v12;
   v14 = _Block_copy(completion);

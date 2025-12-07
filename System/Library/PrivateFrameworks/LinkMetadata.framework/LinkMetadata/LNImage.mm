@@ -17,26 +17,24 @@
 
 - (LNImage)proxiedImageCopy
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy_;
-  v15 = __Block_byref_object_dispose_;
-  v16 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
   v3 = dispatch_semaphore_create(0);
   inImage = [(LNImage *)self inImage];
-  v10 = v3;
-  v5 = *MEMORY[0x1E696E570];
-  v6 = *(MEMORY[0x1E696E570] + 8);
+  v8 = v3;
   INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler();
 
-  v7 = dispatch_time(0, 2000000000);
-  dispatch_semaphore_wait(v10, v7);
-  v8 = v12[5];
+  v5 = dispatch_time(0, 2000000000);
+  dispatch_semaphore_wait(v8, v5);
+  v6 = v10[5];
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v9, 8);
 
-  return v8;
+  return v6;
 }
 
 uint64_t __27__LNImage_proxiedImageCopy__block_invoke(uint64_t a1, void *a2)

@@ -19,7 +19,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLScopedSearchUtilities.m" lineNumber:97 description:{@"Invalid parameter not satisfying: %@", @"psiDatabase"}];
   }
 
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v35 = 0;
     v36 = &v35;
@@ -90,7 +90,7 @@
 {
   v45 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
-  if ([groupsCopy count])
+  if (objc_msgSend_count(groupsCopy))
   {
     v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v39 = 0u;

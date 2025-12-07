@@ -1,1314 +1,11 @@
-void std::pair<nlv4_inference_orchestrator::orchestration::IndexedToken,std::vector<std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>>>>::~pair(uint64_t a1)
-{
-  v1 = (a1 + 144);
-  std::vector<uaap_orchestration::grammar::RightLabel>::__destroy_vector::operator()[abi:ne200100](&v1);
-
-  JUMPOUT(0x223DC3250);
-}
-
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(const void **a1, const void **a2, const void **a3)
-{
-  v6 = *(a1 + 23);
-  v7 = *(a2 + 23);
-  if (v7 >= 0)
-  {
-    v8 = *(a2 + 23);
-  }
-
-  else
-  {
-    v8 = a2[1];
-  }
-
-  if (v7 >= 0)
-  {
-    v9 = a2;
-  }
-
-  else
-  {
-    v9 = *a2;
-  }
-
-  if (v6 >= 0)
-  {
-    v10 = *(a1 + 23);
-  }
-
-  else
-  {
-    v10 = a1[1];
-  }
-
-  if (v6 >= 0)
-  {
-    v11 = a1;
-  }
-
-  else
-  {
-    v11 = *a1;
-  }
-
-  if (v10 >= v8)
-  {
-    v12 = v8;
-  }
-
-  else
-  {
-    v12 = v10;
-  }
-
-  v13 = memcmp(v9, v11, v12);
-  if (v13)
-  {
-    v14 = v13 < 0;
-  }
-
-  else
-  {
-    v14 = v8 < v10;
-  }
-
-  v15 = *(a3 + 23);
-  if (v15 >= 0)
-  {
-    v16 = *(a3 + 23);
-  }
-
-  else
-  {
-    v16 = a3[1];
-  }
-
-  if (v15 >= 0)
-  {
-    v17 = a3;
-  }
-
-  else
-  {
-    v17 = *a3;
-  }
-
-  if (v8 >= v16)
-  {
-    v18 = v16;
-  }
-
-  else
-  {
-    v18 = v8;
-  }
-
-  result = memcmp(v17, v9, v18);
-  v20 = v16 < v8;
-  if (result)
-  {
-    v20 = result < 0;
-  }
-
-  if (v14)
-  {
-    if (v20)
-    {
-      v21 = (a1 + 3);
-      v22 = a1[2];
-      v23 = *a1;
-      v24 = a3[2];
-      *a1 = *a3;
-      a1[2] = v24;
-LABEL_72:
-      *a3 = v23;
-      a3[2] = v22;
-      v29 = (a3 + 3);
-      goto LABEL_73;
-    }
-
-    v41 = a1[2];
-    v42 = *a1;
-    v43 = a2[2];
-    *a1 = *a2;
-    a1[2] = v43;
-    *a2 = v42;
-    a2[2] = v41;
-    v21 = (a2 + 3);
-    v44 = a1[3];
-    a1[3] = a2[3];
-    a2[3] = v44;
-    v45 = *(a2 + 23);
-    v46 = *(a3 + 23);
-    if (v46 >= 0)
-    {
-      v47 = *(a3 + 23);
-    }
-
-    else
-    {
-      v47 = a3[1];
-    }
-
-    if (v46 >= 0)
-    {
-      v48 = a3;
-    }
-
-    else
-    {
-      v48 = *a3;
-    }
-
-    if (v45 >= 0)
-    {
-      v49 = *(a2 + 23);
-    }
-
-    else
-    {
-      v49 = a2[1];
-    }
-
-    if (v45 >= 0)
-    {
-      v50 = a2;
-    }
-
-    else
-    {
-      v50 = *a2;
-    }
-
-    if (v49 >= v47)
-    {
-      v51 = v47;
-    }
-
-    else
-    {
-      v51 = v49;
-    }
-
-    result = memcmp(v48, v50, v51);
-    v52 = v47 < v49;
-    if (result)
-    {
-      v52 = result < 0;
-    }
-
-    if (v52)
-    {
-      v22 = a2[2];
-      v23 = *a2;
-      v53 = a3[2];
-      *a2 = *a3;
-      a2[2] = v53;
-      goto LABEL_72;
-    }
-  }
-
-  else if (v20)
-  {
-    v25 = a2[2];
-    v26 = *a2;
-    v27 = a3[2];
-    *a2 = *a3;
-    a2[2] = v27;
-    *a3 = v26;
-    a3[2] = v25;
-    v29 = (a2 + 3);
-    v28 = a2[3];
-    a2[3] = a3[3];
-    a3[3] = v28;
-    v30 = *(a1 + 23);
-    v31 = *(a2 + 23);
-    if (v31 >= 0)
-    {
-      v32 = *(a2 + 23);
-    }
-
-    else
-    {
-      v32 = a2[1];
-    }
-
-    if (v31 >= 0)
-    {
-      v33 = a2;
-    }
-
-    else
-    {
-      v33 = *a2;
-    }
-
-    if (v30 >= 0)
-    {
-      v34 = *(a1 + 23);
-    }
-
-    else
-    {
-      v34 = a1[1];
-    }
-
-    if (v30 >= 0)
-    {
-      v35 = a1;
-    }
-
-    else
-    {
-      v35 = *a1;
-    }
-
-    if (v34 >= v32)
-    {
-      v36 = v32;
-    }
-
-    else
-    {
-      v36 = v34;
-    }
-
-    result = memcmp(v33, v35, v36);
-    v37 = v32 < v34;
-    if (result)
-    {
-      v37 = result < 0;
-    }
-
-    if (v37)
-    {
-      v38 = a1[2];
-      v39 = *a1;
-      v40 = a2[2];
-      *a1 = *a2;
-      a1[2] = v40;
-      *a2 = v39;
-      a2[2] = v38;
-      v21 = (a1 + 3);
-LABEL_73:
-      v54 = *v21;
-      *v21 = *v29;
-      *v29 = v54;
-    }
-  }
-
-  return result;
-}
-
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(uint64_t a1, __int128 *a2, __int128 *a3, const void **a4)
-{
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, a2, a3);
-  v8 = *(a3 + 23);
-  v9 = *(a4 + 23);
-  if (v9 >= 0)
-  {
-    v10 = *(a4 + 23);
-  }
-
-  else
-  {
-    v10 = a4[1];
-  }
-
-  if (v9 >= 0)
-  {
-    v11 = a4;
-  }
-
-  else
-  {
-    v11 = *a4;
-  }
-
-  if (v8 >= 0)
-  {
-    v12 = *(a3 + 23);
-  }
-
-  else
-  {
-    v12 = *(a3 + 1);
-  }
-
-  if (v8 >= 0)
-  {
-    v13 = a3;
-  }
-
-  else
-  {
-    v13 = *a3;
-  }
-
-  if (v12 >= v10)
-  {
-    v14 = v10;
-  }
-
-  else
-  {
-    v14 = v12;
-  }
-
-  v15 = memcmp(v11, v13, v14);
-  v17 = v10 < v12;
-  if (v15)
-  {
-    v17 = v15 < 0;
-  }
-
-  if (v17)
-  {
-    v18 = *(a3 + 2);
-    v19 = *a3;
-    v20 = a4[2];
-    *a3 = *a4;
-    *(a3 + 2) = v20;
-    *a4 = v19;
-    a4[2] = v18;
-    v21 = *(a3 + 3);
-    *(a3 + 3) = a4[3];
-    a4[3] = v21;
-    v22 = *(a2 + 23);
-    v23 = *(a3 + 23);
-    if (v23 >= 0)
-    {
-      v24 = *(a3 + 23);
-    }
-
-    else
-    {
-      v24 = *(a3 + 1);
-    }
-
-    if (v23 >= 0)
-    {
-      v25 = a3;
-    }
-
-    else
-    {
-      v25 = *a3;
-    }
-
-    if (v22 >= 0)
-    {
-      v26 = *(a2 + 23);
-    }
-
-    else
-    {
-      v26 = *(a2 + 1);
-    }
-
-    if (v22 >= 0)
-    {
-      v27 = a2;
-    }
-
-    else
-    {
-      v27 = *a2;
-    }
-
-    if (v26 >= v24)
-    {
-      v28 = v24;
-    }
-
-    else
-    {
-      v28 = v26;
-    }
-
-    v29 = memcmp(v25, v27, v28);
-    v30 = v24 < v26;
-    if (v29)
-    {
-      v30 = v29 < 0;
-    }
-
-    if (v30)
-    {
-      v31 = *(a2 + 2);
-      v32 = *a2;
-      v33 = *(a3 + 2);
-      *a2 = *a3;
-      *(a2 + 2) = v33;
-      *a3 = v32;
-      *(a3 + 2) = v31;
-      v34 = *(a2 + 3);
-      *(a2 + 3) = *(a3 + 3);
-      *(a3 + 3) = v34;
-      v35 = *(a1 + 23);
-      v36 = *(a2 + 23);
-      if (v36 >= 0)
-      {
-        v37 = *(a2 + 23);
-      }
-
-      else
-      {
-        v37 = *(a2 + 1);
-      }
-
-      if (v36 >= 0)
-      {
-        v38 = a2;
-      }
-
-      else
-      {
-        v38 = *a2;
-      }
-
-      if (v35 >= 0)
-      {
-        v39 = *(a1 + 23);
-      }
-
-      else
-      {
-        v39 = *(a1 + 8);
-      }
-
-      if (v35 >= 0)
-      {
-        v40 = a1;
-      }
-
-      else
-      {
-        v40 = *a1;
-      }
-
-      if (v39 >= v37)
-      {
-        v41 = v37;
-      }
-
-      else
-      {
-        v41 = v39;
-      }
-
-      v42 = memcmp(v38, v40, v41);
-      v43 = v37 < v39;
-      if (v42)
-      {
-        v43 = v42 < 0;
-      }
-
-      if (v43)
-      {
-        v44 = *(a1 + 16);
-        result = *a1;
-        v45 = *(a2 + 2);
-        *a1 = *a2;
-        *(a1 + 16) = v45;
-        *a2 = result;
-        *(a2 + 2) = v44;
-        v46 = *(a1 + 24);
-        *(a1 + 24) = *(a2 + 3);
-        *(a2 + 3) = v46;
-      }
-    }
-  }
-
-  return result;
-}
-
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, const void **a5)
-{
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, a2, a3, a4);
-  v10 = *(a4 + 23);
-  v11 = *(a5 + 23);
-  if (v11 >= 0)
-  {
-    v12 = *(a5 + 23);
-  }
-
-  else
-  {
-    v12 = a5[1];
-  }
-
-  if (v11 >= 0)
-  {
-    v13 = a5;
-  }
-
-  else
-  {
-    v13 = *a5;
-  }
-
-  if (v10 >= 0)
-  {
-    v14 = *(a4 + 23);
-  }
-
-  else
-  {
-    v14 = *(a4 + 1);
-  }
-
-  if (v10 >= 0)
-  {
-    v15 = a4;
-  }
-
-  else
-  {
-    v15 = *a4;
-  }
-
-  if (v14 >= v12)
-  {
-    v16 = v12;
-  }
-
-  else
-  {
-    v16 = v14;
-  }
-
-  v17 = memcmp(v13, v15, v16);
-  v19 = v12 < v14;
-  if (v17)
-  {
-    v19 = v17 < 0;
-  }
-
-  if (v19)
-  {
-    v20 = *(a4 + 2);
-    v21 = *a4;
-    v22 = a5[2];
-    *a4 = *a5;
-    *(a4 + 2) = v22;
-    *a5 = v21;
-    a5[2] = v20;
-    v23 = *(a4 + 3);
-    *(a4 + 3) = a5[3];
-    a5[3] = v23;
-    v24 = *(a3 + 23);
-    v25 = *(a4 + 23);
-    if (v25 >= 0)
-    {
-      v26 = *(a4 + 23);
-    }
-
-    else
-    {
-      v26 = *(a4 + 1);
-    }
-
-    if (v25 >= 0)
-    {
-      v27 = a4;
-    }
-
-    else
-    {
-      v27 = *a4;
-    }
-
-    if (v24 >= 0)
-    {
-      v28 = *(a3 + 23);
-    }
-
-    else
-    {
-      v28 = *(a3 + 8);
-    }
-
-    if (v24 >= 0)
-    {
-      v29 = a3;
-    }
-
-    else
-    {
-      v29 = *a3;
-    }
-
-    if (v28 >= v26)
-    {
-      v30 = v26;
-    }
-
-    else
-    {
-      v30 = v28;
-    }
-
-    v31 = memcmp(v27, v29, v30);
-    v32 = v26 < v28;
-    if (v31)
-    {
-      v32 = v31 < 0;
-    }
-
-    if (v32)
-    {
-      v33 = *(a3 + 16);
-      v34 = *a3;
-      v35 = *(a4 + 2);
-      *a3 = *a4;
-      *(a3 + 16) = v35;
-      *a4 = v34;
-      *(a4 + 2) = v33;
-      v36 = *(a3 + 24);
-      *(a3 + 24) = *(a4 + 3);
-      *(a4 + 3) = v36;
-      v37 = *(a2 + 23);
-      v38 = *(a3 + 23);
-      if (v38 >= 0)
-      {
-        v39 = *(a3 + 23);
-      }
-
-      else
-      {
-        v39 = *(a3 + 8);
-      }
-
-      if (v38 >= 0)
-      {
-        v40 = a3;
-      }
-
-      else
-      {
-        v40 = *a3;
-      }
-
-      if (v37 >= 0)
-      {
-        v41 = *(a2 + 23);
-      }
-
-      else
-      {
-        v41 = *(a2 + 8);
-      }
-
-      if (v37 >= 0)
-      {
-        v42 = a2;
-      }
-
-      else
-      {
-        v42 = *a2;
-      }
-
-      if (v41 >= v39)
-      {
-        v43 = v39;
-      }
-
-      else
-      {
-        v43 = v41;
-      }
-
-      v44 = memcmp(v40, v42, v43);
-      v45 = v39 < v41;
-      if (v44)
-      {
-        v45 = v44 < 0;
-      }
-
-      if (v45)
-      {
-        v46 = *(a2 + 16);
-        v47 = *a2;
-        v48 = *(a3 + 16);
-        *a2 = *a3;
-        *(a2 + 16) = v48;
-        *a3 = v47;
-        *(a3 + 16) = v46;
-        v49 = *(a2 + 24);
-        *(a2 + 24) = *(a3 + 24);
-        *(a3 + 24) = v49;
-        v50 = *(a1 + 23);
-        v51 = *(a2 + 23);
-        if (v51 >= 0)
-        {
-          v52 = *(a2 + 23);
-        }
-
-        else
-        {
-          v52 = *(a2 + 8);
-        }
-
-        if (v51 >= 0)
-        {
-          v53 = a2;
-        }
-
-        else
-        {
-          v53 = *a2;
-        }
-
-        if (v50 >= 0)
-        {
-          v54 = *(a1 + 23);
-        }
-
-        else
-        {
-          v54 = *(a1 + 8);
-        }
-
-        if (v50 >= 0)
-        {
-          v55 = a1;
-        }
-
-        else
-        {
-          v55 = *a1;
-        }
-
-        if (v54 >= v52)
-        {
-          v56 = v52;
-        }
-
-        else
-        {
-          v56 = v54;
-        }
-
-        v57 = memcmp(v53, v55, v56);
-        v58 = v52 < v54;
-        if (v57)
-        {
-          v58 = v57 < 0;
-        }
-
-        if (v58)
-        {
-          v59 = *(a1 + 16);
-          result = *a1;
-          v60 = *(a2 + 16);
-          *a1 = *a2;
-          *(a1 + 16) = v60;
-          *a2 = result;
-          *(a2 + 16) = v59;
-          v61 = *(a1 + 24);
-          *(a1 + 24) = *(a2 + 24);
-          *(a2 + 24) = v61;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *>(uint64_t a1, const void **a2)
-{
-  v4 = (a2 - a1) >> 5;
-  if (v4 <= 2)
-  {
-    if (v4 >= 2)
-    {
-      if (v4 == 2)
-      {
-        v6 = a2 - 4;
-        v5 = *(a2 - 4);
-        v7 = *(a1 + 23);
-        v8 = *(a2 - 9);
-        if (v8 >= 0)
-        {
-          v9 = *(a2 - 9);
-        }
-
-        else
-        {
-          v9 = *(a2 - 3);
-        }
-
-        if (v8 >= 0)
-        {
-          v10 = a2 - 4;
-        }
-
-        else
-        {
-          v10 = *(a2 - 4);
-        }
-
-        if (v7 >= 0)
-        {
-          v11 = *(a1 + 23);
-        }
-
-        else
-        {
-          v11 = *(a1 + 8);
-        }
-
-        if (v7 >= 0)
-        {
-          v12 = a1;
-        }
-
-        else
-        {
-          v12 = *a1;
-        }
-
-        if (v11 >= v9)
-        {
-          v13 = v9;
-        }
-
-        else
-        {
-          v13 = v11;
-        }
-
-        v14 = memcmp(v10, v12, v13);
-        v15 = v9 < v11;
-        if (v14)
-        {
-          v15 = v14 < 0;
-        }
-
-        if (v15)
-        {
-          v16 = *(a1 + 16);
-          v17 = *a1;
-          v18 = *(a2 - 2);
-          *a1 = *v6;
-          *(a1 + 16) = v18;
-          *v6 = v17;
-          *(a2 - 2) = v16;
-          v19 = *(a1 + 24);
-          *(a1 + 24) = *(a2 - 1);
-          *(a2 - 1) = v19;
-        }
-
-        return 1;
-      }
-
-      goto LABEL_28;
-    }
-
-    return 1;
-  }
-
-  switch(v4)
-  {
-    case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, (a1 + 32), a2 - 4);
-      return 1;
-    case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, (a1 + 32), (a1 + 64), a2 - 4);
-      return 1;
-    case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, a1 + 32, a1 + 64, (a1 + 96), a2 - 4);
-      return 1;
-  }
-
-LABEL_28:
-  v20 = (a1 + 64);
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::span_matching::SpanEncoder::attachUniqueLabelsToTokens(nlv4_inference_orchestrator::span_matching::TagBucketList const&,std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken> const&)::$_0 &,std::pair<std::string,std::reference_wrapper<sirinluinternal::MatchingSpan const>> *,0>(a1, (a1 + 32), (a1 + 64));
-  v21 = (a1 + 96);
-  if ((a1 + 96) == a2)
-  {
-    return 1;
-  }
-
-  v22 = 0;
-  v23 = 0;
-  while (1)
-  {
-    v24 = *(v20 + 23);
-    v25 = *(v21 + 23);
-    if (v25 >= 0)
-    {
-      v26 = *(v21 + 23);
-    }
-
-    else
-    {
-      v26 = v21[1];
-    }
-
-    if (v25 >= 0)
-    {
-      v27 = v21;
-    }
-
-    else
-    {
-      v27 = *v21;
-    }
-
-    if (v24 >= 0)
-    {
-      v28 = *(v20 + 23);
-    }
-
-    else
-    {
-      v28 = v20[1];
-    }
-
-    if (v24 >= 0)
-    {
-      v29 = v20;
-    }
-
-    else
-    {
-      v29 = *v20;
-    }
-
-    if (v28 >= v26)
-    {
-      v30 = v26;
-    }
-
-    else
-    {
-      v30 = v28;
-    }
-
-    v31 = memcmp(v27, v29, v30);
-    v32 = v26 < v28;
-    if (v31)
-    {
-      v32 = v31 < 0;
-    }
-
-    if (v32)
-    {
-      v50 = *v21;
-      v33 = v21[2];
-      v34 = v21[3];
-      v21[1] = 0;
-      v21[2] = 0;
-      *v21 = 0;
-      v51 = v33;
-      v52 = v34;
-      v35 = v22;
-      while (1)
-      {
-        v36 = a1 + v35;
-        if (*(a1 + v35 + 119) < 0)
-        {
-          operator delete(*(v36 + 96));
-        }
-
-        *(v36 + 96) = *(v36 + 64);
-        v37 = *(v36 + 80);
-        v38 = *(v36 + 88);
-        *(v36 + 87) = 0;
-        *(v36 + 64) = 0;
-        *(v36 + 112) = v37;
-        *(v36 + 120) = v38;
-        if (v35 == -64)
-        {
-          break;
-        }
-
-        v39 = *(a1 + v35 + 55);
-        if (SHIBYTE(v51) >= 0)
-        {
-          v40 = HIBYTE(v51);
-        }
-
-        else
-        {
-          v40 = *(&v50 + 1);
-        }
-
-        if (SHIBYTE(v51) >= 0)
-        {
-          v41 = &v50;
-        }
-
-        else
-        {
-          v41 = v50;
-        }
-
-        if (v39 >= 0)
-        {
-          v42 = *(a1 + v35 + 55);
-        }
-
-        else
-        {
-          v42 = *(a1 + v35 + 40);
-        }
-
-        if (v39 >= 0)
-        {
-          v43 = (a1 + v35 + 32);
-        }
-
-        else
-        {
-          v43 = *(a1 + v35 + 32);
-        }
-
-        if (v42 >= v40)
-        {
-          v44 = v40;
-        }
-
-        else
-        {
-          v44 = v42;
-        }
-
-        v45 = memcmp(v41, v43, v44);
-        v46 = v40 < v42;
-        if (v45)
-        {
-          v46 = v45 < 0;
-        }
-
-        v35 -= 32;
-        if (!v46)
-        {
-          v47 = a1 + v35 + 96;
-          goto LABEL_72;
-        }
-      }
-
-      v47 = a1;
-LABEL_72:
-      if (*(v47 + 23) < 0)
-      {
-        operator delete(*v47);
-      }
-
-      *v47 = v50;
-      v48 = v52;
-      *(v47 + 16) = v51;
-      *(v47 + 24) = v48;
-      if (++v23 == 8)
-      {
-        return v21 + 4 == a2;
-      }
-    }
-
-    v20 = v21;
-    v22 += 32;
-    v21 += 4;
-    if (v21 == a2)
-    {
-      return 1;
-    }
-  }
-}
-
-uint64_t *nlv4_inference_orchestrator::span_matching::SpanEncoder::getTopLevelUsoEntityFromDataDetectorSpan@<X0>(uint64_t *this@<X0>, const sirinluinternal::MatchingSpan *a2@<X1>, std::string *a3@<X8>)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v4 = *(a2 + 1);
-  v5 = *(a2 + 2);
-  if (v4 == v5)
-  {
-    goto LABEL_11;
-  }
-
-  while (*v4)
-  {
-    if (++v4 == v5)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v6 = *(a2 + 8);
-  if (!v6 || *(v6 + 11) - *(v6 + 10) <= 8uLL)
-  {
-LABEL_11:
-    a3->__r_.__value_.__s.__data_[0] = 0;
-    a3[1].__r_.__value_.__s.__data_[0] = 0;
-  }
-
-  else
-  {
-    v7 = siri::ontology::UsoGraphProtoReader::fromProtobuf(&v18, (this + 3), v6);
-    v8 = *(v18 + 88);
-    siri::ontology::oname::graph::ontology_init::Argument_entity(v7);
-    v9 = *(v8 + 8);
-    siri::ontology::UsoGraph::getSuccessors();
-    {
-      a3->__r_.__value_.__s.__data_[0] = 0;
-      a3[1].__r_.__value_.__s.__data_[0] = 0;
-    }
-
-    else
-    {
-      v12 = v11[3];
-      if (*(v12 + 31) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v19, *(v12 + 8), *(v12 + 16));
-      }
-
-      else
-      {
-        v13 = *(v12 + 8);
-        v19.__r_.__value_.__r.__words[2] = *(v12 + 24);
-        *&v19.__r_.__value_.__l.__data_ = v13;
-      }
-
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(a3, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
-        v15 = SHIBYTE(v19.__r_.__value_.__r.__words[2]);
-        a3[1].__r_.__value_.__s.__data_[0] = 1;
-        if (v15 < 0)
-        {
-          operator delete(v19.__r_.__value_.__l.__data_);
-        }
-      }
-
-      else
-      {
-        *a3 = v19;
-        a3[1].__r_.__value_.__s.__data_[0] = 1;
-      }
-    }
-
-    if (__p)
-    {
-      operator delete(__p);
-    }
-
-    this = std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v18);
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-  return this;
-}
-
-void nlv4_inference_orchestrator::span_matching::SpanEncoder::getNoSpansLabel(nlv4_inference_orchestrator::span_matching::SpanEncoder *this@<X0>, std::string *a2@<X8>)
-{
-  if (*(this + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(a2, *this, *(this + 1));
-  }
-
-  else
-  {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
-  }
-}
-
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void **a1, const void **a2, char *__s)
-{
-  if (*(a2 + 23) >= 0)
-  {
-    v6 = *(a2 + 23);
-  }
-
-  else
-  {
-    v6 = a2[1];
-  }
-
-  v7 = strlen(__s);
-  result = std::string::basic_string[abi:ne200100](a1, v6 + v7);
-  if (*(a1 + 23) < 0)
-  {
-    a1 = *a1;
-  }
-
-  if (v6)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v9 = a2;
-    }
-
-    else
-    {
-      v9 = *a2;
-    }
-
-    result = memmove(a1, v9, v6);
-  }
-
-  v10 = a1 + v6;
-  if (v7)
-  {
-    result = memmove(v10, __s, v7);
-  }
-
-  v10[v7] = 0;
-  return result;
-}
-
-uint64_t nlohmann::detail::iteration_proxy_value<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>>::~iteration_proxy_value(uint64_t a1)
-{
-  if (*(a1 + 95) < 0)
-  {
-    operator delete(*(a1 + 72));
-  }
-
-  if (*(a1 + 71) < 0)
-  {
-    operator delete(*(a1 + 48));
-  }
-
-  return a1;
-}
-
-void psc_inference_orchestrator::orchestration::PSCOverrideGenerator::buildPSCOverrideITFMResponse(itfm_inference_orchestrator::vocabulary::Vocabulary **a1@<X0>, int *a2@<X1>, sirinluinternalitfm::ITFMParserResponse *a3@<X8>)
-{
-  sirinluinternalitfm::ITFMHypothesis::ITFMHypothesis(v10);
-  v6 = *a2;
-  v14 |= 3u;
-  v12 = v6;
-  v13 = 1065353216;
-  if (*a1)
-  {
-    itfm_inference_orchestrator::vocabulary::Vocabulary::denumericalizeToken(*a1, v6, &v9);
-    sirinluinternalitfm::ITFMHypothesis::makeStringLabel(v10);
-    v7 = v11;
-    if (*(v11 + 23) < 0)
-    {
-      operator delete(*v11);
-    }
-
-    v8 = *&v9.__r_.__value_.__l.__data_;
-    *(v7 + 16) = *(&v9.__r_.__value_.__l + 2);
-    *v7 = v8;
-  }
-
-  sirinluinternalitfm::ITFMParserResponse::ITFMParserResponse(a3);
-  PB::PtrVector<sirinluinternalitfm::ITFMHypothesis>::emplace_back<sirinluinternalitfm::ITFMHypothesis&>();
-}
-
-void sub_22298637C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+void sub_22298637C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x223DC32C0](&a16);
+  MEMORY[0x223DC32C0](&a16, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1386,91 +83,91 @@ void uaap_orchestration::labels::buildSimpleEntityLabelFromPath(uaap_orchestrati
   a2->__r_.__value_.__r.__words[0] = 0;
   a2->__r_.__value_.__l.__size_ = 0;
   a2->__r_.__value_.__r.__words[2] = 0;
-  v5 = *this;
-  v6 = *(this + 1);
-  if (*this != v6)
+  v4 = *this;
+  v5 = *(this + 1);
+  if (*this != v5)
   {
-    v7 = *(v5 + 23);
-    if (v7 >= 0)
+    v6 = *(v4 + 23);
+    if (v6 >= 0)
     {
-      v8 = *this;
+      v7 = *this;
     }
 
     else
     {
-      v8 = *v5;
+      v7 = *v4;
     }
 
-    if (v7 >= 0)
+    if (v6 >= 0)
     {
-      v9 = *(v5 + 23);
+      v8 = *(v4 + 23);
     }
 
     else
     {
-      v9 = *(v5 + 8);
+      v8 = *(v4 + 8);
     }
 
-    std::basic_string<char16_t>::append(a2, v8, v9);
-    v5 = *this;
-    v6 = *(this + 1);
+    std::basic_string<char16_t>::append(a2, v7, v8);
+    v4 = *this;
+    v5 = *(this + 1);
   }
 
-  v10 = v5 + 24;
-  if (v6 != v5 + 24)
+  v9 = v4 + 24;
+  if (v5 != v4 + 24)
   {
     do
     {
-      if ((v17 & 0x80u) == 0)
+      if ((v16 & 0x80u) == 0)
       {
-        v11 = __p;
+        v10 = __p;
       }
 
       else
       {
-        v11 = __p[0];
+        v10 = __p[0];
       }
 
-      if ((v17 & 0x80u) == 0)
+      if ((v16 & 0x80u) == 0)
       {
-        v12 = v17;
+        v11 = v16;
       }
 
       else
       {
-        v12 = __p[1];
+        v11 = __p[1];
       }
 
-      std::basic_string<char16_t>::append(a2, v11, v12);
-      v13 = *(v10 + 23);
-      if (v13 >= 0)
+      std::basic_string<char16_t>::append(a2, v10, v11);
+      v12 = *(v9 + 23);
+      if (v12 >= 0)
       {
-        v14 = v10;
+        v13 = v9;
       }
 
       else
       {
-        v14 = *v10;
+        v13 = *v9;
       }
 
-      if (v13 >= 0)
+      if (v12 >= 0)
       {
-        v15 = *(v10 + 23);
+        v14 = *(v9 + 23);
       }
 
       else
       {
-        v15 = *(v10 + 8);
+        v14 = *(v9 + 8);
       }
 
-      std::basic_string<char16_t>::append(a2, v14, v15);
-      v10 += 24;
+      std::basic_string<char16_t>::append(a2, v13, v14);
+      v9 += 24;
     }
 
-    while (v10 != *(this + 1));
+    while (v9 != *(this + 1));
   }
 
-  if (v17 < 0)
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1566,11 +263,11 @@ void uaap_orchestration::labels::buildEntityLabelsFromSimpleLabelAndEnumChoices(
   }
 }
 
-void uaap_orchestration::labels::buildEntityLabelsFromPaths(uaap_orchestration::grammar::Path **a1@<X0>, __int128 **a2@<X1>, std::basic_string<char16_t>::__raw *a3@<X8>)
+void uaap_orchestration::labels::buildEntityLabelsFromPaths(uaap_orchestration::grammar::Path **a1@<X0>, __int128 **a2@<X1>, uint64_t a3@<X8>)
 {
-  a3->__words[0] = 0;
-  a3->__words[1] = 0;
-  a3->__words[2] = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   v3 = *a1;
   v4 = a1[1];
   if (*a1 != v4)
@@ -1590,7 +287,7 @@ void uaap_orchestration::labels::buildEntityLabelsFromPaths(uaap_orchestration::
         else
         {
           uaap_orchestration::labels::buildEntityLabelsFromSimpleLabelAndEnumChoices(&__p, v9, &v7);
-          std::vector<std::basic_string<char16_t>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::basic_string<char16_t> const*>,std::__wrap_iter<std::basic_string<char16_t> const*>>(a3, a3->__words[1], v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3));
+          std::vector<std::basic_string<char16_t>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::basic_string<char16_t> const*>,std::__wrap_iter<std::basic_string<char16_t> const*>>(a3, *(a3 + 8), v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3));
           v14 = &v7;
           std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v14);
         }
@@ -1633,82 +330,82 @@ void sub_222986884(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void snlp::ssu::cache::SSUCacheDirectory::buildTemporaryCacheFilePath(uint64_t a1, const void **a2, uint64_t a3)
+void snlp::ssu::cache::SSUCacheDirectory::buildTemporaryCacheFilePath(snlp::ssu::cache::SSUCacheDirectory *a1, const void **a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  LODWORD(v20) = 0;
-  v5 = boost::uuids::detail::random_provider_base::random_provider_base(&v20);
-  v21 = boost::uuids::random_generator_pure::operator()(v5);
-  v22 = v6;
-  boost::uuids::detail::random_provider_base::destroy(v20);
+  v24 = *MEMORY[0x277D85DE8];
+  LODWORD(v21) = 0;
+  v6 = boost::uuids::detail::random_provider_base::random_provider_base(&v21);
+  v22 = boost::uuids::random_generator_pure::operator()(v6);
+  v23 = v7;
+  boost::uuids::detail::random_provider_base::destroy(v21);
   if (*(a2 + 23) >= 0)
   {
-    v7 = *(a2 + 23);
+    v8 = *(a2 + 23);
   }
 
   else
   {
-    v7 = a2[1];
+    v8 = a2[1];
   }
 
-  v8 = &v17;
-  std::string::basic_string[abi:ne200100](&v17, v7 + 1);
-  if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v9 = &v18;
+  std::string::basic_string[abi:ne200100](&v18, v8 + 1);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v8 = v17.__r_.__value_.__r.__words[0];
+    v9 = v18.__r_.__value_.__r.__words[0];
   }
 
-  if (v7)
+  if (v8)
   {
     if (*(a2 + 23) >= 0)
     {
-      v9 = a2;
+      v10 = a2;
     }
 
     else
     {
-      v9 = *a2;
+      v10 = *a2;
     }
 
-    memmove(v8, v9, v7);
+    memmove(v9, v10, v8);
   }
 
-  *(&v8->__r_.__value_.__l.__data_ + v7) = 95;
-  v10 = *(a3 + 23);
-  if (v10 >= 0)
+  *(&v9->__r_.__value_.__l.__data_ + v8) = 95;
+  v11 = *(a3 + 23);
+  if (v11 >= 0)
   {
-    v11 = a3;
+    v12 = a3;
   }
 
   else
   {
-    v11 = *a3;
+    v12 = *a3;
   }
 
-  if (v10 >= 0)
+  if (v11 >= 0)
   {
-    v12 = *(a3 + 23);
+    v13 = *(a3 + 23);
   }
 
   else
   {
-    v12 = *(a3 + 8);
+    v13 = *(a3 + 8);
   }
 
-  v13 = std::string::append(&v17, v11, v12);
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  v18.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-  *&v18.__r_.__value_.__l.__data_ = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  v15 = std::string::append(&v18, "_");
-  v16 = *&v15->__r_.__value_.__l.__data_;
-  v19.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-  *&v19.__r_.__value_.__l.__data_ = v16;
-  v15->__r_.__value_.__l.__size_ = 0;
-  v15->__r_.__value_.__r.__words[2] = 0;
-  v15->__r_.__value_.__r.__words[0] = 0;
+  v14 = std::string::append(&v18, v12, v13);
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v19.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v19.__r_.__value_.__l.__data_ = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  v16 = std::string::append(&v19, "_");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v20.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v20.__r_.__value_.__l.__data_ = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
   operator new();
 }
 
@@ -1732,10 +429,10 @@ void sub_222986C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void snlp::ssu::cache::SSUCacheDirectory::buildTemporaryDirectoryPath(snlp::ssu::cache::SSUCacheDirectory *this@<X0>, std::string *a2@<X8>)
+void snlp::ssu::cache::SSUCacheDirectory::buildTemporaryDirectoryPath(std::string *__return_ptr a1@<X8>, snlp::ssu::cache::SSUCacheDirectory *this@<X0>)
 {
   std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&__p, &snlp::ssu::cache::SSUCacheDirectory::kTemporaryDirectoryName);
-  std::__fs::filesystem::operator/[abi:ne200100](a2, this, &__p);
+  std::__fs::filesystem::operator/[abi:ne200100](a1, this, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1754,7 +451,7 @@ void sub_222986D60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesForAllLocales(snlp::ssu::cache::SSUCacheDirectory *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -1762,10 +459,10 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesForAllLocales(snlp:
     _os_log_impl(&dword_22284A000, v2, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Clearing cache files for all locales", &__p, 2u);
   }
 
-  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(this, &__p);
+  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(&__p, this);
   std::recursive_mutex::lock((this + 24));
   std::__fs::filesystem::__status(&__p, 0);
-  if (v8 == 2)
+  if (v7 == 2)
   {
     v3 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -1777,7 +474,7 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesForAllLocales(snlp:
       }
 
       *buf = 136315138;
-      v10 = p_p;
+      v9 = p_p;
       _os_log_impl(&dword_22284A000, v3, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Removing locales directory: %s", buf, 0xCu);
     }
 
@@ -1790,7 +487,6 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesForAllLocales(snlp:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1822,7 +518,7 @@ void sub_222986ED4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t a1, std::string::size_type a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -1841,39 +537,39 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
     _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Clearing cache files for all locales except %s", &buf, 0xCu);
   }
 
-  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(a1, &buf);
+  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(&buf, a1);
   std::recursive_mutex::lock((a1 + 24));
-  MEMORY[0x223DC4A70](&v27, &buf, 0, 0);
-  v6 = v27;
-  v7 = v28;
-  if (v28)
+  MEMORY[0x223DC4A70](&v25, &buf, 0, 0);
+  v6 = v25;
+  v7 = v26;
+  if (v26)
   {
-    atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-    v8 = v28;
-    v26.__imp_.__ptr_ = v6;
-    v26.__imp_.__cntrl_ = v7;
-    if (v28)
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    v8 = v26;
+    v24.__imp_.__ptr_ = v6;
+    v24.__imp_.__cntrl_ = v7;
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
   else
   {
-    v26.__imp_.__ptr_ = v27;
-    v26.__imp_.__cntrl_ = 0;
+    v24.__imp_.__ptr_ = v25;
+    v24.__imp_.__cntrl_ = 0;
   }
 
   while (1)
   {
-    v9 = v26.__imp_.__ptr_ == 0;
-    if (!v26.__imp_.__ptr_)
+    v9 = v24.__imp_.__ptr_ == 0;
+    if (!v24.__imp_.__ptr_)
     {
       break;
     }
 
-    v10 = std::__fs::filesystem::directory_iterator::__dereference(&v26);
+    v10 = std::__fs::filesystem::directory_iterator::__dereference(&v24);
     v11 = v10;
     if (((1 << v10[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
     {
@@ -1891,7 +587,7 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
       std::__fs::filesystem::path::filename[abi:ne200100](v11, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v30, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v28, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -1900,17 +596,17 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
 
       else
       {
-        v30 = __p;
+        v28 = __p;
       }
 
-      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v30.__r_.__value_.__r.__words[2]);
+        size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        size = v30.__r_.__value_.__l.__size_;
+        size = v28.__r_.__value_.__l.__size_;
       }
 
       v17 = *(a2 + 23);
@@ -1920,32 +616,32 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
         v17 = *(a2 + 8);
       }
 
-      if (size != v17 || ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v19 = &v30) : (v19 = v30.__r_.__value_.__r.__words[0]), (v20 = *a2, v18 >= 0) ? (v21 = a2) : (v21 = *a2), memcmp(v19, v21, size)))
+      if (size != v17 || ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v19 = &v28) : (v19 = v28.__r_.__value_.__r.__words[0]), v18 >= 0 ? (v20 = a2) : (v20 = *a2), memcmp(v19, v20, size)))
       {
-        v22 = SNLPOSLoggerForCategory(8);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v21 = SNLPOSLoggerForCategory(8);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           if ((v11->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v23 = v11;
+            v22 = v11;
           }
 
           else
           {
-            v23 = v11->__pn_.__r_.__value_.__r.__words[0];
+            v22 = v11->__pn_.__r_.__value_.__r.__words[0];
           }
 
           LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
-          *(__p.__r_.__value_.__r.__words + 4) = v23;
-          _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Removing locale directory: %s", &__p, 0xCu);
+          *(__p.__r_.__value_.__r.__words + 4) = v22;
+          _os_log_impl(&dword_22284A000, v21, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Removing locale directory: %s", &__p, 0xCu);
         }
 
         std::__fs::filesystem::__remove_all(v11, 0);
       }
 
-      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        operator delete(v28.__r_.__value_.__l.__data_);
       }
     }
 
@@ -1974,25 +670,25 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
           v15 = v11->__pn_.__r_.__value_.__r.__words[0];
         }
 
-        LODWORD(v30.__r_.__value_.__l.__data_) = 136315394;
-        *(v30.__r_.__value_.__r.__words + 4) = p_buf;
-        WORD2(v30.__r_.__value_.__r.__words[1]) = 2080;
-        *(&v30.__r_.__value_.__r.__words[1] + 6) = v15;
-        _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_ERROR, "[SSUCacheDirectory] Encountered bad cache directory state: the locales directory %s contains a non-directory file: %s. Ignoring.", &v30, 0x16u);
+        LODWORD(v28.__r_.__value_.__l.__data_) = 136315394;
+        *(v28.__r_.__value_.__r.__words + 4) = p_buf;
+        WORD2(v28.__r_.__value_.__r.__words[1]) = 2080;
+        *(&v28.__r_.__value_.__r.__words[1] + 6) = v15;
+        _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_ERROR, "[SSUCacheDirectory] Encountered bad cache directory state: the locales directory %s contains a non-directory file: %s. Ignoring.", &v28, 0x16u);
       }
     }
 
-    std::__fs::filesystem::directory_iterator::__increment(&v26, 0);
+    std::__fs::filesystem::directory_iterator::__increment(&v24, 0);
   }
 
-  if (v26.__imp_.__cntrl_)
+  if (v24.__imp_.__cntrl_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26.__imp_.__cntrl_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24.__imp_.__cntrl_);
   }
 
-  if (v28)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
   std::recursive_mutex::unlock((a1 + 24));
@@ -2001,7 +697,6 @@ BOOL snlp::ssu::cache::SSUCacheDirectory::clearCacheFilesOutsideLocale(uint64_t 
     operator delete(buf.__r_.__value_.__l.__data_);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2014,12 +709,12 @@ void sub_222987410(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
 
   if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
 
   if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
   std::recursive_mutex::unlock((v31 + 24));
@@ -2056,7 +751,7 @@ void sub_222987410(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, u
 
 uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1, std::string::size_type a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -2075,34 +770,34 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
     _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Attempting to removing cache files across all locales for app: %s", &buf, 0xCu);
   }
 
-  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(a1, &buf);
+  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(&buf, a1);
   std::recursive_mutex::lock((a1 + 24));
-  MEMORY[0x223DC4A70](&v24, &buf, 0, 0);
-  v6 = v24;
-  v7 = v25;
-  if (v25)
+  MEMORY[0x223DC4A70](&v23, &buf, 0, 0);
+  v6 = v23;
+  v7 = v24;
+  if (v24)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-    v8 = v25;
-    v23.__imp_.__ptr_ = v6;
-    v23.__imp_.__cntrl_ = v7;
-    if (v25)
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+    v8 = v24;
+    v22.__imp_.__ptr_ = v6;
+    v22.__imp_.__cntrl_ = v7;
+    if (v24)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
   else
   {
-    v23.__imp_.__ptr_ = v24;
-    v23.__imp_.__cntrl_ = 0;
+    v22.__imp_.__ptr_ = v23;
+    v22.__imp_.__cntrl_ = 0;
   }
 
   v9 = 0;
-  while (v23.__imp_.__ptr_)
+  while (v22.__imp_.__ptr_)
   {
-    v10 = std::__fs::filesystem::directory_iterator::__dereference(&v23);
+    v10 = std::__fs::filesystem::directory_iterator::__dereference(&v22);
     v11 = v10;
     if (((1 << v10[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
     {
@@ -2120,7 +815,7 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
       std::__fs::filesystem::path::filename[abi:ne200100](v11, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v28, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v27, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -2129,12 +824,12 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
 
       else
       {
-        v28 = __p;
+        v27 = __p;
       }
 
-      snlp::ssu::cache::SSUCacheDirectory::buildAppBundleDirectoryPath(a1, &v28, a2, &__p);
+      snlp::ssu::cache::SSUCacheDirectory::buildAppBundleDirectoryPath(a1, &v27, a2, &__p);
       std::__fs::filesystem::__status(&__p, 0);
-      if (v26[0] == 2)
+      if (v25[0] == 2)
       {
         v16 = SNLPOSLoggerForCategory(8);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -2145,9 +840,9 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          *v26 = 136315138;
-          v27 = p_p;
-          _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Removing app bundle directory: %s", v26, 0xCu);
+          *v25 = 136315138;
+          v26 = p_p;
+          _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Removing app bundle directory: %s", v25, 0xCu);
         }
 
         std::__fs::filesystem::__remove_all(&__p, 0);
@@ -2159,9 +854,9 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v27.__r_.__value_.__l.__data_);
       }
     }
 
@@ -2186,25 +881,25 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
           v15 = v11->__pn_.__r_.__value_.__r.__words[0];
         }
 
-        LODWORD(v28.__r_.__value_.__l.__data_) = 136315394;
-        *(v28.__r_.__value_.__r.__words + 4) = p_buf;
-        WORD2(v28.__r_.__value_.__r.__words[1]) = 2080;
-        *(&v28.__r_.__value_.__r.__words[1] + 6) = v15;
-        _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_ERROR, "[SSUCacheDirectory] Encountered bad cache directory state: the locales directory %s contains a non-directory file: %s. Ignoring.", &v28, 0x16u);
+        LODWORD(v27.__r_.__value_.__l.__data_) = 136315394;
+        *(v27.__r_.__value_.__r.__words + 4) = p_buf;
+        WORD2(v27.__r_.__value_.__r.__words[1]) = 2080;
+        *(&v27.__r_.__value_.__r.__words[1] + 6) = v15;
+        _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_ERROR, "[SSUCacheDirectory] Encountered bad cache directory state: the locales directory %s contains a non-directory file: %s. Ignoring.", &v27, 0x16u);
       }
     }
 
-    std::__fs::filesystem::directory_iterator::__increment(&v23, 0);
+    std::__fs::filesystem::directory_iterator::__increment(&v22, 0);
   }
 
-  if (v23.__imp_.__cntrl_)
+  if (v22.__imp_.__cntrl_)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23.__imp_.__cntrl_);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22.__imp_.__cntrl_);
   }
 
-  if (v25)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   std::recursive_mutex::unlock((a1 + 24));
@@ -2223,9 +918,9 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
         v19 = *a2;
       }
 
-      LODWORD(v28.__r_.__value_.__l.__data_) = 136315138;
-      *(v28.__r_.__value_.__r.__words + 4) = v19;
-      _os_log_impl(&dword_22284A000, v18, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Found no cache files for app: %s. Doing nothing.", &v28, 0xCu);
+      LODWORD(v27.__r_.__value_.__l.__data_) = 136315138;
+      *(v27.__r_.__value_.__r.__words + 4) = v19;
+      _os_log_impl(&dword_22284A000, v18, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Found no cache files for app: %s. Doing nothing.", &v27, 0xCu);
     }
   }
 
@@ -2234,7 +929,6 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::removeCacheFilesForApp(uint64_t a1
     operator delete(buf.__r_.__value_.__l.__data_);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9 | 0x100000000 | v9 & 0xFFFFFF00;
 }
 
@@ -2267,10 +961,10 @@ void sub_2229878FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@<X0>, std::string *a2@<X1>, std::string *a3@<X8>)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(a1, buf);
+  v41 = *MEMORY[0x277D85DE8];
+  snlp::ssu::cache::SSUCacheDirectory::buildLocalesDirectoryPath(buf, a1);
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, a2);
-  std::__fs::filesystem::operator/[abi:ne200100](&v38.__pn_, buf, &__p);
+  std::__fs::filesystem::operator/[abi:ne200100](&v37.__pn_, buf, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2283,34 +977,34 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
 
   memset(&__p, 0, sizeof(__p));
   std::recursive_mutex::lock((a1 + 24));
-  std::__fs::filesystem::__status(&v38, 0);
+  std::__fs::filesystem::__status(&v37, 0);
   if (buf[0] == 2)
   {
-    MEMORY[0x223DC4A70](&v35, &v38, 0, 0);
-    v4 = v35;
-    v5 = v36;
-    if (v36)
+    MEMORY[0x223DC4A70](&v34, &v37, 0, 0);
+    v4 = v34;
+    v5 = v35;
+    if (v35)
     {
-      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
-      v6 = v36;
-      v34.__imp_.__ptr_ = v4;
-      v34.__imp_.__cntrl_ = v5;
-      if (v36)
+      atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+      v6 = v35;
+      v33.__imp_.__ptr_ = v4;
+      v33.__imp_.__cntrl_ = v5;
+      if (v35)
       {
-        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
         std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
     }
 
     else
     {
-      v34.__imp_.__ptr_ = v35;
-      v34.__imp_.__cntrl_ = 0;
+      v33.__imp_.__ptr_ = v34;
+      v33.__imp_.__cntrl_ = 0;
     }
 
-    while (v34.__imp_.__ptr_)
+    while (v33.__imp_.__ptr_)
     {
-      v7 = std::__fs::filesystem::directory_iterator::__dereference(&v34);
+      v7 = std::__fs::filesystem::directory_iterator::__dereference(&v33);
       v8 = v7;
       if (((1 << v7[3].__pn_.__r_.__value_.__s.__data_[1]) & 0x53) != 0)
       {
@@ -2328,7 +1022,7 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
         std::__fs::filesystem::path::filename[abi:ne200100](v8, buf);
         if ((buf[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&v39, *buf, *&buf[8]);
+          std::string::__init_copy_ctor_external(&v38, *buf, *&buf[8]);
           if ((buf[23] & 0x80000000) != 0)
           {
             operator delete(*buf);
@@ -2337,13 +1031,13 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
 
         else
         {
-          v39 = *buf;
+          v38 = *buf;
         }
 
-        snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, a2, &v39, &v32);
-        v13 = v33;
-        v14 = v32;
-        if (v32 == v33)
+        snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, &v38, &v31, a2);
+        v13 = v32;
+        v14 = v31;
+        if (v31 == v32)
         {
           v19 = SNLPOSLoggerForCategory(8);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -2358,10 +1052,10 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
               v20 = v8->__pn_.__r_.__value_.__r.__words[0];
             }
 
-            v21 = &v39;
-            if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            v21 = &v38;
+            if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v21 = v39.__r_.__value_.__r.__words[0];
+              v21 = v38.__r_.__value_.__r.__words[0];
             }
 
             *buf = 136315394;
@@ -2374,8 +1068,8 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
 
         else
         {
-          v15 = v33 - v32;
-          if (v33 - v32 >= 1)
+          v15 = v32 - v31;
+          if (v32 - v31 >= 1)
           {
             size = __p.__r_.__value_.__l.__size_;
             if ((__p.__r_.__value_.__r.__words[2] - __p.__r_.__value_.__l.__size_) >= v15)
@@ -2457,11 +1151,11 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
           }
         }
 
-        *buf = &v32;
+        *buf = &v31;
         std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](buf);
-        if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v39.__r_.__value_.__l.__data_);
+          operator delete(v38.__r_.__value_.__l.__data_);
         }
       }
 
@@ -2470,10 +1164,10 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
         v10 = SNLPOSLoggerForCategory(8);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v11 = &v38;
-          if ((v38.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v11 = &v37;
+          if ((v37.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v11 = v38.__pn_.__r_.__value_.__r.__words[0];
+            v11 = v37.__pn_.__r_.__value_.__r.__words[0];
           }
 
           if ((v8->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -2494,17 +1188,17 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
         }
       }
 
-      std::__fs::filesystem::directory_iterator::__increment(&v34, 0);
+      std::__fs::filesystem::directory_iterator::__increment(&v33, 0);
     }
 
-    if (v34.__imp_.__cntrl_)
+    if (v33.__imp_.__cntrl_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34.__imp_.__cntrl_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v33.__imp_.__cntrl_);
     }
 
-    if (v36)
+    if (v35)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
 
     std::recursive_mutex::unlock((a1 + 24));
@@ -2520,14 +1214,12 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(uint64_t a1@
     std::recursive_mutex::unlock((a1 + 24));
   }
 
-  v39.__r_.__value_.__r.__words[0] = &__p;
-  std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](&v39);
-  if (SHIBYTE(v38.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  v38.__r_.__value_.__r.__words[0] = &__p;
+  std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](&v38);
+  if (SHIBYTE(v37.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v38.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v37.__pn_.__r_.__value_.__l.__data_);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void sub_222987F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, __int128 buf, int a38, __int16 a39, char a40, char a41)
@@ -2744,7 +1436,7 @@ void sub_2229886BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void snlp::ssu::cache::SSUCacheDirectory::healByRemovingDirectory(snlp::ssu::cache::SSUCacheDirectory *this, const std::__fs::filesystem::path *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -2759,13 +1451,13 @@ void snlp::ssu::cache::SSUCacheDirectory::healByRemovingDirectory(snlp::ssu::cac
     }
 
     *buf = 136315138;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Attempting to heal a corrupted cache by removing all contents under: %s", buf, 0xCu);
   }
 
   std::recursive_mutex::lock((this + 24));
   std::__fs::filesystem::__status(a2, 0);
-  if (v16 == 2)
+  if (v15 == 2)
   {
     v6 = std::__fs::filesystem::__remove_all(a2, 0);
     v7 = SNLPOSLoggerForCategory(8);
@@ -2782,9 +1474,9 @@ void snlp::ssu::cache::SSUCacheDirectory::healByRemovingDirectory(snlp::ssu::cac
       }
 
       *buf = 134218242;
-      v18 = v6;
-      v19 = 2080;
-      v20 = v8;
+      v17 = v6;
+      v18 = 2080;
+      v19 = v8;
       v9 = "[SSUCacheDirectory] Successfully removed %lu files/directories under %s";
       v10 = v7;
       v11 = OS_LOG_TYPE_DEBUG;
@@ -2810,7 +1502,7 @@ LABEL_17:
       }
 
       *buf = 136315138;
-      v18 = v14;
+      v17 = v14;
       v9 = "[SSUCacheDirectory] Error: cannot remove non-existing directory: %s";
       v10 = v13;
       v11 = OS_LOG_TYPE_ERROR;
@@ -2820,7 +1512,6 @@ LABEL_17:
   }
 
   std::recursive_mutex::unlock((this + 24));
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2229888D8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
@@ -2845,37 +1536,43 @@ void sub_2229888D8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void snlp::ssu::cache::SSUCacheDirectory::extractMetadataFromCacheFileName(snlp::ssu::cache::SSUCacheDirectory *this, const std::__fs::filesystem::path *a2)
+void snlp::ssu::cache::SSUCacheDirectory::extractMetadataFromCacheFileName()
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(v4, "([0-9a-f]+)%s([0-9_]+|unknown)%s([0-9]+)%s");
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v4);
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v4);
-  v2[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
-  v2[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
-  v2[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v4);
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v3, v4);
-  if (v9 == 1)
+  v13[1] = *MEMORY[0x277D85DE8];
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(v7, "([0-9a-f]+)%s([0-9_]+|unknown)%s([0-9]+)%s", v2, v3, v4);
+  v5[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSeparator;
+  v5[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v5[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v7, v5);
+  v5[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSeparator;
+  v5[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v5[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v7, v5);
+  v5[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
+  v5[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v5[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(v7, v5);
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v6, v7);
+  if (v12 == 1)
   {
-    std::locale::~locale(v10);
-    v9 = 0;
+    std::locale::~locale(v13);
+    v12 = 0;
   }
 
-  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v8);
-  if (v7 < 0)
+  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v11);
+  if (v10 < 0)
   {
     operator delete(__p);
   }
 
-  if (v5)
+  if (v8)
   {
-    operator delete(v5);
+    operator delete(v8);
   }
 
-  v2[0].__loc_.__locale_ = v4;
-  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v2);
-  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v2, &v3);
+  v5[0].__loc_.__locale_ = v7;
+  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v5);
+  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v5, &v6.__r_.__value_.__l.__data_);
 }
 
 void sub_222988F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, std::locale a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *__p, uint64_t a60, int a61, __int16 a62, char a63)
@@ -2906,9 +1603,9 @@ void sub_222988F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a33);
   }
 
-  if (a70)
+  if (a65)
   {
-    operator delete(a70);
+    operator delete(a65);
   }
 
   if (a44 < 0)
@@ -2943,9 +1640,9 @@ uint64_t std::optional<std::pair<snlp::ssu::cache::SSUCacheFileVersion,SSUCatego
   return a1;
 }
 
-void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1@<X0>, std::string *a2@<X1>, std::__fs::filesystem::path *a3@<X2>, unsigned __int8 a4@<W3>, char *a5@<X4>, _BYTE *a6@<X8>)
+void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1@<X0>, std::string *a2@<X1>, uint64_t a3@<X2>, unsigned __int8 a4@<W3>, char *a5@<X4>, _BYTE *a6@<X8>)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v11 = a4;
   v12 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -2960,14 +1657,14 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1
       v13 = a2->__r_.__value_.__r.__words[0];
     }
 
-    if ((a3->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if (*(a3 + 23) >= 0)
     {
       v14 = a3;
     }
 
     else
     {
-      v14 = a3->__pn_.__r_.__value_.__r.__words[0];
+      v14 = *a3;
     }
 
     if (v11 <= 3)
@@ -2994,14 +1691,14 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1
     *&buf[4] = v13;
     *&buf[12] = 2080;
     *&buf[14] = v14;
+    v36 = 2080;
+    v37 = v15;
     v38 = 2080;
-    v39 = v15;
-    v40 = 2080;
-    v41 = v16;
+    v39 = v16;
     _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "Looking up cache file for locale=%s, appBundleId=%s, category=%s, encoderAssetVersion=%s", buf, 0x2Au);
   }
 
-  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, a2, a3, buf);
+  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, a3, buf, a2);
   v17 = *buf;
   v18 = *&buf[8];
   if (*buf != *&buf[8])
@@ -3033,7 +1730,7 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1
         v22 = *(v21 + 8);
       }
 
-      if (v20 != v22 || ((v25 = *v21, v23 >= 0) ? (v26 = v21) : (v26 = *v21), memcmp(a5, v26, v20)))
+      if (v20 != v22 || (v23 >= 0 ? (v25 = v21) : (v25 = *v21), memcmp(a5, v25, v20)))
       {
         if (v23 < 0)
         {
@@ -3042,21 +1739,21 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1
             goto LABEL_40;
           }
 
-          v27 = *v21;
+          v26 = *v21;
         }
 
         else
         {
-          v27 = v21;
+          v26 = v21;
           if (v23 != 7)
           {
             goto LABEL_40;
           }
         }
 
-        v28 = *v27;
-        v29 = *(v27 + 3);
-        if (v28 != 1852534389 || v29 != 1853321070)
+        v27 = *v26;
+        v28 = *(v26 + 3);
+        if (v27 != 1852534389 || v28 != 1853321070)
         {
           goto LABEL_40;
         }
@@ -3069,9 +1766,9 @@ void snlp::ssu::cache::SSUCacheDirectory::lookupCacheFileForCategory(uint64_t a1
       }
 
 LABEL_40:
-      v31 = v21 + 72;
+      v30 = v21 + 72;
       v21 += 104;
-      if (v31 == v18)
+      if (v30 == v18)
       {
         goto LABEL_47;
       }
@@ -3081,34 +1778,33 @@ LABEL_40:
   if (v18 == v17)
   {
 LABEL_47:
-    v34 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v33 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v36[0]) = 0;
-      _os_log_impl(&dword_22284A000, v34, OS_LOG_TYPE_DEBUG, "Did not find relevant cache file", v36, 2u);
+      LOWORD(v34[0]) = 0;
+      _os_log_impl(&dword_22284A000, v33, OS_LOG_TYPE_DEBUG, "Did not find relevant cache file", v34, 2u);
     }
 
-    v33 = 0;
+    v32 = 0;
     *a6 = 0;
   }
 
   else
   {
-    v32 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v31 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v36[0]) = 0;
-      _os_log_impl(&dword_22284A000, v32, OS_LOG_TYPE_DEBUG, "Found relevant cache file.", v36, 2u);
+      LOWORD(v34[0]) = 0;
+      _os_log_impl(&dword_22284A000, v31, OS_LOG_TYPE_DEBUG, "Found relevant cache file.", v34, 2u);
     }
 
     snlp::ssu::cache::SSUCacheDirectory::CacheFileResult::CacheFileResult(a6, v17);
-    v33 = 1;
+    v32 = 1;
   }
 
-  a6[104] = v33;
-  v36[0] = buf;
-  std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](v36);
-  v35 = *MEMORY[0x277D85DE8];
+  a6[104] = v32;
+  v34[0] = buf;
+  std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](v34);
 }
 
 void sub_22298949C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
@@ -3118,85 +1814,76 @@ void sub_22298949C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t snlp::ssu::cache::SSUCacheDirectory::insertCacheFile(uint64_t a1, std::string *a2, std::__fs::filesystem::path *a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t snlp::ssu::cache::SSUCacheDirectory::insertCacheFile(uint64_t a1, std::string *a2, std::string *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v7 = a5;
+  v27 = *MEMORY[0x277D85DE8];
   v12 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v13 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    if ((a3->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v14 = a3->__pn_.__r_.__value_.__r.__words[0];
-    }
-
-    snlp::ssu::cache::SSUCacheFileVersion::toString(&__p);
+    snlp::ssu::cache::SSUCacheFileVersion::toString(&__p, a4);
   }
 
   std::recursive_mutex::lock((a1 + 24));
-  snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(a1, a2, a3, a5, &buf);
-  snlp::ssu::cache::SSUCacheDirectory::buildCacheFilePath(a1, a2, &a3->__pn_, a4, a5, &__p);
-  v15 = SNLPOSLoggerForCategory(8);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(a1, a2, a3, v7, &buf);
+  snlp::ssu::cache::SSUCacheDirectory::buildCacheFilePath(a1, a2, a3, a4, v7, &__p);
+  v13 = SNLPOSLoggerForCategory(8);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     if (*(a6 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v22, *a6, *(a6 + 8));
+      std::string::__init_copy_ctor_external(&v19, *a6, *(a6 + 8));
     }
 
     else
     {
-      v22 = *a6;
+      v19 = *a6;
     }
 
-    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v16 = &v22;
+      v14 = &v19;
     }
 
     else
     {
-      v16 = v22.__r_.__value_.__r.__words[0];
+      v14 = v19.__r_.__value_.__r.__words[0];
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v21, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v18, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v21 = __p;
+      v18 = __p;
     }
 
-    v17 = &v21;
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v15 = &v18;
+    if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v17 = v21.__r_.__value_.__r.__words[0];
+      v15 = v18.__r_.__value_.__r.__words[0];
     }
 
-    *v23 = 136315394;
-    v24 = v16;
-    v25 = 2080;
-    v26 = v17;
-    _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Atomically renaming temporary file %s to final location %s", v23, 0x16u);
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    *v20 = 136315394;
+    v21 = v14;
+    v22 = 2080;
+    v23 = v15;
+    _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_DEBUG, "[SSUCacheDirectory] Atomically renaming temporary file %s to final location %s", v20, 0x16u);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v21.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v22.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
   }
 
   std::__fs::filesystem::__rename(a6, &__p, 0);
-  v18 = v29;
+  v16 = v26;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3208,8 +1895,7 @@ uint64_t snlp::ssu::cache::SSUCacheDirectory::insertCacheFile(uint64_t a1, std::
   }
 
   std::recursive_mutex::unlock((a1 + 24));
-  v19 = *MEMORY[0x277D85DE8];
-  return v18 | 0x100u;
+  return v16 | 0x100u;
 }
 
 void sub_222989794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, __int128 buf, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -3249,12 +1935,12 @@ void sub_222989794(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(snlp::ssu::cache::SSUCacheDirectory *a1@<X0>, std::string *a2@<X1>, std::__fs::filesystem::path *a3@<X2>, unsigned __int8 a4@<W3>, std::string *a5@<X8>)
+void snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(snlp::ssu::cache::SSUCacheDirectory *a1@<X0>, std::string *a2@<X1>, std::string *a3@<X2>, unsigned __int8 a4@<W3>, std::string *a5@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, a2, a3, &v19);
-  v10 = v20;
-  if (v19 == v20)
+  v22 = *MEMORY[0x277D85DE8];
+  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForApp(a1, a3, &v18, a2);
+  v10 = v19;
+  if (v18 == v19)
   {
     v11 = 0;
   }
@@ -3263,7 +1949,7 @@ void snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(
   {
     v11 = 0;
     v12 = a4;
-    v13 = v19 + 80;
+    v13 = v18 + 80;
     do
     {
       if (*(v13 - 80) == v12)
@@ -3293,9 +1979,9 @@ void snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(
     while (v16 != v10);
   }
 
-  snlp::ssu::cache::SSUCacheDirectory::buildAppBundleDirectoryPath(a1, a2, &a3->__pn_, &buf);
+  snlp::ssu::cache::SSUCacheDirectory::buildAppBundleDirectoryPath(a1, a2, a3, &buf);
   std::__fs::filesystem::__status(&buf, 0);
-  if (v21 != 2)
+  if (v20 != 2)
   {
     std::__fs::filesystem::__create_directories(&buf, 0);
   }
@@ -3317,9 +2003,8 @@ void snlp::ssu::cache::SSUCacheDirectory::prepareAppBundleDirectoryForInsertion(
     a5[1].__r_.__value_.__s.__data_[0] = v11;
   }
 
-  buf.__r_.__value_.__r.__words[0] = &v19;
+  buf.__r_.__value_.__r.__words[0] = &v18;
   std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](&buf);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_222989A7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -3530,7 +2215,7 @@ void sub_222989D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::doesMatchingSpanHaveLabelAndMatcher(void *__s2, uint64_t a2, int a3, void *a4)
+const void ***nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::doesMatchingSpanHaveLabelAndMatcher(void *__s2, uint64_t a2, int a3, void *a4)
 {
   result = a4[6];
   if (result)
@@ -3712,7 +2397,7 @@ BOOL nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::is
   return v2 != v1;
 }
 
-void sub_22298B000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, void *a20, _Unwind_Exception *exception_objecta, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, void *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_22298B000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, void *a20, _Unwind_Exception *exception_objecta, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, unint64_t *__p, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char *a63)
 {
   a63 = &a27;
   std::vector<nl_featurization::SpanMatcherPattern>::__destroy_vector::operator()[abi:ne200100](&a63);
@@ -3818,7 +2503,7 @@ uint64_t std::unordered_set<std::basic_string<char16_t>>::unordered_set(uint64_t
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::basic_string<char16_t>,std::hash<std::basic_string<char16_t>>,std::equal_to<std::basic_string<char16_t>>,std::allocator<std::basic_string<char16_t>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(a1, i + 8);
+    std::__hash_table<std::basic_string<char16_t>,std::hash<std::basic_string<char16_t>>,std::equal_to<std::basic_string<char16_t>>,std::allocator<std::basic_string<char16_t>>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(a1, i + 8, (i + 8));
   }
 
   return a1;
@@ -3853,11 +2538,11 @@ uint64_t std::__split_buffer<nl_featurization::SpanMatcherPattern>::~__split_buf
 
 uint64_t nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getConfigVocabSize(nlv4_inference_orchestrator::inference_engine::EspressoBertModel *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v12, "vocab_size");
-  if (std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(this + 5, v12))
+  v14 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v11, "vocab_size");
+  if (std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(this + 5, v11))
   {
-    v2 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(this + 5, v12);
+    v2 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(this + 5, v11);
     if (!v2)
     {
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -3876,44 +2561,43 @@ uint64_t nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getCo
     v3 = 0;
   }
 
-  std::to_string(&v14, v3);
-  v4 = std::string::insert(&v14, 0, "Vocab size to pre-allocate: ");
+  std::to_string(&v13, v3);
+  v4 = std::string::insert(&v13, 0, "Vocab size to pre-allocate: ");
   v5 = *&v4->__r_.__value_.__l.__data_;
-  v11 = v4->__r_.__value_.__r.__words[2];
+  v10 = v4->__r_.__value_.__r.__words[2];
   *__p = v5;
   v4->__r_.__value_.__l.__size_ = 0;
   v4->__r_.__value_.__r.__words[2] = 0;
   v4->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v13.__r_.__value_.__l.__data_);
   }
 
   v6 = SNLPOSLoggerForCategory(5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = __p;
-    if (v11 < 0)
+    if (v10 < 0)
     {
       v7 = __p[0];
     }
 
-    LODWORD(v14.__r_.__value_.__l.__data_) = 136315138;
-    *(v14.__r_.__value_.__r.__words + 4) = v7;
-    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "%s", &v14, 0xCu);
+    LODWORD(v13.__r_.__value_.__l.__data_) = 136315138;
+    *(v13.__r_.__value_.__r.__words + 4) = v7;
+    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "%s", &v13, 0xCu);
   }
 
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v13 < 0)
+  if (v12 < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v11[0]);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -3932,7 +2616,7 @@ void sub_22298B8CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getSubwordID(uint64_t a1, uint64_t *a2)
+uint64_t nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getSubwordID(uint64_t a1, uint64_t **a2)
 {
   v2 = **(a1 + 16);
   v3 = a2[1];
@@ -3950,7 +2634,7 @@ uint64_t nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getSu
   return (*(*v2 + 504))(v2, a2, v4);
 }
 
-void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3962,225 +2646,225 @@ void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, uni
 
 void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::generatePaddedSubowlBertInput(nlv4_inference_orchestrator::inference_engine::EspressoBertModel *this, const nlv4_inference_orchestrator::inference_engine::EspressoBertModelInputType *a2)
 {
-  v61[4] = *MEMORY[0x277D85DE8];
-  v4 = SNLPOSLoggerForCategory(7);
-  v5 = os_signpost_id_generate(v4);
-  v6 = SNLPOSLoggerForCategory(7);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v62[4] = *MEMORY[0x277D85DE8];
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
+  v7 = SNLPOSLoggerForCategory(7);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v6))
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_signpost_emit_with_name_impl(&dword_22284A000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "OWL Generate Padded E5ML Input", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "OWL Generate Padded E5ML Input", "", &buf, 2u);
     }
   }
 
-  v8 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Generate Padded E5ML Input", &buf, 2u);
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Generate Padded E5ML Input", &buf, 2u);
   }
 
-  v9 = *(this + 1);
-  if (v9 && !(*(*v9 + 24))(v9))
+  v10 = *(this + 1);
+  if (v10 && !(*(*v10 + 24))(v10))
   {
     if ((*(**(this + 1) + 16))(*(this + 1)))
     {
       MaxNumTokens = nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getMaxNumTokens(this);
-      memset(&v57, 0, sizeof(v57));
+      memset(&v58, 0, sizeof(v58));
       if (*(a2 + 160))
       {
-        v11 = MaxNumTokens;
-        v54 = 0;
+        v12 = MaxNumTokens;
         v55 = 0;
         v56 = 0;
-        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v54, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
-        std::vector<float>::reserve(&v57, (v55 - v54) >> 2);
-        v12 = v54;
-        if (v55 == v54)
+        v57 = 0;
+        std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v55, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
+        std::vector<float>::reserve(&v58, (v56 - v55) >> 2);
+        v13 = v55;
+        if (v56 == v55)
         {
-          end = v57.__end_;
+          end = v58.__end_;
         }
 
         else
         {
-          v13 = 0;
-          end = v57.__end_;
+          v14 = 0;
+          end = v58.__end_;
           do
           {
-            v15 = v12[v13];
-            if (end >= v57.__end_cap_.__value_)
+            v16 = v13[v14];
+            if (end >= v58.__end_cap_.__value_)
             {
-              begin = v57.__begin_;
-              v17 = end - v57.__begin_;
-              v18 = end - v57.__begin_;
-              v19 = v18 + 1;
-              if ((v18 + 1) >> 62)
+              begin = v58.__begin_;
+              v18 = end - v58.__begin_;
+              v19 = end - v58.__begin_;
+              v20 = v19 + 1;
+              if ((v19 + 1) >> 62)
               {
                 std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
               }
 
-              v20 = v57.__end_cap_.__value_ - v57.__begin_;
-              if ((v57.__end_cap_.__value_ - v57.__begin_) >> 1 > v19)
+              v21 = v58.__end_cap_.__value_ - v58.__begin_;
+              if ((v58.__end_cap_.__value_ - v58.__begin_) >> 1 > v20)
               {
-                v19 = v20 >> 1;
+                v20 = v21 >> 1;
               }
 
-              if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+              if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
               {
-                v21 = 0x3FFFFFFFFFFFFFFFLL;
+                v22 = 0x3FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v21 = v19;
+                v22 = v20;
               }
 
-              if (v21)
+              if (v22)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v57, v21);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v58, v22);
               }
 
-              v22 = end - v57.__begin_;
-              v23 = (4 * v18);
-              v24 = (4 * v18 - 4 * v22);
-              *v23 = v15;
-              end = (v23 + 1);
-              memcpy(v24, begin, v17);
-              v25 = v57.__begin_;
-              v57.__begin_ = v24;
-              v57.__end_ = end;
-              v57.__end_cap_.__value_ = 0;
-              if (v25)
+              v23 = end - v58.__begin_;
+              v24 = (4 * v19);
+              v25 = (4 * v19 - 4 * v23);
+              *v24 = v16;
+              end = (v24 + 1);
+              memcpy(v25, begin, v18);
+              v26 = v58.__begin_;
+              v58.__begin_ = v25;
+              v58.__end_ = end;
+              v58.__end_cap_.__value_ = 0;
+              if (v26)
               {
-                operator delete(v25);
+                operator delete(v26);
               }
             }
 
             else
             {
-              *end++ = v15;
+              *end++ = v16;
             }
 
-            v57.__end_ = end;
-            ++v13;
-            v12 = v54;
+            v58.__end_ = end;
+            ++v14;
+            v13 = v55;
           }
 
-          while (v13 < (v55 - v54) >> 2);
+          while (v14 < (v56 - v55) >> 2);
         }
 
         LODWORD(buf.__r_.__value_.__l.__data_) = 1065353216;
-        std::vector<float>::vector[abi:ne200100](&v53, end - v57.__begin_);
+        std::vector<float>::vector[abi:ne200100](&v54, end - v58.__begin_, &buf);
         buf.__r_.__value_.__s.__data_[0] = 0;
-        v52 = 0;
-        LOBYTE(v49) = 0;
-        v50 = 0;
+        v53 = 0;
+        LOBYTE(v50) = 0;
+        v51 = 0;
         if (*(a2 + 96) == 1)
         {
-          v46 = 0;
           v47 = 0;
           v48 = 0;
-          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v46, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
+          v49 = 0;
+          std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v47, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
           LODWORD(__p) = 0;
-          std::vector<float>::vector[abi:ne200100](v58, v11);
-          v27 = v46;
-          if (v47 != v46)
+          std::vector<float>::vector[abi:ne200100](v59, v12, &__p);
+          v28 = v47;
+          if (v48 != v47)
           {
-            v28 = (v47 - v46) >> 2;
-            if (v28 <= 1)
+            v29 = (v48 - v47) >> 2;
+            if (v29 <= 1)
             {
-              v28 = 1;
+              v29 = 1;
             }
 
-            v29 = *v58;
+            v30 = *v59;
             do
             {
-              v30 = *v27++;
-              *v29++ = v30;
-              --v28;
+              v31 = *v28++;
+              *v30++ = v31;
+              --v29;
             }
 
-            while (v28);
+            while (v29);
           }
 
-          *v58 = 1;
-          v59 = v11;
-          v44 = 0;
+          *v59 = 1;
+          v60 = v12;
           v45 = 0;
+          v46 = 0;
           __p = 0;
-          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v58, &v60, 2uLL);
+          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v59, &v61, 2uLL);
         }
 
         if (*(a2 + 128) == 1)
         {
-          v46 = 0;
           v47 = 0;
           v48 = 0;
-          std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(&v46, *(a2 + 13), *(a2 + 14), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 14) - *(a2 + 13)) >> 3));
-          std::vector<float>::vector[abi:ne200100](v58, v11 * v11);
-          v31 = *v58;
-          v32 = v46;
-          if (v47 != v46)
+          v49 = 0;
+          std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(&v47, *(a2 + 13), *(a2 + 14), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 14) - *(a2 + 13)) >> 3));
+          std::vector<float>::vector[abi:ne200100](v59, v12 * v12);
+          v32 = *v59;
+          v33 = v47;
+          if (v48 != v47)
           {
-            v33 = 0;
             v34 = 0;
-            v35 = 0xAAAAAAAAAAAAAAABLL * ((v47 - v46) >> 3);
-            if (v35 <= 1)
+            v35 = 0;
+            v36 = 0xAAAAAAAAAAAAAAABLL * ((v48 - v47) >> 3);
+            if (v36 <= 1)
             {
-              v35 = 1;
+              v36 = 1;
             }
 
             do
             {
-              v36 = v32[3 * v34];
-              v37 = v32[3 * v34 + 1] - v36;
-              if (v37)
+              v37 = v33[3 * v35];
+              v38 = v33[3 * v35 + 1] - v37;
+              if (v38)
               {
-                v38 = v37 >> 2;
-                if (v38 <= 1)
+                v39 = v38 >> 2;
+                if (v39 <= 1)
                 {
-                  v38 = 1;
+                  v39 = 1;
                 }
 
                 do
                 {
-                  v39 = *v36++;
-                  v31[v33++] = v39;
-                  --v38;
+                  v40 = *v37++;
+                  v32[v34++] = v40;
+                  --v39;
                 }
 
-                while (v38);
+                while (v39);
               }
 
-              ++v34;
+              ++v35;
             }
 
-            while (v34 != v35);
+            while (v35 != v36);
           }
 
-          *v58 = 1;
-          v59 = v11;
-          v60 = v11;
-          v44 = 0;
+          *v59 = 1;
+          v60 = v12;
+          v61 = v12;
           v45 = 0;
+          v46 = 0;
           __p = 0;
-          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v58, v61, 3uLL);
+          std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&__p, v59, v62, 3uLL);
         }
 
-        *v26.i32 = *(this + 3);
-        *v58 = *v26.i32;
-        std::vector<float>::resize(&v57, v11, v58, v26);
-        *v58 = 0;
-        std::vector<float>::resize(&v53, v11, v58, v40);
-        *v58 = 1;
-        v59 = v11;
-        v47 = 0;
+        *v27.i32 = *(this + 3);
+        *v59 = *v27.i32;
+        std::vector<float>::resize(&v58, v12, v59, v27);
+        *v59 = 0;
+        std::vector<float>::resize(&v54, v12, v59, v41);
+        *v59 = 1;
+        v60 = v12;
         v48 = 0;
-        v46 = 0;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v46, v58, &v60, 2uLL);
+        v49 = 0;
+        v47 = 0;
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v47, v59, &v61, 2uLL);
       }
 
       std::__throw_bad_optional_access[abi:ne200100]();
@@ -4192,13 +2876,13 @@ void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::generateP
     exception->__vftable = &unk_2835E9238;
   }
 
-  v41 = __cxa_allocate_exception(0x10uLL);
+  v42 = __cxa_allocate_exception(0x10uLL);
   std::string::basic_string[abi:ne200100]<0>(&buf, "Invalid Bert Module for static E5ML/EspressoV1 Subowl assets!");
-  std::runtime_error::runtime_error(v41, &buf);
-  v41->__vftable = &unk_2835E9238;
+  std::runtime_error::runtime_error(v42, &buf);
+  v42->__vftable = &unk_2835E9238;
 }
 
-void sub_22298C3FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39)
+void sub_22298C3FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39)
 {
   v43 = *(v41 - 176);
   if (v43)
@@ -4250,124 +2934,124 @@ void sub_22298C3FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::generatePaddedWholeowlEspressoV1BertInput(nlv4_inference_orchestrator::inference_engine::EspressoBertModel *this, const nlv4_inference_orchestrator::inference_engine::EspressoBertModelInputType *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v4 = SNLPOSLoggerForCategory(7);
-  v5 = os_signpost_id_generate(v4);
-  v6 = SNLPOSLoggerForCategory(7);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v37 = *MEMORY[0x277D85DE8];
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
+  v7 = SNLPOSLoggerForCategory(7);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v6))
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_signpost_emit_with_name_impl(&dword_22284A000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "OWL Generate Padded WholeOwl espressoV1 Input", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "OWL Generate Padded WholeOwl espressoV1 Input", "", &buf, 2u);
     }
   }
 
-  v8 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Generate Padded WholeOwl espressoV1 Input", &buf, 2u);
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Generate Padded WholeOwl espressoV1 Input", &buf, 2u);
   }
 
-  v9 = *(this + 1);
-  if (v9 && !(*(*v9 + 24))(v9))
+  v10 = *(this + 1);
+  if (v10 && !(*(*v10 + 24))(v10))
   {
     if (!(*(**(this + 1) + 16))(*(this + 1)))
     {
       MaxNumTokens = nlv4_inference_orchestrator::inference_engine::EspressoBertModel::getMaxNumTokens(this);
-      memset(&v34, 0, sizeof(v34));
-      memset(v33, 0, sizeof(v33));
-      std::vector<float>::reserve(&v34, MaxNumTokens);
-      v31 = this;
-      v12 = *(a2 + 6);
-      if (*(a2 + 7) == v12)
+      memset(&v35, 0, sizeof(v35));
+      memset(v34, 0, sizeof(v34));
+      std::vector<float>::reserve(&v35, MaxNumTokens);
+      v32 = this;
+      v13 = *(a2 + 6);
+      if (*(a2 + 7) == v13)
       {
-        end = v34.__end_;
+        end = v35.__end_;
       }
 
       else
       {
-        v13 = 0;
-        end = v34.__end_;
-        v15 = 24;
+        v14 = 0;
+        end = v35.__end_;
+        v16 = 24;
         do
         {
-          v16 = *(v12 + v15);
-          if (end >= v34.__end_cap_.__value_)
+          v17 = *(v13 + v16);
+          if (end >= v35.__end_cap_.__value_)
           {
-            begin = v34.__begin_;
-            v18 = end - v34.__begin_;
-            v19 = end - v34.__begin_;
-            v20 = v19 + 1;
-            if ((v19 + 1) >> 62)
+            begin = v35.__begin_;
+            v19 = end - v35.__begin_;
+            v20 = end - v35.__begin_;
+            v21 = v20 + 1;
+            if ((v20 + 1) >> 62)
             {
               std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
             }
 
-            v21 = v34.__end_cap_.__value_ - v34.__begin_;
-            if ((v34.__end_cap_.__value_ - v34.__begin_) >> 1 > v20)
+            v22 = v35.__end_cap_.__value_ - v35.__begin_;
+            if ((v35.__end_cap_.__value_ - v35.__begin_) >> 1 > v21)
             {
-              v20 = v21 >> 1;
+              v21 = v22 >> 1;
             }
 
-            if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
+            if (v22 >= 0x7FFFFFFFFFFFFFFCLL)
             {
-              v22 = 0x3FFFFFFFFFFFFFFFLL;
+              v23 = 0x3FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v22 = v20;
+              v23 = v21;
             }
 
-            if (v22)
+            if (v23)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v34, v22);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(&v35, v23);
             }
 
-            v23 = v19;
-            v24 = (4 * v19);
-            v25 = &v24[-v23];
-            *v24 = v16;
-            end = (v24 + 1);
-            memcpy(v25, begin, v18);
-            v26 = v34.__begin_;
-            v34.__begin_ = v25;
-            v34.__end_ = end;
-            v34.__end_cap_.__value_ = 0;
-            if (v26)
+            v24 = v20;
+            v25 = (4 * v20);
+            v26 = &v25[-v24];
+            *v25 = v17;
+            end = (v25 + 1);
+            memcpy(v26, begin, v19);
+            v27 = v35.__begin_;
+            v35.__begin_ = v26;
+            v35.__end_ = end;
+            v35.__end_cap_.__value_ = 0;
+            if (v27)
             {
-              operator delete(v26);
+              operator delete(v27);
             }
           }
 
           else
           {
-            *end++ = v16;
+            *end++ = v17;
           }
 
-          v34.__end_ = end;
-          ++v13;
-          v12 = *(a2 + 6);
-          v15 += 112;
+          v35.__end_ = end;
+          ++v14;
+          v13 = *(a2 + 6);
+          v16 += 112;
         }
 
-        while (v13 < 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 7) - v12) >> 4));
+        while (v14 < 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 7) - v13) >> 4));
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 1065353216;
-      std::vector<float>::resize(v33, end - v34.__begin_, &buf, v11);
-      *v27.i32 = *(v31 + 3);
-      *&buf.__r_.__value_.__l.__data_ = *v27.i32;
-      std::vector<float>::resize(&v34, MaxNumTokens, &buf, v27);
+      std::vector<float>::resize(v34, end - v35.__begin_, &buf, v12);
+      *v28.i32 = *(v32 + 3);
+      *&buf.__r_.__value_.__l.__data_ = *v28.i32;
+      std::vector<float>::resize(&v35, MaxNumTokens, &buf, v28);
       LODWORD(buf.__r_.__value_.__l.__data_) = 0;
-      std::vector<float>::resize(v33, MaxNumTokens, &buf, v28);
+      std::vector<float>::resize(v34, MaxNumTokens, &buf, v29);
       buf.__r_.__value_.__r.__words[0] = 1;
       buf.__r_.__value_.__l.__size_ = MaxNumTokens;
-      memset(v32, 0, sizeof(v32));
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(v32, &buf, &buf.__r_.__value_.__r.__words[2], 2uLL);
+      memset(v33, 0, sizeof(v33));
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(v33, &buf, &buf.__r_.__value_.__r.__words[2], 2uLL);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -4376,10 +3060,10 @@ void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::generateP
     exception->__vftable = &unk_2835E9238;
   }
 
-  v29 = __cxa_allocate_exception(0x10uLL);
+  v30 = __cxa_allocate_exception(0x10uLL);
   std::string::basic_string[abi:ne200100]<0>(&buf, "Invalid Bert Module for EspressoV1 WholeOwl assets!");
-  std::runtime_error::runtime_error(v29, &buf);
-  v29->__vftable = &unk_2835E9238;
+  std::runtime_error::runtime_error(v30, &buf);
+  v30->__vftable = &unk_2835E9238;
 }
 
 void sub_22298CBFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -4405,26 +3089,26 @@ LABEL_6:
 
 void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::forwardAggregatedBySentence(nlv4_inference_orchestrator::inference_engine::EspressoBertModel *this, const nlv4_inference_orchestrator::inference_engine::EspressoBertModelInputType *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   std::chrono::steady_clock::now();
-  v4 = SNLPOSLoggerForCategory(7);
-  v5 = os_signpost_id_generate(v4);
-  v6 = SNLPOSLoggerForCategory(7);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
+  v7 = SNLPOSLoggerForCategory(7);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v6))
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22284A000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "OWL Input Preprocess Aggregated", "", buf, 2u);
+      LOWORD(buf[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "OWL Input Preprocess Aggregated", "", buf, 2u);
     }
   }
 
-  v8 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Input Preprocess Aggregated", buf, 2u);
+    LOWORD(buf[0]) = 0;
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Input Preprocess Aggregated", buf, 2u);
   }
 
   nlv4_inference_orchestrator::inference_engine::EspressoBertModel::generateBertInput(this, a2);
@@ -4432,9 +3116,9 @@ void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::forwardAg
 
 void sub_22298D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, uint64_t a59, void *a60, uint64_t a61, int a62, __int16 a63)
 {
-  if (*(v77 - 105) < 0)
+  if (*(v72 - 105) < 0)
   {
-    operator delete(*(v77 - 128));
+    operator delete(*(v72 - 128));
   }
 
   if (a19 < 0)
@@ -4442,9 +3126,9 @@ void sub_22298D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a67);
+    operator delete(a66);
   }
 
   if (a65 < 0)
@@ -4482,19 +3166,19 @@ void sub_22298D6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a26);
   }
 
-  if (a73)
+  if (a68)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (a74)
+  if (a69)
   {
-    operator delete(a74);
+    operator delete(a69);
   }
 
-  nlv4_inference_orchestrator::orchestration::EmbeddingTensor::~EmbeddingTensor(&a75);
-  nlv4_inference_orchestrator::inference_engine::EspressoBertModelOutputType::~EspressoBertModelOutputType(v76);
-  nlv4_inference_orchestrator::inference_engine::BertModuleOutputType::~BertModuleOutputType(&a76);
+  nlv4_inference_orchestrator::orchestration::EmbeddingTensor::~EmbeddingTensor(&a70);
+  nlv4_inference_orchestrator::inference_engine::EspressoBertModelOutputType::~EspressoBertModelOutputType(v71);
+  nlv4_inference_orchestrator::inference_engine::BertModuleOutputType::~BertModuleOutputType(&a71);
   nlv4_inference_orchestrator::inference_engine::BertModuleInputType::~BertModuleInputType(&STACK[0x270]);
   _Unwind_Resume(a1);
 }
@@ -4618,15 +3302,15 @@ void sub_22298DA2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV1Model(std::__fs::filesystem::path *this@<X0>, void *a2@<X8>)
+void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV1Model(std::__fs::filesystem::path *this@<X0>, uint64_t *a2@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *a2 = 0;
-  std::__fs::filesystem::operator/[abi:ne200100](&v9.__pn_, this, this + 3);
-  std::__fs::filesystem::__status(&v9, 0);
-  if (SHIBYTE(v9.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  std::__fs::filesystem::operator/[abi:ne200100](&v8.__pn_, this, this + 3);
+  std::__fs::filesystem::__status(&v8, 0);
+  if (SHIBYTE(v8.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v8.__pn_.__r_.__value_.__l.__data_);
   }
 
   if (__p.__r_.__value_.__s.__data_[0] && __p.__r_.__value_.__s.__data_[0] != 255)
@@ -4634,22 +3318,22 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspre
     std::__fs::filesystem::operator/[abi:ne200100](&__p, this, this + 3);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v9.__pn_, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v8.__pn_, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v9.__pn_ = __p;
+      v8.__pn_ = __p;
     }
 
     operator new();
   }
 
-  std::__fs::filesystem::operator/[abi:ne200100](&v9.__pn_, this, this + 5);
-  std::__fs::filesystem::__status(&v9, 0);
-  if (SHIBYTE(v9.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  std::__fs::filesystem::operator/[abi:ne200100](&v8.__pn_, this, this + 5);
+  std::__fs::filesystem::__status(&v8, 0);
+  if (SHIBYTE(v8.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v8.__pn_.__r_.__value_.__l.__data_);
   }
 
   if (__p.__r_.__value_.__s.__data_[0] && __p.__r_.__value_.__s.__data_[0] != 255)
@@ -4657,12 +3341,12 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspre
     std::__fs::filesystem::operator/[abi:ne200100](&__p, this, this + 5);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v9.__pn_, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v8.__pn_, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v9.__pn_ = __p;
+      v8.__pn_ = __p;
     }
 
     operator new();
@@ -4678,11 +3362,11 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspre
       v5 = "<UNDEFINED_COMPONENT>";
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v9.__pn_.__r_.__value_.__l.__data_) = 136315394;
-        *(v9.__pn_.__r_.__value_.__r.__words + 4) = "<UNDEFINED_COMPONENT>";
-        WORD2(v9.__pn_.__r_.__value_.__r.__words[1]) = 2048;
-        *(&v9.__pn_.__r_.__value_.__r.__words[1] + 6) = v4;
-        _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v9, 0x16u);
+        LODWORD(v8.__pn_.__r_.__value_.__l.__data_) = 136315394;
+        *(v8.__pn_.__r_.__value_.__r.__words + 4) = "<UNDEFINED_COMPONENT>";
+        WORD2(v8.__pn_.__r_.__value_.__r.__words[1]) = 2048;
+        *(&v8.__pn_.__r_.__value_.__r.__words[1] + 6) = v4;
+        _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v8, 0x16u);
       }
     }
 
@@ -4691,12 +3375,10 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspre
       v5 = off_2784B6F30[v4];
     }
 
-    LODWORD(v9.__pn_.__r_.__value_.__l.__data_) = 136315138;
-    *(v9.__pn_.__r_.__value_.__r.__words + 4) = v5;
-    _os_log_impl(&dword_22284A000, v3, OS_LOG_TYPE_ERROR, "[%s] Unable to initialize the ITFM model using Espresso v1", &v9, 0xCu);
+    LODWORD(v8.__pn_.__r_.__value_.__l.__data_) = 136315138;
+    *(v8.__pn_.__r_.__value_.__r.__words + 4) = v5;
+    _os_log_impl(&dword_22284A000, v3, OS_LOG_TYPE_ERROR, "[%s] Unable to initialize the ITFM model using Espresso v1", &v8, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22298E204(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -4742,7 +3424,7 @@ void itfm_inference_orchestrator::inference_engine::ITFME5MLModule::~ITFME5MLMod
 
 uint64_t nlv4_inference_orchestrator::span_matching::hasProbability(uint64_t a1, int *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (v3 >= 8)
   {
@@ -4752,8 +3434,8 @@ uint64_t nlv4_inference_orchestrator::span_matching::hasProbability(uint64_t a1,
     {
       *buf = 136315394;
       *&buf[4] = "<UNDEFINED_COMPONENT>";
-      v21 = 2048;
-      v22 = v3;
+      v20 = 2048;
+      v21 = v3;
       _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
     }
   }
@@ -4771,13 +3453,13 @@ uint64_t nlv4_inference_orchestrator::span_matching::hasProbability(uint64_t a1,
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v12 = buf;
-      if (v23 < 0)
+      if (v22 < 0)
       {
         v12 = *buf;
       }
 
-      v18 = 136315138;
-      v19 = v12;
+      v17 = 136315138;
+      v18 = v12;
       v11 = "[%s] [WARN] MatchingSpan has no USO graph";
       goto LABEL_25;
     }
@@ -4792,13 +3474,13 @@ uint64_t nlv4_inference_orchestrator::span_matching::hasProbability(uint64_t a1,
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v13 = buf;
-      if (v23 < 0)
+      if (v22 < 0)
       {
         v13 = *buf;
       }
 
-      v18 = 136315138;
-      v19 = v13;
+      v17 = 136315138;
+      v18 = v13;
       v11 = "[%s] [WARN] MatchingSpan has USO graph with no identifiers";
       goto LABEL_25;
     }
@@ -4813,13 +3495,13 @@ uint64_t nlv4_inference_orchestrator::span_matching::hasProbability(uint64_t a1,
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v14 = buf;
-      if (v23 < 0)
+      if (v22 < 0)
       {
         v14 = *buf;
       }
 
-      v18 = 136315138;
-      v19 = v14;
+      v17 = 136315138;
+      v18 = v14;
       v11 = "[%s] [WARN] probability missing from identifier";
       goto LABEL_25;
     }
@@ -4835,16 +3517,16 @@ LABEL_26:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = buf;
-      if (v23 < 0)
+      if (v22 < 0)
       {
         v10 = *buf;
       }
 
-      v18 = 136315138;
-      v19 = v10;
+      v17 = 136315138;
+      v18 = v10;
       v11 = "[%s] [WARN] probability has no value";
 LABEL_25:
-      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, v11, &v18, 0xCu);
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, v11, &v17, 0xCu);
       goto LABEL_26;
     }
 
@@ -4853,44 +3535,43 @@ LABEL_25:
 
   v15 = 1;
 LABEL_27:
-  if (v23 < 0)
+  if (v22 < 0)
   {
     operator delete(*buf);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, __int128 **a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -4898,44 +3579,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t nlv4_inference_orchestrator::span_matching::scoreOfSpan(uint64_t a1, int *a2)
@@ -4953,7 +3634,7 @@ uint64_t nlv4_inference_orchestrator::span_matching::scoreOfSpan(uint64_t a1, in
 
 uint64_t nlv4_inference_orchestrator::span_matching::RelativeThresholdMatchingSpansFilter::RelativeThresholdMatchingSpansFilter(uint64_t a1, int *a2, double a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *a1 = &unk_2835E6128;
   v4 = *a2;
   *(a1 + 8) = v4;
@@ -4968,8 +3649,8 @@ uint64_t nlv4_inference_orchestrator::span_matching::RelativeThresholdMatchingSp
       {
         *buf = 136315394;
         *&buf[4] = "<UNDEFINED_COMPONENT>";
-        v17 = 2048;
-        v18 = v4;
+        v16 = 2048;
+        v17 = v4;
         _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
       }
     }
@@ -4984,82 +3665,80 @@ uint64_t nlv4_inference_orchestrator::span_matching::RelativeThresholdMatchingSp
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = buf;
-      if (v19 < 0)
+      if (v18 < 0)
       {
         v8 = *buf;
       }
 
       v9 = *(a1 + 16);
-      v12 = 136315394;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
-      _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] [WARN] Negative relative threshold supplied (%f), span filtering will behave strangely", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = v8;
+      v13 = 2048;
+      v14 = v9;
+      _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] [WARN] Negative relative threshold supplied (%f), span filtering will behave strangely", &v11, 0x16u);
     }
 
-    if (v19 < 0)
+    if (v18 < 0)
     {
       operator delete(*buf);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-char **uaap::TimeSpanHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3)
+void *uaap::TimeSpanHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = DDResultHasType();
   if (result)
   {
 
-    return uaap::mapTimeSpanToItemizedUsos(a3);
+    return uaap::mapTimeSpanToItemizedUsos(a3, a4);
   }
 
   return result;
 }
 
-char **uaap::mapTimeSpanToItemizedUsos(uint64_t a1)
+void *uaap::mapTimeSpanToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  v2 = CFHash(@"TimeSpan");
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v2);
+  v3 = CFHash(@"TimeSpan");
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v3);
   if (result)
   {
-    v5 = result[3];
-    v4 = result[4];
-    if (v4 != v5)
+    v6 = result[3];
+    v5 = result[4];
+    if (v5 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        result = *&v5[8 * v6];
+        result = *(v6 + 8 * v7);
         if (result)
         {
-          v7 = **result;
           if (result)
           {
             operator new();
           }
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v6 < (v4 - v5) >> 3);
+      while (v7 < (v5 - v6) >> 3);
     }
   }
 
   return result;
 }
 
-void sub_22298EE54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22298EE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t uaap::TimeSpanHandler::resolveRecurringTimeSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::TimeSpanHandler::resolveRecurringTimeSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -5069,79 +3748,41 @@ uint64_t uaap::TimeSpanHandler::resolveRecurringTimeSpan(siri::ontology::oname::
       {
         if (a4)
         {
-          v6 = *(a3 + 24);
-          siri::ontology::oname::graph::ontology_init::Root(a1);
-          v7 = siri::ontology::operator!=();
-          if ((v7 & 1) == 0)
-          {
-            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v7);
-            EntityNode = siri::ontology::UsoGraph::createEntityNode();
-            v9 = EntityNode;
-            if (*(a1 + 7) || *(a1 + 8) || *(a1 + 10))
-            {
-              siri::ontology::oname::graph::ontology_init::common_Duration(EntityNode);
-              v10 = siri::ontology::UsoGraph::createEntityNode();
-              EntityNode = uaap::TimeSpanHandler::resolveTimeSpanWithUnit(a1, a2, v10, v11);
-              if (EntityNode)
-              {
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v10, a1, v12);
-              }
-            }
-
-            siri::ontology::oname::graph::ontology_init::common_DateTime(EntityNode);
-            v13 = siri::ontology::UsoGraph::createEntityNode();
-            v15 = uaap::TimeHandler::resolveDateTimeRangeValue(a1, a2, v13, v14);
-            if (v15)
-            {
-              siri::ontology::oname::graph::ontology_init::Argument_recurrenceDateTimes(v15);
-              siri::ontology::UsoGraphNode::setSuccessor();
-              v18 = *(a1 + 6);
-              if (v18)
-              {
-                if (*(v18 + 24))
-                {
-                  uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, v13, v17);
-                }
-              }
-
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v9, a1, v16);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t uaap::TimeSpanHandler::resolveTimeSpan(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      if (a3)
-      {
-        if (a4)
-        {
-          v5 = *(a3 + 24);
           siri::ontology::oname::graph::ontology_init::Root(a1);
           v6 = siri::ontology::operator!=();
           if ((v6 & 1) == 0)
           {
+            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v6);
+            EntityNode = siri::ontology::UsoGraph::createEntityNode();
+            v8 = EntityNode;
             if (*(a1 + 7) || *(a1 + 8) || *(a1 + 10))
             {
-              siri::ontology::oname::graph::ontology_init::common_Duration(v6);
-              EntityNode = siri::ontology::UsoGraph::createEntityNode();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v8);
+              siri::ontology::oname::graph::ontology_init::common_Duration(EntityNode);
+              v9 = siri::ontology::UsoGraph::createEntityNode();
+              EntityNode = uaap::TimeSpanHandler::resolveTimeSpanWithUnit(a1, a2, v9, v10);
+              if (EntityNode)
+              {
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v9, a1, v11);
+              }
             }
 
-            if (*(a1 + 12))
+            siri::ontology::oname::graph::ontology_init::common_DateTime(EntityNode);
+            v12 = siri::ontology::UsoGraph::createEntityNode();
+            v14 = uaap::TimeHandler::resolveDateTimeRangeValue(a1, a2, v12, v13);
+            if (v14)
             {
-              siri::ontology::oname::graph::ontology_init::common_Time(v6);
-              v9 = siri::ontology::UsoGraph::createEntityNode();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v9, a1, v10);
+              siri::ontology::oname::graph::ontology_init::Argument_recurrenceDateTimes(v14);
+              siri::ontology::UsoGraphNode::setSuccessor();
+              v17 = *(a1 + 6);
+              if (v17)
+              {
+                if (*(v17 + 24))
+                {
+                  uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, v12, v16);
+                }
+              }
+
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v8, a1, v15);
             }
           }
         }
@@ -5152,20 +3793,55 @@ uint64_t uaap::TimeSpanHandler::resolveTimeSpan(siri::ontology::oname::graph::on
   return 0;
 }
 
-siri::ontology::UsoEntityNode **uaap::TimeSpanHandler::resolveDateTimeRangeSpanGraph(siri::ontology::UsoEntityNode **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3)
+uaap::AbstractDateTimeHandler *uaap::TimeSpanHandler::resolveTimeSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
+{
+  if (a1)
+  {
+    if (a2)
+    {
+      if (a3)
+      {
+        if (a4)
+        {
+          siri::ontology::oname::graph::ontology_init::Root(a1);
+          v5 = siri::ontology::operator!=();
+          if ((v5 & 1) == 0)
+          {
+            if (*(a1 + 7) || *(a1 + 8) || *(a1 + 10))
+            {
+              siri::ontology::oname::graph::ontology_init::common_Duration(v5);
+              EntityNode = siri::ontology::UsoGraph::createEntityNode();
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v7);
+            }
+
+            if (*(a1 + 12))
+            {
+              siri::ontology::oname::graph::ontology_init::common_Time(v5);
+              v8 = siri::ontology::UsoGraph::createEntityNode();
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v8, a1, v9);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveDateTimeRangeSpanGraph(siri::ontology::oname::graph::ontology_init *this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3)
 {
   if (this)
   {
     v3 = this;
-    if (this[12])
+    if (*(this + 12))
     {
-      v5 = *(a2 + 11);
       siri::ontology::oname::graph::ontology_init::common_DateTime(this);
       EntityNode = siri::ontology::UsoGraph::createEntityNode();
-      this = uaap::TimeHandler::resolveDateTimeRangeValue(v3, a2, EntityNode, v7);
+      this = uaap::TimeHandler::resolveDateTimeRangeValue(v3, a2, EntityNode, v6);
       if (this)
       {
-        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v3, v8);
+        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v3, v7);
       }
     }
   }
@@ -5178,14 +3854,14 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveTimeS
   result = 0;
   if (this && a2 && a3)
   {
-    if ((*(this + 7) || *(this + 8) || *(this + 10)) && (v8 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_Duration(0), v9 = siri::ontology::operator!=(), (v9 & 1) == 0))
+    if ((*(this + 7) || *(this + 8) || *(this + 10)) && (siri::ontology::oname::graph::ontology_init::common_Duration(0), v8 = siri::ontology::operator!=(), (v8 & 1) == 0))
     {
-      v10 = *(this + 10);
-      if (v10)
+      v9 = *(this + 10);
+      if (v9)
       {
-        v11 = *(v10 + 24);
-        v12 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Second(v9);
-        result = uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v11, v12, a2, a3, this);
+        v10 = *(v9 + 24);
+        v11 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Second(v8);
+        result = uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v10, v11, a2, a3, this);
       }
 
       else
@@ -5193,21 +3869,21 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveTimeS
         result = 0;
       }
 
-      v13 = *(this + 8);
-      if (v13)
+      v12 = *(this + 8);
+      if (v12)
       {
-        v14 = *(v13 + 24);
-        v15 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Minute(result);
-        result = uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v14, v15, a2, a3, this);
+        v13 = *(v12 + 24);
+        v14 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Minute(result);
+        result = uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v13, v14, a2, a3, this);
       }
 
-      v16 = *(this + 7);
-      if (v16)
+      v15 = *(this + 7);
+      if (v15)
       {
-        v17 = *(v16 + 24);
-        v18 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Hour(result);
+        v16 = *(v15 + 24);
+        v17 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Hour(result);
 
-        return uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v17, v18, a2, a3, this);
+        return uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v16, v17, a2, a3, this);
       }
     }
 
@@ -5220,7 +3896,7 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveTimeS
   return result;
 }
 
-uint64_t uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4, siri::ontology::UsoEntityNode *a5)
+siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4, siri::ontology::UsoEntityNode *a5)
 {
   siri::ontology::oname::graph::ontology_init::common_TimeUnit_Hour(a1);
   v7 = siri::ontology::operator!=();
@@ -5255,7 +3931,7 @@ BOOL uaap::TimeSpanHandler::isRecurringTime(_BOOL8 this, uaap::UPDDTimeSpan *a2)
   return this;
 }
 
-uint64_t uaap::TimeSpanHandler::resolveMinutesBeforeTimeSpanWithUnit(CFTypeRef *this, uaap::UPDDSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveMinutesBeforeTimeSpanWithUnit(CFTypeRef *this, uaap::UPDDSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (!this)
   {
@@ -5278,18 +3954,17 @@ uint64_t uaap::TimeSpanHandler::resolveMinutesBeforeTimeSpanWithUnit(CFTypeRef *
     return 0;
   }
 
-  v8 = *(a3 + 3);
   siri::ontology::oname::graph::ontology_init::common_Duration(v7);
-  v9 = siri::ontology::operator!=();
-  if (v9)
+  v8 = siri::ontology::operator!=();
+  if (v8)
   {
     return 0;
   }
 
-  v11 = this[3];
-  v12 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Minute(v9);
+  v10 = this[3];
+  v11 = siri::ontology::oname::graph::ontology_init::common_TimeUnit_Minute(v8);
 
-  return uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v11, v12, a2, a3, this);
+  return uaap::TimeSpanHandler::_buildDurationComponentWithValueAndUnit(v10, v11, a2, a3, this);
 }
 
 siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveTimeSpanGraph(siri::ontology::oname::graph::ontology_init *this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3)
@@ -5322,7 +3997,7 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeSpanHandler::resolveRecur
 
 void nlv4_inference_orchestrator::pre_processing::Reformulator::~Reformulator(void **this)
 {
-  v2 = this + 3;
+  v2 = (this + 3);
   std::vector<std::pair<std::basic_regex<char,std::regex_traits<char>>,std::string>>::__destroy_vector::operator()[abi:ne200100](&v2);
   if (*(this + 23) < 0)
   {
@@ -5337,28 +4012,7 @@ void nlv4_inference_orchestrator::inference_engine::BertModelLoadingError::~Bert
   JUMPOUT(0x223DC4D00);
 }
 
-void nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::EmbedderOrchestrator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v8 = std::__fs::filesystem::path::path[abi:ne200100]<char [12],void>(a1, "config.json");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v8 + 1, "reformulations.txt");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>((a1 + 48), "bert.mlmodelc");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>((a1 + 72), "model.espresso.net");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>((a1 + 96), "src_vocab.txt");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [13],void>((a1 + 120), "version.yaml");
-  v10[0] = 2;
-  snlp::common::config::loadConfig(a1 + 144, a4, v10);
-  *(a1 + 184) = 0;
-  nlv4_inference_orchestrator::pre_processing::Reformulator::Reformulator(a1 + 192, a5);
-  *(a1 + 240) = 850045863;
-  *(a1 + 248) = 0u;
-  *(a1 + 264) = 0u;
-  *(a1 + 280) = 0u;
-  *(a1 + 296) = 0;
-  v9 = 2;
-  snlp::common::config::loadConfig(v10, a4, &v9);
-  operator new();
-}
-
+void nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::EmbedderOrchestrator(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
   v8 = std::__fs::filesystem::path::path[abi:ne200100]<char [12],void>(a1, "config.json");
   std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v8 + 1, "reformulations.txt");
@@ -5425,9 +4079,31 @@ void sub_22298F8BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22298FBCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
+void nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::EmbedderOrchestrator(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  MEMORY[0x223DC4D00](v23, 0x10B3C4028DAAE2CLL);
+  v9 = std::__fs::filesystem::path::path[abi:ne200100]<char [12],void>(a1, "config.json");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v9 + 1, "reformulations.txt");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>((a1 + 48), "bert.mlmodelc");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>((a1 + 72), "model.espresso.net");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [14],void>((a1 + 96), "src_vocab.txt");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [13],void>((a1 + 120), "version.yaml");
+  v11[0] = 2;
+  snlp::common::config::loadConfig(a1 + 144, a4, v11);
+  *(a1 + 184) = 0;
+  nlv4_inference_orchestrator::pre_processing::Reformulator::Reformulator(a1 + 192, a5);
+  *(a1 + 240) = 850045863;
+  *(a1 + 248) = 0u;
+  *(a1 + 264) = 0u;
+  *(a1 + 280) = 0u;
+  *(a1 + 296) = 0;
+  v10 = 2;
+  snlp::common::config::loadConfig(v11, a4, &v10);
+  operator new();
+}
+
+void sub_22298FBCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
+{
+  MEMORY[0x223DC4D00](v23, 0x10B3C4028DAAE2CLL, a3, a4, a5, a6, a7, a8);
   std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::~__hash_table(&a10);
   std::mutex::~mutex(v22);
   nlv4_inference_orchestrator::pre_processing::Reformulator::~Reformulator((v21 + 192));
@@ -5513,21 +4189,21 @@ void nlv4_inference_orchestrator::inference_engine::EspressoBertModelInputType::
   }
 }
 
-void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<float>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -5543,14 +4219,14 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     v12 = std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(a2, a3, v8);
-    v13 = a1[1];
+    v13 = *(a1 + 8);
     if (v13 != v12)
     {
-      v14 = a1[1];
+      v14 = *(a1 + 8);
       do
       {
         v16 = *(v14 - 3);
@@ -5568,17 +4244,17 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
       while (v14 != v12);
     }
 
-    a1[1] = v12;
+    *(a1 + 8) = v12;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(char **a1, char **a2, char **a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(char **a1, char **a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -5632,7 +4308,7 @@ std::string *std::__copy_impl::operator()[abi:ne200100]<nlv4_inference_orchestra
 void sub_222990224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   nlv4_inference_orchestrator::inference_engine::EspressoBertModelOutputType::~EspressoBertModelOutputType(&a39);
-  nlv4_inference_orchestrator::orchestration::BertPreprocessingOutput::~BertPreprocessingOutput(&a68);
+  nlv4_inference_orchestrator::orchestration::BertPreprocessingOutput::~BertPreprocessingOutput(&a65);
   _Unwind_Resume(a1);
 }
 
@@ -5656,11 +4332,12 @@ uint64_t std::optional<nlv4_inference_orchestrator::orchestration::EmbeddingTens
   return a1;
 }
 
-void sub_22299147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22299147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5671,19 +4348,19 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2229916FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2229916FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-unint64_t snlp::common::text_uso_graph::bottomUpTreeHash(siri::ontology::UsoGraph **this, const UsoGraphNode *a2)
+unint64_t snlp::common::text_uso_graph::bottomUpTreeHash(const UsoGraphNode *this, const UsoGraphNode *a2)
 {
   __src = 0;
   v28 = 0;
   v29 = 0;
-  siri::ontology::UsoGraph::getSuccessorsWithEdges(&__p, this[1], this);
+  siri::ontology::UsoGraph::getSuccessorsWithEdges(&__p, this->var1, this);
   v4 = __p;
   v5 = v25;
   if (__p != v25)
@@ -5760,7 +4437,7 @@ unint64_t snlp::common::text_uso_graph::bottomUpTreeHash(siri::ontology::UsoGrap
     operator delete(v4);
   }
 
-  (*(*this + 6))(&__p, this);
+  (*(this->var0 + 6))(&__p, this);
   v19 = std::__string_hash<char>::operator()[abi:ne200100](&v23, &__p);
   if (v26 < 0)
   {
@@ -5800,137 +4477,137 @@ void sub_2229926B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t nlv4_inference_orchestrator::inference_engine::createInvalidTensorNameErrorMessage(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t nlv4_inference_orchestrator::inference_engine::createInvalidTensorNameErrorMessage(uint64_t **a1, uint64_t **a2, uint64_t **a3)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v32);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "Invalid tensor name: ", 21);
-  v7 = *(a2 + 23);
-  if (v7 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v33);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "Invalid tensor name: ", 21);
+  v8 = *(a2 + 23);
+  if (v8 >= 0)
   {
-    v8 = a2;
+    v9 = a2;
   }
 
   else
   {
-    v8 = *a2;
+    v9 = *a2;
   }
 
-  if (v7 >= 0)
+  if (v8 >= 0)
   {
-    v9 = *(a2 + 23);
+    v10 = *(a2 + 23);
   }
 
   else
   {
-    v9 = *(a2 + 8);
+    v10 = a2[1];
   }
 
-  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
-  std::ios_base::getloc((v10 + *(*v10 - 24)));
-  v11 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
-  (v11->__vftable[2].~facet_0)(v11, 10);
-  std::locale::~locale(&v38);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
+  std::ios_base::getloc((v11 + *(*v11 - 24)));
+  v12 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+  (v12->__vftable[2].~facet_0)(v12, 10);
+  std::locale::~locale(&v39);
   std::ostream::put();
   std::ostream::flush();
-  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "Tensor description: ", 20);
-  v13 = *(a1 + 23);
-  if (v13 >= 0)
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "Tensor description: ", 20);
+  v14 = *(a1 + 23);
+  if (v14 >= 0)
   {
-    v14 = a1;
+    v15 = a1;
   }
 
   else
   {
-    v14 = *a1;
+    v15 = *a1;
   }
 
-  if (v13 >= 0)
+  if (v14 >= 0)
   {
-    v15 = *(a1 + 23);
+    v16 = *(a1 + 23);
   }
 
   else
   {
-    v15 = *(a1 + 8);
+    v16 = a1[1];
   }
 
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v14, v15);
-  std::ios_base::getloc((v16 + *(*v16 - 24)));
-  v17 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
-  (v17->__vftable[2].~facet_0)(v17, 10);
-  std::locale::~locale(&v38);
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v15, v16);
+  std::ios_base::getloc((v17 + *(*v17 - 24)));
+  v18 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+  (v18->__vftable[2].~facet_0)(v18, 10);
+  std::locale::~locale(&v39);
   std::ostream::put();
   std::ostream::flush();
-  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "Valid options are: [", 20);
-  std::ios_base::getloc((v18 + *(*v18 - 24)));
-  v19 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
-  (v19->__vftable[2].~facet_0)(v19, 10);
-  std::locale::~locale(&v38);
+  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "Valid options are: [", 20);
+  std::ios_base::getloc((v19 + *(*v19 - 24)));
+  v20 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+  (v20->__vftable[2].~facet_0)(v20, 10);
+  std::locale::~locale(&v39);
   std::ostream::put();
   std::ostream::flush();
-  v20 = *a3;
-  v21 = a3[1];
-  if (*a3 != v21)
+  v21 = *a3;
+  v22 = a3[1];
+  if (*a3 != v22)
   {
-    v22 = MEMORY[0x277D82680];
+    v23 = MEMORY[0x277D82680];
     do
     {
-      v23 = *(v20 + 23);
-      if (v23 >= 0)
+      v24 = *(v21 + 23);
+      if (v24 >= 0)
       {
-        v24 = v20;
+        v25 = v21;
       }
 
       else
       {
-        v24 = *v20;
+        v25 = *v21;
       }
 
-      if (v23 >= 0)
+      if (v24 >= 0)
       {
-        v25 = *(v20 + 23);
+        v26 = *(v21 + 23);
       }
 
       else
       {
-        v25 = *(v20 + 8);
+        v26 = *(v21 + 8);
       }
 
-      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, v24, v25);
-      std::ios_base::getloc((v26 + *(*v26 - 24)));
-      v27 = std::locale::use_facet(&v38, v22);
-      (v27->__vftable[2].~facet_0)(v27, 10);
-      std::locale::~locale(&v38);
+      v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, v25, v26);
+      std::ios_base::getloc((v27 + *(*v27 - 24)));
+      v28 = std::locale::use_facet(&v39, v23);
+      (v28->__vftable[2].~facet_0)(v28, 10);
+      std::locale::~locale(&v39);
       std::ostream::put();
       std::ostream::flush();
-      v20 += 24;
+      v21 += 24;
     }
 
-    while (v20 != v21);
+    while (v21 != v22);
   }
 
-  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "]", 1);
-  std::ios_base::getloc((v28 + *(*v28 - 24)));
-  v29 = std::locale::use_facet(&v38, MEMORY[0x277D82680]);
-  (v29->__vftable[2].~facet_0)(v29, 10);
-  std::locale::~locale(&v38);
+  v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "]", 1);
+  std::ios_base::getloc((v29 + *(*v29 - 24)));
+  v30 = std::locale::use_facet(&v39, MEMORY[0x277D82680]);
+  (v30->__vftable[2].~facet_0)(v30, 10);
+  std::locale::~locale(&v39);
   std::ostream::put();
   std::ostream::flush();
   std::stringbuf::str();
-  v32[0] = *MEMORY[0x277D82818];
-  v30 = *(MEMORY[0x277D82818] + 72);
-  *(v32 + *(v32[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v33 = v30;
-  v34 = MEMORY[0x277D82878] + 16;
-  if (v36 < 0)
+  v33[0] = *MEMORY[0x277D82818];
+  v31 = *(MEMORY[0x277D82818] + 72);
+  *(v33 + *(v33[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v34 = v31;
+  v35 = MEMORY[0x277D82878] + 16;
+  if (v37 < 0)
   {
-    operator delete(v35[7].__locale_);
+    operator delete(v36[7].__locale_);
   }
 
-  v34 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v35);
+  v35 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v36);
   std::iostream::~basic_iostream();
-  return MEMORY[0x223DC4C10](&v37);
+  return MEMORY[0x223DC4C10](&v38);
 }
 
 void sub_222992BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -5940,7 +4617,7 @@ void sub_222992BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_222993CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45)
+void sub_222993CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, unint64_t *a41, unint64_t *a42, uint64_t a43, void *__p, uint64_t a45)
 {
   if (__p)
   {
@@ -6272,7 +4949,7 @@ void nlv4_inference_orchestrator::trees::PlyStateHandler::constructUDA(uint64_t 
   v11 = 0;
   memset(v10, 0, sizeof(v10));
   v9 = 0u;
-  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100]((v3 + 88), &v4);
+  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](v3 + 88, &v4);
   v12 = v10;
   std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v12);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6306,10 +4983,10 @@ void sub_222994B38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode>(a1, a2);
   }
@@ -6317,57 +4994,53 @@ uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[ab
   else
   {
     v4 = *a2;
-    *(v3 + 16) = *(a2 + 16);
+    *(v3 + 16) = *(a2 + 2);
     *v3 = v4;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5 = *(a2 + 24);
-    *(v3 + 40) = *(a2 + 40);
+    *(v3 + 40) = *(a2 + 5);
     *(v3 + 24) = v5;
-    *(a2 + 32) = 0;
-    *(a2 + 40) = 0;
-    *(a2 + 24) = 0;
-    v6 = *(a2 + 48);
-    *(v3 + 64) = *(a2 + 64);
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    v6 = a2[3];
+    *(v3 + 64) = *(a2 + 8);
     *(v3 + 48) = v6;
-    *(a2 + 56) = 0;
-    *(a2 + 64) = 0;
-    *(a2 + 48) = 0;
+    *(a2 + 56) = 0uLL;
+    *(a2 + 6) = 0;
     *(v3 + 72) = *(a2 + 72);
     *(v3 + 96) = 0;
     *(v3 + 104) = 0;
     *(v3 + 88) = 0;
     *(v3 + 88) = *(a2 + 88);
-    *(v3 + 104) = *(a2 + 104);
-    *(a2 + 88) = 0;
-    *(a2 + 96) = 0;
-    *(a2 + 104) = 0;
-    v7 = *(a2 + 128);
-    *(v3 + 112) = *(a2 + 112);
+    *(v3 + 104) = *(a2 + 13);
+    *(a2 + 88) = 0uLL;
+    *(a2 + 13) = 0;
+    v7 = a2[8];
+    *(v3 + 112) = a2[7];
     *(v3 + 128) = v7;
     result = v3 + 144;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode>(uint64_t a1, __int128 *a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 4);
+  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x1C71C71C71C71C7)
   {
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4) > v3)
+  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 4) > v3)
   {
-    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4);
+    v3 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 4);
   }
 
-  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 4) >= 0xE38E38E38E38E3)
+  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 4) >= 0xE38E38E38E38E3)
   {
     v5 = 0x1C71C71C71C71C7;
   }
@@ -6390,20 +5063,17 @@ uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_ba
   v7 = *a2;
   *(v6 + 16) = *(a2 + 2);
   *v6 = v7;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v8 = *(a2 + 24);
   *(v6 + 40) = *(a2 + 5);
   *(v6 + 24) = v8;
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 3) = 0;
   v9 = a2[3];
   *(v6 + 64) = *(a2 + 8);
   *(v6 + 48) = v9;
-  *(a2 + 6) = 0;
-  *(a2 + 7) = 0;
+  a2[3] = 0uLL;
   *(a2 + 8) = 0;
   *(v6 + 72) = *(a2 + 72);
   *(v6 + 96) = 0;
@@ -6411,21 +5081,20 @@ uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_ba
   *(v6 + 88) = 0;
   *(v6 + 88) = *(a2 + 88);
   *(v6 + 104) = *(a2 + 13);
-  *(a2 + 11) = 0;
-  *(a2 + 12) = 0;
+  *(a2 + 88) = 0uLL;
   *(a2 + 13) = 0;
   v10 = a2[8];
   *(v6 + 112) = a2[7];
   *(v6 + 128) = v10;
   *&v19 = 144 * v2 + 144;
-  v11 = a1[1];
+  v11 = *(a1 + 8);
   v12 = 144 * v2 + *a1 - v11;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>,nlv4_inference_orchestrator::trees::TreeNode*>(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = a1[2];
+  v14 = *(a1 + 16);
   v16 = v19;
-  *(a1 + 1) = v19;
+  *(a1 + 8) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -6465,7 +5134,7 @@ void nlv4_inference_orchestrator::trees::PlyStateHandler::constructIntent(uint64
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
-  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100]((v4 + 88), &v6);
+  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](v4 + 88, &v6);
   v16 = &v12;
   std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6513,7 +5182,7 @@ void nlv4_inference_orchestrator::trees::PlyStateHandler::constructIntent(uint64
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
-  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100]((v5 - 56), &v6);
+  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](v5 - 56, &v6);
   v16 = &v12;
   std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7042,7 +5711,7 @@ LABEL_95:
     v42 = 0u;
     v41 = 0u;
     v40 = 0u;
-    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100]((v4 + 88), &v37);
+    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::push_back[abi:ne200100](v4 + 88, &v37);
     v36.__r_.__value_.__r.__words[0] = v5;
     std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v36);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7172,7 +5841,7 @@ uint64_t **std::__find[abi:ne200100]<std::__hash_const_iterator<std::__hash_node
 
       if (v6 == v4)
       {
-        v8 = v7 >= 0 ? (v2 + 2) : v2[2];
+        v8 = v7 >= 0 ? v2 + 2 : v2[2];
         if (!memcmp(v8, v5, v4))
         {
           break;
@@ -7188,7 +5857,7 @@ uint64_t **std::__find[abi:ne200100]<std::__hash_const_iterator<std::__hash_node
   return v2;
 }
 
-BOOL nlv4_inference_orchestrator::trees::PlyStateHandler::resetPath(nlv4_inference_orchestrator::trees::PlyStateHandler *this)
+uint64_t nlv4_inference_orchestrator::trees::PlyStateHandler::resetPath(nlv4_inference_orchestrator::trees::PlyStateHandler *this)
 {
   *(this + 356) = 0;
   result = std::deque<std::string>::__assign_with_size_random_access[abi:ne200100]<std::string const*>(this + 360);
@@ -7200,7 +5869,7 @@ BOOL nlv4_inference_orchestrator::trees::PlyStateHandler::resetPath(nlv4_inferen
   return result;
 }
 
-BOOL std::deque<std::string>::__assign_with_size_random_access[abi:ne200100]<std::string const*>(_BOOL8 result)
+uint64_t std::deque<std::string>::__assign_with_size_random_access[abi:ne200100]<std::string const*>(uint64_t result)
 {
   v3 = *(result + 8);
   v4 = *(result + 16);
@@ -7277,7 +5946,7 @@ BOOL std::deque<std::string>::__assign_with_size_random_access[abi:ne200100]<std
           result = std::deque<std::string>::__maybe_remove_back_spare[abi:ne200100](v5);
         }
 
-        while (result);
+        while ((result & 1) != 0);
       }
     }
   }
@@ -7289,7 +5958,7 @@ std::string *std::__copy_impl::operator()[abi:ne200100]<std::string const*,std::
 {
   v6 = a4;
   v7 = __str;
-  words = result->__r_.__value_.__r.__words;
+  v8 = result;
   if (__str == a3)
   {
     v12 = __str;
@@ -7340,9 +6009,9 @@ LABEL_10:
   }
 
 LABEL_14:
-  *words = v12;
-  words[1] = v6;
-  words[2] = this;
+  v8->__r_.__value_.__r.__words[0] = v12;
+  v8->__r_.__value_.__l.__size_ = v6;
+  v8->__r_.__value_.__r.__words[2] = this;
   return result;
 }
 
@@ -7396,10 +6065,9 @@ BOOL std::deque<std::string>::__maybe_remove_back_spare[abi:ne200100](void *a1)
   return v4 > 0x153;
 }
 
-void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<std::string>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -7420,7 +6088,7 @@ void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
     v5 = v4 / 0xAA;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 / 0xAA)
   {
     v7 = v6 / 0xAA;
@@ -7433,19 +6101,19 @@ void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
 
   if (v5 <= v6 / 0xAA)
   {
-    for (result[4] = v6 - 170 * v7; v7; --v7)
+    for (a1[4] = v6 - 170 * v7; v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -7461,7 +6129,7 @@ void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = v2;
+      v18 = a1;
       if (v12)
       {
         std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v12);
@@ -7475,7 +6143,7 @@ void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -7483,16 +6151,14 @@ void *std::deque<std::string>::__add_back_capacity(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] = v6 - 170 * v7; v7; --v7)
+    for (a1[4] = v6 - 170 * v7; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_2229960BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7508,7 +6174,8 @@ void sub_2229960BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void nlv4_inference_orchestrator::trees::PlyStateHandler::addNewPathFragments(uint64_t a1, uint64_t *a2)
 {
   __dst[3] = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
+  v5 = 0uLL;
+  v6 = 0;
   v3 = *(a1 + 24);
   v4 = *(a1 + 47);
   if (v4 >= 0)
@@ -7521,10 +6188,10 @@ void nlv4_inference_orchestrator::trees::PlyStateHandler::addNewPathFragments(ui
     v4 = *(a1 + 32);
   }
 
-  v6[0] = v3;
-  v6[1] = v3 + v4;
-  boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<std::__wrap_iter<char const*>>>(__dst, v6);
-  boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(v5, a2, __dst, 1);
+  v7[0] = v3;
+  v7[1] = v3 + v4;
+  boost::algorithm::detail::is_any_ofF<char>::is_any_ofF<boost::iterator_range<std::__wrap_iter<char const*>>>(__dst, v7);
+  boost::algorithm::split<std::vector<std::string>,std::string const&,boost::algorithm::detail::is_any_ofF<char>>(&v5, a2, __dst, 1);
 }
 
 void sub_222996B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char *a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
@@ -7539,7 +6206,7 @@ void sub_222996B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::string *,std::__deque_iterator<std::string,std::string *,std::string&,std::string **,long,170l>,0>(void *result, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::string *,std::__deque_iterator<std::string,std::string *,std::string&,std::string **,long,170l>,0>(uint64_t *result, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v6 = a4;
   if (a2 == a3)
@@ -7568,7 +6235,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       if (v12)
       {
-        v13 = (v10 - 24);
+        v13 = v10 - 24;
         v14 = -24 * v12;
         do
         {
@@ -7580,11 +6247,11 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
           }
 
           v16 = *v13;
-          *(a5 + 16) = *(v13 + 2);
+          *(a5 + 16) = *(v13 + 16);
           *a5 = v16;
           *(v13 + 23) = 0;
           *v13 = 0;
-          v13 = (v13 - 24);
+          v13 -= 24;
           v14 += 24;
         }
 
@@ -7769,8 +6436,7 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::SetIdenti
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -7779,7 +6445,17 @@ uint64_t snlp::ssu::cache::initializeEmptyDirectoryV3(snlp::ssu::cache *this, co
   v9[19] = *MEMORY[0x277D85DE8];
   std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&v5, &snlp::ssu::cache::kFormatVersionV3Name);
   std::__fs::filesystem::operator/[abi:ne200100](&__p, this, &v5);
-  std::ofstream::basic_ofstream(&v7);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(&v7, p_p, 16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7820,9 +6496,7 @@ uint64_t snlp::ssu::cache::initializeEmptyDirectoryV3(snlp::ssu::cache *this, co
   *(&v7 + *(v7 - 24)) = *(MEMORY[0x277D82810] + 24);
   MEMORY[0x223DC47C0](&v8);
   std::ostream::~ostream();
-  result = MEMORY[0x223DC4C10](v9);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC4C10](v9);
 }
 
 void sub_2229974DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21)
@@ -8161,7 +6835,17 @@ uint64_t snlp::ssu::cache::migrateDirectoryV1ToV3(snlp::ssu::cache *this, const 
   v10[19] = *MEMORY[0x277D85DE8];
   std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&v5, &snlp::ssu::cache::kFormatVersionV3Name);
   std::__fs::filesystem::operator/[abi:ne200100](&__p, this, &v5);
-  std::ofstream::basic_ofstream(&v8);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(&v8, p_p, 16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8193,9 +6877,7 @@ uint64_t snlp::ssu::cache::migrateDirectoryV1ToV3(snlp::ssu::cache *this, const 
   *(&v8 + *(v8 - 24)) = *(MEMORY[0x277D82810] + 24);
   MEMORY[0x223DC47C0](&v9);
   std::ostream::~ostream();
-  result = MEMORY[0x223DC4C10](v10);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC4C10](v10);
 }
 
 void sub_222997D90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
@@ -8244,33 +6926,33 @@ uint64_t std::__function::__func<snlp::ssu::cache::migrateDirectoryV1ToV3(std::_
 
 void std::__function::__func<snlp::ssu::cache::migrateDirectoryV1ToV3(std::__fs::filesystem::path const&)::$_0,std::allocator<snlp::ssu::cache::migrateDirectoryV1ToV3(std::__fs::filesystem::path const&)::$_0>,std::optional<std::string> ()(std::string const&)>::operator()()
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(&v2, "([0-9a-f]+)%s");
-  v0[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
-  v0[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
-  v0[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v2);
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v1, &v2);
-  if (v7 == 1)
+  v11[1] = *MEMORY[0x277D85DE8];
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(&v5, "([0-9a-f]+)%s", v2);
+  v3[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
+  v3[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v3[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v5, v3);
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v4, &v5);
+  if (v10 == 1)
   {
-    std::locale::~locale(v8);
-    v7 = 0;
+    std::locale::~locale(v11);
+    v10 = 0;
   }
 
-  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v6);
-  if (v5 < 0)
+  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v9);
+  if (v8 < 0)
   {
     operator delete(__p);
   }
 
-  if (v3)
+  if (v6)
   {
-    operator delete(v3);
+    operator delete(v6);
   }
 
-  v0[0].__loc_.__locale_ = &v2;
-  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v0);
-  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v0, &v1);
+  v3[0].__loc_.__locale_ = &v5;
+  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v3);
+  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v3, &v4.__r_.__value_.__l.__data_);
 }
 
 void sub_222998150(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, std::locale a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45)
@@ -8294,7 +6976,17 @@ uint64_t snlp::ssu::cache::migrateDirectoryV2ToV3(snlp::ssu::cache *this, const 
   v10[19] = *MEMORY[0x277D85DE8];
   std::__fs::filesystem::path::path[abi:ne200100]<std::string_view,void>(&v5, &snlp::ssu::cache::kFormatVersionV3Name);
   std::__fs::filesystem::operator/[abi:ne200100](&__p, this, &v5);
-  std::ofstream::basic_ofstream(&v8);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(&v8, p_p, 16);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8339,9 +7031,7 @@ uint64_t snlp::ssu::cache::migrateDirectoryV2ToV3(snlp::ssu::cache *this, const 
   *(&v8 + *(v8 - 24)) = *(MEMORY[0x277D82810] + 24);
   MEMORY[0x223DC47C0](&v9);
   std::ostream::~ostream();
-  result = MEMORY[0x223DC4C10](v10);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC4C10](v10);
 }
 
 void sub_2229984B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
@@ -8389,34 +7079,37 @@ uint64_t std::__function::__func<snlp::ssu::cache::migrateDirectoryV2ToV3(std::_
 
 void std::__function::__func<snlp::ssu::cache::migrateDirectoryV2ToV3(std::__fs::filesystem::path const&)::$_0,std::allocator<snlp::ssu::cache::migrateDirectoryV2ToV3(std::__fs::filesystem::path const&)::$_0>,std::optional<std::string> ()(std::string const&)>::operator()()
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(&v2, "([0-9a-f]+)%s([0-9]+)%s");
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v2);
-  v0[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
-  v0[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
-  v0[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
-  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v2);
-  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v1, &v2);
-  if (v7 == 1)
+  v12[1] = *MEMORY[0x277D85DE8];
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::basic_format(&v6, "([0-9a-f]+)%s([0-9]+)%s", v2, v3);
+  v4[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSeparator;
+  v4[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v4[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v6, v4);
+  v4[0].__loc_.__locale_ = &snlp::ssu::cache::SSUCacheDirectory::kCacheFileSuffix;
+  v4[0].__ct_ = boost::io::detail::call_put_head<char,std::char_traits<char>,std::string_view const>;
+  v4[0].__col_ = boost::io::detail::call_put_last<char,std::char_traits<char>,std::string_view const>;
+  boost::io::detail::feed_impl<char,std::char_traits<char>,std::allocator<char>,boost::io::detail::put_holder<char,std::char_traits<char>> const&>(&v6, v4);
+  boost::basic_format<char,std::char_traits<char>,std::allocator<char>>::str(&v5, &v6);
+  if (v11 == 1)
   {
-    std::locale::~locale(v8);
-    v7 = 0;
+    std::locale::~locale(v12);
+    v11 = 0;
   }
 
-  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v6);
-  if (v5 < 0)
+  boost::io::basic_altstringbuf<char,std::char_traits<char>,std::allocator<char>>::~basic_altstringbuf(v10);
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  if (v3)
+  if (v7)
   {
-    operator delete(v3);
+    operator delete(v7);
   }
 
-  v0[0].__loc_.__locale_ = &v2;
-  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v0);
-  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v0, &v1);
+  v4[0].__loc_.__locale_ = &v6;
+  std::vector<boost::io::detail::format_item<char,std::char_traits<char>,std::allocator<char>>>::__destroy_vector::operator()[abi:ne200100](v4);
+  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(v4, &v5.__r_.__value_.__l.__data_);
 }
 
 void sub_222998894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, std::locale a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45)
@@ -8440,96 +7133,94 @@ void sub_222998894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v8 = *a5;
+  v32 = *MEMORY[0x277D85DE8];
   EdgeName = siri::ontology::UsoVocabManager::getEdgeName();
-  v11 = v10;
-  v12 = SNLPOSLoggerForCategory(1);
-  v13 = v12;
-  if (v11)
+  v10 = v9;
+  v11 = SNLPOSLoggerForCategory(1);
+  v12 = v11;
+  if (v10)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v14 = (EdgeName + 8);
+      v13 = (EdgeName + 8);
       if (*(EdgeName + 31) < 0)
       {
-        v14 = *v14;
+        v13 = *v13;
       }
 
-      (*(*a2 + 48))(v26, a2);
-      v15 = v27;
-      v16 = v26[0];
+      (*(*a2 + 48))(v24, a2);
+      v14 = v25;
+      v15 = v24[0];
       (*(*a4 + 48))(__p, a4);
-      v17 = v26;
-      if (v15 < 0)
+      v16 = v24;
+      if (v14 < 0)
       {
-        v17 = v16;
+        v16 = v15;
       }
 
-      if (v25 >= 0)
+      if (v23 >= 0)
       {
-        v18 = __p;
+        v17 = __p;
       }
 
       else
       {
-        v18 = __p[0];
+        v17 = __p[0];
       }
 
       *buf = 136315650;
-      v29 = v14;
+      v27 = v13;
+      v28 = 2080;
+      v29 = v16;
       v30 = 2080;
       v31 = v17;
-      v32 = 2080;
-      v33 = v18;
-      _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_DEBUG, "Attaching %s edge, binding %s to %s.", buf, 0x20u);
-      if (v25 < 0)
+      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "Attaching %s edge, binding %s to %s.", buf, 0x20u);
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v27 < 0)
+      if (v25 < 0)
       {
-        operator delete(v26[0]);
+        operator delete(v24[0]);
       }
     }
 
     siri::ontology::UsoGraphNode::setSuccessor();
-    v19 = 1;
-    v20 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v18 = 1;
+    v19 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "Insertion of subtree was successful.", buf, 2u);
+      _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "Insertion of subtree was successful.", buf, 2u);
     }
   }
 
   else
   {
-    v19 = 0;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v18 = 0;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a3 + 23) >= 0)
       {
-        v21 = a3;
+        v20 = a3;
       }
 
       else
       {
-        v21 = *a3;
+        v20 = *a3;
       }
 
       *buf = 136315138;
-      v29 = v21;
-      _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_DEFAULT, "Warning: could not look up ontology name for edge '%s'", buf, 0xCu);
-      v19 = 0;
+      v27 = v20;
+      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEFAULT, "Warning: could not look up ontology name for edge '%s'", buf, 0xCu);
+      return 0;
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 void sub_222998C14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, __int128 buf)
@@ -8558,9 +7249,9 @@ void sub_222998C14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointIncludingParent(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t a5, char **a6, uint64_t a7)
+uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointIncludingParent(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t *a5, std::string *a6, uint64_t a7)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v11 = *(*(a2 + 8) + 8 * (*(a2 + 32) / 0x1AuLL)) - 3952 * (*(a2 + 32) / 0x1AuLL) + 152 * *(a2 + 32);
   v12 = *(v11 + 88);
   v13 = *(v11 + 96);
@@ -8574,23 +7265,23 @@ uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertio
   {
     if (*(a7 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v66, *a7, *(a7 + 8));
+      std::string::__init_copy_ctor_external(&v65, *a7, *(a7 + 8));
     }
 
     else
     {
-      v66 = *a7;
+      v65 = *a7;
     }
 
-    v15 = SHIBYTE(v66.__r_.__value_.__r.__words[2]);
-    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v15 = SHIBYTE(v65.__r_.__value_.__r.__words[2]);
+    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v66.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v65.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v66.__r_.__value_.__l.__size_;
+      size = v65.__r_.__value_.__l.__size_;
     }
 
     v17 = *(v14 + 23);
@@ -8603,24 +7294,24 @@ uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertio
     if (size != v17)
     {
       v21 = 0;
-      if ((SHIBYTE(v66.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_22;
       }
 
 LABEL_21:
-      operator delete(v66.__r_.__value_.__l.__data_);
+      operator delete(v65.__r_.__value_.__l.__data_);
       goto LABEL_22;
     }
 
-    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v19 = &v66;
+      v19 = &v65;
     }
 
     else
     {
-      v19 = v66.__r_.__value_.__r.__words[0];
+      v19 = v65.__r_.__value_.__r.__words[0];
     }
 
     if (v18 >= 0)
@@ -8660,97 +7351,96 @@ LABEL_26:
 LABEL_27:
   if (v12 == v13)
   {
-    v36 = 0;
-    goto LABEL_59;
+    return 0;
   }
 
   std::operator+<char>();
-  v23 = std::string::append(&v67, "\n");
+  v23 = std::string::append(&v66, "\n");
   v24 = *&v23->__r_.__value_.__l.__data_;
-  v66.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v66.__r_.__value_.__l.__data_ = v24;
+  v65.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+  *&v65.__r_.__value_.__l.__data_ = v24;
   v23->__r_.__value_.__l.__size_ = 0;
   v23->__r_.__value_.__r.__words[2] = 0;
   v23->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v67.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
   v25 = SNLPOSLoggerForCategory(1);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    v26 = &v66;
-    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v26 = &v65;
+    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v26 = v66.__r_.__value_.__r.__words[0];
+      v26 = v65.__r_.__value_.__r.__words[0];
     }
 
-    LODWORD(v67.__r_.__value_.__l.__data_) = 136315138;
-    *(v67.__r_.__value_.__r.__words + 4) = v26;
-    _os_log_impl(&dword_22284A000, v25, OS_LOG_TYPE_DEBUG, "%s", &v67, 0xCu);
+    LODWORD(v66.__r_.__value_.__l.__data_) = 136315138;
+    *(v66.__r_.__value_.__r.__words + 4) = v26;
+    _os_log_impl(&dword_22284A000, v25, OS_LOG_TYPE_DEBUG, "%s", &v66, 0xCu);
   }
 
   v27 = a4[1];
-  v63[0] = *a4;
-  v63[1] = v27;
+  v62[0] = *a4;
+  v62[1] = v27;
   if (v27)
   {
     atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(a7, v12, a5, v11, v63, a6, &v64);
+  nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(a7, v12, a5, v11, v62, a6, &v63);
   if (v27)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
-  if (v65 != 1)
+  if (v64 != 1)
   {
     v36 = 0;
     goto LABEL_57;
   }
 
-  siri::ontology::UsoGraph::getSuccessors(&v67, *(*(v64 + 11) + 8), *(v64 + 11));
-  v28 = v67.__r_.__value_.__l.__size_ - v67.__r_.__value_.__r.__words[0];
-  if (v67.__r_.__value_.__r.__words[0])
+  siri::ontology::UsoGraph::getSuccessors(&v66, *(*(v63 + 11) + 8), *(v63 + 11));
+  v28 = v66.__r_.__value_.__l.__size_ - v66.__r_.__value_.__r.__words[0];
+  if (v66.__r_.__value_.__r.__words[0])
   {
-    v67.__r_.__value_.__l.__size_ = v67.__r_.__value_.__r.__words[0];
-    operator delete(v67.__r_.__value_.__l.__data_);
+    v66.__r_.__value_.__l.__size_ = v66.__r_.__value_.__r.__words[0];
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
   if (v28 != 8)
   {
     v36 = 0;
-    if ((v65 & 1) == 0)
+    if ((v64 & 1) == 0)
     {
       goto LABEL_57;
     }
 
 LABEL_56:
-    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v64);
+    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v63);
     goto LABEL_57;
   }
 
-  if ((v65 & 1) == 0)
+  if ((v64 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  siri::ontology::UsoGraph::getSuccessors(&v67, *(*(v64 + 11) + 8), *(v64 + 11));
-  v29 = *v67.__r_.__value_.__l.__data_;
-  v67.__r_.__value_.__l.__size_ = v67.__r_.__value_.__r.__words[0];
-  operator delete(v67.__r_.__value_.__l.__data_);
-  (*(*v29 + 6))(&v67, v29);
+  siri::ontology::UsoGraph::getSuccessors(&v66, *(*(v63 + 11) + 8), *(v63 + 11));
+  v29 = *v66.__r_.__value_.__l.__data_;
+  v66.__r_.__value_.__l.__size_ = v66.__r_.__value_.__r.__words[0];
+  operator delete(v66.__r_.__value_.__l.__data_);
+  (*(v29->var0 + 6))(&v66, v29);
   v30 = a4[1];
-  v62[0] = *a4;
-  v62[1] = v30;
+  v61[0] = *a4;
+  v61[1] = v30;
   if (v30)
   {
     atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v31 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfTimeDateReplacementHackApplies(a1, v29, v11 + 48, v62);
+  v31 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfTimeDateReplacementHackApplies(a1, v29, v11 + 48, v61);
   if (v30)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v30);
@@ -8758,22 +7448,22 @@ LABEL_56:
 
   if (v31)
   {
-    if ((v65 & 1) == 0)
+    if ((v64 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v32 = siri::ontology::UsoGraph::deepCopyToGraph(v64, v29, a3);
+    v32 = siri::ontology::UsoGraph::deepCopyToGraph(v63, v29, a3);
     v33 = *(v11 + 144);
     v34 = a4[1];
-    v61[0] = *a4;
-    v61[1] = v34;
+    v60[0] = *a4;
+    v60[1] = v34;
     if (v34)
     {
       atomic_fetch_add_explicit((v34 + 8), 1uLL, memory_order_relaxed);
     }
 
-    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v32, v32, a1, v33, v61);
+    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v32, v32, a1, v33, v60);
     if (v34)
     {
       v35 = v34;
@@ -8785,28 +7475,28 @@ LABEL_56:
 
   if (nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfCommonIntegerHackApplies(a1, v29, (v11 + 48)))
   {
-    if ((v65 & 1) == 0)
+    if ((v64 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v39 = siri::ontology::UsoGraph::deepCopyToGraph(v64, v29, a3);
-    Successors = siri::ontology::UsoGraph::getSuccessors(__p, *(v39 + 8), v39);
-    v41 = *__p[0];
-    v42 = *(v11 + 144);
-    v43 = *a4;
-    v44 = a4[1];
-    v59[0] = v43;
-    v59[1] = v44;
-    if (v44)
+    v38 = siri::ontology::UsoGraph::deepCopyToGraph(v63, v29, a3);
+    Successors = siri::ontology::UsoGraph::getSuccessors(__p, *(v38 + 8), v38);
+    v40 = *__p[0];
+    v41 = *(v11 + 144);
+    v42 = *a4;
+    v43 = a4[1];
+    v58[0] = v42;
+    v58[1] = v43;
+    if (v43)
     {
-      atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(Successors, v41, v11 + 48, v42, v59);
-    if (v44)
+    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(Successors, v40, v11 + 48, v41, v58);
+    if (v43)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
     }
 
     if (__p[0])
@@ -8818,28 +7508,28 @@ LABEL_56:
     goto LABEL_87;
   }
 
-  v45 = HIBYTE(v67.__r_.__value_.__r.__words[2]);
-  if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v44 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
+  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v46 = HIBYTE(v67.__r_.__value_.__r.__words[2]);
+    v45 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v46 = v67.__r_.__value_.__l.__size_;
+    v45 = v66.__r_.__value_.__l.__size_;
   }
 
-  v47 = *(v11 + 23);
-  v48 = v47;
-  if ((v47 & 0x80u) != 0)
+  v46 = *(v11 + 23);
+  v47 = v46;
+  if ((v46 & 0x80u) != 0)
   {
-    v47 = *(v11 + 8);
+    v46 = *(v11 + 8);
   }
 
-  if (v46 == v47 && ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v49 = &v67) : (v49 = v67.__r_.__value_.__r.__words[0]), v48 >= 0 ? (v50 = v11) : (v50 = *v11), !memcmp(v49, v50, v46)))
+  if (v45 == v46 && ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v48 = &v66) : (v48 = v66.__r_.__value_.__r.__words[0]), v47 >= 0 ? (v49 = v11) : (v49 = *v11), !memcmp(v48, v49, v45)))
   {
     v36 = 0;
-    if (v45 < 0)
+    if (v44 < 0)
     {
       goto LABEL_88;
     }
@@ -8847,26 +7537,26 @@ LABEL_56:
 
   else
   {
-    if ((v65 & 1) == 0)
+    if ((v64 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v51 = siri::ontology::UsoGraph::deepCopyToGraph(v64, v29, a3);
-    v52 = *(v11 + 144);
-    v53 = *a4;
-    v54 = a4[1];
-    v58[0] = v53;
-    v58[1] = v54;
-    if (v54)
+    v50 = siri::ontology::UsoGraph::deepCopyToGraph(v63, v29, a3);
+    v51 = *(v11 + 144);
+    v52 = *a4;
+    v53 = a4[1];
+    v57[0] = v52;
+    v57[1] = v53;
+    if (v53)
     {
-      atomic_fetch_add_explicit((v54 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v53 + 8), 1uLL, memory_order_relaxed);
     }
 
-    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v51, v51, v11 + 48, v52, v58);
-    if (v54)
+    nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v50, v50, v11 + 48, v51, v57);
+    if (v53)
     {
-      v35 = v54;
+      v35 = v53;
 LABEL_86:
       std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
@@ -8874,26 +7564,24 @@ LABEL_86:
 LABEL_87:
     std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::pop_front(a2);
     v36 = 1;
-    if ((*(&v67.__r_.__value_.__s + 23) & 0x80) != 0)
+    if ((*(&v66.__r_.__value_.__s + 23) & 0x80) != 0)
     {
 LABEL_88:
-      operator delete(v67.__r_.__value_.__l.__data_);
+      operator delete(v66.__r_.__value_.__l.__data_);
     }
   }
 
-  if (v65)
+  if (v64)
   {
     goto LABEL_56;
   }
 
 LABEL_57:
-  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v66.__r_.__value_.__l.__data_);
+    operator delete(v65.__r_.__value_.__l.__data_);
   }
 
-LABEL_59:
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -8922,59 +7610,55 @@ void sub_222999234(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfTimeDateReplacementHackApplies(uint64_t a1, char **a2, std::string::size_type a3, uint64_t *a4)
+BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfTimeDateReplacementHackApplies(uint64_t a1, const void *a2, std::string::size_type a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v7 = *a4;
+  v30 = *MEMORY[0x277D85DE8];
   EdgeName = siri::ontology::UsoVocabManager::getEdgeName();
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v15 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v13 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a3 + 23) >= 0)
       {
-        v16 = a3;
+        v14 = a3;
       }
 
       else
       {
-        v16 = *a3;
+        v14 = *a3;
       }
 
       LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
-      *(__p.__r_.__value_.__r.__words + 4) = v16;
-      _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEFAULT, "Warning: could not look up ontology name for parent argument '%s'", &__p, 0xCu);
+      *(__p.__r_.__value_.__r.__words + 4) = v14;
+      _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_DEFAULT, "Warning: could not look up ontology name for parent argument '%s'", &__p, 0xCu);
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
-  v10 = EdgeName;
-  if ((*(*a2 + 2))(a2) != 2)
+  v9 = EdgeName;
+  if ((*(*a2 + 16))(a2) != 2)
   {
-LABEL_11:
-    v17 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  v11 = **a2;
-  if (!v12)
+  if (!v10)
   {
     __cxa_bad_cast();
   }
 
-  v13 = v12[3];
-  if (*(v13 + 31) < 0)
+  v11 = v10[3];
+  if (*(v11 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *(v13 + 8), *(v13 + 16));
+    std::string::__init_copy_ctor_external(&__p, *(v11 + 8), *(v11 + 16));
   }
 
   else
   {
-    v14 = *(v13 + 8);
-    __p.__r_.__value_.__r.__words[2] = *(v13 + 24);
-    *&__p.__r_.__value_.__l.__data_ = v14;
+    v12 = *(v11 + 8);
+    __p.__r_.__value_.__r.__words[2] = *(v11 + 24);
+    *&__p.__r_.__value_.__l.__data_ = v12;
   }
 
   if (!std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 48), &__p.__r_.__value_.__l.__data_))
@@ -8982,59 +7666,59 @@ LABEL_11:
     goto LABEL_28;
   }
 
-  v20 = *(a1 + 47);
-  if (v20 >= 0)
+  v17 = *(a1 + 47);
+  if (v17 >= 0)
   {
-    v21 = *(a1 + 47);
+    v18 = *(a1 + 47);
   }
 
   else
   {
-    v21 = *(a1 + 32);
+    v18 = *(a1 + 32);
   }
 
-  v22 = *(v10 + 31);
-  v23 = v22;
-  if ((v22 & 0x80u) != 0)
+  v19 = *(v9 + 31);
+  v20 = v19;
+  if ((v19 & 0x80u) != 0)
   {
-    v22 = *(v10 + 16);
+    v19 = *(v9 + 16);
   }
 
-  if (v21 == v22)
+  if (v18 == v19)
   {
-    v26 = *(a1 + 24);
-    v25 = (a1 + 24);
-    v24 = v26;
+    v23 = *(a1 + 24);
+    v22 = (a1 + 24);
+    v21 = v23;
+    if (v17 >= 0)
+    {
+      v24 = v22;
+    }
+
+    else
+    {
+      v24 = v21;
+    }
+
+    v27 = *(v9 + 8);
+    v26 = (v9 + 8);
+    v25 = v27;
     if (v20 >= 0)
     {
-      v27 = v25;
+      v28 = v26;
     }
 
     else
     {
-      v27 = v24;
+      v28 = v25;
     }
 
-    v30 = *(v10 + 8);
-    v29 = (v10 + 8);
-    v28 = v30;
-    if (v23 >= 0)
-    {
-      v31 = v29;
-    }
-
-    else
-    {
-      v31 = v28;
-    }
-
-    v17 = memcmp(v27, v31, v21) == 0;
+    v15 = memcmp(v24, v28, v18) == 0;
   }
 
   else
   {
 LABEL_28:
-    v17 = 0;
+    v15 = 0;
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -9042,15 +7726,13 @@ LABEL_28:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-LABEL_12:
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v15;
 }
 
-uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfCommonIntegerHackApplies(uint64_t a1, siri::ontology::UsoGraph **a2, const void **a3)
+uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfCommonIntegerHackApplies(uint64_t a1, const UsoGraphNode *a2, const void **a3)
 {
   v5 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 200), a3);
-  (*(*a2 + 6))(__p, a2);
+  (*(a2->var0 + 6))(__p, a2);
   v6 = *(a1 + 263);
   if (v6 >= 0)
   {
@@ -9078,11 +7760,11 @@ uint64_t nlv4_inference_orchestrator::trees::UsoGraphBuilder::checkIfCommonInteg
     v14 = (v23 & 0x80u) == 0 ? __p : __p[0];
     if (!memcmp(v13, v14, v7))
     {
-      siri::ontology::UsoGraph::getSuccessors(&v20, a2[1], a2);
+      siri::ontology::UsoGraph::getSuccessors(&v20, a2->var1, a2);
       v17 = v20;
       if (v21 - v20 == 8)
       {
-        siri::ontology::UsoGraph::getSuccessors(&v18, a2[1], a2);
+        siri::ontology::UsoGraph::getSuccessors(&v18, a2->var1, a2);
         if (v19 == v18)
         {
           std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
@@ -9178,31 +7860,31 @@ void std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::on
   }
 }
 
-BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointOnly(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t a5, char **a6, uint64_t a7)
+BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointOnly(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t *a5, std::string *a6, uint64_t a7)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v13 = *(a2 + 32);
   v14 = *(*(a2 + 8) + 8 * (v13 / 0x1A));
   if (*(a7 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v49, *a7, *(a7 + 8));
+    std::string::__init_copy_ctor_external(&v48, *a7, *(a7 + 8));
   }
 
   else
   {
-    v49 = *a7;
+    v48 = *a7;
   }
 
   v15 = v14 - 3952 * (v13 / 0x1A) + 152 * v13;
-  v16 = SHIBYTE(v49.__r_.__value_.__r.__words[2]);
-  if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v16 = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v49.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v49.__r_.__value_.__l.__size_;
+    size = v48.__r_.__value_.__l.__size_;
   }
 
   v18 = *(v15 + 71);
@@ -9215,29 +7897,29 @@ BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPoi
   if (size != v18)
   {
     v22 = 1;
-    if ((SHIBYTE(v49.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_17;
     }
 
 LABEL_20:
-    operator delete(v49.__r_.__value_.__l.__data_);
+    operator delete(v48.__r_.__value_.__l.__data_);
     if (v22)
     {
-      goto LABEL_18;
+      return 0;
     }
 
     goto LABEL_21;
   }
 
-  if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v49;
+    v20 = &v48;
   }
 
   else
   {
-    v20 = v49.__r_.__value_.__r.__words[0];
+    v20 = v48.__r_.__value_.__r.__words[0];
   }
 
   if (v19 >= 0)
@@ -9259,74 +7941,72 @@ LABEL_20:
 LABEL_17:
   if (v22)
   {
-LABEL_18:
-    v23 = 0;
-    goto LABEL_61;
+    return 0;
   }
 
 LABEL_21:
-  (*(**(v15 + 144) + 48))(&v49);
+  (*(**(v15 + 144) + 48))(&v48);
   std::operator+<char>();
-  v24 = std::string::append(&v50, "\n");
+  v24 = std::string::append(&v49, "\n");
   v25 = *&v24->__r_.__value_.__l.__data_;
-  v48 = v24->__r_.__value_.__r.__words[2];
-  *v47 = v25;
+  v47 = v24->__r_.__value_.__r.__words[2];
+  *v46 = v25;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v50.__r_.__value_.__l.__data_);
+    operator delete(v49.__r_.__value_.__l.__data_);
   }
 
   v26 = SNLPOSLoggerForCategory(1);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v27 = v47;
-    if (v48 < 0)
+    v27 = v46;
+    if (v47 < 0)
     {
-      v27 = v47[0];
+      v27 = v46[0];
     }
 
-    LODWORD(v50.__r_.__value_.__l.__data_) = 136315138;
-    *(v50.__r_.__value_.__r.__words + 4) = v27;
-    _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEBUG, "%s", &v50, 0xCu);
+    LODWORD(v49.__r_.__value_.__l.__data_) = 136315138;
+    *(v49.__r_.__value_.__r.__words + 4) = v27;
+    _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEBUG, "%s", &v49, 0xCu);
   }
 
   v28 = a4[1];
-  v44[0] = *a4;
-  v44[1] = v28;
+  v43[0] = *a4;
+  v43[1] = v28;
   if (v28)
   {
     atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(a7, v15, a5, &v49, v44, a6, &v45);
+  nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(a7, v15, a5, &v48.__r_.__value_.__l.__data_, v43, a6, &v44);
   if (v28)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  if (v46 != 1)
+  if (v45 != 1)
   {
     goto LABEL_56;
   }
 
-  siri::ontology::UsoGraph::getSuccessors(&v50, *(*(v45 + 11) + 8), *(v45 + 11));
-  v29 = v50.__r_.__value_.__l.__size_ - v50.__r_.__value_.__r.__words[0];
-  v23 = v50.__r_.__value_.__l.__size_ - v50.__r_.__value_.__r.__words[0] == 8;
-  if (v50.__r_.__value_.__r.__words[0])
+  siri::ontology::UsoGraph::getSuccessors(&v49, *(*(v44 + 11) + 8), *(v44 + 11));
+  v29 = v49.__r_.__value_.__l.__size_ - v49.__r_.__value_.__r.__words[0];
+  v23 = v49.__r_.__value_.__l.__size_ - v49.__r_.__value_.__r.__words[0] == 8;
+  if (v49.__r_.__value_.__r.__words[0])
   {
-    v50.__r_.__value_.__l.__size_ = v50.__r_.__value_.__r.__words[0];
-    operator delete(v50.__r_.__value_.__l.__data_);
+    v49.__r_.__value_.__l.__size_ = v49.__r_.__value_.__r.__words[0];
+    operator delete(v49.__r_.__value_.__l.__data_);
   }
 
   if (v29 != 8)
   {
-    if (v46)
+    if (v45)
     {
 LABEL_55:
-      std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v45);
+      std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v44);
       goto LABEL_57;
     }
 
@@ -9335,29 +8015,29 @@ LABEL_56:
     goto LABEL_57;
   }
 
-  if ((v46 & 1) == 0)
+  if ((v45 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  siri::ontology::UsoGraph::getSuccessors(&v50, *(*(v45 + 11) + 8), *(v45 + 11));
-  v30 = *v50.__r_.__value_.__l.__data_;
-  v50.__r_.__value_.__l.__size_ = v50.__r_.__value_.__r.__words[0];
-  operator delete(v50.__r_.__value_.__l.__data_);
-  siri::ontology::UsoGraph::getSuccessors(&v50, *(v30 + 8), v30);
-  v32 = v50.__r_.__value_.__l.__size_;
-  v31 = v50.__r_.__value_.__r.__words[0];
-  if (v50.__r_.__value_.__r.__words[0] != v50.__r_.__value_.__l.__size_)
+  siri::ontology::UsoGraph::getSuccessors(&v49, *(*(v44 + 11) + 8), *(v44 + 11));
+  v30 = *v49.__r_.__value_.__l.__data_;
+  v49.__r_.__value_.__l.__size_ = v49.__r_.__value_.__r.__words[0];
+  operator delete(v49.__r_.__value_.__l.__data_);
+  siri::ontology::UsoGraph::getSuccessors(&v49, *(v30 + 8), v30);
+  v32 = v49.__r_.__value_.__l.__size_;
+  v31 = v49.__r_.__value_.__r.__words[0];
+  if (v49.__r_.__value_.__r.__words[0] != v49.__r_.__value_.__l.__size_)
   {
     while (1)
     {
-      if ((v46 & 1) == 0)
+      if ((v45 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       v33 = *v31;
-      v34 = siri::ontology::UsoGraph::deepCopyToGraph(v45, *v31, a3);
+      v34 = siri::ontology::UsoGraph::deepCopyToGraph(v44, *v31, a3);
       siri::ontology::UsoGraph::getPredecessorsWithEdges(__p, v33->var1, v33);
       v35 = __p[0];
       v36 = *(__p[0] + 1);
@@ -9366,7 +8046,7 @@ LABEL_56:
         break;
       }
 
-      std::string::__init_copy_ctor_external(&v43, *(v36 + 32), *(v36 + 40));
+      std::string::__init_copy_ctor_external(&v42, *(v36 + 32), *(v36 + 40));
       v35 = __p[0];
       if (__p[0])
       {
@@ -9376,32 +8056,32 @@ LABEL_56:
 LABEL_42:
       v37 = *(v15 + 144);
       v38 = a4[1];
-      v41[0] = *a4;
-      v41[1] = v38;
+      v40[0] = *a4;
+      v40[1] = v38;
       if (v38)
       {
         atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v35, v34, &v43, v37, v41);
+      nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryAttachSubtreeViaEdgeToNode(v35, v34, &v42, v37, v40);
       if (v38)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v38);
       }
 
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v42.__r_.__value_.__l.__data_);
       }
 
       if (++v31 == v32)
       {
-        v31 = v50.__r_.__value_.__r.__words[0];
+        v31 = v49.__r_.__value_.__r.__words[0];
         goto LABEL_50;
       }
     }
 
-    v43 = *(v36 + 32);
+    v42 = *(v36 + 32);
 LABEL_41:
     __p[1] = v35;
     operator delete(v35);
@@ -9411,30 +8091,28 @@ LABEL_41:
 LABEL_50:
   if (v31)
   {
-    v50.__r_.__value_.__l.__size_ = v31;
+    v49.__r_.__value_.__l.__size_ = v31;
     operator delete(v31);
   }
 
   std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::pop_front(a2);
-  if (v46)
+  if (v45)
   {
     goto LABEL_55;
   }
 
   v23 = 1;
 LABEL_57:
-  if (SHIBYTE(v48) < 0)
+  if (SHIBYTE(v47) < 0)
   {
-    operator delete(v47[0]);
+    operator delete(v46[0]);
   }
 
-  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v49.__r_.__value_.__l.__data_);
+    operator delete(v48.__r_.__value_.__l.__data_);
   }
 
-LABEL_61:
-  v39 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -9458,32 +8136,32 @@ void sub_222999C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::reinsertUsoEntity(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t a5, char **a6)
+BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::reinsertUsoEntity(uint64_t a1, uint64_t a2, siri::ontology::UsoGraph *a3, uint64_t *a4, uint64_t *a5, std::string *a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v25, "usoEntityInsertionPoint");
+  v31[3] = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v24, "usoEntityInsertionPoint");
   std::string::basic_string[abi:ne200100]<0>(buf, "common_Time");
-  std::string::basic_string[abi:ne200100]<0>(v31, "common_Time12HourClock");
-  std::string::basic_string[abi:ne200100]<0>(v32, "common_Time24HourClock");
-  std::unordered_set<std::string>::unordered_set(v27, buf, 3);
-  for (i = 0; i != -72; i -= 24)
+  std::string::basic_string[abi:ne200100]<0>(v30, "common_Time12HourClock");
+  std::string::basic_string[abi:ne200100]<0>(v31, "common_Time24HourClock");
+  std::unordered_set<std::string>::unordered_set(v26, buf, 3);
+  for (i = 0; i != -9; i -= 3)
   {
-    if (v32[i + 23] < 0)
+    if (SHIBYTE(v31[i + 2]) < 0)
     {
-      operator delete(*&v32[i]);
+      operator delete(v31[i]);
     }
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, ".");
   v13 = a4[1];
-  v24[0] = *a4;
-  v24[1] = v13;
+  v23[0] = *a4;
+  v23[1] = v13;
   if (v13)
   {
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v14 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointIncludingParent(a1, a2, a3, v24, a5, a6, v25);
+  v14 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointIncludingParent(a1, a2, a3, v23, a5, a6, v24);
   v15 = v14;
   if (v13)
   {
@@ -9505,14 +8183,14 @@ BOOL nlv4_inference_orchestrator::trees::UsoGraphBuilder::reinsertUsoEntity(uint
   }
 
   v19 = a4[1];
-  v23[0] = *a4;
-  v23[1] = v19;
+  v22[0] = *a4;
+  v22[1] = v19;
   if (v19)
   {
     atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointOnly(v14, a2, a3, v23, a5, a6, v25);
+  v16 = nlv4_inference_orchestrator::trees::UsoGraphBuilder::tryReplaceInsertionPointOnly(v14, a2, a3, v22, a5, a6, v24);
   if (v19)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v19);
@@ -9532,25 +8210,24 @@ LABEL_19:
   }
 
 LABEL_20:
-  if (v29 < 0)
+  if (v28 < 0)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(v27[2]);
-  v20 = v27[0];
-  v27[0] = 0;
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(v26[2]);
+  v20 = v26[0];
+  v26[0] = 0;
   if (v20)
   {
     operator delete(v20);
   }
 
-  if (v26 < 0)
+  if (v25 < 0)
   {
-    operator delete(v25[0]);
+    operator delete(v24[0]);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -9572,7 +8249,7 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::~SpanUsoInserter(void 
     operator delete(this[8]);
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((this + 3));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 3);
   if (*(this + 23) < 0)
   {
     operator delete(*this);
@@ -9581,18 +8258,18 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::~SpanUsoInserter(void 
 
 void nlv4_inference_orchestrator::trees::UsoGraphBuilder::buildUsoGraphFromTreeNode()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v0 = 1;
-  v1 = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = 1;
+  v6 = 0;
   operator new();
 }
 
-void sub_22299A69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint8_t buf, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+void sub_22299A69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint8_t buf, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  va_start(va, a35);
-  std::ostringstream::~ostringstream(&buf, MEMORY[0x277D82828]);
+  va_start(va, a42);
+  std::ostringstream::~ostringstream(&a29, MEMORY[0x277D82828]);
   MEMORY[0x223DC4C10](va);
-  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](v35);
+  std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](v42);
   _Unwind_Resume(a1);
 }
 
@@ -9683,35 +8360,34 @@ void sub_22299A754(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x22299A484);
 }
 
-void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addEntityNode(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addEntityNode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
 {
-  v5 = (*(a4[1] + 8 * (a4[4] / 0x1AuLL)) - 3952 * (a4[4] / 0x1AuLL) + 152 * a4[4]);
+  v6 = *(a4[1] + 8 * (a4[4] / 0x1A)) - 3952 * (a4[4] / 0x1A) + 152 * a4[4];
   if ((*(a3 + 32) - 5) > 1)
   {
     EntityNode = siri::ontology::UsoGraph::createEntityNode();
-    v22 = v5[18];
     siri::ontology::UsoGraphNode::setSuccessor();
-    v23 = v5[11];
-    for (i = v5[12]; v23 != i; v23 = (v23 + 144))
+    v21 = *(v6 + 88);
+    for (i = *(v6 + 96); v21 != i; v21 = (v21 + 144))
     {
-      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v25, v23);
-      v35 = EntityNode;
-      std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::emplace_back<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoEntityNode *>>(a4, &v25);
-      v36[0] = &v31;
-      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](v36);
-      if (SHIBYTE(v29) < 0)
+      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v23, v21);
+      v33 = EntityNode;
+      std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::emplace_back<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoEntityNode *>>(a4, &v23);
+      v34[0] = &v29;
+      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](v34);
+      if (SHIBYTE(v27) < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v27) < 0)
+      if (SHIBYTE(v25) < 0)
       {
-        operator delete(v26);
+        operator delete(v24);
       }
 
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
+        operator delete(v23.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -9719,185 +8395,1443 @@ void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addEntityNode(uint64_t
   else
   {
     OperatorNode = siri::ontology::UsoGraph::createOperatorNode();
-    v7 = v5[18];
     siri::ontology::UsoGraphNode::setSuccessor();
-    v8 = v5[11];
-    for (j = v5[12]; v8 != j; v8 = (v8 + 144))
+    v8 = *(v6 + 88);
+    for (j = *(v6 + 96); v8 != j; v8 = (v8 + 144))
     {
-      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v25, v8);
-      v10 = *(a4 + 1);
-      v11 = a4[1];
-      v12 = a4[2] == v11;
-      v13 = 26 * ((a4[2] - v11) >> 3) - 1;
-      v35 = OperatorNode;
-      if (v12)
+      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v23, v8);
+      v10 = a4[1];
+      v11 = a4[2] == v10;
+      v12 = 26 * ((a4[2] - v10) >> 3) - 1;
+      v33 = OperatorNode;
+      if (v11)
       {
-        v14 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v14 = v13;
+        v13 = v12;
       }
 
-      v15 = a4[5] + a4[4];
-      if (v14 == v15)
+      v14 = a4[5] + a4[4];
+      if (v13 == v14)
       {
         std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::__add_back_capacity(a4);
-        v11 = a4[1];
-        v15 = a4[5] + a4[4];
+        v10 = a4[1];
+        v14 = a4[5] + a4[4];
       }
 
-      v16 = *(v11 + 8 * (v15 / 0x1A)) - 3952 * (v15 / 0x1A) + 152 * v15;
-      v17 = *&v25.__r_.__value_.__l.__data_;
-      *(v16 + 16) = *(&v25.__r_.__value_.__l + 2);
-      *v16 = v17;
-      memset(&v25, 0, sizeof(v25));
-      v18 = v26;
-      *(v16 + 40) = v27;
-      *(v16 + 24) = v18;
+      v15 = *(v10 + 8 * (v14 / 0x1A)) - 3952 * (v14 / 0x1A) + 152 * v14;
+      v16 = *&v23.__r_.__value_.__l.__data_;
+      *(v15 + 16) = *(&v23.__r_.__value_.__l + 2);
+      *v15 = v16;
+      memset(&v23, 0, sizeof(v23));
+      v17 = v24;
+      *(v15 + 40) = v25;
+      *(v15 + 24) = v17;
+      v25 = 0;
+      v24 = 0uLL;
+      v18 = __p;
+      *(v15 + 64) = v27;
+      *(v15 + 48) = v18;
       v27 = 0;
-      v26 = 0uLL;
-      v19 = __p;
-      *(v16 + 64) = v29;
-      *(v16 + 48) = v19;
-      v29 = 0;
       __p = 0uLL;
-      *(v16 + 72) = v30;
-      *(v16 + 96) = 0;
-      *(v16 + 104) = 0;
-      *(v16 + 88) = 0;
-      *(v16 + 88) = v31;
-      *(v16 + 104) = v32;
-      v31 = 0uLL;
-      v32 = 0;
-      v20 = v34;
-      *(v16 + 112) = v33;
-      *(v16 + 128) = v20;
-      *(v16 + 144) = v35;
+      *(v15 + 72) = v28;
+      *(v15 + 96) = 0;
+      *(v15 + 104) = 0;
+      *(v15 + 88) = 0;
+      *(v15 + 88) = v29;
+      *(v15 + 104) = v30;
+      v29 = 0uLL;
+      v30 = 0;
+      v19 = v32;
+      *(v15 + 112) = v31;
+      *(v15 + 128) = v19;
+      *(v15 + 144) = v33;
       ++a4[5];
-      v36[0] = &v31;
-      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](v36);
-      if (SHIBYTE(v29) < 0)
+      v34[0] = &v29;
+      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](v34);
+      if (SHIBYTE(v27) < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v27) < 0)
+      if (SHIBYTE(v25) < 0)
       {
-        operator delete(v26);
+        operator delete(v24);
       }
 
-      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v25.__r_.__value_.__l.__data_);
+        operator delete(v23.__r_.__value_.__l.__data_);
       }
     }
   }
 }
 
-void sub_22299AB58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22299AB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(va);
   _Unwind_Resume(a1);
 }
 
-void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addTaskNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, void *a6)
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addTaskNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unint64_t *a6, uint64_t a7)
 {
-  v7 = a6[4];
-  v8 = *(a6[1] + 8 * (v7 / 0x1A));
-  v9 = *a5;
+  v8 = a6[4];
+  v9 = *(a6[1] + 8 * (v8 / 0x1A));
   siri::ontology::UsoVocabManager::getVerbName();
   if ((v10 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v28 = std::string::append(&v41, " not found in ontology.");
-    v29 = *&v28->__r_.__value_.__l.__data_;
-    v30.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-    *&v30.__r_.__value_.__l.__data_ = v29;
-    v28->__r_.__value_.__l.__size_ = 0;
-    v28->__r_.__value_.__r.__words[2] = 0;
-    v28->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v30);
+    v26 = std::string::append(&v39, " not found in ontology.");
+    v27 = *&v26->__r_.__value_.__l.__data_;
+    v28.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+    *&v28.__r_.__value_.__l.__data_ = v27;
+    v26->__r_.__value_.__l.__size_ = 0;
+    v26->__r_.__value_.__r.__words[2] = 0;
+    v26->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v28);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v11 = (v8 - 3952 * (v7 / 0x1A) + 152 * v7);
+  v11 = v9 - 3952 * (v8 / 0x1A) + 152 * v8;
   TaskNode = siri::ontology::UsoGraph::createTaskNode();
-  v13 = v11[18];
   siri::ontology::UsoGraphNode::setSuccessor();
-  v14 = v11[11];
-  for (i = v11[12]; v14 != i; v14 = (v14 + 144))
+  v13 = *(v11 + 88);
+  for (i = *(v11 + 96); v13 != i; v13 = (v13 + 144))
   {
-    nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v30, v14);
-    v16 = *(a6 + 1);
-    v17 = a6[1];
-    v18 = a6[2] == v17;
-    v19 = 26 * ((a6[2] - v17) >> 3) - 1;
-    v40 = TaskNode;
-    if (v18)
+    nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v28, v13);
+    v15 = a6[1];
+    v16 = a6[2] == v15;
+    v17 = 26 * ((a6[2] - v15) >> 3) - 1;
+    v38 = TaskNode;
+    if (v16)
     {
-      v20 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v20 = v19;
+      v18 = v17;
     }
 
-    v21 = a6[5] + a6[4];
-    if (v20 == v21)
+    v19 = a6[5] + a6[4];
+    if (v18 == v19)
     {
       std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::__add_back_capacity(a6);
-      v17 = a6[1];
-      v21 = a6[5] + a6[4];
+      v15 = a6[1];
+      v19 = a6[5] + a6[4];
     }
 
-    v22 = *(v17 + 8 * (v21 / 0x1A)) - 3952 * (v21 / 0x1A) + 152 * v21;
-    v23 = *&v30.__r_.__value_.__l.__data_;
-    *(v22 + 16) = *(&v30.__r_.__value_.__l + 2);
-    *v22 = v23;
-    memset(&v30, 0, sizeof(v30));
-    v24 = v31;
-    *(v22 + 40) = v32;
-    *(v22 + 24) = v24;
+    v20 = *(v15 + 8 * (v19 / 0x1A)) - 3952 * (v19 / 0x1A) + 152 * v19;
+    v21 = *&v28.__r_.__value_.__l.__data_;
+    *(v20 + 16) = *(&v28.__r_.__value_.__l + 2);
+    *v20 = v21;
+    memset(&v28, 0, sizeof(v28));
+    v22 = v29;
+    *(v20 + 40) = v30;
+    *(v20 + 24) = v22;
+    v30 = 0;
+    v29 = 0uLL;
+    v23 = __p;
+    *(v20 + 64) = v32;
+    *(v20 + 48) = v23;
     v32 = 0;
-    v31 = 0uLL;
-    v25 = __p;
-    *(v22 + 64) = v34;
-    *(v22 + 48) = v25;
-    v34 = 0;
     __p = 0uLL;
-    *(v22 + 72) = v35;
-    *(v22 + 96) = 0;
-    *(v22 + 104) = 0;
-    *(v22 + 88) = 0;
-    *(v22 + 88) = v36;
-    *(v22 + 104) = v37;
-    v36 = 0uLL;
-    v37 = 0;
-    v26 = v39;
-    *(v22 + 112) = v38;
-    *(v22 + 128) = v26;
-    *(v22 + 144) = v40;
+    *(v20 + 72) = v33;
+    *(v20 + 96) = 0;
+    *(v20 + 104) = 0;
+    *(v20 + 88) = 0;
+    *(v20 + 88) = v34;
+    *(v20 + 104) = v35;
+    v34 = 0uLL;
+    v35 = 0;
+    v24 = v37;
+    *(v20 + 112) = v36;
+    *(v20 + 128) = v24;
+    *(v20 + 144) = v38;
     ++a6[5];
-    v41.__r_.__value_.__r.__words[0] = &v36;
-    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v41);
-    if (SHIBYTE(v34) < 0)
+    v39.__r_.__value_.__r.__words[0] = &v34;
+    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v39);
+    if (SHIBYTE(v32) < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v32) < 0)
+    if (SHIBYTE(v30) < 0)
     {
-      operator delete(v31);
+      operator delete(v29);
     }
 
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v28.__r_.__value_.__l.__data_);
     }
   }
+}
+
+void sub_22299AE28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v16 - 89) < 0)
+  {
+    operator delete(*(v16 - 112));
+    if ((v15 & 1) == 0)
+    {
+LABEL_8:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v15)
+  {
+    goto LABEL_8;
+  }
+
+  __cxa_free_exception(v14);
+  goto LABEL_8;
+}
+
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addPayloadNode(uint64_t a1, uint64_t a2, void *a3, unint64_t *a4, uint64_t a5)
+{
+  v9 = *(a4[1] + 8 * (a4[4] / 0x1A)) - 3952 * (a4[4] / 0x1A) + 152 * a4[4];
+  NodeName = siri::ontology::UsoVocabManager::getNodeName();
+  if ((v11 & 1) == 0)
+  {
+    if ((*(**(v9 + 144) + 16))(*(v9 + 144)) == 2)
+    {
+      v12 = *(a1 + 176);
+      if (!v13)
+      {
+        __cxa_bad_cast();
+      }
+
+      v14 = std::__find[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::string,std::__identity>(v12, (v13[3] + 8)) != 0;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = std::__find[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::string,std::__identity>(*(a1 + 216), (v9 + 48));
+    if (!v14 && !v15)
+    {
+      nlv4_inference_orchestrator::trees::UsoGraphBuilder::addStringPayloadNode(0, a2, a4, a5);
+    }
+
+    nlv4_inference_orchestrator::trees::UsoGraphBuilder::addIntegerPayloadNode(v15, a2, a4, a5);
+  }
+
+  nlv4_inference_orchestrator::trees::UsoGraphBuilder::addDefinedValuePayloadNode(NodeName, a2, NodeName, a4, a5);
+}
+
+void sub_22299B034(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9)
+{
+  if (a2 == 1)
+  {
+    __cxa_begin_catch(a1);
+    v9 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      a9 = 0;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, "Failed to cast entity node to entity node; SiriOntology reports a non-entity node as an entity node.", &a9, 2u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x22299B014);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addDefinedValuePayloadNode(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5)
+{
+  v6 = *(a4[1] + 8 * (a4[4] / 0x1A)) - 3952 * (a4[4] / 0x1A) + 152 * a4[4];
+  EntityNode = siri::ontology::UsoGraph::createEntityNode();
+  siri::ontology::UsoGraphNode::setSuccessor();
+  v8 = *(v6 + 88);
+  for (i = *(v6 + 96); v8 != i; v8 = (v8 + 144))
+  {
+    nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v10, v8);
+    v15[7] = EntityNode;
+    std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::emplace_back<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoEntityNode *>>(a4, &v10);
+    v16 = v15;
+    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v16);
+    if (v14 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (v12 < 0)
+    {
+      operator delete(v11);
+    }
+
+    if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v10.__r_.__value_.__l.__data_);
+    }
+  }
+}
+
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addIntegerPayloadNode(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  std::stoi((*(a3[1] + 8 * (a3[4] / 0x1AuLL)) - 3952 * (a3[4] / 0x1AuLL) + 152 * a3[4] + 24), 0, 10);
+  siri::ontology::UsoGraph::createIntNode();
+  operator new();
+}
+
+void sub_22299B468(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 buf)
+{
+  std::unique_ptr<siri::ontology::UsoUtteranceAlignment>::~unique_ptr[abi:ne200100](&a11);
+  if (a2 == 2)
+  {
+    __cxa_begin_catch(a1);
+    v15 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(a10 + 47) < 0)
+      {
+        a9 = *a9;
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = a9;
+      v16 = "Warning: Failed to convert string %s to integer.";
+LABEL_11:
+      _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEBUG, v16, &buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (a2 != 1)
+    {
+      _Unwind_Resume(a1);
+    }
+
+    __cxa_begin_catch(a1);
+    v15 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(a10 + 47) < 0)
+      {
+        a9 = *a9;
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = a9;
+      v16 = "Warning: Integer %s out of range for USO integer nodes.";
+      goto LABEL_11;
+    }
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x22299B42CLL);
+}
+
+void nlv4_inference_orchestrator::trees::UsoGraphBuilder::addStringPayloadNode(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  v4 = *(a3[1] + 8 * (a3[4] / 0x1AuLL)) - 3952 * (a3[4] / 0x1AuLL) + 152 * a3[4];
+  if (*(v4 + 47) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *(v4 + 24), *(v4 + 32));
+  }
+
+  else
+  {
+    v5 = *(v4 + 24);
+    __p.__r_.__value_.__r.__words[2] = *(v4 + 40);
+    *&__p.__r_.__value_.__l.__data_ = v5;
+  }
+
+  LOBYTE(v7) = 1;
+  siri::ontology::UsoGraph::createStringNode();
+  if (v7 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  operator new();
+}
+
+void std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::__add_back_capacity(unint64_t *a1)
+{
+  v1 = a1[4];
+  v2 = v1 >= 0x1A;
+  v3 = v1 - 26;
+  if (!v2)
+  {
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
+    {
+      operator new();
+    }
+
+    v7 = v6 >> 2;
+    if (v5 == *a1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v7;
+    }
+
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(v8);
+  }
+
+  a1[4] = v3;
+  v4 = a1[1];
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
+}
+
+void sub_22299BD54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int128 a11)
+{
+  operator delete(v11);
+  if (a11)
+  {
+    operator delete(a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+__n128 std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::emplace_back<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoEntityNode *>>(unint64_t *a1, __int128 *a2)
+{
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 26 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
+  {
+    v6 = 0;
+  }
+
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
+  {
+    std::deque<std::tuple<nlv4_inference_orchestrator::trees::TreeNode,siri::ontology::UsoGraphNode *>>::__add_back_capacity(a1);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
+  }
+
+  v8 = *(v5 + 8 * (v7 / 0x1A)) - 3952 * (v7 / 0x1A) + 152 * v7;
+  v9 = *a2;
+  *(v8 + 16) = *(a2 + 2);
+  *v8 = v9;
+  *(a2 + 1) = 0;
+  *(a2 + 2) = 0;
+  *a2 = 0;
+  v10 = *(a2 + 24);
+  *(v8 + 40) = *(a2 + 5);
+  *(v8 + 24) = v10;
+  *(a2 + 4) = 0;
+  *(a2 + 5) = 0;
+  *(a2 + 3) = 0;
+  v11 = a2[3];
+  *(v8 + 64) = *(a2 + 8);
+  *(v8 + 48) = v11;
+  *(a2 + 7) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 6) = 0;
+  *(v8 + 72) = *(a2 + 72);
+  *(v8 + 96) = 0;
+  *(v8 + 104) = 0;
+  *(v8 + 88) = 0;
+  *(v8 + 88) = *(a2 + 88);
+  *(v8 + 104) = *(a2 + 13);
+  *(a2 + 11) = 0;
+  *(a2 + 12) = 0;
+  *(a2 + 13) = 0;
+  result = a2[7];
+  v13 = a2[8];
+  *(v8 + 112) = result;
+  *(v8 + 128) = v13;
+  *(v8 + 144) = *(a2 + 18);
+  ++a1[5];
+  return result;
+}
+
+void sub_22299C288(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a15)
+  {
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_22299C774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  if (a14)
+  {
+    (*(*a14 + 8))(a14);
+  }
+
+  if (a15)
+  {
+    (*(*a15 + 8))(a15);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22299CEE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, int a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, int a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48)
+{
+  if (a48 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a42 < 0)
+  {
+    operator delete(a37);
+  }
+
+  MEMORY[0x223DC4D00](v51, 0x10B2C40ABA1E16ELL, a3, a4, a5, a6, a7, a8);
+  snlp::common::selflogging::NLXSchemaNLXClientEventMetadata::~NLXSchemaNLXClientEventMetadata(&a21);
+  if (a36 < 0)
+  {
+    operator delete(a31);
+  }
+
+  if (a2 == 3)
+  {
+    v55 = __cxa_begin_catch(a1);
+    v56 = MEMORY[0x277CCACA8];
+    (*(*v55 + 16))(v55);
+    v57 = [v56 stringWithFormat:@"Hit SNLP exception while constructing C++ orchestrator with asset directory %@: %s"];
+    v58 = v57;
+    if (v50)
+    {
+      v59 = MEMORY[0x277CCA9B8];
+      v60 = *MEMORY[0x277CCA470];
+      *(v52 - 200) = *MEMORY[0x277CCA450];
+      *(v52 - 192) = v60;
+      *(v52 - 184) = v57;
+      *(v52 - 176) = v57;
+      v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 - 184 forKeys:v52 - 200 count:2];
+      *v50 = [v59 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:2 userInfo:v61];
+    }
+  }
+
+  else
+  {
+    if (a2 != 2)
+    {
+
+      _Unwind_Resume(a1);
+    }
+
+    v62 = __cxa_begin_catch(a1);
+    v63 = MEMORY[0x277CCACA8];
+    (*(*v62 + 16))(v62);
+    v64 = [v63 stringWithFormat:@"NLv4 Asset Error when creating the C++ NLv4 orchestrator: %s"];
+    v58 = v64;
+    if (v50)
+    {
+      v65 = MEMORY[0x277CCA9B8];
+      v66 = *MEMORY[0x277CCA470];
+      *(v52 - 168) = *MEMORY[0x277CCA450];
+      *(v52 - 160) = v66;
+      *(v52 - 152) = v64;
+      *(v52 - 144) = v64;
+      v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 - 152 forKeys:v52 - 168 count:2];
+      *v50 = [v65 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:3 userInfo:v67];
+    }
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x22299CC8CLL);
+}
+
+void sub_22299E1E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22299E7E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+{
+  MEMORY[0x223DC4D00](v27, 0x80C40D6874129, a3, a4, a5, a6, a7, a8);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::SetNumberVerbReplacer::~SetNumberVerbReplacer(void **this)
+{
+  if (*(this + 103) < 0)
+  {
+    operator delete(this[10]);
+  }
+
+  if (*(this + 79) < 0)
+  {
+    operator delete(this[7]);
+  }
+
+  if (*(this + 55) < 0)
+  {
+    operator delete(this[4]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::MinimumMaximumLabeller::~MinimumMaximumLabeller(void **this)
+{
+  if (*(this + 152) == 1 && *(this + 151) < 0)
+  {
+    operator delete(this[16]);
+  }
+
+  if (*(this + 127) < 0)
+  {
+    operator delete(this[13]);
+  }
+
+  if (*(this + 103) < 0)
+  {
+    operator delete(this[10]);
+  }
+
+  if (*(this + 79) < 0)
+  {
+    operator delete(this[7]);
+  }
+
+  if (*(this + 55) < 0)
+  {
+    operator delete(this[4]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactAddressDowncaster::~ContactAddressDowncaster(void **this)
+{
+  v2 = this + 16;
+  std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken>::__destroy_vector::operator()[abi:ne200100](&v2);
+  v2 = this + 13;
+  std::vector<sirinluinternal::MatchingSpan>::__destroy_vector::operator()[abi:ne200100](&v2);
+  v2 = this + 10;
+  std::vector<sirinluinternal::MatchingSpan>::__destroy_vector::operator()[abi:ne200100](&v2);
+  if (*(this + 79) < 0)
+  {
+    operator delete(this[7]);
+  }
+
+  if (*(this + 55) < 0)
+  {
+    operator delete(this[4]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupNameTransform::~GroupNameTransform(void **this)
+{
+  v2 = this + 16;
+  std::vector<sirinluinternal::MatchingSpan>::__destroy_vector::operator()[abi:ne200100](&v2);
+  v2 = this + 13;
+  std::vector<sirinluinternal::MatchingSpan>::__destroy_vector::operator()[abi:ne200100](&v2);
+  v2 = this + 10;
+  std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken>::__destroy_vector::operator()[abi:ne200100](&v2);
+  if (*(this + 79) < 0)
+  {
+    operator delete(this[7]);
+  }
+
+  if (*(this + 55) < 0)
+  {
+    operator delete(this[4]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::PersonNameSplitHack::~PersonNameSplitHack(void **this)
+{
+  v2 = this + 7;
+  std::vector<sirinluinternal::MatchingSpan>::__destroy_vector::operator()[abi:ne200100](&v2);
+  v2 = this + 4;
+  std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken>::__destroy_vector::operator()[abi:ne200100](&v2);
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::~ContactTypeSplit(void **this)
+{
+  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>>>::~__hash_table((this + 18));
+  std::__hash_table<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>>>::~__hash_table((this + 13));
+  v2 = this + 10;
+  std::vector<nlv4_inference_orchestrator::orchestration::IndexedToken>::__destroy_vector::operator()[abi:ne200100](&v2);
+  if (*(this + 79) < 0)
+  {
+    operator delete(this[7]);
+  }
+
+  if (*(this + 55) < 0)
+  {
+    operator delete(this[4]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+uint64_t nlv4_inference_orchestrator::trees::printTree(void *a1, const nlv4_inference_orchestrator::trees::TreeNode *a2)
+{
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v30);
+  v29 = 0u;
+  memset(v28, 0, sizeof(v28));
+  nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v21, a2);
+  v27 = 0;
+  std::deque<std::pair<nlv4_inference_orchestrator::trees::TreeNode,unsigned int>>::push_back(v28, &v21);
+  v35.__locale_ = v26;
+  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v35);
+  if (v25 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v23 < 0)
+  {
+    operator delete(v22[0]);
+  }
+
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__data_);
+  }
+
+  v3 = *(&v29 + 1);
+  if (*(&v29 + 1))
+  {
+    v4 = MEMORY[0x277D82680];
+    do
+    {
+      v5 = (*(v28[1] + 8 * ((v3 + v29 - 1) / 0x1AuLL)) - 3952 * ((v3 + v29 - 1) / 0x1AuLL) + 152 * (v3 + v29 - 1));
+      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v21, v5);
+      v27 = *(v5 + 36);
+      std::deque<std::pair<nlv4_inference_orchestrator::trees::TreeNode,unsigned int>>::pop_back(v28);
+      for (i = v26[1]; i != v26[0]; std::deque<std::pair<nlv4_inference_orchestrator::trees::TreeNode,unsigned int>>::emplace_back<nlv4_inference_orchestrator::trees::TreeNode const&,unsigned int>(v28, i, &v35))
+      {
+        i = (i - 144);
+        LODWORD(v35.__locale_) = v27 + 1;
+      }
+
+      v7 = (4 * v27);
+      if (v7)
+      {
+        do
+        {
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, " ", 1);
+          --v7;
+        }
+
+        while (v7);
+      }
+
+      if ((v25 & 0x80u) == 0)
+      {
+        v8 = __p;
+      }
+
+      else
+      {
+        v8 = __p[0];
+      }
+
+      if ((v25 & 0x80u) == 0)
+      {
+        v9 = v25;
+      }
+
+      else
+      {
+        v9 = __p[1];
+      }
+
+      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, v8, v9);
+      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ": ", 2);
+      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v12 = &v21;
+      }
+
+      else
+      {
+        v12 = v21.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v21.__r_.__value_.__l.__size_;
+      }
+
+      v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v12, size);
+      v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ".", 1);
+      if ((v23 & 0x80u) == 0)
+      {
+        v16 = v22;
+      }
+
+      else
+      {
+        v16 = v22[0];
+      }
+
+      if ((v23 & 0x80u) == 0)
+      {
+        v17 = v23;
+      }
+
+      else
+      {
+        v17 = v22[1];
+      }
+
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
+      std::ios_base::getloc((v18 + *(*v18 - 24)));
+      v19 = std::locale::use_facet(&v35, v4);
+      (v19->__vftable[2].~facet_0)(v19, 10);
+      std::locale::~locale(&v35);
+      std::ostream::put();
+      std::ostream::flush();
+      v35.__locale_ = v26;
+      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v35);
+      if (v25 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v23 < 0)
+      {
+        operator delete(v22[0]);
+      }
+
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v21.__r_.__value_.__l.__data_);
+      }
+
+      v3 = *(&v29 + 1);
+    }
+
+    while (*(&v29 + 1));
+  }
+
+  std::stringbuf::str();
+  std::deque<std::pair<nlv4_inference_orchestrator::trees::TreeNode,unsigned int>>::~deque[abi:ne200100](v28);
+  v30 = *MEMORY[0x277D82828];
+  *(&v30 + *(v30 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v31 = MEMORY[0x277D82878] + 16;
+  if (v33 < 0)
+  {
+    operator delete(v32[7].__locale_);
+  }
+
+  v31 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v32);
+  std::ostream::~ostream();
+  return MEMORY[0x223DC4C10](&v34);
+}
+
+void sub_22299EF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+{
+  std::deque<std::pair<nlv4_inference_orchestrator::trees::TreeNode,unsigned int>>::~deque[abi:ne200100](&a29);
+  std::ostringstream::~ostringstream(&a35, MEMORY[0x277D82828]);
+  MEMORY[0x223DC4C10](&a49);
+  _Unwind_Resume(a1);
+}
+
+std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_back_slow_path<std::string const>(uint64_t a1, __int128 *a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
+  {
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  {
+    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  {
+    v6 = 0xAAAAAAAAAAAAAAALL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v17.__end_cap_.__value_ = a1;
+  if (v6)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v6);
+  }
+
+  begin = (24 * v2);
+  v17.__first_ = 0;
+  v17.__begin_ = (24 * v2);
+  value = 0;
+  v17.__end_ = (24 * v2);
+  v17.__end_cap_.__value_ = 0;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(begin, *a2, *(a2 + 1));
+    begin = v17.__begin_;
+    end = v17.__end_;
+    value = v17.__end_cap_.__value_;
+  }
+
+  else
+  {
+    v9 = *a2;
+    *(24 * v2 + 0x10) = *(a2 + 2);
+    *&begin->__r_.__value_.__l.__data_ = v9;
+    end = (24 * v2);
+  }
+
+  v11 = end + 1;
+  v12 = *(a1 + 8) - *a1;
+  v13 = begin - v12;
+  memcpy(begin - v12, *a1, v12);
+  v14 = *a1;
+  *a1 = v13;
+  *(a1 + 8) = v11;
+  v15 = *(a1 + 16);
+  *(a1 + 16) = value;
+  v17.__end_ = v14;
+  v17.__end_cap_.__value_ = v15;
+  v17.__first_ = v14;
+  v17.__begin_ = v14;
+  std::__split_buffer<std::string>::~__split_buffer(&v17);
+  return v11;
+}
+
+void uaap::AbstractDateTimeHandler::addIfPopulated(uint64_t *a1, uint64_t a2)
+{
+  siri::ontology::UsoGraph::getSuccessors(&v17, *(*(*a1 + 88) + 8), *(*a1 + 88));
+  v4 = v17;
+  v5 = v18;
+  if (v17)
+  {
+    v18 = v17;
+    operator delete(v17);
+  }
+
+  if (v4 != v5)
+  {
+    v7 = *(a2 + 8);
+    v6 = *(a2 + 16);
+    if (v7 >= v6)
+    {
+      v10 = *a2;
+      v11 = v7 - *a2;
+      v12 = (v11 >> 3) + 1;
+      if (v12 >> 61)
+      {
+        std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v13 = v6 - v10;
+      if (v13 >> 2 > v12)
+      {
+        v12 = v13 >> 2;
+      }
+
+      if (v13 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v14 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v14 = v12;
+      }
+
+      if (v14)
+      {
+        if (!(v14 >> 61))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v15 = (8 * (v11 >> 3));
+      v16 = *a1;
+      *a1 = 0;
+      *v15 = v16;
+      v9 = v15 + 1;
+      memcpy(0, v10, v11);
+      *a2 = 0;
+      *(a2 + 8) = v9;
+      *(a2 + 16) = 0;
+      if (v10)
+      {
+        operator delete(v10);
+      }
+    }
+
+    else
+    {
+      v8 = *a1;
+      *a1 = 0;
+      *v7 = v8;
+      v9 = v7 + 1;
+    }
+
+    *(a2 + 8) = v9;
+  }
+}
+
+uint64_t uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(uint64_t result, char **a2)
+{
+  if (result)
+  {
+    v2 = *a2;
+    v3 = a2[1];
+    if (*a2 != v3)
+    {
+      if (v3 - v2 == 8)
+      {
+        if (!*v2)
+        {
+          return result;
+        }
+
+        return MEMORY[0x2821C3878]();
+      }
+
+      v4 = 0;
+      v5 = 0x7FFFFFFF;
+      do
+      {
+        v6 = *v2;
+        if (*v2)
+        {
+          v8 = *(v6 + 40);
+          v7 = *(v6 + 44);
+          if (v8 < v5)
+          {
+            v5 = v8;
+          }
+
+          if (v7 > v4)
+          {
+            v4 = v7;
+          }
+        }
+
+        v2 += 8;
+      }
+
+      while (v2 != v3);
+      if (v5 < 0x7FFFFFFF)
+      {
+        return MEMORY[0x2821C3878]();
+      }
+    }
+  }
+
+  return result;
+}
+
+void snlp::common::utilities::getAlignmentUtf16StartEndIndexes(uint64_t *__return_ptr a1@<X8>, snlp::common::utilities *this@<X0>)
+{
+  if (*(this + 7) == *(this + 8))
+  {
+    *a1 = 0;
+    *(a1 + 16) = 0;
+    return;
+  }
+
+  UtteranceAlignment = siri::ontology::UsoEntityNode::getUtteranceAlignment(this);
+  siri::ontology::UsoUtteranceAlignment::getSpans(&v7, UtteranceAlignment);
+  v4 = v7;
+  if (v7 == v8)
+  {
+    *a1 = 0;
+    *(a1 + 16) = 0;
+    if (!v4)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v5 = **v7;
+    *&v6 = v5;
+    *(&v6 + 1) = HIDWORD(v5);
+    *a1 = v6;
+    *(a1 + 16) = 1;
+  }
+
+  v8 = v4;
+  operator delete(v4);
+}
+
+void snlp::common::utilities::getAlignmentUtf8StartEndIndexes(snlp::common::utilities *a1@<X0>, uint64_t *a2@<X1>, int *a3@<X2>, uint64_t a4@<X8>)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v7 = *a3;
+  if (v7 >= 8)
+  {
+    v9 = SNLPOSLoggerForCategory(4);
+    v8 = "<UNDEFINED_COMPONENT>";
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      *&buf[4] = "<UNDEFINED_COMPONENT>";
+      *&buf[12] = 2048;
+      *&buf[14] = v7;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v8 = off_2784B6F30[v7];
+  }
+
+  v10 = strlen(v8);
+  if (v10 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::basic_string<char16_t>::__throw_length_error[abi:ne200100]();
+  }
+
+  v11 = v10;
+  if (v10 >= 0x17)
+  {
+    operator new();
+  }
+
+  v18 = v10;
+  if (v10)
+  {
+    memcpy(&__dst, v8, v10);
+  }
+
+  *(&__dst + v11) = 0;
+  snlp::common::utilities::getAlignmentUtf16StartEndIndexes(buf, a1);
+  if (buf[16])
+  {
+    v12 = *&buf[8];
+    snlp::common::utilities::getUnicodeScalarAndUtf8Offsets(a2, *buf);
+    v14 = v13;
+    snlp::common::utilities::getUnicodeScalarAndUtf8Offsets(a2, v12);
+    *a4 = v14;
+    *(a4 + 8) = v15;
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = 0;
+    *a4 = 0;
+  }
+
+  *(a4 + 16) = v16;
+  if (v18 < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_22299F5A8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v18 = __cxa_begin_catch(a1);
+    v19 = SNLPOSLoggerForCategory(4);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      if (a15 >= 0)
+      {
+        p_p = &__p;
+      }
+
+      else
+      {
+        p_p = __p;
+      }
+
+      v21 = (*(*v18 + 16))(v18);
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = p_p;
+      WORD6(buf) = 2080;
+      *(&buf + 14) = v21;
+      _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "[%s] Warning: Failed to extract UTF-8 indexes from the app entity span graph string node alignment: %s", &buf, 0x16u);
+    }
+
+    *v16 = 0;
+    v16[16] = 0;
+    __cxa_end_catch();
+    JUMPOUT(0x22299F558);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2229A0244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a9);
+  _Unwind_Resume(a1);
+}
+
+void nlv4_inference_orchestrator::span_matching::SpanEncoder::~SpanEncoder(nlv4_inference_orchestrator::span_matching::SpanEncoder *this)
+{
+  MEMORY[0x223DC3180](this + 48);
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+uint64_t std::pair<snlp::common::tensor::InferenceTensor,std::vector<std::string>>::~pair(uint64_t a1)
+{
+  v5 = (a1 + 48);
+  std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v5);
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    *(a1 + 32) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *a1;
+  if (*a1)
+  {
+    *(a1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  return a1;
+}
+
+void sub_2229A0604(_Unwind_Exception *a1)
+{
+  *v2 = 0;
+  (*(*v3 + 8))(v3);
+  (*(*v1 + 8))(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::makeNLv4SpanFeaturizerResponse@<X0>(uint64_t *a1@<X0>, sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse *a2@<X8>)
+{
+  sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::NLv4SpanFeaturizerResponse(a2);
+  sirinluinternalsnlp_intermediate::NLv4SpanFeaturizerResponse::makeResponse(a2);
+  v4 = *a1;
+  *a1 = 0;
+  result = *(a2 + 1);
+  *(a2 + 1) = v4;
+  if (result)
+  {
+    v6 = *(*result + 8);
+
+    return v6();
+  }
+
+  return result;
+}
+
+void nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::makeITFMSpanFeaturizerResponse(uint64_t *a1@<X0>, sirinluinternalsnlp_intermediate::ITFMSpanFeaturizerResponse *a3@<X8>)
+{
+  v5 = sirinluinternalsnlp_intermediate::ITFMSpanFeaturizerResponse::ITFMSpanFeaturizerResponse(a3);
+  sirinluinternalsnlp_intermediate::ITFMSpanFeaturizerResponse::makeResponse(v5);
+  v6 = *a1;
+  *a1 = 0;
+  v7 = *(a3 + 2);
+  *(a3 + 2) = v6;
+  if (v7)
+  {
+    (*(*v7 + 8))(v7);
+  }
+
+  if (!*(a3 + 1))
+  {
+    operator new();
+  }
+
+  operator new();
+}
+
+void sub_2229A08B8(_Unwind_Exception *a1)
+{
+  MEMORY[0x223DC4D00](v2, 0x1012C40EC159624);
+  MEMORY[0x223DC34A0](v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::appendExpandedSpanLabelsAndNumericalisedIndexes(int *a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+{
+  v36 = *MEMORY[0x277D85DE8];
+  nlv4_inference_orchestrator::span_matching::SpanVocabLabelUtilities::getExpandedSpanLabels(a1 + 66, a5, a1 + 1, a1, &v25);
+  v14 = v25;
+  v15 = v26;
+  if (v25 == v26)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = 0;
+    while (1)
+    {
+      v17 = nlv4_inference_orchestrator::vocabulary::Vocabulary::numericalizeToken((a1 + 12), v14);
+      if ((a1[38] & 1) == 0 || v17 != *(a1 + 18))
+      {
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &v14->__r_.__value_.__l.__data_, v14);
+        *buf = nlv4_inference_orchestrator::vocabulary::Vocabulary::numericalizeToken((a1 + 12), v14);
+        v16 += std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a2, *buf, buf) & 1;
+      }
+
+      if (v16 + a6 >= a7)
+      {
+        break;
+      }
+
+      if (++v14 == v15)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    v18 = *(a4 + 8);
+    if (v18)
+    {
+      if (v18[23] < 0)
+      {
+        v18 = *v18;
+      }
+    }
+
+    else
+    {
+      v18 = "nullptr";
+    }
+
+    v19 = *(*(a5 + 24) + 48);
+    if (v19)
+    {
+      if (v19[23] < 0)
+      {
+        v19 = *v19;
+      }
+    }
+
+    else
+    {
+      v19 = "nullptr";
+    }
+
+    v20 = SNLPOSLoggerForCategory(4);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = *a1;
+      if (v21 >= 8)
+      {
+        v23 = SNLPOSLoggerForCategory(4);
+        v22 = "<UNDEFINED_COMPONENT>";
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          *&buf[4] = "<UNDEFINED_COMPONENT>";
+          v28 = 2048;
+          v29 = v21;
+          _os_log_impl(&dword_22284A000, v23, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
+        }
+      }
+
+      else
+      {
+        v22 = off_2784B6F30[v21];
+      }
+
+      *buf = 136316162;
+      *&buf[4] = v22;
+      v28 = 2080;
+      v29 = v18;
+      v30 = 2080;
+      v31 = v19;
+      v32 = 2048;
+      v33 = v16;
+      v34 = 2048;
+      v35 = 0xAAAAAAAAAAAAAAABLL * ((v26 - v25) >> 3);
+      _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "[%s] Truncating the number of span labels for token='%s', span label='%s'. Using the first %lu out of %lu expanded label(s).", buf, 0x34u);
+    }
+  }
+
+LABEL_24:
+  *buf = &v25;
+  std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](buf);
+  return v16;
 }

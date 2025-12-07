@@ -335,24 +335,24 @@ ICCKShareUnknownParticipant *__59__ICParticipantsFilterTypeSelection_unresolvedP
   return v4;
 }
 
-void __49__ICParticipantsFilterTypeSelection_participants__block_invoke(uint64_t a1)
+void __49__ICParticipantsFilterTypeSelection_participants__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) managedObjectContext];
-  v3 = [*(a1 + 32) accountObjectID];
-  v4 = [v2 ic_existingObjectWithID:v3];
-  v5 = ICDynamicCast();
+  v3 = [*(a1 + 32) managedObjectContext];
+  v4 = [*(a1 + 32) accountObjectID];
+  v5 = [v3 ic_existingObjectWithID:v4];
+  v6 = ICDynamicCast();
 
-  v6 = [v5 uniqueUserParticipants];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __49__ICParticipantsFilterTypeSelection_participants__block_invoke_2;
-  v10[3] = &unk_278197F58;
-  v10[4] = *(a1 + 32);
-  v7 = [v6 ic_objectsPassingTest:v10];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v7 = [v6 uniqueUserParticipants];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__ICParticipantsFilterTypeSelection_participants__block_invoke_2;
+  v11[3] = &unk_278197F58;
+  v11[4] = *(a1 + 32);
+  v8 = [v7 ic_objectsPassingTest:v11];
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 uint64_t __49__ICParticipantsFilterTypeSelection_participants__block_invoke_2(uint64_t a1, void *a2)

@@ -59,56 +59,56 @@
 
 - (BOOL)hasPrivilegeWithNameSpace:(id)space andName:(id)name
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
   if (!nameCopy || (v8 = nameCopy, ![nameCopy length]))
   {
-    v25 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"Non-nil and non-empty 'name' required." userInfo:0];
-    objc_exception_throw(v25);
+    v24 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"Non-nil and non-empty 'name' required." userInfo:0];
+    objc_exception_throw(v24);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   privileges = [(CoreDAVCurrentUserPrivilegeSetItem *)self privileges];
-  v27 = [privileges countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v27)
+  v26 = [privileges countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v26)
   {
-    v10 = *v34;
-    v28 = privileges;
-    v26 = *v34;
+    v10 = *v33;
+    v27 = privileges;
+    v25 = *v33;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(privileges);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         extraChildItems = [v12 extraChildItems];
-        v14 = [extraChildItems countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v14 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v30;
+          v16 = *v29;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v30 != v16)
+              if (*v29 != v16)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              v18 = *(*(&v29 + 1) + 8 * j);
+              v18 = *(*(&v28 + 1) + 8 * j);
               name = [v18 name];
               if ([v8 isEqualToString:name])
               {
@@ -117,7 +117,7 @@
 
 LABEL_25:
                   v22 = 1;
-                  privileges = v28;
+                  privileges = v27;
                   goto LABEL_26;
                 }
 
@@ -135,7 +135,7 @@ LABEL_25:
               }
             }
 
-            v15 = [extraChildItems countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v15 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
             if (v15)
             {
               continue;
@@ -145,15 +145,15 @@ LABEL_25:
           }
         }
 
-        privileges = v28;
-        v10 = v26;
+        privileges = v27;
+        v10 = v25;
       }
 
       v22 = 0;
-      v27 = [v28 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v26 = [v27 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
   else
@@ -163,7 +163,6 @@ LABEL_25:
 
 LABEL_26:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

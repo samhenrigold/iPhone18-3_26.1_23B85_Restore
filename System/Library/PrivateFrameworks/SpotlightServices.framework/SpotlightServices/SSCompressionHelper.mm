@@ -145,40 +145,42 @@ LABEL_16:
 
 uint64_t __69__SSCompressionHelper_uncompressedContentsForCompressedFile_outPath___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = munmap(*(a1 + 32), *(a1 + 40));
   v3 = *(a1 + 48);
   if (v3 != -1)
   {
-    bzero(v5, 0x400uLL);
-    if ((fcntl(v3, 50, v5) & 0x80000000) == 0 && v5[0])
+    bzero(v4, 0x400uLL);
+    if ((fcntl(v3, 50, v4) & 0x80000000) == 0)
     {
-      unlink(v5);
+      if (v4[0])
+      {
+        unlink(v4);
+      }
     }
 
-    result = close(*(a1 + 48));
+    return close(*(a1 + 48));
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (int)unpackageTarForFd:(int)fd size:(unint64_t)size parentDir:(const char *)dir
 {
-  v25 = *MEMORY[0x1E69E9840];
-  memset(&v22, 0, sizeof(v22));
-  if (stat(dir, &v22) == -1 && mkdir(dir, 0x1C0u))
+  v24 = *MEMORY[0x1E69E9840];
+  memset(&v21, 0, sizeof(v21));
+  if (stat(dir, &v21) == -1 && mkdir(dir, 0x1C0u))
   {
-    goto LABEL_16;
+    return -1;
   }
 
-  bzero(v24, 0x400uLL);
+  bzero(v23, 0x400uLL);
   __strcpy_chk();
   __strcat_chk();
-  v8 = open(v24, 2562, 384);
+  v8 = open(v23, 2562, 384);
   if (v8 < 0)
   {
-    goto LABEL_16;
+    return -1;
   }
 
   v9 = v8;
@@ -189,9 +191,7 @@ uint64_t __69__SSCompressionHelper_uncompressedContentsForCompressedFile_outPath
 LABEL_15:
     munmap(0xFFFFFFFFFFFFFFFFLL, sizeCopy);
     close(v9);
-LABEL_16:
-    v16 = -1;
-    goto LABEL_17;
+    return -1;
   }
 
   v11 = v10;
@@ -217,7 +217,7 @@ LABEL_10:
       archive_read_free();
       sync();
       munmap(v11, 0x2800000uLL);
-      unlink(v24);
+      unlink(v23);
       v16 = 0;
     }
 
@@ -225,7 +225,7 @@ LABEL_10:
     {
       while (1)
       {
-        bzero(v23, 0x400uLL);
+        bzero(v22, 0x400uLL);
         __strcpy_chk();
         __strcat_chk();
         archive_entry_pathname();
@@ -236,14 +236,14 @@ LABEL_10:
           break;
         }
 
-        v20 = archive_entry_size();
-        if (v20 > 41943040)
+        v19 = archive_entry_size();
+        if (v19 > 41943040)
         {
           break;
         }
 
-        v21 = v20;
-        if (archive_read_data_into_fd() || archive_write_data() != v21 || lseek(v9, 0, 0) || ftruncate(v9, 0) || archive_write_finish_entry())
+        v20 = v19;
+        if (archive_read_data_into_fd() || archive_write_data() != v20 || lseek(v9, 0, 0) || ftruncate(v9, 0) || archive_write_finish_entry())
         {
           break;
         }
@@ -261,8 +261,6 @@ LABEL_10:
     close(v9);
   }
 
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

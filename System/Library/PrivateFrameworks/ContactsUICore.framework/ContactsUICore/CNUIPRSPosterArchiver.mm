@@ -116,7 +116,7 @@
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "PRSPosterArchiver failed to unarchive configuration, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1A31E6000, v2, v3, "PRSPosterArchiver failed to unarchive configuration, %@", v4, v5, v6, v7);
 }
 
 @end

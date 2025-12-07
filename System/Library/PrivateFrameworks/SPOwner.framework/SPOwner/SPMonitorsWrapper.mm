@@ -144,12 +144,11 @@ void __26__SPMonitorsWrapper_start__block_invoke(uint64_t a1, uint64_t a2)
 
 void __29__SPMonitorsWrapper__cpuType__block_invoke_cold_1(NSObject *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_2643D0000, a1, OS_LOG_TYPE_FAULT, "hw.cputype failed with error: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_2643D0000, a1, OS_LOG_TYPE_FAULT, "hw.cputype failed with error: %d", v3, 8u);
 }
 
 @end

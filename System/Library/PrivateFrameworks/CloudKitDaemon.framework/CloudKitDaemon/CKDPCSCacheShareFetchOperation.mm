@@ -18,7 +18,7 @@
 
 - (void)_handlePCSDataFetched:(id)fetched withError:(id)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   fetchedCopy = fetched;
   errorCopy = error;
   selfCopy = self;
@@ -33,30 +33,30 @@
   v11 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v22 = objc_msgSend_operationID(selfCopy, v12, v13);
-    v25 = objc_msgSend_pcsKeyID(fetchedCopy, v23, v24);
-    v26 = v25;
-    v27 = @" and error ";
-    *v39 = 138544130;
-    v28 = &stru_28385ED00;
-    *&v39[4] = v22;
-    *&v39[12] = 2114;
+    v21 = objc_msgSend_operationID(selfCopy, v12, v13);
+    v24 = objc_msgSend_pcsKeyID(fetchedCopy, v22, v23);
+    v25 = v24;
+    v26 = @" and error ";
+    *v38 = 138544130;
+    v27 = &stru_28385ED00;
+    *&v38[4] = v21;
+    *&v38[12] = 2114;
     if (errorCopy)
     {
-      v28 = errorCopy;
+      v27 = errorCopy;
     }
 
     else
     {
-      v27 = &stru_28385ED00;
+      v26 = &stru_28385ED00;
     }
 
-    *&v39[14] = v25;
-    v40 = 2114;
-    v41 = v27;
-    v42 = 2112;
-    v43 = v28;
-    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Share PCS fetch operation %{public}@ received PCS data (%{public}@)%{public}@%@", v39, 0x2Au);
+    *&v38[14] = v24;
+    v39 = 2114;
+    v40 = v26;
+    v41 = 2112;
+    v42 = v27;
+    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Share PCS fetch operation %{public}@ received PCS data (%{public}@)%{public}@%@", v38, 0x2Au);
   }
 
   if (objc_msgSend_didFetchData(selfCopy, v14, v15))
@@ -69,19 +69,19 @@
     v17 = *v10;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v29 = objc_msgSend_operationID(selfCopy, v18, v19);
-      v32 = objc_msgSend_sharePCSData(selfCopy, v30, v31);
-      v35 = objc_msgSend_pcsKeyID(v32, v33, v34);
-      v38 = objc_msgSend_pcsKeyID(fetchedCopy, v36, v37);
-      *v39 = 138544130;
-      *&v39[4] = v29;
-      *&v39[12] = 2112;
-      *&v39[14] = v35;
-      v40 = 2112;
-      v41 = v38;
-      v42 = 2112;
-      v43 = errorCopy;
-      _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Share PCS fetch operation %{public}@ already has PCS data %@. Ignoring the fetch callback with %@/%@", v39, 0x2Au);
+      v28 = objc_msgSend_operationID(selfCopy, v18, v19);
+      v31 = objc_msgSend_sharePCSData(selfCopy, v29, v30);
+      v34 = objc_msgSend_pcsKeyID(v31, v32, v33);
+      v37 = objc_msgSend_pcsKeyID(fetchedCopy, v35, v36);
+      *v38 = 138544130;
+      *&v38[4] = v28;
+      *&v38[12] = 2112;
+      *&v38[14] = v34;
+      v39 = 2112;
+      v40 = v37;
+      v41 = 2112;
+      v42 = errorCopy;
+      _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "Share PCS fetch operation %{public}@ already has PCS data %@. Ignoring the fetch callback with %@/%@", v38, 0x2Au);
     }
   }
 
@@ -93,17 +93,15 @@
       objc_msgSend_setDidFetchData_(selfCopy, v20, 1);
     }
 
-    objc_msgSend_setFetchError_(selfCopy, v16, errorCopy, *v39);
+    objc_msgSend_setFetchError_(selfCopy, v16, errorCopy, *v38, *&v38[8]);
   }
 
   objc_sync_exit(selfCopy);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_fetchPCSDataFromDatabase
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_stateTransitionGroup(self, a2, v2);
   dispatch_group_enter(v4);
 
@@ -115,22 +113,21 @@
   v5 = *MEMORY[0x277CBC858];
   if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
   {
-    v12 = v5;
-    v15 = objc_msgSend_shareID(self, v13, v14);
+    v11 = v5;
+    v14 = objc_msgSend_shareID(self, v12, v13);
     *buf = 138412290;
-    v18 = v15;
-    _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Fetching PCS data for share %@ from the database", buf, 0xCu);
+    v17 = v14;
+    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Fetching PCS data for share %@ from the database", buf, 0xCu);
   }
 
   v8 = objc_msgSend_cache(self, v6, v7);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_22527E3D0;
-  v16[3] = &unk_27854B830;
-  v16[4] = self;
-  objc_msgSend_getSQLCache_(v8, v9, v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_22527E3D0;
+  v15[3] = &unk_27854B830;
+  v15[4] = self;
+  objc_msgSend_getSQLCache_(v8, v9, v15);
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

@@ -46,29 +46,27 @@
 
 - (id)jsonDictionary
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   name = [(BMPasteboardChange *)self name];
-  v7 = @"name";
+  v6 = @"name";
   null = name;
   if (!name)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!name)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (BMPasteboardChange)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = [dictionary objectForKeyedSubscript:@"name"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -88,13 +86,13 @@ LABEL_4:
 
   if (error)
   {
-    v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v11 = *MEMORY[0x1E698F240];
-    v14 = *MEMORY[0x1E696A578];
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"name"];
-    v15[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    *error = [v10 initWithDomain:v11 code:2 userInfo:v13];
+    v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v10 = *MEMORY[0x1E698F240];
+    v13 = *MEMORY[0x1E696A578];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"name"];
+    v14[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    *error = [v9 initWithDomain:v10 code:2 userInfo:v12];
 
     error = 0;
   }
@@ -102,7 +100,6 @@ LABEL_4:
   selfCopy = 0;
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -244,24 +241,20 @@ LABEL_24:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"name" number:1 type:13 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 + (id)columns
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"name" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

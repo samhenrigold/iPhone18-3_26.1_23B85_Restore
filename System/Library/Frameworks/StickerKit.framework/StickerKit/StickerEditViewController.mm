@@ -13,13 +13,14 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_19A788EAC();
+  sub_19A788EAC(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_19A7899F8(appear);
+  sub_19A7899F8(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -36,7 +37,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_19A789BD4();
+  sub_19A789BD4(selfCopy);
 }
 
 - (void)handleDoneButton

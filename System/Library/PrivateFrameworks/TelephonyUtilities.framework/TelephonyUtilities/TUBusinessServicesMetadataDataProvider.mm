@@ -118,38 +118,36 @@ void __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformatio
 
   if (v3)
   {
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TUDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
+      v6 = *(a1 + 40);
       *buf = 138412290;
-      v18 = v5;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Querying business service for destinationID: %@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Querying business service for destinationID: %@", buf, 0xCu);
     }
 
-    v6 = [*(a1 + 32) businessQueryService];
-    v7 = *(a1 + 40);
+    v7 = [*(a1 + 32) businessQueryService];
+    v8 = *(a1 + 40);
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformationForHandleValue_completion___block_invoke_4;
     v13[3] = &unk_1E7426940;
-    v8 = v7;
-    v9 = *(a1 + 32);
-    v14 = v8;
-    v15 = v9;
+    v9 = v8;
+    v10 = *(a1 + 32);
+    v14 = v9;
+    v15 = v10;
     v12 = *(a1 + 48);
-    v10 = v12;
+    v11 = v12;
     v16 = v12;
-    [v6 isBusinessCallerRegisteredForPhoneNumber:v8 completion:v13];
+    [v7 isBusinessCallerRegisteredForPhoneNumber:v9 completion:v13];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformationForHandleValue_completion___block_invoke_4(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v4 = TUDefaultLog();
+  v20 = *MEMORY[0x1E69E9840];
+  v4 = TUDefaultLog(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -157,24 +155,24 @@ void __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformatio
     {
       v6 = *(a1 + 32);
       *buf = 138412290;
-      v20 = v6;
+      v19 = v6;
       _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Got result indicating that destinationID: %@ is registered with business. Querying for more information about business", buf, 0xCu);
     }
 
     v7 = [*(a1 + 40) businessQueryService];
     v8 = *(a1 + 32);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformationForHandleValue_completion___block_invoke_5;
-    v15[3] = &unk_1E7426918;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformationForHandleValue_completion___block_invoke_5;
+    v14[3] = &unk_1E7426918;
     v9 = v8;
     v10 = *(a1 + 40);
-    v16 = v9;
-    v17 = v10;
-    v14 = *(a1 + 48);
-    v11 = v14;
-    v18 = v14;
-    [v7 fetchBusinessCallerMetadataWithPhoneNumber:v9 completion:v15];
+    v15 = v9;
+    v16 = v10;
+    v13 = *(a1 + 48);
+    v11 = v13;
+    v17 = v13;
+    [v7 fetchBusinessCallerMetadataWithPhoneNumber:v9 completion:v14];
   }
 
   else
@@ -183,63 +181,58 @@ void __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformatio
     {
       v12 = *(a1 + 32);
       *buf = 138412290;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Got result indicating that destinationID: %@ is not registered with business", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __99__TUBusinessServicesMetadataDataProvider_fetchBusinessServiceInformationForHandleValue_completion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v18 = 138412546;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Got businessItem: %@ for destinationID: %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Got businessItem: %@ for destinationID: %@", &v17, 0x16u);
   }
 
-  if (v3 && [*(a1 + 40) isValidBusinessItem:v3])
+  if (v3 && (v6 = [*(a1 + 40) isValidBusinessItem:v3], v6))
   {
-    v6 = [TUBusinessCallerItem alloc];
-    v7 = [v3 name];
-    v8 = [v3 department];
-    v9 = [v3 logoURL];
-    v10 = [(TUBusinessCallerItem *)v6 initWithName:v7 department:v8 logoURL:v9];
-    v11 = *(*(a1 + 56) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v7 = [TUBusinessCallerItem alloc];
+    v8 = [v3 name];
+    v9 = [v3 department];
+    v10 = [v3 logoURL];
+    v11 = [(TUBusinessCallerItem *)v7 initWithName:v8 department:v9 logoURL:v10];
+    v12 = *(*(a1 + 56) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
 
-    v13 = *(*(*(a1 + 56) + 8) + 40);
     v14 = *(*(a1 + 48) + 16);
   }
 
   else
   {
-    v15 = TUDefaultLog();
+    v15 = TUDefaultLog(v6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = [v3 logoURL];
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Got nil or invalid businessItem with improper logoURL %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v16;
+      _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "Got nil or invalid businessItem with improper logoURL %@", &v17, 0xCu);
     }
 
     v14 = *(*(a1 + 48) + 16);
   }
 
   v14();
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isValidBusinessItem:(id)item

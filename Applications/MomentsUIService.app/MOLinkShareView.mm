@@ -30,7 +30,7 @@
 
 - (_TtC16MomentsUIService15MOLinkShareView)initWithPresentationProperties:(id)properties URL:(id)l
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v8 = __chkstk_darwin(v7 - 8);
   v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -67,7 +67,7 @@
   v20 = [(MOLinkShareView *)&v22 initWithPresentationProperties:properties URL:v17];
   swift_unknownObjectRelease();
 
-  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v12, &_s10Foundation3URLVSgMd);
+  outlined destroy of (key: AnyHashable, value: Swift.AnyObject)(v12, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   return v20;
 }
 

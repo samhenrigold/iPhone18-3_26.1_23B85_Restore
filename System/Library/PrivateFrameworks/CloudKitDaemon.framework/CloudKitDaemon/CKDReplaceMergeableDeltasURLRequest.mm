@@ -74,10 +74,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -131,39 +130,39 @@
 + (id)requestOperationsForRequest:(id)request replaceDeltasRequests:(id)requests ignoreMissingDeltas:(BOOL)deltas error:(id *)error
 {
   deltasCopy = deltas;
-  v124 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   requestsCopy = requests;
   v12 = objc_msgSend_array(MEMORY[0x277CBEB18], v10, v11);
+  v115 = 0u;
   v116 = 0u;
   v117 = 0u;
   v118 = 0u;
-  v119 = 0u;
   obj = requestsCopy;
-  v108 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v116, v123, 16);
-  if (!v108)
+  v107 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v115, v122, 16);
+  if (!v107)
   {
     v81 = 0;
     goto LABEL_32;
   }
 
   errorCopy = error;
-  v105 = v12;
-  v106 = *v117;
+  v104 = v12;
+  v105 = *v116;
   while (2)
   {
     v15 = 0;
     do
     {
-      if (*v117 != v106)
+      if (*v116 != v105)
       {
         objc_enumerationMutation(obj);
       }
 
-      v109 = v15;
-      v16 = *(*(&v116 + 1) + 8 * v15);
+      v108 = v15;
+      v16 = *(*(&v115 + 1) + 8 * v15);
       v17 = objc_msgSend_operationRequestWithType_(requestCopy, v14, 313);
-      v110 = v17;
+      v109 = v17;
       if (objc_msgSend_requiresCKAnonymousUserIDs(requestCopy, v18, v19))
       {
         v22 = objc_msgSend_valueID(v16, v20, v21);
@@ -187,7 +186,7 @@
           v81 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v99, *MEMORY[0x277CBC120], 5015, v45);
 
           v85 = v88;
-          v17 = v110;
+          v17 = v109;
 LABEL_30:
 
           v12 = 0;
@@ -215,30 +214,30 @@ LABEL_30:
       objc_msgSend_setIgnoreMissingDeltas_(v45, v62, deltasCopy);
       v65 = objc_msgSend_replacementDeltasContainNewData(v16, v63, v64);
       objc_msgSend_setContainsNewData_(v45, v66, v65);
-      v114 = 0u;
-      v115 = 0u;
-      v112 = 0u;
       v113 = 0u;
+      v114 = 0u;
+      v111 = 0u;
+      v112 = 0u;
       v69 = objc_msgSend_replacementDeltas(v16, v67, v68);
-      v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v70, &v112, v122, 16);
+      v71 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v70, &v111, v121, 16);
       if (v71)
       {
         v74 = v71;
-        v75 = *v113;
+        v75 = *v112;
 LABEL_11:
         v76 = 0;
         while (1)
         {
-          if (*v113 != v75)
+          if (*v112 != v75)
           {
             objc_enumerationMutation(v69);
           }
 
-          v77 = *(*(&v112 + 1) + 8 * v76);
+          v77 = *(*(&v111 + 1) + 8 * v76);
           v78 = objc_msgSend_translator(requestCopy, v72, v73);
-          v111 = 0;
-          v80 = objc_msgSend_pMergeableDeltaFromDelta_error_(v78, v79, v77, &v111);
-          v81 = v111;
+          v110 = 0;
+          v80 = objc_msgSend_pMergeableDeltaFromDelta_error_(v78, v79, v77, &v110);
+          v81 = v110;
 
           if (!v80)
           {
@@ -249,8 +248,8 @@ LABEL_11:
 
           if (v74 == ++v76)
           {
-            v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v72, &v112, v122, 16);
-            v17 = v110;
+            v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v69, v72, &v111, v121, 16);
+            v17 = v109;
             if (v74)
             {
               goto LABEL_11;
@@ -260,13 +259,13 @@ LABEL_11:
           }
         }
 
-        v17 = v110;
+        v17 = v109;
         if (!v81)
         {
           goto LABEL_19;
         }
 
-        v85 = v105;
+        v85 = v104;
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -276,7 +275,7 @@ LABEL_11:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v121 = v81;
+          v120 = v81;
           _os_log_fault_impl(&dword_22506F000, v86, OS_LOG_TYPE_FAULT, "Error creating mergeable delta proto for replacement request: %@", buf, 0xCu);
         }
 
@@ -287,15 +286,15 @@ LABEL_17:
 
 LABEL_19:
       objc_msgSend_setMergeableDeltaReplaceRequest_(v17, v83, v45);
-      v12 = v105;
-      objc_msgSend_addObject_(v105, v84, v17);
+      v12 = v104;
+      objc_msgSend_addObject_(v104, v84, v17);
 
-      v15 = v109 + 1;
+      v15 = v108 + 1;
     }
 
-    while (v109 + 1 != v108);
-    v108 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v116, v123, 16);
-    if (v108)
+    while (v108 + 1 != v107);
+    v107 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v115, v122, 16);
+    if (v107)
     {
       continue;
     }
@@ -314,14 +313,12 @@ LABEL_32:
     *error = v81;
   }
 
-  v101 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v8 = objc_msgSend_replacementRequestsByRequestID(self, v6, v7);
   v11 = objc_msgSend_response(objectCopy, v9, v10);
@@ -330,13 +327,12 @@ LABEL_32:
 
   if (!v16)
   {
-    v43 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v43, v44, a2, self, @"CKDReplaceMergeableDeltasURLRequest.m", 176, @"Expected non-nil replacement request for response: %@", objectCopy);
+    v41 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v17, v18);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v41, v42, a2, self, @"CKDReplaceMergeableDeltasURLRequest.m", 176, @"Expected non-nil replacement request for response: %@", objectCopy);
   }
 
   hasMergeableDeltaReplaceResponse = objc_msgSend_hasMergeableDeltaReplaceResponse(objectCopy, v17, v18);
   v20 = *MEMORY[0x277CBC878];
-  v21 = *MEMORY[0x277CBC880];
   if (hasMergeableDeltaReplaceResponse)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -344,25 +340,25 @@ LABEL_32:
       dispatch_once(MEMORY[0x277CBC880], v20);
     }
 
-    v22 = *MEMORY[0x277CBC860];
+    v21 = *MEMORY[0x277CBC860];
     if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_DEBUG))
     {
-      v35 = v22;
-      v38 = objc_msgSend_requestUUID(self, v36, v37);
+      v33 = v21;
+      v36 = objc_msgSend_requestUUID(self, v34, v35);
       *buf = 138543618;
-      v46 = v38;
-      v47 = 2112;
-      v48 = v16;
-      _os_log_debug_impl(&dword_22506F000, v35, OS_LOG_TYPE_DEBUG, "req: %{public}@, Received response for request %@", buf, 0x16u);
+      v44 = v36;
+      v45 = 2112;
+      v46 = v16;
+      _os_log_debug_impl(&dword_22506F000, v33, OS_LOG_TYPE_DEBUG, "req: %{public}@, Received response for request %@", buf, 0x16u);
     }
 
-    v25 = objc_msgSend_perReplacementCompletionBlock(self, v23, v24);
+    v24 = objc_msgSend_perReplacementCompletionBlock(self, v22, v23);
 
-    if (v25)
+    if (v24)
     {
-      v28 = objc_msgSend_perReplacementCompletionBlock(self, v26, v27);
-      v31 = objc_msgSend_result(objectCopy, v29, v30);
-      (v28)[2](v28, v16, v31);
+      v27 = objc_msgSend_perReplacementCompletionBlock(self, v25, v26);
+      v30 = objc_msgSend_result(objectCopy, v28, v29);
+      (v27)[2](v27, v16, v30);
     }
   }
 
@@ -373,24 +369,23 @@ LABEL_32:
       dispatch_once(MEMORY[0x277CBC880], v20);
     }
 
-    v32 = *MEMORY[0x277CBC830];
+    v31 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
-      v39 = v32;
-      v42 = objc_msgSend_requestUUID(self, v40, v41);
+      v37 = v31;
+      v40 = objc_msgSend_requestUUID(self, v38, v39);
       *buf = 138412290;
-      v46 = v42;
-      _os_log_fault_impl(&dword_22506F000, v39, OS_LOG_TYPE_FAULT, "No mergeableDeltaReplaceResponse for mergeableDeltaReplaceRequest in request UUID %@", buf, 0xCu);
+      v44 = v40;
+      _os_log_fault_impl(&dword_22506F000, v37, OS_LOG_TYPE_FAULT, "No mergeableDeltaReplaceResponse for mergeableDeltaReplaceRequest in request UUID %@", buf, 0xCu);
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -400,13 +395,13 @@ LABEL_32:
   v6 = *MEMORY[0x277CBC860];
   if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
   {
-    v28 = v6;
-    v31 = objc_msgSend_requestUUID(self, v29, v30);
+    v27 = v6;
+    v30 = objc_msgSend_requestUUID(self, v28, v29);
     *buf = 138543618;
-    v35 = v31;
-    v36 = 2112;
-    v37 = failureCopy;
-    _os_log_error_impl(&dword_22506F000, v28, OS_LOG_TYPE_ERROR, "req: %{public}@, Node failure in replace deltas request: %@", buf, 0x16u);
+    v34 = v30;
+    v35 = 2112;
+    v36 = failureCopy;
+    _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, "req: %{public}@, Node failure in replace deltas request: %@", buf, 0x16u);
   }
 
   v9 = objc_msgSend_replacementRequestsByRequestID(self, v7, v8);
@@ -416,8 +411,8 @@ LABEL_32:
 
   if (!v17)
   {
-    v32 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v32, v33, a2, self, @"CKDReplaceMergeableDeltasURLRequest.m", 194, @"Expected non-nil replacement request for response: %@", failureCopy);
+    v31 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v31, v32, a2, self, @"CKDReplaceMergeableDeltasURLRequest.m", 194, @"Expected non-nil replacement request for response: %@", failureCopy);
   }
 
   v20 = objc_msgSend_perReplacementCompletionBlock(self, v18, v19);
@@ -428,8 +423,6 @@ LABEL_32:
     v26 = objc_msgSend_result(failureCopy, v24, v25);
     (v23)[2](v23, v17, v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

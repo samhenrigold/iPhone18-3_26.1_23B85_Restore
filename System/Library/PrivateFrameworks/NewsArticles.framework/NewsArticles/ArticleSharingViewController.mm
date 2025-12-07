@@ -62,7 +62,7 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1D7D0B5F0(style);
+  sub_1D7D0B5F0(style, v7);
 
   swift_unknownObjectRelease();
 }

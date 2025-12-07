@@ -3,9 +3,60 @@
 - (BOOL)loadCurrentPrivacySetting;
 - (CDDPrivacyMonitor)initWithCDDinstance:(id)dinstance;
 - (void)privacyCloak;
+- (void)saveCurrentPrivacySetting:(BOOL)setting;
+- (void)shadowRemotePrivacySetting:(BOOL)setting;
 @end
 
 @implementation CDDPrivacyMonitor
+
+- (void)saveCurrentPrivacySetting:(BOOL)setting
+{
+  settingCopy = setting;
+  v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.CoreDuet"];
+  v5 = +[_CDLogging admissionCheckChannel];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Privacy: Writing the current App refresh privacy setting to on-disk plist", v7, 2u);
+  }
+
+  [v4 setBool:settingCopy forKey:@"CDDBackgroundAppRefresh"];
+  [v4 synchronize];
+  v6 = +[_CDLogging instrumentationChannel];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100023400(v6);
+  }
+}
+
+- (void)shadowRemotePrivacySetting:(BOOL)setting
+{
+  settingCopy = setting;
+  v5 = +[_CDLogging admissionCheckChannel];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    updateAllowed = self->updateAllowed;
+    v9[0] = 67109376;
+    v9[1] = updateAllowed;
+    v10 = 1024;
+    v11 = settingCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Privacy: Changing current App refresh privacy setting from %d to %d.", v9, 0xEu);
+  }
+
+  if (settingCopy && !self->updateAllowed)
+  {
+    v7 = [(CDDPrivacyMonitor *)self cdd];
+    v8 = +[NSDate date];
+    [v7 setDatabaseAge:v8];
+  }
+
+  self->updateAllowed = settingCopy;
+  [(CDDPrivacyMonitor *)self saveCurrentPrivacySetting:settingCopy];
+  if (!settingCopy)
+  {
+    [(CDDPrivacyMonitor *)self deletePrivacySensitiveDBEntries];
+  }
+}
 
 - (BOOL)loadCurrentPrivacySetting
 {

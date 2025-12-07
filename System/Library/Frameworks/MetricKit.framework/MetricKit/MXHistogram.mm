@@ -65,34 +65,34 @@ LABEL_6:
 
 - (id)toDictionary
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_totalBucketCount];
-  v17 = v3;
+  v16 = v3;
   [v3 setObject:v5 forKey:@"histogramNumBuckets"];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = self->_histogramData;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        toDictionary = [*(*(&v18 + 1) + 8 * i) toDictionary];
+        toDictionary = [*(*(&v17 + 1) + 8 * i) toDictionary];
         v13 = [MEMORY[0x277CCABB0] numberWithInt:v9];
         stringValue = [v13 stringValue];
         [v4 setObject:toDictionary forKey:stringValue];
@@ -100,16 +100,15 @@ LABEL_6:
         v9 = (v9 + 1);
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
-  [v17 setObject:v4 forKey:@"histogramValue"];
-  v15 = *MEMORY[0x277D85DE8];
+  [v16 setObject:v4 forKey:@"histogramValue"];
 
-  return v17;
+  return v16;
 }
 
 @end

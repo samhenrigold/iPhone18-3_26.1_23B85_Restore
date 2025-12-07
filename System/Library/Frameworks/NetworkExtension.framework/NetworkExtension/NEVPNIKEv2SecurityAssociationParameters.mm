@@ -4,6 +4,7 @@
 - (NEVPNIKEv2SecurityAssociationParameters)initWithCoder:(id)coder;
 - (id)copyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -11,7 +12,7 @@
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([(NEVPNIKEv2SecurityAssociationParameters *)self lifetimeMinutes]< 10 || [(NEVPNIKEv2SecurityAssociationParameters *)self lifetimeMinutes]>= 1441)
   {
@@ -27,39 +28,39 @@ LABEL_5:
   diffieHellmanGroup = [(NEVPNIKEv2SecurityAssociationParameters *)self diffieHellmanGroup];
   if ((diffieHellmanGroup - 14) >= 8 && (diffieHellmanGroup - 31) >= 2)
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid DH group (%zd), valid values are 14-21, 31, and 32", -[NEVPNIKEv2SecurityAssociationParameters diffieHellmanGroup](self, "diffieHellmanGroup"), v35, v36];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid DH group (%zd), valid values are 14-21, 31, and 32", -[NEVPNIKEv2SecurityAssociationParameters diffieHellmanGroup](self, "diffieHellmanGroup"), v34, v35];
     goto LABEL_4;
   }
 
   if (([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]- 3) >= 5)
   {
-    v10 = MEMORY[0x1E696AEC0];
+    v9 = MEMORY[0x1E696AEC0];
     StringFromIKEv2EncryptionAlgorithm = createStringFromIKEv2EncryptionAlgorithm([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]);
-    v12 = [v10 stringWithFormat:@"Invalid encryption algorithm (%@), valid values are %@, %@, %@, %@, and %@", StringFromIKEv2EncryptionAlgorithm, @"AES-128", @"AES-256", @"AES-128-GCM", @"AES-256-GCM", @"ChaCha20Poly1305"];
-    [NEConfiguration addError:v12 toList:errorsCopy];
+    v11 = [v9 stringWithFormat:@"Invalid encryption algorithm (%@), valid values are %@, %@, %@, %@, and %@", StringFromIKEv2EncryptionAlgorithm, @"AES-128", @"AES-256", @"AES-128-GCM", @"AES-256-GCM", @"ChaCha20Poly1305"];
+    [NEConfiguration addError:v11 toList:errorsCopy];
   }
 
   if (([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]- 3) >= 3)
   {
-    v17 = MEMORY[0x1E696AEC0];
+    v16 = MEMORY[0x1E696AEC0];
     integrityAlgorithm = [(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm];
     if ((integrityAlgorithm - 1) >= 5)
     {
-      v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unknown(%ld)", integrityAlgorithm];
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unknown(%ld)", integrityAlgorithm];
     }
 
     else
     {
-      v19 = off_1E7F0B440[integrityAlgorithm - 1];
+      v18 = off_1E7F0B440[integrityAlgorithm - 1];
     }
 
-    v20 = [v17 stringWithFormat:@"Invalid integrity algorithm (%@), valid values are %@, %@, and %@", v19, @"SHA2-256", @"SHA2-384", @"SHA2-512"];
-    [NEConfiguration addError:v20 toList:errorsCopy];
+    v19 = [v16 stringWithFormat:@"Invalid integrity algorithm (%@), valid values are %@, %@, and %@", v18, @"SHA2-256", @"SHA2-384", @"SHA2-512"];
+    [NEConfiguration addError:v19 toList:errorsCopy];
 
     goto LABEL_5;
   }
 
-  v13 = errorsCopy;
+  v12 = errorsCopy;
   if (!self)
   {
     v6 = 0;
@@ -67,78 +68,78 @@ LABEL_5:
   }
 
   postQuantumKeyExchangeMethods = [(NEVPNIKEv2SecurityAssociationParameters *)self postQuantumKeyExchangeMethods];
-  v15 = [postQuantumKeyExchangeMethods count];
-  if (!v15)
+  v14 = [postQuantumKeyExchangeMethods count];
+  if (!v14)
   {
     v6 = 1;
     goto LABEL_45;
   }
 
-  if (v15 >= 8)
+  if (v14 >= 8)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Too many post-quantum KE methods (%zu > 7)", v15];
-    [NEConfiguration addError:v16 toList:v13];
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Too many post-quantum KE methods (%zu > 7)", v14];
+    [NEConfiguration addError:v15 toList:v12];
 
     v6 = 0;
     goto LABEL_45;
   }
 
-  v21 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v15 + 1];
-  v22 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NEVPNIKEv2SecurityAssociationParameters diffieHellmanGroup](self, "diffieHellmanGroup")}];
-  [v21 addObject:v22];
+  v20 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v14 + 1];
+  v21 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NEVPNIKEv2SecurityAssociationParameters diffieHellmanGroup](self, "diffieHellmanGroup")}];
+  [v20 addObject:v21];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = postQuantumKeyExchangeMethods;
-  v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (!v23)
+  v22 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (!v22)
   {
     v6 = 1;
     goto LABEL_44;
   }
 
-  v24 = v23;
-  v25 = *v40;
-  v37 = postQuantumKeyExchangeMethods;
+  v23 = v22;
+  v24 = *v39;
+  v36 = postQuantumKeyExchangeMethods;
   while (2)
   {
-    for (i = 0; i != v24; ++i)
+    for (i = 0; i != v23; ++i)
     {
-      if (*v40 != v25)
+      if (*v39 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(*(&v39 + 1) + 8 * i);
-      if (!isa_nsnumber(v27))
+      v26 = *(*(&v38 + 1) + 8 * i);
+      if (!isa_nsnumber(v26))
       {
-        [NEConfiguration addError:v13 toList:?];
+        [NEConfiguration addError:v12 toList:?];
         v6 = 0;
-        postQuantumKeyExchangeMethods = v37;
+        postQuantumKeyExchangeMethods = v36;
         goto LABEL_44;
       }
 
-      v28 = v27;
-      integerValue = [v28 integerValue];
-      v30 = integerValue;
+      v27 = v26;
+      integerValue = [v27 integerValue];
+      v29 = integerValue;
       if (integerValue > 0x25)
       {
 LABEL_47:
         has_internal_diagnostics = os_variant_has_internal_diagnostics();
-        v32 = MEMORY[0x1E696AEC0];
+        v31 = MEMORY[0x1E696AEC0];
         if (has_internal_diagnostics)
         {
-          [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid additional KE Method (%zd), valid values are 0, 14-21, 31, 32, 36 and 37", v30];
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid additional KE Method (%zd), valid values are 0, 14-21, 31, 32, 36 and 37", v29];
           goto LABEL_43;
         }
 
 LABEL_42:
-        [v32 stringWithFormat:@"Invalid post-quantum KE Method (%zd), valid values are 0, 36, and 37", v30];
-        v33 = LABEL_43:;
-        [NEConfiguration addError:v33 toList:v13];
-        postQuantumKeyExchangeMethods = v37;
+        [v31 stringWithFormat:@"Invalid post-quantum KE Method (%zd), valid values are 0, 36, and 37", v29];
+        v32 = LABEL_43:;
+        [NEConfiguration addError:v32 toList:v12];
+        postQuantumKeyExchangeMethods = v36;
 
         v6 = 0;
         goto LABEL_44;
@@ -148,7 +149,7 @@ LABEL_42:
       {
         if ((os_variant_has_internal_diagnostics() & 1) == 0)
         {
-          v32 = MEMORY[0x1E696AEC0];
+          v31 = MEMORY[0x1E696AEC0];
           goto LABEL_42;
         }
       }
@@ -158,22 +159,22 @@ LABEL_42:
         goto LABEL_47;
       }
 
-      if ([v21 containsObject:v28])
+      if ([v20 containsObject:v27])
       {
-        v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Duplicated post-quantum KE method (%zd)", v30];
-        [NEConfiguration addError:v31 toList:v13];
+        v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Duplicated post-quantum KE method (%zd)", v29];
+        [NEConfiguration addError:v30 toList:v12];
       }
 
-      else if (v30)
+      else if (v29)
       {
-        [v21 addObject:v28];
+        [v20 addObject:v27];
       }
     }
 
-    v24 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v23 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     v6 = 1;
-    postQuantumKeyExchangeMethods = v37;
-    if (v24)
+    postQuantumKeyExchangeMethods = v36;
+    if (v23)
     {
       continue;
     }
@@ -187,7 +188,6 @@ LABEL_45:
 LABEL_46:
 
 LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -208,6 +208,93 @@ LABEL_6:
   }
 
   return v4;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithmDES)
+  {
+    v8 = @"DES";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithm3DES)
+  {
+    v8 = @"3DES";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithmAES128)
+  {
+    v8 = @"AES-128";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithmAES256)
+  {
+    v8 = @"AES-256";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithmAES128GCM)
+  {
+    v8 = @"AES-128-GCM";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]== NEVPNIKEv2EncryptionAlgorithmAES256GCM)
+  {
+    v8 = @"AES-256-GCM";
+  }
+
+  else
+  {
+    if ([(NEVPNIKEv2SecurityAssociationParameters *)self encryptionAlgorithm]!= NEVPNIKEv2EncryptionAlgorithmChaCha20Poly1305)
+    {
+      goto LABEL_16;
+    }
+
+    v8 = @"ChaCha20Poly1305";
+  }
+
+  [v7 appendPrettyObject:v8 withName:@"encryptionAlgorithm" andIndent:v5 options:options];
+LABEL_16:
+  if ([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]== NEVPNIKEv2IntegrityAlgorithmSHA96)
+  {
+    v9 = @"SHA1-96";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]== NEVPNIKEv2IntegrityAlgorithmSHA160)
+  {
+    v9 = @"SHA1-160";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]== NEVPNIKEv2IntegrityAlgorithmSHA256)
+  {
+    v9 = @"SHA2-256";
+  }
+
+  else if ([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]== NEVPNIKEv2IntegrityAlgorithmSHA384)
+  {
+    v9 = @"SHA2-384";
+  }
+
+  else
+  {
+    if ([(NEVPNIKEv2SecurityAssociationParameters *)self integrityAlgorithm]!= NEVPNIKEv2IntegrityAlgorithmSHA512)
+    {
+      goto LABEL_27;
+    }
+
+    v9 = @"SHA2-512";
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"integrityAlgorithm" andIndent:v5 options:options];
+LABEL_27:
+  [v7 appendPrettyInt:-[NEVPNIKEv2SecurityAssociationParameters diffieHellmanGroup](self withName:"diffieHellmanGroup") andIndent:@"diffieHellmanGroup" options:{v5, options}];
+  postQuantumKeyExchangeMethods = [(NEVPNIKEv2SecurityAssociationParameters *)self postQuantumKeyExchangeMethods];
+  [v7 appendPrettyObject:postQuantumKeyExchangeMethods withName:@"postQuantumKeyExchangeMethods" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEVPNIKEv2SecurityAssociationParameters lifetimeMinutes](self withName:"lifetimeMinutes") andIndent:@"lifetimeMinutes" options:{v5, options}];
+
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder

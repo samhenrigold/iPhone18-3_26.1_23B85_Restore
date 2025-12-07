@@ -140,8 +140,8 @@
 
 - (NSString)description
 {
-  v27[3] = *MEMORY[0x1E69E9840];
-  v26[0] = @"disableReappearPlaceholder";
+  v26[3] = *MEMORY[0x1E69E9840];
+  v25[0] = @"disableReappearPlaceholder";
   disableReappearPlaceholder = [(AMSUIWebDynamicPageModel *)self disableReappearPlaceholder];
   v4 = @"false";
   if (disableReappearPlaceholder)
@@ -149,16 +149,16 @@
     v4 = @"true";
   }
 
-  v27[0] = v4;
-  v26[1] = @"URL";
+  v26[0] = v4;
+  v25[1] = @"URL";
   v5 = [(AMSUIWebDynamicPageModel *)self URL];
   absoluteString = [v5 absoluteString];
-  v27[1] = absoluteString;
-  v26[2] = @"windowSize";
+  v26[1] = absoluteString;
+  v25[2] = @"windowSize";
   [(AMSUIWebDynamicPageModel *)self windowSize];
-  v7 = NSStringFromCGSize(v29);
-  v27[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v7 = NSStringFromCGSize(v28);
+  v26[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
   v9 = [v8 mutableCopy];
 
   account = [(AMSUIWebDynamicPageModel *)self account];
@@ -211,8 +211,6 @@
   }
 
   v23 = [v9 description];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

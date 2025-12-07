@@ -3,6 +3,11 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eutraRfBandAsString:(int)string;
+- (id)geraRfBandAsString:(int)string;
+- (id)ratAsString:(int)string;
+- (id)utraFddRfBandAsString:(int)string;
+- (id)utraTddRfBandAsString:(int)string;
 - (int)StringAsEutraRfBand:(id)band;
 - (int)StringAsGeraRfBand:(id)band;
 - (int)StringAsRat:(id)rat;
@@ -52,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261DF8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -116,6 +136,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)geraRfBandAsString:(int)string
+{
+  if (string >= 0xF)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261E20[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsGeraRfBand:(id)band
@@ -230,6 +265,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)utraFddRfBandAsString:(int)string
+{
+  if (string >= 0x17)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261E98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUtraFddRfBand:(id)band
@@ -386,6 +436,21 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)utraTddRfBandAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261F50[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsUtraTddRfBand:(id)band
 {
   bandCopy = band;
@@ -438,6 +503,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)eutraRfBandAsString:(int)string
+{
+  if ((string - 1) >= 0x2C)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278261F68[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEutraRfBand:(id)band
@@ -831,7 +911,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -851,7 +930,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  geraRfBand = self->_geraRfBand;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -866,7 +944,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  utraFddRfBand = self->_utraFddRfBand;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -881,7 +958,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  utraTddRfBand = self->_utraTddRfBand;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -896,12 +972,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  eutraRfBand = self->_eutraRfBand;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_7:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
   }
 

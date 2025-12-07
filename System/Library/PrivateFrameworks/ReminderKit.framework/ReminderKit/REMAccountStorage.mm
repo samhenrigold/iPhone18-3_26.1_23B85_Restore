@@ -132,10 +132,7 @@
 
 uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMergeableOrdering___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) serializedData];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) serializedData];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -254,13 +251,13 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
 
 - (REMAccountStorage)initWithCoder:(id)coder
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"objectID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"externalIdentifier"];
-  v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"externalModificationTag"];
-  v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"daSyncToken"];
-  v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"daPushKey"];
+  v46 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"externalModificationTag"];
+  v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"daSyncToken"];
+  v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"daPushKey"];
   v7 = [coderCopy decodeIntegerForKey:@"type"];
   if (v7 >= 8)
   {
@@ -273,10 +270,10 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
     v7 = 0;
   }
 
-  v48 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
-  v41 = [coderCopy decodeBoolForKey:@"markedForRemoval"];
-  v44 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pinnedListsManualOrdering"];
-  v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"templatesManualOrdering"];
+  v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
+  v40 = [coderCopy decodeBoolForKey:@"markedForRemoval"];
+  v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pinnedListsManualOrdering"];
+  v42 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"templatesManualOrdering"];
   v9 = MEMORY[0x1E695DFD8];
   v10 = objc_opt_class();
   v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
@@ -288,20 +285,20 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"smartListIDsToUndelete"];
 
   v17 = v5;
-  if (v7 && v5 && v48)
+  if (v7 && v5 && v47)
   {
-    v18 = [(REMAccountStorage *)self initWithObjectID:v5 type:v7 name:v48 nullableListIDsMergeableOrdering:0];
+    v18 = [(REMAccountStorage *)self initWithObjectID:v5 type:v7 name:v47 nullableListIDsMergeableOrdering:0];
     v19 = v18;
     v20 = v6;
     if (v18)
     {
       [(REMAccountStorage *)v18 setExternalIdentifier:v6];
-      [(REMAccountStorage *)v19 setExternalModificationTag:v47];
-      [(REMAccountStorage *)v19 setDaSyncToken:v46];
-      [(REMAccountStorage *)v19 setDaPushKey:v45];
-      [(REMAccountStorage *)v19 setMarkedForRemoval:v41];
+      [(REMAccountStorage *)v19 setExternalModificationTag:v46];
+      [(REMAccountStorage *)v19 setDaSyncToken:v45];
+      [(REMAccountStorage *)v19 setDaPushKey:v44];
+      [(REMAccountStorage *)v19 setMarkedForRemoval:v40];
       v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"listIDsMergeableOrdering"];
-      v42 = v21;
+      v41 = v21;
       if (v21)
       {
         objc_storeStrong(&v19->_listIDsMergeableOrdering, v21);
@@ -326,7 +323,7 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
 
       v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"resolutionTokenMapData"];
       v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"resolutionTokenMap"];
-      v40 = v28;
+      v39 = v28;
       if (v29)
       {
         objc_storeStrong(&v19->_resolutionTokenMap, v29);
@@ -344,8 +341,8 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
         v19->_resolutionTokenMapData = v32;
       }
 
-      [(REMAccountStorage *)v19 setPinnedListsManualOrdering:v44];
-      [(REMAccountStorage *)v19 setTemplatesManualOrdering:v43];
+      [(REMAccountStorage *)v19 setPinnedListsManualOrdering:v43];
+      [(REMAccountStorage *)v19 setTemplatesManualOrdering:v42];
       v33 = [MEMORY[0x1E695DFD8] setWithArray:v12];
       [(REMAccountStorage *)v19 setListIDsToUndelete:v33];
 
@@ -386,12 +383,12 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 138544130;
-      v50 = v17;
-      v51 = 2048;
-      v52 = v7;
-      v53 = 2112;
-      v54 = v48;
-      v55 = 1024;
+      v49 = v17;
+      v50 = 2048;
+      v51 = v7;
+      v52 = 2112;
+      v53 = v47;
+      v54 = 1024;
       markedForRemoval = [(REMAccountStorage *)self markedForRemoval];
       _os_log_fault_impl(&dword_19A0DB000, v23, OS_LOG_TYPE_FAULT, "Attempted to decode REMAccount missing objectID, type or name {objectID: %{public}@, type: %ld, name: %@, markedForRemoval: %d}", buf, 0x26u);
     }
@@ -402,7 +399,6 @@ uint64_t __81__REMAccountStorage_initWithObjectID_type_name_nullableListIDsMerge
     selfCopy = 0;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -521,7 +517,7 @@ uint64_t __37__REMAccountStorage_encodeWithCoder___block_invoke(uint64_t a1)
 
 - (BOOL)isEqual:(id)equal
 {
-  v128 = *MEMORY[0x1E69E9840];
+  v127 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy != self)
@@ -863,17 +859,17 @@ uint64_t __37__REMAccountStorage_encodeWithCoder___block_invoke(uint64_t a1)
           v100 = +[REMLogStore utility];
           if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
           {
-            v114 = objc_opt_class();
-            v115 = NSStringFromClass(v114);
+            v113 = objc_opt_class();
+            v114 = NSStringFromClass(v113);
             listIDsMergeableOrdering = self->_listIDsMergeableOrdering;
-            v117 = v6->_listIDsMergeableOrdering;
-            v122 = 138543874;
-            v123 = v115;
-            v124 = 2112;
-            v125 = listIDsMergeableOrdering;
-            v126 = 2112;
-            v127 = v117;
-            _os_log_error_impl(&dword_19A0DB000, v100, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the listIDsMergeableOrdering. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-idsOrdering: %@, other-idsOrdering: %@}", &v122, 0x20u);
+            v116 = v6->_listIDsMergeableOrdering;
+            v121 = 138543874;
+            v122 = v114;
+            v123 = 2112;
+            v124 = listIDsMergeableOrdering;
+            v125 = 2112;
+            v126 = v116;
+            _os_log_error_impl(&dword_19A0DB000, v100, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the listIDsMergeableOrdering. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-idsOrdering: %@, other-idsOrdering: %@}", &v121, 0x20u);
           }
         }
 
@@ -898,20 +894,20 @@ uint64_t __37__REMAccountStorage_encodeWithCoder___block_invoke(uint64_t a1)
 
         if (!self->_resolutionTokenMap || v6->_resolutionTokenMap)
         {
-          v109 = +[REMLogStore utility];
-          if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+          v108 = +[REMLogStore utility];
+          if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
           {
-            v118 = objc_opt_class();
-            v119 = NSStringFromClass(v118);
+            v117 = objc_opt_class();
+            v118 = NSStringFromClass(v117);
             resolutionTokenMap = self->_resolutionTokenMap;
-            v121 = v6->_resolutionTokenMap;
-            v122 = 138543874;
-            v123 = v119;
-            v124 = 2112;
-            v125 = resolutionTokenMap;
-            v126 = 2112;
-            v127 = v121;
-            _os_log_error_impl(&dword_19A0DB000, v109, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v122, 0x20u);
+            v120 = v6->_resolutionTokenMap;
+            v121 = 138543874;
+            v122 = v118;
+            v123 = 2112;
+            v124 = resolutionTokenMap;
+            v125 = 2112;
+            v126 = v120;
+            _os_log_error_impl(&dword_19A0DB000, v108, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v121, 0x20u);
           }
         }
 
@@ -943,7 +939,6 @@ LABEL_78:
   v13 = 1;
 LABEL_79:
 
-  v107 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -957,7 +952,7 @@ LABEL_79:
 
 - (REMCRMergeableOrderedSet)listIDsMergeableOrdering
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   p_listIDsMergeableOrdering = &self->_listIDsMergeableOrdering;
   v4 = self->_listIDsMergeableOrdering;
   if (v4)
@@ -984,20 +979,20 @@ LABEL_79:
     goto LABEL_12;
   }
 
-  v22 = 0;
-  v10 = [[REMCRMergeableOrderedSet alloc] initWithReplicaIDSource:v7 serializedData:listIDsMergeableOrderingData error:&v22];
-  v11 = v22;
+  v21 = 0;
+  v10 = [[REMCRMergeableOrderedSet alloc] initWithReplicaIDSource:v7 serializedData:listIDsMergeableOrderingData error:&v21];
+  v11 = v21;
   v12 = +[REMLogStore utility];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     objectID2 = [(REMAccountStorage *)self objectID];
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[REMCRMergeableOrderedSet count](v10, "count")}];
     *buf = 138543874;
-    v24 = objectID2;
-    v25 = 2048;
+    v23 = objectID2;
+    v24 = 2048;
     selfCopy = self;
-    v27 = 2112;
-    v28 = v14;
+    v26 = 2112;
+    v27 = v14;
     _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_INFO, "REMAccountStorage listIDsMergeableOrdering deserialized {objectID: %{public}@, self: %p, orderedSet.count: %@}", buf, 0x20u);
 
     v9 = 0x1E7506000;
@@ -1028,7 +1023,6 @@ LABEL_15:
   v5 = v10;
 
 LABEL_16:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1066,10 +1060,7 @@ LABEL_16:
 
 uint64_t __55__REMAccountStorage_serializedListIDsMergeableOrdering__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) serializedData];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) serializedData];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1159,54 +1150,45 @@ uint64_t __55__REMAccountStorage_serializedListIDsMergeableOrdering__block_invok
 
 - (void)initWithCoder:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMAccountType %ld", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMAccountType %ld", v1, 0xCu);
 }
 
 - (void)initWithCoder:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore utility];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0_4();
-    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v2, v3, "rem_log_fault_if (_listIDsMergeableOrdering == nil && _listIDsMergeableOrderingData == nil) -- Attempted to decode REMAccountStorage with both _listIDsMergeableOrdering and _listIDsMergeableOrderingData missing {objectID: %{public}@, name: %{sensitive}@}", v4, v5, v6, v7, v8);
+    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v1, v2, "rem_log_fault_if (_listIDsMergeableOrdering == nil && _listIDsMergeableOrderingData == nil) -- Attempted to decode REMAccountStorage with both _listIDsMergeableOrdering and _listIDsMergeableOrderingData missing {objectID: %{public}@, name: %{sensitive}@}", v3, v4, v5, v6);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore utility];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = [a1 objectID];
-    v5 = [a1 name];
+    v3 = [a1 objectID];
+    v4 = [a1 name];
     OUTLINED_FUNCTION_0_4();
-    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v6, v7, "rem_log_fault_if (self->_listIDsMergeableOrderingData == nil) -- Attempted to encode REMAccountStorage with both _listIDsMergeableOrdering and _listIDsMergeableOrderingData missing {objectID: %{public}@, name: %{sensitive}@}", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_2_0(&dword_19A0DB000, v5, v6, "rem_log_fault_if (self->_listIDsMergeableOrderingData == nil) -- Attempted to encode REMAccountStorage with both _listIDsMergeableOrdering and _listIDsMergeableOrderingData missing {objectID: %{public}@, name: %{sensitive}@}", v7, v8, v9, v10);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listIDsMergeableOrdering
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Failed to read listIDsMergeableOrdering from data. Returning empty set {error: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Failed to read listIDsMergeableOrdering from data. Returning empty set {error: %@}", v1, 0xCu);
 }
 
 - (void)resolutionTokenMap
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from account storage. Initialize an empty map {list: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from account storage. Initialize an empty map {list: %@}", v1, 0xCu);
 }
 
 @end

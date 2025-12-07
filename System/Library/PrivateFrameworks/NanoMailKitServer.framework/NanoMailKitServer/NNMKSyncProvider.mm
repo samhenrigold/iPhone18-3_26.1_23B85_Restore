@@ -28,6 +28,7 @@
 - (void)_addAttachmentData:(id)data forMessageId:(id)id contentId:(id)contentId mailbox:(id)mailbox;
 - (void)_addMessageContent:(id)content forMessage:(id)message mailbox:(id)mailbox;
 - (void)_addMessages:(id)messages mailbox:(id)mailbox;
+- (void)_addMessages:(id)messages messagesAreNew:(BOOL)new mailbox:(id)mailbox;
 - (void)_checkBatchFetchedMessages;
 - (void)_checkConnectivityBasedSuspensionTimer:(BOOL)timer;
 - (void)_deleteMessagesWithIds:(id)ids mailbox:(id)mailbox;
@@ -39,12 +40,15 @@
 - (void)_handleHaltSyncForMailbox:(id)mailbox;
 - (void)_handleMailboxesDesync;
 - (void)_markConversationIdForNotify:(id)notify messages:(id)messages mailbox:(id)mailbox;
+- (void)_markConversationWithId:(id)id forState:(unint64_t)state include:(BOOL)include mailbox:(id)mailbox;
 - (void)_notifyDelegateThatMessagesStatusWereUpdated:(id)updated;
 - (void)_replyWithMessagesToResend:(id)resend includesProtectedMessages:(BOOL)messages mailbox:(id)mailbox;
 - (void)_replyWithMoreMessages:(id)messages forConversationWithId:(id)id mailbox:(id)mailbox;
 - (void)_replyWithMoreMessages:(id)messages forDateReceivedBefore:(id)before mailbox:(id)mailbox messagesForSpecialMailbox:(unint64_t)specialMailbox;
 - (void)_reportMessageContentDownloadFailureForMessageId:(id)id mailbox:(id)mailbox;
 - (void)_requestDelegateForAccounts;
+- (void)_requestDelegateForContentForMessageIds:(id)ids highPriority:(BOOL)priority;
+- (void)_requestDelegateForContentForMessageWithId:(id)id highPriority:(BOOL)priority;
 - (void)_requestDelegateForFetchForMailboxes:(id)mailboxes;
 - (void)_requestDelegateForFirstMessagesForMailboxes:(id)mailboxes;
 - (void)_requestDelegateForMessagesToSendAsFetchResponseForMessageIds:(id)ids;
@@ -132,9 +136,9 @@
 - (void)syncStateManagerDidChangePairedDevice:(id)device;
 - (void)syncStateManagerDidInvalidateSyncSession:(id)session syncSessionIdentifier:(id)identifier;
 - (void)syncStateManagerDidUnpair:(id)unpair;
-- (void)tearDown;
 - (void)trackerDidFinishSendingInitialSyncContentToPairedDevice:(id)device;
 - (void)updateConversationId:(id)id mute:(BOOL)mute;
+- (void)updateConversationId:(id)id notify:(BOOL)notify messages:(id)messages;
 - (void)updateMailboxSelection:(id)selection;
 - (void)updateMessagesStatus:(id)status;
 - (void)updateVIPSenderList:(id)list requestContext:(id)context;
@@ -180,26 +184,27 @@
   managerCopy = manager;
   providerCopy = provider;
   v11 = dispatch_queue_create("com.apple.nanomail.providerQueue", 0);
-  v19.receiver = self;
-  v19.super_class = NNMKSyncProvider;
-  v12 = [(NNMKSyncEndpoint *)&v19 initWithQueue:v11];
+  v21.receiver = self;
+  v21.super_class = NNMKSyncProvider;
+  v12 = [(NNMKSyncEndpoint *)&v21 initWithQueue:v11];
+  v14 = v12;
   if (v12)
   {
-    nnmk_setupLoggingSubsystems();
-    objc_storeWeak(&v12->_delegate, delegateCopy);
-    objc_storeStrong(&v12->_providerQueue, v11);
-    providerQueue = v12->_providerQueue;
+    nnmk_setupLoggingSubsystems(v12, v13);
+    objc_storeWeak(&v14->_delegate, delegateCopy);
+    objc_storeStrong(&v14->_providerQueue, v11);
+    providerQueue = v14->_providerQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvider___block_invoke;
     block[3] = &unk_279936098;
-    v16 = v12;
-    v17 = providerCopy;
-    v18 = managerCopy;
+    v18 = v14;
+    v19 = providerCopy;
+    v20 = managerCopy;
     dispatch_sync(providerQueue, block);
   }
 
-  return v12;
+  return v14;
 }
 
 void __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvider___block_invoke(uint64_t a1)
@@ -357,13 +362,6 @@ uint64_t __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvi
   [(NNMKSyncEndpoint *)&v5 dealloc];
 }
 
-- (void)tearDown
-{
-  pairedDeviceRegistry = self->_pairedDeviceRegistry;
-  self->_pairedDeviceRegistry = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)_triggerInitialSyncToRecoverFromSyncVersionMismatch
 {
   if (self->_triggeredInitialSyncToRecoverFromSyncVersionMismatch)
@@ -387,15 +385,15 @@ uint64_t __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvi
 - (void)_triggerInitialSyncTrackingProgress:(BOOL)progress
 {
   progressCopy = progress;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     pairedDeviceRegistry = self->_pairedDeviceRegistry;
     v7 = v5;
-    v16 = 134217984;
+    v15 = 134217984;
     fullSyncVersion = [(NNMKDeviceSyncRegistry *)pairedDeviceRegistry fullSyncVersion];
-    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "#initial-sync triggered. (Previous #sync-version: %lu)", &v16, 0xCu);
+    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "#initial-sync triggered. (Previous #sync-version: %lu)", &v15, 0xCu);
   }
 
   if (progressCopy)
@@ -411,9 +409,9 @@ uint64_t __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvi
     v10 = self->_pairedDeviceRegistry;
     v11 = v9;
     fullSyncVersion2 = [(NNMKDeviceSyncRegistry *)v10 fullSyncVersion];
-    v16 = 134217984;
+    v15 = 134217984;
     fullSyncVersion = fullSyncVersion2;
-    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Incrementing #sync-version. %lu", &v16, 0xCu);
+    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Incrementing #sync-version. %lu", &v15, 0xCu);
   }
 
   v13 = objc_alloc_init(NNMKProtoPrepareForFullSyncRequest);
@@ -423,13 +421,11 @@ uint64_t __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvi
   v14 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Requesting VIP List due to #initial-sync", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Requesting VIP List due to #initial-sync", &v15, 2u);
   }
 
   [(NNMKSyncProvider *)self _requestDelegateForVIPList:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyWithAccounts:(id)accounts
@@ -448,7 +444,7 @@ uint64_t __72__NNMKSyncProvider_initWithDelegate_syncStateManager_directoryProvi
 
 void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 72))
   {
     v2 = qword_28144D620;
@@ -456,9 +452,9 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
     {
       v3 = *(a1 + 40);
       v4 = v2;
-      v16 = 134217984;
-      v17 = [v3 count];
-      _os_log_impl(&dword_25B19F000, v4, OS_LOG_TYPE_DEFAULT, "Received accounts from MobileMail to sync to watch. %lu accounts.", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = [v3 count];
+      _os_log_impl(&dword_25B19F000, v4, OS_LOG_TYPE_DEFAULT, "Received accounts from MobileMail to sync to watch. %lu accounts.", &v15, 0xCu);
     }
 
     *(*(a1 + 32) + 42) = 0;
@@ -485,8 +481,8 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
       v13 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Triggering #full-sync for mailboxes due to initial account sync.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Triggering #full-sync for mailboxes due to initial account sync.", &v15, 2u);
       }
 
       [*(a1 + 32) _triggerFullSyncForMailboxes:v12];
@@ -498,19 +494,17 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
       [v14 finishedSendingInitialSyncContentToPairedDevice];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerFullSyncForMailbox:(id)mailbox
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   v5 = mailboxCopy;
   if (mailboxCopy)
   {
-    v8[0] = mailboxCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = mailboxCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:v6];
   }
 
@@ -518,41 +512,39 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
   {
     [NNMKSyncProvider _triggerFullSyncForMailbox:];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerFullSyncForMailboxes:(id)mailboxes
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   mailboxesCopy = mailboxes;
   if ([mailboxesCopy count])
   {
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(mailboxesCopy, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v26 = mailboxesCopy;
+    v25 = mailboxesCopy;
     v6 = mailboxesCopy;
-    v28 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (!v28)
+    v27 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    if (!v27)
     {
       goto LABEL_16;
     }
 
-    v7 = *v30;
+    v7 = *v29;
     selfCopy = self;
     while (1)
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
         pairedDeviceRegistry = self->_pairedDeviceRegistry;
         mailboxId = [v9 mailboxId];
         v12 = [(NNMKDeviceSyncRegistry *)pairedDeviceRegistry mailboxWithId:mailboxId];
@@ -570,7 +562,7 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
           resendScheduler = v13;
           mailboxId2 = [v9 mailboxId];
           *buf = 138543362;
-          v34 = mailboxId2;
+          v33 = mailboxId2;
           _os_log_impl(&dword_25B19F000, resendScheduler, OS_LOG_TYPE_DEFAULT, "It will not request #full-sync for mailbox, because it has already been requested before. %{public}@", buf, 0xCu);
         }
 
@@ -586,9 +578,9 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
             v21 = v6;
             v23 = v22 = v5;
             *buf = 134218242;
-            v34 = fullSyncVersion;
-            v35 = 2114;
-            v36 = v23;
+            v33 = fullSyncVersion;
+            v34 = 2114;
+            v35 = v23;
             _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "#full-sync triggered for mailbox. Requesting messages from MobileMail (#sync-version: %lu, mailbox:%{public}@).", buf, 0x16u);
 
             v5 = v22;
@@ -609,8 +601,8 @@ void __38__NNMKSyncProvider_replyWithAccounts___block_invoke(uint64_t a1)
 LABEL_14:
       }
 
-      v28 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (!v28)
+      v27 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (!v27)
       {
 LABEL_16:
 
@@ -622,7 +614,7 @@ LABEL_16:
           [(NNMKSyncProvider *)self _requestDelegateForFirstMessagesForMailboxes:v5];
         }
 
-        mailboxesCopy = v26;
+        mailboxesCopy = v25;
         goto LABEL_21;
       }
     }
@@ -634,8 +626,6 @@ LABEL_16:
   }
 
 LABEL_21:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyWithFirstMessages:(id)messages includesProtectedMessages:(BOOL)protectedMessages mailboxes:(id)mailboxes organizedByThread:(BOOL)thread
@@ -658,7 +648,7 @@ LABEL_21:
 
 void __97__NNMKSyncProvider_replyWithFirstMessages_includesProtectedMessages_mailboxes_organizedByThread___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 72);
   v3 = qword_28144D620;
   v4 = os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT);
@@ -668,9 +658,9 @@ void __97__NNMKSyncProvider_replyWithFirstMessages_includesProtectedMessages_mai
     {
       v5 = *(a1 + 40);
       v6 = v3;
-      v14 = 134217984;
-      v15 = [v5 count];
-      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Received first messages from MobileMail (Message count: %lu).", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = [v5 count];
+      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Received first messages from MobileMail (Message count: %lu).", &v13, 0xCu);
     }
 
     [*(*(a1 + 32) + 72) setOrganizeByThread:*(a1 + 56)];
@@ -681,14 +671,14 @@ LABEL_12:
       v12 = [*(a1 + 32) initialSyncProgressTracker];
       [v12 updateProgressWithMessageHeadersSent:v7];
 
-      goto LABEL_13;
+      return;
     }
 
     v8 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Paired device does not support multiple mailboxes. Sending first messages to default mailbox.", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Paired device does not support multiple mailboxes. Sending first messages to default mailbox.", &v13, 2u);
     }
 
     v9 = [*(*(a1 + 32) + 72) mailboxWithId:@"-1"];
@@ -709,48 +699,45 @@ LABEL_12:
 
   else if (v4)
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "No paired device. It won't sync messages for #full-sync.", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "No paired device. It won't sync messages for #full-sync.", &v13, 2u);
   }
-
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sendFirstMessages:(id)messages mailboxes:(id)mailboxes
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxesCopy = mailboxes;
   syncController = [(NNMKSyncProvider *)self syncController];
-  v57 = [syncController groupMessagesByMailboxId:messagesCopy];
+  v56 = [syncController groupMessagesByMailboxId:messagesCopy];
 
-  v55 = objc_alloc_init(NNMKProtoInitialMessagesSyncBatch);
+  v54 = objc_alloc_init(NNMKProtoInitialMessagesSyncBatch);
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(mailboxesCopy, "count")}];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   v10 = mailboxesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v63 objects:v74 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v62 objects:v73 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v64;
+    v13 = *v63;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v64 != v13)
+        if (*v63 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        mailboxId = [*(*(&v63 + 1) + 8 * i) mailboxId];
+        mailboxId = [*(*(&v62 + 1) + 8 * i) mailboxId];
         [v9 addObject:mailboxId];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v63 objects:v74 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v62 objects:v73 count:16];
     }
 
     while (v12);
@@ -762,32 +749,32 @@ LABEL_13:
     v17 = v16;
     nnmk_description = [v9 nnmk_description];
     *buf = 138543362;
-    v68 = nnmk_description;
+    v67 = nnmk_description;
     _os_log_impl(&dword_25B19F000, v17, OS_LOG_TYPE_DEFAULT, "Preparing to send #full-sync for mailboxes. %{public}@", buf, 0xCu);
   }
 
-  v52 = messagesCopy;
-  v54 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count", v9)}];
+  v51 = messagesCopy;
+  v53 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count", v9)}];
   [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v10;
-  v58 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
-  if (v58)
+  v57 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
+  if (v57)
   {
-    v56 = *v60;
+    v55 = *v59;
     do
     {
-      for (j = 0; j != v58; ++j)
+      for (j = 0; j != v57; ++j)
       {
-        if (*v60 != v56)
+        if (*v59 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v59 + 1) + 8 * j);
+        v20 = *(*(&v58 + 1) + 8 * j);
         pairedDeviceRegistry = self->_pairedDeviceRegistry;
         mailboxId2 = [v20 mailboxId];
         v23 = [(NNMKDeviceSyncRegistry *)pairedDeviceRegistry mailboxWithId:mailboxId2];
@@ -804,7 +791,7 @@ LABEL_13:
 
         syncController2 = [(NNMKSyncProvider *)self syncController];
         mailboxId3 = [v20 mailboxId];
-        v28 = [v57 objectForKeyedSubscript:mailboxId3];
+        v28 = [v56 objectForKeyedSubscript:mailboxId3];
         v29 = [syncController2 filterMessages:v28 byAlreadySynced:0 byMailbox:v20];
 
         v30 = qword_28144D620;
@@ -817,19 +804,19 @@ LABEL_13:
           v35 = [(NNMKDeviceSyncRegistry *)v33 syncVersionForMailboxId:mailboxId5];
           v36 = [v29 count];
           *buf = 138543874;
-          v68 = mailboxId4;
-          v69 = 2048;
-          v70 = v35;
-          v71 = 2048;
-          v72 = v36;
+          v67 = mailboxId4;
+          v68 = 2048;
+          v69 = v35;
+          v70 = 2048;
+          v71 = v36;
           _os_log_impl(&dword_25B19F000, v31, OS_LOG_TYPE_DEFAULT, "Preparing messages to send for mailbox. (Mailbox: %{public}@, #mailbox-sync-version: %lu, Message count: %lu)", buf, 0x20u);
         }
 
         v37 = [(NNMKSyncProvider *)self _initialSyncForMailbox:v20 messages:v29];
         if (v37)
         {
-          [(NNMKProtoInitialMessagesSyncBatch *)v55 addInitialMessagesSync:v37];
-          [v54 addObjectsFromArray:v29];
+          [(NNMKProtoInitialMessagesSyncBatch *)v54 addInitialMessagesSync:v37];
+          [v53 addObjectsFromArray:v29];
         }
 
         else
@@ -840,23 +827,23 @@ LABEL_13:
             v39 = v38;
             mailboxId6 = [v20 mailboxId];
             *buf = 138543362;
-            v68 = mailboxId6;
+            v67 = mailboxId6;
             _os_log_impl(&dword_25B19F000, v39, OS_LOG_TYPE_DEFAULT, "It won't send mailbox on #full-sync. %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v58 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+      v57 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
     }
 
-    while (v58);
+    while (v57);
   }
 
   [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry endUpdates];
-  [(NNMKProtoInitialMessagesSyncBatch *)v55 setFullSyncVersion:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion]];
-  v41 = [(NNMKMessagesSyncServiceServer *)self->_messagesSyncService sendBatchedInitialMessagesSync:v55];
+  [(NNMKProtoInitialMessagesSyncBatch *)v54 setFullSyncVersion:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion]];
+  v41 = [(NNMKMessagesSyncServiceServer *)self->_messagesSyncService sendBatchedInitialMessagesSync:v54];
   resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
-  v43 = [v51 copy];
+  v43 = [v50 copy];
   resendScheduler2 = [(NNMKSyncProvider *)self resendScheduler];
   [resendScheduler registerIDSIdentifier:v41 objectIds:v43 type:@"InitialSync" resendInterval:{objc_msgSend(resendScheduler2, "initialSyncResendInterval")}];
 
@@ -864,25 +851,23 @@ LABEL_13:
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v46 = v45;
-    v47 = [v54 count];
-    nnmk_description2 = [v51 nnmk_description];
+    v47 = [v53 count];
+    nnmk_description2 = [v50 nnmk_description];
     *buf = 134218498;
-    v68 = v47;
-    v69 = 2114;
-    v70 = v41;
-    v71 = 2114;
-    v72 = nnmk_description2;
+    v67 = v47;
+    v68 = 2114;
+    v69 = v41;
+    v70 = 2114;
+    v71 = nnmk_description2;
     _os_log_impl(&dword_25B19F000, v46, OS_LOG_TYPE_DEFAULT, "#full-sync messages sent (%lu messages - IDS identifier: %{public}@ - Mailbox ids: %{public}@).", buf, 0x20u);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
-  return v54;
+  return v53;
 }
 
 - (id)_initialSyncForMailbox:(id)mailbox messages:(id)messages
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   messagesCopy = messages;
   if (([mailboxCopy syncActive] & 1) != 0 || (objc_msgSend(mailboxCopy, "syncEnabled") & 1) == 0)
@@ -893,10 +878,10 @@ LABEL_13:
       v33 = v32;
       mailboxId = [mailboxCopy mailboxId];
       *buf = 138543874;
-      v47 = mailboxId;
-      v48 = 2048;
+      v46 = mailboxId;
+      v47 = 2048;
       syncActive = [mailboxCopy syncActive];
-      v50 = 2048;
+      v49 = 2048;
       syncEnabled = [mailboxCopy syncEnabled];
       _os_log_impl(&dword_25B19F000, v33, OS_LOG_TYPE_DEFAULT, "Ignoring MobileMail reply for first messages. Mailbox: %{public}@, active: %lu, enabled: %lu.", buf, 0x20u);
     }
@@ -917,35 +902,35 @@ LABEL_13:
     [(NNMKProtoInitialMessagesSync *)v8 setMailbox:v12];
 
     pairedDeviceRegistry = self->_pairedDeviceRegistry;
-    v38 = mailboxCopy;
+    v37 = mailboxCopy;
     mailboxId2 = [mailboxCopy mailboxId];
     [(NNMKProtoInitialMessagesSync *)v8 setMailboxSyncVersion:[(NNMKDeviceSyncRegistry *)pairedDeviceRegistry syncVersionForMailboxId:mailboxId2]];
 
     [(NNMKProtoInitialMessagesSync *)v8 setOrganizedByThread:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry organizeByThread]];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v37 = messagesCopy;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v36 = messagesCopy;
     obj = messagesCopy;
-    v15 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v15 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v43;
+      v17 = *v42;
       selfCopy = self;
       do
       {
         v18 = 0;
-        v40 = v16;
+        v39 = v16;
         do
         {
-          if (*v43 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v42 + 1) + 8 * v18);
+          v19 = *(*(&v41 + 1) + 8 * v18);
           v20 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
@@ -958,25 +943,25 @@ LABEL_13:
             [v19 messageIdHeader];
             v28 = v27 = v17;
             *buf = 138544386;
-            v47 = messageId;
-            v48 = 2114;
+            v46 = messageId;
+            v47 = 2114;
             syncActive = accountId;
-            v50 = 2114;
+            v49 = 2114;
             syncEnabled = v25;
-            v52 = 2112;
-            v53 = v26;
-            v54 = 2114;
-            v55 = v28;
+            v51 = 2112;
+            v52 = v26;
+            v53 = 2114;
+            v54 = v28;
             _os_log_impl(&dword_25B19F000, v21, OS_LOG_TYPE_DEFAULT, "Message ADDED (Id: %{public}@ - Account Id: %{public}@ - Date Received: %{public}@ - Status: %@ - Message ID Header %{public}@ - Reason: #full-sync)", buf, 0x34u);
 
             v17 = v27;
             v8 = v24;
             self = selfCopy;
 
-            v16 = v40;
+            v16 = v39;
           }
 
-          v29 = [(NNMKSyncProvider *)self _messageProtobufForMessage:v19, v37];
+          v29 = [(NNMKSyncProvider *)self _messageProtobufForMessage:v19, v36];
           [(NNMKProtoInitialMessagesSync *)v8 addInitialMessage:v29];
 
           v30 = [[NNMKSyncedMessage alloc] initWithMessage:v19];
@@ -988,28 +973,26 @@ LABEL_13:
         }
 
         while (v16 != v18);
-        v16 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+        v16 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
       }
 
       while (v16);
     }
 
-    mailboxCopy = v38;
-    [v38 setSyncActive:1];
-    [v38 setSyncRequested:0];
-    [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncActiveForMailbox:v38];
-    [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncRequestedForMailbox:v38];
-    messagesCopy = v37;
+    mailboxCopy = v37;
+    [v37 setSyncActive:1];
+    [v37 setSyncRequested:0];
+    [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncActiveForMailbox:v37];
+    [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncRequestedForMailbox:v37];
+    messagesCopy = v36;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_legacy_sendFirstMessages:(id)messages syncedMailbox:(id)mailbox
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxCopy = mailbox;
   if ([mailboxCopy syncActive])
@@ -1030,7 +1013,7 @@ LABEL_13:
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncEnabledForMailbox:mailboxCopy];
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
     syncController = [(NNMKSyncProvider *)self syncController];
-    v42 = messagesCopy;
+    v41 = messagesCopy;
     v11 = [syncController filterMessages:messagesCopy byAlreadySynced:0 byMailbox:mailboxCopy];
 
     v12 = objc_alloc_init(NNMKProtoInitialMessagesSync);
@@ -1072,26 +1055,26 @@ LABEL_13:
       [(NNMKProtoInitialMessagesSync *)v12 setDateForRequestingMoreMessages:v24];
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = v11;
-    v25 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
+    v25 = [obj countByEnumeratingWithState:&v43 objects:v54 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v45;
+      v27 = *v44;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v45 != v27)
+          if (*v44 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v44 + 1) + 8 * i);
+          v29 = *(*(&v43 + 1) + 8 * i);
           v30 = [(NNMKSyncProvider *)self _messageProtobufForMessage:v29];
           [(NNMKProtoInitialMessagesSync *)v12 addInitialMessage:v30];
 
@@ -1102,7 +1085,7 @@ LABEL_13:
           [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateSyncedMessage:dateReceived];
         }
 
-        v26 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
+        v26 = [obj countByEnumeratingWithState:&v43 objects:v54 count:16];
       }
 
       while (v26);
@@ -1113,8 +1096,8 @@ LABEL_13:
     if (mailboxCopy)
     {
       dateReceived = [mailboxCopy mailboxId];
-      v54 = dateReceived;
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      v53 = dateReceived;
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
     }
 
     else
@@ -1139,18 +1122,16 @@ LABEL_13:
       v38 = [obj count];
       mailboxId = [mailboxCopy mailboxId];
       *buf = 134218498;
-      v49 = v38;
-      v50 = 2114;
-      v51 = mailboxId;
-      v52 = 2114;
-      v53 = v32;
+      v48 = v38;
+      v49 = 2114;
+      v50 = mailboxId;
+      v51 = 2114;
+      v52 = v32;
       _os_log_impl(&dword_25B19F000, v37, OS_LOG_TYPE_DEFAULT, "#full-sync messages sent (%lu messages - Mailbox id: %{public}@ IDS identifier: %{public}@).", buf, 0x20u);
     }
 
-    messagesCopy = v42;
+    messagesCopy = v41;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return obj;
 }
@@ -1213,7 +1194,7 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
 
 - (void)_replyWithMoreMessages:(id)messages forDateReceivedBefore:(id)before mailbox:(id)mailbox messagesForSpecialMailbox:(unint64_t)specialMailbox
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   beforeCopy = before;
   mailboxCopy = mailbox;
@@ -1221,31 +1202,31 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
   {
     if (specialMailbox)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v13 = messagesCopy;
-      v14 = [v13 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v30 objects:v42 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v32;
+        v16 = *v31;
         do
         {
           v17 = 0;
           do
           {
-            if (*v32 != v16)
+            if (*v31 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            [*(*(&v31 + 1) + 8 * v17++) setIsSpecialMailboxSpecific:{specialMailbox, v31}];
+            [*(*(&v30 + 1) + 8 * v17++) setIsSpecialMailboxSpecific:{specialMailbox, v30}];
           }
 
           while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v30 objects:v42 count:16];
         }
 
         while (v15);
@@ -1262,13 +1243,13 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
       v22 = [v19 count];
       mailboxId = [mailboxCopy mailboxId];
       *buf = 134218754;
-      v36 = v22;
-      v37 = 2048;
+      v35 = v22;
+      v36 = 2048;
       specialMailboxCopy = specialMailbox;
-      v39 = 2114;
-      v40 = beforeCopy;
-      v41 = 2114;
-      v42 = mailboxId;
+      v38 = 2114;
+      v39 = beforeCopy;
+      v40 = 2114;
+      v41 = mailboxId;
       _os_log_impl(&dword_25B19F000, v21, OS_LOG_TYPE_DEFAULT, "MobileMail responded for #LOAD_MORE_MESSAGES request. (Message Count: %lu, Special Mailbox Request: %lu, Date Request: %{public}@, Mailbox id: %{public}@)", buf, 0x2Au);
     }
 
@@ -1292,43 +1273,41 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
       _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "MobileMail responded for #LOAD_MORE_MESSAGES request but we were actually expecting another response.", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replyWithMoreMessages:(id)messages forConversationWithId:(id)id mailbox:(id)mailbox
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   idCopy = id;
   mailboxCopy = mailbox;
   if ([mailboxCopy syncActive])
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = messagesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         v15 = 0;
         do
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v28 + 1) + 8 * v15++) setIsThreadSpecific:{1, v28}];
+          [*(*(&v27 + 1) + 8 * v15++) setIsThreadSpecific:{1, v27}];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v13);
@@ -1343,7 +1322,7 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
       v19 = v18;
       v20 = [v17 count];
       *buf = 134217984;
-      v33 = v20;
+      v32 = v20;
       _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "MobileMail responded for #LOAD_MORE_MESSAGES conversation request. (Message count: %lu)", buf, 0xCu);
     }
 
@@ -1367,8 +1346,6 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
       _os_log_impl(&dword_25B19F000, v26, OS_LOG_TYPE_DEFAULT, "MobileMail responded for #LOAD_MORE_MESSAGES conversation request but we were actually expecting another response.", buf, 2u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyWithMessagesToSendAsFetchResponse:(id)response includesProtectedMessages:(BOOL)messages
@@ -1387,38 +1364,38 @@ void __50__NNMKSyncProvider_replyWithMoreMessages_context___block_invoke_2(uint6
 
 uint64_t __85__NNMKSyncProvider_replyWithMessagesToSendAsFetchResponse_includesProtectedMessages___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     *buf = 134217984;
-    v20 = [v3 count];
+    v19 = [v3 count];
     _os_log_impl(&dword_25B19F000, v4, OS_LOG_TYPE_DEFAULT, "MobileMail replied with full headers messages for %lu message IDs for #BATCHED_RESPONSE. Checking if we can now send batch back to Watch...", buf, 0xCu);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         v11 = [*(a1 + 40) batchRequestHandler];
         [v11 handleMessageAdded:v10];
 
@@ -1426,15 +1403,13 @@ uint64_t __85__NNMKSyncProvider_replyWithMessagesToSendAsFetchResponse_includesP
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  result = [*(a1 + 40) _checkBatchFetchedMessages];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _checkBatchFetchedMessages];
 }
 
 - (void)replyWithMessagesToResend:(id)resend includesProtectedMessages:(BOOL)messages
@@ -1467,7 +1442,7 @@ void __72__NNMKSyncProvider_replyWithMessagesToResend_includesProtectedMessages_
 
 - (void)_replyWithMessagesToResend:(id)resend includesProtectedMessages:(BOOL)messages mailbox:(id)mailbox
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   resendCopy = resend;
   mailboxCopy = mailbox;
   if ([mailboxCopy syncActive])
@@ -1493,18 +1468,16 @@ void __72__NNMKSyncProvider_replyWithMessagesToResend_includesProtectedMessages_
       {
         v19 = v18;
         messageIdsWithDefaultPriority3 = [v10 messageIdsWithDefaultPriority];
-        v22 = 134218498;
-        v23 = [messageIdsWithDefaultPriority3 count];
-        v24 = 2114;
-        v25 = v15;
-        v26 = 2048;
+        v21 = 134218498;
+        v22 = [messageIdsWithDefaultPriority3 count];
+        v23 = 2114;
+        v24 = v15;
+        v25 = 2048;
         resendInterval = [v10 resendInterval];
-        _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "Messages RESENT (Count: %lu - IDS Identifier: %{public}@ - Resend Interval: %lu).", &v22, 0x20u);
+        _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "Messages RESENT (Count: %lu - IDS Identifier: %{public}@ - Resend Interval: %lu).", &v21, 0x20u);
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyWithAccountToResend:(id)resend
@@ -1523,7 +1496,7 @@ void __72__NNMKSyncProvider_replyWithMessagesToResend_includesProtectedMessages_
 
 void __45__NNMKSyncProvider_replyWithAccountToResend___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 32) + 72);
   if (v1)
   {
@@ -1542,7 +1515,7 @@ void __45__NNMKSyncProvider_replyWithAccountToResend___block_invoke(uint64_t a1)
           v8 = v6;
           v9 = [v7 accountId];
           *buf = 138543362;
-          v50 = v9;
+          v49 = v9;
           _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Account RESENT (Id: %{public}@).", buf, 0xCu);
         }
 
@@ -1574,31 +1547,31 @@ void __45__NNMKSyncProvider_replyWithAccountToResend___block_invoke(uint64_t a1)
         v18 = [*(a1 + 40) pccEmailAddress];
         [(NNMKProtoAccountAdditionOrUpdate *)v10 setPccEmailAddress:v18];
 
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v19 = [*(a1 + 40) emailAddresses];
-        v20 = [v19 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v44;
+          v22 = *v43;
           do
           {
             v23 = 0;
             do
             {
-              if (*v44 != v22)
+              if (*v43 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              [(NNMKProtoAccountAdditionOrUpdate *)v10 addEmail:*(*(&v43 + 1) + 8 * v23++)];
+              [(NNMKProtoAccountAdditionOrUpdate *)v10 addEmail:*(*(&v42 + 1) + 8 * v23++)];
             }
 
             while (v21 != v23);
-            v21 = [v19 countByEnumeratingWithState:&v43 objects:v48 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v42 objects:v47 count:16];
           }
 
           while (v21);
@@ -1637,8 +1610,8 @@ void __45__NNMKSyncProvider_replyWithAccountToResend___block_invoke(uint64_t a1)
         v34 = [*(*(a1 + 32) + 104) addOrUpdateAccount:v10];
         v35 = [*(a1 + 32) resendScheduler];
         v36 = [*(a1 + 40) accountId];
-        v47 = v36;
-        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+        v46 = v36;
+        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
         [v35 registerIDSIdentifier:v34 objectIds:v37 type:@"Account" resendInterval:v27];
 
         [*(*(a1 + 32) + 72) endUpdates];
@@ -1651,14 +1624,14 @@ void __45__NNMKSyncProvider_replyWithAccountToResend___block_invoke(uint64_t a1)
         {
 LABEL_18:
 
-          goto LABEL_21;
+          return;
         }
 
         v39 = *(a1 + 40);
         v10 = v38;
         v40 = [v39 accountId];
         *buf = 138543362;
-        v50 = v40;
+        v49 = v40;
         _os_log_impl(&dword_25B19F000, &v10->super.super, OS_LOG_TYPE_DEFAULT, "Unexpected reply from delegate for 'account to resend' (Id: %{public}@).", buf, 0xCu);
       }
 
@@ -1672,9 +1645,6 @@ LABEL_18:
       _os_log_impl(&dword_25B19F000, v41, OS_LOG_TYPE_DEFAULT, "Account does not exist anymore. It will not resend", buf, 2u);
     }
   }
-
-LABEL_21:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replyWithMessageSendingProgress:(int64_t)progress forComposedMessageId:(id)id
@@ -1694,7 +1664,7 @@ LABEL_21:
 
 void __73__NNMKSyncProvider_replyWithMessageSendingProgress_forComposedMessageId___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 72) hasMailboxSyncedActive])
   {
     v2 = *(a1 + 48);
@@ -1705,41 +1675,38 @@ void __73__NNMKSyncProvider_replyWithMessageSendingProgress_forComposedMessageId
 
     else
     {
-      v4 = *(a1 + 40);
       [*(*(a1 + 32) + 72) setProgress:? forComposedMessageWithId:?];
     }
 
-    v5 = objc_alloc_init(NNMKProtoComposedMessageSendingProgressReport);
-    [(NNMKProtoComposedMessageSendingProgressReport *)v5 setComposedMessageId:*(a1 + 40)];
-    [(NNMKProtoComposedMessageSendingProgressReport *)v5 setProgress:*(a1 + 48)];
-    v6 = [*(*(a1 + 32) + 112) reportComposedMessageSendingProgress:v5];
-    v7 = qword_28144D620;
+    v4 = objc_alloc_init(NNMKProtoComposedMessageSendingProgressReport);
+    [(NNMKProtoComposedMessageSendingProgressReport *)v4 setComposedMessageId:*(a1 + 40)];
+    [(NNMKProtoComposedMessageSendingProgressReport *)v4 setProgress:*(a1 + 48)];
+    v5 = [*(*(a1 + 32) + 112) reportComposedMessageSendingProgress:v4];
+    v6 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
       *buf = 138543874;
+      v14 = v7;
+      v15 = 2048;
       v16 = v8;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "Sending progress for composed message (Id: %{public}@ - Progress: %li - IDS Identifier: %{public}@)...", buf, 0x20u);
+      v17 = 2114;
+      v18 = v5;
+      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Sending progress for composed message (Id: %{public}@ - Progress: %li - IDS Identifier: %{public}@)...", buf, 0x20u);
     }
 
-    v10 = [*(a1 + 32) resendScheduler];
-    v14 = *(a1 + 40);
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-    [v10 registerIDSIdentifier:v6 objectIds:v11 type:@"SendingProgress" resendInterval:0];
+    v9 = [*(a1 + 32) resendScheduler];
+    v12 = *(a1 + 40);
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    [v9 registerIDSIdentifier:v5 objectIds:v10 type:@"SendingProgress" resendInterval:0];
 
     if (*(a1 + 48) == -1)
     {
-      v12 = +[NNMKAnalytics sharedInstance];
-      [v12 reportMessageDeliveryFailedInMode:0];
+      v11 = +[NNMKAnalytics sharedInstance];
+      [v11 reportMessageDeliveryFailedInMode:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMessages:(id)messages
@@ -1770,7 +1737,7 @@ void __32__NNMKSyncProvider_addMessages___block_invoke(uint64_t a1)
 
 - (void)_addMessages:(id)messages mailbox:(id)mailbox
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   mailboxCopy = mailbox;
   syncActive = [mailboxCopy syncActive];
@@ -1781,11 +1748,11 @@ void __32__NNMKSyncProvider_addMessages___block_invoke(uint64_t a1)
     {
       v10 = v9;
       mailboxId = [mailboxCopy mailboxId];
-      v13 = 138543618;
-      v14 = mailboxId;
-      v15 = 2048;
-      v16 = [messagesCopy count];
-      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Adding new messages for mailbox. %{public}@ - count: %lu", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = mailboxId;
+      v14 = 2048;
+      v15 = [messagesCopy count];
+      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Adding new messages for mailbox. %{public}@ - count: %lu", &v12, 0x16u);
     }
 
     [(NNMKSyncProvider *)self _addMessages:messagesCopy messagesAreNew:1 mailbox:mailboxCopy];
@@ -1795,8 +1762,6 @@ void __32__NNMKSyncProvider_addMessages___block_invoke(uint64_t a1)
   {
     [(NNMKSyncProvider *)v9 _addMessages:mailboxCopy mailbox:messagesCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMessagesStatus:(id)status
@@ -1908,29 +1873,29 @@ void __50__NNMKSyncProvider__updateMessagesStatus_mailbox___block_invoke(uint64_
 
 void __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(a1 + 40) + 72) syncedMessageForMessageWithId:*(*(&v12 + 1) + 8 * v7)];
+        v8 = [*(*(a1 + 40) + 72) syncedMessageForMessageWithId:*(*(&v11 + 1) + 8 * v7)];
         if (v8)
         {
           [v2 addObject:v8];
@@ -1940,21 +1905,19 @@ void __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [*(a1 + 40) syncController];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke_2;
-  v11[3] = &unk_279936730;
-  v11[4] = *(a1 + 40);
-  [v9 groupMessagesByMailbox:v2 mailboxes:0 block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke_2;
+  v10[3] = &unk_279936730;
+  v10[4] = *(a1 + 40);
+  [v9 groupMessagesByMailbox:v2 mailboxes:0 block:v10];
 }
 
 void __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1994,7 +1957,7 @@ void __42__NNMKSyncProvider_deleteMessagesWithIds___block_invoke_2(uint64_t a1, 
 
 void __51__NNMKSyncProvider__deleteMessagesWithIds_mailbox___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -2008,44 +1971,55 @@ void __51__NNMKSyncProvider__deleteMessagesWithIds_mailbox___block_invoke(uint64
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v27 = v12;
-      v28 = 2114;
-      v29 = v9;
+      v26 = v12;
+      v27 = 2114;
+      v28 = v9;
       _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Deletion operation sent to watch. (IDS Identifier: %{public}@, Channel: %{public}@)", buf, 0x16u);
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = v11;
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [*(a1 + 32) _requestDelegateToStopDownloadingMessageElementsForMessageWithId:{*(*(&v21 + 1) + 8 * v19++), v21}];
+        [*(a1 + 32) _requestDelegateToStopDownloadingMessageElementsForMessageWithId:{*(*(&v20 + 1) + 8 * v19++), v20}];
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v17);
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)updateConversationId:(id)id notify:(BOOL)notify messages:(id)messages
+{
+  if (notify)
+  {
+    [(NNMKSyncProvider *)self markConversationIdForNotify:id messages:messages includesProtectedMessages:0];
+  }
+
+  else
+  {
+    [(NNMKSyncProvider *)self markConversationIdForNotNotify:id, notify, messages];
+  }
 }
 
 - (void)updateConversationId:(id)id mute:(BOOL)mute
@@ -2065,32 +2039,31 @@ void __51__NNMKSyncProvider__deleteMessagesWithIds_mailbox___block_invoke(uint64
 
 void __46__NNMKSyncProvider_updateConversationId_mute___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v3 = [*(*(a1 + 32) + 72) syncedMessagesForConversationWithId:*(a1 + 40)];
-  if ([v3 count])
+  v2 = [*(*(a1 + 32) + 72) syncedMessagesForConversationWithId:*(a1 + 40)];
+  if ([v2 count])
   {
-    v4 = [*(a1 + 32) syncController];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_2;
-    v7[3] = &unk_2799367A8;
-    v5 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v6 = *(a1 + 32);
+    v3 = [*(a1 + 32) syncController];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_2;
+    v6[3] = &unk_2799367A8;
+    v4 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v5 = *(a1 + 32);
+    v7 = v4;
     v8 = v5;
-    v9 = v6;
-    [v4 groupMessagesByMailbox:v3 mailboxes:0 block:v7];
+    [v3 groupMessagesByMailbox:v2 mailboxes:0 block:v6];
   }
 
   else if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
   {
-    __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1(v2);
+    __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1();
   }
 }
 
 void __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 syncActive])
   {
@@ -2099,17 +2072,15 @@ void __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_2(uint64_t 
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 48);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v7;
-      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Conversation muted status updated (Id: %{public}@, Muted: %lu).", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2048;
+      v11 = v7;
+      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Conversation muted status updated (Id: %{public}@, Muted: %lu).", &v8, 0x16u);
     }
 
     [*(a1 + 40) _markConversationWithId:*(a1 + 32) forState:2048 include:*(a1 + 48) mailbox:v4];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markConversationIdForNotify:(id)notify messages:(id)messages includesProtectedMessages:(BOOL)protectedMessages
@@ -2165,14 +2136,14 @@ void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtect
 
     else if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
-      __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtectedMessages___block_invoke_cold_1((a1 + 48));
+      __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtectedMessages___block_invoke_cold_1();
     }
   }
 }
 
 - (void)_markConversationIdForNotify:(id)notify messages:(id)messages mailbox:(id)mailbox
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
   messagesCopy = messages;
   mailboxCopy = mailbox;
@@ -2181,9 +2152,9 @@ void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtect
     v11 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = notifyCopy;
-      _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Conversation marked for notify (Id: %{public}@).", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = notifyCopy;
+      _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Conversation marked for notify (Id: %{public}@).", &v12, 0xCu);
     }
 
     [(NNMKSyncProvider *)self _markConversationWithId:notifyCopy forState:128 include:1 mailbox:mailboxCopy];
@@ -2192,8 +2163,6 @@ void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtect
       [(NNMKSyncProvider *)self _addMessages:messagesCopy mailbox:mailboxCopy];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markConversationIdForNotNotify:(id)notify
@@ -2212,31 +2181,30 @@ void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtect
 
 void __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v3 = [*(*(a1 + 32) + 72) syncedMessagesForConversationWithId:*(a1 + 40)];
-  if ([v3 count])
+  v2 = [*(*(a1 + 32) + 72) syncedMessagesForConversationWithId:*(a1 + 40)];
+  if ([v2 count])
   {
-    v4 = [*(a1 + 32) syncController];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke_2;
-    v7[3] = &unk_2799366B8;
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 32);
+    v3 = [*(a1 + 32) syncController];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke_2;
+    v6[3] = &unk_2799366B8;
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 32);
+    v7 = v4;
     v8 = v5;
-    v9 = v6;
-    [v4 groupMessagesByMailbox:v3 mailboxes:0 block:v7];
+    [v3 groupMessagesByMailbox:v2 mailboxes:0 block:v6];
   }
 
   else if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
   {
-    __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1(v2);
+    __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1();
   }
 }
 
 void __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 syncActive])
   {
@@ -2244,15 +2212,13 @@ void __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke_2(uint
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Conversation marked for stop notifying (Id: %{public}@).", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_25B19F000, v5, OS_LOG_TYPE_DEFAULT, "Conversation marked for stop notifying (Id: %{public}@).", &v7, 0xCu);
     }
 
     [*(a1 + 40) _markConversationWithId:*(a1 + 32) forState:128 include:0 mailbox:v4];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMessageContent:(id)content forMessage:(id)message loadedProtected:(BOOL)protected
@@ -2275,7 +2241,7 @@ void __51__NNMKSyncProvider_markConversationIdForNotNotify___block_invoke_2(uint
 void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) syncController];
-  v3 = (a1 + 40);
+  v3 = a1 + 40;
   v4 = [*(a1 + 40) mailboxId];
   v5 = [v2 mailboxWithId:v4];
 
@@ -2296,7 +2262,7 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
 
 - (void)_addMessageContent:(id)content forMessage:(id)message mailbox:(id)mailbox
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   contentCopy = content;
   messageCopy = message;
   mailboxCopy = mailbox;
@@ -2308,7 +2274,7 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
       v12 = v11;
       mailboxId = [messageCopy mailboxId];
       *buf = 138543362;
-      v59 = mailboxId;
+      v58 = mailboxId;
       _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_INFO, "Received message content from MobileMail - Id %{public}@", buf, 0xCu);
     }
 
@@ -2334,11 +2300,11 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
           v51 = [v17 messageDoesNotExist] ^ 1;
           alreadySyncedWithCurrentPriority = [v17 alreadySyncedWithCurrentPriority];
           *buf = 138543874;
-          v59 = messageId2;
-          v60 = 1024;
-          v61 = v51;
-          v62 = 1024;
-          v63 = alreadySyncedWithCurrentPriority;
+          v58 = messageId2;
+          v59 = 1024;
+          v60 = v51;
+          v61 = 1024;
+          v62 = alreadySyncedWithCurrentPriority;
           _os_log_impl(&dword_25B19F000, v49, OS_LOG_TYPE_DEFAULT, "Message Content ADDED but not synced (Message Id: %{public}@ Message Had Been Synced: %d, Already Synced With Current Priority: %d).", buf, 0x18u);
         }
 
@@ -2347,7 +2313,7 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
 
       contentSyncService = self->_contentSyncService;
       protoMessageContentSync2 = [v17 protoMessageContentSync];
-      v57 = -[NNMKMessageContentSyncServiceServer syncMessageContent:notificationPriority:userRequested:](contentSyncService, "syncMessageContent:notificationPriority:userRequested:", protoMessageContentSync2, [v17 isNotificationPriority], objc_msgSend(v17, "isUserRequest"));
+      v56 = -[NNMKMessageContentSyncServiceServer syncMessageContent:notificationPriority:userRequested:](contentSyncService, "syncMessageContent:notificationPriority:userRequested:", protoMessageContentSync2, [v17 isNotificationPriority], objc_msgSend(v17, "isUserRequest"));
 
       sessionController = [(NNMKSyncProvider *)self sessionController];
       notificationPayloadAcks = [sessionController notificationPayloadAcks];
@@ -2363,12 +2329,12 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
 LABEL_12:
           resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
           messageId4 = [contentCopy messageId];
-          v72[0] = messageId4;
+          v71[0] = messageId4;
           v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v17, "isUserRequest")}];
           stringValue = [v36 stringValue];
-          v72[1] = stringValue;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-          [resendScheduler registerIDSIdentifier:v57 objectIds:v38 type:@"MessageContent" resendInterval:{objc_msgSend(v17, "resendInterval")}];
+          v71[1] = stringValue;
+          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+          [resendScheduler registerIDSIdentifier:v56 objectIds:v38 type:@"MessageContent" resendInterval:{objc_msgSend(v17, "resendInterval")}];
 
           v39 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -2383,19 +2349,19 @@ LABEL_12:
             protoMessageContentSync3 = [v17 protoMessageContentSync];
             fullSyncVersion = [protoMessageContentSync3 fullSyncVersion];
             *buf = 138544898;
-            v59 = messageId5;
-            v60 = 1024;
-            v61 = isNotificationPriority2;
-            v62 = 1024;
-            v63 = isUserRequest;
-            v64 = 2048;
-            v65 = v42;
-            v66 = 2048;
-            v67 = compressedTextDataLength;
-            v68 = 2114;
-            v69 = v57;
-            v70 = 1024;
-            v71 = fullSyncVersion;
+            v58 = messageId5;
+            v59 = 1024;
+            v60 = isNotificationPriority2;
+            v61 = 1024;
+            v62 = isUserRequest;
+            v63 = 2048;
+            v64 = v42;
+            v65 = 2048;
+            v66 = compressedTextDataLength;
+            v67 = 2114;
+            v68 = v56;
+            v69 = 1024;
+            v70 = fullSyncVersion;
             _os_log_impl(&dword_25B19F000, log, OS_LOG_TYPE_DEFAULT, "Message Content ADDED (Id: %{public}@ - Notification Priority: %d - User Requested: %d - Data Length: %lu - Compressed Data Length: %lu - IDS Identifier: %{public}@ (#sync-version: %u)).", buf, 0x3Cu);
           }
 
@@ -2416,7 +2382,7 @@ LABEL_21:
           v28 = v27;
           messageId7 = [contentCopy messageId];
           *buf = 138543362;
-          v59 = messageId7;
+          v58 = messageId7;
           _os_log_impl(&dword_25B19F000, v28, OS_LOG_TYPE_DEFAULT, "Notifying BulletinDistributor Ping Subscriber that we synced content for notification. (Message Id: %{public}@)", buf, 0xCu);
         }
 
@@ -2442,8 +2408,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportMessageContentDownloadFailureForMessageId:(id)id
@@ -2475,7 +2439,7 @@ void __68__NNMKSyncProvider_reportMessageContentDownloadFailureForMessageId___bl
 
 - (void)_reportMessageContentDownloadFailureForMessageId:(id)id mailbox:(id)mailbox
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   mailboxCopy = mailbox;
   if ([mailboxCopy syncActive])
@@ -2483,9 +2447,9 @@ void __68__NNMKSyncProvider_reportMessageContentDownloadFailureForMessageId___bl
     v8 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = idCopy;
-      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Reported failure downloading content for message (Id: %{public}@).", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = idCopy;
+      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "Reported failure downloading content for message (Id: %{public}@).", &v18, 0xCu);
     }
 
     v9 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry syncedMessageForMessageWithId:idCopy];
@@ -2519,8 +2483,6 @@ void __68__NNMKSyncProvider_reportMessageContentDownloadFailureForMessageId___bl
       [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateSyncedMessage:v9];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAttachmentData:(id)data forMessageId:(id)id contentId:(id)contentId loadedProtected:(BOOL)protected
@@ -2590,7 +2552,7 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
 
 - (void)_addAttachmentData:(id)data forMessageId:(id)id contentId:(id)contentId mailbox:(id)mailbox
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   idCopy = id;
   contentIdCopy = contentId;
@@ -2621,13 +2583,13 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
-          v43 = idCopy;
-          v44 = 2114;
-          v45 = contentIdCopy;
-          v46 = 1024;
-          *v47 = v13 != 0;
-          *&v47[4] = 1024;
-          *&v47[6] = v17;
+          v42 = idCopy;
+          v43 = 2114;
+          v44 = contentIdCopy;
+          v45 = 1024;
+          *v46 = v13 != 0;
+          *&v46[4] = 1024;
+          *&v46[6] = v17;
           _os_log_impl(&dword_25B19F000, v21, OS_LOG_TYPE_DEFAULT, "Attachment ADDED but not synced (Message Id: %{public}@, Content Id: %{public}@, Message Had Been Synced: %d, Attachment Not Yet Synced: %d).", buf, 0x22u);
         }
       }
@@ -2638,12 +2600,12 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
         {
           v18 = [dataCopy length];
           v19 = 1048576.0;
-          v41 = v18 <= 1048576.0;
+          v40 = v18 <= 1048576.0;
         }
 
         else
         {
-          v41 = 0;
+          v40 = 0;
         }
 
         v23 = [dataCopy length];
@@ -2672,7 +2634,7 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
         [(NNMKProtoAttachmentSync *)v25 setContentId:v33];
 
         [(NNMKProtoAttachmentSync *)v25 setAttachmentData:v24];
-        v34 = [(NNMKMessageContentSyncServiceServer *)self->_contentSyncService syncAttachment:v25 notificationPriority:v41 userRequested:contentSyncedBecauseUserRequested];
+        v34 = [(NNMKMessageContentSyncServiceServer *)self->_contentSyncService syncAttachment:v25 notificationPriority:v40 userRequested:contentSyncedBecauseUserRequested];
         attachmentsContentIdsNotYetSynced2 = [v13 attachmentsContentIdsNotYetSynced];
         [attachmentsContentIdsNotYetSynced2 removeObject:contentIdCopy];
 
@@ -2681,13 +2643,13 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
         {
           v37 = v36;
           *buf = 138544130;
-          v43 = idCopy;
-          v44 = 2114;
-          v45 = contentIdCopy;
-          v46 = 2048;
-          *v47 = [v24 length];
-          *&v47[8] = 2114;
-          v48 = v34;
+          v42 = idCopy;
+          v43 = 2114;
+          v44 = contentIdCopy;
+          v45 = 2048;
+          *v46 = [v24 length];
+          *&v46[8] = 2114;
+          v47 = v34;
           _os_log_impl(&dword_25B19F000, v37, OS_LOG_TYPE_DEFAULT, "Attachment ADDED (Message Id: %{public}@, Content Id: %{public}@, Bytes: %lu, - IDS Identifier: %{public}@).", buf, 0x2Au);
         }
       }
@@ -2709,15 +2671,13 @@ void __78__NNMKSyncProvider_addImageAttachment_forMessageId_contentId_loadedProt
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v43 = idCopy;
-        v44 = 2114;
-        v45 = contentIdCopy;
+        v42 = idCopy;
+        v43 = 2114;
+        v44 = contentIdCopy;
         _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "Received data to send = nil. MobileMail probably failed downloading it. Ignoring so we can re-try later upon user request (Message Id: %{public}@ - Content Id: %{public}@).", buf, 0x16u);
       }
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportWillDownloadFirstMessages
@@ -2764,56 +2724,56 @@ void __51__NNMKSyncProvider_reportWillDownloadFirstMessages__block_invoke(uint64
 void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 72);
   if (!v2)
   {
-    goto LABEL_83;
+    return;
   }
 
   [v2 beginUpdates];
   v3 = [*(*(v1 + 32) + 72) allSyncedAccountsKeyedByAccountId];
-  v136 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v3, "count")}];
+  v135 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v3, "count")}];
+  v151 = 0u;
   v152 = 0u;
   v153 = 0u;
   v154 = 0u;
-  v155 = 0u;
   obj = *(v1 + 40);
-  v138 = v1;
-  v132 = [obj countByEnumeratingWithState:&v152 objects:v169 count:16];
-  v126 = v3;
-  if (!v132)
+  v137 = v1;
+  v131 = [obj countByEnumeratingWithState:&v151 objects:v168 count:16];
+  v125 = v3;
+  if (!v131)
   {
+    v126 = 0;
     v127 = 0;
-    v128 = 0;
     goto LABEL_52;
   }
 
+  v126 = 0;
+  v129 = *v152;
   v127 = 0;
-  v130 = *v153;
-  v128 = 0;
   v4 = 0x277CCA000uLL;
   do
   {
     v5 = 0;
     do
     {
-      if (*v153 != v130)
+      if (*v152 != v129)
       {
         objc_enumerationMutation(obj);
       }
 
-      v134 = v5;
-      v6 = *(*(&v152 + 1) + 8 * v5);
+      v133 = v5;
+      v6 = *(*(&v151 + 1) + 8 * v5);
       v7 = [v6 accountId];
-      [v136 addObject:v7];
+      [v135 addObject:v7];
 
       v8 = [v6 accountId];
       v9 = [v3 objectForKeyedSubscript:v8];
 
-      v151 = 0;
+      v150 = 0;
       v10 = [*(v1 + 32) persistenceHandler];
-      v137 = [v10 updateMailboxListForAccount:v6 mailboxListChanged:&v151];
+      v136 = [v10 updateMailboxListForAccount:v6 mailboxListChanged:&v150];
 
       if (!v9)
       {
@@ -2828,19 +2788,19 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
           v43 = [v6 emailAddresses];
           v44 = [v43 nnmk_description];
           *buf = 138544130;
-          v162 = v40;
-          v163 = 2114;
-          v164 = v41;
-          v165 = 1024;
-          *v166 = v42;
-          *&v166[4] = 2114;
-          *&v166[6] = v44;
+          v161 = v40;
+          v162 = 2114;
+          v163 = v41;
+          v164 = 1024;
+          *v165 = v42;
+          *&v165[4] = 2114;
+          *&v165[6] = v44;
           _os_log_impl(&dword_25B19F000, v39, OS_LOG_TYPE_DEFAULT, "Account ADDED (Id: %{public}@ - Display Name: %{public}@ - Should Archive: %d - Email addresses: %{public}@).", buf, 0x26u);
 
-          v1 = v138;
+          v1 = v137;
         }
 
-        v128 = 1;
+        v127 = 1;
         goto LABEL_31;
       }
 
@@ -2857,8 +2817,8 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
           v17 = [v6 username];
           if ([v15 isString:v16 equalToNullableString:v17])
           {
-            v122 = v17;
-            v123 = v16;
+            v121 = v17;
+            v122 = v16;
             v18 = MEMORY[0x277CBEB98];
             v19 = [(NNMKSyncedAccount *)v9 emailAddresses];
             v20 = [v18 setWithArray:v19];
@@ -2868,7 +2828,7 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
             v24 = [v21 setWithArray:v23];
             if ([v22 isEqualToSet:v24])
             {
-              v121 = v24;
+              v120 = v24;
               v25 = *(v4 + 3240);
               v26 = [(NNMKSyncedAccount *)v9 defaultEmailAddress];
               v27 = [v6 defaultEmailAddress];
@@ -2876,27 +2836,27 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
               v29 = v27;
               if ([v28 isString:v26 equalToNullableString:v27])
               {
-                v118 = v29;
-                v119 = v26;
-                v120 = v22;
+                v117 = v29;
+                v118 = v26;
+                v119 = v22;
                 v30 = *(v4 + 3240);
                 v31 = [(NNMKSyncedAccount *)v9 typeIdentifier];
                 [v6 typeIdentifier];
-                v32 = v117 = v31;
+                v32 = v116 = v31;
                 if ([v30 isString:v31 equalToNullableString:?])
                 {
                   v33 = *(v4 + 3240);
                   v34 = [(NNMKSyncedAccount *)v9 emailAddressToken];
-                  v115 = [v6 emailAddressToken];
-                  v116 = v34;
+                  v114 = [v6 emailAddressToken];
+                  v115 = v34;
                   v35 = [v33 isString:v34 equalToNullableString:?];
-                  v3 = v126;
+                  v3 = v125;
                   if (v35)
                   {
-                    v113 = *(v4 + 3240);
-                    v114 = [(NNMKSyncedAccount *)v9 pccEmailAddress];
+                    v112 = *(v4 + 3240);
+                    v113 = [(NNMKSyncedAccount *)v9 pccEmailAddress];
                     v36 = [v6 pccEmailAddress];
-                    v37 = [v113 isString:v114 equalToNullableString:v36] ^ 1;
+                    v37 = [v112 isString:v113 equalToNullableString:v36] ^ 1;
                   }
 
                   else
@@ -2908,21 +2868,21 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
                 else
                 {
                   v37 = 1;
-                  v3 = v126;
+                  v3 = v125;
                 }
 
                 if (v37)
                 {
                   v45 = 1;
-                  v1 = v138;
+                  v1 = v137;
                 }
 
                 else
                 {
-                  v1 = v138;
-                  if ((v151 & 1) == 0)
+                  v1 = v137;
+                  if ((v150 & 1) == 0)
                   {
-                    v80 = v137;
+                    v80 = v136;
                     goto LABEL_39;
                   }
 
@@ -2932,15 +2892,15 @@ void __46__NNMKSyncProvider_addUpdateOrDeleteAccounts___block_invoke(uint64_t a1
                 goto LABEL_24;
               }
 
-              v24 = v121;
+              v24 = v120;
             }
 
-            v3 = v126;
-            v17 = v122;
-            v16 = v123;
+            v3 = v125;
+            v17 = v121;
+            v16 = v122;
           }
 
-          v1 = v138;
+          v1 = v137;
         }
       }
 
@@ -2981,37 +2941,37 @@ LABEL_24:
           v59 = [v6 emailAddresses];
           v60 = [v59 nnmk_description];
           *buf = 138544386;
-          v162 = v55;
-          v163 = 2114;
-          v164 = v56;
-          v165 = 2114;
-          *v166 = v57;
-          *&v166[8] = 1024;
-          *&v166[10] = v58;
-          v1 = v138;
-          v167 = 2114;
-          v168 = v60;
+          v161 = v55;
+          v162 = 2114;
+          v163 = v56;
+          v164 = 2114;
+          *v165 = v57;
+          *&v165[8] = 1024;
+          *&v165[10] = v58;
+          v1 = v137;
+          v166 = 2114;
+          v167 = v60;
           _os_log_impl(&dword_25B19F000, v54, OS_LOG_TYPE_DEFAULT, "Account UPDATED (Id: %{public}@ - Display Name: %{public}@ - Username: %{public}@ - Should Archive: %d - Email addresses: %{public}@).", buf, 0x30u);
         }
       }
 
-      if (v151 == 1)
+      if (v150 == 1)
       {
         v61 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           v62 = v61;
           v63 = [v6 accountId];
-          v64 = [v137 count];
+          v64 = [v136 count];
           *buf = 138543618;
-          v162 = v63;
-          v163 = 2048;
-          v164 = v64;
+          v161 = v63;
+          v162 = 2048;
+          v163 = v64;
           _os_log_impl(&dword_25B19F000, v62, OS_LOG_TYPE_DEFAULT, "Account mailboxes UPDATED (Id: %{public}@ - New Mailboxes Count: %lu).", buf, 0x16u);
         }
       }
 
-      v127 = 1;
+      v126 = 1;
 LABEL_31:
       v65 = objc_alloc_init(NNMKProtoAccountAdditionOrUpdate);
       v66 = [v6 accountId];
@@ -3025,29 +2985,29 @@ LABEL_31:
       v68 = [v6 parentAccountIdentifier];
       [(NNMKProtoAccountAdditionOrUpdate *)v65 setParentId:v68];
 
-      v149 = 0u;
-      v150 = 0u;
-      v147 = 0u;
       v148 = 0u;
+      v149 = 0u;
+      v146 = 0u;
+      v147 = 0u;
       v69 = [v6 emailAddresses];
-      v70 = [v69 countByEnumeratingWithState:&v147 objects:v160 count:16];
+      v70 = [v69 countByEnumeratingWithState:&v146 objects:v159 count:16];
       if (v70)
       {
         v71 = v70;
-        v72 = *v148;
+        v72 = *v147;
         do
         {
           for (i = 0; i != v71; ++i)
           {
-            if (*v148 != v72)
+            if (*v147 != v72)
             {
               objc_enumerationMutation(v69);
             }
 
-            [(NNMKProtoAccountAdditionOrUpdate *)v65 addEmail:*(*(&v147 + 1) + 8 * i)];
+            [(NNMKProtoAccountAdditionOrUpdate *)v65 addEmail:*(*(&v146 + 1) + 8 * i)];
           }
 
-          v71 = [v69 countByEnumeratingWithState:&v147 objects:v160 count:16];
+          v71 = [v69 countByEnumeratingWithState:&v146 objects:v159 count:16];
         }
 
         while (v71);
@@ -3071,60 +3031,60 @@ LABEL_31:
       v79 = [v6 pccEmailAddress];
       [(NNMKProtoAccountAdditionOrUpdate *)v65 setPccEmailAddress:v79];
 
-      v80 = v137;
-      [(NNMKProtoAccountAdditionOrUpdate *)v65 setMailboxes:v137];
+      v80 = v136;
+      [(NNMKProtoAccountAdditionOrUpdate *)v65 setMailboxes:v136];
       [*(*(v1 + 32) + 72) addOrUpdateSyncedAccount:v9];
       v81 = [*(*(v1 + 32) + 104) addOrUpdateAccount:v65];
       v82 = [*(v1 + 32) resendScheduler];
       v83 = [v6 accountId];
-      v159 = v83;
-      v84 = [MEMORY[0x277CBEA60] arrayWithObjects:&v159 count:1];
+      v158 = v83;
+      v84 = [MEMORY[0x277CBEA60] arrayWithObjects:&v158 count:1];
       [v82 registerIDSIdentifier:v81 objectIds:v84 type:@"Account" resendInterval:0];
 
 LABEL_39:
-      v5 = v134 + 1;
+      v5 = v133 + 1;
       v4 = 0x277CCA000;
     }
 
-    while (v134 + 1 != v132);
-    v85 = [obj countByEnumeratingWithState:&v152 objects:v169 count:16];
-    v132 = v85;
+    while (v133 + 1 != v131);
+    v85 = [obj countByEnumeratingWithState:&v151 objects:v168 count:16];
+    v131 = v85;
   }
 
   while (v85);
 LABEL_52:
 
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
-  v131 = [v3 allKeys];
-  v86 = [v131 countByEnumeratingWithState:&v143 objects:v158 count:16];
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
+  v130 = [v3 allKeys];
+  v86 = [v130 countByEnumeratingWithState:&v142 objects:v157 count:16];
   if (v86)
   {
     v87 = v86;
-    v88 = *v144;
-    obja = *v144;
+    v88 = *v143;
+    obja = *v143;
     do
     {
       v89 = 0;
-      v129 = v87;
+      v128 = v87;
       do
       {
-        if (*v144 != v88)
+        if (*v143 != v88)
         {
-          objc_enumerationMutation(v131);
+          objc_enumerationMutation(v130);
         }
 
-        v90 = *(*(&v143 + 1) + 8 * v89);
-        if (([v136 containsObject:v90] & 1) == 0)
+        v90 = *(*(&v142 + 1) + 8 * v89);
+        if (([v135 containsObject:v90] & 1) == 0)
         {
-          v135 = v89;
+          v134 = v89;
           v91 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v162 = v90;
+            v161 = v90;
             _os_log_impl(&dword_25B19F000, v91, OS_LOG_TYPE_DEFAULT, "Account DELETED (Id: %{public}@).", buf, 0xCu);
           }
 
@@ -3133,41 +3093,41 @@ LABEL_52:
 
           v93 = objc_alloc_init(NNMKProtoAccountDeletion);
           [(NNMKProtoAccountDeletion *)v93 setAccountId:v90];
-          v133 = v93;
+          v132 = v93;
           -[NNMKProtoAccountDeletion setFullSyncVersion:](v93, "setFullSyncVersion:", [*(*(v1 + 32) + 72) fullSyncVersion]);
           [*(*(v1 + 32) + 72) removeSyncedAccountForAccountWithId:v90];
           v94 = [*(*(v1 + 32) + 72) mailboxesForAccountId:v90];
+          v138 = 0u;
           v139 = 0u;
           v140 = 0u;
           v141 = 0u;
-          v142 = 0u;
-          v95 = [v94 countByEnumeratingWithState:&v139 objects:v157 count:16];
+          v95 = [v94 countByEnumeratingWithState:&v138 objects:v156 count:16];
           if (v95)
           {
             v96 = v95;
-            v97 = *v140;
+            v97 = *v139;
             do
             {
               for (j = 0; j != v96; ++j)
               {
-                if (*v140 != v97)
+                if (*v139 != v97)
                 {
                   objc_enumerationMutation(v94);
                 }
 
-                v99 = *(*(&v139 + 1) + 8 * j);
+                v99 = *(*(&v138 + 1) + 8 * j);
                 v100 = qword_28144D620;
                 if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
                 {
                   v101 = v100;
                   v102 = [v99 mailboxId];
                   *buf = 138543618;
-                  v162 = v102;
-                  v163 = 2114;
-                  v164 = v90;
+                  v161 = v102;
+                  v162 = 2114;
+                  v163 = v90;
                   _os_log_impl(&dword_25B19F000, v101, OS_LOG_TYPE_DEFAULT, "Mailbox DELETED (Id: %{public}@, Account Id: %{public}@).", buf, 0x16u);
 
-                  v1 = v138;
+                  v1 = v137;
                 }
 
                 v103 = *(*(v1 + 32) + 72);
@@ -3175,37 +3135,37 @@ LABEL_52:
                 [v103 deleteMailboxWithId:v104 startTransaction:0];
               }
 
-              v96 = [v94 countByEnumeratingWithState:&v139 objects:v157 count:16];
+              v96 = [v94 countByEnumeratingWithState:&v138 objects:v156 count:16];
             }
 
             while (v96);
           }
 
-          v105 = [*(*(v1 + 32) + 104) deleteAccount:v133];
+          v105 = [*(*(v1 + 32) + 104) deleteAccount:v132];
           v106 = [*(v1 + 32) resendScheduler];
-          v156 = v90;
-          v128 = 1;
-          v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v156 count:1];
+          v155 = v90;
+          v127 = 1;
+          v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v155 count:1];
           [v106 registerIDSIdentifier:v105 objectIds:v107 type:@"Account" resendInterval:0];
 
           v88 = obja;
-          v3 = v126;
-          v87 = v129;
-          v89 = v135;
+          v3 = v125;
+          v87 = v128;
+          v89 = v134;
         }
 
         ++v89;
       }
 
       while (v89 != v87);
-      v87 = [v131 countByEnumeratingWithState:&v143 objects:v158 count:16];
+      v87 = [v130 countByEnumeratingWithState:&v142 objects:v157 count:16];
     }
 
     while (v87);
   }
 
   [*(*(v1 + 32) + 72) endUpdates];
-  if ((v128 | v127))
+  if ((v127 | v126))
   {
     v108 = qword_28144D630;
     if (os_log_type_enabled(qword_28144D630, OS_LOG_TYPE_DEFAULT))
@@ -3217,7 +3177,7 @@ LABEL_52:
     [*(v1 + 32) _sendWatchAccountStatusRequest];
   }
 
-  if (v128)
+  if (v127)
   {
     v109 = [*(v1 + 32) syncController];
     v110 = [v109 mailboxWithId:@"-1"];
@@ -3234,9 +3194,6 @@ LABEL_52:
       [*(v1 + 32) _triggerInitialSync];
     }
   }
-
-LABEL_83:
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMailboxSelection:(id)selection
@@ -3340,15 +3297,15 @@ LABEL_18:
 
 void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
-    v10 = 134217984;
-    v11 = [v3 count];
-    _os_log_impl(&dword_25B19F000, v4, OS_LOG_TYPE_DEFAULT, "Received VIP List. Count: %lu", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v3 count];
+    _os_log_impl(&dword_25B19F000, v4, OS_LOG_TYPE_DEFAULT, "Received VIP List. Count: %lu", &v9, 0xCu);
   }
 
   v5 = [*(a1 + 40) accountsSyncService];
@@ -3357,20 +3314,18 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
 
   v8 = [*(a1 + 40) resendScheduler];
   [v8 registerIDSIdentifier:v7 objectIds:0 type:@"VIPList" resendInterval:{objc_msgSend(*(a1 + 48), "resendInterval")}];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMailboxSelection:(id)selection notifyClient:(BOOL)client
 {
   clientCopy = client;
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   selectionCopy = selection;
   v6 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v68 = clientCopy;
+    v67 = clientCopy;
     _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Mailbox selection changed. (Notify client: %lu)", buf, 0xCu);
   }
 
@@ -3400,16 +3355,16 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v68 = selectionCopy;
-      v69 = 2114;
-      v70 = v9;
+      v67 = selectionCopy;
+      v68 = 2114;
+      v69 = v9;
       _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "New Selection: [%{public}@], Previous Selection: [%{public}@]", buf, 0x16u);
     }
 
     syncController = [(NNMKSyncProvider *)self syncController];
     v14 = [syncController removeInvalidMailboxesFromMailboxSelection:selectionCopy];
 
-    v53 = v14;
+    v52 = v14;
     v15 = [NNMKMailboxSelection mailboxChangesApplyingSelection:v14 previousSelection:v9];
     v16 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -3418,7 +3373,7 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
       mailboxesToUpdate = [v15 mailboxesToUpdate];
       nnmk_description = [mailboxesToUpdate nnmk_description];
       *buf = 138543362;
-      v68 = nnmk_description;
+      v67 = nnmk_description;
       _os_log_impl(&dword_25B19F000, v17, OS_LOG_TYPE_DEFAULT, "Mailboxes to update. %{public}@", buf, 0xCu);
     }
 
@@ -3429,11 +3384,11 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
       mailboxesToReSync = [v15 mailboxesToReSync];
       nnmk_description2 = [mailboxesToReSync nnmk_description];
       *buf = 138543362;
-      v68 = nnmk_description2;
+      v67 = nnmk_description2;
       _os_log_impl(&dword_25B19F000, v21, OS_LOG_TYPE_DEFAULT, "Mailboxes to re-sync. %{public}@", buf, 0xCu);
     }
 
-    v54 = v9;
+    v53 = v9;
     v24 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
@@ -3441,32 +3396,32 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
       mailboxesToDisableSync = [v15 mailboxesToDisableSync];
       nnmk_description3 = [mailboxesToDisableSync nnmk_description];
       *buf = 138543362;
-      v68 = nnmk_description3;
+      v67 = nnmk_description3;
       _os_log_impl(&dword_25B19F000, v25, OS_LOG_TYPE_DEFAULT, "Mailboxes to disable sync. %{public}@", buf, 0xCu);
     }
 
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    v55 = v15;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v54 = v15;
     mailboxesToUpdate2 = [v15 mailboxesToUpdate];
-    v29 = [mailboxesToUpdate2 countByEnumeratingWithState:&v61 objects:v66 count:16];
+    v29 = [mailboxesToUpdate2 countByEnumeratingWithState:&v60 objects:v65 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v62;
+      v31 = *v61;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v62 != v31)
+          if (*v61 != v31)
           {
             objc_enumerationMutation(mailboxesToUpdate2);
           }
 
-          v33 = *(*(&v61 + 1) + 8 * i);
+          v33 = *(*(&v60 + 1) + 8 * i);
           pairedDeviceRegistry = self->_pairedDeviceRegistry;
           mailboxId = [v33 mailboxId];
           v36 = [(NNMKDeviceSyncRegistry *)pairedDeviceRegistry mailboxWithId:mailboxId];
@@ -3485,44 +3440,44 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v68 = v33;
+            v67 = v33;
             _os_log_impl(&dword_25B19F000, v37, OS_LOG_TYPE_DEFAULT, "Updating mailbox. %{public}@", buf, 0xCu);
           }
 
           [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateMailbox:v33];
         }
 
-        v30 = [mailboxesToUpdate2 countByEnumeratingWithState:&v61 objects:v66 count:16];
+        v30 = [mailboxesToUpdate2 countByEnumeratingWithState:&v60 objects:v65 count:16];
       }
 
       while (v30);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    mailboxesToDisableSync2 = [v55 mailboxesToDisableSync];
-    v39 = [mailboxesToDisableSync2 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    mailboxesToDisableSync2 = [v54 mailboxesToDisableSync];
+    v39 = [mailboxesToDisableSync2 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v58;
+      v41 = *v57;
       do
       {
         for (j = 0; j != v40; ++j)
         {
-          if (*v58 != v41)
+          if (*v57 != v41)
           {
             objc_enumerationMutation(mailboxesToDisableSync2);
           }
 
-          v43 = *(*(&v57 + 1) + 8 * j);
+          v43 = *(*(&v56 + 1) + 8 * j);
           v44 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v68 = v43;
+            v67 = v43;
             _os_log_impl(&dword_25B19F000, v44, OS_LOG_TYPE_DEFAULT, "Disabling sync for mailbox. %{public}@", buf, 0xCu);
           }
 
@@ -3531,7 +3486,7 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
           [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry cleanUpForFullSyncWithMailbox:v43];
         }
 
-        v40 = [mailboxesToDisableSync2 countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v40 = [mailboxesToDisableSync2 countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v40);
@@ -3543,31 +3498,29 @@ void __55__NNMKSyncProvider_updateVIPSenderList_requestContext___block_invoke(ui
       [(NNMKSyncProvider *)self _sendUpdatedMailboxSelection:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion]];
     }
 
-    mailboxesToReSync2 = [v55 mailboxesToReSync];
+    mailboxesToReSync2 = [v54 mailboxesToReSync];
     v46 = [mailboxesToReSync2 count];
 
-    v9 = v54;
+    v9 = v53;
     if (v46)
     {
       v47 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
         v48 = v47;
-        mailboxesToReSync3 = [v55 mailboxesToReSync];
+        mailboxesToReSync3 = [v54 mailboxesToReSync];
         nnmk_description4 = [mailboxesToReSync3 nnmk_description];
         *buf = 138543362;
-        v68 = nnmk_description4;
+        v67 = nnmk_description4;
         _os_log_impl(&dword_25B19F000, v48, OS_LOG_TYPE_DEFAULT, "Triggering #full-sync for mailboxes due to mailbox-selection changed. %{public}@", buf, 0xCu);
       }
 
-      mailboxesToReSync4 = [v55 mailboxesToReSync];
+      mailboxesToReSync4 = [v54 mailboxesToReSync];
       [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:mailboxesToReSync4];
     }
 
-    selectionCopy = v53;
+    selectionCopy = v52;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendUpdatedMailboxSelection:(unint64_t)selection resendInterval:(unint64_t)interval
@@ -3635,17 +3588,17 @@ uint64_t __40__NNMKSyncProvider_notifyFetchCompleted__block_invoke(uint64_t a1)
 
 void __59__NNMKSyncProvider_notifyFetchCompletedForMailboxId_error___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40) != 0;
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 1024;
-    v10 = v4;
-    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "#FETCH Manual Completed (mailboxId: %{public}@, error: %d)", &v7, 0x12u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 1024;
+    v9 = v4;
+    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "#FETCH Manual Completed (mailboxId: %{public}@, error: %d)", &v6, 0x12u);
   }
 
   v5 = objc_alloc_init(NNMKProtoFetchRequestCompletedNotification);
@@ -3653,8 +3606,6 @@ void __59__NNMKSyncProvider_notifyFetchCompletedForMailboxId_error___block_invok
   [(NNMKProtoFetchRequestCompletedNotification *)v5 setFailed:*(a1 + 40) != 0];
   [*(*(a1 + 48) + 112) notifyFetchRequestCompleted:v5];
   [*(a1 + 48) _checkBatchFetchedMessages];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bulletinFlagsForMessageStatus:(unint64_t)status dateReceived:(id)received messageWillBeAddedToSyncProvider:(BOOL)provider mailboxId:(id)id
@@ -3734,7 +3685,7 @@ void __106__NNMKSyncProvider_bulletinFlagsForMessageStatus_dateReceived_messageW
   return v3;
 }
 
-uint64_t __28__NNMKSyncProvider_isPaired__block_invoke(uint64_t a1)
+void *__28__NNMKSyncProvider_isPaired__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isPaired];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3797,38 +3748,35 @@ void __36__NNMKSyncProvider_mailboxSelection__block_invoke(uint64_t a1)
 
 uint64_t __35__NNMKSyncProvider_syncedMailboxes__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) syncEnabledMailboxes];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) syncEnabledMailboxes];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)containsSyncedMailbox:(id)mailbox
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   [(NNMKSyncProvider *)self syncedMailboxes];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         mailboxId = [v10 mailboxId];
         mailboxId2 = [v10 mailboxId];
         v13 = [mailboxId isEqual:mailboxId2];
@@ -3841,7 +3789,7 @@ uint64_t __35__NNMKSyncProvider_syncedMailboxes__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -3859,9 +3807,9 @@ uint64_t __35__NNMKSyncProvider_syncedMailboxes__block_invoke(uint64_t a1)
   else
   {
     firstObject = [v5 firstObject];
-    v18 = [firstObject url];
+    v17 = [firstObject url];
 
-    if (v18)
+    if (v17)
     {
       LOBYTE(v14) = 0;
     }
@@ -3874,7 +3822,6 @@ uint64_t __35__NNMKSyncProvider_syncedMailboxes__block_invoke(uint64_t a1)
 LABEL_12:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3916,10 +3863,7 @@ LABEL_12:
 
 uint64_t __33__NNMKSyncProvider_watchAccounts__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _watchAccounts];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _watchAccounts];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4005,7 +3949,7 @@ void __34__NNMKSyncProvider__watchAccounts__block_invoke(uint64_t a1, uint64_t a
 
 - (void)_sendStandaloneAccountIdentity:(id)identity resendInterval:(unint64_t)interval
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   persistenceHandler = [(NNMKSyncProvider *)self persistenceHandler];
   v8 = [persistenceHandler addStandaloneAccountIdentity:identityCopy];
@@ -4018,7 +3962,7 @@ void __34__NNMKSyncProvider__watchAccounts__block_invoke(uint64_t a1, uint64_t a
       v10 = v9;
       accountId = [identityCopy accountId];
       *buf = 138543362;
-      v24 = accountId;
+      v23 = accountId;
       _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Sending standalone account identity: %{public}@", buf, 0xCu);
     }
 
@@ -4036,12 +3980,10 @@ void __34__NNMKSyncProvider__watchAccounts__block_invoke(uint64_t a1, uint64_t a
 
     resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
     username2 = [identityCopy username];
-    v22 = username2;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v21 = username2;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     [resendScheduler registerIDSIdentifier:v17 objectIds:v20 type:@"AccountIdentity" resendInterval:interval];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendWatchAccountStatusRequest
@@ -4076,7 +4018,7 @@ void __34__NNMKSyncProvider__watchAccounts__block_invoke(uint64_t a1, uint64_t a
   return v3;
 }
 
-uint64_t __36__NNMKSyncProvider_organizeByThread__block_invoke(uint64_t a1)
+void *__36__NNMKSyncProvider_organizeByThread__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) organizeByThread];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -4123,7 +4065,7 @@ void __40__NNMKSyncProvider_setOrganizeByThread___block_invoke(uint64_t a1)
 
       else if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
       {
-        __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_cold_1((a1 + 40));
+        __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_cold_1();
       }
     }
   }
@@ -4131,19 +4073,17 @@ void __40__NNMKSyncProvider_setOrganizeByThread___block_invoke(uint64_t a1)
 
 uint64_t __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "Triggering #initial-sync because organized by thread flag changed. %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "Triggering #initial-sync because organized by thread flag changed. %lu", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) _triggerInitialSync];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _triggerInitialSync];
 }
 
 - (NNMKPairedDeviceInfo)pairedDeviceInfo
@@ -4168,7 +4108,7 @@ uint64_t __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_2(uint64_t a1
   return v3;
 }
 
-uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
+void *__36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 72) deviceScreenWidth];
   v3 = v2;
@@ -4185,10 +4125,7 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
     [*(*(a1 + 32) + 72) deviceScreenWidth];
     v12 = v11;
     [*(*(a1 + 32) + 72) deviceScreenScale];
-    v14 = [NNMKPairedDeviceInfo pairedDeviceInfoWithScreenWidth:v12 screenScale:v13];
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    *(*(*(a1 + 40) + 8) + 40) = [NNMKPairedDeviceInfo pairedDeviceInfoWithScreenWidth:v12 screenScale:v13];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -4205,7 +4142,7 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
 
 - (void)messagesSyncServiceServer:(id)server didSendProtobufSuccessfullyWithIDSIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   initialSyncProgressTracker = [(NNMKSyncProvider *)self initialSyncProgressTracker];
   isTrackingInitialSync = [initialSyncProgressTracker isTrackingInitialSync];
@@ -4223,9 +4160,9 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
       v11 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = identifierCopy;
-        _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#full-sync sent successfully by IDS (IDS Identifier: %{public}@).", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = identifierCopy;
+        _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#full-sync sent successfully by IDS (IDS Identifier: %{public}@).", &v13, 0xCu);
       }
     }
 
@@ -4237,8 +4174,6 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
 
   resendScheduler2 = [(NNMKSyncProvider *)self resendScheduler];
   [resendScheduler2 handleIDSMessageSentSuccessfullyWithId:identifierCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServerSpaceBecameAvailable:(id)available
@@ -4257,18 +4192,18 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
 
 - (void)messagesSyncServiceServerConnectivityChanged:(id)changed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _isConnectedToWatch = [(NNMKSyncProvider *)self _isConnectedToWatch];
   v5 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_INFO))
   {
     messagesSyncService = self->_messagesSyncService;
     v7 = v5;
-    v11[0] = 67109376;
-    v11[1] = _isConnectedToWatch;
-    v12 = 2048;
+    v10[0] = 67109376;
+    v10[1] = _isConnectedToWatch;
+    v11 = 2048;
     connectivityState = [(NNMKSyncServiceEndpoint *)messagesSyncService connectivityState];
-    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_INFO, "Connectivity changed (Connected: %d - Connectivity type: %lu)", v11, 0x12u);
+    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_INFO, "Connectivity changed (Connected: %d - Connectivity type: %lu)", v10, 0x12u);
   }
 
   sessionController = [(NNMKSyncProvider *)self sessionController];
@@ -4285,13 +4220,11 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
   {
     [(NNMKSyncEndpoint *)self clearResendQueue];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didUpdateMessagesStatus:(id)status
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   pairedDeviceRegistry = self->_pairedDeviceRegistry;
   syncController = [(NNMKSyncProvider *)self syncController];
@@ -4307,34 +4240,34 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
 
   if (v15 && -[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:mailbox:](self, "_verifyDatabaseOkForFullSyncVersion:mailbox:", [statusCopy fullSyncVersion], v15))
   {
-    v43 = v15;
-    v44 = v12;
+    v42 = v15;
+    v43 = v12;
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-    v47 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(statusCopy, "messageStatusUpdatesCount")}];
+    v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(statusCopy, "messageStatusUpdatesCount")}];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
-    v45 = statusCopy;
+    v44 = statusCopy;
     obj = [statusCopy messageStatusUpdates];
-    v16 = [obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+    v16 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
     if (!v16)
     {
       goto LABEL_21;
     }
 
     v17 = v16;
-    v18 = *v49;
+    v18 = *v48;
     while (1)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v49 != v18)
+        if (*v48 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v48 + 1) + 8 * i);
+        v20 = *(*(&v47 + 1) + 8 * i);
         syncController3 = [(NNMKSyncProvider *)self syncController];
         messageId2 = [v20 messageId];
         v23 = [syncController3 messageIdFromWatchMessageId:messageId2];
@@ -4348,9 +4281,9 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
             v35 = v34;
             v36 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v20 updatedStatus]);
             *buf = 138543618;
-            v53 = v23;
-            v54 = 2112;
-            v55 = v36;
+            v52 = v23;
+            v53 = 2112;
+            v54 = v36;
             _os_log_impl(&dword_25B19F000, v35, OS_LOG_TYPE_DEFAULT, "Message Status UPDATED but we don't have it in our records. Updating anyway... (Id: %{public}@ - Status: %@ - Source: Watch).", buf, 0x16u);
           }
 
@@ -4368,9 +4301,9 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
             v37 = v27;
             v38 = +[NNMKMessage stringFromMailboxItemState:](NNMKMessage, "stringFromMailboxItemState:", [v20 updatedStatus]);
             *buf = 138543618;
-            v53 = v23;
-            v54 = 2112;
-            v55 = v38;
+            v52 = v23;
+            v53 = 2112;
+            v54 = v38;
             _os_log_impl(&dword_25B19F000, v37, OS_LOG_TYPE_DEFAULT, "Message Status UPDATED (Id: %{public}@ - Status: %@ - Source: Watch).", buf, 0x16u);
           }
 
@@ -4378,7 +4311,7 @@ uint64_t __36__NNMKSyncProvider_pairedDeviceInfo__block_invoke(uint64_t a1)
           [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateSyncedMessage:v24];
 LABEL_17:
           v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v20, "updatedStatus")}];
-          [v47 setObject:v29 forKeyedSubscript:v23];
+          [v46 setObject:v29 forKeyedSubscript:v23];
           goto LABEL_18;
         }
 
@@ -4393,35 +4326,35 @@ LABEL_17:
         statusVersion3 = [v20 statusVersion];
         statusVersion4 = [v24 statusVersion];
         *buf = 138544386;
-        v53 = v23;
-        v54 = 2112;
-        v55 = v30;
-        v56 = 2112;
-        v57 = v31;
-        v58 = 2048;
-        v59 = statusVersion3;
-        v60 = 2048;
-        v61 = statusVersion4;
+        v52 = v23;
+        v53 = 2112;
+        v54 = v30;
+        v55 = 2112;
+        v56 = v31;
+        v57 = 2048;
+        v58 = statusVersion3;
+        v59 = 2048;
+        v60 = statusVersion4;
         _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "Message Status UPDATED but version is outdated (Id: %{public}@ - Status: %@ - Local Status: %@ - Client Version: %lu - Local Version: %lu - Source: Watch).", buf, 0x34u);
 
 LABEL_18:
 LABEL_19:
       }
 
-      v17 = [obj countByEnumeratingWithState:&v48 objects:v62 count:16];
+      v17 = [obj countByEnumeratingWithState:&v47 objects:v61 count:16];
       if (!v17)
       {
 LABEL_21:
 
         [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry endUpdates];
-        if ([v47 count])
+        if ([v46 count])
         {
-          [(NNMKSyncProvider *)self _notifyDelegateThatMessagesStatusWereUpdated:v47];
+          [(NNMKSyncProvider *)self _notifyDelegateThatMessagesStatusWereUpdated:v46];
         }
 
-        v12 = v44;
-        statusCopy = v45;
-        v15 = v43;
+        v12 = v43;
+        statusCopy = v44;
+        v15 = v42;
         goto LABEL_26;
       }
     }
@@ -4433,18 +4366,16 @@ LABEL_21:
     v40 = v39;
     messageId3 = [v12 messageId];
     *buf = 138543362;
-    v53 = messageId3;
+    v52 = messageId3;
     _os_log_impl(&dword_25B19F000, v40, OS_LOG_TYPE_DEFAULT, "Message Status DROPPED (Id: %{public}@ - Source: Watch).", buf, 0xCu);
   }
 
 LABEL_26:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didDeleteMessages:(id)messages
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   messageDeletions = [messagesCopy messageDeletions];
   firstObject = [messageDeletions firstObject];
@@ -4461,32 +4392,32 @@ LABEL_26:
 
   if (-[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:mailbox:](self, "_verifyDatabaseOkForFullSyncVersion:mailbox:", [messagesCopy fullSyncVersion], v15))
   {
-    v40 = v15;
-    v41 = v12;
-    v42 = messageId;
+    v39 = v15;
+    v40 = v12;
+    v41 = messageId;
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
     v16 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(messagesCopy, "messageDeletionsCount")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v43 = messagesCopy;
+    v42 = messagesCopy;
     obj = [messagesCopy messageDeletions];
-    v17 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v17 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v17)
     {
       v18 = v17;
-      v45 = *v47;
+      v44 = *v46;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v47 != v45)
+          if (*v46 != v44)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v46 + 1) + 8 * i);
+          v20 = *(*(&v45 + 1) + 8 * i);
           syncController3 = [(NNMKSyncProvider *)self syncController];
           messageId2 = [v20 messageId];
           v23 = [syncController3 messageIdFromWatchMessageId:messageId2];
@@ -4501,9 +4432,9 @@ LABEL_26:
               v27 = v25;
               deletionState = [v20 deletionState];
               *buf = 138543618;
-              v52 = v23;
-              v53 = 2048;
-              *v54 = deletionState;
+              v51 = v23;
+              v52 = 2048;
+              *v53 = deletionState;
               _os_log_impl(&dword_25B19F000, v27, OS_LOG_TYPE_DEFAULT, "Message DELETED from Client (Id: %{public}@ - Deletion State: %lu).", buf, 0x16u);
             }
 
@@ -4518,9 +4449,9 @@ LABEL_26:
             v31 = v25;
             deletionState2 = [v20 deletionState];
             *buf = 138543618;
-            v52 = v23;
-            v53 = 2048;
-            *v54 = deletionState2;
+            v51 = v23;
+            v52 = 2048;
+            *v53 = deletionState2;
             _os_log_impl(&dword_25B19F000, v31, OS_LOG_TYPE_DEFAULT, "Message DELETED from Client but we don't have it in our records. Deleting anyway... (Id: %{public}@ - Deletion State: %lu).", buf, 0x16u);
           }
 
@@ -4533,7 +4464,7 @@ LABEL_26:
           [v16 setObject:v35 forKeyedSubscript:v23];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v18 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v18);
@@ -4545,10 +4476,10 @@ LABEL_26:
       [(NNMKSyncProvider *)self _notifyDelegateThatMessagesStatusWereUpdated:v16];
     }
 
-    messageId = v42;
-    messagesCopy = v43;
-    v15 = v40;
-    v12 = v41;
+    messageId = v41;
+    messagesCopy = v42;
+    v15 = v39;
+    v12 = v40;
   }
 
   else
@@ -4556,24 +4487,22 @@ LABEL_26:
     v36 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
-      v38 = v36;
+      v37 = v36;
       mailboxId2 = [v12 mailboxId];
       *buf = 138543874;
-      v52 = mailboxId2;
-      v53 = 1024;
-      *v54 = v15 != 0;
-      *&v54[4] = 2114;
-      *&v54[6] = messageId;
-      _os_log_error_impl(&dword_25B19F000, v38, OS_LOG_TYPE_ERROR, "Ignoring deletion. Mailbox: %{public}@ (exists: %d), messageId: %{public}@", buf, 0x1Cu);
+      v51 = mailboxId2;
+      v52 = 1024;
+      *v53 = v15 != 0;
+      *&v53[4] = 2114;
+      *&v53[6] = messageId;
+      _os_log_error_impl(&dword_25B19F000, v37, OS_LOG_TYPE_ERROR, "Ignoring deletion. Mailbox: %{public}@ (exists: %d), messageId: %{public}@", buf, 0x1Cu);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didRequestSendMessage:(id)message
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy hasComposedMessageId] & 1) != 0 || objc_msgSend(messageCopy, "tosCount") || objc_msgSend(messageCopy, "ccsCount") || (objc_msgSend(messageCopy, "hasSubject"))
   {
@@ -4647,17 +4576,17 @@ LABEL_26:
       if (!v23)
       {
         [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry storePendingComposedMessage:v6];
-        v30 = qword_28144D620;
+        v29 = qword_28144D620;
         if (!os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_20;
         }
 
-        v25 = v30;
+        v25 = v29;
         composedMessageId4 = [messageCopy composedMessageId];
-        v31 = 138543362;
-        v32 = composedMessageId4;
-        _os_log_impl(&dword_25B19F000, v25, OS_LOG_TYPE_DEFAULT, "Waiting to send Composed Message until attachment recieved (Composed Message Id: %{public}@).", &v31, 0xCu);
+        v30 = 138543362;
+        v31 = composedMessageId4;
+        _os_log_impl(&dword_25B19F000, v25, OS_LOG_TYPE_DEFAULT, "Waiting to send Composed Message until attachment recieved (Composed Message Id: %{public}@).", &v30, 0xCu);
         goto LABEL_19;
       }
 
@@ -4677,13 +4606,13 @@ LABEL_20:
     composedMessageId4 = [(NNMKComposedMessage *)v6 composedMessageId];
     sendingType = [(NNMKComposedMessage *)v6 sendingType];
     referenceMessageId2 = [(NNMKComposedMessage *)v6 referenceMessageId];
-    v31 = 138543874;
-    v32 = composedMessageId4;
-    v33 = 2048;
-    v34 = sendingType;
-    v35 = 2114;
-    v36 = referenceMessageId2;
-    _os_log_impl(&dword_25B19F000, v25, OS_LOG_TYPE_DEFAULT, "Composed Message SENT from Client (Composed Message Id: %{public}@, Send Type: %lu - Message Id: %{public}@).", &v31, 0x20u);
+    v30 = 138543874;
+    v31 = composedMessageId4;
+    v32 = 2048;
+    v33 = sendingType;
+    v34 = 2114;
+    v35 = referenceMessageId2;
+    _os_log_impl(&dword_25B19F000, v25, OS_LOG_TYPE_DEFAULT, "Composed Message SENT from Client (Composed Message Id: %{public}@, Send Type: %lu - Message Id: %{public}@).", &v30, 0x20u);
 
 LABEL_19:
     goto LABEL_20;
@@ -4695,8 +4624,6 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didUpdateMailboxSelection:(id)selection
@@ -4736,35 +4663,35 @@ LABEL_21:
 
 - (void)messagesSyncServiceServer:(id)server didMoveMessages:(id)messages
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   syncController = [(NNMKSyncProvider *)self syncController];
   mailboxId = [messagesCopy mailboxId];
   v8 = [syncController mailboxWithId:mailboxId];
 
-  v32 = -[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:mailbox:](self, "_verifyDatabaseOkForFullSyncVersion:mailbox:", [messagesCopy fullSyncVersion], v8);
+  v31 = -[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:mailbox:](self, "_verifyDatabaseOkForFullSyncVersion:mailbox:", [messagesCopy fullSyncVersion], v8);
   [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v33 = messagesCopy;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v32 = messagesCopy;
   obj = [messagesCopy messageIds];
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         syncController2 = [(NNMKSyncProvider *)self syncController];
         v15 = [syncController2 messageIdFromWatchMessageId:v13];
 
@@ -4773,20 +4700,20 @@ LABEL_21:
         v18 = os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT);
         if (v16)
         {
-          if (v32)
+          if (v31)
           {
             if (v18)
             {
               v19 = v17;
-              mailboxId2 = [v33 mailboxId];
+              mailboxId2 = [v32 mailboxId];
               *buf = 138543618;
-              v39 = v13;
-              v40 = 2114;
-              v41 = mailboxId2;
+              v38 = v13;
+              v39 = 2114;
+              v40 = mailboxId2;
               _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "Message MOVED from Client (Id: %{public}@ - mailboxId: %{public}@).", buf, 0x16u);
             }
 
-            mailboxId3 = [v33 mailboxId];
+            mailboxId3 = [v32 mailboxId];
             [v16 setMailboxId:mailboxId3];
 
             [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateSyncedMessage:v16];
@@ -4797,11 +4724,11 @@ LABEL_21:
             if (v18)
             {
               v24 = v17;
-              mailboxId4 = [v33 mailboxId];
+              mailboxId4 = [v32 mailboxId];
               *buf = 138543618;
-              v39 = v13;
-              v40 = 2114;
-              v41 = mailboxId4;
+              v38 = v13;
+              v39 = 2114;
+              v40 = mailboxId4;
               _os_log_impl(&dword_25B19F000, v24, OS_LOG_TYPE_DEFAULT, "Message MOVED from Client but new mailbox isn't active so deleting message (Id: %{public}@ - mailboxId: %{public}@).", buf, 0x16u);
             }
 
@@ -4812,16 +4739,16 @@ LABEL_21:
         else if (v18)
         {
           v22 = v17;
-          mailboxId5 = [v33 mailboxId];
+          mailboxId5 = [v32 mailboxId];
           *buf = 138543618;
-          v39 = v13;
-          v40 = 2114;
-          v41 = mailboxId5;
+          v38 = v13;
+          v39 = 2114;
+          v40 = mailboxId5;
           _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "Message MOVED but we don't have it in our records. Updating anyway... (Id: %{public}@ - mailboxId: %{public}@ - Source: Watch).", buf, 0x16u);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v10);
@@ -4834,16 +4761,14 @@ LABEL_21:
   if (v27)
   {
     delegate2 = [(NNMKSyncProvider *)self delegate];
-    messageIds = [v33 messageIds];
+    messageIds = [v32 messageIds];
     [delegate2 syncProvider:self didMoveMessageIds:messageIds toMailbox:v8];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didRecieveAttachmentsAtURL:(id)l composedMessageId:(id)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   idCopy = id;
   v9 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry pendingComposedMessageWithId:idCopy];
@@ -4859,13 +4784,13 @@ LABEL_21:
       composedMessageId = [v9 composedMessageId];
       sendingType = [v9 sendingType];
       referenceMessageId = [v9 referenceMessageId];
-      v18 = 138543874;
-      v19 = composedMessageId;
-      v20 = 2048;
-      v21 = sendingType;
-      v22 = 2114;
-      v23 = referenceMessageId;
-      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Recieved attachments and SENT Composed Message from Client (Composed Message Id: %{public}@, Send Type: %lu - Message Id: %{public}@).", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = composedMessageId;
+      v19 = 2048;
+      v20 = sendingType;
+      v21 = 2114;
+      v22 = referenceMessageId;
+      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Recieved attachments and SENT Composed Message from Client (Composed Message Id: %{public}@, Send Type: %lu - Message Id: %{public}@).", &v17, 0x20u);
     }
   }
 
@@ -4874,20 +4799,18 @@ LABEL_21:
     v16 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = idCopy;
-      _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "Recieved attachments, but waiting for composedMesageId: %{public}@", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = idCopy;
+      _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "Recieved attachments, but waiting for composedMesageId: %{public}@", &v17, 0xCu);
     }
 
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry saveAttachmentsForComposedMessageId:idCopy temporaryURL:lCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didWarnMessagesFilteredOut:(id)out
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   outCopy = out;
   syncController = [(NNMKSyncProvider *)self syncController];
   mailboxId = [outCopy mailboxId];
@@ -4895,7 +4818,7 @@ LABEL_21:
 
   if (v8 && -[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:mailbox:](self, "_verifyDatabaseOkForFullSyncVersion:mailbox:", [outCopy fullSyncVersion], v8))
   {
-    v21 = v8;
+    v20 = v8;
     v9 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
@@ -4906,27 +4829,27 @@ LABEL_21:
     }
 
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     removedMessageIds = [outCopy removedMessageIds];
-    v12 = [removedMessageIds countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [removedMessageIds countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(removedMessageIds);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * v15);
+          v16 = *(*(&v21 + 1) + 8 * v15);
           pairedDeviceRegistry = self->_pairedDeviceRegistry;
           syncController2 = [(NNMKSyncProvider *)self syncController];
           v19 = [syncController2 messageIdFromWatchMessageId:v16];
@@ -4936,17 +4859,15 @@ LABEL_21:
         }
 
         while (v13 != v15);
-        v13 = [removedMessageIds countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [removedMessageIds countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
     }
 
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry endUpdates];
-    v8 = v21;
+    v8 = v20;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:(id)server didRequestCompactMessages:(id)messages
@@ -5006,7 +4927,7 @@ LABEL_21:
 
 - (void)accountsSyncServiceServer:(id)server didSendProtobufSuccessfullyWithIDSIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   initialSyncProgressTracker = [(NNMKSyncProvider *)self initialSyncProgressTracker];
   [initialSyncProgressTracker updateProgressWithAccountsArrivedInPairedDevice];
@@ -5014,20 +4935,18 @@ LABEL_21:
   v7 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = identifierCopy;
-    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "Accounts sent successfully by IDS (IDS Identifier: %{public}@).", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = identifierCopy;
+    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "Accounts sent successfully by IDS (IDS Identifier: %{public}@).", &v9, 0xCu);
   }
 
   resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
   [resendScheduler handleIDSMessageSentSuccessfullyWithId:identifierCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountsSyncServiceServer:(id)server didChangeAccountSourceType:(id)type
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (-[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:](self, "_verifyDatabaseOkForFullSyncVersion:", [typeCopy fullSyncVersion]))
   {
@@ -5046,11 +4965,11 @@ LABEL_21:
       v12 = v11;
       accountId3 = [(NNMKAccount *)v6 accountId];
       *buf = 138543874;
-      v38 = accountId3;
-      v39 = 2048;
+      v37 = accountId3;
+      v38 = 2048;
       sourceType = [(NNMKAccount *)v6 sourceType];
-      v41 = 2048;
-      v42 = v10;
+      v40 = 2048;
+      v41 = v10;
       _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Received account source type change from watch. Id: %{public}@, Source Type: %lu, Previous: %lu", buf, 0x20u);
     }
 
@@ -5067,7 +4986,7 @@ LABEL_21:
         v18 = v17;
         accountId5 = [(NNMKAccount *)v6 accountId];
         *buf = 138543362;
-        v38 = accountId5;
+        v37 = accountId5;
         _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Account source type changed back to source type companion. Triggering #full-sync for all synced enabled mailboxes from account id %{public}@", buf, 0xCu);
       }
 
@@ -5078,33 +4997,33 @@ LABEL_21:
       if ([v22 count])
       {
         v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         v24 = v22;
-        v25 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v33;
+          v27 = *v32;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v33 != v27)
+              if (*v32 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v32 + 1) + 8 * i);
+              v29 = *(*(&v31 + 1) + 8 * i);
               if ([v29 syncEnabled])
               {
                 [v23 addObject:v29];
               }
             }
 
-            v26 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
           while (v26);
@@ -5124,13 +5043,11 @@ LABEL_21:
       [NNMKSyncProvider accountsSyncServiceServer:v30 didChangeAccountSourceType:?];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountsSyncServiceServer:(id)server didReceivedAccountAuthenticationStatus:(id)status requestTime:(double)time
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   statusCopy = status;
   v10 = qword_28144D630;
@@ -5142,39 +5059,39 @@ LABEL_21:
 
   if (time <= 0.0 || ([(NNMKSyncSessionController *)self->_sessionController accountAuthRequestLastRequestTime], v11 <= time))
   {
-    v61 = serverCopy;
+    v60 = serverCopy;
     allSyncedAccountsKeyedByAccountId = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry allSyncedAccountsKeyedByAccountId];
     v17 = [allSyncedAccountsKeyedByAccountId mutableCopy];
 
     v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke;
-    v74[3] = &unk_279936898;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke;
+    v73[3] = &unk_279936898;
     v21 = v17;
-    v75 = v21;
+    v74 = v21;
     selfCopy = self;
     v22 = array;
-    v77 = v22;
+    v76 = v22;
     v23 = array2;
-    v78 = v23;
-    v59 = v18;
-    v79 = v59;
-    [statusCopy enumerateKeysAndObjectsUsingBlock:v74];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_71;
-    v70[3] = &unk_2799368C0;
-    v70[4] = self;
-    v73 = 0;
+    v77 = v23;
+    v58 = v18;
+    v78 = v58;
+    [statusCopy enumerateKeysAndObjectsUsingBlock:v73];
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_71;
+    v69[3] = &unk_2799368C0;
+    v69[4] = self;
+    v72 = 0;
     v24 = v22;
-    v71 = v24;
+    v70 = v24;
     v25 = v23;
-    v72 = v25;
-    v60 = v21;
-    [v21 enumerateKeysAndObjectsUsingBlock:v70];
+    v71 = v25;
+    v59 = v21;
+    [v21 enumerateKeysAndObjectsUsingBlock:v69];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     LOBYTE(v23) = objc_opt_respondsToSelector();
 
@@ -5185,34 +5102,34 @@ LABEL_21:
       [v27 syncProvider:self didUpdateWatchAccounts:_watchAccounts];
     }
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v29 = v24;
-    v30 = [v29 countByEnumeratingWithState:&v66 objects:v81 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v65 objects:v80 count:16];
     v31 = v29;
     if (v30)
     {
       v32 = v30;
-      v33 = *v67;
+      v33 = *v66;
 LABEL_11:
       v34 = 0;
       while (1)
       {
-        if (*v67 != v33)
+        if (*v66 != v33)
         {
           objc_enumerationMutation(v29);
         }
 
-        if ([*(*(&v66 + 1) + 8 * v34) maySupportStandaloneMode])
+        if ([*(*(&v65 + 1) + 8 * v34) maySupportStandaloneMode])
         {
           break;
         }
 
         if (v32 == ++v34)
         {
-          v32 = [v29 countByEnumeratingWithState:&v66 objects:v81 count:16];
+          v32 = [v29 countByEnumeratingWithState:&v65 objects:v80 count:16];
           if (v32)
           {
             goto LABEL_11;
@@ -5241,8 +5158,8 @@ LABEL_11:
         standaloneState = [firstObject2 standaloneState];
         *buf = 138543618;
         timeCopy = *&accountId;
-        v84 = 2048;
-        v85 = standaloneState;
+        v83 = 2048;
+        v84 = standaloneState;
         _os_log_impl(&dword_25B19F000, v38, OS_LOG_TYPE_DEFAULT, "Requesting re-authentication for account: %{public}@ - State: %lu", buf, 0x16u);
       }
 
@@ -5254,27 +5171,27 @@ LABEL_11:
 LABEL_22:
 
 LABEL_23:
-    v58 = v29;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
+    v57 = v29;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v44 = v25;
-    v45 = [v44 countByEnumeratingWithState:&v62 objects:v80 count:16];
+    v45 = [v44 countByEnumeratingWithState:&v61 objects:v79 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v63;
+      v47 = *v62;
       do
       {
         for (i = 0; i != v46; ++i)
         {
-          if (*v63 != v47)
+          if (*v62 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          v49 = *(*(&v62 + 1) + 8 * i);
+          v49 = *(*(&v61 + 1) + 8 * i);
           v50 = objc_loadWeakRetained(&self->_delegate);
           v51 = objc_opt_respondsToSelector();
 
@@ -5288,8 +5205,8 @@ LABEL_23:
               standaloneState2 = [v49 standaloneState];
               *buf = 138543618;
               timeCopy = *&accountId2;
-              v84 = 2048;
-              v85 = standaloneState2;
+              v83 = 2048;
+              v84 = standaloneState2;
               _os_log_impl(&dword_25B19F000, v53, OS_LOG_TYPE_DEFAULT, "Notifying authentication failed for account: %{public}@ - State: %lu", buf, 0x16u);
             }
 
@@ -5298,13 +5215,13 @@ LABEL_23:
           }
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v62 objects:v80 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v61 objects:v79 count:16];
       }
 
       while (v46);
     }
 
-    serverCopy = v61;
+    serverCopy = v60;
   }
 
   else
@@ -5317,18 +5234,16 @@ LABEL_23:
       [(NNMKSyncSessionController *)sessionController accountAuthRequestLastRequestTime];
       *buf = 134218240;
       timeCopy = time;
-      v84 = 2048;
-      v85 = v15;
+      v83 = 2048;
+      v84 = v15;
       _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Received outdated accounts status, Ignoring. requestTime: %f, lastRequestTime: %f", buf, 0x16u);
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke(id *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1[4] objectForKeyedSubscript:v5];
@@ -5356,9 +5271,9 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
       if (os_log_type_enabled(qword_28144D630, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v35 = v5;
-        v36 = 2048;
-        v37 = v15;
+        v34 = v5;
+        v35 = 2048;
+        v36 = v15;
         _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "Updating standalone state for account. Account: %{public}@ - State: %lu", buf, 0x16u);
       }
 
@@ -5404,9 +5319,9 @@ LABEL_19:
 
     else
     {
-      v31 = [v6 emailAddressToken];
+      v30 = [v6 emailAddressToken];
 
-      if (!v31)
+      if (!v30)
       {
         goto LABEL_19;
       }
@@ -5420,12 +5335,12 @@ LABEL_19:
 
     [*(a1[5] + 9) addOrUpdateSyncedAccount:v7];
     v28 = [v7 account];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_68;
-    v32[3] = &unk_279936870;
-    v33 = v7;
-    [NNMKStandaloneAccountHelper saveLocalAccountProperties:v28 withCompletion:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_68;
+    v31[3] = &unk_279936870;
+    v32 = v7;
+    [NNMKStandaloneAccountHelper saveLocalAccountProperties:v28 withCompletion:v31];
 
     goto LABEL_19;
   }
@@ -5436,13 +5351,11 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_68(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = qword_28144D630;
   if (a2)
@@ -5452,9 +5365,9 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
       v7 = *(a1 + 32);
       v8 = v6;
       v9 = [v7 emailAddressToken];
-      v11[0] = 67109120;
-      v11[1] = v9 != 0;
-      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "#cloud-notifications Updated local account properties (hasToken: %d)", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = v9 != 0;
+      _os_log_impl(&dword_25B19F000, v8, OS_LOG_TYPE_DEFAULT, "#cloud-notifications Updated local account properties (hasToken: %d)", v10, 8u);
     }
   }
 
@@ -5462,13 +5375,11 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
   {
     __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_68_cold_1(a1, v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_71(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) sessionController];
@@ -5480,11 +5391,11 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
     if (os_log_type_enabled(qword_28144D630, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 56);
-      v21 = 138543618;
-      v22 = v5;
-      v23 = 2048;
-      v24 = v10;
-      _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Updating standalone state for account. Account: %{public}@ - State: %lu", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v5;
+      v22 = 2048;
+      v23 = v10;
+      _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Updating standalone state for account. Account: %{public}@ - State: %lu", &v20, 0x16u);
     }
 
     v11 = [*(a1 + 32) sessionController];
@@ -5527,8 +5438,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didSendProtobufSuccessfullyWithIDSIdentifier:(id)identifier
@@ -5540,7 +5449,7 @@ LABEL_12:
 
 - (void)fetchesSyncServiceServer:(id)server didRequestFetchInBatch:(id)batch
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   v6 = -[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:](self, "_verifyDatabaseOkForFullSyncVersion:", [batchCopy fullSyncVersion]);
   v7 = qword_28144D620;
@@ -5552,7 +5461,7 @@ LABEL_12:
       v9 = v7;
       fetchRequests = [batchCopy fetchRequests];
       *buf = 134217984;
-      v40 = [fetchRequests count];
+      v39 = [fetchRequests count];
       _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "#FETCH requested (Requests: %lu)", buf, 0xCu);
     }
 
@@ -5562,31 +5471,31 @@ LABEL_12:
 
     v14 = MEMORY[0x277CBEB18];
     fetchRequests3 = [batchCopy fetchRequests];
-    v33 = [v14 arrayWithCapacity:{objc_msgSend(fetchRequests3, "count")}];
+    v32 = [v14 arrayWithCapacity:{objc_msgSend(fetchRequests3, "count")}];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v32 = batchCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v31 = batchCopy;
     fetchRequests4 = [batchCopy fetchRequests];
-    v17 = [fetchRequests4 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v17 = [fetchRequests4 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(fetchRequests4);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
-          v34 = 0;
-          v22 = [(NNMKSyncProvider *)self _handleFetchRequest:v21 shouldResumeSync:&v34];
+          v21 = *(*(&v34 + 1) + 8 * i);
+          v33 = 0;
+          v22 = [(NNMKSyncProvider *)self _handleFetchRequest:v21 shouldResumeSync:&v33];
           if (v22)
           {
             v23 = qword_28144D620;
@@ -5605,28 +5514,28 @@ LABEL_12:
 
               mailboxId = [v22 mailboxId];
               *buf = 138543618;
-              v40 = v25;
-              v41 = 2114;
-              v42 = mailboxId;
+              v39 = v25;
+              v40 = 2114;
+              v41 = mailboxId;
               _os_log_impl(&dword_25B19F000, v24, OS_LOG_TYPE_DEFAULT, "Handling #FETCH %{public}@. (Mailbox id: %{public}@)", buf, 0x16u);
             }
 
             [v13 addObject:v22];
-            if (v34 == 1)
+            if (v33 == 1)
             {
-              [v33 addObject:v22];
+              [v32 addObject:v22];
             }
           }
         }
 
-        v18 = [fetchRequests4 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v18 = [fetchRequests4 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v18);
     }
 
-    batchCopy = v32;
-    if ([v32 wantsBatchedResponse])
+    batchCopy = v31;
+    if ([v31 wantsBatchedResponse])
     {
       batchRequestHandler = [(NNMKSyncProvider *)self batchRequestHandler];
       [batchRequestHandler startFetchTimeout];
@@ -5637,7 +5546,7 @@ LABEL_12:
       [(NNMKSyncProvider *)self _requestDelegateForFetchForMailboxes:v13];
     }
 
-    if ([v33 count])
+    if ([v32 count])
     {
       v28 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -5646,7 +5555,7 @@ LABEL_12:
         _os_log_impl(&dword_25B19F000, v28, OS_LOG_TYPE_DEFAULT, "Triggering #full-sync for mailboxes to resume sync due to fetch request.", buf, 2u);
       }
 
-      [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:v33];
+      [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:v32];
     }
 
     [(NNMKSyncProvider *)self _verifyPairingForcingSync:0];
@@ -5659,19 +5568,17 @@ LABEL_12:
       v29 = v7;
       fetchRequests5 = [batchCopy fetchRequests];
       *buf = 134217984;
-      v40 = [fetchRequests5 count];
+      v39 = [fetchRequests5 count];
       _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "#FETCH requested but #sync-version verification failed. (Requests: %lu)", buf, 0xCu);
     }
 
     [(NNMKSyncProvider *)self _verifyPairingForcingSync:1];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_handleFetchRequest:(id)request shouldResumeSync:(BOOL *)sync
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   syncController = [(NNMKSyncProvider *)self syncController];
   mailboxId = [requestCopy mailboxId];
@@ -5689,11 +5596,11 @@ LABEL_12:
           v11 = v10;
           mailboxId2 = [requestCopy mailboxId];
           syncRequestedDate = [v9 syncRequestedDate];
-          v26 = 138543618;
-          v27 = mailboxId2;
-          v28 = 2114;
-          v29 = syncRequestedDate;
-          _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Not enabling mailbox because syncRequested for mailbox: %{public}@, request date: %{public}@", &v26, 0x16u);
+          v25 = 138543618;
+          v26 = mailboxId2;
+          v27 = 2114;
+          v28 = syncRequestedDate;
+          _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "Not enabling mailbox because syncRequested for mailbox: %{public}@, request date: %{public}@", &v25, 0x16u);
         }
       }
 
@@ -5708,9 +5615,9 @@ LABEL_12:
           {
             v18 = v16;
             mailboxId3 = [requestCopy mailboxId];
-            v26 = 138543362;
-            v27 = mailboxId3;
-            _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Ending suspensions, as we've received a fetch request for mailbox: %{public}@", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = mailboxId3;
+            _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Ending suspensions, as we've received a fetch request for mailbox: %{public}@", &v25, 0xCu);
           }
         }
 
@@ -5720,9 +5627,9 @@ LABEL_12:
           {
             v20 = v16;
             mailboxId4 = [requestCopy mailboxId];
-            v26 = 138543362;
-            v27 = mailboxId4;
-            _os_log_impl(&dword_25B19F000, v20, OS_LOG_TYPE_DEFAULT, "Enabling mailbox due to a fetch request from the mailbox: %{public}@", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = mailboxId4;
+            _os_log_impl(&dword_25B19F000, v20, OS_LOG_TYPE_DEFAULT, "Enabling mailbox due to a fetch request from the mailbox: %{public}@", &v25, 0xCu);
           }
 
           [v9 setSyncEnabled:1];
@@ -5752,8 +5659,6 @@ LABEL_12:
 
     [(NNMKSyncProvider *)self _handleMailboxesDesync];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -5794,7 +5699,7 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
 
 - (void)fetchesSyncServiceServer:(id)server didRequestFetch:(id)fetch
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fetchCopy = fetch;
   fullSyncVersion = [fetchCopy fullSyncVersion];
   syncController = [(NNMKSyncProvider *)self syncController];
@@ -5804,8 +5709,8 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
 
   if (fullSyncVersion)
   {
-    v19 = 0;
-    v10 = [(NNMKSyncProvider *)self _handleFetchRequest:fetchCopy shouldResumeSync:&v19];
+    v18 = 0;
+    v10 = [(NNMKSyncProvider *)self _handleFetchRequest:fetchCopy shouldResumeSync:&v18];
     if ([fetchCopy wantsBatchedResponse])
     {
       batchRequestHandler = [(NNMKSyncProvider *)self batchRequestHandler];
@@ -5814,11 +5719,11 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
 
     if (v10)
     {
-      v21 = v10;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+      v20 = v10;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
       [(NNMKSyncProvider *)self _requestDelegateForFetchForMailboxes:v12];
 
-      if (v19 == 1)
+      if (v18 == 1)
       {
         v13 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
@@ -5827,8 +5732,8 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
           _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Triggering #full-sync for mailboxes to resume sync due to fetch request.", buf, 2u);
         }
 
-        v20 = v10;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+        v19 = v10;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
         [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:v14];
       }
     }
@@ -5844,47 +5749,45 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
       v16 = v15;
       mailboxId2 = [fetchCopy mailboxId];
       *buf = 138543362;
-      v23 = mailboxId2;
+      v22 = mailboxId2;
       _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "Fetch Requested but #sync-version verification failed. (Mailbox: %{public}@)", buf, 0xCu);
     }
 
     [(NNMKSyncProvider *)self _verifyPairingForcingSync:1];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestMoreMessagesInBatch:(id)batch
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   if (-[NNMKSyncProvider _verifyDatabaseOkForFullSyncVersion:](self, "_verifyDatabaseOkForFullSyncVersion:", [batchCopy fullSyncVersion]))
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     moreMessagesRequests = [batchCopy moreMessagesRequests];
-    v7 = [moreMessagesRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [moreMessagesRequests countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(moreMessagesRequests);
           }
 
-          [(NNMKSyncProvider *)self _handleFetchRequestFromWatch:*(*(&v12 + 1) + 8 * v10++)];
+          [(NNMKSyncProvider *)self _handleFetchRequestFromWatch:*(*(&v11 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [moreMessagesRequests countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [moreMessagesRequests countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -5895,8 +5798,6 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
   {
     [NNMKSyncProvider fetchesSyncServiceServer:didRequestMoreMessagesInBatch:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestMoreMessages:(id)messages
@@ -5923,7 +5824,7 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
 
 - (void)_handleFetchRequestFromWatch:(id)watch
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   watchCopy = watch;
   filterType = [watchCopy filterType];
   syncController = [(NNMKSyncProvider *)self syncController];
@@ -5960,13 +5861,13 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     {
       v18 = v17;
       mailboxId2 = [v8 mailboxId];
-      v25 = 138543874;
-      v26 = v16;
-      v27 = 2048;
-      v28 = v9;
-      v29 = 2114;
-      v30 = mailboxId2;
-      _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "#LOAD_MORE_MESSAGES Requested (Date Request: %{public}@, Filter type: %lu, Mailbox: %{public}@)", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v16;
+      v26 = 2048;
+      v27 = v9;
+      v28 = 2114;
+      v29 = mailboxId2;
+      _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "#LOAD_MORE_MESSAGES Requested (Date Request: %{public}@, Filter type: %lu, Mailbox: %{public}@)", &v24, 0x20u);
     }
 
     if (v12)
@@ -5989,18 +5890,16 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     {
       v22 = v21;
       mailboxId3 = [watchCopy mailboxId];
-      v25 = 138543362;
-      v26 = mailboxId3;
-      _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "No mailbox found. #LOAD_MORE_MESSAGES request will be ignored. Id: %{public}@", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = mailboxId3;
+      _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "No mailbox found. #LOAD_MORE_MESSAGES request will be ignored. Id: %{public}@", &v24, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestMoreMessagesForConversation:(id)conversation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   conversationCopy = conversation;
   syncController = [(NNMKSyncProvider *)self syncController];
   mailboxId = [conversationCopy mailboxId];
@@ -6017,9 +5916,9 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     v14 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = conversationId;
-      _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "#LOAD_MORE_MESSAGES Requested (Conversation Id: %{public}@)", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = conversationId;
+      _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "#LOAD_MORE_MESSAGES Requested (Conversation Id: %{public}@)", &v16, 0xCu);
     }
 
     [(NNMKSyncProvider *)self _requestDelegateForMoreMessagesBeforeDateReceived:v13 forConversationWithId:conversationId mailbox:v8];
@@ -6033,13 +5932,11 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
       [NNMKSyncProvider fetchesSyncServiceServer:v15 didRequestMoreMessagesForConversation:?];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestContent:(id)content
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   syncController = [(NNMKSyncProvider *)self syncController];
   messageId = [contentCopy messageId];
@@ -6062,11 +5959,11 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           v18 = v17;
-          v20 = 138543618;
-          v21 = v8;
-          v22 = 1024;
+          v19 = 138543618;
+          v20 = v8;
+          v21 = 1024;
           highPriority = [contentCopy highPriority];
-          _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Message Content Requested (Id: %{public}@, High Priority: %d).", &v20, 0x12u);
+          _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "Message Content Requested (Id: %{public}@, High Priority: %d).", &v19, 0x12u);
         }
 
         if ([contentCopy highPriority] && (objc_msgSend(v13, "contentRequestedByUser") & 1) == 0)
@@ -6084,11 +5981,11 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           v15 = v14;
-          v20 = 138543618;
-          v21 = v8;
-          v22 = 1024;
+          v19 = 138543618;
+          v20 = v8;
+          v21 = 1024;
           highPriority = [contentCopy highPriority];
-          _os_log_impl(&dword_25B19F000, v15, OS_LOG_TYPE_DEFAULT, "Message Content Requested but not processed, as it has been requested multiple times (Id: %{public}@, High Priority: %d).", &v20, 0x12u);
+          _os_log_impl(&dword_25B19F000, v15, OS_LOG_TYPE_DEFAULT, "Message Content Requested but not processed, as it has been requested multiple times (Id: %{public}@, High Priority: %d).", &v19, 0x12u);
         }
       }
     }
@@ -6099,22 +5996,20 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     v16 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138543874;
-      v21 = mailboxId;
-      v22 = 1024;
+      v19 = 138543874;
+      v20 = mailboxId;
+      v21 = 1024;
       highPriority = v12 != 0;
-      v24 = 2114;
-      v25 = v8;
-      _os_log_error_impl(&dword_25B19F000, v16, OS_LOG_TYPE_ERROR, "Ignoring did request content. Mailbox %{public}@ (exists: %d), messageId: %{public}@", &v20, 0x1Cu);
+      v23 = 2114;
+      v24 = v8;
+      _os_log_error_impl(&dword_25B19F000, v16, OS_LOG_TYPE_ERROR, "Ignoring did request content. Mailbox %{public}@ (exists: %d), messageId: %{public}@", &v19, 0x1Cu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestFullSync:(id)sync
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   syncCopy = sync;
   v8 = syncCopy;
@@ -6125,9 +6020,9 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       v10 = v9;
-      v14 = 134217984;
+      v13 = 134217984;
       fullSyncVersion = [v8 fullSyncVersion];
-      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "#full-sync requested (Version in Client: %lu). Triggering #initial-sync...", &v14, 0xCu);
+      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "#full-sync requested (Version in Client: %lu). Triggering #initial-sync...", &v13, 0xCu);
     }
 
     [(NNMKSyncProvider *)self _triggerInitialSync];
@@ -6139,18 +6034,16 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       v12 = v11;
-      v14 = 134217984;
+      v13 = 134217984;
       fullSyncVersion = [v8 fullSyncVersion];
-      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "#full-sync requested, but we haven't detected any pairing yet. Ignoring the #full-sync request and waiting... (Version in Client: %lu)", &v14, 0xCu);
+      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "#full-sync requested, but we haven't detected any pairing yet. Ignoring the #full-sync request and waiting... (Version in Client: %lu)", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didRequestHaltSync:(id)sync
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   syncCopy = sync;
   pairedDeviceRegistry = self->_pairedDeviceRegistry;
@@ -6195,29 +6088,29 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       activeMailboxes = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry activeMailboxes];
-      v17 = [activeMailboxes countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v17 = [activeMailboxes countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v26;
+        v19 = *v25;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v26 != v19)
+            if (*v25 != v19)
             {
               objc_enumerationMutation(activeMailboxes);
             }
 
-            [(NNMKSyncProvider *)self _handleHaltSyncForMailbox:*(*(&v25 + 1) + 8 * i)];
+            [(NNMKSyncProvider *)self _handleHaltSyncForMailbox:*(*(&v24 + 1) + 8 * i)];
           }
 
-          v18 = [activeMailboxes countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v18 = [activeMailboxes countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v18);
@@ -6232,24 +6125,22 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     fullSyncVersion = [syncCopy fullSyncVersion];
     _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "halt-sync requested, but we haven't detected any pairing yet. Ignoring the halt sync request and waiting... (Version in Client: %lu)", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHaltSyncForMailbox:(id)mailbox
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   if ([mailboxCopy syncEnabled] && (objc_msgSend(mailboxCopy, "syncActive") & 1) == 0)
   {
-    v9 = qword_28144D620;
+    v8 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v9 = v8;
       mailboxId = [mailboxCopy mailboxId];
-      v12 = 138543362;
-      v13 = mailboxId;
-      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring halt-sync request. Mailbox is not active. (Mailbox Id: %{public}@)", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = mailboxId;
+      _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring halt-sync request. Mailbox is not active. (Mailbox Id: %{public}@)", &v11, 0xCu);
     }
   }
 
@@ -6260,22 +6151,20 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     {
       v6 = v5;
       mailboxId2 = [mailboxCopy mailboxId];
-      v12 = 138543362;
-      v13 = mailboxId2;
-      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "halt-sync started for mailbox. (Mailbox id: %{public}@)", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = mailboxId2;
+      _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "halt-sync started for mailbox. (Mailbox id: %{public}@)", &v11, 0xCu);
     }
 
     [mailboxCopy setSyncActive:0];
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry updateSyncActiveForMailbox:mailboxCopy];
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry cleanUpForFullSyncWithMailbox:mailboxCopy];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didNotifyInitialSyncFinished:(id)finished
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   finishedCopy = finished;
   initialSyncProgressTracker = [(NNMKSyncProvider *)self initialSyncProgressTracker];
   if ([initialSyncProgressTracker isTrackingInitialSync])
@@ -6303,16 +6192,14 @@ uint64_t __42__NNMKSyncProvider__handleMailboxesDesync__block_invoke_2(uint64_t 
     initialSyncProgressTracker3 = [(NNMKSyncProvider *)self initialSyncProgressTracker];
     isTrackingInitialSync = [initialSyncProgressTracker3 isTrackingInitialSync];
     fullSyncVersion3 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion];
-    v16[0] = 67109376;
-    v16[1] = isTrackingInitialSync;
-    v17 = 2048;
-    v18 = fullSyncVersion3;
-    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#initial-sync finished notification received. However, we're no longer waiting for it. Ignoring... (Tracking: %d - Current #sync-version: %lu)", v16, 0x12u);
+    v15[0] = 67109376;
+    v15[1] = isTrackingInitialSync;
+    v16 = 2048;
+    v17 = fullSyncVersion3;
+    _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#initial-sync finished notification received. However, we're no longer waiting for it. Ignoring... (Tracking: %d - Current #sync-version: %lu)", v15, 0x12u);
   }
 
 LABEL_7:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:(id)server didNotifyAboutWebKitStatus:(id)status
@@ -6387,7 +6274,7 @@ uint64_t __58__NNMKSyncProvider_syncStateManagerDidChangePairedDevice___block_in
 
 void __94__NNMKSyncProvider_syncStateManagerDidBeginSyncSession_syncSessionType_syncSessionIdentifier___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 152) pairedDeviceRegistryPath];
   v3 = qword_28144D620;
   v4 = os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT);
@@ -6397,11 +6284,11 @@ void __94__NNMKSyncProvider_syncStateManagerDidBeginSyncSession_syncSessionType_
     {
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v12 = 138543618;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v6;
-      _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE New session began, but we're already paired. (Type: %{public}@, Session ID: %{public}@). Responding with success...", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v5;
+      v13 = 2114;
+      v14 = v6;
+      _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE New session began, but we're already paired. (Type: %{public}@, Session ID: %{public}@). Responding with success...", &v11, 0x16u);
     }
 
     v7 = [*(a1 + 32) initialSyncProgressTracker];
@@ -6417,17 +6304,15 @@ void __94__NNMKSyncProvider_syncStateManagerDidBeginSyncSession_syncSessionType_
     {
       v9 = *(a1 + 40);
       v10 = *(a1 + 48);
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE New session began, requesting #initial-sync (Type: %{public}@, Session ID: %{public}@). Triggering #initial-sync...", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v10;
+      _os_log_impl(&dword_25B19F000, v3, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE New session began, requesting #initial-sync (Type: %{public}@, Session ID: %{public}@). Triggering #initial-sync...", &v11, 0x16u);
     }
 
     [*(a1 + 32) _handleDidPairWithNewDevice];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncStateManagerDidInvalidateSyncSession:(id)session syncSessionIdentifier:(id)identifier
@@ -6446,19 +6331,17 @@ void __94__NNMKSyncProvider_syncStateManagerDidBeginSyncSession_syncSessionType_
 
 uint64_t __83__NNMKSyncProvider_syncStateManagerDidInvalidateSyncSession_syncSessionIdentifier___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Session invalidate. Invalidating #full-sync (Session ID: %{public}@). We'll verify if everything seems alright...", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B19F000, v2, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Session invalidate. Invalidating #full-sync (Session ID: %{public}@). We'll verify if everything seems alright...", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _verifyPairingForcingSync:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _verifyPairingForcingSync:0];
 }
 
 - (BOOL)syncStateManagerShouldAddFavoriteSubsectionForMailboxId:(id)id
@@ -6559,7 +6442,7 @@ uint64_t __83__NNMKSyncProvider_syncStateManagerDidInvalidateSyncSession_syncSes
 - (void)_verifyPairingForcingSync:(BOOL)sync
 {
   syncCopy = sync;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEBUG))
   {
     [NNMKSyncProvider _verifyPairingForcingSync:];
@@ -6598,8 +6481,8 @@ uint64_t __83__NNMKSyncProvider_syncStateManagerDidInvalidateSyncSession_syncSes
         v11 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE We are paired, but force re-sync was requested. Triggering #initial-sync", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_25B19F000, v11, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE We are paired, but force re-sync was requested. Triggering #initial-sync", &v23, 2u);
         }
 
         [(NNMKSyncProvider *)self _triggerInitialSyncToRecoverFromSyncVersionMismatch];
@@ -6615,8 +6498,8 @@ uint64_t __83__NNMKSyncProvider_syncStateManagerDidInvalidateSyncSession_syncSes
           v22 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v24) = 0;
-            _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE We should be paired, but we don't have any synced mailbox. Forcing #initial-sync", &v24, 2u);
+            LOWORD(v23) = 0;
+            _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE We should be paired, but we don't have any synced mailbox. Forcing #initial-sync", &v23, 2u);
           }
 
           [(NNMKSyncProvider *)self _triggerInitialSync];
@@ -6632,15 +6515,15 @@ uint64_t __83__NNMKSyncProvider_syncStateManagerDidInvalidateSyncSession_syncSes
         syncStateManager = self->_syncStateManager;
         v16 = v14;
         pairingStorePath2 = [(NNMKSyncStateManager *)syncStateManager pairingStorePath];
-        LODWORD(v24) = 67240962;
-        HIDWORD(v24) = _isPaired;
-        v25 = 1026;
-        v26 = pairingStorePath != 0;
-        v27 = 1024;
-        v28 = syncCopy;
-        v29 = 2114;
-        v30 = pairingStorePath2;
-        _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE State has not changed. Initial sync will not be triggered (paired: %{public}d, should: %{public}d, force: %{piblic}d). SyncStateManager.pairingStorePath %{public}@", &v24, 0x1Eu);
+        LODWORD(v23) = 67240962;
+        HIDWORD(v23) = _isPaired;
+        v24 = 1026;
+        v25 = pairingStorePath != 0;
+        v26 = 1024;
+        v27 = syncCopy;
+        v28 = 2114;
+        v29 = pairingStorePath2;
+        _os_log_impl(&dword_25B19F000, v16, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE State has not changed. Initial sync will not be triggered (paired: %{public}d, should: %{public}d, force: %{piblic}d). SyncStateManager.pairingStorePath %{public}@", &v23, 0x1Eu);
       }
     }
 
@@ -6659,10 +6542,10 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      LOWORD(v24) = 0;
+      LOWORD(v23) = 0;
       v13 = "#PAIRING_STATE Pairing verification determined we're paired with a new device. Will start syncing with new device...";
 LABEL_20:
-      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, v13, &v24, 2u);
+      _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, v13, &v23, 2u);
       goto LABEL_37;
     }
 
@@ -6684,7 +6567,7 @@ LABEL_20:
         goto LABEL_37;
       }
 
-      LOWORD(v24) = 0;
+      LOWORD(v23) = 0;
       v13 = "#PAIRING_STATE Pairing verification determined we're paired and we should force syncing, even though PairedSync hasn't told Mail to start yet. Will force syncing...";
       goto LABEL_20;
     }
@@ -6692,8 +6575,8 @@ LABEL_20:
     v19 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Pairing verification determined we're paired. However, we're waiting for PairedSync to tell us to start syncing. Waiting...", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_25B19F000, v19, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Pairing verification determined we're paired. However, we're waiting for PairedSync to tell us to start syncing. Waiting...", &v23, 2u);
     }
   }
 
@@ -6702,16 +6585,14 @@ LABEL_20:
     v18 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Pairing verification determined we're no longer paired. Will unpair...", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_DEFAULT, "#PAIRING_STATE Pairing verification determined we're no longer paired. Will unpair...", &v23, 2u);
     }
 
     [(NNMKSyncProvider *)self _handleDidUnpair];
   }
 
 LABEL_38:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_storeScreenRelatedValues
@@ -6768,36 +6649,36 @@ LABEL_38:
 
 - (void)resendScheduler:(id)scheduler didRequestRetrySendingMessageDeletions:(id)deletions deletionsMessageIds:(id)ids resendInterval:(unint64_t)interval
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   deletionsCopy = deletions;
   idsCopy = ids;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v34 = deletionsCopy;
+  v33 = deletionsCopy;
   obj = [deletionsCopy allKeys];
-  v10 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v10 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v36;
+    v13 = *v35;
     *&v11 = 138543362;
-    v31 = v11;
+    v30 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
-        v16 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry mailboxWithId:v15, v31];
+        v15 = *(*(&v34 + 1) + 8 * i);
+        v16 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry mailboxWithId:v15, v30];
         if (v16)
         {
-          v17 = [v34 objectForKeyedSubscript:v15];
+          v17 = [v33 objectForKeyedSubscript:v15];
           [v17 setFullSyncVersion:{-[NNMKDeviceSyncRegistry fullSyncVersion](self->_pairedDeviceRegistry, "fullSyncVersion")}];
           v18 = MEMORY[0x277CCAAB0];
           date = [MEMORY[0x277CBEAA8] date];
@@ -6821,9 +6702,9 @@ LABEL_38:
             v27 = v26;
             nnmk_description = [idsCopy nnmk_description];
             *buf = 138543618;
-            v40 = v24;
-            v41 = 2114;
-            v42 = nnmk_description;
+            v39 = v24;
+            v40 = 2114;
+            v41 = nnmk_description;
             _os_log_impl(&dword_25B19F000, v27, OS_LOG_TYPE_DEFAULT, "Retrying sending message deletions. (IDS Identifier: %{public}@, deletions: %{public}@)", buf, 0x16u);
           }
         }
@@ -6833,20 +6714,18 @@ LABEL_38:
           v29 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v31;
-            v40 = v15;
+            *buf = v30;
+            v39 = v15;
             _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "Mailbox does not exist anymore. Ignoring resend deletion. %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v12 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v12);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resendScheduler:(id)scheduler didRequestRetrySendingAccountIdentifier:(id)identifier resendInterval:(unint64_t)interval
@@ -6878,56 +6757,52 @@ LABEL_38:
 
 - (void)resendScheduler:(id)scheduler didRequestRetrySendingVIPListWithResendInterval:(unint64_t)interval
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(NNMKRequestContext);
   [(NNMKRequestContext *)v6 setResendInterval:interval];
   v7 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     intervalCopy = interval;
-    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "Requesting VIP List to retry. Resend Interval: %lu", &v9, 0xCu);
+    _os_log_impl(&dword_25B19F000, v7, OS_LOG_TYPE_DEFAULT, "Requesting VIP List to retry. Resend Interval: %lu", &v8, 0xCu);
   }
 
   [(NNMKSyncProvider *)self _requestDelegateForVIPList:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resendScheduler:(id)scheduler didRequestRetrySendingDeletionForAccountWithId:(id)id resendInterval:(unint64_t)interval
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v8 = objc_alloc_init(NNMKProtoAccountDeletion);
   [(NNMKProtoAccountDeletion *)v8 setAccountId:idCopy];
   v9 = [(NNMKAccountsSyncServiceServer *)self->_accountsSyncService deleteAccount:v8];
   resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
-  v16[0] = idCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = idCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [resendScheduler registerIDSIdentifier:v9 objectIds:v11 type:@"Account" resendInterval:interval];
 
   v12 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543362;
-    v15 = v9;
-    _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Retrying sending deletion for account. (IDS Identifier: %{public}@)", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v9;
+    _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Retrying sending deletion for account. (IDS Identifier: %{public}@)", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resendScheduler:(id)scheduler didRequestRetrySendingComposeMessageProgress:(int64_t)progress messageId:(id)id resendInterval:(unint64_t)interval
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v10 = objc_alloc_init(NNMKProtoComposedMessageSendingProgressReport);
   [(NNMKProtoComposedMessageSendingProgressReport *)v10 setComposedMessageId:idCopy];
   [(NNMKProtoComposedMessageSendingProgressReport *)v10 setProgress:progress];
   v11 = [(NNMKFetchesSyncServiceServer *)self->_fetchesSyncService reportComposedMessageSendingProgress:v10];
   resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
-  v21[0] = idCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = idCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   [resendScheduler registerIDSIdentifier:v11 objectIds:v13 type:@"SendingProgress" resendInterval:interval];
 
   if (progress == -1)
@@ -6935,28 +6810,26 @@ LABEL_38:
     v14 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543618;
-      v18 = idCopy;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Failing composed message, as we restarted before even adding the message to the Outbox queue. (Composed Message Id: %{public}@ - IDS Identifier: %{public}@).", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = idCopy;
+      v18 = 2114;
+      v19 = v11;
+      _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Failing composed message, as we restarted before even adding the message to the Outbox queue. (Composed Message Id: %{public}@ - IDS Identifier: %{public}@).", &v16, 0x16u);
     }
   }
 
   v15 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = v11;
-    _os_log_impl(&dword_25B19F000, v15, OS_LOG_TYPE_DEFAULT, "Retrying sending compose message progress. (IDS Identifier: %{public}@)", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v11;
+    _os_log_impl(&dword_25B19F000, v15, OS_LOG_TYPE_DEFAULT, "Retrying sending compose message progress. (IDS Identifier: %{public}@)", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_verifyDatabaseOkForFullSyncVersion:(unint64_t)version mailbox:(id)mailbox
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mailboxCopy = mailbox;
   v7 = mailboxCopy;
   if (mailboxCopy && ([mailboxCopy syncActive] & 1) != 0)
@@ -6973,21 +6846,20 @@ LABEL_38:
     {
       v10 = v9;
       mailboxId = [v7 mailboxId];
-      v14 = 138543362;
-      v15 = mailboxId;
-      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Message received but sync isn't active. (Mailbox id: %{public}@) Discarding...", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = mailboxId;
+      _os_log_impl(&dword_25B19F000, v10, OS_LOG_TYPE_DEFAULT, "Message received but sync isn't active. (Mailbox id: %{public}@) Discarding...", &v13, 0xCu);
 
       v8 = 0;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_verifyDatabaseOkForFullSyncVersion:(unint64_t)version
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fullSyncVersion = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion];
   v6 = fullSyncVersion;
   if (fullSyncVersion <= version)
@@ -7000,14 +6872,14 @@ LABEL_38:
     v12 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
-      v15 = v12;
-      v17 = 134218496;
+      v14 = v12;
+      v16 = 134218496;
       versionCopy = version;
-      v19 = 2048;
+      v18 = 2048;
       versionCopy3 = v6;
-      v21 = 2048;
+      v20 = 2048;
       _isPaired = [(NNMKSyncProvider *)self _isPaired];
-      _os_log_error_impl(&dword_25B19F000, v15, OS_LOG_TYPE_ERROR, "Client has a #sync-version higher than what the server has (Version in Client: %lu - Local: %lu - Paired: %lu). Triggering #initial-sync...", &v17, 0x20u);
+      _os_log_error_impl(&dword_25B19F000, v14, OS_LOG_TYPE_ERROR, "Client has a #sync-version higher than what the server has (Version in Client: %lu - Local: %lu - Paired: %lu). Triggering #initial-sync...", &v16, 0x20u);
     }
 
     [(NNMKSyncProvider *)self _fastForwardToFullSyncVersion:version];
@@ -7042,11 +6914,11 @@ LABEL_14:
     {
       if (_isPaired2)
       {
-        v17 = 134218240;
+        v16 = 134218240;
         versionCopy = v6;
-        v19 = 2048;
+        v18 = 2048;
         versionCopy3 = version;
-        _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Received message that has a #sync-version so distant from the local one that we're triggering a #initial-sync. (Local: %lu - Client: %lu).", &v17, 0x16u);
+        _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Received message that has a #sync-version so distant from the local one that we're triggering a #initial-sync. (Local: %lu - Client: %lu).", &v16, 0x16u);
       }
 
       self->_fullSyncRecoveredInThisSession = 1;
@@ -7059,18 +6931,189 @@ LABEL_14:
 
     if (_isPaired2)
     {
-      v17 = 134218240;
+      v16 = 134218240;
       versionCopy = v6;
-      v19 = 2048;
+      v18 = 2048;
       versionCopy3 = version;
-      _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Message discarded because #sync-version is different (Local: %lu - Client: %lu).", &v17, 0x16u);
+      _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Message discarded because #sync-version is different (Local: %lu - Client: %lu).", &v16, 0x16u);
 LABEL_17:
       LOBYTE(_isPaired2) = 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return _isPaired2;
+}
+
+- (void)_addMessages:(id)messages messagesAreNew:(BOOL)new mailbox:(id)mailbox
+{
+  newCopy = new;
+  v64 = *MEMORY[0x277D85DE8];
+  messagesCopy = messages;
+  mailboxCopy = mailbox;
+  persistenceHandler = [(NNMKSyncProvider *)self persistenceHandler];
+  v55 = messagesCopy;
+  v11 = [persistenceHandler addMessages:messagesCopy containsNewMessages:newCopy mailbox:mailboxCopy];
+
+  protoMessagesWithNotificationPriority = [v11 protoMessagesWithNotificationPriority];
+  messageAdditionsCount = [protoMessagesWithNotificationPriority messageAdditionsCount];
+
+  if (messageAdditionsCount)
+  {
+    messagesSyncService = self->_messagesSyncService;
+    protoMessagesWithNotificationPriority2 = [v11 protoMessagesWithNotificationPriority];
+    v16 = [(NNMKMessagesSyncServiceServer *)messagesSyncService addMessages:protoMessagesWithNotificationPriority2 notificationPriority:1];
+
+    resendScheduler = [(NNMKSyncProvider *)self resendScheduler];
+    messageIdsWithNotificationPriority = [v11 messageIdsWithNotificationPriority];
+    [resendScheduler registerIDSIdentifier:v16 objectIds:messageIdsWithNotificationPriority type:@"Message" resendInterval:0];
+
+    messageIdsWithNotificationPriority2 = [v11 messageIdsWithNotificationPriority];
+    [(NNMKSyncProvider *)self _requestDelegateForContentForMessageIds:messageIdsWithNotificationPriority2 highPriority:1];
+
+    v20 = qword_28144D620;
+    if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
+    {
+      log = v20;
+      protoMessagesWithNotificationPriority3 = [v11 protoMessagesWithNotificationPriority];
+      v22 = newCopy;
+      newCopy = [protoMessagesWithNotificationPriority3 messageAdditionsCount];
+      mailboxId = [mailboxCopy mailboxId];
+      pairedDeviceRegistry = self->_pairedDeviceRegistry;
+      mailboxId2 = [mailboxCopy mailboxId];
+      *buf = 134218754;
+      v57 = newCopy;
+      LODWORD(newCopy) = v22;
+      v58 = 2114;
+      v59 = v16;
+      v60 = 2114;
+      v61 = mailboxId;
+      v62 = 2048;
+      v63 = [(NNMKDeviceSyncRegistry *)pairedDeviceRegistry syncVersionForMailboxId:mailboxId2];
+      _os_log_impl(&dword_25B19F000, log, OS_LOG_TYPE_DEFAULT, "Messages sent with URGENT priority. (Count: %lu - IDS Identifier: %{public}@ - Mailbox: %{public}@ - #mailbox-sync-version: %lu).", buf, 0x2Au);
+    }
+  }
+
+  protoMessagesWithDefaultPriority = [v11 protoMessagesWithDefaultPriority];
+  messageAdditionsCount2 = [protoMessagesWithDefaultPriority messageAdditionsCount];
+
+  if (messageAdditionsCount2)
+  {
+    v28 = self->_messagesSyncService;
+    protoMessagesWithDefaultPriority2 = [v11 protoMessagesWithDefaultPriority];
+    v30 = [(NNMKMessagesSyncServiceServer *)v28 addMessages:protoMessagesWithDefaultPriority2 notificationPriority:0];
+
+    resendScheduler2 = [(NNMKSyncProvider *)self resendScheduler];
+    messageIdsWithDefaultPriority = [v11 messageIdsWithDefaultPriority];
+    [resendScheduler2 registerIDSIdentifier:v30 objectIds:messageIdsWithDefaultPriority type:@"Message" resendInterval:0];
+
+    messageIdsWithDefaultPriority2 = [v11 messageIdsWithDefaultPriority];
+    v34 = messageIdsWithDefaultPriority2;
+    if (newCopy)
+    {
+      v35 = [messageIdsWithDefaultPriority2 count];
+
+      if (v35)
+      {
+        v36 = 1;
+        do
+        {
+          messageIdsWithDefaultPriority3 = [v11 messageIdsWithDefaultPriority];
+          v38 = [messageIdsWithDefaultPriority3 objectAtIndexedSubscript:v36 - 1];
+
+          [(NNMKSyncProvider *)self _requestDelegateForContentForMessageWithId:v38 highPriority:0];
+          messageIdsWithDefaultPriority4 = [v11 messageIdsWithDefaultPriority];
+          v40 = [messageIdsWithDefaultPriority4 count];
+
+          if (v36 >= v40)
+          {
+            break;
+          }
+        }
+
+        while (v36++ < 0xA);
+      }
+    }
+
+    else
+    {
+      [(NNMKSyncProvider *)self _requestDelegateForContentForMessageIds:messageIdsWithDefaultPriority2 highPriority:0];
+    }
+
+    v42 = qword_28144D620;
+    if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
+    {
+      loga = v42;
+      protoMessagesWithDefaultPriority3 = [v11 protoMessagesWithDefaultPriority];
+      messageAdditionsCount3 = [protoMessagesWithDefaultPriority3 messageAdditionsCount];
+      mailboxId3 = [mailboxCopy mailboxId];
+      currentDeviceRegistry = [(NNMKSyncProvider *)self currentDeviceRegistry];
+      [mailboxCopy mailboxId];
+      v48 = v47 = mailboxCopy;
+      v49 = [currentDeviceRegistry syncVersionForMailboxId:v48];
+      *buf = 134218754;
+      v57 = messageAdditionsCount3;
+      v58 = 2114;
+      v59 = v30;
+      v60 = 2114;
+      v61 = mailboxId3;
+      v62 = 2048;
+      v63 = v49;
+      _os_log_impl(&dword_25B19F000, loga, OS_LOG_TYPE_DEFAULT, "Messages sent with DEFAULT priority. (Count: %lu - IDS Identifier: %{public}@ - Mailbox: %{public}@ - #mailbox-sync-version: %lu).", buf, 0x2Au);
+
+      mailboxCopy = v47;
+    }
+  }
+
+  if ([v11 receivedOldMessages])
+  {
+    v50 = qword_28144D620;
+    if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_25B19F000, v50, OS_LOG_TYPE_DEFAULT, "Old messages are available for fetching. Sending notification to client...", buf, 2u);
+    }
+
+    v51 = objc_alloc_init(NNMKProtoOldMessagesAvailableNotification);
+    [(NNMKProtoOldMessagesAvailableNotification *)v51 setFullSyncVersion:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion]];
+    mailboxId4 = [mailboxCopy mailboxId];
+    [(NNMKProtoOldMessagesAvailableNotification *)v51 setMailboxId:mailboxId4];
+
+    [(NNMKFetchesSyncServiceServer *)self->_fetchesSyncService notifyOldMessagesAvailable:v51];
+  }
+}
+
+- (void)_markConversationWithId:(id)id forState:(unint64_t)state include:(BOOL)include mailbox:(id)mailbox
+{
+  includeCopy = include;
+  mailboxCopy = mailbox;
+  idCopy = id;
+  persistenceHandler = [(NNMKSyncProvider *)self persistenceHandler];
+  v13 = [persistenceHandler updateMessagesFromConversation:idCopy withState:state include:includeCopy mailbox:mailboxCopy];
+
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___block_invoke;
+  v24[3] = &unk_279936758;
+  v24[4] = self;
+  v14 = MEMORY[0x25F864490](v24);
+  messagesSyncService = self->_messagesSyncService;
+  protoMessageUpdatesWithNotificationPriority = [v13 protoMessageUpdatesWithNotificationPriority];
+  messageIdsWithNotificationPriority = [v13 messageIdsWithNotificationPriority];
+  (v14)[2](v14, messagesSyncService, protoMessageUpdatesWithNotificationPriority, messageIdsWithNotificationPriority, 1);
+
+  v18 = self->_messagesSyncService;
+  protoMessageUpdatesWithDefaultPriority = [v13 protoMessageUpdatesWithDefaultPriority];
+  messageIdsWithDefaultPriority = [v13 messageIdsWithDefaultPriority];
+  (v14)[2](v14, v18, protoMessageUpdatesWithDefaultPriority, messageIdsWithDefaultPriority, 0);
+
+  messageIdsToDelete = [v13 messageIdsToDelete];
+  v22 = [messageIdsToDelete count];
+
+  if (v22)
+  {
+    messageIdsToDelete2 = [v13 messageIdsToDelete];
+    [(NNMKSyncProvider *)self deleteMessagesWithIds:messageIdsToDelete2];
+  }
 }
 
 void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
@@ -7125,7 +7168,7 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
 
 - (void)_shouldHandleForwardForNotification:(id)notification withCompletion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   completionCopy = completion;
   request = [notificationCopy request];
@@ -7167,11 +7210,11 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
         {
           v24 = v23;
           accountId2 = [v22 accountId];
-          v39 = 138543618;
-          v40 = v11;
-          v41 = 2114;
-          v42 = accountId2;
-          _os_log_impl(&dword_25B19F000, v24, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Suppressing notification for message because account is in standalone mode. Message Id: %{public}@ - Account Id: %{public}@", &v39, 0x16u);
+          v38 = 138543618;
+          v39 = v11;
+          v40 = 2114;
+          v41 = accountId2;
+          _os_log_impl(&dword_25B19F000, v24, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Suppressing notification for message because account is in standalone mode. Message Id: %{public}@ - Account Id: %{public}@", &v38, 0x16u);
         }
 
         completionCopy[2](completionCopy, 0);
@@ -7188,9 +7231,9 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
             v29 = qword_28144D620;
             if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
             {
-              v39 = 138543362;
-              v40 = v11;
-              _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message, but we already sync'ed the content through the high priority channel for this message. Notifying back... (Message Id: %{public}@)", &v39, 0xCu);
+              v38 = 138543362;
+              v39 = v11;
+              _os_log_impl(&dword_25B19F000, v29, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message, but we already sync'ed the content through the high priority channel for this message. Notifying back... (Message Id: %{public}@)", &v38, 0xCu);
             }
 
             completionCopy[2](completionCopy, 1);
@@ -7204,9 +7247,9 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
             {
               if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
               {
-                v39 = 138543362;
-                v40 = v11;
-                _os_log_impl(&dword_25B19F000, v34, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message. We already have the message. Waiting for the content... (Message Id: %{public}@)", &v39, 0xCu);
+                v38 = 138543362;
+                v39 = v11;
+                _os_log_impl(&dword_25B19F000, v34, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message. We already have the message. Waiting for the content... (Message Id: %{public}@)", &v38, 0xCu);
               }
             }
 
@@ -7240,9 +7283,9 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
           v30 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = 138543362;
-            v40 = v11;
-            _os_log_impl(&dword_25B19F000, v30, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message. Waiting... (Message Id: %{public}@)", &v39, 0xCu);
+            v38 = 138543362;
+            v39 = v11;
+            _os_log_impl(&dword_25B19F000, v30, OS_LOG_TYPE_DEFAULT, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message. Waiting... (Message Id: %{public}@)", &v38, 0xCu);
           }
 
           v28 = MEMORY[0x25F864490](completionCopy);
@@ -7258,9 +7301,9 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
       v18 = qword_28144D620;
       if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_INFO))
       {
-        v39 = 138543362;
-        v40 = v11;
-        _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_INFO, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message, but the ack handler was NULL. Ignoring... (Message Id: %{public}@)", &v39, 0xCu);
+        v38 = 138543362;
+        v39 = v11;
+        _os_log_impl(&dword_25B19F000, v18, OS_LOG_TYPE_INFO, "#BulletinDistributor Ping Subscriber asked us to notify them back when we added content for a message, but the ack handler was NULL. Ignoring... (Message Id: %{public}@)", &v38, 0xCu);
       }
     }
   }
@@ -7274,20 +7317,18 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
 
     completionCopy[2](completionCopy, 1);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fastForwardToFullSyncVersion:(unint64_t)version
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pairedDeviceRegistry = self->_pairedDeviceRegistry;
   if (pairedDeviceRegistry)
   {
     if ([(NNMKDeviceSyncRegistry *)pairedDeviceRegistry fullSyncVersion]< version)
     {
       *&v6 = 134218240;
-      v12 = v6;
+      v11 = v6;
       do
       {
         v7 = qword_28144D620;
@@ -7296,14 +7337,14 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
           v8 = self->_pairedDeviceRegistry;
           v9 = v7;
           fullSyncVersion = [(NNMKDeviceSyncRegistry *)v8 fullSyncVersion];
-          *buf = v12;
-          v14 = version + 1;
-          v15 = 2048;
-          v16 = fullSyncVersion;
+          *buf = v11;
+          v13 = version + 1;
+          v14 = 2048;
+          v15 = fullSyncVersion;
           _os_log_impl(&dword_25B19F000, v9, OS_LOG_TYPE_DEFAULT, "Fast forwarding #sync-version (To: %lu - Current: %lu).", buf, 0x16u);
         }
 
-        [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry setFullSyncVersion:version, v12];
+        [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry setFullSyncVersion:version, v11];
         [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry cleanUpForInitialSync];
       }
 
@@ -7315,8 +7356,6 @@ void __69__NNMKSyncProvider__markConversationWithId_forState_include_mailbox___b
   {
     [NNMKSyncProvider _fastForwardToFullSyncVersion:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTaks
@@ -7443,7 +7482,7 @@ LABEL_14:
 
 void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 72) disconnectedSince];
   if (v2)
   {
@@ -7473,31 +7512,31 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
         v12 = +[NNMKAnalytics sharedInstance];
         [v12 reportHaltSyncRequestedFromSource:0];
 
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v13 = [*(*(a1 + 32) + 72) activeMailboxes];
-        v14 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v18 objects:v23 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v20;
+          v16 = *v19;
           do
           {
             v17 = 0;
             do
             {
-              if (*v20 != v16)
+              if (*v19 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [*(a1 + 32) _handleHaltSyncForMailbox:*(*(&v19 + 1) + 8 * v17++)];
+              [*(a1 + 32) _handleHaltSyncForMailbox:*(*(&v18 + 1) + 8 * v17++)];
             }
 
             while (v15 != v17);
-            v15 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v18 objects:v23 count:16];
           }
 
           while (v15);
@@ -7507,8 +7546,6 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)batchRequestHandlerDidTimeoutFetchRequest:(id)request
@@ -7525,7 +7562,7 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
 - (void)_checkBatchFetchedMessages
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   batchRequestHandler = [(NNMKSyncProvider *)self batchRequestHandler];
   checkBatchFetchedMessages = [batchRequestHandler checkBatchFetchedMessages];
 
@@ -7534,22 +7571,22 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
   if (v6)
   {
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v48 = checkBatchFetchedMessages;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v47 = checkBatchFetchedMessages;
     fetchResults2 = [checkBatchFetchedMessages fetchResults];
-    v8 = [fetchResults2 countByEnumeratingWithState:&v53 objects:v60 count:16];
+    v8 = [fetchResults2 countByEnumeratingWithState:&v52 objects:v59 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v54;
+      v10 = *v53;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v54 != v10)
+          if (*v53 != v10)
           {
             objc_enumerationMutation(fetchResults2);
           }
@@ -7557,29 +7594,29 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
           v12 = qword_28144D620;
           if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = *(*(&v53 + 1) + 8 * i);
+            v13 = *(*(&v52 + 1) + 8 * i);
             v14 = v12;
             mailboxId = [v13 mailboxId];
             *buf = 138543362;
-            v59 = mailboxId;
+            v58 = mailboxId;
             _os_log_impl(&dword_25B19F000, v14, OS_LOG_TYPE_DEFAULT, "Responding for #FETCH #BATCHED_RESPONSE request. (Mailbox id: %{public}@)", buf, 0xCu);
           }
         }
 
-        v9 = [fetchResults2 countByEnumeratingWithState:&v53 objects:v60 count:16];
+        v9 = [fetchResults2 countByEnumeratingWithState:&v52 objects:v59 count:16];
       }
 
       while (v9);
     }
 
-    checkBatchFetchedMessages = v48;
-    fetchResults3 = [v48 fetchResults];
+    checkBatchFetchedMessages = v47;
+    fetchResults3 = [v47 fetchResults];
     v17 = [fetchResults3 count];
 
     if (v17 == 1)
     {
       messagesSyncService = self->_messagesSyncService;
-      fetchResults4 = [v48 fetchResults];
+      fetchResults4 = [v47 fetchResults];
       firstObject = [(NNMKProtoCoalescedBatchedFetchResult *)fetchResults4 firstObject];
       v21 = [(NNMKMessagesSyncServiceServer *)messagesSyncService sendBatchedFetchResult:firstObject];
     }
@@ -7587,7 +7624,7 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
     else
     {
       fetchResults4 = objc_alloc_init(NNMKProtoCoalescedBatchedFetchResult);
-      fetchResults5 = [v48 fetchResults];
+      fetchResults5 = [v47 fetchResults];
       v23 = [fetchResults5 mutableCopy];
       [(NNMKProtoCoalescedBatchedFetchResult *)fetchResults4 setFetchResults:v23];
 
@@ -7595,31 +7632,31 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
     }
 
     [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry beginUpdates];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    messageIdsForRequestingContentDownload = [v48 messageIdsForRequestingContentDownload];
-    v26 = [messageIdsForRequestingContentDownload countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    messageIdsForRequestingContentDownload = [v47 messageIdsForRequestingContentDownload];
+    v26 = [messageIdsForRequestingContentDownload countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v50;
+      v28 = *v49;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v50 != v28)
+          if (*v49 != v28)
           {
             objc_enumerationMutation(messageIdsForRequestingContentDownload);
           }
 
-          v30 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry syncedMessageForMessageWithId:*(*(&v49 + 1) + 8 * j)];
+          v30 = [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry syncedMessageForMessageWithId:*(*(&v48 + 1) + 8 * j)];
           [v30 setContentRequestedByUser:1];
           [(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry addOrUpdateSyncedMessage:v30];
         }
 
-        v27 = [messageIdsForRequestingContentDownload countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v27 = [messageIdsForRequestingContentDownload countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
       while (v27);
@@ -7630,14 +7667,14 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       v32 = v31;
-      messageIdsForRequestingContentDownload2 = [v48 messageIdsForRequestingContentDownload];
+      messageIdsForRequestingContentDownload2 = [v47 messageIdsForRequestingContentDownload];
       v34 = [messageIdsForRequestingContentDownload2 count];
       *buf = 134217984;
-      v59 = v34;
+      v58 = v34;
       _os_log_impl(&dword_25B19F000, v32, OS_LOG_TYPE_DEFAULT, "Requesting message body for %lu most recent headers for #BATCHED_RESPONSE.", buf, 0xCu);
     }
 
-    messageIdsForRequestingContentDownload3 = [v48 messageIdsForRequestingContentDownload];
+    messageIdsForRequestingContentDownload3 = [v47 messageIdsForRequestingContentDownload];
     [(NNMKSyncProvider *)self _requestDelegateForContentForMessageIds:messageIdsForRequestingContentDownload3 highPriority:1];
   }
 
@@ -7653,7 +7690,7 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
       missingMessageHeaderIds2 = [checkBatchFetchedMessages missingMessageHeaderIds];
       v41 = [missingMessageHeaderIds2 count];
       *buf = 134217984;
-      v59 = v41;
+      v58 = v41;
       _os_log_impl(&dword_25B19F000, v39, OS_LOG_TYPE_DEFAULT, "Requesting message headers from MobileMail to respond for #BATCHED_RESPONSE. %li", buf, 0xCu);
     }
 
@@ -7676,8 +7713,6 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
     mailboxesToTriggerFullSync2 = [checkBatchFetchedMessages mailboxesToTriggerFullSync];
     [(NNMKSyncProvider *)self _triggerFullSyncForMailboxes:mailboxesToTriggerFullSync2];
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDidFailSendingProtobufWithIDSIdentifier:(id)identifier errorCode:(int64_t)code
@@ -7718,27 +7753,25 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
 - (void)_requestDelegateForMoreMessagesWithMailbox:(id)mailbox beforeDate:(id)date messagesForspecialMailboxFilterType:(unint64_t)type
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   mailboxCopy = mailbox;
   v10 = objc_alloc_init(NNMKRequestContext);
   [(NNMKRequestContext *)v10 setBeforeDate:dateCopy];
 
   [(NNMKRequestContext *)v10 setCount:20];
-  v14[0] = mailboxCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = mailboxCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
   [(NNMKRequestContext *)v10 setMailboxes:v11];
   [(NNMKRequestContext *)v10 setMessagesForSpecialMailbox:type];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained syncProvider:self didRequestMessagesWithContext:v10];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDelegateForMoreMessagesBeforeDateReceived:(id)received forConversationWithId:(id)id mailbox:(id)mailbox
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   idCopy = id;
   mailboxCopy = mailbox;
@@ -7747,8 +7780,8 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
     v11 = objc_alloc_init(NNMKRequestContext);
     [(NNMKRequestContext *)v11 setBeforeDate:receivedCopy];
     [(NNMKRequestContext *)v11 setCount:20];
-    v15[0] = mailboxCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = mailboxCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [(NNMKRequestContext *)v11 setMailboxes:v12];
 
     [(NNMKRequestContext *)v11 setConversationId:idCopy];
@@ -7760,8 +7793,6 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
   {
     [NNMKSyncProvider _requestDelegateForMoreMessagesBeforeDateReceived:forConversationWithId:mailbox:];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDelegateForFirstMessagesForMailboxes:(id)mailboxes
@@ -7774,6 +7805,61 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained syncProvider:self didRequestFirstMessages:20 mailboxes:mailboxesCopy];
+}
+
+- (void)_requestDelegateForContentForMessageIds:(id)ids highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  v22 = *MEMORY[0x277D85DE8];
+  idsCopy = ids;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v7 = [idsCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+  if (v7)
+  {
+    v9 = v7;
+    v10 = *v16;
+    *&v8 = 138543362;
+    v14 = v8;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(idsCopy);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = qword_28144D620;
+        if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = v14;
+          v20 = v12;
+          _os_log_debug_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEBUG, "Requesting content for message: %{public}@.", buf, 0xCu);
+        }
+
+        [(NNMKSyncProvider *)self _requestDelegateForContentForMessageWithId:v12 highPriority:priorityCopy, v14];
+        ++v11;
+      }
+
+      while (v9 != v11);
+      v9 = [idsCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)_requestDelegateForContentForMessageWithId:(id)id highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  idCopy = id;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained syncProvider:self didRequestContentForMessageWithId:idCopy highPriority:priorityCopy];
 }
 
 - (void)_requestDelegateToStopDownloadingMessageElementsForMessageWithId:(id)id
@@ -7791,7 +7877,7 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
 - (void)_requestDelegateForFetchForMailboxes:(id)mailboxes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mailboxesCopy = mailboxes;
   delegate = [(NNMKSyncProvider *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -7804,42 +7890,40 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     delegate2 = mailboxesCopy;
-    v8 = [delegate2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [delegate2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(delegate2);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * v11);
+          v12 = *(*(&v14 + 1) + 8 * v11);
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          [WeakRetained syncProviderDidRequestFetch:self forConversationId:0 mailbox:{v12, v15}];
+          [WeakRetained syncProviderDidRequestFetch:self forConversationId:0 mailbox:{v12, v14}];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [delegate2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [delegate2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDelegateToSendComposedMessage:(id)message
@@ -7865,19 +7949,17 @@ void __59__NNMKSyncProvider__checkConnectivityBasedSuspensionTimer___block_invok
 
 - (void)trackerDidFinishSendingInitialSyncContentToPairedDevice:(id)device
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(NNMKProtoInitialContentSyncCompletedNotification);
   [(NNMKProtoInitialContentSyncCompletedNotification *)v4 setFullSyncVersion:[(NNMKDeviceSyncRegistry *)self->_pairedDeviceRegistry fullSyncVersion]];
   v5 = [(NNMKMessageContentSyncServiceServer *)self->_contentSyncService notifyInitialContentSyncCompleted:v4];
   v6 = qword_28144D620;
   if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Notifying client that all content has been sync'ed (IDS Identifier: %{public}@)...", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_25B19F000, v6, OS_LOG_TYPE_DEFAULT, "Notifying client that all content has been sync'ed (IDS Identifier: %{public}@)...", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDelegateForMessagesToSendAsFetchResponseForMessageIds:(id)ids
@@ -7924,73 +8006,59 @@ void __97__NNMKSyncProvider_replyWithFirstMessages_includesProtectedMessages_mai
 
 - (void)_addMessages:(uint64_t)a3 mailbox:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 mailboxId];
   v7 = [NNMKMessage messageIdsFromMessages:a3];
   v8 = [v7 nnmk_description];
-  v10 = 138543618;
-  v11 = v6;
-  v12 = 2114;
-  v13 = v8;
-  _os_log_error_impl(&dword_25B19F000, v5, OS_LOG_TYPE_ERROR, "Dropping messages to add because mailbox is not active. (Mailbox: %{public}@ - Messages: %{public}@)", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543618;
+  v10 = v6;
+  v11 = 2114;
+  v12 = v8;
+  _os_log_error_impl(&dword_25B19F000, v5, OS_LOG_TYPE_ERROR, "Dropping messages to add because mailbox is not active. (Mailbox: %{public}@ - Messages: %{public}@)", &v9, 0x16u);
 }
 
 - (void)_updateMessagesStatus:(uint64_t)a3 mailbox:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 mailboxId];
   v7 = [a2 syncRequested];
   v8 = [a2 syncRequestedDate];
   v9 = [NNMKMessage messageIdsFromMessages:a3];
   v10 = [v9 nnmk_description];
-  v12 = 138544130;
-  v13 = v6;
-  v14 = 2048;
-  v15 = v7;
-  v16 = 2114;
-  v17 = v8;
-  v18 = 2114;
-  v19 = v10;
-  _os_log_error_impl(&dword_25B19F000, v5, OS_LOG_TYPE_ERROR, "Dropping messages to update because mailbox is not active. (Mailbox: %{public}@ - Sync Requested: %lu - Request Date - %{public}@ - Messages: %{public}@)", &v12, 0x2Au);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138544130;
+  v12 = v6;
+  v13 = 2048;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v8;
+  v17 = 2114;
+  v18 = v10;
+  _os_log_error_impl(&dword_25B19F000, v5, OS_LOG_TYPE_ERROR, "Dropping messages to update because mailbox is not active. (Mailbox: %{public}@ - Sync Requested: %lu - Request Date - %{public}@ - Messages: %{public}@)", &v11, 0x2Au);
 }
 
-void __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1(uint64_t *a1)
+void __46__NNMKSyncProvider_updateConversationId_mute___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtectedMessages___block_invoke_cold_1(uint64_t *a1)
+void __83__NNMKSyncProvider_markConversationIdForNotify_messages_includesProtectedMessages___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_5() mailboxId];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 - (void)_addMessageContent:forMessage:mailbox:.cold.1()
@@ -8000,23 +8068,18 @@ void __65__NNMKSyncProvider_addMessageContent_forMessage_loadedProtected___block
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_cold_1(unsigned __int8 *a1)
+void __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)messagesSyncServiceServer:didSendProtobufSuccessfullyWithIDSIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messagesSyncServiceServer:didRequestSendMessage:.cold.1()
@@ -8028,67 +8091,50 @@ void __40__NNMKSyncProvider_setOrganizeByThread___block_invoke_cold_1(unsigned _
 
 - (void)messagesSyncServiceServer:(void *)a1 didRequestCompactMessages:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 mailboxId];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7_0(&dword_25B19F000, v5, v6, "Ignoring compact request. Mailbox: %{public}@ (exists: %d)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_0(&dword_25B19F000, v5, v6, "Ignoring compact request. Mailbox: %{public}@ (exists: %d)", v7, v8, v9, v10);
 }
 
 - (void)messageContentSyncServiceServer:didSendProtobufSuccessfullyWithIDSIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountsSyncServiceServer:(void *)a1 didChangeAccountSourceType:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_5() fullSyncVersion];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenticationStatus_requestTime___block_invoke_68_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_5() emailAddressToken];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_5() emailAddressToken];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 8u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 8u);
 }
 
 - (void)_handleFetchRequest:(void *)a1 shouldResumeSync:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchesSyncServiceServer:didRequestMoreMessagesInBatch:.cold.1()
@@ -8100,25 +8146,19 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
 
 - (void)fetchesSyncServiceServer:(void *)a1 didRequestMoreMessages:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 mailboxId];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_7_0(&dword_25B19F000, v5, v6, "Ignoring #LOAD_MORE_MESSAGES request. Mailbox: %{public}@ (exists: %d)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_0(&dword_25B19F000, v5, v6, "Ignoring #LOAD_MORE_MESSAGES request. Mailbox: %{public}@ (exists: %d)", v7, v8, v9, v10);
 }
 
 - (void)fetchesSyncServiceServer:(void *)a1 didRequestMoreMessagesForConversation:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() mailboxId];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupPairedDeviceRegistry
@@ -8126,14 +8166,6 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)_verifyPairingForcingSync:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyPairingForcingSync:.cold.2()
@@ -8145,20 +8177,16 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
 
 - (void)resendScheduler:didRequestRetrySendingAccountIdentifier:resendInterval:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldHandleForwardForNotification:withCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldHandleForwardForNotification:withCompletion:.cold.2()
@@ -8170,11 +8198,9 @@ void __97__NNMKSyncProvider_accountsSyncServiceServer_didReceivedAccountAuthenti
 
 - (void)_fastForwardToFullSyncVersion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkConnectivityBasedSuspensionTimer:.cold.1()

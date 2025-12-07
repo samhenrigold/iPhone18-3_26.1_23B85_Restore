@@ -5,7 +5,6 @@
 - (NSString)description;
 - (SGMessageKey)initWithSerialized:(id)serialized;
 - (SGMessageKey)initWithSource:(id)source uniqueIdentifier:(id)identifier;
-- (id)serialize;
 @end
 
 @implementation SGMessageKey
@@ -76,13 +75,6 @@ LABEL_11:
   return v6;
 }
 
-- (id)serialize
-{
-  source = self->_source;
-  uniqueIdentifier = self->_uniqueIdentifier;
-  return SGDelimitedStringsSerialize();
-}
-
 - (SGMessageKey)initWithSerialized:(id)serialized
 {
   serializedCopy = serialized;
@@ -93,7 +85,7 @@ LABEL_11:
   }
 
   v6 = SGDelimitedStringsDeserialize();
-  if ([v6 count] != 2 && objc_msgSend(v6, "count") != 3)
+  if (objc_msgSend_count(v6) != 2 && objc_msgSend_count(v6) != 3)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGMessageKey.m" lineNumber:38 description:@"Invalid serialization"];

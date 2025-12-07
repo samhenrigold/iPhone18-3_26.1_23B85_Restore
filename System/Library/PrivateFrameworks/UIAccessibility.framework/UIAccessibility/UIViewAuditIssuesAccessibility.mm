@@ -10,45 +10,43 @@
 
 + (id)_axAuditContrastDetectionForView:(id)view
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   v5 = [self _axAuditTextCandidateForView:viewCopy];
   array = [MEMORY[0x1E695DF70] array];
   if ([v5 count])
   {
-    v15 = @"AX Audit: Element: %@ has an unknown contrast issue type.";
-    v16 = viewCopy;
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: Element: %@ has an unknown contrast issue type.");
   }
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", 4001, v15, v16];
-        [v11 setObject:v12 forKey:@"AXAuditIssueTypeKey"];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        4001 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", 4001];
+        [v11 setObject:4001 forKey:@"AXAuditIssueTypeKey"];
 
         v13 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v11];
         [array addObject:v13];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);

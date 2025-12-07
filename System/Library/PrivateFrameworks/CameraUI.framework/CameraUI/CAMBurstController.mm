@@ -390,11 +390,11 @@ LABEL_10:
   }
 }
 
-uint64_t __82__CAMBurstController__mutexQueueProcessCompleteBurstSessionWithIdentifier_device___block_invoke_4(uint64_t result, uint64_t a2)
+id *__82__CAMBurstController__mutexQueueProcessCompleteBurstSessionWithIdentifier_device___block_invoke_4(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) sendThumbnailData:a2 isVideo:0];
+    return [result[4] sendThumbnailData:a2 isVideo:0];
   }
 
   return result;

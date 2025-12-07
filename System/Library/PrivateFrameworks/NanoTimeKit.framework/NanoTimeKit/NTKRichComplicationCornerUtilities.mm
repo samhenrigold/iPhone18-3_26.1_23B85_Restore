@@ -104,12 +104,12 @@
   return v11;
 }
 
-uint64_t __86__NTKRichComplicationCornerUtilities_keylineViewForPosition_forDevice_narrowTopSlots___block_invoke(uint64_t a1, void *a2, CGFloat a3, CGFloat a4)
+uint64_t __86__NTKRichComplicationCornerUtilities_keylineViewForPosition_forDevice_narrowTopSlots___block_invoke(void *a1, void *a2, CGFloat a3, CGFloat a4)
 {
   v7 = a2;
   v8 = objc_opt_class();
   [v7 bounds];
-  v9 = [v8 hitTestPathWithViewBounds:*(a1 + 48) position:*(a1 + 32) forDevice:?];
+  v9 = [v8 hitTestPathWithViewBounds:a1[6] position:a1[4] forDevice:?];
   [v7 bounds];
   v11 = v10;
   v13 = v12;

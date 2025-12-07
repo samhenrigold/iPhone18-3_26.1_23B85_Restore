@@ -141,7 +141,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    corrects = self->_corrects;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -153,7 +152,6 @@ LABEL_5:
       }
 
 LABEL_10:
-      unknowns = self->_unknowns;
       PBDataWriterWriteInt32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -169,7 +167,6 @@ LABEL_10:
     goto LABEL_5;
   }
 
-  incorrects = self->_incorrects;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -184,7 +181,6 @@ LABEL_6:
   }
 
 LABEL_11:
-  invalids = self->_invalids;
 
   PBDataWriterWriteInt32Field();
 }

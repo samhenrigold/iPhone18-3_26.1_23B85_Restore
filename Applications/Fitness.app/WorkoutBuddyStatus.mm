@@ -10,7 +10,7 @@
   v5 = type metadata accessor for WorkoutBuddySummaryTitleView();
   __chkstk_darwin(v5 - 8);
   WorkoutBuddySummaryTitleView.init(isWorkoutConfiguredWithWorkoutBuddy:isWorkoutBuddyMuted:isWorkoutBuddyHeadphonesOff:)();
-  v6 = objc_allocWithZone(sub_100140278(&qword_1008DCBA0));
+  v6 = objc_allocWithZone(sub_100140278(&qword_1008DCBA0, &qword_1006D5578));
   v7 = _UIHostingView.init(rootView:)();
 
   return v7;

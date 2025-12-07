@@ -121,34 +121,33 @@ LABEL_8:
     }
 
     v5 = [(SearchUICollectionViewCellAccessibility *)self safeValueForKey:@"rowModel"];
-    v6 = *MEMORY[0x29EDBB1F8];
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:{*MEMORY[0x29EDBB1E0], *MEMORY[0x29EDBB1F8], *MEMORY[0x29EDBB1D8], *MEMORY[0x29EDBB1F0], *MEMORY[0x29EDBB200], *MEMORY[0x29EDBB1E8], 0}];
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:{*MEMORY[0x29EDBB1E0], *MEMORY[0x29EDBB1F8], *MEMORY[0x29EDBB1D8], *MEMORY[0x29EDBB1F0], *MEMORY[0x29EDBB200], *MEMORY[0x29EDBB1E8], 0}];
     NSClassFromString(&cfstr_Searchuidetail_1.isa);
     if (objc_opt_isKindOfClass())
     {
-      v8 = [v5 safeValueForKey:@"identifyingResult"];
-      v9 = [v8 safeStringForKey:@"contentType"];
+      v7 = [v5 safeValueForKey:@"identifyingResult"];
+      v8 = [v7 safeStringForKey:@"contentType"];
 
-      if ([v7 containsObject:v9])
+      if ([v6 containsObject:v8])
       {
-        v13 = accessibilityLocalizedString(@"siri.shortcut");
-        v10 = __UIAXStringForVariables();
+        v12 = accessibilityLocalizedString(@"siri.shortcut");
+        v9 = __UIAXStringForVariables();
 
-        _accessibilityLabelFallback = v10;
+        _accessibilityLabelFallback = v9;
       }
     }
 
     _accessibilityLabelFallback = _accessibilityLabelFallback;
 
-    v11 = _accessibilityLabelFallback;
+    v10 = _accessibilityLabelFallback;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)accessibilityValue
@@ -307,7 +306,7 @@ uint64_t __81__SearchUICollectionViewCellAccessibility__accessibilitySupplementa
 
 - (BOOL)_accessibilityContainsCombinedView
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%p-_accessibilityContainsCombinedView", self];
   v4 = MEMORY[0x29EDC7300];
   v5 = [*MEMORY[0x29EDC7300] objectForKeyedSubscript:v3];
@@ -325,26 +324,25 @@ uint64_t __81__SearchUICollectionViewCellAccessibility__accessibilitySupplementa
       [SearchUICollectionViewCellAccessibility _accessibilityContainsCombinedView];
     }
 
-    v18 = 0u;
-    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     accessibilityElements = [(SearchUICollectionViewCellAccessibility *)self accessibilityElements];
-    v9 = [accessibilityElements countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [accessibilityElements countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v15;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(accessibilityElements);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass())
           {
             v7 = 1;
@@ -352,7 +350,7 @@ uint64_t __81__SearchUICollectionViewCellAccessibility__accessibilitySupplementa
           }
         }
 
-        v10 = [accessibilityElements countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [accessibilityElements countByEnumeratingWithState:&v14 objects:v18 count:16];
         v7 = 0;
         if (v10)
         {
@@ -374,7 +372,6 @@ LABEL_17:
     [*v4 setObject:v6 forKeyedSubscript:v3];
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -388,27 +385,25 @@ Class __77__SearchUICollectionViewCellAccessibility__accessibilityContainsCombin
 
 - (BOOL)_accessibilityContainsNestedAccessibilityView
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  accessibilityElements = [(SearchUICollectionViewCellAccessibility *)self accessibilityElements];
-  v3 = [accessibilityElements countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [(SearchUICollectionViewCellAccessibility *)self accessibilityElements:0];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(accessibilityElements);
+          objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
         NSClassFromString(&cfstr_Searchuiinfoca_0.isa);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -427,12 +422,12 @@ Class __77__SearchUICollectionViewCellAccessibility__accessibilityContainsCombin
           }
         }
 
-        v8 = 1;
+        v7 = 1;
         goto LABEL_15;
       }
 
-      v4 = [accessibilityElements countByEnumeratingWithState:&v11 objects:v15 count:16];
-      v8 = 0;
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v7 = 0;
       if (v4)
       {
         continue;
@@ -444,18 +439,17 @@ Class __77__SearchUICollectionViewCellAccessibility__accessibilityContainsCombin
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_15:
 
-  v9 = *MEMORY[0x29EDCA608];
-  return v8;
+  return v7;
 }
 
 - (id)_accessibilityLabelFallback
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%p-_accessibilityLabel", self];
   v4 = MEMORY[0x29EDC7300];
   v5 = [*MEMORY[0x29EDC7300] objectForKeyedSubscript:v3];
@@ -473,15 +467,15 @@ LABEL_15:
     }
 
     v7 = [(SearchUICollectionViewCellAccessibility *)self _accessibilityFindSubviewDescendantsPassingTest:&__block_literal_global_395];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       v6 = &stru_2A22CFF00;
       do
       {
@@ -489,13 +483,13 @@ LABEL_15:
         v12 = v6;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          accessibilityLabel = [*(*(&v17 + 1) + 8 * v11) accessibilityLabel];
-          v16 = @"__AXStringForVariablesSentinel";
+          accessibilityLabel = [*(*(&v16 + 1) + 8 * v11) accessibilityLabel];
+          v15 = @"__AXStringForVariablesSentinel";
           v6 = __AXStringForVariables();
 
           ++v11;
@@ -503,7 +497,7 @@ LABEL_15:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v9);
@@ -516,8 +510,6 @@ LABEL_15:
 
     [*v4 setObject:v6 forKeyedSubscript:v3];
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

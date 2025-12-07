@@ -1,6 +1,7 @@
 @interface _MKFHomeManagerHome
 + (id)modelIDForParentRelationshipTo:(id)to;
 - (MKFHomeManagerHomeDatabaseID)databaseID;
+- (id)hmd_modelsWithChangeType:(unint64_t)type detached:(BOOL)detached error:(id *)error;
 @end
 
 @implementation _MKFHomeManagerHome
@@ -24,6 +25,27 @@
   v2 = [(MKFObjectDatabaseID *)[MKFHomeManagerHomeDatabaseID alloc] initWithMKFObject:self];
 
   return v2;
+}
+
+- (id)hmd_modelsWithChangeType:(unint64_t)type detached:(BOOL)detached error:(id *)error
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v6 = [(HMDBackingStoreModelObject *)[HMDHomeManagerHomeModel alloc] initWithManagedObject:self changeType:type detached:detached error:error];
+  if (v6)
+  {
+    handle = [(_MKFHomeManagerHome *)self handle];
+    [(HMDHomeManagerHomeModel *)v6 setHandle:handle];
+
+    v10[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 @end

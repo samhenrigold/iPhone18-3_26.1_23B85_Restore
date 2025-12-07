@@ -5,6 +5,7 @@
 - (unint64_t)_userType4StateFromRegionState:(int64_t)state;
 - (void)_handleHomeLocationChangedNotification:(id)notification;
 - (void)_registerForMessages;
+- (void)_updateLocationAuthorization:(int64_t)authorization withReason:(unint64_t)reason notifyDelegate:(BOOL)delegate;
 - (void)_updateState:(unint64_t)state withReason:(unint64_t)reason notifyDelegate:(BOOL)delegate;
 - (void)configureWithCompletion:(id)completion;
 - (void)deregisterForRegionUpdates;
@@ -52,7 +53,7 @@
 
 void __65__HMDUserActivityStateType4Detector_didDetermineState_forRegion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) region];
   if (v2)
   {
@@ -71,13 +72,13 @@ void __65__HMDUserActivityStateType4Detector_didDetermineState_forRegion___block
         v10 = HMFGetLogIdentifier();
         v11 = HMRegionStateString();
         v12 = HMDUserVacationStateAsString(v6);
-        v15 = 138543874;
-        v16 = v10;
-        v17 = 2112;
-        v18 = v11;
-        v19 = 2112;
-        v20 = v12;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received region update callback. regionState: %@, vacationState: %@", &v15, 0x20u);
+        v14 = 138543874;
+        v15 = v10;
+        v16 = 2112;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v12;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Received region update callback. regionState: %@, vacationState: %@", &v14, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -107,8 +108,6 @@ void __65__HMDUserActivityStateType4Detector_didDetermineState_forRegion___block
       [*(a1 + 32) _updateState:v6 withReason:v13 notifyDelegate:1];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHomeLocationChangedNotification:(id)notification
@@ -128,7 +127,7 @@ void __65__HMDUserActivityStateType4Detector_didDetermineState_forRegion___block
 
 uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotification___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -136,11 +135,11 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) name];
-    v13 = 138543618;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -151,9 +150,7 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
   [*(a1 + 32) setHomeLocation:v10];
 
   [*(a1 + 32) deregisterForRegionUpdates];
-  result = [*(a1 + 32) registerForRegionUpdates];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) registerForRegionUpdates];
 }
 
 - (void)handleLocationAuthorizationChange:(int64_t)change
@@ -168,14 +165,14 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
 - (void)_updateState:(unint64_t)state withReason:(unint64_t)reason notifyDelegate:(BOOL)delegate
 {
   delegateCopy = delegate;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
   if ([(HMDUserActivityStateType4Detector *)self state]== state)
   {
-    goto LABEL_15;
+    return;
   }
 
   v11 = objc_autoreleasePoolPush();
@@ -186,13 +183,13 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
     v14 = HMFGetLogIdentifier();
     v15 = HMDUserVacationStateAsString(state);
     v16 = HMDUserActivityStateDetectorUpdateReasonAsString(reason);
-    v26 = 138543874;
-    v27 = v14;
-    v28 = 2112;
-    v29 = v15;
-    v30 = 2112;
-    v31 = v16;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Vacation state changed: %@, reason: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v14;
+    v27 = 2112;
+    v28 = v15;
+    v29 = 2112;
+    v30 = v16;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Vacation state changed: %@, reason: %@", &v25, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -202,7 +199,7 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
   {
     if (!state)
     {
-      goto LABEL_15;
+      return;
     }
 
     if (state != 1)
@@ -220,7 +217,7 @@ uint64_t __76__HMDUserActivityStateType4Detector__handleHomeLocationChangedNotif
     {
       if (state == 4)
       {
-        goto LABEL_15;
+        return;
       }
 
       goto LABEL_11;
@@ -246,9 +243,49 @@ LABEL_11:
       [(HMDUserActivityStateDetector *)selfCopy notifyDetectorStateChangedWithReason:reason];
     }
   }
+}
 
-LABEL_15:
-  v25 = *MEMORY[0x277D85DE8];
+- (void)_updateLocationAuthorization:(int64_t)authorization withReason:(unint64_t)reason notifyDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  v21 = *MEMORY[0x277D85DE8];
+  dataSource = [(HMDUserActivityStateDetector *)self dataSource];
+  queue = [dataSource queue];
+  dispatch_assert_queue_V2(queue);
+
+  if ([(HMDUserActivityStateDetector *)self locationAuthorization]!= authorization)
+  {
+    v11 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = HMFGetLogIdentifier();
+      v15 = HMLocationAuthorizationAsString();
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Location authorization updated to %@", &v17, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    [(HMDUserActivityStateDetector *)selfCopy setLocationAuthorization:authorization];
+    locationAuthorization = [(HMDUserActivityStateDetector *)selfCopy locationAuthorization];
+    switch(locationAuthorization)
+    {
+      case 2:
+        [(HMDUserActivityStateType4Detector *)selfCopy _updateState:1 withReason:reason notifyDelegate:delegateCopy];
+        [(HMDUserActivityStateType4Detector *)selfCopy deregisterForRegionUpdates];
+        break;
+      case 1:
+        [(HMDUserActivityStateType4Detector *)selfCopy registerForRegionUpdates];
+        break;
+      case 0:
+        [(HMDUserActivityStateType4Detector *)selfCopy _updateState:4 withReason:reason notifyDelegate:delegateCopy];
+        break;
+    }
+  }
 }
 
 - (void)_registerForMessages
@@ -267,7 +304,7 @@ LABEL_15:
 
 - (void)deregisterForRegionUpdates
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -276,24 +313,22 @@ LABEL_15:
   if (region)
   {
     location = [(HMDUserActivityStateType4Detector *)self location];
-    v10[0] = region;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __63__HMDUserActivityStateType4Detector_deregisterForRegionUpdates__block_invoke;
-    v9[3] = &unk_27868A250;
-    v9[4] = self;
-    [location deregisterForRegionUpdate:v7 completionHandler:v9];
+    v9[0] = region;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __63__HMDUserActivityStateType4Detector_deregisterForRegionUpdates__block_invoke;
+    v8[3] = &unk_27868A250;
+    v8[4] = self;
+    [location deregisterForRegionUpdate:v7 completionHandler:v8];
 
     [(HMDUserActivityStateType4Detector *)self setRegion:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDUserActivityStateType4Detector_deregisterForRegionUpdates__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -304,24 +339,24 @@ void __63__HMDUserActivityStateType4Detector_deregisterForRegionUpdates__block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to deregister for region updates with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_229538000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Successfully deregistered for vacation region updates";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -330,12 +365,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForRegionUpdates
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -365,14 +399,14 @@ LABEL_6:
 
         location = [(HMDUserActivityStateType4Detector *)self location];
         region4 = [(HMDUserActivityStateType4Detector *)self region];
-        v31 = region4;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_invoke;
-        v30[3] = &unk_27868A250;
-        v30[4] = self;
-        [location registerForRegionUpdate:v23 withDelegate:self completionHandler:v30];
+        v30 = region4;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_invoke;
+        v29[3] = &unk_27868A250;
+        v29[4] = self;
+        [location registerForRegionUpdate:v23 withDelegate:self completionHandler:v29];
 
 LABEL_14:
         goto LABEL_15;
@@ -385,7 +419,7 @@ LABEL_14:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v27;
+        v32 = v27;
         v28 = "%{public}@Not registering for region updates as location authorization is not allowed";
         goto LABEL_12;
       }
@@ -400,7 +434,7 @@ LABEL_14:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v27;
+        v32 = v27;
         v28 = "%{public}@Not registering for region updates as there is no home location";
 LABEL_12:
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, v28, buf, 0xCu);
@@ -418,19 +452,17 @@ LABEL_12:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v9;
+    v32 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Not registering for region updates as there is already a region", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
 LABEL_15:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -442,9 +474,9 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to register for region updates with error: %@", buf, 0x16u);
     }
 
@@ -465,19 +497,17 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully registered for vacation region updates", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
@@ -489,9 +519,9 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring VacationDetector", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring VacationDetector", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -513,11 +543,11 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
   {
     v20 = HMFGetLogIdentifier();
     v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserActivityStateType4Detector state](v18, "state")}];
-    v25 = 138543618;
-    v26 = v20;
-    v27 = 2112;
-    v28 = v21;
-    _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Configured VacationDetector with initial state %@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v20;
+    v26 = 2112;
+    v27 = v21;
+    _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Configured VacationDetector with initial state %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
@@ -527,8 +557,6 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
   {
     (*(v22 + 2))(v22);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserActivityStateType4Detector)initWithDataSource:(id)source location:(id)location
@@ -570,10 +598,9 @@ void __61__HMDUserActivityStateType4Detector_registerForRegionUpdates__block_inv
 
 void __48__HMDUserActivityStateType4Detector_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_157753;
-  logCategory__hmf_once_v15_157753 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_157753;
+  logCategory__hmf_once_v15_157753 = v0;
 }
 
 @end

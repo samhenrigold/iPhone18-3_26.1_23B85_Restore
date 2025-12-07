@@ -64,16 +64,16 @@
 
     API::Attachment::setFileWrapperAndUpdateContentType(&self->_attachment, wrapper, type);
     v11 = _Block_copy(completion);
-    v12 = WTF::fastMalloc(0x10);
-    *v12 = &unk_1F10FAFE0;
-    v12[1] = v11;
-    v16 = v12;
-    API::Attachment::updateAttributes(&self->_attachment, &v16);
-    v13 = v16;
-    v16 = 0;
-    if (v13)
+    v13 = WTF::fastMalloc(v12, 0x10);
+    *v13 = &unk_1F10FAFE0;
+    v13[1] = v11;
+    v17 = v13;
+    API::Attachment::updateAttributes(&self->_attachment, &v17);
+    v14 = v17;
+    v17 = 0;
+    if (v14)
     {
-      (*(*v13 + 8))(v13);
+      (*(*v14 + 8))(v14);
     }
 
     _Block_release(0);
@@ -81,10 +81,10 @@
 
   else if (completion)
   {
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WKErrorDomain" code:2 userInfo:0];
-    v15 = *(completion + 2);
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WKErrorDomain" code:2 userInfo:0];
+    v16 = *(completion + 2);
 
-    v15(completion, v14);
+    v16(completion, v15);
   }
 }
 

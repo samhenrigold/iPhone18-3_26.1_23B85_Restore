@@ -145,7 +145,7 @@ LABEL_7:
         if ([(MKLocalPointsOfInterestRequest *)self->_pointsOfInterestRequest _createdFromRegion])
         {
           v24 = MEMORY[0x1E69A2200];
-          [(MKLocalPointsOfInterestRequest *)self->_pointsOfInterestRequest region];
+          objc_msgSend_region(self->_pointsOfInterestRequest);
           v25 = [v24 _mapkit_mapRegionForCoordinateRegion:?];
           pointOfInterestFilter3 = +[MKMapService sharedService];
           pointOfInterestFilter2 = [(MKLocalPointsOfInterestRequest *)self->_pointsOfInterestRequest pointOfInterestFilter];
@@ -352,7 +352,7 @@ LABEL_14:
       defaultTraits3 = [v53 defaultTraits];
 
       v54 = MEMORY[0x1E69A2200];
-      [requestCopy region];
+      objc_msgSend_region(requestCopy);
       v55 = [v54 _mapkit_mapRegionForCoordinateRegion:?];
       [defaultTraits3 setMapRegion:v55];
     }
@@ -391,7 +391,7 @@ LABEL_14:
     if ([requestCopy _hasRegion])
     {
       v62 = MEMORY[0x1E69A2200];
-      [requestCopy region];
+      objc_msgSend_region(requestCopy);
       v63 = [v62 _mapkit_mapRegionForCoordinateRegion:?];
       [defaultTraits3 setMapRegion:v63];
     }

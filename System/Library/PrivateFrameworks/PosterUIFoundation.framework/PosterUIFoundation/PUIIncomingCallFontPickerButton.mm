@@ -263,7 +263,7 @@
   v13[1] = *MEMORY[0x1E69E9840];
   textCopy = text;
   v6 = [textCopy length];
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v6);
   v7 = (2 * v6 + 15) & 0xFFFFFFFFFFFFFFF0;
   v8 = [textCopy getCharacters:v13 - v7 range:{0, v6}];
   MEMORY[0x1EEE9AC00](v8);

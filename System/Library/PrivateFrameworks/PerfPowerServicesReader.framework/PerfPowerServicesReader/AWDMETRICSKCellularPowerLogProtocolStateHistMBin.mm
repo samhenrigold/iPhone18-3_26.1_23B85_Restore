@@ -1,5 +1,6 @@
 @interface AWDMETRICSKCellularPowerLogProtocolStateHistMBin
 - (BOOL)isEqual:(id)equal;
+- (id)binIdAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -27,6 +28,21 @@
   {
     return 0;
   }
+}
+
+- (id)binIdAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FE20[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBinId:(id)id
@@ -273,7 +289,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    binId = self->_binId;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -293,7 +308,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -308,12 +322,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  count = self->_count;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    durationBinIndex = self->_durationBinIndex;
     PBDataWriterWriteUint32Field();
   }
 

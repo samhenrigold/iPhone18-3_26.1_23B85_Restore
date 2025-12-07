@@ -510,7 +510,6 @@ LABEL_18:
   has = self->_has;
   if ((*&has & 0x400) != 0)
   {
-    rxframe = self->_rxframe;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x20) == 0)
@@ -530,7 +529,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxbyte = self->_rxbyte;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -545,7 +543,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  rxerror = self->_rxerror;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -560,7 +557,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  rxctl = self->_rxctl;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -575,7 +571,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  rxnobuf = self->_rxnobuf;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -590,7 +585,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  rxrtry = self->_rxrtry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -605,7 +599,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  rxnondata = self->_rxnondata;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -620,7 +613,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  rxbadds = self->_rxbadds;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -635,7 +627,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  rxbadcm = self->_rxbadcm;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -650,7 +641,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  rxfragerr = self->_rxfragerr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -665,7 +655,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  rxrunt = self->_rxrunt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -680,7 +669,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  rxgiant = self->_rxgiant;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -695,7 +683,6 @@ LABEL_14:
   }
 
 LABEL_31:
-  rxnoscb = self->_rxnoscb;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -710,7 +697,6 @@ LABEL_15:
   }
 
 LABEL_32:
-  rxbadproto = self->_rxbadproto;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -722,7 +708,6 @@ LABEL_16:
     }
 
 LABEL_34:
-    rxbadda = self->_rxbadda;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x100) == 0)
     {
@@ -733,7 +718,6 @@ LABEL_34:
   }
 
 LABEL_33:
-  rxbadsrcmac = self->_rxbadsrcmac;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) != 0)
@@ -748,7 +732,6 @@ LABEL_17:
   }
 
 LABEL_35:
-  rxfilter = self->_rxfilter;
 
   PBDataWriterWriteUint64Field();
 }

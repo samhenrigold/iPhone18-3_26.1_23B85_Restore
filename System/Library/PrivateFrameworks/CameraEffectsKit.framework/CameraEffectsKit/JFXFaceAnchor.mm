@@ -58,7 +58,7 @@
               [geometry2 vertices];
 
               v19 = [JFXFaceAnchor alloc];
-              [v15 transform];
+              objc_msgSend_transform(v15);
               v44 = v21;
               v45 = v20;
               v42 = v23;
@@ -71,10 +71,10 @@
               [camera imageResolution];
               v16 = [(JFXFaceAnchor *)v19 initWithTransform:0 forFaceRect:orientation needsMirroring:3 withFaceRectScaleFactor:v45 frameImageResolution:v44 captureInterfaceOrientation:v43 preferredAnchorOrientation:v42, SquareWithSize, v26, v28, v30, *&width, *&height, v32, v33];
 
-              [v15 transform];
+              objc_msgSend_transform(v15);
               [(JFXFaceAnchor *)v16 setTransform:?];
               camera2 = [frameCopy camera];
-              [camera2 transform];
+              objc_msgSend_transform(camera2);
               [(JFXFaceAnchor *)v16 setCameraTransform:?];
 
               camera3 = [frameCopy camera];
@@ -133,45 +133,45 @@ LABEL_21:
 
 - (JFXFaceAnchor)initWithTransform:(__n128)transform forFaceRect:(__n128)rect needsMirroring:(__n128)mirroring withFaceRectScaleFactor:(CGFloat)factor frameImageResolution:(CGFloat)resolution captureInterfaceOrientation:(double)orientation preferredAnchorOrientation:(double)anchorOrientation
 {
-  v41.receiver = self;
-  v41.super_class = JFXFaceAnchor;
-  v27 = [(JFXFaceAnchor *)&v41 init];
-  v28 = v27;
-  if (v27)
+  v38.receiver = self;
+  v38.super_class = JFXFaceAnchor;
+  v24 = [(JFXFaceAnchor *)&v38 init];
+  v25 = v24;
+  if (v24)
   {
-    *v27->_anon_70 = a2;
-    *&v27->_anon_70[16] = transform;
-    *&v27->_anon_70[32] = rect;
-    *&v27->_anon_70[48] = mirroring;
+    *v24->_anon_70 = a2;
+    *&v24->_anon_70[16] = transform;
+    *&v24->_anon_70[32] = rect;
+    *&v24->_anon_70[48] = mirroring;
     if (a11)
     {
       [JFXFaceAnchor CFX_mirrorPoseTransformLeftRight:?];
-      *v28->_anon_70 = v29;
-      *&v28->_anon_70[16] = v30;
-      *&v28->_anon_70[32] = v31;
-      *&v28->_anon_70[48] = v32;
+      *v25->_anon_70 = v26;
+      *&v25->_anon_70[16] = v27;
+      *&v25->_anon_70[32] = v28;
+      *&v25->_anon_70[48] = v29;
     }
 
-    *&v28->_anon_70[60] = 1065353216;
-    v28->_imageResolution.width = a16;
-    v28->_imageResolution.height = a17;
-    v28->_faceRect.origin.x = factor;
-    v28->_faceRect.origin.y = resolution;
-    v28->_faceRect.size.width = orientation * a14;
-    v28->_faceRect.size.height = anchorOrientation * a15;
-    v28->_captureInterfaceOrientation = a12;
-    v33 = MEMORY[0x277D860B8];
-    v34 = *(MEMORY[0x277D860B8] + 16);
-    *&v28[1].super.isa = *MEMORY[0x277D860B8];
-    *&v28[1]._preferredAnchorOrientation = v34;
-    v35 = *(v33 + 48);
-    v28[1]._imageResolution = *(v33 + 32);
-    v28[1]._faceRect.origin = v35;
-    v28->_focalLength = 0.0;
-    v28->_preferredAnchorOrientation = a13;
+    *&v25->_anon_70[60] = 1065353216;
+    v25->_imageResolution.width = a16;
+    v25->_imageResolution.height = a17;
+    v25->_faceRect.origin.x = factor;
+    v25->_faceRect.origin.y = resolution;
+    v25->_faceRect.size.width = orientation * a14;
+    v25->_faceRect.size.height = anchorOrientation * a15;
+    v25->_captureInterfaceOrientation = a12;
+    v30 = MEMORY[0x277D860B8];
+    v31 = *(MEMORY[0x277D860B8] + 16);
+    *&v25[1].super.isa = *MEMORY[0x277D860B8];
+    *&v25[1]._preferredAnchorOrientation = v31;
+    v32 = *(v30 + 48);
+    v25[1]._imageResolution = *(v30 + 32);
+    v25[1]._faceRect.origin = v32;
+    v25->_focalLength = 0.0;
+    v25->_preferredAnchorOrientation = a13;
   }
 
-  return v28;
+  return v25;
 }
 
 - (double)focalLengthForViewport:(CGSize)viewport
@@ -277,35 +277,35 @@ LABEL_21:
 
 - (__n128)screenRelativePosition
 {
-  [self transform];
-  v15 = v2;
+  objc_msgSend_transform(self, a2);
+  v17 = v4;
   [self cameraTransform];
-  v5 = vzip1q_s32(v3, v4);
-  v6 = vzip2q_s32(v3, v4);
-  v9 = vzip1q_s32(v7, v8);
-  v10 = vzip2q_s32(v7, v8);
-  v14 = vzip2q_s32(v6, v10);
-  v16 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(v5, v9), v15.f32[0]), vzip2q_s32(v5, v9), *v15.f32, 1), vzip1q_s32(v6, v10), v15, 2);
-  v11 = JFXLog_DebugFaceAnchor();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v7 = vzip1q_s32(v5, v6);
+  v8 = vzip2q_s32(v5, v6);
+  v11 = vzip1q_s32(v9, v10);
+  v12 = vzip2q_s32(v9, v10);
+  v16 = vzip2q_s32(v8, v12);
+  v18 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(v7, v11), v17.f32[0]), vzip2q_s32(v7, v11), *v17.f32, 1), vzip1q_s32(v8, v12), v17, 2);
+  v13 = JFXLog_DebugFaceAnchor();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [JFXFaceAnchor screenRelativePosition];
   }
 
-  v17 = vmlaq_laneq_f32(v16, v14, v15, 3);
+  v19 = vmlaq_laneq_f32(v18, v16, v17, 3);
 
-  v12 = JFXLog_DebugFaceAnchor();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = JFXLog_DebugFaceAnchor();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [JFXFaceAnchor screenRelativePosition];
   }
 
-  return v17;
+  return v19;
 }
 
 - (double)rollAngle
 {
-  [(JFXFaceAnchor *)self transform];
+  objc_msgSend_transform(self, a2, 0);
   pv_simd_matrix_get_euler_angles();
   return 0.0;
 }
@@ -380,19 +380,25 @@ LABEL_21:
 {
   v1 = [a1 camera];
   v2 = [v1 description];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "ARCamera: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "ARCamera: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 + (void)faceAnchorWithARFrame:(void *)a1 captureInterfaceOrientation:withFaceRectScaleFactor:.cold.2(void *a1)
 {
   v1 = [a1 description];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "ARFaceAnchor: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "ARFaceAnchor: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)faceAnchorWithARFrame:(void *)a1 captureInterfaceOrientation:withFaceRectScaleFactor:.cold.3(void *a1)
 {
   v1 = [a1 debugDescription];
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "from ARFrame %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "from ARFrame %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)screenRelativePosition

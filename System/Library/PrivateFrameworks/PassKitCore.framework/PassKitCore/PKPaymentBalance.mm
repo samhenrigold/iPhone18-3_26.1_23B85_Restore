@@ -377,9 +377,9 @@ LABEL_39:
             goto LABEL_44;
           }
 
-          v26 = [v23 isEqualToString:v24];
+          isEqualToString = objc_msgSend_isEqualToString_(v23);
 
-          if ((v26 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             goto LABEL_37;
           }
@@ -566,7 +566,7 @@ LABEL_44:
   currencyCode = self->_currencyCode;
   if (currencyCode)
   {
-    LOBYTE(currencyCode) = ![(NSString *)currencyCode isEqualToString:@"XXX"];
+    LOBYTE(currencyCode) = objc_msgSend_isEqualToString_(currencyCode, a2, @"XXX") ^ 1;
   }
 
   return currencyCode;
@@ -692,47 +692,36 @@ LABEL_9:
       }
 
       currencyCode = [equalCopy currencyCode];
-      v13 = currencyCode;
-      if (currencyCode)
-      {
-        v14 = currencyCode;
-      }
-
-      else
-      {
-        v14 = @"XXX";
-      }
-
-      if (!-[__CFString isEqualToString:](currencyCode, "isEqualToString:", v14) || (exponent = self->_exponent, exponent != [equalCopy exponent]))
+      if (!objc_msgSend_isEqualToString_(currencyCode) || (exponent = self->_exponent, exponent != [equalCopy exponent]))
       {
         v9 = 0;
-LABEL_49:
+LABEL_46:
 
-        goto LABEL_50;
+        goto LABEL_47;
       }
 
       localizedTitle = self->_localizedTitle;
       localizedTitle = [equalCopy localizedTitle];
-      v18 = localizedTitle;
+      v16 = localizedTitle;
       if (localizedTitle && localizedTitle)
       {
         if (([(NSString *)localizedTitle isEqual:localizedTitle]& 1) != 0)
         {
-LABEL_20:
+LABEL_17:
           localizedDescription = self->_localizedDescription;
           localizedDescription = [equalCopy localizedDescription];
-          v21 = localizedDescription;
+          v19 = localizedDescription;
           if (localizedDescription && localizedDescription)
           {
             if (([(NSString *)localizedDescription isEqual:localizedDescription]& 1) == 0)
             {
-              goto LABEL_38;
+              goto LABEL_35;
             }
           }
 
           else if (localizedDescription != localizedDescription)
           {
-            goto LABEL_38;
+            goto LABEL_35;
           }
 
           isPrimary = self->_isPrimary;
@@ -740,29 +729,29 @@ LABEL_20:
           {
             lastUpdateDate = self->_lastUpdateDate;
             lastUpdateDate = [equalCopy lastUpdateDate];
-            v25 = lastUpdateDate;
+            v23 = lastUpdateDate;
             if (lastUpdateDate && lastUpdateDate)
             {
               if (([(NSDate *)lastUpdateDate isEqual:lastUpdateDate]& 1) != 0)
               {
-LABEL_32:
+LABEL_29:
                 componentBalances = self->_componentBalances;
                 componentBalances = [equalCopy componentBalances];
-                v28 = componentBalances;
+                v26 = componentBalances;
                 if (componentBalances && componentBalances)
                 {
                   if (([(NSArray *)componentBalances isEqual:componentBalances]& 1) != 0)
                   {
-                    goto LABEL_35;
+                    goto LABEL_32;
                   }
                 }
 
                 else if (componentBalances == componentBalances)
                 {
-LABEL_35:
+LABEL_32:
                   identifiers = self->_identifiers;
                   identifiers = [equalCopy identifiers];
-                  v31 = identifiers;
+                  v29 = identifiers;
                   if (identifiers && identifiers)
                   {
                     v9 = [(NSSet *)identifiers isEqual:identifiers];
@@ -773,44 +762,44 @@ LABEL_35:
                     v9 = identifiers == identifiers;
                   }
 
-                  goto LABEL_45;
+                  goto LABEL_42;
                 }
 
                 v9 = 0;
-LABEL_45:
+LABEL_42:
 
-                goto LABEL_46;
+                goto LABEL_43;
               }
             }
 
             else if (lastUpdateDate == lastUpdateDate)
             {
-              goto LABEL_32;
+              goto LABEL_29;
             }
 
             v9 = 0;
-LABEL_46:
+LABEL_43:
 
-            goto LABEL_47;
+            goto LABEL_44;
           }
 
-LABEL_38:
+LABEL_35:
           v9 = 0;
-LABEL_47:
+LABEL_44:
 
-          goto LABEL_48;
+          goto LABEL_45;
         }
       }
 
       else if (localizedTitle == localizedTitle)
       {
-        goto LABEL_20;
+        goto LABEL_17;
       }
 
       v9 = 0;
-LABEL_48:
+LABEL_45:
 
-      goto LABEL_49;
+      goto LABEL_46;
     }
   }
 
@@ -824,7 +813,7 @@ LABEL_48:
   }
 
   v9 = 0;
-LABEL_50:
+LABEL_47:
 
   return v9;
 }

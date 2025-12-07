@@ -52,17 +52,15 @@ void __52__WKDefaultWallpaperManager_defaultWallpaperManager__block_invoke()
 
 - (void)_loadDefaultWallpaperFile
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   path = [a2 path];
-  v9 = 138543618;
-  v10 = v6;
-  v11 = 2114;
-  v12 = path;
-  _os_log_error_impl(&dword_1E4A23000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Default wallpaper lookup file does not exist at path '%{public}@'", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543618;
+  v9 = v6;
+  v10 = 2114;
+  v11 = path;
+  _os_log_error_impl(&dword_1E4A23000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Default wallpaper lookup file does not exist at path '%{public}@'", &v8, 0x16u);
 }
 
 - (void)_loadDefaultWallpaperInformation
@@ -74,31 +72,29 @@ void __52__WKDefaultWallpaperManager_defaultWallpaperManager__block_invoke()
 
 void __61__WKDefaultWallpaperManager__loadDefaultWallpaperInformation__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = WKLogForCategory(2uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[WKDefaultWallpaperManager _loadDefaultWallpaperInformation]_block_invoke";
-    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%s: Complete.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[WKDefaultWallpaperManager _loadDefaultWallpaperInformation]_block_invoke";
+    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%s: Complete.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultWallpaperLookupURL
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = WKWallpapersBaseURL();
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = WKWallpapersBaseURL(self);
   v4 = MGCopyAnswer();
   v5 = WKLogForCategory(2uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromClass(self);
     *buf = 138543618;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v4;
+    v16 = v6;
+    v17 = 2114;
+    v18 = v4;
     _os_log_impl(&dword_1E4A23000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolving default wallpaper for device name '%{public}@'", buf, 0x16u);
   }
 
@@ -113,13 +109,11 @@ void __61__WKDefaultWallpaperManager__loadDefaultWallpaperInformation__block_inv
     v12 = NSStringFromClass(self);
     path = [v10 path];
     *buf = 138543618;
-    v17 = v12;
-    v18 = 2114;
-    v19 = path;
+    v16 = v12;
+    v17 = 2114;
+    v18 = path;
     _os_log_impl(&dword_1E4A23000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolved to default wallpaper look up file at path '%{public}@'", buf, 0x16u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -133,21 +127,19 @@ void __61__WKDefaultWallpaperManager__loadDefaultWallpaperInformation__block_inv
 
 - (id)deviceLogicalScreenClass
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = WKLogicalScreenClassString();
   v3 = WKLogForCategory(2uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v2;
-    _os_log_impl(&dword_1E4A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolved to logical screen class '%{public}@'", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v2;
+    _os_log_impl(&dword_1E4A23000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolved to logical screen class '%{public}@'", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

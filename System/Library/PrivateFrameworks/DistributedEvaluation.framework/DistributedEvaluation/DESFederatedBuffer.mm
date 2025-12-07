@@ -107,52 +107,37 @@ LABEL_17:
 
 + (void)computeApproximateStaleness:stalenessScale:stalenessBias:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid approximate staleness: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid approximate staleness: %@", v3, v4, v5, v6);
 }
 
 + (void)computeApproximateStaleness:stalenessScale:stalenessBias:.cold.3()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_2_1(&dword_248FF7000, v1, v2, "Approximate staleness for Federated Buffer: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_248FF7000, v1, v2, "Approximate staleness for Federated Buffer: %@", v3, v4, v5, v6);
 }
 
 + (void)computeApproximateStaleness:stalenessScale:stalenessBias:.cold.4()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid time delta for approximate staleness: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid time delta for approximate staleness: %@", v3, v4, v5, v6);
 }
 
 + (void)computeDownScalingFactor:approximateStaleness:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid down-scaling factor %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_248FF7000, v1, v2, "Invalid down-scaling factor %@", v3, v4, v5, v6);
 }
 
 + (void)computeDownScalingFactor:approximateStaleness:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithDouble:?];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_2_1(&dword_248FF7000, v1, v2, "Down-scaling factor for Federated Buffer: %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_248FF7000, v1, v2, "Down-scaling factor for Federated Buffer: %@", v3, v4, v5, v6);
 }
 
 @end

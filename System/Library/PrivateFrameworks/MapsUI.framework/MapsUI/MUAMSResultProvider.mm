@@ -54,31 +54,31 @@
 
 void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_completion___block_invoke(id *a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 8);
   if (WeakRetained)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v5 = a1[4];
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v6)
     {
-      v7 = *v32;
+      v7 = *v31;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v32 != v7)
+          if (*v31 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v31 + 1) + 8 * i);
+          v9 = *(*(&v30 + 1) + 8 * i);
           v10 = [WeakRetained[1] amsResultForBundleId:v9];
           if (v10)
           {
@@ -91,7 +91,7 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v6);
@@ -106,9 +106,9 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
       {
         v14 = a1[4];
         *buf = 138412546;
-        v36 = v3;
-        v37 = 2112;
-        v38 = v14;
+        v35 = v3;
+        v36 = 2112;
+        v37 = v14;
         _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "These bundle ids are not present %@. Requesting the service for bundle ids %@.", buf, 0x16u);
       }
 
@@ -120,16 +120,16 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
       [a1[6] displayScale];
       v22 = v21;
       v23 = [a1[6] source];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_completion___block_invoke_55;
-      v27[3] = &unk_1E821A848;
-      objc_copyWeak(&v30, a1 + 8);
-      v28 = a1[5];
-      v29 = a1[7];
-      [v15 appleMediaServicesResultsWithBundleIdentifiers:v16 artworkSize:v23 screenScale:v27 source:v18 completion:{v20, v22}];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_completion___block_invoke_55;
+      v26[3] = &unk_1E821A848;
+      objc_copyWeak(&v29, a1 + 8);
+      v27 = a1[5];
+      v28 = a1[7];
+      [v15 appleMediaServicesResultsWithBundleIdentifiers:v16 artworkSize:v23 screenScale:v26 source:v18 completion:{v20, v22}];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
     }
 
     else
@@ -138,7 +138,7 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
       {
         v24 = a1[4];
         *buf = 138412290;
-        v36 = v24;
+        v35 = v24;
         _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "There is a cache hit for all requested bundle ids %@.  Early return.", buf, 0xCu);
       }
 
@@ -146,8 +146,6 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
       [WeakRetained _finishWithResults:v25 error:0 onCallbackQueue:a1[5] completion:a1[7]];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_completion___block_invoke_55(id *a1, void *a2, void *a3)
@@ -174,7 +172,7 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
 
 void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = MUGetMUAMSResultProviderLog();
@@ -182,37 +180,37 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v23 = v3;
+      v22 = v3;
       _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_ERROR, "Error with fetching bundle ids %@", buf, 0xCu);
     }
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = MUGetMUAMSResultProviderLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = [v9 identifier];
           *buf = 138412290;
-          v23 = v11;
+          v22 = v11;
           _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "Updating cache with bundle id %@", buf, 0xCu);
         }
 
@@ -221,7 +219,7 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
         [v12 setAMSResult:v9 forBundleId:v13];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -230,8 +228,6 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
   v14 = *(a1 + 48);
   v15 = [*(a1 + 40) copy];
   [v14 _finishWithResults:v15 error:*(a1 + 32) onCallbackQueue:*(a1 + 56) completion:*(a1 + 64)];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchResultsForAdamIds:(id)ids options:(id)options callbackQueue:(id)queue completion:(id)completion
@@ -263,31 +259,31 @@ void __81__MUAMSResultProvider_fetchResultsForBundleIds_options_callbackQueue_co
 
 void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_completion___block_invoke(id *a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 8);
   if (WeakRetained)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v5 = a1[4];
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v6)
     {
-      v7 = *v32;
+      v7 = *v31;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v32 != v7)
+          if (*v31 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v31 + 1) + 8 * i);
+          v9 = *(*(&v30 + 1) + 8 * i);
           v10 = [WeakRetained[1] amsResultForAdamId:v9];
           if (v10)
           {
@@ -300,7 +296,7 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v6);
@@ -315,9 +311,9 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
       {
         v14 = a1[4];
         *buf = 138412546;
-        v36 = v3;
-        v37 = 2112;
-        v38 = v14;
+        v35 = v3;
+        v36 = 2112;
+        v37 = v14;
         _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "These adam ids are not present %@. Requesting the service for adam ids %@.", buf, 0x16u);
       }
 
@@ -329,17 +325,17 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
       [a1[6] displayScale];
       v22 = v21;
       v23 = [a1[6] source];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_completion___block_invoke_52;
-      v27[3] = &unk_1E821A7D0;
-      objc_copyWeak(&v30, a1 + 8);
-      v27[4] = WeakRetained;
-      v28 = a1[5];
-      v29 = a1[7];
-      [v15 appleMediaServicesResultsWithIdentifiers:v16 artworkSize:1 screenScale:v23 type:v27 source:v18 completion:{v20, v22}];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_completion___block_invoke_52;
+      v26[3] = &unk_1E821A7D0;
+      objc_copyWeak(&v29, a1 + 8);
+      v26[4] = WeakRetained;
+      v27 = a1[5];
+      v28 = a1[7];
+      [v15 appleMediaServicesResultsWithIdentifiers:v16 artworkSize:1 screenScale:v23 type:v26 source:v18 completion:{v20, v22}];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
     }
 
     else
@@ -348,7 +344,7 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
       {
         v24 = a1[4];
         *buf = 138412290;
-        v36 = v24;
+        v35 = v24;
         _os_log_impl(&dword_1C5620000, v12, OS_LOG_TYPE_INFO, "There is a cache hit for all requested adam ids %@.  Early return.", buf, 0xCu);
       }
 
@@ -356,8 +352,6 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
       [WeakRetained _finishWithResults:v25 error:0 onCallbackQueue:a1[5] completion:a1[7]];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_completion___block_invoke_52(uint64_t a1, void *a2, void *a3)
@@ -386,7 +380,7 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
 
 void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_completion___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = MUGetMUAMSResultProviderLog();
@@ -394,37 +388,37 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v23 = v3;
+      v22 = v3;
       _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_ERROR, "Error with fetching adam ids %@", buf, 0xCu);
     }
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = MUGetMUAMSResultProviderLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = [v9 identifier];
           *buf = 138412290;
-          v23 = v11;
+          v22 = v11;
           _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "Updating cache with adam id %@", buf, 0xCu);
         }
 
@@ -433,7 +427,7 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
         [v12 setAMSResult:v9 forAdamId:v13];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -442,8 +436,6 @@ void __79__MUAMSResultProvider_fetchResultsForAdamIds_options_callbackQueue_comp
   v14 = *(a1 + 56);
   v15 = [*(a1 + 40) copy];
   [v14 _finishWithResults:v15 error:*(a1 + 32) onCallbackQueue:*(a1 + 64) completion:*(a1 + 72)];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (MUAMSResultProvider)initWithCache:(id)cache

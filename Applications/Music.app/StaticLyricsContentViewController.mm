@@ -22,7 +22,7 @@
 - (void)viewLayoutMarginsDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for StaticLyricsContentViewController();
+  v3.super_class = type metadata accessor for StaticLyricsContentViewController(0);
   v2 = v3.receiver;
   [(StaticLyricsContentViewController *)&v3 viewLayoutMarginsDidChange];
   sub_100783BB0();

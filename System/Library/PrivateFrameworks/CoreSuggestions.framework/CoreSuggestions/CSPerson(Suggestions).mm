@@ -10,7 +10,7 @@
 
 - (id)sg_initWithSerializedForm:()Suggestions
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v4 = SGDelimitedStringsDeserialize(a3);
   if ([v4 count] == 3)
   {
@@ -43,8 +43,8 @@
     v12 = [v4 objectAtIndexedSubscript:2];
     if (v11)
     {
-      v16[0] = v11;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v11;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     }
 
     else
@@ -59,8 +59,6 @@
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -100,17 +98,15 @@
 
 - (id)sg_initWithNamedEmailAddress:()Suggestions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v5 = a3;
   name = [v5 name];
   emailAddress = [v5 emailAddress];
 
-  v12[0] = emailAddress;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = emailAddress;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v9 = [selfCopy initWithDisplayName:name handles:v8 handleIdentifier:@"emailAddresses"];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

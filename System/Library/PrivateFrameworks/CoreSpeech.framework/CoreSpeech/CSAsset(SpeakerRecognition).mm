@@ -39,7 +39,7 @@
 
 - (BOOL)containsMultiUserThresholds
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   path = [self path];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [defaultManager fileExistsAtPath:path];
@@ -54,9 +54,9 @@
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
-        v19 = 2114;
-        v20 = path;
+        v17 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
+        v18 = 2114;
+        v19 = path;
         _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEFAULT, "%s Could not read: %{public}@", buf, 0x16u);
         v9 = 0;
       }
@@ -64,20 +64,20 @@
       goto LABEL_17;
     }
 
-    v16 = 0;
-    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v15];
+    v6 = v15;
     if (v6)
     {
       v7 = *MEMORY[0x277D015D8];
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v18 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
-        v19 = 2114;
-        v20 = path;
-        v21 = 2114;
-        v22 = v6;
+        v17 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
+        v18 = 2114;
+        v19 = path;
+        v20 = 2114;
+        v21 = v6;
         _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s Could not decode contents of: %{public}@: err: %{public}@", buf, 0x20u);
       }
     }
@@ -112,24 +112,23 @@ LABEL_17:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
-    v19 = 2114;
-    v20 = path;
+    v17 = "[CSAsset(SpeakerRecognition) containsMultiUserThresholds]";
+    v18 = 2114;
+    v19 = path;
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ doesnt exist", buf, 0x16u);
     v9 = 0;
   }
 
 LABEL_18:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (uint64_t)satImplicitTrainingEnabled
 {
-  v2 = (CSIsIOS() & 1) != 0 || CSIsMac();
+  v3 = (CSIsIOS() & 1) != 0 || CSIsMac();
 
-  return [self getBoolForKey:@"implicit_training_enabled" category:@"speakerRecognition" default:v2];
+  return [self getBoolForKey:@"implicit_training_enabled" category:@"speakerRecognition" default:v3];
 }
 
 - (id)keywordDetectorNDAPIConfigFilePath
@@ -383,7 +382,7 @@ LABEL_18:
 
 - (id)getPhraseConfig:()SpeakerRecognition
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [self getValueForKey:@"phrase" category:@"speakerRecognition"];
   v5 = v4;
   if (v4 && [v4 count] <= a3)
@@ -391,11 +390,11 @@ LABEL_18:
     v7 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[CSAsset(SpeakerRecognition) getPhraseConfig:]";
-      v12 = 1024;
-      v13 = a3;
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Config for ph: %d doesn't exist, use default", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[CSAsset(SpeakerRecognition) getPhraseConfig:]";
+      v11 = 1024;
+      v12 = a3;
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Config for ph: %d doesn't exist, use default", &v9, 0x12u);
     }
 
     v6 = 0;
@@ -405,8 +404,6 @@ LABEL_18:
   {
     v6 = [v5 objectAtIndex:a3];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

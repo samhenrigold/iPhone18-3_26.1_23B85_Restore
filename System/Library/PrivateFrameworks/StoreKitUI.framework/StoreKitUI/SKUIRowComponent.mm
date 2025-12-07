@@ -229,17 +229,17 @@ void __44__SKUIRowComponent__updateWithMissingItems___block_invoke(uint64_t a1, 
   componentDictionary = [contextCopy componentDictionary];
   v5 = [componentDictionary objectForKey:@"type"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ((v6 = SKUIPageComponentTypeForBlockType(v5), v6 <= 0xE) ? (v7 = ((1 << v6) & 0x46A4) == 0) : (v7 = 1), v7))
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ((v6 = SKUIPageComponentTypeForBlockType(v5), v6 <= 0xE) ? (v8 = ((1 << v6) & 0x46A4) == 0) : (v8 = 1), v8))
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = [objc_alloc(SKUIPageComponentClassForComponentType(v6)) initWithCustomPageContext:contextCopy];
+    v9 = [objc_alloc(SKUIPageComponentClassForComponentType(v6 v7))];
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)_isChildMissingItemData:(id)data

@@ -120,19 +120,20 @@ void __38__SUUIPassbookLoader_loadPassWithURL___block_invoke_2(uint64_t a1)
 - (void)addPassesViewControllerDidFinish:(id)finish
 {
   finishCopy = finish;
-  v11 = objc_getAssociatedObject(finishCopy, "com.apple.iTunesStoreUI.SUUIPassbookLoader.pass");
-  if (v11)
+  v5 = objc_getAssociatedObject(finishCopy, "com.apple.iTunesStoreUI.SUUIPassbookLoader.pass");
+  v13 = v5;
+  if (v5)
   {
-    v5 = SUUIPassKitCoreFramework();
-    v6 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v5));
-    if ([v6 containsPass:v11])
+    v7 = SUUIPassKitCoreFramework(v5, v6);
+    v8 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v7));
+    if ([v8 containsPass:v13])
     {
       defaultStore = [MEMORY[0x277D69A20] defaultStore];
       activeAccount = [defaultStore activeAccount];
-      serialNumber = [v11 serialNumber];
+      serialNumber = [v13 serialNumber];
       [activeAccount setITunesPassSerialNumber:serialNumber];
 
-      v10 = [defaultStore addAccount:activeAccount];
+      v12 = [defaultStore addAccount:activeAccount];
     }
   }
 
@@ -152,14 +153,14 @@ void __38__SUUIPassbookLoader_loadPassWithURL___block_invoke_2(uint64_t a1)
 
     if (v6)
     {
-      v7 = SUUIPassKitUIFramework();
-      v8 = SUUIWeakLinkedClassForString(&cfstr_Pkaddpassesvie.isa, v7);
-      if ([(objc_class *)v8 canAddPasses])
+      v9 = SUUIPassKitUIFramework(v7, v8);
+      v10 = SUUIWeakLinkedClassForString(&cfstr_Pkaddpassesvie.isa, v9);
+      if ([(objc_class *)v10 canAddPasses])
       {
-        v9 = [[v8 alloc] initWithPass:value];
-        [v9 setDelegate:self];
-        objc_setAssociatedObject(v9, "com.apple.iTunesStoreUI.SUUIPassbookLoader.pass", value, 1);
-        [v6 presentViewController:v9 animated:1 completion:0];
+        v11 = [[v10 alloc] initWithPass:value];
+        [v11 setDelegate:self];
+        objc_setAssociatedObject(v11, "com.apple.iTunesStoreUI.SUUIPassbookLoader.pass", value, 1);
+        [v6 presentViewController:v11 animated:1 completion:0];
       }
     }
   }

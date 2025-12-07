@@ -20,6 +20,8 @@
 - (void)setAppStickiness:(int64_t)stickiness;
 - (void)settingsChanged:(id)changed forBundleID:(id)d;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CSLPRFReturnToClockSettingsViewController
@@ -241,6 +243,34 @@ LABEL_14:
   }
 
   return v7;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (self->_hasAppeared)
+  {
+    [(CSLPRFReturnToClockSettingsViewController *)self reloadAll];
+  }
+
+  else
+  {
+    self->_hasAppeared = 1;
+  }
+
+  [(CSLPRFReturnToClockSettingsViewController *)self startObservingNotifications];
+  v5.receiver = self;
+  v5.super_class = CSLPRFReturnToClockSettingsViewController;
+  [(CSLPRFReturnToClockSettingsViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(CSLPRFReturnToClockSettingsViewController *)self stopObservingNotifications];
+  v5.receiver = self;
+  v5.super_class = CSLPRFReturnToClockSettingsViewController;
+  [(CSLPRFReturnToClockSettingsViewController *)&v5 viewWillDisappear:disappearCopy];
 }
 
 - (void)dealloc

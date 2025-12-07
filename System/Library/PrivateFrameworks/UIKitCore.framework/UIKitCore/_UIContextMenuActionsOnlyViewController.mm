@@ -39,7 +39,7 @@
   memset(&v17[1], 0, sizeof(CGAffineTransform));
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   memset(v17, 0, 48);

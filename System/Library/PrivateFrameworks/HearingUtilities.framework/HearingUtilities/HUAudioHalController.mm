@@ -46,7 +46,7 @@ uint64_t __28__HUAudioHalController_init__block_invoke(uint64_t a1)
 
 - (void)clearAudioHalDevice
 {
-  v3 = AXLogHearingHalPlugin();
+  v3 = AXLogHearingHalPlugin(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -86,7 +86,7 @@ void __49__HUAudioHalController_registerForPropertyUpdate__block_invoke(uint64_t
   }
 }
 
-void __49__HUAudioHalController_registerForPropertyUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3, char *a4)
+void __49__HUAudioHalController_registerForPropertyUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3, unsigned __int8 *a4)
 {
   v10 = a3;
   v7 = a2;
@@ -139,16 +139,14 @@ void __49__HUAudioHalController_registerForPropertyUpdate__block_invoke_2(uint64
 - (void)hearingAidConnectionDidChange:(BOOL)change
 {
   changeCopy = change;
-  v7 = *MEMORY[0x1E69E9840];
-  v4 = AXLogHearingHalPlugin();
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = AXLogHearingHalPlugin(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = changeCopy;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "AXAudioHalController hearingAidConnectionDidChange connected: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = changeCopy;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "AXAudioHalController hearingAidConnectionDidChange connected: %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

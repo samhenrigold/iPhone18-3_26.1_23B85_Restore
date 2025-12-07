@@ -7,14 +7,14 @@
 
 + (NSString)configurationDidChange
 {
-  v2 = static VUIUTSConfigurationProxyNotificationName.configurationDidChange.getter();
+  v2 = static VUIUTSConfigurationProxyNotificationName.configurationDidChange.getter(self, a2);
 
   return v2;
 }
 
 + (NSString)utskDidChange
 {
-  v2 = static VUIUTSConfigurationProxyNotificationName.utskDidChange.getter();
+  v2 = static VUIUTSConfigurationProxyNotificationName.utskDidChange.getter(self, a2);
 
   return v2;
 }

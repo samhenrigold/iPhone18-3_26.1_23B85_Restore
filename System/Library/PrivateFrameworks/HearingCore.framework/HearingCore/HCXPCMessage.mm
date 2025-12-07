@@ -107,32 +107,33 @@
   client = [(HCXPCMessage *)self client];
   xpcConnection = [client xpcConnection];
 
-  if (xpcConnection && (v15 = 0u, v16 = 0u, xpc_connection_get_audit_token(), memset(&cf, 0, sizeof(cf)), (v7 = SecTaskCreateWithAuditToken(0, &cf)) != 0))
+  if (xpcConnection && (v16 = 0u, v17 = 0u, xpc_connection_get_audit_token(), memset(&cf, 0, sizeof(cf)), (v7 = SecTaskCreateWithAuditToken(0, &cf)) != 0))
   {
     v8 = v7;
     *cf.val = 0;
     v9 = SecTaskCopyValueForEntitlement(v7, entitlementCopy, &cf);
+    v10 = v9;
     if (*cf.val)
     {
-      v10 = HCLogHearingAids();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = HCLogHearingAids(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(HCXPCMessage *)&cf hasEntitlement:v10];
+        [(HCXPCMessage *)&cf hasEntitlement:v11];
       }
 
       CFRelease(*cf.val);
     }
 
-    if (v9)
+    if (v10)
     {
-      v11 = CFGetTypeID(v9);
-      v12 = v11 == CFBooleanGetTypeID() && CFBooleanGetValue(v9) != 0;
-      CFRelease(v9);
+      v12 = CFGetTypeID(v10);
+      v13 = v12 == CFBooleanGetTypeID() && CFBooleanGetValue(v10) != 0;
+      CFRelease(v10);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     CFRelease(v8);
@@ -140,20 +141,19 @@
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)hasEntitlement:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Unable to get entitlements for client task. Error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Unable to get entitlements for client task. Error: %@", &v3, 0xCu);
 }
 
 @end

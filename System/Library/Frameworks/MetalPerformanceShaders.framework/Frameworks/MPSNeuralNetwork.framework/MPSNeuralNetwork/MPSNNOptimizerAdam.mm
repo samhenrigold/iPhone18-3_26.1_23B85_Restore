@@ -73,9 +73,9 @@
 
 - (MPSNNOptimizerAdam)initWithCoder:(id)coder device:(id)device
 {
-  v36.receiver = self;
-  v36.super_class = MPSNNOptimizerAdam;
-  v5 = [(MPSNNOptimizer *)&v36 initWithCoder:coder device:device];
+  v40.receiver = self;
+  v40.super_class = MPSNNOptimizerAdam;
+  v5 = [(MPSNNOptimizer *)&v40 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -98,7 +98,7 @@
   {
     v35 = objc_opt_class();
     NSStringFromClass(v35);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x64A, @"[%@ initWithCoder:device:] Unsupported file version. Could not init object.", v36, v37, v38, v39);
   }
 
   return 0;
@@ -326,7 +326,7 @@ LABEL_15:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x746, @"[resultState isKindOfClass: MPSCNNConvolutionWeightsAndBiasesState.class] failed\n", v334, v335, v336, v337);
   }
 
   objc_opt_class();
@@ -334,7 +334,7 @@ LABEL_15:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x74A, @"[convolutionSourceState isKindOfClass: MPSCNNConvolutionWeightsAndBiasesState.class] failed\n", v338, v339, v340, v341);
   }
 
   objc_opt_class();
@@ -342,29 +342,29 @@ LABEL_15:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x74E, @"[convolutionGradientState isKindOfClass: MPSCNNConvolutionGradientState] failed\n", v18, v19, v20, v21);
   }
 
   if (!inputMomentumVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x752, @"inputMomentumVectors != nil failed\n", v18, v19, v20, v21);
   }
 
   objc_msgSend_count(inputMomentumVectors, v15, v16, v17, v18, v19, v20, v21);
   if (!objc_msgSend_count(inputMomentumVectors, v22, v23, v24, v25, v26, v27, v28) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x756, @"[inputMomentumVectors count] > 0 failed\n", v32, v33, v34, v35);
   }
 
   if (!inputVelocityVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x75A, @"inputVelocityVectors != nil failed\n", v32, v33, v34, v35);
   }
 
   objc_msgSend_count(inputVelocityVectors, v29, v30, v31, v32, v33, v34, v35);
   if (!objc_msgSend_count(inputVelocityVectors, v36, v37, v38, v39, v40, v41, v42) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x75E, @"[inputVelocityVectors count] > 0 failed\n", v46, v47, v48, v49);
   }
 
   if (maximumVelocityVectors)
@@ -372,7 +372,7 @@ LABEL_15:
     objc_msgSend_count(maximumVelocityVectors, v43, v44, v45, v46, v47, v48, v49);
     if (!objc_msgSend_count(maximumVelocityVectors, v50, v51, v52, v53, v54, v55, v56) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x763, @"[maximumVelocityVectors count] > 0 failed\n", v60, v61, v62, v63);
     }
 
     objc_msgSend_count(maximumVelocityVectors, v57, v58, v59, v60, v61, v62, v63);
@@ -380,25 +380,25 @@ LABEL_15:
     v78 = objc_msgSend_count(maximumVelocityVectors, v71, v72, v73, v74, v75, v76, v77);
     if (v78 != objc_msgSend_count(inputVelocityVectors, v79, v80, v81, v82, v83, v84, v85) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x766, @"[maximumVelocityVectors count] == [inputVelocityVectors count failed \n", v46, v47, v48, v49);
     }
   }
 
-  v334 = maximumVelocityVectors;
+  v342 = maximumVelocityVectors;
   selfCopy = self;
   objc_msgSend_numberOfWeights(resultState, v43, v44, v45, v46, v47, v48, v49);
   objc_msgSend_numberOfWeights(convolutionSourceState, v86, v87, v88, v89, v90, v91, v92);
   v100 = objc_msgSend_numberOfWeights(resultState, v93, v94, v95, v96, v97, v98, v99);
   if (v100 != objc_msgSend_numberOfWeights(convolutionSourceState, v101, v102, v103, v104, v105, v106, v107) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x76D, @"convolutionResultState.numberOfWeights == convolutionSourceState.numberOfWeights failed \n", v111, v112, v113, v114);
   }
 
   v115 = MEMORY[0x277CD72D0];
   v116 = objc_msgSend_numberOfWeights(resultState, v108, v109, v110, v111, v112, v113, v114);
   v122 = objc_msgSend_vectorDescriptorWithLength_dataType_(v115, v117, v116, 268435488, v118, v119, v120, v121);
   v123 = objc_alloc(MEMORY[0x277CD72C8]);
-  v337 = convolutionGradientState;
+  v345 = convolutionGradientState;
   v131 = objc_msgSend_gradientForWeights(convolutionGradientState, v124, v125, v126, v127, v128, v129, v130);
   v137 = objc_msgSend_initWithBuffer_descriptor_(v123, v132, v131, v122, v133, v134, v135, v136);
   v138 = objc_alloc(MEMORY[0x277CD72C8]);
@@ -411,12 +411,12 @@ LABEL_15:
   dispatch_semaphore_wait(selfCopy->_timeStepSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   v175 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v169, 0, v170, v171, v172, v173, v174);
   v188 = objc_msgSend_objectAtIndexedSubscript_(inputVelocityVectors, v176, 0, v177, v178, v179, v180, v181);
-  if (v334)
+  if (v342)
   {
-    v189 = objc_msgSend_objectAtIndexedSubscript_(v334, v182, 0, v183, v184, v185, v186, v187);
+    v189 = objc_msgSend_objectAtIndexedSubscript_(v342, v182, 0, v183, v184, v185, v186, v187);
     objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_maximumVelocityVector_resultValuesVector_(selfCopy, v190, commandBuffer, v137, v152, v175, v188, v189, v167);
-    p_super = &v337->super.super;
-    v199 = objc_msgSend_gradientForBiases(v337, v192, v193, v194, v195, v196, v197, v198);
+    p_super = &v345->super.super;
+    v199 = objc_msgSend_gradientForBiases(v345, v192, v193, v194, v195, v196, v197, v198);
     v207 = inputMomentumVectors;
     if (!v199)
     {
@@ -427,8 +427,8 @@ LABEL_15:
   else
   {
     objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_resultValuesVector_(selfCopy, v182, commandBuffer, v137, v152, v175, v188, v167);
-    p_super = &v337->super.super;
-    v215 = objc_msgSend_gradientForBiases(v337, v208, v209, v210, v211, v212, v213, v214);
+    p_super = &v345->super.super;
+    v215 = objc_msgSend_gradientForBiases(v345, v208, v209, v210, v211, v212, v213, v214);
     v207 = inputMomentumVectors;
     if (!v215)
     {
@@ -444,7 +444,7 @@ LABEL_15:
     v244 = objc_msgSend_numberOfBiases(resultState, v237, v238, v239, v240, v241, v242, v243);
     if (v244 != objc_msgSend_numberOfBiases(convolutionSourceState, v245, v246, v247, v248, v249, v250, v251) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x795, @"convolutionResultState.numberOfBiases == convolutionSourceState.numberOfBiases failed \n", v255, v256, v257, v258);
     }
 
     v259 = MEMORY[0x277CD72D0];
@@ -461,9 +461,9 @@ LABEL_15:
     v311 = objc_msgSend_initWithBuffer_descriptor_(v297, v306, v305, v266, v307, v308, v309, v310);
     v318 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v312, 1, v313, v314, v315, v316, v317);
     v331 = objc_msgSend_objectAtIndexedSubscript_(inputVelocityVectors, v319, 1, v320, v321, v322, v323, v324);
-    if (v334)
+    if (v342)
     {
-      v332 = objc_msgSend_objectAtIndexedSubscript_(v334, v325, 1, v326, v327, v328, v329, v330);
+      v332 = objc_msgSend_objectAtIndexedSubscript_(v342, v325, 1, v326, v327, v328, v329, v330);
       v168 = selfCopy;
       objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_maximumVelocityVector_resultValuesVector_(selfCopy, v333, commandBuffer, v281, v296, v318, v331, v332, v311);
     }
@@ -474,7 +474,7 @@ LABEL_15:
       objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_resultValuesVector_(selfCopy, v325, commandBuffer, v281, v296, v318, v331, v311);
     }
 
-    p_super = &v337->super.super;
+    p_super = &v345->super.super;
   }
 
 LABEL_23:
@@ -491,7 +491,7 @@ LABEL_23:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7D8, @"[batchNormalizationSourceState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v285, v286, v287, v288);
   }
 
   objc_opt_class();
@@ -499,7 +499,7 @@ LABEL_23:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7DC, @"[batchNormalizationGradientState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v289, v290, v291, v292);
   }
 
   objc_opt_class();
@@ -507,29 +507,29 @@ LABEL_23:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7E0, @"[resultState isKindOfClass: MPSCNNNormalizationGammaAndBetaState.class] failed\n", v18, v19, v20, v21);
   }
 
   if (!inputMomentumVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7E4, @"inputMomentumVectors != nil failed\n", v18, v19, v20, v21);
   }
 
   objc_msgSend_count(inputMomentumVectors, v15, v16, v17, v18, v19, v20, v21);
   if (!objc_msgSend_count(inputMomentumVectors, v22, v23, v24, v25, v26, v27, v28) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7E8, @"[inputMomentumVectors count] > 0 failed\n", v32, v33, v34, v35);
   }
 
   if (!inputVelocityVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7EC, @"inputVelocityVectors != nil failed\n", v32, v33, v34, v35);
   }
 
   objc_msgSend_count(inputVelocityVectors, v29, v30, v31, v32, v33, v34, v35);
   if (!objc_msgSend_count(inputVelocityVectors, v36, v37, v38, v39, v40, v41, v42) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7F0, @"[inputVelocityVectors count] > 0 failed\n", v46, v47, v48, v49);
   }
 
   if (maximumVelocityVectors)
@@ -537,7 +537,7 @@ LABEL_23:
     objc_msgSend_count(maximumVelocityVectors, v43, v44, v45, v46, v47, v48, v49);
     if (!objc_msgSend_count(maximumVelocityVectors, v50, v51, v52, v53, v54, v55, v56) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7F5, @"[maximumVelocityVectors count] > 0 failed\n", v60, v61, v62, v63);
     }
 
     objc_msgSend_count(maximumVelocityVectors, v57, v58, v59, v60, v61, v62, v63);
@@ -545,23 +545,23 @@ LABEL_23:
     v78 = objc_msgSend_count(maximumVelocityVectors, v71, v72, v73, v74, v75, v76, v77);
     if (v78 != objc_msgSend_count(inputVelocityVectors, v79, v80, v81, v82, v83, v84, v85) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x7F8, @"[maximumVelocityVectors count] == [inputVelocityVectors count failed \n", v46, v47, v48, v49);
     }
   }
 
-  v288 = inputVelocityVectors;
+  v296 = inputVelocityVectors;
   v86 = objc_msgSend_batchNormalization(batchNormalizationGradientState, v43, v44, v45, v46, v47, v48, v49);
   objc_msgSend_gradientForGamma(batchNormalizationGradientState, v87, v88, v89, v90, v91, v92, v93);
   if (!objc_msgSend_gradientForGamma(batchNormalizationGradientState, v94, v95, v96, v97, v98, v99, v100) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x800, @"inputGradientState.gradientForGamma returned nil\n", v104, v105, v106, v107);
   }
 
   v108 = MEMORY[0x277CD72D0];
   v109 = objc_msgSend_numberOfFeatureChannels(v86, v101, v102, v103, v104, v105, v106, v107);
   v115 = objc_msgSend_vectorDescriptorWithLength_dataType_(v108, v110, v109, 268435488, v111, v112, v113, v114);
   v116 = objc_alloc(MEMORY[0x277CD72C8]);
-  v286 = batchNormalizationGradientState;
+  v294 = batchNormalizationGradientState;
   v124 = objc_msgSend_gradientForGamma(batchNormalizationGradientState, v117, v118, v119, v120, v121, v122, v123);
   v130 = objc_msgSend_initWithBuffer_descriptor_(v116, v125, v124, v115, v126, v127, v128, v129);
   v131 = objc_alloc(MEMORY[0x277CD72C8]);
@@ -574,16 +574,16 @@ LABEL_23:
   dispatch_semaphore_wait(self->_timeStepSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   v162 = inputMomentumVectors;
   v169 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v163, 0, v164, v165, v166, v167, v168);
-  v182 = objc_msgSend_objectAtIndexedSubscript_(v288, v170, 0, v171, v172, v173, v174, v175);
-  v285 = maximumVelocityVectors;
+  v182 = objc_msgSend_objectAtIndexedSubscript_(v296, v170, 0, v171, v172, v173, v174, v175);
+  v293 = maximumVelocityVectors;
   if (maximumVelocityVectors)
   {
     v183 = objc_msgSend_objectAtIndexedSubscript_(maximumVelocityVectors, v176, 0, v177, v178, v179, v180, v181);
     selfCopy2 = self;
     objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_maximumVelocityVector_resultValuesVector_(self, v185, commandBuffer, v130, v146, v169, v182, v183, v161);
-    p_super = &v286->super.super;
+    p_super = &v294->super.super;
     v201 = &v132->super.super;
-    if (!objc_msgSend_gradientForBeta(v286, v187, v188, v189, v190, v191, v192, v193))
+    if (!objc_msgSend_gradientForBeta(v294, v187, v188, v189, v190, v191, v192, v193))
     {
       goto LABEL_22;
     }
@@ -593,16 +593,16 @@ LABEL_23:
   {
     selfCopy2 = self;
     objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_resultValuesVector_(self, v176, commandBuffer, v130, v146, v169, v182, v161);
-    p_super = &v286->super.super;
+    p_super = &v294->super.super;
     v201 = &v132->super.super;
-    if (!objc_msgSend_gradientForBeta(v286, v202, v203, v204, v205, v206, v207, v208))
+    if (!objc_msgSend_gradientForBeta(v294, v202, v203, v204, v205, v206, v207, v208))
     {
       goto LABEL_22;
     }
   }
 
   v209 = v162;
-  if (objc_msgSend_count(v162, v194, v195, v196, v197, v198, v199, v200) == 2 && objc_msgSend_count(v288, v210, v211, v212, v213, v214, v215, v216) == 2)
+  if (objc_msgSend_count(v162, v194, v195, v196, v197, v198, v199, v200) == 2 && objc_msgSend_count(v296, v210, v211, v212, v213, v214, v215, v216) == 2)
   {
     v217 = p_super;
     --selfCopy2->_timeStep;
@@ -616,10 +616,10 @@ LABEL_23:
     v256 = objc_msgSend_beta(resultState, v249, v250, v251, v252, v253, v254, v255);
     v262 = objc_msgSend_initWithBuffer_descriptor_(v248, v257, v256, v115, v258, v259, v260, v261);
     v269 = objc_msgSend_objectAtIndexedSubscript_(v209, v263, 1, v264, v265, v266, v267, v268);
-    v282 = objc_msgSend_objectAtIndexedSubscript_(v288, v270, 1, v271, v272, v273, v274, v275);
-    if (v285)
+    v282 = objc_msgSend_objectAtIndexedSubscript_(v296, v270, 1, v271, v272, v273, v274, v275);
+    if (v293)
     {
-      v283 = objc_msgSend_objectAtIndexedSubscript_(v285, v276, 1, v277, v278, v279, v280, v281);
+      v283 = objc_msgSend_objectAtIndexedSubscript_(v293, v276, 1, v277, v278, v279, v280, v281);
       objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_maximumVelocityVector_resultValuesVector_(selfCopy2, v284, commandBuffer, v232, v247, v269, v282, v283, v262);
     }
 
@@ -628,7 +628,7 @@ LABEL_23:
       objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_resultValuesVector_(selfCopy2, v276, commandBuffer, v232, v247, v269, v282, v262);
     }
 
-    p_super = &v286->super.super;
+    p_super = &v294->super.super;
   }
 
 LABEL_22:
@@ -645,7 +645,7 @@ LABEL_22:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x85E, @"[batchNormalizationState isKindOfClass: MPSCNNBatchNormalizationState.class] failed\n", v279, v280, v281, v282);
   }
 
   objc_opt_class();
@@ -653,29 +653,29 @@ LABEL_22:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x862, @"[resultState isKindOfClass: MPSCNNNormalizationGammaAndBetaState.class] failed\n", v17, v18, v19, v20);
   }
 
   if (!inputMomentumVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x866, @"inputMomentumVectors != nil failed\n", v17, v18, v19, v20);
   }
 
   objc_msgSend_count(inputMomentumVectors, v14, v15, v16, v17, v18, v19, v20);
   if (!objc_msgSend_count(inputMomentumVectors, v21, v22, v23, v24, v25, v26, v27) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x86A, @"[inputMomentumVectors count] > 0 failed\n", v31, v32, v33, v34);
   }
 
   if (!inputVelocityVectors && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x86E, @"inputVelocityVectors != nil failed\n", v31, v32, v33, v34);
   }
 
   objc_msgSend_count(inputVelocityVectors, v28, v29, v30, v31, v32, v33, v34);
   if (!objc_msgSend_count(inputVelocityVectors, v35, v36, v37, v38, v39, v40, v41) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x872, @"[inputVelocityVectors count] > 0 failed\n", v45, v46, v47, v48);
   }
 
   if (maximumVelocityVectors)
@@ -683,7 +683,7 @@ LABEL_22:
     objc_msgSend_count(maximumVelocityVectors, v42, v43, v44, v45, v46, v47, v48);
     if (!objc_msgSend_count(maximumVelocityVectors, v49, v50, v51, v52, v53, v54, v55) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x877, @"[maximumVelocityVectors count] > 0 failed\n", v59, v60, v61, v62);
     }
 
     objc_msgSend_count(maximumVelocityVectors, v56, v57, v58, v59, v60, v61, v62);
@@ -691,16 +691,16 @@ LABEL_22:
     v77 = objc_msgSend_count(maximumVelocityVectors, v70, v71, v72, v73, v74, v75, v76);
     if (v77 != objc_msgSend_count(inputVelocityVectors, v78, v79, v80, v81, v82, v83, v84) && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x87A, @"[maximumVelocityVectors count] == [inputVelocityVectors count failed \n", v45, v46, v47, v48);
     }
   }
 
-  v281 = resultState;
+  v285 = resultState;
   v85 = objc_msgSend_batchNormalization(batchNormalizationState, v42, v43, v44, v45, v46, v47, v48);
   objc_msgSend_gradientForGamma(batchNormalizationState, v86, v87, v88, v89, v90, v91, v92);
   if (!objc_msgSend_gradientForGamma(batchNormalizationState, v93, v94, v95, v96, v97, v98, v99) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x882, @"inputGradientState.gradientForGamma returned nil\n", v103, v104, v105, v106);
   }
 
   v107 = MEMORY[0x277CD72D0];
@@ -713,14 +713,14 @@ LABEL_22:
   v138 = objc_msgSend_gamma(batchNormalizationState, v131, v132, v133, v134, v135, v136, v137);
   v144 = objc_msgSend_initWithBuffer_descriptor_(v130, v139, v138, v114, v140, v141, v142, v143);
   v145 = objc_alloc(MEMORY[0x277CD72C8]);
-  v153 = objc_msgSend_gamma(v281, v146, v147, v148, v149, v150, v151, v152);
+  v153 = objc_msgSend_gamma(v285, v146, v147, v148, v149, v150, v151, v152);
   v159 = objc_msgSend_initWithBuffer_descriptor_(v145, v154, v153, v114, v155, v156, v157, v158);
   dispatch_semaphore_wait(self->_timeStepSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v280 = inputMomentumVectors;
+  v284 = inputMomentumVectors;
   v166 = objc_msgSend_objectAtIndexedSubscript_(inputMomentumVectors, v160, 0, v161, v162, v163, v164, v165);
   v167 = inputVelocityVectors;
   v180 = objc_msgSend_objectAtIndexedSubscript_(inputVelocityVectors, v168, 0, v169, v170, v171, v172, v173);
-  v279 = maximumVelocityVectors;
+  v283 = maximumVelocityVectors;
   if (maximumVelocityVectors)
   {
     v181 = objc_msgSend_objectAtIndexedSubscript_(maximumVelocityVectors, v174, 0, v175, v176, v177, v178, v179);
@@ -742,7 +742,7 @@ LABEL_22:
     }
   }
 
-  if (objc_msgSend_count(v280, v191, v192, v193, v194, v195, v196, v197) == 2 && objc_msgSend_count(v167, v205, v206, v207, v208, v209, v210, v211) == 2)
+  if (objc_msgSend_count(v284, v191, v192, v193, v194, v195, v196, v197) == 2 && objc_msgSend_count(v167, v205, v206, v207, v208, v209, v210, v211) == 2)
   {
     --selfCopy2->_timeStep;
     v212 = objc_alloc(MEMORY[0x277CD72C8]);
@@ -752,13 +752,13 @@ LABEL_22:
     v235 = objc_msgSend_beta(batchNormalizationState, v228, v229, v230, v231, v232, v233, v234);
     v241 = objc_msgSend_initWithBuffer_descriptor_(v227, v236, v235, v114, v237, v238, v239, v240);
     v242 = objc_alloc(MEMORY[0x277CD72C8]);
-    v250 = objc_msgSend_beta(v281, v243, v244, v245, v246, v247, v248, v249);
+    v250 = objc_msgSend_beta(v285, v243, v244, v245, v246, v247, v248, v249);
     v256 = objc_msgSend_initWithBuffer_descriptor_(v242, v251, v250, v114, v252, v253, v254, v255);
-    v263 = objc_msgSend_objectAtIndexedSubscript_(v280, v257, 1, v258, v259, v260, v261, v262);
+    v263 = objc_msgSend_objectAtIndexedSubscript_(v284, v257, 1, v258, v259, v260, v261, v262);
     v276 = objc_msgSend_objectAtIndexedSubscript_(v167, v264, 1, v265, v266, v267, v268, v269);
-    if (v279)
+    if (v283)
     {
-      v277 = objc_msgSend_objectAtIndexedSubscript_(v279, v270, 1, v271, v272, v273, v274, v275);
+      v277 = objc_msgSend_objectAtIndexedSubscript_(v283, v270, 1, v271, v272, v273, v274, v275);
       objc_msgSend_encodeToCommandBuffer_inputGradientVector_inputValuesVector_inputMomentumVector_inputVelocityVector_maximumVelocityVector_resultValuesVector_(selfCopy2, v278, commandBuffer, v226, v241, v263, v276, v277, v256);
     }
 

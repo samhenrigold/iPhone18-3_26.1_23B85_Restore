@@ -19,27 +19,27 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  sub_1B9F65DE4();
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1BA4A40C8();
-  v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1B9F65DE4(0);
+  MEMORY[0x1EEE9AC00](v4 - 8, v5);
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_1BA4A40C8();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8, v10);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A40B8();
   selfCopy = self;
-  v12 = sub_1BA4A40A8();
-  v13 = type metadata accessor for PresentationBasedCollectionViewListCell();
-  v15.receiver = selfCopy;
-  v15.super_class = v13;
-  [(PresentationBasedCollectionViewListCell *)&v15 _bridgedUpdateConfigurationUsingState:v12];
+  v14 = sub_1BA4A40A8();
+  v15 = type metadata accessor for PresentationBasedCollectionViewListCell();
+  v17.receiver = selfCopy;
+  v17.super_class = v15;
+  [(PresentationBasedCollectionViewListCell *)&v17 _bridgedUpdateConfigurationUsingState:v14];
 
-  (*((*MEMORY[0x1E69E7D40] & selfCopy->super.super.super.super.super.super.isa) + 0x58))(v10);
-  v14 = sub_1BA4A4168();
-  (*(*(v14 - 8) + 56))(v6, 0, 1, v14);
-  MEMORY[0x1BFAF1F10](v6);
+  (*((*MEMORY[0x1E69E7D40] & selfCopy->super.super.super.super.super.super.isa) + 0x58))(v12);
+  v16 = sub_1BA4A4168();
+  (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
+  MEMORY[0x1BFAF1F10](v7);
 
-  (*(v8 + 8))(v10, v7);
+  (*(v9 + 8))(v12, v8);
 }
 
 - (_TtC18HealthExperienceUI39PresentationBasedCollectionViewListCell)initWithCoder:(id)coder

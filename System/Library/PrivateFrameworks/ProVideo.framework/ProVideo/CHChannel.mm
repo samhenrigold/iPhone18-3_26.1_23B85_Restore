@@ -516,7 +516,7 @@
   {
   }
 
-  OZChannel::getKeyframes(pOZChannel, onlyCopy, &v11);
+  OZChannel::getKeyframes(&v11, pOZChannel, onlyCopy);
   v7 = v11;
   if (v12 == v11)
   {

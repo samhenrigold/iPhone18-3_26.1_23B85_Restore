@@ -808,7 +808,7 @@ void __47__BSAbstractDefaultDomain___excludedProperties__block_invoke()
   }
 }
 
-uint64_t __43__BSAbstractDefaultDomain__removeObserver___block_invoke(uint64_t a1)
+void *__43__BSAbstractDefaultDomain__removeObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) containsObject:*(a1 + 40)];
   if (result)

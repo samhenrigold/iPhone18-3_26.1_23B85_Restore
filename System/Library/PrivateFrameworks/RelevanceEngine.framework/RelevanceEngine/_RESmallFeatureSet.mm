@@ -12,14 +12,13 @@
 
 - (_RESmallFeatureSet)initWithFeature:(id)feature
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   v4 = MEMORY[0x277CBEA60];
   featureCopy2 = feature;
   v6 = [v4 arrayWithObjects:&featureCopy count:1];
 
-  v7 = [(_RESmallFeatureSet *)self initWithFeatures:v6, featureCopy, v11];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(_RESmallFeatureSet *)self initWithFeatures:v6, featureCopy, v10];
   return v7;
 }
 

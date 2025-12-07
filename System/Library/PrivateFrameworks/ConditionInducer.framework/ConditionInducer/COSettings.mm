@@ -20,37 +20,8 @@
   v13.receiver = self;
   v13.super_class = COSettings;
   v5 = [(COSettings *)&v13 init];
-  if (!v5)
+  if (!v5 || (!lCopy ? ([MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(@"/var/mobile/Library/Preferences/com.apple.ConditionInducer.plist" isDirectory:"UTF8String") relativeToURL:{0, 0}], v6 = objc_claimAutoreleasedReturnValue()) : (v6 = lCopy), url = v5->_url, v5->_url = v6, url, source = v5->_source, v5->_source = 0, source, clientCallback = v5->_clientCallback, v5->_clientCallback = 0, clientCallback, settings = v5->_settings, v5->_settings = 0, settings, v11 = 0, -[COSettings createSettingsFile](v5, "createSettingsFile")))
   {
-    goto LABEL_6;
-  }
-
-  if (lCopy)
-  {
-    v6 = lCopy;
-  }
-
-  else
-  {
-    v6 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(@"/var/mobile/Library/Preferences/com.apple.ConditionInducer.plist" isDirectory:"UTF8String") relativeToURL:{0, 0}];
-  }
-
-  url = v5->_url;
-  v5->_url = v6;
-
-  source = v5->_source;
-  v5->_source = 0;
-
-  clientCallback = v5->_clientCallback;
-  v5->_clientCallback = 0;
-
-  settings = v5->_settings;
-  v5->_settings = 0;
-
-  v11 = 0;
-  if ([(COSettings *)v5 createSettingsFile])
-  {
-LABEL_6:
     v11 = v5;
   }
 
@@ -162,28 +133,28 @@ LABEL_10:
 
 void __27__COSettings_writeSettings__block_invoke(uint64_t a1)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) settings];
   v4 = [*v2 url];
-  v15 = 0;
-  v5 = [v3 writeToURL:v4 error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [v3 writeToURL:v4 error:&v14];
+  v6 = v14;
 
   if (v5)
   {
     v7 = [MEMORY[0x277CCAA00] defaultManager];
     v8 = *MEMORY[0x277CCA120];
-    v16[0] = *MEMORY[0x277CCA160];
-    v16[1] = v8;
-    v17[0] = @"mobile";
-    v17[1] = @"mobile";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = *MEMORY[0x277CCA160];
+    v15[1] = v8;
+    v16[0] = @"mobile";
+    v16[1] = @"mobile";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v10 = [*v2 url];
     v11 = [v10 path];
-    v14 = v6;
-    [v7 setAttributes:v9 ofItemAtPath:v11 error:&v14];
-    v12 = v14;
+    v13 = v6;
+    [v7 setAttributes:v9 ofItemAtPath:v11 error:&v13];
+    v12 = v13;
 
     if (v12)
     {
@@ -206,8 +177,6 @@ void __27__COSettings_writeSettings__block_invoke(uint64_t a1)
       __27__COSettings_writeSettings__block_invoke_cold_1(v2);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)readSettings
@@ -364,37 +333,28 @@ void __44__COSettings_startMonitoringForFileDeletion__block_invoke_8(uint64_t a1
 
 - (void)createSettingsFile
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [self url];
   path = [v1 path];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __27__COSettings_writeSettings__block_invoke_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 url];
   v2 = [v1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__COSettings_writeSettings__block_invoke_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 url];
   v2 = [v1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

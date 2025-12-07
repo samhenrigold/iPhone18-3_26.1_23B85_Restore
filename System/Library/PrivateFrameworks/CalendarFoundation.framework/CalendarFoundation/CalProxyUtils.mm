@@ -72,7 +72,7 @@ LABEL_10:
 + (void)callReplyHandler:(id)handler ofInvocation:(id)invocation withErrorCode:(int64_t)code
 {
   codeCopy = code;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   invocationCopy = invocation;
   if (handlerCopy)
@@ -123,14 +123,14 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    HIDWORD(v22) = codeCopy;
-    [v15 setArgument:&v22 + 4 atIndex:1];
+    HIDWORD(v21) = codeCopy;
+    [v15 setArgument:&v21 + 4 atIndex:1];
 LABEL_14:
     if (v13 != 2)
     {
       for (i = 2; i != v13; ++i)
       {
-        v20 = &v22 - (([v11 frameLength]+ 15) & 0xFFFFFFFFFFFFFFF0);
+        v20 = &v21 - (([v11 frameLength]+ 15) & 0xFFFFFFFFFFFFFFF0);
         bzero(v20, [v11 frameLength]);
         [v16 setArgument:v20 atIndex:i];
       }
@@ -143,28 +143,23 @@ LABEL_14:
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)callReplyHandler:(uint64_t)a1 ofInvocation:(NSObject *)a2 withErrorCode:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "The first argument of the reply block is of type %s, which is not an int. Ignoring!", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "The first argument of the reply block is of type %s, which is not an int. Ignoring!", &v2, 0xCu);
 }
 
 + (void)callReplyHandler:(void *)a1 ofInvocation:(NSObject *)a2 withErrorCode:.cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "_Block_signature() failed for the block argument of invocation %@.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "_Block_signature() failed for the block argument of invocation %@.", &v4, 0xCu);
 }
 
 @end

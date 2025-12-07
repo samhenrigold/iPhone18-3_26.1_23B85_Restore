@@ -300,49 +300,7 @@ LABEL_48:
                           v86 = v64;
                           v67 = v64;
                           v68 = v66;
-                          if (![v67 isEqualToNumber:?])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          maxScanCycles = self->_maxScanCycles;
-                          if (maxScanCycles != [contextCopy maxScanCycles])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          BSSChannelsOnly = self->_BSSChannelsOnly;
-                          if (BSSChannelsOnly != [contextCopy BSSChannelsOnly])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          maxBSSChannelCount = self->_maxBSSChannelCount;
-                          if (maxBSSChannelCount != [contextCopy maxBSSChannelCount])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          maxBSSChannelAge = self->_maxBSSChannelAge;
-                          if (maxBSSChannelAge != [contextCopy maxBSSChannelAge])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          maxHiddenKnownNetworkSSIDAge = self->_maxHiddenKnownNetworkSSIDAge;
-                          if (maxHiddenKnownNetworkSSIDAge != [contextCopy maxHiddenKnownNetworkSSIDAge])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          includeAdjacent5GHzChannel = self->_includeAdjacent5GHzChannel;
-                          if (includeAdjacent5GHzChannel != [contextCopy includeAdjacent5GHzChannel])
-                          {
-                            goto LABEL_111;
-                          }
-
-                          allowStandalone6GHz = self->_allowStandalone6GHz;
-                          if (allowStandalone6GHz == [contextCopy allowStandalone6GHz] && (include6GHzChannels = self->_include6GHzChannels, include6GHzChannels == objc_msgSend(contextCopy, "include6GHzChannels")) && (alwaysIncludeRemainingNon2GHzChannels = self->_alwaysIncludeRemainingNon2GHzChannels, alwaysIncludeRemainingNon2GHzChannels == objc_msgSend(contextCopy, "alwaysIncludeRemainingNon2GHzChannels")) && (allowDeferredCandidates = self->_allowDeferredCandidates, allowDeferredCandidates == objc_msgSend(contextCopy, "allowDeferredCandidates")) && (didForceAllRemainingChannels = self->_didForceAllRemainingChannels, didForceAllRemainingChannels == objc_msgSend(contextCopy, "didForceAllRemainingChannels")) && (skipRemainingNon2GHzChannelsUnlessKnownNetworkFound = self->_skipRemainingNon2GHzChannelsUnlessKnownNetworkFound, skipRemainingNon2GHzChannelsUnlessKnownNetworkFound == objc_msgSend(contextCopy, "skipRemainingNon2GHzChannelsUnlessKnownNetworkFound")) && (preferUserConfiguredNetworks = self->_preferUserConfiguredNetworks, preferUserConfiguredNetworks == objc_msgSend(contextCopy, "preferUserConfiguredNetworks")))
+                          if ([v67 isEqualToNumber:?] && (maxScanCycles = self->_maxScanCycles, maxScanCycles == objc_msgSend(contextCopy, "maxScanCycles")) && (BSSChannelsOnly = self->_BSSChannelsOnly, BSSChannelsOnly == objc_msgSend(contextCopy, "BSSChannelsOnly")) && (maxBSSChannelCount = self->_maxBSSChannelCount, maxBSSChannelCount == objc_msgSend(contextCopy, "maxBSSChannelCount")) && (maxBSSChannelAge = self->_maxBSSChannelAge, maxBSSChannelAge == objc_msgSend(contextCopy, "maxBSSChannelAge")) && (maxHiddenKnownNetworkSSIDAge = self->_maxHiddenKnownNetworkSSIDAge, maxHiddenKnownNetworkSSIDAge == objc_msgSend(contextCopy, "maxHiddenKnownNetworkSSIDAge")) && (includeAdjacent5GHzChannel = self->_includeAdjacent5GHzChannel, includeAdjacent5GHzChannel == objc_msgSend(contextCopy, "includeAdjacent5GHzChannel")) && (allowStandalone6GHz = self->_allowStandalone6GHz, allowStandalone6GHz == objc_msgSend(contextCopy, "allowStandalone6GHz")) && (include6GHzChannels = self->_include6GHzChannels, include6GHzChannels == objc_msgSend(contextCopy, "include6GHzChannels")) && (alwaysIncludeRemainingNon2GHzChannels = self->_alwaysIncludeRemainingNon2GHzChannels, alwaysIncludeRemainingNon2GHzChannels == objc_msgSend(contextCopy, "alwaysIncludeRemainingNon2GHzChannels")) && (allowDeferredCandidates = self->_allowDeferredCandidates, allowDeferredCandidates == objc_msgSend(contextCopy, "allowDeferredCandidates")) && (didForceAllRemainingChannels = self->_didForceAllRemainingChannels, didForceAllRemainingChannels == objc_msgSend(contextCopy, "didForceAllRemainingChannels")) && (skipRemainingNon2GHzChannelsUnlessKnownNetworkFound = self->_skipRemainingNon2GHzChannelsUnlessKnownNetworkFound, skipRemainingNon2GHzChannelsUnlessKnownNetworkFound == objc_msgSend(contextCopy, "skipRemainingNon2GHzChannelsUnlessKnownNetworkFound")) && (preferUserConfiguredNetworks = self->_preferUserConfiguredNetworks, preferUserConfiguredNetworks == objc_msgSend(contextCopy, "preferUserConfiguredNetworks")))
                           {
                             allowSSIDBasedMatchingForPasspointNetworks = self->_allowSSIDBasedMatchingForPasspointNetworks;
                             v11 = allowSSIDBasedMatchingForPasspointNetworks == [contextCopy allowSSIDBasedMatchingForPasspointNetworks];
@@ -350,7 +308,6 @@ LABEL_48:
 
                           else
                           {
-LABEL_111:
                             v11 = 0;
                           }
                         }

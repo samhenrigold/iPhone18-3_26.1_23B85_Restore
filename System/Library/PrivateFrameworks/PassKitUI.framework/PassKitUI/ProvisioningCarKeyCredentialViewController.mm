@@ -23,30 +23,34 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for ProvisioningCarKeyCredentialViewController();
-  v4 = v10.receiver;
-  [(PKPaymentSetupFieldsViewController *)&v10 viewWillAppear:appearCopy];
+  v19.receiver = self;
+  v19.super_class = type metadata accessor for ProvisioningCarKeyCredentialViewController();
+  v4 = v19.receiver;
+  [(PKPaymentSetupFieldsViewController *)&v19 viewWillAppear:appearCopy];
   navigationController = [v4 navigationController];
   if (navigationController)
   {
     v6 = navigationController;
     viewControllers = [navigationController viewControllers];
 
-    sub_1BD0E5E8C(0, &qword_1EBD43450);
+    sub_1BD0E5E8C(0, &qword_1EBD43450, 0x1E69DD258);
     v8 = sub_1BE052744();
 
+    v16 = v8;
     if (v8 >> 62)
     {
-      v9 = sub_1BE053704();
+      v18 = v8;
+      v17 = sub_1BE053704();
+      v16 = v18;
     }
 
     else
     {
-      v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v17 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    if (v9 == 1)
+    v16, v9, v10, v11, v12, v13, v14, v15;
+    if (v17 == 1)
     {
       sub_1BD5AC110();
     }
@@ -77,18 +81,19 @@
 
     if (visibleSetupFieldIdentifiers)
     {
-      sub_1BE052744();
+      v6 = sub_1BE052744();
 
-      v6 = sub_1BE052724();
+      v7 = sub_1BE052724();
+      v6, v8, v9, v10, v11, v12, v13, v14;
     }
 
     else
     {
 
-      v6 = 0;
+      v7 = 0;
     }
 
-    return v6;
+    return v7;
   }
 
   else
@@ -143,10 +148,14 @@ LABEL_7:
 {
   selfCopy = self;
   sub_1BD5AC694();
+  v4 = v3;
+  v6 = v5;
 
-  v3 = sub_1BE052404();
+  v6, v7, v8, v9, v10, v11, v12, v13;
+  v14 = sub_1BE052404();
+  v4, v15, v16, v17, v18, v19, v20, v21;
 
-  return v3;
+  return v14;
 }
 
 - (id)defaultHeaderViewSubTitle
@@ -154,18 +163,21 @@ LABEL_7:
   selfCopy = self;
   sub_1BD5AC694();
   v4 = v3;
+  v6 = v5;
 
-  if (v4)
+  v4, v7, v8, v9, v10, v11, v12, v13;
+  if (v6)
   {
-    v5 = sub_1BE052404();
+    v14 = sub_1BE052404();
+    v6, v15, v16, v17, v18, v19, v20, v21;
   }
 
   else
   {
-    v5 = 0;
+    v14 = 0;
   }
 
-  return v5;
+  return v14;
 }
 
 - (id)defaultFields

@@ -21,7 +21,7 @@
 + (id)addCreationDate:(id)date toTIFFDictionary:(id)dictionary
 {
   dateCopy = date;
-  dictionary = [dictionary mutableCopy];
+  dictionary = objc_msgSend_mutableCopy(dictionary);
   if (!dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -37,7 +37,7 @@
 + (id)addCreationDate:(id)date toExifDictionary:(id)dictionary
 {
   dateCopy = date;
-  dictionary = [dictionary mutableCopy];
+  dictionary = objc_msgSend_mutableCopy(dictionary);
   if (!dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -320,7 +320,7 @@ uint64_t __39__PFSharingUtilities__gpsTimeFormatter__block_invoke(uint64_t a1)
   }
 
   v19 = locationCopy;
-  v7 = [metadataCopy mutableCopy];
+  v7 = objc_msgSend_mutableCopy(metadataCopy);
   v8 = *MEMORY[0x1E6987698];
   v9 = *MEMORY[0x1E6987838];
   v10 = [MEMORY[0x1E6987FE0] metadataItemsFromArray:metadataCopy withKey:*MEMORY[0x1E6987698] keySpace:*MEMORY[0x1E6987838]];
@@ -373,7 +373,7 @@ uint64_t __39__PFSharingUtilities__gpsTimeFormatter__block_invoke(uint64_t a1)
   }
 
   v17 = dateCopy;
-  v7 = [metadataCopy mutableCopy];
+  v7 = objc_msgSend_mutableCopy(metadataCopy);
   v8 = *MEMORY[0x1E6987688];
   v9 = *MEMORY[0x1E6987838];
   v10 = [MEMORY[0x1E6987FE0] metadataItemsFromArray:metadataCopy withKey:*MEMORY[0x1E6987688] keySpace:*MEMORY[0x1E6987838]];
@@ -428,7 +428,7 @@ uint64_t __39__PFSharingUtilities__gpsTimeFormatter__block_invoke(uint64_t a1)
   }
 
   v22 = stringCopy;
-  v13 = [metadataCopy mutableCopy];
+  v13 = objc_msgSend_mutableCopy(metadataCopy);
   v14 = [MEMORY[0x1E6987FE0] metadataItemsFromArray:metadataCopy withKey:keyCopy keySpace:spaceCopy];
   if ([v14 count])
   {

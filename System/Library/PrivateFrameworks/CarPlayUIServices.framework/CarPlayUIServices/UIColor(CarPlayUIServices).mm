@@ -12,9 +12,9 @@
     +[UIColor(CarPlayUIServices) crsui_dashboardWidgetBackgroundColor];
   }
 
-  v1 = crsui_dashboardWidgetBackgroundColor_dashboardWidgetBackgroundColor;
+  v2 = crsui_dashboardWidgetBackgroundColor_dashboardWidgetBackgroundColor;
 
-  return v1;
+  return v2;
 }
 
 + (id)crsui_consoleTurnCardETATrayBackgroundColor
@@ -24,9 +24,9 @@
     +[UIColor(CarPlayUIServices) crsui_consoleTurnCardETATrayBackgroundColor];
   }
 
-  v1 = crsui_consoleTurnCardETATrayBackgroundColor_consoleTurnCardBackgroundColor;
+  v2 = crsui_consoleTurnCardETATrayBackgroundColor_consoleTurnCardBackgroundColor;
 
-  return v1;
+  return v2;
 }
 
 @end

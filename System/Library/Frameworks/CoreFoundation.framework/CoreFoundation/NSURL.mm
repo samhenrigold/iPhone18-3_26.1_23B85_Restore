@@ -12,6 +12,7 @@
 - (NSDictionary)resourceValuesForKeys:(NSArray *)keys error:(NSError *)error;
 - (NSURL)filePathURL;
 - (NSURL)fileReferenceURL;
+- (id)_URLByInsertingResolveFlags:(unsigned int)flags;
 - (id)_URLByRemovingResolveFlags;
 - (unsigned)_resolveFlags;
 - (void)filePathURL;
@@ -315,6 +316,23 @@ CFURLRef __16__NSURL___unurl__block_invoke()
 
     __CFURLEndResourcePropertyCacheAccess(_cfurl);
   }
+}
+
+- (id)_URLByInsertingResolveFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  isFileURL = [(NSURL *)self isFileURL];
+  if (v3 && isFileURL && ((v6 = [(NSURL *)self isFileReferenceURL], v7 = [(NSURL *)self absoluteString], !v6) ? (v8 = [(NSString *)v7 _urlStringByInsertingPathResolveFlags:v3]) : (v8 = [(NSString *)v7 _urlStringByInsertingQueryResolveFlags:v3]), v8))
+  {
+    selfCopy = CFURLCreateWithString(0, v8, 0);
+  }
+
+  else
+  {
+    selfCopy = self;
+  }
+
+  return selfCopy;
 }
 
 - (id)_URLByRemovingResolveFlags

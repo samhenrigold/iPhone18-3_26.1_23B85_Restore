@@ -7,6 +7,7 @@
 - (void)_setNotificationsCollectionFlag;
 - (void)addNotification:(id)notification;
 - (void)removeNotification:(id)notification;
+- (void)setFlags:(unsigned int)flags;
 - (void)setSource:(id)source;
 @end
 
@@ -26,13 +27,11 @@
 
 void __59__EKNotificationCollection_knownRelationshipMultiValueKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E69927B0];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E69927B0];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipMultiValueKeys_keys_0;
   knownRelationshipMultiValueKeys_keys_0 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (EKNotificationCollection)initWithOptions:(id)options
@@ -149,6 +148,12 @@ void __59__EKNotificationCollection_knownRelationshipMultiValueKeys__block_invok
   unsignedIntValue = [v2 unsignedIntValue];
 
   return unsignedIntValue;
+}
+
+- (void)setFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992760]];
 }
 
 @end

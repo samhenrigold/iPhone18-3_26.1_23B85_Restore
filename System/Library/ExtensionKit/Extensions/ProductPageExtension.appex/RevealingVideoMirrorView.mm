@@ -7,11 +7,11 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for RevealingVideoMirrorView();
-  v2 = v3.receiver;
-  [(RevealingVideoMirrorView *)&v3 layoutSubviews];
-  sub_1006C5500();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for RevealingVideoMirrorView(0);
+  v2 = v4.receiver;
+  [(RevealingVideoMirrorView *)&v4 layoutSubviews];
+  sub_1006C5500(v3);
 }
 
 - (_TtC20ProductPageExtension24RevealingVideoMirrorView)initWithFrame:(CGRect)frame

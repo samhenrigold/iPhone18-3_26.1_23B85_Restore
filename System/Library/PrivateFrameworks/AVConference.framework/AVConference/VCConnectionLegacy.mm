@@ -701,77 +701,77 @@ LABEL_44:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isLocalIPPort: NO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isLocalIPPort: NO", v2, v3, v4, v5);
 }
 
 - (void)isOnSameIPPortWithConnection:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isOnSameIPPortWithConnection: NO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isOnSameIPPortWithConnection: NO", v2, v3, v4, v5);
 }
 
 - (void)isOnSameIPPortWithConnection:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isOnSameIPPortWithConnection: NO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCConnection: isOnSameIPPortWithConnection: NO", v2, v3, v4, v5);
 }
 
 - (void)downlinkBitrateCap
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Downlink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Downlink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)uplinkBitrateCap
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)setDownlinkBitrateCap:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting downlink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting downlink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)setUplinkBitrateCap:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)uplinkAudioBitrateCapOneToOne
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)setUplinkAudioBitrateCapOneToOne:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)uplinkBitrateCapOneToOne
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 - (void)setUplinkBitrateCapOneToOne:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Setting uplink bitrate cap is not implemented for legacy VCConnection", v2, v3, v4, v5);
 }
 
 @end

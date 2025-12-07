@@ -36,7 +36,7 @@
 
 - (SBSystemApertureLayoutAssertion)initWithMaximumPermittedLayoutMode:(int64_t)mode reason:(id)reason invalidationHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   handlerCopy = handler;
   if ((mode - 4) > 0xFFFFFFFFFFFFFFFALL)
@@ -71,9 +71,9 @@ LABEL_3:
 LABEL_11:
   [SBSystemApertureLayoutAssertion initWithMaximumPermittedLayoutMode:reason:invalidationHandler:];
 LABEL_4:
-  v18.receiver = self;
-  v18.super_class = SBSystemApertureLayoutAssertion;
-  v10 = [(SBSystemApertureLayoutAssertion *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = SBSystemApertureLayoutAssertion;
+  v10 = [(SBSystemApertureLayoutAssertion *)&v19 init];
   v11 = v10;
   if (v10)
   {
@@ -86,12 +86,12 @@ LABEL_4:
     invalidationHandler = v11->_invalidationHandler;
     v11->_invalidationHandler = v14;
 
-    v16 = SBLogSystemApertureController();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogSystemApertureController(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = v11;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Created layout assertion: %{public}@", buf, 0xCu);
+      v21 = v11;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Created layout assertion: %{public}@", buf, 0xCu);
     }
   }
 
@@ -136,7 +136,7 @@ LABEL_4:
 
 - (void)invalidateWithReason:(id)reason
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (![reasonCopy length])
   {
@@ -154,54 +154,54 @@ LABEL_4:
   invalidationHandler = selfCopy->_invalidationHandler;
   selfCopy->_invalidationHandler = 0;
 
-  v8 = SBLogSystemApertureController();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogSystemApertureController(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v21 = selfCopy;
-    v22 = 2114;
-    v23 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Invalidated layout assertion: %{public}@; reason: %{public}@", buf, 0x16u);
+    v22 = selfCopy;
+    v23 = 2114;
+    v24 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Invalidated layout assertion: %{public}@; reason: %{public}@", buf, 0x16u);
   }
 
   (v6)[2](v6, selfCopy);
-  v9 = selfCopy;
-  objc_sync_enter(v9);
-  v17 = 0u;
+  v10 = selfCopy;
+  objc_sync_enter(v10);
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v10 = v9[2];
-  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v11)
+  v17 = 0u;
+  v11 = v10[2];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
   {
-    v12 = *v16;
+    v13 = *v17;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v15 + 1) + 8 * v13) + 16))(*(*(&v15 + 1) + 8 * v13));
-        ++v13;
+        (*(*(*(&v16 + 1) + 8 * v14) + 16))(*(*(&v16 + 1) + 8 * v14));
+        ++v14;
       }
 
-      while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v12 != v14);
+      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v14 = v9[2];
-  v9[2] = 0;
+  v15 = v10[2];
+  v10[2] = 0;
 
-  objc_sync_exit(v9);
-  objc_sync_exit(v9);
+  objc_sync_exit(v10);
+  objc_sync_exit(v10);
 }
 
 - (void)initWithMaximumPermittedLayoutMode:reason:invalidationHandler:.cold.1()

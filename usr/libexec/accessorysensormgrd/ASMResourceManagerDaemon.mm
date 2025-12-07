@@ -299,8 +299,7 @@
 
   if (dword_10001A408 <= 30 && (dword_10001A408 != -1 || _LogCategory_Initialize()))
   {
-    [(NSMutableDictionary *)selfCopy->_availablePeripheralMap count];
-    LogPrintF();
+    LogPrintF(&dword_10001A408, "[ASMResourceManagerDaemon _addPeripheralToAvailableMap:]", 30, "Peripheral added, total count of available peripheral: %d", [(NSMutableDictionary *)selfCopy->_availablePeripheralMap count]);
   }
 
   objc_sync_exit(selfCopy);
@@ -344,8 +343,7 @@
 
     if (dword_10001A408 <= 30 && (dword_10001A408 != -1 || _LogCategory_Initialize()))
     {
-      [(NSMutableDictionary *)selfCopy->_availablePeripheralMap count];
-      LogPrintF();
+      LogPrintF(&dword_10001A408, "[ASMResourceManagerDaemon _removePeripheralFromAvailableMap:]", 30, "Peripheral removed, total count of available peripheral: %d", [(NSMutableDictionary *)selfCopy->_availablePeripheralMap count]);
     }
   }
 

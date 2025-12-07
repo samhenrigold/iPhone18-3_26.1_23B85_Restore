@@ -116,112 +116,100 @@ LABEL_13:
 
 - (void)settingsDidChange
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = scl_transport_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = scl_transport_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState settingsDidChange];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commitSettings
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = scl_transport_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = scl_transport_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState commitSettings];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)significantUserInteractionOccurred
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = scl_transport_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = scl_transport_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState significantUserInteractionOccurred];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpcActivityStarted
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = scl_transport_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = scl_transport_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_264829000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState xpcActivityStarted];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueFailedWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = scl_transport_log();
+  v6 = scl_transport_log(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState enqueueFailedWithError:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEnqueueMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v6 = scl_transport_log();
+  v6 = scl_transport_log(messageCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v9, 0xCu);
   }
 
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState didEnqueueMessage:messageCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)message:(id)message failedWithError:(id)error
@@ -229,66 +217,63 @@ LABEL_13:
   v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   errorCopy = error;
-  if ([(SCLSettingsSyncStateMachine *)self _isRelevantMessage:messageCopy])
+  v9 = [(SCLSettingsSyncStateMachine *)self _isRelevantMessage:messageCopy];
+  if (v9)
   {
-    v9 = scl_transport_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = scl_transport_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(a2);
+      v11 = NSStringFromSelector(a2);
       v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "%@", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_DEFAULT, "%@", &v13, 0xCu);
     }
 
     currentState = [(SCLSettingsSyncStateMachine *)self currentState];
     [currentState message:messageCopy failedWithError:errorCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageDidSend:(id)send
 {
   v12 = *MEMORY[0x277D85DE8];
   sendCopy = send;
-  if ([(SCLSettingsSyncStateMachine *)self _isRelevantMessage:sendCopy])
+  v6 = [(SCLSettingsSyncStateMachine *)self _isRelevantMessage:sendCopy];
+  if (v6)
   {
-    v6 = scl_transport_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = scl_transport_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromSelector(a2);
+      v8 = NSStringFromSelector(a2);
       v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
     }
 
     currentState = [(SCLSettingsSyncStateMachine *)self currentState];
     [currentState messageDidSend:sendCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageWasDelivered:(id)delivered
 {
   v12 = *MEMORY[0x277D85DE8];
   deliveredCopy = delivered;
-  if ([(SCLSettingsSyncStateMachine *)self _isRelevantMessage:deliveredCopy])
+  v6 = [(SCLSettingsSyncStateMachine *)self _isRelevantMessage:deliveredCopy];
+  if (v6)
   {
-    v6 = scl_transport_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = scl_transport_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromSelector(a2);
+      v8 = NSStringFromSelector(a2);
       v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "%@", &v10, 0xCu);
     }
 
     currentState = [(SCLSettingsSyncStateMachine *)self currentState];
     [currentState messageWasDelivered:deliveredCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)message:(id)message didFailToAcknowledgeWithError:(id)error
@@ -296,22 +281,21 @@ LABEL_13:
   v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   errorCopy = error;
-  if ([(SCLSettingsSyncStateMachine *)self _isRelevantMessage:messageCopy])
+  v9 = [(SCLSettingsSyncStateMachine *)self _isRelevantMessage:messageCopy];
+  if (v9)
   {
-    v9 = scl_transport_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = scl_transport_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromSelector(a2);
+      v11 = NSStringFromSelector(a2);
       v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "%@", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_DEFAULT, "%@", &v13, 0xCu);
     }
 
     currentState = [(SCLSettingsSyncStateMachine *)self currentState];
     [currentState message:messageCopy didFailToAcknowledgeWithError:errorCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isRelevantMessage:(id)message
@@ -357,7 +341,7 @@ LABEL_13:
 
 - (void)transitionToState:(id)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   currentState = [(SCLSettingsSyncStateMachine *)self currentState];
   [currentState willExitWithNextState:stateCopy];
@@ -365,21 +349,18 @@ LABEL_13:
   context = [(SCLSettingsSyncStateMachine *)self context];
   [context setSyncStatus:{objc_msgSend(stateCopy, "status")}];
 
-  [stateCopy didEnterWithPreviousState:currentState];
-  v8 = scl_transport_log();
+  v8 = scl_transport_log([stateCopy didEnterWithPreviousState:currentState]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = currentState;
-    v13 = 2112;
-    v14 = stateCopy;
-    _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_DEFAULT, "Transition from state %@ to state: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = currentState;
+    v12 = 2112;
+    v13 = stateCopy;
+    _os_log_impl(&dword_264829000, v8, OS_LOG_TYPE_DEFAULT, "Transition from state %@ to state: %@", &v10, 0x16u);
   }
 
   delegate = [(SCLSettingsSyncStateMachine *)self delegate];
   [delegate stateMachine:self didTransitionFromState:currentState toState:stateCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (SCLSettingsSyncStateMachineDelegate)delegate

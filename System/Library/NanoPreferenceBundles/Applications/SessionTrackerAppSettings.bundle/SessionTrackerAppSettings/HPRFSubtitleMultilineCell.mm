@@ -10,7 +10,7 @@
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SubtitleMultilineCell();
+  v8.super_class = type metadata accessor for SubtitleMultilineCell(self, a2);
   v4 = v8.receiver;
   specifierCopy = specifier;
   [(HPRFSubtitleMultilineCell *)&v8 refreshCellContentsWithSpecifier:specifierCopy];
@@ -42,6 +42,7 @@
 
 - (HPRFSubtitleMultilineCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
+  selfCopy = self;
   if (identifier)
   {
     sub_22874();
@@ -53,8 +54,8 @@
     v6 = 0;
   }
 
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for SubtitleMultilineCell();
+  v9.receiver = selfCopy;
+  v9.super_class = type metadata accessor for SubtitleMultilineCell(self, a2);
   v7 = [(HPRFSubtitleMultilineCell *)&v9 initWithStyle:style reuseIdentifier:v6];
 
   return v7;
@@ -63,7 +64,7 @@
 - (HPRFSubtitleMultilineCell)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SubtitleMultilineCell();
+  v7.super_class = type metadata accessor for SubtitleMultilineCell(self, a2);
   coderCopy = coder;
   v5 = [(HPRFSubtitleMultilineCell *)&v7 initWithCoder:coderCopy];
 

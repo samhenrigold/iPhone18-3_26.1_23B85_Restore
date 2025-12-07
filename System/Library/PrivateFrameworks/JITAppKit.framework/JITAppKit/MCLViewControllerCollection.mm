@@ -72,7 +72,6 @@
 
   v9 = MEMORY[0x277D82BE0](v26);
   objc_storeStrong(&v26, 0);
-  *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -279,7 +278,6 @@ void __40__MCLViewControllerCollection_setViews___block_invoke_2(uint64_t a1, vo
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews

@@ -200,37 +200,37 @@ LABEL_14:
 
 - (void)main
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v33 = 0;
-  v3 = [(FPDAttachKnownFolderOperation *)self resolveKnownFolderURLsWithError:&v33];
-  v4 = v33;
+  v34 = *MEMORY[0x1E69E9840];
+  v32 = 0;
+  v3 = [(FPDAttachKnownFolderOperation *)self resolveKnownFolderURLsWithError:&v32];
+  v4 = v32;
   v5 = v4;
   if (v3)
   {
-    v23 = v4;
-    v26 = objc_opt_new();
+    v22 = v4;
+    v25 = objc_opt_new();
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v24 = v3;
+    v23 = v3;
     obj = v3;
-    v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v30;
+      v9 = *v29;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v9)
+          if (*v29 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v29 + 1) + 8 * i);
+          v11 = *(*(&v28 + 1) + 8 * i);
           extensionManager = [(FPDServer *)self->_server extensionManager];
           v13 = [extensionManager domainForURL:v11 reason:0];
 
@@ -246,13 +246,13 @@ LABEL_14:
             if (!self->_onlyForDomain || ([v13 providerDomainID], v16 = objc_claimAutoreleasedReturnValue(), -[FPDDomain providerDomainID](self->_onlyForDomain, "providerDomainID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, v18))
             {
               providerDomainID2 = [v13 providerDomainID];
-              v20 = [v26 objectForKeyedSubscript:providerDomainID2];
+              v20 = [v25 objectForKeyedSubscript:providerDomainID2];
 
               if (!v20)
               {
                 v20 = objc_opt_new();
                 providerDomainID3 = [v13 providerDomainID];
-                [v26 setObject:v20 forKeyedSubscript:providerDomainID3];
+                [v25 setObject:v20 forKeyedSubscript:providerDomainID3];
               }
 
               [v20 addObject:v11];
@@ -260,7 +260,7 @@ LABEL_14:
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v7);
@@ -271,15 +271,15 @@ LABEL_14:
       v8 = 0;
     }
 
-    if ([v26 count])
+    if ([v25 count])
     {
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __37__FPDAttachKnownFolderOperation_main__block_invoke;
-      v27[3] = &unk_1E83BE760;
-      v27[4] = self;
-      v28 = v26;
-      [(FPDAttachKnownFolderOperation *)self notifyUserForDomain:v8 withCompletionHandler:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __37__FPDAttachKnownFolderOperation_main__block_invoke;
+      v26[3] = &unk_1E83BE760;
+      v26[4] = self;
+      v27 = v25;
+      [(FPDAttachKnownFolderOperation *)self notifyUserForDomain:v8 withCompletionHandler:v26];
     }
 
     else
@@ -287,57 +287,55 @@ LABEL_14:
       [(FPOperation *)self finishWithResult:0 error:0];
     }
 
-    v5 = v23;
-    v3 = v24;
+    v5 = v22;
+    v3 = v23;
   }
 
   else
   {
     [(FPOperation *)self finishWithResult:0 error:v4];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __37__FPDAttachKnownFolderOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
     v4 = dispatch_group_create();
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x3032000000;
-    v40 = __Block_byref_object_copy__18;
-    v41 = __Block_byref_object_dispose__18;
-    v42 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x3032000000;
+    v39 = __Block_byref_object_copy__18;
+    v40 = __Block_byref_object_dispose__18;
+    v41 = 0;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     obj = *(a1 + 40);
-    v5 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+    v5 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
     v3 = 0;
     if (!v5)
     {
       goto LABEL_16;
     }
 
-    v6 = *v34;
+    v6 = *v33;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * i);
-        v32 = 0;
+        v8 = *(*(&v32 + 1) + 8 * i);
+        v31 = 0;
         v9 = [*(*(a1 + 32) + 328) extensionManager];
-        v10 = [v9 domainWithID:v8 reason:&v32];
+        v10 = [v9 domainWithID:v8 reason:&v31];
 
         if (v10)
         {
@@ -352,25 +350,25 @@ void __37__FPDAttachKnownFolderOperation_main__block_invoke(uint64_t a1, void *a
             v15 = *(a1 + 32);
             v16 = *(v15 + 336);
             v17 = *(v15 + 344);
-            v29[0] = MEMORY[0x1E69E9820];
-            v29[1] = 3221225472;
-            v29[2] = __37__FPDAttachKnownFolderOperation_main__block_invoke_37;
-            v29[3] = &unk_1E83C09F0;
-            v30 = v4;
-            v31 = &v37;
+            v28[0] = MEMORY[0x1E69E9820];
+            v28[1] = 3221225472;
+            v28[2] = __37__FPDAttachKnownFolderOperation_main__block_invoke_37;
+            v28[3] = &unk_1E83C09F0;
+            v29 = v4;
+            v30 = &v36;
             v18 = v17;
             v3 = 0;
-            [v13 attachKnownFolders:v14 options:v16 request:v18 completionHandler:v29];
+            [v13 attachKnownFolders:v14 options:v16 request:v18 completionHandler:v28];
 
-            v19 = v30;
+            v19 = v29;
             goto LABEL_14;
           }
 
           v19 = v4;
           objc_sync_enter(v19);
           v23 = FPNotSupportedError();
-          v24 = v38[5];
-          v38[5] = v23;
+          v24 = v37[5];
+          v37[5] = v23;
         }
 
         else
@@ -379,15 +377,15 @@ void __37__FPDAttachKnownFolderOperation_main__block_invoke(uint64_t a1, void *a
           objc_sync_enter(v19);
           v20 = [v8 fp_toProviderID];
           v21 = FPProviderNotFoundError();
-          v22 = v38[5];
-          v38[5] = v21;
+          v22 = v37[5];
+          v37[5] = v21;
         }
 
         objc_sync_exit(v19);
 LABEL_14:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v5 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (!v5)
       {
 LABEL_16:
@@ -398,10 +396,10 @@ LABEL_16:
         block[2] = __37__FPDAttachKnownFolderOperation_main__block_invoke_2;
         block[3] = &unk_1E83BF3D8;
         block[4] = *(a1 + 32);
-        block[5] = &v37;
+        block[5] = &v36;
         dispatch_group_notify(v4, v25, block);
 
-        _Block_object_dispose(&v37, 8);
+        _Block_object_dispose(&v36, 8);
         goto LABEL_17;
       }
     }
@@ -409,8 +407,6 @@ LABEL_16:
 
   [*(a1 + 32) completedWithResult:0 error:v3];
 LABEL_17:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __37__FPDAttachKnownFolderOperation_main__block_invoke_37(uint64_t a1, void *a2)

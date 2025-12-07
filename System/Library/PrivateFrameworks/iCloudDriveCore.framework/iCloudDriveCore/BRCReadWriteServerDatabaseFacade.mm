@@ -55,7 +55,7 @@
 
 - (id)getOrCreateUserKeyForOwnerName:(id)name
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
@@ -89,11 +89,11 @@ LABEL_11:
     {
       lastError = [(BRCPQLConnection *)self->super._db lastError];
       *buf = 138412802;
-      v24 = nameCopy;
-      v25 = 2112;
-      v26 = lastError;
-      v27 = 2112;
-      v28 = v18;
+      v23 = nameCopy;
+      v24 = 2112;
+      v25 = lastError;
+      v26 = 2112;
+      v27 = v18;
       _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't insert user name: '%@': %@%@", buf, 0x20u);
     }
   }
@@ -110,8 +110,6 @@ LABEL_11:
 
   v17 = 0;
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -168,7 +166,7 @@ LABEL_11:
 
 - (void)setUserIdentityForUserName:(id)name userIdentity:(id)identity
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identityCopy = identity;
   v8 = [(BRCReadWriteServerDatabaseFacade *)self getOrCreateUserKeyForOwnerName:nameCopy];
@@ -182,11 +180,11 @@ LABEL_11:
     {
       lastError = [(BRCPQLConnection *)self->super._db lastError];
       *buf = 138412802;
-      v23 = nameCopy;
-      v24 = 2112;
-      v25 = lastError;
-      v26 = 2112;
-      v27 = v10;
+      v22 = nameCopy;
+      v23 = 2112;
+      v24 = lastError;
+      v25 = 2112;
+      v26 = v10;
       _os_log_fault_impl(&dword_223E7A000, v11, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't insert user identity for name '%@': %@%@", buf, 0x20u);
     }
   }
@@ -200,8 +198,6 @@ LABEL_11:
       [(BRCReadWriteServerDatabaseFacade *)v12 setUserIdentityForUserName:v13 userIdentity:v14, v15, v16, v17, v18, v19];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertSideCarLookAheadInfo:(id)info shareRecordName:(id)name sideCarInfo:(id)carInfo

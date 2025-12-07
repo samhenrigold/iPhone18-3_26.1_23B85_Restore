@@ -60,149 +60,157 @@
   usageCopy = usage;
   subjectIdentity = [usageCopy subjectIdentity];
   [usageCopy attributionChain];
-  v6 = v33 = self;
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x3032000000;
-  v68[3] = sub_1000074F0;
-  v68[4] = sub_100007578;
-  v69 = 0;
-  v66[0] = 0;
-  v66[1] = v66;
-  v66[2] = 0x2020000000;
-  v67 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
+  v6 = v36 = self;
+  v71[0] = 0;
+  v71[1] = v71;
+  v71[2] = 0x3032000000;
+  v71[3] = sub_1000074F0;
+  v71[4] = sub_100007578;
+  v72 = 0;
+  v69[0] = 0;
+  v69[1] = v69;
+  v69[2] = 0x2020000000;
+  v70 = 0;
   v65 = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = 0;
   v61 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 0;
   v57 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 1;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 1;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
   Current = CFAbsoluteTimeGetCurrent();
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_1000279F8;
-  v43[3] = &unk_1000A5318;
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_1000279F8;
+  v46[3] = &unk_1000A5318;
   v7 = subjectIdentity;
-  v44 = v7;
-  v45 = usageCopy;
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_100027B40;
-  v34[3] = &unk_1000A5BD8;
-  v37 = v66;
-  v38 = &v58;
-  v39 = &v54;
-  v40 = &v50;
-  v41 = &v46;
-  v42 = &v62;
-  v36 = v68;
-  v34[4] = self;
-  v8 = v45;
-  v35 = v8;
-  v9 = v6;
-  if (db_eval("SELECT client, client_type, last_reminded, last_modified, flags, auth_version FROM access WHERE auth_value = ? and client = ? and service = ? and (auth_reason = ? or auth_reason = ?)", v43, v34))
+  v47 = v7;
+  v48 = usageCopy;
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_100027B40;
+  v37[3] = &unk_1000A5BD8;
+  v40 = v69;
+  v41 = &v61;
+  v42 = &v57;
+  v43 = &v53;
+  v44 = &v49;
+  v45 = &v65;
+  v39 = v71;
+  v37[4] = self;
+  v8 = v48;
+  v38 = v8;
+  v9 = db_eval("SELECT client, client_type, last_reminded, last_modified, flags, auth_version FROM access WHERE auth_value = ? and client = ? and service = ? and (auth_reason = ? or auth_reason = ?)", v46, v37);
+  v10 = v6;
+  if (v9)
   {
-    v10 = tcc_access_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = tcc_access_log(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       service = [v8 service];
-      sub_1000282BC(v9, service, buf, v10);
+      sub_1000282BC(v10, service, buf, v11);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    if (&_TMIsAutomaticTimeEnabled && *(v63 + 24) == 1 && !TMIsAutomaticTimeEnabled())
+    if (&_TMIsAutomaticTimeEnabled)
     {
-      v13 = tcc_access_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (*(v66 + 24) == 1)
       {
-        *buf = 136315138;
-        v71 = "[TCCDReminderMonitor reportResourceUsage:]";
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s: automatic time is disabled, not surfacing reminder prompt", buf, 0xCu);
+        v9 = TMIsAutomaticTimeEnabled();
+        if (!v9)
+        {
+          v14 = tcc_access_log(v9);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315138;
+            v74 = "[TCCDReminderMonitor reportResourceUsage:]";
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: automatic time is disabled, not surfacing reminder prompt", buf, 0xCu);
+          }
+
+          *(v66 + 24) = 0;
+        }
       }
-
-      *(v63 + 24) = 0;
     }
 
-    v14 = tcc_access_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = tcc_access_log(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(v63 + 24);
+      v16 = *(v66 + 24);
       *buf = 136315394;
-      v71 = "[TCCDReminderMonitor reportResourceUsage:]";
-      v72 = 1024;
-      LODWORD(v73) = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: shouldRemind: %d", buf, 0x12u);
+      v74 = "[TCCDReminderMonitor reportResourceUsage:]";
+      v75 = 1024;
+      LODWORD(v76) = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: shouldRemind: %d", buf, 0x12u);
     }
 
-    if (*(v63 + 24) == 1)
+    if (*(v66 + 24) == 1)
     {
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v17 = v47[3];
+      v18 = v50[3];
       lastReminderTime = selfCopy->_lastReminderTime;
-      [(TCCDReminderMonitor *)selfCopy systemCooldown];
-      v20 = v17 - lastReminderTime <= v19;
-      if (v17 - lastReminderTime <= v19)
+      systemCooldown = [(TCCDReminderMonitor *)selfCopy systemCooldown];
+      v22 = v18 - lastReminderTime <= v21;
+      if (v18 - lastReminderTime <= v21)
       {
-        v21 = tcc_access_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = tcc_access_log(systemCooldown);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(v47 + 3);
-          v23 = selfCopy->_lastReminderTime;
+          v24 = *(v50 + 3);
+          v25 = selfCopy->_lastReminderTime;
           [(TCCDReminderMonitor *)selfCopy systemCooldown];
-          v24 = v47[3] - selfCopy->_lastReminderTime;
+          v26 = v50[3] - selfCopy->_lastReminderTime;
           *buf = 134218752;
-          v71 = v22;
-          v72 = 2048;
-          v73 = v23;
-          v74 = 2048;
-          v75 = v25;
-          v76 = 2048;
-          v77 = v24;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "reminder cooldown not expired: now %f, last_reminded %f, cooldown interval %f, elapsed %f", buf, 0x2Au);
-          self = v33;
+          v74 = v24;
+          v75 = 2048;
+          v76 = v25;
+          v77 = 2048;
+          v78 = v27;
+          v79 = 2048;
+          v80 = v26;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "reminder cooldown not expired: now %f, last_reminded %f, cooldown interval %f, elapsed %f", buf, 0x2Au);
+          self = v36;
         }
       }
 
       else
       {
-        v26 = tcc_access_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = tcc_access_log(systemCooldown);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(v47 + 3);
-          v29 = selfCopy->_lastReminderTime;
+          v30 = *(v50 + 3);
+          v31 = selfCopy->_lastReminderTime;
           [(TCCDReminderMonitor *)selfCopy systemCooldown];
-          v30 = v47[3] - selfCopy->_lastReminderTime;
+          v32 = v50[3] - selfCopy->_lastReminderTime;
           *buf = 134218752;
-          v71 = v28;
-          v72 = 2048;
-          v73 = v29;
-          v74 = 2048;
-          v75 = v31;
-          v76 = 2048;
-          v77 = v30;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "reminder cooldown expired: now %f, last_reminded %f, cooldown interval %f, elapsed: %f", buf, 0x2Au);
-          self = v33;
+          v74 = v30;
+          v75 = 2048;
+          v76 = v31;
+          v77 = 2048;
+          v78 = v33;
+          v79 = 2048;
+          v80 = v32;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "reminder cooldown expired: now %f, last_reminded %f, cooldown interval %f, elapsed: %f", buf, 0x2Au);
+          self = v36;
         }
 
-        selfCopy->_lastReminderTime = v47[3];
+        selfCopy->_lastReminderTime = v50[3];
       }
 
       objc_sync_exit(selfCopy);
@@ -210,39 +218,39 @@
 
     else
     {
-      v20 = 1;
+      v22 = 1;
     }
 
-    v12 = objc_opt_new();
-    [v12 setPreviousAuthorization:2];
-    [v12 setDatabaseFlags:*(v55 + 6)];
-    [v12 setAuthorizationVersion:*(v51 + 6)];
-    [v12 setLastReminderTime:*(v59 + 6)];
-    [v12 setPromptType:3];
-    if (!v20 && (v63[3] & 1) != 0)
+    v13 = objc_opt_new();
+    [v13 setPreviousAuthorization:2];
+    [v13 setDatabaseFlags:*(v58 + 6)];
+    [v13 setAuthorizationVersion:*(v54 + 6)];
+    [v13 setLastReminderTime:*(v62 + 6)];
+    v34 = [v13 setPromptType:3];
+    if (!v22 && (v66[3] & 1) != 0)
     {
-      [(TCCDReminderMonitor *)self showReminderPrompt:v8 result:v12];
-      [v12 setLastReminderTime:v47[3]];
+      [(TCCDReminderMonitor *)self showReminderPrompt:v8 result:v13];
+      v34 = [v13 setLastReminderTime:v50[3]];
     }
 
-    v10 = tcc_access_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = tcc_access_log(v34);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v71 = "[TCCDReminderMonitor reportResourceUsage:]";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      v74 = "[TCCDReminderMonitor reportResourceUsage:]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v58, 8);
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(v66, 8);
-  _Block_object_dispose(v68, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(v69, 8);
+  _Block_object_dispose(v71, 8);
 
-  return v12;
+  return v13;
 }
 
 - (void)showReminderPrompt:(id)prompt result:(id)result
@@ -282,7 +290,7 @@
     v16 = [service localizedTextWithKey:reminderTitleTextLocalizationKey];
     if (!v16)
     {
-      v17 = tcc_access_log();
+      v17 = tcc_access_log(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -297,8 +305,7 @@
     if (v17)
     {
       [promptCopy setReminderPrompt:1];
-      [promptCopy presentSynchronousPromptWithHeader:v17 message:0 aButtonTitle:v21 aButtonAuth:downgradeAuthRight bButtonTitle:v22 bButtonAuth:2 currentAuth:2 updatingResult:v23];
-      v18 = tcc_access_log();
+      v18 = tcc_access_log([promptCopy presentSynchronousPromptWithHeader:v17 message:0 aButtonTitle:v21 aButtonAuth:downgradeAuthRight bButtonTitle:v22 bButtonAuth:2 currentAuth:2 updatingResult:v23]);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
@@ -311,7 +318,7 @@ LABEL_18:
 
     else
     {
-      v18 = tcc_access_log();
+      v18 = tcc_access_log(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -326,7 +333,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  reminderTitleTextLocalizationKey = tcc_access_log();
+  reminderTitleTextLocalizationKey = tcc_access_log(0);
   if (os_log_type_enabled(reminderTitleTextLocalizationKey, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(TCCDAccessIdentity *)v10 identifier];

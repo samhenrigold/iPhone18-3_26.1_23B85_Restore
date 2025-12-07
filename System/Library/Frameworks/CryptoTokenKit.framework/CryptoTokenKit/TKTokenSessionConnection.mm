@@ -57,7 +57,7 @@
     if (v14)
     {
 LABEL_24:
-      v41 = parametersCopy;
+      v43 = parametersCopy;
       if ([v15 count])
       {
         [v15 removeObjectForKey:@"PIN"];
@@ -68,9 +68,9 @@ LABEL_24:
         [v14 setParameters:v15];
       }
 
-      v43 = MEMORY[0x1E696AD98];
+      v45 = MEMORY[0x1E696AD98];
       ++self->_sessionIDCounter;
-      token2 = [v43 numberWithInteger:?];
+      token2 = [v45 numberWithInteger:?];
       sessions3 = [(TKTokenSessionConnection *)self sessions];
       [sessions3 setObject:v14 forKey:token2];
 
@@ -83,10 +83,10 @@ LABEL_24:
       [initialKeepAlives2 setObject:keepAlive forKey:token2];
 
       objc_sync_exit(initialKeepAlives);
-      v23 = replyCopy;
+      v24 = replyCopy;
       (*(replyCopy + 2))(replyCopy, token2, 0);
       v19 = v14;
-      parametersCopy = v41;
+      parametersCopy = v43;
       goto LABEL_27;
     }
   }
@@ -100,46 +100,46 @@ LABEL_24:
   token2 = [tokenConnection3 token];
 
   delegate = [token2 delegate];
-  v58 = 0;
-  v14 = [delegate token:token2 createSessionWithError:&v58];
-  v19 = v58;
+  v60 = 0;
+  v14 = [delegate token:token2 createSessionWithError:&v60];
+  v19 = v60;
 
   if (v14)
   {
     [v14 setLAContext:contextCopy];
     currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-    v21 = currentConnection;
+    v22 = currentConnection;
     if (currentConnection)
     {
-      [currentConnection auditToken];
+      objc_msgSend_auditToken(currentConnection);
     }
 
     else
     {
-      v56 = 0u;
-      v57 = 0u;
+      v58 = 0u;
+      v59 = 0u;
     }
 
-    v55[0] = v56;
-    v55[1] = v57;
-    [v14 setCreatorAuditToken:v55];
+    v57[0] = v58;
+    v57[1] = v59;
+    [v14 setCreatorAuditToken:v57];
 
-    v24 = [parametersCopy objectForKey:@"PIN"];
-    [v15 removeObjectForKey:@"PIN"];
-    if (v24)
+    v25 = [parametersCopy objectForKey:@"PIN"];
+    v26 = [v15 removeObjectForKey:@"PIN"];
+    if (v25)
     {
-      v25 = TK_LOG_token_3();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v27 = TK_LOG_token_3(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        [TKTokenSessionConnection startSessionWithLAContext:v25 parameters:? reply:?];
+        [TKTokenSessionConnection startSessionWithLAContext:v27 parameters:? reply:?];
       }
 
-      v26 = [v24 dataUsingEncoding:4];
-      [contextCopy setCredential:v26 type:-3];
+      v28 = [v25 dataUsingEncoding:4];
+      [contextCopy setCredential:v28 type:-3];
     }
 
-    v27 = [parametersCopy objectForKey:@"callerPID"];
-    [v14 setCallerPID:v27];
+    v29 = [parametersCopy objectForKey:@"callerPID"];
+    [v14 setCallerPID:v29];
 
     [v15 removeObjectForKey:@"callerPID"];
     if ([v15 count])
@@ -152,7 +152,7 @@ LABEL_24:
 
     if (contextCopy)
     {
-      v52 = parametersCopy;
+      v54 = parametersCopy;
       tokenConnection4 = [(TKTokenSessionConnection *)self tokenConnection];
       sessions4 = [tokenConnection4 sessions];
 
@@ -160,12 +160,12 @@ LABEL_24:
       objc_sync_enter(sessions4);
       tokenConnection5 = [(TKTokenSessionConnection *)self tokenConnection];
       sessions5 = [tokenConnection5 sessions];
-      v33 = [sessions5 objectForKey:contextCopy];
+      v35 = [sessions5 objectForKey:contextCopy];
 
-      if (v33)
+      if (v35)
       {
         tokenConnection7 = v14;
-        v14 = v33;
+        v14 = v35;
       }
 
       else
@@ -182,7 +182,7 @@ LABEL_24:
       }
 
       objc_sync_exit(obj);
-      parametersCopy = v52;
+      parametersCopy = v54;
     }
 
     tokenConnection8 = [(TKTokenSessionConnection *)self tokenConnection];
@@ -196,13 +196,13 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v22 = TK_LOG_token_3();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = TK_LOG_token_3(v20);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    [TKTokenSessionConnection startSessionWithLAContext:token2 parameters:v19 reply:v22];
+    [TKTokenSessionConnection startSessionWithLAContext:token2 parameters:v19 reply:v23];
   }
 
-  v23 = replyCopy;
+  v24 = replyCopy;
   (*(replyCopy + 2))(replyCopy, 0, v19);
 LABEL_27:
 }
@@ -221,7 +221,7 @@ LABEL_27:
 {
   dCopy = d;
   invokeCopy = invoke;
-  v9 = TK_LOG_token_3();
+  v9 = TK_LOG_token_3(invokeCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(TKTokenSessionConnection *)dCopy withSessionID:v9 invoke:?];
@@ -630,30 +630,26 @@ void __54__TKTokenSessionConnection_session_slotNameWithReply___block_invoke(uin
 
 - (void)startSessionWithLAContext:(void *)a1 parameters:(uint64_t)a2 reply:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 tokenID];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_1DF413000, a3, OS_LOG_TYPE_ERROR, "Token %{public}@ failed to create new session, error %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_1DF413000, a3, OS_LOG_TYPE_ERROR, "Token %{public}@ failed to create new session, error %{public}@", &v6, 0x16u);
 }
 
 - (void)withSessionID:(NSObject *)a3 invoke:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a2 tokenConnection];
   v6 = [v5 token];
   v7 = [v6 tokenID];
-  v9 = 138543618;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_debug_impl(&dword_1DF413000, a3, OS_LOG_TYPE_DEBUG, "with session %{public}@ on token %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543618;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_debug_impl(&dword_1DF413000, a3, OS_LOG_TYPE_DEBUG, "with session %{public}@ on token %{public}@", &v8, 0x16u);
 }
 
 - (void)withSessionID:(uint64_t)a3 invoke:.cold.2(void *a1, uint64_t a2, uint64_t a3)

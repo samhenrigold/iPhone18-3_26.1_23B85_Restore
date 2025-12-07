@@ -30,7 +30,7 @@
     v10 = v5;
     [attributesByName enumerateKeysAndObjectsUsingBlock:v9];
 
-    v2 = [v5 copy];
+    v2 = objc_msgSend_copy(v5);
     managedObjectModel = [self managedObjectModel];
     hmd_isImmutable = [managedObjectModel hmd_isImmutable];
 
@@ -64,7 +64,7 @@
   v10 = &v11;
   v6 = _Block_copy(aBlock);
   v12[3] = v6;
-  v6[2](v6, self, 0, v16 + 3);
+  v6[2](v6, self, 0, (v16 + 3));
 
   _Block_object_dispose(&v11, 8);
   _Block_object_dispose(&v15, 8);

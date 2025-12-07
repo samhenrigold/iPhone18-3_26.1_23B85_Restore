@@ -5,16 +5,18 @@
 
 uint64_t __46__UIImage_Utilities__ic_symbolsNeedingUIAsset__block_invoke()
 {
-  ic_symbolsNeedingUIAsset_symbolsNeedingUIAsset = [MEMORY[0x1E695DFD8] setWithObjects:{@"thumbnailbar.rectangle", @"math.operators", @"surprisebox", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"thumbnailbar.rectangle", @"math.operators", @"surprisebox", 0}];
+  ic_symbolsNeedingUIAsset_symbolsNeedingUIAsset = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t __53__UIImage_Utilities__ic_symbolsNeedingPrivateCatalog__block_invoke()
 {
-  ic_symbolsNeedingPrivateCatalog_symbolsNeedingPrivateCatalog = [MEMORY[0x1E695DFD8] setWithObjects:{@"quicknote", @"calculator", @"calculator.fill", @"apple.math.notes", @"apple.writing.tools", @"apple.pages", @"quotelevel.square.fill", @"text.replace", @"checkmark.circle.platter", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"quicknote", @"calculator", @"calculator.fill", @"apple.math.notes", @"apple.writing.tools", @"apple.pages", @"quotelevel.square.fill", @"text.replace", @"checkmark.circle.platter", 0}];
+  ic_symbolsNeedingPrivateCatalog_symbolsNeedingPrivateCatalog = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 void __44__UIImage_Utilities__ic_imageWithTint_size___block_invoke(uint64_t a1, void *a2)

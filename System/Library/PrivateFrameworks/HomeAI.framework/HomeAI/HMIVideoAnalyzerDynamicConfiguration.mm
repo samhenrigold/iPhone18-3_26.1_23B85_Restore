@@ -28,25 +28,22 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
-  [(HMIVideoAnalyzerDynamicConfiguration *)self eventTriggers];
-  v4 = HMIVideoAnalyzerEventTriggersAsString();
-  v5 = [v3 initWithName:@"Event Triggers" value:v4];
+  v4 = HMIVideoAnalyzerEventTriggersAsString([(HMIVideoAnalyzerDynamicConfiguration *)self eventTriggers]);
+  v5 = [v3 initWithName:? value:?];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMIVideoAnalyzerDynamicConfiguration *)self recognizeFaces];
   v7 = HMFBooleanToString();
-  v8 = [v6 initWithName:@"Recognize Faces" value:v7];
-  v16[1] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
-  v10 = MEMORY[0x277CCABB0];
+  v14 = [v6 initWithName:? value:?];
+  v8 = objc_alloc(MEMORY[0x277D0F778]);
+  v9 = MEMORY[0x277CCABB0];
   activityZones = [(HMIVideoAnalyzerDynamicConfiguration *)self activityZones];
-  v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(activityZones, "count")}];
-  v13 = [v9 initWithName:@"Activity Zone Count" value:v12];
-  v16[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  [activityZones count];
+  v11 = [v9 numberWithUnsignedInteger:?];
+  v15 = [v8 initWithName:? value:?];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v14;
+  return v12;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -85,25 +82,25 @@
 
 - (HMIVideoAnalyzerDynamicConfiguration)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMIVideoAnalyzerDynamicConfiguration *)self init];
   v6 = MEMORY[0x277CBEB98];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  v8 = [v6 setWithArray:v7];
+  objc_opt_class();
+  objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v8 = [v6 setWithArray:?];
   v9 = NSStringFromSelector(sel_activityZones);
-  v10 = [coderCopy decodeObjectOfClasses:v8 forKey:v9];
-  [(HMIVideoAnalyzerDynamicConfiguration *)v5 setActivityZones:v10];
+  v10 = [coderCopy decodeObjectOfClasses:? forKey:?];
+  [(HMIVideoAnalyzerDynamicConfiguration *)v5 setActivityZones:?];
 
   v11 = NSStringFromSelector(sel_eventTriggers);
-  -[HMIVideoAnalyzerDynamicConfiguration setEventTriggers:](v5, "setEventTriggers:", [coderCopy decodeIntegerForKey:v11]);
+  [coderCopy decodeIntegerForKey:?];
+  [(HMIVideoAnalyzerDynamicConfiguration *)v5 setEventTriggers:?];
 
   v12 = NSStringFromSelector(sel_recognizeFaces);
-  v13 = [coderCopy decodeBoolForKey:v12];
+  [coderCopy decodeBoolForKey:?];
 
-  [(HMIVideoAnalyzerDynamicConfiguration *)v5 setRecognizeFaces:v13];
+  [(HMIVideoAnalyzerDynamicConfiguration *)v5 setRecognizeFaces:?];
   return v5;
 }
 
@@ -112,15 +109,15 @@
   coderCopy = coder;
   activityZones = [(HMIVideoAnalyzerDynamicConfiguration *)self activityZones];
   v6 = NSStringFromSelector(sel_activityZones);
-  [coderCopy encodeObject:activityZones forKey:v6];
+  [coderCopy encodeObject:? forKey:?];
 
-  eventTriggers = [(HMIVideoAnalyzerDynamicConfiguration *)self eventTriggers];
-  v8 = NSStringFromSelector(sel_eventTriggers);
-  [coderCopy encodeInteger:eventTriggers forKey:v8];
+  [(HMIVideoAnalyzerDynamicConfiguration *)self eventTriggers];
+  v7 = NSStringFromSelector(sel_eventTriggers);
+  [coderCopy encodeInteger:? forKey:?];
 
-  recognizeFaces = [(HMIVideoAnalyzerDynamicConfiguration *)self recognizeFaces];
-  v10 = NSStringFromSelector(sel_recognizeFaces);
-  [coderCopy encodeBool:recognizeFaces forKey:v10];
+  [(HMIVideoAnalyzerDynamicConfiguration *)self recognizeFaces];
+  v8 = NSStringFromSelector(sel_recognizeFaces);
+  [coderCopy encodeBool:? forKey:?];
 }
 
 @end

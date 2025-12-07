@@ -23,6 +23,7 @@
 + (id)cascadeItemFromItem:(id)item error:(id *)error;
 + (id)itemFromCascadeItem:(id)item error:(id *)error;
 + (int64_t)fieldTypeFromCascadeFieldType:(unsigned __int16)type;
++ (int64_t)itemTypeFromCascadeItemType:(unsigned __int16)type;
 + (unsigned)cascadeFieldTypeFromFieldType:(int64_t)type;
 + (unsigned)cascadeItemTypeFromItemType:(int64_t)type;
 @end
@@ -2496,46 +2497,46 @@ LABEL_19:
 
 + (id)_convertFromKVItemType_GlobalTerm:(id)term error:(id *)error
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   termCopy = term;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2050000000;
-  v63 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2050000000;
   v59 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_2559B7298;
-  v54 = sub_2559B72A8;
-  v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = sub_2559C03AC;
-  v49[3] = &unk_279803D80;
-  v49[4] = &v60;
-  v49[5] = &v56;
-  v49[6] = &v50;
-  objc_msgSend_enumerateFieldsUsingBlock_(termCopy, v6, v49, v7, v8, v9);
-  v14 = v61[3];
-  if (v14 && v57[3])
+  v60 = &v59;
+  v61 = 0x2050000000;
+  v62 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2050000000;
+  v58 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_2559B7298;
+  v53 = sub_2559B72A8;
+  v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = sub_2559C03AC;
+  v48[3] = &unk_279803D80;
+  v48[4] = &v59;
+  v48[5] = &v55;
+  v48[6] = &v49;
+  objc_msgSend_enumerateFieldsUsingBlock_(termCopy, v6, v48, v7, v8, v9);
+  v14 = v60[3];
+  if (v14 && v56[3])
   {
     v15 = [v14 alloc];
-    v16 = v51[5];
-    v48 = 0;
-    v20 = objc_msgSend_initWithVocabularyStrings_error_(v15, v17, v16, &v48, v18, v19);
-    v21 = v48;
+    v16 = v50[5];
+    v47 = 0;
+    v20 = objc_msgSend_initWithVocabularyStrings_error_(v15, v17, v16, &v47, v18, v19);
+    v21 = v47;
     v22 = v21;
     if (v20)
     {
-      v23 = objc_alloc(v57[3]);
+      v23 = objc_alloc(v56[3]);
       v29 = objc_msgSend_itemId(termCopy, v24, v25, v26, v27, v28);
-      v47 = v22;
-      v33 = objc_msgSend_initWithSourceItemIdentifier_error_(v23, v30, v29, &v47, v31, v32);
-      v34 = v47;
+      v46 = v22;
+      v33 = objc_msgSend_initWithSourceItemIdentifier_error_(v23, v30, v29, &v46, v31, v32);
+      v34 = v46;
 
       if (v33)
       {
@@ -2581,10 +2582,10 @@ LABEL_19:
   else
   {
     v36 = MEMORY[0x277CCA9B8];
-    v64 = *MEMORY[0x277CCA068];
+    v63 = *MEMORY[0x277CCA068];
     v20 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"No supported conversion for CustomTerm KVItem: %@", v11, v12, v13, termCopy);
-    v65[0] = v20;
-    v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v65, &v64, 1, v38);
+    v64[0] = v20;
+    v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v64, &v63, 1, v38);
     v41 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v39, @"com.apple.koa.item.converter", 1, v33, v40);
     if (error && v41)
     {
@@ -2596,65 +2597,63 @@ LABEL_19:
     v35 = 0;
   }
 
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v60, 8);
-
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v59, 8);
 
   return v35;
 }
 
 + (id)_convertFromKVItemType_CustomTerm:(id)term error:(id *)error
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   termCopy = term;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2050000000;
-  v69 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2050000000;
   v65 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = sub_2559B7298;
-  v60 = sub_2559B72A8;
+  v66 = &v65;
+  v67 = 0x2050000000;
+  v68 = 0;
   v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_2559B7298;
-  v54 = sub_2559B72A8;
+  v62 = &v61;
+  v63 = 0x2050000000;
+  v64 = 0;
   v55 = 0;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = sub_2559C0840;
-  v49[3] = &unk_279803D58;
-  v49[4] = &v66;
-  v49[5] = &v62;
-  v49[6] = &v56;
-  v49[7] = &v50;
-  objc_msgSend_enumerateFieldsUsingBlock_(termCopy, v6, v49, v7, v8, v9);
-  v14 = v67[3];
-  if (v14 && v63[3])
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = sub_2559B7298;
+  v59 = sub_2559B72A8;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_2559B7298;
+  v53 = sub_2559B72A8;
+  v54 = 0;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = sub_2559C0840;
+  v48[3] = &unk_279803D58;
+  v48[4] = &v65;
+  v48[5] = &v61;
+  v48[6] = &v55;
+  v48[7] = &v49;
+  objc_msgSend_enumerateFieldsUsingBlock_(termCopy, v6, v48, v7, v8, v9);
+  v14 = v66[3];
+  if (v14 && v62[3])
   {
     v15 = [v14 alloc];
-    v16 = v57[5];
-    v17 = v51[5];
-    v48 = 0;
-    v20 = objc_msgSend_initWithVocabularyString_vocabularyIdentifier_error_(v15, v18, v16, v17, &v48, v19);
-    v21 = v48;
+    v16 = v56[5];
+    v17 = v50[5];
+    v47 = 0;
+    v20 = objc_msgSend_initWithVocabularyString_vocabularyIdentifier_error_(v15, v18, v16, v17, &v47, v19);
+    v21 = v47;
     v22 = v21;
     if (v20)
     {
-      v23 = objc_alloc(v63[3]);
+      v23 = objc_alloc(v62[3]);
       v29 = objc_msgSend_itemId(termCopy, v24, v25, v26, v27, v28);
-      v47 = v22;
-      v33 = objc_msgSend_initWithSourceItemIdentifier_error_(v23, v30, v29, &v47, v31, v32);
-      v34 = v47;
+      v46 = v22;
+      v33 = objc_msgSend_initWithSourceItemIdentifier_error_(v23, v30, v29, &v46, v31, v32);
+      v34 = v46;
 
       if (v33)
       {
@@ -2700,10 +2699,10 @@ LABEL_19:
   else
   {
     v36 = MEMORY[0x277CCA9B8];
-    v70 = *MEMORY[0x277CCA068];
+    v69 = *MEMORY[0x277CCA068];
     v20 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"No supported conversion for CustomTerm KVItem: %@", v11, v12, v13, termCopy);
-    v71[0] = v20;
-    v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v71, &v70, 1, v38);
+    v70[0] = v20;
+    v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v70, &v69, 1, v38);
     v41 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v39, @"com.apple.koa.item.converter", 1, v33, v40);
     if (error && v41)
     {
@@ -2715,20 +2714,18 @@ LABEL_19:
     v35 = 0;
   }
 
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v55, 8);
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v66, 8);
-
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
 
   return v35;
 }
 
 + (id)cascadeItemFromItem:(id)item error:(id *)error
 {
-  v132[1] = *MEMORY[0x277D85DE8];
+  v131[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2764,15 +2761,15 @@ LABEL_30:
         {
           if (v26 == 12010)
           {
-            v84 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_AutoShortcut_error_(v84, v85, itemCopy, error, v86, v87);
+            v83 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_AutoShortcut_error_(v83, v84, itemCopy, error, v85, v86);
             goto LABEL_30;
           }
 
           if (v26 == 12996)
           {
-            v64 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_Health_error_(v64, v65, itemCopy, error, v66, v67);
+            v63 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_Health_error_(v63, v64, itemCopy, error, v65, v66);
             goto LABEL_30;
           }
         }
@@ -2781,15 +2778,15 @@ LABEL_30:
         {
           if (v26 == 7690)
           {
-            v80 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_HomeEntity_error_(v80, v81, itemCopy, error, v82, v83);
+            v79 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_HomeEntity_error_(v79, v80, itemCopy, error, v81, v82);
             goto LABEL_30;
           }
 
           if (v26 == 7822)
           {
-            v60 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_AppShortcut_error_(v60, v61, itemCopy, error, v62, v63);
+            v59 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_AppShortcut_error_(v59, v60, itemCopy, error, v61, v62);
             goto LABEL_30;
           }
         }
@@ -2799,15 +2796,15 @@ LABEL_30:
       {
         if (v26 == 15757)
         {
-          v104 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_LocationOfInterest_error_(v104, v105, itemCopy, error, v106, v107);
+          v103 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_LocationOfInterest_error_(v103, v104, itemCopy, error, v105, v106);
           goto LABEL_30;
         }
 
         if (v26 == 17034)
         {
-          v68 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_HomeServiceArea_error_(v68, v69, itemCopy, error, v70, v71);
+          v67 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_HomeServiceArea_error_(v67, v68, itemCopy, error, v69, v70);
           goto LABEL_30;
         }
       }
@@ -2817,12 +2814,12 @@ LABEL_30:
         switch(v26)
         {
           case 18540:
-            v92 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_MediaEntity_error_(v92, v93, itemCopy, error, v94, v95);
+            v91 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_MediaEntity_error_(v91, v92, itemCopy, error, v93, v94);
             goto LABEL_30;
           case 19668:
-            v88 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_Contact_error_(v88, v89, itemCopy, error, v90, v91);
+            v87 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_Contact_error_(v87, v88, itemCopy, error, v89, v90);
             goto LABEL_30;
           case 27122:
             v46 = objc_opt_class();
@@ -2838,15 +2835,15 @@ LABEL_30:
       {
         if (v26 == 53601)
         {
-          v120 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_LearnedContact_error_(v120, v121, itemCopy, error, v122, v123);
+          v119 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_LearnedContact_error_(v119, v120, itemCopy, error, v121, v122);
           goto LABEL_30;
         }
 
         if (v26 == 53614)
         {
-          v76 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_Fitness_error_(v76, v77, itemCopy, error, v78, v79);
+          v75 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_Fitness_error_(v75, v76, itemCopy, error, v77, v78);
           goto LABEL_30;
         }
       }
@@ -2856,12 +2853,12 @@ LABEL_30:
         switch(v26)
         {
           case 54385:
-            v112 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_CalendarEvent_error_(v112, v113, itemCopy, error, v114, v115);
+            v111 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_CalendarEvent_error_(v111, v112, itemCopy, error, v113, v114);
             goto LABEL_30;
           case 61509:
-            v100 = objc_opt_class();
-            v32 = objc_msgSend__convertFromKVItemType_UserAccount_error_(v100, v101, itemCopy, error, v102, v103);
+            v99 = objc_opt_class();
+            v32 = objc_msgSend__convertFromKVItemType_UserAccount_error_(v99, v100, itemCopy, error, v101, v102);
             goto LABEL_30;
           case 62158:
             v50 = objc_opt_class();
@@ -2875,15 +2872,15 @@ LABEL_30:
     {
       if (v26 == 36434)
       {
-        v116 = objc_opt_class();
-        v32 = objc_msgSend__convertFromKVItemType_AppInfo_error_(v116, v117, itemCopy, error, v118, v119);
+        v115 = objc_opt_class();
+        v32 = objc_msgSend__convertFromKVItemType_AppInfo_error_(v115, v116, itemCopy, error, v117, v118);
         goto LABEL_30;
       }
 
       if (v26 == 42184)
       {
-        v72 = objc_opt_class();
-        v32 = objc_msgSend__convertFromKVItemType_Podcast_error_(v72, v73, itemCopy, error, v74, v75);
+        v71 = objc_opt_class();
+        v32 = objc_msgSend__convertFromKVItemType_Podcast_error_(v71, v72, itemCopy, error, v73, v74);
         goto LABEL_30;
       }
     }
@@ -2893,12 +2890,12 @@ LABEL_30:
       switch(v26)
       {
         case 42611:
-          v108 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_AppIntentsEnum_error_(v108, v109, itemCopy, error, v110, v111);
+          v107 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_AppIntentsEnum_error_(v107, v108, itemCopy, error, v109, v110);
           goto LABEL_30;
         case 47341:
-          v96 = objc_opt_class();
-          v32 = objc_msgSend__convertFromKVItemType_AppIntentsEntity_error_(v96, v97, itemCopy, error, v98, v99);
+          v95 = objc_opt_class();
+          v32 = objc_msgSend__convertFromKVItemType_AppIntentsEntity_error_(v95, v96, itemCopy, error, v97, v98);
           goto LABEL_30;
         case 49066:
           v42 = objc_opt_class();
@@ -2907,20 +2904,20 @@ LABEL_30:
       }
     }
 
-    v124 = MEMORY[0x277CCA9B8];
+    v123 = MEMORY[0x277CCA9B8];
     v34 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v21, @"No supported conversion for KVItem: %@", v23, v24, v25, itemCopy, *MEMORY[0x277CCA068]);
-    v130 = v34;
-    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v125, &v130, &v129, 1, v126);
-    objc_msgSend_errorWithDomain_code_userInfo_(v124, v127, @"com.apple.koa.item.converter", 1, v37, v128);
+    v129 = v34;
+    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v124, &v129, &v128, 1, v125);
+    objc_msgSend_errorWithDomain_code_userInfo_(v123, v126, @"com.apple.koa.item.converter", 1, v37, v127);
   }
 
   else
   {
     v33 = MEMORY[0x277CCA9B8];
-    v131 = *MEMORY[0x277CCA068];
+    v130 = *MEMORY[0x277CCA068];
     v34 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v6, @"Cannot convert invalid KVItem: %@", v7, v8, v9, itemCopy);
-    v132[0] = v34;
-    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v132, &v131, 1, v36);
+    v131[0] = v34;
+    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v131, &v130, 1, v36);
     objc_msgSend_errorWithDomain_code_userInfo_(v33, v38, @"com.apple.koa.item.converter", 2, v37, v39);
   }
   v40 = ;
@@ -2932,8 +2929,6 @@ LABEL_30:
 
   v41 = 0;
 LABEL_31:
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
@@ -4059,7 +4054,7 @@ LABEL_31:
 
 + (unsigned)cascadeItemTypeFromItemType:(int64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = 19668;
   switch(type)
   {
@@ -4073,7 +4068,7 @@ LABEL_31:
     case 14:
       goto LABEL_2;
     case 2:
-      break;
+      return result;
     case 3:
       result = -29102;
       break;
@@ -4129,16 +4124,16 @@ LABEL_31:
       result = 17034;
       break;
     default:
-      v6 = qword_28106B3C0;
+      v5 = qword_28106B3C0;
       if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
       {
-        v7 = v6;
-        v13 = KVItemTypeDescription(type, v8, v9, v10, v11, v12);
-        v14 = 136315394;
-        v15 = "+[KVItemConverter cascadeItemTypeFromItemType:]";
-        v16 = 2112;
-        v17 = v13;
-        _os_log_error_impl(&dword_2559A5000, v7, OS_LOG_TYPE_ERROR, "%s KVItemType: %@ has no valid Cascade item type mapping.", &v14, 0x16u);
+        v6 = v5;
+        v12 = KVItemTypeDescription(type, v7, v8, v9, v10, v11);
+        v13 = 136315394;
+        v14 = "+[KVItemConverter cascadeItemTypeFromItemType:]";
+        v15 = 2112;
+        v16 = v12;
+        _os_log_error_impl(&dword_2559A5000, v6, OS_LOG_TYPE_ERROR, "%s KVItemType: %@ has no valid Cascade item type mapping.", &v13, 0x16u);
       }
 
 LABEL_2:
@@ -4146,7 +4141,279 @@ LABEL_2:
       break;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  return result;
+}
+
++ (int64_t)itemTypeFromCascadeItemType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v19 = *MEMORY[0x277D85DE8];
+  result = 1;
+  if (type <= 26511)
+  {
+    if (type > 14024)
+    {
+      if (type > 16250)
+      {
+        if (type <= 18539)
+        {
+          if (type == 16251)
+          {
+            return result;
+          }
+
+          if (type == 17034)
+          {
+            return 26;
+          }
+
+          goto LABEL_82;
+        }
+
+        if (type == 18540)
+        {
+          return 5;
+        }
+
+        if (type == 19668)
+        {
+          return 2;
+        }
+
+        v5 = 25883;
+        goto LABEL_60;
+      }
+
+      if (type > 14815)
+      {
+        if (type == 14816 || type == 15572)
+        {
+          return result;
+        }
+
+        if (type == 15757)
+        {
+          return 12;
+        }
+
+        goto LABEL_82;
+      }
+
+      if (type != 14025)
+      {
+        v5 = 14706;
+        goto LABEL_60;
+      }
+
+      return 14;
+    }
+
+    if (type > 7821)
+    {
+      if (type <= 12009)
+      {
+        if (type == 7822)
+        {
+          return 18;
+        }
+
+        v6 = 8194;
+        goto LABEL_64;
+      }
+
+      if (type == 12010)
+      {
+        return 8;
+      }
+
+      if (type == 12996)
+      {
+        return 19;
+      }
+
+      v5 = 13884;
+    }
+
+    else
+    {
+      if (type <= 5594)
+      {
+        if (type == 800)
+        {
+          return result;
+        }
+
+        if (type != 3615)
+        {
+          goto LABEL_82;
+        }
+
+        return 14;
+      }
+
+      if (type == 5595)
+      {
+        return result;
+      }
+
+      if (type == 7690)
+      {
+        return 4;
+      }
+
+      v5 = 7719;
+    }
+
+LABEL_60:
+    if (type == v5)
+    {
+      return result;
+    }
+
+    goto LABEL_82;
+  }
+
+  if (type <= 44934)
+  {
+    if (type > 36058)
+    {
+      if (type > 38250)
+      {
+        switch(type)
+        {
+          case 0x956Bu:
+            return result;
+          case 0xA4C8u:
+            return 16;
+          case 0xA673u:
+            return 25;
+        }
+
+        goto LABEL_82;
+      }
+
+      if (type != 36059)
+      {
+        if (type == 36434)
+        {
+          return 3;
+        }
+
+        goto LABEL_82;
+      }
+
+      return 14;
+    }
+
+    if (type <= 30597)
+    {
+      if (type == 26512)
+      {
+        return result;
+      }
+
+      if (type == 27122)
+      {
+        return 21;
+      }
+
+      goto LABEL_82;
+    }
+
+    if (type == 30598 || type == 32965)
+    {
+      return result;
+    }
+
+    v6 = 34307;
+LABEL_64:
+    if (type != v6)
+    {
+LABEL_82:
+      v7 = qword_28106B3C0;
+      if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
+      {
+        v8 = MEMORY[0x277D21178];
+        v9 = v7;
+        v14 = objc_msgSend_descriptionForTypeIdentifier_(v8, v10, typeCopy, v11, v12, v13);
+        v15 = 136315394;
+        v16 = "+[KVItemConverter itemTypeFromCascadeItemType:]";
+        v17 = 2112;
+        v18 = v14;
+        _os_log_error_impl(&dword_2559A5000, v9, OS_LOG_TYPE_ERROR, "%s Cascade itemType: %@ has no valid KVItemType mapping.", &v15, 0x16u);
+      }
+
+      return 0;
+    }
+
+    return 14;
+  }
+
+  if (type > 53613)
+  {
+    if (type > 61508)
+    {
+      if (type == 61509)
+      {
+        return 20;
+      }
+
+      if (type == 62158)
+      {
+        return 23;
+      }
+
+      v5 = 63369;
+    }
+
+    else
+    {
+      if (type == 53614)
+      {
+        return 17;
+      }
+
+      if (type == 54385)
+      {
+        return 15;
+      }
+
+      v5 = 61352;
+    }
+
+    goto LABEL_60;
+  }
+
+  if (type <= 49065)
+  {
+    if (type == 44935)
+    {
+      return result;
+    }
+
+    if (type == 47341)
+    {
+      return 24;
+    }
+
+    goto LABEL_82;
+  }
+
+  if (type == 49066)
+  {
+    return 9;
+  }
+
+  if (type != 53482)
+  {
+    if (type == 53601)
+    {
+      return 22;
+    }
+
+    goto LABEL_82;
+  }
+
   return result;
 }
 

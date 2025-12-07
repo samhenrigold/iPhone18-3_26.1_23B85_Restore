@@ -328,17 +328,17 @@ LABEL_13:
 
 uint64_t __55__PUAssetActionPerformer_performWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  a3;
+  v5 = a3;
   if (*(a1 + 32))
   {
     v5 = *(a1 + 40);
     if (v5)
     {
-      (*(v5 + 16))(v5, a2);
+      v5 = v5[2](v5, a2);
     }
   }
 
-  return MEMORY[0x1EEE66BE0]();
+  return MEMORY[0x1EEE66BE0](v5);
 }
 
 - (NSUndoManager)undoManager

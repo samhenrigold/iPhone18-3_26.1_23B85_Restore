@@ -43,7 +43,7 @@
     aBlock[4] = self;
     v2 = _Block_copy(aBlock);
     v3 = MEMORY[0x1E6999348];
-    v4 = CKFrameworkBundle();
+    v4 = CKFrameworkBundle(v2);
     v5 = [v4 localizedStringForKey:@"TS_STOP_SHARING_ACTION_BANNER" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
     v6 = [v3 actionWithTitle:v5 handler:v2];
   }
@@ -120,16 +120,16 @@ void __56__CKTranscriptSharingSuggestion_suggestionDismissAction__block_invoke(u
 
 - (id)suggestionTitle
 {
-  v2 = [(CKTranscriptSharingSuggestion *)self state]- 1;
-  if (v2 > 2)
+  state = [(CKTranscriptSharingSuggestion *)self state];
+  if ((state - 1) > 2)
   {
     v5 = &stru_1F04268F8;
   }
 
   else
   {
-    v3 = off_1E72F4DA8[v2];
-    v4 = CKFrameworkBundle();
+    v3 = off_1E72F4DA8[state - 1];
+    v4 = CKFrameworkBundle(state);
     v5 = [v4 localizedStringForKey:v3 value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
   }
 

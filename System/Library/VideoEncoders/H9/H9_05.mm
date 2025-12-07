@@ -1,148 +1,20 @@
-uint64_t AVE_Prop_HEVC_GetMCTFStrengthLevel(void *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, __CFArray **a5)
-{
-  if (a1 && a2 && a4 && a5)
-  {
-    Mutable = CFArrayCreateMutable(allocator, *(a1 + 2639), MEMORY[0x29EDB9000]);
-    if (!Mutable)
-    {
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v27 = AVE_Log_CheckConsole(0x1Eu);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(4);
-        if (v27)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20596, "pArray != __null", a1, a1[7], a2, allocator, a4, a5, 2);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(4);
-          v30 = a1[7];
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20596, "pArray != __null", a1);
-      }
-
-      return 4294966293;
-    }
-
-    v11 = Mutable;
-    if (*(a1 + 2639))
-    {
-      v12 = 2636;
-      v13 = 10544;
-      while (1)
-      {
-        v14 = CFNumberCreate(allocator, kCFNumberSInt32Type, a1 + v13);
-        if (!v14)
-        {
-          break;
-        }
-
-        v15 = v14;
-        CFArrayAppendValue(v11, v14);
-        CFRelease(v15);
-        v16 = v12 - 2635;
-        ++v12;
-        v13 += 4;
-        if (v16 >= *(a1 + 2639))
-        {
-          goto LABEL_10;
-        }
-      }
-
-      if (AVE_Log_CheckLevel(0x1Eu, 4))
-      {
-        v31 = AVE_Log_CheckConsole(0x1Eu);
-        v32 = AVE_GetCurrTime();
-        v33 = AVE_Log_GetLevelStr(4);
-        if (v31)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber  %p %lld %p %p %p %p %d %d\n", v32, 30, v33, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20605, "pNum != __null", a1, a1[7], a2, allocator, a4, a5, v12 - 2636, *(a1 + v12));
-          v32 = AVE_GetCurrTime();
-          v33 = AVE_Log_GetLevelStr(4);
-          v39 = *(a1 + v12);
-          v38 = a1[7];
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber  %p %lld %p %p %p %p %d %d", v32, 30, v33, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20605, "pNum != __null", a1);
-      }
-
-      CFRelease(v11);
-      return 4294966293;
-    }
-
-LABEL_10:
-    *a5 = v11;
-    result = AVE_Log_CheckLevel(0x1Eu, 7);
-    if (result)
-    {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(7);
-      v21 = *(a1 + 2639);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", v19, 30, v20, a1, a1[7], *a2, *(a1 + 2639), v11);
-        v19 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(7);
-        v22 = a1[7];
-        v36 = *(a1 + 2639);
-        v35 = *a2;
-      }
-
-      else
-      {
-        v37 = *(a1 + 2639);
-      }
-
-      syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", v19, 30);
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x1Eu, 4))
-    {
-      v23 = AVE_Log_CheckConsole(0x1Eu);
-      v24 = AVE_GetCurrTime();
-      v25 = AVE_Log_GetLevelStr(4);
-      if (v23)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v24, 30, v25, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20588, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v26 = AVE_GetCurrTime();
-        v34 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v26, 30, v34, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20588);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v24, 30, v25, "AVE_Prop_HEVC_GetMCTFStrengthLevel", 20588);
-      }
-    }
-
-    return 4294966295;
-  }
-
-  return result;
-}
-
 uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFString *a3, const __CFArray *a4)
 {
-  v65 = *MEMORY[0x29EDCA608];
-  memset(v64, 0, sizeof(v64));
-  memset(v63, 0, sizeof(v63));
+  v59 = *MEMORY[0x29EDCA608];
+  memset(v58, 0, sizeof(v58));
+  memset(v57, 0, sizeof(v57));
   if (a1 && a2 && a3 && a4)
   {
     TypeID = CFArrayGetTypeID();
     if (TypeID == CFGetTypeID(a4))
     {
-      v9 = AVE_MCTF_Retrieve(a4, v63);
+      v9 = AVE_MCTF_Retrieve(a4, v57);
       if (v9)
       {
-        v62 = v9;
-        v61 = a2;
+        v56 = v9;
+        v55 = a2;
         v10 = 0;
-        v11 = v63;
+        v11 = v57;
         v12 = 1;
         do
         {
@@ -203,7 +75,7 @@ uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFStrin
           }
 
           v12 = 0;
-          v11 = v64;
+          v11 = v58;
           v10 = 1;
         }
 
@@ -213,26 +85,17 @@ uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFStrin
           v36 = AVE_Log_CheckConsole(0x1Eu);
           v37 = AVE_GetCurrTime();
           v38 = AVE_Log_GetLevelStr(7);
-          v39 = *v61;
           if (v36)
           {
-            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v37, 30, v38, a1, *(a1 + 7), *v61, a1[10740]);
+            printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v37, 30, v38, a1, *(a1 + 7), *v55, a1[10740]);
             v37 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v40 = *(a1 + 7);
-            v58 = *v61;
-            v60 = a1[10740];
-          }
-
-          else
-          {
-            v59 = *v61;
           }
 
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v37);
         }
 
-        result = v62;
+        return v56;
       }
 
       else
@@ -240,19 +103,23 @@ uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFStrin
         result = AVE_Log_CheckLevel(0x1Eu, 4);
         if (result)
         {
-          v52 = AVE_Log_CheckConsole(0x1Eu);
-          v53 = AVE_GetCurrTime();
-          v54 = AVE_Log_GetLevelStr(4);
-          if (v52)
+          v49 = AVE_Log_CheckConsole(0x1Eu);
+          v50 = AVE_GetCurrTime();
+          v51 = AVE_Log_GetLevelStr(4);
+          if (v49)
           {
-            printf("%lld %d AVE %s: %s:%d %s | error retrieve MCTF params %p %lld %p %p %p\n", v53, 30, v54, "AVE_Prop_HEVC_SetMCTFParams", 20669, "ret != 0", a1, *(a1 + 7), a2, a3, a4);
-            v53 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | error retrieve MCTF params %p %lld %p %p %p\n", v50, 30, v51, "AVE_Prop_HEVC_SetMCTFParams", 20669, "ret != 0", a1, *(a1 + 7), a2, a3, a4);
+            v52 = AVE_GetCurrTime();
             v54 = AVE_Log_GetLevelStr(4);
-            v55 = *(a1 + 7);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | error retrieve MCTF params %p %lld %p %p %p", v52, 30, v54, "AVE_Prop_HEVC_SetMCTFParams", 20669);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | error retrieve MCTF params %p %lld %p %p %p", v53, 30, v54, "AVE_Prop_HEVC_SetMCTFParams", 20669);
-          result = 0;
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | error retrieve MCTF params %p %lld %p %p %p", v50, 30, v51, "AVE_Prop_HEVC_SetMCTFParams", 20669);
+          }
+
+          return 0;
         }
       }
     }
@@ -261,24 +128,23 @@ uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFStrin
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v45 = AVE_Log_CheckConsole(0x1Eu);
-        v46 = AVE_GetCurrTime();
-        v47 = AVE_Log_GetLevelStr(4);
-        v48 = *(a1 + 7);
-        v49 = CFGetTypeID(a4);
-        if (v45)
+        v43 = AVE_Log_CheckConsole(0x1Eu);
+        v44 = AVE_GetCurrTime();
+        v45 = AVE_Log_GetLevelStr(4);
+        v46 = *(a1 + 7);
+        v47 = CFGetTypeID(a4);
+        if (v43)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v46, 30, v47, "AVE_Prop_HEVC_SetMCTFParams", 20664, "CFArrayGetTypeID() == CFGetTypeID(pValue)", a1, v48, a2, a3, a4, v49);
-          v46 = AVE_GetCurrTime();
-          v47 = AVE_Log_GetLevelStr(4);
-          v50 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v44, 30, v45, "AVE_Prop_HEVC_SetMCTFParams", 20664, "CFArrayGetTypeID() == CFGetTypeID(pValue)", a1, v46, a2, a3, a4, v47);
+          v44 = AVE_GetCurrTime();
+          v45 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v46, 30, v47, "AVE_Prop_HEVC_SetMCTFParams", 20664, "CFArrayGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v44, 30, v45, "AVE_Prop_HEVC_SetMCTFParams", 20664, "CFArrayGetTypeID() == CFGetTypeID(pValue)");
       }
 
-      result = 4294965293;
+      return 4294965293;
     }
   }
 
@@ -286,31 +152,30 @@ uint64_t AVE_Prop_HEVC_SetMCTFParams(_BYTE *a1, const char **a2, const __CFStrin
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v41 = AVE_Log_CheckConsole(0x1Eu);
-      v42 = AVE_GetCurrTime();
-      v43 = AVE_Log_GetLevelStr(4);
-      if (v41)
+      v39 = AVE_Log_CheckConsole(0x1Eu);
+      v40 = AVE_GetCurrTime();
+      v41 = AVE_Log_GetLevelStr(4);
+      if (v39)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v42, 30, v43, "AVE_Prop_HEVC_SetMCTFParams", 20655, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v44 = AVE_GetCurrTime();
-        v57 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v44, 30, v57, "AVE_Prop_HEVC_SetMCTFParams");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v40, 30, v41, "AVE_Prop_HEVC_SetMCTFParams", 20655, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v42 = AVE_GetCurrTime();
+        v53 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v42, 30, v53, "AVE_Prop_HEVC_SetMCTFParams");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v42, 30, v43, "AVE_Prop_HEVC_SetMCTFParams");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v40, 30, v41, "AVE_Prop_HEVC_SetMCTFParams");
       }
     }
 
-    result = 4294966295;
+    return 4294966295;
   }
 
-  v56 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t AVE_Prop_HEVC_GetMCTFParams(unsigned __int8 *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, __CFArray **a5)
+uint64_t AVE_Prop_HEVC_GetMCTFParams(_BYTE *a1, const char **a2, CFAllocatorRef allocator, const __CFString *a4, __CFArray **a5)
 {
   if (!a1 || !a2 || !a4 || !a5)
   {
@@ -323,8 +188,8 @@ uint64_t AVE_Prop_HEVC_GetMCTFParams(unsigned __int8 *a1, const char **a2, CFAll
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFParams", 20716, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
         v21 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v32, "AVE_Prop_HEVC_GetMCTFParams", 20716);
+        v30 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v30, "AVE_Prop_HEVC_GetMCTFParams", 20716);
       }
 
       else
@@ -348,18 +213,21 @@ uint64_t AVE_Prop_HEVC_GetMCTFParams(unsigned __int8 *a1, const char **a2, CFAll
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v27 = AVE_Log_CheckConsole(0x1Eu);
-      v28 = AVE_GetCurrTime();
-      v29 = AVE_Log_GetLevelStr(4);
-      if (v27)
+      v25 = AVE_Log_CheckConsole(0x1Eu);
+      v26 = AVE_GetCurrTime();
+      v27 = AVE_Log_GetLevelStr(4);
+      if (v25)
       {
-        printf("%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p\n", v28, 30, v29, "AVE_Prop_HEVC_GetMCTFParams", 20726, "pArray != __null", a1, *(a1 + 7), a2, allocator, a4, a5);
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p\n", v26, 30, v27, "AVE_Prop_HEVC_GetMCTFParams", 20726, "pArray != __null", a1, *(a1 + 7), a2, allocator, a4, a5);
         v28 = AVE_GetCurrTime();
-        v29 = AVE_Log_GetLevelStr(4);
-        v30 = *(a1 + 7);
+        v31 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p", v28, 30, v31, "AVE_Prop_HEVC_GetMCTFParams", 20726, "pArray != __null");
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p", v28, 30, v29, "AVE_Prop_HEVC_GetMCTFParams", 20726, "pArray != __null");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFArrayCreateMutable  %p %lld %p %p %p %p", v26, 30, v27, "AVE_Prop_HEVC_GetMCTFParams", 20726, "pArray != __null");
+      }
     }
 
     return 4294966293;
@@ -376,20 +244,11 @@ LABEL_16:
       v22 = AVE_Log_CheckConsole(0x1Eu);
       v23 = AVE_GetCurrTime();
       v24 = AVE_Log_GetLevelStr(7);
-      v25 = a1[10740];
       if (v22)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", v23, 30, v24, a1, *(a1 + 7), *a2, a1[10740], v11);
         v23 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v26 = *(a1 + 7);
-        v34 = a1[10740];
-        v33 = *a2;
-      }
-
-      else
-      {
-        v35 = a1[10740];
       }
 
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", v23, 30);
@@ -438,18 +297,21 @@ uint64_t AVE_Prop_HEVC_SetMCTFMaxNextRefNum(void *a1, const char **a2, const __C
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20788, "iMaxNextRefNum >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20788, "iMaxNextRefNum >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20788, "iMaxNextRefNum >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20788, "iMaxNextRefNum >= 0");
+          }
         }
 
         return 4294965292;
@@ -465,16 +327,13 @@ uint64_t AVE_Prop_HEVC_SetMCTFMaxNextRefNum(void *a1, const char **a2, const __C
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -485,21 +344,20 @@ uint64_t AVE_Prop_HEVC_SetMCTFMaxNextRefNum(void *a1, const char **a2, const __C
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20779, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20779, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20779, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20779, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -510,20 +368,20 @@ uint64_t AVE_Prop_HEVC_SetMCTFMaxNextRefNum(void *a1, const char **a2, const __C
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20769, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum", 20769, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_HEVC_SetMCTFMaxNextRefNum");
       }
     }
 
@@ -554,8 +412,6 @@ uint64_t AVE_Prop_HEVC_GetMCTFMaxNextRefNum(_DWORD *a1, const char **a2, CFAlloc
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -567,18 +423,21 @@ uint64_t AVE_Prop_HEVC_GetMCTFMaxNextRefNum(_DWORD *a1, const char **a2, CFAlloc
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20834, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20834, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20834, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20834, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20834, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -589,20 +448,20 @@ uint64_t AVE_Prop_HEVC_GetMCTFMaxNextRefNum(_DWORD *a1, const char **a2, CFAlloc
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_GetMCTFMaxNextRefNum", 20824);
       }
     }
 
@@ -626,18 +485,21 @@ uint64_t AVE_Prop_HEVC_SetMCTFRampUpFrameNum(void *a1, const char **a2, const __
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20885, "iRamUpFrameNum >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20885, "iRamUpFrameNum >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20885, "iRamUpFrameNum >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20885, "iRamUpFrameNum >= 0");
+          }
         }
 
         return 4294965292;
@@ -653,16 +515,13 @@ uint64_t AVE_Prop_HEVC_SetMCTFRampUpFrameNum(void *a1, const char **a2, const __
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -673,21 +532,20 @@ uint64_t AVE_Prop_HEVC_SetMCTFRampUpFrameNum(void *a1, const char **a2, const __
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20876, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20876, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20876, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20876, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -698,20 +556,20 @@ uint64_t AVE_Prop_HEVC_SetMCTFRampUpFrameNum(void *a1, const char **a2, const __
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20866, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum", 20866, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_HEVC_SetMCTFRampUpFrameNum");
       }
     }
 
@@ -742,8 +600,6 @@ uint64_t AVE_Prop_HEVC_GetMCTFRampUpFrameNum(_DWORD *a1, const char **a2, CFAllo
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -755,18 +611,21 @@ uint64_t AVE_Prop_HEVC_GetMCTFRampUpFrameNum(_DWORD *a1, const char **a2, CFAllo
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20931, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20931, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20931, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20931, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20931, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -777,20 +636,20 @@ uint64_t AVE_Prop_HEVC_GetMCTFRampUpFrameNum(_DWORD *a1, const char **a2, CFAllo
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_GetMCTFRampUpFrameNum", 20921);
       }
     }
 
@@ -813,8 +672,8 @@ uint64_t AVE_Prop_HEVC_SetMCTFLatencyMode(char *a1, const char **a2, const __CFS
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20966, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
         v15 = AVE_GetCurrTime();
-        v46 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v46, "AVE_Prop_HEVC_SetMCTFLatencyMode");
+        v38 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v38, "AVE_Prop_HEVC_SetMCTFLatencyMode");
       }
 
       else
@@ -840,53 +699,55 @@ uint64_t AVE_Prop_HEVC_SetMCTFLatencyMode(char *a1, const char **a2, const __CFS
       if (CFEqual(a4, @"Medium"))
       {
         v11 = 2;
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
       if (CFEqual(a4, @"Auto"))
       {
 LABEL_9:
         v11 = 1;
-LABEL_28:
-        Str = AVE_CFStr_GetStr(a4, a1 + 106772, 128);
+LABEL_27:
+        Str = AVE_CFStr_GetStr(a4, a1 + 106772, 0x80u);
         if (Str != a1 + 106772)
         {
-          AVE_SNPrintf(a1 + 106772, 128, "%s", v29, v30, v31, v32, v33, Str);
+          AVE_SNPrintf(a1 + 106772, 128, "%s", Str);
         }
 
         if (AVE_Log_CheckLevel(0x1Eu, 7))
         {
-          v34 = AVE_Log_CheckConsole(0x1Eu);
-          v35 = AVE_GetCurrTime();
-          v36 = AVE_Log_GetLevelStr(7);
-          if (v34)
+          v28 = AVE_Log_CheckConsole(0x1Eu);
+          v29 = AVE_GetCurrTime();
+          v30 = AVE_Log_GetLevelStr(7);
+          if (v28)
           {
-            printf("%lld %d AVE %s: %s:%d  %p %lld %p %p %p iaVTLatencyMode = %s\n", v35, 30, v36, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21011, a1, *(a1 + 7), a2, a3, a4, a1 + 106772);
-            v35 = AVE_GetCurrTime();
-            v36 = AVE_Log_GetLevelStr(7);
-            v37 = *(a1 + 7);
+            printf("%lld %d AVE %s: %s:%d  %p %lld %p %p %p iaVTLatencyMode = %s\n", v29, 30, v30, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21011, a1, *(a1 + 7), a2, a3, a4, a1 + 106772);
+            v31 = AVE_GetCurrTime();
+            v40 = AVE_Log_GetLevelStr(7);
+            syslog(3, "%lld %d AVE %s: %s:%d  %p %lld %p %p %p iaVTLatencyMode = %s", v31, 30, v40, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21011);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d  %p %lld %p %p %p iaVTLatencyMode = %s", v35, 30, v36, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21011);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d  %p %lld %p %p %p iaVTLatencyMode = %s", v29, 30, v30, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21011);
+          }
         }
 
-        goto LABEL_35;
+        goto LABEL_33;
       }
 
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v43 = AVE_Log_CheckConsole(0x1Eu);
-        v44 = AVE_GetCurrTime();
-        v45 = AVE_Log_GetLevelStr(4);
-        if (v43)
+        v35 = AVE_Log_CheckConsole(0x1Eu);
+        v36 = AVE_GetCurrTime();
+        v37 = AVE_Log_GetLevelStr(4);
+        if (v35)
         {
-          printf("%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p\n", v44, 30, v45, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20999, "false", a1, *(a1 + 7), a2, a3, a4);
-          v44 = AVE_GetCurrTime();
-          v45 = AVE_Log_GetLevelStr(4);
+          printf("%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p\n", v36, 30, v37, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20999, "false", a1, *(a1 + 7), a2, a3, a4);
+          v36 = AVE_GetCurrTime();
+          v37 = AVE_Log_GetLevelStr(4);
         }
 
-        v48 = *(a1 + 7);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p", v44, 30, v45, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20999);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p", v36, 30, v37, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20999);
       }
 
       return 4294966295;
@@ -908,12 +769,15 @@ LABEL_28:
           if (v17)
           {
             printf("%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p %d (%d, %d)\n", v18, 30, v19, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21024, "AVE_MCTF_Mode_Invalid < eMCTFLatencyMode && eMCTFLatencyMode < AVE_MCTF_Mode_Max", a1, *(a1 + 7), a2, a3, a4, v11, 0, 3);
-            v18 = AVE_GetCurrTime();
-            v19 = AVE_Log_GetLevelStr(4);
-            v20 = *(a1 + 7);
+            v20 = AVE_GetCurrTime();
+            v39 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p %d (%d, %d)", v20, 30, v39, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21024, "AVE_MCTF_Mode_Invalid < eMCTFLatencyMode && eMCTFLatencyMode < AVE_MCTF_Mode_Max", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p %d (%d, %d)", v18, 30, v19, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21024, "AVE_MCTF_Mode_Invalid < eMCTFLatencyMode && eMCTFLatencyMode < AVE_MCTF_Mode_Max", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | invalid LatencyMode %p %lld %p %p %p %d (%d, %d)", v18, 30, v19, "AVE_Prop_HEVC_SetMCTFLatencyMode", 21024, "AVE_MCTF_Mode_Invalid < eMCTFLatencyMode && eMCTFLatencyMode < AVE_MCTF_Mode_Max", a1);
+          }
         }
 
         return 4294965292;
@@ -925,25 +789,22 @@ LABEL_28:
       v11 = 0;
     }
 
-LABEL_35:
+LABEL_33:
     *(a1 + 26692) = v11;
     result = AVE_Log_CheckLevel(0x1Eu, 7);
     if (result)
     {
-      v38 = AVE_Log_CheckConsole(0x1Eu);
-      v39 = AVE_GetCurrTime();
-      v40 = AVE_Log_GetLevelStr(7);
-      v41 = *a2;
-      if (v38)
+      v32 = AVE_Log_CheckConsole(0x1Eu);
+      v33 = AVE_GetCurrTime();
+      v34 = AVE_Log_GetLevelStr(7);
+      if (v32)
       {
-        printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v39, 30, v40, a1, *(a1 + 7), *a2, v11);
-        v39 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v33, 30, v34, a1, *(a1 + 7), *a2, v11);
+        v33 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v42 = *(a1 + 7);
       }
 
-      v47 = *a2;
-      syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v39);
+      syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v33);
       return 0;
     }
 
@@ -962,7 +823,6 @@ LABEL_35:
       printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v23, 30, v24, "AVE_Prop_HEVC_SetMCTFLatencyMode", 20977, "CFStringGetTypeID() == CFGetTypeID(pValue) || CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v25, a2, a3, a4, v26);
       v23 = AVE_GetCurrTime();
       v24 = AVE_Log_GetLevelStr(4);
-      v27 = *(a1 + 7);
       CFGetTypeID(a4);
     }
 
@@ -1009,12 +869,15 @@ uint64_t AVE_Prop_HEVC_GetMCTFLatencyMode(_DWORD *a1, const char **a2, CFAllocat
           if (v12)
           {
             printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFLatencyMode", 21075, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v15 = *(a1 + 7);
+            v15 = AVE_GetCurrTime();
+            v24 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v15, 30, v24, "AVE_Prop_HEVC_GetMCTFLatencyMode", 21075, "pNum != __null", a1);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFLatencyMode", 21075, "pNum != __null", a1);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetMCTFLatencyMode", 21075, "pNum != __null", a1);
+          }
         }
 
         return 4294966293;
@@ -1033,8 +896,6 @@ uint64_t AVE_Prop_HEVC_GetMCTFLatencyMode(_DWORD *a1, const char **a2, CFAllocat
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", v22, 30, v23, a1, *(a1 + 7), *a2, valuePtr, a5);
         v22 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v24 = *(a1 + 7);
-        v26 = *a2;
       }
 
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", v22, 30);
@@ -1085,16 +946,13 @@ uint64_t AVE_Prop_HEVC_SetUseElementaryStreamOutput(_DWORD *a1, const char **a2,
         v11 = AVE_Log_CheckConsole(0x1Eu);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(7);
-        v14 = *a2;
         if (v11)
         {
           printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v9);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v15 = *(a1 + 7);
         }
 
-        v27 = *a2;
         syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", CurrTime);
         return 0;
       }
@@ -1104,21 +962,20 @@ uint64_t AVE_Prop_HEVC_SetUseElementaryStreamOutput(_DWORD *a1, const char **a2,
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(a1 + 7);
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = *(a1 + 7);
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21136, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21136, "CFBooleanGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21136, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21136, "CFBooleanGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -1129,20 +986,20 @@ uint64_t AVE_Prop_HEVC_SetUseElementaryStreamOutput(_DWORD *a1, const char **a2,
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21126, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v26, "AVE_Prop_HEVC_SetUseElementaryStreamOutput");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_HEVC_SetUseElementaryStreamOutput", 21126, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v23, "AVE_Prop_HEVC_SetUseElementaryStreamOutput");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_SetUseElementaryStreamOutput");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_HEVC_SetUseElementaryStreamOutput");
       }
     }
 
@@ -1170,16 +1027,13 @@ uint64_t AVE_Prop_HEVC_GetUseElementaryStreamOutput(_BYTE *a1, const char **a2, 
       v13 = AVE_Log_CheckConsole(0x1Eu);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
-      v16 = *a2;
       if (v13)
       {
         printf("%lld %d AVE %s: %p %lld GetProp %s: %d\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, v10);
         CurrTime = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v17 = *(a1 + 7);
       }
 
-      v23 = *a2;
       syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d", CurrTime);
       return 0;
     }
@@ -1189,20 +1043,20 @@ uint64_t AVE_Prop_HEVC_GetUseElementaryStreamOutput(_BYTE *a1, const char **a2, 
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v18 = AVE_Log_CheckConsole(0x1Eu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v19, 30, v20, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v21, 30, v22, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v20, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_GetUseElementaryStreamOutput", 21173);
       }
     }
 
@@ -1226,18 +1080,21 @@ uint64_t AVE_Prop_HEVC_SetCmdTimeOutMode(void *a1, const char **a2, const __CFSt
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v26 = AVE_Log_CheckConsole(0x1Eu);
+          v23 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          if (v26)
+          if (v23)
           {
             printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21229, "iCmdTimeOutMode >= 0", a1, a1[7], a2, a3, a4, valuePtr);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(4);
-            v29 = a1[7];
+            v26 = AVE_GetCurrTime();
+            v28 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", v26, 30, v28, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21229, "iCmdTimeOutMode >= 0");
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21229, "iCmdTimeOutMode >= 0");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21229, "iCmdTimeOutMode >= 0");
+          }
         }
 
         return 4294965292;
@@ -1253,16 +1110,13 @@ uint64_t AVE_Prop_HEVC_SetCmdTimeOutMode(void *a1, const char **a2, const __CFSt
           v11 = AVE_Log_CheckConsole(0x1Eu);
           v12 = AVE_GetCurrTime();
           v13 = AVE_Log_GetLevelStr(7);
-          v14 = *a2;
           if (v11)
           {
             printf("%lld %d AVE %s: %p %lld SetProp %s: %d\n", v12, 30, v13, a1, a1[7], *a2, valuePtr);
             v12 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(7);
-            v15 = a1[7];
           }
 
-          v31 = *a2;
           syslog(3, "%lld %d AVE %s: %p %lld SetProp %s: %d", v12);
           return 0;
         }
@@ -1273,21 +1127,20 @@ uint64_t AVE_Prop_HEVC_SetCmdTimeOutMode(void *a1, const char **a2, const __CFSt
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v20 = AVE_Log_CheckConsole(0x1Eu);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        v23 = a1[7];
-        v24 = CFGetTypeID(a4);
-        if (v20)
+        v18 = AVE_Log_CheckConsole(0x1Eu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        v21 = a1[7];
+        v22 = CFGetTypeID(a4);
+        if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v21, 30, v22, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21220, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v23, a2, a3, a4, v24);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v25 = a1[7];
+          printf("%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld\n", v19, 30, v20, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21220, "CFNumberGetTypeID() == CFGetTypeID(pValue)", a1, v21, a2, a3, a4, v22);
+          v19 = AVE_GetCurrTime();
+          v20 = AVE_Log_GetLevelStr(4);
           CFGetTypeID(a4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v21, 30, v22, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21220, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong property type %p %lld %p %p %p %ld", v19, 30, v20, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21220, "CFNumberGetTypeID() == CFGetTypeID(pValue)");
       }
 
       return 4294965293;
@@ -1298,20 +1151,20 @@ uint64_t AVE_Prop_HEVC_SetCmdTimeOutMode(void *a1, const char **a2, const __CFSt
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v16 = AVE_Log_CheckConsole(0x1Eu);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(4);
-      if (v16)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21210, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
-        v19 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v19, 30, v30, "AVE_Prop_HEVC_SetCmdTimeOutMode");
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p\n", v15, 30, v16, "AVE_Prop_HEVC_SetCmdTimeOutMode", 21210, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, a3, a4);
+        v17 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v27, "AVE_Prop_HEVC_SetCmdTimeOutMode");
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_SetCmdTimeOutMode");
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p", v15, 30, v16, "AVE_Prop_HEVC_SetCmdTimeOutMode");
       }
     }
 
@@ -1342,8 +1195,6 @@ uint64_t AVE_Prop_HEVC_GetCmdTimeOutMode(_DWORD *a1, const char **a2, CFAllocato
           printf("%lld %d AVE %s: %p %lld GetProp %s: %d %p\n", CurrTime, 30, LevelStr, a1, *(a1 + 7), *a2, valuePtr, v11);
           CurrTime = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
-          v16 = *(a1 + 7);
-          v26 = *a2;
         }
 
         syslog(3, "%lld %d AVE %s: %p %lld GetProp %s: %d %p", CurrTime, 30);
@@ -1355,18 +1206,21 @@ uint64_t AVE_Prop_HEVC_GetCmdTimeOutMode(_DWORD *a1, const char **a2, CFAllocato
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v21 = AVE_Log_CheckConsole(0x1Eu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
+        v20 = AVE_Log_CheckConsole(0x1Eu);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        if (v20)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v22, 30, v23, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21275, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 7);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d\n", v21, 30, v22, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21275, "pNum != __null", a1, *(a1 + 7), a2, allocator, a4, a5, valuePtr);
+          v23 = AVE_GetCurrTime();
+          v25 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v23, 30, v25, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21275, "pNum != __null", a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v22, 30, v23, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21275, "pNum != __null", a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFNumber %p %lld %p %p %p %p %d", v21, 30, v22, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21275, "pNum != __null", a1);
+        }
       }
 
       return 4294966293;
@@ -1377,20 +1231,20 @@ uint64_t AVE_Prop_HEVC_GetCmdTimeOutMode(_DWORD *a1, const char **a2, CFAllocato
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v17 = AVE_Log_CheckConsole(0x1Eu);
-      v18 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(4);
-      if (v17)
+      v16 = AVE_Log_CheckConsole(0x1Eu);
+      v17 = AVE_GetCurrTime();
+      v18 = AVE_Log_GetLevelStr(4);
+      if (v16)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v18, 30, v19, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
-        v20 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v20, 30, v25, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p\n", v17, 30, v18, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265, "pINS != __null && pEntry != __null && pKey != __null && pValue != __null", a1, a2, allocator, a4, a5);
+        v19 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v19, 30, v24, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v18, 30, v19, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p", v17, 30, v18, "AVE_Prop_HEVC_GetCmdTimeOutMode", 21265);
       }
     }
 
@@ -1476,13 +1330,15 @@ uint64_t AVE_Prop_HEVC_SetProperty(uint64_t a1, __CFString *a2, const void *a3)
     if (v8)
     {
       printf("%lld %d AVE %s: %s:%d %s | fail to set property %p %lld 0x%x %d %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetProperty", 21662, "ret == 0", a1, *(a1 + 56), v6, *(a1 + 68), a2, a3, v7);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      v11 = *(a1 + 56);
-      v13 = *(a1 + 68);
+      v11 = AVE_GetCurrTime();
+      v13 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld 0x%x %d %p %p %d", v11, 30, v13, "AVE_Prop_HEVC_SetProperty", 21662, "ret == 0");
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld 0x%x %d %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetProperty", 21662, "ret == 0");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld 0x%x %d %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_SetProperty", 21662, "ret == 0");
+    }
   }
 
   return v7;
@@ -1509,13 +1365,15 @@ uint64_t AVE_Prop_HEVC_GetProperty(uint64_t a1, const void *a2, __CFString *a3, 
     if (v10)
     {
       printf("%lld %d AVE %s: %s:%d %s | fail to get property %p %lld 0x%x %d %p %p %p %d\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetProperty", 21697, "ret == 0", a1, *(a1 + 56), v8, *(a1 + 68), a2, a3, a4, Property);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      v15 = *(a1 + 68);
-      v14 = *(a1 + 56);
+      v13 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld 0x%x %d %p %p %p %d", v13, 30, v15, "AVE_Prop_HEVC_GetProperty", 21697, "ret == 0", a1);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld 0x%x %d %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetProperty", 21697, "ret == 0", a1);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld 0x%x %d %p %p %p %d", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_GetProperty", 21697, "ret == 0", a1);
+    }
   }
 
   return Property;
@@ -1532,8 +1390,8 @@ uint64_t AVE_Prop_HEVC_CreateSupportedPresetDictionary(uint64_t a1)
     {
       printf("%lld %d AVE %s: %s Enter %p\n", CurrTime, 30, LevelStr, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1);
       v5 = AVE_GetCurrTime();
-      v28 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 30, v28, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1);
+      v26 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 30, v26, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1);
     }
 
     else
@@ -1566,17 +1424,18 @@ uint64_t AVE_Prop_HEVC_CreateSupportedPresetDictionary(uint64_t a1)
           v10 = AVE_Log_CheckConsole(0x1Eu);
           v11 = AVE_GetCurrTime();
           v12 = AVE_Log_GetLevelStr(4);
-          v13 = *(a1 + 68);
           if (v10)
           {
             printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld 0x%x %d %d\n", v11, 30, v12, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", 21743, "ret == 0", a1, *(a1 + 56), v6, *(a1 + 68), PresetDict);
-            v11 = AVE_GetCurrTime();
-            v12 = AVE_Log_GetLevelStr(4);
-            v14 = *(a1 + 56);
+            v13 = AVE_GetCurrTime();
+            v27 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld 0x%x %d %d", v13, 30, v27, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
           }
 
-          v30 = *(a1 + 68);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld 0x%x %d %d", v11, 30, v12, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld 0x%x %d %d", v11, 30, v12, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
+          }
         }
 
         CFRelease(v8);
@@ -1592,20 +1451,21 @@ uint64_t AVE_Prop_HEVC_CreateSupportedPresetDictionary(uint64_t a1)
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v18 = AVE_Log_CheckConsole(0x1Eu);
-        v19 = AVE_GetCurrTime();
-        v20 = AVE_Log_GetLevelStr(4);
-        v21 = *(a1 + 68);
-        if (v18)
+        v17 = AVE_Log_CheckConsole(0x1Eu);
+        v18 = AVE_GetCurrTime();
+        v19 = AVE_Log_GetLevelStr(4);
+        if (v17)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d\n", v19, 30, v20, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", 21734, "pDict != __null", a1, *(a1 + 56), v6, *(a1 + 68), 0);
-          v19 = AVE_GetCurrTime();
-          v20 = AVE_Log_GetLevelStr(4);
-          v22 = *(a1 + 56);
+          printf("%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d\n", v18, 30, v19, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", 21734, "pDict != __null", a1, *(a1 + 56), v6, *(a1 + 68), 0);
+          v20 = AVE_GetCurrTime();
+          v28 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v20, 30, v28, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
         }
 
-        v31 = *(a1 + 68);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v19, 30, v20, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v18, 30, v19, "AVE_Prop_HEVC_CreateSupportedPresetDictionary");
+        }
       }
 
       PresetDict = 4294966293;
@@ -1616,17 +1476,17 @@ uint64_t AVE_Prop_HEVC_CreateSupportedPresetDictionary(uint64_t a1)
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v15 = AVE_Log_CheckConsole(0x1Eu);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
+      v14 = AVE_Log_CheckConsole(0x1Eu);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v16, 30, v17, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", 21719, "pINS != __null", 0);
-        v16 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v15, 30, v16, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", 21719, "pINS != __null", 0);
+        v15 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v16);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v15);
     }
 
     PresetDict = 4294966295;
@@ -1634,20 +1494,20 @@ uint64_t AVE_Prop_HEVC_CreateSupportedPresetDictionary(uint64_t a1)
 
   if (AVE_Log_CheckLevel(0x1Eu, 6))
   {
-    v23 = AVE_Log_CheckConsole(0x1Eu);
-    v24 = AVE_GetCurrTime();
-    v25 = AVE_Log_GetLevelStr(6);
-    if (v23)
+    v21 = AVE_Log_CheckConsole(0x1Eu);
+    v22 = AVE_GetCurrTime();
+    v23 = AVE_Log_GetLevelStr(6);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v24, 30, v25, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
-      v26 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v22, 30, v23, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
+      v24 = AVE_GetCurrTime();
       v29 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v26, 30, v29, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v24, 30, v29, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v24, 30, v25, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v22, 30, v23, "AVE_Prop_HEVC_CreateSupportedPresetDictionary", a1, PresetDict);
     }
   }
 
@@ -1832,13 +1692,13 @@ double _GLOBAL__sub_I_AVE_Prop_HEVC_cpp()
   return result;
 }
 
-uint64_t AVE_Prop_Add(const void *a1, int a2, int a3, uint64_t a4, __CFDictionary *a5)
+uint64_t AVE_Prop_Add(const void *a1, unsigned int a2, int a3, uint64_t a4, __CFDictionary *a5)
 {
   if (a1 && a2 <= 8 && a5)
   {
     if (a2 > 3)
     {
-      if ((a2 - 4) < 4)
+      if (a2 - 4 < 4)
       {
         v10 = 0;
         goto LABEL_22;
@@ -1849,13 +1709,13 @@ uint64_t AVE_Prop_Add(const void *a1, int a2, int a3, uint64_t a4, __CFDictionar
 
     switch(a2)
     {
-      case 1:
+      case 1u:
         v15 = MEMORY[0x29EDBD130];
         break;
-      case 2:
+      case 2u:
         v15 = MEMORY[0x29EDBD140];
         break;
-      case 3:
+      case 3u:
         v15 = MEMORY[0x29EDBD138];
         break;
       default:
@@ -1869,8 +1729,8 @@ LABEL_17:
           {
             printf("%lld %d AVE %s: %s:%d %s | unsupported property type %p %d 0x%x %lld %p\n", CurrTime, 30, LevelStr, "AVE_Prop_Add", 58, "ret == 0", a1, a2, a3, a4, a5);
             v20 = AVE_GetCurrTime();
-            v30 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | unsupported property type %p %d 0x%x %lld %p", v20, 30, v30, "AVE_Prop_Add");
+            v29 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | unsupported property type %p %d 0x%x %lld %p", v20, 30, v29, "AVE_Prop_Add");
           }
 
           else
@@ -1884,29 +1744,28 @@ LABEL_17:
 
     v10 = *v15;
 LABEL_22:
-    v21 = *MEMORY[0x29EDBD118];
     if ((a3 & 0x30000) == 0x10000)
     {
-      v22 = *MEMORY[0x29EDBD110];
+      v21 = *MEMORY[0x29EDBD110];
     }
 
     else
     {
-      v22 = *MEMORY[0x29EDBD118];
+      v21 = *MEMORY[0x29EDBD118];
     }
 
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     if (Mutable)
     {
-      v24 = Mutable;
+      v23 = Mutable;
       if (v10)
       {
         CFDictionarySetValue(Mutable, *MEMORY[0x29EDBD128], v10);
       }
 
-      CFDictionarySetValue(v24, *MEMORY[0x29EDBD108], v22);
-      CFDictionarySetValue(a5, a1, v24);
-      CFRelease(v24);
+      CFDictionarySetValue(v23, *MEMORY[0x29EDBD108], v21);
+      CFDictionarySetValue(a5, a1, v23);
+      CFRelease(v23);
       return 0;
     }
 
@@ -1914,20 +1773,20 @@ LABEL_22:
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v25 = AVE_Log_CheckConsole(0x1Eu);
-        v26 = AVE_GetCurrTime();
-        v27 = AVE_Log_GetLevelStr(4);
-        if (v25)
+        v24 = AVE_Log_CheckConsole(0x1Eu);
+        v25 = AVE_GetCurrTime();
+        v26 = AVE_Log_GetLevelStr(4);
+        if (v24)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p\n", v26, 30, v27, "AVE_Prop_Add", 68, "pTmpDict != __null", a1, a2, a3, a4, a5);
-          v28 = AVE_GetCurrTime();
-          v31 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p", v28, 30, v31, "AVE_Prop_Add");
+          printf("%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p\n", v25, 30, v26, "AVE_Prop_Add", 68, "pTmpDict != __null", a1, a2, a3, a4, a5);
+          v27 = AVE_GetCurrTime();
+          v30 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p", v27, 30, v30, "AVE_Prop_Add");
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p", v26, 30, v27, "AVE_Prop_Add");
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create dictionary %p %d 0x%x %lld %p", v25, 30, v26, "AVE_Prop_Add");
         }
       }
 
@@ -1944,8 +1803,8 @@ LABEL_22:
     {
       printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d 0x%x %lld %p\n", v12, 30, v13, "AVE_Prop_Add", 34, "pKey != __null && AVE_Prop_Type_None <= type && type < AVE_Prop_Type_Max && pDict != __null", a1, a2, a3, a4, a5);
       v14 = AVE_GetCurrTime();
-      v29 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d 0x%x %lld %p", v14, 30, v29, "AVE_Prop_Add");
+      v28 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d 0x%x %lld %p", v14, 30, v28, "AVE_Prop_Add");
     }
 
     else
@@ -1957,7 +1816,7 @@ LABEL_22:
   return 4294966295;
 }
 
-uint64_t AVE_Prop_MakeDict(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __CFDictionary *a6)
+uint64_t AVE_Prop_MakeDict(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __CFDictionary *a6)
 {
   v12 = AVE_DevCap_Find(a3);
   if (!v12)
@@ -1971,8 +1830,8 @@ uint64_t AVE_Prop_MakeDict(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t 
       {
         printf("%lld %d AVE %s: %s:%d %s | fail to find device capability %p %d %d 0x%x %lld %p\n", CurrTime, 30, LevelStr, "AVE_Prop_MakeDict", 110, "pDevCap != __null", a1, a2, a3, a4, a5, a6);
         v23 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find device capability %p %d %d 0x%x %lld %p", v23, 30, v32, "AVE_Prop_MakeDict", 110);
+        v30 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find device capability %p %d %d 0x%x %lld %p", v23, 30, v30, "AVE_Prop_MakeDict", 110);
       }
 
       else
@@ -1991,7 +1850,7 @@ uint64_t AVE_Prop_MakeDict(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t 
 
   v13 = v12;
   v14 = 0;
-  v39 = a1;
+  v32 = a1;
   for (i = a1 + 4; ; i += 16)
   {
     v16 = i[1];
@@ -2034,25 +1893,18 @@ LABEL_21:
     v25 = AVE_Log_CheckConsole(0x1Eu);
     v26 = AVE_GetCurrTime();
     v27 = AVE_Log_GetLevelStr(4);
-    v28 = *(i + 1);
     if (v25)
     {
-      v29 = a3;
-      printf("%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d\n", v26, 30, v27, "AVE_Prop_MakeDict", 154, "ret == 0", v39, a2, a3, a4, a5, v14, *(i - 2), *(i - 1), *i, i[1], *(i + 1), v19);
-      v30 = AVE_GetCurrTime();
+      v28 = a3;
+      printf("%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d\n", v26, 30, v27, "AVE_Prop_MakeDict", 154, "ret == 0", v32, a2, a3, a4, a5, v14, *(i - 2), *(i - 1), *i, i[1], *(i + 1), v19);
+      v29 = AVE_GetCurrTime();
       v31 = AVE_Log_GetLevelStr(4);
-      v37 = *(i + 1);
-      v35 = *i;
-      v36 = i[1];
-      v33 = *(i - 2);
-      v34 = *(i - 1);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d", v30, 30, v31, "AVE_Prop_MakeDict", 154, "ret == 0", v39, a2, v29, a4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d", v29, 30, v31, "AVE_Prop_MakeDict", 154, "ret == 0", v32, a2, v28, a4);
     }
 
     else
     {
-      v38 = *(i + 1);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d", v26, 30, v27, "AVE_Prop_MakeDict", 154, "ret == 0", v39, a2, a3, a4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to add property %p %d %d 0x%x %lld | %d %s %p %d 0x%x 0x%llx %d", v26, 30, v27, "AVE_Prop_MakeDict", 154, "ret == 0", v32, a2, a3, a4);
     }
   }
 
@@ -2063,11 +1915,11 @@ uint64_t AVE_Prop_FindPropertyEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint6
 {
   v12 = a2;
   v13 = a1;
-  v43 = *MEMORY[0x29EDCA608];
-  v41 = 0u;
-  v42 = 0u;
-  *v39 = 0u;
+  v42 = *MEMORY[0x29EDCA608];
   v40 = 0u;
+  v41 = 0u;
+  *v38 = 0u;
+  v39 = 0u;
   if (!a1 || a2 < 1 || !a5 || !a7)
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
@@ -2079,35 +1931,35 @@ uint64_t AVE_Prop_FindPropertyEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint6
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p\n", CurrTime, 30, LevelStr, "AVE_Prop_FindPropertyEntry", 190, "pArray != __null && num > 0 && pINS != __null && pKey != __null", v13, v12, a5, a6, a3, a4, a7);
         CurrTime = AVE_GetCurrTime();
-        v37 = a4;
-        v38 = a7;
-        v35 = a6;
-        v36 = a3;
-        v33 = v12;
-        v34 = a5;
-        v32 = v13;
-        v31 = AVE_Log_GetLevelStr(4);
+        v36 = a4;
+        v37 = a7;
+        v34 = a6;
+        v35 = a3;
+        v32 = v12;
+        v33 = a5;
+        v31 = v13;
+        v30 = AVE_Log_GetLevelStr(4);
       }
 
       else
       {
-        v37 = a4;
-        v38 = a7;
-        v35 = a6;
-        v36 = a3;
-        v33 = v12;
-        v34 = a5;
-        v32 = v13;
-        v31 = LevelStr;
+        v36 = a4;
+        v37 = a7;
+        v34 = a6;
+        v35 = a3;
+        v32 = v12;
+        v33 = a5;
+        v31 = v13;
+        v30 = LevelStr;
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p", CurrTime, 30, v31, "AVE_Prop_FindPropertyEntry", 190, "pArray != __null && num > 0 && pINS != __null && pKey != __null", v32, v33, v34, v35, v36, v37, v38);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p", CurrTime, 30, v30, "AVE_Prop_FindPropertyEntry", 190, "pArray != __null && num > 0 && pINS != __null && pKey != __null", v31, v32, v33, v34, v35, v36, v37);
     }
 
-    goto LABEL_23;
+    return 0;
   }
 
-  Str = AVE_CFStr_GetStr(a7, v39, 64);
+  Str = AVE_CFStr_GetStr(a7, v38, 0x40u);
   v15 = AVE_DevCap_Find(a3);
   if (!v15)
   {
@@ -2130,9 +1982,7 @@ uint64_t AVE_Prop_FindPropertyEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint6
       }
     }
 
-LABEL_23:
-    v13 = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   v16 = v15;
@@ -2154,22 +2004,20 @@ LABEL_23:
     v13 += 64;
     if (!--v12)
     {
-      goto LABEL_23;
+      return 0;
     }
   }
 
-LABEL_24:
-  v29 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t AVE_Prop_SetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, __CFString *a7, const void *a8)
 {
-  v63 = *MEMORY[0x29EDCA608];
-  v61 = 0u;
-  v62 = 0u;
-  *v59 = 0u;
-  v60 = 0u;
+  v48 = *MEMORY[0x29EDCA608];
+  v46 = 0u;
+  v47 = 0u;
+  *v44 = 0u;
+  v45 = 0u;
   if (a1 && a2 >= 1 && a5 && a7)
   {
     PropertyEntry = AVE_Prop_FindPropertyEntry(a1, a2, a3, a4 | 0x20000, a5, a6, a7);
@@ -2185,24 +2033,17 @@ uint64_t AVE_Prop_SetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
           v20 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          v23 = v17[3];
           if (v20)
           {
-            v24 = a3;
+            v23 = a3;
             printf("%lld %d AVE %s: %s:%d %s | fail to set property %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx %d\n", CurrTime, 30, LevelStr, "AVE_Prop_SetProperty", 268, "ret == 0", a5, a6, a3, a4, a7, a8, *v17, v17[1], *(v17 + 4), *(v17 + 5), v17[3], v19);
-            v25 = AVE_GetCurrTime();
-            v26 = AVE_Log_GetLevelStr(4);
-            v55 = v17[3];
-            v50 = *(v17 + 4);
-            v52 = *(v17 + 5);
-            v46 = *v17;
-            v48 = v17[1];
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx %d", v25, 30, v26, "AVE_Prop_SetProperty", 268, "ret == 0", a5, a6, v24, a4);
+            v24 = AVE_GetCurrTime();
+            v40 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx %d", v24, 30, v40, "AVE_Prop_SetProperty", 268, "ret == 0", a5, a6, v23, a4);
           }
 
           else
           {
-            v57 = v17[3];
             syslog(3, "%lld %d AVE %s: %s:%d %s | fail to set property %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx %d", CurrTime, 30, LevelStr, "AVE_Prop_SetProperty", 268, "ret == 0", a5, a6, a3, a4);
           }
         }
@@ -2212,60 +2053,53 @@ uint64_t AVE_Prop_SetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v35 = AVE_Log_CheckConsole(0x1Eu);
-          v36 = AVE_GetCurrTime();
-          v37 = AVE_Log_GetLevelStr(4);
-          v38 = *(v17 + 5);
-          if (v35)
+          v33 = AVE_Log_CheckConsole(0x1Eu);
+          v34 = AVE_GetCurrTime();
+          v35 = AVE_Log_GetLevelStr(4);
+          if (v33)
           {
-            v39 = a3;
-            printf("%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx\n", v36, 30, v37, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, a3, a4, a7, a8, *v17, v17[1], *(v17 + 4), *(v17 + 5), v17[3]);
-            v40 = AVE_GetCurrTime();
-            v41 = AVE_Log_GetLevelStr(4);
-            v53 = *(v17 + 5);
-            v56 = v17[3];
-            v49 = v17[1];
-            v51 = *(v17 + 4);
-            v47 = *v17;
-            syslog(3, "%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx", v40, 30, v41, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, v39);
+            v36 = a3;
+            printf("%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx\n", v34, 30, v35, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, a3, a4, a7, a8, *v17, v17[1], *(v17 + 4), *(v17 + 5), v17[3]);
+            v37 = AVE_GetCurrTime();
+            v38 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx", v37, 30, v38, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, v36);
           }
 
           else
           {
-            v54 = *(v17 + 5);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx", v36, 30, v37, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, a3);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | set function is not supported %p %lld %d 0x%x %p %p | %s %p %d 0x%x 0x%llx", v34, 30, v35, "AVE_Prop_SetProperty", 260, "pEntry->Set != __null", a5, a6, a3);
           }
         }
 
-        v19 = 4294966294;
+        return 4294966294;
       }
     }
 
     else
     {
-      Str = AVE_CFStr_GetStr(a7, v59, 64);
+      Str = AVE_CFStr_GetStr(a7, v44, 0x40u);
       if (AVE_Log_CheckLevel(0x1Eu, 5))
       {
-        v32 = AVE_Log_CheckConsole(0x1Eu);
-        v58 = AVE_GetCurrTime();
-        v33 = AVE_Log_GetLevelStr(5);
-        if (v32)
+        v30 = AVE_Log_CheckConsole(0x1Eu);
+        v43 = AVE_GetCurrTime();
+        v31 = AVE_Log_GetLevelStr(5);
+        if (v30)
         {
-          printf("%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d\n", v58, 30, v33, a1, a2, a5, a6, a3, a4, Str, a8, -2002);
-          v34 = AVE_GetCurrTime();
-          v45 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d", v34, 30, v45, a1, a2);
+          printf("%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d\n", v43, 30, v31, a1, a2, a5, a6, a3, a4, Str, a8, -2002);
+          v32 = AVE_GetCurrTime();
+          v42 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d", v32, 30, v42, a1, a2);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d", v58, 30, v33, a1, a2);
+          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %s %p %d", v43, 30, v31, a1, a2);
         }
       }
 
       CFShow(a7);
       CFShow(a8);
-      v19 = 4294965294;
+      return 4294965294;
     }
   }
 
@@ -2273,37 +2107,36 @@ uint64_t AVE_Prop_SetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v27 = AVE_Log_CheckConsole(0x1Eu);
-      v28 = AVE_GetCurrTime();
-      v29 = AVE_Log_GetLevelStr(4);
-      if (v27)
+      v25 = AVE_Log_CheckConsole(0x1Eu);
+      v26 = AVE_GetCurrTime();
+      v27 = AVE_Log_GetLevelStr(4);
+      if (v25)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p\n", v28, 30, v29, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1, a2, a5, a6, a3, a4, a7, a8);
-        v30 = AVE_GetCurrTime();
-        v44 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p", v30, 30, v44, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p\n", v26, 30, v27, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1, a2, a5, a6, a3, a4, a7, a8);
+        v28 = AVE_GetCurrTime();
+        v41 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p", v28, 30, v41, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p", v28, 30, v29, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p", v26, 30, v27, "AVE_Prop_SetProperty", 249, "pArray != __null && num > 0 && pINS != __null && pKey != __null", a1);
       }
     }
 
-    v19 = 4294966295;
+    return 4294966295;
   }
 
-  v42 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
 uint64_t AVE_Prop_GetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, const void *a7, __CFString *a8, const void *a9)
 {
-  v65 = *MEMORY[0x29EDCA608];
-  v63 = 0u;
-  v64 = 0u;
-  *v61 = 0u;
-  v62 = 0u;
+  v52 = *MEMORY[0x29EDCA608];
+  v50 = 0u;
+  v51 = 0u;
+  *v48 = 0u;
+  v49 = 0u;
   if (a1 && a2 >= 1 && a5 && a8 && a9)
   {
     PropertyEntry = AVE_Prop_FindPropertyEntry(a1, a2, a3, a4 | 0x10000, a5, a6, a8);
@@ -2320,23 +2153,16 @@ uint64_t AVE_Prop_GetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
           v22 = AVE_Log_CheckConsole(0x1Eu);
           CurrTime = AVE_GetCurrTime();
           LevelStr = AVE_Log_GetLevelStr(4);
-          v24 = v18[3];
           if (v22)
           {
             printf("%lld %d AVE %s: %s:%d %s | fail to get property %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx %d\n", CurrTime, 30, LevelStr, "AVE_Prop_GetProperty", 330, "ret == 0", a5, a6, a3, a4, v21, a8, a9, *v18, v18[1], *(v18 + 4), *(v18 + 5), v18[3], v20);
-            v25 = AVE_GetCurrTime();
-            v26 = AVE_Log_GetLevelStr(4);
-            v53 = v18[3];
-            v48 = *(v18 + 4);
-            v50 = *(v18 + 5);
-            v44 = *v18;
-            v46 = v18[1];
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx %d", v25, 30, v26, "AVE_Prop_GetProperty", 330, "ret == 0", a5, a6, a3, a4, v21);
+            v24 = AVE_GetCurrTime();
+            v39 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx %d", v24, 30, v39, "AVE_Prop_GetProperty", 330, "ret == 0", a5, a6, a3, a4, v21);
           }
 
           else
           {
-            v55 = v18[3];
             syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get property %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx %d", CurrTime, 30, LevelStr, "AVE_Prop_GetProperty", 330, "ret == 0", a5, a6, a3, a4, v21);
           }
         }
@@ -2346,61 +2172,54 @@ uint64_t AVE_Prop_GetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
       {
         if (AVE_Log_CheckLevel(0x1Eu, 4))
         {
-          v35 = a7;
-          v36 = AVE_Log_CheckConsole(0x1Eu);
-          v37 = AVE_GetCurrTime();
-          v38 = AVE_Log_GetLevelStr(4);
-          v39 = *(v18 + 5);
-          if (v36)
+          v33 = a7;
+          v34 = AVE_Log_CheckConsole(0x1Eu);
+          v35 = AVE_GetCurrTime();
+          v36 = AVE_Log_GetLevelStr(4);
+          if (v34)
           {
-            printf("%lld %d AVE %s: %s:%d %s | get function is not supported %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx\n", v37, 30, v38, "AVE_Prop_GetProperty", 322, "pEntry->Get != __null", a5, a6, a3, a4, v35, a8, a9, *v18, v18[1], *(v18 + 4), *(v18 + 5), v18[3]);
+            printf("%lld %d AVE %s: %s:%d %s | get function is not supported %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx\n", v35, 30, v36, "AVE_Prop_GetProperty", 322, "pEntry->Get != __null", a5, a6, a3, a4, v33, a8, a9, *v18, v18[1], *(v18 + 4), *(v18 + 5), v18[3]);
             v37 = AVE_GetCurrTime();
-            v38 = AVE_Log_GetLevelStr(4);
-            v51 = *(v18 + 5);
-            v54 = v18[3];
-            v47 = v18[1];
-            v49 = *(v18 + 4);
-            v45 = *v18;
+            v42 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | get function is not supported %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx", v37, 30, v42, "AVE_Prop_GetProperty", 322, "pEntry->Get != __null", a5, a6, a3, a4);
           }
 
           else
           {
-            v52 = *(v18 + 5);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | get function is not supported %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx", v35, 30, v36, "AVE_Prop_GetProperty", 322, "pEntry->Get != __null", a5, a6, a3, a4);
           }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | get function is not supported %p %lld %d 0x%x %p %p %p | %s %p %d 0x%x 0x%llx", v37, 30, v38, "AVE_Prop_GetProperty", 322, "pEntry->Get != __null", a5, a6, a3, a4);
         }
 
-        v20 = 4294966294;
+        return 4294966294;
       }
     }
 
     else
     {
-      Str = AVE_CFStr_GetStr(a8, v61, 64);
+      Str = AVE_CFStr_GetStr(a8, v48, 0x40u);
       if (AVE_Log_CheckLevel(0x1Eu, 5))
       {
-        v60 = a7;
-        v33 = AVE_Log_CheckConsole(0x1Eu);
-        v56 = AVE_GetCurrTime();
-        v34 = AVE_Log_GetLevelStr(5);
-        if (v33)
+        v47 = a7;
+        v31 = AVE_Log_CheckConsole(0x1Eu);
+        v43 = AVE_GetCurrTime();
+        v32 = AVE_Log_GetLevelStr(5);
+        if (v31)
         {
-          printf("%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d\n", v56, 30, v34, a1, a2, a5, a6, a3, a4, v60, Str, a9, -2002);
-          v57 = AVE_GetCurrTime();
-          v43 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d", v57, 30, v43, a1, a2, a5);
+          printf("%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d\n", v43, 30, v32, a1, a2, a5, a6, a3, a4, v47, Str, a9, -2002);
+          v44 = AVE_GetCurrTime();
+          v41 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d", v44, 30, v41, a1, a2, a5);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d", v56, 30, v34, a1, a2, a5);
+          syslog(3, "%lld %d AVE %s: property is not supported %p %d %p %lld %d 0x%x %p %s %p %d", v43, 30, v32, a1, a2, a5);
         }
       }
 
       CFShow(a8);
       CFShow(a9);
-      v20 = 4294965294;
+      return 4294965294;
     }
   }
 
@@ -2408,29 +2227,28 @@ uint64_t AVE_Prop_GetProperty(const void *a1, uint64_t a2, uint64_t a3, uint64_t
   {
     if (AVE_Log_CheckLevel(0x1Eu, 4))
     {
-      v27 = a6;
-      v28 = a7;
-      v29 = AVE_Log_CheckConsole(0x1Eu);
-      v59 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(4);
-      if (v29)
+      v25 = a6;
+      v26 = a7;
+      v27 = AVE_Log_CheckConsole(0x1Eu);
+      v46 = AVE_GetCurrTime();
+      v28 = AVE_Log_GetLevelStr(4);
+      if (v27)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p\n", v59, 30, v30, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2, a5, v27, a3, a4, v28, a8, a9);
-        v31 = AVE_GetCurrTime();
-        v42 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p", v31, 30, v42, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p\n", v46, 30, v28, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2, a5, v25, a3, a4, v26, a8, a9);
+        v29 = AVE_GetCurrTime();
+        v40 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p", v29, 30, v40, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p", v59, 30, v30, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %p %lld %d 0x%x %p %p %p", v46, 30, v28, "AVE_Prop_GetProperty", 311, "pArray != __null && num > 0 && pINS != __null && pKey != __null && pValue != __null", a1, a2);
       }
     }
 
-    v20 = 4294966295;
+    return 4294966295;
   }
 
-  v40 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
@@ -2459,22 +2277,22 @@ _BYTE *AVE_MemCpyV2V(_BYTE *result, char *a2, int a3)
   return result;
 }
 
-uint64_t AVE_ComposePosStr(uint64_t a1, int a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AVE_ComposePosStr(const char *a1, int a2, char *a3, uint64_t a4)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v8 = a4;
-  v11 = AVE_SNPrintf(a3, a4, " in %s", a4, a5, a6, a7, a8, a1);
-  v17 = v11;
+  v4 = a4;
+  v7 = AVE_SNPrintf(a3, a4, " in %s", a1);
+  v8 = v7;
   if (a2)
   {
-    return AVE_SNPrintf(&a3[v11], v8 - v11, ":%d", v12, v13, v14, v15, v16, a2) + v11;
+    return AVE_SNPrintf(&a3[v7], v4 - v7, ":%d", a2) + v7;
   }
 
-  return v17;
+  return v8;
 }
 
 uint64_t AVE_Dump_FindFile(uint64_t a1, unsigned int a2, int a3)
@@ -2643,151 +2461,138 @@ uint64_t AVE_Dump_Destroy(void *a1)
   return 0;
 }
 
-uint64_t AVE_Dump_ComposeFilePath(uint64_t a1, unsigned int a2, int a3, const char *a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AVE_Dump_ComposeFilePath(uint64_t a1, unsigned int a2, int a3, const char *a4, char *a5, int a6)
 {
-  v8 = a6;
-  v54 = *MEMORY[0x29EDCA608];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  *v46 = 0u;
-  v47 = 0u;
-  v44 = gc_piaAVE_ChromaFmt[*(a1 + 32)];
-  v45 = *(a1 + 36);
-  v41 = *(a1 + 24);
-  v43 = *(a1 + 28);
-  v39 = *(&gc_piaAVE_ClientType + *(a1 + 16));
-  v14 = AVE_SNPrintf(v46, 128, "%lld-%s-%dx%d-%s-%d", a4, a5, a6, a7, a8, *a1);
-  v20 = v14;
+  v30 = *MEMORY[0x29EDCA608];
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  *v22 = 0u;
+  v23 = 0u;
+  v12 = AVE_SNPrintf(v22, 128, "%lld-%s-%dx%d-%s-%d", *a1, *(&gc_piaAVE_ClientType + *(a1 + 16)), *(a1 + 24), *(a1 + 28), gc_piaAVE_ChromaFmt[*(a1 + 32)], *(a1 + 36));
+  v13 = v12;
   if ((a3 & 0x80000000) == 0)
   {
-    v20 = AVE_SNPrintf(&v46[v14], 128 - v14, "-MP%d", v15, v16, v17, v18, v19, a3) + v14;
+    v13 = AVE_SNPrintf(&v22[v12], 128 - v12, "-MP%d", a3) + v12;
   }
 
   if (*(a1 + 16) == 1)
   {
-    v40 = *(a1 + 44);
-    v20 += AVE_SNPrintf(&v46[v20], 128 - v20, "-%s-%d", v15, v16, v17, v18, v19, *(&gc_piaAVE_EncType + *(a1 + 20)));
+    v13 += AVE_SNPrintf(&v22[v13], 128 - v13, "-%s-%d", *(&gc_piaAVE_EncType + *(a1 + 20)), *(a1 + 44));
   }
 
-  v21 = pthread_self();
-  v22 = &gsc_saAVE_DumpInfo[12 * a2];
-  rand();
-  v42 = *v22;
-  v28 = AVE_SNPrintf(&v46[v20], 128 - v20, "-%lu-%d-%s", v23, v24, v25, v26, v27, v21);
+  v14 = pthread_self();
+  v15 = rand();
+  v16 = &gsc_saAVE_DumpInfo[12 * a2];
+  v17 = AVE_SNPrintf(&v22[v13], 128 - v13, "-%lu-%d-%s", v14, v15 % 10000, *v16);
   if (a2 == 1)
   {
-    v34 = *(a1 + 16);
-    if (v34 == 1)
+    v18 = *(a1 + 16);
+    if (v18 == 1)
     {
-      v35 = &v22[*(a1 + 20)];
+      v19 = &v16[*(a1 + 20)];
     }
 
     else
     {
-      v35 = &v22[v34 + 2];
+      v19 = &v16[v18 + 2];
     }
 
     goto LABEL_12;
   }
 
-  if (((*(a1 + 12) >> a2) & 1) == 0 || (v36 = v22[2]) == 0)
+  if (((*(a1 + 12) >> a2) & 1) == 0 || (v20 = v16[2]) == 0)
   {
-    v35 = v22 + 1;
+    v19 = (v16 + 1);
 LABEL_12:
-    v36 = *v35;
+    v20 = *v19;
   }
 
-  AVE_SNPrintf(&v46[v20 + v28], 128 - (v20 + v28), ".%s", v29, v30, v31, v32, v33, v36);
-  result = AVE_ComposeFilePath(a4, 0, v46, a5, v8);
-  v38 = *MEMORY[0x29EDCA608];
-  return result;
+  AVE_SNPrintf(&v22[v13 + v17], 128 - (v13 + v17), ".%s", v20);
+  return AVE_ComposeFilePath(a4, 0, v22, a5, a6);
 }
 
-uint64_t AVE_Dump_OpenFiles(_DWORD *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AVE_Dump_OpenFiles(_DWORD *a1, const char *a2)
 {
-  v55 = *MEMORY[0x29EDCA608];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v44 = *MEMORY[0x29EDCA608];
   v42 = 0u;
-  *__filename = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  *__filename = 0u;
+  v29 = 0u;
   if (a1[10] >= 1)
   {
-    v8 = a2;
-    v10 = 0;
-    v38 = 0;
-    v11 = a1 + 12;
-    while (1)
+    v2 = a2;
+    v4 = 0;
+    v27 = 0;
+    for (i = a1 + 12; ; i += 24)
     {
-      v12 = 0;
-      v13 = 0;
+      v6 = 0;
+      v7 = 0;
       do
       {
-        if ((a1[2] & (1 << v13)) != 0 && !*&v11[2 * v13])
+        if ((a1[2] & (1 << v7)) != 0 && !*&i[2 * v7])
         {
           if (a1[10] <= 1)
           {
-            v14 = -1;
+            v8 = -1;
           }
 
           else
           {
-            v14 = v10;
+            v8 = v4;
           }
 
-          v38 = AVE_Dump_ComposeFilePath(a1, v13, v14, v8, __filename, 256, a7, a8);
-          v15 = (a1[3] & (1 << v13)) != 0 && v12 == 36;
-          v16 = 8;
-          if (v15)
+          v27 = AVE_Dump_ComposeFilePath(a1, v7, v8, v2, __filename, 256);
+          v9 = (a1[3] & (1 << v7)) != 0 && v6 == 36;
+          v10 = 8;
+          if (v9)
           {
-            v16 = 9;
+            v10 = 9;
           }
 
-          v17 = (&gsc_saAVE_DumpInfo[v12])[v16];
-          v18 = fopen(__filename, v17);
-          *&v11[2 * v13] = v18;
-          if (v18)
+          v11 = (&gsc_saAVE_DumpInfo[v6])[v10];
+          v12 = fopen(__filename, v11);
+          *&i[2 * v7] = v12;
+          if (v12)
           {
             if (!AVE_Log_CheckLevel(0x3Du, 6))
             {
               goto LABEL_26;
             }
 
-            v19 = AVE_Log_CheckConsole(0x3Du);
+            v13 = AVE_Log_CheckConsole(0x3Du);
             CurrTime = AVE_GetCurrTime();
             LevelStr = AVE_Log_GetLevelStr(6);
-            if (v19)
+            if (v13)
             {
-              printf("%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s\n", CurrTime, 61, LevelStr, "AVE_Dump_OpenFiles", 262, a1, *a1, v10, v13, __filename, v17);
-              v22 = AVE_GetCurrTime();
-              v23 = AVE_Log_GetLevelStr(6);
-              v35 = *a1;
-              v33 = v23;
-              v31 = v22;
+              printf("%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s\n", CurrTime, 61, LevelStr, "AVE_Dump_OpenFiles", 262, a1, *a1, v4, v7, __filename, v11);
+              v16 = AVE_GetCurrTime();
+              v24 = AVE_Log_GetLevelStr(6);
+              v22 = v16;
             }
 
             else
             {
-              v33 = LevelStr;
-              v31 = CurrTime;
+              v24 = LevelStr;
+              v22 = CurrTime;
             }
 
-            syslog(3, "%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s", v31, 61, v33, "AVE_Dump_OpenFiles");
+            syslog(3, "%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s", v22, 61, v24, "AVE_Dump_OpenFiles");
           }
 
           else
@@ -2797,50 +2602,43 @@ uint64_t AVE_Dump_OpenFiles(_DWORD *a1, const char *a2, uint64_t a3, uint64_t a4
               goto LABEL_26;
             }
 
-            v24 = AVE_Log_CheckConsole(0x3Du);
-            v25 = AVE_GetCurrTime();
-            v26 = AVE_Log_GetLevelStr(4);
-            if (v24)
+            v17 = AVE_Log_CheckConsole(0x3Du);
+            v18 = AVE_GetCurrTime();
+            v19 = AVE_Log_GetLevelStr(4);
+            if (v17)
             {
-              printf("%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s\n", v25, 61, v26, "AVE_Dump_OpenFiles", 257, a1, *a1, v10, v13, __filename, v17);
-              v27 = AVE_GetCurrTime();
-              v28 = AVE_Log_GetLevelStr(4);
-              v36 = *a1;
-              v34 = v28;
-              v32 = v27;
+              printf("%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s\n", v18, 61, v19, "AVE_Dump_OpenFiles", 257, a1, *a1, v4, v7, __filename, v11);
+              v20 = AVE_GetCurrTime();
+              v25 = AVE_Log_GetLevelStr(4);
+              v23 = v20;
             }
 
             else
             {
-              v34 = v26;
-              v32 = v25;
+              v25 = v19;
+              v23 = v18;
             }
 
-            syslog(3, "%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s", v32, 61, v34, "AVE_Dump_OpenFiles");
+            syslog(3, "%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s", v23, 61, v25, "AVE_Dump_OpenFiles");
           }
 
-          v8 = a2;
+          v2 = a2;
         }
 
 LABEL_26:
-        ++v13;
-        v12 += 12;
+        ++v7;
+        v6 += 12;
       }
 
-      while (v12 != 144);
-      ++v10;
-      v11 += 24;
-      if (v10 >= a1[10])
+      while (v6 != 144);
+      if (++v4 >= a1[10])
       {
-        goto LABEL_30;
+        return v27;
       }
     }
   }
 
-  v38 = 0;
-LABEL_30:
-  v29 = *MEMORY[0x29EDCA608];
-  return v38;
+  return 0;
 }
 
 uint64_t AVE_Dump_WriteHeader(uint64_t a1)
@@ -2900,16 +2698,16 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
   v17 = a11;
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
-    v24 = AVE_Log_CheckConsole(0x3Du);
+    v18 = AVE_Log_CheckConsole(0x3Du);
     CurrTime = AVE_GetCurrTime();
     LevelStr = AVE_Log_GetLevelStr(7);
-    if (v24)
+    if (v18)
     {
       printf("%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", CurrTime, 61, LevelStr, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-      v46 = AVE_GetCurrTime();
+      v40 = AVE_GetCurrTime();
       v11 = a8;
-      v43 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v46, 61, v43, "AVE_Dump_Init", a1);
+      v37 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v40, 61, v37, "AVE_Dump_Init", a1);
     }
 
     else
@@ -2929,8 +2727,8 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
     *(a1 + 36) = a10;
     *(a1 + 40) = v11;
     *(a1 + 44) = a11;
-    v27 = AVE_Dump_OpenFiles(a1, a2, v18, v19, v20, v21, v22, v23);
-    if (!v27)
+    v21 = AVE_Dump_OpenFiles(a1, a2);
+    if (!v21)
     {
       AVE_Dump_WriteHeader(a1);
       goto LABEL_21;
@@ -2941,53 +2739,53 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
 
   if (AVE_Log_CheckLevel(0x3Du, 4))
   {
-    v28 = AVE_Log_CheckConsole(0x3Du);
-    v29 = AVE_GetCurrTime();
-    v30 = AVE_Log_GetLevelStr(4);
-    if (v28)
+    v22 = AVE_Log_CheckConsole(0x3Du);
+    v23 = AVE_GetCurrTime();
+    v24 = AVE_Log_GetLevelStr(4);
+    if (v22)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", v29, 61, v30, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1, a2, a3, a4, a5, a6, a7, v11, a9, a10, a11);
-      v45 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", v23, 61, v24, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1, a2, a3, a4, a5, a6, a7, v11, a9, a10, a11);
+      v39 = AVE_GetCurrTime();
       v11 = a8;
-      v44 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v45, 61, v44, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
+      v38 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v39, 61, v38, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v29, 61, v30, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v23, 61, v24, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
     }
   }
 
-  v27 = 4294966295;
+  v21 = 4294966295;
   if (a1)
   {
 LABEL_14:
-    v31 = 0;
-    v32 = 1;
+    v25 = 0;
+    v26 = 1;
     do
     {
-      v33 = 0;
-      v34 = v32;
-      v35 = a1 + 48 + 96 * v31;
+      v27 = 0;
+      v28 = v26;
+      v29 = a1 + 48 + 96 * v25;
       do
       {
-        v36 = *(v35 + v33);
-        if (v36)
+        v30 = *(v29 + v27);
+        if (v30)
         {
-          fclose(v36);
-          *(v35 + v33) = 0;
+          fclose(v30);
+          *(v29 + v27) = 0;
         }
 
-        v33 += 8;
+        v27 += 8;
       }
 
-      while (v33 != 96);
-      v32 = 0;
-      v31 = 1;
+      while (v27 != 96);
+      v26 = 0;
+      v25 = 1;
     }
 
-    while ((v34 & 1) != 0);
+    while ((v28 & 1) != 0);
     v16 = a10;
     v17 = a11;
     v11 = a8;
@@ -2996,27 +2794,27 @@ LABEL_14:
 LABEL_21:
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
-    v37 = AVE_Log_CheckConsole(0x3Du);
-    v38 = AVE_GetCurrTime();
-    v39 = AVE_Log_GetLevelStr(7);
-    if (v37)
+    v31 = AVE_Log_CheckConsole(0x3Du);
+    v32 = AVE_GetCurrTime();
+    v33 = AVE_Log_GetLevelStr(7);
+    if (v31)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d\n", v38, 61, v39, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, v11, a9, v16, v17, v27);
-      v40 = AVE_GetCurrTime();
-      v41 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v40, 61, v41, "AVE_Dump_Init", a1, a2);
+      printf("%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d\n", v32, 61, v33, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, v11, a9, v16, v17, v21);
+      v34 = AVE_GetCurrTime();
+      v35 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v34, 61, v35, "AVE_Dump_Init", a1, a2);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v38, 61, v39, "AVE_Dump_Init", a1, a2);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v32, 61, v33, "AVE_Dump_Init", a1, a2);
     }
   }
 
-  return v27;
+  return v21;
 }
 
-uint64_t AVE_Dump_Uninit(const void *a1)
+uint64_t AVE_Dump_Uninit(char *a1)
 {
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
@@ -3045,14 +2843,14 @@ uint64_t AVE_Dump_Uninit(const void *a1)
     {
       v8 = 0;
       v9 = v7;
-      v10 = a1 + 96 * v6 + 48;
+      v10 = &a1[96 * v6 + 48];
       do
       {
-        v11 = *(v10 + v8);
+        v11 = *&v10[v8];
         if (v11)
         {
           fclose(v11);
-          *(v10 + v8) = 0;
+          *&v10[v8] = 0;
         }
 
         v8 += 8;
@@ -3173,7 +2971,7 @@ uint64_t AVE_Dump_WriteInput(_DWORD *a1, int a2, __CVBuffer *a3)
   return v10;
 }
 
-uint64_t AVE_Dump_WriteOutput(void *a1, int a2, const void *a3, int a4)
+uint64_t AVE_Dump_WriteOutput(void *a1, int a2, const void *a3, unsigned int a4)
 {
   if (AVE_Log_CheckLevel(0x3Du, 8))
   {
@@ -3366,7 +3164,7 @@ uint64_t AVE_Dump_WriteISPMetadata(void *a1, int a2, int a3, double *a4)
   return v12;
 }
 
-uint64_t AVE_Dump_WriteMBStats(void *a1, int a2, const void *a3, int a4)
+uint64_t AVE_Dump_WriteMBStats(void *a1, int a2, const void *a3, unsigned int a4)
 {
   if (AVE_Log_CheckLevel(0x3Du, 8))
   {
@@ -3600,28 +3398,26 @@ uint64_t AVE_Dump_WriteVQMetrics(void *a1, int a2, int a3, double *a4)
     {
       if (a4)
       {
-        v12 = a4[5];
-        v13 = a4[1];
-        if (fprintf(v11, "%d, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f\n", a3, a4[3], a4[4], v12, *a4, v13, a4[2]) <= 0)
+        if (fprintf(v11, "%d, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f\n", a3, a4[3], a4[4], a4[5], *a4, a4[1], a4[2]) <= 0)
         {
-          v14 = 4294965296;
+          v12 = 4294965296;
         }
 
         else
         {
-          v14 = 0;
+          v12 = 0;
         }
       }
 
       else
       {
-        v14 = 4294966287;
+        v12 = 4294966287;
       }
     }
 
     else
     {
-      v14 = 4294966288;
+      v12 = 4294966288;
     }
   }
 
@@ -3629,46 +3425,46 @@ uint64_t AVE_Dump_WriteVQMetrics(void *a1, int a2, int a3, double *a4)
   {
     if (AVE_Log_CheckLevel(0x3Du, 4))
     {
-      v15 = AVE_Log_CheckConsole(0x3Du);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
+      v13 = AVE_Log_CheckConsole(0x3Du);
+      v14 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p\n", v16, 61, v17, "AVE_Dump_WriteVQMetrics", 815, "pDump != __null", 0, a2, a3, a4);
-        v18 = AVE_GetCurrTime();
-        v24 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v18, 61, v24);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p\n", v14, 61, v15, "AVE_Dump_WriteVQMetrics", 815, "pDump != __null", 0, a2, a3, a4);
+        v16 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v16, 61, v22);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v16, 61, v17);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v14, 61, v15);
       }
     }
 
-    v14 = 4294966295;
+    v12 = 4294966295;
   }
 
   if (AVE_Log_CheckLevel(0x3Du, 8))
   {
-    v19 = AVE_Log_CheckConsole(0x3Du);
-    v20 = AVE_GetCurrTime();
-    v21 = AVE_Log_GetLevelStr(8);
-    if (v19)
+    v17 = AVE_Log_CheckConsole(0x3Du);
+    v18 = AVE_GetCurrTime();
+    v19 = AVE_Log_GetLevelStr(8);
+    if (v17)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v20, 61, v21, "AVE_Dump_WriteVQMetrics", a1, a2, a3, a4, v14);
-      v22 = AVE_GetCurrTime();
-      v25 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v22, 61, v25);
+      printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v18, 61, v19, "AVE_Dump_WriteVQMetrics", a1, a2, a3, a4, v12);
+      v20 = AVE_GetCurrTime();
+      v23 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v20, 61, v23);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v20, 61, v21);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v18, 61, v19);
     }
   }
 
-  return v14;
+  return v12;
 }
 
 uint64_t AVE_Dump_WriteFPS(void *a1, int a2, int a3, double *a4)
@@ -3695,28 +3491,26 @@ uint64_t AVE_Dump_WriteFPS(void *a1, int a2, int a3, double *a4)
     {
       if (a4)
       {
-        v12 = a4[3];
-        v13 = a4[7];
-        if (fprintf(v11, "%d, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f\n", a3, a4[2], a4[1], *a4, a4[5], a4[4], v12, a4[8], v13, a4[6]) <= 0)
+        if (fprintf(v11, "%d, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f, %.3f\n", a3, a4[2], a4[1], *a4, a4[5], a4[4], a4[3], a4[8], a4[7], a4[6]) <= 0)
         {
-          v14 = 4294965296;
+          v12 = 4294965296;
         }
 
         else
         {
-          v14 = 0;
+          v12 = 0;
         }
       }
 
       else
       {
-        v14 = 4294966287;
+        v12 = 4294966287;
       }
     }
 
     else
     {
-      v14 = 4294966288;
+      v12 = 4294966288;
     }
   }
 
@@ -3724,46 +3518,46 @@ uint64_t AVE_Dump_WriteFPS(void *a1, int a2, int a3, double *a4)
   {
     if (AVE_Log_CheckLevel(0x3Du, 4))
     {
-      v15 = AVE_Log_CheckConsole(0x3Du);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
+      v13 = AVE_Log_CheckConsole(0x3Du);
+      v14 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p\n", v16, 61, v17, "AVE_Dump_WriteFPS", 863, "pDump != __null", 0, a2, a3, a4);
-        v18 = AVE_GetCurrTime();
-        v24 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v18, 61, v24);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p\n", v14, 61, v15, "AVE_Dump_WriteFPS", 863, "pDump != __null", 0, a2, a3, a4);
+        v16 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v16, 61, v22);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v16, 61, v17);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %d %d %p", v14, 61, v15);
       }
     }
 
-    v14 = 4294966295;
+    v12 = 4294966295;
   }
 
   if (AVE_Log_CheckLevel(0x3Du, 8))
   {
-    v19 = AVE_Log_CheckConsole(0x3Du);
-    v20 = AVE_GetCurrTime();
-    v21 = AVE_Log_GetLevelStr(8);
-    if (v19)
+    v17 = AVE_Log_CheckConsole(0x3Du);
+    v18 = AVE_GetCurrTime();
+    v19 = AVE_Log_GetLevelStr(8);
+    if (v17)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v20, 61, v21, "AVE_Dump_WriteFPS", a1, a2, a3, a4, v14);
-      v22 = AVE_GetCurrTime();
-      v25 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v22, 61, v25);
+      printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v18, 61, v19, "AVE_Dump_WriteFPS", a1, a2, a3, a4, v12);
+      v20 = AVE_GetCurrTime();
+      v23 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v20, 61, v23);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v20, 61, v21);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v18, 61, v19);
     }
   }
 
-  return v14;
+  return v12;
 }
 
 uint64_t AVE_Dump_WriteRecon(uint64_t a1, __CVBuffer *a2)
@@ -3847,7 +3641,7 @@ uint64_t AVE_Dump_WriteRecon(uint64_t a1, __CVBuffer *a2)
   return v9;
 }
 
-uint64_t AVE_Enc_CheckResolution(int a1, int a2, int a3, int a4, int a5, int a6)
+uint64_t AVE_Enc_CheckResolution(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
 {
   Resolution = AVE_DevCap_FindResolution(a1, a2, a3);
   if (!Resolution)
@@ -3908,13 +3702,13 @@ uint64_t AVE_Enc_CheckResolution(int a1, int a2, int a3, int a4, int a5, int a6)
   return v14;
 }
 
-uint64_t AVE_Enc_GenerateSliceMap(int a1, int a2, int a3, unsigned int a4, int *a5)
+uint64_t AVE_Enc_GenerateSliceMap(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int *a5)
 {
   v5 = 4294966295;
   if (a1 >= 1 && a2 >= 1 && a3 >= 1 && a4 <= 1 && a5)
   {
     *a5 = a1;
-    v6 = (a1 - 1);
+    v6 = a1 - 1;
     if (a1 == 1)
     {
       v5 = 0;
@@ -3968,7 +3762,7 @@ uint64_t AVE_Enc_GenerateSliceMap(int a1, int a2, int a3, unsigned int a4, int *
       {
         v14 = 0;
         v15 = 0;
-        v16 = a5 + 2;
+        v16 = (a5 + 2);
         while (1)
         {
           v17 = (v13 + (a1 + 1) / 2) / a1;
@@ -3986,7 +3780,7 @@ uint64_t AVE_Enc_GenerateSliceMap(int a1, int a2, int a3, unsigned int a4, int *
 
           v5 = 0;
           v19 = v18 * a3;
-          if (v18 * a3 >= a2 - v15)
+          if ((v18 * a3) >= (a2 - v15))
           {
             v19 = a2 - v15;
           }
@@ -4099,7 +3893,7 @@ uint64_t AVE_Enc_AlignDimension(int a1, int a2, int a3, signed int *a4, signed i
   return result;
 }
 
-uint64_t AVE_FrameStats_PrintStatFrame(const void *a1, const void *a2, const void *a3)
+uint64_t AVE_FrameStats_PrintStatFrame(_DWORD *a1, const void *a2, FILE *a3)
 {
   v19 = 0;
   if (AVE_Log_CheckLevel(0x2Eu, 7))
@@ -4946,11 +4740,10 @@ uint64_t AVE_VerifyImageBuffer(unsigned int *a1, const void **a2, CVPixelBufferP
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v15 = AVE_Log_CheckConsole(3u);
+      v14 = AVE_Log_CheckConsole(3u);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(4);
-      v18 = *a2;
-      if (v15)
+      if (v14)
       {
         printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p\n", CurrTime, 3, LevelStr, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
         CurrTime = AVE_GetCurrTime();
@@ -4960,7 +4753,7 @@ uint64_t AVE_VerifyImageBuffer(unsigned int *a1, const void **a2, CVPixelBufferP
       syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p", CurrTime, 3, LevelStr, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
     }
 
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   CVPixelBufferRetain(*a2);
@@ -4970,20 +4763,20 @@ uint64_t AVE_VerifyImageBuffer(unsigned int *a1, const void **a2, CVPixelBufferP
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v19 = AVE_Log_CheckConsole(3u);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      if (v19)
+      v17 = AVE_Log_CheckConsole(3u);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | pixel format is not supported %d\n", v20, 3, v21, "AVE_VerifyImageBuffer", 483, "pPixelFmt != __null", PixelFormatType);
-        v20 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | pixel format is not supported %d\n", v18, 3, v19, "AVE_VerifyImageBuffer", 483, "pPixelFmt != __null", PixelFormatType);
+        v18 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | pixel format is not supported %d", v20);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | pixel format is not supported %d", v18);
     }
 
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   v8 = v7;
@@ -4993,95 +4786,78 @@ uint64_t AVE_VerifyImageBuffer(unsigned int *a1, const void **a2, CVPixelBufferP
     v10 = AVE_Log_CheckConsole(0x12u);
     v11 = AVE_GetCurrTime();
     v12 = AVE_Log_GetLevelStr(7);
-    v13 = *(v8 + 24);
     if (v10)
     {
       printf("%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d\n", v11, 18, v12, PixelFormatType, *(v8 + 4), *(v8 + 8), *(v8 + 12), *(v8 + 16), *(v8 + 20), *(v8 + 24), *(v8 + 28));
-      v11 = AVE_GetCurrTime();
-      v12 = AVE_Log_GetLevelStr(7);
-      v14 = *(v8 + 4);
-      v120 = *(v8 + 24);
-      v122 = *(v8 + 28);
-      v117 = *(v8 + 16);
-      v119 = *(v8 + 20);
-      v113 = *(v8 + 8);
-      v114 = *(v8 + 12);
+      v13 = AVE_GetCurrTime();
+      v84 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v13, 18, v84);
     }
 
     else
     {
-      v121 = *(v8 + 24);
+      syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v11, 18, v12);
     }
-
-    syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v11, 18, v12);
   }
 
   if (AVE_Log_CheckLevel(0x12u, 7))
   {
-    v22 = AVE_Log_CheckConsole(0x12u);
-    v23 = AVE_GetCurrTime();
-    v24 = AVE_Log_GetLevelStr(7);
+    v20 = AVE_Log_CheckConsole(0x12u);
+    v21 = AVE_GetCurrTime();
+    v22 = AVE_Log_GetLevelStr(7);
     WidthOfPlane = CVPixelBufferGetWidthOfPlane(*a2, 0);
     HeightOfPlane = CVPixelBufferGetHeightOfPlane(*a2, 0);
-    if (v22)
+    if (v20)
     {
-      printf("%lld %d AVE %s: Pixel Buffer Width %d Height %d\n", v23, 18, v24, WidthOfPlane, HeightOfPlane);
-      v27 = AVE_GetCurrTime();
-      v28 = AVE_Log_GetLevelStr(7);
-      v29 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-      v111 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v27, 18, v28, v29, v111);
+      printf("%lld %d AVE %s: Pixel Buffer Width %d Height %d\n", v21, 18, v22, WidthOfPlane, HeightOfPlane);
+      v25 = AVE_GetCurrTime();
+      v26 = AVE_Log_GetLevelStr(7);
+      v27 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+      v87 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v25, 18, v26, v27, v87);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v23, 18, v24, WidthOfPlane, HeightOfPlane);
+      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v21, 18, v22, WidthOfPlane, HeightOfPlane);
     }
   }
 
   if ((v9 & 2) == 0)
   {
-    v30 = *a2;
-    v31 = a1[2];
-    v32 = a1[3];
-    v33 = a1[4];
-    v34 = a1[5];
-    v35 = *a1;
-    v36 = a1[1];
-    v37 = *(a1 + 147);
-    AVE_ImgBuf_Verify();
+    AVE_ImgBuf_Verify(*a2, a1[2], a1[3], a1[4], a1[5], *a1, a1[1], *(a1 + 147));
   }
 
-  v38 = *a3;
+  v28 = *a3;
   if (!*a3)
   {
-    v45 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-    v46 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-    v47 = AVE_PixelBuf_CreatePool(a1[2], a1[3], a1[4], a1[5], v45, v46, *a1, a1[1], PixelFormatType, &poolOut);
-    if (v47)
+    v35 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+    v36 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+    v37 = AVE_PixelBuf_CreatePool(a1[2], a1[3], a1[4], a1[5], v35, v36, *a1, a1[1], PixelFormatType, &poolOut);
+    if (v37)
     {
-      v48 = v47;
+      v38 = v37;
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v49 = AVE_Log_CheckConsole(3u);
-        v50 = AVE_GetCurrTime();
-        v51 = AVE_Log_GetLevelStr(4);
-        if (!v49)
+        v39 = AVE_Log_CheckConsole(3u);
+        v40 = AVE_GetCurrTime();
+        v41 = AVE_Log_GetLevelStr(4);
+        if (!v39)
         {
-          v115 = v48;
-          v112 = 511;
-          v110 = v51;
-          v109 = "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d";
-          goto LABEL_75;
+          v89 = v38;
+          v88 = 511;
+          v86 = v41;
+          v83 = "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d";
+          goto LABEL_74;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d\n", v50, 3, v51, "AVE_VerifyImageBuffer", 511, "rc == noErr", v48);
-        v52 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d\n", v40, 3, v41, "AVE_VerifyImageBuffer", 511, "rc == noErr", v38);
+        v42 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d", v52);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d", v42);
       }
 
-LABEL_44:
+LABEL_43:
       if (pixelBufferOut)
       {
         CVPixelBufferRelease(pixelBufferOut);
@@ -5094,131 +4870,110 @@ LABEL_44:
         poolOut = 0;
       }
 
-      goto LABEL_48;
+      goto LABEL_47;
     }
 
-    v38 = *a3;
+    v28 = *a3;
   }
 
-  if (v38)
+  if (v28)
   {
-    v39 = v38;
+    v29 = v28;
   }
 
   else
   {
-    v39 = poolOut;
+    v29 = poolOut;
   }
 
-  v40 = CVPixelBufferPoolCreatePixelBuffer(0, v39, &pixelBufferOut);
-  if (v40)
+  v30 = CVPixelBufferPoolCreatePixelBuffer(0, v29, &pixelBufferOut);
+  if (v30)
   {
-    v41 = v40;
+    v31 = v30;
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v42 = AVE_Log_CheckConsole(3u);
-      v43 = AVE_GetCurrTime();
-      v44 = AVE_Log_GetLevelStr(4);
-      if (v42)
+      v32 = AVE_Log_CheckConsole(3u);
+      v33 = AVE_GetCurrTime();
+      v34 = AVE_Log_GetLevelStr(4);
+      if (v32)
       {
-        printf("%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d\n", v43, 3, v44, "AVE_VerifyImageBuffer", 517, "cvrc == kCVReturnSuccess", v41);
-        v43 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d\n", v33, 3, v34, "AVE_VerifyImageBuffer", 517, "cvrc == kCVReturnSuccess", v31);
+        v33 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d", v43);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d", v33);
     }
 
-LABEL_43:
-    v48 = 4294954394;
-    goto LABEL_44;
+LABEL_42:
+    v38 = 4294954394;
+    goto LABEL_43;
   }
 
-  v53 = AVE_PixelBuf_Copy(*a2, pixelBufferOut);
-  if (v53)
+  v43 = AVE_PixelBuf_Copy(*a2, pixelBufferOut);
+  if (v43)
   {
-    v48 = v53;
+    v38 = v43;
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v54 = AVE_Log_CheckConsole(3u);
-      v50 = AVE_GetCurrTime();
-      v55 = AVE_Log_GetLevelStr(4);
-      if (v54)
+      v44 = AVE_Log_CheckConsole(3u);
+      v40 = AVE_GetCurrTime();
+      v45 = AVE_Log_GetLevelStr(4);
+      if (v44)
       {
-        printf("%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d\n", v50, 3, v55, "AVE_VerifyImageBuffer", 521, "rc == noErr", *a2, pixelBufferOut, v48);
-        v56 = AVE_GetCurrTime();
-        v57 = AVE_Log_GetLevelStr(4);
-        v58 = *a2;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d", v56, 3, v57);
-        goto LABEL_44;
+        printf("%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d\n", v40, 3, v45, "AVE_VerifyImageBuffer", 521, "rc == noErr", *a2, pixelBufferOut, v38);
+        v46 = AVE_GetCurrTime();
+        v85 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d", v46, 3, v85);
+        goto LABEL_43;
       }
 
-      v116 = pixelBufferOut;
-      v118 = v48;
-      v115 = *a2;
-      v112 = 521;
-      v110 = v55;
-      v109 = "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d";
-LABEL_75:
-      syslog(3, v109, v50, 3, v110, "AVE_VerifyImageBuffer", v112, "rc == noErr", v115, v116, v118);
-      goto LABEL_44;
+      v90 = pixelBufferOut;
+      v91 = v38;
+      v89 = *a2;
+      v88 = 521;
+      v86 = v45;
+      v83 = "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d";
+LABEL_74:
+      syslog(3, v83, v40, 3, v86, "AVE_VerifyImageBuffer", v88, "rc == noErr", v89, v90, v91);
+      goto LABEL_43;
     }
 
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
   CVPixelBufferRelease(*a2);
-  v60 = pixelBufferOut;
+  v48 = pixelBufferOut;
   *a2 = pixelBufferOut;
   pixelBufferOut = 0;
-  v61 = v9 & 2;
-  AVE_EdgeReplication_Fill(v60, v9, v8);
+  v49 = v9 & 2;
+  AVE_EdgeReplication_Fill(v48, v9, v8);
   if (AVE_Log_CheckLevel(0x12u, 7))
   {
-    v62 = AVE_Log_CheckConsole(0x12u);
-    v150 = AVE_GetCurrTime();
-    v63 = AVE_Log_GetLevelStr(7);
-    v64 = a1[1];
-    v147 = *a1;
-    v148 = v63;
-    v65 = a1[2];
-    v66 = a1[3];
-    v67 = a1[4];
-    v68 = a1[5];
-    v69 = a1[6];
-    v70 = *(a1 + 145);
-    if (v62)
+    v50 = AVE_Log_CheckConsole(0x12u);
+    v94 = AVE_GetCurrTime();
+    v51 = AVE_Log_GetLevelStr(7);
+    v52 = a1[1];
+    v92 = *a1;
+    v53 = a1[2];
+    v54 = a1[3];
+    v55 = a1[4];
+    v56 = a1[5];
+    v57 = a1[6];
+    if (v50)
     {
-      printf("%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v150, 18, v148, "AVE_VerifyImageBuffer", 541, v147, v64, v65, v66, v67, v68, v69, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
-      v151 = AVE_GetCurrTime();
-      v149 = AVE_Log_GetLevelStr(7);
-      v71 = a1[7];
-      v72 = a1[12];
-      v73 = a1[14];
-      v74 = a1[26];
-      v75 = a1[27];
-      v76 = a1[32];
-      v143 = *(a1 + 145);
-      v139 = *(a1 + 146);
-      v141 = *(a1 + 144);
-      v135 = a1[28];
-      v137 = a1[29];
-      v131 = a1[30];
-      v133 = a1[31];
-      v127 = a1[34];
-      v129 = a1[35];
-      v125 = a1[33];
-      v123 = *(a1 + 52);
-      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v151, 18, v149, "AVE_VerifyImageBuffer", 541, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
+      printf("%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v94, 18, v51, "AVE_VerifyImageBuffer", 541, v92, v52, v53, v54, v55, v56, v57, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
+      v95 = AVE_GetCurrTime();
+      v93 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v95, 18, v93, "AVE_VerifyImageBuffer", 541, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
     }
 
     else
     {
-      v144 = *(a1 + 145);
-      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v150, 18, v148, "AVE_VerifyImageBuffer", 541, v147, v64, v65, v66, v67, v68, v69);
+      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v94, 18, v51, "AVE_VerifyImageBuffer", 541, v92, v52, v53, v54, v55, v56, v57);
     }
 
-    v61 = v9 & 2;
+    v49 = v9 & 2;
   }
 
   extraColumnsOnRight = 0;
@@ -5226,64 +4981,64 @@ LABEL_75:
   extraRowsOnBottom = 0;
   extraRowsOnTop = 0;
   CVPixelBufferGetExtendedPixels(*a2, &extraColumnsOnLeft, &extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom);
-  v77 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-  v78 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-  v79 = extraColumnsOnLeft;
-  v80 = extraColumnsOnRight;
-  v81 = extraColumnsOnLeft + extraColumnsOnRight + v77;
-  v82 = extraRowsOnTop;
-  v83 = extraRowsOnBottom;
-  v84 = extraRowsOnTop + extraRowsOnBottom + v78;
-  v85 = *(v8 + 28);
-  v86 = *(v8 + 16);
+  v58 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+  v59 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+  v60 = extraColumnsOnLeft;
+  v61 = extraColumnsOnRight;
+  v62 = extraColumnsOnLeft + extraColumnsOnRight + v58;
+  v63 = extraRowsOnTop;
+  v64 = extraRowsOnBottom;
+  v65 = extraRowsOnTop + extraRowsOnBottom + v59;
+  v66 = *(v8 + 28);
+  v67 = *(v8 + 16);
   *(a1 + 15) = *v8;
-  *(a1 + 19) = v86;
-  *(a1 + 22) = v85;
-  a1[26] = v81;
-  a1[27] = v84;
-  a1[32] = v79;
-  a1[33] = v80;
-  a1[34] = v82;
-  a1[35] = v83;
+  *(a1 + 19) = v67;
+  *(a1 + 22) = v66;
+  a1[26] = v62;
+  a1[27] = v65;
+  a1[32] = v60;
+  a1[33] = v61;
+  a1[34] = v63;
+  a1[35] = v64;
   a1[30] = CVPixelBufferGetBytesPerRowOfPlane(*a2, 0);
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(*a2, 1uLL);
   a1[31] = BytesPerRowOfPlane;
   if (*(v8 + 12))
   {
-    v88 = BytesPerRowOfPlane;
+    v69 = BytesPerRowOfPlane;
   }
 
   else
   {
-    v88 = 0;
+    v69 = 0;
   }
 
   a1[28] = a1[30];
-  a1[29] = v88;
-  v89 = v9 & 1;
+  a1[29] = v69;
+  v70 = v9 & 1;
   if ((v9 & 0x10) != 0)
   {
-    v89 = 1;
+    v70 = 1;
   }
 
-  *(a1 + 146) = v89;
-  *(a1 + 144) = v61 >> 1;
+  *(a1 + 146) = v70;
+  *(a1 + 144) = v49 >> 1;
   if ((~v9 & 0x500) != 0)
   {
-    v90 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v90 = 5;
+    v71 = 5;
   }
 
   if ((~v9 & 0x50000) == 0)
   {
-    v90 |= 0xAu;
+    v71 |= 0xAu;
   }
 
-  *(a1 + 145) = v90;
+  *(a1 + 145) = v71;
   if (poolOut)
   {
     *a3 = poolOut;
@@ -5291,60 +5046,41 @@ LABEL_75:
 
   if (AVE_Log_CheckLevel(0x12u, 7))
   {
-    v91 = AVE_Log_CheckConsole(0x12u);
-    v152 = AVE_GetCurrTime();
-    v92 = AVE_Log_GetLevelStr(7);
-    v93 = *a1;
-    v94 = a1[1];
-    v95 = a1[2];
-    v96 = a1[3];
-    v97 = a1[4];
-    v98 = a1[5];
-    v99 = a1[6];
-    v100 = *(a1 + 145);
-    if (v91)
+    v72 = AVE_Log_CheckConsole(0x12u);
+    v96 = AVE_GetCurrTime();
+    v73 = AVE_Log_GetLevelStr(7);
+    v74 = *a1;
+    v75 = a1[1];
+    v76 = a1[2];
+    v77 = a1[3];
+    v78 = a1[4];
+    v79 = a1[5];
+    v80 = a1[6];
+    if (v72)
     {
-      printf("%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v152, 18, v92, "AVE_VerifyImageBuffer", 616, v93, v94, v95, v96, v97, v98, v99, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
-      v101 = AVE_GetCurrTime();
-      v102 = AVE_Log_GetLevelStr(7);
-      v103 = a1[7];
-      v104 = a1[12];
-      v105 = a1[14];
-      v106 = a1[26];
-      v107 = a1[27];
-      v108 = a1[32];
-      v145 = *(a1 + 145);
-      v140 = *(a1 + 146);
-      v142 = *(a1 + 144);
-      v136 = a1[28];
-      v138 = a1[29];
-      v132 = a1[30];
-      v134 = a1[31];
-      v128 = a1[34];
-      v130 = a1[35];
-      v126 = a1[33];
-      v124 = *(a1 + 52);
-      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v101, 18, v102, "AVE_VerifyImageBuffer", 616, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
+      printf("%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v96, 18, v73, "AVE_VerifyImageBuffer", 616, v74, v75, v76, v77, v78, v79, v80, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
+      v81 = AVE_GetCurrTime();
+      v82 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v81, 18, v82, "AVE_VerifyImageBuffer", 616, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
     }
 
     else
     {
-      v146 = *(a1 + 145);
-      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v152, 18, v92, "AVE_VerifyImageBuffer", 616, v93, v94, v95, v96, v97, v98, v99);
+      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v96, 18, v73, "AVE_VerifyImageBuffer", 616, v74, v75, v76, v77, v78, v79, v80);
     }
   }
 
-  v48 = 0;
-LABEL_48:
+  v38 = 0;
+LABEL_47:
   if ((a1[36] & 1) == 0)
   {
     CVPixelBufferRelease(*a2);
   }
 
-  return v48;
+  return v38;
 }
 
-uint64_t AVE_UpdatePixelBufferDict(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, int a10, unsigned int a11, uint64_t a12)
+uint64_t AVE_UpdatePixelBufferDict(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, unsigned int a10, uint64_t a11, uint64_t a12)
 {
   v12 = a6;
   v13 = a5;
@@ -5352,98 +5088,104 @@ uint64_t AVE_UpdatePixelBufferDict(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   v15 = a3;
   v16 = a2;
   v17 = a1;
-  v32 = *MEMORY[0x29EDCA608];
-  if (a10 > 0)
+  v33 = *MEMORY[0x29EDCA608];
+  memset(v32, 0, sizeof(v32));
+  cf = 0;
+  if (a10 <= 0)
   {
-    AttrDictFromProfile = AVE_PixelBuf_CreateAttrDictFromProfile(a1, a2, a3, a4, a10, a5, a6, a7, a8, a9);
+    AttrDict = AVE_PixelBuf_CreateAttrDict(a1, a2, a3, a4, a5, a6, a7, a8, a11, SHIDWORD(a11), v32, &cf);
+    if (AttrDict)
+    {
+      v19 = AttrDict;
+      if (!AVE_Log_CheckLevel(3u, 4))
+      {
+        goto LABEL_20;
+      }
+
+      v24 = AVE_Log_CheckConsole(3u);
+      CurrTime = AVE_GetCurrTime();
+      LevelStr = AVE_Log_GetLevelStr(4);
+      if (v24)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict", 690, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(4);
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    AttrDictFromProfile = AVE_PixelBuf_CreateAttrDictFromProfile(a1, a2, a3, a4, a10, a5, a6, a7, a8, a9, a11, SHIDWORD(a11), v32, &cf);
     if (AttrDictFromProfile)
     {
       v19 = AttrDictFromProfile;
-      if (AVE_Log_CheckLevel(3u, 4))
+      if (!AVE_Log_CheckLevel(3u, 4))
       {
-        v20 = AVE_Log_CheckConsole(3u);
-        CurrTime = AVE_GetCurrTime();
-        LevelStr = AVE_Log_GetLevelStr(4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict", 701, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(4);
-        }
-
-LABEL_10:
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict");
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
-      goto LABEL_21;
-    }
-
-LABEL_11:
-    if (a12 == 1)
-    {
-      v19 = 0;
-    }
-
-    else
-    {
-      v19 = VTEncoderSessionSetPixelBufferAttributes();
-      if (v19)
-      {
-        if (AVE_Log_CheckLevel(3u, 4))
-        {
-          v25 = AVE_Log_CheckConsole(3u);
-          v26 = AVE_GetCurrTime();
-          v27 = AVE_Log_GetLevelStr(4);
-          if (v25)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x\n", v26, 3, v27, "AVE_UpdatePixelBufferDict", 710, "res == noErr", v17, v16, v15, v14, v13, v12, a11, v19, 0);
-            v28 = AVE_GetCurrTime();
-            v31 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x", v28, 3, v31, "AVE_UpdatePixelBufferDict", 710);
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x", v26, 3, v27, "AVE_UpdatePixelBufferDict", 710);
-          }
-        }
-
-        v19 = 4294966296;
-      }
-    }
-
-    goto LABEL_21;
-  }
-
-  AttrDict = AVE_PixelBuf_CreateAttrDict(a1, a2, a3, a4, a5, a6, a7, a8, a11);
-  if (!AttrDict)
-  {
-    goto LABEL_11;
-  }
-
-  v19 = AttrDict;
-  if (AVE_Log_CheckLevel(3u, 4))
-  {
-    v24 = AVE_Log_CheckConsole(3u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(4);
-    if (v24)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict", 690, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
+      v20 = AVE_Log_CheckConsole(3u);
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(4);
-    }
+      if (v20)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict", 701, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
+        CurrTime = AVE_GetCurrTime();
+        LevelStr = AVE_Log_GetLevelStr(4);
+      }
 
-    goto LABEL_10;
+LABEL_10:
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x", CurrTime, 3, LevelStr, "AVE_UpdatePixelBufferDict");
+      goto LABEL_20;
+    }
   }
 
-LABEL_21:
-  v29 = *MEMORY[0x29EDCA608];
+  if (a12 == 1)
+  {
+    v19 = 0;
+  }
+
+  else
+  {
+    v19 = VTEncoderSessionSetPixelBufferAttributes();
+    if (v19)
+    {
+      if (AVE_Log_CheckLevel(3u, 4))
+      {
+        v25 = AVE_Log_CheckConsole(3u);
+        v26 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        if (v25)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x\n", v26, 3, v27, "AVE_UpdatePixelBufferDict", 710, "res == noErr", v17, v16, v15, v14, v13, v12, a11, v19, 0);
+          v28 = AVE_GetCurrTime();
+          v30 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x", v28, 3, v30, "AVE_UpdatePixelBufferDict", 710);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to update pixel buffer attribute %d %d 0x%x %d %d %d 0x%x %d 0x%x", v26, 3, v27, "AVE_UpdatePixelBufferDict", 710);
+        }
+      }
+
+      v19 = 4294966296;
+    }
+  }
+
+LABEL_20:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
   return v19;
 }
 
-uint64_t AVE_ImageBuf_Transfer(unsigned int *a1, CVPixelBufferRef *a2, CVPixelBufferPoolRef *a3, uint64_t a4)
+uint64_t AVE_ImageBuf_Transfer(int *a1, CVPixelBufferRef *a2, CVPixelBufferPoolRef *a3, uint64_t a4)
 {
   pixelBufferOut = 0;
   CVPixelBufferRetain(*a2);
@@ -5685,8 +5427,8 @@ uint64_t AVE_HEVC_SetCQFactor(uint64_t a1, double a2)
     {
       printf("%lld %d AVE %s: %s Enter %f %p\n", CurrTime, 12, LevelStr, "AVE_HEVC_SetCQFactor", a2, a1);
       v7 = AVE_GetCurrTime();
-      v19 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v7, 12, v19, "AVE_HEVC_SetCQFactor", a2, a1);
+      v18 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v7, 12, v18, "AVE_HEVC_SetCQFactor", a2, a1);
     }
 
     else
@@ -5709,7 +5451,6 @@ uint64_t AVE_HEVC_SetCQFactor(uint64_t a1, double a2)
           printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]\n", v16, 12, v17, "AVE_HEVC_SetCQFactor", 243, "fCQFactor >= 0.0 && fCQFactor <= 1.0", a1, *(a1 + 56), a2);
           v16 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
-          v18 = *(a1 + 56);
         }
 
         syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]", v16, 12);
@@ -5826,9 +5567,9 @@ uint64_t AVE_Session_HEVC_SetProperty(const void *a1, __CFString *a2, const void
 
 uint64_t AVE_Session_HEVC_CreatePropertyDict(uint64_t a1)
 {
-  v43 = *MEMORY[0x29EDCA608];
-  v41 = 0uLL;
-  v42 = 0;
+  v40 = *MEMORY[0x29EDCA608];
+  v38 = 0uLL;
+  v39 = 0;
   v2 = AVE_DW_Get();
   if (AVE_Log_CheckLevel(0xCu, 6))
   {
@@ -5839,8 +5580,8 @@ uint64_t AVE_Session_HEVC_CreatePropertyDict(uint64_t a1)
     {
       printf("%lld %d AVE %s: %s Enter %p\n", CurrTime, 12, LevelStr, "AVE_Session_HEVC_CreatePropertyDict", a1);
       v6 = AVE_GetCurrTime();
-      v37 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v6, 12, v37, "AVE_Session_HEVC_CreatePropertyDict", a1);
+      v34 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v6, 12, v34, "AVE_Session_HEVC_CreatePropertyDict", a1);
     }
 
     else
@@ -5867,7 +5608,7 @@ uint64_t AVE_Session_HEVC_CreatePropertyDict(uint64_t a1)
     }
 
     v15 = 4294966295;
-    goto LABEL_39;
+    goto LABEL_37;
   }
 
   v7 = 0;
@@ -5893,7 +5634,7 @@ uint64_t AVE_Session_HEVC_CreatePropertyDict(uint64_t a1)
     v11 = v2[396] ? 1 : 2;
     v12 = v11 | v10;
     Mutable = CFDictionaryCreateMutable(0, 0, v8, v9);
-    *(&v41 + v7) = Mutable;
+    *(&v38 + v7) = Mutable;
     if (!Mutable)
     {
       break;
@@ -5905,32 +5646,33 @@ uint64_t AVE_Session_HEVC_CreatePropertyDict(uint64_t a1)
       v15 = Dict;
       if (AVE_Log_CheckLevel(0xCu, 4))
       {
-        v24 = AVE_Log_CheckConsole(0xCu);
-        v25 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(4);
-        v27 = *(a1 + 68);
-        if (v24)
+        v23 = AVE_Log_CheckConsole(0xCu);
+        v24 = AVE_GetCurrTime();
+        v25 = AVE_Log_GetLevelStr(4);
+        if (v23)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d\n", v25, 12, v26, "AVE_Session_HEVC_CreatePropertyDict", 329, "ret == 0", a1, *(a1 + 56), v12, *(a1 + 68), v15);
-          v25 = AVE_GetCurrTime();
-          v26 = AVE_Log_GetLevelStr(4);
-          v28 = *(a1 + 56);
+          printf("%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d\n", v24, 12, v25, "AVE_Session_HEVC_CreatePropertyDict", 329, "ret == 0", a1, *(a1 + 56), v12, *(a1 + 68), v15);
+          v26 = AVE_GetCurrTime();
+          v36 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v26, 12, v36, "AVE_Session_HEVC_CreatePropertyDict");
         }
 
-        v40 = *(a1 + 68);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v25, 12, v26, "AVE_Session_HEVC_CreatePropertyDict");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v24, 12, v25, "AVE_Session_HEVC_CreatePropertyDict");
+        }
       }
 
-      goto LABEL_35;
+      goto LABEL_33;
     }
 
 LABEL_16:
     if (++v7 == 3)
     {
       v15 = 0;
-      *(a1 + 80) = v41;
-      *(a1 + 96) = v42;
-      goto LABEL_39;
+      *(a1 + 80) = v38;
+      *(a1 + 96) = v39;
+      goto LABEL_37;
     }
   }
 
@@ -5939,52 +5681,52 @@ LABEL_16:
     v19 = AVE_Log_CheckConsole(0xCu);
     v20 = AVE_GetCurrTime();
     v21 = AVE_Log_GetLevelStr(4);
-    v22 = *(a1 + 68);
     if (v19)
     {
       printf("%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d\n", v20, 12, v21, "AVE_Session_HEVC_CreatePropertyDict", 324, "paDict[i] != __null", a1, *(a1 + 56), v12, *(a1 + 68), 0);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(4);
-      v23 = *(a1 + 56);
-    }
-
-    v39 = *(a1 + 68);
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v20, 12, v21, "AVE_Session_HEVC_CreatePropertyDict");
-  }
-
-  v15 = 4294966293;
-LABEL_35:
-  for (i = 0; i != 24; i += 8)
-  {
-    v30 = *(&v41 + i);
-    if (v30)
-    {
-      CFRelease(v30);
-      *(&v41 + i) = 0;
-    }
-  }
-
-LABEL_39:
-  if (AVE_Log_CheckLevel(0xCu, 6))
-  {
-    v31 = AVE_Log_CheckConsole(0xCu);
-    v32 = AVE_GetCurrTime();
-    v33 = AVE_Log_GetLevelStr(6);
-    if (v31)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v32, 12, v33, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
-      v34 = AVE_GetCurrTime();
-      v38 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v34, 12, v38, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
+      v22 = AVE_GetCurrTime();
+      v35 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v22, 12, v35, "AVE_Session_HEVC_CreatePropertyDict");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v32, 12, v33, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v20, 12, v21, "AVE_Session_HEVC_CreatePropertyDict");
     }
   }
 
-  v35 = *MEMORY[0x29EDCA608];
+  v15 = 4294966293;
+LABEL_33:
+  for (i = 0; i != 24; i += 8)
+  {
+    v28 = *(&v38 + i);
+    if (v28)
+    {
+      CFRelease(v28);
+      *(&v38 + i) = 0;
+    }
+  }
+
+LABEL_37:
+  if (AVE_Log_CheckLevel(0xCu, 6))
+  {
+    v29 = AVE_Log_CheckConsole(0xCu);
+    v30 = AVE_GetCurrTime();
+    v31 = AVE_Log_GetLevelStr(6);
+    if (v29)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v30, 12, v31, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
+      v32 = AVE_GetCurrTime();
+      v37 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v32, 12, v37, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v30, 12, v31, "AVE_Session_HEVC_CreatePropertyDict", a1, v15);
+    }
+  }
+
   return v15;
 }
 
@@ -6083,8 +5825,8 @@ uint64_t AVE_Session_HEVC_Destroy(uint64_t a1)
     {
       printf("%lld %d AVE %s: %s Enter %p\n", CurrTime, 12, LevelStr, "AVE_Session_HEVC_Destroy", a1);
       v5 = AVE_GetCurrTime();
-      v46 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v46, "AVE_Session_HEVC_Destroy", a1);
+      v42 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v42, "AVE_Session_HEVC_Destroy", a1);
     }
 
     else
@@ -6100,8 +5842,8 @@ uint64_t AVE_Session_HEVC_Destroy(uint64_t a1)
     AVE_TimeStats_AddStartTime(v6, 1u, v7);
     if (*(a1 + 104644) == 30568)
     {
-      v48 = AVE_GetCurrTime();
-      AVE_USL_Drv_Stop(*(a1 + 120), &v48, 0);
+      v44 = AVE_GetCurrTime();
+      AVE_USL_Drv_Stop(*(a1 + 120), &v44, 0);
     }
 
     if (AVE_Log_CheckLevel(2u, 0))
@@ -6120,10 +5862,6 @@ uint64_t AVE_Session_HEVC_Destroy(uint64_t a1)
         printf("%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld\n", v9, 2, v10, v11, v12, v13, v14, ProcCnt, DropCnt);
         v9 = AVE_GetCurrTime();
         v10 = AVE_Log_GetLevelStr(0);
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 64);
-        v19 = *(a1 + 10772);
-        v20 = *(a1 + 104648);
         AVE_USL_Drv_GetProcCnt(*(a1 + 120));
         AVE_USL_Drv_GetDropCnt(*(a1 + 120));
       }
@@ -6131,107 +5869,107 @@ uint64_t AVE_Session_HEVC_Destroy(uint64_t a1)
       syslog(3, "%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld", v9, 2, v10);
     }
 
-    v24 = AVE_USL_Drv_Destroy(*(a1 + 120));
+    v20 = AVE_USL_Drv_Destroy(*(a1 + 120));
     *(a1 + 120) = 0;
-    v25 = *(a1 + 104712);
-    v26 = AVE_GetCurrTime();
-    AVE_TimeStats_AddEndTime(v25, 1u, v26);
+    v21 = *(a1 + 104712);
+    v22 = AVE_GetCurrTime();
+    AVE_TimeStats_AddEndTime(v21, 1u, v22);
     AVE_TimeStats_Calc(*(a1 + 104712));
     AVE_TimeStats_Print(*(a1 + 104712), 16, 6, 0, 0);
     AVE_DW_Uninit();
-    v27 = *(a1 + 104704);
-    if (v27)
+    v23 = *(a1 + 104704);
+    if (v23)
     {
-      AVE_FPS::~AVE_FPS(v27);
+      AVE_FPS::~AVE_FPS(v23);
       MEMORY[0x29C24E920]();
       *(a1 + 104704) = 0;
     }
 
-    v28 = *(a1 + 104712);
-    if (v28)
+    v24 = *(a1 + 104712);
+    if (v24)
     {
-      AVE_TimeStats_Destroy(v28);
+      AVE_TimeStats_Destroy(v24);
       *(a1 + 104712) = 0;
     }
 
-    v29 = *(a1 + 104720);
-    if (v29)
+    v25 = *(a1 + 104720);
+    if (v25)
     {
-      AVE_Dump_Uninit(v29);
+      AVE_Dump_Uninit(v25);
       AVE_Dump_Destroy(*(a1 + 104720));
       *(a1 + 104720) = 0;
     }
 
-    v30 = *(a1 + 104728);
-    if (v30)
+    v26 = *(a1 + 104728);
+    if (v26)
     {
-      AVE_VCP::~AVE_VCP(v30);
+      AVE_VCP::~AVE_VCP(v26);
       MEMORY[0x29C24E920]();
       *(a1 + 104728) = 0;
     }
 
-    v31 = *(a1 + 104736);
-    if (v31)
+    v27 = *(a1 + 104736);
+    if (v27)
     {
-      AVE_SEI::~AVE_SEI(v31);
+      AVE_SEI::~AVE_SEI(v27);
       MEMORY[0x29C24E920]();
       *(a1 + 104736) = 0;
     }
 
-    v32 = *(a1 + 104656);
-    if (v32)
+    v28 = *(a1 + 104656);
+    if (v28)
     {
-      CFRelease(v32);
+      CFRelease(v28);
       *(a1 + 104656) = 0;
     }
 
-    v33 = 0;
-    v34 = a1 + 80;
+    v29 = 0;
+    v30 = a1 + 80;
     do
     {
-      v35 = *(v34 + v33);
-      if (v35)
+      v31 = *(v30 + v29);
+      if (v31)
       {
-        CFRelease(v35);
-        *(v34 + v33) = 0;
+        CFRelease(v31);
+        *(v30 + v29) = 0;
       }
 
-      v33 += 8;
+      v29 += 8;
     }
 
-    while (v33 != 24);
-    v36 = *(a1 + 104);
-    if (v36)
+    while (v29 != 24);
+    v32 = *(a1 + 104);
+    if (v32)
     {
-      CFRelease(v36);
+      CFRelease(v32);
       *(a1 + 104) = 0;
     }
 
-    v37 = *(a1 + 107992);
-    if (v37)
+    v33 = *(a1 + 107992);
+    if (v33)
     {
-      CFRelease(v37);
+      CFRelease(v33);
       *(a1 + 107992) = 0;
     }
 
-    v38 = *(a1 + 112);
-    if (v38)
+    v34 = *(a1 + 112);
+    if (v34)
     {
-      CFRelease(v38);
+      CFRelease(v34);
       *(a1 + 112) = 0;
     }
 
-    v39 = *(a1 + 104768);
-    if (v39)
+    v35 = *(a1 + 104768);
+    if (v35)
     {
-      CFRelease(v39);
+      CFRelease(v35);
       *(a1 + 104768) = 0;
     }
 
-    v40 = *(a1 + 104776);
-    if (v40)
+    v36 = *(a1 + 104776);
+    if (v36)
     {
-      CFRelease(v40);
+      CFRelease(v36);
       *(a1 + 104776) = 0;
     }
 
@@ -6242,46 +5980,46 @@ uint64_t AVE_Session_HEVC_Destroy(uint64_t a1)
   {
     if (AVE_Log_CheckLevel(0xCu, 4))
     {
-      v21 = AVE_Log_CheckConsole(0xCu);
-      v22 = AVE_GetCurrTime();
-      v23 = AVE_Log_GetLevelStr(4);
-      if (v21)
+      v17 = AVE_Log_CheckConsole(0xCu);
+      v18 = AVE_GetCurrTime();
+      v19 = AVE_Log_GetLevelStr(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v22, 12, v23, "AVE_Session_HEVC_Destroy", 398, "pINS != __null", 0);
-        v22 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v18, 12, v19, "AVE_Session_HEVC_Destroy", 398, "pINS != __null", 0);
+        v18 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v22);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v18);
     }
 
     AVE_DW_Uninit();
-    v24 = 4294966295;
+    v20 = 4294966295;
   }
 
   if (AVE_Log_CheckLevel(0xCu, 6))
   {
-    v41 = AVE_Log_CheckConsole(0xCu);
-    v42 = AVE_GetCurrTime();
-    v43 = AVE_Log_GetLevelStr(6);
-    if (v41)
+    v37 = AVE_Log_CheckConsole(0xCu);
+    v38 = AVE_GetCurrTime();
+    v39 = AVE_Log_GetLevelStr(6);
+    if (v37)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v42, 12, v43, "AVE_Session_HEVC_Destroy", a1, v24);
-      v44 = AVE_GetCurrTime();
-      v47 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v44, 12, v47, "AVE_Session_HEVC_Destroy", a1, v24);
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v38, 12, v39, "AVE_Session_HEVC_Destroy", a1, v20);
+      v40 = AVE_GetCurrTime();
+      v43 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v40, 12, v43, "AVE_Session_HEVC_Destroy", a1, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v42, 12, v43, "AVE_Session_HEVC_Destroy", a1, v24);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v38, 12, v39, "AVE_Session_HEVC_Destroy", a1, v20);
     }
   }
 
-  return v24;
+  return v20;
 }
 
-uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
+uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, _DWORD *a2)
 {
   v4 = AVE_DW_Get();
   if (AVE_Log_CheckLevel(0xCu, 6))
@@ -6293,8 +6031,8 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
     {
       printf("%lld %d AVE %s: %s Enter %p %p\n", CurrTime, 12, LevelStr, "AVE_Session_HEVC_StartSession", a1, a2);
       v8 = AVE_GetCurrTime();
-      v60 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 12, v60, "AVE_Session_HEVC_StartSession", a1, a2);
+      v48 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 12, v48, "AVE_Session_HEVC_StartSession", a1, a2);
     }
 
     else
@@ -6309,26 +6047,17 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
     {
       if (AVE_Log_CheckLevel(0xCu, 4))
       {
-        v23 = AVE_Log_CheckConsole(0xCu);
+        v19 = AVE_Log_CheckConsole(0xCu);
         v14 = AVE_GetCurrTime();
         v15 = AVE_Log_GetLevelStr(4);
-        v24 = *a2;
-        if (v23)
+        if (v19)
         {
           printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_HEVC_StartSession", 6820, "pDim->iWidth > 0 && pDim->iHeight > 0", a1, *(a1 + 56), *a2, a2[1]);
           v14 = AVE_GetCurrTime();
           v15 = AVE_Log_GetLevelStr(4);
-          v25 = *(a1 + 56);
-          v26 = *a2;
-          v27 = a2[1];
         }
 
-        else
-        {
-          v67 = *a2;
-        }
-
-        goto LABEL_30;
+        goto LABEL_29;
       }
     }
 
@@ -6348,35 +6077,35 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
       if (!AVE_Enc_CheckResolution(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), 0))
       {
         AVE_SetEncoderDefault(a1);
-        v29 = *(a1 + 24732) + 8;
-        if (v29 <= *(a1 + 24736) + 8)
+        v21 = *(a1 + 24732) + 8;
+        if (v21 <= *(a1 + 24736) + 8)
         {
-          v29 = *(a1 + 24736) + 8;
+          v21 = *(a1 + 24736) + 8;
         }
 
-        if (AVE_UpdatePixelBufferDict(*(a1 + 68), *(a1 + 64), 62, 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v29, 0, 0x414C4C20u, *(a1 + 16)))
+        if (AVE_UpdatePixelBufferDict(*(a1 + 68), *(a1 + 64), 62, 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v21, 0, 0x1414C4C20, *(a1 + 16)))
         {
           if (AVE_Log_CheckLevel(0x1Eu, 4))
           {
-            v30 = AVE_Log_CheckConsole(0x1Eu);
-            v31 = AVE_GetCurrTime();
-            v32 = AVE_Log_GetLevelStr(4);
-            if (v30)
+            v22 = AVE_Log_CheckConsole(0x1Eu);
+            v23 = AVE_GetCurrTime();
+            v24 = AVE_Log_GetLevelStr(4);
+            if (v22)
             {
-              printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.\n", v31, 30, v32, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
-              v33 = AVE_GetCurrTime();
-              v61 = AVE_Log_GetLevelStr(4);
-              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v33, 30, v61, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.\n", v23, 30, v24, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              v25 = AVE_GetCurrTime();
+              v49 = AVE_Log_GetLevelStr(4);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v25, 30, v49, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
             }
 
             else
             {
-              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v31, 30, v32, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v23, 30, v24, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
             }
           }
 
-          v28 = 4294954394;
-          goto LABEL_32;
+          v20 = 4294954394;
+          goto LABEL_31;
         }
 
         *(a1 + 104644) = 30566;
@@ -6388,15 +6117,15 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
         *(a1 + 108024) = 0u;
         if (*(a1 + 1112) >= 1)
         {
-          v41 = *(a1 + 1112);
+          v33 = *(a1 + 1112);
         }
 
         else
         {
-          v41 = 30;
+          v33 = 30;
         }
 
-        AVE_FPS::Update(*(a1 + 104704), v41, 0, 0);
+        AVE_FPS::Update(*(a1 + 104704), v33, 0, 0);
         *(a1 + 712) = v4[103];
         if (*(a1 + 10892) == 1)
         {
@@ -6405,41 +6134,40 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
 
         if (*(a1 + 16) == 1)
         {
-          v42 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v42 = 3;
+          v34 = 3;
         }
 
-        v43 = AVE_SEI::Init(*(a1 + 104736), *(a1 + 56), 0, 0, 2, v42);
-        if (v43)
+        v35 = AVE_SEI::Init(*(a1 + 104736), *(a1 + 56), 0, 0, 2, v34);
+        if (v35)
         {
-          v28 = v43;
+          v20 = v35;
           if (!AVE_Log_CheckLevel(0xCu, 4))
           {
-            goto LABEL_32;
+            goto LABEL_31;
           }
 
-          v44 = AVE_Log_CheckConsole(0xCu);
-          v45 = AVE_GetCurrTime();
-          v46 = AVE_Log_GetLevelStr(4);
-          if (v44)
+          v36 = AVE_Log_CheckConsole(0xCu);
+          v37 = AVE_GetCurrTime();
+          v38 = AVE_Log_GetLevelStr(4);
+          if (v36)
           {
-            printf("%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu\n", v45, 12, v46, "AVE_Session_HEVC_StartSession", 6904, "ret == 0", a1, *(a1 + 56));
-            v47 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu\n", v37, 12, v38, "AVE_Session_HEVC_StartSession", 6904, "ret == 0", a1, *(a1 + 56));
+            v39 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
-            v48 = *(a1 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu", v47, 12);
-            goto LABEL_32;
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu", v39, 12);
+            goto LABEL_31;
           }
 
-          v64 = a1;
-          v65 = *(a1 + 56);
-          v63 = 6904;
-          v62 = v46;
-          v56 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
+          v53 = a1;
+          v54 = *(a1 + 56);
+          v52 = 6904;
+          v51 = v38;
+          v44 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
         }
 
         else
@@ -6447,71 +6175,69 @@ uint64_t AVE_Session_HEVC_StartSession(uint64_t a1, unsigned int *a2)
           SupportedPresetDictionary = AVE_Prop_HEVC_CreateSupportedPresetDictionary(a1);
           if (!SupportedPresetDictionary)
           {
-            v57 = v4[30];
-            if (v57)
+            v45 = v4[30];
+            if (v45)
             {
-              *(a1 + 11468) = v57;
+              *(a1 + 11468) = v45;
             }
 
             for (i = 0; i != 72; i += 12)
             {
-              v59 = v4[i + 32];
-              if ((v59 & 0x80000000) == 0)
+              v47 = v4[i + 32];
+              if ((v47 & 0x80000000) == 0)
               {
-                *(a1 + 11476 + i * 4) = v59;
+                *(a1 + 11476 + i * 4) = v47;
               }
 
-              v28 = 0;
+              v20 = 0;
             }
 
-            goto LABEL_32;
+            goto LABEL_31;
           }
 
-          v28 = SupportedPresetDictionary;
+          v20 = SupportedPresetDictionary;
           if (!AVE_Log_CheckLevel(0xCu, 4))
           {
-LABEL_32:
-            v34 = *(a1 + 104712);
-            v35 = AVE_GetCurrTime();
-            AVE_TimeStats_AddEndTime(v34, 3u, v35);
-            if (v28)
+LABEL_31:
+            v26 = *(a1 + 104712);
+            v27 = AVE_GetCurrTime();
+            AVE_TimeStats_AddEndTime(v26, 3u, v27);
+            if (v20)
             {
-              v36 = *(a1 + 104728);
-              if (v36)
+              v28 = *(a1 + 104728);
+              if (v28)
               {
-                AVE_VCP::~AVE_VCP(v36);
+                AVE_VCP::~AVE_VCP(v28);
                 MEMORY[0x29C24E920]();
                 *(a1 + 104728) = 0;
               }
             }
 
-            goto LABEL_35;
+            goto LABEL_34;
           }
 
-          v50 = AVE_Log_CheckConsole(0xCu);
-          v45 = AVE_GetCurrTime();
-          v51 = AVE_Log_GetLevelStr(4);
-          v52 = *(a1 + 56);
-          if (v50)
+          v41 = AVE_Log_CheckConsole(0xCu);
+          v37 = AVE_GetCurrTime();
+          v42 = AVE_Log_GetLevelStr(4);
+          if (v41)
           {
-            printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d\n", v45, 12, v51, "AVE_Session_HEVC_StartSession", 6912, "ret == 0", a1, *(a1 + 56), v28);
-            v53 = AVE_GetCurrTime();
-            v54 = AVE_Log_GetLevelStr(4);
-            v55 = *(a1 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d", v53, 12, v54);
-            goto LABEL_32;
+            printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d\n", v37, 12, v42, "AVE_Session_HEVC_StartSession", 6912, "ret == 0", a1, *(a1 + 56), v20);
+            v43 = AVE_GetCurrTime();
+            v50 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d", v43, 12, v50);
+            goto LABEL_31;
           }
 
-          v65 = *(a1 + 56);
-          v66 = v28;
-          v64 = a1;
-          v63 = 6912;
-          v62 = v51;
-          v56 = "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d";
+          v54 = *(a1 + 56);
+          v55 = v20;
+          v53 = a1;
+          v52 = 6912;
+          v51 = v42;
+          v44 = "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d";
         }
 
-        syslog(3, v56, v45, 12, v62, "AVE_Session_HEVC_StartSession", v63, "ret == 0", v64, v65, v66);
-        goto LABEL_32;
+        syslog(3, v44, v37, 12, v51, "AVE_Session_HEVC_StartSession", v52, "ret == 0", v53, v54, v55);
+        goto LABEL_31;
       }
 
       if (AVE_Log_CheckLevel(0xCu, 4))
@@ -6519,64 +6245,55 @@ LABEL_32:
         v13 = AVE_Log_CheckConsole(0xCu);
         v14 = AVE_GetCurrTime();
         v15 = AVE_Log_GetLevelStr(4);
-        v16 = *(a1 + 1440);
         if (v13)
         {
           printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_HEVC_StartSession", 6839, "ret == 0", a1, *(a1 + 56), *(a1 + 1440), *(a1 + 1444));
           v14 = AVE_GetCurrTime();
           v15 = AVE_Log_GetLevelStr(4);
-          v17 = *(a1 + 56);
-          v18 = *(a1 + 1440);
-          v19 = *(a1 + 1444);
         }
 
-        else
-        {
-          v68 = *(a1 + 1440);
-        }
-
-LABEL_30:
+LABEL_29:
         syslog(3, "%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d", v14, 12, v15);
       }
     }
 
-    v28 = 4294965295;
-    goto LABEL_32;
+    v20 = 4294965295;
+    goto LABEL_31;
   }
 
   if (AVE_Log_CheckLevel(0xCu, 4))
   {
-    v20 = AVE_Log_CheckConsole(0xCu);
-    v21 = AVE_GetCurrTime();
-    v22 = AVE_Log_GetLevelStr(4);
-    if (v20)
+    v16 = AVE_Log_CheckConsole(0xCu);
+    v17 = AVE_GetCurrTime();
+    v18 = AVE_Log_GetLevelStr(4);
+    if (v16)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v21, 12, v22, "AVE_Session_HEVC_StartSession", 6816, "pINS != __null && pDim != __null", a1, a2);
-      v21 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v17, 12, v18, "AVE_Session_HEVC_StartSession", 6816, "pINS != __null && pDim != __null", a1, a2);
+      v17 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v21, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v17, 12);
   }
 
-  v28 = 4294966295;
-LABEL_35:
+  v20 = 4294966295;
+LABEL_34:
   if (AVE_Log_CheckLevel(0xCu, 6))
   {
-    v37 = AVE_Log_CheckConsole(0xCu);
-    v38 = AVE_GetCurrTime();
-    v39 = AVE_Log_GetLevelStr(6);
-    if (v37)
+    v29 = AVE_Log_CheckConsole(0xCu);
+    v30 = AVE_GetCurrTime();
+    v31 = AVE_Log_GetLevelStr(6);
+    if (v29)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v38, 12, v39, "AVE_Session_HEVC_StartSession", a1, a2, v28);
-      v38 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v30, 12, v31, "AVE_Session_HEVC_StartSession", a1, a2, v20);
+      v30 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v38);
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v30);
   }
 
-  return v28;
+  return v20;
 }
 
 void AVE_PrepareCropParams(uint64_t a1)
@@ -6592,8 +6309,8 @@ void AVE_PrepareCropParams(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams\n", CurrTime, 12, LevelStr);
       v7 = AVE_GetCurrTime();
-      v31 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams", v7, 12, v31);
+      v29 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams", v7, 12, v29);
     }
 
     else
@@ -6652,8 +6369,8 @@ void AVE_PrepareCropParams(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: input -> %dx%d\n", v14, 16, v15, v9, v10);
       v16 = AVE_GetCurrTime();
-      v32 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: input -> %dx%d", v16, 16, v32, v9, v10);
+      v30 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: input -> %dx%d", v16, 16, v30, v9, v10);
     }
 
     else
@@ -6667,40 +6384,38 @@ void AVE_PrepareCropParams(uint64_t a1)
     v17 = AVE_Log_CheckConsole(0x10u);
     v18 = AVE_GetCurrTime();
     v19 = AVE_Log_GetLevelStr(7);
-    v20 = *(a1 + 1440);
-    v21 = *(a1 + 1444);
+    v20 = *(a1 + 1444);
     if (v17)
     {
-      printf("%lld %d AVE %s: FIG: input multiple -> %dx%d\n", v18, 16, v19, *(a1 + 1440), v21);
-      v22 = AVE_GetCurrTime();
-      v23 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v22, 16, v23, *(a1 + 1440), *(a1 + 1444));
+      printf("%lld %d AVE %s: FIG: input multiple -> %dx%d\n", v18, 16, v19, *(a1 + 1440), v20);
+      v21 = AVE_GetCurrTime();
+      v22 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v21, 16, v22, *(a1 + 1440), *(a1 + 1444));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v18, 16, v19, *(a1 + 1440), v21);
+      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v18, 16, v19, *(a1 + 1440), v20);
     }
   }
 
   if (AVE_Log_CheckLevel(0x10u, 7))
   {
-    v24 = AVE_Log_CheckConsole(0x10u);
-    v25 = AVE_GetCurrTime();
-    v26 = AVE_Log_GetLevelStr(7);
-    v27 = *(v3 + 16);
-    v28 = *(v3 + 8);
-    if (v24)
+    v23 = AVE_Log_CheckConsole(0x10u);
+    v24 = AVE_GetCurrTime();
+    v25 = AVE_Log_GetLevelStr(7);
+    v26 = *(v3 + 8);
+    if (v23)
     {
-      printf("%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d\n", v25, 16, v26, *(v3 + 16), v28);
-      v29 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v29, 16, v30, *(v3 + 16), *(v3 + 8));
+      printf("%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d\n", v24, 16, v25, *(v3 + 16), v26);
+      v27 = AVE_GetCurrTime();
+      v28 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v27, 16, v28, *(v3 + 16), *(v3 + 8));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v25, 16, v26, *(v3 + 16), v28);
+      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v24, 16, v25, *(v3 + 16), v26);
     }
   }
 }
@@ -7010,8 +6725,8 @@ uint64_t AVE_Session_HEVC_BeginPass(uint64_t a1, int a2)
     {
       printf("%lld %d AVE %s: %s Enter %p 0x%x\n", CurrTime, 12, LevelStr, "AVE_Session_HEVC_BeginPass", a1, a2);
       v7 = AVE_GetCurrTime();
-      v39 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%x", v7, 12, v39, "AVE_Session_HEVC_BeginPass", a1, a2);
+      v37 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%x", v7, 12, v37, "AVE_Session_HEVC_BeginPass", a1, a2);
     }
 
     else
@@ -7027,19 +6742,18 @@ uint64_t AVE_Session_HEVC_BeginPass(uint64_t a1, int a2)
       v8 = AVE_Log_CheckConsole(0xD8u);
       v9 = AVE_GetCurrTime();
       v10 = AVE_Log_GetLevelStr(7);
-      v11 = *(a1 + 104664);
-      v12 = *(a1 + 104668);
+      v11 = *(a1 + 104668);
       if (v8)
       {
-        printf("%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)\n", v9, 216, v10, a2, *(a1 + 104664), v12);
-        v13 = AVE_GetCurrTime();
-        v14 = AVE_Log_GetLevelStr(7);
-        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v13, 216, v14, a2, *(a1 + 104664), *(a1 + 104668));
+        printf("%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)\n", v9, 216, v10, a2, *(a1 + 104664), v11);
+        v12 = AVE_GetCurrTime();
+        v13 = AVE_Log_GetLevelStr(7);
+        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v12, 216, v13, a2, *(a1 + 104664), *(a1 + 104668));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v9, 216, v10, a2, *(a1 + 104664), v12);
+        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v9, 216, v10, a2, *(a1 + 104664), v11);
       }
     }
 
@@ -7047,12 +6761,12 @@ uint64_t AVE_Session_HEVC_BeginPass(uint64_t a1, int a2)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v23 = AVE_Log_CheckConsole(3u);
-        v24 = AVE_GetCurrTime();
-        v25 = AVE_Log_GetLevelStr(4);
-        if (v23)
+        v22 = AVE_Log_CheckConsole(3u);
+        v23 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        if (v22)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassStorage = NULL.\n", v24, 3, v25, "AVE_Session_HEVC_BeginPass", 7095, "pINS->multiPassStorage != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassStorage = NULL.\n", v23, 3, v24, "AVE_Session_HEVC_BeginPass", 7095, "pINS->multiPassStorage != __null");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -7063,54 +6777,50 @@ uint64_t AVE_Session_HEVC_BeginPass(uint64_t a1, int a2)
       goto LABEL_40;
     }
 
-    v18 = *(a1 + 104664);
-    if (v18 != *(a1 + 104668))
+    v17 = *(a1 + 104664);
+    if (v17 != *(a1 + 104668))
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v26 = AVE_Log_CheckConsole(3u);
-        v27 = AVE_GetCurrTime();
-        v28 = AVE_Log_GetLevelStr(4);
-        v29 = *(a1 + 104664);
-        if (v26)
+        v25 = AVE_Log_CheckConsole(3u);
+        v26 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        if (v25)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v27, 3, v28, "AVE_Session_HEVC_BeginPass", 7096, "pINS->multiPassBeginPassCounter == pINS->multiPassEndPassCounter", *(a1 + 104664), *(a1 + 104668));
-          v27 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v26, 3, v27, "AVE_Session_HEVC_BeginPass", 7096, "pINS->multiPassBeginPassCounter == pINS->multiPassEndPassCounter", *(a1 + 104664), *(a1 + 104668));
+          v26 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
 
-        v41 = *(a1 + 104664);
-        v42 = *(a1 + 104668);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v27);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v26);
       }
 
       goto LABEL_40;
     }
 
-    if (v18)
+    if (v17)
     {
-      v19 = v18 + 1;
-      *(a1 + 104664) = v19;
-      if (v19 >= 3)
+      v18 = v17 + 1;
+      *(a1 + 104664) = v18;
+      if (v18 >= 3)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v20 = AVE_Log_CheckConsole(3u);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          if (v20)
+          v19 = AVE_Log_CheckConsole(3u);
+          v20 = AVE_GetCurrTime();
+          v21 = AVE_Log_GetLevelStr(4);
+          if (v19)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d\n", v21, 3, v22, "AVE_Session_HEVC_BeginPass", 7105, "false", *(a1 + 104664));
-            v21 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d\n", v20, 3, v21, "AVE_Session_HEVC_BeginPass", 7105, "false", *(a1 + 104664));
+            v20 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
 
-          v40 = *(a1 + 104664);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d", v21);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d", v20);
         }
 
 LABEL_40:
-        v30 = 4294966296;
+        v28 = 4294966296;
         goto LABEL_41;
       }
     }
@@ -7121,12 +6831,12 @@ LABEL_40:
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v31 = AVE_Log_CheckConsole(3u);
-          v32 = AVE_GetCurrTime();
-          v33 = AVE_Log_GetLevelStr(4);
-          if (v31)
+          v29 = AVE_Log_CheckConsole(3u);
+          v30 = AVE_GetCurrTime();
+          v31 = AVE_Log_GetLevelStr(4);
+          if (v29)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with SessionStatus == H3H264VideoEncoder_SessionStatus_Run\n", v32, 3, v33, "AVE_Session_HEVC_BeginPass", 7099, "pINS->SessionStatus != AVE_CommonWrapper_SessionStatus_Run");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with SessionStatus == H3H264VideoEncoder_SessionStatus_Run\n", v30, 3, v31, "AVE_Session_HEVC_BeginPass", 7099, "pINS->SessionStatus != AVE_CommonWrapper_SessionStatus_Run");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7140,48 +6850,48 @@ LABEL_40:
       *(a1 + 104664) = 1;
     }
 
-    v30 = 0;
+    v28 = 0;
     *(a1 + 104672) = a2;
     goto LABEL_41;
   }
 
   if (AVE_Log_CheckLevel(0xCu, 4))
   {
-    v15 = AVE_Log_CheckConsole(0xCu);
-    v16 = AVE_GetCurrTime();
-    v17 = AVE_Log_GetLevelStr(4);
-    if (v15)
+    v14 = AVE_Log_CheckConsole(0xCu);
+    v15 = AVE_GetCurrTime();
+    v16 = AVE_Log_GetLevelStr(4);
+    if (v14)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x\n", v16, 12, v17, "AVE_Session_HEVC_BeginPass", 7090, "pINS != __null", 0, a2);
-      v16 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x\n", v15, 12, v16, "AVE_Session_HEVC_BeginPass", 7090, "pINS != __null", 0, a2);
+      v15 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x", v16, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x", v15, 12);
   }
 
-  v30 = 4294966295;
+  v28 = 4294966295;
 LABEL_41:
   if (AVE_Log_CheckLevel(0xCu, 6))
   {
-    v34 = AVE_Log_CheckConsole(0xCu);
-    v35 = AVE_GetCurrTime();
-    v36 = AVE_Log_GetLevelStr(6);
-    if (v34)
+    v32 = AVE_Log_CheckConsole(0xCu);
+    v33 = AVE_GetCurrTime();
+    v34 = AVE_Log_GetLevelStr(6);
+    if (v32)
     {
-      printf("%lld %d AVE %s: %s Exit %p 0x%x %d\n", v35, 12, v36, "AVE_Session_HEVC_BeginPass", a1, a2, v30);
-      v37 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s Exit %p 0x%x %d\n", v33, 12, v34, "AVE_Session_HEVC_BeginPass", a1, a2, v28);
+      v35 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v37);
+      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v35);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v35);
+      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v33);
     }
   }
 
-  return v30;
+  return v28;
 }
 
 uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
@@ -7195,8 +6905,8 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
     {
       printf("%lld %d AVE %s: %s Enter %p %p\n", CurrTime, 12, LevelStr, "AVE_Session_HEVC_EndPass", a1, a2);
       v7 = AVE_GetCurrTime();
-      v105 = AVE_Log_GetLevelStr(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 12, v105, "AVE_Session_HEVC_EndPass", a1, a2);
+      v96 = AVE_Log_GetLevelStr(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 12, v96, "AVE_Session_HEVC_EndPass", a1, a2);
     }
 
     else
@@ -7212,20 +6922,11 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
       v8 = AVE_Log_CheckConsole(0xD8u);
       v9 = AVE_GetCurrTime();
       v10 = AVE_Log_GetLevelStr(7);
-      v11 = *(a1 + 104664);
       if (v8)
       {
         printf("%lld %d AVE %s: FIG: ENTER %s. beginPassFlags %d (begin %d end %d)\n", v9, 216, v10, "AVE_Session_HEVC_EndPass", *(a1 + 104672), *(a1 + 104664), *(a1 + 104668));
         v9 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v12 = *(a1 + 104672);
-        v106 = *(a1 + 104664);
-        v108 = *(a1 + 104668);
-      }
-
-      else
-      {
-        v107 = *(a1 + 104664);
       }
 
       syslog(3, "%lld %d AVE %s: FIG: ENTER %s. beginPassFlags %d (begin %d end %d)", v9);
@@ -7235,12 +6936,12 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v27 = AVE_Log_CheckConsole(3u);
-        v28 = AVE_GetCurrTime();
-        v29 = AVE_Log_GetLevelStr(4);
-        if (v27)
+        v24 = AVE_Log_CheckConsole(3u);
+        v25 = AVE_GetCurrTime();
+        v26 = AVE_Log_GetLevelStr(4);
+        if (v24)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_EndPass called with SessionStatus != AVE_CommonWrapper_SessionStatus_Run\n", v28, 3, v29, "AVE_Session_HEVC_EndPass", 7142, "pINS->SessionStatus == AVE_CommonWrapper_SessionStatus_Run");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_EndPass called with SessionStatus != AVE_CommonWrapper_SessionStatus_Run\n", v25, 3, v26, "AVE_Session_HEVC_EndPass", 7142, "pINS->SessionStatus == AVE_CommonWrapper_SessionStatus_Run");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -7255,12 +6956,12 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v30 = AVE_Log_CheckConsole(3u);
-        v31 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(4);
-        if (v30)
+        v27 = AVE_Log_CheckConsole(3u);
+        v28 = AVE_GetCurrTime();
+        v29 = AVE_Log_GetLevelStr(4);
+        if (v27)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassStorage = NULL.\n", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7144, "pINS->multiPassStorage != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassStorage = NULL.\n", v28, 3, v29, "AVE_Session_HEVC_EndPass", 7144, "pINS->multiPassStorage != __null");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -7271,70 +6972,68 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
       goto LABEL_57;
     }
 
-    v16 = *(a1 + 104664);
-    v17 = *(a1 + 104668);
-    if (v16 != v17 + 1)
+    v14 = *(a1 + 104664);
+    v15 = *(a1 + 104668);
+    if (v14 != v15 + 1)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v33 = AVE_Log_CheckConsole(3u);
-        v34 = AVE_GetCurrTime();
-        v35 = AVE_Log_GetLevelStr(4);
-        v36 = *(a1 + 104664);
-        if (v33)
+        v30 = AVE_Log_CheckConsole(3u);
+        v31 = AVE_GetCurrTime();
+        v32 = AVE_Log_GetLevelStr(4);
+        if (v30)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v34, 3, v35, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
-          v34 = AVE_GetCurrTime();
-          v35 = AVE_Log_GetLevelStr(4);
+          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
+          v31 = AVE_GetCurrTime();
+          v32 = AVE_Log_GetLevelStr(4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v34, 3, v35, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
       }
 
       goto LABEL_57;
     }
 
-    if (v17)
+    if (v15)
     {
-      v18 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v18 = *(a1 + 104672) == 1;
+      v16 = *(a1 + 104672) == 1;
     }
 
-    v19 = !v18;
-    *(a1 + 104668) = v16;
+    v17 = !v16;
+    *(a1 + 104668) = v14;
     if (a2)
     {
-      *a2 = v19;
+      *a2 = v17;
     }
 
-    if (!v19)
+    if (!v17)
     {
-      v37 = 0;
+      v33 = 0;
       goto LABEL_58;
     }
 
     if (AVE_Log_CheckLevel(0xD8u, 6))
     {
-      v20 = AVE_Log_CheckConsole(0xD8u);
-      v21 = AVE_GetCurrTime();
-      v22 = AVE_Log_GetLevelStr(6);
-      v23 = *(a1 + 104668);
-      v24 = *(a1 + 104648);
-      if (v20)
+      v18 = AVE_Log_CheckConsole(0xD8u);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(6);
+      v21 = *(a1 + 104648);
+      if (v18)
       {
-        printf("%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d\n", v21, 216, v22, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v24);
-        v25 = AVE_GetCurrTime();
-        v26 = AVE_Log_GetLevelStr(6);
-        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v25, 216, v26, "AVE_Session_HEVC_EndPass", *(a1 + 104668), *(a1 + 104648));
+        printf("%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d\n", v19, 216, v20, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v21);
+        v22 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(6);
+        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v22, 216, v23, "AVE_Session_HEVC_EndPass", *(a1 + 104668), *(a1 + 104648));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v21, 216, v22, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v24);
+        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v19, 216, v20, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v21);
       }
     }
 
@@ -7343,12 +7042,12 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v38 = AVE_Log_CheckConsole(3u);
-        v39 = AVE_GetCurrTime();
-        v40 = AVE_Log_GetLevelStr(4);
-        if (v38)
+        v34 = AVE_Log_CheckConsole(3u);
+        v35 = AVE_GetCurrTime();
+        v36 = AVE_Log_GetLevelStr(4);
+        if (v34)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Reset failed.\n", v39, 3, v40, "AVE_Session_HEVC_EndPass", 7186, "err == noErr");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Reset failed.\n", v35, 3, v36, "AVE_Session_HEVC_EndPass", 7186, "err == noErr");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -7357,7 +7056,7 @@ uint64_t AVE_Session_HEVC_EndPass(uint64_t a1, int *a2)
       }
 
 LABEL_57:
-      v37 = 4294966296;
+      v33 = 4294966296;
       goto LABEL_58;
     }
 
@@ -7366,29 +7065,27 @@ LABEL_57:
       goto LABEL_122;
     }
 
-    v41 = MEMORY[0x29EDB9398];
-    v114 = **&MEMORY[0x29EDB9398];
-    start = v114;
-    v112 = v114;
-    v42 = *MEMORY[0x29EDB8ED8];
+    v37 = MEMORY[0x29EDB9398];
+    v102 = **&MEMORY[0x29EDB9398];
+    start = v102;
+    v100 = v102;
+    v38 = *MEMORY[0x29EDB8ED8];
     Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
     if (Mutable)
     {
-      v44 = Mutable;
-      v45 = *(a1 + 104656);
-      *&v110.start.value = *v41;
-      v110.start.epoch = *(v41 + 16);
-      v46 = *MEMORY[0x29EDBCF68];
+      v40 = Mutable;
+      *&v98.start.value = *v37;
+      v98.start.epoch = *(v37 + 16);
       if (VTMultiPassStorageGetTimeStamp())
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v47 = AVE_Log_CheckConsole(3u);
-          v48 = AVE_GetCurrTime();
-          v49 = AVE_Log_GetLevelStr(4);
-          if (v47)
+          v41 = AVE_Log_CheckConsole(3u);
+          v42 = AVE_GetCurrTime();
+          v43 = AVE_Log_GetLevelStr(4);
+          if (v41)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStamp kVTMultiPassStorageStep_GetFirstTimeStamp failed.\n", v48, 3, v49, "AVE_Session_HEVC_EndPass", 7202, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStamp kVTMultiPassStorageStep_GetFirstTimeStamp failed.\n", v42, 3, v43, "AVE_Session_HEVC_EndPass", 7202, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7401,33 +7098,31 @@ LABEL_57:
 
       if (AVE_Log_CheckLevel(0xD8u, 7))
       {
-        v57 = AVE_Log_CheckConsole(0xD8u);
-        v58 = AVE_GetCurrTime();
-        v59 = AVE_Log_GetLevelStr(7);
-        if (v57)
+        v51 = AVE_Log_CheckConsole(0xD8u);
+        v52 = AVE_GetCurrTime();
+        v53 = AVE_Log_GetLevelStr(7);
+        if (v51)
         {
-          printf("%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d\n", v58, 216, v59, "AVE_Session_HEVC_EndPass", v114.value, v114.timescale, v114.flags);
-          v58 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d\n", v52, 216, v53, "AVE_Session_HEVC_EndPass", v102.value, v102.timescale, v102.flags);
+          v52 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d", v58);
+        syslog(3, "%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d", v52);
       }
 
-      v60 = *(a1 + 104656);
-      *&v110.start.value = *v41;
-      v110.start.epoch = *(v41 + 16);
-      v61 = *MEMORY[0x29EDBCF70];
+      *&v98.start.value = *v37;
+      v98.start.epoch = *(v37 + 16);
       if (VTMultiPassStorageGetTimeStampAndDuration())
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v62 = AVE_Log_CheckConsole(3u);
-          v63 = AVE_GetCurrTime();
-          v64 = AVE_Log_GetLevelStr(4);
-          if (v62)
+          v54 = AVE_Log_CheckConsole(3u);
+          v55 = AVE_GetCurrTime();
+          v56 = AVE_Log_GetLevelStr(4);
+          if (v54)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStampAndDuration kVTMultiPassStorageStep_GetLastTimeStamp failed.\n", v63, 3, v64, "AVE_Session_HEVC_EndPass", 7218, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStampAndDuration kVTMultiPassStorageStep_GetLastTimeStamp failed.\n", v55, 3, v56, "AVE_Session_HEVC_EndPass", 7218, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7440,76 +7135,76 @@ LABEL_57:
 
       if (AVE_Log_CheckLevel(0xD8u, 7))
       {
-        v65 = AVE_Log_CheckConsole(0xD8u);
-        v66 = AVE_GetCurrTime();
-        v67 = AVE_Log_GetLevelStr(7);
-        if (v65)
+        v57 = AVE_Log_CheckConsole(0xD8u);
+        v58 = AVE_GetCurrTime();
+        v59 = AVE_Log_GetLevelStr(7);
+        if (v57)
         {
-          printf("%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d\n", v66, 216, v67, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
-          v66 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d\n", v58, 216, v59, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
+          v58 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d", v66);
+        syslog(3, "%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d", v58);
       }
 
       if (AVE_Log_CheckLevel(0xD8u, 7))
       {
-        v68 = AVE_Log_CheckConsole(0xD8u);
-        v69 = AVE_GetCurrTime();
-        v70 = AVE_Log_GetLevelStr(7);
-        if (v68)
+        v60 = AVE_Log_CheckConsole(0xD8u);
+        v61 = AVE_GetCurrTime();
+        v62 = AVE_Log_GetLevelStr(7);
+        if (v60)
         {
-          printf("%lld %d AVE %s: %s duration value %lld timescale %d flags %d\n", v69, 216, v70, "AVE_Session_HEVC_EndPass", v112.value, v112.timescale, v112.flags);
-          v69 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s duration value %lld timescale %d flags %d\n", v61, 216, v62, "AVE_Session_HEVC_EndPass", v100.value, v100.timescale, v100.flags);
+          v61 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s duration value %lld timescale %d flags %d", v69);
+        syslog(3, "%lld %d AVE %s: %s duration value %lld timescale %d flags %d", v61);
       }
 
       lhs.start = start;
-      rhs = v112;
-      CMTimeAdd(&v110.start, &lhs.start, &rhs);
-      start = v110.start;
+      rhs = v100;
+      CMTimeAdd(&v98.start, &lhs.start, &rhs);
+      start = v98.start;
       if (AVE_Log_CheckLevel(0xD8u, 7))
       {
-        v71 = AVE_Log_CheckConsole(0xD8u);
-        v72 = AVE_GetCurrTime();
-        v73 = AVE_Log_GetLevelStr(7);
-        if (v71)
+        v63 = AVE_Log_CheckConsole(0xD8u);
+        v64 = AVE_GetCurrTime();
+        v65 = AVE_Log_GetLevelStr(7);
+        if (v63)
         {
-          printf("%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d\n", v72, 216, v73, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
-          v72 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d\n", v64, 216, v65, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
+          v64 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d", v72);
+        syslog(3, "%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d", v64);
       }
 
       if (*(a1 + 104648) <= 1u && !start.flags)
       {
-        v74 = *(a1 + 1112);
-        if (v74 < 1)
+        v66 = *(a1 + 1112);
+        if (v66 < 1)
         {
-          v74 = 30;
+          v66 = 30;
         }
 
-        *&start.timescale = *&v114.timescale;
-        start.epoch = v114.epoch;
-        start.value = v114.value + v114.timescale / v74;
+        *&start.timescale = *&v102.timescale;
+        start.epoch = v102.epoch;
+        start.value = v102.value + v102.timescale / v66;
       }
 
-      if (!v114.flags)
+      if (!v102.flags)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v78 = AVE_Log_CheckConsole(3u);
-          v79 = AVE_GetCurrTime();
-          v80 = AVE_Log_GetLevelStr(4);
-          if (v78)
+          v70 = AVE_Log_CheckConsole(3u);
+          v71 = AVE_GetCurrTime();
+          v72 = AVE_Log_GetLevelStr(4);
+          if (v70)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: firstTimeInTimeRange invalid.\n", v79, 3, v80, "AVE_Session_HEVC_EndPass", 7244, "firstTimeInTimeRange.flags != 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: firstTimeInTimeRange invalid.\n", v71, 3, v72, "AVE_Session_HEVC_EndPass", 7244, "firstTimeInTimeRange.flags != 0");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7524,12 +7219,12 @@ LABEL_57:
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v81 = AVE_Log_CheckConsole(3u);
-          v82 = AVE_GetCurrTime();
-          v83 = AVE_Log_GetLevelStr(4);
-          if (v81)
+          v73 = AVE_Log_CheckConsole(3u);
+          v74 = AVE_GetCurrTime();
+          v75 = AVE_Log_GetLevelStr(4);
+          if (v73)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: lastTimeInTimeRange invalid.\n", v82, 3, v83, "AVE_Session_HEVC_EndPass", 7246, "lastTimeInTimeRange.flags != 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: lastTimeInTimeRange invalid.\n", v74, 3, v75, "AVE_Session_HEVC_EndPass", 7246, "lastTimeInTimeRange.flags != 0");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7540,37 +7235,37 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      memset(&v110, 0, sizeof(v110));
-      lhs.start = v114;
+      memset(&v98, 0, sizeof(v98));
+      lhs.start = v102;
       rhs = start;
-      CMTimeRangeFromTimeToTime(&v110, &lhs.start, &rhs);
+      CMTimeRangeFromTimeToTime(&v98, &lhs.start, &rhs);
       if (AVE_Log_CheckLevel(0xD8u, 6))
       {
-        v75 = AVE_Log_CheckConsole(0xD8u);
-        v76 = AVE_GetCurrTime();
-        v77 = AVE_Log_GetLevelStr(6);
-        if (v75)
+        v67 = AVE_Log_CheckConsole(0xD8u);
+        v68 = AVE_GetCurrTime();
+        v69 = AVE_Log_GetLevelStr(6);
+        if (v67)
         {
-          printf("%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d\n", v76, 216, v77, v110.start.value, v110.start.timescale, v110.start.flags, v110.duration.value, v110.duration.timescale, v110.duration.flags);
-          v76 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d\n", v68, 216, v69, v98.start.value, v98.start.timescale, v98.start.flags, v98.duration.value, v98.duration.timescale, v98.duration.flags);
+          v68 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(6);
         }
 
-        syslog(3, "%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d", v76, 216);
+        syslog(3, "%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d", v68, 216);
       }
 
-      lhs = v110;
-      v84 = CMTimeRangeCopyAsDictionary(&lhs, v42);
-      if (!v84)
+      lhs = v98;
+      v76 = CMTimeRangeCopyAsDictionary(&lhs, v38);
+      if (!v76)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v99 = AVE_Log_CheckConsole(3u);
-          v100 = AVE_GetCurrTime();
-          v101 = AVE_Log_GetLevelStr(4);
-          if (v99)
+          v90 = AVE_Log_CheckConsole(3u);
+          v91 = AVE_GetCurrTime();
+          v92 = AVE_Log_GetLevelStr(4);
+          if (v90)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: CMTimeRangeCopyAsDictionary failed.\n", v100, 3, v101, "AVE_Session_HEVC_EndPass", 7255, "currentTimeRangeDictionary != __null");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: CMTimeRangeCopyAsDictionary failed.\n", v91, 3, v92, "AVE_Session_HEVC_EndPass", 7255, "currentTimeRangeDictionary != __null");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7581,48 +7276,47 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      v85 = v84;
-      CFArrayAppendValue(v44, v84);
-      CFRelease(v85);
-      Count = CFArrayGetCount(v44);
-      v87 = malloc_type_malloc(48 * Count, 0x1000040EED21634uLL);
-      if (v87)
+      v77 = v76;
+      CFArrayAppendValue(v40, v76);
+      CFRelease(v77);
+      Count = CFArrayGetCount(v40);
+      v79 = malloc_type_malloc(48 * Count, 0x1000040EED21634uLL);
+      if (v79)
       {
-        v88 = v87;
+        v80 = v79;
         if (Count >= 1)
         {
-          v89 = 0;
-          v90 = v87;
+          v81 = 0;
+          v82 = v79;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v44, v89);
+            ValueAtIndex = CFArrayGetValueAtIndex(v40, v81);
             CMTimeRangeMakeFromDictionary(&lhs, ValueAtIndex);
-            v92 = *&lhs.start.value;
-            v93 = *&lhs.duration.timescale;
-            v90[1] = *&lhs.start.epoch;
-            v90[2] = v93;
-            *v90 = v92;
-            v90 += 3;
-            ++v89;
+            v84 = *&lhs.start.value;
+            v85 = *&lhs.duration.timescale;
+            v82[1] = *&lhs.start.epoch;
+            v82[2] = v85;
+            *v82 = v84;
+            v82 += 3;
+            ++v81;
           }
 
-          while (Count != v89);
+          while (Count != v81);
         }
 
-        v94 = *(a1 + 16);
         Pass = VTEncoderSessionSetTimeRangesForNextPass();
-        free(v88);
-        CFRelease(v44);
+        free(v80);
+        CFRelease(v40);
         if (Pass)
         {
           if (AVE_Log_CheckLevel(3u, 4))
           {
-            v96 = AVE_Log_CheckConsole(3u);
-            v97 = AVE_GetCurrTime();
-            v98 = AVE_Log_GetLevelStr(4);
-            if (v96)
+            v87 = AVE_Log_CheckConsole(3u);
+            v88 = AVE_GetCurrTime();
+            v89 = AVE_Log_GetLevelStr(4);
+            if (v87)
             {
-              printf("%lld %d AVE %s: %s:%d %s | FIG: VTEncoderSessionSetTimeRangesForNextPass failed.\n", v97, 3, v98, "AVE_Session_HEVC_EndPass", 7289, "err == noErr");
+              printf("%lld %d AVE %s: %s:%d %s | FIG: VTEncoderSessionSetTimeRangesForNextPass failed.\n", v88, 3, v89, "AVE_Session_HEVC_EndPass", 7289, "err == noErr");
               AVE_GetCurrTime();
               AVE_Log_GetLevelStr(4);
             }
@@ -7634,7 +7328,7 @@ LABEL_57:
         }
 
 LABEL_122:
-        v37 = 0;
+        v33 = 0;
         *(a1 + 104700) = *(a1 + 104648);
         *(a1 + 104648) = 0;
         goto LABEL_58;
@@ -7642,12 +7336,12 @@ LABEL_122:
 
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v102 = AVE_Log_CheckConsole(3u);
-        v103 = AVE_GetCurrTime();
-        v104 = AVE_Log_GetLevelStr(4);
-        if (v102)
+        v93 = AVE_Log_CheckConsole(3u);
+        v94 = AVE_GetCurrTime();
+        v95 = AVE_Log_GetLevelStr(4);
+        if (v93)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: malloc timeRanges failed.\n", v103, 3, v104, "AVE_Session_HEVC_EndPass", 7267, "timeRanges != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: malloc timeRanges failed.\n", v94, 3, v95, "AVE_Session_HEVC_EndPass", 7267, "timeRanges != __null");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -7658,12 +7352,12 @@ LABEL_122:
 
     else if (AVE_Log_CheckLevel(3u, 4))
     {
-      v54 = AVE_Log_CheckConsole(3u);
-      v55 = AVE_GetCurrTime();
-      v56 = AVE_Log_GetLevelStr(4);
-      if (v54)
+      v48 = AVE_Log_CheckConsole(3u);
+      v49 = AVE_GetCurrTime();
+      v50 = AVE_Log_GetLevelStr(4);
+      if (v48)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.\n", v55, 3, v56, "AVE_Session_HEVC_EndPass", 7199, "timeRangeArray != __null");
+        printf("%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.\n", v49, 3, v50, "AVE_Session_HEVC_EndPass", 7199, "timeRangeArray != __null");
         AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
@@ -7671,213 +7365,201 @@ LABEL_122:
       syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.");
     }
 
-    v37 = 4294966293;
+    v33 = 4294966293;
     goto LABEL_58;
   }
 
   if (AVE_Log_CheckLevel(0xCu, 4))
   {
-    v13 = AVE_Log_CheckConsole(0xCu);
-    v14 = AVE_GetCurrTime();
-    v15 = AVE_Log_GetLevelStr(4);
-    if (v13)
+    v11 = AVE_Log_CheckConsole(0xCu);
+    v12 = AVE_GetCurrTime();
+    v13 = AVE_Log_GetLevelStr(4);
+    if (v11)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v14, 12, v15, "AVE_Session_HEVC_EndPass", 7132, "pINS != __null", 0, a2);
-      v14 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v12, 12, v13, "AVE_Session_HEVC_EndPass", 7132, "pINS != __null", 0, a2);
+      v12 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v14, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v12, 12);
   }
 
-  v37 = 4294966295;
+  v33 = 4294966295;
 LABEL_58:
   if (AVE_Log_CheckLevel(0xCu, 6))
   {
-    v50 = AVE_Log_CheckConsole(0xCu);
-    v51 = AVE_GetCurrTime();
-    v52 = AVE_Log_GetLevelStr(6);
-    if (v50)
+    v44 = AVE_Log_CheckConsole(0xCu);
+    v45 = AVE_GetCurrTime();
+    v46 = AVE_Log_GetLevelStr(6);
+    if (v44)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v51, 12, v52, "AVE_Session_HEVC_EndPass", a1, a2, v37);
-      v51 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v45, 12, v46, "AVE_Session_HEVC_EndPass", a1, a2, v33);
+      v45 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v51);
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v45);
   }
 
-  return v37;
+  return v33;
 }
 
-uint64_t AVE_HEVC_Encode()
+uint64_t AVE_HEVC_Encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v246 = v7;
-  v247 = v8;
+  v8 = MEMORY[0x2A1C7C4A8](a1, a2, a3, a4, a5, a6, a7, a8);
   v10 = v9;
   v12 = v11;
-  v248 = v0;
-  v292 = *MEMORY[0x29EDCA608];
-  pixelBuffer = v9;
-  v272 = 0;
-  v271 = 0;
-  v270 = 0;
-  v265 = 0uLL;
-  v242 = AVE_DW_Get();
+  v14 = v13;
+  v225 = v15;
+  v226 = v16;
+  v18 = v17;
+  v20 = v19;
+  v227 = v8;
+  v271 = *MEMORY[0x29EDCA608];
+  pixelBuffer = v17;
+  v251 = 0;
+  v250 = 0;
+  v249 = 0;
+  v244 = 0uLL;
+  v221 = AVE_DW_Get();
   if (AVE_Log_CheckLevel(0xCu, 7))
   {
-    v13 = AVE_Log_CheckConsole(0xCu);
+    v21 = AVE_Log_CheckConsole(0xCu);
     CurrTime = AVE_GetCurrTime();
     LevelStr = AVE_Log_GetLevelStr(7);
-    if (v13)
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p\n", CurrTime, 12, LevelStr, "AVE_HEVC_Encode", v248, v12, v10, v246, v247, v6, v4);
-      v16 = AVE_GetCurrTime();
-      v217 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v16, 12, v217, "AVE_HEVC_Encode", v248);
+      printf("%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p\n", CurrTime, 12, LevelStr, "AVE_HEVC_Encode", v227, v20, v18, v225, v226, v14, v12);
+      v24 = AVE_GetCurrTime();
+      v207 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v24, 12, v207, "AVE_HEVC_Encode", v227);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", CurrTime, 12, LevelStr, "AVE_HEVC_Encode", v248);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", CurrTime, 12, LevelStr, "AVE_HEVC_Encode", v227);
     }
   }
 
-  if ((v2 & 0x80000000) == 0 && v6 && v247 && v246 && v248 && pixelBuffer)
+  if ((v10 & 0x80000000) == 0 && v14 && v226 && v225 && v227 && pixelBuffer)
   {
-    v17 = (v248 + 104644);
-    v18 = AVE_GetCurrTime();
-    v268 = *v247;
-    v269 = v247[2];
-    v266 = *v6;
-    v267 = v6[2];
-    *&v265 = v268;
-    DWORD2(v265) = DWORD2(v268);
-    AVE_Time_Conv(0, &v265);
+    v25 = (v227 + 104644);
+    v26 = AVE_GetCurrTime();
+    v247 = *v226;
+    v248 = v226[2];
+    v245 = *v14;
+    v246 = v14[2];
+    *&v244 = v247;
+    DWORD2(v244) = DWORD2(v247);
+    AVE_Time_Conv(0, &v244);
     if (AVE_Log_CheckLevel(0x33u, 7))
     {
-      v19 = AVE_Log_CheckConsole(0x33u);
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(7);
-      v22 = *(v248 + 56);
-      v23 = *v247;
-      v24 = *(v247 + 2);
-      v25 = *(v6 + 3);
-      if (v19)
+      v27 = AVE_Log_CheckConsole(0x33u);
+      v28 = AVE_GetCurrTime();
+      v29 = AVE_Log_GetLevelStr(7);
+      v30 = *(v227 + 56);
+      v31 = *v226;
+      v32 = *(v226 + 2);
+      if (v27)
       {
-        v26 = v12;
-        v27 = v2;
-        v28 = v26;
-        printf("%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld\n", v20, 51, v21, "AVE_HEVC_Encode", 7445, v22, *(v248 + 104648), v23, v24, *(v247 + 3), v247[2], v265, DWORD2(v265), *v6, *(v6 + 2), *(v6 + 3), v6[2]);
-        v29 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(7);
-        v31 = v247[2];
-        v32 = *(v247 + 3);
-        v33 = *(v6 + 3);
-        v236 = v6[2];
-        v233 = *v6;
-        v234 = *(v6 + 2);
-        v34 = v28;
-        v2 = v27;
-        v12 = v34;
-        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v29, 51, v30, "AVE_HEVC_Encode", 7445, *(v248 + 56), *(v248 + 104648), *v247, *(v247 + 2));
+        v33 = v20;
+        v34 = v10;
+        v35 = v33;
+        printf("%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld\n", v28, 51, v29, "AVE_HEVC_Encode", 7445, v30, *(v227 + 104648), v31, v32, *(v226 + 3), v226[2], v244, DWORD2(v244), *v14, *(v14 + 2), *(v14 + 3), v14[2]);
+        v36 = AVE_GetCurrTime();
+        v37 = AVE_Log_GetLevelStr(7);
+        v38 = v35;
+        v10 = v34;
+        v20 = v38;
+        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v36, 51, v37, "AVE_HEVC_Encode", 7445, *(v227 + 56), *(v227 + 104648), *v226, *(v226 + 2));
       }
 
       else
       {
-        v235 = *(v6 + 3);
-        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v20, 51, v21, "AVE_HEVC_Encode", 7445, v22, *(v248 + 104648), v23, v24);
+        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v28, 51, v29, "AVE_HEVC_Encode", 7445, v30, *(v227 + 104648), v31, v32);
       }
     }
 
     PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    *(v248 + 108000) = PixelFormatType;
-    if (!*(v248 + 104648))
+    *(v227 + 108000) = PixelFormatType;
+    if (!*(v227 + 104648))
     {
-      v276 = *(v248 + 1440);
-      v40 = AVE_PixelFmt_FindByType(PixelFormatType);
-      if (!v40)
+      v255 = *(v227 + 1440);
+      v44 = AVE_PixelFmt_FindByType(PixelFormatType);
+      if (!v44)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v65 = AVE_Log_CheckConsole(3u);
-          v66 = AVE_GetCurrTime();
-          v67 = AVE_Log_GetLevelStr(4);
-          v68 = *(v248 + 56);
-          if (v65)
+          v68 = AVE_Log_CheckConsole(3u);
+          v69 = AVE_GetCurrTime();
+          v70 = AVE_Log_GetLevelStr(4);
+          if (v68)
           {
-            printf("%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x\n", v66, 3, v67, "AVE_HEVC_Encode", 7462, "pPixelFmt != __null", v248, *(v248 + 56), *(v248 + 108000));
-            v69 = AVE_GetCurrTime();
-            v70 = AVE_Log_GetLevelStr(4);
-            v229 = *(v248 + 56);
-            v231 = *(v248 + 108000);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v69, 3, v70);
+            printf("%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x\n", v69, 3, v70, "AVE_HEVC_Encode", 7462, "pPixelFmt != __null", v227, *(v227 + 56), *(v227 + 108000));
+            v71 = AVE_GetCurrTime();
+            v72 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v71, 3, v72);
           }
 
           else
           {
-            v230 = *(v248 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v66, 3, v67);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v69, 3, v70);
           }
         }
 
         goto LABEL_70;
       }
 
-      if (v242[420])
+      if (*(v221 + 420))
       {
-        v41 = v242 + 420;
+        v45 = (v221 + 105);
       }
 
       else
       {
-        v41 = 0;
+        v45 = 0;
       }
 
-      if (*(v248 + 104656))
+      if (*(v227 + 104656))
       {
-        v42 = 2;
+        v46 = 2;
       }
 
       else
       {
-        v42 = 1;
+        v46 = 1;
       }
 
-      AVE_Dump_Init(*(v248 + 104720), v41, *(v248 + 64), *(v248 + 10772), *(v242 + 103), *(v242 + 104), &v276, v42, *(v40 + 3), *(v40 + 1), *(v248 + 1136));
+      AVE_Dump_Init(*(v227 + 104720), v45, *(v227 + 64), *(v227 + 10772), v221[103], v221[104], &v255, v46, *(v44 + 3), *(v44 + 1), *(v227 + 1136));
     }
 
-    AVE_Dump_WriteInput(*(v248 + 104720), *(v248 + 104668), pixelBuffer);
-    v43 = *v17;
-    if (*v17 == 30566)
+    AVE_Dump_WriteInput(*(v227 + 104720), *(v227 + 104668), pixelBuffer);
+    v47 = *v25;
+    if (*v25 == 30566)
     {
       if (AVE_ISP_CheckMetadata(pixelBuffer))
       {
-        v55 = 1;
+        v59 = 1;
       }
 
       else
       {
-        v55 = 2;
+        v59 = 2;
       }
 
-      *(v248 + 10804) = v55;
-      v56 = AVE_ManageSessionSettings(v248);
-      if (v56)
+      *(v227 + 10804) = v59;
+      v60 = AVE_ManageSessionSettings(v227);
+      if (v60)
       {
-        v51 = v56;
+        v55 = v60;
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v57 = AVE_Log_CheckConsole(3u);
-          v58 = AVE_GetCurrTime();
-          v59 = AVE_Log_GetLevelStr(4);
-          if (v57)
+          v61 = AVE_Log_CheckConsole(3u);
+          v62 = AVE_GetCurrTime();
+          v63 = AVE_Log_GetLevelStr(4);
+          if (v61)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ManageSessionSettings failed\n", v58, 3, v59, "AVE_HEVC_Encode", 7571, "err == 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ManageSessionSettings failed\n", v62, 3, v63, "AVE_HEVC_Encode", 7571, "err == 0");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7888,17 +7570,17 @@ uint64_t AVE_HEVC_Encode()
         goto LABEL_172;
       }
 
-      AVE_UpdateCropParams(v248, pixelBuffer);
-      if (AVE_HEVC_VerifyImageBuffer(v248, &pixelBuffer, &v272, &v271, &v270 + 1, &v270, 1))
+      AVE_UpdateCropParams(v227, pixelBuffer);
+      if (AVE_HEVC_VerifyImageBuffer(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 1))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v74 = AVE_Log_CheckConsole(3u);
-          v75 = AVE_GetCurrTime();
-          v76 = AVE_Log_GetLevelStr(4);
-          if (v74)
+          v76 = AVE_Log_CheckConsole(3u);
+          v77 = AVE_GetCurrTime();
+          v78 = AVE_Log_GetLevelStr(4);
+          if (v76)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v75, 3, v76, "AVE_HEVC_Encode", 7581, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v77, 3, v78, "AVE_HEVC_Encode", 7581, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7909,44 +7591,44 @@ uint64_t AVE_HEVC_Encode()
         goto LABEL_171;
       }
 
-      AVE_SetEncoderBasedOnFirstFrame(v248, *(v248 + 10804) == 2);
-      if (*(v248 + 10804) == 2 && (*(v248 + 1120) & 0x10) == 0)
+      AVE_SetEncoderBasedOnFirstFrame(v227, *(v227 + 10804) == 2);
+      if (*(v227 + 10804) == 2 && (*(v227 + 1120) & 0x10) == 0)
       {
-        v85 = *(v248 + 1112);
-        if (v85 < 1)
+        v87 = *(v227 + 1112);
+        if (v87 < 1)
         {
-          v85 = 30;
+          v87 = 30;
         }
 
-        v86 = vshr_n_u32(vadd_s32(*(v248 + 1440), 0xF0000000FLL), 4uLL);
-        v87 = v86.i32[1] * v85 * v86.i32[0];
-        if (*(v248 + 76) <= 29)
+        v88 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0xF0000000FLL), 4uLL);
+        v89 = v88.i32[1] * v87 * v88.i32[0];
+        if (*(v227 + 76) <= 29)
         {
-          v88 = 1944000;
+          v90 = 1944000;
         }
 
         else
         {
-          v88 = 2106000;
+          v90 = 2106000;
         }
 
-        if (v87 >= v88)
+        if (v89 >= v90)
         {
-          *(v248 + 716) &= 0xFFFFFC3F;
-          *(v248 + 11810) = 0;
+          *(v227 + 716) &= 0xFFFFFC3F;
+          *(v227 + 11810) = 0;
         }
       }
 
-      if (AVE_ValidateEncoderParameters(v248))
+      if (AVE_ValidateEncoderParameters(v227))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v89 = AVE_Log_CheckConsole(3u);
-          v90 = AVE_GetCurrTime();
-          v91 = AVE_Log_GetLevelStr(4);
-          if (v89)
+          v91 = AVE_Log_CheckConsole(3u);
+          v92 = AVE_GetCurrTime();
+          v93 = AVE_Log_GetLevelStr(4);
+          if (v91)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v90, 3, v91, "AVE_HEVC_Encode", 7609, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v92, 3, v93, "AVE_HEVC_Encode", 7609, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -7957,98 +7639,98 @@ uint64_t AVE_HEVC_Encode()
         goto LABEL_171;
       }
 
-      AVE_PrepareVideoAndSequenceHeader(v248, pixelBuffer);
-      AVE_PreparePictureHeader(v248);
-      bzero(v281, 0x8C8uLL);
-      v276 = v248 + 672;
-      v277 = v248 + 1440;
-      v279 = *(v248 + 104712);
-      v280 = *(v248 + 104728);
-      v278 = v248 + 10752;
-      v283 = v248 + 12000;
-      v284 = v248 + 24236;
-      v286 = v248 + 39844;
-      v285 = v248 + 32040;
-      v287 = v248 + 49476;
-      v288 = v248 + 59112;
-      v289 = v248 + 80600;
-      memcpy(v290, (v248 + 106112), sizeof(v290));
-      v291 = v18;
-      if (AVE_USL_Drv_Start(*(v248 + 120), &v276, v248 + 128, *(v248 + 16), *(v248 + 112), *(v248 + 104652), *(v248 + 104656), v248 + 160, (v248 + 11772), (v248 + 11464)))
+      AVE_PrepareVideoAndSequenceHeader(v227, pixelBuffer);
+      AVE_PreparePictureHeader(v227);
+      bzero(v260, 0x8C8uLL);
+      v255 = v227 + 672;
+      v256 = v227 + 1440;
+      v258 = *(v227 + 104712);
+      v259 = *(v227 + 104728);
+      v257 = v227 + 10752;
+      v262 = v227 + 12000;
+      v263 = v227 + 24236;
+      v265 = v227 + 39844;
+      v264 = v227 + 32040;
+      v266 = v227 + 49476;
+      v267 = v227 + 59112;
+      v268 = v227 + 80600;
+      memcpy(v269, (v227 + 106112), sizeof(v269));
+      v270 = v26;
+      if (AVE_USL_Drv_Start(*(v227 + 120), &v255, v227 + 128, *(v227 + 16), *(v227 + 112), *(v227 + 104652), *(v227 + 104656), v227 + 160, (v227 + 11772), (v227 + 11464)))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v92 = AVE_Log_CheckConsole(3u);
-          v93 = AVE_GetCurrTime();
-          v94 = AVE_Log_GetLevelStr(4);
-          if (v92)
+          v94 = AVE_Log_CheckConsole(3u);
+          v95 = AVE_GetCurrTime();
+          v96 = AVE_Log_GetLevelStr(4);
+          if (v94)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v93, 3, v94, "AVE_HEVC_Encode", 7637, "err == noErr");
-            v95 = AVE_GetCurrTime();
-            v220 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v95, 3, v220, "AVE_HEVC_Encode", 7637, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v95, 3, v96, "AVE_HEVC_Encode", 7637, "err == noErr");
+            v97 = AVE_GetCurrTime();
+            v210 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v97, 3, v210, "AVE_HEVC_Encode", 7637, "err == noErr");
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v93, 3, v94, "AVE_HEVC_Encode", 7637, "err == noErr");
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v95, 3, v96, "AVE_HEVC_Encode", 7637, "err == noErr");
           }
         }
 
-        v51 = 4294966296;
+        v55 = 4294966296;
         goto LABEL_172;
       }
     }
 
-    else if (v43 == 30567)
+    else if (v47 == 30567)
     {
       if (AVE_ISP_CheckMetadata(pixelBuffer))
       {
-        v52 = 1;
+        v56 = 1;
       }
 
       else
       {
-        v52 = 2;
+        v56 = 2;
       }
 
-      *(v248 + 10804) = v52;
-      AVE_UpdateCropParams(v248, pixelBuffer);
-      if (AVE_HEVC_VerifyImageBuffer(v248, &pixelBuffer, &v272, &v271, &v270 + 1, &v270, 1))
+      *(v227 + 10804) = v56;
+      AVE_UpdateCropParams(v227, pixelBuffer);
+      if (AVE_HEVC_VerifyImageBuffer(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 1))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v53 = AVE_Log_CheckConsole(3u);
-          v45 = AVE_GetCurrTime();
-          v46 = AVE_Log_GetLevelStr(4);
-          if (!v53)
+          v57 = AVE_Log_CheckConsole(3u);
+          v49 = AVE_GetCurrTime();
+          v50 = AVE_Log_GetLevelStr(4);
+          if (!v57)
           {
             goto LABEL_69;
           }
 
-          v47 = (v248 + 104644);
-          v48 = v2;
-          v49 = v12;
-          v50 = 7499;
+          v51 = (v227 + 104644);
+          v52 = v10;
+          v53 = v20;
+          v54 = 7499;
           goto LABEL_43;
         }
 
 LABEL_70:
-        v51 = 4294966294;
+        v55 = 4294966294;
         goto LABEL_172;
       }
 
-      AVE_SetEncoderBasedOnFirstFrame(v248, *(v248 + 10804) == 2);
-      if (AVE_ValidateEncoderParameters(v248))
+      AVE_SetEncoderBasedOnFirstFrame(v227, *(v227 + 10804) == 2);
+      if (AVE_ValidateEncoderParameters(v227))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v71 = AVE_Log_CheckConsole(3u);
-          v72 = AVE_GetCurrTime();
-          v73 = AVE_Log_GetLevelStr(4);
-          if (v71)
+          v73 = AVE_Log_CheckConsole(3u);
+          v74 = AVE_GetCurrTime();
+          v75 = AVE_Log_GetLevelStr(4);
+          if (v73)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v72, 3, v73, "AVE_HEVC_Encode", 7509, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v74, 3, v75, "AVE_HEVC_Encode", 7509, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -8059,131 +7741,128 @@ LABEL_70:
         goto LABEL_70;
       }
 
-      AVE_PrepareVideoAndSequenceHeader(v248, pixelBuffer);
-      AVE_PreparePictureHeader(v248);
-      if (*(v248 + 10804) == 2 && (*(v248 + 1120) & 0x10) == 0)
+      AVE_PrepareVideoAndSequenceHeader(v227, pixelBuffer);
+      AVE_PreparePictureHeader(v227);
+      if (*(v227 + 10804) == 2 && (*(v227 + 1120) & 0x10) == 0)
       {
-        v77 = *(v248 + 1112);
-        if (v77 < 1)
+        v79 = *(v227 + 1112);
+        if (v79 < 1)
         {
-          v77 = 30;
+          v79 = 30;
         }
 
-        v78 = vshr_n_u32(vadd_s32(*(v248 + 1440), 0xF0000000FLL), 4uLL);
-        v79 = v78.i32[1] * v77 * v78.i32[0];
-        if (*(v248 + 76) <= 29)
+        v80 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0xF0000000FLL), 4uLL);
+        v81 = v80.i32[1] * v79 * v80.i32[0];
+        if (*(v227 + 76) <= 29)
         {
-          v80 = 1944000;
+          v82 = 1944000;
         }
 
         else
         {
-          v80 = 2106000;
+          v82 = 2106000;
         }
 
-        if (v79 >= v80)
+        if (v81 >= v82)
         {
-          *(v248 + 716) &= 0xFFFFFC3F;
-          *(v248 + 11810) = 0;
+          *(v227 + 716) &= 0xFFFFFC3F;
+          *(v227 + 11810) = 0;
         }
       }
 
-      bzero(v281, 0x8C8uLL);
-      v276 = v248 + 672;
-      v277 = v248 + 1440;
-      v279 = *(v248 + 104712);
-      v280 = *(v248 + 104728);
-      v278 = v248 + 10752;
-      v283 = v248 + 12000;
-      v284 = v248 + 24236;
-      v286 = v248 + 39844;
-      v285 = v248 + 32040;
-      v287 = v248 + 49476;
-      v288 = v248 + 59112;
-      v289 = v248 + 80600;
-      memcpy(v290, (v248 + 106112), sizeof(v290));
-      v291 = v18;
-      if (AVE_USL_Drv_Start(*(v248 + 120), &v276, v248 + 128, *(v248 + 16), *(v248 + 112), *(v248 + 104652), *(v248 + 104656), v248 + 160, (v248 + 11772), (v248 + 11464)))
+      bzero(v260, 0x8C8uLL);
+      v255 = v227 + 672;
+      v256 = v227 + 1440;
+      v258 = *(v227 + 104712);
+      v259 = *(v227 + 104728);
+      v257 = v227 + 10752;
+      v262 = v227 + 12000;
+      v263 = v227 + 24236;
+      v265 = v227 + 39844;
+      v264 = v227 + 32040;
+      v266 = v227 + 49476;
+      v267 = v227 + 59112;
+      v268 = v227 + 80600;
+      memcpy(v269, (v227 + 106112), sizeof(v269));
+      v270 = v26;
+      if (AVE_USL_Drv_Start(*(v227 + 120), &v255, v227 + 128, *(v227 + 16), *(v227 + 112), *(v227 + 104652), *(v227 + 104656), v227 + 160, (v227 + 11772), (v227 + 11464)))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v81 = AVE_Log_CheckConsole(3u);
-          v82 = AVE_GetCurrTime();
-          v83 = AVE_Log_GetLevelStr(4);
-          if (v81)
+          v83 = AVE_Log_CheckConsole(3u);
+          v84 = AVE_GetCurrTime();
+          v85 = AVE_Log_GetLevelStr(4);
+          if (v83)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v82, 3, v83, "AVE_HEVC_Encode", 7556, "err == noErr");
-            v84 = AVE_GetCurrTime();
-            v219 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v84, 3, v219, "AVE_HEVC_Encode", 7556, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v84, 3, v85, "AVE_HEVC_Encode", 7556, "err == noErr");
+            v86 = AVE_GetCurrTime();
+            v209 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v86, 3, v209, "AVE_HEVC_Encode", 7556, "err == noErr");
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v82, 3, v83, "AVE_HEVC_Encode", 7556, "err == noErr");
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v84, 3, v85, "AVE_HEVC_Encode", 7556, "err == noErr");
           }
         }
 
-        v51 = 4294966296;
+        v55 = 4294966296;
         goto LABEL_172;
       }
     }
 
     else
     {
-      if (v43 != 30568)
+      if (v47 != 30568)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v60 = AVE_Log_CheckConsole(3u);
-          v61 = AVE_GetCurrTime();
-          v62 = AVE_Log_GetLevelStr(4);
-          v63 = *v17;
-          if (v60)
+          v64 = AVE_Log_CheckConsole(3u);
+          v65 = AVE_GetCurrTime();
+          v66 = AVE_Log_GetLevelStr(4);
+          if (v64)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.\n", v61, 3, v62, "AVE_HEVC_Encode", 7644, "false", *v17);
-            v64 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.\n", v65, 3, v66, "AVE_HEVC_Encode", 7644, "false", *v25);
+            v67 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
-            v226 = *v17;
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v64);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v67);
           }
 
           else
           {
-            v227 = *v17;
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v61);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v65);
           }
         }
 
         goto LABEL_171;
       }
 
-      if (AVE_HEVC_VerifyImageBuffer(v248, &pixelBuffer, &v272, &v271, &v270 + 1, &v270, 0))
+      if (AVE_HEVC_VerifyImageBuffer(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 0))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v44 = AVE_Log_CheckConsole(3u);
-          v45 = AVE_GetCurrTime();
-          v46 = AVE_Log_GetLevelStr(4);
-          if (!v44)
+          v48 = AVE_Log_CheckConsole(3u);
+          v49 = AVE_GetCurrTime();
+          v50 = AVE_Log_GetLevelStr(4);
+          if (!v48)
           {
 LABEL_69:
             syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.");
             goto LABEL_70;
           }
 
-          v47 = (v248 + 104644);
-          v48 = v2;
-          v49 = v12;
-          v50 = 7482;
+          v51 = (v227 + 104644);
+          v52 = v10;
+          v53 = v20;
+          v54 = 7482;
 LABEL_43:
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v45, 3, v46, "AVE_HEVC_Encode", v50, "err == noErr");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v49, 3, v50, "AVE_HEVC_Encode", v54, "err == noErr");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
-          v54 = v49;
-          v2 = v48;
-          v17 = v47;
-          v12 = v54;
+          v58 = v53;
+          v10 = v52;
+          v25 = v51;
+          v20 = v58;
           goto LABEL_69;
         }
 
@@ -8191,184 +7870,182 @@ LABEL_43:
       }
     }
 
-    *v17 = 30568;
-    bzero(v275, 0x1738uLL);
-    v249 = 0;
-    v255 = 0u;
-    v256 = 0u;
-    v257 = 0u;
-    v258 = 0u;
-    memset(v259, 0, sizeof(v259));
-    v260 = 0u;
-    memset(v261, 0, sizeof(v261));
-    v262 = 0u;
-    v263 = 0u;
-    v264 = 0u;
-    v250 = 0u;
-    v251 = 0u;
-    memset(v252, 0, sizeof(v252));
-    v253 = 0u;
-    v254 = 0;
-    bzero(&v276, 0x4A40uLL);
-    v282[0] = -1;
-    v241 = v12;
-    if (v4)
+    *v25 = 30568;
+    bzero(v254, 0x1738uLL);
+    v228 = 0;
+    v234 = 0u;
+    v235 = 0u;
+    v236 = 0u;
+    v237 = 0u;
+    memset(v238, 0, sizeof(v238));
+    v239 = 0u;
+    memset(v240, 0, sizeof(v240));
+    v241 = 0u;
+    v242 = 0u;
+    v243 = 0u;
+    v229 = 0u;
+    v230 = 0u;
+    memset(v231, 0, sizeof(v231));
+    v232 = 0u;
+    v233 = 0;
+    bzero(&v255, 0x4A40uLL);
+    v261[0] = -1;
+    v220 = v20;
+    if (v12)
     {
-      Value = CFDictionaryGetValue(v4, @"ResetRCState");
-      if (*(v248 + 76) == 27 && (*(v248 + 716) & 0x3C0) == 0)
+      Value = CFDictionaryGetValue(v12, @"ResetRCState");
+      if (*(v227 + 76) == 27 && (*(v227 + 716) & 0x3C0) == 0)
       {
-        v97 = CFDictionaryGetValue(v4, *MEMORY[0x29EDBCEE8]);
-        if (v97 && AVE_Log_CheckLevel(0x10u, 6))
+        v99 = CFDictionaryGetValue(v12, *MEMORY[0x29EDBCEE8]);
+        if (v99 && AVE_Log_CheckLevel(0x10u, 6))
         {
-          v239 = AVE_Log_CheckConsole(0x10u);
-          v243 = AVE_GetCurrTime();
-          v113 = AVE_Log_GetLevelStr(6);
-          if (v239)
+          v218 = AVE_Log_CheckConsole(0x10u);
+          v222 = AVE_GetCurrTime();
+          v110 = AVE_Log_GetLevelStr(6);
+          if (v218)
           {
-            printf("%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p\n", v243, 16, v113, *(v248 + 16), v97);
-            v243 = AVE_GetCurrTime();
-            v113 = AVE_Log_GetLevelStr(6);
+            printf("%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p\n", v222, 16, v110, *(v227 + 16), v99);
+            v222 = AVE_GetCurrTime();
+            v110 = AVE_Log_GetLevelStr(6);
           }
 
-          syslog(3, "%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p", v243, 16, v113, *(v248 + 16), v97);
+          syslog(3, "%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p", v222, 16, v110, *(v227 + 16), v99);
         }
       }
 
       else
       {
-        v97 = 0;
+        v99 = 0;
       }
 
       if (Value && CFEqual(Value, *MEMORY[0x29EDB8F00]))
       {
-        v18 = AVE_GetCurrTime();
-        v249 = v18;
-        AVE_USL_Drv_Complete(*(v248 + 120), &v249);
+        v26 = AVE_GetCurrTime();
+        v228 = v26;
+        AVE_USL_Drv_Complete(*(v227 + 120), &v228);
       }
     }
 
     else
     {
-      v97 = 0;
+      v99 = 0;
     }
 
-    *&v259[1] = v268;
-    v260 = v266;
-    v98 = pixelBuffer;
-    *&v255 = v241;
-    *(&v255 + 1) = pixelBuffer;
-    *&v256 = v97;
-    v259[3] = v269;
-    DWORD2(v263) = *(v248 + 104668);
-    *&v261[1] = v265;
-    *(&v262 + 1) = v275;
-    *&v263 = v18;
-    v261[0] = v267;
-    *&v262 = &v276;
-    if (*(v248 + 10804) != 2)
+    *&v238[1] = v247;
+    v239 = v245;
+    v100 = pixelBuffer;
+    *&v234 = v220;
+    *(&v234 + 1) = pixelBuffer;
+    *&v235 = v99;
+    v238[3] = v248;
+    DWORD2(v242) = *(v227 + 104668);
+    *&v240[1] = v244;
+    *(&v241 + 1) = v254;
+    *&v242 = v26;
+    v240[0] = v246;
+    *&v241 = &v255;
+    if (*(v227 + 10804) != 2)
     {
-      v103 = vshr_n_u32(vadd_s32(*(v248 + 1440), 0x1F0000001FLL), 5uLL);
-      v104 = vmul_lane_s32(v103, v103, 1).u32[0];
-      if (v104 >> 5 < 0xFF)
+      v105 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0x1F0000001FLL), 5uLL);
+      v106 = vmul_lane_s32(v105, v105, 1).u32[0];
+      if (v106 >> 5 < 0xFF)
       {
-        if (v104 < 0x7F8)
+        if (v106 < 0x7F8)
         {
-          v105 = 0.39;
+          v107 = 0.39;
         }
 
         else
         {
-          v105 = 0.58;
+          v107 = 0.58;
         }
       }
 
       else
       {
-        v105 = 1.0;
+        v107 = 1.0;
       }
 
-      v252[1].f64[1] = v105;
-      DWORD2(v253) = 127;
+      v231[1].f64[1] = v107;
+      DWORD2(v232) = 127;
       goto LABEL_130;
     }
 
-    if (!v2)
+    if (!v10)
     {
-      AVE_FPS::Add(*(v248 + 104704), &v265);
-      v98 = pixelBuffer;
+      AVE_FPS::Add(*(v227 + 104704), &v244);
+      v100 = pixelBuffer;
     }
 
-    AVE_ISP_GetMetadata(v98, &v250);
-    AVE_Dump_WriteISPMetadata(*(v248 + 104720), *(v248 + 104668), *(v248 + 104648), &v250);
-    if (*(v248 + 76) < 17 || (*(v248 + 716) & 0x3C0) == 0)
+    AVE_ISP_GetMetadata(v100, &v229);
+    AVE_Dump_WriteISPMetadata(*(v227 + 104720), *(v227 + 104668), *(v227 + 104648), &v229);
+    if (*(v227 + 76) < 17 || (*(v227 + 716) & 0x3C0) == 0)
     {
 LABEL_130:
-      v261[3] = &v250;
-      v12 = v241;
-      if ((*(v248 + 1337) & 2) != 0 && *(v248 + 76) >= 4 && (*(v248 + 1112) - 1) <= 0x3B)
+      v240[3] = &v229;
+      v20 = v220;
+      if ((*(v227 + 1337) & 2) != 0 && *(v227 + 76) >= 4 && (*(v227 + 1112) - 1) <= 0x3B)
       {
-        v106 = v248 + 104784;
-        if (AVE_ANFD_GetInfo(v4, (v248 + 104784 + 648 * *(v248 + 106080))))
+        v108 = v227 + 104784;
+        if (AVE_ANFD_GetInfo(v12, (v227 + 104784 + 648 * *(v227 + 106080))))
         {
-          if (*(v248 + 1112) == 60)
+          if (*(v227 + 1112) == 60)
           {
-            v112 = *(v248 + 106084);
-            if (v112 != -1 && v112 + 1 == *(v248 + 104648))
+            v109 = *(v227 + 106084);
+            if (v109 != -1 && v109 + 1 == *(v227 + 104648))
             {
-              memcpy((*(&v262 + 1) + 152), (v106 + 648 * (*(v248 + 106080) == 0)), 0x288uLL);
+              memcpy((*(&v241 + 1) + 152), (v108 + 648 * (*(v227 + 106080) == 0)), 0x288uLL);
             }
           }
         }
 
         else
         {
-          memset(v274, 0, sizeof(v274));
-          __dst = *(v248 + 104648);
-          v222 = *(v106 + 648 * *(v248 + 106080));
-          AVE_SNPrintf(v274, 32, "%llu %d %d", v107, v108, v109, v110, v111, *(v248 + 56));
-          AVE_ANFD_PrintInfo((v106 + 648 * *(v248 + 106080)), 47, 6, v274, 0, v114, v115, v116);
-          memcpy((*(&v262 + 1) + 152), (v106 + 648 * *(v248 + 106080)), 0x288uLL);
-          if (*(v248 + 1112) == 60)
+          memset(v253, 0, sizeof(v253));
+          AVE_SNPrintf(v253, 32, "%llu %d %d", *(v227 + 56), *(v227 + 104648), *(v108 + 648 * *(v227 + 106080)));
+          AVE_ANFD_PrintInfo((v108 + 648 * *(v227 + 106080)), 47, 6, v253, 0);
+          memcpy((*(&v241 + 1) + 152), (v108 + 648 * *(v227 + 106080)), 0x288uLL);
+          if (*(v227 + 1112) == 60)
           {
-            *(v248 + 106080) = *(v248 + 106080) == 0;
-            *(v248 + 106084) = *(v248 + 104648);
+            *(v227 + 106080) = *(v227 + 106080) == 0;
+            *(v227 + 106084) = *(v227 + 104648);
           }
 
-          v12 = v241;
+          v20 = v220;
         }
       }
 
-      v117 = CMGetAttachment(pixelBuffer, *MEMORY[0x29EDBFF98], 0);
-      if (v117)
+      v111 = CMGetAttachment(pixelBuffer, *MEMORY[0x29EDBFF98], 0);
+      if (v111)
       {
-        AVE_SEI::SetISPMetadata(*(v248 + 104736), *(v248 + 104648), v117);
+        AVE_SEI::SetISPMetadata(*(v227 + 104736), *(v227 + 104648), v111);
       }
 
-      AVE_SEI::SetDriverVersion(*(v248 + 104736), *(v248 + 104648));
-      AVE_SEI::SetSessionID(*(v248 + 104736), *(v248 + 104648), *(v248 + 56));
-      AVE_SEI::SetExposureTime(*(v248 + 104736), *(v248 + 104648), *(v261[3] + 16));
-      AVE_SEI::SetSNR(*(v248 + 104736), *(v248 + 104648), *v261[3]);
-      AVE_SEI::SetLuxLevel(*(v248 + 104736), *(v248 + 104648), *(v261[3] + 68));
-      AVE_SEI::SetPTS(*(v248 + 104736), *(v248 + 104648), *(v247 + 2), *v247);
-      DWORD2(v264) = *(v248 + 104648);
-      HIDWORD(v264) = v2;
-      PerFrameData = AVE_GetPerFrameData(v248, v4, v275, &v276, &v255);
-      if (!*(v248 + 11476))
+      AVE_SEI::SetDriverVersion(*(v227 + 104736), *(v227 + 104648));
+      AVE_SEI::SetSessionID(*(v227 + 104736), *(v227 + 104648), *(v227 + 56));
+      AVE_SEI::SetExposureTime(*(v227 + 104736), *(v227 + 104648), *(v240[3] + 16));
+      AVE_SEI::SetSNR(*(v227 + 104736), *(v227 + 104648), *v240[3]);
+      AVE_SEI::SetLuxLevel(*(v227 + 104736), *(v227 + 104648), *(v240[3] + 68));
+      AVE_SEI::SetPTS(*(v227 + 104736), *(v227 + 104648), *(v226 + 2), *v226);
+      DWORD2(v243) = *(v227 + 104648);
+      HIDWORD(v243) = v10;
+      PerFrameData = AVE_GetPerFrameData(v227, v12, v254, &v255, &v234);
+      if (!*(v227 + 11476))
       {
-        AVE_UpdateSettingsBasedOnSNR(v248, v275, &v276, *v261[3]);
+        AVE_UpdateSettingsBasedOnSNR(v227, v254, &v255, *v240[3]);
       }
 
-      *(*(&v262 + 1) + 936) = *(*(&v262 + 1) + 936) & 0xFFFFF9FF | ((*(*(&v262 + 1) + 152) > 0) << 9) | ((*(*(&v262 + 1) + 800) > 0) << 10);
-      if (*(v248 + 104668) && *(v248 + 104656) && AVE_MultipassDataFetch(v248, &v268))
+      *(*(&v241 + 1) + 936) = *(*(&v241 + 1) + 936) & 0xFFFFF9FF | ((*(*(&v241 + 1) + 152) > 0) << 9) | ((*(*(&v241 + 1) + 800) > 0) << 10);
+      if (*(v227 + 104668) && *(v227 + 104656) && AVE_MultipassDataFetch(v227, &v247, &v255))
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v119 = AVE_Log_CheckConsole(3u);
-          v120 = AVE_GetCurrTime();
-          v121 = AVE_Log_GetLevelStr(4);
-          if (v119)
+          v113 = AVE_Log_CheckConsole(3u);
+          v114 = AVE_GetCurrTime();
+          v115 = AVE_Log_GetLevelStr(4);
+          if (v113)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_MultipassDataFetch failed.\n", v120, 3, v121, "AVE_HEVC_Encode", 8079, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_MultipassDataFetch failed.\n", v114, 3, v115, "AVE_HEVC_Encode", 8079, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -8379,40 +8056,40 @@ LABEL_130:
 
       else
       {
-        DWORD2(v264) = *(v248 + 104648);
-        HIDWORD(v264) = v2;
-        if (v271)
+        DWORD2(v243) = *(v227 + 104648);
+        HIDWORD(v243) = v10;
+        if (v250)
         {
-          v122 = pixelBuffer;
+          v116 = pixelBuffer;
         }
 
         else
         {
-          v122 = 0;
+          v116 = 0;
         }
 
-        *(&v258 + 1) = v122;
-        v123 = AVE_USL_Drv_Process(*(v248 + 120), &v255);
-        if (!v123)
+        *(&v237 + 1) = v116;
+        v117 = AVE_USL_Drv_Process(*(v227 + 120), &v234);
+        if (!v117)
         {
-          v51 = PerFrameData;
+          v55 = PerFrameData;
           goto LABEL_172;
         }
 
-        if (v123 == -536870173)
+        if (v117 == -536870173)
         {
-          v51 = PerFrameData;
+          v55 = PerFrameData;
           if (AVE_Log_CheckLevel(0x10u, 5))
           {
-            v124 = AVE_Log_CheckConsole(0x10u);
-            v125 = AVE_GetCurrTime();
-            v126 = AVE_Log_GetLevelStr(5);
-            if (v124)
+            v118 = AVE_Log_CheckConsole(0x10u);
+            v119 = AVE_GetCurrTime();
+            v120 = AVE_Log_GetLevelStr(5);
+            if (v118)
             {
-              printf("%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame\n", v125, 16, v126);
+              printf("%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame\n", v119, 16, v120);
               AVE_GetCurrTime();
               AVE_Log_GetLevelStr(5);
-              v51 = PerFrameData;
+              v55 = PerFrameData;
             }
 
             syslog(3, "%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame");
@@ -8423,12 +8100,12 @@ LABEL_130:
 
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v127 = AVE_Log_CheckConsole(3u);
-          v128 = AVE_GetCurrTime();
-          v129 = AVE_Log_GetLevelStr(4);
-          if (v127)
+          v121 = AVE_Log_CheckConsole(3u);
+          v122 = AVE_GetCurrTime();
+          v123 = AVE_Log_GetLevelStr(4);
+          if (v121)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Process failed.\n", v128, 3, v129, "AVE_HEVC_Encode", 8102, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Process failed.\n", v122, 3, v123, "AVE_HEVC_Encode", 8102, "err == noErr");
             AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
@@ -8438,119 +8115,119 @@ LABEL_130:
       }
 
 LABEL_171:
-      v51 = 4294966296;
+      v55 = 4294966296;
 LABEL_172:
-      if (v272 == 1 && pixelBuffer)
+      if (v251 == 1 && pixelBuffer)
       {
         CVPixelBufferRelease(pixelBuffer);
       }
 
-      ++v17[1];
+      ++v25[1];
       goto LABEL_176;
     }
 
-    if (*(&v253 + 1) == 0x1FFFFFFFFLL && AVE_Log_CheckLevel(0x10u, 5))
+    if (*(&v232 + 1) == 0x1FFFFFFFFLL && AVE_Log_CheckLevel(0x10u, 5))
     {
-      v99 = AVE_Log_CheckConsole(0x10u);
-      v100 = AVE_GetCurrTime();
-      v101 = AVE_Log_GetLevelStr(5);
-      if (v99)
+      v101 = AVE_Log_CheckConsole(0x10u);
+      v102 = AVE_GetCurrTime();
+      v103 = AVE_Log_GetLevelStr(5);
+      if (v101)
       {
-        printf("%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!\n", v100, 16, v101);
-        v102 = AVE_GetCurrTime();
-        v221 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v102, 16, v221);
+        printf("%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!\n", v102, 16, v103);
+        v104 = AVE_GetCurrTime();
+        v211 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v104, 16, v211);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v100, 16, v101);
+        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v102, 16, v103);
       }
     }
 
-    if (v252[0].f64[1] != 0.0 && *(&v251 + 1) != 0.0 && v252[0].f64[0] != 0.0)
+    if (v231[0].f64[1] != 0.0 && *(&v230 + 1) != 0.0 && v231[0].f64[0] != 0.0)
     {
-      v137 = AVE_DW_Get();
-      v138 = v137[133];
-      if (v138 > 0.0)
+      v130 = AVE_DW_Get();
+      v131 = v130[133];
+      if (v131 > 0.0)
       {
-        v139 = v137[134];
-        if (v139 > 0.0)
+        v132 = v130[134];
+        if (v132 > 0.0)
         {
-          v140 = vdupq_lane_s64(0x4170000000000000, 0);
-          v140.f64[0] = *(&v251 + 1);
-          v141 = vmulq_f64(*(v252 + 8), v140);
-          v142 = v252[0].f64[0] * v141.f64[0] / v141.f64[1];
-          if (v142 <= v138)
+          v133 = vdupq_lane_s64(0x4170000000000000, 0);
+          v133.f64[0] = *(&v230 + 1);
+          v134 = vmulq_f64(*(v231 + 8), v133);
+          v135 = v231[0].f64[0] * v134.f64[0] / v134.f64[1];
+          if (v135 <= v131)
           {
-            v149 = AVE_Log_CheckLevel(0x10u, 8);
-            if (v142 >= v139)
+            v142 = AVE_Log_CheckLevel(0x10u, 8);
+            if (v135 >= v132)
             {
-              if (v149)
+              if (v142)
               {
-                v156 = AVE_Log_CheckConsole(0x10u);
-                v244 = AVE_GetCurrTime();
-                v157 = AVE_Log_GetLevelStr(8);
-                v158 = *(v248 + 108008 + 4 * v2);
-                v159 = ((v142 - v142) * 1000.0);
-                if (v159 >= 0)
+                v149 = AVE_Log_CheckConsole(0x10u);
+                v223 = AVE_GetCurrTime();
+                v150 = AVE_Log_GetLevelStr(8);
+                v151 = *(v227 + 108008 + 4 * v10);
+                v152 = ((v135 - v135) * 1000.0);
+                if (v152 >= 0)
                 {
-                  v160 = ((v142 - v142) * 1000.0);
+                  v153 = ((v135 - v135) * 1000.0);
                 }
 
                 else
                 {
-                  v160 = -v159;
+                  v153 = -v152;
                 }
 
-                if (v156)
+                if (v149)
                 {
-                  printf("%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d\n", v244, 16, v157, v158, v142, v160);
-                  v161 = AVE_GetCurrTime();
-                  v162 = AVE_Log_GetLevelStr(8);
-                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v161, 16, v162, *(v248 + 108008 + 4 * v2), v142, v160);
+                  printf("%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d\n", v223, 16, v150, v151, v135, v153);
+                  v154 = AVE_GetCurrTime();
+                  v155 = AVE_Log_GetLevelStr(8);
+                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v154, 16, v155, *(v227 + 108008 + 4 * v10), v135, v153);
                 }
 
                 else
                 {
-                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v244, 16, v157, v158, v142, v160);
+                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v223, 16, v150, v151, v135, v153);
                 }
               }
             }
 
             else
             {
-              if (v149)
+              if (v142)
               {
-                v150 = AVE_Log_CheckConsole(0x10u);
-                v151 = AVE_GetCurrTime();
-                v152 = AVE_Log_GetLevelStr(8);
-                v153 = ((v142 - v142) * 1000.0);
-                if (v153 >= 0)
+                v143 = AVE_Log_CheckConsole(0x10u);
+                v144 = AVE_GetCurrTime();
+                v145 = AVE_Log_GetLevelStr(8);
+                v146 = ((v135 - v135) * 1000.0);
+                if (v146 >= 0)
                 {
-                  v154 = ((v142 - v142) * 1000.0);
+                  v147 = ((v135 - v135) * 1000.0);
                 }
 
                 else
                 {
-                  v154 = -v153;
+                  v147 = -v146;
                 }
 
-                if (v150)
+                if (v143)
                 {
-                  printf("%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d\n", v151, 16, v152, v142, v154);
-                  v155 = AVE_GetCurrTime();
-                  v224 = AVE_Log_GetLevelStr(8);
-                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v155, 16, v224, v142, v154);
+                  printf("%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d\n", v144, 16, v145, v135, v147);
+                  v148 = AVE_GetCurrTime();
+                  v213 = AVE_Log_GetLevelStr(8);
+                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v148, 16, v213, v135, v147);
                 }
 
                 else
                 {
-                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v151, 16, v152, v142, v154);
+                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v144, 16, v145, v135, v147);
                 }
               }
 
-              *(v248 + 4 * v2 + 108008) = 0;
+              *(v227 + 4 * v10 + 108008) = 0;
             }
           }
 
@@ -8558,152 +8235,150 @@ LABEL_172:
           {
             if (AVE_Log_CheckLevel(0x10u, 8))
             {
-              v143 = AVE_Log_CheckConsole(0x10u);
-              v144 = AVE_GetCurrTime();
-              v145 = AVE_Log_GetLevelStr(8);
-              v146 = ((v142 - v142) * 1000.0);
-              if (v146 >= 0)
+              v136 = AVE_Log_CheckConsole(0x10u);
+              v137 = AVE_GetCurrTime();
+              v138 = AVE_Log_GetLevelStr(8);
+              v139 = ((v135 - v135) * 1000.0);
+              if (v139 >= 0)
               {
-                v147 = ((v142 - v142) * 1000.0);
+                v140 = ((v135 - v135) * 1000.0);
               }
 
               else
               {
-                v147 = -v146;
+                v140 = -v139;
               }
 
-              if (v143)
+              if (v136)
               {
-                printf("%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d\n", v144, 16, v145, v142, v147);
-                v148 = AVE_GetCurrTime();
-                v223 = AVE_Log_GetLevelStr(8);
-                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v148, 16, v223, v142, v147);
+                printf("%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d\n", v137, 16, v138, v135, v140);
+                v141 = AVE_GetCurrTime();
+                v212 = AVE_Log_GetLevelStr(8);
+                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v141, 16, v212, v135, v140);
               }
 
               else
               {
-                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v144, 16, v145, v142, v147);
+                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v137, 16, v138, v135, v140);
               }
             }
 
-            *(v248 + 4 * v2 + 108008) = 1;
+            *(v227 + 4 * v10 + 108008) = 1;
           }
         }
       }
     }
 
-    v163 = *(v248 + 76);
-    if ((HIDWORD(v253) + 1) >= 2 && DWORD2(v253) != -1)
+    v156 = *(v227 + 76);
+    if ((HIDWORD(v232) + 1) >= 2 && DWORD2(v232) != -1)
     {
-      if (v163 >= 30 && SDWORD2(v253) >= 255)
+      if (v156 >= 30 && SDWORD2(v232) >= 255)
       {
         if (AVE_Log_CheckLevel(0x10u, 5))
         {
-          v164 = AVE_Log_CheckConsole(0x10u);
-          v165 = AVE_GetCurrTime();
-          v166 = AVE_Log_GetLevelStr(5);
-          if (v164)
+          v157 = AVE_Log_CheckConsole(0x10u);
+          v158 = AVE_GetCurrTime();
+          v159 = AVE_Log_GetLevelStr(5);
+          if (v157)
           {
-            printf("%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On\n", v165, 16, v166, HIDWORD(v253), DWORD2(v253));
-            v167 = AVE_GetCurrTime();
-            v168 = AVE_Log_GetLevelStr(5);
-            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v167, 16, v168, HIDWORD(v253), DWORD2(v253));
+            printf("%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On\n", v158, 16, v159, HIDWORD(v232), DWORD2(v232));
+            v160 = AVE_GetCurrTime();
+            v161 = AVE_Log_GetLevelStr(5);
+            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v160, 16, v161, HIDWORD(v232), DWORD2(v232));
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v165, 16, v166, HIDWORD(v253), DWORD2(v253));
+            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v158, 16, v159, HIDWORD(v232), DWORD2(v232));
           }
         }
 
-        DWORD2(v253) = 127;
+        DWORD2(v232) = 127;
       }
 
       goto LABEL_268;
     }
 
-    if (v163 >= 30)
+    if (v156 >= 30)
     {
-      DWORD2(v253) = 127;
-      *(v248 + v2 + 108004) = 1;
+      DWORD2(v232) = 127;
+      *(v227 + v10 + 108004) = 1;
       goto LABEL_268;
     }
 
-    v169 = v248 + 108004;
-    v170 = *(v248 + 108004 + v2);
-    if (v252[0].f64[1] == 0.0 || *(&v251 + 1) == 0.0 || v252[0].f64[0] == 0.0)
+    v162 = v227 + 108004;
+    v163 = *(v227 + 108004 + v10);
+    if (v231[0].f64[1] == 0.0 || *(&v230 + 1) == 0.0 || v231[0].f64[0] == 0.0)
     {
       if (AVE_Log_CheckLevel(0x10u, 7))
       {
-        v181 = AVE_Log_CheckConsole(0x10u);
-        v182 = AVE_GetCurrTime();
-        v183 = AVE_Log_GetLevelStr(7);
-        v184 = *(v248 + 104648);
-        if (v181)
+        v174 = AVE_Log_CheckConsole(0x10u);
+        v175 = AVE_GetCurrTime();
+        v176 = AVE_Log_GetLevelStr(7);
+        v177 = *(v227 + 104648);
+        if (v174)
         {
-          printf("%lld %d AVE %s: FIG: F %d ISP meta data is missing!\n", v182, 16, v183, v184);
-          v185 = AVE_GetCurrTime();
-          v225 = AVE_Log_GetLevelStr(7);
-          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v185, 16, v225, *(v248 + 104648));
+          printf("%lld %d AVE %s: FIG: F %d ISP meta data is missing!\n", v175, 16, v176, v177);
+          v178 = AVE_GetCurrTime();
+          v214 = AVE_Log_GetLevelStr(7);
+          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v178, 16, v214, *(v227 + 104648));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v182, 16, v183, v184);
+          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v175, 16, v176, v177);
         }
       }
 
-      DWORD2(v253) = 255;
-      if ((*(v169 + v2) & 1) == 0)
+      DWORD2(v232) = 255;
+      if ((*(v162 + v10) & 1) == 0)
       {
 LABEL_268:
-        if (*(v248 + 1112) < 1 || !HIDWORD(v253) || SDWORD2(v253) > 254)
+        if (*(v227 + 1112) < 1 || !HIDWORD(v232) || SDWORD2(v232) > 254)
         {
           goto LABEL_130;
         }
 
-        v199 = *(v248 + 1440);
-        v200 = *(v248 + 1444);
-        Rt = AVE_FPS::GetRt(*(v248 + 104704));
-        v202 = ((v200 + 31) >> 5) * ((v199 + 31) >> 5) * Rt;
-        if (*(v248 + 76) <= 29)
+        v192 = *(v227 + 1440);
+        v193 = *(v227 + 1444);
+        Rt = AVE_FPS::GetRt(*(v227 + 104704));
+        v195 = ((v193 + 31) >> 5) * ((v192 + 31) >> 5) * Rt;
+        if (*(v227 + 76) <= 29)
         {
-          v203 = 285600;
+          v196 = 285600;
         }
 
         else
         {
-          v203 = 530400;
+          v196 = 530400;
         }
 
-        if ((*(v248 + 1120) & 0x10) != 0)
+        if ((*(v227 + 1120) & 0x10) != 0)
         {
-          if (v203 * 1.5 >= v202)
+          if (v196 * 1.5 >= v195)
           {
 LABEL_282:
-            if ((*(v248 + 1451) & 2) != 0)
+            if ((*(v227 + 1451) & 2) != 0)
             {
-              v209 = *(v248 + 10556) < 2u ? 2 : 3;
-              v210 = v248 + 4 * v2;
-              AVE_MCTF_AdjustStrength(&v250, *(v248 + 76), v209, (v210 + 108032), v282);
+              v201 = *(v227 + 10556) < 2u ? 2 : 3;
+              v202 = v227 + 4 * v10;
+              AVE_MCTF_AdjustStrength(&v229, *(v227 + 76), v201, (v202 + 108032), v261);
               if (AVE_Log_CheckLevel(0x10u, 8))
               {
-                v211 = AVE_Log_CheckConsole(0x10u);
-                v212 = AVE_GetCurrTime();
-                v213 = AVE_Log_GetLevelStr(8);
-                if (v211)
+                v203 = AVE_Log_CheckConsole(0x10u);
+                v204 = AVE_GetCurrTime();
+                v205 = AVE_Log_GetLevelStr(8);
+                if (v203)
                 {
-                  printf("%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d\n", v212, 16, v213, "AVE_HEVC_Encode", 7944, v248, *(v248 + 56), v282[0], v2, *(v210 + 108032));
-                  v214 = AVE_GetCurrTime();
+                  printf("%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d\n", v204, 16, v205, "AVE_HEVC_Encode", 7944, v227, *(v227 + 56), v261[0], v10, *(v202 + 108032));
+                  v206 = AVE_GetCurrTime();
                   v215 = AVE_Log_GetLevelStr(8);
-                  v232 = *(v210 + 108032);
-                  v228 = *(v248 + 56);
-                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v214, 16, v215);
+                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v206, 16, v215);
                 }
 
                 else
                 {
-                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v212, 16, v213);
+                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v204, 16, v205);
                 }
               }
             }
@@ -8712,28 +8387,27 @@ LABEL_282:
           }
         }
 
-        else if (v202 <= v203)
+        else if (v195 <= v196)
         {
           goto LABEL_282;
         }
 
         if (AVE_Log_CheckLevel(0x10u, 5))
         {
-          v204 = AVE_Log_CheckConsole(0x10u);
-          v205 = AVE_GetCurrTime();
-          v206 = AVE_Log_GetLevelStr(5);
-          if (v204)
+          v197 = AVE_Log_CheckConsole(0x10u);
+          v198 = AVE_GetCurrTime();
+          v199 = AVE_Log_GetLevelStr(5);
+          if (v197)
           {
-            printf("%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d\n", v205, 16, v206, Rt, v199, v200, (*(v248 + 1120) >> 4) & 1, HIDWORD(v253), DWORD2(v253));
-            v207 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d\n", v198, 16, v199, Rt, v192, v193, (*(v227 + 1120) >> 4) & 1, HIDWORD(v232), DWORD2(v232));
+            v200 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(5);
-            v208 = (*(v248 + 1120) >> 4) & 1;
-            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v207, 16);
+            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v200, 16);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v205, 16);
+            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v198, 16);
           }
         }
 
@@ -8743,141 +8417,140 @@ LABEL_282:
 
     else
     {
-      v171 = AVE_DW_Get();
-      v172 = vdupq_lane_s64(0x4170000000000000, 0);
-      v172.f64[0] = *(&v251 + 1);
-      v173 = vmulq_f64(*(v252 + 8), v172);
-      v174 = v252[0].f64[0] * v173.f64[0] / v173.f64[1];
-      if (*(v248 + 10556) < 2u)
+      v164 = AVE_DW_Get();
+      v165 = vdupq_lane_s64(0x4170000000000000, 0);
+      v165.f64[0] = *(&v230 + 1);
+      v166 = vmulq_f64(*(v231 + 8), v165);
+      v167 = v231[0].f64[0] * v166.f64[0] / v166.f64[1];
+      if (*(v227 + 10556) < 2u)
       {
-        v175 = 2;
+        v168 = 2;
       }
 
       else
       {
-        v175 = 3;
+        v168 = 3;
       }
 
-      v176 = AVE_MCTF_SupportAllLight(v253, *(v248 + 76), v175);
-      v177 = 32.0;
-      if (v176)
+      v169 = AVE_MCTF_SupportAllLight(v232, *(v227 + 76), v168);
+      v170 = 32.0;
+      if (v169)
       {
-        v177 = 0.1;
+        v170 = 0.1;
       }
 
-      if (v171[132] > 0.0)
+      if (v164[132] > 0.0)
       {
-        v177 = v171[132];
+        v170 = v164[132];
       }
 
-      if (v174 >= v177)
+      if (v167 >= v170)
       {
-        DWORD2(v253) = 127;
-        *(v169 + v2) = 1;
+        DWORD2(v232) = 127;
+        *(v162 + v10) = 1;
       }
 
       else
       {
-        v178 = 24.0;
-        if (v176)
+        v171 = 24.0;
+        if (v169)
         {
-          v178 = 0.0;
+          v171 = 0.0;
         }
 
-        v179 = *(v169 + v2) & (v174 >= v178);
-        if ((*(v169 + v2) & (v174 >= v178)) != 0)
+        v172 = *(v162 + v10) & (v167 >= v171);
+        if ((*(v162 + v10) & (v167 >= v171)) != 0)
         {
-          v180 = 127;
+          v173 = 127;
         }
 
         else
         {
-          v180 = 255;
+          v173 = 255;
         }
 
-        DWORD2(v253) = v180;
-        *(v169 + v2) = v179;
-        if (v179 != 1)
+        DWORD2(v232) = v173;
+        *(v162 + v10) = v172;
+        if (v172 != 1)
         {
           goto LABEL_268;
         }
       }
     }
 
-    v186 = *(v248 + 1440);
-    v187 = AVE_DW_Get();
-    if ((*(v248 + 1120) & 0x10) != 0)
+    v179 = *(v227 + 1440);
+    v180 = AVE_DW_Get();
+    if ((*(v227 + 1120) & 0x10) != 0)
     {
-      Slide = AVE_FPS::GetSlide(*(v248 + 104704));
+      Slide = AVE_FPS::GetSlide(*(v227 + 104704));
     }
 
     else
     {
-      Slide = *(v248 + 1112);
+      Slide = *(v227 + 1112);
     }
 
-    if (v170)
+    if (v163)
     {
-      v189 = v187[270];
-      v190 = v189 <= 0;
-      v191 = 285600;
-    }
-
-    else
-    {
-      v189 = v187[271];
-      v190 = v189 <= 0;
-      v191 = 244800;
-    }
-
-    if (v190)
-    {
-      v192 = v191;
+      v182 = v180[270];
+      v183 = v182 <= 0;
+      v184 = 285600;
     }
 
     else
     {
-      v192 = v189;
+      v182 = v180[271];
+      v183 = v182 <= 0;
+      v184 = 244800;
     }
 
-    v193 = vshr_n_u32(vadd_s32(v186, 0x1F0000001FLL), 5uLL);
-    v194 = vmul_lane_s32(v193, v193, 1).u32[0] * Slide;
-    if (v194 > v192)
+    if (v183)
     {
-      DWORD2(v253) = 255;
-      *(v169 + v2) = 0;
+      v185 = v184;
+    }
+
+    else
+    {
+      v185 = v182;
+    }
+
+    v186 = vshr_n_u32(vadd_s32(v179, 0x1F0000001FLL), 5uLL);
+    v187 = vmul_lane_s32(v186, v186, 1).u32[0] * Slide;
+    if (v187 > v185)
+    {
+      DWORD2(v232) = 255;
+      *(v162 + v10) = 0;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 8))
     {
-      v195 = AVE_Log_CheckConsole(0x10u);
-      v245 = AVE_GetCurrTime();
-      v196 = AVE_Log_GetLevelStr(8);
-      if (*(v169 + v2))
+      v188 = AVE_Log_CheckConsole(0x10u);
+      v224 = AVE_GetCurrTime();
+      v189 = AVE_Log_GetLevelStr(8);
+      if (*(v162 + v10))
       {
-        v197 = "Enable ";
+        v190 = "Enable ";
       }
 
       else
       {
-        v197 = "Disable";
+        v190 = "Disable";
       }
 
-      v238 = v197;
-      v240 = v196;
-      TotalCnt = AVE_FPS::GetTotalCnt(*(v248 + 104704));
-      v198 = AVE_FPS::GetRt(*(v248 + 104704));
-      if (v195)
+      v217 = v190;
+      v219 = v189;
+      TotalCnt = AVE_FPS::GetTotalCnt(*(v227 + 104704));
+      v191 = AVE_FPS::GetRt(*(v227 + 104704));
+      if (v188)
       {
-        printf("%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)\n", v245, 16, v240, v238, Slide, TotalCnt, v198, v194, v192, v170);
-        v245 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)\n", v224, 16, v219, v217, Slide, TotalCnt, v191, v187, v185, v163);
+        v224 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(8);
-        *(v169 + v2);
-        AVE_FPS::GetTotalCnt(*(v248 + 104704));
-        AVE_FPS::GetRt(*(v248 + 104704));
+        AVE_FPS::GetTotalCnt(*(v227 + 104704));
+        AVE_FPS::GetRt(*(v227 + 104704));
       }
 
-      syslog(3, "%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)", v245, 16);
+      syslog(3, "%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)", v224, 16);
     }
 
     goto LABEL_268;
@@ -8885,222 +8558,217 @@ LABEL_282:
 
   if (AVE_Log_CheckLevel(0xCu, 4))
   {
-    v35 = AVE_Log_CheckConsole(0xCu);
-    v36 = AVE_GetCurrTime();
-    v37 = AVE_Log_GetLevelStr(4);
-    if (v35)
+    v39 = AVE_Log_CheckConsole(0xCu);
+    v40 = AVE_GetCurrTime();
+    v41 = AVE_Log_GetLevelStr(4);
+    if (v39)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d\n", v36, 12, v37, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v248, v12, pixelBuffer, v246, v247, v6, v4, v2);
-      v38 = AVE_GetCurrTime();
-      v218 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v38, 12, v218, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v248, v12);
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d\n", v40, 12, v41, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20, pixelBuffer, v225, v226, v14, v12, v10);
+      v42 = AVE_GetCurrTime();
+      v208 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v42, 12, v208, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v36, 12, v37, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v248, v12);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v40, 12, v41, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20);
     }
   }
 
-  v51 = 4294966295;
+  v55 = 4294966295;
 LABEL_176:
   if (AVE_Log_CheckLevel(0xCu, 7))
   {
-    v130 = AVE_Log_CheckConsole(0xCu);
-    v131 = AVE_GetCurrTime();
-    v132 = AVE_Log_GetLevelStr(7);
-    if (v130)
+    v124 = AVE_Log_CheckConsole(0xCu);
+    v125 = AVE_GetCurrTime();
+    v126 = AVE_Log_GetLevelStr(7);
+    if (v124)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d\n", v131, 12, v132, "AVE_HEVC_Encode", v248, v12, pixelBuffer, v246, v247, v6, v4, v2, v51);
-      v133 = AVE_GetCurrTime();
-      v134 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v133, 12, v134, "AVE_HEVC_Encode", v248, v12);
+      printf("%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d\n", v125, 12, v126, "AVE_HEVC_Encode", v227, v20, pixelBuffer, v225, v226, v14, v12, v10, v55);
+      v127 = AVE_GetCurrTime();
+      v128 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v127, 12, v128, "AVE_HEVC_Encode", v227, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v131, 12, v132, "AVE_HEVC_Encode", v248, v12);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v125, 12, v126, "AVE_HEVC_Encode", v227, v20);
     }
   }
 
-  v135 = *MEMORY[0x29EDCA608];
-  return v51;
+  return v55;
 }
 
 uint64_t AVE_HEVC_VerifyImageBuffer(uint64_t a1, CVPixelBufferRef *a2, _BYTE *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, int a7)
 {
-  v68 = 0;
+  v59 = 0;
   v14 = (a1 + 104628);
   v15 = a1 + 24306;
-  v67 = 0u;
-  v66 = 0u;
-  v65 = 0u;
-  v64 = 0u;
-  v63 = 0u;
-  v62 = 0u;
-  v61 = 0u;
+  v58 = 0u;
+  v57 = 0u;
+  v56 = 0u;
+  v55 = 0u;
+  v54 = 0u;
+  v53 = 0u;
+  v52 = 0u;
   PixelFormatType = CVPixelBufferGetPixelFormatType(*a2);
-  HIDWORD(v62) = PixelFormatType;
+  HIDWORD(v53) = PixelFormatType;
   v17 = v14[365];
   if (!v17)
   {
     v17 = *(a1 + 1440);
   }
 
-  v54 = v17;
+  v45 = v17;
   v18 = v14[366];
   if (!v18)
   {
     v18 = *(a1 + 1444);
   }
 
-  v55 = v18;
+  v46 = v18;
   v19 = *(a1 + 10772);
-  v56 = vrev64_s32(*(a1 + 64));
-  v57 = *(a1 + 716);
-  v58 = v19;
+  v47 = vrev64_s32(*(a1 + 64));
+  v48 = *(a1 + 716);
+  v49 = v19;
   v20 = *(a1 + 10892);
-  v59 = *(a1 + 10752);
-  v60 = v20;
-  LODWORD(v62) = *(a1 + 10860);
-  BYTE4(v62) = *(a1 + 692) > 0;
-  DWORD2(v62) = *(a1 + 10804);
-  HIBYTE(v68) = *(a1 + 76) > 11;
+  v50 = *(a1 + 10752);
+  v51 = v20;
+  LODWORD(v53) = *(a1 + 10860);
+  BYTE4(v53) = *(a1 + 692) > 0;
+  DWORD2(v53) = *(a1 + 10804);
+  HIBYTE(v59) = *(a1 + 76) > 11;
   if (*(v15 + 406) == 1)
   {
-    v61 = *(v15 + 410);
+    v52 = *(v15 + 410);
   }
 
   if (v14[5] && *(a1 + 11972) != PixelFormatType)
   {
-    v21 = *(a1 + 56);
     kdebug_trace();
-    v22 = AVE_ImageBuf_Transfer(&v54, a2, (a1 + 104776), *(a1 + 11972));
-    v23 = *(a1 + 56);
-    v24 = v14[5];
-    v25 = *(a1 + 11972);
+    v21 = AVE_ImageBuf_Transfer(&v45, a2, (a1 + 104776), *(a1 + 11972));
     kdebug_trace();
-    if (v22)
+    if (v21)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v26 = AVE_Log_CheckConsole(3u);
+        v22 = AVE_Log_CheckConsole(3u);
         CurrTime = AVE_GetCurrTime();
         LevelStr = AVE_Log_GetLevelStr(4);
-        v29 = *(a1 + 11972);
-        if (v26)
+        if (v22)
         {
-          printf("%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.\n", CurrTime, 3, LevelStr, "AVE_HEVC_VerifyImageBuffer", 4833, "err == noErr", *a2, HIDWORD(v62), *(a1 + 11972), v22);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(4);
-          v30 = *a2;
+          printf("%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.\n", CurrTime, 3, LevelStr, "AVE_HEVC_VerifyImageBuffer", 4833, "err == noErr", *a2, HIDWORD(v53), *(a1 + 11972), v21);
+          v25 = AVE_GetCurrTime();
+          v43 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", v25, 3, v43);
         }
 
-        v51 = *(a1 + 11972);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", CurrTime, 3, LevelStr);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", CurrTime, 3, LevelStr);
+        }
       }
 
-      return v22;
+      return v21;
     }
 
     *a4 = 1;
   }
 
-  v22 = AVE_VerifyImageBuffer(&v54, a2, (a1 + 104768));
-  if (v22)
+  v21 = AVE_VerifyImageBuffer(&v45, a2, (a1 + 104768));
+  if (v21)
   {
-    return v22;
+    return v21;
   }
 
-  *a3 = v68;
-  v32 = DWORD1(v66);
-  *a5 = v66;
-  *a6 = v32;
+  *a3 = v59;
+  v27 = DWORD1(v57);
+  *a5 = v57;
+  *a6 = v27;
   if (*(a1 + 76) < 12)
   {
-    *(a1 + 10522) = BYTE1(v68);
+    *(a1 + 10522) = BYTE1(v59);
 LABEL_21:
-    v33 = BYTE2(v68);
+    v28 = BYTE2(v59);
     goto LABEL_22;
   }
 
-  *(a1 + 10522) = BYTE1(v68);
-  if (v54 == *(a1 + 1440) && v55 == *(a1 + 1444))
+  *(a1 + 10522) = BYTE1(v59);
+  if (v45 == *(a1 + 1440) && v46 == *(a1 + 1444))
   {
     goto LABEL_21;
   }
 
-  v33 = 1;
+  v28 = 1;
 LABEL_22:
-  *(a1 + 10850) = v33;
-  v34 = DWORD1(v64);
-  *(a1 + 10204) = (DWORD1(v64) & 0xFFFFFFFE) == 2;
-  if (v34 == 3)
+  *(a1 + 10850) = v28;
+  v29 = DWORD1(v55);
+  *(a1 + 10204) = (DWORD1(v55) & 0xFFFFFFFE) == 2;
+  if (v29 == 3)
   {
-    *(a1 + 10529) = BYTE12(v64);
+    *(a1 + 10529) = BYTE12(v55);
   }
 
-  if (v59 == 2)
+  if (v50 == 2)
   {
-    *(a1 + 10864) = DWORD2(v66);
-    *(a1 + 10868) = *(&v65 + 1);
-    *(a1 + 10876) = vuzp2q_s32(vextq_s8(v67, v67, 4uLL), v67);
+    *(a1 + 10864) = DWORD2(v57);
+    *(a1 + 10868) = *(&v56 + 1);
+    *(a1 + 10876) = vuzp2q_s32(vextq_s8(v58, v58, 4uLL), v58);
   }
 
   if (a7)
   {
-    v35 = HIDWORD(v62);
-    *(a1 + 10768) = HIDWORD(v62);
+    v30 = HIDWORD(v53);
+    *(a1 + 10768) = HIDWORD(v53);
     if (*(a1 + 10752) != 2 && !v14[5])
     {
-      v43 = *(v15 + 426) + 8;
-      if (v43 <= *(v15 + 430) + 8)
+      v37 = *(v15 + 426) + 8;
+      if (v37 <= *(v15 + 430) + 8)
       {
-        v43 = *(v15 + 430) + 8;
+        v37 = *(v15 + 430) + 8;
       }
 
-      updated = AVE_UpdatePixelBufferDict(*(a1 + 68), *(a1 + 64), *(a1 + 716), 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v43, *v14, v35, *(a1 + 16));
+      updated = AVE_UpdatePixelBufferDict(*(a1 + 68), *(a1 + 64), *(a1 + 716), 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v37, *v14, v30 | 0x100000000, *(a1 + 16));
       if (updated)
       {
-        v45 = updated;
+        v39 = updated;
         if (AVE_Log_CheckLevel(0x1Eu, 5))
         {
-          v46 = AVE_Log_CheckConsole(0x1Eu);
-          v47 = AVE_GetCurrTime();
-          v48 = AVE_Log_GetLevelStr(5);
-          if (v46)
+          v40 = AVE_Log_CheckConsole(0x1Eu);
+          v41 = AVE_GetCurrTime();
+          v42 = AVE_Log_GetLevelStr(5);
+          if (v40)
           {
-            printf("%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d\n", v47, 30, v48, "AVE_HEVC_VerifyImageBuffer", 4903, a1, *(a1 + 56), 0, v45);
-            v47 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d\n", v41, 30, v42, "AVE_HEVC_VerifyImageBuffer", 4903, a1, *(a1 + 56), 0, v39);
+            v41 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(5);
-            v49 = *(a1 + 56);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d", v47, 30);
+          syslog(3, "%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d", v41, 30);
         }
       }
     }
 
-    v36 = DWORD2(v63);
-    v37 = v63;
-    *(v15 + 382) = DWORD2(v63);
-    *(a1 + 10188) = v36;
-    *(a1 + 10192) = v37;
-    *(a1 + 10171) = DWORD1(v64) != 1;
+    v31 = DWORD2(v54);
+    v32 = v54;
+    *(v15 + 382) = DWORD2(v54);
+    *(a1 + 10188) = v31;
+    *(a1 + 10192) = v32;
+    *(a1 + 10171) = DWORD1(v55) != 1;
     *(a1 + 10781) = 1;
-    if (v37 == 10)
+    if (v32 == 10)
     {
       *(a1 + 12070) = 0;
       *v15 = 0;
     }
 
-    if (v36 == 2)
+    if (v31 == 2)
     {
       *(a1 + 12071) = 1;
       *(v15 + 1) = 1;
     }
 
-    else if (v36 == 3)
+    else if (v31 == 3)
     {
       *(a1 + 12071) = 0;
       *(v15 + 1) = 0;
@@ -9114,7 +8782,7 @@ LABEL_22:
 
   if (v14[5])
   {
-    if (*(a1 + 11972) == HIDWORD(v62))
+    if (*(a1 + 11972) == HIDWORD(v53))
     {
       return 0;
     }
@@ -9123,26 +8791,21 @@ LABEL_22:
     {
       if (AVE_Log_CheckLevel(0xCu, 4))
       {
-        v38 = AVE_Log_CheckConsole(0xCu);
-        v39 = AVE_GetCurrTime();
-        v40 = AVE_Log_GetLevelStr(4);
-        v41 = *(a1 + 11972);
-        if (v38)
+        v33 = AVE_Log_CheckConsole(0xCu);
+        v34 = AVE_GetCurrTime();
+        v35 = AVE_Log_GetLevelStr(4);
+        if (v33)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x\n", v39, 12, v40, "AVE_HEVC_VerifyImageBuffer", 4956, "false", *(a1 + 56), v14[5], *(a1 + 11972), HIDWORD(v62));
-          v39 = AVE_GetCurrTime();
-          v40 = AVE_Log_GetLevelStr(4);
-          v42 = *(a1 + 56);
-          v52 = *(a1 + 11972);
-          v50 = v14[5];
+          printf("%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x\n", v34, 12, v35, "AVE_HEVC_VerifyImageBuffer", 4956, "false", *(a1 + 56), v14[5], *(a1 + 11972), HIDWORD(v53));
+          v36 = AVE_GetCurrTime();
+          v44 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v36, 12, v44);
         }
 
         else
         {
-          v53 = *(a1 + 11972);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v34, 12, v35);
         }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v39, 12, v40);
       }
 
       return 4294954394;
@@ -9151,11 +8814,11 @@ LABEL_22:
 
   else
   {
-    v22 = 0;
-    *(a1 + 11972) = HIDWORD(v62);
+    v21 = 0;
+    *(a1 + 11972) = HIDWORD(v53);
   }
 
-  return v22;
+  return v21;
 }
 
 void AVE_UpdateCropParams(uint64_t a1, __CVBuffer *a2)
@@ -9170,8 +8833,8 @@ void AVE_UpdateCropParams(uint64_t a1, __CVBuffer *a2)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams\n", CurrTime, 12, LevelStr);
       v8 = AVE_GetCurrTime();
-      v28 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams", v8, 12, v28);
+      v26 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams", v8, 12, v26);
     }
 
     else
@@ -9264,21 +8927,11 @@ void AVE_UpdateCropParams(uint64_t a1, __CVBuffer *a2)
       v23 = AVE_Log_CheckConsole(0x10u);
       v24 = AVE_GetCurrTime();
       v25 = AVE_Log_GetLevelStr(7);
-      v26 = *(v4 + 768);
       if (v23)
       {
         printf("%lld %d AVE %s: FIG: conf_win_top_offset = %d conf_win_bottom_offset %d conf_win_left_offset = %d conf_win_right_offset %d\n", v24, 16, v25, *(v4 + 776), *(v4 + 780), *(v4 + 768), *(v4 + 772));
         v24 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(7);
-        v27 = *(v4 + 776);
-        v30 = *(v4 + 768);
-        v32 = *(v4 + 772);
-        v29 = *(v4 + 780);
-      }
-
-      else
-      {
-        v31 = *(v4 + 768);
       }
 
       syslog(3, "%lld %d AVE %s: FIG: conf_win_top_offset = %d conf_win_bottom_offset %d conf_win_left_offset = %d conf_win_right_offset %d", v24);
@@ -9327,8 +8980,8 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
 {
   v2 = a1 + 104628;
   v3 = AVE_DW_Get();
-  v558 = 0;
-  v557 = 0.0;
+  v469 = 0;
+  v468 = 0.0;
   if (AVE_Log_CheckLevel(0xCu, 7))
   {
     v4 = AVE_Log_CheckConsole(0xCu);
@@ -9338,8 +8991,8 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters\n", CurrTime, 12, LevelStr);
       v7 = AVE_GetCurrTime();
-      v463 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters", v7, 12, v463);
+      v427 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters", v7, 12, v427);
     }
 
     else
@@ -9358,8 +9011,8 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
     {
       printf("%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]\n", v10, 16, v11);
       v12 = AVE_GetCurrTime();
-      v464 = AVE_Log_GetLevelStr(5);
-      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]", v12, 16, v464);
+      v428 = AVE_Log_GetLevelStr(5);
+      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]", v12, 16, v428);
     }
 
     else
@@ -9378,8 +9031,8 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
     {
       printf("%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]\n", v15, 16, v16);
       v17 = AVE_GetCurrTime();
-      v465 = AVE_Log_GetLevelStr(5);
-      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]", v17, 16, v465);
+      v429 = AVE_Log_GetLevelStr(5);
+      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]", v17, 16, v429);
     }
 
     else
@@ -9390,7 +9043,7 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
 
   if ((*(a1 + 1132) & 0xFFFFFFFE) == 6)
   {
-    v18 = AVE_RC_DecideVBVMaxBitRate(*(v3 + 206), *(v2 + 1728), &v558);
+    v18 = AVE_RC_DecideVBVMaxBitRate(*(v3 + 206), *(v2 + 1728), &v469);
     if (v18)
     {
       v19 = v18;
@@ -9399,120 +9052,97 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
         v20 = AVE_Log_CheckConsole(0x10u);
         v21 = AVE_GetCurrTime();
         v22 = AVE_Log_GetLevelStr(4);
-        v23 = *(v3 + 206);
         if (v20)
         {
           printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d\n", v21, 16, v22, "AVE_ValidateEncoderParameters", 3088, "ret == 0", a1, *(a1 + 56), *(v3 + 206), *(v2 + 1728));
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(4);
-          v24 = *(a1 + 56);
-          v536 = *(v3 + 206);
-          v542 = *(v2 + 1728);
+          v23 = AVE_GetCurrTime();
+          v430 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v23, 16, v430);
         }
 
         else
         {
-          v539 = *(v3 + 206);
-          v545 = *(v2 + 1728);
-          v530 = *(a1 + 56);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v21, 16, v22);
         }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v21, 16, v22);
       }
 
       return v19;
     }
 
-    *(a1 + 1208) = v558;
+    *(a1 + 1208) = v469;
   }
 
-  v25 = (v2 + 3060);
-  v26 = (v2 + 1732);
-  v27 = AVE_RC_DecideVBVBufferSize(v3[104], *(v2 + 3060), *(v2 + 1732), *(a1 + 1120), &v557);
-  if (v27)
+  v24 = AVE_RC_DecideVBVBufferSize(v3[104], *(v2 + 3060), *(v2 + 1732), *(a1 + 1120), &v468);
+  if (v24)
   {
-    v19 = v27;
+    v19 = v24;
     if (AVE_Log_CheckLevel(0x10u, 4))
     {
-      v28 = AVE_Log_CheckConsole(0x10u);
-      v29 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(4);
-      v31 = *(a1 + 1120);
-      if (v28)
+      v25 = AVE_Log_CheckConsole(0x10u);
+      v26 = AVE_GetCurrTime();
+      v27 = AVE_Log_GetLevelStr(4);
+      if (v25)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx\n", v29, 16, v30, "AVE_ValidateEncoderParameters", 3099, "ret == 0", a1, *(a1 + 56), v3[104], *v25, *v26, *(a1 + 1120));
-        v29 = AVE_GetCurrTime();
-        v30 = AVE_Log_GetLevelStr(4);
-        v32 = *v25;
+        printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx\n", v26, 16, v27, "AVE_ValidateEncoderParameters", 3099, "ret == 0", a1, *(a1 + 56), v3[104], *(v2 + 3060), *(v2 + 1732), *(a1 + 1120));
+        v26 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
       }
 
-      v549 = *(a1 + 1120);
-      v543 = *v25;
-      v547 = *v26;
-      v537 = *(v3 + 104);
-      v528 = *(a1 + 56);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx", v29, 16, v30);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx", v26, 16, v27);
     }
 
     return v19;
   }
 
-  v33 = v557;
-  *(a1 + 1216) = v557;
-  v34 = (v2 + 3068);
-  v35 = (v2 + 1740);
-  v36 = AVE_RC_DecideVBVInitialDelay(v3[105], *(v2 + 3068), *(v2 + 1740), v33, *(a1 + 1120), &v557);
-  if (v36)
+  v28 = v468;
+  *(a1 + 1216) = v468;
+  v29 = AVE_RC_DecideVBVInitialDelay(v3[105], *(v2 + 3068), *(v2 + 1740), v28, *(a1 + 1120), &v468);
+  if (v29)
   {
-    v19 = v36;
+    v19 = v29;
     if (AVE_Log_CheckLevel(0x10u, 4))
     {
-      v37 = AVE_Log_CheckConsole(0x10u);
-      v38 = AVE_GetCurrTime();
-      v39 = AVE_Log_GetLevelStr(4);
-      v40 = *(a1 + 1120);
-      if (v37)
+      v30 = AVE_Log_CheckConsole(0x10u);
+      v31 = AVE_GetCurrTime();
+      v32 = AVE_Log_GetLevelStr(4);
+      if (v30)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx\n", v38, 16, v39, "AVE_ValidateEncoderParameters", 3112, "ret == 0", a1, *(a1 + 56), v3[105], *v34, *v35, *(a1 + 1216), *(a1 + 1120));
-        v38 = AVE_GetCurrTime();
-        v39 = AVE_Log_GetLevelStr(4);
-        v41 = *(v3 + 105);
-        v42 = *v35;
+        printf("%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx\n", v31, 16, v32, "AVE_ValidateEncoderParameters", 3112, "ret == 0", a1, *(a1 + 56), v3[105], *(v2 + 3068), *(v2 + 1740), *(a1 + 1216), *(a1 + 1120));
+        v33 = AVE_GetCurrTime();
+        v431 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v33, 16, v431);
       }
 
-      v551 = *(a1 + 1120);
-      v548 = *v35;
-      v550 = *(a1 + 1216);
-      v538 = *(v3 + 105);
-      v544 = *v34;
-      v529 = *(a1 + 56);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v38, 16, v39);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v31, 16, v32);
+      }
     }
 
     return v19;
   }
 
-  v43 = (a1 + 10168);
-  *(a1 + 1224) = v557;
+  v34 = (a1 + 10168);
+  *(a1 + 1224) = v468;
   if (*(v2 + 1984) <= 0 && *(a1 + 11460) >= *(a1 + 1112))
   {
     *(a1 + 11460) = 0;
     *(a1 + 1288) = 1;
   }
 
-  v44 = *(a1 + 76);
-  if (v44 >= 30)
+  v35 = *(a1 + 76);
+  if (v35 >= 30)
   {
     if (*(a1 + 10248) == 1)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v45 = AVE_Log_CheckConsole(3u);
-        v46 = AVE_GetCurrTime();
-        v47 = AVE_Log_GetLevelStr(4);
-        if (v45)
+        v36 = AVE_Log_CheckConsole(3u);
+        v37 = AVE_GetCurrTime();
+        v38 = AVE_Log_GetLevelStr(4);
+        if (v36)
         {
-          printf("%lld %d AVE %s: %s:%d %s | current SoC doesn't support SliceEncodingMode. Fail.\n", v46, 3, v47, "AVE_ValidateEncoderParameters", 3129, "!pINS->VideoParams.bSliceEncodingMode");
+          printf("%lld %d AVE %s: %s:%d %s | current SoC doesn't support SliceEncodingMode. Fail.\n", v37, 3, v38, "AVE_ValidateEncoderParameters", 3129, "!pINS->VideoParams.bSliceEncodingMode");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -9525,107 +9155,106 @@ uint64_t AVE_ValidateEncoderParameters(uint64_t a1)
 
     if ((*(a1 + 1336) & 0x40) == 0 || (*(a1 + 1464) & 0x8000030) == 0)
     {
-LABEL_55:
+LABEL_53:
       if (*(a1 + 10752) != 2 && !*(v2 + 28) && *(v2 + 1772))
       {
-        goto LABEL_62;
+        goto LABEL_60;
       }
 
-      goto LABEL_57;
+      goto LABEL_55;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v49 = AVE_Log_CheckConsole(0x10u);
-      v50 = AVE_GetCurrTime();
-      v51 = AVE_Log_GetLevelStr(5);
-      v52 = *(a1 + 1464);
-      if (v49)
+      v40 = AVE_Log_CheckConsole(0x10u);
+      v41 = AVE_GetCurrTime();
+      v42 = AVE_Log_GetLevelStr(5);
+      v43 = *(a1 + 1464);
+      if (v40)
       {
-        printf("%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x\n", v50, 16, v51, "AVE_ValidateEncoderParameters", 3138, v52);
-        v53 = AVE_GetCurrTime();
-        v54 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v53, 16, v54, "AVE_ValidateEncoderParameters", 3138, *(a1 + 1464));
+        printf("%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x\n", v41, 16, v42, "AVE_ValidateEncoderParameters", 3138, v43);
+        v44 = AVE_GetCurrTime();
+        v45 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v44, 16, v45, "AVE_ValidateEncoderParameters", 3138, *(a1 + 1464));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v50, 16, v51, "AVE_ValidateEncoderParameters", 3138, v52);
+        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v41, 16, v42, "AVE_ValidateEncoderParameters", 3138, v43);
       }
     }
 
     *(a1 + 1336) &= ~0x40u;
-    v44 = *(a1 + 76);
+    v35 = *(a1 + 76);
   }
 
-  if (v44 >= 17)
+  if (v35 >= 17)
   {
-    goto LABEL_55;
+    goto LABEL_53;
   }
 
-LABEL_57:
+LABEL_55:
   *(a1 + 716) &= 0xFFFFFC3F;
   *(a1 + 11810) = 0;
   if (*(v2 + 28) && AVE_Log_CheckLevel(0x10u, 5))
   {
-    v55 = AVE_Log_CheckConsole(0x10u);
-    v56 = AVE_GetCurrTime();
-    v57 = AVE_Log_GetLevelStr(5);
-    if (v55)
+    v46 = AVE_Log_CheckConsole(0x10u);
+    v47 = AVE_GetCurrTime();
+    v48 = AVE_Log_GetLevelStr(5);
+    if (v46)
     {
-      printf("%lld %d AVE %s: FIG: MCTF is not supported for Multipass\n", v56, 16, v57);
-      v58 = AVE_GetCurrTime();
-      v466 = AVE_Log_GetLevelStr(5);
-      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v58, 16, v466);
+      printf("%lld %d AVE %s: FIG: MCTF is not supported for Multipass\n", v47, 16, v48);
+      v49 = AVE_GetCurrTime();
+      v432 = AVE_Log_GetLevelStr(5);
+      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v49, 16, v432);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v56, 16, v57);
+      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v47, 16, v48);
     }
   }
 
-LABEL_62:
+LABEL_60:
   if (*(v2 + 1952) >= 1 && *(v2 + 1956) >= 1)
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v59 = AVE_Log_CheckConsole(3u);
-      v60 = AVE_GetCurrTime();
-      v61 = AVE_Log_GetLevelStr(4);
-      v62 = *(v2 + 1952);
-      if (v59)
+      v50 = AVE_Log_CheckConsole(3u);
+      v51 = AVE_GetCurrTime();
+      v52 = AVE_Log_GetLevelStr(4);
+      if (v50)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.\n", v60, 3, v61, "AVE_ValidateEncoderParameters", 3177, "false", *(v2 + 1952), *(v2 + 1956));
-        v60 = AVE_GetCurrTime();
-        v61 = AVE_Log_GetLevelStr(4);
+        printf("%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.\n", v51, 3, v52, "AVE_ValidateEncoderParameters", 3177, "false", *(v2 + 1952), *(v2 + 1956));
+        v51 = AVE_GetCurrTime();
+        v52 = AVE_Log_GetLevelStr(4);
       }
 
-      v508 = *(v2 + 1952);
-      v527 = *(v2 + 1956);
-      v493 = 3177;
-      v494 = "false";
-      v467 = v61;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.";
-      goto LABEL_157;
+      v461 = *(v2 + 1952);
+      v462 = *(v2 + 1956);
+      v459 = 3177;
+      v460 = "false";
+      v433 = v52;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.";
+      goto LABEL_155;
     }
 
     return 4294966295;
   }
 
-  v64 = a1 + 59393;
-  v65 = (a1 + 31173);
-  v66 = *(a1 + 1336);
-  if ((v66 & 0x4000000) != 0)
+  v54 = a1 + 59393;
+  v55 = (a1 + 31173);
+  v56 = *(a1 + 1336);
+  if ((v56 & 0x4000000) != 0)
   {
     *(a1 + 1120) &= ~0x200000000uLL;
     *(a1 + 1356) &= ~2u;
     *(a1 + 1448) &= ~0x10000000uLL;
     *(a1 + 1352) &= 0x1Eu;
-    *(a1 + 1336) = v66 & 0xF6FF7E8D;
+    *(a1 + 1336) = v56 & 0xF6FF7E8D;
     *(a1 + 10788) = 0;
-    *v65 = 0;
-    *v64 = 0;
+    *v55 = 0;
+    *v54 = 0;
     *(a1 + 42028) = 0;
     *(a1 + 60062) = 0;
     if (*(a1 + 1344) <= -13)
@@ -9649,48 +9278,45 @@ LABEL_62:
     }
   }
 
-  v67 = *(a1 + 1132);
-  if (v67 == 4)
+  v57 = *(a1 + 1132);
+  if (v57 == 4)
   {
     if (*(v2 + 28))
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v72 = AVE_Log_CheckConsole(3u);
-        v73 = AVE_GetCurrTime();
-        v74 = AVE_Log_GetLevelStr(4);
-        if (v72)
+        v61 = AVE_Log_CheckConsole(3u);
+        v62 = AVE_GetCurrTime();
+        v63 = AVE_Log_GetLevelStr(4);
+        if (v61)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail\n", v73, 3, v74, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
-          v73 = AVE_GetCurrTime();
-          v74 = AVE_Log_GetLevelStr(4);
+          printf("%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail\n", v62, 3, v63, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
+          v62 = AVE_GetCurrTime();
+          v63 = AVE_Log_GetLevelStr(4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail", v73, 3, v74, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail", v62, 3, v63, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
       }
 
       return 4294966296;
     }
   }
 
-  else if (v67 == 20 && *(a1 + 10892) != 1)
+  else if (v57 == 20 && *(a1 + 10892) != 1)
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v68 = AVE_Log_CheckConsole(3u);
-      v69 = AVE_GetCurrTime();
-      v70 = AVE_Log_GetLevelStr(4);
-      v71 = *(a1 + 10892);
-      if (v68)
+      v58 = AVE_Log_CheckConsole(3u);
+      v59 = AVE_GetCurrTime();
+      v60 = AVE_Log_GetLevelStr(4);
+      if (v58)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.\n", v69, 3, v70, "AVE_ValidateEncoderParameters", 3232, "false", *(a1 + 10892), *(a1 + 1132));
-        v69 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.\n", v59, 3, v60, "AVE_ValidateEncoderParameters", 3232, "false", *(a1 + 10892), *(a1 + 1132));
+        v59 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v509 = *(a1 + 10892);
-      v531 = *(a1 + 1132);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.", v69);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.", v59);
     }
 
     return 4294966295;
@@ -9698,48 +9324,48 @@ LABEL_62:
 
   if ((*(v2 + 1916) & 0x80000000) != 0)
   {
-    v75 = *(a1 + 10892);
-    if (v75 <= 0x26 && ((1 << v75) & 0x4000100002) != 0)
+    v64 = *(a1 + 10892);
+    if (v64 <= 0x26 && ((1 << v64) & 0x4000100002) != 0)
     {
       if (*(a1 + 76) <= 29)
       {
-        v76 = 0;
+        v65 = 0;
       }
 
       else
       {
-        v76 = 3;
+        v65 = 3;
       }
 
-      *v43 = v76;
+      *v34 = v65;
     }
   }
 
-  v77 = *(a1 + 1120);
-  if ((v77 & 0x80000000) == 0)
+  v66 = *(a1 + 1120);
+  if ((v66 & 0x80000000) == 0)
   {
-    v78 = *(a1 + 1256);
-    goto LABEL_103;
+    v67 = *(a1 + 1256);
+    goto LABEL_101;
   }
 
-  *(a1 + 1120) = v77 | 4;
-  v78 = *(a1 + 1256);
-  if (v78 == 2)
+  *(a1 + 1120) = v66 | 4;
+  v67 = *(a1 + 1256);
+  if (v67 == 2)
   {
-    v78 = 3;
+    v67 = 3;
     *(a1 + 1256) = 3;
   }
 
-  if (v67 == 4)
+  if (v57 == 4)
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v79 = AVE_Log_CheckConsole(3u);
-      v80 = AVE_GetCurrTime();
-      v81 = AVE_Log_GetLevelStr(4);
-      if (v79)
+      v68 = AVE_Log_CheckConsole(3u);
+      v69 = AVE_GetCurrTime();
+      v70 = AVE_Log_GetLevelStr(4);
+      if (v68)
       {
-        printf("%lld %d AVE %s: %s:%d %s | DRL is not supported with lookahead feature\n", v80, 3, v81, "AVE_ValidateEncoderParameters", 3275, "false");
+        printf("%lld %d AVE %s: %s:%d %s | DRL is not supported with lookahead feature\n", v69, 3, v70, "AVE_ValidateEncoderParameters", 3275, "false");
         AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
@@ -9750,124 +9376,121 @@ LABEL_62:
     return 4294966296;
   }
 
-LABEL_103:
-  if (v78 >= 4)
+LABEL_101:
+  if (v67 >= 4)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v82 = AVE_Log_CheckConsole(0x10u);
-      v83 = AVE_GetCurrTime();
-      v84 = AVE_Log_GetLevelStr(5);
-      v85 = *(a1 + 1256);
-      if (v82)
+      v71 = AVE_Log_CheckConsole(0x10u);
+      v72 = AVE_GetCurrTime();
+      v73 = AVE_Log_GetLevelStr(5);
+      if (v71)
       {
-        printf("%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!\n", v83, 16, v84, "AVE_ValidateEncoderParameters", 3289, *(a1 + 1256), 3);
-        v83 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!\n", v72, 16, v73, "AVE_ValidateEncoderParameters", 3289, *(a1 + 1256), 3);
+        v72 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(5);
       }
 
-      v495 = *(a1 + 1256);
-      syslog(3, "%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!", v83);
+      syslog(3, "%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!", v72);
     }
 
-    v78 = 3;
+    v67 = 3;
     *(a1 + 1256) = 3;
   }
 
-  v86 = *(a1 + 1240);
+  v74 = *(a1 + 1240);
   if (*(a1 + 76) >= 4)
   {
-    if ((v86 & 0x400) == 0)
+    if ((v74 & 0x400) == 0)
     {
-      goto LABEL_127;
+      goto LABEL_125;
     }
 
-    if (v78)
+    if (v67)
     {
       *(a1 + 10520) = 1;
-      goto LABEL_127;
+      goto LABEL_125;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v87 = AVE_Log_CheckConsole(0x10u);
-      v88 = AVE_GetCurrTime();
-      v89 = AVE_Log_GetLevelStr(5);
-      if (v87)
+      v75 = AVE_Log_CheckConsole(0x10u);
+      v76 = AVE_GetCurrTime();
+      v77 = AVE_Log_GetLevelStr(5);
+      if (v75)
       {
-        printf("%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB\n", v88, 16, v89);
-        v90 = AVE_GetCurrTime();
-        v468 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v90, 16, v468);
+        printf("%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB\n", v76, 16, v77);
+        v78 = AVE_GetCurrTime();
+        v434 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v78, 16, v434);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v88, 16, v89);
+        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v76, 16, v77);
       }
     }
 
-    v86 = *(a1 + 1240);
+    v74 = *(a1 + 1240);
   }
 
-  *(a1 + 1240) = v86 & 0xFFFFFBFF;
-LABEL_127:
-  v91 = *(a1 + 10252);
-  if (v91 >= 33)
+  *(a1 + 1240) = v74 & 0xFFFFFBFF;
+LABEL_125:
+  v79 = *(a1 + 10252);
+  if (v79 >= 33)
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v95 = AVE_Log_CheckConsole(3u);
-      v60 = AVE_GetCurrTime();
-      v96 = AVE_Log_GetLevelStr(4);
-      v97 = *(v43 + 21);
-      if (v95)
+      v83 = AVE_Log_CheckConsole(3u);
+      v51 = AVE_GetCurrTime();
+      v84 = AVE_Log_GetLevelStr(4);
+      if (v83)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)\n", v60, 3, v96, "AVE_ValidateEncoderParameters", 3330, "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))", *(v43 + 21), 32);
-        v60 = AVE_GetCurrTime();
-        v96 = AVE_Log_GetLevelStr(4);
+        printf("%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)\n", v51, 3, v84, "AVE_ValidateEncoderParameters", 3330, "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))", *(v34 + 21), 32);
+        v51 = AVE_GetCurrTime();
+        v84 = AVE_Log_GetLevelStr(4);
       }
 
-      v508 = *(v43 + 21);
-      v527 = 32;
-      v493 = 3330;
-      v494 = "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))";
-      v467 = v96;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)";
-      goto LABEL_157;
+      v461 = *(v34 + 21);
+      v462 = 32;
+      v459 = 3330;
+      v460 = "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))";
+      v433 = v84;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)";
+      goto LABEL_155;
     }
 
     return 4294966295;
   }
 
-  if (!v91)
+  if (!v79)
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v99 = AVE_Log_CheckConsole(3u);
-      v60 = AVE_GetCurrTime();
-      v100 = AVE_Log_GetLevelStr(4);
-      if (v99)
+      v86 = AVE_Log_CheckConsole(3u);
+      v51 = AVE_GetCurrTime();
+      v87 = AVE_Log_GetLevelStr(4);
+      if (v86)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d\n", v60, 3, v100, "AVE_ValidateEncoderParameters", 3331, "pINS->VideoParams.sSliceMap.iNum != 0", *(v43 + 21));
-        v60 = AVE_GetCurrTime();
-        v100 = AVE_Log_GetLevelStr(4);
-        v494 = "pINS->VideoParams.sSliceMap.iNum != 0";
-        v508 = *(v43 + 21);
-        v493 = 3331;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d\n", v51, 3, v87, "AVE_ValidateEncoderParameters", 3331, "pINS->VideoParams.sSliceMap.iNum != 0", *(v34 + 21));
+        v51 = AVE_GetCurrTime();
+        v87 = AVE_Log_GetLevelStr(4);
+        v460 = "pINS->VideoParams.sSliceMap.iNum != 0";
+        v461 = *(v34 + 21);
+        v459 = 3331;
       }
 
       else
       {
-        v508 = *(v43 + 21);
-        v493 = 3331;
-        v494 = "pINS->VideoParams.sSliceMap.iNum != 0";
+        v461 = *(v34 + 21);
+        v459 = 3331;
+        v460 = "pINS->VideoParams.sSliceMap.iNum != 0";
       }
 
-      v467 = v100;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d";
-LABEL_157:
-      syslog(3, v63, v60, 3, v467, "AVE_ValidateEncoderParameters", v493, v494, v508, v527);
+      v433 = v87;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d";
+LABEL_155:
+      syslog(3, v53, v51, 3, v433, "AVE_ValidateEncoderParameters", v459, v460, v461, v462);
     }
 
     return 4294966295;
@@ -9877,12 +9500,12 @@ LABEL_157:
   {
     if (AVE_Log_CheckLevel(0x10u, 4))
     {
-      v92 = AVE_Log_CheckConsole(0x10u);
-      v93 = AVE_GetCurrTime();
-      v94 = AVE_Log_GetLevelStr(4);
-      if (v92)
+      v80 = AVE_Log_CheckConsole(0x10u);
+      v81 = AVE_GetCurrTime();
+      v82 = AVE_Log_GetLevelStr(4);
+      if (v80)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Unable to set bitdepth 10 for HEVC Profile that only supports bitdepth 8\n", v93, 16, v94, "AVE_ValidateEncoderParameters", 3342, "false");
+        printf("%lld %d AVE %s: %s:%d %s | Unable to set bitdepth 10 for HEVC Profile that only supports bitdepth 8\n", v81, 16, v82, "AVE_ValidateEncoderParameters", 3342, "false");
         AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
@@ -9897,78 +9520,73 @@ LABEL_157:
   {
     if (*(a1 + 10782) == 1)
     {
-      v98 = *(a1 + 24732) + 8;
+      v85 = *(a1 + 24732) + 8;
     }
 
     else
     {
-      v98 = *(a1 + 10192);
+      v85 = *(a1 + 10192);
     }
 
-    v101 = *(a1 + 24688);
-    if (v101)
+    v88 = *(a1 + 24688);
+    if (v88)
     {
-      if (v101 == 3)
+      if (v88 == 3)
       {
         if (AVE_Log_CheckLevel(0x10u, 6))
         {
-          v106 = AVE_Log_CheckConsole(0x10u);
-          v552 = AVE_GetCurrTime();
-          v107 = AVE_Log_GetLevelStr(6);
-          v108 = *(a1 + 12028);
-          if (v106)
+          v92 = AVE_Log_CheckConsole(0x10u);
+          v463 = AVE_GetCurrTime();
+          v93 = AVE_Log_GetLevelStr(6);
+          if (v92)
           {
-            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v552, 16, v107, "AVE_ValidateEncoderParameters", 3374, *(a1 + 12028), 9);
-            v109 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v463, 16, v93, "AVE_ValidateEncoderParameters", 3374, *(a1 + 12028), 9);
+            v94 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(6);
-            v497 = *(a1 + 12028);
-            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v109);
+            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v94);
           }
 
           else
           {
-            v499 = *(a1 + 12028);
-            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v552);
+            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v463);
           }
         }
 
-        if (v98 == 10)
+        if (v85 == 10)
         {
-          v114 = 10;
+          v98 = 10;
         }
 
         else
         {
-          v114 = 9;
+          v98 = 9;
         }
 
-        goto LABEL_185;
+        goto LABEL_182;
       }
 
-      if (v101 == 2)
+      if (v88 == 2)
       {
         if (AVE_Log_CheckLevel(0x10u, 6))
         {
-          v102 = AVE_Log_CheckConsole(0x10u);
-          v103 = AVE_GetCurrTime();
-          v104 = AVE_Log_GetLevelStr(6);
-          v105 = *(a1 + 12028);
-          if (v102)
+          v89 = AVE_Log_CheckConsole(0x10u);
+          v90 = AVE_GetCurrTime();
+          v91 = AVE_Log_GetLevelStr(6);
+          if (v89)
           {
-            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v103, 16, v104, "AVE_ValidateEncoderParameters", 3366, *(a1 + 12028), 8);
-            v103 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v90, 16, v91, "AVE_ValidateEncoderParameters", 3366, *(a1 + 12028), 8);
+            v90 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(6);
           }
 
-          v496 = *(a1 + 12028);
-          syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v103);
+          syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v90);
         }
 
-        v114 = 8;
-LABEL_185:
-        *(a1 + 24264) = v114;
-        *(a1 + 12028) = v114;
-        goto LABEL_186;
+        v98 = 8;
+LABEL_182:
+        *(a1 + 24264) = v98;
+        *(a1 + 12028) = v98;
+        goto LABEL_183;
       }
     }
 
@@ -9976,93 +9594,82 @@ LABEL_185:
     {
       if (AVE_Log_CheckLevel(0x10u, 6))
       {
-        v110 = AVE_Log_CheckConsole(0x10u);
-        v553 = AVE_GetCurrTime();
-        v111 = AVE_Log_GetLevelStr(6);
-        v112 = *(a1 + 12028);
-        if (v98 == 10)
+        v95 = AVE_Log_CheckConsole(0x10u);
+        v464 = AVE_GetCurrTime();
+        v96 = AVE_Log_GetLevelStr(6);
+        if (v85 == 10)
         {
-          v113 = 7;
+          v97 = 7;
         }
 
         else
         {
-          v113 = 6;
+          v97 = 6;
         }
 
-        if (v110)
+        if (v95)
         {
-          printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v553, 16, v111, "AVE_ValidateEncoderParameters", 3383, *(a1 + 12028), v113);
-          v553 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v464, 16, v96, "AVE_ValidateEncoderParameters", 3383, *(a1 + 12028), v97);
+          v464 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(6);
         }
 
-        v498 = *(a1 + 12028);
-        syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v553);
+        syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v464);
       }
 
-      if (v98 == 10)
+      if (v85 == 10)
       {
-        v115 = 7;
+        v99 = 7;
       }
 
       else
       {
-        v115 = 6;
+        v99 = 6;
       }
 
-      *(a1 + 24264) = v115;
-      *(a1 + 12028) = v115;
+      *(a1 + 24264) = v99;
+      *(a1 + 12028) = v99;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 6))
     {
-      v116 = AVE_Log_CheckConsole(0x10u);
-      v117 = AVE_GetCurrTime();
-      v118 = AVE_Log_GetLevelStr(6);
-      v119 = *(a1 + 24688);
-      if (v116)
+      v100 = AVE_Log_CheckConsole(0x10u);
+      v101 = AVE_GetCurrTime();
+      v102 = AVE_Log_GetLevelStr(6);
+      if (v100)
       {
-        printf("%lld %d AVE %s: %s:%d chroma format idc %d profile %d\n", v117, 16, v118, "AVE_ValidateEncoderParameters", 3391, *(a1 + 24688), *(a1 + 12028));
-        v117 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d chroma format idc %d profile %d\n", v101, 16, v102, "AVE_ValidateEncoderParameters", 3391, *(a1 + 24688), *(a1 + 12028));
+        v101 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(6);
-        v500 = *(a1 + 24688);
-        v510 = *(a1 + 12028);
       }
 
-      else
-      {
-        v501 = *(a1 + 24688);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d chroma format idc %d profile %d", v117);
+      syslog(3, "%lld %d AVE %s: %s:%d chroma format idc %d profile %d", v101);
     }
   }
 
-LABEL_186:
+LABEL_183:
   if (*(a1 + 1308) >= 2)
   {
-    v120 = *(a1 + 10892);
-    if (v120 == 20 || v120 == 10000 || v120 == 37)
+    v103 = *(a1 + 10892);
+    if (v103 == 20 || v103 == 10000 || v103 == 37)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v121 = AVE_Log_CheckConsole(0x10u);
-        v122 = AVE_GetCurrTime();
-        v123 = AVE_Log_GetLevelStr(5);
-        v124 = *(a1 + 10892);
-        v125 = *(a1 + 1308);
-        if (v121)
+        v104 = AVE_Log_CheckConsole(0x10u);
+        v105 = AVE_GetCurrTime();
+        v106 = AVE_Log_GetLevelStr(5);
+        v107 = *(a1 + 1308);
+        if (v104)
         {
-          printf("%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1\n", v122, 16, v123, *(a1 + 10892), v125);
-          v126 = AVE_GetCurrTime();
-          v127 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v126, 16, v127, *(a1 + 10892), *(a1 + 1308));
+          printf("%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1\n", v105, 16, v106, *(a1 + 10892), v107);
+          v108 = AVE_GetCurrTime();
+          v109 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v108, 16, v109, *(a1 + 10892), *(a1 + 1308));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v122, 16, v123, *(a1 + 10892), v125);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v105, 16, v106, *(a1 + 10892), v107);
         }
       }
 
@@ -10077,26 +9684,26 @@ LABEL_186:
 
   if (*(a1 + 39959) == 1)
   {
-    v128 = *(a1 + 10892);
-    if (v128 <= 0x25 && ((1 << v128) & 0x2000100002) != 0 || v128 == 10000)
+    v110 = *(a1 + 10892);
+    if (v110 <= 0x25 && ((1 << v110) & 0x2000100002) != 0 || v110 == 10000)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v129 = AVE_Log_CheckConsole(0x10u);
-        v130 = AVE_GetCurrTime();
-        v131 = AVE_Log_GetLevelStr(5);
-        v132 = *(a1 + 10892);
-        if (v129)
+        v111 = AVE_Log_CheckConsole(0x10u);
+        v112 = AVE_GetCurrTime();
+        v113 = AVE_Log_GetLevelStr(5);
+        v114 = *(a1 + 10892);
+        if (v111)
         {
-          printf("%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.\n", v130, 16, v131, v132);
-          v133 = AVE_GetCurrTime();
-          v469 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v133, 16, v469, *(a1 + 10892));
+          printf("%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.\n", v112, 16, v113, v114);
+          v115 = AVE_GetCurrTime();
+          v435 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v115, 16, v435, *(a1 + 10892));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v130, 16, v131, v132);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v112, 16, v113, v114);
         }
       }
 
@@ -10107,21 +9714,21 @@ LABEL_186:
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v134 = AVE_Log_CheckConsole(0x10u);
-        v135 = AVE_GetCurrTime();
-        v136 = AVE_Log_GetLevelStr(5);
-        v137 = *(a1 + 1132);
-        if (v134)
+        v116 = AVE_Log_CheckConsole(0x10u);
+        v117 = AVE_GetCurrTime();
+        v118 = AVE_Log_GetLevelStr(5);
+        v119 = *(a1 + 1132);
+        if (v116)
         {
-          printf("%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.\n", v135, 16, v136, v137);
-          v138 = AVE_GetCurrTime();
-          v470 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v138, 16, v470, *(a1 + 1132));
+          printf("%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.\n", v117, 16, v118, v119);
+          v120 = AVE_GetCurrTime();
+          v436 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v120, 16, v436, *(a1 + 1132));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v135, 16, v136, v137);
+          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v117, 16, v118, v119);
         }
       }
 
@@ -10132,21 +9739,21 @@ LABEL_186:
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v139 = AVE_Log_CheckConsole(0x10u);
-        v140 = AVE_GetCurrTime();
-        v141 = AVE_Log_GetLevelStr(5);
-        v142 = *(a1 + 1336);
-        if (v139)
+        v121 = AVE_Log_CheckConsole(0x10u);
+        v122 = AVE_GetCurrTime();
+        v123 = AVE_Log_GetLevelStr(5);
+        v124 = *(a1 + 1336);
+        if (v121)
         {
-          printf("%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)\n", v140, 16, v141, "AVE_ValidateEncoderParameters", 3453, v142);
-          v143 = AVE_GetCurrTime();
-          v144 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v143, 16, v144, "AVE_ValidateEncoderParameters", 3453, *(a1 + 1336));
+          printf("%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)\n", v122, 16, v123, "AVE_ValidateEncoderParameters", 3453, v124);
+          v125 = AVE_GetCurrTime();
+          v126 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v125, 16, v126, "AVE_ValidateEncoderParameters", 3453, *(a1 + 1336));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v140, 16, v141, "AVE_ValidateEncoderParameters", 3453, v142);
+          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v122, 16, v123, "AVE_ValidateEncoderParameters", 3453, v124);
         }
       }
 
@@ -10158,53 +9765,53 @@ LABEL_186:
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v145 = AVE_Log_CheckConsole(0x10u);
-        v146 = AVE_GetCurrTime();
-        v147 = AVE_Log_GetLevelStr(5);
-        v148 = *(a1 + 1352);
-        if (v145)
+        v127 = AVE_Log_CheckConsole(0x10u);
+        v128 = AVE_GetCurrTime();
+        v129 = AVE_Log_GetLevelStr(5);
+        v130 = *(a1 + 1352);
+        if (v127)
         {
-          printf("%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0\n", v146, 16, v147, v148);
-          v149 = AVE_GetCurrTime();
-          v471 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v149, 16, v471, *(a1 + 1352));
+          printf("%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0\n", v128, 16, v129, v130);
+          v131 = AVE_GetCurrTime();
+          v437 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v131, 16, v437, *(a1 + 1352));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v146, 16, v147, v148);
+          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v128, 16, v129, v130);
         }
       }
 
       *(a1 + 1352) = 0;
     }
 
-    v150 = -6 * *(a1 + 24732);
-    *(a1 + 1348) = v150;
-    *(a1 + 1344) = v150;
-    *(a1 + 1152) = v150;
-    *(a1 + 1148) = v150;
-    *(a1 + 1144) = v150;
+    v132 = -6 * *(a1 + 24732);
+    *(a1 + 1348) = v132;
+    *(a1 + 1344) = v132;
+    *(a1 + 1152) = v132;
+    *(a1 + 1148) = v132;
+    *(a1 + 1144) = v132;
     *(a1 + 1232) = *(a1 + 1344);
     if (*(a1 + 1464))
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v151 = AVE_Log_CheckConsole(0x10u);
-        v152 = AVE_GetCurrTime();
-        v153 = AVE_Log_GetLevelStr(5);
-        v154 = *(a1 + 1464);
-        if (v151)
+        v133 = AVE_Log_CheckConsole(0x10u);
+        v134 = AVE_GetCurrTime();
+        v135 = AVE_Log_GetLevelStr(5);
+        v136 = *(a1 + 1464);
+        if (v133)
         {
-          printf("%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.\n", v152, 16, v153, v154);
-          v155 = AVE_GetCurrTime();
-          v472 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v155, 16, v472, *(a1 + 1464));
+          printf("%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.\n", v134, 16, v135, v136);
+          v137 = AVE_GetCurrTime();
+          v438 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v137, 16, v438, *(a1 + 1464));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v152, 16, v153, v154);
+          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v134, 16, v135, v136);
         }
       }
 
@@ -10215,21 +9822,21 @@ LABEL_186:
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v156 = AVE_Log_CheckConsole(0x10u);
-        v157 = AVE_GetCurrTime();
-        v158 = AVE_Log_GetLevelStr(5);
-        v159 = *(a1 + 1336);
-        if (v156)
+        v138 = AVE_Log_CheckConsole(0x10u);
+        v139 = AVE_GetCurrTime();
+        v140 = AVE_Log_GetLevelStr(5);
+        v141 = *(a1 + 1336);
+        if (v138)
         {
-          printf("%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.\n", v157, 16, v158, v159);
-          v160 = AVE_GetCurrTime();
-          v473 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v160, 16, v473, *(a1 + 1336));
+          printf("%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.\n", v139, 16, v140, v141);
+          v142 = AVE_GetCurrTime();
+          v439 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v142, 16, v439, *(a1 + 1336));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v157, 16, v158, v159);
+          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v139, 16, v140, v141);
         }
       }
 
@@ -10238,50 +9845,50 @@ LABEL_186:
 
     *(a1 + 42028) = 1;
     *(a1 + 60062) = 1;
-    *v65 = 0;
-    *v64 = 0;
+    *v55 = 0;
+    *v54 = 0;
   }
 
   if (*(a1 + 1256))
   {
-    v161 = *(a1 + 11460);
+    v143 = *(a1 + 11460);
     if (*(v2 + 1836) <= 0)
     {
-      if (v161 < 1)
+      if (v143 < 1)
       {
-        goto LABEL_248;
+        goto LABEL_245;
       }
     }
 
-    else if (v161 < 1 || v161 < *(a1 + 1112))
+    else if (v143 < 1 || v143 < *(a1 + 1112))
     {
-      goto LABEL_248;
+      goto LABEL_245;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v162 = AVE_Log_CheckConsole(0x10u);
-      v163 = AVE_GetCurrTime();
-      v164 = AVE_Log_GetLevelStr(5);
-      v165 = *(a1 + 1256);
-      if (v162)
+      v144 = AVE_Log_CheckConsole(0x10u);
+      v145 = AVE_GetCurrTime();
+      v146 = AVE_Log_GetLevelStr(5);
+      v147 = *(a1 + 1256);
+      if (v144)
       {
-        printf("%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.\n", v163, 16, v164, "AVE_ValidateEncoderParameters", 3513, v165);
-        v166 = AVE_GetCurrTime();
-        v167 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v166, 16, v167, "AVE_ValidateEncoderParameters", 3513, *(a1 + 1256));
+        printf("%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.\n", v145, 16, v146, "AVE_ValidateEncoderParameters", 3513, v147);
+        v148 = AVE_GetCurrTime();
+        v149 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v148, 16, v149, "AVE_ValidateEncoderParameters", 3513, *(a1 + 1256));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v163, 16, v164, "AVE_ValidateEncoderParameters", 3513, v165);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v145, 16, v146, "AVE_ValidateEncoderParameters", 3513, v147);
       }
     }
 
     *(a1 + 11460) = 0;
   }
 
-LABEL_248:
+LABEL_245:
   if (!*(a1 + 1336))
   {
     *(a1 + 39886) = 0;
@@ -10296,15 +9903,15 @@ LABEL_248:
   {
     if (*(a1 + 1132) == 20)
     {
-      v168 = 51;
+      v150 = 51;
     }
 
     else
     {
-      v168 = 48;
+      v150 = 48;
     }
 
-    *(a1 + 1236) = v168;
+    *(a1 + 1236) = v150;
   }
 
   if (*(a1 + 1344) <= -13)
@@ -10312,143 +9919,129 @@ LABEL_248:
     *(a1 + 1344) = -6 * *(a1 + 24732);
   }
 
-  v169 = (a1 + 1344);
+  v151 = (a1 + 1344);
   if (*(a1 + 1348) <= -13)
   {
     if (*(a1 + 1132) == 20)
     {
-      v170 = 51;
+      v152 = 51;
     }
 
     else
     {
-      v170 = 48;
+      v152 = 48;
     }
 
-    *(a1 + 1348) = v170;
+    *(a1 + 1348) = v152;
   }
 
   if (AVE_CheckQPRange((a1 + 1344), *(a1 + 24732) + 8))
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v171 = AVE_Log_CheckConsole(3u);
-      v172 = AVE_GetCurrTime();
-      v173 = AVE_Log_GetLevelStr(4);
-      v174 = *(a1 + 1344);
-      if (v171)
+      v153 = AVE_Log_CheckConsole(3u);
+      v154 = AVE_GetCurrTime();
+      v155 = AVE_Log_GetLevelStr(4);
+      if (v153)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]\n", v172, 3, v173, "AVE_ValidateEncoderParameters", 3553, "false", *(a1 + 1344), *(a1 + 1348));
-        v172 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]\n", v154, 3, v155, "AVE_ValidateEncoderParameters", 3553, "false", *(a1 + 1344), *(a1 + 1348));
+        v154 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v511 = *(a1 + 1344);
-      v532 = *(a1 + 1348);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]", v172);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]", v154);
     }
 
     return 4294966295;
   }
 
-  v175 = (a1 + 1232);
+  v156 = (a1 + 1232);
   if (AVE_CheckQPRange((a1 + 1232), *(a1 + 24732) + 8))
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v176 = AVE_Log_CheckConsole(3u);
-      v177 = AVE_GetCurrTime();
-      v178 = AVE_Log_GetLevelStr(4);
-      v179 = *(a1 + 1232);
-      if (v176)
+      v157 = AVE_Log_CheckConsole(3u);
+      v158 = AVE_GetCurrTime();
+      v159 = AVE_Log_GetLevelStr(4);
+      if (v157)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]\n", v177, 3, v178, "AVE_ValidateEncoderParameters", 3561, "false", *(a1 + 1232), *(a1 + 1236));
-        v177 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]\n", v158, 3, v159, "AVE_ValidateEncoderParameters", 3561, "false", *(a1 + 1232), *(a1 + 1236));
+        v158 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v512 = *(a1 + 1232);
-      v533 = *(a1 + 1236);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]", v177);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]", v158);
     }
 
     return 4294966295;
   }
 
-  if (*v175 < *v169)
+  if (*v156 < *v151)
   {
-    *v175 = *v169;
+    *v156 = *v151;
   }
 
-  v180 = *(a1 + 1348);
-  if (*(a1 + 1236) > v180)
+  v160 = *(a1 + 1348);
+  if (*(a1 + 1236) > v160)
   {
-    *(a1 + 1236) = v180;
+    *(a1 + 1236) = v160;
   }
 
-  v181 = *(a1 + 1132);
+  v161 = *(a1 + 1132);
   if (*(a1 + 10764) == 1)
   {
-    if (v181 != 20)
+    if (v161 != 20)
     {
-      goto LABEL_297;
+      goto LABEL_294;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v182 = AVE_Log_CheckConsole(0x10u);
-      v183 = AVE_GetCurrTime();
-      v184 = AVE_Log_GetLevelStr(5);
-      v185 = *(a1 + 1132);
-      if (v182)
+      v162 = AVE_Log_CheckConsole(0x10u);
+      v163 = AVE_GetCurrTime();
+      v164 = AVE_Log_GetLevelStr(5);
+      v165 = *(a1 + 1132);
+      if (v162)
       {
-        printf("%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false\n", v183, 16, v184, v185);
-        v186 = AVE_GetCurrTime();
-        v474 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v186, 16, v474, *(a1 + 1132));
+        printf("%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false\n", v163, 16, v164, v165);
+        v166 = AVE_GetCurrTime();
+        v440 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v166, 16, v440, *(a1 + 1132));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v183, 16, v184, v185);
+        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v163, 16, v164, v165);
       }
     }
 
-    v191 = 0;
-    goto LABEL_296;
+    v170 = 0;
+    goto LABEL_293;
   }
 
-  if (v181 != 20 && *(a1 + 1256))
+  if (v161 != 20 && *(a1 + 1256))
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v187 = AVE_Log_CheckConsole(0x10u);
-      v188 = AVE_GetCurrTime();
-      v189 = AVE_Log_GetLevelStr(5);
-      v190 = *(a1 + 1132);
-      if (v187)
+      v167 = AVE_Log_CheckConsole(0x10u);
+      v168 = AVE_GetCurrTime();
+      v169 = AVE_Log_GetLevelStr(5);
+      if (v167)
       {
-        printf("%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true\n", v188, 16, v189, "AVE_ValidateEncoderParameters", 3599, *(a1 + 1132), *(a1 + 1256));
-        v188 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true\n", v168, 16, v169, "AVE_ValidateEncoderParameters", 3599, *(a1 + 1132), *(a1 + 1256));
+        v168 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(5);
-        v502 = *(a1 + 1132);
-        v513 = *(a1 + 1256);
       }
 
-      else
-      {
-        v503 = *(a1 + 1132);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true", v188);
+      syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true", v168);
     }
 
-    v191 = 1;
-LABEL_296:
-    *(a1 + 10764) = v191;
+    v170 = 1;
+LABEL_293:
+    *(a1 + 10764) = v170;
   }
 
-LABEL_297:
+LABEL_294:
   if (*(v2 + 28))
   {
     *(a1 + 10540) = 1;
@@ -10458,194 +10051,193 @@ LABEL_297:
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v192 = AVE_Log_CheckConsole(0x10u);
-      v193 = AVE_GetCurrTime();
-      v194 = AVE_Log_GetLevelStr(5);
-      v195 = *(a1 + 1256);
-      if (v192)
+      v171 = AVE_Log_CheckConsole(0x10u);
+      v172 = AVE_GetCurrTime();
+      v173 = AVE_Log_GetLevelStr(5);
+      v174 = *(a1 + 1256);
+      if (v171)
       {
-        printf("%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case\n", v193, 16, v194, "AVE_ValidateEncoderParameters", 3627, v195);
-        v196 = AVE_GetCurrTime();
-        v197 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v196, 16, v197, "AVE_ValidateEncoderParameters", 3627, *(a1 + 1256));
+        printf("%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case\n", v172, 16, v173, "AVE_ValidateEncoderParameters", 3627, v174);
+        v175 = AVE_GetCurrTime();
+        v176 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v175, 16, v176, "AVE_ValidateEncoderParameters", 3627, *(a1 + 1256));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v193, 16, v194, "AVE_ValidateEncoderParameters", 3627, v195);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v172, 16, v173, "AVE_ValidateEncoderParameters", 3627, v174);
       }
     }
 
     *(a1 + 1476) = 0;
   }
 
-  v198 = *(a1 + 10192);
-  if (v198 == 8)
+  v177 = *(a1 + 10192);
+  if (v177 == 8)
   {
-    v199 = *(a1 + 1088);
+    v178 = *(a1 + 1088);
   }
 
   else
   {
-    if (v198 != 10)
+    if (v177 != 10)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v202 = AVE_Log_CheckConsole(3u);
-        v203 = AVE_GetCurrTime();
-        v204 = AVE_Log_GetLevelStr(4);
-        if (v202)
+        v181 = AVE_Log_CheckConsole(3u);
+        v182 = AVE_GetCurrTime();
+        v183 = AVE_Log_GetLevelStr(4);
+        if (v181)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail\n", v203, 3, v204, "AVE_ValidateEncoderParameters", 3642, "(pINS->VideoParams.input_bitdepth == 8) || (pINS->VideoParams.input_bitdepth == 10)", *(a1 + 10192));
-          v203 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail\n", v182, 3, v183, "AVE_ValidateEncoderParameters", 3642, "(pINS->VideoParams.input_bitdepth == 8) || (pINS->VideoParams.input_bitdepth == 10)", *(a1 + 10192));
+          v182 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
 
-        v514 = *(a1 + 10192);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail", v203);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail", v182);
       }
 
       return 4294966295;
     }
 
-    v199 = *(a1 + 1088);
+    v178 = *(a1 + 1088);
     if (*(a1 + 10853) != 1)
     {
-      v200 = v199 & 0xFFFFFFFFFFFFFFFELL;
-      goto LABEL_312;
+      v179 = v178 & 0xFFFFFFFFFFFFFFFELL;
+      goto LABEL_309;
     }
   }
 
-  v200 = v199 | 1;
-LABEL_312:
-  *(a1 + 1088) = v200;
-  if (AVE_DevCap_FindSearchRangeMode(*(a1 + 68), 1, 2, *v43))
+  v179 = v178 | 1;
+LABEL_309:
+  *(a1 + 1088) = v179;
+  if (AVE_DevCap_FindSearchRangeMode(*(a1 + 68), 1, 2, *v34))
   {
-    v201 = *(a1 + 76);
+    v180 = *(a1 + 76);
   }
 
   else
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v205 = AVE_Log_CheckConsole(0x10u);
-      v206 = AVE_GetCurrTime();
-      v207 = AVE_Log_GetLevelStr(5);
-      v208 = *v43;
-      if (v205)
+      v184 = AVE_Log_CheckConsole(0x10u);
+      v185 = AVE_GetCurrTime();
+      v186 = AVE_Log_GetLevelStr(5);
+      v187 = *v34;
+      if (v184)
       {
-        printf("%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0\n", v206, 16, v207, v208);
-        v209 = AVE_GetCurrTime();
-        v475 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v209, 16, v475, *v43);
+        printf("%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0\n", v185, 16, v186, v187);
+        v188 = AVE_GetCurrTime();
+        v441 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v188, 16, v441, *v34);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v206, 16, v207, v208);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v185, 16, v186, v187);
       }
     }
 
-    v201 = *(a1 + 76);
-    if (v201 <= 29)
+    v180 = *(a1 + 76);
+    if (v180 <= 29)
     {
-      v210 = 0;
+      v189 = 0;
     }
 
     else
     {
-      v210 = 3;
+      v189 = 3;
     }
 
-    *v43 = v210;
+    *v34 = v189;
   }
 
-  if (v201 <= 8 && (*v43 & 0xFFFE) == 4 && (*(a1 + 1308) > 1 || *(a1 + 10556) >= 2u))
+  if (v180 <= 8 && (*v34 & 0xFFFE) == 4 && (*(a1 + 1308) > 1 || *(a1 + 10556) >= 2u))
   {
-    *v43 = 0;
+    *v34 = 0;
   }
 
   if ((*(a1 + 1444) * *(a1 + 1440)) >= 0x7E9000 && *(a1 + 1112) >= 100 && (*(v3 + 255) & 0x80000000) != 0 && (*(v2 + 1916) & 0x80000000) != 0)
   {
-    if (v201 <= 29)
+    if (v180 <= 29)
     {
-      v227 = 0;
+      v206 = 0;
     }
 
     else
     {
-      v227 = 3;
+      v206 = 3;
     }
 
-    *v43 = v227;
-LABEL_337:
+    *v34 = v206;
+LABEL_334:
     if (*(a1 + 64) != 2 && !*(a1 + 10531))
     {
-      goto LABEL_345;
+      goto LABEL_342;
     }
 
-    goto LABEL_339;
+    goto LABEL_336;
   }
 
-  if (*v43 != 7)
+  if (*v34 != 7)
   {
-    goto LABEL_337;
+    goto LABEL_334;
   }
 
-LABEL_339:
+LABEL_336:
   if ((*(a1 + 10172) & 1) == 0)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v211 = AVE_Log_CheckConsole(0x10u);
-      v212 = AVE_GetCurrTime();
-      v213 = AVE_Log_GetLevelStr(5);
-      if (v211)
+      v190 = AVE_Log_CheckConsole(0x10u);
+      v191 = AVE_GetCurrTime();
+      v192 = AVE_Log_GetLevelStr(5);
+      if (v190)
       {
-        printf("%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.\n", v212, 16, v213);
-        v214 = AVE_GetCurrTime();
-        v476 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v214, 16, v476);
+        printf("%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.\n", v191, 16, v192);
+        v193 = AVE_GetCurrTime();
+        v442 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v193, 16, v442);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v212, 16, v213);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v191, 16, v192);
       }
     }
 
     *(a1 + 10172) = 1;
   }
 
-LABEL_345:
+LABEL_342:
   if (*(a1 + 10857) == 1)
   {
     if ((*(a1 + 1339) & 4) != 0)
     {
-      v215 = -6 * *(a1 + 24732);
-      v216 = *(a1 + 1144) + 4;
-      if (v216 <= v215)
+      v194 = -6 * *(a1 + 24732);
+      v195 = *(a1 + 1144) + 4;
+      if (v195 <= v194)
       {
-        v216 = -6 * *(a1 + 24732);
+        v195 = -6 * *(a1 + 24732);
       }
 
-      if (v216 >= 51)
+      if (v195 >= 51)
       {
-        v216 = 51;
+        v195 = 51;
       }
 
-      *(a1 + 1148) = v216;
-      if (v215 <= 51)
+      *(a1 + 1148) = v195;
+      if (v194 <= 51)
       {
-        v215 = v216 + 1;
+        v194 = v195 + 1;
       }
 
-      if (v215 >= 51)
+      if (v194 >= 51)
       {
-        v215 = 51;
+        v194 = 51;
       }
 
-      *(a1 + 1152) = v215;
+      *(a1 + 1152) = v194;
       *(a1 + 1132) = 3;
     }
 
@@ -10681,19 +10273,19 @@ LABEL_345:
     *(a1 + 1464) = 0;
     if (*(a1 + 10752) == 2)
     {
-      v217 = *(a1 + 1336) & 0xFFFF7F8F;
-      v218 = *(a1 + 1352) & 0x1E;
+      v196 = *(a1 + 1336) & 0xFFFF7F8F;
+      v197 = *(a1 + 1352) & 0x1E;
     }
 
     else
     {
-      v218 = 0;
-      v217 = 0;
+      v197 = 0;
+      v196 = 0;
       *(a1 + 39886) = 0;
     }
 
-    *(a1 + 1336) = v217;
-    *(a1 + 1352) = v218;
+    *(a1 + 1336) = v196;
+    *(a1 + 1352) = v197;
   }
 
   if ((*(a1 + 1123) & 0x80) != 0)
@@ -10706,372 +10298,358 @@ LABEL_345:
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v219 = AVE_Log_CheckConsole(0x10u);
-      v220 = AVE_GetCurrTime();
-      v221 = AVE_Log_GetLevelStr(5);
-      v222 = *(a1 + 1336);
-      if (v219)
+      v198 = AVE_Log_CheckConsole(0x10u);
+      v199 = AVE_GetCurrTime();
+      v200 = AVE_Log_GetLevelStr(5);
+      v201 = *(a1 + 1336);
+      if (v198)
       {
-        printf("%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.\n", v220, 16, v221, "AVE_ValidateEncoderParameters", 3818, v222);
-        v223 = AVE_GetCurrTime();
-        v224 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v223, 16, v224, "AVE_ValidateEncoderParameters", 3818, *(a1 + 1336));
+        printf("%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.\n", v199, 16, v200, "AVE_ValidateEncoderParameters", 3818, v201);
+        v202 = AVE_GetCurrTime();
+        v203 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v202, 16, v203, "AVE_ValidateEncoderParameters", 3818, *(a1 + 1336));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v220, 16, v221, "AVE_ValidateEncoderParameters", 3818, v222);
+        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v199, 16, v200, "AVE_ValidateEncoderParameters", 3818, v201);
       }
     }
 
     *(a1 + 39886) = 1;
   }
 
-  v556 = a1 + 24248;
+  v467 = a1 + 24248;
   if (*(a1 + 10192) == 10 && *(a1 + 10752) != 2)
   {
-    v225 = *(a1 + 31368);
-    if (v225 == 16)
+    v204 = *(a1 + 31368);
+    if (v204 == 16)
     {
       if (*(a1 + 24688) == 1 && (*(a1 + 39924) = 0x500000005, (*(a1 + 1123) & 0x80) != 0))
       {
-        LOBYTE(v226) = 0;
+        LOBYTE(v205) = 0;
         *(a1 + 1336) |= 0x8000000u;
       }
 
       else
       {
-        LOBYTE(v226) = 0;
+        LOBYTE(v205) = 0;
       }
     }
 
-    else if (v225 == 18 && (v226 = *(a1 + 24688), v226 == 1))
+    else if (v204 == 18 && (v205 = *(a1 + 24688), v205 == 1))
     {
       *(a1 + 39924) = 0xB0000000BLL;
     }
 
     else
     {
-      LOBYTE(v226) = 1;
+      LOBYTE(v205) = 1;
     }
 
-    v228 = *(a1 + 76);
-    if (v228 >= 23)
+    v207 = *(a1 + 76);
+    if (v207 >= 23)
     {
-      v229 = *(a1 + 24688);
-      if (v229 != 1)
+      v208 = *(a1 + 24688);
+      if (v208 != 1)
       {
-        LOBYTE(v226) = 1;
+        LOBYTE(v205) = 1;
       }
 
-      if ((v226 & 1) == 0 && (*(a1 + 1123) & 0x80) != 0)
+      if ((v205 & 1) == 0 && (*(a1 + 1123) & 0x80) != 0)
       {
         *(a1 + 39956) = 1;
       }
 
-      v43 = (a1 + 10168);
-      v64 = a1 + 59393;
-      if (v228 >= 0x1E && v229 == 1 && (v225 | 2) == 0x12)
+      v34 = (a1 + 10168);
+      v54 = a1 + 59393;
+      if (v207 >= 0x1E && v208 == 1 && (v204 | 2) == 0x12)
       {
         *(a1 + 39956) = 1;
       }
     }
   }
 
-  v230 = *(a1 + 1336);
-  if ((v230 & 0x40) != 0)
+  v209 = *(a1 + 1336);
+  if ((v209 & 0x40) != 0)
   {
-    v231 = *(a1 + 1440) + 15;
-    v232 = *(a1 + 1444) + 15;
-    v233 = v232 >> 4;
-    v234 = (v231 >> 4) + 31;
-    v235 = v234 & 0x1FFFFFE0;
-    if (v231 > 0x78F || v232 >= 0x450)
+    v210 = *(a1 + 1440) + 15;
+    v211 = *(a1 + 1444) + 15;
+    v212 = v211 >> 4;
+    v213 = (v210 >> 4) + 31;
+    v214 = v213 & 0x1FFFFFE0;
+    if (v210 > 0x78F || v211 >= 0x450)
     {
-      v236 = (((((v231 >> 4) + 1) >> 1) + 31) >> 5) * ((v233 + 1) >> 1);
+      v215 = (((((v210 >> 4) + 1) >> 1) + 31) >> 5) * ((v212 + 1) >> 1);
     }
 
     else
     {
-      v236 = (v234 >> 5) * v233;
+      v215 = (v213 >> 5) * v212;
     }
 
-    if (v235 > 0x100 || v232 > 0xC0F || v236 >= 0x121)
+    if (v214 > 0x100 || v211 > 0xC0F || v215 >= 0x121)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v237 = AVE_Log_CheckConsole(0x10u);
-        v554 = AVE_GetCurrTime();
-        v238 = AVE_Log_GetLevelStr(5);
-        if (v237)
+        v216 = AVE_Log_CheckConsole(0x10u);
+        v465 = AVE_GetCurrTime();
+        v217 = AVE_Log_GetLevelStr(5);
+        if (v216)
         {
-          printf("%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d\n", v554, 16, v238, v235, 256, v233, 192);
-          v239 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d\n", v465, 16, v217, v214, 256, v212, 192);
+          v218 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v239);
+          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v218);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v554);
+          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v465);
         }
       }
 
-      v230 = *(a1 + 1336) & 0xFFFFFFBF;
-      *(a1 + 1336) = v230;
+      v209 = *(a1 + 1336) & 0xFFFFFFBF;
+      *(a1 + 1336) = v209;
     }
   }
 
-  v240 = a1 + 24248;
+  v219 = a1 + 24248;
   if (*(a1 + 11792) >= 0x1Fu)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v241 = AVE_Log_CheckConsole(0x10u);
-      v242 = AVE_GetCurrTime();
-      v243 = AVE_Log_GetLevelStr(5);
-      if (v241)
+      v220 = AVE_Log_CheckConsole(0x10u);
+      v221 = AVE_GetCurrTime();
+      v222 = AVE_Log_GetLevelStr(5);
+      if (v220)
       {
-        printf("%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM\n", v242, 16, v243, 30);
-        v244 = AVE_GetCurrTime();
-        v477 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v244, 16, v477, 30);
+        printf("%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM\n", v221, 16, v222, 30);
+        v223 = AVE_GetCurrTime();
+        v443 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v223, 16, v443, 30);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v242, 16, v243, 30);
+        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v221, 16, v222, 30);
       }
     }
 
     *(a1 + 11792) = 30;
-    v230 = *(a1 + 1336);
+    v209 = *(a1 + 1336);
   }
 
-  if ((v230 & 0x10) != 0)
+  if ((v209 & 0x10) != 0)
   {
-    v245 = *(a1 + 1132);
-    if (v245 <= 0x14 && ((1 << v245) & 0x100009) != 0)
+    v224 = *(a1 + 1132);
+    if (v224 <= 0x14 && ((1 << v224) & 0x100009) != 0)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v246 = AVE_Log_CheckConsole(0x10u);
-        v247 = AVE_GetCurrTime();
-        v248 = AVE_Log_GetLevelStr(5);
-        v249 = *(a1 + 1132);
-        if (v246)
+        v225 = AVE_Log_CheckConsole(0x10u);
+        v226 = AVE_GetCurrTime();
+        v227 = AVE_Log_GetLevelStr(5);
+        if (v225)
         {
-          printf("%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false\n", v247, 16, v248, "AVE_ValidateEncoderParameters", 3932, *(a1 + 1132), *(a1 + 1336));
-          v247 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false\n", v226, 16, v227, "AVE_ValidateEncoderParameters", 3932, *(a1 + 1132), *(a1 + 1336));
+          v226 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(5);
-          v504 = *(a1 + 1132);
-          v515 = *(a1 + 1336);
         }
 
-        else
-        {
-          v505 = *(a1 + 1132);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false", v247);
+        syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false", v226);
       }
 
-      v230 = *(a1 + 1336) & 0xFFFFFFEF;
-      *(a1 + 1336) = v230;
-      v245 = *(a1 + 1132);
+      v209 = *(a1 + 1336) & 0xFFFFFFEF;
+      *(a1 + 1336) = v209;
+      v224 = *(a1 + 1132);
     }
 
-    if (v245 == 100)
+    if (v224 == 100)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v250 = AVE_Log_CheckConsole(3u);
-        v251 = AVE_GetCurrTime();
-        v252 = AVE_Log_GetLevelStr(4);
-        v253 = *(a1 + 1132);
-        if (v250)
+        v228 = AVE_Log_CheckConsole(3u);
+        v229 = AVE_GetCurrTime();
+        v230 = AVE_Log_GetLevelStr(4);
+        if (v228)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.\n", v251, 3, v252, "AVE_ValidateEncoderParameters", 3939, "pINS->sSessionCfg.sEnc.sAlgCfg.sRC.eRCMode != AVE_RCMode_HwVal", "AVE_ValidateEncoderParameters", 3939, *(a1 + 1132), *(a1 + 1336));
-          v251 = AVE_GetCurrTime();
-          v252 = AVE_Log_GetLevelStr(4);
+          printf("%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.\n", v229, 3, v230, "AVE_ValidateEncoderParameters", 3939, "pINS->sSessionCfg.sEnc.sAlgCfg.sRC.eRCMode != AVE_RCMode_HwVal", "AVE_ValidateEncoderParameters", 3939, *(a1 + 1132), *(a1 + 1336));
+          v229 = AVE_GetCurrTime();
+          v230 = AVE_Log_GetLevelStr(4);
         }
 
-        v540 = *(a1 + 1132);
-        v546 = *(a1 + 1336);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.", v251, 3, v252);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.", v229, 3, v230);
       }
 
       return 4294966295;
     }
   }
 
-  if ((v230 & 0x8010) == 0x8000)
+  if ((v209 & 0x8010) == 0x8000)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v254 = AVE_Log_CheckConsole(0x10u);
-      v255 = AVE_GetCurrTime();
-      v256 = AVE_Log_GetLevelStr(5);
-      v257 = *(a1 + 1336) & 0x10;
-      if (v254)
+      v231 = AVE_Log_CheckConsole(0x10u);
+      v232 = AVE_GetCurrTime();
+      v233 = AVE_Log_GetLevelStr(5);
+      v234 = *(a1 + 1336) & 0x10;
+      if (v231)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false\n", v255, 16, v256, v257);
-        v258 = AVE_GetCurrTime();
-        v478 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v258, 16, v478, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false\n", v232, 16, v233, v234);
+        v235 = AVE_GetCurrTime();
+        v444 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v235, 16, v444, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v255, 16, v256, v257);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v232, 16, v233, v234);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFF7FFF;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFF7FFF;
+    *(a1 + 1336) = v209;
   }
 
-  if ((v230 & 0x30) == 0x20)
+  if ((v209 & 0x30) == 0x20)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v259 = AVE_Log_CheckConsole(0x10u);
-      v260 = AVE_GetCurrTime();
-      v261 = AVE_Log_GetLevelStr(5);
-      v262 = *(a1 + 1336) & 0x10;
-      if (v259)
+      v236 = AVE_Log_CheckConsole(0x10u);
+      v237 = AVE_GetCurrTime();
+      v238 = AVE_Log_GetLevelStr(5);
+      v239 = *(a1 + 1336) & 0x10;
+      if (v236)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false\n", v260, 16, v261, v262);
-        v263 = AVE_GetCurrTime();
-        v479 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v263, 16, v479, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false\n", v237, 16, v238, v239);
+        v240 = AVE_GetCurrTime();
+        v445 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v240, 16, v445, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v260, 16, v261, v262);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v237, 16, v238, v239);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFFFFDF;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFFFFDF;
+    *(a1 + 1336) = v209;
   }
 
-  if ((v230 & 4) != 0 && (v230 & 0x12) != 0x12)
+  if ((v209 & 4) != 0 && (v209 & 0x12) != 0x12)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v264 = AVE_Log_CheckConsole(0x10u);
-      v265 = AVE_GetCurrTime();
-      v266 = AVE_Log_GetLevelStr(5);
-      v267 = *(a1 + 1336) & 4;
-      v268 = *(a1 + 1336) & 0x10;
-      if (v264)
+      v241 = AVE_Log_CheckConsole(0x10u);
+      v242 = AVE_GetCurrTime();
+      v243 = AVE_Log_GetLevelStr(5);
+      v244 = *(a1 + 1336) & 4;
+      v245 = *(a1 + 1336) & 0x10;
+      if (v241)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.\n", v265, 16, v266, v267, *(a1 + 1336) & 2, v268);
-        v269 = AVE_GetCurrTime();
-        v270 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v269, 16, v270, *(a1 + 1336) & 4, *(a1 + 1336) & 2, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.\n", v242, 16, v243, v244, *(a1 + 1336) & 2, v245);
+        v246 = AVE_GetCurrTime();
+        v247 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v246, 16, v247, *(a1 + 1336) & 4, *(a1 + 1336) & 2, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v265, 16, v266, v267, *(a1 + 1336) & 2, v268);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v242, 16, v243, v244, *(a1 + 1336) & 2, v245);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFFFFFB;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFFFFFB;
+    *(a1 + 1336) = v209;
   }
 
   if ((*(a1 + 1123) & 0x80) != 0)
   {
-    v271 = *(a1 + 1240) | 0x30000;
-    v272 = v230 & 0xFFFFFFAF;
-    v273 = *(a1 + 1132);
-    if (v273 == 8 || v273 == 6)
+    v248 = *(a1 + 1240) | 0x30000;
+    v249 = v209 & 0xFFFFFFAF;
+    v250 = *(a1 + 1132);
+    if (v250 == 8 || v250 == 6)
     {
-      v272 |= 0x30u;
+      v249 |= 0x30u;
     }
 
-    *(a1 + 1336) = (v272 | *(v3 + 237)) & ~*(v3 + 238);
-    *(a1 + 1240) = (*(v3 + 218) | v271) & ~*(v3 + 219);
+    *(a1 + 1336) = (v249 | *(v3 + 237)) & ~*(v3 + 238);
+    *(a1 + 1240) = (*(v3 + 218) | v248) & ~*(v3 + 219);
     if (AVE_Log_CheckLevel(0x10u, 6))
     {
-      v274 = AVE_Log_CheckConsole(0x10u);
-      v275 = AVE_GetCurrTime();
-      v276 = AVE_Log_GetLevelStr(6);
-      if (v274)
+      v251 = AVE_Log_CheckConsole(0x10u);
+      v252 = AVE_GetCurrTime();
+      v253 = AVE_Log_GetLevelStr(6);
+      if (v251)
       {
-        printf("%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled\n", v275, 16, v276);
-        v277 = AVE_GetCurrTime();
-        v480 = AVE_Log_GetLevelStr(6);
-        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v277, 16, v480);
+        printf("%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled\n", v252, 16, v253);
+        v254 = AVE_GetCurrTime();
+        v446 = AVE_Log_GetLevelStr(6);
+        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v254, 16, v446);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v275, 16, v276);
+        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v252, 16, v253);
       }
     }
   }
 
-  v278 = *(a1 + 10244);
-  if (v278 >= 2)
+  v255 = *(a1 + 10244);
+  if (v255 >= 2)
   {
-    v279 = *(a1 + 1132);
-    if (v279 && v279 != 20 && (*(a1 + 24856) & 1) == 0)
+    v256 = *(a1 + 1132);
+    if (v256 && v256 != 20 && (*(a1 + 24856) & 1) == 0)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v280 = AVE_Log_CheckConsole(0x10u);
-        v281 = AVE_GetCurrTime();
-        v282 = AVE_Log_GetLevelStr(5);
-        v283 = *(a1 + 10244);
-        v284 = *(a1 + 1132);
-        if (v280)
+        v257 = AVE_Log_CheckConsole(0x10u);
+        v258 = AVE_GetCurrTime();
+        v259 = AVE_Log_GetLevelStr(5);
+        v260 = *(a1 + 1132);
+        if (v257)
         {
-          printf("%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1\n", v281, 16, v282, *(a1 + 10244), v284);
-          v285 = AVE_GetCurrTime();
-          v286 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v285, 16, v286, *(a1 + 10244), *(a1 + 1132));
+          printf("%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1\n", v258, 16, v259, *(a1 + 10244), v260);
+          v261 = AVE_GetCurrTime();
+          v262 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v261, 16, v262, *(a1 + 10244), *(a1 + 1132));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v281, 16, v282, *(a1 + 10244), v284);
+          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v258, 16, v259, *(a1 + 10244), v260);
         }
       }
 
-      v278 = 1;
+      v255 = 1;
       *(a1 + 10244) = 1;
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
 
     if (*(a1 + 10892) == 1)
     {
-      v287.i64[0] = 0xC0000000CLL;
-      v287.i64[1] = 0xC0000000CLL;
-      v288.i64[0] = 0x100000001;
-      v288.i64[1] = 0x100000001;
-      v289 = vaddvq_s32(vsubq_s32(vbicq_s8(v288, vceqq_s32(*(a1 + 39892), v287)), vmvnq_s8(vceqq_s32(*(a1 + 39908), v287))));
-      if (v278 != v289)
+      v263.i64[0] = 0xC0000000CLL;
+      v263.i64[1] = 0xC0000000CLL;
+      v264.i64[0] = 0x100000001;
+      v264.i64[1] = 0x100000001;
+      v265 = vaddvq_s32(vsubq_s32(vbicq_s8(v264, vceqq_s32(*(a1 + 39892), v263)), vmvnq_s8(vceqq_s32(*(a1 + 39908), v263))));
+      if (v255 != v265)
       {
         if (AVE_Log_CheckLevel(3u, 4))
         {
-          v294 = AVE_Log_CheckConsole(3u);
-          v295 = AVE_GetCurrTime();
-          v296 = AVE_Log_GetLevelStr(4);
-          v297 = *(a1 + 10244);
-          if (v294)
+          v270 = AVE_Log_CheckConsole(3u);
+          v271 = AVE_GetCurrTime();
+          v272 = AVE_Log_GetLevelStr(4);
+          if (v270)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail\n", v295, 3, v296, "AVE_ValidateEncoderParameters", 4034, "pINS->VideoParams.i32PPSsCount == ch_qp_index_offset_cnt", *(a1 + 10244), v289);
-            v295 = AVE_GetCurrTime();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail\n", v271, 3, v272, "AVE_ValidateEncoderParameters", 4034, "pINS->VideoParams.i32PPSsCount == ch_qp_index_offset_cnt", *(a1 + 10244), v265);
+            v271 = AVE_GetCurrTime();
             AVE_Log_GetLevelStr(4);
           }
 
-          v516 = *(a1 + 10244);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail", v295);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail", v271);
         }
 
         return 4294966295;
@@ -11083,53 +10661,53 @@ LABEL_345:
   {
     if ((*(a1 + 1296) & 1) == 0)
     {
-      goto LABEL_498;
+      goto LABEL_495;
     }
 
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v290 = AVE_Log_CheckConsole(0x10u);
-      v291 = AVE_GetCurrTime();
-      v292 = AVE_Log_GetLevelStr(5);
-      if (v290)
+      v266 = AVE_Log_CheckConsole(0x10u);
+      v267 = AVE_GetCurrTime();
+      v268 = AVE_Log_GetLevelStr(5);
+      if (v266)
       {
-        printf("%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.\n", v291, 16, v292);
-        v293 = AVE_GetCurrTime();
-        v481 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v293, 16, v481);
+        printf("%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.\n", v267, 16, v268);
+        v269 = AVE_GetCurrTime();
+        v447 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v269, 16, v447);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v291, 16, v292);
+        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v267, 16, v268);
       }
 
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
 
     *(a1 + 1308) = 1;
   }
 
-  if (*(a1 + 1256) || (*v43 & 0xFFFE) == 4 || (*(a1 + 716) & 0x3C0) != 0 || *(a1 + 10556) > 1u || (*(a1 + 1296) & 1) != 0)
+  if (*(a1 + 1256) || (*v34 & 0xFFFE) == 4 || (*(a1 + 716) & 0x3C0) != 0 || *(a1 + 10556) > 1u || (*(a1 + 1296) & 1) != 0)
   {
-LABEL_498:
-    if ((*(v43 + 5) & 1) == 0)
+LABEL_495:
+    if ((*(v34 + 5) & 1) == 0)
     {
-      *(v43 + 5) = 1;
+      *(v34 + 5) = 1;
     }
   }
 
   if (*(a1 + 1264) == 1)
   {
-    v298 = *(a1 + 1240);
+    v273 = *(a1 + 1240);
     if (*(a1 + 10560) == 1)
     {
       *(a1 + 1268) = 0;
       *(a1 + 1272) = 0xBFF0000000000000;
       *(a1 + 1280) = 0xBFF0000000000000;
       *(a1 + 1252) = 0;
-      v298 &= ~0x400u;
-      *(a1 + 1240) = v298;
+      v273 &= ~0x400u;
+      *(a1 + 1240) = v273;
       *(a1 + 1260) = 1;
       *(a1 + 1288) = 1;
     }
@@ -11137,31 +10715,31 @@ LABEL_498:
 
   else
   {
-    v298 = *(a1 + 1240);
+    v273 = *(a1 + 1240);
   }
 
-  if ((v298 & 0x100) != 0 && !*(a1 + 1256))
+  if ((v273 & 0x100) != 0 && !*(a1 + 1256))
   {
-    *(a1 + 1240) = v298 & 0xFFFFFEFF;
+    *(a1 + 1240) = v273 & 0xFFFFFEFF;
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v299 = AVE_Log_CheckConsole(0x10u);
-      v300 = AVE_GetCurrTime();
-      v301 = AVE_Log_GetLevelStr(5);
-      if (v299)
+      v274 = AVE_Log_CheckConsole(0x10u);
+      v275 = AVE_GetCurrTime();
+      v276 = AVE_Log_GetLevelStr(5);
+      if (v274)
       {
-        printf("%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true\n", v300, 16, v301);
-        v302 = AVE_GetCurrTime();
-        v482 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v302, 16, v482);
+        printf("%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true\n", v275, 16, v276);
+        v277 = AVE_GetCurrTime();
+        v448 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v277, 16, v448);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v300, 16, v301);
+        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v275, 16, v276);
       }
 
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
   }
 
@@ -11169,20 +10747,20 @@ LABEL_498:
   {
     if (*(a1 + 1112) <= 0 && AVE_Log_CheckLevel(0x10u, 5))
     {
-      v303 = AVE_Log_CheckConsole(0x10u);
-      v304 = AVE_GetCurrTime();
-      v305 = AVE_Log_GetLevelStr(5);
-      if (v303)
+      v278 = AVE_Log_CheckConsole(0x10u);
+      v279 = AVE_GetCurrTime();
+      v280 = AVE_Log_GetLevelStr(5);
+      if (v278)
       {
-        printf("%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined\n", v304, 16, v305);
-        v306 = AVE_GetCurrTime();
-        v483 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v306, 16, v483);
+        printf("%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined\n", v279, 16, v280);
+        v281 = AVE_GetCurrTime();
+        v449 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v281, 16, v449);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v304, 16, v305);
+        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v279, 16, v280);
       }
     }
 
@@ -11190,46 +10768,46 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v307 = AVE_Log_CheckConsole(0x10u);
-        v308 = AVE_GetCurrTime();
-        v309 = AVE_Log_GetLevelStr(5);
-        if (v307)
+        v282 = AVE_Log_CheckConsole(0x10u);
+        v283 = AVE_GetCurrTime();
+        v284 = AVE_Log_GetLevelStr(5);
+        if (v282)
         {
-          printf("%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop\n", v308, 16, v309);
-          v310 = AVE_GetCurrTime();
-          v484 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v310, 16, v484);
+          printf("%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop\n", v283, 16, v284);
+          v285 = AVE_GetCurrTime();
+          v450 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v285, 16, v450);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v308, 16, v309);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v283, 16, v284);
         }
       }
 
       *(a1 + 1088) &= ~2uLL;
     }
 
-    if (*(v43 + 80) == 1)
+    if (*(v34 + 80) == 1)
     {
-      *(v43 + 80) = 0;
-      *(v43 + 21) = 1;
+      *(v34 + 80) = 0;
+      *(v34 + 21) = 1;
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v311 = AVE_Log_CheckConsole(0x10u);
-        v312 = AVE_GetCurrTime();
-        v313 = AVE_Log_GetLevelStr(5);
-        if (v311)
+        v286 = AVE_Log_CheckConsole(0x10u);
+        v287 = AVE_GetCurrTime();
+        v288 = AVE_Log_GetLevelStr(5);
+        if (v286)
         {
-          printf("%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode\n", v312, 16, v313);
-          v314 = AVE_GetCurrTime();
-          v485 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v314, 16, v485);
+          printf("%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode\n", v287, 16, v288);
+          v289 = AVE_GetCurrTime();
+          v451 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v289, 16, v451);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v312, 16, v313);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v287, 16, v288);
         }
       }
     }
@@ -11238,12 +10816,12 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v315 = AVE_Log_CheckConsole(3u);
-        v316 = AVE_GetCurrTime();
-        v317 = AVE_Log_GetLevelStr(4);
-        if (v315)
+        v290 = AVE_Log_CheckConsole(3u);
+        v291 = AVE_GetCurrTime();
+        v292 = AVE_Log_GetLevelStr(4);
+        if (v290)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Multipass\n", v316, 3, v317, "AVE_ValidateEncoderParameters", 4108, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Multipass\n", v291, 3, v292, "AVE_ValidateEncoderParameters", 4108, "false");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -11258,12 +10836,12 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v318 = AVE_Log_CheckConsole(3u);
-        v319 = AVE_GetCurrTime();
-        v320 = AVE_Log_GetLevelStr(4);
-        if (v318)
+        v293 = AVE_Log_CheckConsole(3u);
+        v294 = AVE_GetCurrTime();
+        v295 = AVE_Log_GetLevelStr(4);
+        if (v293)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Parallelization\n", v319, 3, v320, "AVE_ValidateEncoderParameters", 4114, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Parallelization\n", v294, 3, v295, "AVE_ValidateEncoderParameters", 4114, "false");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -11274,17 +10852,17 @@ LABEL_498:
       return 4294965294;
     }
 
-    v321 = *(a1 + 1132);
-    if (v321 == 4 || v321 == 2 && (*(a1 + 1123) & 0x80) == 0)
+    v296 = *(a1 + 1132);
+    if (v296 == 4 || v296 == 2 && (*(a1 + 1123) & 0x80) == 0)
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v322 = AVE_Log_CheckConsole(3u);
-        v323 = AVE_GetCurrTime();
-        v324 = AVE_Log_GetLevelStr(4);
-        if (v322)
+        v297 = AVE_Log_CheckConsole(3u);
+        v298 = AVE_GetCurrTime();
+        v299 = AVE_Log_GetLevelStr(4);
+        if (v297)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support DRL/CBR\n", v323, 3, v324, "AVE_ValidateEncoderParameters", 4122, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support DRL/CBR\n", v298, 3, v299, "AVE_ValidateEncoderParameters", 4122, "false");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -11299,12 +10877,12 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v325 = AVE_Log_CheckConsole(3u);
-        v326 = AVE_GetCurrTime();
-        v327 = AVE_Log_GetLevelStr(4);
-        if (v325)
+        v300 = AVE_Log_CheckConsole(3u);
+        v301 = AVE_GetCurrTime();
+        v302 = AVE_Log_GetLevelStr(4);
+        if (v300)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support BaseLayerFrameRate\n", v326, 3, v327, "AVE_ValidateEncoderParameters", 4128, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support BaseLayerFrameRate\n", v301, 3, v302, "AVE_ValidateEncoderParameters", 4128, "false");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -11319,12 +10897,12 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(3u, 4))
       {
-        v333 = AVE_Log_CheckConsole(3u);
-        v334 = AVE_GetCurrTime();
-        v335 = AVE_Log_GetLevelStr(4);
-        if (v333)
+        v307 = AVE_Log_CheckConsole(3u);
+        v308 = AVE_GetCurrTime();
+        v309 = AVE_Log_GetLevelStr(4);
+        if (v307)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support ChromaFmt_400, ChromaFmt_422, or ChromaFmt_444\n", v334, 3, v335, "AVE_ValidateEncoderParameters", 4135, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support ChromaFmt_400, ChromaFmt_422, or ChromaFmt_444\n", v308, 3, v309, "AVE_ValidateEncoderParameters", 4135, "false");
           AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
         }
@@ -11335,30 +10913,24 @@ LABEL_498:
       return 4294965294;
     }
 
-    v328 = (a1 + 15575);
+    v303 = (a1 + 15575);
     *(a1 + 1240) &= ~0x400u;
-    *(v43 + 352) = 1;
+    *(v34 + 352) = 1;
     if (*(a1 + 15575))
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v329 = AVE_Log_CheckConsole(0x1Eu);
-        v330 = AVE_GetCurrTime();
-        v331 = AVE_Log_GetLevelStr(4);
-        if (v329)
+        v304 = AVE_Log_CheckConsole(0x1Eu);
+        v305 = AVE_GetCurrTime();
+        v306 = AVE_Log_GetLevelStr(4);
+        if (v304)
         {
-          printf("%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d\n", v330, 30, v331, "AVE_ValidateEncoderParameters", 4145, "pINS->VPSHevcParams.layer_id_in_nuh[0] == 0", *v328);
-          v330 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d\n", v305, 30, v306, "AVE_ValidateEncoderParameters", 4145, "pINS->VPSHevcParams.layer_id_in_nuh[0] == 0", *v303);
+          v305 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
-          v332 = *v328;
         }
 
-        else
-        {
-          v517 = *v328;
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d", v330);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d", v305);
       }
 
       return 4294965290;
@@ -11368,109 +10940,96 @@ LABEL_498:
     {
       if (AVE_Log_CheckLevel(0x1Eu, 4))
       {
-        v341 = AVE_Log_CheckConsole(0x1Eu);
-        v342 = AVE_GetCurrTime();
-        v343 = AVE_Log_GetLevelStr(4);
-        v344 = *(a1 + 10556);
-        if (v341)
+        v315 = AVE_Log_CheckConsole(0x1Eu);
+        v316 = AVE_GetCurrTime();
+        v317 = AVE_Log_GetLevelStr(4);
+        if (v315)
         {
-          printf("%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d\n", v342, 30, v343, "AVE_ValidateEncoderParameters", 4150, "pINS->VideoParams.iLayerNum <= ((2) < ((63 + 1)) ? (2) : ((63 + 1)))", *(a1 + 10556), 2);
-          v342 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d\n", v316, 30, v317, "AVE_ValidateEncoderParameters", 4150, "pINS->VideoParams.iLayerNum <= ((2) < ((63 + 1)) ? (2) : ((63 + 1)))", *(a1 + 10556), 2);
+          v316 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(4);
-          v345 = *(a1 + 10556);
         }
 
-        else
-        {
-          v518 = *(a1 + 10556);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d", v342);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d", v316);
       }
 
       return 4294965291;
     }
 
-    v336 = *(a1 + 15639);
+    v310 = *(a1 + 15639);
     if (!*(a1 + 15639))
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v337 = AVE_Log_CheckConsole(0x10u);
-        v338 = AVE_GetCurrTime();
-        v339 = AVE_Log_GetLevelStr(5);
-        if (v337)
+        v311 = AVE_Log_CheckConsole(0x10u);
+        v312 = AVE_GetCurrTime();
+        v313 = AVE_Log_GetLevelStr(5);
+        if (v311)
         {
-          printf("%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values\n", v338, 16, v339);
-          v340 = AVE_GetCurrTime();
-          v486 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v340, 16, v486);
+          printf("%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values\n", v312, 16, v313);
+          v314 = AVE_GetCurrTime();
+          v452 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v314, 16, v452);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v338, 16, v339);
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v312, 16, v313);
         }
       }
 
-      v346 = *(a1 + 10556);
-      *(a1 + 10560) = v346;
-      v336 = 1;
+      v318 = *(a1 + 10556);
+      *(a1 + 10560) = v318;
+      v310 = 1;
       *(a1 + 15639) = 1;
-      if (v346)
+      if (v318)
       {
-        v347 = 0;
+        v319 = 0;
         do
         {
-          *(a1 + 15640 + v347) = v347;
-          *(a1 + 11808 + v347) = v347;
-          ++v347;
+          *(a1 + 15640 + v319) = v319;
+          *(a1 + 11808 + v319) = v319;
+          ++v319;
         }
 
-        while (v346 > v347);
-        v336 = 1;
+        while (v318 > v319);
+        v310 = 1;
       }
     }
 
-    v348 = 0;
-    v349 = a1 + 11808;
-    v350 = 1;
+    v320 = 0;
+    v321 = a1 + 11808;
+    v322 = 1;
     while (2)
     {
-      v351 = 0;
-      v352 = v350;
-      while (*(v349 + v348) != *(a1 + 15640 + v351))
+      v323 = 0;
+      v324 = v322;
+      while (*(v321 + v320) != *(a1 + 15640 + v323))
       {
-        if (v336 < ++v351)
+        if (v310 < ++v323)
         {
           if (AVE_Log_CheckLevel(3u, 4))
           {
-            v457 = AVE_Log_CheckConsole(3u);
-            v458 = AVE_GetCurrTime();
-            v459 = AVE_Log_GetLevelStr(4);
-            if (v457)
+            v422 = AVE_Log_CheckConsole(3u);
+            v423 = AVE_GetCurrTime();
+            v424 = AVE_Log_GetLevelStr(4);
+            if (v422)
             {
-              printf("%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list\n", v458, 3, v459, "AVE_ValidateEncoderParameters", 4179, "bFound", *(v349 + v348));
-              v458 = AVE_GetCurrTime();
+              printf("%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list\n", v423, 3, v424, "AVE_ValidateEncoderParameters", 4179, "bFound", *(v321 + v320));
+              v423 = AVE_GetCurrTime();
               AVE_Log_GetLevelStr(4);
-              v460 = *(v349 + v348);
             }
 
-            else
-            {
-              v526 = *(v349 + v348);
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list", v458);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list", v423);
           }
 
           return 4294965289;
         }
       }
 
-      v350 = 0;
-      v348 = 1;
-      if (v352)
+      v322 = 0;
+      v320 = 1;
+      if (v324)
       {
         continue;
       }
@@ -11478,207 +11037,206 @@ LABEL_498:
       break;
     }
 
-    *(v43 + 686) = 1;
-    v240 = a1 + 24248;
+    *(v34 + 686) = 1;
+    v219 = a1 + 24248;
   }
 
   if (*(v2 + 1836) >= 1)
   {
-    v353 = *(a1 + 11460);
-    if (v353 >= 1 && v353 < *(a1 + 1112))
+    v325 = *(a1 + 11460);
+    if (v325 >= 1 && v325 < *(a1 + 1112))
     {
-      goto LABEL_593;
+      goto LABEL_590;
     }
   }
 
   if (*(a1 + 1260) <= 2 || *(a1 + 1256) < 3)
   {
-    goto LABEL_642;
+    goto LABEL_639;
   }
 
-  v353 = *(a1 + 11460);
-  if (v353 < 1)
+  v325 = *(a1 + 11460);
+  if (v325 < 1)
   {
-    v357 = 1;
+    v329 = 1;
   }
 
   else
   {
-LABEL_593:
-    v354 = *(a1 + 1112);
-    v355 = -1;
+LABEL_590:
+    v326 = *(a1 + 1112);
+    v327 = -1;
     do
     {
-      v356 = v354 >> (v355++ + 2);
+      v328 = v326 >> (v327++ + 2);
     }
 
-    while (v356 >= v353);
-    v357 = v355 + 1;
-    if (v353 << v355 != v354)
+    while (v328 >= v325);
+    v329 = v327 + 1;
+    if (v325 << v327 != v326)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v358 = AVE_Log_CheckConsole(0x10u);
-        v555 = AVE_GetCurrTime();
-        v359 = AVE_Log_GetLevelStr(5);
-        v360 = *(a1 + 16);
-        v361 = *(a1 + 1112);
-        v362 = *(a1 + 11460);
-        if (v358)
+        v330 = AVE_Log_CheckConsole(0x10u);
+        v466 = AVE_GetCurrTime();
+        v331 = AVE_Log_GetLevelStr(5);
+        v332 = *(a1 + 16);
+        v333 = *(a1 + 11460);
+        if (v330)
         {
-          printf("%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d\n", v555, 16, v359, v360, *(a1 + 1112), v362);
-          v363 = AVE_GetCurrTime();
-          v364 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v363, 16, v364, *(a1 + 16), *(a1 + 1112), *(a1 + 11460));
+          printf("%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d\n", v466, 16, v331, v332, *(a1 + 1112), v333);
+          v334 = AVE_GetCurrTime();
+          v335 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v334, 16, v335, *(a1 + 16), *(a1 + 1112), *(a1 + 11460));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v555, 16, v359, v360, *(a1 + 1112), v362);
+          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v466, 16, v331, v332, *(a1 + 1112), v333);
         }
       }
 
-      v353 = *(a1 + 1112) >> v355;
-      *(a1 + 11460) = v353;
+      v325 = *(a1 + 1112) >> v327;
+      *(a1 + 11460) = v325;
     }
   }
 
-  v365 = *(a1 + 1288);
-  if (v365 > 1)
+  v336 = *(a1 + 1288);
+  if (v336 > 1)
   {
-    if (v353 <= 0)
+    if (v325 <= 0)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v366 = AVE_Log_CheckConsole(0x10u);
-        v367 = AVE_GetCurrTime();
-        v368 = AVE_Log_GetLevelStr(5);
-        v369 = *(a1 + 1288);
-        if (v366)
+        v337 = AVE_Log_CheckConsole(0x10u);
+        v338 = AVE_GetCurrTime();
+        v339 = AVE_Log_GetLevelStr(5);
+        v340 = *(a1 + 1288);
+        if (v337)
         {
-          printf("%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding\n", v367, 16, v368, v369);
-          v370 = AVE_GetCurrTime();
-          v487 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v370, 16, v487, *(a1 + 1288));
+          printf("%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding\n", v338, 16, v339, v340);
+          v341 = AVE_GetCurrTime();
+          v453 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v341, 16, v453, *(a1 + 1288));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v367, 16, v368, v369);
+          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v338, 16, v339, v340);
         }
       }
 
-      v365 = 1;
+      v336 = 1;
       *(a1 + 1288) = 1;
     }
 
-    v371 = v365 == v357;
-    v365 = v357;
-    if (!v371)
+    v342 = v336 == v329;
+    v336 = v329;
+    if (!v342)
     {
-      v372 = AVE_Log_CheckLevel(0x10u, 5);
-      v365 = v357;
-      if (v372)
+      v343 = AVE_Log_CheckLevel(0x10u, 5);
+      v336 = v329;
+      if (v343)
       {
-        v373 = AVE_Log_CheckConsole(0x10u);
-        v374 = AVE_GetCurrTime();
-        v375 = AVE_Log_GetLevelStr(5);
-        if (v373)
+        v344 = AVE_Log_CheckConsole(0x10u);
+        v345 = AVE_GetCurrTime();
+        v346 = AVE_Log_GetLevelStr(5);
+        if (v344)
         {
-          printf("%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d\n", v374, 16, v375, v357);
-          v376 = AVE_GetCurrTime();
-          v488 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v376, 16, v488, v357);
+          printf("%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d\n", v345, 16, v346, v329);
+          v347 = AVE_GetCurrTime();
+          v454 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v347, 16, v454, v329);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v374, 16, v375, v357);
+          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v345, 16, v346, v329);
         }
 
-        v365 = v357;
+        v336 = v329;
       }
     }
   }
 
-  if (v365 <= v357)
+  if (v336 <= v329)
   {
-    v377 = v357;
+    v348 = v329;
   }
 
   else
   {
-    v377 = v365;
+    v348 = v336;
   }
 
-  *(a1 + 1288) = v377;
-  if (*(a1 + 10556) >= 2u && v377 >= 2)
+  *(a1 + 1288) = v348;
+  if (*(a1 + 10556) >= 2u && v348 >= 2)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v378 = AVE_Log_CheckConsole(0x10u);
-      v379 = AVE_GetCurrTime();
-      v380 = AVE_Log_GetLevelStr(5);
-      v381 = *(a1 + 1288);
-      if (v378)
+      v349 = AVE_Log_CheckConsole(0x10u);
+      v350 = AVE_GetCurrTime();
+      v351 = AVE_Log_GetLevelStr(5);
+      v352 = *(a1 + 1288);
+      if (v349)
       {
-        printf("%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1\n", v379, 16, v380, v381);
-        v382 = AVE_GetCurrTime();
-        v489 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v382, 16, v489, *(a1 + 1288));
+        printf("%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1\n", v350, 16, v351, v352);
+        v353 = AVE_GetCurrTime();
+        v455 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v353, 16, v455, *(a1 + 1288));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v379, 16, v380, v381);
+        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v350, 16, v351, v352);
       }
     }
 
-    v377 = 1;
+    v348 = 1;
   }
 
   if (((*(v2 + 3080) | *(v2 + 3076)) & 0x400) == 0)
   {
-    v383 = *(a1 + 1240);
-    if ((v383 & 0x400) != 0 && v377 >= 3)
+    v354 = *(a1 + 1240);
+    if ((v354 & 0x400) != 0 && v348 >= 3)
     {
-      *(a1 + 1240) = v383 & 0xFFFFFBFF;
+      *(a1 + 1240) = v354 & 0xFFFFFBFF;
     }
   }
 
-  if (v377 >= 3)
+  if (v348 >= 3)
   {
-    v384 = 3;
+    v355 = 3;
   }
 
   else
   {
-    v384 = v377;
+    v355 = v348;
   }
 
   if ((*(a1 + 1444) * *(a1 + 1440)) > 0x7E8FFF)
   {
-    v377 = v384;
+    v348 = v355;
   }
 
-  if (v377 >= 4)
+  if (v348 >= 4)
   {
-    v377 = 4;
+    v348 = 4;
   }
 
-  *(a1 + 1288) = v377;
+  *(a1 + 1288) = v348;
   *(a1 + 39872) = 1;
-  *(v64 + 575) = 0;
-  v240 = a1 + 24248;
+  *(v54 + 575) = 0;
+  v219 = a1 + 24248;
   if (!*(a1 + 1256))
   {
     *(a1 + 1240) &= ~0x400u;
     if (*(a1 + 76) <= 3 && *(a1 + 692) == 1)
     {
-      *(v64 + 575) = 3;
+      *(v54 + 575) = 3;
     }
 
-    v240 = a1 + 24248;
+    v219 = a1 + 24248;
     if (*(a1 + 1112) == *(a1 + 11460))
     {
       *(a1 + 1288) = 1;
@@ -11686,21 +11244,21 @@ LABEL_593:
     }
   }
 
-LABEL_642:
-  v385 = *(a1 + 1288);
-  if (v385 >= 2 || (v385 = *(v2 + 2088), v385 >= 2))
+LABEL_639:
+  v356 = *(a1 + 1288);
+  if (v356 >= 2 || (v356 = *(v2 + 2088), v356 >= 2))
   {
-    v386 = v385 - 1;
-    *v240 = v386;
-    *(a1 + 12012) = v386;
+    v357 = v356 - 1;
+    *v219 = v357;
+    *(a1 + 12012) = v357;
   }
 
-  v387 = AVE_Enc_DecideThroughputMode(*(v3 + 256), *(v2 + 3200), *(a1 + 68), *(a1 + 76), *(a1 + 64), 2, *(v240 + 440), *(v2 + 1524), *(a1 + 10892), *(a1 + 692), *(a1 + 1112) * ((*(a1 + 1440) + 15) >> 4) * ((*(a1 + 1444) + 15) >> 4), *(a1 + 1440), *(a1 + 1444));
-  *(a1 + 1368) = v387;
-  v388 = *(a1 + 76);
-  if (v388 >= 30)
+  v358 = AVE_Enc_DecideThroughputMode(*(v3 + 256), *(v2 + 3200), *(a1 + 68), *(a1 + 76), *(a1 + 64), 2, *(v219 + 440), *(v2 + 1524), *(a1 + 10892), *(a1 + 692), *(a1 + 1112) * ((*(a1 + 1440) + 15) >> 4) * ((*(a1 + 1444) + 15) >> 4), *(a1 + 1440), *(a1 + 1444));
+  *(a1 + 1368) = v358;
+  v359 = *(a1 + 76);
+  if (v359 >= 30)
   {
-    *(v240 + 588) = 3;
+    *(v219 + 588) = 3;
     if (!*(a1 + 692) && *(v2 + 1524) >= 1)
     {
       *(a1 + 688) |= 0x100u;
@@ -11708,7 +11266,7 @@ LABEL_642:
       *(a1 + 1240) &= 0xFFFFFAFF;
     }
 
-    if ((v387 & 0xFFFFFFFE) == 2)
+    if ((v358 & 0xFFFFFFFE) == 2)
     {
       *(a1 + 39885) = 1;
     }
@@ -11721,8 +11279,8 @@ LABEL_642:
 
   if (*(a1 + 1288) == 1)
   {
-    *(v43 + 1848) = 1;
-    *(v240 + 4) = 1;
+    *(v34 + 1848) = 1;
+    *(v219 + 4) = 1;
   }
 
   if (!*(a1 + 1256))
@@ -11732,47 +11290,47 @@ LABEL_642:
 
   if (((*(v2 + 3080) | *(v2 + 3076)) & 0x400) == 0)
   {
-    v389 = *(a1 + 1240);
-    if ((v389 & 0x400) != 0 && (*(a1 + 1123) & 0x80) != 0)
+    v360 = *(a1 + 1240);
+    if ((v360 & 0x400) != 0 && (*(a1 + 1123) & 0x80) != 0)
     {
-      *(a1 + 1240) = v389 & 0xFFFFFBFF;
+      *(a1 + 1240) = v360 & 0xFFFFFBFF;
     }
   }
 
-  v390 = *(v3 + 257);
-  if (v390 <= 5)
+  v361 = *(v3 + 257);
+  if (v361 <= 5)
   {
-    *(v64 + 575) = 5 - v390;
+    *(v54 + 575) = 5 - v361;
   }
 
-  if (v388 <= 3)
+  if (v359 <= 3)
   {
-    if (*(v43 + 37) == 1)
+    if (*(v34 + 37) == 1)
     {
-      *(v43 + 37) = 0;
+      *(v34 + 37) = 0;
     }
 
-    *(v43 + 36) = 0;
+    *(v34 + 36) = 0;
   }
 
   else
   {
-    *(v43 + 37) = 1;
+    *(v34 + 37) = 1;
   }
 
-  v391 = *(a1 + 692);
-  if (v391 == 1)
+  v362 = *(a1 + 692);
+  if (v362 == 1)
   {
     *(a1 + 688) &= ~2u;
   }
 
-  if (*(a1 + 10804) == 1 && *(v43 + 681) == 1)
+  if (*(a1 + 10804) == 1 && *(v34 + 681) == 1)
   {
-    *(v43 + 681) = 0;
+    *(v34 + 681) = 0;
   }
 
-  v392 = *(a1 + 1120);
-  if ((v392 & 0x10) != 0)
+  v363 = *(a1 + 1120);
+  if ((v363 & 0x10) != 0)
   {
     *(a1 + 1112) = *(a1 + 11448);
     *(a1 + 1240) &= ~0x400u;
@@ -11780,20 +11338,20 @@ LABEL_642:
 
   if ((*(a1 + 716) & 0x3C0) == 0)
   {
-    goto LABEL_728;
+    goto LABEL_725;
   }
 
   *(a1 + 688) |= 0x100u;
   *(a1 + 1096) |= 0x4000000000uLL;
-  if (!*(v43 + 363))
+  if (!*(v34 + 363))
   {
-    *(v43 + 363) = 3;
+    *(v34 + 363) = 3;
   }
 
   *(a1 + 42028) = 0;
-  *(v64 + 669) = 0;
-  *(v43 + 4) = 1;
-  *(v43 + 362) = 1;
+  *(v54 + 669) = 0;
+  *(v34 + 4) = 1;
+  *(v34 + 362) = 1;
   if (*(a1 + 10552) == 1)
   {
     *(a1 + 1256) = 0x100000000;
@@ -11801,40 +11359,31 @@ LABEL_642:
     *(a1 + 1240) &= ~0x400u;
   }
 
-  if (v388 > 29 || v388 == 28)
+  if (v359 > 29 || v359 == 28)
   {
-    if (v388 > 0x1E)
+    if (v359 > 0x1E)
     {
       if (*(a1 + 24688))
       {
-LABEL_697:
-        if (v391 >= 1 && (v392 & 0x10) == 0)
+LABEL_694:
+        if (v362 >= 1 && (v363 & 0x10) == 0)
         {
-          v397 = vshr_n_u32(vadd_s32(*(a1 + 1440), 0x1F0000001FLL), 5uLL);
-          if ((*(a1 + 1112) * v397.i32[0] * v397.i32[1]) >= 0x45BA1)
+          v368 = vshr_n_u32(vadd_s32(*(a1 + 1440), 0x1F0000001FLL), 5uLL);
+          if ((*(a1 + 1112) * v368.i32[0] * v368.i32[1]) >= 0x45BA1)
           {
             if (AVE_Log_CheckLevel(0x10u, 5))
             {
-              v398 = AVE_Log_CheckConsole(0x10u);
-              v399 = AVE_GetCurrTime();
-              v400 = AVE_Log_GetLevelStr(5);
-              v401 = *(a1 + 1444);
-              if (v398)
+              v369 = AVE_Log_CheckConsole(0x10u);
+              v370 = AVE_GetCurrTime();
+              v371 = AVE_Log_GetLevelStr(5);
+              if (v369)
               {
-                printf("%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.\n", v399, 16, v400, "AVE_ValidateEncoderParameters", 4530, *(a1 + 1440), *(a1 + 1444), *(a1 + 1112));
-                v399 = AVE_GetCurrTime();
+                printf("%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.\n", v370, 16, v371, "AVE_ValidateEncoderParameters", 4530, *(a1 + 1440), *(a1 + 1444), *(a1 + 1112));
+                v370 = AVE_GetCurrTime();
                 AVE_Log_GetLevelStr(5);
-                v402 = *(a1 + 1440);
-                v519 = *(a1 + 1444);
-                v534 = *(a1 + 1112);
               }
 
-              else
-              {
-                v520 = *(a1 + 1444);
-              }
-
-              syslog(3, "%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.", v399);
+              syslog(3, "%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.", v370);
             }
 
             *(a1 + 1256) = 0;
@@ -11842,50 +11391,50 @@ LABEL_697:
           }
         }
 
-        v396 = *(a1 + 11812);
-        if (v396 < 0)
+        v367 = *(a1 + 11812);
+        if (v367 < 0)
         {
-          v396 = *(a1 + 10804) != 2 || *(a1 + 692) <= 0;
+          v367 = *(a1 + 10804) != 2 || *(a1 + 692) <= 0;
         }
 
-        *(a1 + 1392) = v396;
+        *(a1 + 1392) = v367;
         if (*(a1 + 1396) == -1 && *(a1 + 10804) == 2 && *(a1 + 692) >= 1)
         {
           *(a1 + 1396) = 5;
         }
 
-        goto LABEL_721;
+        goto LABEL_718;
       }
 
-LABEL_704:
+LABEL_701:
       if (!AVE_Log_CheckLevel(3u, 4))
       {
         return 4294966295;
       }
 
-      v403 = AVE_Log_CheckConsole(3u);
-      v60 = AVE_GetCurrTime();
-      v404 = AVE_Log_GetLevelStr(4);
-      if (v403)
+      v372 = AVE_Log_CheckConsole(3u);
+      v51 = AVE_GetCurrTime();
+      v373 = AVE_Log_GetLevelStr(4);
+      if (v372)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail\n", v60, 3, v404, "AVE_ValidateEncoderParameters", 4512, "false", *(v556 + 440));
-        v60 = AVE_GetCurrTime();
-        v404 = AVE_Log_GetLevelStr(4);
-        v494 = "false";
-        v508 = *(v556 + 440);
-        v493 = 4512;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail\n", v51, 3, v373, "AVE_ValidateEncoderParameters", 4512, "false", *(v467 + 440));
+        v51 = AVE_GetCurrTime();
+        v373 = AVE_Log_GetLevelStr(4);
+        v460 = "false";
+        v461 = *(v467 + 440);
+        v459 = 4512;
       }
 
       else
       {
-        v508 = *(v556 + 440);
-        v493 = 4512;
-        v494 = "false";
+        v461 = *(v467 + 440);
+        v459 = 4512;
+        v460 = "false";
       }
 
-      v467 = v404;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail";
-      goto LABEL_157;
+      v433 = v373;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail";
+      goto LABEL_155;
     }
   }
 
@@ -11893,12 +11442,12 @@ LABEL_704:
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v393 = AVE_Log_CheckConsole(3u);
-      v394 = AVE_GetCurrTime();
-      v395 = AVE_Log_GetLevelStr(4);
-      if (v393)
+      v364 = AVE_Log_CheckConsole(3u);
+      v365 = AVE_GetCurrTime();
+      v366 = AVE_Log_GetLevelStr(4);
+      if (v364)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF unsupported for MV-HEVC. Fail\n", v394, 3, v395, "AVE_ValidateEncoderParameters", 4501, "false");
+        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF unsupported for MV-HEVC. Fail\n", v365, 3, v366, "AVE_ValidateEncoderParameters", 4501, "false");
         AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
@@ -11911,92 +11460,91 @@ LABEL_704:
 
   if (*(a1 + 24688) != 1)
   {
-    goto LABEL_704;
+    goto LABEL_701;
   }
 
-  if (v388 >= 30)
+  if (v359 >= 30)
   {
-    goto LABEL_697;
+    goto LABEL_694;
   }
 
-  v396 = *(a1 + 11812);
-  if (v396 < 0)
+  v367 = *(a1 + 11812);
+  if (v367 < 0)
   {
-    v396 = 1;
+    v367 = 1;
   }
 
-  *(a1 + 1392) = v396;
-  if (v388 != 28)
+  *(a1 + 1392) = v367;
+  if (v359 != 28)
   {
     *(a1 + 1448) &= ~0x2000000uLL;
   }
 
-LABEL_721:
-  if (*(a1 + 1396) >= 1 && v396 == 1)
+LABEL_718:
+  if (*(a1 + 1396) >= 1 && v367 == 1)
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v405 = AVE_Log_CheckConsole(0x10u);
-      v406 = AVE_GetCurrTime();
-      v407 = AVE_Log_GetLevelStr(5);
-      v408 = *(a1 + 16);
-      v409 = *(a1 + 1392);
-      v410 = *(a1 + 1396);
-      if (v405)
+      v374 = AVE_Log_CheckConsole(0x10u);
+      v375 = AVE_GetCurrTime();
+      v376 = AVE_Log_GetLevelStr(5);
+      v377 = *(a1 + 16);
+      v378 = *(a1 + 1396);
+      if (v374)
       {
-        printf("%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)\n", v406, 16, v407, v408, *(a1 + 1392), v410);
-        v411 = AVE_GetCurrTime();
-        v412 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v411, 16, v412, *(a1 + 16), *(a1 + 1392), *(a1 + 1396));
+        printf("%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)\n", v375, 16, v376, v377, *(a1 + 1392), v378);
+        v379 = AVE_GetCurrTime();
+        v380 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v379, 16, v380, *(a1 + 16), *(a1 + 1392), *(a1 + 1396));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v406, 16, v407, v408, *(a1 + 1392), v410);
+        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v375, 16, v376, v377, *(a1 + 1392), v378);
       }
     }
 
     *(a1 + 1396) = -1;
   }
 
-LABEL_728:
-  v413 = *(a1 + 1120);
-  if ((v413 & 0x80000000) != 0 && *(a1 + 76) >= 9)
+LABEL_725:
+  v381 = *(a1 + 1120);
+  if ((v381 & 0x80000000) != 0 && *(a1 + 76) >= 9)
   {
-    *(v43 + 4) = 1;
-    *(v43 + 362) = 1;
+    *(v34 + 4) = 1;
+    *(v34 + 362) = 1;
   }
 
-  v414 = *(v43 + 4);
-  if (*(v43 + 4))
+  v382 = *(v34 + 4);
+  if (*(v34 + 4))
   {
-    v415 = 0x10000;
+    v383 = 0x10000;
   }
 
   else
   {
-    v415 = 0;
+    v383 = 0;
   }
 
-  *(a1 + 1240) = *(a1 + 1240) & 0xFFFEFFFF | v415;
-  if ((*(a1 + 1296) & 1) != 0 && (!v414 || *(a1 + 11476) > 0 || (v413 & 0x80000000) != 0 || *(a1 + 10556) > 1u || *(v2 + 28) || *(a1 + 1368) >= 5))
+  *(a1 + 1240) = *(a1 + 1240) & 0xFFFEFFFF | v383;
+  if ((*(a1 + 1296) & 1) != 0 && (!v382 || *(a1 + 11476) > 0 || (v381 & 0x80000000) != 0 || *(a1 + 10556) > 1u || *(v2 + 28) || *(a1 + 1368) >= 5))
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v416 = AVE_Log_CheckConsole(0x10u);
-      v417 = AVE_GetCurrTime();
-      v418 = AVE_Log_GetLevelStr(5);
-      if (v416)
+      v384 = AVE_Log_CheckConsole(0x10u);
+      v385 = AVE_GetCurrTime();
+      v386 = AVE_Log_GetLevelStr(5);
+      if (v384)
       {
-        printf("%lld %d AVE %s: FIG: Force to disable Weighted Prediction\n", v417, 16, v418);
-        v419 = AVE_GetCurrTime();
-        v490 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v419, 16, v490);
+        printf("%lld %d AVE %s: FIG: Force to disable Weighted Prediction\n", v385, 16, v386);
+        v387 = AVE_GetCurrTime();
+        v456 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v387, 16, v456);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v417, 16, v418);
+        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v385, 16, v386);
       }
     }
 
@@ -12006,45 +11554,45 @@ LABEL_728:
     *(a1 + 48356) = 0;
   }
 
-  if (*(v43 + 80) == 1)
+  if (*(v34 + 80) == 1)
   {
-    v420 = *(v43 + 21);
-    if (v420 == 1)
+    v388 = *(v34 + 21);
+    if (v388 == 1)
     {
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v421 = AVE_Log_CheckConsole(0x10u);
-        v422 = AVE_GetCurrTime();
-        v423 = AVE_Log_GetLevelStr(5);
-        if (v421)
+        v389 = AVE_Log_CheckConsole(0x10u);
+        v390 = AVE_GetCurrTime();
+        v391 = AVE_Log_GetLevelStr(5);
+        if (v389)
         {
-          printf("%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode\n", v422, 16, v423);
-          v424 = AVE_GetCurrTime();
-          v491 = AVE_Log_GetLevelStr(5);
-          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v424, 16, v491);
+          printf("%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode\n", v390, 16, v391);
+          v392 = AVE_GetCurrTime();
+          v457 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v392, 16, v457);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v422, 16, v423);
+          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v390, 16, v391);
         }
       }
 
-      *(v43 + 80) = 0;
-      v420 = *(v43 + 21);
+      *(v34 + 80) = 0;
+      v388 = *(v34 + 21);
     }
 
-    if (v420)
+    if (v388)
     {
-      v425 = 0;
-      v426 = (v420 - 1);
-      v427 = (a1 + 10260);
+      v393 = 0;
+      v394 = (v388 - 1);
+      v395 = (a1 + 10260);
       while (1)
       {
-        if (v426 == v425)
+        if (v394 == v393)
         {
-          v428 = *(a1 + 10260 + 8 * v426);
-          if (v428 < 96)
+          v396 = *(a1 + 10260 + 8 * v394);
+          if (v396 < 96)
           {
             break;
           }
@@ -12052,85 +11600,76 @@ LABEL_728:
 
         else
         {
-          v428 = *v427;
-          if (*v427 < 128)
+          v396 = *v395;
+          if (*v395 < 128)
           {
             break;
           }
         }
 
-        if ((v428 + *(v427 - 1)) > *(a1 + 1444))
+        if ((v396 + *(v395 - 1)) > *(a1 + 1444))
         {
           break;
         }
 
-        ++v425;
-        v427 += 2;
-        if (v420 == v425)
+        ++v393;
+        v395 += 2;
+        if (v388 == v393)
         {
-          goto LABEL_768;
+          goto LABEL_765;
         }
       }
 
       if (AVE_Log_CheckLevel(0x10u, 5))
       {
-        v429 = AVE_Log_CheckConsole(0x10u);
-        v430 = AVE_GetCurrTime();
-        v431 = AVE_Log_GetLevelStr(5);
-        v432 = *v427;
-        if (v429)
+        v397 = AVE_Log_CheckConsole(0x10u);
+        v398 = AVE_GetCurrTime();
+        v399 = AVE_Log_GetLevelStr(5);
+        if (v397)
         {
-          printf("%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding\n", v430, 16, v431, v425, *(v427 - 1), *v427, *(a1 + 1444));
-          v430 = AVE_GetCurrTime();
+          printf("%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding\n", v398, 16, v399, v393, *(v395 - 1), *v395, *(a1 + 1444));
+          v398 = AVE_GetCurrTime();
           AVE_Log_GetLevelStr(5);
-          v433 = *(v427 - 1);
-          v506 = *v427;
-          v521 = *(a1 + 1444);
         }
 
-        else
-        {
-          v507 = *v427;
-        }
-
-        syslog(3, "%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding", v430);
+        syslog(3, "%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding", v398);
       }
 
-      *(v43 + 80) = 0;
-      *(v43 + 42) = 1;
+      *(v34 + 80) = 0;
+      *(v34 + 42) = 1;
       *(a1 + 10260) = *(a1 + 1444);
     }
   }
 
-LABEL_768:
-  v434 = *(a1 + 76);
-  if (v434 >= 9)
+LABEL_765:
+  v400 = *(a1 + 76);
+  if (v400 >= 9)
   {
-    v435 = 2;
-    if (v434 <= 0x1E && ((1 << v434) & 0x48821000) != 0)
+    v401 = 2;
+    if (v400 <= 0x1E && ((1 << v400) & 0x48821000) != 0)
     {
       if (*(a1 + 10892))
       {
-        v435 = 2;
+        v401 = 2;
       }
 
       else
       {
-        v435 = 5;
+        v401 = 5;
       }
     }
   }
 
   else
   {
-    v435 = 5;
+    v401 = 5;
   }
 
-  *(v43 + 396) = v435;
-  v436 = *(a1 + 1336);
-  if (v436)
+  *(v34 + 396) = v401;
+  v402 = *(a1 + 1336);
+  if (v402)
   {
-    *(a1 + 39886) = ((v43[345] & 1) == 0) | BYTE2(v436) & 1;
+    *(a1 + 39886) = ((v34[345] & 1) == 0) | BYTE2(v402) & 1;
   }
 
   else
@@ -12138,11 +11677,11 @@ LABEL_768:
     *(a1 + 39886) = 0;
   }
 
-  v437 = *(a1 + 716) | 0x3E;
-  *(a1 + 716) = v437;
-  if (!*(v43 + 363))
+  v403 = *(a1 + 716) | 0x3E;
+  *(a1 + 716) = v403;
+  if (!*(v34 + 363))
   {
-    *(a1 + 716) = v437 & 0xFFFFFFF7;
+    *(a1 + 716) = v403 & 0xFFFFFFF7;
   }
 
   *(a1 + 1096) = (*(v3 + 123) | *(a1 + 1096) & ~*(v2 + 3164)) & ~*(v3 + 124);
@@ -12150,18 +11689,17 @@ LABEL_768:
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v438 = AVE_Log_CheckConsole(3u);
-      v439 = AVE_GetCurrTime();
-      v440 = AVE_Log_GetLevelStr(4);
-      if (v438)
+      v404 = AVE_Log_CheckConsole(3u);
+      v405 = AVE_GetCurrTime();
+      v406 = AVE_Log_GetLevelStr(4);
+      if (v404)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d\n", v439, 3, v440, "AVE_ValidateEncoderParameters", 4725, "false", *(a1 + 1144));
-        v439 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d\n", v405, 3, v406, "AVE_ValidateEncoderParameters", 4725, "false", *(a1 + 1144));
+        v405 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v522 = *(a1 + 1144);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d", v439);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d", v405);
     }
 
     return 4294966295;
@@ -12171,18 +11709,17 @@ LABEL_768:
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v441 = AVE_Log_CheckConsole(3u);
-      v442 = AVE_GetCurrTime();
-      v443 = AVE_Log_GetLevelStr(4);
-      if (v441)
+      v407 = AVE_Log_CheckConsole(3u);
+      v408 = AVE_GetCurrTime();
+      v409 = AVE_Log_GetLevelStr(4);
+      if (v407)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d\n", v442, 3, v443, "AVE_ValidateEncoderParameters", 4730, "false", *(a1 + 1148));
-        v442 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d\n", v408, 3, v409, "AVE_ValidateEncoderParameters", 4730, "false", *(a1 + 1148));
+        v408 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v523 = *(a1 + 1148);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d", v442);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d", v408);
     }
 
     return 4294966295;
@@ -12192,43 +11729,38 @@ LABEL_768:
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v444 = AVE_Log_CheckConsole(3u);
-      v445 = AVE_GetCurrTime();
-      v446 = AVE_Log_GetLevelStr(4);
-      if (v444)
+      v410 = AVE_Log_CheckConsole(3u);
+      v411 = AVE_GetCurrTime();
+      v412 = AVE_Log_GetLevelStr(4);
+      if (v410)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d\n", v445, 3, v446, "AVE_ValidateEncoderParameters", 4735, "false", *(a1 + 1152));
-        v445 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d\n", v411, 3, v412, "AVE_ValidateEncoderParameters", 4735, "false", *(a1 + 1152));
+        v411 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v524 = *(a1 + 1152);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d", v445);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d", v411);
     }
 
     return 4294966295;
   }
 
-  v447 = *(a1 + 1264) != 1 || *(a1 + 10560) != 1;
-  if (AVE_Enc_CheckResolution(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), v447))
+  v413 = *(a1 + 1264) != 1 || *(a1 + 10560) != 1;
+  if (AVE_Enc_CheckResolution(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), v413))
   {
     if (AVE_Log_CheckLevel(3u, 4))
     {
-      v448 = AVE_Log_CheckConsole(3u);
-      v449 = AVE_GetCurrTime();
-      v450 = AVE_Log_GetLevelStr(4);
-      v451 = *(a1 + 1444);
-      if (v448)
+      v414 = AVE_Log_CheckConsole(3u);
+      v415 = AVE_GetCurrTime();
+      v416 = AVE_Log_GetLevelStr(4);
+      if (v414)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.\n", v449, 3, v450, "AVE_ValidateEncoderParameters", 4748, "false", *(a1 + 1440), *(a1 + 1444), *(a1 + 1264));
-        v449 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.\n", v415, 3, v416, "AVE_ValidateEncoderParameters", 4748, "false", *(a1 + 1440), *(a1 + 1444), *(a1 + 1264));
+        v415 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
       }
 
-      v535 = *(a1 + 1444);
-      v541 = *(a1 + 1264);
-      v525 = *(a1 + 1440);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.", v449, 3);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.", v415, 3);
     }
 
     return 4294966295;
@@ -12238,20 +11770,20 @@ LABEL_768:
   {
     if (AVE_Log_CheckLevel(0x10u, 5))
     {
-      v452 = AVE_Log_CheckConsole(0x10u);
-      v453 = AVE_GetCurrTime();
-      v454 = AVE_Log_GetLevelStr(5);
-      if (v452)
+      v417 = AVE_Log_CheckConsole(0x10u);
+      v418 = AVE_GetCurrTime();
+      v419 = AVE_Log_GetLevelStr(5);
+      if (v417)
       {
-        printf("%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.\n", v453, 16, v454, "AVE_ValidateEncoderParameters", 4757);
-        v455 = AVE_GetCurrTime();
-        v492 = AVE_Log_GetLevelStr(5);
-        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v455, 16, v492, "AVE_ValidateEncoderParameters", 4757);
+        printf("%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.\n", v418, 16, v419, "AVE_ValidateEncoderParameters", 4757);
+        v420 = AVE_GetCurrTime();
+        v458 = AVE_Log_GetLevelStr(5);
+        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v420, 16, v458, "AVE_ValidateEncoderParameters", 4757);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v453, 16, v454, "AVE_ValidateEncoderParameters", 4757);
+        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v418, 16, v419, "AVE_ValidateEncoderParameters", 4757);
       }
     }
 
@@ -12263,21 +11795,21 @@ LABEL_768:
     return 0;
   }
 
-  v461 = *(a1 + 11460);
-  if (v461 < 1)
+  v425 = *(a1 + 11460);
+  if (v425 < 1)
   {
     return 0;
   }
 
-  v462 = *(a1 + 1112);
-  if (v461 > v462)
+  v426 = *(a1 + 1112);
+  if (v425 > v426)
   {
     return 0;
   }
 
   v19 = 0;
   *(a1 + 1248) = 0;
-  *(a1 + 1252) = v462 / v461;
+  *(a1 + 1252) = v426 / v425;
   *(a1 + 1256) = 0x200000000;
   *(a1 + 1288) = 1;
   return v19;

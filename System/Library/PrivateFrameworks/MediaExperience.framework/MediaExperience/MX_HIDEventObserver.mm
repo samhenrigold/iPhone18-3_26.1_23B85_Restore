@@ -51,7 +51,7 @@
 
 - (void)handleButtonEvent:(__IOHIDEvent *)event
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   IntegerValue = IOHIDEventGetIntegerValue();
   v5 = IOHIDEventGetIntegerValue();
   if (IntegerValue == 65289 && v5 == 2)
@@ -75,8 +75,7 @@ LABEL_10:
     }
   }
 
-  [(MX_HIDEventObserver *)self setSmartCoverClosed:gFlap1StateIsEngaged & gOpenStateIsEngaged & 1, v9, v10];
-  v8 = *MEMORY[0x1E69E9840];
+  [(MX_HIDEventObserver *)self setSmartCoverClosed:gFlap1StateIsEngaged & gOpenStateIsEngaged & 1];
 }
 
 - (void)handleEvent:(__IOHIDEvent *)event

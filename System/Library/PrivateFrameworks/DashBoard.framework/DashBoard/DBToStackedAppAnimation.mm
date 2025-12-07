@@ -36,7 +36,7 @@
 
   selfCopy = self;
   DBToStackedAppAnimation.startAnimation(completion:)(v7, v6);
-  sub_248167864(v7);
+  sub_248167864(v7, v6);
 }
 
 @end

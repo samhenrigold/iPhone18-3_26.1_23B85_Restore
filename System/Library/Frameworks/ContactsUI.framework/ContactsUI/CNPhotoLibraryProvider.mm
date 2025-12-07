@@ -6,16 +6,16 @@
 
 + (id)photoLibraryWithError:(id *)error
 {
-  isMultiLibraryModeEnabled = [(objc_class *)getPHPhotoLibraryClass() isMultiLibraryModeEnabled];
-  PHPhotoLibraryClass = getPHPhotoLibraryClass();
-  if (isMultiLibraryModeEnabled)
+  v4 = [getPHPhotoLibraryClass(self a2)];
+  v5 = (getPHPhotoLibraryClass)();
+  if (v4)
   {
-    [(objc_class *)PHPhotoLibraryClass openPhotoLibraryWithWellKnownIdentifier:1 error:error];
+    [(objc_class *)v5 openPhotoLibraryWithWellKnownIdentifier:1 error:error];
   }
 
   else
   {
-    [(objc_class *)PHPhotoLibraryClass sharedPhotoLibrary];
+    [(objc_class *)v5 sharedPhotoLibrary];
   }
   v6 = ;
 

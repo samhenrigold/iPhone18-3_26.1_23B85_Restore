@@ -25,7 +25,7 @@
   _Block_copy(v8);
   selfCopy = self;
   sub_18BA93314(interactive, v9, v10, selfCopy, v8);
-  sub_18B7B171C(v9);
+  sub_18B7B171C(v9, v10);
   _Block_release(v8);
   _Block_release(v8);
 }

@@ -73,7 +73,7 @@
 
 - (id)description
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_count(self->_vasRequests, a2, v2, v3, v4))
   {
     v9 = objc_msgSend_componentsJoinedByString_(self->_vasRequests, v6, @" ", v7, v8);
@@ -93,32 +93,32 @@
 
   if (objc_msgSend_count(self->_preferredSchemes, v13, v14, v15, v16))
   {
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v21 = self->_preferredSchemes;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v64, v68, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v63, v67, 16);
     if (v23)
     {
       v28 = v23;
-      v29 = *v65;
+      v29 = *v64;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v65 != v29)
+          if (*v64 != v29)
           {
             objc_enumerationMutation(v21);
           }
 
-          v31 = objc_msgSend_asHexString(*(*(&v64 + 1) + 8 * i), v24, v25, v26, v27);
+          v31 = objc_msgSend_asHexString(*(*(&v63 + 1) + 8 * i), v24, v25, v26, v27);
           objc_msgSend_appendString_(0, v32, v31, v33, v34);
 
           objc_msgSend_appendString_(0, v35, @", ", v36, v37);
         }
 
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v64, v68, 16);
+        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v63, v67, 16);
       }
 
       while (v28);
@@ -135,14 +135,12 @@
   v39 = MEMORY[0x277CCACA8];
   v40 = SPRReaderModeCopyDescription(self->_mode);
   amount = self->_amount;
-  v63 = *&self->_amount._mantissa[6];
+  v62 = *&self->_amount._mantissa[6];
   v44 = objc_msgSend_decimalNumberWithDecimal_(MEMORY[0x277CCA980], v41, &amount, v42, v43);
   v49 = objc_msgSend_asHexString(self->_currencyCode, v45, v46, v47, v48);
   v50 = SPRTransactionTypeCopyDescription(self->_transactionType);
   v55 = objc_msgSend_asHexString(self->_merchantCategoryCode, v51, v52, v53, v54);
   v59 = objc_msgSend_stringWithFormat_(v39, v56, @"{mode=%@, vasRequests=%@, amount=%@, currencyCode=%@, transactionType=%@, merchantCategoryCode=%@, interfaceDeviceSerial=%@, timeoutReadPay=%ld, timeoutReadVas=%ld, transactionUUID=%@, preferredSchemes=%@, vtid=%@, bundleId=%@}", v57, v58, v40, v9, v44, v49, v50, v55, v17, self->_timeoutReadPay, self->_timeoutReadVas, self->_transactionUUID, v38, self->_vtid, self->_bundleID);
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v59;
 }
@@ -250,120 +248,114 @@
 
 - (NSArray)vasProtocol
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB18];
   v7 = objc_msgSend_count(self->_vasRequests, a2, v2, v3, v4);
   v11 = objc_msgSend_arrayWithCapacity_(v6, v8, v7, v9, v10);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v12 = self->_vasRequests;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v28, v32, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v27, v31, 16);
   if (v14)
   {
     v19 = v14;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v12);
         }
 
-        v22 = objc_msgSend_vasTerminalProtocol(*(*(&v28 + 1) + 8 * i), v15, v16, v17, v18, v28);
+        v22 = objc_msgSend_vasTerminalProtocol(*(*(&v27 + 1) + 8 * i), v15, v16, v17, v18, v27);
         objc_msgSend_addObject_(v11, v23, v22, v24, v25);
       }
 
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v28, v32, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v27, v31, 16);
     }
 
     while (v19);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (NSArray)vasPasses
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB18];
   v7 = objc_msgSend_count(self->_vasRequests, a2, v2, v3, v4);
   v11 = objc_msgSend_arrayWithCapacity_(v6, v8, v7, v9, v10);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v12 = self->_vasRequests;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v28, v32, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v27, v31, 16);
   if (v14)
   {
     v19 = v14;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v12);
         }
 
-        v22 = objc_msgSend_merchantId(*(*(&v28 + 1) + 8 * i), v15, v16, v17, v18, v28);
+        v22 = objc_msgSend_merchantId(*(*(&v27 + 1) + 8 * i), v15, v16, v17, v18, v27);
         objc_msgSend_addObject_(v11, v23, v22, v24, v25);
       }
 
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v28, v32, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v27, v31, 16);
     }
 
     while (v19);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (NSArray)urls
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB18];
   v7 = objc_msgSend_count(self->_vasRequests, a2, v2, v3, v4);
   v11 = objc_msgSend_arrayWithCapacity_(v6, v8, v7, v9, v10);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v12 = self->_vasRequests;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v28, v32, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v27, v31, 16);
   if (v14)
   {
     v19 = v14;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v12);
         }
 
-        v22 = objc_msgSend_vasUrl(*(*(&v28 + 1) + 8 * i), v15, v16, v17, v18, v28);
+        v22 = objc_msgSend_vasUrl(*(*(&v27 + 1) + 8 * i), v15, v16, v17, v18, v27);
         objc_msgSend_addObject_(v11, v23, v22, v24, v25);
       }
 
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v28, v32, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v27, v31, 16);
     }
 
     while (v19);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

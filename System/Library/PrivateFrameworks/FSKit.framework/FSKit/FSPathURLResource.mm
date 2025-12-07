@@ -1,5 +1,6 @@
 @interface FSPathURLResource
 + (id)resourceWithURL:(id)l;
++ (id)secureResourceWithURL:(id)l readonly:(BOOL)readonly;
 - (BOOL)isEqual:(id)equal;
 - (FSPathURLResource)initWithCoder:(id)coder;
 - (FSPathURLResource)initWithURL:(id)l writable:(BOOL)writable;
@@ -195,6 +196,15 @@
   v5 = [[self alloc] initWithURL:lCopy readOnly:0];
 
   return v5;
+}
+
++ (id)secureResourceWithURL:(id)l readonly:(BOOL)readonly
+{
+  readonlyCopy = readonly;
+  lCopy = l;
+  v7 = [[self alloc] initAsSecureURL:lCopy readOnly:readonlyCopy];
+
+  return v7;
 }
 
 @end

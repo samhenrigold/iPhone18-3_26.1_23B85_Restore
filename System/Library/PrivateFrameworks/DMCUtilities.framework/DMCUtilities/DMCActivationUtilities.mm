@@ -61,34 +61,34 @@ uint64_t __40__DMCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)setIsReady:(BOOL)ready
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   isReady = self->_isReady;
   self->_isReady = ready;
   if (ready && !isReady)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     allValues = [(NSMutableDictionary *)self->_didBecomeReadyCallbacks allValues];
-    v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          (*(*(*(&v13 + 1) + 8 * i) + 16))();
+          (*(*(*(&v12 + 1) + 8 * i) + 16))();
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -98,94 +98,90 @@ uint64_t __40__DMCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
     didBecomeReadyCallbacks = self->_didBecomeReadyCallbacks;
     self->_didBecomeReadyCallbacks = dictionary;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int)activationState
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (self->_isReady)
+  v20 = *MEMORY[0x1E69E9840];
+  if (!self->_isReady)
   {
-    selfCopy = self;
-    objc_sync_enter(selfCopy);
-    if ([(DMCActivationUtilities *)selfCopy isActivatedCache])
-    {
-      v4 = 2;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v16 = 0;
-      v5 = DMCMAEGetActivationStateWithError(&v16);
-      v6 = v16;
-      if (v6)
-      {
-        v7 = *DMCLogObjects();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138412290;
-          v18 = v6;
-          _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, "MAEGetActivationStateWithError() error: %@", buf, 0xCu);
-        }
-
-        self->_isReady = 0;
-        DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-        v9 = DMCkNotificationActivationStateChanged();
-        CFNotificationCenterAddObserver(DarwinNotifyCenter, selfCopy, DMCActivationUtilitiesWaitingForReady, v9, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-        v4 = 0;
-      }
-
-      else
-      {
-        v10 = DMCkMAActivationStateActivated();
-        v11 = [v5 isEqualToString:v10];
-
-        if (v11)
-        {
-          [(DMCActivationUtilities *)selfCopy setIsActivatedCache:1];
-          v12 = CFNotificationCenterGetDarwinNotifyCenter();
-          v13 = DMCkNotificationActivationStateChanged();
-          CFNotificationCenterAddObserver(v12, selfCopy, DMCActivationUtilitiesDeactivated, v13, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-          v4 = 2;
-        }
-
-        else
-        {
-          v4 = 1;
-        }
-      }
-    }
-
-    objc_sync_exit(selfCopy);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ([(DMCActivationUtilities *)selfCopy isActivatedCache])
+  {
+    v4 = 2;
   }
 
   else
   {
-    v4 = 0;
+    v17 = 0;
+    v5 = DMCMAEGetActivationStateWithError(&v17);
+    v6 = v17;
+    v8 = v6;
+    if (v6)
+    {
+      v9 = *DMCLogObjects(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v19 = v8;
+        _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_ERROR, "MAEGetActivationStateWithError() error: %@", buf, 0xCu);
+      }
+
+      self->_isReady = 0;
+      DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+      v11 = DMCkNotificationActivationStateChanged();
+      CFNotificationCenterAddObserver(DarwinNotifyCenter, selfCopy, DMCActivationUtilitiesWaitingForReady, v11, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+      v4 = 0;
+    }
+
+    else
+    {
+      v12 = DMCkMAActivationStateActivated();
+      v13 = [v5 isEqualToString:v12];
+
+      if (v13)
+      {
+        [(DMCActivationUtilities *)selfCopy setIsActivatedCache:1];
+        v14 = CFNotificationCenterGetDarwinNotifyCenter();
+        v15 = DMCkNotificationActivationStateChanged();
+        CFNotificationCenterAddObserver(v14, selfCopy, DMCActivationUtilitiesDeactivated, v15, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+        v4 = 2;
+      }
+
+      else
+      {
+        v4 = 1;
+      }
+    }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(selfCopy);
+
   return v4;
 }
 
 - (id)activationRecord
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   activationRecordCache = [(DMCActivationUtilities *)self activationRecordCache];
   if (!activationRecordCache)
   {
-    v8 = 0;
-    activationRecordCache = DMCMAECopyActivationRecordWithError(&v8);
-    v4 = v8;
+    v9 = 0;
+    activationRecordCache = DMCMAECopyActivationRecordWithError(&v9);
+    v4 = v9;
+    v6 = v4;
     if (v4)
     {
-      v5 = *DMCLogObjects();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = *DMCLogObjects(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = v4;
-        _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "MAECopyActivationRecordWithError error: %@", buf, 0xCu);
+        v11 = v6;
+        _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, "MAECopyActivationRecordWithError error: %@", buf, 0xCu);
       }
 
       activationRecordCache = 0;
@@ -194,29 +190,29 @@ uint64_t __40__DMCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
     [(DMCActivationUtilities *)self setActivationRecordCache:activationRecordCache];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return activationRecordCache;
 }
 
 - (int)hrnMode
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (+[DMCMultiUserModeUtilities isSharediPad])
+  v32 = *MEMORY[0x1E69E9840];
+  v3 = +[DMCMultiUserModeUtilities isSharediPad];
+  if (v3)
   {
-    v3 = 1;
+    return 1;
   }
 
-  else if (self->_isReady)
+  if (self->_isReady)
   {
-    if (+[DMCFeatureFlags isHRNEnabled])
+    v6 = +[DMCFeatureFlags isHRNEnabled];
+    if (v6)
     {
-      v4 = *DMCLogObjects();
-      v3 = 2;
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v8 = *DMCLogObjects(v6, v7);
+      v5 = 2;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEBUG, "hrnMode returning yes because of feature flag", &v21, 2u);
+        LOWORD(v30) = 0;
+        _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEBUG, "hrnMode returning yes because of feature flag", &v30, 2u);
       }
     }
 
@@ -225,78 +221,84 @@ uint64_t __40__DMCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
       selfCopy = self;
       objc_sync_enter(selfCopy);
       hrnModeCache = [(DMCActivationUtilities *)selfCopy hrnModeCache];
-      v8 = hrnModeCache;
+      v12 = hrnModeCache;
       if (hrnModeCache)
       {
         bOOLValue = [hrnModeCache BOOLValue];
-        v10 = *DMCLogObjects();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v14 = bOOLValue;
+        v16 = *DMCLogObjects(bOOLValue, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v11 = "no";
-          if (bOOLValue)
+          v17 = "no";
+          if (v14)
           {
-            v11 = "yes";
+            v17 = "yes";
           }
 
-          v21 = 136446210;
-          v22 = v11;
-          _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEBUG, "hrnMode returning %{public}s from cache", &v21, 0xCu);
+          v30 = 136446210;
+          v31 = v17;
+          _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_DEBUG, "hrnMode returning %{public}s from cache", &v30, 0xCu);
         }
 
-        if (bOOLValue)
+        if (v14)
         {
-          v3 = 2;
+          v5 = 2;
         }
 
         else
         {
-          v3 = 1;
-        }
-      }
-
-      else if ([(DMCActivationUtilities *)selfCopy activationState]== 2)
-      {
-        activationRecord = [(DMCActivationUtilities *)selfCopy activationRecord];
-        v13 = [activationRecord objectForKeyedSubscript:@"DeviceConfigurationFlags"];
-        v14 = [v13 integerValue] & 0x21;
-        v15 = *DMCLogObjects();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-        {
-          v16 = "no";
-          if (v14 == 33)
-          {
-            v16 = "yes";
-          }
-
-          v21 = 136446210;
-          v22 = v16;
-          _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_DEBUG, "hrnMode returning %{public}s from activation record", &v21, 0xCu);
-        }
-
-        v17 = [MEMORY[0x1E696AD98] numberWithBool:v14 == 33];
-        [(DMCActivationUtilities *)selfCopy setHrnModeCache:v17];
-
-        if (v14 == 33)
-        {
-          v3 = 2;
-        }
-
-        else
-        {
-          v3 = 1;
+          v5 = 1;
         }
       }
 
       else
       {
-        v18 = *DMCLogObjects();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        activationState = [(DMCActivationUtilities *)selfCopy activationState];
+        if (activationState == 2)
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_DEBUG, "hrnMode returning unknown because the device isn't activated", &v21, 2u);
+          activationRecord = [(DMCActivationUtilities *)selfCopy activationRecord];
+          v21 = [activationRecord objectForKeyedSubscript:@"DeviceConfigurationFlags"];
+          integerValue = [v21 integerValue];
+          v24 = integerValue & 0x21;
+          v25 = *DMCLogObjects(integerValue, v23);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          {
+            v26 = "no";
+            if (v24 == 33)
+            {
+              v26 = "yes";
+            }
+
+            v30 = 136446210;
+            v31 = v26;
+            _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_DEBUG, "hrnMode returning %{public}s from activation record", &v30, 0xCu);
+          }
+
+          v27 = [MEMORY[0x1E696AD98] numberWithBool:v24 == 33];
+          [(DMCActivationUtilities *)selfCopy setHrnModeCache:v27];
+
+          if (v24 == 33)
+          {
+            v5 = 2;
+          }
+
+          else
+          {
+            v5 = 1;
+          }
         }
 
-        v3 = 0;
+        else
+        {
+          v28 = *DMCLogObjects(activationState, v19);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          {
+            LOWORD(v30) = 0;
+            _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_DEBUG, "hrnMode returning unknown because the device isn't activated", &v30, 2u);
+          }
+
+          v5 = 0;
+        }
       }
 
       objc_sync_exit(selfCopy);
@@ -305,37 +307,37 @@ uint64_t __40__DMCActivationUtilities_sharedInstance__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = *DMCLogObjects();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = *DMCLogObjects(v3, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEBUG, "hrnMode returning unknown because it's not ready", &v21, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEBUG, "hrnMode returning unknown because it's not ready", &v30, 2u);
     }
 
-    v3 = 0;
+    return 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v5;
 }
 
 - (void)addDidBecomeReadyKey:(id)key callback:(id)callback
 {
   keyCopy = key;
+  v8 = keyCopy;
   if (self->_isReady)
   {
-    v7 = *DMCLogObjects();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = *DMCLogObjects(keyCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_FAULT, "Ignoring an added callback when DMCActivationUtilities are already ready", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_FAULT, "Ignoring an added callback when DMCActivationUtilities are already ready", v11, 2u);
     }
   }
 
   else
   {
-    v8 = MEMORY[0x1B2731A20](callback);
-    [(NSMutableDictionary *)self->_didBecomeReadyCallbacks setObject:v8 forKeyedSubscript:keyCopy];
+    v10 = MEMORY[0x1B2731A20](callback);
+    [(NSMutableDictionary *)self->_didBecomeReadyCallbacks setObject:v10 forKeyedSubscript:v8];
   }
 }
 

@@ -2,6 +2,8 @@
 + (void)generateTransformFromRect:(id)rect toRect:(SEL)toRect transformX:transformY:;
 - (BOOL)setFont:(id)font points:(float)points;
 - (NTKPlumeriaFontHelper)init;
+- (void)generateLayout:(int)layout minute:(int)minute layout:;
+- (void)generateLayoutWithCGRect:(int)rect minute:(int)minute layout:(CGRect *)layout;
 - (void)generateTable:(id)table;
 @end
 
@@ -89,6 +91,57 @@
   }
 
   return 1;
+}
+
+- (void)generateLayoutWithCGRect:(int)rect minute:(int)minute layout:(CGRect *)layout
+{
+  if (layout)
+  {
+    v6 = *&minute;
+    [(NTKPlumeriaFontHelper *)self getWidthOfDigitPair:?];
+    v9 = &self->_pairs[rect];
+    y = v9->leftRect.origin.y;
+    v11 = v9->rightRect.origin.y;
+    size = v9->rightRect.size;
+    v29 = v9->leftRect.size;
+    v13 = v12 * -0.5;
+    v14 = v9->leftRect.origin.x + v13;
+    v15 = v9->rightRect.origin.x + (v13 + v9->leftAdvance);
+    [(NTKPlumeriaFontHelper *)self getWidthOfDigitPair:v6];
+    v16 = &self->_pairs[v6];
+    v17 = v16->leftRect.origin.y;
+    v18 = v16->rightRect.origin.y;
+    v26 = v16->rightRect.size;
+    v27 = v16->leftRect.size;
+    v20 = v19 * -0.5;
+    v21 = v16->leftRect.origin.x + v20;
+    v22 = v16->rightRect.origin.x + (v20 + v16->leftAdvance);
+    capHeight = self->_capHeight;
+    v24 = (capHeight * 0.066667);
+    v25 = (-(capHeight * 0.066667) - capHeight);
+    layout->origin.x = v14;
+    layout->origin.y = y + v24;
+    layout->size = v29;
+    layout[1].origin.x = v15;
+    layout[1].origin.y = v11 + v24;
+    layout[1].size = size;
+    layout[2].origin.x = v21;
+    layout[2].origin.y = v17 + v25;
+    layout[2].size = v27;
+    layout[3].origin.x = v22;
+    layout[3].origin.y = v18 + v25;
+    layout[3].size = v26;
+  }
+}
+
+- (void)generateLayout:(int)layout minute:(int)minute layout:
+{
+  v5 = v4;
+  [(NTKPlumeriaFontHelper *)self generateLayoutWithCGRect:*&layout minute:*&minute layout:v7];
+  for (i = 0; i != 128; i += 32)
+  {
+    *v5++ = vcvt_hight_f32_f64(vcvt_f32_f64(*&v7[i]), vaddq_f64(*&v7[i], *&v7[i + 16]));
+  }
 }
 
 + (void)generateTransformFromRect:(id)rect toRect:(SEL)toRect transformX:transformY:

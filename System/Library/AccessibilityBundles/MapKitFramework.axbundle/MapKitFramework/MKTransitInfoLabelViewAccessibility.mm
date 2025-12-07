@@ -18,13 +18,13 @@
 
 - (id)_axLabelFromLabelItems:(id)items
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   itemsCopy = items;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v4 = [itemsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [itemsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v4)
   {
     v6 = 0;
@@ -33,18 +33,18 @@
 
   v5 = v4;
   v6 = 0;
-  v7 = *v22;
+  v7 = *v21;
   do
   {
     v8 = 0;
     do
     {
-      if (*v22 != v7)
+      if (*v21 != v7)
       {
         objc_enumerationMutation(itemsCopy);
       }
 
-      v9 = *(*(&v21 + 1) + 8 * v8);
+      v9 = *(*(&v20 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -142,7 +142,7 @@ LABEL_32:
         v10 = [v9 safeValueForKey:@"labelArtwork"];
         if ([v10 safeBoolForKey:@"hasAccessibilityString"])
         {
-          v20 = [v10 safeValueForKey:@"accessibilityString"];
+          v19 = [v10 safeValueForKey:@"accessibilityString"];
           v14 = __AXStringForVariables();
 
           v6 = v14;
@@ -154,14 +154,12 @@ LABEL_34:
     }
 
     while (v5 != v8);
-    v17 = [itemsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v17 = [itemsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     v5 = v17;
   }
 
   while (v17);
 LABEL_40:
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

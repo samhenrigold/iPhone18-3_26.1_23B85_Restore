@@ -30,7 +30,8 @@
 {
   if (![(NSString *)[(CKContainer *)self->_container containerIdentifier] isEqualToString:identifier])
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid for a container '%@'. This object was configured to only respond to container requests for '%@'", identifier, -[CKContainer containerIdentifier](self->_container, "containerIdentifier")), 0}]);
+    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{identifier, -[CKContainer containerIdentifier](self->_container, "containerIdentifier")), 0}];
+    objc_exception_throw(v7);
   }
 
   v5 = self->_container;

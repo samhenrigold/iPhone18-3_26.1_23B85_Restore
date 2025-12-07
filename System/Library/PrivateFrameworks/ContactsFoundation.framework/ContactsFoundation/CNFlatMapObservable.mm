@@ -60,7 +60,7 @@ void __34___CNFlatMapObservable_subscribe___block_invoke_4(uint64_t a1)
   [v1 _cn_each:&__block_literal_global_21_0];
 }
 
-uint64_t __34___CNFlatMapObservable_subscribe___block_invoke_6(uint64_t a1)
+void *__34___CNFlatMapObservable_subscribe___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) isObserverReceiving];
   if (result)
@@ -105,7 +105,7 @@ void __34___CNFlatMapObservable_subscribe___block_invoke_7(uint64_t a1, void *a2
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __34___CNFlatMapObservable_subscribe___block_invoke_8(uint64_t a1)
+void *__34___CNFlatMapObservable_subscribe___block_invoke_8(uint64_t a1)
 {
   result = [*(a1 + 32) isOperatorReceiving];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -143,7 +143,7 @@ void __34___CNFlatMapObservable_subscribe___block_invoke_10(uint64_t a1)
   }
 }
 
-uint64_t __34___CNFlatMapObservable_subscribe___block_invoke_11(uint64_t a1)
+void *__34___CNFlatMapObservable_subscribe___block_invoke_11(uint64_t a1)
 {
   result = [*(a1 + 32) isObserverReceiving];
   if (result)
@@ -288,7 +288,7 @@ void __66___CNFlatMapObservable_subscribeInnerObservable_observer_context___bloc
 LABEL_7:
 }
 
-uint64_t __66___CNFlatMapObservable_subscribeInnerObservable_observer_context___block_invoke_8(uint64_t a1)
+void *__66___CNFlatMapObservable_subscribeInnerObservable_observer_context___block_invoke_8(uint64_t a1)
 {
   result = [*(a1 + 32) isObserverReceiving];
   if (result)

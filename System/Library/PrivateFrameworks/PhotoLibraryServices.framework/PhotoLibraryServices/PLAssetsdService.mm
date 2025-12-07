@@ -265,7 +265,7 @@ void __49__PLAssetsdService__prepareToRunDaemonJob_error___block_invoke(uint64_t
   v4 = [v3 pathManager];
   v5 = [PLCloudSharingJob recoveredEventsWithPathManager:v4];
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v6 = [MEMORY[0x1E695DF90] dictionary];
     v7 = *MEMORY[0x1E69C0440];
@@ -280,7 +280,7 @@ void __49__PLAssetsdService__prepareToRunDaemonJob_error___block_invoke(uint64_t
       v14 = 2112;
       v15 = v7;
       v16 = 1024;
-      v17 = [v5 count];
+      v17 = objc_msgSend_count(v5);
       _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "[%@] enqueing job %@ with %d recovered events", &v12, 0x1Cu);
     }
 
@@ -688,9 +688,9 @@ LABEL_52:
       {
         domain = [v36 domain];
         v42 = *MEMORY[0x1E69BFF48];
-        v43 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+        isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-        if (!v43)
+        if (!isEqualToString)
         {
           v15 = v36;
           if (v36)

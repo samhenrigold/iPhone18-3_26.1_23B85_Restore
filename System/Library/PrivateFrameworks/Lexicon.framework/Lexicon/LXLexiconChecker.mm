@@ -73,16 +73,7 @@ LABEL_4:
   v17 = v31 - v30;
   v18 = sub_1B5D33FFC(v30, v31, 0, v17);
   errorCopy = error;
-  if (v15 == v16)
-  {
-    v19 = 1;
-  }
-
-  else
-  {
-    v19 = v18;
-  }
-
+  v19 = v15 == v16 || v18;
   if ((v19 & 1) == 0)
   {
     v20 = 0;

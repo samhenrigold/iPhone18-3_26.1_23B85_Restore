@@ -57,7 +57,7 @@
           }
 
           v12 = *(*(&v18 + 1) + 8 * i);
-          if ([v12 _isLeaf] && (objc_msgSend(v12, "_internalIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", identifierCopy), v13, v14))
+          if ([v12 _isLeaf] && (objc_msgSend(v12, "_internalIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v13), v13, isEqualToString))
           {
             v15 = v12;
           }
@@ -103,9 +103,9 @@ LABEL_16:
   identifierCopy = identifier;
   menuCopy = menu;
   _internalIdentifier = [menuCopy _internalIdentifier];
-  v9 = [_internalIdentifier isEqualToString:identifierCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(_internalIdentifier);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = menuCopy;
   }

@@ -220,6 +220,7 @@
 - (void)_hideChromeOnPlayButtonTapWithItemIsNowPlaying:(BOOL)playing buttonIsOverlayed:(BOOL)overlayed;
 - (void)_hideOverlays;
 - (void)_informVKCOverlayToKickOffSubjectAnalyzing;
+- (void)_invalidateAssetActionManager;
 - (void)_invalidateInfoPanelLayoutAnimated:(BOOL)animated;
 - (void)_isPresentedForPreviewDidChange;
 - (void)_keyboardWillShow:(id)show;
@@ -1301,9 +1302,9 @@ void __79__PUOneUpViewController__isLocationFromProviderOverSyndicationAttributi
   currentAssetReference = [browsingViewModel currentAssetReference];
 
   _tilingView = [(PUOneUpViewController *)self _tilingView];
-  indexPath = [currentAssetReference indexPath];
+  v11 = objc_msgSend_indexPath(currentAssetReference);
   dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-  v13 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+  v13 = [_tilingView presentedTileControllerWithIndexPath:v11 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1346,9 +1347,9 @@ LABEL_6:
   currentAssetReference = [browsingViewModel currentAssetReference];
 
   _tilingView = [(PUOneUpViewController *)self _tilingView];
-  indexPath = [currentAssetReference indexPath];
+  v7 = objc_msgSend_indexPath(currentAssetReference);
   dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-  v9 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+  v9 = [_tilingView presentedTileControllerWithIndexPath:v7 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1381,10 +1382,10 @@ LABEL_6:
 
   v7 = selfCopy;
   _tilingView = [(PUOneUpViewController *)selfCopy _tilingView];
-  indexPath = [currentAssetReference indexPath];
+  v9 = objc_msgSend_indexPath(currentAssetReference);
   v10 = PUTileKindUserTransform;
   dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-  v12 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:v10 dataSourceIdentifier:dataSourceIdentifier];
+  v12 = [_tilingView presentedTileControllerWithIndexPath:v9 kind:v10 dataSourceIdentifier:dataSourceIdentifier];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2367,14 +2368,14 @@ uint64_t __97__PUOneUpViewController__performNavigationToAssetDisplayDescriptor_
   v10 = *(a1 + 48);
   if (v10)
   {
-    [v10 videoSeekTime];
+    objc_msgSend_videoSeekTime(v10);
     if ((v18 & 0x100000000) != 0)
     {
       v11 = *(a1 + 32);
       v12 = *(a1 + 48);
       if (v12)
       {
-        [v12 videoSeekTime];
+        objc_msgSend_videoSeekTime(v12);
       }
 
       else
@@ -2658,7 +2659,7 @@ uint64_t __97__PUOneUpViewController__performNavigationToAssetDisplayDescriptor_
     v149 = viewModel;
     currentAssetReference = [viewModel currentAssetReference];
     v144 = assetsDataSource;
-    [assetsDataSource indexPathForAssetReference:?];
+    objc_msgSend_indexPathForAssetReference_(assetsDataSource);
     v142 = v145 = layout;
     v20 = [layout layoutInfoForTileWithIndexPath:? kind:?];
     containerView = [contextCopy containerView];
@@ -3211,7 +3212,7 @@ void __93__PUOneUpViewController_oneUpAssetTransition_requestTransitionContextWi
   {
     v28 = viewModel;
     currentAssetReference = [viewModel currentAssetReference];
-    indexPath = [currentAssetReference indexPath];
+    v8 = objc_msgSend_indexPath(currentAssetReference);
     v27 = currentAssetReference;
     dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -3237,7 +3238,7 @@ void __93__PUOneUpViewController_oneUpAssetTransition_requestTransitionContextWi
             objc_enumerationMutation(_tileKindsToHide);
           }
 
-          v14 = [v6 presentedTileControllerWithIndexPath:indexPath kind:*(*(&v33 + 1) + 8 * i) dataSourceIdentifier:dataSourceIdentifier];
+          v14 = [v6 presentedTileControllerWithIndexPath:v8 kind:*(*(&v33 + 1) + 8 * i) dataSourceIdentifier:dataSourceIdentifier];
 
           if (v14 && ([v14 isDetached] & 1) == 0)
           {
@@ -3404,10 +3405,10 @@ void __93__PUOneUpViewController_oneUpAssetTransition_requestTransitionContextWi
   {
     referenceCopy = reference;
     _tilingView = [(PUOneUpViewController *)self _tilingView];
-    indexPath = [referenceCopy indexPath];
+    v6 = objc_msgSend_indexPath(referenceCopy);
     dataSourceIdentifier = [referenceCopy dataSourceIdentifier];
 
-    v8 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+    v8 = [_tilingView presentedTileControllerWithIndexPath:v6 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
   }
 
   else
@@ -3425,9 +3426,9 @@ void __93__PUOneUpViewController_oneUpAssetTransition_requestTransitionContextWi
   viewModel = [browsingSession viewModel];
   currentAssetReference = [viewModel currentAssetReference];
 
-  indexPath = [currentAssetReference indexPath];
+  v7 = objc_msgSend_indexPath(currentAssetReference);
   dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-  v9 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+  v9 = [_tilingView presentedTileControllerWithIndexPath:v7 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
   return v9;
 }
@@ -3507,7 +3508,7 @@ void __93__PUOneUpViewController_oneUpAssetTransition_requestTransitionContextWi
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v9 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v9 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   v10 = [(PUOneUpViewController *)self _presentedTileControllerForIndexPath:v9 kind:kindCopy];
 
   return v10;
@@ -3610,11 +3611,11 @@ LABEL_9:
   [v8 performChanges:v9];
 }
 
-uint64_t __72__PUOneUpViewController_accessoryVisibilityInteractionControllerDidEnd___block_invoke(uint64_t result, int a2)
+id *__72__PUOneUpViewController_accessoryVisibilityInteractionControllerDidEnd___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _setAccessoryVisible:1];
+    return [result[4] _setAccessoryVisible:1];
   }
 
   return result;
@@ -4457,7 +4458,7 @@ LABEL_9:
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v8 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v8 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   if (v8)
   {
     _tilingView = [(PUOneUpViewController *)self _tilingView];
@@ -4699,13 +4700,13 @@ void __66__PUOneUpViewController_layout_accessoryOffsetForItemAtIndexPath___bloc
     _accessoryViewControllersManager = [(PUOneUpViewController *)self _accessoryViewControllersManager];
     v6 = [_accessoryViewControllersManager assetReferenceForAccessoryViewController:containerCopy];
 
-    indexPath = [v6 indexPath];
-    if (indexPath)
+    v7 = objc_msgSend_indexPath(v6);
+    if (v7)
     {
       _tilingView = [(PUOneUpViewController *)self _tilingView];
       layout = [_tilingView layout];
 
-      [layout invalidateAccessoryForItemAtIndexPath:indexPath withOptions:2];
+      [layout invalidateAccessoryForItemAtIndexPath:v7 withOptions:2];
     }
   }
 }
@@ -5687,9 +5688,9 @@ uint64_t __85__PUOneUpViewController_imageAnalysisInteractionIsDrivingLivePhotoP
   currentAssetReference = [viewModel currentAssetReference];
 
   _tilingView = [(PUOneUpViewController *)self _tilingView];
-  indexPath = [currentAssetReference indexPath];
+  v8 = objc_msgSend_indexPath(currentAssetReference);
   dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-  v10 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+  v10 = [_tilingView presentedTileControllerWithIndexPath:v8 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -5913,8 +5914,8 @@ LABEL_14:
   viewModel2 = [browsingSession2 viewModel];
   currentAssetReference = [viewModel2 currentAssetReference];
 
-  v14 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
-  if (v14 || ([assetsDataSource firstItemIndexPath], (v14 = objc_claimAutoreleasedReturnValue()) != 0))
+  v14 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
+  if (v14 || (objc_msgSend_firstItemIndexPath(assetsDataSource), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v15 = v14;
     [layoutCopy visibleRectForScrollingToItemAtIndexPath:v14 scrollPosition:0];
@@ -6881,7 +6882,7 @@ void __92__PUOneUpViewController__assetsToPrefetchUsingDataSource_startingAt_cou
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v9 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v9 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   v10 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   if (v9)
   {
@@ -7358,7 +7359,7 @@ LABEL_44:
         }
 
         currentAssetReference2 = [v33 currentAssetReference];
-        v38 = [assetsDataSource indexPathForAssetReference:currentAssetReference2];
+        v38 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
         if (v38)
         {
           [v33 currentAssetTransitionProgress];
@@ -7452,13 +7453,13 @@ LABEL_15:
 LABEL_16:
         if ([v10 badgeInfoChanged])
         {
-          v18 = [v5 indexPath];
+          v18 = objc_msgSend_indexPath(v5);
           [*(a1 + 40) invalidateBadgeSizeForItemAtIndexPath:v18];
         }
 
         if ([v10 modelTileTransformChanged])
         {
-          v19 = [v5 indexPath];
+          v19 = objc_msgSend_indexPath(v5);
           [*(a1 + 40) invalidateModelTileTransformForItemAtIndexPath:v19];
           v20 = [v11 modelTileTransform];
           if ([v20 hasUserZoomedIn])
@@ -7526,13 +7527,13 @@ LABEL_16:
             v30 = 0;
           }
 
-          v31 = [v5 indexPath];
+          v31 = objc_msgSend_indexPath(v5);
           [*(a1 + 40) invalidateContentOffsetForItemAtIndexPath:v31 withOptions:v30];
         }
 
         if ([v10 accessoryViewVisibilityChanged])
         {
-          v32 = [v5 indexPath];
+          v32 = objc_msgSend_indexPath(v5);
           v33 = [v5 asset];
           v34 = [PUCommentsViewController canShowCommentsForAsset:v33];
 
@@ -7595,7 +7596,7 @@ LABEL_16:
 
         if (v43)
         {
-          v44 = [v5 indexPath];
+          v44 = objc_msgSend_indexPath(v5);
           [*(a1 + 40) invalidateVideoPlaceholderForItemAtIndexPath:v44];
         }
 
@@ -7710,7 +7711,7 @@ LABEL_92:
         if ([v10 importStateChanged])
         {
           v65 = *(a1 + 40);
-          v66 = [v5 indexPath];
+          v66 = objc_msgSend_indexPath(v5);
           [v65 invalidateProgressIndicatorForItemAtIndexPath:v66];
         }
 
@@ -7720,7 +7721,7 @@ LABEL_92:
         if (v68)
         {
           v69 = *(a1 + 40);
-          v70 = [v5 indexPath];
+          v70 = objc_msgSend_indexPath(v5);
           [v69 invalidateLoadingIndicatorForItemAtIndexPath:v70];
         }
 
@@ -7782,7 +7783,7 @@ void __45__PUOneUpViewController_viewModel_didChange___block_invoke_6(uint64_t a
   [v1 setDesiredPlayState:1 reason:@"Paused due to content privacy state change."];
 }
 
-uint64_t __45__PUOneUpViewController_viewModel_didChange___block_invoke_2(uint64_t a1)
+void *__45__PUOneUpViewController_viewModel_didChange___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setAccessoryViewVisible:*(a1 + 40)];
   if ((*(a1 + 40) & 1) == 0)
@@ -8997,7 +8998,7 @@ uint64_t __70__PUOneUpViewController_oneUpActionsControllerToggleChromeVisibilit
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v7 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v7 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   _tilingView = [(PUOneUpViewController *)self _tilingView];
   v9 = PUTileKindSyndicationAttribution;
   identifier = [assetsDataSource identifier];
@@ -9422,7 +9423,7 @@ LABEL_9:
 
     assetsDataSource = [viewModel assetsDataSource];
     currentAssetReference = [viewModel currentAssetReference];
-    v14 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+    v14 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
     _tilingView = [(PUOneUpViewController *)self _tilingView];
     v16 = PUTileKindBadge;
     identifier = [assetsDataSource identifier];
@@ -9645,8 +9646,8 @@ LABEL_26:
     if ((isEmpty & 1) == 0)
     {
       currentAssetReference = [viewModel currentAssetReference];
-      indexPath = [currentAssetReference indexPath];
-      [v9 invalidateVideoPlaceholderForItemAtIndexPath:indexPath];
+      v15 = objc_msgSend_indexPath(currentAssetReference);
+      [v9 invalidateVideoPlaceholderForItemAtIndexPath:v15];
     }
 
     [(PUOneUpViewController *)self _invalidateChromeViewController];
@@ -9919,14 +9920,14 @@ void __36__PUOneUpViewController_px_HDRFocus__block_invoke(uint64_t a1, void *a2
       goto LABEL_24;
     }
 
-    indexPath = [currentAssetReference indexPath];
+    v6 = objc_msgSend_indexPath(currentAssetReference);
     _tilingView = [(PUOneUpViewController *)self _tilingView];
     layout = [_tilingView layout];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && indexPath)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && v6)
     {
-      [layout invalidateAccessoryForItemAtIndexPath:indexPath withOptions:5];
+      [layout invalidateAccessoryForItemAtIndexPath:v6 withOptions:5];
     }
 
     [(PUOneUpViewController *)self _presentFloatingInfoPanelAnimated:1];
@@ -9964,14 +9965,14 @@ void __36__PUOneUpViewController_px_HDRFocus__block_invoke(uint64_t a1, void *a2
       [(PUOneUpViewController *)self _invalidateBarsControllers];
     }
 
-    indexPath = [currentAssetReference indexPath];
+    v6 = objc_msgSend_indexPath(currentAssetReference);
     _tilingView2 = [(PUOneUpViewController *)self _tilingView];
     layout2 = [_tilingView2 layout];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && indexPath)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && v6)
     {
-      [layout2 invalidateAccessoryForItemAtIndexPath:indexPath withOptions:v13];
+      [layout2 invalidateAccessoryForItemAtIndexPath:v6 withOptions:v13];
     }
 
     _spec2 = [(PUOneUpViewController *)self _spec];
@@ -10322,12 +10323,12 @@ uint64_t __66__PUOneUpViewController__presentAlertForUnplayableAssetReference___
   }
 }
 
-void __79__PUOneUpViewController__beginVKSubjectAnalyzingWithGestureRecognizer_beginID___block_invoke(uint64_t a1)
+void __79__PUOneUpViewController__beginVKSubjectAnalyzingWithGestureRecognizer_beginID___block_invoke(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if ([WeakRetained touchingGestureRecognizerStateBeginID] == *(a1 + 48))
+  WeakRetained = objc_loadWeakRetained(a1 + 4);
+  if ([WeakRetained touchingGestureRecognizerStateBeginID] == a1[6])
   {
-    v2 = objc_loadWeakRetained((a1 + 40));
+    v2 = objc_loadWeakRetained(a1 + 5);
     v3 = [v2 state];
 
     if (v3 != 1)
@@ -10335,10 +10336,10 @@ void __79__PUOneUpViewController__beginVKSubjectAnalyzingWithGestureRecognizer_b
       return;
     }
 
-    v4 = objc_loadWeakRetained((a1 + 32));
+    v4 = objc_loadWeakRetained(a1 + 4);
     [v4 _informVKCOverlayToKickOffSubjectAnalyzing];
 
-    WeakRetained = objc_loadWeakRetained((a1 + 32));
+    WeakRetained = objc_loadWeakRetained(a1 + 4);
     [WeakRetained _dismissAnyPresentedTip];
   }
 }
@@ -10487,7 +10488,7 @@ LABEL_10:
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v13 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v13 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   _tilingView = [(PUOneUpViewController *)self _tilingView];
   identifier = [assetsDataSource identifier];
   v16 = [_tilingView presentedTileControllerWithIndexPath:v13 kind:kindCopy dataSourceIdentifier:identifier];
@@ -10740,7 +10741,7 @@ LABEL_7:
   v7 = videoPlayer;
   if (videoPlayer)
   {
-    [videoPlayer currentTime];
+    objc_msgSend_currentTime(videoPlayer);
   }
 
   else
@@ -10925,7 +10926,7 @@ LABEL_26:
 
   assetsDataSource = [viewModel assetsDataSource];
   currentAssetReference = [viewModel currentAssetReference];
-  v7 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+  v7 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
   _tilingView = [(PUOneUpViewController *)self _tilingView];
   v9 = PUTileKindBadge;
   identifier = [assetsDataSource identifier];
@@ -10992,8 +10993,8 @@ LABEL_26:
       v10 = [objc_alloc(MEMORY[0x1E69C37D8]) initWithPhotosDataSource:photosDataSource];
       viewModel = [browsingSession viewModel];
       currentAssetReference = [viewModel currentAssetReference];
-      indexPath = [currentAssetReference indexPath];
-      section = [indexPath section];
+      v13 = objc_msgSend_indexPath(currentAssetReference);
+      section = [v13 section];
       if (section >= [photosDataSource numberOfSections])
       {
         v22 = 0;
@@ -11004,15 +11005,15 @@ LABEL_29:
 
       v37 = viewModel;
       v38 = v10;
-      indexPath2 = [currentAssetReference indexPath];
-      item = [indexPath2 item];
-      indexPath3 = [currentAssetReference indexPath];
-      v18 = [photosDataSource numberOfItemsInSection:{objc_msgSend(indexPath3, "section")}];
+      v15 = objc_msgSend_indexPath(currentAssetReference);
+      item = [v15 item];
+      v17 = objc_msgSend_indexPath(currentAssetReference);
+      v18 = [photosDataSource numberOfItemsInSection:{objc_msgSend(v17, "section")}];
 
       if (item < v18)
       {
-        indexPath4 = [currentAssetReference indexPath];
-        indexPath = [photosDataSource assetReferenceAtIndexPath:indexPath4];
+        v19 = objc_msgSend_indexPath(currentAssetReference);
+        v13 = [photosDataSource assetReferenceAtIndexPath:v19];
 
         wantsSpotlightStyling = [(PUOneUpViewController *)self wantsSpotlightStyling];
         v21 = 0x1E69C37C0;
@@ -11021,7 +11022,7 @@ LABEL_29:
           v21 = 0x1E69C3798;
         }
 
-        v22 = [objc_alloc(*v21) initWithSelectedObjectReference:indexPath dataSourceManager:v38];
+        v22 = [objc_alloc(*v21) initWithSelectedObjectReference:v13 dataSourceManager:v38];
         browsingSession2 = [(PUOneUpViewController *)self browsingSession];
         actionManager = [browsingSession2 actionManager];
 
@@ -11109,6 +11110,13 @@ LABEL_32:
 LABEL_33:
 
   return assetActionManager;
+}
+
+- (void)_invalidateAssetActionManager
+{
+  assetActionManager = self->_assetActionManager;
+  self->_assetActionManager = 0;
+  MEMORY[0x1EEE66BB8](self, assetActionManager);
 }
 
 - (void)_browsingVideoPlayerDidPlayToEndTime:(id)time
@@ -11281,11 +11289,11 @@ LABEL_4:
     v8 = +[PUOneUpSettings sharedInstance];
     v9 = PUShouldAutoHideChrome(viewModel, [v8 chromeAutoHideBehaviorOnPlayButton]);
 
-    indexPath = [currentAssetReference indexPath];
+    v10 = objc_msgSend_indexPath(currentAssetReference);
     _tilingView = [(PUOneUpViewController *)self _tilingView];
     layout = [_tilingView layout];
 
-    v13 = [(PUOneUpViewController *)self _videoPlayerAtIndexPath:indexPath layout:layout];
+    v13 = [(PUOneUpViewController *)self _videoPlayerAtIndexPath:v10 layout:layout];
 
     if (v9 && (![(PUOneUpViewController *)self _isSecondScreenBrowserVisible]|| !v13))
     {
@@ -11379,10 +11387,10 @@ LABEL_4:
 
       isInEditMode = [v7 isInEditMode];
       _tilingView = [(PUOneUpViewController *)self _tilingView];
-      indexPath = [currentAssetReference indexPath];
+      v10 = objc_msgSend_indexPath(currentAssetReference);
       v11 = PUTileKindUserTransform;
       dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-      v13 = [_tilingView presentedTileControllerWithIndexPath:indexPath kind:v11 dataSourceIdentifier:dataSourceIdentifier];
+      v13 = [_tilingView presentedTileControllerWithIndexPath:v10 kind:v11 dataSourceIdentifier:dataSourceIdentifier];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -12130,7 +12138,7 @@ uint64_t __44__PUOneUpViewController__updateSpecIfNeeded__block_invoke(uint64_t 
     v12 = badgeInfoPromise;
     if (badgeInfoPromise)
     {
-      [badgeInfoPromise badgeInfo];
+      objc_msgSend_badgeInfo(badgeInfoPromise);
     }
 
     isChromeVisible = [viewModel isChromeVisible];
@@ -12200,7 +12208,7 @@ uint64_t __44__PUOneUpViewController__updateSpecIfNeeded__block_invoke(uint64_t 
 
     if (currentAssetReference)
     {
-      v22 = [assetsDataSource indexPathForAssetReference:currentAssetReference];
+      v22 = objc_msgSend_indexPathForAssetReference_(assetsDataSource);
       _tilingView = [(PUOneUpViewController *)self _tilingView];
       v24 = PUTileKindBadge;
       identifier = [assetsDataSource identifier];
@@ -13614,12 +13622,12 @@ void __76__PUOneUpViewController_viewWillTransitionToSize_withTransitionCoordina
   [(PUOneUpViewController *)self _updateIfNeeded];
 }
 
-uint64_t __50__PUOneUpViewController_traitCollectionDidChange___block_invoke(uint64_t a1)
+uint64_t __50__PUOneUpViewController_traitCollectionDidChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PXUserInterfaceSizeClassFromUITraitCollection();
-  v3 = *(a1 + 32);
+  v3 = PXUserInterfaceSizeClassFromUITraitCollection();
+  v4 = *(a1 + 32);
 
-  return [v3 setHorizontalSizeClass:v2];
+  return [v4 setHorizontalSizeClass:v3];
 }
 
 - (void)viewWillLayoutSubviews

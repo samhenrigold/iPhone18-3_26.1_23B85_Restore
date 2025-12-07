@@ -6,6 +6,7 @@
 - (id)safariDefaultsValueForKey:(id)key;
 - (id)safariSharedDefaultsValueForKey:(id)key;
 - (void)postDistributedNotificationNamed:(__CFString *)named;
+- (void)reloadSpecifierAtIndex:(int64_t)index animated:(BOOL)animated;
 - (void)setSafariDefaultsValue:(id)value forKey:(id)key;
 - (void)setSafariSharedDefaultsValue:(id)value forKey:(id)key;
 - (void)synchronizeSafariDefaults;
@@ -239,6 +240,19 @@ id __66__SafariSettingsListController_tableView_didSelectRowAtIndexPath___block_
   v8 = [v7 mutableCopy];
 
   return v8;
+}
+
+- (void)reloadSpecifierAtIndex:(int64_t)index animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = [(SafariSettingsListController *)self specifierAtIndex:?];
+  v10 = v7;
+  v8 = [NSArray arrayWithObjects:&v10 count:1];
+  [(SafariSettingsListController *)self updateRestrictionsForSpecifiers:v8];
+
+  v9.receiver = self;
+  v9.super_class = SafariSettingsListController;
+  [(SafariSettingsListController *)&v9 reloadSpecifierAtIndex:index animated:animatedCopy];
 }
 
 - (void)_evaluateBoolSelectorWithPropertyKey:(uint64_t)a1 specifier:(void *)a2 defaultValue:.cold.1(uint64_t a1, void *a2)

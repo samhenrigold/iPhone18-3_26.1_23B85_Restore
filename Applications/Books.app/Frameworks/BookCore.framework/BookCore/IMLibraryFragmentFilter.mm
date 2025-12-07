@@ -81,29 +81,27 @@
 - (void)addDocument:(id)document withIdentifier:(id)identifier
 {
   documentCopy = document;
-  v14 = 0u;
-  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   identifierCopy = identifier;
   v8 = objc_opt_class();
-  v9 = [documentCopy length];
+  [documentCopy length];
   if (v8)
   {
-    v12 = *&self->_specification.loadFactor;
-    *&v13 = self->_specification.windowWidth;
-    [v8 fragmentFilterSpecificationForDocumentLength:v9 librarySpecification:&v12];
+    objc_msgSend_fragmentFilterSpecificationForDocumentLength_librarySpecification_(v8, *&self->_specification.loadFactor, self->_specification.numberOfHashFunctions, self->_specification.windowWidth);
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
   }
 
-  v10 = [IMDocumentFragmentFilter alloc];
-  v12 = v14;
-  v13 = v15;
-  v11 = [(IMDocumentFragmentFilter *)v10 initWithDocument:documentCopy filterSpecification:&v12];
-  [(IMLibraryFragmentFilter *)self addFilter:v11 withIdentifier:identifierCopy];
+  v9 = [IMDocumentFragmentFilter alloc];
+  v11[0] = v12;
+  v11[1] = v13;
+  v10 = [(IMDocumentFragmentFilter *)v9 initWithDocument:documentCopy filterSpecification:v11];
+  [(IMLibraryFragmentFilter *)self addFilter:v10 withIdentifier:identifierCopy];
 }
 
 - (BOOL)containsDocumentWithIdentifier:(id)identifier

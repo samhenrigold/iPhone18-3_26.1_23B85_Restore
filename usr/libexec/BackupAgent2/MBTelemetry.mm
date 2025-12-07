@@ -17,69 +17,63 @@
   if ([eventCopy count])
   {
     v8 = [v7 objectForKeyedSubscript:@"successes"];
-    if (v8)
+    if (v8 && (v9 = v8, [v7 objectForKeyedSubscript:@"failed"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
     {
-      v9 = v8;
-      v10 = [v7 objectForKeyedSubscript:@"failed"];
-
-      if (v10)
+      v11 = MBGetDefaultLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v11 = MBGetDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "=analytics= CA metrics have both success and failure recordings", buf, 2u);
-          _MBLog();
-        }
-
-        LOBYTE(v12) = 0;
-        goto LABEL_19;
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "=analytics= CA metrics have both success and failure recordings", buf, 2u);
+        _MBLog(@"F ", "=analytics= CA metrics have both success and failure recordings");
       }
+
+      LOBYTE(v12) = 0;
     }
 
-    v13 = MBGetDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    else
     {
-      *buf = 138543618;
-      v19 = nameCopy;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=analytics= Submitting %{public}@: %@", buf, 0x16u);
-      _MBLog();
-    }
+      v13 = MBGetDefaultLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138543618;
+        v19 = nameCopy;
+        v20 = 2112;
+        v21 = v7;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=analytics= Submitting %{public}@: %@", buf, 0x16u);
+        _MBLog(@"I ", "=analytics= Submitting %{public}@: %@", nameCopy, v7);
+      }
 
-    v17 = v7;
-    v12 = AnalyticsSendEventLazy();
-    v14 = MBGetDefaultLog();
-    v15 = v14;
-    if (v12)
-    {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v17 = v7;
+      v12 = AnalyticsSendEventLazy();
+      v14 = MBGetDefaultLog();
+      v15 = v14;
+      if (v12)
+      {
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543362;
+          v19 = nameCopy;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "=analytics= Successfully submitted %{public}@", buf, 0xCu);
+          _MBLog(@"I ", "=analytics= Successfully submitted %{public}@", nameCopy);
+        }
+      }
+
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
         v19 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "=analytics= Successfully submitted %{public}@", buf, 0xCu);
-LABEL_17:
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=analytics= Failed to submit %{public}@", buf, 0xCu);
+        _MBLog(@"E ", "=analytics= Failed to submit %{public}@", nameCopy);
       }
+
+      v11 = v17;
     }
-
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543362;
-      v19 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=analytics= Failed to submit %{public}@", buf, 0xCu);
-      goto LABEL_17;
-    }
-
-    v11 = v17;
-LABEL_19:
-
-    goto LABEL_20;
   }
 
-  LOBYTE(v12) = 1;
-LABEL_20:
+  else
+  {
+    LOBYTE(v12) = 1;
+  }
 
   return v12;
 }

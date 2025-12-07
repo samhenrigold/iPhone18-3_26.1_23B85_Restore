@@ -27,6 +27,7 @@
 - (void)_notifyClientHandler;
 - (void)_readFrontCameraToDisplayCenterOffset;
 - (void)_setFixedTransforms:(const CMOQuaternion *)transforms;
+- (void)_setTrackingSchemeInternal:(int)internal;
 - (void)_startDefaultsPreferenceUpdater;
 - (void)_startHeadTracking;
 - (void)_startJitterBufferLevelMonitor;
@@ -47,6 +48,7 @@
 - (void)_updateUseHeadToHeadsetTransformationEstimator;
 - (void)_updateUserSettings;
 - (void)dealloc;
+- (void)feedPoseAnchorWithAttitude:(id)attitude position:()CMVector<float lidAngleDeg:(3UL>)deg numberOfDetectedFaces:(float)faces timestampUs:(int)us;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 @end
 
@@ -73,7 +75,7 @@
 
 - (void)_enableLoggingForReplayWithFilenamePrefix:(id)prefix filePath:(id)path
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   self->_logForReplay = 1;
   if (qword_1EAFE2998 != -1)
   {
@@ -97,17 +99,20 @@
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v10 = _os_log_send_and_compose_impl();
+    v14 = 138477827;
+    pathCopy2 = path;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Logging to: %{private}@", &v14, 12);
+    v11 = v10;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _enableLoggingForReplayWithFilenamePrefix:filePath:]", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    if (v11 != buf)
     {
-      free(v10);
+      free(v11);
     }
   }
 
   objc_msgSend_setMcLogPath_(self, v9, path);
-  objc_msgSend_cStringUsingEncoding_(prefix, v11, 1);
-  objc_msgSend_cStringUsingEncoding_(path, v12, 1);
+  objc_msgSend_cStringUsingEncoding_(prefix, v12, 1);
+  objc_msgSend_cStringUsingEncoding_(path, v13, 1);
   operator new();
 }
 
@@ -132,46 +137,45 @@
 
 - (int)_createPoseFromListenerOrientation:(const ListenerOrientation *)orientation Pose:(id *)pose
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   var1 = orientation->var1;
   v6 = *(self->_headTrackingService.__ptr_ + 678);
   timestamp = self->_lastAudioAccessorySample.timestamp;
   lastListenerOrientationGenerationTimestampSeconds = self->_lastListenerOrientationGenerationTimestampSeconds;
   lastPresentationTimestamp = self->_lastPresentationTimestamp;
-  var2 = orientation->var2;
   if (self->_inEarStatus == 4)
   {
-    v11 = orientation->var2;
+    var2 = orientation->var2;
   }
 
   else
   {
-    v11 = 0;
+    var2 = 0;
   }
 
-  if (v11)
+  if (var2)
   {
-    v12 = objc_msgSend_returnDefaultPose(self, a2, orientation);
+    v11 = objc_msgSend_returnDefaultPose(self, a2, orientation);
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
   if (objc_msgSend_returnRandomPose(self, a2, orientation))
   {
-    v15 = objc_msgSend_returnDefaultPose(self, v13, v14) ^ 1;
+    v14 = objc_msgSend_returnDefaultPose(self, v12, v13) ^ 1;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   ptr = self->_headTrackingService.__ptr_;
-  v17 = *(ptr + 16082);
-  v18 = *(*(ptr + 4717) + 112);
+  v16 = *(ptr + 16082);
+  v17 = *(*(ptr + 4717) + 112);
   if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(var1, var1)))))
   {
     if (qword_1EAFE2998 != -1)
@@ -179,15 +183,15 @@
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v19 = off_1EAFE29A0;
+    v18 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "[CMMediaSession] quaternion has nans. Replacing with identity quaternion.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_ERROR, "[CMMediaSession] quaternion has nans. Replacing with identity quaternion.", buf, 2u);
     }
 
-    v20 = sub_19B420058();
-    if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
+    v19 = sub_19B420058();
+    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -195,9 +199,10 @@
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v45) = 0;
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _createPoseFromListenerOrientation:Pose:]", "CoreLocation: %s\n", v21);
+      LOWORD(v44) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] quaternion has nans. Replacing with identity quaternion.", &v44, 2);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _createPoseFromListenerOrientation:Pose:]", "CoreLocation: %s\n", v20);
       if (v21 != buf)
       {
         free(v21);
@@ -207,7 +212,7 @@
 LABEL_23:
     v22 = xmmword_19B7B7990;
     v23 = 0uLL;
-    if (v15)
+    if (v14)
     {
       goto LABEL_24;
     }
@@ -215,14 +220,14 @@ LABEL_23:
     goto LABEL_27;
   }
 
-  if (v12)
+  if (v11)
   {
     goto LABEL_23;
   }
 
   v22 = vcvt_hight_f64_f32(var1);
   v23 = vcvtq_f64_f32(*var1.elements);
-  if (v15)
+  if (v14)
   {
 LABEL_24:
     v24 = arc4random_uniform(0x1E8481u) + -1000000.0;
@@ -232,13 +237,13 @@ LABEL_24:
     v28 = v24;
     v29 = v25;
     v30 = v26 + -1000000.0;
-    v45 = v28;
-    v46 = v29;
-    v47 = v30;
+    v44 = v28;
+    v45 = v29;
+    v46 = v30;
     v31 = 0.0;
     do
     {
-      v31 = v31 + (*(&v45 + v27) * *(&v45 + v27));
+      v31 = v31 + (*(&v44 + v27) * *(&v44 + v27));
       v27 += 4;
     }
 
@@ -248,18 +253,18 @@ LABEL_24:
     v34 = v29 / v32;
     v35 = v30 / v32;
     v36 = (arc4random_uniform(0x8CA0u) / 100.0) * 0.017453;
-    v45 = v33 * v36;
-    v46 = v34 * v36;
-    v47 = v35 * v36;
-    sub_19B66C264(buf, &v45);
+    v44 = v33 * v36;
+    v45 = v34 * v36;
+    v46 = v35 * v36;
+    sub_19B66C264(buf, &v44);
     v22 = vcvt_hight_f64_f32(*buf);
     v23 = vcvtq_f64_f32(*buf);
   }
 
 LABEL_27:
-  v42 = v22;
-  v44 = v23;
-  if ((v17 & (v18 != 2)) != 0)
+  v41 = v22;
+  v43 = v23;
+  if ((v16 & (v17 != 2)) != 0)
   {
     v37 = 114;
   }
@@ -270,23 +275,22 @@ LABEL_27:
   }
 
   v38 = [CMPose alloc];
-  *buf = vextq_s8(v42, v44, 8uLL);
-  v49 = vextq_s8(v44, v42, 8uLL);
-  v51 = 0;
-  v52 = 0;
+  *buf = vextq_s8(v41, v43, 8uLL);
+  v48 = vextq_s8(v43, v41, 8uLL);
   v50 = 0;
-  v53 = v6 * 0.000001;
-  v54 = timestamp;
-  v55 = lastListenerOrientationGenerationTimestampSeconds;
-  v56 = lastPresentationTimestamp * 0.000001;
-  *pose = objc_msgSend_initWithPose_timestamp_(v38, v39, buf, v11);
-  v40 = *MEMORY[0x1E69E9840];
+  v51 = 0;
+  v49 = 0;
+  v52 = v6 * 0.000001;
+  v53 = timestamp;
+  v54 = lastListenerOrientationGenerationTimestampSeconds;
+  v55 = lastPresentationTimestamp * 0.000001;
+  *pose = objc_msgSend_initWithPose_timestamp_(v38, v39, buf, var2);
   return v37;
 }
 
 - (BOOL)_disallowOpportunisticAnchorTrackingForFTClients:(int)clients clientMode:(int)mode
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = clients == 1 && (mode & 0xFFFFFFFE) == 2;
   v5 = v4;
   if (v4)
@@ -319,17 +323,146 @@ LABEL_27:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v9 = _os_log_send_and_compose_impl();
+      v12[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Disallow opportunisticAnchor tracking for FT clients.", v12, 2);
+      v10 = v9;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _disallowOpportunisticAnchorTrackingForFTClients:clientMode:]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      if (v10 != buf)
       {
-        free(v9);
+        free(v10);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (void)_setTrackingSchemeInternal:(int)internal
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (self->_scheme != internal && (objc_msgSend__disallowOpportunisticAnchorTrackingForFTClients_clientMode_(self, a2, *&internal, self->_analyticsClientMode) & 1) == 0)
+  {
+    if (qword_1EAFE2998 != -1)
+    {
+      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    }
+
+    v5 = off_1EAFE29A0;
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+    {
+      scheme = self->_scheme;
+      *buf = 67240448;
+      internalCopy3 = scheme;
+      v24 = 1026;
+      internalCopy = internal;
+      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Tracking scheme changed - old: %{public}d new: %{public}d", buf, 0xEu);
+    }
+
+    v7 = sub_19B420058();
+    if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+
+      v8 = self->_scheme;
+      v18 = 67240448;
+      internalCopy4 = v8;
+      v20 = 1026;
+      internalCopy2 = internal;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Tracking scheme changed - old: %{public}d new: %{public}d", &v18, 14);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _setTrackingSchemeInternal:]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
+      {
+        free(v10);
+      }
+    }
+
+    if (internal > 1)
+    {
+      if (internal == 2)
+      {
+        v11 = 2;
+        goto LABEL_38;
+      }
+
+      if (internal == 3)
+      {
+        v11 = 3;
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      if (!internal)
+      {
+LABEL_20:
+        self->_scheme = 0;
+        goto LABEL_39;
+      }
+
+      if (internal == 1)
+      {
+        if (self->_displayCount >= 2)
+        {
+          self->_schemePrev = 1;
+          goto LABEL_20;
+        }
+
+        v11 = 1;
+LABEL_38:
+        self->_scheme = v11;
+LABEL_39:
+        ptr = self->_headTrackingService.__ptr_;
+        if (ptr)
+        {
+          sub_19B690FE4(ptr, self->_scheme);
+        }
+
+        return;
+      }
+    }
+
+    if (qword_1EAFE2998 != -1)
+    {
+      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    }
+
+    v12 = off_1EAFE29A0;
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67240192;
+      internalCopy3 = internal;
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Invalid input scheme %{public}d", buf, 8u);
+    }
+
+    v13 = sub_19B420058();
+    if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+
+      v18 = 67240192;
+      internalCopy4 = internal;
+      LODWORD(v17) = 8;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Invalid input scheme %{public}d", &v18, v17);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _setTrackingSchemeInternal:]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
+      {
+        free(v15);
+      }
+    }
+
+    goto LABEL_39;
+  }
 }
 
 - (int)_mapCMMediaSessionClientModeToRelDMClientMode:(int64_t)mode
@@ -347,7 +480,7 @@ LABEL_27:
 
 - (void)_readFrontCameraToDisplayCenterOffset
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   p_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters = &self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters;
   *self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements = 0;
   self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2] = 0.0;
@@ -359,17 +492,17 @@ LABEL_27:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v10 = off_1EAFE29A0;
+    v12 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Anchor offset from display center is not available. Defaulting to zero.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Anchor offset from display center is not available. Defaulting to zero.", buf, 2u);
     }
 
-    v11 = sub_19B420058();
-    if (*(v11 + 160) <= 1 && *(v11 + 164) <= 1 && *(v11 + 168) <= 1 && !*(v11 + 152))
+    v13 = sub_19B420058();
+    if (*(v13 + 160) <= 1 && *(v13 + 164) <= 1 && *(v13 + 168) <= 1 && !*(v13 + 152))
     {
-      goto LABEL_38;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -378,54 +511,56 @@ LABEL_27:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-LABEL_35:
-    v9 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _readFrontCameraToDisplayCenterOffset]", "CoreLocation: %s\n");
+    LOWORD(v36) = 0;
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Anchor offset from display center is not available. Defaulting to zero.", &v36, 2);
 LABEL_36:
-    if (v9 != buf)
+    v11 = v14;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _readFrontCameraToDisplayCenterOffset]", "CoreLocation: %s\n", v15);
+LABEL_37:
+    if (v11 != buf)
     {
-      free(v9);
+      free(v11);
     }
 
-    goto LABEL_38;
+    return;
   }
 
   v5 = v4;
   v6 = CFGetTypeID(v4);
   if (v6 == CFArrayGetTypeID() && CFArrayGetCount(v5) > 1)
   {
-    v12 = v5;
-    v14 = objc_msgSend_objectAtIndexedSubscript_(v12, v13, 0);
-    objc_msgSend_floatValue(v14, v15, v16);
-    v29 = v17;
-    v19 = objc_msgSend_objectAtIndexedSubscript_(v12, v18, 1);
-    objc_msgSend_floatValue(v19, v20, v21);
-    v22.i32[1] = v29;
-    *p_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters->elements = vmul_f32(v22, vdup_n_s32(0x3A83126Fu));
+    v16 = v5;
+    v18 = objc_msgSend_objectAtIndexedSubscript_(v16, v17, 0);
+    objc_msgSend_floatValue(v18, v19, v20);
+    v35 = v21;
+    v23 = objc_msgSend_objectAtIndexedSubscript_(v16, v22, 1);
+    objc_msgSend_floatValue(v23, v24, v25);
+    v26.i32[1] = v35;
+    *p_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters->elements = vmul_f32(v26, vdup_n_s32(0x3A83126Fu));
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v23 = off_1EAFE29A0;
+    v27 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0] * 1000.0);
-      v25 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1] * 1000.0);
-      v26 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2] * 1000.0);
+      v28 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0] * 1000.0);
+      v29 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1] * 1000.0);
+      v30 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2] * 1000.0);
       *buf = 134349568;
-      v34 = v24;
-      v35 = 2050;
-      v36 = v25;
-      v37 = 2050;
-      v38 = v26;
-      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Anchor offset from display center x: %{public}.1f mm, y: %{public}.1f mm, z: %{public}.1f mm", buf, 0x20u);
+      v43 = v28;
+      v44 = 2050;
+      v45 = v29;
+      v46 = 2050;
+      v47 = v30;
+      _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Anchor offset from display center x: %{public}.1f mm, y: %{public}.1f mm, z: %{public}.1f mm", buf, 0x20u);
     }
 
-    v27 = sub_19B420058();
-    if (*(v27 + 160) <= 1 && *(v27 + 164) <= 1 && *(v27 + 168) <= 1 && !*(v27 + 152))
+    v31 = sub_19B420058();
+    if (*(v31 + 160) <= 1 && *(v31 + 164) <= 1 && *(v31 + 168) <= 1 && !*(v31 + 152))
     {
-      goto LABEL_38;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -434,10 +569,17 @@ LABEL_36:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v30 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0] * 1000.0);
-    v31 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1] * 1000.0);
-    v32 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2] * 1000.0);
-    goto LABEL_35;
+    v32 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0] * 1000.0);
+    v33 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1] * 1000.0);
+    v34 = (self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2] * 1000.0);
+    v36 = 134349568;
+    v37 = v32;
+    v38 = 2050;
+    v39 = v33;
+    v40 = 2050;
+    v41 = v34;
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Anchor offset from display center x: %{public}.1f mm, y: %{public}.1f mm, z: %{public}.1f mm", &v36, 32);
+    goto LABEL_36;
   }
 
   CFRelease(v5);
@@ -462,13 +604,12 @@ LABEL_36:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v9 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _readFrontCameraToDisplayCenterOffset]", "CoreLocation: %s\n");
-    goto LABEL_36;
+    LOWORD(v36) = 0;
+    v9 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Anchor offset from display center data has wrong type. Defaulting to zero.", &v36, 2);
+    v11 = v10;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _readFrontCameraToDisplayCenterOffset]", "CoreLocation: %s\n", v9);
+    goto LABEL_37;
   }
-
-LABEL_38:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithOptions:(id)options
@@ -520,11 +661,12 @@ LABEL_38:
 
       v52 = 138477827;
       optionsCopy = options;
-      v10 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Creating CMMediaSession with options: %{private}@", &v52, 12);
+      v11 = v10;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _initWithOptions:]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
+      if (v11 != buf)
       {
-        free(v10);
+        free(v11);
       }
     }
 
@@ -532,63 +674,63 @@ LABEL_38:
     {
       if (objc_msgSend_valueForKey_(options, v9, @"CMMediaSessionClientMode"))
       {
-        v12 = objc_msgSend_objectForKeyedSubscript_(options, v11, @"CMMediaSessionClientMode");
-        v15 = objc_msgSend_intValue(v12, v13, v14);
-        v17 = objc_msgSend__mapCMMediaSessionClientModeToRelDMClientMode_(v6, v16, v15);
-        v6[86] = v17;
-        v6[19] = v17;
+        v13 = objc_msgSend_objectForKeyedSubscript_(options, v12, @"CMMediaSessionClientMode");
+        v16 = objc_msgSend_intValue(v13, v14, v15);
+        v18 = objc_msgSend__mapCMMediaSessionClientModeToRelDMClientMode_(v6, v17, v16);
+        v6[86] = v18;
+        v6[19] = v18;
       }
 
-      if (objc_msgSend_valueForKey_(options, v11, @"AlwaysOnAnchor"))
+      if (objc_msgSend_valueForKey_(options, v12, @"AlwaysOnAnchor"))
       {
-        v19 = objc_msgSend_objectForKeyedSubscript_(options, v18, @"AlwaysOnAnchor");
-        if (objc_msgSend_BOOLValue(v19, v20, v21))
+        v20 = objc_msgSend_objectForKeyedSubscript_(options, v19, @"AlwaysOnAnchor");
+        if (objc_msgSend_BOOLValue(v20, v21, v22))
         {
           v6[20] = 2;
         }
       }
 
-      if (objc_msgSend_valueForKey_(options, v18, @"OpportunisticAnchor"))
+      if (objc_msgSend_valueForKey_(options, v19, @"OpportunisticAnchor"))
       {
-        v23 = objc_msgSend_objectForKeyedSubscript_(options, v22, @"OpportunisticAnchor");
-        if (objc_msgSend_BOOLValue(v23, v24, v25))
+        v24 = objc_msgSend_objectForKeyedSubscript_(options, v23, @"OpportunisticAnchor");
+        if (objc_msgSend_BOOLValue(v24, v25, v26))
         {
           v6[20] = 1;
         }
       }
 
-      if (objc_msgSend_valueForKey_(options, v22, @"TrackingScheme"))
+      if (objc_msgSend_valueForKey_(options, v23, @"TrackingScheme"))
       {
-        v27 = objc_msgSend_objectForKeyedSubscript_(options, v26, @"TrackingScheme");
-        if (objc_msgSend_intValue(v27, v28, v29))
+        v28 = objc_msgSend_objectForKeyedSubscript_(options, v27, @"TrackingScheme");
+        if (objc_msgSend_intValue(v28, v29, v30))
         {
-          v30 = objc_msgSend_objectForKeyedSubscript_(options, v26, @"TrackingScheme");
-          v33 = objc_msgSend_intValue(v30, v31, v32);
-          if (v33 <= 3)
+          v31 = objc_msgSend_objectForKeyedSubscript_(options, v27, @"TrackingScheme");
+          v34 = objc_msgSend_intValue(v31, v32, v33);
+          if (v34 <= 3)
           {
-            v6[20] = v33;
+            v6[20] = v34;
           }
         }
       }
 
-      if (objc_msgSend_valueForKey_(options, v26, @"AnchorRateHz"))
+      if (objc_msgSend_valueForKey_(options, v27, @"AnchorRateHz"))
       {
-        v35 = objc_msgSend_objectForKeyedSubscript_(options, v34, @"AnchorRateHz");
+        v36 = objc_msgSend_objectForKeyedSubscript_(options, v35, @"AnchorRateHz");
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v49 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v36, v37);
+          v49 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v37, v38);
           objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v49, v50, a2, v6, @"CMMediaSession.mm", 651, @"Invalid parameter not satisfying: %@", @"[AnchorRateHzValue isKindOfClass:[NSNumber class]]");
         }
 
-        objc_msgSend_floatValue(v35, v36, v37);
-        *(v6 + 83) = (1000000.0 / v38);
+        objc_msgSend_floatValue(v36, v37, v38);
+        *(v6 + 83) = (1000000.0 / v39);
       }
 
-      if (objc_msgSend_valueForKey_(options, v34, @"OnlineHeadToHeadsetTransformationEstimator"))
+      if (objc_msgSend_valueForKey_(options, v35, @"OnlineHeadToHeadsetTransformationEstimator"))
       {
-        v40 = objc_msgSend_objectForKeyedSubscript_(options, v39, @"OnlineHeadToHeadsetTransformationEstimator");
-        if (objc_msgSend_BOOLValue(v40, v41, v42))
+        v41 = objc_msgSend_objectForKeyedSubscript_(options, v40, @"OnlineHeadToHeadsetTransformationEstimator");
+        if (objc_msgSend_BOOLValue(v41, v42, v43))
         {
           *(v6 + 100) = 1;
         }
@@ -599,7 +741,7 @@ LABEL_38:
     *(v6 + 33) = 0;
     v6[70] = -1;
     *(v6 + 77) = objc_opt_new();
-    if ((objc_msgSend_isActivityAvailable(CMMotionActivityManager, v43, v44) & 1) != 0 || objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, v45, v46))
+    if ((objc_msgSend_isActivityAvailable(CMMotionActivityManager, v44, v45) & 1) != 0 || objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, v46, v47))
     {
       *(v6 + 75) = objc_opt_new();
     }
@@ -608,7 +750,6 @@ LABEL_38:
     operator new();
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -628,7 +769,7 @@ LABEL_38:
 
 - (BOOL)_start
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   started = self->_started;
   if (!started)
@@ -640,78 +781,78 @@ LABEL_38:
       operator new();
     }
 
-    objc_msgSend__startDefaultsPreferenceUpdater(self, v7, v8);
+    objc_msgSend__startDefaultsPreferenceUpdater(self, v8, v9);
     if (!self->_accessoryDeviceMotionInEarStatusDispatcher.__ptr_)
     {
       operator new();
     }
 
     objc_sync_enter(self);
-    sub_19B6D6344();
-    v9 = sub_19B74FC3C();
-    if (v9 == 5)
+    v10 = sub_19B6D6344();
+    v11 = sub_19B74FC3C(v10);
+    if (v11 == 5)
     {
-      v10 = 4;
+      v12 = 4;
     }
 
     else
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     if (self->_inEarStatusGatingEnabled)
     {
-      v11 = v10;
+      v13 = v12;
     }
 
     else
     {
-      v11 = 4;
+      v13 = 4;
     }
 
-    self->_inEarStatus = v11;
+    self->_inEarStatus = v13;
     if (self->_logForReplay)
     {
       ptr = self->_logger.__ptr_;
-      v13 = mach_continuous_time();
-      v14 = sub_19B41E070(v13);
-      sub_19B5E7BFC(ptr, v11, v14);
+      v15 = mach_continuous_time();
+      v16 = sub_19B41E070(v15);
+      sub_19B5E7BFC(ptr, v13, v16);
     }
 
     objc_sync_exit(self);
-    if (self->_inEarStatus == 4 && (sub_19B6D6344(), v15 = sub_19B7851B0(), sub_19B787CB8(v15)))
+    if (self->_inEarStatus == 4 && (sub_19B6D6344(), v17 = sub_19B7851B0(), sub_19B787CB8(v17)))
     {
-      v16 = sub_19B420D84();
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_19B63DBB0;
-      v30[3] = &unk_1E7532988;
-      v30[4] = self;
-      sub_19B420C9C(v16, v30);
+      v18 = sub_19B420D84();
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = sub_19B63DBB0;
+      v33[3] = &unk_1E7532988;
+      v33[4] = self;
+      sub_19B420C9C(v18, v33);
     }
 
     else
     {
       sub_19B6D6344();
-      v19 = sub_19B7851B0();
-      v20 = sub_19B787CB8(v19);
-      objc_msgSend__notifyClientHandler(self, v21, v22);
-      if (v20)
+      v21 = sub_19B7851B0();
+      v22 = sub_19B787CB8(v21);
+      objc_msgSend__notifyClientHandler(self, v23, v24);
+      if (v22)
       {
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v23 = off_1EAFE29A0;
+        v25 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] #Warning Not starting head tracking because one bud is out of ear!", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] #Warning Not starting head tracking because one bud is out of ear!", buf, 2u);
         }
 
-        v24 = sub_19B420058();
-        if (*(v24 + 160) <= 1 && *(v24 + 164) <= 1 && *(v24 + 168) <= 1 && !*(v24 + 152))
+        v26 = sub_19B420058();
+        if (*(v26 + 160) <= 1 && *(v26 + 164) <= 1 && *(v26 + 168) <= 1 && !*(v26 + 152))
         {
           goto LABEL_54;
         }
@@ -722,9 +863,10 @@ LABEL_38:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v31 = 0;
-        v25 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _start]", "CoreLocation: %s\n", v25);
+        v34[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] #Warning Not starting head tracking because one bud is out of ear!", v34, 2);
+        v28 = v27;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _start]", "CoreLocation: %s\n", v27);
       }
 
       else
@@ -734,15 +876,15 @@ LABEL_38:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v26 = off_1EAFE29A0;
+        v29 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "[CMMediaSession] Not starting head tracking because the connected device is not supported!", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_ERROR, "[CMMediaSession] Not starting head tracking because the connected device is not supported!", buf, 2u);
         }
 
-        v27 = sub_19B420058();
-        if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
+        v30 = sub_19B420058();
+        if ((*(v30 + 160) & 0x80000000) != 0 && (*(v30 + 164) & 0x80000000) != 0 && (*(v30 + 168) & 0x80000000) != 0 && !*(v30 + 152))
         {
           goto LABEL_54;
         }
@@ -753,20 +895,21 @@ LABEL_38:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v31 = 0;
-        v25 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _start]", "CoreLocation: %s\n", v25);
+        v34[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Not starting head tracking because the connected device is not supported!", v34, 2);
+        v28 = v31;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _start]", "CoreLocation: %s\n", v31);
       }
 
-      if (v25 != buf)
+      if (v28 != buf)
       {
-        free(v25);
+        free(v28);
       }
     }
 
 LABEL_54:
-    objc_msgSend__startJitterBufferLevelMonitor(self, v17, v18);
-    goto LABEL_55;
+    objc_msgSend__startJitterBufferLevelMonitor(self, v19, v20);
+    return !started;
   }
 
   if (qword_1EAFE2998 != -1)
@@ -790,24 +933,23 @@ LABEL_54:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v31 = 0;
-    v6 = _os_log_send_and_compose_impl();
+    v34[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] _start is called multiple times", v34, 2);
+    v7 = v6;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _start]", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    if (v7 != buf)
     {
-      free(v6);
+      free(v7);
     }
   }
 
   objc_sync_exit(self);
-LABEL_55:
-  v28 = *MEMORY[0x1E69E9840];
   return !started;
 }
 
 - (void)_startHeadTracking
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (!self->_analyticsTracker.__ptr_)
   {
     operator new();
@@ -851,17 +993,18 @@ LABEL_55:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v53 = 0;
-      v8 = _os_log_send_and_compose_impl();
+      v56[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Starting source DM", v56, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
 
-    v9 = [CLDeviceMotionProperties alloc];
-    objc_msgSend_initWithMode_(v9, v10, 3);
+    v10 = [CLDeviceMotionProperties alloc];
+    objc_msgSend_initWithMode_(v10, v11, 3);
     operator new();
   }
 
@@ -874,35 +1017,35 @@ LABEL_55:
 
   if (!self->_accessoryMonitorDispatcher.__ptr_)
   {
-    v11 = sub_19B7851B0();
-    if (!sub_19B787D0C(v11))
+    v12 = sub_19B7851B0();
+    if (!sub_19B787D0C(v12))
     {
       operator new();
     }
   }
 
   sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = sub_19B63E730;
-  v52[3] = &unk_1E7533A18;
-  v52[4] = self;
-  if (objc_msgSend_isActivityAvailable(CMMotionActivityManager, v12, v13) && !self->_disable2IMU)
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = sub_19B63E730;
+  v55[3] = &unk_1E7533A18;
+  v55[4] = self;
+  if (objc_msgSend_isActivityAvailable(CMMotionActivityManager, v13, v14) && !self->_disable2IMU)
   {
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v20 = off_1EAFE29A0;
+    v22 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Starting Motion Activity updates", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Starting Motion Activity updates", buf, 2u);
     }
 
-    v21 = sub_19B420058();
-    if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
+    v23 = sub_19B420058();
+    if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -910,34 +1053,35 @@ LABEL_55:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v53 = 0;
-      v23 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v23);
-      if (v23 != buf)
+      v56[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Starting Motion Activity updates", v56, 2);
+      v26 = v25;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v25);
+      if (v26 != buf)
       {
-        free(v23);
+        free(v26);
       }
     }
 
-    objc_msgSend_startActivityUpdatesToQueue_withHandler_(self->_activityManager, v22, self->_activityQueue, v52);
+    objc_msgSend_startActivityUpdatesToQueue_withHandler_(self->_activityManager, v24, self->_activityQueue, v55);
   }
 
-  else if (objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, v14, v15) && !self->_disable2IMU)
+  else if (objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, v15, v16) && !self->_disable2IMU)
   {
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v24 = off_1EAFE29A0;
+    v27 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Starting Motion Activity Lite updates", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Starting Motion Activity Lite updates", buf, 2u);
     }
 
-    v25 = sub_19B420058();
-    if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
+    v28 = sub_19B420058();
+    if (*(v28 + 160) > 1 || *(v28 + 164) > 1 || *(v28 + 168) > 1 || *(v28 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -945,16 +1089,17 @@ LABEL_55:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v53 = 0;
-      v27 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
+      v56[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Starting Motion Activity Lite updates", v56, 2);
+      v31 = v30;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v30);
+      if (v31 != buf)
       {
-        free(v27);
+        free(v31);
       }
     }
 
-    objc_msgSend_startActivityLiteUpdatesToQueue_withHandler_(self->_activityManager, v26, self->_activityQueue, v52);
+    objc_msgSend_startActivityLiteUpdatesToQueue_withHandler_(self->_activityManager, v29, self->_activityQueue, v55);
   }
 
   else
@@ -964,15 +1109,15 @@ LABEL_55:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v16 = off_1EAFE29A0;
+    v17 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Motion Activity or Activity Lite updates are not available", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Motion Activity or Activity Lite updates are not available", buf, 2u);
     }
 
-    v17 = sub_19B420058();
-    if (*(v17 + 160) > 1 || *(v17 + 164) > 1 || *(v17 + 168) > 1 || *(v17 + 152))
+    v18 = sub_19B420058();
+    if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -980,24 +1125,25 @@ LABEL_55:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v53 = 0;
-      v19 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v19);
-      if (v19 != buf)
+      v56[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Motion Activity or Activity Lite updates are not available", v56, 2);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startHeadTracking]", "CoreLocation: %s\n", v20);
+      if (v21 != buf)
       {
-        free(v19);
+        free(v21);
       }
     }
   }
 
   headphoneActivityManager = self->_headphoneActivityManager;
   activityQueue = self->_activityQueue;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = sub_19B64048C;
-  v51[3] = &unk_1E7533A68;
-  v51[4] = self;
-  objc_msgSend_startStatusUpdatesToQueue_withHandler_(headphoneActivityManager, v18, activityQueue, v51);
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = sub_19B64048C;
+  v54[3] = &unk_1E7533A68;
+  v54[4] = self;
+  objc_msgSend_startStatusUpdatesToQueue_withHandler_(headphoneActivityManager, v19, activityQueue, v54);
   mcSession = self->_mcSession;
   if (mcSession)
   {
@@ -1006,37 +1152,36 @@ LABEL_55:
 
   if (self->_motionContextSessonEnabled)
   {
-    v34 = objc_opt_new();
-    v36 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v35, self->_logForReplay);
-    objc_msgSend_setObject_forKeyedSubscript_(v34, v37, v36, @"kCMMotionContextSessionLogMSL");
+    v38 = objc_opt_new();
+    v40 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v39, self->_logForReplay);
+    objc_msgSend_setObject_forKeyedSubscript_(v38, v41, v40, @"kCMMotionContextSessionLogMSL");
     if (self->_logForReplay)
     {
-      v40 = objc_msgSend_mcLogPath(self, v38, v39);
-      objc_msgSend_setObject_forKeyedSubscript_(v34, v41, v40, @"kCMMotionContextSessionMSLFilePath");
+      v44 = objc_msgSend_mcLogPath(self, v42, v43);
+      objc_msgSend_setObject_forKeyedSubscript_(v38, v45, v44, @"kCMMotionContextSessionMSLFilePath");
     }
 
-    v42 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v38, self->_humanMotionLearningModelEnabled);
-    objc_msgSend_setObject_forKeyedSubscript_(v34, v43, v42, @"kCMMotionContextSessionUseMLModel");
-    v44 = [CMMotionContextSession alloc];
-    mcSession = objc_msgSend_initWithOptions_(v44, v45, v34);
+    v46 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v42, self->_humanMotionLearningModelEnabled);
+    objc_msgSend_setObject_forKeyedSubscript_(v38, v47, v46, @"kCMMotionContextSessionUseMLModel");
+    v48 = [CMMotionContextSession alloc];
+    mcSession = objc_msgSend_initWithOptions_(v48, v49, v38);
     self->_mcSession = mcSession;
     if (mcSession)
     {
 LABEL_69:
-      objc_msgSend_start(mcSession, v30, v31);
-      objc_msgSend_setTrackingClientMode_(self->_mcSession, v33, *(self->_headTrackingService.__ptr_ + 3));
+      objc_msgSend_start(mcSession, v34, v35);
+      objc_msgSend_setTrackingClientMode_(self->_mcSession, v37, *(self->_headTrackingService.__ptr_ + 3));
     }
   }
 
   deviceOrientationManager = self->_deviceOrientationManager;
-  v47 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v30, v31);
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = sub_19B643168;
-  v50[3] = &unk_1E7533A90;
-  v50[4] = self;
-  objc_msgSend_startDeviceOrientationUpdatesToQueue_withHandler_(deviceOrientationManager, v48, v47, v50);
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v34, v35);
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = sub_19B643168;
+  v53[3] = &unk_1E7533A90;
+  v53[4] = self;
+  objc_msgSend_startDeviceOrientationUpdatesToQueue_withHandler_(deviceOrientationManager, v52, v51, v53);
 }
 
 - (void)_triggerUserInteractedWithDeviceEvent
@@ -1052,7 +1197,7 @@ LABEL_69:
 
 - (BOOL)_startPoseUpdatesToQueue:(id)queue andHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2998 != -1)
   {
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
@@ -1079,76 +1224,18 @@ LABEL_69:
 
   while (1)
   {
-    v9 = _os_log_send_and_compose_impl();
+    v19[0] = 0;
+    LODWORD(v18) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Starting push updates", v19, v18);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _startPoseUpdatesToQueue:andHandler:]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
 
 LABEL_12:
-    if (!queue)
-    {
-      if (qword_1EAFE2998 != -1)
-      {
-        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-      }
-
-      v14 = off_1EAFE29A0;
-      handler = "queue";
-      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 68289539;
-        v19 = 0;
-        v20 = 2082;
-        v21 = "";
-        v22 = 2082;
-        v23 = "assert";
-        v24 = 2081;
-        v25 = "queue";
-        _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        if (qword_1EAFE2998 != -1)
-        {
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-        }
-      }
-
-      v15 = off_1EAFE29A0;
-      if (os_signpost_enabled(off_1EAFE29A0))
-      {
-        *buf = 68289539;
-        v19 = 0;
-        v20 = 2082;
-        v21 = "";
-        v22 = 2082;
-        v23 = "assert";
-        v24 = 2081;
-        v25 = "queue";
-        _os_signpost_emit_with_name_impl(&dword_19B41C000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CMMediaSession] client queue is nil", "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        if (qword_1EAFE2998 != -1)
-        {
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-        }
-      }
-
-      self = off_1EAFE29A0;
-      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289539;
-        v19 = 0;
-        v20 = 2082;
-        v21 = "";
-        v22 = 2082;
-        v23 = "assert";
-        v24 = 2081;
-        v25 = "queue";
-        _os_log_impl(&dword_19B41C000, &self->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      }
-
-      goto LABEL_36;
-    }
-
-    if (handler)
+    if (queue)
     {
       break;
     }
@@ -1158,17 +1245,80 @@ LABEL_12:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
+    v14 = off_1EAFE29A0;
+    handler = "queue";
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "queue";
+      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+    }
+
+    v15 = off_1EAFE29A0;
+    if (os_signpost_enabled(off_1EAFE29A0))
+    {
+      *buf = 68289539;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "queue";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CMMediaSession] client queue is nil", "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+    }
+
+    self = off_1EAFE29A0;
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "queue";
+      _os_log_impl(&dword_19B41C000, &self->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CMMediaSession] client queue is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Accessory/CMMediaSession.mm", 1316, "[CMMediaSession _startPoseUpdatesToQueue:andHandler:]");
+LABEL_37:
+    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+  }
+
+  if (!handler)
+  {
+    if (qword_1EAFE2998 != -1)
+    {
+      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    }
+
     v16 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
+      v21 = 0;
       v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "handler";
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "handler";
       _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CMMediaSession] client handler is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1EAFE2998 != -1)
       {
@@ -1180,13 +1330,13 @@ LABEL_12:
     if (os_signpost_enabled(off_1EAFE29A0))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
+      v21 = 0;
       v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "handler";
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "handler";
       _os_signpost_emit_with_name_impl(&dword_19B41C000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CMMediaSession] client handler is nil", "{msg%{public}.0s:[CMMediaSession] client handler is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1EAFE2998 != -1)
       {
@@ -1198,33 +1348,29 @@ LABEL_12:
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
+      v21 = 0;
       v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "handler";
+      v23 = "";
+      v24 = 2082;
+      v25 = "assert";
+      v26 = 2081;
+      v27 = "handler";
       _os_log_impl(&dword_19B41C000, &self->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CMMediaSession] client handler is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_36:
-    abort_report_np();
-LABEL_37:
-    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Accessory/CMMediaSession.mm", 1317, "[CMMediaSession _startPoseUpdatesToQueue:andHandler:]");
+    goto LABEL_37;
   }
 
   self->_clientQueue = queue;
   dispatch_retain(queue);
   self->_clientHandler = _Block_copy(handler);
-  result = objc_msgSend__start(self, v10, v11);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend__start(self, v11, v12);
 }
 
 - (void)_stopHeadTracking
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   v3 = mach_continuous_time();
   v4 = sub_19B41E070(v3);
   p_analyticsTracker = &self->_analyticsTracker;
@@ -1426,7 +1572,7 @@ LABEL_37:
       {
         v21 = *(p_analyticsTracker->__ptr_ + 1);
         *buf = 134217984;
-        v78 = v21;
+        v82 = v21;
         _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_ERROR, "[CMMediaSession] No accessory DM received during entire session of %.3f seconds", buf, 0xCu);
       }
 
@@ -1440,13 +1586,14 @@ LABEL_37:
         }
 
         v23 = *(p_analyticsTracker->__ptr_ + 1);
-        v75 = 134217984;
-        v76 = v23;
-        v24 = _os_log_send_and_compose_impl();
+        v79 = 134217984;
+        v80 = v23;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] No accessory DM received during entire session of %.3f seconds", COERCE_DOUBLE(&v79));
+        v25 = v24;
         sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v24);
-        if (v24 != buf)
+        if (v25 != buf)
         {
-          free(v24);
+          free(v25);
         }
       }
 
@@ -1460,17 +1607,17 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v25 = off_1EAFE29A0;
+      v26 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
       {
-        v26 = *(p_analyticsTracker->__ptr_ + 1);
+        v27 = *(p_analyticsTracker->__ptr_ + 1);
         *buf = 134217984;
-        v78 = v26;
-        _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_ERROR, "[CMMediaSession] No valid pose available during entire session of %.3f seconds", buf, 0xCu);
+        v82 = v27;
+        _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "[CMMediaSession] No valid pose available during entire session of %.3f seconds", buf, 0xCu);
       }
 
-      v27 = sub_19B420058();
-      if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
+      v28 = sub_19B420058();
+      if ((*(v28 + 160) & 0x80000000) == 0 || (*(v28 + 164) & 0x80000000) == 0 || (*(v28 + 168) & 0x80000000) == 0 || *(v28 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -1478,63 +1625,64 @@ LABEL_37:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v28 = *(p_analyticsTracker->__ptr_ + 1);
-        v75 = 134217984;
-        v76 = v28;
-        v29 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v29);
-        if (v29 != buf)
+        v29 = *(p_analyticsTracker->__ptr_ + 1);
+        v79 = 134217984;
+        v80 = v29;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] No valid pose available during entire session of %.3f seconds", COERCE_DOUBLE(&v79));
+        v31 = v30;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v30);
+        if (v31 != buf)
         {
-          free(v29);
+          free(v31);
         }
       }
 
-      v30 = p_analyticsTracker->__ptr_;
+      v32 = p_analyticsTracker->__ptr_;
       *(p_analyticsTracker->__ptr_ + 269) = *(p_analyticsTracker->__ptr_ + 1);
     }
 
     else
     {
-      v30 = p_analyticsTracker->__ptr_;
+      v32 = p_analyticsTracker->__ptr_;
     }
 
-    v34 = *(self->_headTrackingService.__ptr_ + 4717);
-    *(v30 + 254) = *(v34 + 128);
-    v35 = *(v34 + 136);
-    *(v30 + 1036) = *(v34 + 148);
-    *(v30 + 64) = v35;
-    v36 = *(self->_headTrackingService.__ptr_ + 4717);
-    v37 = (self->_analyticsTracker.__ptr_ + 1056);
-    v38 = *(v36 + 168);
-    *(v37 + 12) = *(v36 + 180);
-    *v37 = v38;
+    v37 = *(self->_headTrackingService.__ptr_ + 4717);
+    *(v32 + 254) = *(v37 + 128);
+    v38 = *(v37 + 136);
+    *(v32 + 1036) = *(v37 + 148);
+    *(v32 + 64) = v38;
     v39 = *(self->_headTrackingService.__ptr_ + 4717);
-    v40 = (self->_analyticsTracker.__ptr_ + 1088);
-    v41 = *(v39 + 200);
-    *(v40 + 12) = *(v39 + 212);
+    v40 = (self->_analyticsTracker.__ptr_ + 1056);
+    v41 = *(v39 + 168);
+    *(v40 + 12) = *(v39 + 180);
     *v40 = v41;
     v42 = *(self->_headTrackingService.__ptr_ + 4717);
-    v43 = (self->_analyticsTracker.__ptr_ + 1120);
-    v44 = *(v42 + 232);
-    *(v43 + 12) = *(v42 + 244);
+    v43 = (self->_analyticsTracker.__ptr_ + 1088);
+    v44 = *(v42 + 200);
+    *(v43 + 12) = *(v42 + 212);
     *v43 = v44;
-    v45 = (self->_analyticsTracker.__ptr_ + 1152);
-    v46 = *(*(self->_headTrackingService.__ptr_ + 4717) + 264);
-    *(v45 + 12) = *(*(self->_headTrackingService.__ptr_ + 4717) + 276);
-    *v45 = v46;
-    v47 = self->_analyticsTracker.__ptr_;
+    v45 = *(self->_headTrackingService.__ptr_ + 4717);
+    v46 = (self->_analyticsTracker.__ptr_ + 1120);
+    v47 = *(v45 + 232);
+    *(v46 + 12) = *(v45 + 244);
+    *v46 = v47;
+    v48 = (self->_analyticsTracker.__ptr_ + 1152);
+    v49 = *(*(self->_headTrackingService.__ptr_ + 4717) + 264);
+    *(v48 + 12) = *(*(self->_headTrackingService.__ptr_ + 4717) + 276);
+    *v48 = v49;
+    v50 = self->_analyticsTracker.__ptr_;
     _Q0 = *(*(self->_headTrackingService.__ptr_ + 4717) + 360);
-    *(v47 + 132) = *(*(self->_headTrackingService.__ptr_ + 4717) + 376);
-    *(v47 + 131) = _Q0;
-    v49 = self->_analyticsTracker.__ptr_;
-    v50 = self->_headTrackingService.__ptr_;
-    *(v49 + 568) = *(v50 + 4014);
-    *(v49 + 569) = self->_orientationCounter;
-    *(v49 + 560) = self->_scheme;
-    if (*v50)
+    *(v50 + 132) = *(*(self->_headTrackingService.__ptr_ + 4717) + 376);
+    *(v50 + 131) = _Q0;
+    v52 = self->_analyticsTracker.__ptr_;
+    v53 = self->_headTrackingService.__ptr_;
+    *(v52 + 568) = *(v53 + 4014);
+    *(v52 + 569) = self->_orientationCounter;
+    *(v52 + 560) = self->_scheme;
+    if (*v53)
     {
-      *&_Q0 = *v50;
-      *&_Q0 = vdiv_f32(vcvt_f32_s32(*(v50 + 4)), vdup_lane_s32(*&_Q0, 0));
+      *&_Q0 = *v53;
+      *&_Q0 = vdiv_f32(vcvt_f32_s32(*(v53 + 4)), vdup_lane_s32(*&_Q0, 0));
     }
 
     else
@@ -1542,8 +1690,8 @@ LABEL_37:
       __asm { FMOV            V0.2S, #-1.0 }
     }
 
-    *(v49 + 2284) = _Q0;
-    sub_19B5CA124(v49);
+    *(v52 + 2284) = _Q0;
+    sub_19B5CA124(v52);
   }
 
   else
@@ -1553,15 +1701,15 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v31 = off_1EAFE29A0;
+    v33 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "Calling _stop and analytics tracker hasn't been created. Called without _start?", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_ERROR, "Calling _stop and analytics tracker hasn't been created. Called without _start?", buf, 2u);
     }
 
-    v32 = sub_19B420058();
-    if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
+    v34 = sub_19B420058();
+    if ((*(v34 + 160) & 0x80000000) == 0 || (*(v34 + 164) & 0x80000000) == 0 || (*(v34 + 168) & 0x80000000) == 0 || *(v34 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -1569,12 +1717,13 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v75) = 0;
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      LOWORD(v79) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "Calling _stop and analytics tracker hasn't been created. Called without _start?", &v79, 2);
+      v36 = v35;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v35);
+      if (v36 != buf)
       {
-        free(v33);
+        free(v36);
       }
     }
   }
@@ -1585,7 +1734,7 @@ LABEL_37:
   activityManager = self->_activityManager;
   if (activityManager)
   {
-    objc_msgSend_stopActivityUpdates(activityManager, v55, v56);
+    objc_msgSend_stopActivityUpdates(activityManager, v58, v59);
   }
 
   if (self->_headphoneActivityManager)
@@ -1595,15 +1744,15 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v58 = off_1EAFE29A0;
+    v61 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v58, OS_LOG_TYPE_DEFAULT, "[CMMediaSession][HeadsetActivity] Stopping headphone status and activity updates", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v61, OS_LOG_TYPE_DEFAULT, "[CMMediaSession][HeadsetActivity] Stopping headphone status and activity updates", buf, 2u);
     }
 
-    v59 = sub_19B420058();
-    if (*(v59 + 160) > 1 || *(v59 + 164) > 1 || *(v59 + 168) > 1 || *(v59 + 152))
+    v62 = sub_19B420058();
+    if (*(v62 + 160) > 1 || *(v62 + 164) > 1 || *(v62 + 168) > 1 || *(v62 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -1611,52 +1760,54 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v75) = 0;
-      v62 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v62);
-      if (v62 != buf)
+      LOWORD(v79) = 0;
+      LODWORD(v77) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession][HeadsetActivity] Stopping headphone status and activity updates", &v79, v77);
+      v66 = v65;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _stopHeadTracking]", "CoreLocation: %s\n", v65);
+      if (v66 != buf)
       {
-        free(v62);
+        free(v66);
       }
     }
 
-    objc_msgSend_stopStatusUpdates(self->_headphoneActivityManager, v60, v61);
+    objc_msgSend_stopStatusUpdates(self->_headphoneActivityManager, v63, v64);
     activityQueue = self->_activityQueue;
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = sub_19B644544;
-    v74[3] = &unk_1E7532988;
-    v74[4] = self;
-    objc_msgSend_addOperationWithBlock_(activityQueue, v64, v74);
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = sub_19B644544;
+    v78[3] = &unk_1E7532988;
+    v78[4] = self;
+    objc_msgSend_addOperationWithBlock_(activityQueue, v68, v78);
   }
 
   if (self->_deviceMotionDispatcher.__ptr_)
   {
-    v65 = sub_19B424AE0();
-    sub_19B425248(v65, self->_deviceMotionDispatcher.__ptr_);
-    v66 = self->_deviceMotionDispatcher.__ptr_;
+    v69 = sub_19B424AE0();
+    sub_19B425248(v69, self->_deviceMotionDispatcher.__ptr_);
+    v70 = self->_deviceMotionDispatcher.__ptr_;
     self->_deviceMotionDispatcher.__ptr_ = 0;
-    if (v66)
+    if (v70)
     {
-      (*(v66->var0 + 1))(v66);
+      (*(v70->var0 + 1))(v70);
     }
   }
 
   if (self->_accessoryDeviceMotionDispatcher.__ptr_)
   {
-    v67 = sub_19B6D6344();
-    sub_19B426A14(v67, 1, self->_accessoryDeviceMotionDispatcher.__ptr_);
-    v68 = self->_accessoryDeviceMotionDispatcher.__ptr_;
+    v71 = sub_19B6D6344();
+    sub_19B426A14(v71, 1, self->_accessoryDeviceMotionDispatcher.__ptr_);
+    v72 = self->_accessoryDeviceMotionDispatcher.__ptr_;
     self->_accessoryDeviceMotionDispatcher.__ptr_ = 0;
-    if (v68)
+    if (v72)
     {
-      (*(v68->var0 + 1))(v68);
+      (*(v72->var0 + 1))(v72);
     }
 
-    v69 = self->_headTrackingService.__ptr_;
-    if (v69)
+    v73 = self->_headTrackingService.__ptr_;
+    if (v73)
     {
-      sub_19B690B4C(v69, 1);
+      sub_19B690B4C(v73, 1);
     }
 
     sub_19B644550(&self->_unsyncedAuxHelper, 1);
@@ -1664,29 +1815,28 @@ LABEL_37:
 
   if (self->_accessoryMonitorDispatcher.__ptr_)
   {
-    v70 = sub_19B60BFA4();
-    sub_19B426A14(v70, 0, self->_accessoryMonitorDispatcher.__ptr_);
-    v71 = self->_accessoryMonitorDispatcher.__ptr_;
+    v74 = sub_19B60BFA4();
+    sub_19B426A14(v74, 0, self->_accessoryMonitorDispatcher.__ptr_);
+    v75 = self->_accessoryMonitorDispatcher.__ptr_;
     self->_accessoryMonitorDispatcher.__ptr_ = 0;
-    if (v71)
+    if (v75)
     {
-      (*(v71->var0 + 1))(v71);
+      (*(v75->var0 + 1))(v75);
     }
   }
 
   mcSession = self->_mcSession;
   if (mcSession)
   {
-    objc_msgSend_stop(mcSession, v55, v56);
+    objc_msgSend_stop(mcSession, v58, v59);
   }
 
-  objc_msgSend_stopDeviceOrientationUpdates(self->_deviceOrientationManager, v55, v56);
-  v73 = *MEMORY[0x1E69E9840];
+  objc_msgSend_stopDeviceOrientationUpdates(self->_deviceOrientationManager, v58, v59);
 }
 
 - (void)_stop
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   if (self->_started)
   {
@@ -1706,12 +1856,12 @@ LABEL_37:
     }
 
     v7 = sub_19B420D84();
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_19B644BB4;
-    v21[3] = &unk_1E7532988;
-    v21[4] = self;
-    sub_19B420C9C(v7, v21);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_19B644BB4;
+    v22[3] = &unk_1E7532988;
+    v22[4] = self;
+    sub_19B420C9C(v7, v22);
     objc_sync_enter(self);
     objc_msgSend__stopDefaultsPreferenceUpdater(self, v8, v9);
     if (self->_clientQueue)
@@ -1737,12 +1887,13 @@ LABEL_37:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v22 = 0;
-        v12 = _os_log_send_and_compose_impl();
+        v23[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Stopping push updates", v23, 2);
+        v13 = v12;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _stop]", "CoreLocation: %s\n", v12);
-        if (v12 != buf)
+        if (v13 != buf)
         {
-          free(v12);
+          free(v13);
         }
       }
 
@@ -1755,15 +1906,15 @@ LABEL_37:
     objc_sync_exit(self);
     if (self->_accessoryDeviceMotionConfigDispatcher.__ptr_)
     {
-      v13 = sub_19B6D6344();
-      v15 = self->_accessoryDeviceMotionConfigDispatcher.__ptr_;
+      v14 = sub_19B6D6344();
+      v16 = self->_accessoryDeviceMotionConfigDispatcher.__ptr_;
       p_accessoryDeviceMotionConfigDispatcher = &self->_accessoryDeviceMotionConfigDispatcher;
-      sub_19B426A14(v13, 2, v15);
-      v16 = p_accessoryDeviceMotionConfigDispatcher->__ptr_;
+      sub_19B426A14(v14, 2, v16);
+      v17 = p_accessoryDeviceMotionConfigDispatcher->__ptr_;
       p_accessoryDeviceMotionConfigDispatcher->__ptr_ = 0;
-      if (v16)
+      if (v17)
       {
-        (*(v16->var0 + 1))(v16);
+        (*(v17->var0 + 1))(v17);
       }
     }
   }
@@ -1775,15 +1926,15 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v17 = off_1EAFE29A0;
+    v18 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] _stop is called multiple times", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] _stop is called multiple times", buf, 2u);
     }
 
-    v18 = sub_19B420058();
-    if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+    v19 = sub_19B420058();
+    if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -1791,24 +1942,23 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v22 = 0;
-      v19 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _stop]", "CoreLocation: %s\n", v19);
-      if (v19 != buf)
+      v23[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] _stop is called multiple times", v23, 2);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _stop]", "CoreLocation: %s\n", v20);
+      if (v21 != buf)
       {
-        free(v19);
+        free(v21);
       }
     }
 
     objc_sync_exit(self);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMinQuiescentPeriodForBTZ
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   ptr = self->_motionSettings.__ptr_;
   *buf = 0;
   if (sub_19B43D4DC(ptr, @"TempestMinQuiescentPeriodForBTZ", buf))
@@ -1834,8 +1984,8 @@ LABEL_37:
       minQuiescentPeriodForBTZ = self->_minQuiescentPeriodForBTZ;
       *buf = 134218240;
       *&buf[4] = v4;
-      v14 = 2048;
-      v15 = minQuiescentPeriodForBTZ;
+      v19 = 2048;
+      v20 = minQuiescentPeriodForBTZ;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] minQuiescentPeriodForBTZ new: %f old: %f", buf, 0x16u);
     }
 
@@ -1848,32 +1998,36 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v12 = self->_minQuiescentPeriodForBTZ;
-      v8 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateMinQuiescentPeriodForBTZ]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      v8 = self->_minQuiescentPeriodForBTZ;
+      v14 = 134218240;
+      v15 = v4;
+      v16 = 2048;
+      v17 = v8;
+      LODWORD(v13) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] minQuiescentPeriodForBTZ new: %f old: %f", COERCE_DOUBLE(&v14), v13);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateMinQuiescentPeriodForBTZ]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
       {
-        free(v8);
+        free(v10);
       }
     }
 
-    v9 = self->_headTrackingService.__ptr_;
-    v10 = v4;
-    *(v9 + 3981) = v10;
-    *(v9 + 3980) = v10;
+    v11 = self->_headTrackingService.__ptr_;
+    v12 = v4;
+    *(v11 + 3981) = v12;
+    *(v11 + 3980) = v12;
     self->_minQuiescentPeriodForBTZ = v4;
     if (self->_logForReplay)
     {
       sub_19B5E7638(self->_logger.__ptr_, "kRelDmMinQuiescentPeriodForBTZ", v4);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUseFwdPredictionUserSettings
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   ptr = self->_motionSettings.__ptr_;
   buf[0] = 0;
   v4 = sub_19B439A40(ptr, @"TempestPreferenceFwdPredictorEnabled", buf);
@@ -1905,12 +2059,17 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v22 = self->_userSettingFwdPredictorEnabled;
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v9 = self->_userSettingFwdPredictorEnabled;
+      v27 = 67109376;
+      *v28 = v9;
+      *&v28[4] = 1024;
+      *&v28[6] = v5;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Changed _userSettingFwdPredictorEnabled from %d to %d.", &v27, 14);
+      v11 = v10;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
 
@@ -1918,37 +2077,37 @@ LABEL_37:
     self->_userSettingFwdPredictorEnabled = v5;
   }
 
-  v10 = self->_motionSettings.__ptr_;
+  v12 = self->_motionSettings.__ptr_;
   *buf = 0;
-  if (sub_19B43D4DC(v10, @"TempestPreferenceRenderingOverheadSeconds", buf))
+  if (sub_19B43D4DC(v12, @"TempestPreferenceRenderingOverheadSeconds", buf))
   {
-    v11 = *buf;
-    v12 = v11;
+    v13 = *buf;
+    v14 = v13;
   }
 
   else
   {
-    v12 = 0.04;
+    v14 = 0.04;
   }
 
-  if (v12 != self->_renderingOverheadSeconds)
+  if (v14 != self->_renderingOverheadSeconds)
   {
-    if (v12 < 0.0 || v12 >= 1.0)
+    if (v14 < 0.0 || v14 >= 1.0)
     {
       if (qword_1EAFE2998 != -1)
       {
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v14 = off_1EAFE29A0;
+      v16 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "[CMMediaSession] renderingOverheadSeconds should usually be positive and less than 1 sec", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "[CMMediaSession] renderingOverheadSeconds should usually be positive and less than 1 sec", buf, 2u);
       }
 
-      v15 = sub_19B420058();
-      if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+      v17 = sub_19B420058();
+      if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -1956,11 +2115,14 @@ LABEL_37:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v16 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v16);
-        if (v16 != buf)
+        LOWORD(v27) = 0;
+        LODWORD(v26) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] renderingOverheadSeconds should usually be positive and less than 1 sec", &v27, v26);
+        v19 = v18;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v18);
+        if (v19 != buf)
         {
-          free(v16);
+          free(v19);
         }
       }
     }
@@ -1970,19 +2132,19 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v17 = off_1EAFE29A0;
+    v20 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       renderingOverheadSeconds = self->_renderingOverheadSeconds;
       *buf = 134349312;
-      *&buf[4] = v12;
+      *&buf[4] = v14;
       *&buf[12] = 2050;
-      v25 = renderingOverheadSeconds;
-      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] renderingOverheadSeconds new: %{public}.3f old: %{public}.3f", buf, 0x16u);
+      v31 = renderingOverheadSeconds;
+      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] renderingOverheadSeconds new: %{public}.3f old: %{public}.3f", buf, 0x16u);
     }
 
-    v19 = sub_19B420058();
-    if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+    v22 = sub_19B420058();
+    if (*(v22 + 160) > 1 || *(v22 + 164) > 1 || *(v22 + 168) > 1 || *(v22 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -1991,18 +2153,22 @@ LABEL_37:
       }
 
       v23 = self->_renderingOverheadSeconds;
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v27 = 134349312;
+      *v28 = v14;
+      *&v28[8] = 2050;
+      v29 = v23;
+      LODWORD(v26) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] renderingOverheadSeconds new: %{public}.3f old: %{public}.3f", &v27, v26);
+      v25 = v24;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseFwdPredictionUserSettings]", "CoreLocation: %s\n", v24);
+      if (v25 != buf)
       {
-        free(v20);
+        free(v25);
       }
     }
 
-    self->_renderingOverheadSeconds = v12;
+    self->_renderingOverheadSeconds = v14;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTrackingSchemeSettings
@@ -2030,7 +2196,7 @@ LABEL_37:
 
 - (void)_updateAnchorIntervalSettings
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   ptr = self->_motionSettings.__ptr_;
   *buf = 0;
   v4 = sub_19B43D4DC(ptr, @"AnchorRateHz", buf);
@@ -2059,8 +2225,8 @@ LABEL_37:
       anchorUpdateIntervalUs = self->_anchorUpdateIntervalUs;
       *buf = 134349312;
       *&buf[4] = v7;
-      v15 = 2050;
-      v16 = anchorUpdateIntervalUs;
+      v19 = 2050;
+      v20 = anchorUpdateIntervalUs;
       _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] anchorUpdateIntervalUs new: %{public}llu old: %{public}llu", buf, 0x16u);
     }
 
@@ -2073,24 +2239,27 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v13 = self->_anchorUpdateIntervalUs;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateAnchorIntervalSettings]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      v11 = self->_anchorUpdateIntervalUs;
+      v14 = 134349312;
+      v15 = v7;
+      v16 = 2050;
+      v17 = v11;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] anchorUpdateIntervalUs new: %{public}llu old: %{public}llu", &v14, 22);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateAnchorIntervalSettings]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
 
     self->_anchorUpdateIntervalUs = v7;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUseHeadToHeadsetTransformationEstimator
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = (*(self->_headTrackingService.__ptr_ + 14) - 1) < 2;
   ptr = self->_motionSettings.__ptr_;
   buf[0] = 0;
@@ -2114,9 +2283,9 @@ LABEL_37:
     {
       useHeadToHeadsetTransformationEstimator = self->_useHeadToHeadsetTransformationEstimator;
       *buf = 67240448;
-      v15 = useHeadToHeadsetTransformationEstimator;
-      v16 = 1026;
-      v17 = v7;
+      v18 = useHeadToHeadsetTransformationEstimator;
+      v19 = 1026;
+      v20 = v7;
       _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Changed _useHeadToHeadsetTransformationEstimator from %{public}d to %{public}d.", buf, 0xEu);
     }
 
@@ -2129,25 +2298,28 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v13 = self->_useHeadToHeadsetTransformationEstimator;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseHeadToHeadsetTransformationEstimator]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      v11 = self->_useHeadToHeadsetTransformationEstimator;
+      v14[0] = 67240448;
+      v14[1] = v11;
+      v15 = 1026;
+      v16 = v7;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Changed _useHeadToHeadsetTransformationEstimator from %{public}d to %{public}d.", v14, 14);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUseHeadToHeadsetTransformationEstimator]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
 
     sub_19B6911D0(self->_headTrackingService.__ptr_, v7);
     self->_useHeadToHeadsetTransformationEstimator = v7;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCameraControllerParameters
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   ptr = self->_motionSettings.__ptr_;
   *buf = 0;
   if (sub_19B43D4DC(ptr, @"PeriodicCameraBurstPulseWidthSeconds", buf))
@@ -2171,8 +2343,8 @@ LABEL_37:
     cameraControllerPeriodicBurstPulseWidthSeconds = self->_cameraControllerPeriodicBurstPulseWidthSeconds;
     *buf = 134349312;
     *&buf[4] = v4;
-    v22 = 2050;
-    v23 = cameraControllerPeriodicBurstPulseWidthSeconds;
+    v29 = 2050;
+    v30 = cameraControllerPeriodicBurstPulseWidthSeconds;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] cameraControllerPeriodicBurstPulseWidthSeconds new: %{public}f old: %{public}f", buf, 0x16u);
   }
 
@@ -2185,26 +2357,31 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v19 = self->_cameraControllerPeriodicBurstPulseWidthSeconds;
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    v8 = self->_cameraControllerPeriodicBurstPulseWidthSeconds;
+    v24 = 134349312;
+    v25 = v4;
+    v26 = 2050;
+    v27 = v8;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] cameraControllerPeriodicBurstPulseWidthSeconds new: %{public}f old: %{public}f", &v24, 22);
+    v10 = v9;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v9);
+    if (v10 != buf)
     {
-      free(v8);
+      free(v10);
     }
   }
 
   self->_cameraControllerPeriodicBurstPulseWidthSeconds = v4;
-  v9 = self->_motionSettings.__ptr_;
+  v11 = self->_motionSettings.__ptr_;
   *buf = 0;
-  if (sub_19B43D4DC(v9, @"PeriodicCameraBurstTotalWidthSeconds", buf))
+  if (sub_19B43D4DC(v11, @"PeriodicCameraBurstTotalWidthSeconds", buf))
   {
-    v10 = *buf;
+    v12 = *buf;
   }
 
   else
   {
-    v10 = 5.0;
+    v12 = 5.0;
   }
 
   if (qword_1EAFE2998 != -1)
@@ -2212,19 +2389,19 @@ LABEL_37:
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
   }
 
-  v11 = off_1EAFE29A0;
+  v13 = off_1EAFE29A0;
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
   {
     cameraControllerPeriodicBurstTotalWidthSeconds = self->_cameraControllerPeriodicBurstTotalWidthSeconds;
     *buf = 134349312;
-    *&buf[4] = v10;
-    v22 = 2050;
-    v23 = cameraControllerPeriodicBurstTotalWidthSeconds;
-    _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] cameraControllerPeriodicBurstTotalWidthSeconds new: %{public}f old: %{public}f", buf, 0x16u);
+    *&buf[4] = v12;
+    v29 = 2050;
+    v30 = cameraControllerPeriodicBurstTotalWidthSeconds;
+    _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] cameraControllerPeriodicBurstTotalWidthSeconds new: %{public}f old: %{public}f", buf, 0x16u);
   }
 
-  v13 = sub_19B420058();
-  if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+  v15 = sub_19B420058();
+  if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
@@ -2232,18 +2409,24 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v20 = self->_cameraControllerPeriodicBurstTotalWidthSeconds;
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v14);
-    if (v14 != buf)
+    v16 = self->_cameraControllerPeriodicBurstTotalWidthSeconds;
+    v24 = 134349312;
+    v25 = v12;
+    v26 = 2050;
+    v27 = v16;
+    LODWORD(v23) = 22;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] cameraControllerPeriodicBurstTotalWidthSeconds new: %{public}f old: %{public}f", &v24, v23);
+    v18 = v17;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v17);
+    if (v18 != buf)
     {
-      free(v14);
+      free(v18);
     }
   }
 
-  if (v10 >= v4)
+  if (v12 >= v4)
   {
-    self->_cameraControllerPeriodicBurstTotalWidthSeconds = v10;
+    self->_cameraControllerPeriodicBurstTotalWidthSeconds = v12;
   }
 
   else
@@ -2254,18 +2437,18 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v15 = off_1EAFE29A0;
+    v19 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349312;
       *&buf[4] = 0x4000000000000000;
-      v22 = 2050;
-      v23 = 5.0;
-      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Overriding cameraControllerPeriodicBurstParameters with defaults : %{public}f : %{public}f", buf, 0x16u);
+      v29 = 2050;
+      v30 = 5.0;
+      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Overriding cameraControllerPeriodicBurstParameters with defaults : %{public}f : %{public}f", buf, 0x16u);
     }
 
-    v16 = sub_19B420058();
-    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
+    v20 = sub_19B420058();
+    if (*(v20 + 160) > 1 || *(v20 + 164) > 1 || *(v20 + 168) > 1 || *(v20 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -2273,21 +2456,25 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v17 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v17);
-      if (v17 != buf)
+      v24 = 134349312;
+      v25 = 2.0;
+      v26 = 2050;
+      v27 = 5.0;
+      LODWORD(v23) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Overriding cameraControllerPeriodicBurstParameters with defaults : %{public}f : %{public}f", &v24, v23);
+      v22 = v21;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateCameraControllerParameters]", "CoreLocation: %s\n", v21);
+      if (v22 != buf)
       {
-        free(v17);
+        free(v22);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUserSettings
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   sub_19B432E80(self->_motionSettings.__ptr_);
   if (qword_1EAFE2998 != -1)
   {
@@ -2298,9 +2485,9 @@ LABEL_37:
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
-    v78 = objc_msgSend_returnDefaultPose(self, v4, v5);
-    v79 = 1024;
-    v80 = objc_msgSend_returnRandomPose(self, v6, v7);
+    v91 = objc_msgSend_returnDefaultPose(self, v4, v5);
+    v92 = 1024;
+    v93 = objc_msgSend_returnRandomPose(self, v6, v7);
     _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_DEBUG, "[CMMediaSession] checking default and random pose preferences. Current defaultPose: %d, randomPose: %d", buf, 0xEu);
   }
 
@@ -2313,43 +2500,47 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    objc_msgSend_returnDefaultPose(self, v9, v10);
-    objc_msgSend_returnRandomPose(self, v11, v12);
-    v13 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    v11 = off_1EAFE29A0;
+    v86 = 67109376;
+    v87 = objc_msgSend_returnDefaultPose(self, v9, v10);
+    v88 = 1024;
+    v89 = objc_msgSend_returnRandomPose(self, v12, v13);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 2, "[CMMediaSession] checking default and random pose preferences. Current defaultPose: %d, randomPose: %d", &v86, 14);
+    v15 = v14;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v14);
+    if (v15 != buf)
     {
-      free(v13);
+      free(v15);
     }
   }
 
   ptr = self->_motionSettings.__ptr_;
   buf[0] = 0;
-  v15 = sub_19B439A40(ptr, @"TempestReturnDefaultPose", buf);
-  v16 = (v15 & buf[0]);
-  v17 = self->_motionSettings.__ptr_;
+  v17 = sub_19B439A40(ptr, @"TempestReturnDefaultPose", buf);
+  v18 = (v17 & buf[0]);
+  v19 = self->_motionSettings.__ptr_;
   buf[0] = 0;
-  v18 = sub_19B439A40(v17, @"TempestReturnRandomPose", buf);
-  v19 = (v18 & buf[0]);
-  if (v16 != objc_msgSend_returnDefaultPose(self, v20, v21) || v19 != objc_msgSend_returnRandomPose(self, v22, v23))
+  v20 = sub_19B439A40(v19, @"TempestReturnRandomPose", buf);
+  v21 = (v20 & buf[0]);
+  if (v18 != objc_msgSend_returnDefaultPose(self, v22, v23) || v21 != objc_msgSend_returnRandomPose(self, v24, v25))
   {
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v24 = off_1EAFE29A0;
+    v26 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v78 = v16;
-      v79 = 1024;
-      v80 = v19;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Return default/random pose preferences changed: defaultPose: %d, randomPose: %d", buf, 0xEu);
+      v91 = v18;
+      v92 = 1024;
+      v93 = v21;
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Return default/random pose preferences changed: defaultPose: %d, randomPose: %d", buf, 0xEu);
     }
 
-    v25 = sub_19B420058();
-    if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
+    v27 = sub_19B420058();
+    if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -2357,35 +2548,40 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v27 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v27);
-      if (v27 != buf)
+      v86 = 67109376;
+      v87 = v18;
+      v88 = 1024;
+      v89 = v21;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Return default/random pose preferences changed: defaultPose: %d, randomPose: %d", &v86, 14);
+      v30 = v29;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v29);
+      if (v30 != buf)
       {
-        free(v27);
+        free(v30);
       }
     }
 
-    objc_msgSend_setReturnDefaultPose_(self, v26, v16);
-    objc_msgSend_setReturnRandomPose_(self, v28, v19);
-    if (objc_msgSend_returnDefaultPose(self, v29, v30))
+    objc_msgSend_setReturnDefaultPose_(self, v28, v18);
+    objc_msgSend_setReturnRandomPose_(self, v31, v21);
+    if (objc_msgSend_returnDefaultPose(self, v32, v33))
     {
-      objc_msgSend__logEvent_(self, v31, @"Returning default pose");
-      if (objc_msgSend_returnRandomPose(self, v33, v34))
+      objc_msgSend__logEvent_(self, v34, @"Returning default pose");
+      if (objc_msgSend_returnRandomPose(self, v36, v37))
       {
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v35 = off_1EAFE29A0;
+        v38 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_ERROR, "[CMMediaSession] returning default pose overrides returning random pose preferences", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v38, OS_LOG_TYPE_ERROR, "[CMMediaSession] returning default pose overrides returning random pose preferences", buf, 2u);
         }
 
-        v36 = sub_19B420058();
-        if ((*(v36 + 160) & 0x80000000) == 0 || (*(v36 + 164) & 0x80000000) == 0 || (*(v36 + 168) & 0x80000000) == 0 || *(v36 + 152))
+        v39 = sub_19B420058();
+        if ((*(v39 + 160) & 0x80000000) == 0 || (*(v39 + 164) & 0x80000000) == 0 || (*(v39 + 168) & 0x80000000) == 0 || *(v39 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -2393,24 +2589,27 @@ LABEL_37:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v37 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v37);
-          if (v37 != buf)
+          LOWORD(v86) = 0;
+          LODWORD(v85) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] returning default pose overrides returning random pose preferences", &v86, v85);
+          v41 = v40;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v40);
+          if (v41 != buf)
           {
-            free(v37);
+            free(v41);
           }
         }
       }
     }
 
-    else if (objc_msgSend_returnRandomPose(self, v31, v32))
+    else if (objc_msgSend_returnRandomPose(self, v34, v35))
     {
-      objc_msgSend__logEvent_(self, v38, @"Returning random pose");
+      objc_msgSend__logEvent_(self, v42, @"Returning random pose");
     }
 
     else
     {
-      objc_msgSend__logEvent_(self, v38, @"Returning pose");
+      objc_msgSend__logEvent_(self, v42, @"Returning pose");
     }
   }
 
@@ -2419,17 +2618,17 @@ LABEL_37:
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
   }
 
-  v39 = off_1EAFE29A0;
+  v43 = off_1EAFE29A0;
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
   {
-    v42 = objc_msgSend_alwaysNotify50HzPose(self, v40, v41);
+    v46 = objc_msgSend_alwaysNotify50HzPose(self, v44, v45);
     *buf = 67109120;
-    v78 = v42;
-    _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_DEBUG, "[CMMediaSession] checking always notify pose preference. Current alwaysNotify50HzPose: %d", buf, 8u);
+    v91 = v46;
+    _os_log_impl(&dword_19B41C000, v43, OS_LOG_TYPE_DEBUG, "[CMMediaSession] checking always notify pose preference. Current alwaysNotify50HzPose: %d", buf, 8u);
   }
 
-  v43 = sub_19B420058();
-  if (*(v43 + 160) > 1 || *(v43 + 164) > 1 || *(v43 + 168) > 1 || *(v43 + 152))
+  v47 = sub_19B420058();
+  if (*(v47 + 160) > 1 || *(v47 + 164) > 1 || *(v47 + 168) > 1 || *(v47 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
@@ -2437,36 +2636,40 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    objc_msgSend_alwaysNotify50HzPose(self, v44, v45);
-    v46 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v46);
-    if (v46 != buf)
+    v50 = off_1EAFE29A0;
+    v51 = objc_msgSend_alwaysNotify50HzPose(self, v48, v49);
+    v86 = 67109120;
+    v87 = v51;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v50, 2, "[CMMediaSession] checking always notify pose preference. Current alwaysNotify50HzPose: %d", &v86);
+    v53 = v52;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v52);
+    if (v53 != buf)
     {
-      free(v46);
+      free(v53);
     }
   }
 
-  v47 = self->_motionSettings.__ptr_;
+  v54 = self->_motionSettings.__ptr_;
   buf[0] = 0;
-  v48 = sub_19B439A40(v47, @"TempestAlwaysNotify50HzPose", buf);
-  v49 = (v48 & buf[0]);
-  if (objc_msgSend_alwaysNotify50HzPose(self, v50, v51) != v49)
+  v55 = sub_19B439A40(v54, @"TempestAlwaysNotify50HzPose", buf);
+  v56 = (v55 & buf[0]);
+  if (objc_msgSend_alwaysNotify50HzPose(self, v57, v58) != v56)
   {
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v52 = off_1EAFE29A0;
+    v59 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v78 = v49;
-      _os_log_impl(&dword_19B41C000, v52, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] always notify 50Hz pose preferences changed: alwaysNotify50HzPose: %d", buf, 8u);
+      v91 = v56;
+      _os_log_impl(&dword_19B41C000, v59, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] always notify 50Hz pose preferences changed: alwaysNotify50HzPose: %d", buf, 8u);
     }
 
-    v53 = sub_19B420058();
-    if (*(v53 + 160) > 1 || *(v53 + 164) > 1 || *(v53 + 168) > 1 || *(v53 + 152))
+    v60 = sub_19B420058();
+    if (*(v60 + 160) > 1 || *(v60 + 164) > 1 || *(v60 + 168) > 1 || *(v60 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -2474,46 +2677,49 @@ LABEL_37:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v55 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v55);
-      if (v55 != buf)
+      v86 = 67109120;
+      v87 = v56;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] always notify 50Hz pose preferences changed: alwaysNotify50HzPose: %d", &v86);
+      v63 = v62;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v62);
+      if (v63 != buf)
       {
-        free(v55);
+        free(v63);
       }
     }
 
-    objc_msgSend_setAlwaysNotify50HzPose_(self, v54, v49);
-    if (objc_msgSend_alwaysNotify50HzPose(self, v56, v57))
+    objc_msgSend_setAlwaysNotify50HzPose_(self, v61, v56);
+    if (objc_msgSend_alwaysNotify50HzPose(self, v64, v65))
     {
-      objc_msgSend__logEvent_(self, v58, @"Always notify 50Hz pose");
+      objc_msgSend__logEvent_(self, v66, @"Always notify 50Hz pose");
     }
 
     else
     {
-      objc_msgSend__logEvent_(self, v58, @"Only notify pose if valid and hasChanged");
+      objc_msgSend__logEvent_(self, v66, @"Only notify pose if valid and hasChanged");
     }
   }
 
-  v59 = self->_motionSettings.__ptr_;
+  v67 = self->_motionSettings.__ptr_;
   buf[0] = 0;
-  v60 = sub_19B439A40(v59, @"TempestVerboseLogging", buf);
-  self->_verboseLogging = v60 & buf[0];
+  v68 = sub_19B439A40(v67, @"TempestVerboseLogging", buf);
+  self->_verboseLogging = v68 & buf[0];
   if (qword_1EAFE2998 != -1)
   {
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
   }
 
-  v61 = off_1EAFE29A0;
+  v69 = off_1EAFE29A0;
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
   {
     verboseLogging = self->_verboseLogging;
     *buf = 67240192;
-    v78 = verboseLogging;
-    _os_log_impl(&dword_19B41C000, v61, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] verbose logging enabled: %{public}d", buf, 8u);
+    v91 = verboseLogging;
+    _os_log_impl(&dword_19B41C000, v69, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] verbose logging enabled: %{public}d", buf, 8u);
   }
 
-  v63 = sub_19B420058();
-  if (*(v63 + 160) > 1 || *(v63 + 164) > 1 || *(v63 + 168) > 1 || *(v63 + 152))
+  v71 = sub_19B420058();
+  if (*(v71 + 160) > 1 || *(v71 + 164) > 1 || *(v71 + 168) > 1 || *(v71 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
@@ -2521,21 +2727,24 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v76 = self->_verboseLogging;
-    v66 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v66);
-    if (v66 != buf)
+    v74 = self->_verboseLogging;
+    v86 = 67240192;
+    v87 = v74;
+    LODWORD(v85) = 8;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] verbose logging enabled: %{public}d", &v86, v85);
+    v76 = v75;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateUserSettings]", "CoreLocation: %s\n", v75);
+    if (v76 != buf)
     {
-      free(v66);
+      free(v76);
     }
   }
 
-  objc_msgSend__updateMinQuiescentPeriodForBTZ(self, v64, v65);
-  objc_msgSend__updateUseFwdPredictionUserSettings(self, v67, v68);
-  objc_msgSend__updateTrackingSchemeSettings(self, v69, v70);
-  objc_msgSend__updateAnchorIntervalSettings(self, v71, v72);
-  objc_msgSend__updateUseHeadToHeadsetTransformationEstimator(self, v73, v74);
-  v75 = *MEMORY[0x1E69E9840];
+  objc_msgSend__updateMinQuiescentPeriodForBTZ(self, v72, v73);
+  objc_msgSend__updateUseFwdPredictionUserSettings(self, v77, v78);
+  objc_msgSend__updateTrackingSchemeSettings(self, v79, v80);
+  objc_msgSend__updateAnchorIntervalSettings(self, v81, v82);
+  objc_msgSend__updateUseHeadToHeadsetTransformationEstimator(self, v83, v84);
 }
 
 - (void)_startDefaultsPreferenceUpdater
@@ -2638,25 +2847,25 @@ LABEL_37:
 
 - (void)_notifyClientHandler
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   if (self->_clientQueue && self->_clientHandler)
   {
     objc_msgSend__feedPredictorEstimates(self, v3, v4);
     ptr = self->_headTrackingService.__ptr_;
-    v81 = *(ptr + 3451);
+    v85 = *(ptr + 3451);
     v6 = *(ptr + 27576);
-    v78 = *(ptr + 27560);
+    v82 = *(ptr + 27560);
     v7 = *(ptr + 27592);
-    v79 = v6;
-    v80 = v7;
-    v77 = 0;
-    v11 = objc_msgSend__createPoseFromListenerOrientation_Pose_(self, v8, &v78, &v77);
+    v83 = v6;
+    v84 = v7;
+    v81 = 0;
+    v11 = objc_msgSend__createPoseFromListenerOrientation_Pose_(self, v8, &v82, &v81);
     if (self->_analyticsTracker.__ptr_ && (*(self->_headTrackingService.__ptr_ + 16082) & 1) == 0)
     {
-      objc_msgSend_machAbsTimestamp(v77, v9, v10);
+      objc_msgSend_machAbsTimestamp(v81, v9, v10);
       v13 = v12;
-      objc_msgSend_consumedAuxTimestamp(v77, v14, v15);
+      objc_msgSend_consumedAuxTimestamp(v81, v14, v15);
       v17 = self->_analyticsTracker.__ptr_;
       v18 = *(v17 + 117);
       v19 = v13 <= v16 + 0.5;
@@ -2683,7 +2892,7 @@ LABEL_37:
       ++*(v17 + 238);
     }
 
-    v22 = v81 & BYTE1(v81);
+    v22 = v85 & BYTE1(v85);
     v23 = self->_notify50HzPoseDecimator + 1;
     self->_notify50HzPoseDecimator = v23;
     if (v23 == 4)
@@ -2694,23 +2903,23 @@ LABEL_37:
 LABEL_16:
         if (self->_logForReplay)
         {
-          v91 = 0u;
-          v92 = 0u;
-          buf = vmulq_f64(vcvtq_f64_u64(v80), vdupq_n_s64(0x3EB0C6F7A0B5ED8DuLL));
-          v86 = vcvtq_f64_f32(*&v79);
-          v85 = *(&v79 + 3);
-          v89 = vcvtq_f64_f32(*&v78);
-          v87 = *(&v79 + 2);
-          v88 = *(&v78 + 3);
-          v90 = *(&v78 + 2);
-          objc_msgSend_consumedAuxTimestamp(v77, v9, v10);
-          *&v91 = v24;
-          objc_msgSend_receivedAuxTimestamp(v77, v25, v26);
-          *(&v91 + 1) = v27;
-          objc_msgSend_machAbsTimestamp(v77, v28, v29);
-          *&v92 = v30;
-          objc_msgSend_presentationTimestamp(v77, v31, v32);
-          *(&v92 + 1) = v33;
+          v95 = 0u;
+          v96 = 0u;
+          buf = vmulq_f64(vcvtq_f64_u64(v84), vdupq_n_s64(0x3EB0C6F7A0B5ED8DuLL));
+          v90 = vcvtq_f64_f32(*&v83);
+          v89 = *(&v83 + 3);
+          v93 = vcvtq_f64_f32(*&v82);
+          v91 = *(&v83 + 2);
+          v92 = *(&v82 + 3);
+          v94 = *(&v82 + 2);
+          objc_msgSend_consumedAuxTimestamp(v81, v9, v10);
+          *&v95 = v24;
+          objc_msgSend_receivedAuxTimestamp(v81, v25, v26);
+          *(&v95 + 1) = v27;
+          objc_msgSend_machAbsTimestamp(v81, v28, v29);
+          *&v96 = v30;
+          objc_msgSend_presentationTimestamp(v81, v31, v32);
+          *(&v96 + 1) = v33;
           sub_19B5E69A4(self->_logger.__ptr_, &buf);
         }
 
@@ -2749,63 +2958,64 @@ LABEL_16:
             }
 
             v40 = self->_firstValidPoseTime - self->_sessionStartTime;
-            v82 = 134217984;
-            v83 = v40;
-            v41 = _os_log_send_and_compose_impl();
+            v86 = 134217984;
+            v87 = v40;
+            _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] First non unit quaternion pose after %.3f seconds", COERCE_DOUBLE(&v86));
+            v42 = v41;
             sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v41);
-            if (v41 != &buf)
+            if (v42 != &buf)
             {
-              free(v41);
+              free(v42);
             }
           }
         }
 
-        v42 = self->_analyticsTracker.__ptr_;
-        if (v42 && (*(self->_headTrackingService.__ptr_ + 16082) & 1) == 0)
+        v43 = self->_analyticsTracker.__ptr_;
+        if (v43 && (*(self->_headTrackingService.__ptr_ + 16082) & 1) == 0)
         {
-          objc_msgSend_machAbsTimestamp(v77, v9, v10);
-          v44 = v43;
-          objc_msgSend_consumedAuxTimestamp(v77, v45, v46);
-          v48 = v44 - v47;
-          v49 = *(v42 + 121);
-          if (v49 <= v48)
+          objc_msgSend_machAbsTimestamp(v81, v9, v10);
+          v45 = v44;
+          objc_msgSend_consumedAuxTimestamp(v81, v46, v47);
+          v49 = v45 - v48;
+          v50 = *(v43 + 121);
+          if (v50 <= v49)
           {
-            v49 = v48;
+            v50 = v49;
           }
 
-          *(v42 + 121) = v49;
-          v50 = *(v42 + 120);
-          if (v50 >= v48)
+          *(v43 + 121) = v50;
+          v51 = *(v43 + 120);
+          if (v51 >= v49)
           {
-            v50 = v48;
+            v51 = v49;
           }
 
-          *(v42 + 120) = v50;
-          *(v42 + 122) = v48 + *(v42 + 122);
-          ++*(v42 + 246);
+          *(v43 + 120) = v51;
+          *(v43 + 122) = v49 + *(v43 + 122);
+          ++*(v43 + 246);
         }
 
         printPoseTimer = self->_printPoseTimer;
-        v52 = mach_continuous_time();
-        if (printPoseTimer < sub_19B41E070(v52))
+        v53 = mach_continuous_time();
+        if (printPoseTimer < sub_19B41E070(v53))
         {
-          v53 = mach_continuous_time();
-          self->_printPoseTimer = sub_19B41E070(v53) + 5.0;
+          v54 = mach_continuous_time();
+          self->_printPoseTimer = sub_19B41E070(v54) + 5.0;
           if (qword_1EAFE2998 != -1)
           {
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v54 = off_1EAFE29A0;
+          v55 = off_1EAFE29A0;
           if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf.f64[0]) = 138543362;
-            *(buf.f64 + 4) = v77;
-            _os_log_impl(&dword_19B41C000, v54, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] %{public}@", &buf, 0xCu);
+            *(buf.f64 + 4) = v81;
+            _os_log_impl(&dword_19B41C000, v55, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] %{public}@", &buf, 0xCu);
           }
 
-          v55 = sub_19B420058();
-          if (*(v55 + 160) > 1 || *(v55 + 164) > 1 || *(v55 + 168) > 1 || *(v55 + 152))
+          v56 = sub_19B420058();
+          if (*(v56 + 160) > 1 || *(v56 + 164) > 1 || *(v56 + 168) > 1 || *(v56 + 152))
           {
             bzero(&buf, 0x65CuLL);
             if (qword_1EAFE2998 != -1)
@@ -2813,13 +3023,14 @@ LABEL_16:
               dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
             }
 
-            v82 = 138543362;
-            v83 = *&v77;
-            v56 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v56);
-            if (v56 != &buf)
+            v86 = 138543362;
+            v87 = *&v81;
+            _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] %{public}@", &v86, 12);
+            v58 = v57;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v57);
+            if (v58 != &buf)
             {
-              free(v56);
+              free(v58);
             }
           }
 
@@ -2828,17 +3039,17 @@ LABEL_16:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v57 = off_1EAFE29A0;
+          v59 = off_1EAFE29A0;
           if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
           {
             accessoryIMUSampleRate = self->_accessoryIMUSampleRate;
             LODWORD(buf.f64[0]) = 67174657;
             HIDWORD(buf.f64[0]) = accessoryIMUSampleRate;
-            _os_log_impl(&dword_19B41C000, v57, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] current accessory samples per second: %{private}d", &buf, 8u);
+            _os_log_impl(&dword_19B41C000, v59, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] current accessory samples per second: %{private}d", &buf, 8u);
           }
 
-          v59 = sub_19B420058();
-          if (*(v59 + 160) > 1 || *(v59 + 164) > 1 || *(v59 + 168) > 1 || *(v59 + 152))
+          v61 = sub_19B420058();
+          if (*(v61 + 160) > 1 || *(v61 + 164) > 1 || *(v61 + 168) > 1 || *(v61 + 152))
           {
             bzero(&buf, 0x65CuLL);
             if (qword_1EAFE2998 != -1)
@@ -2846,30 +3057,32 @@ LABEL_16:
               dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
             }
 
-            v60 = self->_accessoryIMUSampleRate;
-            v82 = 67174657;
-            LODWORD(v83) = v60;
-            v61 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v61);
-            if (v61 != &buf)
+            v62 = self->_accessoryIMUSampleRate;
+            v86 = 67174657;
+            LODWORD(v87) = v62;
+            LODWORD(v76) = 8;
+            _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] current accessory samples per second: %{private}d", &v86, v76);
+            v64 = v63;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v63);
+            if (v64 != &buf)
             {
-              free(v61);
+              free(v64);
             }
           }
         }
 
         clientQueue = self->_clientQueue;
         clientHandler = self->_clientHandler;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = sub_19B6479B4;
-        v75[3] = &unk_1E7533B30;
-        v75[4] = v77;
-        v75[5] = clientHandler;
-        v76 = v11;
-        v64 = v75;
+        v79[0] = MEMORY[0x1E69E9820];
+        v79[1] = 3221225472;
+        v79[2] = sub_19B6479B4;
+        v79[3] = &unk_1E7533B30;
+        v79[4] = v81;
+        v79[5] = clientHandler;
+        v80 = v11;
+        v67 = v79;
 LABEL_81:
-        dispatch_async(clientQueue, v64);
+        dispatch_async(clientQueue, v67);
         goto LABEL_82;
       }
 
@@ -2883,27 +3096,27 @@ LABEL_81:
 
     if (self->_inEarStatus != 4)
     {
-      v65 = self->_printPoseTimer;
-      v66 = mach_continuous_time();
-      if (v65 < sub_19B41E070(v66))
+      v68 = self->_printPoseTimer;
+      v69 = mach_continuous_time();
+      if (v68 < sub_19B41E070(v69))
       {
-        v67 = mach_continuous_time();
-        self->_printPoseTimer = sub_19B41E070(v67) + 5.0;
+        v70 = mach_continuous_time();
+        self->_printPoseTimer = sub_19B41E070(v70) + 5.0;
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v68 = off_1EAFE29A0;
+        v71 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf.f64[0]) = 138543362;
-          *(buf.f64 + 4) = v77;
-          _os_log_impl(&dword_19B41C000, v68, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] %{public}@", &buf, 0xCu);
+          *(buf.f64 + 4) = v81;
+          _os_log_impl(&dword_19B41C000, v71, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] %{public}@", &buf, 0xCu);
         }
 
-        v69 = sub_19B420058();
-        if (*(v69 + 160) > 1 || *(v69 + 164) > 1 || *(v69 + 168) > 1 || *(v69 + 152))
+        v72 = sub_19B420058();
+        if (*(v72 + 160) > 1 || *(v72 + 164) > 1 || *(v72 + 168) > 1 || *(v72 + 152))
         {
           bzero(&buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -2911,39 +3124,39 @@ LABEL_81:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v82 = 138543362;
-          v83 = *&v77;
-          v70 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v70);
-          if (v70 != &buf)
+          v86 = 138543362;
+          v87 = *&v81;
+          _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] %{public}@", &v86, 12);
+          v74 = v73;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _notifyClientHandler]", "CoreLocation: %s\n", v73);
+          if (v74 != &buf)
           {
-            free(v70);
+            free(v74);
           }
         }
       }
 
       clientQueue = self->_clientQueue;
-      v71 = self->_clientHandler;
+      v75 = self->_clientHandler;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_19B6479CC;
       block[3] = &unk_1E7533B30;
-      block[4] = v77;
-      block[5] = v71;
-      v74 = v11;
-      v64 = block;
+      block[4] = v81;
+      block[5] = v75;
+      v78 = v11;
+      v67 = block;
       goto LABEL_81;
     }
   }
 
 LABEL_82:
   objc_sync_exit(self);
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedSourceDeviceIMU:(const Sample *)u
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     v5 = self->_accessorySampleTimer + 1.0;
@@ -2956,25 +3169,25 @@ LABEL_82:
       self->_accessorySampleTimer = sub_19B41E070(v7);
     }
 
-    v28 = vdup_n_s32(0x37E5D90Du);
-    v29 = 937810189;
+    v30 = vdup_n_s32(0x37E5D90Du);
+    v31 = 937810189;
     v8.f32[0] = sub_19B420740(&u->acceleration.x);
     v10 = v9 + *&u[2].timestamp;
     v8.i32[1] = v11;
-    v26 = vadd_f32(*&u[1].acceleration.z, v8);
-    v27 = v10;
+    v28 = vadd_f32(*&u[1].acceleration.z, v8);
+    v29 = v10;
     v8.i32[0] = LODWORD(u[2].acceleration.y);
-    v24 = *(&u[2].timestamp + 4);
-    v25 = v8.i32[0];
+    v26 = *(&u[2].timestamp + 4);
+    v27 = v8.i32[0];
     v12 = vcvt_hight_f32_f64(vcvt_f32_f64(*&u->acceleration.x), *&u[1].timestamp);
-    v23 = vextq_s8(v12, v12, 4uLL);
-    sub_19B41E130(&v23, v23);
+    v25 = vextq_s8(v12, v12, 4uLL);
+    sub_19B41E130(&v25, v25);
     objc_sync_enter(self);
     if ((WORD1(u[5].timestamp) & 0x100) != 0)
     {
-      v21 = (u->timestamp * 1000000.0);
-      self->_lastSourceTimestampMicroSeconds = v21;
-      sub_19B693044(self->_headTrackingService.__ptr_, &v23, &v26, &v24, &v28, v21);
+      v23 = (u->timestamp * 1000000.0);
+      self->_lastSourceTimestampMicroSeconds = v23;
+      sub_19B693044(self->_headTrackingService.__ptr_, &v25, &v28, &v26, &v30, v23);
     }
 
     else
@@ -3000,11 +3213,13 @@ LABEL_82:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v17 = _os_log_send_and_compose_impl();
+        v24[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Not feeding SrcDM due to uninitialized DM status.", v24, 2);
+        v18 = v17;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedSourceDeviceIMU:]", "CoreLocation: %s\n", v17);
-        if (v17 != buf)
+        if (v18 != buf)
         {
-          free(v17);
+          free(v18);
         }
       }
     }
@@ -3025,15 +3240,15 @@ LABEL_82:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v18 = off_1EAFE29A0;
+    v19 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedSourceDeviceIMU call that occurred after _stop was called.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedSourceDeviceIMU call that occurred after _stop was called.", buf, 2u);
     }
 
-    v19 = sub_19B420058();
-    if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+    v20 = sub_19B420058();
+    if (*(v20 + 160) > 1 || *(v20 + 164) > 1 || *(v20 + 168) > 1 || *(v20 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -3041,44 +3256,154 @@ LABEL_82:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v23.i16[0] = 0;
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedSourceDeviceIMU:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
+      v25.i16[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedSourceDeviceIMU call that occurred after _stop was called.", &v25, 2);
+      v22 = v21;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedSourceDeviceIMU:]", "CoreLocation: %s\n", v21);
+      if (v22 != buf)
       {
-        free(v20);
+        free(v22);
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedDisplayCount:(unsigned int)count
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
-    if (self->_displayCount != count)
+    if (self->_displayCount == count)
+    {
+      return;
+    }
+
+    if (qword_1EAFE2998 != -1)
+    {
+      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    }
+
+    v5 = off_1EAFE29A0;
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+    {
+      displayCount = self->_displayCount;
+      *buf = 67240448;
+      v40 = displayCount;
+      v41 = 1026;
+      countCopy = count;
+      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Display count changed: from %{public}d, to %{public}u", buf, 0xEu);
+    }
+
+    v7 = sub_19B420058();
+    if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+
+      v8 = self->_displayCount;
+      v35 = 67240448;
+      v36 = v8;
+      v37 = 1026;
+      countCopy2 = count;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Display count changed: from %{public}d, to %{public}u", &v35, 14);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
+      {
+        free(v10);
+      }
+    }
+
+    ptr = self->_headTrackingService.__ptr_;
+    if (!ptr)
+    {
+      goto LABEL_70;
+    }
+
+    if (count <= 1)
+    {
+      if (count != 1)
+      {
+LABEL_70:
+        self->_displayCount = count;
+        return;
+      }
+
+      lidAngle = self->_lidAngle;
+      if (lidAngle < 0.0 || lidAngle >= 25.0)
+      {
+        schemePrev = self->_schemePrev;
+        if (schemePrev)
+        {
+          sub_19B690FE4(ptr, schemePrev);
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v27 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+          {
+            v28 = self->_schemePrev;
+            *buf = 67240192;
+            v40 = v28;
+            _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] External display detached, change tracking scheme back to %{public}d", buf, 8u);
+          }
+
+          v29 = sub_19B420058();
+          if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2998 != -1)
+            {
+              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+            }
+
+            v30 = self->_schemePrev;
+            v35 = 67240192;
+            v36 = v30;
+            LODWORD(v34) = 8;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] External display detached, change tracking scheme back to %{public}d", &v35, v34);
+            v32 = v31;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v31);
+            if (v32 != buf)
+            {
+              free(v32);
+            }
+          }
+
+          v33 = self->_analyticsTracker.__ptr_;
+          if (v33 && *(v33 + 52) > 0.0)
+          {
+            sub_19B6A80D8(v33 + 52, &stru_1F0E3D7A0);
+          }
+        }
+
+        goto LABEL_70;
+      }
+    }
+
+    v12 = *(ptr + 14);
+    self->_schemePrev = v12;
+    if (v12)
     {
       if (qword_1EAFE2998 != -1)
       {
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v5 = off_1EAFE29A0;
+      v13 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
       {
-        displayCount = self->_displayCount;
-        *buf = 67240448;
-        v32 = displayCount;
-        v33 = 1026;
-        countCopy = count;
-        _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Display count changed: from %{public}d, to %{public}u", buf, 0xEu);
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] External display attached, change tracking scheme to IMUOnly", buf, 2u);
       }
 
-      v7 = sub_19B420058();
-      if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+      v14 = sub_19B420058();
+      if (*(v14 + 160) > 1 || *(v14 + 164) > 1 || *(v14 + 168) > 1 || *(v14 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -3086,185 +3411,84 @@ LABEL_82:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v29 = self->_displayCount;
-        v8 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v8);
-        if (v8 != buf)
+        LOWORD(v35) = 0;
+        LODWORD(v34) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] External display attached, change tracking scheme to IMUOnly", &v35, v34);
+        v16 = v15;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v15);
+        if (v16 != buf)
         {
-          free(v8);
+          free(v16);
         }
       }
 
-      ptr = self->_headTrackingService.__ptr_;
-      if (!ptr)
-      {
-        goto LABEL_70;
-      }
-
-      if (count <= 1)
-      {
-        if (count != 1)
-        {
-LABEL_70:
-          self->_displayCount = count;
-          goto LABEL_71;
-        }
-
-        lidAngle = self->_lidAngle;
-        if (lidAngle < 0.0 || lidAngle >= 25.0)
-        {
-          schemePrev = self->_schemePrev;
-          if (schemePrev)
-          {
-            sub_19B690FE4(ptr, schemePrev);
-            if (qword_1EAFE2998 != -1)
-            {
-              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-            }
-
-            v23 = off_1EAFE29A0;
-            if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
-            {
-              v24 = self->_schemePrev;
-              *buf = 67240192;
-              v32 = v24;
-              _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] External display detached, change tracking scheme back to %{public}d", buf, 8u);
-            }
-
-            v25 = sub_19B420058();
-            if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
-            {
-              bzero(buf, 0x65CuLL);
-              if (qword_1EAFE2998 != -1)
-              {
-                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-              }
-
-              v30 = self->_schemePrev;
-              v26 = _os_log_send_and_compose_impl();
-              sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v26);
-              if (v26 != buf)
-              {
-                free(v26);
-              }
-            }
-
-            v27 = self->_analyticsTracker.__ptr_;
-            if (v27 && *(v27 + 52) > 0.0)
-            {
-              sub_19B6A80D8(v27 + 52, &stru_1F0E3D7A0);
-            }
-          }
-
-          goto LABEL_70;
-        }
-      }
-
-      v10 = *(ptr + 14);
-      self->_schemePrev = v10;
-      if (v10)
-      {
-        if (qword_1EAFE2998 != -1)
-        {
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-        }
-
-        v11 = off_1EAFE29A0;
-        if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] External display attached, change tracking scheme to IMUOnly", buf, 2u);
-        }
-
-        v12 = sub_19B420058();
-        if (*(v12 + 160) > 1 || *(v12 + 164) > 1 || *(v12 + 168) > 1 || *(v12 + 152))
-        {
-          bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2998 != -1)
-          {
-            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-          }
-
-          v13 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v13);
-          if (v13 != buf)
-          {
-            free(v13);
-          }
-        }
-
-        sub_19B690FE4(self->_headTrackingService.__ptr_, 0);
-      }
-
-      v14 = self->_analyticsTracker.__ptr_;
-      if (v14)
-      {
-        maxDisplayCount = self->_maxDisplayCount;
-        if (maxDisplayCount < count)
-        {
-          v16 = 0;
-          v17 = *(v14 + 511);
-          do
-          {
-            if (v17 != -1)
-            {
-              *(v14 + 511) = ++v17;
-              maxDisplayCount = self->_maxDisplayCount;
-            }
-
-            ++v16;
-          }
-
-          while (v16 < count - maxDisplayCount);
-          self->_maxDisplayCount = count;
-        }
-
-        sub_19B6A7EE8(v14 + 52, @"externalScreenDuration");
-      }
-
-      goto LABEL_70;
+      sub_19B690FE4(self->_headTrackingService.__ptr_, 0);
     }
+
+    v17 = self->_analyticsTracker.__ptr_;
+    if (v17)
+    {
+      maxDisplayCount = self->_maxDisplayCount;
+      if (maxDisplayCount < count)
+      {
+        v19 = 0;
+        v20 = *(v17 + 511);
+        do
+        {
+          if (v20 != -1)
+          {
+            *(v17 + 511) = ++v20;
+            maxDisplayCount = self->_maxDisplayCount;
+          }
+
+          ++v19;
+        }
+
+        while (v19 < count - maxDisplayCount);
+        self->_maxDisplayCount = count;
+      }
+
+      sub_19B6A7EE8(v17 + 52, @"externalScreenDuration");
+    }
+
+    goto LABEL_70;
   }
 
-  else
+  if (qword_1EAFE2998 != -1)
   {
+    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+  }
+
+  v21 = off_1EAFE29A0;
+  if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedDisplayCount call that occurred after _stop was called.", buf, 2u);
+  }
+
+  v22 = sub_19B420058();
+  if (*(v22 + 160) > 1 || *(v22 + 164) > 1 || *(v22 + 168) > 1 || *(v22 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v18 = off_1EAFE29A0;
-    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
+    LOWORD(v35) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedDisplayCount call that occurred after _stop was called.", &v35, 2);
+    v24 = v23;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v23);
+    if (v24 != buf)
     {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedDisplayCount call that occurred after _stop was called.", buf, 2u);
-    }
-
-    v19 = sub_19B420058();
-    if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2998 != -1)
-      {
-        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-      }
-
-      v20 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedDisplayCount:]", "CoreLocation: %s\n", v20);
-      if (v20 != buf)
-      {
-        free(v20);
-      }
+      free(v24);
     }
   }
-
-LABEL_71:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedLidAngle:(double)angle
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     self->_lidAngle = angle;
@@ -3293,21 +3517,21 @@ LABEL_71:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v7[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedLidAngle call that occurred after _stop was called.", v7, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedLidAngle:]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedActiveAudioRouteChangedEvent
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     if (qword_1EAFE2998 != -1)
@@ -3331,11 +3555,13 @@ LABEL_71:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Active audio route changed, reloading JBL", v13, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedActiveAudioRouteChangedEvent]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
 
@@ -3349,15 +3575,15 @@ LABEL_71:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v8 = off_1EAFE29A0;
+    v9 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedActiveAudioRouteChangedEvent call that occurred after _stop was called.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedActiveAudioRouteChangedEvent call that occurred after _stop was called.", buf, 2u);
     }
 
-    v9 = sub_19B420058();
-    if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
+    v10 = sub_19B420058();
+    if (*(v10 + 160) > 1 || *(v10 + 164) > 1 || *(v10 + 168) > 1 || *(v10 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -3365,21 +3591,21 @@ LABEL_71:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedActiveAudioRouteChangedEvent]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedActiveAudioRouteChangedEvent call that occurred after _stop was called.", v13, 2);
+      v12 = v11;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedActiveAudioRouteChangedEvent]", "CoreLocation: %s\n", v11);
+      if (v12 != buf)
       {
-        free(v10);
+        free(v12);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedFaceKitData:(id)data timestamp:(double)timestamp
 {
-  v229 = *MEMORY[0x1E69E9840];
+  v234 = *MEMORY[0x1E69E9840];
   if (!self->_started)
   {
     if (qword_1EAFE2998 != -1)
@@ -3403,16 +3629,17 @@ LABEL_71:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v208) = 0;
-      v20 = _os_log_send_and_compose_impl();
+      LOWORD(v213) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedFaceKitData call that occurred after _stop was called.", &v213, 2);
+      v21 = v20;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v20);
       goto LABEL_20;
     }
 
-    goto LABEL_84;
+    return;
   }
 
-  v200 = objc_msgSend_objectForKeyedSubscript_(data, a2, @"rm_camera_id");
+  v205 = objc_msgSend_objectForKeyedSubscript_(data, a2, @"rm_camera_id");
   v7 = objc_msgSend_objectForKeyedSubscript_(data, v6, @"rm_tracked_faces");
   v9 = objc_msgSend_objectForKeyedSubscript_(data, v8, @"rm_number_of_detected_faces");
   if (v9)
@@ -3429,15 +3656,15 @@ LABEL_71:
   {
     if (objc_msgSend_intValue(v12, v10, v11) <= 1)
     {
-      v21 = objc_msgSend_intValue(v12, v13, v14);
+      v22 = objc_msgSend_intValue(v12, v13, v14);
       ptr = self->_analyticsTracker.__ptr_;
-      if (v21 >= 1 || (v16 = *(ptr + 521), v16 == -1))
+      if (v22 >= 1 || (v16 = *(ptr + 521), v16 == -1))
       {
 LABEL_26:
-        v22 = *(ptr + 522);
-        if (v22 != -1)
+        v23 = *(ptr + 522);
+        if (v23 != -1)
         {
-          *(ptr + 522) = v22 + 1;
+          *(ptr + 522) = v23 + 1;
         }
 
         goto LABEL_28;
@@ -3468,20 +3695,20 @@ LABEL_28:
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
   }
 
-  v23 = off_1EAFE29A0;
+  v24 = off_1EAFE29A0;
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67240704;
-    *&buf[4] = objc_msgSend_unsignedIntValue(v200, v24, v25);
+    *&buf[4] = objc_msgSend_unsignedIntValue(v205, v25, v26);
     *&buf[8] = 2050;
-    *&buf[10] = objc_msgSend_count(v7, v26, v27);
+    *&buf[10] = objc_msgSend_count(v7, v27, v28);
     *&buf[18] = 1026;
-    *&buf[20] = objc_msgSend_intValue(v12, v28, v29);
-    _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEBUG, "[CMMediaSession][Cam %{public}u] Received %{public}lu faces of %{public}d detected faces", buf, 0x18u);
+    *&buf[20] = objc_msgSend_intValue(v12, v29, v30);
+    _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_DEBUG, "[CMMediaSession][Cam %{public}u] Received %{public}lu faces of %{public}d detected faces", buf, 0x18u);
   }
 
-  v30 = sub_19B420058();
-  if (*(v30 + 160) > 1 || *(v30 + 164) > 1 || *(v30 + 168) > 1 || *(v30 + 152))
+  v31 = sub_19B420058();
+  if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
@@ -3489,117 +3716,119 @@ LABEL_28:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v208 = 67240704;
-    v209 = objc_msgSend_unsignedIntValue(v200, v33, v34);
-    *v210 = 2050;
-    *&v210[2] = objc_msgSend_count(v7, v35, v36);
-    *&v210[10] = 1026;
-    v211 = objc_msgSend_intValue(v12, v37, v38);
-    v39 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v39);
-    if (v39 != buf)
+    v36 = off_1EAFE29A0;
+    v213 = 67240704;
+    v214 = objc_msgSend_unsignedIntValue(v205, v34, v35);
+    *v215 = 2050;
+    *&v215[2] = objc_msgSend_count(v7, v37, v38);
+    *&v215[10] = 1026;
+    v216 = objc_msgSend_intValue(v12, v39, v40);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v36, 2, "[CMMediaSession][Cam %{public}u] Received %{public}lu faces of %{public}d detected faces", &v213, 24);
+    v42 = v41;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v41);
+    if (v42 != buf)
     {
-      free(v39);
+      free(v42);
     }
   }
 
-  Object = objc_msgSend_firstObject(v7, v31, v32);
-  v42 = Object;
+  Object = objc_msgSend_firstObject(v7, v32, v33);
+  v45 = Object;
   if (Object)
   {
-    v43 = objc_msgSend_objectForKeyedSubscript_(Object, v41, @"raw_data");
-    v45 = objc_msgSend_objectForKeyedSubscript_(v43, v44, @"pose");
-    v47 = objc_msgSend_objectForKeyedSubscript_(v45, v46, @"rotation");
-    v49 = objc_msgSend_objectForKeyedSubscript_(v45, v48, @"translation");
-    v51 = objc_msgSend_objectForKeyedSubscript_(v43, v50, @"data_failure");
-    v53 = objc_msgSend_objectForKeyedSubscript_(v51, v52, @"image_too_dark");
-    v55 = objc_msgSend_objectForKeyedSubscript_(v51, v54, @"sensor_covered");
-    v198 = objc_msgSend_objectForKeyedSubscript_(v42, v56, @"failure_type");
-    v58 = objc_msgSend_objectForKeyedSubscript_(v42, v57, @"confidence_level");
-    v60 = objc_msgSend_objectForKeyedSubscript_(v42, v59, @"AngleInfoRoll");
-    if (v47 && v49)
+    v46 = objc_msgSend_objectForKeyedSubscript_(Object, v44, @"raw_data");
+    v48 = objc_msgSend_objectForKeyedSubscript_(v46, v47, @"pose");
+    v50 = objc_msgSend_objectForKeyedSubscript_(v48, v49, @"rotation");
+    v52 = objc_msgSend_objectForKeyedSubscript_(v48, v51, @"translation");
+    v54 = objc_msgSend_objectForKeyedSubscript_(v46, v53, @"data_failure");
+    v56 = objc_msgSend_objectForKeyedSubscript_(v54, v55, @"image_too_dark");
+    v58 = objc_msgSend_objectForKeyedSubscript_(v54, v57, @"sensor_covered");
+    v203 = objc_msgSend_objectForKeyedSubscript_(v45, v59, @"failure_type");
+    v61 = objc_msgSend_objectForKeyedSubscript_(v45, v60, @"confidence_level");
+    v63 = objc_msgSend_objectForKeyedSubscript_(v45, v62, @"AngleInfoRoll");
+    if (v50 && v52)
     {
-      v62 = v60;
-      v63 = objc_msgSend_objectAtIndexedSubscript_(v47, v61, 0);
-      v65 = objc_msgSend_objectAtIndexedSubscript_(v63, v64, 0);
-      objc_msgSend_floatValue(v65, v66, v67);
-      v69 = v68;
-      v71 = objc_msgSend_objectAtIndexedSubscript_(v47, v70, 1);
-      v73 = objc_msgSend_objectAtIndexedSubscript_(v71, v72, 0);
-      objc_msgSend_floatValue(v73, v74, v75);
-      v77 = v76;
-      v79 = objc_msgSend_objectAtIndexedSubscript_(v47, v78, 2);
-      v81 = objc_msgSend_objectAtIndexedSubscript_(v79, v80, 0);
-      objc_msgSend_floatValue(v81, v82, v83);
-      v85 = v84;
-      v87 = objc_msgSend_objectAtIndexedSubscript_(v47, v86, 0);
-      v89 = objc_msgSend_objectAtIndexedSubscript_(v87, v88, 1);
-      objc_msgSend_floatValue(v89, v90, v91);
-      v93 = v92;
-      v95 = objc_msgSend_objectAtIndexedSubscript_(v47, v94, 1);
-      v97 = objc_msgSend_objectAtIndexedSubscript_(v95, v96, 1);
-      objc_msgSend_floatValue(v97, v98, v99);
-      v101 = v100;
-      v103 = objc_msgSend_objectAtIndexedSubscript_(v47, v102, 2);
-      v105 = objc_msgSend_objectAtIndexedSubscript_(v103, v104, 1);
-      objc_msgSend_floatValue(v105, v106, v107);
-      v109 = v108;
-      v111 = objc_msgSend_objectAtIndexedSubscript_(v47, v110, 0);
-      v113 = objc_msgSend_objectAtIndexedSubscript_(v111, v112, 2);
-      objc_msgSend_floatValue(v113, v114, v115);
-      v117 = v116;
-      v119 = objc_msgSend_objectAtIndexedSubscript_(v47, v118, 1);
-      v121 = objc_msgSend_objectAtIndexedSubscript_(v119, v120, 2);
-      objc_msgSend_floatValue(v121, v122, v123);
-      v125 = v124;
-      v127 = objc_msgSend_objectAtIndexedSubscript_(v47, v126, 2);
-      v129 = objc_msgSend_objectAtIndexedSubscript_(v127, v128, 2);
-      objc_msgSend_floatValue(v129, v130, v131);
-      v208 = v69;
-      v209 = v77;
-      *v210 = v85;
-      *&v210[4] = v93;
-      *&v210[8] = v101;
-      v211 = v109;
-      v212 = v117;
-      v213 = v125;
-      v214 = v132.i32[0];
-      v203.i64[0] = 0;
-      v203.i64[1] = 0x3F80000000000000;
-      v133 = sub_19B66D1AC(&v203, &v208, v132);
-      v135 = objc_msgSend_objectAtIndexedSubscript_(v49, v134, 0, v133);
-      objc_msgSend_floatValue(v135, v136, v137);
-      v197 = v138;
-      v140 = objc_msgSend_objectAtIndexedSubscript_(v49, v139, 1);
-      objc_msgSend_floatValue(v140, v141, v142);
-      v196 = v143;
-      v145 = objc_msgSend_objectAtIndexedSubscript_(v49, v144, 2);
-      objc_msgSend_floatValue(v145, v146, v147);
-      v201 = vmul_f32(__PAIR64__(v196, v197), vdup_n_s32(0x3A83126Fu));
-      v202 = v148 * 0.001;
-      v151.f32[0] = objc_msgSend_intValue(v58, v149, v150);
-      v152 = v151.f32[0] / 1000.0;
-      v153 = self->_analyticsTracker.__ptr_;
-      if (v153)
+      v65 = v63;
+      v66 = objc_msgSend_objectAtIndexedSubscript_(v50, v64, 0);
+      v68 = objc_msgSend_objectAtIndexedSubscript_(v66, v67, 0);
+      objc_msgSend_floatValue(v68, v69, v70);
+      v72 = v71;
+      v74 = objc_msgSend_objectAtIndexedSubscript_(v50, v73, 1);
+      v76 = objc_msgSend_objectAtIndexedSubscript_(v74, v75, 0);
+      objc_msgSend_floatValue(v76, v77, v78);
+      v80 = v79;
+      v82 = objc_msgSend_objectAtIndexedSubscript_(v50, v81, 2);
+      v84 = objc_msgSend_objectAtIndexedSubscript_(v82, v83, 0);
+      objc_msgSend_floatValue(v84, v85, v86);
+      v88 = v87;
+      v90 = objc_msgSend_objectAtIndexedSubscript_(v50, v89, 0);
+      v92 = objc_msgSend_objectAtIndexedSubscript_(v90, v91, 1);
+      objc_msgSend_floatValue(v92, v93, v94);
+      v96 = v95;
+      v98 = objc_msgSend_objectAtIndexedSubscript_(v50, v97, 1);
+      v100 = objc_msgSend_objectAtIndexedSubscript_(v98, v99, 1);
+      objc_msgSend_floatValue(v100, v101, v102);
+      v104 = v103;
+      v106 = objc_msgSend_objectAtIndexedSubscript_(v50, v105, 2);
+      v108 = objc_msgSend_objectAtIndexedSubscript_(v106, v107, 1);
+      objc_msgSend_floatValue(v108, v109, v110);
+      v112 = v111;
+      v114 = objc_msgSend_objectAtIndexedSubscript_(v50, v113, 0);
+      v116 = objc_msgSend_objectAtIndexedSubscript_(v114, v115, 2);
+      objc_msgSend_floatValue(v116, v117, v118);
+      v120 = v119;
+      v122 = objc_msgSend_objectAtIndexedSubscript_(v50, v121, 1);
+      v124 = objc_msgSend_objectAtIndexedSubscript_(v122, v123, 2);
+      objc_msgSend_floatValue(v124, v125, v126);
+      v128 = v127;
+      v130 = objc_msgSend_objectAtIndexedSubscript_(v50, v129, 2);
+      v132 = objc_msgSend_objectAtIndexedSubscript_(v130, v131, 2);
+      objc_msgSend_floatValue(v132, v133, v134);
+      v213 = v72;
+      v214 = v80;
+      *v215 = v88;
+      *&v215[4] = v96;
+      *&v215[8] = v104;
+      v216 = v112;
+      v217 = v120;
+      v218 = v128;
+      v219 = v135.i32[0];
+      v208.i64[0] = 0;
+      v208.i64[1] = 0x3F80000000000000;
+      v136 = sub_19B66D1AC(&v208, &v213, v135);
+      v138 = objc_msgSend_objectAtIndexedSubscript_(v52, v137, 0, v136);
+      objc_msgSend_floatValue(v138, v139, v140);
+      v202 = v141;
+      v143 = objc_msgSend_objectAtIndexedSubscript_(v52, v142, 1);
+      objc_msgSend_floatValue(v143, v144, v145);
+      v201 = v146;
+      v148 = objc_msgSend_objectAtIndexedSubscript_(v52, v147, 2);
+      objc_msgSend_floatValue(v148, v149, v150);
+      v206 = vmul_f32(__PAIR64__(v201, v202), vdup_n_s32(0x3A83126Fu));
+      v207 = v151 * 0.001;
+      v154.f32[0] = objc_msgSend_intValue(v61, v152, v153);
+      v155 = v154.f32[0] / 1000.0;
+      v156 = self->_analyticsTracker.__ptr_;
+      if (v156)
       {
-        v154 = v152;
-        v155 = *(v153 + 213);
-        if (v155 <= v152)
+        v157 = v155;
+        v158 = *(v156 + 213);
+        if (v158 <= v155)
         {
-          v155 = v152;
+          v158 = v155;
         }
 
-        *(v153 + 213) = v155;
-        v156 = *(v153 + 212);
-        if (v156 >= v154)
+        *(v156 + 213) = v158;
+        v159 = *(v156 + 212);
+        if (v159 >= v157)
         {
-          v156 = v152;
+          v159 = v155;
         }
 
-        *(v153 + 212) = v156;
-        *v151.i64 = *(v153 + 214) + v154;
-        *(v153 + 214) = v151.i64[0];
-        ++*(v153 + 430);
+        *(v156 + 212) = v159;
+        *v154.i64 = *(v156 + 214) + v157;
+        *(v156 + 214) = v154.i64[0];
+        ++*(v156 + 430);
       }
 
       if ((atomic_load_explicit(qword_1ED71CB40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(qword_1ED71CB40))
@@ -3609,81 +3838,81 @@ LABEL_28:
         __cxa_guard_release(qword_1ED71CB40);
       }
 
-      v203.i32[0] = sub_19B66BF70(&xmmword_1ED71CB50, v203.f32, v151);
-      *(v203.i64 + 4) = __PAIR64__(v158, v157);
-      v203.i32[3] = v159;
-      v162 = sub_19B66C1A4(&xmmword_1ED71CB50, *&v201, *(&v201 + 1), v202);
-      v164 = v163;
-      v166 = v165;
-      v167 = 0;
-      v201 = __PAIR64__(v163, LODWORD(v162));
-      v202 = v165;
-      v168 = 0.0;
+      v208.i32[0] = sub_19B66BF70(&xmmword_1ED71CB50, v208.f32, v154);
+      *(v208.i64 + 4) = __PAIR64__(v161, v160);
+      v208.i32[3] = v162;
+      v165 = sub_19B66C1A4(&xmmword_1ED71CB50, *&v206, *(&v206 + 1), v207);
+      v167 = v166;
+      v169 = v168;
+      v170 = 0;
+      v206 = __PAIR64__(v166, LODWORD(v165));
+      v207 = v168;
+      v171 = 0.0;
       do
       {
-        v168 = v168 + (*(&v201 + v167) * *(&v201 + v167));
-        v167 += 4;
+        v171 = v171 + (*(&v206 + v170) * *(&v206 + v170));
+        v170 += 4;
       }
 
-      while (v167 != 12);
-      v169 = self->_analyticsTracker.__ptr_;
-      v170 = sqrtf(v168);
-      if (v169)
+      while (v170 != 12);
+      v172 = self->_analyticsTracker.__ptr_;
+      v173 = sqrtf(v171);
+      if (v172)
       {
-        v171 = v170;
-        v172 = *(v169 + 237);
-        if (v172 <= v170)
+        v174 = v173;
+        v175 = *(v172 + 237);
+        if (v175 <= v173)
         {
-          v172 = v170;
+          v175 = v173;
         }
 
-        *(v169 + 237) = v172;
-        v173 = *(v169 + 236);
-        if (v173 >= v171)
+        *(v172 + 237) = v175;
+        v176 = *(v172 + 236);
+        if (v176 >= v174)
         {
-          v173 = v170;
+          v176 = v173;
         }
 
-        *(v169 + 236) = v173;
-        *(v169 + 238) = *(v169 + 238) + v171;
-        ++*(v169 + 478);
+        *(v172 + 236) = v176;
+        *(v172 + 238) = *(v172 + 238) + v174;
+        ++*(v172 + 478);
       }
 
-      if (v170 >= 0.1)
+      if (v173 >= 0.1)
       {
-        v204 = LODWORD(v152);
-        LOBYTE(v205) = objc_msgSend_BOOLValue(v53, v160, v161);
-        BYTE1(v205) = objc_msgSend_BOOLValue(v55, v178, v179);
-        HIDWORD(v205) = objc_msgSend_intValue(v198, v180, v181);
-        objc_msgSend_doubleValue(v62, v182, v183);
-        *(v207 + 2) = v184;
-        v228 = 0;
+        v209 = LODWORD(v155);
+        LOBYTE(v210) = objc_msgSend_BOOLValue(v56, v163, v164);
+        BYTE1(v210) = objc_msgSend_BOOLValue(v58, v183, v184);
+        HIDWORD(v210) = objc_msgSend_intValue(v203, v185, v186);
+        objc_msgSend_doubleValue(v65, v187, v188);
+        *(v212 + 2) = v189;
+        v233 = 0;
         *buf = CFAbsoluteTimeGetCurrent();
         *&buf[8] = timestamp;
         *&buf[16] = 0x100000002;
-        v216 = v203.f32[3];
-        v217 = vcvtq_f64_f32(*v203.f32);
-        v218 = v203.f32[2];
-        v219 = v162;
-        v220 = v164;
-        v221 = v166;
-        v222 = 0u;
-        v223 = 0u;
-        v224 = 0u;
-        v225 = 0u;
-        v226 = objc_msgSend_unsignedIntValue(v200, v185, v186);
-        v227 = 0;
-        LODWORD(v228) = objc_msgSend_intValue(v12, v187, v188);
+        v221 = v208.f32[3];
+        v222 = vcvtq_f64_f32(*v208.f32);
+        v223 = v208.f32[2];
+        v224 = v165;
+        v225 = v167;
+        v226 = v169;
+        v227 = 0u;
+        v228 = 0u;
+        v229 = 0u;
+        v230 = 0u;
+        v231 = objc_msgSend_unsignedIntValue(v205, v190, v191);
+        v232 = 0;
+        LODWORD(v233) = objc_msgSend_intValue(v12, v192, v193);
         lidAngle = self->_lidAngle;
         *&lidAngle = lidAngle;
-        objc_msgSend__feedPoseAnchor_facePoseError_lidAngleDeg_(self, v190, buf, &v204, lidAngle);
-        v193 = self->_analyticsTracker.__ptr_;
-        if (v193)
+        objc_msgSend__feedPoseAnchor_facePoseError_lidAngleDeg_(self, v195, buf, &v209, lidAngle);
+        v198 = self->_analyticsTracker.__ptr_;
+        if (v198)
         {
-          v194 = objc_msgSend_intValue(v12, v191, v192);
-          if (*(v193 + 2280) < v194)
+          v199 = objc_msgSend_intValue(v12, v196, v197);
+          if (*(v198 + 2280) < v199)
           {
-            *(v193 + 2280) = v194;
+            *(v198 + 2280) = v199;
           }
         }
       }
@@ -3695,18 +3924,18 @@ LABEL_28:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v174 = off_1EAFE29A0;
+        v177 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349312;
-          *&buf[4] = (v170 * 100.0);
+          *&buf[4] = (v173 * 100.0);
           *&buf[12] = 2050;
           *&buf[14] = 0x4024000000000000;
-          _os_log_impl(&dword_19B41C000, v174, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignore anchor since distance: %{public}.1f cm is under the %{public}.1f cm threshold.", buf, 0x16u);
+          _os_log_impl(&dword_19B41C000, v177, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignore anchor since distance: %{public}.1f cm is under the %{public}.1f cm threshold.", buf, 0x16u);
         }
 
-        v175 = sub_19B420058();
-        if (*(v175 + 160) > 1 || *(v175 + 164) > 1 || *(v175 + 168) > 1 || *(v175 + 152))
+        v178 = sub_19B420058();
+        if (*(v178 + 160) > 1 || *(v178 + 164) > 1 || *(v178 + 168) > 1 || *(v178 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -3714,16 +3943,18 @@ LABEL_28:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v204 = 134349312;
-          v205 = (v170 * 100.0);
-          v206 = 2050;
-          v207[0] = 0x4024000000000000;
-          v20 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v20);
+          v209 = 134349312;
+          v210 = (v173 * 100.0);
+          v211 = 2050;
+          v212[0] = 0x4024000000000000;
+          LODWORD(v200) = 22;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignore anchor since distance: %{public}.1f cm is under the %{public}.1f cm threshold.", &v209, v200);
+          v21 = v179;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v179);
 LABEL_20:
-          if (v20 != buf)
+          if (v21 != buf)
           {
-            free(v20);
+            free(v21);
           }
         }
       }
@@ -3736,15 +3967,15 @@ LABEL_20:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v176 = off_1EAFE29A0;
+      v180 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v176, OS_LOG_TYPE_ERROR, "[CMMediaSession] Rotation matrix or translation is missing", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v180, OS_LOG_TYPE_ERROR, "[CMMediaSession] Rotation matrix or translation is missing", buf, 2u);
       }
 
-      v177 = sub_19B420058();
-      if ((*(v177 + 160) & 0x80000000) == 0 || (*(v177 + 164) & 0x80000000) == 0 || (*(v177 + 168) & 0x80000000) == 0 || *(v177 + 152))
+      v181 = sub_19B420058();
+      if ((*(v181 + 160) & 0x80000000) == 0 || (*(v181 + 164) & 0x80000000) == 0 || (*(v181 + 168) & 0x80000000) == 0 || *(v181 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -3752,39 +3983,38 @@ LABEL_20:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        LOWORD(v208) = 0;
-        v20 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v20);
+        LOWORD(v213) = 0;
+        LODWORD(v200) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Rotation matrix or translation is missing", &v213, v200);
+        v21 = v182;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedFaceKitData:timestamp:]", "CoreLocation: %s\n", v182);
         goto LABEL_20;
       }
     }
   }
-
-LABEL_84:
-  v195 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedPoseAnchor:(const Sample *)anchor facePoseError:(id *)error lidAngleDeg:(float)deg
 {
-  v152 = *MEMORY[0x1E69E9840];
+  v157 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     if (anchor && error)
     {
       v8 = *&anchor[4].acceleration.z;
-      v137 = *&anchor[4].timestamp;
-      v138 = v8;
-      v139 = *&anchor[5].acceleration.x;
+      v142 = *&anchor[4].timestamp;
+      v143 = v8;
+      v144 = *&anchor[5].acceleration.x;
       timestamp = anchor[6].timestamp;
       v9 = *&anchor[2].timestamp;
-      v133 = *&anchor[1].acceleration.x;
-      v134 = v9;
+      v138 = *&anchor[1].acceleration.x;
+      v139 = v9;
       v10 = *&anchor[3].acceleration.x;
-      v135 = *&anchor[2].acceleration.z;
-      v136 = v10;
+      v140 = *&anchor[2].acceleration.z;
+      v141 = v10;
       v11 = *&anchor->acceleration.z;
-      v131 = *&anchor->timestamp;
-      v132 = v11;
+      v136 = *&anchor->timestamp;
+      v137 = v11;
       sub_19B421798();
       if (sub_19B4426E4())
       {
@@ -3799,164 +4029,164 @@ LABEL_84:
         *v12.i64 = v15;
         v25 = v17;
         v26 = v19;
-        *(&v133 + 1) = v17;
-        *&v134 = v19;
+        *(&v138 + 1) = v17;
+        *&v139 = v19;
         v27 = v21;
-        *(&v132 + 1) = v21;
-        *&v133 = v15;
+        *(&v137 + 1) = v21;
+        *&v138 = v15;
       }
 
       else
       {
-        v25 = *(&v133 + 1);
-        v26 = *&v134;
-        v27 = *(&v132 + 1);
-        v12.i64[0] = v133;
-        v22 = *(&v134 + 3);
-        v24 = *(&v134 + 2);
-        v23 = *&v135;
+        v25 = *(&v138 + 1);
+        v26 = *&v139;
+        v27 = *(&v137 + 1);
+        v12.i64[0] = v138;
+        v22 = *(&v139 + 3);
+        v24 = *(&v139 + 2);
+        v23 = *&v140;
       }
 
-      v121 = v22;
-      v123 = v23;
-      *v130 = v24;
-      *&v130[1] = v22;
-      *&v130[2] = v23;
-      v114 = *v12.i64;
-      v115 = v25;
+      v126 = v22;
+      v128 = v23;
+      *v135 = v24;
+      *&v135[1] = v22;
+      *&v135[2] = v23;
+      v119 = *v12.i64;
+      v120 = v25;
       v12.f32[0] = *v12.i64;
-      *&v33 = v25;
-      v112 = v27;
-      v113 = v26;
-      *&v34 = v26;
-      *&v35 = v27;
-      v129.i64[0] = __PAIR64__(v33, v12.u32[0]);
-      v129.i64[1] = __PAIR64__(v35, v34);
-      sub_19B41E130(&v129, v12);
-      v36 = v129.i64[1];
-      v37 = v129.i64[0];
-      v120 = atan2f(((v129.f32[0] * v129.f32[2]) - (v129.f32[3] * v129.f32[1])) + ((v129.f32[0] * v129.f32[2]) - (v129.f32[3] * v129.f32[1])), (((v129.f32[1] * v129.f32[1]) + (v129.f32[0] * v129.f32[0])) * -2.0) + 1.0) * -57.296;
-      v38 = -180.0;
-      if (v120 < 0.0)
+      *&v35 = v25;
+      v117 = v27;
+      v118 = v26;
+      *&v36 = v26;
+      *&v37 = v27;
+      v134.i64[0] = __PAIR64__(v35, v12.u32[0]);
+      v134.i64[1] = __PAIR64__(v37, v36);
+      sub_19B41E130(&v134, v12);
+      v38 = v134.i64[1];
+      v39 = v134.i64[0];
+      v125 = atan2f(((v134.f32[0] * v134.f32[2]) - (v134.f32[3] * v134.f32[1])) + ((v134.f32[0] * v134.f32[2]) - (v134.f32[3] * v134.f32[1])), (((v134.f32[1] * v134.f32[1]) + (v134.f32[0] * v134.f32[0])) * -2.0) + 1.0) * -57.296;
+      v40 = -180.0;
+      if (v125 < 0.0)
       {
-        v38 = 180.0;
+        v40 = 180.0;
       }
 
-      v119 = v38;
-      v39 = ((*&v37 * *(&v36 + 1)) + (*(&v37 + 1) * *&v36)) + ((*&v37 * *(&v36 + 1)) + (*(&v37 + 1) * *&v36));
-      v40 = -1.0;
-      v41 = v39 <= -1.0;
-      v42 = v39 < 1.0 || v39 <= -1.0;
-      if (v39 >= 1.0)
+      v124 = v40;
+      v41 = ((*&v39 * *(&v38 + 1)) + (*(&v39 + 1) * *&v38)) + ((*&v39 * *(&v38 + 1)) + (*(&v39 + 1) * *&v38));
+      v42 = -1.0;
+      v43 = v41 <= -1.0;
+      v44 = v41 < 1.0 || v41 <= -1.0;
+      if (v41 >= 1.0)
       {
-        v41 = 1;
+        v43 = 1;
       }
 
-      if (!v42)
+      if (!v44)
       {
-        v40 = 1.0;
+        v42 = 1.0;
       }
 
-      if (v41)
+      if (v43)
       {
-        v39 = v40;
+        v41 = v42;
       }
 
-      v118 = asinf(v39);
-      v43 = atan2f(((*&v37 * *(&v37 + 1)) - (*(&v36 + 1) * *&v36)) + ((*&v37 * *(&v37 + 1)) - (*(&v36 + 1) * *&v36)), (((*&v36 * *&v36) + (*&v37 * *&v37)) * -2.0) + 1.0);
-      v44 = v43 * -57.296;
-      v45 = v24 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0];
-      v46 = v121 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1];
-      v47 = v123 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2];
-      *(&v134 + 2) = v45;
-      *(&v134 + 3) = v46;
-      *&v135 = v47;
-      v48 = (v43 * -57.296) < 0.0;
-      if ((v43 * -57.296) >= 0.0)
+      v123 = asinf(v41);
+      v45 = atan2f(((*&v39 * *(&v39 + 1)) - (*(&v38 + 1) * *&v38)) + ((*&v39 * *(&v39 + 1)) - (*(&v38 + 1) * *&v38)), (((*&v38 * *&v38) + (*&v39 * *&v39)) * -2.0) + 1.0);
+      v46 = v45 * -57.296;
+      v47 = v24 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[0];
+      v48 = v126 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[1];
+      v49 = v128 + self->_offsetFromDisplayCenterToFrontCameraInSourceFrameMeters.elements[2];
+      *(&v139 + 2) = v47;
+      *(&v139 + 3) = v48;
+      *&v140 = v49;
+      v50 = (v45 * -57.296) < 0.0;
+      if ((v45 * -57.296) >= 0.0)
       {
-        v49 = 1;
+        v51 = 1;
       }
 
       else
       {
-        v49 = -1;
+        v51 = -1;
       }
 
-      v50 = -(v43 * -57.296);
-      if (!v48)
+      v52 = -(v45 * -57.296);
+      if (!v50)
       {
-        v50 = v44;
+        v52 = v46;
       }
 
-      v51 = 0;
-      if (v50 > 60.0)
+      v53 = 0;
+      if (v52 > 60.0)
       {
-        v52 = v44;
+        v54 = v46;
         do
         {
-          ++v51;
-          v44 = v52 + (-v49 * 90.0);
-          v53 = -v44;
-          if (v44 >= 0.0)
+          ++v53;
+          v46 = v54 + (-v51 * 90.0);
+          v55 = -v46;
+          if (v46 >= 0.0)
           {
-            v53 = v44;
+            v55 = v46;
           }
 
-          v54 = v53 <= 60.0;
-          v52 = v44;
+          v56 = v55 <= 60.0;
+          v54 = v46;
         }
 
-        while (!v54);
+        while (!v56);
       }
 
-      v126 = 0;
-      v127 = ((v51 * v49) * -90.0) * 0.017453;
-      sub_19B66C264(&v125, &v126);
-      v122 = v46;
-      v124 = v45;
-      v117 = v47;
-      v55 = sub_19B66C1A4(v125.f32, v45, v46, v47);
-      v58 = v57;
-      *v128 = v55;
-      *&v128[1] = v57;
-      *&v128[2] = v56;
-      if (v56 <= 0.0000001)
+      v131 = 0;
+      v132 = ((v53 * v51) * -90.0) * 0.017453;
+      sub_19B66C264(&v130, &v131);
+      v127 = v48;
+      v129 = v47;
+      v122 = v49;
+      v57 = sub_19B66C1A4(v130.f32, v47, v48, v49);
+      v60 = v59;
+      *v133 = v57;
+      *&v133[1] = v59;
+      *&v133[2] = v58;
+      if (v58 <= 0.0000001)
       {
-        v59 = 90.0;
+        v61 = 90.0;
       }
 
       else
       {
-        v59 = (atan2f(v55, v56) * 57.296);
+        v61 = (atan2f(v57, v58) * 57.296);
       }
 
-      v60 = 0;
-      v61 = v118 * 57.296;
-      v62 = 0.0;
+      v62 = 0;
+      v63 = v123 * 57.296;
+      v64 = 0.0;
       do
       {
-        v62 = v62 + (*&v128[v60] * *&v128[v60]);
-        ++v60;
+        v64 = v64 + (*&v133[v62] * *&v133[v62]);
+        ++v62;
       }
 
-      while (v60 != 3);
-      if (sqrtf(v62) <= 0.0000001)
+      while (v62 != 3);
+      if (sqrtf(v64) <= 0.0000001)
       {
-        v65 = 90.0;
+        v67 = 90.0;
       }
 
       else
       {
-        v63 = 0;
-        v64 = 0.0;
+        v65 = 0;
+        v66 = 0.0;
         do
         {
-          v64 = v64 + (*&v128[v63] * *&v128[v63]);
-          ++v63;
+          v66 = v66 + (*&v133[v65] * *&v133[v65]);
+          ++v65;
         }
 
-        while (v63 != 3);
-        v65 = ((acosf(v58 / sqrtf(v64)) * -57.296) + 90.0);
+        while (v65 != 3);
+        v67 = ((acosf(v60 / sqrtf(v66)) * -57.296) + 90.0);
       }
 
       if (qword_1EAFE2998 != -1)
@@ -3964,27 +4194,27 @@ LABEL_84:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v66 = off_1EAFE29A0;
-      v67 = (v120 + v119);
-      v68 = v61;
-      v69 = v44;
+      v68 = off_1EAFE29A0;
+      v69 = (v125 + v124);
+      v70 = v63;
+      v71 = v46;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134219008;
-        *&buf[4] = (v120 + v119);
+        *&buf[4] = (v125 + v124);
         *&buf[12] = 2048;
-        *&buf[14] = v61;
+        *&buf[14] = v63;
         *&buf[22] = 2048;
-        *&buf[24] = v44;
-        v148 = 2048;
-        v149 = v59;
-        v150 = 2048;
-        v151 = v65;
-        _os_log_impl(&dword_19B41C000, v66, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Face Yaw: %f, Pitch: %f, Roll: %f, User HorizontalAngle: %f, VerticalAngle: %f", buf, 0x34u);
+        *&buf[24] = v46;
+        v153 = 2048;
+        v154 = v61;
+        v155 = 2048;
+        v156 = v67;
+        _os_log_impl(&dword_19B41C000, v68, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Face Yaw: %f, Pitch: %f, Roll: %f, User HorizontalAngle: %f, VerticalAngle: %f", buf, 0x34u);
       }
 
-      v70 = sub_19B420058();
-      if (*(v70 + 160) > 1 || *(v70 + 164) > 1 || *(v70 + 168) > 1 || *(v70 + 152))
+      v72 = sub_19B420058();
+      if (*(v72 + 160) > 1 || *(v72 + 164) > 1 || *(v72 + 168) > 1 || *(v72 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -3992,150 +4222,152 @@ LABEL_84:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v141 = 134219008;
-        *v142 = (v120 + v119);
-        *&v142[8] = 2048;
-        *&v142[10] = v61;
-        *&v142[18] = 2048;
-        *&v142[20] = v44;
-        v143 = 2048;
-        v144 = v59;
-        v145 = 2048;
-        v146 = v65;
-        v71 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v71);
-        if (v71 != buf)
+        v146 = 134219008;
+        *v147 = (v125 + v124);
+        *&v147[8] = 2048;
+        *&v147[10] = v63;
+        *&v147[18] = 2048;
+        *&v147[20] = v46;
+        v148 = 2048;
+        v149 = v61;
+        v150 = 2048;
+        v151 = v67;
+        LODWORD(v115) = 52;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Face Yaw: %f, Pitch: %f, Roll: %f, User HorizontalAngle: %f, VerticalAngle: %f", COERCE_DOUBLE(&v146), v115, v116, v117, v118);
+        v74 = v73;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v73);
+        if (v74 != buf)
         {
-          free(v71);
+          free(v74);
         }
       }
 
       ptr = self->_analyticsTracker.__ptr_;
       if (ptr)
       {
-        v73 = 0;
-        v74 = 0.0;
+        v76 = 0;
+        v77 = 0.0;
         do
         {
-          v74 = v74 + (*&v130[v73] * *&v130[v73]);
-          ++v73;
+          v77 = v77 + (*&v135[v76] * *&v135[v76]);
+          ++v76;
         }
 
-        while (v73 != 3);
-        v75 = sqrtf(v74);
-        v76 = *(ptr + 197);
-        if (v76 <= v75)
+        while (v76 != 3);
+        v78 = sqrtf(v77);
+        v79 = *(ptr + 197);
+        if (v79 <= v78)
         {
-          v76 = v75;
+          v79 = v78;
         }
 
-        *(ptr + 197) = v76;
-        v77 = *(ptr + 196);
-        if (v77 >= v75)
+        *(ptr + 197) = v79;
+        v80 = *(ptr + 196);
+        if (v80 >= v78)
         {
-          v77 = v75;
+          v80 = v78;
         }
 
-        *(ptr + 196) = v77;
-        *(ptr + 198) = *(ptr + 198) + v75;
+        *(ptr + 196) = v80;
+        *(ptr + 198) = *(ptr + 198) + v78;
         ++*(ptr + 398);
-        v78 = *(ptr + 201);
-        if (v78 <= v67)
+        v81 = *(ptr + 201);
+        if (v81 <= v69)
         {
-          v78 = (v120 + v119);
+          v81 = (v125 + v124);
         }
 
-        *(ptr + 201) = v78;
-        v79 = *(ptr + 200);
-        if (v79 >= v67)
+        *(ptr + 201) = v81;
+        v82 = *(ptr + 200);
+        if (v82 >= v69)
         {
-          v79 = (v120 + v119);
+          v82 = (v125 + v124);
         }
 
-        *(ptr + 200) = v79;
-        *(ptr + 202) = *(ptr + 202) + v67;
+        *(ptr + 200) = v82;
+        *(ptr + 202) = *(ptr + 202) + v69;
         ++*(ptr + 406);
-        v80 = *(ptr + 205);
-        if (v80 <= v68)
+        v83 = *(ptr + 205);
+        if (v83 <= v70)
         {
-          v80 = v61;
+          v83 = v63;
         }
 
-        *(ptr + 205) = v80;
-        v81 = *(ptr + 204);
-        if (v81 >= v68)
+        *(ptr + 205) = v83;
+        v84 = *(ptr + 204);
+        if (v84 >= v70)
         {
-          v81 = v61;
+          v84 = v63;
         }
 
-        *(ptr + 204) = v81;
-        *(ptr + 206) = *(ptr + 206) + v68;
+        *(ptr + 204) = v84;
+        *(ptr + 206) = *(ptr + 206) + v70;
         ++*(ptr + 414);
-        v82 = *(ptr + 209);
-        if (v82 <= v69)
+        v85 = *(ptr + 209);
+        if (v85 <= v71)
         {
-          v82 = v44;
+          v85 = v46;
         }
 
-        *(ptr + 209) = v82;
-        v83 = *(ptr + 208);
-        if (v83 >= v69)
+        *(ptr + 209) = v85;
+        v86 = *(ptr + 208);
+        if (v86 >= v71)
         {
-          v83 = v44;
+          v86 = v46;
         }
 
-        *(ptr + 208) = v83;
-        *(ptr + 210) = *(ptr + 210) + v69;
+        *(ptr + 208) = v86;
+        *(ptr + 210) = *(ptr + 210) + v71;
         ++*(ptr + 422);
-        v84 = *(ptr + 217);
-        if (v84 <= v59)
+        v87 = *(ptr + 217);
+        if (v87 <= v61)
         {
-          v84 = v59;
+          v87 = v61;
         }
 
-        *(ptr + 217) = v84;
-        v85 = *(ptr + 216);
-        if (v85 >= v59)
+        *(ptr + 217) = v87;
+        v88 = *(ptr + 216);
+        if (v88 >= v61)
         {
-          v85 = v59;
+          v88 = v61;
         }
 
-        *(ptr + 216) = v85;
-        *(ptr + 218) = v59 + *(ptr + 218);
+        *(ptr + 216) = v88;
+        *(ptr + 218) = v61 + *(ptr + 218);
         ++*(ptr + 438);
-        v86 = *(ptr + 221);
-        if (v86 <= v65)
+        v89 = *(ptr + 221);
+        if (v89 <= v67)
         {
-          v86 = v65;
+          v89 = v67;
         }
 
-        *(ptr + 221) = v86;
-        v87 = *(ptr + 220);
-        if (v87 >= v65)
+        *(ptr + 221) = v89;
+        v90 = *(ptr + 220);
+        if (v90 >= v67)
         {
-          v87 = v65;
+          v90 = v67;
         }
 
-        *(ptr + 220) = v87;
-        *(ptr + 222) = v65 + *(ptr + 222);
+        *(ptr + 220) = v90;
+        *(ptr + 222) = v67 + *(ptr + 222);
         ++*(ptr + 446);
       }
 
       objc_sync_enter(self);
       if (self->_logForReplay)
       {
-        sub_19B5E6104(self->_logger.__ptr_, &v131, error, self->_lidAngle);
+        sub_19B5E6104(self->_logger.__ptr_, &v136, error, self->_lidAngle);
       }
 
-      *&v90 = v122;
-      *&v89 = v124;
-      *&v91 = v117;
+      *&v93 = v127;
+      *&v92 = v129;
+      *&v94 = v122;
       if (self->_simulateCameraOnOffRequest && self->_scheme == 1 && !self->_bypassCameraController && *(self->_headTrackingService.__ptr_ + 27752) != 1)
       {
         goto LABEL_141;
       }
 
-      v93 = (*&anchor->acceleration.x * 1000000.0);
+      v96 = (*&anchor->acceleration.x * 1000000.0);
       if (error->var3 || error->var0 <= 0.799)
       {
         if (qword_1EAFE2998 != -1)
@@ -4143,7 +4375,7 @@ LABEL_84:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v101 = off_1EAFE29A0;
+        v104 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
         {
           var3 = error->var3;
@@ -4153,12 +4385,12 @@ LABEL_84:
           *&buf[8] = 2048;
           *&buf[10] = var0;
           *&buf[18] = 2048;
-          *&buf[20] = v93;
-          _os_log_impl(&dword_19B41C000, v101, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] anchor is IGNORED due to failure or low confidence. failureCode: %u, confidence: %f, timestamp: %llu", buf, 0x1Cu);
+          *&buf[20] = v96;
+          _os_log_impl(&dword_19B41C000, v104, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] anchor is IGNORED due to failure or low confidence. failureCode: %u, confidence: %f, timestamp: %llu", buf, 0x1Cu);
         }
 
-        v104 = sub_19B420058();
-        if (*(v104 + 160) > 1 || *(v104 + 164) > 1 || *(v104 + 168) > 1 || *(v104 + 152))
+        v107 = sub_19B420058();
+        if (*(v107 + 160) > 1 || *(v107 + 164) > 1 || *(v107 + 168) > 1 || *(v107 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -4166,31 +4398,33 @@ LABEL_84:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v105 = error->var3;
-          v106 = error->var0;
-          v141 = 67109632;
-          *v142 = v105;
-          *&v142[4] = 2048;
-          *&v142[6] = v106;
-          *&v142[14] = 2048;
-          *&v142[16] = v93;
-          v107 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v107);
-          if (v107 != buf)
+          v108 = error->var3;
+          v109 = error->var0;
+          v146 = 67109632;
+          *v147 = v108;
+          *&v147[4] = 2048;
+          *&v147[6] = v109;
+          *&v147[14] = 2048;
+          *&v147[16] = v96;
+          LODWORD(v115) = 28;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] anchor is IGNORED due to failure or low confidence. failureCode: %u, confidence: %f, timestamp: %llu", &v146, v115, *&v116);
+          v111 = v110;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v110);
+          if (v111 != buf)
           {
-            free(v107);
+            free(v111);
           }
         }
 
         if (error->var3)
         {
-          v97 = self->_analyticsTracker.__ptr_;
-          if (v97)
+          v100 = self->_analyticsTracker.__ptr_;
+          if (v100)
           {
-            v108 = *(v97 + 513);
-            if (v108 != -1)
+            v112 = *(v100 + 513);
+            if (v112 != -1)
             {
-              *(v97 + 513) = v108 + 1;
+              *(v100 + 513) = v112 + 1;
             }
 
             goto LABEL_139;
@@ -4199,15 +4433,15 @@ LABEL_84:
           goto LABEL_141;
         }
 
-        v97 = self->_analyticsTracker.__ptr_;
+        v100 = self->_analyticsTracker.__ptr_;
         if (error->var0 <= 0.799)
         {
-          if (v97)
+          if (v100)
           {
-            v109 = *(v97 + 514);
-            if (v109 != -1)
+            v113 = *(v100 + 514);
+            if (v113 != -1)
             {
-              *(v97 + 514) = v109 + 1;
+              *(v100 + 514) = v113 + 1;
             }
 
             goto LABEL_139;
@@ -4219,33 +4453,33 @@ LABEL_84:
 
       else
       {
-        *&v92 = deg;
-        objc_msgSend_feedPoseAnchorWithAttitude_position_lidAngleDeg_numberOfDetectedFaces_timestampUs_(self, v88, LODWORD(anchor[6].timestamp), v93, v114, v115, v113, v112, v89, v90, v91, v92);
-        v94 = mach_absolute_time();
-        v95 = sub_19B41E070(v94);
-        v96 = v93 * 0.000001;
-        v97 = self->_analyticsTracker.__ptr_;
-        if (v95 >= v96)
+        *&v95 = deg;
+        objc_msgSend_feedPoseAnchorWithAttitude_position_lidAngleDeg_numberOfDetectedFaces_timestampUs_(self, v91, LODWORD(anchor[6].timestamp), v96, v119, v120, v118, v117, v92, v93, v94, v95);
+        v97 = mach_absolute_time();
+        v98 = sub_19B41E070(v97);
+        v99 = v96 * 0.000001;
+        v100 = self->_analyticsTracker.__ptr_;
+        if (v98 >= v99)
         {
-          if (v97)
+          if (v100)
           {
-            v98 = v95 - v96;
-            v99 = *(v97 + 177);
-            if (v99 <= v98)
+            v101 = v98 - v99;
+            v102 = *(v100 + 177);
+            if (v102 <= v101)
             {
-              v99 = v98;
+              v102 = v101;
             }
 
-            *(v97 + 177) = v99;
-            v100 = *(v97 + 176);
-            if (v100 >= v98)
+            *(v100 + 177) = v102;
+            v103 = *(v100 + 176);
+            if (v103 >= v101)
             {
-              v100 = v98;
+              v103 = v101;
             }
 
-            *(v97 + 176) = v100;
-            *(v97 + 178) = v98 + *(v97 + 178);
-            ++*(v97 + 358);
+            *(v100 + 176) = v103;
+            *(v100 + 178) = v101 + *(v100 + 178);
+            ++*(v100 + 358);
             goto LABEL_139;
           }
 
@@ -4253,19 +4487,19 @@ LABEL_84:
         }
       }
 
-      if (v97)
+      if (v100)
       {
 LABEL_139:
-        v110 = *(v97 + 512);
-        if (v110 != -1)
+        v114 = *(v100 + 512);
+        if (v114 != -1)
         {
-          *(v97 + 512) = v110 + 1;
+          *(v100 + 512) = v114 + 1;
         }
       }
 
 LABEL_141:
       objc_sync_exit(self);
-      goto LABEL_142;
+      return;
     }
 
     if (qword_1EAFE2998 != -1)
@@ -4273,15 +4507,15 @@ LABEL_141:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v31 = off_1EAFE29A0;
+    v32 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "[CMMediaSession] Missing face sample or error.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_ERROR, "[CMMediaSession] Missing face sample or error.", buf, 2u);
     }
 
-    v32 = sub_19B420058();
-    if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
+    v33 = sub_19B420058();
+    if ((*(v33 + 160) & 0x80000000) == 0 || (*(v33 + 164) & 0x80000000) == 0 || (*(v33 + 168) & 0x80000000) == 0 || *(v33 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -4289,13 +4523,14 @@ LABEL_141:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v131) = 0;
-      v30 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v30);
+      LOWORD(v136) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Missing face sample or error.", &v136, 2);
+      v31 = v34;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v34);
 LABEL_27:
-      if (v30 != buf)
+      if (v31 != buf)
       {
-        free(v30);
+        free(v31);
       }
     }
   }
@@ -4323,20 +4558,265 @@ LABEL_27:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      LOWORD(v131) = 0;
-      v30 = _os_log_send_and_compose_impl();
+      LOWORD(v136) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedPoseAnchor call that occurred after _stop was called.", &v136, 2);
+      v31 = v30;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPoseAnchor:facePoseError:lidAngleDeg:]", "CoreLocation: %s\n", v30);
       goto LABEL_27;
     }
   }
+}
 
-LABEL_142:
-  v111 = *MEMORY[0x1E69E9840];
+- (void)feedPoseAnchorWithAttitude:(id)attitude position:()CMVector<float lidAngleDeg:(3UL>)deg numberOfDetectedFaces:(float)faces timestampUs:(int)us
+{
+  v62 = *MEMORY[0x1E69E9840];
+  if (self->_started)
+  {
+    scheme = self->_scheme;
+    if (scheme)
+    {
+      v12 = deg.elements[2];
+      v13 = deg.elements[1];
+      v14 = deg.elements[0];
+      if (scheme == 1 || ((anchorUpdateIntervalUs = self->_anchorUpdateIntervalUs, anchorUpdateIntervalUs <= 0x3A98) ? (v16 = 1) : (v16 = anchorUpdateIntervalUs - 15000), a7 - self->_lastFacePoseTimestampUs > v16))
+      {
+        *&attitude.var0 = attitude.var0;
+        *&v17 = attitude.var1;
+        var2 = attitude.var2;
+        v57.i64[0] = __PAIR64__(v17, LODWORD(attitude.var0));
+        *&attitude.var0 = attitude.var3;
+        v57.f32[2] = var2;
+        v57.i32[3] = LODWORD(attitude.var0);
+        sub_19B41E130(&v57, *&attitude.var0);
+        v56[0] = v14;
+        v56[1] = v13;
+        v56[2] = v12;
+        objc_sync_enter(self);
+        v19.n128_f32[0] = faces;
+        sub_19B693338(self->_headTrackingService.__ptr_, &v57, v56, us, a7, v19);
+        if (!self->_lastFacePoseTimestampUs)
+        {
+          sessionStartTime = self->_sessionStartTime;
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v22 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 134349056;
+            v61 = -(sessionStartTime - a7 * 0.000001);
+            _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Received first face pose anchor.timeToFirstFacePoseInSessionSeconds: %{public}.1f s", buf, 0xCu);
+          }
+
+          v23 = sub_19B420058();
+          if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2998 != -1)
+            {
+              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+            }
+
+            v58 = 134349056;
+            v59 = -(sessionStartTime - a7 * 0.000001);
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Received first face pose anchor.timeToFirstFacePoseInSessionSeconds: %{public}.1f s", &v58, 12);
+            v25 = v24;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession feedPoseAnchorWithAttitude:position:lidAngleDeg:numberOfDetectedFaces:timestampUs:]", "CoreLocation: %s\n", v24);
+            if (v25 != buf)
+            {
+              free(v25);
+            }
+          }
+
+          ptr = self->_analyticsTracker.__ptr_;
+          if (ptr)
+          {
+            *(ptr + 270) = -(sessionStartTime - a7 * 0.000001);
+          }
+        }
+
+        if (!self->_firstFacePoseInCameraRequestTimestampUs)
+        {
+          self->_firstFacePoseInCameraRequestTimestampUs = a7;
+          lastRequestingCameraTimestampUs = self->_lastRequestingCameraTimestampUs;
+          v28 = a7 - lastRequestingCameraTimestampUs;
+          if (a7 > lastRequestingCameraTimestampUs)
+          {
+            v29 = self->_analyticsTracker.__ptr_;
+            if (v29)
+            {
+              v30 = v28 * 0.000001;
+              v31 = *(v29 + 173);
+              if (v31 <= v30)
+              {
+                v31 = v28 * 0.000001;
+              }
+
+              *(v29 + 173) = v31;
+              v32 = *(v29 + 172);
+              if (v32 >= v30)
+              {
+                v32 = v28 * 0.000001;
+              }
+
+              *(v29 + 172) = v32;
+              *(v29 + 174) = v30 + *(v29 + 174);
+              ++*(v29 + 350);
+            }
+          }
+        }
+
+        v33 = self->_analyticsTracker.__ptr_;
+        if (v33)
+        {
+          v34 = self->_headTrackingService.__ptr_;
+          v35 = *(v34 + 6612);
+          if (v35 < 0.0)
+          {
+            v35 = -v35;
+          }
+
+          v36 = v35;
+          v37 = *(v33 + 181);
+          if (v37 <= v36)
+          {
+            v37 = v36;
+          }
+
+          *(v33 + 181) = v37;
+          v38 = *(v33 + 180);
+          if (v38 >= v36)
+          {
+            v38 = v36;
+          }
+
+          *(v33 + 180) = v38;
+          *(v33 + 182) = *(v33 + 182) + v36;
+          ++*(v33 + 366);
+          v39 = *(v34 + 6613);
+          if (v39 < 0.0)
+          {
+            v39 = -v39;
+          }
+
+          v40 = v39;
+          v41 = *(v33 + 185);
+          if (v41 <= v40)
+          {
+            v41 = v40;
+          }
+
+          *(v33 + 185) = v41;
+          v42 = *(v33 + 184);
+          if (v42 >= v40)
+          {
+            v42 = v40;
+          }
+
+          *(v33 + 184) = v42;
+          *(v33 + 186) = *(v33 + 186) + v40;
+          ++*(v33 + 374);
+          v43 = *(v34 + 6614);
+          if (v43 < 0.0)
+          {
+            v43 = -v43;
+          }
+
+          *v20.i64 = v43;
+          v44 = *(v33 + 189);
+          if (v44 <= *v20.i64)
+          {
+            v44 = *v20.i64;
+          }
+
+          *(v33 + 189) = v44;
+          v45 = *(v33 + 188);
+          if (v45 >= *v20.i64)
+          {
+            v45 = *v20.i64;
+          }
+
+          *(v33 + 188) = v45;
+          *v20.i64 = *(v33 + 190) + *v20.i64;
+          *(v33 + 190) = v20.i64[0];
+          ++*(v33 + 382);
+          v46.f32[0] = sub_19B7900DC(v34 + 4238, v20) * 57.296;
+          v47 = self->_headTrackingService.__ptr_;
+          if (v46.f32[0] >= 0.0)
+          {
+            v48 = sub_19B7900DC(v47 + 4238, v46) * 57.296;
+          }
+
+          else
+          {
+            v48 = sub_19B7900DC(v47 + 4238, v46) * -57.296;
+          }
+
+          v53 = v48;
+          v54 = *(v33 + 193);
+          if (v54 <= v53)
+          {
+            v54 = v53;
+          }
+
+          *(v33 + 193) = v54;
+          v55 = *(v33 + 192);
+          if (v55 >= v53)
+          {
+            v55 = v53;
+          }
+
+          *(v33 + 192) = v55;
+          *(v33 + 194) = *(v33 + 194) + v53;
+          ++*(v33 + 390);
+        }
+
+        self->_lastFacePoseTimestampUs = a7;
+        objc_sync_exit(self);
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1EAFE2998 != -1)
+    {
+      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+    }
+
+    v49 = off_1EAFE29A0;
+    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_19B41C000, v49, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring feedPoseAnchorWithAttitude call that occurred after _stop was called.", buf, 2u);
+    }
+
+    v50 = sub_19B420058();
+    if (*(v50 + 160) > 1 || *(v50 + 164) > 1 || *(v50 + 168) > 1 || *(v50 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2998 != -1)
+      {
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+      }
+
+      v57.i16[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring feedPoseAnchorWithAttitude call that occurred after _stop was called.", &v57, 2);
+      v52 = v51;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession feedPoseAnchorWithAttitude:position:lidAngleDeg:numberOfDetectedFaces:timestampUs:]", "CoreLocation: %s\n", v51);
+      if (v52 != buf)
+      {
+        free(v52);
+      }
+    }
+  }
 }
 
 - (unint64_t)_getAuxSampleTimestamp:(const void *)timestamp currentTime:(double)time
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (*(timestamp + 27) == 2)
   {
     v7 = (*(timestamp + 8) * 1000000.0);
@@ -4354,7 +4834,7 @@ LABEL_142:
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v40 = v9;
+        v49 = v9;
         _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "[CMMediaSession]  Timesync: Switching to use time-synced timestamp. diffMilliSeconds = %f", buf, 0xCu);
       }
 
@@ -4367,37 +4847,40 @@ LABEL_142:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v12 = _os_log_send_and_compose_impl();
+        v46 = 134217984;
+        v47 = v9;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession]  Timesync: Switching to use time-synced timestamp. diffMilliSeconds = %f", COERCE_DOUBLE(&v46));
+        v13 = v12;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v12);
-        if (v12 != buf)
+        if (v13 != buf)
         {
-          free(v12);
+          free(v13);
         }
       }
 
-      v13 = -v9;
+      v14 = -v9;
       if (v9 >= 0.0)
       {
-        v13 = v9;
+        v14 = v9;
       }
 
-      if (v13 > 60.0)
+      if (v14 > 60.0)
       {
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v14 = off_1EAFE29A0;
+        v15 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v40 = v9;
-          _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: large discrepency (imeSynced - unTimesynced). MS = %f", buf, 0xCu);
+          v49 = v9;
+          _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: large discrepency (imeSynced - unTimesynced). MS = %f", buf, 0xCu);
         }
 
-        v15 = sub_19B420058();
-        if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+        v16 = sub_19B420058();
+        if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || *(v16 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -4405,31 +4888,34 @@ LABEL_142:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v16 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v16);
-          if (v16 != buf)
+          v46 = 134217984;
+          v47 = v9;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession]  Timesync: large discrepency (imeSynced - unTimesynced). MS = %f", COERCE_DOUBLE(&v46));
+          v18 = v17;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v17);
+          if (v18 != buf)
           {
-            free(v16);
+            free(v18);
           }
         }
       }
 
-      v17 = time - self->_firstAccessoryDMTime;
+      v19 = time - self->_firstAccessoryDMTime;
       if (qword_1EAFE2998 != -1)
       {
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v18 = off_1EAFE29A0;
+      v20 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v40 = v17;
-        _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Timesync: First timesynced sample received after %.3f seconds", buf, 0xCu);
+        v49 = v19;
+        _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Timesync: First timesynced sample received after %.3f seconds", buf, 0xCu);
       }
 
-      v19 = sub_19B420058();
-      if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
+      v21 = sub_19B420058();
+      if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -4437,31 +4923,34 @@ LABEL_142:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v20 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v20);
-        if (v20 != buf)
+        v46 = 134217984;
+        v47 = v19;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Timesync: First timesynced sample received after %.3f seconds", COERCE_DOUBLE(&v46));
+        v23 = v22;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v22);
+        if (v23 != buf)
         {
-          free(v20);
+          free(v23);
         }
       }
 
-      if (v17 > 10.0)
+      if (v19 > 10.0)
       {
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v21 = off_1EAFE29A0;
+        v24 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v40 = v17;
-          _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: timesync arrived very late, gap %.3f seconds", buf, 0xCu);
+          v49 = v19;
+          _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: timesync arrived very late, gap %.3f seconds", buf, 0xCu);
         }
 
-        v22 = sub_19B420058();
-        if ((*(v22 + 160) & 0x80000000) == 0 || (*(v22 + 164) & 0x80000000) == 0 || (*(v22 + 168) & 0x80000000) == 0 || *(v22 + 152))
+        v25 = sub_19B420058();
+        if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -4469,36 +4958,39 @@ LABEL_142:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v23 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v23);
-          if (v23 != buf)
+          v46 = 134217984;
+          v47 = v19;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession]  Timesync: timesync arrived very late, gap %.3f seconds", COERCE_DOUBLE(&v46));
+          v27 = v26;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v26);
+          if (v27 != buf)
           {
-            free(v23);
+            free(v27);
           }
         }
       }
 
       if (self->_lastTimesyncLostTime > 0.0)
       {
-        v24 = mach_continuous_time();
-        v25 = sub_19B41E070(v24);
+        v28 = mach_continuous_time();
+        v29 = sub_19B41E070(v28);
         lastTimesyncLostTime = self->_lastTimesyncLostTime;
         if (qword_1EAFE2998 != -1)
         {
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v27 = v25 - lastTimesyncLostTime;
-        v28 = off_1EAFE29A0;
+        v31 = v29 - lastTimesyncLostTime;
+        v32 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v40 = v27;
-          _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_DEFAULT, "[CMMediaSession]  Timesync: Experienced loss of timesync during session. gap = %f", buf, 0xCu);
+          v49 = v31;
+          _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_DEFAULT, "[CMMediaSession]  Timesync: Experienced loss of timesync during session. gap = %f", buf, 0xCu);
         }
 
-        v29 = sub_19B420058();
-        if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
+        v33 = sub_19B420058();
+        if (*(v33 + 160) > 1 || *(v33 + 164) > 1 || *(v33 + 168) > 1 || *(v33 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -4506,11 +4998,14 @@ LABEL_142:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v30 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v30);
-          if (v30 != buf)
+          v46 = 134217984;
+          v47 = v31;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession]  Timesync: Experienced loss of timesync during session. gap = %f", COERCE_DOUBLE(&v46));
+          v35 = v34;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v34);
+          if (v35 != buf)
           {
-            free(v30);
+            free(v35);
           }
         }
 
@@ -4526,15 +5021,15 @@ LABEL_142:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v31 = off_1EAFE29A0;
+    v36 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_INFO, "[CMMediaSession] Timesync: Using unsynced timestamp.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_INFO, "[CMMediaSession] Timesync: Using unsynced timestamp.", buf, 2u);
     }
 
-    v32 = sub_19B420058();
-    if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
+    v37 = sub_19B420058();
+    if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -4542,11 +5037,13 @@ LABEL_142:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      LOWORD(v46) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Timesync: Using unsynced timestamp.", &v46, 2);
+      v39 = v38;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v38);
+      if (v39 != buf)
       {
-        free(v33);
+        free(v39);
       }
     }
 
@@ -4559,15 +5056,15 @@ LABEL_142:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v34 = off_1EAFE29A0;
+      v40 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: Lost timesync in the middle of session. ", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_ERROR, "[CMMediaSession]  Timesync: Lost timesync in the middle of session. ", buf, 2u);
       }
 
-      v35 = sub_19B420058();
-      if ((*(v35 + 160) & 0x80000000) == 0 || (*(v35 + 164) & 0x80000000) == 0 || (*(v35 + 168) & 0x80000000) == 0 || *(v35 + 152))
+      v41 = sub_19B420058();
+      if ((*(v41 + 160) & 0x80000000) == 0 || (*(v41 + 164) & 0x80000000) == 0 || (*(v41 + 168) & 0x80000000) == 0 || *(v41 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -4575,23 +5072,25 @@ LABEL_142:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v36 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v36);
-        if (v36 != buf)
+        LOWORD(v46) = 0;
+        LODWORD(v45) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession]  Timesync: Lost timesync in the middle of session. ", &v46, v45);
+        v43 = v42;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _getAuxSampleTimestamp:currentTime:]", "CoreLocation: %s\n", v42);
+        if (v43 != buf)
         {
-          free(v36);
+          free(v43);
         }
       }
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)_feedAccessoryDeviceMotion:(const void *)motion
 {
-  v356 = *MEMORY[0x1E69E9840];
+  v384 = *MEMORY[0x1E69E9840];
   if (!self->_started)
   {
     if (qword_1EAFE2998 != -1)
@@ -4599,15 +5098,15 @@ LABEL_142:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v24 = off_1EAFE29A0;
+    v25 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryDeviceMotion call that occurred after _stop was called.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryDeviceMotion call that occurred after _stop was called.", buf, 2u);
     }
 
-    v25 = sub_19B420058();
-    if (*(v25 + 160) > 1 || *(v25 + 164) > 1 || *(v25 + 168) > 1 || *(v25 + 152))
+    v26 = sub_19B420058();
+    if (*(v26 + 160) > 1 || *(v26 + 164) > 1 || *(v26 + 168) > 1 || *(v26 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -4615,16 +5114,17 @@ LABEL_142:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      *v333 = 0;
-      v26 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v26);
-      if (v26 != buf)
+      *v361 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedAccessoryDeviceMotion call that occurred after _stop was called.", v361, 2);
+      v28 = v27;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v27);
+      if (v28 != buf)
       {
-        free(v26);
+        free(v28);
       }
     }
 
-    goto LABEL_683;
+    return;
   }
 
   v5 = mach_continuous_time();
@@ -4656,13 +5156,14 @@ LABEL_142:
       }
 
       v10 = self->_firstAccessoryDMTime - self->_sessionStartTime;
-      *v333 = 134217984;
-      *&v333[4] = v10;
-      v11 = _os_log_send_and_compose_impl();
+      *v361 = 134217984;
+      *&v361[4] = v10;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] First accessory DM received after %.3f seconds", COERCE_DOUBLE(v361));
+      v12 = v11;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
 
@@ -4674,56 +5175,56 @@ LABEL_142:
     }
   }
 
-  v13 = self->_analyticsTracker.__ptr_;
-  if (v13)
+  v14 = self->_analyticsTracker.__ptr_;
+  if (v14)
   {
-    v14 = 0;
-    v15 = *(motion + 7);
-    if (v15 < 0.0)
+    v15 = 0;
+    v16 = *(motion + 7);
+    if (v16 < 0.0)
     {
-      v15 = -v15;
+      v16 = -v16;
     }
 
     do
     {
-      v16 = *(motion + v14 + 32);
-      if (v16 < 0.0)
+      v17 = *(motion + v15 + 32);
+      if (v17 < 0.0)
       {
-        v16 = -v16;
+        v17 = -v17;
       }
 
-      if (v16 > v15)
+      if (v17 > v16)
       {
-        v15 = v16;
+        v16 = v17;
       }
 
-      v14 += 4;
+      v15 += 4;
     }
 
-    while (v14 != 8);
-    if (v15 < 0.000007 && *(v13 + 32) > 0.0)
+    while (v15 != 8);
+    if (v16 < 0.000007 && *(v14 + 32) > 0.0)
     {
-      sub_19B6A80D8(v13 + 32, &stru_1F0E3D7A0);
-      v13 = self->_analyticsTracker.__ptr_;
+      sub_19B6A80D8(v14 + 32, &stru_1F0E3D7A0);
+      v14 = self->_analyticsTracker.__ptr_;
     }
 
-    v17 = v6 - self->_lastAccessoryDMTime;
-    v18 = *(v13 + 81);
-    if (v18 <= v17)
+    v18 = v6 - self->_lastAccessoryDMTime;
+    v19 = *(v14 + 81);
+    if (v19 <= v18)
     {
-      v18 = v6 - self->_lastAccessoryDMTime;
+      v19 = v6 - self->_lastAccessoryDMTime;
     }
 
-    *(v13 + 81) = v18;
-    v19 = *(v13 + 80);
-    if (v19 >= v17)
+    *(v14 + 81) = v19;
+    v20 = *(v14 + 80);
+    if (v20 >= v18)
     {
-      v19 = v17;
+      v20 = v18;
     }
 
-    *(v13 + 80) = v19;
-    *(v13 + 82) = v17 + *(v13 + 82);
-    ++*(v13 + 166);
+    *(v14 + 80) = v20;
+    *(v14 + 82) = v18 + *(v14 + 82);
+    ++*(v14 + 166);
   }
 
   self->_lastAccessoryDMTime = v6;
@@ -4733,15 +5234,15 @@ LABEL_142:
   fHead = self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fHeadAndSize.fHead;
   if (fHead + fSize >= fCapacity)
   {
-    v23 = self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fCapacity;
+    v24 = self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fCapacity;
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  *&self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fBuffer[8 * (fHead + fSize - v23)] = *(motion + 9) + -0.0350000001 + *(motion + 7) * -0.000001;
+  *&self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fBuffer[8 * (fHead + fSize - v24)] = *(motion + 9) + -0.0350000001 + *(motion + 7) * -0.000001;
   if (fCapacity <= fSize)
   {
     if (fHead + 1 < fCapacity)
@@ -4757,29 +5258,29 @@ LABEL_142:
     self->_unsyncedAuxHelper.auxAndSrcSensorTimeOffsetBuffer.fHeadAndSize.fSize = fSize + 1;
   }
 
-  *v333 = *(motion + 2);
-  *&v333[8] = *(motion + 6);
-  v27.f32[0] = sub_19B447000(motion);
-  v29 = v28 + *(motion + 12);
-  v27.i32[1] = v30;
-  v334 = vadd_f32(*(motion + 40), v27);
-  v335 = v29;
-  v336 = *(motion + 10);
-  v337 = *(motion + 22);
-  v338 = *(motion + 28);
-  v31 = *(motion + 24);
-  v339 = *(motion + 9);
-  v340 = v31;
-  v341 = *(motion + 23);
-  v342 = *motion;
-  AuxSampleTimestamp_currentTime = objc_msgSend__getAuxSampleTimestamp_currentTime_(self, v32, motion, v6);
+  *v361 = *(motion + 2);
+  *&v361[8] = *(motion + 6);
+  v29.f32[0] = sub_19B447000(motion);
+  v31 = v30 + *(motion + 12);
+  v29.i32[1] = v32;
+  v362 = vadd_f32(*(motion + 40), v29);
+  v363 = v31;
+  v364 = *(motion + 10);
+  v365 = *(motion + 22);
+  v366 = *(motion + 28);
+  v33 = *(motion + 24);
+  v367 = *(motion + 9);
+  v368 = v33;
+  v369 = *(motion + 23);
+  v370 = *motion;
+  AuxSampleTimestamp_currentTime = objc_msgSend__getAuxSampleTimestamp_currentTime_(self, v34, motion, v6);
   objc_sync_enter(self);
-  v34 = self->_headTrackingService.__ptr_;
-  if (*(v34 + 14) == 1)
+  v36 = self->_headTrackingService.__ptr_;
+  if (*(v36 + 14) == 1)
   {
     if (self->_simulateCameraOnOffRequest)
     {
-      LOBYTE(v35) = 1;
+      LOBYTE(v37) = 1;
       if (self->_requestingCameraOn)
       {
         goto LABEL_100;
@@ -4788,18 +5289,18 @@ LABEL_142:
 
     else
     {
-      v35 = *(v34 + 27752);
-      if (self->_requestingCameraOn == v35)
+      v37 = *(v36 + 27752);
+      if (self->_requestingCameraOn == v37)
       {
         goto LABEL_100;
       }
 
-      if (!*(v34 + 27752))
+      if (!*(v36 + 27752))
       {
-        v42 = self->_analyticsTracker.__ptr_;
-        if (v42 && *(v42 + 48) > 0.0)
+        v44 = self->_analyticsTracker.__ptr_;
+        if (v44 && *(v44 + 48) > 0.0)
         {
-          sub_19B6A80D8(v42 + 48, &stru_1F0E3D7A0);
+          sub_19B6A80D8(v44 + 48, &stru_1F0E3D7A0);
         }
 
         goto LABEL_100;
@@ -4809,31 +5310,31 @@ LABEL_142:
     lastRequestingCameraTimestampUs = self->_lastRequestingCameraTimestampUs;
     if (lastRequestingCameraTimestampUs)
     {
-      v37 = self->_analyticsTracker.__ptr_;
-      if (!v37)
+      v39 = self->_analyticsTracker.__ptr_;
+      if (!v39)
       {
         goto LABEL_99;
       }
 
-      v38 = (AuxSampleTimestamp_currentTime - lastRequestingCameraTimestampUs) * 0.000001;
-      v39 = v38;
-      v40 = *(v37 + 153);
-      if (v40 <= v39)
+      v40 = (AuxSampleTimestamp_currentTime - lastRequestingCameraTimestampUs) * 0.000001;
+      v41 = v40;
+      v42 = *(v39 + 153);
+      if (v42 <= v41)
       {
-        v40 = v39;
+        v42 = v41;
       }
 
-      *(v37 + 153) = v40;
-      v41 = *(v37 + 152);
-      if (v41 >= v39)
+      *(v39 + 153) = v42;
+      v43 = *(v39 + 152);
+      if (v43 >= v41)
       {
-        v41 = v39;
+        v43 = v41;
       }
 
-      *(v37 + 152) = v41;
-      *(v37 + 154) = *(v37 + 154) + v39;
-      ++*(v37 + 310);
-      sub_19B6A7EE8(v37 + 48, @"cameraOnDuration");
+      *(v39 + 152) = v43;
+      *(v39 + 154) = *(v39 + 154) + v41;
+      ++*(v39 + 310);
+      sub_19B6A7EE8(v39 + 48, @"cameraOnDuration");
     }
 
     else
@@ -4844,17 +5345,17 @@ LABEL_142:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v44 = v6 - sessionStartTime;
-      v45 = off_1EAFE29A0;
+      v46 = v6 - sessionStartTime;
+      v47 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349056;
-        *&buf[4] = v44;
-        _os_log_impl(&dword_19B41C000, v45, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Requested first face pose anchor.timeToFirstFacePoseRequestInSessionSeconds: %{public}.1f s", buf, 0xCu);
+        *&buf[4] = v46;
+        _os_log_impl(&dword_19B41C000, v47, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Requested first face pose anchor.timeToFirstFacePoseRequestInSessionSeconds: %{public}.1f s", buf, 0xCu);
       }
 
-      v46 = sub_19B420058();
-      if (*(v46 + 160) > 1 || *(v46 + 164) > 1 || *(v46 + 168) > 1 || *(v46 + 152))
+      v48 = sub_19B420058();
+      if (*(v48 + 160) > 1 || *(v48 + 164) > 1 || *(v48 + 168) > 1 || *(v48 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -4862,77 +5363,78 @@ LABEL_142:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        *v355 = 134349056;
-        *&v355[4] = v44;
-        v47 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v47);
-        if (v47 != buf)
+        *v383 = 134349056;
+        *&v383[4] = v46;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Requested first face pose anchor.timeToFirstFacePoseRequestInSessionSeconds: %{public}.1f s", v383, 12);
+        v50 = v49;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v49);
+        if (v50 != buf)
         {
-          free(v47);
+          free(v50);
         }
       }
     }
 
-    v48 = self->_analyticsTracker.__ptr_;
-    if (v48)
+    v51 = self->_analyticsTracker.__ptr_;
+    if (v51)
     {
-      v49 = *(v48 + 510);
-      if (v49 != -1)
+      v52 = *(v51 + 510);
+      if (v52 != -1)
       {
-        *(v48 + 510) = v49 + 1;
+        *(v51 + 510) = v52 + 1;
       }
 
-      v50 = self->_headTrackingService.__ptr_;
-      if (*(v50 + 27765) == 1)
+      v53 = self->_headTrackingService.__ptr_;
+      if (*(v53 + 27765) == 1)
       {
-        v51 = *(v48 + 515);
-        if (v51 != -1)
+        v54 = *(v51 + 515);
+        if (v54 != -1)
         {
-          v52 = (v48 + 2060);
+          v55 = (v51 + 2060);
 LABEL_98:
-          *v52 = v51 + 1;
+          *v55 = v54 + 1;
         }
       }
 
-      else if (*(v50 + 27764) == 1)
+      else if (*(v53 + 27764) == 1)
       {
-        v51 = *(v48 + 516);
-        if (v51 != -1)
+        v54 = *(v51 + 516);
+        if (v54 != -1)
         {
-          v52 = (v48 + 2064);
+          v55 = (v51 + 2064);
           goto LABEL_98;
         }
       }
 
       else
       {
-        v53 = *(v50 + 16052);
-        if (v53 == 2)
+        v56 = *(v53 + 16052);
+        if (v56 == 2)
         {
-          v51 = *(v48 + 519);
-          if (v51 != -1)
+          v54 = *(v51 + 519);
+          if (v54 != -1)
           {
-            v52 = (v48 + 2076);
+            v55 = (v51 + 2076);
             goto LABEL_98;
           }
         }
 
-        else if (v53 == 3)
+        else if (v56 == 3)
         {
-          v51 = *(v48 + 517);
-          if (v51 != -1)
+          v54 = *(v51 + 517);
+          if (v54 != -1)
           {
-            v52 = (v48 + 2068);
+            v55 = (v51 + 2068);
             goto LABEL_98;
           }
         }
 
         else
         {
-          v51 = *(v48 + 518);
-          if (v51 != -1)
+          v54 = *(v51 + 518);
+          if (v54 != -1)
           {
-            v52 = (v48 + 2072);
+            v55 = (v51 + 2072);
             goto LABEL_98;
           }
         }
@@ -4943,114 +5445,114 @@ LABEL_99:
     self->_lastRequestingCameraTimestampUs = AuxSampleTimestamp_currentTime;
     self->_firstFacePoseInCameraRequestTimestampUs = 0;
 LABEL_100:
-    self->_requestingCameraOn = v35;
-    v34 = self->_headTrackingService.__ptr_;
-    v54 = *(v34 + 27752);
-    if (!*(v34 + 6942) && *(v34 + 27752))
+    self->_requestingCameraOn = v37;
+    v36 = self->_headTrackingService.__ptr_;
+    v57 = *(v36 + 27752);
+    if (!*(v36 + 6942) && *(v36 + 27752))
     {
-      *(v34 + 3472) = AuxSampleTimestamp_currentTime;
+      *(v36 + 3472) = AuxSampleTimestamp_currentTime;
     }
 
-    *(v34 + 6942) = v54;
+    *(v36 + 6942) = v57;
   }
 
   if ((*(motion + 26) & 0x100) != 0)
   {
-    if (sub_19B6B00F0(v34 + 37776, v333, AuxSampleTimestamp_currentTime))
+    if (sub_19B6B00F0(v36 + 37776, v361, AuxSampleTimestamp_currentTime))
     {
-      sub_19B6B09D8(v34 + 37776, buf);
-      v58 = sub_19B6B0BF4(v34 + 37776);
-      v59 = (v34 + 37744);
-      v60 = *(v34 + 4720);
-      if (v60)
+      sub_19B6B09D8(v36 + 37776, buf);
+      v64 = sub_19B6B0BF4(v36 + 37776);
+      v65 = (v36 + 37744);
+      v66 = *(v36 + 4720);
+      if (v66)
       {
-        *v355 = *sub_19B606534(v34 + 80);
-        sub_19B608394(v60, buf, v58);
+        *v383 = *sub_19B606534(v36 + 80);
+        sub_19B608394(v66, buf, v64);
       }
 
       else
       {
-        v61 = *(v34 + 4721);
-        if (v61)
+        v67 = *(v36 + 4721);
+        if (v67)
         {
-          sub_19B5D6F10(v61, buf, v58 * 0.000001);
+          sub_19B5D6F10(v67, buf, v64 * 0.000001);
         }
       }
 
-      if (*(v34 + 37752) == 1)
+      if (*(v36 + 37752) == 1)
       {
-        v62 = *v59;
-        if (*v59)
+        v68 = *v65;
+        if (*v65)
         {
-          memset(v355, 0, 44);
-          *&v355[44] = 1065353216;
-          sub_19B41E130(&v355[32], 0);
-          *v355 = v58 / 1000000.0;
-          *&v355[8] = *buf;
-          *&v355[16] = *&buf[8];
-          v63.f32[0] = sub_19B447000(&v347[4]);
-          v63.i32[1] = v64;
-          *&v355[20] = vsub_f32(*&buf[12], v63);
-          *&v355[28] = *&buf[20] - v65;
-          *&v355[32] = *&v347[4];
-          sub_19B667230(v62, v355);
+          memset(v383, 0, 44);
+          *&v383[44] = 1065353216;
+          sub_19B41E130(&v383[32], 0);
+          *v383 = v64 / 1000000.0;
+          *&v383[8] = *buf;
+          *&v383[16] = *&buf[8];
+          v69.f32[0] = sub_19B447000(&v375[4]);
+          v69.i32[1] = v70;
+          *&v383[20] = vsub_f32(*&buf[12], v69);
+          *&v383[28] = *&buf[20] - v71;
+          *&v383[32] = *&v375[4];
+          sub_19B667230(v68, v383);
         }
       }
 
-      sub_19B6F653C(v34, buf, v58);
+      sub_19B6F653C(v36, buf, v64);
     }
 
-    sub_19B695170(v34, v333, AuxSampleTimestamp_currentTime);
-    v66 = sub_19B66C1A4(v342.elements, 0.0, 0.0, -1.0);
-    v69.f32[0] = acosf(fmaxf(fminf((v68 + (v67 * 0.0)) + (v66 * 0.0), 1.0), -1.0));
-    v70 = v69.f32[0];
-    v71 = self->_headTrackingService.__ptr_;
+    sub_19B695170(v36, v361, AuxSampleTimestamp_currentTime, v62, v63);
+    v72 = sub_19B66C1A4(v370.elements, 0.0, 0.0, -1.0);
+    v75.f32[0] = acosf(fmaxf(fminf((v74 + (v73 * 0.0)) + (v72 * 0.0), 1.0), -1.0));
+    v76 = v75.f32[0];
+    v77 = self->_headTrackingService.__ptr_;
     if (self->_scheme == 1)
     {
-      v72.f32[0] = sub_19B651B48(v71 + 4238, v69);
+      v78.f32[0] = sub_19B651B48(v77 + 4238, v75);
     }
 
     else
     {
-      v76 = sub_19B606534(v71 + 80);
-      v72.i32[0] = *v76;
-      v73 = v76[1];
-      v74 = v76[2];
-      v75 = v76[3];
+      v82 = sub_19B606534(v77 + 80);
+      v78.i32[0] = *v82;
+      v79 = v82[1];
+      v80 = v82[2];
+      v81 = v82[3];
     }
 
-    v331 = __PAIR64__(v73, v72.u32[0]);
-    v332 = __PAIR64__(v75, v74);
-    *buf = sub_19B66BFF4(&v331, v72);
-    *&buf[4] = v77;
-    *&buf[8] = v78;
-    *&buf[12] = v79;
-    v80 = sub_19B66C1A4(buf, 0.0, 1.0, 0.0);
-    v81 = v70 * 57.296;
-    v84 = acosf(fmaxf(fminf((v83 + (v82 * 0.0)) + (v80 * 0.0), 1.0), -1.0)) * 57.296;
-    v85 = v81 + v84;
+    v359 = __PAIR64__(v79, v78.u32[0]);
+    v360 = __PAIR64__(v81, v80);
+    *buf = sub_19B66BFF4(&v359, v78);
+    *&buf[4] = v83;
+    *&buf[8] = v84;
+    *&buf[12] = v85;
+    v86 = sub_19B66C1A4(buf, 0.0, 1.0, 0.0);
+    v87 = v76 * 57.296;
+    v90 = acosf(fmaxf(fminf((v89 + (v88 * 0.0)) + (v86 * 0.0), 1.0), -1.0)) * 57.296;
+    v91 = v87 + v90;
     if (qword_1EAFE2998 != -1)
     {
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v86 = off_1EAFE29A0;
-    v87 = v81;
-    v88 = v84;
-    v89 = v85;
+    v92 = off_1EAFE29A0;
+    v93 = v87;
+    v94 = v90;
+    v95 = v91;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134349568;
-      *&buf[4] = v87;
+      *&buf[4] = v93;
       *&buf[12] = 2050;
-      *&buf[14] = v88;
+      *&buf[14] = v94;
       *&buf[22] = 2050;
-      *&buf[24] = v85;
-      _os_log_impl(&dword_19B41C000, v86, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Stem gravity angle: %{public}f, Stem faceY angle: %{public}f, FaceY gravity angle: %{public}f.", buf, 0x20u);
+      *&buf[24] = v91;
+      _os_log_impl(&dword_19B41C000, v92, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Stem gravity angle: %{public}f, Stem faceY angle: %{public}f, FaceY gravity angle: %{public}f.", buf, 0x20u);
     }
 
-    v90 = sub_19B420058();
-    if (*(v90 + 160) > 1 || *(v90 + 164) > 1 || *(v90 + 168) > 1 || *(v90 + 152))
+    v96 = sub_19B420058();
+    if (*(v96 + 160) > 1 || *(v96 + 164) > 1 || *(v96 + 168) > 1 || *(v96 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -5058,79 +5560,81 @@ LABEL_100:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      *v355 = 134349568;
-      *&v355[4] = v87;
-      *&v355[12] = 2050;
-      *&v355[14] = v88;
-      *&v355[22] = 2050;
-      *&v355[24] = v85;
-      v91 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v91);
-      if (v91 != buf)
+      *v383 = 134349568;
+      *&v383[4] = v93;
+      *&v383[12] = 2050;
+      *&v383[14] = v94;
+      *&v383[22] = 2050;
+      *&v383[24] = v91;
+      LODWORD(v354) = 32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Stem gravity angle: %{public}f, Stem faceY angle: %{public}f, FaceY gravity angle: %{public}f.", v383, v354);
+      v98 = v97;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v97);
+      if (v98 != buf)
       {
-        free(v91);
+        free(v98);
       }
     }
 
-    v92 = self->_analyticsTracker.__ptr_;
-    if (v92)
+    v99 = self->_analyticsTracker.__ptr_;
+    if (v99)
     {
-      v93 = *(v92 + 225);
-      if (v93 <= v87)
+      v100 = *(v99 + 225);
+      if (v100 <= v93)
       {
-        v93 = v87;
+        v100 = v93;
       }
 
-      *(v92 + 225) = v93;
-      v94 = *(v92 + 224);
-      if (v94 >= v87)
+      *(v99 + 225) = v100;
+      v101 = *(v99 + 224);
+      if (v101 >= v93)
       {
-        v94 = v87;
+        v101 = v93;
       }
 
-      *(v92 + 224) = v94;
-      *(v92 + 226) = *(v92 + 226) + v87;
-      ++*(v92 + 454);
-      v95 = *(v92 + 229);
-      if (v95 <= v89)
+      *(v99 + 224) = v101;
+      *(v99 + 226) = *(v99 + 226) + v93;
+      ++*(v99 + 454);
+      v102 = *(v99 + 229);
+      if (v102 <= v95)
       {
-        v95 = v85;
+        v102 = v91;
       }
 
-      *(v92 + 229) = v95;
-      v96 = *(v92 + 228);
-      if (v96 >= v89)
+      *(v99 + 229) = v102;
+      v103 = *(v99 + 228);
+      if (v103 >= v95)
       {
-        v96 = v85;
+        v103 = v91;
       }
 
-      *(v92 + 228) = v96;
-      *(v92 + 230) = *(v92 + 230) + v89;
-      ++*(v92 + 462);
-      v97 = *(v92 + 233);
-      if (v97 <= v88)
+      *(v99 + 228) = v103;
+      *(v99 + 230) = *(v99 + 230) + v95;
+      ++*(v99 + 462);
+      v104 = *(v99 + 233);
+      if (v104 <= v94)
       {
-        v97 = v88;
+        v104 = v94;
       }
 
-      *(v92 + 233) = v97;
-      v98 = *(v92 + 232);
-      if (v98 >= v88)
+      *(v99 + 233) = v104;
+      v105 = *(v99 + 232);
+      if (v105 >= v94)
       {
-        v98 = v88;
+        v105 = v94;
       }
 
-      *(v92 + 232) = v98;
-      *(v92 + 234) = *(v92 + 234) + v88;
-      ++*(v92 + 470);
+      *(v99 + 232) = v105;
+      *(v99 + 234) = *(v99 + 234) + v94;
+      ++*(v99 + 470);
     }
   }
 
   else
   {
-    if (*(v34 + 16088) == 1)
+    if (*(v36 + 16088) == 1)
     {
-      sub_19B690B4C(v34, 1);
+      sub_19B690B4C(v36, 1);
     }
 
     if (qword_1EAFE2998 != -1)
@@ -5138,15 +5642,15 @@ LABEL_100:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v55 = off_1EAFE29A0;
+    v58 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v55, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Not feeding AuxDM due to uninitialized DM status.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v58, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Not feeding AuxDM due to uninitialized DM status.", buf, 2u);
     }
 
-    v56 = sub_19B420058();
-    if (*(v56 + 160) > 1 || *(v56 + 164) > 1 || *(v56 + 168) > 1 || *(v56 + 152))
+    v59 = sub_19B420058();
+    if (*(v59 + 160) > 1 || *(v59 + 164) > 1 || *(v59 + 168) > 1 || *(v59 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -5154,12 +5658,14 @@ LABEL_100:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      *v355 = 0;
-      v57 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v57);
-      if (v57 != buf)
+      *v383 = 0;
+      LODWORD(v354) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Not feeding AuxDM due to uninitialized DM status.", v383, v354);
+      v61 = v60;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v60);
+      if (v61 != buf)
       {
-        free(v57);
+        free(v61);
       }
     }
   }
@@ -5167,796 +5673,765 @@ LABEL_100:
   if (self->_logForReplay)
   {
     sub_19B5E57B8(self->_logger.__ptr_, motion);
-    v99 = self->_headTrackingService.__ptr_;
-    if (*(v99 + 16088) == 1)
+    v106 = self->_headTrackingService.__ptr_;
+    if (*(v106 + 16088) == 1)
     {
-      *&v355[8] = *(v99 + 4025);
-      *v355 = *(v99 + 16092);
-      v100 = 24;
-      if (*(v99 + 16080))
+      *&v383[8] = *(v106 + 4025);
+      *v383 = *(v106 + 16092);
+      v107 = 24;
+      if (*(v106 + 16080))
       {
-        v100 = 40;
+        v107 = 40;
       }
 
-      *&v355[12] = *(v99 + v100 + 16092);
-      v331 = 0;
-      v332 = 0x3F80000000000000;
-      v327 = 0;
-      v328 = 0;
-      sub_19B69A3C4(v99, &v331, &v329, &v328, &v327);
-      v101 = self->_headTrackingService.__ptr_;
-      *buf = v328;
-      *&buf[8] = v327;
-      *&buf[16] = v329;
-      *&buf[28] = *v355;
-      *&buf[24] = v330;
-      v344 = *&v355[8];
-      v345 = *(v99 + 2013);
-      v346 = *(v99 + 4028);
-      *v347 = *&v355[12];
-      v347[16] = *(v101 + 16064);
-      v347[17] = *(v101 + 16080);
-      v102.f64[0] = *(v101 + 1998);
-      v102.f64[1] = *(v101 + 2000);
-      v348 = vcvt_hight_f32_f64(vcvt_f32_f64(*(v101 + 998)), v102);
-      v349 = *(v101 + 62);
-      v350 = *(v101 + 27752);
-      v351 = *(v101 + 16083);
-      v352 = *(v101 + 16082);
-      v353 = *(v101 + 3);
-      v354 = *(v101 + 16);
+      *&v383[12] = *(v106 + v107 + 16092);
+      v359 = 0;
+      v360 = 0x3F80000000000000;
+      v355 = 0;
+      v356 = 0;
+      sub_19B69A3C4(v106, &v359, &v357, &v356, &v355);
+      v108 = self->_headTrackingService.__ptr_;
+      *buf = v356;
+      *&buf[8] = v355;
+      *&buf[16] = v357;
+      *&buf[28] = *v383;
+      *&buf[24] = v358;
+      v372 = *&v383[8];
+      v373 = *(v106 + 2013);
+      v374 = *(v106 + 4028);
+      *v375 = *&v383[12];
+      v375[16] = *(v108 + 16064);
+      v375[17] = *(v108 + 16080);
+      v109.f64[0] = *(v108 + 1998);
+      v109.f64[1] = *(v108 + 2000);
+      v376 = vcvt_hight_f32_f64(vcvt_f32_f64(*(v108 + 998)), v109);
+      v377 = *(v108 + 62);
+      v378 = *(v108 + 27752);
+      v379 = *(v108 + 16083);
+      v380 = *(v108 + 16082);
+      v381 = *(v108 + 3);
+      v382 = *(v108 + 16);
       sub_19B5E6440(self->_logger.__ptr_, buf);
     }
   }
 
   objc_sync_exit(self);
-  v104 = *(motion + 1);
-  v103 = *(motion + 2);
+  v111 = *(motion + 1);
+  v110 = *(motion + 2);
   self->_lastAudioAccessorySample.auxDM.quaternion = *motion;
-  *self->_lastAudioAccessorySample.auxDM.rotationRate.elements = v104;
-  *&self->_lastAudioAccessorySample.auxDM.biasCovariance.elements[1] = v103;
-  v105 = *(motion + 6);
-  v107 = *(motion + 3);
-  v106 = *(motion + 4);
+  *self->_lastAudioAccessorySample.auxDM.rotationRate.elements = v111;
+  *&self->_lastAudioAccessorySample.auxDM.biasCovariance.elements[1] = v110;
+  v112 = *(motion + 6);
+  v114 = *(motion + 3);
+  v113 = *(motion + 4);
   *self->_lastAudioAccessorySample.filteredAcceleration.elements = *(motion + 5);
-  *&self->_lastAudioAccessorySample.quiescentMode = v105;
-  *&self->_lastAudioAccessorySample.auxDM.userAcceleration.elements[2] = v107;
-  *&self->_lastAudioAccessorySample.timestamp = v106;
-  v109 = *(motion + 8);
-  v108 = *(motion + 9);
-  v110 = *(motion + 7);
+  *&self->_lastAudioAccessorySample.quiescentMode = v112;
+  *&self->_lastAudioAccessorySample.auxDM.userAcceleration.elements[2] = v114;
+  *&self->_lastAudioAccessorySample.timestamp = v113;
+  v116 = *(motion + 8);
+  v115 = *(motion + 9);
+  v117 = *(motion + 7);
   *&self->_lastAudioAccessorySample.isIEDEnabled = *(motion + 80);
-  *self->_lastAudioAccessorySample.gyroBias = v109;
-  *&self->_lastAudioAccessorySample.sourceTimestampToMachContinuous = v108;
-  *&self->_lastAudioAccessorySample.btcTimestamp = v110;
-  v111 = self->_analyticsTracker.__ptr_;
-  if (v111)
+  *self->_lastAudioAccessorySample.gyroBias = v116;
+  *&self->_lastAudioAccessorySample.sourceTimestampToMachContinuous = v115;
+  *&self->_lastAudioAccessorySample.btcTimestamp = v117;
+  v118 = self->_analyticsTracker.__ptr_;
+  if (v118)
   {
-    v112 = self->_headTrackingService.__ptr_;
-    v113 = *(v111 + 113);
-    v114 = 0.0;
-    if (*(v112 + 678) == AuxSampleTimestamp_currentTime)
+    v119 = self->_headTrackingService.__ptr_;
+    v120 = *(v118 + 113);
+    v121 = 0.0;
+    if (*(v119 + 678) == AuxSampleTimestamp_currentTime)
     {
-      v114 = 1.0;
+      v121 = 1.0;
     }
 
-    if (v113 <= v114)
+    if (v120 <= v121)
     {
-      v113 = v114;
+      v120 = v121;
     }
 
-    *(v111 + 113) = v113;
-    v115 = *(v111 + 112);
-    if (v115 >= v114)
+    *(v118 + 113) = v120;
+    v122 = *(v118 + 112);
+    if (v122 >= v121)
     {
-      v115 = v114;
+      v122 = v121;
     }
 
-    *(v111 + 112) = v115;
-    *(v111 + 114) = v114 + *(v111 + 114);
-    ++*(v111 + 230);
-    if (self->_previousBTZState != *(v112 + 16064))
+    *(v118 + 112) = v122;
+    *(v118 + 114) = v121 + *(v118 + 114);
+    ++*(v118 + 230);
+    if (self->_previousBTZState != *(v119 + 16064))
     {
-      if (*(v112 + 16064))
+      if (*(v119 + 16064))
       {
-        sub_19B6A7EE8(v111 + 2, @"BTZDuration");
-        v116 = self->_analyticsTracker.__ptr_;
-        *v108.i64 = v6 - self->_lastInBTZTime;
-        v117 = *(v116 + 85);
-        if (v117 <= *v108.i64)
+        sub_19B6A7EE8(v118 + 2, @"BTZDuration");
+        v123 = self->_analyticsTracker.__ptr_;
+        *v115.i64 = v6 - self->_lastInBTZTime;
+        v124 = *(v123 + 85);
+        if (v124 <= *v115.i64)
         {
-          v117 = v6 - self->_lastInBTZTime;
+          v124 = v6 - self->_lastInBTZTime;
         }
 
-        *(v116 + 85) = v117;
-        v118 = *(v116 + 84);
-        if (v118 >= *v108.i64)
+        *(v123 + 85) = v124;
+        v125 = *(v123 + 84);
+        if (v125 >= *v115.i64)
         {
-          v118 = *v108.i64;
+          v125 = *v115.i64;
         }
 
-        *(v116 + 84) = v118;
-        *(v116 + 86) = *v108.i64 + *(v116 + 86);
-        ++*(v116 + 174);
+        *(v123 + 84) = v125;
+        *(v123 + 86) = *v115.i64 + *(v123 + 86);
+        ++*(v123 + 174);
         lastAngleBetweenCurrentBoresightToDefault = self->_lastAngleBetweenCurrentBoresightToDefault;
         if (lastAngleBetweenCurrentBoresightToDefault < 0.0)
         {
           lastAngleBetweenCurrentBoresightToDefault = -lastAngleBetweenCurrentBoresightToDefault;
         }
 
-        v120 = lastAngleBetweenCurrentBoresightToDefault;
-        v121 = *(v116 + 109);
-        if (v121 <= v120)
+        v127 = lastAngleBetweenCurrentBoresightToDefault;
+        v128 = *(v123 + 109);
+        if (v128 <= v127)
         {
-          v121 = v120;
+          v128 = v127;
         }
 
-        *(v116 + 109) = v121;
-        v122 = *(v116 + 108);
-        if (v122 >= v120)
+        *(v123 + 109) = v128;
+        v129 = *(v123 + 108);
+        if (v129 >= v127)
         {
-          v122 = v120;
+          v129 = v127;
         }
 
-        *(v116 + 108) = v122;
-        *(v116 + 110) = *(v116 + 110) + v120;
-        ++*(v116 + 222);
+        *(v123 + 108) = v129;
+        *(v123 + 110) = *(v123 + 110) + v127;
+        ++*(v123 + 222);
       }
 
       else
       {
-        if (*(v111 + 2) > 0.0)
+        if (*(v118 + 2) > 0.0)
         {
-          sub_19B6A80D8(v111 + 2, &stru_1F0E3D7A0);
+          sub_19B6A80D8(v118 + 2, &stru_1F0E3D7A0);
         }
 
         self->_lastInBTZTime = v6;
       }
 
-      v112 = self->_headTrackingService.__ptr_;
-      self->_previousBTZState = *(v112 + 16064);
+      v119 = self->_headTrackingService.__ptr_;
+      self->_previousBTZState = *(v119 + 16064);
     }
 
-    v123 = *(v112 + 16083);
-    if (self->_previousCTState == v123)
+    v130 = *(v119 + 16083);
+    if (self->_previousCTState == v130)
     {
 LABEL_187:
-      self->_previousCTState = v123;
-      v124 = self->_headTrackingService.__ptr_;
-      if (*(v124 + 27784))
+      self->_previousCTState = v130;
+      v131 = self->_headTrackingService.__ptr_;
+      if (*(v131 + 27784))
       {
-        v125 = *(v124 + 33637);
-        if (self->_previousCTBodyTurnState == v125)
+        v132 = *(v131 + 33637);
+        if (self->_previousCTBodyTurnState == v132)
         {
-          goto LABEL_245;
+          goto LABEL_248;
         }
 
-        v126 = (self->_analyticsTracker.__ptr_ + 352);
-        if (*(v124 + 33637))
+        v133 = (self->_analyticsTracker.__ptr_ + 352);
+        if (*(v131 + 33637))
         {
-          sub_19B6A7EE8(v126, @"CTBodyTurnDuration");
+          sub_19B6A7EE8(v133, @"CTBodyTurnDuration");
           if (qword_1EAFE2998 != -1)
           {
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v127 = off_1EAFE29A0;
+          v134 = off_1EAFE29A0;
           if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_19B41C000, v127, OS_LOG_TYPE_INFO, "[CMMediaSession] Entering CT body turn state.", buf, 2u);
+            _os_log_impl(&dword_19B41C000, v134, OS_LOG_TYPE_INFO, "[CMMediaSession] Entering CT body turn state.", buf, 2u);
           }
 
-          v128 = sub_19B420058();
-          if (*(v128 + 160) <= 1 && *(v128 + 164) <= 1 && *(v128 + 168) <= 1 && !*(v128 + 152))
+          v135 = sub_19B420058();
+          if (*(v135 + 160) <= 1 && *(v135 + 164) <= 1 && *(v135 + 168) <= 1 && !*(v135 + 152))
           {
-            goto LABEL_244;
+            goto LABEL_247;
           }
 
           bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2998 == -1)
+          if (qword_1EAFE2998 != -1)
           {
-LABEL_242:
-            *v355 = 0;
-            v152 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v152);
-            if (v152 != buf)
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          *v383 = 0;
+          LODWORD(v354) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Entering CT body turn state.", v383, v354);
+          v137 = v136;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v136);
+LABEL_245:
+          if (v137 != buf)
+          {
+            free(v137);
+          }
+
+LABEL_247:
+          self->_previousCTBodyTurnState = v132;
+          v131 = self->_headTrackingService.__ptr_;
+LABEL_248:
+          if (*(v131 + 12192))
+          {
+            v162 = *(v131 + 12224);
+            if (self->_previousHeadTurnState == v162)
             {
-              free(v152);
+              goto LABEL_280;
             }
 
-LABEL_244:
-            self->_previousCTBodyTurnState = v125;
-            v124 = self->_headTrackingService.__ptr_;
-LABEL_245:
-            if (*(v124 + 12192))
+            v163 = (self->_analyticsTracker.__ptr_ + 368);
+            if (*(v131 + 12224))
             {
-              v153 = *(v124 + 12224);
-              if (self->_previousHeadTurnState == v153)
+              sub_19B6A7EE8(v163, @"HeadTurnDuration");
+              if (qword_1EAFE2998 != -1)
               {
-                goto LABEL_274;
+                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
               }
 
-              v154 = (self->_analyticsTracker.__ptr_ + 368);
-              if (*(v124 + 12224))
+              v164 = off_1EAFE29A0;
+              if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
               {
-                sub_19B6A7EE8(v154, @"HeadTurnDuration");
-                if (qword_1EAFE2998 != -1)
+                *buf = 0;
+                _os_log_impl(&dword_19B41C000, v164, OS_LOG_TYPE_INFO, "[CMMediaSession] Entering head turn state.", buf, 2u);
+              }
+
+              v165 = sub_19B420058();
+              if (*(v165 + 160) <= 1 && *(v165 + 164) <= 1 && *(v165 + 168) <= 1 && !*(v165 + 152))
+              {
+                goto LABEL_279;
+              }
+
+              bzero(buf, 0x65CuLL);
+              if (qword_1EAFE2998 != -1)
+              {
+                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+              }
+
+              *v383 = 0;
+              LODWORD(v354) = 2;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Entering head turn state.", v383, v354);
+              v167 = v166;
+              sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v166);
+LABEL_277:
+              if (v167 != buf)
+              {
+                free(v167);
+              }
+
+LABEL_279:
+              self->_previousHeadTurnState = v162;
+              v131 = self->_headTrackingService.__ptr_;
+LABEL_280:
+              v171 = *(v131 + 16080);
+              if (self->_previousTracking1IMU == v171)
+              {
+                goto LABEL_325;
+              }
+
+              v172 = self->_analyticsTracker.__ptr_;
+              if (v171)
+              {
+                sub_19B6A7EE8(v172 + 14, @"in1IMUDuration");
+                v173 = self->_analyticsTracker.__ptr_;
+                if (*(v173 + 10) > 0.0)
                 {
-                  dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                  sub_19B6A80D8(v173 + 10, &stru_1F0E3D7A0);
+                  v173 = self->_analyticsTracker.__ptr_;
                 }
 
-                v155 = off_1EAFE29A0;
-                if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                v175 = *(v173 + 12);
+                v174 = (v173 + 96);
+                if (v175 > 0.0)
                 {
-                  *buf = 0;
-                  _os_log_impl(&dword_19B41C000, v155, OS_LOG_TYPE_INFO, "[CMMediaSession] Entering head turn state.", buf, 2u);
+                  sub_19B6A80D8(v174, &stru_1F0E3D7A0);
                 }
 
-                v156 = sub_19B420058();
-                if (*(v156 + 160) <= 1 && *(v156 + 164) <= 1 && *(v156 + 168) <= 1 && !*(v156 + 152))
+                goto LABEL_321;
+              }
+
+              sub_19B6A80D8(v172 + 14, @"in1IMUDuration");
+              v180 = self->_analyticsTracker.__ptr_;
+              v182 = *(v180 + 18);
+              v181 = (v180 + 144);
+              if (v182 > 0.0)
+              {
+                sub_19B6A80D8(v181, &stru_1F0E3D7A0);
+              }
+
+              previousMotionActivityType = self->_previousMotionActivityType;
+              if (previousMotionActivityType > 51)
+              {
+                if (previousMotionActivityType != 52 && previousMotionActivityType != 56)
                 {
-                  goto LABEL_273;
-                }
-
-                bzero(buf, 0x65CuLL);
-                if (qword_1EAFE2998 == -1)
-                {
-LABEL_271:
-                  *v355 = 0;
-                  v159 = _os_log_send_and_compose_impl();
-                  sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v159);
-                  if (v159 != buf)
-                  {
-                    free(v159);
-                  }
-
-LABEL_273:
-                  self->_previousHeadTurnState = v153;
-                  v124 = self->_headTrackingService.__ptr_;
-LABEL_274:
-                  v160 = *(v124 + 16080);
-                  if (self->_previousTracking1IMU == v160)
-                  {
-                    goto LABEL_319;
-                  }
-
-                  v161 = self->_analyticsTracker.__ptr_;
-                  if (v160)
-                  {
-                    sub_19B6A7EE8(v161 + 14, @"in1IMUDuration");
-                    v162 = self->_analyticsTracker.__ptr_;
-                    if (*(v162 + 10) > 0.0)
-                    {
-                      sub_19B6A80D8(v162 + 10, &stru_1F0E3D7A0);
-                      v162 = self->_analyticsTracker.__ptr_;
-                    }
-
-                    v164 = *(v162 + 12);
-                    v163 = (v162 + 96);
-                    if (v164 > 0.0)
-                    {
-                      sub_19B6A80D8(v163, &stru_1F0E3D7A0);
-                    }
-
-                    goto LABEL_315;
-                  }
-
-                  sub_19B6A80D8(v161 + 14, @"in1IMUDuration");
-                  v169 = self->_analyticsTracker.__ptr_;
-                  v171 = *(v169 + 18);
-                  v170 = (v169 + 144);
-                  if (v171 > 0.0)
-                  {
-                    sub_19B6A80D8(v170, &stru_1F0E3D7A0);
-                  }
-
-                  previousMotionActivityType = self->_previousMotionActivityType;
-                  if (previousMotionActivityType > 51)
-                  {
-                    if (previousMotionActivityType != 52 && previousMotionActivityType != 56)
-                    {
-LABEL_313:
-                      if ((previousMotionActivityType & 0xFFFFFFFE) != 0xA)
-                      {
-                        if (previousMotionActivityType <= 0x29 && ((1 << previousMotionActivityType) & 0x20000000110) != 0)
-                        {
-                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 12, @"srcPedestrian2IMUDuration");
-                        }
-
-                        goto LABEL_315;
-                      }
-                    }
-                  }
-
-                  else
-                  {
-                    if (!previousMotionActivityType)
-                    {
-                      goto LABEL_315;
-                    }
-
-                    if (previousMotionActivityType != 5)
-                    {
-                      goto LABEL_313;
-                    }
-                  }
-
-                  sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 10, @"inVehicle2IMUDuration");
-LABEL_315:
-                  if (self->_previousTracking1IMU != -1)
-                  {
-                    v182 = self->_analyticsTracker.__ptr_;
-                    v183 = *(v182 + 492);
-                    if (v183 != -1)
-                    {
-                      *(v182 + 492) = v183 + 1;
-                    }
-                  }
-
-                  v124 = self->_headTrackingService.__ptr_;
-                  self->_previousTracking1IMU = *(v124 + 16080);
 LABEL_319:
-                  if (self->_previousTrackingEnabled)
+                  if ((previousMotionActivityType & 0xFFFFFFFE) != 0xA)
                   {
-                    if (*(v124 + 16082))
+                    if (previousMotionActivityType <= 0x29 && ((1 << previousMotionActivityType) & 0x20000000110) != 0)
                     {
-                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
-                      lastDistractedViewingEndTime = self->_lastDistractedViewingEndTime;
-                      if (lastDistractedViewingEndTime > 0.0)
-                      {
-                        v186 = self->_analyticsTracker.__ptr_;
-                        v187 = v6 - lastDistractedViewingEndTime;
-                        v188 = *(v186 + 149);
-                        if (v188 <= v187)
-                        {
-                          v188 = v187;
-                        }
-
-                        *(v186 + 149) = v188;
-                        v189 = *(v186 + 148);
-                        if (v189 >= v187)
-                        {
-                          v189 = v187;
-                        }
-
-                        *(v186 + 148) = v189;
-                        *(v186 + 150) = v187 + *(v186 + 150);
-                        ++*(v186 + 302);
-                      }
-
-                      v190 = *(*(self->_headTrackingService.__ptr_ + 4717) + 112);
-                      objc_msgSend_enterDistractedViewingSession_(self->_mcSession, v184, v190);
-                      switch(v190)
-                      {
-                        case 3u:
-                          v191 = self->_analyticsTracker.__ptr_;
-                          v204 = *(v191 + 505);
-                          if (v204 != -1)
-                          {
-                            *(v191 + 505) = v204 + 1;
-                          }
-
-                          break;
-                        case 2u:
-                          v202 = self->_analyticsTracker.__ptr_;
-                          v203 = *(v202 + 506);
-                          if (v203 != -1)
-                          {
-                            *(v202 + 506) = v203 + 1;
-                          }
-
-                          sub_19B6A7EE8(v202 + 40, @"durationOfSessionDisabledDueToJBL");
-                          goto LABEL_368;
-                        case 1u:
-                          v191 = self->_analyticsTracker.__ptr_;
-                          v192 = *(v191 + 504);
-                          if (v192 != -1)
-                          {
-                            *(v191 + 504) = v192 + 1;
-                          }
-
-                          break;
-                        default:
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v205 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-                          {
-                            *buf = 67240192;
-                            *&buf[4] = v190;
-                            _os_log_impl(&dword_19B41C000, v205, OS_LOG_TYPE_ERROR, "[CMMediaSession] CALogger received invalid disable route: %{public}d", buf, 8u);
-                          }
-
-                          v206 = sub_19B420058();
-                          if ((*(v206 + 160) & 0x80000000) == 0 || (*(v206 + 164) & 0x80000000) == 0 || (*(v206 + 168) & 0x80000000) == 0 || *(v206 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 67240192;
-                            *&v355[4] = v190;
-                            v207 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v207);
-                            if (v207 != buf)
-                            {
-                              free(v207);
-                            }
-                          }
-
-                          goto LABEL_368;
-                      }
-
-                      sub_19B6A7EE8(v191 + 38, @"durationOfSessionDisabledDueToWalking");
-LABEL_368:
-                      self->_lastTrackingDisableRoute = v190;
-                      v208 = 304;
-LABEL_412:
-                      *(&self->super.isa + v208) = v6;
-                      v124 = self->_headTrackingService.__ptr_;
-                      v193 = *(v124 + 16082) ^ 1;
-                      goto LABEL_413;
+                      sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 12, @"srcPedestrian2IMUDuration");
                     }
 
-                    v193 = 1;
-LABEL_413:
-                    self->_previousTrackingEnabled = v193 & 1;
-                    if (!self->_previousSrcMoving)
+                    goto LABEL_321;
+                  }
+                }
+              }
+
+              else
+              {
+                if (!previousMotionActivityType)
+                {
+                  goto LABEL_321;
+                }
+
+                if (previousMotionActivityType != 5)
+                {
+                  goto LABEL_319;
+                }
+              }
+
+              sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 10, @"inVehicle2IMUDuration");
+LABEL_321:
+              if (self->_previousTracking1IMU != -1)
+              {
+                v193 = self->_analyticsTracker.__ptr_;
+                v194 = *(v193 + 492);
+                if (v194 != -1)
+                {
+                  *(v193 + 492) = v194 + 1;
+                }
+              }
+
+              v131 = self->_headTrackingService.__ptr_;
+              self->_previousTracking1IMU = *(v131 + 16080);
+LABEL_325:
+              if (self->_previousTrackingEnabled)
+              {
+                if (*(v131 + 16082))
+                {
+                  sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
+                  lastDistractedViewingEndTime = self->_lastDistractedViewingEndTime;
+                  if (lastDistractedViewingEndTime > 0.0)
+                  {
+                    v197 = self->_analyticsTracker.__ptr_;
+                    v198 = v6 - lastDistractedViewingEndTime;
+                    v199 = *(v197 + 149);
+                    if (v199 <= v198)
                     {
-                      if (!*(v124 + 1332))
+                      v199 = v198;
+                    }
+
+                    *(v197 + 149) = v199;
+                    v200 = *(v197 + 148);
+                    if (v200 >= v198)
+                    {
+                      v200 = v198;
+                    }
+
+                    *(v197 + 148) = v200;
+                    *(v197 + 150) = v198 + *(v197 + 150);
+                    ++*(v197 + 302);
+                  }
+
+                  v201 = *(*(self->_headTrackingService.__ptr_ + 4717) + 112);
+                  objc_msgSend_enterDistractedViewingSession_(self->_mcSession, v195, v201);
+                  switch(v201)
+                  {
+                    case 3u:
+                      v202 = self->_analyticsTracker.__ptr_;
+                      v215 = *(v202 + 505);
+                      if (v215 != -1)
                       {
-                        goto LABEL_418;
+                        *(v202 + 505) = v215 + 1;
                       }
 
-                      v228 = 0.0;
-                      v229 = -12;
-                      do
+                      break;
+                    case 2u:
+                      v213 = self->_analyticsTracker.__ptr_;
+                      v214 = *(v213 + 506);
+                      if (v214 != -1)
                       {
-                        v228 = v228 + (*(v124 + v229 + 5292) * *(v124 + v229 + 5292));
-                        v229 += 4;
+                        *(v213 + 506) = v214 + 1;
                       }
 
-                      while (v229);
-                      if (sqrtf(v228) > 0.34907)
+                      sub_19B6A7EE8(v213 + 40, @"durationOfSessionDisabledDueToJBL");
+                      goto LABEL_374;
+                    case 1u:
+                      v202 = self->_analyticsTracker.__ptr_;
+                      v203 = *(v202 + 504);
+                      if (v203 != -1)
                       {
+                        *(v202 + 504) = v203 + 1;
+                      }
+
+                      break;
+                    default:
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v216 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+                      {
+                        *buf = 67240192;
+                        *&buf[4] = v201;
+                        _os_log_impl(&dword_19B41C000, v216, OS_LOG_TYPE_ERROR, "[CMMediaSession] CALogger received invalid disable route: %{public}d", buf, 8u);
+                      }
+
+                      v217 = sub_19B420058();
+                      if ((*(v217 + 160) & 0x80000000) == 0 || (*(v217 + 164) & 0x80000000) == 0 || (*(v217 + 168) & 0x80000000) == 0 || *(v217 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 67240192;
+                        *&v383[4] = v201;
+                        LODWORD(v354) = 8;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] CALogger received invalid disable route: %{public}d", v383, v354);
+                        v219 = v218;
+                        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v218);
+                        if (v219 != buf)
+                        {
+                          free(v219);
+                        }
+                      }
+
+                      goto LABEL_374;
+                  }
+
+                  sub_19B6A7EE8(v202 + 38, @"durationOfSessionDisabledDueToWalking");
+LABEL_374:
+                  self->_lastTrackingDisableRoute = v201;
+                  v220 = 304;
 LABEL_418:
+                  *(&self->super.isa + v220) = v6;
+                  v131 = self->_headTrackingService.__ptr_;
+                  v204 = *(v131 + 16082) ^ 1;
+                  goto LABEL_419;
+                }
+
+                v204 = 1;
+LABEL_419:
+                self->_previousTrackingEnabled = v204 & 1;
+                if (!self->_previousSrcMoving)
+                {
+                  if (!*(v131 + 1332))
+                  {
+                    goto LABEL_424;
+                  }
+
+                  v242 = 0.0;
+                  v243 = -12;
+                  do
+                  {
+                    v242 = v242 + (*(v131 + v243 + 5292) * *(v131 + v243 + 5292));
+                    v243 += 4;
+                  }
+
+                  while (v243);
+                  if (sqrtf(v242) > 0.34907)
+                  {
+LABEL_424:
+                    if (qword_1EAFE2998 != -1)
+                    {
+                      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                    }
+
+                    v244 = off_1EAFE29A0;
+                    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                    {
+                      *buf = 0;
+                      _os_log_impl(&dword_19B41C000, v244, OS_LOG_TYPE_INFO, "[CMMediaSession] Src started moving", buf, 2u);
+                    }
+
+                    v245 = sub_19B420058();
+                    if (*(v245 + 160) > 1 || *(v245 + 164) > 1 || *(v245 + 168) > 1 || *(v245 + 152))
+                    {
+                      bzero(buf, 0x65CuLL);
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      *v383 = 0;
+                      LODWORD(v354) = 2;
+                      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Src started moving", v383, v354);
+                      v247 = v246;
+                      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v246);
+                      if (v247 != buf)
+                      {
+                        free(v247);
+                      }
+                    }
+
+                    sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 26, @"srcMoving");
+                    if (*(self->_analyticsTracker.__ptr_ + 30) > 0.0)
+                    {
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 30, &stru_1F0E3D7A0);
+                    }
+
+                    v131 = self->_headTrackingService.__ptr_;
+                    if (!*(v131 + 1350))
+                    {
+                      goto LABEL_442;
+                    }
+
+                    v248 = 0.0;
+                    v249 = -12;
+                    do
+                    {
+                      v248 = v248 + (*(v131 + v249 + 5364) * *(v131 + v249 + 5364));
+                      v249 += 4;
+                    }
+
+                    while (v249);
+                    if (sqrtf(v248) > 0.34907)
+                    {
+LABEL_442:
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v250 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v250, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src started moving", buf, 2u);
+                      }
+
+                      v251 = sub_19B420058();
+                      if (*(v251 + 160) > 1 || *(v251 + 164) > 1 || *(v251 + 168) > 1 || *(v251 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
                         if (qword_1EAFE2998 != -1)
                         {
                           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                         }
 
-                        v230 = off_1EAFE29A0;
-                        if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux and src started moving", v383, v354);
+                        v253 = v252;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v252);
+                        if (v253 != buf)
                         {
-                          *buf = 0;
-                          _os_log_impl(&dword_19B41C000, v230, OS_LOG_TYPE_INFO, "[CMMediaSession] Src started moving", buf, 2u);
+                          free(v253);
                         }
+                      }
 
-                        v231 = sub_19B420058();
-                        if (*(v231 + 160) > 1 || *(v231 + 164) > 1 || *(v231 + 168) > 1 || *(v231 + 152))
-                        {
-                          bzero(buf, 0x65CuLL);
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
+                      sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 28, @"auxAndSrcMoving");
+                      v131 = self->_headTrackingService.__ptr_;
+                    }
+                  }
+                }
 
-                          *v355 = 0;
-                          v232 = _os_log_send_and_compose_impl();
-                          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v232);
-                          if (v232 != buf)
-                          {
-                            free(v232);
-                          }
-                        }
+                if (!self->_previousAuxMoving)
+                {
+                  if (!*(v131 + 1350))
+                  {
+                    goto LABEL_460;
+                  }
 
-                        sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 26, @"srcMoving");
-                        if (*(self->_analyticsTracker.__ptr_ + 30) > 0.0)
-                        {
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 30, &stru_1F0E3D7A0);
-                        }
+                  v254 = 0.0;
+                  v255 = -12;
+                  do
+                  {
+                    v254 = v254 + (*(v131 + v255 + 5364) * *(v131 + v255 + 5364));
+                    v255 += 4;
+                  }
 
-                        v124 = self->_headTrackingService.__ptr_;
-                        if (!*(v124 + 1350))
-                        {
-                          goto LABEL_436;
-                        }
+                  while (v255);
+                  if (sqrtf(v254) > 0.34907)
+                  {
+LABEL_460:
+                    if (qword_1EAFE2998 != -1)
+                    {
+                      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                    }
 
-                        v233 = 0.0;
-                        v234 = -12;
-                        do
-                        {
-                          v233 = v233 + (*(v124 + v234 + 5364) * *(v124 + v234 + 5364));
-                          v234 += 4;
-                        }
+                    v256 = off_1EAFE29A0;
+                    if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                    {
+                      *buf = 0;
+                      _os_log_impl(&dword_19B41C000, v256, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux started moving", buf, 2u);
+                    }
 
-                        while (v234);
-                        if (sqrtf(v233) > 0.34907)
-                        {
-LABEL_436:
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
+                    v257 = sub_19B420058();
+                    if (*(v257 + 160) > 1 || *(v257 + 164) > 1 || *(v257 + 168) > 1 || *(v257 + 152))
+                    {
+                      bzero(buf, 0x65CuLL);
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
 
-                          v235 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v235, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src started moving", buf, 2u);
-                          }
-
-                          v236 = sub_19B420058();
-                          if (*(v236 + 160) > 1 || *(v236 + 164) > 1 || *(v236 + 168) > 1 || *(v236 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v237 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v237);
-                            if (v237 != buf)
-                            {
-                              free(v237);
-                            }
-                          }
-
-                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 28, @"auxAndSrcMoving");
-                          v124 = self->_headTrackingService.__ptr_;
-                        }
+                      *v383 = 0;
+                      LODWORD(v354) = 2;
+                      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux started moving", v383, v354);
+                      v259 = v258;
+                      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v258);
+                      if (v259 != buf)
+                      {
+                        free(v259);
                       }
                     }
 
-                    if (!self->_previousAuxMoving)
+                    sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 24, @"auxMoving");
+                    if (*(self->_analyticsTracker.__ptr_ + 30) > 0.0)
                     {
-                      if (!*(v124 + 1350))
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 30, &stru_1F0E3D7A0);
+                    }
+
+                    v131 = self->_headTrackingService.__ptr_;
+                    if (!*(v131 + 1332))
+                    {
+                      goto LABEL_478;
+                    }
+
+                    v260 = 0.0;
+                    v261 = -12;
+                    do
+                    {
+                      v260 = v260 + (*(v131 + v261 + 5292) * *(v131 + v261 + 5292));
+                      v261 += 4;
+                    }
+
+                    while (v261);
+                    if (sqrtf(v260) > 0.34907)
+                    {
+LABEL_478:
+                      if (qword_1EAFE2998 != -1)
                       {
-                        goto LABEL_454;
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                       }
 
-                      v238 = 0.0;
-                      v239 = -12;
-                      do
+                      v262 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
                       {
-                        v238 = v238 + (*(v124 + v239 + 5364) * *(v124 + v239 + 5364));
-                        v239 += 4;
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v262, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src started moving", buf, 2u);
                       }
 
-                      while (v239);
-                      if (sqrtf(v238) > 0.34907)
+                      v263 = sub_19B420058();
+                      if (*(v263 + 160) > 1 || *(v263 + 164) > 1 || *(v263 + 168) > 1 || *(v263 + 152))
                       {
-LABEL_454:
+                        bzero(buf, 0x65CuLL);
                         if (qword_1EAFE2998 != -1)
                         {
                           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                         }
 
-                        v240 = off_1EAFE29A0;
-                        if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux and src started moving", v383, v354);
+                        v265 = v264;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v264);
+                        if (v265 != buf)
                         {
-                          *buf = 0;
-                          _os_log_impl(&dword_19B41C000, v240, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux started moving", buf, 2u);
-                        }
-
-                        v241 = sub_19B420058();
-                        if (*(v241 + 160) > 1 || *(v241 + 164) > 1 || *(v241 + 168) > 1 || *(v241 + 152))
-                        {
-                          bzero(buf, 0x65CuLL);
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          *v355 = 0;
-                          v242 = _os_log_send_and_compose_impl();
-                          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v242);
-                          if (v242 != buf)
-                          {
-                            free(v242);
-                          }
-                        }
-
-                        sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 24, @"auxMoving");
-                        if (*(self->_analyticsTracker.__ptr_ + 30) > 0.0)
-                        {
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 30, &stru_1F0E3D7A0);
-                        }
-
-                        v124 = self->_headTrackingService.__ptr_;
-                        if (!*(v124 + 1332))
-                        {
-                          goto LABEL_472;
-                        }
-
-                        v243 = 0.0;
-                        v244 = -12;
-                        do
-                        {
-                          v243 = v243 + (*(v124 + v244 + 5292) * *(v124 + v244 + 5292));
-                          v244 += 4;
-                        }
-
-                        while (v244);
-                        if (sqrtf(v243) > 0.34907)
-                        {
-LABEL_472:
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v245 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v245, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src started moving", buf, 2u);
-                          }
-
-                          v246 = sub_19B420058();
-                          if (*(v246 + 160) > 1 || *(v246 + 164) > 1 || *(v246 + 168) > 1 || *(v246 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v247 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v247);
-                            if (v247 != buf)
-                            {
-                              free(v247);
-                            }
-                          }
-
-                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 28, @"auxAndSrcMoving");
-                          v124 = self->_headTrackingService.__ptr_;
+                          free(v265);
                         }
                       }
+
+                      sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 28, @"auxAndSrcMoving");
+                      v131 = self->_headTrackingService.__ptr_;
+                    }
+                  }
+                }
+
+                if (self->_previousSrcMoving)
+                {
+                  if (*(v131 + 1332))
+                  {
+                    v266 = 0.0;
+                    v267 = -12;
+                    do
+                    {
+                      v266 = v266 + (*(v131 + v267 + 5292) * *(v131 + v267 + 5292));
+                      v267 += 4;
                     }
 
-                    if (self->_previousSrcMoving)
+                    while (v267);
+                    if (sqrtf(v266) <= 0.34907)
                     {
-                      if (*(v124 + 1332))
+                      if (qword_1EAFE2998 != -1)
                       {
-                        v248 = 0.0;
-                        v249 = -12;
-                        do
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v268 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v268, OS_LOG_TYPE_INFO, "[CMMediaSession] Src stopped moving", buf, 2u);
+                      }
+
+                      v269 = sub_19B420058();
+                      if (*(v269 + 160) > 1 || *(v269 + 164) > 1 || *(v269 + 168) > 1 || *(v269 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
                         {
-                          v248 = v248 + (*(v124 + v249 + 5292) * *(v124 + v249 + 5292));
-                          v249 += 4;
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                         }
 
-                        while (v249);
-                        if (sqrtf(v248) <= 0.34907)
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Src stopped moving", v383, v354);
+                        v271 = v270;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v270);
+                        if (v271 != buf)
                         {
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v250 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v250, OS_LOG_TYPE_INFO, "[CMMediaSession] Src stopped moving", buf, 2u);
-                          }
-
-                          v251 = sub_19B420058();
-                          if (*(v251 + 160) > 1 || *(v251 + 164) > 1 || *(v251 + 168) > 1 || *(v251 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v252 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v252);
-                            if (v252 != buf)
-                            {
-                              free(v252);
-                            }
-                          }
-
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 26, @"srcMoving");
-                          if (*(self->_analyticsTracker.__ptr_ + 28) > 0.0)
-                          {
-                            sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 28, &stru_1F0E3D7A0);
-                          }
-
-                          v124 = self->_headTrackingService.__ptr_;
-                          if (*(v124 + 1350))
-                          {
-                            v253 = 0.0;
-                            v254 = -12;
-                            do
-                            {
-                              v253 = v253 + (*(v124 + v254 + 5364) * *(v124 + v254 + 5364));
-                              v254 += 4;
-                            }
-
-                            while (v254);
-                            if (sqrtf(v253) <= 0.34907)
-                            {
-                              if (qword_1EAFE2998 != -1)
-                              {
-                                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                              }
-
-                              v255 = off_1EAFE29A0;
-                              if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                              {
-                                *buf = 0;
-                                _os_log_impl(&dword_19B41C000, v255, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src entered quiescence", buf, 2u);
-                              }
-
-                              v256 = sub_19B420058();
-                              if (*(v256 + 160) > 1 || *(v256 + 164) > 1 || *(v256 + 168) > 1 || *(v256 + 152))
-                              {
-                                bzero(buf, 0x65CuLL);
-                                if (qword_1EAFE2998 != -1)
-                                {
-                                  dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                                }
-
-                                *v355 = 0;
-                                v257 = _os_log_send_and_compose_impl();
-                                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v257);
-                                if (v257 != buf)
-                                {
-                                  free(v257);
-                                }
-                              }
-
-                              sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 30, @"auxAndSrcQuiescent");
-                              v124 = self->_headTrackingService.__ptr_;
-                            }
-                          }
+                          free(v271);
                         }
                       }
-                    }
 
-                    if (self->_previousAuxMoving)
-                    {
-                      if (*(v124 + 1350))
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 26, @"srcMoving");
+                      if (*(self->_analyticsTracker.__ptr_ + 28) > 0.0)
                       {
-                        v258 = 0.0;
-                        v259 = -12;
+                        sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 28, &stru_1F0E3D7A0);
+                      }
+
+                      v131 = self->_headTrackingService.__ptr_;
+                      if (*(v131 + 1350))
+                      {
+                        v272 = 0.0;
+                        v273 = -12;
                         do
                         {
-                          v258 = v258 + (*(v124 + v259 + 5364) * *(v124 + v259 + 5364));
-                          v259 += 4;
+                          v272 = v272 + (*(v131 + v273 + 5364) * *(v131 + v273 + 5364));
+                          v273 += 4;
                         }
 
-                        while (v259);
-                        if (sqrtf(v258) <= 0.34907)
+                        while (v273);
+                        if (sqrtf(v272) <= 0.34907)
                         {
                           if (qword_1EAFE2998 != -1)
                           {
                             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                           }
 
-                          v260 = off_1EAFE29A0;
+                          v274 = off_1EAFE29A0;
                           if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
                           {
                             *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v260, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux stopped moving", buf, 2u);
+                            _os_log_impl(&dword_19B41C000, v274, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src entered quiescence", buf, 2u);
                           }
 
-                          v261 = sub_19B420058();
-                          if (*(v261 + 160) > 1 || *(v261 + 164) > 1 || *(v261 + 168) > 1 || *(v261 + 152))
+                          v275 = sub_19B420058();
+                          if (*(v275 + 160) > 1 || *(v275 + 164) > 1 || *(v275 + 168) > 1 || *(v275 + 152))
                           {
                             bzero(buf, 0x65CuLL);
                             if (qword_1EAFE2998 != -1)
@@ -5964,433 +6439,54 @@ LABEL_472:
                               dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                             }
 
-                            *v355 = 0;
-                            v262 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v262);
-                            if (v262 != buf)
-                            {
-                              free(v262);
-                            }
-                          }
-
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 24, @"auxMoving");
-                          if (*(self->_analyticsTracker.__ptr_ + 28) > 0.0)
-                          {
-                            sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 28, &stru_1F0E3D7A0);
-                          }
-
-                          v124 = self->_headTrackingService.__ptr_;
-                          if (*(v124 + 1332))
-                          {
-                            v263 = 0.0;
-                            v264 = -12;
-                            do
-                            {
-                              v263 = v263 + (*(v124 + v264 + 5292) * *(v124 + v264 + 5292));
-                              v264 += 4;
-                            }
-
-                            while (v264);
-                            if (sqrtf(v263) <= 0.34907)
-                            {
-                              if (qword_1EAFE2998 != -1)
-                              {
-                                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                              }
-
-                              v265 = off_1EAFE29A0;
-                              if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                              {
-                                *buf = 0;
-                                _os_log_impl(&dword_19B41C000, v265, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src entered quiescence", buf, 2u);
-                              }
-
-                              v266 = sub_19B420058();
-                              if (*(v266 + 160) > 1 || *(v266 + 164) > 1 || *(v266 + 168) > 1 || *(v266 + 152))
-                              {
-                                bzero(buf, 0x65CuLL);
-                                if (qword_1EAFE2998 != -1)
-                                {
-                                  dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                                }
-
-                                *v355 = 0;
-                                v267 = _os_log_send_and_compose_impl();
-                                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v267);
-                                if (v267 != buf)
-                                {
-                                  free(v267);
-                                }
-                              }
-
-                              sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 30, @"auxAndSrcQuiescent");
-                              v124 = self->_headTrackingService.__ptr_;
-                            }
-                          }
-                        }
-                      }
-                    }
-
-                    if (*(v124 + 16))
-                    {
-                      v268 = *(v124 + 37697);
-                      v269 = v268;
-                      previousSteadyStatePedestrian = self->_previousSteadyStatePedestrian;
-                      if (previousSteadyStatePedestrian || !v268)
-                      {
-LABEL_575:
-                        if (previousSteadyStatePedestrian && (v269 & 1) == 0)
-                        {
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v275 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v275, OS_LOG_TYPE_INFO, "[CMMediaSession] leaving steadyStatePedestrian", buf, 2u);
-                          }
-
-                          v276 = sub_19B420058();
-                          if (*(v276 + 160) > 1 || *(v276 + 164) > 1 || *(v276 + 168) > 1 || *(v276 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v277 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v277);
+                            *v383 = 0;
+                            LODWORD(v354) = 2;
+                            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux and src entered quiescence", v383, v354);
+                            v277 = v276;
+                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v276);
                             if (v277 != buf)
                             {
                               free(v277);
                             }
                           }
 
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 34, @"steadyStatePedestrianDuration");
-                          if (*(self->_analyticsTracker.__ptr_ + 44) > 0.0)
-                          {
-                            sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 44, &stru_1F0E3D7A0);
-                          }
-
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v278 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v278, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting CT body turn state due to leaving steadyStatePedestrian.", buf, 2u);
-                          }
-
-                          v279 = sub_19B420058();
-                          if (*(v279 + 160) > 1 || *(v279 + 164) > 1 || *(v279 + 168) > 1 || *(v279 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v280 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v280);
-                            if (v280 != buf)
-                            {
-                              free(v280);
-                            }
-                          }
-
-                          v281 = self->_analyticsTracker.__ptr_;
-                          if (*(v281 + 46) > 0.0)
-                          {
-                            sub_19B6A80D8(v281 + 46, &stru_1F0E3D7A0);
-                          }
-
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v282 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v282, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting head turn state due to leaving steadyStatePedestrian.", buf, 2u);
-                          }
-
-                          v283 = sub_19B420058();
-                          if (*(v283 + 160) > 1 || *(v283 + 164) > 1 || *(v283 + 168) > 1 || *(v283 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v284 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v284);
-                            if (v284 != buf)
-                            {
-                              free(v284);
-                            }
-                          }
+                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 30, @"auxAndSrcQuiescent");
+                          v131 = self->_headTrackingService.__ptr_;
                         }
-
-                        v285 = self->_headTrackingService.__ptr_;
-                        if (*(v285 + 16))
-                        {
-                          v286 = *(v285 + 37712);
-                          v287 = v286;
-                          previousKeepBoresightCentered = self->_previousKeepBoresightCentered;
-                          if (previousKeepBoresightCentered || !v286)
-                          {
-                            goto LABEL_637;
-                          }
-
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v289 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v289, OS_LOG_TYPE_INFO, "[CMMediaSession] entering keepBoresightCentered state.", buf, 2u);
-                          }
-
-                          v290 = sub_19B420058();
-                          if (*(v290 + 160) > 1 || *(v290 + 164) > 1 || *(v290 + 168) > 1 || *(v290 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v291 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v291);
-                            if (v291 != buf)
-                            {
-                              free(v291);
-                            }
-                          }
-
-                          v292 = self->_analyticsTracker.__ptr_;
-                          v293 = *(v292 + 507);
-                          if (v293 != -1)
-                          {
-                            *(v292 + 507) = v293 + 1;
-                          }
-
-                          sub_19B6A7EE8(v292 + 36, @"keepBoresightCenteredDueToDynamicsDuration");
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
-                          p_previousKeepBoresightCentered = &self->_previousKeepBoresightCentered;
-                          v287 = v286;
-                        }
-
-                        else
-                        {
-                          v286 = 0;
-                          v287 = 0;
-                          p_previousKeepBoresightCentered = &self->_previousKeepBoresightCentered;
-                        }
-
-                        previousKeepBoresightCentered = *p_previousKeepBoresightCentered;
-LABEL_637:
-                        if (previousKeepBoresightCentered && (v287 & 1) == 0)
-                        {
-                          if (qword_1EAFE2998 != -1)
-                          {
-                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                          }
-
-                          v295 = off_1EAFE29A0;
-                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-                          {
-                            *buf = 0;
-                            _os_log_impl(&dword_19B41C000, v295, OS_LOG_TYPE_INFO, "[CMMediaSession] leaving keepBoresightCentered state.", buf, 2u);
-                          }
-
-                          v296 = sub_19B420058();
-                          if (*(v296 + 160) > 1 || *(v296 + 164) > 1 || *(v296 + 168) > 1 || *(v296 + 152))
-                          {
-                            bzero(buf, 0x65CuLL);
-                            if (qword_1EAFE2998 != -1)
-                            {
-                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                            }
-
-                            *v355 = 0;
-                            v297 = _os_log_send_and_compose_impl();
-                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v297);
-                            if (v297 != buf)
-                            {
-                              free(v297);
-                            }
-                          }
-
-                          sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 36, @"keepBoresightCenteredDueToDynamicsDuration");
-                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
-                        }
-
-                        v298 = self->_headTrackingService.__ptr_;
-                        if (*(v298 + 1350))
-                        {
-                          v299 = 0;
-                          v300 = 0.0;
-                          do
-                          {
-                            v300 = v300 + (*(v298 + v299 + 5352) * *(v298 + v299 + 5352));
-                            v299 += 4;
-                          }
-
-                          while (v299 != 12);
-                          v301 = sqrtf(v300) > 0.34907;
-                        }
-
-                        else
-                        {
-                          v301 = 1;
-                        }
-
-                        self->_previousAuxMoving = v301;
-                        if (*(v298 + 1332))
-                        {
-                          v302 = 0;
-                          v303 = 0.0;
-                          do
-                          {
-                            v303 = v303 + (*(v298 + v302 + 5280) * *(v298 + v302 + 5280));
-                            v302 += 4;
-                          }
-
-                          while (v302 != 12);
-                          v304 = sqrtf(v303) > 0.34907;
-                        }
-
-                        else
-                        {
-                          v304 = 1;
-                        }
-
-                        self->_previousSrcMoving = v304;
-                        self->_previousSteadyStatePedestrian = v268;
-                        self->_previousKeepBoresightCentered = v286;
-                        *buf = *(v298 + 16092);
-                        *&buf[8] = *(v298 + 4025);
-                        v305 = 24;
-                        if (*(v298 + 16080))
-                        {
-                          v305 = 40;
-                        }
-
-                        *&buf[12] = *(v298 + v305 + 16092);
-                        *buf = sub_19B604A8C(v298 + 80, buf, &buf[12]);
-                        *&buf[4] = v306;
-                        *&buf[8] = v307;
-                        self->_lastAngleBetweenCurrentBoresightToDefault = sub_19B73888C(buf);
-                        v308 = self->_headTrackingService.__ptr_;
-                        v309 = *(v308 + 2005);
-                        if (v309)
-                        {
-                          v310 = *(v308 + 4012);
-                          if (v310 > 0.0)
-                          {
-                            lastResetCamControllerTimersTimestampUs = self->_lastResetCamControllerTimersTimestampUs;
-                            if (lastResetCamControllerTimersTimestampUs)
-                            {
-                              v312 = v309 >= lastResetCamControllerTimersTimestampUs;
-                              v313 = v309 - lastResetCamControllerTimersTimestampUs;
-                              if (v313 != 0 && v312)
-                              {
-                                v314 = v313 * 0.000001;
-                                v315 = v314 - v310;
-                                v316 = self->_analyticsTracker.__ptr_;
-                                v317 = v314;
-                                v318 = *(v316 + 161);
-                                if (v318 <= v317)
-                                {
-                                  v318 = v317;
-                                }
-
-                                *(v316 + 161) = v318;
-                                v319 = *(v316 + 160);
-                                if (v319 >= v317)
-                                {
-                                  v319 = v317;
-                                }
-
-                                *(v316 + 160) = v319;
-                                *(v316 + 162) = *(v316 + 162) + v317;
-                                ++*(v316 + 326);
-                                v320 = v315;
-                                v321 = *(v316 + 165);
-                                if (v321 <= v320)
-                                {
-                                  v321 = v320;
-                                }
-
-                                *(v316 + 165) = v321;
-                                v322 = *(v316 + 164);
-                                if (v322 >= v320)
-                                {
-                                  v322 = v320;
-                                }
-
-                                *(v316 + 164) = v322;
-                                *(v316 + 166) = *(v316 + 166) + v320;
-                                ++*(v316 + 334);
-                                v323 = v310;
-                                v324 = *(v316 + 169);
-                                if (v324 <= v323)
-                                {
-                                  v324 = v323;
-                                }
-
-                                *(v316 + 169) = v324;
-                                v325 = *(v316 + 168);
-                                if (v325 >= v323)
-                                {
-                                  v325 = v323;
-                                }
-
-                                *(v316 + 168) = v325;
-                                *(v316 + 170) = *(v316 + 170) + v323;
-                                ++*(v316 + 342);
-                              }
-                            }
-
-                            self->_lastResetCamControllerTimersTimestampUs = v309;
-                          }
-                        }
-
-                        goto LABEL_683;
                       }
+                    }
+                  }
+                }
 
+                if (self->_previousAuxMoving)
+                {
+                  if (*(v131 + 1350))
+                  {
+                    v278 = 0.0;
+                    v279 = -12;
+                    do
+                    {
+                      v278 = v278 + (*(v131 + v279 + 5364) * *(v131 + v279 + 5364));
+                      v279 += 4;
+                    }
+
+                    while (v279);
+                    if (sqrtf(v278) <= 0.34907)
+                    {
                       if (qword_1EAFE2998 != -1)
                       {
                         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                       }
 
-                      v271 = off_1EAFE29A0;
+                      v280 = off_1EAFE29A0;
                       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
                       {
                         *buf = 0;
-                        _os_log_impl(&dword_19B41C000, v271, OS_LOG_TYPE_INFO, "[CMMediaSession] entering steadyStatePedestrian", buf, 2u);
+                        _os_log_impl(&dword_19B41C000, v280, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux stopped moving", buf, 2u);
                       }
 
-                      v272 = sub_19B420058();
-                      if (*(v272 + 160) > 1 || *(v272 + 164) > 1 || *(v272 + 168) > 1 || *(v272 + 152))
+                      v281 = sub_19B420058();
+                      if (*(v281 + 160) > 1 || *(v281 + 164) > 1 || *(v281 + 168) > 1 || *(v281 + 152))
                       {
                         bzero(buf, 0x65CuLL);
                         if (qword_1EAFE2998 != -1)
@@ -6398,286 +6494,735 @@ LABEL_637:
                           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
                         }
 
-                        *v355 = 0;
-                        v273 = _os_log_send_and_compose_impl();
-                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v273);
-                        if (v273 != buf)
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux stopped moving", v383, v354);
+                        v283 = v282;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v282);
+                        if (v283 != buf)
                         {
-                          free(v273);
+                          free(v283);
                         }
                       }
 
-                      sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 34, @"steadyStatePedestrianDuration");
-                      p_previousSteadyStatePedestrian = &self->_previousSteadyStatePedestrian;
-                      v269 = v268;
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 24, @"auxMoving");
+                      if (*(self->_analyticsTracker.__ptr_ + 28) > 0.0)
+                      {
+                        sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 28, &stru_1F0E3D7A0);
+                      }
+
+                      v131 = self->_headTrackingService.__ptr_;
+                      if (*(v131 + 1332))
+                      {
+                        v284 = 0.0;
+                        v285 = -12;
+                        do
+                        {
+                          v284 = v284 + (*(v131 + v285 + 5292) * *(v131 + v285 + 5292));
+                          v285 += 4;
+                        }
+
+                        while (v285);
+                        if (sqrtf(v284) <= 0.34907)
+                        {
+                          if (qword_1EAFE2998 != -1)
+                          {
+                            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                          }
+
+                          v286 = off_1EAFE29A0;
+                          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                          {
+                            *buf = 0;
+                            _os_log_impl(&dword_19B41C000, v286, OS_LOG_TYPE_INFO, "[CMMediaSession] Aux and src entered quiescence", buf, 2u);
+                          }
+
+                          v287 = sub_19B420058();
+                          if (*(v287 + 160) > 1 || *(v287 + 164) > 1 || *(v287 + 168) > 1 || *(v287 + 152))
+                          {
+                            bzero(buf, 0x65CuLL);
+                            if (qword_1EAFE2998 != -1)
+                            {
+                              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                            }
+
+                            *v383 = 0;
+                            LODWORD(v354) = 2;
+                            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Aux and src entered quiescence", v383, v354);
+                            v289 = v288;
+                            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v288);
+                            if (v289 != buf)
+                            {
+                              free(v289);
+                            }
+                          }
+
+                          sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 30, @"auxAndSrcQuiescent");
+                          v131 = self->_headTrackingService.__ptr_;
+                        }
+                      }
+                    }
+                  }
+                }
+
+                if (*(v131 + 16))
+                {
+                  v290 = *(v131 + 37697);
+                  v291 = v290;
+                  previousSteadyStatePedestrian = self->_previousSteadyStatePedestrian;
+                  if (previousSteadyStatePedestrian || !v290)
+                  {
+LABEL_581:
+                    if (previousSteadyStatePedestrian && (v291 & 1) == 0)
+                    {
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v298 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v298, OS_LOG_TYPE_INFO, "[CMMediaSession] leaving steadyStatePedestrian", buf, 2u);
+                      }
+
+                      v299 = sub_19B420058();
+                      if (*(v299 + 160) > 1 || *(v299 + 164) > 1 || *(v299 + 168) > 1 || *(v299 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] leaving steadyStatePedestrian", v383, v354);
+                        v301 = v300;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v300);
+                        if (v301 != buf)
+                        {
+                          free(v301);
+                        }
+                      }
+
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 34, @"steadyStatePedestrianDuration");
+                      if (*(self->_analyticsTracker.__ptr_ + 44) > 0.0)
+                      {
+                        sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 44, &stru_1F0E3D7A0);
+                      }
+
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v302 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v302, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting CT body turn state due to leaving steadyStatePedestrian.", buf, 2u);
+                      }
+
+                      v303 = sub_19B420058();
+                      if (*(v303 + 160) > 1 || *(v303 + 164) > 1 || *(v303 + 168) > 1 || *(v303 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Exiting CT body turn state due to leaving steadyStatePedestrian.", v383, v354);
+                        v305 = v304;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v304);
+                        if (v305 != buf)
+                        {
+                          free(v305);
+                        }
+                      }
+
+                      v306 = self->_analyticsTracker.__ptr_;
+                      if (*(v306 + 46) > 0.0)
+                      {
+                        sub_19B6A80D8(v306 + 46, &stru_1F0E3D7A0);
+                      }
+
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v307 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v307, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting head turn state due to leaving steadyStatePedestrian.", buf, 2u);
+                      }
+
+                      v308 = sub_19B420058();
+                      if (*(v308 + 160) > 1 || *(v308 + 164) > 1 || *(v308 + 168) > 1 || *(v308 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Exiting head turn state due to leaving steadyStatePedestrian.", v383, v354);
+                        v310 = v309;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v309);
+                        if (v310 != buf)
+                        {
+                          free(v310);
+                        }
+                      }
+                    }
+
+                    v311 = self->_headTrackingService.__ptr_;
+                    if (*(v311 + 16))
+                    {
+                      v312 = *(v311 + 37712);
+                      v313 = v312;
+                      previousKeepBoresightCentered = self->_previousKeepBoresightCentered;
+                      if (previousKeepBoresightCentered || !v312)
+                      {
+                        goto LABEL_643;
+                      }
+
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v315 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v315, OS_LOG_TYPE_INFO, "[CMMediaSession] entering keepBoresightCentered state.", buf, 2u);
+                      }
+
+                      v316 = sub_19B420058();
+                      if (*(v316 + 160) > 1 || *(v316 + 164) > 1 || *(v316 + 168) > 1 || *(v316 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] entering keepBoresightCentered state.", v383, v354);
+                        v318 = v317;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v317);
+                        if (v318 != buf)
+                        {
+                          free(v318);
+                        }
+                      }
+
+                      v319 = self->_analyticsTracker.__ptr_;
+                      v320 = *(v319 + 507);
+                      if (v320 != -1)
+                      {
+                        *(v319 + 507) = v320 + 1;
+                      }
+
+                      sub_19B6A7EE8(v319 + 36, @"keepBoresightCenteredDueToDynamicsDuration");
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
+                      p_previousKeepBoresightCentered = &self->_previousKeepBoresightCentered;
+                      v313 = v312;
                     }
 
                     else
                     {
-                      v268 = 0;
-                      v269 = 0;
-                      p_previousSteadyStatePedestrian = &self->_previousSteadyStatePedestrian;
+                      v312 = 0;
+                      v313 = 0;
+                      p_previousKeepBoresightCentered = &self->_previousKeepBoresightCentered;
                     }
 
-                    previousSteadyStatePedestrian = *p_previousSteadyStatePedestrian;
-                    goto LABEL_575;
-                  }
-
-                  if (*(v124 + 16082))
-                  {
-                    v193 = 0;
-                    goto LABEL_413;
-                  }
-
-                  sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
-                  lastDistractedViewingStartTime = self->_lastDistractedViewingStartTime;
-                  v196 = self->_analyticsTracker.__ptr_;
-                  if (lastDistractedViewingStartTime > 0.0)
-                  {
-                    v197 = v6 - lastDistractedViewingStartTime;
-                    v198 = *(v196 + 105);
-                    if (v198 <= v197)
+                    previousKeepBoresightCentered = *p_previousKeepBoresightCentered;
+LABEL_643:
+                    if (previousKeepBoresightCentered && (v313 & 1) == 0)
                     {
-                      v198 = v197;
+                      if (qword_1EAFE2998 != -1)
+                      {
+                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                      }
+
+                      v322 = off_1EAFE29A0;
+                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                      {
+                        *buf = 0;
+                        _os_log_impl(&dword_19B41C000, v322, OS_LOG_TYPE_INFO, "[CMMediaSession] leaving keepBoresightCentered state.", buf, 2u);
+                      }
+
+                      v323 = sub_19B420058();
+                      if (*(v323 + 160) > 1 || *(v323 + 164) > 1 || *(v323 + 168) > 1 || *(v323 + 152))
+                      {
+                        bzero(buf, 0x65CuLL);
+                        if (qword_1EAFE2998 != -1)
+                        {
+                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                        }
+
+                        *v383 = 0;
+                        LODWORD(v354) = 2;
+                        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] leaving keepBoresightCentered state.", v383, v354);
+                        v325 = v324;
+                        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v324);
+                        if (v325 != buf)
+                        {
+                          free(v325);
+                        }
+                      }
+
+                      sub_19B6A80D8(self->_analyticsTracker.__ptr_ + 36, @"keepBoresightCenteredDueToDynamicsDuration");
+                      sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
                     }
 
-                    *(v196 + 105) = v198;
-                    v199 = *(v196 + 104);
-                    if (v199 >= v197)
+                    v326 = self->_headTrackingService.__ptr_;
+                    if (*(v326 + 1350))
                     {
-                      v199 = v197;
+                      v327 = 0;
+                      v328 = 0.0;
+                      do
+                      {
+                        v328 = v328 + (*(v326 + v327 + 5352) * *(v326 + v327 + 5352));
+                        v327 += 4;
+                      }
+
+                      while (v327 != 12);
+                      v329 = sqrtf(v328) > 0.34907;
                     }
 
-                    *(v196 + 104) = v199;
-                    *(v196 + 106) = v197 + *(v196 + 106);
-                    ++*(v196 + 214);
-                  }
-
-                  v200 = *(v196 + 493);
-                  if (v200 != -1)
-                  {
-                    *(v196 + 493) = v200 + 1;
-                  }
-
-                  lastTrackingDisableRoute = self->_lastTrackingDisableRoute;
-                  if (lastTrackingDisableRoute > 1)
-                  {
-                    if (lastTrackingDisableRoute == 2)
+                    else
                     {
-                      sub_19B6A80D8(v196 + 40, @"durationOfSessionDisabledDueToJBL");
-                      goto LABEL_381;
+                      v329 = 1;
                     }
 
-                    if (lastTrackingDisableRoute != 3)
+                    self->_previousAuxMoving = v329;
+                    if (*(v326 + 1332))
                     {
-                      goto LABEL_381;
+                      v330 = 0;
+                      v331 = 0.0;
+                      do
+                      {
+                        v331 = v331 + (*(v326 + v330 + 5280) * *(v326 + v330 + 5280));
+                        v330 += 4;
+                      }
+
+                      while (v330 != 12);
+                      v332 = sqrtf(v331) > 0.34907;
+                    }
+
+                    else
+                    {
+                      v332 = 1;
+                    }
+
+                    self->_previousSrcMoving = v332;
+                    self->_previousSteadyStatePedestrian = v290;
+                    self->_previousKeepBoresightCentered = v312;
+                    *buf = *(v326 + 16092);
+                    *&buf[8] = *(v326 + 4025);
+                    v333 = 24;
+                    if (*(v326 + 16080))
+                    {
+                      v333 = 40;
+                    }
+
+                    *&buf[12] = *(v326 + v333 + 16092);
+                    *buf = sub_19B604A8C(v326 + 80, buf, &buf[12]);
+                    *&buf[4] = v334;
+                    *&buf[8] = v335;
+                    self->_lastAngleBetweenCurrentBoresightToDefault = sub_19B73888C(buf);
+                    v336 = self->_headTrackingService.__ptr_;
+                    v337 = *(v336 + 2005);
+                    if (v337)
+                    {
+                      v338 = *(v336 + 4012);
+                      if (v338 > 0.0)
+                      {
+                        lastResetCamControllerTimersTimestampUs = self->_lastResetCamControllerTimersTimestampUs;
+                        if (lastResetCamControllerTimersTimestampUs)
+                        {
+                          v340 = v337 >= lastResetCamControllerTimersTimestampUs;
+                          v341 = v337 - lastResetCamControllerTimersTimestampUs;
+                          if (v341 != 0 && v340)
+                          {
+                            v342 = v341 * 0.000001;
+                            v343 = v342 - v338;
+                            v344 = self->_analyticsTracker.__ptr_;
+                            v345 = v342;
+                            v346 = *(v344 + 161);
+                            if (v346 <= v345)
+                            {
+                              v346 = v345;
+                            }
+
+                            *(v344 + 161) = v346;
+                            v347 = *(v344 + 160);
+                            if (v347 >= v345)
+                            {
+                              v347 = v345;
+                            }
+
+                            *(v344 + 160) = v347;
+                            *(v344 + 162) = *(v344 + 162) + v345;
+                            ++*(v344 + 326);
+                            v348 = v343;
+                            v349 = *(v344 + 165);
+                            if (v349 <= v348)
+                            {
+                              v349 = v348;
+                            }
+
+                            *(v344 + 165) = v349;
+                            v350 = *(v344 + 164);
+                            if (v350 >= v348)
+                            {
+                              v350 = v348;
+                            }
+
+                            *(v344 + 164) = v350;
+                            *(v344 + 166) = *(v344 + 166) + v348;
+                            ++*(v344 + 334);
+                            v351 = v338;
+                            v352 = *(v344 + 169);
+                            if (v352 <= v351)
+                            {
+                              v352 = v351;
+                            }
+
+                            *(v344 + 169) = v352;
+                            v353 = *(v344 + 168);
+                            if (v353 >= v351)
+                            {
+                              v353 = v351;
+                            }
+
+                            *(v344 + 168) = v353;
+                            *(v344 + 170) = *(v344 + 170) + v351;
+                            ++*(v344 + 342);
+                          }
+                        }
+
+                        self->_lastResetCamControllerTimersTimestampUs = v337;
+                      }
+                    }
+
+                    return;
+                  }
+
+                  if (qword_1EAFE2998 != -1)
+                  {
+                    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                  }
+
+                  v293 = off_1EAFE29A0;
+                  if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 0;
+                    _os_log_impl(&dword_19B41C000, v293, OS_LOG_TYPE_INFO, "[CMMediaSession] entering steadyStatePedestrian", buf, 2u);
+                  }
+
+                  v294 = sub_19B420058();
+                  if (*(v294 + 160) > 1 || *(v294 + 164) > 1 || *(v294 + 168) > 1 || *(v294 + 152))
+                  {
+                    bzero(buf, 0x65CuLL);
+                    if (qword_1EAFE2998 != -1)
+                    {
+                      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                    }
+
+                    *v383 = 0;
+                    LODWORD(v354) = 2;
+                    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] entering steadyStatePedestrian", v383, v354);
+                    v296 = v295;
+                    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v295);
+                    if (v296 != buf)
+                    {
+                      free(v296);
+                    }
+                  }
+
+                  sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 34, @"steadyStatePedestrianDuration");
+                  p_previousSteadyStatePedestrian = &self->_previousSteadyStatePedestrian;
+                  v291 = v290;
+                }
+
+                else
+                {
+                  v290 = 0;
+                  v291 = 0;
+                  p_previousSteadyStatePedestrian = &self->_previousSteadyStatePedestrian;
+                }
+
+                previousSteadyStatePedestrian = *p_previousSteadyStatePedestrian;
+                goto LABEL_581;
+              }
+
+              if (*(v131 + 16082))
+              {
+                v204 = 0;
+                goto LABEL_419;
+              }
+
+              sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 42, @"durationOfSessionHeadtracked");
+              lastDistractedViewingStartTime = self->_lastDistractedViewingStartTime;
+              v207 = self->_analyticsTracker.__ptr_;
+              if (lastDistractedViewingStartTime > 0.0)
+              {
+                v208 = v6 - lastDistractedViewingStartTime;
+                v209 = *(v207 + 105);
+                if (v209 <= v208)
+                {
+                  v209 = v208;
+                }
+
+                *(v207 + 105) = v209;
+                v210 = *(v207 + 104);
+                if (v210 >= v208)
+                {
+                  v210 = v208;
+                }
+
+                *(v207 + 104) = v210;
+                *(v207 + 106) = v208 + *(v207 + 106);
+                ++*(v207 + 214);
+              }
+
+              v211 = *(v207 + 493);
+              if (v211 != -1)
+              {
+                *(v207 + 493) = v211 + 1;
+              }
+
+              lastTrackingDisableRoute = self->_lastTrackingDisableRoute;
+              if (lastTrackingDisableRoute > 1)
+              {
+                if (lastTrackingDisableRoute == 2)
+                {
+                  sub_19B6A80D8(v207 + 40, @"durationOfSessionDisabledDueToJBL");
+                  goto LABEL_387;
+                }
+
+                if (lastTrackingDisableRoute != 3)
+                {
+                  goto LABEL_387;
+                }
+              }
+
+              else
+              {
+                if (!lastTrackingDisableRoute)
+                {
+                  if (qword_1EAFE2998 != -1)
+                  {
+                    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                  }
+
+                  v221 = off_1EAFE29A0;
+                  if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 0;
+                    _os_log_impl(&dword_19B41C000, v221, OS_LOG_TYPE_ERROR, "[CMMediaSession] We're ending an unknown disable route, something is wrong", buf, 2u);
+                  }
+
+                  v222 = sub_19B420058();
+                  if ((*(v222 + 160) & 0x80000000) == 0 || (*(v222 + 164) & 0x80000000) == 0 || (*(v222 + 168) & 0x80000000) == 0 || *(v222 + 152))
+                  {
+                    bzero(buf, 0x65CuLL);
+                    if (qword_1EAFE2998 != -1)
+                    {
+                      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                    }
+
+                    *v383 = 0;
+                    LODWORD(v354) = 2;
+                    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] We're ending an unknown disable route, something is wrong", v383, v354);
+                    v224 = v223;
+                    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v223);
+                    if (v224 != buf)
+                    {
+                      free(v224);
+                    }
+                  }
+
+LABEL_387:
+                  v225 = *(*(self->_headTrackingService.__ptr_ + 4717) + 108);
+                  objc_msgSend_exitDistractedViewingSession_(self->_mcSession, v205, v225);
+                  if (v225 > 3)
+                  {
+                    switch(v225)
+                    {
+                      case 4:
+                        v232 = self->_analyticsTracker.__ptr_;
+                        v233 = *(v232 + 497);
+                        if (v233 != -1)
+                        {
+                          *(v232 + 497) = v233 + 1;
+                        }
+
+                        goto LABEL_417;
+                      case 5:
+                        v240 = self->_analyticsTracker.__ptr_;
+                        v241 = *(v240 + 498);
+                        if (v241 != -1)
+                        {
+                          *(v240 + 498) = v241 + 1;
+                        }
+
+                        goto LABEL_417;
+                      case 6:
+                        v228 = self->_analyticsTracker.__ptr_;
+                        v229 = *(v228 + 499);
+                        if (v229 != -1)
+                        {
+                          *(v228 + 499) = v229 + 1;
+                        }
+
+                        goto LABEL_417;
                     }
                   }
 
                   else
                   {
-                    if (!lastTrackingDisableRoute)
+                    switch(v225)
                     {
-                      if (qword_1EAFE2998 != -1)
-                      {
-                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                      }
-
-                      v209 = off_1EAFE29A0;
-                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-                      {
-                        *buf = 0;
-                        _os_log_impl(&dword_19B41C000, v209, OS_LOG_TYPE_ERROR, "[CMMediaSession] We're ending an unknown disable route, something is wrong", buf, 2u);
-                      }
-
-                      v210 = sub_19B420058();
-                      if ((*(v210 + 160) & 0x80000000) == 0 || (*(v210 + 164) & 0x80000000) == 0 || (*(v210 + 168) & 0x80000000) == 0 || *(v210 + 152))
-                      {
-                        bzero(buf, 0x65CuLL);
-                        if (qword_1EAFE2998 != -1)
+                      case 1:
+                        v230 = self->_analyticsTracker.__ptr_;
+                        v231 = *(v230 + 494);
+                        if (v231 != -1)
                         {
-                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                          *(v230 + 494) = v231 + 1;
                         }
 
-                        *v355 = 0;
-                        v211 = _os_log_send_and_compose_impl();
-                        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v211);
-                        if (v211 != buf)
+                        goto LABEL_417;
+                      case 2:
+                        v238 = self->_analyticsTracker.__ptr_;
+                        v239 = *(v238 + 495);
+                        if (v239 != -1)
                         {
-                          free(v211);
-                        }
-                      }
-
-LABEL_381:
-                      v212 = *(*(self->_headTrackingService.__ptr_ + 4717) + 108);
-                      objc_msgSend_exitDistractedViewingSession_(self->_mcSession, v194, v212);
-                      if (v212 > 3)
-                      {
-                        switch(v212)
-                        {
-                          case 4:
-                            v219 = self->_analyticsTracker.__ptr_;
-                            v220 = *(v219 + 497);
-                            if (v220 != -1)
-                            {
-                              *(v219 + 497) = v220 + 1;
-                            }
-
-                            goto LABEL_411;
-                          case 5:
-                            v226 = self->_analyticsTracker.__ptr_;
-                            v227 = *(v226 + 498);
-                            if (v227 != -1)
-                            {
-                              *(v226 + 498) = v227 + 1;
-                            }
-
-                            goto LABEL_411;
-                          case 6:
-                            v215 = self->_analyticsTracker.__ptr_;
-                            v216 = *(v215 + 499);
-                            if (v216 != -1)
-                            {
-                              *(v215 + 499) = v216 + 1;
-                            }
-
-                            goto LABEL_411;
-                        }
-                      }
-
-                      else
-                      {
-                        switch(v212)
-                        {
-                          case 1:
-                            v217 = self->_analyticsTracker.__ptr_;
-                            v218 = *(v217 + 494);
-                            if (v218 != -1)
-                            {
-                              *(v217 + 494) = v218 + 1;
-                            }
-
-                            goto LABEL_411;
-                          case 2:
-                            v224 = self->_analyticsTracker.__ptr_;
-                            v225 = *(v224 + 495);
-                            if (v225 != -1)
-                            {
-                              *(v224 + 495) = v225 + 1;
-                            }
-
-                            goto LABEL_411;
-                          case 3:
-                            v213 = self->_analyticsTracker.__ptr_;
-                            v214 = *(v213 + 496);
-                            if (v214 != -1)
-                            {
-                              *(v213 + 496) = v214 + 1;
-                            }
-
-LABEL_411:
-                            v208 = 312;
-                            goto LABEL_412;
-                        }
-                      }
-
-                      if (qword_1EAFE2998 != -1)
-                      {
-                        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                      }
-
-                      v221 = off_1EAFE29A0;
-                      if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-                      {
-                        *buf = 67240192;
-                        *&buf[4] = v212;
-                        _os_log_impl(&dword_19B41C000, v221, OS_LOG_TYPE_ERROR, "[CMMediaSession] CALogger received invalid re-enable route: %{public}d", buf, 8u);
-                      }
-
-                      v222 = sub_19B420058();
-                      if ((*(v222 + 160) & 0x80000000) == 0 || (*(v222 + 164) & 0x80000000) == 0 || (*(v222 + 168) & 0x80000000) == 0 || *(v222 + 152))
-                      {
-                        bzero(buf, 0x65CuLL);
-                        if (qword_1EAFE2998 != -1)
-                        {
-                          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                          *(v238 + 495) = v239 + 1;
                         }
 
-                        *v355 = 67240192;
-                        *&v355[4] = v212;
-                        v223 = _os_log_send_and_compose_impl();
-                        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v223);
-                        if (v223 != buf)
+                        goto LABEL_417;
+                      case 3:
+                        v226 = self->_analyticsTracker.__ptr_;
+                        v227 = *(v226 + 496);
+                        if (v227 != -1)
                         {
-                          free(v223);
+                          *(v226 + 496) = v227 + 1;
                         }
-                      }
 
-                      goto LABEL_411;
-                    }
-
-                    if (lastTrackingDisableRoute != 1)
-                    {
-                      goto LABEL_381;
+LABEL_417:
+                        v220 = 312;
+                        goto LABEL_418;
                     }
                   }
 
-                  sub_19B6A80D8(v196 + 38, @"durationOfSessionDisabledDueToWalking");
-                  goto LABEL_381;
+                  if (qword_1EAFE2998 != -1)
+                  {
+                    dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                  }
+
+                  v234 = off_1EAFE29A0;
+                  if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 67240192;
+                    *&buf[4] = v225;
+                    _os_log_impl(&dword_19B41C000, v234, OS_LOG_TYPE_ERROR, "[CMMediaSession] CALogger received invalid re-enable route: %{public}d", buf, 8u);
+                  }
+
+                  v235 = sub_19B420058();
+                  if ((*(v235 + 160) & 0x80000000) == 0 || (*(v235 + 164) & 0x80000000) == 0 || (*(v235 + 168) & 0x80000000) == 0 || *(v235 + 152))
+                  {
+                    bzero(buf, 0x65CuLL);
+                    if (qword_1EAFE2998 != -1)
+                    {
+                      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+                    }
+
+                    *v383 = 67240192;
+                    *&v383[4] = v225;
+                    LODWORD(v354) = 8;
+                    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] CALogger received invalid re-enable route: %{public}d", v383, v354);
+                    v237 = v236;
+                    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v236);
+                    if (v237 != buf)
+                    {
+                      free(v237);
+                    }
+                  }
+
+                  goto LABEL_417;
                 }
 
-LABEL_694:
-                dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-                goto LABEL_271;
-              }
-            }
-
-            else
-            {
-              if (!self->_previousHeadTurnState)
-              {
-                goto LABEL_274;
+                if (lastTrackingDisableRoute != 1)
+                {
+                  goto LABEL_387;
+                }
               }
 
-              LOBYTE(v153) = 0;
-              v154 = (self->_analyticsTracker.__ptr_ + 368);
+              sub_19B6A80D8(v207 + 38, @"durationOfSessionDisabledDueToWalking");
+              goto LABEL_387;
             }
-
-            if (*v154 > 0.0)
-            {
-              sub_19B6A80D8(v154, &stru_1F0E3D7A0);
-            }
-
-            if (qword_1EAFE2998 != -1)
-            {
-              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-            }
-
-            v157 = off_1EAFE29A0;
-            if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
-            {
-              *buf = 0;
-              _os_log_impl(&dword_19B41C000, v157, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting head turn state.", buf, 2u);
-            }
-
-            v158 = sub_19B420058();
-            if (*(v158 + 160) <= 1 && *(v158 + 164) <= 1 && *(v158 + 168) <= 1 && !*(v158 + 152))
-            {
-              goto LABEL_273;
-            }
-
-            bzero(buf, 0x65CuLL);
-            if (qword_1EAFE2998 == -1)
-            {
-              goto LABEL_271;
-            }
-
-            goto LABEL_694;
           }
 
-LABEL_693:
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-          goto LABEL_242;
+          else
+          {
+            if (!self->_previousHeadTurnState)
+            {
+              goto LABEL_280;
+            }
+
+            LOBYTE(v162) = 0;
+            v163 = (self->_analyticsTracker.__ptr_ + 368);
+          }
+
+          if (*v163 > 0.0)
+          {
+            sub_19B6A80D8(v163, &stru_1F0E3D7A0);
+          }
+
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v168 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_19B41C000, v168, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting head turn state.", buf, 2u);
+          }
+
+          v169 = sub_19B420058();
+          if (*(v169 + 160) <= 1 && *(v169 + 164) <= 1 && *(v169 + 168) <= 1 && !*(v169 + 152))
+          {
+            goto LABEL_279;
+          }
+
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          *v383 = 0;
+          LODWORD(v354) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Exiting head turn state.", v383, v354);
+          v167 = v170;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v170);
+          goto LABEL_277;
         }
       }
 
@@ -6685,16 +7230,16 @@ LABEL_693:
       {
         if (!self->_previousCTBodyTurnState)
         {
-          goto LABEL_245;
+          goto LABEL_248;
         }
 
-        LOBYTE(v125) = 0;
-        v126 = (self->_analyticsTracker.__ptr_ + 352);
+        LOBYTE(v132) = 0;
+        v133 = (self->_analyticsTracker.__ptr_ + 352);
       }
 
-      if (*v126 > 0.0)
+      if (*v133 > 0.0)
       {
-        sub_19B6A80D8(v126, &stru_1F0E3D7A0);
+        sub_19B6A80D8(v133, &stru_1F0E3D7A0);
       }
 
       if (qword_1EAFE2998 != -1)
@@ -6702,243 +7247,245 @@ LABEL_693:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v150 = off_1EAFE29A0;
+      v159 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v150, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting CT body turn state.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v159, OS_LOG_TYPE_INFO, "[CMMediaSession] Exiting CT body turn state.", buf, 2u);
       }
 
-      v151 = sub_19B420058();
-      if (*(v151 + 160) <= 1 && *(v151 + 164) <= 1 && *(v151 + 168) <= 1 && !*(v151 + 152))
+      v160 = sub_19B420058();
+      if (*(v160 + 160) <= 1 && *(v160 + 164) <= 1 && *(v160 + 168) <= 1 && !*(v160 + 152))
       {
-        goto LABEL_244;
+        goto LABEL_247;
       }
 
       bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2998 == -1)
+      if (qword_1EAFE2998 != -1)
       {
-        goto LABEL_242;
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      goto LABEL_693;
+      *v383 = 0;
+      LODWORD(v354) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Exiting CT body turn state.", v383, v354);
+      v137 = v161;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryDeviceMotion:]", "CoreLocation: %s\n", v161);
+      goto LABEL_245;
     }
 
-    if (!*(v112 + 16083))
+    if (!*(v119 + 16083))
     {
-      v165 = mach_continuous_time();
-      self->_lastExitCTTime = sub_19B41E070(v165);
-      v166 = self->_analyticsTracker.__ptr_;
-      if (*(v166 + 16) > 0.0)
+      v176 = mach_continuous_time();
+      self->_lastExitCTTime = sub_19B41E070(v176);
+      v177 = self->_analyticsTracker.__ptr_;
+      if (*(v177 + 16) > 0.0)
       {
-        sub_19B6A80D8(v166 + 16, &stru_1F0E3D7A0);
-        v166 = self->_analyticsTracker.__ptr_;
+        sub_19B6A80D8(v177 + 16, &stru_1F0E3D7A0);
+        v177 = self->_analyticsTracker.__ptr_;
       }
 
-      if (*(v166 + 18) > 0.0)
+      if (*(v177 + 18) > 0.0)
       {
-        sub_19B6A80D8(v166 + 18, &stru_1F0E3D7A0);
-        v166 = self->_analyticsTracker.__ptr_;
+        sub_19B6A80D8(v177 + 18, &stru_1F0E3D7A0);
+        v177 = self->_analyticsTracker.__ptr_;
       }
 
-      if (*(v166 + 20) > 0.0)
+      if (*(v177 + 20) > 0.0)
       {
-        sub_19B6A80D8(v166 + 20, &stru_1F0E3D7A0);
-        v166 = self->_analyticsTracker.__ptr_;
+        sub_19B6A80D8(v177 + 20, &stru_1F0E3D7A0);
+        v177 = self->_analyticsTracker.__ptr_;
       }
 
-      v168 = *(v166 + 22);
-      v167 = (v166 + 176);
-      if (v168 > 0.0)
+      v179 = *(v177 + 22);
+      v178 = (v177 + 176);
+      if (v179 > 0.0)
       {
-        sub_19B6A80D8(v167, &stru_1F0E3D7A0);
+        sub_19B6A80D8(v178, &stru_1F0E3D7A0);
       }
 
       goto LABEL_187;
     }
 
-    v129 = self->_analyticsTracker.__ptr_;
-    v130 = *(v129 + 488);
-    if (v130 != -1)
+    v138 = self->_analyticsTracker.__ptr_;
+    v139 = *(v138 + 488);
+    if (v139 != -1)
     {
-      *(v129 + 488) = v130 + 1;
+      *(v138 + 488) = v139 + 1;
     }
 
-    v131 = self->_lastAngleBetweenCurrentBoresightToDefault;
-    if (v131 < 0.0)
+    v140 = self->_lastAngleBetweenCurrentBoresightToDefault;
+    if (v140 < 0.0)
     {
-      v131 = -v131;
+      v140 = -v140;
     }
 
-    *v108.i64 = v131;
-    v132 = *(v129 + 93);
-    if (v132 <= *v108.i64)
+    *v115.i64 = v140;
+    v141 = *(v138 + 93);
+    if (v141 <= *v115.i64)
     {
-      v132 = *v108.i64;
+      v141 = *v115.i64;
     }
 
-    *(v129 + 93) = v132;
-    v133 = *(v129 + 92);
-    if (v133 >= *v108.i64)
+    *(v138 + 93) = v141;
+    v142 = *(v138 + 92);
+    if (v142 >= *v115.i64)
     {
-      v133 = *v108.i64;
+      v142 = *v115.i64;
     }
 
-    *(v129 + 92) = v133;
-    *v108.i64 = *(v129 + 94) + *v108.i64;
-    *(v129 + 94) = v108.i64[0];
-    ++*(v129 + 190);
-    v134.f32[0] = sub_19B69A31C(v112, v108);
-    v135 = v134.f32[0] < 0.0;
+    *(v138 + 92) = v142;
+    *v115.i64 = *(v138 + 94) + *v115.i64;
+    *(v138 + 94) = v115.i64[0];
+    ++*(v138 + 190);
+    v143.f32[0] = sub_19B69A31C(v119, v115);
+    v144 = v143.f32[0] < 0.0;
     p_headTrackingService = &self->_headTrackingService;
-    v137.f32[0] = sub_19B69A31C(self->_headTrackingService.__ptr_, v134);
-    if (v135)
+    v146.f32[0] = sub_19B69A31C(self->_headTrackingService.__ptr_, v143);
+    if (v144)
     {
-      v137.f32[0] = -v137.f32[0];
+      v146.f32[0] = -v146.f32[0];
     }
 
-    *v137.i64 = v137.f32[0];
-    v138 = *(v129 + 97);
-    if (v138 <= *v137.i64)
+    *v146.i64 = v146.f32[0];
+    v147 = *(v138 + 97);
+    if (v147 <= *v146.i64)
     {
-      v138 = *v137.i64;
+      v147 = *v146.i64;
     }
 
-    *(v129 + 97) = v138;
-    v139 = *(v129 + 96);
-    if (v139 >= *v137.i64)
+    *(v138 + 97) = v147;
+    v148 = *(v138 + 96);
+    if (v148 >= *v146.i64)
     {
-      v139 = *v137.i64;
+      v148 = *v146.i64;
     }
 
-    *(v129 + 96) = v139;
-    *v137.i64 = *(v129 + 98) + *v137.i64;
-    *(v129 + 98) = v137.i64[0];
-    ++*(v129 + 198);
-    v140 = self->_analyticsTracker.__ptr_;
-    v141.f32[0] = sub_19B69A370(*p_headTrackingService, v137);
-    v142 = v141.f32[0] < 0.0;
-    v143 = sub_19B69A370(*p_headTrackingService, v141);
-    if (v142)
+    *(v138 + 96) = v148;
+    *v146.i64 = *(v138 + 98) + *v146.i64;
+    *(v138 + 98) = v146.i64[0];
+    ++*(v138 + 198);
+    v149 = self->_analyticsTracker.__ptr_;
+    v150.f32[0] = sub_19B69A370(*p_headTrackingService, v146);
+    v151 = v150.f32[0] < 0.0;
+    v152 = sub_19B69A370(*p_headTrackingService, v150);
+    if (v151)
     {
-      v143 = -v143;
+      v152 = -v152;
     }
 
-    v144 = v143;
-    v145 = *(v140 + 101);
-    if (v145 <= v144)
+    v153 = v152;
+    v154 = *(v149 + 101);
+    if (v154 <= v153)
     {
-      v145 = v144;
+      v154 = v153;
     }
 
-    *(v140 + 101) = v145;
-    v146 = *(v140 + 100);
-    if (v146 >= v144)
+    *(v149 + 101) = v154;
+    v155 = *(v149 + 100);
+    if (v155 >= v153)
     {
-      v146 = v144;
+      v155 = v153;
     }
 
-    *(v140 + 100) = v146;
-    *(v140 + 102) = *(v140 + 102) + v144;
-    ++*(v140 + 206);
+    *(v149 + 100) = v155;
+    *(v149 + 102) = *(v149 + 102) + v153;
+    ++*(v149 + 206);
     sub_19B6A7EE8(self->_analyticsTracker.__ptr_ + 16, @"CTDuration");
     if ((*p_headTrackingService)[2010].i8[0] == 1)
     {
-      v147 = self->_analyticsTracker.__ptr_;
-      v148 = *(v147 + 489);
-      if (v148 != -1)
+      v156 = self->_analyticsTracker.__ptr_;
+      v157 = *(v156 + 489);
+      if (v157 != -1)
       {
-        *(v147 + 489) = v148 + 1;
+        *(v156 + 489) = v157 + 1;
       }
 
-      sub_19B6A7EE8(v147 + 18, @"CTDurationIn1IMU");
+      sub_19B6A7EE8(v156 + 18, @"CTDurationIn1IMU");
     }
 
-    v149 = self->_previousMotionActivityType;
-    if (v149 > 51)
+    v158 = self->_previousMotionActivityType;
+    if (v158 > 51)
     {
-      if (v149 == 52 || v149 == 56)
+      if (v158 == 52 || v158 == 56)
       {
-        goto LABEL_297;
+        goto LABEL_303;
       }
     }
 
     else
     {
-      if (!v149)
+      if (!v158)
       {
-LABEL_305:
+LABEL_311:
         if (self->_lastExitCTTime > 0.0)
         {
-          v177 = self->_analyticsTracker.__ptr_;
-          v178 = mach_continuous_time();
-          v179 = sub_19B41E070(v178) - self->_lastExitCTTime;
-          v180 = *(v177 + 89);
-          if (v180 <= v179)
+          v188 = self->_analyticsTracker.__ptr_;
+          v189 = mach_continuous_time();
+          v190 = sub_19B41E070(v189) - self->_lastExitCTTime;
+          v191 = *(v188 + 89);
+          if (v191 <= v190)
           {
-            v180 = v179;
+            v191 = v190;
           }
 
-          *(v177 + 89) = v180;
-          v181 = *(v177 + 88);
-          if (v181 >= v179)
+          *(v188 + 89) = v191;
+          v192 = *(v188 + 88);
+          if (v192 >= v190)
           {
-            v181 = v179;
+            v192 = v190;
           }
 
-          *(v177 + 88) = v181;
-          *(v177 + 90) = v179 + *(v177 + 90);
-          ++*(v177 + 182);
+          *(v188 + 88) = v192;
+          *(v188 + 90) = v190 + *(v188 + 90);
+          ++*(v188 + 182);
           self->_lastExitCTTime = 0.0;
         }
 
         goto LABEL_187;
       }
 
-      if (v149 == 5)
+      if (v158 == 5)
       {
-        goto LABEL_297;
+        goto LABEL_303;
       }
     }
 
-    if ((v149 & 0xFFFFFFFE) != 0xA)
+    if ((v158 & 0xFFFFFFFE) != 0xA)
     {
-LABEL_300:
-      if (v149 <= 0x29 && ((1 << v149) & 0x20000000110) != 0)
+LABEL_306:
+      if (v158 <= 0x29 && ((1 << v158) & 0x20000000110) != 0)
       {
-        v175 = self->_analyticsTracker.__ptr_;
-        v176 = *(v175 + 491);
-        if (v176 != -1)
+        v186 = self->_analyticsTracker.__ptr_;
+        v187 = *(v186 + 491);
+        if (v187 != -1)
         {
-          *(v175 + 491) = v176 + 1;
+          *(v186 + 491) = v187 + 1;
         }
 
-        sub_19B6A7EE8(v175 + 22, @"CTDurationInPedestrian");
+        sub_19B6A7EE8(v186 + 22, @"CTDurationInPedestrian");
       }
 
-      goto LABEL_305;
+      goto LABEL_311;
     }
 
-LABEL_297:
-    v173 = self->_analyticsTracker.__ptr_;
-    v174 = *(v173 + 490);
-    if (v174 != -1)
+LABEL_303:
+    v184 = self->_analyticsTracker.__ptr_;
+    v185 = *(v184 + 490);
+    if (v185 != -1)
     {
-      *(v173 + 490) = v174 + 1;
+      *(v184 + 490) = v185 + 1;
     }
 
-    sub_19B6A7EE8(v173 + 20, @"CTDurationInVehicle");
-    v149 = self->_previousMotionActivityType;
-    goto LABEL_300;
+    sub_19B6A7EE8(v184 + 20, @"CTDurationInVehicle");
+    v158 = self->_previousMotionActivityType;
+    goto LABEL_306;
   }
-
-LABEL_683:
-  v326 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedAccessoryConfig:(const Config *)config
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     ptr = self->_analyticsTracker.__ptr_;
@@ -6961,10 +7508,10 @@ LABEL_683:
       *&buf[4] = var0;
       *&buf[8] = 2081;
       *&buf[10] = config->var1;
-      v53 = 2081;
+      v63 = 2081;
       var2 = config->var2;
-      v55 = 1026;
-      v56 = var3;
+      v65 = 1026;
+      v66 = var3;
       _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Received accessoryDeviceMotion config. side,%{public}d,configuration,%{private}s,serialNumber,%{private}s,hardwareModel,%{public}d", buf, 0x22u);
     }
 
@@ -6979,247 +7526,47 @@ LABEL_683:
 
       v10 = config->var0;
       v11 = config->var3;
-      *v47 = 67240963;
-      *&v47[4] = v10;
-      *&v47[8] = 2081;
-      *&v47[10] = config->var1;
-      v48 = 2081;
-      v49 = config->var2;
-      v50 = 1026;
-      v51 = v11;
-      v12 = _os_log_send_and_compose_impl();
+      *v57 = 67240963;
+      *&v57[4] = v10;
+      *&v57[8] = 2081;
+      *&v57[10] = config->var1;
+      v58 = 2081;
+      v59 = config->var2;
+      v60 = 1026;
+      v61 = v11;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Received accessoryDeviceMotion config. side,%{public}d,configuration,%{private}s,serialNumber,%{private}s,hardwareModel,%{public}d", v57, 34);
+      v13 = v12;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      if (v13 != buf)
       {
-        free(v12);
+        free(v13);
       }
     }
 
     objc_sync_enter(self);
-    *v47 = 0;
-    *&v47[8] = 0x3F80000000000000;
-    v13 = config->var3;
-    if (v13 > 3)
+    *v57 = 0;
+    *&v57[8] = 0x3F80000000000000;
+    v14 = config->var3;
+    if (v14 > 3)
     {
-      if (v13 == 4)
+      if (v14 == 4)
       {
-        v24 = self->_analyticsTracker.__ptr_;
-        v25 = config->var0;
-        if (v24)
+        v28 = self->_analyticsTracker.__ptr_;
+        v29 = config->var0;
+        if (v28)
         {
-          *(v24 + 533) = v25;
+          *(v28 + 533) = v29;
         }
 
-        if (v25 == 2)
+        if (v29 == 2)
         {
-          v16 = &xmmword_19B7BA10C;
-          goto LABEL_93;
+          v17 = &xmmword_19B7BA10C;
+          goto LABEL_94;
         }
 
-        if (v25 == 1)
+        if (v29 == 1)
         {
-          v16 = &xmmword_19B7BA0FC;
-          goto LABEL_93;
-        }
-
-        if (qword_1EAFE2998 != -1)
-        {
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-        }
-
-        v39 = off_1EAFE29A0;
-        if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB494 must be 1 or 2.", buf, 2u);
-        }
-
-        v40 = sub_19B420058();
-        if ((*(v40 + 160) & 0x80000000) != 0 && (*(v40 + 164) & 0x80000000) != 0 && (*(v40 + 168) & 0x80000000) != 0 && !*(v40 + 152))
-        {
-          goto LABEL_95;
-        }
-
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2998 == -1)
-        {
-          goto LABEL_125;
-        }
-
-        goto LABEL_138;
-      }
-
-      if (v13 != 5)
-      {
-        if (v13 == 6)
-        {
-          v16 = &xmmword_19B7BA0CC;
-          goto LABEL_93;
-        }
-
-        goto LABEL_59;
-      }
-
-      v32 = self->_analyticsTracker.__ptr_;
-      v33 = config->var0;
-      if (v32)
-      {
-        *(v32 + 533) = v33;
-      }
-
-      if (v33 != 2)
-      {
-        if (v33 != 1)
-        {
-          if (qword_1EAFE2998 != -1)
-          {
-            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-          }
-
-          v43 = off_1EAFE29A0;
-          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_19B41C000, v43, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB698 must be 1 or 2.", buf, 2u);
-          }
-
-          v44 = sub_19B420058();
-          if ((*(v44 + 160) & 0x80000000) != 0 && (*(v44 + 164) & 0x80000000) != 0 && (*(v44 + 168) & 0x80000000) != 0 && !*(v44 + 152))
-          {
-            goto LABEL_95;
-          }
-
-          bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2998 == -1)
-          {
-            goto LABEL_125;
-          }
-
-          goto LABEL_138;
-        }
-
-        goto LABEL_79;
-      }
-    }
-
-    else
-    {
-      if (v13 != 1)
-      {
-        if (v13 == 2)
-        {
-          v16 = &xmmword_19B7BA0BC;
-          goto LABEL_93;
-        }
-
-        if (v13 == 3)
-        {
-          v14 = self->_analyticsTracker.__ptr_;
-          v15 = config->var0;
-          if (v14)
-          {
-            *(v14 + 533) = v15;
-          }
-
-          if (v15 == 2)
-          {
-            v16 = &xmmword_19B7BA0EC;
-            goto LABEL_93;
-          }
-
-          if (v15 == 1)
-          {
-            v16 = &xmmword_19B7BA0DC;
-LABEL_93:
-            *buf = *v16;
-            sub_19B41E130(buf, *buf);
-            *v47 = *buf;
-LABEL_94:
-            objc_msgSend__setFixedTransforms_(self, v30, v47);
-LABEL_95:
-            if (self->_logForReplay)
-            {
-              sub_19B5E73F0(self->_logger.__ptr_, config);
-            }
-
-            objc_sync_exit(self);
-            goto LABEL_98;
-          }
-
-          if (qword_1EAFE2998 != -1)
-          {
-            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-          }
-
-          v41 = off_1EAFE29A0;
-          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_19B41C000, v41, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB688 must be 1 or 2.", buf, 2u);
-          }
-
-          v42 = sub_19B420058();
-          if ((*(v42 + 160) & 0x80000000) != 0 && (*(v42 + 164) & 0x80000000) != 0 && (*(v42 + 168) & 0x80000000) != 0 && !*(v42 + 152))
-          {
-            goto LABEL_95;
-          }
-
-          bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2998 == -1)
-          {
-            goto LABEL_125;
-          }
-
-LABEL_138:
-          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-LABEL_125:
-          v37 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v37);
-          goto LABEL_126;
-        }
-
-LABEL_59:
-        if (config->var6)
-        {
-          v26 = self->_analyticsTracker.__ptr_;
-          if (v26)
-          {
-            *(v26 + 533) = config->var0;
-          }
-
-          *v47 = config->var7;
-          if (qword_1EAFE2998 != -1)
-          {
-            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-          }
-
-          v27 = off_1EAFE29A0;
-          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
-          {
-            v28 = config->var3;
-            *buf = 67240192;
-            *&buf[4] = v28;
-            _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Use the H2H transformation from IORegistry for model %{public}d", buf, 8u);
-          }
-
-          v29 = sub_19B420058();
-          if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
-          {
-            bzero(buf, 0x65CuLL);
-            if (qword_1EAFE2998 != -1)
-            {
-              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-            }
-
-            v45 = config->var3;
-            v31 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v31);
-            if (v31 != buf)
-            {
-              free(v31);
-            }
-          }
-
+          v17 = &xmmword_19B7BA0FC;
           goto LABEL_94;
         }
 
@@ -7228,19 +7575,17 @@ LABEL_59:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v34 = off_1EAFE29A0;
+        v45 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
-          v35 = config->var3;
-          *buf = 67240192;
-          *&buf[4] = v35;
-          _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- No H2H transformation for model %{public}d", buf, 8u);
+          *buf = 0;
+          _os_log_impl(&dword_19B41C000, v45, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB494 must be 1 or 2.", buf, 2u);
         }
 
-        v36 = sub_19B420058();
-        if ((*(v36 + 160) & 0x80000000) != 0 && (*(v36 + 164) & 0x80000000) != 0 && (*(v36 + 168) & 0x80000000) != 0 && !*(v36 + 152))
+        v46 = sub_19B420058();
+        if ((*(v46 + 160) & 0x80000000) != 0 && (*(v46 + 164) & 0x80000000) != 0 && (*(v46 + 168) & 0x80000000) != 0 && !*(v46 + 152))
         {
-          goto LABEL_95;
+          goto LABEL_96;
         }
 
         bzero(buf, 0x65CuLL);
@@ -7249,64 +7594,290 @@ LABEL_59:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v46 = config->var3;
-        v37 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v37);
-LABEL_126:
-        if (v37 != buf)
+        LOWORD(v55) = 0;
+        LODWORD(v54) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB494 must be 1 or 2.", &v55, v54);
+        v27 = v47;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v47);
+        goto LABEL_130;
+      }
+
+      if (v14 != 5)
+      {
+        if (v14 == 6)
         {
-          free(v37);
+          v17 = &xmmword_19B7BA0CC;
+          goto LABEL_94;
         }
 
-        goto LABEL_95;
+        goto LABEL_60;
       }
 
-      v20 = self->_analyticsTracker.__ptr_;
-      v21 = config->var0;
-      if (v20)
+      v38 = self->_analyticsTracker.__ptr_;
+      v39 = config->var0;
+      if (v38)
       {
-        *(v20 + 533) = v21;
+        *(v38 + 533) = v39;
       }
 
-      if (v21 != 2)
+      if (v39 != 2)
       {
-        if (v21 != 1)
+        if (v39 != 1)
         {
           if (qword_1EAFE2998 != -1)
           {
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v22 = off_1EAFE29A0;
+          v51 = off_1EAFE29A0;
           if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB298 must be 1 or 2.", buf, 2u);
+            _os_log_impl(&dword_19B41C000, v51, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB698 must be 1 or 2.", buf, 2u);
           }
 
-          v23 = sub_19B420058();
-          if ((*(v23 + 160) & 0x80000000) != 0 && (*(v23 + 164) & 0x80000000) != 0 && (*(v23 + 168) & 0x80000000) != 0 && !*(v23 + 152))
+          v52 = sub_19B420058();
+          if ((*(v52 + 160) & 0x80000000) != 0 && (*(v52 + 164) & 0x80000000) != 0 && (*(v52 + 168) & 0x80000000) != 0 && !*(v52 + 152))
           {
-            goto LABEL_95;
+            goto LABEL_96;
           }
 
           bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2998 == -1)
+          if (qword_1EAFE2998 != -1)
           {
-            goto LABEL_125;
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          goto LABEL_138;
+          LOWORD(v55) = 0;
+          LODWORD(v54) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB698 must be 1 or 2.", &v55, v54);
+          v27 = v53;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v53);
+          goto LABEL_130;
         }
 
-LABEL_79:
-        v16 = &xmmword_19B7BA11C;
-        goto LABEL_93;
+LABEL_80:
+        v17 = &xmmword_19B7BA11C;
+        goto LABEL_94;
       }
     }
 
-    v16 = &xmmword_19B7BA12C;
-    goto LABEL_93;
+    else
+    {
+      if (v14 != 1)
+      {
+        if (v14 == 2)
+        {
+          v17 = &xmmword_19B7BA0BC;
+          goto LABEL_94;
+        }
+
+        if (v14 == 3)
+        {
+          v15 = self->_analyticsTracker.__ptr_;
+          v16 = config->var0;
+          if (v15)
+          {
+            *(v15 + 533) = v16;
+          }
+
+          if (v16 == 2)
+          {
+            v17 = &xmmword_19B7BA0EC;
+            goto LABEL_94;
+          }
+
+          if (v16 == 1)
+          {
+            v17 = &xmmword_19B7BA0DC;
+LABEL_94:
+            *buf = *v17;
+            sub_19B41E130(buf, *buf);
+            *v57 = *buf;
+LABEL_95:
+            objc_msgSend__setFixedTransforms_(self, v34, v57);
+LABEL_96:
+            if (self->_logForReplay)
+            {
+              sub_19B5E73F0(self->_logger.__ptr_, config);
+            }
+
+            objc_sync_exit(self);
+            return;
+          }
+
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v48 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_19B41C000, v48, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB688 must be 1 or 2.", buf, 2u);
+          }
+
+          v49 = sub_19B420058();
+          if ((*(v49 + 160) & 0x80000000) != 0 && (*(v49 + 164) & 0x80000000) != 0 && (*(v49 + 168) & 0x80000000) != 0 && !*(v49 + 152))
+          {
+            goto LABEL_96;
+          }
+
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          LOWORD(v55) = 0;
+          LODWORD(v54) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB688 must be 1 or 2.", &v55, v54);
+          v27 = v50;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v50);
+LABEL_130:
+          if (v27 != buf)
+          {
+            free(v27);
+          }
+
+          goto LABEL_96;
+        }
+
+LABEL_60:
+        if (config->var6)
+        {
+          v30 = self->_analyticsTracker.__ptr_;
+          if (v30)
+          {
+            *(v30 + 533) = config->var0;
+          }
+
+          *v57 = config->var7;
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v31 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
+          {
+            v32 = config->var3;
+            *buf = 67240192;
+            *&buf[4] = v32;
+            _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Use the H2H transformation from IORegistry for model %{public}d", buf, 8u);
+          }
+
+          v33 = sub_19B420058();
+          if (*(v33 + 160) > 1 || *(v33 + 164) > 1 || *(v33 + 168) > 1 || *(v33 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2998 != -1)
+            {
+              dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+            }
+
+            v35 = config->var3;
+            v55 = 67240192;
+            v56 = v35;
+            LODWORD(v54) = 8;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Use the H2H transformation from IORegistry for model %{public}d", &v55, v54);
+            v37 = v36;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v36);
+            if (v37 != buf)
+            {
+              free(v37);
+            }
+          }
+
+          goto LABEL_95;
+        }
+
+        if (qword_1EAFE2998 != -1)
+        {
+          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+        }
+
+        v40 = off_1EAFE29A0;
+        if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+        {
+          v41 = config->var3;
+          *buf = 67240192;
+          *&buf[4] = v41;
+          _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- No H2H transformation for model %{public}d", buf, 8u);
+        }
+
+        v42 = sub_19B420058();
+        if ((*(v42 + 160) & 0x80000000) != 0 && (*(v42 + 164) & 0x80000000) != 0 && (*(v42 + 168) & 0x80000000) != 0 && !*(v42 + 152))
+        {
+          goto LABEL_96;
+        }
+
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2998 != -1)
+        {
+          dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+        }
+
+        v43 = config->var3;
+        v55 = 67240192;
+        v56 = v43;
+        LODWORD(v54) = 8;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Error -- No H2H transformation for model %{public}d", &v55, v54);
+        v27 = v44;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v44);
+        goto LABEL_130;
+      }
+
+      v22 = self->_analyticsTracker.__ptr_;
+      v23 = config->var0;
+      if (v22)
+      {
+        *(v22 + 533) = v23;
+      }
+
+      if (v23 != 2)
+      {
+        if (v23 != 1)
+        {
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          v24 = off_1EAFE29A0;
+          if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB298 must be 1 or 2.", buf, 2u);
+          }
+
+          v25 = sub_19B420058();
+          if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
+          {
+            goto LABEL_96;
+          }
+
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2998 != -1)
+          {
+            dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
+          }
+
+          LOWORD(v55) = 0;
+          LODWORD(v54) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Error -- config side for kAccessoryHardwareModelB298 must be 1 or 2.", &v55, v54);
+          v27 = v26;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v26);
+          goto LABEL_130;
+        }
+
+        goto LABEL_80;
+      }
+    }
+
+    v17 = &xmmword_19B7BA12C;
+    goto LABEL_94;
   }
 
   if (qword_1EAFE2998 != -1)
@@ -7314,15 +7885,15 @@ LABEL_79:
     dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
   }
 
-  v17 = off_1EAFE29A0;
+  v18 = off_1EAFE29A0;
   if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryConfig call that occurred after _stop was called.", buf, 2u);
+    _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryConfig call that occurred after _stop was called.", buf, 2u);
   }
 
-  v18 = sub_19B420058();
-  if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+  v19 = sub_19B420058();
+  if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2998 != -1)
@@ -7330,30 +7901,28 @@ LABEL_79:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    *v47 = 0;
-    v19 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v19);
-    if (v19 != buf)
+    *v57 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedAccessoryConfig call that occurred after _stop was called.", v57, 2);
+    v21 = v20;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryConfig:]", "CoreLocation: %s\n", v20);
+    if (v21 != buf)
     {
-      free(v19);
+      free(v21);
     }
   }
-
-LABEL_98:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedPredictorEstimates
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
-    v37[0] = 0;
-    v37[1] = 0x3F80000000000000;
-    v33 = 0;
+    v39[0] = 0;
+    v39[1] = 0x3F80000000000000;
+    v35 = 0;
+    v36 = 0;
     v34 = 0;
-    v32 = 0;
-    v31 = 0;
+    v33 = 0;
     objc_sync_enter(self);
     v3 = mach_absolute_time();
     v4 = sub_19B41E070(v3);
@@ -7369,63 +7938,63 @@ LABEL_98:
       v6 = ((jitterBufferLevel / 1000.0) + self->_renderingOverheadSeconds);
     }
 
-    v10 = (v4 + v6) * 1000000.0;
-    self->_lastPresentationTimestamp = v10;
-    v31 = v10;
-    sub_19B69A5F4(self->_headTrackingService.__ptr_, &v31, v37, &v35, &v34, &v33, &v32);
+    v11 = (v4 + v6) * 1000000.0;
+    self->_lastPresentationTimestamp = v11;
+    v33 = v11;
+    sub_19B69A5F4(self->_headTrackingService.__ptr_, &v33, v39, &v37, &v36, &v35, &v34);
     ptr = self->_analyticsTracker.__ptr_;
     if (ptr)
     {
-      v12 = self->_headTrackingService.__ptr_;
-      v13 = *(v12 + 3443);
-      if (v13)
+      v13 = self->_headTrackingService.__ptr_;
+      v14 = *(v13 + 3443);
+      if (v14)
       {
-        if (v13 > self->_lastCAFwdPredictorError.timestamp)
+        if (v14 > self->_lastCAFwdPredictorError.timestamp)
         {
-          v14 = *(v12 + 6888);
-          self->_lastCAFwdPredictorError.timestamp = v13;
-          self->_lastCAFwdPredictorError.errorRad = v14;
-          v15 = (v14 * 57.296);
-          v16 = *(ptr + 241);
-          if (v16 <= v15)
+          v15 = *(v13 + 6888);
+          self->_lastCAFwdPredictorError.timestamp = v14;
+          self->_lastCAFwdPredictorError.errorRad = v15;
+          v16 = (v15 * 57.296);
+          v17 = *(ptr + 241);
+          if (v17 <= v16)
           {
-            v16 = (v14 * 57.296);
+            v17 = (v15 * 57.296);
           }
 
-          *(ptr + 241) = v16;
-          v17 = *(ptr + 240);
-          if (v17 >= v15)
+          *(ptr + 241) = v17;
+          v18 = *(ptr + 240);
+          if (v18 >= v16)
           {
-            v17 = (v14 * 57.296);
+            v18 = (v15 * 57.296);
           }
 
-          *(ptr + 240) = v17;
-          *(ptr + 242) = *(ptr + 242) + v15;
+          *(ptr + 240) = v18;
+          *(ptr + 242) = *(ptr + 242) + v16;
           ++*(ptr + 486);
         }
       }
     }
 
-    v18 = v34;
+    v19 = v36;
     if (self->_logForReplay)
     {
-      *&buf = v34;
-      *(&buf + 1) = v31;
-      v41 = v33;
-      v42 = v35;
-      v43 = v36;
-      v44 = v32;
+      *&buf = v36;
+      *(&buf + 1) = v33;
+      v43 = v35;
+      v44 = v37;
+      v45 = v38;
+      v46 = v34;
       sub_19B5E67E8(self->_logger.__ptr_, &buf);
     }
 
     objc_sync_exit(self);
-    if (v18)
+    if (v19)
     {
-      v19 = mach_absolute_time();
-      v20 = v19 > v18 + 500000;
+      v20 = mach_absolute_time();
+      v21 = v20 > v19 + 500000;
       p_trackingEstimatesStagnated = &self->_trackingEstimatesStagnated;
       trackingEstimatesStagnated = self->_trackingEstimatesStagnated;
-      if (!trackingEstimatesStagnated && v19 > v18 + 500000)
+      if (!trackingEstimatesStagnated && v20 > v19 + 500000)
       {
         *p_trackingEstimatesStagnated = 1;
         if (qword_1EAFE2998 != -1)
@@ -7433,15 +8002,15 @@ LABEL_98:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v23 = off_1EAFE29A0;
+        v24 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "[CMMediaSession] Tracking stalled, likely due to data gap > 0.5s", &buf, 2u);
+          _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "[CMMediaSession] Tracking stalled, likely due to data gap > 0.5s", &buf, 2u);
         }
 
-        v24 = sub_19B420058();
-        if ((*(v24 + 160) & 0x80000000) != 0 && (*(v24 + 164) & 0x80000000) != 0 && (*(v24 + 168) & 0x80000000) != 0 && !*(v24 + 152))
+        v25 = sub_19B420058();
+        if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
         {
           goto LABEL_56;
         }
@@ -7452,29 +8021,30 @@ LABEL_98:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        LOWORD(v38) = 0;
-        v25 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedPredictorEstimates]", "CoreLocation: %s\n", v25);
+        LOWORD(v40) = 0;
+        _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Tracking stalled, likely due to data gap > 0.5s", &v40, 2);
+        v27 = v26;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedPredictorEstimates]", "CoreLocation: %s\n", v26);
 LABEL_54:
-        if (v25 != &buf)
+        if (v27 != &buf)
         {
-          free(v25);
+          free(v27);
         }
 
 LABEL_56:
-        self->_lastStateTimestamp = v18;
-        goto LABEL_57;
+        self->_lastStateTimestamp = v19;
+        return;
       }
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
       p_trackingEstimatesStagnated = &self->_trackingEstimatesStagnated;
       trackingEstimatesStagnated = self->_trackingEstimatesStagnated;
     }
 
-    if (!trackingEstimatesStagnated || v20)
+    if (!trackingEstimatesStagnated || v21)
     {
       goto LABEL_56;
     }
@@ -7485,17 +8055,17 @@ LABEL_56:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v26 = off_1EAFE29A0;
+    v28 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = v18 - self->_lastStateTimestamp;
+      v29 = v19 - self->_lastStateTimestamp;
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v27;
-      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Tracking stagnation ended. Gap from last estimate: %llu", &buf, 0xCu);
+      *(&buf + 4) = v29;
+      _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Tracking stagnation ended. Gap from last estimate: %llu", &buf, 0xCu);
     }
 
-    v28 = sub_19B420058();
-    if (*(v28 + 160) <= 1 && *(v28 + 164) <= 1 && *(v28 + 168) <= 1 && !*(v28 + 152))
+    v30 = sub_19B420058();
+    if (*(v30 + 160) <= 1 && *(v30 + 164) <= 1 && *(v30 + 168) <= 1 && !*(v30 + 152))
     {
       goto LABEL_56;
     }
@@ -7506,11 +8076,12 @@ LABEL_56:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v29 = v18 - self->_lastStateTimestamp;
-    v38 = 134217984;
-    v39 = v29;
-    v25 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPredictorEstimates]", "CoreLocation: %s\n", v25);
+    v31 = v19 - self->_lastStateTimestamp;
+    v40 = 134217984;
+    v41 = v31;
+    _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Tracking stagnation ended. Gap from last estimate: %llu", &v40);
+    v27 = v32;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPredictorEstimates]", "CoreLocation: %s\n", v32);
     goto LABEL_54;
   }
 
@@ -7535,27 +8106,25 @@ LABEL_56:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    LOWORD(v37[0]) = 0;
-    v9 = _os_log_send_and_compose_impl();
+    LOWORD(v39[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedPredictorEstimates call that occurred after _stop was called.", v39, 2);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedPredictorEstimates]", "CoreLocation: %s\n", v9);
-    if (v9 != &buf)
+    if (v10 != &buf)
     {
-      free(v9);
+      free(v10);
     }
   }
-
-LABEL_57:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedAccessoryInEarStatus:(const int *)status
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     if (!self->_inEarStatusGatingEnabled || *status == self->_inEarStatus)
     {
-      goto LABEL_34;
+      return;
     }
 
     objc_sync_enter(self);
@@ -7597,22 +8166,23 @@ LABEL_57:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v28 = 0;
-          v12 = _os_log_send_and_compose_impl();
+          v31[0] = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Both buds are in ear. Resuming head tracking", v31, 2);
+          v13 = v12;
           sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v12);
-          if (v12 != buf)
+          if (v13 != buf)
           {
-            free(v12);
+            free(v13);
           }
         }
 
-        v13 = sub_19B420D84();
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = sub_19B650A30;
-        v27[3] = &unk_1E7532988;
-        v27[4] = self;
-        sub_19B420C9C(v13, v27);
+        v14 = sub_19B420D84();
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = sub_19B650A30;
+        v30[3] = &unk_1E7532988;
+        v30[4] = self;
+        sub_19B420C9C(v14, v30);
       }
 
       else
@@ -7622,15 +8192,15 @@ LABEL_57:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v20 = off_1EAFE29A0;
+        v22 = off_1EAFE29A0;
         if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] One bud is out of ear. Pausing head tracking", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] One bud is out of ear. Pausing head tracking", buf, 2u);
         }
 
-        v21 = sub_19B420058();
-        if (*(v21 + 160) > 1 || *(v21 + 164) > 1 || *(v21 + 168) > 1 || *(v21 + 152))
+        v23 = sub_19B420058();
+        if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE2998 != -1)
@@ -7638,26 +8208,27 @@ LABEL_57:
             dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
           }
 
-          v28 = 0;
-          v22 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v22);
-          if (v22 != buf)
+          v31[0] = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] One bud is out of ear. Pausing head tracking", v31, 2);
+          v25 = v24;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v24);
+          if (v25 != buf)
           {
-            free(v22);
+            free(v25);
           }
         }
 
-        v23 = sub_19B420D84();
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = sub_19B650A38;
-        v26[3] = &unk_1E7532988;
-        v26[4] = self;
-        sub_19B420C9C(v23, v26);
-        objc_msgSend__notifyClientHandler(self, v24, v25);
+        v26 = sub_19B420D84();
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = sub_19B650A38;
+        v29[3] = &unk_1E7532988;
+        v29[4] = self;
+        sub_19B420C9C(v26, v29);
+        objc_msgSend__notifyClientHandler(self, v27, v28);
       }
 
-      goto LABEL_34;
+      return;
     }
 
     if (qword_1EAFE2998 != -1)
@@ -7665,15 +8236,15 @@ LABEL_57:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v18 = off_1EAFE29A0;
+    v19 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_ERROR, "[CMMediaSession] Ignore InEar status update because the connected device is not supported", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "[CMMediaSession] Ignore InEar status update because the connected device is not supported", buf, 2u);
     }
 
-    v19 = sub_19B420058();
-    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+    v20 = sub_19B420058();
+    if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -7681,13 +8252,14 @@ LABEL_57:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v28 = 0;
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v16);
+      v31[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Ignore InEar status update because the connected device is not supported", v31, 2);
+      v18 = v21;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v21);
 LABEL_32:
-      if (v16 != buf)
+      if (v18 != buf)
       {
-        free(v16);
+        free(v18);
       }
     }
   }
@@ -7699,15 +8271,15 @@ LABEL_32:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v14 = off_1EAFE29A0;
+    v15 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryInEarStatus call that occurred after _stop was called.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEBUG, "[CMMediaSession] Ignoring _feedAccessoryInEarStatus call that occurred after _stop was called.", buf, 2u);
     }
 
-    v15 = sub_19B420058();
-    if (*(v15 + 160) > 1 || *(v15 + 164) > 1 || *(v15 + 168) > 1 || *(v15 + 152))
+    v16 = sub_19B420058();
+    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2998 != -1)
@@ -7715,15 +8287,13 @@ LABEL_32:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v28 = 0;
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v16);
+      v31[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedAccessoryInEarStatus call that occurred after _stop was called.", v31, 2);
+      v18 = v17;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAccessoryInEarStatus:]", "CoreLocation: %s\n", v17);
       goto LABEL_32;
     }
   }
-
-LABEL_34:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_feedAdaptiveLatencyJitterBufferLevel
@@ -7763,23 +8333,22 @@ LABEL_34:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v9 = 0;
-      v6 = _os_log_send_and_compose_impl();
+      v9[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedAdaptiveLatencyJitterBufferLevel call that occurred after _stop was called.", v9, 2);
+      v7 = v6;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedAdaptiveLatencyJitterBufferLevel]", "CoreLocation: %s\n", v6);
-      if (v6 != buf)
+      if (v7 != buf)
       {
-        free(v6);
+        free(v7);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateClientMode:(int64_t)mode
 {
   modeCopy = mode;
-  v21 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend__mapCMMediaSessionClientModeToRelDMClientMode_(self, a2, mode);
   if (self->_clientMode != v5)
   {
@@ -7796,9 +8365,9 @@ LABEL_34:
       {
         clientMode = self->_clientMode;
         *buf = 67240448;
-        v18 = clientMode;
-        v19 = 1026;
-        v20 = modeCopy;
+        v22 = clientMode;
+        v23 = 1026;
+        v24 = modeCopy;
         _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "[CMMediaSession] Changing clientMode from: %{public}d to %{public}d", buf, 0xEu);
       }
 
@@ -7811,12 +8380,17 @@ LABEL_34:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v16 = self->_clientMode;
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateClientMode:]", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
+        v11 = self->_clientMode;
+        v18[0] = 67240448;
+        v18[1] = v11;
+        v19 = 1026;
+        v20 = modeCopy;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 1, "[CMMediaSession] Changing clientMode from: %{public}d to %{public}d", v18, 14);
+        v13 = v12;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _updateClientMode:]", "CoreLocation: %s\n", v12);
+        if (v13 != buf)
         {
-          free(v11);
+          free(v13);
         }
       }
 
@@ -7839,15 +8413,15 @@ LABEL_34:
         dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      v12 = off_1EAFE29A0;
+      v14 = off_1EAFE29A0;
       if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "[CMMediaSession] Called _feedTrackingBehavior before _headTrackingService was initialized. Not able to set client mode.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "[CMMediaSession] Called _feedTrackingBehavior before _headTrackingService was initialized. Not able to set client mode.", buf, 2u);
       }
 
-      v13 = sub_19B420058();
-      if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+      v15 = sub_19B420058();
+      if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2998 != -1)
@@ -7855,17 +8429,17 @@ LABEL_34:
           dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
         }
 
-        v14 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateClientMode:]", "CoreLocation: %s\n", v14);
-        if (v14 != buf)
+        LOWORD(v18[0]) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 16, "[CMMediaSession] Called _feedTrackingBehavior before _headTrackingService was initialized. Not able to set client mode.", v18, 2);
+        v17 = v16;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMediaSession _updateClientMode:]", "CoreLocation: %s\n", v16);
+        if (v17 != buf)
         {
-          free(v14);
+          free(v17);
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTrackingScheme:(int64_t)scheme
@@ -7878,7 +8452,7 @@ LABEL_34:
 
 - (void)_feedScreenUnlockedEvent:(BOOL)event
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_started)
   {
     eventCopy = event;
@@ -7905,24 +8479,33 @@ LABEL_34:
       dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
     }
 
-    v8 = off_1EAFE29A0;
+    v9 = off_1EAFE29A0;
     if (os_log_type_enabled(off_1EAFE29A0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240192;
-      v13 = eventCopy;
-      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Screen state changed. isScreenUnlocked, %{public}d", buf, 8u);
+      v14 = eventCopy;
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "[CMMediaSession] Screen state changed. isScreenUnlocked, %{public}d", buf, 8u);
     }
 
-    v9 = sub_19B420058();
-    if (*(v9 + 160) > 1 || *(v9 + 164) > 1 || *(v9 + 168) > 1 || *(v9 + 152))
+    v10 = sub_19B420058();
+    if (*(v10 + 160) > 1 || *(v10 + 164) > 1 || *(v10 + 168) > 1 || *(v10 + 152))
     {
       bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2998 == -1)
+      if (qword_1EAFE2998 != -1)
       {
-        goto LABEL_27;
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-      goto LABEL_30;
+      LODWORD(v12[0]) = 67240192;
+      HIDWORD(v12[0]) = eventCopy;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 0, "[CMMediaSession] Screen state changed. isScreenUnlocked, %{public}d", v12, 8, v12[0]);
+LABEL_30:
+      v11 = v8;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedScreenUnlockedEvent:]", "CoreLocation: %s\n", v8);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
     }
   }
 
@@ -7944,27 +8527,16 @@ LABEL_34:
     if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
     {
       bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2998 == -1)
+      if (qword_1EAFE2998 != -1)
       {
-LABEL_27:
-        v10 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMMediaSession _feedScreenUnlockedEvent:]", "CoreLocation: %s\n", v10);
-        if (v10 != buf)
-        {
-          free(v10);
-        }
-
-        goto LABEL_29;
+        dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
       }
 
-LABEL_30:
-      dispatch_once(&qword_1EAFE2998, &unk_1F0E292A0);
-      goto LABEL_27;
+      LOWORD(v12[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE29A0, 2, "[CMMediaSession] Ignoring _feedScreenUnlockedEvent call that occurred after _stop was called.", v12, 2, v12[0]);
+      goto LABEL_30;
     }
   }
-
-LABEL_29:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (AudioAccessorySample)_getLastAudioAccessorySample
@@ -7990,19 +8562,17 @@ LABEL_29:
 
 - (void)_logEvent:(id)event
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->_logForReplay)
   {
     objc_sync_enter(self);
-    if (objc_msgSend_getCString_maxLength_encoding_(event, v5, v8, 1024, 1))
+    if (objc_msgSend_getCString_maxLength_encoding_(event, v5, v7, 1024, 1))
     {
-      sub_19B5E6D00(self->_logger.__ptr_, v8, v6);
+      sub_19B5E6D00(self->_logger.__ptr_, v7, v6);
     }
 
     objc_sync_exit(self);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setFixedTransforms:(const CMOQuaternion *)transforms

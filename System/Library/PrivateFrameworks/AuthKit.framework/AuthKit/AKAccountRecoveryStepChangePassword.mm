@@ -228,7 +228,6 @@
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v5 = v19;
 
   return v5;
@@ -305,7 +304,6 @@ LABEL_11:
 
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = v19;
 
   return v4;
@@ -450,7 +448,6 @@ LABEL_11:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v18;
 
   return v3;
@@ -704,7 +701,6 @@ void __97__AKAccountRecoveryStepChangePassword__verifyNewPasswordWithRowID_confi
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isNewPasswordErrorForData:(id)data

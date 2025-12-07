@@ -1,11 +1,11 @@
 @interface MTEpisode(Library_App)
 + (id)dateLabelDescriptionForEpisode:()Library_App download:;
 + (uint64_t)downloadSizeLimitForEpisode:()Library_App;
-- (uint64_t)setPlayCount:()Library_App;
-- (uint64_t)setPlayhead:()Library_App;
 - (void)didChangePersistentID;
 - (void)setAuthor:()Library_App;
 - (void)setGuid:()Library_App;
+- (void)setPlayCount:()Library_App;
+- (void)setPlayhead:()Library_App;
 - (void)setTitle:()Library_App;
 @end
 
@@ -193,41 +193,39 @@ LABEL_24:
 
 - (void)didChangePersistentID
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   playlists = [self playlists];
-  v2 = [playlists countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [playlists countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(playlists);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) updateUnplayedCount];
+        [*(*(&v6 + 1) + 8 * v5++) updateUnplayedCount];
       }
 
       while (v3 != v5);
-      v3 = [playlists countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [playlists countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)setPlayCount:()Library_App
+- (void)setPlayCount:()Library_App
 {
   result = [self playCount];
   if (result != a3)
@@ -245,7 +243,7 @@ LABEL_24:
   return result;
 }
 
-- (uint64_t)setPlayhead:()Library_App
+- (void)setPlayhead:()Library_App
 {
   [self playhead];
   v5 = v4;

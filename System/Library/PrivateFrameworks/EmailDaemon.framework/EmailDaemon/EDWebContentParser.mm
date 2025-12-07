@@ -398,28 +398,25 @@ void __42__EDWebContentParser_webViewConfiguration__block_invoke(uint64_t a1)
 
 void __45__EDWebContentParser__richLinkMetadataScript__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v2 pathForResource:@"FindRichLinkMetadata" ofType:@"js"];
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [v1 pathForResource:@"FindRichLinkMetadata" ofType:@"js"];
 
-  v10 = 0;
-  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v3 encoding:4 error:&v10];
-  v5 = v10;
-  v6 = _richLinkMetadataScript_findRichLinkMetadataSource;
-  _richLinkMetadataScript_findRichLinkMetadataSource = v4;
+  v9 = 0;
+  v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithContentsOfFile:v2 encoding:4 error:&v9];
+  v4 = v9;
+  v5 = _richLinkMetadataScript_findRichLinkMetadataSource;
+  _richLinkMetadataScript_findRichLinkMetadataSource = v3;
 
   if (!_richLinkMetadataScript_findRichLinkMetadataSource)
   {
-    v7 = _ef_log_EDWebContentParser();
+    v7 = _ef_log_EDWebContentParser(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v5 ef_publicDescription];
+      v8 = [v4 ef_publicDescription];
       __45__EDWebContentParser__richLinkMetadataScript__block_invoke_cold_1(v8, buf, v7);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parseHTMLData:(id)data characterEncodingName:(id)name withOptions:(unint64_t)options forMessage:(id)message withSubject:(id)subject completionHandler:(id)handler
@@ -430,14 +427,15 @@ void __45__EDWebContentParser__richLinkMetadataScript__block_invoke(uint64_t a1)
   messageCopy = message;
   subjectCopy = subject;
   handlerCopy = handler;
+  v19 = handlerCopy;
   if ((options & 2) != 0)
   {
-    v19 = _ef_log_EDWebContentParser();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = _ef_log_EDWebContentParser(handlerCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v44 = messageCopy;
-      _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_INFO, "Scheduling data detection work for message %@", buf, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_INFO, "Scheduling data detection work for message %@", buf, 0xCu);
     }
   }
 
@@ -447,15 +445,15 @@ void __45__EDWebContentParser__richLinkMetadataScript__block_invoke(uint64_t a1)
   block[2] = __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_forMessage_withSubject_completionHandler___block_invoke;
   block[3] = &unk_1E8259240;
   optionsCopy = options;
-  v21 = handlerCopy;
-  v41 = v21;
+  v22 = v19;
+  v41 = v22;
   block[4] = self;
-  v22 = dataCopy;
-  v38 = v22;
-  v23 = nameCopy;
-  v39 = v23;
-  v24 = subjectCopy;
-  v40 = v24;
+  v23 = dataCopy;
+  v38 = v23;
+  v24 = nameCopy;
+  v39 = v24;
+  v25 = subjectCopy;
+  v40 = v25;
   dispatch_async(extractOneTimeCodeQueue, block);
   backgroundWorkScheduler = self->_backgroundWorkScheduler;
   v31[0] = MEMORY[0x1E69E9820];
@@ -463,18 +461,16 @@ void __45__EDWebContentParser__richLinkMetadataScript__block_invoke(uint64_t a1)
   v31[2] = __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_forMessage_withSubject_completionHandler___block_invoke_2;
   v31[3] = &unk_1E8259268;
   v31[4] = self;
-  v32 = v22;
-  v33 = v23;
+  v32 = v23;
+  v33 = v24;
   v34 = messageCopy;
-  v35 = v21;
+  v35 = v22;
   optionsCopy2 = options;
-  v26 = v21;
-  v27 = messageCopy;
-  v28 = v23;
-  v29 = v22;
+  v27 = v22;
+  v28 = messageCopy;
+  v29 = v24;
+  v30 = v23;
   [(EFScheduler *)backgroundWorkScheduler performBlock:v31];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_forMessage_withSubject_completionHandler___block_invoke(uint64_t a1)
@@ -500,14 +496,15 @@ void __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_f
   messageCopy = message;
   subjectCopy = subject;
   handlerCopy = handler;
+  v16 = handlerCopy;
   if ((options & 2) != 0)
   {
-    v16 = _ef_log_EDWebContentParser();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _ef_log_EDWebContentParser(handlerCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v37 = messageCopy;
-      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_INFO, "Scheduling data detection work for message %@", buf, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_INFO, "Scheduling data detection work for message %@", buf, 0xCu);
     }
   }
 
@@ -517,13 +514,13 @@ void __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_f
   block[2] = __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject_completionHandler___block_invoke;
   block[3] = &unk_1E8259290;
   optionsCopy = options;
-  v18 = handlerCopy;
-  v34 = v18;
+  v19 = v16;
+  v34 = v19;
   block[4] = self;
-  v19 = stringCopy;
-  v32 = v19;
-  v20 = subjectCopy;
-  v33 = v20;
+  v20 = stringCopy;
+  v32 = v20;
+  v21 = subjectCopy;
+  v33 = v21;
   dispatch_async(extractOneTimeCodeQueue, block);
   backgroundWorkScheduler = self->_backgroundWorkScheduler;
   v26[0] = MEMORY[0x1E69E9820];
@@ -531,16 +528,14 @@ void __111__EDWebContentParser_parseHTMLData_characterEncodingName_withOptions_f
   v26[2] = __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject_completionHandler___block_invoke_2;
   v26[3] = &unk_1E8252148;
   v26[4] = self;
-  v27 = v19;
-  v29 = v18;
+  v27 = v20;
+  v29 = v19;
   optionsCopy2 = options;
   v28 = messageCopy;
-  v22 = v18;
-  v23 = messageCopy;
-  v24 = v19;
+  v23 = v19;
+  v24 = messageCopy;
+  v25 = v20;
   [(EFScheduler *)backgroundWorkScheduler performBlock:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject_completionHandler___block_invoke(uint64_t a1)
@@ -564,13 +559,14 @@ void __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject
   stringCopy = string;
   dataCopy = data;
   nameCopy = name;
+  v10 = nameCopy;
   if (dataCopy)
   {
-    v10 = ECConvertCharacterSetNameToEncoding();
-    v11 = v10;
-    if (v10)
+    v11 = ECConvertCharacterSetNameToEncoding();
+    v12 = v11;
+    if (v11)
     {
-      unsignedIntegerValue = [v10 unsignedIntegerValue];
+      unsignedIntegerValue = [v11 unsignedIntegerValue];
     }
 
     else
@@ -578,28 +574,28 @@ void __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject
       unsignedIntegerValue = 4;
     }
 
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:unsignedIntegerValue];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:unsignedIntegerValue];
 
-    stringCopy = v13;
+    stringCopy = v14;
   }
 
   if (stringCopy)
   {
-    v14 = [MEMORY[0x1E699B2F8] snippetFromHTMLBody:stringCopy options:32 maxLength:0x7FFFFFFFFFFFFFFFLL preservingQuotedForwardedContent:0];
+    v15 = [MEMORY[0x1E699B2F8] snippetFromHTMLBody:stringCopy options:32 maxLength:0x7FFFFFFFFFFFFFFFLL preservingQuotedForwardedContent:0];
   }
 
   else
   {
-    v15 = _ef_log_EDWebContentParser();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _ef_log_EDWebContentParser(nameCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [EDWebContentParser _extractPlainTextFromHTMLString:v15 orWithData:? characterEncodingName:?];
+      [EDWebContentParser _extractPlainTextFromHTMLString:v16 orWithData:? characterEncodingName:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)_extractOneTimeCodeFromHTMLString:(id)string orWithData:(id)data characterEncodingName:(id)name withSubject:(id)subject
@@ -616,49 +612,50 @@ void __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject
 - (id)_parseHTMLString:(id)string orWithData:(id)data characterEncodingName:(id)name withOptions:(unint64_t)options messageID:(id)d
 {
   optionsCopy = options;
-  v97 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   dataCopy = data;
   nameCopy = name;
   dCopy = d;
   if (([(EFManualCancelationToken *)self->_token isCanceled]& 1) != 0)
   {
-    v59 = 0;
+    v62 = 0;
   }
 
   else
   {
-    v56 = dCopy;
-    v59 = objc_alloc_init(EDWebContentParserResults);
+    v59 = dCopy;
+    v14 = objc_alloc_init(EDWebContentParserResults);
+    v62 = v14;
     if ((optionsCopy & 2) != 0)
     {
-      v14 = _ef_log_EDWebContentParser();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = _ef_log_EDWebContentParser(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *&buf[4] = v56;
-        _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_INFO, "Starting data detection work for message %@", buf, 0xCu);
+        *&buf[4] = v59;
+        _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_INFO, "Starting data detection work for message %@", buf, 0xCu);
       }
 
       [(EDWebContentParser *)self _enableDataDetection];
-      v15 = +[EDWebContentParser signpostLog];
+      v16 = +[EDWebContentParser signpostLog];
       signpostID = [(EDWebContentParser *)self signpostID];
-      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v15, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EDWebContentParserDataDetection", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v16, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "EDWebContentParserDataDetection", "", buf, 2u);
       }
     }
 
-    v17 = optionsCopy & 1;
+    v18 = optionsCopy & 1;
     if (optionsCopy)
     {
-      v18 = +[EDWebContentParser signpostLog];
+      v19 = +[EDWebContentParser signpostLog];
       signpostID2 = [(EDWebContentParser *)self signpostID];
-      if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+      if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v18, OS_SIGNPOST_INTERVAL_BEGIN, signpostID2, "EDWebContentParserLinkParsing", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v19, OS_SIGNPOST_INTERVAL_BEGIN, signpostID2, "EDWebContentParserLinkParsing", "", buf, 2u);
       }
     }
 
@@ -666,211 +663,210 @@ void __91__EDWebContentParser_parseHTMLString_withOptions_forMessage_withSubject
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v94 = __Block_byref_object_copy__54;
-    v95 = __Block_byref_object_dispose__54;
-    v96 = 0;
-    v85 = 0;
-    v86 = &v85;
-    v87 = 0x3032000000;
-    v88 = __Block_byref_object_copy__54;
-    v89 = __Block_byref_object_dispose__54;
-    v90 = 0;
-    v79 = 0;
-    v80 = &v79;
-    v81 = 0x3032000000;
-    v82 = __Block_byref_object_copy__54;
-    v83 = __Block_byref_object_dispose__54;
-    v84 = 0;
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x3032000000;
-    v76 = __Block_byref_object_copy__54;
-    v77 = __Block_byref_object_dispose__54;
-    v78 = 0;
+    v97 = __Block_byref_object_copy__54;
+    v98 = __Block_byref_object_dispose__54;
+    v99 = 0;
+    v88 = 0;
+    v89 = &v88;
+    v90 = 0x3032000000;
+    v91 = __Block_byref_object_copy__54;
+    v92 = __Block_byref_object_dispose__54;
+    v93 = 0;
+    v82 = 0;
+    v83 = &v82;
+    v84 = 0x3032000000;
+    v85 = __Block_byref_object_copy__54;
+    v86 = __Block_byref_object_dispose__54;
+    v87 = 0;
+    v76 = 0;
+    v77 = &v76;
+    v78 = 0x3032000000;
+    v79 = __Block_byref_object_copy__54;
+    v80 = __Block_byref_object_dispose__54;
+    v81 = 0;
     if (!nameCopy)
     {
       nameCopy = CFStringConvertEncodingToIANACharSetName(0x600u);
     }
 
-    v20 = optionsCopy & 2;
+    v21 = optionsCopy & 2;
     state = self->_state;
-    v69[0] = MEMORY[0x1E69E9820];
-    v22 = optionsCopy & 4;
-    v69[1] = 3221225472;
-    v69[2] = __94__EDWebContentParser__parseHTMLString_orWithData_characterEncodingName_withOptions_messageID___block_invoke;
-    v69[3] = &unk_1E82592B8;
-    v70 = (optionsCopy & 2) >> 1;
-    v69[4] = self;
-    v69[5] = &v85;
-    v71 = optionsCopy & 1;
-    v72 = (optionsCopy & 4) >> 2;
-    v69[6] = &v79;
-    v69[7] = &v73;
-    v69[8] = buf;
-    [(EFLocked *)state performWhileLocked:v69];
+    v72[0] = MEMORY[0x1E69E9820];
+    v23 = optionsCopy & 4;
+    v72[1] = 3221225472;
+    v72[2] = __94__EDWebContentParser__parseHTMLString_orWithData_characterEncodingName_withOptions_messageID___block_invoke;
+    v72[3] = &unk_1E82592B8;
+    v73 = (optionsCopy & 2) >> 1;
+    v72[4] = self;
+    v72[5] = &v88;
+    v74 = optionsCopy & 1;
+    v75 = (optionsCopy & 4) >> 2;
+    v72[6] = &v82;
+    v72[7] = &v76;
+    v72[8] = buf;
+    [(EFLocked *)state performWhileLocked:v72];
     mainThreadScheduler = [MEMORY[0x1E699B978] mainThreadScheduler];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __94__EDWebContentParser__parseHTMLString_orWithData_characterEncodingName_withOptions_messageID___block_invoke_2;
-    v63[3] = &unk_1E82592E0;
-    v64 = stringCopy;
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 3221225472;
+    v66[2] = __94__EDWebContentParser__parseHTMLString_orWithData_characterEncodingName_withOptions_messageID___block_invoke_2;
+    v66[3] = &unk_1E82592E0;
+    v67 = stringCopy;
     selfCopy = self;
-    v68 = buf;
-    v53 = dataCopy;
-    v66 = v53;
-    v55 = nameCopy;
-    v67 = v55;
-    v24 = [mainThreadScheduler performCancelableBlock:v63];
+    v71 = buf;
+    v56 = dataCopy;
+    v69 = v56;
+    v58 = nameCopy;
+    v70 = v58;
+    v25 = [mainThreadScheduler performCancelableBlock:v66];
 
-    if (v17)
+    if (v18)
     {
-      v26 = v80[5];
-      v62 = 0;
-      v27 = [v26 resultWithTimeout:&v62 error:10.0];
-      v25 = v62;
-      [(EDWebContentParserResults *)v59 setRemoteContentLinks:v27];
+      v27 = v83[5];
+      v65 = 0;
+      v28 = [v27 resultWithTimeout:&v65 error:10.0];
+      v26 = v65;
+      [(EDWebContentParserResults *)v62 setRemoteContentLinks:v28];
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
 
-    if (v20)
+    if (v21)
     {
-      v29 = v86[5];
-      v61 = 0;
-      v30 = [v29 resultWithTimeout:&v61 error:10.0];
-      v28 = v61;
-      [(EDWebContentParserResults *)v59 setDataDetectionResults:v30];
-    }
-
-    else
-    {
-      v28 = 0;
-    }
-
-    if (v22)
-    {
-      v32 = v74[5];
-      v60 = 0;
-      v33 = [v32 resultWithTimeout:&v60 error:10.0];
-      v31 = v60;
-      [(EDWebContentParserResults *)v59 setRichLinkResults:v33];
+      v30 = v89[5];
+      v64 = 0;
+      v31 = [v30 resultWithTimeout:&v64 error:10.0];
+      v29 = v64;
+      [(EDWebContentParserResults *)v62 setDataDetectionResults:v31];
     }
 
     else
     {
-      v31 = 0;
+      v29 = 0;
     }
 
-    if ([v25 ef_isTimeoutError])
+    if (v23)
     {
-      v34 = +[EDWebContentParser signpostLog];
+      v33 = v77[5];
+      v63 = 0;
+      v34 = [v33 resultWithTimeout:&v63 error:10.0];
+      v32 = v63;
+      [(EDWebContentParserResults *)v62 setRichLinkResults:v34];
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+
+    if ([v26 ef_isTimeoutError])
+    {
+      v35 = +[EDWebContentParser signpostLog];
       signpostID3 = [(EDWebContentParser *)self signpostID];
-      if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+      if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
-        *v91 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v34, OS_SIGNPOST_INTERVAL_END, signpostID3, "EDWebContentParserLinkParsing", "Parsing remote content links timed out", v91, 2u);
+        *v94 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v35, OS_SIGNPOST_INTERVAL_END, signpostID3, "EDWebContentParserLinkParsing", "Parsing remote content links timed out", v94, 2u);
       }
 
-      [v24 cancel];
+      [v25 cancel];
     }
 
-    if (v20 && [v28 ef_isTimeoutError])
+    if (v21 && [v29 ef_isTimeoutError])
     {
-      v36 = +[EDWebContentParser signpostLog];
+      v37 = +[EDWebContentParser signpostLog];
       signpostID4 = [(EDWebContentParser *)self signpostID];
-      if (signpostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      if (signpostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
-        *v91 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v36, OS_SIGNPOST_INTERVAL_END, signpostID4, "EDWebContentParserDataDetection", "Data detection timed out", v91, 2u);
+        *v94 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v37, OS_SIGNPOST_INTERVAL_END, signpostID4, "EDWebContentParserDataDetection", "Data detection timed out", v94, 2u);
       }
 
-      v38 = _ef_log_EDWebContentParser();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v40 = _ef_log_EDWebContentParser(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
-        *v91 = 138412290;
-        v92 = v56;
-        _os_log_impl(&dword_1C61EF000, v38, OS_LOG_TYPE_INFO, "Data detection for message %@ timed out", v91, 0xCu);
+        *v94 = 138412290;
+        v95 = v59;
+        _os_log_impl(&dword_1C61EF000, v40, OS_LOG_TYPE_INFO, "Data detection for message %@ timed out", v94, 0xCu);
       }
 
-      [v24 cancel];
+      [v25 cancel];
     }
 
-    if ([v31 ef_isTimeoutError])
+    ef_isTimeoutError = [v32 ef_isTimeoutError];
+    if (ef_isTimeoutError)
     {
-      v39 = _ef_log_EDWebContentParser();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v42 = _ef_log_EDWebContentParser(ef_isTimeoutError);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        [EDWebContentParser _parseHTMLString:v56 orWithData:v39 characterEncodingName:? withOptions:? messageID:?];
+        [EDWebContentParser _parseHTMLString:v59 orWithData:v42 characterEncodingName:? withOptions:? messageID:?];
       }
 
-      [v24 cancel];
+      [v25 cancel];
     }
 
-    _Block_object_dispose(&v73, 8);
-    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v82, 8);
 
-    _Block_object_dispose(&v85, 8);
+    _Block_object_dispose(&v88, 8);
     _Block_object_dispose(buf, 8);
 
     os_unfair_lock_unlock(&self->_remoteContentParserLock);
-    if (v17)
+    if (v18)
     {
-      v40 = +[EDWebContentParser signpostLog];
+      v43 = +[EDWebContentParser signpostLog];
       signpostID5 = [(EDWebContentParser *)self signpostID];
-      if (signpostID5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+      if (signpostID5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
       {
-        remoteContentLinks = [(EDWebContentParserResults *)v59 remoteContentLinks];
-        v43 = [remoteContentLinks count];
-        v44 = [v54 length];
+        remoteContentLinks = [(EDWebContentParserResults *)v62 remoteContentLinks];
+        v46 = [remoteContentLinks count];
+        v47 = [v57 length];
         *buf = 134349312;
-        *&buf[4] = v43;
+        *&buf[4] = v46;
         *&buf[12] = 2050;
-        *&buf[14] = v44;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v40, OS_SIGNPOST_INTERVAL_END, signpostID5, "EDWebContentParserLinkParsing", "Parsed NumberOfRemoteLinks=%{public,signpost.telemetry:number1}lu from SizeOfBody=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
+        *&buf[14] = v47;
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v43, OS_SIGNPOST_INTERVAL_END, signpostID5, "EDWebContentParserLinkParsing", "Parsed NumberOfRemoteLinks=%{public,signpost.telemetry:number1}lu from SizeOfBody=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
       }
     }
 
-    dCopy = v56;
-    if (v20)
+    dCopy = v59;
+    if (v21)
     {
-      v45 = +[EDWebContentParser signpostLog];
+      v48 = +[EDWebContentParser signpostLog];
       signpostID6 = [(EDWebContentParser *)self signpostID];
-      if (signpostID6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+      if (signpostID6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
       {
-        dataDetectionResults = [(EDWebContentParserResults *)v59 dataDetectionResults];
-        v48 = [dataDetectionResults count];
-        v49 = [v54 length];
+        dataDetectionResults = [(EDWebContentParserResults *)v62 dataDetectionResults];
+        v51 = [dataDetectionResults count];
+        v52 = [v57 length];
         *buf = 134349312;
-        *&buf[4] = v48;
+        *&buf[4] = v51;
         *&buf[12] = 2050;
-        *&buf[14] = v49;
-        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v45, OS_SIGNPOST_INTERVAL_END, signpostID6, "EDWebContentParserDataDetection", "Found NumberOfDataDtectionResults=%{public,signpost.telemetry:number1}lu from SizeOfBody=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
+        *&buf[14] = v52;
+        _os_signpost_emit_with_name_impl(&dword_1C61EF000, v48, OS_SIGNPOST_INTERVAL_END, signpostID6, "EDWebContentParserDataDetection", "Found NumberOfDataDtectionResults=%{public,signpost.telemetry:number1}lu from SizeOfBody=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", buf, 0x16u);
       }
 
-      v50 = _ef_log_EDWebContentParser();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+      v54 = _ef_log_EDWebContentParser(v53);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *&buf[4] = v56;
-        _os_log_impl(&dword_1C61EF000, v50, OS_LOG_TYPE_INFO, "Data detection for message %@ finished.", buf, 0xCu);
+        *&buf[4] = v59;
+        _os_log_impl(&dword_1C61EF000, v54, OS_LOG_TYPE_INFO, "Data detection for message %@ finished.", buf, 0xCu);
       }
 
-      nameCopy = v55;
-      dCopy = v56;
+      nameCopy = v58;
+      dCopy = v59;
     }
 
     else
     {
-      nameCopy = v55;
+      nameCopy = v58;
     }
   }
 
-  v51 = *MEMORY[0x1E69E9840];
-
-  return v59;
+  return v62;
 }
 
 void __94__EDWebContentParser__parseHTMLString_orWithData_characterEncodingName_withOptions_messageID___block_invoke(uint64_t a1, void *a2)
@@ -1257,16 +1253,14 @@ LABEL_26:
     while (v5);
   }
 
-  v28 = _ef_log_EDWebContentParser();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = _ef_log_EDWebContentParser(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = [MEMORY[0x1E699B858] partiallyRedactedDictionary:v4];
+    v30 = [MEMORY[0x1E699B858] partiallyRedactedDictionary:v4];
     *buf = 138412290;
-    v41 = v29;
-    _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "Found data detection results: %@", buf, 0xCu);
+    v41 = v30;
+    _os_log_impl(&dword_1C61EF000, v29, OS_LOG_TYPE_DEFAULT, "Found data detection results: %@", buf, 0xCu);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1286,7 +1280,7 @@ LABEL_26:
 
 - (void)_updateContentRuleListsIfNeededForWebViewConfiguration:(id)configuration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (pthread_main_np() != 1)
   {
@@ -1311,30 +1305,30 @@ LABEL_26:
     os_unfair_lock_unlock(&self->_contentRuleListsLock);
     userContentController = [configurationCopy userContentController];
     [userContentController removeAllContentRuleLists];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          [userContentController addContentRuleList:{*(*(&v17 + 1) + 8 * v14++), v17}];
+          [userContentController addContentRuleList:{*(*(&v16 + 1) + 8 * v14++), v16}];
         }
 
         while (v12 != v14);
-        v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
@@ -1345,8 +1339,6 @@ LABEL_26:
   {
     os_unfair_lock_unlock(&self->_contentRuleListsLock);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contentRuleListManager:(id)manager didAddRuleList:(id)list
@@ -1384,29 +1376,29 @@ LABEL_26:
 
 - (void)_retrieveRichLinkMetadata:(id)metadata
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
-  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = metadataCopy;
-  v3 = [obj countByEnumeratingWithState:&v29 objects:v37 count:{16, metadataCopy}];
+  v3 = [obj countByEnumeratingWithState:&v28 objects:v36 count:{16, metadataCopy}];
   if (v3)
   {
-    v4 = *v30;
+    v4 = *v29;
     v5 = @"url";
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v30 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * i);
+        v7 = *(*(&v28 + 1) + 8 * i);
         v8 = [v7 objectForKeyedSubscript:v5];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 length])
@@ -1415,14 +1407,14 @@ LABEL_26:
           if (v9)
           {
             v10 = [v7 objectForKeyedSubscript:@"title"];
-            v11 = _ef_log_EDWebContentParser();
+            v11 = _ef_log_EDWebContentParser(v10);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               v12 = v10;
               v13 = v3;
               v14 = v4;
               v15 = v5;
-              v25 = v12;
+              v24 = v12;
               v16 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:?];
               v17 = MEMORY[0x1E699B858];
               absoluteString = [v9 absoluteString];
@@ -1436,16 +1428,16 @@ LABEL_26:
               v5 = v15;
               v4 = v14;
               v3 = v13;
-              v10 = v25;
+              v10 = v24;
             }
 
             v20 = [[EDRichLinkData alloc] initWithTitle:v10 url:v9];
-            [v26 addObject:v20];
+            [v25 addObject:v20];
           }
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v3 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v3);
@@ -1454,20 +1446,18 @@ LABEL_26:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v34 = __Block_byref_object_copy__54;
-  v35 = __Block_byref_object_dispose__54;
-  v36 = 0;
+  v33 = __Block_byref_object_copy__54;
+  v34 = __Block_byref_object_dispose__54;
+  v35 = 0;
   state = self->_state;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __48__EDWebContentParser__retrieveRichLinkMetadata___block_invoke;
-  v28[3] = &unk_1E8259358;
-  v28[4] = buf;
-  [(EFLocked *)state performWhileLocked:v28];
-  [*(*&buf[8] + 40) finishWithResult:v26];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __48__EDWebContentParser__retrieveRichLinkMetadata___block_invoke;
+  v27[3] = &unk_1E8259358;
+  v27[4] = buf;
+  [(EFLocked *)state performWhileLocked:v27];
+  [*(*&buf[8] + 40) finishWithResult:v25];
   _Block_object_dispose(buf, 8);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __48__EDWebContentParser__retrieveRichLinkMetadata___block_invoke(uint64_t a1, void *a2)
@@ -1481,17 +1471,15 @@ void __48__EDWebContentParser__retrieveRichLinkMetadata___block_invoke(uint64_t 
 
 - (void)logWebBundleMessage:(id)message
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v4 = _ef_log_EDWebContentParser();
+  v4 = _ef_log_EDWebContentParser(messageCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "[WebBundle] %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "[WebBundle] %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message
@@ -1512,17 +1500,15 @@ void __48__EDWebContentParser__retrieveRichLinkMetadata___block_invoke(uint64_t 
 
   if (v10)
   {
-    v11 = _ef_log_EDWebContentParser();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _ef_log_EDWebContentParser(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       body2 = [messageCopy body];
       v14 = 138412290;
       v15 = body2;
-      _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
+      _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __45__EDWebContentParser__richLinkMetadataScript__block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -1534,11 +1520,10 @@ void __45__EDWebContentParser__richLinkMetadataScript__block_invoke_cold_1(void 
 
 - (void)_parseHTMLString:(uint64_t)a1 orWithData:(NSObject *)a2 characterEncodingName:withOptions:messageID:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Extracting rich links for message %@ timed out", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Extracting rich links for message %@ timed out", &v2, 0xCu);
 }
 
 @end

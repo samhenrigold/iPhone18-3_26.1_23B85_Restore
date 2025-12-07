@@ -161,8 +161,8 @@
 
   if ([keyCopy displayType] == 5)
   {
-    geometry = [traitsCopy geometry];
-    [geometry paddedFrame];
+    v21 = objc_msgSend_geometry(traitsCopy);
+    [v21 paddedFrame];
     v23 = v22;
     v25 = v24;
     v27 = v26;
@@ -170,17 +170,17 @@
     [(UIKBRenderFactory *)self translucentGapWidth];
     v31 = v30 + v25;
     v32 = v29 - (v30 + 0.0);
-    geometry2 = [traitsCopy geometry];
-    [geometry2 setPaddedFrame:{v23 + 0.0, v31, v27, v32}];
+    v33 = objc_msgSend_geometry(traitsCopy);
+    [v33 setPaddedFrame:{v23 + 0.0, v31, v27, v32}];
 
-    geometry3 = [traitsCopy geometry];
-    [geometry3 paddedFrame];
+    v34 = objc_msgSend_geometry(traitsCopy);
+    [v34 paddedFrame];
     v36 = v35;
     v38 = v37;
     v40 = v39;
     v42 = v41;
-    geometry4 = [traitsCopy geometry];
-    [geometry4 setDisplayFrame:{v36, v38, v40, v42}];
+    v43 = objc_msgSend_geometry(traitsCopy);
+    [v43 setDisplayFrame:{v36, v38, v40, v42}];
 
 LABEL_10:
     symbolStyle2 = [traitsCopy symbolStyle];
@@ -270,7 +270,7 @@ LABEL_8:
 
   else
   {
-    if ((displayType & 0xFFFFFFEF) == 2 || ([keyCopy localizationKey], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "isEqualToString:", @"UI-abc"), v38, v39))
+    if ((displayType & 0xFFFFFFEF) == 2 || ([keyCopy localizationKey], v38 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v38), v38, isEqualToString))
     {
       lightTextFontName2 = [(UIKBRenderFactory10Key *)self lightTextFontName];
       symbolStyle11 = [v8 symbolStyle];

@@ -31,12 +31,13 @@ void __34___LTHotfixManager_refreshHotfix___block_invoke_2(uint64_t a1, void *a2
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = _LTOSLogHotfix();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = _LTOSLogHotfix(WeakRetained, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __34___LTHotfixManager_refreshHotfix___block_invoke_2_cold_1();
       }
@@ -46,15 +47,15 @@ void __34___LTHotfixManager_refreshHotfix___block_invoke_2(uint64_t a1, void *a2
 
     else
     {
-      v6[0] = MEMORY[0x277D85DD0];
-      v6[1] = 3221225472;
-      v6[2] = __34___LTHotfixManager_refreshHotfix___block_invoke_26;
-      v6[3] = &unk_2789B6B38;
-      objc_copyWeak(&v8, (a1 + 40));
-      v7 = *(a1 + 32);
-      [WeakRetained _updateHotfixInternal:v6];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __34___LTHotfixManager_refreshHotfix___block_invoke_26;
+      v8[3] = &unk_2789B6B38;
+      objc_copyWeak(&v10, (a1 + 40));
+      v9 = *(a1 + 32);
+      [v6 _updateHotfixInternal:v8];
 
-      objc_destroyWeak(&v8);
+      objc_destroyWeak(&v10);
     }
   }
 }
@@ -63,39 +64,39 @@ void __34___LTHotfixManager_refreshHotfix___block_invoke_26(uint64_t a1, void *a
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v6 = _LTOSLogHotfix();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _LTOSLogHotfix(WeakRetained, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __34___LTHotfixManager_refreshHotfix___block_invoke_26_cold_1();
       }
 
-      v7 = *(a1 + 32);
-      WeakRetained = v5;
-      v8 = 2;
+      v8 = *(a1 + 32);
+      WeakRetained = v6;
+      v9 = 2;
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = 3;
+      v8 = *(a1 + 32);
+      v9 = 3;
     }
 
-    [WeakRetained _replaceHotfix:v8 completion:v7];
+    [WeakRetained _replaceHotfix:v9 completion:v8];
   }
 }
 
 void __42___LTHotfixManager__updateHotfixInternal___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v8 = WeakRetained;
+  v9 = WeakRetained;
   if (!WeakRetained)
   {
     goto LABEL_36;
@@ -103,100 +104,100 @@ void __42___LTHotfixManager__updateHotfixInternal___block_invoke(uint64_t a1, vo
 
   if (!v6)
   {
-    v33 = a1;
-    v34 = WeakRetained;
-    v10 = [MEMORY[0x277D07278] minimumSupportedConfigurationVersion];
-    v11 = [v10 intValue];
+    v35 = a1;
+    v36 = WeakRetained;
+    v11 = [MEMORY[0x277D07278] minimumSupportedConfigurationVersion];
+    v12 = [v11 intValue];
 
-    v12 = [MEMORY[0x277D07278] maximumSupportedConfigurationVersion];
-    v35 = [v12 intValue];
+    v13 = [MEMORY[0x277D07278] maximumSupportedConfigurationVersion];
+    v37 = [v13 intValue];
 
-    v13 = [v5 objectForKeyedSubscript:@"Mapping"];
-    if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v14 = [v5 objectForKeyedSubscript:@"Mapping"];
+    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      if ([v13 lt_ensureElementType:objc_opt_class()])
+      if ([v14 lt_ensureElementType:objc_opt_class()])
       {
-        v14 = v13;
+        v15 = v14;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
 
-      v13 = 0;
       v14 = 0;
+      v15 = 0;
     }
 
-    v15 = v14;
+    v16 = v15;
 
+    v40 = 0u;
+    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
-    if (v17)
+    v17 = v16;
+    v18 = [v17 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v32 = v5;
-      v19 = 0;
-      v20 = *v37;
+      v19 = v18;
+      v34 = v5;
+      v20 = 0;
+      v21 = *v39;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v37 != v20)
+          if (*v39 != v21)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v36 + 1) + 8 * i);
-          v23 = [v22 objectForKeyedSubscript:{@"FormatVersion", v32}];
-          if (v23)
+          v23 = *(*(&v38 + 1) + 8 * i);
+          v24 = [v23 objectForKeyedSubscript:{@"FormatVersion", v34}];
+          if (v24)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v24 = v23;
+              v25 = v24;
             }
 
             else
             {
-              v24 = 0;
+              v25 = 0;
             }
           }
 
           else
           {
-            v24 = 0;
+            v25 = 0;
           }
 
-          v25 = v24;
+          v26 = v25;
 
-          v26 = [v25 intValue];
-          if (v25 && v26 >= v11 && v26 <= v35 && v26 >= 1)
+          v27 = [v26 intValue];
+          if (v26 && v27 >= v12 && v27 <= v37 && v27 >= 1)
           {
-            v27 = v22;
+            v28 = v23;
 
-            v19 = v27;
+            v20 = v28;
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
-      while (v18);
+      while (v19);
 
-      v5 = v32;
-      if (v19)
+      v5 = v34;
+      if (v20)
       {
-        v8 = v34;
-        [v34 _downloadHotfix:v19 completion:*(v33 + 32)];
+        v9 = v36;
+        [v36 _downloadHotfix:v20 completion:*(v35 + 32)];
         v6 = 0;
 LABEL_35:
 
@@ -208,60 +209,59 @@ LABEL_35:
     {
     }
 
-    v28 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
-    v41 = @"Cannot find any compatible hotfix";
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v6 = [v28 errorWithDomain:@"LTDHotfixManagerError" code:0 userInfo:v29];
+    v29 = MEMORY[0x277CCA9B8];
+    v42 = *MEMORY[0x277CCA450];
+    v43 = @"Cannot find any compatible hotfix";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v6 = [v29 errorWithDomain:@"LTDHotfixManagerError" code:0 userInfo:v30];
 
-    v30 = _LTOSLogHotfix();
-    v8 = v34;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v33 = _LTOSLogHotfix(v31, v32);
+    v9 = v36;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       __42___LTHotfixManager__updateHotfixInternal___block_invoke_cold_2();
     }
 
-    (*(*(v33 + 32) + 16))();
-    v19 = 0;
+    (*(*(v35 + 32) + 16))();
+    v20 = 0;
     goto LABEL_35;
   }
 
-  v9 = _LTOSLogHotfix();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = _LTOSLogHotfix(WeakRetained, v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     __42___LTHotfixManager__updateHotfixInternal___block_invoke_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
 LABEL_36:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __33___LTHotfixManager_deleteHotfix___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
-  v3 = _LTOSLogHotfix();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = _LTOSLogHotfix(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v11 = hotfixBasePath;
-    _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Attempting to delete hotfix at base path %{public}@", buf, 0xCu);
+    v13 = hotfixBasePath;
+    _os_log_impl(&dword_232E53000, v4, OS_LOG_TYPE_INFO, "Attempting to delete hotfix at base path %{public}@", buf, 0xCu);
   }
 
-  v4 = [hotfixBasePath path];
-  v5 = [v2 fileExistsAtPath:v4];
+  v5 = [hotfixBasePath path];
+  v6 = [v2 fileExistsAtPath:v5];
 
-  if (v5)
+  if (v6)
   {
-    v9 = 0;
-    [v2 removeItemAtURL:hotfixBasePath error:&v9];
-    v6 = v9;
-    if (v6)
+    v11 = 0;
+    [v2 removeItemAtURL:hotfixBasePath error:&v11];
+    v7 = v11;
+    v9 = v7;
+    if (v7)
     {
-      v7 = _LTOSLogHotfix();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = _LTOSLogHotfix(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __33___LTHotfixManager_deleteHotfix___block_invoke_cold_1();
       }
@@ -270,36 +270,34 @@ void __33___LTHotfixManager_deleteHotfix___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = 0;
+    v9 = 0;
   }
 
   [*(a1 + 32) setHotfixURL:0];
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48___LTHotfixManager__downloadWithURL_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6 = a4;
-  v7 = v6;
+  v8 = v6;
   if (!a2 || v6)
   {
-    v9 = _LTOSLogHotfix();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogHotfix(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __48___LTHotfixManager__downloadWithURL_completion___block_invoke_cold_1(a1, v7, v9);
+      __48___LTHotfixManager__downloadWithURL_completion___block_invoke_cold_1(a1, v8, v10);
     }
 
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v8 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
   }
 
-  v8();
+  v9();
 }
 
 void __42___LTHotfixManager__downloadMappingPlist___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -329,31 +327,29 @@ void __42___LTHotfixManager__downloadMappingPlist___block_invoke(uint64_t a1, ui
 
 id __42___LTHotfixManager__downloadMappingPlist___block_invoke_2(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"code";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"code";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
   v3 = [v2 stringValue];
-  v9[0] = v3;
-  v8[1] = @"domain";
+  v8[0] = v3;
+  v7[1] = @"domain";
   v4 = [*(a1 + 32) domain];
-  v8[2] = @"file";
-  v9[1] = v4;
-  v9[2] = &unk_284868098;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = @"file";
+  v8[1] = v4;
+  v8[2] = &unk_284868098;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 uint64_t __47___LTHotfixManager__downloadHotfix_completion___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) setHotfixURL:*(a1 + 40)];
-  v2 = _LTOSLogHotfix();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v2 = [*(a1 + 32) setHotfixURL:*(a1 + 40)];
+  v4 = _LTOSLogHotfix(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_232E53000, v2, OS_LOG_TYPE_INFO, "Found existing hotfix", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_232E53000, v4, OS_LOG_TYPE_INFO, "Found existing hotfix", v6, 2u);
   }
 
   return (*(*(a1 + 48) + 16))();
@@ -399,19 +395,17 @@ void __47___LTHotfixManager__downloadHotfix_completion___block_invoke_67(id *a1,
 
 id __47___LTHotfixManager__downloadHotfix_completion___block_invoke_2(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"code";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"code";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
   v3 = [v2 stringValue];
-  v9[0] = v3;
-  v8[1] = @"domain";
+  v8[0] = v3;
+  v7[1] = @"domain";
   v4 = [*(a1 + 32) domain];
-  v8[2] = @"file";
-  v9[1] = v4;
-  v9[2] = &unk_2848680B0;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = @"file";
+  v8[1] = v4;
+  v8[2] = &unk_2848680B0;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -425,154 +419,89 @@ void __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70(uint64_
     v4 = [hotfixBasePath path];
     LODWORD(v3) = [v3 fileExistsAtPath:v4];
 
-    if (v3 && (v5 = *(a1 + 32), v27 = 0, [v5 removeItemAtURL:hotfixBasePath error:&v27], (v6 = v27) != 0))
+    if (v3 && (v5 = *(a1 + 32), v30 = 0, [v5 removeItemAtURL:hotfixBasePath error:&v30], (v6 = v30) != 0))
     {
-      v7 = v6;
-      v8 = _LTOSLogHotfix();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v8 = v6;
+      v9 = _LTOSLogHotfix(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_1();
       }
 
       (*(*(a1 + 56) + 16))();
-      v9 = *(a1 + 32);
-      v26 = v7;
-      [v9 removeItemAtURL:hotfixBasePath error:&v26];
-      v10 = v26;
+      v10 = *(a1 + 32);
+      v29 = v8;
+      [v10 removeItemAtURL:hotfixBasePath error:&v29];
+      v11 = v29;
     }
 
     else
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v25 = 0;
-      [v11 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:&v25];
-      v13 = v25;
-      if (v13)
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v28 = 0;
+      [v12 createDirectoryAtURL:v13 withIntermediateDirectories:1 attributes:0 error:&v28];
+      v14 = v28;
+      if (v14)
       {
-        v7 = v13;
-        v14 = _LTOSLogHotfix();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v8 = v14;
+        v16 = _LTOSLogHotfix(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_2();
         }
 
         (*(*(a1 + 56) + 16))();
-        v15 = *(a1 + 32);
-        v24 = v7;
-        [v15 removeItemAtURL:hotfixBasePath error:&v24];
-        v10 = v24;
+        v17 = *(a1 + 32);
+        v27 = v8;
+        [v17 removeItemAtURL:hotfixBasePath error:&v27];
+        v11 = v27;
       }
 
       else
       {
-        v17 = *(a1 + 40);
-        v16 = *(a1 + 48);
-        v23 = 0;
-        [WeakRetained _decompressArchive:v16 to:v17 error:&v23];
-        v18 = v23;
-        if (!v18)
+        v19 = *(a1 + 40);
+        v18 = *(a1 + 48);
+        v26 = 0;
+        [WeakRetained _decompressArchive:v18 to:v19 error:&v26];
+        v20 = v26;
+        if (!v20)
         {
           [WeakRetained setHotfixURL:*(a1 + 40)];
           (*(*(a1 + 56) + 16))();
           goto LABEL_16;
         }
 
-        v7 = v18;
-        v19 = _LTOSLogHotfix();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v8 = v20;
+        v22 = _LTOSLogHotfix(v20, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_3();
         }
 
         (*(*(a1 + 56) + 16))();
-        v20 = *(a1 + 32);
-        v22 = v7;
-        [v20 removeItemAtURL:hotfixBasePath error:&v22];
-        v10 = v22;
+        v23 = *(a1 + 32);
+        v25 = v8;
+        [v23 removeItemAtURL:hotfixBasePath error:&v25];
+        v11 = v25;
       }
     }
 
-    v21 = v10;
+    v24 = v11;
   }
 
 LABEL_16:
 }
 
-void __34___LTHotfixManager_refreshHotfix___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Hotfix asset refresh prepare failure: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __34___LTHotfixManager_refreshHotfix___block_invoke_26_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Hotfix asset refresh update failure: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42___LTHotfixManager__updateHotfixInternal___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Update of hotfix map failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __42___LTHotfixManager__updateHotfixInternal___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Update of hotfix assets failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __33___LTHotfixManager_deleteHotfix___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Failed to delete hotfix: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __48___LTHotfixManager__downloadWithURL_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_232E53000, log, OS_LOG_TYPE_ERROR, "Failed to download hotfix at URL '%{public}@' with error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Remove folder failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Create folder failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47___LTHotfixManager__downloadHotfix_completion___block_invoke_70_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Decompression failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_232E53000, log, OS_LOG_TYPE_ERROR, "Failed to download hotfix at URL '%{public}@' with error: %@", &v4, 0x16u);
 }
 
 @end

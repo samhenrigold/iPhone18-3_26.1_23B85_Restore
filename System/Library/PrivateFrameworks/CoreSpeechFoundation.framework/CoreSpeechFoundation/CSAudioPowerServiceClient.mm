@@ -34,15 +34,15 @@ void __41__CSAudioPowerServiceClient__beginUpdate__block_invoke(uint64_t a1)
 
 - (void)_beginUpdate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     frequency = self->_frequency;
     *buf = 136315394;
-    v15 = "[CSAudioPowerServiceClient _beginUpdate]";
-    v16 = 2048;
-    v17 = frequency;
+    v14 = "[CSAudioPowerServiceClient _beginUpdate]";
+    v15 = 2048;
+    v16 = frequency;
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Begin power update with frequency : %ld", buf, 0x16u);
   }
 
@@ -71,14 +71,12 @@ void __41__CSAudioPowerServiceClient__beginUpdate__block_invoke(uint64_t a1)
     handler[1] = 3221225472;
     handler[2] = __41__CSAudioPowerServiceClient__beginUpdate__block_invoke;
     handler[3] = &unk_1E865CA40;
-    objc_copyWeak(&v13, buf);
+    objc_copyWeak(&v12, buf);
     dispatch_source_set_event_handler(v10, handler);
     dispatch_resume(self->_timer);
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CSAudioPowerServiceClient__fetchPowerLevels__block_invoke(uint64_t a1, uint64_t a2, float a3, float a4)
@@ -115,7 +113,7 @@ void __46__CSAudioPowerServiceClient__fetchPowerLevels__block_invoke(uint64_t a1
 
 - (id)_connection
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
@@ -124,7 +122,7 @@ void __46__CSAudioPowerServiceClient__fetchPowerLevels__block_invoke(uint64_t a1
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[CSAudioPowerServiceClient _connection]";
+      v18 = "[CSAudioPowerServiceClient _connection]";
       _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Creating new xpc connection...", buf, 0xCu);
     }
 
@@ -134,27 +132,25 @@ void __46__CSAudioPowerServiceClient__fetchPowerLevels__block_invoke(uint64_t a1
 
     objc_initWeak(buf, self);
     v7 = self->_xpcConnection;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __40__CSAudioPowerServiceClient__connection__block_invoke;
-    v16[3] = &unk_1E865CA40;
-    objc_copyWeak(&v17, buf);
-    [(NSXPCConnection *)v7 setInterruptionHandler:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __40__CSAudioPowerServiceClient__connection__block_invoke;
+    v15[3] = &unk_1E865CA40;
+    objc_copyWeak(&v16, buf);
+    [(NSXPCConnection *)v7 setInterruptionHandler:v15];
     v8 = self->_xpcConnection;
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __40__CSAudioPowerServiceClient__connection__block_invoke_3;
-    v14 = &unk_1E865CA40;
-    objc_copyWeak(&v15, buf);
-    [(NSXPCConnection *)v8 setInvalidationHandler:&v11];
-    [(NSXPCConnection *)self->_xpcConnection resume:v11];
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    v10 = MEMORY[0x1E69E9820];
+    v11 = 3221225472;
+    v12 = __40__CSAudioPowerServiceClient__connection__block_invoke_3;
+    v13 = &unk_1E865CA40;
+    objc_copyWeak(&v14, buf);
+    [(NSXPCConnection *)v8 setInvalidationHandler:&v10];
+    [(NSXPCConnection *)self->_xpcConnection resume:v10];
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return xpcConnection;
 }
@@ -172,15 +168,15 @@ void __46__CSAudioPowerServiceClient__fetchPowerLevels__block_invoke(uint64_t a1
 
 void __40__CSAudioPowerServiceClient__connection__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSAudioPowerServiceClient _connection]_block_invoke";
-    v9 = 2112;
-    v10 = @"com.apple.siri.audiopowerupdate.xpc";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSAudioPowerServiceClient _connection]_block_invoke";
+    v8 = 2112;
+    v9 = @"com.apple.siri.audiopowerupdate.xpc";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -191,21 +187,19 @@ void __40__CSAudioPowerServiceClient__connection__block_invoke(uint64_t a1)
     v5 = v4[5];
     v4[5] = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__CSAudioPowerServiceClient__connection__block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSAudioPowerServiceClient _connection]_block_invoke";
-    v9 = 2112;
-    v10 = @"com.apple.siri.audiopowerupdate.xpc";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSAudioPowerServiceClient _connection]_block_invoke";
+    v8 = 2112;
+    v9 = @"com.apple.siri.audiopowerupdate.xpc";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -215,13 +209,11 @@ void __40__CSAudioPowerServiceClient__connection__block_invoke_3(uint64_t a1)
     v5 = *(WeakRetained + 5);
     *(WeakRetained + 5) = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(CSAudioPowerServiceClient *)self _endUpdate];
   objc_storeWeak(&self->_delegate, 0);
   xpcConnection = self->_xpcConnection;
@@ -235,24 +227,22 @@ void __40__CSAudioPowerServiceClient__connection__block_invoke_3(uint64_t a1)
     v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[CSAudioPowerServiceClient _invalidate]";
-      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s XPC connection invalidated", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSAudioPowerServiceClient _invalidate]";
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s XPC connection invalidated", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endUpdate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CSAudioPowerServiceClient _endUpdate]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSAudioPowerServiceClient _endUpdate]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
   }
 
   timer = self->_timer;
@@ -262,8 +252,6 @@ void __40__CSAudioPowerServiceClient__connection__block_invoke_3(uint64_t a1)
     v5 = self->_timer;
     self->_timer = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate

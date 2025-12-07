@@ -17,7 +17,7 @@
 
 - (id)privateStringForObjectValue:(id)value
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -62,7 +62,7 @@
     v28 = v25 - v26 - 4;
     if (v28 != 0 && v27)
     {
-      v61 = selfCopy2;
+      v60 = selfCopy2;
       v37 = v24;
       v38 = v12;
       string = [MEMORY[0x277CCAB68] string];
@@ -82,7 +82,7 @@
 
       v12 = v38;
       v24 = v37;
-      selfCopy2 = v61;
+      selfCopy2 = v60;
     }
 
     else
@@ -94,7 +94,7 @@
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v68 = v32;
+        v67 = v32;
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_DEBUG, "%{public}@Phone number is too short to partially redact", buf, 0xCu);
       }
 
@@ -126,58 +126,58 @@ LABEL_14:
       v35 = v34;
       if (v34)
       {
-        v59 = v16;
-        v60 = selfCopy2;
-        v62 = v12;
-        v44 = [v15 substringToIndex:v34];
-        v58 = [v44 stringByReplacingCharactersInRange:1 withString:{v35 - 1, @"***"}];
+        v58 = v16;
+        v59 = selfCopy2;
+        v61 = v12;
+        v43 = [v15 substringToIndex:v34];
+        v57 = [v43 stringByReplacingCharactersInRange:1 withString:{v35 - 1, @"***"}];
 
-        v45 = [v15 substringFromIndex:v35 + 1];
-        v46 = [v45 componentsSeparatedByString:@"."];
+        v44 = [v15 substringFromIndex:v35 + 1];
+        v45 = [v44 componentsSeparatedByString:@"."];
 
-        v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v46, "count")}];
+        v46 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v45, "count")}];
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
-        v48 = v46;
-        v49 = [v48 countByEnumeratingWithState:&v63 objects:buf count:16];
-        if (v49)
+        v47 = v45;
+        v48 = [v47 countByEnumeratingWithState:&v62 objects:buf count:16];
+        if (v48)
         {
-          v50 = v49;
-          v51 = *v64;
+          v49 = v48;
+          v50 = *v63;
           do
           {
-            for (i = 0; i != v50; ++i)
+            for (i = 0; i != v49; ++i)
             {
-              if (*v64 != v51)
+              if (*v63 != v50)
               {
-                objc_enumerationMutation(v48);
+                objc_enumerationMutation(v47);
               }
 
-              v53 = *(*(&v63 + 1) + 8 * i);
-              if ([v53 length])
+              v52 = *(*(&v62 + 1) + 8 * i);
+              if ([v52 length])
               {
-                v54 = [v53 stringByReplacingCharactersInRange:1 withString:{objc_msgSend(v53, "length") - 1, @"***"}];
-                [v47 addObject:v54];
+                v53 = [v52 stringByReplacingCharactersInRange:1 withString:{objc_msgSend(v52, "length") - 1, @"***"}];
+                [v46 addObject:v53];
               }
             }
 
-            v50 = [v48 countByEnumeratingWithState:&v63 objects:buf count:16];
+            v49 = [v47 countByEnumeratingWithState:&v62 objects:buf count:16];
           }
 
-          while (v50);
+          while (v49);
         }
 
-        v55 = [v47 componentsJoinedByString:@"."];
+        v54 = [v46 componentsJoinedByString:@"."];
 
-        v56 = MEMORY[0x277CCACA8];
-        lowercaseString = [v55 lowercaseString];
-        v33 = [v56 stringWithFormat:@"%@@%@", v58, lowercaseString];
+        v55 = MEMORY[0x277CCACA8];
+        lowercaseString = [v54 lowercaseString];
+        v33 = [v55 stringWithFormat:@"%@@%@", v57, lowercaseString];
 
-        selfCopy2 = v60;
-        v12 = v62;
-        v16 = v59;
+        selfCopy2 = v59;
+        v12 = v61;
+        v16 = v58;
         goto LABEL_25;
       }
     }
@@ -189,7 +189,7 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v68 = v20;
+      v67 = v20;
       v21 = "%{public}@Failed to determine '@' range";
       goto LABEL_23;
     }
@@ -204,7 +204,7 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v68 = v20;
+      v67 = v20;
       v21 = "%{public}@Invalid email address length";
 LABEL_23:
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, v21, buf, 0xCu);
@@ -226,7 +226,6 @@ LABEL_31:
   v22 = v41;
 
 LABEL_34:
-  v42 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -300,21 +299,8 @@ LABEL_7:
   }
 
   v6 = valueCopy;
-  if (v5)
+  if (v5 || ((v7 = valueCopy, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v8 = 0) : (v8 = v7), v9 = v8, v7, [(HMDAccountHandleFormatter *)self accountHandleFromString:v9], v6 = objc_claimAutoreleasedReturnValue(), v9, v6))
   {
-    goto LABEL_9;
-  }
-
-  v7 = valueCopy;
-  objc_opt_class();
-  v8 = (objc_opt_isKindOfClass() & 1) != 0 ? v7 : 0;
-  v9 = v8;
-
-  v6 = [(HMDAccountHandleFormatter *)self accountHandleFromString:v9];
-
-  if (v6)
-  {
-LABEL_9:
     v10 = [v6 URI];
     unprefixedURI = [v10 unprefixedURI];
   }

@@ -2398,7 +2398,7 @@ LABEL_13:
 
         buf = 0u;
         v127 = 0u;
-        [(CRLInteractiveCanvasController *)selfCopy p_collaboratorHUDPositionForSelectionPath:v58 collaboratorPresence:v56 allowScroll:0 hudSize:1];
+        objc_msgSend_p_collaboratorHUDPositionForSelectionPath_collaboratorPresence_allowScroll_hudSize_(selfCopy);
         if (BYTE8(v127) == 1 && v127 != 0)
         {
           [v78 addObject:v56];
@@ -3183,7 +3183,7 @@ LABEL_39:
 + (double)zoomAnimationDefaultDuration
 {
   v2 = +[CRLCanvasLayer zoomAnimationDefaultCAAnimation];
-  [v2 duration];
+  objc_msgSend_duration(v2);
   v4 = v3;
 
   return v4;
@@ -3904,7 +3904,7 @@ LABEL_21:
   verticallyCopy = vertically;
   pathCopy = path;
   [(CRLInteractiveCanvasController *)self layoutIfNeeded];
-  [(CRLInteractiveCanvasController *)self p_scrollingInformationForSelectionPath:pathCopy allowZoom:0];
+  objc_msgSend_p_scrollingInformationForSelectionPath_allowZoom_(self);
 
   [(CRLInteractiveCanvasController *)self outsetSelectionRect:0, 0];
   [(CRLInteractiveCanvasController *)self p_contentOffsetToScrollRectToVisible:verticallyCopy shouldCenterVertically:0 forceCenteringVertically:0 forceCenteringHorizontally:?];
@@ -4203,7 +4203,7 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  [(CRLInteractiveCanvasController *)self p_scrollingInformationForSelectionPath:pathCopy allowZoom:(options & 6) != 0];
+  objc_msgSend_p_scrollingInformationForSelectionPath_allowZoom_(self);
   v9 = 0.0;
   v10 = (options >> 1) & 1;
   if ((options & 4) != 0)
@@ -10119,7 +10119,6 @@ LABEL_25:
 
 - (void)p_showCollaboratorHUDForCollaborator:(id)collaborator withSelectionPath:(id)path allowScroll:(BOOL)scroll hudSize:(unint64_t)size
 {
-  scrollCopy = scroll;
   collaboratorCopy = collaborator;
   pathCopy = path;
   if (!+[NSThread isMainThread])
@@ -10140,15 +10139,15 @@ LABEL_25:
       sub_101376FEC();
     }
 
-    v12 = off_1019EDA68;
+    v11 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130F3A8(v12);
+      sub_10130F3A8(v11);
     }
 
-    v13 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_showCollaboratorHUDForCollaborator:withSelectionPath:allowScroll:hudSize:]"];
-    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
-    [CRLAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:5201 isFatal:0 description:"This operation must only be performed on the main thread."];
+    v12 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_showCollaboratorHUDForCollaborator:withSelectionPath:allowScroll:hudSize:]"];
+    v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
+    [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:5201 isFatal:0 description:"This operation must only be performed on the main thread."];
   }
 
   if (![(CRLInteractiveCanvasController *)self suppressesCollaboratorHUD])
@@ -10159,8 +10158,8 @@ LABEL_25:
       pathCopy = [collaboratorCursorDelegate collaboratorCursorSelectionPathForRenderer:self collaboratorPresence:collaboratorCopy];
     }
 
-    v16 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
-    if (!v16)
+    v15 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
+    if (!v15)
     {
       goto LABEL_37;
     }
@@ -10172,114 +10171,111 @@ LABEL_25:
 
     if (![(CRLInteractiveCanvasController *)self p_followEnabled])
     {
-      [v16 setShouldFadeOutUnconditionally:isKindOfClass & 1];
+      [v15 setShouldFadeOutUnconditionally:isKindOfClass & 1];
     }
 
-    if ([v16 hudSize] == size)
+    if ([v15 hudSize] == size)
     {
       if (![(CRLInteractiveCanvasController *)self p_followEnabled])
       {
-        [v16 resetFadeOutTimer];
+        [v15 resetFadeOutTimer];
         goto LABEL_37;
       }
 
       if (isKindOfClass)
       {
-        if ([v16 shouldAutoHide])
+        if ([v15 shouldAutoHide])
         {
-          [v16 resetAutoHideTimer];
+          [v15 resetAutoHideTimer];
 LABEL_37:
           if ([(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary count])
           {
-            v32 = scrollCopy;
-            v35 = 0u;
-            v36 = 0u;
             v33 = 0u;
             v34 = 0u;
-            v23 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary copy];
-            v24 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
-            if (v24)
+            v31 = 0u;
+            v32 = 0u;
+            v22 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary copy];
+            v23 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            if (v23)
             {
-              v25 = v24;
-              v26 = *v34;
+              v24 = v23;
+              v25 = *v32;
               do
               {
-                v27 = 0;
+                v26 = 0;
                 do
                 {
-                  if (*v34 != v26)
+                  if (*v32 != v25)
                   {
-                    objc_enumerationMutation(v23);
+                    objc_enumerationMutation(v22);
                   }
 
-                  if (*(*(&v33 + 1) + 8 * v27) != collaboratorCopy)
+                  if (*(*(&v31 + 1) + 8 * v26) != collaboratorCopy)
                   {
-                    v28 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:?];
-                    if (!([v28 hudSize] | size))
+                    v27 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:?];
+                    if (!([v27 hudSize] | size))
                     {
-                      if (-[CRLInteractiveCanvasController p_followEnabled](self, "p_followEnabled") && ![v28 shouldAutoHide])
+                      if (-[CRLInteractiveCanvasController p_followEnabled](self, "p_followEnabled") && ![v27 shouldAutoHide])
                       {
-                        if ([v28 shouldAutoShrink])
+                        if ([v27 shouldAutoShrink])
                         {
-                          [(CRLInteractiveCanvasController *)self toggleSizeForCollaboratorHUDController:v28];
+                          [(CRLInteractiveCanvasController *)self toggleSizeForCollaboratorHUDController:v27];
                         }
                       }
 
                       else
                       {
-                        [v28 teardown];
+                        [v27 teardown];
                       }
                     }
                   }
 
-                  v27 = v27 + 1;
+                  v26 = v26 + 1;
                 }
 
-                while (v25 != v27);
-                v29 = [v23 countByEnumeratingWithState:&v33 objects:v37 count:16];
-                v25 = v29;
+                while (v24 != v26);
+                v28 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+                v24 = v28;
               }
 
-              while (v29);
+              while (v28);
             }
-
-            scrollCopy = v32;
           }
 
-          [(CRLInteractiveCanvasController *)self p_collaboratorHUDPositionForSelectionPath:pathCopy collaboratorPresence:collaboratorCopy allowScroll:scrollCopy hudSize:size];
-          if (!v16)
+          objc_msgSend_p_collaboratorHUDPositionForSelectionPath_collaboratorPresence_allowScroll_hudSize_(self);
+          if (!v15)
           {
-            v30 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
+            v29 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
 
-            if (v30)
+            if (v29)
             {
-              v31 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
-              [v31 teardown];
+              v30 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
+              [v30 teardown];
             }
 
-            v16 = 0;
+            v15 = 0;
           }
 
           goto LABEL_60;
         }
       }
 
-      else if ([v16 shouldAutoShrink])
+      else if ([v15 shouldAutoShrink])
       {
-        [v16 resetAutoShrinkTimer];
+        [v15 resetAutoShrinkTimer];
         goto LABEL_37;
       }
 
-      [v16 teardown];
+      [v15 teardown];
     }
 
     else
     {
-      [v16 teardown];
+      [v15 teardown];
 
-      v16 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
+      v15 = [(NSMapTable *)self->mCollaboratorPresenceToCollaboratorHUDControllerDictionary objectForKeyedSubscript:collaboratorCopy];
 
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_37;
       }
@@ -10300,18 +10296,18 @@ LABEL_37:
         sub_1013770D8();
       }
 
-      v20 = off_1019EDA68;
+      v19 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v20);
+        sub_10130F3A8(v19);
       }
 
-      v21 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_showCollaboratorHUDForCollaborator:withSelectionPath:allowScroll:hudSize:]"];
-      v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
-      [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:5247 isFatal:0 description:"expected nil value for '%{public}s'", "mCollaboratorPresenceToCollaboratorHUDControllerDictionary[collaboratorPresence]"];
+      v20 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_showCollaboratorHUDForCollaborator:withSelectionPath:allowScroll:hudSize:]"];
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:5247 isFatal:0 description:"expected nil value for '%{public}s'", "mCollaboratorPresenceToCollaboratorHUDControllerDictionary[collaboratorPresence]"];
     }
 
-    v16 = 0;
+    v15 = 0;
     goto LABEL_37;
   }
 
@@ -10403,31 +10399,31 @@ LABEL_60:
     if (v17)
     {
       obj = a7;
-      v179 = scrollCopy;
-      v182 = presenceCopy;
-      v199 = 0u;
+      v180 = scrollCopy;
+      v183 = presenceCopy;
       v200 = 0u;
-      v197 = 0u;
+      v201 = 0u;
       v198 = 0u;
+      v199 = 0u;
       boardItems = [v17 boardItems];
-      v20 = [boardItems countByEnumeratingWithState:&v197 objects:v215 count:16];
+      v20 = [boardItems countByEnumeratingWithState:&v198 objects:v216 count:16];
       if (v20)
       {
         v21 = v20;
         v16 = 0;
         x = CGRectZero.origin.x;
         y = CGRectZero.origin.y;
-        v24 = *v198;
+        v24 = *v199;
         do
         {
           for (i = 0; i != v21; i = i + 1)
           {
-            if (*v198 != v24)
+            if (*v199 != v24)
             {
               objc_enumerationMutation(boardItems);
             }
 
-            v26 = [(CRLInteractiveCanvasController *)self layoutForInfoNearestVisibleRect:*(*(&v197 + 1) + 8 * i)];
+            v26 = [(CRLInteractiveCanvasController *)self layoutForInfoNearestVisibleRect:*(*(&v198 + 1) + 8 * i)];
             v27 = v26;
             if (v16)
             {
@@ -10453,7 +10449,7 @@ LABEL_60:
             }
           }
 
-          v21 = [boardItems countByEnumeratingWithState:&v197 objects:v215 count:16];
+          v21 = [boardItems countByEnumeratingWithState:&v198 objects:v216 count:16];
         }
 
         while (v21);
@@ -10464,8 +10460,8 @@ LABEL_60:
         v16 = 0;
       }
 
-      presenceCopy = v182;
-      scrollCopy = v179;
+      presenceCopy = v183;
+      scrollCopy = v180;
       a7 = obj;
     }
 
@@ -10509,7 +10505,7 @@ LABEL_60:
   v70 = v69;
   if (v16)
   {
-    v177 = enclosingScrollView;
+    v178 = enclosingScrollView;
     mCollaboratorPresenceToCollaboratorHUDControllerDictionaryForFastSizing = self->mCollaboratorPresenceToCollaboratorHUDControllerDictionaryForFastSizing;
     if (!mCollaboratorPresenceToCollaboratorHUDControllerDictionaryForFastSizing)
     {
@@ -10522,8 +10518,8 @@ LABEL_60:
 
     v74 = [(NSMapTable *)mCollaboratorPresenceToCollaboratorHUDControllerDictionaryForFastSizing objectForKeyedSubscript:scrollCopy];
     v75 = v74;
-    v178 = canvasView;
-    v180 = scrollCopy;
+    v179 = canvasView;
+    v181 = scrollCopy;
     if (!v74 || -[CRLCollaboratorCursorHUDController hudSize](v74, "hudSize") != a7 || (-[CRLCollaboratorCursorHUDController string](v75, "string"), v76 = objc_claimAutoreleasedReturnValue(), [scrollCopy displayName], v77 = objc_claimAutoreleasedReturnValue(), v78 = objc_msgSend(v76, "isEqualToString:", v77), v77, v76, (v78 & 1) == 0))
     {
       if ([(CRLInteractiveCanvasController *)self p_followEnabled])
@@ -10546,8 +10542,8 @@ LABEL_60:
         presenceCopy = v82;
         v91 = v81;
 
-        LOBYTE(v176) = v90;
-        v92 = [[CRLCollaboratorCursorHUDController alloc] initWithCollaboratorPresence:scrollCopy delegate:self hudSize:objb shouldAutoShrink:0 shouldAutoHide:0 isFollowing:v85 isLocalParticipant:v176];
+        LOBYTE(v177) = v90;
+        v92 = [[CRLCollaboratorCursorHUDController alloc] initWithCollaboratorPresence:scrollCopy delegate:self hudSize:objb shouldAutoShrink:0 shouldAutoHide:0 isFollowing:v85 isLocalParticipant:v177];
       }
 
       else
@@ -10571,27 +10567,27 @@ LABEL_60:
     miniFormatterPresenter2 = [layerHost2 miniFormatterPresenter];
     isPinnedToTopOfRep = [miniFormatterPresenter2 isPinnedToTopOfRep];
 
-    v183 = presenceCopy;
+    v184 = presenceCopy;
     [v16 unscaledPositionsForCollaboratorHUDForSelectionPath:presenceCopy];
-    v193 = 0u;
     v194 = 0u;
     v195 = 0u;
-    v100 = v196 = 0u;
-    v101 = [v100 countByEnumeratingWithState:&v193 objects:v214 count:16];
+    v196 = 0u;
+    v100 = v197 = 0u;
+    v101 = [v100 countByEnumeratingWithState:&v194 objects:v215 count:16];
     if (v101)
     {
       v102 = v101;
-      v103 = *v194;
+      v103 = *v195;
       while (2)
       {
         for (j = 0; j != v102; j = j + 1)
         {
-          if (*v194 != v103)
+          if (*v195 != v103)
           {
             objc_enumerationMutation(v100);
           }
 
-          v105 = *(*(&v193 + 1) + 8 * j);
+          v105 = *(*(&v194 + 1) + 8 * j);
           [v105 position];
           v107 = v106;
           v109 = v108;
@@ -10610,17 +10606,17 @@ LABEL_60:
             if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
             {
               *buf = 67110402;
-              v203 = v125;
-              v204 = 2082;
-              v205 = "[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]";
-              v206 = 2082;
-              v207 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m";
-              v208 = 1024;
-              v209 = 5398;
-              v210 = 2112;
-              v211 = v16;
-              v212 = 2112;
-              v213 = v183;
+              v204 = v125;
+              v205 = 2082;
+              v206 = "[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]";
+              v207 = 2082;
+              v208 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m";
+              v209 = 1024;
+              v210 = 5398;
+              v211 = 2112;
+              v212 = v16;
+              v213 = 2112;
+              v214 = v184;
               _os_log_error_impl(&_mh_execute_header, v126, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Position provided by %@ for selection %@ has NaN components!", buf, 0x36u);
             }
 
@@ -10637,7 +10633,7 @@ LABEL_60:
 
             v128 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]"];
             v129 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
-            [CRLAssertionHandler handleFailureInFunction:v128 file:v129 lineNumber:5398 isFatal:0 description:"Position provided by %@ for selection %@ has NaN components!", v16, v183];
+            [CRLAssertionHandler handleFailureInFunction:v128 file:v129 lineNumber:5398 isFatal:0 description:"Position provided by %@ for selection %@ has NaN components!", v16, v184];
 
             goto LABEL_72;
           }
@@ -10668,15 +10664,15 @@ LABEL_60:
             v124 = 0;
           }
 
-          v216.origin.x = v64;
-          v216.origin.y = v66;
-          v216.size.width = v68;
-          v216.size.height = v70;
-          v218.origin.x = v115;
-          v218.origin.y = v117;
-          v218.size.width = v119;
-          v218.size.height = v121;
-          if (CGRectContainsRect(v216, v218) && !v124)
+          v217.origin.x = v64;
+          v217.origin.y = v66;
+          v217.size.width = v68;
+          v217.size.height = v70;
+          v219.origin.x = v115;
+          v219.origin.y = v117;
+          v219.size.width = v119;
+          v219.size.height = v121;
+          if (CGRectContainsRect(v217, v219) && !v124)
           {
             [v105 position];
             v155 = v154;
@@ -10684,15 +10680,15 @@ LABEL_60:
             direction2 = [v105 direction];
 
 LABEL_102:
-            presenceCopy = v183;
-            canvasView = v178;
-            scrollCopy = v180;
-            enclosingScrollView = v177;
+            presenceCopy = v184;
+            canvasView = v179;
+            scrollCopy = v181;
+            enclosingScrollView = v178;
             goto LABEL_103;
           }
         }
 
-        v102 = [v100 countByEnumeratingWithState:&v193 objects:v214 count:16];
+        v102 = [v100 countByEnumeratingWithState:&v194 objects:v215 count:16];
         if (v102)
         {
           continue;
@@ -10703,18 +10699,18 @@ LABEL_102:
     }
 
 LABEL_72:
-    v185 = v75;
+    v186 = v75;
 
-    v191 = 0u;
     v192 = 0u;
-    v189 = 0u;
+    v193 = 0u;
     v190 = 0u;
+    v191 = 0u;
     obja = v100;
-    v130 = [obja countByEnumeratingWithState:&v189 objects:v201 count:16];
+    v130 = [obja countByEnumeratingWithState:&v190 objects:v202 count:16];
     if (v130)
     {
       v131 = v130;
-      v132 = *v190;
+      v132 = *v191;
       if (isPinnedToTopOfRep)
       {
         v133 = 2;
@@ -10729,12 +10725,12 @@ LABEL_72:
       {
         for (k = 0; k != v131; k = k + 1)
         {
-          if (*v190 != v132)
+          if (*v191 != v132)
           {
             objc_enumerationMutation(obja);
           }
 
-          v135 = *(*(&v189 + 1) + 8 * k);
+          v135 = *(*(&v190 + 1) + 8 * k);
           if ([v135 allowedToFlip])
           {
             [v135 position];
@@ -10755,17 +10751,17 @@ LABEL_72:
               if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67110402;
-                v203 = v158;
-                v204 = 2082;
-                v205 = "[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]";
-                v206 = 2082;
-                v207 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m";
-                v208 = 1024;
-                v209 = 5431;
-                v210 = 2112;
-                v211 = v16;
-                v212 = 2112;
-                v213 = v183;
+                v204 = v158;
+                v205 = 2082;
+                v206 = "[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]";
+                v207 = 2082;
+                v208 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m";
+                v209 = 1024;
+                v210 = 5431;
+                v211 = 2112;
+                v212 = v16;
+                v213 = 2112;
+                v214 = v184;
                 _os_log_error_impl(&_mh_execute_header, v159, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Position provided by %@ for selection %@ has NaN components!", buf, 0x36u);
               }
 
@@ -10782,13 +10778,13 @@ LABEL_72:
 
               v161 = [NSString stringWithUTF8String:"[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:]"];
               v162 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLInteractiveCanvasController.m"];
-              [CRLAssertionHandler handleFailureInFunction:v161 file:v162 lineNumber:5431 isFatal:0 description:"Position provided by %@ for selection %@ has NaN components!", v16, v183];
+              [CRLAssertionHandler handleFailureInFunction:v161 file:v162 lineNumber:5431 isFatal:0 description:"Position provided by %@ for selection %@ has NaN components!", v16, v184];
 
               goto LABEL_99;
             }
 
             direction2 = sub_10050D01C([v135 direction]);
-            [(CRLCollaboratorCursorHUDController *)v185 scaledFrameForHUDAtPoint:direction2 withDirection:v141, v143];
+            [(CRLCollaboratorCursorHUDController *)v186 scaledFrameForHUDAtPoint:direction2 withDirection:v141, v143];
             [(CRLInteractiveCanvasController *)self convertBoundsToUnscaledRect:?];
             v146 = v145;
             v148 = v147;
@@ -10804,11 +10800,11 @@ LABEL_72:
               v153 = 0;
             }
 
-            v217.origin.x = v64;
-            v217.origin.y = v66;
-            v217.size.width = v68;
-            v217.size.height = v70;
-            if (CGRectContainsRect(v217, *&v146) && (v153 & 1) == 0)
+            v218.origin.x = v64;
+            v218.origin.y = v66;
+            v218.size.width = v68;
+            v218.size.height = v70;
+            if (CGRectContainsRect(v218, *&v146) && (v153 & 1) == 0)
             {
               [v135 position];
               v155 = v164;
@@ -10819,7 +10815,7 @@ LABEL_72:
           }
         }
 
-        v131 = [obja countByEnumeratingWithState:&v189 objects:v201 count:16];
+        v131 = [obja countByEnumeratingWithState:&v190 objects:v202 count:16];
         if (v131)
         {
           continue;
@@ -10831,10 +10827,10 @@ LABEL_72:
 
 LABEL_99:
 
-    presenceCopy = v183;
-    canvasView = v178;
-    scrollCopy = v180;
-    enclosingScrollView = v177;
+    presenceCopy = v184;
+    canvasView = v179;
+    scrollCopy = v181;
+    enclosingScrollView = v178;
   }
 
   v155 = sub_100120414(v64, v66, v68, v70);
@@ -10845,12 +10841,12 @@ LABEL_103:
   v167 = sub_10011F340(v155, v157, v166);
   v169 = v168;
   canvas = [(CRLInteractiveCanvasController *)self canvas];
-  [canvas contentsScale];
-  v172 = sub_10012218C(v167, v169, v171);
-  v174 = v173;
+  contentsScale = [canvas contentsScale];
+  v173 = sub_10012218C(contentsScale, v167, v169, v172);
+  v175 = v174;
 
-  retstr->var0.x = v172;
-  retstr->var0.y = v174;
+  retstr->var0.x = v173;
+  retstr->var0.y = v175;
   retstr->var1 = direction2;
   *&retstr->var2 = 0;
   retstr->var2 = 1;
@@ -11133,17 +11129,9 @@ LABEL_103:
   v10 = [collaboratorCursorDelegate collaboratorCursorSelectionPathForRenderer:self collaboratorPresence:collaboratorPresence];
 
   collaboratorPresence2 = [controllerCopy collaboratorPresence];
-  if ([controllerCopy hudSize])
-  {
-    mCurrentlyScrolling = 0;
-  }
-
-  else
-  {
-    mCurrentlyScrolling = self->mCurrentlyScrolling;
-  }
-
-  -[CRLInteractiveCanvasController p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:](self, "p_collaboratorHUDPositionForSelectionPath:collaboratorPresence:allowScroll:hudSize:", v10, collaboratorPresence2, mCurrentlyScrolling, [controllerCopy hudSize]);
+  [controllerCopy hudSize];
+  [controllerCopy hudSize];
+  objc_msgSend_p_collaboratorHUDPositionForSelectionPath_collaboratorPresence_allowScroll_hudSize_(self);
 
   [controllerCopy hideHUD];
 }
@@ -13844,7 +13832,7 @@ LABEL_18:
           memset(&v31[1], 0, sizeof(CGAffineTransform));
           if (v22)
           {
-            [v22 transformToConvertNaturalToLayerRelative];
+            objc_msgSend_transformToConvertNaturalToLayerRelative(v22);
           }
 
           v24 = [(NSMapTable *)self->mRepsToRectsToInvalidate objectForKey:v22];
@@ -14607,17 +14595,17 @@ LABEL_19:
 
   if (i_interactiveCanvasLayerHelper)
   {
-    v10 = [(CRLInteractiveCanvasController *)self renderableForRep:displayCopy];
-    if (v10 && ([displayCopy directlyManagesLayerContent] & 1) == 0)
+    v11 = [(CRLInteractiveCanvasController *)self renderableForRep:displayCopy];
+    if (v11 && ([displayCopy directlyManagesLayerContent] & 1) == 0)
     {
-      v11 = [(NSMapTable *)self->mRepsToRectsToInvalidate objectForKey:displayCopy];
-      if (!v11)
+      v12 = [(NSMapTable *)self->mRepsToRectsToInvalidate objectForKey:displayCopy];
+      if (!v12)
       {
-        v11 = objc_alloc_init(CRLMutableRectList);
-        [(NSMapTable *)self->mRepsToRectsToInvalidate setObject:v11 forKey:displayCopy];
+        v12 = objc_alloc_init(CRLMutableRectList);
+        [(NSMapTable *)self->mRepsToRectsToInvalidate setObject:v12 forKey:displayCopy];
       }
 
-      [(CRLMutableRectList *)v11 addRect:x, y, width, height];
+      [(CRLMutableRectList *)v12 addRect:x, y, width, height];
       layerHost = [(CRLInteractiveCanvasController *)self layerHost];
       canvasLayer = [layerHost canvasLayer];
       [canvasLayer setNeedsLayout];
@@ -14629,7 +14617,7 @@ LABEL_19:
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(v10);
 }
 
 - (id)i_descriptionForViewScale:(double)scale zoomMethod:(int64_t)method
@@ -14840,7 +14828,7 @@ LABEL_22:
     v17 = geometry;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -15271,7 +15259,7 @@ LABEL_22:
   v13 = layout;
   if (layout)
   {
-    [layout transform];
+    objc_msgSend_transform(layout);
   }
 
   else
@@ -15288,8 +15276,7 @@ LABEL_22:
     v17 = geometryInRoot;
     if (geometryInRoot)
     {
-      v31 = v33;
-      [geometryInRoot transformByConcatenatingTransformTo:&v31];
+      objc_msgSend_transformByConcatenatingTransformTo_(geometryInRoot, *&v33.a, *&v33.c, *&v33.tx);
     }
 
     else
@@ -15314,7 +15301,7 @@ LABEL_22:
 
   if (layout3)
   {
-    [layout3 transformInRoot];
+    objc_msgSend_transformInRoot(layout3);
   }
 
   else
@@ -15419,7 +15406,7 @@ LABEL_22:
           memset(&v34[1], 0, sizeof(CGAffineTransform));
           if (v25)
           {
-            [v25 transformToConvertNaturalToLayerRelative];
+            objc_msgSend_transformToConvertNaturalToLayerRelative(v25);
           }
 
           v27 = [v20 objectForKey:v25];
@@ -15744,7 +15731,7 @@ LABEL_28:
   if (editorController)
   {
     v4 = editorController;
-    sub_100006370(0, &qword_101A28AC0);
+    sub_100006370(0, &qword_101A28AC0, off_10182F900);
     v5 = [(CRLEditorController *)v4 mostSpecificCurrentEditorOfClass:swift_getObjCClassFromMetadata()];
 
     if (v5)
@@ -15784,7 +15771,7 @@ LABEL_28:
       swift_once();
     }
 
-    v3 = sub_1005B981C(&unk_101A287C0);
+    v3 = sub_1005B981C(&unk_101A287C0, &unk_10147A120);
     sub_1005EB3DC(v3, qword_101AD75F0);
     Tips.Event.sendDonation<>(_:)();
   }
@@ -15794,7 +15781,7 @@ LABEL_28:
     swift_once();
   }
 
-  v4 = sub_1005B981C(&unk_1019F6CF0);
+  v4 = sub_1005B981C(&unk_1019F6CF0, &unk_10146FAB0);
   sub_1005EB3DC(v4, qword_101AD7210);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();

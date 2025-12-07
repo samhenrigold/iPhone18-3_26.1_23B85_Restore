@@ -22,7 +22,7 @@
   return linearWideGamutColorSpace_s_linearWideGamutColorSpaceRef;
 }
 
-uint64_t __45__PIRAWFaceBalance_linearWideGamutColorSpace__block_invoke(uint64_t a1)
+void *__45__PIRAWFaceBalance_linearWideGamutColorSpace__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) newLinearWideGamutColorSpace];
   linearWideGamutColorSpace_s_linearWideGamutColorSpaceRef = result;
@@ -84,7 +84,7 @@ uint64_t __38__PIRAWFaceBalance_faceBalanceKernels__block_invoke()
     inputImage2 = [(PIRAWFaceBalance *)self inputImage];
     v22 = [inputImage2 imageByColorMatchingWorkingSpaceToColorSpace:linearWideGamutColorSpace];
 
-    [v22 extent];
+    objc_msgSend_extent(v22);
     v24 = v23;
     v26 = v25;
     v28 = v27;
@@ -101,7 +101,7 @@ uint64_t __38__PIRAWFaceBalance_faceBalanceKernels__block_invoke()
     v37 = [v36 imageByColorMatchingColorSpaceToWorkingSpace:linearWideGamutColorSpace];
 
     inputImage3 = [(PIRAWFaceBalance *)self inputImage];
-    [inputImage3 extent];
+    objc_msgSend_extent(inputImage3);
     v39 = [v37 imageByCroppingToRect:?];
 
     v15 = v39;

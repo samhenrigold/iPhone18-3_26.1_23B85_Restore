@@ -5,6 +5,7 @@
 - (void)clearAllEngagements;
 - (void)clearEngagementsFromDate:(id)date toDate:(id)toDate;
 - (void)clearEngagementsWithTitle:(id)title;
+- (void)clearEngagementsWithTitle:(id)title type:(int)type;
 - (void)topEngagedResultsForInput:(id)input maxAmount:(int64_t)amount completion:(id)completion;
 - (void)updateParametersForSmartSearchV1:(id)v1 smartSearchV2:(id)v2;
 @end
@@ -32,6 +33,15 @@
   resultsCopy = results;
   v4 = +[PARSession sharedSession];
   [v4 addEngagedResults:resultsCopy completion:0];
+}
+
+- (void)clearEngagementsWithTitle:(id)title type:(int)type
+{
+  v4 = *&type;
+  titleCopy = title;
+  v7 = +[PARSession sharedSession];
+  v6 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  [v7 clearEngagementsWithTitle:titleCopy type:v6];
 }
 
 - (void)clearEngagementsWithTitle:(id)title

@@ -38,70 +38,71 @@
 
 - (void)_initializeBiometricKit
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pearlDevice = self->_pearlDevice;
   self->_pearlDevice = 0;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   availableDevices = [MEMORY[0x1E698F388] availableDevices];
-  v5 = [availableDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v5)
+  v5 = [availableDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v19;
+    goto LABEL_12;
+  }
+
+  v6 = v5;
+  v7 = *v18;
+  do
+  {
+    v8 = 0;
     do
     {
-      v8 = 0;
-      do
+      if (*v18 != v7)
       {
-        if (*v19 != v7)
-        {
-          objc_enumerationMutation(availableDevices);
-        }
-
-        v9 = *(*(&v18 + 1) + 8 * v8);
-        v10 = NSClassFromString(&cfstr_Bkdevice.isa);
-        v17 = 0;
-        v11 = [(objc_class *)v10 deviceWithDescriptor:v9 error:&v17];
-        v12 = v17;
-        descriptor = [v11 descriptor];
-        if ([descriptor type] == 2)
-        {
-          NSClassFromString(&cfstr_Bkdevicepearl.isa);
-          objc_opt_class();
-          isKindOfClass = objc_opt_isKindOfClass();
-
-          if ((isKindOfClass & 1) == 0)
-          {
-            goto LABEL_10;
-          }
-
-          v15 = v11;
-          descriptor = self->_pearlDevice;
-          self->_pearlDevice = v15;
-        }
-
-LABEL_10:
-        ++v8;
+        objc_enumerationMutation(availableDevices);
       }
 
-      while (v6 != v8);
-      v6 = [availableDevices countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = *(*(&v17 + 1) + 8 * v8);
+      v10 = NSClassFromString(&cfstr_Bkdevice.isa);
+      v16 = 0;
+      v11 = [(objc_class *)v10 deviceWithDescriptor:v9 error:&v16];
+      v12 = v16;
+      descriptor = [v11 descriptor];
+      if ([descriptor type] == 2)
+      {
+        NSClassFromString(&cfstr_Bkdevicepearl.isa);
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+
+        if ((isKindOfClass & 1) == 0)
+        {
+          goto LABEL_10;
+        }
+
+        v15 = v11;
+        descriptor = self->_pearlDevice;
+        self->_pearlDevice = v15;
+      }
+
+LABEL_10:
+      ++v8;
     }
 
-    while (v6);
+    while (v6 != v8);
+    v6 = [availableDevices countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
+
+  while (v6);
+LABEL_12:
 
   [(UNCBiometricResource *)self _updateHasEnrolledPearlIdentities];
   if (self->_pearlDevice)
   {
     [(UNCBiometricResource *)self _registerForBKEnrollmentChange];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

@@ -100,7 +100,7 @@
 
 void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 68) & 1) == 0)
   {
     ASLoggingInitialize();
@@ -116,30 +116,28 @@ void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke(uint64_t a
       }
 
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager registering xpc activity%@", buf, 0xCu);
     }
 
     objc_initWeak(buf, *(a1 + 32));
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309;
-    v8[3] = &unk_278C4C240;
-    objc_copyWeak(&v9, buf);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309;
+    v7[3] = &unk_278C4C240;
+    objc_copyWeak(&v8, buf);
     v6 = *MEMORY[0x277D86238];
-    v8[4] = *(a1 + 32);
-    xpc_activity_register("com.apple.FitnessFriends.PeriodicUpdateActivity", v6, v8);
+    v7[4] = *(a1 + 32);
+    xpc_activity_register("com.apple.FitnessFriends.PeriodicUpdateActivity", v6, v7);
     *(*(a1 + 32) + 68) = 1;
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -151,7 +149,7 @@ void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309(uint64
     if (os_log_type_enabled(*MEMORY[0x277CE9000], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v19 = state;
+      v18 = state;
       _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager xpc activity fired, state=%zd", buf, 0xCu);
     }
 
@@ -167,13 +165,13 @@ void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309(uint64
       }
 
       v8 = *(*(a1 + 32) + 48);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_310;
-      v16[3] = &unk_278C4B250;
-      v16[4] = WeakRetained;
-      v17 = v3;
-      dispatch_async(v8, v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_310;
+      v15[3] = &unk_278C4B250;
+      v15[4] = WeakRetained;
+      v16 = v3;
+      dispatch_async(v8, v15);
     }
 
     else
@@ -201,15 +199,13 @@ void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_309(uint64
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_310(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = ASCloudKitGroupCoreDuetTriggered();
+  v4 = ASCloudKitGroupCoreDuetTriggered(a1);
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
   v5[2] = __47__ASPeriodicUpdateManager_beginPeriodicUpdates__block_invoke_2;
@@ -603,17 +599,17 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
 
 void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_315(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  v29 = *MEMORY[0x277D85DE8];
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v2 = [*(*(a1 + 32) + 40) allObjects];
-  v3 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
+    v5 = *v25;
     v6 = MEMORY[0x277CBEBF8];
     v7 = MEMORY[0x277CBEBF8];
     do
@@ -623,12 +619,12 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
       v10 = v7;
       do
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * v8);
+        v11 = *(*(&v24 + 1) + 8 * v8);
         v12 = [v11 recordsToSave];
         v7 = [v10 arrayByAddingObjectsFromArray:v12];
 
@@ -641,7 +637,7 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
       }
 
       while (v4 != v8);
-      v4 = [v2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v4);
@@ -656,20 +652,18 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   v15 = *(a1 + 40);
   v16 = *(a1 + 48);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_2_316;
-  v19[3] = &unk_278C4C290;
-  v19[4] = *(a1 + 32);
-  v20 = v15;
-  v21 = v7;
-  v24 = *(a1 + 64);
-  v22 = *(a1 + 56);
-  v23 = *(a1 + 48);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_2_316;
+  v18[3] = &unk_278C4C290;
+  v18[4] = *(a1 + 32);
+  v19 = v15;
+  v20 = v7;
+  v23 = *(a1 + 64);
+  v21 = *(a1 + 56);
+  v22 = *(a1 + 48);
   v17 = v7;
-  [WeakRetained forceSaveRecordsIntoPrivateDatabaseIgnoringServerChanges:v17 recordIDsToDelete:v6 priority:2 activity:v20 group:v16 completion:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [WeakRetained forceSaveRecordsIntoPrivateDatabaseIgnoringServerChanges:v17 recordIDsToDelete:v6 priority:2 activity:v19 group:v16 completion:v18];
 }
 
 void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_2_316(uint64_t a1, char a2, void *a3, void *a4)
@@ -705,28 +699,28 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
 
 void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_3(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v25 = *MEMORY[0x277D85DE8];
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v2 = *(*(a1 + 32) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * v6);
+        v7 = *(*(&v16 + 1) + 8 * v6);
         if (*(a1 + 104) == 1 && !*(a1 + 40))
         {
           [v7 periodicUpdateManager:*(a1 + 32) didSaveRecords:*(a1 + 48) activity:*(a1 + 56)];
@@ -741,7 +735,7 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
       }
 
       while (v4 != v6);
-      v8 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v8 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
       v4 = v8;
     }
 
@@ -755,9 +749,9 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
     v10 = *(a1 + 104);
     v11 = *(a1 + 40);
     *buf = 67109378;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v11;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v11;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Periodic update save completed with result: %{BOOL}d, %@", buf, 0x12u);
   }
 
@@ -766,21 +760,19 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
   dispatch_group_leave(*(a1 + 72));
   v12 = *(a1 + 32);
   v13 = *(v12 + 48);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_317;
-  v15[3] = &unk_278C4B250;
-  v15[4] = v12;
-  v16 = *(a1 + 80);
-  dispatch_async(v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_317;
+  v14[3] = &unk_278C4B250;
+  v14[4] = v12;
+  v15 = *(a1 + 80);
+  dispatch_async(v13, v14);
 }
 
-uint64_t __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_317(uint64_t result)
+void *__84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_317(void *result)
 {
-  *(*(result + 32) + 65) = 0;
-  v3 = *(result + 32);
+  *(result[4] + 65) = 0;
+  v3 = result[4];
   if ((*(v3 + 67) & 1) == 0 && *(v3 + 66) == 1)
   {
     v7 = v1;
@@ -794,7 +786,7 @@ uint64_t __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitG
       _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Running queued push immediately", v6, 2u);
     }
 
-    return [*(v4 + 32) _queue_performUpdateForActivity:0 cloudKitGroup:*(v4 + 40) completion:0];
+    return [v4[4] _queue_performUpdateForActivity:0 cloudKitGroup:v4[5] completion:0];
   }
 
   return result;
@@ -822,16 +814,16 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
 
 void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_2_320(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE9000];
   if (os_log_type_enabled(*MEMORY[0x277CE9000], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v17 = a2;
-    v18 = 2112;
-    v19 = v5;
+    v16 = a2;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Periodic update secure cloud save completed with result: %{BOOL}d, %@", buf, 0x12u);
   }
 
@@ -845,21 +837,19 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
   v11 = *(a1 + 40);
   v10 = *(a1 + 48);
   v12 = *(v11 + 48);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_321;
-  v14[3] = &unk_278C4B250;
-  v14[4] = v11;
-  v15 = v10;
-  dispatch_async(v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_321;
+  v13[3] = &unk_278C4B250;
+  v13[4] = v11;
+  v14 = v10;
+  dispatch_async(v12, v13);
 }
 
-uint64_t __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_321(uint64_t result)
+void *__84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_321(void *result)
 {
-  *(*(result + 32) + 67) = 0;
-  v3 = *(result + 32);
+  *(result[4] + 67) = 0;
+  v3 = result[4];
   if ((*(v3 + 65) & 1) == 0 && *(v3 + 66) == 1)
   {
     v7 = v1;
@@ -873,7 +863,7 @@ uint64_t __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitG
       _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Running queued push immediately for secure cloud", v6, 2u);
     }
 
-    return [*(v4 + 32) _queue_performUpdateForActivity:0 cloudKitGroup:*(v4 + 40) completion:0];
+    return [v4[4] _queue_performUpdateForActivity:0 cloudKitGroup:v4[5] completion:0];
   }
 
   return result;
@@ -1003,22 +993,20 @@ void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup
 
 void __84__ASPeriodicUpdateManager__queue_performUpdateForActivity_cloudKitGroup_completion___block_invoke_2_327(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE9000];
   if (os_log_type_enabled(*MEMORY[0x277CE9000], OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager completed secure cloud tasks with result: %{BOOL}d, %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager completed secure cloud tasks with result: %{BOOL}d, %@", v7, 0x12u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleFetchError:(id)error activity:(id)activity
@@ -1069,14 +1057,14 @@ void __60__ASPeriodicUpdateManager__queue_handleFetchError_activity___block_invo
 
 - (void)cloudKitManager:(id)manager didUpdateAccountStatus:(int64_t)status
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE9000];
   if (os_log_type_enabled(*MEMORY[0x277CE9000], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     statusCopy = status;
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager account status did change to %ld", &v8, 0xCu);
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "PeriodicUpdateManager account status did change to %ld", &v7, 0xCu);
   }
 
   if ((status - 2) >= 3 && status)
@@ -1091,8 +1079,6 @@ void __60__ASPeriodicUpdateManager__queue_handleFetchError_activity___block_invo
   {
     [(ASPeriodicUpdateManager *)self endPeriodicUpdates];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ASPeriodicUpdateManagerSecureCloudDelegate)secureCloudDelegate

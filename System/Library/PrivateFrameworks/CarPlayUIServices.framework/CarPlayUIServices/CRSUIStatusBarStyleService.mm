@@ -100,10 +100,10 @@ void __42__CRSUIStatusBarStyleService_colorVariant__block_invoke(uint64_t a1, vo
 
 - (CRSUIStatusBarStyleService)init
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = CRSUIStatusBarStyleService;
-  v2 = [(CRSUIStatusBarStyleService *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = CRSUIStatusBarStyleService;
+  v2 = [(CRSUIStatusBarStyleService *)&v21 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CF89C0]) initWithProtocol:&unk_285609010];
@@ -125,13 +125,13 @@ void __42__CRSUIStatusBarStyleService_colorVariant__block_invoke(uint64_t a1, vo
     v2->_lock_assertions = v10;
 
     v12 = MEMORY[0x277CF32A0];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __34__CRSUIStatusBarStyleService_init__block_invoke;
-    v20[3] = &unk_278DA0B08;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __34__CRSUIStatusBarStyleService_init__block_invoke;
+    v19[3] = &unk_278DA0B08;
     v13 = v2;
-    v21 = v13;
-    v14 = [v12 listenerWithConfigurator:v20];
+    v20 = v13;
+    v14 = [v12 listenerWithConfigurator:v19];
     v15 = v13[4];
     v13[4] = v14;
 
@@ -140,14 +140,13 @@ void __42__CRSUIStatusBarStyleService_colorVariant__block_invoke(uint64_t a1, vo
     {
       v17 = v13[4];
       *buf = 138412290;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_243218000, v16, OS_LOG_TYPE_DEFAULT, "Activating listener! %@", buf, 0xCu);
     }
 
     [v13[4] activate];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -183,13 +182,13 @@ void __34__CRSUIStatusBarStyleService_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v7 = CRSUILogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = connectionCopy;
+    v18 = connectionCopy;
     _os_log_impl(&dword_243218000, v7, OS_LOG_TYPE_INFO, "Received connection! %@", buf, 0xCu);
   }
 
@@ -198,17 +197,17 @@ void __34__CRSUIStatusBarStyleService_init__block_invoke(uint64_t a1, void *a2)
 
   if (v9)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __72__CRSUIStatusBarStyleService_listener_didReceiveConnection_withContext___block_invoke;
-    v17[3] = &unk_278DA10F0;
-    v17[4] = self;
-    [connectionCopy configureConnection:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __72__CRSUIStatusBarStyleService_listener_didReceiveConnection_withContext___block_invoke;
+    v16[3] = &unk_278DA10F0;
+    v16[4] = self;
+    [connectionCopy configureConnection:v16];
     v10 = CRSUILogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = connectionCopy;
+      v18 = connectionCopy;
       _os_log_impl(&dword_243218000, v10, OS_LOG_TYPE_DEFAULT, "Activating connection... %@", buf, 0xCu);
     }
 
@@ -219,7 +218,7 @@ void __34__CRSUIStatusBarStyleService_init__block_invoke(uint64_t a1, void *a2)
     block[3] = &unk_278DA0D18;
     block[4] = self;
     v12 = connectionCopy;
-    v16 = v12;
+    v15 = v12;
     dispatch_async(connectionQueue, block);
 
     [v12 activate];
@@ -235,8 +234,6 @@ void __34__CRSUIStatusBarStyleService_init__block_invoke(uint64_t a1, void *a2)
 
     [connectionCopy invalidate];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__CRSUIStatusBarStyleService_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -273,7 +270,7 @@ void __72__CRSUIStatusBarStyleService_listener_didReceiveConnection_withContext_
 
 - (void)clientAcquireWithInterfaceStyle:(id)style colorVariant:(id)variant fenceHandle:(id)handle animationSettings:(id)settings
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   styleCopy = style;
   variantCopy = variant;
   handleCopy = handle;
@@ -286,9 +283,9 @@ void __72__CRSUIStatusBarStyleService_listener_didReceiveConnection_withContext_
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v36 = styleCopy;
-    v37 = 2112;
-    v38 = variantCopy;
+    v35 = styleCopy;
+    v36 = 2112;
+    v37 = variantCopy;
     _os_log_impl(&dword_243218000, v15, OS_LOG_TYPE_DEFAULT, "Received override request! Style: %@, color variant: %@", buf, 0x16u);
   }
 
@@ -319,15 +316,15 @@ LABEL_8:
   v20 = instance;
   if (instance)
   {
-    v28 = handleCopy;
+    v27 = handleCopy;
     lock_assertions = self->_lock_assertions;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __105__CRSUIStatusBarStyleService_clientAcquireWithInterfaceStyle_colorVariant_fenceHandle_animationSettings___block_invoke;
-    v33[3] = &unk_278DA1118;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __105__CRSUIStatusBarStyleService_clientAcquireWithInterfaceStyle_colorVariant_fenceHandle_animationSettings___block_invoke;
+    v32[3] = &unk_278DA1118;
     v22 = instance;
-    v34 = v22;
-    v23 = [(NSMutableArray *)lock_assertions indexOfObjectPassingTest:v33];
+    v33 = v22;
+    v23 = [(NSMutableArray *)lock_assertions indexOfObjectPassingTest:v32];
     if (v23 != 0x7FFFFFFFFFFFFFFFLL)
     {
       [(NSMutableArray *)self->_lock_assertions removeObjectAtIndex:v23];
@@ -339,7 +336,7 @@ LABEL_8:
     [(CRSUIStatusBarStyleAssertionData *)v24 setColorVariant:integerValue2];
     [(NSMutableArray *)self->_lock_assertions addObject:v24];
 
-    handleCopy = v28;
+    handleCopy = v27;
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -347,14 +344,12 @@ LABEL_8:
   block[1] = 3221225472;
   block[2] = __105__CRSUIStatusBarStyleService_clientAcquireWithInterfaceStyle_colorVariant_fenceHandle_animationSettings___block_invoke_2;
   block[3] = &unk_278DA1140;
-  v30 = handleCopy;
+  v29 = handleCopy;
   selfCopy = self;
-  v32 = settingsCopy;
+  v31 = settingsCopy;
   v25 = settingsCopy;
   v26 = handleCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__CRSUIStatusBarStyleService_clientAcquireWithInterfaceStyle_colorVariant_fenceHandle_animationSettings___block_invoke(uint64_t a1, void *a2)
@@ -621,13 +616,11 @@ void __64__CRSUIStatusBarStyleService__connectionQueue_removeConnection___block_
 
 - (void)listener:(void *)a1 didReceiveConnection:(NSObject *)a2 withContext:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 remoteProcess];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Process does not have the required entitlement: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Process does not have the required entitlement: %@", &v4, 0xCu);
 }
 
 @end

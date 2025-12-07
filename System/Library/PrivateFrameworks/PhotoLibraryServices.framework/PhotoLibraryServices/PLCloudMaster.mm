@@ -196,7 +196,7 @@
 
       v92 = v16;
       resourceType = [v17 resourceType];
-      if (resourceType == 22 && ([v17 identity], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "fileUTI"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69C08F0], "supplementalResourceAAEType"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "identifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v21, "isEqualToString:", v23), v23, v22, v21, v20, !v24))
+      if (resourceType == 22 && ([v17 identity], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "fileUTI"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69C08F0], "supplementalResourceAAEType"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "identifier"), v23 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v21), v23, v22, v21, v20, !isEqualToString))
       {
         v54 = v92;
       }
@@ -205,7 +205,7 @@
       {
         v25 = selfCopy;
         v26 = [(PLCloudMaster *)selfCopy rm_assetAttachedResourcesForResourceType:resourceType];
-        if ([v26 count])
+        if (objc_msgSend_count(v26))
         {
           v117 = 0u;
           v118 = 0u;
@@ -231,7 +231,7 @@
                 identity = [v17 identity];
                 fingerprint = [v30 fingerprint];
                 fingerPrint = [identity fingerPrint];
-                if ([fingerprint isEqualToString:fingerPrint])
+                if (objc_msgSend_isEqualToString_(fingerprint))
                 {
                   placeholderState = [(PLCloudMaster *)v25 placeholderState];
 
@@ -433,7 +433,7 @@ LABEL_72:
           }
 
           rm_assetUUIDToAssetAttachedResources = [(PLCloudMaster *)selfCopy rm_assetUUIDToAssetAttachedResources];
-          if ([rm_assetUUIDToAssetAttachedResources count])
+          if (objc_msgSend_count(rm_assetUUIDToAssetAttachedResources))
           {
             if ((*MEMORY[0x1E6994D48] & 1) == 0)
             {
@@ -666,9 +666,9 @@ LABEL_109:
         }
 
         uuid = [*(*(&v12 + 1) + 8 * i) uuid];
-        v10 = [uuid isEqualToString:uuidCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(uuid);
 
-        if (!v10)
+        if (!isEqualToString)
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
@@ -784,7 +784,7 @@ LABEL_11:
           while (v12);
         }
 
-        if ([v9 count])
+        if (objc_msgSend_count(v9))
         {
           [dictionary setObject:v9 forKeyedSubscript:uuid];
         }
@@ -824,9 +824,9 @@ LABEL_11:
 
         v12 = *(*(&v17 + 1) + 8 * i);
         uuid = [v12 uuid];
-        v14 = [uuid isEqualToString:uuidCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(uuid);
 
-        if (v14)
+        if (isEqualToString)
         {
           v15 = [v12 masterResourceForCPLType:type];
           goto LABEL_11;
@@ -1021,7 +1021,7 @@ LABEL_13:
   while (v9);
 LABEL_15:
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v16 = v5;
   }
@@ -1222,9 +1222,9 @@ LABEL_6:
 
         v13 = *(*(&v23 + 1) + 8 * i);
         fingerprint = [v13 fingerprint];
-        v15 = [fingerprint isEqualToString:identifier];
+        isEqualToString = objc_msgSend_isEqualToString_(fingerprint);
 
-        if (v15)
+        if (isEqualToString)
         {
           stableHash = [v13 stableHash];
           if (stableHash)
@@ -1537,7 +1537,7 @@ LABEL_25:
 
   [v7 setOriginalOrientation:{-[PLCloudMaster originalOrientation](self, "originalOrientation")}];
   rm_cplExpungeableMasterResourceStates = [assetCopy rm_cplExpungeableMasterResourceStates];
-  if ([rm_cplExpungeableMasterResourceStates count])
+  if (objc_msgSend_count(rm_cplExpungeableMasterResourceStates))
   {
     [v7 setExpungeableResourceStates:rm_cplExpungeableMasterResourceStates];
   }
@@ -1549,7 +1549,7 @@ LABEL_25:
 {
   v10 = *MEMORY[0x1E69E9840];
   assets = [(PLCloudMaster *)self assets];
-  if ([assets count])
+  if (objc_msgSend_count(assets))
   {
     anyObject = [assets anyObject];
     v5 = [(PLCloudMaster *)self cplMasterPropertyChangeForAsset:anyObject];
@@ -1580,7 +1580,7 @@ LABEL_25:
 {
   v11 = *MEMORY[0x1E69E9840];
   assets = [(PLCloudMaster *)self assets];
-  if ([assets count])
+  if (objc_msgSend_count(assets))
   {
     anyObject = [assets anyObject];
     photoLibrary = [(PLManagedObject *)self photoLibrary];
@@ -1817,9 +1817,9 @@ LABEL_16:
 - (NSString)description
 {
   allAssetAttachedResources = [(PLCloudMaster *)self allAssetAttachedResources];
-  v4 = [allAssetAttachedResources count];
+  v4 = objc_msgSend_count(allAssetAttachedResources);
   modernResources = [(PLCloudMaster *)self modernResources];
-  v6 = [modernResources count] + v4;
+  v6 = objc_msgSend_count(modernResources) + v4;
 
   v7 = MEMORY[0x1E696AEC0];
   cloudMasterGUID = [(PLCloudMaster *)self cloudMasterGUID];
@@ -1916,9 +1916,9 @@ LABEL_16:
   changeCopy = change;
   originalFilename = [(PLCloudMaster *)self originalFilename];
   filename = [changeCopy filename];
-  v7 = [originalFilename isEqualToString:filename];
+  isEqualToString = objc_msgSend_isEqualToString_(originalFilename);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     filename2 = [changeCopy filename];
     [(PLCloudMaster *)self setOriginalFilename:filename2];
@@ -1952,7 +1952,7 @@ LABEL_16:
 
   uniformTypeIdentifier = [(PLCloudMaster *)self uniformTypeIdentifier];
   itemType = [changeCopy itemType];
-  v20 = [uniformTypeIdentifier isEqualToString:itemType];
+  v20 = objc_msgSend_isEqualToString_(uniformTypeIdentifier);
 
   if ((v20 & 1) == 0)
   {
@@ -1980,7 +1980,7 @@ LABEL_16:
 
   mediaMetadataType = [(PLCloudMaster *)self mediaMetadataType];
   mediaMetaDataType = [changeCopy mediaMetaDataType];
-  v31 = [mediaMetadataType isEqualToString:mediaMetaDataType];
+  v31 = objc_msgSend_isEqualToString_(mediaMetadataType);
 
   if ((v31 & 1) == 0)
   {
@@ -1994,7 +1994,7 @@ LABEL_16:
     v34 = importGroupIdentifier;
     importSessionID = [(PLCloudMaster *)self importSessionID];
     importGroupIdentifier2 = [changeCopy importGroupIdentifier];
-    v37 = [importSessionID isEqualToString:importGroupIdentifier2];
+    v37 = objc_msgSend_isEqualToString_(importSessionID);
 
     if ((v37 & 1) == 0)
     {
@@ -2034,7 +2034,7 @@ LABEL_16:
 
   originatingAssetIdentifier = [(PLCloudMaster *)self originatingAssetIdentifier];
   originatingFingerprint = [changeCopy originatingFingerprint];
-  v46 = [originatingAssetIdentifier isEqualToString:originatingFingerprint];
+  v46 = objc_msgSend_isEqualToString_(originatingAssetIdentifier);
 
   if ((v46 & 1) == 0)
   {
@@ -2154,7 +2154,7 @@ void __31__PLCloudMaster__originalTypes__block_invoke()
   if (necessaryCopy)
   {
     assets = [necessaryCopy assets];
-    v8 = [assets count];
+    v8 = objc_msgSend_count(assets);
 
     if (!v8)
     {
@@ -2183,7 +2183,7 @@ void __31__PLCloudMaster__originalTypes__block_invoke()
         v12 = 138412546;
         v13 = necessaryCopy;
         v14 = 2048;
-        v15 = [assets2 count];
+        v15 = objc_msgSend_count(assets2);
         _os_log_impl(&dword_19BF1F000, managedObjectContext, OS_LOG_TYPE_DEFAULT, "Ignored deleting a master record: %@, master still being referred by %lu assets", &v12, 0x16u);
       }
 
@@ -2454,7 +2454,7 @@ LABEL_12:
 
   v28 = 0;
   v26 = [contextCopy executeFetchRequest:v16 error:&v28];
-  if ([v26 count])
+  if (objc_msgSend_count(v26))
   {
     firstObject = [v26 firstObject];
   }

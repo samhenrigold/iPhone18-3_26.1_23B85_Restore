@@ -29,7 +29,7 @@
 
 - (_CSTypeRef)symbolicatorForSharedCacheUUID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   Value = CFDictionaryGetValue(self->_sharedCacheUUIDSymbolicators, dCopy);
   if (Value)
@@ -40,19 +40,17 @@
 
   else
   {
-    [dCopy getUUIDBytes:v23];
+    [dCopy getUUIDBytes:v18];
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3010000000;
+    v16 = 0;
     v17 = 0;
-    v18 = &v17;
-    v19 = 0x3010000000;
-    v21 = 0;
-    v22 = 0;
-    v20 = &unk_248061803;
+    v15 = &unk_248061803;
     CSSymbolicatorForeachSharedCache();
-    v8 = v18[4];
-    v9 = v18[5];
-    v10 = CSIsNull();
+    v8 = CSIsNull();
     sharedCacheUUIDSymbolicators = self->_sharedCacheUUIDSymbolicators;
-    if (v10)
+    if (v8)
     {
       CFDictionarySetValue(sharedCacheUUIDSymbolicators, dCopy, &unk_24803DCE0);
       v6 = 0;
@@ -61,22 +59,19 @@
 
     else
     {
-      CFDictionarySetValue(sharedCacheUUIDSymbolicators, dCopy, v18 + 4);
-      v12 = v18[4];
-      v13 = v18[5];
+      CFDictionarySetValue(sharedCacheUUIDSymbolicators, dCopy, v13 + 4);
       CSRelease();
-      v6 = v18[4];
-      v7 = v18[5];
+      v6 = v13[4];
+      v7 = v13[5];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  v15 = v6;
-  v16 = v7;
-  result._opaque_2 = v16;
-  result._opaque_1 = v15;
+  v10 = v6;
+  v11 = v7;
+  result._opaque_2 = v11;
+  result._opaque_1 = v10;
   return result;
 }
 

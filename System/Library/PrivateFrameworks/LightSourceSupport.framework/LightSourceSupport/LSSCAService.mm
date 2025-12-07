@@ -141,7 +141,7 @@ void __47__LSSCAService_initWithTargetQueue_subscriber___block_invoke(uint64_t a
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   serverIfRunning = [MEMORY[0x277CDA018] serverIfRunning];
   [serverIfRunning removeObserver:self forKeyPath:@"displays"];
 
@@ -151,50 +151,49 @@ void __47__LSSCAService_initWithTargetQueue_subscriber___block_invoke(uint64_t a
   globalLightRequests = self->_globalLightRequests;
   if (globalLightRequests)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = globalLightRequests;
-    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [(NSMutableDictionary *)self->_globalLightRequests objectForKey:*(*(&v14 + 1) + 8 * v10)];
+          v11 = [(NSMutableDictionary *)self->_globalLightRequests objectForKey:*(*(&v13 + 1) + 8 * v10)];
           [v11 invalidate];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = LSSCAService;
-  [(LSSCAService *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = LSSCAService;
+  [(LSSCAService *)&v12 dealloc];
 }
 
 - (void)setLightForDynamicDisplays:(id)displays
 {
   var0 = displays.var0;
-  v62 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v5 = self->_requestedUpdateCount + 1;
   self->_requestedUpdateCount = v5;
   if ((v5 & 0x1FF) == 0)
@@ -228,89 +227,87 @@ LABEL_4:
   }
 
 LABEL_5:
-  if (([(LSSSettings *)self->_settings dynamic]& 1) != 0 || (alignmentRange = self->_alignmentRange, (*&alignmentRange & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000))
+  if (([(LSSSettings *)self->_settings dynamic]& 1) != 0 || (*&self->_alignmentRange & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v10 = [(LSSSettings *)self->_settings doubleForKey:?];
-    alignmentRange = sin(v10 * 3.14159265 / 180.0);
-    self->_alignmentRange = alignmentRange;
+    v9 = [(LSSSettings *)self->_settings doubleForKey:?];
+    self->_alignmentRange = sin(v9 * 3.14159265 / 180.0);
   }
 
-  v11 = alignmentRange;
-  v12 = *(*&var0 + 48);
-  v58 = *(*&var0 + 32);
-  v59 = v12;
-  v13 = *(*&var0 + 80);
-  v60 = *(*&var0 + 64);
-  v61 = v13;
-  v14 = *(*&var0 + 16);
+  v10 = *(*&var0 + 48);
+  v55 = *(*&var0 + 32);
+  v56 = v10;
+  v11 = *(*&var0 + 80);
+  v57 = *(*&var0 + 64);
+  v58 = v11;
+  v12 = *(*&var0 + 16);
   *buf = **&var0;
-  *&buf[16] = v14;
-  v15 = LSSCAParamsMake(buf, v11);
+  *&buf[16] = v12;
+  v13 = LSSCAParamsMake(buf);
+  v15 = v14;
   v17 = v16;
   v19 = v18;
-  v21 = v20;
   params = self->_params;
   if (!params)
   {
-    v23 = objc_alloc_init(LSSCAParamsDictionary);
-    v24 = self->_params;
-    self->_params = v23;
+    v21 = objc_alloc_init(LSSCAParamsDictionary);
+    v22 = self->_params;
+    self->_params = v21;
 
     params = self->_params;
   }
 
   [(LSSCAParamsDictionary *)params params];
+  v25 = v24;
   v27 = v26;
   v29 = v28;
-  v31 = v30;
-  v32 = *(*&var0 + 84);
-  if (v32)
+  v30 = *(*&var0 + 84);
+  if (v30)
   {
-    if (v32 == 1)
+    if (v30 == 1)
     {
-      v33 = 0.06;
-      v34 = 0.02;
-      *&v35 = 0.05;
+      v31 = 0.06;
+      v32 = 0.02;
+      *&v33 = 0.05;
     }
 
     else
     {
-      v33 = 0.0065;
-      v34 = 0.003;
-      *&v35 = 0.008;
+      v31 = 0.0065;
+      v32 = 0.003;
+      *&v33 = 0.008;
     }
 
-    v36 = *&v35;
+    v34 = *&v33;
   }
 
   else
   {
-    v36 = 0.0;
     v34 = 0.0;
-    v33 = 0.0;
+    v32 = 0.0;
+    v31 = 0.0;
   }
 
-  if (!LSSCAParamsAlmostEqual(v15, v17, v19, v21, v27, v29, v31, v25, v33, v34, v36, 0.0))
+  if (!LSSCAParamsAlmostEqual(v13, v15, v17, v19, v25, v27, v29, v23, v31, v32, v34, 0.0))
   {
-    *&v37 = v15;
-    *&v38 = v17;
-    *&v39 = v19;
-    *&v40 = v21;
-    [(LSSCAParamsDictionary *)self->_params setParams:v37, v38, v39, v40];
+    *&v35 = v13;
+    *&v36 = v15;
+    *&v37 = v17;
+    *&v38 = v19;
+    [(LSSCAParamsDictionary *)self->_params setParams:v35, v36, v37, v38];
     ++self->_actualUpdateCount;
     serverIfRunning = [MEMORY[0x277CDA018] serverIfRunning];
-    v42 = serverIfRunning;
+    v40 = serverIfRunning;
     if (!serverIfRunning)
     {
       goto LABEL_33;
     }
 
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __43__LSSCAService_setLightForDynamicDisplays___block_invoke;
-    v55[3] = &unk_2798128E8;
-    v55[4] = self;
-    [serverIfRunning lss_filterDisplays:v55 into:self->_displaysToUpdate];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __43__LSSCAService_setLightForDynamicDisplays___block_invoke;
+    v52[3] = &unk_2798128E8;
+    v52[4] = self;
+    [serverIfRunning lss_filterDisplays:v52 into:self->_displaysToUpdate];
     if (![(NSMutableArray *)self->_displaysToUpdate count])
     {
       goto LABEL_33;
@@ -318,7 +315,7 @@ LABEL_5:
 
     if (qword_280D2F570 == -1)
     {
-      v43 = _MergedGlobals_9;
+      v41 = _MergedGlobals_9;
       if (!os_signpost_enabled(_MergedGlobals_9))
       {
         goto LABEL_22;
@@ -328,55 +325,55 @@ LABEL_5:
     else
     {
       [LSSCAService initWithTargetQueue:subscriber:];
-      v43 = _MergedGlobals_9;
+      v41 = _MergedGlobals_9;
       if (!os_signpost_enabled(_MergedGlobals_9))
       {
 LABEL_22:
-        v53 = 0u;
-        v54 = 0u;
+        v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
-        v44 = self->_displaysToUpdate;
-        v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v51 objects:v56 count:16];
-        if (v45)
+        v48 = 0u;
+        v49 = 0u;
+        v42 = self->_displaysToUpdate;
+        v43 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v48 objects:v53 count:16];
+        if (v43)
         {
-          v46 = v45;
-          v47 = *v52;
+          v44 = v43;
+          v45 = *v49;
           do
           {
-            for (i = 0; i != v46; ++i)
+            for (i = 0; i != v44; ++i)
             {
-              if (*v52 != v47)
+              if (*v49 != v45)
               {
-                objc_enumerationMutation(v44);
+                objc_enumerationMutation(v42);
               }
 
-              [*(*(&v51 + 1) + 8 * i) setGlobalLightParameters:self->_params];
+              [*(*(&v48 + 1) + 8 * i) setGlobalLightParameters:self->_params];
             }
 
-            v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v51 objects:v56 count:16];
+            v44 = [(NSMutableArray *)v42 countByEnumeratingWithState:&v48 objects:v53 count:16];
           }
 
-          while (v46);
+          while (v44);
         }
 
         if (qword_280D2F570 == -1)
         {
-          v49 = _MergedGlobals_9;
+          v47 = _MergedGlobals_9;
           if (!os_signpost_enabled(_MergedGlobals_9))
           {
 LABEL_32:
             [(NSMutableArray *)self->_displaysToUpdate removeAllObjects];
 LABEL_33:
 
-            goto LABEL_34;
+            return;
           }
         }
 
         else
         {
           [LSSCAService initWithTargetQueue:subscriber:];
-          v49 = _MergedGlobals_9;
+          v47 = _MergedGlobals_9;
           if (!os_signpost_enabled(_MergedGlobals_9))
           {
             goto LABEL_32;
@@ -384,18 +381,15 @@ LABEL_33:
         }
 
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_255E8B000, v49, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ca update", &unk_255E9DB2B, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_255E8B000, v47, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "ca update", &unk_255E9DB2B, buf, 2u);
         goto LABEL_32;
       }
     }
 
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_255E8B000, v43, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ca update", &unk_255E9DB2B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_255E8B000, v41, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ca update", &unk_255E9DB2B, buf, 2u);
     goto LABEL_22;
   }
-
-LABEL_34:
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __43__LSSCAService_setLightForDynamicDisplays___block_invoke(uint64_t a1, void *a2)
@@ -475,7 +469,7 @@ LABEL_10:
 
 - (void)_requestGlobalFrom:(int)from enabled:
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (qword_280D2F570 != -1)
@@ -486,11 +480,11 @@ LABEL_10:
     v6 = _MergedGlobals_9;
     if (os_log_type_enabled(_MergedGlobals_9, OS_LOG_TYPE_DEFAULT))
     {
-      v14[0] = 67109376;
-      v14[1] = a2;
-      v15 = 1024;
+      v13[0] = 67109376;
+      v13[1] = a2;
+      v14 = 1024;
       fromCopy = from;
-      _os_log_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEFAULT, "changing global light: %u, %d", v14, 0xEu);
+      _os_log_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEFAULT, "changing global light: %u, %d", v13, 0xEu);
     }
 
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
@@ -519,13 +513,11 @@ LABEL_10:
       [*(self + 16) setObject:v12 forKey:v7];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDisplays
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (qword_280D2F570 != -1)
@@ -543,25 +535,25 @@ LABEL_10:
     serverIfRunning = [MEMORY[0x277CDA018] serverIfRunning];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     displays = [serverIfRunning displays];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v6 = [displays countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v6 = [displays countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v29;
+      v8 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(displays);
           }
 
-          v10 = *(*(&v28 + 1) + 8 * i);
+          v10 = *(*(&v27 + 1) + 8 * i);
           if (([v10 displayType] | 2) == 2)
           {
             [v10 setNeedsGlobalLightCallback:*(self + 48)];
@@ -574,33 +566,33 @@ LABEL_10:
           }
         }
 
-        v7 = [displays countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v7 = [displays countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v7);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v13 = *(self + 16);
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v24 + 1) + 8 * j);
-          v19 = [dictionary objectForKey:{v18, v24}];
+          v18 = *(*(&v23 + 1) + 8 * j);
+          v19 = [dictionary objectForKey:{v18, v23}];
 
           if (!v19)
           {
@@ -609,7 +601,7 @@ LABEL_10:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v15);
@@ -621,13 +613,11 @@ LABEL_10:
 
     [*(self + 24) setParams:{0.0, 0.0, 0.0, 0.0}];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setExtendedDisplayLighting
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self)
   {
     serverIfRunning = [MEMORY[0x277CDA018] serverIfRunning];
@@ -662,29 +652,29 @@ LABEL_10:
           _os_signpost_emit_with_name_impl(v7, v6, OS_SIGNPOST_INTERVAL_BEGIN, v8, v9, v10, v11, 2u);
         }
 
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v12 = lss_extendedDisplays;
-        v13 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v25;
+          v15 = *v24;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v25 != v15)
+              if (*v24 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              [*(*(&v24 + 1) + 8 * i) setGlobalLightParameters:{*(self + 32), v24}];
+              [*(*(&v23 + 1) + 8 * i) setGlobalLightParameters:{*(self + 32), v23}];
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
           }
 
           while (v14);
@@ -705,14 +695,12 @@ LABEL_10:
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLightForExtendedDisplays:(id)displays
 {
   var0 = displays.var0;
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!self->_extendedParams)
   {
     v5 = objc_alloc_init(LSSCAParamsDictionary);
@@ -720,19 +708,16 @@ LABEL_10:
     self->_extendedParams = v5;
   }
 
-  if (([(LSSSettings *)self->_settings dynamic]& 1) != 0 || (v7 = OUTLINED_FUNCTION_0_2(), v8 == v9))
+  if (([(LSSSettings *)self->_settings dynamic]& 1) != 0 || (OUTLINED_FUNCTION_0_2(), v7 == v8))
   {
-    v10 = [(LSSSettings *)self->_settings doubleForKey:?];
-    v7 = sin(v10 * 3.14159265 / 180.0);
-    self->_alignmentRange = v7;
+    v9 = [(LSSSettings *)self->_settings doubleForKey:?];
+    self->_alignmentRange = sin(v9 * 3.14159265 / 180.0);
   }
 
-  v11 = v7;
-  memcpy(v14, *&var0, 0x60uLL);
-  *&v12 = LSSCAParamsMake(v14, v11);
-  [(LSSCAParamsDictionary *)self->_extendedParams setParams:v12];
+  memcpy(v11, *&var0, 0x60uLL);
+  *&v10 = LSSCAParamsMake(v11);
+  [(LSSCAParamsDictionary *)self->_extendedParams setParams:v10];
   [(LSSCAService *)self _setExtendedDisplayLighting];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

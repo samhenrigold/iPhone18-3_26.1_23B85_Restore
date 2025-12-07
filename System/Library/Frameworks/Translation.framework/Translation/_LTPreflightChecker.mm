@@ -79,25 +79,25 @@
   if ((objc_opt_respondsToSelector() & 1) != 0 && ![delegate isTranslationSupportedOnCurrentDeviceForPreflightChecker:self])
   {
     v10 = [configurationCopy copy];
-    [v10 setDeviceSupportsTranslation:0];
-    v11 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = [v10 setDeviceSupportsTranslation:0];
+    v13 = _LTOSLogTextAPI(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [_LTPreflightChecker _checkTranslationSupportForConfiguration:completion:];
     }
 
-    v12 = MEMORY[0x277CCA9B8];
+    v14 = MEMORY[0x277CCA9B8];
     effectiveSourceLocale = [v10 effectiveSourceLocale];
     effectiveTargetLocale = [v10 effectiveTargetLocale];
-    v15 = [v12 lt_unsupportedPairingErrorWithSource:effectiveSourceLocale target:effectiveTargetLocale];
+    v17 = [v14 lt_unsupportedPairingErrorWithSource:effectiveSourceLocale target:effectiveTargetLocale];
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __75___LTPreflightChecker__checkTranslationSupportForConfiguration_completion___block_invoke;
-    v16[3] = &unk_278B6D4D8;
-    v17 = v8;
-    v18 = completionCopy;
-    [(_LTPreflightChecker *)self _callDelegateOrGiveError:v15 forConfiguration:v10 completion:v16];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __75___LTPreflightChecker__checkTranslationSupportForConfiguration_completion___block_invoke;
+    v18[3] = &unk_278B6D4D8;
+    v19 = v8;
+    v20 = completionCopy;
+    [(_LTPreflightChecker *)self _callDelegateOrGiveError:v17 forConfiguration:v10 completion:v18];
   }
 
   else
@@ -112,26 +112,27 @@
   configurationCopy = configuration;
   completionCopy = completion;
   delegate = [(_LTPreflightChecker *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
     objc_initWeak(&location, self);
     nextStep = [configurationCopy nextStep];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __76___LTPreflightChecker__callDelegateOrGiveError_forConfiguration_completion___block_invoke;
-    v14[3] = &unk_278B6D528;
-    objc_copyWeak(&v16, &location);
-    v15 = completionCopy;
-    [delegate preflightChecker:self continueCheckingFromStep:nextStep forConfiguration:configurationCopy completion:v14];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __76___LTPreflightChecker__callDelegateOrGiveError_forConfiguration_completion___block_invoke;
+    v16[3] = &unk_278B6D528;
+    objc_copyWeak(&v18, &location);
+    v17 = completionCopy;
+    [delegate preflightChecker:self continueCheckingFromStep:nextStep forConfiguration:configurationCopy completion:v16];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v13 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogTextAPI(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [_LTPreflightChecker _callDelegateOrGiveError:forConfiguration:completion:];
     }
@@ -142,7 +143,7 @@
 
 - (void)_resolveSourceLocaleIfNeeded:(id)needed completion:(id)completion
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   completionCopy = completion;
   v8 = self->_queue;
@@ -155,8 +156,8 @@
     if (requestedSourceLocale)
     {
       v12 = MEMORY[0x277CBEAF8];
-      v32[0] = requestedSourceLocale;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+      v36[0] = requestedSourceLocale;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
       supportedLocales = [neededCopy supportedLocales];
       localeResolver = [v12 lt_bestMatchForPreferredLocales:v13 fromSupportedLocales:supportedLocales];
 
@@ -177,11 +178,11 @@ LABEL_19:
 
       if (lowConfidenceLocales)
       {
-        v20 = _LTOSLogTextAPI();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v22 = _LTOSLogTextAPI(v20, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_23AAF5000, v20, OS_LOG_TYPE_INFO, "Previously determined low confidence LID on configuration, no need to ask the localeResolver to do LID again", buf, 2u);
+          _os_log_impl(&dword_23AAF5000, v22, OS_LOG_TYPE_INFO, "Previously determined low confidence LID on configuration, no need to ask the localeResolver to do LID again", buf, 2u);
         }
 
         (completionCopy[2])(completionCopy, 0);
@@ -192,19 +193,19 @@ LABEL_19:
       if (localeResolver)
       {
         sourceStrings = [neededCopy sourceStrings];
-        v22 = [sourceStrings count];
+        v25 = [sourceStrings count];
 
-        if (v22)
+        if (v25)
         {
           localeResolver2 = [(_LTPreflightChecker *)self localeResolver];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __63___LTPreflightChecker__resolveSourceLocaleIfNeeded_completion___block_invoke;
-          v27[3] = &unk_278B6D598;
-          v28 = v8;
-          v29 = neededCopy;
-          v30 = completionCopy;
-          [localeResolver2 resolveSourceLocaleForConfiguration:v29 completion:v27];
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __63___LTPreflightChecker__resolveSourceLocaleIfNeeded_completion___block_invoke;
+          v31[3] = &unk_278B6D598;
+          v32 = v8;
+          v33 = neededCopy;
+          v34 = completionCopy;
+          [localeResolver2 resolveSourceLocaleForConfiguration:v33 completion:v31];
 
 LABEL_20:
 LABEL_21:
@@ -212,8 +213,8 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v25 = _LTOSLogTextAPI();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v30 = _LTOSLogTextAPI(v26, v27);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [_LTPreflightChecker _resolveSourceLocaleIfNeeded:completion:];
         }
@@ -221,8 +222,8 @@ LABEL_21:
 
       else
       {
-        v24 = _LTOSLogTextAPI();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v29 = _LTOSLogTextAPI(0, v23);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [_LTPreflightChecker _resolveSourceLocaleIfNeeded:completion:];
         }
@@ -238,8 +239,6 @@ LABEL_21:
 
   (completionCopy[2])(completionCopy, resolvedSourceLocale);
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveTargetLocaleIfNeeded:(id)needed completion:(id)completion
@@ -267,7 +266,7 @@ LABEL_22:
 
 - (void)_resolveTargetLocaleIfNeeded:(id)needed completion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -284,17 +283,17 @@ LABEL_22:
     if (requestedTargetLocale)
     {
       v11 = MEMORY[0x277CBEAF8];
-      v24[0] = requestedTargetLocale;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v25[0] = requestedTargetLocale;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
       supportedLocales = [neededCopy supportedLocales];
       firstObject = [v11 lt_bestMatchForPreferredLocales:v12 fromSupportedLocales:supportedLocales];
 
       if (!firstObject)
       {
-        v15 = _LTOSLogTextAPI();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = _LTOSLogTextAPI(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [_LTPreflightChecker _resolveTargetLocaleIfNeeded:v15 completion:v10];
+          [_LTPreflightChecker _resolveTargetLocaleIfNeeded:v17 completion:v10];
         }
       }
 
@@ -304,7 +303,7 @@ LABEL_22:
     else
     {
       systemLocale = [neededCopy systemLocale];
-      v17 = systemLocale;
+      v19 = systemLocale;
       if (systemLocale)
       {
         firstObject = systemLocale;
@@ -316,16 +315,14 @@ LABEL_22:
         firstObject = [lt_preferredLocales firstObject];
       }
 
-      v19 = MEMORY[0x277CBEAF8];
+      v21 = MEMORY[0x277CBEAF8];
       resolvedSourceLocale = [neededCopy resolvedSourceLocale];
       supportedLocales2 = [neededCopy supportedLocales];
-      v22 = [v19 lt_defaultTargetForSource:resolvedSourceLocale systemLocale:firstObject availableLocales:supportedLocales2 targetMap:0];
+      v24 = [v21 lt_defaultTargetForSource:resolvedSourceLocale systemLocale:firstObject availableLocales:supportedLocales2 targetMap:0];
 
-      completionCopy[2](completionCopy, v22);
+      completionCopy[2](completionCopy, v24);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resolveLocalePairingForConfiguration:(id)configuration completion:(id)completion
@@ -352,10 +349,10 @@ LABEL_22:
       else
       {
         v18 = [MEMORY[0x277CCA9B8] lt_unsupportedPairingErrorWithSource:resolvedSourceLocale target:resolvedTargetLocale];
-        v19 = _LTOSLogTextAPI();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = _LTOSLogTextAPI(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [_LTPreflightChecker _resolveLocalePairingForConfiguration:v19 completion:v11];
+          [_LTPreflightChecker _resolveLocalePairingForConfiguration:v20 completion:v11];
         }
 
         (completionCopy)[2](completionCopy, v18);
@@ -442,24 +439,18 @@ LABEL_22:
 
 - (void)_resolveTargetLocaleIfNeeded:(void *)a1 completion:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _ltLocaleIdentifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v5, v6, "Failed to find a valid version of the requested target locale %{public}@; giving error to client", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v5, v6, "Failed to find a valid version of the requested target locale %{public}@; giving error to client", v7, v8, v9, v10);
 }
 
 - (void)_resolveLocalePairingForConfiguration:(void *)a1 completion:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 combinedLocaleIdentifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v5, v6, "Client requested pair with valid source and target, but the pairing isn't supported: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_23AAF5000, v5, v6, "Client requested pair with valid source and target, but the pairing isn't supported: %{public}@", v7, v8, v9, v10);
 }
 
 @end

@@ -151,7 +151,7 @@ LABEL_20:
   (*(*(a1 + 64) + 16))();
 }
 
-void __146__HKDiagnosticTestResult_Displayable___displayItemsForCodedValueCollection_healthRecordsStore_preferredStyle_signedClinicalDataRecord_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __146__HKDiagnosticTestResult_Displayable___displayItemsForCodedValueCollection_healthRecordsStore_preferredStyle_signedClinicalDataRecord_completion___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v6 = [v5 codings];

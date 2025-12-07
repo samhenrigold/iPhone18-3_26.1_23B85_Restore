@@ -64,7 +64,7 @@
 
 - (BOOL)validateRequest:(id)request model:(id)model
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   modelCopy = model;
   if ([requestCopy validate])
@@ -80,7 +80,7 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = NSStringFromSelector(aSelector);
-        [(_ANEProgramIOSurfacesMapper *)v12 validateRequest:v40 model:ioSurfacesCount, v11];
+        [(_ANEProgramIOSurfacesMapper *)v12 validateRequest:v39 model:ioSurfacesCount, v11];
       }
     }
 
@@ -111,13 +111,13 @@
       v20 = +[_ANELog common];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v31 = NSStringFromSelector(aSelector);
+        v30 = NSStringFromSelector(aSelector);
         *buf = 138412802;
-        v35 = v31;
-        v36 = 1024;
-        v37 = v17;
-        v38 = 1024;
-        v39 = unsignedIntegerValue2;
+        v34 = v30;
+        v35 = 1024;
+        v36 = v17;
+        v37 = 1024;
+        v38 = unsignedIntegerValue2;
         _os_log_error_impl(&dword_1AD246000, v20, OS_LOG_TYPE_ERROR, "%@: request.inputIndexArray[%u]=%u is invalid", buf, 0x18u);
       }
 
@@ -154,13 +154,13 @@ LABEL_10:
         v28 = +[_ANELog common];
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v32 = NSStringFromSelector(aSelector);
+          v31 = NSStringFromSelector(aSelector);
           *buf = 138412802;
-          v35 = v32;
-          v36 = 1024;
-          v37 = v24;
-          v38 = 1024;
-          v39 = unsignedIntegerValue3;
+          v34 = v31;
+          v35 = 1024;
+          v36 = v24;
+          v37 = 1024;
+          v38 = unsignedIntegerValue3;
           _os_log_error_impl(&dword_1AD246000, v28, OS_LOG_TYPE_ERROR, "%@: request.outputIndexArray[%u]=%u is invalid", buf, 0x18u);
         }
 
@@ -180,7 +180,6 @@ LABEL_14:
     v27 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -255,7 +254,7 @@ LABEL_14:
 
 - (BOOL)mapIOSurfacesWithModel:(id)model request:(id)request cacheInference:(BOOL)inference error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   requestCopy = request;
   v13 = +[_ANEVirtualClient sharedConnection];
@@ -267,7 +266,7 @@ LABEL_14:
     {
       v15 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v42 = v15;
+      v41 = v15;
       _os_log_impl(&dword_1AD246000, v14, OS_LOG_TYPE_INFO, "%@: No support for VirtualClient yet.", buf, 0xCu);
     }
 
@@ -295,16 +294,16 @@ LABEL_5:
 
   else
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__1;
-    v39 = __Block_byref_object_dispose__1;
-    v40 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__1;
+    v38 = __Block_byref_object_dispose__1;
+    v39 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v33 = 0;
     v19 = objc_autoreleasePoolPush();
     v20 = [(_ANEProgramIOSurfacesMapper *)self validateRequest:requestCopy model:modelCopy];
     if (v20)
@@ -316,12 +315,12 @@ LABEL_5:
       block[2] = __83___ANEProgramIOSurfacesMapper_mapIOSurfacesWithModel_request_cacheInference_error___block_invoke;
       block[3] = &unk_1E79BA1E8;
       inferenceCopy = inference;
-      v28 = buf;
-      v29 = a2;
+      v27 = buf;
+      v28 = a2;
       block[4] = self;
-      v26 = &v31;
-      v25 = requestCopy;
-      v27 = &v35;
+      v25 = &v30;
+      v24 = requestCopy;
+      v26 = &v34;
       dispatch_sync(v21, block);
     }
 
@@ -330,10 +329,10 @@ LABEL_5:
     {
       if (error)
       {
-        *error = v36[5];
+        *error = v35[5];
       }
 
-      LOBYTE(error) = *(v32 + 24);
+      LOBYTE(error) = *(v31 + 24);
     }
 
     else
@@ -341,17 +340,16 @@ LABEL_5:
       LOBYTE(error) = 0;
     }
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
 - (BOOL)unmapIOSurfacesWithModel:(id)model request:(id)request error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   requestCopy = request;
   v11 = +[_ANEVirtualClient sharedConnection];
@@ -363,7 +361,7 @@ LABEL_5:
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v34 = v13;
+      v33 = v13;
       _os_log_impl(&dword_1AD246000, v12, OS_LOG_TYPE_INFO, "%@: No support for VirtualClient yet.", buf, 0xCu);
     }
 
@@ -391,16 +389,16 @@ LABEL_5:
 
   else
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__1;
-    v31 = __Block_byref_object_dispose__1;
-    v32 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__1;
+    v30 = __Block_byref_object_dispose__1;
+    v31 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     v17 = objc_autoreleasePoolPush();
     v18 = [(_ANEProgramIOSurfacesMapper *)self validateRequest:requestCopy model:modelCopy];
     if (v18)
@@ -416,8 +414,8 @@ LABEL_5:
       block[7] = buf;
       block[8] = a2;
       block[4] = self;
-      block[5] = &v23;
-      block[6] = &v27;
+      block[5] = &v22;
+      block[6] = &v26;
       dispatch_sync(gANEMemoryMapperQueue, block);
     }
 
@@ -426,10 +424,10 @@ LABEL_5:
     {
       if (error)
       {
-        *error = v28[5];
+        *error = v27[5];
       }
 
-      LOBYTE(error) = *(v24 + 24);
+      LOBYTE(error) = *(v23 + 24);
     }
 
     else
@@ -437,11 +435,10 @@ LABEL_5:
       LOBYTE(error) = 0;
     }
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 

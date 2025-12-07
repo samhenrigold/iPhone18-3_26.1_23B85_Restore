@@ -106,31 +106,31 @@
 
 - (void)_updateBusyText:()Spinner
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   buttonTray = [self buttonTray];
   allButtons = [buttonTray allButtons];
 
-  v7 = [allButtons countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allButtons countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(allButtons);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -142,7 +142,7 @@
       }
 
       while (v8 != v10);
-      v8 = [allButtons countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allButtons countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -155,8 +155,6 @@
   allButtons = [self spinner];
   [allButtons updateText:v4];
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

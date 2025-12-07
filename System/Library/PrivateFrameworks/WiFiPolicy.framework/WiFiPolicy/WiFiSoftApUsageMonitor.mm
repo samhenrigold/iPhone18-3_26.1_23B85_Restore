@@ -46,9 +46,11 @@
 
 uint64_t __40__WiFiSoftApUsageMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedWiFiSoftApUsageMonitor = objc_alloc_init(WiFiSoftApUsageMonitor);
+  v0 = objc_alloc_init(WiFiSoftApUsageMonitor);
+  v1 = sharedInstance_sharedWiFiSoftApUsageMonitor;
+  sharedInstance_sharedWiFiSoftApUsageMonitor = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WiFiSoftApUsageMonitor)init
@@ -71,7 +73,7 @@ uint64_t __40__WiFiSoftApUsageMonitor_sharedInstance__block_invoke()
 
 - (void)initStats:(id)stats
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   statsCopy = stats;
   keyEnumerator = [statsCopy keyEnumerator];
   nextObject = [keyEnumerator nextObject];
@@ -81,7 +83,7 @@ uint64_t __40__WiFiSoftApUsageMonitor_sharedInstance__block_invoke()
     v9 = 0;
     v10 = MEMORY[0x277D86220];
     *&v7 = 136315394;
-    v18 = v7;
+    v17 = v7;
     while (1)
     {
       v11 = v9;
@@ -173,7 +175,7 @@ uint64_t __40__WiFiSoftApUsageMonitor_sharedInstance__block_invoke()
 
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v18;
+          *buf = v17;
           *&buf[4] = "[WiFiSoftApUsageMonitor initStats:]";
           *&buf[12] = 2112;
           *&buf[14] = stringValue;
@@ -185,7 +187,7 @@ uint64_t __40__WiFiSoftApUsageMonitor_sharedInstance__block_invoke()
 
       else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v18;
+        *buf = v17;
         *&buf[4] = "[WiFiSoftApUsageMonitor initStats:]";
         *&buf[12] = 2112;
         *&buf[14] = stringValue;
@@ -207,8 +209,6 @@ LABEL_15:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initStats

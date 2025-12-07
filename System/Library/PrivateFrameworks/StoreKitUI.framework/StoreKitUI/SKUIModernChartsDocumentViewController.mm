@@ -291,73 +291,74 @@ LABEL_23:
 
 - (id)_newColumnViewControllersWithReusableViewControllers:(id)controllers
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
   clientContext = [(SKUIViewController *)self clientContext];
   [(SKUIChartsTemplateViewElement *)self->_templateElement columns];
-  v40 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  obj = v43 = 0u;
-  v34 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (v34)
+  v43 = 0u;
+  v44 = 0u;
+  obj = v45 = 0u;
+  v36 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v36)
   {
-    v33 = *v41;
+    v35 = *v43;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v41 != v33)
+        if (*v43 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v40 + 1) + 8 * i);
-        v6 = [objc_alloc(SKUIPageComponentClassForComponentType(objc_msgSend(v5 "pageComponentType")))];
-        if (v6)
+        v5 = *(*(&v42 + 1) + 8 * i);
+        pageComponentType = [v5 pageComponentType];
+        v8 = [objc_alloc(SKUIPageComponentClassForComponentType(pageComponentType v7))];
+        if (v8)
         {
           headerElement = [v5 headerElement];
           titleLabels = [headerElement titleLabels];
           firstObject = [titleLabels firstObject];
 
-          v35 = firstObject;
+          v37 = firstObject;
           text = [firstObject text];
           string = [text string];
 
+          v40 = 0u;
+          v41 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v12 = controllersCopy;
-          v13 = [v12 countByEnumeratingWithState:&v36 objects:v45 count:16];
-          if (v13)
+          v14 = controllersCopy;
+          v15 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          if (v15)
           {
-            v14 = v13;
-            v15 = *v37;
+            v16 = v15;
+            v17 = *v39;
 LABEL_9:
-            v16 = 0;
+            v18 = 0;
             while (1)
             {
-              if (*v37 != v15)
+              if (*v39 != v17)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v14);
               }
 
-              v17 = *(*(&v36 + 1) + 8 * v16);
-              title = [v17 title];
-              v19 = [title isEqualToString:string];
+              v19 = *(*(&v38 + 1) + 8 * v18);
+              title = [v19 title];
+              isEqualToString = objc_msgSend_isEqualToString_(title);
 
-              if (v19)
+              if (isEqualToString)
               {
                 break;
               }
 
-              if (v14 == ++v16)
+              if (v16 == ++v18)
               {
-                v14 = [v12 countByEnumeratingWithState:&v36 objects:v45 count:16];
-                if (v14)
+                v16 = [v14 countByEnumeratingWithState:&v38 objects:v47 count:16];
+                if (v16)
                 {
                   goto LABEL_9;
                 }
@@ -366,10 +367,10 @@ LABEL_9:
               }
             }
 
-            v21 = v17;
+            v23 = v19;
 
-            v20 = selfCopy;
-            if (v21)
+            v22 = selfCopy;
+            if (v23)
             {
               goto LABEL_21;
             }
@@ -379,48 +380,48 @@ LABEL_9:
           {
 LABEL_15:
 
-            v20 = selfCopy;
+            v22 = selfCopy;
           }
 
-          v21 = [[SKUIStorePageSectionsViewController alloc] initWithLayoutStyle:0];
-          [(SKUIViewController *)v21 setClientContext:clientContext];
-          operationQueue = [(SKUIViewController *)v20 operationQueue];
-          [(SKUIViewController *)v21 setOperationQueue:operationQueue];
+          v23 = [[SKUIStorePageSectionsViewController alloc] initWithLayoutStyle:0];
+          [(SKUIViewController *)v23 setClientContext:clientContext];
+          operationQueue = [(SKUIViewController *)v22 operationQueue];
+          [(SKUIViewController *)v23 setOperationQueue:operationQueue];
 
-          _resourceLoader = [(SKUIModernChartsDocumentViewController *)v20 _resourceLoader];
-          [(SKUIStorePageSectionsViewController *)v21 setResourceLoader:_resourceLoader];
+          _resourceLoader = [(SKUIModernChartsDocumentViewController *)v22 _resourceLoader];
+          [(SKUIStorePageSectionsViewController *)v23 setResourceLoader:_resourceLoader];
 
           if (string)
           {
-            v24 = string;
+            v26 = string;
           }
 
           else
           {
-            v24 = &stru_2827FFAC8;
+            v26 = &stru_2827FFAC8;
           }
 
-          [(SKUIStorePageSectionsViewController *)v21 setTitle:v24];
-          v25 = objc_alloc_init(SKUIMetricsImpressionSession);
-          [(SKUIStorePageSectionsViewController *)v21 setActiveMetricsImpressionSession:v25];
+          [(SKUIStorePageSectionsViewController *)v23 setTitle:v26];
+          v27 = objc_alloc_init(SKUIMetricsImpressionSession);
+          [(SKUIStorePageSectionsViewController *)v23 setActiveMetricsImpressionSession:v27];
 
 LABEL_21:
-          v44 = v6;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-          [(SKUIStorePageSectionsViewController *)v21 setSectionsWithPageComponents:v26];
+          v46 = v8;
+          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+          [(SKUIStorePageSectionsViewController *)v23 setSectionsWithPageComponents:v28];
 
-          [(SKUIModernChartsDocumentViewController *)v20 addChildViewController:v21];
-          [v32 addObject:v21];
+          [(SKUIModernChartsDocumentViewController *)v22 addChildViewController:v23];
+          [v34 addObject:v23];
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v36 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
-    while (v34);
+    while (v36);
   }
 
-  return v32;
+  return v34;
 }
 
 - (void)_reloadWithTemplateElement:(id)element

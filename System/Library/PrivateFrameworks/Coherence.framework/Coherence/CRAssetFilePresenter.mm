@@ -11,40 +11,38 @@
 - (NSURL)presentedItemURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5B9DC0, &qword_1AE240B90);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - v5;
-  sub_1ADDCEE40(self + OBJC_IVAR____TtC9Coherence20CRAssetFilePresenter_presentedItemURL, &v13 - v5, &qword_1EB5B9DC0, &qword_1AE240B90);
-  v7 = sub_1AE23BDDC();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_1ADDCEE40(self + OBJC_IVAR____TtC9Coherence20CRAssetFilePresenter_presentedItemURL, &v12 - v4, &qword_1EB5B9DC0, &qword_1AE240B90);
+  v6 = sub_1AE23BDDC();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
-    v11 = sub_1AE23BD1C();
-    (*(v8 + 8))(v6, v7);
-    v10 = v11;
+    v10 = sub_1AE23BD1C();
+    (*(v7 + 8))(v5, v6);
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)accommodatePresentedSubitemDeletionAtURL:(id)l completionHandler:(id)handler
 {
   v6 = sub_1AE23BDDC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   sub_1AE23BD8C();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_1AE1B3368(v10, selfCopy, v11);
-  _Block_release(v11);
-  _Block_release(v11);
+  sub_1AE1B3368(v9, selfCopy, v10);
+  _Block_release(v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)accommodatePresentedItemDeletionWithCompletionHandler:(id)handler

@@ -98,7 +98,7 @@
     metadataItems = v5->_metadataItems;
     v5->_metadataItems = v7;
 
-    [metadataCopy duration];
+    objc_msgSend_duration(metadataCopy);
     v5->_duration = v9;
     v5->_closedCaptioned = [metadataCopy isClosedCaptioned];
     v5->_livePlayback = [metadataCopy isLivePlayback];

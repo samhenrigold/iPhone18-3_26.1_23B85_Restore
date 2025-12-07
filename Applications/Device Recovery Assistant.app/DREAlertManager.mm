@@ -194,7 +194,7 @@ LABEL_25:
 
   else
   {
-    v23 = sub_100012608();
+    v23 = sub_100012608(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_1000129B4();
@@ -211,7 +211,8 @@ LABEL_25:
   optionsCopy = options;
   completionCopy = completion;
   responseCopy = response;
-  if ([(DREAlertManager *)self _isAnyAlertOrModalVisible])
+  _isAnyAlertOrModalVisible = [(DREAlertManager *)self _isAnyAlertOrModalVisible];
+  if (_isAnyAlertOrModalVisible)
   {
     if (completionCopy)
     {
@@ -221,90 +222,90 @@ LABEL_25:
 
   else
   {
-    v10 = sub_100012608();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100012608(_isAnyAlertOrModalVisible);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v41 = "[DREAlertManager showMenuSheetWithOptions:completion:response:]";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Presenting menu sheet…", buf, 0xCu);
+      v42 = "[DREAlertManager showMenuSheetWithOptions:completion:response:]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Presenting menu sheet…", buf, 0xCu);
     }
 
-    v11 = +[UIDevice currentDevice];
-    v12 = [v11 userInterfaceIdiom] == 1;
+    v12 = +[UIDevice currentDevice];
+    v13 = [v12 userInterfaceIdiom] == 1;
 
-    v13 = [UIAlertController alertControllerWithTitle:0 message:0 preferredStyle:v12];
-    v14 = MSUCopyInstalledRecoveryOSVersion();
-    v15 = [v14 length];
-    if ((optionsCopy & 4) != 0 && v15)
+    v14 = [UIAlertController alertControllerWithTitle:0 message:0 preferredStyle:v13];
+    v15 = MSUCopyInstalledRecoveryOSVersion();
+    v16 = [v15 length];
+    if ((optionsCopy & 4) != 0 && v16)
     {
-      v16 = +[NSBundle mainBundle];
-      v17 = [v16 localizedStringForKey:@"NEARBY_DEVICE_RECOVERY_MENU" value:&stru_100028E90 table:0];
+      v17 = +[NSBundle mainBundle];
+      v18 = [v17 localizedStringForKey:@"NEARBY_DEVICE_RECOVERY_MENU" value:&stru_100028E90 table:0];
 
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = sub_100007D98;
-      v38[3] = &unk_1000288A8;
-      v38[4] = self;
-      v39 = responseCopy;
-      v18 = [UIAlertAction actionWithTitle:v17 style:0 handler:v38];
-      [v13 addAction:v18];
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_100007D98;
+      v39[3] = &unk_1000288A8;
+      v39[4] = self;
+      v40 = responseCopy;
+      v19 = [UIAlertAction actionWithTitle:v18 style:0 handler:v39];
+      [v14 addAction:v19];
     }
 
     if ((optionsCopy & 2) != 0)
     {
-      v19 = +[NSBundle mainBundle];
-      v20 = [v19 localizedStringForKey:@"RESTART_ALERT_BUTTON" value:&stru_100028E90 table:0];
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_100007E64;
-      v36[3] = &unk_1000288A8;
-      v36[4] = self;
-      v37 = responseCopy;
-      v21 = [UIAlertAction actionWithTitle:v20 style:2 handler:v36];
-      [v13 addAction:v21];
+      v20 = +[NSBundle mainBundle];
+      v21 = [v20 localizedStringForKey:@"RESTART_ALERT_BUTTON" value:&stru_100028E90 table:0];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_100007E64;
+      v37[3] = &unk_1000288A8;
+      v37[4] = self;
+      v38 = responseCopy;
+      v22 = [UIAlertAction actionWithTitle:v21 style:2 handler:v37];
+      [v14 addAction:v22];
     }
 
     if (optionsCopy)
     {
-      v22 = +[NSBundle mainBundle];
-      v23 = [v22 localizedStringForKey:@"SHUT_DOWN" value:&stru_100028E90 table:0];
-      v34[0] = _NSConcreteStackBlock;
-      v34[1] = 3221225472;
-      v34[2] = sub_100007F30;
-      v34[3] = &unk_1000288A8;
-      v34[4] = self;
-      v35 = responseCopy;
-      v24 = [UIAlertAction actionWithTitle:v23 style:0 handler:v34];
-      [v13 addAction:v24];
+      v23 = +[NSBundle mainBundle];
+      v24 = [v23 localizedStringForKey:@"SHUT_DOWN" value:&stru_100028E90 table:0];
+      v35[0] = _NSConcreteStackBlock;
+      v35[1] = 3221225472;
+      v35[2] = sub_100007F30;
+      v35[3] = &unk_1000288A8;
+      v35[4] = self;
+      v36 = responseCopy;
+      v25 = [UIAlertAction actionWithTitle:v24 style:0 handler:v35];
+      [v14 addAction:v25];
     }
 
-    v25 = +[NSBundle mainBundle];
-    v26 = [v25 localizedStringForKey:@"CANCEL_BUTTON" value:&stru_100028E90 table:0];
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100007FFC;
-    v32[3] = &unk_1000288A8;
-    v32[4] = self;
-    v33 = responseCopy;
-    v27 = [UIAlertAction actionWithTitle:v26 style:1 handler:v32];
-    [v13 addAction:v27];
+    v26 = +[NSBundle mainBundle];
+    v27 = [v26 localizedStringForKey:@"CANCEL_BUTTON" value:&stru_100028E90 table:0];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100007FFC;
+    v33[3] = &unk_1000288A8;
+    v33[4] = self;
+    v34 = responseCopy;
+    v28 = [UIAlertAction actionWithTitle:v27 style:1 handler:v33];
+    [v14 addAction:v28];
 
     _getTopViewController = [(DREAlertManager *)self _getTopViewController];
     if (_getTopViewController)
     {
       [(DREAlertManager *)self setAlertVisible:1];
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_1000080C8;
-      v30[3] = &unk_1000288D0;
-      v31 = completionCopy;
-      [_getTopViewController presentViewController:v13 animated:1 completion:v30];
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_1000080C8;
+      v31[3] = &unk_1000288D0;
+      v32 = completionCopy;
+      [_getTopViewController presentViewController:v14 animated:1 completion:v31];
     }
 
     else
     {
-      v29 = sub_100012608();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = sub_100012608(0);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_100012A34();
       }
@@ -331,49 +332,50 @@ LABEL_25:
     v8 = &stru_100028910;
   }
 
-  if ([(DREAlertManager *)self _isAnyAlertOrModalVisible])
+  _isAnyAlertOrModalVisible = [(DREAlertManager *)self _isAnyAlertOrModalVisible];
+  if (_isAnyAlertOrModalVisible)
   {
     v8->invoke(v8, 0);
   }
 
   else
   {
-    v9 = sub_100012608();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100012608(_isAnyAlertOrModalVisible);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v19 = "[DREAlertManager showPowerDownWithCompletion:response:]";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Presenting power down UI…", buf, 0xCu);
+      v20 = "[DREAlertManager showPowerDownWithCompletion:response:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Presenting power down UI…", buf, 0xCu);
     }
 
     [(DREAlertManager *)self setPowerDownResponse:responseCopy];
-    v10 = +[SBUIPowerDownViewControllerFactory newPowerDownViewController];
-    if (v10)
+    v11 = +[SBUIPowerDownViewControllerFactory newPowerDownViewController];
+    if (v11)
     {
-      v11 = +[UIColor lightGrayColor];
-      view = [v10 view];
-      [view setBackgroundColor:v11];
+      v12 = +[UIColor lightGrayColor];
+      view = [v11 view];
+      [view setBackgroundColor:v12];
 
-      [v10 setPowerDownDelegate:self];
-      [v10 setModalPresentationStyle:5];
-      [v10 setModalTransitionStyle:2];
+      [v11 setPowerDownDelegate:self];
+      [v11 setModalPresentationStyle:5];
+      [v11 setModalTransitionStyle:2];
       _getTopViewController = [(DREAlertManager *)self _getTopViewController];
       if (_getTopViewController)
       {
         [(DREAlertManager *)self setPowerDownVisible:1];
-        [(DREAlertManager *)self setPresentedPowerDownVC:v10];
-        v16[0] = _NSConcreteStackBlock;
-        v16[1] = 3221225472;
-        v16[2] = sub_100008448;
-        v16[3] = &unk_1000288D0;
-        v17 = v8;
-        [_getTopViewController presentViewController:v10 animated:1 completion:v16];
+        [(DREAlertManager *)self setPresentedPowerDownVC:v11];
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = sub_100008448;
+        v17[3] = &unk_1000288D0;
+        v18 = v8;
+        [_getTopViewController presentViewController:v11 animated:1 completion:v17];
       }
 
       else
       {
-        v15 = sub_100012608();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = sub_100012608(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_100012AB4();
         }
@@ -385,8 +387,8 @@ LABEL_25:
 
     else
     {
-      v14 = sub_100012608();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100012608(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_100012B34();
       }
@@ -400,11 +402,11 @@ LABEL_25:
 - (void)powerDownViewRequestCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = sub_100012608();
+  v5 = sub_100012608(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v10 = "[DREAlertManager powerDownViewRequestCancel:]";
+    v11 = "[DREAlertManager powerDownViewRequestCancel:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Power down request canceled - dismissing power down UI.", buf, 0xCu);
   }
 
@@ -414,18 +416,18 @@ LABEL_25:
   {
     [(DREAlertManager *)self setPowerDownVisible:0];
     [(DREAlertManager *)self setPresentedPowerDownVC:0];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100008684;
-    v8[3] = &unk_100028938;
-    v8[4] = self;
-    [cancelCopy dismissViewControllerAnimated:1 completion:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100008684;
+    v9[3] = &unk_100028938;
+    v9[4] = self;
+    [cancelCopy dismissViewControllerAnimated:1 completion:v9];
   }
 
   else
   {
-    v7 = sub_100012608();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100012608(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100012BB4();
     }
@@ -435,12 +437,12 @@ LABEL_25:
 - (void)powerDownViewRequestPowerDown:(id)down
 {
   downCopy = down;
-  v5 = sub_100012608();
+  v5 = sub_100012608(downCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446210;
-    v11 = "[DREAlertManager powerDownViewRequestPowerDown:]";
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Power down requested.", &v10, 0xCu);
+    v11 = 136446210;
+    v12 = "[DREAlertManager powerDownViewRequestPowerDown:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Power down requested.", &v11, 0xCu);
   }
 
   presentedPowerDownVC = [(DREAlertManager *)self presentedPowerDownVC];
@@ -462,8 +464,8 @@ LABEL_25:
 
   else
   {
-    v7 = sub_100012608();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100012608(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100012C30();
     }
@@ -472,9 +474,10 @@ LABEL_25:
 
 - (BOOL)_isAnyAlertOrModalVisible
 {
-  if ([(DREAlertManager *)self alertVisible]|| (v3 = [(DREAlertManager *)self powerDownVisible]))
+  alertVisible = [(DREAlertManager *)self alertVisible];
+  if (alertVisible || (alertVisible = [(DREAlertManager *)self powerDownVisible]))
   {
-    v4 = sub_100012608();
+    v4 = sub_100012608(alertVisible);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 136446210;
@@ -482,10 +485,10 @@ LABEL_25:
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: An alert or modal managed by DREAlertManager is already visible.", &v6, 0xCu);
     }
 
-    LOBYTE(v3) = 1;
+    LOBYTE(alertVisible) = 1;
   }
 
-  return v3;
+  return alertVisible;
 }
 
 - (UIViewController)presentedPowerDownVC

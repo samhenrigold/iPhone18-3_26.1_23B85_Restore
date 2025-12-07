@@ -1,154 +1,4 @@
-void _ZZN5boost9histogram4axis6traits5indexINS1_7integerIiNS_11use_defaultENS1_6option3bitILj1EEEEENSt3__15tupleIJRKdSD_SD_SD_SD_SD_EEEEEDaRKT_RKT0_ENKUlRKS9_E_clESN_()
-{
-  boost::core::scoped_demangled_name::scoped_demangled_name(&v18, (0x800000025E373F45 & 0x7FFFFFFFFFFFFFFFLL));
-  if (v18.__r_.__value_.__r.__words[0])
-  {
-    v0 = v18.__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v0 = (0x800000025E373F45 & 0x7FFFFFFFFFFFFFFFLL);
-  }
-
-  v1 = strlen(v0);
-  if (v1 > 0x7FFFFFFFFFFFFFF7)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v2 = v1;
-  if (v1 < 0x17)
-  {
-    v17 = v1;
-    if (v1)
-    {
-      memmove(&__dst, v0, v1);
-    }
-
-    *(&__dst + v2) = 0;
-    free(v18.__r_.__value_.__l.__data_);
-    boost::core::scoped_demangled_name::scoped_demangled_name(&v18, (0x800000025E37799ALL & 0x7FFFFFFFFFFFFFFFLL));
-    if (v18.__r_.__value_.__r.__words[0])
-    {
-      v3 = v18.__r_.__value_.__r.__words[0];
-    }
-
-    else
-    {
-      v3 = (0x800000025E37799ALL & 0x7FFFFFFFFFFFFFFFLL);
-    }
-
-    v4 = strlen(v3);
-    if (v4 > 0x7FFFFFFFFFFFFFF7)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v5 = v4;
-    if (v4 < 0x17)
-    {
-      v15 = v4;
-      if (v4)
-      {
-        memmove(&v14, v3, v4);
-      }
-
-      *(&v14 + v5) = 0;
-      free(v18.__r_.__value_.__l.__data_);
-      v6 = (*(MEMORY[0x277D827C0] + 8) & 0x7FFFFFFFFFFFFFFFLL);
-      boost::core::scoped_demangled_name::scoped_demangled_name(&v18, v6);
-      if (v18.__r_.__value_.__r.__words[0])
-      {
-        v7 = v18.__r_.__value_.__r.__words[0];
-      }
-
-      else
-      {
-        v7 = v6;
-      }
-
-      v8 = strlen(v7);
-      if (v8 > 0x7FFFFFFFFFFFFFF7)
-      {
-        std::string::__throw_length_error[abi:ne200100]();
-      }
-
-      v9 = v8;
-      if (v8 < 0x17)
-      {
-        v13 = v8;
-        if (v8)
-        {
-          memmove(&v12, v7, v8);
-        }
-
-        *(&v12 + v9) = 0;
-        free(v18.__r_.__value_.__l.__data_);
-        boost::histogram::detail::cat<std::string,char [35],std::string,char [5],std::string>(&__dst, ": cannot convert argument of type ", &v14, " to ", &v12);
-        v10 = std::logic_error::logic_error(&v19, &v18);
-        v19.__vftable = (MEMORY[0x277D828F8] + 16);
-        v11[0] = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/axis/traits.hpp";
-        v11[1] = "auto boost::histogram::axis::traits::index(const boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>> &, const std::tuple<const double &, const double &, const double &, const double &, const double &, const double &> &)::(anonymous class)::operator()(const Axis &) const";
-        v11[2] = 190;
-        boost::throw_exception<std::invalid_argument>(v10, v11);
-      }
-
-      operator new();
-    }
-
-    operator new();
-  }
-
-  operator new();
-}
-
-__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,6u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>)#1}>@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *a1;
-  v5 = *a1[1];
-  v6 = a1[2];
-  v18 = v4;
-  v19 = v6;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_(v5, &v20);
-  v7 = *a1[1];
-  v8 = a1[2] + 8;
-  v18 = *a1;
-  v19 = v8;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v7 + 56), &v20);
-  v9 = *a1[1];
-  v10 = a1[2] + 16;
-  v18 = *a1;
-  v19 = v10;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v9 + 112), &v20);
-  v11 = *a1[1];
-  v12 = a1[2] + 24;
-  v18 = *a1;
-  v19 = v12;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v11 + 168), &v20);
-  v13 = *a1[1];
-  v14 = a1[2] + 32;
-  v18 = *a1;
-  v19 = v14;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v13 + 224), &v20);
-  v15 = *a1[1];
-  v16 = a1[2] + 40;
-  v18 = *a1;
-  v19 = v16;
-  v20 = &v18;
-  _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v15 + 280), &v20);
-  result = *a1;
-  *a2 = *a1;
-  *(a2 + 16) = a1[2];
-  return result;
-}
-
-uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double>(uint64_t a1, const char *a2, unint64_t a3)
 {
   v4 = boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(a1, a2, a3);
   if (!v5)
@@ -162,41 +12,41 @@ uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std:
   return v6;
 }
 
-uint64_t boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(uint64_t a1, const char *a2, unint64_t a3)
 {
-  v14 = xmmword_25E371F90;
+  v13 = xmmword_25E371F90;
   v3 = *a2;
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 3);
   if (v4 != 7)
   {
     if (v4 == 1)
     {
-      v7 = a3;
-      v8 = (a3 + 8);
-      v9 = a3 + 16;
-      v10 = a3 + 24;
-      v11 = a3 + 32;
-      v12 = a3 + 40;
-      v13 = a3 + 48;
-      v6.__vftable = &v14;
+      v7.n128_u64[0] = a3;
+      v7.n128_u64[1] = a3 + 8;
+      v8 = a3 + 16;
+      v9 = a3 + 24;
+      v10 = a3 + 32;
+      v11 = a3 + 40;
+      v12 = a3 + 48;
+      v6.__vftable = &v13;
       v6.__imp_.__imp_ = &v7;
-      v15 = &v6;
-      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v15);
+      v14 = &v6;
+      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v14);
     }
 
     std::logic_error::logic_error(&v6, "number of arguments != histogram rank");
     v6.__vftable = (MEMORY[0x277D828F8] + 16);
-    v7 = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
-    v8 = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 7U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double>]";
-    v9 = 192;
+    v7.n128_u64[0] = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
+    v7.n128_u64[1] = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 7U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double>]";
+    v8 = 192;
     boost::throw_exception<std::invalid_argument>(&v6, &v7);
   }
 
-  v7 = &v14;
-  v8 = a2;
-  v9 = a3;
+  v7.n128_u64[0] = &v13;
+  v7.n128_u64[1] = a2;
+  v8 = a3;
   boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>)#1}>(&v7, &v6);
-  return v14;
+  return v13;
 }
 
 void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(int *a1, uint64_t **a2)
@@ -204,18 +54,12 @@ void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJN
   switch(*a1 ^ (*a1 >> 31))
   {
     case 0:
-      v2 = **a2;
-      v3 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 1:
-      v4 = **a2;
-      v5 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 2:
-      v6 = **a2;
-      v7 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     default:
@@ -349,17 +193,16 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7regularIdNS_11use_defaultES5_S5
 uint64_t sub_25E339208(uint64_t result)
 {
   v3 = v1[1] - *v1;
-  v5 = *v2;
   v4 = v2[1];
-  v6 = result >= (v3 >> 3) || result <= -2;
-  v7 = ((v3 << 29) + 0x100000000) >> 32;
-  if (v6)
+  v5 = result >= (v3 >> 3) || result <= -2;
+  v6 = ((v3 << 29) + 0x100000000) >> 32;
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   *v2 += v4 * (result + 1);
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -471,20 +314,19 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_8variableIdNS_11use_defaultES5_N
 uint64_t sub_25E3395C4(uint64_t result)
 {
   v3 = *v1;
-  v5 = *v2;
   v4 = v2[1];
   if (result > v3 || result <= -1)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v3 + 1;
+    v6 = v3 + 1;
   }
 
   *v2 += v4 * result;
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -593,58 +435,58 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7integerIiNS_11use_defaultENS1_6
   operator new();
 }
 
-__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>)#1}>@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,7u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>)#1}>@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *a1[1];
-  v6 = a1[2];
+  v4 = a1->n128_u64[0];
+  v5 = *a1->n128_u64[1];
+  v6 = a1[1].n128_i64[0];
   v20 = v4;
   v21 = v6;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_(v5, &v22);
-  v7 = *a1[1];
-  v8 = a1[2] + 8;
-  v20 = *a1;
+  v7 = *a1->n128_u64[1];
+  v8 = a1[1].n128_u64[0] + 8;
+  v20 = a1->n128_u64[0];
   v21 = v8;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v7 + 56), &v22);
-  v9 = *a1[1];
-  v10 = a1[2] + 16;
-  v20 = *a1;
+  v9 = *a1->n128_u64[1];
+  v10 = a1[1].n128_u64[0] + 16;
+  v20 = a1->n128_u64[0];
   v21 = v10;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v9 + 112), &v22);
-  v11 = *a1[1];
-  v12 = a1[2] + 24;
-  v20 = *a1;
+  v11 = *a1->n128_u64[1];
+  v12 = a1[1].n128_u64[0] + 24;
+  v20 = a1->n128_u64[0];
   v21 = v12;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v11 + 168), &v22);
-  v13 = *a1[1];
-  v14 = a1[2] + 32;
-  v20 = *a1;
+  v13 = *a1->n128_u64[1];
+  v14 = a1[1].n128_u64[0] + 32;
+  v20 = a1->n128_u64[0];
   v21 = v14;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v13 + 224), &v22);
-  v15 = *a1[1];
-  v16 = a1[2] + 40;
-  v20 = *a1;
+  v15 = *a1->n128_u64[1];
+  v16 = a1[1].n128_u64[0] + 40;
+  v20 = a1->n128_u64[0];
   v21 = v16;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v15 + 280), &v22);
-  v17 = *a1[1];
-  v18 = a1[2] + 48;
-  v20 = *a1;
+  v17 = *a1->n128_u64[1];
+  v18 = a1[1].n128_u64[0] + 48;
+  v20 = a1->n128_u64[0];
   v21 = v18;
   v22 = &v20;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v17 + 336), &v22);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = a1[2];
+  a2[1].n128_u64[0] = a1[1].n128_u64[0];
   return result;
 }
 
-uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double>(uint64_t a1, const char *a2, unint64_t a3)
 {
   v4 = boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(a1, a2, a3);
   if (!v5)
@@ -658,42 +500,42 @@ uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std:
   return v6;
 }
 
-uint64_t boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(uint64_t a1, const char *a2, unint64_t a3)
 {
-  v15 = xmmword_25E371F90;
+  v14 = xmmword_25E371F90;
   v3 = *a2;
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 3);
   if (v4 != 8)
   {
     if (v4 == 1)
     {
-      v7 = a3;
-      v8 = (a3 + 8);
-      v9 = a3 + 16;
-      v10 = a3 + 24;
-      v11 = a3 + 32;
-      v12 = a3 + 40;
-      v13 = a3 + 48;
-      v14 = a3 + 56;
-      v6.__vftable = &v15;
+      v7.n128_u64[0] = a3;
+      v7.n128_u64[1] = a3 + 8;
+      v8 = a3 + 16;
+      v9 = a3 + 24;
+      v10 = a3 + 32;
+      v11 = a3 + 40;
+      v12 = a3 + 48;
+      v13 = a3 + 56;
+      v6.__vftable = &v14;
       v6.__imp_.__imp_ = &v7;
-      v16 = &v6;
-      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v16);
+      v15 = &v6;
+      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v15);
     }
 
     std::logic_error::logic_error(&v6, "number of arguments != histogram rank");
     v6.__vftable = (MEMORY[0x277D828F8] + 16);
-    v7 = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
-    v8 = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 8U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double>]";
-    v9 = 192;
+    v7.n128_u64[0] = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
+    v7.n128_u64[1] = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 8U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double>]";
+    v8 = 192;
     boost::throw_exception<std::invalid_argument>(&v6, &v7);
   }
 
-  v7 = &v15;
-  v8 = a2;
-  v9 = a3;
+  v7.n128_u64[0] = &v14;
+  v7.n128_u64[1] = a2;
+  v8 = a3;
   boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>)#1}>(&v7, &v6);
-  return v15;
+  return v14;
 }
 
 void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(int *a1, uint64_t **a2)
@@ -701,18 +543,12 @@ void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJN
   switch(*a1 ^ (*a1 >> 31))
   {
     case 0:
-      v2 = **a2;
-      v3 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 1:
-      v4 = **a2;
-      v5 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 2:
-      v6 = **a2;
-      v7 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     default:
@@ -846,17 +682,16 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7regularIdNS_11use_defaultES5_S5
 uint64_t sub_25E33A09C(uint64_t result)
 {
   v3 = v1[1] - *v1;
-  v5 = *v2;
   v4 = v2[1];
-  v6 = result >= (v3 >> 3) || result <= -2;
-  v7 = ((v3 << 29) + 0x100000000) >> 32;
-  if (v6)
+  v5 = result >= (v3 >> 3) || result <= -2;
+  v6 = ((v3 << 29) + 0x100000000) >> 32;
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   *v2 += v4 * (result + 1);
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -968,20 +803,19 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_8variableIdNS_11use_defaultES5_N
 uint64_t sub_25E33A458(uint64_t result)
 {
   v3 = *v1;
-  v5 = *v2;
   v4 = v2[1];
   if (result > v3 || result <= -1)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v3 + 1;
+    v6 = v3 + 1;
   }
 
   *v2 += v4 * result;
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -1090,64 +924,64 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7integerIiNS_11use_defaultENS1_6
   operator new();
 }
 
-__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>)#1}>@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,8u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>)#1}>@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *a1[1];
-  v6 = a1[2];
+  v4 = a1->n128_u64[0];
+  v5 = *a1->n128_u64[1];
+  v6 = a1[1].n128_i64[0];
   v22 = v4;
   v23 = v6;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_(v5, &v24);
-  v7 = *a1[1];
-  v8 = a1[2] + 8;
-  v22 = *a1;
+  v7 = *a1->n128_u64[1];
+  v8 = a1[1].n128_u64[0] + 8;
+  v22 = a1->n128_u64[0];
   v23 = v8;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v7 + 56), &v24);
-  v9 = *a1[1];
-  v10 = a1[2] + 16;
-  v22 = *a1;
+  v9 = *a1->n128_u64[1];
+  v10 = a1[1].n128_u64[0] + 16;
+  v22 = a1->n128_u64[0];
   v23 = v10;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v9 + 112), &v24);
-  v11 = *a1[1];
-  v12 = a1[2] + 24;
-  v22 = *a1;
+  v11 = *a1->n128_u64[1];
+  v12 = a1[1].n128_u64[0] + 24;
+  v22 = a1->n128_u64[0];
   v23 = v12;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v11 + 168), &v24);
-  v13 = *a1[1];
-  v14 = a1[2] + 32;
-  v22 = *a1;
+  v13 = *a1->n128_u64[1];
+  v14 = a1[1].n128_u64[0] + 32;
+  v22 = a1->n128_u64[0];
   v23 = v14;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v13 + 224), &v24);
-  v15 = *a1[1];
-  v16 = a1[2] + 40;
-  v22 = *a1;
+  v15 = *a1->n128_u64[1];
+  v16 = a1[1].n128_u64[0] + 40;
+  v22 = a1->n128_u64[0];
   v23 = v16;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v15 + 280), &v24);
-  v17 = *a1[1];
-  v18 = a1[2] + 48;
-  v22 = *a1;
+  v17 = *a1->n128_u64[1];
+  v18 = a1[1].n128_u64[0] + 48;
+  v22 = a1->n128_u64[0];
   v23 = v18;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v17 + 336), &v24);
-  v19 = *a1[1];
-  v20 = a1[2] + 56;
-  v22 = *a1;
+  v19 = *a1->n128_u64[1];
+  v20 = a1[1].n128_u64[0] + 56;
+  v22 = a1->n128_u64[0];
   v23 = v20;
   v24 = &v22;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v19 + 392), &v24);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = a1[2];
+  a2[1].n128_u64[0] = a1[1].n128_u64[0];
   return result;
 }
 
-uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double,double>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double,double>(uint64_t a1, const char *a2, unint64_t a3)
 {
   v4 = boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(a1, a2, a3);
   if (!v5)
@@ -1161,43 +995,43 @@ uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std:
   return v6;
 }
 
-uint64_t boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(uint64_t a1, const char *a2, unint64_t a3)
 {
-  v16 = xmmword_25E371F90;
+  v15 = xmmword_25E371F90;
   v3 = *a2;
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 3);
   if (v4 != 9)
   {
     if (v4 == 1)
     {
-      v7 = a3;
-      v8 = (a3 + 8);
-      v9 = a3 + 16;
-      v10 = a3 + 24;
-      v11 = a3 + 32;
-      v12 = a3 + 40;
-      v13 = a3 + 48;
-      v14 = a3 + 56;
-      v15 = a3 + 64;
-      v6.__vftable = &v16;
+      v7.n128_u64[0] = a3;
+      v7.n128_u64[1] = a3 + 8;
+      v8 = a3 + 16;
+      v9 = a3 + 24;
+      v10 = a3 + 32;
+      v11 = a3 + 40;
+      v12 = a3 + 48;
+      v13 = a3 + 56;
+      v14 = a3 + 64;
+      v6.__vftable = &v15;
       v6.__imp_.__imp_ = &v7;
-      v17 = &v6;
-      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v17);
+      v16 = &v6;
+      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v16);
     }
 
     std::logic_error::logic_error(&v6, "number of arguments != histogram rank");
     v6.__vftable = (MEMORY[0x277D828F8] + 16);
-    v7 = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
-    v8 = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 9U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double, double>]";
-    v9 = 192;
+    v7.n128_u64[0] = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
+    v7.n128_u64[1] = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 9U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double, double>]";
+    v8 = 192;
     boost::throw_exception<std::invalid_argument>(&v6, &v7);
   }
 
-  v7 = &v16;
-  v8 = a2;
-  v9 = a3;
+  v7.n128_u64[0] = &v15;
+  v7.n128_u64[1] = a2;
+  v8 = a3;
   boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>)#1}>(&v7, &v6);
-  return v16;
+  return v15;
 }
 
 void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(int *a1, uint64_t **a2)
@@ -1205,18 +1039,12 @@ void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJN
   switch(*a1 ^ (*a1 >> 31))
   {
     case 0:
-      v2 = **a2;
-      v3 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 1:
-      v4 = **a2;
-      v5 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 2:
-      v6 = **a2;
-      v7 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     default:
@@ -1350,17 +1178,16 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7regularIdNS_11use_defaultES5_S5
 uint64_t sub_25E33AF5C(uint64_t result)
 {
   v3 = v1[1] - *v1;
-  v5 = *v2;
   v4 = v2[1];
-  v6 = result >= (v3 >> 3) || result <= -2;
-  v7 = ((v3 << 29) + 0x100000000) >> 32;
-  if (v6)
+  v5 = result >= (v3 >> 3) || result <= -2;
+  v6 = ((v3 << 29) + 0x100000000) >> 32;
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   *v2 += v4 * (result + 1);
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -1472,20 +1299,19 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_8variableIdNS_11use_defaultES5_N
 uint64_t sub_25E33B318(uint64_t result)
 {
   v3 = *v1;
-  v5 = *v2;
   v4 = v2[1];
   if (result > v3 || result <= -1)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v3 + 1;
+    v6 = v3 + 1;
   }
 
   *v2 += v4 * result;
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -1594,70 +1420,70 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7integerIiNS_11use_defaultENS1_6
   operator new();
 }
 
-__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>)#1}>@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,9u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>)#1}>@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *a1[1];
-  v6 = a1[2];
+  v4 = a1->n128_u64[0];
+  v5 = *a1->n128_u64[1];
+  v6 = a1[1].n128_i64[0];
   v24 = v4;
   v25 = v6;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_(v5, &v26);
-  v7 = *a1[1];
-  v8 = a1[2] + 8;
-  v24 = *a1;
+  v7 = *a1->n128_u64[1];
+  v8 = a1[1].n128_u64[0] + 8;
+  v24 = a1->n128_u64[0];
   v25 = v8;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v7 + 56), &v26);
-  v9 = *a1[1];
-  v10 = a1[2] + 16;
-  v24 = *a1;
+  v9 = *a1->n128_u64[1];
+  v10 = a1[1].n128_u64[0] + 16;
+  v24 = a1->n128_u64[0];
   v25 = v10;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v9 + 112), &v26);
-  v11 = *a1[1];
-  v12 = a1[2] + 24;
-  v24 = *a1;
+  v11 = *a1->n128_u64[1];
+  v12 = a1[1].n128_u64[0] + 24;
+  v24 = a1->n128_u64[0];
   v25 = v12;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v11 + 168), &v26);
-  v13 = *a1[1];
-  v14 = a1[2] + 32;
-  v24 = *a1;
+  v13 = *a1->n128_u64[1];
+  v14 = a1[1].n128_u64[0] + 32;
+  v24 = a1->n128_u64[0];
   v25 = v14;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v13 + 224), &v26);
-  v15 = *a1[1];
-  v16 = a1[2] + 40;
-  v24 = *a1;
+  v15 = *a1->n128_u64[1];
+  v16 = a1[1].n128_u64[0] + 40;
+  v24 = a1->n128_u64[0];
   v25 = v16;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v15 + 280), &v26);
-  v17 = *a1[1];
-  v18 = a1[2] + 48;
-  v24 = *a1;
+  v17 = *a1->n128_u64[1];
+  v18 = a1[1].n128_u64[0] + 48;
+  v24 = a1->n128_u64[0];
   v25 = v18;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v17 + 336), &v26);
-  v19 = *a1[1];
-  v20 = a1[2] + 56;
-  v24 = *a1;
+  v19 = *a1->n128_u64[1];
+  v20 = a1[1].n128_u64[0] + 56;
+  v24 = a1->n128_u64[0];
   v25 = v20;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v19 + 392), &v26);
-  v21 = *a1[1];
-  v22 = a1[2] + 64;
-  v24 = *a1;
+  v21 = *a1->n128_u64[1];
+  v22 = a1[1].n128_u64[0] + 64;
+  v24 = a1->n128_u64[0];
   v25 = v22;
   v26 = &v24;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v21 + 448), &v26);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = a1[2];
+  a2[1].n128_u64[0] = a1[1].n128_u64[0];
   return result;
 }
 
-uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double,double,double>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,double,double,double,double,double,double,double,double,double,double>(uint64_t a1, const char *a2, unint64_t a3)
 {
   v4 = boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(a1, a2, a3);
   if (!v5)
@@ -1671,44 +1497,44 @@ uint64_t boost::histogram::detail::fill<boost::histogram::unlimited_storage<std:
   return v6;
 }
 
-uint64_t boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(uint64_t a1, const char *a2, unint64_t a3)
 {
-  v17 = xmmword_25E371F90;
+  v16 = xmmword_25E371F90;
   v3 = *a2;
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 1) - *a2) >> 3);
   if (v4 != 10)
   {
     if (v4 == 1)
     {
-      v7 = a3;
-      v8 = (a3 + 8);
-      v9 = a3 + 16;
-      v10 = a3 + 24;
-      v11 = a3 + 32;
-      v12 = a3 + 40;
-      v13 = a3 + 48;
-      v14 = a3 + 56;
-      v15 = a3 + 64;
-      v16 = a3 + 72;
-      v6.__vftable = &v17;
+      v7.n128_u64[0] = a3;
+      v7.n128_u64[1] = a3 + 8;
+      v8 = a3 + 16;
+      v9 = a3 + 24;
+      v10 = a3 + 32;
+      v11 = a3 + 40;
+      v12 = a3 + 48;
+      v13 = a3 + 56;
+      v14 = a3 + 64;
+      v15 = a3 + 72;
+      v6.__vftable = &v16;
       v6.__imp_.__imp_ = &v7;
-      v18 = &v6;
-      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v18);
+      v17 = &v6;
+      _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(v3, &v17);
     }
 
     std::logic_error::logic_error(&v6, "number of arguments != histogram rank");
     v6.__vftable = (MEMORY[0x277D828F8] + 16);
-    v7 = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
-    v8 = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 10U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double, double, double>]";
-    v9 = 192;
+    v7.n128_u64[0] = "PerfPowerServicesReader/external/lib/boostorg/histogram/include/boost/histogram/detail/linearize.hpp";
+    v7.n128_u64[1] = "optional_index boost::histogram::detail::args_to_index(std::false_type, S &, const T &, const U &) [I = 0U, N = 10U, S = boost::histogram::unlimited_storage<>, T = std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<>, boost::histogram::axis::variable<>, boost::histogram::axis::integer<int, boost::use_default, boost::histogram::axis::option::bit<1>>>>, U = std::tuple<double, double, double, double, double, double, double, double, double, double>]";
+    v8 = 192;
     boost::throw_exception<std::invalid_argument>(&v6, &v7);
   }
 
-  v7 = &v17;
-  v8 = a2;
-  v9 = a3;
+  v7.n128_u64[0] = &v16;
+  v7.n128_u64[1] = a2;
+  v8 = a3;
   boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>)#1}>(&v7, &v6);
-  return v17;
+  return v16;
 }
 
 void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_ENS7_5tupleIJRKdSP_SP_SP_SP_SP_SP_SP_SP_SP_EEEEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENS12_11result_typeERS12_(int *a1, uint64_t **a2)
@@ -1716,18 +1542,12 @@ void _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJN
   switch(*a1 ^ (*a1 >> 31))
   {
     case 0:
-      v2 = **a2;
-      v3 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 1:
-      v4 = **a2;
-      v5 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     case 2:
-      v6 = **a2;
-      v7 = (*a2)[1];
 
       boost::histogram::detail::linearize_value<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,std::tuple<double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&,double const&>>();
     default:
@@ -1861,17 +1681,16 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7regularIdNS_11use_defaultES5_S5
 uint64_t sub_25E33BE44(uint64_t result)
 {
   v3 = v1[1] - *v1;
-  v5 = *v2;
   v4 = v2[1];
-  v6 = result >= (v3 >> 3) || result <= -2;
-  v7 = ((v3 << 29) + 0x100000000) >> 32;
-  if (v6)
+  v5 = result >= (v3 >> 3) || result <= -2;
+  v6 = ((v3 << 29) + 0x100000000) >> 32;
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   *v2 += v4 * (result + 1);
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -1983,20 +1802,19 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_8variableIdNS_11use_defaultES5_N
 uint64_t sub_25E33C200(uint64_t result)
 {
   v3 = *v1;
-  v5 = *v2;
   v4 = v2[1];
   if (result > v3 || result <= -1)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = v3 + 1;
+    v6 = v3 + 1;
   }
 
   *v2 += v4 * result;
-  v2[1] = v7 * v4;
+  v2[1] = v6 * v4;
   return result;
 }
 
@@ -2105,72 +1923,72 @@ void _ZZN5boost9histogram4axis6traits5indexINS1_7integerIiNS_11use_defaultENS1_6
   operator new();
 }
 
-__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>)#1}>@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 boost::mp11::detail::mp_for_each_impl<std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>,boost::histogram::detail::optional_index boost::histogram::detail::args_to_index<0u,10u,boost::histogram::unlimited_storage<std::allocator<char>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::tuple<double,double,double,double,double,double,double,double,double,double>>(std::integral_constant<BOOL,false>,boost::histogram::unlimited_storage<std::allocator<char>> &,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>> const&,std::tuple<double,double,double,double,double,double,double,double,double,double> const&)::{lambda(std::integral_constant<unsigned long,0ul>,std::integral_constant<unsigned long,1ul>,std::integral_constant<unsigned long,2ul>,std::integral_constant<unsigned long,3ul>,std::integral_constant<unsigned long,4ul>,std::integral_constant<unsigned long,5ul>,std::integral_constant<unsigned long,6ul>,std::integral_constant<unsigned long,7ul>,std::integral_constant<unsigned long,8ul>,std::integral_constant<unsigned long,9ul>)#1}>@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *a1[1];
-  v6 = a1[2];
+  v4 = a1->n128_u64[0];
+  v5 = *a1->n128_u64[1];
+  v6 = a1[1].n128_i64[0];
   v26 = v4;
   v27 = v6;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_(v5, &v28);
-  v7 = *a1[1];
-  v8 = a1[2] + 8;
-  v26 = *a1;
+  v7 = *a1->n128_u64[1];
+  v8 = a1[1].n128_u64[0] + 8;
+  v26 = a1->n128_u64[0];
   v27 = v8;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v7 + 56), &v28);
-  v9 = *a1[1];
-  v10 = a1[2] + 16;
-  v26 = *a1;
+  v9 = *a1->n128_u64[1];
+  v10 = a1[1].n128_u64[0] + 16;
+  v26 = a1->n128_u64[0];
   v27 = v10;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v9 + 112), &v28);
-  v11 = *a1[1];
-  v12 = a1[2] + 24;
-  v26 = *a1;
+  v11 = *a1->n128_u64[1];
+  v12 = a1[1].n128_u64[0] + 24;
+  v26 = a1->n128_u64[0];
   v27 = v12;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v11 + 168), &v28);
-  v13 = *a1[1];
-  v14 = a1[2] + 32;
-  v26 = *a1;
+  v13 = *a1->n128_u64[1];
+  v14 = a1[1].n128_u64[0] + 32;
+  v26 = a1->n128_u64[0];
   v27 = v14;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v13 + 224), &v28);
-  v15 = *a1[1];
-  v16 = a1[2] + 40;
-  v26 = *a1;
+  v15 = *a1->n128_u64[1];
+  v16 = a1[1].n128_u64[0] + 40;
+  v26 = a1->n128_u64[0];
   v27 = v16;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v15 + 280), &v28);
-  v17 = *a1[1];
-  v18 = a1[2] + 48;
-  v26 = *a1;
+  v17 = *a1->n128_u64[1];
+  v18 = a1[1].n128_u64[0] + 48;
+  v26 = a1->n128_u64[0];
   v27 = v18;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v17 + 336), &v28);
-  v19 = *a1[1];
-  v20 = a1[2] + 56;
-  v26 = *a1;
+  v19 = *a1->n128_u64[1];
+  v20 = a1[1].n128_u64[0] + 56;
+  v26 = a1->n128_u64[0];
   v27 = v20;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v19 + 392), &v28);
-  v21 = *a1[1];
-  v22 = a1[2] + 64;
-  v26 = *a1;
+  v21 = *a1->n128_u64[1];
+  v22 = a1[1].n128_u64[0] + 64;
+  v26 = a1->n128_u64[0];
   v27 = v22;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v21 + 448), &v28);
-  v23 = *a1[1];
-  v24 = a1[2] + 72;
-  v26 = *a1;
+  v23 = *a1->n128_u64[1];
+  v24 = a1[1].n128_u64[0] + 72;
+  v26 = a1->n128_u64[0];
   v27 = v24;
   v28 = &v26;
   _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_EEJNS2_8variableIdS4_S4_NSt3__19allocatorIdEEEENS2_7integerIiS4_NS2_6option3bitILj1EEEEEEE13apply_visitorINS_6detail7variant15result_wrapper1IZNS1_6detail15linearize_valueIJS5_SA_SF_EdEEvRNSL_14optional_indexERKNS2_7variantIJDpT_EEERKT0_EUlRKT_E_RKSG_EEEENSY_11result_typeERSY_((v23 + 504), &v28);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = a1[2];
+  a2[1].n128_u64[0] = a1[1].n128_u64[0];
   return result;
 }
 
@@ -2201,7 +2019,7 @@ uint64_t boost::variant<boost::histogram::axis::regular<double,boost::use_defaul
       *(a1 + 8) = 0;
       *(a1 + 16) = 0;
       *(a1 + 24) = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
       if (*(a2 + 55) < 0)
       {
         std::string::__init_copy_ctor_external((a1 + 32), *(a2 + 32), *(a2 + 40));
@@ -2265,8 +2083,7 @@ uint64_t boost::histogram::axis::regular<double,boost::use_default,boost::use_de
   v5 = *a3;
   *(result + 24) = *(a3 + 2);
   *(result + 8) = v5;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   v6 = a5 - a4;
   *(result + 32) = a4;
@@ -2304,19 +2121,19 @@ uint64_t boost::histogram::axis::regular<double,boost::use_default,boost::use_de
   return result;
 }
 
-void sub_25E33CA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25E33CA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x25F8B01A0](va);
-  if (*(v5 + 31) < 0)
+  va_start(va, a9);
+  MEMORY[0x25F8B01A0](va, a2, a3, a4, a5);
+  if (*(v9 + 31) < 0)
   {
-    operator delete(*(v5 + 8));
+    operator delete(*(v9 + 8));
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::variable<std::__wrap_iter<double const*>,boost::histogram::detail::requires_iterator<std::__wrap_iter<double const*>,void>>(uint64_t a1, void *a2, double *a3, __int128 *a4)
+uint64_t boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::variable<std::__wrap_iter<double const*>,boost::histogram::detail::requires_iterator<std::__wrap_iter<double const*>,void>>(uint64_t a1, char *a2, double *a3, __int128 *a4)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -2324,8 +2141,7 @@ uint64_t boost::histogram::axis::variable<double,boost::use_default,boost::use_d
   v6 = *a4;
   *(a1 + 40) = *(a4 + 2);
   *(a1 + 24) = v6;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
   v7 = (a3 - a2) >> 3;
   if (v7 <= 1)
@@ -2389,9 +2205,9 @@ uint64_t boost::histogram::axis::variable<double,boost::use_default,boost::use_d
     v11 = (v10 + 1);
   }
 
-  v20 = (a2 + 1);
+  v20 = (a2 + 8);
   *(a1 + 8) = v11;
-  if (a2 + 1 != a3)
+  if (a2 + 8 != a3)
   {
     do
     {
@@ -2467,11 +2283,11 @@ uint64_t boost::histogram::axis::variable<double,boost::use_default,boost::use_d
   return a1;
 }
 
-void sub_25E33CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25E33CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x25F8B01A0](va);
-  boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::~variable(v5);
+  va_start(va, a9);
+  MEMORY[0x25F8B01A0](va, a2, a3, a4, a5);
+  boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::~variable(v9);
   _Unwind_Resume(a1);
 }
 
@@ -2541,48 +2357,48 @@ uint64_t std::vector<boost::histogram::axis::variant<boost::histogram::axis::reg
   return v14;
 }
 
-void sub_25E33CF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25E33CF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2700,8 +2516,7 @@ __n128 boost::histogram::axis::integer<int,boost::use_default,boost::histogram::
   result = *a4;
   *(a1 + 24) = a4[1].n128_u64[0];
   *(a1 + 8) = result;
-  a4->n128_u64[1] = 0;
-  a4[1].n128_u64[0] = 0;
+  *(a4 + 8) = 0uLL;
   a4->n128_u64[0] = 0;
   *(a1 + 32) = a2;
   if (a3 <= a2)
@@ -2777,9 +2592,9 @@ uint64_t std::vector<boost::histogram::axis::variant<boost::histogram::axis::reg
   return v14;
 }
 
-void sub_25E33D460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25E33D460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2844,14 +2659,14 @@ uint64_t std::vector<boost::histogram::axis::variant<boost::histogram::axis::reg
   return v14;
 }
 
-void sub_25E33D5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25E33D5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<pps::AxisEnum>::__assign_with_size[abi:ne200100]<pps::AxisEnum*,pps::AxisEnum*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<pps::AxisEnum>::__assign_with_size[abi:ne200100]<pps::AxisEnum*,pps::AxisEnum*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2926,7 +2741,7 @@ void *std::vector<pps::AxisEnum>::__assign_with_size[abi:ne200100]<pps::AxisEnum
   return result;
 }
 
-void std::vector<pps::AxisEnum>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<pps::AxisEnum>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2936,15 +2751,15 @@ void std::vector<pps::AxisEnum>::__vallocate[abi:ne200100](uint64_t a1, unint64_
   std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t **std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,std::vector<std::string>>,std::__tree_node<std::__value_type<int,std::vector<std::string>>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<int,std::vector<std::string>>,std::__tree_node<std::__value_type<int,std::vector<std::string>>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -3025,23 +2840,23 @@ uint64_t **std::__tree<std::__value_type<int,std::vector<std::string>>,std::__ma
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_multi<std::pair<int const,std::vector<std::string>> const&>();
+    std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_multi<std::pair<int const,std::vector<std::string>> const&>(v5);
   }
 
   return result;
 }
 
-void sub_25E33D8A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E33D8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -3071,7 +2886,7 @@ uint64_t std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -3143,13 +2958,13 @@ uint64_t std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_
   v2 = *(a1 + 8);
   if (v2)
   {
-    v3 = *(v2 + 16);
+    v3 = v2[2];
     if (v3)
     {
       do
       {
         v2 = v3;
-        v3 = *(v3 + 16);
+        v3 = v3[2];
       }
 
       while (v3);
@@ -3169,7 +2984,7 @@ void sub_25E33DB48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-int *boost::histogram::detail::axes_equal<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(int **a1, uint64_t *a2)
+uint64_t boost::histogram::detail::axes_equal<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(int **a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -3202,7 +3017,7 @@ int *boost::histogram::detail::axes_equal<std::vector<boost::histogram::axis::va
   return result;
 }
 
-uint64_t boost::histogram::unlimited_storage<std::allocator<char>>::operator==(uint64_t a1, uint64_t a2)
+BOOL boost::histogram::unlimited_storage<std::allocator<char>>::operator==(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8) != *(a2 + 8))
   {
@@ -3339,7 +3154,7 @@ BOOL _ZN5boost9histogram6detail9static_ifINSt3__117integral_constantIbLb1EEEJZNS
   return memcmp(v8, v9, v4) == 0;
 }
 
-int *_ZNK5boost6detail7variant15result_wrapper1IZNKS_9histogram4axis7variantIJNS4_7regularIdNS_11use_defaultES7_S7_EENS4_8variableIdS7_S7_NSt3__19allocatorIdEEEENS4_7integerIiS7_NS4_6option3bitILj1EEEEEEEeqIJS8_SD_SI_EEEbRKNS5_IJDpT_EEEEUlRKT_E_RKNS_7variantIS8_JSD_SI_EEEEclIRKSD_EEbOSQ_(int ***a1, uint64_t a2)
+int *_ZNK5boost6detail7variant15result_wrapper1IZNKS_9histogram4axis7variantIJNS4_7regularIdNS_11use_defaultES7_S7_EENS4_8variableIdS7_S7_NSt3__19allocatorIdEEEENS4_7integerIiS7_NS4_6option3bitILj1EEEEEEEeqIJS8_SD_SI_EEEbRKNS5_IJDpT_EEEEUlRKT_E_RKNS_7variantIS8_JSD_SI_EEEEclIRKSD_EEbOSQ_(int ***a1, double **a2)
 {
   result = boost::histogram::axis::get_if<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(**a1);
   if (result)
@@ -3361,7 +3176,7 @@ int *boost::histogram::axis::get_if<boost::histogram::axis::variable<double,boos
   return result;
 }
 
-_DWORD *boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::get_visitor<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>> const>>(int *a1)
+int *boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::get_visitor<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>> const>>(int *a1)
 {
   v1 = 0;
   switch(*a1 ^ (*a1 >> 31))
@@ -3379,12 +3194,12 @@ _DWORD *boost::variant<boost::histogram::axis::regular<double,boost::use_default
   return v1;
 }
 
-BOOL boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::operator==<double,boost::use_default,boost::use_default,std::allocator<double>>(uint64_t a1, uint64_t a2)
+BOOL boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>::operator==<double,boost::use_default,boost::use_default,std::allocator<double>>(double **a1, double **a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   if (v3 - *a1 == v5 - *a2)
   {
     if (v2 == v3 || v4 == v5)
@@ -3392,7 +3207,7 @@ BOOL boost::histogram::axis::variable<double,boost::use_default,boost::use_defau
 LABEL_7:
       if (v2 == v3 && v4 == v5)
       {
-        return boost::histogram::detail::relaxed_equal<std::string>((a1 + 24), (a2 + 24));
+        return boost::histogram::detail::relaxed_equal<std::string>(a1 + 3, a2 + 3);
       }
     }
 
@@ -3413,7 +3228,7 @@ LABEL_7:
   return 0;
 }
 
-int *boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::operator==<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(int *a1, uint64_t a2)
+int *boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::operator==<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(int *a1, const void **a2)
 {
   result = boost::histogram::axis::get_if<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(a1);
   if (result)
@@ -3421,10 +3236,10 @@ int *boost::histogram::axis::variant<boost::histogram::axis::regular<double,boos
     v4 = result;
     if (*result == *a2)
     {
-      result = boost::histogram::detail::relaxed_equal<std::string>(result + 1, (a2 + 8));
+      result = boost::histogram::detail::relaxed_equal<std::string>(result + 1, a2 + 1);
       if (result)
       {
-        return (v4[8] == *(a2 + 32));
+        return (v4[8] == *(a2 + 8));
       }
     }
 
@@ -3463,7 +3278,7 @@ int *boost::variant<boost::histogram::axis::regular<double,boost::use_default,bo
   return a1 + 2;
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZNKS5_eqERKS5_EUlPKT_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t *a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZNKS5_eqERKS5_EUlPKT_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 16);
   v3 = *(a1 + 24);
@@ -3513,11 +3328,11 @@ uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_
   }
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIhEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIhEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, unsigned __int8 **a2)
 {
   v2 = *(a1 + 16);
   v3 = *a2;
-  v4 = *(*(a2 + 8) + 8);
+  v4 = *(a2[1] + 1);
   if (v2 <= 1)
   {
     if (*(a1 + 16))
@@ -3541,7 +3356,7 @@ LABEL_44:
           result = v36 == LODWORD(v35) && v37;
         }
 
-        while (result == 1 && v34-- != 0);
+        while (result && v34-- != 0);
         return result;
       }
 
@@ -3665,11 +3480,11 @@ BOOL boost::histogram::detail::mp_int<std::allocator<unsigned long long>>::opera
   return v2 == 8 && **a1 == *a2;
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clItEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clItEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, unsigned __int16 **a2)
 {
   v2 = *(a1 + 16);
   v3 = *a2;
-  v4 = *(*(a2 + 8) + 8);
+  v4 = *(a2[1] + 1);
   if (v2 <= 1)
   {
     if (*(a1 + 16))
@@ -3691,7 +3506,7 @@ LABEL_44:
           v37 = v35 >= 0.0;
           LODWORD(v35) = *v3++;
           result = v36 == LODWORD(v35) && v37;
-          v38 = result != 1 || v34 == 0;
+          v38 = !result || v34 == 0;
           v34 -= 2;
         }
 
@@ -3829,7 +3644,7 @@ BOOL boost::histogram::detail::mp_int<std::allocator<unsigned long long>>::opera
   return v2 == 8 && **a1 == *a2;
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIjEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIjEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   v3 = *a2;
@@ -3855,7 +3670,7 @@ LABEL_44:
           v37 = v35 >= 0.0;
           LODWORD(v35) = *v3++;
           result = v36 == LODWORD(v35) && v37;
-          v38 = result != 1 || v34 == 0;
+          v38 = !result || v34 == 0;
           v34 -= 4;
         }
 
@@ -3993,7 +3808,7 @@ BOOL boost::histogram::detail::mp_int<std::allocator<unsigned long long>>::opera
   return v2 == 8 && **a1 == *a2;
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIyEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIyEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   v3 = *a2;
@@ -4019,7 +3834,7 @@ LABEL_44:
           v34 = v32 >= 0.0;
           v35 = *v3++;
           result = v33 == v35 && v34;
-          v36 = result != 1 || v31 == 0;
+          v36 = !result || v31 == 0;
           v31 -= 8;
         }
 
@@ -4414,7 +4229,7 @@ double boost::histogram::detail::mp_int<std::allocator<unsigned long long>>::ope
   return v4;
 }
 
-uint64_t _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIdEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZZNKS5_eqERKS5_ENKUlPKT_E_clIdEEDaSC_EUlSC_E_JEEEDcOSA_DpOT0_(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   v3 = *a2;
@@ -4458,7 +4273,7 @@ LABEL_57:
           v13 = v11 >= 0.0;
           LODWORD(v11) = *v9++;
           result = v12 == LODWORD(v11) && v13;
-          v14 = result != 1 || v10 == 0;
+          v14 = !result || v10 == 0;
           v10 -= 8;
         }
 
@@ -4478,7 +4293,7 @@ LABEL_57:
         v32 = v30 >= 0.0;
         LODWORD(v30) = *v28++;
         result = v31 == LODWORD(v30) && v32;
-        v33 = result != 1 || v29 == 0;
+        v33 = !result || v29 == 0;
         v29 -= 8;
       }
 
@@ -4502,7 +4317,7 @@ LABEL_57:
         v19 = v17 >= 0.0;
         LODWORD(v17) = *v15++;
         result = v18 == LODWORD(v17) && v19;
-        v20 = result != 1 || v16 == 0;
+        v20 = !result || v16 == 0;
         v16 -= 8;
       }
 
@@ -4526,7 +4341,7 @@ LABEL_57:
         v25 = v23 >= 0.0;
         v26 = *v21++;
         result = v24 == v26 && v25;
-        v27 = result != 1 || v22 == 0;
+        v27 = !result || v22 == 0;
         v22 -= 8;
       }
 
@@ -4624,7 +4439,7 @@ void *std::map<int,std::vector<std::string>>::map[abi:ne200100](void *a1, uint64
   return a1;
 }
 
-uint64_t std::map<int,std::vector<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,std::vector<std::string>>,std::__tree_node<std::__value_type<int,std::vector<std::string>>,void *> *,long>>>(uint64_t result, int *a2, int *a3)
+void *std::map<int,std::vector<std::string>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<int,std::vector<std::string>>,std::__tree_node<std::__value_type<int,std::vector<std::string>>,void *> *,long>>>(void *result, int *a2, int *a3)
 {
   if (a2 != a3)
   {
@@ -4632,7 +4447,7 @@ uint64_t std::map<int,std::vector<std::string>>::insert[abi:ne200100]<std::__map
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<std::string>> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<std::string>> const&>(v5, (v5 + 8), v4 + 8, (v4 + 8));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -4666,9 +4481,9 @@ uint64_t std::map<int,std::vector<std::string>>::insert[abi:ne200100]<std::__map
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<std::string>> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__emplace_hint_unique_key_args<int,std::pair<int const,std::vector<std::string>> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__find_equal<int>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__find_equal<int>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::__construct_node<std::pair<int const,std::vector<std::string>> const&>();
@@ -4834,17 +4649,17 @@ uint64_t _ZNKR5boost7variantINS_9histogram4axis7regularIdNS_11use_defaultES4_S4_
   return result;
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25E33F3A8(_Unwind_Exception *exception_object)
@@ -5470,18 +5285,26 @@ uint64_t OUTLINED_FUNCTION_0_1(uint64_t result, uint64_t a2, uint64_t a3, float 
   return result;
 }
 
-void sub_25E347EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_25E347334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  va_start(va, a57);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E34983C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25E347EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
-  va_start(va, a9);
+  va_start(va, a48);
+  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25E34983C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5566,7 +5389,7 @@ void ___ZL43_stringEscapingGlobPatternsForLikePredicateP8NSString_block_invoke(u
     goto LABEL_8;
   }
 
-  if ([v3 isEqualToString:@"\"])
+  if ([v3 isEqualToString:@"\""])
   {
     v4 = 1;
 LABEL_8:
@@ -5955,20 +5778,20 @@ void sub_25E35463C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(__n128 *a1, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, uint64_t a6, __n128 a7)
+double std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(__n128 *result, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, int64_t a6, __n128 a7)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       a7.n128_u64[0] = a2[-1].n128_u64[0];
-      v9 = a1->n128_f64[0];
-      if (a7.n128_f64[0] < a1->n128_f64[0] || v9 >= a7.n128_f64[0] && a2[-1].n128_f64[1] < a1->n128_f64[1])
+      v9 = result->n128_f64[0];
+      if (a7.n128_f64[0] < result->n128_f64[0] || v9 >= a7.n128_f64[0] && a2[-1].n128_f64[1] < result->n128_f64[1])
       {
-        a1->n128_u64[0] = a7.n128_u64[0];
+        result->n128_u64[0] = a7.n128_u64[0];
         a2[-1].n128_f64[0] = v9;
-        a7.n128_u64[0] = a1->n128_u64[1];
-        a1->n128_u64[1] = a2[-1].n128_u64[1];
+        a7.n128_u64[0] = result->n128_u64[1];
+        result->n128_u64[1] = a2[-1].n128_u64[1];
         a2[-1].n128_u64[1] = a7.n128_u64[0];
       }
     }
@@ -5976,28 +5799,28 @@ double std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::_
     else if (a4 <= 0)
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1->n128_f64, a2->n128_f64);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result->n128_f64, a2->n128_f64);
     }
 
     else
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        v18.n128_f64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1, v15, a3, v16, a5, a7);
-        v19 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14], v18);
+        v18.n128_f64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result, v15, a3, v16, a5, a7);
+        v19 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14], v18);
 
-        a7.n128_f64[0] = std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<double,double> *,std::pair<double,double> *,std::__wrap_iter<std::pair<double,double> *>>(a5->n128_f64, a5[v14].n128_f64, a5[v14].n128_f64, a5[a4].n128_f64, a1->n128_f64, v19);
+        a7.n128_f64[0] = std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<double,double> *,std::pair<double,double> *,std::__wrap_iter<std::pair<double,double> *>>(a5->n128_f64, a5[v14].n128_f64, a5[v14].n128_f64, a5[a4].n128_f64, result->n128_f64, v19);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        a7.n128_f64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1->n128_f64, a1[a4 >> 1].n128_f64, a2->n128_f64, a3, a4 >> 1, a4 - (a4 >> 1), a5->n128_f64, a6, v17);
+        a7.n128_f64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result->n128_f64, result[a4 >> 1].n128_f64, a2->n128_f64, a3, a4 >> 1, a4 - (a4 >> 1), a5->n128_f64, a6, v17);
       }
     }
   }
@@ -6100,7 +5923,7 @@ LABEL_17:
   return result;
 }
 
-double std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(__n128 *a1, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, __n128 a6)
+double std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(__n128 *result, __n128 *a2, uint64_t a3, unint64_t a4, __n128 *a5, __n128 a6)
 {
   if (a4)
   {
@@ -6108,15 +5931,15 @@ double std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,s
     {
       v10 = a2 - 1;
       v11 = a2[-1].n128_f64[0];
-      if (v11 < a1->n128_f64[0] || a1->n128_f64[0] >= v11 && a2[-1].n128_f64[1] < a1->n128_f64[1])
+      if (v11 < result->n128_f64[0] || result->n128_f64[0] >= v11 && a2[-1].n128_f64[1] < result->n128_f64[1])
       {
         *a5 = *v10;
-        a6 = *a1;
+        a6 = *result;
       }
 
       else
       {
-        *a5 = *a1;
+        *a5 = *result;
         a6 = *v10;
       }
 
@@ -6125,22 +5948,22 @@ double std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,s
 
     else if (a4 == 1)
     {
-      a6 = *a1;
-      *a5 = *a1;
+      a6 = *result;
+      *a5 = *result;
     }
 
     else if (a4 > 8)
     {
-      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1, &a1[a4 >> 1], a3, a4 >> 1, a5, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[a4 >> 1], a4 - (a4 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result, &result[a4 >> 1], a3, a4 >> 1, a5, a4 >> 1);
+      std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[a4 >> 1], a4 - (a4 >> 1));
 
-      a6.n128_f64[0] = std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>>(a1, &a1[a4 >> 1], &a1[a4 >> 1], a2, a5, v13);
+      a6.n128_f64[0] = std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>>(result, &result[a4 >> 1], &result[a4 >> 1], a2, a5, v13);
     }
 
     else
     {
 
-      std::__insertion_sort_move[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1->n128_f64, a2->n128_f64, a5->n128_f64);
+      std::__insertion_sort_move[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(result->n128_f64, a2->n128_f64, a5->n128_f64);
     }
   }
 
@@ -6220,7 +6043,7 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std:
     {
       if (v10 <= v9 || a5 <= v9)
       {
-        return std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1, a2, a3, result, a4, a5, v10, a7);
+        return std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(a1, a2, a3, a4, a5, v10, a7, result);
       }
 
       if (!a5)
@@ -6247,17 +6070,17 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std:
       }
 
       v18 = -v15;
-      v38 = a3;
-      v36 = &a1[v14];
+      v37 = a3;
+      v35 = &a1[v14];
       if (-v15 >= v10)
       {
         if (v15 == -1)
         {
-          v35 = &a1[v14];
-          *v35 = result;
+          v34 = &a1[v14];
+          *v34 = result;
           *a2 = v16;
           result = a1[v14 + 1];
-          v35[1] = a2[1];
+          v34[1] = a2[1];
           a2[1] = result;
           return result;
         }
@@ -6268,22 +6091,22 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std:
         if (a2 != a3)
         {
           v24 = (a3 - a2) >> 4;
-          v25 = v23[v14];
+          result = v23[v14];
           v20 = a2;
           do
           {
-            v26 = v24 >> 1;
-            v27 = &v20[2 * (v24 >> 1)];
-            if (*v27 < v25 || v25 >= *v27 && v27[1] < v23[v14 + 1])
+            v25 = v24 >> 1;
+            v26 = &v20[2 * (v24 >> 1)];
+            if (*v26 < result || result >= *v26 && v26[1] < v23[v14 + 1])
             {
-              v20 = v27 + 2;
-              v26 = v24 + ~v26;
+              v20 = v26 + 2;
+              v25 = v24 + ~v25;
             }
 
-            v24 = v26;
+            v24 = v25;
           }
 
-          while (v26);
+          while (v25);
         }
 
         v19 = (v20 - a2) >> 4;
@@ -6298,48 +6121,48 @@ double std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std:
         v22 = (v21 - a1 - v14 * 8) >> 4;
       }
 
-      v28 = v20;
+      v27 = v20;
       if (v21 != a2)
       {
-        v28 = v21;
+        v27 = v21;
         if (a2 != v20)
         {
-          v29 = v22;
-          v30 = std::__rotate_forward[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>>(v21, a2, v20);
-          v22 = v29;
-          v28 = v30;
+          v28 = v22;
+          v29 = std::__rotate_forward[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>>(v21, a2, v20);
+          v22 = v28;
+          v27 = v29;
         }
       }
 
       a5 = -v15 - v22;
-      v31 = v19;
-      v32 = v10 - v19;
-      if (v22 + v31 >= v10 - (v22 + v31) - v15)
+      v30 = v19;
+      v31 = v10 - v19;
+      if (v22 + v30 >= v10 - (v22 + v30) - v15)
       {
-        v34 = v22;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(v28, v20, v38, a4, -v15 - v22, v32, a7, a8);
-        a1 = v36;
+        v33 = v22;
+        result = std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(v27, v20, v37, a4, -v15 - v22, v31, a7, a8, result);
+        a1 = v35;
         v20 = v21;
         v9 = a8;
-        v32 = v31;
-        a5 = v34;
-        a3 = v28;
+        v31 = v30;
+        a5 = v33;
+        a3 = v27;
       }
 
       else
       {
-        v33 = v21;
+        v32 = v21;
         v9 = a8;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&a1[v14], v33, v28, a4, v22, v31, a7, a8);
-        a1 = v28;
-        a3 = v38;
+        result = std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(&a1[v14], v32, v27, a4, v22, v30, a7, a8, result);
+        a1 = v27;
+        a3 = v37;
       }
 
-      v10 = v32;
+      v10 = v31;
       a2 = v20;
     }
 
-    while (v32);
+    while (v31);
   }
 
   return result;
@@ -6472,20 +6295,19 @@ double std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
   return a6.n128_f64[0];
 }
 
-double std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(double *a1, double *a2, double *a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, double *a8)
+double std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<std::pair<double,double> *>>(double *a1, double *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, double *a7, double a8)
 {
-  if (a6 <= a7)
+  if (a5 <= a6)
   {
-    v14 = a8;
+    v14 = a7;
     if (a1 != a2)
     {
-      v14 = a8;
+      v14 = a7;
       v15 = a1;
       do
       {
-        v16 = *v15;
-        v15 += 2;
-        a4 = *&v16;
+        v16 = *v15++;
+        a8 = *&v16;
         *v14 = v16;
         v14 += 2;
       }
@@ -6493,29 +6315,27 @@ double std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::_
       while (v15 != a2);
     }
 
-    return std::__half_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<double,double> *,std::pair<double,double> *,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>>(a8, v14, a2, a3, a1, a4);
+    return std::__half_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<double,double> *,std::pair<double,double> *,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>,std::__wrap_iter<std::pair<double,double> *>>(a7, v14, a2, a3, a1, a8);
   }
 
   else
   {
-    v10 = a8;
+    v10 = a7;
     if (a2 != a3)
     {
-      v10 = a8;
+      v10 = a7;
       v11 = a2;
       do
       {
-        v12 = *v11;
-        v11 += 2;
-        a4 = *&v12;
-        *v10 = v12;
-        v10 += 2;
+        v12 = *v11++;
+        a8 = *&v12;
+        *v10++ = v12;
       }
 
       while (v11 != a3);
     }
 
-    return std::__half_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__invert<std::__less<void,void> &>,std::reverse_iterator<std::pair<double,double> *>,std::reverse_iterator<std::pair<double,double> *>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>>(a4, v10, v10, a8, a8, a2, a2, a1, a1, a3, a3);
+    return std::__half_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,std::__invert<std::__less<void,void> &>,std::reverse_iterator<std::pair<double,double> *>,std::reverse_iterator<std::pair<double,double> *>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<double,double> *>>>(a8, v10, v10, a7, a7, a2, a2, a1, a1, a3, a3);
   }
 }
 
@@ -6695,11 +6515,11 @@ uint64_t *std::__rotate_forward[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap
   return result;
 }
 
-void sub_25E355738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E355738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6787,7 +6607,7 @@ void __PerfPowerServicesGetLogLines_block_invoke(id *a1, void *a2)
 
 void __PerfPowerServicesGetLogLines_block_invoke_2(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   if (![*(a1 + 32) containsObject:*(a1 + 40)] || (objc_msgSend(*(a1 + 48), "containsObject:", v3) & 1) == 0)
@@ -6795,37 +6615,37 @@ void __PerfPowerServicesGetLogLines_block_invoke_2(uint64_t a1, void *a2)
     v5 = PPSCreateSubsystemCategoryPredicate(*(a1 + 40), v3, 0);
     v6 = [[PPSTimeSeriesRequest alloc] initWithMetrics:0 predicate:v5 timeFilter:*(a1 + 56)];
     v7 = [[PPSRequestDispatcher alloc] initWithFilepath:*(a1 + 64)];
-    v40 = 0;
-    v8 = [(PPSRequestDispatcher *)v7 dataForRequest:v6 withError:&v40];
-    v9 = v40;
+    v39 = 0;
+    v8 = [(PPSRequestDispatcher *)v7 dataForRequest:v6 withError:&v39];
+    v9 = v39;
     if (!v9)
     {
-      v29 = v7;
-      v30 = v6;
-      v31 = v5;
-      v32 = v4;
-      v33 = v3;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v28 = v7;
+      v29 = v6;
+      v30 = v5;
+      v31 = v4;
+      v32 = v3;
       v37 = 0u;
-      v28 = v8;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v27 = v8;
       obj = v8;
-      v10 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v10)
       {
         v11 = v10;
-        v35 = *v37;
+        v34 = *v36;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v37 != v35)
+            if (*v36 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v36 + 1) + 8 * i);
+            v13 = *(*(&v35 + 1) + 8 * i);
             v14 = objc_autoreleasePoolPush();
             v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
             v16 = [v13 logLine];
@@ -6855,25 +6675,23 @@ void __PerfPowerServicesGetLogLines_block_invoke_2(uint64_t a1, void *a2)
             objc_autoreleasePoolPop(v14);
           }
 
-          v11 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v11);
       }
 
-      v4 = v32;
-      v3 = v33;
-      v6 = v30;
-      v5 = v31;
+      v4 = v31;
+      v3 = v32;
+      v6 = v29;
+      v5 = v30;
       v9 = 0;
-      v7 = v29;
-      v8 = v28;
+      v7 = v28;
+      v8 = v27;
     }
   }
 
   objc_autoreleasePoolPop(v4);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t boost::archive::archive_exception::append(boost::archive::archive_exception *this, uint64_t a2, char *a3)
@@ -6903,7 +6721,7 @@ uint64_t boost::archive::archive_exception::append(boost::archive::archive_excep
   return a2;
 }
 
-uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, uint64_t *a2, int a3, const char *a4, const char *a5)
+uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, uint64_t *a2, int a3, const char *a4, char *a5)
 {
   v5 = *a2;
   *result = *a2;
@@ -7358,7 +7176,7 @@ LABEL_84:
   }
 }
 
-uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, int a2, const char *a3, const char *a4)
+uint64_t boost::archive::archive_exception::archive_exception(uint64_t result, int a2, const char *a3, char *a4)
 {
   *result = &unk_286FF2AE8;
   *(result + 136) = a2;
@@ -7900,7 +7718,7 @@ void *boost::archive::detail::basic_iarchive_impl::load_preamble(void *result, u
       HIWORD(v6) = 0;
       (*(*a2 + 24))(a2, &v6 + 6);
       (*(*a2 + 40))(a2, a3 + 20);
-      result = (**a2)(a2, (a3 + 16));
+      result = (**a2)(a2, a3 + 16);
     }
 
     else
@@ -8089,28 +7907,28 @@ void sub_25E35758C(_Unwind_Exception *a1)
 
 uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *(a1 + 44) = 1;
-  v35 = 0;
-  (*(*a2 + 16))(a2, &v35);
-  v10 = v35;
-  if (v35 == -1)
+  v34 = 0;
+  (*(*a2 + 16))(a2, &v34);
+  v10 = v34;
+  if (v34 == -1)
   {
     *a3 = 0;
   }
 
   else
   {
-    if (v35 >= *(a1 + 64))
+    if (v34 >= *(a1 + 64))
     {
       if (!a4 || (v12 = (*(*a4 + 24))(a4), (*(*v12 + 48))(v12)))
       {
-        v34 = &v38;
-        (*(*a2 + 32))(a2, &v34);
-        if (!v38 || !boost::serialization::extended_type_info::find(&v38, v13))
+        v33 = &v37;
+        (*(*a2 + 32))(a2, &v33);
+        if (!v37 || !boost::serialization::extended_type_info::find(&v37, v13))
         {
-          boost::archive::archive_exception::archive_exception(&v36, 2, 0, 0);
-          boost::serialization::throw_exception<boost::archive::archive_exception>(&v36);
+          boost::archive::archive_exception::archive_exception(&v35, 2, 0, 0);
+          boost::serialization::throw_exception<boost::archive::archive_exception>(&v35);
         }
 
         a4 = a5();
@@ -8118,21 +7936,21 @@ uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, 
 
       v14 = (*(*a4 + 24))(a4);
       v15 = *(a1 + 64);
-      v38 = v14;
-      v39 = v15;
-      v16 = std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_iarchive_impl::cobject_type,boost::archive::detail::basic_iarchive_impl::cobject_type const&>((a1 + 48), &v38, &v38);
+      v37 = v14;
+      v38 = v15;
+      v16 = std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_iarchive_impl::cobject_type,boost::archive::detail::basic_iarchive_impl::cobject_type const&>((a1 + 48), &v37, &v37);
       if (v17)
       {
-        v36 = v14;
-        v37[0] = 0;
-        *(v37 + 6) = 0;
-        std::vector<boost::archive::detail::basic_iarchive_impl::cobject_id>::push_back[abi:ne200100]((a1 + 72), &v36);
+        v35 = v14;
+        v36[0] = 0;
+        *(v36 + 6) = 0;
+        std::vector<boost::archive::detail::basic_iarchive_impl::cobject_id>::push_back[abi:ne200100]((a1 + 72), &v35);
       }
 
       v11 = *(a1 + 72);
       *(v11 + 24 * *(v16 + 20) + 8) = *(v14 + 16);
-      v10 = v35;
-      *(v11 + 24 * v35 + 8) = a4;
+      v10 = v34;
+      *(v11 + 24 * v34 + 8) = a4;
     }
 
     else
@@ -8144,8 +7962,8 @@ uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, 
     a4 = *(v18 + 8);
     if (!a4)
     {
-      boost::archive::archive_exception::archive_exception(&v36, 2, 0, 0);
-      boost::serialization::throw_exception<boost::archive::archive_exception>(&v36);
+      boost::archive::archive_exception::archive_exception(&v35, 2, 0, 0);
+      boost::serialization::throw_exception<boost::archive::archive_exception>(&v35);
     }
 
     boost::archive::detail::basic_iarchive_impl::load_preamble(a1, a2, (v11 + 24 * v10));
@@ -8158,27 +7976,27 @@ uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, 
       if (v19)
       {
         v22 = *(a1 + 104);
-        v33 = *(a1 + 96);
+        v32 = *(a1 + 96);
         v23 = *(a1 + 112);
         v24 = (*(*a4 + 24))(a4);
         v25 = *(a1 + 8);
         *(a1 + 104) = v24;
         *(a1 + 112) = *(v18 + 16);
         v26 = *(a1 + 36);
-        v27 = v35;
-        v36 = *a3;
-        LOBYTE(v37[0]) = 0;
-        WORD1(v37[0]) = v35;
+        v27 = v34;
+        v35 = *a3;
+        LOBYTE(v36[0]) = 0;
+        WORD1(v36[0]) = v34;
         v28 = *(a1 + 16);
         if (v28 >= *(a1 + 24))
         {
-          v30 = std::vector<boost::archive::detail::basic_iarchive_impl::aobject>::__emplace_back_slow_path<boost::archive::detail::basic_iarchive_impl::aobject>((a1 + 8), &v36);
+          v30 = std::vector<boost::archive::detail::basic_iarchive_impl::aobject>::__emplace_back_slow_path<boost::archive::detail::basic_iarchive_impl::aobject>((a1 + 8), &v35);
         }
 
         else
         {
-          v29 = v36;
-          *(v28 + 8) = v37[0];
+          v29 = v35;
+          *(v28 + 8) = v36[0];
           *v28 = v29;
           *(v28 + 10) = v27;
           v30 = v28 + 16;
@@ -8189,7 +8007,7 @@ uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, 
         *(*(a1 + 8) + v28 - v25 + 8) = 1;
         *(a1 + 36) = v26;
         *(a1 + 112) = v23;
-        *(a1 + 96) = v33;
+        *(a1 + 96) = v32;
         *(a1 + 104) = v22;
       }
 
@@ -8203,7 +8021,6 @@ uint64_t boost::archive::detail::basic_iarchive_impl::load_pointer(uint64_t a1, 
   }
 
   *(a1 + 44) = 1;
-  v31 = *MEMORY[0x277D85DE8];
   return a4;
 }
 
@@ -8403,8 +8220,8 @@ uint64_t *std::vector<boost::archive::detail::basic_iarchive_impl::aobject>::__s
       v6 = *v2;
       *(v5 + 8) = *(v2 + 8);
       *v5 = v6;
-      *(v5 + 10) = *(v2 + 5);
-      v2 += 2;
+      *(v5 + 10) = *(v2 + 10);
+      v2 += 16;
       v5 += 16;
     }
 
@@ -8456,7 +8273,7 @@ uint64_t std::vector<boost::archive::detail::basic_iarchive_impl::cobject_id>::p
   return result;
 }
 
-void *std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_iarchive_impl::cobject_type,boost::archive::detail::basic_iarchive_impl::cobject_type const&>(uint64_t **a1, uint64_t a2, uint64_t a3)
+void *std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_iarchive_impl::cobject_type,boost::archive::detail::basic_iarchive_impl::cobject_type const&>(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
   v5 = std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__find_equal<boost::archive::detail::basic_iarchive_impl::cobject_type>(a1, &v9, a2);
   v6 = *v5;
@@ -8689,9 +8506,9 @@ boost::archive::detail::basic_oarchive *boost::archive::detail::basic_oarchive::
   return this;
 }
 
-void sub_25E3583FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E3583FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<void const*,boost::shared_ptr<void>>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8707,31 +8524,29 @@ void boost::archive::detail::basic_oarchive::~basic_oarchive(boost::archive::det
 
 uint64_t boost::archive::detail::basic_oarchive_impl::save_object(boost::archive::detail::basic_oarchive_impl *this, boost::archive::detail::basic_oarchive *a2, unint64_t a3, const boost::archive::detail::basic_oserializer *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*(this + 5) == __PAIR128__(a4, a3))
   {
-    v23 = *(*a4 + 16);
-    v24 = *MEMORY[0x277D85DE8];
-    v25 = *a4 + 16;
+    v22 = *(*a4 + 16);
 
-    return v23(a4);
+    return v22(a4);
   }
 
   else
   {
     v8 = *(this + 6);
-    v29 = a4;
-    v30 = v8;
-    v31 = 0;
-    v9 = std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(this + 4, &v29, &v29);
+    v26 = a4;
+    v27 = v8;
+    v28 = 0;
+    v9 = std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(this + 4, &v26, &v26);
     if ((*(*a4 + 24))(a4) && (*(v9 + 42) & 1) == 0)
     {
-      LOWORD(v29) = *(v9 + 20);
-      (*(*a2 + 32))(a2, &v29);
-      LOBYTE(v29) = (*(*a4 + 32))(a4, *this);
-      (*(*a2 + 56))(a2, &v29);
-      (*(*a4 + 40))(&v29, a4);
-      (**a2)(a2, &v29);
+      LOWORD(v26) = *(v9 + 20);
+      (*(*a2 + 32))(a2, &v26);
+      LOBYTE(v26) = (*(*a4 + 32))(a4, *this);
+      (*(*a2 + 56))(a2, &v26);
+      (*(*a4 + 40))(&v26, a4);
+      (**a2)(a2, &v26);
       *(v9 + 42) = 1;
     }
 
@@ -8739,15 +8554,15 @@ uint64_t boost::archive::detail::basic_oarchive_impl::save_object(boost::archive
     {
       v10 = *(this + 3);
       v11 = *(v9 + 20);
-      v26 = a3;
-      v27 = v11;
-      v28 = v10;
-      v12 = *(std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(this + 1, &v26, &v26) + 11);
+      v23 = a3;
+      v24 = v11;
+      v25 = v10;
+      v12 = *(std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(this + 1, &v23, &v23) + 11);
       if (v13)
       {
-        LODWORD(v29) = v12;
-        (*(*a2 + 8))(a2, &v29);
-        result = (*(*a4 + 16))(a4, a2, a3);
+        LODWORD(v26) = v12;
+        (*(*a2 + 8))(a2, &v26);
+        return (*(*a4 + 16))(a4, a2, a3);
       }
 
       else
@@ -8774,118 +8589,109 @@ uint64_t boost::archive::detail::basic_oarchive_impl::save_object(boost::archive
           while (v15);
           if (v18 != v16 && v12 >= *(v18 + 7))
           {
-            boost::archive::archive_exception::archive_exception(&v29, 5, 0, 0);
-            boost::serialization::throw_exception<boost::archive::archive_exception>(&v29);
+            boost::archive::archive_exception::archive_exception(&v26, 5, 0, 0);
+            boost::serialization::throw_exception<boost::archive::archive_exception>(&v26);
           }
         }
 
-        LODWORD(v29) = v12;
-        result = (*(*a2 + 16))(a2, &v29);
+        LODWORD(v26) = v12;
+        return (*(*a2 + 16))(a2, &v26);
       }
     }
 
     else
     {
-      result = (*(*a4 + 16))(a4, a2, a3);
+      return (*(*a4 + 16))(a4, a2, a3);
     }
-
-    v22 = *MEMORY[0x277D85DE8];
   }
-
-  return result;
 }
 
-uint64_t **boost::archive::detail::basic_oarchive_impl::save_pointer(unsigned int *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t **boost::archive::detail::basic_oarchive_impl::save_pointer(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v8 = (*(*a4 + 16))(a4);
-  v9 = *(a1 + 6);
-  v24 = v8;
-  v25 = v9;
-  v26 = 0;
-  v10 = std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(a1 + 4, &v24, &v24);
+  v9 = a1[6];
+  v23 = v8;
+  v24 = v9;
+  v25 = 0;
+  v10 = std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(a1 + 4, &v23, &v23);
   v11 = v10;
   if (*(v10 + 42))
   {
-    LOWORD(v24) = *(v10 + 20);
-    (*(*a2 + 40))(a2, &v24);
+    LOWORD(v23) = *(v10 + 20);
+    (*(*a2 + 40))(a2, &v23);
   }
 
   else
   {
-    LOWORD(v24) = *(v10 + 20);
-    (*(*a2 + 24))(a2, &v24);
-    if (*(a1 + 6) > v9 && (*(*v8 + 48))(v8))
+    LOWORD(v23) = *(v10 + 20);
+    (*(*a2 + 24))(a2, &v23);
+    if (a1[6] > v9 && ((*v8)[6])(v8))
     {
       v12 = v8[1];
-      v13 = *(v12 + 16);
+      v13 = v12[2];
       if (!v13)
       {
-        boost::archive::archive_exception::archive_exception(&v24, 2, 0, 0);
-        boost::serialization::throw_exception<boost::archive::archive_exception>(&v24);
+        boost::archive::archive_exception::archive_exception(&v23, 2, 0, 0);
+        boost::serialization::throw_exception<boost::archive::archive_exception>(&v23);
       }
 
-      v23 = *(v12 + 16);
+      v22 = v12[2];
       if (strlen(v13) >= 0x80)
       {
-        boost::archive::archive_exception::archive_exception(&v24, 9, 0, 0);
-        boost::serialization::throw_exception<boost::archive::archive_exception>(&v24);
+        boost::archive::archive_exception::archive_exception(&v23, 9, 0, 0);
+        boost::serialization::throw_exception<boost::archive::archive_exception>(&v23);
       }
 
-      (*(*a2 + 48))(a2, &v23);
+      (*(*a2 + 48))(a2, &v22);
     }
 
-    if ((*(*v8 + 24))(v8))
+    if (((*v8)[3])(v8))
     {
-      LOBYTE(v24) = (*(*v8 + 32))(v8, *a1);
-      (*(*a2 + 56))(a2, &v24);
-      (*(*v8 + 40))(&v24, v8);
-      (**a2)(a2, &v24);
+      LOBYTE(v23) = ((*v8)[4])(v8, *a1);
+      (*(*a2 + 56))(a2, &v23);
+      ((*v8)[5])(&v23, v8);
+      (**a2)(a2, &v23);
     }
 
     *(v11 + 42) = 1;
   }
 
-  if ((*(*v8 + 32))(v8, *a1))
+  if ((((*v8)[4])(v8, *a1) & 1) == 0)
   {
-    v14 = *(a1 + 3);
-    v15 = *(v11 + 20);
-    v24 = a3;
-    v25 = v15;
-    v27 = v14;
-    v16 = *(std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(a1 + 1, &v24, &v24) + 11);
-    LODWORD(v23) = v16;
-    if ((v17 & 1) == 0)
-    {
-      v22 = v16;
-      result = (*(*a2 + 16))(a2, &v22);
-      goto LABEL_17;
-    }
-
-    v22 = v16;
-    (*(*a2 + 8))(a2, &v22);
-    v18 = *(a1 + 10);
-    v19 = *(a1 + 11);
-    *(a1 + 10) = a3;
-    *(a1 + 11) = (*(*a4 + 16))(a4);
-    (*(*a4 + 24))(a4, a2, a3);
-    result = std::__tree<boost::archive::object_id_type>::__emplace_unique_key_args<boost::archive::object_id_type,boost::archive::object_id_type const&>(a1 + 7, &v23, &v23);
-  }
-
-  else
-  {
-    v18 = *(a1 + 10);
-    v19 = *(a1 + 11);
-    *(a1 + 10) = a3;
-    *(a1 + 11) = (*(*a4 + 16))(a4);
+    v18 = a1[10];
+    v19 = a1[11];
+    a1[10] = a3;
+    a1[11] = (*(*a4 + 16))(a4);
     result = (*(*a4 + 24))(a4, a2, a3);
+    goto LABEL_15;
   }
 
-  *(a1 + 10) = v18;
-  *(a1 + 11) = v19;
-LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  v14 = a1[3];
+  v15 = *(v11 + 20);
+  v23 = a3;
+  v24 = v15;
+  v26 = v14;
+  v16 = *(std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(a1 + 1, &v23, &v23) + 11);
+  LODWORD(v22) = v16;
+  if (v17)
+  {
+    v21 = v16;
+    (*(*a2 + 8))(a2, &v21);
+    v18 = a1[10];
+    v19 = a1[11];
+    a1[10] = a3;
+    a1[11] = (*(*a4 + 16))(a4);
+    (*(*a4 + 24))(a4, a2, a3);
+    result = std::__tree<boost::archive::object_id_type>::__emplace_unique_key_args<boost::archive::object_id_type,boost::archive::object_id_type const&>((a1 + 7), &v22, &v22);
+LABEL_15:
+    a1[10] = v18;
+    a1[11] = v19;
+    return result;
+  }
+
+  v21 = v16;
+  return (*(*a2 + 16))(a2, &v21);
 }
 
 void *boost::archive::detail::basic_oarchive::register_basic_serializer(boost::archive::detail::basic_oarchive *this, const boost::archive::detail::basic_oserializer *a2)
@@ -8898,7 +8704,7 @@ void *boost::archive::detail::basic_oarchive::register_basic_serializer(boost::a
   return std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>((v2 + 32), &v5, &v5);
 }
 
-void *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(uint64_t **a1, unint64_t *a2, uint64_t a3)
+void *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::aobject,boost::archive::detail::basic_oarchive_impl::aobject const&>(uint64_t ***a1, unint64_t *a2, uint64_t a3)
 {
   v5 = std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__find_equal<boost::archive::detail::basic_oarchive_impl::aobject>(a1, &v9, a2);
   v6 = *v5;
@@ -8915,7 +8721,7 @@ void *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__empla
   return v6;
 }
 
-uint64_t *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__find_equal<boost::archive::detail::basic_oarchive_impl::aobject>(uint64_t a1, void *a2, unint64_t *a3)
+uint64_t *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__find_equal<boost::archive::detail::basic_oarchive_impl::aobject>(uint64_t a1, uint64_t **a2, unint64_t *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -8929,7 +8735,7 @@ uint64_t *std::__tree<boost::archive::detail::basic_oarchive_impl::aobject>::__f
       while (1)
       {
         v8 = v4;
-        v9 = v4[4];
+        v9 = *(v4 + 32);
         if (v6 >= v9)
         {
           break;
@@ -8973,10 +8779,10 @@ LABEL_12:
   return result;
 }
 
-uint64_t **std::__tree<boost::archive::object_id_type>::__emplace_unique_key_args<boost::archive::object_id_type,boost::archive::object_id_type const&>(uint64_t **a1, unsigned int *a2, _DWORD *a3)
+uint64_t **std::__tree<boost::archive::object_id_type>::__emplace_unique_key_args<boost::archive::object_id_type,boost::archive::object_id_type const&>(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -9015,7 +8821,7 @@ uint64_t **std::__tree<boost::archive::object_id_type>::__emplace_unique_key_arg
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x20uLL);
     *(v10 + 7) = *a3;
@@ -9026,7 +8832,7 @@ LABEL_10:
   return v8;
 }
 
-void *std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(uint64_t **a1, uint64_t a2, uint64_t a3)
+void *std::__tree<boost::archive::detail::basic_oarchive_impl::cobject_type>::__emplace_unique_key_args<boost::archive::detail::basic_oarchive_impl::cobject_type,boost::archive::detail::basic_oarchive_impl::cobject_type const&>(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
   v5 = std::__tree<boost::archive::detail::basic_iarchive_impl::cobject_type>::__find_equal<boost::archive::detail::basic_iarchive_impl::cobject_type>(a1, &v9, a2);
   v6 = *v5;
@@ -9065,7 +8871,7 @@ void *boost::archive::detail::basic_oserializer::basic_oserializer(void *result,
   return result;
 }
 
-uint64_t boost::archive::detail::basic_serializer_map::insert(uint64_t **a1, uint64_t *a2)
+uint64_t boost::archive::detail::basic_serializer_map::insert(uint64_t ***a1, uint64_t *a2)
 {
   v3 = a2;
   std::__tree<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer_map::type_info_pointer_compare,std::allocator<boost::archive::detail::basic_serializer const*>>::__emplace_unique_key_args<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer const* const&>(a1, &v3, &v3);
@@ -9074,7 +8880,7 @@ uint64_t boost::archive::detail::basic_serializer_map::insert(uint64_t **a1, uin
 
 void boost::archive::detail::basic_serializer_map::erase(uint64_t **a1, uint64_t a2)
 {
-  v3 = a1 + 1;
+  v3 = (a1 + 1);
   v2 = *a1;
   if (*a1 != (a1 + 1))
   {
@@ -9157,7 +8963,7 @@ uint64_t boost::archive::detail::basic_serializer_map::find(boost::archive::deta
   }
 }
 
-uint64_t *std::__tree<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer_map::type_info_pointer_compare,std::allocator<boost::archive::detail::basic_serializer const*>>::__emplace_unique_key_args<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer const* const&>(uint64_t **a1, uint64_t **a2, uint64_t *a3)
+uint64_t *std::__tree<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer_map::type_info_pointer_compare,std::allocator<boost::archive::detail::basic_serializer const*>>::__emplace_unique_key_args<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer const* const&>(uint64_t ***a1, uint64_t **a2, uint64_t *a3)
 {
   v5 = std::__tree<boost::archive::detail::basic_serializer const*,boost::archive::detail::basic_serializer_map::type_info_pointer_compare,std::allocator<boost::archive::detail::basic_serializer const*>>::__find_equal<boost::archive::detail::basic_serializer const*>(a1, &v9, a2);
   v6 = *v5;
@@ -9348,31 +9154,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -9381,173 +9186,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -9684,27 +9489,27 @@ uint64_t boost::archive::basic_text_iprimitive<std::istream>::~basic_text_iprimi
 
 uint64_t boost::archive::basic_text_iprimitive<std::istream>::load_binary(uint64_t result, _BYTE *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = result;
     if ((*(*result + *(**result - 24) + 32) & 5) != 0)
     {
-      boost::archive::archive_exception::archive_exception(v9, 8, 0, 0);
-      boost::serialization::throw_exception<boost::archive::archive_exception>(v9);
+      boost::archive::archive_exception::archive_exception(v7, 8, 0, 0);
+      boost::serialization::throw_exception<boost::archive::archive_exception>(v7);
     }
 
     v4 = a3;
-    v9[0] = *result;
+    v7[0] = *result;
+    v8 = 0;
+    v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = 0;
-    v13 = 0;
     do
     {
-      boost::archive::iterators::transform_width<boost::archive::iterators::binary_from_base64<boost::archive::iterators::remove_whitespace<boost::archive::iterators::istream_iterator<char>>,int>,8,6,char>::fill(v9);
-      LOBYTE(v11) = 0;
-      *a2++ = HIBYTE(v11);
+      boost::archive::iterators::transform_width<boost::archive::iterators::binary_from_base64<boost::archive::iterators::remove_whitespace<boost::archive::iterators::istream_iterator<char>>,int>,8,6,char>::fill(v7);
+      LOBYTE(v9) = 0;
+      *a2++ = HIBYTE(v9);
       --v4;
     }
 
@@ -9712,7 +9517,6 @@ uint64_t boost::archive::basic_text_iprimitive<std::istream>::load_binary(uint64
     v6 = MEMORY[0x277D85DE0];
     do
     {
-      v7 = *v3;
       result = std::istream::get();
       if ((*(*v3 + *(**v3 - 24) + 32) & 2) != 0)
       {
@@ -9725,7 +9529,6 @@ uint64_t boost::archive::basic_text_iprimitive<std::istream>::load_binary(uint64
     while (!result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9738,22 +9541,21 @@ void boost::archive::codecvt_null<char>::~codecvt_null()
 
 std::locale *boost::archive::basic_istream_locale_saver<char,std::char_traits<char>>::~basic_istream_locale_saver(std::locale *a1)
 {
-  locale = a1->__locale_;
   std::istream::sync();
-  v3 = (a1->__locale_ + *(*a1->__locale_ - 24));
-  std::ios_base::getloc(v3);
-  std::ios_base::imbue(v3, a1 + 1);
-  std::locale::~locale(&v8);
-  rdbuf = v3->__rdbuf_;
+  v2 = (a1->__locale_ + *(*a1->__locale_ - 24));
+  std::ios_base::getloc(v2);
+  std::ios_base::imbue(v2, a1 + 1);
+  std::locale::~locale(&v7);
+  rdbuf = v2->__rdbuf_;
   if (rdbuf)
   {
     (*(rdbuf->__locale_ + 2))(rdbuf, a1 + 1);
-    std::locale::locale(&v7, rdbuf + 1);
+    std::locale::locale(&v6, rdbuf + 1);
     std::locale::operator=(rdbuf + 1, a1 + 1);
-    std::locale::~locale(&v7);
+    std::locale::~locale(&v6);
   }
 
-  std::locale::~locale(&v6);
+  std::locale::~locale(&v5);
   std::locale::~locale(a1 + 1);
   return a1;
 }
@@ -9818,18 +9620,17 @@ uint64_t boost::archive::iterators::transform_width<boost::archive::iterators::b
   return result;
 }
 
-uint64_t boost::iterators::transform_iterator<boost::archive::iterators::detail::to_6_bit<int>,boost::archive::iterators::remove_whitespace<boost::archive::iterators::istream_iterator<char>>,boost::use_default,boost::use_default>::dereference(uint64_t *a1)
+uint64_t boost::iterators::transform_iterator<boost::archive::iterators::detail::to_6_bit<int>,boost::archive::iterators::remove_whitespace<boost::archive::iterators::istream_iterator<char>>,boost::use_default,boost::use_default>::dereference(void *a1)
 {
   if ((*(a1 + 17) & 1) == 0)
   {
     v2 = MEMORY[0x277D85DE0];
     while (1)
     {
-      v3 = *a1;
-      v4 = std::istream::peek();
-      if ((v4 & 0x80) != 0)
+      v3 = std::istream::peek();
+      if ((v3 & 0x80) != 0)
       {
-        if (!__maskrune(v4, 0x4000uLL))
+        if (!__maskrune(v3, 0x4000uLL))
         {
 LABEL_9:
           *(a1 + 17) = 1;
@@ -9837,7 +9638,7 @@ LABEL_9:
         }
       }
 
-      else if ((*(v2 + 4 * (v4 & 0x7F) + 60) & 0x4000) == 0)
+      else if ((*(v2 + 4 * (v3 & 0x7F) + 60) & 0x4000) == 0)
       {
         goto LABEL_9;
       }
@@ -9849,8 +9650,179 @@ LABEL_9:
     }
   }
 
-  v5 = *a1;
-  v6 = std::istream::peek();
+  v4 = std::istream::peek();
 
-  return boost::archive::iterators::detail::to_6_bit<int>::operator()((a1 + 3), v6);
+  return boost::archive::iterators::detail::to_6_bit<int>::operator()((a1 + 3), v4);
+}
+
+uint64_t boost::archive::iterators::detail::to_6_bit<int>::operator()(uint64_t a1, unsigned int a2)
+{
+  if (a2 > 0x7F || (result = boost::archive::iterators::detail::to_6_bit<int>::operator()(int)const::lookup_table[a2], result == -1))
+  {
+    v3 = &unk_286FF2E50;
+    v4 = 1;
+    boost::serialization::throw_exception<boost::archive::iterators::dataflow_exception>(&v3);
+  }
+
+  return result;
+}
+
+void boost::serialization::throw_exception<boost::archive::iterators::dataflow_exception>(uint64_t a1)
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  *exception = &unk_286FF2E50;
+  exception[2] = *(a1 + 8);
+}
+
+void boost::archive::iterators::dataflow_exception::~dataflow_exception(std::exception *this)
+{
+  std::exception::~exception(this);
+
+  operator delete(v1);
+}
+
+const char *boost::archive::iterators::dataflow_exception::what(boost::archive::iterators::dataflow_exception *this)
+{
+  v1 = *(this + 2);
+  if (v1 > 4)
+  {
+    return "unknown exception code";
+  }
+
+  else
+  {
+    return off_279A119C8[v1];
+  }
+}
+
+void boost::archive::basic_text_oprimitive<std::ostream>::save(void *a1)
+{
+  v2 = *MEMORY[0x277D85DE8];
+  if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
+  {
+
+    JUMPOUT(0x25F8B0340);
+  }
+
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
+}
+
+{
+  boost::archive::basic_text_oprimitive<std::ostream>::save_impl<short>(a1);
+}
+
+{
+  boost::archive::basic_text_oprimitive<std::ostream>::save_impl<unsigned short>(a1);
+}
+
+{
+  boost::archive::basic_text_oprimitive<std::ostream>::save_impl<short>(a1);
+}
+
+{
+  boost::archive::basic_text_oprimitive<std::ostream>::save_impl<int>(a1);
+}
+
+uint64_t boost::archive::basic_text_oprimitive<std::ostream>::basic_text_oprimitive(uint64_t a1, uint64_t *a2, char a3)
+{
+  *a1 = a2;
+  v6 = *a2;
+  v7 = a2 + *(*a2 - 24);
+  *(a1 + 8) = v7;
+  *(a1 + 16) = *(v7 + 2);
+  v8 = a2 + *(v6 - 24);
+  *(a1 + 24) = v8;
+  v9 = *(v8 + 2);
+  v10 = (a1 + 40);
+  *(a1 + 48) = 0;
+  *(a1 + 32) = v9;
+  *(a1 + 40) = &unk_286FF2DC0;
+  std::ios_base::getloc((a2 + *(*a2 - 24)));
+  v11 = std::locale::id::__get(MEMORY[0x277D82698]);
+  std::locale::__install_ctor((a1 + 56), &v18, v10, v11);
+  std::locale::~locale(&v18);
+  v12 = *a1;
+  *(a1 + 64) = *a1;
+  std::ios_base::getloc((v12 + *(*v12 - 24)));
+  if ((a3 & 1) == 0)
+  {
+    std::ostream::flush();
+    v13 = (a2 + *(*a2 - 24));
+    std::ios_base::getloc(v13);
+    std::ios_base::imbue(v13, (a1 + 56));
+    std::locale::~locale(&v18);
+    rdbuf = v13->__rdbuf_;
+    if (rdbuf)
+    {
+      (*(rdbuf->__locale_ + 2))(rdbuf, a1 + 56);
+      std::locale::locale(&v17, rdbuf + 1);
+      std::locale::operator=(rdbuf + 1, (a1 + 56));
+      std::locale::~locale(&v17);
+    }
+
+    std::locale::~locale(&v16);
+  }
+
+  *(a2 + *(*a2 - 24) + 8) &= ~1u;
+  return a1;
+}
+
+void sub_25E35A3BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale a10, uint64_t a11, char a12)
+{
+  std::locale::~locale(&a10);
+  boost::archive::basic_ostream_locale_saver<char,std::char_traits<char>>::~basic_ostream_locale_saver(v14);
+  std::locale::~locale((v12 + 56));
+  MEMORY[0x25F8B0420](v13);
+  *(*(v12 + 24) + 16) = *(v12 + 32);
+  *(*(v12 + 8) + 8) = *(v12 + 16);
+  _Unwind_Resume(a1);
+}
+
+uint64_t boost::archive::basic_text_oprimitive<std::ostream>::~basic_text_oprimitive(uint64_t a1)
+{
+  if (!MEMORY[0x25F8B0490]())
+  {
+    std::ios_base::getloc((*a1 + *(**a1 - 24)));
+    v2 = std::locale::use_facet(&v4, MEMORY[0x277D82680]);
+    (v2->__vftable[2].~facet_0)(v2, 10);
+    std::locale::~locale(&v4);
+    std::ostream::put();
+    std::ostream::flush();
+  }
+
+  boost::archive::basic_ostream_locale_saver<char,std::char_traits<char>>::~basic_ostream_locale_saver((a1 + 64));
+  std::locale::~locale((a1 + 56));
+  MEMORY[0x25F8B0420](a1 + 40);
+  *(*(a1 + 24) + 16) = *(a1 + 32);
+  *(*(a1 + 8) + 8) = *(a1 + 16);
+  return a1;
+}
+
+uint64_t boost::archive::basic_text_oprimitive<std::ostream>::put(void **a1, uint64_t a2)
+{
+  v4 = *MEMORY[0x277D85DE8];
+  if ((*(*a1 + *(**a1 - 24) + 32) & 5) != 0)
+  {
+    boost::archive::archive_exception::archive_exception(v3, 13, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+  }
+
+  return std::ostream::put();
+}
+
+uint64_t boost::archive::basic_text_oprimitive<std::ostream>::put(uint64_t result, _BYTE *a2)
+{
+  if (*a2)
+  {
+    v2 = a2 + 1;
+    do
+    {
+      v3 = std::ostream::put();
+    }
+
+    while (*v2++);
+  }
+
+  return v3;
 }

@@ -73,7 +73,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_processor.__ptr_)
   {
     cntrl = self->_processor.__cntrl_;
@@ -89,31 +89,30 @@
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SLSentencePieceModule dealloc]";
+    v7 = "[SLSentencePieceModule dealloc]";
     _os_log_impl(&dword_26754E000, v4, OS_LOG_TYPE_DEFAULT, "%s dealloc", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = SLSentencePieceModule;
-  [(SLSentencePieceModule *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SLSentencePieceModule;
+  [(SLSentencePieceModule *)&v5 dealloc];
 }
 
 - (SLSentencePieceModule)initWithConfigFile:(id)file isModelMmap:(BOOL)mmap
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v11.receiver = self;
-  v11.super_class = SLSentencePieceModule;
-  if ([(SLSentencePieceModule *)&v11 init])
+  v10.receiver = self;
+  v10.super_class = SLSentencePieceModule;
+  if ([(SLSentencePieceModule *)&v10 init])
   {
     v6 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[SLSentencePieceModule initWithConfigFile:isModelMmap:]";
-      v14 = 2112;
-      v15 = fileCopy;
+      v12 = "[SLSentencePieceModule initWithConfigFile:isModelMmap:]";
+      v13 = 2112;
+      v14 = fileCopy;
       _os_log_impl(&dword_26754E000, v6, OS_LOG_TYPE_DEFAULT, "%s path: %@", buf, 0x16u);
     }
 
@@ -124,33 +123,31 @@
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[SLSentencePieceModule initWithConfigFile:isModelMmap:]";
+    v12 = "[SLSentencePieceModule initWithConfigFile:isModelMmap:]";
     _os_log_impl(&dword_26754E000, v7, OS_LOG_TYPE_DEFAULT, "%s SPM model created", buf, 0xCu);
   }
 
   v8 = 0;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (SLSentencePieceModule)initWithConfigFile:(id)file
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v5 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[SLSentencePieceModule initWithConfigFile:]";
-    v11 = 2112;
-    v12 = fileCopy;
-    _os_log_impl(&dword_26754E000, v5, OS_LOG_TYPE_DEFAULT, "%s path: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SLSentencePieceModule initWithConfigFile:]";
+    v10 = 2112;
+    v11 = fileCopy;
+    _os_log_impl(&dword_26754E000, v5, OS_LOG_TYPE_DEFAULT, "%s path: %@", &v8, 0x16u);
   }
 
   v6 = [(SLSentencePieceModule *)self initWithConfigFile:fileCopy isModelMmap:0];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

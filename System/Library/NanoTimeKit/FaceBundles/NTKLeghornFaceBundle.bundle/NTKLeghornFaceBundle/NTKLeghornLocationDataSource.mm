@@ -79,55 +79,55 @@
 
 - (void)_updateLocation:(id)location
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v5 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = NTKFoghornFaceBundleLogObject(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     clLocationUpdateCount = self->_clLocationUpdateCount;
     slcLocationUpdateCount = self->_slcLocationUpdateCount;
-    v19 = 136315906;
-    v20 = "[NTKLeghornLocationDataSource _updateLocation:]";
-    v21 = 2048;
-    v22 = clLocationUpdateCount;
-    v23 = 2048;
-    v24 = slcLocationUpdateCount;
-    v25 = 2112;
-    v26 = locationCopy;
-    _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: cl-updates = %llu, slc-updates = %llu @ %@", &v19, 0x2Au);
+    v24 = 136315906;
+    v25 = "[NTKLeghornLocationDataSource _updateLocation:]";
+    v26 = 2048;
+    v27 = clLocationUpdateCount;
+    v28 = 2048;
+    v29 = slcLocationUpdateCount;
+    v30 = 2112;
+    v31 = locationCopy;
+    _os_log_impl(&dword_23BEB1000, v7, OS_LOG_TYPE_DEFAULT, "%s: cl-updates = %llu, slc-updates = %llu @ %@", &v24, 0x2Au);
   }
 
   if (locationCopy)
   {
     currentLocation = self->_currentLocation;
-    if (currentLocation && (objc_msgSend_timestamp(currentLocation, v8, v9), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend_timeIntervalSinceNow(v11, v12, v13), v15 = v14, v11, v15 > 0.0))
+    if (currentLocation && (objc_msgSend_timestamp(currentLocation, v11, v12), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend_timeIntervalSinceNow(v14, v15, v16), v18 = v17, v14, v18 > 0.0))
     {
-      p_super = NTKFoghornFaceBundleLogObject();
+      p_super = NTKFoghornFaceBundleLogObject(v19, v20);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = self->_currentLocation;
-        v19 = 136315650;
-        v20 = "[NTKLeghornLocationDataSource _updateLocation:]";
-        v21 = 2112;
-        v22 = locationCopy;
-        v23 = 2112;
-        v24 = v18;
-        _os_log_impl(&dword_23BEB1000, p_super, OS_LOG_TYPE_DEFAULT, "%s: received stale location %@, which is older than %@ - ignoring", &v19, 0x20u);
+        v23 = self->_currentLocation;
+        v24 = 136315650;
+        v25 = "[NTKLeghornLocationDataSource _updateLocation:]";
+        v26 = 2112;
+        v27 = locationCopy;
+        v28 = 2112;
+        v29 = v23;
+        _os_log_impl(&dword_23BEB1000, p_super, OS_LOG_TYPE_DEFAULT, "%s: received stale location %@, which is older than %@ - ignoring", &v24, 0x20u);
       }
     }
 
     else
     {
-      v16 = locationCopy;
+      v21 = locationCopy;
       p_super = &self->_currentLocation->super;
-      self->_currentLocation = v16;
+      self->_currentLocation = v21;
     }
   }
 
   else
   {
-    p_super = NTKFoghornFaceBundleLogObject();
+    p_super = NTKFoghornFaceBundleLogObject(v10, v11);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       sub_23BEE6C00(p_super);
@@ -137,64 +137,65 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v6 = objc_msgSend_lastObject(locations, a2, v4, manager);
+  v5 = objc_msgSend_lastObject(locations, a2, manager);
   objc_initWeak(&location, self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_23BEBD9B4;
   block[3] = &unk_278BA0F80;
-  objc_copyWeak(&v10, &location);
-  v9 = v6;
-  v7 = v6;
+  objc_copyWeak(&v9, &location);
+  v8 = v5;
+  v6 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = NTKFoghornFaceBundleLogObject(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[NTKLeghornLocationDataSource locationManager:didFailWithError:]";
-    v8 = 2112;
-    v9 = errorCopy;
-    _os_log_impl(&dword_23BEB1000, v5, OS_LOG_TYPE_DEFAULT, "%s: error = %@", &v6, 0x16u);
+    v7 = 136315394;
+    v8 = "[NTKLeghornLocationDataSource locationManager:didFailWithError:]";
+    v9 = 2112;
+    v10 = errorCopy;
+    _os_log_impl(&dword_23BEB1000, v6, OS_LOG_TYPE_DEFAULT, "%s: error = %@", &v7, 0x16u);
   }
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   v7 = objc_msgSend_authorizationStatus(authorizationCopy, v5, v6);
-  v8 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = v7;
+  v10 = NTKFoghornFaceBundleLogObject(v7, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    objc_msgSend__limitsPrecision(authorizationCopy, v9, v10);
-    v11 = LogBool();
+    objc_msgSend__limitsPrecision(authorizationCopy, v11, v12);
+    v13 = LogBool();
     *buf = 136315650;
-    v16 = "[NTKLeghornLocationDataSource locationManagerDidChangeAuthorization:]";
-    v17 = 1024;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&dword_23BEB1000, v8, OS_LOG_TYPE_DEFAULT, "%s authorizationStatus = to (%d), coarse location = %@", buf, 0x1Cu);
+    v18 = "[NTKLeghornLocationDataSource locationManagerDidChangeAuthorization:]";
+    v19 = 1024;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v13;
+    _os_log_impl(&dword_23BEB1000, v10, OS_LOG_TYPE_DEFAULT, "%s authorizationStatus = to (%d), coarse location = %@", buf, 0x1Cu);
   }
 
   objc_initWeak(buf, self);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_23BEBDC5C;
-  v12[3] = &unk_278BA0FA8;
-  objc_copyWeak(&v13, buf);
-  v14 = v7;
-  dispatch_async(MEMORY[0x277D85CD0], v12);
-  objc_destroyWeak(&v13);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_23BEBDC5C;
+  v14[3] = &unk_278BA0FA8;
+  objc_copyWeak(&v15, buf);
+  v16 = v8;
+  dispatch_async(MEMORY[0x277D85CD0], v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 
@@ -233,34 +234,34 @@
   locationCopy = location;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   ++self->_slcLocationUpdateCount;
-  objc_msgSend__updateLocation_(self, v4, v5, locationCopy);
+  objc_msgSend__updateLocation_(self, v4, locationCopy);
 }
 
 - (void)_startNTKLocationManager
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_locationManagerToken)
   {
-    v3 = NTKFoghornFaceBundleLogObject();
+    v3 = NTKFoghornFaceBundleLogObject(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[NTKLeghornLocationDataSource _startNTKLocationManager]";
+      v13 = "[NTKLeghornLocationDataSource _startNTKLocationManager]";
       _os_log_impl(&dword_23BEB1000, v3, OS_LOG_TYPE_DEFAULT, "%s: starting NTKLocationManager updates", buf, 0xCu);
     }
 
     v6 = objc_msgSend_sharedLocationManager(MEMORY[0x277D2C070], v4, v5);
     objc_initWeak(buf, self);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_23BEBE28C;
-    v11[3] = &unk_278BA1020;
-    objc_copyWeak(&v12, buf);
-    v9 = objc_msgSend_startLocationUpdatesWithIdentifier_handler_(v6, v7, v8, @"ntk.ultra2025", v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_23BEBE28C;
+    v10[3] = &unk_278BA1020;
+    objc_copyWeak(&v11, buf);
+    v8 = objc_msgSend_startLocationUpdatesWithIdentifier_handler_(v6, v7, @"ntk.ultra2025", v10);
     locationManagerToken = self->_locationManagerToken;
-    self->_locationManagerToken = v9;
+    self->_locationManagerToken = v8;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
 }
@@ -270,7 +271,7 @@
   if (self->_locationManagerToken)
   {
     v4 = objc_msgSend_sharedLocationManager(MEMORY[0x277D2C070], a2, v2);
-    objc_msgSend_stopLocationUpdatesForToken_(v4, v5, v6, self->_locationManagerToken);
+    objc_msgSend_stopLocationUpdatesForToken_(v4, v5, self->_locationManagerToken);
 
     locationManagerToken = self->_locationManagerToken;
     self->_locationManagerToken = 0;

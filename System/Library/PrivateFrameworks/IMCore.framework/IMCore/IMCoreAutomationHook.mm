@@ -13,11 +13,11 @@
   imessageAccount = self->_imessageAccount;
   if (!imessageAccount)
   {
-    v5 = objc_msgSend_sharedInstance(IMAccountController, a2, v2);
-    v8 = objc_msgSend_iMessageService(IMServiceImpl, v6, v7);
-    v10 = objc_msgSend_bestAccountForService_(v5, v9, v8);
-    v11 = self->_imessageAccount;
-    self->_imessageAccount = v10;
+    v4 = +[IMAccountController sharedInstance];
+    v5 = +[IMServiceImpl iMessageService];
+    v6 = [v4 bestAccountForService:v5];
+    v7 = self->_imessageAccount;
+    self->_imessageAccount = v6;
 
     imessageAccount = self->_imessageAccount;
   }
@@ -27,286 +27,280 @@
 
 - (id)chatForHandles:(id)handles error:(id *)error results:(id)results
 {
-  v61[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   resultsCopy = results;
-  if (objc_msgSend_count(handlesCopy, v9, v10))
+  if ([handlesCopy count])
   {
-    v13 = objc_msgSend_sharedRegistry(IMChatRegistry, v11, v12);
-    v15 = objc_msgSend_chatWithHandles_(v13, v14, handlesCopy);
+    v9 = +[IMChatRegistry sharedRegistry];
+    v10 = [v9 chatWithHandles:handlesCopy];
 
-    if (v15)
+    if (v10)
     {
-      v18 = objc_msgSend_groupID(v15, v16, v17);
-      objc_msgSend_setValue_forKey_(resultsCopy, v19, v18, @"group_id");
+      groupID = [v10 groupID];
+      [resultsCopy setValue:groupID forKey:@"group_id"];
 
-      v15 = v15;
-      v20 = v15;
+      v10 = v10;
+      v12 = v10;
     }
 
     else
     {
-      v56[0] = *MEMORY[0x1E696A578];
-      v37 = MEMORY[0x1E696AEC0];
-      v38 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"Condition failed : '%s'", "(chat) == nil");
-      v40 = objc_msgSend_stringFromAutomationErrorCode_(IMCoreAutomationHook, v39, 5);
-      v42 = objc_msgSend_stringWithFormat_(v37, v41, @"%@ (%@)", v38, v40);
-      v56[1] = @"IMCoreAutomationHookParameterErrorLocation";
-      v57[0] = v42;
-      v44 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v43, @"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 49);
-      v57[1] = v44;
-      v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v45, v57, v56, 2);
+      v33[0] = *MEMORY[0x1E696A578];
+      v22 = MEMORY[0x1E696AEC0];
+      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Condition failed : '%s'", "(chat) == nil"];
+      v24 = [IMCoreAutomationHook stringFromAutomationErrorCode:5];
+      v25 = [v22 stringWithFormat:@"%@ (%@)", v23, v24];
+      v33[1] = @"IMCoreAutomationHookParameterErrorLocation";
+      v34[0] = v25;
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 49];
+      v34[1] = v26;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
-      v48 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v47, @"IMCoreAutomationHookErrorDomain", 5, v46);
-      if (v48)
+      v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMCoreAutomationHookErrorDomain" code:5 userInfo:v27];
+      if (v28)
       {
         if (IMOSLoggingEnabled())
         {
-          v49 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          v29 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            v52 = objc_msgSend_description(v48, v50, v51);
+            v30 = [v28 description];
             *buf = 138412290;
-            v59 = v52;
-            _os_log_impl(&dword_1A823F000, v49, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+            v36 = v30;
+            _os_log_impl(&dword_1A823F000, v29, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
           }
         }
 
         if (error && !*error)
         {
-          v53 = v48;
-          *error = v48;
+          v31 = v28;
+          *error = v28;
         }
       }
 
-      v20 = 0;
+      v12 = 0;
     }
-  }
-
-  else
-  {
-    v60[0] = *MEMORY[0x1E696A578];
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11, @"Condition failed : '%s'", "[handles count] == 0");
-    v24 = objc_msgSend_stringFromAutomationErrorCode_(IMCoreAutomationHook, v23, 5);
-    v26 = objc_msgSend_stringWithFormat_(v21, v25, @"%@ (%@)", v22, v24);
-    v60[1] = @"IMCoreAutomationHookParameterErrorLocation";
-    v61[0] = v26;
-    v28 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v27, @"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 47);
-    v61[1] = v28;
-    v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v61, v60, 2);
-
-    v31 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v30, @"IMCoreAutomationHookErrorDomain", 5, v15);
-    if (v31)
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v32 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-        {
-          v35 = objc_msgSend_description(v31, v33, v34);
-          *buf = 138412290;
-          v59 = v35;
-          _os_log_impl(&dword_1A823F000, v32, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
-        }
-      }
-
-      if (error && !*error)
-      {
-        v36 = v31;
-        *error = v31;
-      }
-    }
-
-    v20 = 0;
-  }
-
-  v54 = *MEMORY[0x1E69E9840];
-
-  return v20;
-}
-
-- (id)handlesFromStrings:(id)strings error:(id *)error results:(id)results
-{
-  v79[2] = *MEMORY[0x1E69E9840];
-  stringsCopy = strings;
-  resultsCopy = results;
-  if (objc_msgSend_count(stringsCopy, v9, v10))
-  {
-    v13 = objc_msgSend_array(MEMORY[0x1E695DF70], v11, v12);
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v14 = stringsCopy;
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v69, v75, 16);
-    if (v18)
-    {
-      v19 = *v70;
-      do
-      {
-        for (i = 0; i != v18; ++i)
-        {
-          if (*v70 != v19)
-          {
-            objc_enumerationMutation(v14);
-          }
-
-          v21 = *(*(&v69 + 1) + 8 * i);
-          v22 = objc_msgSend_bestiMessageAccount(self, v16, v17);
-          v24 = objc_msgSend_imHandleWithID_(v22, v23, v21);
-
-          if (v24)
-          {
-            objc_msgSend_addObject_(v13, v25, v24);
-          }
-        }
-
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v16, &v69, v75, 16);
-      }
-
-      while (v18);
-    }
-
-    v28 = objc_msgSend_count(v14, v26, v27);
-    if (v28 == objc_msgSend_count(v13, v29, v30))
-    {
-      objc_msgSend_setObject_forKey_(resultsCopy, v31, v14, @"members");
-      v13 = v13;
-      v32 = v13;
-      goto LABEL_32;
-    }
-
-    v73[0] = *MEMORY[0x1E696A578];
-    v49 = MEMORY[0x1E696AEC0];
-    v50 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"Condition failed : '%s'", "[handleStrings count] != [outArray count]");
-    v52 = objc_msgSend_stringFromAutomationErrorCode_(IMCoreAutomationHook, v51, 5);
-    v54 = objc_msgSend_stringWithFormat_(v49, v53, @"%@ (%@)", v50, v52);
-    v73[1] = @"IMCoreAutomationHookParameterErrorLocation";
-    v74[0] = v54;
-    v56 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v55, @"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 68);
-    v74[1] = v56;
-    v58 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v57, v74, v73, 2);
-
-    v60 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v59, @"IMCoreAutomationHookErrorDomain", 5, v58);
-    if (v60)
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v61 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
-        {
-          v64 = objc_msgSend_description(v60, v62, v63);
-          *buf = 138412290;
-          v77 = v64;
-          _os_log_impl(&dword_1A823F000, v61, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
-        }
-      }
-
-      if (error && !*error)
-      {
-        v65 = v60;
-        *error = v60;
-      }
-    }
-  }
-
-  else
-  {
-    v78[0] = *MEMORY[0x1E696A578];
-    v33 = MEMORY[0x1E696AEC0];
-    v34 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11, @"Condition failed : '%s'", "[handleStrings count] == 0");
-    v36 = objc_msgSend_stringFromAutomationErrorCode_(IMCoreAutomationHook, v35, 5);
-    v38 = objc_msgSend_stringWithFormat_(v33, v37, @"%@ (%@)", v34, v36);
-    v78[1] = @"IMCoreAutomationHookParameterErrorLocation";
-    v79[0] = v38;
-    v40 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v39, @"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 58);
-    v79[1] = v40;
-    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v41, v79, v78, 2);
-
-    v43 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v42, @"IMCoreAutomationHookErrorDomain", 5, v13);
-    if (v43)
-    {
-      if (IMOSLoggingEnabled())
-      {
-        v44 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-        {
-          v47 = objc_msgSend_description(v43, v45, v46);
-          *buf = 138412290;
-          v77 = v47;
-          _os_log_impl(&dword_1A823F000, v44, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
-        }
-      }
-
-      if (error && !*error)
-      {
-        v48 = v43;
-        *error = v43;
-      }
-    }
-  }
-
-  v32 = 0;
-LABEL_32:
-
-  v66 = *MEMORY[0x1E69E9840];
-
-  return v32;
-}
-
-- (id)existingChatForGroupID:(id)d error:(id *)error results:(id)results
-{
-  v38[2] = *MEMORY[0x1E69E9840];
-  dCopy = d;
-  resultsCopy = results;
-  v11 = objc_msgSend_sharedRegistry(IMChatRegistry, v9, v10);
-  v13 = objc_msgSend_existingChatWithGroupID_(v11, v12, dCopy);
-
-  if (v13)
-  {
-    v15 = v13;
   }
 
   else
   {
     v37[0] = *MEMORY[0x1E696A578];
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14, @"Condition failed : '%s'", "(chat) == nil");
-    v19 = objc_msgSend_stringFromAutomationErrorCode_(IMCoreAutomationHook, v18, 5);
-    v21 = objc_msgSend_stringWithFormat_(v16, v20, @"%@ (%@)", v17, v19);
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Condition failed : '%s'", "[handles count] == 0"];
+    v15 = [IMCoreAutomationHook stringFromAutomationErrorCode:5];
+    v16 = [v13 stringWithFormat:@"%@ (%@)", v14, v15];
     v37[1] = @"IMCoreAutomationHookParameterErrorLocation";
-    v38[0] = v21;
-    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v22, @"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 78);
-    v38[1] = v23;
-    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, v38, v37, 2);
+    v38[0] = v16;
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 47];
+    v38[1] = v17;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
-    v27 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v26, @"IMCoreAutomationHookErrorDomain", 5, v25);
-    if (v27)
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMCoreAutomationHookErrorDomain" code:5 userInfo:v10];
+    if (v18)
     {
       if (IMOSLoggingEnabled())
       {
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v31 = objc_msgSend_description(v27, v29, v30);
+          v20 = [v18 description];
           *buf = 138412290;
-          v36 = v31;
-          _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+          v36 = v20;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
         }
       }
 
       if (error && !*error)
       {
-        v32 = v27;
-        *error = v27;
+        v21 = v18;
+        *error = v18;
+      }
+    }
+
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (id)handlesFromStrings:(id)strings error:(id *)error results:(id)results
+{
+  v50[2] = *MEMORY[0x1E69E9840];
+  stringsCopy = strings;
+  resultsCopy = results;
+  if ([stringsCopy count])
+  {
+    array = [MEMORY[0x1E695DF70] array];
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v10 = stringsCopy;
+    v11 = [v10 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (v11)
+    {
+      v12 = *v41;
+      do
+      {
+        for (i = 0; i != v11; ++i)
+        {
+          if (*v41 != v12)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v14 = *(*(&v40 + 1) + 8 * i);
+          bestiMessageAccount = [(IMCoreAutomationHook *)self bestiMessageAccount];
+          v16 = [bestiMessageAccount imHandleWithID:v14];
+
+          if (v16)
+          {
+            [array addObject:v16];
+          }
+        }
+
+        v11 = [v10 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      }
+
+      while (v11);
+    }
+
+    v17 = [v10 count];
+    if (v17 == [array count])
+    {
+      [resultsCopy setObject:v10 forKey:@"members"];
+      array = array;
+      v18 = array;
+      goto LABEL_32;
+    }
+
+    v44[0] = *MEMORY[0x1E696A578];
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Condition failed : '%s'", "[handleStrings count] != [outArray count]"];
+    v30 = [IMCoreAutomationHook stringFromAutomationErrorCode:5];
+    v31 = [v28 stringWithFormat:@"%@ (%@)", v29, v30];
+    v44[1] = @"IMCoreAutomationHookParameterErrorLocation";
+    v45[0] = v31;
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 68];
+    v45[1] = v32;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+
+    v34 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMCoreAutomationHookErrorDomain" code:5 userInfo:v33];
+    if (v34)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v35 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        {
+          v36 = [v34 description];
+          *buf = 138412290;
+          v48 = v36;
+          _os_log_impl(&dword_1A823F000, v35, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+        }
+      }
+
+      if (error && !*error)
+      {
+        v37 = v34;
+        *error = v34;
       }
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v49[0] = *MEMORY[0x1E696A578];
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Condition failed : '%s'", "[handleStrings count] == 0"];
+    v21 = [IMCoreAutomationHook stringFromAutomationErrorCode:5];
+    v22 = [v19 stringWithFormat:@"%@ (%@)", v20, v21];
+    v49[1] = @"IMCoreAutomationHookParameterErrorLocation";
+    v50[0] = v22;
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 58];
+    v50[1] = v23;
+    array = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
 
-  return v13;
+    v24 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMCoreAutomationHookErrorDomain" code:5 userInfo:array];
+    if (v24)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v25 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          v26 = [v24 description];
+          *buf = 138412290;
+          v48 = v26;
+          _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+        }
+      }
+
+      if (error && !*error)
+      {
+        v27 = v24;
+        *error = v24;
+      }
+    }
+  }
+
+  v18 = 0;
+LABEL_32:
+
+  return v18;
+}
+
+- (id)existingChatForGroupID:(id)d error:(id *)error results:(id)results
+{
+  v26[2] = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  resultsCopy = results;
+  v9 = +[IMChatRegistry sharedRegistry];
+  v10 = [v9 existingChatWithGroupID:dCopy];
+
+  if (v10)
+  {
+    v11 = v10;
+  }
+
+  else
+  {
+    v25[0] = *MEMORY[0x1E696A578];
+    v12 = MEMORY[0x1E696AEC0];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Condition failed : '%s'", "(chat) == nil"];
+    v14 = [IMCoreAutomationHook stringFromAutomationErrorCode:5];
+    v15 = [v12 stringWithFormat:@"%@ (%@)", v13, v14];
+    v25[1] = @"IMCoreAutomationHookParameterErrorLocation";
+    v26[0] = v15;
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/MessagesCore/IMCore/IMCore/Source/Automation Hooks/IMCoreAutomationHook.m", 78];
+    v26[1] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IMCoreAutomationHookErrorDomain" code:5 userInfo:v17];
+    if (v18)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        {
+          v20 = [v18 description];
+          *buf = 138412290;
+          v24 = v20;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+        }
+      }
+
+      if (error && !*error)
+      {
+        v21 = v18;
+        *error = v18;
+      }
+    }
+  }
+
+  return v10;
 }
 
 + (id)stringFromAutomationErrorCode:(int64_t)code
@@ -315,7 +309,9 @@ LABEL_32:
   {
     if (code == 1)
     {
-      objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%s:%ld", "IMCoreAutomationHookErrorCodeDomainTimeOut", 1);
+      v3 = MEMORY[0x1E696AEC0];
+      v4 = 1;
+      v5 = "IMCoreAutomationHookErrorCodeDomainTimeOut";
     }
 
     else
@@ -325,7 +321,9 @@ LABEL_32:
         goto LABEL_13;
       }
 
-      objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%s:%ld", "IMCoreAutomationHookErrorCodeInvalidParameters", 2);
+      v3 = MEMORY[0x1E696AEC0];
+      v4 = 2;
+      v5 = "IMCoreAutomationHookErrorCodeInvalidParameters";
     }
   }
 
@@ -334,19 +332,26 @@ LABEL_32:
     switch(code)
     {
       case 3:
-        objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%s:%ld", "IMCoreAutomationHookErrorCodeGroupCreationFailure", 3);
+        v3 = MEMORY[0x1E696AEC0];
+        v4 = 3;
+        v5 = "IMCoreAutomationHookErrorCodeGroupCreationFailure";
         break;
       case 4:
-        objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%s:%ld", "IMCoreAutomationHookErrorCodeChatNotFound", 4);
+        v3 = MEMORY[0x1E696AEC0];
+        v4 = 4;
+        v5 = "IMCoreAutomationHookErrorCodeChatNotFound";
         break;
       case 5:
-        objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%s:%ld", "IMCoreAutomationHookErrorCodeConditionFailed", 5);
+        v3 = MEMORY[0x1E696AEC0];
+        v4 = 5;
+        v5 = "IMCoreAutomationHookErrorCodeConditionFailed";
         break;
       default:
         goto LABEL_13;
     }
   }
-  self = ;
+
+  self = [v3 stringWithFormat:@"%s:%ld", v5, v4];
 LABEL_13:
 
   return self;

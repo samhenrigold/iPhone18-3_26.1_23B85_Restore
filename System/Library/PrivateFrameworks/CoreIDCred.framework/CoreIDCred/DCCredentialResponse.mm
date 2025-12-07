@@ -27,17 +27,17 @@
 
 - (DCCredentialResponse)initWithCoder:(id)coder
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_responseData);
   v7 = [coderCopy decodeObjectOfClass:v5 forKey:v6];
 
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v15[2] = objc_opt_class();
-  v15[3] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v14[2] = objc_opt_class();
+  v14[3] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
   v9 = [MEMORY[0x277CBEB98] setWithArray:v8];
   v10 = NSStringFromSelector(sel_elementsByNamespace);
   v11 = [coderCopy decodeObjectOfClasses:v9 forKey:v10];
@@ -49,7 +49,6 @@
     selfCopy = self;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

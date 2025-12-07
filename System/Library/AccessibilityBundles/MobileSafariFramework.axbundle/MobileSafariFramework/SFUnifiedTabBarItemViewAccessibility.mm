@@ -342,7 +342,7 @@
 
 - (id)_accessibilitySupplementaryHeaderViews
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   _axScribbleOverlay = [(SFUnifiedTabBarItemViewAccessibility *)self _axScribbleOverlay];
 
   if (_axScribbleOverlay)
@@ -356,30 +356,30 @@
     selfCopy2 = self;
     if ([(SFUnifiedTabBarItemViewAccessibility *)self _axSearchFieldIsActive])
     {
-      v32 = 0u;
-      v33 = 0u;
       v30 = 0u;
       v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v5 = [(SFUnifiedTabBarItemViewAccessibility *)self safeUIViewForKey:@"searchField"];
       _accessibilitySupplementaryHeaderViews = [v5 _accessibilitySupplementaryHeaderViews];
 
-      v7 = [_accessibilitySupplementaryHeaderViews countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [_accessibilitySupplementaryHeaderViews countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v7)
       {
-        v8 = *v31;
+        v8 = *v29;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v31 != v8)
+            if (*v29 != v8)
             {
               objc_enumerationMutation(_accessibilitySupplementaryHeaderViews);
             }
 
-            [v3 axSafelyAddObject:*(*(&v30 + 1) + 8 * i)];
+            [v3 axSafelyAddObject:*(*(&v28 + 1) + 8 * i)];
           }
 
-          v7 = [_accessibilitySupplementaryHeaderViews countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v7 = [_accessibilitySupplementaryHeaderViews countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v7);
@@ -388,93 +388,87 @@
       selfCopy2 = self;
     }
 
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v10 = [(SFUnifiedTabBarItemViewAccessibility *)selfCopy2 safeValueForKey:@"_accessoryButtonArrangement"];
     obj = [v10 safeArrayForKey:@"leadingButtonTypes"];
 
-    v11 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v11 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v27;
+      v12 = *v25;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v27 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * j);
-          v20 = 0;
-          v21 = &v20;
-          v22 = 0x3032000000;
-          v23 = __Block_byref_object_copy__1;
-          v24 = __Block_byref_object_dispose__1;
-          v25 = 0;
+          v18 = 0;
+          v19 = &v18;
+          v20 = 0x3032000000;
+          v21 = __Block_byref_object_copy__1;
+          v22 = __Block_byref_object_dispose__1;
+          v23 = 0;
           AXPerformSafeBlock();
-          v15 = v21[5];
-          _Block_object_dispose(&v20, 8);
+          v14 = v19[5];
+          _Block_object_dispose(&v18, 8);
 
-          [v3 axSafelyAddObject:v15];
+          [v3 axSafelyAddObject:v14];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v11);
     }
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-
   return v3;
 }
 
 uint64_t __78__SFUnifiedTabBarItemViewAccessibility__accessibilitySupplementaryHeaderViews__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _viewForAccessoryButtonOfType:{objc_msgSend(*(a1 + 40), "integerValue")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _viewForAccessoryButtonOfType:{objc_msgSend(*(a1 + 40), "integerValue")}];
 
   return MEMORY[0x2A1C71028]();
 }
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v3 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   selfCopy = self;
   _axScribbleOverlay = [(SFUnifiedTabBarItemViewAccessibility *)self _axScribbleOverlay];
-  v22 = _axScribbleOverlay;
+  v20 = _axScribbleOverlay;
   if (_axScribbleOverlay)
   {
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v5 = [_axScribbleOverlay safeArrayForKey:@"_buttons"];
-    v6 = [v5 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v6)
     {
-      v7 = *v39;
+      v7 = *v37;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v39 != v7)
+          if (*v37 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v3 axSafelyAddObject:*(*(&v38 + 1) + 8 * i)];
+          [v3 axSafelyAddObject:*(*(&v36 + 1) + 8 * i)];
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v6);
@@ -485,30 +479,30 @@ uint64_t __78__SFUnifiedTabBarItemViewAccessibility__accessibilitySupplementaryH
   {
     if ([(SFUnifiedTabBarItemViewAccessibility *)self _axSearchFieldIsActive])
     {
-      v36 = 0u;
-      v37 = 0u;
       v34 = 0u;
       v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v9 = [(SFUnifiedTabBarItemViewAccessibility *)self safeUIViewForKey:@"searchField"];
       _accessibilitySupplementaryFooterViews = [v9 _accessibilitySupplementaryFooterViews];
 
-      v11 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v11 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v32 objects:v41 count:16];
       if (v11)
       {
-        v12 = *v35;
+        v12 = *v33;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v35 != v12)
+            if (*v33 != v12)
             {
               objc_enumerationMutation(_accessibilitySupplementaryFooterViews);
             }
 
-            [v3 axSafelyAddObject:*(*(&v34 + 1) + 8 * j)];
+            [v3 axSafelyAddObject:*(*(&v32 + 1) + 8 * j)];
           }
 
-          v11 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v11 = [_accessibilitySupplementaryFooterViews countByEnumeratingWithState:&v32 objects:v41 count:16];
         }
 
         while (v11);
@@ -517,58 +511,52 @@ uint64_t __78__SFUnifiedTabBarItemViewAccessibility__accessibilitySupplementaryH
       self = selfCopy;
     }
 
-    v32 = 0u;
-    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v14 = [(SFUnifiedTabBarItemViewAccessibility *)self safeValueForKey:@"_accessoryButtonArrangement"];
     v5 = [v14 safeArrayForKey:@"trailingButtonTypes"];
 
-    v15 = [v5 countByEnumeratingWithState:&v30 objects:v42 count:16];
+    v15 = [v5 countByEnumeratingWithState:&v28 objects:v40 count:16];
     if (v15)
     {
-      v16 = *v31;
+      v16 = *v29;
       do
       {
         for (k = 0; k != v15; ++k)
         {
-          if (*v31 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v5);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * k);
-          v24 = 0;
-          v25 = &v24;
-          v26 = 0x3032000000;
-          v27 = __Block_byref_object_copy__1;
-          v28 = __Block_byref_object_dispose__1;
-          v29 = 0;
+          v22 = 0;
+          v23 = &v22;
+          v24 = 0x3032000000;
+          v25 = __Block_byref_object_copy__1;
+          v26 = __Block_byref_object_dispose__1;
+          v27 = 0;
           AXPerformSafeBlock();
-          v19 = v25[5];
-          _Block_object_dispose(&v24, 8);
+          v18 = v23[5];
+          _Block_object_dispose(&v22, 8);
 
-          [v3 axSafelyAddObject:v19];
+          [v3 axSafelyAddObject:v18];
         }
 
-        v15 = [v5 countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v15 = [v5 countByEnumeratingWithState:&v28 objects:v40 count:16];
       }
 
       while (v15);
     }
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-
   return v3;
 }
 
 uint64_t __78__SFUnifiedTabBarItemViewAccessibility__accessibilitySupplementaryFooterViews__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _viewForAccessoryButtonOfType:{objc_msgSend(*(a1 + 40), "integerValue")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _viewForAccessoryButtonOfType:{objc_msgSend(*(a1 + 40), "integerValue")}];
 
   return MEMORY[0x2A1C71028]();
 }

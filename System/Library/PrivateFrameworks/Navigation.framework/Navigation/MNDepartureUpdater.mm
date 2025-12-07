@@ -40,24 +40,24 @@ id __46__MNDepartureUpdater__descriptionForSubScores__block_invoke(uint64_t a1, 
 
 - (id)_arrivalRegionsDepartureConditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   arrivalParameters = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
   arrivalMapRegions = [arrivalParameters arrivalMapRegions];
 
   if (!arrivalMapRegions)
   {
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v15 = "[MNDepartureUpdater _arrivalRegionsDepartureConditions]";
-      v16 = 2080;
-      v17 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNDepartureUpdater.m";
-      v18 = 1024;
-      v19 = 481;
-      v20 = 2080;
-      v21 = "_arrivalLeg.arrivalParameters.arrivalMapRegions != nil";
-      _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
+      v14 = "[MNDepartureUpdater _arrivalRegionsDepartureConditions]";
+      v15 = 2080;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/LocationTracking/MNDepartureUpdater.m";
+      v17 = 1024;
+      v18 = 481;
+      v19 = 2080;
+      v20 = "_arrivalLeg.arrivalParameters.arrivalMapRegions != nil";
+      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
     }
   }
 
@@ -65,17 +65,15 @@ id __46__MNDepartureUpdater__descriptionForSubScores__block_invoke(uint64_t a1, 
   arrivalParameters2 = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
   arrivalMapRegions2 = [arrivalParameters2 arrivalMapRegions];
   v8 = [(__MNDepartureExitedArrivalRegionCondition *)v5 initWithUpdater:self arrivalRegions:arrivalMapRegions2];
-  v13 = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
 
   return v9;
 }
 
 - (id)_defaultDepartureConditions
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   BOOL = GEOConfigGetBOOL();
   arrivalParameters = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
   arrivalPoints = [arrivalParameters arrivalPoints];
@@ -88,34 +86,34 @@ id __46__MNDepartureUpdater__descriptionForSubScores__block_invoke(uint64_t a1, 
     arrivalParameters3 = v7;
     if (arrivalPoints)
     {
-      v26[0] = v7;
+      v25[0] = v7;
       v9 = [__MNDepartureMinimumArrivalDistanceCondition alloc];
       GEOConfigGetDouble();
       arrivalPoints3 = [(__MNDepartureMinimumArrivalDistanceCondition *)v9 initWithUpdater:self distanceThreshold:?];
-      v26[1] = arrivalPoints3;
+      v25[1] = arrivalPoints3;
       v11 = [__MNDepartureMinimumDepartureDistanceCondition alloc];
       arrivalParameters2 = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
       arrivalPoints2 = [arrivalParameters2 arrivalPoints];
       GEOConfigGetDouble();
       v14 = [(__MNDepartureMinimumDepartureDistanceCondition *)v11 initWithUpdater:self arrivalPoints:arrivalPoints2 distanceThreshold:?];
-      v26[2] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+      v25[2] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
 
 LABEL_8:
       goto LABEL_9;
     }
 
-    v25[0] = v7;
+    v24[0] = v7;
     v21 = [__MNDepartureMinimumArrivalDistanceCondition alloc];
     GEOConfigGetDouble();
     arrivalPoints3 = [(__MNDepartureMinimumArrivalDistanceCondition *)v21 initWithUpdater:self distanceThreshold:?];
-    v25[1] = arrivalPoints3;
+    v24[1] = arrivalPoints3;
     v22 = [__MNDepartureMinimumDepartureDistanceCondition alloc];
     GEOConfigGetDouble();
     v17 = [(__MNDepartureMinimumDepartureDistanceCondition *)v22 initWithUpdater:self distanceThreshold:?];
-    v25[2] = v17;
+    v24[2] = v17;
     v18 = MEMORY[0x1E695DEC8];
-    v19 = v25;
+    v19 = v24;
     v20 = 3;
 LABEL_7:
     v15 = [v18 arrayWithObjects:v19 count:v20];
@@ -130,53 +128,51 @@ LABEL_7:
     arrivalPoints3 = [(__MNDepartureMinimumDepartureDistanceCondition *)arrivalParameters3 arrivalPoints];
     GEOConfigGetDouble();
     v17 = [(__MNDepartureMinimumDepartureDistanceCondition *)v16 initWithUpdater:self arrivalPoints:arrivalPoints3 distanceThreshold:?];
-    v28[0] = v17;
+    v27[0] = v17;
     v18 = MEMORY[0x1E695DEC8];
-    v19 = v28;
+    v19 = v27;
     v20 = 1;
     goto LABEL_7;
   }
 
   GEOConfigGetDouble();
   arrivalParameters3 = [(__MNDepartureMinimumDepartureDistanceCondition *)v16 initWithUpdater:self distanceThreshold:?];
-  v27 = arrivalParameters3;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v26 = arrivalParameters3;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
 LABEL_9:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (void)_initConditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   arrivalParameters = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
 
   if (arrivalParameters)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     arrivalParameters2 = [(GEOComposedRouteLeg *)self->_arrivalLeg arrivalParameters];
     conditions = [arrivalParameters2 arrivalMapRegions];
 
-    v6 = [conditions countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [conditions countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(conditions);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ([v10 arrivalRegionAction] == 5 || objc_msgSend(v10, "arrivalRegionAction") == 2)
           {
 
@@ -187,7 +183,7 @@ LABEL_9:
           }
         }
 
-        v7 = [conditions countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [conditions countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -206,13 +202,11 @@ LABEL_13:
     v13 = self->_conditions;
     self->_conditions = _defaultDepartureConditions;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)allowDepartureForLocation:(id)location
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   if (!self->_conditionScores)
   {
@@ -221,29 +215,29 @@ LABEL_13:
   }
 
   UInteger = GEOConfigGetUInteger();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v5 = self->_conditions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v53 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v41 objects:v52 count:16];
   if (!v6)
   {
     goto LABEL_14;
   }
 
   v7 = v6;
-  v8 = *v43;
+  v8 = *v42;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v43 != v8)
+      if (*v42 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v42 + 1) + 8 * i);
+      v10 = *(*(&v41 + 1) + 8 * i);
       [v10 scoreForLocation:locationCopy];
       v12 = v11;
       conditionScores = self->_conditionScores;
@@ -273,37 +267,37 @@ LABEL_13:
       }
     }
 
-    v7 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v53 count:16];
+    v7 = [(NSArray *)v5 countByEnumeratingWithState:&v41 objects:v52 count:16];
   }
 
   while (v7);
 LABEL_14:
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   allValues = [(NSMutableDictionary *)self->_conditionScores allValues];
-  v23 = [allValues countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v23 = [allValues countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v39;
+    v25 = *v38;
     v26 = 0.0;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v39 != v25)
+        if (*v38 != v25)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v38 + 1) + 8 * j) doubleValue];
+        [*(*(&v37 + 1) + 8 * j) doubleValue];
         v26 = v28 + v26;
       }
 
-      v24 = [allValues countByEnumeratingWithState:&v38 objects:v52 count:16];
+      v24 = [allValues countByEnumeratingWithState:&v37 objects:v51 count:16];
     }
 
     while (v24);
@@ -325,11 +319,11 @@ LABEL_14:
       {
         _descriptionForSubScores = [(MNDepartureUpdater *)self _descriptionForSubScores];
         *buf = 134218498;
-        v47 = v30;
-        v48 = 2048;
-        v49 = UInteger * 0.01;
-        v50 = 2112;
-        v51 = _descriptionForSubScores;
+        v46 = v30;
+        v47 = 2048;
+        v48 = UInteger * 0.01;
+        v49 = 2112;
+        v50 = _descriptionForSubScores;
         _os_log_impl(&dword_1D311E000, routeMatch, OS_LOG_TYPE_INFO, "Not allowing departure yet because score (%0.2f) is below the minimum score (%g). Sub scores:%@", buf, 0x20u);
       }
 
@@ -341,9 +335,9 @@ LABEL_14:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v47 = v30;
-        v48 = 2048;
-        v49 = UInteger * 0.01;
+        v46 = v30;
+        v47 = 2048;
+        v48 = UInteger * 0.01;
         _os_log_impl(&dword_1D311E000, routeMatch, OS_LOG_TYPE_DEFAULT, "Allow departure because score (%0.2f) is above the minimum score (%g).", buf, 0x16u);
       }
 
@@ -359,7 +353,6 @@ LABEL_14:
   }
 
 LABEL_34:
-  v35 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

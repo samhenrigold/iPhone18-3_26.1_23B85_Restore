@@ -55,7 +55,7 @@
 
 - (void)startIndoorOutdoorUpdates
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2A78 != -1)
   {
     dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
@@ -77,18 +77,20 @@
       dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v16[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A80, 0, "IndoorOutdoor, starting indoor/outdoor updates", v16, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMIndoorOutdoorManager startIndoorOutdoorUpdates]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
-  v6 = objc_opt_class();
-  if (objc_msgSend_isIndoorOutdoorStateAvailable(v6, v7, v8))
+  v7 = objc_opt_class();
+  if (objc_msgSend_isIndoorOutdoorStateAvailable(v7, v8, v9))
   {
-    objc_msgSend__startIndoorOutdoorUpdates(self->_internal, v9, v10);
+    objc_msgSend__startIndoorOutdoorUpdates(self->_internal, v10, v11);
   }
 
   else
@@ -96,18 +98,16 @@
     objc_loadWeak(&self->_delegate);
     if (objc_opt_respondsToSelector())
     {
-      v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v11, @"CMErrorDomain", 109, 0);
+      v13 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v12, @"CMErrorDomain", 109, 0);
       Weak = objc_loadWeak(&self->_delegate);
-      objc_msgSend_indoorOutdoorManager_failedToStartUpdatesWithError_(Weak, v14, self, v12);
+      objc_msgSend_indoorOutdoorManager_failedToStartUpdatesWithError_(Weak, v15, self, v13);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopIndoorOutdoorUpdates
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2A78 != -1)
   {
     dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
@@ -129,21 +129,22 @@
       dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
     }
 
-    v7 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A80, 0, "IndoorOutdoor, stopping indoor/outdoor updates", v9, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMIndoorOutdoorManager stopIndoorOutdoorUpdates]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
   objc_msgSend__stopIndoorOutdoorUpdates(self->_internal, v5, v6);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lastKnownIndoorOutdoorStateWithHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2A78 != -1)
   {
     dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
@@ -165,27 +166,27 @@
       dispatch_once(&qword_1EAFE2A78, &unk_1F0E27E20);
     }
 
-    v7 = _os_log_send_and_compose_impl();
+    v14[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A80, 2, "IndoorOutdoor, getting last known state", v14, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMIndoorOutdoorManager lastKnownIndoorOutdoorStateWithHandler:]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
-  v8 = objc_opt_class();
-  if (objc_msgSend_isIndoorOutdoorStateAvailable(v8, v9, v10))
+  v9 = objc_opt_class();
+  if (objc_msgSend_isIndoorOutdoorStateAvailable(v9, v10, v11))
   {
-    objc_msgSend__lastKnownIndoorOutdoorStateWithHandler_(self->_internal, v11, handler);
+    objc_msgSend__lastKnownIndoorOutdoorStateWithHandler_(self->_internal, v12, handler);
   }
 
   else
   {
-    v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v11, @"CMErrorDomain", 109, 0);
-    (*(handler + 2))(handler, 0, v12);
+    v13 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v12, @"CMErrorDomain", 109, 0);
+    (*(handler + 2))(handler, 0, v13);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

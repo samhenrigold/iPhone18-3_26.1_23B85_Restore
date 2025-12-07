@@ -581,7 +581,7 @@ LABEL_6:
   return v5 & 1;
 }
 
-uint64_t __60__UIKeyboardAutocorrectionController_isSmartReplyCandidates__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__UIKeyboardAutocorrectionController_isSmartReplyCandidates__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 candidateProperty];
   *(*(*(a1 + 32) + 8) + 24) &= result >> 1;

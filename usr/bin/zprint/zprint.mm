@@ -1,4 +1,4 @@
-void start(int a1, char **a2)
+void start(unsigned int a1, char **a2)
 {
   names = 0;
   namesCnt = 0;
@@ -791,7 +791,7 @@ uint64_t sub_10000191C(uint64_t result, uint64_t a2, unsigned int a3, uint64_t a
     v9 = 0;
     v10 = a3;
     v11 = result;
-    v42 = a3;
+    v40 = a3;
     while (!*(a4 + v9))
     {
 LABEL_71:
@@ -842,9 +842,9 @@ LABEL_71:
         v20 = v19 - v18;
         qword_10000C248 += v19 - v18;
         printf("\t\t\t\t\tWASTED: %llu\n", v19);
-        v39 = v20;
-        v10 = v42;
-        printf("\t\t\t\t\tFRAGMENTED: %llu\n", v39);
+        v38 = v20;
+        v10 = v40;
+        printf("\t\t\t\t\tFRAGMENTED: %llu\n", v38);
         result = printf("\t\t\t\t\tCOLLECTABLE: %llu\n", v18);
       }
 
@@ -872,7 +872,7 @@ LABEL_24:
       {
         v30 = __OFSUB__(v24, v26);
         v31 = v24 - v26;
-        v10 = v42;
+        v10 = v40;
         if (!((v31 < 0) ^ v30 | (v31 == 0)))
         {
           do
@@ -927,7 +927,7 @@ LABEL_24:
     }
 
     putchar(v29);
-    v10 = v42;
+    v10 = v40;
 LABEL_31:
     a2 = v23;
     if (byte_10000C078 == 1)
@@ -965,12 +965,10 @@ LABEL_31:
       printf(" %*llu", unk_10000C0D4 * dword_10000C0D0, v13[1] / v13[3]);
     }
 
-    v32 = v13[2];
-    if (v32 <= 0x26259FFFFLL)
+    if (v13[2] <= 0x26259FFFFuLL)
     {
       if (byte_10000C0F8)
       {
-        v40 = v32 / v13[3];
         printf(" %*llu");
       }
     }
@@ -995,31 +993,31 @@ LABEL_31:
       printf(" %*llu", unk_10000C154 * dword_10000C150, v13[4] / v13[3]);
     }
 
-    v33 = *v13 * v13[3];
-    qword_10000C240 += v33;
-    v34 = v13[1];
-    qword_10000C238 += v34;
+    v32 = *v13 * v13[3];
+    qword_10000C240 += v32;
+    v33 = v13[1];
+    qword_10000C238 += v33;
     qword_10000C258 += v13[5];
-    v35 = v13[7];
-    qword_10000C250 += v35 >> 1;
-    v36 = v34 - (v33 + (v35 >> 1));
-    qword_10000C248 += v36;
-    v37 = 67;
-    if ((v35 & 1) == 0)
+    v34 = v13[7];
+    qword_10000C250 += v34 >> 1;
+    v35 = v33 - (v32 + (v34 >> 1));
+    qword_10000C248 += v35;
+    v36 = 67;
+    if ((v34 & 1) == 0)
+    {
+      v36 = 32;
+    }
+
+    v37 = 88;
+    if (!v13[6])
     {
       v37 = 32;
     }
 
-    v38 = 88;
-    if (!v13[6])
-    {
-      v38 = 32;
-    }
-
-    printf(" %c%c", v38, v37);
+    printf(" %c%c", v37, v36);
     if (byte_10000C198 == 1)
     {
-      if (v36 > 0x3FF)
+      if (v35 > 0x3FF)
       {
         printf(" %*lluK");
       }
@@ -1032,7 +1030,7 @@ LABEL_31:
 
     if (byte_10000C1B8 == 1)
     {
-      if (v35 > 0x7FF)
+      if (v34 > 0x7FF)
       {
         printf(" %*lluK");
       }
@@ -1068,7 +1066,7 @@ void sub_100002000(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   v67 = a3;
   v11 = a2;
   v12 = a2;
-  v13 = __chkstk_darwin();
+  v13 = __chkstk_darwin(a1);
   v15 = &v66 - v14;
   v69 = qword_10000C238;
   v16 = &off_10000C000;
@@ -1469,22 +1467,20 @@ uint64_t sub_10000299C(uint64_t a1, int *a2, int *a3)
   }
 }
 
-CFComparisonResult sub_1000029D0(uint64_t a1, int *a2, int *a3)
+CFComparisonResult sub_1000029D0(uint64_t *a1, unsigned int *a2, unsigned int *a3)
 {
-  v5 = *(a1 + 8);
-  v6 = sub_100002BB8(*a2, *a1);
-  v7 = *(a1 + 8);
-  v8 = sub_100002BB8(*a3, *a1);
-  v9 = CFStringCreateWithCString(kCFAllocatorDefault, v6, 0x8000100u);
-  v10 = CFStringCreateWithCString(kCFAllocatorDefault, v8, 0x8000100u);
-  v13.length = CFStringGetLength(v9);
-  v13.location = 0;
-  v11 = CFStringCompareWithOptionsAndLocale(v9, v10, v13, 0x40uLL, 0);
-  CFRelease(v9);
-  CFRelease(v10);
+  v5 = sub_100002BB8(*a2, *a1);
+  v6 = sub_100002BB8(*a3, *a1);
+  v7 = CFStringCreateWithCString(kCFAllocatorDefault, v5, 0x8000100u);
+  v8 = CFStringCreateWithCString(kCFAllocatorDefault, v6, 0x8000100u);
+  v11.length = CFStringGetLength(v7);
+  v11.location = 0;
+  v9 = CFStringCompareWithOptionsAndLocale(v7, v8, v11, 0x40uLL, 0);
+  CFRelease(v7);
+  CFRelease(v8);
+  free(v5);
   free(v6);
-  free(v8);
-  return v11;
+  return v9;
 }
 
 void sub_100002AB4(vm_address_t address, void *a2, unsigned int a3, char a4)
@@ -1517,7 +1513,7 @@ LABEL_12:
 
 char *sub_100002BB8(int a1, uint64_t a2)
 {
-  v20 = 0;
+  v18 = 0;
   __s = 0;
   v3 = qword_10000C268 + 176 * a1;
   if ((*v3 & 0x400) != 0)
@@ -1532,7 +1528,7 @@ char *sub_100002BB8(int a1, uint64_t a2)
   {
     if (v5 == 2)
     {
-      if (Path && (v17 = *(v3 + 8), CSSymbolicatorGetSymbolWithAddressAtTime(), (Name = CSSymbolGetName()) != 0))
+      if (Path && (CSSymbolicatorGetSymbolWithAddressAtTime(), (Name = CSSymbolGetName()) != 0))
       {
         asprintf(&__s, "%s", Name);
         CSSymbolicatorGetSourceInfoWithAddressAtTime();
@@ -1556,20 +1552,19 @@ char *sub_100002BB8(int a1, uint64_t a2)
     {
       if (v5 == 3)
       {
-        v22 = 0;
+        v20 = 0;
         if (Path > 0xE)
         {
-          asprintf(&v22, "VM_KERN_COUNT_%lld");
+          asprintf(&v20, "VM_KERN_COUNT_%lld");
         }
 
         else
         {
-          v12 = (&off_100008198)[Path];
-LABEL_17:
-          asprintf(&v22, "%s");
+LABEL_16:
+          asprintf(&v20, "%s");
         }
 
-        goto LABEL_39;
+        goto LABEL_38;
       }
 
       asprintf(&__s, "");
@@ -1603,7 +1598,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v22 = 0;
+  v20 = 0;
   switch(Path)
   {
     case 0uLL:
@@ -1642,22 +1637,22 @@ LABEL_9:
     case 0x21uLL:
     case 0x22uLL:
     case 0x23uLL:
-      goto LABEL_17;
+      goto LABEL_16;
     default:
       if (Path == 255)
       {
-        goto LABEL_17;
+        goto LABEL_16;
       }
 
-      asprintf(&v22, "VM_KERN_MEMORY_%lld");
+      asprintf(&v20, "VM_KERN_MEMORY_%lld");
       break;
   }
 
-LABEL_39:
+LABEL_38:
   Path = 0;
-  v8 = v22;
-  __s = v22;
-  if (!v22)
+  v8 = v20;
+  __s = v20;
+  if (!v20)
   {
     return v8;
   }
@@ -1667,42 +1662,42 @@ LABEL_10:
   if ((*v3 & 0x800) != 0)
   {
     v10 = strlen(v8);
-    v22 = 0;
+    v20 = 0;
     if ((v9 & 0x2000) != 0)
     {
-      asprintf(&v22, "size.%d", *(v3 + 66));
+      asprintf(&v20, "size.%d", *(v3 + 66));
       v8 = __s;
-      v11 = v22;
+      v11 = v20;
     }
 
     else
     {
       v11 = (a2 + 80 * *(v3 + 66));
-      v22 = v11;
+      v20 = v11;
     }
 
-    v13 = strnlen(v11, 0x50uLL);
-    if (v13 + v10 <= 0x3D || v13 >= 0x3D)
+    v12 = strnlen(v11, 0x50uLL);
+    if (v12 + v10 <= 0x3D || v12 >= 0x3D)
     {
-      v15 = v10;
+      v14 = v10;
     }
 
     else
     {
-      v15 = 61 - v13;
+      v14 = 61 - v12;
     }
 
-    asprintf(&v20, "%.*s[%.*s]", v15, v8, v13, v11);
+    asprintf(&v18, "%.*s[%.*s]", v14, v8, v12, v11);
     free(__s);
-    v8 = v20;
-    __s = v20;
+    v8 = v18;
+    __s = v18;
   }
 
   if (v8 && Path)
   {
-    asprintf(&v20, "%-64s%3ld", v8, Path);
+    asprintf(&v18, "%-64s%3ld", v8, Path);
     free(__s);
-    return v20;
+    return v18;
   }
 
   return v8;

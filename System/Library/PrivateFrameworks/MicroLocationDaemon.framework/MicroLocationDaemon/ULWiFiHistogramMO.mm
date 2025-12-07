@@ -11,30 +11,30 @@
   v8 = [[ULWiFiHistogramMO alloc] initWithContext:context];
   [(ULWiFiHistogramMO *)v8 setLoi:mOCopy];
   [(ULWiFiHistogramMO *)v8 setTimestamp:*o];
-  CLMicroLocationProto::WifiHistogram::ByteSize((o + 24));
+  CLMicroLocationProto::WifiHistogram::ByteSize((o + 24), v9);
   operator new[]();
 }
 
 - (optional<ULWiFiHistogramDO>)convertToDO
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(ULWiFiHistogramMO *)self timestamp];
-  v17 = v4;
+  v16 = v4;
   v5 = [(ULWiFiHistogramMO *)self loi];
   loiId = [v5 loiId];
   v7 = loiId;
   if (loiId)
   {
-    [loiId boostUUID];
+    objc_msgSend_boostUUID(loiId);
   }
 
   else
   {
-    v20 = 0uLL;
-    v21 = 0;
+    v19 = 0uLL;
+    v20 = 0;
   }
 
-  if ((v21 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -48,32 +48,32 @@
       _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_ERROR, "convertToDO: wifiHistogram's loiId has no value", buf, 2u);
     }
 
-    v20 = 0uLL;
-    if ((v21 & 1) == 0)
+    v19 = 0uLL;
+    if ((v20 & 1) == 0)
     {
-      v21 = 1;
+      v20 = 1;
     }
   }
 
-  CLMicroLocationProto::WifiHistogram::WifiHistogram(v16);
+  CLMicroLocationProto::WifiHistogram::WifiHistogram(v15);
   histogram = [(ULWiFiHistogramMO *)self histogram];
   v10 = histogram;
   bytes = [histogram bytes];
   histogram2 = [(ULWiFiHistogramMO *)self histogram];
   [histogram2 length];
-  LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v16, bytes);
+  LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v15, bytes);
 
   if (bytes)
   {
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    ULWiFiHistogramDO::ULWiFiHistogramDO(buf, &v17, &v20, v16);
+    ULWiFiHistogramDO::ULWiFiHistogramDO(buf, &v16, &v19, v15);
     ULWiFiHistogramDO::ULWiFiHistogramDO(retstr, buf);
     LOBYTE(retstr[1].var0.var3.var1.var3) = 1;
-    CLMicroLocationProto::WifiHistogram::~WifiHistogram(&v19);
+    CLMicroLocationProto::WifiHistogram::~WifiHistogram(&v18);
   }
 
   else
@@ -94,8 +94,7 @@
     LOBYTE(retstr[1].var0.var3.var1.var3) = 0;
   }
 
-  CLMicroLocationProto::WifiHistogram::~WifiHistogram(v16);
-  v15 = *MEMORY[0x277D85DE8];
+  CLMicroLocationProto::WifiHistogram::~WifiHistogram(v15);
   return result;
 }
 

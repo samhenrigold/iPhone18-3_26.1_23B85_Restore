@@ -35,30 +35,28 @@
 
 - (NSString)description
 {
-  v22[4] = *MEMORY[0x1E69E9840];
-  v20 = MEMORY[0x1E696AEC0];
-  v19 = objc_opt_class();
+  v21[4] = *MEMORY[0x1E69E9840];
+  v19 = MEMORY[0x1E696AEC0];
+  v18 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
   identifier = [(LACDTOMutablePolicyEvaluationRequest *)self identifier];
   v4 = [v3 stringWithFormat:@"identifier: %@", identifier];
-  v22[0] = v4;
+  v21[0] = v4;
   v5 = MEMORY[0x1E696AEC0];
   v6 = NSStringFromLACPolicy([(LACDTOMutablePolicyEvaluationRequest *)self policy]);
   v7 = [v5 stringWithFormat:@"policy: %@", v6];
-  v22[1] = v7;
+  v21[1] = v7;
   v8 = MEMORY[0x1E696AEC0];
   options = [(LACDTOMutablePolicyEvaluationRequest *)self options];
   v10 = [v8 stringWithFormat:@"options: %@", options];
-  v22[2] = v10;
+  v21[2] = v10;
   v11 = MEMORY[0x1E696AEC0];
   environment = [(LACDTOMutablePolicyEvaluationRequest *)self environment];
   v13 = [v11 stringWithFormat:@"environment: %@", environment];
-  v22[3] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
+  v21[3] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
   v15 = [v14 componentsJoinedByString:@" "];;
-  v16 = [v20 stringWithFormat:@"<%@ %p %@>", v19, self, v15];;
-
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = [v19 stringWithFormat:@"<%@ %p %@>", v18, self, v15];;
 
   return v16;
 }

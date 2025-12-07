@@ -13,6 +13,7 @@
 - (void)recentServerRepresentationsWithCompletionHandler:(id)handler;
 - (void)removeRecentServerWithRepresentation:(id)representation completion:(id)completion;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ServerAuthUIViewController
@@ -84,6 +85,18 @@
   [NSLayoutConstraint activateConstraints:v14];
 
   [v4 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  extensionContext = [(ServerAuthUIViewController *)self extensionContext];
+  initialURL = [extensionContext initialURL];
+
+  if (initialURL)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_authenticaionVC);
+    [WeakRetained setInitialConnectionURL:initialURL];
+  }
 }
 
 - (void)cancel

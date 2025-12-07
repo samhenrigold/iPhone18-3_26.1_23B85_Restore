@@ -3,6 +3,7 @@
 - (_INPBSetRadioStationIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)radioTypeAsString:(int)string;
 - (int)StringAsRadioType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -322,19 +323,18 @@ LABEL_32:
 
   if ([(_INPBSetRadioStationIntent *)self hasRadioType])
   {
-    radioType = self->_radioType;
     PBDataWriterWriteInt32Field();
   }
 
   stationName = [(_INPBSetRadioStationIntent *)self stationName];
 
-  v14 = toCopy;
+  v13 = toCopy;
   if (stationName)
   {
     stationName2 = [(_INPBSetRadioStationIntent *)self stationName];
     PBDataWriterWriteSubmessage();
 
-    v14 = toCopy;
+    v13 = toCopy;
   }
 }
 
@@ -369,6 +369,21 @@ LABEL_32:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)radioTypeAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283260[string - 1];
   }
 
   return v4;

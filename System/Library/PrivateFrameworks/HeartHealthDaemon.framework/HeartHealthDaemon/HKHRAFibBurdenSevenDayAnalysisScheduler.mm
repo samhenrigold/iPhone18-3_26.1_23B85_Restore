@@ -119,39 +119,38 @@
 
 - (void)_forceAnalysis
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKHRAFibBurdenLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Analysis forced.", &v5, 0xCu);
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Analysis forced.", &v4, 0xCu);
   }
 
   [(HKHRDatabaseAnalysisScheduler *)self->_scheduler forceAnalysis];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_performAnalysisWithFeatureStatus:(id)status error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   statusCopy = status;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStatus_error___block_invoke;
-  v26[3] = &unk_27865F948;
-  v26[4] = self;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStatus_error___block_invoke;
+  v25[3] = &unk_27865F948;
+  v25[4] = self;
   v7 = statusCopy;
-  v27 = v7;
-  v28 = &v29;
-  v8 = MEMORY[0x22AACDB50](v26);
+  v26 = v7;
+  v27 = &v28;
+  v8 = MEMORY[0x22AACDB50](v25);
   v9 = HKHRAFibBurdenLogForCategory();
   v10 = _HKLogSignpostIDGenerate();
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -172,7 +171,7 @@
       if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         *buf = 138412290;
-        v36 = v15;
+        v35 = v15;
         _os_signpost_emit_with_name_impl(&dword_229486000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v10, "afib-burden-analysis", "dayIndexRange=%@", buf, 0xCu);
       }
     }
@@ -186,7 +185,7 @@
       if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
       {
         *buf = 138412290;
-        v36 = v15;
+        v35 = v15;
         _os_signpost_emit_with_name_impl(&dword_229486000, v20, OS_SIGNPOST_INTERVAL_END, v10, "afib-burden-analysis", "dayIndexRange=%@", buf, 0xCu);
       }
     }
@@ -197,7 +196,7 @@
     v18 = v8[2](v8);
   }
 
-  v21 = v30[5];
+  v21 = v29[5];
   v22 = v21;
   if (v21)
   {
@@ -213,8 +212,7 @@
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 
   return v18;
 }
@@ -235,7 +233,7 @@ id __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStat
 
 - (void)_logAnalysisResult:(int64_t)result error:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (result > 2)
   {
@@ -246,7 +244,7 @@ id __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStat
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
+          v11 = 138412290;
           selfCopy6 = self;
           v8 = "[%@] Burden analysis run, no sample created as there was not enough tachograms for the previous seven days";
           goto LABEL_20;
@@ -258,7 +256,7 @@ id __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStat
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
+          v11 = 138412290;
           selfCopy6 = self;
           v8 = "[%@] Burden analysis run, no sample created as there was not enough days in previous seven days with minimum tachogram threshold";
           goto LABEL_20;
@@ -270,7 +268,7 @@ id __83__HKHRAFibBurdenSevenDayAnalysisScheduler__performAnalysisWithFeatureStat
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
+          v11 = 138412290;
           selfCopy6 = self;
           v8 = "[%@] Burden analysis run, no sample created as there was not enough segments";
           goto LABEL_20;
@@ -291,7 +289,7 @@ LABEL_22:
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
+          v11 = 138412290;
           selfCopy6 = self;
           v8 = "[%@] Burden analysis run and sample created";
           goto LABEL_20;
@@ -303,15 +301,15 @@ LABEL_22:
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412546;
+          v11 = 138412546;
           selfCopy6 = self;
-          v14 = 2112;
-          v15 = errorCopy;
+          v13 = 2112;
+          v14 = errorCopy;
           v8 = "[%@] Burden analysis run, no sample created due to infrastructure error: %@";
           v9 = v7;
           v10 = 22;
 LABEL_21:
-          _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
+          _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, v8, &v11, v10);
           goto LABEL_22;
         }
 
@@ -321,7 +319,7 @@ LABEL_21:
         v7 = HKHRAFibBurdenLogForCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
+          v11 = 138412290;
           selfCopy6 = self;
           v8 = "[%@] Burden analysis run, no sample created as there was not enough time since last sample";
 LABEL_20:
@@ -333,8 +331,6 @@ LABEL_20:
         goto LABEL_22;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportAnalysisResultsToDelegate:(id)delegate featureStatus:(id)status
@@ -365,7 +361,7 @@ LABEL_6:
 
 - (void)_saveLastAnalysisCompletedDateForResult:(id)result
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = [result result];
   if (result <= 5)
   {
@@ -383,9 +379,9 @@ LABEL_6:
       syncedKeyValueDomain = self->_syncedKeyValueDomain;
       date = [MEMORY[0x277CBEAA8] date];
       v8 = *MEMORY[0x277D12EB0];
-      v12 = 0;
-      [(HDKeyValueDomain *)syncedKeyValueDomain setDate:date forKey:v8 error:&v12];
-      v9 = v12;
+      v11 = 0;
+      [(HDKeyValueDomain *)syncedKeyValueDomain setDate:date forKey:v8 error:&v11];
+      v9 = v11;
 
       if (v9)
       {
@@ -412,8 +408,6 @@ LABEL_6:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HKHRAFibBurdenSevenDayAnalysisSchedulerDelegate)delegate
@@ -421,22 +415,6 @@ LABEL_6:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)analysisSchedulerDidFire:completion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%@] Error when getting initial feature status: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveLastAnalysisCompletedDateForResult:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%@] Error when saving analysis date: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -182,19 +182,18 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_tokenText)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    startMilliSeconds = self->_startMilliSeconds;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -213,9 +212,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  endMilliSeconds = self->_endMilliSeconds;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -229,9 +227,8 @@ LABEL_6:
   }
 
 LABEL_18:
-  silenceStartMilliSeconds = self->_silenceStartMilliSeconds;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -245,28 +242,26 @@ LABEL_7:
   }
 
 LABEL_19:
-  confidence = self->_confidence;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_8:
-    addSpaceAfter = self->_addSpaceAfter;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_phoneSeq)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_ipaPhoneSeq)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -454,7 +449,6 @@ LABEL_7:
     }
   }
 
-  v6 = *(equalCopy + 52);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 52) & 8) == 0 || self->_startMilliSeconds != *(equalCopy + 9))
@@ -515,7 +509,7 @@ LABEL_7:
     }
 
 LABEL_31:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_32;
   }
 
@@ -524,7 +518,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v11 = *(equalCopy + 48);
   if (self->_addSpaceAfter)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -548,17 +541,17 @@ LABEL_26:
   ipaPhoneSeq = self->_ipaPhoneSeq;
   if (ipaPhoneSeq | *(equalCopy + 2))
   {
-    v9 = [(NSString *)ipaPhoneSeq isEqual:?];
+    v8 = [(NSString *)ipaPhoneSeq isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_32:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

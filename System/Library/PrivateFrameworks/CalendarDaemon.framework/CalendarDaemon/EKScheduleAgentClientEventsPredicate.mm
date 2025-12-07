@@ -24,12 +24,12 @@
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
-  v5 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v6 = v5;
-  if (v5 && [v5 count])
+  v6 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  v7 = v6;
+  if (v6 && [v6 count])
   {
-    v7 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-    FilterFromRowIDs = CreateFilterFromRowIDs(v6, v7);
+    v8 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+    FilterFromRowIDs = CreateFilterFromRowIDs(v7, v8, 2, database);
   }
 
   else
@@ -37,10 +37,10 @@
     FilterFromRowIDs = 0;
   }
 
-  v9 = CalDatabaseCopyOfAllEventsWithScheduleAgentClientAndCalendarUID();
-  if (!v9)
+  v10 = CalDatabaseCopyOfAllEventsWithScheduleAgentClientAndCalendarUID();
+  if (!v10)
   {
-    v12 = 0;
+    v13 = 0;
     if (!FilterFromRowIDs)
     {
       goto LABEL_13;
@@ -49,25 +49,25 @@
     goto LABEL_12;
   }
 
-  v10 = v9;
-  Count = CFArrayGetCount(v9);
-  v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
+  v11 = v10;
+  Count = CFArrayGetCount(v10);
+  v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
-      CFArrayGetValueAtIndex(v10, i);
-      v14 = CalEventOccurrenceCreateForInitialOccurrence();
-      if (v14)
+      CFArrayGetValueAtIndex(v11, i);
+      v15 = CalEventOccurrenceCreateForInitialOccurrence();
+      if (v15)
       {
-        v15 = v14;
-        [v12 addObject:v14];
-        CFRelease(v15);
+        v16 = v15;
+        [v13 addObject:v15];
+        CFRelease(v16);
       }
     }
   }
 
-  CFRelease(v10);
+  CFRelease(v11);
   if (FilterFromRowIDs)
   {
 LABEL_12:
@@ -76,7 +76,7 @@ LABEL_12:
 
 LABEL_13:
 
-  return v12;
+  return v13;
 }
 
 @end

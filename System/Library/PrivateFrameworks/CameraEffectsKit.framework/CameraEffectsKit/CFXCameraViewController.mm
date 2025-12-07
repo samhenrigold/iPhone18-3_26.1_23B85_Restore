@@ -257,10 +257,10 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
 
 - (void)viewDidLoad
 {
-  v124[4] = *MEMORY[0x277D85DE8];
-  v123.receiver = self;
-  v123.super_class = CFXCameraViewController;
-  [(CFXCameraViewController *)&v123 viewDidLoad];
+  v125[4] = *MEMORY[0x277D85DE8];
+  v124.receiver = self;
+  v124.super_class = CFXCameraViewController;
+  [(CFXCameraViewController *)&v124 viewDidLoad];
   v3 = isStreamingMode([(CFXCameraViewController *)self captureMode]);
   if (v3)
   {
@@ -273,7 +273,7 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
     v4 = [currentDevice userInterfaceIdiom] == 0;
   }
 
-  v122 = v3;
+  v123 = v3;
   if (v3 | !+[JFXOrientationMonitor initialized])
   {
     [JFXOrientationMonitor initializeWithViewController:self];
@@ -296,7 +296,7 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
   captureViewController3 = [(CFXCameraViewController *)self captureViewController];
   [captureViewController3 setAspectRatioCrop:{-[CFXCameraViewController aspectRatioCrop](self, "aspectRatioCrop")}];
 
-  if ((CFXCaptureCapabilitiesIsCTMSupported() & 1) == 0)
+  if ((CFXCaptureCapabilitiesIsCTMSupported(v14) & 1) == 0)
   {
     captureViewController4 = [(CFXCameraViewController *)self captureViewController];
     [captureViewController4 setFlashMode:{-[CFXCameraViewController initialFlashMode](self, "initialFlashMode")}];
@@ -338,10 +338,10 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
     [captureViewController15 setCaptureControlsContainerHeightConstraint:controlsContainerViewHeightConstraint];
   }
 
-  v36 = [CFXCameraControlsViewController alloc];
+  v37 = [CFXCameraControlsViewController alloc];
   captureViewController16 = [(CFXCameraViewController *)self captureViewController];
-  v38 = [(CFXCameraControlsViewController *)v36 initWithDelegate:captureViewController16 captureMode:[(CFXCameraViewController *)self captureMode]];
-  [(CFXCameraViewController *)self setCameraControlsViewController:v38];
+  v39 = [(CFXCameraControlsViewController *)v37 initWithDelegate:captureViewController16 captureMode:[(CFXCameraViewController *)self captureMode]];
+  [(CFXCameraViewController *)self setCameraControlsViewController:v39];
 
   if ([(CFXCameraViewController *)self captureMode]== 2)
   {
@@ -370,8 +370,8 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
     [controlsContainerViewHeightConstraint2 setActive:0];
 
     controlsContainerViewTopConstraint2 = [cameraControls6 controlsContainerViewTopConstraint];
-    LODWORD(v47) = 1144750080;
-    [controlsContainerViewTopConstraint2 setPriority:v47];
+    LODWORD(v48) = 1144750080;
+    [controlsContainerViewTopConstraint2 setPriority:v48];
   }
 
   view = [cameraControls6 view];
@@ -379,19 +379,18 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
   captureViewController18 = [(CFXCameraViewController *)self captureViewController];
   effectBrowserContentPresenterViewController = [captureViewController18 effectBrowserContentPresenterViewController];
 
-  v52 = [[CFXEffectBrowserViewController alloc] initWithDelegate:self contentPresenter:effectBrowserContentPresenterViewController];
-  [(CFXCameraViewController *)self setEffectBrowserViewController:v52];
+  v53 = [[CFXEffectBrowserViewController alloc] initWithDelegate:self contentPresenter:effectBrowserContentPresenterViewController];
+  [(CFXCameraViewController *)self setEffectBrowserViewController:v53];
 
   effectBrowserViewController = [(CFXCameraViewController *)self effectBrowserViewController];
   [effectBrowserViewController setContentPresenterDelegate:effectBrowserContentPresenterViewController];
 
-  [effectBrowserContentPresenterViewController setDelegate:self];
-  if (CFXCaptureCapabilitiesIsCTMSupported())
+  if (CFXCaptureCapabilitiesIsCTMSupported([effectBrowserContentPresenterViewController setDelegate:self]))
   {
     captureMode2 = [(CFXCameraViewController *)self captureMode];
     if (captureMode2 == 2)
     {
-      v55 = 0;
+      v56 = 0;
     }
 
     else
@@ -401,11 +400,11 @@ uint64_t __88__CFXCameraViewController_initWithCaptureMode_devicePosition_flashM
         goto LABEL_21;
       }
 
-      v55 = [(CFXCameraViewController *)self aspectRatioCrop]!= 1;
+      v56 = [(CFXCameraViewController *)self aspectRatioCrop]!= 1;
     }
 
     effectBrowserViewController2 = [(CFXCameraViewController *)self effectBrowserViewController];
-    [effectBrowserViewController2 setShowAppIconBorders:v55];
+    [effectBrowserViewController2 setShowAppIconBorders:v56];
   }
 
 LABEL_21:
@@ -431,45 +430,45 @@ LABEL_21:
   [view2 setTranslatesAutoresizingMaskIntoConstraints:0];
   topAnchor = [view2 topAnchor];
   topAnchor2 = [controlsContainerView topAnchor];
-  v63 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v64 = [topAnchor constraintEqualToAnchor:topAnchor2];
 
   currentDevice2 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice2 userInterfaceIdiom];
 
-  v121 = v4;
-  v119 = view;
-  v120 = cameraControls6;
-  v117 = effectBrowserContentPresenterViewController;
+  v122 = v4;
+  v120 = view;
+  v121 = cameraControls6;
+  v118 = effectBrowserContentPresenterViewController;
   if (userInterfaceIdiom)
   {
     heightAnchor = [view2 heightAnchor];
-    v67 = [heightAnchor constraintEqualToConstant:44.0];
+    v68 = [heightAnchor constraintEqualToConstant:44.0];
 
-    v63 = v67;
+    v64 = v68;
   }
 
   leadingAnchor = [view2 leadingAnchor];
   [controlsContainerView leadingAnchor];
-  v69 = v68 = view2;
-  v70 = [leadingAnchor constraintEqualToAnchor:v69];
-  v124[0] = v70;
-  trailingAnchor = [v68 trailingAnchor];
+  v70 = v69 = view2;
+  v71 = [leadingAnchor constraintEqualToAnchor:v70];
+  v125[0] = v71;
+  trailingAnchor = [v69 trailingAnchor];
   trailingAnchor2 = [controlsContainerView trailingAnchor];
-  v73 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v124[1] = v73;
-  v124[2] = v63;
-  v115 = v63;
-  v116 = v68;
-  bottomAnchor = [v68 bottomAnchor];
-  v118 = controlsContainerView;
+  v74 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v125[1] = v74;
+  v125[2] = v64;
+  v116 = v64;
+  v117 = v69;
+  bottomAnchor = [v69 bottomAnchor];
+  v119 = controlsContainerView;
   bottomAnchor2 = [controlsContainerView bottomAnchor];
-  v76 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v124[3] = v76;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:4];
-  [v113 activateConstraints:v77];
+  v77 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v125[3] = v77;
+  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:4];
+  [v114 activateConstraints:v78];
 
   effectBrowserViewController5 = [(CFXCameraViewController *)self effectBrowserViewController];
-  [effectBrowserViewController5 didMoveToParentViewController:v120];
+  [effectBrowserViewController5 didMoveToParentViewController:v121];
 
   cameraControlsViewController3 = [(CFXCameraViewController *)self cameraControlsViewController];
   view4 = [cameraControlsViewController3 view];
@@ -479,33 +478,33 @@ LABEL_21:
   captureViewController20 = [(CFXCameraViewController *)self captureViewController];
   [(UIViewController *)self jfxAddChildViewController:captureViewController20 constrainRelativeToSafeAreas:0];
 
-  if (v121)
+  if (v122)
   {
     captureViewController21 = [(CFXCameraViewController *)self captureViewController];
     cameraControls7 = [captureViewController21 cameraControls];
     [(UIViewController *)self jfxAddChildViewController:cameraControls7 constrainRelativeToSafeAreas:0];
 
-    v85 = MEMORY[0x277D75AC8];
+    v86 = MEMORY[0x277D75AC8];
     jfxBundle2 = [MEMORY[0x277CCA8D8] jfxBundle];
-    v87 = [v85 storyboardWithName:@"CFXNonTransformedLiveCaptureContainerViewController" bundle:jfxBundle2];
-    v88 = [v87 instantiateViewControllerWithIdentifier:@"CFXNonTransformedLiveCaptureContainerViewController"];
+    v88 = [v86 storyboardWithName:@"CFXNonTransformedLiveCaptureContainerViewController" bundle:jfxBundle2];
+    v89 = [v88 instantiateViewControllerWithIdentifier:@"CFXNonTransformedLiveCaptureContainerViewController"];
 
-    [v88 loadViewIfNeeded];
+    [v89 loadViewIfNeeded];
     thermalPolicyManager = [(CFXCameraViewController *)self thermalPolicyManager];
-    liveCaptureViewController = [v88 liveCaptureViewController];
+    liveCaptureViewController = [v89 liveCaptureViewController];
     [liveCaptureViewController setThermalPolicyManager:thermalPolicyManager];
 
     blackColor = [MEMORY[0x277D75348] blackColor];
-    view5 = [v88 view];
+    view5 = [v89 view];
     [view5 setBackgroundColor:blackColor];
 
     captureViewController22 = [(CFXCameraViewController *)self captureViewController];
-    liveCaptureViewController2 = [v88 liveCaptureViewController];
+    liveCaptureViewController2 = [v89 liveCaptureViewController];
     [captureViewController22 setLiveCaptureViewController:liveCaptureViewController2];
 
-    [(UIViewController *)self jfxAddChildViewController:v88 constrainRelativeToSafeAreas:0];
+    [(UIViewController *)self jfxAddChildViewController:v89 constrainRelativeToSafeAreas:0];
     view6 = [(CFXCameraViewController *)self view];
-    view7 = [v88 view];
+    view7 = [v89 view];
     captureViewController23 = [(CFXCameraViewController *)self captureViewController];
     view8 = [captureViewController23 view];
     [view6 insertSubview:view7 belowSubview:view8];
@@ -518,15 +517,15 @@ LABEL_21:
     liveCaptureContainerContainer = [captureViewController25 liveCaptureContainerContainer];
     [liveCaptureContainerContainer removeFromSuperview];
 
-    liveCaptureContainer2 = [v88 liveCaptureContainer];
+    liveCaptureContainer2 = [v89 liveCaptureContainer];
     captureViewController26 = [(CFXCameraViewController *)self captureViewController];
     [captureViewController26 setLiveCaptureContainer:liveCaptureContainer2];
 
-    liveCaptureContainerContainer2 = [v88 liveCaptureContainerContainer];
+    liveCaptureContainerContainer2 = [v89 liveCaptureContainerContainer];
     captureViewController27 = [(CFXCameraViewController *)self captureViewController];
     [captureViewController27 setLiveCaptureContainerContainer:liveCaptureContainerContainer2];
 
-    view9 = [v88 view];
+    view9 = [v89 view];
     captureViewController28 = [(CFXCameraViewController *)self captureViewController];
     [captureViewController28 setNonTransformedContainerView:view9];
   }
@@ -537,10 +536,10 @@ LABEL_21:
     [captureViewController29 cameraDidStart];
   }
 
-  if (!v122)
+  if (!v123)
   {
-    v110 = objc_alloc_init(CFXStageManagerWarningViewController);
-    [(CFXCameraViewController *)self setStageManagerWarning:v110];
+    v111 = objc_alloc_init(CFXStageManagerWarningViewController);
+    [(CFXCameraViewController *)self setStageManagerWarning:v111];
 
     stageManagerWarning = [(CFXCameraViewController *)self stageManagerWarning];
     [stageManagerWarning setDelegate:self];
@@ -1152,7 +1151,7 @@ void __55__CFXCameraViewController_setTransitionState_animated___block_invoke(ui
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   [(CFXCameraViewController *)self noteInputFrameWithTimestamp:?];
   externalCaptureSessionInputProcessingQueue = [(CFXCameraViewController *)self externalCaptureSessionInputProcessingQueue];
   v24[0] = MEMORY[0x277D85DD0];
@@ -1213,7 +1212,7 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
 void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_68(uint64_t a1)
 {
   v1 = a1;
-  v141 = *MEMORY[0x277D85DE8];
+  v143 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pixelBuffer];
   Width = CVPixelBufferGetWidth(v2);
   Height = CVPixelBufferGetHeight(v2);
@@ -1221,7 +1220,7 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
   if (v5)
   {
     v6 = +[JFXRotationTransforms rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", [*(v1 + 32) cameraPosition], *(v1 + 48), 1);
-    memset(&v134, 0, sizeof(v134));
+    memset(&v136, 0, sizeof(v136));
     if (v6 >= 4)
     {
       v7 = 0;
@@ -1248,15 +1247,15 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
       v10 = qword_242B5B608[v9 & 7];
     }
 
-    memset(&v134, 0, sizeof(v134));
+    memset(&v136, 0, sizeof(v136));
     v8 = PVCardinalAnglesDouble[v10];
   }
 
-  CGAffineTransformMakeRotation(&v134, v8);
-  v131 = *&v134.a;
-  v132 = *&v134.c;
-  v133 = *&v134.tx;
-  v11 = CGSizeApplyAffineTransformWithPositiveResult(&v131, Width, Height);
+  CGAffineTransformMakeRotation(&v136, v8);
+  v133 = *&v136.a;
+  v134 = *&v136.c;
+  v135 = *&v136.tx;
+  v11 = CGSizeApplyAffineTransformWithPositiveResult(&v133, Width, Height);
   v13 = v12;
   v14 = [*(v1 + 40) lastDeviceOrientation];
   v15 = +[JFXOrientationMonitor deviceInterfaceOrientation];
@@ -1267,10 +1266,10 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
   v21 = v20;
 
   v23 = v11 == v19 && v13 == v21 && v14 == v15;
-  v114 = v1;
+  v116 = v1;
   if (!v23)
   {
-    v106 = v5;
+    v108 = v5;
     v24 = +[CFXMediaSettings sharedInstance];
     [v24 renderSize];
     v26 = v25;
@@ -1288,22 +1287,22 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
       __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_68_cold_1(v1, v31, v11, v13);
     }
 
-    v112 = objc_alloc_init(CFXEffectComposition);
-    v127 = 0u;
-    v128 = 0u;
+    v114 = objc_alloc_init(CFXEffectComposition);
     v129 = 0u;
     v130 = 0u;
+    v131 = 0u;
+    v132 = 0u;
     v32 = [*(v1 + 40) captureViewController];
     v33 = [v32 composition];
     v34 = [v33 effects];
 
     obj = v34;
-    v35 = [v34 countByEnumeratingWithState:&v127 objects:v140 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v129 objects:v142 count:16];
     if (v35)
     {
       v36 = v35;
-      v110 = *v128;
-      if (v106)
+      v112 = *v130;
+      if (v108)
       {
         v37 = 1;
       }
@@ -1335,22 +1334,22 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
         v41 = v11;
       }
 
-      v109 = *MEMORY[0x277CC08F0];
+      v111 = *MEMORY[0x277CC08F0];
       v42 = *(MEMORY[0x277CC08F0] + 16);
       __asm { FMOV            V2.2D, #1.0 }
 
-      v107 = _Q2;
+      v109 = _Q2;
       v47 = v40 / v41;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v128 != v110)
+          if (*v130 != v112)
           {
             objc_enumerationMutation(obj);
           }
 
-          v49 = *(*(&v127 + 1) + 8 * i);
+          v49 = *(*(&v129 + 1) + 8 * i);
           v50 = [v49 jtEffect];
           [v50 setRenderSize:{v11, v13}];
 
@@ -1363,69 +1362,69 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
             v51 = v39;
             if (v53 == 2)
             {
-              [*(v114 + 40) lastDeviceOrientation];
+              [*(v116 + 40) lastDeviceOrientation];
               +[JFXOrientationMonitor deviceOrientation];
               v54 = [v49 jtEffect];
               v55 = v54;
               if (v54)
               {
-                [v54 topLevelTransform];
+                objc_msgSend_topLevelTransform(v54);
               }
 
               else
               {
+                v140 = 0u;
+                v141 = 0u;
                 v138 = 0u;
                 v139 = 0u;
-                v136 = 0u;
                 v137 = 0u;
-                v135 = 0u;
-                memset(&v134, 0, sizeof(v134));
+                memset(&v136, 0, sizeof(v136));
               }
 
-              v131 = 0uLL;
-              v132 = v107;
+              v133 = 0uLL;
+              v134 = v109;
               pv_simd_matrix_rotate();
-              v136 = v123;
-              v137 = v124;
               v138 = v125;
               v139 = v126;
-              v134 = v121;
-              v135 = v122;
-              [v55 setTopLevelTransform:&v134];
+              v140 = v127;
+              v141 = v128;
+              v136 = v123;
+              v137 = v124;
+              [v55 setTopLevelTransform:&v136];
 
               v51 = v39;
             }
           }
 
-          memset(&v134, 0, sizeof(v134));
-          CGAffineTransformMakeScale(&v134, v51, v51);
+          memset(&v136, 0, sizeof(v136));
+          CGAffineTransformMakeScale(&v136, v51, v51);
           v56 = [v49 jtEffect];
-          v57 = [*(v114 + 40) captureViewController];
+          v57 = [*(v116 + 40) captureViewController];
           v58 = [v57 view];
           [v58 frame];
-          v131 = *&v134.a;
-          v132 = *&v134.c;
-          v133 = *&v134.tx;
-          v119 = v109;
-          v120 = v42;
-          [JFXEffectEditingUtilities addTransformToEffect:v56 transform:&v131 relativeToBounds:&v119 time:1 restrictToBounds:?];
+          v133 = *&v136.a;
+          v134 = *&v136.c;
+          v135 = *&v136.tx;
+          v121 = v111;
+          v122 = v42;
+          [JFXEffectEditingUtilities addTransformToEffect:v56 transform:&v133 relativeToBounds:&v121 time:1 restrictToBounds:?];
 
-          [(CFXEffectComposition *)v112 addEffect:v49 completion:0];
+          [(CFXEffectComposition *)v114 addEffect:v49 completion:0];
         }
 
-        v36 = [obj countByEnumeratingWithState:&v127 objects:v140 count:16];
+        v36 = [obj countByEnumeratingWithState:&v129 objects:v142 count:16];
       }
 
       while (v36);
     }
 
-    v1 = v114;
-    v59 = [*(v114 + 40) captureViewController];
-    [v59 setComposition:v112];
+    v1 = v116;
+    v59 = [*(v116 + 40) captureViewController];
+    [v59 setComposition:v114];
 
-    if (v106)
+    if (v108)
     {
-      v60 = &PVCardinalAnglesComplement + 4 * +[JFXRotationTransforms rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", [*(v114 + 32) cameraPosition], *(v114 + 48), 1);
+      v60 = &PVCardinalAnglesComplement + 4 * +[JFXRotationTransforms rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", [*(v116 + 32) cameraPosition], *(v116 + 48), 1);
       v16 = 0x278D78000;
       v61 = 0x278D78000;
     }
@@ -1447,12 +1446,12 @@ void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presenta
     v63 = *v60;
 LABEL_49:
     v64 = [[JFXPixelRotationSession alloc] initWithRotation:v63 mirror:0];
-    [*(v114 + 40) setExternalCaptureSessionRotationSession:v64];
+    [*(v116 + 40) setExternalCaptureSessionRotationSession:v64];
 
-    [*(v114 + 40) setLastDeviceOrientation:{objc_msgSend(*(v61 + 1616), "deviceInterfaceOrientation")}];
+    [*(v116 + 40) setLastDeviceOrientation:{objc_msgSend(*(v61 + 1616), "deviceInterfaceOrientation")}];
   }
 
-  if (CGRectIsEmpty(*(v1 + 56)) || CGRectHasNan())
+  if (CGRectIsEmpty(*(v1 + 56)) || CGRectHasNan(*(v1 + 56), *(v1 + 64), *(v1 + 72), *(v1 + 80)))
   {
     v65 = JFXLog_camera();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
@@ -1476,7 +1475,7 @@ LABEL_49:
     v74 = *(v1 + 80);
   }
 
-  if (CGRectIsEmpty(*(v1 + 88)) || CGRectHasNan())
+  if (CGRectIsEmpty(*(v1 + 88)) || CGRectHasNan(*(v1 + 88), *(v1 + 96), *(v1 + 104), *(v1 + 112)))
   {
     v75 = JFXLog_camera();
     if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
@@ -1484,8 +1483,8 @@ LABEL_49:
       __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_68_cold_3();
     }
 
-    v113 = 0.0;
-    v111 = 1.0;
+    v115 = 0.0;
+    v113 = 1.0;
     v76 = 1.0;
     v77 = 0.0;
   }
@@ -1494,50 +1493,50 @@ LABEL_49:
   {
     v77 = *(v1 + 88);
     v76 = *(v1 + 104);
-    v111 = *(v1 + 112);
-    v113 = *(v1 + 96);
+    v113 = *(v1 + 112);
+    v115 = *(v1 + 96);
   }
 
   [*(v1 + 40) externalPresentationRect];
-  v145.origin.x = v68;
-  v145.origin.y = v70;
-  v145.size.width = v72;
-  v145.size.height = v74;
-  if (!CGRectEqualToRect(v143, v145) || ([*(v1 + 40) externalContentRect], v146.origin.x = v77, v146.size.height = v111, v146.origin.y = v113, v146.size.width = v76, !CGRectEqualToRect(v144, v146)))
+  v147.origin.x = v68;
+  v147.origin.y = v70;
+  v147.size.width = v72;
+  v147.size.height = v74;
+  if (!CGRectEqualToRect(v145, v147) || ([*(v1 + 40) externalContentRect], v148.origin.x = v77, v148.size.height = v113, v148.origin.y = v115, v148.size.width = v76, !CGRectEqualToRect(v146, v148)))
   {
-    v1 = v114;
-    [*(v114 + 40) setExternalPresentationRect:{v68, v70, v72, v74}];
-    [*(v114 + 40) setExternalContentRect:{v77, v113, v76, v111}];
+    v1 = v116;
+    [*(v116 + 40) setExternalPresentationRect:{v68, v70, v72, v74}];
+    [*(v116 + 40) setExternalContentRect:{v77, v115, v76, v113}];
     v78 = JFXLog_camera();
     if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
     {
-      v103 = NSStringFromCGRect(*(v114 + 56));
-      v104 = NSStringFromCGRect(*(v114 + 88));
-      v142.width = v11;
-      v142.height = v13;
-      v105 = NSStringFromCGSize(v142);
-      LODWORD(v134.a) = 138412802;
-      *(&v134.a + 4) = v103;
-      WORD2(v134.b) = 2112;
-      *(&v134.b + 6) = v104;
-      HIWORD(v134.c) = 2112;
-      *&v134.d = v105;
-      _os_log_debug_impl(&dword_242A3B000, v78, OS_LOG_TYPE_DEBUG, "renderFrameWithImageData presentationRect  %@ contentRect %@ renderSize %@", &v134, 0x20u);
+      v105 = NSStringFromCGRect(*(v116 + 56));
+      v106 = NSStringFromCGRect(*(v116 + 88));
+      v144.width = v11;
+      v144.height = v13;
+      v107 = NSStringFromCGSize(v144);
+      LODWORD(v136.a) = 138412802;
+      *(&v136.a + 4) = v105;
+      WORD2(v136.b) = 2112;
+      *(&v136.b + 6) = v106;
+      HIWORD(v136.c) = 2112;
+      *&v136.d = v107;
+      _os_log_debug_impl(&dword_242A3B000, v78, OS_LOG_TYPE_DEBUG, "renderFrameWithImageData presentationRect  %@ contentRect %@ renderSize %@", &v136, 0x20u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_72;
     block[3] = &unk_278D79EC8;
-    block[4] = *(v114 + 40);
+    block[4] = *(v116 + 40);
     *&block[5] = v68;
     *&block[6] = v70;
     *&block[7] = v72;
     *&block[8] = v74;
     *&block[9] = v77;
-    *&block[10] = v113;
+    *&block[10] = v115;
     *&block[11] = v76;
-    *&block[12] = v111;
+    *&block[12] = v113;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -1549,72 +1548,72 @@ LABEL_49:
   v82 = [*(v16 + 848) sharedInstance];
   [v82 setTimeScale:v81];
 
-  [*(v1 + 32) setMirrored:useMirroredFrontCameraInStreamMode()];
-  v83 = [*(v1 + 32) cameraPosition];
-  if (v83 != [*(v1 + 40) externalCaptureSessionCameraPosition] || (objc_msgSend(*(v1 + 40), "externalCaptureSessionCameraPositionSet") & 1) == 0)
+  [*(v1 + 32) setMirrored:{useMirroredFrontCameraInStreamMode(v83, v84)}];
+  v85 = [*(v1 + 32) cameraPosition];
+  if (v85 != [*(v1 + 40) externalCaptureSessionCameraPosition] || (objc_msgSend(*(v1 + 40), "externalCaptureSessionCameraPositionSet") & 1) == 0)
   {
     [*(v1 + 40) setExternalCaptureSessionCameraPositionSet:1];
-    v84 = CFXLog_action();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+    v86 = CFXLog_action();
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
     {
-      v85 = [*(v1 + 40) captureViewController];
-      v86 = [v85 composition];
-      v87 = [v86 jtEffects];
-      v88 = [CFXActionLogging actionLogAsJSONForEvent:@"camera flipped" atLocation:@"live" withEffectStack:v87];
-      LODWORD(v134.a) = 138543362;
-      *(&v134.a + 4) = v88;
-      _os_log_impl(&dword_242A3B000, v84, OS_LOG_TYPE_DEFAULT, "%{public}@", &v134, 0xCu);
+      v87 = [*(v1 + 40) captureViewController];
+      v88 = [v87 composition];
+      v89 = [v88 jtEffects];
+      v90 = [CFXActionLogging actionLogAsJSONForEvent:@"camera flipped" atLocation:@"live" withEffectStack:v89];
+      LODWORD(v136.a) = 138543362;
+      *(&v136.a + 4) = v90;
+      _os_log_impl(&dword_242A3B000, v86, OS_LOG_TYPE_DEFAULT, "%{public}@", &v136, 0xCu);
     }
 
-    v116[0] = MEMORY[0x277D85DD0];
-    v116[1] = 3221225472;
-    v116[2] = __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_73;
-    v116[3] = &unk_278D79C88;
-    v115 = *(v1 + 32);
-    v89 = v115.i64[0];
-    v117 = vextq_s8(v115, v115, 8uLL);
-    dispatch_async(MEMORY[0x277D85CD0], v116);
+    v118[0] = MEMORY[0x277D85DD0];
+    v118[1] = 3221225472;
+    v118[2] = __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_73;
+    v118[3] = &unk_278D79C88;
+    v117 = *(v1 + 32);
+    v91 = v117.i64[0];
+    v119 = vextq_s8(v117, v117, 8uLL);
+    dispatch_async(MEMORY[0x277D85CD0], v118);
     if (([*(v1 + 40) isEffectsAnalyticsRunning] & 1) == 0)
     {
       [*(v1 + 40) setIsEffectsAnalyticsRunning:1];
-      v90 = CFXLog_action();
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+      v92 = CFXLog_action();
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        v91 = [*(v1 + 40) captureViewController];
-        v92 = [v91 composition];
-        v93 = [v92 jtEffects];
-        v94 = [CFXActionLogging actionLogAsJSONForEvent:@"started effects in stream" atLocation:@"live" withEffectStack:v93];
-        LODWORD(v134.a) = 138543362;
-        *(&v134.a + 4) = v94;
-        _os_log_impl(&dword_242A3B000, v90, OS_LOG_TYPE_DEFAULT, "%{public}@", &v134, 0xCu);
+        v93 = [*(v1 + 40) captureViewController];
+        v94 = [v93 composition];
+        v95 = [v94 jtEffects];
+        v96 = [CFXActionLogging actionLogAsJSONForEvent:@"started effects in stream" atLocation:@"live" withEffectStack:v95];
+        LODWORD(v136.a) = 138543362;
+        *(&v136.a + 4) = v96;
+        _os_log_impl(&dword_242A3B000, v92, OS_LOG_TYPE_DEFAULT, "%{public}@", &v136, 0xCu);
       }
 
-      v95 = MEMORY[0x277D85CD0];
+      v97 = MEMORY[0x277D85CD0];
       dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_76);
     }
 
-    v96 = +[JFXVideoCameraController sharedInstance];
-    [v96 setMostRecentARMetadata:0];
+    v98 = +[JFXVideoCameraController sharedInstance];
+    [v98 setMostRecentARMetadata:0];
 
     [*(v1 + 40) setExternalCaptureSessionCameraPosition:{objc_msgSend(*(v1 + 32), "cameraPosition")}];
   }
 
-  v97 = [*(v1 + 32) faceData];
+  v99 = [*(v1 + 32) faceData];
 
-  if (!v97)
+  if (!v99)
   {
-    v98 = JFXLog_camera();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+    v100 = JFXLog_camera();
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
     {
       __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_68_cold_4();
     }
   }
 
-  v99 = *(v1 + 48);
-  v100 = *(v1 + 32);
-  v101 = [*(v1 + 40) captureViewController];
-  v102 = [v101 composition];
-  [CFXCameraStreamAdapter notifyExternalImageData:v100 orientation:v99 effectComposition:v102];
+  v101 = *(v1 + 48);
+  v102 = *(v1 + 32);
+  v103 = [*(v1 + 40) captureViewController];
+  v104 = [v103 composition];
+  [CFXCameraStreamAdapter notifyExternalImageData:v102 orientation:v101 effectComposition:v104];
 }
 
 void __94__CFXCameraViewController_renderFrameWithImageData_orientation_presentationRect_contentsRect___block_invoke_72(uint64_t a1)
@@ -1870,7 +1869,7 @@ void __135__CFXCameraViewController_renderFrameWithImageDataArchive_imagePixelBu
 
   if (v7)
   {
-    [v7 timestamp];
+    objc_msgSend_timestamp(v7);
     CMTimeMakeWithSeconds(&v21, v8, 1000000000);
     time = v21;
     CMTimeGetSeconds(&time);
@@ -1894,7 +1893,7 @@ void __135__CFXCameraViewController_renderFrameWithImageDataArchive_imagePixelBu
 
     v14 = [BufferWithTimestamp alloc];
     v15 = *(a1 + 48);
-    [v7 timestamp];
+    objc_msgSend_timestamp(v7);
     v16 = [(BufferWithTimestamp *)v14 initWithBuffer:v15 timstamp:?];
     v17 = [*(a1 + 40) outputBufferQueue];
     v18 = [v17 enqueue:v16];
@@ -2201,7 +2200,7 @@ LABEL_5:
 
 void __64__CFXCameraViewController_captureViewController_didRenderFrame___block_invoke(uint64_t a1)
 {
-  *&v38[5] = *MEMORY[0x277D85DE8];
+  *&v41[5] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -2213,7 +2212,7 @@ void __64__CFXCameraViewController_captureViewController_didRenderFrame___block_
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 timestamp];
+    objc_msgSend_timestamp(v4);
   }
 
   else
@@ -2262,7 +2261,7 @@ LABEL_13:
         v17 = JFXLog_camera();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          __64__CFXCameraViewController_captureViewController_didRenderFrame___block_invoke_cold_1(v37, v13, v38, v17);
+          __64__CFXCameraViewController_captureViewController_didRenderFrame___block_invoke_cold_1(v40, v13, v41, v17);
         }
 
         v8 = [*(a1 + 32) outputBufferQueue];
@@ -2284,7 +2283,7 @@ LABEL_13:
     v24 = *(a1 + 40);
     if (v24)
     {
-      [v24 timestamp];
+      objc_msgSend_timestamp(v24);
     }
 
     else
@@ -2298,18 +2297,18 @@ LABEL_13:
     v27 = *(a1 + 40);
     if (v27)
     {
-      [v27 timestamp];
+      objc_msgSend_timestamp(v27);
       if (v28)
       {
 LABEL_22:
-        [v28 noteOutputFrameWithTimestamp:v35];
+        objc_msgSend_noteOutputFrameWithTimestamp_(v28);
 LABEL_25:
-        time = *&v35[3];
+        time = v38;
         [(CFXFrame *)v26 setLatency:&time];
         if (v26)
         {
-          [(CFXFrame *)v26 timestamp];
-          [(CFXFrame *)v26 latency];
+          objc_msgSend_timestamp(v26);
+          objc_msgSend_latency(v26);
         }
 
         else
@@ -2342,7 +2341,7 @@ LABEL_29:
           if (v33)
           {
 LABEL_33:
-            [v33 timestamp];
+            objc_msgSend_timestamp(v33);
 LABEL_35:
             time = v34;
             CMTimeGetSeconds(&time);
@@ -2358,14 +2357,16 @@ LABEL_35:
 
     else
     {
-      memset(v35, 0, 24);
+      v35 = 0;
+      v36 = 0;
+      v37 = 0;
       if (v28)
       {
         goto LABEL_22;
       }
     }
 
-    memset(&v35[3], 0, 24);
+    memset(&v38, 0, sizeof(v38));
     goto LABEL_25;
   }
 
@@ -2902,7 +2903,7 @@ LABEL_6:
   v12 = v11;
   if (v11)
   {
-    [v11 CMTimeValue];
+    objc_msgSend_CMTimeValue(v11);
   }
 
   else
@@ -3052,9 +3053,9 @@ void __135__CFXCameraViewController_renderFrameWithImageDataArchive_imagePixelBu
 
 void __64__CFXCameraViewController_captureViewController_didRenderFrame___block_invoke_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
 {
-  [a2 timestamp];
+  objc_msgSend_timestamp(a2);
   *a1 = 134217984;
-  *a3 = v7;
+  *a3 = v8;
   _os_log_error_impl(&dword_242A3B000, a4, OS_LOG_TYPE_ERROR, "Frame dropped, timestamp: %f", a1, 0xCu);
 }
 

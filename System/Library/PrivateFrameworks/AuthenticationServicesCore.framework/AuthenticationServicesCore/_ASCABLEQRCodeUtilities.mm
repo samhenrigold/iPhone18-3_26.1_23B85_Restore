@@ -18,61 +18,58 @@
 {
   v3 = sub_1C2170024();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C216FFD4();
   sub_1C2170004();
-  if (v8)
+  if (v7)
   {
-    v9 = sub_1C2170984();
-    v11 = v10;
+    v8 = sub_1C2170984();
+    v10 = v9;
 
-    if (v9 == 1868851558 && v11 == 0xE400000000000000)
+    if (v8 == 1868851558 && v10 == 0xE400000000000000)
     {
 
-      v13 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v13 = sub_1C2171324();
+      v12 = sub_1C2171324();
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  (*(v4 + 8))(v7, v3);
-  return v13 & 1;
+  (*(v4 + 8))(v6, v3);
+  return v12 & 1;
 }
 
 + (BOOL)isPasskeyRegistrationURL:(id)l
 {
   v3 = sub_1C2170024();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C216FFD4();
-  v8 = _s26AuthenticationServicesCore23_ASCABLEQRCodeUtilitiesC14passkeyURLType4fromSo010_ASPasskeyG0V10Foundation3URLV_tFZ_0(v7);
-  (*(v4 + 8))(v7, v3);
-  return v8 == 2;
+  v7 = _s26AuthenticationServicesCore23_ASCABLEQRCodeUtilitiesC14passkeyURLType4fromSo010_ASPasskeyG0V10Foundation3URLV_tFZ_0(v6);
+  (*(v4 + 8))(v6, v3);
+  return v7 == 2;
 }
 
 + (int64_t)passkeyURLTypeFromURL:(id)l
 {
   v3 = sub_1C2170024();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C216FFD4();
-  v8 = _s26AuthenticationServicesCore23_ASCABLEQRCodeUtilitiesC14passkeyURLType4fromSo010_ASPasskeyG0V10Foundation3URLV_tFZ_0(v7);
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  v7 = _s26AuthenticationServicesCore23_ASCABLEQRCodeUtilitiesC14passkeyURLType4fromSo010_ASPasskeyG0V10Foundation3URLV_tFZ_0(v6);
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 @end

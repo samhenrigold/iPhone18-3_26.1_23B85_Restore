@@ -9,6 +9,7 @@
 - (NSData)identityReferenceInternal;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)addDisconnectOptions:(id)options;
 - (void)copyPasswordsFromKeychainInDomain:(int64_t)domain;
@@ -145,49 +146,24 @@
     hTTPServer = [proxySettings HTTPServer];
     updated = [(NEProxyServer *)hTTPServer needToUpdateKeychain];
 
-    if (updated)
+    if (updated & 1) != 0 || ([v13 HTTPSServer], v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NEProxyServer needToUpdateKeychain](v16), v16, (v17) || (objc_msgSend(v13, "FTPServer"), v18 = objc_claimAutoreleasedReturnValue(), v19 = -[NEProxyServer needToUpdateKeychain](v18), v18, (v19) || (objc_msgSend(v13, "RTSPServer"), v20 = objc_claimAutoreleasedReturnValue(), v21 = -[NEProxyServer needToUpdateKeychain](v20), v20, (v21) || (objc_msgSend(v13, "gopherServer"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NEProxyServer needToUpdateKeychain](v22), v22, (v23))
     {
-      goto LABEL_12;
-    }
-
-    hTTPSServer = [v13 HTTPSServer];
-    needToUpdateKeychain = [(NEProxyServer *)hTTPSServer needToUpdateKeychain];
-
-    if (needToUpdateKeychain)
-    {
-      goto LABEL_12;
-    }
-
-    fTPServer = [v13 FTPServer];
-    needToUpdateKeychain2 = [(NEProxyServer *)fTPServer needToUpdateKeychain];
-
-    if (needToUpdateKeychain2)
-    {
-      goto LABEL_12;
-    }
-
-    rTSPServer = [v13 RTSPServer];
-    needToUpdateKeychain3 = [(NEProxyServer *)rTSPServer needToUpdateKeychain];
-
-    if (needToUpdateKeychain3 || ([v13 gopherServer], v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NEProxyServer needToUpdateKeychain](v22), v22, v23))
-    {
-LABEL_12:
-      needToUpdateKeychain4 = 1;
+      needToUpdateKeychain = 1;
     }
 
     else
     {
       sOCKSServer = [v13 SOCKSServer];
-      needToUpdateKeychain4 = [(NEProxyServer *)sOCKSServer needToUpdateKeychain];
+      needToUpdateKeychain = [(NEProxyServer *)sOCKSServer needToUpdateKeychain];
     }
   }
 
   else
   {
-    needToUpdateKeychain4 = 0;
+    needToUpdateKeychain = 0;
   }
 
-  return needToUpdateKeychain4;
+  return needToUpdateKeychain;
 }
 
 - (void)syncWithKeychainInDomain:(int64_t)domain configuration:(id)configuration suffix:(id)suffix
@@ -287,14 +263,14 @@ LABEL_12:
 
 - (void)setIdentityData:(NSData *)identityData
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = identityData;
   [(NEVPNProtocol *)self setIdentityDataInternal:v4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   if (v4)
   {
-    CC_SHA1_Init(&v7);
-    CC_SHA1_Update(&v7, [(NSData *)v4 bytes], [(NSData *)v4 length]);
-    CC_SHA1_Final(md, &v7);
+    CC_SHA1_Init(&v6);
+    CC_SHA1_Update(&v6, [(NSData *)v4 bytes], [(NSData *)v4 length]);
+    CC_SHA1_Final(md, &v6);
     v5 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:20];
     [(NEVPNProtocol *)self setIdentityDataHash:v5];
   }
@@ -303,8 +279,6 @@ LABEL_12:
   {
     [(NEVPNProtocol *)self setIdentityDataHash:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSData)identityReferenceInternal
@@ -611,7 +585,7 @@ LABEL_12:
       passwordEncryption = v8->_passwordEncryption;
       v8->_passwordEncryption = v33;
 
-      if ([(NSString *)v8->_passwordEncryption isEqualToString:*MEMORY[0x1E6982950]])
+      if (objc_msgSend_isEqualToString_(v8->_passwordEncryption))
       {
         v35 = [NEKeychainItem alloc];
         v36 = [dictionaryCopy objectForKeyedSubscript:v27];
@@ -696,11 +670,11 @@ LABEL_27:
   if (passwordKeychainItem)
   {
     passwordEncryption = [(NEVPNProtocol *)self passwordEncryption];
-    v10 = [passwordEncryption isEqualToString:*MEMORY[0x1E6982950]];
+    isEqualToString = objc_msgSend_isEqualToString_(passwordEncryption);
 
     passwordKeychainItem2 = [(NEVPNProtocol *)self passwordKeychainItem];
     v12 = passwordKeychainItem2;
-    if (v10)
+    if (isEqualToString)
     {
       [passwordKeychainItem2 identifier];
     }
@@ -750,6 +724,114 @@ LABEL_27:
   }
 
   return v3;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  if (self)
+  {
+    type = [(NEVPNProtocol *)self type];
+    if ((type - 1) > 5)
+    {
+      v9 = @"<unknown>";
+    }
+
+    else
+    {
+      v9 = off_1E7F0B228[type - 1];
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v9;
+  [v7 appendPrettyObject:v10 withName:@"type" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identifier = [(NEVPNProtocol *)self identifier];
+  [v7 appendPrettyObject:identifier withName:@"identifier" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  serverAddress = [(NEVPNProtocol *)self serverAddress];
+  [v7 appendPrettyObject:serverAddress withName:@"serverAddress" andIndent:v5 options:options | 9];
+
+  username = [(NEVPNProtocol *)self username];
+  [v7 appendPrettyObject:username withName:@"username" andIndent:v5 options:options | 9];
+
+  passwordKeychainItem = [(NEVPNProtocol *)self passwordKeychainItem];
+  [v7 appendPrettyObject:passwordKeychainItem withName:@"password" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  passwordEncryption = [(NEVPNProtocol *)self passwordEncryption];
+  [v7 appendPrettyObject:passwordEncryption withName:@"passwordEncryption" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  passwordReference = [(NEVPNProtocol *)self passwordReference];
+  [v7 appendPrettyObject:passwordReference withName:@"passwordReference" andIndent:v5 options:options | 8];
+
+  if (self)
+  {
+    Property = objc_getProperty(self, v17, 96, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"identity" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  identityDataInternal = [(NEVPNProtocol *)self identityDataInternal];
+  if (identityDataInternal)
+  {
+    v20 = MEMORY[0x1E696AEC0];
+    identityDataInternal2 = [(NEVPNProtocol *)self identityDataInternal];
+    v22 = [v20 stringWithFormat:@"%lu bytes", objc_msgSend(identityDataInternal2, "length")];
+    [v7 appendPrettyObject:v22 withName:@"identityData" andIndent:v5 options:options | 8];
+  }
+
+  else
+  {
+    [v7 appendPrettyObject:0 withName:@"identityData" andIndent:v5 options:options | 8];
+  }
+
+  [v7 appendPrettyBOOL:-[NEVPNProtocol identityDataImported](self withName:"identityDataImported") andIndent:@"identityDataImported" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  identityDataHash = [(NEVPNProtocol *)self identityDataHash];
+  [v7 appendPrettyObject:identityDataHash withName:@"identityDataHash" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identityDataPasswordKeychainItem = [(NEVPNProtocol *)self identityDataPasswordKeychainItem];
+  [v7 appendPrettyObject:identityDataPasswordKeychainItem withName:@"identityDataPassword" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  identityReference = [(NEVPNProtocol *)self identityReference];
+  [v7 appendPrettyObject:identityReference withName:@"identityReference" andIndent:v5 options:options | 8];
+
+  identityDataPassword = [(NEVPNProtocol *)self identityDataPassword];
+  [v7 appendPrettyObject:identityDataPassword withName:@"identityDataPassword" andIndent:v5 options:options | 9];
+
+  proxySettings = [(NEVPNProtocol *)self proxySettings];
+  [v7 appendPrettyObject:proxySettings withName:@"proxySettings" andIndent:v5 options:options | 8];
+
+  [v7 appendPrettyBOOL:-[NEVPNProtocol disconnectOnSleep](self withName:"disconnectOnSleep") andIndent:@"disconnectOnSleep" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol disconnectOnIdle](self withName:"disconnectOnIdle") andIndent:@"disconnectOnIdle" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v7 appendPrettyInt:-[NEVPNProtocol disconnectOnIdleTimeout](self withName:"disconnectOnIdleTimeout") andIndent:@"disconnectOnIdleTimeout" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol disconnectOnWake](self withName:"disconnectOnWake") andIndent:@"disconnectOnWake" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v7 appendPrettyInt:-[NEVPNProtocol disconnectOnWakeTimeout](self withName:"disconnectOnWakeTimeout") andIndent:@"disconnectOnWakeTimeout" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  dNSSettings = [(NEVPNProtocol *)self DNSSettings];
+  [v7 appendPrettyObject:dNSSettings withName:@"DNSSettings" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEVPNProtocol includeAllNetworks](self withName:"includeAllNetworks") andIndent:@"includeAllNetworks" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol excludeLocalNetworks](self withName:"excludeLocalNetworks") andIndent:@"excludeLocalNetworks" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol excludeCellularServices](self withName:"excludeCellularServices") andIndent:@"excludeCellularServices" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol excludeAPNs](self withName:"excludeAPNs") andIndent:@"excludeAPNs" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol excludeDeviceCommunication](self withName:"excludeDeviceCommunication") andIndent:@"excludeDeviceCommunication" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEVPNProtocol enforceRoutes](self withName:"enforceRoutes") andIndent:@"enforceRoutes" options:{v5, options | 8}];
+  extensibleSSOProvider = [(NEVPNProtocol *)self extensibleSSOProvider];
+  [v7 appendPrettyObject:extensibleSSOProvider withName:@"extensibleSSOProvider" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  sliceUUID = [(NEVPNProtocol *)self sliceUUID];
+  [v7 appendPrettyObject:sliceUUID withName:@"cellularSliceUUID" andIndent:v5 options:options | 9];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

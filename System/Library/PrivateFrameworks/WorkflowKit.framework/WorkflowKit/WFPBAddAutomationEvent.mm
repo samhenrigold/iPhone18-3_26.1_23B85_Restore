@@ -175,7 +175,6 @@ LABEL_6:
     }
   }
 
-  v9 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_actionCount != *(equalCopy + 2))
@@ -229,7 +228,6 @@ LABEL_6:
       goto LABEL_31;
     }
 
-    v16 = *(equalCopy + 81);
     if (self->_showsNotification)
     {
       if ((*(equalCopy + 81) & 1) == 0)
@@ -249,7 +247,7 @@ LABEL_6:
     goto LABEL_31;
   }
 
-  v14 = (*(equalCopy + 84) & 2) == 0;
+  v13 = (*(equalCopy + 84) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 84) & 2) != 0)
@@ -265,18 +263,18 @@ LABEL_6:
       else if (!*(equalCopy + 80))
       {
 LABEL_39:
-        v14 = 1;
+        v13 = 1;
         goto LABEL_32;
       }
     }
 
 LABEL_31:
-    v14 = 0;
+    v13 = 0;
   }
 
 LABEL_32:
 
-  return v14;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -413,76 +411,73 @@ LABEL_32:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_triggerType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_intentType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_source)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    actionCount = self->_actionCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_shortcutIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_appBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_activityType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_automationSuggestionsTrialIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    showsNotification = self->_showsNotification;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    requiresRuntimeConfirmation = self->_requiresRuntimeConfirmation;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

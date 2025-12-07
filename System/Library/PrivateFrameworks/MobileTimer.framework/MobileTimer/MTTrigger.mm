@@ -1,5 +1,6 @@
 @interface MTTrigger
 + (MTTrigger)triggerWithDate:(id)date triggerType:(unint64_t)type;
++ (MTTrigger)triggerWithDate:(id)date triggerType:(unint64_t)type isPastOverrideEvent:(BOOL)event;
 + (id)_stringForType:(unint64_t)type;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToTrigger:(id)trigger;
@@ -25,6 +26,15 @@
   v7 = [[self alloc] initWithDate:dateCopy type:type];
 
   return v7;
+}
+
++ (MTTrigger)triggerWithDate:(id)date triggerType:(unint64_t)type isPastOverrideEvent:(BOOL)event
+{
+  eventCopy = event;
+  dateCopy = date;
+  v9 = [[self alloc] initWithDate:dateCopy type:type isPastOverrideEvent:eventCopy];
+
+  return v9;
 }
 
 - (MTTrigger)initWithDate:(id)date type:(unint64_t)type isPastOverrideEvent:(BOOL)event

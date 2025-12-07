@@ -1,3 +1,41 @@
+double _rectWithAspectRatio(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7)
+{
+  v7 = vcvtmd_s64_f64(sqrt(a6 * (a5 * a7) * a2 / a1) + 0.5);
+  v8 = v7 | 1;
+  v9 = (v7 & 1) + v7;
+  if (vcvtmd_s64_f64(a6))
+  {
+    v9 = v8;
+  }
+
+  v10 = vcvtmd_s64_f64(a5);
+  v11 = vcvtmd_s64_f64(floor(a1 * v9 / a2) + 0.5);
+  v12 = v11 | 1;
+  v13 = (v11 & 1) + v11;
+  if (v10)
+  {
+    v13 = v12;
+  }
+
+  return a3 - vcvts_n_f32_s32(v13 - v10, 1uLL);
+}
+
+__n128 NURecomposeAffineTransform@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = __sincos_stret(*(a1 + 16));
+  v4.f64[0] = v5.__cosval;
+  v6 = *a1;
+  v7.f64[0] = -*a1;
+  v7.f64[1] = v5.__cosval;
+  v4.f64[1] = v5.__sinval;
+  v6.f64[0] = v5.__sinval;
+  *a2 = vmulq_f64(*a1, v4);
+  *(a2 + 16) = vmulq_f64(v7, v6);
+  result = *(a1 + 24);
+  *(a2 + 32) = result;
+  return result;
+}
+
 double NUAffineTransformDelta@<D0>(float64x2_t *a1@<X0>, float64x2_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = a2[2].f64[0] - a1[2].f64[0];
@@ -187,44 +225,44 @@ __n128 NUCGAffineTransformFlipYInRect@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>, dou
 
 double NUCGPointConvertFromRectToRect(int a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8, double a9, CGFloat a10, CGFloat a11, CGFloat a12, CGFloat a13)
 {
-  v28 = 0u;
-  v29 = 0u;
-  v27 = 0u;
-  NUCGAffineTransformByMappingFromRectToRect(&v27, a4, a5, a6, a7, a10, a11, a12, a13);
+  v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
+  NUCGAffineTransformByMappingFromRectToRect(&v22, a4, a5, a6, a7, a10, a11, a12, a13);
   if (a1)
   {
-    v26[0] = v27;
-    v26[1] = v28;
-    v26[2] = v29;
-    NUCGAffineTransformFlipYInRect(v26, &v27, a4, a5, a6, a7);
+    v21[0] = v22;
+    v21[1] = v23;
+    v21[2] = v24;
+    NUCGAffineTransformFlipYInRect(v21, &v22, a4, a5, a6, a7);
   }
 
-  *&result = *&vaddq_f64(v29, vmlaq_n_f64(vmulq_n_f64(v28, a3), v27, a2));
+  *&result = *&vaddq_f64(v24, vmlaq_n_f64(vmulq_n_f64(v23, a3), v22, a2));
   return result;
 }
 
 void NUCGRectConvertFromRectToRect(int a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, CGFloat a13)
 {
-  v31 = 0u;
-  v32 = 0u;
-  v30 = 0u;
-  NUCGAffineTransformByMappingFromRectToRect(&v30, a6, a7, a8, a9, a10, a11, a12, a13);
+  v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
+  NUCGAffineTransformByMappingFromRectToRect(&v23, a6, a7, a8, a9, a10, a11, a12, a13);
   if (a1)
   {
-    *&v29.a = v30;
-    *&v29.c = v31;
-    *&v29.tx = v32;
-    NUCGAffineTransformFlipYInRect(&v29, &v30, a6, a7, a8, a9);
+    *&v22.a = v23;
+    *&v22.c = v24;
+    *&v22.tx = v25;
+    NUCGAffineTransformFlipYInRect(&v22, &v23, a6, a7, a8, a9);
   }
 
-  *&v29.a = v30;
-  *&v29.c = v31;
-  *&v29.tx = v32;
-  v33.origin.x = a2;
-  v33.origin.y = a3;
-  v33.size.width = a4;
-  v33.size.height = a5;
-  CGRectApplyAffineTransform(v33, &v29);
+  *&v22.a = v23;
+  *&v22.c = v24;
+  *&v22.tx = v25;
+  v26.origin.x = a2;
+  v26.origin.y = a3;
+  v26.size.width = a4;
+  v26.size.height = a5;
+  CGRectApplyAffineTransform(v26, &v22);
 }
 
 id NUAssertLogger_17661()
@@ -351,9 +389,9 @@ void NUCopyCVBufferAttachment(__CVBuffer *a1, __CVBuffer *a2, CFStringRef key)
   }
 }
 
-void sub_1C030A26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_1C030A26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&a48, 8);
   _Block_object_dispose(&a63, 8);
   _Unwind_Resume(a1);
@@ -614,9 +652,9 @@ uint64_t isLivePhotoMetadataTrack(AVAssetTrack *a1)
   return v5;
 }
 
-void sub_1C031AAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C031AAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -669,9 +707,9 @@ id NUAssertLogger_21877()
   return v1;
 }
 
-void sub_1C0323160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C0323160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -688,9 +726,9 @@ id NUAssertLogger_22007()
   return v1;
 }
 
-void sub_1C0325A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1C0325A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -819,9 +857,9 @@ id NUAssertLogger_22844()
   return v1;
 }
 
-void sub_1C032BDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C032BDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -931,41 +969,42 @@ id NUAssertLogger_24345()
   return v1;
 }
 
-void sub_1C034260C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C034260C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 56), 8);
+  _Block_object_dispose((v15 - 56), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C034285C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C034285C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C0342A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1C0342A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 56), 8);
+  _Block_object_dispose((v15 - 56), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C0343560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C0343560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C0346F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1C0346F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 160), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -984,9 +1023,9 @@ BOOL NU::Region::includes(NU::Region *this, const NU::Region *a2)
   return v3;
 }
 
-void sub_1C0347E6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C0347E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -999,7 +1038,7 @@ uint64_t std::unordered_set<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::all
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(a1, i + 2);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(a1, i + 2, i + 1);
   }
 
   return a1;
@@ -1111,7 +1150,7 @@ LABEL_16:
 
     v16[0] = v3;
     v16[1] = v4;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v13, v16);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v13, v16, v16);
   }
 
   if (&v13 != this)
@@ -1123,9 +1162,9 @@ LABEL_16:
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(&v13);
 }
 
-void sub_1C0348134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C0348134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1407,36 +1446,36 @@ LABEL_27:
   return v4;
 }
 
-void *std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(void *result, uint64_t *a2)
+void std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(void *a1, uint64_t *a2, _OWORD *a3)
 {
-  v2 = a2[1];
-  v3 = a2[2];
-  v4 = a2[3];
-  v5 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v2) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v3) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v4) + 4095) >> 32);
-  v6 = result[1];
-  if (!*&v6)
+  v3 = a2[1];
+  v4 = a2[2];
+  v5 = a2[3];
+  v6 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v3) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v4) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v5) + 4095) >> 32);
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v2) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v3) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v4) + 4095) >> 32);
-    if (v5 >= *&v6)
+    v9 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v3) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v4) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v5) + 4095) >> 32);
+    if (v6 >= *&v7)
     {
-      v8 = v5 % *&v6;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v9 = *(*result + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_21:
     operator new();
@@ -1444,44 +1483,42 @@ LABEL_21:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v11 >= *&v6)
+      if (v12 >= *&v7)
       {
-        v11 %= *&v6;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_21;
     }
   }
 
-  if (v10[2] != *a2 || v10[3] != v2 || v10[4] != v3 || v10[5] != v4)
+  if (v11[2] != *a2 || v11[3] != v3 || v11[4] != v4 || v11[5] != v5)
   {
     goto LABEL_20;
   }
-
-  return result;
 }
 
 void std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__node_insert_multi(uint64_t a1, uint64_t a2)
@@ -1716,118 +1753,115 @@ LABEL_60:
   ++*(a1 + 24);
 }
 
-void *NU::Region::breakRects(uint64_t *a1, uint64_t *a2, void *a3)
+void NU::Region::breakRects(uint64_t *a1, uint64_t *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  result = NU::RectT<long>::intersects(a1, a2);
-  if (!result)
+  v22 = *MEMORY[0x1E69E9840];
+  if (!NU::RectT<long>::intersects(a1, a2))
   {
-    v15 = *a1;
-    v16 = *(a1 + 1);
+    v14 = *a1;
+    v15 = *(a1 + 1);
     goto LABEL_11;
   }
 
-  v7 = *a1;
-  v8 = a1[1];
-  *&v19 = *a1;
+  v6 = *a1;
+  v7 = a1[1];
+  *&v18 = *a1;
+  *(&v18 + 1) = v7;
+  v9 = a1[2];
+  v8 = a1[3];
+  *&v19 = v9;
   *(&v19 + 1) = v8;
-  v10 = a1[2];
-  v9 = a1[3];
-  *&v20 = v10;
-  *(&v20 + 1) = v9;
-  v11 = a2[1];
-  if (v8 < v11)
+  v10 = a2[1];
+  if (v7 < v10)
   {
-    *&v17 = v7;
+    *&v16 = v6;
+    *(&v16 + 1) = v7;
+    *&v17 = v9;
     *(&v17 + 1) = v8;
-    *&v18 = v10;
-    *(&v18 + 1) = v9;
-    NU::RectT<long>::setYMax(&v17, v11);
-    NU::RectT<long>::setYMin(&v19, a2[1]);
+    NU::RectT<long>::setYMax(&v16, v10);
+    NU::RectT<long>::setYMin(&v18, a2[1]);
+    v20 = v16;
     v21 = v17;
-    v22 = v18;
-    result = std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v21);
-    v9 = a1[3];
-    v11 = a2[1];
-    v7 = *a1;
-    v8 = a1[1];
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v20, &v20);
+    v8 = a1[3];
+    v10 = a2[1];
+    v6 = *a1;
+    v7 = a1[1];
   }
 
-  v12 = a2[3] + v11;
-  if (v9 + v8 > v12)
+  v11 = a2[3] + v10;
+  if (v8 + v7 > v11)
   {
-    *&v17 = v7;
+    *&v16 = v6;
+    *(&v16 + 1) = v7;
+    *&v17 = a1[2];
     *(&v17 + 1) = v8;
-    *&v18 = a1[2];
-    *(&v18 + 1) = v9;
-    NU::RectT<long>::setYMin(&v17, v12);
-    NU::RectT<long>::setYMax(&v19, a2[3] + a2[1]);
+    NU::RectT<long>::setYMin(&v16, v11);
+    NU::RectT<long>::setYMax(&v18, a2[3] + a2[1]);
+    v20 = v16;
     v21 = v17;
-    v22 = v18;
-    result = std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v21);
-    v7 = *a1;
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v20, &v20);
+    v6 = *a1;
   }
 
-  v13 = *a2;
-  if (v7 < *a2)
+  v12 = *a2;
+  if (v6 < *a2)
   {
-    v17 = v19;
-    v18 = v20;
-    NU::RectT<long>::setXMax(&v17, v13);
-    v21 = v17;
-    v22 = v18;
-    result = std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v21);
-    v7 = *a1;
-    v13 = *a2;
-  }
-
-  v14 = a2[2] + v13;
-  if (a1[2] + v7 > v14)
-  {
-    v17 = v19;
-    v18 = v20;
-    NU::RectT<long>::setXMin(&v17, v14);
-    v15 = v17;
     v16 = v18;
-LABEL_11:
-    v21 = v15;
-    v22 = v16;
-    return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v21);
+    v17 = v19;
+    NU::RectT<long>::setXMax(&v16, v12);
+    v20 = v16;
+    v21 = v17;
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v20, &v20);
+    v6 = *a1;
+    v12 = *a2;
   }
 
-  return result;
+  v13 = a2[2] + v12;
+  if (a1[2] + v6 > v13)
+  {
+    v16 = v18;
+    v17 = v19;
+    NU::RectT<long>::setXMin(&v16, v13);
+    v14 = v16;
+    v15 = v17;
+LABEL_11:
+    v20 = v14;
+    v21 = v15;
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v20, &v20);
+  }
 }
 
-void *std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(void *result, uint64_t *a2)
+void std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(void *a1, uint64_t *a2, _OWORD *a3)
 {
-  v2 = a2[1];
-  v3 = a2[2];
-  v4 = a2[3];
-  v5 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v2) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v3) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v4) + 4095) >> 32);
-  v6 = result[1];
-  if (!*&v6)
+  v3 = a2[1];
+  v4 = a2[2];
+  v5 = a2[3];
+  v6 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v3) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v4) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v5) + 4095) >> 32);
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v8 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v2) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v3) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v4) + 4095) >> 32);
-    if (v5 >= *&v6)
+    v9 = (COERCE__INT64(*a2) + 4095) & 0xFFFFFFFF00000000 ^ ((COERCE__INT64(v3) + 4095) >> 32 << 24) ^ ((COERCE__INT64(v4) + 4095) >> 32 << 8) ^ ((COERCE__INT64(v5) + 4095) >> 32);
+    if (v6 >= *&v7)
     {
-      v8 = v5 % *&v6;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v9 = *(*result + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_21:
     operator new();
@@ -1835,44 +1869,42 @@ LABEL_21:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v7.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v11 >= *&v6)
+      if (v12 >= *&v7)
       {
-        v11 %= *&v6;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v11 &= *&v6 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_21;
     }
   }
 
-  if (v10[2] != *a2 || v10[3] != v2 || v10[4] != v3 || v10[5] != v4)
+  if (v11[2] != *a2 || v11[3] != v3 || v11[4] != v4 || v11[5] != v5)
   {
     goto LABEL_20;
   }
-
-  return result;
 }
 
 BOOL NU::Region::includes(NU::Region *a1, __int128 *a2)
@@ -1883,9 +1915,9 @@ BOOL NU::Region::includes(NU::Region *a1, __int128 *a2)
   return v3;
 }
 
-void sub_1C0349294(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C0349294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1913,7 +1945,7 @@ uint64_t NU::Region::Region(uint64_t a1, __int128 *a2)
     v7 = *a2;
     v8 = v3;
     v9 = v4;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a1, &v7);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a1, &v7, &v7);
   }
 
   return a1;
@@ -1959,17 +1991,17 @@ uint64_t NU::Region::intersects(uint64_t a1, __int128 *a2)
   return v3;
 }
 
-void NU::Region::getBounds(NU::Region *this@<X0>, uint64_t a2@<X8>)
+void NU::Region::getBounds(uint64_t *__return_ptr a1@<X8>, NU::Region *this@<X0>)
 {
   v6 = *MEMORY[0x1E69E9840];
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  for (i = *(this + 2); i; i = *i)
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  for (i = *(this + 2); i; i = i->n128_u64[0])
   {
-    v4 = *(i + 2);
-    v5[0] = *(i + 1);
+    v4 = i[2];
+    v5[0] = i[1];
     v5[1] = v4;
-    NU::RectT<long>::add(a2, v5);
+    NU::RectT<long>::add(a1, v5);
   }
 }
 
@@ -2137,7 +2169,7 @@ uint64_t NU::Region::applyAffineTransform(uint64_t a1, _OWORD *a2, uint64_t a3)
     NU::RectT<long>::setXYMinMax(&v21, a3, MinX, MinY, MaxX, MaxY);
     *&v26.a = v21;
     *&v26.c = v22;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v23, &v26);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v23, &v26, &v26);
   }
 
   if (&v23 != a1)
@@ -2149,9 +2181,9 @@ uint64_t NU::Region::applyAffineTransform(uint64_t a1, _OWORD *a2, uint64_t a3)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(&v23);
 }
 
-void sub_1C0349A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C0349A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2170,7 +2202,7 @@ uint64_t NU::Region::applyOrientation(uint64_t a1, uint64_t a2, uint64_t a3, uin
     NU::RectT<long>::applyOrientation(&v11, a2, a3, a4);
     v16[0] = v11;
     v16[1] = v12;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v13, v16);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v13, v16, v16);
   }
 
   if (&v13 != a1)
@@ -2182,9 +2214,9 @@ uint64_t NU::Region::applyOrientation(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(&v13);
 }
 
-void sub_1C0349B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C0349B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2241,9 +2273,9 @@ uint64_t NU::Region::shrinkInRect(uint64_t a1, uint64_t a2, uint64_t a3, __int12
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v20);
 }
 
-void sub_1C0349F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C0349F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2264,9 +2296,9 @@ uint64_t NU::Region::grow(NU::Region *this, uint64_t a2, uint64_t a3)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v10);
 }
 
-void sub_1C034A008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C034A008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2312,9 +2344,9 @@ uint64_t NU::Region::add(NU::Region *a1, __int128 *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_1C034A0CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034A0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2327,9 +2359,9 @@ uint64_t NU::Region::add(NU::Region *this, const NU::Region *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_1C034A130(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034A130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2349,28 +2381,29 @@ uint64_t NU::Region::mergeRects(NU::Region *this, void *a2)
   return NU::Region::mergeRectsVertically(this);
 }
 
-void *NU::Region::mergeRectsHorizontally(uint64_t a1, __int128 *a2, void *a3)
+void NU::Region::mergeRectsHorizontally(void *a1, __int128 *a2, void *a3)
 {
   v5 = a1;
-  v32 = *MEMORY[0x1E69E9840];
-  v6 = (a1 + 16);
+  v31 = *MEMORY[0x1E69E9840];
+  v6 = a1 + 2;
   do
   {
     v6 = *v6;
     if (!v6)
     {
       v19 = a2[1];
-      v30 = *a2;
-      v31 = v19;
-      return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(v5, &v30);
+      v29 = *a2;
+      v30 = v19;
+      std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(v5, &v29, &v29);
+      return;
     }
 
     LODWORD(a1) = NU::RectPartialHorizontallyAdjacentTo::operator()(a1, a2, v6 + 2);
   }
 
   while (!a1);
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v7 = v6[2];
   if (v7 >= *a2)
   {
@@ -2393,7 +2426,7 @@ void *NU::Region::mergeRectsHorizontally(uint64_t a1, __int128 *a2, void *a3)
     v10 = *(a2 + 2) + *a2;
   }
 
-  NU::RectT<long>::setXMinMax(&v28, v8, v10);
+  NU::RectT<long>::setXMinMax(&v27, v8, v10);
   v11 = *(a2 + 1);
   v12 = v6[3];
   if (v11 <= v12)
@@ -2418,10 +2451,10 @@ void *NU::Region::mergeRectsHorizontally(uint64_t a1, __int128 *a2, void *a3)
     v16 = v15;
   }
 
-  NU::RectT<long>::setYMinMax(&v28, v13, v16);
+  NU::RectT<long>::setYMinMax(&v27, v13, v16);
+  v29 = v27;
   v30 = v28;
-  v31 = v29;
-  std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v30);
+  std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v29, &v29);
   v17 = *(a2 + 1);
   v18 = v6[3];
   if (v17 >= v18)
@@ -2431,54 +2464,55 @@ void *NU::Region::mergeRectsHorizontally(uint64_t a1, __int128 *a2, void *a3)
       goto LABEL_22;
     }
 
-    *&v26 = v6[2];
-    *(&v26 + 1) = v18;
-    v27 = *(v6 + 2);
+    *&v25 = v6[2];
+    *(&v25 + 1) = v18;
+    v26 = *(v6 + 2);
   }
 
   else
   {
-    *&v26 = *a2;
-    *(&v26 + 1) = v17;
-    v27 = a2[1];
+    *&v25 = *a2;
+    *(&v25 + 1) = v17;
+    v26 = a2[1];
     v17 = v18;
   }
 
-  NU::RectT<long>::setYMax(&v26, v17);
+  NU::RectT<long>::setYMax(&v25, v17);
+  v29 = v25;
   v30 = v26;
-  v31 = v27;
-  std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v30);
+  std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v29, &v29);
 LABEL_22:
-  v21 = *(a2 + 1);
-  v22 = *(a2 + 3);
-  v23 = v22 + v21;
-  v24 = v6[3];
-  v25 = v6[5];
-  if (v22 + v21 < v25 + v24)
+  v20 = *(a2 + 1);
+  v21 = *(a2 + 3);
+  v22 = v21 + v20;
+  v23 = v6[3];
+  v24 = v6[5];
+  if (v21 + v20 < v24 + v23)
   {
-    *&v26 = v6[2];
+    *&v25 = v6[2];
+    *(&v25 + 1) = v23;
+    *&v26 = v6[4];
     *(&v26 + 1) = v24;
-    *&v27 = v6[4];
-    *(&v27 + 1) = v25;
 LABEL_26:
-    NU::RectT<long>::setYMin(&v26, v23);
+    NU::RectT<long>::setYMin(&v25, v22);
+    v29 = v25;
     v30 = v26;
-    v31 = v27;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v30);
-    return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::erase(v5, v6);
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(a3, &v29, &v29);
+    goto LABEL_27;
   }
 
-  if (v22 + v21 > v25 + v24)
+  if (v21 + v20 > v24 + v23)
   {
-    *&v26 = *a2;
+    *&v25 = *a2;
+    *(&v25 + 1) = v20;
+    *&v26 = *(a2 + 2);
     *(&v26 + 1) = v21;
-    *&v27 = *(a2 + 2);
-    *(&v27 + 1) = v22;
-    v23 = v25 + v24;
+    v22 = v24 + v23;
     goto LABEL_26;
   }
 
-  return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::erase(v5, v6);
+LABEL_27:
+  std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::erase(v5, v6);
 }
 
 BOOL NU::RectPartialHorizontallyAdjacentTo::operator()(uint64_t a1, void *a2, void *a3)
@@ -2496,7 +2530,7 @@ BOOL NU::RectPartialHorizontallyAdjacentTo::operator()(uint64_t a1, void *a2, vo
 
 uint64_t NU::Region::shrink(NU::Region *this, uint64_t a2, uint64_t a3)
 {
-  NU::Region::getBounds(this, v7);
+  NU::Region::getBounds(v7, this);
   v8[0] = v7[0];
   v8[1] = v7[1];
   NU::RectT<long>::grow(v8, a2, a3);
@@ -2510,9 +2544,9 @@ uint64_t NU::Region::clip(NU::Region *a1, __int128 *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_1C034A9F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034A9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2543,7 +2577,7 @@ uint64_t NU::Region::clip(NU::Region *this, const NU::Region *a2)
         v14 = v8;
         v15 = v9;
         v16 = v10;
-        std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v11, &v14);
+        std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect>(&v11, &v14, &v14);
       }
     }
   }
@@ -2558,9 +2592,9 @@ uint64_t NU::Region::clip(NU::Region *this, const NU::Region *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(&v11);
 }
 
-void sub_1C034AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C034AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2585,7 +2619,7 @@ void *NU::Region::scale(uint64_t a1, uint64_t a2, double a3, double a4)
       v14[0] = *(i + 1);
       v14[1] = v9;
       NU::RectT<long>::scale(v14, a2, a3, a4);
-      std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v11, v14);
+      std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v11, v14, v14);
     }
 
     if (&v11 != a1)
@@ -2600,7 +2634,7 @@ void *NU::Region::scale(uint64_t a1, uint64_t a2, double a3, double a4)
 
 uint64_t NU::Region::translate(NU::Region *this, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v10 = 0u;
   v11 = 0u;
   v12 = 1065353216;
@@ -2608,10 +2642,10 @@ uint64_t NU::Region::translate(NU::Region *this, uint64_t a2, uint64_t a3)
   {
     v7 = i[2];
     v8 = i[3];
-    v14 = *(i + 2);
-    v13[0] = v7 + a2;
-    v13[1] = v8 + a3;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v10, v13);
+    v13[1] = *(i + 2);
+    *&v13[0] = v7 + a2;
+    *(&v13[0] + 1) = v8 + a3;
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v10, v13, v13);
   }
 
   if (&v10 != this)
@@ -2625,7 +2659,7 @@ uint64_t NU::Region::translate(NU::Region *this, uint64_t a2, uint64_t a3)
 
 uint64_t NU::Region::flipInRect(uint64_t a1, void *a2)
 {
-  v14[5] = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v11 = 0u;
   v12 = 0u;
   v13 = 1065353216;
@@ -2635,12 +2669,12 @@ uint64_t NU::Region::flipInRect(uint64_t a1, void *a2)
     v6 = a2[1];
     v7 = i[2] - *a2;
     v8 = i[5];
-    v14[2] = i[4];
-    v14[3] = v8;
+    v15 = i[4];
+    v16 = v8;
     v9 = v6 - (v8 + v5) + a2[3];
-    v14[0] = v7;
-    v14[1] = v9;
-    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v11, v14);
+    *&v14 = v7;
+    *(&v14 + 1) = v9;
+    std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::__emplace_unique_key_args<NU::RegionRect,NU::RegionRect const&>(&v11, &v14, &v14);
   }
 
   if (&v11 != a1)
@@ -2661,9 +2695,9 @@ uint64_t NU::Region::diff(NU::Region *this, const NU::Region *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v5);
 }
 
-void sub_1C034B228(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034B228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2675,9 +2709,9 @@ uint64_t NU::Region::diff(NU::Region *a1, __int128 *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_1C034B2B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034B2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2690,9 +2724,9 @@ uint64_t NU::Region::remove(NU::Region *a1, __int128 *a2)
   return std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(v4);
 }
 
-void sub_1C034B3E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C034B3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<NU::RegionRect,NU::RectHash,NU::RectEqualTo,std::allocator<NU::RegionRect>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3186,14 +3220,12 @@ void std::default_delete<NU::Histogram<long,double>>::operator()[abi:ne200100](u
 
 __n128 __Block_byref_object_copy__105(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3208,22 +3240,23 @@ void __Block_byref_object_dispose__106(uint64_t a1)
   }
 }
 
-void NU::Histogram<long,double>::Kernel::box(void *a1, unint64_t a2)
+void NU::Histogram<long,double>::Kernel::box(uint64_t *a1, unint64_t a2)
 {
   if ((a2 & 0x8000000000000001) != 1)
   {
     __assert_rtn("box", "Histogram.hpp", 292, "size % 2 == 1");
   }
 
-  std::vector<long>::vector[abi:ne200100](&__p, a2);
+  v4 = 1;
+  std::vector<long>::vector[abi:ne200100](&__p, a2, &v4);
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, __p, v5, (v5 - __p) >> 3);
+  std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, __p, v6, (v6 - __p) >> 3);
   a1[3] = a2;
   if (__p)
   {
-    v5 = __p;
+    v6 = __p;
     operator delete(__p);
   }
 }
@@ -3408,7 +3441,7 @@ void ___ZNK2NU9HistogramIldE16modalityAnalysisEmRKdS3_RU15__autoreleasingKU13blo
 
       else
       {
-        v31 = v20 + 16;
+        v31 = (v20 + 16);
         *v20 = *(v20 - 1);
       }
 
@@ -3456,7 +3489,7 @@ void sub_1C0360720(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3644,7 +3677,7 @@ double NU::Histogram<long,double>::sample(uint64_t a1, uint64_t a2, double a3)
   return result;
 }
 
-void std::vector<long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3664,28 +3697,28 @@ void __destroy_helper_block_ea8_48c30_ZTSN2NU9HistogramIldE6KernelE(uint64_t a1)
   }
 }
 
-uint64_t __copy_helper_block_ea8_48c30_ZTSN2NU9HistogramIldE6KernelE(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_block_ea8_48c30_ZTSN2NU9HistogramIldE6KernelE(void *a1, uint64_t a2)
 {
   a1[6] = 0;
   a1[7] = 0;
   v3 = a1 + 6;
   a1[8] = 0;
-  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>((a1 + 6), a2[6], a2[7], (a2[7] - a2[6]) >> 3);
-  v3[3] = a2[9];
+  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1 + 6, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
+  v3[3] = *(a2 + 72);
   return result;
 }
 
-void *std::vector<long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C0360CE0(_Unwind_Exception *exception_object)
@@ -3796,9 +3829,9 @@ uint64_t ___ZNK2NU9HistogramIldE9zeroClampEv_block_invoke(uint64_t a1, uint64_t 
   }
 }
 
-void sub_1C03610D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C03610D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3876,9 +3909,10 @@ void NU::Histogram<long,double>::convolve(uint64_t a1, void *a2, uint64_t a3)
   }
 
   v8 = a1;
-  v9 = a1 + 16;
+  v9 = (a1 + 16);
   v10 = (*(a1 + 24) - *(a1 + 16)) >> 3;
-  std::vector<long>::vector[abi:ne200100](&__src, v10);
+  v35 = 0;
+  std::vector<long>::vector[abi:ne200100](&__src, v10, &v35);
   v34 = v10;
   if (v10 <= 0)
   {
@@ -3933,11 +3967,11 @@ void NU::Histogram<long,double>::convolve(uint64_t a1, void *a2, uint64_t a3)
 
   if (v9 != &__src)
   {
-    v20 = v36;
-    v21 = v36 - v19;
+    v20 = v37;
+    v21 = v37 - v19;
     v22 = *(v8 + 32);
     v23 = *(v8 + 16);
-    if (v22 - v23 < (v36 - v19))
+    if (v22 - v23 < (v37 - v19))
     {
       v24 = v21 >> 3;
       if (v23)
@@ -3946,8 +3980,8 @@ void NU::Histogram<long,double>::convolve(uint64_t a1, void *a2, uint64_t a3)
         operator delete(v23);
         v22 = 0;
         *v9 = 0;
-        *(v9 + 8) = 0;
-        *(v9 + 16) = 0;
+        v9[1] = 0;
+        v9[2] = 0;
       }
 
       if (!(v24 >> 61))
@@ -3978,9 +4012,9 @@ void NU::Histogram<long,double>::convolve(uint64_t a1, void *a2, uint64_t a3)
     v28 = v27 - v23;
     if (v27 - v23 >= v21)
     {
-      if (v36 != v19)
+      if (v37 != v19)
       {
-        memmove(*(v8 + 16), v19, v36 - v19);
+        memmove(*(v8 + 16), v19, v37 - v19);
       }
 
       v30 = &v23[v21];
@@ -4010,7 +4044,7 @@ void NU::Histogram<long,double>::convolve(uint64_t a1, void *a2, uint64_t a3)
   *(v8 + 40) = v11;
   if (v19)
   {
-    v36 = v19;
+    v37 = v19;
     operator delete(v19);
   }
 }
@@ -4117,34 +4151,34 @@ double NU::DataSet::abs(double **this)
   return result;
 }
 
-void NU::Abs(NU *this@<X0>, void *a2@<X8>)
+void NU::Abs(NU *this@<X0>, uint64_t *a2@<X8>)
 {
+  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v9 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v7, *this, *(this + 1), (*(this + 1) - *this) >> 3);
-  v5 = v7;
-  v4 = v8;
-  if (v7 != v8)
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *this, *(this + 1), (*(this + 1) - *this) >> 3);
+  v4 = v6;
+  v3 = v7;
+  if (v6 != v7)
   {
-    v6 = v7;
+    v5 = v6;
     do
     {
-      *v6 = fabs(*v6);
-      ++v6;
+      *v5 = fabs(*v5);
+      ++v5;
     }
 
-    while (v6 != v4);
+    while (v5 != v3);
   }
 
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, v5, v4, (v4 - v5) >> 3);
-  if (v5)
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, v4, v3, (v3 - v4) >> 3);
+  if (v4)
   {
 
-    operator delete(v5);
+    operator delete(v4);
   }
 }
 
@@ -4158,12 +4192,12 @@ void sub_1C03724C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NU::Abs(uint64_t *a1@<X0>, void *a2@<X8>)
+void NU::Abs(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, a1[1], (a1[1] - *a1) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   v4 = v6;
   v3 = v7;
   if (v6 != v7)
@@ -4212,29 +4246,12 @@ double NU::DataSet::square(double **this)
   return result;
 }
 
-double NU::Square@<D0>(NU *this@<X0>, double **a2@<X8>)
+double NU::Square@<D0>(NU *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, *this, *(this + 1), (*(this + 1) - *this) >> 3);
-  v5 = *a2;
-  v6 = a2[1];
-  while (v5 != v6)
-  {
-    result = *v5 * *v5;
-    *v5++ = result;
-  }
-
-  return result;
-}
-
-double NU::Square@<D0>(uint64_t *a1@<X0>, double **a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, *a1, a1[1], (a1[1] - *a1) >> 3);
   v4 = *a2;
   v5 = a2[1];
   while (v4 != v5)
@@ -4246,7 +4263,24 @@ double NU::Square@<D0>(uint64_t *a1@<X0>, double **a2@<X8>)
   return result;
 }
 
-NU::DataSet *NU::DataSet::pow(long double **this, long double a2)
+double NU::Square@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
+  v4 = *a2;
+  v5 = a2[1];
+  while (v4 != v5)
+  {
+    result = *v4 * *v4;
+    *v4++ = result;
+  }
+
+  return result;
+}
+
+long double **NU::DataSet::pow(long double **this, long double a2)
 {
   v3 = *this;
   v4 = this[1];
@@ -4264,7 +4298,7 @@ NU::DataSet *NU::DataSet::pow(long double **this, long double a2)
   return this;
 }
 
-NU::DataSet *NU::DataSet::log(long double **this)
+long double **NU::DataSet::log(long double **this)
 {
   v2 = *this;
   v3 = this[1];
@@ -4277,34 +4311,34 @@ NU::DataSet *NU::DataSet::log(long double **this)
   return this;
 }
 
-void NU::Log(NU *this@<X0>, void *a2@<X8>)
+void NU::Log(uint64_t *__return_ptr a1@<X8>, NU *this@<X0>)
 {
+  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v9 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v7, *this, *(this + 1), (*(this + 1) - *this) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *this, *(this + 1), (*(this + 1) - *this) >> 3);
+  v3 = v6;
   v4 = v7;
-  v5 = v8;
-  if (v7 != v8)
+  if (v6 != v7)
   {
-    v6 = v7;
+    v5 = v6;
     do
     {
-      *v6 = log(*v6);
-      ++v6;
+      *v5 = log(*v5);
+      ++v5;
     }
 
-    while (v6 != v5);
+    while (v5 != v4);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, v4, v5, (v5 - v4) >> 3);
-  if (v4)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, v3, v4, (v4 - v3) >> 3);
+  if (v3)
   {
 
-    operator delete(v4);
+    operator delete(v3);
   }
 }
 
@@ -4318,12 +4352,12 @@ void sub_1C03727CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NU::Log(uint64_t *a1@<X0>, void *a2@<X8>)
+void NU::Log(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, a1[1], (a1[1] - *a1) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   v3 = v6;
   v4 = v7;
   if (v6 != v7)
@@ -4359,7 +4393,7 @@ void sub_1C03728A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-NU::DataSet *NU::DataSet::exp(long double **this)
+long double **NU::DataSet::exp(long double **this)
 {
   v2 = *this;
   v3 = this[1];
@@ -4372,34 +4406,34 @@ NU::DataSet *NU::DataSet::exp(long double **this)
   return this;
 }
 
-void NU::Exp(NU *this@<X0>, void *a2@<X8>)
+void NU::Exp(NU *this@<X0>, uint64_t *a2@<X8>)
 {
+  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v9 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v7, *this, *(this + 1), (*(this + 1) - *this) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *this, *(this + 1), (*(this + 1) - *this) >> 3);
+  v3 = v6;
   v4 = v7;
-  v5 = v8;
-  if (v7 != v8)
+  if (v6 != v7)
   {
-    v6 = v7;
+    v5 = v6;
     do
     {
-      *v6 = exp(*v6);
-      ++v6;
+      *v5 = exp(*v5);
+      ++v5;
     }
 
-    while (v6 != v5);
+    while (v5 != v4);
   }
 
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, v4, v5, (v5 - v4) >> 3);
-  if (v4)
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, v3, v4, (v4 - v3) >> 3);
+  if (v3)
   {
 
-    operator delete(v4);
+    operator delete(v3);
   }
 }
 
@@ -4413,12 +4447,12 @@ void sub_1C03729BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NU::Exp(uint64_t *a1@<X0>, void *a2@<X8>)
+void NU::Exp(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, a1[1], (a1[1] - *a1) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v6, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   v3 = v6;
   v4 = v7;
   if (v6 != v7)
@@ -4480,12 +4514,12 @@ double **NU::DataSet::operator-=(double **result, double a2)
   return result;
 }
 
-uint64_t NU::operator+@<X0>(uint64_t *a1@<X0>, double **a2@<X8>, double a3@<D0>)
+uint64_t *NU::operator+@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>, double a3@<D0>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, *a1, a1[1], (a1[1] - *a1) >> 3);
+  result = std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a2, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   v6 = *a2;
   v7 = a2[1];
   while (v6 != v7)
@@ -4689,11 +4723,11 @@ void ___ZL24NUGetBytePointerCallbackPv_block_invoke(uint64_t a1, void *a2)
   *(*(*(a1 + 32) + 8) + 24) = [v3 bytes];
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, size_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
@@ -4704,7 +4738,7 @@ void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C0378DF4(_Unwind_Exception *exception_object)
@@ -4733,10 +4767,10 @@ uint64_t __Block_byref_object_copy__28726(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C037B674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C037B674(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = _NUImage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4786,9 +4820,9 @@ id NUAssertLogger_29354()
   return v1;
 }
 
-void sub_1C03815C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C03815C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4800,9 +4834,9 @@ uint64_t __Block_byref_object_copy__29385(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C0381858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C0381858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5011,7 +5045,7 @@ uint64_t NUDeepDictionaryHash(void *a1)
 
         v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v1 objectForKeyedSubscript:v7];
-        v9 = NUDeepValueHash();
+        v9 = NUDeepValueHash(v8);
         v4 ^= (0x16FB702EBEEDA9 * v9) ^ (0x13D6D34D692409 * [v7 hash]);
       }
 
@@ -5091,7 +5125,7 @@ uint64_t NUDeepMapTableHash(void *a1)
 
         v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v1 objectForKey:v7];
-        v9 = NUDeepValueHash();
+        v9 = NUDeepValueHash(v8);
         v4 ^= v9 ^ [v7 hash];
       }
 
@@ -5297,12 +5331,12 @@ id NUStringForTypeCode(int a1)
   return v1;
 }
 
-uint64_t NUTypeCodeFromString(void *a1)
+void *NUTypeCodeFromString(void *a1)
 {
   result = [a1 getCString:v2 maxLength:5 encoding:30];
   if (result)
   {
-    return (v2[1] << 16) | (v2[0] << 24) | (v2[2] << 8) | v2[3];
+    return ((v2[1] << 16) | (v2[0] << 24) | (v2[2] << 8) | v2[3]);
   }
 
   return result;
@@ -5422,9 +5456,9 @@ id NULogger_30639()
   return v1;
 }
 
-void sub_1C03988D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C03988D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5503,16 +5537,16 @@ id NUAssertLogger_31651()
   return v1;
 }
 
-void sub_1C03A6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C03A6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C03A7274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C03A7274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5529,11 +5563,12 @@ id NUAssertLogger_31796()
   return v1;
 }
 
-void sub_1C03A9114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_1C03A9114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v36 - 200), 8);
-  _Block_object_dispose((v36 - 152), 8);
+  va_start(va, a35);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v35 - 200), 8);
+  _Block_object_dispose((v35 - 152), 8);
   _Unwind_Resume(a1);
 }
 

@@ -1265,9 +1265,9 @@ LABEL_8:
     [SBUserAgent setMinimumBacklightLevel:animated:];
   }
 
-  v6.n128_f32[0] = level;
+  v7.n128_f32[0] = level;
 
-  SBSetMinimumBrightnessLevel(animatedCopy, v6, v7);
+  SBSetMinimumBrightnessLevel(animatedCopy, v6, v7, v8);
 }
 
 - (void)activateRemoteAlertService:(id)service options:(id)options

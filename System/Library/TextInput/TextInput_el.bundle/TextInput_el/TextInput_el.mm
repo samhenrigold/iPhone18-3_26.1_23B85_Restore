@@ -6,7 +6,7 @@ void KB::LikelihoodInfo::~LikelihoodInfo(void **this)
   }
 }
 
-uint64_t TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
+atomic_uint *TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -136,7 +136,7 @@ unsigned int *WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(unsigned int 
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 44), *(v1 + 23));
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 38), *(v1 + 20));
     std::__hash_table<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<KB::ByteString>,std::equal_to<KB::ByteString>,true>,std::__unordered_map_equal<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<KB::ByteString>,std::hash<KB::ByteString>,true>,std::allocator<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 18));
-    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 8));
+    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(v1 + 4);
     v3 = (v1 + 2);
     std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::__destroy_vector::operator()[abi:nn200100](&v3);
     return MEMORY[0x29EDA2CC0](v1, 0x10B0C409EA53459);
@@ -215,9 +215,9 @@ uint64_t WTF::RefCounted<TI::Favonius::Key>::deref(uint64_t result)
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -266,20 +266,20 @@ void *std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::clear[abi:nn200100](voi
   return result;
 }
 
-void *std::vector<unsigned int>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned int>::vector[abi:nn200100](uint64_t *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<unsigned int>::__vallocate[abi:nn200100](result, a3);
+    std::vector<unsigned int>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -323,14 +323,14 @@ void *KB::InputManagerSpecialization_el::InputManagerSpecialization_el(KB::Input
 void KB::InputManagerSpecialization_el::do_apply_custom_conversions(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
-  v24[2] = *MEMORY[0x29EDCA608];
-  v20[0] = a2;
-  v20[1] = a2 + 24;
-  v20[2] = a2 + 48;
-  v20[3] = a2 + 72;
+  v23[2] = *MEMORY[0x29EDCA608];
+  v19[0] = a2;
+  v19[1] = a2 + 24;
+  v19[2] = a2 + 48;
+  v19[3] = a2 + 72;
   do
   {
-    v3 = v20[v2];
+    v3 = v19[v2];
     v4 = *v3;
     v5 = v3[1];
     while (v4 != v5)
@@ -341,56 +341,56 @@ void KB::InputManagerSpecialization_el::do_apply_custom_conversions(uint64_t a1,
         v7 = (v6 + 240 * *v4);
         do
         {
-          KB::Word::capitalized_string(&v22, v6);
+          KB::Word::capitalized_string(&v21, v6);
           if (KB::count_uppercase_letters() >= 2)
           {
             KB::upper_string();
-            v8 = KB::String::equal(&v22, v21);
-            KB::String::~String(v21);
+            v8 = KB::String::equal(&v21, v20);
+            KB::String::~String(v20);
             if (v8)
             {
-              KB::String::String(v21);
-              v9 = v23;
-              if (!v23)
+              KB::String::String(v20);
+              v9 = v22;
+              if (!v22)
               {
-                v9 = v24;
+                v9 = v23;
               }
 
-              v16 = v9;
-              v17 = 0;
-              v18 = v22;
-              v19 = 0;
-              KB::String::iterator::initialize(&v16);
+              v15 = v9;
+              v16 = 0;
+              v17 = v21;
+              v18 = 0;
+              KB::String::iterator::initialize(&v15);
               while (1)
               {
-                v10 = v23;
-                if (!v23)
+                v10 = v22;
+                if (!v22)
                 {
-                  v10 = v24;
+                  v10 = v23;
                 }
 
-                v12 = v10;
-                v13 = v22;
-                v14 = v22;
-                v15 = 0;
-                KB::String::iterator::initialize(&v12);
-                if (v17 == v13)
+                v11 = v10;
+                v12 = v21;
+                v13 = v21;
+                v14 = 0;
+                KB::String::iterator::initialize(&v11);
+                if (v16 == v12)
                 {
                   break;
                 }
 
-                LODWORD(v12) = 0;
+                LODWORD(v11) = 0;
                 strip_greek_accent();
-                KB::String::append(v21);
+                KB::String::append(v20);
                 KB::String::iterator::operator++();
               }
 
               KB::String::operator=();
-              KB::String::~String(v21);
+              KB::String::~String(v20);
             }
           }
 
-          KB::String::~String(&v22);
+          KB::String::~String(&v21);
           v6 = (v6 + 240);
         }
 
@@ -405,7 +405,6 @@ void KB::InputManagerSpecialization_el::do_apply_custom_conversions(uint64_t a1,
   }
 
   while (v2 != 4);
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void KB::InputManagerSpecialization_el::~InputManagerSpecialization_el(KB::InputManagerSpecialization_el *this)

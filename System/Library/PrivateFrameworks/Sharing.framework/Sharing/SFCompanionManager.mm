@@ -108,10 +108,10 @@ void __36__SFCompanionManager_serviceManager__block_invoke()
 
   if (!deviceID)
   {
-    v11 = streams_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = streams_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(SFCompanionManager *)v11 serviceForIdentifier:v12, v13, v14, v15, v16, v17, v18];
+      [(SFCompanionManager *)v12 serviceForIdentifier:v13, v14, v15, v16, v17, v18, v19];
     }
   }
 
@@ -120,8 +120,8 @@ void __36__SFCompanionManager_serviceManager__block_invoke()
 
 void __43__SFCompanionManager_serviceForIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = +[SFCompanionXPCManager sharedManager];
-  if ([v12 isInvalid])
+  v14 = +[SFCompanionXPCManager sharedManager];
+  if ([v14 isInvalid])
   {
   }
 
@@ -131,32 +131,32 @@ void __43__SFCompanionManager_serviceForIdentifier___block_invoke(uint64_t a1)
 
     if (!v2)
     {
-      v3 = streams_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = streams_log(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Waiting for manager proxy", buf, 2u);
+        _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Waiting for manager proxy", buf, 2u);
       }
 
-      v4 = dispatch_semaphore_create(0);
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 72);
-      *(v5 + 72) = v4;
+      v5 = dispatch_semaphore_create(0);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 72);
+      *(v6 + 72) = v5;
 
-      v7 = dispatch_time(0, 4000000000);
-      dispatch_semaphore_wait(*(*(a1 + 32) + 72), v7);
-      v8 = *(a1 + 32);
-      objc_sync_enter(v8);
+      v8 = dispatch_time(0, 4000000000);
+      dispatch_semaphore_wait(*(*(a1 + 32) + 72), v8);
       v9 = *(a1 + 32);
-      v10 = *(v9 + 72);
-      *(v9 + 72) = 0;
+      objc_sync_enter(v9);
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 72);
+      *(v10 + 72) = 0;
 
-      objc_sync_exit(v8);
-      v11 = streams_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      objc_sync_exit(v9);
+      v13 = streams_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Finished Wait", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Finished Wait", v15, 2u);
       }
     }
   }
@@ -184,7 +184,7 @@ void __43__SFCompanionManager_serviceForIdentifier___block_invoke(uint64_t a1)
 {
   if (self->_managerProxy)
   {
-    v2 = streams_log();
+    v2 = streams_log(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -213,57 +213,58 @@ void __42__SFCompanionManager_retrieveManagerProxy__block_invoke(uint64_t a1, vo
   v13 = a4;
   v14 = a5;
   v15 = a6;
+  v16 = v15;
   if (v11 && v12 && v13)
   {
     [*(a1 + 32) setManagerProxy:v11];
     [*(a1 + 32) setDeviceName:v12];
     [*(a1 + 32) setDeviceID:v13];
     [*(a1 + 32) setDeviceIP:v14];
-    v16 = *(a1 + 32);
-    objc_sync_enter(v16);
+    v17 = *(a1 + 32);
+    objc_sync_enter(v17);
     [*(*(a1 + 32) + 48) allValues];
-    v23 = v15;
+    v23 = v16;
     v24 = v11;
     v27 = 0u;
     v28 = 0u;
     v25 = 0u;
-    v17 = v26 = 0u;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v39 count:16];
-    if (v18)
+    v18 = v26 = 0u;
+    v19 = [v18 countByEnumeratingWithState:&v25 objects:v39 count:16];
+    if (v19)
     {
-      v19 = *v26;
+      v20 = *v26;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v19)
+          if (*v26 != v20)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v21 = *(*(&v25 + 1) + 8 * i);
-          [v21 setDeviceName:{v12, v23, v24, v25}];
-          [v21 setDeviceID:v13];
-          [v21 setIpAddress:v14];
-          [*(*(a1 + 32) + 16) enableService:v21];
+          v22 = *(*(&v25 + 1) + 8 * i);
+          [v22 setDeviceName:{v12, v23, v24, v25}];
+          [v22 setDeviceID:v13];
+          [v22 setIpAddress:v14];
+          [*(*(a1 + 32) + 16) enableService:v22];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v25 objects:v39 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v25 objects:v39 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
-    v15 = v23;
+    v16 = v23;
     v11 = v24;
 
-    objc_sync_exit(v16);
+    objc_sync_exit(v17);
   }
 
   else
   {
-    v16 = streams_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = streams_log(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413314;
       v30 = v11;
@@ -274,26 +275,25 @@ void __42__SFCompanionManager_retrieveManagerProxy__block_invoke(uint64_t a1, vo
       v35 = 2112;
       v36 = v14;
       v37 = 2112;
-      v38 = v15;
-      _os_log_error_impl(&dword_1A9662000, v16, OS_LOG_TYPE_ERROR, "Error retrieving proxy object. Returned values (proxy = %@, deviceName = %@, deviceID = %@, deviceIP = %@, error = %@)", buf, 0x34u);
+      v38 = v16;
+      _os_log_error_impl(&dword_1A9662000, v17, OS_LOG_TYPE_ERROR, "Error retrieving proxy object. Returned values (proxy = %@, deviceName = %@, deviceID = %@, deviceIP = %@, error = %@)", buf, 0x34u);
     }
   }
 
   [*(a1 + 32) signalSemaphore];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signalSemaphore
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_managerSemaphore)
   {
-    v3 = streams_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = streams_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Signaling the semaphore", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Signaling the semaphore", v5, 2u);
     }
 
     dispatch_semaphore_signal(selfCopy->_managerSemaphore);
@@ -307,49 +307,50 @@ void __42__SFCompanionManager_retrieveManagerProxy__block_invoke(uint64_t a1, vo
   serviceCopy = service;
   handleCopy = handle;
   replyCopy = reply;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v11 = replyCopy;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
   if (handleCopy)
   {
     streamHandlers = self->_streamHandlers;
     identifier = [serviceCopy identifier];
-    v13 = [(NSMutableDictionary *)streamHandlers objectForKeyedSubscript:identifier];
+    v14 = [(NSMutableDictionary *)streamHandlers objectForKeyedSubscript:identifier];
 
-    if (v13)
+    if (v14)
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __65__SFCompanionManager_streamToService_withFileHandle_acceptReply___block_invoke;
-      v29[3] = &unk_1E788CF30;
-      v31 = &v32;
-      v30 = v13;
-      [(SFCompanionManager *)self streamsFromFileHandle:handleCopy withCompletionHandler:v29];
-      v14 = v30;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __65__SFCompanionManager_streamToService_withFileHandle_acceptReply___block_invoke;
+      v31[3] = &unk_1E788CF30;
+      v33 = &v34;
+      v32 = v14;
+      [(SFCompanionManager *)self streamsFromFileHandle:handleCopy withCompletionHandler:v31];
+      v16 = v32;
     }
 
     else
     {
-      v14 = streams_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = streams_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(SFCompanionManager *)v14 streamToService:v22 withFileHandle:v23 acceptReply:v24, v25, v26, v27, v28];
+        [(SFCompanionManager *)v16 streamToService:v24 withFileHandle:v25 acceptReply:v26, v27, v28, v29, v30];
       }
     }
   }
 
   else
   {
-    v13 = streams_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = streams_log(replyCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(SFCompanionManager *)v13 streamToService:v15 withFileHandle:v16 acceptReply:v17, v18, v19, v20, v21];
+      [(SFCompanionManager *)v14 streamToService:v17 withFileHandle:v18 acceptReply:v19, v20, v21, v22, v23];
     }
   }
 
-  replyCopy[2](replyCopy, *(v33 + 24));
-  _Block_object_dispose(&v32, 8);
+  v11[2](v11, *(v35 + 24));
+  _Block_object_dispose(&v34, 8);
 }
 
 uint64_t __65__SFCompanionManager_streamToService_withFileHandle_acceptReply___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
@@ -372,11 +373,11 @@ uint64_t __65__SFCompanionManager_streamToService_withFileHandle_acceptReply___b
   managerProxy = self->_managerProxy;
   self->_managerProxy = 0;
 
-  v4 = streams_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = streams_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "XPC Manager connection interrupted", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "XPC Manager connection interrupted", v6, 2u);
   }
 
   [(SFCompanionManager *)self retrieveManagerProxy];
@@ -399,30 +400,29 @@ uint64_t __65__SFCompanionManager_streamToService_withFileHandle_acceptReply___b
   v16[0] = 0;
   v8 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:v16 error:&v15];
   v9 = v15;
+  v10 = v9;
   if (v9)
   {
-    v10 = streams_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = streams_log(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SFCompanionManager *)v9 getStreamsForData:v16 withStreamHandler:v10];
+      [(SFCompanionManager *)v10 getStreamsForData:v16 withStreamHandler:v11];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v9);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v10);
   }
 
   else
   {
-    v11 = +[SFCompanionXPCManager sharedManager];
+    v12 = +[SFCompanionXPCManager sharedManager];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke;
     v13[3] = &unk_1E788CF80;
     v13[4] = self;
     v14 = handlerCopy;
-    [v11 streamsForMessage:v8 withCompletionHandler:v13];
+    [v12 streamsForMessage:v8 withCompletionHandler:v13];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -464,21 +464,21 @@ void __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke
   deviceIP = [(SFCompanionManager *)selfCopy deviceIP];
   [(SFCompanionService *)v9 setIpAddress:deviceIP];
 
-  [(NSMutableDictionary *)selfCopy->_services setObject:v9 forKeyedSubscript:identifierCopy];
+  v13 = [(NSMutableDictionary *)selfCopy->_services setObject:v9 forKeyedSubscript:identifierCopy];
   if (handlerCopy)
   {
-    v13 = streams_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = streams_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Storing stream handler", buf, 2u);
+      _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "Storing stream handler", buf, 2u);
     }
 
-    v14 = [handlerCopy copy];
-    v15 = _Block_copy(v14);
+    v15 = [handlerCopy copy];
+    v16 = _Block_copy(v15);
     streamHandlers = selfCopy->_streamHandlers;
     identifier = [(SFCompanionService *)v9 identifier];
-    [(NSMutableDictionary *)streamHandlers setObject:v15 forKeyedSubscript:identifier];
+    [(NSMutableDictionary *)streamHandlers setObject:v16 forKeyedSubscript:identifier];
   }
 
   managerProxy = selfCopy->_managerProxy;
@@ -489,11 +489,11 @@ void __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke
 
   else
   {
-    v19 = streams_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = streams_log(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1A9662000, v19, OS_LOG_TYPE_DEFAULT, "Service enabled before manager proxy retrieved", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "Service enabled before manager proxy retrieved", v21, 2u);
     }
   }
 
@@ -523,7 +523,7 @@ void __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke
 
   else
   {
-    identifier = streams_log();
+    identifier = streams_log(v6);
     if (os_log_type_enabled(identifier, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -553,23 +553,21 @@ void __58__SFCompanionManager_getStreamsForData_withStreamHandler___block_invoke
 
 - (void)streamDataForIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Caught exception getting endpoint data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "Caught exception getting endpoint data %@", &v2, 0xCu);
 }
 
 - (void)getStreamsForData:(os_log_t)log withStreamHandler:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "Deserialization error = %@, format = %ld", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "Deserialization error = %@, format = %ld", &v4, 0x16u);
 }
 
 @end

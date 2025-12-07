@@ -8,6 +8,7 @@
 - (uint64_t)_setupIfNeeded;
 - (uint64_t)_writeHandler;
 - (void)_activate;
+- (void)_frameHandler:(unsigned __int8)handler data:(id)data;
 - (void)_invalidate;
 - (void)_readHandler;
 - (void)_sendFrameType:(unsigned __int8)type payload:(id)payload completion:(id)completion;
@@ -16,12 +17,14 @@
 - (void)_tearDownPipe;
 - (void)_writeHandler;
 - (void)activate;
+- (void)addFrameHandlerForType:(unsigned __int8)type handler:(id)handler;
 - (void)centralManager:(id)manager didConnectPeripheral:(id)peripheral;
 - (void)centralManager:(id)manager didDisconnectPeripheral:(id)peripheral error:(id)error;
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error;
 - (void)centralManagerDidUpdateState:(id)state;
 - (void)dealloc;
 - (void)invalidate;
+- (void)removeFrameHandlerForType:(unsigned __int8)type;
 - (void)scalablePipeManager:(id)manager didRegisterEndpoint:(id)endpoint error:(id)error;
 - (void)scalablePipeManager:(id)manager didUnregisterEndpoint:(id)endpoint;
 - (void)scalablePipeManager:(id)manager pipeDidConnect:(id)connect;
@@ -36,28 +39,41 @@
 
 - (NSString)description
 {
-  self->_btEndpointRegistered;
-  self->_btConnected;
-  return NSPrintF();
+  v2 = "no";
+  if (self->_btEndpointRegistered)
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  if (self->_btConnected)
+  {
+    v2 = "yes";
+  }
+
+  return NSPrintF("SFBLEPipe %{ptr}, Registered %s, Connected %s", a2, self, v3, v2);
 }
 
 - (SFBLEPipe)initWithPriority:(int64_t)priority
 {
-  v9.receiver = self;
-  v9.super_class = SFBLEPipe;
-  v4 = [(SFBLEPipe *)&v9 init];
-  v5 = v4;
+  v8.receiver = self;
+  v8.super_class = SFBLEPipe;
+  v4 = [(SFBLEPipe *)&v8 init];
   if (v4)
   {
-    v6 = SFMainQueue(v4);
-    dispatchQueue = v5->_dispatchQueue;
-    v5->_dispatchQueue = v6;
+    v5 = SFMainQueue();
+    dispatchQueue = v4->_dispatchQueue;
+    v4->_dispatchQueue = v5;
 
-    v5->_ucat = &gLogCategory_SFBLEPipe;
-    v5->_btPipePriority = priority;
+    v4->_ucat = &gLogCategory_SFBLEPipe;
+    v4->_btPipePriority = priority;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)dealloc
@@ -123,7 +139,7 @@
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
@@ -164,20 +180,20 @@
 
 - (void)_invalidate
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_invalidateCalled)
   {
-    goto LABEL_28;
+    return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe _invalidate]", 30, "Invalidating\n");
       goto LABEL_6;
     }
 
@@ -190,36 +206,36 @@ LABEL_4:
 
 LABEL_6:
   self->_invalidateCalled = 1;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   selfCopy = self;
   v4 = self->_btWriteQueue;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
+    v7 = *v34;
     v8 = *MEMORY[0x1E696A768];
     v9 = *MEMORY[0x1E696A578];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         completion = [v11 completion];
 
         if (completion)
         {
           completion2 = [v11 completion];
           v14 = MEMORY[0x1E696ABC0];
-          v40 = v9;
+          v37 = v9;
           v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
           v16 = v15;
           v17 = @"?";
@@ -228,14 +244,14 @@ LABEL_6:
             v17 = v15;
           }
 
-          v41 = v17;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+          v38 = v17;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           v19 = [v14 errorWithDomain:v8 code:-6723 userInfo:v18];
           (completion2)[2](completion2, v19);
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v6);
@@ -267,23 +283,23 @@ LABEL_6:
   frameHandlers = selfCopy->_frameHandlers;
   selfCopy->_frameHandlers = 0;
 
-  v26 = selfCopy->_ucat->var0;
-  if (v26 > 30)
+  p_var0 = &selfCopy->_ucat->var0;
+  if (*p_var0 > 30)
   {
     goto LABEL_25;
   }
 
-  if (v26 == -1)
+  if (*p_var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
       goto LABEL_25;
     }
 
-    v34 = selfCopy->_ucat;
+    p_var0 = &selfCopy->_ucat->var0;
   }
 
-  LogPrintF();
+  LogPrintF(p_var0, "[SFBLEPipe _invalidate]", 30, "Invalidated\n");
 LABEL_25:
   invalidationHandler = selfCopy->_invalidationHandler;
   if (invalidationHandler)
@@ -302,9 +318,42 @@ LABEL_25:
 
   v31 = selfCopy->_invalidationHandler;
   selfCopy->_invalidationHandler = 0;
+}
 
-LABEL_28:
-  v32 = *MEMORY[0x1E69E9840];
+- (void)addFrameHandlerForType:(unsigned __int8)type handler:(id)handler
+{
+  typeCopy = type;
+  aBlock = handler;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v7 = aBlock;
+  if (!selfCopy->_frameHandlers)
+  {
+    v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    frameHandlers = selfCopy->_frameHandlers;
+    selfCopy->_frameHandlers = v8;
+
+    v7 = aBlock;
+  }
+
+  v10 = _Block_copy(v7);
+  v11 = selfCopy->_frameHandlers;
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:typeCopy];
+  [(NSMutableDictionary *)v11 setObject:v10 forKeyedSubscript:v12];
+
+  objc_sync_exit(selfCopy);
+}
+
+- (void)removeFrameHandlerForType:(unsigned __int8)type
+{
+  typeCopy = type;
+  obj = self;
+  objc_sync_enter(obj);
+  frameHandlers = obj->_frameHandlers;
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:typeCopy];
+  [(NSMutableDictionary *)frameHandlers removeObjectForKey:v5];
+
+  objc_sync_exit(obj);
 }
 
 - (void)sendFrameType:(unsigned __int8)type payload:(id)payload completion:(id)completion
@@ -327,20 +376,20 @@ LABEL_28:
 
 - (void)_sendFrameType:(unsigned __int8)type payload:(id)payload completion:(id)completion
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   completionCopy = completion;
-  v32 = 0;
+  v28 = 0;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_invalidateCalled)
   {
-    var0 = self->_ucat->var0;
-    if (var0 > 60)
+    ucat = self->_ucat;
+    if (ucat->var0 > 60)
     {
       goto LABEL_11;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -349,7 +398,7 @@ LABEL_11:
         {
           v16 = MEMORY[0x1E696ABC0];
           v17 = *MEMORY[0x1E696A768];
-          v35 = *MEMORY[0x1E696A578];
+          v31 = *MEMORY[0x1E696A578];
           v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
           v14 = v18;
           v19 = @"?";
@@ -358,8 +407,8 @@ LABEL_11:
             v19 = v18;
           }
 
-          v36[0] = v19;
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+          v32[0] = v19;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
           v20 = v16;
           v21 = v17;
           v22 = -6709;
@@ -376,7 +425,7 @@ LABEL_20:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe _sendFrameType:payload:completion:]", 60, "### Send frame after invalidate\n");
     goto LABEL_11;
   }
 
@@ -384,11 +433,11 @@ LABEL_20:
   v12 = v11;
   if (v11 < 0x989681)
   {
-    LOBYTE(v32) = type;
-    BYTE1(v32) = BYTE2(v11);
-    BYTE2(v32) = BYTE1(v11);
-    HIBYTE(v32) = v11;
-    v14 = [objc_alloc(MEMORY[0x1E695DF88]) initWithBytes:&v32 length:4];
+    LOBYTE(v28) = type;
+    BYTE1(v28) = BYTE2(v11);
+    BYTE2(v28) = BYTE1(v11);
+    HIBYTE(v28) = v11;
+    v14 = [objc_alloc(MEMORY[0x1E695DF88]) initWithBytes:&v28 length:4];
     [v14 appendData:payloadCopy];
     v15 = objc_alloc_init(SFBLEData);
     [(SFBLEData *)v15 setData:v14];
@@ -400,20 +449,19 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v13 = self->_ucat->var0;
-  if (v13 <= 50)
+  v13 = self->_ucat;
+  if (v13->var0 <= 50)
   {
-    if (v13 != -1)
+    if (v13->var0 != -1)
     {
 LABEL_8:
-      v31 = v12;
-      LogPrintF();
+      LogPrintF(v13, "[SFBLEPipe _sendFrameType:payload:completion:]", 50, "### Data too big to send: %zu bytes\n", v12);
       goto LABEL_16;
     }
 
     if (_LogCategory_Initialize())
     {
-      v30 = self->_ucat;
+      v13 = self->_ucat;
       goto LABEL_8;
     }
   }
@@ -423,7 +471,7 @@ LABEL_16:
   {
     v23 = MEMORY[0x1E696ABC0];
     v24 = *MEMORY[0x1E696A768];
-    v33 = *MEMORY[0x1E696A578];
+    v29 = *MEMORY[0x1E696A578];
     v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v14 = v25;
     v26 = @"?";
@@ -432,8 +480,8 @@ LABEL_16:
       v26 = v25;
     }
 
-    v34 = v26;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:{1, v31}];
+    v30 = v26;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v20 = v23;
     v21 = v24;
     v22 = -6743;
@@ -441,22 +489,20 @@ LABEL_16:
   }
 
 LABEL_22:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupIfNeeded
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (self->_btEndpointRegistered || self->_btEndpointRegistering || [(CBScalablePipeManager *)self->_btPipeManager state]!= 5)
   {
     goto LABEL_10;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -466,7 +512,7 @@ LABEL_22:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe _setupIfNeeded]", 30, "Register endpoint\n");
   }
 
 LABEL_8:
@@ -474,15 +520,15 @@ LABEL_8:
   if (!v4)
   {
     [(SFBLEPipe *)&self->_ucat _setupIfNeeded];
-    goto LABEL_23;
+    return;
   }
 
   v5 = v4;
   v6 = self->_btCentral == 0;
-  v7 = getCBScalablePipeOptionTransport();
-  v21 = v7;
-  v22[0] = &unk_1F1D7CDD8;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v7 = getCBScalablePipeOptionTransport(v4);
+  v18 = v7;
+  v19[0] = &unk_1F1D7CDD8;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
   [(CBScalablePipeManager *)self->_btPipeManager registerEndpoint:v5 type:v6 priority:self->_btPipePriority options:v8];
   self->_btEndpointRegistering = 1;
@@ -499,32 +545,32 @@ LABEL_10:
     }
 
     btCentral = self->_btCentral;
-    v20 = _defaultPairedDeviceBluetoothIdentifier;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v17 = _defaultPairedDeviceBluetoothIdentifier;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v13 = [(CBCentralManager *)btCentral retrievePeripheralsWithIdentifiers:v12];
     firstObject = [v13 firstObject];
 
-    v15 = self->_ucat->var0;
+    v15 = self->_ucat;
+    var0 = v15->var0;
     if (!firstObject)
     {
-      [(SFBLEPipe *)v15 _setupIfNeeded];
+      [(SFBLEPipe *)var0 _setupIfNeeded:&self->_ucat];
       goto LABEL_22;
     }
 
-    if (v15 <= 30)
+    if (var0 <= 30)
     {
-      if (v15 == -1)
+      if (var0 == -1)
       {
-        v16 = self->_ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_21;
         }
 
-        v19 = self->_ucat;
+        v15 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v15, "[SFBLEPipe _setupIfNeeded]", 30, "Connect to %@\n", firstObject);
     }
 
 LABEL_21:
@@ -534,9 +580,6 @@ LABEL_21:
 
 LABEL_22:
   }
-
-LABEL_23:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupPipe:(id)pipe
@@ -563,17 +606,15 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  btChannel = self->_btChannel;
   os_channel_ring_id();
-  v9 = os_channel_tx_ring();
-  self->_btWriteRing = v9;
-  if (!v9)
+  v8 = os_channel_tx_ring();
+  self->_btWriteRing = v8;
+  if (!v8)
   {
     [SFBLEPipe _setupPipe:?];
     goto LABEL_17;
   }
 
-  v10 = self->_btChannel;
   fd = os_channel_get_fd();
   self->_btFD = fd;
   if ((fd & 0x80000000) != 0)
@@ -582,12 +623,12 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v12 = dispatch_source_create(MEMORY[0x1E69E96F8], fd, 0, self->_dispatchQueue);
+  v10 = dispatch_source_create(MEMORY[0x1E69E96F8], fd, 0, self->_dispatchQueue);
   btReadSource = self->_btReadSource;
-  self->_btReadSource = v12;
+  self->_btReadSource = v10;
 
-  v14 = self->_btReadSource;
-  if (!v14)
+  v12 = self->_btReadSource;
+  if (!v12)
   {
     goto LABEL_17;
   }
@@ -597,50 +638,50 @@ LABEL_17:
   handler[2] = __24__SFBLEPipe__setupPipe___block_invoke;
   handler[3] = &unk_1E788B198;
   handler[4] = self;
-  dispatch_source_set_event_handler(v14, handler);
-  v15 = self->_btReadSource;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __24__SFBLEPipe__setupPipe___block_invoke_2;
-  v30[3] = &unk_1E788B198;
-  v16 = pipeCopy;
-  v31 = v16;
-  dispatch_source_set_cancel_handler(v15, v30);
+  dispatch_source_set_event_handler(v12, handler);
+  v13 = self->_btReadSource;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __24__SFBLEPipe__setupPipe___block_invoke_2;
+  v27[3] = &unk_1E788B198;
+  v14 = pipeCopy;
+  v28 = v14;
+  dispatch_source_set_cancel_handler(v13, v27);
 
   dispatch_resume(self->_btReadSource);
   *&self->_btReadLen = xmmword_1A998F1E0;
   btReadPayload = self->_btReadPayload;
   self->_btReadPayload = 0;
 
-  v18 = dispatch_source_create(MEMORY[0x1E69E9730], self->_btFD, 0, self->_dispatchQueue);
+  v16 = dispatch_source_create(MEMORY[0x1E69E9730], self->_btFD, 0, self->_dispatchQueue);
   btWriteSource = self->_btWriteSource;
-  self->_btWriteSource = v18;
+  self->_btWriteSource = v16;
 
-  v20 = self->_btWriteSource;
-  if (!v20)
+  v18 = self->_btWriteSource;
+  if (!v18)
   {
     goto LABEL_17;
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __24__SFBLEPipe__setupPipe___block_invoke_3;
-  v29[3] = &unk_1E788B198;
-  v29[4] = self;
-  dispatch_source_set_event_handler(v20, v29);
-  v21 = self->_btWriteSource;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __24__SFBLEPipe__setupPipe___block_invoke_4;
-  v27 = &unk_1E788B198;
-  v28 = v16;
-  dispatch_source_set_cancel_handler(v21, &v24);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __24__SFBLEPipe__setupPipe___block_invoke_3;
+  v26[3] = &unk_1E788B198;
+  v26[4] = self;
+  dispatch_source_set_event_handler(v18, v26);
+  v19 = self->_btWriteSource;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __24__SFBLEPipe__setupPipe___block_invoke_4;
+  v24 = &unk_1E788B198;
+  v25 = v14;
+  dispatch_source_set_cancel_handler(v19, &v21);
 
   self->_btWriteSuspended = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 50)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 50)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -650,26 +691,26 @@ LABEL_17:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe _setupPipe:]", 50, "Pipe set up\n", v21, v22, v23, v24);
   }
 
 LABEL_11:
-  [(SFBLEPipe *)self _writeHandler:v24];
+  [(SFBLEPipe *)self _writeHandler:v21];
 LABEL_12:
 }
 
 - (void)_tearDownPipe
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   if (self->_btPipe)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[SFBLEPipe _tearDownPipe]", 30, "Pipe tear down\n");
         goto LABEL_6;
       }
 
@@ -713,7 +754,7 @@ LABEL_6:
       completion2 = [(SFBLEData *)self->_btWriteItem completion];
       v13 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E696A768];
-      v25 = *MEMORY[0x1E696A578];
+      v23 = *MEMORY[0x1E696A578];
       v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
       v16 = v15;
       v17 = @"?";
@@ -722,8 +763,8 @@ LABEL_6:
         v17 = v15;
       }
 
-      v26[0] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24[0] = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v19 = [v13 errorWithDomain:v14 code:-6723 userInfo:v18];
       (completion2)[2](completion2, v19);
     }
@@ -747,31 +788,26 @@ LABEL_6:
     v22 = self->_btWriteSource;
     self->_btWriteSource = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_readHandler
 {
-  btReadRing = self->_btReadRing;
   if (!os_channel_get_next_slot())
   {
     goto LABEL_13;
   }
 
-  do
-  {
-    v4 = self->_btReadRing;
+    ;
   }
 
-  while (os_channel_get_next_slot());
-  v5 = self->_btReadRing;
-  if (os_channel_advance_slot())
+  v3 = os_channel_advance_slot();
+  if (v3)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 60)
+    v4 = v3;
+    ucat = self->_ucat;
+    if (ucat->var0 <= 60)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -781,46 +817,47 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe _readHandler]", 60, "### Advance rx slot failed: %#m\n", v4);
     }
   }
 
 LABEL_8:
-  btChannel = self->_btChannel;
-  if (os_channel_sync())
+  v6 = os_channel_sync();
+  if (v6)
   {
-    v8 = self->_ucat->var0;
-    if (v8 <= 60)
+    v7 = v6;
+    v8 = self->_ucat;
+    if (v8->var0 <= 60)
     {
-      if (v8 != -1)
+      if (v8->var0 != -1)
       {
 LABEL_11:
-        LogPrintF();
+        LogPrintF(v8, "[SFBLEPipe _readHandler]", 60, "### Sync rx failed: %#m\n", v7);
         goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
       {
-        v12 = self->_ucat;
+        v8 = self->_ucat;
         goto LABEL_11;
       }
     }
   }
 
 LABEL_13:
-  v9 = self->_ucat->var0;
-  if (v9 <= 10)
+  v9 = self->_ucat;
+  if (v9->var0 <= 10)
   {
-    if (v9 != -1)
+    if (v9->var0 != -1)
     {
 LABEL_15:
-      LogPrintF();
+      LogPrintF(v9, "[SFBLEPipe _readHandler]", 10, "Read %zu bytes\n", 0);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v10 = self->_ucat;
+      v9 = self->_ucat;
       goto LABEL_15;
     }
   }
@@ -837,7 +874,7 @@ LABEL_15:
   v3 = 0;
   while (1)
   {
-    v28 = 0;
+    v23 = 0;
     if (!self->_btWriteItem)
     {
       firstObject = [(NSMutableArray *)self->_btWriteQueue firstObject];
@@ -868,7 +905,6 @@ LABEL_15:
       break;
     }
 
-    btWriteRing = self->_btWriteRing;
     if (!os_channel_get_next_slot())
     {
       goto LABEL_29;
@@ -876,47 +912,41 @@ LABEL_15:
 
     do
     {
-      if (v10 >= v28)
+      if (v10 >= v23)
       {
-        v12 = v28;
+        v11 = v23;
       }
 
       else
       {
-        v12 = v10;
+        v11 = v10;
       }
 
-      memcpy(0, self->_btWritePtr, v12);
-      v28 = v12;
-      v13 = self->_btWriteRing;
+      memcpy(0, self->_btWritePtr, v11);
+      v23 = v11;
       os_channel_set_slot_properties();
-      v14 = &self->_btWritePtr[v12];
-      self->_btWriteOffset += v12;
-      self->_btWritePtr = v14;
-      v3 += v12;
-      v10 -= v12;
-      if (!v10)
-      {
-        break;
-      }
-
-      v15 = self->_btWriteRing;
+      v12 = &self->_btWritePtr[v11];
+      self->_btWriteOffset += v11;
+      self->_btWritePtr = v12;
+      v3 += v11;
+      v10 -= v11;
     }
 
-    while (os_channel_get_next_slot());
-    v16 = self->_btWriteRing;
-    if (!os_channel_advance_slot())
+    while (v10 && os_channel_get_next_slot());
+    v13 = os_channel_advance_slot();
+    if (!v13)
     {
       goto LABEL_18;
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 > 60)
+    v14 = v13;
+    ucat = self->_ucat;
+    if (ucat->var0 > 60)
     {
       goto LABEL_18;
     }
 
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
       goto LABEL_16;
     }
@@ -925,26 +955,27 @@ LABEL_15:
     {
       ucat = self->_ucat;
 LABEL_16:
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe _writeHandler]", 60, "### Advance tx slot failed: %#m\n", v14);
     }
 
 LABEL_18:
-    btChannel = self->_btChannel;
-    if (os_channel_sync())
+    v16 = os_channel_sync();
+    if (v16)
     {
-      v19 = self->_ucat->var0;
-      if (v19 <= 60)
+      v17 = v16;
+      v18 = self->_ucat;
+      if (v18->var0 <= 60)
       {
-        if (v19 != -1)
+        if (v18->var0 != -1)
         {
           goto LABEL_21;
         }
 
         if (_LogCategory_Initialize())
         {
-          v25 = self->_ucat;
+          v18 = self->_ucat;
 LABEL_21:
-          LogPrintF();
+          LogPrintF(v18, "[SFBLEPipe _writeHandler]", 60, "### Sync tx failed: %#m\n", v17);
         }
       }
     }
@@ -961,7 +992,6 @@ LABEL_29:
       break;
     }
 
-    v20 = self->_btWriteLen;
     kdebug_trace();
     completion = [(SFBLEData *)self->_btWriteItem completion];
 
@@ -971,7 +1001,7 @@ LABEL_29:
       completion2[2](completion2, 0);
     }
 
-    v23 = self->_btWriteItem;
+    v21 = self->_btWriteItem;
     self->_btWriteItem = 0;
   }
 
@@ -988,47 +1018,72 @@ LABEL_32:
   }
 
 LABEL_34:
-  v26 = self->_ucat->var0;
-  if (v26 <= 10)
+  v22 = self->_ucat;
+  if (v22->var0 <= 10)
   {
-    if (v26 != -1)
+    if (v22->var0 != -1)
     {
       goto LABEL_36;
     }
 
     if (_LogCategory_Initialize())
     {
-      v27 = self->_ucat;
+      v22 = self->_ucat;
 LABEL_36:
-      LogPrintF();
+      LogPrintF(v22, "[SFBLEPipe _writeHandler]", 10, "Wrote %zu bytes\n", v3);
     }
   }
 }
 
+- (void)_frameHandler:(unsigned __int8)handler data:(id)data
+{
+  handlerCopy = handler;
+  dataCopy = data;
+  frameHandler = self->_frameHandler;
+  v12 = dataCopy;
+  if (frameHandler)
+  {
+    frameHandler[2](frameHandler, handlerCopy, dataCopy);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  frameHandlers = selfCopy->_frameHandlers;
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:handlerCopy];
+  v11 = [(NSMutableDictionary *)frameHandlers objectForKeyedSubscript:v10];
+
+  if (v11)
+  {
+    (v11)[2](v11, handlerCopy, v12);
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
 - (id)_defaultPairedDeviceBluetoothIdentifier
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = [objc_alloc(getIDSServiceClass()) initWithService:@"com.apple.private.alloy.nearby"];
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = [objc_alloc(getIDSServiceClass(self a2))];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   devices = [v2 devices];
-  v4 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(devices);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 isDefaultPairedDevice])
         {
           nsuuid = [v8 nsuuid];
@@ -1040,7 +1095,7 @@ LABEL_36:
         }
       }
 
-      v5 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [devices countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -1053,20 +1108,36 @@ LABEL_36:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)setIdentifier:(id)identifier
 {
+  v9 = 0;
+  v8 = 0;
   v4 = [identifier copy];
   identifier = self->_identifier;
   self->_identifier = v4;
 
-  var4 = self->_ucat->var4;
-  [(NSString *)self->_identifier UTF8String];
-  ASPrintF();
+  ASPrintF(&v8, "%s-%s", self->_ucat->var4, [(NSString *)self->_identifier UTF8String]);
+  if (v8)
+  {
+    v6 = LogCategoryCreateEx();
+    free(v8);
+    if (!v9)
+    {
+      ucat = self->_ucat;
+      if (ucat)
+      {
+        if ((ucat->var3 & 0x40000) != 0)
+        {
+          LogCategory_Remove();
+        }
+      }
+
+      self->_ucat = v6;
+    }
+  }
 }
 
 - (void)_activate
@@ -1076,10 +1147,10 @@ LABEL_12:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1089,7 +1160,7 @@ LABEL_12:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe _activate]", 30, "Activate\n");
   }
 
 LABEL_6:
@@ -1165,14 +1236,13 @@ LABEL_6:
       break;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 40)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 40)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_15:
-      v10 = off_1E788E148[v7];
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe centralManagerDidUpdateState:]", 40, "CBCentralManager state updated: %s\n", off_1E788E148[v7]);
       goto LABEL_17;
     }
 
@@ -1212,10 +1282,10 @@ LABEL_19:
 
   if (v9)
   {
-    OUTLINED_FUNCTION_1_10();
-    if (v11 ^ v12 | v9)
+    ucat = OUTLINED_FUNCTION_1_10();
+    if (v12 ^ v13 | v9)
     {
-      if (v10 == -1)
+      if (v11 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1225,7 +1295,7 @@ LABEL_19:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe centralManager:didConnectPeripheral:]", 30, "Connected to %@\n", peripheralCopy);
     }
   }
 
@@ -1243,13 +1313,13 @@ LABEL_11:
 
   if (btCentral && btCentral == managerCopy)
   {
-    OUTLINED_FUNCTION_1_10();
-    if (!(v14 ^ v15 | v13))
+    ucat = OUTLINED_FUNCTION_1_10();
+    if (!(v15 ^ v16 | v14))
     {
       goto LABEL_8;
     }
 
-    if (v12 == -1)
+    if (v13 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1259,12 +1329,10 @@ LABEL_11:
       ucat = self->_ucat;
     }
 
-    v17 = peripheralCopy;
-    v18 = errorCopy;
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe centralManager:didFailToConnectPeripheral:error:]", 30, "### Connect to peripheral failed: %@, %@\n", peripheralCopy, errorCopy);
 LABEL_8:
     *&self->_btConnected = 0;
-    [(SFBLEPipe *)self _setupIfNeeded:v17];
+    [(SFBLEPipe *)self _setupIfNeeded];
   }
 }
 
@@ -1279,34 +1347,32 @@ LABEL_8:
 
   if (btCentral && btCentral == managerCopy)
   {
-    OUTLINED_FUNCTION_1_10();
-    if (!(v14 ^ v15 | v13))
+    ucat = OUTLINED_FUNCTION_1_10();
+    if (!(v15 ^ v16 | v14))
     {
       goto LABEL_10;
     }
 
-    if (v12 == -1)
+    if (v13 == -1)
     {
       if (!_LogCategory_Initialize())
       {
 LABEL_10:
         *&self->_btConnected = 0;
-        [(SFBLEPipe *)self _setupIfNeeded:v18];
+        [(SFBLEPipe *)self _setupIfNeeded];
         goto LABEL_11;
       }
 
       ucat = self->_ucat;
     }
 
-    v16 = @"success";
+    v17 = @"success";
     if (errorCopy)
     {
-      v16 = errorCopy;
+      v17 = errorCopy;
     }
 
-    v18 = peripheralCopy;
-    v19 = v16;
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe centralManager:didDisconnectPeripheral:error:]", 30, "Disconnected from peripheral %@, %@\n", peripheralCopy, v17);
     goto LABEL_10;
   }
 
@@ -1315,7 +1381,7 @@ LABEL_11:
 
 - (void)scalablePipeManagerDidUpdateState:(id)state
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   btPipeManager = self->_btPipeManager;
@@ -1345,14 +1411,13 @@ LABEL_11:
     v8 = qword_1A998F1F0[state - 1];
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 40)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 40)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_11:
-      v34 = off_1E788E148[v8];
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe scalablePipeManagerDidUpdateState:]", 40, "CBScalablePipeManager state updated: %s\n", off_1E788E148[v8]);
       goto LABEL_13;
     }
 
@@ -1372,64 +1437,63 @@ LABEL_13:
       goto LABEL_15;
     case 2:
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-      v45 = @"SFNotificationKeyConnectionState";
-      v46[0] = &unk_1F1D7CDF0;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v41 = @"SFNotificationKeyConnectionState";
+      v42[0] = &unk_1F1D7CDF0;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
       [defaultCenter postNotificationName:@"SFNotificationNameBTPoweredOff" object:self userInfo:v11];
 
 LABEL_15:
-      v12 = self->_ucat->var0;
-      if (v12 > 50)
+      v12 = self->_ucat;
+      if (v12->var0 > 50)
       {
         goto LABEL_20;
       }
 
-      if (v12 != -1)
+      if (v12->var0 != -1)
       {
         goto LABEL_17;
       }
 
       if (_LogCategory_Initialize())
       {
-        v33 = self->_ucat;
+        v12 = self->_ucat;
 LABEL_17:
-        v34 = off_1E788E178[v8 - 1];
-        LogPrintF();
+        LogPrintF(v12, "[SFBLEPipe scalablePipeManagerDidUpdateState:]", 50, "Tear down due to %s state\n", off_1E788E178[v8 - 1]);
       }
 
 LABEL_20:
-      v35 = v8;
+      v31 = v8;
       selfCopy = self;
-      v37 = stateCopy;
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
+      v33 = stateCopy;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v13 = self->_btWriteQueue;
-      v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v39;
+        v16 = *v35;
         v17 = *MEMORY[0x1E696A768];
         v18 = *MEMORY[0x1E696A578];
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v39 != v16)
+            if (*v35 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v20 = *(*(&v38 + 1) + 8 * i);
+            v20 = *(*(&v34 + 1) + 8 * i);
             completion = [v20 completion];
 
             if (completion)
             {
               completion2 = [v20 completion];
               v23 = MEMORY[0x1E696ABC0];
-              v42 = v18;
+              v38 = v18;
               v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
               v25 = v24;
               v26 = @"?";
@@ -1438,14 +1502,14 @@ LABEL_20:
                 v26 = v24;
               }
 
-              v43 = v26;
-              v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+              v39 = v26;
+              v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
               v28 = [v23 errorWithDomain:v17 code:-6753 userInfo:v27];
               (completion2)[2](completion2, v28);
             }
           }
 
-          v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v34 objects:v40 count:16];
         }
 
         while (v15);
@@ -1457,13 +1521,13 @@ LABEL_20:
       v29 = selfCopy->_identifier;
       if (v29 && (selfCopy->_btEndpointRegistered || selfCopy->_btEndpointRegistering))
       {
-        [(CBScalablePipeManager *)selfCopy->_btPipeManager unregisterEndpoint:v29, v34];
+        [(CBScalablePipeManager *)selfCopy->_btPipeManager unregisterEndpoint:v29];
       }
 
       *&selfCopy->_btConnected = 0;
 
-      stateCopy = v37;
-      v8 = v35;
+      stateCopy = v33;
+      v8 = v31;
 LABEL_36:
       bluetoothStateChangedHandler = self->_bluetoothStateChangedHandler;
       if (bluetoothStateChangedHandler)
@@ -1480,8 +1544,6 @@ LABEL_36:
   }
 
 LABEL_38:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scalablePipeManager:(id)manager didRegisterEndpoint:(id)endpoint error:(id)error
@@ -1496,7 +1558,8 @@ LABEL_38:
   }
 
   self->_btEndpointRegistering = 0;
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (!errorCopy)
   {
     if (var0 <= 30)
@@ -1511,7 +1574,7 @@ LABEL_38:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SFBLEPipe scalablePipeManager:didRegisterEndpoint:error:]", 30, "Registered pipe endpoint\n");
     }
 
 LABEL_14:
@@ -1532,9 +1595,9 @@ LABEL_14:
 
   if (_LogCategory_Initialize())
   {
-    v11 = self->_ucat;
+    ucat = self->_ucat;
 LABEL_7:
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe scalablePipeManager:didRegisterEndpoint:error:]", 60, "### Register pipe endpoint failed: %@\n", errorCopy);
   }
 
 LABEL_15:
@@ -1547,13 +1610,13 @@ LABEL_15:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (managerCopy && self->_btPipeManager == managerCopy && [endpointCopy isEqual:self->_identifier])
   {
-    OUTLINED_FUNCTION_1_10();
-    if (!(v9 ^ v10 | v8))
+    ucat = OUTLINED_FUNCTION_1_10();
+    if (!(v10 ^ v11 | v9))
     {
       goto LABEL_9;
     }
 
-    if (v7 == -1)
+    if (v8 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1563,7 +1626,7 @@ LABEL_15:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe scalablePipeManager:didUnregisterEndpoint:]", 30, "Unregistered pipe endpoint\n");
 LABEL_9:
     *&self->_btEndpointRegistering = 0;
   }
@@ -1571,13 +1634,13 @@ LABEL_9:
 
 - (void)scalablePipeManager:(id)manager pipeDidConnect:(id)connect
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   connectCopy = connect;
-  var0 = self->_ucat->var0;
-  if (var0 <= 50)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 50)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1587,7 +1650,7 @@ LABEL_9:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SFBLEPipe scalablePipeManager:pipeDidConnect:]", 50, "Connected to %@\n", connectCopy);
   }
 
 LABEL_5:
@@ -1598,19 +1661,17 @@ LABEL_5:
     *&self->_btConnected = 1;
     [(SFBLEPipe *)self _setupPipe:connectCopy];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v14 = @"SFNotificationKeyConnectionState";
+    v12 = @"SFNotificationKeyConnectionState";
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:{-[SFBLEPipe connectionState](self, "connectionState")}];
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     [defaultCenter postNotificationName:@"SFNotificationNamePipeConnectionStateChanged" object:self userInfo:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scalablePipeManager:(id)manager pipeDidDisconnect:(id)disconnect error:(id)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   disconnectCopy = disconnect;
   errorCopy = error;
@@ -1624,10 +1685,10 @@ LABEL_5:
 
       if (v12)
       {
-        var0 = self->_ucat->var0;
-        if (var0 <= 50)
+        ucat = self->_ucat;
+        if (ucat->var0 <= 50)
         {
-          if (var0 != -1)
+          if (ucat->var0 != -1)
           {
 LABEL_6:
             v14 = @"success";
@@ -1636,9 +1697,7 @@ LABEL_6:
               v14 = errorCopy;
             }
 
-            v20 = disconnectCopy;
-            v21 = v14;
-            LogPrintF();
+            LogPrintF(ucat, "[SFBLEPipe scalablePipeManager:pipeDidDisconnect:error:]", 50, "Disconnected from %@: %@\n", disconnectCopy, v14);
             goto LABEL_10;
           }
 
@@ -1650,19 +1709,17 @@ LABEL_6:
         }
 
 LABEL_10:
-        [(SFBLEPipe *)self _tearDownPipe:v20];
+        [(SFBLEPipe *)self _tearDownPipe];
         *&self->_btConnected = 0;
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-        v22 = @"SFNotificationKeyConnectionState";
+        v18 = @"SFNotificationKeyConnectionState";
         v16 = [MEMORY[0x1E696AD98] numberWithInteger:{-[SFBLEPipe connectionState](self, "connectionState")}];
-        v23[0] = v16;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v19[0] = v16;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
         [defaultCenter postNotificationName:@"SFNotificationNamePipeConnectionStateChanged" object:self userInfo:v17];
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_setupIfNeeded
@@ -1672,14 +1729,14 @@ LABEL_10:
   {
     if (*result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(result, "[SFBLEPipe _setupIfNeeded]", 90, "### No device to connect to\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *(self + 208);
-      return LogPrintF();
+      result = *(self + 208);
+      return LogPrintF(result, "[SFBLEPipe _setupIfNeeded]", 90, "### No device to connect to\n");
     }
   }
 
@@ -1692,14 +1749,14 @@ LABEL_10:
   {
     if (result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(a2, "[SFBLEPipe _setupIfNeeded]", 90, "### No peripheral for %@\n", a4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v4 = *a3;
-      return LogPrintF();
+      a2 = *a3;
+      return LogPrintF(a2, "[SFBLEPipe _setupIfNeeded]", 90, "### No peripheral for %@\n", a4);
     }
   }
 
@@ -1719,10 +1776,10 @@ LABEL_10:
         return result;
       }
 
-      v7 = *(v1 + 208);
+      result = *(v1 + 208);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[SFBLEPipe _setupPipe:]", 60, "### No fd\n");
   }
 
   return result;
@@ -1741,10 +1798,10 @@ LABEL_10:
         return result;
       }
 
-      v7 = *(v1 + 208);
+      result = *(v1 + 208);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[SFBLEPipe _setupPipe:]", 60, "### No tx ring\n");
   }
 
   return result;
@@ -1763,10 +1820,10 @@ LABEL_10:
         return result;
       }
 
-      v7 = *(v1 + 208);
+      result = *(v1 + 208);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[SFBLEPipe _setupPipe:]", 60, "### No rx ring\n");
   }
 
   return result;
@@ -1785,10 +1842,10 @@ LABEL_10:
         return result;
       }
 
-      v7 = *(v1 + 208);
+      result = *(v1 + 208);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[SFBLEPipe _setupPipe:]", 60, "### No channel\n");
   }
 
   return result;
@@ -1796,21 +1853,20 @@ LABEL_10:
 
 - (uint64_t)_setupPipe:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  OUTLINED_FUNCTION_0_12(a1);
-  if (v4 ^ v5 | v3)
+  v2 = OUTLINED_FUNCTION_0_12(a1);
+  if (v5 ^ v6 | v4)
   {
-    if (v2 == -1)
+    if (v3 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         return [v1 _tearDownPipe];
       }
 
-      v7 = v1[26];
+      v2 = v1[26];
     }
 
-    v8 = 4294960596;
-    LogPrintF();
+    LogPrintF(v2, "[SFBLEPipe _setupPipe:]", 60, "### Set up failed: %#m\n", 4294960596);
   }
 
   return [v1 _tearDownPipe];
@@ -1829,10 +1885,10 @@ LABEL_10:
         return result;
       }
 
-      v7 = *(v1 + 208);
+      result = *(v1 + 208);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[SFBLEPipe _writeHandler]", 60, "### Write handler with no write ring\n");
   }
 
   return result;

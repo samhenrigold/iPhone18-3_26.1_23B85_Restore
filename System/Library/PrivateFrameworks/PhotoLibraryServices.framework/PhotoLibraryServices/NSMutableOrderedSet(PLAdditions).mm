@@ -120,10 +120,9 @@
   if (a3)
   {
     v4 = a3;
-    v5 = [self count];
-    v6 = [v4 count];
-    v7 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{v5, v6}];
-    [self insertObjects:v4 atIndexes:v7];
+    v5 = objc_msgSend_count(self);
+    v6 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{v5, objc_msgSend_count(v4)}];
+    [self insertObjects:v4 atIndexes:v6];
   }
 }
 

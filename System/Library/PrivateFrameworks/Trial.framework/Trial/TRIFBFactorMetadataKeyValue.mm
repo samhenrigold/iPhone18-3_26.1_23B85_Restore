@@ -28,8 +28,6 @@
 
   if (*ptr[-v3 + 4].var0)
   {
-    v6 = &ptr[*ptr[-v3 + 4].var0];
-    v7 = &v6[*v6->var0];
     valid = AFBIsValidUTF8();
     if (!valid)
     {
@@ -37,25 +35,22 @@
     }
 
     ptr = self->_ptr;
-    v9 = *ptr->var0;
-    v10 = -v9;
-    v4 = *ptr[-v9].var0;
+    v7 = *ptr->var0;
+    v8 = -v7;
+    v4 = *ptr[-v7].var0;
   }
 
   else
   {
-    v10 = -v3;
+    v8 = -v3;
   }
 
-  if (v4 < 7 || !*ptr[v10 + 6].var0)
+  if (v4 < 7 || !*ptr[v8 + 6].var0)
   {
 LABEL_11:
     LOBYTE(valid) = 1;
     return valid;
   }
-
-  v11 = &ptr[*ptr[v10 + 6].var0];
-  v12 = &v11[*v11->var0 + 4];
 
   LOBYTE(valid) = AFBIsValidUTF8();
   return valid;

@@ -99,7 +99,7 @@ LABEL_9:
 - (id)_safeDecodeObjectOfClass:(Class)class forKey:(id)key withCoder:(id)coder nonNull:(BOOL)null
 {
   nullCopy = null;
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   v11 = [coderCopy decodeObjectOfClass:class forKey:keyCopy];
@@ -112,15 +112,15 @@ LABEL_3:
       goto LABEL_10;
     }
 
-    v15 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ maps to unexpected class", keyCopy, *MEMORY[0x277CCA450]];
-    v30 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    v18 = [v15 initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v17];
-    [coderCopy failWithError:v18];
+    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ maps to unexpected class", keyCopy, *MEMORY[0x277CCA450]];
+    v29 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v19 = [v16 initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v18];
+    [coderCopy failWithError:v19];
 
-    v14 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_gi(v20);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
     }
@@ -132,8 +132,8 @@ LABEL_3:
 
     if (error)
     {
-      v14 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_gi(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
       }
@@ -146,34 +146,31 @@ LABEL_3:
         goto LABEL_3;
       }
 
-      v21 = [coderCopy containsValueForKey:keyCopy];
-      v22 = *MEMORY[0x277CCA450];
-      if (v21)
+      if ([coderCopy containsValueForKey:keyCopy])
       {
-        v33 = *MEMORY[0x277CCA450];
+        v32 = *MEMORY[0x277CCA450];
         keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"archive contains illegal nil value for key %@", keyCopy];
-        v34[0] = keyCopy;
-        v24 = MEMORY[0x277CBEAC0];
-        v25 = v34;
-        v26 = &v33;
+        v33[0] = keyCopy;
+        v23 = MEMORY[0x277CBEAC0];
+        v24 = v33;
+        v25 = &v32;
       }
 
       else
       {
-        v31 = *MEMORY[0x277CCA450];
+        v30 = *MEMORY[0x277CCA450];
         keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ not present", keyCopy];
-        v32 = keyCopy;
-        v24 = MEMORY[0x277CBEAC0];
-        v25 = &v32;
-        v26 = &v31;
+        v31 = keyCopy;
+        v23 = MEMORY[0x277CBEAC0];
+        v24 = &v31;
+        v25 = &v30;
       }
 
-      v27 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:1];
+      v26 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
 
-      v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v27];
-      [coderCopy failWithError:v14];
-      v28 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v26];
+      v27 = __atxlog_handle_gi([coderCopy failWithError:v15]);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
       }
@@ -183,41 +180,38 @@ LABEL_3:
   v12 = 0;
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_safeDecodeObjectOfClasses:(id)classes forKey:(id)key withCoder:(id)coder nonNull:(BOOL)null
 {
   nullCopy = null;
-  v45[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   keyCopy = key;
   coderCopy = coder;
   v12 = [coderCopy decodeObjectOfClasses:classesCopy forKey:keyCopy];
   if (v12)
   {
-    v37 = 0u;
-    v38 = 0u;
     v35 = 0u;
     v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v13 = classesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v36;
+      v16 = *v34;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v35 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             v23 = v12;
@@ -225,7 +219,7 @@ LABEL_10:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v33 objects:v39 count:16];
         if (v15)
         {
           continue;
@@ -235,15 +229,15 @@ LABEL_10:
       }
     }
 
-    v19 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v39 = *MEMORY[0x277CCA450];
+    v18 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v37 = *MEMORY[0x277CCA450];
     keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ maps to unexpected class", keyCopy];
-    v40 = keyCopy;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-    v22 = [v19 initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v21];
-    [coderCopy failWithError:v22];
+    v38 = keyCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v21 = [v18 initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v20];
+    [coderCopy failWithError:v21];
 
-    v13 = __atxlog_handle_gi();
+    v13 = __atxlog_handle_gi(v22);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
@@ -256,7 +250,7 @@ LABEL_10:
 
     if (error)
     {
-      v13 = __atxlog_handle_gi();
+      v13 = __atxlog_handle_gi(v25);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
@@ -271,34 +265,31 @@ LABEL_10:
         goto LABEL_26;
       }
 
-      v25 = [coderCopy containsValueForKey:keyCopy];
-      v26 = *MEMORY[0x277CCA450];
-      if (v25)
+      if ([coderCopy containsValueForKey:keyCopy])
       {
-        v44 = *MEMORY[0x277CCA450];
+        v42 = *MEMORY[0x277CCA450];
         keyCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"archive contains illegal nil value for key %@", keyCopy];
-        v45[0] = keyCopy2;
-        v28 = MEMORY[0x277CBEAC0];
-        v29 = v45;
-        v30 = &v44;
+        v43[0] = keyCopy2;
+        v27 = MEMORY[0x277CBEAC0];
+        v28 = v43;
+        v29 = &v42;
       }
 
       else
       {
-        v42 = *MEMORY[0x277CCA450];
+        v40 = *MEMORY[0x277CCA450];
         keyCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"key %@ not present", keyCopy];
-        v43 = keyCopy2;
-        v28 = MEMORY[0x277CBEAC0];
-        v29 = &v43;
-        v30 = &v42;
+        v41 = keyCopy2;
+        v27 = MEMORY[0x277CBEAC0];
+        v28 = &v41;
+        v29 = &v40;
       }
 
-      v31 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:1];
+      v30 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
 
-      v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v31];
-      [coderCopy failWithError:v13];
-      v32 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ATXInformationHeuristicResult" code:-1 userInfo:v30];
+      v31 = __atxlog_handle_gi([coderCopy failWithError:v13]);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationHeuristicResult _safeDecodeObjectOfClass:forKey:withCoder:nonNull:];
       }
@@ -309,7 +300,6 @@ LABEL_10:
 LABEL_25:
 
 LABEL_26:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -317,12 +307,9 @@ LABEL_26:
 - (void)_safeDecodeObjectOfClass:forKey:withCoder:nonNull:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v4, v5, "ATXInformationHeuristicResult: error decoding %@ - %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v3, v4, "ATXInformationHeuristicResult: error decoding %@ - %@", v5, v6, v7, v8);
 }
 
 @end

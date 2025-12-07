@@ -2,6 +2,7 @@
 + (BOOL)validateConfiguration:(id)configuration client:(id)client error:(id *)error;
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error;
 + (id)taskIdentifier;
+- (void)featureAvailabilityRequirement:(id)requirement didUpdateSatisfaction:(BOOL)satisfaction;
 - (void)remote_getEvaluationOfRequirements:(id)requirements completion:(id)completion;
 - (void)remote_startObservingChangesInRequirements:(id)requirements completion:(id)completion;
 - (void)remote_stopObservingChanges;
@@ -21,7 +22,7 @@
 
 - (void)remote_startObservingChangesInRequirements:(id)requirements completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   requirementsCopy = requirements;
   _HKInitializeLogging();
@@ -34,29 +35,50 @@
   }
 
   manager = self->_manager;
-  v13 = 0;
-  v10 = [(HDFeatureAvailabilityHealthDataRequirementEvaluationManager *)manager registerObserver:self forRequirements:requirementsCopy queue:0 error:&v13];
+  v12 = 0;
+  v10 = [(HDFeatureAvailabilityHealthDataRequirementEvaluationManager *)manager registerObserver:self forRequirements:requirementsCopy queue:0 error:&v12];
 
-  v11 = v13;
+  v11 = v12;
   completionCopy[2](completionCopy, v10, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_stopObservingChanges
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogInfrastructure();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for changes", &v5, 0xCu);
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for changes", &v4, 0xCu);
   }
 
   [(HDFeatureAvailabilityHealthDataRequirementEvaluationManager *)self->_manager unregisterObserver:self];
-  v4 = *MEMORY[0x277D85DE8];
+}
+
+- (void)featureAvailabilityRequirement:(id)requirement didUpdateSatisfaction:(BOOL)satisfaction
+{
+  satisfactionCopy = satisfaction;
+  v12 = *MEMORY[0x277D85DE8];
+  requirementCopy = requirement;
+  _HKInitializeLogging();
+  v7 = HKLogInfrastructure();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 138543362;
+    selfCopy = self;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of requirement satisfaction update", &v10, 0xCu);
+  }
+
+  if (self)
+  {
+    client = [(HDStandardTaskServer *)self client];
+    connection = [client connection];
+    self = [connection remoteObjectProxy];
+  }
+
+  [(HDFeatureAvailabilityHealthDataRequirementStoreServer *)self client_featureAvailabilityRequirement:requirementCopy didUpdateSatisfaction:satisfactionCopy];
 }
 
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error

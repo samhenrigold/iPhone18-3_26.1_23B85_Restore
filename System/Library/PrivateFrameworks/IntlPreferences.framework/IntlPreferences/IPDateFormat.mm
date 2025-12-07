@@ -94,7 +94,7 @@
 
 + (id)availableDateFormats
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dateFormatterFromLocale = [self dateFormatterFromLocale];
   dateFormatterFromLanguage = [self dateFormatterFromLanguage];
   array = [MEMORY[0x277CBEB18] array];
@@ -106,15 +106,15 @@
   v9 = [dateFormatterFromLocale stringFromDate:v8];
   v10 = [(IPDateFormat *)v6 initWithOption:@"locale" title:v9];
 
-  v38 = array;
-  v34 = v10;
+  v37 = array;
+  v33 = v10;
   [array addObject:v10];
   v11 = MEMORY[0x277CBEB58];
-  v35 = dateFormatterFromLocale;
+  v34 = dateFormatterFromLocale;
   dateFormat = [dateFormatterFromLocale dateFormat];
   v13 = [v11 setWithObject:dateFormat];
 
-  v36 = dateFormatterFromLanguage;
+  v35 = dateFormatterFromLanguage;
   dateFormat2 = [dateFormatterFromLanguage dateFormat];
   LOBYTE(v9) = [v13 containsObject:dateFormat2];
 
@@ -132,25 +132,25 @@
     [v13 addObject:dateFormat3];
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  v21 = [&unk_2841A24D0 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v21 = [&unk_2841A24D0 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v40;
+    v23 = *v39;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v40 != v23)
+        if (*v39 != v23)
         {
           objc_enumerationMutation(&unk_2841A24D0);
         }
 
-        v25 = *(*(&v39 + 1) + 8 * i);
+        v25 = *(*(&v38 + 1) + 8 * i);
         if (([v13 containsObject:v25] & 1) == 0)
         {
           v26 = objc_alloc_init(MEMORY[0x277CCA968]);
@@ -162,20 +162,18 @@
           v30 = [v26 stringFromDate:v29];
           v31 = [(IPDateFormat *)v27 initWithOption:v25 title:v30];
 
-          [v38 addObject:v31];
+          [v37 addObject:v31];
           [v13 addObject:v25];
         }
       }
 
-      v22 = [&unk_2841A24D0 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v22 = [&unk_2841A24D0 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v22);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v38;
+  return v37;
 }
 
 + (id)currentDateFormat
@@ -215,32 +213,32 @@ LABEL_7:
 
 + (void)setDateFormat:(id)format
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   formatCopy = format;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if ([formatCopy isEqualToString:@"language"])
   {
     dateFormatterFromLanguage = [self dateFormatterFromLanguage];
-    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 1];
-    v28[0] = v22;
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 1];
+    v27[0] = v21;
     v7 = [self dateFormatFromFormatter:dateFormatterFromLanguage style:1];
-    v29[0] = v7;
+    v28[0] = v7;
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 2];
-    v28[1] = v8;
+    v27[1] = v8;
     [self dateFormatFromFormatter:dateFormatterFromLanguage style:2];
-    v9 = v23 = standardUserDefaults;
-    v29[1] = v9;
+    v9 = v22 = standardUserDefaults;
+    v28[1] = v9;
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 3];
-    v28[2] = v10;
+    v27[2] = v10;
     v11 = [self dateFormatFromFormatter:dateFormatterFromLanguage style:3];
-    v29[2] = v11;
+    v28[2] = v11;
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 4];
-    v28[3] = v12;
+    v27[3] = v12;
     v13 = [self dateFormatFromFormatter:dateFormatterFromLanguage style:4];
-    v29[3] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+    v28[3] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
 
-    standardUserDefaults = v23;
+    standardUserDefaults = v22;
   }
 
   else
@@ -253,9 +251,9 @@ LABEL_7:
 
     dateFormatterFromLanguage = [self dateFormatterFromLocale];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 1];
-    v26 = v15;
-    v27 = formatCopy;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = v15;
+    v26 = formatCopy;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
 
     v16 = [self dateFormatFromFormatter:dateFormatterFromLanguage style:2];
     v17 = [self dateFormatIsAllNumeric:v16];
@@ -263,12 +261,12 @@ LABEL_7:
     if (v17)
     {
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 1];
-      v24[0] = v18;
-      v25[0] = formatCopy;
+      v23[0] = v18;
+      v24[0] = formatCopy;
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%zd", 2];
-      v24[1] = v19;
-      v25[1] = formatCopy;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v23[1] = v19;
+      v24[1] = formatCopy;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
       v14 = v20;
     }
@@ -277,7 +275,6 @@ LABEL_7:
   [standardUserDefaults setObject:v14 forKey:@"AppleICUDateFormatStrings" inDomain:*MEMORY[0x277CCA208]];
 
 LABEL_8:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)dateFormatIsAllNumeric:(id)numeric

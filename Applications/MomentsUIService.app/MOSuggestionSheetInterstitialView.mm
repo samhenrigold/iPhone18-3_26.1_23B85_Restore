@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for MOSuggestionSheetInterstitialView();
+  v6.super_class = type metadata accessor for MOSuggestionSheetInterstitialView(0);
   v2 = v6.receiver;
   [(MOSuggestionSheetInterstitialView *)&v6 viewDidLoad];
   view = [v2 view];

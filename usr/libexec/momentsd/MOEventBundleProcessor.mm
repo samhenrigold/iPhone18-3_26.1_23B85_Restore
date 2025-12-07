@@ -7,6 +7,7 @@
 + (id)approvedForLearnFromThisApp:(id)app;
 + (id)onboardingDatesBySourceTypeWithStandardSuite:(BOOL)suite;
 + (id)readLearnedFromTheAppStatusTable;
++ (id)trimmedFrom:(id)from with:(id)with respectOnboardingDate:(BOOL)date shouldUseStandardSuite:(BOOL)suite;
 + (void)_stripMediaActions:(id)actions;
 + (void)persistLearnedFromTheAppStatusTable:(id)table;
 + (void)updateLearnedFromTheAppDictionary:(id)dictionary;
@@ -852,6 +853,1470 @@ LABEL_15:
   [v5 setObject:onboardingDateForJournalingSuggestions forKeyedSubscript:@"OnboardingDate"];
 
   return v5;
+}
+
++ (id)trimmedFrom:(id)from with:(id)with respectOnboardingDate:(BOOL)date shouldUseStandardSuite:(BOOL)suite
+{
+  suiteCopy = suite;
+  dateCopy = date;
+  fromCopy = from;
+  withCopy = with;
+  v11 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = [withCopy description];
+    *buf = 138412802;
+    v373 = v12;
+    v374 = 1024;
+    *v375 = dateCopy;
+    *&v375[4] = 1024;
+    *&v375[6] = suiteCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "trimmedFrom, allowedSourceTypes=%@, respectOnboardingDate=%d, shouldUseStandardSuite=%d", buf, 0x18u);
+  }
+
+  v290 = objc_opt_new();
+  v13 = +[MOEventBundleSourceTypes all];
+  v14 = [v13 mutableCopy];
+
+  [v14 minusSet:withCopy];
+  v298 = v14;
+  if (dateCopy)
+  {
+    v319 = [MOEventBundleProcessor onboardingDatesBySourceTypeWithStandardSuite:suiteCopy];
+    v15 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = [v319 description];
+      *buf = 138412290;
+      v373 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "trimmedFrom, onboardingDates=%@", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v319 = 0;
+  }
+
+  v371 = 0u;
+  v370 = 0u;
+  v369 = 0u;
+  v368 = 0u;
+  obj = fromCopy;
+  v300 = [obj countByEnumeratingWithState:&v368 objects:v400 count:16];
+  if (v300)
+  {
+    if (v319)
+    {
+      v18 = dateCopy;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v291 = v18;
+    v297 = *v369;
+    *&v17 = 138414082;
+    v285 = v17;
+    v318 = withCopy;
+    v323 = dateCopy;
+    do
+    {
+      for (i = 0; i != v300; i = i + 1)
+      {
+        if (*v369 != v297)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v311 = *(*(&v368 + 1) + 8 * i);
+        v20 = [v311 copy];
+        v21 = [NSSet alloc];
+        v315 = v20;
+        primarySourceTypes = [v20 primarySourceTypes];
+        v23 = [v21 initWithArray:primarySourceTypes];
+
+        v24 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          bundleIdentifier = [v311 bundleIdentifier];
+          uUIDString = [bundleIdentifier UUIDString];
+          interfaceType = [v311 interfaceType];
+          v28 = [v23 description];
+          *buf = 138412802;
+          v373 = uUIDString;
+          v374 = 2048;
+          *v375 = interfaceType;
+          *&v375[8] = 2112;
+          v376 = v28;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "trimmedFrom, processing candidate bundleID=%@, interfaceType=%lu, primaryTypes=%@", buf, 0x20u);
+        }
+
+        if ([v23 intersectsSet:v298])
+        {
+          v29 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+          v30 = v315;
+          v321 = v29;
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            v31 = [v23 description];
+            *buf = 138412290;
+            v373 = v31;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "trimmedFrom, dropping, primary event disallowed, primaryTypes=%@", buf, 0xCu);
+          }
+
+          goto LABEL_291;
+        }
+
+        v305 = v23;
+        v30 = v315;
+        v299 = i;
+        if (v291)
+        {
+          v321 = objc_opt_new();
+          v364 = 0u;
+          v365 = 0u;
+          v366 = 0u;
+          v367 = 0u;
+          events = [v315 events];
+          v32 = [events countByEnumeratingWithState:&v364 objects:v399 count:16];
+          if (!v32)
+          {
+            goto LABEL_36;
+          }
+
+          v33 = v32;
+          v34 = *v365;
+          while (1)
+          {
+            for (j = 0; j != v33; j = j + 1)
+            {
+              if (*v365 != v34)
+              {
+                objc_enumerationMutation(events);
+              }
+
+              v36 = *(*(&v364 + 1) + 8 * j);
+              bundleSourceType = [v36 bundleSourceType];
+              v38 = [v319 objectForKeyedSubscript:?];
+              startDate = [v36 startDate];
+              bundleSourceType2 = v38;
+              v40 = [startDate isAfterDate:v38];
+
+              if (v40)
+              {
+                eventIdentifier = [v36 eventIdentifier];
+
+                if (eventIdentifier)
+                {
+                  eventIdentifier2 = [v36 eventIdentifier];
+                  [v321 addObject:eventIdentifier2];
+                }
+              }
+
+              v43 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+              {
+                eventIdentifier3 = [v36 eventIdentifier];
+                uUIDString2 = [eventIdentifier3 UUIDString];
+                *buf = 138412802;
+                v373 = bundleSourceType;
+                v374 = 2112;
+                *v375 = uUIDString2;
+                *&v375[8] = 1024;
+                LODWORD(v376) = v40;
+                _os_log_debug_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "trimmedFrom, event onboarding date check, sourceType=%@, id=%@, valid=%d", buf, 0x1Cu);
+              }
+
+              if ([v305 containsObject:bundleSourceType] && (objc_msgSend(withCopy, "containsObject:", bundleSourceType) & v40 & 1) == 0)
+              {
+                v62 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                v320 = v62;
+                if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+                {
+                  bundleIdentifier2 = [v311 bundleIdentifier];
+                  uUIDString3 = [bundleIdentifier2 UUIDString];
+                  *buf = 138412290;
+                  v373 = uUIDString3;
+                  _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "trimmedFrom, dropping, primary event before onboarding date, bundleID=%@", buf, 0xCu);
+                }
+
+                i = v299;
+                v30 = v315;
+                goto LABEL_55;
+              }
+            }
+
+            v33 = [events countByEnumeratingWithState:&v364 objects:v399 count:16];
+            if (!v33)
+            {
+LABEL_36:
+
+              i = v299;
+              v30 = v315;
+              goto LABEL_38;
+            }
+          }
+        }
+
+        v321 = 0;
+LABEL_38:
+        events = objc_opt_new();
+        v46 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        {
+          action = [v30 action];
+          actions = [v315 actions];
+          *buf = 138412546;
+          v373 = action;
+          v374 = 2112;
+          *v375 = actions;
+          _os_log_debug_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "trimmedFrom, action=%@, actions=%@", buf, 0x16u);
+
+          v30 = v315;
+        }
+
+        action2 = [v30 action];
+        bundleSourceType2 = [action2 bundleSourceType];
+        v296 = action2;
+        if (action2)
+        {
+          if (([withCopy containsObject:bundleSourceType2] & 1) == 0 && objc_msgSend(v30, "bundleSuperType") != 10)
+          {
+            v65 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            v320 = v65;
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier3 = [v30 bundleIdentifier];
+              uUIDString4 = [bundleIdentifier3 UUIDString];
+              *buf = 138412290;
+              v373 = uUIDString4;
+              _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "trimmedFrom, primary action not allowed, dropping bundle, bundleID=%@", buf, 0xCu);
+
+              v30 = v315;
+            }
+
+            goto LABEL_62;
+          }
+
+          if (dateCopy)
+          {
+            sourceEventIdentifier = [action2 sourceEventIdentifier];
+            if (sourceEventIdentifier)
+            {
+              v49 = sourceEventIdentifier;
+              sourceEventIdentifier2 = [v296 sourceEventIdentifier];
+              v51 = [v321 containsObject:sourceEventIdentifier2];
+
+              v30 = v315;
+              if ((v51 & 1) == 0)
+              {
+                v68 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                v320 = v68;
+                if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+                {
+                  bundleIdentifier4 = [v315 bundleIdentifier];
+                  uUIDString5 = [bundleIdentifier4 UUIDString];
+                  bundleSourceType = v296;
+                  sourceEventIdentifier3 = [v296 sourceEventIdentifier];
+                  uUIDString6 = [sourceEventIdentifier3 UUIDString];
+                  *buf = 138412546;
+                  v373 = uUIDString5;
+                  v374 = 2112;
+                  *v375 = uUIDString6;
+                  _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "trimmedFrom, primary action past onboarding date, dropping bundle, bundleID=%@, sourceID=%@", buf, 0x16u);
+
+                  v30 = v315;
+LABEL_55:
+                  v23 = v305;
+                  goto LABEL_290;
+                }
+
+LABEL_62:
+                v23 = v305;
+                bundleSourceType = v296;
+                goto LABEL_290;
+              }
+            }
+          }
+        }
+
+        concurrentMediaAction = [v30 concurrentMediaAction];
+
+        if (!concurrentMediaAction)
+        {
+          goto LABEL_68;
+        }
+
+        v53 = [withCopy containsObject:MOEventBundleSourceTypeMedia[0]];
+        if (v53)
+        {
+          if (!dateCopy)
+          {
+            goto LABEL_64;
+          }
+
+          [v30 concurrentMediaAction];
+          v55 = v54 = v30;
+          sourceEventIdentifier4 = [v55 sourceEventIdentifier];
+          if (!sourceEventIdentifier4)
+          {
+
+LABEL_64:
+            v61 = 1;
+            goto LABEL_65;
+          }
+
+          v57 = sourceEventIdentifier4;
+          concurrentMediaAction2 = [v54 concurrentMediaAction];
+          sourceEventIdentifier5 = [concurrentMediaAction2 sourceEventIdentifier];
+          v60 = [v321 containsObject:sourceEventIdentifier5];
+
+          if (v60)
+          {
+            goto LABEL_64;
+          }
+
+          v61 = 0;
+          v30 = v315;
+        }
+
+        else
+        {
+          v61 = 1;
+        }
+
+        [v30 setConcurrentMediaAction:0];
+LABEL_65:
+        v75 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+        {
+          bundleIdentifier5 = [v315 bundleIdentifier];
+          uUIDString7 = [bundleIdentifier5 UUIDString];
+          *buf = 138413058;
+          v373 = uUIDString7;
+          v374 = 1024;
+          *v375 = v53;
+          *&v375[4] = 1024;
+          *&v375[6] = v61;
+          LOWORD(v376) = 1024;
+          *(&v376 + 2) = dateCopy;
+          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_INFO, "trimmedFrom, checking concurrent media action, bundleID=%@, validConcurrentMediaAction=%d, hasValidConcurrentMediaDate=%d, respectOnboardingDate=%d", buf, 0x1Eu);
+        }
+
+        v30 = v315;
+LABEL_68:
+        v320 = objc_opt_new();
+        v360 = 0u;
+        v361 = 0u;
+        v362 = 0u;
+        v363 = 0u;
+        actions2 = [v30 actions];
+        v79 = [actions2 countByEnumeratingWithState:&v360 objects:v398 count:16];
+        if (!v79)
+        {
+          goto LABEL_84;
+        }
+
+        v80 = v79;
+        v81 = *v361;
+        do
+        {
+          for (k = 0; k != v80; k = k + 1)
+          {
+            if (*v361 != v81)
+            {
+              objc_enumerationMutation(actions2);
+            }
+
+            v83 = *(*(&v360 + 1) + 8 * k);
+            bundleSourceType3 = [v83 bundleSourceType];
+            v85 = [withCopy containsObject:bundleSourceType3];
+            if (v323)
+            {
+              if (v85)
+              {
+                sourceEventIdentifier6 = [v83 sourceEventIdentifier];
+                v87 = [v321 containsObject:sourceEventIdentifier6];
+
+                if (v87)
+                {
+LABEL_81:
+                  v90 = [v83 copy];
+                  [v320 addObject:v90];
+                  goto LABEL_82;
+                }
+              }
+            }
+
+            else if (v85)
+            {
+              goto LABEL_81;
+            }
+
+            sourceEventIdentifier7 = [v83 sourceEventIdentifier];
+
+            if (sourceEventIdentifier7)
+            {
+              sourceEventIdentifier8 = [v83 sourceEventIdentifier];
+              [events addObject:sourceEventIdentifier8];
+            }
+
+            v90 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
+            {
+              v91 = [v83 description];
+              *buf = 138412546;
+              v373 = v91;
+              v374 = 2112;
+              *v375 = bundleSourceType3;
+              _os_log_debug_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEBUG, "trimmedFrom, action not allowed, action=%@, sourceType=%@", buf, 0x16u);
+            }
+
+LABEL_82:
+          }
+
+          v80 = [actions2 countByEnumeratingWithState:&v360 objects:v398 count:16];
+        }
+
+        while (v80);
+LABEL_84:
+
+        [v315 setActions:v320];
+        v295 = objc_opt_new();
+        v356 = 0u;
+        v357 = 0u;
+        v358 = 0u;
+        v359 = 0u;
+        backgroundActions = [v315 backgroundActions];
+        v93 = [backgroundActions countByEnumeratingWithState:&v356 objects:v397 count:16];
+        if (!v93)
+        {
+          goto LABEL_100;
+        }
+
+        v94 = v93;
+        v95 = *v357;
+        while (2)
+        {
+          v96 = 0;
+          while (2)
+          {
+            if (*v357 != v95)
+            {
+              objc_enumerationMutation(backgroundActions);
+            }
+
+            v97 = *(*(&v356 + 1) + 8 * v96);
+            bundleSourceType4 = [v97 bundleSourceType];
+            v99 = [withCopy containsObject:bundleSourceType4];
+            if (!v323)
+            {
+              if (!v99)
+              {
+                goto LABEL_92;
+              }
+
+LABEL_97:
+              v104 = [v97 copy];
+              [v320 addObject:v104];
+              goto LABEL_98;
+            }
+
+            if (v99)
+            {
+              sourceEventIdentifier9 = [v97 sourceEventIdentifier];
+              v101 = [v321 containsObject:sourceEventIdentifier9];
+
+              if (v101)
+              {
+                goto LABEL_97;
+              }
+            }
+
+LABEL_92:
+            sourceEventIdentifier10 = [v97 sourceEventIdentifier];
+
+            if (sourceEventIdentifier10)
+            {
+              sourceEventIdentifier11 = [v97 sourceEventIdentifier];
+              [events addObject:sourceEventIdentifier11];
+            }
+
+            v104 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
+            {
+              v105 = [v97 description];
+              *buf = 138412546;
+              v373 = v105;
+              v374 = 2112;
+              *v375 = bundleSourceType4;
+              _os_log_debug_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEBUG, "trimmedFrom, background action not allowed, action=%@, sourceType=%@", buf, 0x16u);
+            }
+
+LABEL_98:
+
+            if (v94 != ++v96)
+            {
+              continue;
+            }
+
+            break;
+          }
+
+          v94 = [backgroundActions countByEnumeratingWithState:&v356 objects:v397 count:16];
+          if (v94)
+          {
+            continue;
+          }
+
+          break;
+        }
+
+LABEL_100:
+
+        v30 = v315;
+        [v315 setBackgroundActions:v295];
+        place = [v315 place];
+        v107 = MOEventBundleSourceTypeVisitLocation[0];
+        v293 = v107;
+        v294 = place;
+        if (!place)
+        {
+          goto LABEL_105;
+        }
+
+        if (([withCopy containsObject:v107] & 1) == 0)
+        {
+          v154 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+          dateCopy = v323;
+          v316 = v154;
+          if (os_log_type_enabled(v154, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier6 = [v315 bundleIdentifier];
+            uUIDString8 = [bundleIdentifier6 UUIDString];
+            *buf = 138412290;
+            v373 = uUIDString8;
+            _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_INFO, "trimmedFrom, primary place not allowed, dropping bundle, bundleID=%@", buf, 0xCu);
+
+            v30 = v315;
+          }
+
+          goto LABEL_234;
+        }
+
+        if (v323)
+        {
+          sourceEventIdentifier12 = [place sourceEventIdentifier];
+          if (sourceEventIdentifier12)
+          {
+            v109 = sourceEventIdentifier12;
+            sourceEventIdentifier13 = [place sourceEventIdentifier];
+            v111 = [v321 containsObject:sourceEventIdentifier13];
+
+            v30 = v315;
+            if ((v111 & 1) == 0)
+            {
+              v229 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+              v316 = v229;
+              if (os_log_type_enabled(v229, OS_LOG_TYPE_INFO))
+              {
+                bundleIdentifier7 = [v315 bundleIdentifier];
+                uUIDString9 = [bundleIdentifier7 UUIDString];
+                sourceEventIdentifier14 = [place sourceEventIdentifier];
+                uUIDString10 = [sourceEventIdentifier14 UUIDString];
+                *buf = 138412546;
+                v373 = uUIDString9;
+                v374 = 2112;
+                *v375 = uUIDString10;
+                _os_log_impl(&_mh_execute_header, v229, OS_LOG_TYPE_INFO, "trimmedFrom, primary place past onboarding date, dropping bundle, bundleID=%@, sourceID=%@", buf, 0x16u);
+
+                v30 = v315;
+              }
+
+              dateCopy = v323;
+LABEL_234:
+              i = v299;
+              v23 = v305;
+              bundleSourceType = v296;
+              goto LABEL_289;
+            }
+          }
+        }
+
+LABEL_105:
+        v316 = objc_opt_new();
+        v352 = 0u;
+        v353 = 0u;
+        v354 = 0u;
+        v355 = 0u;
+        places = [v30 places];
+        v113 = [places countByEnumeratingWithState:&v352 objects:v396 count:16];
+        if (!v113)
+        {
+          goto LABEL_121;
+        }
+
+        v114 = v113;
+        v115 = *v353;
+        while (2)
+        {
+          v116 = 0;
+          while (2)
+          {
+            if (*v353 != v115)
+            {
+              objc_enumerationMutation(places);
+            }
+
+            v117 = *(*(&v352 + 1) + 8 * v116);
+            v118 = MOEventBundleSourceTypeVisitLocation[0];
+            v119 = [withCopy containsObject:v118];
+            if (!v323)
+            {
+              if (!v119)
+              {
+                goto LABEL_113;
+              }
+
+LABEL_118:
+              v124 = [v117 copy];
+              [v316 addObject:v124];
+              goto LABEL_119;
+            }
+
+            if (v119)
+            {
+              sourceEventIdentifier15 = [v117 sourceEventIdentifier];
+              v121 = [v321 containsObject:sourceEventIdentifier15];
+
+              if (v121)
+              {
+                goto LABEL_118;
+              }
+            }
+
+LABEL_113:
+            sourceEventIdentifier16 = [v117 sourceEventIdentifier];
+
+            if (sourceEventIdentifier16)
+            {
+              sourceEventIdentifier17 = [v117 sourceEventIdentifier];
+              [events addObject:sourceEventIdentifier17];
+            }
+
+            v124 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
+            {
+              v125 = [v117 description];
+              *buf = 138412546;
+              v373 = v125;
+              v374 = 2112;
+              *v375 = v118;
+              _os_log_debug_impl(&_mh_execute_header, v124, OS_LOG_TYPE_DEBUG, "trimmedFrom, place not allowed, action=%@, sourceType=%@", buf, 0x16u);
+            }
+
+LABEL_119:
+
+            if (v114 != ++v116)
+            {
+              continue;
+            }
+
+            break;
+          }
+
+          v114 = [places countByEnumeratingWithState:&v352 objects:v396 count:16];
+          if (v114)
+          {
+            continue;
+          }
+
+          break;
+        }
+
+LABEL_121:
+
+        v126 = v315;
+        [v315 setPlaces:v316];
+        v127 = [withCopy containsObject:MOEventBundleSourceTypeContact[0]];
+        dateCopy = v323;
+        if (!v323)
+        {
+          goto LABEL_146;
+        }
+
+        v308 = v127;
+        v317 = objc_opt_new();
+        v348 = 0u;
+        v349 = 0u;
+        v350 = 0u;
+        v351 = 0u;
+        persons = [v315 persons];
+        v128 = [persons countByEnumeratingWithState:&v348 objects:v395 count:16];
+        if (!v128)
+        {
+          goto LABEL_143;
+        }
+
+        v129 = v128;
+        v130 = *v349;
+        while (2)
+        {
+          v131 = 0;
+          while (2)
+          {
+            if (*v349 != v130)
+            {
+              objc_enumerationMutation(persons);
+            }
+
+            v132 = *(*(&v348 + 1) + 8 * v131);
+            v133 = [v319 objectForKeyedSubscript:MOEventBundleSourceTypePhoto[0]];
+            sourceEventIdentifier18 = [v132 sourceEventIdentifier];
+            if ([v321 containsObject:sourceEventIdentifier18])
+            {
+
+              goto LABEL_129;
+            }
+
+            if ([v132 sourceEventAccessType] != 4)
+            {
+
+              goto LABEL_134;
+            }
+
+            startDate2 = [v311 startDate];
+            v138 = [startDate2 isAfterDate:v133];
+
+            if (v138)
+            {
+LABEL_129:
+              sourceEventIdentifier20 = [v132 copy];
+              [v317 addObject:sourceEventIdentifier20];
+              v136 = 1;
+              goto LABEL_136;
+            }
+
+LABEL_134:
+            sourceEventIdentifier19 = [v132 sourceEventIdentifier];
+
+            if (sourceEventIdentifier19)
+            {
+              sourceEventIdentifier20 = [v132 sourceEventIdentifier];
+              [events addObject:sourceEventIdentifier20];
+              v136 = 0;
+LABEL_136:
+            }
+
+            else
+            {
+              v136 = 0;
+            }
+
+            v140 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
+            {
+              bundleIdentifier8 = [v311 bundleIdentifier];
+              uUIDString11 = [bundleIdentifier8 UUIDString];
+              sourceEventIdentifier21 = [v132 sourceEventIdentifier];
+              uUIDString12 = [sourceEventIdentifier21 UUIDString];
+              *buf = 138412802;
+              v373 = uUIDString11;
+              v374 = 2112;
+              *v375 = uUIDString12;
+              *&v375[8] = 1024;
+              LODWORD(v376) = v136;
+              _os_log_debug_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEBUG, "trimmedFrom, checking person date, bundleID=%@, personID=%@, validDate=%d", buf, 0x1Cu);
+
+              dateCopy = v323;
+            }
+
+            v131 = v131 + 1;
+            withCopy = v318;
+            if (v129 != v131)
+            {
+              continue;
+            }
+
+            break;
+          }
+
+          v145 = [persons countByEnumeratingWithState:&v348 objects:v395 count:16];
+          v129 = v145;
+          if (v145)
+          {
+            continue;
+          }
+
+          break;
+        }
+
+LABEL_143:
+
+        [v315 setPersons:v317];
+        if ([v305 containsObject:MOEventBundleSourceTypeContact[0]])
+        {
+          persons2 = [v315 persons];
+          v147 = [persons2 count];
+
+          if (!v147)
+          {
+            v224 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v224, OS_LOG_TYPE_DEFAULT))
+            {
+              bundleIdentifier9 = [v311 bundleIdentifier];
+              uUIDString13 = [bundleIdentifier9 UUIDString];
+              *buf = 138412290;
+              v373 = uUIDString13;
+              _os_log_impl(&_mh_execute_header, v224, OS_LOG_TYPE_DEFAULT, "trimmedFrom, dropping, no allowable persons, bundleID=%@", buf, 0xCu);
+            }
+
+            i = v299;
+            goto LABEL_226;
+          }
+        }
+
+        v126 = v315;
+        v127 = v308;
+LABEL_146:
+        if ((v127 & 1) == 0)
+        {
+          [v126 setPersons:0];
+        }
+
+        place2 = [v126 place];
+        sourceEventIdentifier22 = [place2 sourceEventIdentifier];
+        v150 = [events containsObject:sourceEventIdentifier22];
+
+        if (!v150)
+        {
+          v317 = objc_opt_new();
+          v344 = 0u;
+          v345 = 0u;
+          v346 = 0u;
+          v347 = 0u;
+          places2 = [v126 places];
+          v158 = [places2 countByEnumeratingWithState:&v344 objects:v394 count:16];
+          if (v158)
+          {
+            v159 = v158;
+            v160 = *v345;
+            do
+            {
+              for (m = 0; m != v159; m = m + 1)
+              {
+                if (*v345 != v160)
+                {
+                  objc_enumerationMutation(places2);
+                }
+
+                v162 = *(*(&v344 + 1) + 8 * m);
+                sourceEventIdentifier23 = [v162 sourceEventIdentifier];
+                v164 = [events containsObject:sourceEventIdentifier23];
+
+                if (v164)
+                {
+                  v165 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                  if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
+                  {
+                    bundleIdentifier10 = [v315 bundleIdentifier];
+                    uUIDString14 = [bundleIdentifier10 UUIDString];
+                    sourceEventIdentifier24 = [v162 sourceEventIdentifier];
+                    uUIDString15 = [sourceEventIdentifier24 UUIDString];
+                    *buf = 138412546;
+                    v373 = uUIDString14;
+                    v374 = 2112;
+                    *v375 = uUIDString15;
+                    _os_log_impl(&_mh_execute_header, v165, OS_LOG_TYPE_INFO, "trimmedFrom, dropping place in final consistency pass, bundleID=%@, placeID=%@", buf, 0x16u);
+                  }
+                }
+
+                else
+                {
+                  [v317 addObject:v162];
+                }
+              }
+
+              v159 = [places2 countByEnumeratingWithState:&v344 objects:v394 count:16];
+            }
+
+            while (v159);
+          }
+
+          [v315 setPlaces:v317];
+          action3 = [v315 action];
+          sourceEventIdentifier25 = [action3 sourceEventIdentifier];
+          v172 = [events containsObject:sourceEventIdentifier25];
+
+          if (v172)
+          {
+            v173 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            i = v299;
+            if (os_log_type_enabled(v173, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier11 = [v315 bundleIdentifier];
+              uUIDString16 = [bundleIdentifier11 UUIDString];
+              *buf = 138412290;
+              v373 = uUIDString16;
+              _os_log_impl(&_mh_execute_header, v173, OS_LOG_TYPE_INFO, "trimmedFrom, primary action on disallow list, dropping bundle, bundleID=%@", buf, 0xCu);
+            }
+
+            dateCopy = v323;
+            v23 = v305;
+            bundleSourceType = v296;
+            goto LABEL_287;
+          }
+
+          v307 = objc_opt_new();
+          v340 = 0u;
+          v341 = 0u;
+          v342 = 0u;
+          v343 = 0u;
+          actions3 = [v315 actions];
+          v177 = [actions3 countByEnumeratingWithState:&v340 objects:v393 count:16];
+          if (v177)
+          {
+            v178 = v177;
+            v179 = *v341;
+            do
+            {
+              for (n = 0; n != v178; n = n + 1)
+              {
+                if (*v341 != v179)
+                {
+                  objc_enumerationMutation(actions3);
+                }
+
+                v181 = *(*(&v340 + 1) + 8 * n);
+                sourceEventIdentifier26 = [v181 sourceEventIdentifier];
+                v183 = [events containsObject:sourceEventIdentifier26];
+
+                if (v183)
+                {
+                  v184 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                  if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
+                  {
+                    bundleIdentifier12 = [v315 bundleIdentifier];
+                    uUIDString17 = [bundleIdentifier12 UUIDString];
+                    sourceEventIdentifier27 = [v181 sourceEventIdentifier];
+                    uUIDString18 = [sourceEventIdentifier27 UUIDString];
+                    *buf = 138412546;
+                    v373 = uUIDString17;
+                    v374 = 2112;
+                    *v375 = uUIDString18;
+                    _os_log_impl(&_mh_execute_header, v184, OS_LOG_TYPE_INFO, "trimmedFrom, dropping action in final consistency pass, bundleID=%@, actionID=%@", buf, 0x16u);
+                  }
+                }
+
+                else
+                {
+                  [v307 addObject:v181];
+                }
+              }
+
+              v178 = [actions3 countByEnumeratingWithState:&v340 objects:v393 count:16];
+            }
+
+            while (v178);
+          }
+
+          [v315 setActions:v307];
+          v306 = objc_opt_new();
+          v336 = 0u;
+          v337 = 0u;
+          v338 = 0u;
+          v339 = 0u;
+          backgroundActions2 = [v315 backgroundActions];
+          v190 = [backgroundActions2 countByEnumeratingWithState:&v336 objects:v392 count:16];
+          if (v190)
+          {
+            v191 = v190;
+            v192 = *v337;
+            do
+            {
+              for (ii = 0; ii != v191; ii = ii + 1)
+              {
+                if (*v337 != v192)
+                {
+                  objc_enumerationMutation(backgroundActions2);
+                }
+
+                v194 = *(*(&v336 + 1) + 8 * ii);
+                sourceEventIdentifier28 = [v194 sourceEventIdentifier];
+                v196 = [events containsObject:sourceEventIdentifier28];
+
+                if (v196)
+                {
+                  v197 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                  if (os_log_type_enabled(v197, OS_LOG_TYPE_INFO))
+                  {
+                    bundleIdentifier13 = [v315 bundleIdentifier];
+                    uUIDString19 = [bundleIdentifier13 UUIDString];
+                    sourceEventIdentifier29 = [v194 sourceEventIdentifier];
+                    uUIDString20 = [sourceEventIdentifier29 UUIDString];
+                    *buf = 138412546;
+                    v373 = uUIDString19;
+                    v374 = 2112;
+                    *v375 = uUIDString20;
+                    _os_log_impl(&_mh_execute_header, v197, OS_LOG_TYPE_INFO, "trimmedFrom, dropping background action in final consistency pass, bundleID=%@, actionID=%@", buf, 0x16u);
+                  }
+                }
+
+                else
+                {
+                  [v306 addObject:v194];
+                }
+              }
+
+              v191 = [backgroundActions2 countByEnumeratingWithState:&v336 objects:v392 count:16];
+            }
+
+            while (v191);
+          }
+
+          [v315 setBackgroundActions:v306];
+          v309 = objc_opt_new();
+          v332 = 0u;
+          v333 = 0u;
+          v334 = 0u;
+          v335 = 0u;
+          resources = [v315 resources];
+          v202 = [resources countByEnumeratingWithState:&v332 objects:v391 count:16];
+          dateCopy = v323;
+          if (v202)
+          {
+            v203 = v202;
+            v204 = *v333;
+            do
+            {
+              for (jj = 0; jj != v203; jj = jj + 1)
+              {
+                if (*v333 != v204)
+                {
+                  objc_enumerationMutation(resources);
+                }
+
+                v206 = *(*(&v332 + 1) + 8 * jj);
+                bundleSourceType5 = [v206 bundleSourceType];
+                v208 = [withCopy containsObject:bundleSourceType5];
+                if (dateCopy)
+                {
+                  v209 = v203;
+                  v210 = v204;
+                  sourceEventIdentifier30 = [v206 sourceEventIdentifier];
+                  v212 = [v321 containsObject:sourceEventIdentifier30];
+
+                  if ([bundleSourceType5 isEqualToString:MOEventBundleSourceTypePhoto[0]])
+                  {
+                    v213 = [v319 objectForKeyedSubscript:bundleSourceType5];
+                    photoLocalDate = [v206 photoLocalDate];
+                    if ([v311 interfaceType] == 10)
+                    {
+                      creationDate = [v311 creationDate];
+                    }
+
+                    else
+                    {
+                      creationDate = photoLocalDate;
+                    }
+
+                    v216 = [creationDate isAfterDate:v213];
+
+                    dateCopy = v323;
+                  }
+
+                  else
+                  {
+                    v216 = [bundleSourceType5 isEqualToString:MOEventBundleSourceTypeReflectionPrompt[0]] | v212;
+                  }
+
+                  v204 = v210;
+                  v203 = v209;
+                  withCopy = v318;
+                }
+
+                else
+                {
+                  v216 = 1;
+                }
+
+                if ((v208 & v216) == 1)
+                {
+                  v217 = [v206 copy];
+                  [v309 addObject:v217];
+                }
+
+                else
+                {
+                  v217 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                  if (os_log_type_enabled(v217, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 138412802;
+                    v373 = bundleSourceType5;
+                    v374 = 1024;
+                    *v375 = v216 & 1;
+                    *&v375[4] = 1024;
+                    *&v375[6] = dateCopy;
+                    _os_log_impl(&_mh_execute_header, v217, OS_LOG_TYPE_INFO, "trimmedFrom, resource failed conditions, type=%@, hasValidOnboardingDate=%d, respectOnboardingDate=%d", buf, 0x18u);
+                  }
+                }
+              }
+
+              v203 = [resources countByEnumeratingWithState:&v332 objects:v391 count:16];
+            }
+
+            while (v203);
+          }
+
+          [v319 objectForKeyedSubscript:@"OnboardingDate"];
+          v314 = bundleSourceType = v296;
+          if (!v314)
+          {
+            goto LABEL_270;
+          }
+
+          v330 = 0u;
+          v331 = 0u;
+          v328 = 0u;
+          v329 = 0u;
+          v218 = v309;
+          v219 = [v218 countByEnumeratingWithState:&v328 objects:v390 count:16];
+          if (v219)
+          {
+            v220 = v219;
+            v221 = *v329;
+            while (2)
+            {
+              for (kk = 0; kk != v220; kk = kk + 1)
+              {
+                if (*v329 != v221)
+                {
+                  objc_enumerationMutation(v218);
+                }
+
+                if ([*(*(&v328 + 1) + 8 * kk) type] == 2)
+                {
+                  v223 = 1;
+                  goto LABEL_229;
+                }
+              }
+
+              v220 = [v218 countByEnumeratingWithState:&v328 objects:v390 count:16];
+              if (v220)
+              {
+                continue;
+              }
+
+              break;
+            }
+          }
+
+          v223 = 0;
+LABEL_229:
+
+          place3 = [v311 place];
+          if (place3)
+          {
+            v228 = 0;
+          }
+
+          else
+          {
+            places3 = [v311 places];
+            if (places3)
+            {
+              places4 = [v311 places];
+              v228 = [places4 count] == 0;
+
+              bundleSourceType = v296;
+            }
+
+            else
+            {
+              v228 = 1;
+            }
+          }
+
+          v236 = v223 | v228;
+          withCopy = v318;
+          v237 = v311;
+          if ((v236 & 1) == 0)
+          {
+            place4 = [v311 place];
+            if (place4)
+            {
+              startDate3 = [place4 startDate];
+              v239 = [startDate3 isBeforeDate:v314];
+
+              if (v239)
+              {
+                v240 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                if (os_log_type_enabled(v240, OS_LOG_TYPE_INFO))
+                {
+                  bundleIdentifier14 = [v315 bundleIdentifier];
+                  uUIDString21 = [bundleIdentifier14 UUIDString];
+                  startDate4 = [place4 startDate];
+                  v244 = [startDate4 description];
+                  *buf = 138412546;
+                  v373 = uUIDString21;
+                  v374 = 2112;
+                  *v375 = v244;
+                  _os_log_impl(&_mh_execute_header, v240, OS_LOG_TYPE_INFO, "trimmedFrom, pre-onboarded visit, dropping primary place, bundleID=%@, placeStartDate=%@", buf, 0x16u);
+                }
+
+                [v311 setPlace:0];
+              }
+            }
+
+            v301 = objc_opt_new();
+            v324 = 0u;
+            v325 = 0u;
+            v326 = 0u;
+            v327 = 0u;
+            places5 = [v311 places];
+            v246 = [places5 countByEnumeratingWithState:&v324 objects:v389 count:16];
+            if (v246)
+            {
+              v247 = v246;
+              v248 = *v325;
+              do
+              {
+                for (mm = 0; mm != v247; mm = mm + 1)
+                {
+                  if (*v325 != v248)
+                  {
+                    objc_enumerationMutation(places5);
+                  }
+
+                  v250 = *(*(&v324 + 1) + 8 * mm);
+                  if (v250 && ([*(*(&v324 + 1) + 8 * mm) startDate], v251 = objc_claimAutoreleasedReturnValue(), v252 = objc_msgSend(v251, "isBeforeDate:", v314), v251, (v252 & 1) == 0))
+                  {
+                    [v301 addObject:v250];
+                  }
+
+                  else
+                  {
+                    v253 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+                    if (os_log_type_enabled(v253, OS_LOG_TYPE_INFO))
+                    {
+                      bundleIdentifier15 = [v315 bundleIdentifier];
+                      uUIDString22 = [bundleIdentifier15 UUIDString];
+                      startDate5 = [place4 startDate];
+                      v257 = [startDate5 description];
+                      *buf = 138412546;
+                      v373 = uUIDString22;
+                      v374 = 2112;
+                      *v375 = v257;
+                      _os_log_impl(&_mh_execute_header, v253, OS_LOG_TYPE_INFO, "trimmedFrom, pre-onboarded visit, dropping place, bundleID=%@, placeStartDate=%@", buf, 0x16u);
+
+                      dateCopy = v323;
+                    }
+                  }
+                }
+
+                v247 = [places5 countByEnumeratingWithState:&v324 objects:v389 count:16];
+              }
+
+              while (v247);
+            }
+
+            v237 = v311;
+            [v311 setPlaces:v301];
+
+            bundleSourceType = v296;
+          }
+
+          place5 = [v237 place];
+          if (place5)
+          {
+            v259 = 1;
+          }
+
+          else
+          {
+            places6 = [v237 places];
+            if (places6)
+            {
+              places7 = [v237 places];
+              v259 = [places7 count] != 0;
+
+              bundleSourceType = v296;
+            }
+
+            else
+            {
+              v259 = 0;
+            }
+          }
+
+          if ([v305 containsObject:MOEventBundleSourceTypeVisitLocation[0]] && !v259)
+          {
+            v262 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+            if (os_log_type_enabled(v262, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier16 = [v315 bundleIdentifier];
+              uUIDString23 = [bundleIdentifier16 UUIDString];
+              *buf = 138412290;
+              v373 = uUIDString23;
+              _os_log_impl(&_mh_execute_header, v262, OS_LOG_TYPE_INFO, "trimmedFrom, pre-onboarded visit, dropping bundle, bundleID=%@", buf, 0xCu);
+
+              bundleSourceType = v296;
+            }
+
+            i = v299;
+          }
+
+          else
+          {
+LABEL_270:
+            [v315 setResources:v309];
+            [v315 buildResources];
+            resources2 = [v315 resources];
+
+            if (resources2)
+            {
+              resources3 = [v315 resources];
+              v267 = [resources3 count];
+
+              v268 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+              v269 = v268;
+              i = v299;
+              if (v267)
+              {
+                if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
+                {
+                  bundleIdentifier17 = [v315 bundleIdentifier];
+                  uUIDString24 = [bundleIdentifier17 UUIDString];
+                  resources4 = [v311 resources];
+                  v287 = [resources4 count];
+                  resources5 = [v315 resources];
+                  v286 = [resources5 count];
+                  places8 = [v311 places];
+                  v271 = [places8 count];
+                  place6 = [v311 place];
+                  if (place6)
+                  {
+                    v273 = v271 + 1;
+                  }
+
+                  else
+                  {
+                    v273 = v271;
+                  }
+
+                  places9 = [v315 places];
+                  v275 = [places9 count];
+                  place7 = [v315 place];
+                  if (place7)
+                  {
+                    v277 = v275 + 1;
+                  }
+
+                  else
+                  {
+                    v277 = v275;
+                  }
+
+                  persons3 = [v311 persons];
+                  v279 = [persons3 count];
+                  persons4 = [v315 persons];
+                  v281 = [persons4 count];
+                  *buf = v285;
+                  v373 = uUIDString24;
+                  v374 = 2048;
+                  *v375 = v287;
+                  *&v375[8] = 2048;
+                  v376 = v286;
+                  v377 = 2048;
+                  v378 = v273;
+                  i = v299;
+                  v379 = 2048;
+                  v380 = v277;
+                  withCopy = v318;
+                  v381 = 2048;
+                  v382 = v279;
+                  v383 = 2048;
+                  v384 = v281;
+                  v385 = 1024;
+                  v386 = v323;
+                  _os_log_impl(&_mh_execute_header, v269, OS_LOG_TYPE_DEFAULT, "trimmedFrom, adding bundle, bundleID=%@, sourceResourceCount=%lu, resourceCount=%lu, sourcePlacesCount=%lu, placesCount=%lu, sourcePersonsCount=%lu, personsCount=%lu, respectOnboardingDate=%d", buf, 0x4Eu);
+
+                  dateCopy = v323;
+                  bundleSourceType = v296;
+                }
+
+                [v290 addObject:v315];
+                goto LABEL_286;
+              }
+
+              if (os_log_type_enabled(v268, OS_LOG_TYPE_ERROR))
+              {
+                [MOEventBundleProcessor trimmedFrom:v387 with:v315 respectOnboardingDate:? shouldUseStandardSuite:?];
+              }
+            }
+
+            else
+            {
+              v269 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+              i = v299;
+              if (os_log_type_enabled(v269, OS_LOG_TYPE_ERROR))
+              {
+                [MOEventBundleProcessor trimmedFrom:v388 with:v315 respectOnboardingDate:? shouldUseStandardSuite:?];
+              }
+            }
+          }
+
+LABEL_286:
+          v173 = v307;
+
+          v23 = v305;
+LABEL_287:
+
+          v30 = v315;
+          goto LABEL_288;
+        }
+
+        v151 = _mo_log_facility_get_os_log(&MOLogFacilityBundleProcessing);
+        i = v299;
+        v317 = v151;
+        if (os_log_type_enabled(v151, OS_LOG_TYPE_INFO))
+        {
+          bundleIdentifier18 = [v315 bundleIdentifier];
+          uUIDString25 = [bundleIdentifier18 UUIDString];
+          *buf = 138412290;
+          v373 = uUIDString25;
+          _os_log_impl(&_mh_execute_header, v151, OS_LOG_TYPE_INFO, "trimmedFrom, primary place on disallow list, dropping bundle, bundleID=%@", buf, 0xCu);
+
+          v30 = v315;
+          goto LABEL_227;
+        }
+
+LABEL_226:
+        v30 = v315;
+LABEL_227:
+        v23 = v305;
+        bundleSourceType = v296;
+LABEL_288:
+
+LABEL_289:
+LABEL_290:
+
+LABEL_291:
+      }
+
+      v300 = [obj countByEnumeratingWithState:&v368 objects:v400 count:16];
+    }
+
+    while (v300);
+  }
+
+  v282 = withCopy;
+  v283 = [v290 copy];
+
+  return v283;
 }
 
 + (void)trimmedFrom:(uint64_t)a1 with:(uint64_t)a2 respectOnboardingDate:shouldUseStandardSuite:.cold.1(uint64_t a1, uint64_t a2)

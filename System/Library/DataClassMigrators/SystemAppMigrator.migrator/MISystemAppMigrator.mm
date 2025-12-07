@@ -1,6 +1,7 @@
 @interface MISystemAppMigrator
 - (BOOL)_getLSEligiblityKey:(id)key appliesTo:(BOOL *)to forBundleID:(id)d withAppInfo:(id)info withEvaluator:(id)evaluator;
 - (BOOL)appInstalledSuccessfullyWithBundleID:(id)d;
+- (BOOL)attemptToInstallSystemAppWithBundleID:(id)d desiredAppState:(int)state stagedAppOrPatchURL:(id)l isInstalled:(BOOL)installed;
 - (BOOL)demoteAppWithBundleID:(id)d demotionReason:(unint64_t)reason;
 - (BOOL)demoteAppWithBundleID:(id)d desiredAppState:(int)state isInstalled:(BOOL)installed;
 - (BOOL)existsUnusedDataContainerWithBundleID:(id)d;
@@ -47,9 +48,9 @@
 
 - (MISystemAppMigrator)init
 {
-  v72.receiver = self;
-  v72.super_class = MISystemAppMigrator;
-  v2 = [(MISystemAppMigrator *)&v72 init];
+  v73.receiver = self;
+  v73.super_class = MISystemAppMigrator;
+  v2 = [(MISystemAppMigrator *)&v73 init];
   v3 = v2;
   if (v2)
   {
@@ -94,33 +95,33 @@ LABEL_30:
       return v3;
     }
 
-    v64 = v3;
+    v65 = v3;
     v22 = objc_opt_new();
-    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
     v24 = +[MIDaemonConfiguration sharedInstance];
     systemAppPlaceholderBundleIDToInfoMap = [v24 systemAppPlaceholderBundleIDToInfoMap];
     allKeys = [systemAppPlaceholderBundleIDToInfoMap allKeys];
 
     obj = allKeys;
-    v27 = [allKeys countByEnumeratingWithState:&v68 objects:v73 count:16];
+    v27 = [allKeys countByEnumeratingWithState:&v69 objects:v74 count:16];
     if (v27)
     {
       v28 = v27;
-      v66 = *v69;
+      v67 = *v70;
       do
       {
         for (i = 0; i != v28; i = i + 1)
         {
           v30 = v22;
-          if (*v69 != v66)
+          if (*v70 != v67)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v68 + 1) + 8 * i);
+          v31 = *(*(&v69 + 1) + 8 * i);
           v32 = objc_opt_new();
           v33 = v18;
           sharedInstance = [v18[109] sharedInstance];
@@ -156,64 +157,64 @@ LABEL_30:
           v18 = v33;
         }
 
-        v28 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
+        v28 = [obj countByEnumeratingWithState:&v69 objects:v74 count:16];
       }
 
       while (v28);
     }
 
     v43 = [v22 copy];
-    v3 = v64;
-    v44 = v64->_itemsToInstall;
-    v64->_itemsToInstall = v43;
+    v3 = v65;
+    v44 = v65->_itemsToInstall;
+    v65->_itemsToInstall = v43;
 
     v45 = objc_opt_new();
-    appBundleIDsRequestingStoreDownload = v64->_appBundleIDsRequestingStoreDownload;
-    v64->_appBundleIDsRequestingStoreDownload = v45;
+    appBundleIDsRequestingStoreDownload = v65->_appBundleIDsRequestingStoreDownload;
+    v65->_appBundleIDsRequestingStoreDownload = v45;
 
     v47 = objc_opt_new();
-    appBundleIDsToUninstall = v64->_appBundleIDsToUninstall;
-    v64->_appBundleIDsToUninstall = v47;
+    appBundleIDsToUninstall = v65->_appBundleIDsToUninstall;
+    v65->_appBundleIDsToUninstall = v47;
 
     v49 = objc_opt_new();
-    appBundleIDsInstalledSuccessfully = v64->_appBundleIDsInstalledSuccessfully;
-    v64->_appBundleIDsInstalledSuccessfully = v49;
+    appBundleIDsInstalledSuccessfully = v65->_appBundleIDsInstalledSuccessfully;
+    v65->_appBundleIDsInstalledSuccessfully = v49;
 
     v51 = objc_opt_new();
-    currentlyInstallingCoordinators = v64->_currentlyInstallingCoordinators;
-    v64->_currentlyInstallingCoordinators = v51;
+    currentlyInstallingCoordinators = v65->_currentlyInstallingCoordinators;
+    v65->_currentlyInstallingCoordinators = v51;
 
-    if ([(NSDictionary *)v64->_itemsToInstall count])
+    if ([(NSDictionary *)v65->_itemsToInstall count])
     {
-      v63 = [(NSDictionary *)v64->_itemsToInstall count];
+      v64 = [(NSDictionary *)v65->_itemsToInstall count];
       _DMLogFunc();
     }
 
     else
     {
       _DMLogFunc();
-      v53 = v64->_itemsToInstall;
-      v64->_itemsToInstall = 0;
+      v53 = v65->_itemsToInstall;
+      v65->_itemsToInstall = 0;
     }
 
-    systemAppPlaceholdersDirectory2 = [NSURL fileURLWithPath:@"/private/var/preferences/com.apple.demo.SADForceInstall.plist", v63];
-    v67 = 0;
-    v54 = [NSArray arrayWithContentsOfURL:systemAppPlaceholdersDirectory2 error:&v67];
-    v55 = v67;
+    systemAppPlaceholdersDirectory2 = [NSURL fileURLWithPath:@"/private/var/preferences/com.apple.demo.SADForceInstall.plist", v64];
+    v68 = 0;
+    v54 = [NSArray arrayWithContentsOfURL:systemAppPlaceholdersDirectory2 error:&v68];
+    v55 = v68;
     v56 = v55;
     if (v54)
     {
-      objc_opt_class();
-      if (MIArrayContainsOnlyClass(v54))
+      v57 = objc_opt_class();
+      if (MIArrayContainsOnlyClass(v54, v57))
       {
-        v57 = [NSSet setWithArray:v54];
-        forceInstallBundleIDs = v64->_forceInstallBundleIDs;
-        v64->_forceInstallBundleIDs = v57;
+        v58 = [NSSet setWithArray:v54];
+        forceInstallBundleIDs = v65->_forceInstallBundleIDs;
+        v65->_forceInstallBundleIDs = v58;
 LABEL_28:
 
 LABEL_29:
-        preferencesToMigrate = v64->_preferencesToMigrate;
-        v64->_preferencesToMigrate = &__NSArray0__struct;
+        preferencesToMigrate = v65->_preferencesToMigrate;
+        v65->_preferencesToMigrate = &__NSArray0__struct;
 
         goto LABEL_30;
       }
@@ -1555,27 +1556,8 @@ LABEL_23:
   v14 = 0;
   v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v14];
   v5 = v14;
-  if (!v4)
+  if (!v4 || ([v4 URL], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "path"), v7 = objc_claimAutoreleasedReturnValue(), v15[0] = kMISValidationOptionAllowAdHocSigning, v15[1] = kMISValidationOptionValidateSignatureOnly, v16[0] = &__kCFBooleanTrue, v16[1] = &__kCFBooleanTrue, v15[2] = kMISValidationOptionAllowLaunchWarning, v15[3] = kMISValidationOptionTrustCacheOnly, v16[2] = &__kCFBooleanTrue, v16[3] = &__kCFBooleanTrue, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v16, v15, 4), v8 = MISValidateSignature(), v7, v6, v8 == -402620377))
   {
-    goto LABEL_5;
-  }
-
-  v6 = [v4 URL];
-  path = [v6 path];
-  v15[0] = kMISValidationOptionAllowAdHocSigning;
-  v15[1] = kMISValidationOptionValidateSignatureOnly;
-  v16[0] = &__kCFBooleanTrue;
-  v16[1] = &__kCFBooleanTrue;
-  v15[2] = kMISValidationOptionAllowLaunchWarning;
-  v15[3] = kMISValidationOptionTrustCacheOnly;
-  v16[2] = &__kCFBooleanTrue;
-  v16[3] = &__kCFBooleanTrue;
-  [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:4];
-  v8 = MISValidateSignature();
-
-  if (v8 == -402620377)
-  {
-LABEL_5:
     _DMLogFunc();
 LABEL_7:
     v9 = 0;
@@ -1585,7 +1567,7 @@ LABEL_7:
   if (v8)
   {
     v10 = [v4 URL];
-    path2 = [v10 path];
+    path = [v10 path];
     v13 = MIErrorStringForMISError();
     _DMLogFunc();
 
@@ -1667,6 +1649,184 @@ LABEL_12:
 LABEL_17:
 
   return v14;
+}
+
+- (BOOL)attemptToInstallSystemAppWithBundleID:(id)d desiredAppState:(int)state stagedAppOrPatchURL:(id)l isInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  v8 = *&state;
+  dCopy = d;
+  lCopy = l;
+  v12 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:dCopy];
+  v13 = @"NOT ";
+  if (installedCopy)
+  {
+    v13 = &stru_112E0;
+  }
+
+  v35 = v13;
+  _DMLogFunc();
+  v15 = _CreateError("[MISystemAppMigrator attemptToInstallSystemAppWithBundleID:desiredAppState:stagedAppOrPatchURL:isInstalled:]", 1396, MIInstallerErrorDomain, 128, 0, 0, @"Intentional Cancel from SystemAppMigrator", v14, dCopy);
+  v40 = 0;
+  v16 = [IXAppInstallCoordinator cancelCoordinatorForAppWithIdentity:v12 withReason:v15 client:10 error:&v40];
+  v17 = v40;
+
+  if (v16)
+  {
+    v33 = v12;
+    _DMLogFunc();
+    goto LABEL_11;
+  }
+
+  domain = [(__CFString *)v17 domain];
+  if ([domain isEqualToString:IXErrorDomain])
+  {
+    code = [(__CFString *)v17 code];
+
+    if (code == &dword_4 + 2)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+  }
+
+  v33 = v12;
+  v35 = v17;
+  _DMLogFunc();
+LABEL_10:
+
+  v17 = 0;
+LABEL_11:
+  if ((v8 | 4) == 6)
+  {
+    v20 = +[LSApplicationWorkspace defaultWorkspace];
+    v21 = [v20 applicationIsInstalled:dCopy];
+
+    if (v21)
+    {
+      v22 = @"(placeholder) ";
+      if (installedCopy)
+      {
+        v22 = &stru_112E0;
+      }
+
+      v34 = v12;
+      v35 = v22;
+      _DMLogFunc();
+      v39 = 0;
+      v23 = objc_opt_new();
+      v24 = v23;
+      if (v8 == 6)
+      {
+        [v23 setSystemAppNotAllowed:{1, v12, v35, 6}];
+      }
+
+      [v24 setIgnoreRemovability:{1, v34}];
+      [v24 setIgnoreRestrictions:1];
+      [v24 setIgnoreAppProtection:1];
+      v38 = v17;
+      v25 = [IXAppInstallCoordinator uninstallAppWithIdentity:v12 options:v24 disposition:&v39 error:&v38];
+      v26 = v38;
+
+      if (v25)
+      {
+        if (v39 == 3)
+        {
+          v27 = 1;
+LABEL_33:
+
+          goto LABEL_37;
+        }
+
+        v33 = IXStringForUninstallDisposition();
+        v35 = v12;
+        _DMLogFunc();
+      }
+
+      else
+      {
+        v33 = v12;
+        v35 = v26;
+        _DMLogFunc();
+      }
+
+      v27 = 0;
+      goto LABEL_33;
+    }
+
+    if (![(MISystemAppMigrator *)self existsUnusedDataContainerWithBundleID:dCopy])
+    {
+      v33 = v12;
+      _DMLogFunc();
+      goto LABEL_30;
+    }
+
+    _DMLogFunc();
+    if ([(MISystemAppMigrator *)self demoteAppWithBundleID:dCopy desiredAppState:v8 isInstalled:installedCopy, dCopy, v35, v8])
+    {
+      appBundleIDsToUninstall = [(MISystemAppMigrator *)self appBundleIDsToUninstall];
+      [appBundleIDsToUninstall addObject:dCopy];
+
+      goto LABEL_30;
+    }
+
+    v33 = v12;
+    goto LABEL_35;
+  }
+
+  if ((v8 - 3) <= 1)
+  {
+    _DMLogFunc();
+    if ([(MISystemAppMigrator *)self demoteAppWithBundleID:dCopy desiredAppState:v8 isInstalled:installedCopy, v12, v35, v8])
+    {
+LABEL_30:
+      v27 = 1;
+LABEL_36:
+      v26 = v17;
+LABEL_37:
+      v17 = v26;
+      if (!lCopy)
+      {
+        goto LABEL_40;
+      }
+
+      goto LABEL_38;
+    }
+
+    v33 = dCopy;
+LABEL_35:
+    _DMLogFunc();
+    v27 = 0;
+    goto LABEL_36;
+  }
+
+  if (!lCopy)
+  {
+    _DMLogFunc();
+    v27 = 1;
+    goto LABEL_40;
+  }
+
+  v27 = [(MISystemAppMigrator *)self installOrUpdateAppWithBundleID:dCopy appURL:lCopy isInstalled:installedCopy];
+LABEL_38:
+  v29 = v17;
+  v30 = [MIFileManager defaultManager:v33];
+  v37 = v17;
+  v31 = [v30 removeItemAtURL:lCopy error:&v37];
+  v17 = v37;
+
+  if ((v31 & 1) == 0)
+  {
+    path = [lCopy path];
+    _DMLogFunc();
+  }
+
+LABEL_40:
+
+  return v27;
 }
 
 - (id)currentlyInstalledSystemAppBundleIdentifiers

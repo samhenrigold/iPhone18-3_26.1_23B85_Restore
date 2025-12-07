@@ -12,6 +12,7 @@
 - (id)finishedOperationContexts;
 - (id)setupIntraComponentDependency:(BOOL)dependency;
 - (void)_addStagedOperation:(id)operation forRollback:(BOOL)rollback;
+- (void)_addStagedOperations:(id)operations forRollback:(BOOL)rollback;
 - (void)_cancelRemainingOperations;
 - (void)_estimateDiskSpaceRequirementFromOperations:(id)operations;
 - (void)_handleActiveOperationsDepleted;
@@ -24,6 +25,7 @@
 - (void)addObserver:(id)observer;
 - (void)addRemoveOperations:(id)operations;
 - (void)discardStagedOperationsAndTriggerCompletion;
+- (void)operation:(id)operation didProduceNewOperation:(id)newOperation forRollback:(BOOL)rollback;
 - (void)operationWillFinish:(id)finish;
 @end
 
@@ -267,61 +269,61 @@ LABEL_12:
 {
   v4 = objc_alloc_init(NSMutableDictionary);
   os_unfair_lock_lock(&self->_componentLock);
-  v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
+  v53 = 0u;
   selfCopy = self;
   obj = [(MSDComponent *)self stagedOperations];
-  v5 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v5 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v52;
-    v34 = v4;
-    v36 = *v52;
+    v7 = *v53;
+    v35 = v4;
+    v37 = *v53;
     do
     {
       v8 = 0;
-      v37 = v6;
+      v38 = v6;
       do
       {
-        if (*v52 != v7)
+        if (*v53 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v51 + 1) + 8 * v8);
+        v9 = *(*(&v52 + 1) + 8 * v8);
         if ([v9 type] == 1)
         {
-          v41 = v8;
+          v42 = v8;
           context = [v9 context];
           uniqueName = [context uniqueName];
 
-          v40 = uniqueName;
-          v39 = [v4 objectForKey:uniqueName];
-          v42 = objc_alloc_init(NSMutableArray);
-          [v42 addObject:v9];
-          v49 = 0u;
+          v41 = uniqueName;
+          v40 = [v4 objectForKey:uniqueName];
+          v43 = objc_alloc_init(NSMutableArray);
+          [v43 addObject:v9];
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
           dependents = [v9 dependents];
-          v13 = [dependents countByEnumeratingWithState:&v47 objects:v60 count:16];
+          v13 = [dependents countByEnumeratingWithState:&v48 objects:v61 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v48;
+            v15 = *v49;
             while (2)
             {
               for (i = 0; i != v14; i = i + 1)
               {
-                if (*v48 != v15)
+                if (*v49 != v15)
                 {
                   objc_enumerationMutation(dependents);
                 }
 
-                v17 = *(*(&v47 + 1) + 8 * i);
+                v17 = *(*(&v48 + 1) + 8 * i);
                 if ([v17 type] == 2)
                 {
                   context2 = [v17 context];
@@ -329,27 +331,27 @@ LABEL_12:
 
                   if (context2 == context3)
                   {
-                    [v42 addObject:v17];
-                    v45 = 0u;
+                    [v43 addObject:v17];
                     v46 = 0u;
-                    v43 = 0u;
+                    v47 = 0u;
                     v44 = 0u;
+                    v45 = 0u;
                     dependents2 = [v17 dependents];
-                    v21 = [dependents2 countByEnumeratingWithState:&v43 objects:v59 count:16];
+                    v21 = [dependents2 countByEnumeratingWithState:&v44 objects:v60 count:16];
                     if (v21)
                     {
                       v22 = v21;
-                      v23 = *v44;
+                      v23 = *v45;
                       while (2)
                       {
                         for (j = 0; j != v22; j = j + 1)
                         {
-                          if (*v44 != v23)
+                          if (*v45 != v23)
                           {
                             objc_enumerationMutation(dependents2);
                           }
 
-                          v25 = *(*(&v43 + 1) + 8 * j);
+                          v25 = *(*(&v44 + 1) + 8 * j);
                           if ([v25 type] == 3)
                           {
                             context4 = [v25 context];
@@ -357,13 +359,13 @@ LABEL_12:
 
                             if (context4 == context5)
                             {
-                              [v42 addObject:v25];
+                              [v43 addObject:v25];
                               goto LABEL_28;
                             }
                           }
                         }
 
-                        v22 = [dependents2 countByEnumeratingWithState:&v43 objects:v59 count:16];
+                        v22 = [dependents2 countByEnumeratingWithState:&v44 objects:v60 count:16];
                         if (v22)
                         {
                           continue;
@@ -375,13 +377,13 @@ LABEL_12:
 
 LABEL_28:
 
-                    v4 = v34;
+                    v4 = v35;
                     goto LABEL_29;
                   }
                 }
               }
 
-              v14 = [dependents countByEnumeratingWithState:&v47 objects:v60 count:16];
+              v14 = [dependents countByEnumeratingWithState:&v48 objects:v61 count:16];
               if (v14)
               {
                 continue;
@@ -393,49 +395,49 @@ LABEL_28:
 
 LABEL_29:
 
-          v8 = v41;
-          if (v39)
+          v8 = v42;
+          if (v40)
           {
-            lastObject2 = sub_100063A54();
-            v29 = os_log_type_enabled(lastObject2, OS_LOG_TYPE_DEBUG);
+            lastObject2 = sub_100063A54(v28);
+            v30 = os_log_type_enabled(lastObject2, OS_LOG_TYPE_DEBUG);
             if (dependency)
             {
-              if (v29)
+              if (v30)
               {
-                lastObject = [v39 lastObject];
+                lastObject = [v40 lastObject];
                 *buf = 138412546;
-                v56 = v9;
-                v57 = 2112;
-                v58 = lastObject;
+                v57 = v9;
+                v58 = 2112;
+                v59 = lastObject;
                 _os_log_debug_impl(&_mh_execute_header, lastObject2, OS_LOG_TYPE_DEBUG, "Setting up intra-component dependency: %@ -> %@", buf, 0x16u);
               }
 
-              lastObject2 = [v39 lastObject];
+              lastObject2 = [v40 lastObject];
               [v9 addDependency:lastObject2];
             }
 
-            else if (v29)
+            else if (v30)
             {
-              lastObject3 = [v39 lastObject];
+              lastObject3 = [v40 lastObject];
               *buf = 138412546;
-              v56 = v9;
-              v57 = 2112;
-              v58 = lastObject3;
+              v57 = v9;
+              v58 = 2112;
+              v59 = lastObject3;
               _os_log_debug_impl(&_mh_execute_header, lastObject2, OS_LOG_TYPE_DEBUG, "Skipping intra-component dependency linking: %@ -> %@", buf, 0x16u);
             }
           }
 
-          [v4 setObject:v42 forKey:v40];
+          [v4 setObject:v43 forKey:v41];
 
-          v7 = v36;
-          v6 = v37;
+          v7 = v37;
+          v6 = v38;
         }
 
         v8 = v8 + 1;
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v6 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
     }
 
     while (v6);
@@ -451,30 +453,30 @@ LABEL_29:
   dependencyCopy = dependency;
   selfCopy = self;
   os_unfair_lock_lock(&self->_componentLock);
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v23 = dependencyCopy;
+  v35 = 0u;
+  v24 = dependencyCopy;
   obj = [dependencyCopy stagedOperations];
-  v5 = [obj countByEnumeratingWithState:&v33 objects:v46 count:16];
+  v5 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
-    v24 = *v34;
+    v7 = *v35;
+    v25 = *v35;
     do
     {
       v8 = 0;
-      v26 = v6;
+      v27 = v6;
       do
       {
-        if (*v34 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * v8);
+        v9 = *(*(&v34 + 1) + 8 * v8);
         if ([v9 type] == 3)
         {
           identifier = [v9 identifier];
@@ -482,30 +484,30 @@ LABEL_29:
           {
 
 LABEL_11:
-            v28 = v8;
-            v31 = 0u;
+            v29 = v8;
             v32 = 0u;
-            v29 = 0u;
+            v33 = 0u;
             v30 = 0u;
+            v31 = 0u;
             stagedOperations = [(MSDComponent *)selfCopy stagedOperations];
-            v13 = [stagedOperations countByEnumeratingWithState:&v29 objects:v45 count:16];
+            v13 = [stagedOperations countByEnumeratingWithState:&v30 objects:v46 count:16];
             if (!v13)
             {
               goto LABEL_27;
             }
 
             v14 = v13;
-            v15 = *v30;
+            v15 = *v31;
             while (2)
             {
               v16 = 0;
 LABEL_14:
-              if (*v30 != v15)
+              if (*v31 != v15)
               {
                 objc_enumerationMutation(stagedOperations);
               }
 
-              v17 = *(*(&v29 + 1) + 8 * v16);
+              v17 = *(*(&v30 + 1) + 8 * v16);
               if ([v17 type] == 3 && (objc_msgSend(v17, "runInstallInParallel") & 1) == 0)
               {
                 identifier2 = [v17 identifier];
@@ -523,20 +525,20 @@ LABEL_14:
                 {
                 }
 
-                v20 = sub_100063A54();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+                v21 = sub_100063A54(v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
                   component = [v17 component];
                   component2 = [v9 component];
                   *buf = 138413058;
-                  v38 = v17;
-                  v39 = 2112;
-                  v40 = component;
-                  v41 = 2112;
-                  v42 = v9;
-                  v43 = 2112;
-                  v44 = component2;
-                  _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Setting up install dependency: %@(%@) -> %@(%@)", buf, 0x2Au);
+                  v39 = v17;
+                  v40 = 2112;
+                  v41 = component;
+                  v42 = 2112;
+                  v43 = v9;
+                  v44 = 2112;
+                  v45 = component2;
+                  _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Setting up install dependency: %@(%@) -> %@(%@)", buf, 0x2Au);
                 }
 
                 [v17 addDependency:v9];
@@ -545,14 +547,14 @@ LABEL_14:
 LABEL_25:
               if (v14 == ++v16)
               {
-                v14 = [stagedOperations countByEnumeratingWithState:&v29 objects:v45 count:16];
+                v14 = [stagedOperations countByEnumeratingWithState:&v30 objects:v46 count:16];
                 if (!v14)
                 {
 LABEL_27:
 
-                  v7 = v24;
-                  v6 = v26;
-                  v8 = v28;
+                  v7 = v25;
+                  v6 = v27;
+                  v8 = v29;
                   goto LABEL_28;
                 }
 
@@ -576,7 +578,7 @@ LABEL_28:
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v46 count:16];
+      v6 = [obj countByEnumeratingWithState:&v34 objects:v47 count:16];
     }
 
     while (v6);
@@ -633,7 +635,7 @@ LABEL_28:
 - (void)operationWillFinish:(id)finish
 {
   finishCopy = finish;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(finishCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138543618;
@@ -747,6 +749,64 @@ LABEL_29:
   os_unfair_lock_unlock(&self->_componentLock);
   v6 = 0;
 LABEL_9:
+}
+
+- (void)operation:(id)operation didProduceNewOperation:(id)newOperation forRollback:(BOOL)rollback
+{
+  rollbackCopy = rollback;
+  newOperationCopy = newOperation;
+  v8 = sub_100063A54(newOperationCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 138543874;
+    selfCopy = self;
+    v12 = 2114;
+    v13 = newOperationCopy;
+    v14 = 1024;
+    v15 = rollbackCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: New operation produced: %{public}@ rollback: %{BOOL}d", &v10, 0x1Cu);
+  }
+
+  os_unfair_lock_lock(&self->_componentLock);
+  [(MSDComponent *)self _addStagedOperation:newOperationCopy forRollback:rollbackCopy];
+  os_unfair_lock_unlock(&self->_componentLock);
+  observer = [(MSDComponent *)self observer];
+  [observer componentDidHaveNewOperationStaged:self];
+}
+
+- (void)_addStagedOperations:(id)operations forRollback:(BOOL)rollback
+{
+  rollbackCopy = rollback;
+  operationsCopy = operations;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [operationsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(operationsCopy);
+        }
+
+        [(MSDComponent *)self _addStagedOperation:*(*(&v11 + 1) + 8 * v10) forRollback:rollbackCopy];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [operationsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)_addStagedOperation:(id)operation forRollback:(BOOL)rollback
@@ -929,41 +989,42 @@ LABEL_9:
   activeOperations = [(MSDComponent *)self activeOperations];
   v3 = [activeOperations mutableCopy];
 
-  v13 = v3;
+  v14 = v3;
   if ([v3 count])
   {
     do
     {
       v4 = objc_autoreleasePoolPush();
       v5 = objc_alloc_init(NSMutableSet);
-      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v6 = v13;
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v18 = 0u;
+      v6 = v14;
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v15;
+        v9 = *v16;
         do
         {
           for (i = 0; i != v8; i = i + 1)
           {
-            if (*v15 != v9)
+            if (*v16 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v14 + 1) + 8 * i);
-            if ([v11 isAllDependentInComponentCancelled])
+            v11 = *(*(&v15 + 1) + 8 * i);
+            isAllDependentInComponentCancelled = [v11 isAllDependentInComponentCancelled];
+            if (isAllDependentInComponentCancelled)
             {
-              v12 = sub_100063A54();
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+              v13 = sub_100063A54(isAllDependentInComponentCancelled);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v19 = v11;
-                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Cancelling operation: %{public}@", buf, 0xCu);
+                v20 = v11;
+                _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Cancelling operation: %{public}@", buf, 0xCu);
               }
 
               [v11 cancel];
@@ -975,7 +1036,7 @@ LABEL_9:
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
         }
 
         while (v8);
@@ -1000,10 +1061,10 @@ LABEL_9:
   v12 = 0u;
   v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
-  if (v6)
+  rollback = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (rollback)
   {
-    v7 = v6;
+    v7 = rollback;
     v8 = *v13;
     do
     {
@@ -1016,7 +1077,7 @@ LABEL_9:
         }
 
         v10 = *(*(&v12 + 1) + 8 * v9);
-        v11 = sub_100063A54();
+        v11 = sub_100063A54(rollback);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
@@ -1024,15 +1085,16 @@ LABEL_9:
           _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Rolling back finished operation: %@", buf, 0xCu);
         }
 
-        [v10 rollback];
+        rollback = [v10 rollback];
         v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      rollback = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v7 = rollback;
     }
 
-    while (v7);
+    while (rollback);
   }
 }
 
@@ -1052,7 +1114,7 @@ LABEL_9:
 - (void)_handleSuccessfulOperation:(id)operation
 {
   operationCopy = operation;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C9B58();
@@ -1076,7 +1138,7 @@ LABEL_9:
 - (void)_handleFailedOperation:(id)operation
 {
   operationCopy = operation;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C9BC0();
@@ -1091,16 +1153,16 @@ LABEL_9:
     {
       do
       {
-        v8 = sub_100063A54();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100063A54(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Pausing content update as requested. Will check the value again in 30s.", v16, 2u);
+          *v17 = 0;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Pausing content update as requested. Will check the value again in 30s.", v17, 2u);
         }
 
         sleep(0x1Eu);
-        v9 = +[MSDTestPreferences sharedInstance];
-        pauseContentUpdateOnError2 = [v9 pauseContentUpdateOnError];
+        v10 = +[MSDTestPreferences sharedInstance];
+        pauseContentUpdateOnError2 = [v10 pauseContentUpdateOnError];
       }
 
       while ((pauseContentUpdateOnError2 & 1) != 0);
@@ -1128,21 +1190,22 @@ LABEL_9:
 - (id)_handleRetryableOperation:(id)operation
 {
   operationCopy = operation;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C9C28();
   }
 
   [(MSDComponent *)self setRetryCount:[(MSDComponent *)self retryCount]- 1];
-  if ([(MSDComponent *)self retryCount]<= 0)
+  retryCount = [(MSDComponent *)self retryCount];
+  if (retryCount <= 0)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(retryCount);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v10 = 138543362;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Component retry count exhausted.", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Component retry count exhausted.", &v10, 0xCu);
     }
 
     [(MSDComponent *)self _handleFailedOperation:operationCopy];
@@ -1161,7 +1224,7 @@ LABEL_9:
 - (void)_handleSkippedOperation:(id)operation
 {
   operationCopy = operation;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C9C90();
@@ -1173,20 +1236,21 @@ LABEL_9:
 - (void)_handleCancelledOperation:(id)operation
 {
   operationCopy = operation;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C9CF8();
   }
 
-  if ([(MSDComponent *)self rollbackOperations])
+  rollbackOperations = [(MSDComponent *)self rollbackOperations];
+  if (rollbackOperations)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(rollbackOperations);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = operationCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Rolling back cancelled operation: %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = operationCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Rolling back cancelled operation: %{public}@", &v8, 0xCu);
     }
 
     [operationCopy rollback];

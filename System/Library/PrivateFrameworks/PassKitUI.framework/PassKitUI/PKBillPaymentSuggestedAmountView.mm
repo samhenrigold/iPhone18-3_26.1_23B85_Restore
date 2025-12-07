@@ -49,28 +49,37 @@
 
 - (void)layoutSubviews
 {
-  v9.receiver = self;
-  v9.super_class = PKBillPaymentSuggestedAmountView;
-  [(PKBillPaymentSuggestedAmountView *)&v9 layoutSubviews];
+  v14.receiver = self;
+  v14.super_class = PKBillPaymentSuggestedAmountView;
+  [(PKBillPaymentSuggestedAmountView *)&v14 layoutSubviews];
   [(PKBillPaymentSuggestedAmountView *)self bounds];
-  if (v3 >= v4)
+  v7.n128_u64[0] = v3.n128_u64[0];
+  v8.n128_u64[0] = v4.n128_u64[0];
+  v9.n128_u64[0] = v5.n128_u64[0];
+  v10 = v6.n128_u64[0];
+  if (v5.n128_f64[0] >= v6.n128_f64[0])
   {
-    v5 = v4;
+    v3.n128_f64[0] = v6.n128_f64[0];
   }
 
   else
   {
-    v5 = v3;
+    v3.n128_f64[0] = v5.n128_f64[0];
   }
 
-  v6 = v5 * 0.5;
+  v11 = v3.n128_f64[0] * 0.5;
   background = self->_background;
-  PKSizeAlignedInRect();
+  v4.n128_u64[0] = v3.n128_u64[0];
+  v5.n128_u64[0] = v7.n128_u64[0];
+  v6.n128_u64[0] = v8.n128_u64[0];
+  v7.n128_u64[0] = v9.n128_u64[0];
+  v8.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v3, v4, v5, v6, v7, v8, v9);
   [(CABackdropLayer *)background setFrame:?];
   [(CABackdropLayer *)self->_background cornerRadius];
-  if (v8 != v6)
+  if (v13 != v11)
   {
-    [(CABackdropLayer *)self->_background setCornerRadius:v6];
+    [(CABackdropLayer *)self->_background setCornerRadius:v11];
   }
 }
 

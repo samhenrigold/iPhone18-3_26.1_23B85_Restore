@@ -3,6 +3,7 @@
 + (void)cleanDatastoreFilesAt:(id)at everything:(BOOL)everything;
 - (BOOL)_insertArchive:(id)archive identifier:(id)identifier controllerUserName:(id)name error:(id *)error;
 - (BOOL)_selectArchiveWithIdentifier:(id)identifier archive:(id *)archive controllerUserName:(id *)name error:(id *)error;
+- (HMDBackingStoreLocal)initWithDB:(id)b migrate:(BOOL)migrate error:(id *)error;
 - (HMDBackingStoreLocal)initWithDatastore:(id)datastore;
 - (id)_commit;
 - (id)_createDatastoreTables:(id)tables;
@@ -29,6 +30,7 @@
 - (id)_updateRecordWithGroupID:(int64_t)d store:(int64_t)store name:(id)name record:(id)record uuid:(id)uuid parentUUID:(id)iD type:(id)type data:(id)self0 encoding:(int64_t)self1 schema:(id)self2;
 - (id)_updateRecordWithGroupID:(int64_t)d store:(int64_t)store record:(id)record;
 - (id)_updateRecordWithGroupID:(int64_t)d store:(int64_t)store record:(id)record data:(id)data encoding:(int64_t)encoding;
+- (id)flush:(BOOL)flush;
 - (int64_t)_insertGroupWithZoneID:(int64_t)d root:(id)root owner:(id)owner subscription:(id)subscription error:(id *)error;
 - (int64_t)_insertZoneWithName:(id)name error:(id *)error;
 - (int64_t)_numUncommittedTransactions;
@@ -107,8 +109,8 @@ LABEL_14:
   }
 
   sqlite3_reset(self->selectArchive);
-  *archive = [v18 copy];
-  *name = [v17 copy];
+  *archive = objc_msgSend_copy(v18);
+  *name = objc_msgSend_copy(v17);
 
   v14 = 1;
 LABEL_17:
@@ -243,11 +245,11 @@ LABEL_7:
 
 - (id)_selectLogOptionsWithID:(int64_t)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   selectLogOptions = self->selectLogOptions;
-  v21 = 0;
-  bindIntSQLite3(selectLogOptions, 1, d, &v21);
-  v20 = v21;
+  v20 = 0;
+  bindIntSQLite3(selectLogOptions, 1, d, &v20);
+  v19 = v20;
   v6 = 0;
   while (1)
   {
@@ -266,8 +268,8 @@ LABEL_7:
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v11;
-        v24 = 2048;
+        v22 = v11;
+        v23 = 2048;
         dCopy = d;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Got multiple results for xact_block %lu (using first one)", buf, 0x16u);
       }
@@ -291,8 +293,8 @@ LABEL_7:
       v15 = HMFGetLogIdentifier();
       v16 = [MEMORY[0x277CCA9B8] errorWithSQLite3Statement:self->selectLogOptions];
       *buf = 138543618;
-      v23 = v15;
-      v24 = 2112;
+      v22 = v15;
+      v23 = 2112;
       dCopy = v16;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@unexpected error to selectLogOptions: %@", buf, 0x16u);
     }
@@ -310,8 +312,6 @@ LABEL_7:
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -459,7 +459,7 @@ LABEL_9:
 
 - (unint64_t)_insertLogWithRoot:(id)root transaction:(id)transaction set:(int64_t)set error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   rootCopy = root;
   transactionCopy = transaction;
   encodeForKey = [rootCopy encodeForKey];
@@ -481,35 +481,35 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   obj = [transactionCopy objects];
-  v47 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+  if (v46)
   {
     setCopy = set;
     errorCopy = error;
-    v44 = rootCopy;
+    v43 = rootCopy;
     insert_rowid = 0;
-    v49 = *v59;
-    v45 = transactionCopy;
+    v48 = *v58;
+    v44 = transactionCopy;
 LABEL_6:
     v17 = 0;
     while (1)
     {
-      if (*v59 != v49)
+      if (*v58 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v58 + 1) + 8 * v17);
+      v18 = *(*(&v57 + 1) + 8 * v17);
       v19 = objc_autoreleasePoolPush();
       change = [v18 change];
-      v57 = 0;
-      v21 = [change encodeWithEncoding:1 error:&v57];
-      v14 = v57;
+      v56 = 0;
+      v21 = [change encodeWithEncoding:1 error:&v56];
+      v14 = v56;
 
       if (!v21)
       {
@@ -518,36 +518,36 @@ LABEL_6:
 
       p_insertLog = &self->insertLog;
       insertLog = self->insertLog;
-      v56 = v14;
-      bindIntSQLite3(insertLog, 1, setCopy, &v56);
-      v24 = v56;
+      v55 = v14;
+      bindIntSQLite3(insertLog, 1, setCopy, &v55);
+      v24 = v55;
 
       v25 = self->insertLog;
-      v55 = v24;
-      bindStringSQLite3(v25, 2, encodeForKey, &v55);
-      v26 = v55;
+      v54 = v24;
+      bindStringSQLite3(v25, 2, encodeForKey, &v54);
+      v26 = v54;
 
       v27 = self->insertLog;
-      v54 = v26;
-      bindDataSQLite3(v27, 3, v21, &v54);
-      v28 = v54;
+      v53 = v26;
+      bindDataSQLite3(v27, 3, v21, &v53);
+      v28 = v53;
 
       v29 = self->insertLog;
-      v53 = v28;
-      bindIntSQLite3(v29, 4, insert_rowid, &v53);
-      v30 = v53;
+      v52 = v28;
+      bindIntSQLite3(v29, 4, insert_rowid, &v52);
+      v30 = v52;
 
       v31 = self->insertLog;
       change2 = [v18 change];
       objectChangeType = [change2 objectChangeType];
-      v52 = v30;
-      bindIntSQLite3(v31, 5, objectChangeType, &v52);
-      v34 = v52;
+      v51 = v30;
+      bindIntSQLite3(v31, 5, objectChangeType, &v51);
+      v34 = v51;
 
       v35 = self->insertLog;
-      v51 = v34;
-      bindIntSQLite3(v35, 6, 1, &v51);
-      v14 = v51;
+      v50 = v34;
+      bindIntSQLite3(v35, 6, 1, &v50);
+      v14 = v50;
 
       if (v14)
       {
@@ -565,9 +565,9 @@ LABEL_6:
         insert_rowid = sqlite3_last_insert_rowid(self->connection);
         p_updateLogXactID = &self->updateLogXactID;
         updateLogXactID = self->updateLogXactID;
-        v50 = 0;
-        bindIntSQLite3(updateLogXactID, 1, insert_rowid, &v50);
-        v39 = v50;
+        v49 = 0;
+        bindIntSQLite3(updateLogXactID, 1, insert_rowid, &v49);
+        v39 = v49;
         v14 = execSQLite3(self->updateLogXactID);
 
         if (v14)
@@ -580,7 +580,7 @@ LABEL_6:
           goto LABEL_23;
         }
 
-        options = [v45 options];
+        options = [v44 options];
         v14 = [(HMDBackingStoreLocal *)self _insertLogOptionsWithID:insert_rowid options:options];
 
         if (v14)
@@ -600,12 +600,12 @@ LABEL_24:
       }
 
       objc_autoreleasePoolPop(v19);
-      if (v47 == ++v17)
+      if (v46 == ++v17)
       {
-        rootCopy = v44;
-        transactionCopy = v45;
-        v47 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
-        if (v47)
+        rootCopy = v43;
+        transactionCopy = v44;
+        v46 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+        if (v46)
         {
           goto LABEL_6;
         }
@@ -614,8 +614,8 @@ LABEL_24:
       }
     }
 
-    rootCopy = v44;
-    transactionCopy = v45;
+    rootCopy = v43;
+    transactionCopy = v44;
 
     objc_autoreleasePoolPop(v19);
     if (!v14)
@@ -638,7 +638,6 @@ LABEL_21:
   v14 = 0;
 LABEL_28:
 
-  v41 = *MEMORY[0x277D85DE8];
   return insert_rowid;
 }
 
@@ -681,15 +680,15 @@ LABEL_7:
 
 - (void)_fetchRecordsWithGroupID:(int64_t)d names:(id)names callback:(id)callback
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   callbackCopy = callback;
   if (d)
   {
     selectRecordName = self->selectRecordName;
-    v24 = 0;
-    bindIntSQLite3(selectRecordName, 2, d, &v24);
-    d = v24;
+    v23 = 0;
+    bindIntSQLite3(selectRecordName, 2, d, &v23);
+    d = v23;
   }
 
   else
@@ -697,26 +696,26 @@ LABEL_7:
     selectRecordName = self->selectRecordNameNoShare;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = namesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         dCopy = d;
         bindStringSQLite3(selectRecordName, 1, v16, &dCopy);
         dCopy2 = dCopy;
@@ -736,7 +735,7 @@ LABEL_7:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
       d = 0;
       dCopy2 = 0;
       if (v13)
@@ -754,8 +753,6 @@ LABEL_7:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchRecordsWithGroupID:(int64_t)d parent:(id)parent type:(id)type callback:(id)callback
@@ -799,37 +796,37 @@ LABEL_17:
 
 - (void)_fetchRecordsWithGroupID:(int64_t)d parentUuids:(id)uuids callback:(id)callback
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   uuidsCopy = uuids;
   callbackCopy = callback;
   selectRecordParentUUID = self->selectRecordParentUUID;
-  v27 = 0;
-  bindIntSQLite3(selectRecordParentUUID, 2, d, &v27);
-  v11 = v27;
+  v26 = 0;
+  bindIntSQLite3(selectRecordParentUUID, 2, d, &v26);
+  v11 = v26;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v12 = uuidsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
         v17 = self->selectRecordParentUUID;
-        uUIDString = [*(*(&v23 + 1) + 8 * i) UUIDString];
-        v22 = v11;
-        bindStringSQLite3(v17, 1, uUIDString, &v22);
-        v19 = v22;
+        uUIDString = [*(*(&v22 + 1) + 8 * i) UUIDString];
+        v21 = v11;
+        bindStringSQLite3(v17, 1, uUIDString, &v21);
+        v19 = v21;
 
         v20 = self->selectRecordParentUUID;
         if (v19)
@@ -848,7 +845,7 @@ LABEL_17:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
       v11 = 0;
       v19 = 0;
       if (v14)
@@ -866,8 +863,6 @@ LABEL_17:
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchRecordWithUUID:(id)d root:(id)root error:(id *)error
@@ -954,15 +949,15 @@ LABEL_22:
 
 - (void)_fetchRecordsWithGroupID:(int64_t)d uuids:(id)uuids callback:(id)callback
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   uuidsCopy = uuids;
   callbackCopy = callback;
   if (d)
   {
     selectRecordUUID = self->selectRecordUUID;
-    v24 = 0;
-    bindIntSQLite3(selectRecordUUID, 2, d, &v24);
-    d = v24;
+    v23 = 0;
+    bindIntSQLite3(selectRecordUUID, 2, d, &v23);
+    d = v23;
   }
 
   else
@@ -970,26 +965,26 @@ LABEL_22:
     selectRecordUUID = self->selectRecordUUIDNoShare;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = uuidsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        uUIDString = [*(*(&v20 + 1) + 8 * i) UUIDString];
+        uUIDString = [*(*(&v19 + 1) + 8 * i) UUIDString];
         dCopy = d;
         bindStringSQLite3(selectRecordUUID, 1, uUIDString, &dCopy);
         dCopy2 = dCopy;
@@ -1010,7 +1005,7 @@ LABEL_22:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
       d = 0;
       dCopy2 = 0;
       if (v13)
@@ -1028,8 +1023,6 @@ LABEL_22:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchRecordsWithGroupID:(int64_t)d callback:(id)callback
@@ -1370,7 +1363,7 @@ LABEL_9:
 
 - (id)_updateRecordWithGroupID:(int64_t)d store:(int64_t)store name:(id)name record:(id)record uuid:(id)uuid parentUUID:(id)iD type:(id)type data:(id)self0 encoding:(int64_t)self1 schema:(id)self2
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   recordCopy = record;
   uuidCopy = uuid;
@@ -1379,56 +1372,56 @@ LABEL_9:
   dataCopy = data;
   schemaCopy = schema;
   insertRecord = self->insertRecord;
-  v66 = 0;
+  v65 = 0;
   dCopy = d;
-  bindIntSQLite3(insertRecord, 1, d, &v66);
-  v23 = v66;
+  bindIntSQLite3(insertRecord, 1, d, &v65);
+  v23 = v65;
   v24 = self->insertRecord;
-  v65 = v23;
-  v55 = nameCopy;
-  bindStringSQLite3(v24, 2, nameCopy, &v65);
-  v25 = v65;
+  v64 = v23;
+  v54 = nameCopy;
+  bindStringSQLite3(v24, 2, nameCopy, &v64);
+  v25 = v64;
 
   v26 = self->insertRecord;
-  v64 = v25;
-  v54 = recordCopy;
-  bindDataSQLite3(v26, 3, recordCopy, &v64);
-  v27 = v64;
+  v63 = v25;
+  v53 = recordCopy;
+  bindDataSQLite3(v26, 3, recordCopy, &v63);
+  v27 = v63;
 
   v28 = self->insertRecord;
-  v63 = v27;
-  bindStringSQLite3(v28, 4, uuidCopy, &v63);
-  v29 = v63;
+  v62 = v27;
+  bindStringSQLite3(v28, 4, uuidCopy, &v62);
+  v29 = v62;
 
   v30 = self->insertRecord;
-  v62 = v29;
-  bindStringSQLite3(v30, 5, iDCopy, &v62);
-  v31 = v62;
+  v61 = v29;
+  bindStringSQLite3(v30, 5, iDCopy, &v61);
+  v31 = v61;
 
   v32 = self->insertRecord;
-  v61 = v31;
-  bindDataSQLite3(v32, 6, dataCopy, &v61);
-  v33 = v61;
+  v60 = v31;
+  bindDataSQLite3(v32, 6, dataCopy, &v60);
+  v33 = v60;
 
   v34 = self->insertRecord;
-  v60 = v33;
-  bindIntSQLite3(v34, 7, encoding, &v60);
-  v35 = v60;
+  v59 = v33;
+  bindIntSQLite3(v34, 7, encoding, &v59);
+  v35 = v59;
 
   v36 = self->insertRecord;
-  v59 = v35;
-  bindStringSQLite3(v36, 8, typeCopy, &v59);
-  v37 = v59;
+  v58 = v35;
+  bindStringSQLite3(v36, 8, typeCopy, &v58);
+  v37 = v58;
 
   v38 = self->insertRecord;
-  v58 = v37;
-  bindStringSQLite3(v38, 9, schemaCopy, &v58);
-  v39 = v58;
+  v57 = v37;
+  bindStringSQLite3(v38, 9, schemaCopy, &v57);
+  v39 = v57;
 
   v40 = self->insertRecord;
-  v57 = v39;
-  bindIntSQLite3(v40, 10, store, &v57);
-  v41 = v57;
+  v56 = v39;
+  bindIntSQLite3(v40, 10, store, &v56);
+  v41 = v56;
 
   v42 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1438,19 +1431,19 @@ LABEL_9:
     HMFGetLogIdentifier();
     v46 = v45 = schemaCopy;
     *buf = 138544898;
-    v68 = v46;
-    v69 = 2048;
-    v70 = dCopy;
-    v71 = 2112;
-    v72 = v55;
-    v73 = 2112;
-    v74 = uuidCopy;
-    v75 = 2112;
-    v76 = iDCopy;
-    v77 = 2112;
-    v78 = typeCopy;
-    v79 = 2112;
-    v80 = v45;
+    v67 = v46;
+    v68 = 2048;
+    v69 = dCopy;
+    v70 = 2112;
+    v71 = v54;
+    v72 = 2112;
+    v73 = uuidCopy;
+    v74 = 2112;
+    v75 = iDCopy;
+    v76 = 2112;
+    v77 = typeCopy;
+    v78 = 2112;
+    v79 = v45;
     _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_DEBUG, "%{public}@Inserting/Updating record group: %lu, name: %@, uuid: %@, parent: %@, type: %@, schema: %@", buf, 0x48u);
 
     schemaCopy = v45;
@@ -1468,8 +1461,6 @@ LABEL_9:
   }
 
   v48 = v47;
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
@@ -1762,35 +1753,35 @@ LABEL_18:
 
 - (id)_fillZoneCache
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v3 = [(HMDBackingStoreLocal *)self _fetchZonesWithError:&v20];
-  v4 = v20;
+  v21 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v3 = [(HMDBackingStoreLocal *)self _fetchZonesWithError:&v19];
+  v4 = v19;
   if (!v4)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
-          v15 = 0;
-          v11 = [(HMDBackingStoreLocal *)self _fetchGroupsForZone:v10 withError:&v15];
-          v12 = v15;
+          v10 = *(*(&v15 + 1) + 8 * i);
+          v14 = 0;
+          v11 = [(HMDBackingStoreLocal *)self _fetchGroupsForZone:v10 withError:&v14];
+          v12 = v14;
           [v10 setActualGroups:v11];
 
           if (v12)
@@ -1801,7 +1792,7 @@ LABEL_18:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v7)
         {
           continue;
@@ -1816,8 +1807,6 @@ LABEL_18:
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1886,7 +1875,7 @@ HMDBackingStoreLogRecord *__62__HMDBackingStoreLocal__fetchUncommittedAndPushedT
 
 - (id)_dropUncommittedUnpushedTransactions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = runSQLite3(self->connection, "DELETE FROM xact WHERE ((pushed & 0xffff0000) >> 16) = 0 AND disk_committed=0");
   if (!v3)
   {
@@ -1896,54 +1885,31 @@ HMDBackingStoreLogRecord *__62__HMDBackingStoreLocal__fetchUncommittedAndPushedT
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Dropped transactions that were not committed to disk.", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Dropped transactions that were not committed to disk.", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (int64_t)_numUncommittedTransactions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connection = self->connection;
-  v20 = 0;
-  v4 = selectSQLite3(connection, "SELECT count(*) FROM xact WHERE disk_committed=0", MEMORY[0x277CBEC10], &v20);;
-  v5 = v20;
-  if (![v4 count])
-  {
-    goto LABEL_12;
-  }
-
-  v6 = [v4 objectAtIndexedSubscript:0];
-  v7 = [v6 count];
-
-  if (!v7 || v5 != 0)
-  {
-    goto LABEL_12;
-  }
-
-  v9 = [v4 objectAtIndexedSubscript:0];
-  v10 = [v9 objectAtIndexedSubscript:0];
-
-  objc_opt_class();
-  v11 = (objc_opt_isKindOfClass() & 1) != 0 ? v10 : 0;
-  v12 = v11;
-
-  if (v12)
+  v19 = 0;
+  v4 = selectSQLite3(connection, "SELECT count(*) FROM xact WHERE disk_committed=0", MEMORY[0x277CBEC10], &v19);;
+  v5 = v19;
+  if ([v4 count] && ((objc_msgSend(v4, "objectAtIndexedSubscript:", 0), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v7) ? (v8 = v5 == 0) : (v8 = 0), v8 && ((objc_msgSend(v4, "objectAtIndexedSubscript:", 0), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectAtIndexedSubscript:", 0), v10 = objc_claimAutoreleasedReturnValue(), v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v11 = 0) : (v11 = v10), v12 = v11, v10, v12)))
   {
     integerValue = [v12 integerValue];
   }
 
   else
   {
-LABEL_12:
     v14 = objc_autoreleasePoolPush();
     selfCopy = self;
     v16 = HMFGetOSLogHandle();
@@ -1951,9 +1917,9 @@ LABEL_12:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v5;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v5;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine number of uncommitted transactions %@", buf, 0x16u);
     }
 
@@ -1961,7 +1927,6 @@ LABEL_12:
     integerValue = -1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
@@ -2012,7 +1977,7 @@ LABEL_12:
 
 - (void)_rollback
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   connection = self->connection;
   if (connection && !sqlite3_get_autocommit(connection))
   {
@@ -2025,18 +1990,16 @@ LABEL_12:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = HMFGetLogIdentifier();
-        v10 = 138543618;
-        v11 = v8;
-        v12 = 2112;
-        v13 = v4;
-        _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@ROLLBACK FAILED!: %@", &v10, 0x16u);
+        v9 = 138543618;
+        v10 = v8;
+        v11 = 2112;
+        v12 = v4;
+        _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@ROLLBACK FAILED!: %@", &v9, 0x16u);
       }
 
       objc_autoreleasePoolPop(v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_commit
@@ -2057,7 +2020,7 @@ LABEL_12:
 - (id)_instantiateResources:(BOOL)resources migrate:(BOOL)migrate
 {
   resourcesCopy = resources;
-  v386 = *MEMORY[0x277D85DE8];
+  v385 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
   v9 = HMFGetOSLogHandle();
@@ -2066,9 +2029,9 @@ LABEL_12:
     v10 = HMFGetLogIdentifier();
     datastoreFile = [(HMDBackingStoreLocal *)selfCopy datastoreFile];
     *buf = 138543618;
-    v381 = v10;
-    v382 = 2112;
-    v383 = datastoreFile;
+    v380 = v10;
+    v381 = 2112;
+    v382 = datastoreFile;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@SQLite datastore file: %@", buf, 0x16u);
   }
 
@@ -2112,9 +2075,9 @@ LABEL_12:
     }
 
     connection = selfCopy->connection;
-    v378 = 0;
-    v27 = selectSQLite3(connection, "PRAGMA user_version", MEMORY[0x277CBEC10], &v378);;
-    v328 = v378;
+    v377 = 0;
+    v27 = selectSQLite3(connection, "PRAGMA user_version", MEMORY[0x277CBEC10], &v377);;
+    v327 = v377;
     firstObject = [v27 firstObject];
     v28FirstObject = [firstObject firstObject];
 
@@ -2138,9 +2101,9 @@ LABEL_12:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v381 = v35;
-      v382 = 2112;
-      v383 = v31;
+      v380 = v35;
+      v381 = 2112;
+      v382 = v31;
       _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Current schema version: %@", buf, 0x16u);
     }
 
@@ -2149,7 +2112,7 @@ LABEL_12:
     {
 LABEL_21:
 
-      v25 = v328;
+      v25 = v327;
 LABEL_22:
       v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA cache_size = %@", &unk_286628DB0];;
       v37 = runSQLite3(selfCopy->connection, [v36 UTF8String]);
@@ -2163,11 +2126,11 @@ LABEL_22:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v381 = v41;
-          v382 = 2048;
-          v383 = 512;
-          v384 = 2112;
-          v385 = v37;
+          v380 = v41;
+          v381 = 2048;
+          v382 = 512;
+          v383 = 2112;
+          v384 = v37;
           _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Unable to set sqlite cache size to %ld: %@", buf, 0x20u);
         }
 
@@ -2180,349 +2143,349 @@ LABEL_22:
         v43 = runSQLite3(selfCopy->connection, "PRAGMA foreign_keys = ON");;
         if (!v43)
         {
-          v64 = selfCopy->connection;
-          v376 = 0;
-          v65 = selectSQLite3(v64, "PRAGMA journal_mode=WAL", MEMORY[0x277CBEC10], &v376);;
-          v66 = v376;
-          if (v66 || [v65 count])
+          v63 = selfCopy->connection;
+          v375 = 0;
+          v64 = selectSQLite3(v63, "PRAGMA journal_mode=WAL", MEMORY[0x277CBEC10], &v375);;
+          v65 = v375;
+          if (v65 || [v64 count])
           {
-            v67 = objc_autoreleasePoolPush();
-            v68 = selfCopy;
-            v69 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+            v66 = objc_autoreleasePoolPush();
+            v67 = selfCopy;
+            v68 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
             {
-              v70 = HMFGetLogIdentifier();
-              firstObject2 = [v65 firstObject];
-              v71FirstObject = [firstObject2 firstObject];
+              v69 = HMFGetLogIdentifier();
+              firstObject2 = [v64 firstObject];
+              v70FirstObject = [firstObject2 firstObject];
               *buf = 138543874;
-              v381 = v70;
-              v382 = 2112;
-              v383 = v71FirstObject;
-              v384 = 2112;
-              v385 = v66;
-              _os_log_impl(&dword_2531F8000, v69, OS_LOG_TYPE_DEFAULT, "%{public}@turning on WAL resulted in %@ / %@", buf, 0x20u);
+              v380 = v69;
+              v381 = 2112;
+              v382 = v70FirstObject;
+              v383 = 2112;
+              v384 = v65;
+              _os_log_impl(&dword_2531F8000, v68, OS_LOG_TYPE_DEFAULT, "%{public}@turning on WAL resulted in %@ / %@", buf, 0x20u);
             }
 
-            objc_autoreleasePoolPop(v67);
+            objc_autoreleasePoolPop(v66);
           }
 
-          v73 = selfCopy->connection;
-          v375 = v66;
-          v74 = prepareSQLite3(v73, "BEGIN;", &v375);
-          v75 = v375;
+          v72 = selfCopy->connection;
+          v374 = v65;
+          v73 = prepareSQLite3(v72, "BEGIN;", &v374);
+          v74 = v374;
 
-          selfCopy->begin = v74;
-          v76 = selfCopy->connection;
-          v374 = v75;
-          v77 = prepareSQLite3(v76, "COMMIT;", &v374);
-          v78 = v374;
+          selfCopy->begin = v73;
+          v75 = selfCopy->connection;
+          v373 = v74;
+          v76 = prepareSQLite3(v75, "COMMIT;", &v373);
+          v77 = v373;
 
-          selfCopy->commit = v77;
-          v79 = selfCopy->connection;
-          v373 = v78;
-          v80 = prepareSQLite3(v79, "ROLLBACK;", &v373);
-          v81 = v373;
+          selfCopy->commit = v76;
+          v78 = selfCopy->connection;
+          v372 = v77;
+          v79 = prepareSQLite3(v78, "ROLLBACK;", &v372);
+          v80 = v372;
 
-          selfCopy->rollback = v80;
-          v82 = selfCopy->connection;
-          v372 = v81;
-          v83 = prepareSQLite3(v82, "INSERT INTO zone (name) values (?1)", &v372);
-          v84 = v372;
+          selfCopy->rollback = v79;
+          v81 = selfCopy->connection;
+          v371 = v80;
+          v82 = prepareSQLite3(v81, "INSERT INTO zone (name) values (?1)", &v371);
+          v83 = v371;
 
-          selfCopy->insertZone = v83;
-          v85 = selfCopy->connection;
-          v371 = v84;
-          v86 = prepareSQLite3(v85, "DELETE FROM zone WHERE id=?1;", &v371);
-          v87 = v371;
+          selfCopy->insertZone = v82;
+          v84 = selfCopy->connection;
+          v370 = v83;
+          v85 = prepareSQLite3(v84, "DELETE FROM zone WHERE id=?1;", &v370);
+          v86 = v370;
 
-          selfCopy->deleteZone = v86;
-          v88 = selfCopy->connection;
-          v370 = v87;
-          v89 = prepareSQLite3(v88, "SELECT id, name FROM zone;", &v370);
-          v90 = v370;
+          selfCopy->deleteZone = v85;
+          v87 = selfCopy->connection;
+          v369 = v86;
+          v88 = prepareSQLite3(v87, "SELECT id, name FROM zone;", &v369);
+          v89 = v369;
 
-          selfCopy->selectZones = v89;
-          v91 = selfCopy->connection;
-          v369 = v90;
-          v92 = prepareSQLite3(v91, "INSERT INTO store (name) values (?1)", &v369);
-          v93 = v369;
+          selfCopy->selectZones = v88;
+          v90 = selfCopy->connection;
+          v368 = v89;
+          v91 = prepareSQLite3(v90, "INSERT INTO store (name) values (?1)", &v368);
+          v92 = v368;
 
-          selfCopy->insertStore = v92;
-          v94 = selfCopy->connection;
-          v368 = v93;
-          v95 = prepareSQLite3(v94, "SELECT id, name FROM store;", &v368);
-          v96 = v368;
+          selfCopy->insertStore = v91;
+          v93 = selfCopy->connection;
+          v367 = v92;
+          v94 = prepareSQLite3(v93, "SELECT id, name FROM store;", &v367);
+          v95 = v367;
 
-          selfCopy->selectStores = v95;
-          v97 = selfCopy->connection;
-          v367 = v96;
-          v98 = prepareSQLite3(v97, "INSERT INTO zone_group (zone_id, root, owner, subscription) VALUES (?1, ?2, ?3, ?4);", &v367);
-          v99 = v367;
+          selfCopy->selectStores = v94;
+          v96 = selfCopy->connection;
+          v366 = v95;
+          v97 = prepareSQLite3(v96, "INSERT INTO zone_group (zone_id, root, owner, subscription) VALUES (?1, ?2, ?3, ?4);", &v366);
+          v98 = v366;
 
-          selfCopy->insertGroup = v98;
-          v100 = selfCopy->connection;
-          v366 = v99;
-          v101 = prepareSQLite3(v100, "DELETE FROM zone_group WHERE id=?1;", &v366);
-          v102 = v366;
+          selfCopy->insertGroup = v97;
+          v99 = selfCopy->connection;
+          v365 = v98;
+          v100 = prepareSQLite3(v99, "DELETE FROM zone_group WHERE id=?1;", &v365);
+          v101 = v365;
 
-          selfCopy->deleteGroup = v101;
-          v103 = selfCopy->connection;
-          v365 = v102;
-          v104 = prepareSQLite3(v103, "UPDATE zone_group SET token=?1 WHERE id=?2;", &v365);
-          v105 = v365;
+          selfCopy->deleteGroup = v100;
+          v102 = selfCopy->connection;
+          v364 = v101;
+          v103 = prepareSQLite3(v102, "UPDATE zone_group SET token=?1 WHERE id=?2;", &v364);
+          v104 = v364;
 
-          selfCopy->updateGroupToken = v104;
-          v106 = selfCopy->connection;
-          v364 = v105;
-          v107 = prepareSQLite3(v106, "UPDATE zone_group SET subscription_data=?1 WHERE id=?2;", &v364);
-          v108 = v364;
+          selfCopy->updateGroupToken = v103;
+          v105 = selfCopy->connection;
+          v363 = v104;
+          v106 = prepareSQLite3(v105, "UPDATE zone_group SET subscription_data=?1 WHERE id=?2;", &v363);
+          v107 = v363;
 
-          selfCopy->updateGroupSubscription = v107;
-          v109 = selfCopy->connection;
-          v363 = v108;
-          v110 = prepareSQLite3(v109, "SELECT id, root, owner, token, subscription, subscription_data FROM zone_group where zone_id=?1", &v363);
-          v111 = v363;
+          selfCopy->updateGroupSubscription = v106;
+          v108 = selfCopy->connection;
+          v362 = v107;
+          v109 = prepareSQLite3(v108, "SELECT id, root, owner, token, subscription, subscription_data FROM zone_group where zone_id=?1", &v362);
+          v110 = v362;
 
-          selfCopy->selectGroups = v110;
-          v112 = selfCopy->connection;
-          v362 = v111;
-          v113 = prepareSQLite3(v112, "INSERT INTO zone_share (group_id, root, target) VALUES (?1, ?2, ?3);", &v362);
-          v114 = v362;
+          selfCopy->selectGroups = v109;
+          v111 = selfCopy->connection;
+          v361 = v110;
+          v112 = prepareSQLite3(v111, "INSERT INTO zone_share (group_id, root, target) VALUES (?1, ?2, ?3);", &v361);
+          v113 = v361;
 
-          selfCopy->insertShare = v113;
-          v115 = selfCopy->connection;
-          v361 = v114;
-          v116 = prepareSQLite3(v115, "DELETE FROM zone_share WHERE id=?1;", &v361);
-          v117 = v361;
+          selfCopy->insertShare = v112;
+          v114 = selfCopy->connection;
+          v360 = v113;
+          v115 = prepareSQLite3(v114, "DELETE FROM zone_share WHERE id=?1;", &v360);
+          v116 = v360;
 
-          selfCopy->deleteShare = v116;
-          v118 = selfCopy->connection;
-          v360 = v117;
-          v119 = prepareSQLite3(v118, "UPDATE zone_share SET share=?1 WHERE id=?2;", &v360);
-          v120 = v360;
+          selfCopy->deleteShare = v115;
+          v117 = selfCopy->connection;
+          v359 = v116;
+          v118 = prepareSQLite3(v117, "UPDATE zone_share SET share=?1 WHERE id=?2;", &v359);
+          v119 = v359;
 
-          selfCopy->updateShareShare = v119;
-          v121 = selfCopy->connection;
-          v359 = v120;
-          v122 = prepareSQLite3(v121, "UPDATE zone_share SET users=?1 WHERE id=?2;", &v359);
-          v123 = v359;
+          selfCopy->updateShareShare = v118;
+          v120 = selfCopy->connection;
+          v358 = v119;
+          v121 = prepareSQLite3(v120, "UPDATE zone_share SET users=?1 WHERE id=?2;", &v358);
+          v122 = v358;
 
-          selfCopy->updateShareUsers = v122;
-          v124 = selfCopy->connection;
-          v358 = v123;
-          v125 = prepareSQLite3(v124, "SELECT id, root, target, share, users FROM zone_share WHERE group_id=?1;", &v358);
-          v126 = v358;
+          selfCopy->updateShareUsers = v121;
+          v123 = selfCopy->connection;
+          v357 = v122;
+          v124 = prepareSQLite3(v123, "SELECT id, root, target, share, users FROM zone_share WHERE group_id=?1;", &v357);
+          v125 = v357;
 
-          selfCopy->selectShares = v125;
-          v127 = selfCopy->connection;
-          v357 = v126;
-          v128 = prepareSQLite3(v127, "INSERT OR REPLACE INTO record (group_id, share_id, name, record, uuid, parent_uuid, data, encoding, type, schema, store_id) VALUES (?1, 0, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10);", &v357);
-          v129 = v357;
+          selfCopy->selectShares = v124;
+          v126 = selfCopy->connection;
+          v356 = v125;
+          v127 = prepareSQLite3(v126, "INSERT OR REPLACE INTO record (group_id, share_id, name, record, uuid, parent_uuid, data, encoding, type, schema, store_id) VALUES (?1, 0, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10);", &v356);
+          v128 = v356;
 
-          selfCopy->insertRecord = v128;
-          v130 = selfCopy->connection;
-          v356 = v129;
-          v131 = prepareSQLite3(v130, "UPDATE record SET schema = ?3 where group_id = ?1 and name = ?2;", &v356);
-          v132 = v356;
+          selfCopy->insertRecord = v127;
+          v129 = selfCopy->connection;
+          v355 = v128;
+          v130 = prepareSQLite3(v129, "UPDATE record SET schema = ?3 where group_id = ?1 and name = ?2;", &v355);
+          v131 = v355;
 
-          selfCopy->updateRecordSchema = v131;
-          v133 = selfCopy->connection;
-          v355 = v132;
-          v134 = prepareSQLite3(v133, "SELECT count(*) FROM record WHERE group_id=?1;", &v355);
-          v135 = v355;
+          selfCopy->updateRecordSchema = v130;
+          v132 = selfCopy->connection;
+          v354 = v131;
+          v133 = prepareSQLite3(v132, "SELECT count(*) FROM record WHERE group_id=?1;", &v354);
+          v134 = v354;
 
-          selfCopy->selectRecordCountGroup = v134;
-          v136 = selfCopy->connection;
-          v354 = v135;
-          v137 = prepareSQLite3(v136, "SELECT type, schema FROM record WHERE group_id=?1 GROUP BY type, schema;", &v354);
-          v138 = v354;
+          selfCopy->selectRecordCountGroup = v133;
+          v135 = selfCopy->connection;
+          v353 = v134;
+          v136 = prepareSQLite3(v135, "SELECT type, schema FROM record WHERE group_id=?1 GROUP BY type, schema;", &v353);
+          v137 = v353;
 
-          selfCopy->selectRecordGroupTypeSchema = v137;
-          v139 = selfCopy->connection;
-          v353 = v138;
-          v140 = prepareSQLite3(v139, "SELECT name, record, encoding, data, uuid, parent_uuid, type, schema FROM record WHERE group_id=?1;", &v353);
-          v141 = v353;
+          selfCopy->selectRecordGroupTypeSchema = v136;
+          v138 = selfCopy->connection;
+          v352 = v137;
+          v139 = prepareSQLite3(v138, "SELECT name, record, encoding, data, uuid, parent_uuid, type, schema FROM record WHERE group_id=?1;", &v352);
+          v140 = v352;
 
-          selfCopy->selectRecordGroup = v140;
-          v142 = selfCopy->connection;
-          v352 = v141;
-          v143 = prepareSQLite3(v142, "SELECT name, uuid, parent_uuid, type FROM record WHERE group_id=?1;", &v352);
-          v144 = v352;
+          selfCopy->selectRecordGroup = v139;
+          v141 = selfCopy->connection;
+          v351 = v140;
+          v142 = prepareSQLite3(v141, "SELECT name, uuid, parent_uuid, type FROM record WHERE group_id=?1;", &v351);
+          v143 = v351;
 
-          selfCopy->selectRecordGroupMap = v143;
-          v145 = selfCopy->connection;
-          v351 = v144;
-          v146 = prepareSQLite3(v145, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND uuid=?1;", &v351);
-          v147 = v351;
+          selfCopy->selectRecordGroupMap = v142;
+          v144 = selfCopy->connection;
+          v350 = v143;
+          v145 = prepareSQLite3(v144, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND uuid=?1;", &v350);
+          v146 = v350;
 
-          selfCopy->selectRecordUUID = v146;
-          v148 = selfCopy->connection;
-          v350 = v147;
-          v149 = prepareSQLite3(v148, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND parent_uuid=?1;", &v350);
-          v150 = v350;
+          selfCopy->selectRecordUUID = v145;
+          v147 = selfCopy->connection;
+          v349 = v146;
+          v148 = prepareSQLite3(v147, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND parent_uuid=?1;", &v349);
+          v149 = v349;
 
-          selfCopy->selectRecordParentUUID = v149;
-          v151 = selfCopy->connection;
-          v349 = v150;
-          v152 = prepareSQLite3(v151, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?3 and parent_uuid=?1 and type=?2;", &v349);
-          v153 = v349;
+          selfCopy->selectRecordParentUUID = v148;
+          v150 = selfCopy->connection;
+          v348 = v149;
+          v151 = prepareSQLite3(v150, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?3 and parent_uuid=?1 and type=?2;", &v348);
+          v152 = v348;
 
-          selfCopy->selectRecordParent = v152;
-          v154 = selfCopy->connection;
-          v348 = v153;
-          v155 = prepareSQLite3(v154, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND name=?1;", &v348);
-          v156 = v348;
+          selfCopy->selectRecordParent = v151;
+          v153 = selfCopy->connection;
+          v347 = v152;
+          v154 = prepareSQLite3(v153, "SELECT record, data, encoding, uuid FROM record WHERE group_id=?2 AND name=?1;", &v347);
+          v155 = v347;
 
-          selfCopy->selectRecordName = v155;
-          v157 = selfCopy->connection;
-          v347 = v156;
-          v158 = prepareSQLite3(v157, "SELECT record, data, encoding, uuid FROM record WHERE uuid=?1;", &v347);
-          v159 = v347;
+          selfCopy->selectRecordName = v154;
+          v156 = selfCopy->connection;
+          v346 = v155;
+          v157 = prepareSQLite3(v156, "SELECT record, data, encoding, uuid FROM record WHERE uuid=?1;", &v346);
+          v158 = v346;
 
-          selfCopy->selectRecordUUIDNoShare = v158;
-          v160 = selfCopy->connection;
-          v346 = v159;
-          v161 = prepareSQLite3(v160, "SELECT record, data, encoding, uuid FROM record WHERE parent_uuid=?1 and type=?2;", &v346);
-          v162 = v346;
+          selfCopy->selectRecordUUIDNoShare = v157;
+          v159 = selfCopy->connection;
+          v345 = v158;
+          v160 = prepareSQLite3(v159, "SELECT record, data, encoding, uuid FROM record WHERE parent_uuid=?1 and type=?2;", &v345);
+          v161 = v345;
 
-          selfCopy->selectRecordParentNoShare = v161;
-          v163 = selfCopy->connection;
-          v345 = v162;
-          v164 = prepareSQLite3(v163, "SELECT record, data, encoding, uuid FROM record WHERE name=?1;", &v345);
-          v165 = v345;
+          selfCopy->selectRecordParentNoShare = v160;
+          v162 = selfCopy->connection;
+          v344 = v161;
+          v163 = prepareSQLite3(v162, "SELECT record, data, encoding, uuid FROM record WHERE name=?1;", &v344);
+          v164 = v344;
 
-          selfCopy->selectRecordNameNoShare = v164;
-          v166 = selfCopy->connection;
-          v344 = v165;
-          v167 = prepareSQLite3(v166, "DELETE FROM record WHERE group_id=?2 AND name=?1;", &v344);
-          v168 = v344;
+          selfCopy->selectRecordNameNoShare = v163;
+          v165 = selfCopy->connection;
+          v343 = v164;
+          v166 = prepareSQLite3(v165, "DELETE FROM record WHERE group_id=?2 AND name=?1;", &v343);
+          v167 = v343;
 
-          selfCopy->deleteRecord = v167;
-          v169 = selfCopy->connection;
-          v343 = v168;
-          v170 = prepareSQLite3(v169, "SELECT name, group_id, share_id, uuid, parent_uuid, encoding, data, record FROM record ORDER BY group_id, share_id, record;", &v343);
-          v171 = v343;
+          selfCopy->deleteRecord = v166;
+          v168 = selfCopy->connection;
+          v342 = v167;
+          v169 = prepareSQLite3(v168, "SELECT name, group_id, share_id, uuid, parent_uuid, encoding, data, record FROM record ORDER BY group_id, share_id, record;", &v342);
+          v170 = v342;
 
-          selfCopy->selectRecords = v170;
-          v172 = selfCopy->connection;
-          v342 = v171;
-          v173 = prepareSQLite3(v172, "SELECT name, group_id, share_id, encoding, data, record, schema FROM record WHERE store_id=?1 ORDER BY group_id, share_id, name;", &v342);
-          v174 = v342;
+          selfCopy->selectRecords = v169;
+          v171 = selfCopy->connection;
+          v341 = v170;
+          v172 = prepareSQLite3(v171, "SELECT name, group_id, share_id, encoding, data, record, schema FROM record WHERE store_id=?1 ORDER BY group_id, share_id, name;", &v341);
+          v173 = v341;
 
-          selfCopy->selectStoreRecords = v173;
-          v175 = selfCopy->connection;
-          v341 = v174;
-          v176 = prepareSQLite3(v175, "UPDATE xact SET xact_id=?1 WHERE id=?1;", &v341);
-          v177 = v341;
+          selfCopy->selectStoreRecords = v172;
+          v174 = selfCopy->connection;
+          v340 = v173;
+          v175 = prepareSQLite3(v174, "UPDATE xact SET xact_id=?1 WHERE id=?1;", &v340);
+          v176 = v340;
 
-          selfCopy->updateLogXactID = v176;
-          v178 = selfCopy->connection;
-          v340 = v177;
-          v179 = prepareSQLite3(v178, "INSERT INTO xact (pushed, root, data, xact_id, type, encoding, disk_committed) VALUES (?1, ?2, ?3, ?4, ?5, ?6, 0);", &v340);
-          v180 = v340;
+          selfCopy->updateLogXactID = v175;
+          v177 = selfCopy->connection;
+          v339 = v176;
+          v178 = prepareSQLite3(v177, "INSERT INTO xact (pushed, root, data, xact_id, type, encoding, disk_committed) VALUES (?1, ?2, ?3, ?4, ?5, ?6, 0);", &v339);
+          v179 = v339;
 
-          selfCopy->insertLog = v179;
-          v181 = selfCopy->connection;
-          v339 = v180;
-          v182 = prepareSQLite3(v181, "UPDATE xact SET disk_committed=1;", &v339);
-          v183 = v339;
+          selfCopy->insertLog = v178;
+          v180 = selfCopy->connection;
+          v338 = v179;
+          v181 = prepareSQLite3(v180, "UPDATE xact SET disk_committed=1;", &v338);
+          v182 = v338;
 
-          selfCopy->updateLogToDiskCommited = v182;
-          v184 = selfCopy->connection;
-          v338 = v183;
-          v185 = prepareSQLite3(v184, "SELECT id, xact_id, pushed, data, type, encoding FROM xact WHERE root=?1 AND (pushed & ?2) = ?3 AND xact_id>?4 ORDER BY xact_id, id;", &v338);
-          v186 = v338;
+          selfCopy->updateLogToDiskCommited = v181;
+          v183 = selfCopy->connection;
+          v337 = v182;
+          v184 = prepareSQLite3(v183, "SELECT id, xact_id, pushed, data, type, encoding FROM xact WHERE root=?1 AND (pushed & ?2) = ?3 AND xact_id>?4 ORDER BY xact_id, id;", &v337);
+          v185 = v337;
 
-          selfCopy->selectLog = v185;
-          v187 = selfCopy->connection;
-          v337 = v186;
-          v188 = prepareSQLite3(v187, "SELECT id, xact_id, root FROM xact WHERE (pushed & ?1) = ?2 ORDER BY xact_id, id;", &v337);
-          v189 = v337;
+          selfCopy->selectLog = v184;
+          v186 = selfCopy->connection;
+          v336 = v185;
+          v187 = prepareSQLite3(v186, "SELECT id, xact_id, root FROM xact WHERE (pushed & ?1) = ?2 ORDER BY xact_id, id;", &v336);
+          v188 = v336;
 
-          selfCopy->selectChangeExistsLog = v188;
-          v190 = selfCopy->connection;
-          v336 = v189;
-          v191 = prepareSQLite3(v190, "SELECT id, xact_id, pushed, root, data, type, encoding FROM xact ORDER BY root, xact_id, id;", &v336);
-          v192 = v336;
+          selfCopy->selectChangeExistsLog = v187;
+          v189 = selfCopy->connection;
+          v335 = v188;
+          v190 = prepareSQLite3(v189, "SELECT id, xact_id, pushed, root, data, type, encoding FROM xact ORDER BY root, xact_id, id;", &v335);
+          v191 = v335;
 
-          selfCopy->selectAllLog = v191;
-          v193 = selfCopy->connection;
-          v335 = v192;
-          v194 = prepareSQLite3(v193, "INSERT INTO xact_block (id, data) VALUES (?1, ?2);", &v335);
-          v195 = v335;
+          selfCopy->selectAllLog = v190;
+          v192 = selfCopy->connection;
+          v334 = v191;
+          v193 = prepareSQLite3(v192, "INSERT INTO xact_block (id, data) VALUES (?1, ?2);", &v334);
+          v194 = v334;
 
-          selfCopy->insertLogOptions = v194;
-          v196 = selfCopy->connection;
-          v334 = v195;
-          v197 = prepareSQLite3(v196, "SELECT data FROM xact_block WHERE id = ?1;", &v334);
-          v198 = v334;
+          selfCopy->insertLogOptions = v193;
+          v195 = selfCopy->connection;
+          v333 = v194;
+          v196 = prepareSQLite3(v195, "SELECT data FROM xact_block WHERE id = ?1;", &v333);
+          v197 = v333;
 
-          selfCopy->selectLogOptions = v197;
-          v199 = selfCopy->connection;
-          v333 = v198;
-          v200 = prepareSQLite3(v199, "UPDATE xact SET pushed=(((pushed & ?1) | ?2) | (pushed & ~?1)) WHERE id=?3;", &v333);
-          v201 = v333;
+          selfCopy->selectLogOptions = v196;
+          v198 = selfCopy->connection;
+          v332 = v197;
+          v199 = prepareSQLite3(v198, "UPDATE xact SET pushed=(((pushed & ?1) | ?2) | (pushed & ~?1)) WHERE id=?3;", &v332);
+          v200 = v332;
 
-          selfCopy->updateLog = v200;
-          v202 = selfCopy->connection;
-          v332 = v201;
-          v203 = prepareSQLite3(v202, "DELETE FROM xact WHERE id=?1;", &v332);
-          v204 = v332;
+          selfCopy->updateLog = v199;
+          v201 = selfCopy->connection;
+          v331 = v200;
+          v202 = prepareSQLite3(v201, "DELETE FROM xact WHERE id=?1;", &v331);
+          v203 = v331;
 
-          selfCopy->deleteLog = v203;
-          v205 = selfCopy->connection;
-          v331 = v204;
-          v206 = prepareSQLite3(v205, "DELETE FROM xact WHERE ((pushed & 0xffff0000 >> 16) = (pushed & 0x0000ffff)) AND disk_committed=1", &v331);
-          v207 = v331;
+          selfCopy->deleteLog = v202;
+          v204 = selfCopy->connection;
+          v330 = v203;
+          v205 = prepareSQLite3(v204, "DELETE FROM xact WHERE ((pushed & 0xffff0000 >> 16) = (pushed & 0x0000ffff)) AND disk_committed=1", &v330);
+          v206 = v330;
 
-          selfCopy->flushPushedXact = v206;
-          v208 = selfCopy->connection;
-          v330 = v207;
-          v209 = prepareSQLite3(v208, "REPLACE INTO archive VALUES(?1, ?2, ?3)", &v330);
-          v210 = v330;
+          selfCopy->flushPushedXact = v205;
+          v207 = selfCopy->connection;
+          v329 = v206;
+          v208 = prepareSQLite3(v207, "REPLACE INTO archive VALUES(?1, ?2, ?3)", &v329);
+          v209 = v329;
 
-          selfCopy->insertArchive = v209;
-          v211 = selfCopy->connection;
-          v329 = v210;
-          v212 = prepareSQLite3(v211, "SELECT identifier, controller_username, value from archive where identifier=?1;", &v329);
-          v213 = v329;
+          selfCopy->insertArchive = v208;
+          v210 = selfCopy->connection;
+          v328 = v209;
+          v211 = prepareSQLite3(v210, "SELECT identifier, controller_username, value from archive where identifier=?1;", &v328);
+          v212 = v328;
 
-          selfCopy->selectArchive = v212;
-          if (v213)
+          selfCopy->selectArchive = v211;
+          if (v212)
           {
-            v214 = objc_autoreleasePoolPush();
-            v215 = selfCopy;
-            v216 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v216, OS_LOG_TYPE_ERROR))
+            v213 = objc_autoreleasePoolPush();
+            v214 = selfCopy;
+            v215 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v215, OS_LOG_TYPE_ERROR))
             {
-              v217 = HMFGetLogIdentifier();
+              v216 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v381 = v217;
-              v382 = 2112;
-              v383 = v213;
-              _os_log_impl(&dword_2531F8000, v216, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statements: %@", buf, 0x16u);
+              v380 = v216;
+              v381 = 2112;
+              v382 = v212;
+              _os_log_impl(&dword_2531F8000, v215, OS_LOG_TYPE_ERROR, "%{public}@unable to prepare SQL statements: %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v214);
-            v218 = v213;
+            objc_autoreleasePoolPop(v213);
+            v217 = v212;
           }
 
           else
           {
             if ([(HMDBackingStoreLocal *)selfCopy _numUncommittedTransactions]>= 1)
             {
-              v248 = objc_autoreleasePoolPush();
-              v249 = selfCopy;
-              v250 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v250, OS_LOG_TYPE_ERROR))
+              v247 = objc_autoreleasePoolPush();
+              v248 = selfCopy;
+              v249 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v249, OS_LOG_TYPE_ERROR))
               {
-                v251 = HMFGetLogIdentifier();
+                v250 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v381 = v251;
-                _os_log_impl(&dword_2531F8000, v250, OS_LOG_TYPE_ERROR, "%{public}@We crashed after running transaction but before saving to disk.", buf, 0xCu);
+                v380 = v250;
+                _os_log_impl(&dword_2531F8000, v249, OS_LOG_TYPE_ERROR, "%{public}@We crashed after running transaction but before saving to disk.", buf, 0xCu);
               }
 
-              objc_autoreleasePoolPop(v248);
+              objc_autoreleasePoolPop(v247);
             }
 
             _fillZoneCache = [(HMDBackingStoreLocal *)selfCopy _fillZoneCache];
@@ -2534,10 +2497,10 @@ LABEL_22:
               goto LABEL_29;
             }
 
-            v218 = _fillZoneCache;
+            v217 = _fillZoneCache;
           }
 
-          v24 = v218;
+          v24 = v217;
 
           _fillStoreCache = v24;
 LABEL_29:
@@ -2553,49 +2516,49 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    v325 = v31;
-    v46 = objc_autoreleasePoolPush();
-    v47 = v33;
-    v48 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v324 = v31;
+    v45 = objc_autoreleasePoolPush();
+    v46 = v33;
+    v47 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = HMFGetLogIdentifier();
+      v48 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v381 = v49;
-      _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_DEFAULT, "%{public}@Validating database.", buf, 0xCu);
+      v380 = v48;
+      _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Validating database.", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v46);
-    v50 = selfCopy->connection;
-    v51 = v328;
-    v377 = v328;
-    v52 = v47;
-    v53 = selectSQLite3(v50, "SELECT name FROM sqlite_master WHERE type='table' AND name='xact_block'", MEMORY[0x277CBEC10], &v377);
-    v54 = v53;
-    v55 = v377;
-    if (v53)
+    objc_autoreleasePoolPop(v45);
+    v49 = selfCopy->connection;
+    v50 = v327;
+    v376 = v327;
+    v51 = v46;
+    v52 = selectSQLite3(v49, "SELECT name FROM sqlite_master WHERE type='table' AND name='xact_block'", MEMORY[0x277CBEC10], &v376);
+    v53 = v52;
+    v54 = v376;
+    if (v52)
     {
-      v56 = v377 == 0;
+      v55 = v376 == 0;
     }
 
     else
     {
-      v56 = 0;
+      v55 = 0;
     }
 
-    v57 = !v56;
-    v323 = v57;
-    v327 = v52;
-    v326 = v27;
-    if (v56)
+    v56 = !v55;
+    v322 = v56;
+    v326 = v51;
+    v325 = v27;
+    if (v55)
     {
-      if (![v53 count])
+      if (![v52 count])
       {
-        v377 = runSQLite3(v50, "CREATE TABLE xact_block (id INTEGER PRIMARY KEY, data BLOB NOT NULL)");;
-        if (v377)
+        v376 = runSQLite3(v49, "CREATE TABLE xact_block (id INTEGER PRIMARY KEY, data BLOB NOT NULL)");;
+        if (v376)
         {
 LABEL_74:
-          v238 = 0;
+          v237 = 0;
           goto LABEL_75;
         }
       }
@@ -2603,334 +2566,334 @@ LABEL_74:
 
     else
     {
-      v58 = objc_autoreleasePoolPush();
-      v59 = v52;
-      v60 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v57 = objc_autoreleasePoolPush();
+      v58 = v51;
+      v59 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
-        v61 = HMFGetLogIdentifier();
+        v60 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v381 = v61;
-        v382 = 2112;
-        v383 = v54;
-        v384 = 2112;
-        v385 = v55;
-        _os_log_impl(&dword_2531F8000, v60, OS_LOG_TYPE_ERROR, "%{public}@initial migration test failed with result / error: %@ / %@", buf, 0x20u);
+        v380 = v60;
+        v381 = 2112;
+        v382 = v53;
+        v383 = 2112;
+        v384 = v54;
+        _os_log_impl(&dword_2531F8000, v59, OS_LOG_TYPE_ERROR, "%{public}@initial migration test failed with result / error: %@ / %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v58);
-      userInfo = [v55 userInfo];
-      v63 = [userInfo objectForKey:@"extcode"];
-      if ([v63 isEqual:&unk_286628DE0])
+      objc_autoreleasePoolPop(v57);
+      userInfo = [v54 userInfo];
+      v62 = [userInfo objectForKey:@"extcode"];
+      if ([v62 isEqual:&unk_286628DE0])
       {
 
-        v52 = v327;
+        v51 = v326;
       }
 
       else
       {
-        userInfo2 = [v55 userInfo];
-        v220 = [userInfo2 objectForKey:@"extcode"];
-        v221 = [v220 isEqual:&unk_286628DF8];
+        userInfo2 = [v54 userInfo];
+        v219 = [userInfo2 objectForKey:@"extcode"];
+        v220 = [v219 isEqual:&unk_286628DF8];
 
-        v52 = v327;
-        if (!v221)
+        v51 = v326;
+        if (!v220)
         {
           [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
-          v377 = v238 = 0;
+          v376 = v237 = 0;
           goto LABEL_75;
         }
       }
 
       if (isInternalBuild())
       {
-        v222 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:"/var/mobile/Library/homed" isDirectory:1 relativeToURL:0];
-        v223 = +[HMDTTRManager sharedManager];
-        v379 = v222;
-        v224 = [MEMORY[0x277CBEA60] arrayWithObjects:&v379 count:1];
-        [v223 requestRadarWithDisplayReason:@"internal database is corrupt" radarTitle:@"Internal Database Corruption Detected" componentName:@"HomeKit" componentVersion:@"New Bugs" componentID:590644 attachments:v224];
+        v221 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:"/var/mobile/Library/homed" isDirectory:1 relativeToURL:0];
+        v222 = +[HMDTTRManager sharedManager];
+        v378 = v221;
+        v223 = [MEMORY[0x277CBEA60] arrayWithObjects:&v378 count:1];
+        [v222 requestRadarWithDisplayReason:@"internal database is corrupt" radarTitle:@"Internal Database Corruption Detected" componentName:@"HomeKit" componentVersion:@"New Bugs" componentID:590644 attachments:v223];
 
-        v52 = v327;
+        v51 = v326;
       }
     }
 
-    v225 = selectSQLite3(v50, "SELECT name FROM sqlite_master WHERE type='index' AND name='xact_pushed2'", MEMORY[0x277CBEC10], &v377);
+    v224 = selectSQLite3(v49, "SELECT name FROM sqlite_master WHERE type='index' AND name='xact_pushed2'", MEMORY[0x277CBEC10], &v376);
 
-    v226 = v377;
-    if (v377)
+    v225 = v376;
+    if (v376)
     {
-      v227 = objc_autoreleasePoolPush();
-      v228 = v52;
-      v229 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v229, OS_LOG_TYPE_ERROR))
+      v226 = objc_autoreleasePoolPush();
+      v227 = v51;
+      v228 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v228, OS_LOG_TYPE_ERROR))
       {
-        v230 = HMFGetLogIdentifier();
-        v231 = [v225 count];
+        v229 = HMFGetLogIdentifier();
+        v230 = [v224 count];
         *buf = 138543874;
-        v381 = v230;
-        v382 = 2048;
-        v383 = v231;
-        v384 = 2112;
-        v385 = v226;
-        _os_log_impl(&dword_2531F8000, v229, OS_LOG_TYPE_ERROR, "%{public}@xact_pushed2 migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v229;
+        v381 = 2048;
+        v382 = v230;
+        v383 = 2112;
+        v384 = v225;
+        _os_log_impl(&dword_2531F8000, v228, OS_LOG_TYPE_ERROR, "%{public}@xact_pushed2 migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v227);
-      v52 = v327;
+      objc_autoreleasePoolPop(v226);
+      v51 = v326;
     }
 
-    else if (![v225 count])
+    else if (![v224 count])
     {
-      v377 = runSQLite3(v50, "CREATE INDEX xact_pushed2 ON xact(root, xact_id, id)");;
-      if (v377)
+      v376 = runSQLite3(v49, "CREATE INDEX xact_pushed2 ON xact(root, xact_id, id)");;
+      if (v376)
       {
-        v238 = 0;
-        v54 = v225;
+        v237 = 0;
+        v53 = v224;
         goto LABEL_75;
       }
     }
 
-    v54 = selectSQLite3(v50, "SELECT subscription_data FROM zone_group WHERE subscription_data IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v377);
+    v53 = selectSQLite3(v49, "SELECT subscription_data FROM zone_group WHERE subscription_data IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v376);
 
-    v232 = v377;
-    if (!v54 || v377)
+    v231 = v376;
+    if (!v53 || v376)
     {
-      v233 = objc_autoreleasePoolPush();
-      v234 = v52;
-      v235 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v235, OS_LOG_TYPE_ERROR))
+      v232 = objc_autoreleasePoolPush();
+      v233 = v51;
+      v234 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v234, OS_LOG_TYPE_ERROR))
       {
-        v236 = HMFGetLogIdentifier();
-        v237 = [v54 count];
+        v235 = HMFGetLogIdentifier();
+        v236 = [v53 count];
         *buf = 138543874;
-        v381 = v236;
-        v382 = 2048;
-        v383 = v237;
-        v384 = 2112;
-        v385 = v232;
-        _os_log_impl(&dword_2531F8000, v235, OS_LOG_TYPE_ERROR, "%{public}@zone_group.subscription_data migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v235;
+        v381 = 2048;
+        v382 = v236;
+        v383 = 2112;
+        v384 = v231;
+        _os_log_impl(&dword_2531F8000, v234, OS_LOG_TYPE_ERROR, "%{public}@zone_group.subscription_data migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v233);
-      v52 = v327;
-      if (v232)
+      objc_autoreleasePoolPop(v232);
+      v51 = v326;
+      if (v231)
       {
-        v377 = runSQLite3(v50, "ALTER TABLE zone_group ADD COLUMN subscription_data BLOB");;
-        if (v377)
+        v376 = runSQLite3(v49, "ALTER TABLE zone_group ADD COLUMN subscription_data BLOB");;
+        if (v376)
         {
           goto LABEL_74;
         }
       }
     }
 
-    v377 = runSQLite3(v50, "CREATE TABLE IF NOT EXISTS archive (identifier string primary key, controller_username string not null, value blob not null)");;
-    if (v377)
+    v376 = runSQLite3(v49, "CREATE TABLE IF NOT EXISTS archive (identifier string primary key, controller_username string not null, value blob not null)");;
+    if (v376)
     {
       goto LABEL_74;
     }
 
-    v253 = selectSQLite3(v50, "SELECT disk_committed FROM xact WHERE id IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v377);
+    v252 = selectSQLite3(v49, "SELECT disk_committed FROM xact WHERE id IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v376);
 
-    v254 = v377;
-    if (!v253 || v377)
+    v253 = v376;
+    if (!v252 || v376)
     {
-      v255 = objc_autoreleasePoolPush();
-      v256 = v52;
-      v257 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v257, OS_LOG_TYPE_ERROR))
+      v254 = objc_autoreleasePoolPush();
+      v255 = v51;
+      v256 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v256, OS_LOG_TYPE_ERROR))
       {
-        v258 = HMFGetLogIdentifier();
-        v259 = [v253 count];
+        v257 = HMFGetLogIdentifier();
+        v258 = [v252 count];
         *buf = 138543874;
-        v381 = v258;
-        v382 = 2048;
-        v383 = v259;
-        v384 = 2112;
-        v385 = v254;
-        _os_log_impl(&dword_2531F8000, v257, OS_LOG_TYPE_ERROR, "%{public}@xact.disk_committed migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v257;
+        v381 = 2048;
+        v382 = v258;
+        v383 = 2112;
+        v384 = v253;
+        _os_log_impl(&dword_2531F8000, v256, OS_LOG_TYPE_ERROR, "%{public}@xact.disk_committed migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v255);
-      v52 = v327;
-      if (v254)
+      objc_autoreleasePoolPop(v254);
+      v51 = v326;
+      if (v253)
       {
-        v377 = runSQLite3(v50, "ALTER TABLE xact ADD COLUMN disk_committed INTEGER NOT NULL DEFAULT 1");;
-        if (v377)
+        v376 = runSQLite3(v49, "ALTER TABLE xact ADD COLUMN disk_committed INTEGER NOT NULL DEFAULT 1");;
+        if (v376)
         {
-          v238 = 0;
-          v54 = v253;
+          v237 = 0;
+          v53 = v252;
           goto LABEL_75;
         }
       }
     }
 
-    v262 = selectSQLite3(v50, "SELECT schema FROM record WHERE data IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v377);
+    v261 = selectSQLite3(v49, "SELECT schema FROM record WHERE data IS NOT NULL LIMIT 1", MEMORY[0x277CBEC10], &v376);
 
-    v263 = v377;
-    if (!v262 || v377)
+    v262 = v376;
+    if (!v261 || v376)
     {
-      v264 = objc_autoreleasePoolPush();
-      v265 = v52;
-      v266 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v266, OS_LOG_TYPE_ERROR))
+      v263 = objc_autoreleasePoolPush();
+      v264 = v51;
+      v265 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v265, OS_LOG_TYPE_ERROR))
       {
-        v267 = HMFGetLogIdentifier();
-        v268 = [v262 count];
+        v266 = HMFGetLogIdentifier();
+        v267 = [v261 count];
         *buf = 138543874;
-        v381 = v267;
-        v382 = 2048;
-        v383 = v268;
-        v384 = 2112;
-        v385 = v263;
-        _os_log_impl(&dword_2531F8000, v266, OS_LOG_TYPE_ERROR, "%{public}@record.schema migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v266;
+        v381 = 2048;
+        v382 = v267;
+        v383 = 2112;
+        v384 = v262;
+        _os_log_impl(&dword_2531F8000, v265, OS_LOG_TYPE_ERROR, "%{public}@record.schema migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v264);
-      v323 = 1;
-      v52 = v327;
+      objc_autoreleasePoolPop(v263);
+      v322 = 1;
+      v51 = v326;
     }
 
-    v269 = selectSQLite3(v50, "SELECT name FROM sqlite_master WHERE type='table' AND name='zone_group'", MEMORY[0x277CBEC10], &v377);
+    v268 = selectSQLite3(v49, "SELECT name FROM sqlite_master WHERE type='table' AND name='zone_group'", MEMORY[0x277CBEC10], &v376);
 
-    v270 = v377;
-    if (!v269 || v377)
+    v269 = v376;
+    if (!v268 || v376)
     {
-      v271 = objc_autoreleasePoolPush();
-      v272 = v52;
-      v273 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v273, OS_LOG_TYPE_ERROR))
+      v270 = objc_autoreleasePoolPush();
+      v271 = v51;
+      v272 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v272, OS_LOG_TYPE_ERROR))
       {
-        v274 = HMFGetLogIdentifier();
-        v275 = [v269 count];
+        v273 = HMFGetLogIdentifier();
+        v274 = [v268 count];
         *buf = 138543874;
-        v381 = v274;
-        v382 = 2048;
-        v383 = v275;
-        v384 = 2112;
-        v385 = v270;
-        _os_log_impl(&dword_2531F8000, v273, OS_LOG_TYPE_ERROR, "%{public}@zone_group migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v273;
+        v381 = 2048;
+        v382 = v274;
+        v383 = 2112;
+        v384 = v269;
+        _os_log_impl(&dword_2531F8000, v272, OS_LOG_TYPE_ERROR, "%{public}@zone_group migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v271);
-      v52 = v327;
+      objc_autoreleasePoolPop(v270);
+      v51 = v326;
     }
 
-    if ([v269 count])
+    if ([v268 count])
     {
-      v276 = v323;
+      v275 = v322;
     }
 
     else
     {
-      v276 = 1;
+      v275 = 1;
     }
 
-    v277 = selectSQLite3(v50, "SELECT type FROM record WHERE uuid = ''", MEMORY[0x277CBEC10], &v377);
+    v276 = selectSQLite3(v49, "SELECT type FROM record WHERE uuid = ''", MEMORY[0x277CBEC10], &v376);
 
-    v278 = v377;
-    if (!v277 || v377)
+    v277 = v376;
+    if (!v276 || v376)
     {
-      v279 = objc_autoreleasePoolPush();
-      v280 = v52;
-      v281 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v281, OS_LOG_TYPE_ERROR))
+      v278 = objc_autoreleasePoolPush();
+      v279 = v51;
+      v280 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v280, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v282 = v324 = v279;
-        v283 = [v277 count];
+        v281 = v323 = v278;
+        v282 = [v276 count];
         *buf = 138543874;
-        v381 = v282;
-        v382 = 2048;
-        v383 = v283;
-        v384 = 2112;
-        v385 = v278;
-        _os_log_impl(&dword_2531F8000, v281, OS_LOG_TYPE_ERROR, "%{public}@record table migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v281;
+        v381 = 2048;
+        v382 = v282;
+        v383 = 2112;
+        v384 = v277;
+        _os_log_impl(&dword_2531F8000, v280, OS_LOG_TYPE_ERROR, "%{public}@record table migration test failed with result %lu items %@", buf, 0x20u);
 
-        v279 = v324;
+        v278 = v323;
       }
 
-      objc_autoreleasePoolPop(v279);
-      if (!v277)
+      objc_autoreleasePoolPop(v278);
+      if (!v276)
       {
-        v292 = objc_autoreleasePoolPush();
-        v299 = v280;
-        v294 = HMFGetOSLogHandle();
-        v52 = v327;
-        if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
+        v291 = objc_autoreleasePoolPush();
+        v298 = v279;
+        v293 = HMFGetOSLogHandle();
+        v51 = v326;
+        if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
         {
-          v300 = HMFGetLogIdentifier();
+          v299 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v381 = v300;
-          _os_log_impl(&dword_2531F8000, v294, OS_LOG_TYPE_ERROR, "%{public}@record table migration test failed with nil result", buf, 0xCu);
+          v380 = v299;
+          _os_log_impl(&dword_2531F8000, v293, OS_LOG_TYPE_ERROR, "%{public}@record table migration test failed with nil result", buf, 0xCu);
         }
 
-        v54 = 0;
+        v53 = 0;
         goto LABEL_142;
       }
 
-      v52 = v327;
-      if (v276)
+      v51 = v326;
+      if (v275)
       {
         goto LABEL_115;
       }
     }
 
-    else if (v276)
+    else if (v275)
     {
 LABEL_115:
-      v54 = v277;
+      v53 = v276;
       goto LABEL_143;
     }
 
-    v54 = selectSQLite3(v50, "SELECT name FROM zone WHERE id = 0", MEMORY[0x277CBEC10], &v377);
+    v53 = selectSQLite3(v49, "SELECT name FROM zone WHERE id = 0", MEMORY[0x277CBEC10], &v376);
 
-    v284 = v377;
-    if (!v54 || v377)
+    v283 = v376;
+    if (!v53 || v376)
     {
-      v285 = objc_autoreleasePoolPush();
-      v286 = v52;
-      v287 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v287, OS_LOG_TYPE_ERROR))
+      v284 = objc_autoreleasePoolPush();
+      v285 = v51;
+      v286 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v286, OS_LOG_TYPE_ERROR))
       {
-        v288 = HMFGetLogIdentifier();
-        v289 = [v54 count];
+        v287 = HMFGetLogIdentifier();
+        v288 = [v53 count];
         *buf = 138543874;
-        v381 = v288;
-        v382 = 2048;
-        v383 = v289;
-        v384 = 2112;
-        v385 = v284;
-        _os_log_impl(&dword_2531F8000, v287, OS_LOG_TYPE_ERROR, "%{public}@zone migration test failed with result %lu items %@", buf, 0x20u);
+        v380 = v287;
+        v381 = 2048;
+        v382 = v288;
+        v383 = 2112;
+        v384 = v283;
+        _os_log_impl(&dword_2531F8000, v286, OS_LOG_TYPE_ERROR, "%{public}@zone migration test failed with result %lu items %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v285);
-      v52 = v327;
+      objc_autoreleasePoolPop(v284);
+      v51 = v326;
     }
 
-    if (![v54 count])
+    if (![v53 count])
     {
       goto LABEL_143;
     }
 
-    v290 = selectSQLite3(v50, "SELECT type FROM xact WHERE id = 0", MEMORY[0x277CBEC10], &v377);
-    v291 = v377;
-    if (v377)
+    v289 = selectSQLite3(v49, "SELECT type FROM xact WHERE id = 0", MEMORY[0x277CBEC10], &v376);
+    v290 = v376;
+    if (v376)
     {
-      v292 = objc_autoreleasePoolPush();
-      v293 = v52;
-      v294 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
+      v291 = objc_autoreleasePoolPush();
+      v292 = v51;
+      v293 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
       {
-        v295 = HMFGetLogIdentifier();
+        v294 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v381 = v295;
-        v382 = 2112;
-        v383 = v291;
-        v296 = "%{public}@xact migration test failed with result %@";
-        v297 = v294;
-        v298 = 22;
+        v380 = v294;
+        v381 = 2112;
+        v382 = v290;
+        v295 = "%{public}@xact migration test failed with result %@";
+        v296 = v293;
+        v297 = 22;
 LABEL_141:
-        _os_log_impl(&dword_2531F8000, v297, OS_LOG_TYPE_ERROR, v296, buf, v298);
+        _os_log_impl(&dword_2531F8000, v296, OS_LOG_TYPE_ERROR, v295, buf, v297);
 
         goto LABEL_142;
       }
@@ -2938,130 +2901,130 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    v301 = selectSQLite3(v50, "SELECT id FROM xact WHERE pushed < 0x0100000000000000", MEMORY[0x277CBEC10], &v377);
+    v300 = selectSQLite3(v49, "SELECT id FROM xact WHERE pushed < 0x0100000000000000", MEMORY[0x277CBEC10], &v376);
 
-    v302 = v377;
-    if (v377 || [v301 count])
+    v301 = v376;
+    if (v376 || [v300 count])
     {
-      v54 = v301;
-      v292 = objc_autoreleasePoolPush();
-      v303 = v52;
-      v294 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
+      v53 = v300;
+      v291 = objc_autoreleasePoolPush();
+      v302 = v51;
+      v293 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
       {
-        v295 = HMFGetLogIdentifier();
-        v304 = [v54 count];
+        v294 = HMFGetLogIdentifier();
+        v303 = [v53 count];
         *buf = 138543874;
-        v381 = v295;
-        v382 = 2048;
-        v383 = v304;
-        v384 = 2112;
-        v385 = v302;
-        v296 = "%{public}@xact version migration test failed with result %lu items %@";
-        v297 = v294;
-        v298 = 32;
+        v380 = v294;
+        v381 = 2048;
+        v382 = v303;
+        v383 = 2112;
+        v384 = v301;
+        v295 = "%{public}@xact version migration test failed with result %lu items %@";
+        v296 = v293;
+        v297 = 32;
         goto LABEL_141;
       }
 
 LABEL_142:
 
-      objc_autoreleasePoolPop(v292);
+      objc_autoreleasePoolPop(v291);
 LABEL_143:
       if (migrate)
       {
-        sqlite3_close(v50);
-        datastoreFile7 = [(HMDBackingStoreLocal *)v52 datastoreFile];
-        v306 = [(HMDBackingStoreLocal *)v52 _createNewDatastore:datastoreFile7];
-        v377 = v306;
+        sqlite3_close(v49);
+        datastoreFile7 = [(HMDBackingStoreLocal *)v51 datastoreFile];
+        v305 = [(HMDBackingStoreLocal *)v51 _createNewDatastore:datastoreFile7];
+        v376 = v305;
 
-        if (v306)
+        if (v305)
         {
-          if (v50)
+          if (v49)
           {
-            sqlite3_close(v50);
+            sqlite3_close(v49);
           }
 
-          v238 = 0;
+          v237 = 0;
         }
 
         else
         {
-          v238 = 1;
+          v237 = 1;
         }
       }
 
       else
       {
-        v307 = objc_autoreleasePoolPush();
-        v308 = v52;
-        v309 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v309, OS_LOG_TYPE_ERROR))
+        v306 = objc_autoreleasePoolPush();
+        v307 = v51;
+        v308 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v308, OS_LOG_TYPE_ERROR))
         {
-          v310 = HMFGetLogIdentifier();
+          v309 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v381 = v310;
-          _os_log_impl(&dword_2531F8000, v309, OS_LOG_TYPE_ERROR, "%{public}@want to rebuild the databse, but not allowed to.", buf, 0xCu);
+          v380 = v309;
+          _os_log_impl(&dword_2531F8000, v308, OS_LOG_TYPE_ERROR, "%{public}@want to rebuild the databse, but not allowed to.", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v307);
+        objc_autoreleasePoolPop(v306);
         [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
-        v377 = v238 = 0;
-        v52 = v327;
+        v376 = v237 = 0;
+        v51 = v326;
       }
 
 LABEL_75:
 
-      v239 = v377;
-      if (v238)
+      v238 = v376;
+      if (v237)
       {
-        v240 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %ld", 2];;
-        v241 = runSQLite3(selfCopy->connection, [v240 UTF8String]);
+        v239 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %ld", 2];;
+        v240 = runSQLite3(selfCopy->connection, [v239 UTF8String]);
 
-        v242 = objc_autoreleasePoolPush();
-        v243 = v52;
-        v244 = HMFGetOSLogHandle();
-        v245 = v244;
-        if (!v241)
+        v241 = objc_autoreleasePoolPush();
+        v242 = v51;
+        v243 = HMFGetOSLogHandle();
+        v244 = v243;
+        if (!v240)
         {
-          v260 = v244;
-          v27 = v326;
-          if (os_log_type_enabled(v260, OS_LOG_TYPE_DEFAULT))
+          v259 = v243;
+          v27 = v325;
+          if (os_log_type_enabled(v259, OS_LOG_TYPE_DEFAULT))
           {
-            v261 = HMFGetLogIdentifier();
+            v260 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v381 = v261;
-            v382 = 2048;
-            v383 = 2;
-            _os_log_impl(&dword_2531F8000, v260, OS_LOG_TYPE_DEFAULT, "%{public}@Current schema version: %ld", buf, 0x16u);
+            v380 = v260;
+            v381 = 2048;
+            v382 = 2;
+            _os_log_impl(&dword_2531F8000, v259, OS_LOG_TYPE_DEFAULT, "%{public}@Current schema version: %ld", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v242);
-          v328 = 0;
-          v31 = v325;
+          objc_autoreleasePoolPop(v241);
+          v327 = 0;
+          v31 = v324;
           goto LABEL_21;
         }
 
-        v246 = v326;
-        if (os_log_type_enabled(v244, OS_LOG_TYPE_ERROR))
+        v245 = v325;
+        if (os_log_type_enabled(v243, OS_LOG_TYPE_ERROR))
         {
-          v247 = HMFGetLogIdentifier();
+          v246 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v381 = v247;
-          v382 = 2048;
-          v383 = 2;
-          v384 = 2112;
-          v385 = v241;
-          _os_log_impl(&dword_2531F8000, v245, OS_LOG_TYPE_ERROR, "%{public}@Unable to update schema version to %ld: %@", buf, 0x20u);
+          v380 = v246;
+          v381 = 2048;
+          v382 = 2;
+          v383 = 2112;
+          v384 = v240;
+          _os_log_impl(&dword_2531F8000, v244, OS_LOG_TYPE_ERROR, "%{public}@Unable to update schema version to %ld: %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v242);
-        v24 = v241;
+        objc_autoreleasePoolPop(v241);
+        v24 = v240;
       }
 
       else
       {
-        v24 = v239;
-        v246 = v326;
+        v24 = v238;
+        v245 = v325;
       }
 
       _fillStoreCache = v24;
@@ -3070,91 +3033,91 @@ LABEL_75:
 
     if (isInternalBuild())
     {
-      v54 = selectSQLite3(v50, "select uuid, share_id, count(*) from record group by uuid, group_id having count(*)>1", MEMORY[0x277CBEC10], &v377);;
+      v53 = selectSQLite3(v49, "select uuid, share_id, count(*) from record group by uuid, group_id having count(*)>1", MEMORY[0x277CBEC10], &v376);;
 
-      if ([v54 count])
+      if ([v53 count])
       {
-        v311 = objc_autoreleasePoolPush();
-        v312 = v327;
-        v313 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v313, OS_LOG_TYPE_ERROR))
+        v310 = objc_autoreleasePoolPush();
+        v311 = v326;
+        v312 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v312, OS_LOG_TYPE_ERROR))
         {
-          v314 = HMFGetLogIdentifier();
+          v313 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v381 = v314;
-          _os_log_impl(&dword_2531F8000, v313, OS_LOG_TYPE_ERROR, "%{public}@We have duplicate records with different share_ids deleting duplicates.", buf, 0xCu);
+          v380 = v313;
+          _os_log_impl(&dword_2531F8000, v312, OS_LOG_TYPE_ERROR, "%{public}@We have duplicate records with different share_ids deleting duplicates.", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v311);
-        v377 = runSQLite3(v50, "delete from record where uuid in (select uuid from record group by uuid, group_id having count(*)>1) and share_id!=0");;
-        if (v377)
+        objc_autoreleasePoolPop(v310);
+        v376 = runSQLite3(v49, "delete from record where uuid in (select uuid from record group by uuid, group_id having count(*)>1) and share_id!=0");;
+        if (v376)
         {
-          v292 = objc_autoreleasePoolPush();
-          v315 = v312;
-          v294 = HMFGetOSLogHandle();
-          if (!os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
+          v291 = objc_autoreleasePoolPush();
+          v314 = v311;
+          v293 = HMFGetOSLogHandle();
+          if (!os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
           {
 LABEL_167:
-            v52 = v327;
-            v51 = v328;
+            v51 = v326;
+            v50 = v327;
             goto LABEL_142;
           }
 
-          v316 = HMFGetLogIdentifier();
+          v315 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v381 = v316;
-          v317 = "%{public}@Unable to delete duplicate entries";
+          v380 = v315;
+          v316 = "%{public}@Unable to delete duplicate entries";
 LABEL_166:
-          _os_log_impl(&dword_2531F8000, v294, OS_LOG_TYPE_ERROR, v317, buf, 0xCu);
+          _os_log_impl(&dword_2531F8000, v293, OS_LOG_TYPE_ERROR, v316, buf, 0xCu);
 
           goto LABEL_167;
         }
       }
 
-      v301 = v54;
+      v300 = v53;
     }
 
-    v54 = selectSQLite3(v50, "select uuid from record where share_id!=0", MEMORY[0x277CBEC10], &v377);;
+    v53 = selectSQLite3(v49, "select uuid from record where share_id!=0", MEMORY[0x277CBEC10], &v376);;
 
-    if (![v54 count])
+    if (![v53 count])
     {
       goto LABEL_168;
     }
 
-    v318 = objc_autoreleasePoolPush();
-    v319 = v327;
-    v320 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v320, OS_LOG_TYPE_DEFAULT))
+    v317 = objc_autoreleasePoolPush();
+    v318 = v326;
+    v319 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v319, OS_LOG_TYPE_DEFAULT))
     {
-      v321 = HMFGetLogIdentifier();
+      v320 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v381 = v321;
-      _os_log_impl(&dword_2531F8000, v320, OS_LOG_TYPE_DEFAULT, "%{public}@Have records with share_id will migrate them.", buf, 0xCu);
+      v380 = v320;
+      _os_log_impl(&dword_2531F8000, v319, OS_LOG_TYPE_DEFAULT, "%{public}@Have records with share_id will migrate them.", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v318);
-    v377 = runSQLite3(v50, "update record set share_id = 0 where share_id != 0");;
-    if (!v377)
+    objc_autoreleasePoolPop(v317);
+    v376 = runSQLite3(v49, "update record set share_id = 0 where share_id != 0");;
+    if (!v376)
     {
 LABEL_168:
-      v238 = 1;
-      v52 = v327;
-      v51 = v328;
+      v237 = 1;
+      v51 = v326;
+      v50 = v327;
       goto LABEL_75;
     }
 
-    v292 = objc_autoreleasePoolPush();
-    v322 = v319;
-    v294 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
+    v291 = objc_autoreleasePoolPush();
+    v321 = v318;
+    v293 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_167;
     }
 
-    v316 = HMFGetLogIdentifier();
+    v315 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v381 = v316;
-    v317 = "%{public}@Unable to migrate share_ids";
+    v380 = v315;
+    v316 = "%{public}@Unable to migrate share_ids";
     goto LABEL_166;
   }
 
@@ -3174,29 +3137,28 @@ LABEL_13:
 LABEL_30:
 
 LABEL_31:
-  v44 = *MEMORY[0x277D85DE8];
 
   return _fillStoreCache;
 }
 
 - (id)_updateRecordWithGroupID:(int64_t)d name:(id)name schema:(id)schema
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   schemaCopy = schema;
   updateRecordSchema = self->updateRecordSchema;
-  v26 = 0;
-  bindIntSQLite3(updateRecordSchema, 1, d, &v26);
-  v11 = v26;
+  v25 = 0;
+  bindIntSQLite3(updateRecordSchema, 1, d, &v25);
+  v11 = v25;
   v12 = self->updateRecordSchema;
-  v25 = v11;
-  bindStringSQLite3(v12, 2, nameCopy, &v25);
-  v13 = v25;
+  v24 = v11;
+  bindStringSQLite3(v12, 2, nameCopy, &v24);
+  v13 = v24;
 
   v14 = self->updateRecordSchema;
-  v24 = v13;
-  bindStringSQLite3(v14, 3, schemaCopy, &v24);
-  v15 = v24;
+  v23 = v13;
+  bindStringSQLite3(v14, 3, schemaCopy, &v23);
+  v15 = v23;
 
   v16 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3205,13 +3167,13 @@ LABEL_31:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v28 = v19;
-    v29 = 2048;
+    v27 = v19;
+    v28 = 2048;
     dCopy = d;
-    v31 = 2112;
-    v32 = nameCopy;
-    v33 = 2112;
-    v34 = schemaCopy;
+    v30 = 2112;
+    v31 = nameCopy;
+    v32 = 2112;
+    v33 = schemaCopy;
     _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Updating record schema: %lu, name: %@, schema: %@", buf, 0x2Au);
   }
 
@@ -3228,9 +3190,37 @@ LABEL_31:
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
+}
+
+- (id)flush:(BOOL)flush
+{
+  flushCopy = flush;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__119149;
+  v17 = __Block_byref_object_dispose__119150;
+  v18 = 0;
+  v5 = [HMDBackingStoreLocalFlushOperation alloc];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __30__HMDBackingStoreLocal_flush___block_invoke;
+  v12[3] = &unk_27972BC20;
+  v12[4] = &v13;
+  v6 = [(HMDBackingStoreLocalFlushOperation *)v5 initWithStore:self clearCloud:flushCopy resultHandler:v12];
+  v7 = +[HMDBackingStoreSingleton sharedInstance];
+  queue = [v7 queue];
+  [queue addOperation:v6];
+
+  [(HMDBackingStoreLocalFlushOperation *)v6 waitUntilFinished];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"HMDBackingStoreLocalDataReset" object:self];
+
+  v10 = v14[5];
+  _Block_object_dispose(&v13, 8);
+
+  return v10;
 }
 
 - (void)dealloc
@@ -3535,11 +3525,11 @@ LABEL_31:
 
 - (HMDBackingStoreLocal)initWithDatastore:(id)datastore
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   datastoreCopy = datastore;
-  v14 = 0;
-  v5 = [(HMDBackingStoreLocal *)self initWithDB:datastoreCopy migrate:1 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [(HMDBackingStoreLocal *)self initWithDB:datastoreCopy migrate:1 error:&v13];
+  v6 = v13;
   if (v6)
   {
     v7 = objc_autoreleasePoolPush();
@@ -3549,9 +3539,9 @@ LABEL_31:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v6;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@unable to instance our resources: %@", buf, 0x16u);
     }
 
@@ -3564,69 +3554,79 @@ LABEL_31:
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (HMDBackingStoreLocal)initWithDB:(id)b migrate:(BOOL)migrate error:(id *)error
+{
+  migrateCopy = migrate;
+  v25 = *MEMORY[0x277D85DE8];
+  bCopy = b;
+  v20.receiver = self;
+  v20.super_class = HMDBackingStoreLocal;
+  v10 = [(HMDBackingStoreLocal *)&v20 init];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_datastoreFile, b);
+    [HMDBackingStoreLocal cleanDatastoreFilesAt:bCopy everything:0];
+    v12 = [(HMDBackingStoreLocal *)v11 _instantiateResources:0 migrate:migrateCopy];
+    if (v12)
+    {
+      v13 = objc_autoreleasePoolPush();
+      v14 = v11;
+      v15 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v22 = v16;
+        v23 = 2112;
+        v24 = v12;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@unable to instantiate our resources: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v13);
+      if (error)
+      {
+        v17 = v12;
+        v18 = 0;
+        *error = v12;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+    }
+
+    else
+    {
+      v18 = v11;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (id)_createDatastoreTables:(id)tables
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tablesCopy = tables;
-  v5 = runSQLite3(self->connection, "CREATE TABLE zone (id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING NOT NULL)");;
-  if (v5)
+  if (v5 || (runSQLite3(self->connection, "CREATE TABLE store (id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING NOT NULL)"), (v5 = v5 = runSQLite3(self->connection, "CREATE TABLE zone (id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING NOT NULL)");;
   {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE store (id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING NOT NULL)");;
-  if (v5)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE zone_group (id INTEGER PRIMARY KEY AUTOINCREMENT, zone_id INTEGER NOT NULL CONSTRAINT group_zone_id_fkey REFERENCES zone (id) ON DELETE RESTRICT, root TEXT NOT NULL, owner TEXT NOT NULL, token BLOB, subscription TEXT, subscription_data BLOB)");;
-  if (v5)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE zone_share (id INTEGER PRIMARY KEY AUTOINCREMENT, group_id INTEGER NOT NULL CONSTRAINT group_zone_id_fkey REFERENCES zone_group (id) ON DELETE RESTRICT, root TEXT NOT NULL, target TEXT, share BLOB, users BLOB)");;
-  if (v5)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE record (group_id INTEGER NOT NULL CONSTRAINT record_group_id_fkey REFERENCES zone_group (id) ON DELETE RESTRICT, share_id INTEGER NOT NULL CONSTRAINT record_share_id_fkey REFERENCES zone_share (id) ON DELETE RESTRICT, store_id INTEGER NOT NULL CONSTRAINT record_store_id_fkey REFERENCES store (id) ON DELETE RESTRICT, name TEXT NOT NULL, type TEXT, uuid TEXT, parent_uuid TEXT, encoding INTEGER NOT NULL, record BLOB NOT NULL, data BLOB NOT NULL, schema STRING)");;
-  if (v5)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE xact (id INTEGER PRIMARY KEY AUTOINCREMENT, xact_id INTEGER NOT NULL, pushed INTEGER, root TEXT NOT NULL, type INT NOT NULL, encoding INTEGER NOT NULL, data BLOB NOT NULL, disk_committed INTEGER NOT NULL DEFAULT 1)");;
-  if (v5)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = runSQLite3(self->connection, "CREATE TABLE xact_block (id INTEGER PRIMARY KEY, data BLOB NOT NULL)");;
-  if (v5 || (runSQLite3(self->connection, "CREATE UNIQUE INDEX zone_name ON zone (name)"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) || (runSQLite3(self->connection, "CREATE UNIQUE INDEX store_name ON store (name)"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) || (runSQLite3(self->connection, "CREATE UNIQUE INDEX group_owner_root_zone_id_ukey ON zone_group (owner, root, zone_id);"), (v5 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_11:
     v6 = v5;
     goto LABEL_12;
   }
 
-  v14 = runSQLite3(self->connection, "CREATE UNIQUE INDEX share_root_group_id_ukey ON zone_share (root, group_id)");;
-  if (v14)
+  if (v13 || (runSQLite3(self->connection, "CREATE UNIQUE INDEX record_group_id_share_id_name_ukey ON record (group_id, share_id, name)"), (v13 = v13 = runSQLite3(self->connection, "CREATE UNIQUE INDEX share_root_group_id_ukey ON zone_share (root, group_id)");;
   {
-    goto LABEL_23;
-  }
-
-  v14 = runSQLite3(self->connection, "CREATE UNIQUE INDEX record_group_id_share_id_name_ukey ON record (group_id, share_id, name)");;
-  if (v14 || (runSQLite3(self->connection, "CREATE INDEX xact_pushed ON xact (root, pushed, xact_id);"), (v14 = objc_claimAutoreleasedReturnValue()) != 0) || (runSQLite3(self->connection, "CREATE INDEX xact_pushed2 ON xact (root, xact_id, id);"), (v14 = objc_claimAutoreleasedReturnValue()) != 0) || (runSQLite3(self->connection, "CREATE TABLE IF NOT EXISTS archive (identifier string primary key, controller_username string not null, value blob not null);"), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_23:
-    v6 = v14;
+    v6 = v13;
 LABEL_12:
     v7 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -3635,9 +3635,9 @@ LABEL_12:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v6;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@unable to initialize SQL context: %@", buf, 0x16u);
     }
 
@@ -3650,89 +3650,87 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v15 = runSQLite3(self->connection, "INSERT INTO zone (id, name) VALUES (0, '<NULL>')");;
-  if (v15 || (runSQLite3(self->connection, "INSERT INTO zone_group (id, zone_id, root, owner) VALUES (0, 0, '<NULL>', '<NULL>');"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (runSQLite3(self->connection, "INSERT INTO zone_share (id, group_id, root) VALUES (0, 0, '<NULL>');"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v14 || (runSQLite3(self->connection, "INSERT INTO zone_group (id, zone_id, root, owner) VALUES (0, 0, '<NULL>', '<NULL>')"), (v14 = v14 = runSQLite3(self->connection, "INSERT INTO zone (id, name) VALUES (0, '<NULL>')");;
   {
-    v6 = v15;
+    v6 = v14;
     v7 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v9 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v16 = HMFGetLogIdentifier();
+      v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v6;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@initial database row setup failed: %@", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
-  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %ld", 2];;
-  v11 = runSQLite3(self->connection, [v17 UTF8String]);
+  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA user_version = %ld", 2];;
+  v11 = runSQLite3(self->connection, [v16 UTF8String]);
   if (v11)
   {
-    v18 = objc_autoreleasePoolPush();
+    v17 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v21;
-      v25 = 2048;
-      v26 = 2;
-      v27 = 2112;
-      v28 = v11;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@unable to set schema version to %ld failed: %@", buf, 0x20u);
+      v23 = v20;
+      v24 = 2048;
+      v25 = 2;
+      v26 = 2112;
+      v27 = v11;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@unable to set schema version to %ld failed: %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v17);
     sqlite3_close(self->connection);
     unlink([tablesCopy UTF8String]);
-    v22 = v11;
+    v21 = v11;
   }
 
 LABEL_15:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_createNewDatastore:(id)datastore
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   datastoreCopy = datastore;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v45[0] = datastoreCopy;
+  v44[0] = datastoreCopy;
   v5 = [datastoreCopy stringByAppendingString:@"-shm"];
-  v45[1] = v5;
+  v44[1] = v5;
   v6 = [datastoreCopy stringByAppendingString:@"-wal"];
-  v45[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
+  v44[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
 
-  v8 = [v7 countByEnumeratingWithState:&v35 objects:v46 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v34 objects:v45 count:16];
   if (v8)
   {
     v9 = v8;
-    v34 = datastoreCopy;
+    v33 = datastoreCopy;
     v10 = 0;
-    v11 = *v36;
+    v11 = *v35;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         if (unlink([v13 UTF8String]) && *__error() != 2)
         {
           v14 = objc_autoreleasePoolPush();
@@ -3744,11 +3742,11 @@ LABEL_15:
             v18 = __error();
             v19 = strerror(*v18);
             *buf = 138543874;
-            v40 = v17;
-            v41 = 2112;
-            v42 = v13;
-            v43 = 2080;
-            v44 = v19;
+            v39 = v17;
+            v40 = 2112;
+            v41 = v13;
+            v42 = 2080;
+            v43 = v19;
             _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@unable to remove old datastore file %@ (%s)", buf, 0x20u);
           }
 
@@ -3757,12 +3755,12 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v35 objects:v46 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v34 objects:v45 count:16];
     }
 
     while (v9);
 
-    datastoreCopy = v34;
+    datastoreCopy = v33;
     if (v10)
     {
       goto LABEL_20;
@@ -3782,9 +3780,9 @@ LABEL_15:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v23;
-      v41 = 2112;
-      v42 = 0;
+      v39 = v23;
+      v40 = 2112;
+      v41 = 0;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@unable to open new SQL context: %@", buf, 0x16u);
     }
 
@@ -3805,11 +3803,11 @@ LABEL_20:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v30;
-      v41 = 2048;
-      v42 = 512;
-      v43 = 2112;
-      v44 = v26;
+      v39 = v30;
+      v40 = 2048;
+      v41 = 512;
+      v42 = 2112;
+      v43 = v26;
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to set sqlite cache size to %ld: %@", buf, 0x20u);
     }
 
@@ -3825,7 +3823,6 @@ LABEL_20:
   v24 = v31;
 
 LABEL_27:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -3844,18 +3841,17 @@ LABEL_27:
 
 uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v60_119224;
-  logCategory__hmf_once_v60_119224 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v60_119224;
+  logCategory__hmf_once_v60_119224 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)cleanDatastoreFilesAt:(id)at everything:(BOOL)everything
 {
   everythingCopy = everything;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   atCopy = at;
   if ([atCopy isEqualToString:@":memory:"])
   {
@@ -3866,7 +3862,7 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v54 = v10;
+      v53 = v10;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Skipping because in memory store was specified.", buf, 0xCu);
     }
 
@@ -3879,9 +3875,9 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
     lastPathComponent = [atCopy lastPathComponent];
     v13 = [v11 stringWithFormat:@"^%@(?:|-shm|-wal)(\\..*)?$", lastPathComponent];
 
-    v51 = 0;
-    v14 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v13 options:0 error:&v51];
-    v15 = v51;
+    v50 = 0;
+    v14 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v13 options:0 error:&v50];
+    v15 = v50;
     if (v15)
     {
       v16 = v15;
@@ -3892,9 +3888,9 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v54 = v20;
-        v55 = 2112;
-        v56 = v16;
+        v53 = v20;
+        v54 = 2112;
+        v55 = v16;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@unable to compile expression: %@", buf, 0x16u);
       }
 
@@ -3905,12 +3901,12 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       stringByDeletingLastPathComponent = [atCopy stringByDeletingLastPathComponent];
-      v50 = 0;
-      v23 = [defaultManager contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:&v50];
-      v24 = v50;
+      v49 = 0;
+      v23 = [defaultManager contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:&v49];
+      v24 = v49;
       v25 = [v23 mutableCopy];
 
-      v45 = v24;
+      v44 = v24;
       if (v24)
       {
         v26 = objc_autoreleasePoolPush();
@@ -3920,11 +3916,11 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v54 = v29;
-          v55 = 2112;
-          v56 = stringByDeletingLastPathComponent;
-          v57 = 2112;
-          v58 = v45;
+          v53 = v29;
+          v54 = 2112;
+          v55 = stringByDeletingLastPathComponent;
+          v56 = 2112;
+          v57 = v44;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@unable to get files in %@ (%@)", buf, 0x20u);
         }
 
@@ -3933,29 +3929,29 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
 
       else
       {
-        v43 = v13;
-        v44 = atCopy;
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
+        v42 = v13;
+        v43 = atCopy;
         v47 = 0u;
-        v42 = v25;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v41 = v25;
         v30 = v25;
-        v31 = [v30 countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v45 objects:v51 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v47;
+          v33 = *v46;
           do
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v47 != v33)
+              if (*v46 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = *(*(&v46 + 1) + 8 * i);
+              v35 = *(*(&v45 + 1) + 8 * i);
               v36 = [v14 firstMatchInString:v35 options:0 range:{0, objc_msgSend(v35, "length")}];
               v37 = v36;
               if (v36)
@@ -3969,22 +3965,20 @@ uint64_t __35__HMDBackingStoreLocal_logCategory__block_invoke()
               }
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v46 objects:v52 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v45 objects:v51 count:16];
           }
 
           while (v32);
         }
 
-        v13 = v43;
-        atCopy = v44;
-        v25 = v42;
+        v13 = v42;
+        atCopy = v43;
+        v25 = v41;
       }
 
-      v16 = v45;
+      v16 = v44;
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 @end

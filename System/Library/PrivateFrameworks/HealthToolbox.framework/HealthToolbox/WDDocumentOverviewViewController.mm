@@ -24,6 +24,7 @@
 - (void)_selectReportRowForIndexPath:(id)path;
 - (void)dealloc;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)widthDesignationDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection;
 @end
@@ -63,33 +64,32 @@
 
 - (void)viewDidLoad
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = WDDocumentOverviewViewController;
-  [(HKTableViewController *)&v16 viewDidLoad];
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = WDDocumentOverviewViewController;
+  [(HKTableViewController *)&v15 viewDidLoad];
   objc_initWeak(&location, self);
   dataProvider = self->_dataProvider;
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __47__WDDocumentOverviewViewController_viewDidLoad__block_invoke;
-  v13 = &unk_2796E6CF0;
-  objc_copyWeak(&v14, &location);
-  [(WDSampleListDataProvider *)dataProvider startCollectingDataWithUpdateHandler:&v10];
-  v4 = [(WDDocumentOverviewViewController *)self tableView:v10];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __47__WDDocumentOverviewViewController_viewDidLoad__block_invoke;
+  v12 = &unk_2796E6CF0;
+  objc_copyWeak(&v13, &location);
+  [(WDSampleListDataProvider *)dataProvider startCollectingDataWithUpdateHandler:&v9];
+  v4 = [(WDDocumentOverviewViewController *)self tableView:v9];
   [v4 registerClass:objc_opt_class() forCellReuseIdentifier:@"accessDataIdentifier"];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__contentSizeCategoryDidChange_ name:*MEMORY[0x277D76810] object:0];
 
-  v17[0] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v7 = [(WDDocumentOverviewViewController *)self registerForTraitChanges:v6 withTarget:self action:sel_widthDesignationDidChangeWithTraitEnvironment_previousTraitCollection_];
 
   navigationItem = [(WDDocumentOverviewViewController *)self navigationItem];
   [navigationItem _setSupportsTwoLineLargeTitles:1];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WDDocumentOverviewViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -107,6 +107,13 @@ void __47__WDDocumentOverviewViewController_viewDidLoad__block_invoke_2(uint64_t
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _reloadAllData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = WDDocumentOverviewViewController;
+  [(WDDocumentOverviewViewController *)&v3 viewDidAppear:appear];
 }
 
 - (void)dealloc
@@ -638,16 +645,13 @@ LABEL_5:
 
 void __62__WDDocumentOverviewViewController__recomputeTotalReportCount__block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v8 = 138543618;
-  v9 = objc_opt_class();
-  v10 = 2114;
-  v11 = a2;
-  v6 = v9;
-  _os_log_error_impl(&dword_251E85000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Error counting document samples: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_251E85000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Error counting document samples: %{public}@", &v6, 0x16u);
 }
 
 @end

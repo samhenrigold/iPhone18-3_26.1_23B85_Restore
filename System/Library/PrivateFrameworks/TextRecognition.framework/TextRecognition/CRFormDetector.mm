@@ -4,10 +4,11 @@
 + (id)_multiArrayFromPixelBuffer:(__CVBuffer *)buffer;
 + (void)_saveDebugImage:(id)image byOverlayingResults:(const void *)results;
 - (CRFormDetector)initWithConfiguration:(id)configuration error:(id *)error;
-- (__n128)detectFormFieldsInImage:(char *)image document:(uint64_t)document outputCandidateResults:(uint64_t)results;
-- (__n128)detectFormFieldsInImage:(unint64_t)image document:(__n128 *)document outputCandidateResults:(__n128)result;
+- (__n128)detectFormFieldsInImage:(__n128 *)image document:(uint64_t)document outputCandidateResults:(uint64_t)results;
+- (__n128)detectFormFieldsInImage:(unint64_t)image document:(uint64_t)document outputCandidateResults:(__n128)result;
 - (double)detectFormFieldsInImage:(uint64_t)image document:(char)document outputCandidateResults:(__n128)results;
-- (double)detectFormFieldsInImage:(unint64_t)image document:(__n128 *)document outputCandidateResults:(uint64_t)results;
+- (double)detectFormFieldsInImage:(unint64_t)image document:(float *)document outputCandidateResults:(int64_t)results;
+- (double)detectFormFieldsInImage:(unint64_t)image document:(uint64_t)document outputCandidateResults:(uint64_t)results;
 - (id)detectFormFieldsInImage:(id)image document:(id)document outputCandidateResults:(id *)results;
 - (void)_denormalizeResults:(void *)results imageSize:(CGSize *)size translation:(CGVector *)translation;
 @end
@@ -1393,27 +1394,27 @@ LABEL_142:
   return v198;
 }
 
-- (double)detectFormFieldsInImage:(unint64_t)image document:(__n128 *)document outputCandidateResults:(uint64_t)results
+- (double)detectFormFieldsInImage:(unint64_t)image document:(float *)document outputCandidateResults:(int64_t)results
 {
   if (image >= 2)
   {
-    selfCopy = self;
+    v7 = result;
     if (image == 2)
     {
-      v8 = a2 - 3;
-      a6.n128_u32[0] = a2[-3].n128_u32[0];
-      if (a6.n128_f32[0] > *self)
+      v8 = a2 - 12;
+      a6.n128_f32[0] = *(a2 - 12);
+      if (a6.n128_f32[0] > *result)
       {
-        a6 = *self;
-        v9 = *(self + 16);
-        v10 = *(self + 32);
-        v12 = a2[-2];
-        v11 = a2[-1];
-        *self = *v8;
-        *(self + 16) = v12;
-        *(self + 32) = v11;
-        a2[-2] = v9;
-        a2[-1] = v10;
+        a6 = *result;
+        v9 = *(result + 1);
+        v10 = *(result + 2);
+        v12 = *(a2 - 2);
+        v11 = *(a2 - 1);
+        *result = *v8;
+        *(result + 1) = v12;
+        *(result + 2) = v11;
+        *(a2 - 2) = v9;
+        *(a2 - 1) = v10;
         *v8 = a6;
       }
     }
@@ -1422,47 +1423,47 @@ LABEL_142:
     {
       documentCopy = document;
       v24 = image >> 1;
-      v25 = (self + 48 * (image >> 1));
+      v25 = &result[12 * (image >> 1)];
       v26 = image >> 1;
       if (image <= results)
       {
-        v29 = &documentCopy[3 * v24];
-        v30 = &documentCopy[3 * image];
+        v29 = &documentCopy[12 * v24];
+        v30 = &documentCopy[12 * image];
         v31 = v29;
         while (v31 != v30)
         {
-          if (v31->n128_f32[0] <= documentCopy->n128_f32[0])
+          if (*v31 <= *documentCopy)
           {
             a6 = *documentCopy;
-            v33 = documentCopy[2];
-            *(selfCopy + 16) = documentCopy[1];
-            *(selfCopy + 32) = v33;
-            *selfCopy = a6;
-            documentCopy += 3;
+            v33 = *(documentCopy + 2);
+            *(v7 + 1) = *(documentCopy + 1);
+            *(v7 + 2) = v33;
+            *v7 = a6;
+            documentCopy += 12;
           }
 
           else
           {
             a6 = *v31;
-            v32 = v31[2];
-            *(selfCopy + 16) = v31[1];
-            *(selfCopy + 32) = v32;
-            *selfCopy = a6;
-            v31 += 3;
+            v32 = *(v31 + 32);
+            *(v7 + 1) = *(v31 + 16);
+            *(v7 + 2) = v32;
+            *v7 = a6;
+            v31 += 48;
           }
 
-          selfCopy += 48;
+          v7 += 12;
           if (documentCopy == v29)
           {
             while (v31 != v30)
             {
               a6 = *v31;
-              v35 = v31[2];
-              *(selfCopy + 16) = v31[1];
-              *(selfCopy + 32) = v35;
-              *selfCopy = a6;
-              selfCopy += 48;
-              v31 += 3;
+              v35 = *(v31 + 32);
+              *(v7 + 1) = *(v31 + 16);
+              *(v7 + 2) = v35;
+              *v7 = a6;
+              v7 += 12;
+              v31 += 48;
             }
 
             return a6.n128_f64[0];
@@ -1472,12 +1473,12 @@ LABEL_142:
         while (documentCopy != v29)
         {
           a6 = *documentCopy;
-          v34 = documentCopy[2];
-          *(selfCopy + 16) = documentCopy[1];
-          *(selfCopy + 32) = v34;
-          *selfCopy = a6;
-          selfCopy += 48;
-          documentCopy += 3;
+          v34 = *(documentCopy + 2);
+          *(v7 + 1) = *(documentCopy + 1);
+          *(v7 + 2) = v34;
+          *v7 = a6;
+          v7 += 12;
+          documentCopy += 12;
         }
       }
 
@@ -1486,30 +1487,30 @@ LABEL_142:
       }
     }
 
-    else if (self != a2)
+    else if (result != a2)
     {
-      v14 = (self + 48);
-      if ((self + 48) != a2)
+      v14 = (result + 12);
+      if (result + 12 != a2)
       {
         v15 = 0;
-        selfCopy2 = self;
+        v16 = result;
         do
         {
           v17 = v14;
           a6.n128_u32[0] = *v14;
-          if (*v14 > *selfCopy2)
+          if (*v14 > *v16)
           {
-            v37 = *(selfCopy2 + 52);
-            *v38 = *(selfCopy2 + 68);
-            *&v38[12] = *(selfCopy2 + 80);
+            v37 = *(v16 + 13);
+            *v38 = *(v16 + 17);
+            *&v38[12] = *(v16 + 5);
             v18 = v15;
             while (1)
             {
-              v19 = (self + v18);
-              v20 = *(self + v18 + 16);
-              *(v19 + 3) = *(self + v18);
+              v19 = (result + v18);
+              v20 = *(result + v18 + 16);
+              *(v19 + 3) = *(result + v18);
               *(v19 + 4) = v20;
-              *(v19 + 5) = *(self + v18 + 32);
+              *(v19 + 5) = *(result + v18 + 32);
               if (!v18)
               {
                 break;
@@ -1518,26 +1519,26 @@ LABEL_142:
               v18 -= 48;
               if (a6.n128_f32[0] <= *(v19 - 12))
               {
-                selfCopy3 = self + v18 + 48;
+                v21 = (result + v18 + 48);
                 goto LABEL_16;
               }
             }
 
-            selfCopy3 = self;
+            v21 = result;
 LABEL_16:
-            *selfCopy3 = a6.n128_u32[0];
-            *(selfCopy3 + 4) = v37;
-            *(selfCopy3 + 20) = *v38;
+            *v21 = a6.n128_f32[0];
+            *(v21 + 1) = v37;
+            *(v21 + 5) = *v38;
             a6.n128_u64[0] = *&v38[12];
-            *(selfCopy3 + 32) = *&v38[12];
+            *(v21 + 2) = *&v38[12];
           }
 
-          v14 = &v17[3];
+          v14 = v17 + 12;
           v15 += 48;
-          selfCopy2 = v17;
+          v16 = v17;
         }
 
-        while (&v17[3] != a2);
+        while (v17 + 12 != a2);
       }
     }
   }
@@ -1545,7 +1546,7 @@ LABEL_16:
   return a6.n128_f64[0];
 }
 
-- (__n128)detectFormFieldsInImage:(unint64_t)image document:(__n128 *)document outputCandidateResults:(__n128)result
+- (__n128)detectFormFieldsInImage:(unint64_t)image document:(uint64_t)document outputCandidateResults:(__n128)result
 {
   if (image)
   {
@@ -1558,8 +1559,8 @@ LABEL_16:
       {
         v27 = *self;
         v28 = self[2];
-        document[1] = self[1];
-        document[2] = v28;
+        *(document + 16) = self[1];
+        *(document + 32) = v28;
         *document = v27;
         result = *v10;
         v13 = a2[-2];
@@ -1570,66 +1571,66 @@ LABEL_16:
       {
         v11 = *v10;
         v12 = a2[-1];
-        document[1] = a2[-2];
-        document[2] = v12;
+        *(document + 16) = a2[-2];
+        *(document + 32) = v12;
         *document = v11;
         result = *self;
         v13 = self[1];
         v14 = self[2];
       }
 
-      document[4] = v13;
-      document[5] = v14;
-      document[3] = result;
+      *(document + 64) = v13;
+      *(document + 80) = v14;
+      *(document + 48) = result;
     }
 
     else if (image == 1)
     {
       result = *self;
       v9 = self[2];
-      document[1] = self[1];
-      document[2] = v9;
+      *(document + 16) = self[1];
+      *(document + 32) = v9;
       *document = result;
     }
 
     else if (image > 8)
     {
       v29 = &self[3 * (image >> 1)];
-      v30 = &selfCopy[3 * (image >> 1)];
-      while (v30 != a2)
+      v31 = &selfCopy[3 * (image >> 1)];
+      while (v31 != a2)
       {
-        if (v30->n128_f32[0] <= selfCopy->n128_f32[0])
+        if (v31->n128_f32[0] <= selfCopy->n128_f32[0])
         {
           result = *selfCopy;
-          v32 = selfCopy[2];
-          documentCopy[1] = selfCopy[1];
-          documentCopy[2] = v32;
+          v33 = selfCopy[2];
+          *(documentCopy + 16) = selfCopy[1];
+          *(documentCopy + 32) = v33;
           *documentCopy = result;
           selfCopy += 3;
         }
 
         else
         {
-          result = *v30;
-          v31 = v30[2];
-          documentCopy[1] = v30[1];
-          documentCopy[2] = v31;
+          result = *v31;
+          v32 = v31[2];
+          *(documentCopy + 16) = v31[1];
+          *(documentCopy + 32) = v32;
           *documentCopy = result;
-          v30 += 3;
+          v31 += 3;
         }
 
-        documentCopy += 3;
+        documentCopy += 48;
         if (selfCopy == v29)
         {
-          while (v30 != a2)
+          while (v31 != a2)
           {
-            result = *v30;
-            v34 = v30[2];
-            documentCopy[1] = v30[1];
-            documentCopy[2] = v34;
+            result = *v31;
+            v35 = v31[2];
+            *(documentCopy + 16) = v31[1];
+            *(documentCopy + 32) = v35;
             *documentCopy = result;
-            documentCopy += 3;
-            v30 += 3;
+            documentCopy += 48;
+            v31 += 3;
           }
 
           return result;
@@ -1639,11 +1640,11 @@ LABEL_16:
       while (selfCopy != v29)
       {
         result = *selfCopy;
-        v33 = selfCopy[2];
-        documentCopy[1] = selfCopy[1];
-        documentCopy[2] = v33;
+        v34 = selfCopy[2];
+        *(documentCopy + 16) = selfCopy[1];
+        *(documentCopy + 32) = v34;
         *documentCopy = result;
-        documentCopy += 3;
+        documentCopy += 48;
         selfCopy += 3;
       }
     }
@@ -1652,8 +1653,8 @@ LABEL_16:
     {
       result = *self;
       v15 = self[2];
-      document[1] = self[1];
-      document[2] = v15;
+      *(document + 16) = self[1];
+      *(document + 32) = v15;
       *document = result;
       v16 = self + 3;
       if (&self[3] != a2)
@@ -1663,14 +1664,14 @@ LABEL_16:
         documentCopy3 = document;
         do
         {
-          v20 = documentCopy3->n128_f32[0];
-          documentCopy3 += 3;
+          v20 = *documentCopy3;
+          documentCopy3 += 48;
           if (v16->n128_f32[0] <= v20)
           {
             result = *v16;
             v26 = v16[2];
-            documentCopy3[1] = v16[1];
-            documentCopy3[2] = v26;
+            *(documentCopy3 + 16) = v16[1];
+            *(documentCopy3 + 32) = v26;
             *documentCopy3 = result;
           }
 
@@ -1678,8 +1679,8 @@ LABEL_16:
           {
             v21 = documentCopy2[1];
             *documentCopy3 = *documentCopy2;
-            documentCopy3[1] = v21;
-            documentCopy3[2] = documentCopy2[2];
+            *(documentCopy3 + 16) = v21;
+            *(documentCopy3 + 32) = documentCopy2[2];
             documentCopy5 = document;
             if (documentCopy2 != document)
             {
@@ -1687,7 +1688,7 @@ LABEL_16:
               while (1)
               {
                 documentCopy5 = (document + v23);
-                if (v16->n128_f32[0] <= *(document[-3].n128_f32 + v23))
+                if (v16->n128_f32[0] <= *(document + v23 - 48))
                 {
                   break;
                 }
@@ -1725,7 +1726,7 @@ LABEL_16:
   return result;
 }
 
-- (__n128)detectFormFieldsInImage:(char *)image document:(uint64_t)document outputCandidateResults:(uint64_t)results
+- (__n128)detectFormFieldsInImage:(__n128 *)image document:(uint64_t)document outputCandidateResults:(uint64_t)results
 {
   if (results)
   {
@@ -1738,9 +1739,9 @@ LABEL_16:
       }
 
       v13 = 0;
-      result.n128_u32[0] = *a2;
+      result.n128_u32[0] = a2->n128_u32[0];
       v14 = -document;
-      while (result.n128_f32[0] <= *&self[v13])
+      while (result.n128_f32[0] <= self[v13 / 0x10].n128_f32[0])
       {
         v13 += 48;
         if (__CFADD__(v14++, 1))
@@ -1751,25 +1752,25 @@ LABEL_16:
 
       imageCopy = image;
       __src = a6;
-      v62 = &self[v13];
-      v63 = a7;
+      v63 = &self[v13 / 0x10];
+      v64 = a7;
       if (-v14 >= resultsCopy)
       {
         if (v14 == -1)
         {
-          v54 = &self[v13];
-          v67 = *&self[v13 + 16];
-          v68 = *&self[v13 + 32];
-          v66 = *&self[v13];
-          v55 = *a2;
-          v56 = *(a2 + 2);
-          *(v54 + 1) = *(a2 + 1);
-          *(v54 + 2) = v56;
-          *v54 = v55;
-          *a2 = v66;
-          *(a2 + 1) = v67;
-          result = v68;
-          *(a2 + 2) = v68;
+          v55 = &self[v13 / 0x10];
+          v68 = self[v13 / 0x10 + 1];
+          v69 = self[v13 / 0x10 + 2];
+          v67 = self[v13 / 0x10];
+          v56 = *a2;
+          v57 = a2[2];
+          *(v55 + 1) = a2[1];
+          *(v55 + 2) = v57;
+          *v55 = v56;
+          *a2 = v67;
+          a2[1] = v68;
+          result = v69;
+          a2[2] = v69;
           return result;
         }
 
@@ -1777,16 +1778,16 @@ LABEL_16:
         v17 = a2;
         if (a2 != image)
         {
-          v25 = 0xAAAAAAAAAAAAAAABLL * ((image - a2) >> 4);
+          v25 = 0xAAAAAAAAAAAAAAABLL * (image - a2);
           v17 = a2;
           do
           {
             v26 = v25 >> 1;
-            v27 = &v17[48 * (v25 >> 1)];
+            v27 = &v17[12 * (v25 >> 1)];
             v29 = *v27;
-            v28 = (v27 + 12);
+            v28 = v27 + 12;
             v25 += ~(v25 >> 1);
-            if (v29 > *&self[48 * v24 + v13])
+            if (v29 > self[3 * v24 + v13 / 0x10].n128_f32[0])
             {
               v17 = v28;
             }
@@ -1801,24 +1802,24 @@ LABEL_16:
         }
 
         v16 = 0xAAAAAAAAAAAAAAABLL * ((v17 - a2) >> 4);
-        v18 = &self[48 * v24 + v13];
+        v18 = &self[3 * v24 + v13 / 0x10];
       }
 
       else
       {
         v16 = resultsCopy / 2;
-        v17 = &a2[48 * (resultsCopy / 2)];
+        v17 = &a2[3 * (resultsCopy / 2)];
         v18 = a2;
         if (a2 - self != v13)
         {
           v19 = 0xAAAAAAAAAAAAAAABLL * ((a2 - self - v13) >> 4);
-          v18 = &self[v13];
+          v18 = &self[v13 / 0x10];
           do
           {
             v20 = v19 >> 1;
-            v21 = &v18[48 * (v19 >> 1)];
+            v21 = &v18[12 * (v19 >> 1)];
             v23 = *v21;
-            v22 = (v21 + 12);
+            v22 = v21 + 12;
             v19 += ~(v19 >> 1);
             if (*v17 > v23)
             {
@@ -1840,27 +1841,27 @@ LABEL_16:
       document = -v14 - v24;
       v30 = resultsCopy - v16;
       v31 = v16;
-      v33 = v31;
-      v34 = v32;
-      if (v24 + v33 >= resultsCopy - (v24 + v33) - v14)
+      v34 = v31;
+      v35 = v32;
+      if (v24 + v34 >= resultsCopy - (v24 + v34) - v14)
       {
-        v37 = v33;
+        v38 = v34;
         v17 = v18;
-        a7 = v63;
-        v30 = v37;
+        a7 = v64;
+        v30 = v38;
         document = v24;
         a6 = __src;
-        image = v34;
-        self = v62;
+        image = v35;
+        self = v63;
       }
 
       else
       {
-        v35 = v18;
-        v36 = v24;
+        v36 = v18;
+        v37 = v24;
         a6 = __src;
-        a7 = v63;
-        self = v34;
+        a7 = v64;
+        self = v35;
         image = imageCopy;
       }
 
@@ -1876,30 +1877,30 @@ LABEL_16:
     {
       if (a2 != self)
       {
-        v47 = -a6;
-        v48 = a6;
+        v48 = -a6;
+        v49 = a6;
         selfCopy = self;
         do
         {
-          v50 = *selfCopy;
-          v51 = *(selfCopy + 2);
-          v48[1] = *(selfCopy + 1);
-          v48[2] = v51;
-          *v48 = v50;
-          v48 += 3;
-          selfCopy += 48;
-          v47 -= 48;
+          v51 = *selfCopy;
+          v52 = *(selfCopy + 8);
+          v49[1] = *(selfCopy + 4);
+          v49[2] = v52;
+          *v49 = v51;
+          v49 += 3;
+          selfCopy += 12;
+          v48 -= 48;
         }
 
         while (selfCopy != a2);
         while (a2 != image)
         {
-          if (*a2 <= a6->n128_f32[0])
+          if (a2->n128_f32[0] <= a6->n128_f32[0])
           {
             result = *a6;
-            v53 = a6[2];
-            *(self + 1) = a6[1];
-            *(self + 2) = v53;
+            v54 = a6[2];
+            self[1] = a6[1];
+            self[2] = v54;
             *self = result;
             a6 += 3;
           }
@@ -1907,95 +1908,95 @@ LABEL_16:
           else
           {
             result = *a2;
-            v52 = *(a2 + 2);
-            *(self + 1) = *(a2 + 1);
-            *(self + 2) = v52;
+            v53 = a2[2];
+            self[1] = a2[1];
+            self[2] = v53;
             *self = result;
-            a2 += 48;
+            a2 += 3;
           }
 
-          self += 48;
-          if (v48 == a6)
+          self += 3;
+          if (v49 == a6)
           {
             return result;
           }
         }
 
-        memmove(self, a6, -(a6 + v47));
+        memmove(self, a6, -(a6 + v48));
       }
     }
 
     else if (a2 != image)
     {
-      v38 = 0;
+      v39 = 0;
       do
       {
-        v39 = &a6[v38 / 0x10];
-        result = *&a2[v38];
-        v40 = *&a2[v38 + 32];
-        v39[1] = *&a2[v38 + 16];
-        v39[2] = v40;
-        *v39 = result;
-        v38 += 48;
+        v40 = &a6[v39];
+        result = a2[v39];
+        v41 = a2[v39 + 2];
+        v40[1] = a2[v39 + 1];
+        v40[2] = v41;
+        *v40 = result;
+        v39 += 3;
       }
 
-      while (&a2[v38] != image);
-      v41 = &a6[v38 / 0x10];
+      while (&a2[v39] != image);
+      v42 = &a6[v39];
       while (a2 != self)
       {
-        v42 = v41[-3].n128_f32[0];
-        v43 = *(a2 - 12);
-        v44 = v42 <= v43;
-        if (v42 <= v43)
+        v43 = v42[-3].n128_f32[0];
+        v44 = a2[-3].n128_f32[0];
+        v45 = v43 <= v44;
+        if (v43 <= v44)
         {
-          v45 = &v41[-3];
+          v46 = &v42[-3];
         }
 
         else
         {
-          v45 = a2 - 48;
+          v46 = &a2[-3];
         }
 
-        result = *v45;
-        v46 = *(v45 + 2);
-        *(image - 2) = *(v45 + 1);
-        *(image - 1) = v46;
-        *(image - 3) = result;
-        image -= 48;
-        if (v44)
+        result = *v46;
+        v47 = *(v46 + 8);
+        image[-2] = *(v46 + 4);
+        image[-1] = v47;
+        image[-3] = result;
+        image -= 3;
+        if (v45)
         {
-          v41 -= 3;
+          v42 -= 3;
         }
 
         else
         {
-          a2 -= 48;
+          a2 -= 3;
         }
 
-        if (v41 == a6)
+        if (v42 == a6)
         {
           return result;
         }
       }
 
-      if (v41 != a6)
+      if (v42 != a6)
       {
-        v57 = -48;
+        v58 = 0xFFFFFFFFFFFFFFDLL;
         do
         {
-          result = v41[-3];
-          v58 = v41[-2];
-          v59 = v41[-1];
-          v60 = v41 - 3;
-          v61 = &image[v57];
-          *(v61 + 1) = v58;
-          *(v61 + 2) = v59;
-          *v61 = result;
-          v57 -= 48;
-          v41 = v60;
+          result = v42[-3];
+          v59 = v42[-2];
+          v60 = v42[-1];
+          v61 = v42 - 3;
+          v62 = &image[v58];
+          *(v62 + 1) = v59;
+          *(v62 + 2) = v60;
+          *v62 = result;
+          v58 -= 3;
+          v42 = v61;
         }
 
-        while (v60 != a6);
+        while (v61 != a6);
       }
     }
   }
@@ -2003,12 +2004,164 @@ LABEL_16:
   return result;
 }
 
+- (double)detectFormFieldsInImage:(unint64_t)image document:(uint64_t)document outputCandidateResults:(uint64_t)results
+{
+  if (image >= 2)
+  {
+    selfCopy = self;
+    if (image == 2)
+    {
+      v8 = a2 - 12;
+      a6.n128_f32[0] = *(a2 - 12);
+      if (a6.n128_f32[0] > *self)
+      {
+        a6 = *self;
+        v9 = *(self + 16);
+        v10 = *(self + 32);
+        v12 = *(a2 - 2);
+        v11 = *(a2 - 1);
+        *self = *v8;
+        *(self + 16) = v12;
+        *(self + 32) = v11;
+        *(a2 - 2) = v9;
+        *(a2 - 1) = v10;
+        *v8 = a6;
+      }
+    }
+
+    else if (image > 128)
+    {
+      documentCopy = document;
+      v24 = image >> 1;
+      v25 = (self + 48 * (image >> 1));
+      v26 = image >> 1;
+      if (image <= results)
+      {
+        v30 = documentCopy + 48 * v24;
+        v31 = documentCopy + 48 * image;
+        v32 = v30;
+        while (v32 != v31)
+        {
+          if (*v32 <= *documentCopy)
+          {
+            a6 = *documentCopy;
+            v34 = *(documentCopy + 32);
+            *(selfCopy + 16) = *(documentCopy + 16);
+            *(selfCopy + 32) = v34;
+            *selfCopy = a6;
+            documentCopy += 48;
+          }
+
+          else
+          {
+            a6 = *v32;
+            v33 = *(v32 + 32);
+            *(selfCopy + 16) = *(v32 + 16);
+            *(selfCopy + 32) = v33;
+            *selfCopy = a6;
+            v32 += 48;
+          }
+
+          selfCopy += 48;
+          if (documentCopy == v30)
+          {
+            while (v32 != v31)
+            {
+              a6 = *v32;
+              v36 = *(v32 + 32);
+              *(selfCopy + 16) = *(v32 + 16);
+              *(selfCopy + 32) = v36;
+              *selfCopy = a6;
+              selfCopy += 48;
+              v32 += 48;
+            }
+
+            return a6.n128_f64[0];
+          }
+        }
+
+        while (documentCopy != v30)
+        {
+          a6 = *documentCopy;
+          v35 = *(documentCopy + 32);
+          *(selfCopy + 16) = *(documentCopy + 16);
+          *(selfCopy + 32) = v35;
+          *selfCopy = a6;
+          selfCopy += 48;
+          documentCopy += 48;
+        }
+      }
+
+      else
+      {
+      }
+    }
+
+    else if (self != a2)
+    {
+      v14 = (self + 48);
+      if ((self + 48) != a2)
+      {
+        v15 = 0;
+        selfCopy2 = self;
+        do
+        {
+          v17 = v14;
+          a6.n128_u32[0] = *v14;
+          if (*v14 > *selfCopy2)
+          {
+            v38 = *(selfCopy2 + 52);
+            *v39 = *(selfCopy2 + 68);
+            *&v39[12] = *(selfCopy2 + 80);
+            v18 = v15;
+            while (1)
+            {
+              v19 = (self + v18);
+              v20 = *(self + v18 + 16);
+              *(v19 + 3) = *(self + v18);
+              *(v19 + 4) = v20;
+              *(v19 + 5) = *(self + v18 + 32);
+              if (!v18)
+              {
+                break;
+              }
+
+              v18 -= 48;
+              if (a6.n128_f32[0] <= *(v19 - 12))
+              {
+                selfCopy3 = self + v18 + 48;
+                goto LABEL_16;
+              }
+            }
+
+            selfCopy3 = self;
+LABEL_16:
+            *selfCopy3 = a6.n128_u32[0];
+            *(selfCopy3 + 4) = v38;
+            *(selfCopy3 + 20) = *v39;
+            a6.n128_u64[0] = *&v39[12];
+            *(selfCopy3 + 32) = *&v39[12];
+          }
+
+          v14 = v17 + 12;
+          v15 += 48;
+          selfCopy2 = v17;
+        }
+
+        while (v17 + 12 != a2);
+      }
+    }
+  }
+
+  return a6.n128_f64[0];
+}
+
 - (double)detectFormFieldsInImage:(uint64_t)image document:(char)document outputCandidateResults:(__n128)results
 {
 LABEL_1:
-  v9 = (a2 - 48);
-  v10 = (a2 - 96);
-  v11 = (a2 - 144);
+  v9 = a2 - 3;
+  v10 = a2 - 6;
+  v11 = a2 - 9;
   selfCopy = self;
   while (1)
   {
@@ -2024,8 +2177,8 @@ LABEL_1:
 
       if (v14 == 2)
       {
-        v122 = *(a2 - 48);
-        v121 = (a2 - 48);
+        v122 = a2[-3].n128_f32[0];
+        v121 = a2 - 3;
         results.n128_f32[0] = v122;
         if (v122 <= *selfCopy)
         {
@@ -2139,8 +2292,8 @@ LABEL_177:
         }
       }
 
-      results.n128_u32[0] = *v9;
-      if (*v9 <= v131->n128_f32[0])
+      results.n128_u32[0] = v9->n128_u32[0];
+      if (v9->n128_f32[0] <= v131->n128_f32[0])
       {
         return results.n128_f64[0];
       }
@@ -2149,12 +2302,12 @@ LABEL_177:
       v269 = *(selfCopy + 112);
       v193 = *(selfCopy + 128);
       v194 = *v9;
-      v195 = *(a2 - 16);
-      *(selfCopy + 112) = *(a2 - 32);
+      v195 = a2[-1];
+      *(selfCopy + 112) = a2[-2];
       *(selfCopy + 128) = v195;
       *v131 = v194;
-      *(a2 - 32) = v269;
-      *(a2 - 16) = v193;
+      a2[-2] = v269;
+      a2[-1] = v193;
       *v9 = results;
       results.n128_u32[0] = v131->n128_u32[0];
       if (v131->n128_f32[0] <= v123->n128_f32[0])
@@ -2253,7 +2406,7 @@ LABEL_126:
             v138 = v139;
           }
 
-          while (v139 + 3 != a2);
+          while (&v139[3] != a2);
         }
       }
 
@@ -2271,17 +2424,17 @@ LABEL_126:
             v183 = v134;
             do
             {
-              v184 = *(v183 - 2);
-              *v183 = *(v183 - 3);
+              v184 = v183[-2];
+              *v183 = v183[-3];
               v183[1] = v184;
-              v183[2] = *(v183 - 1);
-              v185 = *(v183 - 24);
+              v183[2] = v183[-1];
+              v185 = v183[-6].n128_f32[0];
               v183 -= 3;
             }
 
             while (results.n128_f32[0] > v185);
-            *v183 = results.n128_u32[0];
-            results.n128_u64[0] = v232;
+            v183->n128_u32[0] = results.n128_u32[0];
+            results.n128_u64[0] = v232.n128_u64[0];
             v183[2] = *&v266[12];
             *(v183 + 20) = *v266;
             *(v183 + 4) = v232;
@@ -2291,7 +2444,7 @@ LABEL_126:
           self = v182;
         }
 
-        while (v182 + 48 != a2);
+        while (&v182[3] != a2);
       }
 
       return results.n128_f64[0];
@@ -2378,9 +2531,9 @@ LABEL_126:
             v162 = v161 + 2;
             if (v162 < v156)
             {
-              v164 = *(v160 + 24);
+              v164 = v160[6].n128_f32[0];
               v163 = v160 + 6;
-              if (*(v163 - 12) > v164)
+              if (v163[-3].n128_f32[0] > v164)
               {
                 v158 = v163;
                 v157 = v162;
@@ -2388,14 +2541,14 @@ LABEL_126:
             }
 
             v165 = *v158;
-            v166 = *(v158 + 2);
-            v159[1] = *(v158 + 1);
+            v166 = v158[2];
+            v159[1] = v158[1];
             v159[2] = v166;
             *v159 = v165;
           }
 
           while (v157 <= ((v156 - 2) >> 1));
-          a2 -= 48;
+          a2 -= 3;
           if (v158 == a2)
           {
             results.n128_u64[0] = v230.n128_u64[0];
@@ -2407,21 +2560,21 @@ LABEL_126:
           else
           {
             results = *a2;
-            v167 = *(a2 + 32);
-            v158[1] = *(a2 + 16);
+            v167 = a2[2];
+            v158[1] = a2[1];
             v158[2] = v167;
             *v158 = results;
             results.n128_u64[0] = v230.n128_u64[0];
-            *(a2 + 16) = v263;
-            *(a2 + 32) = v292;
+            a2[1] = v263;
+            a2[2] = v292;
             *a2 = v230;
-            v168 = v158 - selfCopy + 48;
+            v168 = &v158[3] - selfCopy;
             if (v168 >= 49)
             {
               v169 = (-2 - 0x5555555555555555 * (v168 >> 4)) >> 1;
               v170 = (selfCopy + 48 * v169);
-              results.n128_u32[0] = *v158;
-              if (*v170 > *v158)
+              results.n128_u32[0] = v158->n128_u32[0];
+              if (v170->n128_f32[0] > v158->n128_f32[0])
               {
                 *&v206[12] = v158[2];
                 v203 = *(v158 + 4);
@@ -2444,9 +2597,9 @@ LABEL_126:
                   v170 = (selfCopy + 48 * v169);
                 }
 
-                while (*v170 > results.n128_f32[0]);
-                *v158 = results.n128_u32[0];
-                results.n128_u64[0] = v203;
+                while (v170->n128_f32[0] > results.n128_f32[0]);
+                v158->n128_u32[0] = results.n128_u32[0];
+                results.n128_u64[0] = v203.n128_u64[0];
                 v158[2] = *&v206[12];
                 *(v158 + 20) = *v206;
                 *(v158 + 4) = v203;
@@ -2462,38 +2615,38 @@ LABEL_126:
     }
 
     v15 = v14 >> 1;
-    v16 = selfCopy + 48 * (v14 >> 1);
-    v17 = *v9;
+    v16 = (selfCopy + 48 * (v14 >> 1));
+    v17 = v9->n128_f32[0];
     if (v13 >= 0x1801)
     {
-      v18 = *v16;
-      if (*v16 <= *selfCopy)
+      v18 = v16->n128_f32[0];
+      if (v16->n128_f32[0] <= *selfCopy)
       {
         if (v17 > v18)
         {
-          v238 = *(v16 + 16);
-          v273 = *(v16 + 32);
+          v238 = v16[1];
+          v273 = v16[2];
           v209 = *v16;
           v24 = *v9;
-          v25 = *(a2 - 16);
-          *(v16 + 16) = *(a2 - 32);
-          *(v16 + 32) = v25;
+          v25 = a2[-1];
+          v16[1] = a2[-2];
+          v16[2] = v25;
           *v16 = v24;
-          *(a2 - 32) = v238;
-          *(a2 - 16) = v273;
+          a2[-2] = v238;
+          a2[-1] = v273;
           *v9 = v209;
-          if (*v16 > *selfCopy)
+          if (v16->n128_f32[0] > *selfCopy)
           {
             v239 = *(selfCopy + 16);
             v274 = *(selfCopy + 32);
             v210 = *selfCopy;
             v26 = *v16;
-            v27 = *(v16 + 32);
-            *(selfCopy + 16) = *(v16 + 16);
+            v27 = v16[2];
+            *(selfCopy + 16) = v16[1];
             *(selfCopy + 32) = v27;
             *selfCopy = v26;
-            *(v16 + 16) = v239;
-            *(v16 + 32) = v274;
+            v16[1] = v239;
+            v16[2] = v274;
             *v16 = v210;
           }
         }
@@ -2507,8 +2660,8 @@ LABEL_126:
           v271 = *(selfCopy + 32);
           v207 = *selfCopy;
           v19 = *v9;
-          v20 = *(a2 - 16);
-          *(selfCopy + 16) = *(a2 - 32);
+          v20 = a2[-1];
+          *(selfCopy + 16) = a2[-2];
           *(selfCopy + 32) = v20;
           *selfCopy = v19;
           goto LABEL_26;
@@ -2518,26 +2671,26 @@ LABEL_126:
         v277 = *(selfCopy + 32);
         v213 = *selfCopy;
         v32 = *v16;
-        v33 = *(v16 + 32);
-        *(selfCopy + 16) = *(v16 + 16);
+        v33 = v16[2];
+        *(selfCopy + 16) = v16[1];
         *(selfCopy + 32) = v33;
         *selfCopy = v32;
-        *(v16 + 16) = v242;
-        *(v16 + 32) = v277;
+        v16[1] = v242;
+        v16[2] = v277;
         *v16 = v213;
-        if (*v9 > *v16)
+        if (v9->n128_f32[0] > v16->n128_f32[0])
         {
-          v236 = *(v16 + 16);
-          v271 = *(v16 + 32);
+          v236 = v16[1];
+          v271 = v16[2];
           v207 = *v16;
           v34 = *v9;
-          v35 = *(a2 - 16);
-          *(v16 + 16) = *(a2 - 32);
-          *(v16 + 32) = v35;
+          v35 = a2[-1];
+          v16[1] = a2[-2];
+          v16[2] = v35;
           *v16 = v34;
 LABEL_26:
-          *(a2 - 32) = v236;
-          *(a2 - 16) = v271;
+          a2[-2] = v236;
+          a2[-1] = v271;
           *v9 = v207;
         }
       }
@@ -2547,7 +2700,7 @@ LABEL_26:
       v39 = *(v37 - 48);
       v38 = (v37 - 48);
       v40 = v39;
-      v41 = *v10;
+      v41 = v10->n128_f32[0];
       if (v39 <= *(selfCopy + 48))
       {
         if (v41 > v40)
@@ -2556,14 +2709,14 @@ LABEL_26:
           v278 = v38[2];
           v214 = *v38;
           v47 = *v10;
-          v48 = *(a2 - 64);
-          v38[1] = *(a2 - 80);
+          v48 = a2[-4];
+          v38[1] = a2[-5];
           v38[2] = v48;
           *v38 = v47;
-          *(a2 - 80) = v243;
-          *(a2 - 64) = v278;
+          a2[-5] = v243;
+          a2[-4] = v278;
           *v10 = v214;
-          if (v38->n128_f32[0] > *v36)
+          if (v38->n128_f32[0] > v36->n128_f32[0])
           {
             v49 = *v36;
             v244 = *(selfCopy + 64);
@@ -2588,8 +2741,8 @@ LABEL_26:
           v43 = *(selfCopy + 64);
           v44 = *(selfCopy + 80);
           v45 = *v10;
-          v46 = *(a2 - 64);
-          *(selfCopy + 64) = *(a2 - 80);
+          v46 = a2[-4];
+          *(selfCopy + 64) = a2[-5];
           *(selfCopy + 80) = v46;
           *v36 = v45;
           goto LABEL_38;
@@ -2606,22 +2759,22 @@ LABEL_26:
         v38[1] = v246;
         v38[2] = v58;
         *v38 = v57;
-        if (*v10 > v38->n128_f32[0])
+        if (v10->n128_f32[0] > v38->n128_f32[0])
         {
           v247 = v38[1];
           v280 = v38[2];
           v216 = *v38;
           v61 = *v10;
-          v62 = *(a2 - 64);
-          v38[1] = *(a2 - 80);
+          v62 = a2[-4];
+          v38[1] = a2[-5];
           v38[2] = v62;
           *v38 = v61;
           v42 = v216;
           v43 = v247;
           v44 = v280;
 LABEL_38:
-          *(a2 - 80) = v43;
-          *(a2 - 64) = v44;
+          a2[-5] = v43;
+          a2[-4] = v44;
           *v10 = v42;
         }
       }
@@ -2631,7 +2784,7 @@ LABEL_38:
       v66 = *(v64 + 48);
       v65 = (v64 + 48);
       v67 = v66;
-      v68 = *v11;
+      v68 = v11->n128_f32[0];
       if (v66 <= *(selfCopy + 96))
       {
         if (v68 > v67)
@@ -2640,14 +2793,14 @@ LABEL_38:
           v281 = v65[2];
           v217 = *v65;
           v74 = *v11;
-          v75 = *(a2 - 112);
-          v65[1] = *(a2 - 128);
+          v75 = a2[-7];
+          v65[1] = a2[-8];
           v65[2] = v75;
           *v65 = v74;
-          *(a2 - 128) = v248;
-          *(a2 - 112) = v281;
+          a2[-8] = v248;
+          a2[-7] = v281;
           *v11 = v217;
-          if (v65->n128_f32[0] > *v63)
+          if (v65->n128_f32[0] > v63->n128_f32[0])
           {
             v76 = *v63;
             v249 = *(selfCopy + 112);
@@ -2672,8 +2825,8 @@ LABEL_38:
           v70 = *(selfCopy + 112);
           v71 = *(selfCopy + 128);
           v72 = *v11;
-          v73 = *(a2 - 112);
-          *(selfCopy + 112) = *(a2 - 128);
+          v73 = a2[-7];
+          *(selfCopy + 112) = a2[-8];
           *(selfCopy + 128) = v73;
           *v63 = v72;
           goto LABEL_47;
@@ -2690,53 +2843,53 @@ LABEL_38:
         v65[1] = v250;
         v65[2] = v81;
         *v65 = v80;
-        if (*v11 > v65->n128_f32[0])
+        if (v11->n128_f32[0] > v65->n128_f32[0])
         {
           v251 = v65[1];
           v282 = v65[2];
           v218 = *v65;
           v84 = *v11;
-          v85 = *(a2 - 112);
-          v65[1] = *(a2 - 128);
+          v85 = a2[-7];
+          v65[1] = a2[-8];
           v65[2] = v85;
           *v65 = v84;
           v69 = v218;
           v70 = v251;
           v71 = v282;
 LABEL_47:
-          *(a2 - 128) = v70;
-          *(a2 - 112) = v71;
+          a2[-8] = v70;
+          a2[-7] = v71;
           *v11 = v69;
         }
       }
 
-      v86 = *v16;
+      v86 = v16->n128_f32[0];
       v87 = v65->n128_f32[0];
-      if (*v16 <= v38->n128_f32[0])
+      if (v16->n128_f32[0] <= v38->n128_f32[0])
       {
         if (v87 > v86)
         {
-          v253 = *(v16 + 16);
-          v284 = *(v16 + 32);
+          v253 = v16[1];
+          v284 = v16[2];
           v220 = *v16;
           v89 = v65[1];
           *v16 = *v65;
-          *(v16 + 16) = v89;
-          *(v16 + 32) = v65[2];
+          v16[1] = v89;
+          v16[2] = v65[2];
           v65[1] = v253;
           v65[2] = v284;
           *v65 = v220;
-          if (*v16 > v38->n128_f32[0])
+          if (v16->n128_f32[0] > v38->n128_f32[0])
           {
             v254 = v38[1];
             v285 = v38[2];
             v221 = *v38;
-            v90 = *(v16 + 16);
+            v90 = v16[1];
             *v38 = *v16;
             v38[1] = v90;
-            v38[2] = *(v16 + 32);
-            *(v16 + 16) = v254;
-            *(v16 + 32) = v285;
+            v38[2] = v16[2];
+            v16[1] = v254;
+            v16[2] = v285;
             *v16 = v221;
           }
         }
@@ -2759,22 +2912,22 @@ LABEL_47:
         v255 = v38[1];
         v286 = v38[2];
         v222 = *v38;
-        v91 = *(v16 + 16);
+        v91 = v16[1];
         *v38 = *v16;
         v38[1] = v91;
-        v38[2] = *(v16 + 32);
-        *(v16 + 16) = v255;
-        *(v16 + 32) = v286;
+        v38[2] = v16[2];
+        v16[1] = v255;
+        v16[2] = v286;
         *v16 = v222;
-        if (v65->n128_f32[0] > *v16)
+        if (v65->n128_f32[0] > v16->n128_f32[0])
         {
-          v252 = *(v16 + 16);
-          v283 = *(v16 + 32);
+          v252 = v16[1];
+          v283 = v16[2];
           v219 = *v16;
           v92 = v65[1];
           *v16 = *v65;
-          *(v16 + 16) = v92;
-          *(v16 + 32) = v65[2];
+          v16[1] = v92;
+          v16[2] = v65[2];
 LABEL_56:
           v65[1] = v252;
           v65[2] = v283;
@@ -2786,18 +2939,18 @@ LABEL_56:
       v287 = *(selfCopy + 32);
       v223 = *selfCopy;
       v93 = *v16;
-      v94 = *(v16 + 32);
-      *(selfCopy + 16) = *(v16 + 16);
+      v94 = v16[2];
+      *(selfCopy + 16) = v16[1];
       *(selfCopy + 32) = v94;
       *selfCopy = v93;
-      *(v16 + 16) = v256;
-      *(v16 + 32) = v287;
+      v16[1] = v256;
+      v16[2] = v287;
       *v16 = v223;
       goto LABEL_58;
     }
 
     v21 = *selfCopy;
-    if (*selfCopy <= *v16)
+    if (*selfCopy <= v16->n128_f32[0])
     {
       if (v17 > v21)
       {
@@ -2805,22 +2958,22 @@ LABEL_56:
         v275 = *(selfCopy + 32);
         v211 = *selfCopy;
         v28 = *v9;
-        v29 = *(a2 - 16);
-        *(selfCopy + 16) = *(a2 - 32);
+        v29 = a2[-1];
+        *(selfCopy + 16) = a2[-2];
         *(selfCopy + 32) = v29;
         *selfCopy = v28;
-        *(a2 - 32) = v240;
-        *(a2 - 16) = v275;
+        a2[-2] = v240;
+        a2[-1] = v275;
         *v9 = v211;
-        if (*selfCopy > *v16)
+        if (*selfCopy > v16->n128_f32[0])
         {
-          v241 = *(v16 + 16);
-          v276 = *(v16 + 32);
+          v241 = v16[1];
+          v276 = v16[2];
           v212 = *v16;
           v30 = *selfCopy;
           v31 = *(selfCopy + 32);
-          *(v16 + 16) = *(selfCopy + 16);
-          *(v16 + 32) = v31;
+          v16[1] = *(selfCopy + 16);
+          v16[2] = v31;
           *v16 = v30;
           *(selfCopy + 16) = v241;
           *(selfCopy + 32) = v276;
@@ -2833,18 +2986,18 @@ LABEL_56:
 
     if (v17 <= v21)
     {
-      v245 = *(v16 + 16);
-      v279 = *(v16 + 32);
+      v245 = v16[1];
+      v279 = v16[2];
       v215 = *v16;
       v53 = *selfCopy;
       v54 = *(selfCopy + 32);
-      *(v16 + 16) = *(selfCopy + 16);
-      *(v16 + 32) = v54;
+      v16[1] = *(selfCopy + 16);
+      v16[2] = v54;
       *v16 = v53;
       *(selfCopy + 16) = v245;
       *(selfCopy + 32) = v279;
       *selfCopy = v215;
-      if (*v9 <= *selfCopy)
+      if (v9->n128_f32[0] <= *selfCopy)
       {
         goto LABEL_58;
       }
@@ -2853,26 +3006,26 @@ LABEL_56:
       v272 = *(selfCopy + 32);
       v208 = *selfCopy;
       v55 = *v9;
-      v56 = *(a2 - 16);
-      *(selfCopy + 16) = *(a2 - 32);
+      v56 = a2[-1];
+      *(selfCopy + 16) = a2[-2];
       *(selfCopy + 32) = v56;
       *selfCopy = v55;
     }
 
     else
     {
-      v237 = *(v16 + 16);
-      v272 = *(v16 + 32);
+      v237 = v16[1];
+      v272 = v16[2];
       v208 = *v16;
       v22 = *v9;
-      v23 = *(a2 - 16);
-      *(v16 + 16) = *(a2 - 32);
-      *(v16 + 32) = v23;
+      v23 = a2[-1];
+      v16[1] = a2[-2];
+      v16[2] = v23;
       *v16 = v22;
     }
 
-    *(a2 - 32) = v237;
-    *(a2 - 16) = v272;
+    a2[-2] = v237;
+    a2[-1] = v272;
     *v9 = v208;
 LABEL_58:
     --image;
@@ -2902,8 +3055,8 @@ LABEL_58:
             break;
           }
 
-          v101 = *(v99 - 12);
-          v99 -= 12;
+          v101 = v99[-3].n128_f32[0];
+          v99 -= 3;
         }
 
         while (v101 <= v95);
@@ -2913,8 +3066,8 @@ LABEL_58:
       {
         do
         {
-          v100 = *(v99 - 12);
-          v99 -= 12;
+          v100 = v99[-3].n128_f32[0];
+          v99 -= 3;
         }
 
         while (v100 <= v95);
@@ -2930,12 +3083,12 @@ LABEL_58:
           v288 = *(selfCopy + 32);
           v224 = *selfCopy;
           v103 = *v102;
-          v104 = *(v102 + 2);
-          *(selfCopy + 16) = *(v102 + 1);
+          v104 = v102[2];
+          *(selfCopy + 16) = v102[1];
           *(selfCopy + 32) = v104;
           *selfCopy = v103;
-          *(v102 + 1) = v257;
-          *(v102 + 2) = v288;
+          v102[1] = v257;
+          v102[2] = v288;
           *v102 = v224;
           do
           {
@@ -2946,8 +3099,8 @@ LABEL_58:
           while (v105 > v95);
           do
           {
-            v106 = *(v102 - 12);
-            v102 -= 12;
+            v106 = v102[-3].n128_f32[0];
+            v102 -= 3;
           }
 
           while (v106 <= v95);
@@ -2966,6 +3119,7 @@ LABEL_58:
       }
 
       *(selfCopy - 48) = v95;
+      results = v201;
       *(selfCopy - 16) = *&v204[12];
       *(selfCopy - 28) = *v204;
       *(selfCopy - 44) = v201;
@@ -2975,7 +3129,7 @@ LABEL_58:
       }
 
       {
-        a2 = selfCopy - 48;
+        a2 = (selfCopy - 48);
         if (!v109)
         {
           goto LABEL_1;
@@ -2996,7 +3150,7 @@ LABEL_79:
       *&v205[12] = *(selfCopy + 32);
       v202 = *(selfCopy + 4);
       *v205 = *(selfCopy + 20);
-      if (v95 <= *v9)
+      if (v95 <= v9->n128_f32[0])
       {
         v112 = selfCopy + 48;
         do
@@ -3030,8 +3184,8 @@ LABEL_79:
         v113 = a2;
         do
         {
-          v114 = *(v113 - 12);
-          v113 -= 12;
+          v114 = v113[-3].n128_f32[0];
+          v113 -= 3;
         }
 
         while (v95 > v114);
@@ -3043,12 +3197,12 @@ LABEL_79:
         v289 = *(selfCopy + 32);
         v225 = *selfCopy;
         v115 = *v113;
-        v116 = *(v113 + 2);
-        *(selfCopy + 16) = *(v113 + 1);
+        v116 = v113[2];
+        *(selfCopy + 16) = v113[1];
         *(selfCopy + 32) = v116;
         *selfCopy = v115;
-        *(v113 + 1) = v258;
-        *(v113 + 2) = v289;
+        v113[1] = v258;
+        v113[2] = v289;
         *v113 = v225;
         do
         {
@@ -3059,8 +3213,8 @@ LABEL_79:
         while (v95 <= v117);
         do
         {
-          v118 = *(v113 - 12);
-          v113 -= 12;
+          v118 = v113[-3].n128_f32[0];
+          v113 -= 3;
         }
 
         while (v95 > v118);
@@ -3086,9 +3240,9 @@ LABEL_79:
 
   v123 = (selfCopy + 48);
   results.n128_u32[0] = *(selfCopy + 48);
-  v124 = *(a2 - 48);
-  v121 = (a2 - 48);
-  v125 = v124;
+  v124 = a2[-3].n128_u32[0];
+  v121 = a2 - 3;
+  v125 = *&v124;
   if (results.n128_f32[0] <= *selfCopy)
   {
     if (v125 <= results.n128_f32[0])

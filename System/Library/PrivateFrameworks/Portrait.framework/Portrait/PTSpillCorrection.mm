@@ -12,9 +12,9 @@
 - (PTSpillCorrection)initWithMetalContext:(id)context refinementWidth:(unint64_t)width refinementHeight:(unint64_t)height refinementSteps:(unint64_t)steps minFilterKernelWidth:(unint64_t)kernelWidth minFilterKernelHeight:(unint64_t)kernelHeight maxFilterKernelWidth:(unint64_t)filterKernelWidth maxFilterKernelHeight:(unint64_t)self0 gaussianBlurSigma:(float)self1
 {
   contextCopy = context;
-  v221.receiver = self;
-  v221.super_class = PTSpillCorrection;
-  v20 = [(PTSpillCorrection *)&v221 init];
+  v240.receiver = self;
+  v240.super_class = PTSpillCorrection;
+  v20 = [(PTSpillCorrection *)&v240 init];
   v21 = v20;
   if (!v20)
   {
@@ -29,327 +29,327 @@
 
   if (!v21->_initConstraintsPart1)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v24);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v87 refinementHeight:v88 refinementSteps:v89 minFilterKernelWidth:v90 minFilterKernelHeight:v91 maxFilterKernelWidth:v92 maxFilterKernelHeight:v93 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v106 refinementHeight:v107 refinementSteps:v108 minFilterKernelWidth:v109 minFilterKernelHeight:v110 maxFilterKernelWidth:v111 maxFilterKernelHeight:v112 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v24 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_initConstraintsPart2" withConstants:0];
+  v25 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_initConstraintsPart2" withConstants:0];
   initConstraintsPart2 = v21->_initConstraintsPart2;
-  v21->_initConstraintsPart2 = v24;
+  v21->_initConstraintsPart2 = v25;
 
   if (!v21->_initConstraintsPart2)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v27);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v94 refinementHeight:v95 refinementSteps:v96 minFilterKernelWidth:v97 minFilterKernelHeight:v98 maxFilterKernelWidth:v99 maxFilterKernelHeight:v100 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v113 refinementHeight:v114 refinementSteps:v115 minFilterKernelWidth:v116 minFilterKernelHeight:v117 maxFilterKernelWidth:v118 maxFilterKernelHeight:v119 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v26 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_initDiffusion" withConstants:0];
+  v28 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_initDiffusion" withConstants:0];
   initDiffusion = v21->_initDiffusion;
-  v21->_initDiffusion = v26;
+  v21->_initDiffusion = v28;
 
   if (!v21->_initDiffusion)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v30);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v101 refinementHeight:v102 refinementSteps:v103 minFilterKernelWidth:v104 minFilterKernelHeight:v105 maxFilterKernelWidth:v106 maxFilterKernelHeight:v107 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v120 refinementHeight:v121 refinementSteps:v122 minFilterKernelWidth:v123 minFilterKernelHeight:v124 maxFilterKernelWidth:v125 maxFilterKernelHeight:v126 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v28 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_constrainDiffusion" withConstants:0];
+  v31 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_constrainDiffusion" withConstants:0];
   constrainDiffusion = v21->_constrainDiffusion;
-  v21->_constrainDiffusion = v28;
+  v21->_constrainDiffusion = v31;
 
   if (!v21->_constrainDiffusion)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v33);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v108 refinementHeight:v109 refinementSteps:v110 minFilterKernelWidth:v111 minFilterKernelHeight:v112 maxFilterKernelWidth:v113 maxFilterKernelHeight:v114 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v127 refinementHeight:v128 refinementSteps:v129 minFilterKernelWidth:v130 minFilterKernelHeight:v131 maxFilterKernelWidth:v132 maxFilterKernelHeight:v133 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v30 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_computeUpsamplingCoefficients" withConstants:0];
+  v34 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_computeUpsamplingCoefficients" withConstants:0];
   computeUpsamplingCoefficients = v21->_computeUpsamplingCoefficients;
-  v21->_computeUpsamplingCoefficients = v30;
+  v21->_computeUpsamplingCoefficients = v34;
 
   if (!v21->_computeUpsamplingCoefficients)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v36);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v115 refinementHeight:v116 refinementSteps:v117 minFilterKernelWidth:v118 minFilterKernelHeight:v119 maxFilterKernelWidth:v120 maxFilterKernelHeight:v121 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v134 refinementHeight:v135 refinementSteps:v136 minFilterKernelWidth:v137 minFilterKernelHeight:v138 maxFilterKernelWidth:v139 maxFilterKernelHeight:v140 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v32 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_averageUpsamplingCoefficients" withConstants:0];
+  v37 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_averageUpsamplingCoefficients" withConstants:0];
   averageUpsamplingCoefficients = v21->_averageUpsamplingCoefficients;
-  v21->_averageUpsamplingCoefficients = v32;
+  v21->_averageUpsamplingCoefficients = v37;
 
   if (!v21->_averageUpsamplingCoefficients)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v39);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v122 refinementHeight:v123 refinementSteps:v124 minFilterKernelWidth:v125 minFilterKernelHeight:v126 maxFilterKernelWidth:v127 maxFilterKernelHeight:v128 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v141 refinementHeight:v142 refinementSteps:v143 minFilterKernelWidth:v144 minFilterKernelHeight:v145 maxFilterKernelWidth:v146 maxFilterKernelHeight:v147 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
-  v34 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_applyUpsamplingCoefficients" withConstants:0];
+  v40 = [contextCopy computePipelineStateFor:@"PTSpillCorrection_applyUpsamplingCoefficients" withConstants:0];
   applyUpsamplingCoefficients = v21->_applyUpsamplingCoefficients;
-  v21->_applyUpsamplingCoefficients = v34;
+  v21->_applyUpsamplingCoefficients = v40;
 
   if (!v21->_applyUpsamplingCoefficients)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v42);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v129 refinementHeight:v130 refinementSteps:v131 minFilterKernelWidth:v132 minFilterKernelHeight:v133 maxFilterKernelWidth:v134 maxFilterKernelHeight:v135 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v148 refinementHeight:v149 refinementSteps:v150 minFilterKernelWidth:v151 minFilterKernelHeight:v152 maxFilterKernelWidth:v153 maxFilterKernelHeight:v154 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil = [contextCopy textureUtil];
-  v37 = [textureUtil createWithWidth:width height:height pixelFormat:115];
+  v44 = [textureUtil createWithWidth:width height:height pixelFormat:115];
   guideTexture = v21->_guideTexture;
-  v21->_guideTexture = v37;
+  v21->_guideTexture = v44;
 
   if (!v21->_guideTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v46);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v136 refinementHeight:v137 refinementSteps:v138 minFilterKernelWidth:v139 minFilterKernelHeight:v140 maxFilterKernelWidth:v141 maxFilterKernelHeight:v142 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v155 refinementHeight:v156 refinementSteps:v157 minFilterKernelWidth:v158 minFilterKernelHeight:v159 maxFilterKernelWidth:v160 maxFilterKernelHeight:v161 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil2 = [contextCopy textureUtil];
-  v40 = [textureUtil2 createWithWidth:width height:height pixelFormat:115];
+  v48 = [textureUtil2 createWithWidth:width height:height pixelFormat:115];
   diffusionTexture = v21->_diffusionTexture;
-  v21->_diffusionTexture = v40;
+  v21->_diffusionTexture = v48;
 
   if (!v21->_diffusionTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v50);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v143 refinementHeight:v144 refinementSteps:v145 minFilterKernelWidth:v146 minFilterKernelHeight:v147 maxFilterKernelWidth:v148 maxFilterKernelHeight:v149 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v162 refinementHeight:v163 refinementSteps:v164 minFilterKernelWidth:v165 minFilterKernelHeight:v166 maxFilterKernelWidth:v167 maxFilterKernelHeight:v168 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil3 = [contextCopy textureUtil];
-  v43 = [textureUtil3 createWithWidth:width height:height pixelFormat:115];
+  v52 = [textureUtil3 createWithWidth:width height:height pixelFormat:115];
   constraintsTexture = v21->_constraintsTexture;
-  v21->_constraintsTexture = v43;
+  v21->_constraintsTexture = v52;
 
   if (!v21->_constraintsTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v54);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v150 refinementHeight:v151 refinementSteps:v152 minFilterKernelWidth:v153 minFilterKernelHeight:v154 maxFilterKernelWidth:v155 maxFilterKernelHeight:v156 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v169 refinementHeight:v170 refinementSteps:v171 minFilterKernelWidth:v172 minFilterKernelHeight:v173 maxFilterKernelWidth:v174 maxFilterKernelHeight:v175 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil4 = [contextCopy textureUtil];
-  v46 = [textureUtil4 createWithWidth:width height:height pixelFormat:115];
+  v56 = [textureUtil4 createWithWidth:width height:height pixelFormat:115];
   coeffXTexture = v21->_coeffXTexture;
-  v21->_coeffXTexture = v46;
+  v21->_coeffXTexture = v56;
 
   if (!v21->_coeffXTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v58);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v157 refinementHeight:v158 refinementSteps:v159 minFilterKernelWidth:v160 minFilterKernelHeight:v161 maxFilterKernelWidth:v162 maxFilterKernelHeight:v163 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v176 refinementHeight:v177 refinementSteps:v178 minFilterKernelWidth:v179 minFilterKernelHeight:v180 maxFilterKernelWidth:v181 maxFilterKernelHeight:v182 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil5 = [contextCopy textureUtil];
-  v49 = [textureUtil5 createWithWidth:width height:height pixelFormat:115];
+  v60 = [textureUtil5 createWithWidth:width height:height pixelFormat:115];
   coeffYTexture = v21->_coeffYTexture;
-  v21->_coeffYTexture = v49;
+  v21->_coeffYTexture = v60;
 
   if (!v21->_coeffYTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v62);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v164 refinementHeight:v165 refinementSteps:v166 minFilterKernelWidth:v167 minFilterKernelHeight:v168 maxFilterKernelWidth:v169 maxFilterKernelHeight:v170 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v183 refinementHeight:v184 refinementSteps:v185 minFilterKernelWidth:v186 minFilterKernelHeight:v187 maxFilterKernelWidth:v188 maxFilterKernelHeight:v189 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil6 = [contextCopy textureUtil];
-  v52 = [textureUtil6 createWithWidth:width height:height pixelFormat:115];
+  v64 = [textureUtil6 createWithWidth:width height:height pixelFormat:115];
   coeffZTexture = v21->_coeffZTexture;
-  v21->_coeffZTexture = v52;
+  v21->_coeffZTexture = v64;
 
   if (!v21->_coeffZTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v66);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v171 refinementHeight:v172 refinementSteps:v173 minFilterKernelWidth:v174 minFilterKernelHeight:v175 maxFilterKernelWidth:v176 maxFilterKernelHeight:v177 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v190 refinementHeight:v191 refinementSteps:v192 minFilterKernelWidth:v193 minFilterKernelHeight:v194 maxFilterKernelWidth:v195 maxFilterKernelHeight:v196 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil7 = [contextCopy textureUtil];
-  v55 = [textureUtil7 createWithWidth:width height:height pixelFormat:115];
+  v68 = [textureUtil7 createWithWidth:width height:height pixelFormat:115];
   coeffXFilteredTexture = v21->_coeffXFilteredTexture;
-  v21->_coeffXFilteredTexture = v55;
+  v21->_coeffXFilteredTexture = v68;
 
   if (!v21->_coeffXFilteredTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v70);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v178 refinementHeight:v179 refinementSteps:v180 minFilterKernelWidth:v181 minFilterKernelHeight:v182 maxFilterKernelWidth:v183 maxFilterKernelHeight:v184 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v197 refinementHeight:v198 refinementSteps:v199 minFilterKernelWidth:v200 minFilterKernelHeight:v201 maxFilterKernelWidth:v202 maxFilterKernelHeight:v203 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil8 = [contextCopy textureUtil];
-  v58 = [textureUtil8 createWithWidth:width height:height pixelFormat:115];
+  v72 = [textureUtil8 createWithWidth:width height:height pixelFormat:115];
   coeffYFilteredTexture = v21->_coeffYFilteredTexture;
-  v21->_coeffYFilteredTexture = v58;
+  v21->_coeffYFilteredTexture = v72;
 
   if (!v21->_coeffYFilteredTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v74);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v185 refinementHeight:v186 refinementSteps:v187 minFilterKernelWidth:v188 minFilterKernelHeight:v189 maxFilterKernelWidth:v190 maxFilterKernelHeight:v191 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v204 refinementHeight:v205 refinementSteps:v206 minFilterKernelWidth:v207 minFilterKernelHeight:v208 maxFilterKernelWidth:v209 maxFilterKernelHeight:v210 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil9 = [contextCopy textureUtil];
-  v61 = [textureUtil9 createWithWidth:width height:height pixelFormat:115];
+  v76 = [textureUtil9 createWithWidth:width height:height pixelFormat:115];
   coeffZFilteredTexture = v21->_coeffZFilteredTexture;
-  v21->_coeffZFilteredTexture = v61;
+  v21->_coeffZFilteredTexture = v76;
 
   if (!v21->_coeffZFilteredTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v78);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v192 refinementHeight:v193 refinementSteps:v194 minFilterKernelWidth:v195 minFilterKernelHeight:v196 maxFilterKernelWidth:v197 maxFilterKernelHeight:v198 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v211 refinementHeight:v212 refinementSteps:v213 minFilterKernelWidth:v214 minFilterKernelHeight:v215 maxFilterKernelWidth:v216 maxFilterKernelHeight:v217 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil10 = [contextCopy textureUtil];
-  v64 = [textureUtil10 createWithWidth:width height:height pixelFormat:25];
+  v80 = [textureUtil10 createWithWidth:width height:height pixelFormat:25];
   segmentationTexture = v21->_segmentationTexture;
-  v21->_segmentationTexture = v64;
+  v21->_segmentationTexture = v80;
 
   if (!v21->_segmentationTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v82);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v199 refinementHeight:v200 refinementSteps:v201 minFilterKernelWidth:v202 minFilterKernelHeight:v203 maxFilterKernelWidth:v204 maxFilterKernelHeight:v205 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v218 refinementHeight:v219 refinementSteps:v220 minFilterKernelWidth:v221 minFilterKernelHeight:v222 maxFilterKernelWidth:v223 maxFilterKernelHeight:v224 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil11 = [contextCopy textureUtil];
-  v67 = [textureUtil11 createWithWidth:width height:height pixelFormat:25];
+  v84 = [textureUtil11 createWithWidth:width height:height pixelFormat:25];
   segmentationMinTexture = v21->_segmentationMinTexture;
-  v21->_segmentationMinTexture = v67;
+  v21->_segmentationMinTexture = v84;
 
   if (!v21->_segmentationMinTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v86);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v206 refinementHeight:v207 refinementSteps:v208 minFilterKernelWidth:v209 minFilterKernelHeight:v210 maxFilterKernelWidth:v211 maxFilterKernelHeight:v212 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v225 refinementHeight:v226 refinementSteps:v227 minFilterKernelWidth:v228 minFilterKernelHeight:v229 maxFilterKernelWidth:v230 maxFilterKernelHeight:v231 gaussianBlurSigma:?];
     }
 
     goto LABEL_62;
   }
 
   textureUtil12 = [contextCopy textureUtil];
-  v70 = [textureUtil12 createWithWidth:width height:height pixelFormat:25];
+  v88 = [textureUtil12 createWithWidth:width height:height pixelFormat:25];
   segmentationMaxTexture = v21->_segmentationMaxTexture;
-  v21->_segmentationMaxTexture = v70;
+  v21->_segmentationMaxTexture = v88;
 
   if (!v21->_segmentationMaxTexture)
   {
-    v86 = _PTLogSystem();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+    v105 = _PTLogSystem(v90);
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
     {
-      [PTSpillCorrection initWithMetalContext:v86 refinementWidth:v213 refinementHeight:v214 refinementSteps:v215 minFilterKernelWidth:v216 minFilterKernelHeight:v217 maxFilterKernelWidth:v218 maxFilterKernelHeight:v219 gaussianBlurSigma:?];
+      [PTSpillCorrection initWithMetalContext:v105 refinementWidth:v232 refinementHeight:v233 refinementSteps:v234 minFilterKernelWidth:v235 minFilterKernelHeight:v236 maxFilterKernelWidth:v237 maxFilterKernelHeight:v238 gaussianBlurSigma:?];
     }
 
 LABEL_62:
 
 LABEL_63:
-    v85 = 0;
+    v104 = 0;
     goto LABEL_64;
   }
 
   if ((PTDefaultsPublicGetBool(@"harvesting.enabled", 0) & 1) == 0)
   {
-    v72 = objc_alloc(MEMORY[0x277CD74D0]);
-    device = [contextCopy device];
-    v74 = [v72 initWithDevice:device kernelWidth:kernelWidth kernelHeight:kernelHeight];
+    v91 = objc_alloc(MEMORY[0x277CD74D0]);
+    v92 = objc_msgSend_device(contextCopy);
+    v93 = [v91 initWithDevice:v92 kernelWidth:kernelWidth kernelHeight:kernelHeight];
     minFilter = v21->_minFilter;
-    v21->_minFilter = v74;
+    v21->_minFilter = v93;
 
-    v76 = objc_alloc(MEMORY[0x277CD74C8]);
-    device2 = [contextCopy device];
-    v78 = [v76 initWithDevice:device2 kernelWidth:filterKernelWidth kernelHeight:filterKernelHeight];
+    v95 = objc_alloc(MEMORY[0x277CD74C8]);
+    v96 = objc_msgSend_device(contextCopy);
+    v97 = [v95 initWithDevice:v96 kernelWidth:filterKernelWidth kernelHeight:filterKernelHeight];
     maxFilter = v21->_maxFilter;
-    v21->_maxFilter = v78;
+    v21->_maxFilter = v97;
 
-    v80 = objc_alloc(MEMORY[0x277CD7520]);
-    device3 = [contextCopy device];
-    *&v82 = sigma;
-    v83 = [v80 initWithDevice:device3 sigma:v82];
+    v99 = objc_alloc(MEMORY[0x277CD7520]);
+    v100 = objc_msgSend_device(contextCopy);
+    *&v101 = sigma;
+    v102 = [v99 initWithDevice:v100 sigma:v101];
     gaussianBlur = v21->_gaussianBlur;
-    v21->_gaussianBlur = v83;
+    v21->_gaussianBlur = v102;
   }
 
-  v85 = v21;
+  v104 = v21;
 LABEL_64:
 
-  return v85;
+  return v104;
 }
 
 - (int)encodeToCommandBuffer:(id)buffer rgbTexture:(id)texture segmentationTexture:(id)segmentationTexture
@@ -532,6 +532,139 @@ LABEL_64:
 
     while (self->_refinementSteps > v8);
   }
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_segmentationMaxTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_segmentationMinTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_segmentationTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffZFilteredTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffYFilteredTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffXFilteredTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffZTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffYTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_coeffXTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_constraintsTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_diffusionTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.12(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_guideTexture";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.13(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_applyUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.14(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_averageUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.15(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_computeUpsamplingCoefficients";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.16(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_constrainDiffusion";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.17(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_initDiffusion";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_initConstraintsPart2";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 refinementWidth:(uint64_t)a4 refinementHeight:(uint64_t)a5 refinementSteps:(uint64_t)a6 minFilterKernelWidth:(uint64_t)a7 minFilterKernelHeight:(uint64_t)a8 maxFilterKernelWidth:maxFilterKernelHeight:gaussianBlurSigma:.cold.19(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_initConstraintsPart1";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -367,142 +367,141 @@ uint64_t BFNet_v1_Filter<MFXDevice4>::BFNet_v1_Filter(uint64_t a1, MFXDevice4 *a
   *(a1 + 8) = a5;
   *(a1 + 12) = a6;
   v20 = *(a9 + 12);
-  v21 = *(a9 + 24);
   *(&v20 + 1) = *(a9 + 24);
   *(a1 + 24) = v20;
   *(a1 + 16) = a7;
   *(a1 + 20) = a8;
-  v77 = 1;
-  v22 = objc_opt_new();
-  [v22 setConstantValue:&v77 type:53 atIndex:16];
-  *(a1 + 296) = a10;
-  [v22 setConstantValue:a1 + 296 type:53 atIndex:19];
-  *(a1 + 297) = a11;
-  [v22 setConstantValue:a1 + 297 type:53 atIndex:20];
-  *(a1 + 298) = a12;
-  [v22 setConstantValue:a1 + 298 type:53 atIndex:21];
   v76 = 1;
-  [v22 setConstantValue:&v76 type:53 atIndex:15];
+  v21 = objc_opt_new();
+  [v21 setConstantValue:&v76 type:53 atIndex:16];
+  *(a1 + 296) = a10;
+  [v21 setConstantValue:a1 + 296 type:53 atIndex:19];
+  *(a1 + 297) = a11;
+  [v21 setConstantValue:a1 + 297 type:53 atIndex:20];
+  *(a1 + 298) = a12;
+  [v21 setConstantValue:a1 + 298 type:53 atIndex:21];
   v75 = 1;
-  [v22 setConstantValue:&v75 type:53 atIndex:22];
-  v23 = MFXDevice4::createComputePipeline(a2, v19, @"dbfnetv1_lowres_signals", v22);
-  v24 = *(a1 + 48);
-  *(a1 + 48) = v23;
+  [v21 setConstantValue:&v75 type:53 atIndex:15];
+  v74 = 1;
+  [v21 setConstantValue:&v74 type:53 atIndex:22];
+  v22 = MFXDevice4::createComputePipeline(a2, v19, @"dbfnetv1_lowres_signals", v21);
+  v23 = *(a1 + 48);
+  *(a1 + 48) = v22;
 
-  v25 = MFXDevice4::createComputePipeline(a2, v19, @"dbfnetv1_output_channels", v22);
-  v26 = *(a1 + 56);
-  *(a1 + 56) = v25;
+  v24 = MFXDevice4::createComputePipeline(a2, v19, @"dbfnetv1_output_channels", v21);
+  v25 = *(a1 + 56);
+  *(a1 + 56) = v24;
 
-  v27 = MFXDevice4::createComputePipeline(a2, v19, @"reproject_warp", v22);
-  v28 = *(a1 + 64);
-  *(a1 + 64) = v27;
+  v26 = MFXDevice4::createComputePipeline(a2, v19, @"reproject_warp", v21);
+  v27 = *(a1 + 64);
+  *(a1 + 64) = v26;
 
-  v29 = MFXDevice4::createComputePipeline(a2, v19, @"reproject_blend", v22);
-  v30 = *(a1 + 72);
-  *(a1 + 72) = v29;
+  v28 = MFXDevice4::createComputePipeline(a2, v19, @"reproject_blend", v21);
+  v29 = *(a1 + 72);
+  *(a1 + 72) = v28;
 
-  v31 = MFXDevice4::createComputePipeline(a2, v19, @"bilateral", v22);
-  v32 = *(a1 + 88);
-  *(a1 + 88) = v31;
+  v30 = MFXDevice4::createComputePipeline(a2, v19, @"bilateral", v21);
+  v31 = *(a1 + 88);
+  *(a1 + 88) = v30;
 
-  v33 = MFXDevice4::createComputePipeline(a2, v19, @"denoiser_between_processing", v22);
-  v34 = *(a1 + 96);
-  *(a1 + 96) = v33;
+  v32 = MFXDevice4::createComputePipeline(a2, v19, @"denoiser_between_processing", v21);
+  v33 = *(a1 + 96);
+  *(a1 + 96) = v32;
 
-  v35 = MFXDevice4::createComputePipeline(a2, v19, @"update_vbbr", v22);
-  v36 = *(a1 + 104);
-  *(a1 + 104) = v35;
+  v34 = MFXDevice4::createComputePipeline(a2, v19, @"update_vbbr", v21);
+  v35 = *(a1 + 104);
+  *(a1 + 104) = v34;
 
-  v37 = MFXDevice4::createComputePipeline(a2, v19, @"processSpecularHitDistance", v22);
-  v38 = *(a1 + 112);
-  *(a1 + 112) = v37;
+  v36 = MFXDevice4::createComputePipeline(a2, v19, @"processSpecularHitDistance", v21);
+  v37 = *(a1 + 112);
+  *(a1 + 112) = v36;
 
-  v39 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:125 width:*(a1 + 8) height:*(a1 + 12) mipmapped:0];
-  [(MTLTextureDescriptor *)v39 setUsage:3];
-  [(MTLTextureDescriptor *)v39 setCompressionMode:1];
-  [(MTLTextureDescriptor *)v39 setPixelFormat:115];
-  v40 = MFXDevice4::createTexture(a2, v39);
-  v41 = *(a1 + 152);
-  *(a1 + 152) = v40;
+  v38 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:125 width:*(a1 + 8) height:*(a1 + 12) mipmapped:0];
+  [(MTLTextureDescriptor *)v38 setUsage:3];
+  [(MTLTextureDescriptor *)v38 setCompressionMode:1];
+  [(MTLTextureDescriptor *)v38 setPixelFormat:115];
+  v39 = MFXDevice4::createTexture(a2, v38);
+  v40 = *(a1 + 152);
+  *(a1 + 152) = v39;
 
-  v42 = MFXDevice4::createTexture(a2, v39);
-  v43 = *(a1 + 160);
-  *(a1 + 160) = v42;
+  v41 = MFXDevice4::createTexture(a2, v38);
+  v42 = *(a1 + 160);
+  *(a1 + 160) = v41;
 
-  v44 = MFXDevice4::createTexture(a2, v39);
-  v45 = *(a1 + 168);
-  *(a1 + 168) = v44;
+  v43 = MFXDevice4::createTexture(a2, v38);
+  v44 = *(a1 + 168);
+  *(a1 + 168) = v43;
 
-  v46 = MFXDevice4::createTexture(a2, v39);
-  v47 = *(a1 + 120);
-  *(a1 + 120) = v46;
+  v45 = MFXDevice4::createTexture(a2, v38);
+  v46 = *(a1 + 120);
+  *(a1 + 120) = v45;
 
-  v48 = MFXDevice4::createTexture(a2, v39);
-  v49 = *(a1 + 128);
-  *(a1 + 128) = v48;
+  v47 = MFXDevice4::createTexture(a2, v38);
+  v48 = *(a1 + 128);
+  *(a1 + 128) = v47;
 
-  [(MTLTextureDescriptor *)v39 setPixelFormat:10];
-  v50 = MFXDevice4::createTexture(a2, v39);
-  v51 = *(a1 + 184);
-  *(a1 + 184) = v50;
+  [(MTLTextureDescriptor *)v38 setPixelFormat:10];
+  v49 = MFXDevice4::createTexture(a2, v38);
+  v50 = *(a1 + 184);
+  *(a1 + 184) = v49;
 
-  [(MTLTextureDescriptor *)v39 setWidth:*(a1 + 8)];
-  [(MTLTextureDescriptor *)v39 setHeight:*(a1 + 12)];
-  [(MTLTextureDescriptor *)v39 setPixelFormat:25];
-  v52 = MFXDevice4::createTexture(a2, v39);
-  v53 = *(a1 + 136);
-  *(a1 + 136) = v52;
+  [(MTLTextureDescriptor *)v38 setWidth:*(a1 + 8)];
+  [(MTLTextureDescriptor *)v38 setHeight:*(a1 + 12)];
+  [(MTLTextureDescriptor *)v38 setPixelFormat:25];
+  v51 = MFXDevice4::createTexture(a2, v38);
+  v52 = *(a1 + 136);
+  *(a1 + 136) = v51;
 
-  v54 = MFXDevice4::createTexture(a2, v39);
-  v55 = *(a1 + 144);
-  *(a1 + 144) = v54;
+  v53 = MFXDevice4::createTexture(a2, v38);
+  v54 = *(a1 + 144);
+  *(a1 + 144) = v53;
 
-  [(MTLTextureDescriptor *)v39 setPixelFormat:115];
-  v56 = MFXDevice4::createTexture(a2, v39);
-  v57 = *(a1 + 200);
-  *(a1 + 200) = v56;
+  [(MTLTextureDescriptor *)v38 setPixelFormat:115];
+  v55 = MFXDevice4::createTexture(a2, v38);
+  v56 = *(a1 + 200);
+  *(a1 + 200) = v55;
 
-  v58 = MFXDevice4::createTexture(a2, v39);
-  v59 = *(a1 + 208);
-  *(a1 + 208) = v58;
+  v57 = MFXDevice4::createTexture(a2, v38);
+  v58 = *(a1 + 208);
+  *(a1 + 208) = v57;
 
-  [(MTLTextureDescriptor *)v39 setPixelFormat:65];
-  [(MTLTextureDescriptor *)v39 setUsage:16387];
-  v60 = MFXDevice4::createTexture(a2, v39);
-  v61 = *(a1 + 192);
-  *(a1 + 192) = v60;
+  [(MTLTextureDescriptor *)v38 setPixelFormat:65];
+  [(MTLTextureDescriptor *)v38 setUsage:16387];
+  v59 = MFXDevice4::createTexture(a2, v38);
+  v60 = *(a1 + 192);
+  *(a1 + 192) = v59;
 
-  [(MTLTextureDescriptor *)v39 setWidth:(*(a1 + 8) + (*(a1 + 8) >> 31)) >> 1];
-  [(MTLTextureDescriptor *)v39 setHeight:(*(a1 + 12) + (*(a1 + 12) >> 31)) >> 1];
-  [(MTLTextureDescriptor *)v39 setPixelFormat:65];
-  v62 = MFXDevice4::createTexture(a2, v39);
-  v63 = *(a1 + 264);
-  *(a1 + 264) = v62;
+  [(MTLTextureDescriptor *)v38 setWidth:(*(a1 + 8) + (*(a1 + 8) >> 31)) >> 1];
+  [(MTLTextureDescriptor *)v38 setHeight:(*(a1 + 12) + (*(a1 + 12) >> 31)) >> 1];
+  [(MTLTextureDescriptor *)v38 setPixelFormat:65];
+  v61 = MFXDevice4::createTexture(a2, v38);
+  v62 = *(a1 + 264);
+  *(a1 + 264) = v61;
 
-  [(MTLTextureDescriptor *)v39 setPixelFormat:25];
-  v64 = MFXDevice4::createTexture(a2, v39);
-  v65 = *(a1 + 272);
-  *(a1 + 272) = v64;
+  [(MTLTextureDescriptor *)v38 setPixelFormat:25];
+  v63 = MFXDevice4::createTexture(a2, v38);
+  v64 = *(a1 + 272);
+  *(a1 + 272) = v63;
 
-  [(MTLTextureDescriptor *)v39 setPixelFormat:115];
-  v66 = MFXDevice4::createTexture(a2, v39);
-  v67 = *(a1 + 256);
-  *(a1 + 256) = v66;
+  [(MTLTextureDescriptor *)v38 setPixelFormat:115];
+  v65 = MFXDevice4::createTexture(a2, v38);
+  v66 = *(a1 + 256);
+  *(a1 + 256) = v65;
 
-  [(MTLTextureDescriptor *)v39 setWidth:(*(a1 + 8) + (*(a1 + 8) < 0 ? 7 : 0)) >> 3];
-  [(MTLTextureDescriptor *)v39 setHeight:(*(a1 + 12) + (*(a1 + 12) < 0 ? 7 : 0)) >> 3];
-  [(MTLTextureDescriptor *)v39 setPixelFormat:25];
-  v68 = MFXDevice4::createTexture(a2, v39);
-  v69 = *(a1 + 248);
-  *(a1 + 248) = v68;
+  [(MTLTextureDescriptor *)v38 setWidth:(*(a1 + 8) + (*(a1 + 8) < 0 ? 7 : 0)) >> 3];
+  [(MTLTextureDescriptor *)v38 setHeight:(*(a1 + 12) + (*(a1 + 12) < 0 ? 7 : 0)) >> 3];
+  [(MTLTextureDescriptor *)v38 setPixelFormat:25];
+  v67 = MFXDevice4::createTexture(a2, v38);
+  v68 = *(a1 + 248);
+  *(a1 + 248) = v67;
 
-  v70 = MFXDevice4::createBuffer(a2, 2, 0);
-  v71 = *(a1 + 280);
-  *(a1 + 280) = v70;
+  v69 = MFXDevice4::createBuffer(a2, 2, 0);
+  v70 = *(a1 + 280);
+  *(a1 + 280) = v69;
 
-  v72 = MFXDevice4::createBuffer(a2, 2, 0);
-  v73 = *(a1 + 288);
-  *(a1 + 288) = v72;
+  v71 = MFXDevice4::createBuffer(a2, 2, 0);
+  v72 = *(a1 + 288);
+  *(a1 + 288) = v71;
 
   *[*(a1 + 280) contents] = COERCE_UNSIGNED_INT(1.0);
   *[*(a1 + 288) contents] = COERCE_UNSIGNED_INT(1.0);
@@ -547,17 +546,17 @@ void BFNet_v1_Filter<MFXDevice4>::BFNet_v1_Filter()
 
 void BFNet_v1_Filter<MFXDevice4>::encodeAtrous(uint64_t a1, float a2, double a3, double a4, uint64_t a5, uint64_t a6, id *a7, void *a8, void *a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, void *a19, uint64_t a20, unsigned __int8 a21)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v40 = a8;
-  v49 = a9;
-  v43 = a12;
-  v44 = a13;
-  v45 = a14;
-  v41 = a15;
-  v42 = a16;
-  v46 = a17;
-  v47 = a19;
-  v51 = a2;
+  v56 = *MEMORY[0x277D85DE8];
+  v39 = a8;
+  v48 = a9;
+  v42 = a12;
+  v43 = a13;
+  v44 = a14;
+  v40 = a15;
+  v41 = a16;
+  v45 = a17;
+  v46 = a19;
+  v50 = a2;
   [*a7 setComputePipelineState:*(a1 + 72)];
   v26 = (a1 + 120);
   MFXComputeEncoder4::setTexture(a7, *(a1 + 120), 0);
@@ -571,32 +570,32 @@ void BFNet_v1_Filter<MFXDevice4>::encodeAtrous(uint64_t a1, float a2, double a3,
   v28 = *(a1 + 8);
   *&v29 = v28;
   *(&v29 + 1) = SHIDWORD(v28);
-  v54 = v29;
-  v55 = 1;
-  v52 = vdupq_n_s64(0x10uLL);
-  v53 = 1;
-  [v27 dispatchThreads:&v54 threadsPerThreadgroup:&v52];
-  v50 = 0;
-  v48 = vdupq_n_s64(8uLL);
+  v53 = v29;
+  v54 = 1;
+  v51 = vdupq_n_s64(0x10uLL);
+  v52 = 1;
+  [v27 dispatchThreads:&v53 threadsPerThreadgroup:&v51];
+  v49 = 0;
+  v47 = vdupq_n_s64(8uLL);
   do
   {
-    [*a7 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:{1, v40}];
+    [*a7 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:{1, v39}];
     [*a7 setComputePipelineState:*(a1 + 88)];
-    if (v50 == 1)
+    if (v49 == 1)
     {
       v30 = (a1 + 168);
     }
 
     else
     {
-      v30 = &v26[v50 & 1];
+      v30 = &v26[v49 & 1];
     }
 
     MFXComputeEncoder4::setTexture(a7, *v30, 0);
     MFXComputeEncoder4::setTexture(a7, *(a1 + 152 + 8 * (a21 == 0)), 1u);
-    if (v50)
+    if (v49)
     {
-      v31 = &v26[(v50 & 1) == 0];
+      v31 = &v26[(v49 & 1) == 0];
     }
 
     else
@@ -609,61 +608,59 @@ void BFNet_v1_Filter<MFXDevice4>::encodeAtrous(uint64_t a1, float a2, double a3,
     MFXComputeEncoder4::setTexture(a7, *(a1 + 256), 5u);
     MFXComputeEncoder4::setTexture(a7, *(a1 + 176), 7u);
     MFXComputeEncoder4::setTexture(a7, *(a1 + 264), 4u);
-    MFXComputeEncoder4::setTexture(a7, v49, 6u);
-    v32 = v50;
-    v56[0] = 1 << v50;
-    v56[1] = v50;
-    v56[2] = ~(-1 << v50);
-    v56[3] = -4 << v50;
-    MFXComputeEncoder4::setBytes(a7, v56, 0x10uLL, 0);
-    MFXComputeEncoder4::setBytes(a7, &v50, 4uLL, 1u);
+    MFXComputeEncoder4::setTexture(a7, v48, 6u);
+    v32 = v49;
+    v55[0] = 1 << v49;
+    v55[1] = v49;
+    v55[2] = ~(-1 << v49);
+    v55[3] = -4 << v49;
+    MFXComputeEncoder4::setBytes(a7, v55, 0x10uLL, 0);
+    MFXComputeEncoder4::setBytes(a7, &v49, 4uLL, 1u);
     v33 = *a7;
     v34 = vand_s8(vadd_s32(*(a1 + 8), vdup_n_s32((4 << v32) - 1)), vdup_n_s32(-(4 << v32)));
     *&v35 = v34.u32[0];
     *(&v35 + 1) = v34.u32[1];
-    v54 = v35;
-    v55 = 1;
-    v52 = v48;
-    v53 = 1;
-    [v33 dispatchThreads:&v54 threadsPerThreadgroup:&v52];
-    ++v50;
+    v53 = v35;
+    v54 = 1;
+    v51 = v47;
+    v52 = 1;
+    [v33 dispatchThreads:&v53 threadsPerThreadgroup:&v51];
+    ++v49;
   }
 
-  while (v50 < 4);
+  while (v49 < 4);
   [*a7 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
   [*a7 setComputePipelineState:*(a1 + 96)];
   MFXComputeEncoder4::setTexture(a7, *v26, 0);
-  MFXComputeEncoder4::setTexture(a7, v46, 5u);
-  MFXComputeEncoder4::setTexture(a7, v45, 6u);
-  MFXComputeEncoder4::setTexture(a7, v44, 7u);
+  MFXComputeEncoder4::setTexture(a7, v45, 5u);
+  MFXComputeEncoder4::setTexture(a7, v44, 6u);
+  MFXComputeEncoder4::setTexture(a7, v43, 7u);
   MFXComputeEncoder4::setTexture(a7, *(a1 + 184), 4u);
-  MFXComputeEncoder4::setTexture(a7, v43, 8u);
+  MFXComputeEncoder4::setTexture(a7, v42, 8u);
   MFXComputeEncoder4::setTexture(a7, *(a1 + 272), 9u);
-  MFXComputeEncoder4::setBuffer(a7, v47, 0, 0xAu);
-  MFXComputeEncoder4::setBytes(a7, &v51, 4uLL, 0xBu);
+  MFXComputeEncoder4::setBuffer(a7, v46, 0, 0xAu);
+  MFXComputeEncoder4::setBytes(a7, &v50, 4uLL, 0xBu);
   if (*(a1 + 297) == 1)
   {
-    MFXComputeEncoder4::setTexture(a7, v41, 2u);
-    MFXComputeEncoder4::setTexture(a7, v40, 1u);
+    MFXComputeEncoder4::setTexture(a7, v40, 2u);
+    MFXComputeEncoder4::setTexture(a7, v39, 1u);
   }
 
   if (*(a1 + 298) == 1)
   {
-    MFXComputeEncoder4::setTexture(a7, v42, 3u);
+    MFXComputeEncoder4::setTexture(a7, v41, 3u);
   }
 
   v36 = *a7;
   v37 = *(a1 + 8);
   *&v38 = v37;
   *(&v38 + 1) = SHIDWORD(v37);
-  v54 = v38;
-  v55 = 1;
-  v52 = vdupq_n_s64(8uLL);
-  v53 = 1;
-  [v36 dispatchThreads:&v54 threadsPerThreadgroup:&v52];
+  v53 = v38;
+  v54 = 1;
+  v51 = vdupq_n_s64(8uLL);
+  v52 = 1;
+  [v36 dispatchThreads:&v53 threadsPerThreadgroup:&v51];
   *(a1 + 40) = a4;
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void MFXComputeEncoder4::setTexture(uint64_t a1, void *a2, unsigned int a3)
@@ -672,7 +669,7 @@ void MFXComputeEncoder4::setTexture(uint64_t a1, void *a2, unsigned int a3)
   [*(a1 + 8) setTexture:objc_msgSend(v5 atIndex:{"gpuResourceID"), a3}];
 }
 
-uint64_t MFXComputeEncoder4::setBytes(MFXComputeEncoder4 *this, const void *a2, size_t a3, unsigned int a4)
+void *MFXComputeEncoder4::setBytes(MFXComputeEncoder4 *this, const void *a2, size_t a3, unsigned int a4)
 {
   v8 = (a3 + 15) & 0xFFFFFFF0;
   v9 = v8 + *(this + 4);
@@ -863,7 +860,7 @@ uint64_t BFNet_v1_Filter<MFXDevice4>::getEncodeIndex(uint64_t a1)
   return v1;
 }
 
-int *BRNet_v3_Filter<MFXDevice4>::BRNet_v3_Filter(int *a1, MFXDevice4 *a2, void *a3, int a4, int a5, int a6, unsigned int a7, uint64_t a8, int a9, int a10, char a11, char a12, char a13, char a14, char a15, char a16)
+int *BRNet_v3_Filter<MFXDevice4>::BRNet_v3_Filter(int *a1, MFXDevice4 *a2, void *a3, int a4, int a5, int a6, unsigned int a7, uint64_t a8, int a9, unsigned int a10, char a11, char a12, char a13, char a14, char a15, char a16)
 {
   v135 = __PAIR64__(a10, a7);
   v22 = a3;
@@ -2050,7 +2047,7 @@ LABEL_6:
 
 void sub_2398EABF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21)
 {
-  MEMORY[0x23EE7AA60](v21, 0x10A0C400D23B8DDLL);
+  MEMORY[0x23EE7AA60](v21, 0x10A0C400D23B8DDLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -2076,86 +2073,85 @@ void FrameGenImpl<MFXDevice4>::encodeTo(uint32x2_t *a1, uint64_t a2, void *a3, u
   v12 = [*&a4[4] height];
   if (MTLTraceEnabled())
   {
-    v13 = a4[11].u16[0] | (a4[11].i32[1] << 16) | (v11 << 32);
-    MFXDevice4::emitSignPostForComputeEncoder(a2);
+    MFXDevice4::emitSignPostForComputeEncoder(a2, a4[11].u16[0] | (a4[11].i32[1] << 16) | (v11 << 32) | (v12 << 48), 0);
   }
 
-  v14 = vcvt_f32_u32(__PAIR64__(v12, v11));
-  v15 = vcvt_f32_u32(a4[11]);
-  v108 = vdiv_f32(vmul_f32(a4[8], v14), v15);
-  v16 = -1.0;
-  v17 = 1.0;
+  v13 = vcvt_f32_u32(__PAIR64__(v12, v11));
+  v14 = vcvt_f32_u32(a4[11]);
+  v107 = vdiv_f32(vmul_f32(a4[8], v13), v14);
+  v15 = -1.0;
+  v16 = 1.0;
   if (a4[9].i8[1])
   {
-    v16 = 1.0;
-    v17 = 0.0;
+    v15 = 1.0;
+    v16 = 0.0;
   }
 
+  v108 = v15;
   v109 = v16;
-  v110 = v17;
-  v18 = a1[58].i32[1];
-  v111 = a4[9].i32[1];
-  v112 = v18;
-  v19 = vcvt_f32_u32(a1[59]);
-  v116 = vdiv_f32(v19, v15);
-  v117 = vdiv_f32(v15, v14);
+  v17 = a1[58].i32[1];
+  v110 = a4[9].i32[1];
+  v111 = v17;
+  v18 = vcvt_f32_u32(a1[59]);
+  v115 = vdiv_f32(v18, v14);
+  v116 = vdiv_f32(v14, v13);
   __asm { FMOV            V0.2S, #1.0 }
 
-  v118 = vdiv_f32(_D0, v15);
-  v119 = vdiv_f32(_D0, v19);
-  v25 = [v8 width];
-  v104 = a2;
-  v115 = 80 * v25 * [v8 height] / 0x384;
-  v26 = *a4[10].i32;
-  v27 = *&a4[10].i32[1];
-  v113 = v26 / (v26 - v27);
-  v114 = -(v27 * v26) / (v26 - v27);
-  MFXComputeEncoder4::setBytes(v9, &v108, 0x48uLL, 0);
+  v117 = vdiv_f32(_D0, v14);
+  v118 = vdiv_f32(_D0, v18);
+  v24 = [v8 width];
+  v103 = a2;
+  v114 = 80 * v24 * [v8 height] / 0x384;
+  v25 = *a4[10].i32;
+  v26 = *&a4[10].i32[1];
+  v112 = v25 / (v25 - v26);
+  v113 = -(v26 * v25) / (v25 - v26);
+  MFXComputeEncoder4::setBytes(v9, &v107, 0x48uLL, 0);
   [*v9 setLabel:@"MTLFX_Frame_Interpolation"];
   [*v9 pushDebugGroup:@"Downsample"];
   [*v9 setComputePipelineState:*a1];
   MFXComputeEncoder4::setTexture(v9, v8, 0);
   MFXComputeEncoder4::setTexture(v9, *&a1[a1[57].u32[1] + 22], 1u);
   MFXComputeEncoder4::setBuffer(v9, *&a1[56], 4 * (2304 * a1[57].i32[1]), 1u);
-  v28 = [v8 width];
-  v29 = [v8 height];
-  v30 = *v9;
-  v122.i64[0] = v28;
-  v122.i64[1] = v29;
-  v123 = 1;
-  v120 = vdupq_n_s64(0x20uLL);
-  v121 = 1;
-  [v30 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+  v27 = [v8 width];
+  v28 = [v8 height];
+  v29 = *v9;
+  v121.i64[0] = v27;
+  v121.i64[1] = v28;
+  v122 = 1;
+  v119 = vdupq_n_s64(0x20uLL);
+  v120 = 1;
+  [v29 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
   [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
-  v105 = v8;
+  v104 = v8;
   if (a1[58].i32[0] >= 2u)
   {
-    v107 = vdupq_n_s64(0x10uLL);
-    v31 = a1;
-    v32 = 1;
+    v106 = vdupq_n_s64(0x10uLL);
+    v30 = a1;
+    v31 = 1;
     do
     {
-      v33 = *&v31[a1[57].u32[1] + 22];
-      v34 = *&v31[a1[57].u32[1] + 24];
+      v32 = *&v30[a1[57].u32[1] + 22];
+      v33 = *&v30[a1[57].u32[1] + 24];
       [*v9 setComputePipelineState:*&a1[2]];
-      MFXComputeEncoder4::setTexture(v9, v33, 0);
-      MFXComputeEncoder4::setTexture(v9, v34, 1u);
-      v35 = [v34 width];
-      v36 = [v34 height];
-      v37 = *v9;
-      v122.i64[0] = v35;
-      v122.i64[1] = v36;
-      v123 = 1;
-      v120 = v107;
-      v121 = 1;
-      [v37 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+      MFXComputeEncoder4::setTexture(v9, v32, 0);
+      MFXComputeEncoder4::setTexture(v9, v33, 1u);
+      v34 = [v33 width];
+      v35 = [v33 height];
+      v36 = *v9;
+      v121.i64[0] = v34;
+      v121.i64[1] = v35;
+      v122 = 1;
+      v119 = v106;
+      v120 = 1;
+      [v36 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
       [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
 
-      ++v32;
-      v31 += 2;
+      ++v31;
+      v30 += 2;
     }
 
-    while (v32 < a1[58].u32[0]);
+    while (v31 < a1[58].u32[0]);
   }
 
   [*v9 popDebugGroup];
@@ -2166,94 +2162,94 @@ void FrameGenImpl<MFXDevice4>::encodeTo(uint32x2_t *a1, uint64_t a2, void *a3, u
     MFXComputeEncoder4::setBuffer(v9, *&a1[56], 4 * (9 * (256 - (a1[57].i32[1] << 8))), 2u);
     MFXComputeEncoder4::setBuffer(v9, *&a1[56], 18432, 3u);
     [*v9 setComputePipelineState:*&a1[1]];
-    v38 = *v9;
-    v122 = xmmword_2398F28D0;
-    v123 = 1;
-    v120 = xmmword_2398F28E0;
-    v121 = 1;
-    [v38 dispatchThreadgroups:&v122 threadsPerThreadgroup:&v120];
+    v37 = *v9;
+    v121 = xmmword_2398F28D0;
+    v122 = 1;
+    v119 = xmmword_2398F28E0;
+    v120 = 1;
+    [v37 dispatchThreadgroups:&v121 threadsPerThreadgroup:&v119];
     [*v9 popDebugGroup];
     [*v9 pushDebugGroup:@"Optical Motion Vectors"];
-    v103 = &a4[3];
+    v102 = a4 + 3;
     MFXComputeEncoder4::setTexture(v9, *&a4[3], 4u);
-    v101 = a4;
-    v102 = v7;
-    v39 = a1[58].u32[0];
-    if (v39)
+    v100 = a4;
+    v101 = v7;
+    v38 = a1[58].u32[0];
+    if (v38)
     {
-      v40 = 0;
-      v41 = a1 + 43;
-      v42 = -1;
-      v106 = vdupq_n_s64(0x10uLL);
+      v39 = 0;
+      v40 = a1 + 43;
+      v41 = -1;
+      v105 = vdupq_n_s64(0x10uLL);
       do
       {
-        v43 = v39 + v42;
-        v44 = *&a1[(v39 + v42) + 36];
-        if (v40)
+        v42 = v38 + v41;
+        v43 = *&a1[(v38 + v41) + 36];
+        if (v39)
         {
-          v45 = v41[v43 + 1];
+          v44 = v40[v42 + 1];
         }
 
         else
         {
-          v45 = 0;
+          v44 = 0;
         }
 
-        v46 = v45;
+        v45 = v44;
         [*v9 setComputePipelineState:*&a1[4]];
-        MFXComputeEncoder4::setTexture(v9, v44, 0);
-        v47 = &a1[2 * v43 + 22];
-        MFXComputeEncoder4::setTexture(v9, *(v47 + 8 * a1[57].u32[1]), 1u);
-        MFXComputeEncoder4::setTexture(v9, *(v47 + 8 * (1 - a1[57].i32[1])), 2u);
-        MFXComputeEncoder4::setTexture(v9, v46, 3u);
-        LODWORD(v47) = [v44 width];
-        v48 = [v44 height];
-        v49 = *v9;
-        v122.i64[0] = v47;
-        v122.i64[1] = v48;
-        v123 = 1;
-        v120 = xmmword_2398F28F0;
-        v121 = 1;
-        [v49 dispatchThreadgroups:&v122 threadsPerThreadgroup:&v120];
+        MFXComputeEncoder4::setTexture(v9, v43, 0);
+        v46 = &a1[2 * v42 + 22];
+        MFXComputeEncoder4::setTexture(v9, *&v46[a1[57].u32[1]], 1u);
+        MFXComputeEncoder4::setTexture(v9, *&v46[1 - a1[57].i32[1]], 2u);
+        MFXComputeEncoder4::setTexture(v9, v45, 3u);
+        LODWORD(v46) = [v43 width];
+        v47 = [v43 height];
+        v48 = *v9;
+        v121.i64[0] = v46;
+        v121.i64[1] = v47;
+        v122 = 1;
+        v119 = xmmword_2398F28F0;
+        v120 = 1;
+        [v48 dispatchThreadgroups:&v121 threadsPerThreadgroup:&v119];
         [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
         [*v9 setComputePipelineState:*&a1[14]];
-        MFXComputeEncoder4::setTexture(v9, *&v41[v43], 0);
-        MFXComputeEncoder4::setTexture(v9, v44, 1u);
-        v50 = [v44 width];
-        v51 = [v44 height];
-        v52 = *v9;
-        v122.i64[0] = (v50 + 15) & 0xFFFFFFFFFFFFFFF0;
-        v122.i64[1] = (v51 + 15) & 0xFFFFFFFFFFFFFFF0;
-        v123 = 1;
-        v120 = v106;
-        v121 = 1;
-        [v52 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+        MFXComputeEncoder4::setTexture(v9, *&v40[v42], 0);
+        MFXComputeEncoder4::setTexture(v9, v43, 1u);
+        v49 = [v43 width];
+        v50 = [v43 height];
+        v51 = *v9;
+        v121.i64[0] = (v49 + 15) & 0xFFFFFFFFFFFFFFF0;
+        v121.i64[1] = (v50 + 15) & 0xFFFFFFFFFFFFFFF0;
+        v122 = 1;
+        v119 = v105;
+        v120 = 1;
+        [v51 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
         [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
 
-        ++v40;
-        v39 = a1[58].u32[0];
-        --v42;
+        ++v39;
+        v38 = a1[58].u32[0];
+        --v41;
       }
 
-      while (v40 < v39);
+      while (v39 < v38);
     }
 
-    v7 = v102;
+    v7 = v101;
     [*v9 popDebugGroup];
-    a4 = v101;
+    a4 = v100;
     [*v9 pushDebugGroup:@"clear temp motion vectors"];
     [*v9 setComputePipelineState:*&a1[6]];
     MFXComputeEncoder4::setTexture(v9, *&a1[18], 0);
     MFXComputeEncoder4::setTexture(v9, *&a1[19], 1u);
-    v53 = [*&a1[18] width];
-    v54 = [*&a1[18] height];
-    v55 = *v9;
-    v122.i64[0] = v53;
-    v122.i64[1] = v54;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v55 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    v52 = [*&a1[18] width];
+    v53 = [*&a1[18] height];
+    v54 = *v9;
+    v121.i64[0] = v52;
+    v121.i64[1] = v53;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v54 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
     [*v9 pushDebugGroup:@"Splat optical motion vectors"];
@@ -2264,15 +2260,15 @@ void FrameGenImpl<MFXDevice4>::encodeTo(uint32x2_t *a1, uint64_t a2, void *a3, u
     MFXComputeEncoder4::setTexture(v9, *&a1[(1 - a1[57].i32[1]) + 26], 3u);
     MFXComputeEncoder4::setTexture(v9, *&a1[43], 4u);
     MFXComputeEncoder4::setTexture(v9, *&a1[50], 5u);
-    v56 = [*&a1[18] width];
-    v57 = [*&a1[18] height];
-    v58 = *v9;
-    v122.i64[0] = v56;
-    v122.i64[1] = v57;
-    v123 = 1;
-    v120 = vdupq_n_s64(8uLL);
-    v121 = 1;
-    [v58 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    v55 = [*&a1[18] width];
+    v56 = [*&a1[18] height];
+    v57 = *v9;
+    v121.i64[0] = v55;
+    v121.i64[1] = v56;
+    v122 = 1;
+    v119 = vdupq_n_s64(8uLL);
+    v120 = 1;
+    [v57 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
     [*v9 pushDebugGroup:@"Inpaint optical motion vectors"];
@@ -2280,264 +2276,264 @@ void FrameGenImpl<MFXDevice4>::encodeTo(uint32x2_t *a1, uint64_t a2, void *a3, u
     MFXComputeEncoder4::setTexture(v9, *&a1[55], 0);
     MFXComputeEncoder4::setTexture(v9, *&a1[18], 1u);
     MFXComputeEncoder4::setTexture(v9, *&a1[19], 2u);
-    v59 = [*&a1[55] width];
-    v60 = ([*&a1[55] height] + 15) & 0xFFFFFFFFFFFFFFF0;
-    v61 = *v9;
-    v122.i64[0] = (v59 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v122.i64[1] = v60;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v61 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    v58 = [*&a1[55] width];
+    v59 = ([*&a1[55] height] + 15) & 0xFFFFFFFFFFFFFFF0;
+    v60 = *v9;
+    v121.i64[0] = (v58 + 15) & 0xFFFFFFFFFFFFFFF0;
+    v121.i64[1] = v59;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v60 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
     [*v9 pushDebugGroup:@"clear game motion vectors"];
     [*v9 setComputePipelineState:*&a1[7]];
     MFXComputeEncoder4::setTexture(v9, *&a1[20], 0);
     MFXComputeEncoder4::setTexture(v9, *&a1[21], 1u);
-    v62 = *v9;
-    v122 = vandq_s8(vaddw_u32(vdupq_n_s64(0xFuLL), v101[11]), vdupq_n_s64(0x1FFFFFFF0uLL));
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v62 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    v61 = *v9;
+    v121 = vandq_s8(vaddw_u32(vdupq_n_s64(0xFuLL), v100[11]), vdupq_n_s64(0x1FFFFFFF0uLL));
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v61 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 popDebugGroup];
-    v63 = *v9;
-    if (v101[9].i8[3] == 1)
+    v62 = *v9;
+    if (v100[9].i8[3] == 1)
     {
-      [v63 pushDebugGroup:@"dilate depth"];
+      [v62 pushDebugGroup:@"dilate depth"];
       [*v9 setComputePipelineState:*&a1[9]];
     }
 
     else
     {
-      [v63 pushDebugGroup:@"dilate depth & motion vectors"];
+      [v62 pushDebugGroup:@"dilate depth & motion vectors"];
       [*v9 setComputePipelineState:*&a1[10]];
-      MFXComputeEncoder4::setTexture(v9, *v103, 2u);
+      MFXComputeEncoder4::setTexture(v9, *v102, 2u);
       MFXComputeEncoder4::setTexture(v9, *&a1[53], 3u);
     }
 
-    MFXComputeEncoder4::setTexture(v9, *&v101[2], 0);
-    v64 = a1 + 51;
+    MFXComputeEncoder4::setTexture(v9, *&v100[2], 0);
+    v63 = a1 + 51;
     MFXComputeEncoder4::setTexture(v9, *&a1[a1[57].u32[1] + 51], 1u);
-    v65 = *v9;
-    v66 = v101[11];
-    v67.i64[0] = v66.u32[0];
-    v67.i64[1] = v66.u32[1];
-    v122 = v67;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v65 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    v64 = *v9;
+    v65 = v100[11];
+    v66.i64[0] = v65.u32[0];
+    v66.i64[1] = v65.u32[1];
+    v121 = v66;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v64 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
     [*v9 pushDebugGroup:@"Splat game motion vectors"];
     [*v9 setComputePipelineState:*&a1[8]];
     MFXComputeEncoder4::setTexture(v9, *&a1[20], 0);
     MFXComputeEncoder4::setTexture(v9, *&a1[21], 1u);
-    MFXComputeEncoder4::setTexture(v9, v105, 2u);
-    MFXComputeEncoder4::setTexture(v9, *&v101[1], 3u);
-    v68 = &a1[53];
-    v69 = v103;
-    if (!v101[9].i8[3])
+    MFXComputeEncoder4::setTexture(v9, v104, 2u);
+    MFXComputeEncoder4::setTexture(v9, *&v100[1], 3u);
+    v67 = a1 + 53;
+    v68 = v102;
+    if (!v100[9].i8[3])
     {
-      v69 = &a1[53];
+      v68 = a1 + 53;
     }
 
-    MFXComputeEncoder4::setTexture(v9, *v69, 4u);
-    MFXComputeEncoder4::setTexture(v9, *&v64[a1[57].u32[1]], 5u);
-    MFXComputeEncoder4::setTexture(v9, *&v64[1 - a1[57].i32[1]], 6u);
-    v70 = *v9;
-    v71 = v101[11];
-    v72.i64[0] = v71.u32[0];
-    v72.i64[1] = v71.u32[1];
-    v122 = v72;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v70 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    MFXComputeEncoder4::setTexture(v9, *v68, 4u);
+    MFXComputeEncoder4::setTexture(v9, *&v63[a1[57].u32[1]], 5u);
+    MFXComputeEncoder4::setTexture(v9, *&v63[1 - a1[57].i32[1]], 6u);
+    v69 = *v9;
+    v70 = v100[11];
+    v71.i64[0] = v70.u32[0];
+    v71.i64[1] = v70.u32[1];
+    v121 = v71;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v69 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
-    v73 = v101[11].u32[0];
-    if ([*v68 width] == v73 && (v74 = v101[11].u32[1], objc_msgSend(*v68, "height") == v74))
+    v72 = v100[11].u32[0];
+    if ([*v67 width] == v72 && (v73 = v100[11].u32[1], objc_msgSend(*v67, "height") == v73))
     {
-      v75 = @"Fill cracks game motion vectors";
-      v76 = 12;
+      v74 = @"Fill cracks game motion vectors";
+      v75 = 12;
     }
 
     else
     {
-      v75 = @"Upsample game motion vectors";
-      v76 = 11;
+      v74 = @"Upsample game motion vectors";
+      v75 = 11;
     }
 
-    [*v9 pushDebugGroup:v75];
-    [*v9 setComputePipelineState:*&a1[v76]];
-    MFXComputeEncoder4::setTexture(v9, *v68, 0);
+    [*v9 pushDebugGroup:v74];
+    [*v9 setComputePipelineState:*&a1[v75]];
+    MFXComputeEncoder4::setTexture(v9, *v67, 0);
     MFXComputeEncoder4::setTexture(v9, *&a1[20], 1u);
     MFXComputeEncoder4::setTexture(v9, *&a1[21], 2u);
     MFXComputeEncoder4::setTexture(v9, *&a1[54], 3u);
-    MFXComputeEncoder4::setTexture(v9, *&v64[a1[57].u32[1]], 4u);
-    MFXComputeEncoder4::setTexture(v9, *&v64[1 - a1[57].i32[1]], 5u);
-    v77 = [*v68 width];
-    v78 = ([*v68 height] + 15) & 0xFFFFFFFFFFFFFFF0;
-    v79 = *v9;
-    v122.i64[0] = (v77 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v122.i64[1] = v78;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v79 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
+    MFXComputeEncoder4::setTexture(v9, *&v63[a1[57].u32[1]], 4u);
+    MFXComputeEncoder4::setTexture(v9, *&v63[1 - a1[57].i32[1]], 5u);
+    v76 = [*v67 width];
+    v77 = ([*v67 height] + 15) & 0xFFFFFFFFFFFFFFF0;
+    v78 = *v9;
+    v121.i64[0] = (v76 + 15) & 0xFFFFFFFFFFFFFFF0;
+    v121.i64[1] = v77;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v78 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
     [*v9 barrierAfterEncoderStages:0x8000000 beforeEncoderStages:0x8000000 visibilityOptions:1];
     [*v9 popDebugGroup];
   }
 
-  v80 = a4[7];
-  if (v80)
+  v79 = a4[7];
+  if (v79)
   {
-    [*v9 updateFence:*&v80 afterEncoderStages:0x8000000];
+    [*v9 updateFence:*&v79 afterEncoderStages:0x8000000];
   }
 
   MFXComputeEncoder4::endEncoding(v9);
-  MFXRenderEncoder4::beginEncoding((v104 + 40), v7, *&a4[4], 672, *(v104 + 24));
-  [*(v104 + 40) setLabel:@"MTLFX_Frame_Interpolation_Fragment"];
-  v81 = a1[57].u32[0];
-  if (v81 <= 1)
+  MFXRenderEncoder4::beginEncoding((v103 + 40), v7, *&a4[4], 672, *(v103 + 24));
+  [*(v103 + 40) setLabel:@"MTLFX_Frame_Interpolation_Fragment"];
+  v80 = a1[57].u32[0];
+  if (v80 <= 1)
   {
-    v82 = @"Copy image";
+    v81 = @"Copy image";
   }
 
   else
   {
-    v82 = @"Warp image";
+    v81 = @"Warp image";
   }
 
-  [*(v104 + 40) pushDebugGroup:v82];
-  v83 = a4[7];
-  if (v83)
+  [*(v103 + 40) pushDebugGroup:v81];
+  v82 = a4[7];
+  if (v82)
   {
-    [*(v104 + 40) waitForFence:*&v83 beforeEncoderStages:2];
+    [*(v103 + 40) waitForFence:*&v82 beforeEncoderStages:2];
   }
 
-  v84 = *&a4[6];
-  MFXRenderEncoder4::setTileBuffer(v104 + 40, *&a1[56], 18432, 0);
-  v85 = *(v104 + 40);
-  if (v81 <= 1)
+  v83 = *&a4[6];
+  MFXRenderEncoder4::setTileBuffer(v103 + 40, *&a1[56], 18432, 0);
+  v84 = *(v103 + 40);
+  if (v80 <= 1)
   {
-    [v85 setRenderPipelineState:*&a1[17]];
+    [v84 setRenderPipelineState:*&a1[17]];
     if (a4[9].i8[2] == 1)
     {
-      MFXRenderEncoder4::setTileTexture(v104 + 40, v105, 1u);
-      v86 = 2;
+      MFXRenderEncoder4::setTileTexture(v103 + 40, v104, 1u);
+      v85 = 2;
       goto LABEL_41;
     }
 
-    if (v84)
+    if (v83)
     {
-      v88 = v84;
+      v87 = v83;
     }
 
     else
     {
-      v88 = v105;
+      v87 = v104;
     }
 
-    MFXRenderEncoder4::setTileTexture(v104 + 40, v88, 1u);
-    v87 = 0;
-    v86 = 2;
+    MFXRenderEncoder4::setTileTexture(v103 + 40, v87, 1u);
+    v86 = 0;
+    v85 = 2;
   }
 
   else
   {
-    [v85 setRenderPipelineState:*&a1[16]];
-    MFXRenderEncoder4::setTileTexture(v104 + 40, *&a1[54], 1u);
-    MFXRenderEncoder4::setTileTexture(v104 + 40, v105, 3u);
-    MFXRenderEncoder4::setTileTexture(v104 + 40, *&a4[1], 4u);
-    MFXRenderEncoder4::setTileTexture(v104 + 40, *&a1[53], 5u);
-    MFXRenderEncoder4::setTileTexture(v104 + 40, *&a1[55], 6u);
+    [v84 setRenderPipelineState:*&a1[16]];
+    MFXRenderEncoder4::setTileTexture(v103 + 40, *&a1[54], 1u);
+    MFXRenderEncoder4::setTileTexture(v103 + 40, v104, 3u);
+    MFXRenderEncoder4::setTileTexture(v103 + 40, *&a4[1], 4u);
+    MFXRenderEncoder4::setTileTexture(v103 + 40, *&a1[53], 5u);
+    MFXRenderEncoder4::setTileTexture(v103 + 40, *&a1[55], 6u);
     if (a4[9].i8[2] == 1)
     {
-      MFXRenderEncoder4::setTileTexture(v104 + 40, 0, 7u);
-      v86 = 8;
+      MFXRenderEncoder4::setTileTexture(v103 + 40, 0, 7u);
+      v85 = 8;
 LABEL_41:
-      v87 = v84;
+      v86 = v83;
       goto LABEL_47;
     }
 
-    MFXRenderEncoder4::setTileTexture(v104 + 40, v84, 7u);
-    v87 = 0;
-    v86 = 8;
+    MFXRenderEncoder4::setTileTexture(v103 + 40, v83, 7u);
+    v86 = 0;
+    v85 = 8;
   }
 
 LABEL_47:
-  MFXRenderEncoder4::setTileTexture(v104 + 40, v87, v86);
-  v89 = *(v104 + 40);
-  v122 = vdupq_n_s64(0x20uLL);
-  v123 = 1;
-  [v89 dispatchThreadsPerTile:&v122];
-  [*(v104 + 40) popDebugGroup];
-  v90 = a4[7];
-  if (v90)
+  MFXRenderEncoder4::setTileTexture(v103 + 40, v86, v85);
+  v88 = *(v103 + 40);
+  v121 = vdupq_n_s64(0x20uLL);
+  v122 = 1;
+  [v88 dispatchThreadsPerTile:&v121];
+  [*(v103 + 40) popDebugGroup];
+  v89 = a4[7];
+  if (v89)
   {
-    [*(v104 + 40) updateFence:*&v90 afterEncoderStages:2];
+    [*(v103 + 40) updateFence:*&v89 afterEncoderStages:2];
   }
 
-  MFXComputeEncoder4::endEncoding((v104 + 40));
-  v91 = a4;
+  MFXComputeEncoder4::endEncoding((v103 + 40));
+  v90 = a4;
   if (a4[5])
   {
-    MFXComputeEncoder4::beginEncoding(*(v104 + 32), v7, *(v104 + 24));
-    v92 = *(v104 + 32);
-    v93 = v91[7];
-    if (v93)
+    MFXComputeEncoder4::beginEncoding(*(v103 + 32), v7, *(v103 + 24));
+    v91 = *(v103 + 32);
+    v92 = v90[7];
+    if (v92)
     {
-      [*v92 waitForFence:*&v93 beforeEncoderStages:0x8000000];
+      [*v91 waitForFence:*&v92 beforeEncoderStages:0x8000000];
     }
 
-    [*v92 pushDebugGroup:@"Debug output"];
-    [*v92 setComputePipelineState:*&a1[15]];
-    MFXComputeEncoder4::setTexture(v92, *&v91[5], 0);
-    MFXComputeEncoder4::setTexture(v92, *&v91[4], 1u);
-    MFXComputeEncoder4::setTexture(v92, *&v91[2], 2u);
-    MFXComputeEncoder4::setTexture(v92, *&a1[53], 3u);
-    MFXComputeEncoder4::setTexture(v92, *&a1[55], 4u);
-    v94 = [*&v91[4] width];
-    v95 = [*&v91[4] height];
-    v96 = *v92;
-    v122.i64[0] = v94;
-    v122.i64[1] = v95;
-    v123 = 1;
-    v120 = vdupq_n_s64(0x10uLL);
-    v121 = 1;
-    [v96 dispatchThreads:&v122 threadsPerThreadgroup:&v120];
-    [*v92 popDebugGroup];
-    v97 = v91[7];
-    if (v97)
+    [*v91 pushDebugGroup:@"Debug output"];
+    [*v91 setComputePipelineState:*&a1[15]];
+    MFXComputeEncoder4::setTexture(v91, *&v90[5], 0);
+    MFXComputeEncoder4::setTexture(v91, *&v90[4], 1u);
+    MFXComputeEncoder4::setTexture(v91, *&v90[2], 2u);
+    MFXComputeEncoder4::setTexture(v91, *&a1[53], 3u);
+    MFXComputeEncoder4::setTexture(v91, *&a1[55], 4u);
+    v93 = [*&v90[4] width];
+    v94 = [*&v90[4] height];
+    v95 = *v91;
+    v121.i64[0] = v93;
+    v121.i64[1] = v94;
+    v122 = 1;
+    v119 = vdupq_n_s64(0x10uLL);
+    v120 = 1;
+    [v95 dispatchThreads:&v121 threadsPerThreadgroup:&v119];
+    [*v91 popDebugGroup];
+    v96 = v90[7];
+    if (v96)
     {
-      [*v92 updateFence:*&v97 afterEncoderStages:0x8000000];
+      [*v91 updateFence:*&v96 afterEncoderStages:0x8000000];
     }
 
-    MFXComputeEncoder4::endEncoding(v92);
+    MFXComputeEncoder4::endEncoding(v91);
   }
 
-  a1[58].i32[1] = v91[9].i32[1];
-  a1[59] = v91[11];
+  a1[58].i32[1] = v90[9].i32[1];
+  a1[59] = v90[11];
   a1[57].i32[1] = 1 - a1[57].i32[1];
-  v98 = a1[43];
+  v97 = a1[43];
   a1[43] = a1[50];
-  a1[50] = v98;
-  v99 = a1[57].i32[0];
-  if ((v99 + 1) < 0x10)
+  a1[50] = v97;
+  v98 = a1[57].i32[0];
+  if ((v98 + 1) < 0x10)
   {
-    v100 = v99 + 1;
+    v99 = v98 + 1;
   }
 
   else
   {
-    v100 = 16;
+    v99 = 16;
   }
 
-  a1[57].i32[0] = v100;
+  a1[57].i32[0] = v99;
 }
 
 uint64_t FrameGenImpl<MFXDevice4>::FrameGenImpl(uint64_t a1, MFXDevice4 *a2, void *a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -2942,7 +2938,7 @@ void MPSGraphMPSGraphExecutableWrapper::~MPSGraphMPSGraphExecutableWrapper(MPSGr
 
 void getMTLFXTemporalScalerVersionOverride(char *__s1, uint64_t a2, uint64_t *a3)
 {
-  if (*__s1 == 118 && __s1[1] == 49 && !__s1[2])
+  if (__PAIR64__(__s1[1], *__s1) == 0x3100000076 && !__s1[2])
   {
     v6 = 0;
   }
@@ -2962,7 +2958,7 @@ void getMTLFXTemporalScalerVersionOverride(char *__s1, uint64_t a2, uint64_t *a3
         if (strcmp(__s1, "BRNet4"))
         {
           NSLog(&cfstr_MtlfxTemporalS_1.isa, __s1);
-          goto LABEL_12;
+          goto LABEL_11;
         }
 
         v6 = 65538;
@@ -2973,12 +2969,12 @@ void getMTLFXTemporalScalerVersionOverride(char *__s1, uint64_t a2, uint64_t *a3
   if (v6 != a2)
   {
     NSLog(&cfstr_Mtlfxtemporals.isa, __s1, a2, v6);
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_11:
   v6 = a2;
-LABEL_13:
+LABEL_12:
   *a3 = v6;
 }
 

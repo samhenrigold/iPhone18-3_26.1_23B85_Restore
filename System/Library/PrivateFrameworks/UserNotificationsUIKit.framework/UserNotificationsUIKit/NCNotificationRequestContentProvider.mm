@@ -360,12 +360,12 @@ LABEL_33:
     }
 
     v16 = MEMORY[0x277CCACA8];
-    v17 = NCUserNotificationsUIKitFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"COLLAPSED_NOTIFICATION_MESSAGE" value:&stru_282FE84F8 table:0];
+    v18 = NCUserNotificationsUIKitFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"COLLAPSED_NOTIFICATION_MESSAGE" value:&stru_282FE84F8 table:0];
     notificationRequest4 = [(NCNotificationRequestContentProvider *)self notificationRequest];
-    v20 = [v16 stringWithFormat:v18, objc_msgSend(notificationRequest4, "collapsedNotificationsCount"), defaultHeader];
+    v21 = [v16 stringWithFormat:v19, objc_msgSend(notificationRequest4, "collapsedNotificationsCount"), defaultHeader];
 
-    attributedMessage = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v20];
+    attributedMessage = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v21];
     v13 = 4;
   }
 
@@ -384,10 +384,10 @@ LABEL_33:
     v13 = 3;
   }
 
-  v23 = objc_alloc(MEMORY[0x277CCA898]);
-  v24 = [v23 nc_initWithAttributedString:attributedMessage contentType:v13];
+  v24 = objc_alloc(MEMORY[0x277CCA898]);
+  v25 = [v24 nc_initWithAttributedString:attributedMessage contentType:v13];
 
-  return v24;
+  return v25;
 }
 
 - (BOOL)isDateAllDay
@@ -406,17 +406,17 @@ LABEL_33:
 
   if (interruptionLevel == 3)
   {
-    v4 = MEMORY[0x277D26740];
-    v5 = NCUserNotificationsUIKitFrameworkBundle();
-    v6 = [v4 _visualStylingProviderForStyleSetNamed:@"notificationCritical" inBundle:v5];
+    v5 = MEMORY[0x277D26740];
+    v6 = NCUserNotificationsUIKitFrameworkBundle(v4);
+    v7 = [v5 _visualStylingProviderForStyleSetNamed:@"notificationCritical" inBundle:v6];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)footerAttributedText
@@ -435,7 +435,7 @@ LABEL_33:
   notificationRequest = [(NCNotificationRequestContentProvider *)self notificationRequest];
   if ([notificationRequest interruptionLevel] == 2)
   {
-    v3 = NCUserNotificationsUIKitFrameworkBundle();
+    v3 = NCUserNotificationsUIKitFrameworkBundle(2);
     v4 = [v3 localizedStringForKey:@"TIME_SENSITIVE_TEXT" value:&stru_282FE84F8 table:0];
     localizedUppercaseString = [v4 localizedUppercaseString];
   }
@@ -666,7 +666,7 @@ LABEL_7:
 
     v15 = objc_alloc(MEMORY[0x277CCA898]);
     v16 = MEMORY[0x277CCACA8];
-    v17 = NCUserNotificationsUIKitFrameworkBundle();
+    v17 = NCUserNotificationsUIKitFrameworkBundle(v15);
     v18 = [v17 localizedStringForKey:v13 value:&stru_282FE84F8 table:0];
     localizedUppercaseString = [v18 localizedUppercaseString];
     v20 = [v16 stringWithFormat:@" %@", localizedUppercaseString];
@@ -1153,7 +1153,9 @@ void __69__NCNotificationRequestContentProvider__actionForNotificationAction___b
   notificationRequest = [a2 notificationRequest];
   notificationIdentifier = [notificationRequest notificationIdentifier];
   un_logDigest = [notificationIdentifier un_logDigest];
-  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v7, v8, "ContentProvider: no defaultAction for %{public}@", v9, v10, v11, v12, 2u);
+  LODWORD(v13) = 138543362;
+  *(&v13 + 4) = un_logDigest;
+  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v7, v8, "ContentProvider: no defaultAction for %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 - (void)_iconImageForNotificationAction:(void *)a1 .cold.1(void *a1, void *a2)
@@ -1161,7 +1163,9 @@ void __69__NCNotificationRequestContentProvider__actionForNotificationAction___b
   v3 = a1;
   v4 = [a2 notificationRequest];
   v5 = [v4 topLevelSectionIdentifier];
-  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v6, v7, "Failed to load bundle for '%@'.", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v6, v7, "Failed to load bundle for '%@'.", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 @end

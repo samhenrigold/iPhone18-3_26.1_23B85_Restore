@@ -97,13 +97,13 @@ uint64_t __30__GTTransport_setSynchronous___block_invoke(uint64_t result)
   return result;
 }
 
-uint64_t __37__GTTransport__scheduleInvalidation___block_invoke(uint64_t result)
+id *__37__GTTransport__scheduleInvalidation___block_invoke(id *result)
 {
-  if (!*(*(result + 32) + 80))
+  if (!*(result[4] + 10))
   {
     v2 = result;
-    *(*(result + 32) + 80) = *(result + 40);
-    v3 = *(v2 + 32);
+    *(result[4] + 10) = result[5];
+    v3 = v2[4];
 
     return [v3 _invalidate];
   }
@@ -116,51 +116,50 @@ void __32__GTTransport__dispatchMessage___block_invoke(void *a1)
   v1 = a1[4];
   if ((*(v1 + 24) & 1) == 0)
   {
-    v3 = a1[5];
-    v4 = (*(*(v1 + 16) + 16))();
-    v5 = a1[4];
-    if (v4)
+    v3 = (*(*(v1 + 16) + 16))();
+    v4 = a1[4];
+    if (v3)
     {
-      v6 = *(v5 + 32);
-      if (v6)
+      v5 = *(v4 + 32);
+      if (v5)
       {
-        v7 = dispatch_time(0, v6);
-        v8 = a1[6];
-        v9 = *(v8 + 24);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __32__GTTransport__dispatchMessage___block_invoke_3;
-        v12[3] = &unk_279658AD8;
-        v12[4] = v8;
-        v12[5] = a1[7];
-        dispatch_after(v7, v9, v12);
+        v6 = dispatch_time(0, v5);
+        v7 = a1[6];
+        v8 = *(v7 + 24);
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __32__GTTransport__dispatchMessage___block_invoke_3;
+        v11[3] = &unk_279658AD8;
+        v11[4] = v7;
+        v11[5] = a1[7];
+        dispatch_after(v6, v8, v11);
       }
     }
 
     else
     {
-      *(v5 + 24) = 1;
-      v10 = a1[6];
-      v11 = *(v10 + 24);
+      *(v4 + 24) = 1;
+      v9 = a1[6];
+      v10 = *(v9 + 24);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __32__GTTransport__dispatchMessage___block_invoke_2;
       block[3] = &unk_279657D70;
-      block[4] = v10;
-      v14 = *(a1 + 14);
-      dispatch_async(v11, block);
+      block[4] = v9;
+      v13 = *(a1 + 14);
+      dispatch_async(v10, block);
     }
   }
 }
 
-uint64_t __31__GTTransport__activateSource___block_invoke(uint64_t result)
+void *__31__GTTransport__activateSource___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 52) & 1) == 0)
   {
     v2 = result;
-    result = [*(v1 + 64) addObject:*(result + 40)];
-    *(*(*(v2 + 48) + 8) + 24) = 1;
+    result = [*(v1 + 64) addObject:result[5]];
+    *(*(v2[6] + 8) + 24) = 1;
   }
 
   return result;

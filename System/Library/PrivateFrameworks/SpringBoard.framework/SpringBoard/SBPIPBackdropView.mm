@@ -19,54 +19,54 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = SBLogPIP();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = SBLogPIP();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [SBPIPBackdropView initWithFrame:];
+    [(SBPIPBackdropView *)self initWithFrame:a2];
   }
 
-  v18.receiver = self;
-  v18.super_class = SBPIPBackdropView;
-  height = [(SBPIPBackdropView *)&v18 initWithFrame:x, y, width, height];
-  v10 = height;
+  v19.receiver = self;
+  v19.super_class = SBPIPBackdropView;
+  height = [(SBPIPBackdropView *)&v19 initWithFrame:x, y, width, height];
+  v11 = height;
   if (height)
   {
     animatedLayerProperties = height->_animatedLayerProperties;
     height->_animatedLayerProperties = &unk_28336DEA8;
 
-    v12 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
-    [v12 setName:@"gaussianBlur"];
-    [v12 setValue:&unk_28336F200 forKey:@"inputRadius"];
-    v13 = MEMORY[0x277CBEC38];
-    [v12 setValue:MEMORY[0x277CBEC38] forKey:@"inputNormalizeEdges"];
-    [v12 setValue:v13 forKey:@"inputHardEdges"];
-    gaussianBlurFilter = v10->_gaussianBlurFilter;
-    v10->_gaussianBlurFilter = v12;
-    v15 = v12;
+    v13 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
+    [v13 setName:@"gaussianBlur"];
+    [v13 setValue:&unk_28336F200 forKey:@"inputRadius"];
+    v14 = MEMORY[0x277CBEC38];
+    [v13 setValue:MEMORY[0x277CBEC38] forKey:@"inputNormalizeEdges"];
+    [v13 setValue:v14 forKey:@"inputHardEdges"];
+    gaussianBlurFilter = v11->_gaussianBlurFilter;
+    v11->_gaussianBlurFilter = v13;
+    v16 = v13;
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v10 selector:sel__updateFilters name:*MEMORY[0x277D764C8] object:0];
+    [defaultCenter addObserver:v11 selector:sel__updateFilters name:*MEMORY[0x277D764C8] object:0];
 
-    [(SBPIPBackdropView *)v10 _updateFilters];
+    [(SBPIPBackdropView *)v11 _updateFilters];
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)dealloc
 {
-  v3 = SBLogPIP();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = SBLogPIP();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [SBPIPBackdropView initWithFrame:];
+    [(SBPIPBackdropView *)self initWithFrame:a2];
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v5.receiver = self;
-  v5.super_class = SBPIPBackdropView;
-  [(SBPIPBackdropView *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = SBPIPBackdropView;
+  [(SBPIPBackdropView *)&v6 dealloc];
 }
 
 - (void)_updateFilters
@@ -147,7 +147,7 @@
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([(NSArray *)self->_animatedLayerProperties containsObject:keyCopy])
+  if (objc_msgSend_containsObject_(self->_animatedLayerProperties))
   {
     v5 = 1;
   }
@@ -162,10 +162,12 @@
   return v5;
 }
 
-- (void)initWithFrame:.cold.1()
+- (void)initWithFrame:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = _SBFLoggingMethodProem();
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v1, v2, "%@", v3, v4, v5, v6, 2u);
+  v2 = _SBFLoggingMethodProem();
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v3, v4, "%@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

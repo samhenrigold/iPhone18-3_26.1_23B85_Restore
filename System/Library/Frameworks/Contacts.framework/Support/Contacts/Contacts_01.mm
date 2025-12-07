@@ -1,66 +1,3 @@
-__n128 sub_100013E50(__n128 *a1, __n128 *a2)
-{
-  result = *a2;
-  a1[1].n128_u8[0] = a2[1].n128_u8[0];
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_100013E64(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 17))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 16);
-  if (v3 <= 1)
-  {
-    v4 = -1;
-  }
-
-  else
-  {
-    v4 = v3 ^ 0xFF;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t sub_100013EAC(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 16) = 0;
-    *result = a2 - 255;
-    *(result + 8) = 0;
-    if (a3 >= 0xFF)
-    {
-      *(result + 17) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 17) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 16) = -a2;
-    }
-  }
-
-  return result;
-}
-
 __n128 sub_100013F18(uint64_t a1, uint64_t a2)
 {
   result = *a2;
@@ -448,33 +385,30 @@ unint64_t sub_1000145D0(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uin
   sub_10000E070();
   inited = swift_initStackObject();
   *(inited + 32) = sub_100008CA8(0, &qword_1000215D8, CNContactImageManagedObject_ptr);
-  v33 = inited + 32;
   *(inited + 40) = sub_100008CA8(0, &qword_1000215E0, CNContactPosterManagedObject_ptr);
   sub_100008CA8(0, &qword_1000215B0, NSPredicate_ptr);
-  v10 = 0;
   for (i = 0; ; i = 1)
   {
-    v12 = v10;
-    v13 = *(v33 + 8 * i);
-    v14 = [swift_getObjCClassFromMetadata() entityName];
-    if (!v14)
+    v11 = i;
+    v12 = [swift_getObjCClassFromMetadata() entityName];
+    if (!v12)
     {
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v14 = String._bridgeToObjectiveC()();
+      v12 = String._bridgeToObjectiveC()();
     }
 
-    v15 = [objc_allocWithZone(NSFetchRequest) initWithEntityName:v14];
+    v13 = [objc_allocWithZone(NSFetchRequest) initWithEntityName:v12];
 
     sub_1000025B0(&qword_1000215B8, &qword_100019250);
-    v16 = swift_allocObject();
-    *(v16 + 16) = xmmword_1000189B0;
-    *(v16 + 56) = &type metadata for String;
-    *(v16 + 64) = sub_100015678();
-    *(v16 + 32) = a5;
-    *(v16 + 40) = a6;
+    v14 = swift_allocObject();
+    *(v14 + 16) = xmmword_1000189B0;
+    *(v14 + 56) = &type metadata for String;
+    *(v14 + 64) = sub_100015678();
+    *(v14 + 32) = a5;
+    *(v14 + 40) = a6;
 
-    v17 = NSPredicate.init(format:_:)();
-    [v15 setPredicate:v17];
+    v15 = NSPredicate.init(format:_:)();
+    [v13 setPredicate:v15];
 
     sub_100008CA8(0, &qword_1000215E8, CNContactPosterDataManagedItem_ptr);
     result = NSManagedObjectContext.fetch<A>(_:)();
@@ -484,76 +418,75 @@ unint64_t sub_1000145D0(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uin
       return swift_setDeallocating();
     }
 
-    v19 = result;
-    v37 = v12;
-    v36 = v15;
+    v17 = result;
+    v34 = v11;
+    v33 = v13;
     if (result >> 62)
     {
       break;
     }
 
-    v20 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v20)
+    v18 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v18)
     {
       goto LABEL_9;
     }
 
 LABEL_3:
 
-    v10 = 1;
     v8 = 0;
-    if (v37)
+    if (v34)
     {
       return swift_setDeallocating();
     }
   }
 
   result = _CocoaArrayWrapper.endIndex.getter();
-  v20 = result;
+  v18 = result;
   if (!result)
   {
     goto LABEL_3;
   }
 
 LABEL_9:
-  if (v20 >= 1)
+  if (v18 >= 1)
   {
-    v21 = 0;
+    v19 = 0;
     do
     {
-      if ((v19 & 0xC000000000000001) != 0)
+      if ((v17 & 0xC000000000000001) != 0)
       {
-        v23 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v21 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v23 = *(v19 + 8 * v21 + 32);
+        v21 = *(v17 + 8 * v19 + 32);
       }
 
-      v24 = v23;
-      v25 = [v23 pairedItem];
-      if (v25 && (v26 = v25, v27 = [v25 externalDetails], v26, v27))
+      v22 = v21;
+      v23 = [v21 pairedItem];
+      if (v23 && (v24 = v23, v25 = [v23 externalDetails], v24, v25))
       {
-        v22 = v27;
-        [v24 setExternalDetails:v22];
+        v20 = v25;
+        [v22 setExternalDetails:v20];
       }
 
       else
       {
-        v28 = [objc_opt_self() entityName];
-        if (!v28)
+        v26 = [objc_opt_self() entityName];
+        if (!v26)
         {
           static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v28 = String._bridgeToObjectiveC()();
+          v26 = String._bridgeToObjectiveC()();
         }
 
-        v29 = [objc_opt_self() insertNewObjectForEntityForName:v28 inManagedObjectContext:a7];
+        v27 = [objc_opt_self() insertNewObjectForEntityForName:v26 inManagedObjectContext:a7];
 
         objc_opt_self();
-        v30 = swift_dynamicCastObjCClassUnconditional();
-        v31 = String._bridgeToObjectiveC()();
-        [v30 setExternalUUID:v31];
+        v28 = swift_dynamicCastObjCClassUnconditional();
+        v29 = String._bridgeToObjectiveC()();
+        [v28 setExternalUUID:v29];
 
         isa = 0;
         if (a4 >> 60 != 15)
@@ -561,16 +494,16 @@ LABEL_9:
           isa = Data._bridgeToObjectiveC()().super.isa;
         }
 
-        [v30 setFallbackDetailsForExchange:isa];
+        [v28 setFallbackDetailsForExchange:isa];
 
-        v22 = v29;
-        [v24 setExternalDetails:v30];
+        v20 = v27;
+        [v22 setExternalDetails:v28];
       }
 
-      ++v21;
+      ++v19;
     }
 
-    while (v20 != v21);
+    while (v18 != v19);
     goto LABEL_3;
   }
 
@@ -701,7 +634,6 @@ LABEL_28:
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
       if (*((*v4 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v26 = *((*v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -1007,12 +939,11 @@ unint64_t sub_100015474()
 
 uint64_t sub_1000154C8()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
-  if (v2 >> 60 != 15)
+  v1 = *(v0 + 40);
+  if (v1 >> 60 != 15)
   {
-    sub_100008984(v0[4], v2);
+    sub_100008984(*(v0 + 32), v1);
   }
 
   return _swift_deallocObject(v0, 48, 7);
@@ -1025,7 +956,7 @@ uint64_t sub_100015518(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
   return a2;
 }
 
-uint64_t sub_100015580(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100015580(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1064,18 +995,12 @@ unint64_t sub_100015678()
 
 uint64_t sub_1000156CC()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
 
 uint64_t sub_100015704()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -1089,14 +1014,11 @@ uint64_t sub_100015758(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100015770()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
-uint64_t sub_1000157E0(void *a1)
+uint64_t sub_1000157E0(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -1108,13 +1030,6 @@ uint64_t sub_1000157E0(void *a1)
   {
     return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
   }
-}
-
-unint64_t sub_100015838()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return sub_1000099D8();
 }
 
 uint64_t getEnumTagSinglePayload for CleanupError(unsigned int *a1, int a2)
@@ -1248,35 +1163,42 @@ void sub_100015A6C(uint64_t *a1, NSObject *a2)
 
 void sub_100015AE8()
 {
-  v0 = *__error();
+  __error();
   sub_100001868();
-  sub_100001848(&_mh_execute_header, v1, v2, "failed to resolve cache directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to resolve cache directory: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_100015B64()
 {
-  v0 = *__error();
+  __error();
   sub_100001868();
-  sub_100001848(&_mh_execute_header, v1, v2, "failed to initialize cache directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to initialize cache directory: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_100015BE0()
 {
-  v0 = *__error();
+  __error();
   sub_100001868();
-  sub_100001848(&_mh_execute_header, v1, v2, "failed to resolve temporary directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to resolve temporary directory: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_100015C5C()
 {
-  v0 = *__error();
+  __error();
   sub_100001868();
-  sub_100001848(&_mh_execute_header, v1, v2, "failed to initialize temporary directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %{darwin.errno}d", v2, v3, v4, v5);
 }
 
 void sub_100015CD8()
 {
-  v0 = *__error();
+  __error();
   sub_100001868();
-  sub_100001848(&_mh_execute_header, v1, v2, "failed to resolve user's home directory: %{darwin.errno}d", v3, v4, v5, v6, v7);
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to resolve user's home directory: %{darwin.errno}d", v2, v3, v4, v5);
+}
+
+void sub_100015D54()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = getuid();
+  sub_100001848(&_mh_execute_header, v0, v1, "failed to get passwd entry for uid %u", v2, v3, v4, v5, v6);
 }

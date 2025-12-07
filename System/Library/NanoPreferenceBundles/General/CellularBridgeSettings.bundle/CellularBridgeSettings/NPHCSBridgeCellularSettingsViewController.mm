@@ -40,6 +40,7 @@
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -77,6 +78,23 @@
   [(NPHCSBridgeCellularSettingsViewController *)self _checkForUpdatedCarrierBundle];
   [(NPHCSBridgeCellularSettingsViewController *)self _displaySoftwareUpdateAlertIfNeeded];
   [(NPHCSBridgeCellularSettingsViewController *)self _updateCellularDataUsageItems];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = NPHCSBridgeCellularSettingsViewController;
+  [(NPHCSBridgeCellularSettingsViewController *)&v10 viewWillAppear:appear];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"CELLULAR" table:@"Settings" locale:v5 bundleURL:bundleURL];
+
+  v9 = [NSURL URLWithString:@"bridge:root=CELLULAR_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"CELLULAR_ID" title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v9];
+
+  [(NPHCSBridgeCellularSettingsViewController *)self _updateTableView];
 }
 
 - (void)willMoveToParentViewController:(id)controller
@@ -187,16 +205,17 @@
   v9 = [sections objectAtIndexedSubscript:{objc_msgSend(pathCopy, "section")}];
   v10 = [v9 objectForKeyedSubscript:@"key"];
 
-  if ([v10 isEqualToString:@"activeCellularPlansSection"])
+  v11 = [v10 isEqualToString:@"activeCellularPlansSection"];
+  if (v11)
   {
-    v11 = nph_general_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = nph_general_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 136315394;
-      v30 = "[NPHCSBridgeCellularSettingsViewController tableView:cellForRowAtIndexPath:]";
-      v31 = 1024;
+      v30 = 136315394;
+      v31 = "[NPHCSBridgeCellularSettingsViewController tableView:cellForRowAtIndexPath:]";
+      v32 = 1024;
       receivedRemotePlanInfo = [(NPHCSBridgeCellularSettingsViewController *)self receivedRemotePlanInfo];
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%s -- receivedRemotePlanInfo:%d", &v29, 0x12u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%s -- receivedRemotePlanInfo:%d", &v30, 0x12u);
     }
 
     if ([(NPHCSBridgeCellularSettingsViewController *)self receivedRemotePlanInfo])
@@ -204,16 +223,16 @@
       activeCellularPlans = [(NPHCSBridgeCellularSettingsViewController *)self activeCellularPlans];
       if ([activeCellularPlans count])
       {
-        v13 = [pathCopy row];
+        v14 = [pathCopy row];
         activeCellularPlans2 = [(NPHCSBridgeCellularSettingsViewController *)self activeCellularPlans];
-        v15 = [activeCellularPlans2 count];
+        v16 = [activeCellularPlans2 count];
 
-        if (v13 < v15)
+        if (v14 < v16)
         {
           activeCellularPlans3 = [(NPHCSBridgeCellularSettingsViewController *)self activeCellularPlans];
-          v17 = [activeCellularPlans3 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+          v18 = [activeCellularPlans3 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
           activeCellularPlans4 = [(NPHCSBridgeCellularSettingsViewController *)self activeCellularPlans];
-          v19 = +[NPHCSCellularPlanCell cellForTableView:reuseIdentifier:cellularPlanItem:hasMultipleActiveSIM:](NPHCSCellularPlanCell, "cellForTableView:reuseIdentifier:cellularPlanItem:hasMultipleActiveSIM:", viewCopy, @"CellularPlanCellIdentifier", v17, [activeCellularPlans4 count] > 1);
+          v20 = +[NPHCSCellularPlanCell cellForTableView:reuseIdentifier:cellularPlanItem:hasMultipleActiveSIM:](NPHCSCellularPlanCell, "cellForTableView:reuseIdentifier:cellularPlanItem:hasMultipleActiveSIM:", viewCopy, @"CellularPlanCellIdentifier", v18, [activeCellularPlans4 count] > 1);
 
 LABEL_10:
           goto LABEL_21;
@@ -238,29 +257,29 @@ LABEL_10:
   if ([v10 isEqualToString:@"inactiveCellularPlansSection"])
   {
     activeCellularPlans3 = [(NPHCSBridgeCellularSettingsViewController *)self inactiveCellularPlans];
-    v17 = [activeCellularPlans3 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
-    v19 = [NPHCSCellularPlanCell cellForTableView:viewCopy reuseIdentifier:@"CellularPlanCellIdentifier" cellularPlanItem:v17 hasMultipleActiveSIM:0];
+    v18 = [activeCellularPlans3 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+    v20 = [NPHCSCellularPlanCell cellForTableView:viewCopy reuseIdentifier:@"CellularPlanCellIdentifier" cellularPlanItem:v18 hasMultipleActiveSIM:0];
     goto LABEL_10;
   }
 
   if ([v10 isEqualToString:@"appsDataUsageSection"])
   {
     appsDataUsageArray = [(NPHCSBridgeCellularSettingsViewController *)self appsDataUsageArray];
-    v22 = [appsDataUsageArray objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+    v23 = [appsDataUsageArray objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
 
-    isForAnApp = [v22 isForAnApp];
-    v24 = @"CellularDataUsageDisclosureCell";
+    isForAnApp = [v23 isForAnApp];
+    v25 = @"CellularDataUsageDisclosureCell";
     if (isForAnApp)
     {
-      v24 = @"CellularDataUsageCell";
+      v25 = @"CellularDataUsageCell";
     }
 
-    v25 = v24;
-    v26 = +[NPHCellularBridgeUIManager sharedInstance];
-    v19 = +[NPHCSAppCellularDataUsageCell cellForTableView:reuseIdentifier:appDataUsageItem:isCellularSetup:](NPHCSAppCellularDataUsageCell, "cellForTableView:reuseIdentifier:appDataUsageItem:isCellularSetup:", viewCopy, v25, v22, [v26 cellularPlanIsSetUp]);
+    v26 = v25;
+    v27 = +[NPHCellularBridgeUIManager sharedInstance];
+    v20 = +[NPHCSAppCellularDataUsageCell cellForTableView:reuseIdentifier:appDataUsageItem:isCellularSetup:](NPHCSAppCellularDataUsageCell, "cellForTableView:reuseIdentifier:appDataUsageItem:isCellularSetup:", viewCopy, v26, v23, [v27 cellularPlanIsSetUp]);
 
 LABEL_21:
-    if (v19)
+    if (v20)
     {
       goto LABEL_25;
     }
@@ -268,25 +287,26 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if ([v10 isEqualToString:@"resetDataUsageSection"])
+  _setUpCellularPlanCell = [v10 isEqualToString:@"resetDataUsageSection"];
+  if (_setUpCellularPlanCell)
   {
     _setUpCellularPlanCell = [(NPHCSBridgeCellularSettingsViewController *)self _resetStatisticsCell];
 LABEL_20:
-    v19 = _setUpCellularPlanCell;
+    v20 = _setUpCellularPlanCell;
     goto LABEL_21;
   }
 
 LABEL_22:
-  v27 = nph_general_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = nph_general_log(_setUpCellularPlanCell);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     sub_E134();
   }
 
-  v19 = objc_alloc_init(UITableViewCell);
+  v20 = objc_alloc_init(UITableViewCell);
 LABEL_25:
 
-  return v19;
+  return v20;
 }
 
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section
@@ -415,7 +435,7 @@ LABEL_15:
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path
 {
   pathCopy = path;
-  v6 = nph_general_log();
+  v6 = nph_general_log(pathCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -518,7 +538,7 @@ LABEL_9:
 
 - (void)_checkForUpdatedCarrierBundle
 {
-  if (CTSUServerConnectionRef())
+  if (CTSUServerConnectionRef(self, a2))
   {
 
     __CTServerConnectionGetUpdatedCarrierBundle();
@@ -541,22 +561,23 @@ LABEL_9:
 - (void)_switchToCellularPlanItem:(id)item
 {
   itemCopy = item;
-  if ([itemCopy isSelectable] && (objc_msgSend(itemCopy, "isSelected") & 1) == 0)
+  isSelectable = [itemCopy isSelectable];
+  if (isSelectable && (isSelectable = [itemCopy isSelected], (isSelectable & 1) == 0))
   {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_8C38;
-    v6[3] = &unk_1CAB8;
-    v7 = itemCopy;
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_8C38;
+    v7[3] = &unk_1CAB8;
+    v8 = itemCopy;
     selfCopy = self;
-    nph_ensure_on_main_queue(v6);
-    v5 = v7;
+    nph_ensure_on_main_queue(v7);
+    v6 = v8;
   }
 
   else
   {
-    v5 = nph_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = nph_general_log(isSelectable);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_E174();
     }
@@ -571,16 +592,16 @@ LABEL_9:
   plan = [selectedCellularPlan plan];
   status = [plan status];
 
-  v7 = nph_general_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = nph_general_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[NPHCSBridgeCellularSettingsViewController _promptUserForConsentIfNecessary]";
-    v10 = 1024;
-    v11 = status == 7;
-    v12 = 1024;
+    v9 = 136315650;
+    v10 = "[NPHCSBridgeCellularSettingsViewController _promptUserForConsentIfNecessary]";
+    v11 = 1024;
+    v12 = status == 7;
+    v13 = 1024;
     promptingUserForConsent = [(NPHCSBridgeCellularSettingsViewController *)self promptingUserForConsent];
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%s consentRequired:%d promptingUserForConsent:%d", &v8, 0x18u);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%s consentRequired:%d promptingUserForConsent:%d", &v9, 0x18u);
   }
 
   if (status == 7 && ![(NPHCSBridgeCellularSettingsViewController *)self promptingUserForConsent])
@@ -614,8 +635,7 @@ LABEL_9:
 
   if (v9)
   {
-    [(NPHCSBridgeCellularSettingsViewController *)self setPromptingUserForConsent:1];
-    v10 = nph_general_log();
+    v10 = nph_general_log([(NPHCSBridgeCellularSettingsViewController *)self setPromptingUserForConsent:1]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -659,7 +679,7 @@ LABEL_9:
 - (void)presentError:(id)error
 {
   errorCopy = error;
-  v5 = nph_general_log();
+  v5 = nph_general_log(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315394;
@@ -708,7 +728,7 @@ LABEL_12:
 {
   titleCopy = title;
   messageCopy = message;
-  v8 = nph_general_log();
+  v8 = nph_general_log(messageCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 136315650;
@@ -748,8 +768,8 @@ LABEL_12:
     if ((cellularPlanIsSetUp & 1) == 0)
     {
       v9 = [NSError NPHCellularErrorWithCode:4 forSubscriptionContext:0];
-      v29 = v9;
-      v10 = &v29;
+      v30 = v9;
+      v10 = &v30;
       goto LABEL_6;
     }
 
@@ -759,8 +779,8 @@ LABEL_12:
     if (lTEMayImpactService)
     {
       v9 = [NSError NPHCellularErrorWithCode:5 forSubscriptionContext:0];
-      v28 = v9;
-      v10 = &v28;
+      v29 = v9;
+      v10 = &v29;
 LABEL_6:
       v11 = [NSArray arrayWithObjects:v10 count:1];
 
@@ -790,14 +810,14 @@ LABEL_6:
   v20 = [NSSet setWithArray:cellularUseErrors];
   allObjects = [v20 allObjects];
 
-  v22 = nph_general_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = nph_general_log(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315394;
-    v25 = "[NPHCSBridgeCellularSettingsViewController _errorsForFooterMessage]";
-    v26 = 2112;
-    v27 = allObjects;
-    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "%s - cellularUseErrors:%@", &v24, 0x16u);
+    v25 = 136315394;
+    v26 = "[NPHCSBridgeCellularSettingsViewController _errorsForFooterMessage]";
+    v27 = 2112;
+    v28 = allObjects;
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "%s - cellularUseErrors:%@", &v25, 0x16u);
   }
 
   return allObjects;
@@ -904,7 +924,7 @@ LABEL_6:
 
 - (void)_setUpPlan
 {
-  v3 = nph_general_log();
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -920,29 +940,29 @@ LABEL_6:
 
 - (void)_clearStats
 {
-  v12 = kCTCellularUsageDeviceID;
-  v13 = kCTCellularUsageRemoteDevice;
-  v2 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  CTSUServerConnectionRef();
-  v3 = CTSUServerQueue();
-  v4 = _CTServerConnectionEraseCellularDataUsageRecordsEx();
+  v15 = kCTCellularUsageDeviceID;
+  v16 = kCTCellularUsageRemoteDevice;
+  v2 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v4 = CTSUServerConnectionRef(v2, v3);
+  v5 = CTSUServerQueue(v4);
+  v6 = _CTServerConnectionEraseCellularDataUsageRecordsEx();
 
-  v5 = nph_general_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v8 = nph_general_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v7 = "[NPHCSBridgeCellularSettingsViewController _clearStats]";
-    v8 = 1024;
-    v9 = v4;
-    v10 = 1024;
-    v11 = HIDWORD(v4);
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%s: domain: %d, error: %d", buf, 0x18u);
+    v10 = "[NPHCSBridgeCellularSettingsViewController _clearStats]";
+    v11 = 1024;
+    v12 = v6;
+    v13 = 1024;
+    v14 = HIDWORD(v6);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%s: domain: %d, error: %d", buf, 0x18u);
   }
 }
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v4 = nph_general_log();
+  v4 = nph_general_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -998,58 +1018,58 @@ LABEL_6:
 
   if (v12)
   {
-    v13 = nph_general_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = nph_general_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       plan2 = [itemCopy plan];
       accountURL2 = [plan2 accountURL];
       *buf = 138412290;
-      v40 = accountURL2;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "manage plan URL:%@", buf, 0xCu);
+      v41 = accountURL2;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "manage plan URL:%@", buf, 0xCu);
     }
 
-    v16 = [NSBundle bundleForClass:objc_opt_class()];
-    v17 = [v16 localizedStringForKey:@"MANAGE_PLAN_ACTION" value:&stru_1CD90 table:0];
-    v18 = [NSString stringWithFormat:v17, name];
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_ACCC;
-    v36[3] = &unk_1CB30;
-    v37 = itemCopy;
+    v17 = [NSBundle bundleForClass:objc_opt_class()];
+    v18 = [v17 localizedStringForKey:@"MANAGE_PLAN_ACTION" value:&stru_1CD90 table:0];
+    v19 = [NSString stringWithFormat:v18, name];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_ACCC;
+    v37[3] = &unk_1CB30;
+    v38 = itemCopy;
     selfCopy2 = self;
-    v19 = [UIAlertAction actionWithTitle:v18 style:0 handler:v36];
+    v20 = [UIAlertAction actionWithTitle:v19 style:0 handler:v37];
 
-    [v9 addAction:v19];
+    [v9 addAction:v20];
   }
 
-  v20 = @"REMOVE_PLAN_ACTION";
+  v21 = @"REMOVE_PLAN_ACTION";
   if (v8)
   {
-    v20 = @"REMOVE_MULTILE_PLANS_ACTION";
+    v21 = @"REMOVE_MULTILE_PLANS_ACTION";
   }
 
-  v30 = v8;
-  v21 = v20;
-  v22 = [NSBundle bundleForClass:objc_opt_class()];
-  v23 = [v22 localizedStringForKey:v21 value:&stru_1CD90 table:0];
+  v31 = v8;
+  v22 = v21;
+  v23 = [NSBundle bundleForClass:objc_opt_class()];
+  v24 = [v23 localizedStringForKey:v22 value:&stru_1CD90 table:0];
 
-  v24 = [NSString stringWithFormat:v23, name];
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_AEC4;
-  v33[3] = &unk_1CC38;
-  v33[4] = self;
-  v34 = itemCopy;
-  v35 = v30;
-  v25 = itemCopy;
-  v26 = [UIAlertAction actionWithTitle:v24 style:2 handler:v33];
+  v25 = [NSString stringWithFormat:v24, name];
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_AEC4;
+  v34[3] = &unk_1CC38;
+  v34[4] = self;
+  v35 = itemCopy;
+  v36 = v31;
+  v26 = itemCopy;
+  v27 = [UIAlertAction actionWithTitle:v25 style:2 handler:v34];
 
-  [v9 addAction:v26];
-  v27 = [NSBundle bundleForClass:objc_opt_class()];
-  v28 = [v27 localizedStringForKey:@"MANAGE_OR_REMOVE_PLAN_CANCEL" value:&stru_1CD90 table:0];
-  v29 = [UIAlertAction actionWithTitle:v28 style:1 handler:0];
+  [v9 addAction:v27];
+  v28 = [NSBundle bundleForClass:objc_opt_class()];
+  v29 = [v28 localizedStringForKey:@"MANAGE_OR_REMOVE_PLAN_CANCEL" value:&stru_1CD90 table:0];
+  v30 = [UIAlertAction actionWithTitle:v29 style:1 handler:0];
 
-  [v9 addAction:v29];
+  [v9 addAction:v30];
   [(NPHCSBridgeCellularSettingsViewController *)selfCopy presentViewController:v9 animated:1 completion:0];
 }
 
@@ -1057,7 +1077,7 @@ LABEL_6:
 {
   planCopy = plan;
   removalCopy = removal;
-  v7 = nph_general_log();
+  v7 = nph_general_log(removalCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -1118,7 +1138,7 @@ LABEL_6:
 - (void)_removePlan:(id)plan
 {
   planCopy = plan;
-  v5 = nph_general_log();
+  v5 = nph_general_log(planCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1153,7 +1173,7 @@ LABEL_6:
 
 - (void)_getTinkerDeviceAssertion
 {
-  v3 = nph_general_log();
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1184,7 +1204,7 @@ LABEL_6:
 
 - (void)_removeTinkerDeviceAssertion
 {
-  v3 = nph_general_log();
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -1208,7 +1228,7 @@ LABEL_6:
 
 - (void)_extendBackgroundAssertion
 {
-  v3 = nph_general_log();
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -1229,26 +1249,27 @@ LABEL_6:
 
 - (void)_expireTaskAssertion:(id)assertion
 {
-  v4 = nph_general_log();
+  v4 = nph_general_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[NPHCSBridgeCellularSettingsViewController _expireTaskAssertion:]";
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s Released Background Assertion due to a timeout.", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = "[NPHCSBridgeCellularSettingsViewController _expireTaskAssertion:]";
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s Released Background Assertion due to a timeout.", &v8, 0xCu);
   }
 
-  if ([(NPHCSBridgeCellularSettingsViewController *)self tinkerCellularSetUpBackgroundTaskID]!= UIBackgroundTaskInvalid)
+  tinkerCellularSetUpBackgroundTaskID = [(NPHCSBridgeCellularSettingsViewController *)self tinkerCellularSetUpBackgroundTaskID];
+  if (tinkerCellularSetUpBackgroundTaskID != UIBackgroundTaskInvalid)
   {
-    v5 = nph_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = nph_general_log(tinkerCellularSetUpBackgroundTaskID);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[NPHCSBridgeCellularSettingsViewController _expireTaskAssertion:]";
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%s Setup Background Assertion Expired", &v7, 0xCu);
+      v8 = 136315138;
+      v9 = "[NPHCSBridgeCellularSettingsViewController _expireTaskAssertion:]";
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%s Setup Background Assertion Expired", &v8, 0xCu);
     }
 
-    v6 = +[UIApplication sharedApplication];
-    [v6 endBackgroundTask:{-[NPHCSBridgeCellularSettingsViewController tinkerCellularSetUpBackgroundTaskID](self, "tinkerCellularSetUpBackgroundTaskID")}];
+    v7 = +[UIApplication sharedApplication];
+    [v7 endBackgroundTask:{-[NPHCSBridgeCellularSettingsViewController tinkerCellularSetUpBackgroundTaskID](self, "tinkerCellularSetUpBackgroundTaskID")}];
 
     [(NPHCSBridgeCellularSettingsViewController *)self setTinkerCellularSetUpBackgroundTaskID:UIBackgroundTaskInvalid];
   }

@@ -14,7 +14,7 @@ uint64_t __34__NSSet_IC__ic_objectPassingTest___block_invoke(uint64_t a1, uint64
   return result;
 }
 
-uint64_t __48__NSSet_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__48__NSSet_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) evaluateWithObject:a2];
   if (result)

@@ -14,18 +14,19 @@
 
 - (SCNSliderConstraint)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNSliderConstraint;
-  v2 = [(SCNConstraint *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNSliderConstraint;
+  v2 = [(SCNConstraint *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    Slider = C3DConstraintCreateSlider();
-    v2->_categoryBitMask = 0;
-    v2->super._constraintRef = Slider;
-    v2->_radius = 1.0;
+    Slider = C3DConstraintCreateSlider(v2, v3);
+    v4->_categoryBitMask = 0;
+    v4->super._constraintRef = Slider;
+    v4->_radius = 1.0;
   }
 
-  return v2;
+  return v4;
 }
 
 + (SCNSliderConstraint)sliderConstraint
@@ -74,10 +75,10 @@
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"radius" applyBlock:v7];
 }
 
-float __33__SCNSliderConstraint_setRadius___block_invoke(uint64_t a1)
+float __33__SCNSliderConstraint_setRadius___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DConstaintSliderSetRadius(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DConstaintSliderSetRadius(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -104,14 +105,14 @@ float __33__SCNSliderConstraint_setRadius___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"offset" applyBlock:v5];
 }
 
-double __33__SCNSliderConstraint_setOffset___block_invoke(uint64_t a1, __n128 a2)
+double __33__SCNSliderConstraint_setOffset___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 32);
-  v3 = v2[1];
-  v2 += 8;
-  a2.n128_u64[0] = *v2;
-  a2.n128_u32[2] = *(v2 + 2);
-  *&result = C3DConstaintSliderSetOffset(v3, a2).n128_u64[0];
+  v3 = *(a1 + 32);
+  v4 = v3[1];
+  v3 += 8;
+  a3.n128_u64[0] = *v3;
+  a3.n128_u32[2] = *(v3 + 2);
+  *&result = C3DConstaintSliderSetOffset(v4, a2, a3).n128_u64[0];
   return result;
 }
 
@@ -128,20 +129,20 @@ double __33__SCNSliderConstraint_setOffset___block_invoke(uint64_t a1, __n128 a2
 
 - (SCNSliderConstraint)initWithCoder:(id)coder
 {
-  v9.receiver = self;
-  v9.super_class = SCNSliderConstraint;
-  v4 = [(SCNConstraint *)&v9 initWithCoder:?];
+  v11.receiver = self;
+  v11.super_class = SCNSliderConstraint;
+  v4 = [(SCNConstraint *)&v11 initWithCoder:?];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
-    [SCNTransaction setImmediateMode:1];
-    v4->super._constraintRef = C3DConstraintCreateSlider();
+    v6 = [SCNTransaction setImmediateMode:1];
+    v4->super._constraintRef = C3DConstraintCreateSlider(v6, v7);
     [(SCNConstraint *)v4 finalizeDecodeConstraint:coder];
     -[SCNSliderConstraint setCollisionCategoryBitMask:](v4, "setCollisionCategoryBitMask:", [coder decodeIntegerForKey:@"collisionCategoryBitMask"]);
     [coder decodeFloatForKey:@"radius"];
-    [(SCNSliderConstraint *)v4 setRadius:v6];
-    *&v7 = SCNDecodeVector3(coder, @"offset");
-    [(SCNSliderConstraint *)v4 setOffset:v7];
+    [(SCNSliderConstraint *)v4 setRadius:v8];
+    *&v9 = SCNDecodeVector3(coder, @"offset");
+    [(SCNSliderConstraint *)v4 setOffset:v9];
     [SCNTransaction setImmediateMode:v5];
   }
 

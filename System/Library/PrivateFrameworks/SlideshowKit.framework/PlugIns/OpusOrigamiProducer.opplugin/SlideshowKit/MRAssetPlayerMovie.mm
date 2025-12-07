@@ -221,7 +221,7 @@
   v23 = 0u;
   if (track)
   {
-    [track preferredTransform];
+    objc_msgSend_preferredTransform(track, a2);
   }
 
   if (self->_startTime <= 0.0)
@@ -250,7 +250,7 @@
   memset(&v21, 0, 24);
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   v12 = [AVPlayerItem playerItemWithAsset:assetCopy];
@@ -258,7 +258,7 @@
   if (v12)
   {
     memset(&start, 0, sizeof(start));
-    [(AVPlayerItem *)v12 duration];
+    objc_msgSend_duration(v12);
     if ((start.flags & 1) != 0 && (start.flags & 0x1C) == 0 && start.value >= 1)
     {
       v21.start = start;
@@ -365,7 +365,7 @@ LABEL_8:
 
       self->_semaphore = 0;
 LABEL_13:
-      if (timestamp < 0.0 || (videoOutput = self->_videoOutput) == 0 || ([(AVPlayerItemVideoOutput *)videoOutput itemTimeForHostTime:timestamp], epoch = v22.epoch, value = v22.value, flags = v22.flags, timescale = v22.timescale, (v22.flags & 1) == 0))
+      if (timestamp < 0.0 || (videoOutput = self->_videoOutput) == 0 || (objc_msgSend_itemTimeForHostTime_(videoOutput, a2, timestamp), epoch = v22.epoch, value = v22.value, flags = v22.flags, timescale = v22.timescale, (v22.flags & 1) == 0))
       {
         CMTimeMake(&v22, (time * 1000000.0), 1000000);
         value = v22.value;

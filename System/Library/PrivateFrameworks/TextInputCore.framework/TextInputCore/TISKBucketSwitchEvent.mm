@@ -1,5 +1,6 @@
 @interface TISKBucketSwitchEvent
 - (id)description;
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportToSession:(id)session;
 @end
 
@@ -24,6 +25,22 @@
   sessionCopy = session;
   [sessionCopy addSample:&unk_28400BF10 forKey:v3];
   [sessionCopy addToCounterForRateMetric:1 forKey:kTISKTapTypingSpeed];
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  modeCopy = mode;
+  initCopy = init;
+  v13.receiver = self;
+  v13.super_class = TISKBucketSwitchEvent;
+  v10 = [(TISKEvent *)&v13 init:14 emojiSearchMode:modeCopy order:order];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(v10 + 4, init);
+  }
+
+  return v11;
 }
 
 @end

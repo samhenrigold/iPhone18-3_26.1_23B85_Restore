@@ -9,52 +9,50 @@
 - (KNObjectPlaceholderInfo)initWithKNPlaceholderInfo:(id)info
 {
   infoCopy = info;
-  v7 = objc_msgSend_textStorage(infoCopy, v5, v6);
-  v10 = objc_msgSend_context(infoCopy, v8, v9);
-  v12 = objc_msgSend_copyWithContext_(v7, v11, v10);
+  textStorage = [infoCopy textStorage];
+  context = [infoCopy context];
+  v7 = [textStorage copyWithContext:context];
 
-  v15 = objc_msgSend_context(infoCopy, v13, v14);
-  v18 = objc_msgSend_geometry(infoCopy, v16, v17);
-  v21 = objc_msgSend_shapeStyle(infoCopy, v19, v20);
-  v24 = objc_msgSend_pathSource(infoCopy, v22, v23);
-  v47.receiver = self;
-  v47.super_class = KNObjectPlaceholderInfo;
-  v25 = [(KNObjectPlaceholderInfo *)&v47 initWithContext:v15 geometry:v18 style:v21 pathSource:v24 wpStorage:v12];
+  context2 = [infoCopy context];
+  geometry = [infoCopy geometry];
+  shapeStyle = [infoCopy shapeStyle];
+  pathSource = [infoCopy pathSource];
+  v17.receiver = self;
+  v17.super_class = KNObjectPlaceholderInfo;
+  v12 = [(KNObjectPlaceholderInfo *)&v17 initWithContext:context2 geometry:geometry style:shapeStyle pathSource:pathSource wpStorage:v7];
 
-  if (v25)
+  if (v12)
   {
-    isLocked = objc_msgSend_isLocked(infoCopy, v26, v27);
-    objc_msgSend_setLocked_(v25, v29, isLocked);
-    v32 = objc_msgSend_hyperlinkURL(infoCopy, v30, v31);
-    objc_msgSend_setHyperlinkURL_(v25, v33, v32);
+    -[KNObjectPlaceholderInfo setLocked:](v12, "setLocked:", [infoCopy isLocked]);
+    hyperlinkURL = [infoCopy hyperlinkURL];
+    [(KNObjectPlaceholderInfo *)v12 setHyperlinkURL:hyperlinkURL];
 
-    v36 = objc_msgSend_comment(infoCopy, v34, v35);
-    objc_msgSend_setComment_(v25, v37, v36);
+    comment = [infoCopy comment];
+    [(KNObjectPlaceholderInfo *)v12 setComment:comment];
 
-    v40 = objc_msgSend_accessibilityDescription(infoCopy, v38, v39);
-    objc_msgSend_setAccessibilityDescription_(v25, v41, v40);
+    accessibilityDescription = [infoCopy accessibilityDescription];
+    [(KNObjectPlaceholderInfo *)v12 setAccessibilityDescription:accessibilityDescription];
 
-    v44 = objc_msgSend_aspectRatioLocked(infoCopy, v42, v43);
-    objc_msgSend_setAspectRatioLocked_(v25, v45, v44);
+    -[KNObjectPlaceholderInfo setAspectRatioLocked:](v12, "setAspectRatioLocked:", [infoCopy aspectRatioLocked]);
   }
 
-  return v25;
+  return v12;
 }
 
 - (id)instructionalText
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Object Placeholder", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"Object Placeholder" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 - (id)typeName
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Object", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"Object" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 @end

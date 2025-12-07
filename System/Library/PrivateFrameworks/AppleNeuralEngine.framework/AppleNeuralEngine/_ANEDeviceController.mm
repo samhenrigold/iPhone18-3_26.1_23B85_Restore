@@ -1,7 +1,9 @@
 @interface _ANEDeviceController
++ (_ANEDeviceController)controllerWithPrivilegedVM:(BOOL)m;
 + (_ANEDeviceController)controllerWithProgramHandle:(unint64_t)handle;
 + (id)sharedPrivilegedConnection;
 + (void)initialize;
+- (_ANEDeviceController)initWithANEPrivilegedVM:(BOOL)m;
 - (_ANEDeviceController)initWithProgramHandle:(unint64_t)handle priviledged:(BOOL)priviledged;
 - (void)start;
 - (void)stop;
@@ -56,6 +58,54 @@
   v3 = [[self alloc] initWithProgramHandle:handle priviledged:0];
 
   return v3;
+}
+
++ (_ANEDeviceController)controllerWithPrivilegedVM:(BOOL)m
+{
+  v3 = [[self alloc] initWithANEPrivilegedVM:m];
+
+  return v3;
+}
+
+- (_ANEDeviceController)initWithANEPrivilegedVM:(BOOL)m
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = _ANEDeviceController;
+  v4 = [(_ANEDeviceController *)&v8 init];
+  if (v4)
+  {
+    v5 = +[_ANELog common];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(a2);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEDeviceController initWithANEPrivilegedVM:];
+    }
+
+    os_unfair_lock_lock_with_options();
+    v6 = dylib_handle;
+    if (dylib_handle || (v6 = dlopen("/System/Library/PrivateFrameworks/ANEServices.framework/ANEServices", 4), (dylib_handle = v6) != 0))
+    {
+      if (!factory_function_checkPrivilegedVMAccess)
+      {
+        factory_function_checkPrivilegedVMAccess = dlsym(v6, "ANECheckPrivilegedVMAccess");
+      }
+
+      os_unfair_lock_unlock(&_sync_lock);
+      if (factory_function_checkPrivilegedVMAccess)
+      {
+        (factory_function_checkPrivilegedVMAccess)();
+      }
+    }
+
+    else
+    {
+      os_unfair_lock_unlock(&_sync_lock);
+    }
+  }
+
+  return v4;
 }
 
 - (_ANEDeviceController)initWithProgramHandle:(unint64_t)handle priviledged:(BOOL)priviledged

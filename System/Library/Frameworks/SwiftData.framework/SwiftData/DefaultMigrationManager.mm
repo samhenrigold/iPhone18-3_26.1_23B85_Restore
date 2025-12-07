@@ -20,7 +20,7 @@
 - (BOOL)_validateStages:(id *)stages
 {
   selfCopy = self;
-  sub_19746D954();
+  sub_19746D954(selfCopy);
 
   return 1;
 }

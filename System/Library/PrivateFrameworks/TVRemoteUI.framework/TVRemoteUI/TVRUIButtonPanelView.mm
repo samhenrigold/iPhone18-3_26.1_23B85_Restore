@@ -58,9 +58,9 @@
 {
   buttonsCopy = buttons;
   providerCopy = provider;
-  v26.receiver = self;
-  v26.super_class = TVRUIButtonPanelView;
-  v10 = [(TVRUIButtonPanelView *)&v26 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v27.receiver = self;
+  v27.super_class = TVRUIButtonPanelView;
+  v10 = [(TVRUIButtonPanelView *)&v27 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v11 = v10;
   if (v10)
   {
@@ -75,29 +75,30 @@
     v15 = [v14 localizedStringForKey:@"TVRemoteUIPageButtonText" value:&stru_287E6AEF8 table:@"Localizable"];
 
     maxPagingTitleLength = [(TVRUIStyleProvider *)v11->_styleProvider maxPagingTitleLength];
-    if ([v15 length] > maxPagingTitleLength)
+    v17 = [v15 length];
+    if (v17 > maxPagingTitleLength)
     {
-      v17 = _TVRUIViewControllerLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v18 = _TVRUIViewControllerLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        [TVRUIButtonPanelView initPagedPanelWithPrimaryButtonType:v15 secondaryLeftButtons:maxPagingTitleLength styleProvider:v17];
+        [TVRUIButtonPanelView initPagedPanelWithPrimaryButtonType:v15 secondaryLeftButtons:maxPagingTitleLength styleProvider:v18];
       }
 
-      v18 = [v15 substringWithRange:{0, 4}];
+      v19 = [v15 substringWithRange:{0, 4}];
 
-      v15 = v18;
+      v15 = v19;
     }
 
-    v19 = [TVRUIPagingButton alloc];
+    v20 = [TVRUIPagingButton alloc];
     styleProvider = [(TVRUIButtonPanelView *)v11 styleProvider];
-    v21 = [(TVRUIPagingButton *)v19 initWithTitle:v15 styleProvider:styleProvider];
+    v22 = [(TVRUIPagingButton *)v20 initWithTitle:v15 styleProvider:styleProvider];
     pagingButton = v11->_pagingButton;
-    v11->_pagingButton = v21;
+    v11->_pagingButton = v22;
 
     [(TVRUIButtonPanelView *)v11 addSubview:v11->_pagingButton];
-    v23 = [(TVRUIButtonPanelView *)v11 _processButtons:buttonsCopy];
+    v24 = [(TVRUIButtonPanelView *)v11 _processButtons:buttonsCopy];
     leftButtons = v11->_leftButtons;
-    v11->_leftButtons = v23;
+    v11->_leftButtons = v24;
   }
 
   return v11;
@@ -312,8 +313,7 @@ LABEL_8:
   v18 = deviceCopy;
   v11 = deviceCopy;
   v12 = v7;
-  [v10 animateWithDuration:v15 animations:0.24];
-  v13 = _TVRUIViewControllerLog();
+  v13 = _TVRUIViewControllerLog([v10 animateWithDuration:v15 animations:0.24]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -368,7 +368,7 @@ void __47__TVRUIButtonPanelView_enableButtonsForDevice___block_invoke(id *a1)
 
 - (void)disableButtons
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   primaryButton = [(TVRUIButtonPanelView *)self primaryButton];
   v5 = [v3 arrayWithObject:primaryButton];
@@ -380,41 +380,41 @@ void __47__TVRUIButtonPanelView_enableButtonsForDevice___block_invoke(id *a1)
   [v5 addObjectsFromArray:rightButtons];
 
   [(TVRUIPagingButton *)self->_pagingButton setEnabled:0];
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(TVRUIButtonPanelView *)self _disableButton:*(*(&v15 + 1) + 8 * v12++)];
+        [(TVRUIButtonPanelView *)self _disableButton:*(*(&v16 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
-  v13 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _TVRUIViewControllerLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_26CFEB000, v13, OS_LOG_TYPE_DEFAULT, "Disabled panel buttons", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_26CFEB000, v14, OS_LOG_TYPE_DEFAULT, "Disabled panel buttons", v15, 2u);
   }
 }
 

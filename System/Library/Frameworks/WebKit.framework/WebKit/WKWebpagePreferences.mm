@@ -225,7 +225,7 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
     }
 
     LODWORD(v20) = result;
-    v19 = WTF::fastMalloc((8 * result));
+    v19 = WTF::fastMalloc(0, (8 * result));
   }
 
   v15 = 0u;
@@ -254,7 +254,7 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
 
         else
         {
-          MEMORY[0x19EB02040](v19 + 8 * HIDWORD(v20));
+          MEMORY[0x19EB02040](&v19[HIDWORD(v20)]);
           ++HIDWORD(v20);
         }
       }
@@ -474,9 +474,9 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
       v8 = API::Object::Object(v7);
       *v8 = &unk_1F10E5F30;
       WTF::Vector<WebCore::HTTPHeaderField,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v8 + 16, v5);
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((v7 + 4), v5 + 16);
-      v9 = v7[1];
-      if (v9)
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v7[2], v5 + 16);
+      var1 = v7->var1;
+      if (var1)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -486,9 +486,9 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
           return result;
         }
 
-        v10 = v9;
-        CFRelease(v7[1]);
-        [v3 addObject:v9];
+        v10 = var1;
+        CFRelease(v7->var1);
+        [v3 addObject:var1];
       }
 
       else
@@ -522,11 +522,11 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
 
     else
     {
-      v10 = WTF::fastMalloc((32 * v5));
+      v10 = WTF::fastMalloc(0, (32 * v5));
       v9 = 0;
       DWORD2(v19) = v8;
       *&v19 = v10;
-      v13 = v10 + 16;
+      v13 = v10 + 2;
       while (1)
       {
         v14 = [objc_msgSend(fields objectAtIndexedSubscript:{v9, v19), "_apiObject"}];
@@ -539,26 +539,26 @@ unint64_t __64__WKWebpagePreferences__setActiveContentRuleListActionPatterns___b
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v23, v14 + 32);
         v15 = v20;
         v20 = 0;
-        *(v13 - 16) = v15;
+        *(v13 - 2) = v15;
         LODWORD(v15) = v21;
         v21 = 0;
-        *(v13 - 8) = v15;
+        *(v13 - 2) = v15;
         LODWORD(v15) = v22;
         v22 = 0;
-        *(v13 - 4) = v15;
+        *(v13 - 1) = v15;
         v16 = v23;
         v23 = 0;
         *v13 = v16;
         LODWORD(v16) = v24;
         v24 = 0;
-        *(v13 + 8) = v16;
+        *(v13 + 2) = v16;
         LODWORD(v16) = v25;
         v25 = 0;
-        *(v13 + 12) = v16;
+        *(v13 + 3) = v16;
         HIDWORD(v19) = ++v9;
         WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v23, v17);
         WTF::Vector<WebCore::HTTPHeaderField,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v18);
-        v13 += 32;
+        v13 += 4;
         if (v8 == v9)
         {
           goto LABEL_3;
@@ -1084,7 +1084,7 @@ LABEL_42:
     }
 
     LODWORD(v55) = v5;
-    v54 = WTF::fastMalloc((16 * v5));
+    v54 = WTF::fastMalloc(0, (16 * v5));
   }
 
   v52 = 0u;
@@ -1121,7 +1121,7 @@ LABEL_42:
             goto LABEL_42;
           }
 
-          v11 = WTF::fastMalloc((8 * v9));
+          v11 = WTF::fastMalloc(0, (8 * v9));
           LODWORD(v49) = v10;
           v48 = v11;
         }
@@ -1191,7 +1191,7 @@ LABEL_42:
                 v27 = WTF::Vector<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v48, HIDWORD(v49) + 1, &v43);
                 v26 = HIDWORD(v49);
                 v28 = v48;
-                *(v48 + 8 * HIDWORD(v49)) = 0;
+                v48[HIDWORD(v49)] = 0;
                 v29 = *v27;
                 *v27 = 0;
               }
@@ -1199,7 +1199,7 @@ LABEL_42:
               else
               {
                 v28 = v48;
-                *(v48 + 8 * HIDWORD(v49)) = 0;
+                v48[HIDWORD(v49)] = 0;
                 v29 = v43;
                 v43 = 0;
               }
@@ -1228,18 +1228,18 @@ LABEL_42:
 
         else
         {
-          v30 = v54 + 16 * HIDWORD(v55);
+          v30 = &v54[2 * HIDWORD(v55)];
           *v30 = 0;
-          *(v30 + 8) = 0;
+          v30[1] = 0;
           v31 = v48;
           v48 = 0;
           *v30 = v31;
           LODWORD(v31) = v49;
           LODWORD(v49) = 0;
-          *(v30 + 8) = v31;
+          *(v30 + 2) = v31;
           LODWORD(v31) = HIDWORD(v49);
           HIDWORD(v49) = 0;
-          *(v30 + 12) = v31;
+          *(v30 + 3) = v31;
           ++HIDWORD(v55);
         }
 

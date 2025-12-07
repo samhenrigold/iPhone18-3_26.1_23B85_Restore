@@ -8,24 +8,26 @@
 
 - (void)layoutSubviews
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UILightBoxView();
-  v2 = v4.receiver;
-  [(_UILightEffectTransitionView *)&v4 layoutSubviews];
-  v3 = *&v2[OBJC_IVAR____TtC5UIKit15_UILightBoxView_lightSourceView];
-  [v2 bounds];
-  v6 = CGRectInset(v5, -*&v2[OBJC_IVAR____TtC5UIKit28_UILightEffectTransitionView_transitionSubviewOutset], -*&v2[OBJC_IVAR____TtC5UIKit28_UILightEffectTransitionView_transitionSubviewOutset]);
-  [v3 setFrame_];
+  type metadata accessor for _UILightBoxView();
+  v6.receiver = self;
+  v6.super_class = v3;
+  selfCopy = self;
+  [(_UILightEffectTransitionView *)&v6 layoutSubviews];
+  v5 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit15_UILightBoxView_lightSourceView);
+  [(UIView *)selfCopy bounds:v6.receiver];
+  v8 = CGRectInset(v7, -*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit28_UILightEffectTransitionView_transitionSubviewOutset), -*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit28_UILightEffectTransitionView_transitionSubviewOutset));
+  [v5 setFrame_];
 }
 
 - (void)didAddSubview:(id)subview
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for _UILightBoxView();
+  type metadata accessor for _UILightBoxView();
+  v8.receiver = self;
+  v8.super_class = v5;
   subviewCopy = subview;
-  v5 = v6.receiver;
-  [(UIView *)&v6 didAddSubview:subviewCopy];
-  [v5 bringSubviewToFront_];
+  selfCopy = self;
+  [(UIView *)&v8 didAddSubview:subviewCopy];
+  [(UIView *)selfCopy bringSubviewToFront:*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit15_UILightBoxView_lightSourceView), v8.receiver, v8.super_class];
 }
 
 - (_TtC5UIKit15_UILightBoxView)initWithCoder:(id)coder

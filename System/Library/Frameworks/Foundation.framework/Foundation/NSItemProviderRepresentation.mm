@@ -194,7 +194,7 @@ void __88__NSItemProviderRepresentation_performProgressTrackingWithLoaderBlock_o
   _NSIPDispatchAsyncCallback(v4);
 }
 
-uint64_t __88__NSItemProviderRepresentation_performProgressTrackingWithLoaderBlock_onCancelCallback___block_invoke_4(uint64_t a1)
+void *__88__NSItemProviderRepresentation_performProgressTrackingWithLoaderBlock_onCancelCallback___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(*(a1 + 32), "totalUnitCount")}];
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -202,7 +202,7 @@ uint64_t __88__NSItemProviderRepresentation_performProgressTrackingWithLoaderBlo
     result = *(a1 + 40);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }

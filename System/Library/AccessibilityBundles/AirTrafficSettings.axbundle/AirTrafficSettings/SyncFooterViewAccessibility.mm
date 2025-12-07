@@ -31,35 +31,34 @@
   return v10;
 }
 
-id __57__SyncFooterViewAccessibility_updateProgress_dataSource___block_invoke(uint64_t a1)
+id __57__SyncFooterViewAccessibility_updateProgress_dataSource___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
+  v18 = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = *(a1 + 32);
     v4 = [v3 subviews];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if (([v10 isHidden] & 1) == 0)
           {
             if (!v7)
@@ -71,7 +70,7 @@ id __57__SyncFooterViewAccessibility_updateProgress_dataSource___block_invoke(ui
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -96,8 +95,6 @@ id __57__SyncFooterViewAccessibility_updateProgress_dataSource___block_invoke(ui
 
   v11 = 0;
 LABEL_19:
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }
@@ -139,7 +136,7 @@ LABEL_19:
 {
   y = inside.y;
   x = inside.x;
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   if ([(SyncFooterViewAccessibility *)self _accessibilityBoolValueForKey:kIsHitTestingSyncFooterView])
   {
@@ -148,25 +145,25 @@ LABEL_19:
     {
       selfCopy = self;
       [(SyncFooterViewAccessibility *)selfCopy subviews];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v9 = v22 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = v21 = 0u;
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v20;
+        v12 = *v19;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v19 + 1) + 8 * i);
+            v14 = *(*(&v18 + 1) + 8 * i);
             [(SyncFooterViewAccessibility *)selfCopy convertPoint:v14 toView:x, y];
             if ([v14 pointInside:eventCopy withEvent:?])
             {
@@ -176,7 +173,7 @@ LABEL_19:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v11)
           {
             continue;
@@ -188,12 +185,11 @@ LABEL_19:
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = SyncFooterViewAccessibility;
-  v15 = [(SyncFooterViewAccessibility *)&v18 pointInside:eventCopy withEvent:x, y];
+  v17.receiver = self;
+  v17.super_class = SyncFooterViewAccessibility;
+  v15 = [(SyncFooterViewAccessibility *)&v17 pointInside:eventCopy withEvent:x, y];
 LABEL_13:
 
-  v16 = *MEMORY[0x29EDCA608];
   return v15;
 }
 

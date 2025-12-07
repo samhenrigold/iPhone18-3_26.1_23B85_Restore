@@ -34,7 +34,7 @@
 
 - (void)handleOTARequestorAttributeReport:(id)report
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v5 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
   v6 = v5;
@@ -85,12 +85,12 @@
 
       v24 = HMFGetLogIdentifier();
       accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy3 accessoryServer];
-      v37 = 138543874;
-      v38 = v24;
-      v39 = 2112;
-      v40 = v20;
-      v41 = 2112;
-      v42 = accessoryServer;
+      v36 = 138543874;
+      v37 = v24;
+      v38 = 2112;
+      v39 = v20;
+      v40 = 2112;
+      v41 = accessoryServer;
       v26 = "%{public}@OTA Requestor cluster, UpdatePossible Attribute report value:%@ for accessory:%@";
     }
 
@@ -126,38 +126,38 @@
         v24 = HMFGetLogIdentifier();
         accessoryServer = -[HMMTRFirmwareUpdateStatus _updateStateAsString:](selfCopy3, "_updateStateAsString:", [v20 unsignedIntValue]);
         accessoryServer2 = [(HMMTRFirmwareUpdateStatus *)selfCopy3 accessoryServer];
-        v37 = 138543874;
-        v38 = v24;
-        v39 = 2112;
-        v40 = accessoryServer;
-        v41 = 2112;
-        v42 = accessoryServer2;
-        _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@OTA Requestor cluster, UpdateState Attribute report value:%@ for accessory:%@", &v37, 0x20u);
+        v36 = 138543874;
+        v37 = v24;
+        v38 = 2112;
+        v39 = accessoryServer;
+        v40 = 2112;
+        v41 = accessoryServer2;
+        _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@OTA Requestor cluster, UpdateState Attribute report value:%@ for accessory:%@", &v36, 0x20u);
 
         goto LABEL_20;
       }
 
       attribute4 = [v6 attribute];
-      v34 = [attribute4 isEqualToNumber:&unk_283EE7CE0];
+      v33 = [attribute4 isEqualToNumber:&unk_283EE7CE0];
 
-      if (!v34)
+      if (!v33)
       {
         goto LABEL_22;
       }
 
-      v35 = [HMMTRUtilities mtrBaseClusterValueFromMTRClusterReportValue:reportCopy];
+      v34 = [HMMTRUtilities mtrBaseClusterValueFromMTRClusterReportValue:reportCopy];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v36 = v35;
+        v35 = v34;
       }
 
       else
       {
-        v36 = 0;
+        v35 = 0;
       }
 
-      v20 = v36;
+      v20 = v35;
 
       v21 = objc_autoreleasePoolPush();
       selfCopy3 = self;
@@ -169,16 +169,16 @@
 
       v24 = HMFGetLogIdentifier();
       accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy3 accessoryServer];
-      v37 = 138543874;
-      v38 = v24;
-      v39 = 2112;
-      v40 = v20;
-      v41 = 2112;
-      v42 = accessoryServer;
+      v36 = 138543874;
+      v37 = v24;
+      v38 = 2112;
+      v39 = v20;
+      v40 = 2112;
+      v41 = accessoryServer;
       v26 = "%{public}@OTA Requestor cluster, UpdateStateProgress Attribute report value:%@ for accessory:%@";
     }
 
-    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, v26, &v37, 0x20u);
+    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, v26, &v36, 0x20u);
 LABEL_20:
 
 LABEL_21:
@@ -194,19 +194,17 @@ LABEL_21:
   {
     v14 = HMFGetLogIdentifier();
     accessoryServer3 = [(HMMTRFirmwareUpdateStatus *)selfCopy4 accessoryServer];
-    v37 = 138543874;
-    v38 = v14;
-    v39 = 2112;
-    v40 = reportCopy;
-    v41 = 2112;
-    v42 = accessoryServer3;
-    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@OTA Requestor cluster, DefaultOTAProviders Attribute report:%@ for accessory:%@", &v37, 0x20u);
+    v36 = 138543874;
+    v37 = v14;
+    v38 = 2112;
+    v39 = reportCopy;
+    v40 = 2112;
+    v41 = accessoryServer3;
+    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@OTA Requestor cluster, DefaultOTAProviders Attribute report:%@ for accessory:%@", &v36, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateStateAsString:(unsigned __int8)string
@@ -224,7 +222,7 @@ LABEL_22:
 
 - (id)readForHAPFirmwareUpdateReadinessCharacteristic:(id)characteristic
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   type = [characteristicCopy type];
   v6 = [type isEqual:@"00000234-0000-1000-8000-0026BB765291"];
@@ -232,9 +230,9 @@ LABEL_22:
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x277CFEB50]);
-    v17 = 0;
-    v8 = [v7 serializeWithError:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v7 serializeWithError:&v16];
+    v9 = v16;
     [characteristicCopy setValue:v8];
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -243,9 +241,9 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2112;
-      v21 = characteristicCopy;
+      v18 = v13;
+      v19 = 2112;
+      v20 = characteristicCopy;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Updated HAP firmware update readiness characteristic on local read to :%@", buf, 0x16u);
     }
 
@@ -258,14 +256,12 @@ LABEL_22:
     value = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return value;
 }
 
 - (id)readForHAPFirmwareUpdateStatusCharacteristic:(id)characteristic
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   type = [characteristicCopy type];
   v6 = [type isEqual:@"00000235-0000-1000-8000-0026BB765291"];
@@ -273,9 +269,9 @@ LABEL_22:
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x277CFEB58]);
-    v17 = 0;
-    v8 = [v7 serializeWithError:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v7 serializeWithError:&v16];
+    v9 = v16;
     [characteristicCopy setValue:v8];
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -284,9 +280,9 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2112;
-      v21 = characteristicCopy;
+      v18 = v13;
+      v19 = 2112;
+      v20 = characteristicCopy;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Updated HAP firmware update status characteristic on local read to :%@", buf, 0x16u);
     }
 
@@ -299,14 +295,12 @@ LABEL_22:
     value = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return value;
 }
 
 - (id)readForMatterFirmwareUpdateStatusCharacteristic:(id)characteristic
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   type = [characteristicCopy type];
   v6 = [type isEqual:@"0000026E-0000-1000-8000-0026BB765291"];
@@ -314,9 +308,9 @@ LABEL_22:
   if (v6)
   {
     localFirmwareUpdateStatus = [(HMMTRFirmwareUpdateStatus *)self localFirmwareUpdateStatus];
-    v22 = 0;
-    v8 = [localFirmwareUpdateStatus serializeWithError:&v22];
-    v9 = v22;
+    v21 = 0;
+    v8 = [localFirmwareUpdateStatus serializeWithError:&v21];
+    v9 = v21;
 
     [characteristicCopy setValue:v8];
     v10 = objc_autoreleasePoolPush();
@@ -326,9 +320,9 @@ LABEL_22:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v13;
-      v25 = 2112;
-      v26 = characteristicCopy;
+      v23 = v13;
+      v24 = 2112;
+      v25 = characteristicCopy;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_INFO, "%{public}@Updated matter firmware update status characteristic on local read to :%@", buf, 0x16u);
     }
 
@@ -337,12 +331,12 @@ LABEL_22:
     softwareUpdateProvider = [browser softwareUpdateProvider];
     accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy accessoryServer];
     currentPairing = [accessoryServer currentPairing];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteristic___block_invoke;
-    v21[3] = &unk_2786EF290;
-    v21[4] = selfCopy;
-    [softwareUpdateProvider notifyDelegateCheckFirmwareUpdateSessionWithPairing:currentPairing completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteristic___block_invoke;
+    v20[3] = &unk_2786EF290;
+    v20[4] = selfCopy;
+    [softwareUpdateProvider notifyDelegateCheckFirmwareUpdateSessionWithPairing:currentPairing completionHandler:v20];
 
     value = [characteristicCopy value];
   }
@@ -352,14 +346,12 @@ LABEL_22:
     value = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return value;
 }
 
 void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -369,22 +361,20 @@ void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteri
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@Delegate call to check firmware update session failed: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_ERROR, "%{public}@Delegate call to check firmware update session failed: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFirmwareUpdateStatus:(int64_t)status
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -396,13 +386,13 @@ void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteri
     v10 = HAPOTAProviderStateAsString();
     accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy accessoryServer];
     *buf = 138544130;
-    v71 = v8;
-    v72 = 2112;
-    v73 = v9;
-    v74 = 2112;
-    v75 = v10;
-    v76 = 2112;
-    v77 = accessoryServer;
+    v70 = v8;
+    v71 = 2112;
+    v72 = v9;
+    v73 = 2112;
+    v74 = v10;
+    v75 = 2112;
+    v76 = accessoryServer;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating OTA Provider state from %@ to %@ for accessory server [%@]", buf, 0x2Au);
   }
 
@@ -416,9 +406,9 @@ void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteri
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v71 = v30;
-      v72 = 1024;
-      LODWORD(v73) = status;
+      v70 = v30;
+      v71 = 1024;
+      LODWORD(v72) = status;
       _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@Invalid OTA provider state : %d", buf, 0x12u);
     }
 
@@ -436,7 +426,7 @@ void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteri
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v71 = v15;
+        v70 = v15;
         _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Resetting downloadedFirmwareVersionNumber to nil", buf, 0xCu);
       }
 
@@ -446,55 +436,55 @@ void __77__HMMTRFirmwareUpdateStatus_readForMatterFirmwareUpdateStatusCharacteri
 
     statusCopy = status;
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     accessoryServer2 = [(HMMTRFirmwareUpdateStatus *)selfCopy accessoryServer];
     primaryAccessory = [accessoryServer2 primaryAccessory];
     services = [primaryAccessory services];
 
-    v20 = [services countByEnumeratingWithState:&v64 objects:v69 count:16];
+    v20 = [services countByEnumeratingWithState:&v63 objects:v68 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v65;
+      v22 = *v64;
       while (2)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v65 != v22)
+          if (*v64 != v22)
           {
             objc_enumerationMutation(services);
           }
 
-          v24 = *(*(&v64 + 1) + 8 * i);
+          v24 = *(*(&v63 + 1) + 8 * i);
           type = [v24 type];
           v26 = [type isEqualToString:@"00000236-0000-1000-8000-0026BB765291"];
 
           if (v26)
           {
-            v62 = 0u;
-            v63 = 0u;
-            v60 = 0u;
             v61 = 0u;
+            v62 = 0u;
+            v59 = 0u;
+            v60 = 0u;
             characteristics = [v24 characteristics];
-            v32 = [characteristics countByEnumeratingWithState:&v60 objects:v68 count:16];
+            v32 = [characteristics countByEnumeratingWithState:&v59 objects:v67 count:16];
             if (v32)
             {
               v33 = v32;
-              v34 = *v61;
-              v55 = v16;
+              v34 = *v60;
+              v54 = v16;
 LABEL_22:
               v35 = 0;
               while (1)
               {
-                if (*v61 != v34)
+                if (*v60 != v34)
                 {
                   objc_enumerationMutation(characteristics);
                 }
 
-                v36 = *(*(&v60 + 1) + 8 * v35);
+                v36 = *(*(&v59 + 1) + 8 * v35);
                 type2 = [v36 type];
                 v38 = [type2 isEqualToString:@"0000026E-0000-1000-8000-0026BB765291"];
 
@@ -505,8 +495,8 @@ LABEL_22:
 
                 if (v33 == ++v35)
                 {
-                  v33 = [characteristics countByEnumeratingWithState:&v60 objects:v68 count:16];
-                  v16 = v55;
+                  v33 = [characteristics countByEnumeratingWithState:&v59 objects:v67 count:16];
+                  v16 = v54;
                   if (v33)
                   {
                     goto LABEL_22;
@@ -522,9 +512,9 @@ LABEL_22:
 
               v41 = [objc_alloc(MEMORY[0x277CFEC10]) initWithValue:statusCopy];
               v42 = [objc_alloc(MEMORY[0x277CFEB98]) initWithOTAProviderState:v41 downloadedFirmwareVersionNumber:0 accessoryDownloadProgressPercent:0];
-              v59 = 0;
-              v43 = [v42 serializeWithError:&v59];
-              v44 = v59;
+              v58 = 0;
+              v43 = [v42 serializeWithError:&v58];
+              v44 = v58;
               if (v44)
               {
                 v45 = v44;
@@ -534,23 +524,23 @@ LABEL_22:
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v49 = v57 = v43;
+                  v49 = v56 = v43;
                   *buf = 138543618;
-                  v71 = v49;
-                  v72 = 2112;
-                  v73 = v45;
+                  v70 = v49;
+                  v71 = 2112;
+                  v72 = v45;
                   _os_log_impl(&dword_22AEAE000, v48, OS_LOG_TYPE_ERROR, "%{public}@Matter firmware update status serialized failed. Error: %@", buf, 0x16u);
 
-                  v43 = v57;
+                  v43 = v56;
                 }
 
                 objc_autoreleasePoolPop(v46);
-                v16 = v55;
+                v16 = v54;
                 goto LABEL_38;
               }
 
               [(HMMTRFirmwareUpdateStatus *)selfCopy setLocalFirmwareUpdateStatus:v42];
-              v58 = v43;
+              v57 = v43;
               [accessoryServer3 setValue:v43];
               v50 = objc_autoreleasePoolPush();
               v51 = selfCopy;
@@ -559,15 +549,15 @@ LABEL_22:
               {
                 v53 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v71 = v53;
-                v72 = 2112;
-                v73 = accessoryServer3;
+                v70 = v53;
+                v71 = 2112;
+                v72 = accessoryServer3;
                 _os_log_impl(&dword_22AEAE000, v52, OS_LOG_TYPE_INFO, "%{public}@Notification: Updated characteristic: %@", buf, 0x16u);
               }
 
               objc_autoreleasePoolPop(v50);
-              v16 = v55;
-              [v55 addObject:accessoryServer3];
+              v16 = v54;
+              [v54 addObject:accessoryServer3];
             }
 
 LABEL_36:
@@ -576,7 +566,7 @@ LABEL_36:
           }
         }
 
-        v21 = [services countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v21 = [services countByEnumeratingWithState:&v63 objects:v68 count:16];
         if (v21)
         {
           continue;
@@ -594,13 +584,11 @@ LABEL_37:
     [characteristics accessoryServer:accessoryServer3 didUpdateValuesForCharacteristics:v16 stateNumber:0 broadcast:0];
 LABEL_38:
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkCurrentFirmwareVersionNumber:(id)number
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -610,11 +598,11 @@ LABEL_38:
     v8 = HMFGetLogIdentifier();
     downloadedFirmwareVersionNumber = [(HMMTRFirmwareUpdateStatus *)selfCopy downloadedFirmwareVersionNumber];
     *buf = 138543874;
-    v29 = v8;
-    v30 = 2112;
-    v31 = numberCopy;
-    v32 = 2112;
-    v33 = downloadedFirmwareVersionNumber;
+    v28 = v8;
+    v29 = 2112;
+    v30 = numberCopy;
+    v31 = 2112;
+    v32 = downloadedFirmwareVersionNumber;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Checking currentFirmwareVersionNumber: %@ with downloadedFirmwareVersionNumber: %@ to determine if a software update was installed.", buf, 0x20u);
   }
 
@@ -640,7 +628,7 @@ LABEL_38:
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v29 = v18;
+          v28 = v18;
           _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_INFO, "%{public}@Stopping OTA update timer", buf, 0xCu);
         }
 
@@ -657,30 +645,28 @@ LABEL_38:
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v29 = v24;
+        v28 = v24;
         _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating OTA Provider state to Installed and re-setting downloadedFirmwareVersionNumber to nil", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v21);
       [(HMMTRFirmwareUpdateStatus *)v22 setDownloadedFirmwareVersionNumber:0];
       accessoryServer3 = [(HMMTRFirmwareUpdateStatus *)v22 accessoryServer];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_invoke;
-      v27[3] = &unk_2786EF290;
-      v27[4] = v22;
-      [accessoryServer3 refreshThreadCapabilitiesWithCompletion:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_invoke;
+      v26[3] = &unk_2786EF290;
+      v26[4] = v22;
+      [accessoryServer3 refreshThreadCapabilitiesWithCompletion:v26];
 
       [(HMMTRFirmwareUpdateStatus *)v22 updateFirmwareUpdateStatus:6];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -690,20 +676,19 @@ void __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_i
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 32) accessoryServer];
     v9 = [v8 nodeID];
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Done refreshing thread capabilities for accessory server with nodeID: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Done refreshing thread capabilities for accessory server with nodeID: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDownloadedFirmwareVersionNumber:(id)number
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   [(HMMTRFirmwareUpdateStatus *)self setDownloadedFirmwareVersionNumber:numberCopy];
   v5 = objc_autoreleasePoolPush();
@@ -713,20 +698,19 @@ void __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_i
   {
     v8 = HMFGetLogIdentifier();
     downloadedFirmwareVersionNumber = [(HMMTRFirmwareUpdateStatus *)selfCopy downloadedFirmwareVersionNumber];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = downloadedFirmwareVersionNumber;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated downloadedFirmwareVersionNumber: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = downloadedFirmwareVersionNumber;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated downloadedFirmwareVersionNumber: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocalFirmwareUpdateStatus:(id)status
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   objc_storeStrong(&self->_localFirmwareUpdateStatus, status);
   oTAProviderState = [statusCopy OTAProviderState];
@@ -747,15 +731,15 @@ void __63__HMMTRFirmwareUpdateStatus_checkCurrentFirmwareVersionNumber___block_i
         [idleResetTimer timeInterval];
         v14 = v13;
         accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy3 accessoryServer];
-        *v31 = 138543874;
-        *&v31[4] = v11;
-        *&v31[12] = 2048;
-        *&v31[14] = v14;
-        *&v31[22] = 2112;
-        v32 = accessoryServer;
+        *v30 = 138543874;
+        *&v30[4] = v11;
+        *&v30[12] = 2048;
+        *&v30[14] = v14;
+        *&v30[22] = 2112;
+        v31 = accessoryServer;
         v16 = "%{public}@Kicking idle reset timer with delay of %f seconds for accessory server [%@]";
 LABEL_5:
-        _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, v16, v31, 0x20u);
+        _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, v16, v30, 0x20u);
       }
     }
 
@@ -770,11 +754,11 @@ LABEL_5:
         {
           v21 = HMFGetLogIdentifier();
           accessoryServer2 = [(HMMTRFirmwareUpdateStatus *)selfCopy2 accessoryServer];
-          *v31 = 138543618;
-          *&v31[4] = v21;
-          *&v31[12] = 2112;
-          *&v31[14] = accessoryServer2;
-          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Stop idle reset timer for accessory server [%@]", v31, 0x16u);
+          *v30 = 138543618;
+          *&v30[4] = v21;
+          *&v30[12] = 2112;
+          *&v30[14] = accessoryServer2;
+          _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@Stop idle reset timer for accessory server [%@]", v30, 0x16u);
         }
 
         objc_autoreleasePoolPop(v18);
@@ -791,14 +775,14 @@ LABEL_5:
         v11 = HMFGetLogIdentifier();
         idleResetTimer = [(HMMTRFirmwareUpdateStatus *)selfCopy3 idleResetTimer];
         [idleResetTimer timeInterval];
-        v26 = v25;
+        v25 = v24;
         accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy3 accessoryServer];
-        *v31 = 138543874;
-        *&v31[4] = v11;
-        *&v31[12] = 2048;
-        *&v31[14] = v26;
-        *&v31[22] = 2112;
-        v32 = accessoryServer;
+        *v30 = 138543874;
+        *&v30[4] = v11;
+        *&v30[12] = 2048;
+        *&v30[14] = v25;
+        *&v30[22] = 2112;
+        v31 = accessoryServer;
         v16 = "%{public}@Starting idle reset timer with delay of %f seconds for accessory server [%@]";
         goto LABEL_5;
       }
@@ -812,30 +796,28 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v27 = objc_autoreleasePoolPush();
+  v26 = objc_autoreleasePoolPush();
   selfCopy4 = self;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v30 = HMFGetLogIdentifier();
-    *v31 = 138543618;
-    *&v31[4] = v30;
-    *&v31[12] = 1024;
-    *&v31[14] = [(HMMTRFirmwareUpdateStatus *)selfCopy4 otaProviderState];
-    _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@Invalid OTA provider state : %d", v31, 0x12u);
+    v29 = HMFGetLogIdentifier();
+    *v30 = 138543618;
+    *&v30[4] = v29;
+    *&v30[12] = 1024;
+    *&v30[14] = [(HMMTRFirmwareUpdateStatus *)selfCopy4 otaProviderState];
+    _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Invalid OTA provider state : %d", v30, 0x12u);
   }
 
-  objc_autoreleasePoolPop(v27);
+  objc_autoreleasePoolPop(v26);
 LABEL_12:
-  v23 = [(HMMTRFirmwareUpdateStatus *)self accessoryServer:*v31];
+  v23 = [(HMMTRFirmwareUpdateStatus *)self accessoryServer:*v30];
   [v23 handleFirmwareUpdateStatusChange:{-[HMMTRFirmwareUpdateStatus otaProviderState](self, "otaProviderState")}];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -844,11 +826,11 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     accessoryServer = [(HMMTRFirmwareUpdateStatus *)selfCopy accessoryServer];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = accessoryServer;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Idle reset timed out for accessory server [%@]", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = accessoryServer;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Idle reset timed out for accessory server [%@]", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -856,8 +838,6 @@ LABEL_12:
   {
     [(HMMTRFirmwareUpdateStatus *)selfCopy updateFirmwareUpdateStatus:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)incrementOtaAnnounceDelayCounter
@@ -920,10 +900,11 @@ LABEL_12:
 
 uint64_t __40__HMMTRFirmwareUpdateStatus_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v27 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27;
+  logCategory__hmf_once_v27 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

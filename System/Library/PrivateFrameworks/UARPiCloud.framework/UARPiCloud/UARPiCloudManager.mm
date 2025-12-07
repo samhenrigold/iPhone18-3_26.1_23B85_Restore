@@ -1,5 +1,6 @@
 @interface UARPiCloudManager
 - (BOOL)fetchVerificationCertificateInContainer:(id)container;
+- (BOOL)handleRemoteFetchRequestForCHIPAccessoriesMetadata:(id)metadata batchRequest:(BOOL)request;
 - (BOOL)handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:(id *)metadata productGroup:(id)group batchRequest:(BOOL)request;
 - (BOOL)processCHIPAccessoriesRecord:(id)record;
 - (BOOL)processCHIPAttestationCertificateRecord:(id)record subjectKeyIdentifier:(id)identifier;
@@ -21,6 +22,7 @@
 - (void)performRemoteFetchForCHIPVerificationCertificateSync;
 - (void)performRemoteFetchForSupportedAccessoriesMetadata:(id)metadata batchRequest:(BOOL)request;
 - (void)performRemoteFetchForSupportedAccessoriesMetadataInZone:(id)zone;
+- (void)processCHIPAccessoriesRecords:(id)records isComplete:(BOOL)complete productGroup:(id)group;
 - (void)processCHIPAttestationCertificateRecords:(id)records subjectKeyIdentifier:(id)identifier;
 - (void)processCHIPFirmwareRecord:(id)record inContainer:(id)container forAccessory:(id)accessory;
 - (void)processCKRecord:(id)record inContainer:(id)container forAccessory:(id)accessory;
@@ -32,15 +34,42 @@
 
 @implementation UARPiCloudManager
 
+- (BOOL)handleRemoteFetchRequestForCHIPAccessoriesMetadata:(id)metadata batchRequest:(BOOL)request
+{
+  requestCopy = request;
+  metadataCopy = metadata;
+  v7 = objc_autoreleasePoolPush();
+  container = [(UARPiCloudManager *)self container];
+  verificationCertificates = [container verificationCertificates];
+
+  if (verificationCertificates || (-[UARPiCloudManager performRemoteFetchForCHIPVerificationCertificateSync](self, "performRemoteFetchForCHIPVerificationCertificateSync"), -[UARPiCloudManager container](self, "container"), v10 = objc_claimAutoreleasedReturnValue(), [v10 verificationCertificates], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
+  {
+    v15 = 0;
+    v12 = [(UARPiCloudManager *)self handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:&v15 productGroup:metadataCopy batchRequest:requestCopy];
+    v13 = v15;
+    [(UARPiCloudManager *)self processCHIPAccessoriesRecords:v13 isComplete:v12 productGroup:metadataCopy];
+  }
+
+  else
+  {
+    LOBYTE(v12) = 1;
+    [(UARPiCloudManager *)self processCHIPAccessoriesRecords:0 isComplete:1 productGroup:metadataCopy];
+  }
+
+  objc_autoreleasePoolPop(v7);
+
+  return v12;
+}
+
 - (BOOL)handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:(id *)metadata productGroup:(id)group batchRequest:(BOOL)request
 {
   requestCopy = request;
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 1;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 1;
   v8 = [(UARPiCloudManager *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -54,17 +83,17 @@
   v11 = objc_alloc(MEMORY[0x277CBC600]);
   v12 = [v11 initWithZoneName:@"chipAccessories" ownerName:*MEMORY[0x277CBBF20]];
   v13 = objc_alloc(MEMORY[0x277CBC3B0]);
-  v48[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+  v47[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
   v15 = [v13 initWithRecordZoneIDs:v14 configurationsByRecordZoneID:0];
 
   [v15 setFetchAllChanges:!requestCopy];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy_;
-  v46 = __Block_byref_object_dispose_;
-  v47 = 0;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy_;
+  v45 = __Block_byref_object_dispose_;
+  v46 = 0;
   if (requestCopy)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -77,32 +106,32 @@
     [v15 setConfigurationsByRecordZoneID:dictionary];
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke;
-  v36[3] = &unk_279DFCED0;
-  v36[4] = self;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke;
+  v35[3] = &unk_279DFCED0;
+  v35[4] = self;
   v20 = groupCopy;
-  v37 = v20;
+  v36 = v20;
   p_buf = &buf;
-  [v15 setRecordChangedBlock:v36];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_14;
-  v34[3] = &unk_279DFCEF8;
-  v35 = requestCopy;
-  v34[4] = self;
-  v34[5] = &v39;
-  [v15 setRecordZoneFetchCompletionBlock:v34];
+  [v15 setRecordChangedBlock:v35];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_14;
+  v33[3] = &unk_279DFCEF8;
+  v34 = requestCopy;
+  v33[4] = self;
+  v33[5] = &v38;
+  [v15 setRecordZoneFetchCompletionBlock:v33];
   v21 = dispatch_semaphore_create(0);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_18;
-  v32[3] = &unk_279DFCF20;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_18;
+  v31[3] = &unk_279DFCF20;
+  v31[4] = self;
   v22 = v21;
-  v33 = v22;
-  [v15 setFetchRecordZoneChangesCompletionBlock:v32];
+  v32 = v22;
+  [v15 setFetchRecordZoneChangesCompletionBlock:v31];
   container3 = [(UARPiCloudManager *)self container];
   database = [container3 database];
   [database addOperation:v15];
@@ -127,28 +156,27 @@
   else
   {
     *metadata = *(*(&buf + 1) + 40);
-    v28 = *(v40 + 24);
+    v28 = *(v39 + 24);
   }
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v38, 8);
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
 void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315394;
-    v21 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
-    v22 = 2112;
-    v23 = v3;
-    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_DEFAULT, "%s: Record Changed: %@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
+    v21 = 2112;
+    v22 = v3;
+    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_DEFAULT, "%s: Record Changed: %@", &v19, 0x16u);
   }
 
   v5 = [v3 recordType];
@@ -191,11 +219,11 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
         {
           v17 = [v3 recordID];
           v18 = [v17 recordName];
-          v20 = 136315394;
-          v21 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
-          v22 = 2112;
-          v23 = v18;
-          _os_log_impl(&dword_2701F5000, &v12->super, OS_LOG_TYPE_DEFAULT, "%s: Invalid CHIPAccessoryRecord: %@", &v20, 0x16u);
+          v19 = 136315394;
+          v20 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
+          v21 = 2112;
+          v22 = v18;
+          _os_log_impl(&dword_2701F5000, &v12->super, OS_LOG_TYPE_DEFAULT, "%s: Invalid CHIPAccessoryRecord: %@", &v19, 0x16u);
         }
       }
     }
@@ -206,20 +234,18 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
     v10 = [*(a1 + 32) log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315394;
-      v21 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
-      v22 = 2112;
-      v23 = v3;
-      _os_log_impl(&dword_2701F5000, v10, OS_LOG_TYPE_DEFAULT, "%s: Invalid Record type: %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_2701F5000, v10, OS_LOG_TYPE_DEFAULT, "%s: Invalid Record type: %@", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_14(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5, void *a6)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v10 = a2;
   v11 = a3;
   v12 = a6;
@@ -227,22 +253,22 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = "NO";
-    v18 = 136316162;
-    v19 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
+    v17 = 136316162;
+    v18 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
     if (a5)
     {
       v14 = "YES";
     }
 
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2080;
-    v27 = v14;
-    _os_log_impl(&dword_2701F5000, v13, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed for recordZoneID: %@ changeToken:%@ error: %@ moreComing %s", &v18, 0x34u);
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v12;
+    v25 = 2080;
+    v26 = v14;
+    _os_log_impl(&dword_2701F5000, v13, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed for recordZoneID: %@ changeToken:%@ error: %@ moreComing %s", &v17, 0x34u);
   }
 
   if (*(a1 + 48) == 1)
@@ -261,26 +287,23 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
       [v16 setDatabaseChangeToken:v15];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata_productGroup_batchRequest___block_invoke_18(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315394;
-    v7 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed with error: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAccessoriesMetadata:productGroup:batchRequest:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed with error: %@", &v5, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemoteFetchRequestForCHIPAttestationCertificates:(id)certificates
@@ -305,7 +328,7 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
 
 - (void)handleRemoteFetchRequestSyncForCHIPAttestationCertificates:(id *)certificates subjectKeyIdentifier:(id)identifier
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = [(UARPiCloudManager *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -320,35 +343,35 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
   v10 = objc_alloc(MEMORY[0x277CBC600]);
   v11 = [v10 initWithZoneName:@"chipAttestationCertificates" ownerName:*MEMORY[0x277CBBF20]];
   v12 = objc_alloc(MEMORY[0x277CBC3B0]);
-  v33[0] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v14 = [v12 initWithRecordZoneIDs:v13 configurationsByRecordZoneID:0];
 
   [v14 setFetchAllChanges:1];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke;
-  v25[3] = &unk_279DFCED0;
-  v25[4] = self;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke;
+  v24[3] = &unk_279DFCED0;
+  v24[4] = self;
   v15 = identifierCopy;
-  v26 = v15;
+  v25 = v15;
   p_buf = &buf;
-  [v14 setRecordChangedBlock:v25];
+  [v14 setRecordChangedBlock:v24];
   v16 = dispatch_semaphore_create(0);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke_24;
-  v23[3] = &unk_279DFCF20;
-  v23[4] = self;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke_24;
+  v22[3] = &unk_279DFCF20;
+  v22[4] = self;
   v17 = v16;
-  v24 = v17;
-  [v14 setFetchRecordZoneChangesCompletionBlock:v23];
+  v23 = v17;
+  [v14 setFetchRecordZoneChangesCompletionBlock:v22];
   container2 = [(UARPiCloudManager *)self container];
   database = [container2 database];
   [database addOperation:v14];
@@ -372,21 +395,20 @@ void __108__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAccessori
   }
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAttestationCertificates:subjectKeyIdentifier:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_DEFAULT, "%s: Record Changed :%@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAttestationCertificates:subjectKeyIdentifier:]_block_invoke";
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_DEFAULT, "%s: Record Changed :%@", &v14, 0x16u);
   }
 
   v5 = *(a1 + 40);
@@ -409,38 +431,35 @@ void __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestati
       [v10 addObject:v9];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestationCertificates_subjectKeyIdentifier___block_invoke_24(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315394;
-    v7 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAttestationCertificates:subjectKeyIdentifier:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed with error: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[UARPiCloudManager(CHIP) handleRemoteFetchRequestSyncForCHIPAttestationCertificates:subjectKeyIdentifier:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v4, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed with error: %@", &v5, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performRemoteFetchForCHIPVerificationCertificateSync
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = [(UARPiCloudManager *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     container = [(UARPiCloudManager *)self container];
     containerID = [container containerID];
     *buf = 138412290;
-    v29 = containerID;
+    v28 = containerID;
     _os_log_impl(&dword_2701F5000, v3, OS_LOG_TYPE_DEFAULT, "Fetching CHIPVerificationCertificate Record for Container:%@", buf, 0xCu);
   }
 
@@ -448,22 +467,22 @@ void __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestati
   v7 = [v6 initWithZoneName:@"certificates" ownerName:*MEMORY[0x277CBBF20]];
   v8 = [objc_alloc(MEMORY[0x277CBC5C8]) initWithRecordName:@"certificates" zoneID:v7];
   v9 = objc_alloc(MEMORY[0x277CBC3E8]);
-  v27 = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v11 = [v9 initWithRecordIDs:v10];
 
   v12 = dispatch_semaphore_create(0);
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertificateSync__block_invoke;
-  v23 = &unk_279DFCF48;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertificateSync__block_invoke;
+  v22 = &unk_279DFCF48;
   selfCopy = self;
   v13 = v8;
-  v25 = v13;
+  v24 = v13;
   v14 = v12;
-  v26 = v14;
-  [v11 setFetchRecordsCompletionBlock:&v20];
-  v15 = [(UARPiCloudManager *)self container:v20];
+  v25 = v14;
+  [v11 setFetchRecordsCompletionBlock:&v19];
+  v15 = [(UARPiCloudManager *)self container:v19];
   database = [v15 database];
   [database addOperation:v11];
 
@@ -478,25 +497,23 @@ void __107__UARPiCloudManager_CHIP__handleRemoteFetchRequestSyncForCHIPAttestati
 
     [v11 cancel];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertificateSync__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315650;
-    v12 = "[UARPiCloudManager(CHIP) performRemoteFetchForCHIPVerificationCertificateSync]_block_invoke";
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_2701F5000, v7, OS_LOG_TYPE_INFO, "%s: operationError = %@, recordsByRecordID: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[UARPiCloudManager(CHIP) performRemoteFetchForCHIPVerificationCertificateSync]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_2701F5000, v7, OS_LOG_TYPE_INFO, "%s: operationError = %@, recordsByRecordID: %@", &v10, 0x20u);
   }
 
   if (v5 && !v6)
@@ -507,13 +524,64 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)processCHIPAccessoriesRecords:(id)records isComplete:(BOOL)complete productGroup:(id)group
+{
+  completeCopy = complete;
+  v24 = *MEMORY[0x277D85DE8];
+  recordsCopy = records;
+  groupCopy = group;
+  if (recordsCopy)
+  {
+    v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v11 = recordsCopy;
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v20;
+      do
+      {
+        v15 = 0;
+        do
+        {
+          if (*v20 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          accessoryMetadata = [*(*(&v19 + 1) + 8 * v15) accessoryMetadata];
+          [v10 addObject:accessoryMetadata];
+
+          ++v15;
+        }
+
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      }
+
+      while (v13);
+    }
+
+    delegate = [(UARPiCloudManager *)self delegate];
+    [delegate remoteFetchCompletionForSupportedAccessories:v10 productGroup:groupCopy isComplete:completeCopy error:0];
+  }
+
+  else if (completeCopy)
+  {
+    delegate2 = [(UARPiCloudManager *)self delegate];
+    [delegate2 remoteFetchCompletionForSupportedAccessories:0 productGroup:groupCopy isComplete:1 error:0];
+  }
 }
 
 - (BOOL)processCHIPAccessoriesRecord:(id)record
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = [(UARPiCloudManager *)self calculateDigestFromCHIPAccessoryCKRecord:recordCopy];
   v6 = [v5 length];
@@ -524,7 +592,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = v5;
+      v27 = v5;
       _os_log_impl(&dword_2701F5000, v8, OS_LOG_TYPE_INFO, "CHIPAccessory record digest: %@", buf, 0xCu);
     }
 
@@ -542,7 +610,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
           recordID = [recordCopy recordID];
           recordName = [recordID recordName];
           *buf = 138412290;
-          v28 = recordName;
+          v27 = recordName;
           _os_log_impl(&dword_2701F5000, v14, OS_LOG_TYPE_DEFAULT, "Validating signature on Record %@", buf, 0xCu);
         }
 
@@ -559,7 +627,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
             recordID2 = [recordCopy recordID];
             recordName2 = [recordID2 recordName];
             *buf = 138412290;
-            v28 = recordName2;
+            v27 = recordName2;
             _os_log_impl(&dword_2701F5000, v20, OS_LOG_TYPE_DEFAULT, "Stonehenge Signature validation successful for CHIPAccessoryRecord %@", buf, 0xCu);
           }
         }
@@ -568,7 +636,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
         {
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            [(UARPiCloudManager(CHIP) *)recordCopy processCHIPAccessoriesRecord:?];
+            [UARPiCloudManager(CHIP) processCHIPAccessoriesRecord:recordCopy];
           }
 
           CFRelease(error);
@@ -609,42 +677,41 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     v18 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)processCHIPAttestationCertificateRecords:(id)records subjectKeyIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   identifierCopy = identifier;
   if (recordsCopy)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v36 = recordsCopy;
+    v35 = recordsCopy;
     v9 = recordsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v43;
+      v12 = *v42;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v43 != v12)
+          if (*v42 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v42 + 1) + 8 * i);
+          v14 = *(*(&v41 + 1) + 8 * i);
           if (identifierCopy)
           {
-            recordName = [*(*(&v42 + 1) + 8 * i) recordName];
+            recordName = [*(*(&v41 + 1) + 8 * i) recordName];
             v16 = [identifierCopy isEqualToString:recordName];
 
             if (!v16)
@@ -659,7 +726,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v11);
@@ -668,26 +735,26 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     selfCopy = self;
 
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = v8;
-    v18 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v18 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v39;
+      v20 = *v38;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v39 != v20)
+          if (*v38 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v38 + 1) + 8 * j);
+          v22 = *(*(&v37 + 1) + 8 * j);
           rootCertificate = [v22 rootCertificate];
           v24 = [rootCertificate mutableCopy];
 
@@ -710,7 +777,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
           [v17 setObject:v30 forKeyedSubscript:recordName2];
         }
 
-        v19 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v19 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v19);
@@ -719,7 +786,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     delegate = [(UARPiCloudManager *)selfCopy delegate];
     [delegate remoteFetchCompletionForAttestationCertificates:v17 subjectKeyIdentifier:identifierCopy error:0];
 
-    recordsCopy = v36;
+    recordsCopy = v35;
   }
 
   else
@@ -727,13 +794,11 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     delegate2 = [(UARPiCloudManager *)self delegate];
     [delegate2 remoteFetchCompletionForAttestationCertificates:0 subjectKeyIdentifier:identifierCopy error:0];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processCHIPAttestationCertificateRecord:(id)record subjectKeyIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   verificationCertificateID = [recordCopy verificationCertificateID];
   v7 = [(UARPiCloudManager *)self copyPublicKeyFromCertificateID:verificationCertificateID];
@@ -755,7 +820,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
         recordID = [ckRecord recordID];
         recordName = [recordID recordName];
         *buf = 138412290;
-        v25 = recordName;
+        v24 = recordName;
         _os_log_impl(&dword_2701F5000, v13, OS_LOG_TYPE_DEFAULT, "Validating signature on Record %@", buf, 0xCu);
       }
 
@@ -771,7 +836,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
         {
           ckRecord2 = [recordCopy ckRecord];
           *buf = 138412290;
-          v25 = ckRecord2;
+          v24 = ckRecord2;
           _os_log_impl(&dword_2701F5000, v19, OS_LOG_TYPE_DEFAULT, "Signature validation successful CHIPAttestationCertificateRecord %@", buf, 0xCu);
         }
       }
@@ -780,7 +845,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
       {
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [UARPiCloudManager(CHIP) processCHIPAttestationCertificateRecord:recordCopy subjectKeyIdentifier:&error];
+          [UARPiCloudManager(CHIP) processCHIPAttestationCertificateRecord:recordCopy subjectKeyIdentifier:?];
         }
 
         CFRelease(error);
@@ -793,13 +858,12 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
     v12 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)calculateDigestFromCHIPAccessoryCKRecord:(id)record
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   memset(&c, 0, sizeof(c));
   CC_SHA256_Init(&c);
@@ -810,27 +874,27 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
   v7 = 0;
   if ([v6 count] == 2)
   {
-    v29 = v6;
+    v28 = v6;
     lastObject = [v6 lastObject];
     allKeys = [recordCopy allKeys];
     v10 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v34;
+      v15 = *v33;
       v16 = *MEMORY[0x277D02648];
       v17 = @"verificationCertificateKey";
-      v31 = lastObject;
-      v18 = *v34;
-      v30 = recordCopy;
+      v30 = lastObject;
+      v18 = *v33;
+      v29 = recordCopy;
       while (1)
       {
         if (v18 != v15)
@@ -838,7 +902,7 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
           objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v33 + 1) + 8 * v14);
+        v19 = *(*(&v32 + 1) + 8 * v14);
         if ([v19 isEqualToString:@"accessoryCategoryNumber"])
         {
           if (([lastObject isEqualToString:v16] & 1) == 0)
@@ -858,14 +922,14 @@ void __79__UARPiCloudManager_CHIP__performRemoteFetchForCHIPVerificationCertific
           v17 = v22;
           CC_SHA256_Update(&c, v25, v24);
 
-          recordCopy = v30;
-          lastObject = v31;
+          recordCopy = v29;
+          lastObject = v30;
 LABEL_14:
         }
 
         if (++v14 >= v13)
         {
-          v26 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v26 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (!v26)
           {
             goto LABEL_19;
@@ -875,7 +939,7 @@ LABEL_14:
           v14 = 0;
         }
 
-        v18 = *v34;
+        v18 = *v33;
       }
 
       v20 = [recordCopy objectForKey:@"accessoryCategoryNumber"];
@@ -889,10 +953,8 @@ LABEL_19:
     v7 = [MEMORY[0x277CBEB28] dataWithLength:32];
     CC_SHA256_Final([v7 mutableBytes], &c);
 
-    v6 = v29;
+    v6 = v28;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -959,7 +1021,7 @@ LABEL_19:
 
 - (void)processCHIPFirmwareRecord:(id)record inContainer:(id)container forAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   accessoryCopy = accessory;
   recordCopy = record;
@@ -973,11 +1035,11 @@ LABEL_19:
     if (v13)
     {
       recordName = [(CHIPAccessoryFirmwareRecord *)v11 recordName];
-      v18 = 136315394;
-      v19 = "[UARPiCloudManager(CHIP) processCHIPFirmwareRecord:inContainer:forAccessory:]";
-      v20 = 2112;
-      v21 = recordName;
-      _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_DEFAULT, "%s: Bypassing signature validation on Record %@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[UARPiCloudManager(CHIP) processCHIPFirmwareRecord:inContainer:forAccessory:]";
+      v19 = 2112;
+      v20 = recordName;
+      _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_DEFAULT, "%s: Bypassing signature validation on Record %@", &v17, 0x16u);
     }
 
     goto LABEL_9;
@@ -986,11 +1048,11 @@ LABEL_19:
   if (v13)
   {
     recordName2 = [(CHIPAccessoryFirmwareRecord *)v11 recordName];
-    v18 = 136315394;
-    v19 = "[UARPiCloudManager(CHIP) processCHIPFirmwareRecord:inContainer:forAccessory:]";
-    v20 = 2112;
-    v21 = recordName2;
-    _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_DEFAULT, "%s: Validating signature on Record %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[UARPiCloudManager(CHIP) processCHIPFirmwareRecord:inContainer:forAccessory:]";
+    v19 = 2112;
+    v20 = recordName2;
+    _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_DEFAULT, "%s: Validating signature on Record %@", &v17, 0x16u);
   }
 
   if ([(UARPiCloudManager *)self validateCHIPFirmwareRecord:v11 inContainer:containerCopy forAccessory:accessoryCopy])
@@ -1001,13 +1063,11 @@ LABEL_9:
 
   delegate = [(UARPiCloudManager *)self delegate];
   [delegate remoteFetchCompletion:accessoryCopy error:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateCHIPFirmwareRecord:(id)record inContainer:(id)container forAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   verificationCertificateID = [recordCopy verificationCertificateID];
   v8 = [(UARPiCloudManager *)self copyPublicKeyFromCertificateID:verificationCertificateID];
@@ -1049,7 +1109,7 @@ LABEL_9:
           v18 = [(UARPiCloudManager *)self log];
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            [UARPiCloudManager(CHIP) validateCHIPFirmwareRecord:recordCopy inContainer:cf forAccessory:?];
+            [UARPiCloudManager(CHIP) validateCHIPFirmwareRecord:recordCopy inContainer:? forAccessory:?];
           }
 
           CFRelease(*cf);
@@ -1073,7 +1133,6 @@ LABEL_9:
     v17 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1125,7 +1184,7 @@ LABEL_5:
   dispatch_async(recordProcessingQueue, v7);
 }
 
-uint64_t __54__UARPiCloudManager_performRemoteFetchForAccessories___block_invoke(uint64_t a1)
+void *__54__UARPiCloudManager_performRemoteFetchForAccessories___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -1141,45 +1200,47 @@ uint64_t __54__UARPiCloudManager_performRemoteFetchForAccessories___block_invoke
 
 - (void)qHandleRemoteFetchRequestForAccessories:(id)accessories
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   if ([(UARPiCloudManager *)self fetchVerificationCertificateInContainer:self->_container])
   {
     container = self->_container;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_invoke;
-    v12[3] = &unk_279DFCF20;
-    v12[4] = self;
-    v13 = accessoriesCopy;
-    [(UARPiCloudManager *)self fetchRemoteDatabaseChangesInContainer:container completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_invoke;
+    v11[3] = &unk_279DFCF20;
+    v11[4] = self;
+    v12 = accessoriesCopy;
+    [(UARPiCloudManager *)self fetchRemoteDatabaseChangesInContainer:container completion:v11];
   }
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = accessoriesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v10 = 0;
+        do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [(UARPiCloudManagerDelegate *)self->_delegate remoteFetchCompletion:*(*(&v14 + 1) + 8 * i) error:0];
+          [(UARPiCloudManagerDelegate *)self->_delegate remoteFetchCompletion:*(*(&v13 + 1) + 8 * v10++) error:0];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -1187,16 +1248,14 @@ uint64_t __54__UARPiCloudManager_performRemoteFetchForAccessories___block_invoke
 
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [UARPiCloudManager qHandleRemoteFetchRequestForAccessories:?];
+      [UARPiCloudManager qHandleRemoteFetchRequestForAccessories:];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -1205,11 +1264,11 @@ void __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_inv
     v6 = v4;
     v7 = [v5 updatedZones];
     *buf = 136315650;
-    v24 = "[UARPiCloudManager qHandleRemoteFetchRequestForAccessories:]_block_invoke";
-    v25 = 2112;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v3;
+    v23 = "[UARPiCloudManager qHandleRemoteFetchRequestForAccessories:]_block_invoke";
+    v24 = 2112;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v3;
     _os_log_impl(&dword_2701F5000, v6, OS_LOG_TYPE_INFO, "%s: container.updatedZones: %@ error: %@", buf, 0x20u);
   }
 
@@ -1227,32 +1286,32 @@ void __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_inv
 
   v11 = !v10;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(a1 + 40);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
         if ((v11 & 1) == 0)
         {
-          [*(*(a1 + 32) + 24) remoteFetchCompletion:*(*(&v18 + 1) + 8 * i) error:{v3, v18}];
+          [*(*(a1 + 32) + 24) remoteFetchCompletion:*(*(&v17 + 1) + 8 * i) error:{v3, v17}];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
@@ -1262,8 +1321,6 @@ void __61__UARPiCloudManager_qHandleRemoteFetchRequestForAccessories___block_inv
   {
     [*(a1 + 32) fetchZoneChangesInContainer:*(*(a1 + 32) + 16) forAccessories:*(a1 + 40)];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fetchRemoteDatabaseChangesInContainer:(id)container completion:(id)completion
@@ -1315,16 +1372,16 @@ void __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___
 
 void __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = "[UARPiCloudManager fetchRemoteDatabaseChangesInContainer:completion:]_block_invoke_2";
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Zone with ID %@ changed", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[UARPiCloudManager fetchRemoteDatabaseChangesInContainer:completion:]_block_invoke_2";
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Zone with ID %@ changed", &v9, 0x16u);
   }
 
   v4 = [UARPiCloudZone alloc];
@@ -1334,8 +1391,6 @@ void __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___
 
   v8 = [*(a1 + 48) updatedZones];
   [v8 addObject:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___block_invoke_289(uint64_t a1, void *a2, char a3, void *a4)
@@ -1362,40 +1417,36 @@ void __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___
 
 uint64_t __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completion___block_invoke_2_290(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 72);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v10 = 136315906;
-    v11 = "[UARPiCloudManager fetchRemoteDatabaseChangesInContainer:completion:]_block_invoke_2";
-    v12 = 2112;
-    v13 = v4;
-    v14 = 1024;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Fetch database changes operation completed with token: %@ moreComing: %d error: %@", &v10, 0x26u);
+    v8 = 136315906;
+    v9 = "[UARPiCloudManager fetchRemoteDatabaseChangesInContainer:completion:]_block_invoke_2";
+    v10 = 2112;
+    v11 = v4;
+    v12 = 1024;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Fetch database changes operation completed with token: %@ moreComing: %d error: %@", &v8, 0x26u);
   }
 
   if (!*(a1 + 48))
   {
     v6 = [*(a1 + 40) copy];
     [*(a1 + 56) setDatabaseChangeToken:v6];
-
-    v7 = *(a1 + 48);
   }
 
-  result = (*(*(a1 + 64) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 - (void)fetchZoneChangesInContainer:(id)container forAccessories:(id)accessories
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   accessoriesCopy = accessories;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -1404,46 +1455,46 @@ uint64_t __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completio
   updatedZones = [containerCopy updatedZones];
   if ([updatedZones count])
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke;
-    v29[3] = &unk_279DFD128;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke;
+    v28[3] = &unk_279DFD128;
     v12 = containerCopy;
-    v30 = v12;
-    v31 = dictionary;
+    v29 = v12;
+    v30 = dictionary;
     v13 = array;
-    v32 = v13;
-    [updatedZones enumerateObjectsUsingBlock:v29];
-    v33 = v10;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v31 = v13;
+    [updatedZones enumerateObjectsUsingBlock:v28];
+    v32 = v10;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
     v15 = [v13 sortedArrayUsingDescriptors:v14];
 
     v16 = [objc_alloc(MEMORY[0x277CBC3B0]) initWithRecordZoneIDs:v15 configurationsByRecordZoneID:0];
     [v16 setFetchAllChanges:1];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_2;
-    v27[3] = &unk_279DFD150;
-    v27[4] = self;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_2;
+    v26[3] = &unk_279DFD150;
+    v26[4] = self;
     v17 = v12;
-    v28 = v17;
-    [v16 setRecordChangedBlock:v27];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_306;
-    v25[3] = &unk_279DFD1C8;
-    v25[4] = self;
-    v26 = updatedZones;
-    [v16 setRecordZoneFetchCompletionBlock:v25];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_2_310;
-    v22[3] = &unk_279DFD218;
-    v22[4] = self;
+    v27 = v17;
+    [v16 setRecordChangedBlock:v26];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_306;
+    v24[3] = &unk_279DFD1C8;
+    v24[4] = self;
+    v25 = updatedZones;
+    [v16 setRecordZoneFetchCompletionBlock:v24];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_2_310;
+    v21[3] = &unk_279DFD218;
+    v21[4] = self;
     v18 = v17;
-    v23 = v18;
-    v24 = accessoriesCopy;
-    [v16 setFetchRecordZoneChangesCompletionBlock:v22];
+    v22 = v18;
+    v23 = accessoriesCopy;
+    [v16 setFetchRecordZoneChangesCompletionBlock:v21];
     database = [v18 database];
     [database addOperation:v16];
   }
@@ -1454,14 +1505,12 @@ uint64_t __70__UARPiCloudManager_fetchRemoteDatabaseChangesInContainer_completio
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v35 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]";
-      v36 = 2112;
-      v37 = accessoriesCopy;
+      v34 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]";
+      v35 = 2112;
+      v36 = accessoriesCopy;
       _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_INFO, "%s: No updates available for accessories %@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke(uint64_t a1, void *a2)
@@ -1510,22 +1559,20 @@ void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_
 
 void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Record changed: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Record changed: %@", &v5, 0x16u);
   }
 
   v4 = [*(a1 + 48) updatedRecords];
   [v4 addObject:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_306(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
@@ -1553,7 +1600,7 @@ void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_
 
 void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_2_307(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1561,26 +1608,24 @@ void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_
     v4 = *(a1 + 48);
     v5 = *(a1 + 56);
     *buf = 136315906;
-    v12 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_2";
-    v13 = 2112;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v5;
+    v11 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_2";
+    v12 = 2112;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed for recordZoneID: %@ changeToken:%@ error: %@", buf, 0x2Au);
   }
 
   v6 = *(a1 + 64);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_308;
-  v8[3] = &unk_279DFD178;
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  [v6 enumerateObjectsUsingBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_308;
+  v7[3] = &unk_279DFD178;
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  [v6 enumerateObjectsUsingBlock:v7];
 }
 
 void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_308(uint64_t a1, void *a2, _BYTE *a3)
@@ -1620,26 +1665,24 @@ void __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_
 
 uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___block_invoke_3_311(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed for all zones with error: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[UARPiCloudManager fetchZoneChangesInContainer:forAccessories:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_INFO, "%s: Record Zone Fetch completed for all zones with error: %@", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) processUpdatedRecordsInContainer:*(a1 + 48) forAccessories:*(a1 + 56)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) processUpdatedRecordsInContainer:*(a1 + 48) forAccessories:*(a1 + 56)];
 }
 
 - (void)processUpdatedRecordsInContainer:(id)container forAccessories:(id)accessories
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   accessoriesCopy = accessories;
   log = self->_log;
@@ -1649,21 +1692,21 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
     containerID = [containerCopy containerID];
     updatedRecords = [containerCopy updatedRecords];
     *buf = 136315650;
-    v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-    v79 = 2112;
-    v80 = containerID;
-    v81 = 2112;
-    v82 = updatedRecords;
+    v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+    v78 = 2112;
+    v79 = containerID;
+    v80 = 2112;
+    v81 = updatedRecords;
     _os_log_impl(&dword_2701F5000, v8, OS_LOG_TYPE_INFO, "%s: Updated Records in Container %@: %@", buf, 0x20u);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   obj = [containerCopy updatedRecords];
-  v11 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
-  v59 = containerCopy;
+  v11 = [obj countByEnumeratingWithState:&v69 objects:v75 count:16];
+  v58 = containerCopy;
   selfCopy = self;
   if (!v11)
   {
@@ -1675,26 +1718,26 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
   v12 = v11;
   v13 = 0;
   v14 = 0;
-  v58 = *v71;
+  v57 = *v70;
   do
   {
     v15 = 0;
-    v55 = v12;
+    v54 = v12;
     do
     {
-      if (*v71 != v58)
+      if (*v70 != v57)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v70 + 1) + 8 * v15);
+      v16 = *(*(&v69 + 1) + 8 * v15);
       v17 = self->_log;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-        v79 = 2112;
-        v80 = v16;
+        v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+        v78 = 2112;
+        v79 = v16;
         _os_log_impl(&dword_2701F5000, v17, OS_LOG_TYPE_INFO, "%s: Processing Record %@", buf, 0x16u);
       }
 
@@ -1718,9 +1761,9 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
             v41 = v40;
             recordType2 = [v16 recordType];
             *buf = 136315394;
-            v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-            v79 = 2112;
-            v80 = recordType2;
+            v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+            v78 = 2112;
+            v79 = recordType2;
             _os_log_impl(&dword_2701F5000, v41, OS_LOG_TYPE_INFO, "%s: Unexpected RecordType %@, discarding", buf, 0x16u);
           }
 
@@ -1731,7 +1774,7 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
       v22 = [v16 objectForKey:@"recordStatus"];
       if ([v22 isEqualToString:@"1"])
       {
-        v57 = v22;
+        v56 = v22;
         recordID = [v16 recordID];
         recordName = [recordID recordName];
         v25 = [recordName componentsSeparatedByString:@"-"];
@@ -1739,37 +1782,37 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
 
         if (firstObject)
         {
-          v61 = v16;
+          v60 = v16;
           recordID2 = [v16 recordID];
           zoneID = [recordID2 zoneID];
           zoneName = [zoneID zoneName];
 
           if (zoneName)
           {
-            v54 = v15;
-            v68 = 0u;
-            v69 = 0u;
-            v66 = 0u;
+            v53 = v15;
             v67 = 0u;
+            v68 = 0u;
+            v65 = 0u;
+            v66 = 0u;
             v30 = accessoriesCopy;
-            v31 = [v30 countByEnumeratingWithState:&v66 objects:v75 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v65 objects:v74 count:16];
             if (!v31)
             {
               goto LABEL_27;
             }
 
             v32 = v31;
-            v33 = *v67;
+            v33 = *v66;
             while (1)
             {
               for (i = 0; i != v32; ++i)
               {
-                if (*v67 != v33)
+                if (*v66 != v33)
                 {
                   objc_enumerationMutation(v30);
                 }
 
-                v35 = *(*(&v66 + 1) + 8 * i);
+                v35 = *(*(&v65 + 1) + 8 * i);
                 productNumber = [v35 productNumber];
                 if ([productNumber isEqualToString:firstObject])
                 {
@@ -1782,18 +1825,18 @@ uint64_t __64__UARPiCloudManager_fetchZoneChangesInContainer_forAccessories___bl
                   }
 
                   productNumber = [v35 availableRecords];
-                  [productNumber addObject:v61];
+                  [productNumber addObject:v60];
                 }
               }
 
-              v32 = [v30 countByEnumeratingWithState:&v66 objects:v75 count:16];
+              v32 = [v30 countByEnumeratingWithState:&v65 objects:v74 count:16];
               if (!v32)
               {
 LABEL_27:
 
                 self = selfCopy;
-                v15 = v54;
-                v12 = v55;
+                v15 = v53;
+                v12 = v54;
                 goto LABEL_36;
               }
             }
@@ -1803,14 +1846,14 @@ LABEL_27:
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-            v79 = 2112;
-            v80 = v61;
+            v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+            v78 = 2112;
+            v79 = v60;
             _os_log_impl(&dword_2701F5000, v44, OS_LOG_TYPE_INFO, "%s: Unexpected format for zoneName for CKRecord %@, discarding", buf, 0x16u);
           }
 
           zoneName = 0;
-          v12 = v55;
+          v12 = v54;
         }
 
         else
@@ -1819,17 +1862,17 @@ LABEL_27:
           if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-            v79 = 2112;
-            v80 = v16;
+            v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+            v78 = 2112;
+            v79 = v16;
             _os_log_impl(&dword_2701F5000, v43, OS_LOG_TYPE_INFO, "%s: Unexpected format for RecordName for CKRecord %@, discarding", buf, 0x16u);
           }
 
           firstObject = 0;
           zoneName = v13;
-          v12 = v55;
+          v12 = v54;
 LABEL_36:
-          v22 = v57;
+          v22 = v56;
         }
       }
 
@@ -1839,9 +1882,9 @@ LABEL_36:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-          v79 = 2112;
-          v80 = v16;
+          v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+          v78 = 2112;
+          v79 = v16;
           _os_log_impl(&dword_2701F5000, v39, OS_LOG_TYPE_DEFAULT, "%s: Discarding Inactive Record %@", buf, 0x16u);
         }
 
@@ -1856,58 +1899,56 @@ LABEL_41:
     }
 
     while (v15 != v12);
-    v12 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
+    v12 = [obj countByEnumeratingWithState:&v69 objects:v75 count:16];
   }
 
   while (v12);
 LABEL_45:
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v45 = accessoriesCopy;
-  v46 = [v45 countByEnumeratingWithState:&v62 objects:v74 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v61 objects:v73 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v63;
+    v48 = *v62;
     do
     {
       for (j = 0; j != v47; ++j)
       {
-        if (*v63 != v48)
+        if (*v62 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = *(*(&v62 + 1) + 8 * j);
+        v50 = *(*(&v61 + 1) + 8 * j);
         v51 = self->_log;
         if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v78 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
-          v79 = 2112;
-          v80 = v50;
+          v77 = "[UARPiCloudManager processUpdatedRecordsInContainer:forAccessories:]";
+          v78 = 2112;
+          v79 = v50;
           _os_log_impl(&dword_2701F5000, v51, OS_LOG_TYPE_INFO, "%s: Processing accessory %@", buf, 0x16u);
         }
 
         self = selfCopy;
-        [(UARPiCloudManager *)selfCopy processRecordsInContainer:v59 forAccessory:v50];
+        [(UARPiCloudManager *)selfCopy processRecordsInContainer:v58 forAccessory:v50];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
     while (v47);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processRecordsInContainer:(id)container forAccessory:(id)accessory
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   accessoryCopy = accessory;
   availableRecords = [accessoryCopy availableRecords];
@@ -1925,47 +1966,47 @@ LABEL_45:
 LABEL_7:
     v14 = MEMORY[0x277CCABB0];
     firmwareVersion = [accessoryCopy firmwareVersion];
-    v37 = [v14 numberWithInteger:{objc_msgSend(firmwareVersion, "integerValue")}];
+    v36 = [v14 numberWithInteger:{objc_msgSend(firmwareVersion, "integerValue")}];
 
     *buf = 0;
     *&buf[8] = 0;
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v35 = accessoryCopy;
+    v34 = accessoryCopy;
     obj = [accessoryCopy availableRecords];
-    v16 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+    v16 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 0;
-      v38 = 0;
+      v37 = 0;
       v13 = @"firmwareVersion";
       v19 = &unk_288030CE8;
-      v20 = *v42;
+      v20 = *v41;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v42 != v20)
+          if (*v41 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v41 + 1) + 8 * i);
+          v22 = *(*(&v40 + 1) + 8 * i);
           if ([containerCopy isCHIPContainer])
           {
             v23 = v19;
             v24 = [v22 objectForKey:@"firmwareVersionNumber"];
             v25 = [v22 objectForKey:@"minFirmwareVersionNumber"];
             v26 = [v22 objectForKey:@"maxFirmwareVersionNumber"];
-            if ((!v25 || ([v25 isEqualToNumber:v24] & 1) != 0 || objc_msgSend(v37, "compare:", v25) != -1) && (!v26 || (objc_msgSend(v26, "isEqualToNumber:", v24) & 1) != 0 || objc_msgSend(v37, "compare:", v26) != 1) && objc_msgSend(v24, "compare:", v37) == 1 && objc_msgSend(v24, "compare:", v19) == 1)
+            if ((!v25 || ([v25 isEqualToNumber:v24] & 1) != 0 || objc_msgSend(v36, "compare:", v25) != -1) && (!v26 || (objc_msgSend(v26, "isEqualToNumber:", v24) & 1) != 0 || objc_msgSend(v36, "compare:", v26) != 1) && objc_msgSend(v24, "compare:", v36) == 1 && objc_msgSend(v24, "compare:", v19) == 1)
             {
               v23 = v24;
 
               v27 = v22;
-              v38 = v27;
+              v37 = v27;
             }
 
             v13 = @"firmwareVersionString";
@@ -1976,21 +2017,21 @@ LABEL_7:
           {
             v28 = [v22 objectForKey:v13];
 
-            v40 = 0uLL;
-            [MEMORY[0x277D02628] versionFromString:v28 version:&v40];
-            if (uarpVersionCompare(buf, &v40) == 1)
+            v39 = 0uLL;
+            [MEMORY[0x277D02628] versionFromString:v28 version:&v39];
+            if (uarpVersionCompare(buf, &v39) == 1)
             {
-              *buf = v40;
+              *buf = v39;
               v29 = v22;
 
-              v38 = v29;
+              v37 = v29;
             }
 
             v18 = v28;
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v17 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
       }
 
       while (v17);
@@ -1999,15 +2040,15 @@ LABEL_7:
     else
     {
       v18 = 0;
-      v38 = 0;
+      v37 = 0;
       v13 = @"firmwareVersion";
       v19 = &unk_288030CE8;
     }
 
-    self = v34;
-    accessoryCopy = v35;
-    firstObject = v38;
-    if (!v38)
+    self = v33;
+    accessoryCopy = v34;
+    firstObject = v37;
+    if (!v37)
     {
       goto LABEL_5;
     }
@@ -2043,20 +2084,19 @@ LABEL_31:
     *&buf[4] = "[UARPiCloudManager processRecordsInContainer:forAccessory:]";
     *&buf[12] = 2112;
     *&buf[14] = v32;
-    v46 = 2112;
-    v47 = accessoryCopy;
+    v45 = 2112;
+    v46 = accessoryCopy;
     _os_log_impl(&dword_2701F5000, v31, OS_LOG_TYPE_INFO, "%s: Greatest Firmware Version %@ available on iCloud for accessory: %@", buf, 0x20u);
   }
 
   [(UARPiCloudManager *)self processCKRecord:firstObject inContainer:containerCopy forAccessory:accessoryCopy];
 
 LABEL_34:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCKRecord:(id)record inContainer:(id)container forAccessory:(id)accessory
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   containerCopy = container;
   accessoryCopy = accessory;
@@ -2082,8 +2122,8 @@ LABEL_34:
       *&buf[4] = "[UARPiCloudManager processCKRecord:inContainer:forAccessory:]";
       *&buf[12] = 2112;
       *&buf[14] = recordName;
-      v39 = 2112;
-      v40 = recordStatus2;
+      v38 = 2112;
+      v39 = recordStatus2;
       _os_log_impl(&dword_2701F5000, v16, OS_LOG_TYPE_INFO, "%s: Record %@ Active Status: %@", buf, 0x20u);
     }
 
@@ -2107,10 +2147,10 @@ LABEL_34:
         *&buf[4] = "[UARPiCloudManager processCKRecord:inContainer:forAccessory:]";
         *&buf[12] = 2112;
         *&buf[14] = recordName2;
-        v39 = 2112;
-        v40 = firmwareVersion2;
-        v41 = 2112;
-        v42 = firmwareVersion3;
+        v38 = 2112;
+        v39 = firmwareVersion2;
+        v40 = 2112;
+        v41 = firmwareVersion3;
         _os_log_impl(&dword_2701F5000, v21, OS_LOG_TYPE_INFO, "%s: Comparing Record %@ Firmware Version %@ with %@ on accessory", buf, 0x2Au);
       }
 
@@ -2122,9 +2162,9 @@ LABEL_34:
 
       v27 = MEMORY[0x277D02628];
       v28 = [(UARPiCloudAccessoryRecord *)v12 firmwareVersion:0];
-      [v27 versionFromString:v28 version:&v37];
+      [v27 versionFromString:v28 version:&v36];
 
-      if (uarpVersionCompare(buf, &v37) != 1)
+      if (uarpVersionCompare(buf, &v36) != 1)
       {
         goto LABEL_19;
       }
@@ -2172,8 +2212,6 @@ LABEL_19:
 
   [(UARPiCloudManager *)self processCHIPFirmwareRecord:recordCopy inContainer:containerCopy forAccessory:accessoryCopy];
 LABEL_20:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processVerificationCertificateRecord:(id)record forContainer:(id)container
@@ -2269,7 +2307,7 @@ LABEL_22:
 
 - (__SecKey)copyPublicKeyForVerificationCertificateData:(id)data policy:(__SecPolicy *)policy
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([(UARPiCloudContainer *)self->_container requiresPrefForSigningBeta])
   {
@@ -2283,35 +2321,35 @@ LABEL_22:
     CFPreferencesSetAppValue(@"AllowAccessoryUpdateSigningBeta", *MEMORY[0x277CBED28], @"com.apple.security");
   }
 
-  v24 = dataCopy;
+  v23 = dataCopy;
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:dataCopy encoding:4];
   v8 = [v7 componentsSeparatedByString:{@", "}];
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v27 + 1) + 8 * i) options:0];
+        v15 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v26 + 1) + 8 * i) options:0];
         v16 = SecCertificateCreateWithData(0, v15);
         [v9 addObject:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v12);
@@ -2327,9 +2365,9 @@ LABEL_22:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v32 = v17;
-      v33 = 2112;
-      v34 = error;
+      v31 = v17;
+      v32 = 2112;
+      v33 = error;
       _os_log_impl(&dword_2701F5000, v18, OS_LOG_TYPE_DEFAULT, "Certificate is trusted: %d trustErrorRef %@", buf, 0x12u);
     }
 
@@ -2348,40 +2386,39 @@ LABEL_22:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)filterInterestedZonesInContainer:(id)container forAccessories:(id)accessories
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   accessoriesCopy = accessories;
   v6 = [MEMORY[0x277CBEB58] set];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v27 = containerCopy;
+  v26 = containerCopy;
   obj = [containerCopy updatedZones];
-  v7 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v7 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
-    v28 = *v38;
+    v9 = *v37;
+    v27 = *v37;
     do
     {
       v10 = 0;
-      v30 = v8;
+      v29 = v8;
       do
       {
-        if (*v38 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
+        v11 = *(*(&v36 + 1) + 8 * v10);
         zoneID = [v11 zoneID];
         zoneName = [zoneID zoneName];
         v14 = [zoneName isEqualToString:@"certificates"];
@@ -2393,27 +2430,27 @@ LABEL_22:
 
         else
         {
-          v32 = v10;
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
+          v31 = v10;
           v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           v15 = accessoriesCopy;
-          v16 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v34;
+            v18 = *v33;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v34 != v18)
+                if (*v33 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v33 + 1) + 8 * i);
+                v20 = *(*(&v32 + 1) + 8 * i);
                 zoneID2 = [v11 zoneID];
                 zoneName2 = [zoneID2 zoneName];
                 productGroup = [v20 productGroup];
@@ -2425,35 +2462,33 @@ LABEL_22:
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v17);
           }
 
-          v9 = v28;
-          v8 = v30;
-          v10 = v32;
+          v9 = v27;
+          v8 = v29;
+          v10 = v31;
         }
 
         ++v10;
       }
 
       while (v10 != v8);
-      v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v8 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)validateSignatureForUARPAccessoryRecord:(id)record inContainer:(id)container
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   containerCopy = container;
   error = 0;
@@ -2503,7 +2538,7 @@ LABEL_18:
     v15 = log;
     recordName = [recordCopy recordName];
     *buf = 138412290;
-    v28 = recordName;
+    v27 = recordName;
     _os_log_impl(&dword_2701F5000, v15, OS_LOG_TYPE_DEFAULT, "Validating signature on Record %@", buf, 0xCu);
   }
 
@@ -2518,27 +2553,26 @@ LABEL_18:
     recordName2 = [recordCopy recordName];
     v23 = @"INVALID";
     *buf = 138412802;
-    v28 = recordName2;
+    v27 = recordName2;
     if (v18)
     {
       v23 = @"VALID";
     }
 
-    v29 = 2112;
-    v30 = v23;
-    v31 = 2112;
-    v32 = error;
+    v28 = 2112;
+    v29 = v23;
+    v30 = 2112;
+    v31 = error;
     _os_log_impl(&dword_2701F5000, v21, OS_LOG_TYPE_DEFAULT, "Signature on Record %@: %@ error: %@", buf, 0x20u);
   }
 
 LABEL_19:
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)fetchVerificationCertificateInContainer:(id)container
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   containerCopy = container;
   if ([containerCopy isCHIPContainer])
   {
@@ -2547,12 +2581,12 @@ LABEL_19:
 
   else
   {
-    v25[0] = 0;
-    v25[1] = v25;
-    v25[2] = 0x3032000000;
-    v25[3] = __Block_byref_object_copy__0;
-    v25[4] = __Block_byref_object_dispose__0;
-    v26 = 0;
+    v24[0] = 0;
+    v24[1] = v24;
+    v24[2] = 0x3032000000;
+    v24[3] = __Block_byref_object_copy__0;
+    v24[4] = __Block_byref_object_dispose__0;
+    v25 = 0;
     v5 = dispatch_semaphore_create(0);
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -2565,24 +2599,24 @@ LABEL_19:
     v8 = [v7 initWithZoneName:@"certificates" ownerName:*MEMORY[0x277CBBF20]];
     v9 = [objc_alloc(MEMORY[0x277CBC5C8]) initWithRecordName:@"certificates" zoneID:v8];
     v10 = objc_alloc(MEMORY[0x277CBC3E8]);
-    v29[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    v28[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
     v12 = [v10 initWithRecordIDs:v11];
 
     [v12 setShouldFetchAssetContentInMemory:1];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_invoke;
-    v20[3] = &unk_279DFD240;
-    v20[4] = self;
-    v24 = v25;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_invoke;
+    v19[3] = &unk_279DFD240;
+    v19[4] = self;
+    v23 = v24;
     v13 = v9;
-    v21 = v13;
+    v20 = v13;
     v14 = containerCopy;
-    v22 = v14;
+    v21 = v14;
     v15 = v5;
-    v23 = v15;
-    [v12 setFetchRecordsCompletionBlock:v20];
+    v22 = v15;
+    [v12 setFetchRecordsCompletionBlock:v19];
     database = [v14 database];
     [database addOperation:v12];
 
@@ -2590,34 +2624,33 @@ LABEL_19:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v28 = "[UARPiCloudManager fetchVerificationCertificateInContainer:]";
+      v27 = "[UARPiCloudManager fetchVerificationCertificateInContainer:]";
       _os_log_impl(&dword_2701F5000, v17, OS_LOG_TYPE_INFO, "%s: Waiting on the fetch record completion block to be finished", buf, 0xCu);
     }
 
     dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
 
-    _Block_object_dispose(v25, 8);
+    _Block_object_dispose(v24, 8);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "[UARPiCloudManager fetchVerificationCertificateInContainer:]_block_invoke";
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2701F5000, v7, OS_LOG_TYPE_INFO, "%s: operationError = %@, recordsByRecordID: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[UARPiCloudManager fetchVerificationCertificateInContainer:]_block_invoke";
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_2701F5000, v7, OS_LOG_TYPE_INFO, "%s: operationError = %@, recordsByRecordID: %@", &v11, 0x20u);
   }
 
   if (v5 && !v6)
@@ -2631,28 +2664,24 @@ void __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_inv
   }
 
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performRemoteFetchForSupportedAccessoriesMetadataInZone:(id)zone
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[UARPiCloudManager performRemoteFetchForSupportedAccessoriesMetadataInZone:]";
-    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Deprecated", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UARPiCloudManager performRemoteFetchForSupportedAccessoriesMetadataInZone:]";
+    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Deprecated", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performRemoteFetchForSupportedAccessoriesMetadata:(id)metadata batchRequest:(BOOL)request
 {
   requestCopy = request;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
@@ -2668,7 +2697,7 @@ void __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_inv
     *&buf[12] = 2112;
     *&buf[14] = metadataCopy;
     *&buf[22] = 2080;
-    v30 = v8;
+    v29 = v8;
     _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: productGroup:%@ batchRequest:%s", buf, 0x20u);
   }
 
@@ -2691,40 +2720,38 @@ void __61__UARPiCloudManager_fetchVerificationCertificateInContainer___block_inv
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v30) = 1;
+  LOBYTE(v29) = 1;
   v12 = dispatch_semaphore_create(0);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = dispatch_time(0, 0);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = dispatch_time(0, 0);
   v13 = MEMORY[0x277D85DD0];
   do
   {
-    v14 = v26[3];
+    v14 = v25[3];
     recordProcessingQueue = self->_recordProcessingQueue;
-    v19[0] = v13;
-    v19[1] = 3221225472;
-    v19[2] = __84__UARPiCloudManager_performRemoteFetchForSupportedAccessoriesMetadata_batchRequest___block_invoke;
-    v19[3] = &unk_279DFD268;
-    v22 = buf;
-    v19[4] = self;
+    v18[0] = v13;
+    v18[1] = 3221225472;
+    v18[2] = __84__UARPiCloudManager_performRemoteFetchForSupportedAccessoriesMetadata_batchRequest___block_invoke;
+    v18[3] = &unk_279DFD268;
+    v21 = buf;
+    v18[4] = self;
     v16 = metadataCopy;
-    v24 = requestCopy;
-    v20 = v16;
-    v23 = &v25;
+    v23 = requestCopy;
+    v19 = v16;
+    v22 = &v24;
     v17 = v12;
-    v21 = v17;
-    dispatch_after(v14, recordProcessingQueue, v19);
+    v20 = v17;
+    dispatch_after(v14, recordProcessingQueue, v18);
     dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   while (!*(*&buf[8] + 24));
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 
   _Block_object_dispose(buf, 8);
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __84__UARPiCloudManager_performRemoteFetchForSupportedAccessoriesMetadata_batchRequest___block_invoke(uint64_t a1)
@@ -2748,29 +2775,27 @@ intptr_t __84__UARPiCloudManager_performRemoteFetchForSupportedAccessoriesMetada
 
 - (void)performRemoteFetchForAttestationCertificates:(id)certificates
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   certificatesCopy = certificates;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[UARPiCloudManager performRemoteFetchForAttestationCertificates:]";
-    v13 = 2112;
-    v14 = certificatesCopy;
+    v11 = "[UARPiCloudManager performRemoteFetchForAttestationCertificates:]";
+    v12 = 2112;
+    v13 = certificatesCopy;
     _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: subjectKeyIdentifier:%@", buf, 0x16u);
   }
 
   recordProcessingQueue = self->_recordProcessingQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___block_invoke;
-  v9[3] = &unk_279DFD010;
-  v9[4] = self;
-  v10 = certificatesCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___block_invoke;
+  v8[3] = &unk_279DFD010;
+  v8[4] = self;
+  v9 = certificatesCopy;
   v7 = certificatesCopy;
-  dispatch_async(recordProcessingQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(recordProcessingQueue, v8);
 }
 
 void __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___block_invoke(uint64_t a1)
@@ -2799,7 +2824,7 @@ void __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___bloc
 
 - (id)calculateDigestFromUARPAccessoryRecord:(id)record
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   memset(&c, 0, sizeof(c));
   CC_SHA256_Init(&c);
@@ -2862,30 +2887,30 @@ void __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___bloc
   releaseNotesFileSize = [recordCopy releaseNotesFileSize];
   OUTLINED_FUNCTION_0_2(releaseNotesFileSize);
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v24 = array;
-  v25 = [v24 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v35;
+    v27 = *v34;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v35 != v27)
+        if (*v34 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [*(*(&v34 + 1) + 8 * i) dataUsingEncoding:{4, v34}];
+        v29 = [*(*(&v33 + 1) + 8 * i) dataUsingEncoding:{4, v33}];
         CC_SHA256_Update(&c, [v29 bytes], objc_msgSend(v29, "length"));
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v26);
@@ -2898,106 +2923,41 @@ void __66__UARPiCloudManager_performRemoteFetchForAttestationCertificates___bloc
     CC_SHA256_Final([v30 mutableBytes], &c);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v31;
-}
-
-- (void)qHandleRemoteFetchRequestForAccessories:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processVerificationCertificateRecord:forContainer:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)processVerificationCertificateRecord:forContainer:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processVerificationCertificateRecord:(void *)a1 forContainer:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 assetContent];
   v5 = [a2 assetTransferOptions];
-  v9[0] = 136315650;
+  v8[0] = 136315650;
   OUTLINED_FUNCTION_2_0();
-  v10 = v4;
-  v11 = v6;
-  v12 = v7;
-  _os_log_error_impl(&dword_2701F5000, v3, OS_LOG_TYPE_ERROR, "%s: Failed to retrieve verification/certificate data from %@, %@", v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v4;
+  v10 = v6;
+  v11 = v7;
+  _os_log_error_impl(&dword_2701F5000, v3, OS_LOG_TYPE_ERROR, "%s: Failed to retrieve verification/certificate data from %@, %@", v8, 0x20u);
 }
 
 - (void)processVerificationCertificateRecord:(uint64_t)a3 forContainer:.cold.4(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 fileURL];
-  v10[0] = 136315650;
+  v9[0] = 136315650;
   OUTLINED_FUNCTION_2_0();
-  v11 = v7;
-  v12 = v8;
-  v13 = a3;
-  _os_log_error_impl(&dword_2701F5000, v5, OS_LOG_TYPE_ERROR, "%s: Failed to delete asset at URL %@ withError %@", v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = v7;
+  v11 = v8;
+  v12 = a3;
+  _os_log_error_impl(&dword_2701F5000, v5, OS_LOG_TYPE_ERROR, "%s: Failed to delete asset at URL %@ withError %@", v9, 0x20u);
 }
 
 - (void)processVerificationCertificateRecord:forContainer:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copyPublicKeyForVerificationCertificateData:policy:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateSignatureForUARPAccessoryRecord:inContainer:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateSignatureForUARPAccessoryRecord:inContainer:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateSignatureForUARPAccessoryRecord:inContainer:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

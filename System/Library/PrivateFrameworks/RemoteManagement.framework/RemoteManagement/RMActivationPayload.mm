@@ -30,7 +30,7 @@
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
       {
-        sub_100007938();
+        sub_100007938(self);
       }
     }
 
@@ -55,7 +55,7 @@
     v6 = v7;
     if (!v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
     {
-      sub_1000079D4();
+      sub_1000079D4(self);
     }
   }
 

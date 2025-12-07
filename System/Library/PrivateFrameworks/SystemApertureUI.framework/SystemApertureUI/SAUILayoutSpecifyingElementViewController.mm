@@ -326,10 +326,11 @@ void __80__SAUILayoutSpecifyingElementViewController__configureAlertAssertionIfN
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    SAUIRegisterSystemApertureLogging();
+    SAUIRegisterSystemApertureLogging(v3, v4);
   }
 }
 
@@ -1202,40 +1203,40 @@ void __83__SAUILayoutSpecifyingElementViewController_alertWithReason_implicitlyD
   }
 }
 
-void __86__SAUILayoutSpecifyingElementViewController__configureTransitionShadowViewIfNecessary__block_invoke(uint64_t a1)
+void __86__SAUILayoutSpecifyingElementViewController__configureTransitionShadowViewIfNecessary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D755B8];
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v2 imageNamed:@"elementContentTransitionShadow" inBundle:v3];
+  v3 = MEMORY[0x277D755B8];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v3 imageNamed:@"elementContentTransitionShadow" inBundle:v4];
 
   if (*(a1 + 48) == 1)
   {
-    v4 = [v10 imageWithRenderingMode:2];
+    v5 = [v11 imageWithRenderingMode:2];
 
-    v10 = v4;
+    v11 = v5;
   }
 
-  v5 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v10];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 992);
-  *(v6 + 992) = v5;
+  v6 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v11];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 992);
+  *(v7 + 992) = v6;
 
   if (*(a1 + 48) == 1)
   {
-    v8 = *(a1 + 40);
+    v9 = *(a1 + 40);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  [*(*(a1 + 32) + 992) setTintColor:v8];
+  [*(*(a1 + 32) + 992) setTintColor:v9];
   [*(*(a1 + 32) + 992) setContentMode:4];
   [*(*(a1 + 32) + 992) setAlpha:*(*(a1 + 32) + 1064)];
   [*(*(a1 + 32) + 992) setUserInteractionEnabled:0];
-  v9 = [*(a1 + 32) view];
-  [v9 addSubview:*(*(a1 + 32) + 992)];
+  v10 = [*(a1 + 32) view];
+  [v10 addSubview:*(*(a1 + 32) + 992)];
   [*(a1 + 32) _layoutTransitionShadowView];
 }
 

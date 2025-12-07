@@ -39,58 +39,58 @@
 - (id)load
 {
   dataFile = [(BDSServiceNotificationStoreDataFile *)self dataFile];
-  v11 = 0;
-  v3 = [dataFile load:&v11];
-  v4 = v11;
+  v12 = 0;
+  v3 = [dataFile load:&v12];
+  v4 = v12;
 
   if (v4)
   {
-    v5 = sub_1000023E8();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000023E8(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE08C();
     }
 
 LABEL_4:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
   if (!v3)
   {
-    v5 = sub_1000023E8();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000023E8(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Didn't find notification store data file, starting fresh.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Didn't find notification store data file, starting fresh.", buf, 2u);
     }
 
     goto LABEL_4;
   }
 
-  v10 = 0;
-  v6 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v10];
-  v5 = v10;
-  v7 = sub_1000023E8();
-  v8 = v7;
-  if (v6)
+  v11 = 0;
+  v7 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v11];
+  v6 = v11;
+  v8 = sub_1000023E8(v6);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Loaded notification store data read from disk: %@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Loaded notification store data read from disk: %@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1001BE0F4();
   }
 
 LABEL_14:
 
-  return v6;
+  return v7;
 }
 
 - (void)save:(id)save
@@ -102,45 +102,45 @@ LABEL_14:
 
   encodedData = [v5 encodedData];
   dataFile = [(BDSServiceNotificationStoreDataFile *)self dataFile];
-  v17 = 0;
-  v8 = [dataFile save:encodedData error:&v17];
-  v9 = v17;
+  v19 = 0;
+  v8 = [dataFile save:encodedData error:&v19];
+  v9 = v19;
 
-  v10 = sub_1000023E8();
-  v11 = v10;
+  v11 = sub_1000023E8(v10);
+  v12 = v11;
   if (v8)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully saved notification store data.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Successfully saved notification store data.", buf, 2u);
     }
 
 LABEL_10:
 
-    v14 = v9;
+    v15 = v9;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_1001BE15C();
   }
 
   dataFile2 = [(BDSServiceNotificationStoreDataFile *)self dataFile];
-  v15 = v9;
-  v13 = [dataFile2 remove:&v15];
-  v14 = v15;
+  v17 = v9;
+  v14 = [dataFile2 remove:&v17];
+  v15 = v17;
 
-  if ((v13 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    v11 = sub_1000023E8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000023E8(v16);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001BE1C4();
     }
 
-    v9 = v14;
+    v9 = v15;
     goto LABEL_10;
   }
 

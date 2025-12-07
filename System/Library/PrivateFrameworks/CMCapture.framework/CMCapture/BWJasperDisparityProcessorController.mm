@@ -116,7 +116,7 @@
 
   else
   {
-    [BWJasperDisparityProcessorController addPointCloudToTimeMachine:];
+    [(BWJasperDisparityProcessorController *)self addPointCloudToTimeMachine:a2];
   }
 }
 
@@ -455,28 +455,29 @@ LABEL_15:
 
   if (!FigCapturePixelFormatIsDepthData([(BWVideoFormat *)[(BWJasperDisparityProcessorControllerConfiguration *)self->_configuration outputDepthFormat] pixelFormat]))
   {
-    v4 = -12780;
+    v5 = -12780;
     goto LABEL_5;
   }
 
-  v3 = [objc_alloc(getADJasperColorV2ExecutorClass()) initWithInputPrioritization:3 engineType:4];
-  self->_adStillImageExecutor = v3;
-  if (!v3)
+  v4 = [objc_alloc(getADJasperColorV2ExecutorClass()) initWithInputPrioritization:3 engineType:4];
+  self->_adStillImageExecutor = v4;
+  if (!v4)
   {
-    FigDebugAssert3();
-    v4 = -12786;
+    v7 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v2, v8, v9, v10, v11, v12, v13);
+    v5 = -12786;
     goto LABEL_5;
   }
 
-  v4 = [(ADJasperColorV2Executor *)self->_adStillImageExecutor prepareForColorROI:0.0, 0.0, [(BWVideoFormat *)[(BWJasperDisparityProcessorControllerConfiguration *)self->_configuration inputColorFormat] width], [(BWVideoFormat *)[(BWJasperDisparityProcessorControllerConfiguration *)self->_configuration inputColorFormat] height]];
-  if (v4)
+  v5 = [(ADJasperColorV2Executor *)self->_adStillImageExecutor prepareForColorROI:0.0, 0.0, [(BWVideoFormat *)[(BWJasperDisparityProcessorControllerConfiguration *)self->_configuration inputColorFormat] width], [(BWVideoFormat *)[(BWJasperDisparityProcessorControllerConfiguration *)self->_configuration inputColorFormat] height]];
+  if (v5)
   {
 LABEL_5:
 
     self->_adStillImageExecutor = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 @end

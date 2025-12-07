@@ -19,25 +19,17 @@
 - (Class)viewControllerClassForCreatingAccountWithType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:ACAccountTypeIdentifierExchange])
+  if (([typeCopy isEqualToString:ACAccountTypeIdentifierExchange] & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", ACAccountTypeIdentifierHotmail))
   {
-    v4 = off_302F0;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  if ([typeCopy isEqualToString:ACAccountTypeIdentifierHotmail])
+  else
   {
-    v4 = off_30300;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-LABEL_7:
-
-  return v6;
+  return v4;
 }
 
 - (Class)viewControllerClassForViewingAccount:(id)account
@@ -47,29 +39,17 @@ LABEL_7:
   identifier = [accountType identifier];
   v6 = [identifier isEqualToString:ACAccountTypeIdentifierExchange];
 
-  if (v6)
+  if ((v6 & 1) != 0 || ([accountCopy accountType], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "identifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", ACAccountTypeIdentifierHotmail), v8, v7, v9))
   {
-    v7 = off_302F8;
-LABEL_5:
-    v11 = *v7;
-    v12 = objc_opt_class();
-    goto LABEL_7;
+    v10 = objc_opt_class();
   }
 
-  accountType2 = [accountCopy accountType];
-  identifier2 = [accountType2 identifier];
-  v10 = [identifier2 isEqualToString:ACAccountTypeIdentifierHotmail];
-
-  if (v10)
+  else
   {
-    v7 = &off_30308;
-    goto LABEL_5;
+    v10 = 0;
   }
 
-  v12 = 0;
-LABEL_7:
-
-  return v12;
+  return v10;
 }
 
 - (Class)controllerClassForCreatingAccountWithType:(id)type

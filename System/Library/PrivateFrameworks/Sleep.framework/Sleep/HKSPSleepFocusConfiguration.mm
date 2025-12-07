@@ -4,6 +4,7 @@
 - (BOOL)isEqual:(id)equal;
 - (HKSPSleepFocusConfiguration)initWithUUID:(id)d mirrorsFocusModes:(BOOL)modes state:(unint64_t)state;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
+- (id)sleepFocusConfigurationUpdatingMirrorsFocusModes:(BOOL)modes;
 - (id)sleepFocusConfigurationUpdatingUUID:(id)d state:(unint64_t)state;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
@@ -17,6 +18,16 @@
 {
   dCopy = d;
   v7 = [[HKSPSleepFocusConfiguration alloc] initWithUUID:dCopy mirrorsFocusModes:[(HKSPSleepFocusConfiguration *)self mirrorsFocusModes] state:state];
+
+  return v7;
+}
+
+- (id)sleepFocusConfigurationUpdatingMirrorsFocusModes:(BOOL)modes
+{
+  modesCopy = modes;
+  v5 = [HKSPSleepFocusConfiguration alloc];
+  uuid = [(HKSPSleepFocusConfiguration *)self uuid];
+  v7 = [(HKSPSleepFocusConfiguration *)v5 initWithUUID:uuid mirrorsFocusModes:modesCopy state:[(HKSPSleepFocusConfiguration *)self state]];
 
   return v7;
 }

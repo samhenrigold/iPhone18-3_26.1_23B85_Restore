@@ -40,17 +40,17 @@
 - (void)prewarm
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Prewarming app state", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Prewarming app state", buf, 0xCu);
     }
   }
 
@@ -61,56 +61,55 @@
   block[3] = &unk_279944F98;
   block[4] = self;
   dispatch_async(internalClassQueue, block);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)cachedAppState
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v15 = __45__NPKApplicationStateListener_cachedAppState__block_invoke;
-  v16 = &unk_279944FE8;
+  v28 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v16 = __45__NPKApplicationStateListener_cachedAppState__block_invoke;
+  v17 = &unk_279944FE8;
   selfCopy = self;
-  v18 = &v19;
-  v3 = v14;
+  v19 = &v20;
+  v3 = v15;
   os_unfair_lock_lock(&self->_appStateLock);
-  v15(v3);
+  v16(v3);
 
   os_unfair_lock_unlock(&self->_appStateLock);
-  v4 = pk_Payment_log();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = pk_Payment_log(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v6)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v20[3] - 1;
-      if (v7 > 2)
+      v9 = v21[3] - 1;
+      if (v9 > 2)
       {
-        v8 = @"Unknown";
+        v10 = @"Unknown";
       }
 
       else
       {
-        v8 = off_279948658[v7];
+        v10 = off_279948658[v9];
       }
 
       *buf = 134218242;
       selfCopy2 = self;
-      v25 = 2112;
-      v26 = v8;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Getting cached app state. State: %@", buf, 0x16u);
+      v26 = 2112;
+      v27 = v10;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Getting cached app state. State: %@", buf, 0x16u);
     }
   }
 
-  v9 = v20[3];
-  if (!v9)
+  v11 = v21[3];
+  if (!v11)
   {
     internalClassQueue = self->_internalClassQueue;
     block[0] = MEMORY[0x277D85DD0];
@@ -119,12 +118,11 @@
     block[3] = &unk_279944F98;
     block[4] = self;
     dispatch_async(internalClassQueue, block);
-    v9 = v20[3];
+    v11 = v21[3];
   }
 
-  _Block_object_dispose(&v19, 8);
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  _Block_object_dispose(&v20, 8);
+  return v11;
 }
 
 - (void)appState:(id)state
@@ -173,84 +171,84 @@
 
 - (void)_retrieveAppState:(id)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(stateCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Retrieving application record.", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Retrieving application record.", buf, 0xCu);
     }
   }
 
-  v8 = objc_alloc(MEMORY[0x277CC1E70]);
-  v9 = *MEMORY[0x277D38988];
-  v19 = 0;
-  v10 = [v8 initWithBundleIdentifier:v9 allowPlaceholder:1 error:&v19];
-  v11 = v19;
-  if (v11)
+  v9 = objc_alloc(MEMORY[0x277CC1E70]);
+  v10 = *MEMORY[0x277D38988];
+  v21 = 0;
+  v11 = [v9 initWithBundleIdentifier:v10 allowPlaceholder:1 error:&v21];
+  v12 = v21;
+  v13 = v12;
+  if (v12)
   {
-    v12 = pk_Payment_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    v14 = pk_Payment_log(v12);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-    if (v13)
+    if (v15)
     {
-      v14 = pk_Payment_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v15 = NSStringFromBOOL();
+        v18 = NSStringFromBOOL();
         *buf = 134218754;
         selfCopy2 = self;
-        v22 = 2112;
-        v23 = v9;
         v24 = 2112;
-        v25 = v15;
+        v25 = v10;
         v26 = 2112;
-        v27 = v11;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_ERROR, "Error: [NPKApplicationStateListener] %p Failed to fetch %@ application record. App Record is nil? %@. Error: %@", buf, 0x2Au);
+        v27 = v18;
+        v28 = 2112;
+        v29 = v13;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_ERROR, "Error: [NPKApplicationStateListener] %p Failed to fetch %@ application record. App Record is nil? %@. Error: %@", buf, 0x2Au);
       }
     }
   }
 
-  applicationState = [v10 applicationState];
-  v17 = [(NPKApplicationStateListener *)self _applicationStateWithLSApplicationState:applicationState];
+  applicationState = [v11 applicationState];
+  v20 = [(NPKApplicationStateListener *)self _applicationStateWithLSApplicationState:applicationState];
 
-  [(NPKApplicationStateListener *)self _updateStateWithNewState:v17 completion:stateCopy];
-  v18 = *MEMORY[0x277D85DE8];
+  [(NPKApplicationStateListener *)self _updateStateWithNewState:v20 completion:stateCopy];
 }
 
 - (void)_handleApplicationChangeNotificationWithWorkspaceApplicationProxies:(id)proxies newStateResolver:(id)resolver
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   proxiesCopy = proxies;
   resolverCopy = resolver;
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v8 = proxiesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v30;
     v12 = *MEMORY[0x277D38988];
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         bundleIdentifier = [v14 bundleIdentifier];
         v16 = [bundleIdentifier isEqualToString:v12];
 
@@ -259,49 +257,49 @@
           appState = [v14 appState];
           v18 = resolverCopy[2](resolverCopy, appState);
 
-          v19 = pk_Payment_log();
-          v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+          v20 = pk_Payment_log(v19);
+          v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-          if (v20)
+          if (v21)
           {
-            v21 = pk_Payment_log();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v23 = pk_Payment_log(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               appState2 = [v14 appState];
-              v23 = appState2;
+              v25 = appState2;
               if ((v18 - 1) > 2)
               {
-                v24 = @"Unknown";
+                v26 = @"Unknown";
               }
 
               else
               {
-                v24 = off_279948658[v18 - 1];
+                v26 = off_279948658[v18 - 1];
               }
 
               *buf = 134218498;
               selfCopy = self;
-              v34 = 2112;
-              v35 = appState2;
-              v36 = 2112;
-              v37 = v24;
-              _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Received NanoPassbook LS app state change notification. App Proxy state: %@, resolved state to %@", buf, 0x20u);
+              v35 = 2112;
+              v36 = appState2;
+              v37 = 2112;
+              v38 = v26;
+              _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Received NanoPassbook LS app state change notification. App Proxy state: %@, resolved state to %@", buf, 0x20u);
             }
           }
 
           internalClassQueue = self->_internalClassQueue;
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __116__NPKApplicationStateListener__handleApplicationChangeNotificationWithWorkspaceApplicationProxies_newStateResolver___block_invoke;
-          v27[3] = &unk_279945830;
-          v27[4] = self;
-          v27[5] = v18;
-          dispatch_async(internalClassQueue, v27);
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __116__NPKApplicationStateListener__handleApplicationChangeNotificationWithWorkspaceApplicationProxies_newStateResolver___block_invoke;
+          v28[3] = &unk_279945830;
+          v28[4] = self;
+          v28[5] = v18;
+          dispatch_async(internalClassQueue, v28);
           goto LABEL_18;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v39 count:16];
       if (v10)
       {
         continue;
@@ -312,54 +310,50 @@
   }
 
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __116__NPKApplicationStateListener__handleApplicationChangeNotificationWithWorkspaceApplicationProxies_newStateResolver___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40) - 1;
-      if (v7 > 2)
+      v8 = *(a1 + 40) - 1;
+      if (v8 > 2)
       {
-        v8 = @"Unknown";
+        v9 = @"Unknown";
       }
 
       else
       {
-        v8 = off_279948658[v7];
+        v9 = off_279948658[v8];
       }
 
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       if ((a2 - 1) > 2)
       {
-        v10 = @"Unknown";
+        v11 = @"Unknown";
       }
 
       else
       {
-        v10 = off_279948658[a2 - 1];
+        v11 = off_279948658[a2 - 1];
       }
 
       v12 = 134218498;
-      v13 = v9;
+      v13 = v10;
       v14 = 2112;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Finished updating application state from LS app state notification with state %@. New resolved state: %@", &v12, 0x20u);
+      v17 = v11;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: [NPKApplicationStateListener] %p Finished updating application state from LS app state notification with state %@. New resolved state: %@", &v12, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_applicationStateWithLSApplicationState:(id)state

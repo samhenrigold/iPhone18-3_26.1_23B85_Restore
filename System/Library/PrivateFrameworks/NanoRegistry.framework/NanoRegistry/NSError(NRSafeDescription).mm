@@ -14,20 +14,20 @@
 
   if (_NRIsInternalInstall___internalInstall == 1)
   {
-    v2 = [self description];
+    v3 = [self description];
   }
 
   else
   {
-    v3 = MEMORY[0x1E696AEC0];
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = MEMORY[0x1E696AEC0];
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     code = [self code];
     domain = [self domain];
-    v2 = [v3 stringWithFormat:@"class=%@ code=%lld domain=%@", v5, code, domain];
+    v3 = [v4 stringWithFormat:@"class=%@ code=%lld domain=%@", v6, code, domain];
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)nr_filteredError

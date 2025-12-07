@@ -4,6 +4,7 @@
 - (int64_t)currentMultitaskingMode;
 - (void)_emitWindowingPersonalizationTelemetryWithPreviousMultitaskingMode:(int64_t)mode currentMultitaskingMode:(int64_t)multitaskingMode;
 - (void)setCurrentMultitaskingMode:(int64_t)mode;
+- (void)setPreviouslyEnabledStageManager:(BOOL)manager;
 @end
 
 @implementation SBContinuousExposeModuleController
@@ -52,6 +53,13 @@
   v3 = [_defaults BOOLForKey:@"SBFlexibleWindowingPreviouslyEnabledAutomaticStageCreation"];
 
   return v3;
+}
+
+- (void)setPreviouslyEnabledStageManager:(BOOL)manager
+{
+  managerCopy = manager;
+  _defaults = [(SBContinuousExposeModuleController *)self _defaults];
+  [_defaults setBool:managerCopy forKey:@"SBFlexibleWindowingPreviouslyEnabledAutomaticStageCreation"];
 }
 
 - (void)_emitWindowingPersonalizationTelemetryWithPreviousMultitaskingMode:(int64_t)mode currentMultitaskingMode:(int64_t)multitaskingMode

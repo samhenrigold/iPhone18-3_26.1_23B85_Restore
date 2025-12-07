@@ -13,6 +13,7 @@
 - (unsigned)getReportSizeForReportUsage:(unsigned int)usage;
 - (unsigned)getServiceForRegistryID:(unint64_t)d;
 - (void)accessoryAttached:(id)attached withInfo:(id)info;
+- (void)cleanupEASession;
 - (void)dealloc;
 - (void)getHIDAccessoryInformation;
 - (void)handleHIDAccessoryDisconnect;
@@ -192,7 +193,7 @@ LABEL_14:
 
   if (!-[EAOverHID sendHIDReport:reportID:length:](self, "sendHIDReport:reportID:length:", [v11 bytes], -[EAHIDAccessory HIDReportID](self->_eaHIDAccessory, "HIDReportID"), objc_msgSend(v11, "length")))
   {
-    sub_100050F08(&v18 + 1);
+    sub_100050F08();
 LABEL_20:
     if (v11)
     {
@@ -1534,7 +1535,7 @@ LABEL_50:
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: Queueing EAOverHID Event for filtername: %@ info: %@", v14, 0x20u);
       }
 
-      [(NSMutableArray *)self->_queuedEvents addObject:v7, *v14];
+      [(NSMutableArray *)self->_queuedEvents addObject:v7, *v14, *&v14[8]];
     }
   }
 
@@ -1842,6 +1843,96 @@ LABEL_40:
 LABEL_23:
   [(EAOverHID *)self idleExitAllowed:1];
   return v20;
+}
+
+- (void)cleanupEASession
+{
+  if (qword_100099828 != -1)
+  {
+    dispatch_once(&qword_100099828, &stru_100081D38);
+  }
+
+  if (sub_1000326A4())
+  {
+    LODWORD(v20) = 136315138;
+    *(&v20 + 4) = "[EAOverHID cleanupEASession]";
+    sub_1000325FC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+
+  [(EAOverHID *)self idleExitAllowed:1, v20];
+  if (self->_isActive)
+  {
+    eaHIDAccessory = self->_eaHIDAccessory;
+    if (eaHIDAccessory)
+    {
+      if ([(EAHIDAccessory *)eaHIDAccessory EAEndpointUUID])
+      {
+        (off_100099868)([(EAHIDAccessory *)self->_eaHIDAccessory EAEndpointUUID]);
+      }
+
+      if ([(EAHIDAccessory *)self->_eaHIDAccessory EAConnectionUUID])
+      {
+        (off_100099868)([(EAHIDAccessory *)self->_eaHIDAccessory EAConnectionUUID]);
+      }
+
+      if ([(EAHIDAccessory *)self->_eaHIDAccessory HIDDevice])
+      {
+        if (self->_hidDeviceScheduled)
+        {
+          hIDDevice = [(EAHIDAccessory *)self->_eaHIDAccessory HIDDevice];
+          Main = CFRunLoopGetMain();
+          IOHIDDeviceUnscheduleFromRunLoop(hIDDevice, Main, kCFRunLoopDefaultMode);
+          IOHIDDeviceClose([(EAHIDAccessory *)self->_eaHIDAccessory HIDDevice], 0);
+          self->_hidDeviceScheduled = 0;
+        }
+
+        CFRelease([(EAHIDAccessory *)self->_eaHIDAccessory HIDDevice]);
+        [(EAHIDAccessory *)self->_eaHIDAccessory setHIDDevice:0];
+      }
+
+      self->_eaHIDAccessory = 0;
+    }
+
+    input = self->_input;
+    if (input)
+    {
+
+      self->_input = 0;
+    }
+
+    self->_isActive = 0;
+    queuedEvents = self->_queuedEvents;
+    if (queuedEvents)
+    {
+      if ([(NSMutableArray *)queuedEvents count])
+      {
+        firstObject = [(NSMutableArray *)self->_queuedEvents firstObject];
+        if (firstObject)
+        {
+          v14 = firstObject;
+          [(NSMutableArray *)self->_queuedEvents removeObjectAtIndex:0];
+          if (qword_100099828 != -1)
+          {
+            dispatch_once(&qword_100099828, &stru_100081D38);
+          }
+
+          if (sub_1000326D4())
+          {
+            [v14 filterName];
+            [v14 info];
+            LODWORD(v21) = 136315650;
+            *(&v21 + 4) = "[EAOverHID cleanupEASession]";
+            sub_100032704();
+            sub_10003262C();
+            _os_log_impl(v15, v16, v17, v18, v19, 0x20u);
+          }
+
+          -[EAOverHID accessoryAttached:withInfo:](self, "accessoryAttached:withInfo:", [v14 filterName], objc_msgSend(v14, "info"));
+        }
+      }
+    }
+  }
 }
 
 - (id)getEAProductIDForAccessory

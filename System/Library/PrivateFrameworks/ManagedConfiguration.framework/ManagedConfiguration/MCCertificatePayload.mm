@@ -23,12 +23,12 @@
 
 - (MCCertificatePayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v49.receiver = self;
-  v49.super_class = MCCertificatePayload;
-  v10 = [(MCPayload *)&v49 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v48.receiver = self;
+  v48.super_class = MCCertificatePayload;
+  v10 = [(MCPayload *)&v48 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10 || ![profileCopy isStub])
   {
     goto LABEL_20;
@@ -67,43 +67,43 @@
   }
 
   v23 = objc_opt_class();
-  v48 = 0;
-  v24 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"IsIdentity" type:v23 errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v48];
-  v22 = v48;
+  v47 = 0;
+  v24 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"IsIdentity" type:v23 errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v47];
+  v22 = v47;
   isIdentity = v10->_isIdentity;
   v10->_isIdentity = v24;
 
   if (!v22)
   {
-    v47 = 0;
-    v26 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"IsRoot" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v47];
-    v22 = v47;
+    v46 = 0;
+    v26 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"IsRoot" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v46];
+    v22 = v46;
     isRoot = v10->_isRoot;
     v10->_isRoot = v26;
 
     if (!v22)
     {
-      v46 = 0;
-      v28 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Expiry" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v46];
-      v22 = v46;
+      v45 = 0;
+      v28 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Expiry" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v45];
+      v22 = v45;
       expiryInterval = v10->_expiryInterval;
       v10->_expiryInterval = v28;
 
       if (!v22)
       {
-        v45 = 0;
-        v30 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"CertSubject" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v45];
-        v22 = v45;
+        v44 = 0;
+        v30 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"CertSubject" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v44];
+        v22 = v44;
         certSubject = v10->_certSubject;
         v10->_certSubject = v30;
 
         if (!v22)
         {
-          v44 = 0;
-          v42 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Issuer" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v44];
-          v22 = v44;
+          v43 = 0;
+          v41 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Issuer" errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v43];
+          v22 = v43;
           certIssuer = v10->_certIssuer;
-          v10->_certIssuer = v42;
+          v10->_certIssuer = v41;
 
           if (!v22)
           {
@@ -135,16 +135,15 @@ LABEL_15:
     v38 = v37;
     mCVerboseDescription = [v33 MCVerboseDescription];
     *buf = 138543618;
-    v51 = v37;
-    v52 = 2114;
-    v53 = mCVerboseDescription;
+    v50 = v37;
+    v51 = 2114;
+    v52 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v36, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_20:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -319,30 +318,30 @@ LABEL_20:
 
 - (BOOL)isMDMClientIdentity
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   profile = [(MCPayload *)self profile];
   payloads = [profile payloads];
 
-  v5 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(payloads);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           identityUUID = [v9 identityUUID];
@@ -353,7 +352,7 @@ LABEL_20:
         }
       }
 
-      v6 = [payloads countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [payloads countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -366,7 +365,6 @@ LABEL_20:
   v10 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

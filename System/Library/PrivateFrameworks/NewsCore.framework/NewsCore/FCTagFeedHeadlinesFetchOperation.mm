@@ -64,67 +64,67 @@
 
 - (void)performOperation
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = __Block_byref_object_copy__57;
-  v38[4] = __Block_byref_object_dispose__57;
-  v39 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v37 = 0;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = __Block_byref_object_copy__57;
-  v34[4] = __Block_byref_object_dispose__57;
-  v35 = 0;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = __Block_byref_object_copy__57;
-  v32[4] = __Block_byref_object_dispose__57;
-  v33 = 0;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x3032000000;
-  v30[3] = __Block_byref_object_copy__57;
-  v30[4] = __Block_byref_object_dispose__57;
-  v31 = 0;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __52__FCTagFeedHeadlinesFetchOperation_performOperation__block_invoke;
-  v29[3] = &unk_1E7C43848;
-  v29[6] = v32;
-  v29[7] = v30;
-  v29[8] = v36;
-  v29[9] = v34;
-  v29[4] = self;
-  v29[5] = v38;
-  v28 = v29;
+  v46 = *MEMORY[0x1E69E9840];
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = __Block_byref_object_copy__57;
+  v37[4] = __Block_byref_object_dispose__57;
+  v38 = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x2020000000;
+  v36 = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x3032000000;
+  v33[3] = __Block_byref_object_copy__57;
+  v33[4] = __Block_byref_object_dispose__57;
+  v34 = 0;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = __Block_byref_object_copy__57;
+  v31[4] = __Block_byref_object_dispose__57;
+  v32 = 0;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x3032000000;
+  v29[3] = __Block_byref_object_copy__57;
+  v29[4] = __Block_byref_object_dispose__57;
+  v30 = 0;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __52__FCTagFeedHeadlinesFetchOperation_performOperation__block_invoke;
+  v28[3] = &unk_1E7C43848;
+  v28[6] = v31;
+  v28[7] = v29;
+  v28[8] = v35;
+  v28[9] = v33;
+  v28[4] = self;
+  v28[5] = v37;
+  v27 = v28;
   if (self)
   {
-    v26 = self->_feedDescriptor;
-    backingTag = [(FCFeedDescriptor *)v26 backingTag];
+    v25 = self->_feedDescriptor;
+    backingTag = [(FCFeedDescriptor *)v25 backingTag];
     if (!backingTag && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "tag"];
+      v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "tag"];
       *buf = 136315906;
       *&buf[4] = "[FCTagFeedHeadlinesFetchOperation _fetchOrdinaryHeadlinesWithCompletionHandler:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCTagFeedHeadlinesFetchOperation.m";
       *&buf[22] = 1024;
-      LODWORD(v41) = 184;
-      WORD2(v41) = 2114;
-      *(&v41 + 6) = v24;
+      LODWORD(v40) = 184;
+      WORD2(v40) = 2114;
+      *(&v40 + 6) = v23;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v27 = [FCFeedContext feedContextForTag:backingTag];
+    v26 = [FCFeedContext feedContextForTag:backingTag];
     tagType = [backingTag tagType];
-    v25 = tagType != 1;
+    v24 = tagType != 1;
     if (tagType == 1)
     {
       v5 = 2;
@@ -148,7 +148,7 @@
 
       [(FCFeedRequest *)v10 setCachedOnly:self->_fetchOrdinaryItemsFromCache];
       [array addObject:v10];
-      [dictionary setObject:v27 forKey:v6];
+      [dictionary setObject:v26 forKey:v6];
     }
 
     else
@@ -160,7 +160,7 @@
     {
       v12 = self->_cloudContext;
       paidAccessChecker = [(FCCloudContext *)v12 paidAccessChecker];
-      backingChannel = [(FCFeedDescriptor *)v26 backingChannel];
+      backingChannel = [(FCFeedDescriptor *)v25 backingChannel];
 
       LODWORD(v12) = [paidAccessChecker canGetSubscriptionToChannel:backingChannel];
       if (v12)
@@ -176,7 +176,7 @@
             [v16 setFeedRange:paidFeedRange];
 
             [array addObject:v16];
-            [dictionary setObject:v27 forKey:v7];
+            [dictionary setObject:v26 forKey:v7];
           }
         }
       }
@@ -192,14 +192,14 @@
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __81__FCTagFeedHeadlinesFetchOperation__fetchOrdinaryHeadlinesWithCompletionHandler___block_invoke;
-    *&v41 = &unk_1E7C438C0;
-    v19 = v28;
-    v44 = dictionary;
-    v45 = v19;
-    *(&v41 + 1) = v6;
-    v42 = v7;
+    *&v40 = &unk_1E7C438C0;
+    v19 = v27;
+    v43 = dictionary;
+    v44 = v19;
+    *(&v40 + 1) = v6;
+    v41 = v7;
     selfCopy = self;
-    v46 = v25;
+    v45 = v24;
     v20 = dictionary;
     v21 = v7;
     v22 = v6;
@@ -208,14 +208,12 @@
     [(FCOperation *)v18 start];
   }
 
-  _Block_object_dispose(v30, 8);
-  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(v29, 8);
+  _Block_object_dispose(v31, 8);
 
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(v38, 8);
-
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v37, 8);
 }
 
 void __52__FCTagFeedHeadlinesFetchOperation_performOperation__block_invoke(void *a1, void *a2, void *a3, void *a4, char a5, void *a6)

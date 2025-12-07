@@ -42,7 +42,7 @@
 
 - (void)startInParentVC:(id)c options:(id)options completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   cCopy = c;
   optionsCopy = options;
   completionCopy = completion;
@@ -51,38 +51,36 @@
   {
     *buf = 138543874;
     selfCopy = self;
-    v27 = 2114;
-    v28 = cCopy;
-    v29 = 2112;
-    v30 = optionsCopy;
+    v26 = 2114;
+    v27 = cCopy;
+    v28 = 2112;
+    v29 = optionsCopy;
     _os_log_impl(&dword_238BCD000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ will start on parentVC: %{public}@ with options: %@", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
   builder = self->_builder;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke;
-  v22[3] = &unk_278A65868;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke;
+  v21[3] = &unk_278A65868;
   v13 = cCopy;
-  v23 = v13;
+  v22 = v13;
   v14 = optionsCopy;
-  v24 = v14;
-  v15 = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke(v22);
+  v23 = v14;
+  v15 = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke(v21);
   v16 = [(LAPSPasscodeChangeControllerProviding *)builder passcodeVerificationControllerWithOptions:v15];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke_2;
-  v19[3] = &unk_278A65890;
-  objc_copyWeak(&v21, buf);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke_2;
+  v18[3] = &unk_278A65890;
+  objc_copyWeak(&v20, buf);
   v17 = completionCopy;
-  v20 = v17;
-  [(LAPasscodeVerificationService *)self _startOperation:v16 completion:v19];
+  v19 = v17;
+  [(LAPasscodeVerificationService *)self _startOperation:v16 completion:v18];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 LAPSPasscodeChangeControllerProviderOptions *__68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke(uint64_t a1)
@@ -131,7 +129,7 @@ LAPSPasscodeChangeControllerProviderOptions *__68__LAPasscodeVerificationService
 
 void __68__LAPasscodeVerificationService_startInParentVC_options_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = LACLogPasscodeService();
@@ -139,27 +137,24 @@ void __68__LAPasscodeVerificationService_startInParentVC_options_completion___bl
   if (os_log_type_enabled(v7, v8))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v13 = 138543618;
-    v14 = WeakRetained;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_238BCD000, v7, v8, "%{public}@ did finish (error=%{public}@)", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = WeakRetained;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_238BCD000, v7, v8, "%{public}@ did finish (error=%{public}@)", &v12, 0x16u);
   }
 
   v10 = *(a1 + 32);
   v11 = [LAPasscodeServiceErrorBuilder redactError:v5];
   (*(v10 + 16))(v10, v6, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "%{public}@ will cancel", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "%{public}@ will cancel", &v2, 0xCu);
 }
 
 - (void)_startOperation:(id)operation completion:(id)completion

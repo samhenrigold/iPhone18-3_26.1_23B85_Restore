@@ -45,13 +45,13 @@
 - (void)performUserInteractionTask
 {
   selfCopy = self;
-  sub_1A3E999A8();
+  sub_1A3E999A8(selfCopy, v2);
 }
 
 - (PXCuratedLibraryRemoveFiltersActionPerformer)initWithActionType:(id)type viewModel:(id)model
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CuratedLibraryRemoveFiltersActionPerformer();
+  v7.super_class = type metadata accessor for CuratedLibraryRemoveFiltersActionPerformer(self, a2);
   return [(PXCuratedLibraryActionPerformer *)&v7 initWithActionType:type viewModel:model];
 }
 

@@ -11,13 +11,13 @@
 - (id)tu_stringByAddingBase64Padding;
 - (id)tu_stringByStrippingBase64Padding;
 - (id)tu_unsignedLongLongNumber;
-- (uint64_t)destinationIdIsEmailAddress;
-- (uint64_t)destinationIdIsPhoneNumber;
+- (void)destinationIdIsEmailAddress;
+- (void)destinationIdIsPhoneNumber;
 @end
 
 @implementation NSString(TelephonyUtilities)
 
-- (uint64_t)destinationIdIsEmailAddress
+- (void)destinationIdIsEmailAddress
 {
   result = [self length];
   if (result)
@@ -29,7 +29,7 @@
   return result;
 }
 
-- (uint64_t)destinationIdIsPhoneNumber
+- (void)destinationIdIsPhoneNumber
 {
   result = [self length];
   if (result)
@@ -41,7 +41,7 @@
 
     else
     {
-      return [self destinationIdIsHardware] ^ 1;
+      return ([self destinationIdIsHardware] ^ 1);
     }
   }
 
@@ -168,18 +168,17 @@
       formattedDisplayID_sCountryCode = lowercaseString;
     }
 
-    v7 = *MEMORY[0x1E695E480];
-    v8 = CFPhoneNumberCreate();
-    if (v8)
+    v7 = CFPhoneNumberCreate();
+    if (v7)
     {
-      v9 = v8;
+      v8 = v7;
       String = CFPhoneNumberCreateString();
       if (!String)
       {
         String = CFPhoneNumberCreateString();
       }
 
-      CFRelease(v9);
+      CFRelease(v8);
       if ([String length])
       {
         lTRString = [String LTRString];
@@ -311,7 +310,7 @@
 
 + (id)tu_conversationHandoffDynamicIdentifierWithGroupUUID:()TelephonyUtilities participantIdentifier:uplinkMuted:sendingVideo:
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   uUIDString = [a3 UUIDString];
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", a4, uUIDString];
   v11 = v10;
@@ -326,19 +325,17 @@
     v13 = @"0";
   }
 
-  v18[1] = v10;
-  v18[2] = v13;
+  v17[1] = v10;
+  v17[2] = v13;
   if (a6)
   {
     v12 = @"1";
   }
 
-  v18[3] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
+  v17[3] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   v15 = [v14 componentsJoinedByString:@"~"];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

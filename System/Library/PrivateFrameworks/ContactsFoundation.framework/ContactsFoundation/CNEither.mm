@@ -140,7 +140,7 @@
 
 + (id)firstLeftInLazyChain:(id)chain
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   if (!chainCopy)
   {
@@ -158,32 +158,32 @@
 
   if (![chainCopy count])
   {
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"no either blocks passed to firstLeftInLazyChain" userInfo:0];
-    objc_exception_throw(v21);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"no either blocks passed to firstLeftInLazyChain" userInfo:0];
+    objc_exception_throw(v20);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = chainCopy;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v23;
+    v16 = *v22;
 LABEL_9:
     v17 = 0;
     v18 = v15;
     while (1)
     {
-      if (*v23 != v16)
+      if (*v22 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v15 = (*(*(*(&v22 + 1) + 8 * v17) + 16))(*(*(&v22 + 1) + 8 * v17));
+      v15 = (*(*(*(&v21 + 1) + 8 * v17) + 16))(*(*(&v21 + 1) + 8 * v17));
 
       if ((*(CNEitherIsLeft + 2))(CNEitherIsLeft, v15))
       {
@@ -194,7 +194,7 @@ LABEL_9:
       v18 = v15;
       if (v14 == v17)
       {
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v14)
         {
           goto LABEL_9;
@@ -209,8 +209,6 @@ LABEL_9:
   {
     v15 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

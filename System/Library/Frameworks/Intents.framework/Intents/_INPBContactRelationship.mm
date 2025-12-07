@@ -143,7 +143,6 @@ LABEL_13:
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (relation)
   {
-    relation = self->_relation;
     PBDataWriterWriteStringField();
   }
 }

@@ -24,14 +24,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   hmbModelID = [(HMBModelReference *)self hmbModelID];
   v5 = [v3 initWithName:@"Model ID" value:hmbModelID];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -110,7 +108,7 @@
 
 - (id)isValidForContainer:(id)container updatedModelIDs:(id)ds
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   dsCopy = ds;
   hmbModelID = [(HMBModelReference *)self hmbModelID];
@@ -125,9 +123,9 @@
   {
     localZone = [containerCopy localZone];
     hmbModelID2 = [(HMBModelReference *)self hmbModelID];
-    v21 = 0;
-    v13 = [localZone fetchRecordRowWithModelID:hmbModelID2 returning:0 error:&v21];
-    v14 = v21;
+    v20 = 0;
+    v13 = [localZone fetchRecordRowWithModelID:hmbModelID2 returning:0 error:&v20];
+    v14 = v20;
 
     v10 = 0;
     if (!v13)
@@ -139,11 +137,11 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v23 = v18;
-        v24 = 2112;
-        v25 = selfCopy;
-        v26 = 2112;
-        v27 = v14;
+        v22 = v18;
+        v23 = 2112;
+        v24 = selfCopy;
+        v25 = 2112;
+        v26 = v14;
         _os_log_impl(&dword_22AD27000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot validate reference %@ because the referenced model can't be found: %@", buf, 0x20u);
       }
 
@@ -152,14 +150,12 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)associateWithContainer:(id)container
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   if (!containerCopy)
   {
@@ -185,18 +181,16 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v11;
-        v15 = 2112;
-        v16 = v5;
-        _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_ERROR, "%{public}@Local zone for associated container is nil: %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v11;
+        v14 = 2112;
+        v15 = v5;
+        _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_ERROR, "%{public}@Local zone for associated container is nil: %@", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMBModelReference)initWithModelID:(id)d

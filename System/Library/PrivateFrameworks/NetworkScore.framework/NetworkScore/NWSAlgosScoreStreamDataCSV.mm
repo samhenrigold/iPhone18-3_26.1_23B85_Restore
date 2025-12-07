@@ -1,11 +1,20 @@
 @interface NWSAlgosScoreStreamDataCSV
++ (id)streamDataCSV:(BOOL)v;
 - (BOOL)matchesMethod:(id)method code:(int64_t)code;
 - (BOOL)validMethod:(int64_t)method;
+- (id)initIsMusic:(BOOL)music;
 - (id)setUpMethods;
 - (int)transformer;
 @end
 
 @implementation NWSAlgosScoreStreamDataCSV
+
++ (id)streamDataCSV:(BOOL)v
+{
+  v3 = [[NWSAlgosScoreStreamDataCSV alloc] initIsMusic:v];
+
+  return v3;
+}
 
 - (id)setUpMethods
 {
@@ -45,30 +54,30 @@
 
 - (BOOL)validMethod:(int64_t)method
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   methods = [(NWSAlgosScoreStreamDataCSV *)self methods];
   allValues = [methods allValues];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CCABB0] numberWithInteger:{method, v15}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [MEMORY[0x277CCABB0] numberWithInteger:{method, v14}];
         LOBYTE(v10) = [v10 containsObject:v11];
 
         if (v10)
@@ -78,7 +87,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -91,71 +100,87 @@
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
+}
+
+- (id)initIsMusic:(BOOL)music
+{
+  musicCopy = music;
+  v8.receiver = self;
+  v8.super_class = NWSAlgosScoreStreamDataCSV;
+  v4 = [(NWSAlgosScoreDataCSV *)&v8 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(NWSAlgosScoreStreamDataCSV *)v4 setIsMusic:musicCopy];
+    setUpMethods = [(NWSAlgosScoreStreamDataCSV *)v5 setUpMethods];
+    [(NWSAlgosScoreStreamDataCSV *)v5 setMethods:setUpMethods];
+  }
+
+  return v5;
 }
 
 - (int)transformer
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   [(NWSAlgosScoreDataCSV *)self clearStreamingData];
   rawStreamData = [(NWSAlgosScoreDataCSV *)self rawStreamData];
   csvData = self->super.csvData;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   obj = [rawStreamData rows];
-  v4 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+  v4 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
   if (!v4)
   {
 
     v20 = 0;
     v18 = 0;
-    v48 = 0;
+    v58 = 0;
     v24 = 0.0;
-    v30 = 1.0;
-    v29 = 1.0;
+    v32 = 1.0;
+    v31 = 1.0;
     v25 = 0.0;
     v7 = 0.0;
     v8 = 0.0;
 LABEL_109:
     rows = [rawStreamData rows];
-    v40 = [rows count] == 0;
+    v49 = [rows count] == 0;
 
-    if (!v40)
+    if (!v49)
     {
-      v41 = nws_algos_log_obj();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+      v52 = nws_algos_log_obj(v50, v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
         *__p = 0;
-        _os_log_impl(&dword_25BA15000, v41, OS_LOG_TYPE_INFO, "Received no play end messages, inserting fake rate and end", __p, 2u);
+        _os_log_impl(&dword_25BA15000, v52, OS_LOG_TYPE_INFO, "Received no play end messages, inserting fake rate and end", __p, 2u);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v61, "rate");
-      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, v18, v20, v25, v8 - v7, v8, v29, v30);
+      std::string::basic_string[abi:ne200100]<0>(&v71, "rate");
+      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, v18, v20, v25, v8 - v7, v8, v31, v32);
       std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-      if (SHIBYTE(v70) < 0)
+      if (SHIBYTE(v79) < 0)
       {
         operator delete(*__p);
       }
 
-      if (v62 < 0)
+      if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v61[0]);
+        operator delete(v71.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v61, [@"end" cStringUsingEncoding:4]);
-      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, v18, v20, v25, v24, v8, 1.0, v30);
+      std::string::basic_string[abi:ne200100]<0>(&v71, [@"end" cStringUsingEncoding:4]);
+      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, v18, v20, v25, v24, v8, 1.0, v32);
       std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-      if (SHIBYTE(v70) < 0)
+      if (SHIBYTE(v79) < 0)
       {
         operator delete(*__p);
       }
 
-      if (v62 < 0)
+      if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v61[0]);
+        operator delete(v71.__r_.__value_.__l.__data_);
       }
     }
 
@@ -163,32 +188,32 @@ LABEL_109:
   }
 
   v5 = 0;
-  v48 = 0;
-  v51 = 0;
-  v59 = 0;
-  v57 = *v64;
-  v52 = -1;
-  v53 = -1;
+  v58 = 0;
+  v61 = 0;
+  v69 = 0;
+  v67 = *v73;
+  v62 = -1;
+  v63 = -1;
   v6 = 0.0;
   v7 = 0.0;
   v8 = 0.0;
-  v56 = 0.0;
-  v50 = 0.0;
-  v54 = -1;
-  v55 = -1;
+  v66 = 0.0;
+  v60 = 0.0;
+  v64 = -1;
+  v65 = -1;
   do
   {
-    v58 = v4;
+    v68 = v4;
     v9 = 0;
     v10 = v8;
     do
     {
-      if (*v64 != v57)
+      if (*v73 != v67)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v63 + 1) + 8 * v9);
+      v11 = *(*(&v72 + 1) + 8 * v9);
       v12 = [rawStreamData atRow:v11 col:@"timedelta_ms"];
       [v12 doubleValue];
       v8 = v13;
@@ -235,15 +260,15 @@ LABEL_109:
         {
           if ([(NWSAlgosScoreStreamDataCSV *)self isMusic])
           {
-            v29 = 0.3;
+            v31 = 0.3;
           }
 
           else
           {
-            v29 = 1.0;
+            v31 = 1.0;
           }
 
-          v30 = v26;
+          v32 = v26;
           v21 = @"error";
           if (v5)
           {
@@ -255,15 +280,15 @@ LABEL_109:
 
         if ([(NWSAlgosScoreStreamDataCSV *)self matchesMethod:@"PlayRateChanged" code:v19])
         {
-          v31 = [rawStreamData intAtRow:v11 col:@"Rate" defaultValue:-1];
+          v33 = [rawStreamData intAtRow:v11 col:@"Rate" defaultValue:-1];
           v24 = v8 - v7;
-          if ((v59 & 1) == 0 && !v31)
+          if ((v69 & 1) == 0 && !v33)
           {
-            v55 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v55];
-            v54 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v54];
-            v29 = 1.0;
+            v65 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v65];
+            v64 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v64];
+            v31 = 1.0;
 LABEL_65:
-            v30 = v6;
+            v32 = v6;
             v21 = @"rate";
             v6 = v26;
             v7 = v8;
@@ -275,67 +300,67 @@ LABEL_65:
 LABEL_85:
             if (([(__CFString *)v21 isEqualToString:@"start"]& 1) == 0)
             {
-              std::string::basic_string[abi:ne200100]<0>(v61, "start");
-              AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v24, v8, v29, v30);
+              std::string::basic_string[abi:ne200100]<0>(&v71, "start");
+              AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v24, v8, v31, v32);
               std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-              if (SHIBYTE(v70) < 0)
+              if (SHIBYTE(v79) < 0)
               {
                 operator delete(*__p);
               }
 
-              if (v62 < 0)
+              if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v61[0]);
+                operator delete(v71.__r_.__value_.__l.__data_);
               }
             }
 
             goto LABEL_90;
           }
 
-          if ((v59 & (v31 == 100)) != 1)
+          if ((v69 & (v33 == 100)) != 1)
           {
-            v29 = 1.0;
-            if ((v59 & (v31 == 0)) == 1)
+            v31 = 1.0;
+            if ((v69 & (v33 == 0)) == 1)
             {
-              v55 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v55];
-              v54 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v54];
-              v59 = 1;
+              v65 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v65];
+              v64 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v64];
+              v69 = 1;
             }
 
             goto LABEL_65;
           }
 
-          v24 = v8 - v56;
-          v29 = 1.0;
-          if (v8 - v56 >= 0.5)
+          v24 = v8 - v66;
+          v31 = 1.0;
+          if (v8 - v66 >= 0.5)
           {
-            v59 = 0;
+            v69 = 0;
           }
 
           else
           {
-            v33 = nws_algos_log_obj();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+            v38 = nws_algos_log_obj(v33, v34);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *__p = 134218496;
               *&__p[4] = 0x3FE0000000000000;
-              v68 = 2048;
-              v69 = v56;
-              v70 = 2048;
-              v71 = v8;
-              _os_log_impl(&dword_25BA15000, v33, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than %1.2f start: %1.2f, stop: %1.2f", __p, 0x20u);
+              v77 = 2048;
+              v78 = v66;
+              v79 = 2048;
+              v80 = v8;
+              _os_log_impl(&dword_25BA15000, v38, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than %1.2f start: %1.2f, stop: %1.2f", __p, 0x20u);
             }
 
-            v59 = 0;
-            ++v48;
+            v69 = 0;
+            ++v58;
           }
 
-          v30 = v6;
+          v32 = v6;
           v21 = @"stall-end-1";
           v6 = v26;
           v7 = v8;
 LABEL_84:
-          v50 = v8;
+          v60 = v8;
           if (v5)
           {
             goto LABEL_90;
@@ -346,49 +371,50 @@ LABEL_84:
 
         if ([(NWSAlgosScoreStreamDataCSV *)self matchesMethod:@"PlayLikelyToKeepUp" code:v19])
         {
-          v32 = [rawStreamData intAtRow:v11 col:@"SwCnt" defaultValue:v52];
-          v53 = [rawStreamData intAtRow:v11 col:@"OBRLast" defaultValue:v53];
-          v52 = v32;
-          v29 = 1.0;
-          if (v59)
+          v35 = [rawStreamData intAtRow:v11 col:@"SwCnt" defaultValue:v62];
+          v63 = [rawStreamData intAtRow:v11 col:@"OBRLast" defaultValue:v63];
+          v62 = v35;
+          v31 = 1.0;
+          if (v69)
           {
-            if (![(NWSAlgosScoreStreamDataCSV *)self isMusic])
+            isMusic = [(NWSAlgosScoreStreamDataCSV *)self isMusic];
+            if ((isMusic & 1) == 0)
             {
-              v24 = v8 - v56;
-              if (v8 - v56 < 0.5)
+              v24 = v8 - v66;
+              if (v8 - v66 < 0.5)
               {
-                v37 = nws_algos_log_obj();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+                v44 = nws_algos_log_obj(isMusic, v37);
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                 {
                   *__p = 134218496;
                   *&__p[4] = 0x3FE0000000000000;
-                  v68 = 2048;
-                  v69 = v56;
-                  v70 = 2048;
-                  v71 = v8;
-                  _os_log_impl(&dword_25BA15000, v37, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than %1.2f start: %1.2f, stop: %1.2f", __p, 0x20u);
+                  v77 = 2048;
+                  v78 = v66;
+                  v79 = 2048;
+                  v80 = v8;
+                  _os_log_impl(&dword_25BA15000, v44, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than %1.2f start: %1.2f, stop: %1.2f", __p, 0x20u);
                 }
 
-                ++v48;
+                ++v58;
               }
 
-              v55 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v55];
-              v54 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v54];
-              v51 = 0;
-              v59 = 0;
-              v30 = v26;
+              v65 = [rawStreamData intAtRow:v11 col:@"IABR" defaultValue:v65];
+              v64 = [rawStreamData intAtRow:v11 col:@"VaRk" defaultValue:v64];
+              v61 = 0;
+              v69 = 0;
+              v32 = v26;
               v21 = @"stall-end-2";
               goto LABEL_84;
             }
 
-            v51 = 0;
-            v59 = 1;
+            v61 = 0;
+            v69 = 1;
           }
 
           else
           {
-            v51 = 0;
-            v59 = 0;
+            v61 = 0;
+            v69 = 0;
           }
         }
 
@@ -396,30 +422,31 @@ LABEL_84:
         {
           if ([(NWSAlgosScoreStreamDataCSV *)self matchesMethod:@"PlayStalled" code:v19])
           {
-            if ((v59 & 1) == 0)
+            if ((v69 & 1) == 0)
             {
               v21 = @"stall";
             }
 
-            v34 = v56;
-            if ((v59 & 1) == 0)
+            v39 = v66;
+            if ((v69 & 1) == 0)
             {
-              v34 = v8;
+              v39 = v8;
             }
 
-            v56 = v34;
-            v59 = 1;
+            v66 = v39;
+            v69 = 1;
           }
 
           else
           {
-            if ([(NWSAlgosScoreStreamDataCSV *)self matchesMethod:@"PlayerSwitchComplete" code:v19])
+            v40 = [(NWSAlgosScoreStreamDataCSV *)self matchesMethod:@"PlayerSwitchComplete" code:v19];
+            if (v40)
             {
-              v35 = [rawStreamData intAtRow:v11 col:@"SwCnt" defaultValue:v52];
-              v53 = [rawStreamData intAtRow:v11 col:@"OBRLast" defaultValue:v53];
-              v29 = 1.0;
-              v30 = v26;
-              v52 = v35;
+              v42 = [rawStreamData intAtRow:v11 col:@"SwCnt" defaultValue:v62];
+              v63 = [rawStreamData intAtRow:v11 col:@"OBRLast" defaultValue:v63];
+              v31 = 1.0;
+              v32 = v26;
+              v62 = v42;
               if (v5)
               {
                 goto LABEL_90;
@@ -428,19 +455,19 @@ LABEL_84:
               goto LABEL_85;
             }
 
-            v36 = nws_algos_log_obj();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+            v43 = nws_algos_log_obj(v40, v41);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
             {
               *__p = 134217984;
               *&__p[4] = v19;
-              _os_log_impl(&dword_25BA15000, v36, OS_LOG_TYPE_INFO, "Unused method %lld. Unexpected", __p, 0xCu);
+              _os_log_impl(&dword_25BA15000, v43, OS_LOG_TYPE_INFO, "Unused method %lld. Unexpected", __p, 0xCu);
             }
           }
 
-          v29 = 1.0;
+          v31 = 1.0;
         }
 
-        v30 = v26;
+        v32 = v26;
         if (v5)
         {
           goto LABEL_90;
@@ -450,99 +477,100 @@ LABEL_84:
       }
 
       v27 = [rawStreamData intAtRow:v11 col:@"TimeWorkingToLTKU" defaultValue:0];
+      v29 = v27;
       if (v27 >= 500)
       {
-        std::string::basic_string[abi:ne200100]<0>(v61, "stall-end-4-startup");
-        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v27, v8, 0.5, v15 / 100.0);
-        std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-        if (SHIBYTE(v70) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v71, "stall-end-4-startup");
+        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v29, v8, 0.5, v15 / 100.0);
+        v27 = std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
+        if (SHIBYTE(v79) < 0)
         {
           operator delete(*__p);
         }
 
-        if (v62 < 0)
+        if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v61[0]);
+          operator delete(v71.__r_.__value_.__l.__data_);
         }
       }
 
-      if (v59)
+      if (v69)
       {
-        if (v8 - v56 < 0.0)
+        if (v8 - v66 < 0.0)
         {
-          v28 = nws_algos_log_obj();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v30 = nws_algos_log_obj(v27, v28);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             *__p = 134218240;
-            *&__p[4] = v56;
-            v68 = 2048;
-            v69 = v8;
-            _os_log_impl(&dword_25BA15000, v28, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than zero start: %1.2f, stop: %1.2f", __p, 0x16u);
+            *&__p[4] = v66;
+            v77 = 2048;
+            v78 = v8;
+            _os_log_impl(&dword_25BA15000, v30, OS_LOG_TYPE_INFO, "Unexpected stallduration cannot be less than zero start: %1.2f, stop: %1.2f", __p, 0x16u);
           }
 
-          ++v48;
+          ++v58;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v61, "stall-end-3");
-        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v8 - v56, v8, 1.0, v26);
+        std::string::basic_string[abi:ne200100]<0>(&v71, "stall-end-3");
+        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v8 - v66, v8, 1.0, v26);
         std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-        if (SHIBYTE(v70) < 0)
+        if (SHIBYTE(v79) < 0)
         {
           operator delete(*__p);
         }
 
-        if (v62 < 0)
+        if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v61[0]);
+          operator delete(v71.__r_.__value_.__l.__data_);
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v61, "rate");
-      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v8 - v7, v8, 1.0, v26);
+      std::string::basic_string[abi:ne200100]<0>(&v71, "rate");
+      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v8 - v7, v8, 1.0, v26);
       std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-      if (SHIBYTE(v70) < 0)
+      if (SHIBYTE(v79) < 0)
       {
         operator delete(*__p);
       }
 
-      if (v62 < 0)
+      if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v61[0]);
+        operator delete(v71.__r_.__value_.__l.__data_);
       }
 
-      v59 = 0;
-      v56 = 0.0;
-      v51 = 1;
-      v52 = -1;
-      v53 = -1;
-      v54 = -1;
-      v29 = 1.0;
-      v30 = v26;
+      v69 = 0;
+      v66 = 0.0;
+      v61 = 1;
+      v62 = -1;
+      v63 = -1;
+      v64 = -1;
+      v31 = 1.0;
+      v32 = v26;
       v21 = @"end";
-      v55 = -1;
-      v50 = 0.0;
+      v65 = -1;
+      v60 = 0.0;
       if (!v5)
       {
         goto LABEL_85;
       }
 
 LABEL_90:
-      std::string::basic_string[abi:ne200100]<0>(v61, -[__CFString cStringUsingEncoding:](v21, "cStringUsingEncoding:", 4));
-      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v24, v8, v29, v30);
+      std::string::basic_string[abi:ne200100]<0>(&v71, -[__CFString cStringUsingEncoding:](v21, "cStringUsingEncoding:", 4));
+      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v24, v8, v31, v32);
       std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-      if (SHIBYTE(v70) < 0)
+      if (SHIBYTE(v79) < 0)
       {
         operator delete(*__p);
       }
 
-      if (v62 < 0)
+      if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v61[0]);
+        operator delete(v71.__r_.__value_.__l.__data_);
       }
 
       if (![(__CFString *)v21 isEqualToString:@"rate"])
       {
-        v6 = v30;
+        v6 = v32;
       }
 
       ++v5;
@@ -550,54 +578,53 @@ LABEL_90:
       v10 = v8;
     }
 
-    while (v58 != v9);
-    v4 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+    while (v68 != v9);
+    v4 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
   }
 
   while (v4);
 
-  if (v59)
+  if (v69)
   {
-    std::string::basic_string[abi:ne200100]<0>(v61, [@"fake-stall-end" cStringUsingEncoding:4]);
-    AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v61, intValue == 3, v20, v25, v24, v8, 1.0, v30);
-    std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-    if (SHIBYTE(v70) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v71, [@"fake-stall-end" cStringUsingEncoding:4]);
+    AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v71, intValue == 3, v20, v25, v24, v8, 1.0, v32);
+    v45 = std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
+    if (SHIBYTE(v79) < 0)
     {
       operator delete(*__p);
     }
 
-    if (v62 < 0)
+    if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61[0]);
+      operator delete(v71.__r_.__value_.__l.__data_);
     }
 
-    v38 = nws_algos_log_obj();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    v47 = nws_algos_log_obj(v45, v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
     {
       *__p = 0;
-      _os_log_impl(&dword_25BA15000, v38, OS_LOG_TYPE_INFO, "Received no stall end messages", __p, 2u);
+      _os_log_impl(&dword_25BA15000, v47, OS_LOG_TYPE_INFO, "Received no stall end messages", __p, 2u);
     }
 
-    if (v50 < v56)
+    if (v60 < v66)
     {
-      v44 = MEMORY[0x277CCA9B8];
-      v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected stallduration cannot be less than zero start: %1.2f, stop: %1.2f", *&v56, *&v50, 0];
-      v46 = [v44 errorWithDomain:v45 code:-1 userInfo:0];
-      v47 = v46;
+      v54 = MEMORY[0x277CCA9B8];
+      v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected stallduration cannot be less than zero start: %1.2f, stop: %1.2f", *&v66, *&v60, 0];
+      v56 = [v54 errorWithDomain:v55 code:-1 userInfo:0];
+      v57 = v56;
 
-      objc_exception_throw(v46);
+      objc_exception_throw(v56);
     }
   }
 
-  if ((v51 & 1) == 0)
+  if ((v61 & 1) == 0)
   {
     goto LABEL_109;
   }
 
 LABEL_120:
 
-  v42 = *MEMORY[0x277D85DE8];
-  return v48;
+  return v58;
 }
 
 @end

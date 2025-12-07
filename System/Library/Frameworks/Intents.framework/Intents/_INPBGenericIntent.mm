@@ -16,7 +16,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_domain)
   {
@@ -32,30 +32,30 @@
   if ([(NSArray *)self->_parameters count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = self->_parameters;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -70,8 +70,6 @@
     v16 = [verb copy];
     [dictionary setObject:v16 forKeyedSubscript:@"verb"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -247,13 +245,12 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
   domain = [(_INPBGenericIntent *)self domain];
 
   if (domain)
   {
-    domain = self->_domain;
     PBDataWriterWriteStringField();
   }
 
@@ -265,47 +262,43 @@ LABEL_23:
     PBDataWriterWriteSubmessage();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v9 = self->_parameters;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v10)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v8 = self->_parameters;
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v19;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v15 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
-        ++v13;
+        ++v12;
       }
 
-      while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v10 != v12);
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
   verb = [(_INPBGenericIntent *)self verb];
 
   if (verb)
   {
-    verb = self->_verb;
     PBDataWriterWriteStringField();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVerb:(id)verb

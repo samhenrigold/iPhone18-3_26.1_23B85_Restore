@@ -63,7 +63,7 @@
 
 - (void)_setupStackView
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69DCF90]);
   v4 = [v3 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   stackView = self->_stackView;
@@ -72,27 +72,25 @@
   [(UIStackView *)self->_stackView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIStackView *)self->_stackView set_mapsui_axis:1];
   [(MUStackView *)self addSubview:self->_stackView];
-  v17 = MEMORY[0x1E696ACD8];
+  v16 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UIStackView *)self->_stackView leadingAnchor];
   leadingAnchor2 = [(MUStackView *)self leadingAnchor];
-  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v21[0] = v18;
+  v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v20[0] = v17;
   trailingAnchor = [(UIStackView *)self->_stackView trailingAnchor];
   trailingAnchor2 = [(MUStackView *)self trailingAnchor];
   v8 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[1] = v8;
+  v20[1] = v8;
   topAnchor = [(UIStackView *)self->_stackView topAnchor];
   topAnchor2 = [(MUStackView *)self topAnchor];
   v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v21[2] = v11;
+  v20[2] = v11;
   bottomAnchor = [(UIStackView *)self->_stackView bottomAnchor];
   bottomAnchor2 = [(MUStackView *)self bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
-  [v17 activateConstraints:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v20[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+  [v16 activateConstraints:v15];
 }
 
 - (MUStackView)initWithFrame:(CGRect)frame

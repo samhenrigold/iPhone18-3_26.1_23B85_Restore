@@ -80,7 +80,7 @@
   return v3;
 }
 
-uint64_t __43__AVOutputDeviceAuthorizationRequest_error__block_invoke(uint64_t a1)
+void *__43__AVOutputDeviceAuthorizationRequest_error__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -110,25 +110,24 @@ uint64_t __43__AVOutputDeviceAuthorizationRequest_error__block_invoke(uint64_t a
 
 - (void)respondWithAuthorizationToken:(id)token completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (dword_1EB46D568)
   {
-    v14 = 0;
+    v11 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = [(AVOutputDeviceAuthorizationRequest *)self impl:v10];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_completionHandler___block_invoke;
-  v12[3] = &unk_1E794EEB8;
-  v12[4] = self;
-  v12[5] = handler;
-  [v8 respondWithAuthorizationToken:token completionHandler:v12];
-  v9 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputDeviceAuthorizationRequest *)self impl];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_completionHandler___block_invoke;
+  v9[3] = &unk_1E794EEB8;
+  v9[4] = self;
+  v9[5] = handler;
+  [impl respondWithAuthorizationToken:token completionHandler:v9];
 }
 
 uint64_t __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -151,12 +150,10 @@ uint64_t __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 3);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), a2 == 3);
 }
 
-uint64_t __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_completionHandler___block_invoke_2(uint64_t a1)
+void *__86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_completionHandler___block_invoke_2(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = *(a1 + 48);
   result = [*(a1 + 40) copy];
@@ -166,7 +163,7 @@ uint64_t __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB46D568)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -174,8 +171,7 @@ uint64_t __86__AVOutputDeviceAuthorizationRequest_respondWithAuthorizationToken_
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [-[AVOutputDeviceAuthorizationRequest impl](self impl];
-  v4 = *MEMORY[0x1E69E9840];
+  [-[AVOutputDeviceAuthorizationRequest impl](self "impl")];
 }
 
 - (AVOutputDeviceAuthorizationRequest)initWithOutputDeviceAuthorizationRequestImpl:(id)impl

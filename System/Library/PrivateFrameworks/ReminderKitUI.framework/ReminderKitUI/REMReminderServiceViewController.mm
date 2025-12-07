@@ -1,6 +1,8 @@
 @interface REMReminderServiceViewController
 - (REMReminderCreationViewServiceViewController)viewServiceViewController;
 - (void)setChildViewController:(id)controller;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -8,10 +10,9 @@
 
 - (void)viewDidLoad
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_261ADC000, v0, OS_LOG_TYPE_ERROR, "Extension lookup of REMReminderCreationViewServiceBundleID failed %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261ADC000, v0, OS_LOG_TYPE_ERROR, "Extension lookup of REMReminderCreationViewServiceBundleID failed %@", v1, 0xCu);
 }
 
 void __47__REMReminderServiceViewController_viewDidLoad__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -69,9 +70,45 @@ void __47__REMReminderServiceViewController_viewDidLoad__block_invoke_3(uint64_t
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = REMReminderServiceViewController;
+  [(REMReminderServiceViewController *)&v7 viewDidAppear:appear];
+  deferredErrorDuringPresentation = [(REMReminderServiceViewController *)self deferredErrorDuringPresentation];
+
+  if (deferredErrorDuringPresentation)
+  {
+    deferredErrorDuringPresentation2 = [(REMReminderServiceViewController *)self deferredErrorDuringPresentation];
+    [(REMReminderServiceViewController *)self setDeferredErrorDuringPresentation:0];
+    v6 = [MEMORY[0x277D446D8] ui];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [REMReminderServiceViewController viewDidAppear:];
+    }
+
+    [(REMReminderServiceViewController *)self viewServiceDidFailWithError:deferredErrorDuringPresentation2];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = REMReminderServiceViewController;
+  [(REMReminderServiceViewController *)&v6 viewDidDisappear:disappear];
+  v4 = [MEMORY[0x277D446D8] ui];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [REMReminderServiceViewController viewDidDisappear:v4];
+  }
+
+  remoteViewController = [(REMReminderServiceViewController *)self remoteViewController];
+  [remoteViewController viewHostDidDismiss];
+}
+
 - (void)setChildViewController:(id)controller
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   if (self->_childViewController)
   {
@@ -88,30 +125,28 @@ void __47__REMReminderServiceViewController_viewDidLoad__block_invoke_3(uint64_t
   [(REMReminderServiceViewController *)self addChildViewController:v6];
   [view2 setTranslatesAutoresizingMaskIntoConstraints:0];
   [view addSubview:view2];
-  v18 = MEMORY[0x277CCAAD0];
+  v17 = MEMORY[0x277CCAAD0];
   leadingAnchor = [view2 leadingAnchor];
   leadingAnchor2 = [view leadingAnchor];
-  v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v24[0] = v21;
+  v20 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v23[0] = v20;
   trailingAnchor = [view2 trailingAnchor];
   trailingAnchor2 = [view trailingAnchor];
-  v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v24[1] = v17;
+  v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v23[1] = v16;
   topAnchor = [view2 topAnchor];
   topAnchor2 = [view topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v24[2] = v10;
+  v23[2] = v10;
   bottomAnchor = [view2 bottomAnchor];
   bottomAnchor2 = [view bottomAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v24[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
-  [v18 activateConstraints:v14];
+  v23[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+  [v17 activateConstraints:v14];
 
   [(_UIResilientRemoteViewContainerViewController *)v6 didMoveToParentViewController:self];
   [(_UIResilientRemoteViewContainerViewController *)v6 endAppearanceTransition];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (REMReminderCreationViewServiceViewController)viewServiceViewController
@@ -124,46 +159,39 @@ void __47__REMReminderServiceViewController_viewDidLoad__block_invoke_3(uint64_t
 
 void __47__REMReminderServiceViewController_viewDidLoad__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_261ADC000, v0, OS_LOG_TYPE_DEBUG, "_UIResilientRemoteViewContainerViewController initialized (%@)", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_261ADC000, v0, OS_LOG_TYPE_DEBUG, "_UIResilientRemoteViewContainerViewController initialized (%@)", v1, 0xCu);
 }
 
 void __47__REMReminderServiceViewController_viewDidLoad__block_invoke_cold_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
+  v10 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
-  v10 = 2112;
-  v11 = a2;
-  v7 = v6;
-  _os_log_error_impl(&dword_261ADC000, a3, OS_LOG_TYPE_ERROR, "Remote view controller error while displaying %@: %@", v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = a2;
+  v6 = v5;
+  _os_log_error_impl(&dword_261ADC000, a3, OS_LOG_TYPE_ERROR, "Remote view controller error while displaying %@: %@", v7, 0x16u);
 }
 
 - (void)viewDidAppear:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_261ADC000, v0, OS_LOG_TYPE_ERROR, "REMReminderServiceViewController: encountered error during presentation {error: %{public}@}", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261ADC000, v0, OS_LOG_TYPE_ERROR, "REMReminderServiceViewController: encountered error during presentation {error: %{public}@}", v1, 0xCu);
 }
 
 - (void)setChildViewController:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D446D8] ui];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
-    v2 = 136315138;
-    v3 = "[REMReminderServiceViewController setChildViewController:]";
-    _os_log_fault_impl(&dword_261ADC000, v0, OS_LOG_TYPE_FAULT, "rem_log_fault_if (_childViewController != nil) -- %s: remote view controller can only be set once", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[REMReminderServiceViewController setChildViewController:]";
+    _os_log_fault_impl(&dword_261ADC000, v0, OS_LOG_TYPE_FAULT, "rem_log_fault_if (_childViewController != nil) -- %s: remote view controller can only be set once", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

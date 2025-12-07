@@ -14,7 +14,7 @@
   v6 = v5;
   if (v5)
   {
-    v7 = [(TUILayout *)v5 box];
+    v7 = objc_msgSend_box(v5);
     v8 = [TUIHoverIdentifier alloc];
     regionName = [v7 regionName];
     identifier = [v7 identifier];
@@ -30,7 +30,7 @@
 {
   nameCopy = name;
   name = [(TUIHoverIdentifier *)self->_hoverIdentifier name];
-  v7 = [name isEqualToString:nameCopy];
+  v7 = objc_msgSend_isEqualToString_(name);
 
   if (v7)
   {
@@ -53,7 +53,7 @@
   if (self->_hoverIdentifier)
   {
     memset(&v13, 0, sizeof(v13));
-    [(TUILayout *)self computedTransformInAncestorLayout:layoutCopy];
+    objc_msgSend_computedTransformInAncestorLayout_(self);
     [(TUILayout *)self computedNaturalSize];
     v14.size.width = v8;
     v14.size.height = v9;

@@ -10,79 +10,77 @@
 {
   selfCopy = self;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E506BD0, &qword_2408D7AB0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v20 - v8;
+  v8 = &v19 - v7;
   connectionCopy = connection;
-  v11 = selfCopy;
+  v10 = selfCopy;
   if (token)
   {
     tokenCopy = token;
     token = sub_2408D3410();
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0xF000000000000000;
+    v13 = 0xF000000000000000;
   }
 
   Strong = swift_weakLoadStrong();
   if (Strong)
   {
-    v16 = Strong;
-    if (v14 >> 60 == 15)
+    v15 = Strong;
+    if (v13 >> 60 == 15)
     {
     }
 
     else
     {
-      v18 = sub_2408D4E60();
-      (*(*(v18 - 8) + 56))(v9, 1, 1, v18);
-      v19 = swift_allocObject();
-      v19[2] = 0;
-      v19[3] = 0;
-      v19[4] = v16;
-      v19[5] = token;
-      v19[6] = v14;
-      sub_24087827C(token, v14);
-      sub_24083AB60(0, 0, v9, &unk_2408D8598, v19);
+      v17 = sub_2408D4E60();
+      (*(*(v17 - 8) + 56))(v8, 1, 1, v17);
+      v18 = swift_allocObject();
+      v18[2] = 0;
+      v18[3] = 0;
+      v18[4] = v15;
+      v18[5] = token;
+      v18[6] = v13;
+      sub_24087827C(token, v13);
+      sub_24083AB60(0, 0, v8, &unk_2408D8598, v18);
 
-      sub_240875A6C(token, v14);
+      sub_240875A6C(token, v13);
     }
   }
 
   else
   {
-    sub_240875A6C(token, v14);
+    sub_240875A6C(token, v13);
 
-    v17 = selfCopy;
+    v16 = selfCopy;
   }
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E506BD0, &qword_2408D7AB0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v18 - v9;
+  v9 = &v17 - v8;
   Strong = swift_weakLoadStrong();
   if (Strong)
   {
     if (message)
     {
-      v12 = Strong;
-      v13 = sub_2408D4E60();
-      (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-      v14 = swift_allocObject();
-      v14[2] = 0;
-      v14[3] = 0;
-      v14[4] = v12;
-      v14[5] = message;
+      v11 = Strong;
+      v12 = sub_2408D4E60();
+      (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+      v13 = swift_allocObject();
+      v13[2] = 0;
+      v13[3] = 0;
+      v13[4] = v11;
+      v13[5] = message;
       messageCopy = message;
       connectionCopy = connection;
       selfCopy = self;
-      sub_24083AB60(0, 0, v10, &unk_2408D8588, v14);
+      sub_24083AB60(0, 0, v9, &unk_2408D8588, v13);
     }
 
     else

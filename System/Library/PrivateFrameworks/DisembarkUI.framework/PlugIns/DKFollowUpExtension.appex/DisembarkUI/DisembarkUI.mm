@@ -1,13 +1,13 @@
-id _DKLogSystem()
+id _DKLogSystem(uint64_t a1)
 {
   if (qword_100008130 != -1)
   {
     sub_100000F9C();
   }
 
-  v1 = qword_100008128;
+  v2 = qword_100008128;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000CBC(id a1)

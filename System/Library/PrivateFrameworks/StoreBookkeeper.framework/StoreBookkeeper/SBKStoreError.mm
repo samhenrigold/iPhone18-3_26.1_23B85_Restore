@@ -319,19 +319,17 @@
 
 + (id)unknownErrorWithTransaction:(id)transaction underlyingError:(id)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12 = *MEMORY[0x277CCA450];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CCA450];
   v4 = MEMORY[0x277CCACA8];
   errorCopy = error;
-  v6 = [v4 stringWithFormat:@"SBKTransactionErorGeneric: An unknown server error occurred. (underlyingError = %@) \n\t*** Please file a radar against 'Purple StoreBookkeeper / 1.0'\n\t*** - enable logging in Settings->Internal: iTunes Store->Verbose and iPod->Bookmark Syncing->Verbose\n\t*** - reproduce, then run > 'ituneskvsTool -debug' and attach console and PurplePod output\n", errorCopy, v12];
-  v13[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v6 = [v4 stringWithFormat:@"SBKTransactionErorGeneric: An unknown server error occurred. (underlyingError = %@) \n\t*** Please file a radar against 'Purple StoreBookkeeper / 1.0'\n\t*** - enable logging in Settings->Internal: iTunes Store->Verbose and iPod->Bookmark Syncing->Verbose\n\t*** - reproduce, then run > 'ituneskvsTool -debug' and attach console and PurplePod output\n", errorCopy, v11];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v8 = ErrorInfoWithUnderlyingError(v7, errorCopy);
 
   v9 = [SBKStoreError errorWithDomain:@"SBKStoreErrorDomain" code:-1 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

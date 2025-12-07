@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_18B7C4B54();
+  sub_18B7C4B54(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews

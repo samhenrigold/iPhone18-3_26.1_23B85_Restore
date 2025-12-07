@@ -126,7 +126,7 @@ uint64_t __49__SBBackgroundMultitaskingManager_sharedInstance__block_invoke()
   return v7;
 }
 
-- (uint64_t)_appProcessStateDidChange:(uint64_t)a3 .cold.1(uint64_t a1, id obj, uint64_t a3, uint64_t a4)
+- (void)_appProcessStateDidChange:(void *)a3 .cold.1(uint64_t a1, id obj, void *a3, uint64_t a4)
 {
   v8 = **(a1 + 16);
   do
@@ -139,7 +139,8 @@ uint64_t __49__SBBackgroundMultitaskingManager_sharedInstance__block_invoke()
         objc_enumerationMutation(obj);
       }
 
-      [(SBBackgroundFetchTask *)*(*(a1 + 8) + 8 * v9++) finishWithResult:?];
+      [(SBBackgroundFetchTask *)*(*(a1 + 8) + 8 * v9) finishWithResult:?];
+      v9 = v9 + 1;
     }
 
     while (a3 != v9);

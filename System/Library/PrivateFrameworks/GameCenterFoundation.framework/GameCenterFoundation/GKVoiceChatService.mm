@@ -13,6 +13,9 @@
 - (void)denyCallID:(NSInteger)callID;
 - (void)receivedData:(NSData *)arbitraryData fromParticipantID:(NSString *)participantID;
 - (void)setClient:(id)client;
+- (void)setInputMeteringEnabled:(BOOL)inputMeteringEnabled;
+- (void)setMicrophoneMuted:(BOOL)microphoneMuted;
+- (void)setOutputMeteringEnabled:(BOOL)outputMeteringEnabled;
 - (void)setRemoteParticipantVolume:(float)remoteParticipantVolume;
 - (void)stopVoiceChatWithParticipantID:(NSString *)participantID;
 @end
@@ -111,6 +114,13 @@
   [voiceChatService receivedData:v7 fromParticipantID:v6];
 }
 
+- (void)setMicrophoneMuted:(BOOL)microphoneMuted
+{
+  v3 = microphoneMuted;
+  voiceChatService = [(GKVoiceChatService *)self voiceChatService];
+  [voiceChatService setMicrophoneMuted:v3];
+}
+
 - (BOOL)isMicrophoneMuted
 {
   voiceChatService = [(GKVoiceChatService *)self voiceChatService];
@@ -143,12 +153,26 @@
   return isOutputMeteringEnabled;
 }
 
+- (void)setOutputMeteringEnabled:(BOOL)outputMeteringEnabled
+{
+  v3 = outputMeteringEnabled;
+  voiceChatService = [(GKVoiceChatService *)self voiceChatService];
+  [voiceChatService setOutputMeteringEnabled:v3];
+}
+
 - (BOOL)isInputMeteringEnabled
 {
   voiceChatService = [(GKVoiceChatService *)self voiceChatService];
   isInputMeteringEnabled = [voiceChatService isInputMeteringEnabled];
 
   return isInputMeteringEnabled;
+}
+
+- (void)setInputMeteringEnabled:(BOOL)inputMeteringEnabled
+{
+  v3 = inputMeteringEnabled;
+  voiceChatService = [(GKVoiceChatService *)self voiceChatService];
+  [voiceChatService setInputMeteringEnabled:v3];
 }
 
 - (float)outputMeterLevel

@@ -207,9 +207,7 @@ LABEL_21:
   noneNode = self->_noneNode;
   self->_noneNode = v17;
 
-  v19 = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  underwearNode = self->_underwearNode;
-  self->_underwearNode = v19;
+  self->_underwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -249,9 +247,7 @@ LABEL_21:
   noneNode = self->_noneNode;
   self->_noneNode = v17;
 
-  v19 = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  underwearNode = self->_underwearNode;
-  self->_underwearNode = v19;
+  self->_underwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -291,9 +287,7 @@ LABEL_21:
   noneNode = self->_noneNode;
   self->_noneNode = v17;
 
-  v19 = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.4 highPrecisionOperatingPoint:0.61 highRecallOperatingPoint:0.09];
-  underwearNode = self->_underwearNode;
-  self->_underwearNode = v19;
+  self->_underwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.4 highPrecisionOperatingPoint:0.61 highRecallOperatingPoint:0.09];
 
   MEMORY[0x2821F96F8]();
 }
@@ -333,19 +327,17 @@ LABEL_21:
   noneNode = self->_noneNode;
   self->_noneNode = v17;
 
-  v19 = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.13 highPrecisionOperatingPoint:0.62 highRecallOperatingPoint:0.11];
-  underwearNode = self->_underwearNode;
-  self->_underwearNode = v19;
+  self->_underwearNode = [[CLSSignalNode alloc] initWithIdentifier:2147481852 name:@"IVS NSFW - UW" operatingPoint:0.13 highPrecisionOperatingPoint:0.62 highRecallOperatingPoint:0.11];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSIVSNSFWModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSIVSNSFWModel;
-  v4 = [(CLSIVSNSFWModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSIVSNSFWModel;
+  v4 = [(CLSIVSNSFWModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -362,12 +354,12 @@ LABEL_21:
               v6 = objc_opt_class();
               *buf = 67109378;
               versionCopy = version;
-              v12 = 2112;
-              v13 = v6;
+              v11 = 2112;
+              v12 = v6;
               _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
             }
 
-            v5 = 0;
+            return 0;
           }
 
           else
@@ -394,7 +386,6 @@ LABEL_21:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

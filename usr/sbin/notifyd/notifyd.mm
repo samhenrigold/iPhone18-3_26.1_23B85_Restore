@@ -1,4 +1,4 @@
-void sub_100000660(uint64_t a1, uint64_t a2)
+void sub_100000660(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2 && (dispatch_mach_mig_demux() & 1) == 0)
   {
@@ -49,16 +49,18 @@ FILE *sub_100000768(uint64_t a1, uint64_t a2, int a3, _OWORD *a4, int a5)
   *atoken.val = *a4;
   *&atoken.val[4] = v10;
   audit_token_to_au32(&atoken, 0, &euidp, &egidp, 0, 0, &pidp, 0, 0);
+  v11 = &unk_10000DEF1;
   if (a3)
   {
     if (euidp)
     {
-      v11 = a4[1];
+      v12 = a4[1];
       *atoken.val = *a4;
-      *&atoken.val[4] = v11;
-      if (sub_1000086BC(&atoken))
+      *&atoken.val[4] = v12;
+      if (sub_1000086BC(&atoken, "com.apple.notify.root_access"))
       {
         euidp = 0;
+        v11 = " (entitlement)";
       }
     }
   }
@@ -68,14 +70,14 @@ FILE *sub_100000768(uint64_t a1, uint64_t a2, int a3, _OWORD *a4, int a5)
   {
     if (qword_1000142D0 != result)
     {
-      v13 = *(&result->_r - qword_1000142D0);
-      v14 = a4[1];
+      v14 = *(&result->_r - qword_1000142D0);
+      v15 = a4[1];
       *atoken.val = *a4;
-      *&atoken.val[4] = v14;
-      result = sub_100000920(v13);
+      *&atoken.val[4] = v15;
+      result = sub_100000920(v14, &atoken);
       if (result)
       {
-        if (!a5 || (v21 = a4[1], *atoken.val = *a4, *&atoken.val[4] = v21, result = sandbox_check_by_audit_token(), !result))
+        if (!a5 || (v16 = a4[1], *atoken.val = *a4, *&atoken.val[4] = v16, result = sandbox_check_by_audit_token(), !result))
         {
           result = sub_100000A28(a1, a2, euidp, egidp);
           if (result != 7 && result != 1)
@@ -85,7 +87,7 @@ FILE *sub_100000768(uint64_t a1, uint64_t a2, int a3, _OWORD *a4, int a5)
               __assert_rtn("_internal_notify_server_set_state_2", "notify_proc.c", 1372, "status == NOTIFY_STATUS_OK || status == NOTIFY_STATUS_NOT_AUTHORIZED || status == NOTIFY_STATUS_INVALID_NAME");
             }
 
-            return sub_100000AB8(7, "__notify_server_set_state_2 %d %llu %llu [uid %d%s gid %d]\n", v15, v16, v17, v18, v19, v20, pidp);
+            return sub_100000AB8(7, "__notify_server_set_state_2 %d %llu %llu [uid %d%s gid %d]\n", pidp, a1, a2, euidp, v11, egidp);
           }
         }
       }
@@ -95,7 +97,7 @@ FILE *sub_100000768(uint64_t a1, uint64_t a2, int a3, _OWORD *a4, int a5)
   return result;
 }
 
-uint64_t sub_100000920(const char *a1)
+uint64_t sub_100000920(const char *a1, uint64_t a2)
 {
   memcpy(__dst, "com.apple.private.darwin-notification.restrict-post.", sizeof(__dst));
   result = strncmp(a1, "com.apple.private.restrict-post.", 0x20uLL);
@@ -113,35 +115,36 @@ uint64_t sub_100000920(const char *a1)
   {
     if (__strlcat_chk() <= 0x100)
     {
-      v10 = xpc_copy_entitlement_for_token();
-      if (v10)
+      v4 = xpc_copy_entitlement_for_token();
+      if (v4)
       {
-        v11 = v10;
-        value = xpc_BOOL_get_value(v10);
-        xpc_release(v11);
+        v5 = v4;
+        value = xpc_BOOL_get_value(v4);
+        xpc_release(v5);
         if (value)
         {
           return 1;
         }
       }
 
-      v9 = "Post %s rejected: missing entitlement\n";
+      sub_100000AB8(3, "Post %s rejected: missing entitlement\n");
     }
 
     else
     {
-      v9 = "Post %s rejected: respective restricted notification entitlement would be too long\n";
+      sub_100000AB8(3, "Post %s rejected: respective restricted notification entitlement would be too long\n");
     }
 
-    sub_100000AB8(3, v9, v3, v4, v5, v6, v7, v8, a1);
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_100000A28(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t sub_100000A28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v7 = os_set_64_ptr_find();
   if (!v7)
   {
@@ -154,7 +157,7 @@ uint64_t sub_100000A28(uint64_t a1, uint64_t a2, int a3, int a4)
     return 1;
   }
 
-  if (sub_100000BB8(*(v8 + 8), a3, a4, 2))
+  if (sub_100000BB8(*(v8 + 8), v5, v4, 2))
   {
     return 7;
   }
@@ -166,8 +169,9 @@ uint64_t sub_100000A28(uint64_t a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-FILE *sub_100000AB8(FILE *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+FILE *sub_100000AB8(FILE *result, const char *a2, ...)
 {
+  va_start(va, a2);
   if (dword_100014400 >= result)
   {
     result = qword_100014410;
@@ -176,16 +180,16 @@ FILE *sub_100000AB8(FILE *result, const char *a2, uint64_t a3, uint64_t a4, uint
       result = fopen(qword_100014410, "a");
       if (result)
       {
-        v10 = result;
-        v12 = time(0);
-        *v13 = 0u;
-        v14 = 0u;
-        v11 = localtime(&v12);
-        strftime(v13, 0x20uLL, "%b %e %T", v11);
-        fprintf(v10, "%s: ", v13);
-        vfprintf(v10, a2, &a9);
-        fflush(v10);
-        return fclose(v10);
+        v3 = result;
+        v5 = time(0);
+        *v6 = 0u;
+        v7 = 0u;
+        v4 = localtime(&v5);
+        strftime(v6, 0x20uLL, "%b %e %T", v4);
+        fprintf(v3, "%s: ", v6);
+        vfprintf(v3, a2, va);
+        fflush(v3);
+        return fclose(v3);
       }
     }
   }
@@ -334,7 +338,7 @@ uint64_t sub_100000E40(_DWORD *a1, _DWORD *a2, _DWORD *a3, _OWORD *a4)
   *atoken.val = *a4;
   *&atoken.val[4] = v7;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
-  sub_100000AB8(7, "__notify_server_checkin %d\n", v8, v9, v10, v11, v12, v13, pidp);
+  sub_100000AB8(7, "__notify_server_checkin %d\n", pidp);
   *a1 = 3;
   result = getpid();
   *a2 = result;
@@ -342,20 +346,20 @@ uint64_t sub_100000E40(_DWORD *a1, _DWORD *a2, _DWORD *a3, _OWORD *a4)
   return result;
 }
 
-void sub_100000EEC(uint64_t a1, uint64_t a2)
+void sub_100000EEC(const char *result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0)
+  if ((*result & 0x80000000) != 0)
   {
     goto LABEL_17;
   }
 
-  v4 = *(a1 + 4);
+  v4 = *(result + 1);
   if ((v4 - 557) < 0xFFFFFDFF)
   {
     goto LABEL_17;
   }
 
-  v5 = *(a1 + 36);
+  v5 = *(result + 9);
   if (v5 > 0x200)
   {
     goto LABEL_17;
@@ -367,23 +371,23 @@ void sub_100000EEC(uint64_t a1, uint64_t a2)
     goto LABEL_17;
   }
 
-  if (__CFADD__(a1, v4))
+  if (__CFADD__(result, v4))
   {
     __break(0x5513u);
     return;
   }
 
   v8 = v4 >= 0x228 ? 512 : v4 - 40;
-  if (memchr((a1 + 40), 0, v8))
+  if (memchr((result + 40), 0, v8))
   {
-    v9 = ((v4 + 3) & 0x7FC) + a1;
-    if (!*v9 && *(v9 + 4) > 0x1Fu)
+    v9 = &result[(v4 + 3) & 0x7FC];
+    if (!*v9 && *(v9 + 1) > 0x1Fu)
     {
-      v11 = *(a1 + v6 + 40);
+      v11 = *&result[v6 + 40];
       v12 = *(v9 + 36);
       v13[0] = *(v9 + 20);
       v13[1] = v12;
-      sub_100001AF0((a1 + 40), v11, v13);
+      sub_100001AF0(result + 40, v11, v13);
       *(a2 + 32) = 0;
       return;
     }
@@ -403,45 +407,45 @@ LABEL_17:
 
 FILE *sub_100000FF8(const char *a1, void *a2, _DWORD *a3, int a4, __int128 *a5)
 {
-  v26 = -1;
-  v27 = -1;
-  v25 = -1;
+  v20 = -1;
+  v21 = -1;
+  v19 = -1;
   *a2 = 0;
   v10 = a5[1];
-  v28 = *a5;
-  v29 = v10;
-  sub_1000018E4(&v28, 0xFFFFFFFF, &v27, &v26, &v25, 0);
-  v11 = v27;
-  if (a4 && v27)
+  v22 = *a5;
+  v23 = v10;
+  sub_1000018E4(&v22, 0xFFFFFFFF, &v21, &v20, &v19, 0);
+  v11 = v21;
+  if (a4 && v21)
   {
     v12 = a5[1];
-    v28 = *a5;
-    v29 = v12;
-    if (sub_1000086BC(&v28))
+    v22 = *a5;
+    v23 = v12;
+    if (sub_1000086BC(&v22, "com.apple.notify.root_access"))
     {
       v11 = 0;
-      v27 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v11 = v27;
+      v11 = v21;
     }
   }
 
-  result = sub_100000BB8(a1, v11, v26, 2);
+  result = sub_100000BB8(a1, v11, v20, 2);
   *a3 = result;
   if (!result)
   {
     v14 = a5[1];
-    v28 = *a5;
-    v29 = v14;
-    result = sub_100000920(a1);
+    v22 = *a5;
+    v23 = v14;
+    result = sub_100000920(a1, &v22);
     if (result)
     {
       *&xmmword_100014180 = xmmword_100014180 + 1;
       *&xmmword_1000141A0 = xmmword_1000141A0 + 1;
-      v15 = sub_100001B48(a1, v27, v26);
+      v15 = sub_100001B48(a1, v21, v20);
       *a3 = v15;
       if (v15 == 10)
       {
@@ -454,19 +458,19 @@ FILE *sub_100000FF8(const char *a1, void *a2, _DWORD *a3, int a4, __int128 *a5)
         *a3 = 60;
         *a2 = -1;
         ++*(&xmmword_100014180 + 1);
-        return sub_100000AB8(7, "__notify_server_post %s %d\n", v17, v18, v19, v20, v21, v22, a1);
+        return sub_100000AB8(7, "__notify_server_post %s %d\n");
       }
 
-      v23 = v16 - qword_1000142B0;
-      ++*(v23 + 64);
-      v24 = *(v23 + 16);
-      *a2 = v24;
-      if (v24 == -1)
+      v17 = v16 - qword_1000142B0;
+      ++*(v17 + 64);
+      v18 = *(v17 + 16);
+      *a2 = v18;
+      if (v18 == -1)
       {
-        return sub_100000AB8(7, "__notify_server_post %s %d\n", v17, v18, v19, v20, v21, v22, a1);
+        return sub_100000AB8(7, "__notify_server_post %s %d\n");
       }
 
-      return sub_100000AB8(7, "__notify_server_post %s %d [%llu]\n", v17, v18, v19, v20, v21, v22, a1);
+      return sub_100000AB8(7, "__notify_server_post %s %d [%llu]\n");
     }
 
     else
@@ -492,11 +496,11 @@ uint64_t sub_1000011D8(uint64_t result, uint64_t a2)
       v4 = *(result + 32);
       v5 = *(result + 40);
       v6 = *(result + 80);
-      v24 = *(result + 64);
-      v25 = v6;
-      v20 = -1;
-      v21 = -1;
-      v19 = -1;
+      v18 = *(result + 64);
+      v19 = v6;
+      v14 = -1;
+      v15 = -1;
+      v13 = -1;
       result = os_set_64_ptr_find();
       if (result)
       {
@@ -504,29 +508,29 @@ uint64_t sub_1000011D8(uint64_t result, uint64_t a2)
         if (result != qword_1000142D0)
         {
           ++*(v7 + 64);
-          v22 = v24;
-          v23 = v25;
-          sub_1000018E4(&v22, 0xFFFFFFFF, &v21, &v20, &v19, 0);
+          v16 = v18;
+          v17 = v19;
+          sub_1000018E4(&v16, 0xFFFFFFFF, &v15, &v14, &v13, 0);
           if (v5)
           {
-            if (v21)
+            if (v15)
             {
-              v22 = v24;
-              v23 = v25;
-              if (sub_1000086BC(&v22))
+              v16 = v18;
+              v17 = v19;
+              if (sub_1000086BC(&v16, "com.apple.notify.root_access"))
               {
-                v21 = 0;
+                v15 = 0;
               }
             }
           }
 
           v8 = *(v7 + 8);
-          v22 = v24;
-          v23 = v25;
-          result = sub_100000920(v8);
+          v16 = v18;
+          v17 = v19;
+          result = sub_100000920(v8, &v16);
           if (result)
           {
-            result = sub_100000BB8(*(v7 + 8), v21, v20, 2);
+            result = sub_100000BB8(*(v7 + 8), v15, v14, 2);
             if (result)
             {
               if (result == 10)
@@ -539,26 +543,26 @@ uint64_t sub_1000011D8(uint64_t result, uint64_t a2)
             {
               *&xmmword_100014180 = xmmword_100014180 + 1;
               ++qword_100014190;
-              sub_100000AB8(7, "__notify_server_post %s %d by nameid: %llu \n", v9, v10, v11, v12, v13, v14, *(v7 + 8));
-              v16 = v20;
-              v15 = v21;
+              sub_100000AB8(7, "__notify_server_post %s %d by nameid: %llu \n", *(v7 + 8), v13, v4);
+              v10 = v14;
+              v9 = v15;
               result = os_set_64_ptr_find();
               if (result && qword_1000142D0 != result)
               {
-                v17 = *(result - qword_1000142D0 + 52);
-                if (v17 != -1)
+                v11 = *(result - qword_1000142D0 + 52);
+                if (v11 != -1)
                 {
-                  if (__CFADD__(qword_1000143E8, 4 * v17))
+                  if (__CFADD__(qword_1000143E8, 4 * v11))
                   {
                     __break(0x5513u);
                     return result;
                   }
 
-                  ++*(qword_1000143E8 + 4 * v17);
+                  ++*(qword_1000143E8 + 4 * v11);
                 }
 
-                v18 = os_set_64_ptr_find();
-                if (!v18 || qword_1000142D0 == v18 || (result = sub_10000146C(v18 - qword_1000142D0, v15, v16), result))
+                v12 = os_set_64_ptr_find();
+                if (!v12 || qword_1000142D0 == v12 || (result = sub_10000146C((v12 - qword_1000142D0), v9, v10), result))
                 {
                   __assert_rtn("__notify_server_post_3", "notify_proc.c", 579, "status == NOTIFY_STATUS_OK");
                 }
@@ -580,15 +584,15 @@ uint64_t sub_1000011D8(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10000146C(uint64_t a1, int a2, int a3)
+uint64_t sub_10000146C(uint64_t *a1, int a2, int a3)
 {
   v3 = a1;
-  if (sub_100000BB8(*(a1 + 8), a2, a3, 2))
+  if (sub_100000BB8(a1[1], a2, a3, 2))
   {
     return 7;
   }
 
-  ++*(v3 + 60);
+  ++*(v3 + 15);
   while (1)
   {
     v3 = *v3;
@@ -628,11 +632,10 @@ LABEL_38:
     return;
   }
 
-  v8 = *(a1 + 68);
-  v9 = os_set_32_ptr_find();
-  if (v9 && qword_100014330 != v9)
+  v8 = os_set_32_ptr_find();
+  if (v8 && qword_100014330 != v8)
   {
-    a2 = v9 - qword_100014330;
+    a2 = v8 - qword_100014330;
     v4 = *(a1 + 79);
     goto LABEL_3;
   }
@@ -641,20 +644,19 @@ LABEL_38:
   v4 = *(a1 + 79);
   v6 = 1;
 LABEL_9:
-  v10 = v4 & 0xF;
-  if (v10 <= 4)
+  v9 = v4 & 0xF;
+  if (v9 <= 4)
   {
-    if (v10 != 3)
+    if (v9 != 3)
     {
-      if (v10 != 4 || (*(a1 + 56) & 0x80000000) != 0)
+      if (v9 != 4 || (*(a1 + 56) & 0x80000000) != 0)
       {
         goto LABEL_37;
       }
 
-      LODWORD(v29[0]) = bswap32(*(a1 + 64));
+      LODWORD(v24[0]) = bswap32(*(a1 + 64));
       if (write_NOCANCEL() != 4)
       {
-        v12 = *(a1 + 56);
         close_NOCANCEL();
         *(a1 + 56) = -1;
         return;
@@ -663,14 +665,14 @@ LABEL_9:
       goto LABEL_36;
     }
 
-    v14 = *(a1 + 56);
+    v12 = *(a1 + 56);
 LABEL_41:
 
-    sub_100001784(a1, a3, v14);
+    sub_100001784(a1, a3, v12);
     return;
   }
 
-  switch(v10)
+  switch(v9)
   {
     case 7u:
       if (v6)
@@ -678,56 +680,53 @@ LABEL_41:
         return;
       }
 
-      v13 = *(a2 + 24);
-      if (!v13)
+      v11 = *(a2 + 24);
+      if (!v11)
       {
         return;
       }
 
-      v14 = *(v13 + 8);
+      v12 = *(v11 + 8);
       goto LABEL_41;
     case 6u:
-      v15 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_string(v15, "Notification", *(*(a1 + 48) + 8));
-      v16 = *(*(a1 + 48) + 16);
-      v17 = os_set_64_ptr_find();
-      if (v17 && qword_1000142D0 != v17)
+      v13 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_string(v13, "Notification", *(*(a1 + 48) + 8));
+      v14 = os_set_64_ptr_find();
+      if (v14 && qword_1000142D0 != v14)
       {
-        xpc_dictionary_set_uint64(v15, "_State", *(v17 - qword_1000142D0 + 24));
+        xpc_dictionary_set_uint64(v13, "_State", *(v14 - qword_1000142D0 + 24));
       }
 
-      v18 = *(a1 + 56);
-      v19 = xpc_event_publisher_fire_noboost();
-      xpc_release(v15);
-      if (!v19)
+      v15 = xpc_event_publisher_fire_noboost();
+      xpc_release(v13);
+      if (!v15)
       {
         goto LABEL_36;
       }
 
-      if (v19 == 55 && (*(a1 + 80) & 1) == 0)
+      if (v15 == 55 && (*(a1 + 80) & 1) == 0)
       {
         *(a1 + 80) = 1;
-        memset(v29, 0, sizeof(v29));
-        v20 = *(a1 + 56);
+        memset(v24, 0, sizeof(v24));
         if (xpc_get_service_identifier_for_token())
         {
           has_internal_diagnostics = os_variant_has_internal_diagnostics();
           if (has_internal_diagnostics)
           {
-            sub_100009F34(has_internal_diagnostics, v22, v23, v24, v25, v26, v27, v28, v29);
+            sub_100009F34(has_internal_diagnostics, v17, v18, v19, v20, v21, v22, v23, v24, 32);
           }
         }
       }
 
       break;
     case 5u:
-      v11 = *(a1 + 68);
-      if (!v11)
+      v10 = *(a1 + 68);
+      if (!v10)
       {
-        v11 = getpid();
+        v10 = getpid();
       }
 
-      if (!kill(v11, *(a1 + 56)))
+      if (!kill(v10, *(a1 + 56)))
       {
 LABEL_36:
         v4 = *(a1 + 79);
@@ -742,8 +741,9 @@ LABEL_37:
   }
 }
 
-uint64_t sub_100001784(uint64_t a1, uint64_t a2, mach_port_t a3)
+uint64_t sub_100001784(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   if (a2)
   {
@@ -790,7 +790,7 @@ LABEL_10:
 
   *&msg.msgh_voucher_port = 0;
   *&msg.msgh_bits = 0x1800000013;
-  msg.msgh_remote_port = a3;
+  msg.msgh_remote_port = v3;
   msg.msgh_local_port = 0;
   msg.msgh_id = *(a1 + 64);
   result = mach_msg(&msg, v10, 0x18u, 0, 0, 0, 0);
@@ -844,6 +844,7 @@ void sub_1000018E4(_OWORD *a1, unsigned int a2, uid_t *a3, gid_t *a4, _DWORD *a5
   *atoken.val = *a1;
   *&atoken.val[4] = v13;
   v14 = audit_token_to_pid(&atoken);
+  v15 = v14;
   if (a5)
   {
     *a5 = v14;
@@ -854,14 +855,14 @@ void sub_1000018E4(_OWORD *a1, unsigned int a2, uid_t *a3, gid_t *a4, _DWORD *a5
     *a6 = a2 | (v14 << 32);
   }
 
-  v15 = os_set_64_ptr_find();
-  if (v15)
+  v16 = os_set_64_ptr_find();
+  if (v16)
   {
-    if (qword_1000142F0 != v15)
+    if (qword_1000142F0 != v16)
     {
-      v22 = v15 - qword_1000142F0;
-      sub_100000AB8(7, "duplicate token %d sent from PID %d\n", v16, v17, v18, v19, v20, v21, a2);
-      sub_100002DBC(v22);
+      v17 = v16 - qword_1000142F0;
+      sub_100000AB8(7, "duplicate token %d sent from PID %d\n", a2, v15);
+      sub_100002DBC(v17);
     }
   }
 }
@@ -885,27 +886,27 @@ LABEL_7:
 
   v4 = *(result + 32);
   v5 = *(result + 76);
-  v13[0] = *(result + 60);
-  v13[1] = v5;
-  v14 = -1;
-  v15 = -1;
+  v7[0] = *(result + 60);
+  v7[1] = v5;
+  v8 = -1;
+  v9 = -1;
   *(a2 + 36) = 0;
-  sub_1000018E4(v13, 0xFFFFFFFF, &v15, &v14, 0, 0);
-  sub_100000AB8(7, "__notify_server_get_state_2 %llu\n", v6, v7, v8, v9, v10, v11, v4);
+  sub_1000018E4(v7, 0xFFFFFFFF, &v9, &v8, 0, 0);
+  sub_100000AB8(7, "__notify_server_get_state_2 %llu\n", v4);
   *(a2 + 36) = 0;
   result = os_set_64_ptr_find();
   if (result && qword_1000142D0 != result)
   {
-    v12 = 0;
+    v6 = 0;
     *(a2 + 36) = *(result - qword_1000142D0 + 24);
   }
 
   else
   {
-    v12 = 1;
+    v6 = 1;
   }
 
-  *(a2 + 44) = v12;
+  *(a2 + 44) = v6;
   *(a2 + 32) = 0;
   *(a2 + 24) = NDR_record;
   *(a2 + 4) = 48;
@@ -954,7 +955,7 @@ uint64_t sub_100001B48(uint64_t a1, int a2, int a3)
     v7 = os_set_str_ptr_find();
     if (v7 && qword_1000142B0 != v7)
     {
-      v8 = v7 - qword_1000142B0;
+      v8 = (v7 - qword_1000142B0);
 
       return sub_10000146C(v8, a2, a3);
     }
@@ -989,41 +990,41 @@ LABEL_7:
 
   *(a2 + 32) = 0x10000000000000;
   v6 = *(result + 36);
-  v31 = *(result + 20);
-  v5 = v31;
-  v32 = v6;
+  v18 = *(result + 20);
+  v5 = v18;
+  v19 = v6;
   name = 0;
   *(a2 + 48) = 0;
   *(a2 + 28) = 0;
   *atoken.val = v5;
   *&atoken.val[4] = v6;
   v7 = audit_token_to_pid(&atoken);
-  sub_100000AB8(7, "__notify_generate_common_port %d\n", v8, v9, v10, v11, v12, v13, v7);
-  v14 = os_set_32_ptr_find();
-  if (!v14 || (v22 = (v14 - qword_100014330), v14 == qword_100014330))
+  sub_100000AB8(7, "__notify_generate_common_port %d\n", v7);
+  v8 = os_set_32_ptr_find();
+  if (!v8 || (v9 = (v8 - qword_100014330), v8 == qword_100014330))
   {
-    v22 = sub_100001F6C(0, v7);
+    v9 = sub_100001F6C(0, v7);
   }
 
-  v23 = v22[3];
-  if (v23)
+  v10 = v9[3];
+  if (v10)
   {
-    v24 = *v23;
-    if (*v23)
+    v11 = *v10;
+    if (*v10)
     {
       do
       {
-        v25 = *(v24 + 16);
-        sub_100002DBC(v24);
-        v24 = v25;
+        v12 = *(v11 + 16);
+        sub_100002DBC(v11);
+        v11 = v12;
       }
 
-      while (v25);
-      v23 = v22[3];
+      while (v12);
+      v10 = v9[3];
     }
 
-    sub_100003510(v23, v15, v16, v17, v18, v19, v20, v21);
-    v22[3] = 0;
+    sub_100003510(v10);
+    v9[3] = 0;
   }
 
   *&atoken.val[4] = 0;
@@ -1038,24 +1039,24 @@ LABEL_7:
     __assert_rtn("__notify_generate_common_port", "notify_proc.c", 1755, "kstatus == KERN_SUCCESS");
   }
 
-  v26 = name;
+  v13 = name;
   result = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040EDED9539uLL);
   if (result)
   {
-    v27 = result;
+    v14 = result;
     ++dword_100014380;
     *result = 0;
-    *(result + 2) = v26;
+    *(result + 2) = v13;
     *(result + 3) = 2;
     os_set_32_ptr_insert();
-    result = sub_100001EC4(v26);
-    v22[3] = v27;
-    v28 = name;
+    result = sub_100001EC4(v13);
+    v9[3] = v14;
+    v15 = name;
     *(a2 + 40) = NDR_record;
     *a2 |= 0x80000000;
     *(a2 + 4) = 52;
     *(a2 + 24) = 1;
-    *(a2 + 28) = v28;
+    *(a2 + 28) = v15;
   }
 
   else
@@ -1143,38 +1144,36 @@ FILE *sub_100002088(FILE *result, uint64_t a2)
 
   if (!*(&result->_bf._size + 1) && result->_lbfsize > 0x1Fu)
   {
-    size = result->_bf._size;
-    v5 = *&result->_seek;
-    v17[0] = *&result->_close;
-    v17[1] = v5;
-    v19 = -1;
-    v20 = -1;
+    v4 = *&result->_seek;
+    v9[0] = *&result->_close;
+    v9[1] = v4;
+    v11 = -1;
+    v12 = -1;
     *(a2 + 36) = 0;
-    v18 = -1;
+    v10 = -1;
     *(a2 + 44) = 0;
-    sub_1000018E4(v17, 0xFFFFFFFF, &v20, &v19, &v18, 0);
+    sub_1000018E4(v9, 0xFFFFFFFF, &v12, &v11, &v10, 0);
     *&xmmword_100014218 = xmmword_100014218 + 1;
     ++qword_100014230;
-    v6 = os_set_64_ptr_find();
-    if (v6 && qword_1000142F0 != v6)
+    v5 = os_set_64_ptr_find();
+    if (v5 && qword_1000142F0 != v5)
     {
-      v13 = v6 - qword_1000142F0;
-      v14 = *(*(v6 - qword_1000142F0 + 48) + 16);
+      v6 = v5 - qword_1000142F0;
       *(a2 + 36) = 0;
-      v15 = os_set_64_ptr_find();
-      if (!v15 || qword_1000142D0 == v15)
+      v7 = os_set_64_ptr_find();
+      if (!v7 || qword_1000142D0 == v7)
       {
         *(a2 + 52) = 1;
         __assert_rtn("__notify_server_get_state_3", "notify_proc.c", 1244, "*status == NOTIFY_STATUS_OK || *status == NOTIFY_STATUS_NOT_AUTHORIZED");
       }
 
-      *(a2 + 36) = *(v15 - qword_1000142D0 + 24);
+      *(a2 + 36) = *(v7 - qword_1000142D0 + 24);
       *(a2 + 52) = 0;
-      v16 = *(*(v13 + 48) + 16);
-      *(a2 + 44) = v16;
-      if (v16 != -1)
+      v8 = *(*(v6 + 48) + 16);
+      *(a2 + 44) = v8;
+      if (v8 != -1)
       {
-        result = sub_100000AB8(7, "__notify_server_get_state_3 %d %d [%llu]\n", v7, v8, v9, v10, v11, v12, v18);
+        result = sub_100000AB8(7, "__notify_server_get_state_3 %d %d [%llu]\n");
         goto LABEL_13;
       }
     }
@@ -1185,7 +1184,7 @@ FILE *sub_100002088(FILE *result, uint64_t a2)
       *(a2 + 44) = -1;
     }
 
-    result = sub_100000AB8(7, "__notify_server_get_state_3 %d %d\n", v7, v8, v9, v10, v11, v12, v18);
+    result = sub_100000AB8(7, "__notify_server_get_state_3 %d %d\n");
 LABEL_13:
     *(a2 + 32) = 0;
     *(a2 + 24) = NDR_record;
@@ -1264,121 +1263,122 @@ LABEL_17:
   return result;
 }
 
-uint64_t *sub_1000023A0(char *a1, unsigned int a2, _DWORD *a3, _DWORD *a4, void *a5, _DWORD *a6, __int128 *a7)
+FILE *sub_1000023A0(char *a1, uint64_t a2, _DWORD *a3, _DWORD *a4, void *a5, _DWORD *a6, __int128 *a7)
 {
-  v33 = 0;
-  v31 = -1;
-  v32 = -1;
-  v30 = -1;
+  v12 = a2;
+  v27 = 0;
+  v25 = -1;
+  v26 = -1;
+  v24 = -1;
   *a3 = 0;
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
   v14 = a7[1];
-  v34 = *a7;
-  v35 = v14;
-  sub_1000018E4(&v34, a2, &v32, &v31, &v30, &v33);
+  v28 = *a7;
+  v29 = v14;
+  sub_1000018E4(&v28, a2, &v26, &v25, &v24, &v27);
   ++*(&xmmword_1000141A0 + 1);
   ++qword_1000141B8;
   if (!dword_1000143E0)
   {
     *a3 = -1;
     *a4 = -1;
-    v26 = a7[1];
-    v34 = *a7;
-    v35 = v26;
-    return sub_1000032FC(a1, a2, &v34);
+    v20 = a7[1];
+    v28 = *a7;
+    v29 = v20;
+    return sub_1000032FC(a1, v12, &v28);
   }
 
   result = os_set_str_ptr_find();
-  if (!result || qword_1000142B0 == result || (v22 = *(result - qword_1000142B0 + 52), v22 == -1))
+  if (!result || qword_1000142B0 == result || (v16 = *(&result->_cookie - qword_1000142B0 + 4), v16 == -1))
   {
     if (dword_1000143E0 >= 2)
     {
-      v24 = dword_1000143E0 - 1;
-      LODWORD(v22) = dword_1000143E4;
+      v18 = dword_1000143E0 - 1;
+      LODWORD(v16) = dword_1000143E4;
       do
       {
-        v22 = v22 + 1 < dword_1000143E0 ? (v22 + 1) : 1;
-        v23 = 4 * v22;
-        if (v23 > ~qword_1000143F0)
+        v16 = v16 + 1 < dword_1000143E0 ? (v16 + 1) : 1;
+        v17 = 4 * v16;
+        if (v17 > ~qword_1000143F0)
         {
           goto LABEL_31;
         }
 
-        if (!*(qword_1000143F0 + 4 * v22))
+        if (!*(qword_1000143F0 + 4 * v16))
         {
-          dword_1000143E4 = v22;
+          dword_1000143E4 = v16;
           goto LABEL_20;
         }
       }
 
-      while (--v24);
+      while (--v18);
     }
 
     if (dword_1000143E4 + 1 < dword_1000143E0)
     {
-      v25 = dword_1000143E4 + 1;
+      v19 = dword_1000143E4 + 1;
     }
 
     else
     {
-      v25 = 1;
+      v19 = 1;
     }
 
-    dword_1000143E4 = v25;
-    result = sub_100000AB8(7, "reused shared memory slot %u\n", v16, v17, v18, v19, v20, v21, v25);
-    v22 = dword_1000143E4;
-    v23 = 4 * dword_1000143E4;
+    dword_1000143E4 = v19;
+    result = sub_100000AB8(7, "reused shared memory slot %u\n", v19);
+    v16 = dword_1000143E4;
+    v17 = 4 * dword_1000143E4;
 LABEL_20:
-    if (__CFADD__(qword_1000143E8, v23))
+    if (__CFADD__(qword_1000143E8, v17))
     {
 LABEL_31:
       __break(0x5513u);
       return result;
     }
 
-    *(qword_1000143E8 + 4 * v22) = 1;
+    *(qword_1000143E8 + 4 * v16) = 1;
   }
 
   else
   {
-    v23 = 4 * v22;
+    v17 = 4 * v16;
   }
 
-  if (__CFADD__(qword_1000143F0, v23))
+  if (__CFADD__(qword_1000143F0, v17))
   {
     goto LABEL_31;
   }
 
-  ++*(qword_1000143F0 + 4 * v22);
-  sub_100000AB8(7, "__notify_server_register_check %s %d %d\n", v16, v17, v18, v19, v20, v21, a1);
+  ++*(qword_1000143F0 + 4 * v16);
+  sub_100000AB8(7, "__notify_server_register_check %s %d %d\n", a1, v24, v12);
   *a3 = 4 * dword_1000143E0;
-  *a4 = v22;
-  result = sub_1000028AC(a1, v30, a2, v22, v32, v31, a5);
+  *a4 = v16;
+  result = sub_1000028AC(a1, v24, v12, v16, v26, v25, a5);
   *a6 = result;
   if (!result)
   {
-    v27 = os_set_64_ptr_find();
-    if (v27)
+    v21 = os_set_64_ptr_find();
+    if (v21)
     {
-      v28 = (v27 - qword_1000142F0);
+      v22 = (v21 - qword_1000142F0);
     }
 
     else
     {
-      v28 = 0;
+      v22 = 0;
     }
 
     if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
     {
-      v29 = a7[1];
-      v34 = *a7;
-      v35 = v29;
-      sub_10000A680(a1, v28, &v34);
+      v23 = a7[1];
+      v28 = *a7;
+      v29 = v23;
+      sub_10000A680(a1, v22, &v28);
     }
 
-    return sub_10000293C(v28, v30);
+    return sub_10000293C(v22, v24);
   }
 
   return result;
@@ -1534,13 +1534,14 @@ uint64_t sub_1000028AC(const char *a1, uint64_t a2, unsigned int a3, int a4, int
   return result;
 }
 
-uint64_t *sub_10000293C(uint64_t *result, int a2)
+uint64_t *sub_10000293C(uint64_t *result, uint64_t a2)
 {
   if (a2 < 1)
   {
     return result;
   }
 
+  v2 = a2;
   v3 = result;
   result = os_set_32_ptr_find();
   if (result)
@@ -1549,14 +1550,14 @@ uint64_t *sub_10000293C(uint64_t *result, int a2)
     {
       v4 = (result - qword_100014330);
       v5 = *(result - qword_100014330);
-      *(v3 + 16) = v5;
+      v3[2] = v5;
       if (v5)
       {
-        *(v5 + 24) = v3 + 16;
+        *(v5 + 24) = v3 + 2;
       }
 
       *v4 = v3;
-      *(v3 + 24) = v4;
+      v3[3] = v4;
       return result;
     }
 
@@ -1566,75 +1567,75 @@ uint64_t *sub_10000293C(uint64_t *result, int a2)
     }
   }
 
-  return sub_100001F6C(v3, a2);
+  return sub_100001F6C(v3, v2);
 }
 
 uint64_t sub_1000029DC(char *a1, unsigned int a2, __int128 *a3)
 {
-  v33 = 0;
-  v31 = -1;
-  v32 = -1;
-  v30 = -1;
+  v21 = 0;
+  v19 = -1;
+  v20 = -1;
+  v18 = -1;
   v6 = a3[1];
-  v28 = *a3;
-  v29 = v6;
-  sub_1000018E4(&v28, a2, &v32, &v31, &v30, &v33);
+  v16 = *a3;
+  v17 = v6;
+  sub_1000018E4(&v16, a2, &v20, &v19, &v18, &v21);
   ++*(&xmmword_1000141A0 + 1);
   *&xmmword_1000141E0 = xmmword_1000141E0 + 1;
-  sub_100000AB8(7, "_notify_internal_register_common_port %s %d %d\n", v7, v8, v9, v10, v11, v12, a1);
-  v13 = os_set_32_ptr_find();
-  if (v13 && (v20 = (v13 - qword_100014330), v13 != qword_100014330) && v20[3])
+  sub_100000AB8(7, "_notify_internal_register_common_port %s %d %d\n", a1, v18, a2);
+  v7 = os_set_32_ptr_find();
+  if (v7 && (v8 = (v7 - qword_100014330), v7 != qword_100014330) && v8[3])
   {
     if (a1)
     {
-      *&v28 = 0;
-      result = sub_100002750(a1, v30, a2, v32, v31, &v28);
+      *&v16 = 0;
+      result = sub_100002750(a1, v18, a2, v20, v19, &v16);
       if (!result)
       {
-        *(v28 + 79) = *(v28 + 79) & 0xF0 | 7;
-        v22 = os_set_64_ptr_find();
-        if (v22)
+        *(v16 + 79) = *(v16 + 79) & 0xF0 | 7;
+        v10 = os_set_64_ptr_find();
+        if (v10)
         {
-          v23 = (v22 - qword_1000142F0);
+          v11 = (v10 - qword_1000142F0);
         }
 
         else
         {
-          v23 = 0;
+          v11 = 0;
         }
 
         if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
         {
-          v24 = a3[1];
-          v28 = *a3;
-          v29 = v24;
-          sub_10000A680(a1, v23, &v28);
+          v12 = a3[1];
+          v16 = *a3;
+          v17 = v12;
+          sub_10000A680(a1, v11, &v16);
         }
 
-        if (v23)
+        if (v11)
         {
-          v25 = *v20;
-          v23[2] = *v20;
-          if (v25)
+          v13 = *v8;
+          v11[2] = *v8;
+          if (v13)
           {
-            *(v25 + 24) = v23 + 2;
+            *(v13 + 24) = v11 + 2;
           }
 
-          *v20 = v23;
-          v23[3] = v20;
+          *v8 = v11;
+          v11[3] = v8;
         }
 
-        v26 = v20[3];
-        v27 = *v26;
-        v23[4] = *v26;
-        if (v27)
+        v14 = v8[3];
+        v15 = *v14;
+        v11[4] = *v14;
+        if (v15)
         {
-          *(v27 + 40) = v23 + 4;
+          *(v15 + 40) = v11 + 4;
         }
 
         result = 0;
-        *v26 = v23;
-        v23[5] = v26;
+        *v14 = v11;
+        v11[5] = v14;
       }
     }
 
@@ -1646,7 +1647,7 @@ uint64_t sub_1000029DC(char *a1, unsigned int a2, __int128 *a3)
 
   else
   {
-    sub_100000AB8(7, "_notify_internal_register_common_port FAILED %s %d %d\n", v14, v15, v16, v17, v18, v19, a1);
+    sub_100000AB8(7, "_notify_internal_register_common_port FAILED %s %d %d\n", a1, v18, a2);
     return 59;
   }
 
@@ -1701,15 +1702,15 @@ void *sub_100002BAC(const char *a1)
   return result;
 }
 
-void sub_100002CB4(uint64_t a1, uint64_t a2)
+void sub_100002CB4(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 || *(a1 + 4) != 36)
+  if ((*result & 0x80000000) != 0 || *(result + 4) != 36)
   {
     v3 = -304;
     goto LABEL_7;
   }
 
-  if (*(a1 + 36) || *(a1 + 40) <= 0x1Fu)
+  if (*(result + 36) || *(result + 40) <= 0x1Fu)
   {
     v3 = -309;
 LABEL_7:
@@ -1718,21 +1719,21 @@ LABEL_7:
     return;
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 72);
-  v13[0] = *(a1 + 56);
-  v13[1] = v5;
-  v14 = -1;
-  v15 = -1;
-  sub_1000018E4(v13, 0xFFFFFFFF, &v15, 0, &v14, 0);
+  v4 = *(result + 32);
+  v5 = *(result + 72);
+  v7[0] = *(result + 56);
+  v7[1] = v5;
+  v8 = -1;
+  v9 = -1;
+  sub_1000018E4(v7, 0xFFFFFFFF, &v9, 0, &v8, 0);
   ++*(&xmmword_1000141E0 + 1);
-  sub_100000AB8(7, "__notify_server_cancel %d %d\n", v6, v7, v8, v9, v10, v11, v14);
-  v12 = os_set_64_ptr_find();
-  if (v12)
+  sub_100000AB8(7, "__notify_server_cancel %d %d\n", v8, v4);
+  v6 = os_set_64_ptr_find();
+  if (v6)
   {
-    if (qword_1000142F0 != v12)
+    if (qword_1000142F0 != v6)
     {
-      sub_100002DBC(v12 - qword_1000142F0);
+      sub_100002DBC(v6 - qword_1000142F0);
     }
   }
 
@@ -1839,7 +1840,7 @@ void sub_100002EFC(uint64_t *a1)
   dispatch_source_cancel(v4);
 }
 
-void sub_100002F48(uint64_t a1, uint64_t a2)
+void sub_100002F48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2 && (dispatch_mach_mig_demux() & 1) == 0)
   {
@@ -1862,67 +1863,67 @@ _DWORD *sub_100002FB0(_DWORD *result, uint64_t a2)
   v4 = os_set_32_ptr_find();
   if (v4)
   {
-    v11 = (v4 - qword_100014310);
+    v5 = (v4 - qword_100014310);
   }
 
   else
   {
-    v11 = 0;
+    v5 = 0;
   }
 
-  v12 = *v11;
-  if (*v11)
+  v6 = *v5;
+  if (*v5)
   {
     do
     {
-      v13 = *(v12 + 32);
-      sub_100002DBC(v12);
-      v12 = v13;
+      v7 = *(v6 + 32);
+      sub_100002DBC(v6);
+      v6 = v7;
     }
 
-    while (v13);
+    while (v7);
   }
 
-  v14 = v11[3];
-  if ((v14 & 2) == 0)
+  v8 = v5[3];
+  if ((v8 & 2) == 0)
   {
     goto LABEL_13;
   }
 
-  if ((v14 & 4) != 0)
+  if ((v8 & 4) != 0)
   {
-    sub_100000AB8(7, "do_mach_notify_dead_name freed port %x\n", v5, v6, v7, v8, v9, v10, v3);
+    sub_100000AB8(7, "do_mach_notify_dead_name freed port %x\n", v3);
 LABEL_13:
-    sub_1000035A8(v11);
+    sub_1000035A8(v5);
     goto LABEL_14;
   }
 
-  v11[3] = v14 | 4;
+  v5[3] = v8 | 4;
 LABEL_14:
   result = mach_port_deallocate(mach_task_self_, v3);
   *(a2 + 32) = 0;
   return result;
 }
 
-void sub_10000309C(uint64_t *a1)
+void sub_10000309C(char *a1)
 {
-  v2 = a1[6];
+  v2 = *(a1 + 6);
   v3 = *a1;
-  v4 = a1[1];
+  v4 = *(a1 + 1);
   if (*a1)
   {
     *(v3 + 8) = v4;
   }
 
   *v4 = v3;
-  sub_100003158(&unk_1000142D8, a1[8], (a1 + 8));
-  v5 = *(a1 + 79) & 0xF;
+  sub_100003158(&unk_1000142D8, *(a1 + 8), (a1 + 64));
+  v5 = a1[79] & 0xF;
   if (v5 == 3)
   {
     mach_port_deallocate(mach_task_self_, *(a1 + 14));
   }
 
-  else if (v5 == 4 && (a1[7] & 0x80000000) == 0)
+  else if (v5 == 4 && (*(a1 + 14) & 0x80000000) == 0)
   {
     close_NOCANCEL();
   }
@@ -2018,7 +2019,6 @@ LABEL_15:
       }
 
 LABEL_19:
-      v14 = *(a1 + 8);
       if (os_set_str_ptr_delete() != a1 + 8)
       {
         __assert_rtn("_nc_table_delete", "table.c", 72, "os_set_delete(&t->set, key) == expected");
@@ -2034,42 +2034,42 @@ LABEL_19:
 
 uint64_t sub_1000032FC(char *a1, unsigned int a2, __int128 *a3)
 {
-  v23 = 0;
-  v21 = -1;
-  v22 = -1;
-  v20 = -1;
+  v17 = 0;
+  v15 = -1;
+  v16 = -1;
+  v14 = -1;
   *(&xmmword_1000141A0 + 8) = vaddq_s64(*(&xmmword_1000141A0 + 8), vdupq_n_s64(1uLL));
   v6 = a3[1];
-  v18 = *a3;
-  v19 = v6;
-  sub_1000018E4(&v18, a2, &v22, &v21, &v20, &v23);
-  sub_100000AB8(7, "__notify_server_register_plain %s %d %d\n", v7, v8, v9, v10, v11, v12, a1);
-  v13 = sub_1000028AC(a1, v20, a2, -1, v22, v21, &v24);
-  if (!v13)
+  v12 = *a3;
+  v13 = v6;
+  sub_1000018E4(&v12, a2, &v16, &v15, &v14, &v17);
+  sub_100000AB8(7, "__notify_server_register_plain %s %d %d\n", a1, v14, a2);
+  v7 = sub_1000028AC(a1, v14, a2, -1, v16, v15, &v18);
+  if (!v7)
   {
-    v14 = os_set_64_ptr_find();
-    if (v14)
+    v8 = os_set_64_ptr_find();
+    if (v8)
     {
-      v15 = (v14 - qword_1000142F0);
+      v9 = (v8 - qword_1000142F0);
     }
 
     else
     {
-      v15 = 0;
+      v9 = 0;
     }
 
     if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
     {
-      v16 = a3[1];
-      v18 = *a3;
-      v19 = v16;
-      sub_10000A680(a1, v15, &v18);
+      v10 = a3[1];
+      v12 = *a3;
+      v13 = v10;
+      sub_10000A680(a1, v9, &v12);
     }
 
-    sub_10000293C(v15, v20);
+    sub_10000293C(v9, v14);
   }
 
-  return v13;
+  return v7;
 }
 
 void sub_100003424(void *a1)
@@ -2087,10 +2087,10 @@ void sub_100003424(void *a1)
     v4 = a1 + 2;
     sub_1000034C4(&unk_100014318, *(a1 + 4), (a1 + 2));
     ++dword_100014384;
-    v12 = v4[1];
-    if (v12)
+    v5 = v4[1];
+    if (v5)
     {
-      sub_100003510(v12, v5, v6, v7, v8, v9, v10, v11);
+      sub_100003510(v5);
     }
 
     dispatch_release(a1[1]);
@@ -2110,12 +2110,12 @@ uint64_t sub_1000034C4(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_100003510(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100003510(unsigned int *result)
 {
-  v9 = a1[3];
-  if ((v9 & 4) != 0)
+  v2 = result[3];
+  if ((v2 & 4) != 0)
   {
-    if (*a1)
+    if (*result)
     {
       qword_100014010 = "BUG IN LIBNOTIFY: port_proc still had clients";
       __break(0xB001u);
@@ -2123,15 +2123,15 @@ void sub_100003510(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
     else
     {
-      sub_100000AB8(7, "do_mach_notify_dead_name freed port %x\n", a3, a4, a5, a6, a7, a8, a1);
+      sub_100000AB8(7, "do_mach_notify_dead_name freed port %x\n", result);
 
-      sub_1000035A8(a1);
+      sub_1000035A8(result);
     }
   }
 
   else
   {
-    a1[3] = v9 | 4;
+    result[3] = v2 | 4;
   }
 }
 
@@ -2156,7 +2156,7 @@ void sub_1000035A8(unsigned int *a1)
   }
 }
 
-char *sub_100003648(char *result, uint64_t a2)
+const char *sub_100003648(const char *result, uint64_t a2)
 {
   if ((*result & 0x80000000) != 0)
   {
@@ -2189,7 +2189,7 @@ char *sub_100003648(char *result, uint64_t a2)
   }
 
   v8 = v4 >= 0x228 ? 512 : v4 - 40;
-  result = memchr(result + 40, 0, v8);
+  result = memchr((result + 40), 0, v8);
   if (result)
   {
     v9 = &v3[(v4 + 3) & 0x7FC];
@@ -2258,26 +2258,26 @@ void sub_100003754(uint64_t a1, uint64_t a2)
   *(a2 + 24) = NDR_record;
 }
 
-FILE *sub_100003838(uint64_t a1, uint64_t a2, void *a3, int *a4, int a5, __int128 *a6, int a7)
+FILE *sub_100003838(unsigned int a1, uint64_t a2, void *a3, int *a4, int a5, __int128 *a6, int a7)
 {
-  v33 = -1;
-  v34 = -1;
-  v32 = -1;
+  v27 = -1;
+  v28 = -1;
+  v26 = -1;
   *a3 = 0;
   v13 = a6[1];
-  v35 = *a6;
-  v36 = v13;
-  sub_1000018E4(&v35, 0xFFFFFFFF, &v34, &v33, &v32, 0);
+  v29 = *a6;
+  v30 = v13;
+  sub_1000018E4(&v29, 0xFFFFFFFF, &v28, &v27, &v26, 0);
   if (a5)
   {
-    if (v34)
+    if (v28)
     {
       v14 = a6[1];
-      v35 = *a6;
-      v36 = v14;
-      if (sub_1000086BC(&v35))
+      v29 = *a6;
+      v30 = v14;
+      if (sub_1000086BC(&v29, "com.apple.notify.root_access"))
       {
-        v34 = 0;
+        v28 = 0;
       }
     }
   }
@@ -2287,66 +2287,66 @@ FILE *sub_100003838(uint64_t a1, uint64_t a2, void *a3, int *a4, int a5, __int12
   v15 = os_set_64_ptr_find();
   if (!v15 || qword_1000142F0 == v15)
   {
-    v22 = 50;
+    v16 = 50;
 LABEL_8:
-    *a4 = v22;
+    *a4 = v16;
     *a3 = -1;
-    return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [uid %d%s gid %d]\n", v16, v17, v18, v19, v20, v21, v32);
+    return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [uid %d%s gid %d]\n");
   }
 
-  v24 = v15 - qword_1000142F0;
-  v25 = *(*(v15 - qword_1000142F0 + 48) + 8);
-  v26 = a6[1];
-  v35 = *a6;
-  v36 = v26;
-  if (!sub_100000920(v25) || a7 && (v31 = a6[1], v35 = *a6, v36 = v31, sandbox_check_by_audit_token()))
+  v18 = v15 - qword_1000142F0;
+  v19 = *(*(v15 - qword_1000142F0 + 48) + 8);
+  v20 = a6[1];
+  v29 = *a6;
+  v30 = v20;
+  if (!sub_100000920(v19, &v29) || a7 && (v25 = a6[1], v29 = *a6, v30 = v25, sandbox_check_by_audit_token()))
   {
-    v22 = 7;
+    v16 = 7;
     goto LABEL_8;
   }
 
-  v27 = *(v24 + 48);
-  if (!v27)
+  v21 = *(v18 + 48);
+  if (!v21)
   {
     __assert_rtn("_internal_notify_server_set_state_3", "notify_proc.c", 1298, "c->name_info != NULL");
   }
 
-  v28 = sub_100000A28(*(v27 + 16), a2, v34, v33);
-  *a4 = v28;
-  if (v28)
+  v22 = sub_100000A28(*(v21 + 16), a2, v28, v27);
+  *a4 = v22;
+  if (v22)
   {
-    v29 = v28 == 7;
+    v23 = v22 == 7;
   }
 
   else
   {
-    v29 = 1;
+    v23 = 1;
   }
 
-  if (!v29)
+  if (!v23)
   {
     __assert_rtn("_internal_notify_server_set_state_3", "notify_proc.c", 1300, "*status == NOTIFY_STATUS_OK || *status == NOTIFY_STATUS_NOT_AUTHORIZED");
   }
 
-  v30 = *(*(v24 + 48) + 16);
-  *a3 = v30;
-  if (v30 != -1)
+  v24 = *(*(v18 + 48) + 16);
+  *a3 = v24;
+  if (v24 != -1)
   {
-    return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [%llu] [uid %d%s gid %d]\n", v16, v17, v18, v19, v20, v21, v32);
+    return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [%llu] [uid %d%s gid %d]\n", v26);
   }
 
-  return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [uid %d%s gid %d]\n", v16, v17, v18, v19, v20, v21, v32);
+  return sub_100000AB8(7, "__notify_server_set_state_3 %d %d %llu [uid %d%s gid %d]\n");
 }
 
-uint64_t sub_100003A7C(uint64_t result, uint64_t a2)
+FILE *sub_100003A7C(FILE *result, uint64_t a2)
 {
-  if ((*result & 0x80000000) != 0 || *(result + 4) != 36)
+  if ((result->_p & 0x80000000) != 0 || HIDWORD(result->_p) != 36)
   {
     v3 = -304;
     goto LABEL_7;
   }
 
-  if (*(result + 36) || *(result + 40) <= 0x1Fu)
+  if (*(&result->_bf._size + 1) || result->_lbfsize <= 0x1Fu)
   {
     v3 = -309;
 LABEL_7:
@@ -2355,20 +2355,20 @@ LABEL_7:
     return result;
   }
 
-  v4 = *(result + 32);
-  v5 = *(result + 72);
-  *v20.val = *(result + 56);
-  *&v20.val[4] = v5;
-  *atoken.val = *v20.val;
+  size = result->_bf._size;
+  v5 = *&result->_seek;
+  *v9.val = *&result->_close;
+  *&v9.val[4] = v5;
+  *atoken.val = *v9.val;
   *&atoken.val[4] = v5;
   v6 = audit_token_to_euid(&atoken);
   *&xmmword_100014200 = xmmword_100014200 + 1;
-  sub_100000AB8(7, "__notify_server_suspend_pid %d\n", v7, v8, v9, v10, v11, v12, v4);
+  sub_100000AB8(7, "__notify_server_suspend_pid %d\n", size);
   if (v6)
   {
-    atoken = v20;
-    audit_token_to_pid(&atoken);
-    result = sub_100000AB8(4, "__notify_server_suspend_pid %d permission denied for caller %d \n", v13, v14, v15, v16, v17, v18, v4);
+    atoken = v9;
+    v7 = audit_token_to_pid(&atoken);
+    result = sub_100000AB8(4, "__notify_server_suspend_pid %d permission denied for caller %d \n", size, v7);
   }
 
   else
@@ -2378,7 +2378,7 @@ LABEL_7:
     {
       if (qword_100014330 != result)
       {
-        *(result - qword_100014330 + 20) |= 1u;
+        *(&result->_file - qword_100014330 + 2) |= 1u;
       }
     }
   }
@@ -2387,15 +2387,15 @@ LABEL_7:
   return result;
 }
 
-void sub_100003BD0(uint64_t a1, uint64_t a2)
+void sub_100003BD0(FILE *result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 || *(a1 + 4) != 36)
+  if ((result->_p & 0x80000000) != 0 || HIDWORD(result->_p) != 36)
   {
     v3 = -304;
     goto LABEL_7;
   }
 
-  if (*(a1 + 36) || *(a1 + 40) <= 0x1Fu)
+  if (*(&result->_bf._size + 1) || result->_lbfsize <= 0x1Fu)
   {
     v3 = -309;
 LABEL_7:
@@ -2404,34 +2404,34 @@ LABEL_7:
     return;
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 72);
-  *v23.val = *(a1 + 56);
-  *&v23.val[4] = v5;
-  *atoken.val = *v23.val;
+  size = result->_bf._size;
+  v5 = *&result->_seek;
+  *v12.val = *&result->_close;
+  *&v12.val[4] = v5;
+  *atoken.val = *v12.val;
   *&atoken.val[4] = v5;
   v6 = audit_token_to_euid(&atoken);
   ++*(&xmmword_100014200 + 1);
-  sub_100000AB8(7, "__notify_server_resume_pid %d\n", v7, v8, v9, v10, v11, v12, v4);
+  sub_100000AB8(7, "__notify_server_resume_pid %d\n", size);
   if (v6)
   {
-    atoken = v23;
-    audit_token_to_pid(&atoken);
-    sub_100000AB8(4, "__notify_server_resume_pid %d permission denied for caller %d \n", v13, v14, v15, v16, v17, v18, v4);
+    atoken = v12;
+    v7 = audit_token_to_pid(&atoken);
+    sub_100000AB8(4, "__notify_server_resume_pid %d permission denied for caller %d \n", size, v7);
   }
 
   else
   {
-    v19 = os_set_32_ptr_find();
-    if (v19)
+    v8 = os_set_32_ptr_find();
+    if (v8)
     {
-      v20 = v19 - qword_100014330;
-      if (v19 != qword_100014330)
+      v9 = v8 - qword_100014330;
+      if (v8 != qword_100014330)
       {
-        *(v20 + 20) &= ~1u;
-        for (i = *v20; i; i = *(i + 16))
+        *(v9 + 20) &= ~1u;
+        for (i = *v9; i; i = *(i + 16))
         {
-          sub_100003D40(i, v20, 0);
+          sub_100003D40(i, v9, 0);
         }
       }
     }
@@ -2453,11 +2453,12 @@ void sub_100003D40(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_100003D74(uint64_t result, char *a2, int a3, int a4, __int128 *a5)
+uint64_t sub_100003D74(uint64_t result, char *a2, int a3, unsigned int a4, __int128 *a5)
 {
-  v23 = -1;
-  v24 = -1;
-  v22 = -1;
+  v8 = result;
+  v18 = -1;
+  v19 = -1;
+  v17 = -1;
   if (a2 || !a3)
   {
     if (!a2)
@@ -2467,39 +2468,39 @@ uint64_t sub_100003D74(uint64_t result, char *a2, int a3, int a4, __int128 *a5)
 
     if (a3)
     {
-      v8 = (a3 - 1);
-      if (__CFADD__(a2, v8))
+      v9 = (a3 - 1);
+      if (__CFADD__(a2, v9))
       {
         __break(0x5513u);
         return result;
       }
 
-      if (!a2[v8])
+      if (!a2[v9])
       {
 LABEL_8:
-        v9 = a5[1];
-        v20 = *a5;
-        v21 = v9;
-        sub_1000018E4(&v20, 0xFFFFFFFF, &v24, &v23, &v22, 0);
+        v10 = a5[1];
+        v15 = *a5;
+        v16 = v10;
+        sub_1000018E4(&v15, 0xFFFFFFFF, &v19, &v18, &v17, 0);
         ++*(&xmmword_100014260 + 1);
-        sub_100000AB8(7, "__notify_server_monitor_file %d %d %s 0x%08x\n", v10, v11, v12, v13, v14, v15, v22);
+        sub_100000AB8(7, "__notify_server_monitor_file %d %d %s 0x%08x\n", v17, v8, a2, a4);
         result = os_set_64_ptr_find();
         if (result)
         {
-          v16 = result - qword_1000142F0;
+          v11 = result - qword_1000142F0;
           if (result != qword_1000142F0)
           {
-            v17 = *(v16 + 48);
-            if (!v17)
+            v12 = *(v11 + 48);
+            if (!v12)
             {
               __assert_rtn("__notify_server_monitor_file_2", "notify_proc.c", 1423, "n != NULL");
             }
 
-            v18 = *(v17 + 8);
-            v19 = a5[1];
-            v20 = *a5;
-            v21 = v19;
-            return sub_100003F6C(v18, v16, a2, &v20, a4);
+            v13 = *(v12 + 8);
+            v14 = a5[1];
+            v15 = *a5;
+            v16 = v14;
+            return sub_100003F6C(v13, v11, a2, &v15, a4);
           }
         }
       }
@@ -2541,7 +2542,7 @@ FILE *sub_100003EA8(FILE *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100003F6C(uint64_t a1, uint64_t a2, char *a3, _OWORD *a4, int a5)
+uint64_t sub_100003F6C(uint64_t a1, uint64_t a2, char *a3, _OWORD *a4, unsigned int a5)
 {
   ++qword_100014270;
   if (!a3)
@@ -3774,73 +3775,74 @@ LABEL_17:
 
 uint64_t sub_1000056EC(char *a1, unsigned int a2, int a3, __int128 *a4)
 {
-  v26 = 0;
-  v24 = -1;
-  v25 = -1;
-  v23 = -1;
+  v20 = 0;
+  v18 = -1;
+  v19 = -1;
+  v17 = -1;
   v8 = a4[1];
-  v21 = *a4;
-  v22 = v8;
-  sub_1000018E4(&v21, a2, &v25, &v24, &v23, &v26);
+  v15 = *a4;
+  v16 = v8;
+  sub_1000018E4(&v15, a2, &v19, &v18, &v17, &v20);
   ++*(&xmmword_1000141A0 + 1);
   *&xmmword_1000141C0 = xmmword_1000141C0 + 1;
-  sub_100000AB8(7, "__notify_server_register_signal %s %d %d %d\n", v9, v10, v11, v12, v13, v14, a1);
+  sub_100000AB8(7, "__notify_server_register_signal %s %d %d %d\n", a1, v17, a2, a3);
   if (!a1)
   {
     return 1;
   }
 
-  v15 = v23;
-  *&v21 = 0;
-  result = sub_100002750(a1, v23, a2, v25, v24, &v21);
+  v9 = v17;
+  *&v15 = 0;
+  result = sub_100002750(a1, v17, a2, v19, v18, &v15);
   if (!result)
   {
-    v17 = v21;
-    *(v21 + 79) = *(v21 + 79) & 0xF0 | 5;
-    *(v17 + 68) = v15;
-    *(v17 + 56) = a3;
-    v18 = os_set_64_ptr_find();
-    if (v18)
+    v11 = v15;
+    *(v15 + 79) = *(v15 + 79) & 0xF0 | 5;
+    *(v11 + 68) = v9;
+    *(v11 + 56) = a3;
+    v12 = os_set_64_ptr_find();
+    if (v12)
     {
-      v19 = (v18 - qword_1000142F0);
+      v13 = (v12 - qword_1000142F0);
     }
 
     else
     {
-      v19 = 0;
+      v13 = 0;
     }
 
     if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
     {
-      v20 = a4[1];
-      v21 = *a4;
-      v22 = v20;
-      sub_10000A680(a1, v19, &v21);
+      v14 = a4[1];
+      v15 = *a4;
+      v16 = v14;
+      sub_10000A680(a1, v13, &v15);
     }
 
-    sub_10000293C(v19, v23);
+    sub_10000293C(v13, v17);
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_100005850(char *a1, unsigned int a2, mach_port_name_t a3, __int128 *a4)
+uint64_t sub_100005850(char *a1, unsigned int a2, uint64_t a3, __int128 *a4)
 {
-  v26 = 0;
-  v24 = -1;
-  v25 = -1;
-  v23 = -1;
+  v5 = a3;
+  v20 = 0;
+  v18 = -1;
+  v19 = -1;
+  v17 = -1;
   v8 = a4[1];
-  v21 = *a4;
-  v22 = v8;
-  sub_1000018E4(&v21, a2, &v25, &v24, &v23, &v26);
+  v15 = *a4;
+  v16 = v8;
+  sub_1000018E4(&v15, a2, &v19, &v18, &v17, &v20);
   ++*(&xmmword_1000141A0 + 1);
   ++*(&xmmword_1000141C0 + 1);
-  sub_100000AB8(7, "__notify_server_register_file_descriptor %s %d %d\n", v9, v10, v11, v12, v13, v14, a1);
-  v15 = fileport_makefd();
-  result = mach_port_deallocate(mach_task_self_, a3);
-  if ((v15 & 0x80000000) == 0)
+  sub_100000AB8(7, "__notify_server_register_file_descriptor %s %d %d\n", a1, v17, a2);
+  v9 = fileport_makefd();
+  result = mach_port_deallocate(mach_task_self_, v5);
+  if ((v9 & 0x80000000) == 0)
   {
     result = fcntl_NOCANCEL();
     if ((result & 0x80000000) == 0)
@@ -3850,33 +3852,33 @@ uint64_t sub_100005850(char *a1, unsigned int a2, mach_port_name_t a3, __int128 
       {
         if (a1)
         {
-          *&v21 = 0;
-          result = sub_100002750(a1, v23, a2, v25, v24, &v21);
+          *&v15 = 0;
+          result = sub_100002750(a1, v17, a2, v19, v18, &v15);
           if (!result)
           {
-            v17 = v21;
-            *(v21 + 79) = *(v21 + 79) & 0xF0 | 4;
-            *(v17 + 56) = v15;
-            v18 = os_set_64_ptr_find();
-            if (v18)
+            v11 = v15;
+            *(v15 + 79) = *(v15 + 79) & 0xF0 | 4;
+            *(v11 + 56) = v9;
+            v12 = os_set_64_ptr_find();
+            if (v12)
             {
-              v19 = (v18 - qword_1000142F0);
+              v13 = (v12 - qword_1000142F0);
             }
 
             else
             {
-              v19 = 0;
+              v13 = 0;
             }
 
             if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
             {
-              v20 = a4[1];
-              v21 = *a4;
-              v22 = v20;
-              sub_10000A680(a1, v19, &v21);
+              v14 = a4[1];
+              v15 = *a4;
+              v16 = v14;
+              sub_10000A680(a1, v13, &v15);
             }
 
-            return sub_10000293C(v19, v23);
+            return sub_10000293C(v13, v17);
           }
         }
       }
@@ -3886,8 +3888,9 @@ uint64_t sub_100005850(char *a1, unsigned int a2, mach_port_name_t a3, __int128 
   return result;
 }
 
-uint64_t sub_1000059EC(char *a1, unsigned int a2, mach_port_name_t a3, __int128 *a4)
+uint64_t sub_1000059EC(char *a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
+  v6 = a2;
   v8 = os_set_32_ptr_find();
   if (v8)
   {
@@ -3911,66 +3914,67 @@ uint64_t sub_1000059EC(char *a1, unsigned int a2, mach_port_name_t a3, __int128 
     v11 = a4[1];
     v13[0] = *a4;
     v13[1] = v11;
-    return sub_100005AA8(a1, a2, a3, v13);
+    return sub_100005AA8(a1, v6, a3, v13);
   }
 }
 
-uint64_t sub_100005AA8(char *a1, unsigned int a2, mach_port_name_t a3, __int128 *a4)
+uint64_t sub_100005AA8(char *a1, unsigned int a2, uint64_t a3, __int128 *a4)
 {
-  v30 = 0;
-  v28 = -1;
-  v29 = -1;
-  v27 = -1;
-  if (a3 + 1 < 2)
+  v24 = 0;
+  v22 = -1;
+  v23 = -1;
+  v21 = -1;
+  if ((a3 + 1) < 2)
   {
     return 59;
   }
 
+  v6 = a3;
   v9 = a4[1];
-  v25 = *a4;
-  v26 = v9;
-  sub_1000018E4(&v25, a2, &v29, &v28, &v27, &v30);
+  v19 = *a4;
+  v20 = v9;
+  sub_1000018E4(&v19, a2, &v23, &v22, &v21, &v24);
   ++*(&xmmword_1000141A0 + 1);
   ++qword_1000141D0;
-  sub_100000AB8(7, "__notify_server_register_mach_port %s %d %d\n", v10, v11, v12, v13, v14, v15, a1);
-  if (a1 && (*&v25 = 0, !sub_100002750(a1, v27, a2, v29, v28, &v25)))
+  sub_100000AB8(7, "__notify_server_register_mach_port %s %d %d\n", a1, v21, a2);
+  if (a1 && (*&v19 = 0, !sub_100002750(a1, v21, a2, v23, v22, &v19)))
   {
-    v16 = v25;
-    *(v25 + 79) = *(v25 + 79) & 0xF0 | 3;
-    *(v16 + 56) = a3;
-    v17 = os_set_64_ptr_find();
-    if (v17)
+    v10 = v19;
+    *(v19 + 79) = *(v19 + 79) & 0xF0 | 3;
+    *(v10 + 56) = v6;
+    v11 = os_set_64_ptr_find();
+    if (v11)
     {
-      v18 = (v17 - qword_1000142F0);
+      v12 = (v11 - qword_1000142F0);
     }
 
     else
     {
-      v18 = 0;
+      v12 = 0;
     }
 
     if (!strncmp(a1, "com.apple.system.notify.service.", 0x20uLL))
     {
-      v19 = a4[1];
-      v25 = *a4;
-      v26 = v19;
-      sub_10000A680(a1, v18, &v25);
+      v13 = a4[1];
+      v19 = *a4;
+      v20 = v13;
+      sub_10000A680(a1, v12, &v19);
     }
 
-    sub_10000293C(v18, v27);
-    v20 = os_set_32_ptr_find();
-    if (v20 && (v21 = (v20 - qword_100014310), v20 != qword_100014310))
+    sub_10000293C(v12, v21);
+    v14 = os_set_32_ptr_find();
+    if (v14 && (v15 = (v14 - qword_100014310), v14 != qword_100014310))
     {
-      v24 = *v21;
-      v18[4] = *v21;
-      if (v24)
+      v18 = *v15;
+      v12[4] = *v15;
+      if (v18)
       {
-        *(v24 + 40) = v18 + 4;
+        *(v18 + 40) = v12 + 4;
       }
 
       result = 0;
-      *v21 = v18;
-      v18[5] = v21;
+      *v15 = v12;
+      v12[5] = v15;
     }
 
     else
@@ -3978,28 +3982,28 @@ uint64_t sub_100005AA8(char *a1, unsigned int a2, mach_port_name_t a3, __int128 
       result = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040EDED9539uLL);
       if (result)
       {
-        v22 = result;
+        v16 = result;
         ++dword_100014380;
         *result = 0;
-        *(result + 8) = a3;
+        *(result + 8) = v6;
         os_set_32_ptr_insert();
-        v23 = *v22;
-        v18[4] = *v22;
-        if (v23)
+        v17 = *v16;
+        v12[4] = *v16;
+        if (v17)
         {
-          *(v23 + 40) = v18 + 4;
+          *(v17 + 40) = v12 + 4;
         }
 
-        *v22 = v18;
-        v18[5] = v22;
-        if (mach_port_insert_right(mach_task_self_, a3, a3, 0x13u))
+        *v16 = v12;
+        v12[5] = v16;
+        if (mach_port_insert_right(mach_task_self_, v6, v6, 0x13u))
         {
-          sub_100002DBC(v18);
+          sub_100002DBC(v12);
         }
 
         else
         {
-          sub_100001EC4(a3);
+          sub_100001EC4(v6);
         }
 
         return 0;
@@ -4015,16 +4019,16 @@ uint64_t sub_100005AA8(char *a1, unsigned int a2, mach_port_name_t a3, __int128 
 
   else
   {
-    mach_port_deallocate(mach_task_self_, a3);
+    mach_port_deallocate(mach_task_self_, v6);
     return 7;
   }
 
   return result;
 }
 
-char *sub_100005D20(char *result, uint64_t a2, int a3, int a4, int a5, signed int a6, uint64_t a7, unint64_t a8, char *a9, int a10, int a11, int *a12, void *a13, int *a14, _OWORD *a15)
+FILE *sub_100005D20(FILE *result, uint64_t a2, int a3, int a4, int a5, unsigned int a6, uint64_t a7, unint64_t a8, char *a9, int a10, unsigned int a11, int *a12, void *a13, int *a14, _OWORD *a15)
 {
-  v18 = result;
+  v19 = result;
   pidp[0] = -1;
   *a12 = 0;
   *a13 = 0;
@@ -4041,30 +4045,31 @@ char *sub_100005D20(char *result, uint64_t a2, int a3, int a4, int a5, signed in
       goto LABEL_3;
     }
 
-    v20 = (a10 - 1);
-    if (__CFADD__(a9, v20))
+    v21 = (a10 - 1);
+    if (__CFADD__(a9, v21))
     {
       goto LABEL_41;
     }
 
-    if (a9[v20])
+    if (a9[v21])
     {
       goto LABEL_3;
     }
   }
 
   *&xmmword_100014280 = xmmword_100014280 + 1;
-  v21 = a15[1];
+  v22 = a15[1];
   *atoken.val = *a15;
-  *&atoken.val[4] = v21;
+  *&atoken.val[4] = v22;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, pidp, 0, 0);
-  v42 = a7;
-  v23 = a2;
-  sub_100000AB8(7, "__notify_server_regenerate %s %d %d %d %u %d %d %llu %s %d\n", v24, v25, v26, v27, v28, v29, v18);
+  v38 = a7;
+  v37 = a7;
+  v24 = a2;
+  sub_100000AB8(7, "__notify_server_regenerate %s %d %d %d %u %d %d %llu %s %d\n", v19, pidp[0], a2, a3, a4, a5, a6, v37, a9, a11);
   result = os_set_64_ptr_find();
   if (result && qword_1000142F0 != result)
   {
-    v19 = 51;
+    v20 = 51;
     goto LABEL_4;
   }
 
@@ -4072,26 +4077,26 @@ char *sub_100005D20(char *result, uint64_t a2, int a3, int a4, int a5, signed in
   {
     if (a3 == 5)
     {
-      v30 = a15;
-      v38 = a15[1];
+      v25 = a15;
+      v33 = a15[1];
       *atoken.val = *a15;
-      *&atoken.val[4] = v38;
-      v32 = sub_1000056EC(v18, a2, a5, &atoken);
+      *&atoken.val[4] = v33;
+      v27 = sub_1000056EC(v19, a2, a5, &atoken);
       goto LABEL_32;
     }
 
     if (a3 == 7)
     {
-      v30 = a15;
-      v33 = a15[1];
+      v25 = a15;
+      v28 = a15[1];
       *atoken.val = *a15;
-      *&atoken.val[4] = v33;
-      v32 = sub_1000029DC(v18, a2, &atoken);
+      *&atoken.val[4] = v28;
+      v27 = sub_1000029DC(v19, a2, &atoken);
       goto LABEL_32;
     }
 
 LABEL_20:
-    v19 = 52;
+    v20 = 52;
     goto LABEL_4;
   }
 
@@ -4099,13 +4104,13 @@ LABEL_20:
   {
     if (a3 == 2)
     {
-      v30 = a15;
-      v31 = a15[1];
+      v25 = a15;
+      v26 = a15[1];
       *atoken.val = *a15;
-      *&atoken.val[4] = v31;
-      v32 = sub_1000032FC(v18, a2, &atoken);
+      *&atoken.val[4] = v26;
+      v27 = sub_1000032FC(v19, a2, &atoken);
 LABEL_32:
-      *a14 = v32;
+      *a14 = v27;
       goto LABEL_33;
     }
 
@@ -4115,33 +4120,33 @@ LABEL_32:
   if (dword_1000143E0 <= a6)
   {
 LABEL_3:
-    v19 = 6;
+    v20 = 6;
 LABEL_4:
-    *a14 = v19;
+    *a14 = v20;
     return result;
   }
 
-  v30 = a15;
-  v34 = a15[1];
+  v25 = a15;
+  v29 = a15[1];
   *atoken.val = *a15;
-  *&atoken.val[4] = v34;
-  result = sub_1000023A0(v18, a2, &v46, a12, a13, a14, &atoken);
+  *&atoken.val[4] = v29;
+  result = sub_1000023A0(v19, a2, &v42, a12, a13, a14, &atoken);
   if (!*a14)
   {
-    v35 = *a12;
-    if (v35 != -1)
+    v30 = *a12;
+    if (v30 != -1)
     {
-      v36 = qword_1000143F8;
+      v31 = qword_1000143F8;
       if (qword_1000143F8)
       {
-        if (v35 < 0 != ~qword_1000143E8 >= (4 * v35))
+        if (v30 < 0 != ~qword_1000143E8 >= (4 * v30))
         {
-          v37 = __CFADD__(qword_1000143F8, 4 * a6);
-          if (a6 >= 0 != v37)
+          v32 = __CFADD__(qword_1000143F8, 4 * a6);
+          if (((a6 & 0x80000000) == 0) != v32)
           {
-            *(qword_1000143E8 + 4 * v35) = *(qword_1000143E8 + 4 * v35) + *(qword_1000143F8 + 4 * a6) - 1;
-            *(v36 + 4 * a6) = 0;
-            v23 = a2;
+            *(qword_1000143E8 + 4 * v30) = *(qword_1000143E8 + 4 * v30) + *(qword_1000143F8 + 4 * a6) - 1;
+            *(v31 + 4 * a6) = 0;
+            v24 = a2;
             goto LABEL_33;
           }
         }
@@ -4156,41 +4161,42 @@ LABEL_41:
 LABEL_33:
   if (a9)
   {
-    v39 = v30[1];
-    *atoken.val = *v30;
-    *&atoken.val[4] = v39;
-    sub_100003D74(v23, a9, a10, a11, &atoken);
+    v34 = v25[1];
+    *atoken.val = *v25;
+    *&atoken.val[4] = v34;
+    sub_100003D74(v24, a9, a10, a11, &atoken);
   }
 
   result = os_set_64_ptr_find();
-  if (result && (v40 = qword_1000142F0, qword_1000142F0 != result))
+  if (result && (v35 = qword_1000142F0, qword_1000142F0 != result))
   {
     *a14 = 0;
-    v41 = *&result[-v40 + 48];
-    *a13 = v41[2];
-    if (v41[4] < a8)
+    v36 = *(&result->_cookie - v35);
+    *a13 = v36[2];
+    if (v36[4] < a8)
     {
-      v41[3] = v42;
+      v36[3] = v38;
     }
   }
 
   else if (!*a14)
   {
-    v19 = 50;
+    v20 = 50;
     goto LABEL_4;
   }
 
   return result;
 }
 
-uint64_t sub_10000605C(mach_port_name_t a1, _OWORD *a2)
+uint64_t sub_10000605C(uint64_t a1, _OWORD *a2)
 {
+  v3 = a1;
   v4 = a2[1];
   *atoken.val = *a2;
   *&atoken.val[4] = v4;
   if (audit_token_to_euid(&atoken))
   {
-    return mach_port_deallocate(mach_task_self_, a1);
+    return mach_port_deallocate(mach_task_self_, v3);
   }
 
   v5 = a2[1];
@@ -4198,19 +4204,19 @@ uint64_t sub_10000605C(mach_port_name_t a1, _OWORD *a2)
   *&atoken.val[4] = v5;
   if (sandbox_check_by_audit_token())
   {
-    return mach_port_deallocate(mach_task_self_, a1);
+    return mach_port_deallocate(mach_task_self_, v3);
   }
 
   v6 = a2[1];
   *atoken.val = *a2;
   *&atoken.val[4] = v6;
-  if (!sub_1000086BC(&atoken))
+  if (!sub_1000086BC(&atoken, "com.apple.private.libnotify.statecapture"))
   {
-    return mach_port_deallocate(mach_task_self_, a1);
+    return mach_port_deallocate(mach_task_self_, v3);
   }
 
   v7 = fileport_makefd();
-  result = mach_port_deallocate(mach_task_self_, a1);
+  result = mach_port_deallocate(mach_task_self_, v3);
   if ((v7 & 0x80000000) == 0)
   {
     if ((fcntl_NOCANCEL() & 0x80000000) == 0 && (fcntl_NOCANCEL() & 0x80000000) == 0)
@@ -4274,7 +4280,7 @@ int64x2_t sub_100006278(const char *a1, int a2, __int128 *a3)
   return result;
 }
 
-char *sub_100006314(char *a1, uint64_t a2, int a3, int a4, int a5, signed int a6, uint64_t a7, unint64_t a8, char *a9, int a10, int a11, int *a12, void *a13, int *a14, __int128 *a15)
+FILE *sub_100006314(FILE *a1, uint64_t a2, int a3, int a4, int a5, unsigned int a6, uint64_t a7, unint64_t a8, char *a9, int a10, unsigned int a11, int *a12, void *a13, int *a14, __int128 *a15)
 {
   v18 = a15[1];
   v27 = *a15;
@@ -4358,10 +4364,10 @@ uint64_t sub_100006418(int a1, int a2)
     return fclose(v5);
   }
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2000000000;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x2000000000;
+  v40 = 0;
   if (fprintf(v5, "--- GLOBALS ---\n") < 0)
   {
     goto LABEL_141;
@@ -4598,8 +4604,8 @@ uint64_t sub_100006418(int a1, int a2)
   }
 
   v9 = localtime(&qword_1000143D8);
-  strftime(v38, 0x80uLL, "%a, %d %b %Y %T %z", v9);
-  if (fprintf(v5, "last reset time was %s\n", v38) < 0)
+  strftime(v41, 0x80uLL, "%a, %d %b %Y %T %z", v9);
+  if (fprintf(v5, "last reset time was %s\n", v41) < 0)
   {
     goto LABEL_141;
   }
@@ -4651,13 +4657,13 @@ uint64_t sub_100006418(int a1, int a2)
     goto LABEL_141;
   }
 
-  *v38 = _NSConcreteStackBlock;
-  v39 = 0x40000000;
-  v40 = sub_100007B30;
-  v41 = &unk_100010760;
-  v42 = &v34;
-  v43 = v5;
-  sub_1000055C4();
+  *v41 = _NSConcreteStackBlock;
+  v42 = 0x40000000;
+  v43 = sub_100007B30;
+  v44 = &unk_100010760;
+  v45 = &v37;
+  v46 = v5;
+  sub_1000055C4(v41);
   v12 = os_set_str_ptr_count();
   if (fprintf(v5, "--- NAME COUNT %u ---\n", v12) < 0)
   {
@@ -4674,7 +4680,12 @@ uint64_t sub_100006418(int a1, int a2)
     goto LABEL_141;
   }
 
-  sub_100005658();
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 0x40000000;
+  v36[2] = sub_100007F30;
+  v36[3] = &unk_100010780;
+  v36[4] = v5;
+  sub_100005658(v36);
   v13 = os_set_64_ptr_count();
   if (fprintf(v5, "--- SUBSCRIPTION COUNT %u ---\n", v13) < 0)
   {
@@ -4736,7 +4747,12 @@ LABEL_145:
     goto LABEL_141;
   }
 
-  sub_100005658();
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 0x40000000;
+  v35[2] = sub_100007F6C;
+  v35[3] = &unk_1000107A0;
+  v35[4] = v5;
+  sub_100005658(v35);
   v17 = os_set_str_ptr_count();
   if (fprintf(v5, "--- PUBLIC SERVICE COUNT %u ---\n", v17) < 0)
   {
@@ -4753,14 +4769,19 @@ LABEL_145:
     goto LABEL_141;
   }
 
-  sub_100005658();
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 0x40000000;
+  v34[2] = sub_100008040;
+  v34[3] = &unk_1000107C0;
+  v34[4] = v5;
+  sub_100005658(v34);
   v18 = os_set_64_ptr_count();
   if (fprintf(v5, "--- PRIVATE SERVICE COUNT %u ---\n", v18) < 0 || fprintf(v5, "\n") < 0 || fprintf(v5, "--- PROCESSES ---\n") < 0)
   {
     goto LABEL_141;
   }
 
-  if ((v35[3] & 0x80000000) != 0)
+  if ((v38[3] & 0x80000000) != 0)
   {
 LABEL_140:
     fwrite("-- END --\n", 0xAuLL, 1uLL, v5);
@@ -4787,7 +4808,7 @@ LABEL_138:
       goto LABEL_145;
     }
 
-    if (v19 > *(v35 + 6))
+    if (v19 > *(v38 + 6))
     {
       goto LABEL_140;
     }
@@ -4932,7 +4953,7 @@ LABEL_137:
   }
 
 LABEL_141:
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v37, 8);
   return fclose(v5);
 }
 
@@ -5080,8 +5101,8 @@ size_t sub_100007164(FILE *a1)
                                                                                               if ((result & 0x80000000) == 0)
                                                                                               {
                                                                                                 v3 = localtime(&qword_1000143D8);
-                                                                                                strftime(v12, 0x80uLL, "%a, %d %b %Y %T %z", v3);
-                                                                                                result = fprintf(a1, "last reset time was %s\n", v12);
+                                                                                                strftime(v15, 0x80uLL, "%a, %d %b %Y %T %z", v3);
+                                                                                                result = fprintf(a1, "last reset time was %s\n", v15);
                                                                                                 if ((result & 0x80000000) == 0)
                                                                                                 {
                                                                                                   result = fprintf(a1, "\n");
@@ -5119,7 +5140,12 @@ size_t sub_100007164(FILE *a1)
                                                                                                                       result = fprintf(a1, "Client Info: client_id, pid,token, lastval, suspend_count, pending, 0, type, type-info\n\n\n");
                                                                                                                       if ((result & 0x80000000) == 0)
                                                                                                                       {
-                                                                                                                        sub_1000055C4();
+                                                                                                                        v14[0] = _NSConcreteStackBlock;
+                                                                                                                        v14[1] = 0x40000000;
+                                                                                                                        v14[2] = sub_1000082BC;
+                                                                                                                        v14[3] = &unk_1000106F8;
+                                                                                                                        v14[4] = a1;
+                                                                                                                        sub_1000055C4(v14);
                                                                                                                         v6 = os_set_str_ptr_count();
                                                                                                                         result = fprintf(a1, "--- NAME COUNT %u ---\n", v6);
                                                                                                                         if ((result & 0x80000000) == 0)
@@ -5167,7 +5193,12 @@ LABEL_68:
                                                                                                                                     result = fprintf(a1, "--- PUBLIC SERVICE ---\n");
                                                                                                                                     if ((result & 0x80000000) == 0)
                                                                                                                                     {
-                                                                                                                                      sub_100005658();
+                                                                                                                                      v13[0] = _NSConcreteStackBlock;
+                                                                                                                                      v13[1] = 0x40000000;
+                                                                                                                                      v13[2] = sub_100008520;
+                                                                                                                                      v13[3] = &unk_100010718;
+                                                                                                                                      v13[4] = a1;
+                                                                                                                                      sub_100005658(v13);
                                                                                                                                       v10 = os_set_str_ptr_count();
                                                                                                                                       result = fprintf(a1, "--- PUBLIC SERVICE COUNT %u ---\n", v10);
                                                                                                                                       if ((result & 0x80000000) == 0)
@@ -5178,7 +5209,12 @@ LABEL_68:
                                                                                                                                           result = fprintf(a1, "--- PRIVATE SERVICE ---\n");
                                                                                                                                           if ((result & 0x80000000) == 0)
                                                                                                                                           {
-                                                                                                                                            sub_100005658();
+                                                                                                                                            v12[0] = _NSConcreteStackBlock;
+                                                                                                                                            v12[1] = 0x40000000;
+                                                                                                                                            v12[2] = sub_1000085F4;
+                                                                                                                                            v12[3] = &unk_100010738;
+                                                                                                                                            v12[4] = a1;
+                                                                                                                                            sub_100005658(v12);
                                                                                                                                             v11 = os_set_64_ptr_count();
                                                                                                                                             result = fprintf(a1, "--- PRIVATE SERVICE COUNT %u ---\n", v11);
                                                                                                                                             if ((result & 0x80000000) == 0)
@@ -5296,7 +5332,6 @@ uint64_t sub_100007B30(uint64_t a1, uint64_t a2)
       goto LABEL_64;
     }
 
-    v22 = *(qword_1000143E8 + 4 * v7);
     v8 = fprintf(v4, " = %u (%u)");
 LABEL_16:
     if ((v8 & 0x80000000) == 0)
@@ -5324,8 +5359,8 @@ LABEL_17:
     return fprintf(*(a1 + 40), "\n") >= 0;
   }
 
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v9 = *a2;
   if (*a2)
   {
@@ -5354,13 +5389,13 @@ LABEL_17:
       switch(result)
       {
         case 1:
-          DWORD1(v23) = ++v10;
+          DWORD1(v22) = ++v10;
           break;
         case 2:
-          DWORD2(v23) = ++v11;
+          DWORD2(v22) = ++v11;
           break;
         case 3:
-          HIDWORD(v23) = ++v12;
+          HIDWORD(v22) = ++v12;
           break;
         default:
           goto LABEL_40;
@@ -5378,23 +5413,23 @@ LABEL_46:
     {
       if (result == 6)
       {
-        if (&v23 > 0xFFFFFFFFFFFFFFE7)
+        if (&v22 > 0xFFFFFFFFFFFFFFE7)
         {
           goto LABEL_64;
         }
 
-        DWORD2(v24) = ++v15;
+        DWORD2(v23) = ++v15;
         goto LABEL_46;
       }
 
       if (result == 7)
       {
-        if (&v23 > 0xFFFFFFFFFFFFFFE3)
+        if (&v22 > 0xFFFFFFFFFFFFFFE3)
         {
           goto LABEL_64;
         }
 
-        HIDWORD(v24) = ++v16;
+        HIDWORD(v23) = ++v16;
         goto LABEL_46;
       }
     }
@@ -5403,29 +5438,29 @@ LABEL_46:
     {
       if (result == 4)
       {
-        if (&v23 > 0xFFFFFFFFFFFFFFEFLL)
+        if (&v22 > 0xFFFFFFFFFFFFFFEFLL)
         {
           goto LABEL_64;
         }
 
-        LODWORD(v24) = ++v13;
+        LODWORD(v23) = ++v13;
         goto LABEL_46;
       }
 
       if (result == 5)
       {
-        if (&v23 > 0xFFFFFFFFFFFFFFEBLL)
+        if (&v22 > 0xFFFFFFFFFFFFFFEBLL)
         {
           goto LABEL_64;
         }
 
-        DWORD1(v24) = ++v14;
+        DWORD1(v23) = ++v14;
         goto LABEL_46;
       }
     }
 
 LABEL_40:
-    LODWORD(v23) = ++v17;
+    LODWORD(v22) = ++v17;
     goto LABEL_46;
   }
 
@@ -5438,11 +5473,11 @@ LABEL_40:
   v10 = 0;
   v17 = 0;
 LABEL_49:
-  v19 = (&v24 + 5) != 0 && &v23 >= 0xFFFFFFFFFFFFFFEBLL;
-  if (&v23 <= 0xFFFFFFFFFFFFFFEFLL && !v19)
+  v19 = (&v23 + 5) != 0 && &v22 >= 0xFFFFFFFFFFFFFFEBLL;
+  if (&v22 <= 0xFFFFFFFFFFFFFFEFLL && !v19)
   {
-    v20 = (&v24 + 13) != 0 && &v23 >= 0xFFFFFFFFFFFFFFE3;
-    if (&v23 <= 0xFFFFFFFFFFFFFFE7 && !v20)
+    v20 = (&v23 + 13) != 0 && &v22 >= 0xFFFFFFFFFFFFFFE3;
+    if (&v22 <= 0xFFFFFFFFFFFFFFE7 && !v20)
     {
       if ((fprintf(v4, "types: none %u   memory %u   plain %u   port %u   file %u   signal %u   event %u   common %u\n", v17, v10, v11, v12, v13, v14, v15, v16) & 0x80000000) == 0)
       {
@@ -5466,7 +5501,7 @@ LABEL_64:
   return result;
 }
 
-uint64_t sub_100007F6C(uint64_t result, uint64_t a2)
+BOOL sub_100007F6C(_BOOL8 result, uint64_t a2)
 {
   if (!*(a2 + 76))
   {
@@ -5480,32 +5515,28 @@ uint64_t sub_100007F6C(uint64_t result, uint64_t a2)
     if (v3)
     {
       v4 = result;
-      v5 = *(a2 + 48);
-      v6 = *v3;
+      v5 = *v3;
       if (!*v3)
       {
-        if (fprintf(*(result + 32), "Null service: %s\n", *(v5 + 8)) < 0)
+        if (fprintf(*(result + 32), "Null service: %s\n", *(*(a2 + 48) + 8)) < 0)
         {
           return 0;
         }
 
-        v6 = *v3;
+        v5 = *v3;
       }
 
-      if (v6 == 1)
+      if (v5 == 1)
       {
-        v7 = *(v5 + 8);
-        v8 = **(v3 + 1);
-        v9 = fprintf(*(v4 + 32), "Path Service: %s <- %s\n");
+        v6 = fprintf(*(v4 + 32), "Path Service: %s <- %s\n");
       }
 
       else
       {
-        v10 = *(v5 + 8);
-        v9 = fprintf(*(v4 + 32), "Unknown service: %s (%u)\n");
+        v6 = fprintf(*(v4 + 32), "Unknown service: %s (%u)\n");
       }
 
-      return (v9 & 0x80000000) == 0;
+      return (v6 & 0x80000000) == 0;
     }
 
     return 1;
@@ -5515,7 +5546,7 @@ uint64_t sub_100007F6C(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100008040(uint64_t result, uint64_t a2)
+BOOL sub_100008040(_BOOL8 result, uint64_t a2)
 {
   if (!*(a2 + 76))
   {
@@ -5539,13 +5570,7 @@ uint64_t sub_100008040(uint64_t result, uint64_t a2)
       v7 = *v5;
     }
 
-    if (v7 != 2)
-    {
-      return 1;
-    }
-
-    v8 = *(v6 + 8);
-    return (fprintf(*(v4 + 32), "PID %u Path Service: %s <- %s\n", *(a2 + 68), v8, *v5[1]) & 0x80000000) == 0;
+    return v7 != 2 || (fprintf(*(v4 + 32), "PID %u Path Service: %s <- %s\n", *(a2 + 68), *(v6 + 8), *v5[1]) & 0x80000000) == 0;
   }
 
   __break(0x5513u);
@@ -5579,13 +5604,11 @@ size_t sub_100008108(FILE *a1, uint64_t a2)
               {
                 if (v7 == 3)
                 {
-                  v11 = *(a2 + 56);
                   return fprintf(a1, "mach port: 0x%08x\n");
                 }
 
                 else if (v7 == 4)
                 {
-                  v8 = *(a2 + 56);
                   return fprintf(a1, "fd: %d\n");
                 }
               }
@@ -5595,10 +5618,8 @@ size_t sub_100008108(FILE *a1, uint64_t a2)
                 switch(v7)
                 {
                   case 5u:
-                    v9 = *(a2 + 56);
                     return fprintf(a1, "signal: %d\n");
                   case 6u:
-                    v10 = *(a2 + 56);
                     return fprintf(a1, "xpc event: %llu\n");
                   case 7u:
 
@@ -5622,17 +5643,7 @@ BOOL sub_1000082BC(uint64_t a1, uint64_t **a2)
     v4 = *(a1 + 32);
     if ((fprintf(v4, "name:%s\n", a2[1]) & 0x80000000) == 0 && (fprintf(v4, "info:%llu,%u,%u,%03x,%u,%u,%u,", a2[2], *(a2 + 10), *(a2 + 11), *(a2 + 12), *(a2 + 14), *(a2 + 16), *(a2 + 17)) & 0x80000000) == 0)
     {
-      if (*(a2 + 13) == -1)
-      {
-        v5 = fprintf(v4, "-1,");
-      }
-
-      else
-      {
-        v15 = *(a2 + 13);
-        v5 = fprintf(v4, "%u,");
-      }
-
+      v5 = *(a2 + 13) == -1 ? fprintf(v4, "-1,") : fprintf(v4, "%u,");
       if ((v5 & 0x80000000) == 0 && (fprintf(v4, "%u,%llu\n", *(a2 + 15), a2[3]) & 0x80000000) == 0 && (fprintf(v4, "clients:\n") & 0x80000000) == 0)
       {
         for (i = *a2; i; i = *i)
@@ -5646,28 +5657,26 @@ BOOL sub_1000082BC(uint64_t a1, uint64_t **a2)
               {
                 if (v7 == 6)
                 {
-                  v13 = i[7];
                   fprintf(v4, "event,%llu\n");
                   continue;
                 }
 
                 if (v7 == 7)
                 {
-                  v9 = "common-port\n";
-                  v10 = 12;
+                  v8 = "common-port\n";
+                  v9 = 12;
 LABEL_25:
-                  fwrite(v9, v10, 1uLL, v4);
+                  fwrite(v8, v9, 1uLL, v4);
                   continue;
                 }
 
 LABEL_23:
-                v9 = "other,0\n";
+                v8 = "other,0\n";
 LABEL_24:
-                v10 = 8;
+                v9 = 8;
                 goto LABEL_25;
               }
 
-              v11 = *(i + 14);
               fprintf(v4, "signal,%d\n");
             }
 
@@ -5675,13 +5684,12 @@ LABEL_24:
             {
               if (v7 == 1)
               {
-                v9 = "check,0\n";
+                v8 = "check,0\n";
                 goto LABEL_24;
               }
 
               if (v7 == 3)
               {
-                v12 = *(i + 14);
                 fprintf(v4, "port,0x%08x\n");
                 continue;
               }
@@ -5691,7 +5699,6 @@ LABEL_24:
                 goto LABEL_23;
               }
 
-              v8 = *(i + 14);
               fprintf(v4, "fd,%d\n");
             }
           }
@@ -5705,7 +5712,7 @@ LABEL_24:
   return fprintf(*(a1 + 32), "\n") >= 0;
 }
 
-uint64_t sub_100008520(uint64_t result, uint64_t a2)
+BOOL sub_100008520(_BOOL8 result, uint64_t a2)
 {
   if (!*(a2 + 76))
   {
@@ -5719,32 +5726,28 @@ uint64_t sub_100008520(uint64_t result, uint64_t a2)
     if (v3)
     {
       v4 = result;
-      v5 = *(a2 + 48);
-      v6 = *v3;
+      v5 = *v3;
       if (!*v3)
       {
-        if (fprintf(*(result + 32), "Null service: %s\n", *(v5 + 8)) < 0)
+        if (fprintf(*(result + 32), "Null service: %s\n", *(*(a2 + 48) + 8)) < 0)
         {
           return 0;
         }
 
-        v6 = *v3;
+        v5 = *v3;
       }
 
-      if (v6 == 1)
+      if (v5 == 1)
       {
-        v7 = *(v5 + 8);
-        v8 = **(v3 + 1);
-        v9 = fprintf(*(v4 + 32), "Path Service: %s <- %s\n");
+        v6 = fprintf(*(v4 + 32), "Path Service: %s <- %s\n");
       }
 
       else
       {
-        v10 = *(v5 + 8);
-        v9 = fprintf(*(v4 + 32), "Unknown service: %s (%u)\n");
+        v6 = fprintf(*(v4 + 32), "Unknown service: %s (%u)\n");
       }
 
-      return (v9 & 0x80000000) == 0;
+      return (v6 & 0x80000000) == 0;
     }
 
     return 1;
@@ -5754,7 +5757,7 @@ uint64_t sub_100008520(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000085F4(uint64_t result, uint64_t a2)
+BOOL sub_1000085F4(_BOOL8 result, uint64_t a2)
 {
   if (!*(a2 + 76))
   {
@@ -5778,32 +5781,31 @@ uint64_t sub_1000085F4(uint64_t result, uint64_t a2)
       v7 = *v5;
     }
 
-    if (v7 != 2)
-    {
-      return 1;
-    }
-
-    v8 = *(v6 + 8);
-    return (fprintf(*(v4 + 32), "PID %u Path Service: %s <- %s\n", *(a2 + 68), v8, *v5[1]) & 0x80000000) == 0;
+    return v7 != 2 || (fprintf(*(v4 + 32), "PID %u Path Service: %s <- %s\n", *(a2 + 68), *(v6 + 8), *v5[1]) & 0x80000000) == 0;
   }
 
   __break(0x5513u);
   return result;
 }
 
-BOOL sub_1000086BC(_OWORD *a1)
+BOOL sub_1000086BC(_OWORD *a1, uint64_t a2)
 {
-  v1 = a1[1];
+  v2 = a1[1];
   *atoken.val = *a1;
-  *&atoken.val[4] = v1;
-  v2 = audit_token_to_pid(&atoken);
-  sub_100000AB8(5, "-> has_root_entitlement (PID %d)\n", v3, v4, v5, v6, v7, v8, v2);
-  v9 = xpc_copy_entitlement_for_token();
-  if (v9)
+  *&atoken.val[4] = v2;
+  v3 = audit_token_to_pid(&atoken);
+  sub_100000AB8(5, "-> has_root_entitlement (PID %d)\n", v3);
+  v4 = xpc_copy_entitlement_for_token();
+  v5 = "FAIL";
+  if (v4)
   {
-    v16 = v9;
-    value = xpc_BOOL_get_value(v9);
-    xpc_release(v16);
+    v6 = v4;
+    value = xpc_BOOL_get_value(v4);
+    xpc_release(v6);
+    if (value)
+    {
+      v5 = "OK";
+    }
   }
 
   else
@@ -5811,16 +5813,16 @@ BOOL sub_1000086BC(_OWORD *a1)
     value = 0;
   }
 
-  sub_100000AB8(5, "<- has_root_entitlement (PID %d) = %s\n", v10, v11, v12, v13, v14, v15, v2);
+  sub_100000AB8(5, "<- has_root_entitlement (PID %d) = %s\n", v3, v5);
   return value;
 }
 
-size_t start(int a1, unint64_t a2)
+size_t start(int a1, uint64_t a2)
 {
   notify_set_options();
   os_trace_set_mode();
-  v100 = xmmword_10000C4F0;
-  setrlimit(8, &v100);
+  v83 = xmmword_10000C4F0;
+  setrlimit(8, &v83);
   signal(13, 1);
   signal(1, 1);
   signal(30, 1);
@@ -5844,8 +5846,8 @@ size_t start(int a1, unint64_t a2)
   *&qword_100014270 = 0u;
   xmmword_100014280 = 0u;
   v4 = &unk_100014298;
-  v96 = getpagesize() >> 2;
-  dword_1000143E0 = v96;
+  v79 = getpagesize() >> 2;
+  dword_1000143E0 = v79;
   dword_100014360 = 2;
   qword_100014368 = 0xFFFFFFFF00000000;
   os_set_str_ptr_init();
@@ -5867,30 +5869,30 @@ size_t start(int a1, unint64_t a2)
   dword_1000143E4 = -1;
   if (a1 >= 2)
   {
-    v13 = v6;
-    v14 = ~a2;
-    v15 = 1;
-    v97 = "apple.shm.notification_center";
-    v99 = "com.apple.system.notification_center";
-    v16 = "-log_cutoff";
+    v7 = v6;
+    v8 = ~a2;
+    v9 = 1;
+    v80 = "apple.shm.notification_center";
+    v82 = "com.apple.system.notification_center";
+    v10 = "-log_cutoff";
     while (1)
     {
-      if (v15 < 0 == v14 >= 8 * v15)
+      if (v9 < 0 == v8 >= 8 * v9)
       {
 LABEL_144:
         __break(0x5513u);
 LABEL_145:
         __break(0x5500u);
 LABEL_146:
-        sub_100000AB8(3, "config file %s not owned by root: ignored\n", v7, v8, v9, v10, v11, v12, a2);
+        sub_100000AB8(3, "config file %s not owned by root: ignored\n");
 LABEL_148:
         *&port_info[0].flags = *"!";
         port_info[0].reserved[1] = 0;
-        v90 = mach_port_construct(*v16, port_info, &qword_100014290, &dword_100014390);
-        if (v90)
+        v73 = mach_port_construct(*v10, port_info, &qword_100014290, &dword_100014390);
+        if (v73)
         {
           qword_100014010 = "BUG IN LIBNOTIFY: Unable to allocate Mach notification port";
-          qword_100014040 = v90;
+          qword_100014040 = v73;
           __break(0xB001u);
 LABEL_157:
           __break(1u);
@@ -5907,41 +5909,41 @@ LABEL_157:
           xpc_event_publisher_set_error_handler();
           xpc_event_publisher_set_throttling();
           xpc_event_publisher_activate();
-          v91 = dispatch_source_create(&_dispatch_source_type_signal, 0x1EuLL, 0, qword_1000143A0);
-          qword_1000143B0 = v91;
-          if (v91)
+          v74 = dispatch_source_create(&_dispatch_source_type_signal, 0x1EuLL, 0, qword_1000143A0);
+          qword_1000143B0 = v74;
+          if (v74)
           {
-            dispatch_set_context(v91, 0);
+            dispatch_set_context(v74, 0);
             dispatch_source_set_event_handler_f(*(v4 + 0x10), sub_100009C5C);
             dispatch_activate(*(v4 + 0x10));
-            v92 = dispatch_source_create(&_dispatch_source_type_signal, 0x1FuLL, 0, *v4);
-            *(v4 + 0x18) = v92;
-            if (v92)
+            v75 = dispatch_source_create(&_dispatch_source_type_signal, 0x1FuLL, 0, *v4);
+            *(v4 + 0x18) = v75;
+            if (v75)
             {
-              dispatch_set_context(v92, 1);
+              dispatch_set_context(v75, 1);
               dispatch_source_set_event_handler_f(*(v4 + 0x18), sub_100009C5C);
               dispatch_activate(*(v4 + 0x18));
-              v93 = dispatch_source_create(&_dispatch_source_type_signal, 0x1CuLL, 0, *v4);
-              *(v4 + 0x20) = v93;
-              if (v93)
+              v76 = dispatch_source_create(&_dispatch_source_type_signal, 0x1CuLL, 0, *v4);
+              *(v4 + 0x20) = v76;
+              if (v76)
               {
-                dispatch_source_set_event_handler(v93, &stru_100010618);
+                dispatch_source_set_event_handler(v76, &stru_100010618);
                 dispatch_activate(*(v4 + 0x20));
                 *(v4 + 0x28) = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *v4);
-                v94 = dispatch_walltime(0, 0);
-                dispatch_source_set_timer(*(v4 + 0x28), v94, 0x34630B8A000uLL, 0);
+                v77 = dispatch_walltime(0, 0);
+                dispatch_source_set_timer(*(v4 + 0x28), v77, 0x34630B8A000uLL, 0);
                 dispatch_source_set_event_handler(*(v4 + 0x28), &stru_100010658);
                 dispatch_activate(*(v4 + 0x28));
                 if (os_variant_has_internal_diagnostics())
                 {
-                  v95 = dispatch_source_create(&_dispatch_source_type_memorypressure, 0, 0x10uLL, *v4);
-                  *(v4 + 0x30) = v95;
-                  if (!v95)
+                  v78 = dispatch_source_create(&_dispatch_source_type_memorypressure, 0, 0x10uLL, *v4);
+                  *(v4 + 0x30) = v78;
+                  if (!v78)
                   {
                     __assert_rtn("main", "notifyd.c", 1479, "global.memory_pressure_src != NULL");
                   }
 
-                  dispatch_source_set_event_handler(v95, &stru_100010698);
+                  dispatch_source_set_event_handler(v78, &stru_100010698);
                   dispatch_activate(qword_1000143D0);
                 }
 
@@ -5959,88 +5961,88 @@ LABEL_157:
         __assert_rtn("main", "notifyd.c", 1442, "global.sig_usr1_src != NULL");
       }
 
-      v4 = *(a2 + 8 * v15);
+      v4 = *(a2 + 8 * v9);
       if (*v4 == 45 && *(v4 + 1) == 100 && !*(v4 + 2))
       {
         dword_100014400 = 7;
         goto LABEL_25;
       }
 
-      if (!strcmp(*(a2 + 8 * v15), "-log_cutoff"))
+      if (!strcmp(*(a2 + 8 * v9), "-log_cutoff"))
       {
         break;
       }
 
       if (!strcmp(v4, "-log_file"))
       {
-        free(v13);
-        v4 = v15 + 1;
-        if (v15 < -1 == v14 >= 8 * v4)
+        free(v7);
+        v4 = v9 + 1;
+        if (v9 < -1 == v8 >= 8 * v4)
         {
           goto LABEL_144;
         }
 
-        v13 = strdup(*(a2 + 8 * v4));
-        qword_100014410 = v13;
+        v7 = strdup(*(a2 + 8 * v4));
+        qword_100014410 = v7;
         goto LABEL_18;
       }
 
       if (!strcmp(v4, "-service"))
       {
-        v17 = v15 + 1;
-        if (v15 < -1 == v14 >= 8 * v17)
+        v11 = v9 + 1;
+        if (v9 < -1 == v8 >= 8 * v11)
         {
           goto LABEL_144;
         }
 
-        v99 = *(a2 + 8 * v17);
+        v82 = *(a2 + 8 * v11);
 LABEL_24:
-        v15 = v17;
+        v9 = v11;
         goto LABEL_25;
       }
 
       if (!strcmp(v4, "-shm"))
       {
-        v17 = v15 + 1;
-        if (v15 < -1 == v14 >= 8 * v17)
+        v11 = v9 + 1;
+        if (v9 < -1 == v8 >= 8 * v11)
         {
           goto LABEL_144;
         }
 
-        v97 = *(a2 + 8 * v17);
+        v80 = *(a2 + 8 * v11);
         goto LABEL_24;
       }
 
       if (!strcmp(v4, "-shm_pages"))
       {
-        v4 = v15 + 1;
-        if (v15 < -1 == v14 >= 8 * v4)
+        v4 = v9 + 1;
+        if (v9 < -1 == v8 >= 8 * v4)
         {
           goto LABEL_144;
         }
 
-        dword_1000143E0 = atoi(*(a2 + 8 * v4)) * v96;
+        dword_1000143E0 = atoi(*(a2 + 8 * v4)) * v79;
 LABEL_18:
-        v15 = v4;
+        v9 = v4;
       }
 
 LABEL_25:
-      if (__OFADD__(v15++, 1))
+      if (__OFADD__(v9++, 1))
       {
         goto LABEL_145;
       }
 
-      if (v15 >= a1)
+      if (v9 >= a1)
       {
         v5 = dword_100014400;
-        v20 = v97;
-        v19 = v99;
+        v14 = v80;
+        v13 = v82;
         goto LABEL_29;
       }
     }
 
-    v4 = v15 + 1;
-    if (v15 < -1 == v14 >= 8 * v4)
+    v4 = v9 + 1;
+    if (v9 < -1 == v8 >= 8 * v4)
     {
       goto LABEL_144;
     }
@@ -6049,75 +6051,75 @@ LABEL_25:
     goto LABEL_18;
   }
 
-  v19 = "com.apple.system.notification_center";
-  v20 = "apple.shm.notification_center";
+  v13 = "com.apple.system.notification_center";
+  v14 = "apple.shm.notification_center";
 LABEL_29:
   dword_100014404 = v5;
-  v21 = getpid();
-  sub_100000AB8(7, "--------------------\nnotifyd start PID %u\n", v22, v23, v24, v25, v26, v27, v21);
-  v28 = bootstrap_check_in(bootstrap_port, v19, &dword_100014394);
-  if (v28)
+  v15 = getpid();
+  sub_100000AB8(7, "--------------------\nnotifyd start PID %u\n", v15);
+  v16 = bootstrap_check_in(bootstrap_port, v13, &dword_100014394);
+  if (v16)
   {
-    v41 = v28;
-    v42 = __stderrp;
-    v43 = getpid();
-    fprintf(v42, "%d bootstrap_check_in failed (%d)\n", v43, v41);
+    v23 = v16;
+    v24 = __stderrp;
+    v25 = getpid();
+    fprintf(v24, "%d bootstrap_check_in failed (%d)\n", v25, v23);
     exit(1);
   }
 
   port_info[0].flags = 32;
-  v16 = &mach_task_self_;
+  v10 = &mach_task_self_;
   mach_port_set_attributes(mach_task_self_, dword_100014394, 1, port_info, 4u);
-  v29 = dword_1000143E0;
+  v17 = dword_1000143E0;
   if (dword_1000143E0)
   {
-    v30 = shm_open(v20, 2, 420);
-    v31 = v30;
-    if (v30 == -1)
+    v18 = shm_open(v14, 2, 420);
+    v19 = v18;
+    if (v18 == -1)
     {
-      v32 = shm_open(v20, 514, 420);
-      if (v32 == -1)
+      v20 = shm_open(v14, 514, 420);
+      if (v20 == -1)
       {
-        v33 = __error();
-        v34 = strerror(*v33);
-        snprintf(port_info, 0x400uLL, "shm_open %s failed: %s\n", v20, v34);
+        v21 = __error();
+        v22 = strerror(*v21);
+        snprintf(port_info, 0x400uLL, "shm_open %s failed: %s\n", v14, v22);
         qword_100014010 = port_info;
-        sub_100000AB8(5, "%s", v35, v36, v37, v38, v39, v40, port_info);
+        sub_100000AB8(5, "%s", port_info);
         goto LABEL_41;
       }
 
-      v44 = v32;
+      v26 = v20;
     }
 
     else
     {
-      v44 = v30;
+      v26 = v18;
     }
 
-    v45 = (4 * v29);
-    ftruncate(v44, v45);
-    qword_1000143E8 = mmap(0, v45, 3, 1, v44, 0);
+    v27 = (4 * v17);
+    ftruncate(v26, v27);
+    qword_1000143E8 = mmap(0, v27, 3, 1, v26, 0);
     close_NOCANCEL();
-    if (v31 != -1)
+    if (v19 != -1)
     {
-      v46 = malloc_type_malloc(v45, 0xEA3BCECDuLL);
-      qword_1000143F8 = v46;
-      if (v46)
+      v28 = malloc_type_malloc(v27, 0xEA3BCECDuLL);
+      qword_1000143F8 = v28;
+      if (v28)
       {
-        memcpy(v46, qword_1000143E8, v45);
+        memcpy(v28, qword_1000143E8, v27);
       }
     }
 
-    bzero(qword_1000143E8, v45);
-    v47 = malloc_type_malloc(v45, 0x100004052888210uLL);
-    qword_1000143F0 = v47;
-    if (!v47)
+    bzero(qword_1000143E8, v27);
+    v29 = malloc_type_malloc(v27, 0x100004052888210uLL);
+    qword_1000143F0 = v29;
+    if (!v29)
     {
 LABEL_41:
       __assert_rtn("main", "notifyd.c", 1380, "status == 0");
     }
 
-    bzero(v47, v45);
+    bzero(v29, v27);
     *qword_1000143E8 = getpid();
     *qword_1000143F0 = 1;
     dword_1000143E4 = 0;
@@ -6127,69 +6129,68 @@ LABEL_41:
   qword_1000143A0 = dispatch_workloop_create_inactive("com.apple.notifyd.main");
   dispatch_set_qos_class_fallback();
   dispatch_activate(qword_1000143A0);
-  memset(&v104, 0, sizeof(v104));
-  v102 = 0;
-  v48 = (getpid() << 32) | 3;
-  v49 = dword_100014408++;
-  sub_1000028AC("com.apple.system.notify.ipc_version", 0xFFFFFFFFLL, v49, -1, 0, 0, &v102);
-  sub_100000A28(v102, v48, 0, 0);
-  a2 = "/etc/notify.conf";
-  if (stat("/etc/notify.conf", &v104))
+  memset(&v87, 0, sizeof(v87));
+  v85 = 0;
+  v30 = (getpid() << 32) | 3;
+  v31 = dword_100014408++;
+  sub_1000028AC("com.apple.system.notify.ipc_version", 0xFFFFFFFFLL, v31, -1, 0, 0, &v85);
+  sub_100000A28(v85, v30, 0, 0);
+  if (stat("/etc/notify.conf", &v87))
   {
     goto LABEL_148;
   }
 
-  if (v104.st_uid)
+  if (v87.st_uid)
   {
     goto LABEL_146;
   }
 
-  if ((v104.st_mode & 2) != 0)
+  if ((v87.st_mode & 2) != 0)
   {
-    sub_100000AB8(3, "config file %s is world-writable: ignored\n", v7, v8, v9, v10, v11, v12, "/etc/notify.conf");
+    sub_100000AB8(3, "config file %s is world-writable: ignored\n");
     goto LABEL_148;
   }
 
-  v50 = fopen("/etc/notify.conf", "r");
-  if (!v50)
+  v32 = fopen("/etc/notify.conf", "r");
+  if (!v32)
   {
     goto LABEL_148;
   }
 
-  v51 = v50;
-  v98 = v50;
+  v33 = v32;
+  v81 = v32;
   while (1)
   {
     do
     {
-      if (!fgets(port_info, 1024, v51))
+      if (!fgets(port_info, 1024, v33))
       {
 LABEL_162:
-        fclose(v51);
+        fclose(v33);
         v4 = &qword_1000143A0;
-        v16 = &mach_task_self_;
+        v10 = &mach_task_self_;
         goto LABEL_148;
       }
     }
 
     while (!LOBYTE(port_info[0].flags) || LOBYTE(port_info[0].flags) == 35);
     result = strlen(port_info);
-    v53 = result - 1;
+    v35 = result - 1;
     if (result - 1 > 0x3FF)
     {
       break;
     }
 
-    if (v53 > ~port_info)
+    if (v35 > ~port_info)
     {
       goto LABEL_144;
     }
 
-    v54 = 0;
+    v36 = 0;
     v4 = 0;
-    v55 = 0;
-    v56 = port_info;
-    *(&port_info[0].flags + v53) = 0;
+    v37 = 0;
+    v38 = port_info;
+    *(&port_info[0].flags + v35) = 0;
     while (1)
     {
       if (v4 > 0x3FF)
@@ -6197,364 +6198,361 @@ LABEL_162:
         goto LABEL_157;
       }
 
+      if (!*v38)
+      {
+        break;
+      }
+
+      v39 = 0;
+      v40 = ~v38;
+      v41 = v37;
+      v42 = v4;
+      v43 = v38;
+      while (1)
+      {
+        if (v41 > 0x3FF || v42 > 0x3FF)
+        {
+          goto LABEL_157;
+        }
+
+        v44 = *v43;
+        v45 = v44 > 0x20;
+        v46 = (1 << v44) & 0x100000201;
+        if (!v45 && v46 != 0)
+        {
+          break;
+        }
+
+        v48 = v39 + 1;
+        if (__OFADD__(v39, 1))
+        {
+          goto LABEL_145;
+        }
+
+        v39 = v48;
+        v41 = v37 + v48;
+        v42 = v4 + v48;
+        v43 = (v38 + v48);
+        if (v40 < v48)
+        {
+          goto LABEL_144;
+        }
+      }
+
+      v49 = v39 + 1;
+      if (__OFADD__(v39, 1))
+      {
+        goto LABEL_145;
+      }
+
+      v50 = v49;
+      v51 = malloc_type_malloc(v49, 0xB295EEF2uLL);
+      v10 = v51;
+      v52 = ~v51;
+      if (v39 < 1)
+      {
+        v54 = 0;
+      }
+
+      else
+      {
+        for (i = 0; i != v39; ++i)
+        {
+          if (i > v40)
+          {
+            goto LABEL_144;
+          }
+
+          if (1024 - v37 == i || 1024 - v4 == i)
+          {
+            goto LABEL_157;
+          }
+
+          if (i > v52)
+          {
+            goto LABEL_144;
+          }
+
+          if (v50 == i || i > v50)
+          {
+            goto LABEL_157;
+          }
+
+          *(v51 + i) = *(v38 + i);
+        }
+
+        v54 = v39;
+      }
+
+      if (v39 > v52)
+      {
+        goto LABEL_144;
+      }
+
+      if (v39 < 0 || v39 >= v50)
+      {
+        goto LABEL_157;
+      }
+
+      *(v51 + v39) = 0;
+      v36 = sub_100009714(v51, v36);
+      free(v10);
+      if (v40 < v54)
+      {
+        goto LABEL_144;
+      }
+
+      v55 = v37 + v54;
+      if (v55 > 0x3FF)
+      {
+        goto LABEL_157;
+      }
+
+      v10 = (v4 + v54);
+      if (v10 > 0x3FF)
+      {
+        goto LABEL_157;
+      }
+
+      v56 = (v38 + v54);
       if (!*v56)
       {
         break;
       }
 
-      v57 = 0;
-      a2 = ~v56;
-      v58 = v55;
-      v59 = v4;
-      v60 = v56;
-      while (1)
-      {
-        if (v58 > 0x3FF || v59 > 0x3FF)
-        {
-          goto LABEL_157;
-        }
-
-        v61 = *v60;
-        v62 = v61 > 0x20;
-        v63 = (1 << v61) & 0x100000201;
-        if (!v62 && v63 != 0)
-        {
-          break;
-        }
-
-        v65 = v57 + 1;
-        if (__OFADD__(v57, 1))
-        {
-          goto LABEL_145;
-        }
-
-        v57 = v65;
-        v58 = v55 + v65;
-        v59 = v4 + v65;
-        v60 = (v56 + v65);
-        if (a2 < v65)
-        {
-          goto LABEL_144;
-        }
-      }
-
-      v66 = v57 + 1;
-      if (__OFADD__(v57, 1))
+      v57 = v54 + 1;
+      if (__OFADD__(v54, 1))
       {
         goto LABEL_145;
       }
 
-      v67 = v66;
-      v68 = malloc_type_malloc(v66, 0xB295EEF2uLL);
-      v16 = v68;
-      v69 = ~v68;
-      if (v57 < 1)
-      {
-        v71 = 0;
-      }
-
-      else
-      {
-        for (i = 0; i != v57; ++i)
-        {
-          if (i > a2)
-          {
-            goto LABEL_144;
-          }
-
-          if (1024 - v55 == i || 1024 - v4 == i)
-          {
-            goto LABEL_157;
-          }
-
-          if (i > v69)
-          {
-            goto LABEL_144;
-          }
-
-          if (v67 == i || i > v67)
-          {
-            goto LABEL_157;
-          }
-
-          v68[i] = *(v56 + i);
-        }
-
-        v71 = v57;
-      }
-
-      if (v57 > v69)
+      if (v57 < 0 == v40 >= v57)
       {
         goto LABEL_144;
       }
 
-      if (v57 < 0 || v57 >= v67)
+      if (v37 + v57 > 0x3FF || v4 + v57 > 0x3FF)
       {
         goto LABEL_157;
       }
 
-      v68[v57] = 0;
-      v54 = sub_100009714(v68, v54);
-      free(v16);
-      if (a2 < v71)
+      if (!*(v38 + v57))
+      {
+        v36 = sub_100009714(&unk_10000DEF1, v36);
+      }
+
+      if (v56 == -1)
       {
         goto LABEL_144;
       }
 
-      v72 = v55 + v71;
-      if (v72 > 0x3FF)
-      {
-        goto LABEL_157;
-      }
-
-      v16 = (v4 + v71);
-      if (v16 > 0x3FF)
-      {
-        goto LABEL_157;
-      }
-
-      v73 = (v56 + v71);
-      if (!*v73)
-      {
-        break;
-      }
-
-      v74 = v71 + 1;
-      if (__OFADD__(v71, 1))
-      {
-        goto LABEL_145;
-      }
-
-      if (v74 < 0 == a2 >= v74)
-      {
-        goto LABEL_144;
-      }
-
-      if (v55 + v74 > 0x3FF || v4 + v74 > 0x3FF)
-      {
-        goto LABEL_157;
-      }
-
-      if (!*(v56 + v74))
-      {
-        v54 = sub_100009714(&unk_10000DEF1, v54);
-      }
-
-      if (v73 == -1)
-      {
-        goto LABEL_144;
-      }
-
-      v55 = v72 + 1;
-      v4 = (v16 + 1);
-      v56 = (v73 + 1);
-      if (v72 == 1023)
+      v37 = v55 + 1;
+      v4 = v10 + 1;
+      v38 = (v56 + 1);
+      if (v55 == 1023)
       {
         goto LABEL_157;
       }
     }
 
-    v51 = v98;
-    if (v54)
+    v33 = v81;
+    if (v36)
     {
-      LODWORD(a2) = 0;
-      v75 = v54;
-      while (*v75)
+      v58 = 0;
+      v59 = v36;
+      while (*v59)
       {
-        v76 = a2 + 1;
-        if (__OFADD__(a2, 1))
+        v60 = v58 + 1;
+        if (__OFADD__(v58, 1))
         {
           goto LABEL_145;
         }
 
-        v75 = (v54 + 8 * v76);
-        LODWORD(a2) = a2 + 1;
-        if (8 * v76 > ~v54)
+        v59 = (v36 + 8 * v60);
+        ++v58;
+        if (8 * v60 > ~v36)
         {
           goto LABEL_144;
         }
       }
 
-      if (!a2)
+      if (!v58)
       {
         goto LABEL_139;
       }
 
-      v16 = *v54;
-      if (!strcasecmp(*v54, "monitor"))
+      v10 = *v36;
+      if (!strcasecmp(*v36, "monitor"))
       {
-        if (a2 <= 2)
+        if (v58 <= 2)
         {
           goto LABEL_139;
         }
 
-        if (v54 > 0xFFFFFFFFFFFFFFF7)
+        if (v36 > 0xFFFFFFFFFFFFFFF7)
         {
           goto LABEL_144;
         }
 
-        v77 = *(v54 + 8);
-        a2 = &qword_1000143A0;
-        v78 = dword_100014408++;
-        sub_1000028AC(v77, 0xFFFFFFFFLL, v78, -1, 0, 0, &v102);
+        v61 = *(v36 + 8);
+        v62 = dword_100014408++;
+        sub_1000028AC(v61, 0xFFFFFFFFLL, v62, -1, 0, 0, &v85);
         block[0] = _NSConcreteStackBlock;
         block[1] = 0x40000000;
         block[2] = sub_1000098B0;
         block[3] = &unk_1000107E0;
-        block[4] = v54;
+        block[4] = v36;
         dispatch_async(qword_1000143A0, block);
       }
 
       else
       {
-        if (!strcasecmp(v16, "set"))
+        if (!strcasecmp(v10, "set"))
         {
-          if (a2 != 1 && a2 < 4)
+          if (v58 != 1 && v58 < 4)
           {
-            if (v54 > 0xFFFFFFFFFFFFFFF7)
+            if (v36 > 0xFFFFFFFFFFFFFFF7)
             {
               goto LABEL_144;
             }
 
-            v79 = *(v54 + 8);
-            v80 = dword_100014408++;
-            sub_1000028AC(v79, 0xFFFFFFFFLL, v80, -1, 0, 0, &v102);
-            if (a2 == 3)
+            v63 = *(v36 + 8);
+            v64 = dword_100014408++;
+            sub_1000028AC(v63, 0xFFFFFFFFLL, v64, -1, 0, 0, &v85);
+            if (v58 == 3)
             {
-              if (v54 > 0xFFFFFFFFFFFFFFEFLL)
+              if (v36 > 0xFFFFFFFFFFFFFFEFLL)
               {
                 goto LABEL_144;
               }
 
-              v81 = atoll(*(v54 + 16));
-              sub_100000A28(v102, v81, 0, 0);
+              v65 = atoll(*(v36 + 16));
+              sub_100000A28(v85, v65, 0, 0);
             }
           }
 
           goto LABEL_139;
         }
 
-        if (!strcasecmp(v16, "reserve"))
+        if (!strcasecmp(v10, "reserve"))
         {
-          if (a2 == 1)
+          if (v58 == 1)
           {
             goto LABEL_139;
           }
 
-          if (a2 < 3)
+          if (v58 < 3)
           {
-            v16 = 0;
-            v82 = 0;
+            v10 = 0;
+            v66 = 0;
             goto LABEL_122;
           }
 
-          if (v54 > 0xFFFFFFFFFFFFFFEFLL)
+          if (v36 > 0xFFFFFFFFFFFFFFEFLL)
           {
             goto LABEL_144;
           }
 
-          v82 = atoi(*(v54 + 16));
-          if (a2 == 3)
+          v66 = atoi(*(v36 + 16));
+          if (v58 == 3)
           {
-            v16 = 0;
+            v10 = 0;
 LABEL_122:
-            LODWORD(a2) = 819;
+            v67 = 819;
             goto LABEL_123;
           }
 
-          if (v54 > 0xFFFFFFFFFFFFFFE7)
+          if (v36 > 0xFFFFFFFFFFFFFFE7)
           {
             goto LABEL_144;
           }
 
-          v16 = atoi(*(v54 + 24));
-          if (a2 < 5)
+          v10 = atoi(*(v36 + 24));
+          if (v58 < 5)
           {
             goto LABEL_122;
           }
 
-          if (v54 > 0xFFFFFFFFFFFFFFDFLL)
+          if (v36 > 0xFFFFFFFFFFFFFFDFLL)
           {
             goto LABEL_144;
           }
 
-          LODWORD(a2) = sub_1000099D0(*(v54 + 32));
+          v67 = sub_1000099D0(*(v36 + 32));
 LABEL_123:
-          if (!(v82 | v16))
+          if (!(v66 | v10))
           {
             goto LABEL_131;
           }
 
-          if (v54 > 0xFFFFFFFFFFFFFFF7)
+          if (v36 > 0xFFFFFFFFFFFFFFF7)
           {
             goto LABEL_144;
           }
 
-          v83 = *(v54 + 8);
-          if (!v83)
+          v68 = *(v36 + 8);
+          if (!v68)
           {
             goto LABEL_131;
           }
 
-          v84 = *(v54 + 8);
-          v85 = os_set_str_ptr_find();
-          if (v85)
+          v69 = os_set_str_ptr_find();
+          if (v69)
           {
-            v86 = (v85 - qword_1000142B0);
-            if (v86)
+            v70 = (v69 - qword_1000142B0);
+            if (v70)
             {
               goto LABEL_130;
             }
           }
 
-          v86 = sub_100002BAC(v83);
-          if (v86)
+          v70 = sub_100002BAC(v68);
+          if (v70)
           {
-            ++v86[14];
+            ++v70[14];
 LABEL_130:
-            v86[10] = v82;
-            v86[11] = v16;
-            sub_100009FB0(v86);
+            v70[10] = v66;
+            v70[11] = v10;
+            sub_100009FB0(v70);
           }
 
 LABEL_131:
-          if (a2 != 819)
+          if (v67 != 819)
           {
-            if (v54 > 0xFFFFFFFFFFFFFFF7)
+            if (v36 > 0xFFFFFFFFFFFFFFF7)
             {
               goto LABEL_144;
             }
 
-            v16 = *(v54 + 8);
-            if (v16)
+            v10 = *(v36 + 8);
+            if (v10)
             {
-              v87 = *(v54 + 8);
-              v88 = os_set_str_ptr_find();
-              if (!v88 || (v89 = (v88 - qword_1000142B0)) == 0)
+              v71 = os_set_str_ptr_find();
+              if (!v71 || (v72 = (v71 - qword_1000142B0)) == 0)
               {
-                v89 = sub_100002BAC(v16);
-                if (!v89)
+                v72 = sub_100002BAC(v10);
+                if (!v72)
                 {
                   goto LABEL_139;
                 }
 
-                ++*(v89 + 14);
+                ++*(v72 + 14);
               }
 
-              *(v89 + 12) = a2;
-              sub_100009FB0(v89);
+              *(v72 + 12) = v67;
+              sub_100009FB0(v72);
             }
           }
 
 LABEL_139:
-          sub_100009820(v54);
+          sub_100009820(v36);
         }
 
         else
         {
-          v16 = strcasecmp(v16, "quit");
-          sub_100009820(v54);
-          if (!v16)
+          v10 = strcasecmp(v10, "quit");
+          sub_100009820(v36);
+          if (!v10)
           {
             goto LABEL_162;
           }
@@ -6641,7 +6639,7 @@ LABEL_7:
   return result;
 }
 
-void sub_100009820(unint64_t a1)
+void sub_100009820(void **a1)
 {
   if (a1)
   {
@@ -6659,7 +6657,7 @@ void sub_100009820(unint64_t a1)
         return;
       }
 
-      v4 = (a1 + 8 * v5);
+      v4 = &a1[v5];
       ++v2;
       if (8 * v5 > v3)
       {
@@ -6880,11 +6878,11 @@ void sub_100009C8C(id a1, unsigned int a2, unint64_t a3, void *a4)
       v7 = dword_100014408++;
       ++*(&xmmword_1000141A0 + 1);
       ++qword_1000141D8;
-      sub_100000AB8(7, "notifyd_matching_register %s %d %llu\n", v8, v9, v10, v11, v12, v13, string);
-      v24 = 0;
+      sub_100000AB8(7, "notifyd_matching_register %s %d %llu\n", string, v7, a3);
+      v12 = 0;
       if (!string)
       {
-        LOBYTE(v20) = 1;
+        v8 = 1;
         goto LABEL_18;
       }
 
@@ -6893,24 +6891,24 @@ void sub_100009C8C(id a1, unsigned int a2, unint64_t a3, void *a4)
         __assert_rtn("_notify_lib_register_xpc_event", "libnotify.c", 1109, "ns->event_publisher != NULL");
       }
 
-      v20 = sub_100002750(string, 0xFFFFFFFFLL, v7, 0, -101, &v24);
-      if (v20)
+      v8 = sub_100002750(string, 0xFFFFFFFFLL, v7, 0, -101, &v12);
+      if (v8)
       {
-        if (v20 == 7)
+        if (v8 == 7)
         {
           return;
         }
 
 LABEL_18:
-        sub_100000AB8(4, "_notify_lib_register_xpc_event failed with status %u\n", v14, v15, v16, v17, v18, v19, v20);
+        sub_100000AB8(4, "_notify_lib_register_xpc_event failed with status %u\n", v8);
         return;
       }
 
-      v22 = v24;
-      *(v24 + 79) = *(v24 + 79) & 0xF0 | 6;
-      *(v22 + 56) = a3;
-      v23 = os_set_64_ptr_find();
-      if (!v23 || v23 == qword_1000142F0)
+      v10 = v12;
+      *(v12 + 79) = *(v12 + 79) & 0xF0 | 6;
+      *(v10 + 56) = a3;
+      v11 = os_set_64_ptr_find();
+      if (!v11 || v11 == qword_1000142F0)
       {
         qword_100014010 = "BUG IN LIBNOTIFY: Can't find client after registering an event";
         __break(0xB001u);
@@ -6929,25 +6927,26 @@ LABEL_18:
       return;
     }
 
-    v21 = os_map_64_delete();
-    if (v21)
+    v9 = os_map_64_delete();
+    if (v9)
     {
       ++dword_100014384;
 
-      sub_10000309C(v21);
+      sub_10000309C(v9);
     }
   }
 }
 
-void sub_100009F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100009F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = 0;
+  va_start(va, a8);
+  v9 = 0;
   if (getpid() != 1)
   {
-    v9 = vasprintf(&v10, "BUG IN CLIENT OF NOTIFYD: %s has not dequeued the last %d messages", &a9);
-    if (v10)
+    v8 = vasprintf(&v9, "BUG IN CLIENT OF NOTIFYD: %s has not dequeued the last %d messages", va);
+    if (v9)
     {
-      if (__OFADD__(v9, 1))
+      if (__OFADD__(v8, 1))
       {
         __break(0x5500u);
       }
@@ -6955,7 +6954,7 @@ void sub_100009F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       else
       {
         os_fault_with_payload();
-        free(v10);
+        free(v9);
       }
     }
   }
@@ -7210,41 +7209,39 @@ void sub_10000A3B0(uint64_t a1)
   sub_10000A120(v3);
 }
 
-uint64_t sub_10000A3FC(uint64_t result)
+void sub_10000A3FC(uint64_t a1)
 {
-  v1 = *(result + 32);
+  v1 = *(a1 + 32);
   if (v1)
   {
     memset(&v6, 0, sizeof(v6));
-    data = *(v1 + 48);
-    if (data)
+    v2 = *(v1 + 48);
+    if (v2)
     {
-      result = dispatch_source_testcancel(*(v1 + 48));
-      if (result)
+      if (dispatch_source_testcancel(*(v1 + 48)))
       {
-        return result;
+        return;
       }
 
-      data = dispatch_source_get_data(data);
+      LODWORD(v2) = dispatch_source_get_data(v2);
     }
 
-    result = fstat(*(v1 + 12), &v6);
-    if (!result)
+    if (!fstat(*(v1 + 12), &v6))
     {
       if (*(v1 + 16) != *&v6.st_mtimespec)
       {
-        data = data | 0x100;
+        LODWORD(v2) = v2 | 0x100;
         *(v1 + 16) = v6.st_mtimespec;
       }
 
       if (*(v1 + 32) != *&v6.st_ctimespec)
       {
-        data = data | 0x200;
+        LODWORD(v2) = v2 | 0x200;
         *(v1 + 32) = v6.st_ctimespec;
       }
     }
 
-    if (data)
+    if (v2)
     {
       *(v1 + 8) = 2;
     }
@@ -7261,19 +7258,17 @@ uint64_t sub_10000A3FC(uint64_t result)
           break;
         }
 
-        result = sub_100004660(*(v5 + 8 * v4++), data, v1);
+        sub_100004660(*(v5 + 8 * v4++), v2, v1);
         v3 += 8;
         if (v4 >= *(v1 + 56))
         {
-          return result;
+          return;
         }
       }
 
       __break(0x5513u);
     }
   }
-
-  return result;
 }
 
 void sub_10000A538(id a1)
@@ -7293,33 +7288,32 @@ void sub_10000A538(id a1)
 
 void sub_10000A5E0(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 96);
-  v2 = os_set_64_ptr_find();
-  if (v2)
+  v1 = os_set_64_ptr_find();
+  if (v1)
   {
-    v3 = v2 - qword_1000142F0;
-    if (v3)
+    v2 = v1 - qword_1000142F0;
+    if (v2)
     {
-      if ((*(v3 + 79) & 0xF) == 1)
+      if ((*(v2 + 79) & 0xF) == 1)
       {
-        v4 = *(v3 + 48);
-        if (v4)
+        v3 = *(v2 + 48);
+        if (v3)
         {
-          v5 = *(v4 + 52);
-          if (v5 != -1)
+          v4 = *(v3 + 52);
+          if (v4 != -1)
           {
-            if (__CFADD__(qword_1000143E8, 4 * v5))
+            if (__CFADD__(qword_1000143E8, 4 * v4))
             {
               __break(0x5513u);
               return;
             }
 
-            ++*(qword_1000143E8 + 4 * v5);
+            ++*(qword_1000143E8 + 4 * v4);
           }
         }
       }
 
-      sub_1000014D0(v3, 0, 0);
+      sub_1000014D0(v2, 0, 0);
     }
   }
 }
@@ -7727,7 +7721,7 @@ uint64_t sub_10000AD34(uint64_t result, uint64_t a2)
   return result;
 }
 
-char *sub_10000ADE4(char *result, uint64_t a2)
+const char *sub_10000ADE4(const char *result, uint64_t a2)
 {
   if ((*result & 0x80000000) != 0)
   {
@@ -7760,7 +7754,7 @@ char *sub_10000ADE4(char *result, uint64_t a2)
   }
 
   v8 = v4 >= 0x228 ? 512 : v4 - 40;
-  result = memchr(result + 40, 0, v8);
+  result = memchr((result + 40), 0, v8);
   if (result)
   {
     v9 = &v3[(v4 + 3) & 0x7FC];
@@ -8107,7 +8101,7 @@ LABEL_3:
   return result;
 }
 
-char *sub_10000B430(char *result, uint64_t a2)
+const char *sub_10000B430(const char *result, uint64_t a2)
 {
   if ((*result & 0x80000000) != 0)
   {
@@ -8140,7 +8134,7 @@ char *sub_10000B430(char *result, uint64_t a2)
   }
 
   v8 = v4 >= 0x228 ? 512 : v4 - 40;
-  result = memchr(result + 40, 0, v8);
+  result = memchr((result + 40), 0, v8);
   if (result)
   {
     v9 = &v3[(v4 + 3) & 0x7FC];
@@ -8189,26 +8183,26 @@ LABEL_7:
 
   v4 = *(a1 + 32);
   v5 = *(a1 + 72);
-  v14[0] = *(a1 + 56);
-  v14[1] = v5;
-  v15 = -1;
-  sub_1000018E4(v14, 0xFFFFFFFF, 0, 0, &v15, 0);
+  v8[0] = *(a1 + 56);
+  v8[1] = v5;
+  v9 = -1;
+  sub_1000018E4(v8, 0xFFFFFFFF, 0, 0, &v9, 0);
   ++qword_1000141F8;
-  sub_100000AB8(7, "__notify_server_resume %d %d\n", v6, v7, v8, v9, v10, v11, v15);
-  v12 = os_set_64_ptr_find();
-  if (v12 && qword_1000142F0 != v12)
+  sub_100000AB8(7, "__notify_server_resume %d %d\n", v9, v4);
+  v6 = os_set_64_ptr_find();
+  if (v6 && qword_1000142F0 != v6)
   {
-    sub_100003D40(v12 - qword_1000142F0, 0, 0);
-    v13 = 0;
+    sub_100003D40(v6 - qword_1000142F0, 0, 0);
+    v7 = 0;
   }
 
   else
   {
-    v13 = 50;
+    v7 = 50;
   }
 
   *(a2 + 32) = 0;
-  *(a2 + 36) = v13;
+  *(a2 + 36) = v7;
   *(a2 + 24) = NDR_record;
   *(a2 + 4) = 40;
 }
@@ -8232,32 +8226,32 @@ LABEL_7:
 
   v4 = *(result + 32);
   v5 = *(result + 72);
-  v16[0] = *(result + 56);
-  v16[1] = v5;
-  v17 = -1;
-  sub_1000018E4(v16, 0xFFFFFFFF, 0, 0, &v17, 0);
+  v10[0] = *(result + 56);
+  v10[1] = v5;
+  v11 = -1;
+  sub_1000018E4(v10, 0xFFFFFFFF, 0, 0, &v11, 0);
   ++qword_1000141F0;
-  sub_100000AB8(7, "__notify_server_suspend %d %d\n", v6, v7, v8, v9, v10, v11, v17);
+  sub_100000AB8(7, "__notify_server_suspend %d %d\n", v11, v4);
   result = os_set_64_ptr_find();
-  if (result && (v12 = qword_1000142F0, qword_1000142F0 != result))
+  if (result && (v6 = qword_1000142F0, qword_1000142F0 != result))
   {
-    v14 = result - qword_1000142F0;
+    v8 = result - qword_1000142F0;
     *(result - qword_1000142F0 + 79) |= 0x20u;
-    v15 = *(result - v12 + 78);
-    v13 = 0;
-    if (v15 != 255)
+    v9 = *(result - v6 + 78);
+    v7 = 0;
+    if (v9 != 255)
     {
-      *(v14 + 78) = v15 + 1;
+      *(v8 + 78) = v9 + 1;
     }
   }
 
   else
   {
-    v13 = 50;
+    v7 = 50;
   }
 
   *(a2 + 32) = 0;
-  *(a2 + 36) = v13;
+  *(a2 + 36) = v7;
   *(a2 + 24) = NDR_record;
   *(a2 + 4) = 40;
   return result;
@@ -8282,19 +8276,18 @@ LABEL_7:
 
   v4 = *(result + 32);
   v5 = *(result + 72);
-  v14[0] = *(result + 56);
-  v14[1] = v5;
-  v16 = -1;
-  v17 = -1;
-  v15 = -1;
+  v7[0] = *(result + 56);
+  v7[1] = v5;
+  v9 = -1;
+  v10 = -1;
+  v8 = -1;
   *(a2 + 36) = 0;
-  sub_1000018E4(v14, 0xFFFFFFFF, &v17, &v16, &v15, 0);
+  sub_1000018E4(v7, 0xFFFFFFFF, &v10, &v9, &v8, 0);
   xmmword_100014218 = vaddq_s64(xmmword_100014218, vdupq_n_s64(1uLL));
-  sub_100000AB8(7, "__notify_server_get_state %d %d\n", v6, v7, v8, v9, v10, v11, v15);
+  sub_100000AB8(7, "__notify_server_get_state %d %d\n", v8, v4);
   result = os_set_64_ptr_find();
   if (result && qword_1000142F0 != result)
   {
-    v13 = *(*(result - qword_1000142F0 + 48) + 16);
     *(a2 + 36) = 0;
     result = os_set_64_ptr_find();
     if (!result || qword_1000142D0 == result)
@@ -8303,16 +8296,16 @@ LABEL_7:
       __assert_rtn("__notify_server_get_state", "notify_proc.c", 1183, "*status == NOTIFY_STATUS_OK || *status == NOTIFY_STATUS_NOT_AUTHORIZED");
     }
 
-    v12 = 0;
+    v6 = 0;
     *(a2 + 36) = *(result - qword_1000142D0 + 24);
   }
 
   else
   {
-    v12 = 50;
+    v6 = 50;
   }
 
-  *(a2 + 44) = v12;
+  *(a2 + 44) = v6;
   *(a2 + 32) = 0;
   *(a2 + 24) = NDR_record;
   *(a2 + 4) = 48;
@@ -8338,41 +8331,41 @@ LABEL_7:
 
   v4 = *(result + 32);
   v6 = *(result + 72);
-  v18 = *(result + 56);
-  v5 = v18;
-  v19 = v6;
+  v12 = *(result + 56);
+  v5 = v12;
+  v13 = v6;
   pidp = -1;
   *(a2 + 36) = 0;
   ++qword_100014210;
   *atoken.val = v5;
   *&atoken.val[4] = v6;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
-  sub_100000AB8(7, "__notify_server_check %d %d\n", v7, v8, v9, v10, v11, v12, pidp);
+  sub_100000AB8(7, "__notify_server_check %d %d\n", pidp, v4);
   result = os_set_64_ptr_find();
   if (result && qword_1000142F0 != result)
   {
-    v14 = *(*(result - qword_1000142F0 + 48) + 60);
-    if (v14 == *(result - qword_1000142F0 + 72))
+    v8 = *(*(result - qword_1000142F0 + 48) + 60);
+    if (v8 == *(result - qword_1000142F0 + 72))
     {
-      v15 = 0;
+      v9 = 0;
     }
 
     else
     {
-      *(result - qword_1000142F0 + 72) = v14;
-      v15 = 1;
+      *(result - qword_1000142F0 + 72) = v8;
+      v9 = 1;
     }
 
-    v13 = 0;
-    *(a2 + 36) = v15;
+    v7 = 0;
+    *(a2 + 36) = v9;
   }
 
   else
   {
-    v13 = 2;
+    v7 = 2;
   }
 
-  *(a2 + 40) = v13;
+  *(a2 + 40) = v7;
   *(a2 + 32) = 0;
   *(a2 + 24) = NDR_record;
   *(a2 + 4) = 44;
@@ -8387,22 +8380,14 @@ void sub_10000BAF8(_DWORD *a1, int a2)
   if (v3)
   {
     __break(0x5515u);
+LABEL_6:
+    __break(0x5513u);
+    _Block_object_dispose(a1, a2);
+    return;
   }
 
-  else
+  if (v4 <= 0x20 && 40 * v4 > ~&unk_100010B30)
   {
-    if (v4 > 0x20)
-    {
-      return;
-    }
-
-    if (40 * v4 <= ~&unk_100010B30)
-    {
-      v5 = *(&off_100010B10 + 5 * v4 + 5);
-      return;
-    }
+    goto LABEL_6;
   }
-
-  __break(0x5513u);
-  _Block_object_dispose(a1, a2);
 }

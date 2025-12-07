@@ -1,31 +1,31 @@
 @interface VNBoundingCircleAlgorithm
-+ (VNCircle)_boundingCircleForPoints:(double *)points aspectRatioForCentroid:;
-+ (id)boundingCircleForSIMDPoints:(float32x2_t *)points pointCount:(int64_t)count aspectRatioForCentroid:(void *)centroid error:;
++ (VNCircle)_boundingCircleForPoints:(float)points aspectRatioForCentroid:;
++ (id)boundingCircleForSIMDPoints:(uint64_t)points pointCount:(void *)count aspectRatioForCentroid:(float)centroid error:;
 @end
 
 @implementation VNBoundingCircleAlgorithm
 
-+ (id)boundingCircleForSIMDPoints:(float32x2_t *)points pointCount:(int64_t)count aspectRatioForCentroid:(void *)centroid error:
++ (id)boundingCircleForSIMDPoints:(uint64_t)points pointCount:(void *)count aspectRatioForCentroid:(float)centroid error:
 {
   objc_opt_self();
-  if (!points)
+  if (!a2)
   {
-    if (centroid)
+    if (count)
     {
       [VNError errorForInvalidArgumentWithLocalizedDescription:@"null points array"];
-      *centroid = v14 = 0;
+      *count = v14 = 0;
       goto LABEL_18;
     }
 
     goto LABEL_13;
   }
 
-  if (count <= 0)
+  if (points <= 0)
   {
-    if (centroid)
+    if (count)
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid points count %ld", count];
-      *centroid = [VNError errorForInvalidArgumentWithLocalizedDescription:v16];
+      points = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid points count %ld", points];
+      *count = [VNError errorForInvalidArgumentWithLocalizedDescription:points];
     }
 
 LABEL_13:
@@ -34,18 +34,17 @@ LABEL_13:
   }
 
   objc_opt_self();
-  v20[0] = 0;
-  v20[1] = 0;
-  std::vector<CGPoint>::vector[abi:ne200100](&__p, count);
+  v20 = 0uLL;
+  std::vector<CGPoint>::vector[abi:ne200100](&__p, points, &v20);
   v9 = __p;
   do
   {
-    v10 = *points++;
+    v10 = *a2++;
     *v9++ = vcvtq_f64_f32(v10);
-    --count;
+    --points;
   }
 
-  while (count);
+  while (points);
   rep = std::chrono::system_clock::now().__d_.__rep_;
   v12 = rep + ((rep / 0x7FFFFFFF) | ((rep / 0x7FFFFFFF) << 31));
   if (v12 <= 1)
@@ -53,18 +52,18 @@ LABEL_13:
     v12 = 1;
   }
 
-  LODWORD(v20[0]) = v12;
-  std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<CGPoint *>,std::__wrap_iter<CGPoint *>,std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(__p, v19, v20);
-  v13 = [(VNBoundingCircleAlgorithm *)self _boundingCircleForPoints:&__p aspectRatioForCentroid:?];
+  LODWORD(v20) = v12;
+  std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<CGPoint *>,std::__wrap_iter<CGPoint *>,std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(__p, v19, &v20);
+  v13 = [VNBoundingCircleAlgorithm _boundingCircleForPoints:centroid aspectRatioForCentroid:?];
   v14 = v13;
   if (v13)
   {
     v15 = v13;
   }
 
-  else if (centroid)
+  else if (count)
   {
-    *centroid = [VNError errorForInternalErrorWithLocalizedDescription:@"Cannot calculate minimum enclosing circle for the given set of points"];
+    *count = [VNError errorForInternalErrorWithLocalizedDescription:@"Cannot calculate minimum enclosing circle for the given set of points"];
   }
 
   if (__p)
@@ -78,18 +77,18 @@ LABEL_18:
   return v14;
 }
 
-+ (VNCircle)_boundingCircleForPoints:(double *)points aspectRatioForCentroid:
++ (VNCircle)_boundingCircleForPoints:(float)points aspectRatioForCentroid:
 {
   objc_opt_self();
   objc_opt_self();
-  v4 = points[1];
-  v5 = v4 - *points;
+  v4 = a2[1];
+  v5 = v4 - *a2;
   v6 = v5 >> 4;
-  [VNError VNAssert:v4 != *points log:@"Number of points in collection must be greater than zero"];
+  [VNError VNAssert:v4 != *a2 log:@"Number of points in collection must be greater than zero"];
   if (v5 >> 4 == 2)
   {
-    v10 = [[VNPoint alloc] initWithLocation:(*points)[2], (*points)[3]];
-    v11 = [[VNVector alloc] initWithXComponent:**points - (*points)[2] yComponent:(*points)[1] - (*points)[3]];
+    v10 = [[VNPoint alloc] initWithLocation:(*a2)[2], (*a2)[3]];
+    v11 = [[VNVector alloc] initWithXComponent:**a2 - (*a2)[2] yComponent:(*a2)[1] - (*a2)[3]];
     v12 = [VNVector vectorByMultiplyingVector:v11 byScalar:0.5];
     v13 = [VNPoint pointByApplyingVector:v12 toPoint:v10];
 
@@ -106,8 +105,8 @@ LABEL_18:
   {
     if (v6 == 1)
     {
-      v7 = **points;
-      v8 = (*points)[1];
+      v7 = **a2;
+      v8 = (*a2)[1];
       objc_opt_self();
       v9 = 0.00001;
       goto LABEL_24;
@@ -115,9 +114,9 @@ LABEL_18:
 
     objc_opt_self();
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Number of points in collection must be greater or equal than %lu", v5 >> 4];
-    [VNError VNAssert:points[1] - *points >= v5 log:v10];
-    v63 = [[VNPoint alloc] initWithLocation:(*points)[2], (*points)[3]];
-    v18 = [[VNVector alloc] initWithXComponent:**points - (*points)[2] yComponent:(*points)[1] - (*points)[3]];
+    [VNError VNAssert:a2[1] - *a2 >= v5 log:v10];
+    v63 = [[VNPoint alloc] initWithLocation:(*a2)[2], (*a2)[3]];
+    v18 = [[VNVector alloc] initWithXComponent:**a2 - (*a2)[2] yComponent:(*a2)[1] - (*a2)[3]];
     v19 = [VNVector vectorByMultiplyingVector:v18 byScalar:0.5];
     v20 = [VNPoint pointByApplyingVector:v19 toPoint:v63];
 
@@ -137,14 +136,14 @@ LABEL_18:
         v25 = [VNVector alloc];
         [v20 x];
         v27 = v26;
-        v28 = (*points)[2 * v77];
+        v28 = (*a2)[2 * v77];
         [v20 y];
-        v67 = [(VNVector *)v25 initWithXComponent:v27 - v28 yComponent:v29 - (*points)[2 * v77 + 1]];
+        v67 = [(VNVector *)v25 initWithXComponent:v27 - v28 yComponent:v29 - (*a2)[2 * v77 + 1]];
         [(VNVector *)v67 length];
         if (v30 >= v9)
         {
-          v66 = [[VNPoint alloc] initWithLocation:**points, (*points)[1]];
-          v31 = [[VNVector alloc] initWithXComponent:(*points)[2 * v77] - **points yComponent:(*points)[2 * v77 + 1] - (*points)[1]];
+          v66 = [[VNPoint alloc] initWithLocation:**a2, (*a2)[1]];
+          v31 = [[VNVector alloc] initWithXComponent:(*a2)[2 * v77] - **a2 yComponent:(*a2)[2 * v77 + 1] - (*a2)[1]];
           v32 = [VNVector vectorByMultiplyingVector:v31 byScalar:0.5];
           v33 = [VNPoint pointByApplyingVector:v32 toPoint:v66];
 
@@ -162,14 +161,14 @@ LABEL_18:
             v38 = [VNVector alloc];
             [(VNPoint *)v74 x];
             v40 = v39;
-            v41 = (*points)[2 * v79];
+            v41 = (*a2)[2 * v79];
             [(VNPoint *)v74 y];
-            v73 = [(VNVector *)v38 initWithXComponent:v40 - v41 yComponent:v42 - (*points)[2 * v79 + 1]];
+            v73 = [(VNVector *)v38 initWithXComponent:v40 - v41 yComponent:v42 - (*a2)[2 * v79 + 1]];
             [(VNVector *)v73 length];
             if (v43 >= v70)
             {
-              v72 = [[VNPoint alloc] initWithLocation:(*points)[2 * v77], (*points)[2 * v77 + 1]];
-              v71 = [[VNVector alloc] initWithXComponent:(*points)[2 * v79] - (*points)[2 * v77] yComponent:(*points)[2 * v79 + 1] - (*points)[2 * v77 + 1]];
+              v72 = [[VNPoint alloc] initWithLocation:(*a2)[2 * v77], (*a2)[2 * v77 + 1]];
+              v71 = [[VNVector alloc] initWithXComponent:(*a2)[2 * v79] - (*a2)[2 * v77] yComponent:(*a2)[2 * v79 + 1] - (*a2)[2 * v77 + 1]];
               v44 = [VNVector vectorByMultiplyingVector:0.5 byScalar:?];
               v45 = [VNPoint pointByApplyingVector:v44 toPoint:v72];
 
@@ -186,9 +185,9 @@ LABEL_18:
                 v51 = [VNVector alloc];
                 [v45 x];
                 v53 = v52;
-                v54 = (*points)[2 * v50];
+                v54 = (*a2)[2 * v50];
                 [v45 y];
-                v80 = [(VNVector *)v51 initWithXComponent:v53 - v54 yComponent:v55 - (*points)[2 * v50 + 1]];
+                v80 = [(VNVector *)v51 initWithXComponent:v53 - v54 yComponent:v55 - (*a2)[2 * v50 + 1]];
                 [(VNVector *)v80 length];
                 if (v56 >= v78)
                 {
@@ -236,8 +235,8 @@ LABEL_18:
 
 LABEL_24:
   v59 = [VNCircle alloc];
-  v60 = [[VNPoint alloc] initWithLocation:v7, v8 * self];
-  v61 = [(VNCircle *)v59 initWithCenter:v60 radius:v9];
+  points = [[VNPoint alloc] initWithLocation:v7, v8 * points];
+  v61 = [(VNCircle *)v59 initWithCenter:points radius:v9];
 
   return v61;
 }

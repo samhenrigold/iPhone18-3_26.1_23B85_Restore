@@ -52,7 +52,7 @@
 
 - (void)dataSourceDidUpdate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   _getSourceListToShow = [(WDAppSourcesListTableViewSection *)self _getSourceListToShow];
   [(WDAppSourcesListTableViewSection *)self setInstalledSources:_getSourceListToShow];
 
@@ -62,25 +62,25 @@
   restorationSourceBundleIdentifier = [(WDSourcesListTableViewSection *)self restorationSourceBundleIdentifier];
   if (restorationSourceBundleIdentifier)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     installedSources = [(WDAppSourcesListTableViewSection *)self installedSources];
-    v7 = [installedSources countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [installedSources countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(installedSources);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           source = [v10 source];
           bundleIdentifier = [source bundleIdentifier];
           v13 = [bundleIdentifier isEqualToString:restorationSourceBundleIdentifier];
@@ -88,19 +88,19 @@
           if (v13)
           {
             objc_initWeak(&location, self);
-            v15[0] = MEMORY[0x277D85DD0];
-            v15[1] = 3221225472;
-            v15[2] = __55__WDAppSourcesListTableViewSection_dataSourceDidUpdate__block_invoke;
-            v15[3] = &unk_2796E7C50;
-            objc_copyWeak(&v16, &location);
-            [(WDSourcesListTableViewSection *)self createDetailViewControllerForSourceModel:v10 completion:v15];
-            objc_destroyWeak(&v16);
+            v14[0] = MEMORY[0x277D85DD0];
+            v14[1] = 3221225472;
+            v14[2] = __55__WDAppSourcesListTableViewSection_dataSourceDidUpdate__block_invoke;
+            v14[3] = &unk_2796E7C50;
+            objc_copyWeak(&v15, &location);
+            [(WDSourcesListTableViewSection *)self createDetailViewControllerForSourceModel:v10 completion:v14];
+            objc_destroyWeak(&v15);
             objc_destroyWeak(&location);
             goto LABEL_12;
           }
         }
 
-        v7 = [installedSources countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [installedSources countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v7)
         {
           continue;
@@ -114,8 +114,6 @@ LABEL_12:
 
     [(WDSourcesListTableViewSection *)self setRestorationSourceBundleIdentifier:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WDAppSourcesListTableViewSection_dataSourceDidUpdate__block_invoke(uint64_t a1, void *a2)

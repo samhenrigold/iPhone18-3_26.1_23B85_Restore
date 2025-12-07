@@ -20,7 +20,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[20])
@@ -53,29 +53,29 @@
     *&self->_has |= 0x20u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = *(v5 + 6);
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SGMIMetricsMailIntelligenceForMessage *)self addMailAttachmentHistogram:*(*(&v18 + 1) + 8 * i), v18];
+        [(SGMIMetricsMailIntelligenceForMessage *)self addMailAttachmentHistogram:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -158,8 +158,6 @@ LABEL_23:
   {
     [(SGMIMetricsMailIntelligenceForMessage *)self setBackground:?];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -286,7 +284,6 @@ LABEL_21:
     goto LABEL_48;
   }
 
-  v5 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_hoursSinceReference != *(equalCopy + 6))
@@ -316,7 +313,7 @@ LABEL_21:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 80);
+  v8 = *(equalCopy + 80);
   if ((has & 0x40) != 0)
   {
     if ((*(equalCopy + 80) & 0x40) == 0 || self->_timeDifferenceFromReceptionToSaliencyInferenceInSeconds != *(equalCopy + 19))
@@ -349,62 +346,62 @@ LABEL_21:
     if (![(NSMutableArray *)mailAttachmentHistograms isEqual:?])
     {
 LABEL_48:
-      v13 = 0;
+      v12 = 0;
       goto LABEL_49;
     }
 
     has = self->_has;
-    v9 = *(equalCopy + 80);
+    v8 = *(equalCopy + 80);
   }
 
   if ((has & 2) != 0)
   {
-    if ((v9 & 2) == 0 || self->_nbCharactersInMailSubject != *(equalCopy + 14))
+    if ((v8 & 2) == 0 || self->_nbCharactersInMailSubject != *(equalCopy + 14))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v9 & 2) != 0)
+  else if ((v8 & 2) != 0)
   {
     goto LABEL_48;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v9 & 4) == 0 || self->_nbTokensInMailSubject != *(equalCopy + 15))
+    if ((v8 & 4) == 0 || self->_nbTokensInMailSubject != *(equalCopy + 15))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v9 & 4) != 0)
+  else if ((v8 & 4) != 0)
   {
     goto LABEL_48;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v9 & 0x10) == 0 || self->_previousInteractionOnConversationInMinutes != *(equalCopy + 17))
+    if ((v8 & 0x10) == 0 || self->_previousInteractionOnConversationInMinutes != *(equalCopy + 17))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v9 & 0x10) != 0)
+  else if ((v8 & 0x10) != 0)
   {
     goto LABEL_48;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v9 & 8) == 0 || self->_previousInteractionFromUserOnConversationInMinutes != *(equalCopy + 16))
+    if ((v8 & 8) == 0 || self->_previousInteractionFromUserOnConversationInMinutes != *(equalCopy + 16))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v9 & 8) != 0)
+  else if ((v8 & 8) != 0)
   {
     goto LABEL_48;
   }
@@ -418,22 +415,22 @@ LABEL_48:
   background = self->_background;
   if (background | *(equalCopy + 2))
   {
-    v13 = [(SGMIMetricsInferenceAndGroundTruth *)background isEqual:?];
+    v12 = [(SGMIMetricsInferenceAndGroundTruth *)background isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_49:
 
-  return v13;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -464,30 +461,30 @@ LABEL_49:
     *(v6 + 80) |= 0x20u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = self->_mailAttachmentHistograms;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v25 + 1) + 8 * i) copyWithZone:{zone, v25}];
+        v17 = [*(*(&v24 + 1) + 8 * i) copyWithZone:{zone, v24}];
         [v6 addMailAttachmentHistogram:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v14);
@@ -541,7 +538,7 @@ LABEL_18:
   }
 
 LABEL_19:
-  v19 = [(SGMIMetricsInferenceAndGroundTruth *)self->_active copyWithZone:zone, v25];
+  v19 = [(SGMIMetricsInferenceAndGroundTruth *)self->_active copyWithZone:zone, v24];
   v20 = *(v6 + 8);
   *(v6 + 8) = v19;
 
@@ -549,7 +546,6 @@ LABEL_19:
   v22 = *(v6 + 16);
   *(v6 + 16) = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -668,11 +664,10 @@ LABEL_20:
 
 - (void)writeTo:(id)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    hoursSinceReference = self->_hoursSinceReference;
     PBDataWriterWriteUint32Field();
   }
 
@@ -689,56 +684,52 @@ LABEL_20:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    timeDifferenceFromReceptionToSaliencyInferenceInSeconds = self->_timeDifferenceFromReceptionToSaliencyInferenceInSeconds;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 0x20) != 0)
   {
-    senderConnectionScore = self->_senderConnectionScore;
     PBDataWriterWriteFloatField();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v9 = self->_mailAttachmentHistograms;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v10)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_mailAttachmentHistograms;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v22;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v12)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
-  v15 = self->_has;
-  if ((v15 & 2) != 0)
+  v11 = self->_has;
+  if ((v11 & 2) != 0)
   {
-    nbCharactersInMailSubject = self->_nbCharactersInMailSubject;
     PBDataWriterWriteUint32Field();
-    v15 = self->_has;
-    if ((v15 & 4) == 0)
+    v11 = self->_has;
+    if ((v11 & 4) == 0)
     {
 LABEL_20:
-      if ((v15 & 0x10) == 0)
+      if ((v11 & 0x10) == 0)
       {
         goto LABEL_21;
       }
@@ -752,13 +743,12 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  nbTokensInMailSubject = self->_nbTokensInMailSubject;
   PBDataWriterWriteUint32Field();
-  v15 = self->_has;
-  if ((v15 & 0x10) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x10) == 0)
   {
 LABEL_21:
-    if ((v15 & 8) == 0)
+    if ((v11 & 8) == 0)
     {
       goto LABEL_23;
     }
@@ -767,12 +757,10 @@ LABEL_21:
   }
 
 LABEL_30:
-  previousInteractionOnConversationInMinutes = self->_previousInteractionOnConversationInMinutes;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_22:
-    previousInteractionFromUserOnConversationInMinutes = self->_previousInteractionFromUserOnConversationInMinutes;
     PBDataWriterWriteUint32Field();
   }
 
@@ -786,13 +774,11 @@ LABEL_23:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -828,33 +814,33 @@ LABEL_23:
     [dictionary setObject:v10 forKey:@"senderConnectionScore"];
   }
 
-  if ([(NSMutableArray *)self->_mailAttachmentHistograms count])
+  if (objc_msgSend_count(self->_mailAttachmentHistograms))
   {
-    v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_mailAttachmentHistograms, "count")}];
+    v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(self->_mailAttachmentHistograms)];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v12 = self->_mailAttachmentHistograms;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v30;
+      v15 = *v29;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation];
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v14);
@@ -866,8 +852,8 @@ LABEL_23:
   v18 = self->_has;
   if ((v18 & 2) != 0)
   {
-    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_nbCharactersInMailSubject];
-    [dictionary setObject:v26 forKey:@"nbCharactersInMailSubject"];
+    v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_nbCharactersInMailSubject];
+    [dictionary setObject:v25 forKey:@"nbCharactersInMailSubject"];
 
     v18 = self->_has;
     if ((v18 & 4) == 0)
@@ -887,8 +873,8 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_nbTokensInMailSubject, v29}];
-  [dictionary setObject:v27 forKey:@"nbTokensInMailSubject"];
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_nbTokensInMailSubject, v28}];
+  [dictionary setObject:v26 forKey:@"nbTokensInMailSubject"];
 
   v18 = self->_has;
   if ((v18 & 0x10) == 0)
@@ -903,13 +889,13 @@ LABEL_23:
   }
 
 LABEL_34:
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_previousInteractionOnConversationInMinutes, v29}];
-  [dictionary setObject:v28 forKey:@"previousInteractionOnConversationInMinutes"];
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_previousInteractionOnConversationInMinutes, v28}];
+  [dictionary setObject:v27 forKey:@"previousInteractionOnConversationInMinutes"];
 
   if ((*&self->_has & 8) != 0)
   {
 LABEL_24:
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_previousInteractionFromUserOnConversationInMinutes, v29}];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_previousInteractionFromUserOnConversationInMinutes, v28}];
     [dictionary setObject:v19 forKey:@"previousInteractionFromUserOnConversationInMinutes"];
   }
 
@@ -927,8 +913,6 @@ LABEL_25:
     dictionaryRepresentation3 = [(SGMIMetricsInferenceAndGroundTruth *)background dictionaryRepresentation];
     [dictionary setObject:dictionaryRepresentation3 forKey:@"background"];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

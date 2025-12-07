@@ -29,7 +29,7 @@
   clickabilityCopy = clickability;
   recognitionCopy = recognition;
   rCopy = r;
-  v18 = type metadata accessor for UIUDetectorResult();
+  v18 = type metadata accessor for UIUDetectorResult(0);
   MEMORY[0x28223BE20](v18 - 8);
   v20 = &v25 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   screenCopy = screen;
@@ -37,7 +37,7 @@
   UIUDetector.getUIDetectionsInScreen(_:addOCR:addIconRecognition:addClickability:addFocusElements:nmsThreshold:useAccurateOCR:)(screenCopy, rCopy, recognitionCopy, clickabilityCopy, elementsCopy, cRCopy, v20, threshold);
 
   sub_27025C4E4(v20);
-  type metadata accessor for UIObject();
+  type metadata accessor for UIObject(0);
   v23 = sub_2702B41AC();
 
   return v23;

@@ -2,7 +2,6 @@
 - (BWMotionAttachmentsNode)initWithSensorIDDictionaryByPortType:(id)type cameraInfoByPortType:(id)portType tuningParameters:(id)parameters activePortTypes:(id)types horizontalSensorBinningFactor:(int)factor verticalSensorBinningFactor:(int)binningFactor maxSupportedFrameRate:(float)rate motionAttachmentsMode:(int)self0 motionAttachmentsSource:(int)self1 motionCallbackThreadPriority:(unsigned int)self2 provideSourceVideoWithMotionAttachmentsOutput:(BOOL)self3 provideOfflineVISMotionDataOutput:(BOOL)self4 inputFormatIsProResRaw:(BOOL)self5 errorOut:(int *)self6;
 - (uint64_t)_flushIfRequiredForMarkerBuffer:(uint64_t)result;
 - (uint64_t)_setupSampleBufferProcessor;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
 - (void)prepareForCurrentConfigurationToBecomeLive;
@@ -16,7 +15,7 @@
   selfCopy = self;
   if (!output && !dataOutput)
   {
-    [BWMotionAttachmentsNode initWithSensorIDDictionaryByPortType:cameraInfoByPortType:tuningParameters:activePortTypes:horizontalSensorBinningFactor:verticalSensorBinningFactor:maxSupportedFrameRate:motionAttachmentsMode:motionAttachmentsSource:motionCallbackThreadPriority:provideSourceVideoWithMotionAttachmentsOutput:provideOfflineVISMotionDataOutput:inputFormatIsProResRaw:errorOut:];
+    [BWMotionAttachmentsNode initWithSensorIDDictionaryByPortType:a2 cameraInfoByPortType:? tuningParameters:? activePortTypes:? horizontalSensorBinningFactor:? verticalSensorBinningFactor:? maxSupportedFrameRate:? motionAttachmentsMode:? motionAttachmentsSource:? motionCallbackThreadPriority:? provideSourceVideoWithMotionAttachmentsOutput:? provideOfflineVISMotionDataOutput:? inputFormatIsProResRaw:? errorOut:?];
     return selfCopy;
   }
 
@@ -164,7 +163,7 @@ LABEL_29:
           {
             v42 = v32;
             firstObject = [v35 firstObject];
-            if ([v35 count] <= 1 && objc_msgSend(firstObject, "isEqualToString:", 0x1F21930D0))
+            if ([v35 count] <= 1 && objc_msgSend_isEqualToString_(firstObject))
             {
               [(BWNodeInput *)v40 setRetainedBufferCount:0];
             }
@@ -342,24 +341,24 @@ LABEL_16:
 
   v3 = *MEMORY[0x1E695E480];
   v4 = *(self + 136);
-  v13 = 0;
-  v5 = FigSampleBufferProcessorCreateForMotionAttachments(v3, v4, &v13);
+  v15 = 0;
+  v5 = FigSampleBufferProcessorCreateForMotionAttachments(v3, v4, &v15);
   if (v5)
   {
     v8 = v5;
     fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_72();
-    FigDebugAssert3();
+    v12 = OUTLINED_FUNCTION_1_72();
+    FigDebugAssert3(v12, v8, v1);
     fig_log_get_emitter();
-    v12 = v1;
-    LODWORD(v11) = 0;
-    OUTLINED_FUNCTION_1_72();
+    v14 = v1;
+    LODWORD(v13) = 0;
+    v9 = OUTLINED_FUNCTION_1_72();
   }
 
   else
   {
-    v6 = v13;
-    *(self + 128) = v13;
+    v6 = v15;
+    *(self + 128) = v15;
     v7 = *(*(CMBaseObjectGetVTable() + 16) + 8);
     if (v7)
     {
@@ -377,17 +376,18 @@ LABEL_16:
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
+    v9 = "%s assert: %s at %s (%s:%d) - %s%s(err=%d)";
   }
 
-  FigDebugAssert3();
-  v9 = *(self + 128);
-  if (v9)
+  FigDebugAssert3(v9, v13, v14);
+  v10 = *(self + 128);
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
     *(self + 128) = 0;
   }
 
-  [*(self + 160) logErrorNumber:v8 errorString:{@"setup SBP", v11, v12}];
+  [*(self + 160) logErrorNumber:v8 errorString:@"setup SBP"];
   return v8;
 }
 
@@ -398,7 +398,7 @@ LABEL_16:
     v3 = result;
     v4 = CMGetAttachment(target, @"FileWriterAction", 0);
     v5 = CMGetAttachment(target, @"AttachedMediaSwapPlaceholderSampleBuffer", 0);
-    if ([v4 isEqualToString:0x1F21A9C50] & 1) != 0 || (objc_msgSend(v4, "isEqualToString:", 0x1F21A9C70) & 1) != 0 || (objc_msgSend(v4, "isEqualToString:", 0x1F21A9CD0) & 1) != 0 || (objc_msgSend(v4, "isEqualToString:", 0x1F21A9CB0) & 1) != 0 || (result = objc_msgSend(v4, "isEqualToString:", 0x1F21A9D30), (result) || v5 == *MEMORY[0x1E695E4D0])
+    if (objc_msgSend_isEqualToString_(v4) & 1) != 0 || (objc_msgSend_isEqualToString_(v4) & 1) != 0 || (objc_msgSend_isEqualToString_(v4) & 1) != 0 || (objc_msgSend_isEqualToString_(v4) & 1) != 0 || (result = objc_msgSend_isEqualToString_(v4), (result) || v5 == *MEMORY[0x1E695E4D0])
     {
       v6 = *(v3 + 128);
       if (v6)
@@ -417,20 +417,6 @@ LABEL_16:
   }
 
   return result;
-}
-
-- (uint64_t)initWithSensorIDDictionaryByPortType:cameraInfoByPortType:tuningParameters:activePortTypes:horizontalSensorBinningFactor:verticalSensorBinningFactor:maxSupportedFrameRate:motionAttachmentsMode:motionAttachmentsSource:motionCallbackThreadPriority:provideSourceVideoWithMotionAttachmentsOutput:provideOfflineVISMotionDataOutput:inputFormatIsProResRaw:errorOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

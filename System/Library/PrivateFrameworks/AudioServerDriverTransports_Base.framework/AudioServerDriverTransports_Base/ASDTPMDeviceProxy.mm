@@ -1,14 +1,21 @@
 @interface ASDTPMDeviceProxy
 + (id)forPMDevice:(id)device;
 - (ASDTPMProtocol)proxiedDevice;
+- (BOOL)asdtHandlesPowerTransition:(int)transition;
 - (BOOL)pmNoStateChangeOnFailure;
 - (NSString)name;
 - (id)initForPMDevice:(id)device;
+- (int)asdtPowerStateChange:(int)change;
+- (int)performPowerStateIdle:(int)idle;
+- (int)performPowerStateInactive:(int)inactive;
 - (int)performPowerStateOn;
+- (int)performPowerStatePrepare:(int)prepare;
+- (int)performPowerStatePrewarm:(int)prewarm;
 - (int)performPowerStateSleep;
 - (int)powerState;
 - (unsigned)pmOrderPowerDown;
 - (unsigned)pmOrderPowerUp;
+- (void)setPowerState:(int)state;
 @end
 
 @implementation ASDTPMDeviceProxy
@@ -76,12 +83,73 @@
   return powerState;
 }
 
+- (void)setPowerState:(int)state
+{
+  v3 = *&state;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  [proxiedDevice setPowerState:v3];
+}
+
+- (int)asdtPowerStateChange:(int)change
+{
+  v3 = *&change;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LODWORD(v3) = [proxiedDevice asdtPowerStateChange:v3];
+
+  return v3;
+}
+
+- (BOOL)asdtHandlesPowerTransition:(int)transition
+{
+  v3 = *&transition;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LOBYTE(v3) = [proxiedDevice asdtHandlesPowerTransition:v3];
+
+  return v3;
+}
+
 - (int)performPowerStateSleep
 {
   proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
   performPowerStateSleep = [proxiedDevice performPowerStateSleep];
 
   return performPowerStateSleep;
+}
+
+- (int)performPowerStateInactive:(int)inactive
+{
+  v3 = *&inactive;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LODWORD(v3) = [proxiedDevice performPowerStateInactive:v3];
+
+  return v3;
+}
+
+- (int)performPowerStateIdle:(int)idle
+{
+  v3 = *&idle;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LODWORD(v3) = [proxiedDevice performPowerStateIdle:v3];
+
+  return v3;
+}
+
+- (int)performPowerStatePrepare:(int)prepare
+{
+  v3 = *&prepare;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LODWORD(v3) = [proxiedDevice performPowerStatePrepare:v3];
+
+  return v3;
+}
+
+- (int)performPowerStatePrewarm:(int)prewarm
+{
+  v3 = *&prewarm;
+  proxiedDevice = [(ASDTPMDeviceProxy *)self proxiedDevice];
+  LODWORD(v3) = [proxiedDevice performPowerStatePrewarm:v3];
+
+  return v3;
 }
 
 - (int)performPowerStateOn

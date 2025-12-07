@@ -38,8 +38,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  responseDate = self->_responseDate;
-  v6 = toCopy;
   PBDataWriterWriteDoubleField();
   if (self->_payload)
   {

@@ -49,7 +49,7 @@
 
 - (void)dispatchRelayMessage:(id)message
 {
-  v5 = RWIMessageTraceLog();
+  v5 = RWIMessageTraceLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_RWIRelayClientConnection dispatchRelayMessage:?];
@@ -77,24 +77,24 @@
 - (void)forwardInvocation:(id)invocation
 {
   v5 = NSStringFromSelector([invocation selector]);
-  v9 = 0;
-  [invocation getArgument:&v9 atIndex:2];
+  v10 = 0;
+  [invocation getArgument:&v10 atIndex:2];
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v8 = v6;
-  [v6 setObject:v5 forKey:@"__selector"];
-  if (v9)
+  v9 = v6;
+  v7 = [v6 setObject:v5 forKey:@"__selector"];
+  if (v10)
   {
-    [v6 setObject:v9 forKey:@"__argument"];
+    v7 = [v6 setObject:v10 forKey:@"__argument"];
   }
 
-  v7 = RWIMessageTraceLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = RWIMessageTraceLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_RWIRelayClientConnection forwardInvocation:?];
   }
 
   traceMessagePayloadIfKeyExists(@"WIRMessageDataKey", v6);
-  [invocation setArgument:&v8 atIndex:2];
+  [invocation setArgument:&v9 atIndex:2];
   [invocation retainArguments];
   [invocation setTarget:self];
   [invocation setSelector:sel_sendMessage_];
@@ -116,20 +116,16 @@
 
 - (void)dispatchRelayMessage:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 tag];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_273C9C000, v1, v2, "IPC client[%{private}@]->relay: %{private}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_273C9C000, v1, v2, "IPC client[%{private}@]->relay: %{private}@", v3, v4, v5, v6);
 }
 
 - (void)forwardInvocation:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 tag];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_273C9C000, v1, v2, "IPC relay->client[%{private}@]: %{private}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_273C9C000, v1, v2, "IPC relay->client[%{private}@]: %{private}@", v3, v4, v5, v6);
 }
 
 @end

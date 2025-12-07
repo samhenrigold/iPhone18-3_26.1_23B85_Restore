@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad
 {
-  v3 = sub_100005368();
+  v3 = sub_100005368(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -520,66 +520,66 @@ LABEL_7:
       if (clientDeviceModel == 2)
       {
         [view setInPlacementStep:1];
-        v11 = +[NSBundle mainBundle];
-        v12 = v11;
+        v12 = +[NSBundle mainBundle];
+        v13 = v12;
         if (v8)
         {
-          v13 = @"LABEL_PLACE_DEVICE_TO_CONTINUE_IPAD";
+          v14 = @"LABEL_PLACE_DEVICE_TO_CONTINUE_IPAD";
         }
 
         else
         {
-          v13 = @"LABEL_PLACE_DEVICE_TO_CONTINUE_IPHONE";
+          v14 = @"LABEL_PLACE_DEVICE_TO_CONTINUE_IPHONE";
         }
 
-        v14 = [v11 localizedStringForKey:v13 value:&stru_100018990 table:0];
-        v15 = [NSString stringWithFormat:v14];
+        v15 = [v12 localizedStringForKey:v14 value:&stru_100018990 table:0];
+        v16 = [NSString stringWithFormat:v15];
 
-        v16 = +[NSBundle mainBundle];
-        v17 = v16;
+        v17 = +[NSBundle mainBundle];
+        v18 = v17;
         if (clientName)
         {
           if (v8)
           {
-            v18 = @"SUBTITLE_DESCRIPTION_PLACEMENT_WITH_NAME_IPAD";
+            v19 = @"SUBTITLE_DESCRIPTION_PLACEMENT_WITH_NAME_IPAD";
           }
 
           else
           {
-            v18 = @"SUBTITLE_DESCRIPTION_PLACEMENT_WITH_NAME_IPHONE";
+            v19 = @"SUBTITLE_DESCRIPTION_PLACEMENT_WITH_NAME_IPHONE";
           }
 
-          v19 = [v16 localizedStringForKey:v18 value:&stru_100018990 table:0];
-          [NSString stringWithFormat:v19, clientName];
+          v20 = [v17 localizedStringForKey:v19 value:&stru_100018990 table:0];
+          [NSString stringWithFormat:v20, clientName];
         }
 
         else
         {
           if (v8)
           {
-            v20 = @"SUBTITLE_DESCRIPTION_PLACEMENT_IPAD";
+            v21 = @"SUBTITLE_DESCRIPTION_PLACEMENT_IPAD";
           }
 
           else
           {
-            v20 = @"SUBTITLE_DESCRIPTION_PLACEMENT_IPHONE";
+            v21 = @"SUBTITLE_DESCRIPTION_PLACEMENT_IPHONE";
           }
 
-          v19 = [v16 localizedStringForKey:v20 value:&stru_100018990 table:0];
-          [NSString stringWithFormat:v19, v23];
+          v20 = [v17 localizedStringForKey:v21 value:&stru_100018990 table:0];
+          [NSString stringWithFormat:v20, v24];
         }
-        v21 = ;
+        v22 = ;
 
-        [view setPrimaryText:v15];
-        [view setSecondaryText:v21];
-        v22 = [UIImage systemImageNamed:@"tv.and.mediabox.fill"];
-        [view setImage:v22];
+        [view setPrimaryText:v16];
+        [view setSecondaryText:v22];
+        v23 = [UIImage systemImageNamed:@"tv.and.mediabox.fill"];
+        [view setImage:v23];
       }
 
       else
       {
-        v15 = sub_100005368();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = sub_100005368(v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10000BDEC();
         }
@@ -596,35 +596,35 @@ LABEL_7:
   if (activeConfiguration)
   {
     dispatch_assert_queue_V2(&_dispatch_main_q);
-    v5 = sub_100005368();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100005368(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = +[CMContinuityCaptureUIStateTracker sharedInstance];
-      uiState = [v6 uiState];
-      v8 = +[CMContinuityCaptureUIStateTracker sharedInstance];
-      connectionType = [v8 connectionType];
+      v7 = +[CMContinuityCaptureUIStateTracker sharedInstance];
+      uiState = [v7 uiState];
+      v9 = +[CMContinuityCaptureUIStateTracker sharedInstance];
+      connectionType = [v9 connectionType];
       clientName = [activeConfiguration clientName];
-      v14 = 136316674;
-      v15 = "[ContinuityCaptureShieldUIViewController updateUI]";
-      v16 = 2112;
+      v15 = 136316674;
+      v16 = "[ContinuityCaptureShieldUIViewController updateUI]";
+      v17 = 2112;
       selfCopy = self;
-      v18 = 2080;
-      v19 = "[ContinuityCaptureShieldUIViewController updateUI]";
-      v20 = 1024;
-      v21 = uiState;
-      v22 = 1024;
-      v23 = connectionType;
-      v24 = 2112;
-      v25 = clientName;
-      v26 = 1024;
+      v19 = 2080;
+      v20 = "[ContinuityCaptureShieldUIViewController updateUI]";
+      v21 = 1024;
+      v22 = uiState;
+      v23 = 1024;
+      v24 = connectionType;
+      v25 = 2112;
+      v26 = clientName;
+      v27 = 1024;
       compositeState = [activeConfiguration compositeState];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s:  %@ %s uiState %d connectionType %d clientName %@ compositeState %x", &v14, 0x3Cu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s:  %@ %s uiState %d connectionType %d clientName %@ compositeState %x", &v15, 0x3Cu);
     }
 
     if (![(ContinuityCaptureShieldUIBaseViewController *)self isTerminated])
     {
-      v11 = +[CMContinuityCaptureUIStateTracker sharedInstance];
-      uiState2 = [v11 uiState];
+      v12 = +[CMContinuityCaptureUIStateTracker sharedInstance];
+      uiState2 = [v12 uiState];
 
       if (uiState2 == 5)
       {
@@ -638,8 +638,8 @@ LABEL_7:
         [(ContinuityCaptureShieldUIViewController *)self _updateUIForUIState];
       }
 
-      v13 = +[ContinuityCaptureShieldUIBackgroundActivityManager sharedInstance];
-      [v13 updateState:{objc_msgSend(activeConfiguration, "compositeState")}];
+      v14 = +[ContinuityCaptureShieldUIBackgroundActivityManager sharedInstance];
+      [v14 updateState:{objc_msgSend(activeConfiguration, "compositeState")}];
     }
   }
 }
@@ -650,56 +650,57 @@ LABEL_7:
   handleCopy = handle;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_100003848;
-  v24[3] = &unk_100018570;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100003848;
+  v25[3] = &unk_100018570;
   v11 = conversationCopy;
-  v25 = v11;
+  v26 = v11;
   v12 = handleCopy;
-  v26 = v12;
-  objc_copyWeak(&v28, &location);
+  v27 = v12;
+  objc_copyWeak(&v29, &location);
   v13 = completionCopy;
-  v27 = v13;
-  v14 = objc_retainBlock(v24);
-  if ([(ContinuityCaptureShieldUIBaseViewController *)self isOnLockScreen])
+  v28 = v13;
+  v14 = objc_retainBlock(v25);
+  isOnLockScreen = [(ContinuityCaptureShieldUIBaseViewController *)self isOnLockScreen];
+  if (isOnLockScreen)
   {
-    v15 = sub_100005368();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100005368(isOnLockScreen);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v21 = "[ContinuityCaptureShieldUIViewController _pullConversation:deviceHandle:completion:]";
-      v22 = 2112;
+      v22 = "[ContinuityCaptureShieldUIViewController _pullConversation:deviceHandle:completion:]";
+      v23 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: %@ pull conversation back to phone selected on lock screen. Removing shield from lock screen then pulling conversation", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s: %@ pull conversation back to phone selected on lock screen. Removing shield from lock screen then pulling conversation", buf, 0x16u);
     }
 
-    v16 = objc_opt_new();
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000039CC;
-    v18[3] = &unk_100018598;
-    v19 = v14;
-    [v16 lockDeviceAnimated:0 withCompletion:v18];
-    [v16 invalidate];
+    v17 = objc_opt_new();
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1000039CC;
+    v19[3] = &unk_100018598;
+    v20 = v14;
+    [v17 lockDeviceAnimated:0 withCompletion:v19];
+    [v17 invalidate];
   }
 
   else
   {
-    v17 = sub_100005368();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100005368(isOnLockScreen);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v21 = "[ContinuityCaptureShieldUIViewController _pullConversation:deviceHandle:completion:]";
-      v22 = 2112;
+      v22 = "[ContinuityCaptureShieldUIViewController _pullConversation:deviceHandle:completion:]";
+      v23 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: %@ pull conversation back to phone", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s: %@ pull conversation back to phone", buf, 0x16u);
     }
 
     (v14[2])(v14);
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 }
 
@@ -708,22 +709,22 @@ LABEL_7:
   dispatch_assert_queue_V2(&_dispatch_main_q);
   if (*(&self->super._observingKVO + 1))
   {
-    v3 = sub_100005368();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100005368(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v6 = "[ContinuityCaptureShieldUIViewController tearDownShield]";
-      v7 = 2112;
+      v7 = "[ContinuityCaptureShieldUIViewController tearDownShield]";
+      v8 = 2112;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s: %@ skip shield teardown since we have pending user dialogue for disconnect", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s: %@ skip shield teardown since we have pending user dialogue for disconnect", buf, 0x16u);
     }
   }
 
   else
   {
-    v4.receiver = self;
-    v4.super_class = ContinuityCaptureShieldUIViewController;
-    [(ContinuityCaptureShieldUIBaseViewController *)&v4 tearDownShield];
+    v5.receiver = self;
+    v5.super_class = ContinuityCaptureShieldUIViewController;
+    [(ContinuityCaptureShieldUIBaseViewController *)&v5 tearDownShield];
   }
 }
 
@@ -790,41 +791,41 @@ LABEL_7:
     activeConversations = [conversationManager activeConversations];
     v8 = [activeConversations bs_firstObjectPassingTest:&stru_1000185D8];
 
-    v9 = sub_100005368();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_100005368(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if (v8)
     {
-      if (v10)
+      if (v11)
       {
         uUID = [v8 UUID];
-        v15 = 136315650;
-        v16 = "[ContinuityCaptureShieldUIViewController _disconnectFaceTimeIfNecessary]";
-        v17 = 2112;
+        v16 = 136315650;
+        v17 = "[ContinuityCaptureShieldUIViewController _disconnectFaceTimeIfNecessary]";
+        v18 = 2112;
         selfCopy2 = self;
-        v19 = 2112;
-        v20 = uUID;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: %@ - Disconnect pressed, leaving conversation: %@", &v15, 0x20u);
+        v20 = 2112;
+        v21 = uUID;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: %@ - Disconnect pressed, leaving conversation: %@", &v16, 0x20u);
       }
 
-      v12 = +[TUCallCenter sharedInstance];
-      conversationManager2 = [v12 conversationManager];
+      v13 = +[TUCallCenter sharedInstance];
+      conversationManager2 = [v13 conversationManager];
       uUID2 = [v8 UUID];
       [conversationManager2 leaveConversationWithUUID:uUID2];
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        v15 = 136315394;
-        v16 = "[ContinuityCaptureShieldUIViewController _disconnectFaceTimeIfNecessary]";
-        v17 = 2112;
+        v16 = 136315394;
+        v17 = "[ContinuityCaptureShieldUIViewController _disconnectFaceTimeIfNecessary]";
+        v18 = 2112;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: %@ - Disconnect pressed, but not in active conversation. Disconnecting all calls", &v15, 0x16u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: %@ - Disconnect pressed, but not in active conversation. Disconnecting all calls", &v16, 0x16u);
       }
 
-      v12 = +[TUCallCenter sharedInstance];
-      [v12 disconnectAllCalls];
+      v13 = +[TUCallCenter sharedInstance];
+      [v13 disconnectAllCalls];
     }
   }
 }
@@ -853,28 +854,28 @@ LABEL_7:
 
   if (v11)
   {
-    v15 = activeSplitSessionTV == 0;
+    v16 = activeSplitSessionTV == 0;
   }
 
   else
   {
-    v15 = 1;
+    v16 = 1;
   }
 
-  if (v15)
+  if (v16)
   {
-    v16 = sub_100005368();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100005368(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315906;
-      v19 = "[ContinuityCaptureShieldUIViewController contentViewDidSelectFaceTimeButton:completion:]";
-      v20 = 2112;
+      v19 = 136315906;
+      v20 = "[ContinuityCaptureShieldUIViewController contentViewDidSelectFaceTimeButton:completion:]";
+      v21 = 2112;
       selfCopy = self;
-      v22 = 2112;
-      v23 = activeSplitSessionTV;
-      v24 = 2112;
-      v25 = v11;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s: %@ facetime button tapped but deviceHandle=%@ and conversation=%@", &v18, 0x2Au);
+      v23 = 2112;
+      v24 = activeSplitSessionTV;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s: %@ facetime button tapped but deviceHandle=%@ and conversation=%@", &v19, 0x2Au);
     }
 
     completionCopy[2](completionCopy);
@@ -882,26 +883,26 @@ LABEL_7:
 
   else
   {
-    objc_initWeak(&v18, self);
-    v17 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_10000411C;
-    v26[3] = &unk_100018620;
-    objc_copyWeak(&v30, &v18);
-    v27 = v11;
-    v28 = activeSplitSessionTV;
-    v29 = completionCopy;
-    [v17 prepareForPullConversation:v26];
+    objc_initWeak(&v19, self);
+    v18 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10000411C;
+    v27[3] = &unk_100018620;
+    objc_copyWeak(&v31, &v19);
+    v28 = v11;
+    v29 = activeSplitSessionTV;
+    v30 = completionCopy;
+    [v18 prepareForPullConversation:v27];
 
-    objc_destroyWeak(&v30);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v19);
   }
 }
 
 - (void)contentViewDidSelectSkipButton:(id)button
 {
-  v4 = sub_100005368();
+  v4 = sub_100005368(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -917,29 +918,29 @@ LABEL_7:
 
 - (void)contentViewDidSelectFavoritesButton:(id)button
 {
-  v4 = sub_100005368();
+  v4 = sub_100005368(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "[ContinuityCaptureShieldUIViewController contentViewDidSelectFavoritesButton:]";
-    v14 = 2112;
+    v14 = "[ContinuityCaptureShieldUIViewController contentViewDidSelectFavoritesButton:]";
+    v15 = 2112;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s:  %@", buf, 0x16u);
   }
 
-  v10[0] = FBSOpenApplicationOptionKeyUnlockDevice;
-  v10[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
-  v11[0] = &__kCFBooleanTrue;
-  v11[1] = &__kCFBooleanTrue;
-  v5 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v11[0] = FBSOpenApplicationOptionKeyUnlockDevice;
+  v11[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
+  v12[0] = &__kCFBooleanTrue;
+  v12[1] = &__kCFBooleanTrue;
+  v5 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
   v6 = +[LSApplicationWorkspace defaultWorkspace];
   v7 = [NSURL URLWithString:@"mobilephone-favorites://"];
   v8 = [v6 openSensitiveURL:v7 withOptions:v5];
 
   if ((v8 & 1) == 0)
   {
-    v9 = sub_100005368();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100005368(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10000BF2C();
     }

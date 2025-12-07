@@ -15,6 +15,8 @@
 - (int64_t)_numberOfSections;
 - (void)_handleIndexPathSelection:(id)selection;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -44,6 +46,20 @@
   [(AXRDeviceActionsViewController *)&v4 viewDidLoad];
   tableView = [(AXRDeviceActionsViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"CellIdentifier"];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AXRDeviceActionsViewController;
+  [(AXRDeviceActionsViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = AXRDeviceActionsViewController;
+  [(AXRDeviceActionsViewController *)&v3 viewDidDisappear:disappear];
 }
 
 - (int64_t)_numberOfSections

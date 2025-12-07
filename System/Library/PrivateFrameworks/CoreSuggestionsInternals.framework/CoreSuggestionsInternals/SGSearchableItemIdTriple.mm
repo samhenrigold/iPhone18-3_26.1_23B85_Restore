@@ -36,60 +36,8 @@
 {
   tripleCopy = triple;
   v5 = tripleCopy;
-  if (!tripleCopy)
+  if (!tripleCopy || (v6 = self->_bundleId == 0, [tripleCopy bundleId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (bundleId = self->_bundleId) != 0 && (objc_msgSend(v5, "bundleId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](bundleId, "isEqual:", v10), v10, !v11) || (v12 = self->_domainId == 0, objc_msgSend(v5, "domainId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (domainId = self->_domainId) != 0 && (objc_msgSend(v5, "domainId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](domainId, "isEqual:", v16), v16, !v17) || (v18 = self->_uniqueId == 0, objc_msgSend(v5, "uniqueId"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_bundleId == 0;
-  bundleId = [tripleCopy bundleId];
-  v8 = bundleId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  bundleId = self->_bundleId;
-  if (bundleId)
-  {
-    bundleId2 = [v5 bundleId];
-    v11 = [(NSString *)bundleId isEqual:bundleId2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_domainId == 0;
-  domainId = [v5 domainId];
-  v14 = domainId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  domainId = self->_domainId;
-  if (domainId)
-  {
-    domainId2 = [v5 domainId];
-    v17 = [(NSString *)domainId isEqual:domainId2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_uniqueId == 0;
-  uniqueId = [v5 uniqueId];
-  v20 = uniqueId != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -98,8 +46,8 @@ LABEL_11:
     uniqueId = self->_uniqueId;
     if (uniqueId)
     {
-      uniqueId2 = [v5 uniqueId];
-      v23 = [(NSString *)uniqueId isEqual:uniqueId2];
+      uniqueId = [v5 uniqueId];
+      v23 = [(NSString *)uniqueId isEqual:uniqueId];
     }
 
     else

@@ -31,7 +31,6 @@
 
 uint64_t __33__ADAMSBagManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_0 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();

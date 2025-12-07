@@ -1779,7 +1779,7 @@ LABEL_16:
   v41 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   *buf = v40;

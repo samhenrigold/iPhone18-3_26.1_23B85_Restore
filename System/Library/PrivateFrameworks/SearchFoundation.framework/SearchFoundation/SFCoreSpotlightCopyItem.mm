@@ -13,11 +13,11 @@
 
 - (SFCoreSpotlightCopyItem)initWithProtobuf:(id)protobuf
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v35.receiver = self;
-  v35.super_class = SFCoreSpotlightCopyItem;
-  v5 = [(SFCoreSpotlightCopyItem *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = SFCoreSpotlightCopyItem;
+  v5 = [(SFCoreSpotlightCopyItem *)&v34 init];
   if (v5)
   {
     dataProviderTypeIdentifiers = [protobufCopy dataProviderTypeIdentifiers];
@@ -31,32 +31,32 @@
       v7 = 0;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     dataProviderTypeIdentifiers2 = [protobufCopy dataProviderTypeIdentifiers];
-    v9 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v9 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(dataProviderTypeIdentifiers2);
           }
 
-          if (*(*(&v31 + 1) + 8 * i))
+          if (*(*(&v30 + 1) + 8 * i))
           {
             [v7 addObject:?];
           }
         }
 
-        v10 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v10 = [dataProviderTypeIdentifiers2 countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v10);
@@ -74,32 +74,32 @@
       v14 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     fileProviderTypeIdentifiers2 = [protobufCopy fileProviderTypeIdentifiers];
-    v16 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v16 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v26 objects:v35 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(fileProviderTypeIdentifiers2);
           }
 
-          if (*(*(&v27 + 1) + 8 * j))
+          if (*(*(&v26 + 1) + 8 * j))
           {
             [v14 addObject:?];
           }
         }
 
-        v17 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v17 = [fileProviderTypeIdentifiers2 countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v17);
@@ -125,7 +125,6 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

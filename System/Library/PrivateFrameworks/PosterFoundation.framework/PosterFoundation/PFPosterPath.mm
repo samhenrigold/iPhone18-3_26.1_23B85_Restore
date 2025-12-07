@@ -20,10 +20,10 @@
 - (id)extendValidityForReason:(id)reason;
 - (id)loadUserInfoWithError:(id *)error;
 - (int64_t)compareDescriptorIdentifiers:(id)identifiers;
+- (os_unfair_lock)_lock_descriptionWithDebugInfo:(os_unfair_lock *)info;
 - (uint64_t)_initDecodedWithContentsURL:(void *)l role:(void *)role serverIdentity:(void *)identity descriptorIdentifier:(uint64_t)identifier sandboxExtensionHandle:;
 - (uint64_t)_isEqualToPersistable:(uint64_t)persistable;
 - (uint64_t)_sandboxExtensionLevel;
-- (unsigned)_lock_descriptionWithDebugInfo:(const os_unfair_lock *)info;
 - (void)_extendReadAccessForURL:(void *)l toAuditToken:(void *)token error:;
 - (void)_initWithContentsURL:(void *)l role:(char)role options:(void *)options serverIdentity:(void *)identity descriptorIdentifier:(uint64_t)identifier sandboxExtensionHandle:(void *)handle sandboxExtensionURL:(void *)rL sandboxExtensionAuditToken:;
 - (void)_invalidate;
@@ -113,9 +113,9 @@ LABEL_11:
     return;
   }
 
-  v40.receiver = self;
-  v40.super_class = PFPosterPath;
-  v22 = objc_msgSendSuper2(&v40, sel_init);
+  v41.receiver = self;
+  v41.super_class = PFPosterPath;
+  v22 = objc_msgSendSuper2(&v41, sel_init);
   if (v22)
   {
     v23 = v22;
@@ -149,26 +149,26 @@ LABEL_11:
     if (*(v23 + 8))
     {
       os_unfair_lock_lock(&__allPathsLock);
-      v36 = _MergedGlobals;
+      v37 = _MergedGlobals;
       if (!_MergedGlobals)
       {
-        v37 = [MEMORY[0x1E696AC70] hashTableWithOptions:517];
-        v38 = _MergedGlobals;
-        _MergedGlobals = v37;
+        v38 = [MEMORY[0x1E696AC70] hashTableWithOptions:517];
+        v39 = _MergedGlobals;
+        _MergedGlobals = v38;
 
-        v36 = _MergedGlobals;
+        v37 = _MergedGlobals;
       }
 
-      [v36 addObject:v23];
+      [v37 addObject:v23];
       os_unfair_lock_unlock(&__allPathsLock);
     }
 
     if (*(v23 + 76))
     {
-      v39 = PFLogPosterContents();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v40 = PFLogPosterContents(v36);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [PFPosterPath _initWithContentsURL:v23 role:v39 options:? serverIdentity:? descriptorIdentifier:? sandboxExtensionHandle:? sandboxExtensionURL:? sandboxExtensionAuditToken:?];
+        [PFPosterPath _initWithContentsURL:v23 role:v40 options:? serverIdentity:? descriptorIdentifier:? sandboxExtensionHandle:? sandboxExtensionURL:? sandboxExtensionAuditToken:?];
       }
     }
 
@@ -210,7 +210,7 @@ LABEL_11:
 
 + (uint64_t)_reportSandboxExtensionError:(uint64_t)error withCode:(void *)code reason:(uint64_t)reason
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v12 = objc_opt_self();
   if (![codeCopy length])
@@ -220,28 +220,27 @@ LABEL_11:
 
   v13 = NSStringFromClass(v12);
   v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:codeCopy arguments:&a9];
-  v15 = PFLogPosterContents();
+  v15 = PFLogPosterContents(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v23 = v13;
-    v24 = 2048;
+    v22 = v13;
+    v23 = 2048;
     errorCopy = error;
-    v26 = 2114;
-    v27 = v14;
+    v25 = 2114;
+    v26 = v14;
     _os_log_error_impl(&dword_1C269D000, v15, OS_LOG_TYPE_ERROR, "SandboxExtensionError: domain=%{publid}@ code=%lli reason=%{public}@", buf, 0x20u);
   }
 
   if (a2)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A588];
-    v21 = v14;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A588];
+    v20 = v14;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     *a2 = [v16 errorWithDomain:v13 code:error userInfo:v17];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -315,60 +314,60 @@ id __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2(uint64_t a
 
 + (id)debugDescription
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   os_unfair_lock_lock(&__allPathsLock);
   v3 = [MEMORY[0x1E695DFA8] set];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   objectEnumerator = [qword_1ED8486E8 objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v57 objects:v65 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v56 objects:v64 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v58;
+    v7 = *v57;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v58 != v7)
+        if (*v57 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v57 + 1) + 8 * i);
+        v9 = *(*(&v56 + 1) + 8 * i);
+        v52 = 0u;
         v53 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
         objectEnumerator2 = [v9 objectEnumerator];
-        v11 = [objectEnumerator2 countByEnumeratingWithState:&v53 objects:v64 count:16];
+        v11 = [objectEnumerator2 countByEnumeratingWithState:&v52 objects:v63 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v54;
+          v13 = *v53;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v54 != v13)
+              if (*v53 != v13)
               {
                 objc_enumerationMutation(objectEnumerator2);
               }
 
-              [v3 addObject:*(*(&v53 + 1) + 8 * j)];
+              [v3 addObject:*(*(&v52 + 1) + 8 * j)];
             }
 
-            v12 = [objectEnumerator2 countByEnumeratingWithState:&v53 objects:v64 count:16];
+            v12 = [objectEnumerator2 countByEnumeratingWithState:&v52 objects:v63 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v56 objects:v64 count:16];
     }
 
     while (v6);
@@ -378,26 +377,26 @@ id __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2(uint64_t a
   v16 = [allObjects sortedArrayUsingComparator:&__block_literal_global_83];
 
   array = [MEMORY[0x1E695DF70] array];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v18 = _MergedGlobals;
-  v19 = [v18 countByEnumeratingWithState:&v49 objects:v63 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v48 objects:v62 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v50;
+    v21 = *v49;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v50 != v21)
+        if (*v49 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * k);
+        v23 = *(*(&v48 + 1) + 8 * k);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 containsObject:v23] & 1) == 0)
         {
@@ -405,7 +404,7 @@ id __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2(uint64_t a
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v48 objects:v62 count:16];
     }
 
     while (v20);
@@ -414,64 +413,64 @@ id __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2(uint64_t a
   [array sortUsingComparator:&__block_literal_global_88];
   os_unfair_lock_unlock(&__allPathsLock);
   v24 = [MEMORY[0x1E696AD60] stringWithFormat:@"cachedServerPaths = %llu {", objc_msgSend(v16, "count")];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v25 = v16;
-  v26 = [v25 countByEnumeratingWithState:&v45 objects:v62 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v44 objects:v61 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v46;
+    v28 = *v45;
     do
     {
       for (m = 0; m != v27; ++m)
       {
-        if (*v46 != v28)
+        if (*v45 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v45 + 1) + 8 * m);
+        v30 = *(*(&v44 + 1) + 8 * m);
         [v24 appendString:@"\n\t"];
         v31 = [v30 debugDescription];
         [v24 appendString:v31];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v45 objects:v62 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v44 objects:v61 count:16];
     }
 
     while (v27);
   }
 
   [v24 appendFormat:@"\n}\notherPaths = %llu {", objc_msgSend(array, "count")];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v32 = array;
-  v33 = [v32 countByEnumeratingWithState:&v41 objects:v61 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v40 objects:v60 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v42;
+    v35 = *v41;
     do
     {
       for (n = 0; n != v34; ++n)
       {
-        if (*v42 != v35)
+        if (*v41 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v41 + 1) + 8 * n);
+        v37 = *(*(&v40 + 1) + 8 * n);
         [v24 appendString:@"\n\t"];
         v38 = [v37 debugDescription];
         [v24 appendString:v38];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v41 objects:v61 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v40 objects:v60 count:16];
     }
 
     while (v34);
@@ -479,7 +478,6 @@ id __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2(uint64_t a
 
   [v24 appendString:@"\n}"];
   objc_autoreleasePoolPop(v2);
-  v39 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -690,53 +688,53 @@ uint64_t __32__PFPosterPath_debugDescription__block_invoke_2(uint64_t a1, void *
 
 uint64_t __41__PFPosterPath_copyContentsOfPath_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v31 = a4;
-  v49 = *MEMORY[0x1E69E9840];
+  v30 = a4;
+  v48 = *MEMORY[0x1E69E9840];
   v6 = a2;
-  v33 = a3;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__6;
-  v44 = __Block_byref_object_dispose__6;
-  v45 = 0;
+  v32 = a3;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__6;
+  v43 = __Block_byref_object_dispose__6;
+  v44 = 0;
   v7 = *(a1 + 32);
-  v32 = v6;
+  v31 = v6;
   v8 = [v6 contentsURL];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __41__PFPosterPath_copyContentsOfPath_error___block_invoke_123;
-  v39[3] = &unk_1E818A300;
-  v39[4] = &v40;
-  v9 = [v7 enumeratorAtURL:v8 includingPropertiesForKeys:0 options:17 errorHandler:v39];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __41__PFPosterPath_copyContentsOfPath_error___block_invoke_123;
+  v38[3] = &unk_1E818A300;
+  v38[4] = &v39;
+  v9 = [v7 enumeratorAtURL:v8 includingPropertiesForKeys:0 options:17 errorHandler:v38];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v48 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v47 count:16];
   if (v11)
   {
-    v12 = *v36;
+    v12 = *v35;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        if (v41[5])
+        if (v40[5])
         {
           goto LABEL_18;
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = MEMORY[0x1E695DFF8];
         v16 = [v14 relativePath];
-        v17 = [v33 contentsURL];
+        v17 = [v32 contentsURL];
         v18 = [v15 fileURLWithPath:v16 relativeToURL:v17];
         v19 = [v18 absoluteURL];
 
@@ -746,26 +744,26 @@ uint64_t __41__PFPosterPath_copyContentsOfPath_error___block_invoke(uint64_t a1,
         }
 
         v20 = *(a1 + 32);
-        v34 = 0;
-        v21 = [v20 copyItemAtURL:v14 toURL:v19 error:{&v34, v31}];
-        v22 = v34;
+        v33 = 0;
+        v21 = [v20 copyItemAtURL:v14 toURL:v19 error:{&v33, v30}];
+        v22 = v33;
         v23 = v22;
         if ((v21 & 1) == 0)
         {
           if (v22)
           {
             v25 = v22;
-            *v31 = v23;
+            *v30 = v23;
           }
 
           else
           {
             v26 = MEMORY[0x1E696ABC0];
-            v46 = *MEMORY[0x1E696A588];
-            v47 = @"Unable to copy files";
-            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+            v45 = *MEMORY[0x1E696A588];
+            v46 = @"Unable to copy files";
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
             v28 = [v26 pf_errorWithCode:1 userInfo:v27];
-            *v31 = v28;
+            *v30 = v28;
           }
 
 LABEL_18:
@@ -774,7 +772,7 @@ LABEL_18:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v35 objects:v48 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v34 objects:v47 count:16];
       v24 = 1;
       if (v11)
       {
@@ -792,8 +790,7 @@ LABEL_18:
 
 LABEL_19:
 
-  _Block_object_dispose(&v40, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v39, 8);
   return v24;
 }
 
@@ -801,39 +798,40 @@ LABEL_19:
 {
   v5 = objc_opt_new();
   contentsURL = self->_contentsURL;
-  v16 = 0;
-  v7 = [(NSURL *)contentsURL checkResourceIsReachableAndReturnError:&v16];
-  v8 = v16;
+  v17 = 0;
+  v7 = [(NSURL *)contentsURL checkResourceIsReachableAndReturnError:&v17];
+  v8 = v17;
+  v9 = v8;
   if (v7)
   {
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = self->_contentsURL;
-    v11 = PFPosterPathFileAttributes();
-    v15 = 0;
-    v9 = [v5 createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:v11 error:&v15];
-    v12 = v15;
+    v11 = self->_contentsURL;
+    v12 = PFPosterPathFileAttributes(v8);
+    v16 = 0;
+    v10 = [v5 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:v12 error:&v16];
+    v13 = v16;
 
-    if ((v9 & 1) == 0 && error)
+    if ((v10 & 1) == 0 && error)
     {
-      if (v12)
+      if (v13)
       {
-        v13 = v12;
+        v14 = v13;
       }
 
       else
       {
-        v13 = v8;
+        v14 = v9;
       }
 
-      *error = v13;
+      *error = v14;
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (int64_t)compareDescriptorIdentifiers:(id)identifiers
@@ -955,31 +953,30 @@ LABEL_19:
     v14 = selfCopy->_userInfo;
     selfCopy->_userInfo = 0;
 
-    v15 = PFLogPosterContents();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = PFLogPosterContents(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       if (error)
       {
-        v16 = *error;
+        v17 = *error;
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
       v19[0] = 67240706;
       v19[1] = v12;
       v20 = 2114;
-      v21 = v16;
+      v21 = v17;
       v22 = 2112;
       v23 = selfCopy;
-      _os_log_impl(&dword_1C269D000, v15, OS_LOG_TYPE_DEFAULT, "erasing userInfo: %{public}i %{public}@ (path=%@)", v19, 0x1Cu);
+      _os_log_impl(&dword_1C269D000, v16, OS_LOG_TYPE_DEFAULT, "erasing userInfo: %{public}i %{public}@ (path=%@)", v19, 0x1Cu);
     }
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1146,53 +1143,53 @@ void __40__PFPosterPath_extendValidityForReason___block_invoke(uint64_t a1, void
 
 - (void)_lock_purgeIfPossible
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_32;
+    return;
   }
 
   v2 = OUTLINED_FUNCTION_12_0(self);
   os_unfair_lock_assert_owner(v2);
   if ((*(v1 + 80) & 1) != 0 || *(v1 + 79) != 1 || *(v1 + 77))
   {
-    goto LABEL_32;
+    return;
   }
 
   *(v1 + 80) = 1;
   if (*(v1 + 64) != -1)
   {
     *__error() = 0;
-    v3 = *(v1 + 64);
-    if (sandbox_extension_release())
+    v3 = sandbox_extension_release();
+    if (v3)
     {
       v4 = __error();
-      strerror_r(*v4, __strerrbuf, 0x100uLL);
-      v5 = PFLogPosterContents();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v5 = strerror_r(*v4, __strerrbuf, 0x100uLL);
+      v6 = PFLogPosterContents(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v6 = *__error();
-        v7 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
+        v7 = *__error();
+        v8 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
         *buf = 67109634;
-        v23 = v6;
-        v24 = 2082;
-        v25 = __strerrbuf;
-        v26 = 2114;
-        v27 = v7;
-        _os_log_error_impl(&dword_1C269D000, v5, OS_LOG_TYPE_ERROR, "failed to release sandboxExtensionHandle with errno=%i (%{public}s) : %{public}@", buf, 0x1Cu);
+        v24 = v7;
+        v25 = 2082;
+        v26 = __strerrbuf;
+        v27 = 2114;
+        v28 = v8;
+        _os_log_error_impl(&dword_1C269D000, v6, OS_LOG_TYPE_ERROR, "failed to release sandboxExtensionHandle with errno=%i (%{public}s) : %{public}@", buf, 0x1Cu);
 LABEL_36:
       }
     }
 
     else
     {
-      v5 = PFLogPosterContents();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = PFLogPosterContents(v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
+        v8 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
         *__strerrbuf = 138543362;
-        v29 = v7;
-        _os_log_debug_impl(&dword_1C269D000, v5, OS_LOG_TYPE_DEBUG, "released sandboxExtensionHandle : %{public}@", __strerrbuf, 0xCu);
+        v30 = v8;
+        _os_log_debug_impl(&dword_1C269D000, v6, OS_LOG_TYPE_DEBUG, "released sandboxExtensionHandle : %{public}@", __strerrbuf, 0xCu);
         goto LABEL_36;
       }
     }
@@ -1203,34 +1200,34 @@ LABEL_36:
     goto LABEL_18;
   }
 
-  v8 = objc_opt_new();
-  v9 = *(v1 + 8);
-  v21 = 0;
-  v10 = [v8 removeItemAtURL:v9 error:&v21];
-  v11 = v21;
+  v9 = objc_opt_new();
+  v10 = *(v1 + 8);
+  v22 = 0;
+  v11 = [v9 removeItemAtURL:v10 error:&v22];
+  v12 = v22;
 
-  v12 = PFLogPosterContents();
-  v13 = v12;
-  if (!v10 || v11)
+  v14 = PFLogPosterContents(v13);
+  v15 = v14;
+  if (!v11 || v12)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
+      v16 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
       *__strerrbuf = 138543618;
-      v29 = v11;
-      v30 = 2114;
-      v31 = v14;
-      _os_log_error_impl(&dword_1C269D000, v13, OS_LOG_TYPE_ERROR, "failed to purge contents with error=%{public}@ : contents=%{public}@", __strerrbuf, 0x16u);
+      v30 = v12;
+      v31 = 2114;
+      v32 = v16;
+      _os_log_error_impl(&dword_1C269D000, v15, OS_LOG_TYPE_ERROR, "failed to purge contents with error=%{public}@ : contents=%{public}@", __strerrbuf, 0x16u);
       goto LABEL_34;
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
+    v16 = [(PFPosterPath *)v1 _lock_descriptionWithDebugInfo:?];
     *__strerrbuf = 138543362;
-    v29 = v14;
-    _os_log_debug_impl(&dword_1C269D000, v13, OS_LOG_TYPE_DEBUG, "purged contents : %{public}@", __strerrbuf, 0xCu);
+    v30 = v16;
+    _os_log_debug_impl(&dword_1C269D000, v15, OS_LOG_TYPE_DEBUG, "purged contents : %{public}@", __strerrbuf, 0xCu);
 LABEL_34:
   }
 
@@ -1238,9 +1235,9 @@ LABEL_18:
   if (*(v1 + 8))
   {
     os_unfair_lock_lock(&__allPathsLock);
-    v15 = [_MergedGlobals member:v1];
-    v16 = v15;
-    if (v15 == v1 || !v15)
+    v17 = [_MergedGlobals member:v1];
+    v18 = v17;
+    if (v17 == v1 || !v17)
     {
       [_MergedGlobals removeObject:v1];
     }
@@ -1249,18 +1246,18 @@ LABEL_18:
     if (*(v1 + 16))
     {
       os_unfair_lock_lock(&__cachedServerPathsByIdentityByURLLock);
-      v17 = [qword_1ED8486E8 objectForKey:*(v1 + 8)];
-      v18 = v17;
-      if (v17)
+      v19 = [qword_1ED8486E8 objectForKey:*(v1 + 8)];
+      v20 = v19;
+      if (v19)
       {
-        v19 = [v17 objectForKey:*(v1 + 16)];
+        v21 = [v19 objectForKey:*(v1 + 16)];
 
-        if (v19 == v1 || !v19)
+        if (v21 == v1 || !v21)
         {
-          [v18 removeObjectForKey:*(v1 + 16)];
+          [v20 removeObjectForKey:*(v1 + 16)];
         }
 
-        if (![v18 count])
+        if (![v20 count])
         {
           [qword_1ED8486E8 removeObjectForKey:*(v1 + 8)];
         }
@@ -1268,23 +1265,20 @@ LABEL_18:
 
       else
       {
-        v19 = v16;
+        v21 = v18;
       }
 
       os_unfair_lock_unlock(&__cachedServerPathsByIdentityByURLLock);
 
-      v16 = v19;
+      v18 = v21;
     }
   }
-
-LABEL_32:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-- (unsigned)_lock_descriptionWithDebugInfo:(const os_unfair_lock *)info
+- (os_unfair_lock)_lock_descriptionWithDebugInfo:(os_unfair_lock *)info
 {
   infoCopy = info;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (!info)
   {
     goto LABEL_28;
@@ -1292,7 +1286,7 @@ LABEL_32:
 
   os_unfair_lock_assert_owner(info + 18);
   v4 = &stru_1F425B6D8;
-  if (infoCopy[80])
+  if (LOBYTE(infoCopy[20]._os_unfair_lock_opaque))
   {
     v5 = @":purged";
   }
@@ -1306,115 +1300,115 @@ LABEL_32:
   v7 = &stru_1F425B6D8;
   if (a2)
   {
-    if (*(infoCopy + 8) == -1)
+    if (*&infoCopy[16]._os_unfair_lock_opaque == -1)
     {
-      if (!*(infoCopy + 6))
+      if (!*&infoCopy[12]._os_unfair_lock_opaque)
       {
         v7 = &stru_1F425B6D8;
 LABEL_9:
-        if (infoCopy[78])
+        if (BYTE2(infoCopy[19]._os_unfair_lock_opaque))
         {
-          v40 = v7;
-          v41 = v6;
+          v39 = v7;
+          v40 = v6;
           dictionary = [MEMORY[0x1E695DF90] dictionary];
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
-          v9 = *(infoCopy + 5);
-          v10 = [v9 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          v9 = *&infoCopy[10]._os_unfair_lock_opaque;
+          v10 = [v9 countByEnumeratingWithState:&v45 objects:v49 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v47;
+            v12 = *v46;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v47 != v12)
+                if (*v46 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                reason = [*(*(&v46 + 1) + 8 * i) reason];
+                reason = [*(*(&v45 + 1) + 8 * i) reason];
                 v15 = MEMORY[0x1E696AD98];
                 v16 = [dictionary objectForKey:reason];
                 v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(v16, "unsignedIntegerValue") + 1}];
                 [dictionary setObject:v17 forKey:reason];
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v46 objects:v50 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v45 objects:v49 count:16];
             }
 
             while (v11);
           }
 
           allKeys = [dictionary allKeys];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke;
-          v44[3] = &unk_1E818A270;
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke;
+          v43[3] = &unk_1E818A270;
           v19 = dictionary;
-          v45 = v19;
-          v20 = [allKeys sortedArrayUsingComparator:v44];
+          v44 = v19;
+          v20 = [allKeys sortedArrayUsingComparator:v43];
 
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2;
-          v42[3] = &unk_1E818A298;
-          v43 = v19;
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __47__PFPosterPath__lock_descriptionWithDebugInfo___block_invoke_2;
+          v41[3] = &unk_1E818A298;
+          v42 = v19;
           v21 = v19;
-          v22 = [v20 bs_map:v42];
+          v22 = [v20 bs_map:v41];
           v23 = MEMORY[0x1E696AD60];
-          v24 = infoCopy[77];
-          v25 = infoCopy[78];
+          v24 = BYTE1(infoCopy[19]._os_unfair_lock_opaque);
+          v25 = BYTE2(infoCopy[19]._os_unfair_lock_opaque);
           v26 = [v22 componentsJoinedByString:{@", "}];
           v4 = [v23 stringWithFormat:@" eCount=%u(%u) eReasons=%@", v24, v25, v26];
 
-          v7 = v40;
-          v6 = v41;
+          v7 = v39;
+          v6 = v40;
         }
 
         goto LABEL_18;
       }
 
-      v35 = *(infoCopy + 7);
+      v35 = *&infoCopy[14]._os_unfair_lock_opaque;
       if (v35)
       {
-        [MEMORY[0x1E696AEC0] stringWithFormat:@" sURL=%@ sDest=%@", *(infoCopy + 6), v35];
+        [MEMORY[0x1E696AEC0] stringWithFormat:@" sURL=%@ sDest=%@", *&infoCopy[12]._os_unfair_lock_opaque, v35];
       }
 
       else
       {
-        [MEMORY[0x1E696AEC0] stringWithFormat:@" sURL=%@", *(infoCopy + 6), v38];
+        [MEMORY[0x1E696AEC0] stringWithFormat:@" sURL=%@", *&infoCopy[12]._os_unfair_lock_opaque, v37];
       }
     }
 
     else
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@" sHandle=%lli", *(infoCopy + 8), v38];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@" sHandle=%lli", *&infoCopy[16]._os_unfair_lock_opaque, v37];
     }
     v7 = ;
     goto LABEL_9;
   }
 
 LABEL_18:
-  if (*(infoCopy + 2))
+  if (*&infoCopy[4]._os_unfair_lock_opaque)
   {
     v27 = MEMORY[0x1E696AEC0];
     v28 = objc_opt_class();
     descriptorIdentifier = NSStringFromClass(v28);
-    infoCopy = [v27 stringWithFormat:@"<%@:%p%@ %@%@%@>", descriptorIdentifier, infoCopy, v6, *(infoCopy + 2), v7, v4];
+    infoCopy = [v27 stringWithFormat:@"<%@:%p%@ %@%@%@>", descriptorIdentifier, infoCopy, v6, *&infoCopy[4]._os_unfair_lock_opaque, v7, v4];
   }
 
   else
   {
-    descriptorIdentifier = [infoCopy descriptorIdentifier];
+    descriptorIdentifier = [(os_unfair_lock *)infoCopy descriptorIdentifier];
     v30 = MEMORY[0x1E696AEC0];
     v31 = objc_opt_class();
     v32 = NSStringFromClass(v31);
-    v33 = *(infoCopy + 4);
-    fileSystemRepresentation = [*(infoCopy + 1) fileSystemRepresentation];
+    v33 = *&infoCopy[8]._os_unfair_lock_opaque;
+    fileSystemRepresentation = [*&infoCopy[2]._os_unfair_lock_opaque fileSystemRepresentation];
     if (descriptorIdentifier)
     {
       [v30 stringWithFormat:@"<%@:%p%@ descriptor='%@' role='%@' contents='%s'%@%@>", v32, infoCopy, v6, descriptorIdentifier, v33, fileSystemRepresentation, v7, v4];
@@ -1422,13 +1416,12 @@ LABEL_18:
 
     else
     {
-      [v30 stringWithFormat:@"<%@:%p%@ role='%@' contents='%s'%@%@>", v32, infoCopy, v6, v33, fileSystemRepresentation, v7, v4, v39];
+      [v30 stringWithFormat:@"<%@:%p%@ role='%@' contents='%s'%@%@>", v32, infoCopy, v6, v33, fileSystemRepresentation, v7, v4, v38];
     }
     infoCopy = ;
   }
 
 LABEL_28:
-  v36 = *MEMORY[0x1E69E9840];
 
   return infoCopy;
 }
@@ -1511,7 +1504,7 @@ LABEL_11:
 
 - (uint64_t)_initDecodedWithContentsURL:(void *)l role:(void *)role serverIdentity:(void *)identity descriptorIdentifier:(uint64_t)identifier sandboxExtensionHandle:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v11 = a2;
   lCopy = l;
   roleCopy = role;
@@ -1525,17 +1518,18 @@ LABEL_11:
   if ((PFPosterRoleIsValid(lCopy) & 1) == 0)
   {
     OUTLINED_FUNCTION_4_3();
-    [(PFPosterPath *)v28 _initWithContentsURL:v29 role:v30 options:v31 serverIdentity:v32 descriptorIdentifier:v33 sandboxExtensionHandle:identifier sandboxExtensionURL:0 sandboxExtensionAuditToken:0];
-    v27 = v34;
-    [(PFPosterPath *)v34 _invalidate];
-    v35 = PFLogPosterContents();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    [(PFPosterPath *)v27 _initWithContentsURL:v28 role:v29 options:v30 serverIdentity:v31 descriptorIdentifier:v32 sandboxExtensionHandle:identifier sandboxExtensionURL:0 sandboxExtensionAuditToken:0];
+    v26 = v33;
+    [(PFPosterPath *)v33 _invalidate];
+    v35 = PFLogPosterContents(v34);
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    if (v36)
     {
-      v36 = PFPosterRolesSupportedForCurrentDeviceClass();
+      v37 = PFPosterRolesSupportedForCurrentDeviceClass(v36);
       *buf = 138543618;
-      v39 = lCopy;
-      v40 = 2114;
-      v41 = v36;
+      v40 = lCopy;
+      v41 = 2114;
+      v42 = v37;
       _os_log_error_impl(&dword_1C269D000, v35, OS_LOG_TYPE_ERROR, "Failed to decode PFPosterPath with invalid role: %{public}@, supported roles for device class: %{public}@", buf, 0x16u);
     }
 
@@ -1564,8 +1558,8 @@ LABEL_11:
   {
 LABEL_14:
     [(PFPosterPath *)self _initWithContentsURL:lCopy role:2 options:0 serverIdentity:0 descriptorIdentifier:identifier sandboxExtensionHandle:0 sandboxExtensionURL:0 sandboxExtensionAuditToken:?];
-    v27 = v26;
-    [(PFPosterPath *)v26 _invalidate];
+    v26 = v25;
+    [(PFPosterPath *)v25 _invalidate];
 LABEL_18:
 
 LABEL_19:
@@ -1584,62 +1578,58 @@ LABEL_19:
   v20 = roleCopy;
   v21 = 0;
 LABEL_11:
-  [(PFPosterPath *)v16 _initWithContentsURL:v17 role:v18 options:v19 serverIdentity:v20 descriptorIdentifier:v21 sandboxExtensionHandle:identifier sandboxExtensionURL:0 sandboxExtensionAuditToken:v37];
+  [(PFPosterPath *)v16 _initWithContentsURL:v17 role:v18 options:v19 serverIdentity:v20 descriptorIdentifier:v21 sandboxExtensionHandle:identifier sandboxExtensionURL:0 sandboxExtensionAuditToken:v38];
   v23 = v22;
 LABEL_12:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (id)_issueSandboxExtensionTokenWithContext:(xpc_object_t)context
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (context)
   {
     if (*(context + 6))
     {
       *__error() = 0;
-      v4 = *MEMORY[0x1E69E9BA8];
-      v5 = *(context + 7);
+      v4 = *(context + 7);
       [*(context + 6) fileSystemRepresentation];
-      v6 = *MEMORY[0x1E69E9BE0];
-      if (v5)
+      if (v4)
       {
-        v7 = *(context + 7);
-        if (v7)
+        v5 = *(context + 7);
+        if (v5)
         {
-          [v7 realToken];
+          objc_msgSend_realToken(v5);
         }
 
         else
         {
           *__strerrbuf = 0u;
-          v21 = 0u;
+          v16 = 0u;
         }
 
-        v9 = sandbox_extension_issue_file_to_process();
+        v6 = sandbox_extension_issue_file_to_process();
       }
 
       else
       {
-        v8 = *MEMORY[0x1E69E9BE0];
-        v9 = sandbox_extension_issue_file();
+        v6 = sandbox_extension_issue_file();
       }
 
-      v10 = v9;
-      if (v9)
+      v7 = v6;
+      if (v6)
       {
-        context = xpc_string_create(v9);
-        free(v10);
+        context = xpc_string_create(v6);
+        free(v7);
         goto LABEL_13;
       }
 
-      v11 = __error();
-      strerror_r(*v11, __strerrbuf, 0x100uLL);
-      v19 = *__error();
-      v16 = [PFPosterPath _reportSandboxExtensionError:2 withCode:@"%@: cannot extend access of %@ due to sandbox errno=%i (%s)" reason:v12, v13, v14, v15, v3];
+      v8 = __error();
+      strerror_r(*v8, __strerrbuf, 0x100uLL);
+      __error();
+      v13 = [PFPosterPath _reportSandboxExtensionError:2 withCode:@"%@: cannot extend access of %@ due to sandbox errno=%i (%s)" reason:v9, v10, v11, v12, v3];
     }
 
     context = 0;
@@ -1647,14 +1637,11 @@ LABEL_12:
 
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return context;
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_contentsURL forKey:@"c"];
   [coderCopy encodeObject:self->_serverIdentity forKey:@"i"];
@@ -1663,16 +1650,13 @@ LABEL_13:
   v5 = [(PFPosterPath *)self _issueSandboxExtensionTokenWithContext:?];
   if (v5)
   {
-    [coderCopy encodeXPCObject:v5 forKey:@"t"];
-    v6 = PFLogPosterContents();
+    v6 = PFLogPosterContents([coderCopy encodeXPCObject:v5 forKey:@"t"]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       OUTLINED_FUNCTION_9_1();
-      OUTLINED_FUNCTION_13(&dword_1C269D000, v8, v9, "created and bsxpc encoded sandboxToken %@ : %@", v10, v11, v12, v13, v14);
+      OUTLINED_FUNCTION_13(&dword_1C269D000, v7, v8, "created and bsxpc encoded sandboxToken %@ : %@", v9, v10, v11, v12);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)description
@@ -1680,7 +1664,7 @@ LABEL_13:
   v3 = OUTLINED_FUNCTION_12_0(self);
   os_unfair_lock_lock(v3);
   v4 = [(PFPosterPath *)v2 _lock_descriptionWithDebugInfo:?];
-  os_unfair_lock_unlock(&v2[18]);
+  os_unfair_lock_unlock(v2 + 18);
 
   return v4;
 }
@@ -1690,65 +1674,62 @@ LABEL_13:
   v3 = OUTLINED_FUNCTION_12_0(self);
   os_unfair_lock_lock(v3);
   v4 = [(PFPosterPath *)v2 _lock_descriptionWithDebugInfo:?];
-  os_unfair_lock_unlock(&v2[18]);
+  os_unfair_lock_unlock(v2 + 18);
 
   return v4;
 }
 
 - (void)_initWithContentsURL:(uint64_t)a1 role:(NSObject *)a2 options:serverIdentity:descriptorIdentifier:sandboxExtensionHandle:sandboxExtensionURL:sandboxExtensionAuditToken:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C269D000, a2, OS_LOG_TYPE_DEBUG, "created purgeable contents=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C269D000, a2, OS_LOG_TYPE_DEBUG, "created purgeable contents=%{public}@", &v2, 0xCu);
 }
 
 - (void)_initWithContentsURL:(const char *)a1 role:options:serverIdentity:descriptorIdentifier:sandboxExtensionHandle:sandboxExtensionURL:sandboxExtensionAuditToken:.cold.2(const char *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v5 = 138413314;
-  v6 = v1;
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2048;
-  v10 = 0;
-  v11 = 2112;
-  v12 = @"PFPosterPath.m";
-  v13 = 1024;
-  v14 = 163;
-  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %@ of <%@:%p> (%@:%i)", &v5, 0x30u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138413314;
+  v5 = v1;
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2048;
+  v9 = 0;
+  v10 = 2112;
+  v11 = @"PFPosterPath.m";
+  v12 = 1024;
+  v13 = 163;
+  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %@ of <%@:%p> (%@:%i)", &v4, 0x30u);
 }
 
 + (void)_reportSandboxExtensionError:(char *)a1 withCode:reason:.cold.1(char *a1)
 {
   v2 = MEMORY[0x1E696AEC0];
-  v11 = NSStringFromSelector(a1);
-  v3 = [v2 stringWithFormat:@"bad format string for %@"];
+  v3 = NSStringFromSelector(a1);
+  v4 = [v2 stringWithFormat:@"bad format string for %@", v3];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_11_0();
-    v5 = NSStringFromClass(v4);
+    v5 = OUTLINED_FUNCTION_11_0();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_14();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_extendReadAccessForURL:(char *)a1 toAuditToken:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extensionURL"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1756,7 +1737,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"extensionURL", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1766,7 +1747,7 @@ LABEL_13:
 
 + (void)temporaryDescriptorPathWithIdentifier:(char *)a1 role:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1774,7 +1755,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1785,28 +1766,27 @@ LABEL_13:
 + (void)temporaryDescriptorPathWithIdentifier:(uint64_t)a1 role:(char *)a2 .cold.2(uint64_t a1, char *a2)
 {
   v4 = MEMORY[0x1E696AEC0];
-  PFPosterRolesSupportedForCurrentDeviceClass();
-  v14 = v13 = a1;
-  v5 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@"];
+  v5 = PFPosterRolesSupportedForCurrentDeviceClass(a1);
+  v6 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@", a1, v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_11_0();
-    v7 = NSStringFromClass(v6);
+    v7 = OUTLINED_FUNCTION_11_0();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_14();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 + (void)temporaryDescriptorPathWithIdentifier:(char *)a1 role:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1814,7 +1794,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1825,29 +1805,27 @@ LABEL_13:
 + (void)temporaryPathForTask:(uint64_t)a1 role:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
   v4 = MEMORY[0x1E696AEC0];
-  PFPosterRolesSupportedForCurrentDeviceClass();
-  v14 = v13 = a1;
-  v5 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@"];
+  v5 = PFPosterRolesSupportedForCurrentDeviceClass(a1);
+  v6 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@", a1, v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_11_0();
-    v7 = NSStringFromClass(v6);
+    v7 = OUTLINED_FUNCTION_11_0();
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_14();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)storeUserInfo:(char *)a1 error:.cold.1(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1855,7 +1833,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v11, v12);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1864,44 +1842,44 @@ LABEL_13:
   __break(0);
 }
 
-- (void)extendValidityForReason:(const os_unfair_lock *)a1 .cold.1(const os_unfair_lock *a1, char *a2)
+- (void)extendValidityForReason:(os_unfair_lock *)a1 .cold.1(os_unfair_lock *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
-  v4 = [v3 stringWithFormat:@"validity overflow of %@"];
+  v4 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
+  v5 = [v3 stringWithFormat:@"validity overflow of %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_11_0();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_11_0();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_14();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)extendValidityForReason:(const os_unfair_lock *)a1 .cold.2(const os_unfair_lock *a1, char *a2)
+- (void)extendValidityForReason:(os_unfair_lock *)a1 .cold.2(os_unfair_lock *a1, char *a2)
 {
   v3 = MEMORY[0x1E696AEC0];
-  v12 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
-  v4 = [v3 stringWithFormat:@"cannot extend validity after invalidation of %@"];
+  v4 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
+  v5 = [v3 stringWithFormat:@"cannot extend validity after invalidation of %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_11_0();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_11_0();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_14();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1920,20 +1898,18 @@ void __40__PFPosterPath_extendValidityForReason___block_invoke_cold_1(char a1, _
   os_unfair_lock_unlock((*a3 + 72));
 }
 
-void __40__PFPosterPath_extendValidityForReason___block_invoke_cold_2(const os_unfair_lock *a1, uint64_t a2, uint64_t *a3)
+void __40__PFPosterPath_extendValidityForReason___block_invoke_cold_2(os_unfair_lock *a1, uint64_t a2, void *a3)
 {
-  v5 = MEMORY[0x1E696AEC0];
-  v15 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
-  v6 = [v5 stringWithFormat:@"validity underflow of %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [(PFPosterPath *)a1 _lock_descriptionWithDebugInfo:?];
+  v6 = [v4 stringWithFormat:@"validity underflow of %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(*(a2 + 40));
-    v8 = *a3;
-    v9 = objc_opt_class();
-    v17 = NSStringFromClass(v9);
-    v18 = *a3;
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16, 2u);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
   [v6 UTF8String];
@@ -1979,52 +1955,50 @@ void __40__PFPosterPath_extendValidityForReason___block_invoke_cold_2(const os_u
 
 - (BOOL)encodeWithCoder:(const char *)a3 .cold.1(uint64_t a1, uint64_t a2, const char *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   result = [(PFPosterPath *)a1 _isPersistable];
   if (!result)
   {
-    v7 = MEMORY[0x1E696AEC0];
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = [v7 stringWithFormat:@"<%@:%p> can only be encoded by %@ rather than %@ : %@", v9, a1, v11, v13, a1];
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = [v6 stringWithFormat:@"<%@:%p> can only be encoded by %@ rather than %@ : %@", v8, a1, v10, v12, a1];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(a3);
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v19 = 138544642;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v17;
-      v23 = 2048;
-      v24 = a1;
-      v25 = 2114;
-      v26 = @"PFPosterPath.m";
-      v27 = 1024;
-      v28 = 875;
-      v29 = 2114;
-      v30 = v14;
-      OUTLINED_FUNCTION_3_0(&dword_1C269D000, MEMORY[0x1E69E9C10], v18, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v19);
+      v14 = NSStringFromSelector(a3);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v18 = 138544642;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v16;
+      v22 = 2048;
+      v23 = a1;
+      v24 = 2114;
+      v25 = @"PFPosterPath.m";
+      v26 = 1024;
+      v27 = 875;
+      v28 = 2114;
+      v29 = v13;
+      OUTLINED_FUNCTION_3_0(&dword_1C269D000, MEMORY[0x1E69E9C10], v17, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v18);
     }
 
-    [v14 UTF8String];
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1C26E180CLL);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)encodeWithCoder:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   [a2 encodeObject:a1[1] forKey:@"c"];
   [a2 encodeObject:a1[2] forKey:@"i"];
   [a2 encodeObject:a1[3] forKey:@"d"];
@@ -2032,16 +2006,13 @@ void __40__PFPosterPath_extendValidityForReason___block_invoke_cold_2(const os_u
   v4 = [(PFPosterPath *)a1 _issueSandboxExtensionTokenWithContext:?];
   if (v4)
   {
-    [a2 encodeXPCObject:v4 forKey:@"t"];
-    v5 = PFLogPosterContents();
+    v5 = PFLogPosterContents([a2 encodeXPCObject:v4 forKey:@"t"]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       OUTLINED_FUNCTION_9_1();
-      OUTLINED_FUNCTION_13(&dword_1C269D000, v7, v8, "created and nsxpc encoded sandboxToken %@ : %@", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13(&dword_1C269D000, v6, v7, "created and nsxpc encoded sandboxToken %@ : %@", v8, v9, v10, v11);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(void *)a3 .cold.2(void *a1, void *a2, void *a3, uint64_t *a4)

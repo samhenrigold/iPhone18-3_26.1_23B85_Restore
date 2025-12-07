@@ -29,11 +29,11 @@
   return v2;
 }
 
-void __39__CKDateFormatterHelper_sharedInstance__block_invoke()
+void __39__CKDateFormatterHelper_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance_sInstance_4;
-  sharedInstance_sInstance_4 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sInstance_4;
+  sharedInstance_sInstance_4 = v1;
 }
 
 - (CKDateFormatterHelper)init

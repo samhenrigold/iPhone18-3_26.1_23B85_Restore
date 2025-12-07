@@ -75,306 +75,312 @@
 
 - (id)archivePath:(id)path format:(int64_t)format error:(id *)error
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v86[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
+  v9 = pathCopy;
   if (format == -1)
   {
-    v17 = PFLogArchiver();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = PFLogArchiver(pathCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [PFPosterArchiver archivePath:format:error:];
     }
 
-    v10 = MEMORY[0x1E696ABC0];
-    v79 = *MEMORY[0x1E696A578];
-    v80[0] = @"Cannot archive to unknown format";
-    v11 = MEMORY[0x1E695DF20];
-    v12 = v80;
-    v13 = &v79;
+    v12 = MEMORY[0x1E696ABC0];
+    v85 = *MEMORY[0x1E696A578];
+    v86[0] = @"Cannot archive to unknown format";
+    v13 = MEMORY[0x1E695DF20];
+    v14 = v86;
+    v15 = &v85;
     goto LABEL_14;
   }
 
-  if (!format && [(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"])
+  if (!format)
   {
-    v9 = PFLogArchiver();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = [(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"];
+    if (v10)
     {
-      [PFPosterArchiver archivePath:format:error:];
-    }
+      v11 = PFLogArchiver(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [PFPosterArchiver archivePath:format:error:];
+      }
 
-    v10 = MEMORY[0x1E696ABC0];
-    v77 = *MEMORY[0x1E696A578];
-    v78 = @"Process has disallow AppleArchive entitlement and thus cannot archive to that format";
-    v11 = MEMORY[0x1E695DF20];
-    v12 = &v78;
-    v13 = &v77;
+      v12 = MEMORY[0x1E696ABC0];
+      v83 = *MEMORY[0x1E696A578];
+      v84 = @"Process has disallow AppleArchive entitlement and thus cannot archive to that format";
+      v13 = MEMORY[0x1E695DF20];
+      v14 = &v84;
+      v15 = &v83;
 LABEL_14:
-    v18 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
-    v19 = [v10 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v18];
+      v20 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
+      v21 = [v12 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v20];
 
-    if (error)
-    {
-      v20 = v19;
-      v21 = 0;
-      *error = v19;
+      if (error)
+      {
+        v22 = v21;
+        v23 = 0;
+        *error = v21;
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+
+      goto LABEL_53;
     }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    goto LABEL_53;
   }
 
-  v14 = objc_opt_class();
-  v15 = pathCopy;
+  v16 = objc_opt_class();
+  v17 = v9;
   errorCopy = error;
-  v63 = pathCopy;
-  if (v14)
+  v69 = v9;
+  if (v16)
   {
     if (objc_opt_isKindOfClass())
     {
-      v16 = v15;
+      v18 = v17;
     }
 
     else
     {
-      v16 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v22 = v16;
+  v24 = v18;
 
-  identifierURL = [v22 identifierURL];
-  serverIdentity = [v22 serverIdentity];
+  identifierURL = [v24 identifierURL];
+  serverIdentity = [v24 serverIdentity];
   provider = [serverIdentity provider];
 
-  v25 = [[PFPosterArchiveManifest alloc] initWithServerPath:v22];
-  serverIdentity2 = [v22 serverIdentity];
+  v27 = [[PFPosterArchiveManifest alloc] initWithServerPath:v24];
+  serverIdentity2 = [v24 serverIdentity];
 
   posterUUID = [serverIdentity2 posterUUID];
   uUIDString = [posterUUID UUIDString];
-  v62 = provider;
-  v29 = [provider stringByAppendingFormat:@"-%@", uUIDString];
+  v68 = provider;
+  v31 = [provider stringByAppendingFormat:@"-%@", uUIDString];
 
-  v30 = [objc_opt_class() archiveExtensionForFormat:format];
+  v32 = [objc_opt_class() archiveExtensionForFormat:format];
   temporaryDirectory = [(NSFileManager *)self->_fileManager temporaryDirectory];
-  v32 = [temporaryDirectory URLByAppendingPathComponent:v29];
-  v65 = v30;
-  v64 = [v32 URLByAppendingPathExtension:v30];
+  v34 = [temporaryDirectory URLByAppendingPathComponent:v31];
+  v71 = v32;
+  v70 = [v34 URLByAppendingPathExtension:v32];
 
   fileManager = self->_fileManager;
-  v74 = 0;
-  v34 = [(NSFileManager *)fileManager URLForDirectory:99 inDomain:1 appropriateForURL:temporaryDirectory create:1 error:&v74];
-  v35 = v74;
-  v61 = v29;
-  v36 = [v34 URLByAppendingPathComponent:v29];
-  v37 = self->_fileManager;
-  v38 = PFFileProtectionNoneAttributes();
-  v73 = v35;
-  LOBYTE(v37) = [(NSFileManager *)v37 createDirectoryAtURL:v36 withIntermediateDirectories:1 attributes:v38 error:&v73];
-  v39 = v73;
+  v80 = 0;
+  v36 = [(NSFileManager *)fileManager URLForDirectory:99 inDomain:1 appropriateForURL:temporaryDirectory create:1 error:&v80];
+  v37 = v80;
+  v67 = v31;
+  v38 = [v36 URLByAppendingPathComponent:v31];
+  v39 = self->_fileManager;
+  v40 = PFFileProtectionNoneAttributes(v38);
+  v79 = v37;
+  LOBYTE(v39) = [(NSFileManager *)v39 createDirectoryAtURL:v38 withIntermediateDirectories:1 attributes:v40 error:&v79];
+  v41 = v79;
 
-  if ((v37 & 1) == 0)
+  if ((v39 & 1) == 0)
   {
-    v48 = PFLogArchiver();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v54 = PFLogArchiver(v42);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       [PFPosterArchiver archivePath:format:error:];
     }
 
-    [(NSFileManager *)self->_fileManager removeItemAtURL:v34 error:0];
-    pathCopy = v63;
+    v55 = [(NSFileManager *)self->_fileManager removeItemAtURL:v36 error:0];
+    v9 = v69;
     goto LABEL_44;
   }
 
-  v72 = 0;
-  v40 = [(PFPosterArchiveManifest *)v25 dataRepresentationWithError:&v72];
-  v41 = v72;
+  v78 = 0;
+  v43 = [(PFPosterArchiveManifest *)v27 dataRepresentationWithError:&v78];
+  v44 = v78;
 
-  if (v40)
+  if (v43)
   {
-    v42 = [v36 URLByAppendingPathComponent:@"manifest"];
-    v43 = [v42 URLByAppendingPathExtension:@"plist"];
+    v46 = [v38 URLByAppendingPathComponent:@"manifest"];
+    v47 = [v46 URLByAppendingPathExtension:@"plist"];
 
-    v71 = v41;
-    v60 = v43;
-    LOBYTE(v42) = [v40 writeToURL:v43 options:0 error:&v71];
-    v44 = v71;
+    v77 = v44;
+    v66 = v47;
+    LOBYTE(v46) = [v43 writeToURL:v47 options:0 error:&v77];
+    v48 = v77;
 
-    if (v42)
+    if (v46)
     {
-      v45 = self->_fileManager;
-      v46 = [v36 URLByAppendingPathComponent:@"configuration"];
-      v70 = v44;
-      LOBYTE(v45) = [(NSFileManager *)v45 copyItemAtURL:identifierURL toURL:v46 error:&v70];
-      v59 = v70;
+      v50 = self->_fileManager;
+      v51 = [v38 URLByAppendingPathComponent:@"configuration"];
+      v76 = v48;
+      LOBYTE(v50) = [(NSFileManager *)v50 copyItemAtURL:identifierURL toURL:v51 error:&v76];
+      v65 = v76;
 
-      if (v45)
+      if (v50)
       {
-        v47 = [v36 URLByAppendingPathExtension:v65];
+        v53 = [v38 URLByAppendingPathExtension:v71];
         if (format)
         {
-          PFZipArchiverCompressDirectory(v36, v47, self->_fileManager);
+          PFZipArchiverCompressDirectory(v38, v53, self->_fileManager);
         }
 
         else
         {
-          PFAppleArchiveCompressDirectory(v36, v47);
+          PFAppleArchiveCompressDirectory(v38, v53);
         }
 
-        [(NSFileManager *)self->_fileManager removeItemAtURL:v64 error:0];
-        v50 = self->_fileManager;
-        v69 = v59;
-        v51 = [(NSFileManager *)v50 moveItemAtURL:v47 toURL:v64 error:&v69];
-        v44 = v69;
+        [(NSFileManager *)self->_fileManager removeItemAtURL:v70 error:0];
+        v57 = self->_fileManager;
+        v75 = v65;
+        v58 = [(NSFileManager *)v57 moveItemAtURL:v53 toURL:v70 error:&v75];
+        v48 = v75;
 
-        if (v51)
+        if (v58)
         {
-          v49 = v64;
+          v56 = v70;
         }
 
         else
         {
-          v49 = 0;
+          v56 = 0;
         }
 
-        pathCopy = v63;
+        v9 = v69;
         goto LABEL_40;
       }
 
-      v47 = PFLogArchiver();
-      pathCopy = v63;
-      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v53 = PFLogArchiver(v52);
+      v9 = v69;
+      if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        v49 = 0;
-        v44 = v59;
+        v56 = 0;
+        v48 = v65;
         goto LABEL_40;
       }
 
-      v44 = v59;
+      v48 = v65;
       [PFPosterArchiver archivePath:format:error:];
     }
 
     else
     {
-      v47 = PFLogArchiver();
-      pathCopy = v63;
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v53 = PFLogArchiver(v49);
+      v9 = v69;
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver archivePath:format:error:];
       }
     }
 
-    v49 = 0;
+    v56 = 0;
 LABEL_40:
 
-    v41 = v44;
+    v44 = v48;
     goto LABEL_41;
   }
 
-  v60 = PFLogArchiver();
-  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+  v66 = PFLogArchiver(v45);
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
   {
     [PFPosterArchiver archivePath:format:error:];
   }
 
-  v49 = 0;
-  pathCopy = v63;
+  v56 = 0;
+  v9 = v69;
 LABEL_41:
-  v52 = errorCopy;
+  v59 = errorCopy;
 
-  [(NSFileManager *)self->_fileManager removeItemAtURL:v34 error:0];
-  if (!v49)
+  v55 = [(NSFileManager *)self->_fileManager removeItemAtURL:v36 error:0];
+  if (!v56)
   {
-    v39 = v41;
+    v41 = v44;
 LABEL_44:
-    v55 = PFLogArchiver();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v62 = PFLogArchiver(v55);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
       [PFPosterArchiver archivePath:format:error:];
     }
 
-    v53 = v64;
-    if (v39)
+    v60 = v70;
+    if (v41)
     {
-      v75 = *MEMORY[0x1E696AA08];
-      v76 = v39;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+      v81 = *MEMORY[0x1E696AA08];
+      v82 = v41;
+      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
     }
 
     else
     {
-      v41 = 0;
+      v44 = 0;
     }
 
-    v54 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:2 userInfo:v41];
+    v61 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:2 userInfo:v44];
 
-    v49 = 0;
-    v52 = errorCopy;
+    v56 = 0;
+    v59 = errorCopy;
     goto LABEL_50;
   }
 
-  v68 = 0;
-  v53 = v64;
-  [v64 pf_markPurgableInOneHourWithError:&v68];
-  v54 = v68;
+  v74 = 0;
+  v60 = v70;
+  [v70 pf_markPurgableInOneHourWithError:&v74];
+  v61 = v74;
 LABEL_50:
 
-  if (v52)
+  if (v59)
   {
-    v56 = v54;
-    *v52 = v54;
+    v63 = v61;
+    *v59 = v61;
   }
 
-  v19 = v49;
+  v21 = v56;
 
-  v21 = v19;
+  v23 = v21;
 LABEL_53:
 
-  v57 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v23;
 }
 
 - (id)unarchivePathAtURL:(id)l format:(int64_t)format error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
+  v9 = lCopy;
   if (format == -1)
   {
-    format = [objc_opt_class() formatForDataAtURL:lCopy];
+    lCopy = [objc_opt_class() formatForDataAtURL:lCopy];
+    format = lCopy;
   }
 
   if (format == 1)
   {
-    v23 = 0;
-    v19 = [(PFPosterArchiver *)self unarchivePathZipArchiveAtURL:lCopy manifest:&v23 error:error];
+    v24 = 0;
+    v21 = [(PFPosterArchiver *)self unarchivePathZipArchiveAtURL:v9 manifest:&v24 error:error];
     goto LABEL_18;
   }
 
   if (!format)
   {
-    if ([(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"])
+    v15 = [(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"];
+    if (v15)
     {
-      v14 = PFLogArchiver();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = PFLogArchiver(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver unarchivePathAtURL:format:error:];
       }
 
-      v10 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A578];
-      v25 = @"Process has disallow AppleArchive entitlement and thus cannot unarchive that format";
-      v11 = MEMORY[0x1E695DF20];
-      v12 = &v25;
-      v13 = &v24;
+      v11 = MEMORY[0x1E696ABC0];
+      v25 = *MEMORY[0x1E696A578];
+      v26 = @"Process has disallow AppleArchive entitlement and thus cannot unarchive that format";
+      v12 = MEMORY[0x1E695DF20];
+      v13 = &v26;
+      v14 = &v25;
       goto LABEL_13;
     }
 
@@ -384,75 +390,76 @@ LABEL_53:
   if (format != -1)
   {
 LABEL_16:
-    v22 = 0;
-    v19 = [(PFPosterArchiver *)self unarchivePathAppleArchiveAtURL:lCopy manifest:&v22 error:error];
+    v23 = 0;
+    v21 = [(PFPosterArchiver *)self unarchivePathAppleArchiveAtURL:v9 manifest:&v23 error:error];
 LABEL_18:
-    v18 = v19;
+    v20 = v21;
     goto LABEL_19;
   }
 
-  v9 = PFLogArchiver();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = PFLogArchiver(lCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [PFPosterArchiver unarchivePathAtURL:format:error:];
   }
 
-  v10 = MEMORY[0x1E696ABC0];
-  v26 = *MEMORY[0x1E696A578];
-  v27[0] = @"Unable to resolve format for file to be unarchived";
-  v11 = MEMORY[0x1E695DF20];
-  v12 = v27;
-  v13 = &v26;
+  v11 = MEMORY[0x1E696ABC0];
+  v27 = *MEMORY[0x1E696A578];
+  v28[0] = @"Unable to resolve format for file to be unarchived";
+  v12 = MEMORY[0x1E695DF20];
+  v13 = v28;
+  v14 = &v27;
 LABEL_13:
-  v15 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
-  v16 = [v10 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v15];
+  v17 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
+  v18 = [v11 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v17];
 
   if (error)
   {
-    v17 = v16;
-    *error = v16;
+    v19 = v18;
+    *error = v18;
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_19:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v20;
 }
 
 - (id)unarchivePathFromData:(id)data format:(int64_t)format error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
+  v9 = dataCopy;
   if (format == -1)
   {
-    format = [objc_opt_class() formatForData:dataCopy];
+    dataCopy = [objc_opt_class() formatForData:dataCopy];
+    format = dataCopy;
   }
 
   if (format == 1)
   {
-    v23 = 0;
-    v19 = [(PFPosterArchiver *)self unarchivePathZipArchiveData:dataCopy manifest:&v23 error:error];
+    v24 = 0;
+    v21 = [(PFPosterArchiver *)self unarchivePathZipArchiveData:v9 manifest:&v24 error:error];
     goto LABEL_18;
   }
 
   if (!format)
   {
-    if ([(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"])
+    v15 = [(BSProcessHandle *)self->_processHandle hasEntitlement:@"com.apple.posterboardservices.disallowArchivingAppleArchive"];
+    if (v15)
     {
-      v14 = PFLogArchiver();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = PFLogArchiver(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver unarchivePathAtURL:format:error:];
       }
 
-      v10 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A578];
-      v25 = @"Process has disallow AppleArchive entitlement and thus cannot unarchive that format";
-      v11 = MEMORY[0x1E695DF20];
-      v12 = &v25;
-      v13 = &v24;
+      v11 = MEMORY[0x1E696ABC0];
+      v25 = *MEMORY[0x1E696A578];
+      v26 = @"Process has disallow AppleArchive entitlement and thus cannot unarchive that format";
+      v12 = MEMORY[0x1E695DF20];
+      v13 = &v26;
+      v14 = &v25;
       goto LABEL_13;
     }
 
@@ -462,41 +469,39 @@ LABEL_19:
   if (format != -1)
   {
 LABEL_16:
-    v22 = 0;
-    v19 = [(PFPosterArchiver *)self unarchivePathAppleArchiveData:dataCopy manifest:&v22 error:error];
+    v23 = 0;
+    v21 = [(PFPosterArchiver *)self unarchivePathAppleArchiveData:v9 manifest:&v23 error:error];
 LABEL_18:
-    v18 = v19;
+    v20 = v21;
     goto LABEL_19;
   }
 
-  v9 = PFLogArchiver();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = PFLogArchiver(dataCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [PFPosterArchiver unarchivePathAtURL:format:error:];
   }
 
-  v10 = MEMORY[0x1E696ABC0];
-  v26 = *MEMORY[0x1E696A578];
-  v27[0] = @"Unable to resolve format for file to be unarchived";
-  v11 = MEMORY[0x1E695DF20];
-  v12 = v27;
-  v13 = &v26;
+  v11 = MEMORY[0x1E696ABC0];
+  v27 = *MEMORY[0x1E696A578];
+  v28[0] = @"Unable to resolve format for file to be unarchived";
+  v12 = MEMORY[0x1E695DF20];
+  v13 = v28;
+  v14 = &v27;
 LABEL_13:
-  v15 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
-  v16 = [v10 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v15];
+  v17 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
+  v18 = [v11 errorWithDomain:@"PFPosterArchiverErrorDomain" code:6 userInfo:v17];
 
   if (error)
   {
-    v17 = v16;
-    *error = v16;
+    v19 = v18;
+    *error = v18;
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_19:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v20;
 }
 
 + (id)archiveExtensionForFormat:(int64_t)format
@@ -515,45 +520,46 @@ LABEL_19:
 + (int64_t)formatForDataAtURL:(id)l
 {
   lCopy = l;
-  v13 = 0;
-  v5 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:lCopy error:&v13];
-  v6 = v13;
+  v15 = 0;
+  v5 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:lCopy error:&v15];
+  v6 = v15;
+  v7 = v6;
   if (v5)
   {
-    v12 = 0;
-    v7 = [v5 readDataUpToLength:4 error:&v12];
-    v8 = v12;
+    v14 = 0;
+    v8 = [v5 readDataUpToLength:4 error:&v14];
+    v9 = v14;
 
-    if (v7)
+    if (v8)
     {
-      v9 = [self formatForData:v7];
+      v11 = [self formatForData:v8];
     }
 
     else
     {
-      v10 = PFLogArchiver();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = PFLogArchiver(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         +[PFPosterArchiver formatForDataAtURL:];
       }
 
-      v9 = -1;
+      v11 = -1;
     }
   }
 
   else
   {
-    v7 = PFLogArchiver();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PFLogArchiver(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PFPosterArchiver formatForDataAtURL:];
     }
 
-    v9 = -1;
-    v8 = v6;
+    v11 = -1;
+    v9 = v7;
   }
 
-  return v9;
+  return v11;
 }
 
 + (int64_t)formatForData:(id)data
@@ -636,13 +642,14 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v7 = 0;
-  v4 = [v2 writeData:v3 error:&v7];
-  v5 = v7;
+  v8 = 0;
+  v4 = [v2 writeData:v3 error:&v8];
+  v5 = v8;
+  v6 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = PFLogArchiver();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PFLogArchiver(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block_invoke_2_cold_1();
     }
@@ -667,25 +674,26 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 
 - (id)_unarchiveWithHandler:(id)handler manifest:(id *)manifest error:(id *)error
 {
-  v126[1] = *MEMORY[0x1E69E9840];
+  v138[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v102 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v114 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = self->_fileManager;
   temporaryDirectory = [(NSFileManager *)v6 temporaryDirectory];
   v7 = self->_unarchivingContainerURL;
   v8 = v7;
-  if (!v7 || (v104 = v7, ![(NSURL *)v7 checkResourceIsReachableAndReturnError:0]))
+  if (!v7 || (v116 = v7, ![(NSURL *)v7 checkResourceIsReachableAndReturnError:0]))
   {
     v9 = temporaryDirectory;
 
-    v118 = 0;
-    v104 = v9;
-    v10 = [(NSFileManager *)v6 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v118];
-    v11 = v118;
+    v130 = 0;
+    v116 = v9;
+    v10 = [(NSFileManager *)v6 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v130];
+    v11 = v130;
+    v12 = v11;
     if (!v10)
     {
-      v12 = PFLogArchiver();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PFLogArchiver(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
       }
@@ -693,8 +701,8 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 
     if (v8)
     {
-      v13 = PFLogArchiver();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PFLogArchiver(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
       }
@@ -703,279 +711,282 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 
   if ([(NSURL *)v8 checkResourceIsReachableAndReturnError:0])
   {
-    v98 = v8;
+    v110 = v8;
   }
 
   else
   {
-    v98 = [temporaryDirectory URLByAppendingPathComponent:@"PosterPaths"];
+    v110 = [temporaryDirectory URLByAppendingPathComponent:@"PosterPaths"];
   }
 
-  v117 = 0;
-  v14 = [(NSFileManager *)v6 URLForDirectory:99 inDomain:1 appropriateForURL:v104 create:1 error:&v117];
-  v15 = v117;
-  if (v14)
+  v129 = 0;
+  v15 = [(NSFileManager *)v6 URLForDirectory:99 inDomain:1 appropriateForURL:v116 create:1 error:&v129];
+  v16 = v129;
+  v17 = v16;
+  if (v15)
   {
-    v114[0] = MEMORY[0x1E69E9820];
-    v114[1] = 3221225472;
-    v114[2] = __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke;
-    v114[3] = &unk_1E8189AC8;
-    v16 = v102;
-    v115 = v16;
-    v17 = v6;
-    v116 = v17;
-    v100 = MEMORY[0x1C691C400](v114);
-    if ((handlerCopy[2](handlerCopy, v14) & 1) == 0)
+    v126[0] = MEMORY[0x1E69E9820];
+    v126[1] = 3221225472;
+    v126[2] = __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke;
+    v126[3] = &unk_1E8189AC8;
+    v18 = v114;
+    v127 = v18;
+    v19 = v6;
+    v128 = v19;
+    v112 = MEMORY[0x1C691C400](v126);
+    if ((handlerCopy[2](handlerCopy, v15) & 1) == 0)
     {
-      v19 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:3 userInfo:0];
-      v31 = 0;
+      v21 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:3 userInfo:0];
+      v35 = 0;
 LABEL_57:
 
-      v107[0] = MEMORY[0x1E69E9820];
-      v107[1] = 3221225472;
-      v107[2] = __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke_63;
-      v107[3] = &unk_1E8189AC8;
-      v51 = v17;
-      v108 = v51;
-      v52 = v14;
-      v109 = v52;
-      v53 = MEMORY[0x1C691C400](v107);
-      v54 = v100[2];
-      if (!v31 || v19)
+      v119[0] = MEMORY[0x1E69E9820];
+      v119[1] = 3221225472;
+      v119[2] = __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke_63;
+      v119[3] = &unk_1E8189AC8;
+      v58 = v19;
+      v120 = v58;
+      v59 = v15;
+      v121 = v59;
+      v60 = MEMORY[0x1C691C400](v119);
+      v61 = v112[2];
+      if (!v35 || v21)
       {
-        v54(v100);
-        v71 = PFLogArchiver();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        v82 = v61(v112);
+        v83 = PFLogArchiver(v82);
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
         }
 
-        if (error != 0 && v19 != 0)
+        if (error != 0 && v21 != 0)
         {
-          v72 = v19;
-          v29 = 0;
-          *error = v19;
+          v84 = v21;
+          v33 = 0;
+          *error = v21;
         }
 
         else
         {
-          v29 = 0;
+          v33 = 0;
         }
 
         goto LABEL_96;
       }
 
-      v54(v100);
-      configurationUUID = [v31 configurationUUID];
+      v61(v112);
+      configurationUUID = [v35 configurationUUID];
       uUIDString = [configurationUUID UUIDString];
-      v57 = [(NSURL *)v98 URLByAppendingPathComponent:uUIDString];
+      v64 = [(NSURL *)v110 URLByAppendingPathComponent:uUIDString];
 
-      extensionIdentifier = [v31 extensionIdentifier];
-      v97 = [v52 URLByAppendingPathComponent:extensionIdentifier];
+      extensionIdentifier = [v35 extensionIdentifier];
+      v109 = [v59 URLByAppendingPathComponent:extensionIdentifier];
 
-      [(NSFileManager *)v51 removeItemAtURL:v57 error:0];
-      v59 = PFPosterPathFileAttributes();
-      v106 = 0;
-      LOBYTE(extensionIdentifier) = [(NSFileManager *)v51 createDirectoryAtURL:v57 withIntermediateDirectories:1 attributes:v59 error:&v106];
-      v19 = v106;
+      v66 = PFPosterPathFileAttributes([(NSFileManager *)v58 removeItemAtURL:v64 error:0]);
+      v118 = 0;
+      LOBYTE(extensionIdentifier) = [(NSFileManager *)v58 createDirectoryAtURL:v64 withIntermediateDirectories:1 attributes:v66 error:&v118];
+      v21 = v118;
 
       if (extensionIdentifier)
       {
-        extensionIdentifier2 = [v31 extensionIdentifier];
-        v95 = [v57 URLByAppendingPathComponent:extensionIdentifier2 isDirectory:1];
+        extensionIdentifier2 = [v35 extensionIdentifier];
+        v107 = [v64 URLByAppendingPathComponent:extensionIdentifier2 isDirectory:1];
 
-        v105 = v19;
-        v61 = [(NSFileManager *)v51 moveItemAtURL:v97 toURL:v95 error:&v105];
-        v93 = v105;
+        v117 = v21;
+        v69 = [(NSFileManager *)v58 moveItemAtURL:v109 toURL:v107 error:&v117];
+        v105 = v117;
 
-        if (v61)
+        if (v69)
         {
-          extensionIdentifier3 = [v31 extensionIdentifier];
-          role = [v31 role];
-          configurationUUID2 = [v31 configurationUUID];
-          v91 = [PFServerPosterIdentity configurationIdentityWithProvider:extensionIdentifier3 identifier:0 role:role posterUUID:configurationUUID2 version:[v31 latestConfigurationVersion] supplement:[v31 latestConfigurationSupplement]];
+          extensionIdentifier3 = [v35 extensionIdentifier];
+          role = [v35 role];
+          configurationUUID2 = [v35 configurationUUID];
+          v103 = [PFServerPosterIdentity configurationIdentityWithProvider:extensionIdentifier3 identifier:0 role:role posterUUID:configurationUUID2 version:[v35 latestConfigurationVersion] supplement:[v35 latestConfigurationSupplement]];
 
-          v29 = [PFServerPosterPath pathWithProviderURL:v95 identity:v91];
-          if (v29)
+          v74 = [PFServerPosterPath pathWithProviderURL:v107 identity:v103];
+          v33 = v74;
+          if (v74)
           {
-            v65 = PFLogArchiver();
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+            v75 = PFLogArchiver(v74);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v122 = v29;
-              _os_log_impl(&dword_1C269D000, v65, OS_LOG_TYPE_DEFAULT, "Successfully created server path: %{public}@", buf, 0xCu);
+              v134 = v33;
+              _os_log_impl(&dword_1C269D000, v75, OS_LOG_TYPE_DEFAULT, "Successfully created server path: %{public}@", buf, 0xCu);
             }
 
-            contentsURL = [v29 contentsURL];
-            v67 = [contentsURL checkResourceIsReachableAndReturnError:0];
+            contentsURL = [v33 contentsURL];
+            v77 = [contentsURL checkResourceIsReachableAndReturnError:0];
 
-            if ((v67 & 1) == 0)
+            if ((v77 & 1) == 0)
             {
-              v68 = PFLogArchiver();
-              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+              v79 = PFLogArchiver(v78);
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
               {
-                contentsURL2 = [v29 contentsURL];
+                contentsURL2 = [v33 contentsURL];
                 *buf = 138543362;
-                v122 = contentsURL2;
-                _os_log_impl(&dword_1C269D000, v68, OS_LOG_TYPE_DEFAULT, "Warning, contentsURL was not reachable: %{public}@", buf, 0xCu);
+                v134 = contentsURL2;
+                _os_log_impl(&dword_1C269D000, v79, OS_LOG_TYPE_DEFAULT, "Warning, contentsURL was not reachable: %{public}@", buf, 0xCu);
               }
             }
 
-            v70 = v29;
+            v81 = v33;
           }
 
           else
           {
-            if (v93)
+            if (v105)
             {
-              v119 = *MEMORY[0x1E696AA08];
-              v120 = v93;
-              v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+              v131 = *MEMORY[0x1E696AA08];
+              v132 = v105;
+              v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
             }
 
             else
             {
-              v80 = 0;
+              v92 = 0;
             }
 
-            v81 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:3 userInfo:v80];
+            v93 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"PFPosterArchiverErrorDomain" code:3 userInfo:v92];
 
-            v82 = PFLogArchiver();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+            v95 = PFLogArchiver(v94);
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
               [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
             }
 
             if (error)
             {
-              v83 = v81;
-              *error = v81;
+              v96 = v93;
+              *error = v93;
             }
 
-            v93 = v81;
+            v105 = v93;
           }
 
           goto LABEL_94;
         }
 
-        v77 = PFLogArchiver();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        v89 = PFLogArchiver(v70);
+        if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
         {
-          pf_description = [v93 pf_description];
-          [PFPosterArchiver _unarchiveWithHandler:pf_description manifest:buf error:v77];
+          pf_description = [v105 pf_description];
+          [PFPosterArchiver _unarchiveWithHandler:pf_description manifest:buf error:v89];
         }
 
         if (!error)
         {
-          v29 = 0;
+          v33 = 0;
 LABEL_94:
-          v19 = v93;
-          v57 = v95;
+          v21 = v105;
+          v64 = v107;
           goto LABEL_95;
         }
 
-        v79 = v93;
-        v29 = 0;
+        v91 = v105;
+        v33 = 0;
         errorCopy2 = error;
-        v19 = v93;
-        v57 = v95;
+        v21 = v105;
+        v64 = v107;
       }
 
       else
       {
-        v73 = PFLogArchiver();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+        v85 = PFLogArchiver(v67);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
-          pf_description2 = [v19 pf_description];
-          [PFPosterArchiver _unarchiveWithHandler:pf_description2 manifest:buf error:v73];
+          pf_description2 = [v21 pf_description];
+          [PFPosterArchiver _unarchiveWithHandler:pf_description2 manifest:buf error:v85];
         }
 
         if (!error)
         {
-          v29 = 0;
+          v33 = 0;
           goto LABEL_95;
         }
 
-        v75 = v19;
-        v29 = 0;
+        v87 = v21;
+        v33 = 0;
         errorCopy2 = error;
       }
 
-      *errorCopy2 = v19;
+      *errorCopy2 = v21;
 LABEL_95:
 
 LABEL_96:
-      v53[2](v53);
+      v60[2](v60);
 
       goto LABEL_97;
     }
 
-    v90 = [v14 URLByAppendingPathComponent:@"configuration"];
-    v18 = [v14 URLByAppendingPathComponent:@"manifest"];
-    v96 = [v18 URLByAppendingPathExtension:@"plist"];
+    v102 = [v15 URLByAppendingPathComponent:@"configuration"];
+    v20 = [v15 URLByAppendingPathComponent:@"manifest"];
+    v108 = [v20 URLByAppendingPathExtension:@"plist"];
 
-    [v16 addObject:v90];
-    [v16 addObject:v96];
-    v113 = v15;
-    v94 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v96 options:0 error:&v113];
-    v19 = v113;
+    [v18 addObject:v102];
+    [v18 addObject:v108];
+    v125 = v17;
+    v106 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v108 options:0 error:&v125];
+    v21 = v125;
 
-    if (!v94)
+    if (!v106)
     {
-      p_super = PFLogArchiver();
+      p_super = PFLogArchiver(v22);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
       }
 
-      v31 = 0;
+      v35 = 0;
       goto LABEL_56;
     }
 
-    v20 = [[PFPosterArchiveManifest alloc] initWithDataRepresentation:v94];
-    p_super = &v20->super;
-    if (v20)
+    v23 = [[PFPosterArchiveManifest alloc] initWithDataRepresentation:v106];
+    p_super = &v23->super;
+    if (v23)
     {
-      archiveVersion = [(PFPosterArchiveManifest *)v20 archiveVersion];
-      if (archiveVersion >= [objc_opt_class() minSupportedArchiveVersion])
+      archiveVersion = [(PFPosterArchiveManifest *)v23 archiveVersion];
+      minSupportedArchiveVersion = [objc_opt_class() minSupportedArchiveVersion];
+      if (archiveVersion >= minSupportedArchiveVersion)
       {
         extensionIdentifier4 = [p_super extensionIdentifier];
-        v88 = [v14 URLByAppendingPathComponent:extensionIdentifier4];
+        v100 = [v15 URLByAppendingPathComponent:extensionIdentifier4];
 
-        v35 = MEMORY[0x1E695DFF8];
+        v39 = MEMORY[0x1E695DFF8];
         configurationUUID3 = [p_super configurationUUID];
-        v89 = [v35 pf_posterPathIdentifierURLProviderURL:v88 type:3 posterUUID:configurationUUID3];
+        v101 = [v39 pf_posterPathIdentifierURLProviderURL:v100 type:3 posterUUID:configurationUUID3];
 
-        uRLByDeletingLastPathComponent = [v89 URLByDeletingLastPathComponent];
-        v38 = PFPosterPathFileAttributes();
-        v112 = v19;
-        v39 = [(NSFileManager *)v17 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v38 error:&v112];
-        v40 = v112;
+        uRLByDeletingLastPathComponent = [v101 URLByDeletingLastPathComponent];
+        v42 = PFPosterPathFileAttributes(uRLByDeletingLastPathComponent);
+        v124 = v21;
+        v43 = [(NSFileManager *)v19 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v42 error:&v124];
+        v44 = v124;
 
-        if (v39)
+        if (v43)
         {
-          v111 = v40;
-          v41 = [(NSFileManager *)v17 copyItemAtURL:v90 toURL:v89 error:&v111];
-          v86 = v111;
+          v123 = v44;
+          v46 = [(NSFileManager *)v19 copyItemAtURL:v102 toURL:v101 error:&v123];
+          v98 = v123;
 
-          if (v41)
+          if (v46)
           {
             latestConfigurationVersion = [p_super latestConfigurationVersion];
-            v87 = [MEMORY[0x1E695DFF8] pf_versionsURLForIdentifierURL:v89];
-            v43 = [MEMORY[0x1E695DFF8] pf_posterPathInstanceURLForVersionsURL:v87 version:latestConfigurationVersion];
-            v44 = [MEMORY[0x1E695DFF8] pf_posterPathScratchURLForInstanceURL:v43];
-            path = [v44 path];
-            v46 = [(NSFileManager *)v17 fileExistsAtPath:path];
+            v99 = [MEMORY[0x1E695DFF8] pf_versionsURLForIdentifierURL:v101];
+            v49 = [MEMORY[0x1E695DFF8] pf_posterPathInstanceURLForVersionsURL:v99 version:latestConfigurationVersion];
+            v50 = [MEMORY[0x1E695DFF8] pf_posterPathScratchURLForInstanceURL:v49];
+            path = [v50 path];
+            v52 = [(NSFileManager *)v19 fileExistsAtPath:path];
 
-            if (v46)
+            if (v52)
             {
-              v110 = 0;
-              v47 = [(NSFileManager *)v17 removeItemAtURL:v44 error:&v110];
-              v48 = v110;
-              if (!v47)
+              v122 = 0;
+              v53 = [(NSFileManager *)v19 removeItemAtURL:v50 error:&v122];
+              v54 = v122;
+              v55 = v54;
+              if (!v53)
               {
-                v49 = PFLogArchiver();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                v56 = PFLogArchiver(v54);
+                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                 {
                   [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
                 }
@@ -984,102 +995,100 @@ LABEL_96:
 
             if (manifest)
             {
-              v50 = p_super;
+              v57 = p_super;
               *manifest = p_super;
             }
 
-            v31 = p_super;
+            v35 = p_super;
           }
 
           else
           {
-            v43 = PFLogArchiver();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v49 = PFLogArchiver(v47);
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
             {
               [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
             }
 
-            v31 = 0;
-            v87 = p_super;
+            v35 = 0;
+            v99 = p_super;
           }
 
-          v40 = v86;
+          v44 = v98;
         }
 
         else
         {
-          v43 = PFLogArchiver();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v49 = PFLogArchiver(v45);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
             [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
           }
 
-          v31 = 0;
-          v87 = p_super;
+          v35 = 0;
+          v99 = p_super;
         }
 
-        p_super = v88;
-        v19 = v40;
+        p_super = v100;
+        v21 = v44;
         goto LABEL_56;
       }
 
-      v23 = PFLogArchiver();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v27 = PFLogArchiver(minSupportedArchiveVersion);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [PFPosterArchiver _unarchiveWithHandler:? manifest:? error:?];
+        [PFPosterArchiver _unarchiveWithHandler:self manifest:? error:?];
       }
 
-      v24 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v123 = *MEMORY[0x1E696A578];
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Archive version %lu is older than min supported %lu", -[NSObject archiveVersion](p_super, "archiveVersion"), objc_msgSend(objc_opt_class(), "minSupportedArchiveVersion")];
-      v124 = v25;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
-      v27 = [v24 initWithDomain:@"PFPosterArchiverErrorDomain" code:4 userInfo:v26];
+      v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v135 = *MEMORY[0x1E696A578];
+      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Archive version %lu is older than min supported %lu", -[NSObject archiveVersion](p_super, "archiveVersion"), objc_msgSend(objc_opt_class(), "minSupportedArchiveVersion")];
+      v136 = v29;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+      v31 = [v28 initWithDomain:@"PFPosterArchiverErrorDomain" code:4 userInfo:v30];
     }
 
     else
     {
-      v32 = PFLogArchiver();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v36 = PFLogArchiver(0);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
       }
 
-      v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v125 = *MEMORY[0x1E696A578];
-      v126[0] = @"Archive is unsupported";
-      p_super = [MEMORY[0x1E695DF20] dictionaryWithObjects:v126 forKeys:&v125 count:1];
-      v27 = [v33 initWithDomain:@"PFPosterArchiverErrorDomain" code:4 userInfo:p_super];
+      v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v137 = *MEMORY[0x1E696A578];
+      v138[0] = @"Archive is unsupported";
+      p_super = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:&v137 count:1];
+      v31 = [v37 initWithDomain:@"PFPosterArchiverErrorDomain" code:4 userInfo:p_super];
     }
 
-    v31 = 0;
-    v19 = v27;
+    v35 = 0;
+    v21 = v31;
 LABEL_56:
 
-    v15 = v90;
+    v17 = v102;
     goto LABEL_57;
   }
 
-  v28 = PFLogArchiver();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v32 = PFLogArchiver(v16);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     [PFPosterArchiver _unarchiveWithHandler:manifest:error:];
   }
 
-  v29 = 0;
-  if (error && v15)
+  v33 = 0;
+  if (error && v17)
   {
-    v30 = v15;
-    v29 = 0;
-    *error = v15;
+    v34 = v17;
+    v33 = 0;
+    *error = v17;
   }
 
-  v19 = v15;
+  v21 = v17;
 LABEL_97:
 
-  v84 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v33;
 }
 
 void __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke(uint64_t a1)
@@ -1096,36 +1105,16 @@ void __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke(
 
 - (void)archivePath:format:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)archivePath:format:error:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Unable to write manifest data to URL %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)archivePath:format:error:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Unable to copy configuration contents to container URL %@ : %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)archivePath:format:error:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)archivePath:format:error:.cold.5()
@@ -1163,83 +1152,47 @@ void __57__PFPosterArchiver__unarchiveWithHandler_manifest_error___block_invoke(
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)formatForDataAtURL:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Could not read data from file handle %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)formatForDataAtURL:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Could not open file handle for reading from URL %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_unarchiveWithHandler:manifest:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Failed to create tempDirectory %@ : %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_unarchiveWithHandler:(void *)a1 manifest:error:.cold.6(void *a1)
+- (void)_unarchiveWithHandler:(void *)a1 manifest:(uint64_t)a2 error:.cold.6(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 archiveVersion];
   [objc_opt_class() minSupportedArchiveVersion];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.7()
@@ -1247,14 +1200,6 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)_unarchiveWithHandler:manifest:error:.cold.8()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Manifest data failed to load from URL %@, error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:(void *)a1 manifest:(uint8_t *)buf error:(os_log_t)log .cold.9(void *a1, uint8_t *buf, os_log_t log)
@@ -1273,11 +1218,9 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.12()
@@ -1289,11 +1232,9 @@ void __65__PFPosterArchiver_unarchivePathAppleArchiveData_manifest_error___block
 
 - (void)_unarchiveWithHandler:manifest:error:.cold.13()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

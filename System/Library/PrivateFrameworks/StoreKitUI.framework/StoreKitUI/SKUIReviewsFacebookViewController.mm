@@ -12,24 +12,8 @@
 
 - (void)dealloc
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIReviewsFacebookViewController *)v3 dealloc:v4];
-      }
-    }
-  }
-
-  likeToggleButton = [(SKUIReviewsFacebookView *)self->_facebookView likeToggleButton];
-  [likeToggleButton removeTarget:self action:0 forControlEvents:4095];
-
-  v12.receiver = self;
-  v12.super_class = SKUIReviewsFacebookViewController;
-  [(SKUIReviewsFacebookViewController *)&v12 dealloc];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReviewsFacebookViewController dealloc]";
 }
 
 - (void)setFacebookLikeStatus:(id)status
@@ -59,33 +43,8 @@
 
 - (void)loadView
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIReviewsFacebookViewController *)v3 loadView:v4];
-      }
-    }
-  }
-
-  facebookView = self->_facebookView;
-  if (!facebookView)
-  {
-    v12 = [[SKUIReviewsFacebookView alloc] initWithClientContext:self->_clientContext];
-    v13 = self->_facebookView;
-    self->_facebookView = v12;
-
-    likeToggleButton = [(SKUIReviewsFacebookView *)self->_facebookView likeToggleButton];
-    [likeToggleButton addTarget:self action:sel__toggleLike_ forControlEvents:64];
-
-    [(SKUIReviewsFacebookViewController *)self _reloadFacebookView];
-    facebookView = self->_facebookView;
-  }
-
-  [(SKUIReviewsFacebookViewController *)self setView:facebookView];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReviewsFacebookViewController loadView]";
 }
 
 - (void)_toggleLike:(id)like
@@ -100,32 +59,32 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __49__SKUIReviewsFacebookViewController__toggleLike___block_invoke;
   aBlock[3] = &unk_2781FDE28;
-  objc_copyWeak(&v16, &location);
-  v17 = v7;
+  objc_copyWeak(&v17, &location);
+  v18 = v7;
   v8 = _Block_copy(aBlock);
-  v9 = SKUISocialFramework();
-  v10 = [SKUIWeakLinkedClassForString(&cfstr_Slfacebooksess.isa v9)];
+  v10 = SKUISocialFramework(v8, v9);
+  v11 = [SKUIWeakLinkedClassForString(&cfstr_Slfacebooksess.isa v10)];
   [(SKUIFacebookLikeStatus *)self->_facebookLikeStatus URL];
   if (v6)
-    v11 = {;
-    [v10 unlikeURL:v11 completion:v8];
+    v12 = {;
+    [v11 unlikeURL:v12 completion:v8];
   }
 
   else
-    v11 = {;
-    [v10 likeURL:v11 completion:v8];
+    v12 = {;
+    [v11 likeURL:v12 completion:v8];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v13 = objc_opt_respondsToSelector();
+  v14 = objc_opt_respondsToSelector();
 
-  if (v13)
+  if (v14)
   {
-    v14 = objc_loadWeakRetained(&self->_delegate);
-    [v14 reviewsFacebookViewControllerDidChange:self];
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    [v15 reviewsFacebookViewControllerDidChange:self];
   }
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 }
 
@@ -175,6 +134,12 @@ void __49__SKUIReviewsFacebookViewController__toggleLike___block_invoke_2(uint64
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)setFacebookLikeStatus:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIReviewsFacebookViewController setFacebookLikeStatus:]";
 }
 
 @end

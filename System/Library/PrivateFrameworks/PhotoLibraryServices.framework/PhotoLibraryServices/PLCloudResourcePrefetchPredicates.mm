@@ -94,7 +94,7 @@
   v10 = v7;
   v26 = v10;
   [v9 performBlockAndWait:&v20];
-  if ([v10 count] && (v11 = MEMORY[0x1E696AB28], objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K IN %@", @"asset", v10, v20, v21, v22, v23, v24, v25), v12 = objc_claimAutoreleasedReturnValue(), v28[0] = v12, objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K = %d", @"cloudLocalState", 3), v13 = objc_claimAutoreleasedReturnValue(), v28[1] = v13, objc_msgSend(v8, "prefetchConfiguration"), v14 = objc_claimAutoreleasedReturnValue(), +[PLInternalResource prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:](PLInternalResource, "prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:", 27, 1, objc_msgSend(v14, "cloudResourceMaxPrefetchRetry"), objc_msgSend(v8, "excludeDynamicResources"), 0), v15 = objc_claimAutoreleasedReturnValue(), v28[2] = v15, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v28, 3), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "andPredicateWithSubpredicates:", v16), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v13, v12, v17))
+  if (objc_msgSend_count(v10) && (v11 = MEMORY[0x1E696AB28], [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"asset", v10, v20, v21, v22, v23, v24, v25], v12 = objc_claimAutoreleasedReturnValue(), v28[0] = v12, objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K = %d", @"cloudLocalState", 3), v13 = objc_claimAutoreleasedReturnValue(), v28[1] = v13, objc_msgSend(v8, "prefetchConfiguration"), v14 = objc_claimAutoreleasedReturnValue(), +[PLInternalResource prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:](PLInternalResource, "prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:", 27, 1, objc_msgSend(v14, "cloudResourceMaxPrefetchRetry"), objc_msgSend(v8, "excludeDynamicResources"), 0), v15 = objc_claimAutoreleasedReturnValue(), v28[2] = v15, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v28, 3), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "andPredicateWithSubpredicates:", v16), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v13, v12, v17))
   {
     v27 = v17;
     v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
@@ -190,7 +190,7 @@ void __111__PLCloudResourcePrefetchPredicates_predicateToPrefetchAdjustedMediaMe
   v10 = v7;
   v26 = v10;
   [v9 performBlockAndWait:&v20];
-  if ([v10 count] && (v11 = MEMORY[0x1E696AB28], objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K IN %@", @"asset", v10, v20, v21, v22, v23, v24, v25), v12 = objc_claimAutoreleasedReturnValue(), v28[0] = v12, objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K = %d", @"cloudLocalState", 3), v13 = objc_claimAutoreleasedReturnValue(), v28[1] = v13, objc_msgSend(v8, "prefetchConfiguration"), v14 = objc_claimAutoreleasedReturnValue(), +[PLInternalResource prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:](PLInternalResource, "prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:", 10, 0, objc_msgSend(v14, "cloudResourceMaxPrefetchRetry"), objc_msgSend(v8, "excludeDynamicResources"), 0), v15 = objc_claimAutoreleasedReturnValue(), v28[2] = v15, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v28, 3), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "andPredicateWithSubpredicates:", v16), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v13, v12, v17))
+  if (objc_msgSend_count(v10) && (v11 = MEMORY[0x1E696AB28], [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"asset", v10, v20, v21, v22, v23, v24, v25], v12 = objc_claimAutoreleasedReturnValue(), v28[0] = v12, objc_msgSend(MEMORY[0x1E696AE18], "predicateWithFormat:", @"%K = %d", @"cloudLocalState", 3), v13 = objc_claimAutoreleasedReturnValue(), v28[1] = v13, objc_msgSend(v8, "prefetchConfiguration"), v14 = objc_claimAutoreleasedReturnValue(), +[PLInternalResource prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:](PLInternalResource, "prefetchResourcePredicateForCPLResourceType:isAssetResource:maxRetry:excludeDynamicResources:additionalResourcePredicates:", 10, 0, objc_msgSend(v14, "cloudResourceMaxPrefetchRetry"), objc_msgSend(v8, "excludeDynamicResources"), 0), v15 = objc_claimAutoreleasedReturnValue(), v28[2] = v15, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v28, 3), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "andPredicateWithSubpredicates:", v16), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v13, v12, v17))
   {
     v27 = v17;
     v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
@@ -641,194 +641,194 @@ LABEL_20:
   return v9;
 }
 
-void __88__PLCloudResourcePrefetchPredicates_predicateToPrefetchHighlightWithUUIDs_photoLibrary___block_invoke(uint64_t a1)
+void __88__PLCloudResourcePrefetchPredicates_predicateToPrefetchHighlightWithUUIDs_photoLibrary___block_invoke(uint64_t a1, const char *a2)
 {
-  v67 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) count])
+  v68 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_count(*(a1 + 32), a2))
   {
-    v40 = [MEMORY[0x1E695DF70] arrayWithCapacity:50];
-    v2 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", *(a1 + 32)];
-    v35 = a1;
-    v3 = [*(a1 + 40) managedObjectContext];
-    v59 = 0;
-    v37 = v2;
-    v4 = [PLPhotosHighlight allPhotosHighlightsInManagedObjectContext:v3 predicate:v2 keyPathsForPrefetching:0 error:&v59];
-    v38 = v59;
+    v41 = [MEMORY[0x1E695DF70] arrayWithCapacity:50];
+    v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", *(a1 + 32)];
+    v36 = a1;
+    v4 = [*(a1 + 40) managedObjectContext];
+    v60 = 0;
+    v38 = v3;
+    v5 = [PLPhotosHighlight allPhotosHighlightsInManagedObjectContext:v4 predicate:v3 keyPathsForPrefetching:0 error:&v60];
+    v39 = v60;
 
-    v36 = v4;
-    if (v4)
+    v37 = v5;
+    if (v5)
     {
-      v57 = 0u;
       v58 = 0u;
-      v55 = 0u;
+      v59 = 0u;
       v56 = 0u;
-      obj = v4;
-      v42 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
-      if (!v42)
+      v57 = 0u;
+      obj = v5;
+      v43 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+      if (!v43)
       {
         goto LABEL_44;
       }
 
-      v41 = *v56;
+      v42 = *v57;
       while (1)
       {
-        v5 = 0;
+        v6 = 0;
         do
         {
-          if (*v56 != v41)
+          if (*v57 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v55 + 1) + 8 * v5);
-          v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v8 = [v6 kind];
-          v44 = v5;
-          if (v8 > 1)
+          v7 = *(*(&v56 + 1) + 8 * v6);
+          v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v9 = [v7 kind];
+          v45 = v6;
+          if (v9 > 1)
           {
-            if (v8 != 3)
+            if (v9 != 3)
             {
-              if (v8 != 2)
+              if (v9 != 2)
               {
                 goto LABEL_19;
               }
 
-              v9 = [v6 yearKeyAssetPrivate];
+              v10 = [v7 yearKeyAssetPrivate];
               goto LABEL_15;
             }
           }
 
-          else if (v8)
+          else if (v9)
           {
-            if (v8 != 1)
+            if (v9 != 1)
             {
               goto LABEL_19;
             }
 
-            v9 = [v6 monthKeyAssetPrivate];
+            v10 = [v7 monthKeyAssetPrivate];
 LABEL_15:
-            v10 = v9;
-            if (v9)
+            v11 = v10;
+            if (v10)
             {
-              [v7 addObject:v9];
+              [v8 addObject:v10];
             }
 
             goto LABEL_18;
           }
 
-          v10 = [v6 assets];
-          v11 = [v10 allObjects];
-          [v7 addObjectsFromArray:v11];
+          v11 = [v7 assets];
+          v12 = [v11 allObjects];
+          [v8 addObjectsFromArray:v12];
 
 LABEL_18:
 LABEL_19:
-          v43 = v6;
-          v12 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-          v51 = 0u;
+          v44 = v7;
+          v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
           v52 = 0u;
           v53 = 0u;
           v54 = 0u;
-          v45 = v7;
-          v13 = [v45 countByEnumeratingWithState:&v51 objects:v65 count:16];
-          if (v13)
+          v55 = 0u;
+          v46 = v8;
+          v14 = [v46 countByEnumeratingWithState:&v52 objects:v66 count:16];
+          if (v14)
           {
-            v14 = v13;
-            v46 = *v52;
+            v15 = v14;
+            v47 = *v53;
             do
             {
-              for (i = 0; i != v14; ++i)
+              for (i = 0; i != v15; ++i)
               {
-                if (*v52 != v46)
+                if (*v53 != v47)
                 {
-                  objc_enumerationMutation(v45);
+                  objc_enumerationMutation(v46);
                 }
 
-                v16 = *(*(&v51 + 1) + 8 * i);
-                v47 = 0u;
+                v17 = *(*(&v52 + 1) + 8 * i);
                 v48 = 0u;
                 v49 = 0u;
                 v50 = 0u;
-                v17 = [v16 modernResources];
-                v18 = [v17 countByEnumeratingWithState:&v47 objects:v64 count:16];
-                if (v18)
+                v51 = 0u;
+                v18 = [v17 modernResources];
+                v19 = [v18 countByEnumeratingWithState:&v48 objects:v65 count:16];
+                if (v19)
                 {
-                  v19 = v18;
-                  v20 = *v48;
+                  v20 = v19;
+                  v21 = *v49;
                   do
                   {
-                    for (j = 0; j != v19; ++j)
+                    for (j = 0; j != v20; ++j)
                     {
-                      if (*v48 != v20)
+                      if (*v49 != v21)
                       {
-                        objc_enumerationMutation(v17);
+                        objc_enumerationMutation(v18);
                       }
 
-                      v22 = *(*(&v47 + 1) + 8 * j);
-                      if (([v22 isLocallyAvailable] & 1) == 0)
+                      v23 = *(*(&v48 + 1) + 8 * j);
+                      if (([v23 isLocallyAvailable] & 1) == 0)
                       {
-                        if ([v22 isCPLOriginalResource] && (objc_msgSend(v22, "uniformTypeIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "conformsToRawImage"), v23, !v24) || objc_msgSend(v22, "cplType") == 2)
+                        if ([v23 isCPLOriginalResource] && (objc_msgSend(v23, "uniformTypeIdentifier"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "conformsToRawImage"), v24, !v25) || objc_msgSend(v23, "cplType") == 2)
                         {
-                          v25 = [v22 objectID];
-                          [v12 addObject:v25];
+                          v26 = [v23 objectID];
+                          [v13 addObject:v26];
                         }
                       }
                     }
 
-                    v19 = [v17 countByEnumeratingWithState:&v47 objects:v64 count:16];
+                    v20 = [v18 countByEnumeratingWithState:&v48 objects:v65 count:16];
                   }
 
-                  while (v19);
+                  while (v20);
                 }
               }
 
-              v14 = [v45 countByEnumeratingWithState:&v51 objects:v65 count:16];
+              v15 = [v46 countByEnumeratingWithState:&v52 objects:v66 count:16];
             }
 
-            while (v14);
+            while (v15);
           }
 
-          if ([v12 count])
+          if (objc_msgSend_count(v13))
           {
-            v26 = PLResourceCachingGetLog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = PLResourceCachingGetLog();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = [v12 count];
-              v28 = [v43 uuid];
+              v28 = objc_msgSend_count(v13);
+              v29 = [v44 uuid];
               *buf = 134218242;
-              v61 = v27;
-              v62 = 2112;
-              v63 = v28;
-              _os_log_impl(&dword_19BF1F000, v26, OS_LOG_TYPE_DEFAULT, "Will prefetch %lu resources for highlight %@", buf, 0x16u);
+              v62 = v28;
+              v63 = 2112;
+              v64 = v29;
+              _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_DEFAULT, "Will prefetch %lu resources for highlight %@", buf, 0x16u);
             }
 
-            v29 = [v12 allObjects];
-            [v40 addObjectsFromArray:v29];
+            v30 = [v13 allObjects];
+            [v41 addObjectsFromArray:v30];
           }
 
-          v5 = v44 + 1;
+          v6 = v45 + 1;
         }
 
-        while (v44 + 1 != v42);
-        v42 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
-        if (!v42)
+        while (v45 + 1 != v43);
+        v43 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+        if (!v43)
         {
 LABEL_44:
 
-          if ([v40 count])
+          if (objc_msgSend_count(v41))
           {
-            v30 = PLResourceCachingGetLog();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v31 = PLResourceCachingGetLog();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
-              v31 = [v40 count];
+              v32 = objc_msgSend_count(v41);
               *buf = 134217984;
-              v61 = v31;
-              _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_DEFAULT, "Will prefetch %lu highlight resources", buf, 0xCu);
+              v62 = v32;
+              _os_log_impl(&dword_19BF1F000, v31, OS_LOG_TYPE_DEFAULT, "Will prefetch %lu highlight resources", buf, 0xCu);
             }
 
-            v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v40];
-            v33 = *(*(v35 + 48) + 8);
-            v34 = *(v33 + 40);
-            *(v33 + 40) = v32;
+            v33 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v41];
+            v34 = *(*(v36 + 48) + 8);
+            v35 = *(v34 + 40);
+            *(v34 + 40) = v33;
             goto LABEL_50;
           }
 
@@ -837,12 +837,12 @@ LABEL_44:
       }
     }
 
-    v34 = PLResourceCachingGetLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = PLResourceCachingGetLog();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v61 = v38;
-      _os_log_impl(&dword_19BF1F000, v34, OS_LOG_TYPE_ERROR, "Failed to fetch highlights: %@", buf, 0xCu);
+      v62 = v39;
+      _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "Failed to fetch highlights: %@", buf, 0xCu);
     }
 
 LABEL_50:
@@ -906,7 +906,7 @@ void __86__PLCloudResourcePrefetchPredicates_predicateToPrefetchMemories_photoLi
         v4 = *(*(&v53 + 1) + 8 * v3);
         v5 = [v4 userCuratedAssets];
         v40 = v3;
-        if ([v5 count])
+        if (objc_msgSend_count(v5))
         {
           [v4 userCuratedAssets];
         }
@@ -1013,7 +1013,7 @@ LABEL_25:
               }
 
               v28 = [*(a1 + 56) _resourcesToPrefetchForAsset:*(*(&v45 + 1) + 8 * j) options:*(a1 + 40)];
-              if ([v28 count])
+              if (objc_msgSend_count(v28))
               {
                 v29 = PLResourceCachingGetLog();
                 if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
@@ -1052,7 +1052,7 @@ LABEL_25:
     while (v37);
   }
 
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v2];
     v33 = *(*(a1 + 48) + 8);
@@ -1118,7 +1118,7 @@ void __94__PLCloudResourcePrefetchPredicates__predicateToPrefetchMemoryKeyAssets
         if (v9)
         {
           v10 = [*(a1 + 56) _resourcesToPrefetchForAsset:v9 options:*(a1 + 40)];
-          if ([v10 count])
+          if (objc_msgSend_count(v10))
           {
             v11 = PLResourceCachingGetLog();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -1148,7 +1148,7 @@ void __94__PLCloudResourcePrefetchPredicates__predicateToPrefetchMemoryKeyAssets
     while (v5);
   }
 
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v2];
     v15 = *(*(a1 + 48) + 8);
@@ -1235,7 +1235,7 @@ void __90__PLCloudResourcePrefetchPredicates__predicateToPrefetchSuggestions_pho
               }
 
               v13 = [*(a1 + 56) _resourcesToPrefetchForAsset:*(*(&v24 + 1) + 8 * i) options:*(a1 + 40)];
-              if ([v13 count])
+              if (objc_msgSend_count(v13))
               {
                 v14 = PLResourceCachingGetLog();
                 if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -1274,7 +1274,7 @@ void __90__PLCloudResourcePrefetchPredicates__predicateToPrefetchSuggestions_pho
     while (v22);
   }
 
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     v17 = [MEMORY[0x1E696AE18] predicateWithFormat:@"SELF IN %@", v2];
     v18 = *(*(a1 + 48) + 8);
@@ -1507,7 +1507,7 @@ void __76__PLCloudResourcePrefetchPredicates__resourceLastPrunedPrefetchTimeInte
   v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %d", @"asset.cloudLocalState", 1];
   [v13 addObject:v21];
 
-  if ([predicatesCopy count])
+  if (objc_msgSend_count(predicatesCopy))
   {
     [v13 addObjectsFromArray:predicatesCopy];
   }
@@ -1537,7 +1537,7 @@ void __76__PLCloudResourcePrefetchPredicates__resourceLastPrunedPrefetchTimeInte
   v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %d", @"asset.cloudLocalState", 1];
   [v13 addObject:v19];
 
-  if ([predicatesCopy count])
+  if (objc_msgSend_count(predicatesCopy))
   {
     [v13 addObjectsFromArray:predicatesCopy];
   }

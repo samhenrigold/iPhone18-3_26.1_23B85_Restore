@@ -25,12 +25,11 @@
 - (void)hostViewControllerDidActivate:(id)activate
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E533D40, &qword_2411ACDE0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v14 - v6;
+  v6 = &v13 - v5;
   sub_2411ABDA8();
   sub_2411ABD98();
-  v8 = MEMORY[0x277D85700];
+  v7 = MEMORY[0x277D85700];
   sub_2411ABD48();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
@@ -39,15 +38,15 @@
 
   selfCopy = self;
   sub_241193CF4();
-  v10 = sub_2411ABDD8();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
-  v11 = selfCopy;
-  v12 = sub_2411ABD98();
-  v13 = swift_allocObject();
-  v13[2] = v12;
-  v13[3] = v8;
-  v13[4] = v11;
-  sub_241192B80(0, 0, v7, &unk_2411AD740, v13);
+  v9 = sub_2411ABDD8();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = selfCopy;
+  v11 = sub_2411ABD98();
+  v12 = swift_allocObject();
+  v12[2] = v11;
+  v12[3] = v7;
+  v12[4] = v10;
+  sub_241192B80(0, 0, v6, &unk_2411AD740, v12);
 }
 
 - (void)hostViewControllerWillDeactivate:(id)deactivate error:(id)error

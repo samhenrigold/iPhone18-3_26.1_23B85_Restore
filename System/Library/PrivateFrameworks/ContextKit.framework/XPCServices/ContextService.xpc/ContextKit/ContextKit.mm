@@ -133,9 +133,9 @@ int main(int argc, const char **argv, const char **envp)
   return v6;
 }
 
-void sub_1000028F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000028F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -294,9 +294,9 @@ LABEL_25:
 LABEL_26:
 }
 
-void sub_100002D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -341,17 +341,18 @@ OrgApacheLuceneSearchCollectionStatistics *new_OrgApacheLuceneSearchCollectionSt
   return v10;
 }
 
-void *OrgApacheLuceneUtilPackedDirectWriter_initWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(uint64_t a1, void *a2, uint64_t a3, int a4)
+void *OrgApacheLuceneUtilPackedDirectWriter_initWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   JreStrongAssign((a1 + 24), a2);
   *(a1 + 16) = a3;
-  *(a1 + 8) = a4;
+  *(a1 + 8) = v4;
   if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100003648();
   }
 
-  v7 = OrgApacheLuceneUtilPackedBulkOperation_ofWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_(OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, a4);
+  v7 = OrgApacheLuceneUtilPackedBulkOperation_ofWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_(OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], v4);
   JreStrongAssign((a1 + 64), v7);
   v8 = *(a1 + 64);
   if (!v8)
@@ -367,7 +368,7 @@ void *OrgApacheLuceneUtilPackedDirectWriter_initWithOrgApacheLuceneStoreIndexOut
   return JreStrongAssignAndConsume((a1 + 56), v10);
 }
 
-OrgApacheLuceneUtilPackedDirectWriter *OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(void *a1, uint64_t a2, int a3)
+OrgApacheLuceneUtilPackedDirectWriter *OrgApacheLuceneUtilPackedDirectWriter_getInstanceWithOrgApacheLuceneStoreIndexOutput_withLong_withInt_(void *a1, uint64_t a2, uint64_t a3)
 {
   if ((atomic_load_explicit(OrgApacheLuceneUtilPackedDirectWriter__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -399,16 +400,16 @@ uint64_t OrgApacheLuceneUtilPackedDirectWriter_bitsRequiredWithLong_(unint64_t a
   return sub_1000035B0(v9);
 }
 
-uint64_t OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(unint64_t a1)
+uint64_t OrgApacheLuceneUtilPackedDirectWriter_unsignedBitsRequiredWithLong_(unint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(OrgApacheLuceneUtilPackedDirectWriter__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100003654();
   }
 
-  v2 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(a1);
+  v3 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(a1, a2);
 
-  return sub_1000035B0(v2);
+  return sub_1000035B0(v3);
 }
 
 uint64_t sub_1000035B0(uint64_t a1)
@@ -444,23 +445,23 @@ id OrgApacheLuceneUtilArrayTimSorter_initWithNSObjectArray_withJavaUtilComparato
   v4 = a4;
   OrgApacheLuceneUtilTimSorter_initWithInt_(a1, a4);
   JreStrongAssign(a1 + 5, a2);
-  JreStrongAssign(a1 + 4, a3);
+  v8 = JreStrongAssign(a1 + 4, a3);
   if (v4 < 1)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_()];
+    v10 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_(v8, v9)];
     objc_opt_class();
-    if (v8 && (objc_opt_isKindOfClass() & 1) == 0)
+    if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
     {
       JreThrowClassCastException();
     }
   }
 
-  return JreStrongAssign(a1 + 6, v8);
+  return JreStrongAssign(a1 + 6, v10);
 }
 
 OrgApacheLuceneUtilArrayTimSorter *new_OrgApacheLuceneUtilArrayTimSorter_initWithNSObjectArray_withJavaUtilComparator_withInt_(void *a1, void *a2, uint64_t a3)
@@ -477,7 +478,7 @@ void *OrgApacheLuceneCodecsLucene53Lucene53Codec_init(id *a1)
     sub_1000040DC();
   }
 
-  v2 = OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum_values_;
+  v2 = OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum_values_[0];
 
   return OrgApacheLuceneCodecsLucene53Lucene53Codec_initWithOrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum_(a1, v2);
 }
@@ -505,17 +506,17 @@ void *OrgApacheLuceneCodecsLucene53Lucene53Codec_initWithOrgApacheLuceneCodecsLu
   JreStrongAssignAndConsume(a1 + 8, v10);
   v11 = OrgApacheLuceneCodecsPostingsFormat_forNameWithNSString_(@"Lucene50");
   JreStrongAssign(a1 + 10, v11);
-  v12 = OrgApacheLuceneCodecsDocValuesFormat_forNameWithNSString_(@"Lucene50");
-  JreStrongAssign(a1 + 11, v12);
-  v13 = new_OrgApacheLuceneCodecsLucene53Lucene53NormsFormat_init();
-  JreStrongAssignAndConsume(a1 + 12, v13);
-  v14 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2);
-  v15 = new_OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_initWithOrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum_(v14);
+  v13 = OrgApacheLuceneCodecsDocValuesFormat_forNameWithNSString_(@"Lucene50", v12);
+  JreStrongAssign(a1 + 11, v13);
+  v14 = new_OrgApacheLuceneCodecsLucene53Lucene53NormsFormat_init();
+  JreStrongAssignAndConsume(a1 + 12, v14);
+  v16 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2, v15);
+  v17 = new_OrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_initWithOrgApacheLuceneCodecsLucene50Lucene50StoredFieldsFormat_ModeEnum_(v16);
 
-  return JreStrongAssignAndConsume(a1 + 9, v15);
+  return JreStrongAssignAndConsume(a1 + 9, v17);
 }
 
-uint64_t OrgApacheLuceneUtilStringHelper_bytesDifferenceWithOrgApacheLuceneUtilBytesRef_withOrgApacheLuceneUtilBytesRef_(uint64_t a1, uint64_t a2)
+uint64_t OrgApacheLuceneUtilStringHelper_bytesDifferenceWithOrgApacheLuceneUtilBytesRef_withOrgApacheLuceneUtilBytesRef_(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire))
   {
@@ -541,73 +542,73 @@ uint64_t OrgApacheLuceneUtilStringHelper_bytesDifferenceWithOrgApacheLuceneUtilB
 
   if (*(a1 + 20) >= *(a2 + 20))
   {
-    v4 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v4 = a1;
+    v5 = a1;
   }
 
-  v5 = *(v4 + 20);
-  if (v5 < 1)
+  v6 = *(v5 + 20);
+  if (v6 < 1)
   {
-    LODWORD(v7) = 0;
+    LODWORD(v8) = 0;
     goto LABEL_21;
   }
 
-  v6 = *(a1 + 8);
-  if (!v6)
+  v7 = *(a1 + 8);
+  if (!v7)
   {
 LABEL_25:
     JreThrowNullPointerException();
   }
 
-  v7 = 0;
-  v8 = *(a1 + 16);
-  v9 = *(a2 + 8);
-  v10 = *(a2 + 16);
+  v8 = 0;
+  v9 = *(a1 + 16);
+  v10 = *(a2 + 8);
+  v11 = *(a2 + 16);
   do
   {
-    v11 = v8 + v7;
-    v12 = *(v6 + 8);
-    if (v8 + v7 < 0 || v11 >= v12)
+    v12 = v9 + v8;
+    v13 = *(v7 + 8);
+    if (v9 + v8 < 0 || v12 >= v13)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v12, v8 + v7);
+      IOSArray_throwOutOfBoundsWithMsg(v13, v9 + v8);
     }
 
-    if (!v9)
+    if (!v10)
     {
       goto LABEL_25;
     }
 
-    v13 = *(v6 + 12 + v11);
-    v14 = v10 + v7;
-    v15 = *(v9 + 8);
-    if (v10 + v7 < 0 || v14 >= v15)
+    v14 = *(v7 + 12 + v12);
+    v15 = v11 + v8;
+    v16 = *(v10 + 8);
+    if (v11 + v8 < 0 || v15 >= v16)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v15, v10 + v7);
+      IOSArray_throwOutOfBoundsWithMsg(v16, v11 + v8);
     }
 
-    if (v13 != *(v9 + 12 + v14))
+    if (v14 != *(v10 + 12 + v15))
     {
       goto LABEL_21;
     }
 
-    ++v7;
+    ++v8;
   }
 
-  while (v5 != v7);
-  LODWORD(v7) = *(v4 + 20);
+  while (v6 != v8);
+  LODWORD(v8) = *(v5 + 20);
 LABEL_21:
-  if (v7 >= v5)
+  if (v8 >= v6)
   {
-    return v5;
+    return v6;
   }
 
   else
   {
-    return v7;
+    return v8;
   }
 }
 
@@ -713,7 +714,7 @@ LABEL_3:
   return [a1 isEqual:a2];
 }
 
-BOOL OrgApacheLuceneUtilStringHelper_startsWithWithByteArray_withOrgApacheLuceneUtilBytesRef_(uint64_t a1, uint64_t a2)
+BOOL OrgApacheLuceneUtilStringHelper_startsWithWithByteArray_withOrgApacheLuceneUtilBytesRef_(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire))
   {
@@ -737,40 +738,40 @@ BOOL OrgApacheLuceneUtilStringHelper_startsWithWithByteArray_withOrgApacheLucene
     goto LABEL_20;
   }
 
-  v4 = *(a2 + 20);
-  if (*(a1 + 8) < v4)
+  v5 = *(a2 + 20);
+  if (*(a1 + 8) < v5)
   {
     return 0;
   }
 
-  if (v4 >= 1)
+  if (v5 >= 1)
   {
-    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      v7 = *(a1 + 8);
-      if (v6 >= v7)
+      v8 = *(a1 + 8);
+      if (v7 >= v8)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v7, v6);
+        IOSArray_throwOutOfBoundsWithMsg(v8, v7);
       }
 
-      v8 = *(a2 + 8);
-      if (!v8)
+      v9 = *(a2 + 8);
+      if (!v9)
       {
         break;
       }
 
-      v9 = *(a1 + 12 + v6);
-      v10 = v6 + *(a2 + 16);
-      v11 = *(v8 + 8);
-      if (v10 < 0 || v10 >= v11)
+      v10 = *(a1 + 12 + v7);
+      v11 = v7 + *(a2 + 16);
+      v12 = *(v9 + 8);
+      if (v11 < 0 || v11 >= v12)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v11, v6 + *(a2 + 16));
+        IOSArray_throwOutOfBoundsWithMsg(v12, v7 + *(a2 + 16));
       }
 
-      v12 = *(v8 + 12 + v10);
-      result = v9 == v12;
-      if (v9 == v12 && ++v6 < *(a2 + 20))
+      v13 = *(v9 + 12 + v11);
+      result = v10 == v13;
+      if (v10 == v13 && ++v7 < *(a2 + 20))
       {
         continue;
       }
@@ -820,20 +821,22 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v4 = *(a1 + 20) - *(a2 + 20);
+  v4 = (*(a1 + 20) - *(a2 + 20));
 
   return sub_100004F80(a1, a2, v4);
 }
 
-uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt_withInt_withInt_(uint64_t a1, int a2, unsigned int a3, unsigned int a4)
+uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt_withInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
+  v5 = a3;
+  v6 = a2;
   if ((atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100005258();
   }
 
-  v8 = (a3 & 0xFFFFFFFC) + a2;
-  if (v8 > a2)
+  v8 = (v5 & 0xFFFFFFFC) + v6;
+  if (v8 > v6)
   {
     if (!a1)
     {
@@ -842,44 +845,44 @@ uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt
 
     do
     {
-      v9 = a2;
+      v9 = v6;
       v10 = *(a1 + 8);
-      if (a2 < 0 || a2 >= v10)
+      if (v6 < 0 || v6 >= v10)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v10, a2);
+        IOSArray_throwOutOfBoundsWithMsg(v10, v6);
       }
 
-      v11 = a2 + 1;
-      if (a2 < -1 || v11 >= v10)
+      v11 = v6 + 1;
+      if (v6 < -1 || v11 >= v10)
       {
         IOSArray_throwOutOfBoundsWithMsg(v10, v11);
       }
 
       v12 = *(a1 + 12 + v11);
-      v13 = a2 + 2;
-      if (a2 + 2 < 0 || v13 >= v10)
+      v13 = v6 + 2;
+      if (v6 + 2 < 0 || v13 >= v10)
       {
         IOSArray_throwOutOfBoundsWithMsg(v10, v13);
       }
 
       v14 = *(a1 + 12 + v13);
-      v15 = a2 + 3;
-      if (a2 + 3 < 0 || v15 >= v10)
+      v15 = v6 + 3;
+      if (v6 + 3 < 0 || v15 >= v10)
       {
         IOSArray_throwOutOfBoundsWithMsg(v10, v15);
       }
 
-      v16 = JavaLangInteger_rotateLeftWithInt_withInt_(-862048943 * (*(a1 + 12 + a2) | (v12 << 8) | (v14 << 16) | (*(a1 + 12 + v15) << 24)), 15);
+      v16 = JavaLangInteger_rotateLeftWithInt_withInt_(-862048943 * (*(a1 + 12 + v6) | (v12 << 8) | (v14 << 16) | (*(a1 + 12 + v15) << 24)), 15);
       a4 = 5 * JavaLangInteger_rotateLeftWithInt_withInt_((461845907 * v16) ^ a4, 13) - 430675100;
-      a2 += 4;
+      v6 += 4;
     }
 
     while (v9 + 4 < v8);
   }
 
-  if ((a3 & 3) > 1)
+  if ((v5 & 3u) > 1)
   {
-    if ((a3 & 3) == 2)
+    if ((v5 & 3) == 2)
     {
       if (!a1)
       {
@@ -917,7 +920,7 @@ uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt
     goto LABEL_33;
   }
 
-  if ((a3 & 3) == 0)
+  if ((v5 & 3) == 0)
   {
     goto LABEL_36;
   }
@@ -938,12 +941,13 @@ LABEL_33:
 
   a4 ^= 461845907 * JavaLangInteger_rotateLeftWithInt_withInt_(-862048943 * (v17 | *(a1 + 12 + v8)), 15);
 LABEL_36:
-  v24 = -2048144789 * (a4 ^ a3 ^ ((a4 ^ a3) >> 16));
+  v24 = -2048144789 * (a4 ^ v5 ^ ((a4 ^ v5) >> 16));
   return (-1028477387 * (v24 ^ (v24 >> 13))) ^ ((-1028477387 * (v24 ^ (v24 >> 13))) >> 16);
 }
 
-uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithOrgApacheLuceneUtilBytesRef_withInt_(uint64_t a1, unsigned int a2)
+uint64_t OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithOrgApacheLuceneUtilBytesRef_withInt_(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire))
   {
     if (a1)
@@ -966,10 +970,10 @@ LABEL_3:
   v5 = *(a1 + 16);
   v6 = *(a1 + 20);
 
-  return OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt_withInt_withInt_(v4, v5, v6, a2);
+  return OrgApacheLuceneUtilStringHelper_murmurhash3_x86_32WithByteArray_withInt_withInt_withInt_(v4, v5, v6, v2);
 }
 
-const __CFString *OrgApacheLuceneUtilStringHelper_idToStringWithByteArray_(uint64_t a1)
+const __CFString *OrgApacheLuceneUtilStringHelper_idToStringWithByteArray_(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -988,21 +992,21 @@ const __CFString *OrgApacheLuceneUtilStringHelper_idToStringWithByteArray_(uint6
   }
 
 LABEL_3:
-  v2 = new_JavaLangStringBuilder_init();
-  -[JavaLangStringBuilder appendWithNSString:](v2, "appendWithNSString:", [new_JavaMathBigInteger_initWithInt_withByteArray_(1 toStringWithInt:"toStringWithInt:", 36]);
+  v3 = new_JavaLangStringBuilder_init();
+  -[JavaLangStringBuilder appendWithNSString:](v3, "appendWithNSString:", [new_JavaMathBigInteger_initWithInt_withByteArray_(1 toStringWithInt:"toStringWithInt:", 36]);
   if (*(a1 + 8) != 16)
   {
-    [(JavaLangStringBuilder *)v2 appendWithNSString:@" (INVALID FORMAT)"];
+    [(JavaLangStringBuilder *)v3 appendWithNSString:@" (INVALID FORMAT)"];
   }
 
-  return [(JavaLangStringBuilder *)v2 description];
+  return [(JavaLangStringBuilder *)v3 description];
 }
 
-OrgApacheLuceneUtilBytesRef *OrgApacheLuceneUtilStringHelper_intsRefToBytesRefWithOrgApacheLuceneUtilIntsRef_(uint64_t a1)
+OrgApacheLuceneUtilBytesRef *OrgApacheLuceneUtilStringHelper_intsRefToBytesRefWithOrgApacheLuceneUtilIntsRef_(uint64_t size, uint64_t a2)
 {
   if (atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire))
   {
-    if (!a1)
+    if (!size)
     {
       goto LABEL_18;
     }
@@ -1011,51 +1015,51 @@ OrgApacheLuceneUtilBytesRef *OrgApacheLuceneUtilStringHelper_intsRefToBytesRefWi
   else
   {
     sub_100005258();
-    if (!a1)
+    if (!size)
     {
       goto LABEL_18;
     }
   }
 
-  v2 = [IOSByteArray arrayWithLength:*(a1 + 20)];
-  v10 = v2;
-  if (*(a1 + 20) >= 1)
+  v3 = [IOSByteArray arrayWithLength:*(size + 20)];
+  v11 = v3;
+  if (*(size + 20) >= 1)
   {
-    v11 = 0;
-    v12 = v2;
+    v12 = 0;
+    v13 = v3;
     while (1)
     {
-      v13 = *(a1 + 8);
-      if (!v13)
+      v14 = *(size + 8);
+      if (!v14)
       {
         break;
       }
 
-      v14 = v11 + *(a1 + 16);
-      v15 = *(v13 + 8);
-      if (v14 < 0 || v14 >= v15)
+      v15 = v12 + *(size + 16);
+      v16 = *(v14 + 8);
+      if (v15 < 0 || v15 >= v16)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v15, v11 + *(a1 + 16));
+        IOSArray_throwOutOfBoundsWithMsg(v16, v12 + *(size + 16));
       }
 
-      v16 = *(v13 + 12 + 4 * v14);
-      if (v16 >= 0x100)
+      v17 = *(v14 + 12 + 4 * v15);
+      if (v17 >= 0x100)
       {
-        v20 = JreStrcat("$I$I$", v3, v4, v5, v6, v7, v8, v9, @"int at pos=");
-        v21 = new_JavaLangIllegalArgumentException_initWithNSString_(v20);
-        objc_exception_throw(v21);
+        v21 = JreStrcat("$I$I$", v4, v5, v6, v7, v8, v9, v10, @"int at pos=");
+        v22 = new_JavaLangIllegalArgumentException_initWithNSString_(v21);
+        objc_exception_throw(v22);
       }
 
-      size = v10->super.size_;
-      if (v11 >= size)
+      v18 = v11->super.size_;
+      if (v12 >= v18)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, v11);
+        IOSArray_throwOutOfBoundsWithMsg(v18, v12);
       }
 
-      *(&v12->super.size_ + 4) = v16;
-      ++v11;
-      v12 = (v12 + 1);
-      if (v11 >= *(a1 + 20))
+      *(&v13->super.size_ + 4) = v17;
+      ++v12;
+      v13 = (v13 + 1);
+      if (v12 >= *(size + 20))
       {
         goto LABEL_14;
       }
@@ -1066,17 +1070,18 @@ LABEL_18:
   }
 
 LABEL_14:
-  v18 = new_OrgApacheLuceneUtilBytesRef_initWithByteArray_(v10);
+  v19 = new_OrgApacheLuceneUtilBytesRef_initWithByteArray_(v11);
 
-  return v18;
+  return v19;
 }
 
-BOOL sub_100004F80(uint64_t a1, uint64_t a2, int a3)
+BOOL sub_100004F80(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if ((atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100005258();
-    if ((a3 & 0x80000000) == 0)
+    if ((v3 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -1084,7 +1089,7 @@ BOOL sub_100004F80(uint64_t a1, uint64_t a2, int a3)
     return 0;
   }
 
-  if (a3 < 0)
+  if ((a3 & 0x80000000) != 0)
   {
     return 0;
   }
@@ -1097,12 +1102,12 @@ LABEL_21:
   }
 
   v6 = *(a2 + 20);
-  if (*(a1 + 20) - a3 < v6)
+  if (*(a1 + 20) - v3 < v6)
   {
     return 0;
   }
 
-  v9 = (*(a1 + 16) + a3);
+  v9 = (*(a1 + 16) + v3);
   v10 = *(a2 + 16);
   v11 = v10 + v6;
   if (v10 > v11)
@@ -1147,59 +1152,59 @@ LABEL_21:
   return v7;
 }
 
-IOSByteArray *OrgApacheLuceneUtilStringHelper_randomId()
+IOSByteArray *OrgApacheLuceneUtilStringHelper_randomId(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(OrgApacheLuceneUtilStringHelper__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100005258();
   }
 
-  v0 = qword_100553D88;
+  v2 = qword_100553D88;
   objc_sync_enter(qword_100553D88);
   if (!qword_100553D98)
   {
     goto LABEL_13;
   }
 
-  v1 = [qword_100553D98 toByteArray];
-  v2 = qword_100553D98;
+  v3 = [qword_100553D98 toByteArray];
+  v4 = qword_100553D98;
   if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
   }
 
-  v3 = [v2 addWithJavaMathBigInteger:JavaMathBigInteger_ONE_];
-  if (!v3)
+  v5 = [v4 addWithJavaMathBigInteger:JavaMathBigInteger_ONE_];
+  if (!v5)
   {
 LABEL_13:
     JreThrowNullPointerException();
   }
 
-  JreStrongAssign(&qword_100553D98, [v3 and__WithJavaMathBigInteger:qword_100553D90]);
-  objc_sync_exit(v0);
-  if (!v1)
+  JreStrongAssign(&qword_100553D98, [v5 and__WithJavaMathBigInteger:qword_100553D90]);
+  objc_sync_exit(v2);
+  if (!v3)
   {
     JreThrowNullPointerException();
   }
 
-  v4 = v1[2];
-  if (v4 <= 16)
+  v6 = v3[2];
+  if (v6 <= 16)
   {
-    v6 = [IOSByteArray arrayWithLength:16];
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v1, 0, v6, (v6->super.size_ - v1[2]), v1[2]);
-    return v6;
+    v8 = [IOSByteArray arrayWithLength:16];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v3, 0, v8, (v8->super.size_ - v3[2]), v3[2]);
+    return v8;
   }
 
   else
   {
 
-    return JavaUtilArrays_copyOfRangeWithByteArray_withInt_withInt_(v1, 1, v4);
+    return JavaUtilArrays_copyOfRangeWithByteArray_withInt_withInt_(v3, 1, v6);
   }
 }
 
 id OrgApacheLuceneSearchDisjunctionDISIApproximation_initWithOrgApacheLuceneSearchDisiPriorityQueue_(uint64_t a1, void *a2)
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(a1, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   JreStrongAssign((a1 + 8), a2);
   v10 = 0u;
   v11 = 0u;
@@ -1261,7 +1266,7 @@ OrgApacheLuceneSearchDisjunctionDISIApproximation *new_OrgApacheLuceneSearchDisj
   return v2;
 }
 
-OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_DocData *sub_1000055F0(id *a1, int a2)
+OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_DocData *sub_1000055F0(id *a1, uint64_t a2)
 {
   v3 = a1[10];
   if (!v3 || (v5 = [v3 descendingIterator]) == 0)
@@ -1348,44 +1353,17 @@ LABEL_11:
   v14 = a1;
   v15 = a2;
 LABEL_20:
-  sub_100009C1C(v12, v14, v15, v16, v17, v18);
+  sub_100009C1C(&v12->super.isa, v14, v15, v16, v17, v18);
   v24 = v13;
   [a1[10] addWithId:v24];
   return v24;
 }
 
-void *OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexSegmentInfo_withNSString_withOrgApacheLuceneStoreIOContext_withNSString_withOrgApacheLuceneCodecsCompressingCompressionMode_withInt_withInt_(uint64_t a1, void *a2, void **a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, int a9)
+void *OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexSegmentInfo_withNSString_withOrgApacheLuceneStoreIOContext_withNSString_withOrgApacheLuceneCodecsCompressingCompressionMode_withInt_withInt_(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, unsigned int a9)
 {
   OrgApacheLuceneCodecsTermVectorsWriter_init();
-  if (!a3)
+  if (!a3 || (JreStrongAssign((a1 + 8), a3[1]), JreStrongAssign((a1 + 32), a7), !a7) || (JreStrongAssign((a1 + 40), [a7 newCompressor]), *(a1 + 48) = a8, *(a1 + 72) = 0, v17 = new_JavaUtilArrayDeque_init(), JreStrongAssignAndConsume((a1 + 80), v17), v24 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(a8, 1, v18, v19, v20, v21, v22, v23), v25 = new_OrgApacheLuceneUtilGrowableByteArrayDataOutput_initWithInt_(v24), JreStrongAssignAndConsume((a1 + 144), v25), v32 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(1, 1, v26, v27, v28, v29, v30, v31), v33 = new_OrgApacheLuceneUtilGrowableByteArrayDataOutput_initWithInt_(v32), JreStrongAssignAndConsume((a1 + 152), v33), v40 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(30, 1, v34, v35, v36, v37, v38, v39), v41 = new_OrgApacheLuceneUtilBytesRef_initWithInt_(v40), JreStrongAssignAndConsume((a1 + 104), v41), !a2))
   {
-    goto LABEL_5;
-  }
-
-  JreStrongAssign((a1 + 8), a3[1]);
-  JreStrongAssign((a1 + 32), a7);
-  if (!a7)
-  {
-    goto LABEL_5;
-  }
-
-  JreStrongAssign((a1 + 40), [a7 newCompressor]);
-  *(a1 + 48) = a8;
-  *(a1 + 72) = 0;
-  v17 = new_JavaUtilArrayDeque_init();
-  JreStrongAssignAndConsume((a1 + 80), v17);
-  v24 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(a8, 1, v18, v19, v20, v21, v22, v23);
-  v25 = new_OrgApacheLuceneUtilGrowableByteArrayDataOutput_initWithInt_(v24);
-  JreStrongAssignAndConsume((a1 + 144), v25);
-  v32 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(1u, 1, v26, v27, v28, v29, v30, v31);
-  v33 = new_OrgApacheLuceneUtilGrowableByteArrayDataOutput_initWithInt_(v32);
-  JreStrongAssignAndConsume((a1 + 152), v33);
-  v40 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(0x1Eu, 1, v34, v35, v36, v37, v38, v39);
-  v41 = new_OrgApacheLuceneUtilBytesRef_initWithInt_(v40);
-  JreStrongAssignAndConsume((a1 + 104), v41);
-  if (!a2)
-  {
-LABEL_5:
     JreThrowNullPointerException();
   }
 
@@ -1412,11 +1390,11 @@ void sub_100005B34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a2)
   {
-    objc_begin_catch(exception_object);
+    v14 = objc_begin_catch(exception_object);
     a11 = *(v13 + 24);
     a13 = *(v13 + 16);
-    v14 = [IOSObjectArray arrayWithObjects:&a11 count:3 type:JavaIoCloseable_class_()];
-    OrgApacheLuceneUtilIOUtils_closeWhileHandlingExceptionWithJavaIoCloseableArray_(v14);
+    v16 = [IOSObjectArray arrayWithObjects:&a11 count:3 type:JavaIoCloseable_class_(v14, v15)];
+    OrgApacheLuceneUtilIOUtils_closeWhileHandlingExceptionWithJavaIoCloseableArray_(v16);
     objc_exception_rethrow();
   }
 
@@ -1621,7 +1599,7 @@ IOSIntArray *sub_1000064AC(uint64_t a1)
     sub_10000A400();
   }
 
-  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v28, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, [(JavaUtilTreeSet *)v4 size], v26, 1);
+  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v28, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], [(JavaUtilTreeSet *)v4 size], v26, 1);
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
@@ -1719,9 +1697,9 @@ LABEL_36:
   return v35;
 }
 
-id sub_1000068C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id sub_1000068C0(void *WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *(a1 + 24);
+  v11 = WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt[3];
   if (atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire))
   {
     if (!a3)
@@ -1739,20 +1717,20 @@ id sub_1000068C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5
     }
   }
 
-  v12 = OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_;
+  v12 = OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0];
   v13 = OrgApacheLuceneUtilPackedPackedInts_bitsRequiredWithLong_(*(a3 + 8) - 1, a2, a3, a4, a5, a6, a7, a8);
-  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v11, v12, a2, v13, 1);
+  v14 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v11, v12, a2, v13, 1);
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v15 = *(a1 + 80);
+  v15 = WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt[10];
   if (!v15)
   {
     goto LABEL_25;
   }
 
-  v16 = WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt;
+  v16 = v14;
   v17 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v17)
   {
@@ -1834,7 +1812,7 @@ LABEL_25:
   return [(OrgApacheLuceneUtilPackedPackedWriter *)v16 finish];
 }
 
-id sub_100006AF8(uint64_t a1, unsigned int a2, uint64_t a3)
+id sub_100006AF8(uint64_t WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt, unsigned int a2, uint64_t a3)
 {
   if (!a3)
   {
@@ -1847,7 +1825,7 @@ id sub_100006AF8(uint64_t a1, unsigned int a2, uint64_t a3)
   v67 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v7 = *(a1 + 80);
+  v7 = *(WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt + 80);
   if (!v7)
   {
     goto LABEL_63;
@@ -1858,18 +1836,18 @@ id sub_100006AF8(uint64_t a1, unsigned int a2, uint64_t a3)
   if (!v48)
   {
 LABEL_34:
-    v24 = *(a1 + 24);
+    v24 = *(WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt + 24);
     if (v24)
     {
       [v24 writeVIntWithInt:0];
-      v25 = *(a1 + 24);
+      v25 = *(WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt + 24);
       if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
       {
         sub_10000A400();
       }
 
-      WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v25, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, v6->super.size_, OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FLAGS_BITS_, 1);
-      v27 = WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt;
+      v26 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v25, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], v6->super.size_, OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FLAGS_BITS_, 1);
+      v27 = v26;
       v28 = &v6->super.size_ + 1;
       v29 = (&v6->super.size_ + v6->super.size_ + 1);
       if (v28 >= v29)
@@ -1877,7 +1855,7 @@ LABEL_34:
         return [(OrgApacheLuceneUtilPackedPackedWriter *)v27 finish];
       }
 
-      if (WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt)
+      if (v26)
       {
         do
         {
@@ -1895,7 +1873,7 @@ LABEL_63:
   }
 
   v8 = *v65;
-  v51 = a1;
+  v51 = WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt;
   v46 = *v65;
   v47 = v7;
 LABEL_5:
@@ -1932,7 +1910,7 @@ LABEL_5:
 
 LABEL_32:
     v9 = v49 + 1;
-    a1 = v51;
+    WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = v51;
     v8 = v46;
     v7 = v47;
     if ((v49 + 1) == v48)
@@ -2023,7 +2001,7 @@ LABEL_26:
     sub_10000A400();
   }
 
-  v27 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v32, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, v50, OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FLAGS_BITS_, 1);
+  v27 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v32, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], v50, OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_FLAGS_BITS_, 1);
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
@@ -2103,19 +2081,19 @@ LABEL_26:
   return [(OrgApacheLuceneUtilPackedPackedWriter *)v27 finish];
 }
 
-id sub_100006FCC(uint64_t a1, uint64_t a2)
+id sub_100006FCC(id *a1, uint64_t a2)
 {
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v2 = *(a1 + 80);
+  v2 = a1[10];
   if (!v2)
   {
     goto LABEL_42;
   }
 
-  v5 = [*(a1 + 80) countByEnumeratingWithState:&v54 objects:v61 count:16];
+  v5 = [a1[10] countByEnumeratingWithState:&v54 objects:v61 count:16];
   if (v5)
   {
     v13 = v5;
@@ -2186,7 +2164,7 @@ id sub_100006FCC(uint64_t a1, uint64_t a2)
   }
 
   v24 = OrgApacheLuceneUtilPackedPackedInts_bitsRequiredWithLong_(v5, v6, v7, v8, v9, v10, v11, v12);
-  v25 = *(a1 + 24);
+  v25 = a1[3];
   if (!v25)
   {
 LABEL_42:
@@ -2194,18 +2172,18 @@ LABEL_42:
   }
 
   [v25 writeVIntWithInt:v24];
-  v26 = *(a1 + 24);
+  v26 = a1[3];
   if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10000A400();
   }
 
-  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v26, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, a2, v24, 1);
+  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v26, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], a2, v24, 1);
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v28 = *(a1 + 80);
+  v28 = a1[10];
   v29 = [v28 countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (v29)
   {
@@ -2804,7 +2782,7 @@ LABEL_31:
   return [*(a1 + 160) finish];
 }
 
-id sub_100007C4C(uint64_t a1, uint64_t a2)
+id sub_100007C4C(uint64_t result, uint64_t a2)
 {
   if (!a2)
   {
@@ -2812,46 +2790,46 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
   }
 
   v2 = a2;
-  v109 = [IOSLongArray arrayWithLength:*(a2 + 8)];
+  v110 = [IOSLongArray arrayWithLength:*(a2 + 8)];
   v3 = [IOSLongArray arrayWithLength:*(v2 + 8)];
-  v150 = 0u;
   v151 = 0u;
   v152 = 0u;
   v153 = 0u;
-  v4 = *(a1 + 80);
+  v154 = 0u;
+  v4 = *(result + 80);
   if (!v4)
   {
     goto LABEL_160;
   }
 
-  v107 = v3;
-  result = [v4 countByEnumeratingWithState:&v150 objects:v159 count:16];
-  if (!result)
+  v108 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v151 objects:v160 count:16];
+  if (!v5)
   {
-    return result;
+    return v5;
   }
 
-  v6 = result;
+  v6 = v5;
   v7 = 0;
-  v8 = *v151;
-  v106 = v2;
-  v101 = *v151;
-  v102 = v4;
+  v8 = *v152;
+  v107 = v2;
+  v102 = *v152;
+  v103 = v4;
   do
   {
     v9 = 0;
     do
     {
-      if (*v151 != v8)
+      if (*v152 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v150 + 1) + 8 * v9);
-      v146 = 0u;
+      v10 = *(*(&v151 + 1) + 8 * v9);
       v147 = 0u;
       v148 = 0u;
       v149 = 0u;
+      v150 = 0u;
       if (!v10)
       {
         goto LABEL_160;
@@ -2864,44 +2842,44 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
       }
 
       obj = *(v10 + 24);
-      v121 = [v11 countByEnumeratingWithState:&v146 objects:v158 count:16];
-      if (v121)
+      v122 = [v11 countByEnumeratingWithState:&v147 objects:v159 count:16];
+      if (v122)
       {
-        v124 = *v147;
-        v103 = v9;
-        v104 = v6;
+        v125 = *v148;
+        v104 = v9;
+        v105 = v6;
         do
         {
-          for (i = 0; i != v121; i = i + 1)
+          for (i = 0; i != v122; i = i + 1)
           {
-            if (*v147 != v124)
+            if (*v148 != v125)
             {
               v13 = i;
               objc_enumerationMutation(obj);
               i = v13;
             }
 
-            v14 = *(*(&v146 + 1) + 8 * i);
+            v14 = *(*(&v147 + 1) + 8 * i);
             if (!v14)
             {
               goto LABEL_160;
             }
 
-            v127 = v7;
+            v128 = v7;
             v15 = *(v14 + 17);
             if (v15 == 1 && *(v14 + 16) == 1)
             {
-              v114 = i;
-              v16 = JavaUtilArrays_binarySearchWithIntArray_withInt_(v106, *(v14 + 20));
+              v115 = i;
+              v16 = JavaUtilArrays_binarySearchWithIntArray_withInt_(v107, *(v14 + 20));
               LOBYTE(v15) = 1;
-              i = v114;
+              i = v115;
               if (*(v14 + 28) >= 1)
               {
                 v17 = v16;
                 v18 = 0;
                 v19 = 0;
-                v20 = &v109->super.super.isa + v16;
-                v21 = &v107->super.super.isa + v16;
+                v20 = &v110->super.super.isa + v16;
+                v21 = &v108->super.super.isa + v16;
                 do
                 {
                   v22 = *(v14 + 32);
@@ -2926,7 +2904,7 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
                       break;
                     }
 
-                    v27 = *(a1 + 112);
+                    v27 = *(result + 112);
                     if (v27)
                     {
                       v28 = *(v27 + 8);
@@ -2936,7 +2914,7 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
                         IOSArray_throwOutOfBoundsWithMsg(v28, v29);
                       }
 
-                      v30 = *(a1 + 120);
+                      v30 = *(result + 120);
                       if (v30)
                       {
                         v31 = *(v27 + 12 + 4 * v29);
@@ -2948,14 +2926,14 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
                         }
 
                         v34 = *(v30 + 12 + 4 * v33);
-                        size = v109->super.size_;
+                        size = v110->super.size_;
                         if ((v17 & 0x80000000) != 0 || v17 >= size)
                         {
                           IOSArray_throwOutOfBoundsWithMsg(size, v17);
                         }
 
                         v20[2] = (v20[2] + v31 - v23);
-                        v36 = v107->super.size_;
+                        v36 = v108->super.size_;
                         if ((v17 & 0x80000000) != 0 || v17 >= v36)
                         {
                           IOSArray_throwOutOfBoundsWithMsg(v36, v17);
@@ -2984,279 +2962,279 @@ id sub_100007C4C(uint64_t a1, uint64_t a2)
               }
             }
 
-            v7 = (v15 | v127) & 1;
+            v7 = (v15 | v128) & 1;
           }
 
-          v2 = v106;
-          v8 = v101;
-          v4 = v102;
-          v9 = v103;
-          v6 = v104;
-          v121 = [obj countByEnumeratingWithState:&v146 objects:v158 count:16];
+          v2 = v107;
+          v8 = v102;
+          v4 = v103;
+          v9 = v104;
+          v6 = v105;
+          v122 = [obj countByEnumeratingWithState:&v147 objects:v159 count:16];
         }
 
-        while (v121);
+        while (v122);
       }
 
       v9 = v9 + 1;
     }
 
     while (v9 != v6);
-    result = [v4 countByEnumeratingWithState:&v150 objects:v159 count:16];
-    v6 = result;
+    v5 = [v4 countByEnumeratingWithState:&v151 objects:v160 count:16];
+    v6 = v5;
   }
 
-  while (result);
+  while (v5);
   if ((v7 & 1) == 0)
   {
-    return result;
+    return v5;
   }
 
-  v37 = [IOSFloatArray arrayWithLength:*(v2 + 8)];
-  v38 = a1;
+  v38 = [IOSFloatArray arrayWithLength:*(v2 + 8)];
+  v39 = result;
   if (*(v2 + 8) >= 1)
   {
-    v39 = 0;
+    v40 = 0;
     do
     {
-      v40 = v109->super.size_;
-      if (v39 >= v40)
+      v41 = v110->super.size_;
+      if (v40 >= v41)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v40, v39);
+        IOSArray_throwOutOfBoundsWithMsg(v41, v40);
       }
 
-      v41 = 0.0;
-      if (v109->buffer_[v39] >= 1)
+      v42 = 0.0;
+      if (v110->buffer_[v40] >= 1)
       {
-        v42 = v107->super.size_;
-        if (v39 >= v42)
+        v43 = v108->super.size_;
+        if (v40 >= v43)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v42, v39);
+          IOSArray_throwOutOfBoundsWithMsg(v43, v40);
         }
 
-        v43 = v107->buffer_[v39];
-        if (v43 >= 1)
+        v44 = v108->buffer_[v40];
+        if (v44 >= 1)
         {
-          v44 = v107->super.size_;
-          if (v39 >= v44)
+          v45 = v108->super.size_;
+          if (v40 >= v45)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v44, v39);
+            IOSArray_throwOutOfBoundsWithMsg(v45, v40);
           }
 
-          v45 = v109->super.size_;
-          if (v39 >= v45)
+          v46 = v110->super.size_;
+          if (v40 >= v46)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v45, v39);
+            IOSArray_throwOutOfBoundsWithMsg(v46, v40);
           }
 
-          v41 = v43 / v109->buffer_[v39];
+          v42 = v44 / v110->buffer_[v40];
         }
       }
 
-      v46 = v37->super.size_;
-      if (v39 >= v46)
+      v47 = v38->super.size_;
+      if (v40 >= v47)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v46, v39);
+        IOSArray_throwOutOfBoundsWithMsg(v47, v40);
       }
 
-      *(&v37->super.size_ + ++v39) = v41;
-      v47 = *(v2 + 8);
+      *(&v38->super.size_ + ++v40) = v42;
+      v48 = *(v2 + 8);
     }
 
-    while (v39 < v47);
-    if (v47 >= 1)
+    while (v40 < v48);
+    if (v48 >= 1)
     {
-      v48 = 0;
-      v49 = v37;
+      v49 = 0;
+      v50 = v38;
       do
       {
-        v50 = *(v38 + 24);
-        if (!v50)
+        v51 = *(v39 + 24);
+        if (!v51)
         {
           goto LABEL_160;
         }
 
-        v51 = v37->super.size_;
-        if (v48 >= v51)
+        v52 = v38->super.size_;
+        if (v49 >= v52)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v51, v48);
+          IOSArray_throwOutOfBoundsWithMsg(v52, v49);
         }
 
-        [v50 writeIntWithInt:JavaLangFloat_floatToRawIntBitsWithFloat_(*(&v49->super.size_ + 1))];
-        ++v48;
-        v49 = (v49 + 4);
-        v38 = a1;
+        [v51 writeIntWithInt:{JavaLangFloat_floatToRawIntBitsWithFloat_(v52, v37, *(&v50->super.size_ + 1))}];
+        ++v49;
+        v50 = (v50 + 4);
+        v39 = result;
       }
 
-      while (v48 < *(v2 + 8));
+      while (v49 < *(v2 + 8));
     }
   }
 
-  v52 = *(v38 + 160);
-  if (!v52)
+  v53 = *(v39 + 160);
+  if (!v53)
   {
 LABEL_160:
     JreThrowNullPointerException();
   }
 
-  v53 = v38;
-  [v52 resetWithOrgApacheLuceneStoreDataOutput:*(v38 + 24)];
-  v144 = 0u;
+  v54 = v39;
+  [v53 resetWithOrgApacheLuceneStoreDataOutput:*(v39 + 24)];
   v145 = 0u;
-  v142 = 0u;
+  v146 = 0u;
   v143 = 0u;
-  v110 = *(v53 + 80);
-  v108 = [v110 countByEnumeratingWithState:&v142 objects:v157 count:16];
-  if (v108)
+  v144 = 0u;
+  v111 = *(v54 + 80);
+  v109 = [v111 countByEnumeratingWithState:&v143 objects:v158 count:16];
+  if (v109)
   {
-    v112 = *v143;
-    obja = v37;
+    v113 = *v144;
+    obja = v38;
     do
     {
-      v54 = 0;
+      v55 = 0;
       do
       {
-        if (*v143 != v112)
+        if (*v144 != v113)
         {
-          objc_enumerationMutation(v110);
+          objc_enumerationMutation(v111);
         }
 
-        v55 = *(*(&v142 + 1) + 8 * v54);
-        v138 = 0u;
+        v56 = *(*(&v143 + 1) + 8 * v55);
         v139 = 0u;
         v140 = 0u;
         v141 = 0u;
-        if (!v55)
-        {
-          goto LABEL_160;
-        }
-
-        v56 = *(v55 + 24);
+        v142 = 0u;
         if (!v56)
         {
           goto LABEL_160;
         }
 
-        v105 = v54;
-        v115 = *(v55 + 24);
-        v122 = [v56 countByEnumeratingWithState:&v138 objects:v156 count:16];
-        if (v122)
+        v57 = *(v56 + 24);
+        if (!v57)
         {
-          v125 = *v139;
+          goto LABEL_160;
+        }
+
+        v106 = v55;
+        v116 = *(v56 + 24);
+        v123 = [v57 countByEnumeratingWithState:&v139 objects:v157 count:16];
+        if (v123)
+        {
+          v126 = *v140;
           do
           {
-            v57 = 0;
+            v58 = 0;
             do
             {
-              if (*v139 != v125)
+              if (*v140 != v126)
               {
-                objc_enumerationMutation(v115);
+                objc_enumerationMutation(v116);
               }
 
-              v128 = v57;
-              v58 = *(*(&v138 + 1) + 8 * v57);
-              if (!v58)
+              v129 = v58;
+              v59 = *(*(&v139 + 1) + 8 * v58);
+              if (!v59)
               {
                 goto LABEL_160;
               }
 
-              if ((*(v58 + 24) & 2) != 0)
+              if ((*(v59 + 24) & 2) != 0)
               {
-                v59 = JavaUtilArrays_binarySearchWithIntArray_withInt_(v106, *(v58 + 20));
-                v60 = *(obja + 2);
-                if (v59 < 0 || v59 >= v60)
+                v60 = JavaUtilArrays_binarySearchWithIntArray_withInt_(v107, *(v59 + 20));
+                v61 = *(obja + 2);
+                if (v60 < 0 || v60 >= v61)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v60, v59);
+                  IOSArray_throwOutOfBoundsWithMsg(v61, v60);
                 }
 
-                v61 = &selRef_lastIndexOfWithId_withNSObjectArray_withInt_withInt_;
-                if (*(v58 + 28) >= 1)
+                v62 = &selRef_lastIndexOfWithId_withNSObjectArray_withInt_withInt_;
+                if (*(v59 + 28) >= 1)
                 {
-                  v62 = 0;
                   v63 = 0;
-                  v64 = obja[v59 + 3];
+                  v64 = 0;
+                  v65 = obja[v60 + 3];
                   do
                   {
-                    v65 = *(v58 + 32);
-                    if (!v65)
+                    v66 = *(v59 + 32);
+                    if (!v66)
                     {
                       goto LABEL_160;
                     }
 
-                    v66 = 0;
                     v67 = 0;
                     v68 = 0;
+                    v69 = 0;
                     while (1)
                     {
-                      v69 = *(v65 + 8);
-                      if (v62 >= v69)
+                      v70 = *(v66 + 8);
+                      if (v63 >= v70)
                       {
-                        IOSArray_throwOutOfBoundsWithMsg(v69, v62);
+                        IOSArray_throwOutOfBoundsWithMsg(v70, v63);
                       }
 
-                      if (v66 >= *(v65 + 12 + 4 * v62))
+                      if (v67 >= *(v66 + 12 + 4 * v63))
                       {
                         break;
                       }
 
-                      if (*(v58 + 16) == 1)
+                      if (*(v59 + 16) == 1)
                       {
-                        v70 = *(a1 + *(v61 + 405));
-                        if (!v70)
+                        v71 = *(result + *(v62 + 405));
+                        if (!v71)
                         {
                           goto LABEL_160;
                         }
 
-                        v71 = *(v70 + 8);
-                        v72 = v63 + v66 + *(v58 + 56);
-                        if (v72 < 0 || v72 >= v71)
+                        v72 = *(v71 + 8);
+                        v73 = v64 + v67 + *(v59 + 56);
+                        if (v73 < 0 || v73 >= v72)
                         {
-                          IOSArray_throwOutOfBoundsWithMsg(v71, v72);
+                          IOSArray_throwOutOfBoundsWithMsg(v72, v73);
                         }
 
-                        v73 = *(v70 + 12 + 4 * v72);
+                        v74 = *(v71 + 12 + 4 * v73);
                       }
 
                       else
                       {
-                        v73 = 0;
+                        v74 = 0;
                       }
 
-                      v74 = *(a1 + 120);
-                      if (v74)
+                      v75 = *(result + 120);
+                      if (v75)
                       {
-                        v75 = *(v74 + 8);
-                        v76 = v63 + v66 + *(v58 + 60);
-                        if (v76 < 0 || v76 >= v75)
+                        v76 = *(v75 + 8);
+                        v77 = v64 + v67 + *(v59 + 60);
+                        if (v77 < 0 || v77 >= v76)
                         {
-                          IOSArray_throwOutOfBoundsWithMsg(v75, v76);
+                          IOSArray_throwOutOfBoundsWithMsg(v76, v77);
                         }
 
-                        v77 = *(v74 + 12 + 4 * v76);
-                        v78 = v64 * (v73 - v68);
-                        v79 = v78;
-                        if (v78 < 0.0)
+                        v78 = *(v75 + 12 + 4 * v77);
+                        v79 = v65 * (v74 - v69);
+                        v80 = v79;
+                        if (v79 < 0.0)
                         {
-                          v80 = 0x80000000;
+                          v81 = 0x80000000;
                         }
 
                         else
                         {
-                          v80 = 0x7FFFFFFF;
+                          v81 = 0x7FFFFFFF;
                         }
 
-                        if (v79 == 0x80000000)
+                        if (v80 == 0x80000000)
                         {
-                          v79 = v80;
+                          v80 = v81;
                         }
 
-                        [*(a1 + 160) addWithLong:v77 - v67 - v79];
-                        ++v66;
-                        v65 = *(v58 + 32);
-                        v67 = v77;
-                        v68 = v73;
-                        v61 = &selRef_lastIndexOfWithId_withNSObjectArray_withInt_withInt_;
-                        if (v65)
+                        [*(result + 160) addWithLong:v78 - v68 - v80];
+                        ++v67;
+                        v66 = *(v59 + 32);
+                        v68 = v78;
+                        v69 = v74;
+                        v62 = &selRef_lastIndexOfWithId_withNSObjectArray_withInt_withInt_;
+                        if (v66)
                         {
                           continue;
                         }
@@ -3265,161 +3243,161 @@ LABEL_160:
                       goto LABEL_160;
                     }
 
-                    ++v62;
-                    v63 += v66;
+                    ++v63;
+                    v64 += v67;
                   }
 
-                  while (v62 < *(v58 + 28));
+                  while (v63 < *(v59 + 28));
                 }
               }
 
-              v57 = v128 + 1;
+              v58 = v129 + 1;
             }
 
-            while ((v128 + 1) != v122);
-            v81 = [v115 countByEnumeratingWithState:&v138 objects:v156 count:16];
-            v122 = v81;
+            while ((v129 + 1) != v123);
+            v82 = [v116 countByEnumeratingWithState:&v139 objects:v157 count:16];
+            v123 = v82;
           }
 
-          while (v81);
+          while (v82);
         }
 
-        v54 = v105 + 1;
+        v55 = v106 + 1;
       }
 
-      while ((v105 + 1) != v108);
-      v108 = [v110 countByEnumeratingWithState:&v142 objects:v157 count:16];
+      while ((v106 + 1) != v109);
+      v109 = [v111 countByEnumeratingWithState:&v143 objects:v158 count:16];
     }
 
-    while (v108);
+    while (v109);
   }
 
-  [*(a1 + 160) finish];
-  [*(a1 + 160) resetWithOrgApacheLuceneStoreDataOutput:*(a1 + 24)];
-  v136 = 0u;
+  [*(result + 160) finish];
+  [*(result + 160) resetWithOrgApacheLuceneStoreDataOutput:*(result + 24)];
   v137 = 0u;
-  v134 = 0u;
+  v138 = 0u;
   v135 = 0u;
-  v113 = *(a1 + 80);
-  v111 = [v113 countByEnumeratingWithState:&v134 objects:v155 count:16];
-  if (!v111)
+  v136 = 0u;
+  v114 = *(result + 80);
+  v112 = [v114 countByEnumeratingWithState:&v135 objects:v156 count:16];
+  if (!v112)
   {
-    return [*(a1 + 160) finish];
+    return [*(result + 160) finish];
   }
 
-  v116 = *v135;
+  v117 = *v136;
   do
   {
-    for (objb = 0; objb != v111; objb = objb + 1)
+    for (objb = 0; objb != v112; objb = objb + 1)
     {
-      if (*v135 != v116)
+      if (*v136 != v117)
       {
-        objc_enumerationMutation(v113);
+        objc_enumerationMutation(v114);
       }
 
-      v82 = *(*(&v134 + 1) + 8 * objb);
-      v130 = 0u;
+      v83 = *(*(&v135 + 1) + 8 * objb);
       v131 = 0u;
       v132 = 0u;
       v133 = 0u;
-      if (!v82)
-      {
-        goto LABEL_160;
-      }
-
-      v83 = *(v82 + 24);
+      v134 = 0u;
       if (!v83)
       {
         goto LABEL_160;
       }
 
-      v123 = *(v82 + 24);
-      v126 = [v83 countByEnumeratingWithState:&v130 objects:v154 count:16];
-      if (!v126)
+      v84 = *(v83 + 24);
+      if (!v84)
+      {
+        goto LABEL_160;
+      }
+
+      v124 = *(v83 + 24);
+      v127 = [v84 countByEnumeratingWithState:&v131 objects:v155 count:16];
+      if (!v127)
       {
         continue;
       }
 
-      v129 = *v131;
+      v130 = *v132;
       do
       {
-        v84 = 0;
-        v85 = a1;
+        v85 = 0;
+        v86 = result;
         do
         {
-          if (*v131 != v129)
+          if (*v132 != v130)
           {
-            objc_enumerationMutation(v123);
-            v85 = a1;
+            objc_enumerationMutation(v124);
+            v86 = result;
           }
 
-          v86 = *(*(&v130 + 1) + 8 * v84);
-          if (!v86)
+          v87 = *(*(&v131 + 1) + 8 * v85);
+          if (!v87)
           {
             goto LABEL_160;
           }
 
-          if ((*(v86 + 24) & 2) != 0 && *(v86 + 28) >= 1)
+          if ((*(v87 + 24) & 2) != 0 && *(v87 + 28) >= 1)
           {
-            v87 = 0;
             v88 = 0;
+            v89 = 0;
             while (1)
             {
-              v89 = *(v86 + 32);
-              if (!v89)
+              v90 = *(v87 + 32);
+              if (!v90)
               {
                 goto LABEL_160;
               }
 
-              v90 = 0;
+              v91 = 0;
               while (1)
               {
-                v91 = *(v89 + 8);
-                if (v87 >= v91)
+                v92 = *(v90 + 8);
+                if (v88 >= v92)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v91, v87);
+                  IOSArray_throwOutOfBoundsWithMsg(v92, v88);
                 }
 
-                if (v90 >= *(v89 + 12 + 4 * v87))
+                if (v91 >= *(v90 + 12 + 4 * v88))
                 {
                   break;
                 }
 
-                v92 = *(v85 + 128);
-                if (v92)
+                v93 = *(v86 + 128);
+                if (v93)
                 {
-                  v93 = *(v92 + 8);
-                  v94 = v88 + v90 + *(v86 + 60);
-                  if (v94 < 0 || v94 >= v93)
+                  v94 = *(v93 + 8);
+                  v95 = v89 + v91 + *(v87 + 60);
+                  if (v95 < 0 || v95 >= v94)
                   {
-                    IOSArray_throwOutOfBoundsWithMsg(v93, v94);
+                    IOSArray_throwOutOfBoundsWithMsg(v94, v95);
                   }
 
-                  v95 = *(v86 + 40);
-                  if (v95)
+                  v96 = *(v87 + 40);
+                  if (v96)
                   {
-                    v96 = *(v92 + 12 + 4 * v94);
-                    v97 = *(v95 + 8);
-                    if (v87 >= v97)
+                    v97 = *(v93 + 12 + 4 * v95);
+                    v98 = *(v96 + 8);
+                    if (v88 >= v98)
                     {
-                      IOSArray_throwOutOfBoundsWithMsg(v97, v87);
+                      IOSArray_throwOutOfBoundsWithMsg(v98, v88);
                     }
 
-                    v98 = *(v86 + 48);
-                    if (v98)
+                    v99 = *(v87 + 48);
+                    if (v99)
                     {
-                      v99 = *(v95 + 12 + 4 * v87);
-                      v100 = *(v98 + 8);
-                      if (v87 >= v100)
+                      v100 = *(v96 + 12 + 4 * v88);
+                      v101 = *(v99 + 8);
+                      if (v88 >= v101)
                       {
-                        IOSArray_throwOutOfBoundsWithMsg(v100, v87);
+                        IOSArray_throwOutOfBoundsWithMsg(v101, v88);
                       }
 
-                      [*(v85 + 160) addWithLong:v96 - (v99 + *(v98 + 12 + 4 * v87))];
-                      ++v90;
-                      v89 = *(v86 + 32);
-                      v85 = a1;
-                      if (v89)
+                      [*(v86 + 160) addWithLong:v97 - (v100 + *(v99 + 12 + 4 * v88))];
+                      ++v91;
+                      v90 = *(v87 + 32);
+                      v86 = result;
+                      if (v90)
                       {
                         continue;
                       }
@@ -3430,30 +3408,30 @@ LABEL_160:
                 goto LABEL_160;
               }
 
-              ++v87;
-              v88 += v90;
-              if (v87 >= *(v86 + 28))
+              ++v88;
+              v89 += v91;
+              if (v88 >= *(v87 + 28))
               {
                 break;
               }
             }
           }
 
-          v84 = v84 + 1;
+          v85 = v85 + 1;
         }
 
-        while (v84 != v126);
-        v126 = [v123 countByEnumeratingWithState:&v130 objects:v154 count:16];
+        while (v85 != v127);
+        v127 = [v124 countByEnumeratingWithState:&v131 objects:v155 count:16];
       }
 
-      while (v126);
+      while (v127);
     }
 
-    v111 = [v113 countByEnumeratingWithState:&v134 objects:v155 count:16];
+    v112 = [v114 countByEnumeratingWithState:&v135 objects:v156 count:16];
   }
 
-  while (v111);
-  return [*(a1 + 160) finish];
+  while (v112);
+  return [*(result + 160) finish];
 }
 
 id sub_100008AC0(uint64_t a1)
@@ -3586,7 +3564,7 @@ LABEL_27:
   return [*(a1 + 160) finish];
 }
 
-OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter *new_OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexSegmentInfo_withNSString_withOrgApacheLuceneStoreIOContext_withNSString_withOrgApacheLuceneCodecsCompressingCompressionMode_withInt_withInt_(void *a1, void **a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, int a8)
+OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter *new_OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexSegmentInfo_withNSString_withOrgApacheLuceneStoreIOContext_withNSString_withOrgApacheLuceneCodecsCompressingCompressionMode_withInt_withInt_(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, unsigned int a8)
 {
   v16 = [OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter alloc];
   OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexSegmentInfo_withNSString_withOrgApacheLuceneStoreIOContext_withNSString_withOrgApacheLuceneCodecsCompressingCompressionMode_withInt_withInt_(v16, a1, a2, a3, a4, a5, a6, a7, a8);
@@ -3608,15 +3586,15 @@ uint64_t OrgApacheLuceneCodecsCompressingCompressingTermVectorsWriter_class_()
   return qword_100553DA0;
 }
 
-void *sub_100009C1C(uint64_t a1, void *a2, int a3, int a4, int a5, int a6)
+void *sub_100009C1C(id *a1, void *a2, uint64_t a3, int a4, int a5, int a6)
 {
-  JreStrongAssign((a1 + 8), a2);
-  *(a1 + 16) = a3;
+  JreStrongAssign(a1 + 1, a2);
+  *(a1 + 4) = a3;
   v11 = new_JavaUtilArrayDeque_initWithInt_(a3);
-  result = JreStrongAssignAndConsume((a1 + 24), v11);
-  *(a1 + 32) = a4;
-  *(a1 + 36) = a5;
-  *(a1 + 40) = a6;
+  result = JreStrongAssignAndConsume(a1 + 3, v11);
+  *(a1 + 8) = a4;
+  *(a1 + 9) = a5;
+  *(a1 + 10) = a6;
   return result;
 }
 
@@ -3661,7 +3639,7 @@ void *sub_100009EAC(uint64_t a1, void *a2, int a3, int a4, int a5, int a6, int a
   return result;
 }
 
-uint64_t OrgApacheLuceneUtilAttribute_class_()
+uint64_t OrgApacheLuceneUtilAttribute_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100553DB8 != -1)
   {
@@ -3675,13 +3653,14 @@ id OrgApacheLuceneUtilPriorityQueue_initWithInt_withBoolean_(uint64_t a1, uint64
 {
   v8 = a3;
   v9 = a2;
+  v10 = a1;
   *(a1 + 8) = 0;
   if (a2)
   {
     v11 = a2 + 1;
     if ((atomic_load_explicit(OrgApacheLuceneUtilArrayUtil__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_10000B068();
+      a1 = sub_10000B068();
     }
 
     if (v11 > OrgApacheLuceneUtilArrayUtil_MAX_ARRAY_LENGTH_)
@@ -3702,35 +3681,35 @@ id OrgApacheLuceneUtilPriorityQueue_initWithInt_withBoolean_(uint64_t a1, uint64
     v11 = 2;
   }
 
-  v14 = [IOSObjectArray arrayWithLength:v11 type:NSObject_class_()];
+  v14 = [IOSObjectArray arrayWithLength:v11 type:NSObject_class_(a1, a2)];
   objc_opt_class();
   if (v14 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  result = JreStrongAssign((a1 + 16), v14);
-  *(a1 + 12) = v9;
+  result = JreStrongAssign((v10 + 16), v14);
+  *(v10 + 12) = v9;
   if (v8)
   {
-    result = [a1 getSentinelObject];
+    result = [v10 getSentinelObject];
     if (result)
     {
-      result = IOSObjectArray_Set(*(a1 + 16), 1, result);
-      v16 = *(a1 + 16);
+      result = IOSObjectArray_Set(*(v10 + 16), 1, result);
+      v16 = *(v10 + 16);
       if (*(v16 + 8) >= 3)
       {
         v17 = 2;
         do
         {
-          result = IOSObjectArray_Set(v16, v17++, [a1 getSentinelObject]);
-          v16 = *(a1 + 16);
+          result = IOSObjectArray_Set(v16, v17++, [v10 getSentinelObject]);
+          v16 = *(v10 + 16);
         }
 
         while (v17 < *(v16 + 8));
       }
 
-      *(a1 + 8) = v9;
+      *(v10 + 8) = v9;
     }
   }
 
@@ -3873,7 +3852,7 @@ LABEL_33:
   return IOSObjectArray_Set(v24, v5, v7);
 }
 
-BOOL sub_10000AEC4(uint64_t *a1, uint64_t a2)
+BOOL sub_10000AEC4(void *a1, uint64_t a2)
 {
   v2 = a1[2];
   if (!v2)
@@ -3944,15 +3923,15 @@ OrgApacheLuceneSearchBooleanTopLevelScorers_BoostedScorer *new_OrgApacheLuceneSe
 
 id OrgApacheLuceneSearchBooleanTopLevelScorers_CoordinatingConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withFloatArray_withOrgApacheLuceneSearchScorer_withInt_withOrgApacheLuceneSearchScorer_(uint64_t a1, void *a2, void *a3, void *a4, int a5, void *a6)
 {
+  v19[0] = a4;
+  v19[1] = a6;
+  v12 = [IOSObjectArray arrayWithObjects:v19 count:2 type:OrgApacheLuceneSearchScorer_class_(a1, a2)];
+  v13 = JavaUtilArrays_asListWithNSObjectArray_(v12);
   v18[0] = a4;
   v18[1] = a6;
-  v12 = [IOSObjectArray arrayWithObjects:v18 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-  v13 = JavaUtilArrays_asListWithNSObjectArray_(v12);
-  v17[0] = a4;
-  v17[1] = a6;
-  v14 = [IOSObjectArray arrayWithObjects:v17 count:2 type:OrgApacheLuceneSearchScorer_class_()];
-  v15 = JavaUtilArrays_asListWithNSObjectArray_(v14);
-  OrgApacheLuceneSearchConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withJavaUtilList_(a1, a2, v13, v15);
+  v15 = [IOSObjectArray arrayWithObjects:v18 count:2 type:OrgApacheLuceneSearchScorer_class_(v13, v14)];
+  v16 = JavaUtilArrays_asListWithNSObjectArray_(v15);
+  OrgApacheLuceneSearchConjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withJavaUtilList_(a1, a2, v13, v16);
   JreStrongAssign((a1 + 36), a3);
   JreStrongAssign((a1 + 52), a4);
   *(a1 + 44) = a5;
@@ -4012,7 +3991,7 @@ id OrgApacheLuceneUtilIntArrayDocIdSet_initWithIntArray_withInt_(uint64_t a1, un
 OrgApacheLuceneUtilIntArrayDocIdSet_IntArrayDocIdSetIterator *new_OrgApacheLuceneUtilIntArrayDocIdSet_IntArrayDocIdSetIterator_initWithIntArray_withInt_(void *a1, int a2)
 {
   v4 = [OrgApacheLuceneUtilIntArrayDocIdSet_IntArrayDocIdSetIterator alloc];
-  OrgApacheLuceneSearchDocIdSetIterator_init(v4, v5);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   v4->i_ = -1;
   v4->doc_ = -1;
   JreStrongAssign(&v4->docs_, a1);
@@ -4049,7 +4028,7 @@ OrgLukhnosPortmobileFileNoSuchFileException *new_OrgLukhnosPortmobileFileNoSuchF
   return v0;
 }
 
-uint64_t OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl_class_()
+uint64_t OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100553DE0 != -1)
   {
@@ -4059,7 +4038,7 @@ uint64_t OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl_class_()
   return qword_100553DD8;
 }
 
-id ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator_initWithComAppleProactiveOrgApacheLuceneUtilOpenBitSet_(uint64_t a1, void *a2)
+id ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator_initWithComAppleProactiveOrgApacheLuceneUtilOpenBitSet_(id *a1, void *a2)
 {
   if (!a2)
   {
@@ -4069,11 +4048,11 @@ id ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator_initWithComAppleProact
   v2 = a2;
   v4 = [a2 getBits];
   LODWORD(v2) = [v2 getNumWords];
-  OrgApacheLuceneSearchDocIdSetIterator_init(a1, v5);
-  *(a1 + 20) = -1;
-  *(a1 + 40) = -1;
-  result = JreStrongAssign((a1 + 8), v4);
-  *(a1 + 16) = v2;
+  OrgApacheLuceneSearchDocIdSetIterator_init();
+  *(a1 + 5) = -1;
+  *(a1 + 10) = -1;
+  result = JreStrongAssign(a1 + 1, v4);
+  *(a1 + 4) = v2;
   return result;
 }
 
@@ -4109,7 +4088,7 @@ uint64_t sub_10000C85C(_DWORD *a1)
 ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator *new_ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator_initWithLongArray_withInt_(void *a1, int a2)
 {
   v4 = [ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator alloc];
-  OrgApacheLuceneSearchDocIdSetIterator_init(v4, v5);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   v4->i_ = -1;
   v4->curDocId_ = -1;
   JreStrongAssign(&v4->arr_, a1);
@@ -4158,11 +4137,12 @@ LABEL_11:
   return [a1 writeByteWithByte:a2];
 }
 
-void *OrgApacheLuceneUtilPackedAbstractBlockPackedWriter_initWithOrgApacheLuceneStoreDataOutput_withInt_(id *a1, uint64_t a2, signed int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *OrgApacheLuceneUtilPackedAbstractBlockPackedWriter_initWithOrgApacheLuceneStoreDataOutput_withInt_(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a3;
   OrgApacheLuceneUtilPackedPackedInts_checkBlockSizeWithInt_withInt_withInt_(a3, 64, 0x8000000, a4, a5, a6, a7, a8);
   [a1 resetWithOrgApacheLuceneStoreDataOutput:a2];
-  v11 = [IOSLongArray newArrayWithLength:a3];
+  v11 = [IOSLongArray newArrayWithLength:v8];
 
   return JreStrongAssignAndConsume(a1 + 2, v11);
 }
@@ -4195,21 +4175,20 @@ void *OrgApacheLuceneUtilAutomatonUTF32ToUTF8_init(id *a1)
   return JreStrongAssignAndConsume(a1 + 5, v5);
 }
 
-uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
+uint64_t sub_10000D530(uint64_t result, uint64_t a2)
 {
   if (a2 > 127)
   {
     if (a2 > 0x7FF)
     {
-      v16 = *(a1 + 8);
-      if (HIWORD(a2))
+      v16 = *(result + 8);
+      if (WORD1(a2))
       {
         if (v16)
         {
           v22 = *(v16 + 8);
           if (v22 <= 0)
           {
-            v28 = *(a1 + 8);
             IOSArray_throwOutOfBoundsWithMsg(v22, 0);
           }
 
@@ -4217,7 +4196,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
           if (v23)
           {
             *(v23 + 8) = (a2 >> 18) | 0xF0;
-            v24 = *(a1 + 8);
+            v24 = *(result + 8);
             v25 = *(v24 + 8);
             if (v25 <= 0)
             {
@@ -4228,7 +4207,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
             if (v26)
             {
               *(v26 + 12) = 3;
-              result = sub_10000E8B8(a1, a2, 3);
+              v7 = sub_10000E8B8(result, a2, 3u);
               v9 = 4;
               goto LABEL_28;
             }
@@ -4241,7 +4220,6 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
         v17 = *(v16 + 8);
         if (v17 <= 0)
         {
-          v27 = *(a1 + 8);
           IOSArray_throwOutOfBoundsWithMsg(v17, 0);
         }
 
@@ -4249,7 +4227,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
         if (v18)
         {
           *(v18 + 8) = (a2 >> 12) | 0xE0;
-          v19 = *(a1 + 8);
+          v19 = *(result + 8);
           v20 = *(v19 + 8);
           if (v20 <= 0)
           {
@@ -4260,7 +4238,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
           if (v21)
           {
             *(v21 + 12) = 4;
-            result = sub_10000E8B8(a1, a2, 2);
+            v7 = sub_10000E8B8(result, a2, 2u);
             v9 = 3;
             goto LABEL_28;
           }
@@ -4270,7 +4248,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
 
     else
     {
-      v10 = *(a1 + 8);
+      v10 = *(result + 8);
       if (v10)
       {
         v11 = *(v10 + 8);
@@ -4283,7 +4261,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
         if (v12)
         {
           *(v12 + 8) = (a2 >> 6) | 0xC0;
-          v13 = *(a1 + 8);
+          v13 = *(result + 8);
           v14 = *(v13 + 8);
           if (v14 <= 0)
           {
@@ -4294,7 +4272,7 @@ uint64_t sub_10000D530(uint64_t a1, unsigned int a2)
           if (v15)
           {
             *(v15 + 12) = 5;
-            result = sub_10000E8B8(a1, a2, 1);
+            v7 = sub_10000E8B8(result, a2, 1u);
             v9 = 2;
             goto LABEL_28;
           }
@@ -4306,7 +4284,7 @@ LABEL_29:
     JreThrowNullPointerException();
   }
 
-  v3 = *(a1 + 8);
+  v3 = *(result + 8);
   if (!v3)
   {
     goto LABEL_29;
@@ -4325,11 +4303,11 @@ LABEL_29:
   }
 
   *(v5 + 8) = a2;
-  v6 = *(a1 + 8);
-  result = *(v6 + 8);
-  if (result <= 0)
+  v6 = *(result + 8);
+  v7 = *(v6 + 8);
+  if (v7 <= 0)
   {
-    IOSArray_throwOutOfBoundsWithMsg(result, 0);
+    IOSArray_throwOutOfBoundsWithMsg(v7, 0);
   }
 
   v8 = *(v6 + 24);
@@ -4341,8 +4319,8 @@ LABEL_29:
   *(v8 + 12) = 7;
   v9 = 1;
 LABEL_28:
-  *(a1 + 16) = v9;
-  return result;
+  *(result + 16) = v9;
+  return v7;
 }
 
 id sub_10000D7F8(uint64_t a1, void *a2, uint64_t a3, _DWORD *a4, _DWORD *a5, uint64_t a6)
@@ -4473,14 +4451,14 @@ LABEL_30:
   return sub_10000DE1C(v28, v29, v30, v31, v32, v33);
 }
 
-uint64_t sub_10000DB98(uint64_t a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, int a6)
+uint64_t sub_10000DB98(id *a1, void *a2, uint64_t a3, _DWORD *a4, uint64_t a5, int a6)
 {
   if (!a4)
   {
     goto LABEL_20;
   }
 
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   if (a4[4] - 1 == a5)
   {
     if (v11)
@@ -4514,8 +4492,8 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v22 = [*(a1 + 8) createState];
-  [*(a1 + 8) addTransitionWithInt:a2 withInt:v22 withInt:{objc_msgSend(a4, "byteAtWithInt:", a5)}];
+  v22 = [a1[1] createState];
+  [a1[1] addTransitionWithInt:a2 withInt:v22 withInt:{objc_msgSend(a4, "byteAtWithInt:", a5)}];
   sub_10000DB98(a1, v22, a3, a4, (a5 + 1), 1);
   v23 = [a4 byteAtWithInt:a5];
   v24 = OrgApacheLuceneUtilAutomatonUTF32ToUTF8_MASKS_;
@@ -4733,7 +4711,7 @@ id sub_10000E72C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10000E8B8(uint64_t result, int a2, int a3)
+uint64_t sub_10000E8B8(uint64_t result, int a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -4977,13 +4955,13 @@ LABEL_15:
         goto LABEL_21;
       }
 
-      v14 = *(v13 + 16) + v10;
+      v14 = v13[4] + v10;
       if (!sub_10000F460(v13, v14))
       {
         goto LABEL_20;
       }
 
-      v15 = *(v13 + 28);
+      v15 = v13[7];
       if (v15 != v14)
       {
         break;
@@ -4998,7 +4976,7 @@ LABEL_15:
     }
   }
 
-  while (sub_10000F460(v8, v15 - *(v13 + 16) + *(v8 + 16)));
+  while (sub_10000F460(v8, v15 - v13[4] + *(v8 + 16)));
 LABEL_20:
   *(a1 + 32) = v9;
   return v9;
@@ -5011,7 +4989,7 @@ OrgApacheLuceneSearchExactPhraseScorer *new_OrgApacheLuceneSearchExactPhraseScor
   return v8;
 }
 
-BOOL sub_10000F460(uint64_t a1, signed int a2)
+BOOL sub_10000F460(_DWORD *a1, signed int a2)
 {
   if (!a1)
   {
@@ -5019,39 +4997,40 @@ LABEL_12:
     JreThrowNullPointerException();
   }
 
-  for (i = *(a1 + 28) < a2; ; i = v7 < a2)
+  for (i = a1[7] < a2; ; i = v7 < a2)
   {
     v5 = !i;
-    if (!i || *(a1 + 24) == *(a1 + 20))
+    if (!i || a1[6] == a1[5])
     {
       break;
     }
 
-    v6 = *(a1 + 8);
+    v6 = *(a1 + 1);
     if (!v6)
     {
       goto LABEL_12;
     }
 
     v7 = [v6 nextPosition];
-    ++*(a1 + 24);
-    *(a1 + 28) = v7;
+    ++a1[6];
+    a1[7] = v7;
   }
 
   return v5;
 }
 
-OrgApacheLuceneSearchDisjunctionSumScorer *new_OrgApacheLuceneSearchDisjunctionSumScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withFloatArray_withBoolean_(void *a1, void *a2, void *a3, char a4)
+OrgApacheLuceneSearchDisjunctionSumScorer *new_OrgApacheLuceneSearchDisjunctionSumScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withFloatArray_withBoolean_(void *a1, void *a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = [OrgApacheLuceneSearchDisjunctionSumScorer alloc];
-  OrgApacheLuceneSearchDisjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withBoolean_(v8, a1, a2, a4);
+  OrgApacheLuceneSearchDisjunctionScorer_initWithOrgApacheLuceneSearchWeight_withJavaUtilList_withBoolean_(v8, a1, a2, v4);
   JreStrongAssign(&v8->coord_, a3);
   return v8;
 }
 
 id OrgApacheLuceneUtilArrayIntroSorter_initWithNSObjectArray_withJavaUtilComparator_(id *a1, void *a2, void *a3)
 {
-  OrgApacheLuceneUtilIntroSorter_init();
+  OrgApacheLuceneUtilIntroSorter_init(a1, a2);
   JreStrongAssign(a1 + 1, a2);
   JreStrongAssign(a1 + 2, a3);
 
@@ -5155,8 +5134,8 @@ uint64_t OrgApacheLuceneIndexDocsAndPositionsEnum_unwrapliveDocsWithOrgApacheLuc
 id OrgApacheLuceneIndexDocsAndPositionsEnum_DocsAndPositionsEnumWrapper_initWithOrgApacheLuceneIndexPostingsEnum_withOrgApacheLuceneUtilBits_(uint64_t a1, uint64_t a2, void *a3)
 {
   OrgApacheLuceneIndexDocsEnum_init(a1, a2);
-  v6 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2);
-  JreStrongAssign((a1 + 16), v6);
+  v7 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2, v6);
+  JreStrongAssign((a1 + 16), v7);
 
   return JreStrongAssign((a1 + 24), a3);
 }
@@ -5333,12 +5312,12 @@ LABEL_9:
     sub_100003648();
   }
 
-  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_)
+  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0])
   {
     goto LABEL_16;
   }
 
-  result = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_ byteCountWithInt:a2 withInt:a4 withInt:48];
+  result = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] byteCountWithInt:a2 withInt:a4 withInt:48];
   v14 = result - 6 * a4;
   if (v14 >= 1)
   {
@@ -5389,22 +5368,22 @@ OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_make
   return v5;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeBinaryIntervalWithOrgApacheLuceneUtilBytesRef_withBoolean_withOrgApacheLuceneUtilBytesRef_withBoolean_(OrgApacheLuceneUtilBytesRef *a1, int a2, uint64_t a3, int a4)
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeBinaryIntervalWithOrgApacheLuceneUtilBytesRef_withBoolean_withOrgApacheLuceneUtilBytesRef_withBoolean_(OrgApacheLuceneUtilBytesRef *a1, const char *a2, uint64_t a3, int a4)
 {
-  v61 = a2;
+  v60 = a2;
   v5 = a1;
   if (!a1 && (a2 & 1) == 0)
   {
-    v55 = @"minInclusive must be true when min is null (open ended)";
+    v54 = @"minInclusive must be true when min is null (open ended)";
     goto LABEL_119;
   }
 
   if (!a3 && (a4 & 1) == 0)
   {
-    v55 = @"maxInclusive must be true when max is null (open ended)";
+    v54 = @"maxInclusive must be true when max is null (open ended)";
 LABEL_119:
-    v56 = new_JavaLangIllegalArgumentException_initWithNSString_(v55);
-    objc_exception_throw(v56);
+    v55 = new_JavaLangIllegalArgumentException_initWithNSString_(v54);
+    objc_exception_throw(v55);
   }
 
   if (a1)
@@ -5417,8 +5396,9 @@ LABEL_119:
 
   else
   {
-    v5 = new_OrgApacheLuceneUtilBytesRef_init();
-    v61 = 1;
+    a1 = new_OrgApacheLuceneUtilBytesRef_init();
+    v5 = a1;
+    v60 = 1;
     if (a3)
     {
 LABEL_7:
@@ -5435,44 +5415,42 @@ LABEL_7:
           if (OrgApacheLuceneUtilStringHelper_startsWithWithOrgApacheLuceneUtilBytesRef_withOrgApacheLuceneUtilBytesRef_(a3, v5))
           {
             length = v5->length_;
-            v8 = *(a3 + 20);
-            if (length < v8)
+            v9 = *(a3 + 20);
+            if (length < v9)
             {
               do
               {
-                v9 = *(a3 + 8);
-                if (!v9)
+                v10 = *(a3 + 8);
+                if (!v10)
                 {
                   goto LABEL_116;
                 }
 
-                v10 = *(v9 + 8);
-                v11 = length + *(a3 + 16);
-                v12 = v11;
-                if (v11 < 0 || v11 >= v10)
+                v11 = *(v10 + 8);
+                v12 = length + *(a3 + 16);
+                if (v12 < 0 || v12 >= v11)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v10, v11);
+                  IOSArray_throwOutOfBoundsWithMsg(v11, v12);
                 }
 
-                v13 = *(v9 + 12 + v11);
-                if (*(v9 + 12 + v12))
+                if (*(v10 + 12 + v12))
                 {
                   goto LABEL_27;
                 }
 
                 ++length;
-                v8 = *(a3 + 20);
+                v9 = *(a3 + 20);
               }
 
-              while (length < v8);
+              while (length < v9);
               length = v5->length_;
             }
 
-            v43 = a4 ^ 1;
-            v44 = v8 - (a4 ^ 1);
-            if (v44 == length)
+            v42 = a4 ^ 1;
+            v43 = v9 - (a4 ^ 1);
+            if (v43 == length)
             {
-              if ((v61 & 1) == 0)
+              if ((v60 & 1) == 0)
               {
                 goto LABEL_100;
               }
@@ -5480,80 +5458,80 @@ LABEL_7:
               goto LABEL_65;
             }
 
-            v16 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-            v45 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
+            v15 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+            v44 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
             if (v5->length_ >= 1)
             {
-              v46 = 0;
+              v45 = 0;
               do
               {
-                v47 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
+                v46 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
                 bytes = v5->bytes_;
                 if (!bytes)
                 {
                   goto LABEL_116;
                 }
 
-                v49 = v47;
+                v48 = v46;
                 size = bytes->super.size_;
-                v51 = v46 + v5->offset_;
-                if (v51 < 0 || v51 >= size)
+                v50 = v45 + v5->offset_;
+                if (v50 < 0 || v50 >= size)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(size, v51);
+                  IOSArray_throwOutOfBoundsWithMsg(size, v50);
                 }
 
-                [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v45 withInt:v49 withInt:*(&bytes->super.size_ + v51 + 4)];
-                ++v46;
-                v45 = v49;
+                [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v44 withInt:v48 withInt:*(&bytes->super.size_ + v50 + 4)];
+                ++v45;
+                v44 = v48;
               }
 
-              while (v46 < v5->length_);
-              v45 = v49;
-              v43 = a4 ^ 1;
+              while (v45 < v5->length_);
+              v44 = v48;
+              v42 = a4 ^ 1;
             }
 
-            if (v61)
+            if (v60)
             {
-              [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v45 withBoolean:1];
+              [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v44 withBoolean:1];
             }
 
-            v52 = v5->length_;
-            if (v52 < v44)
+            v51 = v5->length_;
+            if (v51 < v43)
             {
-              v53 = v8 + (v43 << 31 >> 31) - v52;
+              v52 = v9 + (v42 << 31 >> 31) - v51;
               do
               {
-                v54 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
-                [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v45 withInt:v54 withInt:0];
-                [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v54 withBoolean:1];
-                v45 = v54;
-                --v53;
+                v53 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
+                [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v44 withInt:v53 withInt:0];
+                [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v53 withBoolean:1];
+                v44 = v53;
+                --v52;
               }
 
-              while (v53);
+              while (v52);
             }
 
 LABEL_97:
-            v42 = v16;
+            v41 = v15;
 LABEL_101:
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v42 finishState];
-            return v16;
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v41 finishState];
+            return v15;
           }
 
           goto LABEL_27;
         }
       }
 
-      else if (v61 & a4)
+      else if (v60 & a4)
       {
 LABEL_65:
 
-        return OrgApacheLuceneUtilAutomatonAutomata_makeBinaryWithOrgApacheLuceneUtilBytesRef_(v5);
+        return OrgApacheLuceneUtilAutomatonAutomata_makeBinaryWithOrgApacheLuceneUtilBytesRef_(v5, v7);
       }
 
 LABEL_100:
-      v42 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-      v16 = v42;
+      v41 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+      v15 = v41;
       goto LABEL_101;
     }
   }
@@ -5563,141 +5541,141 @@ LABEL_100:
     goto LABEL_116;
   }
 
-  v14 = v61 ^ 1;
+  v13 = v60 ^ 1;
   if (v5->length_)
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  if (v14)
+  if (v13)
   {
 LABEL_27:
-    v16 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-    v17 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
-    v18 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
-    [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v18 withBoolean:1];
-    v60 = v18;
-    [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v18 withInt:v18 withInt:0 withInt:255];
+    v15 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+    v16 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
+    v17 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
+    [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v17 withBoolean:1];
+    v59 = v17;
+    [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v17 withInt:v17 withInt:0 withInt:255];
     if (v5->length_ < 1)
     {
-      v33 = 1;
-      v20 = 0xFFFFFFFFLL;
-      v22 = v17;
+      v32 = 1;
+      v19 = 0xFFFFFFFFLL;
+      v21 = v16;
     }
 
     else
     {
-      v57 = v17;
-      v58 = 0;
-      v19 = 0;
-      v20 = 0xFFFFFFFFLL;
-      v21 = 1;
-      v22 = v17;
+      v56 = v16;
+      v57 = 0;
+      v18 = 0;
+      v19 = 0xFFFFFFFFLL;
+      v20 = 1;
+      v21 = v16;
       do
       {
-        v23 = v5->bytes_;
-        if (!v23)
+        v22 = v5->bytes_;
+        if (!v22)
         {
           goto LABEL_116;
         }
 
-        v24 = v22;
-        v25 = v23->super.size_;
-        v26 = v19 + v5->offset_;
-        if (v26 < 0 || v26 >= v25)
+        v23 = v21;
+        v24 = v22->super.size_;
+        v25 = v18 + v5->offset_;
+        if (v25 < 0 || v25 >= v24)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v25, v26);
+          IOSArray_throwOutOfBoundsWithMsg(v24, v25);
         }
 
-        v27 = *(&v23->super.size_ + v26 + 4);
-        if (a3 == 0 || (v21 & 1) == 0 || v19 >= *(a3 + 20))
+        v26 = *(&v22->super.size_ + v25 + 4);
+        if (a3 == 0 || (v20 & 1) == 0 || v18 >= *(a3 + 20))
         {
-          v31 = 0xFFFFFFFFLL;
+          v30 = 0xFFFFFFFFLL;
         }
 
         else
         {
-          v28 = *(a3 + 8);
-          v29 = *(v28 + 8);
-          v30 = v19 + *(a3 + 16);
-          if (v30 < 0 || v30 >= v29)
+          v27 = *(a3 + 8);
+          v28 = *(v27 + 8);
+          v29 = v18 + *(a3 + 16);
+          if (v29 < 0 || v29 >= v28)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v29, v30);
+            IOSArray_throwOutOfBoundsWithMsg(v28, v29);
           }
 
-          v31 = *(v28 + 12 + v30);
+          v30 = *(v27 + 12 + v29);
         }
 
-        if (!v61 || (v19 == v5->length_ - 1 ? (v32 = (v21 & (v31 == v27)) == 0) : (v32 = 0), v22 = v60, !v32))
+        if (!v60 || (v18 == v5->length_ - 1 ? (v31 = (v20 & (v30 == v26)) == 0) : (v31 = 0), v21 = v59, !v31))
         {
-          v22 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
+          v21 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
         }
 
-        if (v21)
+        if (v20)
         {
-          if (v31 == v27)
+          if (v30 == v26)
           {
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v22 withInt:v27];
-            v21 = 1;
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v21 withInt:v26];
+            v20 = 1;
           }
 
           else if (a3)
           {
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v22 withInt:v27];
-            if (v31 > v27 + 1)
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v21 withInt:v26];
+            if (v30 > v26 + 1)
             {
-              [OrgApacheLuceneUtilAutomatonAutomaton addTransitionWithInt:v16 withInt:"addTransitionWithInt:withInt:withInt:withInt:" withInt:v24 withInt:v60];
+              [OrgApacheLuceneUtilAutomatonAutomaton addTransitionWithInt:v15 withInt:"addTransitionWithInt:withInt:withInt:withInt:" withInt:v23 withInt:v59];
             }
 
-            if ((a4 & 1) != 0 || v19 < *(a3 + 20) - 1)
+            if ((a4 & 1) != 0 || v18 < *(a3 + 20) - 1)
             {
-              v20 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
-              if (v19 < *(a3 + 20) - 1)
+              v19 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
+              if (v18 < *(a3 + 20) - 1)
               {
-                [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v20 withBoolean:1];
+                [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v19 withBoolean:1];
               }
 
-              [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v20 withInt:v31];
+              [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v19 withInt:v30];
             }
 
-            v21 = 0;
-            v58 = v19;
+            v20 = 0;
+            v57 = v18;
           }
 
           else
           {
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v60 withInt:(v27 + 1) withInt:255];
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v22 withInt:v27];
-            v21 = 0;
-            v58 = 0;
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v59 withInt:(v26 + 1) withInt:255];
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v21 withInt:v26];
+            v20 = 0;
+            v57 = 0;
           }
         }
 
         else
         {
-          [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v22 withInt:v27];
-          if (v27 != 255)
+          [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v21 withInt:v26];
+          if (v26 != 255)
           {
-            [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v24 withInt:v60 withInt:(v27 + 1) withInt:255];
+            [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v23 withInt:v59 withInt:(v26 + 1) withInt:255];
           }
 
-          v21 = 0;
+          v20 = 0;
         }
 
-        ++v19;
+        ++v18;
       }
 
-      while (v19 < v5->length_);
-      v33 = v58 + 1;
-      if ((v21 & 1) == 0 && v22 != v60 && v22 != v57)
+      while (v18 < v5->length_);
+      v32 = v57 + 1;
+      if ((v20 & 1) == 0 && v21 != v59 && v21 != v56)
       {
-        [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v22 withInt:v60 withInt:0 withInt:255];
+        [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v21 withInt:v59 withInt:0 withInt:255];
       }
     }
 
-    if (v61)
+    if (v60)
     {
-      [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v22 withBoolean:1];
+      [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v21 withBoolean:1];
     }
 
     if (!a3)
@@ -5705,19 +5683,19 @@ LABEL_27:
       goto LABEL_97;
     }
 
-    if (v20 == -1)
+    if (v19 == -1)
     {
-      v33 = v5->length_;
-      v20 = v22;
+      v32 = v5->length_;
+      v19 = v21;
     }
 
-    if (v33 >= *(a3 + 20))
+    if (v32 >= *(a3 + 20))
     {
-      v41 = v20;
+      v40 = v19;
 LABEL_95:
       if (a4)
       {
-        [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v41 withBoolean:1];
+        [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v40 withBoolean:1];
       }
 
       goto LABEL_97;
@@ -5725,46 +5703,46 @@ LABEL_95:
 
     while (1)
     {
-      v34 = *(a3 + 8);
-      if (!v34)
+      v33 = *(a3 + 8);
+      if (!v33)
       {
         break;
       }
 
-      v35 = *(v34 + 8);
-      v36 = v33 + *(a3 + 16);
-      v37 = v36;
-      if (v36 < 0 || v36 >= v35)
+      v34 = *(v33 + 8);
+      v35 = v32 + *(a3 + 16);
+      v36 = v35;
+      if (v35 < 0 || v35 >= v34)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v35, v36);
+        IOSArray_throwOutOfBoundsWithMsg(v34, v35);
       }
 
-      v38 = v34 + 12;
-      v39 = *(v34 + 12 + v37);
-      if (*(v38 + v37))
+      v37 = v33 + 12;
+      v38 = *(v33 + 12 + v36);
+      if (*(v37 + v36))
       {
-        [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v20 withInt:v60 withInt:0 withInt:(v39 - 1)];
+        [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v19 withInt:v59 withInt:0 withInt:(v38 - 1)];
       }
 
-      if ((a4 & 1) != 0 || (v40 = *(a3 + 20), v33 < v40 - 1))
+      if ((a4 & 1) != 0 || (v39 = *(a3 + 20), v32 < v39 - 1))
       {
-        v41 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 createState];
-        if (v33 < *(a3 + 20) - 1)
+        v40 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 createState];
+        if (v32 < *(a3 + 20) - 1)
         {
-          [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 setAcceptWithInt:v41 withBoolean:1];
+          [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 setAcceptWithInt:v40 withBoolean:1];
         }
 
-        [(OrgApacheLuceneUtilAutomatonAutomaton *)v16 addTransitionWithInt:v20 withInt:v41 withInt:v39];
-        v40 = *(a3 + 20);
-        v20 = v41;
+        [(OrgApacheLuceneUtilAutomatonAutomaton *)v15 addTransitionWithInt:v19 withInt:v40 withInt:v38];
+        v39 = *(a3 + 20);
+        v19 = v40;
       }
 
       else
       {
-        v41 = v20;
+        v40 = v19;
       }
 
-      if (++v33 >= v40)
+      if (++v32 >= v39)
       {
         goto LABEL_95;
       }
@@ -5774,14 +5752,15 @@ LABEL_116:
     JreThrowNullPointerException();
   }
 
-  return OrgApacheLuceneUtilAutomatonAutomata_makeAnyBinary();
+  return OrgApacheLuceneUtilAutomatonAutomata_makeAnyBinary(a1, a2);
 }
 
-void *OrgApacheLuceneUtilAutomatonAutomata_makeDecimalIntervalWithInt_withInt_withInt_(signed int a1, signed int a2, int a3)
+void *OrgApacheLuceneUtilAutomatonAutomata_makeDecimalIntervalWithInt_withInt_withInt_(int a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = JavaLangInteger_toStringWithInt_(a1);
-  v7 = JavaLangInteger_toStringWithInt_(a2);
-  if (a1 > a2)
+  v7 = JavaLangInteger_toStringWithInt_(v4);
+  if (a1 > v4)
   {
 LABEL_5:
     v10 = new_JavaLangIllegalArgumentException_init();
@@ -5796,7 +5775,7 @@ LABEL_5:
       goto LABEL_28;
     }
 
-    v9 = [(NSString *)v7 length];
+    v9 = [(__CFString *)v7 length];
   }
 
   else
@@ -5807,7 +5786,7 @@ LABEL_5:
     }
 
     v9 = a3;
-    if ([(NSString *)v7 length]> a3)
+    if ([(__CFString *)v7 length]> a3)
     {
       goto LABEL_5;
     }
@@ -5820,7 +5799,7 @@ LABEL_5:
   }
 
   v12 = v11;
-  v13 = [(NSString *)v6 length];
+  v13 = [(__CFString *)v6 length];
   v14 = v9 - v13;
   if (v9 > v13)
   {
@@ -5842,7 +5821,7 @@ LABEL_5:
   }
 
   v17 = v16;
-  v18 = [(NSString *)v8 length];
+  v18 = [(__CFString *)v8 length];
   v19 = __OFSUB__(v9, v18);
   v20 = v9 - v18;
   if (!((v20 < 0) ^ v19 | (v20 == 0)))
@@ -5921,75 +5900,75 @@ LABEL_28:
   return v26;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeStringWithNSString_(void *a1)
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeStringWithNSString_(void *a1, uint64_t a2)
 {
-  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  v3 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
+  v3 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  v4 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 createState];
   if (!a1)
   {
     JreThrowNullPointerException();
   }
 
-  v4 = v3;
+  v5 = v4;
   if ([a1 length] < 1)
   {
-    v6 = v4;
+    v7 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
-      v6 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
-      v7 = [a1 codePointAt:v5];
-      [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 addTransitionWithInt:v4 withInt:v6 withInt:v7];
-      v5 = JavaLangCharacter_charCountWithInt_(v7) + v5;
-      v4 = v6;
+      v7 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 createState];
+      v8 = [a1 codePointAt:v6];
+      [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 addTransitionWithInt:v5 withInt:v7 withInt:v8];
+      v6 = JavaLangCharacter_charCountWithInt_(v8, v9) + v6;
+      v5 = v7;
     }
 
-    while (v5 < [a1 length]);
+    while (v6 < [a1 length]);
   }
 
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 setAcceptWithInt:v6 withBoolean:1];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 finishState];
-  return v2;
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 setAcceptWithInt:v7 withBoolean:1];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 finishState];
+  return v3;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeBinaryWithOrgApacheLuceneUtilBytesRef_(uint64_t a1)
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeBinaryWithOrgApacheLuceneUtilBytesRef_(uint64_t a1, uint64_t a2)
 {
-  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  v3 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
+  v3 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  v4 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 createState];
   if (!a1)
   {
     goto LABEL_12;
   }
 
-  v4 = v3;
+  v5 = v4;
   if (*(a1 + 20) >= 1)
   {
-    v5 = 0;
+    v6 = 0;
     while (1)
     {
-      v6 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
-      v7 = *(a1 + 8);
-      if (!v7)
+      v7 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 createState];
+      v8 = *(a1 + 8);
+      if (!v8)
       {
         break;
       }
 
-      v8 = v6;
-      v9 = *(v7 + 8);
-      v10 = v5 + *(a1 + 16);
-      if (v10 < 0 || v10 >= v9)
+      v9 = v7;
+      v10 = *(v8 + 8);
+      v11 = v6 + *(a1 + 16);
+      if (v11 < 0 || v11 >= v10)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v9, v10);
+        IOSArray_throwOutOfBoundsWithMsg(v10, v11);
       }
 
-      [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 addTransitionWithInt:v4 withInt:v8 withInt:*(v7 + 12 + v10)];
-      ++v5;
-      v4 = v8;
-      if (v5 >= *(a1 + 20))
+      [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 addTransitionWithInt:v5 withInt:v9 withInt:*(v8 + 12 + v11)];
+      ++v6;
+      v5 = v9;
+      if (v6 >= *(a1 + 20))
       {
         goto LABEL_11;
       }
@@ -5999,19 +5978,20 @@ LABEL_12:
     JreThrowNullPointerException();
   }
 
-  v8 = v3;
+  v9 = v4;
 LABEL_11:
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 setAcceptWithInt:v8 withBoolean:1];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 finishState];
-  return v2;
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 setAcceptWithInt:v9 withBoolean:1];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v3 finishState];
+  return v3;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeStringWithIntArray_withInt_withInt_(uint64_t a1, int a2, int a3)
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeStringWithIntArray_withInt_withInt_(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
   [(OrgApacheLuceneUtilAutomatonAutomaton *)v6 createState];
-  v7 = a3 + a2;
-  if (a3 + a2 <= a2)
+  v7 = a3 + v4;
+  if (a3 + v4 <= v4)
   {
     v13 = 0;
   }
@@ -6019,9 +5999,9 @@ OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_make
   else
   {
     v8 = 0;
-    v9 = a2;
+    v9 = v4;
     v10 = v7;
-    v11 = a1 + 4 * a2;
+    v11 = a1 + 4 * v4;
     do
     {
       v12 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v6 createState];
@@ -6072,39 +6052,39 @@ OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_make
   }
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeEmpty()
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeEmpty(uint64_t a1, uint64_t a2)
 {
-  v0 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 finishState];
-  return v0;
+  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 finishState];
+  return v2;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeEmptyString()
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeEmptyString(uint64_t a1, uint64_t a2)
 {
-  v0 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 createState];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 setAcceptWithInt:0 withBoolean:1];
-  return v0;
+  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 setAcceptWithInt:0 withBoolean:1];
+  return v2;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeAnyString()
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeAnyString(uint64_t a1, uint64_t a2)
 {
-  v0 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  v1 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 createState];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 setAcceptWithInt:v1 withBoolean:1];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 addTransitionWithInt:v1 withInt:v1 withInt:0 withInt:1114111];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 finishState];
-  return v0;
+  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  v3 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 setAcceptWithInt:v3 withBoolean:1];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 addTransitionWithInt:v3 withInt:v3 withInt:0 withInt:1114111];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 finishState];
+  return v2;
 }
 
-OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeAnyBinary()
+OrgApacheLuceneUtilAutomatonAutomaton *OrgApacheLuceneUtilAutomatonAutomata_makeAnyBinary(uint64_t a1, uint64_t a2)
 {
-  v0 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
-  v1 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 createState];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 setAcceptWithInt:v1 withBoolean:1];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 addTransitionWithInt:v1 withInt:v1 withInt:0 withInt:255];
-  [(OrgApacheLuceneUtilAutomatonAutomaton *)v0 finishState];
-  return v0;
+  v2 = new_OrgApacheLuceneUtilAutomatonAutomaton_init();
+  v3 = [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 createState];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 setAcceptWithInt:v3 withBoolean:1];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 addTransitionWithInt:v3 withInt:v3 withInt:0 withInt:255];
+  [(OrgApacheLuceneUtilAutomatonAutomaton *)v2 finishState];
+  return v2;
 }
 
 id sub_1000132E8(void *a1, void *a2, void *a3, uint64_t a4, void *a5, unsigned int a6)
@@ -6279,7 +6259,7 @@ id sub_100013684(void *a1, void *a2, int a3)
 
   else
   {
-    [a1 addTransitionWithInt:v7 withInt:sub_100013684(a1 withInt:a2 withInt:{(a3 + 1)), 48, 57}];
+    [a1 addTransitionWithInt:v7 withInt:sub_100013684(a1 withInt:a2 withInt:{a3 + 1), 48, 57}];
   }
 
   return v7;
@@ -6328,7 +6308,7 @@ uint64_t OrgLukhnosPortmobileFileFileVisitResultEnum_class_()
   return qword_100553E18;
 }
 
-id OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter_initWithOrgApacheLuceneStoreIndexOutput_withInt_(uint64_t a1, void *a2, int a3)
+id OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter_initWithOrgApacheLuceneStoreIndexOutput_withInt_(uint64_t a1, void *a2, unsigned int a3)
 {
   if (a3 <= 0)
   {
@@ -6395,7 +6375,7 @@ id sub_100013CB0(uint64_t a1)
     v18 = 0;
     while (1)
     {
-      v19 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithInt_(v15 + v17);
+      v19 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithInt_((v15 + v17), v8);
       v20 = *(a1 + 48);
       if (!v20)
       {
@@ -6432,32 +6412,32 @@ LABEL_16:
     sub_100003648();
   }
 
-  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v24, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, *(a1 + 28), v23, 1);
+  WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v24, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], *(a1 + 28), v23, 1);
   if (*(a1 + 28) >= 1)
   {
-    v26 = 0;
     v27 = 0;
     v28 = 0;
+    v29 = 0;
     do
     {
-      [(OrgApacheLuceneUtilPackedPackedWriter *)WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt addWithLong:OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v26 + v28)];
-      v29 = *(a1 + 48);
-      if (!v29)
+      [(OrgApacheLuceneUtilPackedPackedWriter *)WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt addWithLong:OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v27 + v29, v25)];
+      v30 = *(a1 + 48);
+      if (!v30)
       {
         goto LABEL_50;
       }
 
-      v30 = *(v29 + 8);
-      if (v27 >= v30)
+      v31 = *(v30 + 8);
+      if (v28 >= v31)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v30, v27);
+        IOSArray_throwOutOfBoundsWithMsg(v31, v28);
       }
 
-      v28 += *(v29 + 12 + 4 * v27++);
-      v26 -= v4;
+      v29 += *(v30 + 12 + 4 * v28++);
+      v27 -= v4;
     }
 
-    while (v27 < *(a1 + 28));
+    while (v28 < *(a1 + 28));
   }
 
   if (!WriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt)
@@ -6469,94 +6449,94 @@ LABEL_16:
   [*(a1 + 8) writeVLongWithLong:*(a1 + 32)];
   if (*(a1 + 28) == 1)
   {
-    v31 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v31 = (*(a1 + 40) - *(a1 + 32)) / (*(a1 + 28) - 1);
+    v32 = (*(a1 + 40) - *(a1 + 32)) / (*(a1 + 28) - 1);
   }
 
-  [*(a1 + 8) writeVLongWithLong:v31];
+  [*(a1 + 8) writeVLongWithLong:v32];
   if (*(a1 + 28) >= 1)
   {
-    v39 = 0;
     v40 = 0;
     v41 = 0;
     v42 = 0;
+    v43 = 0;
     while (1)
     {
-      v43 = *(a1 + 56);
-      if (!v43)
+      v44 = *(a1 + 56);
+      if (!v44)
       {
         goto LABEL_50;
       }
 
-      v44 = *(v43 + 8);
-      if (v40 >= v44)
+      v45 = *(v44 + 8);
+      if (v41 >= v45)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v44, v40);
+        IOSArray_throwOutOfBoundsWithMsg(v45, v41);
       }
 
-      v42 += *(v43 + 16 + 8 * v40);
-      v41 |= OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v39 + v42);
-      ++v40;
-      v39 -= v31;
-      if (v40 >= *(a1 + 28))
+      v43 += *(v44 + 16 + 8 * v41);
+      v42 |= OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v40 + v43, v33);
+      ++v41;
+      v40 -= v32;
+      if (v41 >= *(a1 + 28))
       {
         goto LABEL_37;
       }
     }
   }
 
-  v41 = 0;
+  v42 = 0;
 LABEL_37:
-  v45 = OrgApacheLuceneUtilPackedPackedInts_bitsRequiredWithLong_(v41, v32, v33, v34, v35, v36, v37, v38);
-  [*(a1 + 8) writeVIntWithInt:v45];
-  v46 = *(a1 + 8);
+  v46 = OrgApacheLuceneUtilPackedPackedInts_bitsRequiredWithLong_(v42, v33, v34, v35, v36, v37, v38, v39);
+  [*(a1 + 8) writeVIntWithInt:v46];
+  v47 = *(a1 + 8);
   if ((atomic_load_explicit(OrgApacheLuceneUtilPackedPackedInts_FormatEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100003648();
   }
 
-  v47 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v46, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_, *(a1 + 28), v45, 1);
+  v49 = OrgApacheLuceneUtilPackedPackedInts_getWriterNoHeaderWithOrgApacheLuceneStoreDataOutput_withOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_withInt_(v47, OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0], *(a1 + 28), v46, 1);
   if (*(a1 + 28) >= 1)
   {
-    v48 = 0;
-    v49 = 0;
     v50 = 0;
+    v51 = 0;
+    v52 = 0;
     do
     {
-      v51 = *(a1 + 56);
-      if (!v51)
+      v53 = *(a1 + 56);
+      if (!v53)
       {
         goto LABEL_50;
       }
 
-      v52 = *(v51 + 8);
-      if (v49 >= v52)
+      v54 = *(v53 + 8);
+      if (v51 >= v54)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v52, v49);
+        IOSArray_throwOutOfBoundsWithMsg(v54, v51);
       }
 
-      v50 += *(v51 + 16 + 8 * v49);
-      [(OrgApacheLuceneUtilPackedPackedWriter *)v47 addWithLong:OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v48 + v50)];
-      ++v49;
-      v48 -= v31;
+      v52 += *(v53 + 16 + 8 * v51);
+      [(OrgApacheLuceneUtilPackedPackedWriter *)v49 addWithLong:OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v50 + v52, v48)];
+      ++v51;
+      v50 -= v32;
     }
 
-    while (v49 < *(a1 + 28));
+    while (v51 < *(a1 + 28));
   }
 
-  if (!v47)
+  if (!v49)
   {
     goto LABEL_50;
   }
 
-  return [(OrgApacheLuceneUtilPackedPackedWriter *)v47 finish];
+  return [(OrgApacheLuceneUtilPackedPackedWriter *)v49 finish];
 }
 
-OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter *new_OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter_initWithOrgApacheLuceneStoreIndexOutput_withInt_(void *a1, int a2)
+OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter *new_OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter_initWithOrgApacheLuceneStoreIndexOutput_withInt_(void *a1, unsigned int a2)
 {
   v4 = [OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter alloc];
   OrgApacheLuceneCodecsCompressingCompressingStoredFieldsIndexWriter_initWithOrgApacheLuceneStoreIndexOutput_withInt_(v4, a1, a2);
@@ -6571,12 +6551,12 @@ void *OrgApacheLuceneUtilPackedPacked64_initWithInt_withInt_(uint64_t a1, uint64
     sub_100003648();
   }
 
-  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_)
+  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0])
   {
     JreThrowNullPointerException();
   }
 
-  result = JreStrongAssignAndConsume((a1 + 16), +[IOSLongArray newArrayWithLength:](IOSLongArray, "newArrayWithLength:", [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_ longCountWithInt:2 withInt:a2 withInt:a3]));
+  result = JreStrongAssignAndConsume((a1 + 16), +[IOSLongArray newArrayWithLength:](IOSLongArray, "newArrayWithLength:", [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] longCountWithInt:2 withInt:a2 withInt:a3]));
   *(a1 + 24) = 0xFFFFFFFFFFFFFFFFLL >> -a3;
   *(a1 + 32) = a3 - 64;
   return result;
@@ -6590,13 +6570,13 @@ uint64_t OrgApacheLuceneUtilPackedPacked64_initWithInt_withOrgApacheLuceneStoreD
     sub_100003648();
   }
 
-  v10 = OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_;
-  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_)
+  v10 = OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0];
+  if (!OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0])
   {
     goto LABEL_23;
   }
 
-  v11 = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_ byteCountWithInt:a2 withInt:a4 withInt:a5];
+  v11 = [OrgApacheLuceneUtilPackedPackedInts_FormatEnum_values_[0] byteCountWithInt:a2 withInt:a4 withInt:a5];
   v23 = a5;
   result = JreStrongAssignAndConsume((a1 + 16), +[IOSLongArray newArrayWithLength:](IOSLongArray, "newArrayWithLength:", [v10 longCountWithInt:2 withInt:a4 withInt:a5]));
   v13 = v11 / 8;
@@ -6693,7 +6673,7 @@ IOSObjectArray *OrgApacheLuceneIndexIndexOptionsEnum_values()
 
   v0 = OrgApacheLuceneIndexIndexOptionsEnum_class_();
 
-  return [IOSObjectArray arrayWithObjects:&OrgApacheLuceneIndexIndexOptionsEnum_values_ count:5 type:v0];
+  return [IOSObjectArray arrayWithObjects:OrgApacheLuceneIndexIndexOptionsEnum_values_ count:5 type:v0];
 }
 
 void *OrgApacheLuceneIndexIndexOptionsEnum_valueOfWithNSString_(void *a1)
@@ -6767,7 +6747,7 @@ id OrgApacheLuceneUtilNumericUtils_longToPrefixCodedBytesWithLong_withInt_withOr
   return result;
 }
 
-id OrgApacheLuceneUtilNumericUtils_intToPrefixCodedBytesWithInt_withInt_withOrgApacheLuceneUtilBytesRefBuilder_(int a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id OrgApacheLuceneUtilNumericUtils_intToPrefixCodedBytesWithInt_withInt_withOrgApacheLuceneUtilBytesRefBuilder_(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2;
   if (a2 >= 0x20)
@@ -6782,11 +6762,12 @@ id OrgApacheLuceneUtilNumericUtils_intToPrefixCodedBytesWithInt_withInt_withOrgA
     JreThrowNullPointerException();
   }
 
+  v10 = a1;
   LODWORD(v11) = ((37 * (31 - a2)) >> 8) + 2;
   [a3 setLengthWithInt:v11];
   [a3 growWithInt:11];
   [a3 setByteAtWithInt:0 withByte:(v8 | 0x60)];
-  v12 = (a1 ^ 0x80000000) >> v8;
+  v12 = (v10 ^ 0x80000000) >> v8;
   do
   {
     v11 = (v11 - 1);
@@ -6880,7 +6861,6 @@ unint64_t OrgApacheLuceneUtilNumericUtils_prefixCodedToLongWithOrgApacheLuceneUt
       if (v16 < 0)
       {
         JavaLangInteger_toHexStringWithInt_(*(v14 + 12 + v12));
-        v27 = -*(a1 + 16) + v12;
         v25 = JreStrcat("$$$I$", v18, v19, v20, v21, v22, v23, v24, @"Invalid prefixCoded numerical value representation (byte ");
         v26 = new_JavaLangNumberFormatException_initWithNSString_(v25);
         objc_exception_throw(v26);
@@ -6934,7 +6914,6 @@ uint64_t OrgApacheLuceneUtilNumericUtils_prefixCodedToIntWithOrgApacheLuceneUtil
       if (v9 < 0)
       {
         JavaLangInteger_toHexStringWithInt_(*(v7 + 12 + v5));
-        v20 = -*(a1 + 16) + v5;
         v18 = JreStrcat("$$$I$", v11, v12, v13, v14, v15, v16, v17, @"Invalid prefixCoded numerical value representation (byte ");
         v19 = new_JavaLangNumberFormatException_initWithNSString_(v18);
         objc_exception_throw(v19);
@@ -7023,7 +7002,7 @@ JavaLangLong *OrgApacheLuceneUtilNumericUtils_getMinLongWithOrgApacheLuceneIndex
   {
     v9 = OrgApacheLuceneUtilNumericUtils_prefixCodedToLongWithOrgApacheLuceneUtilBytesRef_(result, v2, v3, v4, v5, v6, v7, v8);
 
-    return JavaLangLong_valueOfWithLong_(v9);
+    return JavaLangLong_valueOfWithLong_(v9, v10);
   }
 
   return result;
@@ -7044,13 +7023,13 @@ JavaLangLong *OrgApacheLuceneUtilNumericUtils_getMaxLongWithOrgApacheLuceneIndex
   {
     v12 = OrgApacheLuceneUtilNumericUtils_prefixCodedToLongWithOrgApacheLuceneUtilBytesRef_(result, v5, v6, v7, v8, v9, v10, v11);
 
-    return JavaLangLong_valueOfWithLong_(v12);
+    return JavaLangLong_valueOfWithLong_(v12, v13);
   }
 
   return result;
 }
 
-id sub_1000162C8(id result, int a2, int a3, uint64_t a4, uint64_t a5)
+id sub_1000162C8(id result, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   if (a3 <= 0)
   {
@@ -7062,6 +7041,7 @@ id sub_1000162C8(id result, int a2, int a3, uint64_t a4, uint64_t a5)
   v6 = a4;
   if (a4 <= a5)
   {
+    v7 = a2;
     v8 = result;
     v9 = 0;
     v10 = ~(-1 << a3);
@@ -7088,7 +7068,7 @@ id sub_1000162C8(id result, int a2, int a3, uint64_t a4, uint64_t a5)
         v13 = 0;
       }
 
-      if (v9 >= a2)
+      if (v9 >= v7)
       {
         break;
       }
@@ -7103,18 +7083,18 @@ id sub_1000162C8(id result, int a2, int a3, uint64_t a4, uint64_t a5)
 
       if (((v10 << v12) & v6) != 0)
       {
-        sub_1000168C8(v8, a2, v6, v14 | v6, v12);
+        sub_1000168C8(v8, v7, v6, v14 | v6, v12);
       }
 
       v6 = v17;
       if (v15 != v14)
       {
-        sub_1000168C8(v8, a2, v11 & ~v14, v11, v12);
+        sub_1000168C8(v8, v7, v11 & ~v14, v11, v12);
         v6 = v17;
       }
     }
 
-    return sub_1000168C8(v8, a2, v6, v11, v12);
+    return sub_1000168C8(v8, v7, v6, v11, v12);
   }
 
   return result;
@@ -7162,11 +7142,12 @@ LABEL_14:
   return [a1 addRangeWithInt:a3 withInt:v8 withInt:a5];
 }
 
-void *OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withOrgApacheLuceneStoreDataOutput_withInt_withInt_withInt_(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5, uint64_t a6)
+void *OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withOrgApacheLuceneStoreDataOutput_withInt_withInt_withInt_(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v7 = a5;
   OrgApacheLuceneUtilPackedPackedInts_Writer_initWithOrgApacheLuceneStoreDataOutput_withInt_withInt_(a1, a3, a4, a5);
   JreStrongAssign((a1 + 32), a2);
-  v11 = OrgApacheLuceneUtilPackedBulkOperation_ofWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_(a2, a5);
+  v11 = OrgApacheLuceneUtilPackedBulkOperation_ofWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_(a2, v7);
   JreStrongAssign((a1 + 40), v11);
   v12 = *(a1 + 40);
   if (!v12)
@@ -7183,7 +7164,7 @@ void *OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPac
   return result;
 }
 
-OrgApacheLuceneUtilPackedPackedWriter *new_OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withOrgApacheLuceneStoreDataOutput_withInt_withInt_withInt_(void *a1, void *a2, uint64_t a3, int a4, uint64_t a5)
+OrgApacheLuceneUtilPackedPackedWriter *new_OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withOrgApacheLuceneStoreDataOutput_withInt_withInt_withInt_(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = [OrgApacheLuceneUtilPackedPackedWriter alloc];
   OrgApacheLuceneUtilPackedPackedWriter_initWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withOrgApacheLuceneStoreDataOutput_withInt_withInt_withInt_(v10, a1, a2, a3, a4, a5);
@@ -7223,9 +7204,9 @@ uint64_t OrgApacheLuceneIndexSegmentInfos_getLastCommitGenerationWithNSStringArr
         break;
       }
 
-      if ([v5 hasPrefix:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_])
+      if ([(__CFString *)v5 hasPrefix:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_])
       {
-        if (([v5 isEqual:OrgApacheLuceneIndexIndexFileNames_OLD_SEGMENTS_GEN_] & 1) == 0)
+        if (([(__CFString *)v5 isEqual:OrgApacheLuceneIndexIndexFileNames_OLD_SEGMENTS_GEN_]& 1) == 0)
         {
           v7 = OrgApacheLuceneIndexSegmentInfos_generationFromSegmentsFileNameWithNSString_(v5);
           if (v7 > v4)
@@ -7299,7 +7280,7 @@ NSString *OrgApacheLuceneIndexSegmentInfos_getLastCommitSegmentsFileNameWithOrgA
   return OrgApacheLuceneIndexIndexFileNames_fileNameFromGenerationWithNSString_withNSString_withLong_(v2, &stru_100484358, LastCommitGenerationWithOrgApacheLuceneStoreDirectory);
 }
 
-uint64_t OrgApacheLuceneIndexSegmentInfos_generationFromSegmentsFileNameWithNSString_(void *a1)
+uint64_t OrgApacheLuceneIndexSegmentInfos_generationFromSegmentsFileNameWithNSString_(__CFString *a1)
 {
   if (atomic_load_explicit(&OrgApacheLuceneIndexSegmentInfos__initialized, memory_order_acquire))
   {
@@ -7318,12 +7299,12 @@ uint64_t OrgApacheLuceneIndexSegmentInfos_generationFromSegmentsFileNameWithNSSt
     }
   }
 
-  if ([a1 isEqual:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_])
+  if (([(__CFString *)a1 isEqual:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_]& 1) != 0)
   {
     return 0;
   }
 
-  if (![a1 hasPrefix:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_])
+  if (![(__CFString *)a1 hasPrefix:OrgApacheLuceneIndexIndexFileNames_SEGMENTS_])
   {
     v17 = JreStrcat("$$$", v3, v4, v5, v6, v7, v8, v9, @"fileName ");
     v18 = new_JavaLangIllegalArgumentException_initWithNSString_(v17);
@@ -7336,12 +7317,12 @@ LABEL_11:
     JreThrowNullPointerException();
   }
 
-  v10 = [a1 substring:{objc_msgSend(OrgApacheLuceneIndexIndexFileNames_SEGMENTS_, "length") + 1}];
+  v10 = -[__CFString substring:](a1, "substring:", [OrgApacheLuceneIndexIndexFileNames_SEGMENTS_ length] + 1);
 
   return JavaLangLong_parseLongWithNSString_withInt_(v10, 36, v11, v12, v13, v14, v15, v16);
 }
 
-OrgApacheLuceneIndexSegmentInfos *OrgApacheLuceneIndexSegmentInfos_readCommitWithOrgApacheLuceneStoreDirectory_withNSString_(void *a1, void *a2)
+OrgApacheLuceneIndexSegmentInfos *OrgApacheLuceneIndexSegmentInfos_readCommitWithOrgApacheLuceneStoreDirectory_withNSString_(void *a1, __CFString *a2)
 {
   if ((atomic_load_explicit(&OrgApacheLuceneIndexSegmentInfos__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -7370,8 +7351,8 @@ OrgApacheLuceneIndexSegmentInfos *OrgApacheLuceneIndexSegmentInfos_readCommitWit
   v8 = [v6 readInt];
   if (v8 != 1071082519)
   {
-    v91 = new_OrgApacheLuceneIndexIndexFormatTooOldException_initWithOrgApacheLuceneStoreDataInput_withInt_withInt_withInt_(v7, v8, 1071082519, 1071082519);
-    objc_exception_throw(v91);
+    v105 = new_OrgApacheLuceneIndexIndexFormatTooOldException_initWithOrgApacheLuceneStoreDataInput_withInt_withInt_withInt_(v7, v8, 1071082519, 1071082519);
+    objc_exception_throw(v105);
   }
 
   v9 = OrgApacheLuceneCodecsCodecUtil_checkHeaderNoMagicWithOrgApacheLuceneStoreDataInput_withNSString_withInt_withInt_(v7, @"segments", 0, 6);
@@ -7388,32 +7369,32 @@ OrgApacheLuceneIndexSegmentInfos *OrgApacheLuceneIndexSegmentInfos_readCommitWit
     OrgApacheLuceneCodecsCodecUtil_checkIndexHeaderSuffixWithOrgApacheLuceneStoreDataInput_withNSString_(v7, v11);
   }
 
-  v115 = new_OrgApacheLuceneIndexSegmentInfos_init();
-  JreStrongAssign(&v115->id__, v10);
-  v115->generation_ = v5;
-  v115->lastGeneration_ = v5;
+  v128 = new_OrgApacheLuceneIndexSegmentInfos_init();
+  JreStrongAssign(&v128->id__, v10);
+  v128->generation_ = v5;
+  v128->lastGeneration_ = v5;
   if (v9 >= 6)
   {
     v12 = OrgApacheLuceneUtilVersion_fromBitsWithInt_withInt_withInt_([v7 readVInt], objc_msgSend(v7, "readVInt"), objc_msgSend(v7, "readVInt"));
-    JreStrongAssign(&v115->luceneVersion_, v12);
+    JreStrongAssign(&v128->luceneVersion_, v12);
   }
 
-  v115->version__ = [v7 readLong];
-  v115->counter_ = [v7 readInt];
-  v114 = [v7 readInt];
-  if ((v114 & 0x80000000) != 0)
+  v128->version__ = [v7 readLong];
+  v128->counter_ = [v7 readInt];
+  v127 = [v7 readInt];
+  if ((v127 & 0x80000000) != 0)
   {
-    v92 = JreStrcat("$I", v13, v14, v15, v16, v17, v18, v19, @"invalid segment count: ");
-    v30 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v92, v7);
+    v106 = JreStrcat("$I", v13, v14, v15, v16, v17, v18, v19, @"invalid segment count: ");
+    v30 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v106, v7);
 LABEL_90:
     objc_exception_throw(v30);
   }
 
-  if (v9 >= 6 && v114)
+  if (v9 >= 6 && v127)
   {
     v20 = OrgApacheLuceneUtilVersion_fromBitsWithInt_withInt_withInt_([v7 readVInt], objc_msgSend(v7, "readVInt"), objc_msgSend(v7, "readVInt"));
-    JreStrongAssign(&v115->minSegmentLuceneVersion_, v20);
-    minSegmentLuceneVersion = v115->minSegmentLuceneVersion_;
+    JreStrongAssign(&v128->minSegmentLuceneVersion_, v20);
+    minSegmentLuceneVersion = v128->minSegmentLuceneVersion_;
     if (!minSegmentLuceneVersion)
     {
       JreThrowNullPointerException();
@@ -7426,31 +7407,30 @@ LABEL_90:
 
     if (![(OrgApacheLuceneUtilVersion *)minSegmentLuceneVersion onOrAfterWithOrgApacheLuceneUtilVersion:OrgApacheLuceneUtilVersion_LUCENE_4_0_0_ALPHA_])
     {
-      v111 = v115->minSegmentLuceneVersion_;
       v29 = JreStrcat("$@C", v22, v23, v24, v25, v26, v27, v28, @"this index contains a too-old segment (version: ");
       v30 = new_OrgApacheLuceneIndexIndexFormatTooOldException_initWithOrgApacheLuceneStoreDataInput_withNSString_(v7, v29);
       goto LABEL_90;
     }
   }
 
-  else if (!v114)
+  else if (!v127)
   {
     v31 = 0;
     goto LABEL_72;
   }
 
-  v113 = a1;
+  v126 = a1;
   v31 = 0;
-  for (i = 0; i != v114; ++i)
+  for (i = 0; i != v127; ++i)
   {
     v33 = [v7 readString];
     if (v9 >= 4 && (v34 = [v7 readByte]) != 0)
     {
       if (v34 != 1)
       {
-        v89 = JreStrcat("$B", v35, v36, v37, v38, v39, v40, v41, @"invalid hasID byte, got: ");
-        v90 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v89, v7);
-        objc_exception_throw(v90);
+        v103 = JreStrcat("$B", v35, v36, v37, v38, v39, v40, v41, @"invalid hasID byte, got: ");
+        v104 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v103, v7);
+        objc_exception_throw(v104);
       }
 
       v42 = [IOSByteArray arrayWithLength:16];
@@ -7467,15 +7447,16 @@ LABEL_90:
       objc_opt_class();
     }
 
-    v43 = OrgApacheLuceneCodecsCodec_forNameWithNSString_([v7 readString]);
-    v44 = v43;
-    if (!v43)
+    v43 = [v7 readString];
+    v45 = OrgApacheLuceneCodecsCodec_forNameWithNSString_(v43, v44);
+    v46 = v45;
+    if (!v45)
     {
       goto LABEL_80;
     }
 
-    v45 = [v43 segmentInfoFormat];
-    if (!v45)
+    v47 = [v45 segmentInfoFormat];
+    if (!v47)
     {
       goto LABEL_80;
     }
@@ -7485,196 +7466,199 @@ LABEL_90:
       objc_opt_class();
     }
 
-    v46 = [v45 readWithOrgApacheLuceneStoreDirectory:v113 withNSString:v33 withByteArray:v42 withOrgApacheLuceneStoreIOContext:OrgApacheLuceneStoreIOContext_READ_];
-    v47 = v46;
-    if (!v46)
+    v48 = [v47 readWithOrgApacheLuceneStoreDirectory:v126 withNSString:v33 withByteArray:v42 withOrgApacheLuceneStoreIOContext:OrgApacheLuceneStoreIOContext_READ_];
+    v49 = v48;
+    if (!v48)
     {
 LABEL_80:
       JreThrowNullPointerException();
     }
 
-    [v46 setCodecWithOrgApacheLuceneCodecsCodec:v44];
-    v48 = [v47 maxDoc];
-    v49 = [v7 readLong];
-    v50 = [v7 readInt];
-    if (v50 < 0 || v50 > [v47 maxDoc])
+    [v48 setCodecWithOrgApacheLuceneCodecsCodec:v46];
+    v50 = [v49 maxDoc];
+    v51 = [v7 readLong];
+    v52 = [v7 readInt];
+    if (v52 < 0 || v52 > [v49 maxDoc])
     {
-      [v47 maxDoc];
-      v85 = JreStrcat("$I$I", v78, v79, v80, v81, v82, v83, v84, @"invalid deletion count: ");
-      v86 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v85, v7);
-      objc_exception_throw(v86);
+      [v49 maxDoc];
+      v99 = JreStrcat("$I$I", v92, v93, v94, v95, v96, v97, v98, @"invalid deletion count: ");
+      v100 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v99, v7);
+      objc_exception_throw(v100);
     }
 
     if (v9 < 1)
     {
-      v52 = -1;
-      v53 = -1;
+      v54 = -1;
+      v55 = -1;
     }
 
     else
     {
-      v51 = [v7 readLong];
-      v52 = v51;
+      v53 = [v7 readLong];
+      v54 = v53;
       if (v9 < 3)
       {
-        v53 = v51;
+        v55 = v53;
       }
 
       else
       {
-        v53 = [v7 readLong];
+        v55 = [v7 readLong];
       }
     }
 
-    v54 = new_OrgApacheLuceneIndexSegmentCommitInfo_initWithOrgApacheLuceneIndexSegmentInfo_withInt_withLong_withLong_withLong_(v47, v50, v49, v52, v53);
+    v56 = new_OrgApacheLuceneIndexSegmentCommitInfo_initWithOrgApacheLuceneIndexSegmentInfo_withInt_withLong_withLong_withLong_(v49, v52, v51, v54, v55);
     if (v9 >= 1)
     {
       if (v9 > 2)
       {
         if (v9 < 5)
         {
-          v58 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_([v7 readStringSet]);
+          v64 = [v7 readStringSet];
+          v63 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v64, v65);
         }
 
         else
         {
-          v58 = [v7 readSetOfStrings];
+          v63 = [v7 readSetOfStrings];
         }
 
-        [(OrgApacheLuceneIndexSegmentCommitInfo *)v54 setFieldInfosFilesWithJavaUtilSet:v58];
-        v59 = [v7 readInt];
-        v60 = v59;
-        if (v59)
+        [(OrgApacheLuceneIndexSegmentCommitInfo *)v56 setFieldInfosFilesWithJavaUtilSet:v63];
+        v66 = [v7 readInt];
+        v68 = v66;
+        if (v66)
         {
-          v61 = new_JavaUtilHashMap_initWithInt_(v59);
-          if (v60 >= 1)
+          v70 = new_JavaUtilHashMap_initWithInt_(v66);
+          if (v68 >= 1)
           {
             do
             {
-              v62 = JavaLangInteger_valueOfWithInt_([v7 readInt]);
+              v71 = JavaLangInteger_valueOfWithInt_([v7 readInt]);
               if (v9 < 5)
               {
-                v63 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_([v7 readStringSet]);
+                v73 = [v7 readStringSet];
+                v72 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v73, v74);
               }
 
               else
               {
-                v63 = [v7 readSetOfStrings];
+                v72 = [v7 readSetOfStrings];
               }
 
-              [(JavaUtilHashMap *)v61 putWithId:v62 withId:v63];
-              --v60;
+              [(JavaUtilHashMap *)v70 putWithId:v71 withId:v72];
+              --v68;
             }
 
-            while (v60);
+            while (v68);
           }
 
-          v64 = JavaUtilCollections_unmodifiableMapWithJavaUtilMap_(v61);
+          v75 = JavaUtilCollections_unmodifiableMapWithJavaUtilMap_(v70, v69);
         }
 
         else
         {
-          v64 = JavaUtilCollections_emptyMap();
+          v75 = JavaUtilCollections_emptyMap(v66, v67);
         }
 
-        [(OrgApacheLuceneIndexSegmentCommitInfo *)v54 setDocValuesUpdatesFilesWithJavaUtilMap:v64];
+        [(OrgApacheLuceneIndexSegmentCommitInfo *)v56 setDocValuesUpdatesFilesWithJavaUtilMap:v75];
       }
 
       else
       {
-        v55 = [v7 readInt];
-        v56 = v55;
-        if (v55)
+        v57 = [v7 readInt];
+        v59 = v57;
+        if (v57)
         {
-          v57 = new_JavaUtilHashMap_initWithInt_(v55);
-          if (v56 >= 1)
+          v60 = new_JavaUtilHashMap_initWithInt_(v57);
+          if (v59 >= 1)
           {
             do
             {
-              -[JavaUtilHashMap putWithId:withId:](v57, "putWithId:withId:", JavaLangLong_valueOfWithLong_([v7 readLong]), objc_msgSend(v7, "readStringSet"));
-              --v56;
+              v61 = [v7 readLong];
+              -[JavaUtilHashMap putWithId:withId:](v60, "putWithId:withId:", JavaLangLong_valueOfWithLong_(v61, v62), [v7 readStringSet]);
+              --v59;
             }
 
-            while (v56);
+            while (v59);
           }
         }
 
         else
         {
-          v57 = JavaUtilCollections_emptyMap();
+          v60 = JavaUtilCollections_emptyMap(v57, v58);
         }
 
-        [(OrgApacheLuceneIndexSegmentCommitInfo *)v54 setGenUpdatesFilesWithJavaUtilMap:v57];
+        [(OrgApacheLuceneIndexSegmentCommitInfo *)v56 setGenUpdatesFilesWithJavaUtilMap:v60];
       }
     }
 
-    [(OrgApacheLuceneIndexSegmentInfos *)v115 addWithOrgApacheLuceneIndexSegmentCommitInfo:v54];
-    v65 = [v47 getVersion];
-    v66 = v65;
+    [(OrgApacheLuceneIndexSegmentInfos *)v128 addWithOrgApacheLuceneIndexSegmentCommitInfo:v56];
+    v76 = [v49 getVersion];
+    v77 = v76;
     if (v9 > 5)
     {
-      if (!v65)
+      if (!v76)
       {
 LABEL_81:
         JreThrowNullPointerException();
       }
 
-      if (([v65 onOrAfterWithOrgApacheLuceneUtilVersion:v115->minSegmentLuceneVersion_] & 1) == 0)
+      if (([v76 onOrAfterWithOrgApacheLuceneUtilVersion:v128->minSegmentLuceneVersion_] & 1) == 0)
       {
-        v112 = v115->minSegmentLuceneVersion_;
-        v87 = JreStrcat("$@$@$@", v67, v68, v69, v70, v71, v72, v73, @"segments file recorded minSegmentLuceneVersion=");
-        v88 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v87, v7);
-        objc_exception_throw(v88);
+        v101 = JreStrcat("$@$@$@", v78, v79, v80, v81, v82, v83, v84, @"segments file recorded minSegmentLuceneVersion=");
+        v102 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v101, v7);
+        objc_exception_throw(v102);
       }
     }
 
     else
     {
-      if (!v115->minSegmentLuceneVersion_)
+      if (!v128->minSegmentLuceneVersion_)
       {
         goto LABEL_66;
       }
 
-      if (!v65)
+      if (!v76)
       {
         goto LABEL_81;
       }
 
-      if (([v65 onOrAfterWithOrgApacheLuceneUtilVersion:?] & 1) == 0)
+      if (([v76 onOrAfterWithOrgApacheLuceneUtilVersion:?] & 1) == 0)
       {
 LABEL_66:
-        JreStrongAssign(&v115->minSegmentLuceneVersion_, v66);
+        JreStrongAssign(&v128->minSegmentLuceneVersion_, v77);
       }
     }
 
-    v31 += v48;
+    v31 += v50;
   }
 
 LABEL_72:
   if (v9 > 4)
   {
-    JreStrongAssign(&v115->userData_, [v7 readMapOfStrings]);
+    JreStrongAssign(&v128->userData_, [v7 readMapOfStrings]);
 LABEL_75:
     OrgApacheLuceneCodecsCodecUtil_checkFooterWithOrgApacheLuceneStoreChecksumIndexInput_(v7);
     goto LABEL_78;
   }
 
-  v74 = JavaUtilCollections_unmodifiableMapWithJavaUtilMap_([v7 readStringStringMap]);
-  JreStrongAssign(&v115->userData_, v74);
+  v85 = [v7 readStringStringMap];
+  v87 = JavaUtilCollections_unmodifiableMapWithJavaUtilMap_(v85, v86);
+  JreStrongAssign(&v128->userData_, v87);
   if (v9 >= 2)
   {
     goto LABEL_75;
   }
 
-  v75 = [v7 getChecksum];
-  v76 = [v7 readLong];
-  if (v75 != v76)
+  v88 = [v7 getChecksum];
+  v89 = [v7 readLong];
+  if (v88 != v89)
   {
-    JavaLangLong_toHexStringWithLong_(v76);
-    JavaLangLong_toHexStringWithLong_(v75);
-    v109 = JreStrcat("$$$$", v102, v103, v104, v105, v106, v107, v108, @"checksum failed (hardware problem?) : expected=");
-    v110 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v109, v7);
-    objc_exception_throw(v110);
+    JavaLangLong_toHexStringWithLong_(v89, v90);
+    JavaLangLong_toHexStringWithLong_(v88, v116);
+    v124 = JreStrcat("$$$$", v117, v118, v119, v120, v121, v122, v123, @"checksum failed (hardware problem?) : expected=");
+    v125 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v124, v7);
+    objc_exception_throw(v125);
   }
 
   OrgApacheLuceneCodecsCodecUtil_checkEOFWithOrgApacheLuceneStoreIndexInput_(v7);
@@ -7682,13 +7666,13 @@ LABEL_78:
   if (v31 > OrgApacheLuceneIndexIndexWriter_getActualMaxDocs())
   {
     OrgApacheLuceneIndexIndexWriter_getActualMaxDocs();
-    v100 = JreStrcat("$I$J", v93, v94, v95, v96, v97, v98, v99, @"Too many documents: an index cannot exceed ");
-    v101 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v100, v7);
-    objc_exception_throw(v101);
+    v114 = JreStrcat("$I$J", v107, v108, v109, v110, v111, v112, v113, @"Too many documents: an index cannot exceed ");
+    v115 = new_OrgApacheLuceneIndexCorruptIndexException_initWithNSString_withOrgApacheLuceneStoreDataInput_(v114, v7);
+    objc_exception_throw(v115);
   }
 
   [v7 close];
-  return v115;
+  return v128;
 }
 
 void sub_100017D24(_Unwind_Exception *a1)
@@ -7740,9 +7724,9 @@ id sub_100017DC0(uint64_t a1, void *a2)
   }
 
   v8 = [a2 createOutputWithNSString:v59 withOrgApacheLuceneStoreIOContext:OrgApacheLuceneStoreIOContext_DEFAULT_];
-  v9 = OrgApacheLuceneUtilStringHelper_randomId();
-  v10 = JavaLangLong_toStringWithLong_withInt_(v7, 36);
-  OrgApacheLuceneCodecsCodecUtil_writeIndexHeaderWithOrgApacheLuceneStoreDataOutput_withNSString_withInt_withByteArray_withNSString_(v8, @"segments", 6, v9, v10);
+  v10 = OrgApacheLuceneUtilStringHelper_randomId(v8, v9);
+  v11 = JavaLangLong_toStringWithLong_withInt_(v7, 36);
+  OrgApacheLuceneCodecsCodecUtil_writeIndexHeaderWithOrgApacheLuceneStoreDataOutput_withNSString_withInt_withByteArray_withNSString_(v8, @"segments", 6, v10, v11);
   if (!v8)
   {
 LABEL_64:
@@ -7759,221 +7743,219 @@ LABEL_64:
     JreThrowNullPointerException();
   }
 
-  [v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 8)];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 8)];
   if ((atomic_load_explicit(OrgApacheLuceneUtilVersion__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
   }
 
-  [v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 12)];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 12)];
   if ((atomic_load_explicit(OrgApacheLuceneUtilVersion__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
   }
 
-  [v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 16)];
-  [v8 writeLongWithLong:*(a1 + 16)];
-  [v8 writeIntWithInt:*(a1 + 8)];
-  [v8 writeIntWithInt:{objc_msgSend(a1, "size")}];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:*(OrgApacheLuceneUtilVersion_LATEST_ + 16)];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeLongWithLong:*(a1 + 16)];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeIntWithInt:*(a1 + 8)];
+  -[OrgApacheLuceneUtilBytesRef writeIntWithInt:](v8, "writeIntWithInt:", [a1 size]);
   if ([a1 size] >= 1)
   {
     v70 = 0u;
     v71 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v11 = [a1 countByEnumeratingWithState:&v68 objects:v74 count:16];
-    if (!v11)
+    v12 = [a1 countByEnumeratingWithState:&v68 objects:v74 count:16];
+    if (!v12)
     {
       goto LABEL_70;
     }
 
-    v12 = 0;
-    v13 = *v69;
+    v13 = 0;
+    v14 = *v69;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        if (*v69 != v13)
+        if (*v69 != v14)
         {
           objc_enumerationMutation(a1);
         }
 
-        v15 = *(*(&v68 + 1) + 8 * i);
-        if (!v15 || (v16 = *(v15 + 8)) == 0)
+        v16 = *(*(&v68 + 1) + 8 * i);
+        if (!v16 || (v17 = *(v16 + 8)) == 0)
         {
 LABEL_62:
           JreThrowNullPointerException();
         }
 
-        v17 = [v16 getVersion];
-        v18 = v17;
-        if (v12)
+        v18 = [v17 getVersion];
+        v19 = v18;
+        if (v13)
         {
-          if (!v17)
+          if (!v18)
           {
             goto LABEL_62;
           }
 
-          if (([v17 onOrAfterWithOrgApacheLuceneUtilVersion:v12] & 1) == 0)
+          if (([v18 onOrAfterWithOrgApacheLuceneUtilVersion:v13] & 1) == 0)
           {
-            v12 = v18;
+            v13 = v19;
           }
         }
 
         else
         {
-          v12 = v17;
+          v13 = v18;
         }
       }
 
-      v11 = [a1 countByEnumeratingWithState:&v68 objects:v74 count:16];
+      v12 = [a1 countByEnumeratingWithState:&v68 objects:v74 count:16];
     }
 
-    while (v11);
-    if (!v12)
+    while (v12);
+    if (!v13)
     {
 LABEL_70:
       JreThrowNullPointerException();
     }
 
-    [v8 writeVIntWithInt:v12[2]];
-    [v8 writeVIntWithInt:v12[3]];
-    [v8 writeVIntWithInt:v12[4]];
+    [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:v13[2]];
+    [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:v13[3]];
+    [(OrgApacheLuceneUtilBytesRef *)v8 writeVIntWithInt:v13[4]];
   }
 
   v66 = 0u;
   v67 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v19 = [a1 countByEnumeratingWithState:&v64 objects:v73 count:16];
-  if (v19)
+  v20 = [a1 countByEnumeratingWithState:&v64 objects:v73 count:16];
+  if (v20)
   {
     v57 = *v65;
     do
     {
-      for (j = 0; j != v19; j = j + 1)
+      for (j = 0; j != v20; j = j + 1)
       {
         if (*v65 != v57)
         {
           objc_enumerationMutation(a1);
         }
 
-        v21 = *(*(&v64 + 1) + 8 * j);
-        if (!v21 || (v22 = v21[1]) == 0)
+        v22 = *(*(&v64 + 1) + 8 * j);
+        if (!v22 || (v23 = v22[1]) == 0)
         {
           JreThrowNullPointerException();
         }
 
-        [v8 writeStringWithNSString:v22[1]];
-        v23 = [v22 getId];
-        v24 = v23;
-        if (v23)
+        [(OrgApacheLuceneUtilBytesRef *)v8 writeStringWithNSString:v23[1]];
+        v24 = [v23 getId];
+        v26 = v24;
+        if (v24)
         {
-          if (v23[2] != 16)
+          if (v24[2] != 16)
           {
-            v47 = v22[1];
-            OrgApacheLuceneUtilStringHelper_idToStringWithByteArray_(v23);
+            OrgApacheLuceneUtilStringHelper_idToStringWithByteArray_(v24, v25);
             v55 = JreStrcat("$$$$", v48, v49, v50, v51, v52, v53, v54, @"cannot write segment: invalid id segment=");
             v56 = new_JavaLangIllegalStateException_initWithNSString_(v55);
             objc_exception_throw(v56);
           }
 
-          [v8 writeByteWithByte:1];
-          [v8 writeBytesWithByteArray:v24 withInt:v24[2]];
+          [(OrgApacheLuceneUtilBytesRef *)v8 writeByteWithByte:1];
+          [(OrgApacheLuceneUtilBytesRef *)v8 writeBytesWithByteArray:v26 withInt:v26[2]];
         }
 
         else
         {
-          [v8 writeByteWithByte:0];
+          [(OrgApacheLuceneUtilBytesRef *)v8 writeByteWithByte:0];
         }
 
-        v25 = [v22 getCodec];
-        if (!v25)
-        {
-          JreThrowNullPointerException();
-        }
-
-        [v8 writeStringWithNSString:{objc_msgSend(v25, "getName")}];
-        [v8 writeLongWithLong:{objc_msgSend(v21, "getDelGen")}];
-        v26 = [v21 getDelCount];
-        if ((v26 & 0x80000000) != 0 || v26 > [v22 maxDoc])
-        {
-          v37 = v22[1];
-          [v22 maxDoc];
-          v45 = JreStrcat("$$$I$I", v38, v39, v40, v41, v42, v43, v44, @"cannot write segment: invalid maxDoc segment=");
-          v46 = new_JavaLangIllegalStateException_initWithNSString_(v45);
-          objc_exception_throw(v46);
-        }
-
-        [v8 writeIntWithInt:v26];
-        [v8 writeLongWithLong:{objc_msgSend(v21, "getFieldInfosGen")}];
-        [v8 writeLongWithLong:{objc_msgSend(v21, "getDocValuesGen")}];
-        [v8 writeSetOfStringsWithJavaUtilSet:{objc_msgSend(v21, "getFieldInfosFiles")}];
-        v27 = [v21 getDocValuesUpdatesFiles];
-        v28 = v27;
+        v27 = [v23 getCodec];
         if (!v27)
         {
           JreThrowNullPointerException();
         }
 
-        [v8 writeIntWithInt:{objc_msgSend(v27, "size")}];
+        -[OrgApacheLuceneUtilBytesRef writeStringWithNSString:](v8, "writeStringWithNSString:", [v27 getName]);
+        -[OrgApacheLuceneUtilBytesRef writeLongWithLong:](v8, "writeLongWithLong:", [v22 getDelGen]);
+        v28 = [v22 getDelCount];
+        if ((v28 & 0x80000000) != 0 || v28 > [v23 maxDoc])
+        {
+          [v23 maxDoc];
+          v46 = JreStrcat("$$$I$I", v39, v40, v41, v42, v43, v44, v45, @"cannot write segment: invalid maxDoc segment=");
+          v47 = new_JavaLangIllegalStateException_initWithNSString_(v46);
+          objc_exception_throw(v47);
+        }
+
+        [(OrgApacheLuceneUtilBytesRef *)v8 writeIntWithInt:v28];
+        -[OrgApacheLuceneUtilBytesRef writeLongWithLong:](v8, "writeLongWithLong:", [v22 getFieldInfosGen]);
+        -[OrgApacheLuceneUtilBytesRef writeLongWithLong:](v8, "writeLongWithLong:", [v22 getDocValuesGen]);
+        -[OrgApacheLuceneUtilBytesRef writeSetOfStringsWithJavaUtilSet:](v8, "writeSetOfStringsWithJavaUtilSet:", [v22 getFieldInfosFiles]);
+        v29 = [v22 getDocValuesUpdatesFiles];
+        v30 = v29;
+        if (!v29)
+        {
+          JreThrowNullPointerException();
+        }
+
+        -[OrgApacheLuceneUtilBytesRef writeIntWithInt:](v8, "writeIntWithInt:", [v29 size]);
         v62 = 0u;
         v63 = 0u;
         v60 = 0u;
         v61 = 0u;
-        v29 = [v28 entrySet];
-        v30 = v29;
-        if (!v29)
+        v31 = [v30 entrySet];
+        v32 = v31;
+        if (!v31)
         {
 LABEL_61:
           JreThrowNullPointerException();
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v60 objects:v72 count:16];
-        if (v31)
+        v33 = [v31 countByEnumeratingWithState:&v60 objects:v72 count:16];
+        if (v33)
         {
-          v32 = *v61;
+          v34 = *v61;
           do
           {
-            for (k = 0; k != v31; k = k + 1)
+            for (k = 0; k != v33; k = k + 1)
             {
-              if (*v61 != v32)
+              if (*v61 != v34)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v32);
               }
 
-              v34 = *(*(&v60 + 1) + 8 * k);
-              if (!v34)
-              {
-                goto LABEL_61;
-              }
-
-              v35 = [*(*(&v60 + 1) + 8 * k) getKey];
-              if (!v35)
+              v36 = *(*(&v60 + 1) + 8 * k);
+              if (!v36)
               {
                 goto LABEL_61;
               }
 
-              [v8 writeIntWithInt:{objc_msgSend(v35, "intValue")}];
-              [v8 writeSetOfStringsWithJavaUtilSet:{objc_msgSend(v34, "getValue")}];
+              v37 = [*(*(&v60 + 1) + 8 * k) getKey];
+              if (!v37)
+              {
+                goto LABEL_61;
+              }
+
+              -[OrgApacheLuceneUtilBytesRef writeIntWithInt:](v8, "writeIntWithInt:", [v37 intValue]);
+              -[OrgApacheLuceneUtilBytesRef writeSetOfStringsWithJavaUtilSet:](v8, "writeSetOfStringsWithJavaUtilSet:", [v36 getValue]);
             }
 
-            v31 = [v30 countByEnumeratingWithState:&v60 objects:v72 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v60 objects:v72 count:16];
           }
 
-          while (v31);
+          while (v33);
         }
       }
 
-      v19 = [a1 countByEnumeratingWithState:&v64 objects:v73 count:16];
+      v20 = [a1 countByEnumeratingWithState:&v64 objects:v73 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
-  [v8 writeMapOfStringsWithJavaUtilMap:*(a1 + 24)];
+  [(OrgApacheLuceneUtilBytesRef *)v8 writeMapOfStringsWithJavaUtilMap:*(a1 + 24)];
   OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v8);
-  [v8 close];
+  [(OrgApacheLuceneUtilBytesRef *)v8 close];
   result = [a2 syncWithJavaUtilCollection:JavaUtilCollections_singletonWithId_(v59)];
   *(a1 + 32) = 1;
   return result;
@@ -7983,12 +7965,12 @@ void sub_100018474(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a2)
   {
-    objc_begin_catch(exception_object);
-    v44 = [IOSObjectArray arrayWithObjects:&a44 count:1 type:JavaIoCloseable_class_()];
-    OrgApacheLuceneUtilIOUtils_closeWhileHandlingExceptionWithJavaIoCloseableArray_(v44);
+    v44 = objc_begin_catch(exception_object);
+    v46 = [IOSObjectArray arrayWithObjects:&a44 count:1 type:JavaIoCloseable_class_(v44, v45)];
+    OrgApacheLuceneUtilIOUtils_closeWhileHandlingExceptionWithJavaIoCloseableArray_(v46);
     a43 = a18;
-    v45 = [IOSObjectArray arrayWithObjects:&a43 count:1 type:NSString_class_()];
-    OrgApacheLuceneUtilIOUtils_deleteFilesIgnoringExceptionsWithOrgApacheLuceneStoreDirectory_withNSStringArray_(a17, v45);
+    v47 = [IOSObjectArray arrayWithObjects:&a43 count:1 type:NSString_class_()];
+    OrgApacheLuceneUtilIOUtils_deleteFilesIgnoringExceptionsWithOrgApacheLuceneStoreDirectory_withNSStringArray_(a17, v47);
     objc_exception_rethrow();
   }
 
@@ -8083,30 +8065,30 @@ void sub_100018A94(void *a1)
 OrgApacheLuceneIndexSegmentInfos *new_OrgApacheLuceneIndexSegmentInfos_init()
 {
   v0 = [OrgApacheLuceneIndexSegmentInfos alloc];
-  v1 = JavaUtilCollections_emptyMap();
-  JreStrongAssign(&v0->userData_, v1);
-  v2 = new_JavaUtilArrayList_init();
-  JreStrongAssignAndConsume(&v0->segments_, v2);
+  v2 = JavaUtilCollections_emptyMap(v0, v1);
+  JreStrongAssign(&v0->userData_, v2);
+  v3 = new_JavaUtilArrayList_init();
+  JreStrongAssignAndConsume(&v0->segments_, v3);
   return v0;
 }
 
-id sub_10001975C()
+id sub_10001975C(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&OrgApacheLuceneIndexSegmentInfos__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10001987C();
+    a1 = sub_10001987C();
   }
 
-  v0 = qword_100553E40;
-  if (!qword_100553E40 || (v1 = JavaLangThread_currentThread()) == 0)
+  v2 = qword_100553E40;
+  if (!qword_100553E40 || (v3 = JavaLangThread_currentThread(a1, a2)) == 0)
   {
     JreThrowNullPointerException();
   }
 
-  [(JavaLangThread *)v1 getName];
-  v9 = JreStrcat("$$$$", v2, v3, v4, v5, v6, v7, v8, @"SIS [");
+  [(JavaLangThread *)v3 getName];
+  v11 = JreStrcat("$$$$", v4, v5, v6, v7, v8, v9, v10, @"SIS [");
 
-  return [v0 printlnWithNSString:v9];
+  return [v2 printlnWithNSString:v11];
 }
 
 OrgApacheLuceneUtilPackedBulkOperationPacked8 *new_OrgApacheLuceneUtilPackedBulkOperationPacked8_init()
@@ -8119,8 +8101,8 @@ OrgApacheLuceneUtilPackedBulkOperationPacked8 *new_OrgApacheLuceneUtilPackedBulk
 id OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_(uint64_t a1, uint64_t a2)
 {
   OrgApacheLuceneSearchQuery_init(a1);
-  v4 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2);
-  JreStrongAssign((a1 + 12), v4);
+  v5 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2, v4);
+  JreStrongAssign((a1 + 12), v5);
 
   return JreStrongAssign((a1 + 20), 0);
 }
@@ -8128,8 +8110,8 @@ id OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_(uint64_t a1,
 id OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_withOrgApacheLuceneIndexTermContext_(uint64_t a1, uint64_t a2, void *a3)
 {
   OrgApacheLuceneSearchQuery_init(a1);
-  v6 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2);
-  JreStrongAssign((a1 + 12), v6);
+  v7 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2, v6);
+  JreStrongAssign((a1 + 12), v7);
   if (!a3)
   {
     JreThrowNullPointerException();
@@ -8137,13 +8119,13 @@ id OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_withOrgApache
 
   if (([a3 hasOnlyRealTerms] & 1) == 0)
   {
-    v9 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Term queries must be created on real terms");
-    objc_exception_throw(v9);
+    v11 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Term queries must be created on real terms");
+    objc_exception_throw(v11);
   }
 
-  v7 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a3);
+  v9 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a3, v8);
 
-  return JreStrongAssign((a1 + 20), v7);
+  return JreStrongAssign((a1 + 20), v9);
 }
 
 OrgApacheLuceneSearchTermQuery *new_OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_(uint64_t a1)
@@ -8160,7 +8142,7 @@ OrgApacheLuceneSearchTermQuery *new_OrgApacheLuceneSearchTermQuery_initWithOrgAp
   return v4;
 }
 
-uint64_t OrgApacheLuceneSearchTermQuery_class_()
+uint64_t OrgApacheLuceneSearchTermQuery_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100553E58 != -1)
   {
@@ -8219,12 +8201,12 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  [a2 getBoost];
-  v21 = v20;
-  v25 = v18;
-  v22 = [IOSObjectArray arrayWithObjects:&v25 count:1 type:OrgApacheLuceneSearchTermStatistics_class_()];
-  LODWORD(v23) = v21;
-  return JreStrongAssign((a1 + 32), [v19 computeWeightWithFloat:v11 withOrgApacheLuceneSearchCollectionStatistics:v22 withOrgApacheLuceneSearchTermStatisticsArray:{v23, v25}]);
+  v20 = [a2 getBoost];
+  v22 = v21;
+  v27 = v18;
+  v24 = [IOSObjectArray arrayWithObjects:&v27 count:1 type:OrgApacheLuceneSearchTermStatistics_class_(v20, v23)];
+  LODWORD(v25) = v22;
+  return JreStrongAssign((a1 + 32), [v19 computeWeightWithFloat:v11 withOrgApacheLuceneSearchCollectionStatistics:v24 withOrgApacheLuceneSearchTermStatisticsArray:{v25, v27}]);
 }
 
 id sub_10001A680(uint64_t a1, unsigned int *a2)
@@ -8254,33 +8236,33 @@ LABEL_11:
   return v12;
 }
 
-OrgLukhnosPortmobileFilePath *OrgLukhnosPortmobileFilePaths_getWithNSString_(void *a1)
+OrgLukhnosPortmobileFilePath *OrgLukhnosPortmobileFilePaths_getWithNSString_(void *a1, uint64_t a2)
 {
-  v1 = new_OrgLukhnosPortmobileFilePath_initWithNSString_(a1);
+  v2 = new_OrgLukhnosPortmobileFilePath_initWithNSString_(a1);
 
-  return v1;
+  return v2;
 }
 
 OrgApacheLuceneSearchTotalHitCountCollector *new_OrgApacheLuceneSearchTotalHitCountCollector_init()
 {
   v0 = [OrgApacheLuceneSearchTotalHitCountCollector alloc];
-  OrgApacheLuceneSearchSimpleCollector_init(v0, v1);
+  OrgApacheLuceneSearchSimpleCollector_init();
   return v0;
 }
 
-void *OrgApacheLuceneIndexCodecReader_init(id *a1)
+void *OrgApacheLuceneIndexCodecReader_init(id *a1, uint64_t a2)
 {
-  OrgApacheLuceneIndexLeafReader_init(a1);
-  v2 = [OrgApacheLuceneIndexCodecReader__1 alloc];
-  OrgApacheLuceneUtilCloseableThreadLocal_init(&v2->super.super.isa);
-  JreStrongAssignAndConsume(a1 + 6, v2);
-  v3 = [OrgApacheLuceneIndexCodecReader__2 alloc];
+  OrgApacheLuceneIndexLeafReader_init(a1, a2);
+  v3 = [OrgApacheLuceneIndexCodecReader__1 alloc];
   OrgApacheLuceneUtilCloseableThreadLocal_init(&v3->super.super.isa);
-  JreStrongAssignAndConsume(a1 + 7, v3);
-  v4 = [OrgApacheLuceneIndexCodecReader__3 alloc];
+  JreStrongAssignAndConsume(a1 + 6, v3);
+  v4 = [OrgApacheLuceneIndexCodecReader__2 alloc];
   OrgApacheLuceneUtilCloseableThreadLocal_init(&v4->super.super.isa);
+  JreStrongAssignAndConsume(a1 + 7, v4);
+  v5 = [OrgApacheLuceneIndexCodecReader__3 alloc];
+  OrgApacheLuceneUtilCloseableThreadLocal_init(&v5->super.super.isa);
 
-  return JreStrongAssignAndConsume(a1 + 8, v4);
+  return JreStrongAssignAndConsume(a1 + 8, v5);
 }
 
 id sub_10001AC90(void *a1, int a2)
@@ -8314,7 +8296,7 @@ id sub_10001AD94(void *a1, uint64_t a2, id a3)
       sub_10001B990();
     }
 
-    if (v8 == OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+    if (v8 == OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
     {
       return 0;
     }
@@ -8341,7 +8323,7 @@ id OrgApacheLuceneSearchTopDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArr
   return result;
 }
 
-OrgApacheLuceneSearchTopFieldDocs *OrgApacheLuceneSearchTopDocs_mergeWithOrgApacheLuceneSearchSort_withInt_withInt_withOrgApacheLuceneSearchTopFieldDocsArray_(void *a1, int a2, unsigned int a3, uint64_t a4)
+OrgApacheLuceneSearchTopFieldDocs *OrgApacheLuceneSearchTopDocs_mergeWithOrgApacheLuceneSearchSort_withInt_withInt_withOrgApacheLuceneSearchTopFieldDocsArray_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -8382,7 +8364,7 @@ OrgApacheLuceneSearchTopFieldDocs *sub_10001BC40(void *a1, int a2, unsigned int 
   if (a1)
   {
     v8 = [OrgApacheLuceneSearchTopDocs_MergeSortQueue alloc];
-    sub_10001C3EC(v8, a1, a4, v9, v10, v11, v12, v13);
+    sub_10001C3EC(&v8->super.super.isa, a1, a4, v9, v10, v11, v12, v13);
   }
 
   else
@@ -8398,8 +8380,8 @@ OrgApacheLuceneSearchTopFieldDocs *sub_10001BC40(void *a1, int a2, unsigned int 
   }
 
   v21 = v20;
-  v52 = a1;
-  v53 = a2;
+  v56 = a1;
+  v57 = a2;
   if (*(a4 + 8) >= 1)
   {
     v22 = 0;
@@ -8430,9 +8412,9 @@ OrgApacheLuceneSearchTopFieldDocs *sub_10001BC40(void *a1, int a2, unsigned int 
           v30 = [OrgApacheLuceneSearchTopDocs_ShardRef alloc];
           v30->shardIndex_ = v24;
           [(OrgApacheLuceneUtilPriorityQueue *)v21 addWithId:v30];
-          [v26 getMaxScore];
-          JavaLangMath_maxWithFloat_withFloat_(*&v25, v31);
-          v25 = v32;
+          v31 = [v26 getMaxScore];
+          JavaLangMath_maxWithFloat_withFloat_(*&v25, v33, v31, v32);
+          v25 = v34;
         }
       }
 
@@ -8456,85 +8438,86 @@ LABEL_15:
     *&v25 = NAN;
   }
 
-  v33 = v53;
-  if (v22 <= v53)
+  v35 = v57;
+  v36 = (v22 - v57);
+  if (v22 <= v57)
   {
-    v55 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_()];
+    v59 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_(v20, v36)];
   }
 
   else
   {
-    v34 = JavaLangMath_minWithInt_withInt_(a3, v22 - v53);
-    v55 = [IOSObjectArray arrayWithLength:v34 type:OrgApacheLuceneSearchScoreDoc_class_()];
-    v35 = JavaLangMath_minWithInt_withInt_(v22, a3 + v53);
-    if (v35 >= 1)
+    v37 = JavaLangMath_minWithInt_withInt_(a3, v36);
+    v59 = [IOSObjectArray arrayWithLength:v37 type:OrgApacheLuceneSearchScoreDoc_class_(v37, v38)];
+    v39 = JavaLangMath_minWithInt_withInt_(v22, a3 + v57);
+    if (v39 >= 1)
     {
-      v36 = 0;
-      v54 = -v53;
-      v37 = v35;
+      v40 = 0;
+      v58 = -v57;
+      v41 = v39;
       do
       {
-        v38 = [(OrgApacheLuceneUtilPriorityQueue *)v21 top];
-        if (!v38)
-        {
-          goto LABEL_48;
-        }
-
-        v39 = v38;
-        v40 = v38[2];
-        v41 = *(a4 + 8);
-        if (v40 < 0 || v40 >= v41)
-        {
-          IOSArray_throwOutOfBoundsWithMsg(v41, v40);
-        }
-
-        v42 = *(a4 + 24 + 8 * v40);
+        v42 = [(OrgApacheLuceneUtilPriorityQueue *)v21 top];
         if (!v42)
         {
           goto LABEL_48;
         }
 
-        v43 = *(v42 + 16);
-        if (!v43)
-        {
-          goto LABEL_48;
-        }
-
-        v44 = v39[3];
-        v39[3] = v44 + 1;
-        v45 = *(v43 + 8);
+        v43 = v42;
+        v44 = v42[2];
+        v45 = *(a4 + 8);
         if (v44 < 0 || v44 >= v45)
         {
           IOSArray_throwOutOfBoundsWithMsg(v45, v44);
         }
 
-        v46 = *(v43 + 24 + 8 * v44);
+        v46 = *(a4 + 24 + 8 * v44);
         if (!v46)
         {
           goto LABEL_48;
         }
 
-        v47 = v39[2];
-        v46[4] = v47;
-        if (v36 >= v33)
-        {
-          IOSObjectArray_Set(v55, v54 + v36, v46);
-          v47 = v39[2];
-        }
-
-        v48 = *(a4 + 8);
-        if (v47 < 0 || v47 >= v48)
-        {
-          IOSArray_throwOutOfBoundsWithMsg(v48, v47);
-        }
-
-        v49 = *(a4 + 24 + 8 * v47);
-        if (!v49)
+        v47 = *(v46 + 16);
+        if (!v47)
         {
           goto LABEL_48;
         }
 
-        if (v39[3] >= *(*(v49 + 16) + 8))
+        v48 = v43[3];
+        v43[3] = v48 + 1;
+        v49 = *(v47 + 8);
+        if (v48 < 0 || v48 >= v49)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v49, v48);
+        }
+
+        v50 = *(v47 + 24 + 8 * v48);
+        if (!v50)
+        {
+          goto LABEL_48;
+        }
+
+        v51 = v43[2];
+        v50[4] = v51;
+        if (v40 >= v35)
+        {
+          IOSObjectArray_Set(v59, v58 + v40, v50);
+          v51 = v43[2];
+        }
+
+        v52 = *(a4 + 8);
+        if (v51 < 0 || v51 >= v52)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v52, v51);
+        }
+
+        v53 = *(a4 + 24 + 8 * v51);
+        if (!v53)
+        {
+          goto LABEL_48;
+        }
+
+        if (v43[3] >= *(*(v53 + 16) + 8))
         {
           [(OrgApacheLuceneUtilPriorityQueue *)v21 pop];
         }
@@ -8545,27 +8528,27 @@ LABEL_15:
         }
       }
 
-      while (v37 != ++v36);
+      while (v41 != ++v40);
     }
   }
 
-  if (v52)
+  if (v56)
   {
-    v50 = new_OrgApacheLuceneSearchTopFieldDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArray_withOrgApacheLuceneSearchSortFieldArray_withFloat_(v23, v55, [v52 getSort], *&v25);
+    v54 = new_OrgApacheLuceneSearchTopFieldDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArray_withOrgApacheLuceneSearchSortFieldArray_withFloat_(v23, v59, [v56 getSort], *&v25);
   }
 
   else
   {
-    v50 = [OrgApacheLuceneSearchTopDocs alloc];
-    v50->super.totalHits_ = v23;
-    JreStrongAssign(&v50->super.scoreDocs_, v55);
-    v50->super.maxScore_ = *&v25;
+    v54 = [OrgApacheLuceneSearchTopDocs alloc];
+    v54->super.totalHits_ = v23;
+    JreStrongAssign(&v54->super.scoreDocs_, v59);
+    v54->super.maxScore_ = *&v25;
   }
 
-  return v50;
+  return v54;
 }
 
-uint64_t OrgApacheLuceneSearchTopDocs_class_()
+uint64_t OrgApacheLuceneSearchTopDocs_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100553E68 != -1)
   {
@@ -8575,33 +8558,33 @@ uint64_t OrgApacheLuceneSearchTopDocs_class_()
   return qword_100553E60;
 }
 
-void *sub_10001C0C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *sub_10001C0C8(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a2)
   {
     goto LABEL_7;
   }
 
-  OrgApacheLuceneUtilPriorityQueue_initWithInt_(a1, *(a2 + 8), a3, a4, a5, a6, a7, a8);
-  v10 = *(a2 + 8);
-  v11 = OrgApacheLuceneSearchScoreDoc_class_();
-  v12 = [IOSObjectArray newArrayWithLength:v10 type:IOSClass_arrayType(v11, 1u)];
-  result = JreStrongAssignAndConsume((a1 + 24), v12);
+  v10 = OrgApacheLuceneUtilPriorityQueue_initWithInt_(result, *(a2 + 8), a3, a4, a5, a6, a7, a8);
+  v11 = *(a2 + 8);
+  v13 = OrgApacheLuceneSearchScoreDoc_class_(v10, v12);
+  v14 = [IOSObjectArray newArrayWithLength:v11 type:IOSClass_arrayType(v13, 1u)];
+  v15 = JreStrongAssignAndConsume((result + 24), v14);
   if (*(a2 + 8) >= 1)
   {
-    v14 = 0;
+    v16 = 0;
     for (i = a2; ; i += 8)
     {
-      v16 = *(i + 24);
-      if (!v16)
+      v18 = *(i + 24);
+      if (!v18)
       {
         break;
       }
 
-      result = IOSObjectArray_Set(*(a1 + 24), v14++, *(v16 + 16));
-      if (v14 >= *(a2 + 8))
+      v15 = IOSObjectArray_Set(*(result + 24), v16++, *(v18 + 16));
+      if (v16 >= *(a2 + 8))
       {
-        return result;
+        return v15;
       }
     }
 
@@ -8609,46 +8592,46 @@ LABEL_7:
     JreThrowNullPointerException();
   }
 
-  return result;
+  return v15;
 }
 
-uint64_t sub_10001C3EC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10001C3EC(id *result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a3)
   {
     goto LABEL_29;
   }
 
-  v9 = a1;
-  OrgApacheLuceneUtilPriorityQueue_initWithInt_(a1, *(a3 + 8), a3, a4, a5, a6, a7, a8);
-  v10 = *(a3 + 8);
-  v11 = OrgApacheLuceneSearchScoreDoc_class_();
-  v12 = [IOSObjectArray newArrayWithLength:v10 type:IOSClass_arrayType(v11, 1u)];
-  JreStrongAssignAndConsume(v9 + 3, v12);
-  v38 = v9;
+  v9 = result;
+  v10 = OrgApacheLuceneUtilPriorityQueue_initWithInt_(result, *(a3 + 8), a3, a4, a5, a6, a7, a8);
+  v11 = *(a3 + 8);
+  v13 = OrgApacheLuceneSearchScoreDoc_class_(v10, v12);
+  v14 = [IOSObjectArray newArrayWithLength:v11 type:IOSClass_arrayType(v13, 1u)];
+  JreStrongAssignAndConsume(v9 + 3, v14);
+  v41 = v9;
   if (*(a3 + 8) >= 1)
   {
-    v13 = 0;
+    v15 = 0;
     while (1)
     {
-      v14 = *(a3 + 24 + 8 * v13);
-      if (!v14)
+      v16 = *(a3 + 24 + 8 * v15);
+      if (!v16)
       {
         break;
       }
 
-      v15 = v13;
-      v16 = *(v14 + 16);
-      if (v16)
+      v17 = v15;
+      v18 = *(v16 + 16);
+      if (v18)
       {
-        IOSObjectArray_Set(v9[3], v13, *(v14 + 16));
-        if (*(v16 + 8) >= 1)
+        IOSObjectArray_Set(v9[3], v15, *(v16 + 16));
+        if (*(v18 + 8) >= 1)
         {
-          v17 = 0;
-          v18 = v16;
+          v19 = 0;
+          v20 = v18;
           do
           {
-            v19 = *(v18 + 24);
+            v21 = *(v20 + 24);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -8656,7 +8639,7 @@ uint64_t sub_10001C3EC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
             }
 
             objc_opt_class();
-            if (!v19)
+            if (!v21)
             {
               goto LABEL_29;
             }
@@ -8666,25 +8649,25 @@ uint64_t sub_10001C3EC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
               JreThrowClassCastException();
             }
 
-            if (!*(v19 + 24))
+            if (!*(v21 + 24))
             {
 LABEL_30:
-              v35 = JreStrcat("$I$", v20, v21, v22, v23, v24, v25, v26, @"shard ");
-              v36 = new_JavaLangIllegalArgumentException_initWithNSString_(v35);
-              objc_exception_throw(v36);
+              v38 = JreStrcat("$I$", v22, v23, v24, v25, v26, v27, v28, @"shard ");
+              v39 = new_JavaLangIllegalArgumentException_initWithNSString_(v38);
+              objc_exception_throw(v39);
             }
 
-            ++v17;
-            v18 += 8;
+            ++v19;
+            v20 += 8;
           }
 
-          while (v17 < *(v16 + 8));
-          v9 = v38;
+          while (v19 < *(v18 + 8));
+          v9 = v41;
         }
       }
 
-      v13 = v15 + 1;
-      if ((v15 + 1) >= *(a3 + 8))
+      v15 = v17 + 1;
+      if ((v17 + 1) >= *(a3 + 8))
       {
         goto LABEL_15;
       }
@@ -8700,92 +8683,92 @@ LABEL_15:
     goto LABEL_29;
   }
 
-  v27 = [a2 getSort];
-  if (!v27)
+  v29 = [a2 getSort];
+  if (!v29)
   {
     goto LABEL_29;
   }
 
-  v28 = v27;
-  v29 = [IOSObjectArray newArrayWithLength:v27[2] type:OrgApacheLuceneSearchFieldComparator_class_()];
-  JreStrongAssignAndConsume(v9 + 4, v29);
-  result = JreStrongAssignAndConsume(v9 + 5, [IOSIntArray newArrayWithLength:v28[2]]);
-  if (v28[2] >= 1)
+  v31 = v29;
+  v32 = [IOSObjectArray newArrayWithLength:v29[2] type:OrgApacheLuceneSearchFieldComparator_class_(v29, v30)];
+  JreStrongAssignAndConsume(v9 + 4, v32);
+  v33 = JreStrongAssignAndConsume(v9 + 5, [IOSIntArray newArrayWithLength:v31[2]]);
+  if (v31[2] >= 1)
   {
-    v31 = 0;
+    v34 = 0;
     while (1)
     {
-      v32 = *&v28[2 * v31 + 6];
-      if (!v32)
+      v35 = *&v31[2 * v34 + 6];
+      if (!v35)
       {
         break;
       }
 
-      IOSObjectArray_Set(v38[4], v31, [v32 getComparatorWithInt:1 withInt:v31]);
-      if ([v32 getReverse])
+      IOSObjectArray_Set(v41[4], v34, [v35 getComparatorWithInt:1 withInt:v34]);
+      if ([v35 getReverse])
       {
-        v33 = -1;
+        v36 = -1;
       }
 
       else
       {
-        v33 = 1;
+        v36 = 1;
       }
 
-      v34 = v38[5];
-      result = v34[2];
-      if (v31 >= result)
+      v37 = v41[5];
+      v33 = v37[2];
+      if (v34 >= v33)
       {
-        IOSArray_throwOutOfBoundsWithMsg(result, v31);
+        IOSArray_throwOutOfBoundsWithMsg(v33, v34);
       }
 
-      v34[v31++ + 3] = v33;
-      if (v31 >= v28[2])
+      v37[v34++ + 3] = v36;
+      if (v34 >= v31[2])
       {
-        return result;
+        return v33;
       }
     }
 
     goto LABEL_29;
   }
 
-  return result;
+  return v33;
 }
 
-id OrgApacheLuceneAnalysisUtilCharTokenizer_init(uint64_t a1)
+id OrgApacheLuceneAnalysisUtilCharTokenizer_init(id *a1)
 {
-  OrgApacheLuceneAnalysisTokenizer_init(a1);
-  *(a1 + 56) = 0;
-  *(a1 + 60) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 68) = 0;
-  v2 = [a1 addAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_()];
-  JreStrongAssign((a1 + 72), v2);
-  v3 = [a1 addAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_()];
-  JreStrongAssign((a1 + 80), v3);
-  Instance = OrgApacheLuceneAnalysisUtilCharacterUtils_getInstance();
-  JreStrongAssign((a1 + 88), Instance);
-  v5 = OrgApacheLuceneAnalysisUtilCharacterUtils_newCharacterBufferWithInt_(4096);
+  v2 = OrgApacheLuceneAnalysisTokenizer_init(a1);
+  *(a1 + 14) = 0;
+  *(a1 + 15) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 17) = 0;
+  v4 = [a1 addAttributeWithIOSClass:{OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v2, v3)}];
+  v5 = JreStrongAssign(a1 + 9, v4);
+  v7 = [a1 addAttributeWithIOSClass:{OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v5, v6)}];
+  v8 = JreStrongAssign(a1 + 10, v7);
+  Instance = OrgApacheLuceneAnalysisUtilCharacterUtils_getInstance(v8, v9);
+  JreStrongAssign(a1 + 11, Instance);
+  v12 = OrgApacheLuceneAnalysisUtilCharacterUtils_newCharacterBufferWithInt_(4096, v11);
 
-  return JreStrongAssign((a1 + 96), v5);
+  return JreStrongAssign(a1 + 12, v12);
 }
 
-id OrgApacheLuceneAnalysisUtilCharTokenizer_initWithOrgApacheLuceneUtilAttributeFactory_(uint64_t a1)
+id OrgApacheLuceneAnalysisUtilCharTokenizer_initWithOrgApacheLuceneUtilAttributeFactory_(id *a1, uint64_t a2)
 {
-  OrgApacheLuceneAnalysisTokenizer_initWithOrgApacheLuceneUtilAttributeFactory_(a1);
-  *(a1 + 56) = 0;
-  *(a1 + 60) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 68) = 0;
-  v2 = [a1 addAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_()];
-  JreStrongAssign((a1 + 72), v2);
-  v3 = [a1 addAttributeWithIOSClass:OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_()];
-  JreStrongAssign((a1 + 80), v3);
-  Instance = OrgApacheLuceneAnalysisUtilCharacterUtils_getInstance();
-  JreStrongAssign((a1 + 88), Instance);
-  v5 = OrgApacheLuceneAnalysisUtilCharacterUtils_newCharacterBufferWithInt_(4096);
+  v3 = OrgApacheLuceneAnalysisTokenizer_initWithOrgApacheLuceneUtilAttributeFactory_(a1, a2);
+  *(a1 + 14) = 0;
+  *(a1 + 15) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 17) = 0;
+  v5 = [a1 addAttributeWithIOSClass:{OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v3, v4)}];
+  v6 = JreStrongAssign(a1 + 9, v5);
+  v8 = [a1 addAttributeWithIOSClass:{OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v6, v7)}];
+  v9 = JreStrongAssign(a1 + 10, v8);
+  Instance = OrgApacheLuceneAnalysisUtilCharacterUtils_getInstance(v9, v10);
+  JreStrongAssign(a1 + 11, Instance);
+  v13 = OrgApacheLuceneAnalysisUtilCharacterUtils_newCharacterBufferWithInt_(4096, v12);
 
-  return JreStrongAssign((a1 + 96), v5);
+  return JreStrongAssign(a1 + 12, v13);
 }
 
 OrgApacheLuceneIndexSegmentDocValues_$1 *sub_10001D23C(void *a1, uint64_t a2, void *a3, void *a4, void *a5)
@@ -8861,7 +8844,7 @@ id sub_10001D77C(uint64_t a1, void *a2, void *a3, void *a4)
 
 uint64_t OrgApacheLuceneUtilPackedGrowableWriter_initWithInt_withInt_withFloat_(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
-  OrgApacheLuceneUtilPackedPackedInts_Mutable_init();
+  OrgApacheLuceneUtilPackedPackedInts_Mutable_init(a1);
   *(a1 + 24) = a4;
   MutableWithInt_withInt_withFloat = OrgApacheLuceneUtilPackedPackedInts_getMutableWithInt_withInt_withFloat_(a3, a2, *(a1 + 24));
   JreStrongAssign((a1 + 16), MutableWithInt_withInt_withFloat);
@@ -8891,7 +8874,7 @@ uint64_t sub_10001DA20(uint64_t result, unint64_t a2)
   if ((a2 & ~*(result + 8)) != 0)
   {
     v2 = result;
-    v3 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(a2);
+    v3 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(a2, a2);
     v4 = [v2 size];
     MutableWithInt_withInt_withFloat = OrgApacheLuceneUtilPackedPackedInts_getMutableWithInt_withInt_withFloat_(v4, v3, *(v2 + 24));
     OrgApacheLuceneUtilPackedPackedInts_copy__WithOrgApacheLuceneUtilPackedPackedInts_Reader_withInt_withOrgApacheLuceneUtilPackedPackedInts_Mutable_withInt_withInt_withInt_(*(v2 + 16), 0, MutableWithInt_withInt_withFloat, 0, v4, 0x400u);
@@ -9000,7 +8983,7 @@ OrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame *new_OrgApacheLuceneCodecsBl
   return v4;
 }
 
-uint64_t OrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame_class_()
+uint64_t OrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100553E80 != -1)
   {
@@ -9017,24 +9000,25 @@ OrgApacheLuceneUtilPackedBulkOperationPacked2 *new_OrgApacheLuceneUtilPackedBulk
   return v0;
 }
 
-id OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexSegmentDocValues_(id *a1, uint64_t a2, uint64_t a3, OrgApacheLuceneIndexFieldInfos *a4, void *a5, void *a6)
+id OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexSegmentDocValues_(id *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
+  v63 = a4;
   OrgApacheLuceneCodecsDocValuesProducer_init();
   v8 = new_JavaUtilHashMap_init();
   JreStrongAssignAndConsume(a1 + 1, v8);
   v9 = new_JavaUtilIdentityHashMap_init();
-  v10 = JavaUtilCollections_newSetFromMapWithJavaUtilMap_(v9);
-  JreStrongAssign(a1 + 2, v10);
-  v11 = new_JavaUtilArrayList_init();
-  JreStrongAssignAndConsume(a1 + 3, v11);
-  if (!a2 || (v12 = *(a2 + 8)) == 0)
+  v11 = JavaUtilCollections_newSetFromMapWithJavaUtilMap_(v9, v10);
+  JreStrongAssign(a1 + 2, v11);
+  v12 = new_JavaUtilArrayList_init();
+  JreStrongAssignAndConsume(a1 + 3, v12);
+  if (!a2 || (v13 = *(a2 + 8)) == 0)
   {
     JreThrowNullPointerException();
   }
 
-  v52 = a2;
-  v13 = [v12 getVersion];
-  if (!v13)
+  v65 = a2;
+  v14 = [v13 getVersion];
+  if (!v14)
   {
     goto LABEL_29;
   }
@@ -9044,82 +9028,83 @@ id OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegm
     objc_opt_class();
   }
 
-  if ([v13 onOrAfterWithOrgApacheLuceneUtilVersion:OrgApacheLuceneUtilVersion_LUCENE_4_9_0_])
+  if ([v14 onOrAfterWithOrgApacheLuceneUtilVersion:{OrgApacheLuceneUtilVersion_LUCENE_4_9_0_, v63}])
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     if (!a5)
     {
 LABEL_74:
       JreThrowNullPointerException();
     }
 
-    result = [a5 countByEnumeratingWithState:&v71 objects:v79 count:16];
-    v15 = result;
+    result = [a5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+    v16 = result;
     if (result)
     {
-      v54 = 0;
-      v16 = *v72;
+      v67 = 0;
+      v17 = *v85;
       do
       {
-        v17 = 0;
+        v18 = 0;
         do
         {
-          if (*v72 != v16)
+          if (*v85 != v17)
           {
             objc_enumerationMutation(a5);
           }
 
-          v18 = *(*(&v71 + 1) + 8 * v17);
-          if (!v18)
+          v19 = *(*(&v84 + 1) + 8 * v18);
+          if (!v19)
           {
             goto LABEL_74;
           }
 
-          v19 = [*(*(&v71 + 1) + 8 * v17) getDocValuesType];
+          v20 = [*(*(&v84 + 1) + 8 * v18) getDocValuesType];
           if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
           {
             objc_opt_class();
           }
 
-          if (v19 != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+          if (v20 != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
           {
-            v20 = [v18 getDocValuesGen];
-            if (v20 == -1)
+            v21 = [v19 getDocValuesGen];
+            v23 = v21;
+            if (v21 == -1)
             {
-              if (!v54)
+              if (!v67)
               {
-                if (!a6 || (v54 = [a6 getDocValuesProducerWithLong:-1 withOrgApacheLuceneIndexSegmentCommitInfo:v52 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:a4], objc_msgSend(a1[3], "addWithId:", JavaLangLong_valueOfWithLong_(-1)), (v24 = a1[2]) == 0))
+                if (!a6 || (v67 = [a6 getDocValuesProducerWithLong:-1 withOrgApacheLuceneIndexSegmentCommitInfo:v65 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:v63], objc_msgSend(a1[3], "addWithId:", JavaLangLong_valueOfWithLong_(-1, v28)), (v29 = a1[2]) == 0))
                 {
                   JreThrowNullPointerException();
                 }
 
-                [v24 addWithId:v54];
+                [v29 addWithId:v67];
               }
 
-              [a1[1] putWithId:v18[1] withId:v54];
+              [a1[1] putWithId:v19[1] withId:v67];
             }
 
             else
             {
-              if (!a6 || (v78 = v18, v21 = +[IOSObjectArray arrayWithObjects:count:type:](IOSObjectArray, "arrayWithObjects:count:type:", &v78, 1, OrgApacheLuceneIndexFieldInfo_class_()), v22 = [a6 getDocValuesProducerWithLong:v20 withOrgApacheLuceneIndexSegmentCommitInfo:v52 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:new_OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v21)], objc_msgSend(a1[3], "addWithId:", JavaLangLong_valueOfWithLong_(v20)), (v23 = a1[2]) == 0))
+              if (!a6 || (v91 = v19, v24 = +[IOSObjectArray arrayWithObjects:count:type:](IOSObjectArray, "arrayWithObjects:count:type:", &v91, 1, OrgApacheLuceneIndexFieldInfo_class_(v21, v22)), v25 = [a6 getDocValuesProducerWithLong:v23 withOrgApacheLuceneIndexSegmentCommitInfo:v65 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:new_OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v24)], objc_msgSend(a1[3], "addWithId:", JavaLangLong_valueOfWithLong_(v23, v26)), (v27 = a1[2]) == 0))
               {
                 JreThrowNullPointerException();
               }
 
-              [v23 addWithId:v22];
-              [a1[1] putWithId:v18[1] withId:v22];
+              [v27 addWithId:v25];
+              [a1[1] putWithId:v19[1] withId:v25];
             }
           }
 
-          v17 = v17 + 1;
+          v18 = v18 + 1;
         }
 
-        while (v15 != v17);
-        result = [a5 countByEnumeratingWithState:&v71 objects:v79 count:16];
-        v15 = result;
+        while (v16 != v18);
+        result = [a5 countByEnumeratingWithState:&v84 objects:v92 count:16];
+        v16 = result;
       }
 
       while (result);
@@ -9129,179 +9114,182 @@ LABEL_74:
   else
   {
 LABEL_29:
-    v25 = new_JavaUtilHashMap_init();
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
+    v30 = new_JavaUtilHashMap_init();
+    v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     if (!a5)
     {
 LABEL_72:
       JreThrowNullPointerException();
     }
 
-    v26 = v25;
-    v27 = [a5 countByEnumeratingWithState:&v67 objects:v77 count:16];
-    if (v27)
+    v31 = v30;
+    v32 = [a5 countByEnumeratingWithState:&v80 objects:v90 count:16];
+    if (v32)
     {
-      v28 = *v68;
+      v33 = *v81;
       do
       {
-        for (i = 0; i != v27; i = i + 1)
+        for (i = 0; i != v32; i = i + 1)
         {
-          if (*v68 != v28)
+          if (*v81 != v33)
           {
             objc_enumerationMutation(a5);
           }
 
-          v30 = *(*(&v67 + 1) + 8 * i);
-          if (!v30)
+          v35 = *(*(&v80 + 1) + 8 * i);
+          if (!v35)
           {
             goto LABEL_72;
           }
 
-          v31 = [*(*(&v67 + 1) + 8 * i) getDocValuesType];
+          v36 = [*(*(&v80 + 1) + 8 * i) getDocValuesType];
           if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
           {
             objc_opt_class();
           }
 
-          if (v31 != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+          if (v36 != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
           {
-            v32 = -[JavaUtilHashMap getWithId:](v26, "getWithId:", JavaLangLong_valueOfWithLong_([v30 getDocValuesGen]));
-            if (!v32)
+            v37 = [v35 getDocValuesGen];
+            v39 = [(JavaUtilHashMap *)v31 getWithId:JavaLangLong_valueOfWithLong_(v37, v38)];
+            if (!v39)
             {
-              v32 = new_JavaUtilArrayList_init();
-              -[JavaUtilHashMap putWithId:withId:](v26, "putWithId:withId:", JavaLangLong_valueOfWithLong_([v30 getDocValuesGen]), v32);
-              if (!v32)
+              v39 = new_JavaUtilArrayList_init();
+              v40 = [v35 getDocValuesGen];
+              [(JavaUtilHashMap *)v31 putWithId:JavaLangLong_valueOfWithLong_(v40 withId:v41), v39];
+              if (!v39)
               {
                 JreThrowNullPointerException();
               }
             }
 
-            [(JavaUtilArrayList *)v32 addWithId:v30];
+            [(JavaUtilArrayList *)v39 addWithId:v35, v63];
           }
         }
 
-        v27 = [a5 countByEnumeratingWithState:&v67 objects:v77 count:16];
+        v32 = [a5 countByEnumeratingWithState:&v80 objects:v90 count:16];
       }
 
-      while (v27);
+      while (v32);
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v33 = [(JavaUtilHashMap *)v26 entrySet];
-    v34 = v33;
-    if (!v33)
+    v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v42 = [(JavaUtilHashMap *)v31 entrySet];
+    v43 = v42;
+    if (!v42)
     {
       JreThrowNullPointerException();
     }
 
-    result = [v33 countByEnumeratingWithState:&v63 objects:v76 count:16];
-    v35 = result;
+    result = [v42 countByEnumeratingWithState:&v76 objects:v89 count:16];
+    v44 = result;
     if (result)
     {
-      obja = *v64;
-      v55 = v34;
+      obja = *v77;
+      v68 = v43;
       do
       {
-        v36 = 0;
+        v45 = 0;
         do
         {
-          if (*v64 != obja)
+          if (*v77 != obja)
           {
-            objc_enumerationMutation(v55);
+            objc_enumerationMutation(v68);
           }
 
-          v37 = *(*(&v63 + 1) + 8 * v36);
-          if (!v37 || (v38 = [*(*(&v63 + 1) + 8 * v36) getKey]) == 0)
+          v46 = *(*(&v76 + 1) + 8 * v45);
+          if (!v46 || (v47 = [*(*(&v76 + 1) + 8 * v45) getKey]) == 0)
           {
             JreThrowNullPointerException();
           }
 
-          v39 = [v38 longLongValue];
-          v40 = [v37 getValue];
-          v41 = v40;
-          if (v39 == -1)
+          v48 = [v47 longLongValue];
+          v49 = [v46 getValue];
+          v50 = v49;
+          if (v48 == -1)
           {
             if (!a6)
             {
               goto LABEL_77;
             }
 
-            v44 = -1;
-            v43 = a4;
+            v55 = -1;
+            v54 = v64;
           }
 
           else
           {
-            if (!a6 || !v40)
+            if (!a6 || !v49)
             {
 LABEL_77:
               JreThrowNullPointerException();
             }
 
-            v42 = [v40 toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", objc_msgSend(v40, "size"), OrgApacheLuceneIndexFieldInfo_class_())}];
-            v43 = new_OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v42);
-            v44 = v39;
+            v51 = [v49 size];
+            v53 = [v50 toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v51, OrgApacheLuceneIndexFieldInfo_class_(v51, v52))}];
+            v54 = new_OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v53);
+            v55 = v48;
           }
 
-          v45 = [a6 getDocValuesProducerWithLong:v44 withOrgApacheLuceneIndexSegmentCommitInfo:v52 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:v43];
-          [a1[3] addWithId:JavaLangLong_valueOfWithLong_(v39)];
-          v46 = a1[2];
-          if (!v46)
+          v56 = [a6 getDocValuesProducerWithLong:v55 withOrgApacheLuceneIndexSegmentCommitInfo:v65 withOrgApacheLuceneStoreDirectory:a3 withOrgApacheLuceneIndexFieldInfos:v54];
+          [a1[3] addWithId:{JavaLangLong_valueOfWithLong_(v48, v57)}];
+          v58 = a1[2];
+          if (!v58)
           {
             goto LABEL_77;
           }
 
-          [v46 addWithId:v45];
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
-          v60 = 0u;
-          if (!v41)
+          [v58 addWithId:v56];
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          if (!v50)
           {
 LABEL_71:
             JreThrowNullPointerException();
           }
 
-          v47 = [v41 countByEnumeratingWithState:&v59 objects:v75 count:16];
-          if (v47)
+          v59 = [v50 countByEnumeratingWithState:&v72 objects:v88 count:16];
+          if (v59)
           {
-            v48 = *v60;
+            v60 = *v73;
             do
             {
-              for (j = 0; j != v47; j = j + 1)
+              for (j = 0; j != v59; j = j + 1)
               {
-                if (*v60 != v48)
+                if (*v73 != v60)
                 {
-                  objc_enumerationMutation(v41);
+                  objc_enumerationMutation(v50);
                 }
 
-                v50 = *(*(&v59 + 1) + 8 * j);
-                if (!v50)
+                v62 = *(*(&v72 + 1) + 8 * j);
+                if (!v62)
                 {
                   goto LABEL_71;
                 }
 
-                [a1[1] putWithId:*(v50 + 8) withId:v45];
+                [a1[1] putWithId:*(v62 + 8) withId:v56];
               }
 
-              v47 = [v41 countByEnumeratingWithState:&v59 objects:v75 count:16];
+              v59 = [v50 countByEnumeratingWithState:&v72 objects:v88 count:16];
             }
 
-            while (v47);
+            while (v59);
           }
 
-          v36 = v36 + 1;
+          v45 = v45 + 1;
         }
 
-        while (v36 != v35);
-        result = [v55 countByEnumeratingWithState:&v63 objects:v76 count:16];
-        v35 = result;
+        while (v45 != v44);
+        result = [v68 countByEnumeratingWithState:&v76 objects:v89 count:16];
+        v44 = result;
       }
 
       while (result);
@@ -9338,7 +9326,7 @@ void sub_100020D4C(uint64_t a1, int a2)
   objc_terminate();
 }
 
-OrgApacheLuceneIndexSegmentDocValuesProducer *new_OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexSegmentDocValues_(uint64_t a1, uint64_t a2, OrgApacheLuceneIndexFieldInfos *a3, void *a4, void *a5)
+OrgApacheLuceneIndexSegmentDocValuesProducer *new_OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexSegmentDocValues_(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
   v10 = [OrgApacheLuceneIndexSegmentDocValuesProducer alloc];
   OrgApacheLuceneIndexSegmentDocValuesProducer_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexFieldInfos_withOrgApacheLuceneIndexSegmentDocValues_(&v10->super.super.isa, a1, a2, a3, a4, a5);
@@ -9408,27 +9396,27 @@ void sub_100021D0C(uint64_t a1, int a2)
 OrgApacheLuceneCodecsLucene50Lucene50SegmentInfoFormat *new_OrgApacheLuceneCodecsLucene50Lucene50SegmentInfoFormat_init()
 {
   v0 = [OrgApacheLuceneCodecsLucene50Lucene50SegmentInfoFormat alloc];
-  OrgApacheLuceneCodecsSegmentInfoFormat_init(v0, v1);
+  OrgApacheLuceneCodecsSegmentInfoFormat_init();
   return v0;
 }
 
-id OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(uint64_t a1)
+id OrgApacheLuceneUtilBitSetIterator_getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(uint64_t a1, uint64_t a2)
 {
-  v2 = OrgApacheLuceneUtilFixedBitSet_class_();
+  v3 = OrgApacheLuceneUtilFixedBitSet_class_(a1, a2);
 
-  return sub_100021FDC(a1, v2);
+  return sub_100021FDC(a1, v3);
 }
 
-id OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(uint64_t a1)
+id OrgApacheLuceneUtilBitSetIterator_getSparseFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator_(uint64_t a1, uint64_t a2)
 {
-  v2 = OrgApacheLuceneUtilSparseFixedBitSet_class_();
+  v3 = OrgApacheLuceneUtilSparseFixedBitSet_class_();
 
-  return sub_100021FDC(a1, v2);
+  return sub_100021FDC(a1, v3);
 }
 
 id OrgApacheLuceneUtilBitSetIterator_initWithOrgApacheLuceneUtilBitSet_withLong_(uint64_t a1, void *a2, uint64_t a3)
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(a1, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   *(a1 + 32) = -1;
   JreStrongAssign((a1 + 8), a2);
   if (!a2)
@@ -9500,7 +9488,7 @@ OrgApacheLuceneStoreRAMFile *new_OrgApacheLuceneStoreRAMFile_initWithOrgApacheLu
   return v2;
 }
 
-BOOL OrgApacheLuceneUtilPackedPacked64SingleBlock_isSupportedWithInt_(int a1)
+BOOL OrgApacheLuceneUtilPackedPacked64SingleBlock_isSupportedWithInt_(uint64_t a1)
 {
   if ((atomic_load_explicit(&OrgApacheLuceneUtilPackedPacked64SingleBlock__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -9510,8 +9498,9 @@ BOOL OrgApacheLuceneUtilPackedPacked64SingleBlock_isSupportedWithInt_(int a1)
   return JavaUtilArrays_binarySearchWithIntArray_withInt_(qword_100553EA8, a1) >= 0;
 }
 
-void *OrgApacheLuceneUtilPackedPacked64SingleBlock_initWithInt_withInt_(uint64_t a1, uint64_t a2, int a3)
+void *OrgApacheLuceneUtilPackedPacked64SingleBlock_initWithInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   OrgApacheLuceneUtilPackedPackedInts_MutableImpl_initWithInt_withInt_(a1, a2, a3);
   if ((atomic_load_explicit(&OrgApacheLuceneUtilPackedPacked64SingleBlock__initialized, memory_order_acquire) & 1) == 0)
@@ -9519,14 +9508,14 @@ void *OrgApacheLuceneUtilPackedPacked64SingleBlock_initWithInt_withInt_(uint64_t
     sub_1000249E4();
   }
 
-  if (v4 % (64 / a3))
+  if (v4 % (64 / v3))
   {
-    v6 = v4 / (64 / a3) + 1;
+    v6 = v4 / (64 / v3) + 1;
   }
 
   else
   {
-    v6 = v4 / (64 / a3);
+    v6 = v4 / (64 / v3);
   }
 
   v7 = [IOSLongArray newArrayWithLength:v6];
@@ -9534,7 +9523,7 @@ void *OrgApacheLuceneUtilPackedPacked64SingleBlock_initWithInt_withInt_(uint64_t
   return JreStrongAssignAndConsume((a1 + 16), v7);
 }
 
-void *OrgApacheLuceneUtilPackedPacked64SingleBlock_createWithOrgApacheLuceneStoreDataInput_withInt_withInt_(void *a1, uint64_t a2, int a3)
+void *OrgApacheLuceneUtilPackedPacked64SingleBlock_createWithOrgApacheLuceneStoreDataInput_withInt_withInt_(void *a1, uint64_t a2, uint64_t a3)
 {
   if ((atomic_load_explicit(&OrgApacheLuceneUtilPackedPacked64SingleBlock__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -9575,7 +9564,7 @@ LABEL_13:
   return v7;
 }
 
-id OrgApacheLuceneUtilPackedPacked64SingleBlock_createWithInt_withInt_(uint64_t a1, int a2)
+id OrgApacheLuceneUtilPackedPacked64SingleBlock_createWithInt_withInt_(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&OrgApacheLuceneUtilPackedPacked64SingleBlock__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -9621,11 +9610,11 @@ id OrgApacheLuceneCodecsBlocktreeFieldReader_initWithOrgApacheLuceneCodecsBlockt
     if (v21)
     {
       v22 = v21;
-      [v21 seekWithLong:a9];
-      Singleton = OrgApacheLuceneUtilFstByteSequenceOutputs_getSingleton();
-      v24 = new_OrgApacheLuceneUtilFstFST_initWithOrgApacheLuceneStoreDataInput_withOrgApacheLuceneUtilFstOutputs_(v22, Singleton);
+      v23 = [v21 seekWithLong:a9];
+      Singleton = OrgApacheLuceneUtilFstByteSequenceOutputs_getSingleton(v23, v24);
+      v26 = new_OrgApacheLuceneUtilFstFST_initWithOrgApacheLuceneStoreDataInput_withOrgApacheLuceneUtilFstOutputs_(v22, Singleton);
 
-      return JreStrongAssignAndConsume((a1 + 104), v24);
+      return JreStrongAssignAndConsume((a1 + 104), v26);
     }
 
 LABEL_10:
@@ -9667,7 +9656,7 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper *new_OrgApacheLuceneSear
 
 id sub_100025728(uint64_t a1, uint64_t a2)
 {
-  v3 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2);
+  v3 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(a2, a2);
   JreStrongAssign((a1 + 8), v3);
 
   return JreStrongAssign((a1 + 16), 0);
@@ -9722,15 +9711,15 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v12 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_(v9);
-    v13 = [a1 docFreq];
-    v14 = [a1 totalTermFreq];
-    v15 = [OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_TermAndState alloc];
-    JreStrongAssign(&v15->term_, v12);
-    JreStrongAssign(&v15->state_, v11);
-    v15->docFreq_ = v13;
-    v15->totalTermFreq_ = v14;
-    [a2 addWithId:v15];
+    v13 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_(v9, v12);
+    v14 = [a1 docFreq];
+    v15 = [a1 totalTermFreq];
+    v16 = [OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_TermAndState alloc];
+    JreStrongAssign(&v16->term_, v13);
+    JreStrongAssign(&v16->state_, v11);
+    v16->docFreq_ = v14;
+    v16->totalTermFreq_ = v15;
+    [a2 addWithId:v16];
     if (!--v6)
     {
       goto LABEL_9;
@@ -9738,7 +9727,7 @@ LABEL_12:
   }
 }
 
-OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10002593C(uint64_t a1, unsigned int *a2)
+OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10002593C(void *a1, unsigned int *a2)
 {
   if (!a2)
   {
@@ -9751,7 +9740,7 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10
     goto LABEL_40;
   }
 
-  v5 = *(*(a1 + 24) + 12);
+  v5 = *(a1[3] + 12);
   if (!v5)
   {
     goto LABEL_40;
@@ -9761,7 +9750,7 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10
   if (v6)
   {
     v7 = v6;
-    v8 = [*(*(a1 + 24) + 12) getTermsEnumWithOrgApacheLuceneIndexTerms:v6];
+    v8 = [*(a1[3] + 12) getTermsEnumWithOrgApacheLuceneIndexTerms:v6];
     v9 = new_JavaUtilArrayList_init();
     if (sub_100025810(v8, v9))
     {
@@ -9784,7 +9773,7 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10
               objc_enumerationMutation(v9);
             }
 
-            v15 = *(a1 + 32);
+            v15 = a1[4];
             if (!v15)
             {
               goto LABEL_40;
@@ -9799,7 +9788,7 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10
 
             v18 = v17;
             [(OrgApacheLuceneIndexTermContext *)v17 register__WithOrgApacheLuceneIndexTermState:*(v16 + 16) withInt:a2[7] withInt:*(v16 + 24) withLong:*(v16 + 32)];
-            v19 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(*(*(*(a1 + 24) + 12) + 12), *(v16 + 8));
+            v19 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(*(*(a1[3] + 12) + 12), *(v16 + 8));
             v20 = new_OrgApacheLuceneSearchTermQuery_initWithOrgApacheLuceneIndexTerm_withOrgApacheLuceneIndexTermContext_(v19, v18);
             if ((atomic_load_explicit(OrgApacheLuceneSearchBooleanClause_OccurEnum__initialized, memory_order_acquire) & 1) == 0)
             {
@@ -9818,13 +9807,13 @@ OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet *sub_10
       v21 = new_OrgApacheLuceneSearchConstantScoreQuery_initWithOrgApacheLuceneSearchQuery_([(OrgApacheLuceneSearchBooleanQuery_Builder *)v10 build]);
       [a1 score];
       [(OrgApacheLuceneSearchQuery *)v21 setBoostWithFloat:?];
-      v22 = *(a1 + 32);
+      v22 = a1[4];
       if (v22)
       {
         v23 = [v22 rewriteWithOrgApacheLuceneSearchQuery:v21];
         if (v23)
         {
-          v24 = [v23 createWeightWithOrgApacheLuceneSearchIndexSearcher:*(a1 + 32) withBoolean:*(a1 + 40)];
+          v24 = [v23 createWeightWithOrgApacheLuceneSearchIndexSearcher:a1[4] withBoolean:*(a1 + 40)];
           v25 = [OrgApacheLuceneSearchMultiTermQueryConstantScoreWrapper_WeightOrDocIdSet alloc];
           sub_100025728(v25, v24);
           v26 = v25;

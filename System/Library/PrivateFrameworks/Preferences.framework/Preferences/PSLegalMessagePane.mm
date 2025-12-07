@@ -38,7 +38,7 @@
       if (v21)
       {
         _browserView = v21;
-        _scrollView = _PSLoggingFacility();
+        _scrollView = _PSLoggingFacility(v21);
         if (os_log_type_enabled(_scrollView, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109634;

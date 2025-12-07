@@ -134,7 +134,7 @@ LABEL_21:
 
     memset(buf, 0, 32);
     image = [(_PIParallaxRenderCacheEntry *)self image];
-    [image extent];
+    objc_msgSend_extent(image);
     NUPixelRectFromCGRect();
 
     image2 = [(_PIParallaxRenderCacheEntry *)self image];
@@ -312,7 +312,7 @@ LABEL_38:
     goto LABEL_40;
   }
 
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   if (CGRectIsInfinite(v57))
   {
     v35 = NUAssertLogger_21137();

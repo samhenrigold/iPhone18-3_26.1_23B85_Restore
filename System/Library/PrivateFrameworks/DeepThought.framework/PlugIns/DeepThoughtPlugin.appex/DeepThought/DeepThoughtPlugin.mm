@@ -26,7 +26,7 @@
   Logger.init(subsystem:category:)();
   *(&self->super.isa + OBJC_IVAR___DeepThoughtPlugin_processor) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DeepThoughtPlugin();
+  v4.super_class = type metadata accessor for DeepThoughtPlugin(0);
   return [(DeepThoughtPlugin *)&v4 init];
 }
 

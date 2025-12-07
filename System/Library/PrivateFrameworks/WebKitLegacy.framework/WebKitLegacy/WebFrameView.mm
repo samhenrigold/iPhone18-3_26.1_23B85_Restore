@@ -84,7 +84,7 @@
 - (void)_setDocumentView:(id)view
 {
   _scrollView = [(WebFrameView *)self _scrollView];
-  [-[WebFrameView _webView](self "_webView")];
+  objc_msgSend_page([(WebFrameView *)self _webView]);
   *(*(v9 + 72) + 47) = 0;
   [_scrollView setDocumentView:view];
   m_ptr = self->_private->webFrame->_private->coreFrame.m_ptr;
@@ -320,7 +320,7 @@ LABEL_7:
 
   if (self)
   {
-    [(WebFrameView *)self _web_frame];
+    objc_msgSend__web_frame(self);
     if (v3)
     {
       if (*(v3 + 216))
@@ -643,7 +643,7 @@ LABEL_8:
     return 1;
   }
 
-  [(WebFrameView *)self _web_frame];
+  objc_msgSend__web_frame(self, a2);
   return !v5 || (v2 = *(v5 + 224)) == 0 || (v3 = *(v2 + 2024)) == 0 || (*(v3 + 120) & 1) == 0;
 }
 
@@ -651,7 +651,7 @@ LABEL_8:
 {
   if (self)
   {
-    [(WebFrameView *)self _web_frame];
+    objc_msgSend__web_frame(self, a2);
     if (v5 && (v2 = *(v5 + 224)) != 0 && (v3 = *(v2 + 2024)) != 0)
     {
       LODWORD(self) = (*(v3 + 120) >> 1) & 1;
@@ -1015,7 +1015,7 @@ LABEL_8:
   modifierFlags = [down modifierFlags];
   if (self)
   {
-    [(WebFrameView *)self _web_frame];
+    objc_msgSend__web_frame(self);
     if (v17)
     {
       v15 = *(*(*(*(*(v17 + 24) + 8) + 152) + 16) + 65);

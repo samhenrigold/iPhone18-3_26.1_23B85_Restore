@@ -6,13 +6,13 @@
 
 + (id)brc_dbAccountDSIDForPath:()BRCPathAdditions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x277CCACA8];
   v6 = [self brc_accountIDPathForAccountPath:v4];
-  v16 = 0;
-  v7 = [v5 stringWithContentsOfFile:v6 encoding:4 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v5 stringWithContentsOfFile:v6 encoding:4 error:&v15];
+  v8 = v15;
 
   if (v8)
   {
@@ -21,11 +21,11 @@
     if (os_log_type_enabled(v10, 0x90u))
     {
       *buf = 138412802;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
       _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] Got error reading the account DSID from '%@': %@%@", buf, 0x20u);
     }
 
@@ -44,8 +44,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

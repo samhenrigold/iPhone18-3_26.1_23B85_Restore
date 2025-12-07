@@ -45,7 +45,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -54,16 +54,14 @@
     {
       gUID = [inputCopy GUID];
       *buf = 138412290;
-      v12 = gUID;
+      v11 = gUID;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMAssociatedMessageProcessingPipelineComponent> Started processing for Message GUID: %@", buf, 0xCu);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = IMAssociatedMessageProcessingPipelineComponent;
-  v7 = [(IMTextMessageProcessingPipelineComponent *)&v10 runIndividuallyWithInput:inputCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = IMAssociatedMessageProcessingPipelineComponent;
+  v7 = [(IMTextMessageProcessingPipelineComponent *)&v9 runIndividuallyWithInput:inputCopy];
 
   return v7;
 }

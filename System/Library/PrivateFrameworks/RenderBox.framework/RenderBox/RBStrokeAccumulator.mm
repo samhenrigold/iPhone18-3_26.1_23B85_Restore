@@ -85,7 +85,7 @@ LABEL_6:
   v12 = self->_values._size;
   if (v5->_values._capacity < v12)
   {
-    RB::vector<float,0ul,unsigned long>::reserve_slow(&v5->_values, self->_values._size);
+    RB::vector<float,0ul,unsigned long>::reserve_slow(&v5->_values._p, self->_values._size);
     v14 = v5->_values._size;
 LABEL_8:
     v15 = &v5->_values._p[v14];
@@ -175,12 +175,12 @@ LABEL_10:
     v11 = self->_values._size;
     do
     {
-      v12 = v11 + 1;
+      v12 = (v11 + 1);
       if (self->_values._capacity < v11 + 1)
       {
-        RB::vector<float,0ul,unsigned long>::reserve_slow(&self->_values, v12);
+        RB::vector<float,0ul,unsigned long>::reserve_slow(&self->_values._p, v12);
         v11 = self->_values._size;
-        v12 = v11 + 1;
+        v12 = (v11 + 1);
       }
 
       self->_values._p[v11] = args[v9];

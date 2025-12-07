@@ -102,14 +102,14 @@
 
 - (SIRINLUDelegatedUserDialogAct)initWithAsrHypothesisIndex:(int)index rewrittenUtterace:(id)utterace externalParserId:(id)id spans:(id)spans rewriteMessage:(id)message
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   utteraceCopy = utterace;
   idCopy = id;
   spansCopy = spans;
   messageCopy = message;
-  v25.receiver = self;
-  v25.super_class = SIRINLUDelegatedUserDialogAct;
-  v17 = [(SIRINLUDelegatedUserDialogAct *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SIRINLUDelegatedUserDialogAct;
+  v17 = [(SIRINLUDelegatedUserDialogAct *)&v24 init];
   v18 = v17;
   if (v17)
   {
@@ -122,8 +122,8 @@
 
     if (messageCopy)
     {
-      v26[0] = messageCopy;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v25[0] = messageCopy;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
       v21 = v18->_rewrites;
       v18->_rewrites = v20;
     }
@@ -133,21 +133,20 @@
     v18->_referenceContext = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (SIRINLUDelegatedUserDialogAct)initWithAsrHypothesisIndex:(int)index rewrittenUtterace:(id)utterace externalParserId:(id)id spans:(id)spans rewriteMessage:(id)message referenceContext:(id)context
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   utteraceCopy = utterace;
   idCopy = id;
   spansCopy = spans;
   messageCopy = message;
   contextCopy = context;
-  v27.receiver = self;
-  v27.super_class = SIRINLUDelegatedUserDialogAct;
-  v18 = [(SIRINLUDelegatedUserDialogAct *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SIRINLUDelegatedUserDialogAct;
+  v18 = [(SIRINLUDelegatedUserDialogAct *)&v26 init];
   v19 = v18;
   if (v18)
   {
@@ -160,8 +159,8 @@
 
     if (messageCopy)
     {
-      v28[0] = messageCopy;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:{1, idCopy, utteraceCopy}];
+      v27[0] = messageCopy;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:{1, idCopy, utteraceCopy}];
       v22 = v19->_rewrites;
       v19->_rewrites = v21;
     }
@@ -170,7 +169,6 @@
     objc_storeStrong(&v19->_referenceContext, context);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

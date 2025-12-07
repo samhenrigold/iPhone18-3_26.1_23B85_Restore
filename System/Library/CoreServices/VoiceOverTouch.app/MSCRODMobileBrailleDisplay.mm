@@ -12,6 +12,9 @@
 - (void)_delayedDeviceUpdatedNotification:(id)notification;
 - (void)_delayedDisplayLoad;
 - (void)_delayedRemoveDeviceNotification:(id)notification;
+- (void)_enableReconnectionTimer:(BOOL)timer;
+- (void)_processDeviceConnectionCallback:(int)callback brailleDriver:(id)driver ioElement:(id)element;
+- (void)_processInitialDeviceConnectionCallback:(int)callback device:(id)device brailleDriver:(id)driver ioElement:(id)element;
 - (void)_reconnectionEventHandler;
 - (void)_reconnectionTriggeredHandler;
 - (void)_reloadDriver;
@@ -584,6 +587,250 @@ LABEL_30:
   }
 }
 
+- (void)_processInitialDeviceConnectionCallback:(int)callback device:(id)device brailleDriver:(id)driver ioElement:(id)element
+{
+  v8 = *&callback;
+  deviceCopy = device;
+  driverCopy = driver;
+  elementCopy = element;
+  if (!driverCopy)
+  {
+    v12 = AXLogBrailleHW();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "brailleDriver == nil in _processInitialDeviceConnectionCallback for %p", buf, 0xCu);
+    }
+  }
+
+  v47 = !-[MSCRODMobileBrailleDisplay isBluetoothHID](self, "isBluetoothHID") && [elementCopy conformsToProtocol:&OBJC_PROTOCOL___SCROIOHIDElementProtocol] && objc_msgSend(elementCopy, "hidDevice") != 0;
+  v13 = AXLogBrailleHW();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = [NSNumber numberWithInt:v8];
+    v15 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [elementCopy transport]);
+    v16 = [NSNumber numberWithBool:v47];
+    *buf = 138544130;
+    selfCopy = deviceCopy;
+    v52 = 2112;
+    selfCopy2 = v14;
+    v54 = 2112;
+    v55 = v15;
+    v56 = 2112;
+    v57 = v16;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Initial device connection callback [%{public}@] (BTResult:%@) Transport: %@, isHID: %@", buf, 0x2Au);
+  }
+
+  v48 = [(MSCRODMobileBrailleDisplay *)driverCopy loadDriverWithIOElement:elementCopy];
+  if (driverCopy)
+  {
+    v17 = v48 == 0;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = v17;
+  v19 = AXLogBrailleHW();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = [NSNumber numberWithBool:v18];
+    *buf = 138412290;
+    selfCopy = v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Braille driver load succeeded: %@ in processInitiaDeviceConnectionCallback", buf, 0xCu);
+  }
+
+  self->_isDriverLoading = 0;
+  self->_isDriverLoaded = 0;
+  v21 = AXLogBrailleHW();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "_isDriverLoading set to NO in _processInitialDeviceConnectionCallback", buf, 2u);
+  }
+
+  v22 = OBJC_IVAR___SCROBrailleDisplay__contentLock;
+  [*&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__contentLock] lock];
+  v23 = OBJC_IVAR___SCROBrailleDisplay__brailleDriver;
+  objc_storeStrong(&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__brailleDriver], driver);
+  v24 = AXLogBrailleHW();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    selfCopy = driverCopy;
+    v52 = 2048;
+    selfCopy2 = self;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "_brailleDriver set to %@ in _processInitialDeviceConnectionCallback for Display %p", buf, 0x16u);
+  }
+
+  if (self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__isValid])
+  {
+    *&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__runLoop] = CFRunLoopGetCurrent();
+    if (v18)
+    {
+      v25 = AXLogBrailleHW();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Load succeeded and Valid: setting up driver and starting the event processor.", buf, 2u);
+      }
+
+      [(MSCRODMobileBrailleDisplay *)self _setupDriverSupport];
+      v26 = objc_opt_respondsToSelector();
+      goto LABEL_47;
+    }
+
+    if (!self->_isReconnectionEnabled)
+    {
+LABEL_49:
+      v28 = 1;
+      goto LABEL_50;
+    }
+
+    v29 = AXLogBrailleHW();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      v46 = [NSNumber numberWithBool:v8 != 0];
+      v30 = [NSNumber numberWithBool:v47];
+      v31 = [NSNumber numberWithBool:v48 == 3];
+      *buf = 138413058;
+      selfCopy = v46;
+      v52 = 2112;
+      selfCopy2 = deviceCopy;
+      v54 = 2112;
+      v55 = v30;
+      v56 = 2112;
+      v57 = v31;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Reconnection enabled: trying again (fail %@) %@ is HID %@, Is invalid: %@", buf, 0x2Au);
+    }
+
+    if (v8)
+    {
+      v32 = v47;
+      if (v48 == 3)
+      {
+        v32 = 1;
+      }
+
+      if (v32)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    else if (v47 | (([(MSCRODMobileBrailleDisplay *)deviceCopy connected]& 1) == 0) || v48 == 3)
+    {
+LABEL_46:
+      [*&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__eventDispatcher] start];
+      v26 = objc_opt_respondsToSelector();
+LABEL_47:
+      if (v26)
+      {
+        [*&self->SCROBrailleDisplay_opaque[v23] setBrailleDriverDelegate:self];
+      }
+
+      goto LABEL_49;
+    }
+
+    v33 = AXLogBrailleHW();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = deviceCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Disconnecting from [%{public}@]", buf, 0xCu);
+    }
+
+    [(MSCRODMobileBrailleDisplay *)deviceCopy disconnect];
+    v34 = AXLogBrailleHW();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy = deviceCopy;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Reconnecting braille services to device [%{public}@]", buf, 0xCu);
+    }
+
+    v35 = +[MSCRODBrailleConnectionHelper sharedHelper];
+    [v35 queueDeviceConnection:deviceCopy withCallback:0];
+
+    goto LABEL_46;
+  }
+
+  v27 = AXLogBrailleHW();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Display invalid: returning from _processInitialDeviceConnectionCallback", buf, 2u);
+  }
+
+  v28 = 0;
+  self->_startedThread = 0;
+LABEL_50:
+  [*&self->SCROBrailleDisplay_opaque[v22] unlock];
+  if (v28)
+  {
+    if (v18)
+    {
+      v36 = objc_autoreleasePoolPush();
+      v37 = AXLogBrailleHW();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Load succeeded: informing the manager of our progress.", buf, 2u);
+      }
+
+      v38 = +[MSCRODBrailleDisplayManager sharedManager];
+      [v38 addToDisplays:self];
+
+      WeakRetained = objc_loadWeakRetained(&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__delegate]);
+      [WeakRetained brailleDisplay:self driverDidLoad:1];
+
+      objc_autoreleasePoolPop(v36);
+      goto LABEL_57;
+    }
+
+    if ((self->_isReconnectionEnabled || v47) && v48 != 3)
+    {
+LABEL_57:
+      AXSetThreadPriority();
+      goto LABEL_63;
+    }
+
+    v40 = AXLogBrailleHW();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    {
+      v41 = [NSNumber numberWithBool:self->_isReconnectionEnabled];
+      v42 = [NSNumber numberWithBool:v47];
+      v43 = [NSNumber numberWithBool:v48 == 3];
+      *buf = 138413058;
+      selfCopy = deviceCopy;
+      v52 = 2112;
+      selfCopy2 = v41;
+      v54 = 2112;
+      v55 = v42;
+      v56 = 2112;
+      v57 = v43;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Disconnecting device %@ because reconnection is not enabled[%@], (HID: %@), (Invalid: %@)", buf, 0x2Au);
+    }
+
+    v44 = objc_autoreleasePoolPush();
+    if (!v47 && v48 != 3)
+    {
+      [(MSCRODMobileBrailleDisplay *)deviceCopy disconnect];
+    }
+
+    v45 = objc_loadWeakRetained(&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__delegate]);
+    [v45 brailleDisplay:self driverDidLoad:0];
+
+    objc_autoreleasePoolPop(v44);
+    self->_startedThread = 0;
+  }
+
+LABEL_63:
+}
+
 - (void)_setupDriverSupport
 {
   v3 = OBJC_IVAR___SCROBrailleDisplay__brailleDriver;
@@ -784,6 +1031,122 @@ LABEL_30:
   }
 }
 
+- (void)_processDeviceConnectionCallback:(int)callback brailleDriver:(id)driver ioElement:(id)element
+{
+  v7 = *&callback;
+  driverCopy = driver;
+  elementCopy = element;
+  v11 = elementCopy;
+  if (!driverCopy)
+  {
+    v12 = elementCopy;
+    v13 = AXLogBrailleHW();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "brailleDriver == nil in _processDeviceConnectionCallback", buf, 2u);
+    }
+
+    v11 = v12;
+  }
+
+  v30 = v11;
+  v14 = [driverCopy loadDriverWithIOElement:?];
+  v15 = v14;
+  if (driverCopy)
+  {
+    v16 = v14 == 0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v17 = v16;
+  v18 = AXLogBrailleHW();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = [NSNumber numberWithUnsignedInt:v15];
+    v20 = [NSNumber numberWithBool:v17];
+    v21 = [NSNumber numberWithInt:v7];
+    *buf = 138413058;
+    v32 = v19;
+    v33 = 2112;
+    selfCopy2 = v20;
+    v35 = 2112;
+    v36 = v21;
+    v37 = 2112;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Connected and loaded: driverLoadReturn %@, loadSucceeded %@ (BT result: %@) for Display %@", buf, 0x2Au);
+  }
+
+  self->_isDriverLoading = 0;
+  self->_isDriverLoaded = v17;
+  v22 = AXLogBrailleHW();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "_isDriverLoading set to NO in _processDeviceConnectionCallback", buf, 2u);
+  }
+
+  v23 = OBJC_IVAR___SCROBrailleDisplay__contentLock;
+  [*&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__contentLock] lock];
+  objc_storeStrong(&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__brailleDriver], driver);
+  v24 = AXLogBrailleHW();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v32 = driverCopy;
+    v33 = 2048;
+    selfCopy2 = self;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "_brailleDriver set to %@ in _processDeviceConnectionCallback for Display %p", buf, 0x16u);
+  }
+
+  if (self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__isValid] == 1)
+  {
+    if (v15)
+    {
+      v25 = AXLogBrailleHW();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        bluetoothAddress = [(MSCRODMobileBrailleDisplay *)self bluetoothAddress];
+        *buf = 138412290;
+        v32 = bluetoothAddress;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Unsuccessful connect %@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      [(MSCRODMobileBrailleDisplay *)self _enableReconnectionTimer:0];
+      [(MSCRODMobileBrailleDisplay *)self _setupDriverSupport];
+      v25 = AXLogBrailleHW();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        bluetoothAddress2 = [(MSCRODMobileBrailleDisplay *)self bluetoothAddress];
+        *buf = 138412290;
+        v32 = bluetoothAddress2;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Succeeded on reconnect %@", buf, 0xCu);
+      }
+    }
+
+    v27 = 1;
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  [*&self->SCROBrailleDisplay_opaque[v23] unlock];
+  if (v27 & v17)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->SCROBrailleDisplay_opaque[OBJC_IVAR___SCROBrailleDisplay__delegate]);
+    [WeakRetained brailleDisplay:self driverDidLoad:1];
+  }
+}
+
 - (void)_resetReconnectionTimer
 {
   if (self->_reconnectionEventTimer)
@@ -815,6 +1178,82 @@ LABEL_30:
       v8 = 2112;
       v9 = bluetoothAddress;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Change reconnection timer to %@ %@", &v6, 0x16u);
+    }
+  }
+}
+
+- (void)_enableReconnectionTimer:(BOOL)timer
+{
+  timerCopy = timer;
+  v5 = AXLogBrailleHW();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:timerCopy];
+    v7 = [NSNumber numberWithBool:self->_isDriverLoaded];
+    bluetoothAddress = [(MSCRODMobileBrailleDisplay *)self bluetoothAddress];
+    *buf = 138412802;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
+    v24 = 2112;
+    v25 = bluetoothAddress;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Enabled reconnection: %@, driver loaded: %@, %@", buf, 0x20u);
+  }
+
+  if (timerCopy && !self->_isDriverLoaded)
+  {
+    if (self->_reconnectionEventTimer)
+    {
+      [(MSCRODMobileBrailleDisplay *)self _resetReconnectionTimer];
+    }
+
+    else
+    {
+      self->_beganReconnectionInterval = CFAbsoluteTimeGetCurrent();
+      self->_reconnectionInterval = 15.0;
+      v12 = [[AXDispatchTimer alloc] initWithTargetSerialQueue:&_dispatch_main_q];
+      reconnectionEventTimer = self->_reconnectionEventTimer;
+      self->_reconnectionEventTimer = v12;
+    }
+
+    if (![(AXDispatchTimer *)self->_reconnectionEventTimer isPending]|| [(AXDispatchTimer *)self->_reconnectionEventTimer isCancelled])
+    {
+      v14 = AXLogBrailleHW();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        bluetoothAddress2 = [(MSCRODMobileBrailleDisplay *)self bluetoothAddress];
+        v16 = [NSNumber numberWithDouble:self->_reconnectionInterval];
+        *buf = 138412546;
+        v21 = bluetoothAddress2;
+        v22 = 2112;
+        v23 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Restart reconnection: %@ %@", buf, 0x16u);
+      }
+
+      v17 = self->_reconnectionEventTimer;
+      reconnectionInterval = self->_reconnectionInterval;
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_10000AD10;
+      v19[3] = &unk_100014770;
+      v19[4] = self;
+      [(AXDispatchTimer *)v17 afterDelay:v19 processBlock:reconnectionInterval];
+    }
+  }
+
+  else
+  {
+    [(AXDispatchTimer *)self->_reconnectionEventTimer cancel];
+    v9 = self->_reconnectionEventTimer;
+    self->_reconnectionEventTimer = 0;
+
+    v10 = AXLogBrailleHW();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      bluetoothAddress3 = [(MSCRODMobileBrailleDisplay *)self bluetoothAddress];
+      *buf = 138412290;
+      v21 = bluetoothAddress3;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Turning reconnection timer off: %@", buf, 0xCu);
     }
   }
 }
@@ -1632,25 +2071,18 @@ LABEL_29:
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v8 = 0;
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_4;
-  }
+    v5 = equalCopy;
+    configuration = [(MSCRODMobileBrailleDisplay *)self configuration];
+    configuration2 = [v5 configuration];
 
-  v5 = equalCopy;
-  configuration = [(MSCRODMobileBrailleDisplay *)self configuration];
-  configuration2 = [v5 configuration];
-
-  LOBYTE(v5) = [configuration isEqual:configuration2];
-  if (v5)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v8 = 0;
+    LOBYTE(v5) = [configuration isEqual:configuration2];
+    if (v5)
+    {
+      v8 = 1;
+    }
   }
 
   return v8;

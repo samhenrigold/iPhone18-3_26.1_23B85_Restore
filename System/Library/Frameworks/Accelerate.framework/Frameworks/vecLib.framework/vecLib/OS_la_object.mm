@@ -24,18 +24,17 @@
 
 - (NSString)description
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   result = objc_lookUpClass("NSString");
   if (result)
   {
     v4 = result;
     v5 = la_matrix_cols(&self->super.super);
     v6 = la_matrix_rows(&self->super.super);
-    __sprintf_chk(v8, 0, 0x800uLL, "%ld %ld\n", v6, v5);
-    result = [(NSString *)v4 stringWithFormat:[(NSString *)v4 stringWithUTF8String:"%s"], v8];
+    __sprintf_chk(v7, 0, 0x800uLL, "%ld %ld\n", v6, v5);
+    return [(NSString *)v4 stringWithFormat:[(NSString *)v4 stringWithUTF8String:"%s"], v7];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 

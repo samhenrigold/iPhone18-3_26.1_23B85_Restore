@@ -2,6 +2,7 @@
 - (PCSShareProtectionObject)initWithShareProtectionRef:(_OpaquePCSShareProtection *)ref;
 - (PCSShareProtectionObject)initWithSharingRequestData:(id)data identitySet:(_PCSIdentitySetData *)set error:(id *)error;
 - (id)exportAcceptedSharingRequestWithError:(id *)error;
+- (id)sharingRequestDataForIdentity:(_PCSPublicIdentityData *)identity owner:(void *)owner flags:(unsigned int)flags error:(id *)error;
 - (void)dealloc;
 @end
 
@@ -96,11 +97,11 @@
   return v14;
 }
 
-void __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error___block_invoke(uint64_t a1, uint64_t a2, const void *a3)
+void __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error___block_invoke(uint64_t result, uint64_t a2, const void *a3)
 {
-  if (!*(*(a1 + 32) + 8))
+  if (!*(*(result + 32) + 8))
   {
-    __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error___block_invoke_cold_1(a1, a3, (a1 + 32));
+    __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error___block_invoke_cold_1(result, a3, (result + 32));
   }
 }
 
@@ -125,26 +126,73 @@ void __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error
   [(PCSShareProtectionObject *)&v5 dealloc];
 }
 
+- (id)sharingRequestDataForIdentity:(_PCSPublicIdentityData *)identity owner:(void *)owner flags:(unsigned int)flags error:(id *)error
+{
+  v22 = 0;
+  PCSFPAddPublicIdentityWithShareFlags(self->_shareProtection, identity, *&flags, owner, *&flags, error, v6, v7);
+  shareProtection = self->_shareProtection;
+  if (owner)
+  {
+    PCSFPSetOwnerIdentity(shareProtection, owner);
+  }
+
+  else if (!shareProtection->var19 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    [PCSShareProtectionObject sharingRequestDataForIdentity:owner:flags:error:];
+  }
+
+  v16 = _PCSFPCopyExportedWithOptions(self->_shareProtection, 0, 1, identity, &v22, v12, v13, v14);
+  v17 = v22;
+  if (error)
+  {
+    *error = v22;
+    v22 = 0;
+  }
+
+  else if (v22)
+  {
+    v22 = 0;
+    CFRelease(v17);
+  }
+
+  if (v16)
+  {
+    v18 = objc_alloc_init(PCSManateeShareInvitation);
+    [(PCSManateeShareInvitation *)v18 setExportedPCSData:v16];
+    v19 = PCSPublicIdentityCopyPublicKey(identity);
+    [(PCSManateeShareInvitation *)v18 setShareePublicKeyData:v19];
+
+    data = [(PCSManateeShareInvitation *)v18 data];
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return data;
+}
+
 - (id)exportAcceptedSharingRequestWithError:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   SigningIdentity = _PCSIdentityGetSigningIdentity(self->_identity);
   v6 = PCSIdentityCopyPublicIdentity(SigningIdentity);
   if (v6)
   {
     v10 = v6;
-    v18 = 0;
-    v11 = _PCSFPCopyExportedWithOptions(self->_shareProtection, 1, 1, v6, &v18, v7, v8, v9);
-    v12 = v18;
+    v17 = 0;
+    v11 = _PCSFPCopyExportedWithOptions(self->_shareProtection, 1, 1, v6, &v17, v7, v8, v9);
+    v12 = v17;
     if (error)
     {
-      *error = v18;
-      v18 = 0;
+      *error = v17;
+      v17 = 0;
     }
 
-    else if (v18)
+    else if (v17)
     {
-      v18 = 0;
+      v17 = 0;
       CFRelease(v12);
     }
 
@@ -157,16 +205,14 @@ void __73__PCSShareProtectionObject_initWithSharingRequestData_identitySet_error
     {
       v13 = MEMORY[0x1E696ABC0];
       v14 = kPCSErrorDomain;
-      v19 = *MEMORY[0x1E696A578];
-      v20[0] = @"missing signing identity";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696A578];
+      v19[0] = @"missing signing identity";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       *error = [v13 errorWithDomain:v14 code:144 userInfo:v15];
     }
 
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -200,7 +246,7 @@ LABEL_14:
   v11 = Mutable;
   if (PCSIdentitySetAddIdentity(Mutable, a2))
   {
-    v12 = CreateWithExportedInternal(v8, v11, 0, 0, 1, 0, 0, (v9 + 24));
+    v12 = CreateWithExportedInternal(v8, v11, 0, 0, 1u, 0, 0, (v9 + 24));
   }
 
   else

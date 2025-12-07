@@ -224,10 +224,10 @@
   v8 = NSStringFromPRRenderingContent();
   [v3 appendString:v8 withName:@"renderingContent"];
 
-  v9 = NSStringFromPRRenderingMode(self->_renderingMode);
+  v9 = NSStringFromPRRenderingMode();
   [v3 appendString:v9 withName:@"renderingMode"];
 
-  v10 = NSStringFromPRPosterPreviewContent(self->_previewContent);
+  v10 = NSStringFromPRPosterPreviewContent();
   [v3 appendString:v10 withName:@"previewContent"];
 
   v11 = [v3 appendObject:self->_levelSets withName:@"levelSets"];
@@ -326,11 +326,11 @@
 
 - (void)initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:.cold.1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:NSStringClass]", v7, 2u);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v6, v7);
   }
 
   [v0 UTF8String];
@@ -340,11 +340,11 @@
 
 - (void)initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:.cold.2()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v7, 2u);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v6, v7);
   }
 
   [v0 UTF8String];
@@ -382,11 +382,11 @@
 
 - (void)initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:.cold.4()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"_bs_assert_object != nil", v7, 2u);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v6, v7);
   }
 
   [v0 UTF8String];
@@ -396,11 +396,11 @@
 
 - (void)initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:.cold.5()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"_bs_assert_object != nil", v7, 2u);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRPosterSnapshotDefinition initWithUniqueIdentifier:includeHeaderElements:includesComplications:levelSets:isUnlocked:renderingContent:renderingMode:previewContent:boundingShape:showingIdealizedTime:isIdle:]"];
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v1, "failure in %{public}@ (%{public}@:%i) : %{public}@", v2, v3, v4, v5, v6, v7);
   }
 
   [v0 UTF8String];

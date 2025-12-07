@@ -39,11 +39,11 @@
 
 - (SFEngagementSignal)initWithProtobuf:(id)protobuf
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v30.receiver = self;
-  v30.super_class = SFEngagementSignal;
-  v5 = [(SFEngagementSignal *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = SFEngagementSignal;
+  v5 = [(SFEngagementSignal *)&v29 init];
   if (v5)
   {
     if ([protobufCopy version])
@@ -93,33 +93,33 @@
       v16 = 0;
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     domainEngagementScores2 = [protobufCopy domainEngagementScores];
-    v18 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v18 = [domainEngagementScores2 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(domainEngagementScores2);
           }
 
-          v22 = [[SFDomainEngagementScore alloc] initWithProtobuf:*(*(&v26 + 1) + 8 * i)];
+          v22 = [[SFDomainEngagementScore alloc] initWithProtobuf:*(*(&v25 + 1) + 8 * i)];
           if (v22)
           {
             [v16 addObject:v22];
           }
         }
 
-        v19 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v19 = [domainEngagementScores2 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v19);
@@ -129,7 +129,6 @@
     v23 = v5;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

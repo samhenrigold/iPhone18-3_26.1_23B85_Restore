@@ -18,27 +18,28 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v9 = [LAUIPKGlyphWrapper _loadClassFromString:@"PKGlyphView"];
+  v10 = v9;
   if (style >= 4)
   {
-    v11 = LA_LOG_LAUIPKGlyphWrapper();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LA_LOG_LAUIPKGlyphWrapper(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [LAUIPKGlyphWrapper glyphWithStyle:style frame:v11];
+      [LAUIPKGlyphWrapper glyphWithStyle:style frame:v12];
     }
 
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = qword_25611CE80[style];
+    v11 = qword_25611CE80[style];
   }
 
-  v12 = [[v9 alloc] initWithStyle:v10];
-  [v12 setFrame:{x, y, width, height}];
-  v13 = [[LAUIPKGlyphWrapper alloc] initWithGlyphView:v12];
+  v13 = [[v10 alloc] initWithStyle:v11];
+  [v13 setFrame:{x, y, width, height}];
+  v14 = [[LAUIPKGlyphWrapper alloc] initWithGlyphView:v13];
 
-  return v13;
+  return v14;
 }
 
 - (LAUIPKGlyphWrapper)initWithGlyphView:(id)view
@@ -179,7 +180,7 @@ void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___
   [v14 setHidden:v13 & 1];
 
   v15 = [MEMORY[0x277CBEAA8] date];
-  v16 = LA_LOG_LAUIPKGlyphWrapper();
+  v16 = LA_LOG_LAUIPKGlyphWrapper(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_2_cold_1(a1, v16);
@@ -208,7 +209,7 @@ void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___
 
 void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_6(uint64_t a1, char a2)
 {
-  v4 = LA_LOG_LAUIPKGlyphWrapper();
+  v4 = LA_LOG_LAUIPKGlyphWrapper(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_6_cold_1(a1, v4, v5, v6, v7, v8, v9, v10);
@@ -249,7 +250,7 @@ void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___
 
 void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_7(uint64_t a1)
 {
-  v2 = LA_LOG_LAUIPKGlyphWrapper();
+  v2 = LA_LOG_LAUIPKGlyphWrapper(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_7_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -317,7 +318,7 @@ void *__31__LAUIPKGlyphWrapper__loadPKUI__block_invoke()
 - (void)setGrayedOut:(BOOL)out
 {
   outCopy = out;
-  v5 = LA_LOG_LAUIPKGlyphWrapper();
+  v5 = LA_LOG_LAUIPKGlyphWrapper(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(LAUIPKGlyphWrapper *)outCopy setGrayedOut:v5, v6, v7, v8, v9, v10, v11];
@@ -368,6 +369,27 @@ void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___
   v5 = 1024;
   v6 = v3;
   _os_log_debug_impl(&dword_2560E6000, a2, OS_LOG_TYPE_DEBUG, "setting glyph state: %d full animation: %d", v4, 0xEu);
+}
+
+void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_6_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *(a1 + 64);
+  OUTLINED_FUNCTION_0_0(&dword_2560E6000, a2, a3, "glyph state: %d", a5, a6, a7, a8, v8);
+}
+
+void __70__LAUIPKGlyphWrapper_setState_idleTouchID_animated_completionHandler___block_invoke_7_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *(a1 + 48);
+  OUTLINED_FUNCTION_0_0(&dword_2560E6000, a2, a3, "animation complete for state: %d", a5, a6, a7, a8, v8);
+}
+
+- (void)setGrayedOut:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1 & 1;
+  OUTLINED_FUNCTION_0_0(&dword_2560E6000, a2, a3, "grayedOut: %d", a5, a6, a7, a8, v8);
 }
 
 @end

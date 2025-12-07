@@ -18,31 +18,31 @@
 
 - (void)addPointsToLiveRecordingGesturePreviewByFingerIdentifier:(id)identifier forces:(id)forces atTime:(double)time
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   allKeys = [identifierCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v27;
+    v12 = *v28;
     *&v10 = 138412290;
-    v25 = v10;
+    v26 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v13);
+        v14 = *(*(&v27 + 1) + 8 * v13);
         mappedPathEffectViews = [(CACGestureLivePreviewViewController *)self mappedPathEffectViews];
         v16 = [mappedPathEffectViews objectForKey:v14];
 
@@ -52,26 +52,26 @@
           newPathEffectView = [(CACGestureLivePreviewViewController *)self newPathEffectView];
           [mappedPathEffectViews2 setObject:newPathEffectView forKey:v14];
 
-          v19 = CACLogGestureRecording();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v20 = CACLogGestureRecording(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v25;
-            v31 = v14;
-            _os_log_debug_impl(&dword_26B354000, v19, OS_LOG_TYPE_DEBUG, "Creating new path view for finger %@", buf, 0xCu);
+            *buf = v26;
+            v32 = v14;
+            _os_log_debug_impl(&dword_26B354000, v20, OS_LOG_TYPE_DEBUG, "Creating new path view for finger %@", buf, 0xCu);
           }
         }
 
-        v20 = [identifierCopy objectForKey:v14];
-        [v20 CGPointValue];
-        v22 = v21;
-        v24 = v23;
+        v21 = [identifierCopy objectForKey:v14];
+        [v21 CGPointValue];
+        v23 = v22;
+        v25 = v24;
 
-        [v16 addPoint:v22 force:v24 timestamp:{1.0, time}];
+        [v16 addPoint:v23 force:v25 timestamp:{1.0, time}];
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [allKeys countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v11);
@@ -81,7 +81,7 @@
 - (void)removeTrackingForFingerIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = CACLogGestureRecording();
+  v5 = CACLogGestureRecording(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(CACGestureLivePreviewViewController *)identifierCopy removeTrackingForFingerIdentifier:v5];

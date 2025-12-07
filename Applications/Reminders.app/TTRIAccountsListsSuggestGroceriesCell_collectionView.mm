@@ -11,7 +11,7 @@
   type metadata accessor for AddAccessory(0);
   v5 = swift_allocObject();
   v6 = OBJC_IVAR____TtC9RemindersP33_DEAFC400F035D386D50AC552DAA1108312AddAccessory_accessoryState;
-  v7 = sub_100058000(&qword_10077FF18);
+  v7 = sub_100058000(&qword_10077FF18, &qword_10063C0D8);
   (*(*(v7 - 8) + 56))(v5 + v6, 1, 1, v7);
   *(v5 + OBJC_IVAR____TtC9RemindersP33_DEAFC400F035D386D50AC552DAA1108312AddAccessory____lazy_storage___plusView) = 0;
   *(&self->super.super.super.super.super.super.super.super.isa + v4) = v5;

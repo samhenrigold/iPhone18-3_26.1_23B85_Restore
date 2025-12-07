@@ -97,76 +97,70 @@ NTSectionConfigSectionDescriptor *__157__NTQueueConfigSectionQueueDescriptor_ini
   v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
-  if (*(a1 + 56) == 1 && [v3 filterNonSubscribedInFavoritesOnlyMode])
+  if (*(a1 + 56) == 1 && (v5 = [v3 filterNonSubscribedInFavoritesOnlyMode], v5))
   {
-    v5 = NTSharedLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = NTSharedLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v4 name];
-      v7 = [*(a1 + 32) rankedAllSubscribedTagIDs];
+      v7 = [v4 name];
+      v8 = [*(a1 + 32) rankedAllSubscribedTagIDs];
       *buf = 138543618;
-      v20 = v6;
+      v20 = v7;
       v21 = 2114;
-      v22 = v7;
-      _os_log_impl(&dword_25BF21000, v5, OS_LOG_TYPE_DEFAULT, "will filter non-subscribed channels from section, name=%{public}@, subscribedTagIDs=%{public}@", buf, 0x16u);
+      v22 = v8;
+      _os_log_impl(&dword_25BF21000, v6, OS_LOG_TYPE_DEFAULT, "will filter non-subscribed channels from section, name=%{public}@, subscribedTagIDs=%{public}@", buf, 0x16u);
     }
 
-    v8 = 0x820000000;
+    v9 = 0x820000000;
   }
 
   else
   {
-    v8 = 0x800000000;
+    v9 = 0x800000000;
   }
 
   if ([v4 sectionType] == 1 && objc_msgSend(*(a1 + 40), "tabiScoringInWidgetsEnabled"))
   {
-    v8 |= 0x1000000000uLL;
+    v9 |= 0x1000000000uLL;
   }
 
-  v9 = NewsCoreUserDefaults();
-  v10 = [v9 BOOLForKey:*MEMORY[0x277D30D58]];
+  v10 = NewsCoreUserDefaults();
+  v11 = [v10 BOOLForKey:*MEMORY[0x277D30D58]];
 
-  v11 = [NTSectionConfigSectionDescriptor alloc];
-  v12 = *(a1 + 40);
-  v13 = [v12 topStoriesConfig];
-  v14 = [v13 channelID];
-  v15 = [*(a1 + 40) hiddenFeedIDs];
-  v16 = [(NTSectionConfigSectionDescriptor *)v11 initWithSectionConfig:v4 appConfiguration:v12 topStoriesChannelID:v14 hiddenFeedIDs:v15 allowPaidBundleFeed:v10 ^ 1u todayData:*(a1 + 32) supplementalFeedFilterOptions:v8 groupingService:*(a1 + 48)];
+  v12 = [NTSectionConfigSectionDescriptor alloc];
+  v13 = *(a1 + 40);
+  v14 = [v13 topStoriesConfig];
+  v15 = [v14 channelID];
+  v16 = [*(a1 + 40) hiddenFeedIDs];
+  v17 = [(NTSectionConfigSectionDescriptor *)v12 initWithSectionConfig:v4 appConfiguration:v13 topStoriesChannelID:v15 hiddenFeedIDs:v16 allowPaidBundleFeed:v11 ^ 1u todayData:*(a1 + 32) supplementalFeedFilterOptions:v9 groupingService:*(a1 + 48)];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (void)initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "queueConfig"];
   *buf = 136315906;
-  v3 = "[NTQueueConfigSectionQueueDescriptor initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:]";
-  v4 = 2080;
-  v5 = "NTQueueConfigSectionQueueDescriptor.m";
-  v6 = 1024;
+  v2 = "[NTQueueConfigSectionQueueDescriptor initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:]";
+  v3 = 2080;
+  v4 = "NTQueueConfigSectionQueueDescriptor.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
   *buf = 136315906;
-  v3 = "[NTQueueConfigSectionQueueDescriptor initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:]";
-  v4 = 2080;
-  v5 = "NTQueueConfigSectionQueueDescriptor.m";
-  v6 = 1024;
+  v2 = "[NTQueueConfigSectionQueueDescriptor initWithQueueConfig:appConfiguration:todayData:inFavoritesOnlyMode:respectsWidgetVisibleSectionsLimit:groupingService:]";
+  v3 = 2080;
+  v4 = "NTQueueConfigSectionQueueDescriptor.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

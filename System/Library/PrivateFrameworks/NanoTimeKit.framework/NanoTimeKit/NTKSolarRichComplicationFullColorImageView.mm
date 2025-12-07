@@ -755,19 +755,19 @@ void __106__NTKSolarRichComplicationFullColorImageView__updateSolarDiskWithUsing
   v24 = v57[5];
   v57[5] = lastObject3;
 
-  v53[3] = 0x3FF0000000000000;
+  v53[3] = 1.0;
 LABEL_12:
   color1 = [v63[5] color1];
   color12 = [v57[5] color1];
-  v27 = NTKInterpolateBetweenColors();
+  v27 = NTKInterpolateBetweenColors(v53[3]);
 
   color2 = [v63[5] color2];
   color22 = [v57[5] color2];
-  v30 = NTKInterpolateBetweenColors();
+  v30 = NTKInterpolateBetweenColors(v53[3]);
 
   color3 = [v63[5] color3];
   color32 = [v57[5] color3];
-  v33 = NTKInterpolateBetweenColors();
+  v33 = NTKInterpolateBetweenColors(v53[3]);
 
   [v63[5] position1];
   [v57[5] position1];

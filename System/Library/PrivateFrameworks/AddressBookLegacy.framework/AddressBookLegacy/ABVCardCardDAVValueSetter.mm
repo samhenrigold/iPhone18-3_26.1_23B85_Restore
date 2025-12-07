@@ -242,7 +242,7 @@ LABEL_19:
 
 - (BOOL)setImageData:(id)data cropRectX:(int)x cropRectY:(int)y cropRectWidth:(int)width cropRectHeight:(int)height
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!self->_recordIsGroup)
   {
     v7 = *&height;
@@ -250,15 +250,16 @@ LABEL_19:
     v9 = *&y;
     v10 = *&x;
     v13 = ABPersonCopyImageDataWithFormat(self->super._person, 5u);
-    v14 = v13;
-    if (v13 && [(__CFData *)v13 isEqualToData:data])
+    v15 = v13;
+    if (v13 && (v13 = [(__CFData *)v13 isEqualToData:data], v13))
     {
-      if (ABImageUtilsOriginalSizeCropRectMatchesSyncedCropRect(self->super._person, data, v10, v9, v8, v7))
+      v13 = ABImageUtilsOriginalSizeCropRectMatchesSyncedCropRect(self->super._person, data, v10, v9, v8, v7);
+      if (v13)
       {
-        v15 = ABOSLogGeneral();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = ABOSLogGeneral(v13, v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          [ABVCardCardDAVValueSetter setImageData:v15 cropRectX:? cropRectY:? cropRectWidth:? cropRectHeight:?];
+          [ABVCardCardDAVValueSetter setImageData:v16 cropRectX:? cropRectY:? cropRectWidth:? cropRectHeight:?];
         }
 
 LABEL_13:
@@ -266,42 +267,42 @@ LABEL_13:
         return 1;
       }
 
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    v17 = ABOSLogGeneral();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = ABOSLogGeneral(v13, v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544642;
-      v18 = @"NO";
-      if (!v16)
+      v19 = @"NO";
+      if (!v17)
       {
-        v18 = @"YES";
+        v19 = @"YES";
       }
 
-      v22 = v18;
-      v23 = 1024;
-      v24 = v10;
-      v25 = 1024;
-      v26 = v9;
-      v27 = 1024;
-      v28 = v8;
-      v29 = 1024;
-      v30 = v7;
-      v31 = 2114;
-      v32 = @"YES";
-      _os_log_impl(&dword_1B7EFB000, v17, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Sync image changed: %{public}@, cropRect {%i, %i, %i, %i} changed: %{public}@. Updating sync image on person", buf, 0x2Eu);
+      v23 = v19;
+      v24 = 1024;
+      v25 = v10;
+      v26 = 1024;
+      v27 = v9;
+      v28 = 1024;
+      v29 = v8;
+      v30 = 1024;
+      v31 = v7;
+      v32 = 2114;
+      v33 = @"YES";
+      _os_log_impl(&dword_1B7EFB000, v18, OS_LOG_TYPE_DEFAULT, "[Likeness Update] Sync image changed: %{public}@, cropRect {%i, %i, %i, %i} changed: %{public}@. Updating sync image on person", buf, 0x2Eu);
     }
 
-    v20.receiver = self;
-    v20.super_class = ABVCardCardDAVValueSetter;
-    [(ABVCardPersonValueSetter *)&v20 setImageData:data cropRectX:v10 cropRectY:v9 cropRectWidth:v8 cropRectHeight:v7];
-    ABPersonSetImageDataDerivedFromFormatAndReturnError(self->super._person, 5);
+    v21.receiver = self;
+    v21.super_class = ABVCardCardDAVValueSetter;
+    [(ABVCardPersonValueSetter *)&v21 setImageData:data cropRectX:v10 cropRectY:v9 cropRectWidth:v8 cropRectHeight:v7];
+    ABPersonSetImageDataDerivedFromFormatAndReturnError(self->super._person, 5, 2, data);
     goto LABEL_13;
   }
 

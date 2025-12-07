@@ -6,7 +6,7 @@
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
-  nullsub_1(subviews, *&subviews.height);
+  nullsub_1();
   result.height = v5;
   result.width = v4;
   return result;

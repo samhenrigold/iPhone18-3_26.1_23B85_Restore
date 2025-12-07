@@ -96,17 +96,14 @@
 
 - (__CFDictionary)routeDescriptor
 {
-  routeDescriptionRWLock = self->_routeDescriptionRWLock;
   FigReadWriteLockLockForRead();
-  v4 = self->_routeDescriptor;
-  v5 = self->_routeDescriptionRWLock;
+  v3 = self->_routeDescriptor;
   FigReadWriteLockUnlockForRead();
-  return v4;
+  return v3;
 }
 
 - (void)setRouteDescriptor:(__CFDictionary *)descriptor
 {
-  routeDescriptionRWLock = self->_routeDescriptionRWLock;
   FigReadWriteLockLockForWrite();
   routeDescriptor = self->_routeDescriptor;
   self->_routeDescriptor = descriptor;
@@ -120,9 +117,9 @@
     CFRelease(routeDescriptor);
   }
 
-  v7 = self->_routeDescriptionRWLock;
+  routeDescriptionRWLock = self->_routeDescriptionRWLock;
 
-  MEMORY[0x1EEDBDA98](v7);
+  MEMORY[0x1EEDBDA98](routeDescriptionRWLock);
 }
 
 - (NSString)name
@@ -183,7 +180,6 @@
   if (_os_feature_enabled_impl())
   {
     [(AVFigRouteDescriptorInputDeviceImpl *)self routeDescriptor];
-    v3 = *MEMORY[0x1E69AF0F8];
     FigCFDictionaryGetBooleanIfPresent();
   }
 
@@ -262,7 +258,6 @@
 
 - (void)_routeDescriptionDidChange:(__CFDictionary *)change
 {
-  v5 = *MEMORY[0x1E69AF1C0];
   if ([FigCFDictionaryGetValue() isEqual:{-[AVFigRouteDescriptorInputDeviceImpl ID](self, "ID")}])
   {
 
@@ -362,7 +357,7 @@ LABEL_15:
 {
   cf[16] = *MEMORY[0x1E69E9840];
   theArray = 0;
-  v28 = 0;
+  v24 = 0;
   if (dword_1ED6F6B08)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -373,16 +368,15 @@ LABEL_15:
   routingContext = self->_routingContext;
   if (routingContext)
   {
-    v7 = self->_routingContext;
-    v8 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-    if (v8)
+    v7 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+    if (v7)
     {
-      v9 = v8(routingContext, &theArray);
-      if (!v9)
+      v8 = v7(routingContext, &theArray);
+      if (!v8)
       {
-        v10 = 0;
-        v11 = *MEMORY[0x1E69620F8];
-        v12 = *MEMORY[0x1E695E480];
+        v9 = 0;
+        v10 = *MEMORY[0x1E69620F8];
+        v11 = *MEMORY[0x1E695E480];
         while (1)
         {
           Count = theArray;
@@ -391,45 +385,24 @@ LABEL_15:
             Count = CFArrayGetCount(theArray);
           }
 
-          if (v10 >= Count)
+          if (v9 >= Count)
           {
             goto LABEL_28;
           }
 
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v10);
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v9);
           cf[0] = 0;
           CMBaseObject = FigEndpointGetCMBaseObject();
-          v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v16)
+          v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v15)
           {
-            v16(CMBaseObject, v11, v12, cf);
+            v15(CMBaseObject, v10, v11, cf);
           }
 
-          v17 = [(AVFigRouteDescriptorInputDeviceImpl *)self ID:v25];
-          if ([(NSString *)v17 isEqualToString:cf[0]])
+          v16 = [(AVFigRouteDescriptorInputDeviceImpl *)self ID];
+          if ([(NSString *)v16 isEqualToString:cf[0]])
           {
-            if (ValueAtIndex)
-            {
-              v21 = CFRetain(ValueAtIndex);
-            }
-
-            else
-            {
-              v21 = 0;
-            }
-
-            v28 = v21;
-            if (cf[0])
-            {
-              CFRelease(cf[0]);
-            }
-
-            if (!v21)
-            {
-              goto LABEL_28;
-            }
-
-            goto LABEL_27;
+            break;
           }
 
           if (cf[0])
@@ -437,47 +410,71 @@ LABEL_15:
             CFRelease(cf[0]);
           }
 
-          ++v10;
+          ++v9;
         }
+
+        if (ValueAtIndex)
+        {
+          v20 = CFRetain(ValueAtIndex);
+        }
+
+        else
+        {
+          v20 = 0;
+        }
+
+        v24 = v20;
+        if (cf[0])
+        {
+          CFRelease(cf[0]);
+        }
+
+        if (!v20)
+        {
+LABEL_28:
+          v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED6F6B00, 4294949956, "<<<< AVInputDevice (FigRouteDescriptor) >>>>", 494);
+          goto LABEL_29;
+        }
+
+        goto LABEL_27;
       }
 
       goto LABEL_29;
     }
 
 LABEL_20:
-    v22 = -12782;
+    v21 = -12782;
     goto LABEL_30;
   }
 
   routeDiscoverer = self->_routeDiscoverer;
   routeDescriptor = [(AVFigRouteDescriptorInputDeviceImpl *)self routeDescriptor];
-  v20 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v20)
+  v19 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v19)
   {
     goto LABEL_20;
   }
 
-  v9 = v20(routeDiscoverer, routeDescriptor, &v28);
-  if (!v9)
+  v8 = v19(routeDiscoverer, routeDescriptor, &v24);
+  if (!v8)
   {
-    v21 = v28;
-    if (!v28)
+    v20 = v24;
+    if (v24)
     {
-LABEL_28:
-      v9 = FigSignalErrorAtGM();
+LABEL_27:
+      v8 = (*(endpoint + 2))(endpoint, v20);
       goto LABEL_29;
     }
 
-LABEL_27:
-    v9 = (*(endpoint + 2))(endpoint, v21);
+    v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED6F6B00, 4294949956, "<<<< AVInputDevice (FigRouteDescriptor) >>>>", 476);
   }
 
 LABEL_29:
-  v22 = v9;
+  v21 = v8;
 LABEL_30:
-  if (v28)
+  if (v24)
   {
-    CFRelease(v28);
+    CFRelease(v24);
   }
 
   if (theArray)
@@ -485,8 +482,7 @@ LABEL_30:
     CFRelease(theArray);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v21;
 }
 
 @end

@@ -11,25 +11,26 @@
   v6 = type metadata accessor for DateInterval();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static DateInterval._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   entryCopy = entry;
-  v12 = specialized DateSequenceTimeline.unconfiguredEntries(for:previousEntry:)();
+  specialized DateSequenceTimeline.unconfiguredEntries(for:previousEntry:)(v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
-  if (v12)
+  if (v13)
   {
     type metadata accessor for BLSAlwaysOnTimelineUnconfiguredEntry();
-    v13.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v13.super.isa = 0;
+    v14.super.isa = 0;
   }
 
-  return v13.super.isa;
+  return v14.super.isa;
 }
 
 - (int64_t)requestedFidelityForStartEntryInDateInterval:(id)interval withPreviousEntry:(id)entry

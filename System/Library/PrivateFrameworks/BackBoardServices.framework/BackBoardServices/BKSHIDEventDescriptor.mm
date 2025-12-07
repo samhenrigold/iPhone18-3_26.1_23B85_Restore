@@ -1,5 +1,6 @@
 @interface BKSHIDEventDescriptor
 + (id)descriptorForHIDEvent:(__IOHIDEvent *)event;
++ (id)descriptorWithEventType:(unsigned int)type;
 + (void)appendDescriptorArray:(id)array toDescriptionStream:(id)stream;
 - (BKSHIDEventDescriptor)init;
 - (BKSHIDEventDescriptor)initWithCoder:(id)coder;
@@ -38,41 +39,41 @@
 - (BKSHIDEventDescriptor)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_type"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  unsignedIntValue = [v5 unsignedIntValue];
+  [v5 unsignedIntValue];
 
-  return [(BKSHIDEventDescriptor *)self initWithEventType:unsignedIntValue];
+  return [(BKSHIDEventDescriptor *)self initWithEventType:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   v3 = MEMORY[0x1E696AD98];
-  hidEventType = self->_hidEventType;
   coderCopy = coder;
-  v6 = [v3 numberWithUnsignedInt:hidEventType];
-  [coderCopy encodeObject:v6 forKey:@"_type"];
+  v5 = [v3 numberWithUnsignedInt:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
-  hidEventType = self->_hidEventType;
   streamCopy = stream;
-  [streamCopy appendString:IOHIDEventTypeGetName() withName:0];
+  IOHIDEventTypeGetName();
+  [streamCopy appendString:? withName:?];
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
   succinctDescriptionBuilder = [(BKSHIDEventDescriptor *)self succinctDescriptionBuilder];
-  hidEventType = self->_hidEventType;
-  [succinctDescriptionBuilder appendString:IOHIDEventTypeGetName() withName:0];
+  IOHIDEventTypeGetName();
+  [succinctDescriptionBuilder appendString:? withName:?];
 
   return succinctDescriptionBuilder;
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(BKSHIDEventDescriptor *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(BKSHIDEventDescriptor *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -90,13 +91,10 @@
 {
   v3 = objc_alloc_init(MEMORY[0x1E698E688]);
   v7 = MEMORY[0x1E69E9820];
-  v8 = 3221225472;
-  v9 = __36__BKSHIDEventDescriptor_description__block_invoke;
-  v10 = &unk_1E6F47C78;
   selfCopy = self;
-  v12 = v3;
+  v9 = v3;
   v4 = v3;
-  [v4 appendProem:0 block:&v7];
+  [v4 appendProem:v7 block:{3221225472, __36__BKSHIDEventDescriptor_description__block_invoke, &unk_1E6F47C78, selfCopy}];
   v5 = [v4 description];
 
   return v5;
@@ -183,7 +181,7 @@ LABEL_13:
 
 - (BKSHIDEventDescriptor)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is unavailable"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -212,7 +210,7 @@ LABEL_13:
 
 - (id)descriptorByAddingSenderIDToMatchCriteria:(unint64_t)criteria
 {
-  v3 = [[BKSHIDEventSenderSpecificDescriptor alloc] initWithDescriptor:self senderID:criteria];
+  v3 = [BKSHIDEventSenderSpecificDescriptor initWithDescriptor:"initWithDescriptor:senderID:" senderID:?];
 
   return v3;
 }
@@ -220,112 +218,106 @@ LABEL_13:
 + (void)appendDescriptorArray:(id)array toDescriptionStream:(id)stream
 {
   streamCopy = stream;
-  v6 = [array sortedArrayUsingSelector:sel_compare_];
-  v7 = [v6 bs_dictionaryByPartitioning:&__block_literal_global_503];
-  v8 = [MEMORY[0x1E698E690] build:&__block_literal_global_24];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_3;
-  v11[3] = &unk_1E6F47C78;
+  v6 = [array sortedArrayUsingSelector:?];
+  v7 = [v6 bs_dictionaryByPartitioning:?];
+  v8 = [MEMORY[0x1E698E690] build:?];
+  v11 = MEMORY[0x1E69E9820];
   v12 = streamCopy;
   v13 = v7;
   v9 = v7;
   v10 = streamCopy;
-  [v10 overlayStyle:v8 block:v11];
+  [v10 overlayStyle:v11 block:{3221225472, __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_3, &unk_1E6F47C78}];
 }
 
 void __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_3(uint64_t a1)
 {
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_4;
-  v3[3] = &unk_1E6F47C78;
+  v3 = MEMORY[0x1E69E9820];
+  v4 = 3221225472;
+  v5 = __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_4;
+  v6 = &unk_1E6F47C78;
   v2 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  [v2 appendBodySectionWithName:@"events" block:v3];
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 32);
+  [v2 appendBodySectionWithName:v3 block:{3221225472, __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_4, &unk_1E6F47C78}];
 }
 
 void __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_4(uint64_t a1)
 {
-  v2[0] = MEMORY[0x1E69E9820];
-  v2[1] = 3221225472;
-  v2[2] = __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_5;
-  v2[3] = &unk_1E6F466E8;
+  v2 = MEMORY[0x1E69E9820];
+  v3 = 3221225472;
+  v4 = __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_5;
+  v5 = &unk_1E6F466E8;
   v1 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  [v1 enumerateKeysAndObjectsUsingBlock:v2];
+  v6 = *(a1 + 40);
+  [v1 enumerateKeysAndObjectsUsingBlock:?];
 }
 
 void __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 integerValue];
   if (v6 == 1)
   {
     v7 = *(a1 + 32);
-    v8 = @"VendorDefined";
     goto LABEL_5;
   }
 
   if (v6 == 3)
   {
     v7 = *(a1 + 32);
-    v8 = @"Keyboard";
 LABEL_5:
-    v9 = [v7 appendObject:v5 withName:v8];
+    v8 = [v7 appendObject:? withName:?];
     goto LABEL_14;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v11)
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:0 objects:? count:?];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v17;
+    v11 = v10;
+    v12 = MEMORY[0];
     do
     {
-      v14 = 0;
-      do
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v17 != v13)
+        if (MEMORY[0] != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) appendDescriptionToStream:{*(a1 + 32), v16}];
+        [*(8 * i) appendDescriptionToStream:?];
       }
 
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v12);
+    while (v11);
   }
 
 LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E695DFD8];
   v3 = a2;
-  v4 = [v2 setWithObject:@"OmitName"];
-  [v3 setClientInformation:v4];
+  v4 = [v2 setWithObject:?];
+  [v3 setClientInformation:?];
 }
 
-uint64_t __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke(uint64_t a1, void *a2)
+void *__67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream___block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x1E696AD98];
-  v3 = [a2 hidEventType];
+  [a2 hidEventType];
 
-  return [v2 numberWithUnsignedInt:v3];
+  return [v2 numberWithUnsignedInt:?];
+}
+
++ (id)descriptorWithEventType:(unsigned int)type
+{
+  v3 = [[BKSHIDEventDescriptor alloc] initWithEventType:?];
+
+  return v3;
 }
 
 + (id)descriptorForHIDEvent:(__IOHIDEvent *)event
@@ -335,7 +327,8 @@ uint64_t __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream__
   {
     if (Type == 29)
     {
-      v4 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:IOHIDEventGetIntegerValue()];
+      IOHIDEventGetIntegerValue();
+      v4 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:?];
       goto LABEL_15;
     }
 
@@ -343,7 +336,8 @@ uint64_t __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream__
     {
       if (Type == 39)
       {
-        v4 = [BKSHIDEventGenericGestureDescriptor descriptorWithGenericGestureType:IOHIDEventGetIntegerValue()];
+        IOHIDEventGetIntegerValue();
+        v4 = [BKSHIDEventGenericGestureDescriptor descriptorWithGenericGestureType:?];
         goto LABEL_15;
       }
 
@@ -351,28 +345,29 @@ uint64_t __67__BKSHIDEventDescriptor_appendDescriptorArray_toDescriptionStream__
     }
 
     v5 = BKSHIDEventCollectionDescriptor;
-    IntegerValue = IOHIDEventGetIntegerValue();
+    IOHIDEventGetIntegerValue();
 LABEL_13:
-    v4 = [(__objc2_class *)v5 descriptorWithPage:IntegerValue usage:IOHIDEventGetIntegerValue()];
+    IOHIDEventGetIntegerValue();
+    v4 = [__objc2_class descriptorWithPage:v5 usage:"descriptorWithPage:usage:"];
     goto LABEL_15;
   }
 
   if (Type == 1)
   {
     v5 = BKSHIDEventVendorDefinedDescriptor;
-    IntegerValue = IOHIDEventGetIntegerValue();
+    IOHIDEventGetIntegerValue();
     goto LABEL_13;
   }
 
   if (Type == 3)
   {
     v5 = BKSHIDEventKeyboardDescriptor;
-    IntegerValue = IOHIDEventGetIntegerValue();
+    IOHIDEventGetIntegerValue();
     goto LABEL_13;
   }
 
 LABEL_14:
-  v4 = [BKSHIDEventDescriptor descriptorWithEventType:Type];
+  v4 = [BKSHIDEventDescriptor descriptorWithEventType:?];
 LABEL_15:
 
   return v4;

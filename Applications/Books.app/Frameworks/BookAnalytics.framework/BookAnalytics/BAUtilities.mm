@@ -10,53 +10,84 @@
 + (int64_t)backgroundColorFromThemeIdentifier:(id)identifier
 {
   v3 = sub_1E1780();
-  v5 = sub_DDE50(v3, v4);
-
-  return v5;
+  v5 = v4;
+  v6 = sub_DDE50(v3, v4);
+  v5, v7, v8, v9, v10, v11, v12, v13;
+  return v6;
 }
 
 + (id)stringFromUpSellLocation:(int64_t)location
 {
-  if (location <= 1)
+  if (location > 1)
   {
-    if (!location || location == 1)
+    if (location == 2)
     {
-      goto LABEL_9;
+      v3 = 0xEA0000000000676ELL;
+      goto LABEL_10;
     }
 
-LABEL_12:
+    if (location == 3)
+    {
+      v3 = 0xEA0000000000776FLL;
+      goto LABEL_10;
+    }
+
+LABEL_13:
     result = sub_1E1D50();
     __break(1u);
     return result;
   }
 
-  if (location != 2 && location != 3)
+  if (location)
   {
-    goto LABEL_12;
+    if (location == 1)
+    {
+      v3 = 0xE200000000000000;
+      goto LABEL_10;
+    }
+
+    goto LABEL_13;
   }
 
-LABEL_9:
-  v3 = sub_1E1770();
+  v3 = 0xE700000000000000;
+LABEL_10:
+  v4 = sub_1E1770();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 + (id)stringFromUpSellVariant:(int64_t)variant
 {
-  if (!variant || variant == 2 || variant == 1)
+  if (variant)
   {
-    v3 = sub_1E1770();
+    if (variant == 2)
+    {
+      v3 = 0xE90000000000006BLL;
+    }
 
-    return v3;
+    else
+    {
+      if (variant != 1)
+      {
+        result = sub_1E1D50();
+        __break(1u);
+        return result;
+      }
+
+      v3 = 0xEC000000746E6574;
+    }
   }
 
   else
   {
-    result = sub_1E1D50();
-    __break(1u);
+    v3 = 0xE700000000000000;
   }
 
-  return result;
+  v4 = sub_1E1770();
+  v3, v5, v6, v7, v8, v9, v10, v11;
+
+  return v4;
 }
 
 - (BAUtilities)init

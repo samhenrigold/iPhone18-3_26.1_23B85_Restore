@@ -19,7 +19,6 @@
 
 - (void)resume
 {
-  v2 = *(self + OBJC_IVAR____EXQueryController_innerController);
   selfCopy = self;
   QueryController.resume()();
 }
@@ -27,9 +26,9 @@
 - (_EXQueryController)initWithQueries:(id)queries delegate:(id)delegate
 {
   type metadata accessor for _EXQuery();
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
-  return _EXQueryController.init(queries:delegate:)(v4);
+  return _EXQueryController.init(queries:delegate:)(v5, delegate);
 }
 
 + (id)executeQuery:(id)query
@@ -41,12 +40,11 @@
   queryCopy = query;
   specialized static QueryController.execute(queries:)(inited);
   swift_setDeallocating();
-  v6 = *(inited + 16);
   swift_arrayDestroy();
   type metadata accessor for _EXExtensionIdentity();
-  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 - (_EXQueryController)initWithQueries:(id)queries
@@ -111,17 +109,15 @@
 
 - (NSArray)queries
 {
-  v2 = *(*(self + OBJC_IVAR____EXQueryController_innerController) + OBJC_IVAR____TtC19ExtensionFoundation15QueryController__queries);
   type metadata accessor for _EXQuery();
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)suspend
 {
-  v2 = *(self + OBJC_IVAR____EXQueryController_innerController);
   selfCopy = self;
   QueryController.suspend()();
 }

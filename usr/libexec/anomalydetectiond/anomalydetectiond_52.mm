@@ -2709,16 +2709,14 @@ uint64_t CMMsl::PencilDeviceMotion::hash_value(CMMsl::PencilDeviceMotion *this)
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 48) & 2) != 0)
   {
-    v10 = *(this + 11);
-    v7 = LODWORD(v10);
-    if (v10 == 0.0)
+    v8 = *(this + 11);
+    v5 = LODWORD(v8);
+    if (v8 == 0.0)
     {
-      v7 = 0;
+      v5 = 0;
     }
 
     if (*(this + 48))
@@ -2727,30 +2725,30 @@ uint64_t CMMsl::PencilDeviceMotion::hash_value(CMMsl::PencilDeviceMotion *this)
     }
 
 LABEL_12:
-    v9 = 0;
-    return v6 ^ v3 ^ v7 ^ v9;
+    v7 = 0;
+    return v4 ^ v3 ^ v5 ^ v7;
   }
 
-  v7 = 0;
+  v5 = 0;
   if ((*(this + 48) & 1) == 0)
   {
     goto LABEL_12;
   }
 
 LABEL_6:
-  v8 = *(this + 10);
-  v9 = LODWORD(v8);
-  if (v8 == 0.0)
+  v6 = *(this + 10);
+  v7 = LODWORD(v6);
+  if (v6 == 0.0)
   {
-    v9 = 0;
+    v7 = 0;
   }
 
-  return v6 ^ v3 ^ v7 ^ v9;
+  return v4 ^ v3 ^ v5 ^ v7;
 }
 
-uint64_t CMMsl::PencilDeviceMotion::makeSuper(uint64_t this)
+void *CMMsl::PencilDeviceMotion::makeSuper(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -4834,36 +4832,34 @@ uint64_t CMMsl::PencilFusionReplayResult::hash_value(CMMsl::PencilFusionReplayRe
     v4 = 0;
   }
 
-  v5 = *(this + 1);
-  v6 = *(this + 2);
-  v7 = PBHashBytes();
+  v5 = PBHashBytes();
   if (*(this + 64))
   {
-    v8 = *(this + 4);
+    v6 = *(this + 4);
     if ((*(this + 64) & 2) != 0)
     {
       goto LABEL_9;
     }
 
 LABEL_11:
-    v9 = 0;
-    return v4 ^ v3 ^ v8 ^ v9 ^ v7;
+    v7 = 0;
+    return v4 ^ v3 ^ v6 ^ v7 ^ v5;
   }
 
-  v8 = 0;
+  v6 = 0;
   if ((*(this + 64) & 2) == 0)
   {
     goto LABEL_11;
   }
 
 LABEL_9:
-  v9 = *(this + 5);
-  return v4 ^ v3 ^ v8 ^ v9 ^ v7;
+  v7 = *(this + 5);
+  return v4 ^ v3 ^ v6 ^ v7 ^ v5;
 }
 
-uint64_t CMMsl::PencilFusionReplayResult::makeSuper(uint64_t this)
+void *CMMsl::PencilFusionReplayResult::makeSuper(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -7053,7 +7049,7 @@ double CMMsl::PencilTouch::PencilTouch(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::PencilTouch::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PencilTouch::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9611,7 +9607,7 @@ double CMMsl::PocketDetectionPacket::PocketDetectionPacket(uint64_t a1, uint64_t
   return result;
 }
 
-CMMsl *CMMsl::PocketDetectionPacket::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PocketDetectionPacket::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

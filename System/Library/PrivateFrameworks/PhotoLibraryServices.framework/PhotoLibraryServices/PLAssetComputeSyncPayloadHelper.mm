@@ -348,7 +348,7 @@ void __79__PLAssetComputeSyncPayloadHelper_computeSyncWrapperURLForAsset_analysi
   if (v13)
   {
     rawPayloadAttributes = [v13 rawPayloadAttributes];
-    v15 = [rawPayloadAttributes count];
+    v15 = objc_msgSend_count(rawPayloadAttributes);
 
     if (v15)
     {

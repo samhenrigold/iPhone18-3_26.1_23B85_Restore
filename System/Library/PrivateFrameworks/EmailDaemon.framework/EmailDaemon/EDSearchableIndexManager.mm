@@ -55,7 +55,7 @@ void __31__EDSearchableIndexManager_log__block_invoke(uint64_t a1)
 
 + (id)searchableItemResultForExpression:(id)expression
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   expressionCopy = expression;
   if ([self shouldCancelSearchQuery])
   {
@@ -83,22 +83,22 @@ LABEL_20:
     aBlock[3] = &unk_1E8256F20;
     selfCopy = self;
     v8 = array;
-    v29 = v8;
-    v24 = dictionary;
-    v30 = v24;
+    v28 = v8;
+    v23 = dictionary;
+    v29 = v23;
     v9 = promise;
-    v31 = v9;
-    v25 = _Block_copy(aBlock);
-    v10 = [MEMORY[0x1E699AE90] queryWithExpression:expressionCopy builder:v25];
+    v30 = v9;
+    v24 = _Block_copy(aBlock);
+    v10 = [MEMORY[0x1E699AE90] queryWithExpression:expressionCopy builder:v24];
     progress = [v10 progress];
     [self addSearchQueryCancelable:progress];
 
     [v10 start];
     future = [v9 future];
     v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:5.0];
-    v27 = 0;
-    v5 = [future resultBeforeDate:v13 error:&v27];
-    v14 = v27;
+    v26 = 0;
+    v5 = [future resultBeforeDate:v13 error:&v26];
+    v14 = v26;
 
     if (!v5 && [v14 ef_isTimeoutError])
     {
@@ -121,7 +121,7 @@ LABEL_20:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         ef_publicDescription2 = [v14 ef_publicDescription];
-        [(EDSearchableIndexManager *)ef_publicDescription2 searchableItemResultForExpression:v33, v18];
+        [(EDSearchableIndexManager *)ef_publicDescription2 searchableItemResultForExpression:v32, v18];
       }
     }
   }
@@ -136,8 +136,8 @@ LABEL_20:
     v20 = +[EDSearchableIndex log];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_INFO, "searchableItemResultForExpression - Canceling after querying Spotlight", v26, 2u);
+      *v25 = 0;
+      _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_INFO, "searchableItemResultForExpression - Canceling after querying Spotlight", v25, 2u);
     }
 
     goto LABEL_20;
@@ -145,54 +145,50 @@ LABEL_20:
 
 LABEL_21:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke(id *a1, void *a2)
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1[7] searchableIndexBundleID];
   [v3 setBundleID:v4];
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = *MEMORY[0x1E6964D90];
-  v23[0] = *MEMORY[0x1E6964A30];
-  v23[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = *MEMORY[0x1E6964A30];
+  v22[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   [v5 addObjectsFromArray:v7];
 
   if (EMIsGreymatterSupported())
   {
     v8 = *MEMORY[0x1E6964D78];
-    v22[0] = *MEMORY[0x1E6964DB0];
-    v22[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = *MEMORY[0x1E6964DB0];
+    v21[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     [v5 addObjectsFromArray:v9];
   }
 
   [v3 setFetchAttributes:v5];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_2;
-  v18[3] = &unk_1E8250720;
-  v19 = a1[4];
-  v20 = a1[5];
-  v21 = a1[6];
-  [v3 setCompletionBlock:v18];
-  v12 = MEMORY[0x1E69E9820];
-  v13 = 3221225472;
-  v14 = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_4;
-  v15 = &unk_1E8253D08;
-  v16 = a1[4];
-  v17 = a1[5];
-  [v3 setResultsBlock:&v12];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_2;
+  v17[3] = &unk_1E8250720;
+  v18 = a1[4];
+  v19 = a1[5];
+  v20 = a1[6];
+  [v3 setCompletionBlock:v17];
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_4;
+  v14 = &unk_1E8253D08;
+  v15 = a1[4];
+  v16 = a1[5];
+  [v3 setResultsBlock:&v11];
   v10 = [a1[6] errorOnlyCompletionHandlerAdapter];
   [v3 setFailureBlock:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_2(uint64_t a1)
@@ -215,30 +211,30 @@ void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_in
 
 void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_3(uint64_t a1, void *a2, unint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v24 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v5 = objc_opt_new();
   if (a3 <= 0x1F3)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v6 = [*(a1 + 32) objectForKeyedSubscript:v19];
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v6 = [*(a1 + 32) objectForKeyedSubscript:v18];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           v11 = MEMORY[0x1E699ADD8];
           v12 = [v10 attribute];
           v13 = [v11 snippetHintZoneFromString:v12];
@@ -247,7 +243,7 @@ void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_in
           [v5 setObject:v14 forKeyedSubscript:v13];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -265,48 +261,44 @@ void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_in
     v16 = MEMORY[0x1E695E0F8];
   }
 
-  v17 = [v15 initWithSearchableItemIdentifier:v19 snippetHints:v16];
+  v17 = [v15 initWithSearchableItemIdentifier:v18 snippetHints:v16];
   [*(a1 + 40) addObject:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_5;
-  v14 = &unk_1E8256EF8;
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 40);
-  [a2 enumerateObjectsUsingBlock:&v11];
+  v18 = *MEMORY[0x1E69E9840];
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_5;
+  v13 = &unk_1E8256EF8;
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  [a2 enumerateObjectsUsingBlock:&v10];
   v5 = [*(a1 + 40) allValues];
   v6 = +[EDSearchableIndexManager log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [v5 count];
-    if (v8)
+    v7 = [v5 count];
+    if (v7)
     {
-      v10 = MEMORY[0x1E699AC38];
+      v9 = MEMORY[0x1E699AC38];
       v2 = [v5 firstObject];
-      v9 = [v10 publicDescriptionForSnippetHintsArray:v2];
+      v8 = [v9 publicDescriptionForSnippetHintsArray:v2];
     }
 
     else
     {
-      v9 = @"No values found.";
+      v8 = @"No values found.";
     }
 
     *buf = 138412290;
-    v18 = v9;
+    v17 = v8;
     _os_log_debug_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEBUG, "Regular query collected snippet hints first value: %@", buf, 0xCu);
-    if (v8)
+    if (v7)
     {
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __62__EDSearchableIndexManager_searchableItemResultForExpression___block_invoke_5(uint64_t a1, void *a2)
@@ -523,7 +515,7 @@ void __58__EDSearchableIndexManager__startObservingTurboModeToggle__block_invoke
 
 - (void)persistenceDidUpdateData:(id)data message:(id)message
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   persistentID = [messageCopy persistentID];
   v7 = [persistentID length];
@@ -531,17 +523,15 @@ void __58__EDSearchableIndexManager__startObservingTurboModeToggle__block_invoke
   if (v7)
   {
     index = [(EDSearchableIndexManager *)self index];
-    v14[0] = messageCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = messageCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     [index recordDataNeedsToBeDonatedForMessages:v9];
 
     index2 = [(EDSearchableIndexManager *)self index];
-    v13 = messageCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    v12 = messageCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
     [index2 indexMessages:v11 includeBody:1 indexingType:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceIsChangingFlags:(id)flags messages:(id)messages generationWindow:(id)window

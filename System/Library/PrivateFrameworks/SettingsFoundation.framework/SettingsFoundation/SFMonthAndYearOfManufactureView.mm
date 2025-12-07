@@ -37,7 +37,7 @@
 
 - (void)render
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   subviews = [(SFMonthAndYearOfManufactureView *)self subviews];
   v4 = [subviews count];
 
@@ -55,29 +55,27 @@
     }
 
     [(SFMonthAndYearOfManufactureView *)self addSubview:v5];
-    v18 = MEMORY[0x277CCAAD0];
+    v17 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(SFMonthAndYearOfManufactureView *)self leadingAnchor];
     leadingAnchor2 = [v5 leadingAnchor];
-    v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v24[0] = v21;
+    v20 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v23[0] = v20;
     trailingAnchor = [(SFMonthAndYearOfManufactureView *)self trailingAnchor];
     trailingAnchor2 = [v5 trailingAnchor];
     v9 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v24[1] = v9;
+    v23[1] = v9;
     topAnchor = [v5 topAnchor];
     topAnchor2 = [(SFMonthAndYearOfManufactureView *)self topAnchor];
     [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-    v12 = v19 = labelText;
-    v24[2] = v12;
+    v12 = v18 = labelText;
+    v23[2] = v12;
     bottomAnchor = [(SFMonthAndYearOfManufactureView *)self bottomAnchor];
     bottomAnchor2 = [v5 bottomAnchor];
     v15 = [bottomAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-    v24[3] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
-    [v18 activateConstraints:v16];
+    v23[3] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+    [v17 activateConstraints:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)labelText

@@ -29,9 +29,11 @@
 
 uint64_t __48__MPCContentAgeRequirementManager_sharedManager__block_invoke()
 {
-  sharedManager___sharedManager = [[MPCContentAgeRequirementManager alloc] _init];
+  v0 = [[MPCContentAgeRequirementManager alloc] _init];
+  v1 = sharedManager___sharedManager;
+  sharedManager___sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init

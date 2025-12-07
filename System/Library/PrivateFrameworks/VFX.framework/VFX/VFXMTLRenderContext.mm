@@ -35,7 +35,7 @@
 - (id)texture:(int)texture :(id)a4;
 - (int64_t)preferredFramesPerSecond;
 - (uint64_t)_fillProcessingContextWithCullingContext:(uint64_t)context;
-- (uint64_t)unmapVolatileMeshElement:(uint64_t)element;
+- (uint64_t)authoring_renderMesh:(uint64_t)mesh meshElement:(uint64_t)element withProgram:(uint64_t)program uniforms:(const void *)uniforms uniformsLength:(size_t)length rasterizerStates:(uint64_t)states blendStates:(uint64_t)blendStates texture:(uint64_t)self0 sampler:(uint64_t)self1 depthBias:(char)self2;
 - (unint64_t)cubeArrayTypeIfSupported;
 - (void)_VFXWorldRendererMainPassCustomPostProcessSupportDrawSceneBackgroundUsingEncoder:(id)encoder commandBuffer:(id)buffer renderPassDesc:(id *)desc;
 - (void)_allowGPUBackgroundExecution;
@@ -69,7 +69,6 @@
 - (void)authoring_drawDeformersForNode:(__CFXNode *)node authoringEnvironment:(void *)environment;
 - (void)authoring_drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer instanceCount:(unint64_t)instanceCount vertexBuffers:(const void *)buffers offsets:(const unint64_t *)offsets range:(_NSRange)self0 vertexDescriptor:(id)self1 withProgram:(__CFXProgram *)self2 uniforms:(const void *)self3 uniformsLength:(unint64_t)self4 rasterizerStates:(__CFXRasterizerStates *)self5 blendStates:(__CFXBlendStates *)self6;
 - (void)authoring_drawPrimitives:(unint64_t)primitives vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount vertexBuffers:(const void *)buffers offsets:(const unint64_t *)offsets range:(_NSRange)range vertexDescriptor:(id)descriptor withProgram:(__CFXProgram *)self0 uniforms:(const void *)self1 uniformsLength:(unint64_t)self2 rasterizerStates:(__CFXRasterizerStates *)self3 blendStates:(__CFXBlendStates *)self4;
-- (void)authoring_renderMesh:(uint64_t)mesh meshElement:(uint64_t)element withProgram:(uint64_t)program uniforms:(const void *)uniforms uniformsLength:(size_t)length rasterizerStates:(uint64_t)states blendStates:(uint64_t)blendStates texture:(uint64_t)self0 sampler:(uint64_t)self1 depthBias:(char)self2;
 - (void)beginExternalFrameWithEncoder:(void *)encoder frameIndex:(unint64_t)index;
 - (void)beginFrame:(id)frame;
 - (void)beginRenderPass:(id)pass renderEncoder:(void *)encoder;
@@ -102,6 +101,7 @@
 - (void)startProcessingRendererElementsWithEngineIterationContext:(id *)context;
 - (void)stopProcessingRendererElements:(BOOL)elements;
 - (void)unmapVolatileMesh:(__CFXMesh *)mesh modifiedVerticesCount:(int64_t)count;
+- (void)unmapVolatileMeshElement:(uint64_t)element;
 - (void)updateFrameConstants;
 - (void)updateRenderPassDescriptor:(id *)descriptor;
 - (void)writeBytes:(const void *)bytes length:(unint64_t)length;
@@ -115,8 +115,8 @@
   MTLDevice = CFXGPUDeviceGetMTLDevice(v9);
   if (!v9)
   {
-    v81 = sub_1AF0D5194();
-    if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+    v41 = sub_1AF0D5194(MTLDevice, v11);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDE5F98();
     }
@@ -124,15 +124,16 @@
     return 0;
   }
 
-  v14 = MTLDevice;
+  v13 = MTLDevice;
   if (queue)
   {
-    v15 = objc_msgSend_device(queue, v11, v12, v13);
-    v19 = objc_msgSend_registryID(v15, v16, v17, v18);
-    if (v19 != objc_msgSend_registryID(v14, v20, v21, v22))
+    v14 = objc_msgSend_device(queue, v11, v12);
+    v17 = objc_msgSend_registryID(v14, v15, v16);
+    v20 = objc_msgSend_registryID(v13, v18, v19);
+    if (v17 != v20)
     {
-      v82 = sub_1AF0D5194();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+      v42 = sub_1AF0D5194(v20, v21);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE5F30();
       }
@@ -141,30 +142,31 @@
     }
   }
 
-  v87.receiver = self;
-  v87.super_class = VFXMTLRenderContext;
-  v23 = [(VFXMTLRenderContext *)&v87 init];
-  if (!v23)
+  v47.receiver = self;
+  v47.super_class = VFXMTLRenderContext;
+  v22 = [(VFXMTLRenderContext *)&v47 init];
+  if (!v22)
   {
-    return v23;
+    return v22;
   }
 
   managerCopy = manager;
-  *(v23 + 14) = managerCopy;
-  v25 = sub_1AFDE323C(managerCopy);
-  *(v23 + 15) = CFRetain(v25);
-  if ((sub_1AF28A1D8() & 1) == 0)
+  *(v22 + 14) = managerCopy;
+  v24 = sub_1AFDE323C(managerCopy);
+  v25 = CFRetain(v24);
+  *(v22 + 15) = v25;
+  if ((sub_1AF28A1D8(v25, v26) & 1) == 0)
   {
-    v29 = objc_msgSend_newCommandQueue(v14, v26, v27, v28);
-    *(v23 + 19) = v29;
+    v29 = objc_msgSend_newCommandQueue(v13, v27, v28);
+    *(v22 + 19) = v29;
     if (v29)
     {
-      objc_msgSend_setLabel_(v29, v30, @"com.apple.vfx", v31);
+      objc_msgSend_setLabel_(v29, v30, @"com.apple.vfx");
       goto LABEL_8;
     }
 
-    v83 = sub_1AF0D5194();
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+    v43 = sub_1AF0D5194(0, v30);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDE5F64();
     }
@@ -175,167 +177,169 @@
 LABEL_8:
   if (queue)
   {
-    *(v23 + 2534) = queue;
+    *(v22 + 2534) = queue;
   }
 
-  *(v23 + 57) = objc_alloc_init(RGCachedComputeCommandEncoder);
-  *(v23 + 128) = MTLValidationEnabled();
-  *(v23 + 6) = 1065353216;
-  *(v23 + 2) = VFXMatrix4Identity;
-  *(v23 + 3) = unk_1AFE48510;
-  *(v23 + 4) = xmmword_1AFE48520;
-  *(v23 + 5) = unk_1AFE48530;
-  *(v23 + 104) = 0;
-  *(v23 + 17) = context;
-  *(v23 + 33) |= 3u;
-  if (j__objc_msgSend_supportsMSAADepthResolve(v14, v32, v33, v34))
+  *(v22 + 57) = objc_alloc_init(RGCachedComputeCommandEncoder);
+  *(v22 + 128) = MTLValidationEnabled();
+  *(v22 + 6) = 1065353216;
+  *(v22 + 2) = VFXMatrix4Identity;
+  *(v22 + 3) = *&qword_1AFE48510;
+  *(v22 + 4) = xmmword_1AFE48520;
+  *(v22 + 5) = *&qword_1AFE48530;
+  *(v22 + 104) = 0;
+  *(v22 + 17) = context;
+  *(v22 + 33) |= 3u;
+  if ([v13 supportsMSAADepthResolve])
   {
-    *(v23 + 33) |= 4u;
+    *(v22 + 33) |= 4u;
   }
 
-  if (j__objc_msgSend_supportsMSAAStencilResolve(v14, v35, v36, v37))
+  if ([v13 supportsMSAAStencilResolve])
   {
-    *(v23 + 33) |= 0x4000u;
+    *(v22 + 33) |= 0x4000u;
   }
 
-  if (j__objc_msgSend_supportsNonUniformThreadgroupSize(v14, v38, v39, v40))
+  if ([v13 supportsNonUniformThreadgroupSize])
   {
-    *(v23 + 33) |= 0x40u;
+    *(v22 + 33) |= 0x40u;
   }
 
   if (sub_1AF1F3110())
   {
-    *(v23 + 33) |= 8u;
+    *(v22 + 33) |= 8u;
   }
 
-  if (j__objc_msgSend_supportsLayeredRendering(v14, v41, v42, v43))
+  if ([v13 supportsLayeredRendering])
   {
-    *(v23 + 33) |= 0x20u;
+    *(v22 + 33) |= 0x20u;
   }
 
-  if (sub_1AF1F311C(v14, v44, v45, v46))
+  if (sub_1AF1F311C(v13, v31, v32))
   {
-    *(v23 + 33) |= 0x80u;
+    *(v22 + 33) |= 0x80u;
   }
 
-  if (sub_1AF1F32C4(v14, v47, v48, v49))
+  if (sub_1AF1F32C4(v13))
   {
-    *(v23 + 33) |= 0x2000u;
+    *(v22 + 33) |= 0x2000u;
   }
 
-  if (j__objc_msgSend_supportsTessellation(v14, v50, v51, v52))
+  if ([v13 supportsTessellation])
   {
-    *(v23 + 33) |= 0x10u;
+    *(v22 + 33) |= 0x10u;
   }
 
-  if (j__objc_msgSend_supportsTextureCubeArray(v14, v53, v54, v55))
+  if ([v13 supportsTextureCubeArray])
   {
-    *(v23 + 33) |= 0x100u;
+    *(v22 + 33) |= 0x100u;
   }
 
-  if (j__objc_msgSend_supportsReadWriteTextureCubeArguments(v14, v56, v57, v58))
+  if ([v13 supportsReadWriteTextureCubeArguments])
   {
-    *(v23 + 33) |= 0x200u;
+    *(v22 + 33) |= 0x200u;
   }
 
-  if (j__objc_msgSend_supportsBaseVertexInstanceDrawing(v14, v59, v60, v61))
+  if ([v13 supportsBaseVertexInstanceDrawing])
   {
-    *(v23 + 33) |= 0x400u;
+    *(v22 + 33) |= 0x400u;
   }
 
-  if (j__objc_msgSend_supportsProgrammableBlending(v14, v62, v63, v64))
+  if ([v13 supportsProgrammableBlending])
   {
-    *(v23 + 33) |= 0x800u;
+    *(v22 + 33) |= 0x800u;
   }
 
-  if (j__objc_msgSend_supportsDepthClipMode(v14, v65, v66, v67))
+  if ([v13 supportsDepthClipMode])
   {
-    *(v23 + 33) |= 0x1000u;
+    *(v22 + 33) |= 0x1000u;
   }
 
-  if (j__objc_msgSend_supportsTextureSwizzle(v14, v68, v69, v70))
+  if ([v13 supportsTextureSwizzle])
   {
-    *(v23 + 33) |= 0x8000u;
+    *(v22 + 33) |= 0x8000u;
   }
 
-  *(v23 + 77) = dispatch_queue_create("com.apple.vfx.resourceCPUQueue", 0);
-  *(v23 + 2) = malloc_type_calloc(0x358uLL, 1uLL, 0x100004048B25B04uLL);
-  *(v23 + 235) = -1;
-  v71 = sub_1AF131048(*(v23 + 17));
-  *(v23 + 23) = dispatch_semaphore_create(v71);
-  *(v23 + 63) = CFXBufferAllocatorPerFrameCreate(*(v23 + 15), @"FrameConstant", 0, v71, 0x10000);
-  *(v23 + 64) = CFXBufferAllocatorPerFrameCreate(*(v23 + 15), @"Volatile", 0, v71, 0x10000);
-  *(v23 + 65) = CFXTextureAllocatorPerFrameCreate(*(v23 + 15), v71);
-  *(v23 + 59) = objc_alloc_init(MEMORY[0x1E695DF70]);
-  *(v23 + 60) = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v72 = objc_alloc(MEMORY[0x1E695DF70]);
-  *(v23 + 61) = objc_msgSend_initWithCapacity_(v72, v73, 16, v74);
-  v75 = objc_alloc(MEMORY[0x1E695DF70]);
-  *(v23 + 62) = objc_msgSend_initWithCapacity_(v75, v76, 16, v77);
-  v78 = *(v23 + 15);
-  v79 = sub_1AF0D839C();
-  *(v23 + 66) = CFXGPUDeviceCreateSampler(v78, v79);
-  *(v23 + 67) = sub_1AF1D534C(@"background_2D_vertid", @"background_2D_frag");
-  *(v23 + 70) = sub_1AF1D534C(@"background_cube_vertid", @"background_cube_frag");
-  *(v23 + 73) = sub_1AF1D534C(@"background_video_vertid", @"background_video_frag");
-  *(v23 + 74) = sub_1AF1D534C(@"background_video_vertid", @"background_video_alpha_0_frag");
-  v80 = *(v23 + 33);
-  if ((v80 & 0x80) != 0)
+  *(v22 + 77) = dispatch_queue_create("com.apple.vfx.resourceCPUQueue", 0);
+  *(v22 + 2) = malloc_type_calloc(0x358uLL, 1uLL, 0x100004048B25B04uLL);
+  *(v22 + 235) = -1;
+  v33 = sub_1AF131048(*(v22 + 17));
+  *(v22 + 23) = dispatch_semaphore_create(v33);
+  *(v22 + 63) = CFXBufferAllocatorPerFrameCreate(*(v22 + 15), @"FrameConstant", 0, v33, 0x10000);
+  *(v22 + 64) = CFXBufferAllocatorPerFrameCreate(*(v22 + 15), @"Volatile", 0, v33, 0x10000);
+  *(v22 + 65) = CFXTextureAllocatorPerFrameCreate(*(v22 + 15), v33);
+  *(v22 + 59) = objc_alloc_init(MEMORY[0x1E695DF70]);
+  *(v22 + 60) = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = objc_alloc(MEMORY[0x1E695DF70]);
+  *(v22 + 61) = objc_msgSend_initWithCapacity_(v34, v35, 16);
+  v36 = objc_alloc(MEMORY[0x1E695DF70]);
+  *(v22 + 62) = objc_msgSend_initWithCapacity_(v36, v37, 16);
+  v38 = *(v22 + 15);
+  v39 = sub_1AF0D839C();
+  *(v22 + 66) = CFXGPUDeviceCreateSampler(v38, v39);
+  *(v22 + 67) = sub_1AF1D534C(@"background_2D_vertid", @"background_2D_frag");
+  *(v22 + 70) = sub_1AF1D534C(@"background_cube_vertid", @"background_cube_frag");
+  *(v22 + 73) = sub_1AF1D534C(@"background_video_vertid", @"background_video_frag");
+  *(v22 + 74) = sub_1AF1D534C(@"background_video_vertid", @"background_video_alpha_0_frag");
+  v40 = *(v22 + 33);
+  if ((v40 & 0x80) != 0)
   {
-    *(v23 + 69) = sub_1AF1D534C(@"background_2D_multiple_viewports_vertid", @"background_2D_multiple_viewports_frag");
-    *(v23 + 72) = sub_1AF1D534C(@"background_cube_multiple_viewports_vertid", @"background_cube_multiple_viewports_frag");
-    v80 = *(v23 + 33);
+    *(v22 + 69) = sub_1AF1D534C(@"background_2D_multiple_viewports_vertid", @"background_2D_multiple_viewports_frag");
+    *(v22 + 72) = sub_1AF1D534C(@"background_cube_multiple_viewports_vertid", @"background_cube_multiple_viewports_frag");
+    v40 = *(v22 + 33);
   }
 
-  if ((v80 & 0x20) != 0)
+  if ((v40 & 0x20) != 0)
   {
-    *(v23 + 68) = sub_1AF1D534C(@"background_2D_layered_vertid", @"background_2D_layered_frag");
-    *(v23 + 71) = sub_1AF1D534C(@"background_cube_layered_vertid", @"background_cube_layered_frag");
+    *(v22 + 68) = sub_1AF1D534C(@"background_2D_layered_vertid", @"background_2D_layered_frag");
+    *(v22 + 71) = sub_1AF1D534C(@"background_cube_layered_vertid", @"background_cube_layered_frag");
   }
 
-  memset(v86, 0, sizeof(v86));
-  sub_1AF1C40BC(v86);
-  *&v86[2] = 0;
-  *v85 = *v86;
-  *&v85[13] = *&v86[13];
-  *(v23 + 75) = sub_1AF1C4354(v85);
-  v86[3] = 1;
-  *v85 = *v86;
-  *&v85[13] = *&v86[13];
-  *(v23 + 76) = sub_1AF1C4354(v85);
-  *(v23 + 18984) = 0;
-  *(v23 + 4780) = 0;
-  *(v23 + 2394) = objc_alloc_init(CFXVFXRenderTargetInfo);
-  *(v23 + 2397) = 252;
-  *(v23 + 2399) = objc_alloc_init(VFXMTLREContext);
-  *(v23 + 20232) = 0;
-  return v23;
+  *v46 = 0;
+  *&v46[8] = 0;
+  *&v46[13] = 0;
+  sub_1AF1C40BC(v46);
+  *&v46[2] = 0;
+  *v45 = *v46;
+  *&v45[13] = *&v46[13];
+  *(v22 + 75) = sub_1AF1C4354(v45);
+  v46[3] = 1;
+  *v45 = *v46;
+  *&v45[13] = *&v46[13];
+  *(v22 + 76) = sub_1AF1C4354(v45);
+  *(v22 + 18984) = 0;
+  *(v22 + 4780) = 0;
+  *(v22 + 2394) = objc_alloc_init(CFXVFXRenderTargetInfo);
+  *(v22 + 2397) = 252;
+  *(v22 + 2399) = objc_alloc_init(VFXMTLREContext);
+  *(v22 + 20232) = 0;
+  return v22;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_setGeneratedTexturePath_(self, v3, 0, v4);
-  objc_msgSend_setClientCommandBuffer_(self, v5, 0, v6);
-  objc_msgSend_setClientRenderPassDescriptor_(self, v7, 0, v8);
-  objc_msgSend_setClientRenderCommandEncoder_(self, v9, 0, v10);
-  objc_msgSend_setClientCommandQueue_(self, v11, 0, v12);
+  objc_msgSend_setGeneratedTexturePath_(self, v3, 0);
+  objc_msgSend_setClientCommandBuffer_(self, v4, 0);
+  objc_msgSend_setClientRenderPassDescriptor_(self, v5, 0);
+  objc_msgSend_setClientRenderCommandEncoder_(self, v6, 0);
+  objc_msgSend_setClientCommandQueue_(self, v7, 0);
   dispatch_release(self->_resourceQueue);
   dispatch_release(self->_inFlightFramesSemaphore);
   for (i = 0; i != 3; ++i)
   {
-    v14 = self + i * 8;
-    v15 = self->_background2DProgram[i];
-    if (v15)
+    v9 = self + i * 8;
+    v10 = self->_background2DProgram[i];
+    if (v10)
     {
-      CFRelease(v15);
-      *(v14 + 67) = 0;
+      CFRelease(v10);
+      *(v9 + 67) = 0;
     }
 
-    v16 = *(v14 + 70);
-    if (v16)
+    v11 = *(v9 + 70);
+    if (v11)
     {
-      CFRelease(v16);
-      *(v14 + 70) = 0;
+      CFRelease(v11);
+      *(v9 + 70) = 0;
     }
   }
 
@@ -367,17 +371,18 @@ LABEL_8:
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v21 = sub_1AF0D5194();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-    if (isKindOfClass)
+    v16 = isKindOfClass;
+    v18 = sub_1AF0D5194(isKindOfClass, v17);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    if (v16)
     {
-      if (v22)
+      if (v19)
       {
-        sub_1AFDE6000(&self->_commandBufferScheduledHandlers, v21, v23, v24);
+        sub_1AFDE6000(&self->_commandBufferScheduledHandlers, v18, v20);
       }
     }
 
-    else if (v22)
+    else if (v19)
     {
       sub_1AFDE5FCC();
     }
@@ -386,18 +391,19 @@ LABEL_8:
   if (self->_commandBufferCompletedHandlers)
   {
     objc_opt_class();
-    v25 = objc_opt_isKindOfClass();
-    v26 = sub_1AF0D5194();
-    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
-    if (v25)
+    v21 = objc_opt_isKindOfClass();
+    v22 = v21;
+    v24 = sub_1AF0D5194(v21, v23);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    if (v22)
     {
-      if (v27)
+      if (v25)
       {
-        sub_1AFDE60BC(&self->_commandBufferCompletedHandlers, v26, v28, v29);
+        sub_1AFDE60BC(&self->_commandBufferCompletedHandlers, v24, v26);
       }
     }
 
-    else if (v27)
+    else if (v25)
     {
       sub_1AFDE6088();
     }
@@ -406,35 +412,36 @@ LABEL_8:
   if (self->_drawablePresentedHandlers)
   {
     objc_opt_class();
-    v30 = objc_opt_isKindOfClass();
-    v31 = sub_1AF0D5194();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
-    if (v30)
+    v27 = objc_opt_isKindOfClass();
+    v28 = v27;
+    v30 = sub_1AF0D5194(v27, v29);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+    if (v28)
     {
-      if (v32)
+      if (v31)
       {
-        sub_1AFDE6178(&self->_commandBufferCompletedHandlers, v31, v33, v34);
+        sub_1AFDE6178(&self->_commandBufferCompletedHandlers, v30, v32);
       }
     }
 
-    else if (v32)
+    else if (v31)
     {
       sub_1AFDE6144();
     }
   }
 
   CFRelease(self->_gpuDevice);
-  objc_msgSend__clearRenderCaches(self, v35, v36, v37);
-  v38.receiver = self;
-  v38.super_class = VFXMTLRenderContext;
-  [(VFXMTLRenderContext *)&v38 dealloc];
+  objc_msgSend__clearRenderCaches(self, v33, v34);
+  v35.receiver = self;
+  v35.super_class = VFXMTLRenderContext;
+  [(VFXMTLRenderContext *)&v35 dealloc];
 }
 
 - (MTLCommandQueue)commandQueue
 {
   if (self->_clientCommandBuffer)
   {
-    return objc_msgSend_commandQueue(self->_clientCommandBuffer, a2, v2, v3);
+    return objc_msgSend_commandQueue(self->_clientCommandBuffer, a2, v2);
   }
 
   clientCommandQueue = self->_clientCommandQueue;
@@ -459,12 +466,12 @@ LABEL_8:
 {
   if (!second)
   {
-    v5 = objc_msgSend_mainScreen(MEMORY[0x1E69DCEB0], a2, 0, v3);
-    second = objc_msgSend_maximumFramesPerSecond(v5, v6, v7, v8);
+    v4 = objc_msgSend_mainScreen(MEMORY[0x1E69DCEB0], a2, 0);
+    second = objc_msgSend_maximumFramesPerSecond(v4, v5, v6);
     if (!second)
     {
-      v9 = sub_1AF0D5194();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = sub_1AF0D5194(0, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE6200();
       }
@@ -505,7 +512,7 @@ LABEL_8:
   if ((v4 & 1) != gamut)
   {
     *(self + 144) = v4 & 0xFE | gamut;
-    v5 = sub_1AF12DDCC(self->_engineContext);
+    v5 = sub_1AF12DDCC(self->_engineContext, a2);
 
     sub_1AF1BE334(@"kCFXNotificationEngineContextInvalidatePasses", v5, 0, 1u);
   }
@@ -565,7 +572,7 @@ LABEL_8:
     }
 
     *(self + 144) = v4 & 0xFD | v5;
-    v6 = sub_1AF12DDCC(self->_engineContext);
+    v6 = sub_1AF12DDCC(self->_engineContext, a2);
 
     sub_1AF1BE334(@"kCFXNotificationEngineContextInvalidatePasses", v6, 0, 1u);
   }
@@ -573,69 +580,69 @@ LABEL_8:
 
 - (void)_clearUnusedBindingPoints
 {
-  v3 = *&self->_anon_4950[128];
-  if (v3)
+  v2 = *&self->_anon_4950[128];
+  if (v2)
   {
-    objc_msgSend_pushDebugGroup_(self->_renderEncoder->var3, a2, @"Clear binding points", v2);
-    v8 = 0;
+    objc_msgSend_pushDebugGroup_(self->_renderEncoder->var3, a2, @"Clear binding points");
+    v6 = 0;
     for (i = 0; i != 31; ++i)
     {
       renderEncoder = self->_renderEncoder;
-      if ((v3[31] & (1 << i)) != 0)
+      if ((v2[31] & (1 << i)) != 0)
       {
-        v11 = 65280;
+        v9 = 65280;
       }
 
       else
       {
-        v11 = v8;
+        v9 = v6;
       }
 
-      if ((v3[30] & (1 << i)) == 0)
+      if ((v2[30] & (1 << i)) == 0)
       {
-        objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v5, 0, 0, i);
+        objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v4, 0, 0, i);
       }
 
-      if (v11 != 65280)
+      if (v9 != 65280)
       {
-        objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v5, 0, 0, v11 >> 8);
+        objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v4, 0, 0, v9 >> 8);
       }
 
-      v8 += 256;
+      v6 += 256;
     }
 
-    v12 = 0;
+    v10 = 0;
     for (j = 0; j != 31; ++j)
     {
-      v14 = self->_renderEncoder;
-      if ((v3[33] & (1 << j)) != 0)
+      v12 = self->_renderEncoder;
+      if ((v2[33] & (1 << j)) != 0)
       {
-        v15 = 65280;
+        v13 = 65280;
       }
 
       else
       {
-        v15 = v12;
+        v13 = v10;
       }
 
-      if ((v3[32] & (1 << j)) == 0)
+      if ((v2[32] & (1 << j)) == 0)
       {
-        v18 = 0;
-        sub_1AF1F3034(v14->var2, &v18, 1, v7);
-        objc_msgSend_setVertexTexture_atIndex_(v14->var3, v16, v18, j);
+        v16 = 0;
+        sub_1AF1F3034(v12->var2, &v16, 1);
+        objc_msgSend_setVertexTexture_atIndex_(v12->var3, v14, v16, j);
       }
 
-      if (v15 != 65280)
+      if (v13 != 65280)
       {
-        v18 = 0;
-        sub_1AF1F3034(v14->var2, &v18, 1, v7);
-        objc_msgSend_setFragmentTexture_atIndex_(v14->var3, v17, v18, v15 >> 8);
+        v16 = 0;
+        sub_1AF1F3034(v12->var2, &v16, 1);
+        objc_msgSend_setFragmentTexture_atIndex_(v12->var3, v15, v16, v13 >> 8);
       }
 
-      v12 += 256;
+      v10 += 256;
     }
 
-    objc_msgSend_popDebugGroup(self->_renderEncoder->var3, v5, v6, v7);
+    objc_msgSend_popDebugGroup(self->_renderEncoder->var3, v4, v5);
   }
 }
 
@@ -644,18 +651,18 @@ LABEL_8:
   v5 = self->_currentFrameIndex + 1;
   self->_currentFrameIndex = v5;
   dispatch_semaphore_wait(self->_inFlightFramesSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-  v6 = sub_1AF12DDCC(self->_engineContext);
-  if (v6)
+  v7 = sub_1AF12DDCC(self->_engineContext, v6);
+  if (v7)
   {
-    v7 = sub_1AF1D13B8(v6);
-    vfx_counters_push_frame(v7);
+    v9 = sub_1AF1D13B8(v7, v8);
+    vfx_counters_push_frame(v9);
   }
 
-  v8 = sub_1AF130D04(self->_engineContext);
-  vfx_counters_push_frame(v8);
+  v10 = sub_1AF130D04(self->_engineContext, v8);
+  vfx_counters_push_frame(v10);
   prof_beginFlameSmallData("[VFXMTLRenderContext beginFrame:]", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/CFX/NewRenderer/VFXMTLRenderContext.mm", 1140, LODWORD(self->_currentFrameIndex) | 0x300000000);
   self->_counters = 0u;
-  objc_msgSend_reloadPipelinesIfNeeded(self->_resourceManager, v9, v10, v11);
+  objc_msgSend_reloadPipelinesIfNeeded(self->_resourceManager, v11, v12);
 
   self->_textureTarget = 0;
   self->_layerTarget = 0;
@@ -665,7 +672,7 @@ LABEL_8:
   {
     frameCopy = frame;
     self->_layerTarget = frameCopy;
-    self->_shouldPresentWithTransaction = objc_msgSend_presentsWithTransaction(frameCopy, v13, v14, v15);
+    self->_shouldPresentWithTransaction = objc_msgSend_presentsWithTransaction(frameCopy, v14, v15);
   }
 
   else
@@ -673,8 +680,8 @@ LABEL_8:
     self->_textureTarget = frame;
   }
 
-  CFXBufferAllocatorPerFrameNextFrame(self->_frameConstantBufferPool.impl);
-  CFXBufferAllocatorPerFrameNextFrame(self->_frameVolatileBufferPool.impl);
+  CFXBufferAllocatorPerFrameNextFrame(self->_frameConstantBufferPool.impl, v16);
+  CFXBufferAllocatorPerFrameNextFrame(self->_frameVolatileBufferPool.impl, v17);
   CFXTextureAllocatorPerFrameNextFrame(self->_frameTexturePool.impl);
   clientCommandBuffer = self->_clientCommandBuffer;
   if (clientCommandBuffer)
@@ -686,15 +693,15 @@ LABEL_8:
   else
   {
     os_variant_has_internal_diagnostics();
-    v23 = objc_msgSend_commandQueue(self, v20, v21, v22);
-    self->_currentCommandBuffer = objc_msgSend_commandBuffer(v23, v24, v25, v26);
+    v24 = objc_msgSend_commandQueue(self, v22, v23);
+    self->_currentCommandBuffer = objc_msgSend_commandBuffer(v24, v25, v26);
     prof_eventSmallData(0, "Current CB creation to completion", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/CFX/NewRenderer/VFXMTLRenderContext.mm", 1225, v5 | 0x300000000);
-    sub_1AF70CC44(self->_currentCommandBuffer);
+    v21 = sub_1AF70CC44(self->_currentCommandBuffer, v27);
   }
 
   if (self->_compilationIssues.collectEnabled)
   {
-    objc_msgSend_removeAllObjects(self->_compilationIssues.errors, v17, v18, v19);
+    objc_msgSend_removeAllObjects(self->_compilationIssues.errors, v19, v20, v21);
   }
 
   self->_remote.vfcGlobalConstants = 0u;
@@ -709,30 +716,30 @@ LABEL_8:
   v32[5] = inFlightFramesSemaphore;
   v32[6] = v5;
   v32[4] = self;
-  objc_msgSend_addCompletedHandler_(currentCommandBuffer, v17, v32, v19);
-  objc_msgSend_updateFrameConstants(self, v29, v30, v31);
+  objc_msgSend_addCompletedHandler_(currentCommandBuffer, v19, v32);
+  objc_msgSend_updateFrameConstants(self, v30, v31);
   prof_endFlame();
 }
 
 - (void)endFrameWorldSpecifics
 {
-  objc_msgSend_resetVolatileMeshes(self, a2, v2, v3);
+  objc_msgSend_resetVolatileMeshes(self, a2, v2);
 
-  MEMORY[0x1EEE66B58](self, sel_resetVolatileMeshElements, v5, v6);
+  MEMORY[0x1EEE66B58](self, sel_resetVolatileMeshElements, v4);
 }
 
 - (void)_endResourceCommandBufferEncodingIfAny
 {
   if (self->_resourceBlitEncoder._encoder)
   {
-    sub_1AF1FE520(&self->_resourceBlitEncoder, a2, v2, v3);
+    sub_1AF1FE520(&self->_resourceBlitEncoder, a2, v2);
   }
 
-  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2, v3))
+  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2))
   {
     resourceComputeEncoder = self->_resourceComputeEncoder;
 
-    objc_msgSend_endEncoding(resourceComputeEncoder, v5, v6, v7);
+    objc_msgSend_endEncoding(resourceComputeEncoder, v4, v5);
   }
 }
 
@@ -740,8 +747,8 @@ LABEL_8:
 {
   if (self->_resourceCommandBuffer)
   {
-    objc_msgSend__endResourceCommandBufferEncodingIfAny(self, a2, v2, v3);
-    objc_msgSend_commit(self->_resourceCommandBuffer, v5, v6, v7);
+    objc_msgSend__endResourceCommandBufferEncodingIfAny(self, a2, v2);
+    objc_msgSend_commit(self->_resourceCommandBuffer, v4, v5);
 
     self->_resourceCommandBuffer = 0;
   }
@@ -752,18 +759,18 @@ LABEL_8:
   completedCopy = completed;
   currentFrameIndex = self->_currentFrameIndex;
   prof_beginFlameSmallData("[VFXMTLRenderContext endFrameWaitingUntilCompleted:status:error:]", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/CFX/NewRenderer/VFXMTLRenderContext.mm", 1330, currentFrameIndex | 0x300000000);
-  objc_msgSend__commitResourceCommandBufferIfNeeded(self, v10, v11, v12);
+  objc_msgSend__commitResourceCommandBufferIfNeeded(self, v10, v11);
   os_unfair_lock_lock(&self->_gpuHandlersLock);
   commandBufferScheduledHandlers = self->_commandBufferScheduledHandlers;
   if (commandBufferScheduledHandlers)
   {
     currentCommandBuffer = self->_currentCommandBuffer;
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = sub_1AF1FE924;
-    v57[3] = &unk_1E7A7CC48;
-    v57[4] = commandBufferScheduledHandlers;
-    objc_msgSend_addScheduledHandler_(currentCommandBuffer, v13, v57, v14);
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = sub_1AF1FE924;
+    v45[3] = &unk_1E7A7CC48;
+    v45[4] = commandBufferScheduledHandlers;
+    objc_msgSend_addScheduledHandler_(currentCommandBuffer, v12, v45);
 
     self->_commandBufferScheduledHandlers = 0;
   }
@@ -779,14 +786,14 @@ LABEL_8:
     commandBufferCompletedHandlers = self->_commandBufferCompletedHandlers;
   }
 
-  v18 = self->_currentCommandBuffer;
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = sub_1AF1FEA80;
-  v56[3] = &unk_1E7A7CC70;
-  v56[4] = commandBufferCompletedHandlers;
-  v56[5] = currentFrameIndex;
-  objc_msgSend_addCompletedHandler_(v18, v13, v56, v14);
+  v16 = self->_currentCommandBuffer;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = sub_1AF1FEA80;
+  v44[3] = &unk_1E7A7CC70;
+  v44[4] = commandBufferCompletedHandlers;
+  v44[5] = currentFrameIndex;
+  objc_msgSend_addCompletedHandler_(v16, v12, v44);
 
   self->_commandBufferCompletedHandlers = 0;
 LABEL_7:
@@ -795,10 +802,10 @@ LABEL_7:
     goto LABEL_18;
   }
 
-  v19 = sub_1AF12F434(self->_engineContext);
-  v26 = objc_msgSend__supportsDidPresentDelegate(v19, v20, v21, v22);
+  v17 = sub_1AF12F434(self->_engineContext, v12);
+  v22 = objc_msgSend__supportsDidPresentDelegate(v17, v18, v19);
   drawablePresentedHandlers = self->_drawablePresentedHandlers;
-  if (!((drawablePresentedHandlers != 0) | v26 & 1))
+  if (!((drawablePresentedHandlers != 0) | v22 & 1))
   {
     if (!prof_getEnabled())
     {
@@ -808,49 +815,49 @@ LABEL_7:
     drawablePresentedHandlers = self->_drawablePresentedHandlers;
   }
 
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = sub_1AF1FEC98;
-  v54[3] = &unk_1E7A7CC98;
-  v54[5] = v19;
-  v54[6] = currentFrameIndex;
-  v55 = v26;
-  v54[4] = drawablePresentedHandlers;
-  v28 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v23, v24, v25);
-  objc_msgSend_addPresentedHandler_(v28, v29, v54, v30);
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = sub_1AF1FEC98;
+  v42[3] = &unk_1E7A7CC98;
+  v42[5] = v17;
+  v42[6] = currentFrameIndex;
+  v43 = v22;
+  v42[4] = drawablePresentedHandlers;
+  v24 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v20, v21);
+  objc_msgSend_addPresentedHandler_(v24, v25, v42);
 
   self->_drawablePresentedHandlers = 0;
 LABEL_12:
   if (self->_shouldPresentWithTransaction)
   {
-    objc_msgSend_begin(MEMORY[0x1E6979518], v23, v24, v25);
+    objc_msgSend_begin(MEMORY[0x1E6979518], v20, v21);
     if (!pthread_main_np())
     {
-      objc_msgSend_activateBackground_(MEMORY[0x1E6979518], v23, 1, v25);
+      objc_msgSend_activateBackground_(MEMORY[0x1E6979518], v20, 1);
     }
   }
 
-  v31 = self->_currentCommandBuffer;
-  v32 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v23, v24, v25);
-  objc_msgSend_presentDrawable_(v31, v33, v32, v34);
+  v26 = self->_currentCommandBuffer;
+  v27 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v20, v21);
+  objc_msgSend_presentDrawable_(v26, v28, v27);
   if (self->_shouldPresentWithTransaction)
   {
-    objc_msgSend_commit(MEMORY[0x1E6979518], v35, v36, v37);
+    objc_msgSend_commit(MEMORY[0x1E6979518], v29, v30);
   }
 
   self->_metalDisplayLinkUpdate = 0;
 LABEL_18:
   os_unfair_lock_unlock(&self->_gpuHandlersLock);
-  objc_msgSend__commitResourceCommandBufferIfNeeded(self, v38, v39, v40);
+  objc_msgSend__commitResourceCommandBufferIfNeeded(self, v31, v32);
   clientCommandBuffer = self->_clientCommandBuffer;
   if (clientCommandBuffer)
   {
     if (completedCopy)
     {
-      objc_msgSend_waitUntilCompleted(clientCommandBuffer, v41, v42, v43);
+      objc_msgSend_waitUntilCompleted(clientCommandBuffer, v33, v34);
       if (status)
       {
-        *status = objc_msgSend_status(self->_clientCommandBuffer, v41, v45, v43);
+        *status = objc_msgSend_status(self->_clientCommandBuffer, v33, v36);
       }
 
       if (error)
@@ -859,30 +866,30 @@ LABEL_18:
       }
     }
 
-    objc_msgSend_setClientCommandBuffer_(self, v41, 0, v43);
+    objc_msgSend_setClientCommandBuffer_(self, v33, 0);
   }
 
   else
   {
-    objc_msgSend_commit(self->_currentCommandBuffer, v41, v42, v43);
+    objc_msgSend_commit(self->_currentCommandBuffer, v33, v34);
     if (completedCopy)
     {
-      objc_msgSend_waitUntilCompleted(self->_currentCommandBuffer, v46, v48, v47);
+      objc_msgSend_waitUntilCompleted(self->_currentCommandBuffer, v37, v38);
       if (status)
       {
-        *status = objc_msgSend_status(self->_currentCommandBuffer, v46, v49, v47);
+        *status = objc_msgSend_status(self->_currentCommandBuffer, v37, v39);
       }
 
       if (error)
       {
-        *error = objc_msgSend_error(self->_currentCommandBuffer, v46, v49, v47);
+        *error = objc_msgSend_error(self->_currentCommandBuffer, v37, v39);
       }
     }
   }
 
-  objc_msgSend_setClientRenderCommandEncoder_(self, v46, 0, v47);
-  objc_msgSend_setClientRenderPassDescriptor_(self, v50, 0, v51);
-  objc_msgSend_setClientCommandQueue_(self, v52, 0, v53);
+  objc_msgSend_setClientRenderCommandEncoder_(self, v37, 0);
+  objc_msgSend_setClientRenderPassDescriptor_(self, v40, 0);
+  objc_msgSend_setClientCommandQueue_(self, v41, 0);
   self->_currentCommandBuffer = 0;
   *&self->_anon_4190[672] = 0;
 
@@ -903,9 +910,9 @@ LABEL_18:
   {
     if (self->_layerTarget)
     {
-      v11 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v8, v9, v10);
+      v10 = objc_msgSend_drawable(self->_metalDisplayLinkUpdate, v8, v9);
 
-      return objc_msgSend_texture(v11, v12, v13, v14);
+      return objc_msgSend_texture(v10, v11, v12);
     }
 
     else
@@ -935,49 +942,53 @@ LABEL_18:
 
   *(desc + 12) = v11;
   impl = self->_frameTexturePool.impl;
-  v59 = *&desc->var0.var0;
-  v60 = *(desc + 2);
-  v13 = CFXTextureAllocatorPerFrameAllocate(impl, &v59);
+  v53 = *&desc->var0.var0;
+  v54 = *(desc + 2);
+  v13 = CFXTextureAllocatorPerFrameAllocate(impl, &v53);
   v14 = sub_1AF1F1AAC() >> 3;
   v15 = *(desc + 4);
   v16 = v15 * v14;
   v17 = v16 * (v15 >> 16);
-  v21 = objc_msgSend_width(v13, v18, v19, v20);
-  v25 = objc_msgSend_height(v13, v22, v23, v24);
-  v29 = objc_msgSend_depth(v13, v26, v27, v28);
+  v20 = objc_msgSend_width(v13, v18, v19);
+  v23 = objc_msgSend_height(v13, v21, v22);
+  v26 = objc_msgSend_depth(v13, v24, v25);
   if (blitCopy)
   {
-    v59 = 0uLL;
-    v60 = 0;
-    v61 = v21;
-    v62 = v25;
-    v63 = v29;
-    CPUPointer = CFXBufferSliceGetCPUPointer(var0, v7, v31, v32);
-    objc_msgSend_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage_(v13, v34, &v59, 0, 0, CPUPointer, v16, v17);
+    v53 = 0uLL;
+    v54 = 0;
+    v55 = v20;
+    v56 = v23;
+    v57 = v26;
+    CPUPointer = CFXBufferSliceGetCPUPointer(var0, v7, v28);
+    objc_msgSend_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage_(v13, v30, &v53, 0, 0, CPUPointer, v16, v17);
   }
 
   else
   {
-    LOWORD(v59) = v14;
-    WORD1(v59) = v16;
-    DWORD1(v59) = v17;
-    if (objc_msgSend_pixelFormat(v13, v30, v31, v32, v59) != 23 && objc_msgSend_pixelFormat(v13, v35, v36, v37) != 63 && objc_msgSend_pixelFormat(v13, v35, v38, v37) != 113)
+    LOWORD(v53) = v14;
+    WORD1(v53) = v16;
+    DWORD1(v53) = v17;
+    if (objc_msgSend_pixelFormat(v13, v27, v28, v53) != 23 && objc_msgSend_pixelFormat(v13, v31, v32) != 63)
     {
-      v39 = sub_1AF0D5194();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+      v34 = objc_msgSend_pixelFormat(v13, v31, v33);
+      if (v34 != 113)
       {
-        sub_1AFDE6350(v39, v35, v40, v37, v41, v42, v43, v44);
+        v35 = sub_1AF0D5194(v34, v31);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+        {
+          sub_1AFDE6350(v35, v31, v36, v37, v38, v39, v40, v41);
+        }
       }
     }
 
-    v45 = objc_msgSend_computePipelineStateForKernel_(self->_resourceManager, v35, @"copy_texture_3D_from_buffer_ushort", v37);
-    v49 = objc_msgSend_resourceComputeEncoder(self, v46, v47, v48);
-    v50 = sub_1AFDE323C(v45);
-    objc_msgSend_setComputePipelineState_(v49, v51, v50, v52);
-    objc_msgSend_setBufferSlice_atIndex_(v49, v53, var0, v7, 0);
-    objc_msgSend_setBytes_length_atIndex_(v49, v54, &v59, 8, 1);
-    objc_msgSend_setTexture_atIndex_(v49, v55, v13, 0);
-    objc_msgSend_dispatchOnTexture3D_(v49, v56, v13, v57);
+    v42 = objc_msgSend_computePipelineStateForKernel_(self->_resourceManager, v31, @"copy_texture_3D_from_buffer_ushort");
+    v45 = objc_msgSend_resourceComputeEncoder(self, v43, v44);
+    v46 = sub_1AFDE323C(v42);
+    objc_msgSend_setComputePipelineState_(v45, v47, v46);
+    objc_msgSend_setBufferSlice_atIndex_(v45, v48, var0, v7, 0);
+    objc_msgSend_setBytes_length_atIndex_(v45, v49, &v53, 8, 1);
+    objc_msgSend_setTexture_atIndex_(v45, v50, v13, 0);
+    objc_msgSend_dispatchOnTexture3D_(v45, v51, v13);
   }
 
   return v13;
@@ -1009,21 +1020,21 @@ LABEL_18:
 {
   if (!self->_resourceCommandBuffer)
   {
-    v16[7] = v2;
-    v16[8] = v3;
+    v14[7] = v2;
+    v14[8] = v3;
     os_variant_has_internal_diagnostics();
-    v8 = objc_msgSend_commandQueue(self, v5, v6, v7);
-    self->_resourceCommandBuffer = objc_msgSend_commandBuffer(v8, v9, v10, v11);
+    v7 = objc_msgSend_commandQueue(self, v5, v6);
+    self->_resourceCommandBuffer = objc_msgSend_commandBuffer(v7, v8, v9);
     prof_eventSmallData(0, "Resource CB creation to completion", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/CFX/NewRenderer/VFXMTLRenderContext.mm", 1757, LODWORD(self->_currentFrameIndex) | 0x300000000);
-    sub_1AF70CC44(self->_resourceCommandBuffer);
-    v12 = self->_resourceCommandBuffer;
+    sub_1AF70CC44(self->_resourceCommandBuffer, v10);
+    v11 = self->_resourceCommandBuffer;
     resourceCommandBuffer = self->_resourceCommandBuffer;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_1AF1FF240;
-    v16[3] = &unk_1E7A7CC48;
-    v16[4] = self;
-    objc_msgSend_addCompletedHandler_(resourceCommandBuffer, v14, v16, v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_1AF1FF240;
+    v14[3] = &unk_1E7A7CC48;
+    v14[4] = self;
+    objc_msgSend_addCompletedHandler_(resourceCommandBuffer, v13, v14);
   }
 }
 
@@ -1031,17 +1042,17 @@ LABEL_18:
 {
   if (!self->_resourceCommandBuffer)
   {
-    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2, v3);
+    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2);
   }
 
-  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2, v3))
+  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2))
   {
-    objc_msgSend_endEncoding(self->_resourceComputeEncoder, v5, v6, v7);
+    objc_msgSend_endEncoding(self->_resourceComputeEncoder, v4, v5);
   }
 
   if (self->_resourceBlitEncoder._encoder)
   {
-    sub_1AF1FE520(&self->_resourceBlitEncoder, v5, v6, v7);
+    sub_1AF1FE520(&self->_resourceBlitEncoder, v4, v5);
   }
 
   return self->_resourceCommandBuffer;
@@ -1051,17 +1062,17 @@ LABEL_18:
 {
   if (!self->_resourceCommandBuffer)
   {
-    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2, v3);
+    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2);
   }
 
-  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2, v3))
+  if (objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2))
   {
-    objc_msgSend_endEncoding(self->_resourceComputeEncoder, v5, v6, v7);
+    objc_msgSend_endEncoding(self->_resourceComputeEncoder, v4, v5);
   }
 
   if (!self->_resourceBlitEncoder._encoder)
   {
-    sub_1AF1FF3B8(&self->_resourceBlitEncoder._encoder, self->_resourceCommandBuffer, 0, v7);
+    sub_1AF1FF3B8(&self->_resourceBlitEncoder, self->_resourceCommandBuffer, 0);
   }
 
   return &self->_resourceBlitEncoder;
@@ -1071,17 +1082,17 @@ LABEL_18:
 {
   if (!self->_resourceCommandBuffer)
   {
-    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2, v3);
+    objc_msgSend__createResourceCommandBufferIfNeeded(self, a2, v2);
   }
 
   if (self->_resourceBlitEncoder._encoder)
   {
-    sub_1AF1FE520(&self->_resourceBlitEncoder, a2, v2, v3);
+    sub_1AF1FE520(&self->_resourceBlitEncoder, a2, v2);
   }
 
-  if ((objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2, v3) & 1) == 0)
+  if ((objc_msgSend_isEncoding(self->_resourceComputeEncoder, a2, v2) & 1) == 0)
   {
-    objc_msgSend_beginEncodingWithCommandBuffer_label_(self->_resourceComputeEncoder, v5, self->_resourceCommandBuffer, @"ResourceComputeEncoder");
+    objc_msgSend_beginEncodingWithCommandBuffer_label_(self->_resourceComputeEncoder, v4, self->_resourceCommandBuffer, @"ResourceComputeEncoder");
   }
 
   return self->_resourceComputeEncoder;
@@ -1090,7 +1101,7 @@ LABEL_18:
 - (void)_beginRenderPass:(id *)pass renderEncoder:(void *)encoder
 {
   self->_renderEncoder = encoder;
-  objc_msgSend__clearRenderCaches(self, a2, pass, encoder);
+  objc_msgSend__clearRenderCaches(self, a2, pass);
   v6 = *&self->_currentRenderPassDesc.colorFormat[6];
   *&self->_originalRenderPassDesc.colorFormat[4] = *&self->_currentRenderPassDesc.colorFormat[4];
   *&self->_originalRenderPassDesc.colorFormat[6] = v6;
@@ -1115,28 +1126,28 @@ LABEL_18:
 
 - (void)beginRenderPass:(id)pass renderEncoder:(void *)encoder
 {
-  v7 = objc_msgSend_colorAttachments(pass, a2, pass, encoder);
-  v10 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, 0, v9);
-  v17 = objc_msgSend_texture(v10, v11, v12, v13);
-  if (!v17)
+  v7 = objc_msgSend_colorAttachments(pass, a2, pass);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, 0);
+  v14 = objc_msgSend_texture(v9, v10, v11);
+  if (!v14)
   {
-    v18 = objc_msgSend_depthAttachment(pass, v14, v15, v16);
-    v17 = objc_msgSend_texture(v18, v19, v20, v21);
+    v15 = objc_msgSend_depthAttachment(pass, v12, v13);
+    v14 = objc_msgSend_texture(v15, v16, v17);
   }
 
-  *self->_currentRenderSize = objc_msgSend_width(v17, v14, v15, v16);
-  *&self->_currentRenderSize[4] = objc_msgSend_height(v17, v22, v23, v24);
-  v28 = objc_msgSend_colorAttachments(pass, v25, v26, v27);
-  v31 = objc_msgSend_objectAtIndexedSubscript_(v28, v29, 0, v30);
-  objc_msgSend_clearColor(v31, v32, v33, v34);
-  self->_currentClearColor.red = v35;
-  self->_currentClearColor.green = v36;
-  self->_currentClearColor.blue = v37;
-  self->_currentClearColor.alpha = v38;
-  v45 = 0;
-  memset(v44, 0, sizeof(v44));
-  v42 = sub_1AF218EA4(pass, v39, v40, v41, v44);
-  objc_msgSend__beginRenderPass_renderEncoder_(self, v43, v44, encoder, v42);
+  *self->_currentRenderSize = objc_msgSend_width(v14, v12, v13);
+  *&self->_currentRenderSize[4] = objc_msgSend_height(v14, v18, v19);
+  v22 = objc_msgSend_colorAttachments(pass, v20, v21);
+  v24 = objc_msgSend_objectAtIndexedSubscript_(v22, v23, 0);
+  objc_msgSend_clearColor(v24, v25, v26);
+  self->_currentClearColor.red = v27;
+  self->_currentClearColor.green = v28;
+  self->_currentClearColor.blue = v29;
+  self->_currentClearColor.alpha = v30;
+  v36 = 0;
+  memset(v35, 0, sizeof(v35));
+  v33 = sub_1AF218EA4(pass, v35, v31, v32);
+  objc_msgSend__beginRenderPass_renderEncoder_(self, v34, v35, encoder, v33);
 }
 
 - (void)beginRenderPass:(id)pass renderEncoder:(void *)encoder parameters:(id)parameters
@@ -1144,7 +1155,7 @@ LABEL_18:
   v5 = *&parameters.var0;
   objc_msgSend_beginRenderPass_renderEncoder_(self, a2, pass, encoder);
 
-  objc_msgSend_setRenderPassParameters_(self, v7, v5 & 0xFFFFFFFFFFFFLL, v8);
+  objc_msgSend_setRenderPassParameters_(self, v7, v5 & 0xFFFFFFFFFFFFLL);
 }
 
 - (void)endRenderPass
@@ -1167,32 +1178,32 @@ LABEL_18:
   if (self->_currentFrameIndex != index)
   {
     self->_currentFrameIndex = index;
-    objc_msgSend__clearRenderCaches(self, a2, encoder, index);
+    objc_msgSend__clearRenderCaches(self, a2, encoder);
     bzero(self->_anon_4b00, 0x400uLL);
-    CFXBufferAllocatorPerFrameNextFrame(self->_frameConstantBufferPool.impl);
-    CFXBufferAllocatorPerFrameNextFrame(self->_frameVolatileBufferPool.impl);
+    CFXBufferAllocatorPerFrameNextFrame(self->_frameConstantBufferPool.impl, v6);
+    CFXBufferAllocatorPerFrameNextFrame(self->_frameVolatileBufferPool.impl, v7);
     CFXTextureAllocatorPerFrameNextFrame(self->_frameTexturePool.impl);
-    v9 = sub_1AFDEB254(self->_reContext);
+    v10 = sub_1AFDEB254(self->_reContext);
     self->_currentWorldBufferIndex = -1;
 
-    objc_msgSend_updateFrameConstants(self, v6, v7, v8, v9);
+    objc_msgSend_updateFrameConstants(self, v8, v9, v10);
   }
 }
 
 - (void)endExternalFrame
 {
-  v5 = *&self->_originalRenderPassDesc.colorFormat[6];
+  v4 = *&self->_originalRenderPassDesc.colorFormat[6];
   *&self->_currentRenderPassDesc.colorFormat[4] = *&self->_originalRenderPassDesc.colorFormat[4];
-  *&self->_currentRenderPassDesc.colorFormat[6] = v5;
+  *&self->_currentRenderPassDesc.colorFormat[6] = v4;
   *&self->_currentRenderPassDesc.depthFormat = *&self->_originalRenderPassDesc.depthFormat;
   *&self->_currentRenderPassDesc.sampleCount = *&self->_originalRenderPassDesc.sampleCount;
-  v6 = *&self->_originalRenderPassDesc.colorFormat[2];
+  v5 = *&self->_originalRenderPassDesc.colorFormat[2];
   *self->_currentRenderPassDesc.colorFormat = *self->_originalRenderPassDesc.colorFormat;
-  *&self->_currentRenderPassDesc.colorFormat[2] = v6;
-  objc_msgSend__commitResourceCommandBufferIfNeeded(self, a2, v2, v3);
+  *&self->_currentRenderPassDesc.colorFormat[2] = v5;
+  objc_msgSend__commitResourceCommandBufferIfNeeded(self, a2, v2);
   self->_renderEncoder = 0;
-  objc_msgSend_setClientRenderCommandEncoder_(self, v7, 0, v8);
-  objc_msgSend_setClientRenderPassDescriptor_(self, v9, 0, v10);
+  objc_msgSend_setClientRenderCommandEncoder_(self, v6, 0);
+  objc_msgSend_setClientRenderPassDescriptor_(self, v7, 0);
   self->_currentCommandBuffer = 0;
   *&self->_anon_4190[672] = 0;
 }
@@ -1211,36 +1222,36 @@ LABEL_18:
 
 - (id)irradianceTextureForMaterialProperty:(__CFXMaterialProperty *)property
 {
-  v5 = sub_1AF1676F4(property);
+  v5 = sub_1AF1676F4(property, a2);
   if (v5)
   {
-    v8 = v5;
+    v7 = v5;
     resourceManager = self->_resourceManager;
 
-    return MEMORY[0x1EEE66B58](resourceManager, sel_irradianceTextureForPrecomputedLightingEnvironment_, v8, v7);
+    return MEMORY[0x1EEE66B58](resourceManager, sel_irradianceTextureForPrecomputedLightingEnvironment_, v7);
   }
 
   else
   {
-    result = objc_msgSend_textureForMaterialProperty_(self, v6, property, v7);
+    result = objc_msgSend_textureForMaterialProperty_(self, v6, property);
     if (result)
     {
-      v13 = result;
-      if (objc_msgSend_textureType(result, v10, v11, v12) == 5)
+      v11 = result;
+      if (objc_msgSend_textureType(result, v9, v10) == 5)
       {
         lightingSystem = self->_processingContext.lightingSystem;
         if (lightingSystem)
         {
-          lightingSystem = sub_1AF139110(lightingSystem);
+          lightingSystem = sub_1AF139110(lightingSystem, v12);
         }
 
-        v16 = self->_resourceManager;
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = sub_1AF1FF934;
-        v18[3] = &unk_1E7A7CCB8;
-        v18[4] = lightingSystem;
-        return objc_msgSend_irradianceTextureForEnvironmentTexture_renderContext_applySH_(v16, v14, v13, self, v18);
+        v14 = self->_resourceManager;
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = sub_1AF1FF934;
+        v16[3] = &unk_1E7A7CCB8;
+        v16[4] = lightingSystem;
+        return objc_msgSend_irradianceTextureForEnvironmentTexture_renderContext_applySH_(v14, v12, v11, self, v16);
       }
 
       else
@@ -1255,24 +1266,23 @@ LABEL_18:
 
 - (id)radianceTextureForMaterialProperty:(__CFXMaterialProperty *)property
 {
-  v5 = sub_1AF1676F4(property);
+  v5 = sub_1AF1676F4(property, a2);
   if (v5)
   {
-    v8 = v5;
+    v7 = v5;
     resourceManager = self->_resourceManager;
 
-    return MEMORY[0x1EEE66B58](resourceManager, sel_radianceTextureForPrecomputedLightingEnvironment_, v8, v7);
+    return MEMORY[0x1EEE66B58](resourceManager, sel_radianceTextureForPrecomputedLightingEnvironment_, v7);
   }
 
   else
   {
-    v10 = objc_msgSend_textureForMaterialProperty_(self, v6, property, v7);
-    if (v10 && (v14 = v10, objc_msgSend_textureType(v10, v11, v12, v13) == 5))
+    v9 = objc_msgSend_textureForMaterialProperty_(self, v6, property);
+    if (v9 && (v12 = v9, objc_msgSend_textureType(v9, v10, v11) == 5))
     {
-      v15 = self->_resourceManager;
-      engineContext = self->_engineContext;
+      v13 = self->_resourceManager;
 
-      return MEMORY[0x1EEE66B58](v15, sel_radianceTextureForEnvironmentTexture_engineContext_, v14, engineContext);
+      return MEMORY[0x1EEE66B58](v13, sel_radianceTextureForEnvironmentTexture_engineContext_, v12);
     }
 
     else
@@ -1284,10 +1294,10 @@ LABEL_18:
 
 - (id)deformedRaytraceableMeshForNode:(__CFXNode *)node fallbackModel:(__CFXModel *)model
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v137 = *MEMORY[0x1E69E9840];
   if (node)
   {
-    v7 = sub_1AF1B75A0(node);
+    v7 = sub_1AF1B75A0(node, a2);
   }
 
   else
@@ -1309,242 +1319,243 @@ LABEL_18:
   v12 = v11 == 0;
   if (node)
   {
-    v13 = sub_1AF1B7558(node);
+    v13 = sub_1AF1B7558(node, v9);
     if (v13)
     {
       v14 = v13;
-      if (sub_1AF16B74C(v13))
+      if (sub_1AF16B74C(v13, v9))
       {
         v15 = sub_1AF27DD4C(modelCopy, 0);
         v17 = objc_msgSend_renderResourceForDeformerStack_node_dataKind_(self->_resourceManager, v16, v14, node, v12);
         if (sub_1AFDE22C0(v17))
         {
-          v18 = sub_1AF12DDCC(self->_engineContext);
-          v19 = sub_1AF1D0218(v18);
-          v20 = sub_1AF14CD4C(v19, node->var4);
-          v102 = *v20;
-          v104 = v20[1];
-          v98 = v20[2];
-          v100 = v20[3];
-          v21 = sub_1AF1B92C8(node);
-          if (v21)
+          v19 = sub_1AF12DDCC(self->_engineContext, v18);
+          v21 = sub_1AF1D0218(v19, v20);
+          v22 = sub_1AF14CD4C(v21, node->var4);
+          v105 = *v22;
+          v107 = v22[1];
+          v101 = v22[2];
+          v103 = v22[3];
+          v24 = sub_1AF1B92C8(node, v23);
+          if (v24)
           {
-            v22 = v21;
-            v23 = sub_1AF1C9420(v21);
-            *v24.i64 = sub_1AF1CA3E8(v22, v23, v102, v104, v98, v100);
-            v28 = v24;
+            v25 = v24;
+            v26 = sub_1AF1C9420(v24);
+            *v27.i64 = sub_1AF1CA3E8(v25, v26, v105, v107, v101, v103);
+            v31 = v27;
           }
 
           else
           {
-            v26 = v98;
-            v27 = v100;
-            v28 = v102;
-            v25 = v104;
+            v29 = v101;
+            v30 = v103;
+            v31 = v105;
+            v28 = v107;
           }
 
-          v34 = 0;
-          v35 = *self->_anon_2d0;
-          v36 = *&self->_anon_2d0[16];
-          v37 = *&self->_anon_2d0[32];
-          v38 = *&self->_anon_2d0[48];
-          v111 = v28;
-          v112 = v25;
-          v113 = v26;
-          v114 = v27;
+          v37 = 0;
+          v38 = *self->_anon_2d0;
+          v39 = *&self->_anon_2d0[16];
+          v40 = *&self->_anon_2d0[32];
+          v41 = *&self->_anon_2d0[48];
+          v114 = v31;
+          v115 = v28;
+          v116 = v29;
+          v117 = v30;
           do
           {
-            *(&v118 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, COERCE_FLOAT(*(&v111 + v34))), v36, *&v111.f32[v34 / 4], 1), v37, *(&v111 + v34), 2), v38, *(&v111 + v34), 3);
-            v34 += 16;
+            *(&v121 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v38, COERCE_FLOAT(*(&v114 + v37))), v39, *&v114.f32[v37 / 4], 1), v40, *(&v114 + v37), 2), v41, *(&v114 + v37), 3);
+            v37 += 16;
           }
 
-          while (v34 != 64);
-          v39 = 0;
-          v101 = v119;
-          v103 = v118;
-          v97 = v121;
-          v99 = v120;
-          v40 = *&self->_anon_2d0[192];
-          v41 = *&self->_anon_2d0[208];
-          v42 = *&self->_anon_2d0[224];
-          v43 = *&self->_anon_2d0[240];
-          v111 = v28;
-          v112 = v25;
-          v113 = v26;
-          v114 = v27;
+          while (v37 != 64);
+          v42 = 0;
+          v104 = v122;
+          v106 = v121;
+          v100 = v124;
+          v102 = v123;
+          v43 = *&self->_anon_2d0[192];
+          v44 = *&self->_anon_2d0[208];
+          v45 = *&self->_anon_2d0[224];
+          v46 = *&self->_anon_2d0[240];
+          v114 = v31;
+          v115 = v28;
+          v116 = v29;
+          v117 = v30;
           do
           {
-            *(&v118 + v39) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, COERCE_FLOAT(*(&v111 + v39))), v41, *&v111.f32[v39 / 4], 1), v42, *(&v111 + v39), 2), v43, *(&v111 + v39), 3);
-            v39 += 16;
+            *(&v121 + v42) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, COERCE_FLOAT(*(&v114 + v42))), v44, *&v114.f32[v42 / 4], 1), v45, *(&v114 + v42), 2), v46, *(&v114 + v42), 3);
+            v42 += 16;
           }
 
-          while (v39 != 64);
-          v95 = v119;
-          v96 = v118;
-          v93 = v121;
-          v94 = v120;
-          v44 = *&self->_anon_2d0[144];
-          v130 = *&self->_anon_2d0[128];
-          v131 = v44;
-          v45 = *&self->_anon_2d0[176];
-          v132 = *&self->_anon_2d0[160];
-          v133 = v45;
+          while (v42 != 64);
+          v98 = v122;
+          v99 = v121;
+          v96 = v124;
+          v97 = v123;
+          v47 = *&self->_anon_2d0[144];
+          v133 = *&self->_anon_2d0[128];
+          v134 = v47;
+          v48 = *&self->_anon_2d0[176];
+          v135 = *&self->_anon_2d0[160];
+          v136 = v48;
         }
 
         if (sub_1AFDE22D8(v17))
         {
-          objc_msgSend_renderSize(self, v46, v47, v48);
-          v49 = 0;
-          v111.i64[0] = v50;
-          v51 = *&self->_anon_3408[2152];
-          v52 = *&self->_anon_3408[2168];
-          v53 = *&self->_anon_3408[2184];
-          v54 = *&self->_anon_3408[2200];
+          objc_msgSend_renderSize(self, v49, v50);
+          v51 = 0;
+          v114.i64[0] = v52;
+          v53 = *&self->_anon_3408[2152];
+          v54 = *&self->_anon_3408[2168];
+          v55 = *&self->_anon_3408[2184];
+          v56 = *&self->_anon_3408[2200];
           do
           {
-            v55 = 0;
-            v105 = v51;
-            v56 = *(&v105 & 0xFFFFFFFFFFFFFFF3 | (4 * (v49 & 3)));
-            v57 = (&v106 & 0xFFFFFFFFFFFFFFF3 | (4 * (v49 & 3)));
-            v106 = v52;
-            v58 = *(&v52 + 3) - *v57;
-            v59 = *(&v52 + 3) + *v57;
-            v107 = v53;
-            v60 = *(&v107 & 0xFFFFFFFFFFFFFFF3 | (4 * (v49 & 3)));
-            v108 = v54;
-            v61 = *(&v108 & 0xFFFFFFFFFFFFFFF3 | (4 * (v49 & 3)));
-            v62 = *(&v53 + 3) - v60;
-            v63 = *(&v53 + 3) + v60;
-            v64 = 1;
+            v57 = 0;
+            v108 = v53;
+            v58 = *(&v108 & 0xFFFFFFFFFFFFFFF3 | (4 * (v51 & 3)));
+            v59 = (&v109 & 0xFFFFFFFFFFFFFFF3 | (4 * (v51 & 3)));
+            v109 = v54;
+            v60 = *(&v54 + 3) - *v59;
+            v61 = *(&v54 + 3) + *v59;
+            v110 = v55;
+            v62 = *(&v110 & 0xFFFFFFFFFFFFFFF3 | (4 * (v51 & 3)));
+            v111 = v56;
+            v63 = *(&v111 & 0xFFFFFFFFFFFFFFF3 | (4 * (v51 & 3)));
+            v64 = *(&v55 + 3) - v62;
+            v65 = *(&v55 + 3) + v62;
+            v66 = 1;
             do
             {
-              v65 = v64 & 1;
-              if (v64)
+              v67 = v66 & 1;
+              if (v66)
               {
-                v66 = v56;
+                v68 = v58;
               }
 
               else
               {
-                v66 = -v56;
+                v68 = -v58;
               }
 
-              v67 = v55 | (2 * v49);
-              v68 = *(&v112 + v67);
-              v68.f32[0] = *(&v51 + 3) + v66;
-              if (v64)
-              {
-                v69 = v59;
-              }
-
-              else
-              {
-                v69 = v58;
-              }
-
-              if (v64)
-              {
-                v70 = v63;
-              }
-
-              else
-              {
-                v70 = v62;
-              }
-
-              if (v64)
+              v69 = v57 | (2 * v51);
+              v70 = *(&v115 + v69);
+              v70.f32[0] = *(&v53 + 3) + v68;
+              if (v66)
               {
                 v71 = v61;
               }
 
               else
               {
-                v71 = -v61;
+                v71 = v60;
               }
 
-              v68.f32[1] = v69;
-              v68.f32[2] = v70;
-              v72 = vmulq_f32(v68, v68);
-              v68.f32[3] = *(&v54 + 3) + v71;
-              *(&v112 + v67) = vmulq_n_f32(v68, sqrtf(v72.f32[2] + vaddv_f32(*v72.f32)));
-              v55 = 1;
-              v64 = 0;
+              if (v66)
+              {
+                v72 = v65;
+              }
+
+              else
+              {
+                v72 = v64;
+              }
+
+              if (v66)
+              {
+                v73 = v63;
+              }
+
+              else
+              {
+                v73 = -v63;
+              }
+
+              v70.f32[1] = v71;
+              v70.f32[2] = v72;
+              v74 = vmulq_f32(v70, v70);
+              v70.f32[3] = *(&v56 + 3) + v73;
+              *(&v115 + v69) = vmulq_n_f32(v70, sqrtf(v74.f32[2] + vaddv_f32(*v74.f32)));
+              v57 = 1;
+              v66 = 0;
             }
 
-            while (v65);
-            ++v49;
+            while (v67);
+            ++v51;
           }
 
-          while (v49 != 3);
+          while (v51 != 3);
         }
 
-        v110 = 0;
-        v118 = v103;
-        v119 = v101;
-        v120 = v99;
-        v121 = v97;
-        v122 = v96;
-        v123 = v95;
-        v124 = v94;
-        v125 = v93;
-        v126 = v130;
-        v127 = v131;
-        v128 = v132;
+        v113 = 0;
+        v121 = v106;
+        v122 = v104;
+        v123 = v102;
+        v124 = v100;
+        v125 = v99;
+        v126 = v98;
+        v127 = v97;
+        v128 = v96;
         v129 = v133;
-        v109[4] = v115;
-        v109[5] = v116;
-        v109[6] = v117;
-        v109[0] = v111;
-        v109[1] = v112;
-        v109[2] = v113;
-        v109[3] = v114;
-        v73 = sub_1AFDE22F0(v17, self, v15, &v118, v109, &v110);
+        v130 = v134;
+        v131 = v135;
+        v132 = v136;
+        v112[4] = v118;
+        v112[5] = v119;
+        v112[6] = v120;
+        v112[0] = v114;
+        v112[1] = v115;
+        v112[2] = v116;
+        v112[3] = v117;
+        v75 = sub_1AFDE22F0(v17, self, v15, &v121, v112, &v113);
         if (v11)
         {
-          return sub_1AF17780C(modelCopy, self, v74, v75);
+          return sub_1AF17780C(modelCopy, self, v76);
         }
 
-        v33 = v73;
-        if (v73)
+        v36 = v75;
+        if (v75)
         {
-          v76 = sub_1AFDEA208(v73);
-          if (!objc_msgSend_count(v76, v77, v78, v79))
+          v77 = sub_1AFDEA208(v75);
+          if (!objc_msgSend_count(v77, v78, v79))
           {
-            v80 = sub_1AF1B2C1C(modelCopy);
-            v81 = sub_1AF1A3CCC(v80);
-            v82 = objc_alloc(MEMORY[0x1E695DF70]);
-            v85 = objc_msgSend_initWithCapacity_(v82, v83, v81, v84);
-            if (v81 >= 1)
+            v81 = sub_1AF1B2C1C(modelCopy, v80);
+            v83 = sub_1AF1A3CCC(v81, v82);
+            v84 = objc_alloc(MEMORY[0x1E695DF70]);
+            v86 = objc_msgSend_initWithCapacity_(v84, v85, v83);
+            if (v83 >= 1)
             {
-              for (i = 0; i != v81; ++i)
+              for (i = 0; i != v83; ++i)
               {
-                v87 = sub_1AF1A3D1C(v80, i, v12);
-                if (v87)
+                v88 = sub_1AF1A3D1C(v81, i, v12);
+                if (v88)
                 {
-                  v88 = sub_1AF1A7034(v87);
-                  if (sub_1AF1F156C(v88))
+                  v90 = sub_1AF1A7034(v88, v89);
+                  v91 = sub_1AF1F156C(v90);
+                  if (v91)
                   {
-                    v89 = sub_1AFDE7F98(self->_resourceManager);
-                    objc_msgSend_addObject_(v85, v90, v89, v91);
+                    v93 = sub_1AFDE7F98(self->_resourceManager);
+                    objc_msgSend_addObject_(v86, v94, v93);
                   }
 
                   else
                   {
-                    v92 = sub_1AF0D5194();
-                    if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
+                    v95 = sub_1AF0D5194(v91, v92);
+                    if (os_log_type_enabled(v95, OS_LOG_TYPE_FAULT))
                     {
-                      sub_1AFDE655C(&v118, (&v118 + 4), v92);
+                      sub_1AFDE655C(&v121, (&v121 + 4), v95);
                     }
                   }
                 }
               }
             }
 
-            sub_1AFDEA214(v33, v85);
+            sub_1AFDEA214(v36, v86);
           }
         }
 
-        return v33;
+        return v36;
       }
     }
   }
@@ -1552,21 +1563,21 @@ LABEL_18:
   if (v11)
   {
 
-    return sub_1AF17780C(modelCopy, self, v9, v10);
+    return sub_1AF17780C(modelCopy, self, v10);
   }
 
   else
   {
-    v30 = sub_1AF1B2E04(modelCopy);
-    if (!v30)
+    v33 = sub_1AF1B2E04(modelCopy, v9);
+    if (!v33)
     {
       return 0;
     }
 
-    v31 = v30;
+    v34 = v33;
     resourceManager = self->_resourceManager;
 
-    return sub_1AF20E1F8(resourceManager, v31, v12);
+    return sub_1AF20E1F8(resourceManager, v34, v12);
   }
 }
 
@@ -1604,77 +1615,77 @@ LABEL_18:
 
   if (self->_cache.rasterizerStates != statesCopy)
   {
-    v31 = 0;
-    v32[0] = 0;
-    *(v32 + 5) = 0;
-    sub_1AF1C458C(statesCopy, &v31);
+    v29 = 0;
+    v30[0] = 0;
+    *(v30 + 5) = 0;
+    sub_1AF1C458C(statesCopy, a2, &v29);
     rasterizerStates = self->_cache.rasterizerStates;
     if (rasterizerStates)
     {
-      v29 = 0;
-      v30[0] = 0;
-      *(v30 + 5) = 0;
-      sub_1AF1C458C(rasterizerStates, &v29);
-      v6 = v31;
-      if (v29 == v31)
+      v27 = 0;
+      v28[0] = 0;
+      *(v28 + 5) = 0;
+      sub_1AF1C458C(rasterizerStates, v5, &v27);
+      v7 = v29;
+      if (v27 == v29)
       {
-        v7 = 2;
+        v8 = 2;
       }
 
       else
       {
-        v7 = 3;
+        v8 = 3;
       }
 
-      if (BYTE1(v29) == BYTE1(v31))
+      if (BYTE1(v27) == BYTE1(v29))
       {
-        v8 = v29 != v31;
+        v9 = v27 != v29;
       }
 
       else
-      {
-        v8 = v7;
-      }
-
-      if (BYTE2(v29) == BYTE2(v31))
       {
         v9 = v8;
       }
 
+      if (BYTE2(v27) == BYTE2(v29))
+      {
+        v10 = v9;
+      }
+
       else
       {
-        v9 = v8 | 4;
+        v10 = v9 | 4;
       }
 
-      if (BYTE2(v31) == 1 && BYTE4(v29) != BYTE4(v31) || (v29 & 0x10000) == 0)
+      if (BYTE2(v29) == 1 && BYTE4(v27) != BYTE4(v29) || (v27 & 0x10000) == 0)
       {
-        v9 |= 8u;
+        v10 |= 8u;
       }
 
-      if (BYTE2(v31) && BYTE3(v29) != BYTE3(v31) || (v29 & 0x10000) == 0)
+      if (BYTE2(v29) && BYTE3(v27) != BYTE3(v29) || (v27 & 0x10000) == 0)
       {
-        v9 |= 0x10u;
+        v10 |= 0x10u;
       }
 
-      if ((v31 & 0x10000000000) != 0 || BYTE5(v29) == 1)
+      if ((v29 & 0x10000000000) != 0 || BYTE5(v27) == 1)
       {
-        LOBYTE(v9) = v9 | 0x20;
+        LOBYTE(v10) = v10 | 0x20;
       }
 
-      else if (!v9)
+      else if (!v10)
       {
-        v21 = sub_1AF0D5194();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v19 = sub_1AF0D5194(v29, v5);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDE65A4(v21, v22, v23, v24, v25, v26, v27, v28);
+          sub_1AFDE65A4(v19, v20, v21, v22, v23, v24, v25, v26);
         }
 
         goto LABEL_30;
       }
 
-      if ((v9 & 1) == 0)
+      if ((v10 & 1) == 0)
       {
-        if ((v9 & 2) == 0)
+        if ((v10 & 2) == 0)
         {
           goto LABEL_28;
         }
@@ -1685,20 +1696,20 @@ LABEL_18:
 
     else
     {
-      LOBYTE(v9) = -1;
-      v6 = v31;
+      LOBYTE(v10) = -1;
+      v7 = v29;
     }
 
     renderEncoder = self->_renderEncoder;
-    v18 = sub_1AF1F1250(v6);
-    objc_msgSend_setCullMode_(renderEncoder->var3, v19, v18, v20);
-    if ((v9 & 2) == 0)
+    v17 = sub_1AF1F1250(v7, v5);
+    objc_msgSend_setCullMode_(renderEncoder->var3, v18, v17);
+    if ((v10 & 2) == 0)
     {
 LABEL_28:
-      if ((v9 & 0x3C) != 0)
+      if ((v10 & 0x3C) != 0)
       {
         v14 = sub_1AFDE7C58(self->_resourceManager);
-        objc_msgSend_setDepthStencilState_(self->_renderEncoder->var3, v15, v14, v16);
+        objc_msgSend_setDepthStencilState_(self->_renderEncoder->var3, v15, v14);
       }
 
 LABEL_30:
@@ -1707,9 +1718,9 @@ LABEL_30:
     }
 
 LABEL_27:
-    v10 = self->_renderEncoder;
-    v11 = sub_1AF1F12A4(BYTE1(v31));
-    objc_msgSend_setTriangleFillMode_(v10->var3, v12, v11, v13);
+    v11 = self->_renderEncoder;
+    v12 = sub_1AF1F12A4(BYTE1(v29), v5);
+    objc_msgSend_setTriangleFillMode_(v11->var3, v13, v12);
     goto LABEL_28;
   }
 }
@@ -1722,62 +1733,63 @@ LABEL_27:
   {
     v7 = sub_1AF1310A0(self->_engineContext);
 
-    sub_1AF1FD200(v7, indexCopy | (fragmentIndexCopy << 8), 3u);
+    sub_1AF1FD200(v7, indexCopy | (fragmentIndexCopy << 8), 3);
   }
 
   else
   {
     renderEncoder = self->_renderEncoder;
-    MTLBuffer = CFXBufferSliceGetMTLBuffer(self->_worldUniforms.impl._buffer, *&self->_worldUniforms.impl._offset);
+    CFXBufferSliceGetMTLBuffer();
+    v11 = v9;
     offset = self->_worldUniforms.impl._offset;
-    v12 = fragmentIndexCopy << 8;
+    v13 = fragmentIndexCopy << 8;
     if (indexCopy != 0xFF)
     {
-      objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v9, MTLBuffer, offset, indexCopy);
+      objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v10, v9, offset, indexCopy);
     }
 
-    if (v12 != 65280)
+    if (v13 != 65280)
     {
       var3 = renderEncoder->var3;
 
-      objc_msgSend_setFragmentBuffer_offset_atIndex_(var3, v9, MTLBuffer, offset, v12 >> 8);
+      objc_msgSend_setFragmentBuffer_offset_atIndex_(var3, v10, v11, offset, v13 >> 8);
     }
   }
 }
 
 - (void)_setMeshBuffers:(id)buffers
 {
-  v16[14] = *MEMORY[0x1E69E9840];
-  memset(v15, 0, sizeof(v15));
+  v15[14] = *MEMORY[0x1E69E9840];
+  memset(v14, 0, sizeof(v14));
   v5 = sub_1AFDEA1E8(buffers);
-  v9 = objc_msgSend_count(v5, v6, v7, v8);
-  if (v9 >= 0xE)
+  v8 = objc_msgSend_count(v5, v6, v7);
+  if (v8 >= 0xE)
   {
-    v10 = 14;
+    v9 = 14;
   }
 
   else
   {
-    v10 = v9;
+    v9 = v8;
   }
 
-  v11 = sub_1AFDEA1E8(buffers);
-  objc_msgSend_getObjects_range_(v11, v12, v16, 0, v10);
+  v10 = sub_1AFDEA1E8(buffers);
+  objc_msgSend_getObjects_range_(v10, v11, v15, 0, v9);
   if (sub_1AFDEA228(buffers))
   {
-    *(v15 + v10) = sub_1AFDEA248(buffers);
-    v16[v10++] = sub_1AFDEA228(buffers);
+    *(v14 + v9) = sub_1AFDEA248(buffers);
+    v15[v9++] = sub_1AFDEA228(buffers);
   }
 
   renderEncoder = self->_renderEncoder;
-  if (v10 == 1)
+  if (v9 == 1)
   {
-    objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v13, v16[0], *&v15[0], 18);
+    objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v12, v15[0], *&v14[0], 18);
   }
 
   else
   {
-    objc_msgSend_setVertexBuffers_offsets_withRange_(renderEncoder->var3, v13, v16, v15, 18, v10);
+    objc_msgSend_setVertexBuffers_offsets_withRange_(renderEncoder->var3, v12, v15, v14, 18, v9);
   }
 }
 
@@ -1786,7 +1798,7 @@ LABEL_27:
   ++self->__engineStats->drawCount;
   if (!element)
   {
-    v7 = sub_1AF0D5194();
+    v7 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDE661C(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -1799,127 +1811,129 @@ LABEL_27:
     v16 = sub_1AFDE323C(element);
     v17 = sub_1AFDEA208(element);
     v18 = sub_1AFDE868C(element);
-    v22 = objc_msgSend_buffer(v18, v19, v20, v21);
-    v23 = sub_1AFDEA330(element);
-    v24 = sub_1AFDE868C(element);
-    v28 = objc_msgSend_offset(v24, v25, v26, v27);
-    v29 = v23 + sub_1AFDE8614(element);
-    v30 = sub_1AFDEA1E8(element);
-    v31 = sub_1AFDEA248(element);
-    objc_msgSend_drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset_(renderEncoder->var3, v32, v16, v17, v22, v28 + v29, v30, v31);
+    v21 = objc_msgSend_buffer(v18, v19, v20);
+    v22 = sub_1AFDEA330(element);
+    v23 = sub_1AFDE868C(element);
+    v26 = objc_msgSend_offset(v23, v24, v25);
+    v27 = v22 + sub_1AFDE8614(element);
+    v28 = sub_1AFDEA1E8(element);
+    v29 = sub_1AFDEA248(element);
+    objc_msgSend_drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset_(renderEncoder->var3, v30, v16, v17, v21, v26 + v27, v28, v29);
   }
 
   else
   {
-    v37 = sub_1AFDE868C(element);
-    v38 = self->_renderEncoder;
-    v39 = sub_1AFDE323C(element);
-    if (v37)
+    v35 = sub_1AFDE868C(element);
+    v36 = self->_renderEncoder;
+    v37 = sub_1AFDE323C(element);
+    if (v35)
     {
-      v40 = sub_1AFDEA228(element);
-      v41 = sub_1AFDEA208(element);
-      v42 = sub_1AFDE868C(element);
-      v46 = objc_msgSend_buffer(v42, v43, v44, v45);
-      v47 = sub_1AFDEA330(element);
-      v48 = sub_1AFDE868C(element);
-      v52 = objc_msgSend_offset(v48, v49, v50, v51);
-      v54 = v47 + sub_1AFDE8614(element);
-      var3 = v38->var3;
-      v56 = v52 + v54;
-      if (v38->var0 * count < 2)
+      v38 = sub_1AFDEA228(element);
+      v39 = sub_1AFDEA208(element);
+      v40 = sub_1AFDE868C(element);
+      v43 = objc_msgSend_buffer(v40, v41, v42);
+      v44 = sub_1AFDEA330(element);
+      v45 = sub_1AFDE868C(element);
+      v48 = objc_msgSend_offset(v45, v46, v47);
+      v50 = v44 + sub_1AFDE8614(element);
+      var3 = v36->var3;
+      v52 = v48 + v50;
+      if (v36->var0 * count < 2)
       {
-        objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(var3, v53, v39, v40, v41, v46, v56);
+        objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(var3, v49, v37, v38, v39, v43, v52);
       }
 
       else
       {
-        objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(var3, v53, v39, v40, v41, v46, v56);
+        objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(var3, v49, v37, v38, v39, v43, v52);
       }
     }
 
     else
     {
-      v57 = sub_1AFDEA330(element);
-      v59 = sub_1AFDEA228(element);
-      v60 = v38->var3;
-      if (v38->var0 * count < 2)
+      v53 = sub_1AFDEA330(element);
+      v55 = sub_1AFDEA228(element);
+      v56 = v36->var3;
+      if (v36->var0 * count < 2)
       {
-        objc_msgSend_drawPrimitives_vertexStart_vertexCount_(v60, v58, v39, v57, v59);
+        objc_msgSend_drawPrimitives_vertexStart_vertexCount_(v56, v54, v37, v53, v55);
       }
 
       else
       {
-        objc_msgSend_drawPrimitives_vertexStart_vertexCount_instanceCount_(v60, v58, v39, v57, v59);
+        objc_msgSend_drawPrimitives_vertexStart_vertexCount_instanceCount_(v56, v54, v37, v53, v55);
       }
     }
   }
 
-  v33 = sub_1AFDEA5A8(element);
+  v31 = sub_1AFDEA5A8(element);
   engineStats = self->__engineStats;
-  engineStats->primitivesProcessed += v33 * count;
+  engineStats->primitivesProcessed += v31 * count;
   metalMesh = self->_cache.metalMesh;
   if (metalMesh)
   {
-    v36 = sub_1AFDEA290(metalMesh) * count;
+    v34 = sub_1AFDEA290(metalMesh) * count;
     engineStats = self->__engineStats;
   }
 
   else
   {
-    v36 = 0;
+    v34 = 0;
   }
 
-  engineStats->verticesProcessed += v36;
+  engineStats->verticesProcessed += v34;
 }
 
 - (void)_drawPatchForMeshElement:(id)element instanceCount:(unint64_t)count
 {
   if (sub_1AFDEA208(element) != 1)
   {
-    if (sub_1AFDEA208(element))
+    v7 = sub_1AFDEA208(element);
+    if (v7)
     {
-      v7 = sub_1AF0D5194();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v9 = sub_1AF0D5194(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE6694(v7, v8, v9, v10, v11, v12, v13, v14);
+        sub_1AFDE6694(v9, v10, v11, v12, v13, v14, v15, v16);
       }
     }
   }
 
-  if (sub_1AFDE323C(element) != 3)
+  v17 = sub_1AFDE323C(element);
+  if (v17 != 3)
   {
-    v15 = sub_1AF0D5194();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v19 = sub_1AF0D5194(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDE670C(v15, v16, v17, v18, v19, v20, v21, v22);
+      sub_1AFDE670C(v19, v20, v21, v22, v23, v24, v25, v26);
     }
   }
 
   ++self->__engineStats->drawCount;
   renderEncoder = self->_renderEncoder;
-  v24 = sub_1AFDEA534(element);
-  v25 = sub_1AFDE868C(element);
-  v29 = objc_msgSend_buffer(v25, v26, v27, v28);
-  v30 = sub_1AFDE868C(element);
-  v34 = objc_msgSend_offset(v30, v31, v32, v33);
-  v35 = sub_1AFDE8614(element);
-  objc_msgSend_drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_(renderEncoder->var3, v36, 3, 0, v24, 0, 0, v29, v35 + v34, renderEncoder->var0 * count, 0);
-  v37 = sub_1AFDEA534(element);
+  v28 = sub_1AFDEA534(element);
+  v29 = sub_1AFDE868C(element);
+  v32 = objc_msgSend_buffer(v29, v30, v31);
+  v33 = sub_1AFDE868C(element);
+  v36 = objc_msgSend_offset(v33, v34, v35);
+  v37 = sub_1AFDE8614(element);
+  objc_msgSend_drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_(renderEncoder->var3, v38, 3, 0, v28, 0, 0, v32, v37 + v36, renderEncoder->var0 * count, 0);
+  v39 = sub_1AFDEA534(element);
   engineStats = self->__engineStats;
-  engineStats->primitivesProcessed += v37 * count;
+  engineStats->primitivesProcessed += v39 * count;
   metalMesh = self->_cache.metalMesh;
   if (metalMesh)
   {
-    v40 = sub_1AFDEA290(metalMesh) * count;
+    v42 = sub_1AFDEA290(metalMesh) * count;
     engineStats = self->__engineStats;
   }
 
   else
   {
-    v40 = 0;
+    v42 = 0;
   }
 
-  engineStats->verticesProcessed += v40;
+  engineStats->verticesProcessed += v42;
 }
 
 - (void)_updateProjectionMatrixForOrthographicSkyboxRenderingIfNeeded:(id *)needed
@@ -2021,23 +2035,23 @@ LABEL_27:
 
 - (void)renderBackground:(__CFXMaterialProperty *)background engineContext:(__CFXEngineContext *)context passInstance:(__CFXPassInstance *)instance
 {
-  v183 = *MEMORY[0x1E69E9840];
-  v170 = 0;
-  v10 = sub_1AF16679C(background);
-  v11 = sub_1AF167578(background);
-  v12 = sub_1AF130338(context);
-  v15 = v12;
-  if (v12 && sub_1AF121B74(v12) != v11)
+  v180 = *MEMORY[0x1E69E9840];
+  v167 = 0;
+  v10 = sub_1AF16679C(background, a2);
+  v12 = sub_1AF167578(background, v11);
+  v13 = sub_1AF130338(context);
+  v15 = v13;
+  if (v13 && sub_1AF121B74(v13) != v12)
   {
     sub_1AF1302E4(context, 0);
     v15 = 0;
   }
 
-  if (v11)
+  if (v12)
   {
     if (!v15)
     {
-      v15 = sub_1AF276584(v11, v10, context);
+      v15 = sub_1AF276584(v12, v10, context);
       sub_1AF1302E4(context, v15);
       CFRelease(v15);
       if (!v15)
@@ -2046,463 +2060,465 @@ LABEL_27:
       }
     }
 
-    v16 = sub_1AF276950(v15, context, v10, &v161);
+    v16 = sub_1AF276950(v15, context, v10, &v158);
   }
 
   else
   {
-    v16 = objc_msgSend_textureForMaterialProperty_(self, v13, background, v14);
+    v16 = objc_msgSend_textureForMaterialProperty_(self, v14, background);
   }
 
-  v17 = v16;
-  v170 = v16;
+  v18 = v16;
+  v167 = v16;
   if (!v16)
   {
     return;
   }
 
-  v144 = sub_1AF12DDCC(context);
-  if (objc_msgSend_textureType(v17, v18, v19, v20) == 5)
+  v141 = sub_1AF12DDCC(context, v17);
+  if (objc_msgSend_textureType(v18, v19, v20) == 5)
   {
-    v21 = sub_1AF12E014(context);
-    v22 = self->_backgroundCubeProgram[self->_renderPassParameters.viewMapping];
-    v23 = sub_1AF13050C(context, 1);
-    v24 = sub_1AF167434(background);
-    v151 = v23[2];
-    v154 = *v23;
-    v148 = v23[1];
-    if (v24)
+    v26 = sub_1AF12E014(context);
+    v27 = self->_backgroundCubeProgram[self->_renderPassParameters.viewMapping];
+    v28 = sub_1AF13050C(context, 1);
+    v29 = sub_1AF167434(background);
+    v148 = v28[2];
+    v151 = *v28;
+    v145 = v28[1];
+    if (v29)
     {
-      v145 = v23[3];
-      v25 = sub_1AF167220(background);
-      v26 = 0;
-      v27 = v25[1];
-      v28 = v25[2];
-      v29 = v25[3];
-      v175 = *v25;
-      v176 = v27;
-      v177 = v28;
-      v178 = v29;
+      v142 = v28[3];
+      v31 = sub_1AF167220(background, v30);
+      v32 = 0;
+      v33 = v31[1];
+      v34 = v31[2];
+      v35 = v31[3];
+      v172 = *v31;
+      v173 = v33;
+      v174 = v34;
+      v175 = v35;
       do
       {
-        *(&v161 + v26) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v154, COERCE_FLOAT(*(&v175 + v26))), v148, *&v175.f32[v26 / 4], 1), v151, *(&v175 + v26), 2), v145, *(&v175 + v26), 3);
-        v26 += 16;
+        *(&v158 + v32) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v151, COERCE_FLOAT(*(&v172 + v32))), v145, *&v172.f32[v32 / 4], 1), v148, *(&v172 + v32), 2), v142, *(&v172 + v32), 3);
+        v32 += 16;
       }
 
-      while (v26 != 64);
-      v148 = v162;
-      v151 = v163;
-      v154 = v161;
+      while (v32 != 64);
+      v145 = v159;
+      v148 = v160;
+      v151 = v158;
     }
 
-    v30 = v21;
-    v31 = sub_1AF13050C(self->_engineContext, 0);
-    v32 = v31[3];
-    v34 = *v31;
-    v33 = v31[1];
-    v173 = v31[2];
-    v174 = v32;
-    v171 = v34;
-    v172 = v33;
-    objc_msgSend__updateProjectionMatrixForOrthographicSkyboxRenderingIfNeeded_(self, v35, &v171, v36);
-    v39 = 0;
-    v40 = v171;
-    v41 = v172;
-    v42 = v173;
-    v43 = v174;
-    v175 = v154;
-    v176 = v148;
-    v177 = v151;
-    v178 = xmmword_1AFE201A0;
+    v36 = v26;
+    v37 = sub_1AF13050C(self->_engineContext, 0);
+    v38 = v37[3];
+    v40 = *v37;
+    v39 = v37[1];
+    v170 = v37[2];
+    v171 = v38;
+    v168 = v40;
+    v169 = v39;
+    objc_msgSend__updateProjectionMatrixForOrthographicSkyboxRenderingIfNeeded_(self, v41, &v168);
+    v43 = 0;
+    v44 = v168;
+    v45 = v169;
+    v46 = v170;
+    v47 = v171;
+    v172 = v151;
+    v173 = v145;
+    v174 = v148;
+    v175 = xmmword_1AFE201A0;
     do
     {
-      *(&v161 + v39) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v40, COERCE_FLOAT(*(&v175 + v39))), v41, *&v175.f32[v39 / 4], 1), v42, *(&v175 + v39), 2), v43, *(&v175 + v39), 3);
-      v39 += 16;
+      *(&v158 + v43) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44, COERCE_FLOAT(*(&v172 + v43))), v45, *&v172.f32[v43 / 4], 1), v46, *(&v172 + v43), 2), v47, *(&v172 + v43), 3);
+      v43 += 16;
     }
 
-    while (v39 != 64);
-    v146 = v161;
-    v149 = v162;
-    v45 = v163;
-    v44 = v164;
+    while (v43 != 64);
+    v143 = v158;
+    v146 = v159;
+    v49 = v160;
+    v48 = v161;
   }
 
   else
   {
-    v30 = sub_1AF130340(context);
-    v22 = self->_background2DProgram[self->_renderPassParameters.viewMapping];
+    v36 = sub_1AF130340(context, v21, v22, v23, v24, v25);
+    v27 = self->_background2DProgram[self->_renderPassParameters.viewMapping];
     if (!sub_1AF167434(background))
     {
-      v155 = xmmword_1AFE201A0;
-      v152 = xmmword_1AFE20180;
-      v149 = xmmword_1AFE20160;
-      v146 = xmmword_1AFE20150;
+      v152 = xmmword_1AFE201A0;
+      v149 = xmmword_1AFE20180;
+      v146 = xmmword_1AFE20160;
+      v143 = xmmword_1AFE20150;
       goto LABEL_22;
     }
 
-    v46 = sub_1AF167220(background);
-    v146 = *v46;
-    v149 = v46[1];
-    v45 = v46[2];
-    v44 = v46[3];
+    v50 = sub_1AF167220(background, v42);
+    v143 = *v50;
+    v146 = v50[1];
+    v49 = v50[2];
+    v48 = v50[3];
   }
 
-  v152 = v45;
-  v155 = v44;
+  v149 = v49;
+  v152 = v48;
 LABEL_22:
-  objc_msgSend_pushDebugGroup_(self, v37, @"VFX - Draw world background", v38);
-  v47 = sub_1AF20E1F8(self->_resourceManager, v30, 1);
-  *&v181[7] = 0;
-  *v181 = 0;
-  v48 = sub_1AFDEA004(v47);
-  v142 = v47;
-  v49 = sub_1AFDEA078(v47);
+  objc_msgSend_pushDebugGroup_(self, v42, @"VFX - Draw world background");
+  v51 = sub_1AF20E1F8(self->_resourceManager, v36, 1);
+  *&v178[7] = 0;
+  *v178 = 0;
+  v52 = sub_1AFDEA004(v51);
+  v139 = v51;
+  v54 = sub_1AFDEA078(v51, v53);
+  v56 = v54;
   if (self->_currentClearColor.alpha == 1.0)
   {
-    v50 = sub_1AF15BC40();
+    v57 = sub_1AF15BC40(v54, v55);
   }
 
   else
   {
-    v50 = sub_1AF15BBC4();
+    v57 = sub_1AF15BBC4(v54, v55);
   }
 
   eyeCount = self->_renderPassParameters.eyeCount;
   viewMapping = self->_renderPassParameters.viewMapping;
   if (self->_renderPassParameters.multiVertexOutputStreamGenerator == 2)
   {
-    v54 = 2;
+    v61 = 2;
   }
 
   else
   {
-    v54 = 1;
+    v61 = 1;
   }
 
-  v182 = 0;
-  *&v181[15] = 0;
+  v179 = 0;
+  *&v178[15] = 0;
   resourceManager = self->_resourceManager;
-  *&v161 = 0;
-  *(&v161 + 1) = v22;
-  v162 = 0uLL;
-  *&v163 = 0;
-  *(&v163 + 1) = v50;
-  LOWORD(v164) = 783;
-  BYTE2(v164) = eyeCount;
-  BYTE3(v164) = v54;
-  DWORD1(v164) = 0;
-  *(&v164 + 1) = v48;
-  *&v165[0] = v49;
-  BYTE8(v165[0]) = viewMapping;
-  memset(&v165[1] + 8, 0, 24);
-  *(v165 + 9) = *v181;
-  v56 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v51, &v161, &self->_currentRenderPassDesc);
+  *&v158 = 0;
+  *(&v158 + 1) = v27;
+  v159 = 0uLL;
+  *&v160 = 0;
+  *(&v160 + 1) = v57;
+  LOWORD(v161) = 783;
+  BYTE2(v161) = eyeCount;
+  BYTE3(v161) = v61;
+  DWORD1(v161) = 0;
+  *(&v161 + 1) = v52;
+  *&v162[0] = v56;
+  BYTE8(v162[0]) = viewMapping;
+  memset(&v162[1] + 8, 0, 24);
+  *(v162 + 9) = *v178;
+  v63 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v58, &v158, &self->_currentRenderPassDesc);
   renderEncoder = self->_renderEncoder;
-  v61 = objc_msgSend_state(v56, v58, v59, v60);
-  objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v62, v61, v63);
-  v66 = 608;
+  v67 = objc_msgSend_state(v63, v65, v66);
+  objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v68, v67);
+  v70 = 608;
   if (!self->_renderPassParameters.viewMapping)
   {
-    v66 = 600;
+    v70 = 600;
   }
 
-  objc_msgSend_setRasterizerStates_(self, v64, *(&self->super.isa + v66), v65);
-  v169 = sub_1AF166598(background);
-  sub_1AF1F905C(self->_renderEncoder, &v169, 4uLL, 0);
-  v67 = sub_1AFDE8554(self->_resourceManager);
-  if (objc_msgSend_pixelFormat(v17, v68, v69, v70) == 520 || objc_msgSend_pixelFormat(v17, v71, v72, v73) == 500)
+  objc_msgSend_setRasterizerStates_(self, v69, *(&self->super.isa + v70));
+  v166 = sub_1AF166598(background, v71);
+  sub_1AF1F905C(self->_renderEncoder, &v166, 4uLL, 0);
+  v72 = sub_1AFDE8554(self->_resourceManager);
+  if (objc_msgSend_pixelFormat(v18, v73, v74) == 520 || objc_msgSend_pixelFormat(v18, v75, v76) == 500)
   {
-    v75 = sub_1AF20107C(self->_renderEncoder);
-    sub_1AF1F3034(self->_currentCommandBuffer, &v170, 1, v76);
-    objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(v75, v77, v170, 0, v67, 0);
+    v77 = sub_1AF20107C(self->_renderEncoder, v75);
+    sub_1AF1F3034(self->_currentCommandBuffer, &v167, 1);
+    v79 = objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(v77, v78, v167, 0, v72, 0);
   }
 
   else
   {
-    sub_1AF1F8FCC(self->_renderEncoder, v17, 0, v74);
-    objc_msgSend_setFragmentSamplerState_atIndex_(self->_renderEncoder->var3, v78, v67, 0);
+    sub_1AF1F8FCC(self->_renderEncoder, v18, 0);
+    v79 = objc_msgSend_setFragmentSamplerState_atIndex_(self->_renderEncoder->var3, v81, v72, 0);
   }
 
   if (self->_renderPassParameters.viewMapping)
   {
-    v141 = v30;
+    v138 = v36;
     if (!instance)
     {
-      v79 = sub_1AF0D5194();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
+      v82 = sub_1AF0D5194(v79, v80);
+      v79 = os_log_type_enabled(v82, OS_LOG_TYPE_FAULT);
+      if (v79)
       {
-        sub_1AFDE6784(v79, v80, v81, v82, v83, v84, v85, v86);
+        sub_1AFDE6784(v82, v80, v83, v84, v85, v86, v87, v88);
       }
     }
 
     if (self->_renderPassParameters.eyeCount)
     {
-      v87 = 0;
+      v89 = 0;
       do
       {
-        if (v87 >= 6)
+        if (v89 >= 6)
         {
-          v88 = sub_1AF0D5194();
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
+          v90 = sub_1AF0D5194(v79, v80);
+          if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
           {
-            sub_1AFDE67FC(v179, &v180, v88);
+            sub_1AFDE67FC(v176, &v177, v90);
           }
         }
 
-        v89 = (&instance[15].var13 + 8 * v87);
-        v90 = sub_1AF167434(background);
-        v153 = v89[1];
-        v156 = *v89;
-        v147 = v89[3];
-        v150 = v89[2];
-        if (v90)
+        v91 = (&instance[15].var13 + 8 * v89);
+        v92 = sub_1AF167434(background);
+        v150 = v91[1];
+        v153 = *v91;
+        v144 = v91[3];
+        v147 = v91[2];
+        if (v92)
         {
-          v93 = sub_1AF167220(background);
-          v94 = 0;
-          v95 = v93[1];
-          v96 = v93[2];
-          v97 = v93[3];
-          v171 = *v93;
-          v172 = v95;
-          v173 = v96;
-          v174 = v97;
+          v94 = sub_1AF167220(background, v93);
+          v95 = 0;
+          v96 = v94[1];
+          v97 = v94[2];
+          v98 = v94[3];
+          v168 = *v94;
+          v169 = v96;
+          v170 = v97;
+          v171 = v98;
           do
           {
-            *(&v175 + v94) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v156, COERCE_FLOAT(*(&v171 + v94))), v153, *&v171.f32[v94 / 4], 1), v150, *(&v171 + v94), 2), v147, *(&v171 + v94), 3);
-            v94 += 16;
+            *(&v172 + v95) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v153, COERCE_FLOAT(*(&v168 + v95))), v150, *&v168.f32[v95 / 4], 1), v147, *(&v168 + v95), 2), v144, *(&v168 + v95), 3);
+            v95 += 16;
           }
 
-          while (v94 != 64);
-          v153 = v176;
-          v156 = v175;
-          v147 = v178;
-          v150 = v177;
+          while (v95 != 64);
+          v150 = v173;
+          v153 = v172;
+          v144 = v175;
+          v147 = v174;
         }
 
-        v98 = &instance[17].var5[8 * v87 + 12];
-        v99 = v98[1];
-        v157 = *v98;
-        v158 = v99;
-        v100 = v98[3];
-        v159 = v98[2];
-        v160 = v100;
-        objc_msgSend__updateProjectionMatrixForOrthographicSkyboxRenderingIfNeeded_(self, v91, &v157, v92, v141);
-        v101 = 0;
-        v102 = v157;
-        v103 = v158;
-        v104 = v159;
-        v105 = v160;
-        v171 = v156;
-        v172 = v153;
-        v173 = v150;
-        v174 = v147;
+        v99 = &instance[17].var5[8 * v89 + 12];
+        v100 = v99[1];
+        v154 = *v99;
+        v155 = v100;
+        v101 = v99[3];
+        v156 = v99[2];
+        v157 = v101;
+        objc_msgSend__updateProjectionMatrixForOrthographicSkyboxRenderingIfNeeded_(self, v93, &v154, v138);
+        v103 = 0;
+        v104 = v154;
+        v105 = v155;
+        v106 = v156;
+        v107 = v157;
+        v168 = v153;
+        v169 = v150;
+        v170 = v147;
+        v171 = v144;
         do
         {
-          *(&v175 + v101) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v102, COERCE_FLOAT(*(&v171 + v101))), v103, *&v171.f32[v101 / 4], 1), v104, *(&v171 + v101), 2), v105, *(&v171 + v101), 3);
-          v101 += 16;
+          *(&v172 + v103) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v104, COERCE_FLOAT(*(&v168 + v103))), v105, *&v168.f32[v103 / 4], 1), v106, *(&v168 + v103), 2), v107, *(&v168 + v103), 3);
+          v103 += 16;
         }
 
-        while (v101 != 64);
-        v106 = v176;
-        v107 = v177;
-        v108 = v178;
-        v109 = (&v161 + 4 * v87);
-        *v109 = v175;
-        v109[1] = v106;
-        v109[2] = v107;
-        v109[3] = v108;
-        *&v110 = sub_1AF1D0EBC(v144);
-        v111 = &v167[64 * v87];
-        *v111 = v110;
-        v111[1] = v112;
-        v111[2] = v113;
-        v111[3] = v114;
-        ++v87;
+        while (v103 != 64);
+        v108 = v173;
+        v109 = v174;
+        v110 = v175;
+        v111 = (&v158 + 4 * v89);
+        *v111 = v172;
+        v111[1] = v108;
+        v111[2] = v109;
+        v111[3] = v110;
+        *&v112 = sub_1AF1D0EBC(v141, v102);
+        v113 = &v164[64 * v89];
+        *v113 = v112;
+        v113[1] = v114;
+        v113[2] = v115;
+        v113[3] = v116;
+        ++v89;
       }
 
-      while (v87 < self->_renderPassParameters.eyeCount);
+      while (v89 < self->_renderPassParameters.eyeCount);
     }
 
-    v115 = sub_1AF13050C(self->_engineContext, 0);
+    v117 = sub_1AF13050C(self->_engineContext, 0);
     var12 = instance[27].var12;
     *&var12 = *&var12;
-    objc_msgSend__zFarForSkyboxRenderingProjectionMatrix_defaultZFar_(self, v117, v115, v118, *&var12);
-    v168 = v119;
-    sub_1AF176E98(self->_renderEncoder, &v161, 0x310uLL, 0);
-    v30 = v141;
+    objc_msgSend__zFarForSkyboxRenderingProjectionMatrix_defaultZFar_(self, v119, v117, *&var12);
+    v165 = v120;
+    sub_1AF176E98(self->_renderEncoder, &v158, 0x310uLL, 0);
+    v36 = v138;
   }
 
   else
   {
-    v161 = v146;
-    v162 = v149;
-    v163 = v152;
-    v164 = v155;
-    *&v123 = sub_1AF1D0EBC(v144);
-    v165[0] = v123;
-    v165[1] = v124;
-    v165[2] = v125;
-    v165[3] = v126;
+    v158 = v143;
+    v159 = v146;
+    v160 = v149;
+    v161 = v152;
+    *&v123 = sub_1AF1D0EBC(v141, v80);
+    v162[0] = v123;
+    v162[1] = v124;
+    v162[2] = v125;
+    v162[3] = v126;
     v127 = sub_1AF13050C(self->_engineContext, 0);
     v128 = instance[27].var12;
     *&v128 = *&v128;
-    objc_msgSend__zFarForSkyboxRenderingProjectionMatrix_defaultZFar_(self, v129, v127, v130, *&v128);
-    v166 = v131;
-    sub_1AF176E98(self->_renderEncoder, &v161, 0x90uLL, 0);
+    objc_msgSend__zFarForSkyboxRenderingProjectionMatrix_defaultZFar_(self, v129, v127, *&v128);
+    v163 = v130;
+    sub_1AF176E98(self->_renderEncoder, &v158, 0x90uLL, 0);
   }
 
-  if (self->_cache.geometry != v30)
+  if (self->_cache.geometry != v36)
   {
-    self->_cache.geometry = v30;
-    objc_msgSend__setMeshBuffers_(self, v120, v142, v122);
+    self->_cache.geometry = v36;
+    objc_msgSend__setMeshBuffers_(self, v121, v139);
   }
 
-  if (objc_msgSend_textureType(v170, v120, v121, v122, v141) == 5)
+  if (objc_msgSend_textureType(v167, v121, v122, v138) == 5)
   {
-    v133 = sub_1AFDEA208(v142);
-    v136 = objc_msgSend_objectAtIndexedSubscript_(v133, v134, 0, v135);
-    objc_msgSend__drawMeshElement_instanceCount_(self, v137, v136, 1);
+    v132 = sub_1AFDEA208(v139);
+    v134 = objc_msgSend_objectAtIndexedSubscript_(v132, v133, 0);
+    objc_msgSend__drawMeshElement_instanceCount_(self, v135, v134, 1);
   }
 
   else
   {
-    sub_1AF2010C8(self->_renderEncoder, v132);
+    sub_1AF2010C8(self->_renderEncoder, v131);
   }
 
-  objc_msgSend_popDebugGroup(self, v138, v139, v140);
+  objc_msgSend_popDebugGroup(self, v136, v137);
 }
 
 - (void)renderVideoBackground:(__CFXImageProxy *)background engineContext:(__CFXEngineContext *)context materialProperty:(__CFXMaterialProperty *)property
 {
-  v86 = *MEMORY[0x1E69E9840];
-  objc_msgSend_pushDebugGroup_(self, a2, @"VFX - Draw video background", context);
-  v9 = sub_1AF276754(background);
-  v10 = sub_1AF130338(context);
-  if (!v10)
+  v90 = *MEMORY[0x1E69E9840];
+  objc_msgSend_pushDebugGroup_(self, a2, @"VFX - Draw video background");
+  v10 = sub_1AF276754(background, v9);
+  v11 = sub_1AF130338(context);
+  if (!v11)
   {
     goto LABEL_4;
   }
 
-  v11 = v10;
-  if (sub_1AF121B74(v10) != background)
+  v12 = v11;
+  if (sub_1AF121B74(v11) != background)
   {
     sub_1AF1302E4(context, 0);
 LABEL_4:
-    v12 = sub_1AF1C4F6C();
-    v11 = sub_1AF276584(background, v12, context);
-    sub_1AF1302E4(context, v11);
-    CFRelease(v11);
+    v13 = sub_1AF1C4F6C();
+    v12 = sub_1AF276584(background, v13, context);
+    sub_1AF1302E4(context, v12);
+    CFRelease(v12);
     goto LABEL_6;
   }
 
-  v12 = sub_1AF1C4F6C();
+  v13 = sub_1AF1C4F6C();
 LABEL_6:
-  v13 = sub_1AF276950(v11, context, v12, v84);
-  v83 = v13;
-  if (!v13)
+  v14 = sub_1AF276950(v12, context, v13, v88);
+  v87 = v14;
+  if (!v14)
   {
     return;
   }
 
-  v14 = v13;
+  v20 = v14;
   propertyCopy = property;
-  v15 = sub_1AF130340(context);
-  v68 = sub_1AF20E1F8(self->_resourceManager, v15, 1);
-  *(v85 + 7) = 0;
-  *&v85[0] = 0;
-  v16 = sub_1AF12F10C(self->_engineContext);
-  if (v16)
+  v21 = sub_1AF130340(context, v15, v16, v17, v18, v19);
+  v72 = sub_1AF20E1F8(self->_resourceManager, v21, 1);
+  *(v89 + 7) = 0;
+  *&v89[0] = 0;
+  v23 = sub_1AF12F10C(self->_engineContext, v22);
+  if (v23)
   {
-    v17 = sub_1AF1BB260(v16);
+    v25 = sub_1AF1BB260(v23, v24);
   }
 
   else
   {
-    v17 = 0;
+    v25 = 0;
   }
 
-  v18 = sub_1AF15C4BC(v17);
-  v65 = v15;
-  if ((*(self + 144) & 4) != 0 && v17 && self->_renderPassParameters.isMainPass && v18 && sub_1AF161288(v18))
+  v26 = sub_1AF15C4BC(v25, v24);
+  v69 = v21;
+  if ((*(self + 144) & 4) != 0 && v25 && self->_renderPassParameters.isMainPass && v26 && sub_1AF161288(v26, v27))
   {
-    v19 = 592;
+    v28 = 592;
   }
 
   else
   {
-    v19 = 584;
+    v28 = 584;
   }
 
-  v20 = *(&self->super.isa + v19);
-  v21 = sub_1AFDEA004(v68);
-  v22 = sub_1AFDEA078(v68);
+  v29 = *(&self->super.isa + v28);
+  v30 = sub_1AFDEA004(v72);
+  v32 = sub_1AFDEA078(v72, v31);
   eyeCount = self->_renderPassParameters.eyeCount;
   viewMapping = self->_renderPassParameters.viewMapping;
   if (self->_renderPassParameters.multiVertexOutputStreamGenerator == 2)
   {
-    v26 = 2;
+    v36 = 2;
   }
 
   else
   {
-    v26 = 1;
+    v36 = 1;
   }
 
-  *(&v85[1] + 7) = 0;
-  *(v85 + 15) = 0;
+  *(&v89[1] + 7) = 0;
+  *(v89 + 15) = 0;
   resourceManager = self->_resourceManager;
-  v70 = 0;
-  v71 = v20;
-  v72 = 0u;
-  v73 = 0u;
-  v74 = 783;
-  v75 = eyeCount;
-  v76 = v26;
-  v77 = 0;
-  v78 = v21;
-  v79 = v22;
-  v80 = viewMapping;
-  *&v81[15] = *(v85 + 15);
-  *v81 = v85[0];
-  v82 = 0;
-  v28 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v23, &v70, &self->_currentRenderPassDesc, v65);
+  v74 = 0;
+  v75 = v29;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 783;
+  v79 = eyeCount;
+  v80 = v36;
+  v81 = 0;
+  v82 = v30;
+  v83 = v32;
+  v84 = viewMapping;
+  *&v85[15] = *(v89 + 15);
+  *v85 = v89[0];
+  v86 = 0;
+  v38 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v33, &v74, &self->_currentRenderPassDesc, v69);
   renderEncoder = self->_renderEncoder;
-  v33 = objc_msgSend_state(v28, v30, v31, v32);
-  objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v34, v33, v35);
-  objc_msgSend_setRasterizerStates_(self, v36, self->_backgroundRasterizerStates, v37);
-  v38 = sub_1AFDE8554(self->_resourceManager);
-  if (objc_msgSend_pixelFormat(v14, v39, v40, v41) == 520 || objc_msgSend_pixelFormat(v14, v42, v43, v44) == 500)
+  v42 = objc_msgSend_state(v38, v40, v41);
+  objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v43, v42);
+  objc_msgSend_setRasterizerStates_(self, v44, self->_backgroundRasterizerStates);
+  v45 = sub_1AFDE8554(self->_resourceManager);
+  if (objc_msgSend_pixelFormat(v20, v46, v47) == 520 || objc_msgSend_pixelFormat(v20, v48, v49) == 500)
   {
-    v46 = sub_1AF20107C(self->_renderEncoder);
-    sub_1AF1F3034(self->_currentCommandBuffer, &v83, 1, v47);
-    objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(v46, v48, v83, 0, v38, 0);
+    v50 = sub_1AF20107C(self->_renderEncoder, v48);
+    sub_1AF1F3034(self->_currentCommandBuffer, &v87, 1);
+    v52 = objc_msgSend_setFragmentTexture_atTextureIndex_samplerState_atSamplerIndex_(v50, v51, v87, 0, v45, 0);
   }
 
   else
   {
-    sub_1AF1F8FCC(self->_renderEncoder, v14, 0, v45);
-    objc_msgSend_setFragmentSamplerState_atIndex_(self->_renderEncoder->var3, v49, v38, 0);
+    sub_1AF1F8FCC(self->_renderEncoder, v20, 0);
+    v52 = objc_msgSend_setFragmentSamplerState_atIndex_(self->_renderEncoder->var3, v54, v45, 0);
   }
 
-  if (v9 <= 1)
+  if (v10 <= 1)
   {
-    if (v9)
+    if (v10)
     {
-      if (v9 == 1)
+      if (v10 == 1)
       {
         __asm { FMOV            V1.2S, #1.0 }
 
-        v70 = 0x3F80000000000000;
-        v71 = _D1;
-        *&v72 = 0;
-        *(&v72 + 1) = 1065353216;
+        v74 = 0x3F80000000000000;
+        v75 = _D1;
+        *&v76 = 0;
+        *(&v76 + 1) = 1065353216;
       }
     }
 
     else
     {
-      v55 = sub_1AF0D5194();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v60 = sub_1AF0D5194(v52, v53);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE68BC();
       }
@@ -2511,91 +2527,92 @@ LABEL_6:
     goto LABEL_35;
   }
 
-  if (v9 == 2)
+  if (v10 == 2)
   {
     sub_1AF2014BC(background, context);
   }
 
-  else if (v9 != 3)
+  else if (v10 != 3)
   {
     goto LABEL_35;
   }
 
-  *&v56 = sub_1AF2014BC(background, context);
-  v70 = v56;
-  v71 = v57;
-  *&v72 = v58;
-  *(&v72 + 1) = v59;
+  *&v61 = sub_1AF2014BC(background, context);
+  v74 = v61;
+  v75 = v62;
+  *&v76 = v63;
+  *(&v76 + 1) = v64;
 LABEL_35:
-  sub_1AF176E98(self->_renderEncoder, &v70, 0x20uLL, 0);
-  v69 = sub_1AF166598(propertyCopy);
-  sub_1AF1F905C(self->_renderEncoder, &v69, 4uLL, 0);
-  if (self->_cache.geometry != v66)
+  sub_1AF176E98(self->_renderEncoder, &v74, 0x20uLL, 0);
+  v73 = sub_1AF166598(propertyCopy, v65);
+  sub_1AF1F905C(self->_renderEncoder, &v73, 4uLL, 0);
+  if (self->_cache.geometry != v70)
   {
-    self->_cache.geometry = v66;
-    objc_msgSend__setMeshBuffers_(self, v60, v68, v61);
+    self->_cache.geometry = v70;
+    objc_msgSend__setMeshBuffers_(self, v66, v72);
   }
 
-  sub_1AF2016F4(self->_renderEncoder, v60);
-  objc_msgSend_popDebugGroup(self, v62, v63, v64);
+  sub_1AF2016F4(self->_renderEncoder, v66);
+  objc_msgSend_popDebugGroup(self, v67, v68);
 }
 
-- (void)authoring_renderMesh:(uint64_t)mesh meshElement:(uint64_t)element withProgram:(uint64_t)program uniforms:(const void *)uniforms uniformsLength:(size_t)length rasterizerStates:(uint64_t)states blendStates:(uint64_t)blendStates texture:(uint64_t)self0 sampler:(uint64_t)self1 depthBias:(char)self2
+- (uint64_t)authoring_renderMesh:(uint64_t)mesh meshElement:(uint64_t)element withProgram:(uint64_t)program uniforms:(const void *)uniforms uniformsLength:(size_t)length rasterizerStates:(uint64_t)states blendStates:(uint64_t)blendStates texture:(uint64_t)self0 sampler:(uint64_t)self1 depthBias:(char)self2
 {
-  if (sub_1AF218E70(self + 200))
+  result = sub_1AF218E70(self + 200);
+  if (result)
   {
     lengthCopy = length;
-    v19 = sub_1AF20E1F8(*(self + 112), mesh, 1);
-    if (sub_1AF1A57DC(mesh))
+    v21 = sub_1AF20E1F8(*(self + 112), mesh, 1);
+    if (sub_1AF1A57DC(mesh, v22))
     {
-      if (!sub_1AFDEA228(v19))
+      if (!sub_1AFDEA228(v21))
       {
-        v20 = sub_1AF0D5194();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v24 = sub_1AF0D5194(0, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDE6924(v20, v21, v22, v23, v24, v25, v26, v27);
+          sub_1AFDE6924(v24, v25, v26, v27, v28, v29, v30, v31);
         }
       }
     }
 
-    v28 = sub_1AFDE7F98(*(self + 112));
-    v29 = sub_1AF1A73D4(element);
-    v60 = v28;
-    sub_1AFDEA4AC(v28, v29, v30);
+    v32 = sub_1AFDE7F98(*(self + 112));
+    v33 = sub_1AF1A73D4(element);
+    v59 = v32;
+    sub_1AFDEA4AC(v32, v33, v34);
     if (*(self + 468) == 2)
     {
-      v31 = 2;
+      v35 = 2;
     }
 
     else
     {
-      v31 = 1;
+      v35 = 1;
     }
 
-    v32 = *(self + 465);
-    v33 = sub_1AFDEA004(v19);
-    v34 = sub_1AFDEA078(v19);
-    v35 = *(self + 467);
-    v36 = *(self + 112);
-    v61[0] = 0;
-    v61[1] = program;
-    memset(&v61[2], 0, 24);
-    v61[5] = blendStates;
-    v62 = 15;
-    v63 = v32;
-    v64 = v31;
-    v65 = 0;
-    v66 = v33;
-    v67 = v34;
-    v68 = v35;
-    v69 = 0u;
-    memset(v70, 0, sizeof(v70));
-    v38 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(v36, v37, v61, self + 200);
-    v39 = *(self + 424);
-    v43 = objc_msgSend_state(v38, v40, v41, v42);
-    objc_msgSend_setRenderPipelineState_(*(v39 + 16), v44, v43, v45);
+    v36 = *(self + 465);
+    v37 = sub_1AFDEA004(v21);
+    v39 = sub_1AFDEA078(v21, v38);
+    v40 = *(self + 467);
+    v41 = *(self + 112);
+    v60[0] = 0;
+    v60[1] = program;
+    memset(&v60[2], 0, 24);
+    v60[5] = blendStates;
+    v61 = 15;
+    v62 = v36;
+    v63 = v35;
+    v64 = 0;
+    v65 = v37;
+    v66 = v39;
+    v67 = v40;
+    v68 = 0u;
+    memset(v69, 0, sizeof(v69));
+    v43 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(v41, v42, v60, self + 200);
+    v44 = *(self + 424);
+    v47 = objc_msgSend_state(v43, v45, v46);
+    objc_msgSend_setRenderPipelineState_(*(v44 + 16), v48, v47);
     *(self + 18896) = 0;
-    objc_msgSend_setRasterizerStates_(self, v46, states, v47);
+    objc_msgSend_setRasterizerStates_(self, v49, states);
     if (uniforms)
     {
       sub_1AF176E98(*(self + 424), uniforms, lengthCopy, 1);
@@ -2603,44 +2620,48 @@ LABEL_35:
 
     if (bias)
     {
-      LODWORD(v51) = -2.0;
       LODWORD(v52) = -2.0;
-      objc_msgSend_setDepthBias_slopeScale_clamp_(*(*(self + 424) + 16), v48, v49, v50, v51, v52, 0.0);
+      LODWORD(v53) = -2.0;
+      objc_msgSend_setDepthBias_slopeScale_clamp_(*(*(self + 424) + 16), v50, v51, v52, v53, 0.0);
     }
 
     if (texture)
     {
-      v53 = objc_msgSend_renderResourceForImage_sampler_options_engineContext_didFallbackToDefaultTexture_(*(self + 112), v48, texture, sampler, 0, *(self + 136), 0);
-      sub_1AF1F8FCC(*(self + 424), v53, 0, v54);
+      v54 = objc_msgSend_renderResourceForImage_sampler_options_engineContext_didFallbackToDefaultTexture_(*(self + 112), v50, texture, sampler, 0, *(self + 136), 0);
+      sub_1AF1F8FCC(*(self + 424), v54, 0);
     }
 
     if (*(self + 18632) != mesh)
     {
       *(self + 18632) = mesh;
-      objc_msgSend__setMeshBuffers_(self, v48, v19, v50);
+      objc_msgSend__setMeshBuffers_(self, v50, v21);
     }
 
-    objc_msgSend__drawMeshElement_instanceCount_(self, v48, v60, 1, lengthCopy);
+    result = objc_msgSend__drawMeshElement_instanceCount_(self, v50, v59, 1, lengthCopy);
     if (bias)
     {
-      objc_msgSend_setDepthBias_slopeScale_clamp_(*(*(self + 424) + 16), v55, v56, v57, 0.0, 0.0, 0.0);
+      return objc_msgSend_setDepthBias_slopeScale_clamp_(*(*(self + 424) + 16), v55, v56, 0.0, 0.0, 0.0);
     }
   }
 
   else if ((byte_1EB6586A0 & 1) == 0)
   {
     byte_1EB6586A0 = 1;
-    v58 = sub_1AF0D5194();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v57 = sub_1AF0D5194(result, v20);
+    result = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+    if (result)
     {
       sub_1AFDE68F0();
     }
   }
+
+  return result;
 }
 
 - (void)authoring_drawPrimitives:(unint64_t)primitives vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount vertexBuffers:(const void *)buffers offsets:(const unint64_t *)offsets range:(_NSRange)range vertexDescriptor:(id)descriptor withProgram:(__CFXProgram *)self0 uniforms:(const void *)self1 uniformsLength:(unint64_t)self2 rasterizerStates:(__CFXRasterizerStates *)self3 blendStates:(__CFXBlendStates *)self4
 {
-  if (sub_1AF218E70(&self->_currentRenderPassDesc))
+  v20 = sub_1AF218E70(&self->_currentRenderPassDesc);
+  if (v20)
   {
     instanceCountCopy = instanceCount;
     primitivesCopy = primitives;
@@ -2656,55 +2677,55 @@ LABEL_35:
       v23 = 1;
     }
 
-    v59 = 0;
-    v58 = 0;
+    v56 = 0;
+    v55 = 0;
     eyeCount = self->_renderPassParameters.eyeCount;
-    v25 = objc_msgSend_hash(descriptor, v20, v21, v22, range.location, range.length);
+    v25 = objc_msgSend_hash(descriptor, v21, v22, range.location, range.length);
     viewMapping = self->_renderPassParameters.viewMapping;
     resourceManager = self->_resourceManager;
-    v49[0] = 0;
-    v49[1] = program;
-    memset(&v49[2], 0, 24);
-    v49[5] = blendStates;
-    v50 = 15;
-    v51 = eyeCount;
-    v52 = v23;
-    v53 = 0;
+    v46[0] = 0;
+    v46[1] = program;
+    memset(&v46[2], 0, 24);
+    v46[5] = blendStates;
+    v47 = 15;
+    v48 = eyeCount;
+    v49 = v23;
+    v50 = 0;
     descriptorCopy = descriptor;
-    v55 = v25;
-    v56 = viewMapping;
-    v57 = 0;
-    v60 = 0u;
-    v61 = 0u;
-    v29 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v28, v49, &self->_currentRenderPassDesc);
+    v52 = v25;
+    v53 = viewMapping;
+    v54 = 0;
+    v57 = 0u;
+    v58 = 0u;
+    v29 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v28, v46, &self->_currentRenderPassDesc);
     renderEncoder = self->_renderEncoder;
-    v34 = objc_msgSend_state(v29, v31, v32, v33);
-    objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v35, v34, v36);
-    objc_msgSend_setRasterizerStates_(self, v37, states, v38);
+    v33 = objc_msgSend_state(v29, v31, v32);
+    objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v34, v33);
+    objc_msgSend_setRasterizerStates_(self, v35, states);
     if (uniforms)
     {
       sub_1AF176E98(self->_renderEncoder, uniforms, length, 1);
     }
 
-    objc_msgSend_setVertexBuffers_offsets_withRange_(self->_renderEncoder->var3, v39, buffers, offsets, v44, v45);
-    v41 = self->_renderEncoder;
-    var3 = v41->var3;
-    if (v41->var0 * instanceCountCopy < 2)
+    objc_msgSend_setVertexBuffers_offsets_withRange_(self->_renderEncoder->var3, v36, buffers, offsets, v41, v42);
+    v38 = self->_renderEncoder;
+    var3 = v38->var3;
+    if (v38->var0 * instanceCountCopy < 2)
     {
-      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(var3, v40, primitivesCopy, 0, countCopy);
+      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(var3, v37, primitivesCopy, 0, countCopy);
     }
 
     else
     {
-      objc_msgSend_drawPrimitives_vertexStart_vertexCount_instanceCount_(var3, v40, primitivesCopy, 0, countCopy);
+      objc_msgSend_drawPrimitives_vertexStart_vertexCount_instanceCount_(var3, v37, primitivesCopy, 0, countCopy);
     }
   }
 
   else if ((byte_1EB6586A1 & 1) == 0)
   {
     byte_1EB6586A1 = 1;
-    v43 = sub_1AF0D5194();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v40 = sub_1AF0D5194(v20, v21);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDE699C();
     }
@@ -2713,7 +2734,8 @@ LABEL_35:
 
 - (void)authoring_drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(id)buffer instanceCount:(unint64_t)instanceCount vertexBuffers:(const void *)buffers offsets:(const unint64_t *)offsets range:(_NSRange)self0 vertexDescriptor:(id)self1 withProgram:(__CFXProgram *)self2 uniforms:(const void *)self3 uniformsLength:(unint64_t)self4 rasterizerStates:(__CFXRasterizerStates *)self5 blendStates:(__CFXBlendStates *)self6
 {
-  if (sub_1AF218E70(&self->_currentRenderPassDesc))
+  v23 = sub_1AF218E70(&self->_currentRenderPassDesc);
+  if (v23)
   {
     primitivesCopy = primitives;
     countCopy = count;
@@ -2729,55 +2751,55 @@ LABEL_35:
       v26 = 1;
     }
 
-    v63 = 0;
-    v62 = 0;
+    v60 = 0;
+    v59 = 0;
     eyeCount = self->_renderPassParameters.eyeCount;
-    v28 = objc_msgSend_hash(descriptor, v23, v24, v25, offsets, range.location, range.length);
+    v28 = objc_msgSend_hash(descriptor, v24, v25, offsets, range.location, range.length);
     viewMapping = self->_renderPassParameters.viewMapping;
     resourceManager = self->_resourceManager;
-    v53[0] = 0;
-    v53[1] = program;
-    memset(&v53[2], 0, 24);
-    v53[5] = blendStates;
-    v54 = 15;
-    v55 = eyeCount;
-    v56 = v26;
-    v57 = 0;
+    v50[0] = 0;
+    v50[1] = program;
+    memset(&v50[2], 0, 24);
+    v50[5] = blendStates;
+    v51 = 15;
+    v52 = eyeCount;
+    v53 = v26;
+    v54 = 0;
     descriptorCopy = descriptor;
-    v59 = v28;
-    v60 = viewMapping;
-    v61 = 0;
-    v64 = 0u;
-    v65 = 0u;
-    v32 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v31, v53, &self->_currentRenderPassDesc);
+    v56 = v28;
+    v57 = viewMapping;
+    v58 = 0;
+    v61 = 0u;
+    v62 = 0u;
+    v32 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v31, v50, &self->_currentRenderPassDesc);
     renderEncoder = self->_renderEncoder;
-    v37 = objc_msgSend_state(v32, v34, v35, v36);
-    objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v38, v37, v39);
-    objc_msgSend_setRasterizerStates_(self, v40, states, v41);
+    v36 = objc_msgSend_state(v32, v34, v35);
+    objc_msgSend_setRenderPipelineState_(renderEncoder->var3, v37, v36);
+    objc_msgSend_setRasterizerStates_(self, v38, states);
     if (uniforms)
     {
       sub_1AF176E98(self->_renderEncoder, uniforms, length, 1);
     }
 
-    objc_msgSend_setVertexBuffers_offsets_withRange_(self->_renderEncoder->var3, v42, buffers, v47, v48, v49);
-    v44 = self->_renderEncoder;
-    var3 = v44->var3;
-    if (v44->var0 * instanceCount < 2)
+    objc_msgSend_setVertexBuffers_offsets_withRange_(self->_renderEncoder->var3, v39, buffers, v44, v45, v46);
+    v41 = self->_renderEncoder;
+    var3 = v41->var3;
+    if (v41->var0 * instanceCount < 2)
     {
-      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(var3, v43, primitivesCopy, countCopy, type, bufferCopy, 0);
+      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(var3, v40, primitivesCopy, countCopy, type, bufferCopy, 0);
     }
 
     else
     {
-      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(var3, v43, primitivesCopy, countCopy, type, bufferCopy, 0);
+      objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_(var3, v40, primitivesCopy, countCopy, type, bufferCopy, 0);
     }
   }
 
   else if ((byte_1EB6586A2 & 1) == 0)
   {
     byte_1EB6586A2 = 1;
-    v46 = sub_1AF0D5194();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v43 = sub_1AF0D5194(v23, v24);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDE699C();
     }
@@ -2788,25 +2810,25 @@ LABEL_35:
 {
   if (node)
   {
-    v7 = sub_1AF1B7558(node);
+    v7 = sub_1AF1B7558(node, a2);
     if (v7)
     {
-      v8 = v7;
-      if (sub_1AF16B74C(v7))
+      v9 = v7;
+      if (sub_1AF16B74C(v7, v8))
       {
-        v9 = sub_1AF1B75A0(node);
-        if (v9)
+        v11 = sub_1AF1B75A0(node, v10);
+        if (v11)
         {
-          v11 = sub_1AF1B40A0(v9);
-          v13 = objc_msgSend_renderResourceForDeformerStack_node_dataKind_(self->_resourceManager, v12, v8, node, v11);
+          v13 = sub_1AF1B40A0(v11, v12);
+          v15 = objc_msgSend_renderResourceForDeformerStack_node_dataKind_(self->_resourceManager, v14, v9, node, v13);
         }
 
         else
         {
-          v13 = objc_msgSend_renderResourceForDeformerStack_node_dataKind_(self->_resourceManager, v10, v8, node, 1);
+          v15 = objc_msgSend_renderResourceForDeformerStack_node_dataKind_(self->_resourceManager, v12, v9, node, 1);
         }
 
-        sub_1AFDE287C(v13, environment, self, v14);
+        sub_1AFDE287C(v15, environment, self);
       }
     }
   }
@@ -2815,17 +2837,17 @@ LABEL_35:
 - (void)processRendererElements:(id *)elements count:(unsigned int)count engineIterationContext:(id *)context
 {
   LODWORD(i) = count;
-  *&v47[5] = *MEMORY[0x1E69E9840];
+  *&v46[5] = *MEMORY[0x1E69E9840];
   var1 = context->var1;
   var2 = context->var2;
-  v43 = *(context->var0 + 20);
-  v42 = sub_1AF130504(var1);
-  v41 = sub_1AF12EDD8(var1);
+  v42 = *(context->var0 + 20);
+  v41 = sub_1AF130504(var1);
+  v40 = sub_1AF12EDD8(var1, v10);
   if (self->_debugOptions & 2) != 0 && (BYTE2(var2[27].var5[4]))
   {
     v12 = 1;
-    objc_msgSend_setTriangleFillMode_(self->_renderEncoder->var3, v10, 1, v11);
-    sub_1AF2021D8(self->_renderEncoder, 1, v13, v14);
+    objc_msgSend_setTriangleFillMode_(self->_renderEncoder->var3, v11, 1);
+    sub_1AF2021D8(self->_renderEncoder, 1);
   }
 
   else
@@ -2834,17 +2856,17 @@ LABEL_35:
   }
 
   contextCopy = context;
-  objc_msgSend_startProcessingRendererElementsWithEngineIterationContext_(self, v10, context, v11);
+  objc_msgSend_startProcessingRendererElementsWithEngineIterationContext_(self, v11, context);
   if (!context->var10)
   {
     return;
   }
 
-  v40 = sub_1AF1302DC(var1);
-  v39 = sub_1AF1D0188(*&var2[27].var7);
+  v39 = sub_1AF1302DC(var1);
+  v38 = sub_1AF1D0188(*&var2[27].var7, v14);
   if (sub_1AF12E2A0(var1))
   {
-    v19 = sub_1AF1310A0(var1);
+    v17 = sub_1AF1310A0(var1);
     if (!i)
     {
       goto LABEL_46;
@@ -2853,135 +2875,136 @@ LABEL_35:
 
   else
   {
-    v19 = 0;
+    v17 = 0;
     if (!i)
     {
       goto LABEL_46;
     }
   }
 
-  v36 = v12;
-  v20 = 0;
-  v21 = 0;
+  v35 = v12;
+  v18 = 0;
+  v19 = 0;
   elementsCopy = elements;
-  v37 = i;
+  v36 = i;
   for (i = i; i; --i)
   {
-    v22 = *elements++;
-    contextCopy = contextCopy & 0xFFFFFFFF00000000 | v22;
-    v23 = sub_1AF1474D8(v43, contextCopy);
-    v24 = v23;
-    if (context->var12 && !sub_1AF146200(v23))
+    v20 = *elements++;
+    contextCopy = contextCopy & 0xFFFFFFFF00000000 | v20;
+    v21 = sub_1AF1474D8(v42, contextCopy);
+    v22 = v21;
+    if (context->var12 && !sub_1AF146200(v21))
     {
 LABEL_42:
-      v27 = v21;
-      v24 = v20;
+      v26 = v19;
+      v22 = v18;
       goto LABEL_43;
     }
 
-    CurrentPassHash = objc_msgSend_getCurrentPassHash(self, v16, v17, v18, v36);
-    v26 = sub_1AF1D632C(var2);
-    v27 = sub_1AF1402E0(v41, v24, v26, CurrentPassHash);
-    if (v20)
+    CurrentPassHash = objc_msgSend_getCurrentPassHash(self, v15, v16, v35);
+    v25 = sub_1AF1D632C(var2, v24);
+    v26 = sub_1AF1402E0(v40, v22, v25, CurrentPassHash);
+    if (v18)
     {
-      if (!sub_1AF145EB0(v20) && !sub_1AF145EB0(v24) && v20[2] == *(v24 + 16) && v20[3] == *(v24 + 24) && v20[6] == *(v24 + 48) && v21 == v27 && v20[7] == *(v24 + 56) && v20[8] == *(v24 + 64) && sub_1AF16B7C8(v20[1], *(v24 + 8)) && sub_1AF12DBA4(v39, *(v24 + 8)))
+      if (!sub_1AF145EB0(v18) && !sub_1AF145EB0(v22) && v18[2] == *(v22 + 16) && v18[3] == *(v22 + 24) && v18[6] == *(v22 + 48) && v19 == v26 && v18[7] == *(v22 + 56) && v18[8] == *(v22 + 64) && sub_1AF16B7C8(v18[1], *(v22 + 8)) && sub_1AF12DBA4(v38, *(v22 + 8)))
       {
         goto LABEL_42;
       }
 
-      sub_1AF202238(self, v20, var2);
-      sub_1AF12DB94(v39);
-      v21 = 0;
+      sub_1AF202238(self, v18, var2);
+      sub_1AF12DB94(v38);
+      v19 = 0;
     }
 
-    if (!sub_1AF145EB0(v24) && !v40 && v27 && sub_1AF13E540(v27) && (v28 = *(v24 + 16)) != 0 && sub_1AF1B3F80(v28))
+    if (!sub_1AF145EB0(v22) && !v39 && v26 && sub_1AF13E540(v26) && (v27 = *(v22 + 16)) != 0 && sub_1AF1B3F80(v27))
     {
-      if ((sub_1AF13E540(v27) & 1) == 0)
+      v28 = sub_1AF13E540(v26);
+      if ((v28 & 1) == 0)
       {
-        v29 = sub_1AF0D5194();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+        v30 = sub_1AF0D5194(v28, v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDE69D0(v46, v47, v29);
+          sub_1AFDE69D0(v45, v46, v30);
         }
       }
 
-      sub_1AF12DBA4(v39, *(v24 + 8));
+      sub_1AF12DBA4(v38, *(v22 + 8));
     }
 
     else
     {
-      if (v19)
+      if (v17)
       {
-        sub_1AF1B7A3C(*(v24 + 8), &v45);
-        sub_1AF22D78C(v19, 0, xmmword_1AFE22A50, unk_1AFE22A60);
-        sub_1AF202238(self, v24, var2);
-        sub_1AF22D814(v19);
+        sub_1AF1B7A3C(*(v22 + 8), &v44);
+        sub_1AF22D78C(v17, 0, xmmword_1AFE22A50, unk_1AFE22A60);
+        sub_1AF202238(self, v22, var2);
+        sub_1AF22D814(v17, v31);
       }
 
       else
       {
-        sub_1AF202238(self, v24, var2);
+        sub_1AF202238(self, v22, var2);
       }
 
-      v24 = 0;
-      v27 = v21;
+      v22 = 0;
+      v26 = v19;
     }
 
-    if (v42 && ((*(v42 + 16))() & 1) != 0)
+    if (v41 && ((*(v41 + 16))() & 1) != 0)
     {
       break;
     }
 
     ++self->__engineStats->drawStep;
 LABEL_43:
-    v20 = v24;
-    v21 = v27;
+    v18 = v22;
+    v19 = v26;
   }
 
   elements = elementsCopy;
-  LODWORD(i) = v37;
-  LODWORD(v12) = v36;
-  if (v24)
+  LODWORD(i) = v36;
+  LODWORD(v12) = v35;
+  if (v22)
   {
-    sub_1AF202238(self, v24, var2);
-    sub_1AF12DB94(v39);
+    sub_1AF202238(self, v22, var2);
+    sub_1AF12DB94(v38);
   }
 
 LABEL_46:
   isMainPass = self->_processingContext.isMainPass;
-  if ((objc_msgSend_debugOptions(self, v16, v17, v18, v36) & 4) != 0 && isMainPass)
+  if ((objc_msgSend_debugOptions(self, v15, v16, v35) & 4) != 0 && isMainPass)
   {
-    objc_msgSend_drawWireframeOverlayForElements_range_store_passInstance_(self, v31, elements, 0, i, v43, context->var2);
+    objc_msgSend_drawWireframeOverlayForElements_range_store_passInstance_(self, v33, elements, 0, i, v42, context->var2);
   }
 
   if (v12)
   {
-    sub_1AF2021D8(self->_renderEncoder, 0, v32, v33);
-    objc_msgSend_setTriangleFillMode_(self->_renderEncoder->var3, v34, 0, v35);
+    sub_1AF2021D8(self->_renderEncoder, 0);
+    objc_msgSend_setTriangleFillMode_(self->_renderEncoder->var3, v34, 0);
   }
 
-  objc_msgSend_stopProcessingRendererElements_(self, v31, isMainPass, v33);
+  objc_msgSend_stopProcessingRendererElements_(self, v33, isMainPass);
 }
 
 - (void)startProcessingRendererElementsWithEngineIterationContext:(id *)context
 {
-  v5 = sub_1AF12DDCC(context->var1);
-  objc_msgSend__fillProcessingContextWithEngineIterationContext_(self, v6, context, v7);
-  objc_msgSend__fillFrameUniformsWithWorld_(self, v8, v5, v9);
+  v5 = sub_1AF12DDCC(context->var1, a2);
+  objc_msgSend__fillProcessingContextWithEngineIterationContext_(self, v6, context);
+  objc_msgSend__fillFrameUniformsWithWorld_(self, v7, v5);
   self->_renderGraphParticleMaterialOverride = context->var5;
   if (context->var11)
   {
 
-    objc_msgSend__fillVFXCoreRenderData(self, v10, v11, v12);
+    objc_msgSend__fillVFXCoreRenderData(self, v8, v9);
   }
 }
 
 - (uint64_t)_fillProcessingContextWithCullingContext:(uint64_t)context
 {
   v5 = *(context + 14688);
-  *(self + 640) = sub_1AF1D00F8(v5);
-  *(self + 688) = sub_1AF1D0218(v5);
-  result = sub_1AF1D0188(v5);
+  *(self + 640) = sub_1AF1D00F8(v5, a2);
+  *(self + 688) = sub_1AF1D0218(v5, v6);
+  result = sub_1AF1D0188(v5, v7);
   *(self + 648) = result;
   *(self + 664) = context;
   *(self + 656) = 0;
@@ -2993,46 +3016,48 @@ LABEL_46:
 
 - (void)_fillProcessingContextWithEngineIterationContext:(id *)context
 {
+  selfCopy = self;
   if (context->var1 != self->_engineContext)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    self = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+    if (self)
     {
-      sub_1AFDE6BF8(v6, a2, v7, v3, v8, v9, v10, v11);
+      sub_1AFDE6BF8(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
   var2 = context->var2;
   if (!var2)
   {
-    v13 = sub_1AF0D5194();
+    v13 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDE6C70(v13, a2, v14, v3, v15, v16, v17, v18);
+      sub_1AFDE6C70(v13, a2, v14, v15, v16, v17, v18, v19);
     }
   }
 
-  objc_msgSend__fillProcessingContextWithCullingContext_(self, a2, &var2->var7, v3);
-  self->_processingContext.renderingOverrides = sub_1AF1D632C(var2);
-  self->_processingContext.passInstance = var2;
+  objc_msgSend__fillProcessingContextWithCullingContext_(selfCopy, a2, &var2->var7);
+  selfCopy->_processingContext.renderingOverrides = sub_1AF1D632C(var2, v20);
+  selfCopy->_processingContext.passInstance = var2;
   var4 = context->var4;
-  self->_processingContext.renderGraphPass = context->var3;
-  self->_processingContext.passRequiresLighting = context->var6;
-  self->_processingContext.isMainPass = context->var9;
-  self->_processingContext.programHashCodeStoreKey = var4;
+  selfCopy->_processingContext.renderGraphPass = context->var3;
+  selfCopy->_processingContext.passRequiresLighting = context->var6;
+  selfCopy->_processingContext.isMainPass = context->var9;
+  selfCopy->_processingContext.programHashCodeStoreKey = var4;
 }
 
 - (void)updateFrameConstants
 {
   v3 = sub_1AF1302D4(self->_engineContext);
   v4 = modf(v3, &__y);
-  *&self->_anon_2d0[768] = sub_1AF130770(self->_engineContext, v5, v6, v7);
-  v8 = v3;
-  *&self->_anon_2d0[440] = v8;
-  v9 = v4;
-  *&self->_anon_2d0[444] = v9;
-  v10 = sub_1AF1302B4(self->_engineContext);
-  *&self->_anon_2d0[448] = v10;
+  *&self->_anon_2d0[768] = sub_1AF130770(self->_engineContext, v5, v6);
+  v7 = v3;
+  *&self->_anon_2d0[440] = v7;
+  v8 = v4;
+  *&self->_anon_2d0[444] = v8;
+  v9 = sub_1AF1302B4(self->_engineContext);
+  *&self->_anon_2d0[448] = v9;
 }
 
 - (void)_updateViewDependentConstants:(uint64_t)constants world:(__n128 *)world
@@ -3051,15 +3076,15 @@ LABEL_46:
   {
     v7 = 0;
     v8 = (self + 720);
-    v61 = constants + 7168;
-    v62 = constants + 0x2000;
+    v66 = constants + 7168;
+    v67 = constants + 0x2000;
     v9 = constants + 10240;
     v10 = constants + 9216;
-    v59 = constants + 11264;
+    v64 = constants + 11264;
     v11 = v4;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v60 = _Q0;
+    v65 = _Q0;
     v17 = self + 736;
     do
     {
@@ -3070,7 +3095,7 @@ LABEL_46:
       }
 
       v19 = v7 + v18;
-      v20 = (v62 + ((v7 + v18) << 6));
+      v20 = (v67 + ((v7 + v18) << 6));
       v21 = *v20;
       v22 = *(v20 + 1);
       v23 = *(v20 + 2);
@@ -3079,7 +3104,7 @@ LABEL_46:
       *v17 = v22;
       *(v17 + 16) = v23;
       *(v17 + 32) = v24;
-      v25 = (v61 + ((v7 + v18) << 6));
+      v25 = (v66 + ((v7 + v18) << 6));
       v26 = v25[1];
       v27 = v25[2];
       v28 = v25[3];
@@ -3097,7 +3122,7 @@ LABEL_46:
       v35 = vaddq_f32(vzip1q_s32(v33, vdupq_laneq_s32(v30, 2)), vaddq_f32(vzip1q_s32(v32, v30), v34));
       v36 = vceqzq_f32(v35);
       v36.i32[3] = 0;
-      v37 = vbslq_s8(vcltzq_s32(v36), v35, vdivq_f32(v60, v35));
+      v37 = vbslq_s8(vcltzq_s32(v36), v35, vdivq_f32(v65, v35));
       *(v17 + 672) = vmulq_n_f32(v21, v37.f32[0]);
       *(v17 + 688) = vmulq_lane_f32(v22, *v37.f32, 1);
       *(v17 + 704) = vmulq_laneq_f32(v23, v37, 2);
@@ -3110,15 +3135,15 @@ LABEL_46:
       *(v17 + 192) = v39;
       *(v17 + 208) = v40;
       *(v17 + 224) = v41;
-      v64.columns[0] = v21;
-      v64.columns[1] = v22;
-      v64.columns[2] = v23;
-      v64.columns[3] = v24;
-      sub_1AF1D0B30(world, &v64);
-      v42 = v64.columns[1];
-      v43 = v64.columns[2];
-      v44 = v64.columns[3];
-      *(v17 + 240) = v64.columns[0];
+      v69.columns[0] = v21;
+      v69.columns[1] = v22;
+      v69.columns[2] = v23;
+      v69.columns[3] = v24;
+      sub_1AF1D0B30(world, &v69);
+      v42 = v69.columns[1];
+      v43 = v69.columns[2];
+      v44 = v69.columns[3];
+      *(v17 + 240) = v69.columns[0];
       *(v17 + 256) = v42;
       *(v17 + 272) = v43;
       *(v17 + 288) = v44;
@@ -3132,35 +3157,35 @@ LABEL_46:
       *(v17 + 160) = v48;
       if (sub_1AF130540(*(self + 136)))
       {
-        v49 = (v59 + (v19 << 6));
-        v50 = v49[1];
-        v51 = v49[2];
-        v52 = v49[3];
-        *(v17 + 304) = *v49;
-        *(v17 + 320) = v50;
-        *(v17 + 336) = v51;
-        *(v17 + 352) = v52;
-        v53 = sub_1AF12F10C(*(constants + 14696));
-        if (v53)
+        v50 = (v64 + (v19 << 6));
+        v51 = v50[1];
+        v52 = v50[2];
+        v53 = v50[3];
+        *(v17 + 304) = *v50;
+        *(v17 + 320) = v51;
+        *(v17 + 336) = v52;
+        *(v17 + 352) = v53;
+        v54 = sub_1AF12F10C(*(constants + 14696), v49);
+        if (v54)
         {
-          v54 = sub_1AF1BB260(v53);
-          if (v54)
+          v56 = sub_1AF1BB260(v54, v55);
+          if (v56)
           {
-            v55 = v54;
-            if (sub_1AF15CEC0(v54))
+            v58 = v56;
+            if (sub_1AF15CEC0(v56, v57))
             {
-              v56 = sub_1AF15C3C4(v55);
-              *(v17 + 436) = sub_1AF160FEC(v56) * 0.5;
+              v60 = sub_1AF15C3C4(v58, v59);
+              *(v17 + 436) = sub_1AF160FEC(v60, v61) * 0.5;
             }
           }
         }
       }
 
-      v57 = &v8[784 * v19];
-      *(v17 + 512) = __invert_f4(v57[2]);
-      *(v17 + 576) = __invert_f4(v57[3]);
-      v58 = sub_1AF125C8C(constants, v7);
-      *(v17 + 656) = vextq_s8(v58, v58, 8uLL);
+      v62 = &v8[784 * v19];
+      *(v17 + 512) = __invert_f4(v62[2]);
+      *(v17 + 576) = __invert_f4(v62[3]);
+      v63 = sub_1AF125C8C(constants, v7);
+      *(v17 + 656) = vextq_s8(v63, v63, 8uLL);
       ++v7;
       v17 += 784;
     }
@@ -3175,39 +3200,40 @@ LABEL_46:
   *&self->_anon_2d0[392] = v6;
   *&self->_anon_2d0[384] = v5;
   v7 = sub_1AF12FAE8(self->_engineContext, 0, 0);
-  v31 = *(v7 + 48);
-  v32 = *(v7 + 32);
-  v8 = sub_1AF12EF08(self->_engineContext);
-  *&self->_anon_2d0[400] = *sub_1AF1D048C(world);
-  if (*(&v32 + 3) == 0.0 && sub_1AF28A2DC())
+  v36 = *(v7 + 48);
+  v37 = *(v7 + 32);
+  v9 = sub_1AF12EF08(self->_engineContext, v8);
+  v11 = sub_1AF1D048C(world, v10);
+  *&self->_anon_2d0[400] = *v11;
+  if (*(&v37 + 3) == 0.0 && sub_1AF28A2DC(v11, v12))
   {
-    v9 = xmmword_1AFE20180;
+    v13 = xmmword_1AFE20180;
   }
 
   else
   {
-    sub_1AF1D04D4(world, v8);
+    sub_1AF1D04D4(world, v12, v9);
   }
 
-  *&self->_anon_2d0[416] = v9;
+  *&self->_anon_2d0[416] = v13;
   __asm { FMOV            V1.2S, #16.0 }
 
-  v15 = vmaxnm_f32(*self->_currentRenderSize, _D1);
-  *self->_currentRenderSize = v15;
+  v19 = vmaxnm_f32(*self->_currentRenderSize, _D1);
+  *self->_currentRenderSize = v19;
   __asm { FMOV            V1.2S, #1.0 }
 
-  *&self->_anon_2d0[432] = vdiv_f32(_D1, v15);
-  v17 = sub_1AF1D005C(world, 0);
-  if (v17)
+  *&self->_anon_2d0[432] = vdiv_f32(_D1, v19);
+  v21 = sub_1AF1D005C(world, 0);
+  if (v21)
   {
-    v19 = v17;
-    if (sub_1AF166220(v17) || (v20 = sub_1AF1676A0(v19), v21 = 1.0, v20))
+    v23 = v21;
+    if (sub_1AF166220(v21, v22) || (v25 = sub_1AF1676A0(v23, v24), v26 = 1.0, v25))
     {
-      v21 = sub_1AF166598(v19);
+      v26 = sub_1AF166598(v23, v24);
     }
 
-    *&self->_anon_2d0[456] = v21;
-    v17 = sub_1AF167220(v19);
+    *&self->_anon_2d0[456] = v26;
+    v21 = sub_1AF167220(v23, v24);
   }
 
   else
@@ -3215,40 +3241,40 @@ LABEL_46:
     *&self->_anon_2d0[456] = 1065353216;
   }
 
-  v22 = MEMORY[0x1E69E9B18];
-  if (v17)
+  v27 = MEMORY[0x1E69E9B18];
+  if (v21)
   {
-    v22 = v17;
+    v27 = v21;
   }
 
-  v23 = v22[1];
-  v24 = v22[2];
-  v25 = v22[3];
-  *&self->_anon_2d0[464] = *v22;
-  *&self->_anon_2d0[480] = v23;
-  *&self->_anon_2d0[496] = v24;
-  v26.i32[1] = DWORD1(v32);
-  v26.f32[0] = *(&v31 + 2) / *(&v32 + 2);
-  v27 = (*(&v31 + 2) + -1.0) / *(&v32 + 2);
-  if (*(&v32 + 3) != 0.0)
+  v28 = v27[1];
+  v29 = v27[2];
+  v30 = v27[3];
+  *&self->_anon_2d0[464] = *v27;
+  *&self->_anon_2d0[480] = v28;
+  *&self->_anon_2d0[496] = v29;
+  v31.i32[1] = DWORD1(v37);
+  v31.f32[0] = *(&v36 + 2) / *(&v37 + 2);
+  v32 = (*(&v36 + 2) + -1.0) / *(&v37 + 2);
+  if (*(&v37 + 3) != 0.0)
   {
-    v27 = *(&v31 + 2) / (*(&v32 + 2) + 1.0);
+    v32 = *(&v36 + 2) / (*(&v37 + 2) + 1.0);
   }
 
-  *&v27 = v27;
-  v28 = vcgt_f32(v26, *&v27);
-  v26.i32[1] = LODWORD(v27);
-  *&self->_anon_2d0[512] = v25;
-  *&self->_anon_2d0[656] = vbsl_s8(vdup_lane_s32(v28, 0), vrev64_s32(v26), v26);
+  *&v32 = v32;
+  v33 = vcgt_f32(v31, *&v32);
+  v31.i32[1] = LODWORD(v32);
+  *&self->_anon_2d0[512] = v30;
+  *&self->_anon_2d0[656] = vbsl_s8(vdup_lane_s32(v33, 0), vrev64_s32(v31), v31);
   if (self->_processingContext.passRequiresLighting)
   {
     sub_1AF130864(self->_engineContext);
-    sub_1AF1F6CD8(&self->_anon_4190[144], self->_processingContext.cullingContext);
+    sub_1AF1F6CD8(&self->_anon_4190[144]);
     memcpy(&self->_anon_4190[336], __src, 0x150uLL);
     *&self->_anon_2d0[752] = *&self->_anon_4190[384];
   }
 
-  objc_msgSend__updateViewDependentConstants_world_(self, v18, self->_processingContext.cullingContext, world, v31);
+  objc_msgSend__updateViewDependentConstants_world_(self, v22, self->_processingContext.cullingContext, world, v36);
   if ((sub_1AF13103C(self->_engineContext) & 1) == 0)
   {
     if (self->_renderPassParameters.viewMapping)
@@ -3262,7 +3288,7 @@ LABEL_46:
     }
 
     self->_worldUniforms.impl._buffer = CFXBufferAllocatorPerFrameAllocateWithBytes(self->_frameConstantBufferPool.impl, self->_anon_2d0, 784 * eyeCount);
-    *&self->_worldUniforms.impl._offset = v30;
+    *&self->_worldUniforms.impl._offset = v35;
   }
 }
 
@@ -3319,7 +3345,7 @@ LABEL_46:
   {
     byte_1EB6586A3 = 1;
     v103 = v10;
-    v12 = sub_1AF0D5194();
+    v12 = sub_1AF0D5194(self, a2);
     v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
     v10 = v103;
     if (v13)
@@ -3633,37 +3659,37 @@ LABEL_46:
   *&STACK[0x830] = 0u;
   *&STACK[0x800] = 0u;
   *&STACK[0x810] = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
-  v91 = 0u;
+  v95 = 0u;
   v92 = 0u;
-  v89 = 0u;
+  v93 = 0u;
   v90 = 0u;
-  v87 = 0u;
+  v91 = 0u;
   v88 = 0u;
-  v85 = 0u;
+  v89 = 0u;
   v86 = 0u;
-  v83 = 0u;
+  v87 = 0u;
   v84 = 0u;
-  v81 = 0u;
+  v85 = 0u;
   v82 = 0u;
-  v79 = 0u;
+  v83 = 0u;
   v80 = 0u;
-  __s1 = 0u;
+  v81 = 0u;
   v78 = 0u;
-  sub_1AF22BB20(self->_reContext, a2, world, v3, &__s1);
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  __s1 = 0u;
+  v75 = 0u;
+  sub_1AF22BB20(self->_reContext, &__s1, a2, world);
   anon_4b00 = self->_anon_4b00;
   if (!memcmp(&__s1, self->_anon_4b00, 0x400uLL))
   {
-    return objc_msgSend__currentWorldBuffer(self, v6, v7, v8);
+    return objc_msgSend__currentWorldBuffer(self, v5, v6);
   }
 
   memcpy(self->_anon_4b00, &__s1, sizeof(self->_anon_4b00));
-  WorldBuffer = objc_msgSend__nextWorldBuffer(self, v9, v10, v11);
+  WorldBuffer = objc_msgSend__nextWorldBuffer(self, v7, v8);
   if (self->_renderPassParameters.viewMapping)
   {
     eyeCount = self->_renderPassParameters.eyeCount;
@@ -3674,153 +3700,153 @@ LABEL_46:
     eyeCount = 1;
   }
 
-  *&v14 = sub_1AFDEB144(self->_reContext);
-  v75 = v15;
-  v76 = v14;
-  v73 = v17;
-  v74 = v16;
+  *&v11 = sub_1AFDEB144(self->_reContext);
+  v72 = v12;
+  v73 = v11;
+  v70 = v14;
+  v71 = v13;
   if (eyeCount)
   {
-    v18 = 0;
+    v15 = 0;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v71 = _Q0;
+    v68 = _Q0;
     do
     {
-      v24 = 0;
-      v25 = anon_4b00;
-      v26 = &anon_4b00[64 * v18];
-      v27 = *v26;
-      v28 = v26[1];
-      v29 = v26[2];
-      v30 = v26[3];
-      *&STACK[0xAC0] = v76;
-      *&STACK[0xAD0] = v75;
-      *&STACK[0xAE0] = v74;
-      *&STACK[0xAF0] = v73;
+      v21 = 0;
+      v22 = anon_4b00;
+      v23 = &anon_4b00[64 * v15];
+      v24 = *v23;
+      v25 = v23[1];
+      v26 = v23[2];
+      v27 = v23[3];
+      *&STACK[0xAC0] = v73;
+      *&STACK[0xAD0] = v72;
+      *&STACK[0xAE0] = v71;
+      *&STACK[0xAF0] = v70;
       do
       {
-        *(&STACK[0xB00] + v24) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27, COERCE_FLOAT(*(&STACK[0xAC0] + v24))), v28, *(&STACK[0xAC0] + v24), 1), v29, *(&STACK[0xAC0] + v24), 2), v30, *(&STACK[0xAC0] + v24), 3);
-        v24 += 16;
+        *(&STACK[0xB00] + v21) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v24, COERCE_FLOAT(*(&STACK[0xAC0] + v21))), v25, *(&STACK[0xAC0] + v21), 1), v26, *(&STACK[0xAC0] + v21), 2), v27, *(&STACK[0xAC0] + v21), 3);
+        v21 += 16;
       }
 
-      while (v24 != 64);
-      v99.columns[0] = *&STACK[0xB00];
-      v99.columns[1] = *&STACK[0xB10];
-      v99.columns[2] = *&STACK[0xB20];
-      v99.columns[3] = *&STACK[0xB30];
-      v31 = WorldBuffer;
-      v32 = WorldBuffer + 784 * v18;
-      *v32 = *&STACK[0xB00];
-      *(v32 + 1) = v99.columns[1];
-      *(v32 + 2) = v99.columns[2];
-      *(v32 + 3) = v99.columns[3];
-      v100 = __invert_f4(v99);
-      v33 = 0;
-      *(v32 + 1) = v100;
-      v34 = &self->_anon_4b00[64 * v18 + 512];
-      v100.columns[1] = *(v34 + 1);
-      v100.columns[2] = *(v34 + 2);
-      v100.columns[3] = *(v34 + 3);
-      *(v32 + 8) = *v34;
-      *(v32 + 9) = v100.columns[1];
-      *(v32 + 10) = v100.columns[2];
-      *(v32 + 11) = v100.columns[3];
-      v35 = &self->_anon_4b00[64 * v18 + 256];
-      v36 = *v35;
-      v37 = *(v35 + 1);
-      v38 = *(v35 + 2);
-      v39 = *(v35 + 3);
-      *&STACK[0xAC0] = v76;
-      *&STACK[0xAD0] = v75;
-      *&STACK[0xAE0] = v74;
-      *&STACK[0xAF0] = v73;
+      while (v21 != 64);
+      v96.columns[0] = *&STACK[0xB00];
+      v96.columns[1] = *&STACK[0xB10];
+      v96.columns[2] = *&STACK[0xB20];
+      v96.columns[3] = *&STACK[0xB30];
+      v28 = WorldBuffer;
+      v29 = WorldBuffer + 784 * v15;
+      *v29 = *&STACK[0xB00];
+      *(v29 + 1) = v96.columns[1];
+      *(v29 + 2) = v96.columns[2];
+      *(v29 + 3) = v96.columns[3];
+      v97 = __invert_f4(v96);
+      v30 = 0;
+      *(v29 + 1) = v97;
+      v31 = &self->_anon_4b00[64 * v15 + 512];
+      v97.columns[1] = *(v31 + 1);
+      v97.columns[2] = *(v31 + 2);
+      v97.columns[3] = *(v31 + 3);
+      *(v29 + 8) = *v31;
+      *(v29 + 9) = v97.columns[1];
+      *(v29 + 10) = v97.columns[2];
+      *(v29 + 11) = v97.columns[3];
+      v32 = &self->_anon_4b00[64 * v15 + 256];
+      v33 = *v32;
+      v34 = *(v32 + 1);
+      v35 = *(v32 + 2);
+      v36 = *(v32 + 3);
+      *&STACK[0xAC0] = v73;
+      *&STACK[0xAD0] = v72;
+      *&STACK[0xAE0] = v71;
+      *&STACK[0xAF0] = v70;
       do
       {
-        *(&STACK[0xB00] + v33) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36, COERCE_FLOAT(*(&STACK[0xAC0] + v33))), v37, *(&STACK[0xAC0] + v33), 1), v38, *(&STACK[0xAC0] + v33), 2), v39, *(&STACK[0xAC0] + v33), 3);
-        v33 += 16;
+        *(&STACK[0xB00] + v30) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v33, COERCE_FLOAT(*(&STACK[0xAC0] + v30))), v34, *(&STACK[0xAC0] + v30), 1), v35, *(&STACK[0xAC0] + v30), 2), v36, *(&STACK[0xAC0] + v30), 3);
+        v30 += 16;
       }
 
-      while (v33 != 64);
-      v101.columns[0] = *&STACK[0xB00];
-      v101.columns[1] = *&STACK[0xB10];
-      v101.columns[2] = *&STACK[0xB20];
-      v101.columns[3] = *&STACK[0xB30];
-      *(v32 + 12) = *&STACK[0xB00];
-      *(v32 + 13) = v101.columns[1];
-      *(v32 + 14) = v101.columns[2];
-      *(v32 + 15) = v101.columns[3];
-      v40 = &self->_anon_4b00[64 * v18 + 640];
-      v41 = *(v40 + 1);
-      v42 = *(v40 + 2);
-      v43 = *(v40 + 3);
-      *(v32 + 33) = *v40;
-      *(v32 + 34) = v41;
-      *(v32 + 35) = v42;
-      *(v32 + 36) = v43;
-      *(v32 + 592) = __invert_f4(v101);
-      v44 = &self->_anon_2d0[784 * v18];
-      v45 = *(v44 + 3);
-      v47 = *v44;
-      v46 = *(v44 + 1);
-      *(v32 + 18) = *(v44 + 2);
-      *(v32 + 19) = v45;
-      *(v32 + 16) = v47;
-      *(v32 + 17) = v46;
-      sub_1AF1D0B30(world, v32 + 4);
-      v48 = *(v32 + 1);
-      v49 = *(v32 + 2);
-      v50 = *(v32 + 3);
-      v51 = vmulq_f32(*v32, *v32);
-      v52 = vmulq_f32(v48, v48);
-      v53 = vmulq_f32(v49, v49);
-      v54 = vzip1q_s32(v51, v53);
-      v55 = vzip2q_s32(v51, v53);
-      v56 = vtrn2q_s32(v51, v52);
-      v56.i32[2] = v53.i32[1];
-      v57 = vaddq_f32(vzip1q_s32(v55, vdupq_laneq_s32(v52, 2)), vaddq_f32(vzip1q_s32(v54, v52), v56));
-      v58 = vceqzq_f32(v57);
-      v58.i32[3] = 0;
-      v59 = vbslq_s8(vcltzq_s32(v58), v57, vdivq_f32(v71, v57));
-      *(v32 + 43) = vmulq_n_f32(*v32, v59.f32[0]);
-      *(v32 + 44) = vmulq_lane_f32(v48, *v59.f32, 1);
-      *(v32 + 45) = vmulq_laneq_f32(v49, v59, 2);
-      *(v32 + 46) = v50;
-      *(v32 + 54) = vextq_s8(*&self->_anon_4b00[880], *&self->_anon_4b00[880], 8uLL).u64[0];
-      v60 = *&self->_anon_4b00[880];
-      *(&v60 + 1) = *(v32 + 85);
-      *(v32 + 42) = v60;
-      *(&v60 + 1) = *&self->_anon_4b00[16 * v18 + 832];
-      *(v32 + 42) = v60;
-      memcpy(v44, v32, 0x180uLL);
-      v61 = *(v32 + 36);
-      v63 = *(v32 + 33);
-      v62 = *(v32 + 34);
-      *(v44 + 35) = *(v32 + 35);
-      *(v44 + 36) = v61;
-      *(v44 + 33) = v63;
-      *(v44 + 34) = v62;
-      v64 = *(v32 + 40);
-      v66 = *(v32 + 37);
-      v65 = *(v32 + 38);
-      *(v44 + 39) = *(v32 + 39);
-      *(v44 + 40) = v64;
-      *(v44 + 37) = v66;
-      *(v44 + 38) = v65;
-      v67 = *(v32 + 43);
-      v68 = *(v32 + 44);
-      v69 = *(v32 + 46);
-      *(v44 + 45) = *(v32 + 45);
-      *(v44 + 46) = v69;
-      *(v44 + 43) = v67;
-      *(v44 + 44) = v68;
-      *(v44 + 42) = *(v32 + 42);
-      ++v18;
-      anon_4b00 = v25;
-      WorldBuffer = v31;
+      while (v30 != 64);
+      v98.columns[0] = *&STACK[0xB00];
+      v98.columns[1] = *&STACK[0xB10];
+      v98.columns[2] = *&STACK[0xB20];
+      v98.columns[3] = *&STACK[0xB30];
+      *(v29 + 12) = *&STACK[0xB00];
+      *(v29 + 13) = v98.columns[1];
+      *(v29 + 14) = v98.columns[2];
+      *(v29 + 15) = v98.columns[3];
+      v37 = &self->_anon_4b00[64 * v15 + 640];
+      v38 = *(v37 + 1);
+      v39 = *(v37 + 2);
+      v40 = *(v37 + 3);
+      *(v29 + 33) = *v37;
+      *(v29 + 34) = v38;
+      *(v29 + 35) = v39;
+      *(v29 + 36) = v40;
+      *(v29 + 592) = __invert_f4(v98);
+      v41 = &self->_anon_2d0[784 * v15];
+      v42 = *(v41 + 3);
+      v44 = *v41;
+      v43 = *(v41 + 1);
+      *(v29 + 18) = *(v41 + 2);
+      *(v29 + 19) = v42;
+      *(v29 + 16) = v44;
+      *(v29 + 17) = v43;
+      sub_1AF1D0B30(world, v29 + 4);
+      v45 = *(v29 + 1);
+      v46 = *(v29 + 2);
+      v47 = *(v29 + 3);
+      v48 = vmulq_f32(*v29, *v29);
+      v49 = vmulq_f32(v45, v45);
+      v50 = vmulq_f32(v46, v46);
+      v51 = vzip1q_s32(v48, v50);
+      v52 = vzip2q_s32(v48, v50);
+      v53 = vtrn2q_s32(v48, v49);
+      v53.i32[2] = v50.i32[1];
+      v54 = vaddq_f32(vzip1q_s32(v52, vdupq_laneq_s32(v49, 2)), vaddq_f32(vzip1q_s32(v51, v49), v53));
+      v55 = vceqzq_f32(v54);
+      v55.i32[3] = 0;
+      v56 = vbslq_s8(vcltzq_s32(v55), v54, vdivq_f32(v68, v54));
+      *(v29 + 43) = vmulq_n_f32(*v29, v56.f32[0]);
+      *(v29 + 44) = vmulq_lane_f32(v45, *v56.f32, 1);
+      *(v29 + 45) = vmulq_laneq_f32(v46, v56, 2);
+      *(v29 + 46) = v47;
+      *(v29 + 54) = vextq_s8(*&self->_anon_4b00[880], *&self->_anon_4b00[880], 8uLL).u64[0];
+      v57 = *&self->_anon_4b00[880];
+      *(&v57 + 1) = *(v29 + 85);
+      *(v29 + 42) = v57;
+      *(&v57 + 1) = *&self->_anon_4b00[16 * v15 + 832];
+      *(v29 + 42) = v57;
+      memcpy(v41, v29, 0x180uLL);
+      v58 = *(v29 + 36);
+      v60 = *(v29 + 33);
+      v59 = *(v29 + 34);
+      *(v41 + 35) = *(v29 + 35);
+      *(v41 + 36) = v58;
+      *(v41 + 33) = v60;
+      *(v41 + 34) = v59;
+      v61 = *(v29 + 40);
+      v63 = *(v29 + 37);
+      v62 = *(v29 + 38);
+      *(v41 + 39) = *(v29 + 39);
+      *(v41 + 40) = v61;
+      *(v41 + 37) = v63;
+      *(v41 + 38) = v62;
+      v64 = *(v29 + 43);
+      v65 = *(v29 + 44);
+      v66 = *(v29 + 46);
+      *(v41 + 45) = *(v29 + 45);
+      *(v41 + 46) = v66;
+      *(v41 + 43) = v64;
+      *(v41 + 44) = v65;
+      *(v41 + 42) = *(v29 + 42);
+      ++v15;
+      anon_4b00 = v22;
+      WorldBuffer = v28;
     }
 
-    while (v18 != eyeCount);
+    while (v15 != eyeCount);
   }
 
   return WorldBuffer;
@@ -3842,7 +3868,7 @@ LABEL_46:
   *&self->_worldUniforms.impl._offset = v4;
   ++self->_currentWorldBufferIndex;
 
-  return objc_msgSend__currentWorldBuffer(self, v4, v5, v6);
+  return objc_msgSend__currentWorldBuffer(self, v4, v5);
 }
 
 - (void)updateRenderPassDescriptor:(id *)descriptor
@@ -3869,7 +3895,7 @@ LABEL_46:
 
 - (void)stopProcessingRendererElements:(BOOL)elements
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (elements)
   {
     if (self->_processingContext.passRequiresLighting)
@@ -3881,24 +3907,24 @@ LABEL_46:
           cullingContext = self->_processingContext.cullingContext;
           if (!*(cullingContext + 1828))
           {
-            v6 = *(cullingContext + 3);
-            v15 = *(cullingContext + 2);
-            v16 = v6;
-            v7 = *(cullingContext + 5);
-            v17 = *(cullingContext + 4);
-            v18 = v7;
-            v8 = *(cullingContext + 1);
-            v13 = *cullingContext;
-            v14 = v8;
+            v5 = *(cullingContext + 3);
+            v14 = *(cullingContext + 2);
+            v15 = v5;
+            v6 = *(cullingContext + 5);
+            v16 = *(cullingContext + 4);
+            v17 = v6;
+            v7 = *(cullingContext + 1);
+            v12 = *cullingContext;
+            v13 = v7;
             renderEncoder = self->_renderEncoder;
             engineContext = self->_engineContext;
-            v12[2] = v15;
-            v12[3] = v6;
-            v12[4] = v17;
-            v12[5] = v7;
-            v12[0] = v13;
-            v12[1] = v8;
-            sub_1AF1F8704(&self->_anon_4190[144], renderEncoder, engineContext, v12, &self->_anon_4190[336]);
+            v11[2] = v14;
+            v11[3] = v5;
+            v11[4] = v16;
+            v11[5] = v6;
+            v11[0] = v12;
+            v11[1] = v7;
+            sub_1AF1F8704(&self->_anon_4190[144], renderEncoder, engineContext, v11, &self->_anon_4190[336]);
           }
         }
       }
@@ -3907,13 +3933,13 @@ LABEL_46:
     debugOptions = self->_debugOptions;
     if ((debugOptions & 0x10) != 0)
     {
-      objc_msgSend__drawPBRTextures(self, a2, elements, v3);
+      objc_msgSend__drawPBRTextures(self, a2, elements);
       debugOptions = self->_debugOptions;
     }
 
     if ((debugOptions & 8) != 0)
     {
-      objc_msgSend__drawShadowMaps(self, a2, elements, v3);
+      objc_msgSend__drawShadowMaps(self, a2, elements);
     }
   }
 
@@ -3928,17 +3954,18 @@ LABEL_46:
 
 - (void)_prepareMaterialTextures:(__CFXMaterial *)textures
 {
-  v4 = sub_1AF1A1270(textures);
+  v4 = sub_1AF1A1270(textures, a2);
   if (v4)
   {
-    v5 = v4;
-    v8 = sub_1AF165AE4(v4);
+    v6 = v4;
+    v8 = sub_1AF165AE4(v4, v5);
     if (v8 == 3)
     {
-      objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(self->_resourceManager, v6, self, v7);
+      objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(self->_resourceManager, v7, self);
     }
 
-    v9 = sub_1AF203660();
+    v14 = 0;
+    v9 = sub_1AF203660(&v14, v7);
     if (v9)
     {
       v10 = v9;
@@ -3947,10 +3974,10 @@ LABEL_46:
       {
         if (sub_1AF165594(v8, v11))
         {
-          v12 = sub_1AF1656E4(v5, v11, 0);
+          v12 = sub_1AF1656E4(v6, v11, 0);
           if (v12)
           {
-            objc_msgSend_textureForMaterialProperty_(self, v13, v12, v14);
+            objc_msgSend_textureForMaterialProperty_(self, v13, v12);
           }
         }
 
@@ -3964,8 +3991,9 @@ LABEL_46:
 
 - (BOOL)_executeDeformerStackOfCommand:(id *)command dataKind:(unsigned __int8)kind deformerStack:(__CFXDeformerStack *)stack metalDeformedMesh:(id *)mesh skinner:(__CFXSkinner *)skinner skinnerCalculationMode:(int)mode
 {
+  v8 = *&mode;
   kindCopy = kind;
-  v15 = sub_1AF16B74C(stack);
+  v15 = sub_1AF16B74C(stack, a2);
   if (v15)
   {
     v17 = command->var12 || sub_1AF27DD4C(command->var3, 0);
@@ -3974,109 +4002,109 @@ LABEL_46:
     {
       if (sub_1AFDE22C0(v18))
       {
-        *&v99 = 0;
-        sub_1AF12DC38(self->_processingContext.dynamicBatchingSystem, &v99);
-        if (v99 >= 2)
+        *&v100 = 0;
+        v19 = sub_1AF12DC38(self->_processingContext.dynamicBatchingSystem, &v100);
+        if (v100 >= 2)
         {
-          v19 = sub_1AF0D5194();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v21 = sub_1AF0D5194(v19, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
-            sub_1AFDE6DC0(v19, v20, v21, v22, v23, v24, v25, v26);
+            sub_1AFDE6DC0(v21, v22, v23, v24, v25, v26, v27, v28);
           }
         }
       }
 
-      v27 = sub_1AF14CD4C(self->_processingContext.transformTree, command->var4->var4);
-      v28 = *v27;
-      v29 = v27[1];
-      v30 = v27[2];
-      v31 = v27[3];
-      *&self->_nodeUniforms.instanceNode = *v27;
-      *&self->_nodeUniforms.probeCacheIndex = v29;
-      *&self->_anon_3408[8] = v30;
-      *&self->_anon_3408[24] = v31;
+      v29 = sub_1AF14CD4C(self->_processingContext.transformTree, command->var4->var4);
+      v30 = *v29;
+      v31 = v29[1];
+      v32 = v29[2];
+      v33 = v29[3];
+      *&self->_nodeUniforms.instanceNode = *v29;
+      *&self->_nodeUniforms.probeCacheIndex = v31;
+      *&self->_anon_3408[8] = v32;
+      *&self->_anon_3408[24] = v33;
       if (skinner)
       {
-        *v28.i64 = sub_1AF1CA3E8(skinner, mode, v28, v29, v30, v31);
-        *&self->_nodeUniforms.instanceNode = v28;
-        *&self->_nodeUniforms.probeCacheIndex = v29;
-        *&self->_anon_3408[8] = v30;
-        *&self->_anon_3408[24] = v31;
+        *v30.i64 = sub_1AF1CA3E8(skinner, v8, v30, v31, v32, v33);
+        *&self->_nodeUniforms.instanceNode = v30;
+        *&self->_nodeUniforms.probeCacheIndex = v31;
+        *&self->_anon_3408[8] = v32;
+        *&self->_anon_3408[24] = v33;
       }
 
       eyeCount = self->_renderPassParameters.eyeCount;
       *&self->_anon_3408[3248] = 2;
       if (eyeCount)
       {
-        v33 = 0;
+        v35 = 0;
         anon_2d0 = self->_anon_2d0;
         do
         {
-          v35 = 0;
-          v36 = &anon_2d0[784 * v33];
-          v37 = *v36;
-          v38 = v36[1];
-          v39 = v36[2];
-          v40 = v36[3];
-          v112 = v28;
-          v113 = v29;
-          v114 = v30;
-          v115 = v31;
+          v37 = 0;
+          v38 = &anon_2d0[784 * v35];
+          v39 = *v38;
+          v40 = v38[1];
+          v41 = v38[2];
+          v42 = v38[3];
+          v113 = v30;
+          v114 = v31;
+          v115 = v32;
+          v116 = v33;
           do
           {
-            *(&v99 + v35) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v37, COERCE_FLOAT(*(&v112 + v35))), v38, *&v112.f32[v35 / 4], 1), v39, *(&v112 + v35), 2), v40, *(&v112 + v35), 3);
-            v35 += 16;
+            *(&v100 + v37) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v39, COERCE_FLOAT(*(&v113 + v37))), v40, *&v113.f32[v37 / 4], 1), v41, *(&v113 + v37), 2), v42, *(&v113 + v37), 3);
+            v37 += 16;
           }
 
-          while (v35 != 64);
-          v41 = v100;
-          v42 = v101;
-          v43 = v102;
-          v44 = &self->_anon_3408[64 * v33 + 1128];
-          *v44 = v99;
-          *(v44 + 1) = v41;
-          *(v44 + 2) = v42;
-          *(v44 + 3) = v43;
-          ++v33;
+          while (v37 != 64);
+          v43 = v101;
+          v44 = v102;
+          v45 = v103;
+          v46 = &self->_anon_3408[64 * v35 + 1128];
+          *v46 = v100;
+          *(v46 + 1) = v43;
+          *(v46 + 2) = v44;
+          *(v46 + 3) = v45;
+          ++v35;
         }
 
-        while (v33 != eyeCount);
-        v45 = *&self->_anon_3408[3248];
-        if ((v45 & 4) == 0)
+        while (v35 != eyeCount);
+        v47 = *&self->_anon_3408[3248];
+        if ((v47 & 4) == 0)
         {
-          v46 = 0;
-          *&self->_anon_3408[3248] = v45 | 4;
+          v48 = 0;
+          *&self->_anon_3408[3248] = v47 | 4;
           do
           {
-            v47 = 0;
-            v48 = &anon_2d0[784 * v46];
-            v49 = v48[12];
-            v50 = v48[13];
-            v51 = v48[14];
-            v52 = v48[15];
-            v112 = v28;
-            v113 = v29;
-            v114 = v30;
-            v115 = v31;
+            v49 = 0;
+            v50 = &anon_2d0[784 * v48];
+            v51 = v50[12];
+            v52 = v50[13];
+            v53 = v50[14];
+            v54 = v50[15];
+            v113 = v30;
+            v114 = v31;
+            v115 = v32;
+            v116 = v33;
             do
             {
-              *(&v99 + v47) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v49, COERCE_FLOAT(*(&v112 + v47))), v50, *&v112.f32[v47 / 4], 1), v51, *(&v112 + v47), 2), v52, *(&v112 + v47), 3);
-              v47 += 16;
+              *(&v100 + v49) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v51, COERCE_FLOAT(*(&v113 + v49))), v52, *&v113.f32[v49 / 4], 1), v53, *(&v113 + v49), 2), v54, *(&v113 + v49), 3);
+              v49 += 16;
             }
 
-            while (v47 != 64);
-            v53 = v100;
-            v54 = v101;
-            v55 = v102;
-            v56 = &self->_anon_3408[64 * v46 + 2152];
-            *v56 = v99;
-            *(v56 + 1) = v53;
-            *(v56 + 2) = v54;
-            *(v56 + 3) = v55;
-            ++v46;
+            while (v49 != 64);
+            v55 = v101;
+            v56 = v102;
+            v57 = v103;
+            v58 = &self->_anon_3408[64 * v48 + 2152];
+            *v58 = v100;
+            *(v58 + 1) = v55;
+            *(v58 + 2) = v56;
+            *(v58 + 3) = v57;
+            ++v48;
           }
 
-          while (v46 != eyeCount);
+          while (v48 != eyeCount);
         }
       }
 
@@ -4085,158 +4113,158 @@ LABEL_46:
         *&self->_anon_3408[3248] = 6;
       }
 
-      v57 = *&self->_anon_3408[1144];
-      v119 = *&self->_anon_3408[1128];
-      v120 = v57;
-      v58 = *&self->_anon_3408[1176];
-      v121 = *&self->_anon_3408[1160];
-      v122 = v58;
-      v59 = *&self->_anon_3408[2168];
-      v123 = *&self->_anon_3408[2152];
-      v124 = v59;
-      v60 = *&self->_anon_3408[2200];
-      v125 = *&self->_anon_3408[2184];
-      v126 = v60;
-      v61 = *&self->_anon_2d0[128];
-      v62 = *&self->_anon_2d0[144];
-      v63 = *&self->_anon_2d0[176];
-      v129 = *&self->_anon_2d0[160];
-      v130 = v63;
-      v127 = v61;
-      v128 = v62;
+      v59 = *&self->_anon_3408[1144];
+      v120 = *&self->_anon_3408[1128];
+      v121 = v59;
+      v60 = *&self->_anon_3408[1176];
+      v122 = *&self->_anon_3408[1160];
+      v123 = v60;
+      v61 = *&self->_anon_3408[2168];
+      v124 = *&self->_anon_3408[2152];
+      v125 = v61;
+      v62 = *&self->_anon_3408[2200];
+      v126 = *&self->_anon_3408[2184];
+      v127 = v62;
+      v63 = *&self->_anon_2d0[128];
+      v64 = *&self->_anon_2d0[144];
+      v65 = *&self->_anon_2d0[176];
+      v130 = *&self->_anon_2d0[160];
+      v131 = v65;
+      v128 = v63;
+      v129 = v64;
     }
 
     if (sub_1AFDE22D8(v18))
     {
-      objc_msgSend_renderSize(self, v64, v65, v66);
-      v67 = 0;
-      v112.i64[0] = v68;
-      v69 = *&self->_anon_3408[2152];
-      v70 = *&self->_anon_3408[2168];
-      v71 = *&self->_anon_3408[2184];
-      v72 = *&self->_anon_3408[2200];
+      objc_msgSend_renderSize(self, v66, v67);
+      v68 = 0;
+      v113.i64[0] = v69;
+      v70 = *&self->_anon_3408[2152];
+      v71 = *&self->_anon_3408[2168];
+      v72 = *&self->_anon_3408[2184];
+      v73 = *&self->_anon_3408[2200];
       do
       {
-        v73 = 0;
-        v94 = v69;
-        v74 = *(&v94 & 0xFFFFFFFFFFFFFFF3 | (4 * (v67 & 3)));
-        v75 = (&v95 & 0xFFFFFFFFFFFFFFF3 | (4 * (v67 & 3)));
+        v74 = 0;
         v95 = v70;
-        v76 = *(&v70 + 3) - *v75;
-        v77 = *(&v70 + 3) + *v75;
+        v75 = *(&v95 & 0xFFFFFFFFFFFFFFF3 | (4 * (v68 & 3)));
+        v76 = (&v96 & 0xFFFFFFFFFFFFFFF3 | (4 * (v68 & 3)));
         v96 = v71;
-        v78 = *(&v96 & 0xFFFFFFFFFFFFFFF3 | (4 * (v67 & 3)));
+        v77 = *(&v71 + 3) - *v76;
+        v78 = *(&v71 + 3) + *v76;
         v97 = v72;
-        v79 = *(&v97 & 0xFFFFFFFFFFFFFFF3 | (4 * (v67 & 3)));
-        v80 = *(&v71 + 3) - v78;
-        v81 = *(&v71 + 3) + v78;
-        v82 = 1;
+        v79 = *(&v97 & 0xFFFFFFFFFFFFFFF3 | (4 * (v68 & 3)));
+        v98 = v73;
+        v80 = *(&v98 & 0xFFFFFFFFFFFFFFF3 | (4 * (v68 & 3)));
+        v81 = *(&v72 + 3) - v79;
+        v82 = *(&v72 + 3) + v79;
+        v83 = 1;
         do
         {
-          v83 = v82 & 1;
-          if (v82)
+          v84 = v83 & 1;
+          if (v83)
           {
-            v84 = v74;
+            v85 = v75;
           }
 
           else
           {
-            v84 = -v74;
+            v85 = -v75;
           }
 
-          v85 = v73 | (2 * v67);
-          v86 = *(&v113 + v85);
-          v86.f32[0] = *(&v69 + 3) + v84;
-          if (v82)
+          v86 = v74 | (2 * v68);
+          v87 = *(&v114 + v86);
+          v87.f32[0] = *(&v70 + 3) + v85;
+          if (v83)
           {
-            v87 = v77;
+            v88 = v78;
           }
 
           else
           {
-            v87 = v76;
+            v88 = v77;
           }
 
-          if (v82)
+          if (v83)
           {
-            v88 = v81;
+            v89 = v82;
           }
 
           else
           {
-            v88 = v80;
+            v89 = v81;
           }
 
-          if (v82)
+          if (v83)
           {
-            v89 = v79;
+            v90 = v80;
           }
 
           else
           {
-            v89 = -v79;
+            v90 = -v80;
           }
 
-          v86.f32[1] = v87;
-          v86.f32[2] = v88;
-          v90 = vmulq_f32(v86, v86);
-          v86.f32[3] = *(&v72 + 3) + v89;
-          *(&v113 + v85) = vmulq_n_f32(v86, sqrtf(v90.f32[2] + vaddv_f32(*v90.f32)));
-          v73 = 1;
-          v82 = 0;
+          v87.f32[1] = v88;
+          v87.f32[2] = v89;
+          v91 = vmulq_f32(v87, v87);
+          v87.f32[3] = *(&v73 + 3) + v90;
+          *(&v114 + v86) = vmulq_n_f32(v87, sqrtf(v91.f32[2] + vaddv_f32(*v91.f32)));
+          v74 = 1;
+          v83 = 0;
         }
 
-        while (v83);
-        ++v67;
+        while (v84);
+        ++v68;
       }
 
-      while (v67 != 3);
+      while (v68 != 3);
     }
 
-    v91 = CACurrentMediaTime();
+    v92 = CACurrentMediaTime();
     prof_beginFlame("Deformer", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/CFX/NewRenderer/VFXMTLRenderContext.mm", 3808);
-    v111 = 0;
-    v107 = v127;
+    v112 = 0;
     v108 = v128;
     v109 = v129;
     v110 = v130;
-    v103 = v123;
+    v111 = v131;
     v104 = v124;
     v105 = v125;
     v106 = v126;
-    v99 = v119;
+    v107 = v127;
     v100 = v120;
     v101 = v121;
     v102 = v122;
-    v98[4] = v116;
-    v98[5] = v117;
-    v98[6] = v118;
-    v98[0] = v112;
-    v98[1] = v113;
-    v98[2] = v114;
-    v98[3] = v115;
-    *mesh = sub_1AFDE22F0(v18, self, v17, &v99, v98, &v111);
-    self->__engineStats->mrphTime = CACurrentMediaTime() - v91 + self->__engineStats->mrphTime;
+    v103 = v123;
+    v99[4] = v117;
+    v99[5] = v118;
+    v99[6] = v119;
+    v99[0] = v113;
+    v99[1] = v114;
+    v99[2] = v115;
+    v99[3] = v116;
+    *mesh = sub_1AFDE22F0(v18, self, v17, &v100, v99, &v112);
+    self->__engineStats->mrphTime = CACurrentMediaTime() - v92 + self->__engineStats->mrphTime;
     prof_endFlame();
     if (self->_showsAuthoringEnvironment)
     {
-      v92 = sub_1AF12EE9C(self->_engineContext, 0);
-      v107 = v127;
+      v93 = sub_1AF12EE9C(self->_engineContext, 0);
       v108 = v128;
       v109 = v129;
       v110 = v130;
-      v103 = v123;
+      v111 = v131;
       v104 = v124;
       v105 = v125;
       v106 = v126;
-      v99 = v119;
+      v107 = v127;
       v100 = v120;
       v101 = v121;
       v102 = v122;
-      sub_1AFDE27EC(v18, v92, &v99, self);
+      v103 = v123;
+      sub_1AFDE27EC(v18, v93, &v100, self);
     }
 
-    LOBYTE(v15) = v111;
+    LOBYTE(v15) = v112;
   }
 
   return v15;
@@ -4272,22 +4300,22 @@ LABEL_46:
       v19 = *(v17 + 1);
       v20 = *(v17 + 2);
       v21 = *(v17 + 3);
-      v67 = v12;
-      v68 = v13;
-      v69 = v14;
-      v70 = v15;
+      v66 = v12;
+      v67 = v13;
+      v68 = v14;
+      v69 = v15;
       do
       {
-        *(&v55 + v16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*(&v67 + v16))), v19, *(&v67 + v16), 1), v20, *(&v67 + v16), 2), v21, *(&v67 + v16), 3);
+        *(&v54 + v16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*(&v66 + v16))), v19, *(&v66 + v16), 1), v20, *(&v66 + v16), 2), v21, *(&v66 + v16), 3);
         v16 += 16;
       }
 
       while (v16 != 64);
-      v22 = v56;
-      v23 = v57;
-      v24 = v58;
+      v22 = v55;
+      v23 = v56;
+      v24 = v57;
       v25 = &self->_anon_3408[64 * v11 + 1128];
-      *v25 = v55;
+      *v25 = v54;
       *(v25 + 1) = v22;
       *(v25 + 2) = v23;
       *(v25 + 3) = v24;
@@ -4315,22 +4343,22 @@ LABEL_9:
           v34 = *(v32 + 13);
           v35 = *(v32 + 14);
           v36 = *(v32 + 15);
-          v67 = v27;
-          v68 = v28;
-          v69 = v29;
-          v70 = v30;
+          v66 = v27;
+          v67 = v28;
+          v68 = v29;
+          v69 = v30;
           do
           {
-            *(&v55 + v31) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v33, COERCE_FLOAT(*(&v67 + v31))), v34, *(&v67 + v31), 1), v35, *(&v67 + v31), 2), v36, *(&v67 + v31), 3);
+            *(&v54 + v31) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v33, COERCE_FLOAT(*(&v66 + v31))), v34, *(&v66 + v31), 1), v35, *(&v66 + v31), 2), v36, *(&v66 + v31), 3);
             v31 += 16;
           }
 
           while (v31 != 64);
-          v37 = v56;
-          v38 = v57;
-          v39 = v58;
+          v37 = v55;
+          v38 = v56;
+          v39 = v57;
           v40 = &self->_anon_3408[64 * v26 + 2152];
-          *v40 = v55;
+          *v40 = v54;
           *(v40 + 1) = v37;
           *(v40 + 2) = v38;
           *(v40 + 3) = v39;
@@ -4351,36 +4379,36 @@ LABEL_9:
 
 LABEL_18:
   v41 = *&self->_anon_3408[1144];
-  v55 = *&self->_anon_3408[1128];
-  v56 = v41;
+  v54 = *&self->_anon_3408[1128];
+  v55 = v41;
   v42 = *&self->_anon_3408[1176];
-  v57 = *&self->_anon_3408[1160];
-  v58 = v42;
+  v56 = *&self->_anon_3408[1160];
+  v57 = v42;
   v43 = *&self->_anon_3408[2168];
-  v59 = *&self->_anon_3408[2152];
-  v60 = v43;
+  v58 = *&self->_anon_3408[2152];
+  v59 = v43;
   v44 = *&self->_anon_3408[2200];
-  v61 = *&self->_anon_3408[2184];
-  v62 = v44;
+  v60 = *&self->_anon_3408[2184];
+  v61 = v44;
   v45 = *&self->_anon_2d0[128];
   v46 = *&self->_anon_2d0[144];
   v47 = *&self->_anon_2d0[176];
-  v65 = *&self->_anon_2d0[160];
-  v66 = v47;
-  v63 = v45;
-  v64 = v46;
-  HIBYTE(v68) = 0;
-  *(&v68 + 13) = 0;
+  v64 = *&self->_anon_2d0[160];
+  v65 = v47;
+  v62 = v45;
+  v63 = v46;
+  HIBYTE(v67) = 0;
+  *(&v67 + 13) = 0;
   metalMesh = self->_cache.metalMesh;
   currentFrameIndex = self->_currentFrameIndex;
   v50 = sub_1AFDE8154(self->_resourceManager);
-  *&v67 = metalMesh;
-  *(&v67 + 1) = self;
-  *&v68 = &v55;
-  DWORD2(v68) = currentFrameIndex;
-  BYTE12(v68) = frame;
-  objc_msgSend_update_(v50, v51, &v67, v52);
-  *hash = objc_msgSend_pipelineStateHashForMeshElement_patchType_(v50, v53, self->_cache.metalMeshElement, *(command + 85) & 7);
+  *&v66 = metalMesh;
+  *(&v66 + 1) = self;
+  *&v67 = &v54;
+  DWORD2(v67) = currentFrameIndex;
+  BYTE12(v67) = frame;
+  objc_msgSend_update_(v50, v51, &v66);
+  *hash = objc_msgSend_pipelineStateHashForMeshElement_patchType_(v50, v52, self->_cache.metalMeshElement, *(command + 85) & 7);
   return v50;
 }
 
@@ -4391,65 +4419,8 @@ LABEL_18:
   {
     metalMeshElement = self->_cache.metalMeshElement;
     v10 = *(command + 85);
-    v11 = objc_msgSend_device(self, a2, command, tessellator);
-    v66 = objc_msgSend_newPipelineStateConfiguratorForMeshElement_patchType_device_(tessellator, v12, metalMeshElement, v10 & 7, v11);
-  }
-
-  else
-  {
-    v66 = 0;
-  }
-
-  var2 = command->var2;
-  v14 = sub_1AF1304FC(self->_engineContext);
-  v58 = v14;
-  if ((*(self + 144) & 0x10) != 0)
-  {
-    v18 = 2;
-  }
-
-  else
-  {
-    v18 = v14;
-  }
-
-  if (self->_renderPassParameters.multiVertexOutputStreamGenerator == 2)
-  {
-    v19 = 2;
-  }
-
-  else
-  {
-    v19 = 1;
-  }
-
-  v64 = v19;
-  v65 = v18;
-  metalMesh = self->_cache.metalMesh;
-  if (v7[2504])
-  {
-    v63 = sub_1AFDEA150(metalMesh, v15, v16, v17);
-    v24 = sub_1AFDEA120(&self->_cache.metalMesh->super.isa, v21, v22, v23);
-  }
-
-  else
-  {
-    v63 = sub_1AFDEA078(metalMesh);
-    v24 = sub_1AFDEA004(self->_cache.metalMesh);
-  }
-
-  v62 = v24;
-  v61 = v7[2504];
-  v56 = var2;
-  if (var2)
-  {
-    v60 = sub_1AF16CD08(var2, v25, v26, v27);
-    v28 = sub_1AF1C3FAC(var2);
-    if (v28)
-    {
-      v59 = sub_1AF16CD08(v28, v29, v30, v31);
-      goto LABEL_18;
-    }
+    v11 = objc_msgSend_device(self, a2, command);
+    v60 = objc_msgSend_newPipelineStateConfiguratorForMeshElement_patchType_device_(tessellator, v12, metalMeshElement, v10 & 7, v11);
   }
 
   else
@@ -4457,14 +4428,71 @@ LABEL_18:
     v60 = 0;
   }
 
-  v59 = 0;
+  var2 = command->var2;
+  v14 = sub_1AF1304FC(self->_engineContext);
+  v52 = v14;
+  if ((*(self + 144) & 0x10) != 0)
+  {
+    v17 = 2;
+  }
+
+  else
+  {
+    v17 = v14;
+  }
+
+  if (self->_renderPassParameters.multiVertexOutputStreamGenerator == 2)
+  {
+    v18 = 2;
+  }
+
+  else
+  {
+    v18 = 1;
+  }
+
+  v58 = v18;
+  v59 = v17;
+  metalMesh = self->_cache.metalMesh;
+  if (v7[2504])
+  {
+    v57 = sub_1AFDEA150(metalMesh, v15, v16);
+    v22 = sub_1AFDEA120(&self->_cache.metalMesh->super.isa, v20, v21);
+  }
+
+  else
+  {
+    v57 = sub_1AFDEA078(metalMesh, v15);
+    v22 = sub_1AFDEA004(self->_cache.metalMesh);
+  }
+
+  v56 = v22;
+  v55 = v7[2504];
+  v50 = var2;
+  if (var2)
+  {
+    v54 = sub_1AF16CD08(var2, v23, v24);
+    v26 = sub_1AF1C3FAC(var2, v25);
+    if (v26)
+    {
+      v53 = sub_1AF16CD08(v26, v27, v28);
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v54 = 0;
+  }
+
+  v53 = 0;
 LABEL_18:
   var1 = command->var1;
   program = self->_cache.program;
   var8 = command->var8;
   blendStates = self->_cache.blendStates;
-  v36 = v7[2328];
-  v37 = v7[2329];
+  v33 = v7[2328];
+  v34 = v7[2329];
   eyeCount = self->_renderPassParameters.eyeCount;
   viewMapping = self->_renderPassParameters.viewMapping;
   if (v7[2608] == 1)
@@ -4478,81 +4506,80 @@ LABEL_18:
   }
 
   resourceManager = self->_resourceManager;
-  v67[0] = var1;
-  v67[1] = program;
-  v67[2] = v60;
-  v67[3] = v59;
-  v67[4] = var8;
-  v67[5] = blendStates;
-  v68 = v36;
-  v69 = v37;
-  v70 = eyeCount;
-  v71 = v64;
+  v61[0] = var1;
+  v61[1] = program;
+  v61[2] = v54;
+  v61[3] = v53;
+  v61[4] = var8;
+  v61[5] = blendStates;
+  v62 = v33;
+  v63 = v34;
+  v64 = eyeCount;
+  v65 = v58;
+  v66 = 0;
+  v67 = v56;
+  v68 = v57;
+  v69 = viewMapping;
+  v70 = v59;
+  v71 = 0;
   v72 = 0;
-  v73 = v62;
-  v74 = v63;
-  v75 = viewMapping;
-  v76 = v65;
+  v73 = errors;
+  v74 = v55;
+  memset(v75, 0, sizeof(v75));
+  v76 = v60;
   v77 = 0;
-  v78 = 0;
-  v79 = errors;
-  v80 = v61;
-  memset(v81, 0, sizeof(v81));
-  v82 = v66;
-  v83 = 0;
-  v43 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v42, v67, &self->_currentRenderPassDesc);
-  *&self->_anon_4950[128] = v43;
-  if (v66)
+  v40 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v39, v61, &self->_currentRenderPassDesc);
+  *&self->_anon_4950[128] = v40;
+  if (v60)
   {
-    _Block_release(v66);
-    v43 = *&self->_anon_4950[128];
+    _Block_release(v60);
+    v40 = *&self->_anon_4950[128];
   }
 
-  v50 = objc_msgSend_state(v43, v44, v45, v46, v56);
-  if (v50)
+  v45 = objc_msgSend_state(v40, v41, v42, v50);
+  if (v45)
   {
-    v51 = objc_msgSend_state(*&self->_anon_4950[128], v47, v48, v49);
-    objc_msgSend_setRenderPipelineState_(self->_renderEncoder->var3, v52, v51, v53);
+    v46 = objc_msgSend_state(*&self->_anon_4950[128], v43, v44);
+    objc_msgSend_setRenderPipelineState_(self->_renderEncoder->var3, v47, v46);
   }
 
   else
   {
     *&self->_anon_4950[128] = 0;
     self->_cache.program = 0;
-    if (v58)
+    if (v52)
     {
-      if (v57)
+      if (v51)
       {
-        objc_msgSend__prepareMaterialTextures_(self, v47, v57, v49);
+        objc_msgSend__prepareMaterialTextures_(self, v43, v51);
       }
     }
 
     else if ((byte_1EB6586A4 & 1) == 0)
     {
       byte_1EB6586A4 = 1;
-      v55 = sub_1AF0D5194();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v49 = sub_1AF0D5194(0, v43);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE6E38();
       }
     }
   }
 
-  return v50 != 0;
+  return v45 != 0;
 }
 
 - (void)_installBindingsOfNode:(__CFXNode *)node probeCacheIndex:(unsigned int *)index
 {
-  indexCopy = index;
   nodeCopy = node;
-  v80 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   if (node)
   {
-    v7 = sub_1AF1B92C8(node);
+    v7 = sub_1AF1B92C8(node, a2);
     v8 = v7;
     if (v7)
     {
-      v57 = sub_1AF1C9420(v7);
+      v53 = sub_1AF1C9420(v7);
       goto LABEL_6;
     }
   }
@@ -4562,146 +4589,147 @@ LABEL_18:
     v8 = 0;
   }
 
-  v57 = -1;
+  v53 = -1;
 LABEL_6:
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  obj = objc_msgSend_nodeBufferBindings(*&self->_anon_4950[128], a2, node, index);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v73, v79, 16);
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  obj = objc_msgSend_nodeBufferBindings(*&self->_anon_4950[128], a2, node);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v69, v75, 16);
   if (v10)
   {
     v11 = v10;
-    v12 = *v74;
-    v53 = nodeCopy;
-    v54 = indexCopy;
-    v55 = *v74;
-    v56 = v8;
+    v12 = *v70;
+    v49 = nodeCopy;
+    indexCopy = index;
+    v51 = *v70;
+    v52 = v8;
     do
     {
       v13 = 0;
-      v58 = v11;
+      v54 = v11;
       do
       {
-        if (*v74 != v12)
+        if (*v70 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v73 + 1) + 8 * v13);
+        v14 = *(*(&v69 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if (objc_msgSend_semanticsCount(v14, v15, v16, v17) < 1)
+          v17 = objc_msgSend_semanticsCount(v14, v15, v16);
+          if (v17 < 1)
           {
-            v46 = sub_1AF0D5194();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v43 = sub_1AF0D5194(v17, v18);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
-              sub_1AFDE6EB4(&buf, v61, v46);
+              sub_1AFDE6EB4(&buf, v57, v43);
             }
           }
 
           else
           {
-            v21 = objc_msgSend_bufferSize(v14, v18, v19, v20);
+            v20 = objc_msgSend_bufferSize(v14, v18, v19);
             eyeCount = self->_renderPassParameters.eyeCount;
-            v62 = 0;
-            v63[0] = MEMORY[0x1E69E9820];
-            v63[1] = 3221225472;
-            v64 = sub_1AF2043F4;
-            v65 = &unk_1E7A7CCE0;
-            v68 = v8;
-            v69 = indexCopy;
-            v71 = v57;
-            v72 = eyeCount;
-            v70 = v21;
+            v58 = 0;
+            v59[0] = MEMORY[0x1E69E9820];
+            v59[1] = 3221225472;
+            v60 = sub_1AF2043F4;
+            v61 = &unk_1E7A7CCE0;
+            v64 = v8;
+            indexCopy2 = index;
+            v67 = v53;
+            v68 = eyeCount;
+            v66 = v20;
             selfCopy = self;
-            v67 = v14;
-            v23 = sub_1AF12DC38(self->_processingContext.dynamicBatchingSystem, &v62);
-            v24 = v21 * eyeCount;
-            if (v62 < 2)
+            v63 = v14;
+            v22 = sub_1AF12DC38(self->_processingContext.dynamicBatchingSystem, &v58);
+            v23 = v20 * eyeCount;
+            if (v58 < 2)
             {
-              CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v21 * eyeCount);
-              v48 = v47;
-              v38 = v49;
-              CPUPointer = CFXBufferSliceGetCPUPointer(v47, v49, v50, v51);
-              (v64)(v63, nodeCopy, CPUPointer);
+              CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v20 * eyeCount);
+              LODWORD(v36) = v44;
+              CPUPointer = CFXBufferSliceGetCPUPointer(v45, v44, v46);
+              v60(v59, nodeCopy, CPUPointer);
               renderEncoder = self->_renderEncoder;
-              MTLBuffer = CFXBufferSliceGetMTLBuffer(v48, v38);
-              v38 = v38;
-              v39 = *(v14 + 9);
-              if (v39 != 0xFF)
+              CFXBufferSliceGetMTLBuffer();
+              v35 = v48;
+              v36 = v36;
+              v37 = *(v14 + 9);
+              if (v37 != 0xFF)
               {
-                objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v36, MTLBuffer, v38, v39);
+                objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v34, v48, v36, v37);
               }
 
-              v40 = (~v39 & 0xFF00) == 0;
+              v38 = (~v37 & 0xFF00) == 0;
             }
 
             else
             {
-              v25 = v23;
-              CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v62 * v24);
-              v27 = v26;
-              v29 = v28;
-              v32 = CFXBufferSliceGetCPUPointer(v26, v28, v30, v31);
-              if (v62 >= 1)
+              v24 = v22;
+              CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v58 * v23);
+              v26 = v25;
+              v29 = CFXBufferSliceGetCPUPointer(v27, v25, v28);
+              if (v58 >= 1)
               {
-                v33 = v32;
-                for (i = 0; i < v62; ++i)
+                v30 = v29;
+                for (i = 0; i < v58; ++i)
                 {
-                  (v64)(v63, *(v25 + 8 * i), v33);
-                  v33 += v24;
+                  v60(v59, *(v24 + 8 * i), v30);
+                  v30 += v23;
                 }
               }
 
-              CFXBufferSliceDidModify(v27, v29);
+              CFXBufferSliceDidModify();
               renderEncoder = self->_renderEncoder;
-              MTLBuffer = CFXBufferSliceGetMTLBuffer(v27, v29);
-              v38 = v29;
-              v39 = *(v14 + 9);
-              if (v39 != 0xFF)
+              CFXBufferSliceGetMTLBuffer();
+              v35 = v33;
+              v36 = v26;
+              v37 = *(v14 + 9);
+              if (v37 != 0xFF)
               {
-                objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v36, MTLBuffer, v29, v39);
+                objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v34, v33, v26, v37);
               }
 
-              v40 = (~v39 & 0xFF00) == 0;
-              nodeCopy = v53;
-              indexCopy = v54;
+              v38 = (~v37 & 0xFF00) == 0;
+              nodeCopy = v49;
+              index = indexCopy;
             }
 
-            v11 = v58;
-            if (!v40)
+            v11 = v54;
+            if (!v38)
             {
-              objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v36, MTLBuffer, v38, v39 >> 8);
+              objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v34, v35, v36, v37 >> 8);
             }
 
-            v12 = v55;
-            v8 = v56;
+            v12 = v51;
+            v8 = v52;
           }
         }
 
         else
         {
-          if (!objc_msgSend_bindBlock(v14, v15, v16, v17))
+          if (!objc_msgSend_bindBlock(v14, v15, v16))
           {
-            v44 = sub_1AF0D5194();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+            v41 = sub_1AF0D5194(0, v39);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
             {
-              sub_1AFDE6E6C(v77, &v78, v44);
+              sub_1AFDE6E6C(v73, &v74, v41);
             }
           }
 
-          v45 = objc_msgSend_bindBlock(v14, v41, v42, v43);
-          (*(v45 + 16))(v45, v14, self);
+          v42 = objc_msgSend_bindBlock(v14, v39, v40);
+          (*(v42 + 16))(v42, v14, self);
         }
 
         ++v13;
       }
 
       while (v13 != v11);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v36, &v73, v79, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v34, &v69, v75, 16);
     }
 
     while (v11);
@@ -4711,268 +4739,267 @@ LABEL_6:
 - (void)_bindRenderPipelineArgumentsOfCommand:(id *)command materialHashChanged:(BOOL)changed modelWithShaderModifier:(__CFXModel *)modifier modelWithShaderModifierHasChanged:(BOOL)hasChanged nodeHasChanged:(BOOL)nodeHasChanged programHasChanged:(BOOL)programHasChanged projHasChanged:(BOOL)projHasChanged viewHasChanged:(BOOL)self0
 {
   hasChangedCopy = hasChanged;
-  v143 = *MEMORY[0x1E69E9840];
-  v127 = 0u;
-  v128 = 0u;
-  v129 = 0u;
-  v130 = 0u;
-  v15 = objc_msgSend_frameBufferBindings(*&self->_anon_4950[128], a2, command, changed);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v127, v142, 16);
+  v135 = *MEMORY[0x1E69E9840];
+  v119 = 0u;
+  v120 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v15 = objc_msgSend_frameBufferBindings(*&self->_anon_4950[128], a2, command);
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v119, v134, 16);
   if (v17)
   {
-    v21 = v17;
-    v22 = *v128;
+    v20 = v17;
+    v21 = *v120;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v128 != v22)
+        if (*v120 != v21)
         {
           objc_enumerationMutation(v15);
         }
 
-        v24 = *(*(&v127 + 1) + 8 * i);
-        v25 = objc_msgSend_bindBlock(v24, v18, v19, v20);
-        (*(v25 + 16))(v25, v24, self);
+        v23 = *(*(&v119 + 1) + 8 * i);
+        v24 = objc_msgSend_bindBlock(v23, v18, v19);
+        (*(v24 + 16))(v24, v23, self);
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v18, &v127, v142, 16);
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v18, &v119, v134, 16);
     }
 
-    while (v21);
+    while (v20);
   }
 
   commandCopy2 = command;
   if (changed || hasChangedCopy)
   {
-    v27 = self->_cache.material ? sub_1AF20ED1C(self->_resourceManager, command->var2, modifier, *&self->_anon_4950[128], self->_engineContext) : 0;
-    self->_cache.metalShadable = v27;
-    v123 = 0u;
-    v124 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v28 = objc_msgSend_shadableBufferBindings(*&self->_anon_4950[128], v18, v19, v20);
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v123, v141, 16);
-    if (v30)
+    v26 = self->_cache.material ? sub_1AF20ED1C(self->_resourceManager, command->var2, modifier, *&self->_anon_4950[128], self->_engineContext) : 0;
+    self->_cache.metalShadable = v26;
+    v115 = 0u;
+    v116 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v27 = objc_msgSend_shadableBufferBindings(*&self->_anon_4950[128], v18, v19);
+    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v115, v133, 16);
+    if (v29)
     {
-      v33 = v30;
-      v34 = *v124;
+      v31 = v29;
+      v32 = *v116;
       do
       {
-        for (j = 0; j != v33; ++j)
+        for (j = 0; j != v31; ++j)
         {
-          if (*v124 != v34)
+          if (*v116 != v32)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v27);
           }
 
-          v36 = *(*(&v123 + 1) + 8 * j);
-          v37 = objc_msgSend_bindBlock(v36, v18, v31, v32);
-          if (v37)
+          v34 = *(*(&v115 + 1) + 8 * j);
+          v35 = objc_msgSend_bindBlock(v34, v18, v30);
+          if (v35)
           {
-            (*(v37 + 16))(v37, v36, self);
+            (*(v35 + 16))(v35, v34, self);
           }
         }
 
-        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v18, &v123, v141, 16);
+        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v18, &v115, v133, 16);
       }
 
-      while (v33);
+      while (v31);
     }
   }
 
   if (command->var13)
   {
     cullingContext = self->_processingContext.cullingContext;
-    v144 = __invert_f4(*(cullingContext + 128));
-    v112 = v144.columns[1];
-    v113 = v144.columns[0];
-    v110 = v144.columns[3];
-    v111 = v144.columns[2];
-    v41 = *&self->_anon_4950[128];
-    v42 = *&command->var7 ^ v41 ^ self->_renderPassParameters.eyeCount ^ self->_renderPassParameters.viewMapping;
-    v122 = v42;
-    if (self->_lighting.currentLightingHashKey != v42)
+    v136 = __invert_f4(*(cullingContext + 128));
+    v104 = v136.columns[1];
+    v105 = v136.columns[0];
+    v102 = v136.columns[3];
+    v103 = v136.columns[2];
+    v38 = *&self->_anon_4950[128];
+    v39 = *&command->var7 ^ v38 ^ self->_renderPassParameters.eyeCount ^ self->_renderPassParameters.viewMapping;
+    v114 = v39;
+    if (self->_lighting.currentLightingHashKey != v39)
     {
-      self->_lighting.currentLightingHashKey = v42;
-      obj = objc_msgSend_lightBufferBindings(v41, v18, v39, v40);
+      self->_lighting.currentLightingHashKey = v39;
+      obj = objc_msgSend_lightBufferBindings(v38, v18, v37);
       if (obj)
       {
         sub_1AF138864(self->_processingContext.lightingSystem, &command->var7, &self->_lighting.currentLightingDesc);
-        *&v135 = &v122;
-        v109 = sub_1AF20B88C(&self->_lighting.frameLightingSetDatas.__table_.__bucket_list_.__ptr_, &v122);
-        if (v109[3])
+        *&v127 = &v114;
+        v101 = sub_1AF20B88C(&self->_lighting.frameLightingSetDatas.__table_.__bucket_list_.__ptr_, &v114, &unk_1AFE22A40, &v127);
+        if (v101[3])
         {
-          v116 = 0u;
-          v117 = 0u;
-          v114 = 0u;
-          v115 = 0u;
-          v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v43, &v114, v139, 16);
-          if (v44)
+          v108 = 0u;
+          v109 = 0u;
+          v106 = 0u;
+          v107 = 0u;
+          v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v40, &v106, v131, 16);
+          if (v41)
           {
-            v45 = v44;
-            v46 = *v115;
+            v42 = v41;
+            v43 = *v107;
             do
             {
-              for (k = 0; k != v45; ++k)
+              for (k = 0; k != v42; ++k)
               {
-                if (*v115 != v46)
+                if (*v107 != v43)
                 {
                   objc_enumerationMutation(obj);
                 }
 
                 renderEncoder = self->_renderEncoder;
-                v49 = v109[3];
-                v50 = v109[4];
-                v51 = *(*(*(&v114 + 1) + 8 * k) + 9);
-                if (*(*(*(&v114 + 1) + 8 * k) + 9) != 0xFF)
+                v46 = v101[3];
+                v47 = v101[4];
+                v48 = *(*(*(&v106 + 1) + 8 * k) + 9);
+                if (*(*(*(&v106 + 1) + 8 * k) + 9) != 0xFF)
                 {
-                  objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v18, v109[3], v109[4], v51);
+                  objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v18, v101[3], v101[4], v48);
                 }
 
-                if ((~v51 & 0xFF00) != 0)
+                if ((~v48 & 0xFF00) != 0)
                 {
-                  objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v18, v49, v50, v51 >> 8);
+                  objc_msgSend_setFragmentBuffer_offset_atIndex_(renderEncoder->var3, v18, v46, v47, v48 >> 8);
                 }
               }
 
-              v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v114, v139, 16);
+              v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v106, v131, 16);
             }
 
-            while (v45);
+            while (v42);
           }
         }
 
         else
         {
-          v120 = 0u;
-          v121 = 0u;
-          v118 = 0u;
-          v119 = 0u;
-          v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v43, &v118, v140, 16);
-          if (v105)
+          v112 = 0u;
+          v113 = 0u;
+          v110 = 0u;
+          v111 = 0u;
+          v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v40, &v110, v132, 16);
+          if (v99)
           {
-            v104 = *v119;
+            v98 = *v111;
             do
             {
-              v54 = 0;
+              v50 = 0;
               do
               {
-                if (*v119 != v104)
+                if (*v111 != v98)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v108 = v54;
-                v55 = *(*(&v118 + 1) + 8 * v54);
-                if (objc_msgSend_semanticsCount(v55, v18, v52, v53) >= 1)
+                v100 = v50;
+                v51 = *(*(&v110 + 1) + 8 * v50);
+                if (objc_msgSend_semanticsCount(v51, v18, v49) >= 1)
                 {
-                  v56 = objc_msgSend_bufferSize(v55, v18, v52, v53) * self->_renderPassParameters.eyeCount;
-                  v109[5] = v56;
-                  CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v56);
-                  v58 = v57;
-                  v60 = v59;
-                  v109[3] = CFXBufferSliceGetMTLBuffer(v57, v59);
-                  v109[4] = v60;
-                  v106 = v60;
-                  v107 = v58;
-                  CPUPointer = CFXBufferSliceGetCPUPointer(v58, v60, v61, v62);
+                  v52 = objc_msgSend_bufferSize(v51, v18, v49) * self->_renderPassParameters.eyeCount;
+                  v101[5] = v52;
+                  CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameConstantBufferPool.impl, v52);
+                  v54 = v53;
+                  v56 = v55;
+                  CFXBufferSliceGetMTLBuffer();
+                  v101[3] = v57;
+                  v101[4] = v56;
+                  CPUPointer = CFXBufferSliceGetCPUPointer(v54, v56, v58);
                   if (self->_renderPassParameters.eyeCount)
                   {
-                    v67 = CPUPointer;
-                    v68 = 0;
+                    v62 = CPUPointer;
+                    v63 = 0;
                     do
                     {
-                      v69 = 0;
-                      v70 = (cullingContext + 64 * v68 + 0x2000);
-                      v71 = *v70;
-                      v72 = v70[1];
-                      v73 = v70[2];
-                      v74 = v70[3];
-                      v131 = v113;
-                      v132 = v112;
-                      v133 = v111;
-                      v134 = v110;
+                      v64 = 0;
+                      v65 = (cullingContext + 64 * v63 + 0x2000);
+                      v66 = *v65;
+                      v67 = v65[1];
+                      v68 = v65[2];
+                      v69 = v65[3];
+                      v123 = v105;
+                      v124 = v104;
+                      v125 = v103;
+                      v126 = v102;
                       do
                       {
-                        *(&v135 + v69) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71, COERCE_FLOAT(*(&v131 + v69))), v72, *&v131.f32[v69 / 4], 1), v73, *(&v131 + v69), 2), v74, *(&v131 + v69), 3);
-                        v69 += 16;
+                        *(&v127 + v64) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v66, COERCE_FLOAT(*(&v123 + v64))), v67, *&v123.f32[v64 / 4], 1), v68, *(&v123 + v64), 2), v69, *(&v123 + v64), 3);
+                        v64 += 16;
                       }
 
-                      while (v69 != 64);
-                      v75 = 0;
-                      v76 = v136;
-                      v77 = v137;
-                      v78 = v138;
-                      *self->_anon_4190 = v135;
-                      *&self->_anon_4190[16] = v76;
-                      *&self->_anon_4190[32] = v77;
-                      *&self->_anon_4190[48] = v78;
-                      v131 = v113;
-                      v132 = v112;
-                      v133 = v111;
-                      v134 = v110;
+                      while (v64 != 64);
+                      v70 = 0;
+                      v71 = v128;
+                      v72 = v129;
+                      v73 = v130;
+                      *self->_anon_4190 = v127;
+                      *&self->_anon_4190[16] = v71;
+                      *&self->_anon_4190[32] = v72;
+                      *&self->_anon_4190[48] = v73;
+                      v123 = v105;
+                      v124 = v104;
+                      v125 = v103;
+                      v126 = v102;
                       do
                       {
-                        *(&v135 + v75) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71, COERCE_FLOAT(*(&v131 + v75))), v72, *&v131.f32[v75 / 4], 1), v73, *(&v131 + v75), 2), v74, *(&v131 + v75), 3);
-                        v75 += 16;
+                        *(&v127 + v70) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v66, COERCE_FLOAT(*(&v123 + v70))), v67, *&v123.f32[v70 / 4], 1), v68, *(&v123 + v70), 2), v69, *(&v123 + v70), 3);
+                        v70 += 16;
                       }
 
-                      while (v75 != 64);
-                      v79 = v136;
-                      v80 = v137;
-                      v81 = v138;
-                      *&self->_anon_4190[64] = v135;
-                      *&self->_anon_4190[80] = v79;
-                      *&self->_anon_4190[96] = v80;
-                      *&self->_anon_4190[112] = v81;
+                      while (v70 != 64);
+                      v74 = v128;
+                      v75 = v129;
+                      v76 = v130;
+                      *&self->_anon_4190[64] = v127;
+                      *&self->_anon_4190[80] = v74;
+                      *&self->_anon_4190[96] = v75;
+                      *&self->_anon_4190[112] = v76;
                       self->_anon_4190[128] = 1;
-                      if (objc_msgSend_semanticsCount(v55, v64, v65, v66) >= 1)
+                      if (objc_msgSend_semanticsCount(v51, v60, v61) >= 1)
                       {
-                        v85 = 0;
-                        v86 = 0;
+                        v79 = 0;
+                        v80 = 0;
                         do
                         {
-                          (*(*(*(v55 + 48) + v85) + 16))();
-                          ++v86;
-                          v85 += 16;
+                          (*(*(*(v51 + 48) + v79) + 16))();
+                          ++v80;
+                          v79 += 16;
                         }
 
-                        while (v86 < objc_msgSend_semanticsCount(v55, v87, v88, v89));
+                        while (v80 < objc_msgSend_semanticsCount(v51, v81, v82));
                       }
 
-                      v67 += objc_msgSend_bufferSize(v55, v82, v83, v84);
-                      ++v68;
+                      v62 += objc_msgSend_bufferSize(v51, v77, v78);
+                      ++v63;
                     }
 
-                    while (v68 < self->_renderPassParameters.eyeCount);
+                    while (v63 < self->_renderPassParameters.eyeCount);
                   }
 
-                  CFXBufferSliceDidModify(v107, v106);
+                  CFXBufferSliceDidModify();
                 }
 
-                v90 = self->_renderEncoder;
-                v91 = v109[3];
-                v92 = v109[4];
-                v93 = *(v55 + 9);
-                if (*(v55 + 9) != 0xFF)
+                v83 = self->_renderEncoder;
+                v84 = v101[3];
+                v85 = v101[4];
+                v86 = *(v51 + 9);
+                if (*(v51 + 9) != 0xFF)
                 {
-                  objc_msgSend_setVertexBuffer_offset_atIndex_(v90->var3, v18, v109[3], v109[4], v93);
+                  objc_msgSend_setVertexBuffer_offset_atIndex_(v83->var3, v18, v101[3], v101[4], v86);
                 }
 
-                if ((~v93 & 0xFF00) != 0)
+                if ((~v86 & 0xFF00) != 0)
                 {
-                  objc_msgSend_setFragmentBuffer_offset_atIndex_(v90->var3, v18, v91, v92, v93 >> 8);
+                  objc_msgSend_setFragmentBuffer_offset_atIndex_(v83->var3, v18, v84, v85, v86 >> 8);
                 }
 
-                v54 = v108 + 1;
+                v50 = v100 + 1;
               }
 
-              while (v108 + 1 != v105);
-              v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v118, v140, 16);
+              while (v100 + 1 != v99);
+              v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v110, v132, 16);
             }
 
-            while (v105);
+            while (v99);
           }
         }
       }
@@ -4990,25 +5017,26 @@ LABEL_6:
   {
     if (sub_1AF12E2A0(self->_engineContext))
     {
-      v94 = sub_1AF1310A0(self->_engineContext);
-      sub_1AF1FD200(v94, *(*&self->_anon_4950[128] + 8), 3u);
+      v87 = sub_1AF1310A0(self->_engineContext);
+      sub_1AF1FD200(v87, *(*&self->_anon_4950[128] + 8), 3);
     }
 
     else
     {
-      v95 = self->_renderEncoder;
-      MTLBuffer = CFXBufferSliceGetMTLBuffer(self->_worldUniforms.impl._buffer, *&self->_worldUniforms.impl._offset);
+      v88 = self->_renderEncoder;
+      CFXBufferSliceGetMTLBuffer();
+      v91 = v89;
       offset = self->_worldUniforms.impl._offset;
-      v99 = *&self->_anon_4950[128];
-      v100 = *(v99 + 8);
-      if (*(v99 + 8) != 0xFF)
+      v93 = *&self->_anon_4950[128];
+      v94 = *(v93 + 8);
+      if (*(v93 + 8) != 0xFF)
       {
-        objc_msgSend_setVertexBuffer_offset_atIndex_(v95->var3, v96, MTLBuffer, offset, v100);
+        objc_msgSend_setVertexBuffer_offset_atIndex_(v88->var3, v90, v89, offset, v94);
       }
 
-      if ((~v100 & 0xFF00) != 0)
+      if ((~v94 & 0xFF00) != 0)
       {
-        objc_msgSend_setFragmentBuffer_offset_atIndex_(v95->var3, v96, MTLBuffer, offset, v100 >> 8);
+        objc_msgSend_setFragmentBuffer_offset_atIndex_(v88->var3, v90, v91, offset, v94 >> 8);
       }
     }
   }
@@ -5021,12 +5049,13 @@ LABEL_6:
   var6 = command->var6;
   var10 = command->var10;
   var11 = command->var11;
-  if (sub_1AF12E2A0(self->_engineContext))
+  v9 = sub_1AF12E2A0(self->_engineContext);
+  if (v9)
   {
-    objc_msgSend__clearRenderCaches(self, v9, v10, v11);
+    v9 = objc_msgSend__clearRenderCaches(self, v10, v11);
   }
 
-  if (var3 && sub_1AF1B402C(var3) && (self->_features & 0x10) != 0)
+  if (var3 && (v9 = sub_1AF1B402C(var3, v10), v9) && (self->_features & 0x10) != 0)
   {
     v13 = (*(command + 85) & 7) != 0;
     v12 = 1;
@@ -5051,39 +5080,39 @@ LABEL_6:
     if ((byte_1EB6586A5 & 1) == 0)
     {
       byte_1EB6586A5 = 1;
-      v14 = sub_1AF0D5194();
+      v14 = sub_1AF0D5194(v9, v10);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE6EF4();
       }
     }
 
-    command->var0 = objc_msgSend_defaultProgramUsingTessellation_(self->_resourceManager, v9, v12, v11);
+    command->var0 = objc_msgSend_defaultProgramUsingTessellation_(self->_resourceManager, v10, v12);
     if (!var3)
     {
       goto LABEL_17;
     }
   }
 
-  if (sub_1AF16E098(var3) || sub_1AF15B294(var3))
+  if (sub_1AF16E098(var3, v10) || sub_1AF15B294(var3))
   {
-    v164 = var3;
+    v158 = var3;
     goto LABEL_18;
   }
 
 LABEL_17:
-  v164 = 0;
+  v158 = 0;
 LABEL_18:
-  v160 = var10;
+  v154 = var10;
   program = self->_cache.program;
   var0 = command->var0;
   self->_cache.program = command->var0;
-  v165 = program;
-  v166 = var0;
+  v159 = program;
+  v160 = var0;
   v18 = self->_cache.geometry != var5 || program != var0;
   if (var3)
   {
-    v19 = sub_1AF1B40A0(var3);
+    v19 = sub_1AF1B40A0(var3, v10);
   }
 
   else
@@ -5094,44 +5123,44 @@ LABEL_18:
   var4 = command->var4;
   if (!var4)
   {
-    v158 = 0;
-    v177 = 0;
-    v162 = -1;
+    v152 = 0;
+    v171 = 0;
+    v156 = -1;
     goto LABEL_38;
   }
 
-  v21 = sub_1AF1B92C8(var4);
+  v21 = sub_1AF1B92C8(var4, v10);
   v22 = v21;
-  v158 = v21 != 0;
+  v152 = v21 != 0;
   if (v21)
   {
-    v162 = sub_1AF1C9420(v21);
+    v156 = sub_1AF1C9420(v21);
   }
 
   else
   {
-    v162 = -1;
+    v156 = -1;
   }
 
-  v23 = command->var4;
-  v177 = 0;
-  if (!v23)
+  var4 = command->var4;
+  v171 = 0;
+  if (!var4)
   {
 LABEL_38:
-    v25 = 0;
-    v26 = 0;
+    v23 = 0;
+    v24 = 0;
     if (self->_cache.deformerStack)
     {
-      v27 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v27 = v18;
+      v25 = v18;
     }
 
     self->_cache.deformerStack = 0;
-    if ((v27 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       goto LABEL_58;
     }
@@ -5139,27 +5168,28 @@ LABEL_38:
     goto LABEL_42;
   }
 
-  v24 = sub_1AF1B7558(v23);
-  if (self->_cache.deformerStack != v24)
+  var4 = sub_1AF1B7558(var4, v10);
+  if (self->_cache.deformerStack != var4)
   {
     v18 = 1;
   }
 
-  self->_cache.deformerStack = v24;
-  if (v24)
+  self->_cache.deformerStack = var4;
+  if (var4)
   {
-    v25 = objc_msgSend__executeDeformerStackOfCommand_dataKind_deformerStack_metalDeformedMesh_skinner_skinnerCalculationMode_(self, v9, command, v19, v24, &v177, v22, v162);
+    var4 = objc_msgSend__executeDeformerStackOfCommand_dataKind_deformerStack_metalDeformedMesh_skinner_skinnerCalculationMode_(self, v10, command, v19, var4, &v171, v22, v156);
+    v23 = var4;
     if (!v18)
     {
-      v26 = 0;
+      v24 = 0;
       goto LABEL_58;
     }
   }
 
   else
   {
-    v25 = 0;
-    v26 = 0;
+    v23 = 0;
+    v24 = 0;
     if (!v18)
     {
       goto LABEL_58;
@@ -5167,8 +5197,8 @@ LABEL_38:
   }
 
 LABEL_42:
-  v28 = v177;
-  if (v177)
+  var4 = v171;
+  if (v171)
   {
     self->_cache.geometry = var5;
   }
@@ -5177,12 +5207,13 @@ LABEL_42:
   {
     if (var5)
     {
-      if (sub_1AF1706B8(var5) != 1)
+      v26 = sub_1AF1706B8(var5);
+      if (v26 != 1)
       {
-        v29 = sub_1AF0D5194();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+        v27 = sub_1AF0D5194(v26, v10);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDE6F28(v29, v9, v30, v31, v32, v33, v34, v35);
+          sub_1AFDE6F28(v27, v10, v28, v29, v30, v31, v32, v33);
         }
       }
     }
@@ -5195,94 +5226,100 @@ LABEL_42:
     self->_cache.geometry = var5;
     if (var5)
     {
-      v28 = sub_1AF20E1F8(self->_resourceManager, var5, v19);
+      var4 = sub_1AF20E1F8(self->_resourceManager, var5, v19);
     }
 
     else
     {
-      v28 = 0;
+      var4 = 0;
     }
   }
 
-  self->_cache.metalMesh = v28;
-  v26 = 1;
+  self->_cache.metalMesh = var4;
+  v24 = 1;
 LABEL_58:
-  v153 = v26;
-  v176 = 0;
+  v147 = v24;
+  v170 = 0;
   if (v12)
   {
-    v155 = objc_msgSend__setupTessellatorOfCommand_deformersDidMutateMeshForCurrentFrame_tessellationPipelineStateHash_(self, v9, command, v25, &v176);
-    v157 = self->_anon_4950[120] == v176;
-    self->_anon_4950[120] = v176;
+    var4 = objc_msgSend__setupTessellatorOfCommand_deformersDidMutateMeshForCurrentFrame_tessellationPipelineStateHash_(self, v10, command, v23, &v170);
+    v149 = var4;
+    v151 = self->_anon_4950[120] == v170;
+    self->_anon_4950[120] = v170;
     if (v13)
     {
-      v36 = 0;
-      v37 = var6;
-      v38 = v160;
-      v39 = v165;
+      v34 = 0;
+      v35 = var6;
+      v36 = v154;
+      v37 = v159;
       goto LABEL_71;
     }
   }
 
   else
   {
-    v155 = 0;
-    v157 = self->_anon_4950[120] == 0;
+    v149 = 0;
+    v151 = self->_anon_4950[120] == 0;
     self->_anon_4950[120] = 0;
   }
 
-  if (v177 && sub_1AF170774(var5))
+  if (v171)
   {
-    if (var6)
+    var4 = sub_1AF170774(var5);
+    if (var4)
     {
-      v40 = sub_1AF0D5194();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+      if (var6)
       {
-        sub_1AFDE6FA0(v40, v41, v42, v43, v44, v45, v46, v47);
+        v38 = sub_1AF0D5194(var4, v10);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+        {
+          sub_1AFDE6FA0(v38, v39, v40, v41, v42, v43, v44, v45);
+        }
       }
-    }
 
-    v38 = v160;
-    v39 = v165;
-    if (sub_1AF170790(var5) != 1)
-    {
-      v48 = sub_1AF0D5194();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+      v46 = sub_1AF170790(var5);
+      v36 = v154;
+      v37 = v159;
+      if (v46 != 1)
       {
-        sub_1AFDE7018(v48, v49, v50, v51, v52, v53, v54, v55);
+        v48 = sub_1AF0D5194(v46, v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+        {
+          sub_1AFDE7018(v48, v49, v50, v51, v52, v53, v54, v55);
+        }
       }
-    }
 
-    v56 = sub_1AFDEA208(v177);
-    v36 = objc_msgSend_objectAtIndexedSubscript_(v56, v57, 0, v58);
-    v37 = 0;
+      v56 = sub_1AFDEA208(v171);
+      v34 = objc_msgSend_objectAtIndexedSubscript_(v56, v57, 0);
+      v35 = 0;
 LABEL_71:
-    self->_cache.meshElement = v37;
-    self->_cache.metalMeshElement = v36;
-    if (!var6)
-    {
-      goto LABEL_97;
-    }
+      self->_cache.meshElement = v35;
+      self->_cache.metalMeshElement = v34;
+      if (!var6)
+      {
+        goto LABEL_97;
+      }
 
 LABEL_94:
-    v88 = sub_1AF1A7034(var6);
-    if (v88 > 5)
-    {
-      LOBYTE(var6) = 0;
-    }
+      v87 = sub_1AF1A7034(var6, v10);
+      if (v87 > 5)
+      {
+        LOBYTE(var6) = 0;
+      }
 
-    else
-    {
-      var6 = (0x30001020303uLL >> (8 * (v88 & 0x1F)));
-    }
+      else
+      {
+        var6 = (0x30001020303uLL >> (8 * (v87 & 0x1F)));
+      }
 
-    goto LABEL_97;
+      goto LABEL_97;
+    }
   }
 
   if (self->_cache.meshElement == var6)
   {
-    v38 = v160;
-    v39 = v165;
+    v36 = v154;
+    v37 = v159;
     if (var6)
     {
       goto LABEL_94;
@@ -5291,16 +5328,16 @@ LABEL_94:
 
   else
   {
-    if (v177 == 0 || v13)
+    if (v171 == 0 || v13)
     {
       self->_cache.meshElement = var6;
       if (var6)
       {
-        v59 = sub_1AFDE7F98(self->_resourceManager);
+        var4 = sub_1AFDE7F98(self->_resourceManager);
         p_metalMeshElement = &self->_cache.metalMeshElement;
-        self->_cache.metalMeshElement = v59;
-        v39 = v165;
-        if (v59)
+        self->_cache.metalMeshElement = var4;
+        v37 = v159;
+        if (var4)
         {
           goto LABEL_91;
         }
@@ -5310,19 +5347,19 @@ LABEL_94:
       {
         p_metalMeshElement = &self->_cache.metalMeshElement;
         self->_cache.metalMeshElement = 0;
-        v39 = v165;
+        v37 = v159;
       }
 
-      v77 = sub_1AF0D5194();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
+      v76 = sub_1AF0D5194(var4, v10);
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE7090(v77, v78, v79, v80, v81, v82, v83, v84);
+        sub_1AFDE7090(v76, v77, v78, v79, v80, v81, v82, v83);
         if (!var6)
         {
 LABEL_92:
-          v87 = sub_1AFDEA228(*p_metalMeshElement);
-          v38 = v160;
-          if (!v87)
+          v86 = sub_1AFDEA228(*p_metalMeshElement);
+          v36 = v154;
+          if (!v86)
           {
             return;
           }
@@ -5337,16 +5374,17 @@ LABEL_92:
       }
 
 LABEL_91:
-      v85 = sub_1AF1A73D4(var6);
-      sub_1AFDEA4AC(*p_metalMeshElement, v85, v86);
+      v84 = sub_1AF1A73D4(var6);
+      sub_1AFDEA4AC(*p_metalMeshElement, v84, v85);
       goto LABEL_92;
     }
 
     if (var5)
     {
-      if (sub_1AF1706B8(var5) != 1)
+      v59 = sub_1AF1706B8(var5);
+      if (v59 != 1)
       {
-        v61 = sub_1AF0D5194();
+        v61 = sub_1AF0D5194(v59, v60);
         if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
         {
           sub_1AFDE6F28(v61, v62, v63, v64, v65, v66, v67, v68);
@@ -5355,20 +5393,20 @@ LABEL_91:
     }
 
     v69 = sub_1AF1A5020(var5, var6, v19);
-    v39 = v165;
+    v37 = v159;
     if (v69 != -1)
     {
       v70 = v69;
-      v71 = sub_1AFDEA208(v177);
-      v74 = objc_msgSend_objectAtIndexedSubscript_(v71, v72, v70, v73);
+      v71 = sub_1AFDEA208(v171);
+      v73 = objc_msgSend_objectAtIndexedSubscript_(v71, v72, v70);
       self->_cache.meshElement = var6;
-      self->_cache.metalMeshElement = v74;
-      v38 = v160;
-      if (!sub_1AFDEA1E8(v74))
+      self->_cache.metalMeshElement = v73;
+      v36 = v154;
+      if (!sub_1AFDEA1E8(v73))
       {
-        v75 = sub_1AF1A73D4(var6);
-        sub_1AFDEA4AC(v74, v75, v76);
-        if (!sub_1AFDEA228(v74))
+        v74 = sub_1AF1A73D4(var6);
+        sub_1AFDEA4AC(v73, v74, v75);
+        if (!sub_1AFDEA228(v73))
         {
           return;
         }
@@ -5383,7 +5421,7 @@ LABEL_93:
       goto LABEL_94;
     }
 
-    v38 = v160;
+    v36 = v154;
     if (var6)
     {
       goto LABEL_94;
@@ -5394,203 +5432,203 @@ LABEL_97:
   primitiveTopologyClass = self->_cache.primitiveTopologyClass;
   self->_cache.primitiveTopologyClass = var6;
   var2 = command->var2;
-  v91 = self->_cache.material != var2 || v39 != v166;
-  v152 = v91;
+  v90 = self->_cache.material != var2 || v37 != v160;
+  v146 = v90;
   self->_cache.material = var2;
   if (var2)
   {
-    var2 = sub_1AF1A1270(var2);
+    var2 = sub_1AF1A1270(var2, v10);
   }
 
   self->_cache.commonProfile = var2;
-  v92 = self->_cache.model != v164;
+  v91 = self->_cache.model != v158;
   self->_cache.model = var3;
-  v93 = sub_1AF12DB9C(self->_processingContext.dynamicBatchingSystem);
-  v97 = v93;
-  v98 = command->var4;
-  v99 = self->_cache.node != v98;
-  v100 = v39 != v166 || v92;
-  v151 = v100;
-  if (v39 != v166)
+  v92 = sub_1AF12DB9C(self->_processingContext.dynamicBatchingSystem);
+  v95 = v92;
+  v96 = command->var4;
+  v97 = self->_cache.node != v96;
+  v98 = v37 != v160 || v91;
+  v145 = v98;
+  if (v37 != v160)
+  {
+    v97 = 1;
+  }
+
+  v99 = v97 || v152 && v156 == 1;
+  if (v92 > 1)
   {
     v99 = 1;
   }
 
-  v101 = v99 || v158 && v162 == 1;
-  if (v93 > 1)
-  {
-    v101 = 1;
-  }
-
-  v163 = v101;
-  self->_cache.node = v98;
+  v157 = v99;
+  self->_cache.node = v96;
   cullingContext = self->_processingContext.cullingContext;
-  v103 = *(cullingContext + 1829);
-  if (self->_cache.pointOfView == v103 && (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*self->_anon_4950, *(cullingContext + 513)), vceqq_f32(*&self->_cache.tessellationPipelineStateHash, *(cullingContext + 512))), vandq_s8(vceqq_f32(*&self->_anon_4950[16], *(cullingContext + 514)), vceqq_f32(*&self->_anon_4950[32], *(cullingContext + 515))))) & 0x80000000) != 0)
+  v101 = *(cullingContext + 1829);
+  if (self->_cache.pointOfView == v101 && (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*self->_anon_4950, *(cullingContext + 513)), vceqq_f32(*&self->_cache.tessellationPipelineStateHash, *(cullingContext + 512))), vandq_s8(vceqq_f32(*&self->_anon_4950[16], *(cullingContext + 514)), vceqq_f32(*&self->_anon_4950[32], *(cullingContext + 515))))) & 0x80000000) != 0)
   {
-    v159 = 0;
+    v153 = 0;
   }
 
   else
   {
-    self->_cache.pointOfView = v103;
-    v104 = *(cullingContext + 512);
-    v105 = *(cullingContext + 513);
-    v106 = *(cullingContext + 514);
+    self->_cache.pointOfView = v101;
+    v102 = *(cullingContext + 512);
+    v103 = *(cullingContext + 513);
+    v104 = *(cullingContext + 514);
     *&self->_anon_4950[32] = *(cullingContext + 515);
-    *&self->_anon_4950[16] = v106;
-    *self->_anon_4950 = v105;
-    *&self->_cache.tessellationPipelineStateHash = v104;
-    v159 = 1;
+    *&self->_anon_4950[16] = v104;
+    *self->_anon_4950 = v103;
+    *&self->_cache.tessellationPipelineStateHash = v102;
+    v153 = 1;
   }
 
-  v107 = vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_4950[64], *(cullingContext + 577)), vceqq_f32(*&self->_anon_4950[48], *(cullingContext + 576))), vandq_s8(vceqq_f32(*&self->_anon_4950[80], *(cullingContext + 578)), vceqq_f32(*&self->_anon_4950[96], *(cullingContext + 579)))));
-  if ((v107 & 0x80000000) == 0)
+  v105 = vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_4950[64], *(cullingContext + 577)), vceqq_f32(*&self->_anon_4950[48], *(cullingContext + 576))), vandq_s8(vceqq_f32(*&self->_anon_4950[80], *(cullingContext + 578)), vceqq_f32(*&self->_anon_4950[96], *(cullingContext + 579)))));
+  if ((v105 & 0x80000000) == 0)
   {
-    v108 = (cullingContext + 9216);
-    v109 = *v108;
-    v110 = v108[1];
-    v111 = v108[3];
-    *&self->_anon_4950[80] = v108[2];
-    *&self->_anon_4950[96] = v111;
-    *&self->_anon_4950[48] = v109;
-    *&self->_anon_4950[64] = v110;
+    v106 = (cullingContext + 9216);
+    v107 = *v106;
+    v108 = v106[1];
+    v109 = v106[3];
+    *&self->_anon_4950[80] = v106[2];
+    *&self->_anon_4950[96] = v109;
+    *&self->_anon_4950[48] = v107;
+    *&self->_anon_4950[64] = v108;
   }
 
   metalMesh = self->_cache.metalMesh;
-  v156 = v12;
+  v150 = v12;
   if (v12)
   {
-    v113 = sub_1AFDEA150(metalMesh, v94, v95, v96);
+    v111 = sub_1AFDEA150(metalMesh, v93, v94);
   }
 
   else
   {
-    v113 = sub_1AFDEA078(metalMesh);
+    v111 = sub_1AFDEA078(metalMesh, v93);
   }
 
-  v117 = v113;
-  v118 = *&self->_anon_4950[112];
-  *&self->_anon_4950[112] = v113;
-  if ((v38 & 1) == 0)
+  v114 = v111;
+  v115 = *&self->_anon_4950[112];
+  *&self->_anon_4950[112] = v111;
+  if ((v36 & 1) == 0)
   {
-    v119 = command->var4;
-    if (v119)
+    v116 = command->var4;
+    if (v116)
     {
-      sub_1AF1BA79C(v119);
+      sub_1AF1BA79C(v116, v112);
     }
   }
 
-  v175 = 0uLL;
-  v120 = command->var2;
-  if (v120)
+  v169 = 0uLL;
+  v117 = command->var2;
+  if (v117)
   {
-    v121 = objc_msgSend_enableARMode(self, v114, v115, v116);
-    v122 = sub_1AF1A1870(v120, v38, var11, v121, &v175);
-    v123 = v122;
-    if (v122 && sub_1AF15B9CC(v122))
+    v118 = objc_msgSend_enableARMode(self, v112, v113);
+    v119 = sub_1AF1A1870(v117, v36, var11, v118, &v169);
+    v120 = v119;
+    if (v119 && sub_1AF15B9CC(v119, v112))
     {
-      LODWORD(v125) = DWORD2(v175);
-      LODWORD(v124) = DWORD1(v175);
-      LODWORD(v126) = HIDWORD(v175);
-      objc_msgSend_setBlendColorRed_green_blue_alpha_(self->_renderEncoder->var3, v114, v115, v116, *&v175, v124, v125, v126);
+      LODWORD(v122) = DWORD2(v169);
+      LODWORD(v121) = DWORD1(v169);
+      LODWORD(v123) = HIDWORD(v169);
+      objc_msgSend_setBlendColorRed_green_blue_alpha_(self->_renderEncoder->var3, v112, v113, *&v169, v121, v122, v123);
     }
 
-    v127 = command->var2;
-    v128 = v165;
-    if (v127)
+    v124 = command->var2;
+    v125 = v159;
+    if (v124)
     {
-      v129 = sub_1AF1A16A0(v127);
+      v126 = sub_1AF1A16A0(v124, v112);
     }
 
     else
     {
-      v129 = 15;
+      v126 = 15;
     }
   }
 
   else
   {
-    v123 = 0;
-    v129 = 15;
-    v128 = v165;
+    v120 = 0;
+    v126 = 15;
+    v125 = v159;
   }
 
   if (command->var14)
   {
-    v130 = 0;
+    v127 = 0;
   }
 
   else
   {
-    v130 = v129;
+    v127 = v126;
   }
 
   colorBufferWriteMask = self->_cache.colorBufferWriteMask;
-  self->_cache.colorBufferWriteMask = v130;
+  self->_cache.colorBufferWriteMask = v127;
   blendStates = self->_cache.blendStates;
-  self->_cache.blendStates = v123;
-  if (v128 == v166 && v118 == v117 && blendStates == v123 && colorBufferWriteMask == v130 && v157 && primitiveTopologyClass == var6 || objc_msgSend__setupRenderPipelineOfCommand_tessellator_useTessellation_(self, v114, command, v155, v156))
+  self->_cache.blendStates = v120;
+  if (v125 == v160 && v115 == v114 && blendStates == v120 && colorBufferWriteMask == v127 && v151 && primitiveTopologyClass == var6 || objc_msgSend__setupRenderPipelineOfCommand_tessellator_useTessellation_(self, v112, command, v149, v150))
   {
-    v133 = *&self->_anon_4950[128];
-    if (v133)
+    v130 = *&self->_anon_4950[128];
+    if (v130)
     {
-      if (objc_msgSend_state(v133, v114, v115, v116))
+      if (objc_msgSend_state(v130, v112, v113))
       {
-        HIBYTE(v150) = v159;
-        LOBYTE(v150) = v107 >= 0;
-        objc_msgSend__bindRenderPipelineArgumentsOfCommand_materialHashChanged_modelWithShaderModifier_modelWithShaderModifierHasChanged_nodeHasChanged_programHasChanged_projHasChanged_viewHasChanged_(self, v134, command, v152, v164, v151, v163, v128 != v166, v150);
-        if (command->var4 && v97 <= 1)
+        HIBYTE(v144) = v153;
+        LOBYTE(v144) = v105 >= 0;
+        objc_msgSend__bindRenderPipelineArgumentsOfCommand_materialHashChanged_modelWithShaderModifier_modelWithShaderModifierHasChanged_nodeHasChanged_programHasChanged_projHasChanged_viewHasChanged_(self, v131, command, v146, v158, v145, v157, v125 != v160, v144);
+        if (command->var4 && v95 <= 1)
         {
-          v138 = *&self->_nodeUniforms.probeCacheIndex;
-          v139 = *&self->_anon_3408[8];
-          v137 = vmulq_f32(*&self->_nodeUniforms.instanceNode, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v139, v139, 0xCuLL), v139, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v138, v138), v138, 0xCuLL))), vextq_s8(vuzp1q_s32(v139, v139), v139, 0xCuLL), vextq_s8(vextq_s8(v138, v138, 0xCuLL), v138, 8uLL)));
-          v137.f32[0] = v137.f32[2] + vaddv_f32(*v137.f32);
-          v140 = v137.f32[0] > 0.0;
+          v134 = *&self->_nodeUniforms.probeCacheIndex;
+          v135 = *&self->_anon_3408[8];
+          v133 = vmulq_f32(*&self->_nodeUniforms.instanceNode, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v135, v135, 0xCuLL), v135, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v134, v134), v134, 0xCuLL))), vextq_s8(vuzp1q_s32(v135, v135), v135, 0xCuLL), vextq_s8(vextq_s8(v134, v134, 0xCuLL), v134, 8uLL)));
+          v133.f32[0] = v133.f32[2] + vaddv_f32(*v133.f32);
+          v136 = v133.f32[0] > 0.0;
           renderEncoder = self->_renderEncoder;
           if (renderEncoder->var6)
           {
-            objc_msgSend_setFrontFacingWinding_(renderEncoder->var3, v135, *(&xmmword_1AFE22A20 + v140), v136, *v137.i64);
+            objc_msgSend_setFrontFacingWinding_(renderEncoder->var3, v132, *(&xmmword_1AFE22A20 + v136), *v133.i64);
 LABEL_149:
-            if (v153)
+            if (v147)
             {
-              objc_msgSend__setMeshBuffers_(self, v142, self->_cache.metalMesh, v143);
+              objc_msgSend__setMeshBuffers_(self, v138, self->_cache.metalMesh);
             }
 
-            if (v97 <= 1)
+            if (v95 <= 1)
             {
-              v97 = sub_1AFDE8698(self->_cache.metalMeshElement);
+              v95 = sub_1AFDE8698(self->_cache.metalMeshElement);
             }
 
-            if (v156)
+            if (v150)
             {
-              v144 = sub_1AF170740(self->_cache.geometry);
-              memset(v174, 0, sizeof(v174));
+              v139 = sub_1AF170740(self->_cache.geometry);
+              memset(v168, 0, sizeof(v168));
               metalMeshElement = self->_cache.metalMeshElement;
-              if (v97 <= 1)
+              if (v95 <= 1)
               {
-                v148 = 1;
+                v142 = 1;
               }
 
               else
               {
-                v148 = v97;
+                v142 = v95;
               }
 
-              v149 = *(command + 85) & 7;
-              v167 = v144;
-              v168 = *&self->_cache.metalMesh;
-              v169 = metalMeshElement;
-              v170 = v148;
-              v171 = 0;
+              v143 = *(command + 85) & 7;
+              v161 = v139;
+              v162 = *&self->_cache.metalMesh;
+              v163 = metalMeshElement;
+              v164 = v142;
+              v165 = 0;
               selfCopy = self;
-              v173 = v149;
-              objc_msgSend_draw_(v155, v145, &v167, v146);
+              v167 = v143;
+              objc_msgSend_draw_(v149, v140, &v161);
             }
 
             else
             {
-              objc_msgSend__drawMeshElement_instanceCount_(self, v142, self->_cache.metalMeshElement, v97);
+              objc_msgSend__drawMeshElement_instanceCount_(self, v138, self->_cache.metalMeshElement, v95);
             }
 
             return;
@@ -5600,10 +5638,10 @@ LABEL_149:
         else
         {
           renderEncoder = self->_renderEncoder;
-          v140 = !renderEncoder->var6;
+          v136 = !renderEncoder->var6;
         }
 
-        objc_msgSend_setFrontFacingWinding_(renderEncoder->var3, v135, v140, v136, *v137.i64);
+        objc_msgSend_setFrontFacingWinding_(renderEncoder->var3, v132, v136, *v133.i64);
         goto LABEL_149;
       }
     }
@@ -5612,10 +5650,10 @@ LABEL_149:
 
 - (void)drawRenderElement:(__CFXRendererElement *)element withOverrides:(__CFXRenderingOverride *)overrides
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   if (!self->_engineContext)
   {
-    v7 = sub_1AF0D5194();
+    v7 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDE7108(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -5626,73 +5664,73 @@ LABEL_149:
   v16 = sub_1AF146118(element);
   v17 = sub_1AF146158(element);
   v18 = sub_1AF146178(element);
-  v70 = 0;
-  v71 = 0;
-  v69 = 0;
-  sub_1AF133CC8(element, overrides, self->_engineContext, &v71, &v69, &v70, 0);
-  v19 = sub_1AF146200(element);
-  v20 = v69;
-  if (!v19 || !v69)
+  v66 = 0;
+  v67 = 0;
+  v65 = 0;
+  sub_1AF133CC8(element, overrides, self->_engineContext, &v67, &v65, &v66);
+  v20 = sub_1AF146200(element);
+  v21 = v65;
+  if (!v20 || !v65)
   {
-    if (v19)
+    if (v20)
     {
-      v21 = 0;
-      v22 = 1;
+      v22 = 0;
+      v23 = 1;
       goto LABEL_18;
     }
 
     goto LABEL_10;
   }
 
-  if ((sub_1AF13E49C(v69) & 1) == 0)
+  if ((sub_1AF13E49C(v65) & 1) == 0)
   {
 LABEL_10:
     if (v15)
     {
-      sub_1AF1BA79C(v15);
-      if (v23 <= 0.0)
+      sub_1AF1BA79C(v15, v19);
+      if (v24 <= 0.0)
       {
         return;
       }
     }
 
-    if (!v69)
+    if (!v65)
     {
-      v66 = v17;
-      v68 = 0;
-      v22 = 0;
-      v63 = 0;
+      v62 = v17;
+      v64 = 0;
+      v23 = 0;
+      v59 = 0;
       goto LABEL_23;
     }
 
-    v24 = sub_1AF1A1270(v71);
-    if (v24)
+    v25 = sub_1AF1A1270(v67, v19);
+    if (v25)
     {
-      v21 = sub_1AF166C38(v24);
-      v22 = 0;
+      v22 = sub_1AF166C38(v25, v19);
+      v23 = 0;
     }
 
     else
     {
+      v23 = 0;
       v22 = 0;
-      v21 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v21 = 0;
-  v22 = 1;
+  v22 = 0;
+  v23 = 1;
 LABEL_17:
-  v20 = v69;
+  v21 = v65;
 LABEL_18:
-  v63 = v21;
-  v66 = v17;
-  if (!v20)
+  v59 = v22;
+  v62 = v17;
+  if (!v21)
   {
-    v68 = 0;
+    v64 = 0;
 LABEL_23:
-    v67 = 0;
+    v63 = 0;
     if (!overrides)
     {
       goto LABEL_26;
@@ -5701,24 +5739,24 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v68 = sub_1AF13E4F8(v20);
-  if (!v69)
+  v64 = sub_1AF13E4F8(v21);
+  if (!v65)
   {
     goto LABEL_23;
   }
 
-  v67 = sub_1AF13E510(v69);
+  v63 = sub_1AF13E510(v65);
   if (!overrides)
   {
     goto LABEL_26;
   }
 
 LABEL_24:
-  v25 = sub_1AF1D62E4(overrides);
-  if (v25)
+  v26 = sub_1AF1D62E4(overrides, v19);
+  if (v26)
   {
-    v28 = v25;
-    objc_msgSend_setRasterizerStates_(self, v26, v25, v27);
+    v28 = v26;
+    objc_msgSend_setRasterizerStates_(self, v27, v26);
     goto LABEL_28;
   }
 
@@ -5726,153 +5764,153 @@ LABEL_26:
   v28 = sub_1AF1461DC(element);
   if (!v28)
   {
-    v31 = 1;
+    v30 = 1;
     goto LABEL_30;
   }
 
-  objc_msgSend_setRasterizerStates_(self, v29, v28, v30);
+  objc_msgSend_setRasterizerStates_(self, v29, v28);
 LABEL_28:
-  v31 = 0;
+  v30 = 0;
 LABEL_30:
   p_var5 = &element->var5;
-  v33 = *(element + 40);
-  v34 = v22;
+  v32 = *(element + 40);
+  v33 = v23;
   selfCopy = self;
-  v36 = (v33 & 0x40) != 0 && self->_processingContext.passRequiresLighting;
-  v38 = v69;
-  v37 = v70;
-  v39 = v71;
-  v40 = (v33 >> 14) & 1;
+  v35 = (v32 & 0x40) != 0 && self->_processingContext.passRequiresLighting;
+  v37 = v65;
+  v36 = v66;
+  v38 = v67;
+  v39 = (v32 >> 14) & 1;
   var3 = element->var3;
-  if (v34 & 1) != 0 || (*(selfCopy->_processingContext.cullingContext + 14650))
+  if (v33 & 1) != 0 || (*(selfCopy->_processingContext.cullingContext + 14650))
   {
     goto LABEL_39;
   }
 
-  if (v63 == 1)
+  if (v59 == 1)
   {
-    v72 = v70;
-    *&v73 = v69;
-    *(&v73 + 1) = v71;
-    v74 = v16;
-    v75 = v15;
-    v76 = v66;
-    v77 = v18;
-    v78 = var3;
+    v68 = v66;
+    *&v69 = v65;
+    *(&v69 + 1) = v67;
+    v70 = v16;
+    v71 = v15;
+    v72 = v62;
+    v73 = v18;
+    v74 = var3;
     overridesCopy5 = overrides;
-    v80 = p_var5;
-    v81 = v34;
-    v82 = v68;
-    v83 = v67;
-    v84 = v36;
-    v85 = 1;
-    v86 = (v33 >> 11) & 7;
-    v87 = 0;
-    v52 = selfCopy;
-    v60 = v34;
-    v62 = v36;
-    v58 = p_var5;
-    v65 = v86;
-    objc_msgSend__executeDrawCommand_(selfCopy, v29, &v72, v30);
-    v72 = v37;
-    *&v73 = v38;
-    *(&v73 + 1) = v39;
-    v74 = v16;
-    v75 = v15;
-    v76 = v66;
-    v77 = v18;
-    v78 = var3;
+    v76 = p_var5;
+    v77 = v33;
+    v78 = v64;
+    v79 = v63;
+    v80 = v35;
+    v81 = 1;
+    v82 = (v32 >> 11) & 7;
+    v83 = 0;
+    v49 = selfCopy;
+    v56 = v33;
+    v58 = v35;
+    v54 = p_var5;
+    v61 = v82;
+    objc_msgSend__executeDrawCommand_(selfCopy, v29, &v68);
+    v68 = v36;
+    *&v69 = v37;
+    *(&v69 + 1) = v38;
+    v70 = v16;
+    v71 = v15;
+    v72 = v62;
+    v73 = v18;
+    v74 = var3;
     overridesCopy5 = overrides;
+    v76 = v54;
+    v77 = v56;
+    v78 = v64;
+    v79 = v63;
     v80 = v58;
-    v81 = v60;
-    v82 = v68;
-    v83 = v67;
-    v84 = v62;
-    v85 = 0;
-    v86 = v65;
-    v87 = 0;
-    objc_msgSend__executeDrawCommand_(v52, v53, &v72, v54);
+    v81 = 0;
+    v82 = v61;
+    v83 = 0;
+    objc_msgSend__executeDrawCommand_(v49, v50, &v68);
     return;
   }
 
-  if (v63 != 2)
+  if (v59 != 2)
   {
 LABEL_39:
-    v72 = v70;
-    *&v73 = v69;
-    *(&v73 + 1) = v71;
-    v74 = v16;
-    v75 = v15;
-    v76 = v66;
-    v77 = v18;
-    v78 = var3;
+    v68 = v66;
+    *&v69 = v65;
+    *(&v69 + 1) = v67;
+    v70 = v16;
+    v71 = v15;
+    v72 = v62;
+    v73 = v18;
+    v74 = var3;
     overridesCopy5 = overrides;
-    v80 = p_var5;
-    v81 = v34;
-    v82 = v68;
-    v83 = v67;
-    v84 = v36;
-    v85 = (v33 & 0x4000) != 0;
-    v86 = (v33 >> 11) & 7;
-    v87 = 0;
-    objc_msgSend__executeDrawCommand_(selfCopy, v29, &v72, v30);
+    v76 = p_var5;
+    v77 = v33;
+    v78 = v64;
+    v79 = v63;
+    v80 = v35;
+    v81 = (v32 & 0x4000) != 0;
+    v82 = (v32 >> 11) & 7;
+    v83 = 0;
+    objc_msgSend__executeDrawCommand_(selfCopy, v29, &v68);
   }
 
   else
   {
-    v55 = selfCopy;
-    v59 = v34;
-    v61 = v36;
-    v57 = p_var5;
-    v64 = (v33 >> 11) & 7;
-    v56 = v31;
-    objc_msgSend_setCullMode_(selfCopy->_renderEncoder->var3, v29, 1, v30);
-    v72 = v37;
-    *&v73 = v38;
-    *(&v73 + 1) = v39;
-    v74 = v16;
-    v75 = v15;
-    v76 = v66;
-    v77 = v18;
-    v78 = var3;
+    v51 = selfCopy;
+    v55 = v33;
+    v57 = v35;
+    v53 = p_var5;
+    v60 = (v32 >> 11) & 7;
+    v52 = v30;
+    objc_msgSend_setCullMode_(selfCopy->_renderEncoder->var3, v29, 1);
+    v68 = v36;
+    *&v69 = v37;
+    *(&v69 + 1) = v38;
+    v70 = v16;
+    v71 = v15;
+    v72 = v62;
+    v73 = v18;
+    v74 = var3;
     overridesCopy5 = overrides;
+    v76 = v53;
+    v77 = v55;
+    v78 = v64;
+    v79 = v63;
     v80 = v57;
-    v81 = v59;
-    v82 = v68;
-    v83 = v67;
-    v84 = v61;
-    v85 = v40;
-    v86 = v64;
-    v87 = 0;
-    objc_msgSend__executeDrawCommand_(v55, v42, &v72, v43);
-    objc_msgSend_setCullMode_(v55->_renderEncoder->var3, v44, 2, v45);
-    v72 = v37;
-    *&v73 = v38;
-    *(&v73 + 1) = v39;
-    v74 = v16;
-    v75 = v15;
-    v76 = v66;
-    v77 = v18;
-    v78 = var3;
+    v81 = v39;
+    v82 = v60;
+    v83 = 0;
+    objc_msgSend__executeDrawCommand_(v51, v41, &v68);
+    objc_msgSend_setCullMode_(v51->_renderEncoder->var3, v42, 2);
+    v68 = v36;
+    *&v69 = v37;
+    *(&v69 + 1) = v38;
+    v70 = v16;
+    v71 = v15;
+    v72 = v62;
+    v73 = v18;
+    v74 = var3;
     overridesCopy5 = overrides;
+    v76 = v53;
+    v77 = v55;
+    v78 = v64;
+    v79 = v63;
     v80 = v57;
-    v81 = v59;
-    v82 = v68;
-    v83 = v67;
-    v84 = v61;
-    v85 = v40;
-    v86 = v64;
-    v87 = 0;
-    objc_msgSend__executeDrawCommand_(v55, v46, &v72, v47);
-    if ((v56 & 1) == 0)
+    v81 = v39;
+    v82 = v60;
+    v83 = 0;
+    objc_msgSend__executeDrawCommand_(v51, v43, &v68);
+    if ((v52 & 1) == 0)
     {
-      v72 = 0;
-      *&v73 = 0;
-      *(&v73 + 5) = 0;
-      sub_1AF1C458C(v28, &v72);
-      renderEncoder = v55->_renderEncoder;
-      v49 = sub_1AF1F1250(v72);
-      objc_msgSend_setCullMode_(renderEncoder->var3, v50, v49, v51);
+      v68 = 0;
+      *&v69 = 0;
+      *(&v69 + 5) = 0;
+      sub_1AF1C458C(v28, v44, &v68);
+      renderEncoder = v51->_renderEncoder;
+      v47 = sub_1AF1F1250(v68, v46);
+      objc_msgSend_setCullMode_(renderEncoder->var3, v48, v47);
     }
   }
 }
@@ -5904,7 +5942,7 @@ LABEL_39:
       self->_compilationIssues.errors = errors;
     }
 
-    objc_msgSend_removeAllObjects(errors, a2, errors, v3);
+    objc_msgSend_removeAllObjects(errors, a2, errors);
   }
 
   else
@@ -5919,68 +5957,68 @@ LABEL_39:
   storeCopy = store;
   var1 = range.var1;
   var0 = range.var0;
-  v53 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   objc_msgSend_pushDebugGroup_(self, a2, @"VFX - Draw wireframe", range.var0, range.var1, store, instance, a7);
   LODWORD(v13) = -1138501878;
   LODWORD(v14) = -1194215657;
   LODWORD(v15) = -10.0;
-  objc_msgSend_setDepthBias_slopeScale_clamp_(self->_renderEncoder->var3, v16, v17, v18, v15, v13, v14);
+  objc_msgSend_setDepthBias_slopeScale_clamp_(self->_renderEncoder->var3, v16, v17, v15, v13, v14);
   if (var0 < var0 + var1)
   {
-    v23 = &elements[var0];
-    *&v22 = 257;
-    v44 = v22;
-    v24 = var0 + var1 - var0;
-    v45 = storeCopy;
+    v21 = &elements[var0];
+    *&v20 = 257;
+    v39 = v20;
+    v22 = var0 + var1 - var0;
+    v40 = storeCopy;
     do
     {
-      v25 = *v23++;
-      elements = (elements & 0xFFFFFFFF00000000 | v25);
-      v26 = sub_1AF1474D8(storeCopy, elements);
-      v27 = sub_1AF146110(v26);
-      v28 = sub_1AF146118(v26);
-      v29 = sub_1AF146158(v26);
-      if (v29)
+      v23 = *v21++;
+      elements = (elements & 0xFFFFFFFF00000000 | v23);
+      v24 = sub_1AF1474D8(storeCopy, elements);
+      v25 = sub_1AF146110(v24);
+      v26 = sub_1AF146118(v24);
+      v27 = sub_1AF146158(v24);
+      if (v27)
       {
-        v30 = v29;
-        v31 = sub_1AF146178(v26);
-        if (v31)
+        v28 = v27;
+        v29 = sub_1AF146178(v24);
+        if (v29)
         {
-          v32 = v31;
-          v33 = sub_1AFDE8204(self->_resourceManager, v26, self->_engineContext, instance, self->_processingContext.programHashCodeStoreKey);
-          if (v33)
+          v30 = v29;
+          v31 = sub_1AFDE8204(self->_resourceManager, v24, self->_engineContext, instance, self->_processingContext.programHashCodeStoreKey);
+          if (v31)
           {
-            material = v33->material;
-            program = v33->program;
-            v35 = sub_1AF15B364(material);
-            objc_msgSend_setRasterizerStates_(self, v36, v35, v37);
-            v38 = (*(v26 + 80) >> 11) & 7;
-            v48[0] = program;
-            v48[1] = 0;
-            v48[2] = material;
-            v48[3] = v28;
-            storeCopy = v45;
-            v48[4] = v27;
-            v48[5] = v30;
-            v48[6] = v32;
-            memset(&v48[7], 0, 24);
-            v49 = v44;
-            v50 = 0;
-            v51 = v38;
-            v52 = 0;
-            objc_msgSend__executeDrawCommand_(self, v39, v48, v40);
+            material = v31->material;
+            program = v31->program;
+            v33 = sub_1AF15B364(material);
+            objc_msgSend_setRasterizerStates_(self, v34, v33);
+            v35 = (*(v24 + 80) >> 11) & 7;
+            v43[0] = program;
+            v43[1] = 0;
+            v43[2] = material;
+            v43[3] = v26;
+            storeCopy = v40;
+            v43[4] = v25;
+            v43[5] = v28;
+            v43[6] = v30;
+            memset(&v43[7], 0, 24);
+            v44 = v39;
+            v45 = 0;
+            v46 = v35;
+            v47 = 0;
+            objc_msgSend__executeDrawCommand_(self, v36, v43);
           }
         }
       }
 
-      --v24;
+      --v22;
     }
 
-    while (v24);
+    while (v22);
   }
 
-  objc_msgSend_setDepthBias_slopeScale_clamp_(self->_renderEncoder->var3, v19, v20, v21, 0.0, 0.0, 0.0, v44);
-  objc_msgSend_popDebugGroup(self, v41, v42, v43);
+  objc_msgSend_setDepthBias_slopeScale_clamp_(self->_renderEncoder->var3, v18, v19, 0.0, 0.0, 0.0, v39);
+  objc_msgSend_popDebugGroup(self, v37, v38);
 }
 
 + (void)registerBindings
@@ -6012,238 +6050,240 @@ LABEL_39:
   objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v25, @"u_lightIndicesTexture", 0, &unk_1F24E8A40);
   objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v26, @"u_areaLightBakedDataTexture", 0, &unk_1F24E8A60);
   objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v27, @"u_shadowKernel", 0, &unk_1F24E8A80);
-  v134 = 0;
-  v28 = sub_1AF203660();
-  if (v28)
+  v116[0] = 0;
+  v29 = sub_1AF203660(v116, v28);
+  if (v29)
   {
-    v30 = v28;
-    v31 = 0;
+    v31 = v29;
+    v32 = 0;
     do
     {
-      v32 = MEMORY[0x1E696AEC0];
-      v33 = sub_1AF1EC048(v31);
-      v36 = objc_msgSend_stringWithFormat_(v32, v34, @"u_%@Texture", v35, v33);
-      v132[0] = MEMORY[0x1E69E9820];
-      v132[1] = 3221225472;
-      v132[2] = sub_1AF207E4C;
-      v132[3] = &unk_1E7A7CD68;
-      v132[4] = &unk_1F24E8AA0;
-      v133 = v31;
-      objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v37, v36, 2, v132);
-      ++v31;
+      v33 = MEMORY[0x1E696AEC0];
+      v34 = sub_1AF1EC048(v32, v30);
+      v36 = objc_msgSend_stringWithFormat_(v33, v35, @"u_%@Texture", v34);
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = sub_1AF207E4C;
+      v114[3] = &unk_1E7A7CD68;
+      v114[4] = &unk_1F24E8AA0;
+      v115 = v32;
+      objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v37, v36, 2, v114);
+      ++v32;
     }
 
-    while (v31 != v30);
+    while (v32 != v31);
   }
 
-  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v29, @"u_shadowTexture", 1, &unk_1F24E8AC0);
-  v40 = 0;
-  v116 = MEMORY[0x1E69E9820];
+  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v30, @"u_shadowTexture", 1, &unk_1F24E8AC0);
+  v39 = 0;
+  v98 = MEMORY[0x1E69E9820];
   do
   {
-    v131[0] = v116;
-    v131[1] = 3221225472;
-    v131[2] = sub_1AF207F50;
-    v131[3] = &unk_1E7A7CD88;
-    v131[4] = v40;
-    v41 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v38, @"u_goboTexture%d", v39, v40);
-    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v42, v41, 1, v131);
-    v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v43, @"u_iesTexture%d", v44, v40);
-    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v46, v45, 1, v131);
-    v49 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v47, @"u_iesCubeTexture%d", v48, v40);
-    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v50, v49, 1, v131);
-    v53 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v51, @"color%d", v52, v40);
-    v130[0] = MEMORY[0x1E69E9820];
-    v130[1] = 3221225472;
-    v130[2] = sub_1AF2080E8;
-    v130[3] = &unk_1E7A7CDA8;
-    v130[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v54, v53, v130);
-    v57 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v55, @"position%d", v56, v40);
-    v129[0] = MEMORY[0x1E69E9820];
-    v129[1] = 3221225472;
-    v129[2] = sub_1AF208100;
-    v129[3] = &unk_1E7A7CDA8;
-    v129[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v58, v57, v129);
-    v61 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v59, @"direction%d", v60, v40);
-    v128[0] = MEMORY[0x1E69E9820];
-    v128[1] = 3221225472;
-    v128[2] = sub_1AF20815C;
-    v128[3] = &unk_1E7A7CDA8;
-    v128[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v62, v61, v128);
-    v65 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v63, @"right%d", v64, v40);
-    v127[0] = MEMORY[0x1E69E9820];
-    v127[1] = 3221225472;
-    v127[2] = sub_1AF2081BC;
-    v127[3] = &unk_1E7A7CDA8;
-    v127[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v66, v65, v127);
-    v69 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v67, @"up%d", v68, v40);
-    v126[0] = MEMORY[0x1E69E9820];
-    v126[1] = 3221225472;
-    v126[2] = sub_1AF2081D4;
-    v126[3] = &unk_1E7A7CDA8;
-    v126[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v70, v69, v126);
-    v73 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v71, @"iesMatrix%d", v72, v40);
-    v125[0] = MEMORY[0x1E69E9820];
-    v125[1] = 3221225472;
-    v125[2] = sub_1AF2081EC;
-    v125[3] = &unk_1E7A7CDA8;
-    v125[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v74, v73, v125);
-    v77 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v75, @"attenuation%d", v76, v40);
-    v124[0] = MEMORY[0x1E69E9820];
-    v124[1] = 3221225472;
-    v124[2] = sub_1AF20820C;
-    v124[3] = &unk_1E7A7CDA8;
-    v124[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v78, v77, v124);
-    v81 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v79, @"spotAttenuation%d", v80, v40);
-    v123[0] = MEMORY[0x1E69E9820];
-    v123[1] = 3221225472;
-    v123[2] = sub_1AF208224;
-    v123[3] = &unk_1E7A7CDA8;
-    v123[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v82, v81, v123);
-    v85 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v83, @"shadowMatrix%d", v84, v40);
-    v122[0] = MEMORY[0x1E69E9820];
-    v122[1] = 3221225472;
-    v122[2] = sub_1AF20823C;
-    v122[3] = &unk_1E7A7CDA8;
-    v122[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v86, v85, v122);
-    v89 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v87, @"shadowRadius%d", v88, v40);
-    v121[0] = MEMORY[0x1E69E9820];
-    v121[1] = 3221225472;
-    v121[2] = sub_1AF2083B8;
-    v121[3] = &unk_1E7A7CDA8;
-    v121[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v90, v89, v121);
-    v93 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v91, @"shadowColor%d", v92, v40);
-    v120[0] = MEMORY[0x1E69E9820];
-    v120[1] = 3221225472;
-    v120[2] = sub_1AF2083D0;
-    v120[3] = &unk_1E7A7CDA8;
-    v120[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v94, v93, v120);
-    v97 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v95, @"goboMatrix%d", v96, v40);
-    v119[0] = MEMORY[0x1E69E9820];
-    v119[1] = 3221225472;
-    v119[2] = sub_1AF2083E8;
-    v119[3] = &unk_1E7A7CDA8;
-    v119[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v98, v97, v119);
-    v101 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v99, @"projectorColor%d", v100, v40);
-    v118[0] = MEMORY[0x1E69E9820];
-    v118[1] = 3221225472;
-    v118[2] = sub_1AF208408;
-    v118[3] = &unk_1E7A7CDA8;
-    v118[4] = v40;
-    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v102, v101, v118);
-    v105 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v103, @"u_areaPolygonPositions%d", v104, v40);
-    v117[0] = MEMORY[0x1E69E9820];
-    v117[1] = 3221225472;
-    v117[2] = sub_1AF208420;
-    v117[3] = &unk_1E7A7CD88;
-    v117[4] = v40;
-    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v106, v105, 1, v117);
-    ++v40;
+    v113[0] = v98;
+    v113[1] = 3221225472;
+    v113[2] = sub_1AF207F50;
+    v113[3] = &unk_1E7A7CD88;
+    v113[4] = v39;
+    v40 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v38, @"u_goboTexture%d", v39);
+    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v41, v40, 1, v113);
+    v43 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v42, @"u_iesTexture%d", v39);
+    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v44, v43, 1, v113);
+    v46 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v45, @"u_iesCubeTexture%d", v39);
+    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v47, v46, 1, v113);
+    v49 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v48, @"color%d", v39);
+    v112[0] = MEMORY[0x1E69E9820];
+    v112[1] = 3221225472;
+    v112[2] = sub_1AF2080E8;
+    v112[3] = &unk_1E7A7CDA8;
+    v112[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v50, v49, v112);
+    v52 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v51, @"position%d", v39);
+    v111[0] = MEMORY[0x1E69E9820];
+    v111[1] = 3221225472;
+    v111[2] = sub_1AF208100;
+    v111[3] = &unk_1E7A7CDA8;
+    v111[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v53, v52, v111);
+    v55 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v54, @"direction%d", v39);
+    v110[0] = MEMORY[0x1E69E9820];
+    v110[1] = 3221225472;
+    v110[2] = sub_1AF20815C;
+    v110[3] = &unk_1E7A7CDA8;
+    v110[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v56, v55, v110);
+    v58 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v57, @"right%d", v39);
+    v109[0] = MEMORY[0x1E69E9820];
+    v109[1] = 3221225472;
+    v109[2] = sub_1AF2081BC;
+    v109[3] = &unk_1E7A7CDA8;
+    v109[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v59, v58, v109);
+    v61 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v60, @"up%d", v39);
+    v108[0] = MEMORY[0x1E69E9820];
+    v108[1] = 3221225472;
+    v108[2] = sub_1AF2081D4;
+    v108[3] = &unk_1E7A7CDA8;
+    v108[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v62, v61, v108);
+    v64 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v63, @"iesMatrix%d", v39);
+    v107[0] = MEMORY[0x1E69E9820];
+    v107[1] = 3221225472;
+    v107[2] = sub_1AF2081EC;
+    v107[3] = &unk_1E7A7CDA8;
+    v107[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v65, v64, v107);
+    v67 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v66, @"attenuation%d", v39);
+    v106[0] = MEMORY[0x1E69E9820];
+    v106[1] = 3221225472;
+    v106[2] = sub_1AF20820C;
+    v106[3] = &unk_1E7A7CDA8;
+    v106[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v68, v67, v106);
+    v70 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v69, @"spotAttenuation%d", v39);
+    v105[0] = MEMORY[0x1E69E9820];
+    v105[1] = 3221225472;
+    v105[2] = sub_1AF208224;
+    v105[3] = &unk_1E7A7CDA8;
+    v105[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v71, v70, v105);
+    v73 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v72, @"shadowMatrix%d", v39);
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = 3221225472;
+    v104[2] = sub_1AF20823C;
+    v104[3] = &unk_1E7A7CDA8;
+    v104[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v74, v73, v104);
+    v76 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v75, @"shadowRadius%d", v39);
+    v103[0] = MEMORY[0x1E69E9820];
+    v103[1] = 3221225472;
+    v103[2] = sub_1AF2083B8;
+    v103[3] = &unk_1E7A7CDA8;
+    v103[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v77, v76, v103);
+    v79 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v78, @"shadowColor%d", v39);
+    v102[0] = MEMORY[0x1E69E9820];
+    v102[1] = 3221225472;
+    v102[2] = sub_1AF2083D0;
+    v102[3] = &unk_1E7A7CDA8;
+    v102[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v80, v79, v102);
+    v82 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v81, @"goboMatrix%d", v39);
+    v101[0] = MEMORY[0x1E69E9820];
+    v101[1] = 3221225472;
+    v101[2] = sub_1AF2083E8;
+    v101[3] = &unk_1E7A7CDA8;
+    v101[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v83, v82, v101);
+    v85 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v84, @"projectorColor%d", v39);
+    v100[0] = MEMORY[0x1E69E9820];
+    v100[1] = 3221225472;
+    v100[2] = sub_1AF208408;
+    v100[3] = &unk_1E7A7CDA8;
+    v100[4] = v39;
+    objc_msgSend_registerSemantic_withBlock_(VFXMTLShaderBindingsGenerator, v86, v85, v100);
+    v88 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v87, @"u_areaPolygonPositions%d", v39);
+    v99[0] = MEMORY[0x1E69E9820];
+    v99[1] = 3221225472;
+    v99[2] = sub_1AF208420;
+    v99[3] = &unk_1E7A7CD88;
+    v99[4] = v39;
+    objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v89, v88, 1, v99);
+    ++v39;
   }
 
-  while (v40 != 8);
+  while (v39 != 8);
   objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v38, @"u_specularDFGDiffuseHammonTexture", 0, &unk_1F24E8AE0);
-  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v107, @"u_radianceTexture", 0, &unk_1F24E8B00);
-  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v108, @"u_irradianceTexture", 0, &unk_1F24E8B20);
-  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v109, @"u_reflectionProbeTexture", 0, &unk_1F24E8B40);
-  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v110, @"u_ssaoTexture", 0, &unk_1F24E8B60);
-  v111 = _Block_copy(&unk_1F24E8B80);
-  objc_msgSend_registerArgument_frequency_needsRenderResource_block_(VFXMTLShaderBindingsGenerator, v112, @"vfx_bezier_curve_data", 1, 0, v111);
-  objc_msgSend_registerArgument_frequency_needsRenderResource_block_(VFXMTLShaderBindingsGenerator, v113, @"vfx_bezier_curve_controlPoints", 1, 0, v111);
-  _Block_release(v111);
-  objc_msgSend_registerCustomProgramBindingBlockTrampoline_(VFXMTLShaderBindingsGenerator, v114, &unk_1F24E8BA0, v115);
+  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v90, @"u_radianceTexture", 0, &unk_1F24E8B00);
+  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v91, @"u_irradianceTexture", 0, &unk_1F24E8B20);
+  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v92, @"u_reflectionProbeTexture", 0, &unk_1F24E8B40);
+  objc_msgSend_registerArgument_frequency_block_(VFXMTLShaderBindingsGenerator, v93, @"u_ssaoTexture", 0, &unk_1F24E8B60);
+  v94 = _Block_copy(&unk_1F24E8B80);
+  objc_msgSend_registerArgument_frequency_needsRenderResource_block_(VFXMTLShaderBindingsGenerator, v95, @"vfx_bezier_curve_data", 1, 0, v94);
+  objc_msgSend_registerArgument_frequency_needsRenderResource_block_(VFXMTLShaderBindingsGenerator, v96, @"vfx_bezier_curve_controlPoints", 1, 0, v94);
+  _Block_release(v94);
+  objc_msgSend_registerCustomProgramBindingBlockTrampoline_(VFXMTLShaderBindingsGenerator, v97, &unk_1F24E8BA0);
 }
 
 - (BOOL)mapVolatileMesh:(__CFXMesh *)mesh verticesCount:(int64_t)count
 {
-  v7 = sub_1AF1A57DC(mesh);
+  v7 = sub_1AF1A57DC(mesh, a2);
+  v9 = v7;
   if (v7)
   {
-    v8 = sub_1AF20E1F8(self->_resourceManager, mesh, 1);
-    if (!sub_1AFDEA260(v8))
+    v10 = sub_1AF20E1F8(self->_resourceManager, mesh, 1);
+    if (!sub_1AFDEA260(v10))
     {
-      v9 = sub_1AF0D5194();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v12 = sub_1AF0D5194(0, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE7484(v9, v10, v11, v12, v13, v14, v15, v16);
+        sub_1AFDE7484(v12, v13, v14, v15, v16, v17, v18, v19);
       }
     }
 
-    sub_1AFDEA228(v8);
-    v17 = sub_1AFDEA260(v8) * count;
-    CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameVolatileBufferPool.impl, v17);
-    v19 = v18;
-    v21 = v20;
-    sub_1AFDEA284(v8, v17);
-    MTLBuffer = CFXBufferSliceGetMTLBuffer(v19, v21);
-    sub_1AFDEA234(v8, MTLBuffer);
-    sub_1AFDEA254(v8, v21);
-    CPUPointer = CFXBufferSliceGetCPUPointer(v19, v21, v23, v24);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = sub_1AF208E78;
-    v37[3] = &unk_1E7A7CE10;
-    v37[4] = count;
-    v37[5] = CPUPointer;
-    sub_1AF1A2BEC(mesh, 1, v37);
-    objc_msgSend_addObject_(self->_volatileMeshes, v26, v8, v27);
+    sub_1AFDEA228(v10);
+    v20 = sub_1AFDEA260(v10) * count;
+    CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameVolatileBufferPool.impl, v20);
+    v22 = v21;
+    v24 = v23;
+    sub_1AFDEA284(v10, v20);
+    CFXBufferSliceGetMTLBuffer();
+    sub_1AFDEA234(v10, v25);
+    sub_1AFDEA254(v10, v24);
+    CPUPointer = CFXBufferSliceGetCPUPointer(v22, v24, v26);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = sub_1AF208E78;
+    v38[3] = &unk_1E7A7CE10;
+    v38[4] = count;
+    v38[5] = CPUPointer;
+    sub_1AF1A2BEC(mesh, 1, v38);
+    objc_msgSend_addObject_(self->_volatileMeshes, v28, v10);
   }
 
   else
   {
-    v28 = sub_1AF0D5194();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v29 = sub_1AF0D5194(v7, v8);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDE740C(v28, v29, v30, v31, v32, v33, v34, v35);
+      sub_1AFDE740C(v29, v30, v31, v32, v33, v34, v35, v36);
     }
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)unmapVolatileMesh:(__CFXMesh *)mesh modifiedVerticesCount:(int64_t)count
 {
-  if (sub_1AF1A57DC(mesh))
+  v7 = sub_1AF1A57DC(mesh, a2);
+  if (v7)
   {
-    v7 = sub_1AF20E1F8(self->_resourceManager, mesh, 1);
-    v8 = sub_1AFDEA278(v7);
+    v9 = sub_1AF20E1F8(self->_resourceManager, mesh, 1);
+    v10 = sub_1AFDEA278(v9);
     if (count < 0)
     {
-      v9 = v8;
+      v11 = v10;
     }
 
     else
     {
-      v9 = sub_1AFDEA260(v7) * count;
+      v11 = sub_1AFDEA260(v9) * count;
     }
 
-    if (!sub_1AFDEA228(v7))
+    if (!sub_1AFDEA228(v9))
     {
-      v18 = sub_1AF0D5194();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v21 = sub_1AF0D5194(0, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE74FC(v18, v19, v20, v21, v22, v23, v24, v25);
+        sub_1AFDE74FC(v21, v22, v23, v24, v25, v26, v27, v28);
       }
     }
 
-    sub_1AFDEA228(v7);
-    sub_1AFDEA248(v7);
+    sub_1AFDEA228(v9);
+    sub_1AFDEA248(v9);
     CFXBufferSliceMake();
-    if (v9)
+    if (v11)
     {
-      CFXBufferSliceDidModify(v26, v27);
+      CFXBufferSliceDidModify();
     }
 
     sub_1AF1A2BEC(mesh, 1, &unk_1F24E8BC0);
@@ -6251,93 +6291,93 @@ LABEL_39:
 
   else
   {
-    v10 = sub_1AF0D5194();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = sub_1AF0D5194(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDE740C(v10, v11, v12, v13, v14, v15, v16, v17);
+      sub_1AFDE740C(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 }
 
 - (void)resetVolatileMeshes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   volatileMeshes = self->_volatileMeshes;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(volatileMeshes, a2, &v12, v16, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(volatileMeshes, a2, &v11, v15, 16);
   if (v4)
   {
-    v8 = v4;
-    v9 = *v13;
+    v7 = v4;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(volatileMeshes);
         }
 
-        sub_1AFDEA234(*(*(&v12 + 1) + 8 * i), 0);
+        sub_1AFDEA234(*(*(&v11 + 1) + 8 * i), 0);
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(volatileMeshes, v11, &v12, v16, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(volatileMeshes, v10, &v11, v15, 16);
     }
 
-    while (v8);
+    while (v7);
   }
 
-  objc_msgSend_removeAllObjects(self->_volatileMeshes, v5, v6, v7);
+  objc_msgSend_removeAllObjects(self->_volatileMeshes, v5, v6);
 }
 
 - (id)_newMTLBufferFromPoolWithLength:(unint64_t)length
 {
-  Object = objc_msgSend_lastObject(self->_bufferPool, a2, length, v3);
+  Object = objc_msgSend_lastObject(self->_bufferPool, a2, length);
   if (Object)
   {
+    v6 = Object;
     v7 = Object;
-    v8 = Object;
-    objc_msgSend_removeLastObject(self->_bufferPool, v9, v10, v11);
+    objc_msgSend_removeLastObject(self->_bufferPool, v8, v9);
   }
 
   else
   {
-    v7 = objc_alloc_init(VFXMTLBuffer);
+    v6 = objc_alloc_init(VFXMTLBuffer);
   }
 
   CFXBufferAllocatorPerFrameAllocateWithLength(self->_frameVolatileBufferPool.impl, length);
-  v13 = v12;
-  MTLBuffer = CFXBufferSliceGetMTLBuffer(v14, v12);
-  objc_msgSend_setBuffer_(v7, v16, MTLBuffer, v17);
-  objc_msgSend_setOffset_(v7, v18, v13, v19);
-  if (!objc_msgSend_buffer(v7, v20, v21, v22))
+  v11 = v10;
+  CFXBufferSliceGetMTLBuffer();
+  objc_msgSend_setBuffer_(v6, v13, v12);
+  objc_msgSend_setOffset_(v6, v14, v11);
+  if (!objc_msgSend_buffer(v6, v15, v16))
   {
 
     return 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)_recycleMTLBufferToPool:(id)pool
 {
   if (!pool)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDE7574(v6, a2, v7, v3, v8, v9, v10, v11);
+      sub_1AFDE7574(v5, a2, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  objc_msgSend_addObject_(self->_bufferPool, a2, pool, v3);
-  objc_msgSend_setUsedCount_(pool, v12, 0, v13);
-  objc_msgSend_setBuffer_(pool, v14, 0, v15);
-  objc_msgSend_setOffset_(pool, v16, 0, v17);
-  objc_msgSend_setDataSource_(pool, v18, 0, v19);
+  objc_msgSend_addObject_(self->_bufferPool, a2, pool);
+  objc_msgSend_setUsedCount_(pool, v12, 0);
+  objc_msgSend_setBuffer_(pool, v13, 0);
+  objc_msgSend_setOffset_(pool, v14, 0);
+  objc_msgSend_setDataSource_(pool, v15, 0);
 }
 
 - (__CFXMeshElement)createVolatileMeshElementOfType:(VFXMTLRenderContext *)self primitiveCount:(unsigned int)count bytesPerIndex:
@@ -6345,11 +6385,11 @@ LABEL_39:
   v5 = v4;
   v6 = v3;
   v7 = v2;
-  if (objc_msgSend_count(self->_freeVolatileMeshElements, *&count, v2, v3))
+  if (objc_msgSend_count(self->_freeVolatileMeshElements, *&count, v2))
   {
-    Object = objc_msgSend_lastObject(self->_freeVolatileMeshElements, v9, v10, v11);
-    objc_msgSend_addObject_(self->_usedVolatileMeshElements, v13, Object, v14);
-    objc_msgSend_removeLastObject(self->_freeVolatileMeshElements, v15, v16, v17);
+    Object = objc_msgSend_lastObject(self->_freeVolatileMeshElements, v9, v10);
+    objc_msgSend_addObject_(self->_usedVolatileMeshElements, v12, Object);
+    v15 = objc_msgSend_removeLastObject(self->_freeVolatileMeshElements, v13, v14);
     if (Object)
     {
       goto LABEL_7;
@@ -6358,8 +6398,8 @@ LABEL_39:
 
   else
   {
-    Object = sub_1AF1A7F90();
-    objc_msgSend_addObject_(self->_usedVolatileMeshElements, v18, Object, v19);
+    Object = sub_1AF1A7F90(0, v9);
+    objc_msgSend_addObject_(self->_usedVolatileMeshElements, v17, Object);
     CFRelease(Object);
     if (Object)
     {
@@ -6367,91 +6407,92 @@ LABEL_39:
     }
   }
 
-  v20 = sub_1AF0D5194();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+  v18 = sub_1AF0D5194(v15, v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
   {
-    sub_1AFDDBBAC(v20, v21, v22, v23, v24, v25, v26, v27);
+    sub_1AFDDBBAC(v18, v19, v20, v21, v22, v23, v24, v25);
   }
 
 LABEL_7:
   sub_1AF1A699C(Object, v7);
   sub_1AF1A72A0(Object, v6, 0, v5);
-  v28 = sub_1AFDE7F98(self->_resourceManager);
-  if (sub_1AFDE868C(v28))
+  v26 = sub_1AFDE7F98(self->_resourceManager);
+  v27 = sub_1AFDE868C(v26);
+  if (v27)
   {
-    v29 = sub_1AF0D5194();
+    v29 = sub_1AF0D5194(v27, v28);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDE75EC(v29, v30, v31, v32, v33, v34, v35, v36);
     }
   }
 
-  sub_1AFDEA33C(v28, Object);
-  v37 = sub_1AFDEA004(v28);
-  v40 = objc_msgSend__newMTLBufferFromPoolWithLength_(self, v38, v37 * v5, v39);
-  sub_1AFDEA31C(v28, v40);
+  sub_1AFDEA33C(v26, Object);
+  v37 = sub_1AFDEA004(v26);
+  v39 = objc_msgSend__newMTLBufferFromPoolWithLength_(self, v38, v37 * v5);
+  sub_1AFDEA31C(v26, v39);
 
-  v44 = objc_msgSend_buffer(v40, v41, v42, v43);
-  v48 = objc_msgSend_contents(v44, v45, v46, v47);
-  v52 = objc_msgSend_offset(v40, v49, v50, v51);
-  v53 = sub_1AFDE8614(v28);
-  sub_1AF1A8000(Object, v48 + v52 + v53);
+  v42 = objc_msgSend_buffer(v39, v40, v41);
+  v45 = objc_msgSend_contents(v42, v43, v44);
+  v48 = objc_msgSend_offset(v39, v46, v47);
+  v49 = sub_1AFDE8614(v26);
+  sub_1AF1A8000(Object, v45 + v48 + v49);
   return Object;
 }
 
-- (uint64_t)unmapVolatileMeshElement:(uint64_t)element
+- (void)unmapVolatileMeshElement:(uint64_t)element
 {
   v4 = sub_1AFDE7F98(*(self + 112));
-  sub_1AF1A809C(element);
+  sub_1AF1A809C(element, v5);
   sub_1AFDEA004(v4);
-  v5 = sub_1AFDE868C(v4);
-  objc_msgSend_buffer(v5, v6, v7, v8);
+  v6 = sub_1AFDE868C(v4);
+  objc_msgSend_buffer(v6, v7, v8);
   v9 = sub_1AFDE868C(v4);
-  objc_msgSend_offset(v9, v10, v11, v12);
+  objc_msgSend_offset(v9, v10, v11);
   CFXBufferSliceMake();
 
-  return CFXBufferSliceDidModify(v13, v14);
+  CFXBufferSliceDidModify();
 }
 
 - (void)resetVolatileMeshElements
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   usedVolatileMeshElements = self->_usedVolatileMeshElements;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(usedVolatileMeshElements, a2, &v19, v23, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(usedVolatileMeshElements, a2, &v16, v20, 16);
   if (v4)
   {
-    v7 = v4;
-    v8 = *v20;
+    v6 = v4;
+    v7 = *v17;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(usedVolatileMeshElements);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = sub_1AFDE7F98(self->_resourceManager);
-        v12 = sub_1AFDE868C(v11);
-        objc_msgSend__recycleMTLBufferToPool_(self, v13, v12, v14);
-        sub_1AFDEA31C(v11, 0);
-        sub_1AFDEA634(v11, 0);
-        sub_1AF1A8000(v10, 0);
+        v9 = *(*(&v16 + 1) + 8 * i);
+        v10 = sub_1AFDE7F98(self->_resourceManager);
+        v11 = sub_1AFDE868C(v10);
+        objc_msgSend__recycleMTLBufferToPool_(self, v12, v11);
+        sub_1AFDEA31C(v10, 0);
+        sub_1AFDEA634(v10, 0);
+        sub_1AF1A8000(v9, 0);
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(usedVolatileMeshElements, v15, &v19, v23, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(usedVolatileMeshElements, v13, &v16, v20, 16);
     }
 
-    while (v7);
+    while (v6);
   }
 
-  objc_msgSend_addObjectsFromArray_(self->_freeVolatileMeshElements, v5, self->_usedVolatileMeshElements, v6);
-  objc_msgSend_removeAllObjects(self->_usedVolatileMeshElements, v16, v17, v18);
+  objc_msgSend_addObjectsFromArray_(self->_freeVolatileMeshElements, v5, self->_usedVolatileMeshElements);
+  objc_msgSend_removeAllObjects(self->_usedVolatileMeshElements, v14, v15);
 }
 
 - (MTLRenderCommandEncoder)currentRenderCommandEncoder
@@ -6459,7 +6500,7 @@ LABEL_7:
   result = self->_renderEncoder;
   if (result)
   {
-    return sub_1AF20107C(result);
+    return sub_1AF20107C(result, a2);
   }
 
   return result;
@@ -6474,25 +6515,25 @@ LABEL_7:
 
 - (void)_drawPBRTextures
 {
-  v5 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2, v3);
-  v9 = objc_msgSend_colorAttachments(v5, v6, v7, v8);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, 0, v11);
-  v16 = objc_msgSend_texture(v12, v13, v14, v15);
-  v20 = objc_msgSend_pixelFormat(v16, v17, v18, v19);
-  v24 = objc_msgSend_currentRenderPassDescriptor(self, v21, v22, v23);
-  v28 = objc_msgSend_colorAttachments(v24, v25, v26, v27);
-  v31 = objc_msgSend_objectAtIndexedSubscript_(v28, v29, 0, v30);
-  v35 = objc_msgSend_texture(v31, v32, v33, v34);
-  v39 = objc_msgSend_sampleCount(v35, v36, v37, v38);
-  if (v20)
+  v4 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2);
+  v7 = objc_msgSend_colorAttachments(v4, v5, v6);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, 0);
+  v12 = objc_msgSend_texture(v9, v10, v11);
+  v15 = objc_msgSend_pixelFormat(v12, v13, v14);
+  v18 = objc_msgSend_currentRenderPassDescriptor(self, v16, v17);
+  v21 = objc_msgSend_colorAttachments(v18, v19, v20);
+  v23 = objc_msgSend_objectAtIndexedSubscript_(v21, v22, 0);
+  v26 = objc_msgSend_texture(v23, v24, v25);
+  v29 = objc_msgSend_sampleCount(v26, v27, v28);
+  if (v15)
   {
-    if (self->_debug.pixelFormat != v20 || self->_debug.sampleCount != v39)
+    if (self->_debug.pixelFormat != v15 || self->_debug.sampleCount != v29)
     {
-      self->_debug.pixelFormat = v20;
-      self->_debug.sampleCount = v39;
-      v42 = sub_1AFDE868C(self->_resourceManager);
-      v46 = objc_msgSend_frameworkLibrary(v42, v43, v44, v45);
-      v47 = sub_1AF15BBC4();
+      self->_debug.pixelFormat = v15;
+      self->_debug.sampleCount = v29;
+      v31 = sub_1AFDE868C(self->_resourceManager);
+      v34 = objc_msgSend_frameworkLibrary(v31, v32, v33);
+      v36 = sub_1AF15BBC4(v34, v35);
       *self->_currentRenderPassDesc.colorFormat = 0u;
       *&self->_currentRenderPassDesc.colorFormat[2] = 0u;
       *&self->_currentRenderPassDesc.colorFormat[4] = 0u;
@@ -6501,348 +6542,349 @@ LABEL_7:
       *&self->_currentRenderPassDesc.sampleCount = 0;
 
       resourceManager = self->_resourceManager;
-      v160 = 0u;
-      v161 = 0u;
-      v158 = 0u;
-      v159 = 0u;
-      v156 = 0u;
-      v157 = 0u;
-      v155 = 0u;
-      v162 = v46;
-      v163 = 0u;
-      v164 = 0u;
-      v165 = 0u;
-      v166 = 0u;
-      v167 = 0u;
-      v168 = 0;
-      v169 = v47;
-      v173 = 0u;
-      v174 = 0u;
-      v170 = 0u;
-      v171 = 0u;
-      v172 = 0u;
-      v175 = 0;
-      v176 = @"quad_vertex";
-      v177 = @"quad_display_cube_equirectangular";
-      v178 = 0u;
-      v179 = 0u;
-      self->_debug.displayCubemapPipeline = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v49, &v155, v50);
-      v51 = sub_1AF15BC40();
+      v131 = 0u;
+      v132 = 0u;
+      v129 = 0u;
+      v130 = 0u;
+      v127 = 0u;
+      v128 = 0u;
+      v126 = 0u;
+      v133 = v34;
+      v134 = 0u;
+      v135 = 0u;
+      v136 = 0u;
+      v137 = 0u;
+      v138 = 0u;
+      v139 = 0;
+      v140 = v36;
+      v144 = 0u;
+      v145 = 0u;
+      v141 = 0u;
+      v142 = 0u;
+      v143 = 0u;
+      v146 = 0;
+      v147 = @"quad_vertex";
+      v148 = @"quad_display_cube_equirectangular";
+      v149 = 0u;
+      v150 = 0u;
+      v39 = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v38, &v126);
+      self->_debug.displayCubemapPipeline = v39;
+      v41 = sub_1AF15BC40(v39, v40);
 
-      v52 = self->_resourceManager;
-      v160 = 0u;
-      v161 = 0u;
-      v158 = 0u;
-      v159 = 0u;
-      v156 = 0u;
-      v157 = 0u;
-      v155 = 0u;
-      v162 = v46;
-      v163 = 0u;
-      v164 = 0u;
-      v165 = 0u;
-      v166 = 0u;
-      v167 = 0u;
-      v168 = 0;
-      v169 = v51;
-      v173 = 0u;
-      v174 = 0u;
-      v170 = 0u;
-      v171 = 0u;
-      v172 = 0u;
-      v175 = 0;
-      v176 = @"quad_vertex";
-      v177 = @"quad_display_texture2D";
-      v178 = 0u;
-      v179 = 0u;
-      self->_debug.displayTexture2DPipeline = objc_msgSend_newRenderPipelineStateWithDesc_(v52, v53, &v155, v54);
+      v42 = self->_resourceManager;
+      v131 = 0u;
+      v132 = 0u;
+      v129 = 0u;
+      v130 = 0u;
+      v127 = 0u;
+      v128 = 0u;
+      v126 = 0u;
+      v133 = v34;
+      v134 = 0u;
+      v135 = 0u;
+      v136 = 0u;
+      v137 = 0u;
+      v138 = 0u;
+      v139 = 0;
+      v140 = v41;
+      v144 = 0u;
+      v145 = 0u;
+      v141 = 0u;
+      v142 = 0u;
+      v143 = 0u;
+      v146 = 0;
+      v147 = @"quad_vertex";
+      v148 = @"quad_display_texture2D";
+      v149 = 0u;
+      v150 = 0u;
+      self->_debug.displayTexture2DPipeline = objc_msgSend_newRenderPipelineStateWithDesc_(v42, v43, &v126);
     }
 
-    objc_msgSend_setCullMode_(self->_renderEncoder->var3, v40, 0, v41);
+    objc_msgSend_setCullMode_(self->_renderEncoder->var3, v30, 0);
     renderEncoder = self->_renderEncoder;
-    v56 = sub_1AFDE8620(self->_resourceManager);
-    objc_msgSend_setDepthStencilState_(renderEncoder->var3, v57, v56, v58);
-    v62 = sub_1AF12DDCC(self->_engineContext);
-    v63 = *&self->_anon_4190[672];
-    if (v63)
+    v45 = sub_1AFDE8620(self->_resourceManager);
+    objc_msgSend_setDepthStencilState_(renderEncoder->var3, v46, v45);
+    v50 = sub_1AF12DDCC(self->_engineContext, v47);
+    v51 = *&self->_anon_4190[672];
+    if (v51)
     {
-      v64 = objc_msgSend_arrayLength(v63, v59, v60, v61);
-      v68 = objc_msgSend_mipmapLevelCount(*&self->_anon_4190[672], v65, v66, v67);
-      v72 = objc_msgSend_pixelFormat(*&self->_anon_4190[672], v69, v70, v71);
-      v76 = sub_1AF130548(self->_engineContext);
-      v77 = v76.n128_f32[2];
-      v150 = v76.n128_u64[0];
-      v78 = v76.n128_f32[3];
-      v79 = v76.n128_f32[2] / v76.n128_f32[3];
-      v80 = 1.0 / v64;
-      v81 = 4.0 / v76.n128_f32[3];
-      v82 = (v80 + ((4.0 / v76.n128_f32[3]) * -2.0)) * 2.5;
-      v154 = v80 + ((4.0 / v76.n128_f32[3]) * -2.0);
-      if ((v76.n128_f32[2] / v76.n128_f32[3]) <= 1.0)
+      v52 = objc_msgSend_arrayLength(v51, v48, v49);
+      v55 = objc_msgSend_mipmapLevelCount(*&self->_anon_4190[672], v53, v54);
+      v58 = objc_msgSend_pixelFormat(*&self->_anon_4190[672], v56, v57);
+      v61 = sub_1AF130548(self->_engineContext);
+      v62 = v61.n128_f32[2];
+      v121 = v61.n128_u64[0];
+      v63 = v61.n128_f32[3];
+      v64 = v61.n128_f32[2] / v61.n128_f32[3];
+      v65 = 1.0 / v52;
+      v66 = 4.0 / v61.n128_f32[3];
+      v67 = (v65 + ((4.0 / v61.n128_f32[3]) * -2.0)) * 2.5;
+      v125 = v65 + ((4.0 / v61.n128_f32[3]) * -2.0);
+      if ((v61.n128_f32[2] / v61.n128_f32[3]) <= 1.0)
       {
-        v83 = v79 * v82;
+        v68 = v64 * v67;
       }
 
       else
       {
-        v83 = v82 / v79;
+        v68 = v67 / v64;
       }
 
-      v153 = v83;
-      v99 = objc_msgSend_textureType(*&self->_anon_4190[672], v73, v74, v75, v150);
-      IsCube = VFXMTLTextureTypeIsCube(v99);
-      v104 = self->_renderEncoder;
+      v124 = v68;
+      v81 = objc_msgSend_textureType(*&self->_anon_4190[672], v59, v60, v121);
+      IsCube = VFXMTLTextureTypeIsCube(v81);
+      v85 = self->_renderEncoder;
       if (IsCube)
       {
-        v105 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v101, v102, v103);
-        objc_msgSend_setRenderPipelineState_(v104->var3, v106, v105, v107);
-        if (v64)
+        v86 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v83, v84);
+        objc_msgSend_setRenderPipelineState_(v85->var3, v87, v86);
+        if (v52)
         {
-          v110 = 0;
-          v111 = -*(&v151 + 1) / v78;
-          *&v109 = *&v151 / v77;
-          v152 = v109;
+          v90 = 0;
+          v91 = -*(&v122 + 1) / v63;
+          *&v89 = *&v122 / v62;
+          v123 = v89;
           do
           {
-            v112 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(*&self->_anon_4190[672], v108, v72, 5, 0, v68, v110, 6, v152);
-            sub_1AF1F8FCC(self->_renderEncoder, v112, 0, v113);
-            LODWORD(v114) = v152;
-            *(&v114 + 1) = v81 + v111;
-            *(&v114 + 1) = __PAIR64__(LODWORD(v154), LODWORD(v153));
-            v155 = v114;
-            sub_1AF176E98(self->_renderEncoder, &v155, 0x10uLL, 0);
-            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v115, 4, 0, 4);
-            v111 = v80 + v111;
-            v110 += 6;
-            --v64;
+            v92 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(*&self->_anon_4190[672], v88, v58, 5, 0, v55, v90, 6, v123);
+            sub_1AF1F8FCC(self->_renderEncoder, v92, 0);
+            LODWORD(v93) = v123;
+            *(&v93 + 1) = v66 + v91;
+            *(&v93 + 1) = __PAIR64__(LODWORD(v125), LODWORD(v124));
+            v126 = v93;
+            sub_1AF176E98(self->_renderEncoder, &v126, 0x10uLL, 0);
+            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v94, 4, 0, 4);
+            v91 = v65 + v91;
+            v90 += 6;
+            --v52;
           }
 
-          while (v64);
+          while (v52);
         }
       }
 
       else
       {
-        v116 = objc_msgSend_state(self->_debug.displayTexture2DPipeline, v101, v102, v103);
-        objc_msgSend_setRenderPipelineState_(v104->var3, v117, v116, v118);
-        if (v64)
+        v95 = objc_msgSend_state(self->_debug.displayTexture2DPipeline, v83, v84);
+        objc_msgSend_setRenderPipelineState_(v85->var3, v96, v95);
+        if (v52)
         {
-          v120 = 0;
-          v121 = 0.0;
+          v98 = 0;
+          v99 = 0.0;
           do
           {
-            v122 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(*&self->_anon_4190[672], v119, v72, 2, 0, v68, v120, 1);
-            sub_1AF1F8FCC(self->_renderEncoder, v122, 0, v123);
-            LODWORD(v124) = 0;
-            *(&v124 + 1) = v81 + v121;
-            *(&v124 + 1) = __PAIR64__(LODWORD(v154), LODWORD(v153));
-            v155 = v124;
-            sub_1AF176E98(self->_renderEncoder, &v155, 0x10uLL, 0);
-            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v125, 4, 0, 4);
-            ++v120;
-            v121 = v80 + v121;
+            v100 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(*&self->_anon_4190[672], v97, v58, 2, 0, v55, v98, 1);
+            sub_1AF1F8FCC(self->_renderEncoder, v100, 0);
+            LODWORD(v101) = 0;
+            *(&v101 + 1) = v66 + v99;
+            *(&v101 + 1) = __PAIR64__(LODWORD(v125), LODWORD(v124));
+            v126 = v101;
+            sub_1AF176E98(self->_renderEncoder, &v126, 0x10uLL, 0);
+            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v102, 4, 0, 4);
+            ++v98;
+            v99 = v65 + v99;
           }
 
-          while (v64 != v120);
+          while (v52 != v98);
         }
       }
     }
 
     else
     {
-      v84 = sub_1AF1D005C(v62, 0);
-      if (v84)
+      v69 = sub_1AF1D005C(v50, 0);
+      if (v69)
       {
-        v85 = v84;
-        if (sub_1AF166220(v84) || sub_1AF1676A0(v85))
+        v71 = v69;
+        if (sub_1AF166220(v69, v70) || sub_1AF1676A0(v71, v72))
         {
-          v88 = objc_msgSend_radianceTextureForMaterialProperty_(self, v86, v85, v87);
-          if (v88)
+          v73 = objc_msgSend_radianceTextureForMaterialProperty_(self, v72, v71);
+          if (v73)
           {
-            v92 = v88;
-            v93 = self->_renderEncoder;
-            v94 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v89, v90, v91);
-            objc_msgSend_setRenderPipelineState_(v93->var3, v95, v94, v96);
-            sub_1AF1F8FCC(self->_renderEncoder, v92, 0, v97);
-            v155 = xmmword_1AFE229F0;
-            sub_1AF176E98(self->_renderEncoder, &v155, 0x10uLL, 0);
-            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v98, 4, 0, 4);
+            v76 = v73;
+            v77 = self->_renderEncoder;
+            v78 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v74, v75);
+            objc_msgSend_setRenderPipelineState_(v77->var3, v79, v78);
+            sub_1AF1F8FCC(self->_renderEncoder, v76, 0);
+            v126 = xmmword_1AFE229F0;
+            sub_1AF176E98(self->_renderEncoder, &v126, 0x10uLL, 0);
+            objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v80, 4, 0, 4);
           }
         }
       }
     }
 
-    v126 = sub_1AF1D005C(v62, 0);
-    if (v126)
+    v103 = sub_1AF1D005C(v50, 0);
+    if (v103)
     {
-      v129 = v126;
-      if (sub_1AF166220(v126) || sub_1AF1676A0(v129))
+      v105 = v103;
+      if (sub_1AF166220(v103, v104) || sub_1AF1676A0(v105, v104))
       {
-        v130 = objc_msgSend_irradianceTextureForMaterialProperty_(self, v127, v129, v128);
-        if (v130)
+        v106 = objc_msgSend_irradianceTextureForMaterialProperty_(self, v104, v105);
+        if (v106)
         {
-          v132 = v130;
-          v133 = self->_renderEncoder;
-          v134 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v127, v131, v128);
-          objc_msgSend_setRenderPipelineState_(v133->var3, v135, v134, v136);
-          sub_1AF1F8FCC(self->_renderEncoder, v132, 0, v137);
-          v155 = xmmword_1AFE22A00;
-          sub_1AF176E98(self->_renderEncoder, &v155, 0x10uLL, 0);
-          objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v138, 4, 0, 4);
+          v108 = v106;
+          v109 = self->_renderEncoder;
+          v110 = objc_msgSend_state(self->_debug.displayCubemapPipeline, v104, v107);
+          objc_msgSend_setRenderPipelineState_(v109->var3, v111, v110);
+          sub_1AF1F8FCC(self->_renderEncoder, v108, 0);
+          v126 = xmmword_1AFE22A00;
+          sub_1AF176E98(self->_renderEncoder, &v126, 0x10uLL, 0);
+          objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v112, 4, 0, 4);
         }
       }
     }
 
-    v139 = objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(self->_resourceManager, v127, self, v128);
-    if (v139)
+    v113 = objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(self->_resourceManager, v104, self);
+    if (v113)
     {
-      v143 = v139;
-      v144 = self->_renderEncoder;
-      v145 = objc_msgSend_state(self->_debug.displayTexture2DPipeline, v140, v141, v142);
-      objc_msgSend_setRenderPipelineState_(v144->var3, v146, v145, v147);
-      sub_1AF1F8FCC(self->_renderEncoder, v143, 0, v148);
-      v155 = xmmword_1AFE22A10;
-      sub_1AF176E98(self->_renderEncoder, &v155, 0x10uLL, 0);
-      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v149, 4, 0, 4);
+      v116 = v113;
+      v117 = self->_renderEncoder;
+      v118 = objc_msgSend_state(self->_debug.displayTexture2DPipeline, v114, v115);
+      objc_msgSend_setRenderPipelineState_(v117->var3, v119, v118);
+      sub_1AF1F8FCC(self->_renderEncoder, v116, 0);
+      v126 = xmmword_1AFE22A10;
+      sub_1AF176E98(self->_renderEncoder, &v126, 0x10uLL, 0);
+      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v120, 4, 0, 4);
     }
   }
 }
 
 - (void)_drawShadowMaps
 {
-  v5 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2, v3);
-  v9 = objc_msgSend_colorAttachments(v5, v6, v7, v8);
-  v12 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, 0, v11);
-  v16 = objc_msgSend_texture(v12, v13, v14, v15);
-  if (v16)
+  v4 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2);
+  v7 = objc_msgSend_colorAttachments(v4, v5, v6);
+  v9 = objc_msgSend_objectAtIndexedSubscript_(v7, v8, 0);
+  v12 = objc_msgSend_texture(v9, v10, v11);
+  if (v12)
   {
-    v20 = v16;
-    v21 = objc_msgSend_pixelFormat(v16, v17, v18, v19);
-    v25 = objc_msgSend_sampleCount(v20, v22, v23, v24);
-    if (self->_debug.pixelFormat != v21 || self->_debug.sampleCount != v25)
+    v15 = v12;
+    v16 = objc_msgSend_pixelFormat(v12, v13, v14);
+    v19 = objc_msgSend_sampleCount(v15, v17, v18);
+    if (self->_debug.pixelFormat != v16 || self->_debug.sampleCount != v19)
     {
-      self->_debug.pixelFormat = v21;
-      self->_debug.sampleCount = v25;
-      v28 = sub_1AFDE868C(self->_resourceManager);
-      v32 = objc_msgSend_frameworkLibrary(v28, v29, v30, v31);
-      v33 = *&self->_currentRenderPassDesc.colorFormat[6];
-      v123 = *&self->_currentRenderPassDesc.colorFormat[4];
-      v124 = v33;
-      v125 = *&self->_currentRenderPassDesc.depthFormat;
-      v126 = *&self->_currentRenderPassDesc.sampleCount;
-      v34 = *&self->_currentRenderPassDesc.colorFormat[2];
-      v121 = *self->_currentRenderPassDesc.colorFormat;
-      v122 = v34;
+      self->_debug.pixelFormat = v16;
+      self->_debug.sampleCount = v19;
+      v21 = sub_1AFDE868C(self->_resourceManager);
+      v24 = objc_msgSend_frameworkLibrary(v21, v22, v23);
+      v25 = *&self->_currentRenderPassDesc.colorFormat[6];
+      v98 = *&self->_currentRenderPassDesc.colorFormat[4];
+      v99 = v25;
+      v100 = *&self->_currentRenderPassDesc.depthFormat;
+      v101 = *&self->_currentRenderPassDesc.sampleCount;
+      v26 = *&self->_currentRenderPassDesc.colorFormat[2];
+      v96 = *self->_currentRenderPassDesc.colorFormat;
+      v97 = v26;
 
       resourceManager = self->_resourceManager;
-      v107 = v123;
-      v108 = v124;
-      v109 = v125;
-      v105 = v121;
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
-      v99 = 0u;
-      v97 = 0u;
-      v104 = v32;
-      v110 = v126;
-      v106 = v122;
-      v115 = 0u;
-      v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v117 = @"quad_vertex";
-      v118 = @"quad_display_depth2D";
-      v119 = 0u;
-      v120 = 0u;
-      self->_debug.displayDepth2DPipeline = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v36, &v97, v37);
+      v82 = v98;
+      v83 = v99;
+      v84 = v100;
+      v80 = v96;
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v72 = 0u;
+      v79 = v24;
+      v85 = v101;
+      v81 = v97;
+      v90 = 0u;
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v92 = @"quad_vertex";
+      v93 = @"quad_display_depth2D";
+      v94 = 0u;
+      v95 = 0u;
+      self->_debug.displayDepth2DPipeline = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v28, &v72);
 
-      v107 = v123;
-      v108 = v124;
-      v109 = v125;
-      v105 = v121;
-      v38 = self->_resourceManager;
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
-      v99 = 0u;
-      v97 = 0u;
-      v104 = v32;
-      v110 = v126;
-      v106 = v122;
-      v115 = 0u;
-      v116 = 0u;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v117 = @"quad_vertex";
-      v118 = @"quad_display_depth_cube";
-      v119 = 0u;
-      v120 = 0u;
-      self->_debug.displayDepthCubePipeline = objc_msgSend_newRenderPipelineStateWithDesc_(v38, v39, &v97, v40);
+      v82 = v98;
+      v83 = v99;
+      v84 = v100;
+      v80 = v96;
+      v29 = self->_resourceManager;
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v72 = 0u;
+      v79 = v24;
+      v85 = v101;
+      v81 = v97;
+      v90 = 0u;
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v92 = @"quad_vertex";
+      v93 = @"quad_display_depth_cube";
+      v94 = 0u;
+      v95 = 0u;
+      self->_debug.displayDepthCubePipeline = objc_msgSend_newRenderPipelineStateWithDesc_(v29, v30, &v72);
     }
 
-    objc_msgSend_setCullMode_(self->_renderEncoder->var3, v26, 0, v27);
+    objc_msgSend_setCullMode_(self->_renderEncoder->var3, v20, 0);
     renderEncoder = self->_renderEncoder;
-    v42 = sub_1AFDE8620(self->_resourceManager);
-    objc_msgSend_setDepthStencilState_(renderEncoder->var3, v43, v42, v44);
-    v48 = objc_msgSend_height(v20, v45, v46, v47);
-    v96 = (v48 / objc_msgSend_width(v20, v49, v50, v51)) * 0.125;
-    v52 = *&self->_anon_4190[456];
-    if (objc_msgSend_textureType(v52, v53, v54, v55) == 5)
+    v32 = sub_1AFDE8620(self->_resourceManager);
+    objc_msgSend_setDepthStencilState_(renderEncoder->var3, v33, v32);
+    v36 = objc_msgSend_height(v15, v34, v35);
+    v71 = (v36 / objc_msgSend_width(v15, v37, v38)) * 0.125;
+    v39 = *&self->_anon_4190[456];
+    if (objc_msgSend_textureType(v39, v40, v41) == 5)
     {
-      v59 = self->_renderEncoder;
-      v60 = objc_msgSend_state(self->_debug.displayDepthCubePipeline, v56, v57, v58);
+      v44 = self->_renderEncoder;
+      v45 = objc_msgSend_state(self->_debug.displayDepthCubePipeline, v42, v43);
 LABEL_9:
-      objc_msgSend_setRenderPipelineState_(v59->var3, v61, v60, v62);
-      sub_1AF1F8FCC(self->_renderEncoder, v52, 0, v66);
-      *&v67 = 0x3F5D70A43C23D70ALL;
-      *(&v67 + 1) = __PAIR64__(0.125, LODWORD(v96));
-      v97 = v67;
-      sub_1AF176E98(self->_renderEncoder, &v97, 0x10uLL, 0);
-      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v68, 4, 0, 4);
+      objc_msgSend_setRenderPipelineState_(v44->var3, v46, v45);
+      sub_1AF1F8FCC(self->_renderEncoder, v39, 0);
+      *&v49 = 0x3F5D70A43C23D70ALL;
+      *(&v49 + 1) = __PAIR64__(0.125, LODWORD(v71));
+      v72 = v49;
+      sub_1AF176E98(self->_renderEncoder, &v72, 0x10uLL, 0);
+      objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v50, 4, 0, 4);
       return;
     }
 
-    if (objc_msgSend_textureType(v52, v56, v57, v58) == 2)
+    if (objc_msgSend_textureType(v39, v42, v43) == 2)
     {
-      v59 = self->_renderEncoder;
-      v60 = objc_msgSend_state(self->_debug.displayDepth2DPipeline, v63, v64, v65);
+      v44 = self->_renderEncoder;
+      v45 = objc_msgSend_state(self->_debug.displayDepth2DPipeline, v47, v48);
       goto LABEL_9;
     }
 
-    if (objc_msgSend_textureType(v52, v63, v64, v65) == 3)
+    if (objc_msgSend_textureType(v39, v47, v48) == 3)
     {
-      v72 = self->_renderEncoder;
-      v73 = objc_msgSend_state(self->_debug.displayDepth2DPipeline, v69, v70, v71);
-      objc_msgSend_setRenderPipelineState_(v72->var3, v74, v73, v75);
-      if (objc_msgSend_arrayLength(v52, v76, v77, v78))
+      v53 = self->_renderEncoder;
+      v54 = objc_msgSend_state(self->_debug.displayDepth2DPipeline, v51, v52);
+      objc_msgSend_setRenderPipelineState_(v53->var3, v55, v54);
+      if (objc_msgSend_arrayLength(v39, v56, v57))
       {
-        v82 = 0;
+        v60 = 0;
         do
         {
-          v83 = objc_msgSend_pixelFormat(v52, v79, v80, v81);
-          v87 = objc_msgSend_mipmapLevelCount(v52, v84, v85, v86);
-          v89 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v52, v88, v83, 2, 0, v87, v82, 1);
-          sub_1AF1F8FCC(self->_renderEncoder, v89, 0, v90);
-          *&v91 = (v82 * (v96 + 0.01)) + 0.01;
-          DWORD1(v91) = 1063088292;
-          *(&v91 + 1) = __PAIR64__(0.125, LODWORD(v96));
-          v97 = v91;
-          sub_1AF176E98(self->_renderEncoder, &v97, 0x10uLL, 0);
-          objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v92, 4, 0, 4);
+          v61 = objc_msgSend_pixelFormat(v39, v58, v59);
+          v64 = objc_msgSend_mipmapLevelCount(v39, v62, v63);
+          v66 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v39, v65, v61, 2, 0, v64, v60, 1);
+          sub_1AF1F8FCC(self->_renderEncoder, v66, 0);
+          *&v67 = (v60 * (v71 + 0.01)) + 0.01;
+          DWORD1(v67) = 1063088292;
+          *(&v67 + 1) = __PAIR64__(0.125, LODWORD(v71));
+          v72 = v67;
+          sub_1AF176E98(self->_renderEncoder, &v72, 0x10uLL, 0);
+          objc_msgSend_drawPrimitives_vertexStart_vertexCount_(self->_renderEncoder->var3, v68, 4, 0, 4);
 
-          ++v82;
+          ++v60;
         }
 
-        while (v82 < objc_msgSend_arrayLength(v52, v93, v94, v95));
+        while (v60 < objc_msgSend_arrayLength(v39, v69, v70));
       }
     }
   }
@@ -6850,86 +6892,87 @@ LABEL_9:
 
 - (void)_drawFullScreenTexture:(id)texture
 {
-  v6 = objc_msgSend_currentRenderPassDescriptor(self, a2, texture, v3);
-  v10 = objc_msgSend_depthAttachment(v6, v7, v8, v9);
-  v14 = objc_msgSend_texture(v10, v11, v12, v13);
-  v18 = objc_msgSend_pixelFormat(v14, v15, v16, v17);
-  v22 = objc_msgSend_stencilAttachment(v6, v19, v20, v21);
-  v26 = objc_msgSend_texture(v22, v23, v24, v25);
-  v30 = objc_msgSend_pixelFormat(v26, v27, v28, v29);
-  v34 = 0;
-  v35 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v18 ^ ((0x9DDFEA08EB382D69 * (v30 ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (v30 ^ v18)))) ^ ((0x9DDFEA08EB382D69 * (v18 ^ ((0x9DDFEA08EB382D69 * (v30 ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (v30 ^ v18)))) >> 47));
+  v5 = objc_msgSend_currentRenderPassDescriptor(self, a2, texture);
+  v8 = objc_msgSend_depthAttachment(v5, v6, v7);
+  v11 = objc_msgSend_texture(v8, v9, v10);
+  v14 = objc_msgSend_pixelFormat(v11, v12, v13);
+  v17 = objc_msgSend_stencilAttachment(v5, v15, v16);
+  v20 = objc_msgSend_texture(v17, v18, v19);
+  v23 = objc_msgSend_pixelFormat(v20, v21, v22);
+  v26 = 0;
+  v27 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v14 ^ ((0x9DDFEA08EB382D69 * (v23 ^ v14)) >> 47) ^ (0x9DDFEA08EB382D69 * (v23 ^ v14)))) ^ ((0x9DDFEA08EB382D69 * (v14 ^ ((0x9DDFEA08EB382D69 * (v23 ^ v14)) >> 47) ^ (0x9DDFEA08EB382D69 * (v23 ^ v14)))) >> 47));
   do
   {
-    v36 = objc_msgSend_colorAttachments(v6, v31, v32, v33);
-    v39 = objc_msgSend_objectAtIndexedSubscript_(v36, v37, v34, v38);
-    v43 = objc_msgSend_texture(v39, v40, v41, v42);
-    v47 = objc_msgSend_pixelFormat(v43, v44, v45, v46);
-    v51 = objc_msgSend_texture(v39, v48, v49, v50);
-    v55 = objc_msgSend_sampleCount(v51, v52, v53, v54);
-    v56 = 0x9DDFEA08EB382D69 * (v35 ^ ((0x9DDFEA08EB382D69 * (v47 ^ v35)) >> 47) ^ (0x9DDFEA08EB382D69 * (v47 ^ v35)));
-    v57 = 0x9DDFEA08EB382D69 * (v56 ^ (v56 >> 47));
-    ++v34;
-    v35 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v57 ^ ((0x9DDFEA08EB382D69 * (v57 ^ v55)) >> 47) ^ (0x9DDFEA08EB382D69 * (v57 ^ v55)))) ^ ((0x9DDFEA08EB382D69 * (v57 ^ ((0x9DDFEA08EB382D69 * (v57 ^ v55)) >> 47) ^ (0x9DDFEA08EB382D69 * (v57 ^ v55)))) >> 47));
+    v28 = objc_msgSend_colorAttachments(v5, v24, v25);
+    v30 = objc_msgSend_objectAtIndexedSubscript_(v28, v29, v26);
+    v33 = objc_msgSend_texture(v30, v31, v32);
+    v36 = objc_msgSend_pixelFormat(v33, v34, v35);
+    v39 = objc_msgSend_texture(v30, v37, v38);
+    v42 = objc_msgSend_sampleCount(v39, v40, v41);
+    v43 = 0x9DDFEA08EB382D69 * (v27 ^ ((0x9DDFEA08EB382D69 * (v36 ^ v27)) >> 47) ^ (0x9DDFEA08EB382D69 * (v36 ^ v27)));
+    v44 = 0x9DDFEA08EB382D69 * (v43 ^ (v43 >> 47));
+    ++v26;
+    v27 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v44 ^ ((0x9DDFEA08EB382D69 * (v44 ^ v42)) >> 47) ^ (0x9DDFEA08EB382D69 * (v44 ^ v42)))) ^ ((0x9DDFEA08EB382D69 * (v44 ^ ((0x9DDFEA08EB382D69 * (v44 ^ v42)) >> 47) ^ (0x9DDFEA08EB382D69 * (v44 ^ v42)))) >> 47));
   }
 
-  while (v34 != 8);
-  if (self->_compositeRendering[0].hash != v35)
+  while (v26 != 8);
+  if (self->_compositeRendering[0].hash != v27)
   {
-    self->_compositeRendering[0].hash = v35;
-    v58 = sub_1AFDE868C(self->_resourceManager);
-    v62 = objc_msgSend_frameworkLibrary(v58, v59, v60, v61);
-    v83 = *&self->_currentRenderPassDesc.colorFormat[4];
-    v84 = *&self->_currentRenderPassDesc.colorFormat[6];
-    v85 = *&self->_currentRenderPassDesc.depthFormat;
-    v86 = *&self->_currentRenderPassDesc.sampleCount;
-    v81 = *self->_currentRenderPassDesc.colorFormat;
-    v82 = *&self->_currentRenderPassDesc.colorFormat[2];
+    self->_compositeRendering[0].hash = v27;
+    v45 = sub_1AFDE868C(self->_resourceManager);
+    v48 = objc_msgSend_frameworkLibrary(v45, v46, v47);
+    v64 = *&self->_currentRenderPassDesc.colorFormat[4];
+    v65 = *&self->_currentRenderPassDesc.colorFormat[6];
+    v66 = *&self->_currentRenderPassDesc.depthFormat;
+    v67 = *&self->_currentRenderPassDesc.sampleCount;
+    v62 = *self->_currentRenderPassDesc.colorFormat;
+    v63 = *&self->_currentRenderPassDesc.colorFormat[2];
 
     resourceManager = self->_resourceManager;
-    memset(v79, 0, sizeof(v79));
-    v80 = v62;
-    v91 = 0;
-    v92 = 0;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    memset(v90, 0, sizeof(v90));
-    v93 = @"vfx_draw_fullscreen_triangle_vertex";
-    v94 = @"vfx_draw_fullscreen_gamma_fragment";
-    v95 = 0u;
-    v96 = 0u;
-    self->_compositeRendering[0].pipeline = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v64, v79, v65);
+    memset(v60, 0, sizeof(v60));
+    v61 = v48;
+    v72 = 0;
+    v73 = 0;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    memset(v71, 0, sizeof(v71));
+    v74 = @"vfx_draw_fullscreen_triangle_vertex";
+    v75 = @"vfx_draw_fullscreen_gamma_fragment";
+    v76 = 0u;
+    v77 = 0u;
+    self->_compositeRendering[0].pipeline = objc_msgSend_newRenderPipelineStateWithDesc_(resourceManager, v50, v60);
   }
 
-  objc_msgSend_setCullMode_(self->_renderEncoder->var3, v31, 0, v33);
+  objc_msgSend_setCullMode_(self->_renderEncoder->var3, v24, 0);
   renderEncoder = self->_renderEncoder;
-  v67 = sub_1AFDE8620(self->_resourceManager);
-  objc_msgSend_setDepthStencilState_(renderEncoder->var3, v68, v67, v69);
-  v70 = self->_renderEncoder;
-  v74 = objc_msgSend_state(self->_compositeRendering[0].pipeline, v71, v72, v73);
-  objc_msgSend_setRenderPipelineState_(v70->var3, v75, v74, v76);
-  sub_1AF1F8FCC(self->_renderEncoder, texture, 0, v77);
-  sub_1AF2010C8(self->_renderEncoder, v78);
+  v52 = sub_1AFDE8620(self->_resourceManager);
+  objc_msgSend_setDepthStencilState_(renderEncoder->var3, v53, v52);
+  v54 = self->_renderEncoder;
+  v57 = objc_msgSend_state(self->_compositeRendering[0].pipeline, v55, v56);
+  objc_msgSend_setRenderPipelineState_(v54->var3, v58, v57);
+  sub_1AF1F8FCC(self->_renderEncoder, texture, 0);
+  sub_1AF2010C8(self->_renderEncoder, v59);
 }
 
 - (void)writeBytes:(const void *)bytes length:(unint64_t)length
 {
   renderEncoder = self->_renderEncoder;
   currentStreamBufferIndices = self->_currentStreamBufferIndices;
-  v6 = CFXBufferAllocatorPerFrameAllocateWithBytes(renderEncoder->var5->impl, bytes, length);
-  v8 = v7;
-  MTLBuffer = CFXBufferSliceGetMTLBuffer(v6, v7);
+  CFXBufferAllocatorPerFrameAllocateWithBytes(renderEncoder->var5->impl, bytes, length);
+  v7 = v6;
+  CFXBufferSliceGetMTLBuffer();
+  v10 = v8;
   if (currentStreamBufferIndices != 0xFF)
   {
-    objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v9, MTLBuffer, v8, currentStreamBufferIndices);
+    objc_msgSend_setVertexBuffer_offset_atIndex_(renderEncoder->var3, v9, v8, v7, currentStreamBufferIndices);
   }
 
   if ((~currentStreamBufferIndices & 0xFF00) != 0)
   {
     var3 = renderEncoder->var3;
 
-    objc_msgSend_setFragmentBuffer_offset_atIndex_(var3, v9, MTLBuffer, v8, currentStreamBufferIndices >> 8);
+    objc_msgSend_setFragmentBuffer_offset_atIndex_(var3, v9, v10, v7, currentStreamBufferIndices >> 8);
   }
 }
 
@@ -6948,10 +6991,10 @@ LABEL_9:
 
 - (void)addCommandBufferScheduledHandler:(id)handler
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_gpuHandlersLock);
-  v8 = objc_msgSend_copy(handler, v5, v6, v7);
-  v9 = v8;
+  v7 = objc_msgSend_copy(handler, v5, v6);
+  v8 = v7;
   if (self->_commandBufferScheduledHandlers)
   {
     objc_opt_class();
@@ -6959,21 +7002,21 @@ LABEL_9:
     commandBufferScheduledHandlers = self->_commandBufferScheduledHandlers;
     if (isKindOfClass)
     {
-      objc_msgSend_addObject_(self->_commandBufferScheduledHandlers, v11, v9, v12);
+      objc_msgSend_addObject_(self->_commandBufferScheduledHandlers, v10, v8);
     }
 
     else
     {
-      v16[0] = self->_commandBufferScheduledHandlers;
-      v16[1] = v9;
-      v14 = objc_alloc(MEMORY[0x1E695DF70]);
-      self->_commandBufferScheduledHandlers = objc_msgSend_initWithObjects_count_(v14, v15, v16, 2);
+      v14[0] = self->_commandBufferScheduledHandlers;
+      v14[1] = v8;
+      v12 = objc_alloc(MEMORY[0x1E695DF70]);
+      self->_commandBufferScheduledHandlers = objc_msgSend_initWithObjects_count_(v12, v13, v14, 2);
     }
   }
 
   else
   {
-    self->_commandBufferScheduledHandlers = v8;
+    self->_commandBufferScheduledHandlers = v7;
   }
 
   os_unfair_lock_unlock(&self->_gpuHandlersLock);
@@ -6981,10 +7024,10 @@ LABEL_9:
 
 - (void)addCommandBufferCompletedHandler:(id)handler
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_gpuHandlersLock);
-  v8 = objc_msgSend_copy(handler, v5, v6, v7);
-  v9 = v8;
+  v7 = objc_msgSend_copy(handler, v5, v6);
+  v8 = v7;
   if (self->_commandBufferCompletedHandlers)
   {
     objc_opt_class();
@@ -6992,21 +7035,21 @@ LABEL_9:
     commandBufferCompletedHandlers = self->_commandBufferCompletedHandlers;
     if (isKindOfClass)
     {
-      objc_msgSend_addObject_(self->_commandBufferCompletedHandlers, v11, v9, v12);
+      objc_msgSend_addObject_(self->_commandBufferCompletedHandlers, v10, v8);
     }
 
     else
     {
-      v16[0] = self->_commandBufferCompletedHandlers;
-      v16[1] = v9;
-      v14 = objc_alloc(MEMORY[0x1E695DF70]);
-      self->_commandBufferCompletedHandlers = objc_msgSend_initWithObjects_count_(v14, v15, v16, 2);
+      v14[0] = self->_commandBufferCompletedHandlers;
+      v14[1] = v8;
+      v12 = objc_alloc(MEMORY[0x1E695DF70]);
+      self->_commandBufferCompletedHandlers = objc_msgSend_initWithObjects_count_(v12, v13, v14, 2);
     }
   }
 
   else
   {
-    self->_commandBufferCompletedHandlers = v8;
+    self->_commandBufferCompletedHandlers = v7;
   }
 
   os_unfair_lock_unlock(&self->_gpuHandlersLock);
@@ -7014,10 +7057,10 @@ LABEL_9:
 
 - (void)addDrawablePresentedHandler:(id)handler
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_gpuHandlersLock);
-  v8 = objc_msgSend_copy(handler, v5, v6, v7);
-  v9 = v8;
+  v7 = objc_msgSend_copy(handler, v5, v6);
+  v8 = v7;
   if (self->_drawablePresentedHandlers)
   {
     objc_opt_class();
@@ -7025,21 +7068,21 @@ LABEL_9:
     drawablePresentedHandlers = self->_drawablePresentedHandlers;
     if (isKindOfClass)
     {
-      objc_msgSend_addObject_(self->_drawablePresentedHandlers, v11, v9, v12);
+      objc_msgSend_addObject_(self->_drawablePresentedHandlers, v10, v8);
     }
 
     else
     {
-      v16[0] = self->_drawablePresentedHandlers;
-      v16[1] = v9;
-      v14 = objc_alloc(MEMORY[0x1E695DF70]);
-      self->_drawablePresentedHandlers = objc_msgSend_initWithObjects_count_(v14, v15, v16, 2);
+      v14[0] = self->_drawablePresentedHandlers;
+      v14[1] = v8;
+      v12 = objc_alloc(MEMORY[0x1E695DF70]);
+      self->_drawablePresentedHandlers = objc_msgSend_initWithObjects_count_(v12, v13, v14, 2);
     }
   }
 
   else
   {
-    self->_drawablePresentedHandlers = v8;
+    self->_drawablePresentedHandlers = v7;
   }
 
   os_unfair_lock_unlock(&self->_gpuHandlersLock);
@@ -7074,233 +7117,236 @@ LABEL_9:
 
 - (void)_allowGPUBackgroundExecution
 {
-  if (!self->_clientCommandBuffer && !objc_msgSend_clientCommandQueue(self, a2, v2, v3))
+  if (!self->_clientCommandBuffer && !objc_msgSend_clientCommandQueue(self, a2, v2))
   {
     ownedCommandQueue = self->_ownedCommandQueue;
     if (ownedCommandQueue)
     {
-      if (objc_msgSend_getBackgroundGPUPriority(self->_ownedCommandQueue, v5, v6, v7) != 3)
+      if (objc_msgSend_getBackgroundGPUPriority(self->_ownedCommandQueue, v4, v5) != 3)
       {
         return;
       }
 
-      v11 = ownedCommandQueue;
+      v8 = ownedCommandQueue;
     }
 
     else
     {
-      v12 = sub_1AFDE8698(self->_resourceManager);
-      if (objc_msgSend_getBackgroundGPUPriority(v12, v13, v14, v15) != 3)
+      v9 = sub_1AFDE8698(self->_resourceManager);
+      if (objc_msgSend_getBackgroundGPUPriority(v9, v10, v11) != 3)
       {
         return;
       }
 
-      v11 = v12;
+      v8 = v9;
     }
 
-    objc_msgSend_setBackgroundGPUPriority_(v11, v9, 2, v10);
+    objc_msgSend_setBackgroundGPUPriority_(v8, v7, 2);
   }
 }
 
 - (void)_VFXWorldRendererMainPassCustomPostProcessSupportDrawSceneBackgroundUsingEncoder:(id)encoder commandBuffer:(id)buffer renderPassDesc:(id *)desc
 {
-  v7 = sub_1AF12DDCC(self->_engineContext);
+  v7 = sub_1AF12DDCC(self->_engineContext, a2);
   v8 = sub_1AF1D0008(v7, 0);
   if (v8)
   {
-    v9 = v8;
-    if (sub_1AF20107C(self->_renderEncoder) != encoder)
+    v10 = v8;
+    if (sub_1AF20107C(self->_renderEncoder, v9) != encoder)
     {
       sub_1AF20B70C();
     }
 
     engineContext = self->_engineContext;
 
-    sub_1AF12E1B8(engineContext, v9);
+    sub_1AF12E1B8(engineContext, v10);
   }
 }
 
 - (CFXVFXRenderTargetInfo)renderTargetInfo
 {
-  v5 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2, v3);
-  objc_msgSend_setDescriptor_(self->_renderTargetInfo, v6, v5, v7);
-  objc_msgSend_renderSize(self, v8, v9, v10);
-  v32 = v11;
-  objc_msgSend_renderSize(self, v12, v13, v14);
-  v31 = v15;
-  objc_msgSend_renderSize(self, v16, v17, v18);
-  objc_msgSend_renderSize(self, v19, v20, v21);
+  v4 = objc_msgSend_currentRenderPassDescriptor(self, a2, v2);
+  objc_msgSend_setDescriptor_(self->_renderTargetInfo, v5, v4);
+  objc_msgSend_renderSize(self, v6, v7);
+  v25 = v8;
+  objc_msgSend_renderSize(self, v9, v10);
+  v24 = v11;
+  objc_msgSend_renderSize(self, v12, v13);
+  objc_msgSend_renderSize(self, v14, v15);
   __asm { FMOV            V0.2S, #1.0 }
 
-  objc_msgSend_set_renderTargetSize_(self->_renderTargetInfo, v27, v28, v29, COERCE_DOUBLE(__PAIR64__(v31, v32)));
+  objc_msgSend_set_renderTargetSize_(self->_renderTargetInfo, v21, v22, COERCE_DOUBLE(__PAIR64__(v24, v25)));
   return self->_renderTargetInfo;
 }
 
 - ($56FBFA7F90079343FE03906F902E417E)bufferForBuiltin:(unsigned __int8)builtin
 {
-  MEMORY[0x1EEE9AC00](self, a2);
-  v5 = v3;
-  v73 = *MEMORY[0x1E69E9840];
-  switch(v4)
+  MEMORY[0x1EEE9AC00](self);
+  v5 = v4;
+  v68 = *MEMORY[0x1E69E9840];
+  switch(v3)
   {
     case 3:
-      if (CFXBufferSliceGetMTLBuffer(v3[2385], v3[2386]))
+      CFXBufferSliceGetMTLBuffer();
+      if (v56)
       {
-        v60 = *(v5 + 19080);
-        v61 = *(v5 + 19088);
+        v53 = *(v5 + 19080);
+        v54 = *(v5 + 19088);
       }
 
       else
       {
-        v60 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), (v5 + 720), 0x310uLL);
-        *(v5 + 19080) = v60;
-        *(v5 + 19088) = v61;
+        v53 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), (v5 + 720), 0x310uLL);
+        *(v5 + 19080) = v53;
+        *(v5 + 19088) = v54;
       }
 
       break;
     case 2:
-      if (CFXBufferSliceGetMTLBuffer(v3[2383], v3[2384]))
+      CFXBufferSliceGetMTLBuffer();
+      if (v55)
       {
-        v60 = *(v5 + 19064);
-        v61 = *(v5 + 19072);
+        v53 = *(v5 + 19064);
+        v54 = *(v5 + 19072);
       }
 
       else
       {
-        v60 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), (v5 + 17472), 0x480uLL);
-        *(v5 + 19064) = v60;
-        *(v5 + 19072) = v61;
+        v53 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), (v5 + 17472), 0x480uLL);
+        *(v5 + 19064) = v53;
+        *(v5 + 19072) = v54;
       }
 
       break;
     case 1:
-      if (!CFXBufferSliceGetMTLBuffer(v3[2380], v3[2381]))
+      CFXBufferSliceGetMTLBuffer();
+      if (!v8)
       {
         v9 = *(v5 + 1160);
         v10 = *(v5 + 1168);
         if (!*(v5 + 19056))
         {
           v11 = objc_msgSend_newFunctionWithName_constants_library_(*(v5 + 112), v6, @"global_constants_encoder", 0, 0);
-          *(v5 + 19056) = objc_msgSend_newArgumentEncoderWithBufferIndex_(v11, v12, 0, v13);
+          *(v5 + 19056) = objc_msgSend_newArgumentEncoderWithBufferIndex_(v11, v12, 0);
         }
 
-        v14 = objc_msgSend_defaultLightingEnvironmentIrradianceTexture(*(v5 + 112), v6, v7, v8);
-        v18 = objc_msgSend_defaultLightingEnvironmentRadianceTexture(*(v5 + 112), v15, v16, v17);
-        v21 = objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(*(v5 + 112), v19, v5, v20);
-        v25 = objc_msgSend_encodedLength(*(v5 + 19056), v22, v23, v24);
-        CFXBufferAllocatorPerFrameAllocateWithLength(*(v5 + 504), v25);
-        *(v5 + 19040) = v26;
-        *(v5 + 19048) = v27;
-        v28 = *(v5 + 19056);
-        MTLBuffer = CFXBufferSliceGetMTLBuffer(v26, v27);
-        objc_msgSend_setArgumentBuffer_offset_(v28, v30, MTLBuffer, *(v5 + 19048));
-        v33 = objc_msgSend_constantDataAtIndex_(*(v5 + 19056), v31, 0, v32);
-        *v33 = v10;
-        v33[1] = v9;
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
+        v13 = objc_msgSend_defaultLightingEnvironmentIrradianceTexture(*(v5 + 112), v6, v7);
+        v16 = objc_msgSend_defaultLightingEnvironmentRadianceTexture(*(v5 + 112), v14, v15);
+        v18 = objc_msgSend_specularDFGDiffuseHammonTextureWithRenderContext_(*(v5 + 112), v17, v5);
+        v21 = objc_msgSend_encodedLength(*(v5 + 19056), v19, v20);
+        CFXBufferAllocatorPerFrameAllocateWithLength(*(v5 + 504), v21);
+        *(v5 + 19040) = v22;
+        *(v5 + 19048) = v23;
+        v24 = *(v5 + 19056);
+        CFXBufferSliceGetMTLBuffer();
+        objc_msgSend_setArgumentBuffer_offset_(v24, v26, v25, *(v5 + 19048));
+        v28 = objc_msgSend_constantDataAtIndex_(*(v5 + 19056), v27, 0);
+        *v28 = v10;
+        v28[1] = v9;
         v66 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v34 = *(MEMORY[0x1E69E9B10] + 16);
-        v62[0] = *MEMORY[0x1E69E9B10];
-        v62[1] = v34;
-        v62[2] = *(MEMORY[0x1E69E9B10] + 32);
+        v65 = 0u;
+        v62 = 0u;
         v63 = 0u;
-        LODWORD(v63) = 1065353216;
-        v35 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), v62, 0xD0uLL);
-        v37 = v36;
-        v38 = *(v5 + 19056);
-        v39 = CFXBufferSliceGetMTLBuffer(v35, v36);
-        objc_msgSend_setBuffer_offset_atIndex_(v38, v40, v39, v37, 10);
-        v41 = *(v5 + 424);
-        v42 = CFXBufferSliceGetMTLBuffer(v35, v37);
-        objc_msgSend_useResource_usage_stages_(*(v41 + 16), v43, v42, 1, 3);
-        bzero(v62, 0x65C0uLL);
-        v44 = CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), v62, 0x65C0uLL);
-        v46 = v45;
-        v47 = *(v5 + 19056);
-        v48 = CFXBufferSliceGetMTLBuffer(v44, v45);
-        objc_msgSend_setBuffer_offset_atIndex_(v47, v49, v48, v46, 11);
-        v50 = *(v5 + 424);
-        v51 = CFXBufferSliceGetMTLBuffer(v44, v46);
-        objc_msgSend_useResource_usage_stages_(*(v50 + 16), v52, v51, 1, 3);
-        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v53, 0, 24);
-        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v54, v14, 20);
-        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v55, v18, 21);
-        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v56, v21, 22);
-        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v57, v14, 1, 3);
-        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v58, v18, 1, 3);
-        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v59, v21, 1, 3);
+        v60 = 0u;
+        v61 = 0u;
+        v59 = 0u;
+        v29 = *(MEMORY[0x1E69E9B10] + 16);
+        v57[0] = *MEMORY[0x1E69E9B10];
+        v57[1] = v29;
+        v57[2] = *(MEMORY[0x1E69E9B10] + 32);
+        v58 = 0u;
+        LODWORD(v58) = 1065353216;
+        CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), v57, 0xD0uLL);
+        v31 = v30;
+        v32 = *(v5 + 19056);
+        CFXBufferSliceGetMTLBuffer();
+        objc_msgSend_setBuffer_offset_atIndex_(v32, v34, v33, v31, 10);
+        v35 = *(v5 + 424);
+        CFXBufferSliceGetMTLBuffer();
+        objc_msgSend_useResource_usage_stages_(*(v35 + 16), v37, v36, 1, 3);
+        bzero(v57, 0x65C0uLL);
+        CFXBufferAllocatorPerFrameAllocateWithBytes(*(v5 + 504), v57, 0x65C0uLL);
+        v39 = v38;
+        v40 = *(v5 + 19056);
+        CFXBufferSliceGetMTLBuffer();
+        objc_msgSend_setBuffer_offset_atIndex_(v40, v42, v41, v39, 11);
+        v43 = *(v5 + 424);
+        CFXBufferSliceGetMTLBuffer();
+        objc_msgSend_useResource_usage_stages_(*(v43 + 16), v45, v44, 1, 3);
+        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v46, 0, 24);
+        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v47, v13, 20);
+        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v48, v16, 21);
+        objc_msgSend_setTexture_atIndex_(*(v5 + 19056), v49, v18, 22);
+        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v50, v13, 1, 3);
+        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v51, v16, 1, 3);
+        objc_msgSend_useResource_usage_stages_(*(*(v5 + 424) + 16), v52, v18, 1, 3);
       }
 
-      v60 = *(v5 + 19040);
-      v61 = *(v5 + 19048);
+      v53 = *(v5 + 19040);
+      v54 = *(v5 + 19048);
       break;
     default:
-      v60 = 0;
-      v61 = 0;
+      v53 = 0;
+      v54 = 0;
       break;
   }
 
-  result.var1 = v61;
-  result.var2 = HIDWORD(v61);
-  result.var0 = v60;
+  result.var1 = v54;
+  result.var2 = HIDWORD(v54);
+  result.var0 = v53;
   return result;
 }
 
 - (id)makeRenderPipelineForResourceID:(unint64_t)d
 {
-  v5 = objc_msgSend_renderPipelineDescForResourceID_(self->_resourceManager, a2, d, v3);
-  if (v5)
+  v4 = objc_msgSend_renderPipelineDescForResourceID_(self->_resourceManager, a2, d);
+  if (v4)
   {
-    v9 = v5;
-    v10 = objc_msgSend_programHashCode(v5, v6, v7, v8);
-    if (v10)
+    v7 = v4;
+    v8 = objc_msgSend_programHashCode(v4, v5, v6);
+    if (v8)
     {
-      v12 = sub_1AF130160(self->_engineContext, v10, 0, 0);
-      HIWORD(v42) = 0;
-      *(&v42 + 10) = 0;
-      memset(v45, 0, sizeof(v45));
-      v16 = objc_msgSend_vertexDescriptor(v9, v13, v14, v15);
-      v20 = objc_msgSend_vertexDescriptor(v9, v17, v18, v19);
-      v24 = objc_msgSend_hash(v20, v21, v22, v23);
+      v10 = sub_1AF130160(self->_engineContext, v8);
+      HIWORD(v36) = 0;
+      *(&v36 + 10) = 0;
+      memset(v39, 0, sizeof(v39));
+      v13 = objc_msgSend_vertexDescriptor(v7, v11, v12);
+      v16 = objc_msgSend_vertexDescriptor(v7, v14, v15);
+      v19 = objc_msgSend_hash(v16, v17, v18);
       resourceManager = self->_resourceManager;
-      *&v38 = 0;
-      *(&v38 + 1) = v12;
-      v39 = 0u;
-      v40 = 0u;
-      *&v41 = 33620223;
-      *(&v41 + 1) = v16;
-      *&v42 = v24;
-      WORD4(v42) = 0;
-      v43 = 0;
-      v44 = 0;
-      v46 = 0;
-      v47 = 0;
-      v27 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v26, &v38, &self->_currentRenderPassDesc);
-      v31 = objc_msgSend_state(v27, v28, v29, v30);
+      *&v32 = 0;
+      *(&v32 + 1) = v10;
+      v33 = 0u;
+      v34 = 0u;
+      *&v35 = 33620223;
+      *(&v35 + 1) = v13;
+      *&v36 = v19;
+      WORD4(v36) = 0;
+      v37 = 0;
+      v38 = 0;
+      v40 = 0;
+      v41 = 0;
+      v22 = objc_msgSend_renderResourceForProgramDesc_renderPassDesc_(resourceManager, v21, &v32, &self->_currentRenderPassDesc);
+      v25 = objc_msgSend_state(v22, v23, v24);
     }
 
     else
     {
-      v35 = *&self->_currentRenderPassDesc.colorFormat[6];
-      v40 = *&self->_currentRenderPassDesc.colorFormat[4];
-      v41 = v35;
-      v43 = *&self->_currentRenderPassDesc.sampleCount;
-      v36 = *&self->_currentRenderPassDesc.colorFormat[2];
-      v38 = *self->_currentRenderPassDesc.colorFormat;
-      v39 = v36;
-      v42 = *&self->_currentRenderPassDesc.depthFormat;
-      v31 = objc_msgSend_renderResourcesFor_renderPassFormat_(self, v11, v9, &v38);
+      v29 = *&self->_currentRenderPassDesc.colorFormat[6];
+      v34 = *&self->_currentRenderPassDesc.colorFormat[4];
+      v35 = v29;
+      v37 = *&self->_currentRenderPassDesc.sampleCount;
+      v30 = *&self->_currentRenderPassDesc.colorFormat[2];
+      v32 = *self->_currentRenderPassDesc.colorFormat;
+      v33 = v30;
+      v36 = *&self->_currentRenderPassDesc.depthFormat;
+      v25 = objc_msgSend_renderResourcesFor_renderPassFormat_(self, v9, v7, &v32);
     }
 
-    v34 = v31;
-    objc_msgSend_registerRenderPipelineDescriptor_state_(self->_resourceManager, v32, v9, v31);
+    v28 = v25;
+    objc_msgSend_registerRenderPipelineDescriptor_state_(self->_resourceManager, v26, v7, v25);
   }
 
   else
@@ -7308,8 +7354,8 @@ LABEL_9:
     if ((byte_1EB6586A6 & 1) == 0)
     {
       byte_1EB6586A6 = 1;
-      v33 = sub_1AF0D5194();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v27 = sub_1AF0D5194(0, v5);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDE7754();
       }
@@ -7318,7 +7364,7 @@ LABEL_9:
     return 0;
   }
 
-  return v34;
+  return v28;
 }
 
 - ($56FBFA7F90079343FE03906F902E417E)vfxCoreViewConstants
@@ -7401,7 +7447,7 @@ LABEL_9:
 
 - (id)texture:(int)texture :(id)a4
 {
-  if (!objc_msgSend_isEqualToString_(a4, a2, @"shadowMap", a4))
+  if (!objc_msgSend_isEqualToString_(a4, a2, @"shadowMap"))
   {
     return 0;
   }
@@ -7428,38 +7474,39 @@ LABEL_9:
     return 0;
   }
 
-  v13 = v10;
-  if (!objc_msgSend_isEqualToString_(a4, v11, @"passConstants", v12))
+  v12 = v10;
+  isEqualToString = objc_msgSend_isEqualToString_(a4, v11, @"passConstants");
+  if (!isEqualToString)
   {
-    v42 = sub_1AF0D5194();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v36 = sub_1AF0D5194(isEqualToString, v14);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDE7788(a4, v7, v42, v43);
+      sub_1AFDE7788(a4, v7, v36);
     }
 
     return 0;
   }
 
-  v17 = objc_msgSend_resourceManager(self, v14, v15, v16);
-  v18 = sub_1AFDE868C(v17);
-  v22 = objc_msgSend_frameworkLibrary(v18, v19, v20, v21);
-  v25 = objc_msgSend_newFunctionWithName_(v22, v23, @"pass_constants_encoder", v24);
-  v28 = objc_msgSend_newArgumentEncoderWithBufferIndex_(v25, v26, 0, v27);
+  v16 = objc_msgSend_resourceManager(self, v14, v15);
+  v17 = sub_1AFDE868C(v16);
+  v20 = objc_msgSend_frameworkLibrary(v17, v18, v19);
+  v22 = objc_msgSend_newFunctionWithName_(v20, v21, @"pass_constants_encoder");
+  v24 = objc_msgSend_newArgumentEncoderWithBufferIndex_(v22, v23, 0);
 
   resourceManager = self->_resourceManager;
-  v33 = objc_msgSend_encodedLength(v28, v30, v31, v32);
-  sub_1AFDE851C(resourceManager, v33, 0);
-  v35 = v34;
-  objc_msgSend_setArgumentBuffer_offset_(v28, v36, v34, 0);
-  v39 = sub_1AF270A00(v13, @"VFX-Depth-Linear", v37, v38);
-  objc_msgSend_setTexture_atIndex_(v28, v40, v39, 30);
+  v28 = objc_msgSend_encodedLength(v24, v26, v27);
+  sub_1AFDE851C(resourceManager, v28, 0);
+  v30 = v29;
+  objc_msgSend_setArgumentBuffer_offset_(v24, v31, v29, 0);
+  v33 = sub_1AF270A00(v12, @"VFX-Depth-Linear", v32);
+  objc_msgSend_setTexture_atIndex_(v24, v34, v33, 30);
 
-  return v35;
+  return v30;
 }
 
 - (id)sampler:(int)sampler :(id)a4
 {
-  v4 = sub_1AF0D5194();
+  v4 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDE781C();
@@ -7493,93 +7540,93 @@ LABEL_9:
   {
     if (size == 8)
     {
-      if (objc_msgSend_isEqualToString_(a4, a2, @"crWorldToViewArray", a4))
+      if (objc_msgSend_isEqualToString_(a4, a2, @"crWorldToViewArray"))
       {
         *a5 = 0;
 LABEL_15:
-        v14 = self->_renderPassParameters.eyeCount << 6;
+        v13 = self->_renderPassParameters.eyeCount << 6;
 LABEL_16:
         result = 1;
         goto LABEL_30;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v10, @"crWorldToProjArray", v11))
+      if (objc_msgSend_isEqualToString_(a4, v10, @"crWorldToProjArray"))
       {
-        v17 = 128;
+        v15 = 128;
 LABEL_14:
-        *a5 = v17;
+        *a5 = v15;
         goto LABEL_15;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v15, @"viewToProjArray", v16))
+      if (objc_msgSend_isEqualToString_(a4, v14, @"viewToProjArray"))
       {
-        v17 = 256;
+        v15 = 256;
         goto LABEL_14;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v18, @"projToViewArray", v19))
+      if (objc_msgSend_isEqualToString_(a4, v16, @"projToViewArray"))
       {
-        v17 = 384;
+        v15 = 384;
         goto LABEL_14;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v20, @"crwsCameraPositionArray", v21))
+      if (objc_msgSend_isEqualToString_(a4, v17, @"crwsCameraPositionArray"))
       {
-        v24 = 512;
+        v19 = 512;
 LABEL_19:
-        *a5 = v24;
-        v14 = 16 * self->_renderPassParameters.eyeCount;
+        *a5 = v19;
+        v13 = 16 * self->_renderPassParameters.eyeCount;
         goto LABEL_16;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v22, @"renderTargetSize", v23))
+      if (objc_msgSend_isEqualToString_(a4, v18, @"renderTargetSize"))
       {
-        v12 = 816;
+        v11 = 816;
         goto LABEL_7;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v25, @"viewportCount", v26))
+      if (objc_msgSend_isEqualToString_(a4, v20, @"viewportCount"))
       {
-        v29 = 832;
+        v22 = 832;
 LABEL_26:
-        *a5 = v29;
+        *a5 = v22;
         result = 1;
-        v14 = 4;
+        v13 = 4;
         goto LABEL_30;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v27, @"useVertexAmplification", v28))
+      if (objc_msgSend_isEqualToString_(a4, v21, @"useVertexAmplification"))
       {
-        v29 = 836;
+        v22 = 836;
         goto LABEL_26;
       }
 
-      if (objc_msgSend_isEqualToString_(a4, v30, @"viewportPercentsArray", v31))
+      if (objc_msgSend_isEqualToString_(a4, v23, @"viewportPercentsArray"))
       {
-        v24 = 928;
+        v19 = 928;
         goto LABEL_19;
       }
     }
 
 LABEL_29:
-    v14 = 0;
+    v13 = 0;
     result = 0;
     *a5 = 0;
     goto LABEL_30;
   }
 
-  if (!objc_msgSend_isEqualToString_(a4, a2, @"crwsReferencePosition", a4))
+  if (!objc_msgSend_isEqualToString_(a4, a2, @"crwsReferencePosition"))
   {
     goto LABEL_29;
   }
 
-  v12 = 800;
+  v11 = 800;
 LABEL_7:
-  *a5 = v12;
+  *a5 = v11;
   result = 1;
-  v14 = 16;
+  v13 = 16;
 LABEL_30:
-  *a6 = v14;
+  *a6 = v13;
   return result;
 }
 

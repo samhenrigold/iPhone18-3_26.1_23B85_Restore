@@ -9,28 +9,27 @@
 {
   v8 = sub_1D8CD7554();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D8CD74E4();
   if (agent)
   {
-    v13 = sub_1D8CD7B04();
-    agent = v14;
+    v12 = sub_1D8CD7B04();
+    agent = v13;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   defaultsCopy = defaults;
   selfCopy = self;
-  v17 = ConfigFactoryInternal.load(url:userAgent:userDefaults:)(v12, v13, agent, defaults);
+  v16 = ConfigFactoryInternal.load(url:userAgent:userDefaults:)(v11, v12, agent, defaults);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 
-  return v17;
+  return v16;
 }
 
 - (id)loadWithData:(id)data userAgent:(id)agent userDefaults:(id)defaults

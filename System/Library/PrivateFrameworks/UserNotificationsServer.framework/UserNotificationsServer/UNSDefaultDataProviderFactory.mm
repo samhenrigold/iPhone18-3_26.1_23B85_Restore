@@ -107,19 +107,19 @@
 
 - (id)notificationSettingsForBundleIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__2;
-  v18 = __Block_byref_object_dispose__2;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__2;
+  v17 = __Block_byref_object_dispose__2;
+  v18 = 0;
   v5 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = identifierCopy;
+    v20 = identifierCopy;
     _os_log_impl(&dword_270AA8000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting notification settings", buf, 0xCu);
   }
 
@@ -128,15 +128,14 @@
   block[1] = 3221225472;
   block[2] = __73__UNSDefaultDataProviderFactory_notificationSettingsForBundleIdentifier___block_invoke;
   block[3] = &unk_279E109D8;
-  v12 = identifierCopy;
-  v13 = &v14;
+  v11 = identifierCopy;
+  v12 = &v13;
   block[4] = self;
   v7 = identifierCopy;
   dispatch_sync(queue, block);
-  v8 = v15[5];
+  v8 = v14[5];
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v8;
 }
@@ -151,19 +150,19 @@ void __73__UNSDefaultDataProviderFactory_notificationSettingsForBundleIdentifier
 
 - (id)notificationSettingsForTopicsWithBundleIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__2;
-  v18 = __Block_byref_object_dispose__2;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__2;
+  v17 = __Block_byref_object_dispose__2;
+  v18 = 0;
   v5 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = identifierCopy;
+    v20 = identifierCopy;
     _os_log_impl(&dword_270AA8000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting notification settings for topics", buf, 0xCu);
   }
 
@@ -172,15 +171,14 @@ void __73__UNSDefaultDataProviderFactory_notificationSettingsForBundleIdentifier
   block[1] = 3221225472;
   block[2] = __83__UNSDefaultDataProviderFactory_notificationSettingsForTopicsWithBundleIdentifier___block_invoke;
   block[3] = &unk_279E109D8;
-  v12 = identifierCopy;
-  v13 = &v14;
+  v11 = identifierCopy;
+  v12 = &v13;
   block[4] = self;
   v7 = identifierCopy;
   dispatch_sync(queue, block);
-  v8 = v15[5];
+  v8 = v14[5];
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 
   return v8;
 }
@@ -196,7 +194,7 @@ void __83__UNSDefaultDataProviderFactory_notificationSettingsForTopicsWithBundle
 - (void)requestAuthorizationStatus:(int64_t)status withOptions:(unint64_t)options scheduledDeliveryEnabled:(BOOL)enabled forNotificationSourceDescription:(id)description completionHandler:(id)handler
 {
   enabledCopy = enabled;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   handlerCopy = handler;
   bundleIdentifier = [descriptionCopy bundleIdentifier];
@@ -204,13 +202,13 @@ void __83__UNSDefaultDataProviderFactory_notificationSettingsForTopicsWithBundle
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v29 = bundleIdentifier;
-    v30 = 2048;
+    v28 = bundleIdentifier;
+    v29 = 2048;
     statusCopy = status;
-    v32 = 2048;
+    v31 = 2048;
     optionsCopy = options;
-    v34 = 1024;
-    v35 = enabledCopy;
+    v33 = 1024;
+    v34 = enabledCopy;
     _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting authorization status: %ld options: %ld scheduledDelivery: %{BOOL}d", buf, 0x26u);
   }
 
@@ -221,17 +219,15 @@ void __83__UNSDefaultDataProviderFactory_notificationSettingsForTopicsWithBundle
   block[3] = &unk_279E10BC8;
   statusCopy2 = status;
   optionsCopy2 = options;
-  v27 = enabledCopy;
+  v26 = enabledCopy;
   block[4] = self;
-  v22 = descriptionCopy;
-  v23 = bundleIdentifier;
-  v24 = handlerCopy;
+  v21 = descriptionCopy;
+  v22 = bundleIdentifier;
+  v23 = handlerCopy;
   v17 = handlerCopy;
   v18 = bundleIdentifier;
   v19 = descriptionCopy;
   dispatch_async(queue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke(uint64_t a1)
@@ -252,17 +248,17 @@ void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
 
 void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 40);
@@ -270,13 +266,11 @@ void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestAuthorizationStatus:(int64_t)status withOptions:(unint64_t)options scheduledDeliveryEnabled:(BOOL)enabled expirationDate:(id)date lastUserGrantDate:(id)grantDate forNotificationSourceDescription:(id)description completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   grantDateCopy = grantDate;
   descriptionCopy = description;
@@ -286,13 +280,13 @@ void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v38 = bundleIdentifier;
-    v39 = 2048;
+    v37 = bundleIdentifier;
+    v38 = 2048;
     statusCopy = status;
-    v41 = 2048;
+    v40 = 2048;
     optionsCopy = options;
-    v43 = 2112;
-    v44 = dateCopy;
+    v42 = 2112;
+    v43 = dateCopy;
     _os_log_impl(&dword_270AA8000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting authorization status: %ld options: %ld expiration: %@", buf, 0x2Au);
   }
 
@@ -305,19 +299,17 @@ void __148__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
   optionsCopy2 = options;
   enabledCopy = enabled;
   block[4] = self;
-  v29 = dateCopy;
-  v30 = grantDateCopy;
-  v31 = descriptionCopy;
-  v32 = bundleIdentifier;
-  v33 = handlerCopy;
+  v28 = dateCopy;
+  v29 = grantDateCopy;
+  v30 = descriptionCopy;
+  v31 = bundleIdentifier;
+  v32 = handlerCopy;
   v22 = handlerCopy;
   v23 = bundleIdentifier;
   v24 = descriptionCopy;
   v25 = grantDateCopy;
   v26 = dateCopy;
   dispatch_async(queue, block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __181__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke(uint64_t a1)
@@ -340,17 +332,17 @@ void __181__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
 
 void __181__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 40);
@@ -358,8 +350,6 @@ void __181__UNSDefaultDataProviderFactory_requestAuthorizationStatus_withOptions
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestRemoveAuthorizationforNotificationSourceDescription:(id)description completionHandler:(id)handler
@@ -388,7 +378,7 @@ void __110__UNSDefaultDataProviderFactory_requestRemoveAuthorizationforNotificat
 
 - (void)updateAuthorizationWithOptions:(unint64_t)options scheduledDeliveryEnabled:(BOOL)enabled forNotificationSourceDescription:(id)description completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   handlerCopy = handler;
   bundleIdentifier = [descriptionCopy bundleIdentifier];
@@ -396,29 +386,27 @@ void __110__UNSDefaultDataProviderFactory_requestRemoveAuthorizationforNotificat
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = bundleIdentifier;
-    v27 = 2048;
+    v25 = bundleIdentifier;
+    v26 = 2048;
     optionsCopy = options;
     _os_log_impl(&dword_270AA8000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating authorization options: %ld", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke;
-  v19[3] = &unk_279E10C18;
-  v22 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke;
+  v18[3] = &unk_279E10C18;
+  v21 = handlerCopy;
   optionsCopy2 = options;
   enabledCopy = enabled;
-  v19[4] = self;
-  v20 = descriptionCopy;
-  v21 = bundleIdentifier;
+  v18[4] = self;
+  v19 = descriptionCopy;
+  v20 = bundleIdentifier;
   v15 = handlerCopy;
   v16 = bundleIdentifier;
   v17 = descriptionCopy;
-  dispatch_async(queue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v18);
 }
 
 void __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke(uint64_t a1)
@@ -438,17 +426,17 @@ void __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_schedul
 
 void __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_scheduledDeliveryEnabled_forNotificationSourceDescription_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 40);
@@ -456,8 +444,6 @@ void __140__UNSDefaultDataProviderFactory_updateAuthorizationWithOptions_schedul
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCriticalAlertAuthorization:(BOOL)authorization forNotificationSourceDescription:(id)description completionHandler:(id)handler
@@ -494,7 +480,7 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
 
 void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotificationSourceDescription_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
@@ -502,11 +488,11 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
     v7 = *(a1 + 32);
     v8 = v6;
     v9 = [v7 bundleIdentifier];
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 1024;
-    v15 = a2;
-    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v12, 0x12u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 1024;
+    v14 = a2;
+    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Authorization granted: %d", &v11, 0x12u);
   }
 
   v10 = *(a1 + 40);
@@ -514,8 +500,6 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
   {
     (*(v10 + 16))(v10, a2, v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -548,11 +532,11 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
 
 - (void)_queue_sectionInfoDidChange:(id)change
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   dispatch_assert_queue_V2(self->_queue);
   sectionID = [changeCopy sectionID];
-  v21 = changeCopy;
+  v20 = changeCopy;
   uns_notificationSettings = [changeCopy uns_notificationSettings];
   hasEnabledSettings = [uns_notificationSettings hasEnabledSettings];
   v8 = [(NSMutableSet *)self->_authorizedBundleIdentifiers containsObject:sectionID];
@@ -566,7 +550,7 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
       if (v11)
       {
         *buf = 138543362;
-        v28 = sectionID;
+        v27 = sectionID;
         _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] User notification settings were enabled", buf, 0xCu);
       }
 
@@ -578,7 +562,7 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
       if (v11)
       {
         *buf = 138543362;
-        v28 = sectionID;
+        v27 = sectionID;
         _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] User notification settings were disabled", buf, 0xCu);
       }
 
@@ -590,31 +574,31 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = sectionID;
+    v27 = sectionID;
     _os_log_impl(&dword_270AA8000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notify observers that user notifications settings were updated", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = self->_observers;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       v17 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * v17);
+        v18 = *(*(&v21 + 1) + 8 * v17);
         if (objc_opt_respondsToSelector())
         {
           [v18 didChangeNotificationSettings:uns_notificationSettings forBundleIdentifier:sectionID];
@@ -624,21 +608,19 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
   }
 
   v19 = [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider objectForKey:sectionID];
-  [v19 setEffectiveSectionInfo:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v19 setEffectiveSectionInfo:v20];
 }
 
 - (id)_queue_notificationSettingsForBundleIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(UNSDefaultDataProviderFactory *)self _queue_effectiveSectionInfoForBundleIdentifier:identifierCopy];
   uns_notificationSettings = [v5 uns_notificationSettings];
@@ -650,50 +632,48 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
   v7 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = identifierCopy;
-    v12 = 1024;
-    v13 = uns_notificationSettings != 0;
-    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got notification settings [ hasResult: %d ]", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = identifierCopy;
+    v11 = 1024;
+    v12 = uns_notificationSettings != 0;
+    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got notification settings [ hasResult: %d ]", &v9, 0x12u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return uns_notificationSettings;
 }
 
 - (id)_queue_notificationSettingsForTopicsWithBundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(UNSDefaultDataProviderFactory *)self _queue_sectionInfoForBundleIdentifier:identifierCopy];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   subsections = [v6 subsections];
-  v8 = [subsections countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v8 = [subsections countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         subsectionID = [v12 subsectionID];
         uns_notificationSettings = [v12 uns_notificationSettings];
         [v5 setObject:uns_notificationSettings forKey:subsectionID];
       }
 
-      v9 = [subsections countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v9 = [subsections countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v9);
@@ -703,71 +683,65 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v23 = identifierCopy;
-    v24 = 1024;
-    v25 = v5 != 0;
+    v22 = identifierCopy;
+    v23 = 1024;
+    v24 = v5 != 0;
     _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got notification settings for topics [ hasResult: %d ]", buf, 0x12u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_queue_effectiveSectionInfoForBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = MEMORY[0x277CE2088];
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting effective section info", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting effective section info", &v10, 0xCu);
   }
 
   v7 = [(UNSSettingsGateway *)self->_settingsGateway effectiveSectionInfoForSectionID:identifierCopy];
   v8 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = identifierCopy;
-    v13 = 1024;
-    v14 = v7 != 0;
-    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got effective section info [ hasResult: %d ]", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = identifierCopy;
+    v12 = 1024;
+    v13 = v7 != 0;
+    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got effective section info [ hasResult: %d ]", &v10, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)_queue_sectionInfoForBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = MEMORY[0x277CE2088];
   v6 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting section info", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Getting section info", &v10, 0xCu);
   }
 
   v7 = [(UNSSettingsGateway *)self->_settingsGateway sectionInfoForSectionID:identifierCopy];
   v8 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = identifierCopy;
-    v13 = 1024;
-    v14 = v7 != 0;
-    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got section info [ hasResult: %d ]", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = identifierCopy;
+    v12 = 1024;
+    v13 = v7 != 0;
+    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got section info [ hasResult: %d ]", &v10, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -775,7 +749,7 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
 - (void)_queue_updateSettingsWithAuthorizationStatus:(int64_t)status options:(unint64_t)options scheduledDeliveryEnabled:(BOOL)enabled expirationDate:(id)date lastUserGrantDate:(id)grantDate forNotificationSourceDescription:(id)description completionHandler:(id)handler
 {
   enabledCopy = enabled;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   grantDateCopy = grantDate;
   descriptionCopy = description;
@@ -785,44 +759,42 @@ void __114__UNSDefaultDataProviderFactory_setCriticalAlertAuthorization_forNotif
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544386;
-    v37 = bundleIdentifier;
-    v38 = 2048;
+    v36 = bundleIdentifier;
+    v37 = 2048;
     statusCopy = status;
-    v40 = 2048;
+    v39 = 2048;
     optionsCopy = options;
-    v42 = 2112;
-    v43 = dateCopy;
-    v44 = 1024;
-    v45 = enabledCopy;
+    v41 = 2112;
+    v42 = dateCopy;
+    v43 = 1024;
+    v44 = enabledCopy;
     _os_log_impl(&dword_270AA8000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update settings [authorizationStatus: %ld authorizationOptions: %ld authorizationExpirationDate: %@ scheduledDelivery: %{BOOL}d]", buf, 0x30u);
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __195__UNSDefaultDataProviderFactory__queue_updateSettingsWithAuthorizationStatus_options_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke;
-  v27[3] = &unk_279E10C68;
-  v27[4] = self;
-  v28 = bundleIdentifier;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __195__UNSDefaultDataProviderFactory__queue_updateSettingsWithAuthorizationStatus_options_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke;
+  v26[3] = &unk_279E10C68;
+  v26[4] = self;
+  v27 = bundleIdentifier;
   optionsCopy2 = options;
   statusCopy2 = status;
-  v29 = descriptionCopy;
-  v30 = dateCopy;
-  v35 = enabledCopy;
-  v31 = grantDateCopy;
-  v32 = handlerCopy;
+  v28 = descriptionCopy;
+  v29 = dateCopy;
+  v34 = enabledCopy;
+  v30 = grantDateCopy;
+  v31 = handlerCopy;
   v21 = handlerCopy;
   v22 = grantDateCopy;
   v23 = dateCopy;
   v24 = descriptionCopy;
   v25 = bundleIdentifier;
-  [(UNSDefaultDataProviderFactory *)self _queue_createDataProviderWithNotificationSourceDescription:v24 withCompletion:v27];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [(UNSDefaultDataProviderFactory *)self _queue_createDataProviderWithNotificationSourceDescription:v24 withCompletion:v26];
 }
 
 void __195__UNSDefaultDataProviderFactory__queue_updateSettingsWithAuthorizationStatus_options_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -901,9 +873,9 @@ LABEL_24:
           if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
           {
             v20 = *(a1 + 40);
-            v23 = 138543362;
-            v24 = v20;
-            _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update Section info", &v23, 0xCu);
+            v22 = 138543362;
+            v23 = v20;
+            _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update Section info", &v22, 0xCu);
           }
 
           [*(a1 + 32) _queue_setSectionInfo:v5 forBundleIdentifier:*(a1 + 40)];
@@ -933,8 +905,6 @@ LABEL_24:
   }
 
 LABEL_34:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setCriticalAlertAuthorization:(BOOL)authorization forNotificationSourceDescription:(id)description completionHandler:(id)handler
@@ -956,7 +926,7 @@ LABEL_34:
 
 void __121__UNSDefaultDataProviderFactory__queue_setCriticalAlertAuthorization_forNotificationSourceDescription_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) bundleIdentifier];
   if (a2)
   {
@@ -965,11 +935,11 @@ void __121__UNSDefaultDataProviderFactory__queue_setCriticalAlertAuthorization_f
     if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 56);
-      v13 = 138543618;
-      v14 = v4;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set criticalAlert to %d", &v13, 0x12u);
+      v12 = 138543618;
+      v13 = v4;
+      v14 = 1024;
+      v15 = v7;
+      _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set criticalAlert to %d", &v12, 0x12u);
     }
 
     v8 = [v5 copy];
@@ -1002,13 +972,11 @@ void __121__UNSDefaultDataProviderFactory__queue_setCriticalAlertAuthorization_f
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_createDataProviderWithNotificationSourceDescription:(id)description withCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   completionCopy = completion;
   bundleIdentifier = [descriptionCopy bundleIdentifier];
@@ -1076,50 +1044,45 @@ LABEL_14:
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = bundleIdentifier;
+    v23 = bundleIdentifier;
     _os_log_impl(&dword_270AA8000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Create default data provider", buf, 0xCu);
   }
 
-  v13 = [UNSDefaultDataProvider alloc];
-  attachmentsService = self->_attachmentsService;
-  summaryService = self->_summaryService;
-  v16 = [(UNSDefaultDataProvider *)v13 initWithNotificationSourceDescription:descriptionCopy applicationLauncher:self->_appLauncher daemonLauncher:self->_daemonLauncher categoryRepository:self->_categoryRepository notificationRepository:self->_notificationRepository topicRepository:self->_topicRepository attachmentsService:attachmentsService localizationService:self->_localizationService summaryService:summaryService queue:self->_queue];
-  v17 = [(UNSDefaultDataProviderFactory *)self _queue_effectiveSectionInfoForBundleIdentifier:bundleIdentifier];
-  [(UNSDefaultDataProvider *)v16 setEffectiveSectionInfo:v17];
+  v13 = [[UNSDefaultDataProvider alloc] initWithNotificationSourceDescription:descriptionCopy applicationLauncher:self->_appLauncher daemonLauncher:self->_daemonLauncher categoryRepository:self->_categoryRepository notificationRepository:self->_notificationRepository topicRepository:self->_topicRepository attachmentsService:self->_attachmentsService localizationService:self->_localizationService summaryService:self->_summaryService queue:self->_queue];
+  v14 = [(UNSDefaultDataProviderFactory *)self _queue_effectiveSectionInfoForBundleIdentifier:bundleIdentifier];
+  [(UNSDefaultDataProvider *)v13 setEffectiveSectionInfo:v14];
 
-  [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider setObject:v16 forKey:bundleIdentifier];
+  [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider setObject:v13 forKey:bundleIdentifier];
   objc_initWeak(buf, self->_notificationRepository);
   dataProviderConnection = self->_dataProviderConnection;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificationSourceDescription_withCompletion___block_invoke;
-  v21[3] = &unk_279E10CB8;
-  v22 = bundleIdentifier;
-  v24 = completionCopy;
-  v9 = v16;
-  v23 = v9;
-  objc_copyWeak(&v25, buf);
-  v19 = [(BBDataProviderConnection *)dataProviderConnection addDataProvider:v9 withCompletionHandler:v21];
-  [(UNSDefaultDataProvider *)v9 setProxy:v19];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificationSourceDescription_withCompletion___block_invoke;
+  v17[3] = &unk_279E10CB8;
+  v18 = bundleIdentifier;
+  v20 = completionCopy;
+  v9 = v13;
+  v19 = v9;
+  objc_copyWeak(&v21, buf);
+  v16 = [(BBDataProviderConnection *)dataProviderConnection addDataProvider:v9 withCompletionHandler:v17];
+  [(UNSDefaultDataProvider *)v9 setProxy:v16];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
 LABEL_17:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificationSourceDescription_withCompletion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CE2088];
   v3 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v4;
-    _os_log_impl(&dword_270AA8000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did create default data provider", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v4;
+    _os_log_impl(&dword_270AA8000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did create default data provider", &v9, 0xCu);
   }
 
   v5 = *(a1 + 48);
@@ -1133,27 +1096,25 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Purging invalid notification records", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Purging invalid notification records", &v9, 0xCu);
   }
 
   [WeakRetained removeInvalidNotificationRecordsForBundleIdentifier:*(a1 + 32)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_removeDataProviderWithBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove data provider", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove data provider", &v11, 0xCu);
   }
 
   v9 = [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider objectForKey:identifierCopy];
@@ -1170,13 +1131,11 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
   {
     handlerCopy[2](handlerCopy, v10 != 0, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_createNewDefaultDataProviders:(id)providers
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   v4 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
@@ -1185,30 +1144,30 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
     _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "Getting all section infos possible default data providers", buf, 2u);
   }
 
-  v19 = providersCopy;
+  v18 = providersCopy;
   if ([providersCopy count])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v6 = [MEMORY[0x277CBEB58] set];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     obj = providersCopy;
-    v7 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v7 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
     if (v7)
     {
-      v8 = *v27;
+      v8 = *v26;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * i);
+          v10 = *(*(&v25 + 1) + 8 * i);
           bundleIdentifier = [v10 bundleIdentifier];
           [dictionary setObject:v10 forKey:bundleIdentifier];
           if ([v10 useDefaultDataProvider] && objc_msgSend(v10, "suppressUserAuthorizationPrompt") && ((objc_msgSend(v10, "hideSettings") & 1) != 0 || objc_msgSend(v10, "automaticallyShowSettings")))
@@ -1221,13 +1180,13 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
               suppressUserAuthorizationPrompt = [v10 suppressUserAuthorizationPrompt];
               hideSettings = [v10 hideSettings];
               *buf = 138544130;
-              v31 = bundleIdentifier;
-              v32 = 1024;
-              v33 = useDefaultDataProvider;
-              v34 = 1024;
-              v35 = suppressUserAuthorizationPrompt;
-              v36 = 1024;
-              v37 = hideSettings;
+              v30 = bundleIdentifier;
+              v31 = 1024;
+              v32 = useDefaultDataProvider;
+              v33 = 1024;
+              v34 = suppressUserAuthorizationPrompt;
+              v35 = 1024;
+              v36 = hideSettings;
               _os_log_impl(&dword_270AA8000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Automatically create data provider [ useDefaultDataProvider: %d suppressUserAuthorizationPrompt: %d hideSettings: %d]", buf, 0x1Eu);
             }
 
@@ -1240,7 +1199,7 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v7 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
       while (v7);
@@ -1250,21 +1209,19 @@ void __107__UNSDefaultDataProviderFactory__queue_createDataProviderWithNotificat
     {
       objc_initWeak(buf, self->_queue);
       settingsGateway = self->_settingsGateway;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___block_invoke;
-      v22[3] = &unk_279E10CE0;
-      objc_copyWeak(&v25, buf);
-      v23 = dictionary;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___block_invoke;
+      v21[3] = &unk_279E10CE0;
+      objc_copyWeak(&v24, buf);
+      v22 = dictionary;
       selfCopy = self;
-      [(UNSSettingsGateway *)settingsGateway getSectionInfoForSectionIDs:v6 withCompletion:v22];
+      [(UNSSettingsGateway *)settingsGateway getSectionInfoForSectionIDs:v6 withCompletion:v21];
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___block_invoke(uint64_t a1, void *a2)
@@ -1288,7 +1245,7 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
 
 void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CE2088];
   v3 = *MEMORY[0x277CE2088];
   if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
@@ -1296,43 +1253,43 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
     v4 = *(a1 + 32);
     v5 = v3;
     *buf = 134217984;
-    v27 = [v4 count];
+    v26 = [v4 count];
     _os_log_impl(&dword_270AA8000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld section infos for default data providers with visible settings", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v23;
+    v10 = *v22;
     *&v8 = 138543618;
-    v21 = v8;
+    v20 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         v13 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
         {
           v14 = v13;
           v15 = [v12 sectionID];
           v16 = [v12 hasEnabledSettings];
-          *buf = v21;
-          v27 = v15;
-          v28 = 1024;
-          v29 = v16;
+          *buf = v20;
+          v26 = v15;
+          v27 = 1024;
+          v28 = v16;
           _os_log_impl(&dword_270AA8000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got section info [ enabled: %d ]", buf, 0x12u);
         }
 
@@ -1345,92 +1302,22 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
       }
 
       while (v9 != v11);
-      v9 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_notificationSourcesDidInstall:(id)install
 {
-  v16 = *MEMORY[0x277D85DE8];
-  installCopy = install;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v12;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(installCopy);
-        }
-
-        [(UNSDefaultDataProviderFactory *)self _queue_notificationSourceDidInstall:*(*(&v11 + 1) + 8 * v8++)];
-      }
-
-      while (v6 != v8);
-      v6 = [installCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v6);
-  }
-
-  v9 = [installCopy bs_filter:&__block_literal_global_7];
-  [(UNSDefaultDataProviderFactory *)self _queue_createNewDefaultDataProviders:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_notificationSourceDidInstall:(id)install
-{
-  v12 = *MEMORY[0x277D85DE8];
-  installCopy = install;
-  bundleIdentifier = [installCopy bundleIdentifier];
-  useDefaultDataProvider = [installCopy useDefaultDataProvider];
-  v7 = *MEMORY[0x277CE2088];
-  if (useDefaultDataProvider)
-  {
-    if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 138543362;
-      v11 = bundleIdentifier;
-      _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Application installed using default data provider", &v10, 0xCu);
-    }
-
-    [(NSMutableSet *)self->_supportedBundleIdentifiers addObject:bundleIdentifier];
-    v8 = [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider objectForKey:bundleIdentifier];
-    [v8 setNotificationSourceDescription:installCopy];
-  }
-
-  else if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEBUG))
-  {
-    [UNSDefaultDataProviderFactory _queue_notificationSourceDidInstall:];
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_notificationSourcesDidUninstall:(id)uninstall
-{
   v15 = *MEMORY[0x277D85DE8];
-  uninstallCopy = uninstall;
+  installCopy = install;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
@@ -1442,25 +1329,87 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
       {
         if (*v11 != v7)
         {
-          objc_enumerationMutation(uninstallCopy);
+          objc_enumerationMutation(installCopy);
         }
 
-        [(UNSDefaultDataProviderFactory *)self _queue_notificationSourceDidUninstall:*(*(&v10 + 1) + 8 * v8++)];
+        [(UNSDefaultDataProviderFactory *)self _queue_notificationSourceDidInstall:*(*(&v10 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = [installCopy bs_filter:&__block_literal_global_7];
+  [(UNSDefaultDataProviderFactory *)self _queue_createNewDefaultDataProviders:v9];
+}
+
+- (void)_queue_notificationSourceDidInstall:(id)install
+{
+  v11 = *MEMORY[0x277D85DE8];
+  installCopy = install;
+  bundleIdentifier = [installCopy bundleIdentifier];
+  useDefaultDataProvider = [installCopy useDefaultDataProvider];
+  v7 = *MEMORY[0x277CE2088];
+  if (useDefaultDataProvider)
+  {
+    if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 138543362;
+      v10 = bundleIdentifier;
+      _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Application installed using default data provider", &v9, 0xCu);
+    }
+
+    [(NSMutableSet *)self->_supportedBundleIdentifiers addObject:bundleIdentifier];
+    v8 = [(NSMutableDictionary *)self->_bundleIdentifierToDataProvider objectForKey:bundleIdentifier];
+    [v8 setNotificationSourceDescription:installCopy];
+  }
+
+  else if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEBUG))
+  {
+    [UNSDefaultDataProviderFactory _queue_notificationSourceDidInstall:];
+  }
+}
+
+- (void)_queue_notificationSourcesDidUninstall:(id)uninstall
+{
+  v14 = *MEMORY[0x277D85DE8];
+  uninstallCopy = uninstall;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(uninstallCopy);
+        }
+
+        [(UNSDefaultDataProviderFactory *)self _queue_notificationSourceDidUninstall:*(*(&v9 + 1) + 8 * v8++)];
+      }
+
+      while (v6 != v8);
+      v6 = [uninstallCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (void)_queue_notificationSourceDidUninstall:(id)uninstall
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
   bundleIdentifier = [uninstallCopy bundleIdentifier];
   useDefaultDataProvider = [uninstallCopy useDefaultDataProvider];
@@ -1471,9 +1420,9 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = bundleIdentifier;
-      _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Application uninstalled using default data provider", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = bundleIdentifier;
+      _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Application uninstalled using default data provider", &v9, 0xCu);
     }
 
     [(NSMutableSet *)self->_supportedBundleIdentifiers removeObject:bundleIdentifier];
@@ -1484,8 +1433,6 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
   {
     [UNSDefaultDataProviderFactory _queue_notificationSourceDidUninstall:];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notificationSourcesDidInstall:(id)install
@@ -1532,7 +1479,7 @@ void __70__UNSDefaultDataProviderFactory__queue_createNewDefaultDataProviders___
 
 void __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sectionID];
   v3 = [*(*(a1 + 40) + 24) containsObject:v2];
   v4 = *MEMORY[0x277CE2088];
@@ -1540,9 +1487,9 @@ void __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invo
   {
     if (os_log_type_enabled(*MEMORY[0x277CE2088], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = v2;
-      _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Default data provider section info did change", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v2;
+      _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Default data provider section info did change", &v7, 0xCu);
     }
 
     v5 = [*(*(a1 + 40) + 8) objectForKey:v2];
@@ -1562,8 +1509,6 @@ void __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invo
   {
     __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invoke_cold_1();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer removeSection:(id)section
@@ -1582,58 +1527,9 @@ void __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invo
 
 void __195__UNSDefaultDataProviderFactory__queue_updateSettingsWithAuthorizationStatus_options_scheduledDeliveryEnabled_expirationDate_lastUserGrantDate_forNotificationSourceDescription_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, a2, a3, "[%{public}@] No data provider", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __121__UNSDefaultDataProviderFactory__queue_setCriticalAlertAuthorization_forNotificationSourceDescription_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] No data provider", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_createDataProviderWithNotificationSourceDescription:withCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] Do not register notification settings for an app that is using a custom data provider", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_createDataProviderWithNotificationSourceDescription:withCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2(&dword_270AA8000, v0, v1, "[%{public}@] Do not register notification settings for an app requires topics but does not have them defined", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_notificationSourceDidInstall:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_270AA8000, v0, v1, "[%{public}@] Application installed using custom data provider", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_notificationSourceDidUninstall:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_270AA8000, v0, v1, "[%{public}@] Application uninstalled using custom data provider", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__UNSDefaultDataProviderFactory_observer_updateSectionInfo___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_270AA8000, v0, v1, "[%{public}@] Section info updated for custom data provider", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0_2(&dword_270AA8000, a2, a3, "[%{public}@] No data provider", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

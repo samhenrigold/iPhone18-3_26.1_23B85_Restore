@@ -16,10 +16,10 @@
 {
   v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
-  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = a4;
+  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = a4;
   selfCopy = self;
-  sub_100107E6C(v7, v9, v11, v10);
+  sub_100107E6C(v7, v9, v10);
 }
 
 - (id)batchInfo:(id)info
@@ -118,28 +118,27 @@
   v7 = v6;
   v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100109E7C(v5, v7, v8, v18);
+  sub_100109E7C(v5, v7, v8, v17);
 
-  v10 = v19;
-  if (v19)
+  v10 = v18;
+  if (v18)
   {
-    v11 = sub_100003CA8(v18, v19);
+    v11 = sub_100003CA8(v17, v18);
     v12 = *(v10 - 8);
-    v13 = *(v12 + 64);
     __chkstk_darwin(v11);
-    v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v12 + 16))(v15);
-    v16 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v12 + 8))(v15, v10);
-    sub_100002C00(v18);
+    v14 = v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v12 + 16))(v14);
+    v15 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v12 + 8))(v14, v10);
+    sub_100002C00(v17);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  return v16;
+  return v15;
 }
 
 - (void)save:(id)save :(id)a4 :(id)a5 :(id)a6

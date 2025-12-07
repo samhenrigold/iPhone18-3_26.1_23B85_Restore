@@ -36,7 +36,7 @@ void __47__CUMobileDeviceSession__unpairWithCompletion___block_invoke(uint64_t a
     v2 = MEMORY[0x1E696ABC0];
     v3 = *MEMORY[0x1E696A768];
     v9 = *MEMORY[0x1E696A578];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6735, 0, 0)}];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960561, 0, 0)}];
     v5 = v4;
     v6 = @"?";
     if (v4)
@@ -99,7 +99,7 @@ void __57__CUMobileDeviceSession__pairVerifyWithFlags_completion___block_invoke(
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A768];
   v9 = *MEMORY[0x1E696A578];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6735, 0, 0)}];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960561, 0, 0)}];
   v5 = v4;
   v6 = @"?";
   if (v4)
@@ -176,7 +176,7 @@ void __56__CUMobileDeviceSession__pairSetupWithFlags_completion___block_invoke(u
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A768];
   v9 = *MEMORY[0x1E696A578];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6735, 0, 0)}];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960561, 0, 0)}];
   v5 = v4;
   v6 = @"?";
   if (v4)
@@ -224,7 +224,7 @@ void __55__CUMobileDeviceSession_pairSetupWithFlags_completion___block_invoke(ui
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateCalled && gLogCategory_CUMobileDeviceSession <= 50 && (gLogCategory_CUMobileDeviceSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceSession, 0x32u)))
   {
-    LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v14);
+    LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession _invalidated]", 50, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v14);
   }
 
   if (!self->_mdRunLoopThread)
@@ -249,7 +249,7 @@ void __55__CUMobileDeviceSession_pairSetupWithFlags_completion___block_invoke(ui
     if (gLogCategory_CUMobileDeviceSession <= 30 && (gLogCategory_CUMobileDeviceSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceSession, 0x1Eu)))
     {
 
-      LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession _invalidated]", 0x1Eu, "Invalidated\n", v10, v11, v12, v13, v16);
+      LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession _invalidated]", 30, "Invalidated\n", v10, v11, v12, v13, v16);
     }
   }
 }
@@ -265,18 +265,18 @@ void __55__CUMobileDeviceSession_pairSetupWithFlags_completion___block_invoke(ui
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__CUMobileDeviceSession_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__35__CUMobileDeviceSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if ((*(*(result + 32) + 9) & 1) == 0)
+  if ((*(result[4] + 9) & 1) == 0)
   {
     v10 = result;
     if (gLogCategory_CUMobileDeviceSession <= 30 && (gLogCategory_CUMobileDeviceSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceSession, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
+      LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
     }
 
-    *(*(v10 + 32) + 9) = 1;
-    v11 = *(v10 + 32);
+    *(v10[4] + 9) = 1;
+    v11 = v10[4];
     if (v11[2])
     {
       v12 = v11[2];
@@ -309,7 +309,7 @@ uint64_t __33__CUMobileDeviceSession_activate__block_invoke(uint64_t a1, uint64_
 {
   if (gLogCategory_CUMobileDeviceSession <= 30 && (gLogCategory_CUMobileDeviceSession != -1 || _LogCategory_Initialize(&gLogCategory_CUMobileDeviceSession, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+    LogPrintF(&gLogCategory_CUMobileDeviceSession, "[CUMobileDeviceSession activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
   }
 
   *(*(a1 + 32) + 8) = 1;

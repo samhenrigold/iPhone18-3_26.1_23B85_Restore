@@ -42,7 +42,6 @@
 - (uint64_t)_decrementUserInteractionCount;
 - (uint64_t)_isFullScreen;
 - (uint64_t)_isScrubbing;
-- (uint64_t)_setUpMediaSelectionMenuControllerIfNeeded;
 - (uint64_t)_shouldIncludeRoutePickerButton;
 - (uint64_t)_timelineHasBackgroundMaterial;
 - (uint64_t)_updateWebKitExcludedObservationState;
@@ -68,6 +67,7 @@
 - (void)_setUpAnalysisControlIfNeeded;
 - (void)_setUpAuxiliaryControlsViewIfNeeded;
 - (void)_setUpCopySubjectControlIfNeeded;
+- (void)_setUpMediaSelectionMenuControllerIfNeeded;
 - (void)_setUpPanGestureRecognizerIfNeeded;
 - (void)_setUpTapGestureRecognizerIfNeeded;
 - (void)_setUpVisualLookupControlIfNeeded;
@@ -3120,13 +3120,13 @@ void __82__AVMobileGlassControlsViewController__updatePrefersVolumeSliderInclude
   if (result)
   {
     v1 = result;
-    v2 = *(result + 1584);
+    v2 = result[198];
     v3 = v2 == 1;
     v4 = v2 < 1;
     v5 = v2 - 1;
     if (!v4)
     {
-      *(result + 1584) = v5;
+      result[198] = v5;
       if (v3)
       {
         [objc_opt_class() autoHideInterval];
@@ -3874,7 +3874,7 @@ LABEL_10:
   {
     if (pressedCopy)
     {
-      [pressedCopy forwardSecondaryControlSkipInterval];
+      objc_msgSend_forwardSecondaryControlSkipInterval(pressedCopy);
     }
 
     else
@@ -3919,7 +3919,7 @@ LABEL_12:
   {
     if (pressedCopy)
     {
-      [pressedCopy backwardSecondaryControlSkipInterval];
+      objc_msgSend_backwardSecondaryControlSkipInterval(pressedCopy);
     }
 
     else
@@ -5020,16 +5020,16 @@ void __65__AVMobileGlassControlsViewController__menuElementForRoutePicker__block
   }
 }
 
-- (uint64_t)_setUpMediaSelectionMenuControllerIfNeeded
+- (void)_setUpMediaSelectionMenuControllerIfNeeded
 {
-  if (!*(result + 1512))
+  if (!result[189])
   {
     v1 = result;
     v2 = [[AVMediaSelectionMenuController alloc] initWithAudibleOptions:0 legibleOptions:0 enhanceDialogueOptions:0];
-    v3 = *(v1 + 1512);
-    *(v1 + 1512) = v2;
+    v3 = v1[189];
+    v1[189] = v2;
 
-    v4 = *(v1 + 1512);
+    v4 = v1[189];
 
     return [v4 setDelegate:v1];
   }
@@ -7107,7 +7107,7 @@ LABEL_8:
     playerController = [self playerController];
     if ([playerController hasSeekableLiveStreamingContent] && (objc_msgSend(playerController, "isAtLiveEdge") & 1) == 0)
     {
-      obja = *(self + 1672);
+      obja = self[209];
       _timelineSlider = [(AVMobileGlassControlsViewController *)self _timelineSlider];
       [_timelineSlider maximumValue];
       v6 = v5;
@@ -7127,9 +7127,9 @@ LABEL_8:
     }
 
     obj = v3;
-    if (*(self + 1672) != v3)
+    if (self[209] != v3)
     {
-      objc_storeStrong((self + 1672), v3);
+      objc_storeStrong(self + 209, v3);
       [(AVMobileGlassControlsViewController *)self _updateTimelineViewSliderMarksIfNeeded];
     }
   }
@@ -7269,10 +7269,10 @@ LABEL_17:
             colors = [v31 colors];
             if (v31)
             {
-              [v31 timeRange];
+              objc_msgSend_timeRange(v31);
               time = v61[3];
               Seconds = CMTimeGetSeconds(&time);
-              [v31 timeRange];
+              objc_msgSend_timeRange(v31);
             }
 
             else
@@ -7380,7 +7380,7 @@ void __80__AVMobileGlassControlsViewController__addTimelineViewSliderMarksToSlid
   {
     if (v5)
     {
-      [v5 timeRange];
+      objc_msgSend_timeRange(v5);
     }
 
     else
@@ -7403,7 +7403,7 @@ void __80__AVMobileGlassControlsViewController__addTimelineViewSliderMarksToSlid
     {
       if (v6)
       {
-        [v6 timeRange];
+        objc_msgSend_timeRange(v6);
       }
 
       else
@@ -7445,7 +7445,7 @@ void __70__AVMobileGlassControlsViewController__webKitExcludedObservationSetup__
 void __66__AVMobileGlassControlsViewController__updateLoadingAnimatorState__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [AVMobileGlassControlsViewController _updateLoadingAnimatorState];
+  [(AVMobileGlassControlsViewController *)WeakRetained _updateLoadingAnimatorState];
 }
 
 - (void)_animateSliderToTintState:(void *)state duration:(double)duration completionHandler:
@@ -7596,7 +7596,7 @@ void __56__AVMobileGlassControlsViewController__observationSetup__block_invoke_2
     {
       if (v9)
       {
-        [v9 forwardSecondaryControlSkipInterval];
+        objc_msgSend_forwardSecondaryControlSkipInterval(v9);
       }
 
       else
@@ -7611,7 +7611,7 @@ void __56__AVMobileGlassControlsViewController__observationSetup__block_invoke_2
     {
       if (v9)
       {
-        [v9 backwardSecondaryControlSkipInterval];
+        objc_msgSend_backwardSecondaryControlSkipInterval(v9);
       }
 
       else

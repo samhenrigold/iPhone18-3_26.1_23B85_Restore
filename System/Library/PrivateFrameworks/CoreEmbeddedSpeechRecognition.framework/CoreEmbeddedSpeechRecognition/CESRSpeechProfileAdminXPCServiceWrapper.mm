@@ -3,6 +3,7 @@
 - (void)beginEvaluationWithSetEnumerator:(id)enumerator completion:(id)completion;
 - (void)endEvaluation:(id)evaluation;
 - (void)rebuildSpeechProfileForUserId:(id)id completion:(id)completion;
+- (void)triggerMaintenance:(BOOL)maintenance completion:(id)completion;
 @end
 
 @implementation CESRSpeechProfileAdminXPCServiceWrapper
@@ -31,6 +32,15 @@
   idCopy = id;
   service = [(CESRSpeechProfileAdminXPCServiceBridge *)xpcServiceBridge service];
   [service rebuildSpeechProfileForUserId:idCopy completion:completionCopy];
+}
+
+- (void)triggerMaintenance:(BOOL)maintenance completion:(id)completion
+{
+  maintenanceCopy = maintenance;
+  xpcServiceBridge = self->_xpcServiceBridge;
+  completionCopy = completion;
+  service = [(CESRSpeechProfileAdminXPCServiceBridge *)xpcServiceBridge service];
+  [service triggerMaintenance:maintenanceCopy completion:completionCopy];
 }
 
 - (CESRSpeechProfileAdminXPCServiceWrapper)init

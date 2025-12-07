@@ -81,7 +81,6 @@
   _Block_object_dispose(&v31, 8);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v40;
 
   return v5;
@@ -194,7 +193,6 @@ void __49__AMDColdstartURL_getColdstartURLForModel_error___block_invoke(void *a1
 
   objc_storeStrong(&v20, 0);
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
   v2 = v22;
 
   return v2;
@@ -265,7 +263,6 @@ void __49__AMDColdstartURL_getColdstartURLForModel_error___block_invoke(void *a1
   objc_storeStrong(&v26, 0);
   _Block_object_dispose(&v27, 8);
   objc_storeStrong(&v33, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v37;
 
   return v4;
@@ -402,8 +399,6 @@ LABEL_8:
     [v3 save:&v13];
     objc_storeStrong(v4, v13);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)saveColdstartURL:(id)l error:(id *)error
@@ -452,58 +447,56 @@ LABEL_8:
 
 void __42__AMDColdstartURL_saveColdstartURL_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19[2] = a1;
-  v19[1] = a1;
-  v7 = MEMORY[0x277CBE408];
-  v9 = +[AMDColdstartURL entity];
-  v8 = [v9 name];
-  v1 = *(a1 + 32);
-  v19[0] = [v7 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  v20 = *MEMORY[0x277D85DE8];
+  v18[2] = a1;
+  v18[1] = a1;
+  v6 = MEMORY[0x277CBE408];
+  v8 = +[AMDColdstartURL entity];
+  v7 = [v8 name];
+  v18[0] = [v6 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
-  MEMORY[0x277D82BD8](v9);
-  v18 = [*(a1 + 40) objectForKey:@"modelId"];
-  v17 = [*(a1 + 40) objectForKey:@"url"];
-  v16 = [*(a1 + 40) objectForKey:@"version"];
-  if (v18 && v17 && v16)
+  v17 = [*(a1 + 40) objectForKey:@"modelId"];
+  v16 = [*(a1 + 40) objectForKey:@"url"];
+  v15 = [*(a1 + 40) objectForKey:@"version"];
+  if (v17 && v16 && v15)
   {
-    [v19[0] setModelId:v18];
-    [v19[0] setUrl:v17];
-    [v19[0] setVersion:v16];
-    v5 = *(a1 + 48);
-    v6 = (*(*(a1 + 56) + 8) + 40);
-    v11 = *v6;
-    [v5 save:&v11];
-    objc_storeStrong(v6, v11);
-    v12 = 0;
+    [v18[0] setModelId:v17];
+    [v18[0] setUrl:v16];
+    [v18[0] setVersion:v15];
+    v4 = *(a1 + 48);
+    v5 = (*(*(a1 + 56) + 8) + 40);
+    v10 = *v5;
+    [v4 save:&v10];
+    objc_storeStrong(v5, v10);
+    v11 = 0;
   }
 
   else
   {
-    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Incomplete coldstart info"];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Incomplete coldstart info"];
     location = MEMORY[0x277D82BE0](MEMORY[0x277D86220]);
-    v13 = OS_LOG_TYPE_ERROR;
+    v12 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v20, v15);
-      _os_log_error_impl(&dword_240CB9000, location, v13, "%@", v20, 0xCu);
+      __os_log_helper_16_2_1_8_64(v19, v14);
+      _os_log_error_impl(&dword_240CB9000, location, v12, "%@", v19, 0xCu);
     }
 
     objc_storeStrong(&location, 0);
-    v2 = [AMDError allocError:15 withMessage:v15];
-    v3 = *(*(a1 + 56) + 8);
-    v4 = *(v3 + 40);
-    *(v3 + 40) = v2;
-    MEMORY[0x277D82BD8](v4);
-    v12 = 1;
-    objc_storeStrong(&v15, 0);
+    v1 = [AMDError allocError:15 withMessage:v14];
+    v2 = *(*(a1 + 56) + 8);
+    v3 = *(v2 + 40);
+    *(v2 + 40) = v1;
+    MEMORY[0x277D82BD8](v3);
+    v11 = 1;
+    objc_storeStrong(&v14, 0);
   }
 
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v18, 0);
-  objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v18, 0);
 }
 
 + (id)deleteAllColdstartUrls:(id *)urls

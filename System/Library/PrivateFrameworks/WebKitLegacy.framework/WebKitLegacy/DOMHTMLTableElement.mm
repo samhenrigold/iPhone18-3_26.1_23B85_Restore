@@ -856,50 +856,98 @@ LABEL_9:
 
 - (DOMHTMLElement)insertRow:(int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  inserted = WebCore::HTMLTableElement::insertRow(self->super.super.super.super._internal);
-  if (v10)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v16);
+  inserted = WebCore::HTMLTableElement::insertRow(&v13, self->super.super.super.super._internal);
+  if (v15)
   {
-    if (v10 == 1)
+    if (v15 == 1)
     {
-      v11[80] = v8;
-      v12 = v9;
+      v16[80] = v13;
+      v12 = v14;
+      v14 = 0;
+      v17 = v12;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(inserted);
   }
 
-  v6 = kit(v8);
-  if (v8)
+  v5 = v13;
+  v13 = 0;
+  v7 = kit(v5);
+  if (!v5)
   {
-    if (*(v8 + 7) == 2)
+LABEL_5:
+    v8 = v15;
+    if (v15 == 255)
     {
-      WebCore::Node::removedLastRef(v8);
+      goto LABEL_16;
     }
 
-    else
+    goto LABEL_6;
+  }
+
+  if (*(v5 + 7) != 2)
+  {
+    *(v5 + 7) -= 2;
+    goto LABEL_5;
+  }
+
+  WebCore::Node::removedLastRef(v5);
+  v8 = v15;
+  if (v15 == 255)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_6:
+  if (v8)
+  {
+    v10 = v14;
+    v14 = 0;
+    if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      *(v8 + 7) -= 2;
+      WTF::StringImpl::destroy(v10, v6);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v5);
-  return v6;
+  else
+  {
+    v9 = v13;
+    v13 = 0;
+    if (v9)
+    {
+      if (*(v9 + 7) == 2)
+      {
+        WebCore::Node::removedLastRef(v9);
+      }
+
+      else
+      {
+        *(v9 + 7) -= 2;
+      }
+    }
+  }
+
+LABEL_16:
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v16, v6);
+  return v7;
 }
 
 - (void)deleteRow:(int)index
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::HTMLTableElement::deleteRow(self->super.super.super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLTableElement::deleteRow(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 @end

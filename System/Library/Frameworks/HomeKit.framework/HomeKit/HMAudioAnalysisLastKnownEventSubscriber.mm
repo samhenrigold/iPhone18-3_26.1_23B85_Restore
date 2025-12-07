@@ -58,14 +58,14 @@
 
 - (void)_didReceiveEvent:(id)event
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   workQueue = [(HMAudioAnalysisLastKnownEventSubscriber *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v28 = 0;
-  v6 = [HMAudioAnalysisAggregateEventBulletin decodeBulletinsFromEvent:eventCopy error:&v28];
-  v7 = v28;
+  v27 = 0;
+  v6 = [HMAudioAnalysisAggregateEventBulletin decodeBulletinsFromEvent:eventCopy error:&v27];
+  v7 = v27;
   if (v7)
   {
     v8 = 1;
@@ -85,9 +85,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v12;
-      v31 = 2112;
-      v32 = v6;
+      v29 = v12;
+      v30 = 2112;
+      v31 = v6;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@unable to decode bulletin event with :%@", buf, 0x16u);
     }
 
@@ -103,46 +103,43 @@
     v17 = HMFGetLogIdentifier();
     bulletins = [v6 bulletins];
     *buf = 138543874;
-    v30 = v17;
-    v31 = 2112;
-    v32 = bulletins;
-    v33 = 2112;
-    v34 = delegate;
+    v29 = v17;
+    v30 = 2112;
+    v31 = bulletins;
+    v32 = 2112;
+    v33 = delegate;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Notifying client of updates with events: %@ delegate: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
   context = [(HMAudioAnalysisLastKnownEventSubscriber *)selfCopy2 context];
   delegateCaller = [context delegateCaller];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invoke;
-  v24[3] = &unk_1E754E5E8;
-  v25 = delegate;
-  v26 = selfCopy2;
-  v27 = v6;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invoke;
+  v23[3] = &unk_1E754E5E8;
+  v24 = delegate;
+  v25 = selfCopy2;
+  v26 = v6;
   v21 = v6;
   v22 = delegate;
-  [delegateCaller invokeBlock:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [delegateCaller invokeBlock:v23];
 }
 
 void __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) bulletins];
-    [v3 subscriber:v4 didUpdateBulletins:v5];
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) bulletins];
+    [v2 subscriber:v3 didUpdateBulletins:v4];
   }
 }
 
 - (void)subscribeLastKnownEventsForAccessory:(id)accessory completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   completionCopy = completion;
   dataSource = [(HMAudioAnalysisLastKnownEventSubscriber *)self dataSource];
@@ -153,15 +150,15 @@ void __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invo
     v11 = [HMAudioAnalysisAggregateEventBulletin topicWithAccessoryUUID:v9 homeUUID:uuid];
 
     subscriptionProvider = [(HMAudioAnalysisLastKnownEventSubscriber *)self subscriptionProvider];
-    v21 = v11;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke;
-    v19[3] = &unk_1E7546DA0;
-    v19[4] = self;
-    v20 = completionCopy;
-    [subscriptionProvider registerConsumer:self topicFilters:v13 completion:v19];
+    v20 = v11;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke;
+    v18[3] = &unk_1E7546DA0;
+    v18[4] = self;
+    v19 = completionCopy;
+    [subscriptionProvider registerConsumer:self topicFilters:v13 completion:v18];
   }
 
   else
@@ -173,7 +170,7 @@ void __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invo
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v17;
+      v22 = v17;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@accessory identifier invalid", buf, 0xCu);
     }
 
@@ -181,13 +178,11 @@ void __60__HMAudioAnalysisLastKnownEventSubscriber__didReceiveEvent___block_invo
     v11 = [MEMORY[0x1E696ABC0] hmfErrorWithCode:3];
     (*(completionCopy + 2))(completionCopy, v11);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -200,9 +195,9 @@ void __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAc
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v11;
-      v29 = 2112;
-      v30 = v6;
+      v27 = v11;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Subscribe changed topics with error: %@", buf, 0x16u);
     }
 
@@ -215,9 +210,9 @@ void __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAc
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v5;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Subscribe changed topics, received cached events %@", buf, 0x16u);
     }
 
@@ -231,25 +226,23 @@ void __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAc
       block[3] = &unk_1E754E5C0;
       v14 = v5;
       v15 = *(a1 + 32);
-      v25 = v14;
-      v26 = v15;
+      v24 = v14;
+      v25 = v15;
       dispatch_async(v13, block);
     }
   }
 
   v16 = [*(a1 + 32) context];
   v17 = [v16 delegateCaller];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke_5;
-  v21[3] = &unk_1E754E458;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke_5;
+  v20[3] = &unk_1E754E458;
   v18 = *(a1 + 40);
-  v22 = v6;
-  v23 = v18;
+  v21 = v6;
+  v22 = v18;
   v19 = v6;
-  [v17 invokeBlock:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [v17 invokeBlock:v20];
 }
 
 uint64_t __91__HMAudioAnalysisLastKnownEventSubscriber_subscribeLastKnownEventsForAccessory_completion___block_invoke_3(uint64_t a1)

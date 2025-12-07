@@ -39,30 +39,38 @@
 
 uint64_t __34__CNScheduler_mainThreadScheduler__block_invoke()
 {
-  mainThreadScheduler_cn_once_object_3 = objc_alloc_init(_CNMainThreadScheduler);
+  v0 = objc_alloc_init(_CNMainThreadScheduler);
+  v1 = mainThreadScheduler_cn_once_object_3;
+  mainThreadScheduler_cn_once_object_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __30__CNScheduler_inlineScheduler__block_invoke()
 {
-  inlineScheduler_cn_once_object_5 = objc_alloc_init(_CNInlineScheduler);
+  v0 = objc_alloc_init(_CNInlineScheduler);
+  v1 = inlineScheduler_cn_once_object_5;
+  inlineScheduler_cn_once_object_5 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __33__CNScheduler_immediateScheduler__block_invoke()
 {
-  immediateScheduler_cn_once_object_1 = objc_alloc_init(_CNImmediateScheduler);
+  v0 = objc_alloc_init(_CNImmediateScheduler);
+  v1 = immediateScheduler_cn_once_object_1;
+  immediateScheduler_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __35__CNScheduler_globalAsyncScheduler__block_invoke()
 {
-  globalAsyncScheduler_cn_once_object_2 = objc_alloc_init(_CNQueueScheduler);
+  v0 = objc_alloc_init(_CNQueueScheduler);
+  v1 = globalAsyncScheduler_cn_once_object_2;
+  globalAsyncScheduler_cn_once_object_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (CNScheduler)inlineScheduler
@@ -103,9 +111,11 @@ uint64_t __35__CNScheduler_globalAsyncScheduler__block_invoke()
 
 uint64_t __37__CNScheduler_offMainThreadScheduler__block_invoke()
 {
-  offMainThreadScheduler_cn_once_object_4 = objc_alloc_init(_CNOffMainThreadScheduler);
+  v0 = objc_alloc_init(_CNOffMainThreadScheduler);
+  v1 = offMainThreadScheduler_cn_once_object_4;
+  offMainThreadScheduler_cn_once_object_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)offMainThreadSchedulerWithBackgroundScheduler:(id)scheduler

@@ -2,6 +2,10 @@
 - (APSProtocolParser)init;
 - (BOOL)_parseSerialMessage:(id)message parameters:(id *)parameters isInvalid:(BOOL *)invalid lengthParsed:(unint64_t *)parsed;
 - (BOOL)parseMessage:(id)message parameters:(id *)parameters isInvalid:(BOOL *)invalid lengthParsed:(unint64_t *)parsed;
+- (id)copyConnectMessageWithToken:(id)token interface:(int64_t)interface interfaceConstraint:(int64_t)constraint presenceFlags:(unsigned int)flags activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)certificates nonce:(id)self0 signature:(id)self1 hostCertificateInfo:(id)self2 redirectCount:(unsigned __int8)self3 tcpHandshakeTimeMilliseconds:(double)self4 dnsResolveTimeMilliseconds:(double)self5 tlsHandshakeTimeMilliseconds:(double)self6 consecutiveConnectionFailureReason:(id)self7 lastConnected:(id)self8 disconnectReason:(unsigned int)self9 numberOfPSKToRequest:(unint64_t)request isOffloadedConnection:(BOOL)connection offloadMigrationReason:(unsigned int)migrationReason;
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags interface:(int64_t)interface interfaceConstraint:(int64_t)constraint activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)self0 nonce:(id)self1 signature:(id)self2 hostCertificateInfo:(id)self3 redirectCount:(unsigned __int8)self4 tcpHandshakeTimeMilliseconds:(double)self5 dnsResolveTimeMilliseconds:(double)self6 tlsHandshakeTimeMilliseconds:(double)self7 consecutiveConnectionFailureReason:(id)self8 lastConnected:(id)self9 disconnectReason:(unsigned int)disconnectReason numberOfPSKToRequest:(unint64_t)request isOffloadedConnection:(BOOL)connection offloadMigrationReason:(unsigned int)migrationReason;
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags interface:(int64_t)interface interfaceConstraint:(int64_t)constraint activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)self0 nonce:(id)self1 signature:(id)self2 redirectCount:(unsigned __int8)self3 lastConnected:(id)self4 disconnectReason:(unsigned int)self5;
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)self0 redirectCount:(unsigned __int8)self1 lastConnected:(id)self2 disconnectReason:(unsigned int)self3;
 - (id)copyFilterMessageWithEnabledHashes:(id)hashes ignoredHashes:(id)ignoredHashes opportunisticHashes:(id)opportunisticHashes nonWakingHashes:(id)wakingHashes pausedHashes:(id)pausedHashes token:(id)token version:(unint64_t)version;
 - (id)copyFlushMessageWithWantPaddingLength:(int)length paddingLength:(int)paddingLength;
 - (id)copyFlushResponseMessageWithPaddingLength:(int)length;
@@ -10,9 +14,15 @@
 - (id)copyMessageTracingAckWithTopicHash:(id)hash status:(int)status tracingUUID:(id)d token:(id)token;
 - (id)copyMessageTransportAcknowledgeMessage;
 - (id)copyMessageWithTopicHash:(id)hash identifier:(unint64_t)identifier payload:(id)payload token:(id)token isPlistFormat:(BOOL)format lastRTT:(id)t;
+- (id)copyPresenceTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp;
+- (id)copyPubSubChannelListWithInput:(id)input baseToken:(id)token messageID:(unsigned int)d;
+- (id)copySetActiveIntervalMessageWithInterval:(unsigned int)interval;
+- (id)copySetActiveState:(BOOL)state forInterval:(unsigned int)interval;
+- (id)copyTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type;
 - (void)APNSPackDecoder:(id)decoder ReceivedError:(int)error;
 - (void)APNSPackEncoder:(id)encoder receivedError:(int)error;
 - (void)dumpData:(id)data prefix:(const char *)prefix log_type:(unsigned __int8)log_type;
+- (void)setIsPackedFormat:(BOOL)format maxEncoderTableSize:(unint64_t)size maxDecoderTableSize:(unint64_t)tableSize interface:(int64_t)interface;
 - (void)setSerialItemInParameters:(id)parameters commandID:(unint64_t)d itemID:(unint64_t)iD itemData:(id)data;
 - (void)setSerialNumberInParameters:(id)parameters commandID:(unint64_t)d itemID:(unint64_t)iD Integer:(int64_t)integer;
 - (void)sharedCoderEncounteredParsingFailure:(id)failure;
@@ -76,6 +86,574 @@
   }
 
   return result;
+}
+
+- (void)setIsPackedFormat:(BOOL)format maxEncoderTableSize:(unint64_t)size maxDecoderTableSize:(unint64_t)tableSize interface:(int64_t)interface
+{
+  formatCopy = format;
+  if (format && !self->_isPackedFormat)
+  {
+    v11 = [[APNSPackEncoder alloc] initWithMaxTableSize:size];
+    encoderWrapper = self->_encoderWrapper;
+    self->_encoderWrapper = v11;
+
+    [(APNSPackEncoder *)self->_encoderWrapper setDelegate:self];
+    v13 = [[APNSPackDecoder alloc] initWithMaxTableSize:tableSize];
+    decoderWrapper = self->_decoderWrapper;
+    self->_decoderWrapper = v13;
+
+    [(APNSPackDecoder *)self->_decoderWrapper setDelegate:self];
+  }
+
+  if (_os_feature_enabled_impl())
+  {
+    v15 = [[APSSharedEncoder alloc] initWithMaxTableSize:size shouldUsePack:formatCopy];
+    sharedEncoder = self->_sharedEncoder;
+    self->_sharedEncoder = v15;
+
+    [(APSSharedEncoder *)self->_sharedEncoder setDelegate:self];
+    v17 = [[APSSharedDecoder alloc] initWithMaxTableSize:tableSize shouldUsePack:formatCopy];
+    sharedDecoder = self->_sharedDecoder;
+    self->_sharedDecoder = v17;
+
+    [(APSSharedDecoder *)self->_sharedDecoder setDelegate:self];
+    [(APNSPackEncoder *)self->_encoderWrapper setDelegate:0];
+    [(APNSPackDecoder *)self->_decoderWrapper setDelegate:0];
+  }
+
+  self->_isPackedFormat = formatCopy;
+  v19 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    v21 = sub_1000067F8(interface);
+    v22 = v21;
+    v24 = 134219010;
+    v23 = @"NO";
+    v25 = identifier;
+    v26 = 2112;
+    if (formatCopy)
+    {
+      v23 = @"YES";
+    }
+
+    v27 = v21;
+    v28 = 2112;
+    v29 = v23;
+    v30 = 2048;
+    sizeCopy = size;
+    v32 = 2048;
+    tableSizeCopy = tableSize;
+    _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "P%04llu <config> interface: %@ isPacked: %@ maxEncoderTableSize: %llu maxDecoderTableSize: %llu", &v24, 0x34u);
+  }
+}
+
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags metadata:(id)metadata certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)self0 redirectCount:(unsigned __int8)self1 lastConnected:(id)self2 disconnectReason:(unsigned int)self3
+{
+  LOBYTE(v16) = 0;
+  LODWORD(v15) = reason;
+  LOBYTE(v14) = count;
+  return [(APSProtocolParser *)self copyConnectMessageWithToken:token state:*&state presenceFlags:*&flags interface:3 interfaceConstraint:0 activeInterval:0 metadata:-1.0 certificates:-1.0 nonce:-1.0 signature:metadata hostCertificateInfo:certificates redirectCount:nonce tcpHandshakeTimeMilliseconds:signature dnsResolveTimeMilliseconds:info tlsHandshakeTimeMilliseconds:v14 consecutiveConnectionFailureReason:0 lastConnected:connected disconnectReason:v15 numberOfPSKToRequest:0 isOffloadedConnection:v16 offloadMigrationReason:?];
+}
+
+- (id)copyConnectMessageWithToken:(id)token interface:(int64_t)interface interfaceConstraint:(int64_t)constraint presenceFlags:(unsigned int)flags activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)certificates nonce:(id)self0 signature:(id)self1 hostCertificateInfo:(id)self2 redirectCount:(unsigned __int8)self3 tcpHandshakeTimeMilliseconds:(double)self4 dnsResolveTimeMilliseconds:(double)self5 tlsHandshakeTimeMilliseconds:(double)self6 consecutiveConnectionFailureReason:(id)self7 lastConnected:(id)self8 disconnectReason:(unsigned int)self9 numberOfPSKToRequest:(unint64_t)request isOffloadedConnection:(BOOL)connection offloadMigrationReason:(unsigned int)migrationReason
+{
+  HIDWORD(v25) = migrationReason;
+  LOBYTE(v25) = connection;
+  LODWORD(v24) = disconnectReason;
+  LOBYTE(v23) = count;
+  return [(APSProtocolParser *)self copyConnectMessageWithToken:token state:1 presenceFlags:*&flags interface:interface interfaceConstraint:constraint activeInterval:*&interval metadata:milliseconds certificates:timeMilliseconds nonce:handshakeTimeMilliseconds signature:metadata hostCertificateInfo:certificates redirectCount:nonce tcpHandshakeTimeMilliseconds:signature dnsResolveTimeMilliseconds:info tlsHandshakeTimeMilliseconds:v23 consecutiveConnectionFailureReason:reason lastConnected:connected disconnectReason:v24 numberOfPSKToRequest:request isOffloadedConnection:v25 offloadMigrationReason:?];
+}
+
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags interface:(int64_t)interface interfaceConstraint:(int64_t)constraint activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)self0 nonce:(id)self1 signature:(id)self2 redirectCount:(unsigned __int8)self3 lastConnected:(id)self4 disconnectReason:(unsigned int)self5
+{
+  LOBYTE(v18) = 0;
+  LODWORD(v17) = reason;
+  LOBYTE(v16) = count;
+  return [(APSProtocolParser *)self copyConnectMessageWithToken:token state:*&state presenceFlags:*&flags interface:interface interfaceConstraint:constraint activeInterval:*&interval metadata:-1.0 certificates:-1.0 nonce:-1.0 signature:metadata hostCertificateInfo:certificates redirectCount:nonce tcpHandshakeTimeMilliseconds:signature dnsResolveTimeMilliseconds:0 tlsHandshakeTimeMilliseconds:v16 consecutiveConnectionFailureReason:0 lastConnected:connected disconnectReason:v17 numberOfPSKToRequest:0 isOffloadedConnection:v18 offloadMigrationReason:?];
+}
+
+- (id)copyConnectMessageWithToken:(id)token state:(int)state presenceFlags:(unsigned int)flags interface:(int64_t)interface interfaceConstraint:(int64_t)constraint activeInterval:(unsigned int)interval metadata:(id)metadata certificates:(id)self0 nonce:(id)self1 signature:(id)self2 hostCertificateInfo:(id)self3 redirectCount:(unsigned __int8)self4 tcpHandshakeTimeMilliseconds:(double)self5 dnsResolveTimeMilliseconds:(double)self6 tlsHandshakeTimeMilliseconds:(double)self7 consecutiveConnectionFailureReason:(id)self8 lastConnected:(id)self9 disconnectReason:(unsigned int)disconnectReason numberOfPSKToRequest:(unint64_t)request isOffloadedConnection:(BOOL)connection offloadMigrationReason:(unsigned int)migrationReason
+{
+  v23 = *&interval;
+  tokenCopy = token;
+  metadataCopy = metadata;
+  certificatesCopy = certificates;
+  nonceCopy = nonce;
+  signatureCopy = signature;
+  infoCopy = info;
+  reasonCopy = reason;
+  connectedCopy = connected;
+  if (self->_isPackedFormat)
+  {
+    v30 = 0;
+  }
+
+  else
+  {
+    v30 = [[APSProtocolMessage alloc] initWithCommand:7];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:7];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:7];
+  v32 = tokenCopy;
+  v31 = metadataCopy;
+  if (tokenCopy)
+  {
+    [(APSProtocolMessage *)v30 appendItem:1 data:tokenCopy];
+    [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:1 data:tokenCopy isIndexable:1];
+    [(APSSharedEncoder *)self->_sharedEncoder appendItem:1 data:tokenCopy isIndexable:1];
+  }
+
+  [(APSSharedEncoder *)self->_sharedEncoder appendOneByteItem:2 byte:state isIndexable:0];
+  [(APSProtocolMessage *)v30 appendOneByteItem:2 byte:state];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt8WithAttributeId:2 number:state isIndexable:0];
+  v33 = &fputc_ptr;
+  if (state != 2)
+  {
+    v112 = connectedCopy;
+    if (sub_10000712C())
+    {
+      v34 = 32848;
+    }
+
+    else
+    {
+      v34 = 32832;
+    }
+
+    if (interface == 1)
+    {
+      v35 = 522;
+    }
+
+    else
+    {
+      v35 = 514;
+    }
+
+    LODWORD(v36) = v35 | flags | v34;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+    {
+      LODWORD(v36) = v36 | 0x20;
+    }
+
+    if (+[APSSimulatorSupport isSimulator])
+    {
+      v36 = v36 | 0x1000;
+    }
+
+    else
+    {
+      v36 = v36;
+    }
+
+    [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:5 bytes:v36 isIndexable:0];
+    [(APSProtocolMessage *)v30 appendFourByteItem:5 bytes:v36];
+    flags = v36;
+    [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:5 number:v36 isIndexable:0];
+    if (interface <= 1)
+    {
+      if (((constraint == 1) & _os_feature_enabled_impl()) != 0)
+      {
+        v37 = 3;
+      }
+
+      else
+      {
+        v37 = interface != 0;
+      }
+
+      [(APSSharedEncoder *)self->_sharedEncoder appendOneByteItem:6 byte:v37 isIndexable:0];
+      [(APSProtocolMessage *)v30 appendOneByteItem:6 byte:v37];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt8WithAttributeId:6 number:v37 isIndexable:0];
+    }
+
+    [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:7 bytes:v23 isIndexable:0];
+    [(APSProtocolMessage *)v30 appendFourByteItem:7 bytes:v23];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:7 number:v23 isIndexable:0];
+    carrier = [metadataCopy carrier];
+    v39 = [carrier length];
+
+    if (v39)
+    {
+      sharedEncoder = self->_sharedEncoder;
+      carrier2 = [metadataCopy carrier];
+      [(APSSharedEncoder *)sharedEncoder appendItem:8 string:carrier2 isIndexable:0];
+
+      carrier3 = [metadataCopy carrier];
+      [(APSProtocolMessage *)v30 appendItem:8 string:carrier3];
+
+      encoderWrapper = self->_encoderWrapper;
+      carrier4 = [metadataCopy carrier];
+      [(APNSPackEncoder *)encoderWrapper addStringWithAttributId:8 string:carrier4 isIndexable:0];
+    }
+
+    softwareVersion = [metadataCopy softwareVersion];
+    v46 = [softwareVersion length];
+
+    if (v46)
+    {
+      v47 = self->_sharedEncoder;
+      softwareVersion2 = [metadataCopy softwareVersion];
+      [(APSSharedEncoder *)v47 appendItem:9 string:softwareVersion2 isIndexable:0];
+
+      softwareVersion3 = [metadataCopy softwareVersion];
+      [(APSProtocolMessage *)v30 appendItem:9 string:softwareVersion3];
+
+      v50 = self->_encoderWrapper;
+      softwareVersion4 = [metadataCopy softwareVersion];
+      [(APNSPackEncoder *)v50 addStringWithAttributId:9 string:softwareVersion4 isIndexable:0];
+    }
+
+    softwareBuild = [metadataCopy softwareBuild];
+    v53 = [softwareBuild length];
+
+    if (v53)
+    {
+      v54 = self->_sharedEncoder;
+      softwareBuild2 = [metadataCopy softwareBuild];
+      [(APSSharedEncoder *)v54 appendItem:10 string:softwareBuild2 isIndexable:0];
+
+      softwareBuild3 = [metadataCopy softwareBuild];
+      [(APSProtocolMessage *)v30 appendItem:10 string:softwareBuild3];
+
+      v57 = self->_encoderWrapper;
+      softwareBuild4 = [metadataCopy softwareBuild];
+      [(APNSPackEncoder *)v57 addStringWithAttributId:10 string:softwareBuild4 isIndexable:0];
+    }
+
+    hardwareVersion = [metadataCopy hardwareVersion];
+    v60 = [hardwareVersion length];
+
+    if (v60)
+    {
+      v61 = self->_sharedEncoder;
+      hardwareVersion2 = [metadataCopy hardwareVersion];
+      [(APSSharedEncoder *)v61 appendItem:11 string:hardwareVersion2 isIndexable:0];
+
+      hardwareVersion3 = [metadataCopy hardwareVersion];
+      [(APSProtocolMessage *)v30 appendItem:11 string:hardwareVersion3];
+
+      v64 = self->_encoderWrapper;
+      hardwareVersion4 = [metadataCopy hardwareVersion];
+      [(APNSPackEncoder *)v64 addStringWithAttributId:11 string:hardwareVersion4 isIndexable:0];
+    }
+
+    if (certificatesCopy && nonceCopy && signatureCopy)
+    {
+      v136 = 0u;
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v66 = certificatesCopy;
+      v67 = [v66 countByEnumeratingWithState:&v134 objects:v154 count:16];
+      if (v67)
+      {
+        v68 = v67;
+        v69 = *v135;
+        do
+        {
+          for (i = 0; i != v68; i = i + 1)
+          {
+            if (*v135 != v69)
+            {
+              objc_enumerationMutation(v66);
+            }
+
+            v71 = *(*(&v134 + 1) + 8 * i);
+            [(APSSharedEncoder *)self->_sharedEncoder appendItem:12 data:v71 isIndexable:0];
+            [(APSProtocolMessage *)v30 appendItem:12 data:v71];
+          }
+
+          v68 = [v66 countByEnumeratingWithState:&v134 objects:v154 count:16];
+        }
+
+        while (v68);
+      }
+
+      [(APSProtocolMessage *)v30 appendItem:13 data:nonceCopy];
+      [(APSProtocolMessage *)v30 appendItem:14 data:signatureCopy];
+      [(APSSharedEncoder *)self->_sharedEncoder appendItem:13 data:nonceCopy isIndexable:0];
+      [(APSSharedEncoder *)self->_sharedEncoder appendItem:14 data:signatureCopy isIndexable:0];
+      v132 = 0u;
+      v133 = 0u;
+      v130 = 0u;
+      v131 = 0u;
+      v72 = v66;
+      v73 = [v72 countByEnumeratingWithState:&v130 objects:v153 count:16];
+      if (v73)
+      {
+        v74 = v73;
+        v75 = *v131;
+        do
+        {
+          for (j = 0; j != v74; j = j + 1)
+          {
+            if (*v131 != v75)
+            {
+              objc_enumerationMutation(v72);
+            }
+
+            [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:12 data:*(*(&v130 + 1) + 8 * j) isIndexable:0];
+          }
+
+          v74 = [v72 countByEnumeratingWithState:&v130 objects:v153 count:16];
+        }
+
+        while (v74);
+      }
+
+      [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:13 data:nonceCopy isIndexable:0];
+      [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:14 data:signatureCopy isIndexable:0];
+      v31 = metadataCopy;
+    }
+
+    if (infoCopy)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(buf) = 0;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Presence contains hostCertificateInfo!", &buf, 2u);
+      }
+
+      v77 = self->_sharedEncoder;
+      data = [infoCopy data];
+      [(APSSharedEncoder *)v77 appendItem:29 data:data isIndexable:0];
+
+      data2 = [infoCopy data];
+      [(APSProtocolMessage *)v30 appendItem:29 data:data2];
+
+      v80 = self->_encoderWrapper;
+      data3 = [infoCopy data];
+      [(APNSPackEncoder *)v80 addDataWithAttributeId:29 data:data3 isIndexable:0];
+    }
+
+    [(APSProtocolMessage *)v30 appendTwoByteItem:16 bytes:12];
+    [(APSProtocolMessage *)v30 appendTwoByteItem:17 bytes:count];
+    [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:16 bytes:12 isIndexable:0];
+    [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:17 bytes:count isIndexable:0];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:16 number:12 isIndexable:0];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:17 number:count isIndexable:0];
+    if (milliseconds >= 0.0)
+    {
+      millisecondsCopy = 65000.0;
+      if (milliseconds <= 65000.0)
+      {
+        millisecondsCopy = milliseconds;
+      }
+
+      v83 = millisecondsCopy;
+      [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:25 bytes:v83 isIndexable:0];
+      [(APSProtocolMessage *)v30 appendTwoByteItem:25 bytes:v83];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:25 number:v83 isIndexable:0];
+    }
+
+    if (timeMilliseconds >= 0.0)
+    {
+      timeMillisecondsCopy = 65000.0;
+      if (timeMilliseconds <= 65000.0)
+      {
+        timeMillisecondsCopy = timeMilliseconds;
+      }
+
+      v85 = timeMillisecondsCopy;
+      [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:19 bytes:v85 isIndexable:0];
+      [(APSProtocolMessage *)v30 appendTwoByteItem:19 bytes:v85];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:19 number:v85 isIndexable:0];
+    }
+
+    if (handshakeTimeMilliseconds >= 0.0)
+    {
+      handshakeTimeMillisecondsCopy = 65000.0;
+      if (handshakeTimeMilliseconds <= 65000.0)
+      {
+        handshakeTimeMillisecondsCopy = handshakeTimeMilliseconds;
+      }
+
+      v87 = handshakeTimeMillisecondsCopy;
+      [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:20 bytes:v87 isIndexable:0];
+      [(APSProtocolMessage *)v30 appendTwoByteItem:20 bytes:v87];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:20 number:v87 isIndexable:0];
+    }
+
+    if (reasonCopy)
+    {
+      v128 = 0u;
+      v129 = 0u;
+      v126 = 0u;
+      v127 = 0u;
+      obja = [reasonCopy allObjects];
+      v88 = [obja countByEnumeratingWithState:&v126 objects:v152 count:16];
+      if (v88)
+      {
+        v89 = v88;
+        v90 = 0;
+        v91 = *v127;
+        while (2)
+        {
+          for (k = 0; k != v89; k = k + 1)
+          {
+            if (*v127 != v91)
+            {
+              objc_enumerationMutation(obja);
+            }
+
+            v93 = *(*(&v126 + 1) + 8 * k);
+            integerValue = [v93 integerValue];
+            if (integerValue >= 0)
+            {
+              LODWORD(v95) = integerValue;
+            }
+
+            else
+            {
+              v95 = -integerValue;
+            }
+
+            v125 = bswap32(v95);
+            v124 = bswap32([reasonCopy countForObject:v93]) >> 16;
+            v96 = objc_alloc_init(NSMutableData);
+            [v96 appendBytes:&v125 length:4];
+            [v96 appendBytes:&v124 length:2];
+            [(APSSharedEncoder *)self->_sharedEncoder appendItem:21 data:v96 isIndexable:0];
+            [(APSProtocolMessage *)v30 appendItem:21 data:v96];
+            [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:21 data:v96 isIndexable:0];
+            if (v90 == 9)
+            {
+              if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+              {
+                allObjects = [reasonCopy allObjects];
+                buf = 138412546;
+                selfCopy = self;
+                v140 = 2112;
+                v141 = allObjects;
+                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ reached 10 different failure reasons, {all failure reasons: %@} ", &buf, 0x16u);
+              }
+
+              goto LABEL_81;
+            }
+
+            ++v90;
+          }
+
+          v89 = [obja countByEnumeratingWithState:&v126 objects:v152 count:16];
+          if (v89)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+LABEL_81:
+
+      v32 = tokenCopy;
+      v31 = metadataCopy;
+    }
+
+    if (v112)
+    {
+      [v112 timeIntervalSince1970];
+      v99 = (v98 * 1000.0);
+      [(APSSharedEncoder *)self->_sharedEncoder appendEightByteItem:22 bytes:v99 isIndexable:0];
+      [(APSProtocolMessage *)v30 appendEightByteItem:22 bytes:v99];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt64WithAttributeId:22 number:v99 isIndexable:0];
+    }
+
+    if (disconnectReason != 1000)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:26 bytes:disconnectReason isIndexable:0];
+      [(APSProtocolMessage *)v30 appendFourByteItem:26 bytes:disconnectReason];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:26 number:disconnectReason isIndexable:0];
+    }
+
+    v100 = sub_100013188();
+    if (connection)
+    {
+      v101 = v100 | 2;
+    }
+
+    else
+    {
+      v101 = v100;
+    }
+
+    [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:31 bytes:v101 isIndexable:0];
+    [(APSProtocolMessage *)v30 appendFourByteItem:31 bytes:v101];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:31 number:v101 isIndexable:0];
+    if (migrationReason)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:30 bytes:migrationReason isIndexable:0];
+      [(APSProtocolMessage *)v30 appendFourByteItem:30 bytes:migrationReason];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:30 number:migrationReason isIndexable:0];
+    }
+
+    connectedCopy = v112;
+    v33 = &fputc_ptr;
+    if (request)
+    {
+      v102 = +[APSLog protocolParser];
+      if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(buf) = 0;
+        _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "Requesting a PSK for offloading", &buf, 2u);
+      }
+
+      [(APSSharedEncoder *)self->_sharedEncoder appendOneByteItem:32 byte:request isIndexable:0];
+      [(APSProtocolMessage *)v30 appendOneByteItem:32 byte:request];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt8WithAttributeId:32 number:request isIndexable:0];
+    }
+  }
+
+  if (_os_feature_enabled_impl() && (v103 = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)v103 copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v30 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  protocolParser = [v33[414] protocolParser];
+  if (os_log_type_enabled(protocolParser, OS_LOG_TYPE_DEBUG))
+  {
+    v108 = connectedCopy;
+    identifier = self->_identifier;
+    v110 = [v32 debugDescription];
+    v111 = [copyMessageData length];
+    buf = 134219522;
+    selfCopy = identifier;
+    connectedCopy = v108;
+    v140 = 2112;
+    v141 = v110;
+    v142 = 1024;
+    v143 = 12;
+    v144 = 1024;
+    flagsCopy = flags;
+    v146 = 2048;
+    interfaceCopy = interface;
+    v148 = 2048;
+    requestCopy = request;
+    v150 = 2048;
+    v151 = v111;
+    _os_log_debug_impl(&_mh_execute_header, protocolParser, OS_LOG_TYPE_DEBUG, "P%04llu <out:connect> token: %@ version: %hu flags: %x interface: %lld numOfPSK: %lu -- data.len: %llu", &buf, 0x40u);
+  }
+
+  return copyMessageData;
 }
 
 - (id)copyFilterMessageWithEnabledHashes:(id)hashes ignoredHashes:(id)ignoredHashes opportunisticHashes:(id)opportunisticHashes nonWakingHashes:(id)wakingHashes pausedHashes:(id)pausedHashes token:(id)token version:(unint64_t)version
@@ -1192,6 +1770,411 @@ LABEL_11:
       }
     }
   }
+}
+
+- (id)copyTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type
+{
+  v10 = *&l;
+  idCopy = id;
+  hashCopy = hash;
+  tokenCopy = token;
+  keyHashCopy = keyHash;
+  if (self->_isPackedFormat)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = [[APSProtocolMessage alloc] initWithCommand:17];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:17];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:17];
+  if ([hashCopy length] >= 0x14)
+  {
+    [(APSSharedEncoder *)self->_sharedEncoder appendItem:2 data:hashCopy isIndexable:1];
+    [(APSProtocolMessage *)v17 appendItem:2 data:hashCopy];
+    [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:2 data:hashCopy isIndexable:1];
+    if (tokenCopy)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendItem:1 data:tokenCopy isIndexable:1];
+      [(APSProtocolMessage *)v17 appendItem:1 data:tokenCopy];
+      [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:1 data:tokenCopy isIndexable:1];
+    }
+
+    if (idCopy)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:3 bytes:idCopy isIndexable:0];
+      [(APSProtocolMessage *)v17 appendTwoByteItem:3 bytes:idCopy];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:3 number:idCopy isIndexable:0];
+    }
+
+    if (type)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendTwoByteItem:4 bytes:type isIndexable:0];
+      [(APSProtocolMessage *)v17 appendTwoByteItem:4 bytes:type];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt16WithAttributeId:4 number:type isIndexable:0];
+    }
+
+    if (v10)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:5 bytes:v10 isIndexable:0];
+      [(APSProtocolMessage *)v17 appendFourByteItem:5 bytes:v10];
+      [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:5 number:v10 isIndexable:0];
+    }
+
+    if (keyHashCopy)
+    {
+      [(APSSharedEncoder *)self->_sharedEncoder appendItem:6 data:keyHashCopy isIndexable:0];
+      [(APSProtocolMessage *)v17 appendItem:6 data:keyHashCopy];
+      [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:6 data:keyHashCopy isIndexable:0];
+    }
+  }
+
+  if (_os_feature_enabled_impl() && (sharedEncoder = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)sharedEncoder copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v17 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  v21 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    v23 = [tokenCopy debugDescription];
+    *buf = 134219778;
+    v26 = identifier;
+    v27 = 2112;
+    v28 = v23;
+    v29 = 2112;
+    v30 = hashCopy;
+    v31 = 2048;
+    v32 = idCopy;
+    v33 = 2048;
+    v34 = v10;
+    v35 = 2048;
+    v36 = [keyHashCopy length];
+    v37 = 2048;
+    typeCopy = type;
+    v39 = 2048;
+    v40 = [copyMessageData length];
+    _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "P%04llu <out:tokenGen> token: %@ topicHash: %@ appId: %llu expirationTTL: %llu vapidPublicKeyHash.len: %llu type: %lld  -- data.len: %llu", buf, 0x52u);
+  }
+
+  return copyMessageData;
+}
+
+- (id)copyPresenceTrackingRequestWithMessageID:(unint64_t)d pushToken:(id)token salt:(unint64_t)salt trackingFlag:(unsigned int)flag timestamp:(unint64_t)timestamp
+{
+  v8 = *&flag;
+  tokenCopy = token;
+  if (self->_isPackedFormat)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = [[APSProtocolMessage alloc] initWithCommand:32];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:32];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:32];
+  [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:1 bytes:d isIndexable:0];
+  [(APSProtocolMessage *)v13 appendFourByteItem:1 bytes:d];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:1 number:d isIndexable:0];
+  if (tokenCopy)
+  {
+    [(APSSharedEncoder *)self->_sharedEncoder appendItem:2 data:tokenCopy isIndexable:0];
+    [(APSProtocolMessage *)v13 appendItem:2 data:tokenCopy];
+    [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:2 data:tokenCopy isIndexable:0];
+  }
+
+  if (salt)
+  {
+    [(APSSharedEncoder *)self->_sharedEncoder appendEightByteItem:3 bytes:salt isIndexable:0];
+    [(APSProtocolMessage *)v13 appendEightByteItem:3 bytes:salt];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt64WithAttributeId:3 number:salt isIndexable:0];
+  }
+
+  [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:4 bytes:v8 isIndexable:0];
+  [(APSProtocolMessage *)v13 appendFourByteItem:4 bytes:v8];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:4 number:v8 isIndexable:0];
+  if (timestamp)
+  {
+    [(APSSharedEncoder *)self->_sharedEncoder appendEightByteItem:5 bytes:timestamp isIndexable:0];
+    [(APSProtocolMessage *)v13 appendEightByteItem:5 bytes:timestamp];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt64WithAttributeId:5 number:timestamp isIndexable:0];
+  }
+
+  if (_os_feature_enabled_impl() && (sharedEncoder = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)sharedEncoder copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v13 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  v17 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    v20 = [tokenCopy debugDescription];
+    v21 = 134219522;
+    v22 = identifier;
+    v23 = 2112;
+    v24 = v20;
+    v25 = 2048;
+    dCopy = d;
+    v27 = 2048;
+    saltCopy = salt;
+    v29 = 2048;
+    v30 = v8;
+    v31 = 2048;
+    timestampCopy = timestamp;
+    v33 = 2048;
+    v34 = [copyMessageData length];
+    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "P%04llu <out:presenceTrackingReq> token: %@ messageId: %llu salt: %llu trackingFlag: %llu timestamp: %llu  -- data.len: %llu", &v21, 0x48u);
+  }
+
+  return copyMessageData;
+}
+
+- (id)copySetActiveIntervalMessageWithInterval:(unsigned int)interval
+{
+  v3 = *&interval;
+  if (self->_isPackedFormat)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = [[APSProtocolMessage alloc] initWithCommand:19];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:19];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:19];
+  [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:1 bytes:v3 isIndexable:0];
+  [(APSProtocolMessage *)v5 appendFourByteItem:1 bytes:v3];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:1 number:v3 isIndexable:0];
+  if (_os_feature_enabled_impl() && (sharedEncoder = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)sharedEncoder copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v5 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  v9 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    v12 = 134218496;
+    v13 = identifier;
+    v14 = 2048;
+    v15 = v3;
+    v16 = 2048;
+    v17 = [copyMessageData length];
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "P%04llu <out:activeInt> activeInterval: %llu  -- data.len: %llu", &v12, 0x20u);
+  }
+
+  return copyMessageData;
+}
+
+- (id)copySetActiveState:(BOOL)state forInterval:(unsigned int)interval
+{
+  v4 = *&interval;
+  stateCopy = state;
+  if (self->_isPackedFormat)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = [[APSProtocolMessage alloc] initWithCommand:20];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:20];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:20];
+  if (stateCopy)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  [(APSSharedEncoder *)self->_sharedEncoder appendOneByteItem:1 byte:v8 isIndexable:0];
+  [(APSProtocolMessage *)v7 appendOneByteItem:1 byte:v8];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt8WithAttributeId:1 number:v8 isIndexable:0];
+  if (stateCopy)
+  {
+    [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:2 bytes:v4 isIndexable:0];
+    [(APSProtocolMessage *)v7 appendFourByteItem:2 bytes:v4];
+    [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:2 number:v4 isIndexable:0];
+  }
+
+  if (_os_feature_enabled_impl() && (sharedEncoder = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)sharedEncoder copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v7 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  v12 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    if (stateCopy)
+    {
+      v15 = @"YES";
+    }
+
+    else
+    {
+      v15 = @"NO";
+    }
+
+    v16 = 134218754;
+    v17 = identifier;
+    v18 = 2048;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v15;
+    v22 = 2048;
+    v23 = [copyMessageData length];
+    _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "P%04llu <out:activeState> interval: %llu isActive: %@  -- data.len: %llu", &v16, 0x2Au);
+  }
+
+  return copyMessageData;
+}
+
+- (id)copyPubSubChannelListWithInput:(id)input baseToken:(id)token messageID:(unsigned int)d
+{
+  v5 = *&d;
+  inputCopy = input;
+  tokenCopy = token;
+  if (self->_isPackedFormat)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = [[APSProtocolMessage alloc] initWithCommand:29];
+  }
+
+  [(APNSPackEncoder *)self->_encoderWrapper setCommand:29];
+  [(APSSharedEncoder *)self->_sharedEncoder setCommand:29];
+  [(APSSharedEncoder *)self->_sharedEncoder appendFourByteItem:1 bytes:v5 isIndexable:0];
+  [(APSProtocolMessage *)v10 appendFourByteItem:1 bytes:v5];
+  [(APNSPackEncoder *)self->_encoderWrapper addInt32WithAttributeId:1 number:v5 isIndexable:0];
+  [(APSSharedEncoder *)self->_sharedEncoder appendItem:2 data:inputCopy isIndexable:0];
+  [(APSProtocolMessage *)v10 appendItem:2 data:inputCopy];
+  [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:2 data:inputCopy isIndexable:0];
+  [(APSSharedEncoder *)self->_sharedEncoder appendItem:3 data:tokenCopy isIndexable:0];
+  [(APSProtocolMessage *)v10 appendItem:3 data:tokenCopy];
+  [(APNSPackEncoder *)self->_encoderWrapper addDataWithAttributeId:3 data:tokenCopy isIndexable:0];
+  if (_os_feature_enabled_impl() && (sharedEncoder = self->_sharedEncoder) != 0)
+  {
+    copyMessageData = [(APSSharedEncoder *)sharedEncoder copyMessageData];
+    [(APSProtocolParser *)self validateEncodedData:copyMessageData];
+  }
+
+  else
+  {
+    if (self->_isPackedFormat)
+    {
+      copyMessage = [(APNSPackEncoder *)self->_encoderWrapper copyMessage];
+    }
+
+    else
+    {
+      copyMessage = [(APSProtocolMessage *)v10 copyMessageData];
+    }
+
+    copyMessageData = copyMessage;
+  }
+
+  v14 = +[APSLog protocolParser];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    identifier = self->_identifier;
+    v17 = [tokenCopy debugDescription];
+    v18 = 134219010;
+    v19 = identifier;
+    v20 = 2112;
+    v21 = v17;
+    v22 = 2048;
+    v23 = v5;
+    v24 = 2048;
+    v25 = [inputCopy length];
+    v26 = 2048;
+    v27 = [copyMessageData length];
+    _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "P%04llu <out:psChannelList> token: %@ messageID: %llu messageInput.len: %llu  -- data.len: %llu", &v18, 0x34u);
+  }
+
+  return copyMessageData;
 }
 
 - (void)APNSPackEncoder:(id)encoder receivedError:(int)error

@@ -371,7 +371,7 @@ LABEL_7:
   v26 = v25;
   if ((v24 & 1) == 0)
   {
-    v32 = sub_100004F84();
+    v32 = sub_100004F84(v25);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_100255FB0();
@@ -400,9 +400,9 @@ LABEL_13:
   [v7 doubleValue];
   v9 = v8;
 
-  v51 = v5;
+  v53 = v5;
   v10 = [EKStructuredLocation locationWithTitle:v5];
-  v52 = v6;
+  v54 = v6;
   [v10 setGeoLocation:v6];
   [v10 setRadius:v9];
   v11 = objc_alloc_init(EKEventStore);
@@ -427,33 +427,33 @@ LABEL_13:
 
   if (!supportsReminderLocations)
   {
-    v28 = sub_100004F84();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100004F84(v20);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[WARN] Reminder failed because calendar doesn't support location-based reminders", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[WARN] Reminder failed because calendar doesn't support location-based reminders", buf, 2u);
     }
 
-    v29 = +[NSBundle mainBundle];
-    v30 = [v29 localizedStringForKey:@"REMINDER_FAILED_NO_LOCATION_BASED_REMINDERS" value:&stru_100361FD0 table:@"InCallService"];
+    v30 = +[NSBundle mainBundle];
+    v31 = [v30 localizedStringForKey:@"REMINDER_FAILED_NO_LOCATION_BASED_REMINDERS" value:&stru_100361FD0 table:@"InCallService"];
 
-    if (v30)
+    if (v31)
     {
-      v31 = v30;
       v32 = v31;
+      v33 = v32;
 LABEL_23:
       displayName = +[NSBundle mainBundle];
-      v50 = [displayName localizedStringForKey:@"ERROR" value:&stru_100361FD0 table:@"InCallService"];
-      [(PHDeclineWithReminderController *)self presentAlertWithTitle:v50 message:v31];
+      v52 = [displayName localizedStringForKey:@"ERROR" value:&stru_100361FD0 table:@"InCallService"];
+      [(PHDeclineWithReminderController *)self presentAlertWithTitle:v52 message:v32];
 
       goto LABEL_24;
     }
 
 LABEL_22:
-    v49 = +[NSBundle mainBundle];
-    v31 = [v49 localizedStringForKey:@"REMINDER_FAILED_TRY_LATER" value:&stru_100361FD0 table:@"InCallService"];
+    v51 = +[NSBundle mainBundle];
+    v32 = [v51 localizedStringForKey:@"REMINDER_FAILED_TRY_LATER" value:&stru_100361FD0 table:@"InCallService"];
 
-    v32 = 0;
+    v33 = 0;
     goto LABEL_23;
   }
 
@@ -484,29 +484,29 @@ LABEL_22:
   }
 
 LABEL_12:
-  v33 = [EKAlarm alarmWithRelativeOffset:0.0];
-  [v33 setProximity:1];
-  [v33 setStructuredLocation:v10];
+  v34 = [EKAlarm alarmWithRelativeOffset:0.0];
+  [v34 setProximity:1];
+  [v34 setStructuredLocation:v10];
   [v12 setStructuredLocation:v10];
-  v34 = [NSArray arrayWithObject:v33];
-  [v12 setAlarms:v34];
+  v35 = [NSArray arrayWithObject:v34];
+  [v12 setAlarms:v35];
 
-  v35 = sub_100004F84();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v37 = sub_100004F84(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = v6;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "About to save a reminder for CLLocation %@", buf, 0xCu);
+    v57 = v6;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "About to save a reminder for CLLocation %@", buf, 0xCu);
   }
 
-  v53 = 0;
-  v36 = [v11 saveReminder:v12 commit:1 error:&v53];
-  v37 = v53;
-  v38 = v37;
-  if ((v36 & 1) == 0)
+  v55 = 0;
+  v38 = [v11 saveReminder:v12 commit:1 error:&v55];
+  v39 = v55;
+  v40 = v39;
+  if ((v38 & 1) == 0)
   {
-    v48 = sub_100004F84();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v50 = sub_100004F84(v39);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       sub_100255FB0();
     }
@@ -514,27 +514,27 @@ LABEL_12:
     goto LABEL_22;
   }
 
-  v32 = [locationCopy valueForKey:@"Name"];
-  v39 = [v32 isEqualToString:CNLabelHome];
-  v40 = +[NSBundle mainBundle];
-  v41 = v40;
-  if (v39)
+  v33 = [locationCopy valueForKey:@"Name"];
+  v41 = [v33 isEqualToString:CNLabelHome];
+  v42 = +[NSBundle mainBundle];
+  v43 = v42;
+  if (v41)
   {
-    v42 = @"WHEN_I_GET_HOME";
+    v44 = @"WHEN_I_GET_HOME";
   }
 
   else
   {
-    v42 = @"WHEN_I_GET_TO_WORK";
+    v44 = @"WHEN_I_GET_TO_WORK";
   }
 
-  v31 = [v40 localizedStringForKey:v42 value:&stru_100361FD0 table:@"InCallService"];
+  v32 = [v42 localizedStringForKey:v44 value:&stru_100361FD0 table:@"InCallService"];
 
-  v43 = [NSUUID alloc];
+  v45 = [NSUUID alloc];
   uniqueID = [v12 uniqueID];
-  v45 = [v43 initWithUUIDString:uniqueID];
+  v47 = [v45 initWithUUIDString:uniqueID];
   call2 = [(PHDeclineWithReminderController *)self call];
-  [call2 setReminderUUID:v45];
+  [call2 setReminderUUID:v47];
 
   displayName = [(PHDeclineWithReminderController *)self displayName];
   TUNotifyOfRemindMeLater();
@@ -543,7 +543,7 @@ LABEL_24:
 
 - (void)createReminderForWhenILeave
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -587,11 +587,11 @@ LABEL_24:
 
   else
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHDeclineWithReminderController: presenter for alert deallocated so falling back to UIWindow._applicationKeyWindow.rootViewController", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "PHDeclineWithReminderController: presenter for alert deallocated so falling back to UIWindow._applicationKeyWindow.rootViewController", v14, 2u);
     }
 
     presenter2 = +[UIWindow _applicationKeyWindow];

@@ -11,7 +11,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   memset(&v12, 0, sizeof(v12));
-  [(SPUIResilientView *)self transform];
+  objc_msgSend_transform(self, a2);
   v11 = v12;
   if (CGAffineTransformIsIdentity(&v11))
   {

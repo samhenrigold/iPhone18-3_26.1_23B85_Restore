@@ -90,7 +90,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] addHardwareOfferIDs for client: %{public}@", &v15, 0x16u);
   }
 
-  v11 = sub_10020BE10();
+  v11 = sub_10020BE10(BadgingCoordinator);
   v12 = sub_10020C9FC(v11, dsCopy, v8);
 
   if (handlerCopy)
@@ -127,7 +127,7 @@
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] allHardwareOffersIDsWithReplyHandler for client: %{public}@", &v13, 0x16u);
   }
 
-  v8 = sub_10020BE10();
+  v8 = sub_10020BE10(BadgingCoordinator);
   v9 = sub_10020D264(v8, v5);
 
   if (handlerCopy)
@@ -165,7 +165,7 @@
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] allHardwareOfferMetricsWithReplyHandler for client: %{public}@", &v15, 0x16u);
   }
 
-  v8 = sub_10020BE10();
+  v8 = sub_10020BE10(BadgingCoordinator);
   v9 = sub_10020D55C(v8, v5);
 
   if (handlerCopy)
@@ -205,7 +205,7 @@
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] badgeIDCountWithReplyHandler for client: %{public}@", &v12, 0x16u);
   }
 
-  v8 = sub_10020BE10();
+  v8 = sub_10020BE10(BadgingCoordinator);
   v9 = sub_10020D6CC(v8, v5);
 
   if (handlerCopy)
@@ -242,7 +242,7 @@
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] removeAllBadgeIDsWithReplyHandler for client: %{public}@", &v12, 0x16u);
   }
 
-  v8 = sub_10020BE10();
+  v8 = sub_10020BE10(BadgingCoordinator);
   v9 = sub_10020DA34(v8, v5);
 
   if (handlerCopy)
@@ -283,7 +283,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] removeBadgeIDs: [%{public}@] for client: %{public}@", &v17, 0x20u);
   }
 
-  v12 = sub_10020BE10();
+  v12 = sub_10020BE10(BadgingCoordinator);
   v13 = sub_1002338F0(self);
   v14 = sub_10020DC44(v12, dsCopy, v13, v8);
 
@@ -325,7 +325,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] removeBadgeMetricsForBadgeIDs: [%{public}@] for client: %{public}@", &v16, 0x20u);
   }
 
-  v12 = sub_10020BE10();
+  v12 = sub_10020BE10(BadgingCoordinator);
   v13 = sub_10020D8E0(v12, dsCopy, v8);
 
   if (handlerCopy)

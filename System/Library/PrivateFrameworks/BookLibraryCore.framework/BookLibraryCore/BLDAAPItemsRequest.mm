@@ -26,7 +26,7 @@
 
 - (id)createDaapURL:(id)l
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   lCopy = l;
   bagDatabaseID = [(BLDAAPItemsRequest *)self bagDatabaseID];
@@ -36,14 +36,12 @@
   v9 = [MEMORY[0x277CCAD18] queryItemWithName:@"includeApplePubBooks" value:@"1"];
   v10 = [MEMORY[0x277CCAD18] queryItemWithName:@"includeItemFlavors" value:@"1"];
   v11 = [MEMORY[0x277CCACE0] componentsWithURL:v8 resolvingAgainstBaseURL:0];
-  v16[0] = v9;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v9;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [v11 setQueryItems:v12];
 
   v13 = [v11 URL];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

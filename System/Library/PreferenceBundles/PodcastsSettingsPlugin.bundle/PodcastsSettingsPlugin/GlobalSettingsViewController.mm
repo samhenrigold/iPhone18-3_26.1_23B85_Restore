@@ -37,18 +37,20 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
-    v7 = sub_B5C0;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_B5C0;
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
   }
 
   selfCopy = self;
-  sub_B110(l, v7);
-  sub_B578(v7);
+  sub_B110(l, v8);
+  sub_B578(v8, v7);
 }
 
 - (_TtC22PodcastsSettingsPlugin28GlobalSettingsViewController)initWithNibName:(id)name bundle:(id)bundle

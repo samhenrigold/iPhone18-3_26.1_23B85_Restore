@@ -35,10 +35,10 @@
 
 - (NMSMediaSyncService)init
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = NMSMediaSyncService;
-  v2 = [(NMSMediaSyncService *)&v21 init];
+  v23 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = NMSMediaSyncService;
+  v2 = [(NMSMediaSyncService *)&v20 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277D18778]) initWithService:@"com.apple.private.alloy.nanomediasync"];
@@ -70,17 +70,16 @@
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v2;
+    v22 = v2;
     _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "NMSMediaSyncService - init: %p", buf, 0xCu);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = NMLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -89,10 +88,9 @@
     _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "NMSMediaSyncService - dealloc: %p", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = NMSMediaSyncService;
-  [(NMSMediaSyncService *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = NMSMediaSyncService;
+  [(NMSMediaSyncService *)&v4 dealloc];
 }
 
 - (void)performKeepLocalRequestWithEnableState:(int64_t)state modelObject:(id)object options:(id)options completion:(id)completion
@@ -243,11 +241,11 @@
 
 - (id)_sendUrgentMessage:(id)message messageType:(int64_t)type timeout:(double)timeout completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v27 = 0;
-  v11 = [(NMSMediaSyncService *)self _sendUrgentProtoBufForMessage:message messageType:type timeout:&v27 error:timeout];
-  v12 = v27;
+  v26 = 0;
+  v11 = [(NMSMediaSyncService *)self _sendUrgentProtoBufForMessage:message messageType:type timeout:&v26 error:timeout];
+  v12 = v26;
   v13 = v12;
   if (completionCopy)
   {
@@ -259,31 +257,31 @@
         v15 = MEMORY[0x25F865990](completionCopy);
         v16 = [(NSMutableDictionary *)self->_keepLocalCompletionsByIDSMsgID count];
         *buf = 134218498;
-        v31 = v15;
-        v32 = 2112;
-        v33 = v11;
-        v34 = 2048;
-        v35 = v16;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v11;
+        v33 = 2048;
+        v34 = v16;
         _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "Adding completion-handler %p for ID=%@. Total-pending: %lu", buf, 0x20u);
       }
 
       idsActionHandlerQueue = self->_idsActionHandlerQueue;
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion___block_invoke;
-      v24[3] = &unk_27993E8A8;
-      v24[4] = self;
-      v26 = completionCopy;
-      v25 = v11;
-      dispatch_async(idsActionHandlerQueue, v24);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion___block_invoke;
+      v23[3] = &unk_27993E8A8;
+      v23[4] = self;
+      v25 = completionCopy;
+      v24 = v11;
+      dispatch_async(idsActionHandlerQueue, v23);
     }
 
     else
     {
       v18 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CCA7E8];
-      v29 = v12;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v27 = *MEMORY[0x277CCA7E8];
+      v28 = v12;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       v20 = [v18 errorWithDomain:@"NMSKeepLocalRequestErrorDomain" code:0 userInfo:v19];
 
       (*(completionCopy + 2))(completionCopy, v20);
@@ -294,8 +292,6 @@
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -310,7 +306,7 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
 - (id)_sendUrgentProtoBufForMessage:(id)message messageType:(int64_t)type timeout:(double)timeout error:(id *)error
 {
   typeCopy = type;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v11 = objc_alloc(MEMORY[0x277D189F0]);
   data = [messageCopy data];
@@ -322,9 +318,9 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
   v17 = IDSCopyIDForDevice();
   v18 = [v16 setWithObject:v17];
   v19 = [(NMSMediaSyncService *)self _idsMessageOptionsWithTimeout:timeout];
-  v27 = 0;
-  v20 = [(IDSService *)service sendProtobuf:v13 toDestinations:v18 priority:300 options:v19 identifier:&v27 error:error];
-  v21 = v27;
+  v26 = 0;
+  v20 = [(IDSService *)service sendProtobuf:v13 toDestinations:v18 priority:300 options:v19 identifier:&v26 error:error];
+  v21 = v26;
 
   v22 = NMLogForCategory(5);
   v23 = v22;
@@ -333,9 +329,9 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v29 = messageCopy;
-      v30 = 2112;
-      v31 = v21;
+      v28 = messageCopy;
+      v29 = 2112;
+      v30 = v21;
       _os_log_impl(&dword_25B27B000, v23, OS_LOG_TYPE_DEFAULT, "Successfully requested send of IDS message (%@) with ID: %@.", buf, 0x16u);
     }
   }
@@ -344,69 +340,65 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
   {
     if (error)
     {
-      v26 = *error;
+      v25 = *error;
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
     *buf = 138412802;
-    v29 = messageCopy;
-    v30 = 2112;
-    v31 = v21;
-    v32 = 2112;
-    v33 = v26;
+    v28 = messageCopy;
+    v29 = 2112;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v25;
     _os_log_error_impl(&dword_25B27B000, v23, OS_LOG_TYPE_ERROR, "Failed to request send of IDS message (%@) with ID: %@. Error: %@", buf, 0x20u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)_idsMessageOptionsWithTimeout:(double)timeout
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = *MEMORY[0x277D18650];
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = *MEMORY[0x277D18650];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
   v4 = *MEMORY[0x277D185D0];
-  v10[0] = v3;
-  v10[1] = MEMORY[0x277CBEC38];
+  v9[0] = v3;
+  v9[1] = MEMORY[0x277CBEC38];
   v5 = *MEMORY[0x277D185B0];
-  v9[1] = v4;
-  v9[2] = v5;
-  v10[2] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v8[2] = v5;
+  v9[2] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (id)_defaultPairedDevice
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   devices = [(IDSService *)self->_service devices];
-  v3 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [devices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(devices);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isDefaultPairedDevice])
         {
           v3 = v6;
@@ -414,7 +406,7 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
         }
       }
 
-      v3 = [devices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [devices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -425,8 +417,6 @@ void __73__NMSMediaSyncService__sendUrgentMessage_messageType_timeout_completion
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -441,7 +431,7 @@ LABEL_11:
 
 - (BOOL)_sendUrgentServiceResultMessage:(id)message idsMessageID:(id)d timeout:(double)timeout
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   _defaultPairedDevice = [(NMSMediaSyncService *)self _defaultPairedDevice];
@@ -453,7 +443,7 @@ LABEL_11:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = _defaultPairedDevice;
+    v27 = _defaultPairedDevice;
     _os_log_impl(&dword_25B27B000, v13, OS_LOG_TYPE_DEFAULT, "Sending validation result IDS message to default paired device: %@", buf, 0xCu);
   }
 
@@ -461,11 +451,11 @@ LABEL_11:
   v15 = MEMORY[0x277CBEB98];
   v16 = IDSCopyIDForDevice();
   v17 = [v15 setWithObject:v16];
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v18 = [(IDSService *)service sendProtobuf:messageCopy toDestinations:v17 priority:300 options:v12 identifier:&v26 error:&v25];
-  v19 = v26;
-  v20 = v25;
+  v18 = [(IDSService *)service sendProtobuf:messageCopy toDestinations:v17 priority:300 options:v12 identifier:&v25 error:&v24];
+  v19 = v25;
+  v20 = v24;
 
   v21 = NMLogForCategory(5);
   v22 = v21;
@@ -474,9 +464,9 @@ LABEL_11:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = messageCopy;
-      v29 = 2112;
-      v30 = v19;
+      v27 = messageCopy;
+      v28 = 2112;
+      v29 = v19;
       _os_log_impl(&dword_25B27B000, v22, OS_LOG_TYPE_DEFAULT, "Successfully requested send of IDS message (%@) with ID: %@.", buf, 0x16u);
     }
   }
@@ -484,15 +474,14 @@ LABEL_11:
   else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v28 = messageCopy;
-    v29 = 2112;
-    v30 = v19;
-    v31 = 2112;
-    v32 = v20;
+    v27 = messageCopy;
+    v28 = 2112;
+    v29 = v19;
+    v30 = 2112;
+    v31 = v20;
     _os_log_error_impl(&dword_25B27B000, v22, OS_LOG_TYPE_ERROR, "Failed to request send of IDS message (%@) with ID: %@. Error: %@", buf, 0x20u);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -624,31 +613,20 @@ LABEL_9:
 
 - (Class)_modelClassForContainerType:(int)type
 {
-  if (type)
+  if (type > 1)
   {
-    if (type != 1)
-    {
-      v7 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"Unsupported container type specified." userInfo:0];
-      objc_exception_throw(v7);
-    }
-
-    v3 = 0x277CD5EF0;
+    v5 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"Unsupported container type specified." userInfo:0];
+    objc_exception_throw(v5);
   }
 
-  else
-  {
-    v3 = 0x277CD5E40;
-  }
+  v3 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v3;
 }
 
 - (void)_callAndRemoveKeepLocalCompletionWithIDSMessageID:(id)d error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_idsActionHandlerQueue);
@@ -663,13 +641,13 @@ LABEL_9:
     {
       v11 = MEMORY[0x25F865990](v9);
       v12 = [(NSMutableDictionary *)self->_keepLocalCompletionsByIDSMsgID count];
-      v15 = 134218498;
-      v16 = v11;
-      v17 = 2114;
-      v18 = dCopy;
-      v19 = 2048;
-      v20 = v12;
-      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Called and removed completion-handler %p for ID=<%{public}@>. Total-pending: %lu", &v15, 0x20u);
+      v14 = 134218498;
+      v15 = v11;
+      v16 = 2114;
+      v17 = dCopy;
+      v18 = 2048;
+      v19 = v12;
+      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Called and removed completion-handler %p for ID=<%{public}@>. Total-pending: %lu", &v14, 0x20u);
     }
   }
 
@@ -679,15 +657,13 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [(NSMutableDictionary *)self->_keepLocalCompletionsByIDSMsgID count];
-      v15 = 138543618;
-      v16 = dCopy;
-      v17 = 2048;
-      v18 = v13;
-      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Unable to find completion-handler for ID=<%{public}@>. Total-pending: %lu", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = dCopy;
+      v16 = 2048;
+      v17 = v13;
+      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "Unable to find completion-handler for ID=<%{public}@>. Total-pending: %lu", &v14, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context
@@ -704,7 +680,7 @@ LABEL_9:
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
 {
   successCopy = success;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   errorCopy = error;
   v13 = NMLogForCategory(5);
@@ -725,9 +701,9 @@ LABEL_9:
       if (code == 43)
       {
         v18 = MEMORY[0x277CCA9B8];
-        v31 = *MEMORY[0x277CCA7E8];
-        v32 = errorCopy;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x277CCA7E8];
+        v31 = errorCopy;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         v20 = v18;
         v21 = 3;
 LABEL_15:
@@ -750,9 +726,9 @@ LABEL_15:
       if (code2 == 23)
       {
         v24 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA7E8];
-        v30 = errorCopy;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x277CCA7E8];
+        v29 = errorCopy;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v20 = v24;
         v21 = 2;
         goto LABEL_15;
@@ -764,9 +740,9 @@ LABEL_15:
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA7E8];
-    v28 = errorCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA7E8];
+    v27 = errorCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v20 = v25;
     v21 = 0;
     goto LABEL_15;
@@ -775,18 +751,16 @@ LABEL_15:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = identifierCopy;
+    v33 = identifierCopy;
     _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "Successfully sent message (ID: %@).", buf, 0xCu);
   }
 
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMediaSyncServiceKeepLocalRequest:(id)request service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   idsActionHandlerQueue = self->_idsActionHandlerQueue;
   requestCopy = request;
@@ -799,7 +773,7 @@ LABEL_16:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v43 = v14;
+    v42 = v14;
     _os_log_impl(&dword_25B27B000, v15, OS_LOG_TYPE_DEFAULT, "NMSMediaSyncService - _handleMediaSyncServiceKeepLocalRequest: %@", buf, 0xCu);
   }
 
@@ -842,30 +816,28 @@ LABEL_16:
   }
 
   v34 = [[NMSKeepLocalRequestLocal alloc] initWithModelObject:v23 enableState:v24];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_account_fromID_context___block_invoke;
-  v38[3] = &unk_27993E8D0;
-  v39 = v25;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_account_fromID_context___block_invoke;
+  v37[3] = &unk_27993E8D0;
+  v38 = v25;
   selfCopy = self;
-  v41 = contextCopy;
+  v40 = contextCopy;
   v35 = contextCopy;
   v36 = v25;
-  [(NMSKeepLocalRequestLocal *)v34 performWithOptions:v36 completion:v38];
-
-  v37 = *MEMORY[0x277D85DE8];
+  [(NMSKeepLocalRequestLocal *)v34 performWithOptions:v36 completion:v37];
 }
 
 void __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_account_fromID_context___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Result of perform KeepLocal task. Error: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Result of perform KeepLocal task. Error: %@", &v10, 0xCu);
   }
 
   [*(a1 + 32) timeout];
@@ -883,13 +855,11 @@ void __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_a
   v8 = *(a1 + 40);
   v9 = [*(a1 + 48) outgoingResponseIdentifier];
   [v8 _sendUrgentServiceResponseWithError:v3 idsMessageID:v9 timeout:v7];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleMediaSyncServiceKeepLocalResponse:(id)response service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   contextCopy = context;
   dispatch_assert_queue_V2(self->_idsActionHandlerQueue);
@@ -901,7 +871,7 @@ void __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_a
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v13;
+    v27 = v13;
     _os_log_impl(&dword_25B27B000, v14, OS_LOG_TYPE_DEFAULT, "NMSMediaSyncService - _handleMediaSyncServiceKeepLocalResponse: %@", buf, 0xCu);
   }
 
@@ -926,8 +896,8 @@ void __94__NMSMediaSyncService__handleMediaSyncServiceKeepLocalRequest_service_a
 
         v18 = MEMORY[0x277CCA9B8];
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v16, @"NMSKeepLocalRequestErrorValidatorExceptionKey"}];
-        v26 = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v25 = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         v21 = [v18 errorWithDomain:@"NMSKeepLocalRequestErrorDomain" code:1 userInfo:v20];
 
 LABEL_17:
@@ -958,8 +928,6 @@ LABEL_17:
 LABEL_18:
   incomingResponseIdentifier = [contextCopy incomingResponseIdentifier];
   [(NMSMediaSyncService *)self _callAndRemoveKeepLocalCompletionWithIDSMessageID:incomingResponseIdentifier error:v21];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_convertMediaSyncServiceKeepLocalCellularPolicy:(int)policy
@@ -1086,54 +1054,6 @@ LABEL_12:
   }
 
   return qword_25B2CECF0[exception - 1];
-}
-
-- (void)_cleanupKeepLocalCompletionWithID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "_cleanupKeepLocalCompletionWithID - FAIL-SAFE: Found orphaned completion-handler for message ID: %@. Calling completion-handler and removing from pending list.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sendUrgentServiceResponseWithError:idsMessageID:timeout:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Unknown error domain specified. error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:incomingUnhandledProtobuf:fromID:context:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_25B27B000, v0, v1, "UNHANDLED IDS Protobuf %@ for service %@ has been received. This should have a setProtobufAction assigned.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:identifier:didSendWithSuccess:error:context:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_25B27B000, v0, v1, "Failed to send IDS message (ID: %@) with error %@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleMediaSyncServiceKeepLocalResponse:service:account:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "NMSMediaSyncService - _handleMediaSyncServiceKeepLocalResponse: received a Generic error code from the remote device.  message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleMediaSyncServiceKeepLocalResponse:service:account:fromID:context:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "NMSMediaSyncService - _handleMediaSyncServiceKeepLocalResponse: received a unknown error code from the remote device.  message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

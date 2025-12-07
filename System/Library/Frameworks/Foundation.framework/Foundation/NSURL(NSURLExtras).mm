@@ -63,7 +63,7 @@
   }
 
   scheme = [v6 scheme];
-  if (([scheme isEqualToString:@"http"] & 1) == 0 && (objc_msgSend(scheme, "isEqualToString:", @"https") & 1) == 0 && (objc_msgSend(scheme, "isEqualToString:", @"file") & 1) == 0 && !objc_msgSend(scheme, "isEqualToString:", @"ftp"))
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) == 0 && (objc_msgSend_isEqualToString_(scheme) & 1) == 0 && (objc_msgSend_isEqualToString_(scheme) & 1) == 0 && !objc_msgSend_isEqualToString_(scheme))
   {
     goto LABEL_12;
   }
@@ -133,7 +133,7 @@ LABEL_12:
 {
   v5 = [objc_msgSend(self "path")];
   _web_filenameByFixingIllegalCharacters = [v5 _web_filenameByFixingIllegalCharacters];
-  if ([_web_filenameByFixingIllegalCharacters length] && !objc_msgSend(v5, "isEqualToString:", @"/"))
+  if ([_web_filenameByFixingIllegalCharacters length] && !objc_msgSend_isEqualToString_(v5))
   {
     pathExtension = [_web_filenameByFixingIllegalCharacters pathExtension];
     if (!a3)
@@ -157,17 +157,17 @@ LABEL_12:
     }
   }
 
-  if ((([a3 isEqualToString:@"application/tar"] & 1) != 0 || objc_msgSend(a3, "isEqualToString:", @"application/x-tar")) && (objc_msgSend(_web_filenameByFixingIllegalCharacters, "rangeOfString:options:", @".tar", 1) != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(_web_filenameByFixingIllegalCharacters, "rangeOfString:options:", @".tgz", 13) != 0x7FFFFFFFFFFFFFFFLL))
+  if (((objc_msgSend_isEqualToString_(a3) & 1) != 0 || objc_msgSend_isEqualToString_(a3)) && ([_web_filenameByFixingIllegalCharacters rangeOfString:@".tar" options:1] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(_web_filenameByFixingIllegalCharacters, "rangeOfString:options:", @".tgz", 13) != 0x7FFFFFFFFFFFFFFFLL))
   {
     return _web_filenameByFixingIllegalCharacters;
   }
 
-  if ([a3 isEqualToString:@"application/octet-stream"])
+  if (objc_msgSend_isEqualToString_(a3))
   {
     return _web_filenameByFixingIllegalCharacters;
   }
 
-  if ([a3 isEqualToString:@"text/plain"])
+  if (objc_msgSend_isEqualToString_(a3))
   {
     return _web_filenameByFixingIllegalCharacters;
   }

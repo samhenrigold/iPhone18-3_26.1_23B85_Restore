@@ -38,11 +38,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-    v160 = 2048;
-    v161 = [profileCopy count];
-    v162 = 2048;
-    v163 = [recordsCopy count];
+    v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+    v159 = 2048;
+    v160 = [profileCopy count];
+    v161 = 2048;
+    v162 = [recordsCopy count];
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s Modified %zd Key Value Records, %zd Voice Records", buf, 0x20u);
   }
 
@@ -54,37 +54,37 @@
     if (!v12)
     {
       [(ADCloudKitMultiUserSharedDataStore *)self _updateVoiceIDProfilesForSharedUser:0 iCloudAltDSID:0 records:recordsCopy isPrimary:1 isNewUser:0 completion:completionCopy];
-LABEL_153:
+LABEL_150:
 
-      goto LABEL_154;
+      goto LABEL_151;
     }
 
-    v113 = v12;
-    v119 = v11;
-    v122 = recordsCopy;
-    v123 = completionCopy;
+    v112 = v12;
+    v118 = v11;
+    v121 = recordsCopy;
+    v122 = completionCopy;
     v14 = objc_alloc_init(NSMutableDictionary);
+    v152 = 0u;
     v153 = 0u;
     v154 = 0u;
     v155 = 0u;
-    v156 = 0u;
-    v105 = profileCopy;
+    v104 = profileCopy;
     obj = profileCopy;
-    v15 = [obj countByEnumeratingWithState:&v153 objects:v157 count:16];
+    v15 = [obj countByEnumeratingWithState:&v152 objects:v156 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v154;
+      v17 = *v153;
       do
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v154 != v17)
+          if (*v153 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v153 + 1) + 8 * i);
+          v19 = *(*(&v152 + 1) + 8 * i);
           recordID = [v19 recordID];
           recordName = [recordID recordName];
 
@@ -98,11 +98,11 @@ LABEL_153:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
               *buf = 136315651;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = v23;
-              v162 = 2113;
-              v163 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = v23;
+              v161 = 2113;
+              v162 = recordName;
               _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s Found value (%{private}@) for key (%{private}@)", buf, 0x20u);
             }
           }
@@ -116,11 +116,11 @@ LABEL_153:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 136315651;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = v25;
-              v162 = 2113;
-              v163 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = v25;
+              v161 = 2113;
+              v162 = recordName;
               _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s Found value (%{private}@) for key (%{private}@)", buf, 0x20u);
             }
           }
@@ -134,11 +134,11 @@ LABEL_153:
             if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 136315651;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = v27;
-              v162 = 2113;
-              v163 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = v27;
+              v161 = 2113;
+              v162 = recordName;
               _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Found value (%{private}@) for key (%{private}@)", buf, 0x20u);
             }
           }
@@ -152,11 +152,11 @@ LABEL_153:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               *buf = 136315651;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = v29;
-              v162 = 2113;
-              v163 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = v29;
+              v161 = 2113;
+              v162 = recordName;
               _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s Found value (%{private}@) for key (%{private}@)", buf, 0x20u);
             }
           }
@@ -170,11 +170,11 @@ LABEL_153:
             if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
               *buf = 136315651;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = v31;
-              v162 = 2113;
-              v163 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = v31;
+              v161 = 2113;
+              v162 = recordName;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%s Found value (%{private}@) for key (%{private}@)", buf, 0x20u);
             }
           }
@@ -186,46 +186,46 @@ LABEL_153:
             if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
               *buf = 136315395;
-              v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-              v160 = 2113;
-              v161 = recordName;
+              v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+              v159 = 2113;
+              v160 = recordName;
               _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s Found null value for key (%{private}@)", buf, 0x16u);
             }
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v153 objects:v157 count:16];
+        v16 = [obj countByEnumeratingWithState:&v152 objects:v156 count:16];
       }
 
       while (v16);
     }
 
-    v34 = [v14 objectForKey:@"meDeviceSharedUserID"];
+    v34 = objc_msgSend_objectForKey_(v14);
     if (!v34)
     {
-      v34 = [v14 objectForKey:@"backupSharedUserID"];
+      v34 = objc_msgSend_objectForKey_(v14);
     }
 
-    v35 = [v14 objectForKey:@"meDeviceLoggingSharedUserID"];
-    completionCopy = v123;
+    v35 = objc_msgSend_objectForKey_(v14);
+    completionCopy = v122;
     if (!v35)
     {
-      v35 = [v14 objectForKey:@"backupLoggingSharedUserID"];
+      v35 = objc_msgSend_objectForKey_(v14);
     }
 
-    v117 = [v14 objectForKey:@"meDeviceiCloudAltDSID"];
-    v112 = [v14 objectForKey:@"meDeviceAudioAppSignals"];
-    v36 = [v14 objectForKey:@"meDeviceAssistantID"];
-    v37 = [v14 objectForKey:@"backupAssistantID"];
-    v121 = [v14 objectForKey:@"meDeviceLoggingAssistantID"];
-    obja = [v14 objectForKey:@"meDeviceSpeechID"];
-    v116 = [v14 objectForKey:@"backupSpeechID"];
-    v111 = [v14 objectForKey:@"meDeviceIDSIdentifier"];
-    v110 = [v14 objectForKey:@"meProductPrefix"];
-    v125 = [v14 objectForKey:@"meDeviceACEHost"];
-    v115 = [v14 objectForKey:@"backupDeviceACEHost"];
-    v128 = [v14 objectForKey:@"meDeviceCapabilities"];
-    v38 = [v128 objectForKey:@"meDevicePeerToPeerHandoffCapability"];
+    v116 = objc_msgSend_objectForKey_(v14);
+    v111 = objc_msgSend_objectForKey_(v14);
+    v36 = objc_msgSend_objectForKey_(v14);
+    v37 = objc_msgSend_objectForKey_(v14);
+    v120 = objc_msgSend_objectForKey_(v14);
+    obja = objc_msgSend_objectForKey_(v14);
+    v115 = objc_msgSend_objectForKey_(v14);
+    v110 = objc_msgSend_objectForKey_(v14);
+    v109 = objc_msgSend_objectForKey_(v14);
+    v124 = objc_msgSend_objectForKey_(v14);
+    v114 = objc_msgSend_objectForKey_(v14);
+    v127 = objc_msgSend_objectForKey_(v14);
+    v38 = objc_msgSend_objectForKey_(v127);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -237,7 +237,7 @@ LABEL_153:
       bOOLValue = 0;
     }
 
-    v40 = [v128 objectForKey:@"meDeviceAssistantID"];
+    v40 = objc_msgSend_objectForKey_(v127);
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -250,37 +250,37 @@ LABEL_153:
       v41 = 0;
     }
 
-    v106 = v41;
-    if (([v106 isEqual:v36] & 1) == 0)
+    v105 = v41;
+    if (([v105 isEqual:v36] & 1) == 0)
     {
       v42 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-        v160 = 2112;
-        v161 = v36;
-        v162 = 2112;
-        v163 = v106;
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        v159 = 2112;
+        v160 = v36;
+        v161 = 2112;
+        v162 = v105;
         _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "%s AssistantID of companion (%@) does not match assistantID (%@) from capabilities", buf, 0x20u);
       }
 
       bOOLValue = 0;
     }
 
-    v101 = bOOLValue;
-    v43 = [v14 objectForKey:@"meDeviceVoiceIDChangedToEnabledTimestamp"];
+    v100 = bOOLValue;
+    v43 = objc_msgSend_objectForKey_(v14);
     v44 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-      v160 = 2112;
-      v161 = v43;
+      v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+      v159 = 2112;
+      v160 = v43;
       _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s #multi-user - setKeyValueRecordsAndVoiceProfile - syncedVoiceIDEnabledTimestamp: %@", buf, 0x16u);
     }
 
-    v118 = v43;
+    v117 = v43;
     if ([v43 count])
     {
       v45 = +[ADPreferences sharedPreferences];
@@ -296,20 +296,20 @@ LABEL_153:
         v47 = +[NSMutableDictionary dictionary];
       }
 
-      v151[0] = _NSConcreteStackBlock;
-      v151[1] = 3221225472;
-      v151[2] = sub_10016B258;
-      v151[3] = &unk_1005162C8;
+      v150[0] = _NSConcreteStackBlock;
+      v150[1] = 3221225472;
+      v150[2] = sub_10016B258;
+      v150[3] = &unk_1005162C8;
       v48 = v47;
-      v152 = v48;
-      [v43 enumerateKeysAndObjectsUsingBlock:v151];
+      v151 = v48;
+      [v43 enumerateKeysAndObjectsUsingBlock:v150];
       v49 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         *buf = 136315395;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-        v160 = 2113;
-        v161 = v48;
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        v159 = 2113;
+        v160 = v48;
         _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "%s #multi-user Setting multi-user start times to ADPreferences: %{private}@", buf, 0x16u);
       }
 
@@ -317,31 +317,31 @@ LABEL_153:
       [v50 setMultiUserSetUpStartTimes:v48];
     }
 
-    v51 = v36 | obja | v121;
-    v102 = v51 != 0;
+    v51 = v36 | obja | v120;
+    v101 = v51 != 0;
     if (!v51)
     {
       v36 = v37;
-      obja = v116;
-      v52 = v115;
+      obja = v115;
+      v52 = v114;
 
       v53 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
         _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "%s Device is not meDevice", buf, 0xCu);
       }
 
-      v125 = v52;
+      v124 = v52;
     }
 
-    v114 = v36;
-    v54 = [v128 objectForKey:@"meDevice"];
+    v113 = v36;
+    v54 = objc_msgSend_objectForKey_(v127);
 
     objc_opt_class();
-    v103 = v54;
-    v104 = v37;
+    v102 = v54;
+    v103 = v37;
     if (objc_opt_isKindOfClass())
     {
       bOOLValue2 = [v54 BOOLValue];
@@ -352,29 +352,29 @@ LABEL_153:
       bOOLValue2 = 1;
     }
 
-    recordsCopy = v122;
-    v109 = [v14 objectForKey:@"siriLanguage"];
-    v108 = [v14 objectForKey:@"companionName"];
-    v107 = [(ADCloudKitMultiUserSharedDataStore *)self _homeMembershipsFromUnencryptedRecords:v14];
-    allKeys = [v107 allKeys];
-    v120 = [NSSet setWithArray:allKeys];
+    recordsCopy = v121;
+    v108 = objc_msgSend_objectForKey_(v14);
+    v107 = objc_msgSend_objectForKey_(v14);
+    v106 = [(ADCloudKitMultiUserSharedDataStore *)self _homeMembershipsFromUnencryptedRecords:v14];
+    allKeys = [v106 allKeys];
+    v119 = [NSSet setWithArray:allKeys];
 
     v56 = v14;
     if (!v56)
     {
       v57 = 0;
-      v11 = v119;
+      v11 = v118;
       goto LABEL_111;
     }
 
-    v98 = v35;
+    v97 = v35;
     v57 = objc_alloc_init(SAHomeMemberSettings);
-    v97 = [v56 objectForKey:@"meCountryCode"];
+    v96 = objc_msgSend_objectForKey_(v56);
     [v57 setCountryCode:?];
-    v58 = [v56 objectForKey:@"meCard"];
+    v58 = objc_msgSend_objectForKey_(v56);
     if (v58)
     {
-      v59 = v102;
+      v59 = v101;
     }
 
     else
@@ -382,48 +382,48 @@ LABEL_153:
       v59 = 0;
     }
 
-    if (v59 || ([v56 objectForKey:@"backupMeCard"], v60 = objc_claimAutoreleasedReturnValue(), v58, (v58 = v60) != 0))
+    if (v59 || (objc_msgSend_objectForKey_(v56), v60 = objc_claimAutoreleasedReturnValue(), v58, (v58 = v60) != 0))
     {
       v61 = [AceObject aceObjectWithPlistData:v58];
       v62 = AFSiriLogContextDaemonAce;
       if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v159 = "saHomeMemberSettingsFromCloud";
-        v160 = 2112;
-        v161 = v61;
+        v158 = "saHomeMemberSettingsFromCloud";
+        v159 = 2112;
+        v160 = v61;
         _os_log_debug_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEBUG, "%s SAPerson object is (%@)", buf, 0x16u);
       }
 
       [v57 setMeCard:v61];
     }
 
-    v99 = v34;
-    v63 = [v56 objectForKey:@"meParentalRestrictions"];
+    v98 = v34;
+    v63 = objc_msgSend_objectForKey_(v56);
     [v57 setParentalRestrictions:v63];
-    v64 = [v56 objectForKey:@"mePreferredLanguage"];
+    v64 = objc_msgSend_objectForKey_(v56);
     [v57 setPreferredLanguage:v64];
-    v65 = [v56 objectForKey:@"meRegion"];
+    v65 = objc_msgSend_objectForKey_(v56);
     [v57 setRegion:v65];
-    v66 = [v56 objectForKey:@"meTemperatureUnit"];
+    v66 = objc_msgSend_objectForKey_(v56);
     [v57 setTemperatureUnit:v66];
     v67 = AFSiriLogContextDaemonAce;
     if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v159 = "saHomeMemberSettingsFromCloud";
-      v160 = 2112;
-      v161 = v63;
-      v162 = 2112;
-      v163 = v64;
-      v164 = 2112;
-      v165 = v65;
-      v166 = 2112;
-      v167 = v66;
+      v158 = "saHomeMemberSettingsFromCloud";
+      v159 = 2112;
+      v160 = v63;
+      v161 = 2112;
+      v162 = v64;
+      v163 = 2112;
+      v164 = v65;
+      v165 = 2112;
+      v166 = v66;
       _os_log_debug_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "%s parentalRestrictions = (%@), preferredLanguage = (%@), region = (%@), temperatureUnit = (%@)", buf, 0x34u);
     }
 
-    v68 = [v56 objectForKey:@"meTTSVoice"];
+    v68 = objc_msgSend_objectForKey_(v56);
     if (v68)
     {
       v69 = [AceObject aceObjectWithPlistData:v68];
@@ -431,16 +431,16 @@ LABEL_153:
       if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v159 = "saHomeMemberSettingsFromCloud";
-        v160 = 2112;
-        v161 = v69;
+        v158 = "saHomeMemberSettingsFromCloud";
+        v159 = 2112;
+        v160 = v69;
         _os_log_debug_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEBUG, "%s ttsVoice object is (%@)", buf, 0x16u);
       }
 
       [v57 setTtsVoice:v69];
     }
 
-    v71 = [v56 objectForKey:@"twentyFourHourTimeDisplay"];
+    v71 = objc_msgSend_objectForKey_(v56);
     if (v71)
     {
       objc_opt_class();
@@ -455,7 +455,7 @@ LABEL_153:
             if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v159 = "saHomeMemberSettingsFromCloud";
+              v158 = "saHomeMemberSettingsFromCloud";
               _os_log_debug_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEBUG, "%s companion set twentyFourHourTimeDisplay to YES", buf, 0xCu);
             }
 
@@ -471,7 +471,7 @@ LABEL_153:
             if (v79)
             {
               *buf = 136315138;
-              v159 = "saHomeMemberSettingsFromCloud";
+              v158 = "saHomeMemberSettingsFromCloud";
               _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "%s twentyForHourTimeDisplay should be -1, 0, or 1", buf, 0xCu);
             }
 
@@ -481,7 +481,7 @@ LABEL_153:
           if (v79)
           {
             *buf = 136315138;
-            v159 = "saHomeMemberSettingsFromCloud";
+            v158 = "saHomeMemberSettingsFromCloud";
             v78 = "%s companion has twentyFourHourTimeDisplay set to nil, forcing this communal device's twentyFourHourTimeDisplay to NO";
             goto LABEL_106;
           }
@@ -493,7 +493,7 @@ LABEL_153:
           if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v159 = "saHomeMemberSettingsFromCloud";
+            v158 = "saHomeMemberSettingsFromCloud";
             v78 = "%s companion set twentyFourHourTimeDisplay to NO";
 LABEL_106:
             _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, v78, buf, 0xCu);
@@ -512,7 +512,7 @@ LABEL_109:
       if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v159 = "saHomeMemberSettingsFromCloud";
+        v158 = "saHomeMemberSettingsFromCloud";
         v76 = "%s twentyForHourTimeDisplay should be NSNumber Integer";
         goto LABEL_98;
       }
@@ -524,7 +524,7 @@ LABEL_109:
       if (os_log_type_enabled(AFSiriLogContextDaemonAce, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v159 = "saHomeMemberSettingsFromCloud";
+        v158 = "saHomeMemberSettingsFromCloud";
         v76 = "%s companion did not set its twentyFourHourTimeDisplay";
 LABEL_98:
         _os_log_debug_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEBUG, v76, buf, 0xCu);
@@ -533,30 +533,30 @@ LABEL_98:
 
 LABEL_110:
 
-    recordsCopy = v122;
-    completionCopy = v123;
-    v11 = v119;
-    v35 = v98;
-    v34 = v99;
+    recordsCopy = v121;
+    completionCopy = v122;
+    v11 = v118;
+    v35 = v97;
+    v34 = v98;
 LABEL_111:
 
     if (!v11)
     {
-      v93 = AFSiriLogContextDaemon;
+      v92 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-        _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_INFO, "%s ADHomeInfoManager is not ready", buf, 0xCu);
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_INFO, "%s ADHomeInfoManager is not ready", buf, 0xCu);
       }
 
-      profileCopy = v105;
+      profileCopy = v104;
       if (completionCopy)
       {
         (*(completionCopy + 2))(completionCopy, 0);
       }
 
-      goto LABEL_152;
+      goto LABEL_149;
     }
 
     v80 = [(ADCloudKitMultiUserSharedDataStore *)self zone];
@@ -569,157 +569,147 @@ LABEL_111:
       if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
         _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s Saving MeCard and Companion ACEHost", buf, 0xCu);
       }
 
-      if (v102)
+      v84 = objc_msgSend_objectForKey_(v56, integerValue);
+      v85 = v124;
+      if (v84)
       {
-        v84 = @"meCard";
+        v86 = AFSiriLogContextDaemon;
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+        {
+          *buf = 136315138;
+          v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+          _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_INFO, "%s Found valid MeCard data", buf, 0xCu);
+        }
+
+        v87 = +[ADLocalMeCardStore sharedStore];
+        [v87 storeMeCard:v84];
+
+        recordsCopy = v121;
       }
 
-      else
-      {
-        v84 = @"backupMeCard";
-      }
-
-      v85 = [v56 objectForKey:{v84, integerValue}];
-      v86 = v125;
       if (v85)
       {
-        v87 = AFSiriLogContextDaemon;
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+        v88 = AFSiriLogContextDaemon;
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_INFO, "%s Found valid MeCard data", buf, 0xCu);
+          v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "%s Found valid companion ACE Host", buf, 0xCu);
         }
 
-        v88 = +[ADLocalMeCardStore sharedStore];
-        [v88 storeMeCard:v85];
+        v89 = +[ADPreferences sharedPreferences];
+        [v89 setSingleUserCompanionACEHost:v85];
 
-        recordsCopy = v122;
-      }
-
-      if (v86)
-      {
-        v89 = AFSiriLogContextDaemon;
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
-        {
-          *buf = 136315138;
-          v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-          _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "%s Found valid companion ACE Host", buf, 0xCu);
-        }
-
-        v90 = +[ADPreferences sharedPreferences];
-        [v90 setSingleUserCompanionACEHost:v86];
-
-        recordsCopy = v122;
+        recordsCopy = v121;
       }
     }
 
-    profileCopy = v105;
-    if (v120 && v34 && v35 || ![recordsCopy count])
+    profileCopy = v104;
+    if (v119 && v34 && v35 || ![recordsCopy count])
     {
-      if (!self->isATVOnly || v117 && v114)
+      if (!self->isATVOnly || v116 && v113)
       {
-        v129[0] = _NSConcreteStackBlock;
-        v129[1] = 3221225472;
-        v129[2] = sub_10016B264;
-        v129[3] = &unk_100513C48;
-        v130 = v34;
-        v131 = v107;
-        v132 = v110;
-        v133 = v114;
-        v134 = obja;
-        v135 = v111;
-        v136 = v125;
-        v149 = v101;
-        v150 = bOOLValue2;
-        v137 = v109;
-        v138 = v108;
+        v128[0] = _NSConcreteStackBlock;
+        v128[1] = 3221225472;
+        v128[2] = sub_10016B264;
+        v128[3] = &unk_100513C48;
+        v129 = v34;
+        v130 = v106;
+        v131 = v109;
+        v132 = v113;
+        v133 = obja;
+        v134 = v110;
+        v135 = v124;
+        v148 = v100;
+        v149 = bOOLValue2;
+        v136 = v108;
+        v137 = v107;
         selfCopy = self;
-        v140 = v113;
-        v141 = v35;
-        v142 = v117;
-        v143 = recordsCopy;
-        completionCopy = v123;
-        v148 = v123;
-        v144 = ownerName;
-        v145 = v57;
-        v146 = v112;
-        v147 = v120;
-        v11 = v119;
-        [v119 getCurrentHomeMemberIds:v129];
+        v139 = v112;
+        v140 = v35;
+        v141 = v116;
+        v142 = recordsCopy;
+        completionCopy = v122;
+        v147 = v122;
+        v143 = ownerName;
+        v144 = v57;
+        v145 = v111;
+        v146 = v119;
+        v11 = v118;
+        [v118 getCurrentHomeMemberIds:v128];
 
-LABEL_151:
-LABEL_152:
+LABEL_148:
+LABEL_149:
 
-        v13 = v113;
-        goto LABEL_153;
+        v13 = v112;
+        goto LABEL_150;
       }
 
-      v94 = AFSiriLogContextSession;
-      completionCopy = v123;
-      v11 = v119;
+      v93 = AFSiriLogContextSession;
+      completionCopy = v122;
+      v11 = v118;
       if (os_log_type_enabled(AFSiriLogContextSession, OS_LOG_TYPE_INFO))
       {
         *buf = 136315651;
-        v159 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
-        v160 = 2113;
-        v161 = v117;
-        v162 = 2113;
-        v163 = v114;
-        _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, "%s ATV companion invalid %{private}@-%{private}@", buf, 0x20u);
+        v158 = "[ADCloudKitMultiUserSharedDataStore setKeyValueRecordsAndVoiceProfile:records:completion:]";
+        v159 = 2113;
+        v160 = v116;
+        v161 = 2113;
+        v162 = v113;
+        _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_INFO, "%s ATV companion invalid %{private}@-%{private}@", buf, 0x20u);
       }
 
-      if (!v123)
+      if (!v122)
       {
-        goto LABEL_151;
+        goto LABEL_148;
       }
 
       currentOwnerSharedUserID = [AFError errorWithCode:1012];
-      (v123)[2](v123, currentOwnerSharedUserID);
+      (v122)[2](v122, currentOwnerSharedUserID);
     }
 
     else
     {
       if (![ownerName isEqualToString:CKCurrentUserDefaultName])
       {
-        v95 = +[ADPreferences sharedPreferences];
-        [v95 multiUserSharedDataServerChangeTokenForOwner:ownerName];
+        v94 = +[ADPreferences sharedPreferences];
+        [v94 multiUserSharedDataServerChangeTokenForOwner:ownerName];
 
-        completionCopy = v123;
-        v11 = v119;
-        if (v123)
+        completionCopy = v122;
+        v11 = v118;
+        if (v122)
         {
-          v123[2](v123, 0);
+          v122[2](v122, 0);
         }
 
-        goto LABEL_151;
+        goto LABEL_148;
       }
 
-      v91 = +[ADMultiUserService sharedService];
-      currentOwnerSharedUserID = [v91 currentOwnerSharedUserID];
+      v90 = +[ADMultiUserService sharedService];
+      currentOwnerSharedUserID = [v90 currentOwnerSharedUserID];
 
-      completionCopy = v123;
+      completionCopy = v122;
       if (currentOwnerSharedUserID)
       {
-        [(ADCloudKitMultiUserSharedDataStore *)self _updateVoiceIDProfilesForSharedUser:currentOwnerSharedUserID iCloudAltDSID:0 records:recordsCopy isPrimary:1 isNewUser:0 completion:v123];
-        v11 = v119;
+        [(ADCloudKitMultiUserSharedDataStore *)self _updateVoiceIDProfilesForSharedUser:currentOwnerSharedUserID iCloudAltDSID:0 records:recordsCopy isPrimary:1 isNewUser:0 completion:v122];
+        v11 = v118;
       }
 
       else
       {
-        v11 = v119;
-        if (v123)
+        v11 = v118;
+        if (v122)
         {
-          v123[2](v123, 0);
+          v122[2](v122, 0);
         }
       }
     }
 
-    goto LABEL_151;
+    goto LABEL_148;
   }
 
   if (completionCopy)
@@ -727,7 +717,7 @@ LABEL_152:
     (*(completionCopy + 2))(completionCopy, 0);
   }
 
-LABEL_154:
+LABEL_151:
 }
 
 - (void)checkForATVRMVSettingUpdate:(id)update
@@ -808,7 +798,7 @@ LABEL_154:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v21 = [v20 objectForKey:@"rmvTVSetting"];
+            v21 = objc_msgSend_objectForKey_(v20);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -864,7 +854,7 @@ LABEL_154:
 {
   recordsCopy = records;
   v4 = +[NSMutableDictionary dictionary];
-  v5 = [recordsCopy objectForKey:@"meDeviceHomeUserUUID"];
+  v5 = objc_msgSend_objectForKey_(recordsCopy);
   if ([v5 count])
   {
     v6 = AFSiriLogContextDaemon;
@@ -903,7 +893,7 @@ LABEL_154:
         v12 = *(*(&v29 + 1) + 8 * i);
         if ([v12 hasPrefix:@"sharedDeviceHomeUserUUIDPrefix"])
         {
-          v13 = [v7 objectForKey:v12];
+          v13 = objc_msgSend_objectForKey_(v7);
           [v4 addEntriesFromDictionary:v13];
           v14 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
@@ -947,7 +937,7 @@ LABEL_154:
         v20 = *(*(&v25 + 1) + 8 * j);
         if ([v20 hasPrefix:@"v2_sharedDeviceHomeUserUUIDPrefix"])
         {
-          v21 = [v15 objectForKey:v20];
+          v21 = objc_msgSend_objectForKey_(v15);
           [v4 addEntriesFromDictionary:v21];
           v22 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
@@ -1653,7 +1643,7 @@ LABEL_34:
         }
 
         v21 = *(*(&v84 + 1) + 8 * v20);
-        v22 = [v16 objectForKey:{v21, v65, v66}];
+        v22 = objc_msgSend_objectForKey_(v16, v65, v66);
         v23 = [v21 componentsSeparatedByString:{@", "}];
         if ([v23 count] == 3)
         {
@@ -1664,7 +1654,7 @@ LABEL_34:
           v27 = [v23 objectAtIndexedSubscript:0];
           v28 = [v27 substringFromIndex:v26];
 
-          v29 = [v22 objectForKey:@"languages"];
+          v29 = objc_msgSend_objectForKey_(v22);
           v30 = [v29 objectAtIndex:0];
 
           v31 = [v23 objectAtIndexedSubscript:2];
@@ -1679,7 +1669,7 @@ LABEL_34:
             integerValue = [v69 integerValue];
             if (integerValue == [v35 integerValue])
             {
-              v68 = [archivesCopy objectForKey:v21];
+              v68 = objc_msgSend_objectForKey_(archivesCopy);
               v37 = [v74 stringByAppendingPathComponent:v30];
               v38 = AFSiriLogContextDaemon;
               if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
@@ -1795,9 +1785,9 @@ LABEL_34:
           }
 
           v54 = *(*(&v80 + 1) + 8 * i);
-          v55 = [archivesCopy objectForKey:v54];
-          v56 = [v79 objectForKey:v54];
-          v57 = [v56 objectForKey:@"languages"];
+          v55 = objc_msgSend_objectForKey_(archivesCopy);
+          v56 = objc_msgSend_objectForKey_(v79);
+          v57 = objc_msgSend_objectForKey_(v56);
           v58 = [v57 objectAtIndex:0];
 
           v59 = [v74 stringByAppendingPathComponent:v58];
@@ -2102,7 +2092,7 @@ LABEL_63:
             if ([recordName length])
             {
               encryptedValuesByKey = [v27 encryptedValuesByKey];
-              v32 = [encryptedValuesByKey objectForKey:@"fileName"];
+              v32 = objc_msgSend_objectForKey_(encryptedValuesByKey);
               if ((objc_opt_isKindOfClass() & 1) == 0 || ![v32 length])
               {
                 v55 = AFSiriLogContextDaemon;
@@ -2120,14 +2110,14 @@ LABEL_63:
 
               v33 = v32;
               v34 = encryptedValuesByKey;
-              v35 = [encryptedValuesByKey objectForKey:@"fileCompressionType"];
+              v35 = objc_msgSend_objectForKey_(encryptedValuesByKey);
               v94 = v35;
               if (objc_opt_isKindOfClass())
               {
                 if ([v35 unsignedIntegerValue] == 2)
                 {
                   encryptedValuesByKey = v34;
-                  v93 = [v34 objectForKey:@"fileAssetSize"];
+                  v93 = objc_msgSend_objectForKey_(v34);
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
                     v36 = AFSiriLogContextDaemon;
@@ -2141,7 +2131,7 @@ LABEL_63:
                     }
                   }
 
-                  v37 = [v27 objectForKey:@"fileAsset"];
+                  v37 = objc_msgSend_objectForKey_(v27);
                   v32 = v33;
                   v92 = v37;
                   if (objc_opt_isKindOfClass())
@@ -2170,7 +2160,7 @@ LABEL_63:
                         _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "%s Extracted: recordName(%@), fileName(%@), fileArchiveDict count(%lu)", buf, 0x2Au);
                       }
 
-                      v44 = [encryptedValuesByKey objectForKey:@"languages"];
+                      v44 = objc_msgSend_objectForKey_(encryptedValuesByKey);
                       v85 = v44;
                       if ((objc_opt_isKindOfClass() & 1) != 0 && [v44 count])
                       {
@@ -2243,7 +2233,7 @@ LABEL_36:
                             _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "%s Languages: %@", buf, 0x16u);
                           }
 
-                          v48 = [encryptedValuesByKey objectForKey:@"productType"];
+                          v48 = objc_msgSend_objectForKey_(encryptedValuesByKey);
                           v91 = v48;
                           if ((objc_opt_isKindOfClass() & 1) != 0 && [v48 length])
                           {
@@ -2841,7 +2831,7 @@ LABEL_5:
     }
   }
 
-  [(ADCloudKitMultiUserSharedDataStore *)self synchronizeUsingActivity:activityCopy sharedUserId:self->_sharedUserID completion:completionCopy, *v22, *&v22[16]];
+  [(ADCloudKitMultiUserSharedDataStore *)self synchronizeUsingActivity:activityCopy sharedUserId:self->_sharedUserID completion:completionCopy, *v22, *&v22[8]];
 LABEL_7:
 }
 

@@ -34,18 +34,16 @@
 
 void __69__PAVideoConversionServiceClient_requestStatusWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion status request error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion status request error: %{public}@", &v4, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAfterPendingRequestCompletion
@@ -61,7 +59,7 @@ void __69__PAVideoConversionServiceClient_requestStatusWithCompletionHandler___b
 
 void __73__PAVideoConversionServiceClient_invalidateAfterPendingRequestCompletion__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 1)
   {
     v2 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
@@ -70,11 +68,11 @@ void __73__PAVideoConversionServiceClient_invalidateAfterPendingRequestCompletio
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v8 = 138543618;
-      v9 = v4;
-      v10 = 2048;
-      v11 = v3;
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Invalidating client %{public}@ with pending request count %tu", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v4;
+      v9 = 2048;
+      v10 = v3;
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Invalidating client %{public}@ with pending request count %tu", &v7, 0x16u);
     }
 
     v5 = *(a1 + 32);
@@ -92,14 +90,12 @@ void __73__PAVideoConversionServiceClient_invalidateAfterPendingRequestCompletio
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 2048;
-    v11 = [v6 state];
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring invalidation request for client %{public}@ in non-running state %tu", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2048;
+    v10 = [v6 state];
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring invalidation request for client %{public}@ in non-running state %tu", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProgress:(id)progress
@@ -174,19 +170,19 @@ void __49__PAVideoConversionServiceClient_updateProgress___block_invoke(uint64_t
 
 - (void)extractStillImageFromVideoAtSourceURL:(id)l toDestinationURL:(id)rL options:(id)options completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   optionsCopy = options;
   handlerCopy = handler;
-  v52 = lCopy;
+  v51 = lCopy;
   if (!lCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"PAVideoConversionServiceClient.m" lineNumber:251 description:{@"Invalid parameter not satisfying: %@", @"sourceURL"}];
   }
 
-  v51 = optionsCopy;
+  v50 = optionsCopy;
   if (optionsCopy)
   {
     if (handlerCopy)
@@ -212,8 +208,8 @@ void __49__PAVideoConversionServiceClient_updateProgress___block_invoke(uint64_t
 LABEL_5:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v49 = _os_activity_create(&dword_2585D9000, "mediaconversion-video-still", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v49, &state);
+  v48 = _os_activity_create(&dword_2585D9000, "mediaconversion-video-still", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v48, &state);
   v13 = [optionsCopy objectForKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
   v14 = v13;
   if (v13)
@@ -232,7 +228,7 @@ LABEL_5:
   v19 = MEMORY[0x277D86220];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    path = [v52 path];
+    path = [v51 path];
     *buf = 138543618;
     *&buf[4] = uUIDString;
     *&buf[12] = 2112;
@@ -250,41 +246,41 @@ LABEL_5:
     _os_signpost_emit_with_name_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_BEGIN, v22, "com.apple.photos.mediaconversion.client.video-still", "Video still extraction request %{public}@", buf, 0xCu);
   }
 
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke;
-  v65[3] = &unk_27989B410;
-  v67 = v22;
-  v48 = handlerCopy;
-  v66 = v48;
-  v24 = MEMORY[0x259C84340](v65);
-  v25 = [PAMediaConversionServiceResourceURLCollection collectionWithMainResourceURL:v52];
-  v64 = 0;
-  v26 = [v25 bookmarkDataDictionaryRepresentationWithError:&v64];
-  v27 = v64;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke;
+  v64[3] = &unk_27989B410;
+  v66 = v22;
+  v47 = handlerCopy;
+  v65 = v47;
+  v24 = MEMORY[0x259C84340](v64);
+  v25 = [PAMediaConversionServiceResourceURLCollection collectionWithMainResourceURL:v51];
+  v63 = 0;
+  v26 = [v25 bookmarkDataDictionaryRepresentationWithError:&v63];
+  v27 = v63;
   if (v26)
   {
     if (rLCopy)
     {
       v28 = [PAMediaConversionServiceResourceURLCollection collectionWithMainResourceURL:?];
-      v63 = 0;
-      v29 = [v28 ensureFilesExistWithError:&v63];
-      v30 = v63;
+      v62 = 0;
+      v29 = [v28 ensureFilesExistWithError:&v62];
+      v30 = v62;
       if (v29)
       {
-        v62 = v27;
-        v46 = [v28 bookmarkDataDictionaryRepresentationWithError:&v62];
-        v31 = v62;
+        v61 = v27;
+        v45 = [v28 bookmarkDataDictionaryRepresentationWithError:&v61];
+        v31 = v61;
 
         v27 = v31;
-        if (v46)
+        if (v45)
         {
 
 LABEL_22:
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          v70 = 0;
+          v69 = 0;
           isolationQueue = [(PAVideoConversionServiceClient *)self isolationQueue];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
@@ -292,14 +288,14 @@ LABEL_22:
           block[3] = &unk_27989B118;
           block[4] = self;
           v33 = uUIDString;
-          v60 = v33;
-          v61 = buf;
+          v59 = v33;
+          v60 = buf;
           dispatch_sync(isolationQueue, block);
 
           if (*(*&buf[8] + 24))
           {
-            v34 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v51];
-            v35 = [v51 objectForKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
+            v34 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v50];
+            v35 = [v50 objectForKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
             uUIDString2 = v35;
             if (!v35)
             {
@@ -316,24 +312,24 @@ LABEL_22:
             [v34 setObject:identifier forKeyedSubscript:@"PAMediaConversionServiceOptionOutputFileTypeKey"];
 
             serviceConnection = [(PAVideoConversionServiceClient *)self serviceConnection];
-            v56[0] = MEMORY[0x277D85DD0];
-            v56[1] = 3221225472;
-            v56[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_103;
-            v56[3] = &unk_27989B078;
-            v56[4] = self;
+            v55[0] = MEMORY[0x277D85DD0];
+            v55[1] = 3221225472;
+            v55[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_103;
+            v55[3] = &unk_27989B078;
+            v55[4] = self;
             v39 = v33;
-            v57 = v39;
+            v56 = v39;
             v40 = v24;
-            v58 = v40;
-            v41 = [serviceConnection remoteObjectProxyWithErrorHandler:v56];
-            v53[0] = MEMORY[0x277D85DD0];
-            v53[1] = 3221225472;
-            v53[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_104;
-            v53[3] = &unk_27989B908;
-            v53[4] = self;
-            v54 = v39;
-            v55 = v40;
-            [v41 extractStillImageFromVideoAtSourceBookmarkDictionary:v26 toDestinationBookmarkDictionary:v46 options:v34 replyHandler:v53];
+            v57 = v40;
+            v41 = [serviceConnection remoteObjectProxyWithErrorHandler:v55];
+            v52[0] = MEMORY[0x277D85DD0];
+            v52[1] = 3221225472;
+            v52[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_104;
+            v52[3] = &unk_27989B908;
+            v52[4] = self;
+            v53 = v39;
+            v54 = v40;
+            [v41 extractStillImageFromVideoAtSourceBookmarkDictionary:v26 toDestinationBookmarkDictionary:v45 options:v34 replyHandler:v52];
           }
 
           else
@@ -343,7 +339,7 @@ LABEL_22:
           }
 
           _Block_object_dispose(buf, 8);
-          v28 = v46;
+          v28 = v45;
           goto LABEL_35;
         }
 
@@ -368,7 +364,7 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    v46 = 0;
+    v45 = 0;
     goto LABEL_22;
   }
 
@@ -385,7 +381,6 @@ LABEL_35:
 LABEL_36:
 
   os_activity_scope_leave(&state);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -414,7 +409,7 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
 
 void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_102(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 1)
   {
     v2 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:0];
@@ -425,11 +420,11 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
     {
       v4 = *(a1 + 40);
       v5 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
-      v10 = 138543618;
-      v11 = v4;
-      v12 = 2048;
-      v13 = [v5 count];
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ added to request map (pending request count now %ld)", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v4;
+      v11 = 2048;
+      v12 = [v5 count];
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ added to request map (pending request count now %ld)", &v9, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -437,65 +432,61 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = a1 + 32;
-    v7 = *(a1 + 32);
-    v8 = *(v9 + 8);
-    v10 = 138543874;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v7;
-    v14 = 2048;
-    v15 = [v7 state];
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Rejecting video conversion request %{public}@ on client %{public}@ in non-running state %tu", &v10, 0x20u);
+    v8 = a1 + 32;
+    v6 = *(a1 + 32);
+    v7 = *(v8 + 8);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v6;
+    v13 = 2048;
+    v14 = [v6 state];
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Rejecting video conversion request %{public}@ on client %{public}@ in non-running state %tu", &v9, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_103(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) isolationQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_2;
-  v9[3] = &unk_27989B6F0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_2;
+  v8[3] = &unk_27989B6F0;
   v5 = *(a1 + 40);
-  v9[4] = *(a1 + 32);
-  v10 = v5;
-  dispatch_async(v4, v9);
+  v8[4] = *(a1 + 32);
+  v9 = v5;
+  dispatch_async(v4, v8);
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 40);
+    v7 = *(a1 + 40);
     *buf = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v3;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v3;
     _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video still extraction request %{public}@ XPC error: %{public}@", buf, 0x16u);
   }
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), 2, 0, v3, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_104(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a1[4];
   v9 = a3;
   v10 = [v8 isolationQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_2_105;
-  v18[3] = &unk_27989B6F0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL_toDestinationURL_options_completionHandler___block_invoke_2_105;
+  v17[3] = &unk_27989B6F0;
   v11 = a1[5];
-  v18[4] = a1[4];
-  v19 = v11;
-  dispatch_async(v10, v18);
+  v17[4] = a1[4];
+  v18 = v11;
+  dispatch_async(v10, v17);
 
   if (a2 == 1)
   {
@@ -505,7 +496,7 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
     {
       v15 = a1[5];
       *buf = 138543362;
-      v21 = v15;
+      v20 = v15;
       _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video still extraction request %{public}@ successful completion", buf, 0xCu);
       v14 = v9;
     }
@@ -515,13 +506,13 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v17 = a1[5];
+      v16 = a1[5];
       *buf = 138543874;
-      v21 = v17;
-      v22 = 2048;
-      v23 = a2;
-      v24 = 2114;
-      v25 = v7;
+      v20 = v16;
+      v21 = 2048;
+      v22 = a2;
+      v23 = 2114;
+      v24 = v7;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video still extraction request %{public}@ unsuccessful completion, status = %ld, error = %{public}@", buf, 0x20u);
     }
 
@@ -529,8 +520,6 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
   }
 
   (*(a1[6] + 16))(a1[6], a2, v14, v7, v13);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modifyRequestWithIdentifier:(id)identifier modifications:(id)modifications
@@ -555,19 +544,17 @@ void __115__PAVideoConversionServiceClient_extractStillImageFromVideoAtSourceURL
 
 void __76__PAVideoConversionServiceClient_modifyRequestWithIdentifier_modifications___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XPC error during modification of request %{public}@ on client %{public}@", &v5, 0x16u);
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = 138543618;
+    v5 = v2;
+    v6 = 2114;
+    v7 = v3;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XPC error during modification of request %{public}@ on client %{public}@", &v4, 0x16u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markPendingRequestAsOptionalForProgress:(id)progress
@@ -597,7 +584,7 @@ void __76__PAVideoConversionServiceClient_modifyRequestWithIdentifier_modificati
 
 void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgress___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 1)
   {
     v2 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
@@ -606,9 +593,9 @@ void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgres
 
     if (v4)
     {
-      v12 = @"PAMediaConversionServiceOptionJobPriorityKey";
-      v13 = &unk_2869A0FD0;
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v11 = @"PAMediaConversionServiceOptionJobPriorityKey";
+      v12 = &unk_2869A0FD0;
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
       [*(a1 + 32) modifyRequestWithIdentifier:*(a1 + 40) modifications:v5];
     }
 
@@ -617,9 +604,9 @@ void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgres
       v10 = *(a1 + 32);
       v9 = *(a1 + 40);
       *buf = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v10;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v10;
       _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Ignoring modification for request %{public}@ on client %{public}@ that is not or no longer in pending request map", buf, 0x16u);
     }
   }
@@ -630,15 +617,13 @@ void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgres
     v6 = *(a1 + 32);
     v7 = *(v8 + 8);
     *buf = 138543874;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v6;
-    v18 = 2048;
-    v19 = [v6 state];
+    v14 = v7;
+    v15 = 2114;
+    v16 = v6;
+    v17 = 2048;
+    v18 = [v6 state];
     _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Rejecting modification for request %{public}@ on client %{public}@ in non-running state %tu", buf, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canMarkPendingRequestAsOptionalForProgress:(id)progress
@@ -651,7 +636,7 @@ void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgres
 
 - (id)convertVideoAtSourceURLCollection:(id)collection toDestinationURLCollection:(id)lCollection options:(id)options completionHandler:(id)handler
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   lCollectionCopy = lCollection;
   optionsCopy = options;
@@ -682,8 +667,8 @@ void __74__PAVideoConversionServiceClient_markPendingRequestAsOptionalForProgres
 LABEL_3:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v59 = _os_activity_create(&dword_2585D9000, "mediaconversion-video", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v59, &state);
+  v58 = _os_activity_create(&dword_2585D9000, "mediaconversion-video", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v58, &state);
   v15 = [optionsCopy objectForKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
   v16 = v15;
   if (v15)
@@ -719,52 +704,52 @@ LABEL_3:
     _os_signpost_emit_with_name_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_BEGIN, v23, "com.apple.photos.mediaconversion.client.video", "Video conversion request %{public}@", buf, 0xCu);
   }
 
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke;
-  v82[3] = &unk_27989B410;
-  v84 = v23;
-  v58 = v14;
-  v83 = v58;
-  v25 = MEMORY[0x259C84340](v82);
-  v62 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:optionsCopy];
-  v81 = 0;
-  v26 = [collectionCopy bookmarkDataDictionaryRepresentationWithError:&v81];
-  v27 = v81;
-  v60 = v26;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke;
+  v81[3] = &unk_27989B410;
+  v83 = v23;
+  v57 = v14;
+  v82 = v57;
+  v25 = MEMORY[0x259C84340](v81);
+  v61 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:optionsCopy];
+  v80 = 0;
+  v26 = [collectionCopy bookmarkDataDictionaryRepresentationWithError:&v80];
+  v27 = v80;
+  v59 = v26;
   if (v26)
   {
     if (lCollectionCopy)
     {
-      v80 = 0;
-      v28 = [lCollectionCopy ensureFilesExistWithError:&v80];
-      v29 = v80;
+      v79 = 0;
+      v28 = [lCollectionCopy ensureFilesExistWithError:&v79];
+      v29 = v79;
       if (v28)
       {
-        v79 = v27;
-        v57 = [lCollectionCopy bookmarkDataDictionaryRepresentationWithError:&v79];
-        v55 = v79;
+        v78 = v27;
+        v56 = [lCollectionCopy bookmarkDataDictionaryRepresentationWithError:&v78];
+        v54 = v78;
 
-        if (v57)
+        if (v56)
         {
 
 LABEL_20:
           v32 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:100];
           [v32 setUserInfoObject:uUIDString forKey:@"PAMediaConversionServiceJobIdentifierKey"];
-          v75[0] = MEMORY[0x277D85DD0];
-          v75[1] = 3221225472;
-          v75[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_86;
-          v75[3] = &unk_27989B718;
+          v74[0] = MEMORY[0x277D85DD0];
+          v74[1] = 3221225472;
+          v74[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_86;
+          v74[3] = &unk_27989B718;
           v33 = uUIDString;
-          v76 = v33;
+          v75 = v33;
           selfCopy = self;
           v34 = v25;
-          v78 = v34;
-          [v32 setCancellationHandler:v75];
+          v77 = v34;
+          [v32 setCancellationHandler:v74];
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          v89 = 0;
+          v88 = 0;
           isolationQueue = [(PAVideoConversionServiceClient *)self isolationQueue];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
@@ -772,85 +757,85 @@ LABEL_20:
           block[3] = &unk_27989B050;
           block[4] = self;
           v36 = v33;
-          v72 = v36;
-          v56 = v32;
-          v73 = v56;
-          v74 = buf;
+          v71 = v36;
+          v55 = v32;
+          v72 = v55;
+          v73 = buf;
           dispatch_sync(isolationQueue, block);
 
           if (*(*&buf[8] + 24))
           {
-            [v62 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PAMediaConversionServiceOptionWantsProgressKey"];
-            [v62 setObject:v36 forKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
+            [v61 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PAMediaConversionServiceOptionWantsProgressKey"];
+            [v61 setObject:v36 forKeyedSubscript:@"PAMediaConversionServiceJobIdentifierKey"];
             serviceConnection = [(PAVideoConversionServiceClient *)self serviceConnection];
-            v67[0] = MEMORY[0x277D85DD0];
-            v67[1] = 3221225472;
-            v67[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_92;
-            v67[3] = &unk_27989B078;
+            v66[0] = MEMORY[0x277D85DD0];
+            v66[1] = 3221225472;
+            v66[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_92;
+            v66[3] = &unk_27989B078;
             v38 = v36;
-            v68 = v38;
+            v67 = v38;
             selfCopy2 = self;
             v39 = v34;
-            v70 = v39;
-            v54 = [serviceConnection remoteObjectProxyWithErrorHandler:v67];
+            v69 = v39;
+            v53 = [serviceConnection remoteObjectProxyWithErrorHandler:v66];
 
             date = [MEMORY[0x277CBEAA8] date];
-            v63[0] = MEMORY[0x277D85DD0];
-            v63[1] = 3221225472;
-            v63[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_95;
-            v63[3] = &unk_27989B0A0;
-            v63[4] = self;
+            v62[0] = MEMORY[0x277D85DD0];
+            v62[1] = 3221225472;
+            v62[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_95;
+            v62[3] = &unk_27989B0A0;
+            v62[4] = self;
             v41 = v38;
-            v64 = v41;
+            v63 = v41;
             v42 = date;
-            v65 = v42;
-            v66 = v39;
-            v43 = MEMORY[0x259C84340](v63);
-            v44 = [v62 objectForKeyedSubscript:@"PAMediaConversionServiceOptionTargetFileSizeKey"];
+            v64 = v42;
+            v65 = v39;
+            v43 = MEMORY[0x259C84340](v62);
+            v44 = [v61 objectForKeyedSubscript:@"PAMediaConversionServiceOptionTargetFileSizeKey"];
 
-            v45 = [v62 objectForKeyedSubscript:@"PAMediaConversionServiceOptionIsGIFExportConversionKey"];
+            v45 = [v61 objectForKeyedSubscript:@"PAMediaConversionServiceOptionIsGIFExportConversionKey"];
             bOOLValue = [v45 BOOLValue];
 
             if (v44)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                *v86 = 138543362;
-                v87 = v41;
-                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending single pass export request", v86, 0xCu);
+                *v85 = 138543362;
+                v86 = v41;
+                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending single pass export request", v85, 0xCu);
               }
 
-              [v54 singlePassConvertVideoAtSourceBookmarkDictionary:v60 toDestinationBookmarkDictionary:v57 options:v62 replyHandler:v43];
+              [v53 singlePassConvertVideoAtSourceBookmarkDictionary:v59 toDestinationBookmarkDictionary:v56 options:v61 replyHandler:v43];
             }
 
             else if (bOOLValue)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                *v86 = 138543362;
-                v87 = v41;
-                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending GIF export request", v86, 0xCu);
+                *v85 = 138543362;
+                v86 = v41;
+                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending GIF export request", v85, 0xCu);
               }
 
-              [v54 generateGIFForVideoAtSourceBookmarkDictionary:v60 toDestinationBookmarkDictionary:v57 options:v62 replyHandler:v43];
+              [v53 generateGIFForVideoAtSourceBookmarkDictionary:v59 toDestinationBookmarkDictionary:v56 options:v61 replyHandler:v43];
             }
 
             else
             {
-              [v54 convertVideoAtSourceBookmarkDictionary:v60 toDestinationBookmarkDictionary:v57 options:v62 replyHandler:v43];
+              [v53 convertVideoAtSourceBookmarkDictionary:v59 toDestinationBookmarkDictionary:v56 options:v61 replyHandler:v43];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                *v86 = 138543362;
-                v87 = v41;
-                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending export request", v86, 0xCu);
+                *v85 = 138543362;
+                v86 = v41;
+                _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ sending export request", v85, 0xCu);
               }
             }
 
-            v48 = v56;
+            v48 = v55;
             v49 = v43;
             v30 = v48;
 
-            v47 = v68;
+            v47 = v67;
           }
 
           else
@@ -861,8 +846,8 @@ LABEL_20:
           }
 
           _Block_object_dispose(buf, 8);
-          v29 = v57;
-          v27 = v55;
+          v29 = v56;
+          v27 = v54;
           goto LABEL_39;
         }
 
@@ -871,12 +856,12 @@ LABEL_20:
           *buf = 138543618;
           *&buf[4] = uUIDString;
           *&buf[12] = 2114;
-          *&buf[14] = v55;
+          *&buf[14] = v54;
           _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ unable to generate destination bookmark data: %{public}@", buf, 0x16u);
         }
 
-        v27 = v55;
-        (v25)[2](v25, 2, 0, v55);
+        v27 = v54;
+        (v25)[2](v25, 2, 0, v54);
       }
 
       else
@@ -887,13 +872,13 @@ LABEL_20:
       v30 = 0;
 LABEL_39:
 
-      v31 = v60;
+      v31 = v59;
       goto LABEL_40;
     }
 
-    [v62 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PAMediaConversionServiceOptionWantsResultAsDataKey"];
-    v57 = 0;
-    v55 = v27;
+    [v61 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PAMediaConversionServiceOptionWantsResultAsDataKey"];
+    v56 = 0;
+    v54 = v27;
     goto LABEL_20;
   }
 
@@ -912,7 +897,6 @@ LABEL_39:
 LABEL_40:
 
   os_activity_scope_leave(&state);
-  v50 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -943,31 +927,29 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_86(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = a1[4];
     *buf = 138543362;
-    v13 = v2;
+    v12 = v2;
     _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Video conversion request %{public}@ requesting cancellation", buf, 0xCu);
   }
 
   v3 = [a1[5] serviceConnection];
-  v6 = MEMORY[0x277D85DD0];
-  v7 = 3221225472;
-  v8 = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_87;
-  v9 = &unk_27989B4B8;
-  v10 = a1[4];
-  v11 = a1[6];
-  v4 = [v3 remoteObjectProxyWithErrorHandler:&v6];
-  [v4 cancelJobWithIdentifier:{a1[4], v6, v7, v8, v9}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_87;
+  v8 = &unk_27989B4B8;
+  v9 = a1[4];
+  v10 = a1[6];
+  v4 = [v3 remoteObjectProxyWithErrorHandler:&v5];
+  [v4 cancelJobWithIdentifier:{a1[4], v5, v6, v7, v8}];
 }
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_90(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) state] == 1)
   {
     v2 = *(a1 + 48);
@@ -978,11 +960,11 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
     {
       v4 = *(a1 + 40);
       v5 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
-      v10 = 138543618;
-      v11 = v4;
-      v12 = 2048;
-      v13 = [v5 count];
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ added to request map (pending request count now %ld)", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v4;
+      v11 = 2048;
+      v12 = [v5 count];
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ added to request map (pending request count now %ld)", &v9, 0x16u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -990,32 +972,30 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = a1 + 32;
-    v7 = *(a1 + 32);
-    v8 = *(v9 + 8);
-    v10 = 138543874;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v7;
-    v14 = 2048;
-    v15 = [v7 state];
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Rejecting video conversion request %{public}@ on client %{public}@ in non-running state %tu", &v10, 0x20u);
+    v8 = a1 + 32;
+    v6 = *(a1 + 32);
+    v7 = *(v8 + 8);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v6;
+    v13 = 2048;
+    v14 = [v6 state];
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Rejecting video conversion request %{public}@ on client %{public}@ in non-running state %tu", &v9, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_92(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v3;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v3;
     _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ XPC error: %{public}@", buf, 0x16u);
   }
 
@@ -1024,13 +1004,12 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
   block[1] = 3221225472;
   block[2] = __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_93;
   block[3] = &unk_27989B6F0;
-  v8 = *(a1 + 32);
-  v5 = v8.i64[0];
-  v10 = vextq_s8(v8, v8, 8uLL);
+  v7 = *(a1 + 32);
+  v5 = v7.i64[0];
+  v9 = vextq_s8(v7, v7, 8uLL);
   dispatch_async(v4, block);
 
   (*(*(a1 + 48) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_95(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -1080,7 +1059,7 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) handleRequestCompletionForIdentifier:*(a1 + 40)];
   v2 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
   v3 = [v2 count];
@@ -1091,67 +1070,61 @@ void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toD
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2048;
-      v12 = v3;
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ removed from request map after successful completion (pending request count now %tu)", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v3;
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ removed from request map after successful completion (pending request count now %tu)", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9 = 138544130;
-    v10 = v7;
-    v11 = 2048;
-    v12 = v3;
-    v13 = 2048;
-    v14 = v4;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ removed from request map after unsuccessful completion (pending request count now %tu) - status = %zd, error = %{public}@", &v9, 0x2Au);
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v8 = 138544130;
+    v9 = v6;
+    v10 = 2048;
+    v11 = v3;
+    v12 = 2048;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ removed from request map after unsuccessful completion (pending request count now %tu) - status = %zd, error = %{public}@", &v8, 0x2Au);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_93(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) handleRequestCompletionForIdentifier:*(a1 + 40)];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 40);
     v3 = [*(a1 + 32) pendingRequestIdentifierToProgressMap];
-    v5 = 138543618;
-    v6 = v2;
-    v7 = 2048;
-    v8 = [v3 count];
-    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ removed from request map after error (pending request count now %tu)", &v5, 0x16u);
+    v4 = 138543618;
+    v5 = v2;
+    v6 = 2048;
+    v7 = [v3 count];
+    _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Video conversion request %{public}@ removed from request map after error (pending request count now %tu)", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __121__PAVideoConversionServiceClient_convertVideoAtSourceURLCollection_toDestinationURLCollection_options_completionHandler___block_invoke_87(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543618;
-    v7 = v5;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ Unable to send cancellation request: %{public}@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 138543618;
+    v6 = v4;
+    v7 = 2114;
+    v8 = v3;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Video conversion request %{public}@ Unable to send cancellation request: %{public}@", &v5, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)convertVideoAtSourceURL:(id)l toDestinationURL:(id)rL options:(id)options completionHandler:(id)handler

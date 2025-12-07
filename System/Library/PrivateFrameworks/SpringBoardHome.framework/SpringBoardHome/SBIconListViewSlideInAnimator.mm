@@ -9,9 +9,9 @@
   iconViewCopy = iconView;
   blockCopy = block;
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   Width = CGRectGetWidth(v33);
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   Height = CGRectGetHeight(v34);
   userInterfaceLayoutDirection = [viewCopy userInterfaceLayoutDirection];
   iconInsertionAnimationOriginatingEdge = [viewCopy iconInsertionAnimationOriginatingEdge];

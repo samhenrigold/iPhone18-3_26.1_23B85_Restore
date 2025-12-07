@@ -6,18 +6,30 @@
 - (void)dealloc;
 - (void)flush;
 - (void)writeBool:(int)bool value:(BOOL)value;
+- (void)writeBoolArray:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeBoolNoTag:(BOOL)tag;
 - (void)writeBytes:(int)bytes value:(id)value;
+- (void)writeBytesArray:(int)array values:(id)values;
 - (void)writeBytesNoTag:(id)tag;
 - (void)writeDouble:(int)double value:(double)value;
+- (void)writeDoubleArray:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeEnum:(int)enum value:(int)value;
+- (void)writeEnumArray:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeFixed32:(int)fixed32 value:(unsigned int)value;
+- (void)writeFixed32Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeFixed64:(int)fixed64 value:(unint64_t)value;
+- (void)writeFixed64Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeFloat:(int)float value:(float)value;
+- (void)writeFloatArray:(int)array values:(id)values tag:(unsigned int)tag;
+- (void)writeGroup:(int)group value:(id)value;
+- (void)writeGroupArray:(int)array values:(id)values;
 - (void)writeGroupNoTag:(int)tag value:(id)value;
 - (void)writeInt32:(int)int32 value:(int)value;
+- (void)writeInt32Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeInt64:(int)int64 value:(int64_t)value;
+- (void)writeInt64Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeMessage:(int)message value:(id)value;
+- (void)writeMessageArray:(int)array values:(id)values;
 - (void)writeMessageNoTag:(id)tag;
 - (void)writeMessageSetExtension:(int)extension value:(id)value;
 - (void)writeRawByte:(unsigned __int8)byte;
@@ -25,13 +37,22 @@
 - (void)writeRawMessageSetExtension:(int)extension value:(id)value;
 - (void)writeRawPtr:(const void *)ptr offset:(unint64_t)offset length:(unint64_t)length;
 - (void)writeSFixed32:(int)fixed32 value:(int)value;
+- (void)writeSFixed32Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeSFixed64:(int)fixed64 value:(int64_t)value;
+- (void)writeSFixed64Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeSInt32:(int)int32 value:(int)value;
+- (void)writeSInt32Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeSInt64:(int)int64 value:(int64_t)value;
+- (void)writeSInt64Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeString:(int)string value:(id)value;
+- (void)writeStringArray:(int)array values:(id)values;
 - (void)writeStringNoTag:(id)tag;
 - (void)writeTag:(unsigned int)tag format:(int)format;
+- (void)writeUInt32Array:(int)array values:(id)values tag:(unsigned int)tag;
 - (void)writeUInt64:(int)int64 value:(unint64_t)value;
+- (void)writeUInt64Array:(int)array values:(id)values tag:(unsigned int)tag;
+- (void)writeUnknownGroup:(int)group value:(id)value;
+- (void)writeUnknownGroupArray:(int)array values:(id)values;
 - (void)writeUnknownGroupNoTag:(int)tag value:(id)value;
 @end
 
@@ -234,12 +255,30 @@
   sub_10016E938(&self->state_, v6);
 }
 
+- (void)writeGroup:(int)group value:(id)value
+{
+  v5 = *&group;
+  v7 = sub_1001A18B4(group, 3);
+  sub_10016E938(&self->state_, v7);
+
+  [(TransparencyGPBCodedOutputStream *)self writeGroupNoTag:v5 value:value];
+}
+
 - (void)writeUnknownGroupNoTag:(int)tag value:(id)value
 {
   [value writeToCodedOutputStream:self];
   v6 = sub_1001A18B4(tag, 4);
 
   sub_10016E938(&self->state_, v6);
+}
+
+- (void)writeUnknownGroup:(int)group value:(id)value
+{
+  v5 = *&group;
+  v7 = sub_1001A18B4(group, 3);
+  sub_10016E938(&self->state_, v7);
+
+  [(TransparencyGPBCodedOutputStream *)self writeUnknownGroupNoTag:v5 value:value];
 }
 
 - (void)writeMessageNoTag:(id)tag
@@ -310,6 +349,736 @@
   sub_10016E938(&self->state_, v6);
 
   sub_10016E4B0(&self->state_, (2 * value) ^ (value >> 63));
+}
+
+- (void)writeDoubleArray:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016F0E8;
+      v11[3] = &unk_100324D20;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016F108;
+      v10[3] = &unk_100324D48;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016F110;
+    v8[3] = &unk_100324D70;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeFloatArray:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016F2C4;
+      v11[3] = &unk_100324D98;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016F2E4;
+      v10[3] = &unk_100324DC0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016F2EC;
+    v8[3] = &unk_100324DE8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeUInt64Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016F4A0;
+      v11[3] = &unk_100324E10;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016F4E0;
+      v10[3] = &unk_100324E38;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016F4EC;
+    v8[3] = &unk_100324E60;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeInt64Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016F6A4;
+      v11[3] = &unk_100324E88;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016F6E0;
+      v10[3] = &unk_100324EB0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016F6EC;
+    v8[3] = &unk_100324ED8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeInt32Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016F8A4;
+      v11[3] = &unk_100324F00;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016F940;
+      v10[3] = &unk_100324F28;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016F94C;
+    v8[3] = &unk_100324F50;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeUInt32Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016FB04;
+      v11[3] = &unk_100324F78;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016FB88;
+      v10[3] = &unk_100324FA0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016FB94;
+    v8[3] = &unk_100324FC8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeFixed64Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016FD4C;
+      v11[3] = &unk_100324E10;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016FD64;
+      v10[3] = &unk_100324E38;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016FD70;
+    v8[3] = &unk_100324E60;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeFixed32Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10016FF28;
+      v11[3] = &unk_100324F78;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10016FF40;
+      v10[3] = &unk_100324FA0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10016FF4C;
+    v8[3] = &unk_100324FC8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeSInt32Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100170104;
+      v11[3] = &unk_100324F00;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100170198;
+      v10[3] = &unk_100324F28;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1001701A4;
+    v8[3] = &unk_100324F50;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeSInt64Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10017035C;
+      v11[3] = &unk_100324E88;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_1001703A8;
+      v10[3] = &unk_100324EB0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1001703B4;
+    v8[3] = &unk_100324ED8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeSFixed64Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10017056C;
+      v11[3] = &unk_100324E88;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100170584;
+      v10[3] = &unk_100324EB0;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100170590;
+    v8[3] = &unk_100324ED8;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeSFixed32Array:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100170748;
+      v11[3] = &unk_100324F00;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100170760;
+      v10[3] = &unk_100324F28;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10017076C;
+    v8[3] = &unk_100324F50;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeBoolArray:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100170924;
+      v11[3] = &unk_100324FF0;
+      v11[4] = &v12;
+      [values enumerateValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_10017093C;
+      v10[3] = &unk_100325018;
+      v10[4] = self;
+      [values enumerateValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100170948;
+    v8[3] = &unk_100325040;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateValuesWithBlock:v8];
+  }
+}
+
+- (void)writeEnumArray:(int)array values:(id)values tag:(unsigned int)tag
+{
+  if (tag)
+  {
+    if ([values count])
+    {
+      v12 = 0;
+      v13 = &v12;
+      v14 = 0x2020000000;
+      v15 = 0;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100170B00;
+      v11[3] = &unk_100324F00;
+      v11[4] = &v12;
+      [values enumerateRawValuesWithBlock:v11];
+      sub_10016E938(&self->state_, tag);
+      sub_10016E938(&self->state_, *(v13 + 6));
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100170B58;
+      v10[3] = &unk_100324F28;
+      v10[4] = self;
+      [values enumerateRawValuesWithBlock:v10];
+      _Block_object_dispose(&v12, 8);
+    }
+  }
+
+  else
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100170B64;
+    v8[3] = &unk_100324F50;
+    v8[4] = self;
+    arrayCopy = array;
+    [values enumerateRawValuesWithBlock:v8];
+  }
+}
+
+- (void)writeStringArray:(int)array values:(id)values
+{
+  v5 = *&array;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [(TransparencyGPBCodedOutputStream *)self writeString:v5 value:*(*(&v11 + 1) + 8 * v10)];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)writeMessageArray:(int)array values:(id)values
+{
+  v5 = *&array;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [(TransparencyGPBCodedOutputStream *)self writeMessage:v5 value:*(*(&v11 + 1) + 8 * v10)];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)writeBytesArray:(int)array values:(id)values
+{
+  v5 = *&array;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [(TransparencyGPBCodedOutputStream *)self writeBytes:v5 value:*(*(&v11 + 1) + 8 * v10)];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)writeGroupArray:(int)array values:(id)values
+{
+  v5 = *&array;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [(TransparencyGPBCodedOutputStream *)self writeGroup:v5 value:*(*(&v11 + 1) + 8 * v10)];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)writeUnknownGroupArray:(int)array values:(id)values
+{
+  v5 = *&array;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [(TransparencyGPBCodedOutputStream *)self writeUnknownGroup:v5 value:*(*(&v11 + 1) + 8 * v10)];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)writeMessageSetExtension:(int)extension value:(id)value

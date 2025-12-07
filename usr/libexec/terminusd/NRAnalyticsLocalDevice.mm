@@ -6,36 +6,30 @@
 
 - (void)submit
 {
-  if (self)
-  {
-    deviceRegistrationStart = self->_deviceRegistrationStart;
-    deviceRegistrationEnd = self->_deviceRegistrationEnd;
-  }
-
   NRDiffMachTimeInSeconds();
-  v6 = [NSNumber numberWithDouble:round(v5 * 1000.0) * 0.001];
+  v4 = [NSNumber numberWithDouble:round(v3 * 1000.0) * 0.001];
   if (!self)
   {
-    v9 = @"deviceRegistrationTimeInSec";
+    v7 = @"deviceRegistrationTimeInSec";
     eventDictionary = 0;
-    goto LABEL_8;
+    goto LABEL_6;
   }
 
-  [(NSMutableDictionary *)self->super._eventDictionary setObject:v6 forKeyedSubscript:@"deviceRegistrationTimeInSec"];
+  [(NSMutableDictionary *)self->super._eventDictionary setObject:v4 forKeyedSubscript:@"deviceRegistrationTimeInSec"];
 
   if (self->_deviceRegistrationSuccess)
   {
-    v7 = [NSNumber numberWithBool:1];
-    [(NSMutableDictionary *)self->super._eventDictionary setObject:v7 forKeyedSubscript:@"deviceRegistrationSuccess"];
+    v5 = [NSNumber numberWithBool:1];
+    [(NSMutableDictionary *)self->super._eventDictionary setObject:v5 forKeyedSubscript:@"deviceRegistrationSuccess"];
   }
 
   if (self->_devicePairedWithOOBKey)
   {
-    v6 = [NSNumber numberWithBool:1];
+    v4 = [NSNumber numberWithBool:1];
     eventDictionary = self->super._eventDictionary;
-    v9 = @"devicePairedWithOOBKey";
-LABEL_8:
-    [(NSMutableDictionary *)eventDictionary setObject:v6 forKeyedSubscript:v9];
+    v7 = @"devicePairedWithOOBKey";
+LABEL_6:
+    [(NSMutableDictionary *)eventDictionary setObject:v4 forKeyedSubscript:v7];
   }
 
   sub_1001557BC(self, @"com.apple.networkrelay.analytics.localDevice");

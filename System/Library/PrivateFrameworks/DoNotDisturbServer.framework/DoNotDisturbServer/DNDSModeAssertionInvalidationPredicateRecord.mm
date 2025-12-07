@@ -252,17 +252,15 @@ id __54__DNDSModeAssertionInvalidationPredicateRecord_object__block_invoke(uint6
 
 void __79__DNDSModeAssertionInvalidationPredicateRecord_recordForInvalidationPredicate___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Unexpected object (%@) found in invalidation predicate UUIDs: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Unexpected object (%@) found in invalidation predicate UUIDs: %@", &v6, 0x16u);
 }
 
 @end

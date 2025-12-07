@@ -23,13 +23,13 @@
   *(self + OBJC_IVAR____TtC4Maps33SearchFindMyFriendshipCoordinator_session) = 0;
   swift_unknownObjectWeakInit();
   v7 = OBJC_IVAR____TtC4Maps33SearchFindMyFriendshipCoordinator_updateStream;
-  v8 = sub_1000CE6B8(&qword_1019190B8);
+  v8 = sub_1000CE6B8(&qword_1019190B8, &unk_1011F97A8);
   (*(*(v8 - 8) + 56))(self + v7, 1, 1, v8);
   v9 = (self + OBJC_IVAR____TtC4Maps33SearchFindMyFriendshipCoordinator_handleId);
   *v9 = v4;
   v9[1] = v6;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for SearchFindMyFriendshipCoordinator();
+  v11.super_class = type metadata accessor for SearchFindMyFriendshipCoordinator(0);
   return [(SearchFindMyFriendshipCoordinator *)&v11 init];
 }
 
@@ -45,7 +45,7 @@
 
 - (void)startMonitoringHandles
 {
-  v3 = sub_1000CE6B8(&unk_10190BA50);
+  v3 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -60,7 +60,7 @@
 
 - (void)stopMonitoringHandlesWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

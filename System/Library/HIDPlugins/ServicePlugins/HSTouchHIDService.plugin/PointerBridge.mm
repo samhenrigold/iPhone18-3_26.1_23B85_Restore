@@ -297,49 +297,49 @@ LABEL_14:
     v13 = [NSNumber numberWithBool:bOOLValue];
     [(PointerBridge *)self updatePreference:v10 to:v13];
 
-    v14 = MTLoggingPlugin();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = MTLoggingPlugin(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = "enabled";
-      *v16 = 136315906;
-      *&v16[4] = "";
+      v17 = "enabled";
+      *v18 = 136315906;
+      *&v18[4] = "";
       if (bOOLValue)
       {
-        v15 = "disabled";
+        v17 = "disabled";
       }
 
-      *&v16[12] = 2080;
-      *&v16[14] = "";
-      v17 = 2080;
-      v18 = "[PointerBridge _handleHSTNotificationEvent:]";
+      *&v18[12] = 2080;
+      *&v18[14] = "";
       v19 = 2080;
-      v20 = v15;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Pointer parser was externally %s", v16, 0x2Au);
+      v20 = "[PointerBridge _handleHSTNotificationEvent:]";
+      v21 = 2080;
+      v22 = v17;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Pointer parser was externally %s", v18, 0x2Au);
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-  [(PointerBridge *)self dispatch:eventCopy, *v16];
+  [(PointerBridge *)self dispatch:eventCopy, *v18, *&v18[8]];
 }
 
 - (void)dispatch:(id)dispatch
 {
   dispatchCopy = dispatch;
-  v5 = MTLoggingPlugin();
-  if (os_signpost_enabled(v5))
+  v6 = MTLoggingPlugin(dispatchCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 134349314;
     signpostBeginTime = [(PointerBridge *)self signpostBeginTime];
-    v9 = 2080;
+    v10 = 2080;
     ClassName = object_getClassName(dispatchCopy);
-    _os_signpost_emit_with_name_impl(&dword_0, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadBridge", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadBridge", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = PointerBridge;
-  [(HSStage *)&v6 handleConsume:dispatchCopy];
+  v7.receiver = self;
+  v7.super_class = PointerBridge;
+  [(HSStage *)&v7 handleConsume:dispatchCopy];
   [(PointerBridge *)self setSignpostBeginTime:mach_continuous_time()];
 }
 
@@ -365,30 +365,30 @@ LABEL_15:
 
     if (settings)
     {
-      v6 = MTLoggingPlugin();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = MTLoggingPlugin(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         settings2 = [(PointerBridge *)self settings];
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
-        v13 = 136315906;
-        v14 = "[Debug] ";
-        v15 = 2080;
-        v16 = "";
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v15 = 136315906;
+        v16 = "[Debug] ";
         v17 = 2080;
-        v18 = "[PointerBridge dispatchSettingsEventWithFlush:]";
-        v19 = 2112;
-        v20 = v9;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Dispatching new %@ to pipeline", &v13, 0x2Au);
+        v18 = "";
+        v19 = 2080;
+        v20 = "[PointerBridge dispatchSettingsEventWithFlush:]";
+        v21 = 2112;
+        v22 = v11;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Dispatching new %@ to pipeline", &v15, 0x2Au);
       }
 
-      v10 = objc_opt_new();
+      v12 = objc_opt_new();
       settings3 = [(PointerBridge *)self settings];
-      v12 = *(v10 + 8);
-      *(v10 + 8) = settings3;
+      v14 = *(v12 + 8);
+      *(v12 + 8) = settings3;
 
-      *(v10 + 16) = flush;
-      [(PointerBridge *)self dispatch:v10];
+      *(v12 + 16) = flush;
+      [(PointerBridge *)self dispatch:v12];
     }
   }
 }
@@ -474,7 +474,7 @@ LABEL_15:
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v10);
+  HSUtil::Decoder::decodeMap(&v10, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));

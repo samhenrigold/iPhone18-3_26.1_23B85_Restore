@@ -91,37 +91,37 @@ void __52__WeatherOpenURLHelper_URLForWeatherCityComponents___block_invoke(uint6
 
 + (id)cityFromURL:(id)l withContainerViewController:(id)controller
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   controllerCopy = controller;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v8 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   queryItems = [v8 queryItems];
-  v10 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         value = [v14 value];
         name = [v14 name];
         [dictionary setObject:value forKeyedSubscript:name];
       }
 
-      v11 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -139,8 +139,6 @@ void __52__WeatherOpenURLHelper_URLForWeatherCityComponents___block_invoke(uint6
     [self cityFromURLComponents:dictionary listedCities:cities];
   }
   v19 = ;
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

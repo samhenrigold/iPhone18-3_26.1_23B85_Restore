@@ -49,11 +49,11 @@
 
 - (_LTStabilizationTranslationResult)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = _LTStabilizationTranslationResult;
-  v5 = [(_LTStabilizationTranslationResult *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _LTStabilizationTranslationResult;
+  v5 = [(_LTStabilizationTranslationResult *)&v15 init];
   if (v5)
   {
     v5->_generation = [coderCopy decodeIntegerForKey:@"generation"];
@@ -62,9 +62,9 @@
     v5->_output = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"stableSegments"];
@@ -74,7 +74,6 @@
     v13 = v5;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

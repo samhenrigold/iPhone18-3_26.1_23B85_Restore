@@ -28,7 +28,7 @@
   descriptorsCopy = descriptors;
   if (descriptors)
   {
-    sub_188A34624(0, &qword_1EA93ECE8);
+    sub_188A34624(0, &qword_1EA93ECE8, &off_1E70ECC20);
     descriptorsCopy = sub_18A4A7548();
   }
 

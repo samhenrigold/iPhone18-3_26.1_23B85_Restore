@@ -252,13 +252,13 @@ void __85__SFStartPageCustomizationViewController__createGeneratedBackgroundImag
   }
 }
 
-uint64_t __77__SFStartPageCustomizationViewController__updateHasGeneratedBackgroundImage___block_invoke(uint64_t result, int a2)
+void *__77__SFStartPageCustomizationViewController__updateHasGeneratedBackgroundImage___block_invoke(void *result, int a2)
 {
-  v2 = *(result + 32);
+  v2 = *(result + 4);
   if (*(v2 + 1088) != a2)
   {
     *(v2 + 1088) = a2;
-    return [*(result + 32) reloadDataAnimatingDifferences:0];
+    return [*(result + 4) reloadDataAnimatingDifferences:0];
   }
 
   return result;
@@ -1191,7 +1191,7 @@ void __75__SFStartPageCustomizationViewController_makeCustomizationItemRegistrat
     v9 = [v6 defaultContentConfiguration];
     v10 = objc_alloc(MEMORY[0x1E696AAB0]);
     v11 = [v7 title];
-    v12 = sectionTextAttributes();
+    v12 = sectionTextAttributes(v11);
     v13 = [v10 initWithString:v11 attributes:v12];
     [v9 setAttributedText:v13];
 
@@ -1290,7 +1290,7 @@ void __85__SFStartPageCustomizationViewController_makeSuggestionDataSourcesToggl
     v8 = [v20 defaultContentConfiguration];
     v9 = objc_alloc(MEMORY[0x1E696AAB0]);
     v10 = [v6 title];
-    v11 = sectionTextAttributes();
+    v11 = sectionTextAttributes(v10);
     v12 = [v9 initWithString:v10 attributes:v11];
     [v8 setAttributedText:v12];
 

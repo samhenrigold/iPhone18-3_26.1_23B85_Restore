@@ -83,9 +83,11 @@
 
 uint64_t __31__SKClientBroker_defaultBroker__block_invoke()
 {
-  defaultBroker_sharedClient = objc_alloc_init(SKClientBroker);
+  v0 = objc_alloc_init(SKClientBroker);
+  v1 = defaultBroker_sharedClient;
+  defaultBroker_sharedClient = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)hasTransactionListener
@@ -893,7 +895,7 @@ LABEL_11:
   [v4 checkServerQueueForClientIfNecessary:0 forceCheck:1 reply:v5];
 }
 
-void __59__SKClientBroker__handleUnfinishedTransactionsNotification__block_invoke()
+void __59__SKClientBroker__handleUnfinishedTransactionsNotification__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {

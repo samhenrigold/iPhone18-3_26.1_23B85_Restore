@@ -1,8 +1,10 @@
 @interface NSPPrivacyProxyProxyInfo
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)proxyHopAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsProxyHop:(id)hop;
 - (int)algorithm;
@@ -21,6 +23,21 @@
 @end
 
 @implementation NSPPrivacyProxyProxyInfo
+
+- (id)proxyHopAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A306F0[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsProxyHop:(id)hop
 {
@@ -181,6 +198,21 @@
   {
     return 0;
   }
+}
+
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A30710[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAlgorithm:(id)algorithm
@@ -388,9 +420,8 @@ LABEL_34:
 
 - (void)writeTo:(id)to
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  proxyHop = self->_proxyHop;
   PBDataWriterWriteInt32Field();
   if (!self->_proxyURL)
   {
@@ -398,33 +429,32 @@ LABEL_34:
   }
 
   PBDataWriterWriteStringField();
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v6 = self->_proxyKeyInfos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
-  if (v7)
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v5 = self->_proxyKeyInfos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v50;
+    v7 = v6;
+    v8 = *v39;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v50 != v9)
+        if (*v39 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v49 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (!self->_tokenKeyInfo)
@@ -435,7 +465,6 @@ LABEL_34:
   PBDataWriterWriteDataField();
   if ((*&self->_has & 8) != 0)
   {
-    supportsFallback = self->_supportsFallback;
     PBDataWriterWriteBOOLField();
   }
 
@@ -461,66 +490,63 @@ LABEL_34:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    supportsResumption = self->_supportsResumption;
     PBDataWriterWriteBOOLField();
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v14 = self->_bootstrapAddresses;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (v15)
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v10 = self->_bootstrapAddresses;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  if (v11)
   {
-    v16 = v15;
-    v17 = *v46;
+    v12 = v11;
+    v13 = *v35;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v46 != v17)
+        if (*v35 != v13)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v10);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
-    while (v16);
+    while (v12);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v20 = self->_allowedNextHops;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v41 objects:v54 count:16];
-  if (v21)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v15 = self->_allowedNextHops;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v30 objects:v43 count:16];
+  if (v16)
   {
-    v22 = v21;
-    v23 = *v42;
+    v17 = v16;
+    v18 = *v31;
     do
     {
-      for (k = 0; k != v22; ++k)
+      for (k = 0; k != v17; ++k)
       {
-        if (*v42 != v23)
+        if (*v31 != v18)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v15);
         }
 
-        v25 = *(*(&v41 + 1) + 8 * k);
         PBDataWriterWriteStringField();
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
-    while (v22);
+    while (v17);
   }
 
   if (self->_tokenChallenge)
@@ -528,33 +554,32 @@ LABEL_34:
     PBDataWriterWriteDataField();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v26 = self->_preferredPathPatterns;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v53 count:16];
-  if (v27)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v20 = self->_preferredPathPatterns;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v26 objects:v42 count:16];
+  if (v21)
   {
-    v28 = v27;
-    v29 = *v38;
+    v22 = v21;
+    v23 = *v27;
     do
     {
-      for (m = 0; m != v28; ++m)
+      for (m = 0; m != v22; ++m)
       {
-        if (*v38 != v29)
+        if (*v27 != v23)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v20);
         }
 
-        v31 = *(*(&v37 + 1) + 8 * m);
         PBDataWriterWriteStringField();
       }
 
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v53 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v26 objects:v42 count:16];
     }
 
-    while (v28);
+    while (v22);
   }
 
   has = self->_has;
@@ -566,7 +591,6 @@ LABEL_34:
     }
 
 LABEL_51:
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -576,7 +600,6 @@ LABEL_51:
     goto LABEL_48;
   }
 
-  fallbackSupportsUDPProxying = self->_fallbackSupportsUDPProxying;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if (has)
@@ -588,13 +611,10 @@ LABEL_47:
   if ((has & 2) != 0)
   {
 LABEL_48:
-    proxyIndex = self->_proxyIndex;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_49:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -738,37 +758,37 @@ LABEL_35:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   *(v5 + 48) = self->_proxyHop;
   v6 = [(NSString *)self->_proxyURL copyWithZone:zone];
   v7 = *(v5 + 64);
   *(v5 + 64) = v6;
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v8 = self->_proxyKeyInfos;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v59 objects:v66 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v58 objects:v65 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v60;
+    v11 = *v59;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v60 != v11)
+        if (*v59 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v59 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v58 + 1) + 8 * i) copyWithZone:zone];
         [v5 addProxyKeyInfo:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v59 objects:v66 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v58 objects:v65 count:16];
     }
 
     while (v10);
@@ -806,59 +826,59 @@ LABEL_35:
     *(v5 + 116) |= 0x10u;
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v24 = self->_bootstrapAddresses;
-  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v55 objects:v65 count:16];
+  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v54 objects:v64 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v56;
+    v27 = *v55;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v56 != v27)
+        if (*v55 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [*(*(&v55 + 1) + 8 * j) copyWithZone:zone];
+        v29 = [*(*(&v54 + 1) + 8 * j) copyWithZone:zone];
         [v5 addBootstrapAddresses:v29];
       }
 
-      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v55 objects:v65 count:16];
+      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v54 objects:v64 count:16];
     }
 
     while (v26);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v30 = self->_allowedNextHops;
-  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v51 objects:v64 count:16];
+  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v50 objects:v63 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v52;
+    v33 = *v51;
     do
     {
       for (k = 0; k != v32; ++k)
       {
-        if (*v52 != v33)
+        if (*v51 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = [*(*(&v51 + 1) + 8 * k) copyWithZone:zone];
+        v35 = [*(*(&v50 + 1) + 8 * k) copyWithZone:zone];
         [v5 addAllowedNextHops:v35];
       }
 
-      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v51 objects:v64 count:16];
+      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v50 objects:v63 count:16];
     }
 
     while (v32);
@@ -868,30 +888,30 @@ LABEL_35:
   v37 = *(v5 + 88);
   *(v5 + 88) = v36;
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v38 = self->_preferredPathPatterns;
-  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v47 objects:v63 count:16];
+  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v46 objects:v62 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v48;
+    v41 = *v47;
     do
     {
       for (m = 0; m != v40; ++m)
       {
-        if (*v48 != v41)
+        if (*v47 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v43 = [*(*(&v47 + 1) + 8 * m) copyWithZone:{zone, v47}];
+        v43 = [*(*(&v46 + 1) + 8 * m) copyWithZone:{zone, v46}];
         [v5 addPreferredPathPatterns:v43];
       }
 
-      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v47 objects:v63 count:16];
+      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v46 objects:v62 count:16];
     }
 
     while (v40);
@@ -910,7 +930,7 @@ LABEL_39:
     *(v5 + 116) |= 1u;
     if ((*&self->_has & 2) == 0)
     {
-      goto LABEL_37;
+      return v5;
     }
 
     goto LABEL_36;
@@ -932,8 +952,6 @@ LABEL_36:
     *(v5 + 116) |= 2u;
   }
 
-LABEL_37:
-  v45 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -977,7 +995,6 @@ LABEL_37:
     }
   }
 
-  v8 = *(equalCopy + 116);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 116) & 8) == 0)
@@ -985,7 +1002,6 @@ LABEL_37:
       goto LABEL_35;
     }
 
-    v20 = *(equalCopy + 113);
     if (self->_supportsFallback)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -1038,7 +1054,6 @@ LABEL_37:
     }
   }
 
-  v13 = *(equalCopy + 116);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 116) & 0x10) == 0)
@@ -1046,7 +1061,6 @@ LABEL_37:
       goto LABEL_35;
     }
 
-    v21 = *(equalCopy + 114);
     if (self->_supportsResumption)
     {
       if ((*(equalCopy + 114) & 1) == 0)
@@ -1106,7 +1120,6 @@ LABEL_37:
       goto LABEL_35;
     }
 
-    v22 = *(equalCopy + 112);
     if (self->_fallbackSupportsUDPProxying)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -1139,7 +1152,7 @@ LABEL_37:
     goto LABEL_35;
   }
 
-  v18 = (*(equalCopy + 116) & 2) == 0;
+  v16 = (*(equalCopy + 116) & 2) == 0;
   if ((*&self->_has & 2) == 0)
   {
     goto LABEL_36;
@@ -1147,15 +1160,15 @@ LABEL_37:
 
   if ((*(equalCopy + 116) & 2) != 0 && self->_proxyIndex == *(equalCopy + 13))
   {
-    v18 = 1;
+    v16 = 1;
     goto LABEL_36;
   }
 
 LABEL_35:
-  v18 = 0;
+  v16 = 0;
 LABEL_36:
 
-  return v18;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -1232,7 +1245,7 @@ LABEL_10:
 
 - (void)mergeFrom:(id)from
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   self->_proxyHop = *(fromCopy + 12);
   if (*(fromCopy + 8))
@@ -1240,29 +1253,29 @@ LABEL_10:
     [(NSPPrivacyProxyProxyInfo *)self setProxyURL:?];
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v5 = *(fromCopy + 7);
-  v6 = [v5 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NSPPrivacyProxyProxyInfo *)self addProxyKeyInfo:*(*(&v39 + 1) + 8 * i)];
+        [(NSPPrivacyProxyProxyInfo *)self addProxyKeyInfo:*(*(&v38 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v38 objects:v45 count:16];
     }
 
     while (v7);
@@ -1305,57 +1318,57 @@ LABEL_10:
     *&self->_has |= 0x10u;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = *(fromCopy + 3);
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NSPPrivacyProxyProxyInfo *)self addBootstrapAddresses:*(*(&v35 + 1) + 8 * j)];
+        [(NSPPrivacyProxyProxyInfo *)self addBootstrapAddresses:*(*(&v34 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v34 objects:v44 count:16];
     }
 
     while (v12);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v15 = *(fromCopy + 2);
-  v16 = [v15 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v30 objects:v43 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v32;
+    v18 = *v31;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v32 != v18)
+        if (*v31 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(NSPPrivacyProxyProxyInfo *)self addAllowedNextHops:*(*(&v31 + 1) + 8 * k)];
+        [(NSPPrivacyProxyProxyInfo *)self addAllowedNextHops:*(*(&v30 + 1) + 8 * k)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v31 objects:v44 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v30 objects:v43 count:16];
     }
 
     while (v17);
@@ -1366,29 +1379,29 @@ LABEL_10:
     [(NSPPrivacyProxyProxyInfo *)self setTokenChallenge:?];
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v20 = *(fromCopy + 5);
-  v21 = [v20 countByEnumeratingWithState:&v27 objects:v43 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v26 objects:v42 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v28;
+    v23 = *v27;
     do
     {
       for (m = 0; m != v22; ++m)
       {
-        if (*v28 != v23)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(NSPPrivacyProxyProxyInfo *)self addPreferredPathPatterns:*(*(&v27 + 1) + 8 * m), v27];
+        [(NSPPrivacyProxyProxyInfo *)self addPreferredPathPatterns:*(*(&v26 + 1) + 8 * m), v26];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v27 objects:v43 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v26 objects:v42 count:16];
     }
 
     while (v22);
@@ -1430,8 +1443,6 @@ LABEL_50:
   }
 
 LABEL_51:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

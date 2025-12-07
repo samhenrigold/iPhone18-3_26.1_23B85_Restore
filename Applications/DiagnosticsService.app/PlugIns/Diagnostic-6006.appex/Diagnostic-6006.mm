@@ -5,15 +5,14 @@ id sub_100001180()
   return result;
 }
 
-id sub_10000126C()
+id sub_10000126C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*&v0[OBJC_IVAR___UnpairSessionAccessoryController_accessoryResponder])
+  if (*&v3[OBJC_IVAR___UnpairSessionAccessoryController_accessoryResponder])
   {
-    v1 = *&v0[OBJC_IVAR___UnpairSessionAccessoryController_accessoryResponder];
     [swift_unknownObjectRetain() unpairSessionAccessoryOnTestCompletion];
-    v2 = [v0 result];
-    v3.super.super.isa = sub_1000014D8().super.super.isa;
-    [v2 setStatusCode:v3.super.super.isa];
+    v4 = [v3 result];
+    v5.super.super.isa = sub_1000014D8().super.super.isa;
+    [v4 setStatusCode:v5.super.super.isa];
     swift_unknownObjectRelease();
   }
 
@@ -26,12 +25,12 @@ id sub_10000126C()
     }
 
     sub_1000014C8();
-    v2 = [v0 result];
-    v3.super.super.isa = sub_1000014D8().super.super.isa;
-    [v2 setStatusCode:v3.super.super.isa];
+    v4 = [v3 result];
+    v5.super.super.isa = sub_1000014D8().super.super.isa;
+    [v4 setStatusCode:v5.super.super.isa];
   }
 
-  return [v0 setFinished:1];
+  return [v3 setFinished:1];
 }
 
 id sub_100001460()

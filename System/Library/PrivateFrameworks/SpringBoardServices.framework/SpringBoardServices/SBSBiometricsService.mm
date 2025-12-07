@@ -40,37 +40,36 @@ void __63__SBSBiometricsService_fetchUnlockCredentialSetWithCompletion___block_i
 
 - (void)_acquireBiometricAssertionOfType:(unsigned __int8)type assertionName:(id)name reason:(id)reason completion:(id)completion
 {
-  typeCopy = type;
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   reasonCopy = reason;
   completionCopy = completion;
-  v12 = objc_alloc_init(MEMORY[0x1E698E6C0]);
-  if ([v12 isUsable])
+  v11 = objc_alloc_init(MEMORY[0x1E698E6C0]);
+  if ([v11 isUsable])
   {
-    memset(v19, 0, 512);
-    v13 = MEMORY[0x1E696AEC0];
+    memset(v17, 0, 512);
+    v12 = MEMORY[0x1E696AEC0];
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    reasonCopy = [v13 stringWithFormat:@"%@-%@", uUIDString, reasonCopy];
+    reasonCopy = [v12 stringWithFormat:@"%@-%@", uUIDString, reasonCopy];
 
-    if ([reasonCopy getCString:v19 maxLength:1024 encoding:4] && (v17 = SBSSpringBoardServerPort(), !SBAddBiometricAssertion(v17, v19, objc_msgSend(v12, "port"), typeCopy)))
+    if ([reasonCopy getCString:v17 maxLength:1024 encoding:4] && (SBSSpringBoardServerPort(), objc_msgSend(v11, "port"), !SBAddBiometricAssertion()))
     {
-      v18 = [[SBSAssertion alloc] initWithAssertionName:nameCopy reason:reasonCopy receiveRight:v12];
+      v16 = [[SBSAssertion alloc] initWithAssertionName:nameCopy reason:reasonCopy receiveRight:v11];
     }
 
     else
     {
-      v18 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
-  completionCopy[2](completionCopy, v18);
+  completionCopy[2](completionCopy, v16);
 }
 
 @end

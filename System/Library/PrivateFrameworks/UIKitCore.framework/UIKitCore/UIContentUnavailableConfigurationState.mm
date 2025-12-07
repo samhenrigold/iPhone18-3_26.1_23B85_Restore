@@ -114,7 +114,7 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    LOBYTE(v11) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -135,15 +135,15 @@
 
         else
         {
-          LOBYTE(v11) = 0;
+          LOBYTE(isEqual) = 0;
           if (!v8 || !v9)
           {
             goto LABEL_23;
           }
 
-          v11 = [(UITraitCollection *)v8 isEqual:v9];
+          isEqual = objc_msgSend_isEqual_(v8);
 
-          if (!v11)
+          if (!isEqual)
           {
             goto LABEL_24;
           }
@@ -164,27 +164,27 @@ LABEL_18:
           v10 = v16;
           if (v8 == v16)
           {
-            LOBYTE(v11) = 1;
+            LOBYTE(isEqual) = 1;
           }
 
           else
           {
-            LOBYTE(v11) = 0;
+            LOBYTE(isEqual) = 0;
             if (v8 && v16)
             {
-              LOBYTE(v11) = [(UITraitCollection *)v8 isEqual:v16];
+              LOBYTE(isEqual) = objc_msgSend_isEqual_(v8);
             }
           }
 
           goto LABEL_23;
         }
 
-        LOBYTE(v11) = 0;
+        LOBYTE(isEqual) = 0;
         if (v8 && v13)
         {
-          v11 = [(UITraitCollection *)v8 isEqual:v13];
+          isEqual = objc_msgSend_isEqual_(v8);
 
-          if (!v11)
+          if (!isEqual)
           {
             goto LABEL_24;
           }
@@ -199,12 +199,12 @@ LABEL_24:
       }
     }
 
-    LOBYTE(v11) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_25:
 
-  return v11;
+  return isEqual;
 }
 
 - (unint64_t)hash
@@ -307,10 +307,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
   v8 = v10;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     ++self->_mutations;

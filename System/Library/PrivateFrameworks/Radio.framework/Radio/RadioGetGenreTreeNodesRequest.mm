@@ -9,15 +9,15 @@
 
 - (id)_genreTreeByApplyingResponse:(id)response
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   radio_decompressedBodyData = [response radio_decompressedBodyData];
   if ([radio_decompressedBodyData length])
   {
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    v5 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v16 unparsedResponseDictionary:&v15];
-    v6 = v16;
-    v7 = v15;
+    v5 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v15 unparsedResponseDictionary:&v14];
+    v6 = v15;
+    v7 = v14;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -43,9 +43,9 @@
       if (os_log_type_enabled(metricsConfiguration, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v18 = v6;
-        v19 = 2112;
-        v20 = radio_decompressedBodyData;
+        v17 = v6;
+        v18 = 2112;
+        v19 = radio_decompressedBodyData;
         _os_log_impl(&dword_261792000, metricsConfiguration, OS_LOG_TYPE_ERROR, "Error: Unable to deserialize genre tree response (%@), data: %@", buf, 0x16u);
       }
 
@@ -60,8 +60,6 @@
   {
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -84,130 +82,125 @@
 
 void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 radioConfigurationDictionary];
   v5 = [v3 baseURL];
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() requestBagKey];
-  v8 = [v4 objectForKey:v7];
+  v6 = [objc_opt_class() requestBagKey];
+  v7 = [v4 objectForKey:v6];
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 || v5)
   {
-    v51 = @"parent-id";
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(a1 + 32) + 72)];
-    v52[0] = v12;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v47 = @"parent-id";
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(*(a1 + 32) + 72)];
+    v48[0] = v11;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
 
-    v13 = [v4 objectForKey:@"max-protocol-version"];
-    v14 = [v13 intValue];
+    v12 = [v4 objectForKey:@"max-protocol-version"];
+    v13 = [v12 intValue];
 
-    if (v8 && v14 >= 4)
+    if (v7 && v13 >= 4)
     {
-      v15 = [MEMORY[0x277CCACA8] queryStringForRadioRequestParameters:v11 protocolVersion:4 error:0];
-      v16 = MEMORY[0x277CBEBC0];
-      v17 = [v8 stringByAppendingString:v15];
-      v18 = [v16 URLWithString:v17];
+      v14 = [MEMORY[0x277CCACA8] queryStringForRadioRequestParameters:v10 protocolVersion:4 error:0];
+      v15 = MEMORY[0x277CBEBC0];
+      v16 = [v7 stringByAppendingString:v14];
+      v17 = [v15 URLWithString:v16];
 
-      v19 = os_log_create("com.apple.amp.radio", "Requests");
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v18 = os_log_create("com.apple.amp.radio", "Requests");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v20 = [v18 absoluteString];
+        v19 = [v17 absoluteString];
         *buf = 138412290;
-        v50 = v20;
-        _os_log_impl(&dword_261792000, v19, OS_LOG_TYPE_INFO, "[RadioGetGenreTreeNodesRequest] Request URL: %@", buf, 0xCu);
+        v46 = v19;
+        _os_log_impl(&dword_261792000, v18, OS_LOG_TYPE_INFO, "[RadioGetGenreTreeNodesRequest] Request URL: %@", buf, 0xCu);
       }
 
-      v21 = [MEMORY[0x277D69BD0] newForRadioRequestURL:v18];
-      [v21 setHTTPMethod:@"GET"];
+      v20 = [MEMORY[0x277D69BD0] newForRadioRequestURL:v17];
+      [v20 setHTTPMethod:@"GET"];
     }
 
     else
     {
-      v22 = *(a1 + 32);
-      v23 = [objc_opt_class() fallbackRequestPath];
-      v15 = [v5 URLByAppendingPathComponent:v23];
+      v21 = [objc_opt_class() fallbackRequestPath];
+      v14 = [v5 URLByAppendingPathComponent:v21];
 
-      v24 = os_log_create("com.apple.amp.radio", "Requests");
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v22 = os_log_create("com.apple.amp.radio", "Requests");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v25 = [v15 absoluteString];
+        v23 = [v14 absoluteString];
         *buf = 138412290;
-        v50 = v25;
-        _os_log_impl(&dword_261792000, v24, OS_LOG_TYPE_INFO, "[RadioGetGenreTreeNodesRequest] Request URL: %@", buf, 0xCu);
+        v46 = v23;
+        _os_log_impl(&dword_261792000, v22, OS_LOG_TYPE_INFO, "[RadioGetGenreTreeNodesRequest] Request URL: %@", buf, 0xCu);
       }
 
-      v21 = [MEMORY[0x277D69BD0] newForRadioRequestURL:v15];
-      v18 = [MEMORY[0x277CBEA90] dataForRadioRequestParameters:v11 isAsynchronousBackgroundRequest:objc_msgSend(*(a1 + 32) error:{"isAsynchronousBackgroundRequest"), 0}];
-      [v21 setHTTPBody:v18];
+      v20 = [MEMORY[0x277D69BD0] newForRadioRequestURL:v14];
+      v17 = [MEMORY[0x277CBEA90] dataForRadioRequestParameters:v10 isAsynchronousBackgroundRequest:objc_msgSend(*(a1 + 32) error:{"isAsynchronousBackgroundRequest"), 0}];
+      [v20 setHTTPBody:v17];
     }
 
-    v26 = *(a1 + 32);
-    v27 = [objc_opt_class() defaultURLCache];
-    v28 = [v27 cachedConnectionResponseForRequestProperties:v21];
+    v24 = [objc_opt_class() defaultURLCache];
+    v25 = [v24 cachedConnectionResponseForRequestProperties:v20];
 
-    if (v28 && ([v28 ssv_isExpiredResponse] & 1) == 0 && (objc_msgSend(*(a1 + 32), "_genreTreeByApplyingResponse:", v28), (v29 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (v25 && ([v25 ssv_isExpiredResponse] & 1) == 0 && (objc_msgSend(*(a1 + 32), "_genreTreeByApplyingResponse:", v25), (v26 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v30 = v29;
-      v31 = [v28 metricsPageEvent];
-      v32 = [v31 mutableCopy];
-      v33 = *(a1 + 32);
-      v34 = *(v33 + 96);
-      *(v33 + 96) = v32;
+      v27 = v26;
+      v28 = [v25 metricsPageEvent];
+      v29 = [v28 mutableCopy];
+      v30 = *(a1 + 32);
+      v31 = *(v30 + 96);
+      *(v30 + 96) = v29;
 
       [*(*(a1 + 32) + 96) setCachedResponse:1];
       [*(a1 + 32) setCachedResponse:1];
-      v35 = *(a1 + 48);
-      if (v35)
+      v32 = *(a1 + 48);
+      if (v32)
       {
-        (*(v35 + 16))(v35, v30, 0);
+        (*(v32 + 16))(v32, v27, 0);
       }
 
-      v36 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v36 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
+      v33 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v33 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
     }
 
     else
     {
-      v37 = +[RadioNetworkObserver sharedNetworkObserver];
-      [v37 beginUsingNetwork];
+      v34 = +[RadioNetworkObserver sharedNetworkObserver];
+      [v34 beginUsingNetwork];
 
-      v38 = [MEMORY[0x277D69C98] newRadioRequestWithRequestContext:*(a1 + 40) requestProperties:v21 storeBag:v3];
-      v39 = *(a1 + 32);
-      v40 = *(v39 + 80);
-      *(v39 + 80) = v38;
+      v35 = [MEMORY[0x277D69C98] newRadioRequestWithRequestContext:*(a1 + 40) requestProperties:v20 storeBag:v3];
+      v36 = *(a1 + 32);
+      v37 = *(v36 + 80);
+      *(v36 + 80) = v35;
 
-      v41 = *(a1 + 32);
-      v42 = *(v41 + 80);
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_20;
-      v44[3] = &unk_279AEAAE8;
-      v44[4] = v41;
-      v45 = v21;
-      v46 = *(a1 + 48);
-      [v42 startWithConnectionResponseBlock:v44];
+      v38 = *(a1 + 32);
+      v39 = *(v38 + 80);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_20;
+      v40[3] = &unk_279AEAAE8;
+      v40[4] = v38;
+      v41 = v20;
+      v42 = *(a1 + 48);
+      [v39 startWithConnectionResponseBlock:v40];
     }
   }
 
   else
   {
     [*(a1 + 32) setStatus:5];
-    v9 = dispatch_get_global_queue(0, 0);
+    v8 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_2;
     block[3] = &unk_279AEACF0;
-    v10 = *(a1 + 48);
+    v9 = *(a1 + 48);
     block[4] = *(a1 + 32);
-    v48 = v10;
-    dispatch_async(v9, block);
+    v44 = v9;
+    dispatch_async(v8, block);
 
-    v11 = v48;
+    v10 = v44;
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -224,7 +217,7 @@ void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invo
 
 void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[RadioNetworkObserver sharedNetworkObserver];
@@ -246,7 +239,7 @@ void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v38 = v8;
+    v36 = v8;
     _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioGetGenreTreeNodesRequest] Status code: %lli", buf, 0xCu);
   }
 
@@ -256,7 +249,7 @@ void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v38 = v6;
+      v36 = v6;
       _os_log_impl(&dword_261792000, v12, OS_LOG_TYPE_ERROR, "Error: Unable to get genre tree (%@)", buf, 0xCu);
     }
 
@@ -264,10 +257,10 @@ void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invo
     {
       v13 = MEMORY[0x277CCA9B8];
       v14 = *MEMORY[0x277D6A110];
-      v35 = *MEMORY[0x277D6A118];
+      v33 = *MEMORY[0x277D6A118];
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-      v36 = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v34 = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       v6 = [v13 errorWithDomain:v14 code:109 userInfo:v16];
     }
 
@@ -306,33 +299,30 @@ LABEL_22:
   v18 = [*(a1 + 32) _genreTreeByApplyingResponse:v5];
   if (v18)
   {
-    v19 = *(a1 + 32);
-    v20 = [objc_opt_class() defaultURLCache];
-    [v20 storeConnectionResponse:v5 forRequestProperties:*(a1 + 40)];
+    v19 = [objc_opt_class() defaultURLCache];
+    [v19 storeConnectionResponse:v5 forRequestProperties:*(a1 + 40)];
   }
 
 LABEL_23:
-  v21 = [v5 metricsPageEvent];
-  v22 = [v21 mutableCopy];
-  v23 = *(a1 + 32);
-  v24 = *(v23 + 96);
-  *(v23 + 96) = v22;
+  v20 = [v5 metricsPageEvent];
+  v21 = [v20 mutableCopy];
+  v22 = *(a1 + 32);
+  v23 = *(v22 + 96);
+  *(v22 + 96) = v21;
 
-  v25 = dispatch_get_global_queue(0, 0);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_22;
-  v30[3] = &unk_279AEAB88;
-  v26 = *(a1 + 48);
-  v31 = v18;
-  v32 = v6;
-  v33 = *(a1 + 32);
-  v34 = v26;
-  v27 = v6;
-  v28 = v18;
-  dispatch_async(v25, v30);
-
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = dispatch_get_global_queue(0, 0);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_22;
+  v28[3] = &unk_279AEAB88;
+  v25 = *(a1 + 48);
+  v29 = v18;
+  v30 = v6;
+  v31 = *(a1 + 32);
+  v32 = v25;
+  v26 = v6;
+  v27 = v18;
+  dispatch_async(v24, v28);
 }
 
 void __60__RadioGetGenreTreeNodesRequest_startWithCompletionHandler___block_invoke_22(void *a1)

@@ -241,7 +241,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"sessionUUID" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v7];
 
   if (v8)
@@ -252,7 +252,7 @@
     {
       v11 = MEMORY[0x1E69C5D78];
       v12 = objc_opt_class();
-      v13 = __atxlog_handle_blending_ecosystem();
+      v13 = __atxlog_handle_blending_ecosystem(v12);
       v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"sessionidentifier" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v13];
 
       if (!v14 || ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
@@ -265,7 +265,7 @@ LABEL_11:
 
       v16 = MEMORY[0x1E69C5D78];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_blending_ecosystem();
+      v18 = __atxlog_handle_blending_ecosystem(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"consumersubtype" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v18];
 
       if (!v19 || ([coderCopy error], selfCopy = objc_claimAutoreleasedReturnValue(), selfCopy, selfCopy))
@@ -276,18 +276,18 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v71 = 0;
-      v21 = [MEMORY[0x1E698B028] consumerSubtypeForString:v19 found:&v71];
-      if (v71 != 1 || v21 == 50)
+      v74 = 0;
+      v21 = [MEMORY[0x1E698B028] consumerSubtypeForString:v19 found:&v74];
+      if (v74 != 1 || v21 == 50)
       {
         goto LABEL_10;
       }
 
-      v69 = v21;
-      v70 = v19;
+      v72 = v21;
+      v73 = v19;
       v22 = MEMORY[0x1E69C5D78];
       v23 = objc_opt_class();
-      v24 = __atxlog_handle_blending_ecosystem();
+      v24 = __atxlog_handle_blending_ecosystem(v23);
       v25 = [v22 robustDecodeObjectOfClass:v23 forKey:@"startdate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v24];
 
       error2 = [coderCopy error];
@@ -295,25 +295,25 @@ LABEL_10:
       if (error2)
       {
         selfCopy = 0;
-        v19 = v70;
+        v19 = v73;
 LABEL_49:
 
         goto LABEL_10;
       }
 
-      v67 = v25;
+      v70 = v25;
       v27 = MEMORY[0x1E69C5D78];
       v28 = objc_opt_class();
-      v29 = __atxlog_handle_blending_ecosystem();
-      v68 = [v27 robustDecodeObjectOfClass:v28 forKey:@"enddate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v29];
+      v29 = __atxlog_handle_blending_ecosystem(v28);
+      v71 = [v27 robustDecodeObjectOfClass:v28 forKey:@"enddate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v29];
 
       error3 = [coderCopy error];
 
       if (error3)
       {
         selfCopy = 0;
-        v19 = v70;
-        v25 = v67;
+        v19 = v73;
+        v25 = v70;
 LABEL_48:
 
         goto LABEL_49;
@@ -321,16 +321,16 @@ LABEL_48:
 
       v31 = MEMORY[0x1E69C5D78];
       v32 = objc_opt_class();
-      v33 = __atxlog_handle_blending_ecosystem();
-      v66 = [v31 robustDecodeObjectOfClass:v32 forKey:@"blendinguuid" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v33];
+      v33 = __atxlog_handle_blending_ecosystem(v32);
+      v69 = [v31 robustDecodeObjectOfClass:v32 forKey:@"blendinguuid" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v33];
 
       error4 = [coderCopy error];
 
       if (error4)
       {
         selfCopy = 0;
-        v19 = v70;
-        v25 = v67;
+        v19 = v73;
+        v25 = v70;
 LABEL_47:
 
         goto LABEL_48;
@@ -342,51 +342,51 @@ LABEL_47:
       v38 = [v36 initWithObjects:{v37, objc_opt_class(), 0}];
       objc_autoreleasePoolPop(v35);
       v39 = MEMORY[0x1E69C5D78];
-      v40 = __atxlog_handle_blending_ecosystem();
-      selfCopy = [v39 robustDecodeObjectOfClasses:v38 forKey:@"engaged" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v40];
+      v41 = __atxlog_handle_blending_ecosystem(v40);
+      selfCopy = [v39 robustDecodeObjectOfClasses:v38 forKey:@"engaged" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v41];
 
-      v41 = selfCopy;
-      v65 = v38;
+      v42 = selfCopy;
+      v68 = v38;
       if (!selfCopy)
       {
-        v19 = v70;
+        v19 = v73;
         goto LABEL_25;
       }
 
       error5 = [coderCopy error];
 
-      v19 = v70;
+      v19 = v73;
       if (error5)
       {
         selfCopy = 0;
 LABEL_25:
-        v25 = v67;
+        v25 = v70;
 LABEL_46:
 
         goto LABEL_47;
       }
 
-      v64 = v41;
-      v43 = MEMORY[0x1E69C5D78];
-      v44 = __atxlog_handle_blending_ecosystem();
-      v45 = [v43 robustDecodeObjectOfClasses:v38 forKey:@"rejected" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v44];
+      v67 = v42;
+      v45 = MEMORY[0x1E69C5D78];
+      v46 = __atxlog_handle_blending_ecosystem(v44);
+      v47 = [v45 robustDecodeObjectOfClasses:v38 forKey:@"rejected" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v46];
 
-      if (!v45 || ([coderCopy error], v46 = objc_claimAutoreleasedReturnValue(), v46, v46))
+      if (!v47 || ([coderCopy error], v48 = objc_claimAutoreleasedReturnValue(), v48, v48))
       {
         selfCopy = 0;
 LABEL_45:
 
-        v19 = v70;
-        v25 = v67;
-        v41 = v64;
+        v19 = v73;
+        v25 = v70;
+        v42 = v67;
         goto LABEL_46;
       }
 
-      v47 = MEMORY[0x1E69C5D78];
-      v48 = __atxlog_handle_blending_ecosystem();
-      v49 = [v47 robustDecodeObjectOfClasses:v38 forKey:@"shown" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v48];
+      v50 = MEMORY[0x1E69C5D78];
+      v51 = __atxlog_handle_blending_ecosystem(v49);
+      v52 = [v50 robustDecodeObjectOfClasses:v38 forKey:@"shown" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v51];
 
-      if (!v49 || ([coderCopy error], v50 = objc_claimAutoreleasedReturnValue(), v50, v50))
+      if (!v52 || ([coderCopy error], v53 = objc_claimAutoreleasedReturnValue(), v53, v53))
       {
         selfCopy = 0;
 LABEL_44:
@@ -394,10 +394,10 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      v51 = MEMORY[0x1E69C5D78];
-      v52 = objc_opt_class();
-      v53 = __atxlog_handle_blending_ecosystem();
-      aClassName = [v51 robustDecodeObjectOfClass:v52 forKey:@"metadataClassName" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v53];
+      v54 = MEMORY[0x1E69C5D78];
+      v55 = objc_opt_class();
+      v56 = __atxlog_handle_blending_ecosystem(v55);
+      aClassName = [v54 robustDecodeObjectOfClass:v55 forKey:@"metadataClassName" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v56];
 
       error6 = [coderCopy error];
 
@@ -409,14 +409,14 @@ LABEL_43:
         goto LABEL_44;
       }
 
-      if (aClassName && (-[ATXProactiveSuggestionUIFeedbackSession validSessionMetadataClassNames](self, "validSessionMetadataClassNames"), v55 = objc_claimAutoreleasedReturnValue(), v56 = [v55 containsObject:aClassName], v55, v56) && (v57 = NSClassFromString(aClassName)) != 0)
+      if (aClassName && (-[ATXProactiveSuggestionUIFeedbackSession validSessionMetadataClassNames](self, "validSessionMetadataClassNames"), v58 = objc_claimAutoreleasedReturnValue(), v59 = [v58 containsObject:aClassName], v58, v59) && (v60 = NSClassFromString(aClassName)) != 0)
       {
-        v58 = v57;
-        v59 = MEMORY[0x1E69C5D78];
-        v60 = __atxlog_handle_blending_ecosystem();
-        v61 = [v59 robustDecodeObjectOfClass:v58 forKey:@"metadata" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v60];
+        v61 = v60;
+        v62 = MEMORY[0x1E69C5D78];
+        v63 = __atxlog_handle_blending_ecosystem(v60);
+        v64 = [v62 robustDecodeObjectOfClass:v61 forKey:@"metadata" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v63];
 
-        if (!v61 || ([coderCopy error], v62 = objc_claimAutoreleasedReturnValue(), v62, v62))
+        if (!v64 || ([coderCopy error], v65 = objc_claimAutoreleasedReturnValue(), v65, v65))
         {
           selfCopy = 0;
 LABEL_42:
@@ -427,10 +427,10 @@ LABEL_42:
 
       else
       {
-        v61 = 0;
+        v64 = 0;
       }
 
-      self = [(ATXProactiveSuggestionUIFeedbackSession *)self initWithSessionUUID:v8 sessionIdentifier:v14 consumerSubType:v69 sessionStartDate:v67 sessionEndDate:v68 blendingUICacheUpdateUUID:v66 engagedUUIDs:v64 rejectedUUIDs:v45 shownUUIDs:v49 sessionMetadata:v61];
+      self = [(ATXProactiveSuggestionUIFeedbackSession *)self initWithSessionUUID:v8 sessionIdentifier:v14 consumerSubType:v72 sessionStartDate:v70 sessionEndDate:v71 blendingUICacheUpdateUUID:v69 engagedUUIDs:v67 rejectedUUIDs:v47 shownUUIDs:v52 sessionMetadata:v64];
       selfCopy = self;
       goto LABEL_42;
     }

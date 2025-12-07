@@ -59,30 +59,31 @@
 
 uint64_t __44__SUAutoUpdatePasscodePolicy_sharedInstance__block_invoke()
 {
-  sharedInstance___instance = [[SUAutoUpdatePasscodePolicy alloc] _init];
+  v0 = [[SUAutoUpdatePasscodePolicy alloc] _init];
+  v1 = sharedInstance___instance;
+  sharedInstance___instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (unint64_t)currentPolicyType
 {
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  v4 = self->_queue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __47__SUAutoUpdatePasscodePolicy_currentPolicyType__block_invoke;
-  v7[3] = &unk_279CAA858;
-  v7[4] = self;
-  v7[5] = &v8;
-  dispatch_sync(v4, v7);
-  v5 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  return v5;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  queue = self->_queue;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __47__SUAutoUpdatePasscodePolicy_currentPolicyType__block_invoke;
+  v6[3] = &unk_279CAA858;
+  v6[4] = self;
+  v6[5] = &v7;
+  dispatch_sync(queue, v6);
+  v4 = v8[3];
+  _Block_object_dispose(&v7, 8);
+  return v4;
 }
 
 - (id)stringForCurrentPolicy
@@ -101,21 +102,20 @@ uint64_t __44__SUAutoUpdatePasscodePolicy_sharedInstance__block_invoke()
 
 - (void)setCurrentPolicyType:(unint64_t)type
 {
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v6 = self->_queue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke;
-  v7[3] = &unk_279CAA9C0;
-  v7[4] = self;
-  v7[5] = type;
-  dispatch_sync(v6, v7);
+  queue = self->_queue;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke;
+  v6[3] = &unk_279CAA9C0;
+  v6[4] = self;
+  v6[5] = type;
+  dispatch_sync(queue, v6);
 }
 
 void __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _isValidPasscodePolicyType:*(a1 + 40)];
   v3 = *(a1 + 40);
   if (v2)
@@ -127,66 +127,58 @@ void __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke(uint64
 
     else
     {
-      v14 = *(a1 + 40);
+      v5 = *(a1 + 40);
 
-      if (v14)
+      if (v5)
       {
-        *(a1 + 40);
-        SULogInfo(@"%s: Tried to change passcode policy to %@, but passcode is not set, so override policy to not required", v15, v16, v17, v18, v19, v20, v21, "[SUAutoUpdatePasscodePolicy setCurrentPolicyType:]_block_invoke");
+        SULogInfo(@"%s: Tried to change passcode policy to %@, but passcode is not set, so override policy to not required", v6, v7, v8, v9, v10, v11, v12, "[SUAutoUpdatePasscodePolicy setCurrentPolicyType:]_block_invoke");
         v3 = 0;
       }
     }
 
-    v22 = *(a1 + 32);
-    if (*(v22 + 40) != v3)
+    v13 = *(a1 + 32);
+    if (*(v13 + 40) != v3)
     {
-      *(v22 + 40) = v3;
-      v23 = [*(*(a1 + 32) + 8) allObjects];
+      *(v13 + 40) = v3;
+      v14 = [*(*(a1 + 32) + 8) allObjects];
+      v27 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v24 = [v23 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      if (v24)
+      v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v15)
       {
-        v25 = v24;
-        v26 = *v31;
+        v16 = v15;
+        v17 = *v28;
         do
         {
-          for (i = 0; i != v25; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v31 != v26)
+            if (*v28 != v17)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v14);
             }
 
-            v28 = *(*(&v30 + 1) + 8 * i);
+            v19 = *(*(&v27 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
-              [v28 passcodePolicyInterface:*(a1 + 32) passcodePolicyTypeChanged:v3];
+              [v19 passcodePolicyInterface:*(a1 + 32) passcodePolicyTypeChanged:v3];
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
-        while (v25);
+        while (v16);
       }
     }
   }
 
   else
   {
-    v5 = [*(a1 + 32) currentPolicyType];
-    if (v5 <= 2)
-    {
-      v13 = off_279CAA9E0[v5];
-    }
-
-    SULogInfo(@"Invalid passcode policy type: %lu. Leaving policy as %@", v6, v7, v8, v9, v10, v11, v12, v3);
+    [*(a1 + 32) currentPolicyType];
+    SULogInfo(@"Invalid passcode policy type: %lu. Leaving policy as %@", v20, v21, v22, v23, v24, v25, v26, v3);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -197,17 +189,16 @@ void __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke(uint64
     [(SUAutoUpdatePasscodePolicy *)a2 addObserver:?];
   }
 
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v7 = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __42__SUAutoUpdatePasscodePolicy_addObserver___block_invoke;
-  v9[3] = &unk_279CAA7C0;
-  v9[4] = self;
-  v10 = observerCopy;
-  v8 = observerCopy;
-  dispatch_sync(v7, v9);
+  queue = self->_queue;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __42__SUAutoUpdatePasscodePolicy_addObserver___block_invoke;
+  v8[3] = &unk_279CAA7C0;
+  v8[4] = self;
+  v9 = observerCopy;
+  v7 = observerCopy;
+  dispatch_sync(queue, v8);
 }
 
 - (void)removeObserver:(id)observer
@@ -218,17 +209,16 @@ void __51__SUAutoUpdatePasscodePolicy_setCurrentPolicyType___block_invoke(uint64
     [(SUAutoUpdatePasscodePolicy *)a2 removeObserver:?];
   }
 
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v7 = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SUAutoUpdatePasscodePolicy_removeObserver___block_invoke;
-  v9[3] = &unk_279CAA7C0;
-  v9[4] = self;
-  v10 = observerCopy;
-  v8 = observerCopy;
-  dispatch_sync(v7, v9);
+  queue = self->_queue;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__SUAutoUpdatePasscodePolicy_removeObserver___block_invoke;
+  v8[3] = &unk_279CAA7C0;
+  v8[4] = self;
+  v9 = observerCopy;
+  v7 = observerCopy;
+  dispatch_sync(queue, v8);
 }
 
 - (id)description

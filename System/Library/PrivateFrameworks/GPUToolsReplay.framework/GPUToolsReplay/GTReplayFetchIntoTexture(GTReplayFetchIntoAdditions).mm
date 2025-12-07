@@ -6,7 +6,7 @@
 
 - (uint64_t)encodeFetchIntoOperation:()GTReplayFetchIntoAdditions error:
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v6 = *(a3 + 8);
   v7 = *(v6 + 56);
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "streamRef")}];
@@ -18,17 +18,17 @@
     if (!v10)
     {
       v40 = *MEMORY[0x277CCA450];
-      v65[0] = @"Failed to find texture";
-      v64[0] = v40;
-      v64[1] = @"GTErrorKeyTraceStreamID";
+      v64[0] = @"Failed to find texture";
+      v63[0] = v40;
+      v63[1] = @"GTErrorKeyTraceStreamID";
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "streamRef")}];
-      v65[1] = v13;
-      v64[2] = @"GTErrorKeyFunctionIndex";
+      v64[1] = v13;
+      v63[2] = @"GTErrorKeyFunctionIndex";
       v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "dispatchUID")}];
-      v65[2] = v29;
+      v64[2] = v29;
       v41 = MEMORY[0x277CBEAC0];
-      v42 = v65;
-      v43 = v64;
+      v42 = v64;
+      v43 = v63;
       v44 = 3;
 LABEL_41:
       commandBuffer = [v41 dictionaryWithObjects:v42 forKeys:v43 count:v44];
@@ -40,8 +40,8 @@ LABEL_41:
     v9 = v10;
   }
 
-  v63 = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+  v62 = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
   GTMTLReplayClient_waitForUntrackedWritesToComplete(v6, v11);
 
   dest = [self dest];
@@ -53,7 +53,7 @@ LABEL_41:
     if (s_logUsingOsLog != 1)
     {
       v35 = *MEMORY[0x277D85E08];
-      [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, source.pixelFormat (%lu) != dest.pixelFormat (%lu)", objc_msgSend(v13, "pixelFormat"), objc_msgSend(v14, "pixelFormat"), v55, v56];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, source.pixelFormat (%lu) != dest.pixelFormat (%lu)", objc_msgSend(v13, "pixelFormat"), objc_msgSend(v14, "pixelFormat"), v54, v55];
       goto LABEL_38;
     }
 
@@ -76,12 +76,12 @@ LABEL_26:
 
 LABEL_39:
 
-    v61 = @"GTErrorKeyTraceStreamID";
+    v60 = @"GTErrorKeyTraceStreamID";
     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "streamRef")}];
-    v62 = v29;
+    v61 = v29;
     v41 = MEMORY[0x277CBEAC0];
-    v42 = &v62;
-    v43 = &v61;
+    v42 = &v61;
+    v43 = &v60;
 LABEL_40:
     v44 = 1;
     goto LABEL_41;
@@ -107,7 +107,7 @@ LABEL_40:
     }
 
     v35 = *MEMORY[0x277D85E08];
-    [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, unsupported 2P pixel format (%lu)", objc_msgSend(v13, "pixelFormat"), v54, v55, v56];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, unsupported 2P pixel format (%lu)", objc_msgSend(v13, "pixelFormat"), v53, v54, v55];
     goto LABEL_38;
   }
 
@@ -117,7 +117,7 @@ LABEL_40:
     if (s_logUsingOsLog != 1)
     {
       v35 = *MEMORY[0x277D85E08];
-      [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, source.sampleCount (%lu) != dest.sampleCount (%lu)", objc_msgSend(v13, "sampleCount"), objc_msgSend(v14, "sampleCount"), v55, v56];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, source.sampleCount (%lu) != dest.sampleCount (%lu)", objc_msgSend(v13, "sampleCount"), objc_msgSend(v14, "sampleCount"), v54, v55];
       goto LABEL_38;
     }
 
@@ -162,9 +162,9 @@ LABEL_40:
     *&buf[12] = 2048;
     *&buf[14] = height;
     *&buf[22] = 2048;
-    v67 = width3;
-    v68 = 2048;
-    v69 = height2;
+    v66 = width3;
+    v67 = 2048;
+    v68 = height2;
     v34 = "FetchInto failed, source size (%lu, %lu) != dest size (%lu, %lu)";
 LABEL_34:
     v38 = v31;
@@ -193,9 +193,9 @@ LABEL_34:
     *&buf[12] = 2048;
     *&buf[14] = 2;
     *&buf[22] = 2048;
-    v67 = 3;
-    v68 = 2048;
-    v69 = 7;
+    v66 = 3;
+    v67 = 2048;
+    v68 = 7;
     v34 = "FetchInto failed, source.textureType (%lu) must be one of [MTLTextureType2D (%lu), MTLTextureType2DArray (%lu), MTLTextureType3D (%lu)]";
     goto LABEL_34;
   }
@@ -220,39 +220,39 @@ LABEL_34:
     }
 
     v35 = *MEMORY[0x277D85E08];
-    [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, dest.textureType (%lu) != MTLTextureType2D (%lu)", objc_msgSend(v14, "textureType"), 2, v55, v56];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"FetchInto failed, dest.textureType (%lu) != MTLTextureType2D (%lu)", objc_msgSend(v14, "textureType"), 2, v54, v55];
     v31 = LABEL_38:;
     fprintf(v35, "%s\n", [v31 UTF8String]);
     goto LABEL_39;
   }
 
-  slice = [self slice];
-  if ([v13 arrayLength] <= slice || (v20 = objc_msgSend(self, "level"), objc_msgSend(v13, "mipmapLevelCount") <= v20) || (v21 = objc_msgSend(self, "depth"), objc_msgSend(v13, "depth") <= v21))
+  v19 = objc_msgSend_slice(self);
+  if ([v13 arrayLength] <= v19 || (v20 = objc_msgSend(self, "level"), objc_msgSend(v13, "mipmapLevelCount") <= v20) || (v21 = objc_msgSend(self, "depth"), objc_msgSend(v13, "depth") <= v21))
   {
-    v59 = @"GTErrorKeyTraceStreamID";
+    v58 = @"GTErrorKeyTraceStreamID";
     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(self, "streamRef")}];
-    v60 = v29;
+    v59 = v29;
     v41 = MEMORY[0x277CBEAC0];
-    v42 = &v60;
-    v43 = &v59;
+    v42 = &v59;
+    v43 = &v58;
     goto LABEL_40;
   }
 
   v22 = *(v6 + 24);
   blitCommandEncoder = [v22 blitCommandEncoder];
-  slice2 = [self slice];
+  v24 = objc_msgSend_slice(self);
   level = [self level];
   depth = [self depth];
   *buf = 0;
   *&buf[8] = 0;
   *&buf[16] = depth;
-  v58[0] = [v13 width];
-  v58[1] = [v13 height];
+  v57[0] = [v13 width];
+  v57[1] = [v13 height];
   v27 = 1;
-  v58[2] = 1;
+  v57[2] = 1;
   dest2 = [self dest];
-  memset(v57, 0, sizeof(v57));
-  [blitCommandEncoder copyFromTexture:v13 sourceSlice:slice2 sourceLevel:level sourceOrigin:buf sourceSize:v58 toTexture:dest2 destinationSlice:0 destinationLevel:0 destinationOrigin:v57];
+  memset(v56, 0, sizeof(v56));
+  [blitCommandEncoder copyFromTexture:v13 sourceSlice:v24 sourceLevel:level sourceOrigin:buf sourceSize:v57 toTexture:dest2 destinationSlice:0 destinationLevel:0 destinationOrigin:v56];
 
   v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"SharedTextureBlit"];
   commandBuffer = [v22 commandBuffer];
@@ -260,7 +260,6 @@ LABEL_34:
   [commandBuffer setLabel:v29];
 LABEL_42:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

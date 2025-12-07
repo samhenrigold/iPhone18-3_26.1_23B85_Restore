@@ -68,7 +68,7 @@ void __53___NSTextHighlightRun_initWithTextRange_withCluster___block_invoke(uint
   [(_NSTextHighlightRunSegment *)v11 setTextRange:v8];
   if (v11)
   {
-    v11[8] = a4;
+    *(v11 + 8) = a4;
   }
 
   [*(*(v6 + 32) + 56) addObject:v11];

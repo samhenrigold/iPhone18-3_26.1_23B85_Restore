@@ -114,25 +114,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_identity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    connected = self->_connected;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -151,15 +150,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  guest = self->_guest;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    hidden = self->_hidden;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
@@ -298,7 +295,6 @@ LABEL_4:
       goto LABEL_28;
     }
 
-    v8 = *(equalCopy + 24);
     if (self->_connected)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -335,7 +331,6 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v9 = *(equalCopy + 25);
   if (self->_guest)
   {
     if ((*(equalCopy + 25) & 1) == 0)

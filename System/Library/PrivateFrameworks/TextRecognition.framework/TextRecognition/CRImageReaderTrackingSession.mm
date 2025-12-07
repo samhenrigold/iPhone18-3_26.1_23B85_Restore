@@ -1,5 +1,6 @@
 @interface CRImageReaderTrackingSession
 + (unint64_t)regionTypeForTrackingLevel:(unint64_t)level;
+- (BOOL)shouldRunOCROnCurrentFrame;
 - (CRImageReaderTrackingSession)initWithTrackingLevel:(unint64_t)level ocrFrameInterval:(unint64_t)interval;
 - (double)accumulatedSceneHomography;
 - (double)sceneHomography;
@@ -7,7 +8,6 @@
 - (id).cxx_construct;
 - (uint64_t)dispatchIfReady:(uint64_t)ready;
 - (uint64_t)setLastFrameTime:(uint64_t)result;
-- (uint64_t)shouldRunOCROnCurrentFrame;
 - (unint64_t)trackedRegionType;
 - (void)prepareSessionForOCRDispatch;
 - (void)saveQuadsAfterAssociation;
@@ -1159,7 +1159,7 @@ void __79__CRImageReaderTrackingSession_updateOCRUpdateModeWithStability_frameDu
   _MergedGlobals_14 = v0;
 }
 
-- (uint64_t)shouldRunOCROnCurrentFrame
+- (BOOL)shouldRunOCROnCurrentFrame
 {
   if (result)
   {

@@ -60,28 +60,28 @@
 
 - (unint64_t)typeIndexForClass:(Class)class
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [(CRCoder *)self typeSet];
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v18;
+    v7 = *v17;
 LABEL_3:
     v8 = 0;
-    v15 = v6 + v5;
+    v14 = v6 + v5;
     while (1)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v17 + 1) + 8 * v8);
+      v9 = *(*(&v16 + 1) + 8 * v8);
       typeToClassDict = [(CRCoder *)self typeToClassDict];
       v11 = [typeToClassDict objectForKeyedSubscript:v9];
 
@@ -94,8 +94,8 @@ LABEL_3:
       ++v6;
       if (v5 == ++v8)
       {
-        v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
-        v6 = v15;
+        v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = v14;
         if (v5)
         {
           goto LABEL_3;
@@ -112,7 +112,6 @@ LABEL_12:
     v6 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

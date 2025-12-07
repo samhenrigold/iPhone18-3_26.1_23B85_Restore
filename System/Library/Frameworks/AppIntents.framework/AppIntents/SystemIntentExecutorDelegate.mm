@@ -10,7 +10,7 @@
   executorCopy = executor;
   requestCopy = request;
   selfCopy = self;
-  sub_18F16B9EC();
+  sub_18F16B9EC(selfCopy);
 }
 
 - (void)executor:(id)executor didCompleteExecutionWithResult:(id)result error:(id)error

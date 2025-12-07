@@ -40,9 +40,7 @@
 - (void)setAudioCategory:(id)category
 {
   *(&self->_accessoryButtonEventsEnabled + 1) |= 4u;
-  v4 = [category copy];
-  audioCategory = self->_audioCategory;
-  self->_audioCategory = v4;
+  self->_audioCategory = [category copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -50,9 +48,7 @@
 - (void)setAudioMode:(id)mode
 {
   *(&self->_accessoryButtonEventsEnabled + 1) |= 0x20u;
-  v4 = [mode copy];
-  audioMode = self->_audioMode;
-  self->_audioMode = v4;
+  self->_audioMode = [mode copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -60,9 +56,7 @@
 - (void)setName:(id)name
 {
   *(&self->_accessoryButtonEventsEnabled + 1) |= 0x40u;
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -226,7 +220,7 @@
   if (!v5)
   {
 LABEL_35:
-    v34 = v5;
+    v35 = v5;
     goto LABEL_36;
   }
 
@@ -321,39 +315,38 @@ LABEL_35:
 
         if (v31)
         {
-          v32 = v27;
-          v33 = *(v5 + 11);
-          *(v5 + 11) = v32;
+          v33 = v27;
+          v34 = *(v5 + 11);
+          *(v5 + 11) = v33;
         }
 
         else
         {
-          v33 = CXDefaultLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v34 = CXDefaultLog(v32);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v41 = v27;
-            _os_log_impl(&dword_1B47F3000, v33, OS_LOG_TYPE_DEFAULT, "[WARN] Client does not have permission to access %@", buf, 0xCu);
+            _os_log_impl(&dword_1B47F3000, v34, OS_LOG_TYPE_DEFAULT, "[WARN] Client does not have permission to access %@", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        v35 = v27;
+        v36 = v27;
         connection = *(v5 + 11);
-        *(v5 + 11) = v35;
+        *(v5 + 11) = v36;
       }
     }
 
     goto LABEL_35;
   }
 
-  v34 = 0;
+  v35 = 0;
 LABEL_36:
 
-  v36 = *MEMORY[0x1E69E9840];
-  return v34;
+  return v35;
 }
 
 - (void)encodeWithCoder:(id)coder

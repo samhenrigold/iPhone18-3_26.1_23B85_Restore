@@ -37,7 +37,7 @@
 
 - (id)fallbackParentItemOnFS
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fallbackParentAppLibraryOnFS = [(BRCSharedServerItem *)self fallbackParentAppLibraryOnFS];
   defaultClientZone = [fallbackParentAppLibraryOnFS defaultClientZone];
   fallbackParentItemIDOnFS = [(BRCSharedServerItem *)self fallbackParentItemIDOnFS];
@@ -50,19 +50,19 @@
 
   else
   {
-    v10 = brc_bread_crumbs();
-    v11 = brc_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v9 = brc_bread_crumbs();
+    v10 = brc_default_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       fallbackParentItemIDOnFS2 = [(BRCSharedServerItem *)self fallbackParentItemIDOnFS];
       mangledID = [fallbackParentAppLibraryOnFS mangledID];
-      v18 = 138412802;
-      v19 = fallbackParentItemIDOnFS2;
-      v20 = 2112;
-      v21 = mangledID;
-      v22 = 2112;
-      v23 = v10;
-      _os_log_fault_impl(&dword_223E7A000, v11, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't find %@ in %@%@", &v18, 0x20u);
+      v17 = 138412802;
+      v18 = fallbackParentItemIDOnFS2;
+      v19 = 2112;
+      v20 = mangledID;
+      v21 = 2112;
+      v22 = v9;
+      _os_log_fault_impl(&dword_223E7A000, v10, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't find %@ in %@%@", &v17, 0x20u);
     }
 
     v7 = [(BRCAccountSession *)self->super._session appLibraryByID:*MEMORY[0x277CFAD68]];
@@ -73,18 +73,16 @@
 
     if (!v6)
     {
-      v14 = brc_bread_crumbs();
-      v15 = brc_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v13 = brc_bread_crumbs();
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        [(BRCSharedServerItem *)v14 fallbackParentItemOnFS];
+        [(BRCSharedServerItem *)v13 fallbackParentItemOnFS];
       }
 
       v6 = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -159,7 +157,6 @@ LABEL_7:
 
   if (clientZone)
   {
-    dbFacade = self->super._dbFacade;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -234,21 +231,21 @@ LABEL_8:
 
 - (id)parentItemIDOnFS
 {
-  v24 = *MEMORY[0x277D85DE8];
-  memset(v17, 0, sizeof(v17));
-  __brc_create_section(0, "[BRCSharedServerItem parentItemIDOnFS]", 153, 0, v17);
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v16, 0, sizeof(v16));
+  __brc_create_section(0, "[BRCSharedServerItem parentItemIDOnFS]", 153, 0, v16);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v15 = v17[0];
+    v14 = v16[0];
     itemID = [(BRCServerItem *)self itemID];
     *buf = 134218498;
-    v19 = v15;
-    v20 = 2112;
-    v21 = itemID;
-    v22 = 2112;
-    v23 = v3;
+    v18 = v14;
+    v19 = 2112;
+    v20 = itemID;
+    v21 = 2112;
+    v22 = v3;
     _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx computing the parent item id of %@%@", buf, 0x20u);
   }
 
@@ -287,8 +284,7 @@ LABEL_8:
     }
   }
 
-  __brc_leave_section(v17);
-  v13 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v16);
 
   return parentItemIDOnServer;
 }

@@ -22,7 +22,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_27488F01C();
+  sub_27488F01C(delegate);
 }
 
 - (WFTriggerSuggestionViewController)initWithTrigger:(id)trigger selectedEntryMetadataData:(id)data selectedReference:(id)reference

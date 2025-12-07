@@ -3,8 +3,6 @@
 - (uint64_t)_EX_isApplication;
 - (uint64_t)_EX_isContainedInDirectory:()ExtensionKitAdditions;
 - (uint64_t)_EX_isDirectory;
-- (void)_EX_isApplication;
-- (void)_EX_isDirectory;
 @end
 
 @implementation NSURL(ExtensionKitAdditions)
@@ -12,21 +10,22 @@
 - (uint64_t)_EX_isDirectory
 {
   uRLByResolvingSymlinksInPath = [self URLByResolvingSymlinksInPath];
-  v10 = 0;
+  v11 = 0;
   v2 = *MEMORY[0x1E695DB78];
-  v9 = 0;
-  v3 = [uRLByResolvingSymlinksInPath getResourceValue:&v10 forKey:v2 error:&v9];
-  v4 = v10;
-  v5 = v9;
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v10 = 0;
+  v3 = [uRLByResolvingSymlinksInPath getResourceValue:&v11 forKey:v2 error:&v10];
+  v4 = v11;
+  isKindOfClass = v10;
+  v6 = isKindOfClass;
+  if (v3 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     bOOLValue = [v4 BOOLValue];
   }
 
   else
   {
-    v7 = _EXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _EXDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [NSURL(ExtensionKitAdditions) _EX_isDirectory];
     }
@@ -39,21 +38,22 @@
 
 - (uint64_t)_EX_isApplication
 {
-  v9 = 0;
+  v10 = 0;
   v1 = *MEMORY[0x1E695DB70];
-  v8 = 0;
-  v2 = [self getResourceValue:&v9 forKey:v1 error:&v8];
-  v3 = v9;
-  v4 = v8;
-  if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v9 = 0;
+  v2 = [self getResourceValue:&v10 forKey:v1 error:&v9];
+  v3 = v10;
+  isKindOfClass = v9;
+  v5 = isKindOfClass;
+  if (v2 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
     bOOLValue = [v3 BOOLValue];
   }
 
   else
   {
-    v6 = _EXDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _EXDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [NSURL(ExtensionKitAdditions) _EX_isApplication];
     }
@@ -117,22 +117,6 @@ LABEL_6:
   {
     return v7;
   }
-}
-
-- (void)_EX_isDirectory
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "Failed to get NSURLIsDirectoryKey property for URL '%@' with error '%{public}@'");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_EX_isApplication
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "Failed to get NSURLIsApplicationKey property for URL '%@' with error '%{public}@'");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

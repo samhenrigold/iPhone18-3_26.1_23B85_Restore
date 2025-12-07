@@ -8,84 +8,85 @@
 
 - (BOOL)asdtAddControlProperties:()ASDTIOA2Control
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v45 = a3;
+  v66 = *MEMORY[0x277D85DE8];
+  v47 = a3;
   selfCopy = self;
   v5 = MEMORY[0x277CBEB18];
-  v46 = selfCopy;
+  v48 = selfCopy;
   properties = [selfCopy properties];
-  v47 = [v5 arrayWithCapacity:{objc_msgSend(properties, "count") + 1}];
+  v49 = [v5 arrayWithCapacity:{objc_msgSend(properties, "count") + 1}];
 
+  v56 = 0u;
+  v57 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  properties2 = [v46 properties];
-  v8 = [properties2 countByEnumeratingWithState:&v52 objects:v63 count:16];
+  properties2 = [v48 properties];
+  v8 = [properties2 countByEnumeratingWithState:&v54 objects:v65 count:16];
   if (v8)
   {
-    v9 = *v53;
+    v9 = *v55;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v53 != v9)
+        if (*v55 != v9)
         {
           objc_enumerationMutation(properties2);
         }
 
-        v11 = *(*(&v52 + 1) + 8 * i);
+        v11 = *(*(&v54 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v12 = MEMORY[0x277CCABB0];
           address = [v11 address];
           v14 = [v12 numberWithUnsignedInt:{objc_msgSend(address, "selector")}];
-          [v47 addObject:v14];
+          [v49 addObject:v14];
         }
 
         else
         {
-          [v47 addObject:&unk_2853578A0];
+          [v49 addObject:&unk_2853578A0];
         }
       }
 
-      v8 = [properties2 countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v8 = [properties2 countByEnumeratingWithState:&v54 objects:v65 count:16];
     }
 
     while (v8);
   }
 
-  if ([v47 isEqual:v45])
+  if ([v49 isEqual:v47])
   {
     v15 = 1;
     goto LABEL_44;
   }
 
-  [v46 asdtRemoveControlProperties];
-  propertySelectorInfo = [v46 propertySelectorInfo];
-  if (![propertySelectorInfo count] || !objc_msgSend(v45, "count"))
+  [v48 asdtRemoveControlProperties];
+  propertySelectorInfo = [v48 propertySelectorInfo];
+  if (![propertySelectorInfo count] || !objc_msgSend(v47, "count"))
   {
     v15 = 1;
     goto LABEL_43;
   }
 
-  v16 = [v45 count];
-  if (v16 != [propertySelectorInfo count])
+  v16 = [v47 count];
+  v17 = [propertySelectorInfo count];
+  if (v16 != v17)
   {
-    log = ASDTIOA2LogType();
+    log = ASDTIOA2LogType(v17, v18);
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
-      v41 = [v45 count];
-      v42 = [propertySelectorInfo count];
+      v41 = objc_opt_class();
+      v42 = NSStringFromClass(v41);
+      v43 = [v47 count];
+      v44 = [propertySelectorInfo count];
       *buf = 138412802;
-      v58 = v40;
-      v59 = 1024;
-      v60 = v41;
+      v60 = v42;
       v61 = 1024;
-      v62 = v42;
+      v62 = v43;
+      v63 = 1024;
+      v64 = v44;
       _os_log_error_impl(&dword_2416BA000, log, OS_LOG_TYPE_ERROR, "%@: Invalid property selector count in registry: found %u, expected %u", buf, 0x18u);
     }
 
@@ -93,59 +94,59 @@
     goto LABEL_42;
   }
 
-  log = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v45, "count")}];
+  log = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v47, "count")}];
   for (j = 0; ; ++j)
   {
-    v18 = [v45 count];
-    v15 = v18 <= j;
-    if (v18 <= j)
+    v20 = [v47 count];
+    v15 = v20 <= j;
+    if (v20 <= j)
     {
-      v26 = [log copy];
-      [v46 setProperties:v26];
+      v29 = [log copy];
+      [v48 setProperties:v29];
 
+      v52 = 0u;
+      v53 = 0u;
       v50 = 0u;
       v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      properties3 = [v46 properties];
-      v28 = [properties3 countByEnumeratingWithState:&v48 objects:v56 count:16];
-      v29 = v28;
-      if (v28)
+      properties3 = [v48 properties];
+      v31 = [properties3 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v32 = v31;
+      if (v31)
       {
-        v30 = *v49;
+        v33 = *v51;
         do
         {
-          v31 = 0;
+          v34 = 0;
           do
           {
-            if (*v49 != v30)
+            if (*v51 != v33)
             {
               objc_enumerationMutation(properties3);
             }
 
-            v32 = *(*(&v48 + 1) + 8 * v31);
+            v35 = *(*(&v50 + 1) + 8 * v34);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              ioa2Device = [v46 ioa2Device];
-              [ioa2Device addCustomProperty:v32];
+              ioa2Device = [v48 ioa2Device];
+              [ioa2Device addCustomProperty:v35];
             }
 
-            ++v31;
+            ++v34;
           }
 
-          while (v29 != v31);
-          v29 = [properties3 countByEnumeratingWithState:&v48 objects:v56 count:16];
+          while (v32 != v34);
+          v32 = [properties3 countByEnumeratingWithState:&v50 objects:v58 count:16];
         }
 
-        while (v29);
+        while (v32);
       }
 
       goto LABEL_41;
     }
 
-    v19 = [v45 objectAtIndexedSubscript:j];
-    unsignedIntValue = [v19 unsignedIntValue];
+    v21 = [v47 objectAtIndexedSubscript:j];
+    unsignedIntValue = [v21 unsignedIntValue];
 
     if (unsignedIntValue)
     {
@@ -158,26 +159,26 @@ LABEL_23:
   }
 
   properties3 = [propertySelectorInfo objectAtIndexedSubscript:j];
-  v21 = [properties3 objectForKeyedSubscript:@"selector"];
-  unsignedIntValue2 = [v21 unsignedIntValue];
+  v23 = [properties3 objectForKeyedSubscript:@"selector"];
+  unsignedIntValue2 = [v23 unsignedIntValue];
 
-  v23 = [properties3 objectForKeyedSubscript:@"dataType"];
-  unsignedIntValue3 = [v23 unsignedIntValue];
+  v25 = [properties3 objectForKeyedSubscript:@"dataType"];
+  unsignedIntValue3 = [v25 unsignedIntValue];
 
-  v25 = [MEMORY[0x277CEFB80] forControl:v46 controlSelector:unsignedIntValue2 propertySelector:unsignedIntValue propertyDataType:unsignedIntValue3];
-  if (v25)
+  v28 = [MEMORY[0x277CEFB80] forControl:v48 controlSelector:unsignedIntValue2 propertySelector:unsignedIntValue propertyDataType:unsignedIntValue3];
+  if (v28)
   {
-    [log addObject:v25];
+    [log addObject:v28];
 
     goto LABEL_23;
   }
 
-  v34 = ASDTIOA2LogType();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  v37 = ASDTIOA2LogType(0, v27);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    [(ASDControl(ASDTIOA2Control) *)v36 asdtAddControlProperties:unsignedIntValue, buf, v34];
+    v38 = objc_opt_class();
+    v39 = NSStringFromClass(v38);
+    [(ASDControl(ASDTIOA2Control) *)v39 asdtAddControlProperties:unsignedIntValue, buf, v37];
   }
 
 LABEL_41:
@@ -186,34 +187,33 @@ LABEL_42:
 LABEL_43:
 LABEL_44:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)asdtRemoveControlProperties
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   properties = [selfCopy properties];
-  v3 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(properties);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
+        v6 = *(*(&v8 + 1) + 8 * v5);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -225,14 +225,13 @@ LABEL_44:
       }
 
       while (v3 != v5);
-      v3 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
 
   [selfCopy setProperties:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)asdtSendControlPropertyChangeNotificationAtIndex:()ASDTIOA2Control

@@ -78,9 +78,9 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v5 = objc_msgSend_primaryTextColor(schemeCopy);
   primaryTextColor = self->_primaryTextColor;
-  self->_primaryTextColor = primaryTextColor;
+  self->_primaryTextColor = v5;
 
   itemOfferNoticeLabel = [(SUUIItemCellLayout *)self itemOfferNoticeLabel];
   v8 = itemOfferNoticeLabel;
@@ -171,7 +171,7 @@
 {
   stringCopy = string;
   indexNumberString = [(SUUIItemBrowseCellLayout *)self indexNumberString];
-  if (indexNumberString != stringCopy && ([indexNumberString isEqualToString:stringCopy] & 1) == 0)
+  if (indexNumberString != stringCopy && (objc_msgSend_isEqualToString_(indexNumberString) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (stringCopy)
@@ -256,7 +256,7 @@
 {
   subtitleCopy = subtitle;
   subtitle = [(SUUIItemBrowseCellLayout *)self subtitle];
-  if (subtitle != subtitleCopy && ([subtitle isEqualToString:subtitleCopy] & 1) == 0)
+  if (subtitle != subtitleCopy && (objc_msgSend_isEqualToString_(subtitle) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (subtitleCopy)
@@ -310,7 +310,7 @@
 {
   titleCopy = title;
   title = [(SUUIItemBrowseCellLayout *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     cellContentView = self->_cellContentView;
     if (titleCopy)

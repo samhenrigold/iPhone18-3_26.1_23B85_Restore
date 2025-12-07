@@ -97,7 +97,7 @@ uint64_t __74__NSMutableArray__UIKBRTObjectArray___uikbrtInsert_beforeItemPassin
   }
 }
 
-uint64_t __52__NSMutableArray__UIKBRTObjectArray___uikbrtRemove___block_invoke(uint64_t a1)
+void *__52__NSMutableArray__UIKBRTObjectArray___uikbrtRemove___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) removeObject:*(a1 + 40)];
   [*(a1 + 40) setOwner:0];

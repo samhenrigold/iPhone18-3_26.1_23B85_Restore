@@ -34,11 +34,11 @@
 
 - (AVAssetWriterWritingHelper)initWithConfigurationState:(id)state assetWriter:(id)writer error:(id *)error
 {
-  v157[1] = *MEMORY[0x1E69E9840];
-  v151.receiver = self;
-  v151.super_class = AVAssetWriterWritingHelper;
-  v152 = 0;
-  v7 = [(AVAssetWriterHelper *)&v151 initWithConfigurationState:state];
+  v158[1] = *MEMORY[0x1E69E9840];
+  v152.receiver = self;
+  v152.super_class = AVAssetWriterWritingHelper;
+  v153 = 0;
+  v7 = [(AVAssetWriterHelper *)&v152 initWithConfigurationState:state];
   v8 = v7;
   if (!v7)
   {
@@ -46,11 +46,11 @@
   }
 
   pathExtension = [(NSURL *)[(AVAssetWriterHelper *)v7 outputURL] pathExtension];
-  if (pathExtension && [AVUnsupportedOutputURLPathExtensions() containsObject:pathExtension])
+  if (pathExtension && [AVUnsupportedOutputURLPathExtensions(pathExtension v10)])
   {
-    v10 = -11843;
+    v11 = -11843;
 LABEL_5:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
@@ -61,6 +61,18 @@ LABEL_5:
     [(AVAssetWriterHelper *)v8 delegate];
     if (objc_opt_respondsToSelector())
     {
+      v121 = 1;
+    }
+
+    else
+    {
+      v121 = objc_opt_respondsToSelector();
+    }
+
+    v123 = outputURL;
+    errorCopy = error;
+    if (objc_opt_respondsToSelector())
+    {
       v120 = 1;
     }
 
@@ -69,43 +81,31 @@ LABEL_5:
       v120 = objc_opt_respondsToSelector();
     }
 
-    v122 = outputURL;
-    errorCopy = error;
-    if (objc_opt_respondsToSelector())
-    {
-      v119 = 1;
-    }
-
-    else
-    {
-      v119 = objc_opt_respondsToSelector();
-    }
-
-    v13 = MEMORY[0x1E695DF90];
-    v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[AVAssetWriterHelper shouldOptimizeForNetworkUse](v8, "shouldOptimizeForNetworkUse")}];
-    v15 = [v13 dictionaryWithObjectsAndKeys:{v14, *MEMORY[0x1E6971578], 0}];
-    v16 = MEMORY[0x1E695DF90];
+    v14 = MEMORY[0x1E695DF90];
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:{-[AVAssetWriterHelper shouldOptimizeForNetworkUse](v8, "shouldOptimizeForNetworkUse")}];
+    v16 = [v14 dictionaryWithObjectsAndKeys:{v15, *MEMORY[0x1E6971578], 0}];
+    v17 = MEMORY[0x1E695DF90];
     figFormatReaderFileFormat = [(AVMediaFileType *)[(AVAssetWriterHelper *)v8 mediaFileType] figFormatReaderFileFormat];
-    v121 = [v16 dictionaryWithObjectsAndKeys:{figFormatReaderFileFormat, *MEMORY[0x1E6971B28], 0}];
+    v122 = [v17 dictionaryWithObjectsAndKeys:{figFormatReaderFileFormat, *MEMORY[0x1E6971B28], 0}];
     CFRunLoopGetCurrent();
     directoryForTemporaryFiles = [(AVAssetWriterHelper *)v8 directoryForTemporaryFiles];
-    v19 = [AVMediaFileType figFileTypeProfileFromAVFileTypeProfile:[(AVAssetWriterHelper *)v8 outputFileTypeProfile]];
-    v147 = 0u;
+    v20 = [AVMediaFileType figFileTypeProfileFromAVFileTypeProfile:[(AVAssetWriterHelper *)v8 outputFileTypeProfile]];
     v148 = 0u;
     v149 = 0u;
     v150 = 0u;
+    v151 = 0u;
     inputs = [(AVAssetWriterHelper *)v8 inputs];
-    v21 = [(NSArray *)inputs countByEnumeratingWithState:&v147 objects:v155 count:16];
-    if (v21)
+    v22 = [(NSArray *)inputs countByEnumeratingWithState:&v148 objects:v156 count:16];
+    if (v22)
     {
-      v22 = v21;
+      v23 = v22;
       LOBYTE(expectsMediaDataInRealTime) = 0;
-      v24 = *v148;
+      v25 = *v149;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v148 != v24)
+          if (*v149 != v25)
           {
             objc_enumerationMutation(inputs);
           }
@@ -117,14 +117,14 @@ LABEL_5:
 
           else
           {
-            expectsMediaDataInRealTime = [*(*(&v147 + 1) + 8 * i) expectsMediaDataInRealTime];
+            expectsMediaDataInRealTime = [*(*(&v148 + 1) + 8 * i) expectsMediaDataInRealTime];
           }
         }
 
-        v22 = [(NSArray *)inputs countByEnumeratingWithState:&v147 objects:v155 count:16];
+        v23 = [(NSArray *)inputs countByEnumeratingWithState:&v148 objects:v156 count:16];
       }
 
-      while (v22);
+      while (v23);
       if (directoryForTemporaryFiles)
       {
         goto LABEL_27;
@@ -137,19 +137,19 @@ LABEL_5:
       if (directoryForTemporaryFiles)
       {
 LABEL_27:
-        [v15 setObject:directoryForTemporaryFiles forKey:*MEMORY[0x1E69735B8]];
+        [v16 setObject:directoryForTemporaryFiles forKey:*MEMORY[0x1E69735B8]];
       }
     }
 
     error = errorCopy;
     if (expectsMediaDataInRealTime)
     {
-      [v15 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971580]];
+      [v16 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971580]];
     }
 
     if (!FigGetCFPreferenceBooleanWithDefault())
     {
-      v27 = 0;
+      v28 = 0;
       if (!expectsMediaDataInRealTime)
       {
         goto LABEL_46;
@@ -163,7 +163,7 @@ LABEL_42:
           storageSpacePreallocationSize = [(AVAssetWriterWritingHelper *)v8 storageSpacePreallocationSize];
           if (storageSpacePreallocationSize)
           {
-            [v15 setObject:storageSpacePreallocationSize forKey:*MEMORY[0x1E6971598]];
+            [v16 setObject:storageSpacePreallocationSize forKey:*MEMORY[0x1E6971598]];
           }
         }
       }
@@ -171,12 +171,12 @@ LABEL_42:
 LABEL_46:
       if ([(AVAssetWriterHelper *)v8 usesVirtualCaptureCard])
       {
-        [v15 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971590]];
+        [v16 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971590]];
       }
 
-      if (v19)
+      if (v20)
       {
-        [v121 setObject:v19 forKey:*MEMORY[0x1E6971BA8]];
+        [v122 setObject:v20 forKey:*MEMORY[0x1E6971BA8]];
       }
 
       v8->_figAssetWriterCallbackContextToken = [+[AVCallbackContextRegistry sharedCallbackContextRegistry](AVCallbackContextRegistry "sharedCallbackContextRegistry")];
@@ -184,23 +184,23 @@ LABEL_46:
       [(AVAssetWriterWritingHelper *)v8 areAudioAndVideoOutputSettingsPassthrough];
       if (!FigGetCFPreferenceBooleanWithDefault())
       {
-        if (v122)
+        if (v123)
         {
-          v30 = FigAssetWriterCreateWithURL();
+          v31 = FigAssetWriterCreateWithURL();
         }
 
         else
         {
-          if (((v120 | v119) & 1) == 0)
+          if (((v121 | v120) & 1) == 0)
           {
             goto LABEL_63;
           }
 
-          v30 = FigAssetWriterCreateForWritingFragmentedData();
+          v31 = FigAssetWriterCreateForWritingFragmentedData();
         }
 
-        v31 = v30;
-        if (v30)
+        v32 = v31;
+        if (v31)
         {
           goto LABEL_59;
         }
@@ -208,177 +208,177 @@ LABEL_46:
 LABEL_63:
         if (v8->_figAssetWriter)
         {
-          v123 = v27;
-          v33 = [[AVAssetWriterFigAssetWriterNotificationHandler alloc] initWithFigAssetWriter:v8->_figAssetWriter];
-          v8->_notificationHandler = v33;
-          [(AVAssetWriterFigAssetWriterNotificationHandler *)v33 setDelegate:v8];
-          v145 = 0uLL;
-          v146 = 0;
-          [(AVAssetWriterHelper *)v8 movieFragmentInterval];
-          if ((BYTE12(v145) & 0x1D) == 1)
+          v124 = v28;
+          v34 = [[AVAssetWriterFigAssetWriterNotificationHandler alloc] initWithFigAssetWriter:v8->_figAssetWriter];
+          v8->_notificationHandler = v34;
+          [(AVAssetWriterFigAssetWriterNotificationHandler *)v34 setDelegate:v8];
+          v146 = 0uLL;
+          v147 = 0;
+          objc_msgSend_movieFragmentInterval(v8);
+          if ((BYTE12(v146) & 0x1D) == 1)
           {
-            *time1 = v145;
-            *&time1[16] = v146;
+            *time1 = v146;
+            *&time1[16] = v147;
             *time2 = *MEMORY[0x1E6960CC0];
             *&time2[16] = *(MEMORY[0x1E6960CC0] + 16);
             if (CMTimeCompare(time1, time2) >= 1)
             {
-              v34 = *MEMORY[0x1E695E480];
-              *time1 = v145;
-              *&time1[16] = v146;
-              v35 = CMTimeCopyAsDictionary(time1, v34);
-              if (v35)
+              v35 = *MEMORY[0x1E695E480];
+              *time1 = v146;
+              *&time1[16] = v147;
+              v36 = CMTimeCopyAsDictionary(time1, v35);
+              if (v36)
               {
-                v36 = v35;
+                v37 = v36;
                 figAssetWriter = v8->_figAssetWriter;
-                v38 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-                if (v38)
+                v39 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+                if (v39)
                 {
-                  v38(figAssetWriter, *MEMORY[0x1E6971C18], v36);
+                  v39(figAssetWriter, *MEMORY[0x1E6971C18], v37);
                 }
 
-                CFRelease(v36);
+                CFRelease(v37);
               }
             }
           }
 
-          v143 = 0uLL;
-          v144 = 0;
-          [(AVAssetWriterHelper *)v8 initialMovieFragmentInterval];
-          if ((BYTE12(v143) & 0x1D) == 1)
+          v144 = 0uLL;
+          v145 = 0;
+          objc_msgSend_initialMovieFragmentInterval(v8);
+          if ((BYTE12(v144) & 0x1D) == 1)
           {
-            *time1 = v143;
-            *&time1[16] = v144;
+            *time1 = v144;
+            *&time1[16] = v145;
             *time2 = *MEMORY[0x1E6960CC0];
             *&time2[16] = *(MEMORY[0x1E6960CC0] + 16);
             if (CMTimeCompare(time1, time2) >= 1)
             {
-              v39 = *MEMORY[0x1E695E480];
-              *time1 = v143;
-              *&time1[16] = v144;
-              v40 = CMTimeCopyAsDictionary(time1, v39);
-              if (v40)
+              v40 = *MEMORY[0x1E695E480];
+              *time1 = v144;
+              *&time1[16] = v145;
+              v41 = CMTimeCopyAsDictionary(time1, v40);
+              if (v41)
               {
-                v41 = v40;
-                v42 = v8->_figAssetWriter;
-                v43 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-                if (v43)
+                v42 = v41;
+                v43 = v8->_figAssetWriter;
+                v44 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+                if (v44)
                 {
-                  v43(v42, *MEMORY[0x1E6971BE0], v41);
+                  v44(v43, *MEMORY[0x1E6971BE0], v42);
                 }
 
-                CFRelease(v41);
+                CFRelease(v42);
               }
             }
           }
 
-          v141 = 0uLL;
-          v142 = 0;
-          [(AVAssetWriterHelper *)v8 preferredOutputSegmentInterval];
-          *time1 = v141;
-          *&time1[16] = v142;
+          v142 = 0uLL;
+          v143 = 0;
+          objc_msgSend_preferredOutputSegmentInterval(v8);
+          *time1 = v142;
+          *&time1[16] = v143;
           *time2 = *MEMORY[0x1E6960C68];
           *&time2[16] = *(MEMORY[0x1E6960C68] + 16);
-          if (!CMTimeCompare(time1, time2) || (BYTE12(v141) & 0x1D) == 1 && (*time1 = v141, *&time1[16] = v142, *time2 = *MEMORY[0x1E6960CC0], *&time2[16] = *(MEMORY[0x1E6960CC0] + 16), CMTimeCompare(time1, time2) >= 1))
+          if (!CMTimeCompare(time1, time2) || (BYTE12(v142) & 0x1D) == 1 && (*time1 = v142, *&time1[16] = v143, *time2 = *MEMORY[0x1E6960CC0], *&time2[16] = *(MEMORY[0x1E6960CC0] + 16), CMTimeCompare(time1, time2) >= 1))
           {
-            v44 = *MEMORY[0x1E695E480];
-            *time1 = v141;
-            *&time1[16] = v142;
-            v45 = CMTimeCopyAsDictionary(time1, v44);
-            if (v45)
+            v45 = *MEMORY[0x1E695E480];
+            *time1 = v142;
+            *&time1[16] = v143;
+            v46 = CMTimeCopyAsDictionary(time1, v45);
+            if (v46)
             {
-              v46 = v45;
+              v47 = v46;
               FigBaseObject = FigAssetWriterGetFigBaseObject();
-              v48 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-              if (v48)
+              v49 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+              if (v49)
               {
-                v48(FigBaseObject, *MEMORY[0x1E69715B8], v46);
+                v49(FigBaseObject, *MEMORY[0x1E69715B8], v47);
               }
 
-              CFRelease(v46);
+              CFRelease(v47);
             }
           }
 
-          v139 = 0uLL;
-          v140 = 0;
-          [(AVAssetWriterHelper *)v8 initialSegmentStartTime];
-          if ((BYTE12(v139) & 0x1D) == 1)
+          v140 = 0uLL;
+          v141 = 0;
+          objc_msgSend_initialSegmentStartTime(v8);
+          if ((BYTE12(v140) & 0x1D) == 1)
           {
-            v49 = *MEMORY[0x1E695E480];
-            *time1 = v139;
-            *&time1[16] = v140;
-            v50 = CMTimeCopyAsDictionary(time1, v49);
-            if (v50)
+            v50 = *MEMORY[0x1E695E480];
+            *time1 = v140;
+            *&time1[16] = v141;
+            v51 = CMTimeCopyAsDictionary(time1, v50);
+            if (v51)
             {
-              v51 = v50;
-              v52 = FigAssetWriterGetFigBaseObject();
-              v53 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-              if (v53)
+              v52 = v51;
+              v53 = FigAssetWriterGetFigBaseObject();
+              v54 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+              if (v54)
               {
-                v53(v52, *MEMORY[0x1E69715A0], v51);
+                v54(v53, *MEMORY[0x1E69715A0], v52);
               }
 
-              CFRelease(v51);
+              CFRelease(v52);
             }
           }
 
           initialMovieFragmentSequenceNumber = [(AVAssetWriterHelper *)v8 initialMovieFragmentSequenceNumber];
           if (initialMovieFragmentSequenceNumber >= 1)
           {
-            v55 = v8->_figAssetWriter;
-            v56 = [MEMORY[0x1E696AD98] numberWithInteger:initialMovieFragmentSequenceNumber];
-            v57 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-            if (v57)
+            v56 = v8->_figAssetWriter;
+            v57 = [MEMORY[0x1E696AD98] numberWithInteger:initialMovieFragmentSequenceNumber];
+            v58 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+            if (v58)
             {
-              v57(v55, *MEMORY[0x1E6971C40], v56);
+              v58(v56, *MEMORY[0x1E6971C40], v57);
             }
           }
 
           if ([(AVAssetWriterHelper *)v8 producesCombinableFragments])
           {
-            v58 = v8->_figAssetWriter;
-            v59 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-            if (v59)
+            v59 = v8->_figAssetWriter;
+            v60 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+            if (v60)
             {
-              v59(v58, *MEMORY[0x1E6971C58], *MEMORY[0x1E695E4D0]);
+              v60(v59, *MEMORY[0x1E6971C58], *MEMORY[0x1E695E4D0]);
             }
           }
 
-          v137 = 0uLL;
-          v138 = 0;
-          [(AVAssetWriterHelper *)v8 overallDurationHint];
-          if (BYTE12(v137))
+          v138 = 0uLL;
+          v139 = 0;
+          objc_msgSend_overallDurationHint(v8);
+          if (BYTE12(v138))
           {
-            v60 = *MEMORY[0x1E695E480];
-            *time1 = v137;
-            *&time1[16] = v138;
-            v61 = CMTimeCopyAsDictionary(time1, v60);
-            if (v61)
+            v61 = *MEMORY[0x1E695E480];
+            *time1 = v138;
+            *&time1[16] = v139;
+            v62 = CMTimeCopyAsDictionary(time1, v61);
+            if (v62)
             {
-              v62 = v61;
-              v63 = v8->_figAssetWriter;
-              v64 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-              if (v64)
+              v63 = v62;
+              v64 = v8->_figAssetWriter;
+              v65 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+              if (v65)
               {
-                v64(v63, *MEMORY[0x1E6971C10], v62);
+                v65(v64, *MEMORY[0x1E6971C10], v63);
               }
 
-              CFRelease(v62);
+              CFRelease(v63);
             }
           }
 
           metadata = [(AVAssetWriterHelper *)v8 metadata];
           if (metadata)
           {
-            v66 = metadata;
+            v67 = metadata;
             if ([(NSArray *)metadata count])
             {
-              v67 = [AVMetadataItem _figMetadataPropertyFromMetadataItems:v66];
-              v68 = FigAssetWriterGetFigBaseObject();
-              v69 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-              if (v69)
+              v68 = [AVMetadataItem _figMetadataPropertyFromMetadataItems:v67];
+              v69 = FigAssetWriterGetFigBaseObject();
+              v70 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+              if (v70)
               {
-                v69(v68, *MEMORY[0x1E69715B0], v67);
+                v70(v69, *MEMORY[0x1E69715B0], v68);
               }
             }
           }
@@ -386,89 +386,89 @@ LABEL_63:
           movieTimeScale = [(AVAssetWriterHelper *)v8 movieTimeScale];
           if (movieTimeScale)
           {
-            v71 = v8->_figAssetWriter;
-            v72 = [MEMORY[0x1E696AD98] numberWithInteger:movieTimeScale];
-            v73 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-            if (v73)
+            v72 = v8->_figAssetWriter;
+            v73 = [MEMORY[0x1E696AD98] numberWithInteger:movieTimeScale];
+            v74 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+            if (v74)
             {
-              v73(v71, *MEMORY[0x1E6971C38], v72);
+              v74(v72, *MEMORY[0x1E6971C38], v73);
             }
           }
 
-          v136 = 0u;
+          v137 = 0u;
           memset(time1, 0, sizeof(time1));
-          [(AVAssetWriterHelper *)v8 preferredTransform];
+          objc_msgSend_preferredTransform(v8);
           *time2 = *time1;
           *&time2[16] = *&time1[16];
-          v134 = v136;
-          v74 = FigCreate3x3MatrixArrayFromCGAffineTransform();
-          v75 = v8->_figAssetWriter;
-          v76 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-          if (v76)
+          v135 = v137;
+          v75 = FigCreate3x3MatrixArrayFromCGAffineTransform();
+          v76 = v8->_figAssetWriter;
+          v77 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+          if (v77)
           {
-            v76(v75, *MEMORY[0x1E6971C20], v74);
+            v77(v76, *MEMORY[0x1E6971C20], v75);
           }
 
-          if (v74)
+          if (v75)
           {
-            CFRelease(v74);
+            CFRelease(v75);
           }
 
           [(AVAssetWriterHelper *)v8 preferredVolume];
-          v77 = v8->_figAssetWriter;
-          v78 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-          v79 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-          if (v79)
+          v78 = v8->_figAssetWriter;
+          v79 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+          v80 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+          if (v80)
           {
-            v79(v77, *MEMORY[0x1E6971C48], v78);
+            v80(v78, *MEMORY[0x1E6971C48], v79);
           }
 
           [(AVAssetWriterHelper *)v8 preferredRate];
-          v80 = v8->_figAssetWriter;
-          v81 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-          v82 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-          if (v82)
+          v81 = v8->_figAssetWriter;
+          v82 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+          v83 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+          if (v83)
           {
-            v82(v80, *MEMORY[0x1E6973848], v81);
+            v83(v81, *MEMORY[0x1E6973848], v82);
           }
 
           singlePassFileSize = [(AVAssetWriterHelper *)v8 singlePassFileSize];
           singlePassMediaDataSize = [(AVAssetWriterHelper *)v8 singlePassMediaDataSize];
           if (singlePassFileSize)
           {
-            v85 = singlePassMediaDataSize;
+            v86 = singlePassMediaDataSize;
             if (singlePassMediaDataSize)
             {
-              v86 = MEMORY[0x1E695DF20];
-              v87 = [MEMORY[0x1E696AD98] numberWithLongLong:singlePassFileSize];
-              v88 = *MEMORY[0x1E6971BD0];
-              v89 = [MEMORY[0x1E696AD98] numberWithLongLong:v85];
-              v90 = [v86 dictionaryWithObjectsAndKeys:{v87, v88, v89, *MEMORY[0x1E6971BC8], 0}];
-              v91 = v8->_figAssetWriter;
-              v92 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-              if (v92)
+              v87 = MEMORY[0x1E695DF20];
+              v88 = [MEMORY[0x1E696AD98] numberWithLongLong:singlePassFileSize];
+              v89 = *MEMORY[0x1E6971BD0];
+              v90 = [MEMORY[0x1E696AD98] numberWithLongLong:v86];
+              v91 = [v87 dictionaryWithObjectsAndKeys:{v88, v89, v90, *MEMORY[0x1E6971BC8], 0}];
+              v92 = v8->_figAssetWriter;
+              v93 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+              if (v93)
               {
-                v92(v91, *MEMORY[0x1E6971C78], v90);
+                v93(v92, *MEMORY[0x1E6971C78], v91);
               }
             }
           }
 
-          v131 = 0u;
           v132 = 0u;
-          v129 = 0u;
+          v133 = 0u;
           v130 = 0u;
+          v131 = 0u;
           inputs2 = [(AVAssetWriterHelper *)v8 inputs];
-          v94 = [(NSArray *)inputs2 countByEnumeratingWithState:&v129 objects:v154 count:16];
-          if (v94)
+          v95 = [(NSArray *)inputs2 countByEnumeratingWithState:&v130 objects:v155 count:16];
+          if (v95)
           {
-            v95 = v94;
+            v96 = v95;
             LOBYTE(maximizePowerEfficiency) = 0;
-            v97 = *v130;
+            v98 = *v131;
             do
             {
-              for (j = 0; j != v95; ++j)
+              for (j = 0; j != v96; ++j)
               {
-                if (*v130 != v97)
+                if (*v131 != v98)
                 {
                   objc_enumerationMutation(inputs2);
                 }
@@ -480,79 +480,79 @@ LABEL_63:
 
                 else
                 {
-                  maximizePowerEfficiency = [*(*(&v129 + 1) + 8 * j) maximizePowerEfficiency];
+                  maximizePowerEfficiency = [*(*(&v130 + 1) + 8 * j) maximizePowerEfficiency];
                 }
               }
 
-              v95 = [(NSArray *)inputs2 countByEnumeratingWithState:&v129 objects:v154 count:16];
+              v96 = [(NSArray *)inputs2 countByEnumeratingWithState:&v130 objects:v155 count:16];
             }
 
-            while (v95);
+            while (v96);
             if (maximizePowerEfficiency)
             {
-              v99 = FigAssetWriterGetFigBaseObject();
-              v100 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-              if (v100)
+              v100 = FigAssetWriterGetFigBaseObject();
+              v101 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+              if (v101)
               {
-                v100(v99, *MEMORY[0x1E69715A8], *MEMORY[0x1E695E4D0]);
+                v101(v100, *MEMORY[0x1E69715A8], *MEMORY[0x1E695E4D0]);
               }
             }
           }
 
-          v127 = 0u;
           v128 = 0u;
-          v125 = 0u;
+          v129 = 0u;
           v126 = 0u;
+          v127 = 0u;
           inputs3 = [(AVAssetWriterHelper *)v8 inputs];
-          v102 = [(NSArray *)inputs3 countByEnumeratingWithState:&v125 objects:v153 count:16];
-          if (!v102)
+          v103 = [(NSArray *)inputs3 countByEnumeratingWithState:&v126 objects:v154 count:16];
+          if (!v103)
           {
 LABEL_139:
             figTrackReferences = [(AVAssetWriterWritingHelper *)v8 figTrackReferences];
-            v107 = v8->_figAssetWriter;
-            v108 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-            if (v108)
-            {
-              v108(v107, *MEMORY[0x1E6971C68], figTrackReferences);
-            }
-
-            v109 = [figTrackReferences objectForKey:*MEMORY[0x1E6973B28]];
+            v108 = v8->_figAssetWriter;
+            v109 = *(*(CMBaseObjectGetVTable() + 16) + 56);
             if (v109)
             {
-              v110 = v109;
+              v109(v108, *MEMORY[0x1E6971C68], figTrackReferences);
+            }
+
+            v110 = [figTrackReferences objectForKey:*MEMORY[0x1E6973B28]];
+            if (v110)
+            {
+              v111 = v110;
               if ([(AVAssetWriterWritingHelper *)v8 isConfiguredForFragmentedMPEG4])
               {
-                if ([v110 count])
+                if ([v111 count])
                 {
-                  v111 = 0;
-                  v112 = *MEMORY[0x1E6971D58];
+                  v112 = 0;
+                  v113 = *MEMORY[0x1E6971D58];
                   do
                   {
-                    v113 = [v110 objectAtIndex:v111];
-                    if (v113)
+                    v114 = [v111 objectAtIndex:v112];
+                    if (v114)
                     {
-                      intValue = [v113 intValue];
-                      v115 = [-[AVAssetWriterWritingHelper writerInputForTrackID:](v8 writerInputForTrackID:{intValue), "mediaDataLocation"}];
-                      if (([v115 isEqualToString:@"AVAssetWriterInputMediaDataLocationInterleavedWithMainMediaData"] & 1) != 0 || objc_msgSend(v115, "isEqualToString:", @"AVAssetWriterInputMediaDataLocationSparselyInterleavedWithMainMediaData"))
+                      intValue = [v114 intValue];
+                      v116 = [-[AVAssetWriterWritingHelper writerInputForTrackID:](v8 writerInputForTrackID:{intValue), "mediaDataLocation"}];
+                      if (([v116 isEqualToString:@"AVAssetWriterInputMediaDataLocationInterleavedWithMainMediaData"] & 1) != 0 || objc_msgSend(v116, "isEqualToString:", @"AVAssetWriterInputMediaDataLocationSparselyInterleavedWithMainMediaData"))
                       {
-                        v116 = v8->_figAssetWriter;
-                        v117 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-                        if (v117)
+                        v117 = v8->_figAssetWriter;
+                        v118 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+                        if (v118)
                         {
-                          v117(v116, intValue, v112, &unk_1F0AD34C0);
+                          v118(v117, intValue, v113, &unk_1F0AD34C0);
                         }
                       }
                     }
 
-                    v111 += 2;
+                    v112 += 2;
                   }
 
-                  while (v111 < [v110 count]);
+                  while (v112 < [v111 count]);
                 }
               }
             }
 
-            if (v123)
+            if (v124)
             {
               [(AVAssetWriterWritingHelper *)v8 setAllInputsFigPreferredChunkAlignmentTo:0x4000];
             }
@@ -562,26 +562,26 @@ LABEL_139:
             goto LABEL_158;
           }
 
-          v103 = v102;
-          v104 = *v126;
+          v104 = v103;
+          v105 = *v127;
 LABEL_133:
-          v105 = 0;
+          v106 = 0;
           while (1)
           {
-            if (*v126 != v104)
+            if (*v127 != v105)
             {
               objc_enumerationMutation(inputs3);
             }
 
-            if (([*(*(&v125 + 1) + 8 * v105) _prepareForWritingWithFigAssetWriter:v8->_figAssetWriter mediaFileType:-[AVAssetWriterHelper mediaFileType](v8 error:{"mediaFileType"), &v152}] & 1) == 0)
+            if (([*(*(&v126 + 1) + 8 * v106) _prepareForWritingWithFigAssetWriter:v8->_figAssetWriter mediaFileType:-[AVAssetWriterHelper mediaFileType](v8 error:{"mediaFileType"), &v153}] & 1) == 0)
             {
               break;
             }
 
-            if (v103 == ++v105)
+            if (v104 == ++v106)
             {
-              v103 = [(NSArray *)inputs3 countByEnumeratingWithState:&v125 objects:v153 count:16];
-              if (v103)
+              v104 = [(NSArray *)inputs3 countByEnumeratingWithState:&v126 objects:v154 count:16];
+              if (v104)
               {
                 goto LABEL_133;
               }
@@ -590,70 +590,70 @@ LABEL_133:
             }
           }
 
-          if (v152)
+          if (v153)
           {
             goto LABEL_11;
           }
 
-          v10 = -11800;
+          v11 = -11800;
           goto LABEL_5;
         }
 
-        v32 = AVLocalizedError(@"AVFoundationErrorDomain", -11800, 0);
+        v33 = AVLocalizedError(@"AVFoundationErrorDomain", -11800, 0);
 LABEL_157:
         v8 = 0;
-        v152 = v32;
+        v153 = v33;
         goto LABEL_158;
       }
 
-      if (v122)
+      if (v123)
       {
-        v29 = FigAssetWriterRemoteCreateWithURL();
+        v30 = FigAssetWriterRemoteCreateWithURL();
       }
 
       else
       {
-        if (((v120 | v119) & 1) == 0)
+        if (((v121 | v120) & 1) == 0)
         {
-          v31 = 0;
+          v32 = 0;
 LABEL_58:
           v8->_figAssetWriterIsRemote = 1;
-          if (v31)
+          if (v32)
           {
 LABEL_59:
 
-            v32 = [AVAssetWriter _errorForOSStatus:v31];
+            v33 = [AVAssetWriter _errorForOSStatus:v32];
             goto LABEL_157;
           }
 
           goto LABEL_63;
         }
 
-        v29 = FigAssetWriterRemoteCreateForWritingFragmentedData();
+        v30 = FigAssetWriterRemoteCreateForWritingFragmentedData();
       }
 
-      v31 = v29;
+      v32 = v30;
       goto LABEL_58;
     }
 
-    if (((v122 != 0) & expectsMediaDataInRealTime) == 1 && [(AVAssetWriterWritingHelper *)v8 hasProResVideoOutputSetting]&& [(AVAssetWriterWritingHelper *)v8 areAllInputsPreferredMediaChunkAlignmentEqualTo:0])
+    if (((v123 != 0) & expectsMediaDataInRealTime) == 1 && [(AVAssetWriterWritingHelper *)v8 hasProResVideoOutputSetting]&& [(AVAssetWriterWritingHelper *)v8 areAllInputsPreferredMediaChunkAlignmentEqualTo:0])
     {
-      v26 = 1;
+      v27 = 1;
     }
 
     else
     {
-      v26 = 0;
       v27 = 0;
+      v28 = 0;
       if (![(AVAssetWriterWritingHelper *)v8 areAllInputsPreferredMediaChunkAlignmentEqualTo:0x4000])
       {
         goto LABEL_37;
       }
     }
 
-    [v15 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971588]];
+    [v16 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E6971588]];
     [(AVAssetWriterWritingHelper *)v8 prepareEncodedSampleBuffersForPaddedWrites];
-    v27 = v26;
+    v28 = v27;
 LABEL_37:
     if (!expectsMediaDataInRealTime)
     {
@@ -663,19 +663,19 @@ LABEL_37:
     goto LABEL_42;
   }
 
-  v156 = *MEMORY[0x1E696A278];
-  v157[0] = *time1;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v157 forKeys:&v156 count:1];
-  v10 = -11875;
+  v157 = *MEMORY[0x1E696A278];
+  v158[0] = *time1;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v158 forKeys:&v157 count:1];
+  v11 = -11875;
 LABEL_10:
-  v152 = AVLocalizedError(@"AVFoundationErrorDomain", v10, v11);
+  v153 = AVLocalizedError(@"AVFoundationErrorDomain", v11, v12);
 LABEL_11:
 
   v8 = 0;
 LABEL_158:
   if (error)
   {
-    *error = v152;
+    *error = v153;
   }
 
   return v8;
@@ -810,7 +810,7 @@ LABEL_158:
   memset(&v21, 0, sizeof(v21));
   if (self)
   {
-    [(AVAssetWriterHelper *)self preferredOutputSegmentInterval];
+    objc_msgSend_preferredOutputSegmentInterval(self);
   }
 
   time1 = v21;
@@ -851,7 +851,7 @@ LABEL_28:
       memset(&time1, 0, sizeof(time1));
       if (self)
       {
-        [(AVAssetWriterHelper *)self initialSegmentStartTime];
+        objc_msgSend_initialSegmentStartTime(self);
       }
 
       time2 = v21;
@@ -2216,16 +2216,16 @@ uint64_t __106__AVAssetWriterWritingHelper_finishWritingDelegateOperationWithAss
   return v10;
 }
 
-uint64_t __77__AVAssetWriterWritingHelper_finalStepWorkaroundOperationWithFigAssetWriter___block_invoke()
+uint64_t __77__AVAssetWriterWritingHelper_finalStepWorkaroundOperationWithFigAssetWriter___block_invoke(uint64_t a1)
 {
   FigBaseObject = FigAssetWriterGetFigBaseObject();
   if (FigBaseObject)
   {
-    v1 = FigBaseObject;
-    v2 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-    if (v2)
+    v2 = FigBaseObject;
+    v3 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+    if (v3)
     {
-      v2(v1);
+      v3(v2);
     }
   }
 

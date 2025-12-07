@@ -16,11 +16,11 @@
 
 - (MFStringTransform)initWithSoftBankHexData:(id)data
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v28.receiver = self;
-  v28.super_class = MFStringTransform;
-  v5 = [(MFStringTransform *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = MFStringTransform;
+  v5 = [(MFStringTransform *)&v27 init];
   if (!v5)
   {
     goto LABEL_37;
@@ -34,9 +34,9 @@
     goto LABEL_16;
   }
 
-  *v30 = 0;
-  v8 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:v30];
-  v9 = *v30;
+  *v29 = 0;
+  v8 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:v29];
+  v9 = *v29;
   if (v8)
   {
     objc_opt_class();
@@ -59,7 +59,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = objc_opt_class();
-      [(MFStringTransform *)v14 initWithSoftBankHexData:v29, v13];
+      [(MFStringTransform *)v14 initWithSoftBankHexData:v28, v13];
     }
   }
 
@@ -91,20 +91,20 @@ LABEL_16:
     if ([v15 count] < 0x186A1)
     {
       v18 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:{20 * objc_msgSend(v15, "count")}];
-      v37 = 0u;
-      v38 = 0u;
-      *buf = 0u;
       v36 = 0u;
+      v37 = 0u;
+      *buf = 0u;
+      v35 = 0u;
       v17 = v15;
-      v19 = [v17 countByEnumeratingWithState:buf objects:v30 count:16];
+      v19 = [v17 countByEnumeratingWithState:buf objects:v29 count:16];
       if (v19)
       {
-        v20 = *v36;
+        v20 = *v35;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v36 != v20)
+            if (*v35 != v20)
             {
               objc_enumerationMutation(v17);
             }
@@ -112,7 +112,7 @@ LABEL_16:
             [v18 appendFormat:@"\\u%@ > \\ufffd; ", *(*&buf[8] + 8 * i)];
           }
 
-          v19 = [v17 countByEnumeratingWithState:buf objects:v30 count:16];
+          v19 = [v17 countByEnumeratingWithState:buf objects:v29 count:16];
         }
 
         while (v19);
@@ -133,8 +133,8 @@ LABEL_16:
     v17 = MFLogGeneral();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v30 = 0;
-      _os_log_impl(&dword_1D36B2000, v17, OS_LOG_TYPE_INFO, "MFStringTransform: Empty hex values found.", v30, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_1D36B2000, v17, OS_LOG_TYPE_INFO, "MFStringTransform: Empty hex values found.", v29, 2u);
     }
   }
 
@@ -150,14 +150,14 @@ LABEL_33:
   {
     *buf = 0;
     *&buf[8] = buf;
-    *&v36 = 0x2020000000;
-    *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __createTransliterator_block_invoke;
-    v33 = &unk_1E8455178;
-    v34 = buf;
-    withMutableCharacters(v22, v30);
+    *&v35 = 0x2020000000;
+    *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __createTransliterator_block_invoke;
+    v32 = &unk_1E8455178;
+    v33 = buf;
+    withMutableCharacters(v22, v29);
     v24 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
   }
@@ -180,7 +180,6 @@ LABEL_37:
   v25 = v5;
 LABEL_39:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -210,14 +209,6 @@ LABEL_39:
   *(a2 + 4) = a1;
   v5 = a1;
   _os_log_error_impl(&dword_1D36B2000, a3, OS_LOG_TYPE_ERROR, "MFStringTransform: hex values of unexpected type '%{public}@'.", a2, 0xCu);
-}
-
-- (void)initWithSoftBankHexData:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithSoftBankHexData:.cold.3()

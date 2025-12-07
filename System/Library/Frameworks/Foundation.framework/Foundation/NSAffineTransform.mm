@@ -52,7 +52,7 @@
   v4 = [(NSAffineTransform *)self init];
   if (transform)
   {
-    [(NSAffineTransform *)transform transformStruct];
+    objc_msgSend_transformStruct(transform);
   }
 
   else
@@ -82,7 +82,7 @@
   {
     if (equal)
     {
-      [equal transformStruct];
+      objc_msgSend_transformStruct(equal);
     }
 
     if (self->_transformStruct.m11 == 0.0 && self->_transformStruct.m12 == 0.0 && self->_transformStruct.m21 == 0.0 && self->_transformStruct.m22 == 0.0 && self->_transformStruct.tX == 0.0)
@@ -157,7 +157,7 @@
   v13 = *MEMORY[0x1E69E9840];
   if (transform)
   {
-    [(NSAffineTransform *)transform transformStruct];
+    objc_msgSend_transformStruct(transform, a2);
     v4 = v10;
     v5 = v11;
     v6 = v12;
@@ -184,7 +184,7 @@
   v16 = *MEMORY[0x1E69E9840];
   if (transform)
   {
-    [(NSAffineTransform *)transform transformStruct];
+    objc_msgSend_transformStruct(transform, a2);
     v5 = v13.f64[1];
     v4 = v13.f64[0];
     v7 = v14.f64[1];

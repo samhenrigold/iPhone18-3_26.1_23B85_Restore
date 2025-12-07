@@ -13,7 +13,7 @@
 
 - (id)instructionStringForType:(int64_t)type
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (type <= 1)
   {
     if (type)
@@ -46,9 +46,9 @@ LABEL_15:
       if (primaryTimeInstructionString)
       {
         primaryTimeInstructionString2 = [(MNTransitInstruction *)self primaryTimeInstructionString];
-        v20[0] = primaryTimeInstructionString2;
+        v19[0] = primaryTimeInstructionString2;
         v6 = MEMORY[0x1E695DEC8];
-        v7 = v20;
+        v7 = v19;
         goto LABEL_13;
       }
 
@@ -60,9 +60,9 @@ LABEL_19:
       if (primaryTimeInstructionString)
       {
         primaryTimeInstructionString2 = [(MNTransitInstruction *)self secondaryTimeInstructionString];
-        v19 = primaryTimeInstructionString2;
+        v18 = primaryTimeInstructionString2;
         v6 = MEMORY[0x1E695DEC8];
-        v7 = &v19;
+        v7 = &v18;
 LABEL_13:
         v9 = [v6 arrayWithObjects:v7 count:1];
 
@@ -77,25 +77,24 @@ LABEL_16:
   v10 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315650;
-    v14 = "[MNTransitInstruction instructionStringForType:]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
-    v17 = 1024;
-    v18 = 312;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "[MNTransitInstruction instructionStringForType:]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
+    v16 = 1024;
+    v17 = 312;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v12, 0x1Cu);
   }
 
   v9 = 0;
 LABEL_21:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)formattedInstructionForType:(int64_t)type
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (type <= 1)
   {
     if (type)
@@ -128,9 +127,9 @@ LABEL_15:
       if (primaryTimeInstruction)
       {
         primaryTimeInstruction2 = [(MNTransitInstruction *)self primaryTimeInstruction];
-        v20[0] = primaryTimeInstruction2;
+        v19[0] = primaryTimeInstruction2;
         v6 = MEMORY[0x1E695DEC8];
-        v7 = v20;
+        v7 = v19;
         goto LABEL_13;
       }
 
@@ -142,9 +141,9 @@ LABEL_19:
       if (primaryTimeInstruction)
       {
         primaryTimeInstruction2 = [(MNTransitInstruction *)self secondaryTimeinstruction];
-        v19 = primaryTimeInstruction2;
+        v18 = primaryTimeInstruction2;
         v6 = MEMORY[0x1E695DEC8];
-        v7 = &v19;
+        v7 = &v18;
 LABEL_13:
         v9 = [v6 arrayWithObjects:v7 count:1];
 
@@ -159,18 +158,17 @@ LABEL_16:
   v10 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315650;
-    v14 = "[MNTransitInstruction formattedInstructionForType:]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
-    v17 = 1024;
-    v18 = 288;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "[MNTransitInstruction formattedInstructionForType:]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
+    v16 = 1024;
+    v17 = 288;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v12, 0x1Cu);
   }
 
   v9 = 0;
 LABEL_21:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -203,39 +201,37 @@ LABEL_21:
 
 - (id)overridenInstructionsMapping
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315650;
-    v6 = "[MNTransitInstruction overridenInstructionsMapping]";
-    v7 = 2080;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
-    v9 = 1024;
-    v10 = 246;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[MNTransitInstruction overridenInstructionsMapping]";
+    v6 = 2080;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
+    v8 = 1024;
+    v9 = 246;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v4, 0x1Cu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)instructionSet
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315650;
-    v6 = "[MNTransitInstruction instructionSet]";
-    v7 = 2080;
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
-    v9 = 1024;
-    v10 = 240;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[MNTransitInstruction instructionSet]";
+    v6 = 2080;
+    v7 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNTransitInstruction.m";
+    v8 = 1024;
+    v9 = 240;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v4, 0x1Cu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -453,30 +449,30 @@ id __43__MNTransitInstruction__fillInInstructions__block_invoke_13(uint64_t a1, 
 
 id __43__MNTransitInstruction__fillInInstructions__block_invoke_3(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = v4[2](v4, *(*(&v14 + 1) + 8 * i));
-        v11 = [v10 _geo_compactMap:{&__block_literal_global_37, v14}];
+        v10 = v4[2](v4, *(*(&v13 + 1) + 8 * i));
+        v11 = [v10 _geo_compactMap:{&__block_literal_global_37, v13}];
         if ([v11 count])
         {
 
@@ -484,7 +480,7 @@ id __43__MNTransitInstruction__fillInInstructions__block_invoke_3(void *a1, void
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -496,8 +492,6 @@ id __43__MNTransitInstruction__fillInInstructions__block_invoke_3(void *a1, void
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

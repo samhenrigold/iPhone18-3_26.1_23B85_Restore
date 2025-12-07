@@ -20,7 +20,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  CTRunRef.PartialRunView.draw(_:)(x, y, width, height);
+  CTRunRef.PartialRunView.draw(_:)(x, y, width, height, selfCopy, v7);
 }
 
 - (_TtCE14MusicUtilitiesaSo8CTRunRef14PartialRunView)initWithFrame:(CGRect)frame

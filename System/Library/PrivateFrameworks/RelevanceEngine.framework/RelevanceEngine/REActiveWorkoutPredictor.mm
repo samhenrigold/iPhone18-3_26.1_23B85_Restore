@@ -41,29 +41,29 @@
 - (void)resume
 {
   [(REActiveWorkoutPredictor *)self _cancelMonitoringWorkoutIfNeeded];
-  if (HealthKitLibraryCore_0())
+  if (HealthKitLibraryCore_0(0))
   {
     objc_initWeak(&location, self);
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
     v3 = getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr;
-    v35 = getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr;
+    v36 = getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr;
     if (!getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr)
     {
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = __getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_block_invoke;
-      v30 = &unk_2785F9BC0;
-      v31 = &v32;
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_block_invoke;
+      v31 = &unk_2785F9BC0;
+      v32 = &v33;
       v4 = HealthKitLibrary_0();
       v5 = dlsym(v4, "kHKHealthDaemonActiveWorkoutServersDidUpdateNotification");
-      *(v31[1] + 24) = v5;
-      getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr = *(v31[1] + 24);
-      v3 = v33[3];
+      *(v32[1] + 24) = v5;
+      getkHKHealthDaemonActiveWorkoutServersDidUpdateNotificationSymbolLoc_ptr = *(v32[1] + 24);
+      v3 = v34[3];
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v33, 8);
     if (v3)
     {
       v6 = *v3;
@@ -73,78 +73,78 @@
       handler[1] = 3221225472;
       handler[2] = __34__REActiveWorkoutPredictor_resume__block_invoke;
       handler[3] = &unk_2785FAF10;
-      objc_copyWeak(&v25, &location);
+      objc_copyWeak(&v26, &location);
       notify_register_dispatch(v6, &self->_workoutStateNotifyToken, v7, handler);
 
-      v32 = 0;
-      v33 = &v32;
-      v34 = 0x2050000000;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2050000000;
       v9 = getHKObserverQueryClass_softClass;
-      v35 = getHKObserverQueryClass_softClass;
+      v36 = getHKObserverQueryClass_softClass;
       if (!getHKObserverQueryClass_softClass)
       {
-        v27 = MEMORY[0x277D85DD0];
-        v28 = 3221225472;
-        v29 = __getHKObserverQueryClass_block_invoke;
-        v30 = &unk_2785F9BC0;
-        v31 = &v32;
-        __getHKObserverQueryClass_block_invoke(&v27);
-        v9 = v33[3];
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __getHKObserverQueryClass_block_invoke;
+        v31 = &unk_2785F9BC0;
+        v32 = &v33;
+        __getHKObserverQueryClass_block_invoke(&v28);
+        v9 = v34[3];
       }
 
       v10 = v9;
-      _Block_object_dispose(&v32, 8);
+      _Block_object_dispose(&v33, 8);
       v11 = [v9 alloc];
-      v32 = 0;
-      v33 = &v32;
-      v34 = 0x2050000000;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2050000000;
       v12 = getHKSampleTypeClass_softClass;
-      v35 = getHKSampleTypeClass_softClass;
+      v36 = getHKSampleTypeClass_softClass;
       if (!getHKSampleTypeClass_softClass)
       {
-        v27 = MEMORY[0x277D85DD0];
-        v28 = 3221225472;
-        v29 = __getHKSampleTypeClass_block_invoke;
-        v30 = &unk_2785F9BC0;
-        v31 = &v32;
-        __getHKSampleTypeClass_block_invoke(&v27);
-        v12 = v33[3];
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __getHKSampleTypeClass_block_invoke;
+        v31 = &unk_2785F9BC0;
+        v32 = &v33;
+        __getHKSampleTypeClass_block_invoke(&v28);
+        v12 = v34[3];
       }
 
       v13 = v12;
-      _Block_object_dispose(&v32, 8);
+      _Block_object_dispose(&v33, 8);
       workoutType = [v12 workoutType];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __34__REActiveWorkoutPredictor_resume__block_invoke_2;
-      v22[3] = &unk_2785FAF38;
-      objc_copyWeak(&v23, &location);
-      v15 = [v11 initWithSampleType:workoutType predicate:0 updateHandler:v22];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __34__REActiveWorkoutPredictor_resume__block_invoke_2;
+      v23[3] = &unk_2785FAF38;
+      objc_copyWeak(&v24, &location);
+      v15 = [v11 initWithSampleType:workoutType predicate:0 updateHandler:v23];
 
       v16 = +[(RESingleton *)REHealthStore];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __34__REActiveWorkoutPredictor_resume__block_invoke_3;
-      v20[3] = &unk_2785FAE30;
-      v20[4] = self;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __34__REActiveWorkoutPredictor_resume__block_invoke_3;
+      v21[3] = &unk_2785FAE30;
+      v21[4] = self;
       v17 = v15;
-      v21 = v17;
-      [v16 accessHealthStore:v20];
+      v22 = v17;
+      [v16 accessHealthStore:v21];
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       v19 = RESignificantTimeChangeNotification();
       [defaultCenter addObserver:self selector:sel__scheduleFetchWorkoutTimer name:v19 object:0];
 
       [(REActiveWorkoutPredictor *)self _scheduleFetchWorkoutTimer];
-      objc_destroyWeak(&v23);
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      dlerror();
-      abort_report_np();
+      v20 = dlerror();
+      abort_report_np("%s", v20);
       __break(1u);
     }
   }
@@ -209,17 +209,15 @@ void __33__REActiveWorkoutPredictor_pause__block_invoke(uint64_t a1, void *a2)
 
 + (id)supportedFeatures
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature activeWorkoutFeature];
   v4 = +[REFeature dailyAverageWorkoutCountFeature];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = +[REFeature performedWorkoutCountFeature];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   v7 = [(REFeatureSet *)v2 initWithFeatures:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -412,8 +410,8 @@ void __54__REActiveWorkoutPredictor__scheduleFetchWorkoutTimer__block_invoke_2(u
 
 - (void)_queue_fetchWorkoutHistory
 {
-  v52[3] = *MEMORY[0x277D85DE8];
-  if (HealthKitLibraryCore_0())
+  v51[3] = *MEMORY[0x277D85DE8];
+  if (HealthKitLibraryCore_0(0))
   {
     [(REPredictor *)self beginFetchingData];
     [(REUpNextTimer *)self->_workoutQueryCoalesceTimer invalidate];
@@ -423,77 +421,77 @@ void __54__REActiveWorkoutPredictor__scheduleFetchWorkoutTimer__block_invoke_2(u
     date = [MEMORY[0x277CBEAA8] date];
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     v5 = [currentCalendar dateByAddingUnit:16 value:-7 toDate:date options:0];
-    v35 = REStartOfDayForDate(v5);
+    v34 = REStartOfDayForDate(v5);
 
     v6 = REEndOfDayForDate(date);
     v7 = MEMORY[0x277CCA920];
-    v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"startDate >= %@", v35];
-    v52[0] = v8;
+    v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"startDate >= %@", v34];
+    v51[0] = v8;
     v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"startDate <= %@", v6];
-    v52[1] = v9;
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
+    v51[1] = v9;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v10 = getHKQueryClass_softClass;
-    v50 = getHKQueryClass_softClass;
+    v49 = getHKQueryClass_softClass;
     if (!getHKQueryClass_softClass)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getHKQueryClass_block_invoke;
-      v45 = &unk_2785F9BC0;
-      v46 = &v47;
-      __getHKQueryClass_block_invoke(&v42);
-      v10 = v48[3];
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getHKQueryClass_block_invoke;
+      v44 = &unk_2785F9BC0;
+      v45 = &v46;
+      __getHKQueryClass_block_invoke(&v41);
+      v10 = v47[3];
     }
 
     v11 = v10;
-    _Block_object_dispose(&v47, 8);
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
+    _Block_object_dispose(&v46, 8);
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v12 = getHKSourceClass_softClass;
-    v50 = getHKSourceClass_softClass;
+    v49 = getHKSourceClass_softClass;
     if (!getHKSourceClass_softClass)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getHKSourceClass_block_invoke;
-      v45 = &unk_2785F9BC0;
-      v46 = &v47;
-      __getHKSourceClass_block_invoke(&v42);
-      v12 = v48[3];
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getHKSourceClass_block_invoke;
+      v44 = &unk_2785F9BC0;
+      v45 = &v46;
+      __getHKSourceClass_block_invoke(&v41);
+      v12 = v47[3];
     }
 
     v13 = v12;
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     defaultSource = [v12 defaultSource];
     v15 = [v10 predicateForObjectsFromSource:defaultSource];
-    v52[2] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
+    v51[2] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
     v17 = [v7 andPredicateWithSubpredicates:v16];
 
     v18 = MEMORY[0x277CCAC98];
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2020000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2020000000;
     v19 = getHKSampleSortIdentifierStartDateSymbolLoc_ptr;
-    v50 = getHKSampleSortIdentifierStartDateSymbolLoc_ptr;
+    v49 = getHKSampleSortIdentifierStartDateSymbolLoc_ptr;
     if (!getHKSampleSortIdentifierStartDateSymbolLoc_ptr)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getHKSampleSortIdentifierStartDateSymbolLoc_block_invoke;
-      v45 = &unk_2785F9BC0;
-      v46 = &v47;
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getHKSampleSortIdentifierStartDateSymbolLoc_block_invoke;
+      v44 = &unk_2785F9BC0;
+      v45 = &v46;
       v20 = HealthKitLibrary_0();
       v21 = dlsym(v20, "HKSampleSortIdentifierStartDate");
-      *(v46[1] + 24) = v21;
-      getHKSampleSortIdentifierStartDateSymbolLoc_ptr = *(v46[1] + 24);
-      v19 = v48[3];
+      *(v45[1] + 24) = v21;
+      getHKSampleSortIdentifierStartDateSymbolLoc_ptr = *(v45[1] + 24);
+      v19 = v47[3];
     }
 
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     if (!v19)
     {
       [RELemmaEnumerator init];
@@ -504,67 +502,65 @@ void __54__REActiveWorkoutPredictor__scheduleFetchWorkoutTimer__block_invoke_2(u
     v23 = [v18 sortDescriptorWithKey:v22 ascending:0];
 
     objc_initWeak(&location, self);
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v24 = getHKSampleQueryClass_softClass;
-    v50 = getHKSampleQueryClass_softClass;
+    v49 = getHKSampleQueryClass_softClass;
     if (!getHKSampleQueryClass_softClass)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getHKSampleQueryClass_block_invoke;
-      v45 = &unk_2785F9BC0;
-      v46 = &v47;
-      __getHKSampleQueryClass_block_invoke(&v42);
-      v24 = v48[3];
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getHKSampleQueryClass_block_invoke;
+      v44 = &unk_2785F9BC0;
+      v45 = &v46;
+      __getHKSampleQueryClass_block_invoke(&v41);
+      v24 = v47[3];
     }
 
     v25 = v24;
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     v26 = [v24 alloc];
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x2050000000;
     v27 = getHKObjectTypeClass_softClass;
-    v50 = getHKObjectTypeClass_softClass;
+    v49 = getHKObjectTypeClass_softClass;
     if (!getHKObjectTypeClass_softClass)
     {
-      v42 = MEMORY[0x277D85DD0];
-      v43 = 3221225472;
-      v44 = __getHKObjectTypeClass_block_invoke;
-      v45 = &unk_2785F9BC0;
-      v46 = &v47;
-      __getHKObjectTypeClass_block_invoke(&v42);
-      v27 = v48[3];
+      v41 = MEMORY[0x277D85DD0];
+      v42 = 3221225472;
+      v43 = __getHKObjectTypeClass_block_invoke;
+      v44 = &unk_2785F9BC0;
+      v45 = &v46;
+      __getHKObjectTypeClass_block_invoke(&v41);
+      v27 = v47[3];
     }
 
     v28 = v27;
-    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v46, 8);
     workoutType = [v27 workoutType];
-    v51 = v23;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke;
-    v39[3] = &unk_2785FAFB0;
-    objc_copyWeak(&v40, &location);
-    v31 = [v26 initWithSampleType:workoutType predicate:v17 limit:100 sortDescriptors:v30 resultsHandler:v39];
+    v50 = v23;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke;
+    v38[3] = &unk_2785FAFB0;
+    objc_copyWeak(&v39, &location);
+    v31 = [v26 initWithSampleType:workoutType predicate:v17 limit:100 sortDescriptors:v30 resultsHandler:v38];
 
     v32 = +[(RESingleton *)REHealthStore];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke_2;
-    v37[3] = &unk_2785FAE58;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke_2;
+    v36[3] = &unk_2785FAE58;
     v33 = v31;
-    v38 = v33;
-    [v32 accessHealthStore:v37];
+    v37 = v33;
+    [v32 accessHealthStore:v36];
 
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -604,32 +600,32 @@ void __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke(uin
 
 - (void)_processWorkoutHistoryData:(id)data completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
-  v24 = [dataCopy count];
+  v23 = [dataCopy count];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = dataCopy;
-  v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
     v11 = 0;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         startDate = [v14 startDate];
         v16 = REDateOccursToday(startDate);
 
@@ -650,7 +646,7 @@ void __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke(uin
         v10 += v16;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v9);
@@ -667,16 +663,14 @@ void __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke(uin
   block[1] = 3221225472;
   block[2] = __66__REActiveWorkoutPredictor__processWorkoutHistoryData_completion___block_invoke;
   block[3] = &unk_2785FAFD8;
-  v30 = v24 / 7.0;
+  v29 = v23 / 7.0;
   block[4] = self;
-  v27 = v11;
-  v28 = completionCopy;
-  v29 = v10;
+  v26 = v11;
+  v27 = completionCopy;
+  v28 = v10;
   v21 = completionCopy;
   v22 = v11;
   dispatch_async(queue, block);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__REActiveWorkoutPredictor__processWorkoutHistoryData_completion___block_invoke(uint64_t a1)
@@ -692,11 +686,10 @@ uint64_t __66__REActiveWorkoutPredictor__processWorkoutHistoryData_completion___
 
 void __54__REActiveWorkoutPredictor__queue_fetchWorkoutHistory__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch workout data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch workout data: %@", &v2, 0xCu);
 }
 
 @end

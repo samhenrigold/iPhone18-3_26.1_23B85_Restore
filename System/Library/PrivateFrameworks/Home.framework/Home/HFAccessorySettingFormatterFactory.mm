@@ -277,12 +277,12 @@ id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke
   return v4;
 }
 
-id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_2()
+id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = AXFormatNumberWithOptions();
-  v7 = HFLocalizedStringWithFormat(@"HFAccessibilitySecondsFormatString", @"%@", v1, v2, v3, v4, v5, v6, v0);
+  v2 = AXFormatNumberWithOptions();
+  v9 = HFLocalizedStringWithFormat(@"HFAccessibilitySecondsFormatString", @"%@", v3, v4, v5, v6, v7, v8, v2);
 
-  return v7;
+  return v9;
 }
 
 id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_3(uint64_t a1, void *a2)
@@ -399,7 +399,7 @@ id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke
 
 id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = _HFLocalizedStringWithDefaultValue(@"HFHomePodAnalyticImproveSiriDictationFooter", @"HFHomePodAnalyticImproveSiriDictationFooter", 1);
   v5 = _HFLocalizedStringWithDefaultValue(@"HFHomePodAnalyticImproveSiriDictationFooterLink", @"HFHomePodAnalyticImproveSiriDictationFooterLink", 1);
@@ -408,15 +408,14 @@ id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke
   v8 = [v6 initWithString:v7];
 
   v9 = objc_alloc(MEMORY[0x277CCA898]);
-  v15 = *MEMORY[0x277D740E8];
+  v14 = *MEMORY[0x277D740E8];
   v10 = +[HFURLComponents aboutImproveSiriAndDictationURL];
-  v16[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v9 initWithString:v5 attributes:v11];
   [v8 appendAttributedString:v12];
 
   [v8 addAttributes:v3 range:{0, objc_msgSend(v8, "length")}];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -430,7 +429,7 @@ HFSimpleFormatter *__60__HFAccessorySettingFormatterFactory__buildFormatterForKe
 
 __CFString *__60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_7(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = &unk_282584A38;
   v4 = v2;
@@ -478,7 +477,7 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Media account value:  %@", buf, 0xCu);
     }
   }
@@ -487,8 +486,6 @@ LABEL_7:
   {
     v12 = &stru_2824B1A78;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -562,7 +559,7 @@ LABEL_8:
 
 id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_4_430(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = _HFLocalizedStringWithDefaultValue(@"HFSiriFooterPrivacyText", @"HFSiriFooterPrivacyText", 1);
   v5 = _HFLocalizedStringWithDefaultValue(@"HFPrivacyFooterSectionTypeSiri", @"HFPrivacyFooterSectionTypeSiri", 1);
@@ -571,22 +568,21 @@ id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke
   v8 = [v6 initWithString:v7];
 
   v9 = objc_alloc(MEMORY[0x277CCA898]);
-  v15 = *MEMORY[0x277D740E8];
+  v14 = *MEMORY[0x277D740E8];
   v10 = +[HFURLComponents siriPrivacyURL];
-  v16[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v9 initWithString:v5 attributes:v11];
   [v8 appendAttributedString:v12];
 
   [v8 addAttributes:v3 range:{0, objc_msgSend(v8, "length")}];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke_5_439(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = _HFLocalizedStringWithDefaultValue(@"HFLocationFooterPrivacyText", @"HFLocationFooterPrivacyText", 1);
   v5 = _HFLocalizedStringWithDefaultValue(@"HFPrivacyFooterSectionTypeLocationServices", @"HFPrivacyFooterSectionTypeLocationServices", 1);
@@ -595,15 +591,14 @@ id __60__HFAccessorySettingFormatterFactory__buildFormatterForKey___block_invoke
   v8 = [v6 initWithString:v7];
 
   v9 = objc_alloc(MEMORY[0x277CCA898]);
-  v15 = *MEMORY[0x277D740E8];
+  v14 = *MEMORY[0x277D740E8];
   v10 = +[HFURLComponents locationPrivacyURL];
-  v16[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [v9 initWithString:v5 attributes:v11];
   [v8 appendAttributedString:v12];
 
   [v8 addAttributes:v3 range:{0, objc_msgSend(v8, "length")}];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -872,7 +867,7 @@ id __63__HFAccessorySettingFormatterFactory__siriOutputVoiceFormatter__block_inv
 
 id __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 accessories];
   v4 = [v2 hf_home];
@@ -884,13 +879,13 @@ id __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__bloc
   v9 = [v7 accessories];
   v10 = [v8 initWithArray:v9];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__block_invoke_2;
-  v17[3] = &unk_277DF3888;
-  v18 = v10;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__block_invoke_2;
+  v16[3] = &unk_277DF3888;
+  v17 = v10;
   v11 = v10;
-  if ([v3 na_all:v17])
+  if ([v3 na_all:v16])
   {
     if ([v7 allowUnauthenticatedRequests])
     {
@@ -902,7 +897,7 @@ id __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__bloc
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v2;
+      v19 = v2;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Forcing PR OFF for %@ because the user previously had allowUnauthenticatedRequests set to NO", buf, 0xCu);
     }
   }
@@ -910,8 +905,6 @@ id __68__HFAccessorySettingFormatterFactory__siriPersonalRequestsFormatter__bloc
   v12 = @"HFSiriPersonalRequestsValueOff";
 LABEL_8:
   v14 = _HFLocalizedStringWithDefaultValue(v12, v12, 1);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

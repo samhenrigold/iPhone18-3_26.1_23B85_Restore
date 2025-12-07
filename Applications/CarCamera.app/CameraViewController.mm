@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000224F4();
+  sub_1000224F4(selfCopy);
 }
 
 - (_TtC9CarCamera20CameraViewController)initWithNibName:(id)name bundle:(id)bundle

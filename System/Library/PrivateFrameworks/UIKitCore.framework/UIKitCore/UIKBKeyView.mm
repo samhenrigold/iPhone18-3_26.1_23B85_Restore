@@ -245,9 +245,9 @@ LABEL_12:
   }
 
   name = [(UIKBTree *)self->m_key name];
-  v11 = [name isEqualToString:@"LanguageIndicator"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v11)
+  if (isEqualToString)
   {
     return 0;
   }
@@ -258,7 +258,7 @@ LABEL_12:
   }
 
   overrideDisplayString = [(UIKBTree *)self->m_key overrideDisplayString];
-  v18 = [overrideDisplayString isEqualToString:@"emoji"];
+  v18 = objc_msgSend_isEqualToString_(overrideDisplayString);
 
   if (v18)
   {
@@ -338,7 +338,7 @@ uint64_t __35__UIKBKeyView_shouldUseOvalHitArea__block_invoke()
   v1 = [v0 userInterfaceIdiom];
 
   v2 = _UIMainBundleIdentifier();
-  v3 = [v2 isEqualToString:@"com.apple.mobilesafari"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v4 = +[UIKeyboardPreferencesController sharedPreferencesController];
   v5 = [v4 valueForPreferenceKey:@"UseDotKeyOvalHitArea"];
@@ -347,7 +347,7 @@ uint64_t __35__UIKBKeyView_shouldUseOvalHitArea__block_invoke()
   result = os_variant_has_internal_diagnostics();
   if (result)
   {
-    v8 = (v1 == 0) & v3 & v6;
+    v8 = (v1 == 0) & isEqualToString & v6;
   }
 
   else
@@ -553,15 +553,15 @@ void __30__UIKBKeyView__hitAreaPercent__block_invoke()
   if ([keyCopy displayType] == 27)
   {
     name = [keyCopy name];
-    v5 = [name isEqualToString:@"Email-Dot-Key"];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)_updateDebugHitTargetLayer
@@ -1244,7 +1244,7 @@ void __35__UIKBKeyView_layerForRenderFlags___block_invoke(uint64_t a1, void *a2,
   if (layerCopy)
   {
     memset(&v29, 0, sizeof(v29));
-    [layerCopy affineTransform];
+    objc_msgSend_affineTransform(layerCopy);
     v8 = *MEMORY[0x1E695EFF8];
     v9 = *(MEMORY[0x1E695EFF8] + 8);
     layer = [(UIView *)self layer];

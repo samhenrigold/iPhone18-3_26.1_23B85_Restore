@@ -282,7 +282,7 @@ LABEL_12:
   v70 = self->_headerView;
   if (v70)
   {
-    [(PKCollapsibleHeaderView *)v70 heightBoundsForWidth:v9];
+    objc_msgSend_heightBoundsForWidth_(v70, v9);
     v49 = v81;
     v50 = v82;
   }
@@ -772,7 +772,7 @@ LABEL_4:
         [(PKCollapsibleHeaderView *)headerView bounds];
         if (headerView)
         {
-          [(PKCollapsibleHeaderView *)headerView heightBoundsForWidth:v17];
+          objc_msgSend_heightBoundsForWidth_(headerView, v17);
           v18 = *&v48;
         }
 
@@ -825,7 +825,7 @@ LABEL_4:
     [(PKCollapsibleHeaderView *)v25 bounds];
     if (v25)
     {
-      [(PKCollapsibleHeaderView *)v25 heightBoundsForWidth:v26];
+      objc_msgSend_heightBoundsForWidth_(v25, v26);
       v27 = *&v47;
       v28 = v49;
     }

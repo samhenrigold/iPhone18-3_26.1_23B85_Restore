@@ -35,7 +35,7 @@
   return v12;
 }
 
-uint64_t __74__VCPCNNHandsDetector_detector_forceCPU_sharedModel_inputConfig_revision___block_invoke()
+uint64_t __74__VCPCNNHandsDetector_detector_forceCPU_sharedModel_inputConfig_revision___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   +[VCPCNNHandsDetector detector:forceCPU:sharedModel:inputConfig:revision:]::analyzerClass = result;
@@ -106,15 +106,15 @@ LABEL_11:
     }
 
     v28 = v14->_modelEspresso;
-    if (v28 && ([(VCPCNNModelEspresso *)v28 inputBlob], (v29 = v14->_modelEspresso) != 0))
+    if (v28 && (objc_msgSend_inputBlob(v28), (v29 = v14->_modelEspresso) != 0))
     {
       v30 = v46;
-      [(VCPCNNModelEspresso *)v29 inputBlob];
+      objc_msgSend_inputBlob(v29);
       v31 = v14->_modelEspresso;
       v32 = v41 * v30;
       if (v31)
       {
-        [(VCPCNNModelEspresso *)v31 inputBlob];
+        objc_msgSend_inputBlob(v31);
         v33 = v40;
         goto LABEL_19;
       }
@@ -142,12 +142,12 @@ LABEL_19:
     v36 = v14->_modelEspresso;
     if (v36)
     {
-      [(VCPCNNModelEspresso *)v36 inputBlob];
+      objc_msgSend_inputBlob(v36);
       v37 = v14->_modelEspresso;
       v14->_cnnInputHeight = v46;
       if (v37)
       {
-        [(VCPCNNModelEspresso *)v37 inputBlob];
+        objc_msgSend_inputBlob(v37);
         v38 = v45;
       }
 
@@ -233,14 +233,14 @@ LABEL_12:
   if (!v6)
   {
     modelEspresso = self->_modelEspresso;
-    if (modelEspresso && ([(VCPCNNModelEspresso *)modelEspresso inputBlob], (v8 = self->_modelEspresso) != 0))
+    if (modelEspresso && (objc_msgSend_inputBlob(modelEspresso), (v8 = self->_modelEspresso) != 0))
     {
-      [(VCPCNNModelEspresso *)v8 inputBlob];
+      objc_msgSend_inputBlob(v8);
       v9 = self->_modelEspresso;
       v10 = v19 * v21;
       if (v9)
       {
-        [(VCPCNNModelEspresso *)v9 inputBlob];
+        objc_msgSend_inputBlob(v9);
         v11 = v18;
 LABEL_10:
         v12 = v10 * v11;
@@ -258,12 +258,12 @@ LABEL_10:
         v14 = self->_modelEspresso;
         if (v14)
         {
-          [(VCPCNNModelEspresso *)v14 inputBlob];
+          objc_msgSend_inputBlob(v14);
           v15 = self->_modelEspresso;
           self->_cnnInputWidth = v20;
           if (v15)
           {
-            [(VCPCNNModelEspresso *)v15 inputBlob];
+            objc_msgSend_inputBlob(v15);
             v16 = v21;
           }
 
@@ -310,15 +310,15 @@ LABEL_21:
 
 - (int)copyImage:(__CVBuffer *)image toData:(float *)data
 {
-  v6 = VCPSignPostLog();
+  v6 = VCPSignPostLog(self);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = VCPSignPostLog(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "copyImageToBGRHandDetectorCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "copyImageToBGRHandDetectorCallFromSPI", "", buf, 2u);
   }
 
   if (CVPixelBufferGetPixelFormatType(image) != 1111970369)
@@ -332,12 +332,12 @@ LABEL_21:
   unlockFlags = 1;
   if (image)
   {
-    v12 = Height;
-    v13 = CVPixelBufferLockBaseAddress(image, 1uLL);
-    *buf = v13;
-    if (v13)
+    v13 = Height;
+    v14 = CVPixelBufferLockBaseAddress(image, 1uLL);
+    *buf = v14;
+    if (v14)
     {
-      v14 = v13;
+      v15 = v14;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [VCPImageConverter convertImage:yuvFrame:];
@@ -348,58 +348,59 @@ LABEL_21:
     {
       BaseAddress = CVPixelBufferGetBaseAddress(image);
       BytesPerRow = CVPixelBufferGetBytesPerRow(image);
-      bzero(data, 3 * 4 * Width * v12);
-      if (v12 >= 1)
+      bzero(data, 3 * 4 * Width * v13);
+      if (v13 >= 1)
       {
-        v18 = 0;
-        v19 = &data[2 * v12 * Width];
-        v20 = &data[v12 * Width];
-        v21 = 4 * Width;
+        v19 = 0;
+        v20 = &data[2 * v13 * Width];
+        v21 = &data[v13 * Width];
+        v22 = 4 * Width;
         do
         {
           if (Width >= 1)
           {
-            v22 = 0;
-            v23 = Width & 0x7FFFFFFF;
+            v23 = 0;
+            v24 = Width & 0x7FFFFFFF;
             do
             {
-              LOBYTE(v17) = BaseAddress[(v22 * 4) + 2];
-              v24 = LODWORD(v17);
-              data[v22] = v24;
-              LOBYTE(v24) = BaseAddress[(v22 * 4) + 1];
-              v25 = LODWORD(v24);
-              v20[v22] = v25;
-              LOBYTE(v25) = BaseAddress[(v22 * 4)];
-              v17 = LODWORD(v25);
-              v19[v22++] = v17;
-              --v23;
+              LOBYTE(v18) = BaseAddress[(v23 * 4) + 2];
+              v25 = LODWORD(v18);
+              data[v23] = v25;
+              LOBYTE(v25) = BaseAddress[(v23 * 4) + 1];
+              v26 = LODWORD(v25);
+              v21[v23] = v26;
+              LOBYTE(v26) = BaseAddress[(v23 * 4)];
+              v18 = LODWORD(v26);
+              v20[v23++] = v18;
+              --v24;
             }
 
-            while (v23);
+            while (v24);
           }
 
           BaseAddress += BytesPerRow;
-          ++v18;
-          v19 = (v19 + v21);
-          v20 = (v20 + v21);
-          data = (data + v21);
+          ++v19;
+          v20 = (v20 + v22);
+          v21 = (v21 + v22);
+          data = (data + v22);
         }
 
-        while (v18 != v12);
+        while (v19 != v13);
       }
 
-      v14 = CVPixelBufferLock::Unlock(buf);
-      if (!v14)
+      v27 = CVPixelBufferLock::Unlock(buf);
+      v15 = v27;
+      if (!v27)
       {
-        v26 = VCPSignPostLog();
-        v27 = v26;
-        if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+        v28 = VCPSignPostLog(v27);
+        v29 = v28;
+        if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
         {
-          *v29 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v7, "copyImageToBGRHandDetectorCallFromSPI", "", v29, 2u);
+          *v31 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v7, "copyImageToBGRHandDetectorCallFromSPI", "", v31, 2u);
         }
 
-        v14 = 0;
+        v15 = 0;
       }
     }
   }
@@ -411,7 +412,7 @@ LABEL_21:
       [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
     }
 
-    v14 = -50;
+    v15 = -50;
     *buf = -50;
   }
 
@@ -420,7 +421,7 @@ LABEL_21:
     [VCPImageExposurePreAnalyzer analyzePixelBuffer:flags:results:cancel:];
   }
 
-  return v14;
+  return v15;
 }
 
 - (int)createInput:(float *)input withBuffer:(__CVBuffer *)buffer
@@ -431,30 +432,30 @@ LABEL_21:
   }
 
   cf = 0;
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(self);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "scalerHandDetectorCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "scalerHandDetectorCallFromSPI", "", buf, 2u);
   }
 
   Scaler::Scale(&self->_scaler, buffer, &cf, self->_cnnInputWidth, self->_cnnInputHeight, 1111970369);
-  v12 = v11;
-  if (!v11)
+  v13 = v12;
+  if (!v12)
   {
-    v13 = VCPSignPostLog();
-    v14 = v13;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v14 = VCPSignPostLog(v12);
+    v15 = v14;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      *v16 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v8, "scalerHandDetectorCallFromSPI", "", v16, 2u);
+      *v17 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v8, "scalerHandDetectorCallFromSPI", "", v17, 2u);
     }
 
-    v12 = [(VCPCNNHandsDetector *)self copyImage:cf toData:input];
+    v13 = [(VCPCNNHandsDetector *)self copyImage:cf toData:input];
   }
 
   if (cf)
@@ -462,56 +463,57 @@ LABEL_21:
     CFRelease(cf);
   }
 
-  return v12;
+  return v13;
 }
 
 - (int)generateHandsBoxes:(id)boxes
 {
   boxesCopy = boxes;
-  v5 = VCPSignPostLog();
+  v5 = VCPSignPostLog(boxesCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     LOWORD(__p) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "inferenceHandDetectorCallFromSPI", "", &__p, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "inferenceHandDetectorCallFromSPI", "", &__p, 2u);
   }
 
-  v9 = [(VCPCNNModelEspresso *)self->_modelEspresso espressoForward:self->_inputData];
-  if (!v9)
+  v10 = [(VCPCNNModelEspresso *)self->_modelEspresso espressoForward:self->_inputData];
+  v11 = v10;
+  if (!v10)
   {
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = VCPSignPostLog(v10);
+    v13 = v12;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       LOWORD(__p) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v6, "inferenceHandDetectorCallFromSPI", "", &__p, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v6, "inferenceHandDetectorCallFromSPI", "", &__p, 2u);
     }
 
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlobs];
+      objc_msgSend_outputBlobs(modelEspresso);
     }
 
     else
     {
       __p = 0;
-      v15 = 0;
-      v16 = 0;
+      v17 = 0;
+      v18 = 0;
     }
 
-    v9 = [(VCPCNNHandsDetector *)self generateHandsRegions:&__p boxes:boxesCopy maxNumRegions:self->_maxNumRegions];
+    v11 = [(VCPCNNHandsDetector *)self generateHandsRegions:&__p boxes:boxesCopy maxNumRegions:self->_maxNumRegions];
     if (__p)
     {
-      v15 = __p;
+      v17 = __p;
       operator delete(__p);
     }
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)nonMaxSuppression:(id)suppression
@@ -576,7 +578,7 @@ LABEL_21:
 - (int)retrieveBoxes:(float *)boxes outHeight:(int)height outWidth:(int)width boxes:(id)a6 anchorBox:(float)box[3][2]
 {
   v62 = a6;
-  if ((atomic_load_explicit(&qword_1ED942850, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED942850, memory_order_acquire) & 1) == 0)
   {
     [VCPCNNHandsDetector retrieveBoxes:? outHeight:? outWidth:? boxes:? anchorBox:?];
   }
@@ -744,29 +746,29 @@ LABEL_21:
 - (int)generateHandsRegions:(const void *)regions boxes:(id)boxes maxNumRegions:(int)numRegions
 {
   boxesCopy = boxes;
-  v9 = VCPSignPostLog();
+  v9 = VCPSignPostLog(boxesCopy);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = VCPSignPostLog();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "postProcessingHandDetectorCallFromSPI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "postProcessingHandDetectorCallFromSPI", "", buf, 2u);
   }
 
-  v13 = *regions;
+  v14 = *regions;
   if (*regions != *(regions + 1))
   {
-    v14 = &kAnchorBoxes;
+    v15 = &kAnchorBoxes;
     do
     {
-      [(VCPCNNHandsDetector *)self retrieveBoxes:*v13 outHeight:*(v13 + 88) outWidth:*(v13 + 80) boxes:boxesCopy anchorBox:v14];
-      v13 += 168;
-      v14 += 24;
+      [(VCPCNNHandsDetector *)self retrieveBoxes:*v14 outHeight:*(v14 + 88) outWidth:*(v14 + 80) boxes:boxesCopy anchorBox:v15];
+      v14 += 168;
+      v15 += 24;
     }
 
-    while (v13 != *(regions + 1));
+    while (v14 != *(regions + 1));
   }
 
   [boxesCopy sortUsingComparator:&__block_literal_global_24];
@@ -778,12 +780,13 @@ LABEL_21:
   }
 
   lastObject = [boxesCopy lastObject];
+  v17 = lastObject;
   if (lastObject)
   {
     do
     {
-      [lastObject flag];
-      if (v16 != 0.0)
+      lastObject = [v17 flag];
+      if (v18 != 0.0)
       {
         break;
       }
@@ -791,18 +794,18 @@ LABEL_21:
       [boxesCopy removeLastObject];
       lastObject2 = [boxesCopy lastObject];
 
-      lastObject = lastObject2;
+      v17 = lastObject2;
     }
 
     while (lastObject2);
   }
 
-  v18 = VCPSignPostLog();
-  v19 = v18;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v20 = VCPSignPostLog(lastObject);
+  v21 = v20;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    v21[0] = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v10, "postProcessingHandDetectorCallFromSPI", "", v21, 2u);
+    v23[0] = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v10, "postProcessingHandDetectorCallFromSPI", "", v23, 2u);
   }
 
   return 0;
@@ -1256,11 +1259,11 @@ LABEL_20:
 
 - (void)retrieveBoxes:(uint64_t)a1 outHeight:outWidth:boxes:anchorBox:.cold.1(uint64_t a1)
 {
-  if (__cxa_guard_acquire(&qword_1ED942850))
+  if (__cxa_guard_acquire(byte_1ED942850))
   {
     _MergedGlobals_4 = *(a1 + 20) + 5;
 
-    __cxa_guard_release(&qword_1ED942850);
+    __cxa_guard_release(byte_1ED942850);
   }
 }
 

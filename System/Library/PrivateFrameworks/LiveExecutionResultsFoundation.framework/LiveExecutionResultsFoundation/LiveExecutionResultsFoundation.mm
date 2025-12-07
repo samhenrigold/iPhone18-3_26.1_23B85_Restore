@@ -232,11 +232,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_255FA12DC(uint64_t a1, uint64_t *a2)
+uint64_t sub_255FA12DC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_255FA3430();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = sub_255FA3430();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return sub_255FA3420();
 }
 
@@ -256,14 +256,11 @@ uint64_t sub_255FA1378@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -289,11 +286,11 @@ uint64_t sub_255FA14B4()
   return sub_255FA3500();
 }
 
-uint64_t sub_255FA1528()
+uint64_t sub_255FA1528(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_255FA34E0();
-  MEMORY[0x259C54A10](v1);
+  MEMORY[0x259C54A10](v2);
   return sub_255FA3500();
 }
 
@@ -373,14 +370,22 @@ void *sub_255FA17E8@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
+LiveExecutionResultsFoundation::LoggingProbePointConfiguration __swiftcall LoggingProbePointConfiguration.init(activeLogSources:sourceLocationCollectionMode:)(LiveExecutionResultsFoundation::LoggingProbePointConfiguration::LogSources activeLogSources, LiveExecutionResultsFoundation::SourceLocationCollectionMode sourceLocationCollectionMode)
+{
+  v3 = *sourceLocationCollectionMode;
+  *v2 = *activeLogSources.rawValue;
+  *(v2 + 8) = v3;
+  result.activeLogSources = activeLogSources;
+  result.sourceLocationCollectionMode = sourceLocationCollectionMode;
+  return result;
+}
+
 uint64_t LoggingProbePointConfiguration.description.getter()
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
   sub_255FA3470();
   MEMORY[0x259C54970](0x3A73656372756F73, 0xE900000000000020);
-  v3 = LoggingProbePointConfiguration.LogSources.description.getter();
-  MEMORY[0x259C54970](v3);
+  v0 = LoggingProbePointConfiguration.LogSources.description.getter();
+  MEMORY[0x259C54970](v0);
 
   MEMORY[0x259C54970](0xD000000000000020, 0x8000000255FA41D0);
   sub_255FA3480();
@@ -496,22 +501,21 @@ LABEL_10:
   return v23;
 }
 
-uint64_t sub_255FA1CD0()
+uint64_t sub_255FA1CD0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_255FA34E0();
-  MEMORY[0x259C54A10](v1);
+  MEMORY[0x259C54A10](v2);
   return sub_255FA3500();
 }
 
 unint64_t sub_255FA1D18(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_255FA34E0();
   MEMORY[0x259C54A10](a1);
-  v4 = sub_255FA3500();
+  v2 = sub_255FA3500();
 
-  return sub_255FA1D84(a1, v4);
+  return sub_255FA1D84(a1, v2);
 }
 
 unint64_t sub_255FA1D84(uint64_t a1, uint64_t a2)
@@ -621,7 +625,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -647,7 +650,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1044,14 +1046,12 @@ LABEL_8:
 uint64_t SourceLocation.filePath.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t SourceLocation.filePath.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -1099,16 +1099,13 @@ unint64_t InProcessSymbolicationService.SymbolicationError.errorDescription.gett
 {
   if (*v0)
   {
-    result = 0xD00000000000001ELL;
+    return 0xD00000000000001ELL;
   }
 
   else
   {
-    result = 0xD00000000000002DLL;
+    return 0xD00000000000002DLL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t InProcessSymbolicationService.SymbolicationError.hashValue.getter()
@@ -1123,16 +1120,13 @@ unint64_t sub_255FA2824()
 {
   if (*v0)
   {
-    result = 0xD00000000000001ELL;
+    return 0xD00000000000001ELL;
   }
 
   else
   {
-    result = 0xD00000000000002DLL;
+    return 0xD00000000000002DLL;
   }
-
-  *v0;
-  return result;
 }
 
 unint64_t sub_255FA2898()
@@ -1354,7 +1348,7 @@ LABEL_17:
   return (v8 + 1);
 }
 
-uint64_t PlaygroundLoggerSample.payload.getter@<X0>(uint64_t a1@<X8>)
+void PlaygroundLoggerSample.payload.getter(uint64_t a1@<X8>)
 {
   v2 = *v1;
   v3 = *(v1 + 8);
@@ -1362,10 +1356,10 @@ uint64_t PlaygroundLoggerSample.payload.getter@<X0>(uint64_t a1@<X8>)
   *a1 = *v1;
   *(a1 + 8) = v3;
   *(a1 + 16) = v4;
-  return sub_255FA2B88(v2, v3, v4);
+  sub_255FA2B88(v2, v3, v4);
 }
 
-uint64_t sub_255FA2B88(uint64_t a1, unint64_t a2, char a3)
+void sub_255FA2B88(uint64_t a1, unint64_t a2, char a3)
 {
   if (a3)
   {
@@ -1373,17 +1367,17 @@ uint64_t sub_255FA2B88(uint64_t a1, unint64_t a2, char a3)
 
   else
   {
-    return sub_255FA2B98(a1, a2);
+    sub_255FA2B98(a1, a2);
   }
 }
 
-uint64_t sub_255FA2B98(uint64_t a1, unint64_t a2)
+void sub_255FA2B98(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -1412,13 +1406,13 @@ uint64_t sub_255FA2C2C(uint64_t a1, unint64_t a2, char a3)
   }
 }
 
-uint64_t sub_255FA2C3C(uint64_t a1, unint64_t a2)
+uint64_t sub_255FA2C3C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -1529,25 +1523,23 @@ uint64_t sub_255FA2E28()
   return sub_255FA3500();
 }
 
-uint64_t sub_255FA2EB0()
+uint64_t sub_255FA2EB0(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_255FA34E0();
-  MEMORY[0x259C54A10](qword_255FA4180[v1]);
+  MEMORY[0x259C54A10](qword_255FA4180[v2]);
   return sub_255FA3500();
 }
 
 uint64_t PrintSample.string.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t PrintSample.string.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;

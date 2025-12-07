@@ -4,6 +4,7 @@
 - (RTPredictedContextOptions)initWithCoder:(id)coder;
 - (RTPredictedContextOptions)initWithCreationDate:(id)date forecastWindowDateInterval:(id)interval forecastWindowTimeInterval:(double)timeInterval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortDescriptors:(id)descriptors;
 - (RTPredictedContextOptions)initWithForecastWindowDateInterval:(id)interval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortDescriptors:(id)descriptors;
+- (RTPredictedContextOptions)initWithForecastWindowDateInterval:(id)interval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortStartDateAscending:(BOOL)ascending resultSortProbabilityAscending:(BOOL)probabilityAscending;
 - (RTPredictedContextOptions)initWithForecastWindowTimeInterval:(double)interval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortDescriptors:(id)descriptors;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -14,20 +15,38 @@
 
 - (RTPredictedContextOptions)init
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AB80]);
   v4 = [MEMORY[0x1E695DF00] now];
   distantFuture = [MEMORY[0x1E695DF00] distantFuture];
   v6 = [v3 initWithStartDate:v4 endDate:distantFuture];
   v7 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dateInterval.startDate.date" ascending:1];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"probability" ascending:0];
-  v13[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v10 = [(RTPredictedContextOptions *)self initWithForecastWindowDateInterval:v6 filterContextTypeMask:3 filterLocations:0 resultSortDescriptors:v9];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
+}
+
+- (RTPredictedContextOptions)initWithForecastWindowDateInterval:(id)interval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortStartDateAscending:(BOOL)ascending resultSortProbabilityAscending:(BOOL)probabilityAscending
+{
+  probabilityAscendingCopy = probabilityAscending;
+  ascendingCopy = ascending;
+  v21[2] = *MEMORY[0x1E69E9840];
+  v12 = MEMORY[0x1E695DF00];
+  locationsCopy = locations;
+  intervalCopy = interval;
+  date = [v12 date];
+  v16 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dateInterval.startDate.date" ascending:ascendingCopy];
+  v21[0] = v16;
+  v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"probability" ascending:probabilityAscendingCopy];
+  v21[1] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v19 = [(RTPredictedContextOptions *)self initWithCreationDate:date forecastWindowDateInterval:intervalCopy forecastWindowTimeInterval:mask filterContextTypeMask:locationsCopy filterLocations:v18 resultSortDescriptors:0.0];
+
+  return v19;
 }
 
 - (RTPredictedContextOptions)initWithForecastWindowDateInterval:(id)interval filterContextTypeMask:(unint64_t)mask filterLocations:(id)locations resultSortDescriptors:(id)descriptors
@@ -113,45 +132,45 @@
 
 - (RTPredictedContextOptions)initWithCoder:(id)coder
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"creationDate"];
-  v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"forecastWindowDateInterval"];
+  v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"creationDate"];
+  v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"forecastWindowDateInterval"];
   [coderCopy decodeDoubleForKey:@"forecastWindowTimeInterval"];
   v5 = v4;
-  v27 = [coderCopy decodeIntegerForKey:@"filterContextTypeMask"];
+  v26 = [coderCopy decodeIntegerForKey:@"filterContextTypeMask"];
   v6 = MEMORY[0x1E695DFD8];
   v7 = objc_opt_class();
   v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
-  v26 = [coderCopy decodeObjectOfClasses:v8 forKey:@"filterLocations"];
+  v25 = [coderCopy decodeObjectOfClasses:v8 forKey:@"filterLocations"];
 
   v9 = MEMORY[0x1E695DFD8];
   v10 = objc_opt_class();
   v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-  v31 = coderCopy;
+  v30 = coderCopy;
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"resultSortDescriptors"];
 
   v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v33;
+    v17 = *v32;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v33 != v17)
+        if (*v32 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v32 + 1) + 8 * i);
+        v19 = *(*(&v31 + 1) + 8 * i);
         v20 = MEMORY[0x1E696AEB0];
         v21 = [v19 key];
         v22 = [v20 sortDescriptorWithKey:v21 ascending:objc_msgSend(v19 selector:{"ascending"), objc_msgSend(v19, "selector")}];
@@ -159,14 +178,13 @@
         [v13 addObject:v22];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v16);
   }
 
-  v23 = [(RTPredictedContextOptions *)self initWithCreationDate:v30 forecastWindowDateInterval:v28 forecastWindowTimeInterval:v27 filterContextTypeMask:v26 filterLocations:v13 resultSortDescriptors:v5];
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [(RTPredictedContextOptions *)self initWithCreationDate:v29 forecastWindowDateInterval:v27 forecastWindowTimeInterval:v26 filterContextTypeMask:v25 filterLocations:v13 resultSortDescriptors:v5];
   return v23;
 }
 

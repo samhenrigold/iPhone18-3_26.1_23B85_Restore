@@ -40,19 +40,18 @@
 
 - (id)newXPCConnectionWithError:(id *)error
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____EXExtensionProcess__processHandle);
   selfCopy = self;
-  v6.super.isa = _EXExtensionProcessHandle.makeXPCConnectionRetainProcess(_:)(1).super.isa;
+  v5.super.isa = _EXExtensionProcessHandle.makeXPCConnectionRetainProcess(_:)(1).super.isa;
 
-  if (v7.super.isa)
+  if (v6.super.isa)
   {
     if (error)
     {
-      v8 = _convertErrorToNSError(_:)();
+      v7 = _convertErrorToNSError(_:)();
 
-      v9 = v8;
+      v8 = v7;
       result = 0;
-      *error = v8;
+      *error = v7;
     }
 
     else
@@ -64,7 +63,7 @@
 
   else
   {
-    return v6.super.isa;
+    return v5.super.isa;
   }
 
   return result;
@@ -98,19 +97,18 @@
 
 - (id)makeXPCConnectionWithError:(id *)error
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____EXExtensionProcess__processHandle);
   selfCopy = self;
-  v6.super.isa = _EXExtensionProcessHandle.makeXPCConnectionRetainProcess(_:)(0).super.isa;
+  v5.super.isa = _EXExtensionProcessHandle.makeXPCConnectionRetainProcess(_:)(0).super.isa;
 
-  if (v7.super.isa)
+  if (v6.super.isa)
   {
     if (error)
     {
-      v8 = _convertErrorToNSError(_:)();
+      v7 = _convertErrorToNSError(_:)();
 
-      v9 = v8;
+      v8 = v7;
       isa = 0;
-      *error = v8;
+      *error = v7;
     }
 
     else
@@ -122,7 +120,7 @@
 
   else
   {
-    isa = v6.super.isa;
+    isa = v5.super.isa;
   }
 
   return isa;
@@ -138,40 +136,39 @@
 
 - (id)makeSessionXPCConnectionWithError:(id *)error
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____EXExtensionProcess__processHandle);
   selfCopy = self;
-  v6 = _EXExtensionProcessHandle.makeSessionXPCConnection()();
-  if (v6)
+  v5 = _EXExtensionProcessHandle.makeSessionXPCConnection()();
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
 
-    v8 = v7;
+    v7 = v6;
   }
 
   else
   {
-    v9 = objc_opt_self();
-    v10 = MEMORY[0x1865F36D0](0xD000000000000027, 0x80000001848C4DD0);
-    _EX_errorWithCode_description_ = [v9 _EX_errorWithCode_description_];
+    v8 = objc_opt_self();
+    v9 = MEMORY[0x1865F36D0](0xD000000000000027, 0x80000001848C4DD0);
+    _EX_errorWithCode_description_ = [v8 _EX_errorWithCode_description_];
 
     swift_willThrow();
     if (error)
     {
-      v12 = _convertErrorToNSError(_:)();
+      v11 = _convertErrorToNSError(_:)();
 
-      v13 = v12;
-      v8 = 0;
-      *error = v12;
+      v12 = v11;
+      v7 = 0;
+      *error = v11;
     }
 
     else
     {
 
-      v8 = 0;
+      v7 = 0;
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)invalidate
@@ -222,14 +219,13 @@
 
 - (BOOL)matchesProcess:(id)process
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   processCopy = process;
   selfCopy = self;
   [(_EXExtensionProcess *)selfCopy auditToken];
   [processCopy auditToken];
-  LOBYTE(self) = _EXAuditTokenEqual(&v9, &v8);
+  LOBYTE(self) = _EXAuditTokenEqual(&v8, &v7);
 
-  v6 = *MEMORY[0x1E69E9840];
   return self;
 }
 

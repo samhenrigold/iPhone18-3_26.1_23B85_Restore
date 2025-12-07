@@ -60,14 +60,14 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StateOfMindAssetView();
+  v7.super_class = type metadata accessor for StateOfMindAssetView(0);
   [(StateOfMindAssetView *)&v7 setAccessibilityValue:v5];
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000F7980();
+  sub_1000F7980(v2);
 }
 
 - (void)userInterfaceStyleChanged

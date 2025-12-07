@@ -303,7 +303,7 @@
 
 - (BOOL)assignNexusData:(id)data toClient:(id)client
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   clientCopy = client;
   if (![(NWNetworkAgentRegistration *)self isRegisteredInternal])
@@ -324,12 +324,11 @@
       *&buf[4] = "[NWNetworkAgentRegistration assignNexusData:toClient:]";
       *&buf[12] = 2048;
       *&buf[14] = [dataCopy length];
-      LODWORD(v35) = 22;
-      v10 = _os_log_send_and_compose_impl();
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s Invalid data length (%lu)", buf, 22);
 
       type[0] = OS_LOG_TYPE_ERROR;
-      v36 = 0;
-      if (!__nwlog_fault(v10, type, &v36))
+      v35 = 0;
+      if (!__nwlog_fault(v10, type, &v35))
       {
         goto LABEL_26;
       }
@@ -356,7 +355,7 @@ LABEL_24:
         }
       }
 
-      else if (v36 == 1)
+      else if (v35 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -456,11 +455,11 @@ LABEL_43:
     *&buf[4] = "[NWNetworkAgentRegistration assignNexusData:toClient:]";
     *&buf[12] = 1024;
     *&buf[14] = registeredUUID;
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s calloc(%u) failed", buf, 18);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v36 = 0;
-    if (__nwlog_fault(v23, type, &v36))
+    v35 = 0;
+    if (__nwlog_fault(v23, type, &v35))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
@@ -483,7 +482,7 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      if (v36 != 1)
+      if (v35 != 1)
       {
         v24 = __nwlog_obj();
         v25 = type[0];
@@ -654,7 +653,7 @@ LABEL_45:
     v8 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWNetworkAgentRegistration addToken:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null token", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -741,7 +740,7 @@ LABEL_22:
     v13 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWNetworkAgentRegistration addToken:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null (token.length <= NETAGENT_MAX_DATA_SIZE)", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -1292,7 +1291,7 @@ LABEL_38:
     v7 = gLogObj;
     *buf = 136446210;
     v35 = "[NWNetworkAgentRegistration createReadSourceWithRegistrationSocket:]";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null registrationSocket", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1406,7 +1405,7 @@ LABEL_32:
     v18 = gLogObj;
     *buf = 136446210;
     v35 = "[NWNetworkAgentRegistration createReadSourceWithRegistrationSocket:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s dispatch_source_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -2040,7 +2039,7 @@ LABEL_82:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v35 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:session:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null agentClass", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -2127,7 +2126,7 @@ LABEL_45:
     v19 = __nwlog_obj();
     *buf = 136446210;
     v35 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:session:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with null session", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -2221,7 +2220,7 @@ LABEL_45:
   v20 = __nwlog_obj();
   *buf = 136446210;
   v35 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:session:]";
-  v21 = _os_log_send_and_compose_impl();
+  v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v32 = 0;
@@ -2311,7 +2310,7 @@ LABEL_5:
     v13 = __nwlog_obj();
     *buf = 136446210;
     v34 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:queue:]";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null agentClass", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -2398,7 +2397,7 @@ LABEL_45:
     v18 = __nwlog_obj();
     *buf = 136446210;
     v34 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:queue:]";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null queue", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -2491,7 +2490,7 @@ LABEL_45:
   v19 = __nwlog_obj();
   *buf = 136446210;
   v34 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:queue:]";
-  v20 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v31 = 0;
@@ -2597,7 +2596,7 @@ LABEL_5:
   v12 = __nwlog_obj();
   *buf = 136446210;
   v23 = "[NWNetworkAgentRegistration initWithNetworkAgentClass:]";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v19 = 0;

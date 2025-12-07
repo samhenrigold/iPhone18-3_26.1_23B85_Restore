@@ -31,24 +31,22 @@
 
 - (id)localizedKeylineLabelText
 {
-  vista = self->_vista;
-  v3 = NUNIAstronomyVistaNameLocalizationKeyForValue();
-  v4 = [v3 stringByAppendingString:@"_COMPANION"];
+  v2 = NUNIAstronomyVistaNameLocalizationKeyForValue();
+  v3 = [v2 stringByAppendingString:@"_COMPANION"];
 
-  v5 = NTKCompanionClockFaceLocalizedString();
+  v4 = NTKCompanionClockFaceLocalizedString();
 
-  return v5;
+  return v4;
 }
 
 - (id)localizedDetailText
 {
-  vista = self->_vista;
-  v3 = NUNIAstronomyVistaNameLocalizationKeyForValue();
-  v4 = [v3 stringByAppendingString:@"_COMPANION"];
+  v2 = NUNIAstronomyVistaNameLocalizationKeyForValue();
+  v3 = [v2 stringByAppendingString:@"_COMPANION"];
 
-  v5 = NTKCompanionClockFaceLocalizedString();
+  v4 = NTKCompanionClockFaceLocalizedString();
 
-  return v5;
+  return v4;
 }
 
 - (id)_generateUniqueIdentifier
@@ -100,24 +98,22 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = NTKAstronomyComplication;
+  v5.receiver = self;
+  v5.super_class = NTKAstronomyComplication;
   coderCopy = coder;
-  [(NTKAstronomyComplication *)&v7 encodeWithCoder:coderCopy];
-  vista = self->_vista;
-  v6 = NUNIAstronomyVistaNameForValue();
-  [coderCopy encodeObject:v6 forKey:{@"kAstronomyComplicationVistaKey", v7.receiver, v7.super_class}];
+  [(NTKAstronomyComplication *)&v5 encodeWithCoder:coderCopy];
+  v4 = NUNIAstronomyVistaNameForValue();
+  [coderCopy encodeObject:v4 forKey:{@"kAstronomyComplicationVistaKey", v5.receiver, v5.super_class}];
 }
 
 - (void)_addKeysToJSONDictionary:(id)dictionary
 {
-  v7.receiver = self;
-  v7.super_class = NTKAstronomyComplication;
+  v5.receiver = self;
+  v5.super_class = NTKAstronomyComplication;
   dictionaryCopy = dictionary;
-  [(NTKAstronomyComplication *)&v7 _addKeysToJSONDictionary:dictionaryCopy];
-  vista = self->_vista;
-  v6 = NUNIAstronomyVistaNameForValue();
-  [dictionaryCopy setObject:v6 forKeyedSubscript:{NTKFaceBundleComplicationAstronomyVistaKey, v7.receiver, v7.super_class}];
+  [(NTKAstronomyComplication *)&v5 _addKeysToJSONDictionary:dictionaryCopy];
+  v4 = NUNIAstronomyVistaNameForValue();
+  [dictionaryCopy setObject:v4 forKeyedSubscript:{NTKFaceBundleComplicationAstronomyVistaKey, v5.receiver, v5.super_class}];
 }
 
 - (id)_initWithComplicationType:(unint64_t)type JSONDictionary:(id)dictionary

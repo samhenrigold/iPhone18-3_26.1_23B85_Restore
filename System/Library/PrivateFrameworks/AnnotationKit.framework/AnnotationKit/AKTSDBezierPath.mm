@@ -1179,23 +1179,23 @@ LABEL_31:
 
 - (double)calculateLengthOfElement:(int64_t)element
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = 0.0;
   if (element)
   {
-    v4 = [(AKTSDBezierPath *)self elementAtIndex:element allPoints:&v9];
+    v4 = [(AKTSDBezierPath *)self elementAtIndex:element allPoints:&v11];
     switch(v4)
     {
       case 3uLL:
         goto LABEL_5;
       case 2uLL:
-        v8 = 0.0;
-        sub_23F4299A8(&v9, &v8);
-        return v8;
+        v10 = 0.0;
+        sub_23F4299A8(&v11, &v10, v5, v6);
+        return v10;
       case 1uLL:
 LABEL_5:
-        v5 = (v10 - v12) * (v10 - v12) + (v9 - v11) * (v9 - v11);
-        return sqrtf(v5);
+        v7 = (v12 - v14) * (v12 - v14) + (v11 - v13) * (v11 - v13);
+        return sqrtf(v7);
     }
   }
 
@@ -2965,7 +2965,7 @@ LABEL_13:
     {
       if (v20 == 2)
       {
-        sub_23F49FC10(&v36, &v28, tCopy, 1.0);
+        sub_23F49FC10(tCopy, 1.0, &v36, &v28);
         if (!move)
         {
           [(AKTSDBezierPath *)self moveToPoint:v28, v29];
@@ -3020,7 +3020,7 @@ LABEL_59:
           {
             if (v25 == 2)
             {
-              sub_23F49FC10(&v36, &v28, 0.0, a7);
+              sub_23F49FC10(0.0, a7, &v36, &v28);
 LABEL_66:
               [(AKTSDBezierPath *)self curveToPoint:v34 controlPoint1:v35 controlPoint2:v30, v31, v32, v33, *&tCopy];
               goto LABEL_67;
@@ -3114,7 +3114,7 @@ LABEL_55:
     case 3:
       goto LABEL_22;
     case 2:
-      sub_23F49FC10(&v36, &v28, tCopy, a7);
+      sub_23F49FC10(tCopy, a7, &v36, &v28);
       if (!move)
       {
         [(AKTSDBezierPath *)self moveToPoint:v28, v29];
@@ -4157,7 +4157,7 @@ LABEL_20:
       if (v25 > 0.0 && v25 < 1.0)
       {
         v31 = v25;
-        sub_23F49FC10(&v106, &v98, 0.0, v25);
+        sub_23F49FC10(0.0, v25, &v106, &v98);
         v33 = v15;
         v34 = v99 + v33;
         if (v11)
@@ -4189,7 +4189,7 @@ LABEL_20:
       if (v30 > 0.0 && v30 < 1.0)
       {
         v47 = v30;
-        sub_23F49FC10(&v106, &v98, v31, v47);
+        sub_23F49FC10(v31, v47, &v106, &v98);
         v48 = v99 + v15;
         if (v11)
         {
@@ -4215,12 +4215,12 @@ LABEL_20:
           v15 = v5;
         }
 
-        sub_23F49FC10(&v106, &v98, v47, 1.0);
+        sub_23F49FC10(v47, 1.0, &v106, &v98);
       }
 
       else
       {
-        sub_23F49FC10(&v106, &v98, v31, 1.0);
+        sub_23F49FC10(v31, 1.0, &v106, &v98);
         if (v11)
         {
           v36 = v15;
@@ -4369,7 +4369,7 @@ LABEL_58:
             if (v70 > 0.0 && v70 < 1.0)
             {
               v76 = v70;
-              sub_23F49FC10(&v106, &v98, v70, 1.0);
+              sub_23F49FC10(v70, 1.0, &v106, &v98);
               v78 = v60;
               v79 = v105 + v78;
               if (v9)
@@ -4401,7 +4401,7 @@ LABEL_58:
             if (v75 > 0.0 && v75 < 1.0)
             {
               v93 = v75;
-              sub_23F49FC10(&v106, &v98, v93, v76);
+              sub_23F49FC10(v93, v76, &v106, &v98);
               v94 = v105 + v60;
               if (v9)
               {
@@ -4427,12 +4427,12 @@ LABEL_58:
                 v60 = v5;
               }
 
-              sub_23F49FC10(&v106, &v98, 0.0, v93);
+              sub_23F49FC10(0.0, v93, &v106, &v98);
             }
 
             else
             {
-              sub_23F49FC10(&v106, &v98, 0.0, v76);
+              sub_23F49FC10(0.0, v76, &v106, &v98);
               if (v9)
               {
                 v83 = v60;

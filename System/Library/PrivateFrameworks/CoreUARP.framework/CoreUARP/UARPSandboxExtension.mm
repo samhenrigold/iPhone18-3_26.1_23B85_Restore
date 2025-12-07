@@ -9,7 +9,7 @@
 
 + (id)readTokenStringWithURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [lCopy path];
@@ -23,11 +23,11 @@
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "+[UARPSandboxExtension readTokenStringWithURL:]";
-      v14 = 2112;
-      v15 = lCopy;
-      _os_log_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Generating Read Sandbox Extension Token for %@ ", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[UARPSandboxExtension readTokenStringWithURL:]";
+      v13 = 2112;
+      v14 = lCopy;
+      _os_log_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Generating Read Sandbox Extension Token for %@ ", &v11, 0x16u);
     }
 
     if (v8)
@@ -46,14 +46,12 @@
   v9 = 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)readWriteTokenStringWithURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   lCopy = l;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [lCopy path];
@@ -67,11 +65,11 @@ LABEL_9:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "+[UARPSandboxExtension readWriteTokenStringWithURL:]";
-      v14 = 2112;
-      v15 = lCopy;
-      _os_log_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Generating Read-Write Sandbox Extension Token for %@ ", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[UARPSandboxExtension readWriteTokenStringWithURL:]";
+      v13 = 2112;
+      v14 = lCopy;
+      _os_log_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Generating Read-Write Sandbox Extension Token for %@ ", &v11, 0x16u);
     }
 
     if (v8)
@@ -89,8 +87,6 @@ LABEL_9:
 
   v9 = 0;
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -134,29 +130,26 @@ LABEL_9:
 
 + (void)readTokenStringWithURL:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Cannot Generate Sandbox Extension Token for %@ ", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Cannot Generate Sandbox Extension Token for %@ ", v0, 0x16u);
 }
 
 + (void)readWriteTokenStringWithURL:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Cannot Generate Sandbox Extension Token for %@ ", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Cannot Generate Sandbox Extension Token for %@ ", v0, 0x16u);
 }
 
 - (void)initWithTokenString:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[UARPSandboxExtension initWithTokenString:]";
-  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: failed to consume sandbox token", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[UARPSandboxExtension initWithTokenString:]";
+  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: failed to consume sandbox token", &v0, 0xCu);
 }
 
 @end

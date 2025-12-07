@@ -1,8 +1,10 @@
 @interface SIRINLUEXTERNALParser
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)parserIdAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsParserId:(id)id;
 - (int)algorithm;
@@ -141,20 +143,18 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    parserId = self->_parserId;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -272,6 +272,21 @@ LABEL_12:
   return v4;
 }
 
+- (id)parserIdAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328000[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasParserId:(BOOL)id
 {
   if (id)
@@ -321,6 +336,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327FE8[string];
   }
 
   return v4;

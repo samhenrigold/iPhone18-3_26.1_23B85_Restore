@@ -406,7 +406,7 @@ LABEL_9:
         }
 
         v17 = *(*(&v20 + 1) + 8 * i);
-        [FaceCoreDetector _createFaceFromFCRFace:v17 image:imageCopy];
+        objc_msgSend__createFaceFromFCRFace_image_(FaceCoreDetector);
         apple::vision::libraries::facecore::FaceCoreAPI::extractFaceDetails(self->_api.__ptr_, &v24, v19);
         [FaceCoreDetector _updateFCRFace:v17 fromFace:v19 image:imageCopy];
         apple::vision::libraries::facecore::Face::~Face(v19);
@@ -461,7 +461,7 @@ LABEL_9:
   retstr->var11 = v10;
   if (imageCopy)
   {
-    [imageCopy face];
+    objc_msgSend_face(imageCopy);
     v12 = *(&v47 + 1);
     v11 = *&v47;
   }
@@ -480,7 +480,7 @@ LABEL_9:
   retstr->var6 = [imageCopy trackID];
   if (imageCopy)
   {
-    [imageCopy leftEye];
+    objc_msgSend_leftEye(imageCopy);
     v14 = *(&v48 + 1);
     v13 = *&v48;
   }
@@ -497,7 +497,7 @@ LABEL_9:
   retstr->var1 = [FaceCoreDetector _makeYFlippedCoordFromPoint:v8 image:v13, v14, v48, v52, v56];
   if (imageCopy)
   {
-    [imageCopy rightEye];
+    objc_msgSend_rightEye(imageCopy);
     v16 = *(&v49 + 1);
     v15 = *&v49;
   }
@@ -514,7 +514,7 @@ LABEL_9:
   retstr->var2 = [FaceCoreDetector _makeYFlippedCoordFromPoint:v8 image:v15, v16, v49, v53, v57];
   if (imageCopy)
   {
-    [imageCopy mouth];
+    objc_msgSend_mouth(imageCopy);
     v18 = *(&v50 + 1);
     v17 = *&v50;
   }

@@ -37,7 +37,7 @@
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDMediaGroupSetupLatencyLogEvent setupRequestOption](self, "setupRequestOption")}];
   [v3 setObject:v12 forKeyedSubscript:@"setupRequestOption"];
 
-  v13 = [v3 copy];
+  v13 = objc_msgSend_copy(v3);
 
   return v13;
 }

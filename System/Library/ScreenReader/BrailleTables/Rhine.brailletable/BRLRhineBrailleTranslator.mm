@@ -68,10 +68,11 @@
   if (v12)
   {
     v13 = [NSString stringWithFormat:@"{FLN %@}", v12];
-    if ([(BRLRhineBrailleTranslator *)self sendCommand:v13])
+    v14 = [(BRLRhineBrailleTranslator *)self sendCommand:v13];
+    if (v14)
     {
-      v14 = sub_1B834();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_1B834(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1C138();
       }
@@ -85,7 +86,7 @@
 
   else
   {
-    v13 = sub_1B834();
+    v13 = sub_1B834(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1C1AC();
@@ -113,10 +114,11 @@
   {
     v8 = v7;
     v9 = wh_forward_translate(uTF8String, v7, v6, 0);
+    v10 = v9;
     if (v9)
     {
-      v10 = sub_1B834();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_1B834(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1C234();
       }
@@ -127,16 +129,16 @@
 
   else
   {
-    v11 = sub_1B834();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1B834(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1C29C();
     }
 
-    v9 = 1;
+    v10 = 1;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)extractLocations:(int *)locations locations_output:(id *)locations_output output_size:(int64_t)output_size
@@ -201,18 +203,18 @@ LABEL_8:
   rangesCopy = ranges;
   [(BRLRhineBrailleTranslator *)self setTranslationMode:mode];
   v11 = textCopy;
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
   v12 = self->_allPreprocessors;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  v41 = v11;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v42 = v11;
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v45;
+    v16 = *v46;
     do
     {
       v17 = 0;
@@ -220,15 +222,15 @@ LABEL_8:
       v19 = v15;
       do
       {
-        if (*v45 != v16)
+        if (*v46 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * v17);
-        v43 = 0;
-        v11 = [v20 preprocessPrintString:v18 withLocationMap:&v43 isEightDot:1 textFormattingRanges:{rangesCopy, locationsCopy, v41}];
-        v21 = v43;
+        v20 = *(*(&v45 + 1) + 8 * v17);
+        v44 = 0;
+        v11 = [v20 preprocessPrintString:v18 withLocationMap:&v44 isEightDot:1 textFormattingRanges:{rangesCopy, locationsCopy, v42}];
+        v21 = v44;
 
         v15 = [BRLTPreprocessorHelper mergeLocationMap:v19 withLocationMap:v21];
 
@@ -238,7 +240,7 @@ LABEL_8:
       }
 
       while (v14 != v17);
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v14);
@@ -253,7 +255,7 @@ LABEL_8:
   v23 = [v22 cStringUsingEncoding:12];
   if (!v23)
   {
-    v33 = sub_1B834();
+    v33 = sub_1B834(0);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_1C344();
@@ -310,7 +312,7 @@ LABEL_8:
       free(v30);
     }
 
-    v33 = sub_1B834();
+    v33 = sub_1B834(v29);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_1C29C();
@@ -324,11 +326,12 @@ LABEL_34:
 
   v35 = wh_forward_translate(v24, v27, v26, v29);
   brl_convert_to_utf(v27, v28, v26);
-  v34 = [NSString stringWithCString:v28 encoding:4];
+  v36 = [NSString stringWithCString:v28 encoding:4];
+  v34 = v36;
   if (v35)
   {
-    v36 = sub_1B834();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = sub_1B834(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       sub_1C2DC();
     }
@@ -336,8 +339,8 @@ LABEL_34:
     v34 = 0;
   }
 
-  v37 = [v34 length];
-  [BRLTPreprocessorHelper mergePreprocessorOutputLocationMap:v15 outputToPreprocessedMap:v30 outputLen:v37 outputToTextMap:v40];
+  v38 = [v34 length];
+  [BRLTPreprocessorHelper mergePreprocessorOutputLocationMap:v15 outputToPreprocessedMap:v30 outputLen:v38 outputToTextMap:v41];
   free(v28);
   free(v27);
   free(v30);
@@ -398,7 +401,7 @@ LABEL_40:
       free(v15);
     }
 
-    v18 = sub_1B834();
+    v18 = sub_1B834(v14);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1C420();
@@ -411,9 +414,10 @@ LABEL_40:
   {
     wh_backward_translate("%", v13, v11, v14);
     brl_convert_from_utf(v9, v12, v11);
-    if (wh_backward_translate(v12, v13, v11, v15))
+    v20 = wh_backward_translate(v12, v13, v11, v15);
+    if (v20)
     {
-      v21 = sub_1B834();
+      v21 = sub_1B834(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_1C3B8();

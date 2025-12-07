@@ -15,8 +15,8 @@
     v5->_index = [updateCopy index];
     v6 = [_UIDragMonitorSessionPreview alloc];
     imageComponent = [updateCopy imageComponent];
-    preview = [updateCopy preview];
-    v9 = [(_UIDragMonitorSessionPreview *)v6 initWithImageComponent:imageComponent preview:preview];
+    v8 = objc_msgSend_preview(updateCopy);
+    v9 = [(_UIDragMonitorSessionPreview *)v6 initWithImageComponent:imageComponent preview:v8];
     preview = v5->_preview;
     v5->_preview = v9;
 

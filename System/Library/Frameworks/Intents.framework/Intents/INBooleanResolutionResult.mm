@@ -1,9 +1,18 @@
 @interface INBooleanResolutionResult
++ (INBooleanResolutionResult)successWithResolvedValue:(BOOL)resolvedValue;
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description;
 - (id)_vocabularyValueForObject:(id)object slotDescription:(id)description;
 @end
 
 @implementation INBooleanResolutionResult
+
++ (INBooleanResolutionResult)successWithResolvedValue:(BOOL)resolvedValue
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:resolvedValue];
+  v5 = [self resolutionResultSuccessWithResolvedValue:v4];
+
+  return v5;
+}
 
 - (id)_vocabularyValueForObject:(id)object slotDescription:(id)description
 {

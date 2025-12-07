@@ -24,12 +24,12 @@
 - (void)updateLocation:(id)location error:(id)error
 {
   locationCopy = location;
-  v9.receiver = self;
-  v9.super_class = NCLocationUpdateSimulatorDelegate;
-  [(NCLocationUpdateBaseDelegate *)&v9 updateLocation:locationCopy error:error];
+  v8.receiver = self;
+  v8.super_class = NCLocationUpdateSimulatorDelegate;
+  [(NCLocationUpdateBaseDelegate *)&v8 updateLocation:locationCopy error:error];
   if (locationCopy && self->_inSession)
   {
-    objc_msgSend_addObject_(self->_locations, v7, locationCopy, v8);
+    objc_msgSend_addObject_(self->_locations, v7, locationCopy);
   }
 }
 
@@ -38,7 +38,7 @@
   self->_inSession = 0;
   locations = self->_locations;
   sessionCopy = session;
-  objc_msgSend_removeAllObjects(locations, v4, v5, v6);
+  objc_msgSend_removeAllObjects(locations, v4, v5);
   sessionCopy[2]();
 }
 

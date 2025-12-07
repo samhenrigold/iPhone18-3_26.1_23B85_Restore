@@ -28,9 +28,8 @@
   {
     v4 = objc_opt_new();
     [v4 setDomain:v3];
-    v5 = *MEMORY[0x277D489C0];
-    v6 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277D489B8], *MEMORY[0x277D489C0], *MEMORY[0x277D489C8], *MEMORY[0x277D489D0], *MEMORY[0x277D489D8], *MEMORY[0x277D489E0], 0}];
-    [v4 setDeferredMessageKeys:v6];
+    v5 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277D489B8], *MEMORY[0x277D489C0], *MEMORY[0x277D489C8], *MEMORY[0x277D489D0], *MEMORY[0x277D489D8], *MEMORY[0x277D489E0], 0}];
+    [v4 setDeferredMessageKeys:v5];
   }
 
   else

@@ -21,7 +21,7 @@
 
 + (Class)layoutOptionsClass
 {
-  sub_20CECF940(0, &qword_27C821580);
+  sub_20CECF940(0, &qword_27C821580, off_277DB06E0);
 
   return swift_getObjCClassFromMetadata();
 }

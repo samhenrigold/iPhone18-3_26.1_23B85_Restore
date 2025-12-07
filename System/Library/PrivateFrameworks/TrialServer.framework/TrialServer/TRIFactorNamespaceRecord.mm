@@ -80,39 +80,8 @@ LABEL_3:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_factorName == 0, [recordCopy factorName], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (factorName = self->_factorName) != 0 && (objc_msgSend(v5, "factorName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](factorName, "isEqual:", v10), v10, !v11) || (v12 = self->_namespaceName == 0, objc_msgSend(v5, "namespaceName"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_factorName == 0;
-  factorName = [recordCopy factorName];
-  v8 = factorName != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  factorName = self->_factorName;
-  if (factorName)
-  {
-    factorName2 = [v5 factorName];
-    v11 = [(NSString *)factorName isEqual:factorName2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_namespaceName == 0;
-  namespaceName = [v5 namespaceName];
-  v14 = namespaceName != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     namespaceName = self->_namespaceName;
     if (namespaceName)
     {
-      namespaceName2 = [v5 namespaceName];
-      v17 = [(NSString *)namespaceName isEqual:namespaceName2];
+      namespaceName = [v5 namespaceName];
+      v17 = [(NSString *)namespaceName isEqual:namespaceName];
     }
 
     else

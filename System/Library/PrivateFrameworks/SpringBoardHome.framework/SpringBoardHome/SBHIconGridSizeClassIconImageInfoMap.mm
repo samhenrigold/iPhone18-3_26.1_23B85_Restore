@@ -132,10 +132,10 @@
     v13 = [sizesCopy gridSizeForGridSizeClass:classCopy];
     v14 = v13;
     v15 = HIWORD(v13);
-    [(SBHIconGridSizeClassIconImageInfoMap *)self iconImageInfoForGridSizeClass:@"SBHIconGridSizeClassDefault"];
+    objc_msgSend_iconImageInfoForGridSizeClass_(self);
     v17 = v16;
     v19 = v18;
-    [(SBHIconGridSizeClassIconImageInfoMap *)self iconImageInfoForGridSizeClass:classCopy];
+    objc_msgSend_iconImageInfoForGridSizeClass_(self);
     v11 = v20 - (width * (v14 - 1) + v17 * v14);
     v12 = v21 - (height * (v15 - 1) + v19 * v15);
   }
@@ -197,7 +197,7 @@
   return result;
 }
 
-uint64_t __101__SBHIconGridSizeClassIconImageInfoMap_extraIconImageSizeForGridSizeClassSizes_iconSpacing_inDomain___block_invoke(uint64_t a1, uint64_t a2)
+void *__101__SBHIconGridSizeClassIconImageInfoMap_extraIconImageSizeForGridSizeClassSizes_iconSpacing_inDomain___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) extraIconImageSizeForGridSizeClass:a2 gridSizeClassSizes:*(a1 + 40) iconSpacing:{*(a1 + 56), *(a1 + 64)}];
   v6 = *(*(a1 + 48) + 8);
@@ -239,7 +239,7 @@ LABEL_3:
       }
 
       v10 = *(*(&v12 + 1) + 8 * v9);
-      [(SBHIconGridSizeClassIconImageInfoMap *)self iconImageInfoForGridSizeClass:v10];
+      objc_msgSend_iconImageInfoForGridSizeClass_(self);
       v11 = 0;
       blockCopy[2](blockCopy, v10, &v11);
       if (v11)

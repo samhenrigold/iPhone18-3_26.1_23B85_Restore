@@ -95,57 +95,58 @@
 - (void)scheduleEstimate
 {
   Current = CFAbsoluteTimeGetCurrent();
-  v4 = sub_100011660();
-  sub_100185AC0(v4, &v14);
-  v13 = 0.0;
-  sub_1000B9370(v14, "kP6MWDNextEstimateTime", &v13);
-  v5 = v13;
-  if (v13 > Current + 604800.0)
+  v6 = sub_100011660(v4, v5);
+  sub_100185AC0(v6, &v19);
+  v18 = 0.0;
+  sub_1000B9370(v19, "kP6MWDNextEstimateTime", &v18);
+  v7 = v18;
+  if (v18 > Current + 604800.0)
   {
     if (qword_1025D4430 != -1)
     {
       sub_10187CF34();
     }
 
-    v6 = qword_1025D4438;
+    v8 = qword_1025D4438;
     if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v23 = "kP6MWDNextEstimateTime";
-      v24 = 2050;
-      v25 = v13;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
+      v28 = "kP6MWDNextEstimateTime";
+      v29 = 2050;
+      v30 = v18;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "%{public}s is too far in the future (%{public}.2f). Resetting!", buf, 0x16u);
     }
 
     if (sub_10000A100(121, 0))
     {
       sub_10187CF5C(buf);
-      v16 = 136446466;
-      v17 = "kP6MWDNextEstimateTime";
-      v18 = 2050;
-      v19 = v13;
-      v11 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLPredictedWalkDistanceServiceCompanion scheduleEstimate]", "%s\n", v11);
-      if (v11 != buf)
+      v21 = 136446466;
+      v22 = "kP6MWDNextEstimateTime";
+      v23 = 2050;
+      v24 = v18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4438, 16, "%{public}s is too far in the future (%{public}.2f). Resetting!", &v21, 22);
+      v15 = v14;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLPredictedWalkDistanceServiceCompanion scheduleEstimate]", "%s\n", v14);
+      if (v15 != buf)
       {
-        free(v11);
+        free(v15);
       }
     }
 
-    sub_1004FA8B8(v14, "kP6MWDNextEstimateTime", 0xFFFFFFFFLL);
-    v13 = 0.0;
-    v5 = 0.0;
+    sub_1004FA8B8(v19, "kP6MWDNextEstimateTime", 0xFFFFFFFFLL);
+    v18 = 0.0;
+    v7 = 0.0;
   }
 
-  v7 = v5 - Current;
-  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v7)
+  v9 = v7 - Current;
+  if (XPC_ACTIVITY_INTERVAL_30_MIN <= v9)
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = XPC_ACTIVITY_INTERVAL_30_MIN;
+    v10 = XPC_ACTIVITY_INTERVAL_30_MIN;
   }
 
   if (qword_1025D4430 != -1)
@@ -153,32 +154,34 @@
     sub_10187CF34();
   }
 
-  v9 = qword_1025D4438;
+  v11 = qword_1025D4438;
   if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v23 = "com.apple.locationd.P6MWD";
-    v24 = 2050;
-    v25 = v13;
-    v26 = 2050;
-    v27 = v8;
-    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextEstimateTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
+    v28 = "com.apple.locationd.P6MWD";
+    v29 = 2050;
+    v30 = v18;
+    v31 = 2050;
+    v32 = v10;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Registering XPC Activity with nextEstimateTime=(%{public}.2f) and delay=(%{public}lld)", buf, 0x20u);
   }
 
   if (sub_10000A100(121, 2))
   {
     sub_10187CF5C(buf);
-    v16 = 136446722;
-    v17 = "com.apple.locationd.P6MWD";
-    v18 = 2050;
-    v19 = v13;
-    v20 = 2050;
-    v21 = v8;
-    v10 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion scheduleEstimate]", "%s\n", v10);
-    if (v10 != buf)
+    v21 = 136446722;
+    v22 = "com.apple.locationd.P6MWD";
+    v23 = 2050;
+    v24 = v18;
+    v25 = 2050;
+    v26 = v10;
+    LODWORD(v16) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4438, 0, "%{public}s: Registering XPC Activity with nextEstimateTime=(%{public}.2f) and delay=(%{public}lld)", &v21, v16);
+    v13 = v12;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion scheduleEstimate]", "%s\n", v12);
+    if (v13 != buf)
     {
-      free(v10);
+      free(v13);
     }
   }
 
@@ -188,16 +191,17 @@
   handler[2] = sub_1003EF2F0;
   handler[3] = &unk_102450188;
   handler[4] = [objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")];
-  handler[5] = v8;
+  handler[5] = v10;
   xpc_activity_register("com.apple.locationd.P6MWD", XPC_ACTIVITY_CHECK_IN, handler);
-  if (v15)
+  if (v20)
   {
-    sub_100008080(v15);
+    sub_100008080(v20);
   }
 }
 
 - (void)setUpAggregationOnTimer
 {
+  selfCopy = self;
   ptr = self->fBoutAggregator.__ptr_;
   v5 = ptr[1];
   v4 = ptr[2];
@@ -234,49 +238,49 @@
     v11 = 24 * v7;
     *v11 = xmmword_101C76360;
     *(v11 + 16) = 0;
-    v6 = 24 * v7 + 24;
+    p_fBoutAggregator = 24 * v7 + 24;
     v12 = ptr[1] - *ptr;
     v13 = 24 * v7 - v12;
     memcpy((v11 - v12), *ptr, v12);
-    v14 = *ptr;
+    self = *ptr;
     *ptr = v13;
-    ptr[1] = v6;
+    ptr[1] = p_fBoutAggregator;
     ptr[2] = 0;
-    if (v14)
+    if (self)
     {
-      operator delete(v14);
+      operator delete(self);
     }
   }
 
   else
   {
-    *v5 = xmmword_101C76360;
-    v5[16] = 0;
-    v6 = (v5 + 24);
+    *v5->CLIntersiloService_opaque = xmmword_101C76360;
+    LOBYTE(v5->fBoutDb.__cntrl_) = 0;
+    p_fBoutAggregator = &v5->fBoutAggregator;
   }
 
-  ptr[1] = v6;
-  v22 = 86400;
-  v15 = sub_100011660();
-  sub_100185AC0(v15, &v20);
-  sub_10005BBE4(v20, "P6MWDAggregationTimeInterval", &v22);
-  if (v21)
+  ptr[1] = p_fBoutAggregator;
+  v21 = 86400;
+  v14 = sub_100011660(self, a2);
+  sub_100185AC0(v14, &v19);
+  sub_10005BBE4(v19, "P6MWDAggregationTimeInterval", &v21);
+  if (v20)
   {
-    sub_100008080(v21);
+    sub_100008080(v20);
   }
 
-  v16 = 1000000000 * v22;
-  v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")]);
-  self->fAggregationTimer = v17;
-  dispatch_source_set_timer(v17, 0, v16, 0xDF8475800uLL);
-  fAggregationTimer = self->fAggregationTimer;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_1003EF870;
-  v19[3] = &unk_102447418;
-  v19[4] = self;
-  dispatch_source_set_event_handler(fAggregationTimer, v19);
-  dispatch_resume(self->fAggregationTimer);
+  v15 = 1000000000 * v21;
+  v16 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, [objc_msgSend(-[dispatch_object_t universe](selfCopy "universe")]);
+  selfCopy[4] = v16;
+  dispatch_source_set_timer(v16, 0, v15, 0xDF8475800uLL);
+  v17 = selfCopy[4];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1003EF870;
+  v18[3] = &unk_102447418;
+  v18[4] = selfCopy;
+  dispatch_source_set_event_handler(v17, v18);
+  dispatch_resume(selfCopy[4]);
 }
 
 - (void)onP6MWDActivity:(id)activity
@@ -354,48 +358,67 @@
   if (objc_opt_class() && ![(CLPredictedWalkDistanceServiceCompanion *)self isWheelchairMode])
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v126 = 0.0;
-    v7 = sub_100011660();
-    sub_100185AC0(v7, buf);
-    sub_1000B9370(*buf, "kP6MWDNextEstimateTime", &v126);
+    v134 = 0.0;
+    v9 = sub_100011660(v7, v8);
+    sub_100185AC0(v9, buf);
+    sub_1000B9370(*buf, "kP6MWDNextEstimateTime", &v134);
+    v11 = *&buf[8];
     if (*&buf[8])
     {
       sub_100008080(*&buf[8]);
     }
 
-    if (Current >= v126)
+    if (Current >= v134)
     {
-      v125 = *self->fP6MWDEstimator.__ptr_;
-      v9 = sub_100011660();
-      sub_100185AC0(v9, buf);
-      v10 = sub_10005BBE4(*buf, "P6MWDActivityHistoryDuration", &v125);
+      v133 = *self->fP6MWDEstimator.__ptr_;
+      v13 = sub_100011660(v11, v10);
+      sub_100185AC0(v13, buf);
+      v14 = sub_10005BBE4(*buf, "P6MWDActivityHistoryDuration", &v133);
       if (*&buf[8])
       {
         sub_100008080(*&buf[8]);
       }
 
-      v11 = v125;
-      if (v10)
+      v15 = v133;
+      if (v14)
       {
-        *self->fP6MWDEstimator.__ptr_ = v125;
+        *self->fP6MWDEstimator.__ptr_ = v133;
       }
 
-      v12 = +[NSDate date];
-      v13 = [(NSDate *)v12 dateByAddingTimeInterval:v11 * -86400.0];
-      v14 = dispatch_group_create();
-      v123[0] = 0;
-      v123[1] = v123;
-      v123[2] = 0x2020000000;
-      v124 = 0;
+      v16 = +[NSDate date];
+      v17 = [(NSDate *)v16 dateByAddingTimeInterval:v15 * -86400.0];
+      v18 = dispatch_group_create();
+      v131[0] = 0;
+      v131[1] = v131;
+      v131[2] = 0x2020000000;
+      v132 = 0;
+      v129[0] = 0;
+      v129[1] = v129;
+      v129[2] = 0x2020000000;
+      v130 = 0;
+      v125[0] = 0;
+      v125[1] = v125;
+      v125[2] = 0x4812000000;
+      v125[3] = sub_1000473E0;
+      v125[4] = sub_1000483B4;
+      v125[5] = &unk_10238AE8B;
+      v128 = 0;
+      v126 = 0;
+      v127 = 0;
       v121[0] = 0;
       v121[1] = v121;
-      v121[2] = 0x2020000000;
+      v121[2] = 0x4812000000;
+      v121[3] = sub_1003F118C;
+      v121[4] = sub_1003F11B0;
+      v121[5] = &unk_10238AE8B;
+      v124 = 0;
       v122 = 0;
+      v123 = 0;
       v117[0] = 0;
       v117[1] = v117;
       v117[2] = 0x4812000000;
-      v117[3] = sub_1000473E0;
-      v117[4] = sub_1000483B4;
+      v117[3] = sub_1003F118C;
+      v117[4] = sub_1003F11B0;
       v117[5] = &unk_10238AE8B;
       v120 = 0;
       v118 = 0;
@@ -430,8 +453,8 @@
       v101[0] = 0;
       v101[1] = v101;
       v101[2] = 0x4812000000;
-      v101[3] = sub_1003F118C;
-      v101[4] = sub_1003F11B0;
+      v101[3] = sub_1003F11C8;
+      v101[4] = sub_1003F11EC;
       v101[5] = &unk_10238AE8B;
       v104 = 0;
       v102 = 0;
@@ -439,8 +462,8 @@
       v97[0] = 0;
       v97[1] = v97;
       v97[2] = 0x4812000000;
-      v97[3] = sub_1003F118C;
-      v97[4] = sub_1003F11B0;
+      v97[3] = sub_1003F1204;
+      v97[4] = sub_1003F1228;
       v97[5] = &unk_10238AE8B;
       v100 = 0;
       v98 = 0;
@@ -448,8 +471,8 @@
       v93[0] = 0;
       v93[1] = v93;
       v93[2] = 0x4812000000;
-      v93[3] = sub_1003F11C8;
-      v93[4] = sub_1003F11EC;
+      v93[3] = sub_1003F1204;
+      v93[4] = sub_1003F1228;
       v93[5] = &unk_10238AE8B;
       v96 = 0;
       v94 = 0;
@@ -457,310 +480,282 @@
       v89[0] = 0;
       v89[1] = v89;
       v89[2] = 0x4812000000;
-      v89[3] = sub_1003F1204;
-      v89[4] = sub_1003F1228;
+      v89[3] = sub_1003F1240;
+      v89[4] = sub_1003F1264;
       v89[5] = &unk_10238AE8B;
       v92 = 0;
-      v90 = 0;
+      __p = 0;
       v91 = 0;
       v85[0] = 0;
       v85[1] = v85;
-      v85[2] = 0x4812000000;
-      v85[3] = sub_1003F1204;
-      v85[4] = sub_1003F1228;
+      v85[2] = 0x5812000000;
+      v85[3] = sub_1003F127C;
+      v85[4] = nullsub_100;
       v85[5] = &unk_10238AE8B;
-      v88 = 0;
       v86 = 0;
-      v87 = 0;
+      v87 = 0u;
+      v88 = 0u;
       v81[0] = 0;
       v81[1] = v81;
-      v81[2] = 0x4812000000;
-      v81[3] = sub_1003F1240;
-      v81[4] = sub_1003F1264;
+      v81[2] = 0x5812000000;
+      v81[3] = sub_1003F127C;
+      v81[4] = nullsub_100;
       v81[5] = &unk_10238AE8B;
-      v84 = 0;
-      __p = 0;
-      v83 = 0;
-      v77[0] = 0;
-      v77[1] = v77;
-      v77[2] = 0x5812000000;
-      v77[3] = sub_1003F127C;
-      v77[4] = nullsub_100;
-      v77[5] = &unk_10238AE8B;
-      v78 = 0;
-      v79 = 0u;
-      v80 = 0u;
-      v73[0] = 0;
-      v73[1] = v73;
-      v73[2] = 0x5812000000;
-      v73[3] = sub_1003F127C;
-      v73[4] = nullsub_100;
-      v73[5] = &unk_10238AE8B;
-      v74 = 0;
-      v75 = 0u;
-      v76 = 0u;
-      dispatch_group_enter(v14);
+      v82 = 0;
+      v83 = 0u;
+      v84 = 0u;
+      dispatch_group_enter(v18);
       global_queue = dispatch_get_global_queue(0, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1003F1294;
       block[3] = &unk_1024501B0;
       block[4] = self;
-      v54 = v13;
-      block[5] = v13;
-      block[8] = v117;
-      block[9] = v123;
-      block[6] = v12;
-      block[7] = v14;
+      v62 = v17;
+      block[5] = v17;
+      block[8] = v125;
+      block[9] = v131;
+      block[6] = v16;
+      block[7] = v18;
       dispatch_async(global_queue, block);
-      v16 = [objc_msgSend(objc_msgSend(objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")];
-      v63 = 0;
-      v64 = &v63;
-      v65 = 0x7012000000;
-      v66 = sub_1003F1494;
-      v67 = nullsub_101;
-      v68 = &unk_10238AE8B;
-      v69 = xmmword_101C763B0;
-      v70 = unk_101C763C0;
-      v71[0] = xmmword_101C763D0;
-      *(v71 + 12) = *(&xmmword_101C763D0 + 12);
-      v17 = [v16 objectForKey:CMNatalimeterSetUserAgeYr];
-      if (v17)
+      v20 = [objc_msgSend(objc_msgSend(objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")];
+      v71 = 0;
+      v72 = &v71;
+      v73 = 0x7012000000;
+      v74 = sub_1003F1494;
+      v75 = nullsub_101;
+      v76 = &unk_10238AE8B;
+      v77 = xmmword_101C763B0;
+      v78 = unk_101C763C0;
+      v79[0] = xmmword_101C763D0;
+      *(v79 + 12) = *(&xmmword_101C763D0 + 12);
+      v21 = [v20 objectForKey:CMNatalimeterSetUserAgeYr];
+      if (v21)
       {
-        v18 = v64;
-        [v17 floatValue];
-        *(v18 + 104) = 1;
-        *(v18 + 17) = v19;
+        v22 = v72;
+        [v21 floatValue];
+        *(v22 + 104) = 1;
+        *(v22 + 17) = v23;
       }
 
-      v20 = [v16 objectForKey:CMNatalimeterSetUserHeightMeter];
-      if (v20)
+      v24 = [v20 objectForKey:CMNatalimeterSetUserHeightMeter];
+      if (v24)
       {
-        v21 = v64;
-        [v20 floatValue];
-        *(v21 + 105) = 1;
-        *(v21 + 14) = v22;
+        v25 = v72;
+        [v24 floatValue];
+        *(v25 + 105) = 1;
+        *(v25 + 14) = v26;
       }
 
-      [objc_msgSend(v16 objectForKey:{CMNatalimeterSetUserWeightKG), "floatValue"}];
-      *(v64 + 15) = v23;
-      v24 = [objc_msgSend(v16 objectForKey:{CMNatalimeterSetUserBiologicalSex), "intValue"}];
-      *(v64 + 13) = v24;
+      [objc_msgSend(v20 objectForKey:{CMNatalimeterSetUserWeightKG), "floatValue"}];
+      *(v72 + 15) = v27;
+      v28 = [objc_msgSend(v20 objectForKey:{CMNatalimeterSetUserBiologicalSex), "intValue"}];
+      *(v72 + 13) = v28;
       if (qword_1025D4430 != -1)
       {
         sub_10187CF34();
       }
 
-      v25 = qword_1025D4438;
+      v29 = qword_1025D4438;
       if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_DEBUG))
       {
-        v26 = *(v64 + 17);
-        v27 = *(v64 + 14);
-        v28 = *(v64 + 15);
+        v30 = *(v72 + 17);
+        v31 = *(v72 + 14);
+        v32 = *(v72 + 15);
         *buf = 134284033;
-        *&buf[4] = v26;
+        *&buf[4] = v30;
         *&buf[12] = 2049;
-        *&buf[14] = v27;
-        v135 = 2049;
-        v136 = v28;
-        _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_DEBUG, "Retrieved demographics: age=%{private}.0f, height=%{private}.2f, weight=%{private}.1f", buf, 0x20u);
+        *&buf[14] = v31;
+        v143 = 2049;
+        v144 = v32;
+        _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEBUG, "Retrieved demographics: age=%{private}.0f, height=%{private}.2f, weight=%{private}.1f", buf, 0x20u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_10187CF5C(buf);
-        v46 = *(v64 + 17);
-        v47 = *(v64 + 14);
-        v48 = *(v64 + 15);
-        v128 = 134284033;
-        v129 = v46;
-        v130 = 2049;
-        v131 = v47;
-        v132 = 2049;
-        v133 = v48;
-        v49 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion getSixMinuteWalkDistancePrediction:]", "%s\n", v49);
-        if (v49 != buf)
+        v50 = *(v72 + 17);
+        v51 = *(v72 + 14);
+        v52 = *(v72 + 15);
+        v136 = 134284033;
+        v137 = v50;
+        v138 = 2049;
+        v139 = v51;
+        v140 = 2049;
+        v141 = v52;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4438, 2, "Retrieved demographics: age=%{private}.0f, height=%{private}.2f, weight=%{private}.1f", &v136, 32);
+        v54 = v53;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion getSixMinuteWalkDistancePrediction:]", "%s\n", v53);
+        if (v54 != buf)
         {
-          free(v49);
+          free(v54);
         }
       }
 
-      v29 = objc_alloc_init(CMPedometer);
-      dispatch_group_enter(v14);
-      v62[0] = _NSConcreteStackBlock;
-      v62[1] = 3221225472;
-      v62[2] = sub_1003F14B4;
-      v62[3] = &unk_1024501D8;
-      v62[5] = v89;
-      v62[4] = v14;
-      [v29 queryRemoteStepCadenceToStrideLengthBinsWithHandler:v62];
-      dispatch_group_enter(v14);
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3221225472;
-      v61[2] = sub_1003F17CC;
-      v61[3] = &unk_1024501D8;
-      v61[5] = v85;
-      v61[4] = v14;
-      [v29 queryStepCadenceToStrideLengthBinsWithHandler:v61];
-      dispatch_group_enter(v14);
-      v60[0] = _NSConcreteStackBlock;
-      v60[1] = 3221225472;
-      v60[2] = sub_1003F1AE4;
-      v60[3] = &unk_102450200;
-      v60[4] = self;
-      v60[5] = v12;
-      v60[8] = v123;
-      v60[7] = v81;
-      v60[6] = v14;
-      dispatch_async(global_queue, v60);
-      v30 = [(NSDate *)v54 dateByAddingTimeInterval:-86400.0];
+      v33 = objc_alloc_init(CMPedometer);
+      dispatch_group_enter(v18);
+      v70[0] = _NSConcreteStackBlock;
+      v70[1] = 3221225472;
+      v70[2] = sub_1003F14B4;
+      v70[3] = &unk_1024501D8;
+      v70[5] = v97;
+      v70[4] = v18;
+      [v33 queryRemoteStepCadenceToStrideLengthBinsWithHandler:v70];
+      dispatch_group_enter(v18);
+      v69[0] = _NSConcreteStackBlock;
+      v69[1] = 3221225472;
+      v69[2] = sub_1003F17CC;
+      v69[3] = &unk_1024501D8;
+      v69[5] = v93;
+      v69[4] = v18;
+      [v33 queryStepCadenceToStrideLengthBinsWithHandler:v69];
+      dispatch_group_enter(v18);
+      v68[0] = _NSConcreteStackBlock;
+      v68[1] = 3221225472;
+      v68[2] = sub_1003F1AE4;
+      v68[3] = &unk_102450200;
+      v68[4] = self;
+      v68[5] = v16;
+      v68[8] = v131;
+      v68[7] = v89;
+      v68[6] = v18;
+      dispatch_async(global_queue, v68);
+      v34 = [(NSDate *)v62 dateByAddingTimeInterval:-86400.0];
       if (qword_1025D4430 != -1)
       {
         sub_10187CF34();
       }
 
-      v31 = qword_1025D4438;
+      v35 = qword_1025D4438;
       if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_DEBUG))
       {
-        [(NSDate *)v30 timeIntervalSinceReferenceDate];
-        v33 = v32;
-        [(NSDate *)v12 timeIntervalSinceReferenceDate];
+        [(NSDate *)v34 timeIntervalSinceReferenceDate];
+        v37 = v36;
+        [(NSDate *)v16 timeIntervalSinceReferenceDate];
         *buf = 134349312;
-        *&buf[4] = v33;
+        *&buf[4] = v37;
         *&buf[12] = 2050;
-        *&buf[14] = v34;
-        _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_DEBUG, "HealthKit queries from %{public}.0f to %{public}.0f", buf, 0x16u);
+        *&buf[14] = v38;
+        _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEBUG, "HealthKit queries from %{public}.0f to %{public}.0f", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_10187CF5C(buf);
-        [(NSDate *)v30 timeIntervalSinceReferenceDate];
-        v51 = v50;
-        [(NSDate *)v12 timeIntervalSinceReferenceDate];
-        v128 = 134349312;
-        v129 = v51;
-        v130 = 2050;
-        v131 = v52;
-        v53 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion getSixMinuteWalkDistancePrediction:]", "%s\n", v53);
-        if (v53 != buf)
+        v55 = qword_1025D4438;
+        [(NSDate *)v34 timeIntervalSinceReferenceDate];
+        v57 = v56;
+        [(NSDate *)v16 timeIntervalSinceReferenceDate];
+        v136 = 134349312;
+        v137 = v57;
+        v138 = 2050;
+        v139 = v58;
+        LODWORD(v61) = 22;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v55, 2, "HealthKit queries from %{public}.0f to %{public}.0f", &v136, v61);
+        v60 = v59;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion getSixMinuteWalkDistancePrediction:]", "%s\n", v59);
+        if (v60 != buf)
         {
-          free(v53);
+          free(v60);
         }
       }
 
-      v35 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-      v36 = [(NSCalendar *)v35 components:30 fromDate:v30];
-      [(NSDateComponents *)v36 setCalendar:v35];
-      v37 = [(NSCalendar *)v35 components:30 fromDate:v12];
-      [(NSDateComponents *)v37 setCalendar:v35];
-      v38 = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:v36 endDateComponents:v37];
-      dispatch_group_enter(v14);
-      v59[0] = _NSConcreteStackBlock;
-      v59[1] = 3221225472;
-      v59[2] = sub_1003F1CC4;
-      v59[3] = &unk_102450250;
-      v59[6] = v123;
-      v59[7] = v113;
-      v59[8] = v105;
-      v59[9] = v101;
-      v59[4] = self;
-      v59[5] = v14;
-      v39 = [[HKActivitySummaryQuery alloc] initWithPredicate:v38 resultsHandler:v59];
-      [(HKHealthStore *)self->fHkHealthStore executeQuery:v39];
-
-      v40 = [HKQuery predicateForSamplesWithStartDate:v30 endDate:v12 options:3];
-      v41 = +[HKQuery _predicateForObjectsFromAppleWatches];
-      v127[0] = v40;
-      v127[1] = v41;
-      v42 = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:v127 count:2]];
-      dispatch_group_enter(v14);
-      v58[0] = _NSConcreteStackBlock;
-      v58[1] = 3221225472;
-      v58[2] = sub_1003F24EC;
-      v58[3] = &unk_102450278;
-      v58[6] = v123;
-      v58[7] = v93;
-      v58[8] = v77;
-      v58[9] = v73;
-      v58[4] = self;
-      v58[5] = v14;
-      v43 = [[HKSampleQuery alloc] initWithSampleType:+[HKSampleType workoutType](HKSampleType predicate:"workoutType") limit:v42 sortDescriptors:0 resultsHandler:{0, v58}];
+      v39 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+      v40 = [(NSCalendar *)v39 components:30 fromDate:v34];
+      [(NSDateComponents *)v40 setCalendar:v39];
+      v41 = [(NSCalendar *)v39 components:30 fromDate:v16];
+      [(NSDateComponents *)v41 setCalendar:v39];
+      v42 = [HKQuery predicateForActivitySummariesBetweenStartDateComponents:v40 endDateComponents:v41];
+      dispatch_group_enter(v18);
+      v67[0] = _NSConcreteStackBlock;
+      v67[1] = 3221225472;
+      v67[2] = sub_1003F1CC4;
+      v67[3] = &unk_102450250;
+      v67[6] = v131;
+      v67[7] = v121;
+      v67[8] = v113;
+      v67[9] = v109;
+      v67[4] = self;
+      v67[5] = v18;
+      v43 = [[HKActivitySummaryQuery alloc] initWithPredicate:v42 resultsHandler:v67];
       [(HKHealthStore *)self->fHkHealthStore executeQuery:v43];
 
-      dispatch_group_enter(v14);
-      v57[0] = _NSConcreteStackBlock;
-      v57[1] = 3221225472;
-      v57[2] = sub_1003F2CBC;
-      v57[3] = &unk_1024502C8;
-      v57[6] = v123;
-      v57[7] = v97;
-      v57[4] = self;
-      v57[5] = v14;
-      v44 = [[HKSampleQuery alloc] initWithSampleType:+[HKObjectType categoryTypeForIdentifier:](HKObjectType predicate:"categoryTypeForIdentifier:" limit:HKCategoryTypeIdentifierAppleStandHour) sortDescriptors:v42 resultsHandler:{0, 0, v57}];
-      [(HKHealthStore *)self->fHkHealthStore executeQuery:v44];
+      v44 = [HKQuery predicateForSamplesWithStartDate:v34 endDate:v16 options:3];
+      v45 = +[HKQuery _predicateForObjectsFromAppleWatches];
+      v135[0] = v44;
+      v135[1] = v45;
+      v46 = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:v135 count:2]];
+      dispatch_group_enter(v18);
+      v66[0] = _NSConcreteStackBlock;
+      v66[1] = 3221225472;
+      v66[2] = sub_1003F24EC;
+      v66[3] = &unk_102450278;
+      v66[6] = v131;
+      v66[7] = v101;
+      v66[8] = v85;
+      v66[9] = v81;
+      v66[4] = self;
+      v66[5] = v18;
+      v47 = [[HKSampleQuery alloc] initWithSampleType:+[HKSampleType workoutType](HKSampleType predicate:"workoutType") limit:v46 sortDescriptors:0 resultsHandler:{0, v66}];
+      [(HKHealthStore *)self->fHkHealthStore executeQuery:v47];
 
-      dispatch_group_enter(v14);
-      v56[0] = _NSConcreteStackBlock;
-      v56[1] = 3221225472;
-      v56[2] = sub_1003F3250;
-      v56[3] = &unk_102450318;
-      v56[6] = v123;
-      v56[7] = v121;
-      v56[8] = v109;
-      v56[4] = self;
-      v56[5] = v14;
-      v45 = [[HKSampleQuery alloc] initWithSampleType:+[HKSampleType quantityTypeForIdentifier:](HKSampleType predicate:"quantityTypeForIdentifier:" limit:HKQuantityTypeIdentifierFlightsClimbed) sortDescriptors:v40 resultsHandler:{0, 0, v56}];
-      [(HKHealthStore *)self->fHkHealthStore executeQuery:v45];
+      dispatch_group_enter(v18);
+      v65[0] = _NSConcreteStackBlock;
+      v65[1] = 3221225472;
+      v65[2] = sub_1003F2CBC;
+      v65[3] = &unk_1024502C8;
+      v65[6] = v131;
+      v65[7] = v105;
+      v65[4] = self;
+      v65[5] = v18;
+      v48 = [[HKSampleQuery alloc] initWithSampleType:+[HKObjectType categoryTypeForIdentifier:](HKObjectType predicate:"categoryTypeForIdentifier:" limit:HKCategoryTypeIdentifierAppleStandHour) sortDescriptors:v46 resultsHandler:{0, 0, v65}];
+      [(HKHealthStore *)self->fHkHealthStore executeQuery:v48];
 
-      v55[0] = _NSConcreteStackBlock;
-      v55[1] = 3221225472;
-      v55[2] = sub_1003F38EC;
-      v55[3] = &unk_102450340;
-      v55[4] = v14;
-      v55[5] = prediction;
-      v55[8] = v123;
-      v55[9] = v117;
-      v55[6] = self;
-      v55[7] = v12;
-      v55[10] = v113;
-      v55[11] = v97;
-      v55[12] = v89;
-      v55[13] = &v63;
-      v55[14] = v85;
-      v55[15] = v81;
-      v55[16] = v121;
-      v55[17] = v109;
-      v55[18] = v101;
-      v55[19] = v105;
-      v55[20] = v93;
-      v55[21] = v77;
-      v55[22] = v73;
-      dispatch_group_notify(v14, [objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")], v55);
-      _Block_object_dispose(&v63, 8);
-      _Block_object_dispose(v73, 8);
-      _Block_object_dispose(v77, 8);
+      dispatch_group_enter(v18);
+      v64[0] = _NSConcreteStackBlock;
+      v64[1] = 3221225472;
+      v64[2] = sub_1003F3250;
+      v64[3] = &unk_102450318;
+      v64[6] = v131;
+      v64[7] = v129;
+      v64[8] = v117;
+      v64[4] = self;
+      v64[5] = v18;
+      v49 = [[HKSampleQuery alloc] initWithSampleType:+[HKSampleType quantityTypeForIdentifier:](HKSampleType predicate:"quantityTypeForIdentifier:" limit:HKQuantityTypeIdentifierFlightsClimbed) sortDescriptors:v44 resultsHandler:{0, 0, v64}];
+      [(HKHealthStore *)self->fHkHealthStore executeQuery:v49];
+
+      v63[0] = _NSConcreteStackBlock;
+      v63[1] = 3221225472;
+      v63[2] = sub_1003F38EC;
+      v63[3] = &unk_102450340;
+      v63[4] = v18;
+      v63[5] = prediction;
+      v63[8] = v131;
+      v63[9] = v125;
+      v63[6] = self;
+      v63[7] = v16;
+      v63[10] = v121;
+      v63[11] = v105;
+      v63[12] = v97;
+      v63[13] = &v71;
+      v63[14] = v93;
+      v63[15] = v89;
+      v63[16] = v129;
+      v63[17] = v117;
+      v63[18] = v109;
+      v63[19] = v113;
+      v63[20] = v101;
+      v63[21] = v85;
+      v63[22] = v81;
+      dispatch_group_notify(v18, [objc_msgSend(-[CLPredictedWalkDistanceServiceCompanion universe](self "universe")], v63);
+      _Block_object_dispose(&v71, 8);
       _Block_object_dispose(v81, 8);
+      _Block_object_dispose(v85, 8);
+      _Block_object_dispose(v89, 8);
       if (__p)
       {
-        v83 = __p;
+        v91 = __p;
         operator delete(__p);
-      }
-
-      _Block_object_dispose(v85, 8);
-      if (v86)
-      {
-        v87 = v86;
-        operator delete(v86);
-      }
-
-      _Block_object_dispose(v89, 8);
-      if (v90)
-      {
-        v91 = v90;
-        operator delete(v90);
       }
 
       _Block_object_dispose(v93, 8);
@@ -813,7 +808,21 @@
       }
 
       _Block_object_dispose(v121, 8);
-      _Block_object_dispose(v123, 8);
+      if (v122)
+      {
+        v123 = v122;
+        operator delete(v122);
+      }
+
+      _Block_object_dispose(v125, 8);
+      if (v126)
+      {
+        v127 = v126;
+        operator delete(v126);
+      }
+
+      _Block_object_dispose(v129, 8);
+      _Block_object_dispose(v131, 8);
     }
 
     else
@@ -823,14 +832,14 @@
         sub_10187CF34();
       }
 
-      v8 = qword_1025D4438;
+      v12 = qword_1025D4438;
       if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
         *&buf[4] = "kP6MWDNextEstimateTime";
         *&buf[12] = 2050;
-        *&buf[14] = v126;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "Estimate should not be made now. %{public}s is in the future (%{public}.2f). Resetting!", buf, 0x16u);
+        *&buf[14] = v134;
+        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_ERROR, "Estimate should not be made now. %{public}s is in the future (%{public}.2f). Resetting!", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 0))
@@ -838,7 +847,7 @@
         sub_10187D9B4();
       }
 
-      [(CLPredictedWalkDistanceServiceCompanion *)self completeActivity:prediction withNextEstimateTime:v126];
+      [(CLPredictedWalkDistanceServiceCompanion *)self completeActivity:prediction withNextEstimateTime:v134];
     }
   }
 
@@ -853,7 +862,7 @@
 - (void)completeActivity:(id)activity withNextEstimateTime:(double)time
 {
   timeCopy = time;
-  v6 = sub_100011660();
+  v6 = sub_100011660(self, a2);
   sub_100185AC0(v6, buf);
   sub_100116D68(*buf, "kP6MWDNextEstimateTime", &timeCopy);
   if (*&buf[8])
@@ -904,13 +913,13 @@
     {
       *buf = 134350081;
       timeCopy = time;
-      v33 = 2050;
+      v34 = 2050;
       timeCopy2 = time;
-      v35 = 2049;
-      v36 = v11;
-      v37 = 1025;
-      v38 = statusCopy;
-      v39 = 2049;
+      v36 = 2049;
+      v37 = v11;
+      v38 = 1025;
+      v39 = statusCopy;
+      v40 = 2049;
       usedCopy = used;
       _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "Writing predicted 6MWD to HealthKit, startTime: %{public}f, endTime: %{public}f, prediction: %{private}f, calibrationStatus: %{private}d, earliestTimeUsed: %{private}f", buf, 0x30u);
     }
@@ -923,21 +932,22 @@
         sub_10187CF34();
       }
 
-      v21 = 134350081;
+      v22 = 134350081;
       timeCopy3 = time;
-      v23 = 2050;
+      v24 = 2050;
       timeCopy4 = time;
-      v25 = 2049;
-      v26 = v11;
-      v27 = 1025;
-      v28 = statusCopy;
-      v29 = 2049;
+      v26 = 2049;
+      v27 = v11;
+      v28 = 1025;
+      v29 = statusCopy;
+      v30 = 2049;
       usedCopy2 = used;
-      v19 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4438, 2, "Writing predicted 6MWD to HealthKit, startTime: %{public}f, endTime: %{public}f, prediction: %{private}f, calibrationStatus: %{private}d, earliestTimeUsed: %{private}f", &v22, 48);
+      v20 = v19;
       sub_100152C7C("Generic", 1, 0, 2, "[CLPredictedWalkDistanceServiceCompanion writeToHealthKitPrediction:estimateTime:earliestTimeUsed:calibrationStatus:]", "%s\n", v19);
-      if (v19 != buf)
+      if (v20 != buf)
       {
-        free(v19);
+        free(v20);
       }
     }
 
@@ -962,7 +972,7 @@
 
     v17 = [HKQuantitySample quantitySampleWithType:v13 quantity:[HKQuantity quantityWithUnit:[HKUnit unitFromString:@"m"] doubleValue:v11] startDate:[NSDate dateWithTimeIntervalSinceReferenceDate:time] endDate:[NSDate dateWithTimeIntervalSinceReferenceDate:time] metadata:v15];
     fHkHealthStore = self->fHkHealthStore;
-    v20 = v17;
+    v21 = v17;
     [(HKHealthStore *)fHkHealthStore saveObjects:[NSArray withCompletion:"arrayWithObjects:count:" arrayWithObjects:1 count:?], &stru_102450380];
   }
 }
@@ -1074,7 +1084,7 @@
     v22 = qword_1025D4438;
     if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_DEBUG))
     {
-      *v23 = 0;
+      v23[0] = 0;
       _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEBUG, "Gait Metrics unavailable, likely because device is locked.", v23, 2u);
     }
 

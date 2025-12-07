@@ -13,7 +13,7 @@
 
 - (CTStewieIMessageLiteMessageOutgoing)initWithMyShortHandle:(id)handle otherShortHandle:(id)shortHandle partNumber:(int64_t)number totalParts:(int64_t)parts payload:(id)payload isRelay:(BOOL)relay error:(id *)error
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   shortHandleCopy = shortHandle;
   payloadCopy = payload;
@@ -21,9 +21,9 @@
     if (error)
     {
       v22 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A578];
-      v50[0] = @"Invalid myShortHandle";
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+      v48 = *MEMORY[0x1E696A578];
+      v49[0] = @"Invalid myShortHandle";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
       *error = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v23];
     }
 
@@ -34,9 +34,9 @@
     if (error)
     {
       v24 = MEMORY[0x1E696ABC0];
-      v47 = *MEMORY[0x1E696A578];
-      v48 = @"Invalid otherShortHandle";
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x1E696A578];
+      v47 = @"Invalid otherShortHandle";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
       *error = [v24 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v25];
     }
 
@@ -48,9 +48,9 @@
     if (error)
     {
       v26 = MEMORY[0x1E696ABC0];
-      v45 = *MEMORY[0x1E696A578];
-      v46 = @"Invalid partNumber";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v44 = *MEMORY[0x1E696A578];
+      v45 = @"Invalid partNumber";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
       *error = [v26 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v27];
     }
 
@@ -62,9 +62,9 @@
     if (error)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v43 = *MEMORY[0x1E696A578];
-      v44 = @"Invalid totalParts";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+      v42 = *MEMORY[0x1E696A578];
+      v43 = @"Invalid totalParts";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
       *error = [v28 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v29];
     }
 
@@ -76,9 +76,9 @@
     if (error)
     {
       v30 = MEMORY[0x1E696ABC0];
-      v41 = *MEMORY[0x1E696A578];
-      v42 = @"Payload is missing";
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v40 = *MEMORY[0x1E696A578];
+      v41 = @"Payload is missing";
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       *error = [v30 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v31];
     }
 
@@ -90,18 +90,18 @@
     if (error)
     {
       v20 = MEMORY[0x1E696ABC0];
-      v39 = *MEMORY[0x1E696A578];
-      v40 = @"Payload is too big";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v38 = *MEMORY[0x1E696A578];
+      v39 = @"Payload is too big";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
       *error = [v20 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v21];
     }
 
     goto LABEL_22;
   }
 
-  v38.receiver = self;
-  v38.super_class = CTStewieIMessageLiteMessageOutgoing;
-  v32 = [(CTStewieIMessageLiteMessageOutgoing *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = CTStewieIMessageLiteMessageOutgoing;
+  v32 = [(CTStewieIMessageLiteMessageOutgoing *)&v37 init];
   v33 = v32;
   if (!v32)
   {
@@ -121,7 +121,6 @@ LABEL_22:
   selfCopy = self;
 LABEL_23:
 
-  v35 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

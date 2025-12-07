@@ -113,7 +113,7 @@
 {
   if (self->_activateCalled && !self->_invalidateDone)
   {
-    v2 = [ENExposureDetectionSession dealloc];
+    [ENExposureDetectionSession dealloc];
     [(ENManager *)v2 .cxx_destruct];
   }
 
@@ -185,16 +185,16 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __23__ENManager_invalidate__block_invoke(uint64_t result)
+void *__23__ENManager_invalidate__block_invoke(void *result)
 {
-  v2 = result + 32;
-  v1 = *(result + 32);
+  v2 = result + 4;
+  v1 = result[4];
   if ((*(v1 + 32) & 1) == 0)
   {
     *(v1 + 32) = 1;
     if (gLogCategory_ENManager <= 30 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
     {
-      __23__ENManager_invalidate__block_invoke_cold_1(v2);
+      __23__ENManager_invalidate__block_invoke_cold_1();
     }
 
     v3 = *(*v2 + 40);
@@ -215,7 +215,7 @@ uint64_t __23__ENManager_invalidate__block_invoke(uint64_t result)
 {
   if (self->_invalidateCalled && !self->_invalidateDone && !self->_xpcCnx)
   {
-    v9 = MEMORY[0x2383EE560](self->_invalidationHandler, a2);
+    v10 = MEMORY[0x2383EE560](self->_invalidationHandler, a2);
     activityHandler = self->_activityHandler;
     self->_activityHandler = 0;
 
@@ -228,20 +228,20 @@ uint64_t __23__ENManager_invalidate__block_invoke(uint64_t result)
     statusChangedHandler = self->_statusChangedHandler;
     self->_statusChangedHandler = 0;
 
-    v7 = v9;
-    if (v9)
+    v9 = v10;
+    if (v10)
     {
-      (*(v9 + 16))(v9);
-      v7 = v9;
+      v7 = (*(v10 + 16))(v10);
+      v9 = v10;
     }
 
     self->_invalidateDone = 1;
     if (gLogCategory_ENManager <= 30)
     {
-      if (gLogCategory_ENManager != -1 || (v8 = _LogCategory_Initialize(), v7 = v9, v8))
+      if (gLogCategory_ENManager != -1 || (v7 = _LogCategory_Initialize(), v9 = v10, v7))
       {
-        [ENManager _invalidated];
-        v7 = v9;
+        [(ENManager *)v7 _invalidated];
+        v9 = v10;
       }
     }
   }
@@ -260,41 +260,36 @@ void *__30__ENManager__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a2)
 
 + (ENAuthorizationStatus)authorizationStatus
 {
-  v2 = MEMORY[0x277D6C150];
-  v3 = *MEMORY[0x277D6C150];
-  v4 = TCCAccessPreflight();
-  if (!v4)
+  v2 = TCCAccessPreflight();
+  if (!v2)
   {
     return 3;
   }
 
-  if (v4 == 1)
+  if (v2 != 1)
   {
-    v5 = *v2;
-    if (TCCAccessRestricted())
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 2;
-    }
-  }
-
-  else
-  {
-    v7 = *v2;
     return (TCCAccessRestricted() != 0);
   }
+
+  if (TCCAccessRestricted())
+  {
+    return 1;
+  }
+
+  return 2;
 }
 
 - (id)descriptionWithLevel:(int)level
 {
-  clientID = self->_clientID;
-  v3 = NSPrintF();
+  v3 = "CID 0x%X";
+  if ((level & 0x8000000) == 0)
+  {
+    v3 = "ENManager, CID 0x%X";
+  }
 
-  return v3;
+  v4 = NSPrintF(v3, a2, self->_clientID);
+
+  return v4;
 }
 
 - (void)activateWithCompletionHandler:(ENErrorHandler)completionHandler
@@ -314,7 +309,22 @@ void *__30__ENManager__ensureXPCStarted__block_invoke(uint64_t a1, uint64_t a2)
 void __43__ENManager_activateWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (((*(v2 + 8) & 1) != 0 || *(v2 + 32) == 1) && (ENErrorF(10), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (*(v2 + 8))
+  {
+    ENErrorF(10, "activate already called");
+  }
+
+  else
+  {
+    if (*(v2 + 32) != 1)
+    {
+      goto LABEL_12;
+    }
+
+    ENErrorF(10, "activate after invalidate");
+  }
+  v3 = ;
+  if (v3)
   {
     v6 = v3;
     if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
@@ -323,21 +333,21 @@ void __43__ENManager_activateWithCompletionHandler___block_invoke(uint64_t a1)
     }
 
     (*(*(a1 + 40) + 16))();
+
+    return;
   }
 
-  else
+LABEL_12:
+  if (gLogCategory_ENManager <= 30 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_ENManager <= 30 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
-    {
-      __43__ENManager_activateWithCompletionHandler___block_invoke_cold_2();
-    }
-
-    *(*(a1 + 32) + 8) = 1;
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-
-    [v4 _activateInitial:1 completionHandler:v5];
+    __43__ENManager_activateWithCompletionHandler___block_invoke_cold_2();
   }
+
+  *(*(a1 + 32) + 8) = 1;
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+
+  [v4 _activateInitial:1 completionHandler:v5];
 }
 
 - (void)_activateInitial:(BOOL)initial completionHandler:(id)handler
@@ -519,7 +529,7 @@ LABEL_13:
   pthread_mutex_unlock(&gENManagerLock);
   if (v5 == 5)
   {
-    v9 = ENErrorF(3);
+    v9 = ENErrorF(3, "Requires entitlement: %s", "com.apple.private.exposure-notification");
     completionCopy[2](completionCopy, v9);
 
     goto LABEL_11;
@@ -554,10 +564,10 @@ LABEL_15:
 LABEL_11:
 }
 
-void __45__ENManager__entitlementCheckWithCompletion___block_invoke(uint64_t a1)
+void __45__ENManager__entitlementCheckWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  [*(a1 + 32) _entitlementCheckUpdate:v2];
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  [*(a1 + 32) _entitlementCheckUpdate:v3];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -646,10 +656,9 @@ void __50__ENManager_getUserTraveledWithCompletionHandler___block_invoke_2(uint6
 {
   if (count)
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 
   else
@@ -662,7 +671,7 @@ void __50__ENManager_getUserTraveledWithCompletionHandler___block_invoke_2(uint6
     handler[1] = 3221225472;
     handler[2] = __50__ENManager_getUserTraveledWithCompletionHandler___block_invoke_3;
     handler[3] = &unk_278A4B720;
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     xpc_connection_send_message_with_reply(v4, v3, v5, handler);
   }
 }
@@ -720,9 +729,9 @@ void __37__ENManager__tccCheckWithCompletion___block_invoke(uint64_t a1, void *a
   }
 }
 
-void __37__ENManager__tccCheckWithCompletion___block_invoke_2(uint64_t a1)
+void __37__ENManager__tccCheckWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -763,14 +772,14 @@ void __37__ENManager__tccCheckWithCompletion___block_invoke_2(uint64_t a1)
 
     else
     {
-      v6 = ENErrorF(1);
+      v6 = ENErrorF(1, "XPC event error");
     }
 
     v8 = v6;
 
     if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
     {
-      [ENManager _xpcReceivedEvent:];
+      [(ENManager *)v8 _xpcReceivedEvent:eventCopy];
     }
   }
 }
@@ -868,7 +877,7 @@ LABEL_8:
 
     else
     {
-      v10 = ENErrorF(15);
+      v10 = ENErrorF(15, "TEK non-array");
       v9 = v14[5];
       v14[5] = v10;
     }
@@ -880,19 +889,9 @@ LABEL_8:
 
 void __59__ENManager__xpcHandlePreAuthorizedDiagnosisKeysAvailable___block_invoke(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && gLogCategory__ENManager <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory__ENManager == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
 }
@@ -1162,7 +1161,7 @@ LABEL_57:
   {
     if (gLogCategory_ENManager <= 30 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
     {
-      [ENManager _xpcHandleStatusChanged:v24 initial:?];
+      [ENManager _xpcHandleStatusChanged:initial:];
     }
 
     [(ENManager *)self willChangeValueForKey:@"exposureNotificationStatus"];
@@ -1220,10 +1219,9 @@ void __62__ENManager_setExposureNotificationEnabled_completionHandler___block_in
 {
   if (a2)
   {
-    v8 = *(a1 + 40);
-    v9 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
 
-    v9();
+    v8();
   }
 
   else
@@ -1235,13 +1233,13 @@ void __62__ENManager_setExposureNotificationEnabled_completionHandler___block_in
     v6 = *(a1 + 32);
     v5 = *(a1 + 40);
     v7 = *(v6 + 80);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __62__ENManager_setExposureNotificationEnabled_completionHandler___block_invoke_3;
-    v10[3] = &unk_278A4B6F8;
-    v10[4] = v6;
-    v11 = v5;
-    xpc_connection_send_message_with_reply(v4, v3, v7, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __62__ENManager_setExposureNotificationEnabled_completionHandler___block_invoke_3;
+    v9[3] = &unk_278A4B6F8;
+    v9[4] = v6;
+    v10 = v5;
+    xpc_connection_send_message_with_reply(v4, v3, v7, v9);
   }
 }
 
@@ -1486,9 +1484,9 @@ void __84__ENManager__setPreAuthorizeDiagnosisKeysEnabled_region_metadata_comple
   }
 }
 
-void __84__ENManager__setPreAuthorizeDiagnosisKeysEnabled_region_metadata_completionHandler___block_invoke_2(uint64_t a1)
+void __84__ENManager__setPreAuthorizeDiagnosisKeysEnabled_region_metadata_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1572,9 +1570,9 @@ void __55__ENManager_setRegionHistoryEnabled_completionHandler___block_invoke(ui
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __55__ENManager_setRegionHistoryEnabled_completionHandler___block_invoke_2(uint64_t a1)
+void __55__ENManager_setRegionHistoryEnabled_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1763,9 +1761,9 @@ void __54__ENManager_setTravelStatusEnabled_completionHandler___block_invoke(uin
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __54__ENManager_setTravelStatusEnabled_completionHandler___block_invoke_2(uint64_t a1)
+void __54__ENManager_setTravelStatusEnabled_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -1819,15 +1817,15 @@ void __61__ENManager_setTravelStatusEnabled_region_completionHandler___block_inv
   }
 }
 
-void __61__ENManager_setTravelStatusEnabled_region_completionHandler___block_invoke_2(uint64_t a1)
+void __61__ENManager_setTravelStatusEnabled_region_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
 - (NSProgress)detectExposuresWithConfiguration:(ENExposureConfiguration *)configuration diagnosisKeyURLs:(NSArray *)diagnosisKeyURLs completionHandler:(ENDetectExposuresHandler)completionHandler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v8 = configuration;
   v9 = diagnosisKeyURLs;
   v10 = completionHandler;
@@ -1843,9 +1841,9 @@ void __61__ENManager_setTravelStatusEnabled_region_completionHandler___block_inv
   [(ENExposureDetectionClientSession *)v11 setDispatchQueue:self->_dispatchQueue];
   [(ENExposureDetectionClientSession *)v11 setManager:self];
   v12 = objc_alloc(MEMORY[0x277CCAC48]);
-  v19 = @"ENProgressOwnerKey";
-  v20[0] = self;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = @"ENProgressOwnerKey";
+  v19[0] = self;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v14 = [v12 initWithParent:0 userInfo:v13];
 
   [(ENExposureDetectionClientSession *)v11 setProgress:v14];
@@ -1857,8 +1855,6 @@ void __61__ENManager_setTravelStatusEnabled_region_completionHandler___block_inv
   block[4] = self;
   block[5] = v11;
   dispatch_async(dispatchQueue, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -2075,7 +2071,7 @@ uint64_t __61__ENManager_getExposureWindowsFromSummary_completionHandler___block
   {
     if (self->_invalidateCalled)
     {
-      v19 = ENErrorF(6);
+      v19 = ENErrorF(6, "Invalidated");
       v20 = v27[5];
       v27[5] = v19;
     }
@@ -2095,22 +2091,8 @@ uint64_t __61__ENManager_getExposureWindowsFromSummary_completionHandler___block
 
       v14 = xpc_dictionary_get_array(completedCopy, "expWndA");
       v15 = v14;
-      if (!v14)
+      if (!v14 || (v21[0] = MEMORY[0x277D85DD0], v21[1] = 3221225472, v21[2] = __60__ENManager__getExposureWindowsCompleted_completionHandler___block_invoke_2, v21[3] = &unk_278A4B8B0, v21[4] = self, v21[5] = &v26, v21[6] = v22, xpc_array_apply(v14, v21), !v27[5]))
       {
-        goto LABEL_7;
-      }
-
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __60__ENManager__getExposureWindowsCompleted_completionHandler___block_invoke_2;
-      v21[3] = &unk_278A4B8B0;
-      v21[4] = self;
-      v21[5] = &v26;
-      v21[6] = v22;
-      xpc_array_apply(v14, v21);
-      if (!v27[5])
-      {
-LABEL_7:
         uint64 = xpc_dictionary_get_uint64(completedCopy, "expWndIdx");
         if (uint64)
         {
@@ -2233,18 +2215,16 @@ void __60__ENManager_preAuthorizeDiagnosisKeysWithCompletionHandler___block_invo
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
+    v2 = *(a1 + 32);
     v4 = [*(a1 + 40) receiptId];
-    v5 = *(a1 + 48);
-    v7 = v4;
-    [v3 _preAuthorizeDiagnosisKeysWithSessionID:? completionHandler:?];
+    [v2 _preAuthorizeDiagnosisKeysWithSessionID:? completionHandler:?];
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    v7 = ENErrorF(1);
-    (*(v6 + 16))(v6);
+    v3 = *(a1 + 48);
+    v4 = ENErrorF(1, "Failed to request pre authorization from user");
+    (*(v3 + 16))(v3);
   }
 }
 
@@ -2267,28 +2247,26 @@ void __60__ENManager_preAuthorizeDiagnosisKeysWithCompletionHandler___block_invo
 
 void __71__ENManager__preAuthorizeDiagnosisKeysWithSessionID_completionHandler___block_invoke(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 16);
   *uuid = 0;
-  v9 = 0;
+  v8 = 0;
   [a1[4] getUUIDBytes:uuid];
   xpc_dictionary_set_uuid(v2, "rpsid", uuid);
   v3 = [a1[5] _ensureXPCStarted];
   v4 = *(a1[5] + 10);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __71__ENManager__preAuthorizeDiagnosisKeysWithSessionID_completionHandler___block_invoke_2;
-  v6[3] = &unk_278A4B720;
-  v7 = a1[6];
-  xpc_connection_send_message_with_reply(v3, v2, v4, v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __71__ENManager__preAuthorizeDiagnosisKeysWithSessionID_completionHandler___block_invoke_2;
+  v5[3] = &unk_278A4B720;
+  v6 = a1[6];
+  xpc_connection_send_message_with_reply(v3, v2, v4, v5);
 }
 
-void __71__ENManager__preAuthorizeDiagnosisKeysWithSessionID_completionHandler___block_invoke_2(uint64_t a1)
+void __71__ENManager__preAuthorizeDiagnosisKeysWithSessionID_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -2331,10 +2309,9 @@ void __77__ENManager__checkRemoteDialogueRequirementForRequestType_completionHan
 {
   if (count)
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 
   else
@@ -2348,7 +2325,7 @@ void __77__ENManager__checkRemoteDialogueRequirementForRequestType_completionHan
     handler[1] = 3221225472;
     handler[2] = __77__ENManager__checkRemoteDialogueRequirementForRequestType_completionHandler___block_invoke_3;
     handler[3] = &unk_278A4B720;
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     xpc_connection_send_message_with_reply(v4, v3, v5, handler);
   }
 }
@@ -2436,9 +2413,9 @@ void __56__ENManager_didEnterLegalConsentPage_completionHandler___block_invoke(u
   }
 }
 
-void __56__ENManager_didEnterLegalConsentPage_completionHandler___block_invoke_2(uint64_t a1)
+void __56__ENManager_didEnterLegalConsentPage_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -2454,7 +2431,7 @@ void __56__ENManager_didEnterLegalConsentPage_completionHandler___block_invoke_2
 
   else
   {
-    v10 = ENErrorF(11);
+    v10 = ENErrorF(11, "Failed to create remote presentation controller");
     if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
     {
       [ENManager _handleRemotePresentationRequest:completionHandler:];
@@ -2495,10 +2472,9 @@ void __68__ENManager_requestPreAuthorizedDiagnosisKeysWithCompletionHandler___bl
 {
   if (a2)
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 
   else
@@ -2511,14 +2487,14 @@ void __68__ENManager_requestPreAuthorizedDiagnosisKeysWithCompletionHandler___bl
     handler[1] = 3221225472;
     handler[2] = __68__ENManager_requestPreAuthorizedDiagnosisKeysWithCompletionHandler___block_invoke_3;
     handler[3] = &unk_278A4B720;
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     xpc_connection_send_message_with_reply(v4, v3, v5, handler);
   }
 }
 
-void __68__ENManager_requestPreAuthorizedDiagnosisKeysWithCompletionHandler___block_invoke_3(uint64_t a1)
+void __68__ENManager_requestPreAuthorizedDiagnosisKeysWithCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -2583,7 +2559,7 @@ void __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler__
 
 void __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = xpc_dictionary_create(0, 0, 0);
   v5 = v4;
@@ -2602,7 +2578,7 @@ void __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler__
   if (v3)
   {
     *uuid = 0;
-    v16 = 0;
+    v15 = 0;
     v7 = v5;
     [v3 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v7, "rpsid", uuid);
@@ -2617,10 +2593,8 @@ void __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler__
   handler[2] = __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler___block_invoke_3;
   handler[3] = &unk_278A4B6F8;
   handler[4] = v10;
-  v14 = v9;
+  v13 = v9;
   xpc_connection_send_message_with_reply(v8, v5, v11, handler);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandler___block_invoke_4(uint64_t result, char a2)
@@ -2677,7 +2651,7 @@ uint64_t __71__ENManager_getDiagnosisKeysForTesting_forceRefresh_completionHandl
 
     else
     {
-      v14 = ENErrorF(15);
+      v14 = ENErrorF(15, "GetDiagnosisKeys reply, non-array");
       v13 = v20[5];
       v20[5] = v14;
     }
@@ -2748,33 +2722,18 @@ void __50__ENManager_resetDataWithFlags_completionHandler___block_invoke(uint64_
 {
   if ((~*(a1 + 48) & 0xFFF) != 0)
   {
-    if (gLogCategory_ENManager > 50)
+    if (gLogCategory_ENManager <= 50 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_10;
+      v6 = CUPrintFlags32();
+      LogPrintF_safe();
     }
-
-    if (gLogCategory_ENManager == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_10;
-      }
-
-      v6 = *(a1 + 48);
-    }
-
-    v7 = CUPrintFlags32();
-    LogPrintF_safe();
-
-    goto LABEL_10;
   }
 
-  if (gLogCategory_ENManager <= 50 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_ENManager <= 50 && (gLogCategory_ENManager != -1 || _LogCategory_Initialize()))
   {
     __50__ENManager_resetDataWithFlags_completionHandler___block_invoke_cold_1();
   }
 
-LABEL_10:
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 21);
   v3 = *(a1 + 48);
@@ -2789,13 +2748,13 @@ LABEL_10:
   handler[1] = 3221225472;
   handler[2] = __50__ENManager_resetDataWithFlags_completionHandler___block_invoke_2;
   handler[3] = &unk_278A4B720;
-  v9 = *(a1 + 40);
+  v8 = *(a1 + 40);
   xpc_connection_send_message_with_reply(v4, v2, v5, handler);
 }
 
-void __50__ENManager_resetDataWithFlags_completionHandler___block_invoke_2(uint64_t a1)
+void __50__ENManager_resetDataWithFlags_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -2820,24 +2779,23 @@ void __42__ENManager_diagnosticControl_completion___block_invoke(uint64_t a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 100);
-  v3 = *(a1 + 32);
-  v4 = _CFXPCCreateXPCObjectFromCFObject();
-  if (v4)
+  v3 = _CFXPCCreateXPCObjectFromCFObject();
+  if (v3)
   {
-    xpc_dictionary_set_value(v2, "parm", v4);
-    v5 = [*(a1 + 40) _ensureXPCStarted];
-    v6 = *(*(a1 + 40) + 80);
+    xpc_dictionary_set_value(v2, "parm", v3);
+    v4 = [*(a1 + 40) _ensureXPCStarted];
+    v5 = *(*(a1 + 40) + 80);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __42__ENManager_diagnosticControl_completion___block_invoke_2;
     handler[3] = &unk_278A4B720;
-    v8 = *(a1 + 48);
-    xpc_connection_send_message_with_reply(v5, v2, v6, handler);
+    v7 = *(a1 + 48);
+    xpc_connection_send_message_with_reply(v4, v2, v5, handler);
   }
 
   else
   {
-    __42__ENManager_diagnosticControl_completion___block_invoke_cold_1(a1);
+    __42__ENManager_diagnosticControl_completion___block_invoke_cold_1();
   }
 }
 
@@ -3014,9 +2972,9 @@ void __105__ENManager_triggerNotificationOfType_appBundleIdentifier_classificati
 LABEL_11:
 }
 
-void __105__ENManager_triggerNotificationOfType_appBundleIdentifier_classificationName_interval_region_completion___block_invoke_2(uint64_t a1)
+void __105__ENManager_triggerNotificationOfType_appBundleIdentifier_classificationName_interval_region_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -3056,31 +3014,30 @@ void __50__ENManager_exposureDetectionActivate_completion___block_invoke_2(id *a
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 2);
+    v3 = *(a1[6] + 2);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v5, "mTyp", 30);
-    [a1[4] encodeWithXPCObject:v5];
-    v6 = [a1[5] _ensureXPCStarted];
-    v7 = *(a1[5] + 10);
+    v4 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v4, "mTyp", 30);
+    [a1[4] encodeWithXPCObject:v4];
+    v5 = [a1[5] _ensureXPCStarted];
+    v6 = *(a1[5] + 10);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __50__ENManager_exposureDetectionActivate_completion___block_invoke_3;
     handler[3] = &unk_278A4B720;
-    v9 = a1[6];
-    xpc_connection_send_message_with_reply(v6, v5, v7, handler);
+    v8 = a1[6];
+    xpc_connection_send_message_with_reply(v5, v4, v6, handler);
   }
 }
 
-void __50__ENManager_exposureDetectionActivate_completion___block_invoke_3(uint64_t a1)
+void __50__ENManager_exposureDetectionActivate_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -3103,31 +3060,31 @@ void __50__ENManager_exposureDetectionActivate_completion___block_invoke_3(uint6
 
 void __49__ENManager_exposureDetectionAddKeys_completion___block_invoke(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 31);
   v3 = xpc_array_create(0, 0);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = a1[4];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = xpc_dictionary_create(0, 0, 0);
         [v9 encodeWithXPCObject:v10];
         xpc_array_set_value(v3, 0xFFFFFFFFFFFFFFFFLL, v10);
@@ -3136,7 +3093,7 @@ void __49__ENManager_exposureDetectionAddKeys_completion___block_invoke(id *a1)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -3149,15 +3106,13 @@ void __49__ENManager_exposureDetectionAddKeys_completion___block_invoke(id *a1)
   handler[1] = 3221225472;
   handler[2] = __49__ENManager_exposureDetectionAddKeys_completion___block_invoke_2;
   handler[3] = &unk_278A4B720;
-  v15 = a1[6];
+  v14 = a1[6];
   xpc_connection_send_message_with_reply(v11, v2, v12, handler);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void __49__ENManager_exposureDetectionAddKeys_completion___block_invoke_2(uint64_t a1)
+void __49__ENManager_exposureDetectionAddKeys_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -3342,31 +3297,30 @@ void __54__ENManager_exposureDetectionFileActivate_completion___block_invoke(id 
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 2);
+    v3 = *(a1[6] + 2);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v5, "mTyp", 40);
-    [a1[4] encodeWithXPCObject:v5];
-    v6 = a1[5];
-    v13 = 0;
-    v7 = [v6 _setActivationPropertiesOnRequest:v5 error:&v13];
-    v8 = v13;
-    if (v7)
+    v4 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v4, "mTyp", 40);
+    [a1[4] encodeWithXPCObject:v4];
+    v5 = a1[5];
+    v12 = 0;
+    v6 = [v5 _setActivationPropertiesOnRequest:v4 error:&v12];
+    v7 = v12;
+    if (v6)
     {
-      v9 = [a1[5] _ensureXPCStarted];
-      v10 = *(a1[5] + 10);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __54__ENManager_exposureDetectionFileActivate_completion___block_invoke_2;
-      v11[3] = &unk_278A4B720;
-      v12 = a1[6];
-      xpc_connection_send_message_with_reply(v9, v5, v10, v11);
+      v8 = [a1[5] _ensureXPCStarted];
+      v9 = *(a1[5] + 10);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __54__ENManager_exposureDetectionFileActivate_completion___block_invoke_2;
+      v10[3] = &unk_278A4B720;
+      v11 = a1[6];
+      xpc_connection_send_message_with_reply(v8, v4, v9, v10);
     }
 
     else
@@ -3376,11 +3330,11 @@ void __54__ENManager_exposureDetectionFileActivate_completion___block_invoke(id 
   }
 }
 
-void __54__ENManager_exposureDetectionFileActivate_completion___block_invoke_2(uint64_t a1)
+void __54__ENManager_exposureDetectionFileActivate_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)exposureDetectionFileAdd:(id)add signatureURL:(id)l completion:(id)completion
@@ -3388,113 +3342,134 @@ void __54__ENManager_exposureDetectionFileActivate_completion___block_invoke_2(u
   addCopy = add;
   lCopy = l;
   completionCopy = completion;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__2;
-  v59 = __Block_byref_object_dispose__2;
   v60 = 0;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke;
-  v52[3] = &unk_278A4B860;
-  v54 = &v55;
-  v39 = completionCopy;
-  v53 = v39;
-  v10 = MEMORY[0x2383EE560](v52);
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__2;
+  v64 = __Block_byref_object_dispose__2;
+  v65 = 0;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke;
+  v57[3] = &unk_278A4B860;
+  v59 = &v60;
+  v44 = completionCopy;
+  v58 = v44;
+  v10 = MEMORY[0x2383EE560](v57);
   dispatch_assert_queue_V2(self->_dispatchQueue);
   fileSystemRepresentation = [addCopy fileSystemRepresentation];
-  if (!fileSystemRepresentation || (v12 = realpath_DARWIN_EXTSN(fileSystemRepresentation, 0), (v13 = v12) == 0))
+  if (!fileSystemRepresentation)
   {
-    v33 = ENErrorF(2);
-    v14 = v56[5];
-    v56[5] = v33;
+    v37 = ENErrorF(2, "Bad URL");
+LABEL_25:
+    v14 = v61[5];
+    v61[5] = v37;
     goto LABEL_20;
   }
 
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_2;
-  v51[3] = &__block_descriptor_40_e5_v8__0l;
-  v51[4] = v12;
-  v14 = MEMORY[0x2383EE560](v51);
-  v15 = open(v13, 0);
-  if (v15 < 0 && (!*__error() || *__error()))
+  v12 = realpath_DARWIN_EXTSN(fileSystemRepresentation, 0);
+  v13 = v12;
+  if (!v12)
   {
-    v32 = ENErrorF(2);
-    v16 = v56[5];
-    v56[5] = v32;
+    v37 = ENErrorF(2, "realpath failed");
+    goto LABEL_25;
+  }
+
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_2;
+  v56[3] = &__block_descriptor_40_e5_v8__0l;
+  v56[4] = v12;
+  v14 = MEMORY[0x2383EE560](v56);
+  v15 = open(v13, 0);
+  if ((v15 & 0x80000000) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  if (!*__error())
+  {
+    v16 = 4294960596;
+    goto LABEL_22;
+  }
+
+  v16 = *__error();
+  if (v16)
+  {
+LABEL_22:
+    v36 = ENErrorF(2, "Open file failed: %#m", v16);
+    v17 = v61[5];
+    v61[5] = v36;
     goto LABEL_19;
   }
 
-  v38 = addCopy;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_3;
-  v49[3] = &__block_descriptor_36_e5_v8__0l;
-  v50 = v15;
-  v16 = MEMORY[0x2383EE560](v49);
-  v37 = v10;
-  v17 = xpc_fd_create(v15);
-  if (!v17)
+LABEL_6:
+  v43 = addCopy;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_3;
+  v54[3] = &__block_descriptor_36_e5_v8__0l;
+  v55 = v15;
+  v17 = MEMORY[0x2383EE560](v54);
+  v42 = v10;
+  v18 = xpc_fd_create(v15);
+  if (!v18)
   {
-    v34 = ENErrorF(1);
-    _ensureXPCStarted = v56[5];
-    v56[5] = v34;
+    v38 = ENErrorF(1, "XPC FD create failed");
+    _ensureXPCStarted = v61[5];
+    v61[5] = v38;
     goto LABEL_18;
   }
 
   _ensureXPCStarted = [(ENManager *)self _ensureXPCStarted];
-  v48 = 0u;
-  v47 = 0u;
-  xpcCnx = self->_xpcCnx;
+  v53 = 0u;
+  v52 = 0u;
   xpc_connection_get_audit_token();
-  v20 = *MEMORY[0x277D861B8];
-  v45 = 0u;
-  v46 = 0u;
-  v21 = sandbox_extension_issue_file_to_process();
-  v22 = v21;
-  if (!v21)
+  v50 = 0u;
+  v51 = 0u;
+  v20 = sandbox_extension_issue_file_to_process();
+  v21 = v20;
+  if (!v20)
   {
-    v35 = ENErrorF(2);
-    v23 = v56[5];
-    v56[5] = v35;
+    v39 = ENErrorF(2, "sandbox get token failed");
+    v22 = v61[5];
+    v61[5] = v39;
     goto LABEL_17;
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_4;
-  v44[3] = &__block_descriptor_40_e5_v8__0l;
-  v44[4] = v21;
-  v23 = MEMORY[0x2383EE560](v44);
-  v24 = lCopy;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_4;
+  v49[3] = &__block_descriptor_40_e5_v8__0l;
+  v49[4] = v20;
+  v22 = MEMORY[0x2383EE560](v49);
+  v23 = lCopy;
   if (!lCopy)
   {
-    v29 = 0;
+    v33 = 0;
     goto LABEL_13;
   }
 
-  v25 = objc_alloc(MEMORY[0x277CBEA90]);
-  v26 = v56;
-  obj = v56[5];
-  v27 = [v25 initWithContentsOfURL:v24 options:0 error:&obj];
-  objc_storeStrong(v26 + 5, obj);
-  if (v27)
+  v24 = objc_alloc(MEMORY[0x277CBEA90]);
+  v25 = v61;
+  obj = v61[5];
+  v26 = [v24 initWithContentsOfURL:v23 options:0 error:&obj];
+  objc_storeStrong(v25 + 5, obj);
+  if (v26)
   {
-    v28 = [v27 length];
-    if (v28 - 1 < 0x10000)
+    v32 = [v26 length];
+    if (v32 - 1 < 0x10000)
     {
-      v29 = xpc_data_create([v27 bytes], v28);
+      v33 = xpc_data_create([v26 bytes], v32);
 
 LABEL_13:
-      v27 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_int64(v27, "mTyp", 41);
-      xpc_dictionary_set_value(v27, "fd", v17);
-      xpc_dictionary_set_string(v27, "sbTk", v22);
-      if (v29)
+      v26 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_int64(v26, "mTyp", 41);
+      xpc_dictionary_set_value(v26, "fd", v18);
+      xpc_dictionary_set_string(v26, "sbTk", v21);
+      if (v33)
       {
-        xpc_dictionary_set_value(v27, "sigD", v29);
+        xpc_dictionary_set_value(v26, "sigD", v33);
       }
 
       dispatchQueue = self->_dispatchQueue;
@@ -3502,40 +3477,40 @@ LABEL_13:
       handler[1] = 3221225472;
       handler[2] = __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_5;
       handler[3] = &unk_278A4B720;
-      v42 = v39;
-      xpc_connection_send_message_with_reply(_ensureXPCStarted, v27, dispatchQueue, handler);
-      v31 = v42;
-      v24 = v29;
+      v47 = v44;
+      xpc_connection_send_message_with_reply(_ensureXPCStarted, v26, dispatchQueue, handler);
+      v35 = v47;
+      v23 = v33;
       goto LABEL_16;
     }
 
-    v36 = ENErrorF(2);
+    v40 = ENErrorF(2, "Bad signature size: %d", v32);
   }
 
   else
   {
-    v36 = ENNestedErrorF(v56[5], 1);
+    v40 = ENNestedErrorF(v61[5], 1, "Read signature failed", v27, v28, v29, v30, v31, v41);
   }
 
-  v31 = v56[5];
-  v56[5] = v36;
+  v35 = v61[5];
+  v61[5] = v40;
 LABEL_16:
 
-  v23[2](v23);
+  v22[2](v22);
 LABEL_17:
 
-  v10 = v37;
+  v10 = v42;
 LABEL_18:
 
-  v16[2](v16);
-  addCopy = v38;
+  v17[2](v17);
+  addCopy = v43;
 LABEL_19:
 
   v14[2](v14);
 LABEL_20:
 
   v10[2](v10);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v60, 8);
 }
 
 uint64_t __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke(uint64_t result)
@@ -3548,9 +3523,9 @@ uint64_t __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___bloc
   return result;
 }
 
-void __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_5(uint64_t a1)
+void __62__ENManager_exposureDetectionFileAdd_signatureURL_completion___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -3721,10 +3696,9 @@ uint64_t __81__ENManager__populateDetectionHistoryChecks_forSessions_sessionInde
 {
   if (a3)
   {
-    v11 = *(a1 + 64);
-    v12 = *(*(a1 + 64) + 16);
+    v11 = *(*(a1 + 64) + 16);
 
-    return v12();
+    return v11();
   }
 
   else
@@ -3769,14 +3743,14 @@ uint64_t __81__ENManager__populateDetectionHistoryChecks_forSessions_sessionInde
 
 void __59__ENManager_getDetectionHistoryFilesForSession_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 48);
   v3 = [*(a1 + 32) UUID];
   if (v3)
   {
     *uuid = 0;
-    v13 = 0;
+    v12 = 0;
     v4 = v2;
     [v3 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v4, "sessID", uuid);
@@ -3791,10 +3765,8 @@ void __59__ENManager_getDetectionHistoryFilesForSession_completion___block_invok
   handler[2] = __59__ENManager_getDetectionHistoryFilesForSession_completion___block_invoke_2;
   handler[3] = &unk_278A4B6F8;
   handler[4] = v7;
-  v11 = v6;
+  v10 = v6;
   xpc_connection_send_message_with_reply(v5, v2, v8, handler);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getDetectionHistoryFilesCompleted:(id)completed completion:(id)completion
@@ -3841,7 +3813,7 @@ void __59__ENManager_getDetectionHistoryFilesForSession_completion___block_invok
 
     else
     {
-      v14 = ENErrorF(15);
+      v14 = ENErrorF(15, "HistoryFiles non-array");
       v13 = v20[5];
       v20[5] = v14;
     }
@@ -3854,38 +3826,21 @@ void __59__ENManager_getDetectionHistoryFilesForSession_completion___block_invok
 
 uint64_t __59__ENManager__getDetectionHistoryFilesCompleted_completion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENManager <= 90)
-  {
-    if (gLogCategory__ENManager == -1)
+    if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v4 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF_safe();
+    v3 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v3();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 BOOL __59__ENManager__getDetectionHistoryFilesCompleted_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -3994,7 +3949,7 @@ void __55__ENManager_getDetectionHistorySessionsWithCompletion___block_invoke(ui
 
     else
     {
-      v14 = ENErrorF(15);
+      v14 = ENErrorF(15, "HistorySessions non-array");
       v13 = v20[5];
       v20[5] = v14;
     }
@@ -4007,38 +3962,21 @@ void __55__ENManager_getDetectionHistorySessionsWithCompletion___block_invoke(ui
 
 uint64_t __62__ENManager__getDetectionHistorySessionsCompleted_completion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENManager <= 90)
-  {
-    if (gLogCategory__ENManager == -1)
+    if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v4 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF_safe();
+    v3 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v3();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 BOOL __62__ENManager__getDetectionHistorySessionsCompleted_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -4120,10 +4058,10 @@ void __73__ENManager_sendChaffTestVerificationRequestForRegion_completionHandler
 LABEL_5:
 }
 
-void __73__ENManager_sendChaffTestVerificationRequestForRegion_completionHandler___block_invoke_2(uint64_t a1)
+void __73__ENManager_sendChaffTestVerificationRequestForRegion_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v2 == 0);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v3 == 0);
 }
 
 - (void)startSelfReportWebSession:(id)session completionHandler:(id)handler
@@ -4196,7 +4134,7 @@ void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_
 
       else
       {
-        __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_2_cold_1(a1);
+        __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_2_cold_1();
       }
     }
   }
@@ -4287,7 +4225,7 @@ void __75__ENManager_startTestVerificationSessionWithCode_region_completionHandl
 
     else
     {
-      v7 = ENErrorF(1);
+      v7 = ENErrorF(1, "No session ID");
       (*(v6 + 16))(v6, 0, v7);
     }
   }
@@ -4312,14 +4250,14 @@ void __75__ENManager_startTestVerificationSessionWithCode_region_completionHandl
 
 void __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 301);
   v3 = *(a1 + 32);
   if (v3)
   {
     *uuid = 0;
-    v11 = 0;
+    v10 = 0;
     v4 = v2;
     [v3 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v4, "sessID", uuid);
@@ -4327,14 +4265,12 @@ void __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invok
 
   v5 = [*(a1 + 40) _ensureXPCStarted];
   v6 = *(*(a1 + 40) + 80);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invoke_2;
-  v8[3] = &unk_278A4B720;
-  v9 = *(a1 + 48);
-  xpc_connection_send_message_with_reply(v5, v2, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invoke_2;
+  v7[3] = &unk_278A4B720;
+  v8 = *(a1 + 48);
+  xpc_connection_send_message_with_reply(v5, v2, v6, v7);
 }
 
 void __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -4385,37 +4321,34 @@ void __59__ENManager_fetchTestMetadataForSession_completionHandler___block_invok
 
 void __88__ENManager_finishTestVerificationForSession_userDidConsent_metadata_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v2, "mTyp", 302);
   v3 = *(a1 + 32);
   if (v3)
   {
     *uuid = 0;
-    v12 = 0;
+    v10 = 0;
     v4 = v2;
     [v3 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v4, "sessID", uuid);
   }
 
   xpc_dictionary_set_BOOL(v2, "consent", *(a1 + 64));
-  v5 = *(a1 + 40);
   xpc_dictionary_set_cf_object();
-  v6 = [*(a1 + 48) _ensureXPCStarted];
-  v7 = *(*(a1 + 48) + 80);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __88__ENManager_finishTestVerificationForSession_userDidConsent_metadata_completionHandler___block_invoke_2;
-  v9[3] = &unk_278A4B720;
-  v10 = *(a1 + 56);
-  xpc_connection_send_message_with_reply(v6, v2, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v5 = [*(a1 + 48) _ensureXPCStarted];
+  v6 = *(*(a1 + 48) + 80);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __88__ENManager_finishTestVerificationForSession_userDidConsent_metadata_completionHandler___block_invoke_2;
+  v7[3] = &unk_278A4B720;
+  v8 = *(a1 + 56);
+  xpc_connection_send_message_with_reply(v5, v2, v6, v7);
 }
 
-void __88__ENManager_finishTestVerificationForSession_userDidConsent_metadata_completionHandler___block_invoke_2(uint64_t a1)
+void __88__ENManager_finishTestVerificationForSession_userDidConsent_metadata_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -4477,7 +4410,7 @@ void __40__ENManager_activeRegionWithCompletion___block_invoke_2(uint64_t a1, vo
 
     else
     {
-      v10 = ENErrorF(16);
+      v10 = ENErrorF(16, "No active region found");
       (*(v9 + 16))(v9, 0, v10);
     }
   }
@@ -4542,7 +4475,7 @@ void __47__ENManager_regionConfigurationWithCompletion___block_invoke_2(uint64_t
 
     else
     {
-      v10 = ENErrorF(16);
+      v10 = ENErrorF(16, "No region configuration found");
       (*(v9 + 16))(v9, 0, v10);
     }
   }
@@ -4590,48 +4523,24 @@ void __51__ENManager_allRegionConfigurationsWithCompletion___block_invoke_2(uint
   {
     length = 0;
     data = xpc_dictionary_get_data(v3, "svrCfg", &length);
-    if (!data)
+    if (data && length && (v11 = data, v12 = MEMORY[0x277CBEB98], v13 = objc_opt_class(), v14 = objc_opt_class(), objc_opt_class(), objc_opt_class(), objc_opt_class(), v21 = v14, [v12 setWithObjects:v13], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_alloc(MEMORY[0x277CBEA90]), v17 = objc_msgSend(v16, "initWithBytes:length:", v11, length), v22 = 0, objc_msgSend(MEMORY[0x277CCAAC8], "unarchivedObjectOfClasses:fromData:error:", v15, v17, &v22), v18 = objc_claimAutoreleasedReturnValue(), v4 = v22, v17, v15, v18))
     {
-      goto LABEL_16;
-    }
-
-    if (!length)
-    {
-      goto LABEL_16;
-    }
-
-    v6 = data;
-    v7 = MEMORY[0x277CBEB98];
-    v8 = objc_opt_class();
-    v9 = objc_opt_class();
-    v10 = objc_opt_class();
-    v11 = objc_opt_class();
-    v12 = [v7 setWithObjects:{v8, v9, v10, v11, objc_opt_class(), 0}];
-    v13 = objc_alloc(MEMORY[0x277CBEA90]);
-    v14 = [v13 initWithBytes:v6 length:length];
-    v18 = 0;
-    v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v12 fromData:v14 error:&v18];
-    v4 = v18;
-
-    if (v15)
-    {
-      v16 = *(*(a1 + 32) + 16);
+      v19 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-LABEL_16:
       if (gLogCategory__ENManager <= 90 && (gLogCategory__ENManager != -1 || _LogCategory_Initialize()))
       {
         __51__ENManager_allRegionConfigurationsWithCompletion___block_invoke_2_cold_1();
       }
 
-      v17 = *(a1 + 32);
-      v15 = ENNestedErrorF(v4, 11);
-      v16 = *(v17 + 16);
+      v20 = *(a1 + 32);
+      v18 = ENNestedErrorF(v4, 11, "No region configurations found", v6, v7, v8, v9, v10, v21);
+      v19 = *(v20 + 16);
     }
 
-    v16();
+    v19();
   }
 }
 
@@ -4703,21 +4612,21 @@ void __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_
           }
 
           v14 = *(a1 + 32);
-          v15 = ENErrorF(16);
+          v15 = ENErrorF(16, "No region server configurations found");
           (*(v14 + 16))(v14, 0, v15);
         }
       }
 
       else
       {
-        __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_2(a1);
+        __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_2();
         v13 = 0;
       }
     }
 
     else
     {
-      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(a1);
+      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3();
       v13 = 0;
     }
   }
@@ -4788,14 +4697,14 @@ void __53__ENManager_regionServerConfigurationWithCompletion___block_invoke_2(ui
         }
 
         v13 = *(a1 + 32);
-        v14 = ENErrorF(16);
+        v14 = ENErrorF(16, "Server configurations not found");
         (*(v13 + 16))(v13, 0, v14);
       }
     }
 
     else
     {
-      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(a1);
+      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3();
       v12 = 0;
     }
   }
@@ -4884,14 +4793,14 @@ void __57__ENManager_agencyConfigurationForLocale_withCompletion___block_invoke_
         }
 
         v15 = *(a1 + 32);
-        v16 = ENErrorF(16);
+        v16 = ENErrorF(16, "No region's agency configurations found");
         (*(v15 + 16))(v15, 0, v16);
       }
     }
 
     else
     {
-      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(a1);
+      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3();
       v14 = 0;
     }
   }
@@ -4980,14 +4889,14 @@ void __61__ENManager_allAgencyConfigurationsForLocale_withCompletion___block_inv
         }
 
         v15 = *(a1 + 32);
-        v16 = ENErrorF(16);
+        v16 = ENErrorF(16, "No agency configurations found");
         (*(v15 + 16))(v15, 0, v16);
       }
     }
 
     else
     {
-      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(a1);
+      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3();
       v14 = 0;
     }
   }
@@ -5053,14 +4962,14 @@ void __49__ENManager_getRegionVisitHistoryWithCompletion___block_invoke_2(uint64
 
       else
       {
-        v15 = ENErrorF(16);
+        v15 = ENErrorF(16, "No active history found");
         (*(v14 + 16))(v14, 0, v15);
       }
     }
 
     else
     {
-      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(a1);
+      __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3();
       v12 = 0;
     }
   }
@@ -5080,58 +4989,57 @@ void __49__ENManager_getRegionVisitHistoryWithCompletion___block_invoke_2(uint64
 
 void __41__ENManager_regionHistoryWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v15 + 1) + 8 * v12) region];
+        v13 = [*(*(&v14 + 1) + 8 * v12) region];
         [v7 addObject:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 32) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRegionConsent:(int64_t)consent completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = ENErrorF(5);
+  v6 = ENErrorF(5, "%s has been deprecated", "[ENManager setRegionConsent:completionHandler:]");
   (*(handler + 2))(handlerCopy, v6);
 }
 
 - (void)setRegionConsent:(int64_t)consent region:(id)region completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = ENErrorF(5);
+  v7 = ENErrorF(5, "%s has been deprecated", "[ENManager setRegionConsent:region:completionHandler:]");
   (*(handler + 2))(handlerCopy, v7);
 }
 
@@ -5202,9 +5110,9 @@ void __59__ENManager_setRegionUserConsent_region_completionHandler___block_invok
   }
 }
 
-void __59__ENManager_setRegionUserConsent_region_completionHandler___block_invoke_2(uint64_t a1)
+void __59__ENManager_setRegionUserConsent_region_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5238,9 +5146,9 @@ void __57__ENManager_downloadAndDetectExposure_completionHandler___block_invoke(
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __57__ENManager_downloadAndDetectExposure_completionHandler___block_invoke_2(uint64_t a1)
+void __57__ENManager_downloadAndDetectExposure_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5406,7 +5314,7 @@ void __38__ENManager_getInfoForKey_completion___block_invoke_2(uint64_t a1, void
 
     else
     {
-      __38__ENManager_getInfoForKey_completion___block_invoke_2_cold_2(a1);
+      __38__ENManager_getInfoForKey_completion___block_invoke_2_cold_2();
       v5 = v7;
     }
   }
@@ -5447,7 +5355,7 @@ void __39__ENManager_getEntitiesWithCompletion___block_invoke_2(uint64_t a1, voi
   if (v4)
   {
     v12 = v4;
-    __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_1(a1);
+    __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_1();
   }
 
   else
@@ -5500,7 +5408,7 @@ void __39__ENManager_getEntitiesWithCompletion___block_invoke_2(uint64_t a1, voi
 
             else
             {
-              __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_2(a1);
+              __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_2();
               v22 = v29;
             }
 
@@ -5509,7 +5417,7 @@ void __39__ENManager_getEntitiesWithCompletion___block_invoke_2(uint64_t a1, voi
 
           else
           {
-            __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_3(a1);
+            __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_3();
             v21 = v29;
           }
 
@@ -5519,21 +5427,21 @@ void __39__ENManager_getEntitiesWithCompletion___block_invoke_2(uint64_t a1, voi
 
         else
         {
-          __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_4(a1);
+          __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_4();
           v16 = v29;
         }
       }
 
       else
       {
-        __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_5(a1);
+        __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_5();
         v12 = 0;
       }
     }
 
     else
     {
-      __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_6(a1);
+      __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_6();
       v12 = 0;
     }
   }
@@ -5574,7 +5482,7 @@ void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2(uint64_t a1, 
   if (v4)
   {
     v12 = v4;
-    __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_1(a1, v4);
+    __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_1(a1);
   }
 
   else
@@ -5632,7 +5540,7 @@ void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2(uint64_t a1, 
 
           else
           {
-            __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_2(a1);
+            __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_2();
             v26 = v32;
           }
 
@@ -5641,21 +5549,21 @@ void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2(uint64_t a1, 
 
         else
         {
-          __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_3(a1);
+          __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_3();
           v17 = v32;
         }
       }
 
       else
       {
-        __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_4(a1);
+        __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_4();
         v12 = 0;
       }
     }
 
     else
     {
-      __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_5(a1);
+      __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_5();
       v12 = 0;
     }
   }
@@ -5721,9 +5629,9 @@ void __63__ENManager_onboardingDidStartForRegion_withSource_completion___block_i
   }
 }
 
-void __63__ENManager_onboardingDidStartForRegion_withSource_completion___block_invoke_2(uint64_t a1)
+void __63__ENManager_onboardingDidStartForRegion_withSource_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5810,9 +5718,9 @@ void __56__ENManager_setAutomaticRegionSwitchEnabled_completion___block_invoke(u
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __56__ENManager_setAutomaticRegionSwitchEnabled_completion___block_invoke_2(uint64_t a1)
+void __56__ENManager_setAutomaticRegionSwitchEnabled_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5851,9 +5759,9 @@ void __52__ENManager_setAvailabilityAlertEnabled_completion___block_invoke(uint6
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __52__ENManager_setAvailabilityAlertEnabled_completion___block_invoke_2(uint64_t a1)
+void __52__ENManager_setAvailabilityAlertEnabled_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5889,9 +5797,9 @@ void __44__ENManager_setCurrentActiveApp_completion___block_invoke(id *a1)
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __44__ENManager_setCurrentActiveApp_completion___block_invoke_2(uint64_t a1)
+void __44__ENManager_setCurrentActiveApp_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5931,13 +5839,13 @@ void __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke(id
 
   else
   {
-    __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_cold_1(a1);
+    __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_cold_1();
   }
 }
 
-void __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_2(uint64_t a1)
+void __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -5984,9 +5892,9 @@ void __50__ENManager_setActiveEntityWithRegion_completion___block_invoke(uint64_
   }
 }
 
-void __50__ENManager_setActiveEntityWithRegion_completion___block_invoke_2(uint64_t a1)
+void __50__ENManager_setActiveEntityWithRegion_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6033,9 +5941,9 @@ void __40__ENManager_setActiveRegion_completion___block_invoke(uint64_t a1)
   }
 }
 
-void __40__ENManager_setActiveRegion_completion___block_invoke_2(uint64_t a1)
+void __40__ENManager_setActiveRegion_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6078,19 +5986,19 @@ void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_i
 
     else
     {
-      __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_1(a1);
+      __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_1();
     }
   }
 
   else
   {
-    __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_2(a1);
+    __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_2();
   }
 }
 
-void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_2(uint64_t a1)
+void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6129,9 +6037,9 @@ void __53__ENManager_setWeeklySummaryAlertEnabled_completion___block_invoke(uint
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __53__ENManager_setWeeklySummaryAlertEnabled_completion___block_invoke_2(uint64_t a1)
+void __53__ENManager_setWeeklySummaryAlertEnabled_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6163,9 +6071,9 @@ void __68__ENManager_clearDeveloperServerConfigurationWithCompletionHandler___bl
   xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-void __68__ENManager_clearDeveloperServerConfigurationWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __68__ENManager_clearDeveloperServerConfigurationWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6212,9 +6120,9 @@ void __61__ENManager_remotePresentationRequestDidComplete_completion___block_inv
   }
 }
 
-void __61__ENManager_remotePresentationRequestDidComplete_completion___block_invoke_2(uint64_t a1)
+void __61__ENManager_remotePresentationRequestDidComplete_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6275,7 +6183,7 @@ void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block
 
   else
   {
-    __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_cold_1(a1);
+    __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_cold_1();
   }
 }
 
@@ -6286,7 +6194,7 @@ void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block
   if (v4)
   {
     v15 = v4;
-    __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_1(a1, v4);
+    __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_1(a1);
   }
 
   else
@@ -6339,7 +6247,7 @@ void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block
 
         else
         {
-          __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_3(v16);
+          __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_3();
           v21 = v27;
         }
 
@@ -6351,14 +6259,14 @@ void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block
 
       else
       {
-        __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_4(a1);
+        __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_4();
         v18 = v27;
       }
     }
 
     else
     {
-      __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_5(a1);
+      __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_5();
       v15 = 0;
     }
   }
@@ -6393,15 +6301,15 @@ void __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke(uint6
   v3 = *(a1 + 32);
   if (v3)
   {
+    v11[0] = 0;
+    v11[1] = v11;
+    v11[2] = 0x3032000000;
+    v11[3] = __Block_byref_object_copy__2;
+    v11[4] = __Block_byref_object_dispose__2;
     v12 = 0;
-    v13 = &v12;
-    v14 = 0x3032000000;
-    v15 = __Block_byref_object_copy__2;
-    v16 = __Block_byref_object_dispose__2;
-    v17 = 0;
     obj = 0;
     v4 = ENXPCEncodeSecureObject(v2, "regionData", v3, &obj);
-    objc_storeStrong(&v17, obj);
+    objc_storeStrong(&v12, obj);
     if (v4)
     {
       v5 = [*(a1 + 40) _ensureXPCStarted];
@@ -6410,23 +6318,22 @@ void __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke(uint6
       handler[1] = 3221225472;
       handler[2] = __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_2;
       handler[3] = &unk_278A4BBC8;
-      v9 = *(a1 + 48);
-      v10 = &v12;
+      v8 = *(a1 + 48);
+      v9 = v11;
       xpc_connection_send_message_with_reply(v5, v2, v6, handler);
     }
 
     else
     {
-      v7 = v13[5];
       (*(*(a1 + 48) + 16))();
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(v11, 8);
   }
 
   else
   {
-    __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_cold_1(a1);
+    __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_cold_1();
   }
 }
 
@@ -6444,22 +6351,8 @@ void __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_2(uin
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = xpc_dictionary_get_array(v3, "subCodes");
     v7 = v6;
-    if (!v6)
+    if (!v6 || (v9[0] = MEMORY[0x277D85DD0], v9[1] = 3221225472, v9[2] = __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_3, v9[3] = &unk_278A4B1E8, v8 = *(a1 + 40), v9[4] = v5, v9[5] = v8, xpc_array_apply(v6, v9), !*(*(*(a1 + 40) + 8) + 40)))
     {
-      goto LABEL_4;
-    }
-
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_3;
-    v9[3] = &unk_278A4B1E8;
-    v8 = *(a1 + 40);
-    v9[4] = v5;
-    v9[5] = v8;
-    xpc_array_apply(v6, v9);
-    if (!*(*(*(a1 + 40) + 8) + 40))
-    {
-LABEL_4:
       (*(*(a1 + 32) + 16))();
     }
   }
@@ -6473,28 +6366,27 @@ uint64_t __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_3
     string_ptr = xpc_string_get_string_ptr(v4);
     if (string_ptr)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:string_ptr];
-      [*(a1 + 32) addObject:v9];
-      v7 = 1;
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:string_ptr];
+      [*(a1 + 32) addObject:v8];
+      v6 = 1;
       goto LABEL_6;
     }
 
-    v5 = 16;
+    ENErrorF(16, "Can't get string pointer from xpc response");
   }
 
   else
   {
-    v5 = 15;
+    ENErrorF(15, "Subdivisions element non-string");
   }
-
-  v6 = ENErrorF(v5);
-  v7 = 0;
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v5 = ;
+  v6 = 0;
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 LABEL_6:
 
-  return v7;
+  return v6;
 }
 
 - (void)showBuddyForRegion:(id)region completionHandler:(id)handler
@@ -6540,9 +6432,9 @@ void __50__ENManager_showBuddyForRegion_completionHandler___block_invoke(uint64_
   }
 }
 
-void __50__ENManager_showBuddyForRegion_completionHandler___block_invoke_2(uint64_t a1)
+void __50__ENManager_showBuddyForRegion_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6589,9 +6481,9 @@ void __49__ENManager_verifyTextMessage_completionHandler___block_invoke(uint64_t
   }
 }
 
-void __49__ENManager_verifyTextMessage_completionHandler___block_invoke_2(uint64_t a1)
+void __49__ENManager_verifyTextMessage_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
@@ -6621,24 +6513,24 @@ void __24__ENManager__reactivate__block_invoke_cold_1()
   LogPrintF_safe();
 }
 
-- (void)_xpcReceivedEvent:.cold.1()
+- (void)_xpcReceivedEvent:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v1 = CUPrintNSError();
-  v0 = CUPrintXPC();
+  v3 = CUPrintNSError();
+  v2 = CUPrintXPC();
   LogPrintF_safe();
 }
 
 void __59__ENManager__xpcHandlePreAuthorizedDiagnosisKeysAvailable___block_invoke_2_cold_1()
 {
-  v0 = ENErrorF(15);
+  v0 = ENErrorF(15, "TEK non-dict");
   OUTLINED_FUNCTION_4_2(v0);
 }
 
 void __59__ENManager__xpcHandlePreAuthorizedDiagnosisKeysAvailable___block_invoke_2_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  v2 = ENNestedErrorF(v1, 2);
-  OUTLINED_FUNCTION_7(v2);
+  v7 = ENNestedErrorF(v1, 2, "TEK init XPC failed", v2, v3, v4, v5, v6, v8);
+  OUTLINED_FUNCTION_7(v7);
 }
 
 - (void)_xpcHandleStatusChanged:initial:.cold.1()
@@ -6673,21 +6565,6 @@ void __59__ENManager__xpcHandlePreAuthorizedDiagnosisKeysAvailable___block_invok
   LogPrintF_safe();
 }
 
-- (uint64_t)_xpcHandleStatusChanged:(unint64_t)a1 initial:(unint64_t)a2 .cold.5(unint64_t a1, unint64_t a2)
-{
-  if (a1 <= 6)
-  {
-    v2 = (&off_278A4BBE8)[a1];
-  }
-
-  if (a2 <= 6)
-  {
-    v3 = (&off_278A4BBE8)[a2];
-  }
-
-  return LogPrintF_safe();
-}
-
 - (void)pauseWithExpiration:completionHandler:.cold.1()
 {
   v0 = CUPrintDurationDouble();
@@ -6696,25 +6573,25 @@ void __59__ENManager__xpcHandlePreAuthorizedDiagnosisKeysAvailable___block_invok
 
 void __57__ENManager__getExposureInfoCompleted_completionHandler___block_invoke_2_cold_1()
 {
-  v0 = ENErrorF(15);
+  v0 = ENErrorF(15, "ENExposureInfo non-dict");
   OUTLINED_FUNCTION_4_2(v0);
 }
 
 void __57__ENManager__getExposureInfoCompleted_completionHandler___block_invoke_2_cold_2()
 {
-  v0 = ENErrorF(12);
+  v0 = ENErrorF(12, "ENExposureInfo init XPC failed");
   OUTLINED_FUNCTION_7(v0);
 }
 
 void __60__ENManager__getExposureWindowsCompleted_completionHandler___block_invoke_2_cold_1()
 {
-  v0 = ENErrorF(15);
+  v0 = ENErrorF(15, "ENExposureWindow non-dict");
   OUTLINED_FUNCTION_4_2(v0);
 }
 
 void __60__ENManager__getExposureWindowsCompleted_completionHandler___block_invoke_2_cold_2()
 {
-  v0 = ENErrorF(12);
+  v0 = ENErrorF(12, "ENExposureWindow init XPC failed");
   OUTLINED_FUNCTION_7(v0);
 }
 
@@ -6727,23 +6604,22 @@ void __60__ENManager__getExposureWindowsCompleted_completionHandler___block_invo
 void __54__ENManager__getDiagnosisKeysReply_completionHandler___block_invoke_2_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  v2 = ENNestedErrorF(v1, 12);
-  OUTLINED_FUNCTION_7(v2);
+  v7 = ENNestedErrorF(v1, 12, "TEK init XPC failed", v2, v3, v4, v5, v6, v8);
+  OUTLINED_FUNCTION_7(v7);
 }
 
-void __42__ENManager_diagnosticControl_completion___block_invoke_cold_1(uint64_t a1)
+void __42__ENManager_diagnosticControl_completion___block_invoke_cold_1()
 {
-  v1 = *(a1 + 48);
-  ENErrorF(2);
+  ENErrorF(2, "Params conversion failed");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_1_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_1_2();
+  v1(v0);
 }
 
 void __42__ENManager_diagnosticControl_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  ENErrorF(2);
+  ENErrorF(2, "No error, no response");
   objc_claimAutoreleasedReturnValue();
   v0 = OUTLINED_FUNCTION_6();
   v1(v0);
@@ -6752,34 +6628,34 @@ void __42__ENManager_diagnosticControl_completion___block_invoke_2_cold_1()
 void __39__ENManager_diagnosticShow_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 48);
-  v3 = ENErrorF(2);
+  v3 = ENErrorF(2, "Params conversion failed");
   (*(v2 + 16))(v2, 0, v3);
 }
 
 void __59__ENManager__getDetectionHistoryFilesCompleted_completion___block_invoke_2_cold_1()
 {
-  v0 = ENErrorF(15);
+  v0 = ENErrorF(15, "HistoryFiles non-dict");
   OUTLINED_FUNCTION_4_2(v0);
 }
 
 void __59__ENManager__getDetectionHistoryFilesCompleted_completion___block_invoke_2_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  v2 = ENNestedErrorF(v1, 2);
-  OUTLINED_FUNCTION_7(v2);
+  v7 = ENNestedErrorF(v1, 2, "HistoryFile init XPC failed", v2, v3, v4, v5, v6, v8);
+  OUTLINED_FUNCTION_7(v7);
 }
 
 void __62__ENManager__getDetectionHistorySessionsCompleted_completion___block_invoke_2_cold_1()
 {
-  v0 = ENErrorF(15);
+  v0 = ENErrorF(15, "HistorySessions non-dict");
   OUTLINED_FUNCTION_4_2(v0);
 }
 
 void __62__ENManager__getDetectionHistorySessionsCompleted_completion___block_invoke_2_cold_2(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_9(a1);
-  v2 = ENNestedErrorF(v1, 2);
-  OUTLINED_FUNCTION_7(v2);
+  v7 = ENNestedErrorF(v1, 2, "HistorySession init XPC failed", v2, v3, v4, v5, v6, v8);
+  OUTLINED_FUNCTION_7(v7);
 }
 
 void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2, void *a3)
@@ -6787,32 +6663,28 @@ void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_
   (*(*(a1 + 48) + 16))();
 }
 
-void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_2_cold_1(uint64_t a1)
+void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_2_cold_1()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(16);
+  ENErrorF(16, "No error, no nonce");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_1_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_1_2();
+  v1(v0);
 }
 
 void __57__ENManager_startSelfReportWebSession_completionHandler___block_invoke_2_cold_2(uint64_t a1, char a2)
 {
-  v2 = *(a1 + 32);
   if (a2)
   {
-    v9 = ENErrorF(16);
-    v3 = *(v2 + 16);
-    v4 = OUTLINED_FUNCTION_5_1();
-    v5(v4);
+    v6 = ENErrorF(16, "No error, no API key");
+    v2 = OUTLINED_FUNCTION_5_1();
+    v3(v2);
   }
 
   else
   {
-    v6 = *(v2 + 16);
-    v7 = OUTLINED_FUNCTION_5_1();
+    v4 = OUTLINED_FUNCTION_5_1();
 
-    v8(v7);
+    v5(v4);
   }
 }
 
@@ -6824,208 +6696,172 @@ void __51__ENManager_allRegionConfigurationsWithCompletion___block_invoke_2_cold
   LogPrintF_safe();
 }
 
-void __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_2(uint64_t a1)
+void __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_2()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(16);
+  ENErrorF(16, "Region server configurations missing");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_1_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_1_2();
+  v1(v0);
 }
 
-void __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3(uint64_t a1)
+void __57__ENManager_allRegionServerConfigurationsWithCompletion___block_invoke_2_cold_3()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(2);
+  ENErrorF(2, "No error, no response");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_1_2();
-  v3(v2);
-}
-
-- (uint64_t)setRegionUserConsent:(void *)a1 region:completionHandler:.cold.1(void *a1)
-{
-  v1 = [a1 consent];
-  if (v1 <= 4)
-  {
-    v2 = (&off_278A4BC20)[v1];
-  }
-
-  return LogPrintF_safe();
+  v0 = OUTLINED_FUNCTION_1_2();
+  v1(v0);
 }
 
 void __38__ENManager_getInfoForKey_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  ENErrorF(15);
+  ENErrorF(15, "Bad object");
   objc_claimAutoreleasedReturnValue();
   v0 = OUTLINED_FUNCTION_6();
   v1(v0);
 }
 
-uint64_t __38__ENManager_getInfoForKey_completion___block_invoke_2_cold_2(uint64_t a1)
+uint64_t __38__ENManager_getInfoForKey_completion___block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v3 = ENErrorF(15);
-  *v1 = v3;
-  v4 = *(v2 + 16);
+  OUTLINED_FUNCTION_11();
+  v2 = ENErrorF(15, "No error, no object");
+  *v0 = v2;
+  v3 = *(v1 + 16);
 
-  return v4(v2, 0, v3);
+  return v3(v1, 0, v2);
 }
 
-uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_2()
 {
-  v1 = *(*(a1 + 32) + 16);
-  OUTLINED_FUNCTION_15();
-  return v2();
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Missing turndown entity object");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_2(uint64_t a1)
+uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_3()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Missing available entities object");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_3(uint64_t a1)
+uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_4()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Missing authorized entities object");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-uint64_t __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_4(uint64_t a1)
+void __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_5()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
-}
-
-void __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_5(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  ENErrorF(16);
+  ENErrorF(16, "Missing active entity object");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_15();
-  v2();
+  v0();
 }
 
-void __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_6(uint64_t a1)
+void __39__ENManager_getEntitiesWithCompletion___block_invoke_2_cold_6()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(2);
+  ENErrorF(2, "No response dictionary");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_15();
-  v2();
+  v0();
 }
 
-uint64_t __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_2(uint64_t a1)
+uint64_t __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Missing available entities object");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-uint64_t __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_3(uint64_t a1)
+uint64_t __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_3()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Missing authorized entities object");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_4(uint64_t a1)
+void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_4()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(16);
+  ENErrorF(16, "Missing active entity object");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_15();
-  v2();
+  v0();
 }
 
-void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_5(uint64_t a1)
+void __42__ENManager_getAllEntitiesWithCompletion___block_invoke_2_cold_5()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(2);
+  ENErrorF(2, "No response dictionary");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_15();
-  v2();
+  v0();
 }
 
-void __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_cold_1(uint64_t a1)
+void __55__ENManager_setActiveEntityWithAppBundleID_completion___block_invoke_cold_1()
 {
-  v1 = *(a1 + 48);
-  ENErrorF(2);
+  ENErrorF(2, "Invalid bundle ID");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_3_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_3_2();
+  v1(v0);
 }
 
-void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_1()
 {
-  v1 = *(a1 + 48);
-  ENErrorF(2);
+  ENErrorF(2, "Configuration conversion failed");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_3_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_3_2();
+  v1(v0);
 }
 
-void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __63__ENManager_setDeveloperServerConfiguration_completionHandler___block_invoke_cold_2()
 {
-  v1 = *(a1 + 48);
-  ENErrorF(2);
+  ENErrorF(2, "Invalid Paramters, Rejecting Configuration");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_3_2();
-  v3(v2);
-}
-
-uint64_t __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(*(a1 + 48) + 16);
-  OUTLINED_FUNCTION_15();
-  return v2();
+  v0 = OUTLINED_FUNCTION_3_2();
+  v1(v0);
 }
 
 void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_2()
 {
   OUTLINED_FUNCTION_16();
-  v1 = ENErrorF(16);
-  v2 = *v0;
-  v3 = OUTLINED_FUNCTION_5_1();
-  v4(v3);
+  v0 = ENErrorF(16, "Agency configurations not found");
+  v1 = OUTLINED_FUNCTION_5_1();
+  v2(v1);
 }
 
-uint64_t __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_3(uint64_t a1)
+uint64_t __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_3()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Server configurations not found");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-uint64_t __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_4(uint64_t a1)
+uint64_t __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_4()
 {
-  OUTLINED_FUNCTION_11(a1);
-  v1 = ENErrorF(16);
-  v2 = OUTLINED_FUNCTION_2_1(v1);
-  return v3(v2);
+  OUTLINED_FUNCTION_11();
+  v0 = ENErrorF(16, "Region configurations not found");
+  v1 = OUTLINED_FUNCTION_2_1(v0);
+  return v2(v1);
 }
 
-void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_5(uint64_t a1)
+void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block_invoke_2_cold_5()
 {
-  v1 = *(a1 + 32);
-  ENErrorF(2);
+  ENErrorF(2, "No error, no response");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_15();
-  v2();
+  v0();
 }
 
 - (void)fetchSubdivisionsForCountry:(void *)a1 completion:.cold.1(void *a1)
@@ -7034,13 +6870,12 @@ void __65__ENManager_fetchConfigurationsForRegion_fetchReason_completion___block
   LogPrintF_safe();
 }
 
-void __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_cold_1(uint64_t a1)
+void __52__ENManager_fetchSubdivisionsForCountry_completion___block_invoke_cold_1()
 {
-  v1 = *(a1 + 48);
-  ENErrorF(15);
+  ENErrorF(15, "Invalid countryCode provided");
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_1_2();
-  v3(v2);
+  v0 = OUTLINED_FUNCTION_1_2();
+  v1(v0);
 }
 
 @end

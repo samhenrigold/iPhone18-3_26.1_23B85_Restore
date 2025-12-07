@@ -125,30 +125,45 @@ uint64_t __48__PKSimplePrimaryButtonCellView_prepareForReuse__block_invoke(uint6
     v13 = 20.0;
   }
 
+  v14 = height - v13;
   remainder.origin = *MEMORY[0x1E695EFF8];
   memset(&slice, 0, sizeof(slice));
   remainder.size.width = v12;
-  remainder.size.height = height - v13;
-  v29.origin = remainder.origin;
-  v29.size.width = v12;
-  v29.size.height = remainder.size.height;
-  CGRectDivide(v29, &slice, &remainder, self->_verticalPadding, CGRectMinYEdge);
+  remainder.size.height = v14;
+  v40.origin = remainder.origin;
+  v40.size.width = v12;
+  v40.size.height = v14;
+  CGRectDivide(v40, &slice, &remainder, self->_verticalPadding, CGRectMinYEdge);
   CGRectDivide(remainder, &slice, &remainder, self->_verticalPadding, CGRectMaxYEdge);
-  [(UILabel *)self->_titleView sizeThatFits:remainder.size.width, 1.79769313e308, *&x, *&y];
-  v15 = v14;
-  CGRectDivide(remainder, &slice, &remainder, v14, CGRectMinYEdge);
+  [(UILabel *)self->_titleView sizeThatFits:remainder.size.width, 1.79769313e308];
+  v16 = v15;
+  v18 = v17;
+  v19 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v17, CGRectMinYEdge);
   verticalPadding = self->_verticalPadding;
   if (layoutCopy)
   {
-    PKSizeAlignedInRect();
-    PKRectRoundToPixel(v17, v18, v19, v20, v21);
+    v20.n128_u64[0] = 16.0;
+    if (!v8)
+    {
+      v20.n128_f64[0] = 10.0;
+    }
+
+    v22.n128_f64[0] = x + v20.n128_f64[0];
+    v23.n128_f64[0] = y + v11;
+    v20.n128_f64[0] = fmin(v16, v19);
+    v21.n128_f64[0] = v18;
+    v24.n128_f64[0] = v12;
+    v25.n128_f64[0] = v14;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v21, v22, v23, v24, v25, v26);
+    PKRectRoundToPixel(v28, v29, v30, v31, v32);
     [(UILabel *)self->_titleView pkui_setFrame:self->_animated animated:?];
   }
 
-  v22 = v15 + verticalPadding * 2.0 + v11 * 2.0;
-  v23 = width;
-  result.height = v22;
-  result.width = v23;
+  v33 = v18 + verticalPadding * 2.0 + v11 * 2.0;
+  v34 = width;
+  result.height = v33;
+  result.width = v34;
   return result;
 }
 
@@ -356,8 +371,10 @@ LABEL_9:
 
   v14 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD40], *MEMORY[0x1E69DDC38]);
   [v14 lineHeight];
-  PKFloatRoundToPixel();
-  self->_verticalPadding = v15;
+  v15.n128_u64[0] = 0x3FC999999999999ALL;
+  v17.n128_f64[0] = v16 * 0.2;
+  PKFloatRoundToPixel(v17, v15);
+  self->_verticalPadding = v18;
   [(UILabel *)self->_titleView setFont:v14];
   [(PKSimplePrimaryButtonCellView *)self _updateContentAnimated:0];
   [(PKSimplePrimaryButtonCellView *)self setNeedsLayout];

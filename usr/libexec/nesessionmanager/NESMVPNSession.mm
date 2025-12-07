@@ -42,6 +42,7 @@
 - (void)handleNetworkPrepareResult:(id)result;
 - (void)handleSleepTime:(double)time;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleUserLogout;
 - (void)handleUserSwitch;
 - (void)handleWakeup;
@@ -49,10 +50,12 @@
 - (void)invalidate;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)plugin:(id)plugin didAttachIPCWithEndpoint:(id)endpoint;
+- (void)plugin:(id)plugin didFinishAuthenticationWithResults:(id)results status:(int)status andError:(id)error;
 - (void)plugin:(id)plugin didInitializeWithUUIDs:(id)ds;
 - (void)plugin:(id)plugin didRequestVirtualInterfaceWithParameters:(id)parameters completionHandler:(id)handler;
 - (void)plugin:(id)plugin didSetConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)plugin:(id)plugin didSetStatus:(int)status andDisconnectError:(id)error;
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error;
 - (void)pluginDidAcknowledgeSleep:(id)sleep;
 - (void)pluginDidClearConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)pluginDidDetachIPC:(id)c;
@@ -72,6 +75,7 @@
 - (void)setProviderDesignatedRequirement:(id)requirement;
 - (void)setState:(int64_t)state;
 - (void)setStatus:(int)status;
+- (void)stopIfNecessaryWithReason:(int)reason withCompletionHandler:(id)handler;
 - (void)uninstall;
 @end
 
@@ -279,7 +283,7 @@ LABEL_20:
 
 - (BOOL)supportsDefaultDrop
 {
-  if (![(NESMSession *)self defaultDropType]|| [(NESMVPNSession *)self type]!= 1)
+  if (![(NESMSession *)self defaultDropType]|| objc_msgSend_type(self) != 1)
   {
     return 0;
   }
@@ -290,6 +294,26 @@ LABEL_20:
   includeAllNetworks = [protocol includeAllNetworks];
 
   return includeAllNetworks;
+}
+
+- (void)stopIfNecessaryWithReason:(int)reason withCompletionHandler:(id)handler
+{
+  v4 = *&reason;
+  handlerCopy = handler;
+  v11.receiver = self;
+  v11.super_class = NESMVPNSession;
+  [(NESMSession *)&v11 stopIfNecessaryWithReason:v4];
+  stopCompletionHandler = self->_stopCompletionHandler;
+  if (stopCompletionHandler)
+  {
+    stopCompletionHandler[2]();
+    v8 = self->_stopCompletionHandler;
+    self->_stopCompletionHandler = 0;
+  }
+
+  v9 = objc_retainBlock(handlerCopy);
+  v10 = self->_stopCompletionHandler;
+  self->_stopCompletionHandler = v9;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -482,7 +506,7 @@ LABEL_32:
 {
   selfCopy = self;
   v3 = sub_10008D698(self);
-  if ([(NESMVPNSession *)selfCopy type]!= 2 || ![(NESMVPNSession *)selfCopy virtualInterface])
+  if (objc_msgSend_type(selfCopy) != 2 || ![(NESMVPNSession *)selfCopy virtualInterface])
   {
     goto LABEL_45;
   }
@@ -512,8 +536,7 @@ LABEL_45:
   appVPN2 = [configuration2 appVPN];
   appRules2 = [appVPN2 appRules];
   v12 = [(NESMSession *)selfCopy uid];
-  [v12 intValue];
-  sub_100040988(policySession, appRules2);
+  sub_100040988(policySession, appRules2, [v12 intValue]);
 
   v68 = selfCopy;
   if (selfCopy)
@@ -631,9 +654,9 @@ LABEL_45:
   }
 
   protocol = [(NESMVPNSession *)selfCopy protocol];
-  type = [protocol type];
-  v36 = type == 5;
-  if (type == 5)
+  v35 = objc_msgSend_type(protocol);
+  v36 = v35 == 5;
+  if (v35 == 5)
   {
     protocol2 = [(NESMVPNSession *)selfCopy protocol];
     serverAddress = [protocol2 serverAddress];
@@ -732,18 +755,18 @@ LABEL_46:
 - (NSString)pluginType
 {
   protocol = [(NESMVPNSession *)self protocol];
-  type = [protocol type];
+  v4 = objc_msgSend_type(protocol);
 
   protocol2 = [(NESMVPNSession *)self protocol];
   protocol3 = protocol2;
-  if (type == 4)
+  if (v4 == 4)
   {
     goto LABEL_4;
   }
 
-  type2 = [protocol2 type];
+  v7 = objc_msgSend_type(protocol2);
 
-  if (type2 == 5)
+  if (v7 == 5)
   {
     protocol3 = [(NESMVPNSession *)self protocol];
 LABEL_4:
@@ -769,14 +792,14 @@ LABEL_16:
     goto LABEL_36;
   }
 
-  if ([(NESMVPNSession *)self type]== 2)
+  if (objc_msgSend_type(self) == 2)
   {
     appVPN = [configurationCopy appVPN];
   }
 
   else
   {
-    if ([(NESMVPNSession *)self type]== 6)
+    if (objc_msgSend_type(self) == 6)
     {
       [configurationCopy dnsProxy];
     }
@@ -859,7 +882,7 @@ LABEL_21:
   }
 
 LABEL_25:
-  if ([(NESMVPNSession *)self type]== 2)
+  if (objc_msgSend_type(self) == 2)
   {
     configuration4 = [(NESMSession *)self configuration];
     appVPN4 = [configuration4 appVPN];
@@ -871,10 +894,10 @@ LABEL_25:
 
   else
   {
-    type = [(NESMVPNSession *)self type];
+    v23 = objc_msgSend_type(self);
     configuration5 = [(NESMSession *)self configuration];
     v25 = configuration5;
-    if (type != 6)
+    if (v23 != 6)
     {
       v34 = [configuration5 VPN];
       protocol2 = [v34 protocol];
@@ -1129,20 +1152,8 @@ LABEL_26:
     interfaceName4 = [v16 interfaceName];
     v22 = [v20 objectForKeyedSubscript:interfaceName4];
 
-    if (v22)
+    if (v22 || (v22 = objc_alloc_init(NESMAlwaysOnSessionRetryCounter), v23 = 1, v25 = objc_getProperty(parent, v24, 408, 1), -[NSObject interfaceName](v16, "interfaceName"), v26 = objc_claimAutoreleasedReturnValue(), [v25 setObject:v22 forKeyedSubscript:v26], v25, v26, v22))
     {
-      goto LABEL_19;
-    }
-
-    v22 = objc_alloc_init(NESMAlwaysOnSessionRetryCounter);
-    v23 = 1;
-    v25 = objc_getProperty(parent, v24, 408, 1);
-    interfaceName5 = [v16 interfaceName];
-    [v25 setObject:v22 forKeyedSubscript:interfaceName5];
-
-    if (v22)
-    {
-LABEL_19:
       interval = v22->_interval;
       if (interval)
       {
@@ -1173,11 +1184,11 @@ LABEL_35:
             v34 = ne_log_obj();
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
-              interfaceName6 = [v16 interfaceName];
+              interfaceName5 = [v16 interfaceName];
               *buf = 138413058;
               *&buf[4] = parent;
               *&buf[12] = 2112;
-              *&buf[14] = interfaceName6;
+              *&buf[14] = interfaceName5;
               *&buf[22] = 2080;
               v69 = "[NESMAlwaysOnSession alwaysOnRetry:]";
               LOWORD(v70) = 2048;
@@ -1221,11 +1232,11 @@ LABEL_42:
     v33 = ne_log_obj();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      interfaceName7 = [v16 interfaceName];
+      interfaceName6 = [v16 interfaceName];
       *buf = 138412802;
       *&buf[4] = parent;
       *&buf[12] = 2112;
-      *&buf[14] = interfaceName7;
+      *&buf[14] = interfaceName6;
       *&buf[22] = 2080;
       v69 = "[NESMAlwaysOnSession nextRetryIntervalForSession:]";
       _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "%@[%@]:%s: Retrying now", buf, 0x20u);
@@ -1489,7 +1500,7 @@ LABEL_16:
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v3 = [(NESMVPNSession *)selfCopy type]== 2 || selfCopy->_isSecondaryConnection;
+  v3 = objc_msgSend_type(selfCopy) == 2 || selfCopy->_isSecondaryConnection;
   objc_sync_exit(selfCopy);
 
   return v3 & 1;
@@ -1549,7 +1560,7 @@ LABEL_10:
     configuration = [(NESMSession *)self configuration];
     v14 = [configuration VPN];
     protocol = [v14 protocol];
-    if ([protocol type] == 1)
+    if (objc_msgSend_type(protocol) == 1)
     {
       v16 = 1;
     }
@@ -1559,7 +1570,7 @@ LABEL_10:
       configuration2 = [(NESMSession *)self configuration];
       v22 = [configuration2 VPN];
       protocol2 = [v22 protocol];
-      if ([protocol2 type] == 2)
+      if (objc_msgSend_type(protocol2) == 2)
       {
         v16 = 1;
       }
@@ -1570,7 +1581,7 @@ LABEL_10:
         [configuration3 VPN];
         v24 = v27 = parentType;
         protocol3 = [v24 protocol];
-        v16 = [protocol3 type] == 3;
+        v16 = objc_msgSend_type(protocol3) == 3;
 
         parentType = v27;
       }
@@ -1765,7 +1776,7 @@ LABEL_30:
             configuration2 = [(NESMSession *)self configuration];
             v24 = [configuration2 VPN];
             protocol2 = [v24 protocol];
-            if ([protocol2 type] == 1)
+            if (objc_msgSend_type(protocol2) == 1)
             {
               v26 = 1;
             }
@@ -1775,7 +1786,7 @@ LABEL_30:
               configuration3 = [(NESMSession *)self configuration];
               v28 = [configuration3 VPN];
               protocol3 = [v28 protocol];
-              if ([protocol3 type] == 2)
+              if (objc_msgSend_type(protocol3) == 2)
               {
                 v26 = 1;
               }
@@ -1785,7 +1796,7 @@ LABEL_30:
                 configuration4 = [(NESMSession *)self configuration];
                 v30 = [configuration4 VPN];
                 protocol4 = [v30 protocol];
-                v26 = [protocol4 type] == 3;
+                v26 = objc_msgSend_type(protocol4) == 3;
               }
             }
 
@@ -2221,215 +2232,374 @@ LABEL_13:
   [(NESMVPNSession *)self addDefaultDropPolicyForPluginUUIDs:dsCopy];
 }
 
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error
+{
+  v6 = *&d;
+  pluginCopy = plugin;
+  errorCopy = error;
+  if ([(NESMVPNSession *)self parentType]== 1)
+  {
+    parent = [(NESMVPNSession *)self parent];
+    v10 = pluginCopy;
+    selfCopy = self;
+    v12 = errorCopy;
+    if (parent && selfCopy)
+    {
+      if (v6)
+      {
+        queue = [(NESMSession *)parent queue];
+        *block = _NSConcreteStackBlock;
+        *&block[8] = 3221225472;
+        *&block[16] = sub_10000CAE4;
+        v52 = &unk_1000E9700;
+        selfCopy2 = parent;
+        v57 = v6;
+        v54 = v10;
+        v55 = selfCopy;
+        v56 = v12;
+        dispatch_async(queue, block);
+      }
+
+      else
+      {
+        v43 = ne_log_obj();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        {
+          *block = 138412546;
+          *&block[4] = parent;
+          *&block[12] = 2080;
+          *&block[14] = "[NESMAlwaysOnSession didStartWithPIDForSession:andVPNSession:andPID:error:]";
+          _os_log_debug_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "%@:%s: Got 0 pid, proceed with clean up", block, 0x16u);
+        }
+
+        stateHandler = [(NESMVPNSession *)selfCopy stateHandler];
+        [stateHandler handlePlugin:v10 didStartWithPID:0 error:v12];
+      }
+    }
+
+    goto LABEL_27;
+  }
+
+  tunnelKind = [(NESMVPNSession *)self tunnelKind];
+  server = [(NESMSession *)self server];
+  parent = server;
+  if (tunnelKind == 2)
+  {
+    primaryCellularInterface = [(NESMVPNSession *)server primaryCellularInterface];
+LABEL_26:
+    v10 = primaryCellularInterface;
+    interfaceName = [primaryCellularInterface interfaceName];
+    sub_10001BF94(self, pluginCopy, v6, errorCopy, interfaceName);
+
+LABEL_27:
+    goto LABEL_28;
+  }
+
+  primaryPhysicalInterface = [(NESMVPNSession *)server primaryPhysicalInterface];
+  if (objc_msgSend_type(primaryPhysicalInterface) == 1 || !self)
+  {
+    goto LABEL_24;
+  }
+
+  configuration = [(NESMSession *)self configuration];
+  appVPN = [configuration appVPN];
+  if (!appVPN)
+  {
+
+    goto LABEL_24;
+  }
+
+  v20 = appVPN;
+  [(NESMSession *)self configuration];
+  v21 = v48 = primaryPhysicalInterface;
+  appVPN2 = [v21 appVPN];
+  protocol = [appVPN2 protocol];
+  sliceUUID = [protocol sliceUUID];
+
+  primaryPhysicalInterface = v48;
+  if (!sliceUUID)
+  {
+LABEL_24:
+
+LABEL_25:
+    parent = [(NESMSession *)self server];
+    primaryCellularInterface = [(NESMVPNSession *)parent primaryPhysicalInterface];
+    goto LABEL_26;
+  }
+
+  v25 = pluginCopy;
+  v26 = errorCopy;
+  configuration2 = [(NESMSession *)self configuration];
+  appVPN3 = [configuration2 appVPN];
+  if (!appVPN3)
+  {
+
+    sliceUUID2 = 0;
+LABEL_33:
+    v50 = 0;
+    goto LABEL_34;
+  }
+
+  v29 = appVPN3;
+  v46 = v26;
+  v47 = v25;
+  configuration3 = [(NESMSession *)self configuration];
+  appVPN4 = [configuration3 appVPN];
+  protocol2 = [appVPN4 protocol];
+  sliceUUID2 = [protocol2 sliceUUID];
+
+  if (!sliceUUID2 || !self->_coreTelephonyClient && (v34 = [CoreTelephonyClient alloc], -[NESMSession queue](self, "queue"), v35 = objc_claimAutoreleasedReturnValue(), v36 = [v34 initWithQueue:v35], coreTelephonyClient = self->_coreTelephonyClient, self->_coreTelephonyClient = v36, coreTelephonyClient, v35, -[CoreTelephonyClient setDelegate:](self->_coreTelephonyClient, "setDelegate:", self), !self->_coreTelephonyClient))
+  {
+    v26 = v46;
+    v25 = v47;
+    goto LABEL_33;
+  }
+
+  v38 = ne_log_obj();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+  {
+    server2 = [(NESMSession *)self server];
+    primaryPhysicalInterface2 = [server2 primaryPhysicalInterface];
+    interfaceName2 = [primaryPhysicalInterface2 interfaceName];
+    *block = 138412802;
+    *&block[4] = self;
+    *&block[12] = 2112;
+    *&block[14] = sliceUUID2;
+    *&block[22] = 2112;
+    v52 = interfaceName2;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%@: VPN Slice request in progress - sliceUUID %@ : primary-ifname %@ ", block, 0x20u);
+  }
+
+  v42 = self->_coreTelephonyClient;
+  *block = _NSConcreteStackBlock;
+  *&block[8] = 3221225472;
+  *&block[16] = sub_100026CA0;
+  v52 = &unk_1000E9C08;
+  selfCopy2 = self;
+  sliceUUID2 = sliceUUID2;
+  v54 = sliceUUID2;
+  v25 = v47;
+  v55 = v47;
+  v57 = v6;
+  v26 = v46;
+  v56 = v46;
+  [(CoreTelephonyClient *)v42 requestSliceByUUID:sliceUUID2 completion:block];
+  v50 = 1;
+
+LABEL_34:
+  if ((v50 & 1) == 0)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_28:
+}
+
 - (void)plugin:(id)plugin didRequestVirtualInterfaceWithParameters:(id)parameters completionHandler:(id)handler
 {
   parametersCopy = parameters;
   handlerCopy = handler;
-  type = [parametersCopy type];
+  v10 = objc_msgSend_type(parametersCopy);
   kdebug_trace();
   v11 = ne_log_obj();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *&buf[4] = type;
+    *&buf[4] = v10;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Creating a virtual interface with type %ld", buf, 0xCu);
   }
 
-  v56[0] = _NSConcreteStackBlock;
-  v56[1] = 3221225472;
-  v56[2] = sub_100027870;
-  v56[3] = &unk_1000EB1C0;
-  v56[4] = self;
-  v12 = objc_retainBlock(v56);
-  if ((type - 1) > 1)
+  v54[0] = _NSConcreteStackBlock;
+  v54[1] = 3221225472;
+  v54[2] = sub_100027870;
+  v54[3] = &unk_1000EB1C0;
+  v54[4] = self;
+  v12 = objc_retainBlock(v54);
+  if ((v10 - 1) > 1)
   {
-    if (type == 3)
+    if (v10 == 3)
     {
       ethernetAddress = [parametersCopy ethernetAddress];
       if (ethernetAddress)
       {
-        v19 = ethernetAddress;
-        v20 = [parametersCopy mtu];
+        v17 = ethernetAddress;
+        v18 = [parametersCopy mtu];
 
-        if (v20)
+        if (v18)
         {
-          v49[0] = _NSConcreteStackBlock;
-          v49[1] = 3221225472;
-          v50 = sub_100027A6C;
-          v51 = &unk_1000E9AC0;
+          v47[0] = _NSConcreteStackBlock;
+          v47[1] = 3221225472;
+          v48 = sub_100027A6C;
+          v49 = &unk_1000E9AC0;
           selfCopy = self;
-          v21 = parametersCopy;
-          v53 = v21;
-          v54 = v12;
-          v55 = handlerCopy;
-          v22 = v49;
-          if (v21)
+          v19 = parametersCopy;
+          v51 = v19;
+          v52 = v12;
+          v53 = handlerCopy;
+          v20 = v47;
+          if (v19)
           {
-            if ([v21 type] == 3)
+            if (objc_msgSend_type(v19) == 3)
             {
-              ethernetAddress2 = [v21 ethernetAddress];
+              ethernetAddress2 = [v19 ethernetAddress];
               if (ethernetAddress2)
               {
-                v24 = ethernetAddress2;
-                v25 = [v21 mtu];
+                v22 = ethernetAddress2;
+                v23 = [v19 mtu];
 
-                if (v25)
+                if (v23)
                 {
-                  v60[0] = @"Product Name";
-                  v60[1] = kIOUserEthernetInterfaceRole;
+                  v58[0] = @"Product Name";
+                  v58[1] = kIOUserEthernetInterfaceRole;
                   *buf = @"TAP network interface";
                   *&buf[8] = @"TAP";
-                  v60[2] = @"HiddenInterface";
-                  v60[3] = @"IsEphemeral";
+                  v58[2] = @"HiddenInterface";
+                  v58[3] = @"IsEphemeral";
                   *&buf[16] = &__kCFBooleanTrue;
-                  v62 = &__kCFBooleanTrue;
-                  v26 = [NSDictionary dictionaryWithObjects:buf forKeys:v60 count:4];
-                  v58[0] = kIOEthernetHardwareAddress;
-                  ethernetAddress3 = [v21 ethernetAddress];
-                  v59[0] = ethernetAddress3;
-                  v58[1] = @"MaxTransferUnit";
-                  v28 = [v21 mtu];
-                  v59[1] = v28;
-                  v59[2] = @"utap";
-                  v58[2] = @"NamePrefix";
-                  v58[3] = kIOUserEthernetInterfaceMergeProperties;
-                  v59[3] = v26;
-                  v29 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:4];
+                  v60 = &__kCFBooleanTrue;
+                  v24 = [NSDictionary dictionaryWithObjects:buf forKeys:v58 count:4];
+                  v56[0] = kIOEthernetHardwareAddress;
+                  ethernetAddress3 = [v19 ethernetAddress];
+                  v57[0] = ethernetAddress3;
+                  v56[1] = @"MaxTransferUnit";
+                  v26 = [v19 mtu];
+                  v57[1] = v26;
+                  v57[2] = @"utap";
+                  v56[2] = @"NamePrefix";
+                  v56[3] = kIOUserEthernetInterfaceMergeProperties;
+                  v57[3] = v24;
+                  v27 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:4];
 
-                  v30 = IOEthernetControllerCreate();
-                  if (v30)
+                  v28 = IOEthernetControllerCreate();
+                  if (v28)
                   {
-                    v31 = v30;
-                    v32 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-                    v33 = dispatch_queue_create("User Ethernet Controller queue", v32);
+                    v29 = v28;
+                    v30 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+                    v31 = dispatch_queue_create("User Ethernet Controller queue", v30);
 
                     IOEthernetControllerSetDispatchQueue();
-                    v34 = objc_alloc_init(_NECompletion);
-                    p_isa = &v34->super.isa;
-                    if (v34)
+                    v32 = objc_alloc_init(_NECompletion);
+                    p_isa = &v32->super.isa;
+                    if (v32)
                     {
-                      objc_setProperty_nonatomic_copy(v34, v35, v22, 16);
+                      objc_setProperty_nonatomic_copy(v32, v33, v20, 16);
                       objc_storeStrong(p_isa + 1, parameters);
                     }
 
-                    v37 = p_isa;
+                    v35 = p_isa;
                     IOEthernetControllerRegisterBSDAttachCallback();
                     if (IOEthernetControllerSetLinkStatus())
                     {
-                      v38 = ne_log_obj();
-                      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                      v36 = ne_log_obj();
+                      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                       {
-                        *v57 = 0;
-                        _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to bring up the user ethernet link", v57, 2u);
+                        *v55 = 0;
+                        _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to bring up the user ethernet link", v55, 2u);
                       }
 
                       IOEthernetControllerSetDispatchQueue();
-                      CFRelease(v31);
-                      sub_100092B48(0, v37);
+                      CFRelease(v29);
+                      sub_100092B48(0, v35);
                     }
                   }
 
                   else
                   {
-                    v45 = ne_log_obj();
-                    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                    v43 = ne_log_obj();
+                    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                     {
-                      *v57 = 0;
-                      _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to create a ethernet controller", v57, 2u);
+                      *v55 = 0;
+                      _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to create a ethernet controller", v55, 2u);
                     }
 
-                    v50(v22, 0);
+                    v48(v20, 0);
                   }
 
-                  goto LABEL_41;
+                  goto LABEL_40;
                 }
               }
 
-              v41 = ne_log_obj();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+              v39 = ne_log_obj();
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                ethernetAddress4 = [v21 ethernetAddress];
-                v47 = [v21 mtu];
+                ethernetAddress4 = [v19 ethernetAddress];
+                v45 = [v19 mtu];
                 *buf = 134218240;
                 *&buf[4] = ethernetAddress4;
                 *&buf[12] = 2048;
-                *&buf[14] = v47;
-                _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Cannot create a user ethernet interface without an ethernet address (%p) or an MTU (%p)", buf, 0x16u);
+                *&buf[14] = v45;
+                _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Cannot create a user ethernet interface without an ethernet address (%p) or an MTU (%p)", buf, 0x16u);
               }
             }
 
             else
             {
-              v41 = ne_log_obj();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+              v39 = ne_log_obj();
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                type2 = [v21 type];
+                v40 = objc_msgSend_type(v19);
                 *buf = 134217984;
-                *&buf[4] = type2;
-                _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Wrong type for creating a user ethernet interface: %ld", buf, 0xCu);
+                *&buf[4] = v40;
+                _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Wrong type for creating a user ethernet interface: %ld", buf, 0xCu);
               }
             }
 
-            v50(v22, 0);
+            v48(v20, 0);
           }
 
-LABEL_41:
+LABEL_40:
 
-          goto LABEL_35;
+          goto LABEL_34;
         }
       }
 
-      v40 = ne_log_obj();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v38 = ne_log_obj();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         ethernetAddress5 = [parametersCopy ethernetAddress];
-        v44 = [parametersCopy mtu];
+        v42 = [parametersCopy mtu];
         *buf = 134218240;
         *&buf[4] = ethernetAddress5;
         *&buf[12] = 2048;
-        *&buf[14] = v44;
-        _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Cannot create a user ethernet interface without a ethernet address (%p) or an MTU (%p)", buf, 0x16u);
+        *&buf[14] = v42;
+        _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Cannot create a user ethernet interface without a ethernet address (%p) or an MTU (%p)", buf, 0x16u);
       }
     }
 
     else
     {
-      v40 = ne_log_obj();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v38 = ne_log_obj();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        *&buf[4] = type;
-        _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Cannot create a virtual interface with unknown type %ld", buf, 0xCu);
+        *&buf[4] = v10;
+        _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Cannot create a virtual interface with unknown type %ld", buf, 0xCu);
       }
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
-    goto LABEL_35;
+    goto LABEL_34;
   }
 
-  if (type == 1 && [(NESMVPNSession *)self type]== 2)
+  if (v10 == 1 && objc_msgSend_type(self) == 2)
   {
     primaryTunnelPlugin = [(NESMVPNSession *)self primaryTunnelPlugin];
     v15 = primaryTunnelPlugin;
     if (primaryTunnelPlugin)
     {
-      Property = objc_getProperty(primaryTunnelPlugin, v14, 24, 1);
-      if (Property)
-      {
-        v17 = Property[5];
-      }
+      objc_getProperty(primaryTunnelPlugin, v14, 24, 1);
     }
   }
 
   queue = [(NESMSession *)self queue];
-  LODWORD(v48) = 0;
-  [(NESMVPNSession *)self setVirtualInterface:NEVirtualInterfaceCreateNexusExtended(), 0, v48, 0];
+  LODWORD(v46) = 0;
+  [(NESMVPNSession *)self setVirtualInterface:NEVirtualInterfaceCreateNexusExtended(), 0, v46, 0];
 
   if ([(NESMVPNSession *)self virtualInterface])
   {
     [(NESMVPNSession *)self virtualInterface];
     NEVirtualInterfaceEnableFlowswitch();
-    if (type == 1)
+    if (v10 == 1)
     {
       [(NESMVPNSession *)self virtualInterface];
       NEVirtualInterfaceSetMaxPendingPackets();
@@ -2439,7 +2609,7 @@ LABEL_41:
   }
 
   (*(handlerCopy + 2))(handlerCopy, [(NESMVPNSession *)self virtualInterface]);
-LABEL_35:
+LABEL_34:
 }
 
 - (void)pluginDidClearConfiguration:(id)configuration completionHandler:(id)handler
@@ -2853,6 +3023,16 @@ LABEL_81:
   }
 }
 
+- (void)plugin:(id)plugin didFinishAuthenticationWithResults:(id)results status:(int)status andError:(id)error
+{
+  v6 = *&status;
+  errorCopy = error;
+  resultsCopy = results;
+  pluginCopy = plugin;
+  stateHandler = [(NESMVPNSession *)self stateHandler];
+  [stateHandler handlePlugin:pluginCopy authenticationCompleteWithResults:resultsCopy status:v6 andError:errorCopy];
+}
+
 - (void)pluginDidDispose:(id)dispose
 {
   disposeCopy = dispose;
@@ -3194,9 +3374,9 @@ LABEL_4:
 - (id)copyExtendedStatus
 {
   v3 = [NSMutableDictionary alloc];
-  v78.receiver = self;
-  v78.super_class = NESMVPNSession;
-  copyExtendedStatus = [(NESMSession *)&v78 copyExtendedStatus];
+  v79.receiver = self;
+  v79.super_class = NESMVPNSession;
+  copyExtendedStatus = [(NESMSession *)&v79 copyExtendedStatus];
   v5 = [v3 initWithDictionary:copyExtendedStatus];
 
   v6 = objc_alloc_init(NSMutableDictionary);
@@ -3204,63 +3384,63 @@ LABEL_4:
   if ([(NESMVPNSession *)self virtualInterface])
   {
     [(NESMVPNSession *)self virtualInterface];
-    v73 = NEVirtualInterfaceCopyVPNServerAddress();
+    v74 = NEVirtualInterfaceCopyVPNServerAddress();
     configuration = [(NESMSession *)self configuration];
     v9 = [configuration VPN];
     protocol = [v9 protocol];
-    if ([protocol type] != 1)
+    if (objc_msgSend_type(protocol) != 1)
     {
-      v63 = v6;
+      v64 = v6;
       configuration2 = [(NESMSession *)self configuration];
       v17 = [configuration2 VPN];
       protocol2 = [v17 protocol];
-      if ([protocol2 type] != 2)
+      if (objc_msgSend_type(protocol2) != 2)
       {
         configuration3 = [(NESMSession *)self configuration];
         [configuration3 VPN];
-        v19 = v66 = v7;
+        v19 = v67 = v7;
         [v19 protocol];
-        v20 = v76 = configuration2;
-        [v20 type];
+        v20 = v77 = configuration2;
+        objc_msgSend_type(v20);
 
-        configuration2 = v76;
-        v7 = v66;
+        configuration2 = v77;
+        v7 = v67;
       }
 
-      v6 = v63;
+      v6 = v64;
     }
 
     [(NESMVPNSession *)self virtualInterface];
-    v75 = NEVirtualInterfaceCopyIPStateDictionary();
+    v76 = NEVirtualInterfaceCopyIPStateDictionary();
     [(NESMVPNSession *)self virtualInterface];
     v12 = NEVirtualInterfaceCopyIPStateDictionary();
     [(NESMVPNSession *)self virtualInterface];
     v13 = NEVirtualInterfaceCopyDNSDomain();
     [(NESMVPNSession *)self virtualInterface];
-    v71 = NEVirtualInterfaceCopyDNSServers();
+    v72 = NEVirtualInterfaceCopyDNSServers();
     [(NESMVPNSession *)self virtualInterface];
     v14 = NEVirtualInterfaceCopyDNSSearchDomains();
     [(NESMVPNSession *)self virtualInterface];
     matched = NEVirtualInterfaceCopyDNSSupplementalMatchDomains();
-    v11 = v73;
-    if (v73)
+    v11 = v74;
+    if (v74)
     {
-      [v6 setObject:v73 forKeyedSubscript:@"RemoteAddress"];
+      [v6 setObject:v74 forKeyedSubscript:@"RemoteAddress"];
     }
   }
 
   else
   {
     v11 = 0;
-    v75 = 0;
+    v76 = 0;
     v12 = 0;
     v13 = 0;
-    v71 = 0;
+    v72 = 0;
     v14 = 0;
     matched = 0;
   }
 
-  v74 = v11;
+  v75 = v11;
   if ([(NESMSession *)self status]== 3)
   {
     v21 = [NSNumber numberWithUnsignedLongLong:[(NESMSession *)self connectTime]];
@@ -3281,155 +3461,155 @@ LABEL_4:
   [v6 setObject:v21 forKeyedSubscript:v22];
 
 LABEL_15:
-  v70 = matched;
-  if ((sub_10008AA94(self) & 1) != 0 || sub_10008AB9C(self))
+  v71 = matched;
+  if ((sub_10008AA94(self) & 1) != 0 || sub_10008AB9C(self, v23))
   {
     matchedRule = [(NESMSession *)self matchedRule];
 
     if (matchedRule)
     {
       [(NESMSession *)self matchedRule];
-      v24 = v13;
-      v26 = v25 = v7;
-      v27 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v26 action]);
-      [v6 setObject:v27 forKeyedSubscript:@"OnDemandAction"];
+      v25 = v13;
+      v27 = v26 = v7;
+      v28 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v27 action]);
+      [v6 setObject:v28 forKeyedSubscript:@"OnDemandAction"];
 
-      v7 = v25;
-      v13 = v24;
+      v7 = v26;
+      v13 = v25;
     }
   }
 
   [v5 setObject:v6 forKeyedSubscript:@"VPN"];
-  v28 = [NSNumber numberWithInteger:[(NESMVPNSession *)self state]];
-  [v5 setObject:v28 forKeyedSubscript:@"SessionState"];
+  v29 = [NSNumber numberWithInteger:[(NESMVPNSession *)self state]];
+  [v5 setObject:v29 forKeyedSubscript:@"SessionState"];
 
-  v29 = [NSNumber numberWithInt:[(NESMSession *)self status]];
-  [v5 setObject:v29 forKeyedSubscript:@"NEStatus"];
+  v30 = [NSNumber numberWithInt:[(NESMSession *)self status]];
+  [v5 setObject:v30 forKeyedSubscript:@"NEStatus"];
 
-  v30 = [NSNumber numberWithInt:[(NESMSession *)self SCNCStatus]];
-  [v5 setObject:v30 forKeyedSubscript:@"Status"];
+  v31 = [NSNumber numberWithInt:[(NESMSession *)self SCNCStatus]];
+  [v5 setObject:v31 forKeyedSubscript:@"Status"];
 
-  if (v75)
+  if (v76)
   {
-    v31 = [v75 objectForKeyedSubscript:@"IsNULL"];
-    v32 = v31;
-    if (!v31 || ([v31 BOOLValue] & 1) == 0)
+    v32 = [v76 objectForKeyedSubscript:@"IsNULL"];
+    v33 = v32;
+    if (!v32 || ([v32 BOOLValue] & 1) == 0)
     {
-      [v5 setObject:v75 forKeyedSubscript:@"IPv4"];
+      [v5 setObject:v76 forKeyedSubscript:@"IPv4"];
     }
   }
 
   if (v12)
   {
-    v33 = [v12 objectForKeyedSubscript:@"IsNULL"];
-    v34 = v33;
-    if (!v33 || ([v33 BOOLValue] & 1) == 0)
+    v34 = [v12 objectForKeyedSubscript:@"IsNULL"];
+    v35 = v34;
+    if (!v34 || ([v34 BOOLValue] & 1) == 0)
     {
       [v5 setObject:v12 forKeyedSubscript:@"IPv6"];
     }
   }
 
-  v68 = v12;
-  v35 = [NSNumber numberWithInteger:[(NESMSession *)self connectCount]];
-  [v7 setObject:v35 forKeyedSubscript:@"ConnectCount"];
+  v69 = v12;
+  v36 = [NSNumber numberWithInteger:[(NESMSession *)self connectCount]];
+  [v7 setObject:v36 forKeyedSubscript:@"ConnectCount"];
 
-  v36 = [NSNumber numberWithInteger:[(NESMSession *)self connectedCount]];
-  [v7 setObject:v36 forKeyedSubscript:@"ConnectedCount"];
+  v37 = [NSNumber numberWithInteger:[(NESMSession *)self connectedCount]];
+  [v7 setObject:v37 forKeyedSubscript:@"ConnectedCount"];
 
-  v37 = [NSNumber numberWithInteger:[(NESMSession *)self disconnectedCount]];
-  [v7 setObject:v37 forKeyedSubscript:@"DisconnectedCount"];
+  v38 = [NSNumber numberWithInteger:[(NESMSession *)self disconnectedCount]];
+  [v7 setObject:v38 forKeyedSubscript:@"DisconnectedCount"];
 
-  v38 = [NSNumber numberWithUnsignedLongLong:[(NESMSession *)self maxConnectTime]];
-  [v7 setObject:v38 forKeyedSubscript:@"MaxConnectTime"];
+  v39 = [NSNumber numberWithUnsignedLongLong:[(NESMSession *)self maxConnectTime]];
+  [v7 setObject:v39 forKeyedSubscript:@"MaxConnectTime"];
 
-  v39 = v74;
-  v69 = v14;
+  v40 = v75;
+  v70 = v14;
   if ([(NESMVPNSession *)self parentType]== 1)
   {
-    v64 = v13;
-    v40 = v6;
+    v65 = v13;
+    v41 = v6;
     parent = [(NESMVPNSession *)self parent];
     selfCopy = self;
     if (parent)
     {
-      Property = objc_getProperty(parent, v42, 408, 1);
-      v45 = -1;
+      Property = objc_getProperty(parent, v43, 408, 1);
+      v46 = -1;
       if (selfCopy && Property)
       {
-        v67 = v7;
+        v68 = v7;
         interfaceName = [(NESMVPNSession *)selfCopy interfaceName];
 
         if (interfaceName)
         {
-          v48 = objc_getProperty(parent, v47, 408, 1);
+          v49 = objc_getProperty(parent, v48, 408, 1);
           interfaceName2 = [(NESMVPNSession *)selfCopy interfaceName];
-          v50 = [v48 objectForKeyedSubscript:interfaceName2];
+          v51 = [v49 objectForKeyedSubscript:interfaceName2];
 
-          if (v50)
+          if (v51)
           {
-            v45 = v50[1];
+            v46 = v51[1];
           }
 
           else
           {
-            v45 = -1;
+            v46 = -1;
           }
         }
 
-        v7 = v67;
+        v7 = v68;
       }
     }
 
     else
     {
-      v45 = 0;
+      v46 = 0;
     }
 
-    v51 = [NSNumber numberWithInteger:v45];
-    [v7 setObject:v51 forKeyedSubscript:@"RetryInterval"];
+    v52 = [NSNumber numberWithInteger:v46];
+    [v7 setObject:v52 forKeyedSubscript:@"RetryInterval"];
 
-    v6 = v40;
-    v39 = v74;
-    v13 = v64;
-    v14 = v69;
-    matched = v70;
+    v6 = v41;
+    v40 = v75;
+    v13 = v65;
+    v14 = v70;
+    matched = v71;
   }
 
   [v5 setObject:v7 forKeyedSubscript:@"ConnectionStatistics"];
   lastDisconnectError = [(NESMSession *)self lastDisconnectError];
   if (lastDisconnectError)
   {
-    v53 = v13;
-    v54 = v39;
-    v77 = 0;
-    v55 = [NSKeyedArchiver archivedDataWithRootObject:lastDisconnectError requiringSecureCoding:1 error:&v77];
-    v56 = v77;
-    if (v55)
+    v54 = v13;
+    v55 = v40;
+    v78 = 0;
+    v56 = [NSKeyedArchiver archivedDataWithRootObject:lastDisconnectError requiringSecureCoding:1 error:&v78];
+    v57 = v78;
+    if (v56)
     {
-      [v5 setObject:v55 forKeyedSubscript:@"LastDisconnectError"];
+      [v5 setObject:v56 forKeyedSubscript:@"LastDisconnectError"];
     }
 
     else
     {
-      v65 = v6;
-      v57 = ne_log_obj();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v66 = v6;
+      v58 = ne_log_obj();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v80 = v56;
-        _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Failed to serialize the last disconnect error: %@", buf, 0xCu);
+        v81 = v57;
+        _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Failed to serialize the last disconnect error: %@", buf, 0xCu);
       }
 
-      v6 = v65;
+      v6 = v66;
     }
 
-    v39 = v54;
-    v13 = v53;
-    v14 = v69;
-    matched = v70;
+    v40 = v55;
+    v13 = v54;
+    v14 = v70;
+    matched = v71;
   }
 
-  v58 = v39;
+  v59 = v40;
   lastStatusChangeTime = [(NESMSession *)self lastStatusChangeTime];
 
   if (lastStatusChangeTime)
@@ -3438,9 +3618,9 @@ LABEL_15:
     [v5 setObject:lastStatusChangeTime2 forKeyedSubscript:@"LastStatusChangeTime"];
   }
 
-  if (v71)
+  if (v72)
   {
-    [v5 setObject:v71 forKeyedSubscript:@"DNSServers"];
+    [v5 setObject:v72 forKeyedSubscript:@"DNSServers"];
   }
 
   if (v13)
@@ -3459,8 +3639,8 @@ LABEL_15:
   }
 
   [(NESMVPNSession *)self virtualInterface];
-  v61 = [NSNumber numberWithUnsignedChar:NEVirtualInterfaceIsPrimary()];
-  [v5 setObject:v61 forKeyedSubscript:@"IsPrimaryInterface"];
+  v62 = [NSNumber numberWithUnsignedChar:NEVirtualInterfaceIsPrimary()];
+  [v5 setObject:v62 forKeyedSubscript:@"IsPrimaryInterface"];
 
   return v5;
 }
@@ -3545,19 +3725,7 @@ LABEL_7:
   v9 = xpc_dictionary_get_remote_connection(messageCopy);
   v10 = xpc_connection_copy_entitlement_value();
 
-  if (!v10 || xpc_get_type(v10) != &_xpc_type_string)
-  {
-    v11 = xpc_dictionary_get_remote_connection(messageCopy);
-    v12 = xpc_connection_copy_entitlement_value();
-
-    v10 = v12;
-    if (!v12)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (xpc_get_type(v10) != &_xpc_type_string || ([NSString stringWithUTF8String:xpc_string_get_string_ptr(v10)], v27 = objc_claimAutoreleasedReturnValue(), NEGetBundleIdentifierFromAppID(), v28 = objc_claimAutoreleasedReturnValue(), v27, !v28))
+  if ((!v10 || xpc_get_type(v10) != &_xpc_type_string) && (xpc_dictionary_get_remote_connection(messageCopy), v11 = objc_claimAutoreleasedReturnValue(), v12 = xpc_connection_copy_entitlement_value(), v10, v11, (v10 = v12) == 0) || xpc_get_type(v10) != &_xpc_type_string || ([NSString stringWithUTF8String:xpc_string_get_string_ptr(v10)], v27 = objc_claimAutoreleasedReturnValue(), NEGetBundleIdentifierFromAppID(), v28 = objc_claimAutoreleasedReturnValue(), v27, !v28))
   {
 LABEL_9:
 
@@ -3664,6 +3832,33 @@ LABEL_17:
 
 LABEL_18:
 LABEL_20:
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  [(NESMVPNSession *)self setStopped:1];
+  [(NESMVPNSession *)self setLastStartMessage:0];
+  v9.receiver = self;
+  v9.super_class = NESMVPNSession;
+  [(NESMSession *)&v9 handleStopMessageWithReason:v3];
+  if ([(NESMSession *)self status]&& [(NESMSession *)self status]!= 1)
+  {
+    stateHandler = [(NESMVPNSession *)self stateHandler];
+    [stateHandler handleStop];
+  }
+
+  else
+  {
+    v5 = sub_10005750C(NESMServer);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10002AAF8;
+    v7[3] = &unk_1000EB338;
+    v8 = v3;
+    v7[4] = self;
+    sub_10005B410(v5, self, v7);
+  }
 }
 
 - (void)handleStartMessage:(id)message
@@ -3915,11 +4110,11 @@ LABEL_10:
   }
 
   protocol10 = [(NESMVPNSession *)self protocol];
-  type = [protocol10 type];
+  v31 = objc_msgSend_type(protocol10);
 
   protocol11 = [(NESMVPNSession *)self protocol];
   v33 = protocol11;
-  if (type == 4)
+  if (v31 == 4)
   {
     if (![protocol11 authenticationMethod])
     {
@@ -4112,9 +4307,9 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  type2 = [protocol11 type];
+  v71 = objc_msgSend_type(protocol11);
 
-  if (type2 == 5 && v4)
+  if (v71 == 5 && v4)
   {
     v33 = _CFXPCCreateCFObjectFromXPCObject();
     v72 = [v33 objectForKeyedSubscript:NEVPNConnectionStartOptionUsername];
@@ -4218,7 +4413,7 @@ LABEL_58:
     identifier = [(__CFString *)configuration identifier];
     uUIDString = [identifier UUIDString];
     interfaceName = [(NESMVPNSession *)selfCopy interfaceName];
-    v8 = [NSString stringWithFormat:@"%@:%@:%d", uUIDString, interfaceName, [(NESMVPNSession *)selfCopy type]];
+    v8 = [NSString stringWithFormat:@"%@:%@:%d", uUIDString, interfaceName, objc_msgSend_type(selfCopy)];
     [(NESMSession *)selfCopy setAuxiliaryDataKey:v8];
   }
 
@@ -4235,7 +4430,7 @@ LABEL_58:
     identifier = [(NESMSession *)selfCopy configuration];
     uUIDString = [identifier identifier];
     interfaceName = [uUIDString UUIDString];
-    v8 = [NSString stringWithFormat:@"%@:%@:%d", interfaceName, configuration, [(NESMVPNSession *)selfCopy type]];
+    v8 = [NSString stringWithFormat:@"%@:%@:%d", interfaceName, configuration, objc_msgSend_type(selfCopy)];
     [(NESMSession *)selfCopy setAuxiliaryDataKey:v8];
   }
 
@@ -4326,14 +4521,14 @@ LABEL_13:
     if (!pluginType)
     {
       v4 = 1;
-LABEL_72:
+LABEL_68:
 
       return v4;
     }
 
     if (!self)
     {
-      goto LABEL_37;
+      goto LABEL_33;
     }
 
     configuration2 = [(NESMSession *)self configuration];
@@ -4358,8 +4553,8 @@ LABEL_72:
           {
             *buf = 138412546;
             selfCopy3 = self;
-            v102 = 2112;
-            v103 = pluginType2;
+            v98 = 2112;
+            v99 = pluginType2;
             _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%@: Cannot create agent for plugin type %@, missing designated requirement", buf, 0x16u);
           }
 
@@ -4368,136 +4563,148 @@ LABEL_19:
 
           if (v21)
           {
-            agentPluginClass = [(NESMVPNSession *)self agentPluginClass];
-            v23 = off_1000E8ED0;
-            v24 = off_1000E8EC8;
-            if (agentPluginClass != 3)
-            {
-              v24 = &off_1000E8F98;
-            }
-
-            if (agentPluginClass != 2)
-            {
-              v23 = v24;
-            }
-
-            v25 = *v23;
-            v26 = objc_alloc(objc_opt_class());
+            [(NESMVPNSession *)self agentPluginClass];
+            v22 = objc_alloc(objc_opt_class());
             queue = [(NESMSession *)self queue];
-            v28 = [v26 initWithAgent:v21 delegateQueue:queue andDelegate:self];
-            [(NESMVPNSession *)self setPrimaryTunnelPlugin:v28];
+            v24 = [v22 initWithAgent:v21 delegateQueue:queue andDelegate:self];
+            [(NESMVPNSession *)self setPrimaryTunnelPlugin:v24];
 
             authenticationPluginBundleIdentifier = [(NESMVPNSession *)self authenticationPluginBundleIdentifier];
             if (!authenticationPluginBundleIdentifier)
             {
-              goto LABEL_64;
-            }
+LABEL_60:
+              extensibleSSOProvider = [(NESMVPNSession *)self extensibleSSOProvider];
 
-            v30 = pluginType;
-            v31 = authenticationPluginBundleIdentifier;
-            v32 = [[NSString alloc] initWithFormat:@"VPN-%@.plist", v30];
-            v33 = SCPreferencesCreate(0, @"NEPluginPreferences", v32);
-            if (!v33)
-            {
-              v48 = ne_log_obj();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              if (extensibleSSOProvider)
               {
-                v72 = SCError();
-                v73 = SCErrorString(v72);
-                *buf = 138412546;
-                selfCopy3 = v30;
-                v102 = 2080;
-                v103 = v73;
-                _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Failed to create preferences for %@: %s", buf, 0x16u);
+                v91 = @"plugin-path";
+                extensibleSSOProvider2 = [(NESMVPNSession *)self extensibleSSOProvider];
+                v92 = extensibleSSOProvider2;
+                v57 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+
+                v58 = objc_alloc((p_info + 446));
+                pluginType3 = [(NESMVPNSession *)self pluginType];
+                v60 = [(NESMSession *)self uid];
+                v61 = [v58 initWithPluginType:pluginType3 pluginVersion:0 pluginClass:8 pluginInfo:v57 userID:v60];
+
+                v62 = [NEVPNAuthenticationPlugin alloc];
+                queue2 = [(NESMSession *)self queue];
+                v64 = [(NEPlugin *)v62 initWithAgent:v61 delegateQueue:queue2 andDelegate:self];
+                [(NESMVPNSession *)self setAuthenticationPlugin:v64];
               }
 
-              v46 = 0;
-              goto LABEL_62;
+              primaryTunnelPlugin2 = [(NESMVPNSession *)self primaryTunnelPlugin];
+              v4 = primaryTunnelPlugin2 != 0;
+
+              v27 = authenticationPluginBundleIdentifier;
+              goto LABEL_67;
             }
 
-            v34 = v33;
-            Value = SCPreferencesGetValue(v33, @"ApplicationURL");
+            v26 = pluginType;
+            v27 = authenticationPluginBundleIdentifier;
+            v28 = [[NSString alloc] initWithFormat:@"VPN-%@.plist", v26];
+            v29 = SCPreferencesCreate(0, @"NEPluginPreferences", v28);
+            if (!v29)
+            {
+              v44 = ne_log_obj();
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              {
+                v68 = SCError();
+                v69 = SCErrorString(v68);
+                *buf = 138412546;
+                selfCopy3 = v26;
+                v98 = 2080;
+                v99 = v69;
+                _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Failed to create preferences for %@: %s", buf, 0x16u);
+              }
+
+              v42 = 0;
+              goto LABEL_58;
+            }
+
+            v30 = v29;
+            Value = SCPreferencesGetValue(v29, @"ApplicationURL");
             TypeID = CFDataGetTypeID();
             if (!Value || CFGetTypeID(Value) != TypeID)
             {
-              v47 = ne_log_obj();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+              v43 = ne_log_obj();
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                selfCopy3 = v32;
-                _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "No ApplicationURL available in %@", buf, 0xCu);
+                selfCopy3 = v28;
+                _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "No ApplicationURL available in %@", buf, 0xCu);
               }
 
-              CFRelease(v34);
-              v46 = 0;
+              CFRelease(v30);
+              v42 = 0;
               p_info = (&OBJC_METACLASS___NEDNSProxyPlugin + 32);
-              goto LABEL_62;
+              goto LABEL_58;
             }
 
-            v99[0] = 0;
-            v37 = [NSURL URLByResolvingBookmarkData:Value options:0 relativeToURL:0 bookmarkDataIsStale:0 error:v99];
-            v90 = v99[0];
-            CFRelease(v34);
-            if (!v37)
+            v95[0] = 0;
+            v33 = [NSURL URLByResolvingBookmarkData:Value options:0 relativeToURL:0 bookmarkDataIsStale:0 error:v95];
+            v86 = v95[0];
+            CFRelease(v30);
+            if (!v33)
             {
-              v49 = ne_log_obj();
+              v45 = ne_log_obj();
               p_info = (&OBJC_METACLASS___NEDNSProxyPlugin + 32);
-              v89 = v49;
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+              v85 = v45;
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                selfCopy3 = v30;
-                v102 = 2112;
-                v103 = v90;
-                _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "Failed to resolve app bookmark from data for %@: %@", buf, 0x16u);
+                selfCopy3 = v26;
+                v98 = 2112;
+                v99 = v86;
+                _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to resolve app bookmark from data for %@: %@", buf, 0x16u);
               }
 
-              v46 = 0;
-              goto LABEL_61;
+              v42 = 0;
+              goto LABEL_57;
             }
 
-            v38 = [[NSBundle alloc] initWithURL:v37];
+            v34 = [[NSBundle alloc] initWithURL:v33];
             p_info = &OBJC_METACLASS___NEDNSProxyPlugin.info;
-            v89 = v38;
-            if (!v38)
+            v85 = v34;
+            if (!v34)
             {
               log = ne_log_obj();
               if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                selfCopy3 = v37;
+                selfCopy3 = v33;
                 _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to create a bundle from %@", buf, 0xCu);
               }
 
-              v46 = 0;
-              goto LABEL_60;
+              v42 = 0;
+              goto LABEL_56;
             }
 
-            v84 = v32;
-            v85 = v30;
-            [v38 builtInPlugInsURL];
-            log = v94 = 0;
+            v80 = v28;
+            v81 = v26;
+            [v34 builtInPlugInsURL];
+            log = v90 = 0;
             if (log)
             {
-              v87 = v37;
-              v39 = +[NSFileManager defaultManager];
+              v83 = v33;
+              v35 = +[NSFileManager defaultManager];
               path = [log path];
-              if ([v39 fileExistsAtPath:path isDirectory:&v94])
+              if ([v35 fileExistsAtPath:path isDirectory:&v90])
               {
-                v41 = v94;
+                v37 = v90;
 
-                v37 = v87;
-                if (v41)
+                v33 = v83;
+                if (v37)
                 {
-                  v42 = +[NSFileManager defaultManager];
+                  v38 = +[NSFileManager defaultManager];
                   path2 = [log path];
-                  v93 = 0;
-                  v44 = [v42 contentsOfDirectoryAtPath:path2 error:&v93];
-                  v45 = v93;
+                  v89 = 0;
+                  v40 = [v38 contentsOfDirectoryAtPath:path2 error:&v89];
+                  v41 = v89;
 
-                  v86 = v45;
-                  v82 = v44;
-                  if (v45)
+                  v82 = v41;
+                  v78 = v40;
+                  if (v41)
                   {
                     obj = ne_log_obj();
                     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
@@ -4505,65 +4712,65 @@ LABEL_19:
                       path3 = [log path];
                       *buf = 138412546;
                       selfCopy3 = path3;
-                      v102 = 2112;
-                      v103 = v45;
+                      v98 = 2112;
+                      v99 = v41;
                       _os_log_error_impl(&_mh_execute_header, obj, OS_LOG_TYPE_ERROR, "Failed to get the contents of %@: %@", buf, 0x16u);
                     }
                   }
 
                   else
                   {
-                    v106 = 0u;
-                    v107 = 0u;
-                    v104 = 0u;
-                    v105 = 0u;
-                    obj = v44;
-                    v91 = [obj countByEnumeratingWithState:&v104 objects:buf count:16];
-                    if (v91)
+                    v102 = 0u;
+                    v103 = 0u;
+                    v100 = 0u;
+                    v101 = 0u;
+                    obj = v40;
+                    v87 = [obj countByEnumeratingWithState:&v100 objects:buf count:16];
+                    if (v87)
                     {
-                      v74 = *v105;
-                      v37 = v87;
-                      v83 = *v105;
+                      v70 = *v101;
+                      v33 = v83;
+                      v79 = *v101;
                       while (2)
                       {
-                        for (i = 0; i != v91; i = i + 1)
+                        for (i = 0; i != v87; i = i + 1)
                         {
-                          if (*v105 != v74)
+                          if (*v101 != v70)
                           {
                             objc_enumerationMutation(obj);
                           }
 
-                          v76 = *(*(&v104 + 1) + 8 * i);
-                          if ([v76 hasSuffix:@".vpnplugin"])
+                          v72 = *(*(&v100 + 1) + 8 * i);
+                          if ([v72 hasSuffix:@".vpnplugin"])
                           {
-                            v77 = [[NSURL alloc] initWithString:v76 relativeToURL:log];
-                            if (v77)
+                            v73 = [[NSURL alloc] initWithString:v72 relativeToURL:log];
+                            if (v73)
                             {
-                              v78 = [[NSBundle alloc] initWithURL:v77];
-                              v46 = v78;
-                              if (v78)
+                              v74 = [[NSBundle alloc] initWithURL:v73];
+                              v42 = v74;
+                              if (v74)
                               {
-                                bundleIdentifier = [v78 bundleIdentifier];
-                                v80 = [bundleIdentifier isEqualToString:v31];
+                                bundleIdentifier = [v74 bundleIdentifier];
+                                v76 = [bundleIdentifier isEqualToString:v27];
 
-                                v37 = v87;
-                                if (v80)
+                                v33 = v83;
+                                if (v76)
                                 {
 
                                   p_info = (&OBJC_METACLASS___NEDNSProxyPlugin + 32);
-                                  goto LABEL_89;
+                                  goto LABEL_85;
                                 }
                               }
 
-                              v74 = v83;
+                              v70 = v79;
                             }
 
                             p_info = (&OBJC_METACLASS___NEDNSProxyPlugin + 32);
                           }
                         }
 
-                        v91 = [obj countByEnumeratingWithState:&v104 objects:buf count:16];
-                        if (v91)
+                        v87 = [obj countByEnumeratingWithState:&v100 objects:buf count:16];
+                        if (v87)
                         {
                           continue;
                         }
@@ -4571,135 +4778,110 @@ LABEL_19:
                         break;
                       }
 
-                      v46 = 0;
-LABEL_89:
-                      v32 = v84;
-                      v30 = v85;
-                      goto LABEL_90;
+                      v42 = 0;
+LABEL_85:
+                      v28 = v80;
+                      v26 = v81;
+                      goto LABEL_86;
                     }
                   }
 
-                  v46 = 0;
-                  v32 = v84;
-                  v30 = v85;
-                  v37 = v87;
-LABEL_90:
+                  v42 = 0;
+                  v28 = v80;
+                  v26 = v81;
+                  v33 = v83;
+LABEL_86:
 
-LABEL_59:
-LABEL_60:
+LABEL_55:
+LABEL_56:
 
-LABEL_61:
-LABEL_62:
+LABEL_57:
+LABEL_58:
 
-                  if (v46)
+                  if (v42)
                   {
-                    v97 = @"plugin-path";
-                    bundlePath = [v46 bundlePath];
-                    v98 = bundlePath;
-                    v52 = [NSDictionary dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+                    v93 = @"plugin-path";
+                    bundlePath = [v42 bundlePath];
+                    v94 = bundlePath;
+                    v48 = [NSDictionary dictionaryWithObjects:&v94 forKeys:&v93 count:1];
 
-                    v53 = objc_alloc((p_info + 446));
-                    v54 = [(NESMSession *)self uid];
-                    v55 = [v53 initWithPluginType:v31 pluginVersion:0 pluginClass:1 pluginInfo:v52 userID:v54];
+                    v49 = objc_alloc((p_info + 446));
+                    v50 = [(NESMSession *)self uid];
+                    v51 = [v49 initWithPluginType:v27 pluginVersion:0 pluginClass:1 pluginInfo:v48 userID:v50];
 
-                    v56 = [NEVPNAuthenticationPlugin alloc];
-                    queue2 = [(NESMSession *)self queue];
-                    v58 = [(NEPlugin *)v56 initWithAgent:v55 delegateQueue:queue2 andDelegate:self];
-                    [(NESMVPNSession *)self setAuthenticationPlugin:v58];
+                    v52 = [NEVPNAuthenticationPlugin alloc];
+                    queue3 = [(NESMSession *)self queue];
+                    v54 = [(NEPlugin *)v52 initWithAgent:v51 delegateQueue:queue3 andDelegate:self];
+                    [(NESMVPNSession *)self setAuthenticationPlugin:v54];
 
-LABEL_64:
-                    extensibleSSOProvider = [(NESMVPNSession *)self extensibleSSOProvider];
-
-                    if (extensibleSSOProvider)
-                    {
-                      v95 = @"plugin-path";
-                      extensibleSSOProvider2 = [(NESMVPNSession *)self extensibleSSOProvider];
-                      v96 = extensibleSSOProvider2;
-                      v61 = [NSDictionary dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-
-                      v62 = objc_alloc((p_info + 446));
-                      pluginType3 = [(NESMVPNSession *)self pluginType];
-                      v64 = [(NESMSession *)self uid];
-                      v65 = [v62 initWithPluginType:pluginType3 pluginVersion:0 pluginClass:8 pluginInfo:v61 userID:v64];
-
-                      v66 = [NEVPNAuthenticationPlugin alloc];
-                      queue3 = [(NESMSession *)self queue];
-                      v68 = [(NEPlugin *)v66 initWithAgent:v65 delegateQueue:queue3 andDelegate:self];
-                      [(NESMVPNSession *)self setAuthenticationPlugin:v68];
-                    }
-
-                    primaryTunnelPlugin2 = [(NESMVPNSession *)self primaryTunnelPlugin];
-                    v4 = primaryTunnelPlugin2 != 0;
-
-                    v31 = authenticationPluginBundleIdentifier;
-                    goto LABEL_71;
+                    goto LABEL_60;
                   }
 
-                  v70 = ne_log_obj();
-                  if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+                  v66 = ne_log_obj();
+                  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
                     selfCopy3 = self;
-                    v102 = 2112;
-                    v103 = v31;
-                    _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "%@: Failed to obtain the bundle for %@", buf, 0x16u);
+                    v98 = 2112;
+                    v99 = v27;
+                    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "%@: Failed to obtain the bundle for %@", buf, 0x16u);
                   }
 
                   [(NESMVPNSession *)self setPrimaryTunnelPlugin:0];
-LABEL_70:
+LABEL_66:
                   v4 = 0;
-LABEL_71:
+LABEL_67:
 
-                  goto LABEL_72;
+                  goto LABEL_68;
                 }
               }
 
               else
               {
 
-                v37 = v87;
+                v33 = v83;
               }
             }
 
-            v50 = ne_log_obj();
-            v86 = v50;
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+            v46 = ne_log_obj();
+            v82 = v46;
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               selfCopy3 = log;
-              _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "Invalid plugins URL: %@", buf, 0xCu);
+              _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Invalid plugins URL: %@", buf, 0xCu);
             }
 
-            v46 = 0;
-            v32 = v84;
-            v30 = v85;
-            goto LABEL_59;
+            v42 = 0;
+            v28 = v80;
+            v26 = v81;
+            goto LABEL_55;
           }
 
-LABEL_37:
-          v31 = ne_log_obj();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+LABEL_33:
+          v27 = ne_log_obj();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             selfCopy3 = self;
-            _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%@: Failed to create an NEAgent", buf, 0xCu);
+            _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%@: Failed to create an NEAgent", buf, 0xCu);
           }
 
           v21 = 0;
-          goto LABEL_70;
+          goto LABEL_66;
         }
 
         v12 = v15;
-        v99[0] = @"plugin-requirement";
-        v99[1] = @"extension-identifier";
-        *&v104 = providerDesignatedRequirement;
-        *(&v104 + 1) = providerBundleIdentifier;
-        v16 = [NSDictionary dictionaryWithObjects:&v104 forKeys:v99 count:2];
+        v95[0] = @"plugin-requirement";
+        v95[1] = @"extension-identifier";
+        *&v100 = providerDesignatedRequirement;
+        *(&v100 + 1) = providerBundleIdentifier;
+        v16 = [NSDictionary dictionaryWithObjects:&v100 forKeys:v95 count:2];
 LABEL_18:
         v18 = [v12 alloc];
-        agentPluginClass2 = [(NESMVPNSession *)self agentPluginClass];
+        agentPluginClass = [(NESMVPNSession *)self agentPluginClass];
         v20 = [(NESMSession *)self uid];
-        v21 = [v18 initWithPluginType:pluginType2 pluginVersion:1 pluginClass:agentPluginClass2 pluginInfo:v16 userID:v20];
+        v21 = [v18 initWithPluginType:pluginType2 pluginVersion:1 pluginClass:agentPluginClass pluginInfo:v16 userID:v20];
 
         goto LABEL_19;
       }
@@ -4865,18 +5047,8 @@ LABEL_7:
   {
     cachedStateHandlers = [(NESMVPNSession *)self cachedStateHandlers];
 
-    if (!cachedStateHandlers)
+    if (!cachedStateHandlers || (-[NESMVPNSession cachedStateHandlers](self, "cachedStateHandlers"), v6 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", state), v7 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:v7], v8 = objc_claimAutoreleasedReturnValue(), v7, v6, !v8))
     {
-      goto LABEL_4;
-    }
-
-    cachedStateHandlers2 = [(NESMVPNSession *)self cachedStateHandlers];
-    v7 = [NSNumber numberWithInteger:state];
-    v8 = [cachedStateHandlers2 objectForKeyedSubscript:v7];
-
-    if (!v8)
-    {
-LABEL_4:
       v9 = [NESMVPNSessionState stateWithType:state];
       if (!v9)
       {
@@ -4884,17 +5056,17 @@ LABEL_4:
       }
 
       v8 = v9;
-      cachedStateHandlers3 = [(NESMVPNSession *)self cachedStateHandlers];
+      cachedStateHandlers2 = [(NESMVPNSession *)self cachedStateHandlers];
 
-      if (!cachedStateHandlers3)
+      if (!cachedStateHandlers2)
       {
         v11 = objc_alloc_init(NSMutableDictionary);
         [(NESMVPNSession *)self setCachedStateHandlers:v11];
       }
 
-      cachedStateHandlers4 = [(NESMVPNSession *)self cachedStateHandlers];
+      cachedStateHandlers3 = [(NESMVPNSession *)self cachedStateHandlers];
       v13 = [NSNumber numberWithInteger:state];
-      [cachedStateHandlers4 setObject:v8 forKeyedSubscript:v13];
+      [cachedStateHandlers3 setObject:v8 forKeyedSubscript:v13];
     }
 
     state = self->_state;
@@ -5101,16 +5273,16 @@ LABEL_36:
   queueCopy = queue;
   messageQueueCopy = messageQueue;
   parentCopy = parent;
-  v59.receiver = self;
-  v59.super_class = NESMVPNSession;
-  v23 = [(NESMSession *)&v59 initWithConfiguration:configurationCopy andServer:serverCopy sessionQueue:queueCopy messageQueue:messageQueueCopy];
+  v60.receiver = self;
+  v60.super_class = NESMVPNSession;
+  v23 = [(NESMSession *)&v60 initWithConfiguration:configurationCopy andServer:serverCopy sessionQueue:queueCopy messageQueue:messageQueueCopy];
   v24 = v23;
   if (!v23)
   {
     goto LABEL_19;
   }
 
-  v56 = serverCopy;
+  v57 = serverCopy;
   v23->_sessionType = sessionType;
   v23->_state = 0;
   objc_storeStrong(&v23->_protocol, protocol);
@@ -5189,30 +5361,30 @@ LABEL_15:
     v41 = sub_100033D18(&v39->super.isa, identifier, sessionType, [configurationCopy grade], tunnelType, kind);
     [(NESMSession *)v24 setPolicySession:v41];
 
-    sub_10008E79C(v24);
+    sub_10008E79C(v24, v42);
   }
 
-  v42 = [[NEPolicySession alloc] initWithSessionName:@"VPN control"];
-  [(NESMSession *)v24 setControlPolicySession:v42];
+  v43 = [[NEPolicySession alloc] initWithSessionName:@"VPN control"];
+  [(NESMSession *)v24 setControlPolicySession:v43];
 
   controlPolicySession = [(NESMSession *)v24 controlPolicySession];
 
   if (!controlPolicySession)
   {
-    v53 = ne_log_obj();
-    if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v54 = ne_log_obj();
+    if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
 LABEL_23:
 
-      v52 = 0;
-      serverCopy = v56;
+      v53 = 0;
+      serverCopy = v57;
       goto LABEL_24;
     }
 
     *buf = 0;
-    v54 = "Failed to create VPN control policy session";
+    v55 = "Failed to create VPN control policy session";
 LABEL_27:
-    _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, v54, buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, v55, buf, 2u);
     goto LABEL_23;
   }
 
@@ -5222,21 +5394,21 @@ LABEL_27:
   controlPolicySession3 = [(NESMSession *)v24 controlPolicySession];
   [controlPolicySession3 lockSessionToCurrentProcess];
 
-  v46 = [[NEPolicySession alloc] initWithSessionName:@"VPN high"];
-  [(NESMSession *)v24 setHighPolicySession:v46];
+  v47 = [[NEPolicySession alloc] initWithSessionName:@"VPN high"];
+  [(NESMSession *)v24 setHighPolicySession:v47];
 
   highPolicySession = [(NESMSession *)v24 highPolicySession];
 
   if (!highPolicySession)
   {
-    v53 = ne_log_obj();
-    if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v54 = ne_log_obj();
+    if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
     }
 
     *buf = 0;
-    v54 = "Failed to create VPN high policy session";
+    v55 = "Failed to create VPN high policy session";
     goto LABEL_27;
   }
 
@@ -5246,15 +5418,15 @@ LABEL_27:
   highPolicySession3 = [(NESMSession *)v24 highPolicySession];
   [highPolicySession3 lockSessionToCurrentProcess];
 
-  v50 = objc_alloc_init(NESMVPNSessionRetryCounter);
-  objc_setProperty_atomic(v24, v51, v50, 456);
+  v51 = objc_alloc_init(NESMVPNSessionRetryCounter);
+  objc_setProperty_atomic(v24, v52, v51, 456);
 
-  serverCopy = v56;
+  serverCopy = v57;
 LABEL_19:
-  v52 = v24;
+  v53 = v24;
 LABEL_24:
 
-  return v52;
+  return v53;
 }
 
 @end

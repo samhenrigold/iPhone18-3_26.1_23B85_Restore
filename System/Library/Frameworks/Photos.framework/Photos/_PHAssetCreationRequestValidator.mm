@@ -24,10 +24,10 @@
   v43 = 0;
   if (assetCreationRequest)
   {
-    [assetCreationRequest videoDuration];
+    objc_msgSend_videoDuration(assetCreationRequest);
     v40 = 0uLL;
     v41 = 0;
-    [assetCreationRequest imageDisplayTime];
+    objc_msgSend_imageDisplayTime(assetCreationRequest);
     if (!v18)
     {
       goto LABEL_7;

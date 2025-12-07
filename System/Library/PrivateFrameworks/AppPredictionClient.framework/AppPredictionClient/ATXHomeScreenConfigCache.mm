@@ -32,9 +32,9 @@
 - (ATXHomeScreenConfigCache)initWithPath:(id)path
 {
   pathCopy = path;
-  v13.receiver = self;
-  v13.super_class = ATXHomeScreenConfigCache;
-  v5 = [(ATXHomeScreenConfigCache *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ATXHomeScreenConfigCache;
+  v5 = [(ATXHomeScreenConfigCache *)&v14 init];
   if (v5)
   {
     v6 = [pathCopy copy];
@@ -46,14 +46,14 @@
 
     if ((v9 & 1) == 0)
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = __atxlog_handle_default(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(ATXHomeScreenConfigCache *)v5 + 1 initWithPath:v10];
+        [(ATXHomeScreenConfigCache *)v5 + 1 initWithPath:v11];
       }
     }
 
-    v11 = v5;
+    v12 = v5;
   }
 
   return v5;
@@ -73,7 +73,7 @@
 
     else
     {
-      v10 = __atxlog_handle_default();
+      v10 = __atxlog_handle_default(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ATXHomeScreenConfigCache loadHomeScreenAndTodayPageConfigurationsIncludingHidden:forClientWithIdentifier:error:];
@@ -96,7 +96,7 @@
   identifierCopy = identifier;
   v9 = objc_alloc(MEMORY[0x1E698AFF0]);
   v10 = [(ATXHomeScreenConfigCache *)self _filePathForHomeScreenPageConfigWithClientIdentifier:identifierCopy];
-  v11 = __atxlog_handle_home_screen();
+  v11 = __atxlog_handle_home_screen(v10);
   v12 = [v9 initWithCacheFilePath:v10 loggingHandle:v11 debugName:@"Home Screens"];
 
   v13 = objc_autoreleasePoolPush();
@@ -134,39 +134,40 @@
   configurationsCopy = configurations;
   identifierCopy = identifier;
   v10 = [(ATXHomeScreenConfigCache *)self loadHomeScreenPageConfigurationsIncludingHidden:1 forClientWithIdentifier:identifierCopy error:0];
-  if (v10 && [configurationsCopy isEqualToArray:v10])
+  v11 = v10;
+  if (v10 && (v10 = [configurationsCopy isEqualToArray:v10], v10))
   {
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_home_screen(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of home screen pages", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of home screen pages", v19, 2u);
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(v13) = 0;
   }
 
   else
   {
-    v13 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = __atxlog_handle_home_screen(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [ATXHomeScreenConfigCache writeHomeScreenPageConfigurations:forClientWithIdentifier:error:];
     }
 
-    v14 = objc_alloc(MEMORY[0x1E698AFF0]);
-    v15 = [(ATXHomeScreenConfigCache *)self _filePathForHomeScreenPageConfigWithClientIdentifier:identifierCopy];
-    v16 = __atxlog_handle_home_screen();
-    v11 = [v14 initWithCacheFilePath:v15 loggingHandle:v16 debugName:@"Home Screens"];
+    v15 = objc_alloc(MEMORY[0x1E698AFF0]);
+    v16 = [(ATXHomeScreenConfigCache *)self _filePathForHomeScreenPageConfigWithClientIdentifier:identifierCopy];
+    v17 = __atxlog_handle_home_screen(v16);
+    v12 = [v15 initWithCacheFilePath:v16 loggingHandle:v17 debugName:@"Home Screens"];
 
-    v12 = [v11 storeSecureCodedObject:configurationsCopy error:error];
-    if (v12)
+    v13 = [v12 storeSecureCodedObject:configurationsCopy error:error];
+    if (v13)
     {
       notify_post([@"com.apple.duetexpertd.homeScreenPageConfigCacheUpdate" UTF8String]);
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)homeScreenWidgetPersonalities
@@ -536,7 +537,7 @@ LABEL_19:
 {
   v5 = objc_alloc(MEMORY[0x1E698AFF0]);
   _filePathForDockConfig = [(ATXHomeScreenConfigCache *)self _filePathForDockConfig];
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(_filePathForDockConfig);
   v8 = [v5 initWithCacheFilePath:_filePathForDockConfig loggingHandle:v7 debugName:@"Dock apps"];
 
   v9 = objc_autoreleasePoolPush();
@@ -561,46 +562,47 @@ LABEL_19:
 {
   listCopy = list;
   v7 = [(ATXHomeScreenConfigCache *)self loadDockAppListWithError:0];
-  if (v7 && [listCopy isEqualToSet:v7])
+  v8 = v7;
+  if (v7 && (v7 = [listCopy isEqualToSet:v7], v7))
   {
-    v8 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of dock apps", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of dock apps", v16, 2u);
     }
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
   {
-    v10 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = __atxlog_handle_home_screen(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ATXHomeScreenConfigCache writeDockAppList:error:];
     }
 
-    v11 = objc_alloc(MEMORY[0x1E698AFF0]);
+    v12 = objc_alloc(MEMORY[0x1E698AFF0]);
     _filePathForDockConfig = [(ATXHomeScreenConfigCache *)self _filePathForDockConfig];
-    v13 = __atxlog_handle_home_screen();
-    v8 = [v11 initWithCacheFilePath:_filePathForDockConfig loggingHandle:v13 debugName:@"Dock apps"];
+    v14 = __atxlog_handle_home_screen(_filePathForDockConfig);
+    v9 = [v12 initWithCacheFilePath:_filePathForDockConfig loggingHandle:v14 debugName:@"Dock apps"];
 
-    v9 = [v8 storeSecureCodedObject:listCopy error:error];
-    if (v9)
+    v10 = [v9 storeSecureCodedObject:listCopy error:error];
+    if (v10)
     {
       notify_post([@"com.apple.duetexpertd.dockAppListCacheUpdate" UTF8String]);
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)loadTodayStacksAndPanelsAsHomeScreenPageWithError:(id *)error
 {
   v5 = objc_alloc(MEMORY[0x1E698AFF0]);
   _filePathForTodayPage = [(ATXHomeScreenConfigCache *)self _filePathForTodayPage];
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(_filePathForTodayPage);
   v8 = [v5 initWithCacheFilePath:_filePathForTodayPage loggingHandle:v7 debugName:@"Today page"];
 
   v9 = objc_autoreleasePoolPush();
@@ -629,40 +631,41 @@ LABEL_19:
   [v11 setStacks:stacksCopy];
 
   [v11 setPanels:panelsCopy];
-  LODWORD(stacksCopy) = [v10 isEqual:v11];
-  v12 = __atxlog_handle_home_screen();
-  v13 = v12;
+  v12 = [v10 isEqual:v11];
+  LODWORD(stacksCopy) = v12;
+  v13 = __atxlog_handle_home_screen(v12);
+  v14 = v13;
   if (stacksCopy)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of today page", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "Avoiding unnecessary write of today page", v20, 2u);
     }
 
-    LOBYTE(v14) = 0;
+    LOBYTE(v15) = 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [ATXHomeScreenConfigCache writeTodayPageStacks:appPredictionPanels:error:];
     }
 
-    v15 = objc_alloc(MEMORY[0x1E698AFF0]);
+    v16 = objc_alloc(MEMORY[0x1E698AFF0]);
     _filePathForTodayPage = [(ATXHomeScreenConfigCache *)self _filePathForTodayPage];
-    v17 = __atxlog_handle_home_screen();
-    v13 = [v15 initWithCacheFilePath:_filePathForTodayPage loggingHandle:v17 debugName:@"Today page"];
+    v18 = __atxlog_handle_home_screen(_filePathForTodayPage);
+    v14 = [v16 initWithCacheFilePath:_filePathForTodayPage loggingHandle:v18 debugName:@"Today page"];
 
-    v14 = [v13 storeSecureCodedObject:v11 error:error];
-    if (v14)
+    v15 = [v14 storeSecureCodedObject:v11 error:error];
+    if (v15)
     {
       notify_post([@"com.apple.duetexpertd.todayPageConfigCacheUpdate" UTF8String]);
     }
   }
 
-  return v14;
+  return v15;
 }
 
 + (id)loadHomeScreenAndTodayPageConfigurationsFromJSONAtPath:(id)path error:(id *)error

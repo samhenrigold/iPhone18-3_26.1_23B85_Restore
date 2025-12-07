@@ -12,34 +12,32 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[8] = *MEMORY[0x1E69E9840];
-  v14[0] = @"nameFieldFirstNameOptional";
+  v14[8] = *MEMORY[0x1E69E9840];
+  v13[0] = @"nameFieldFirstNameOptional";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_nameFieldFirstNameOptional];
-  v15[0] = v3;
-  v14[1] = @"nameFieldLastNameOptional";
+  v14[0] = v3;
+  v13[1] = @"nameFieldLastNameOptional";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_nameFieldLastNameOptional];
-  v15[1] = v4;
-  v14[2] = @"nameFieldShouldBeDisplayed";
+  v14[1] = v4;
+  v13[2] = @"nameFieldShouldBeDisplayed";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_nameFieldShouldBeDisplayed];
-  v15[2] = v5;
-  v14[3] = @"emailAddressFieldShouldBeDisplayed";
+  v14[2] = v5;
+  v13[3] = @"emailAddressFieldShouldBeDisplayed";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_emailAddressFieldShouldBeDisplayed];
-  v15[3] = v6;
-  v14[4] = @"phoneNumberFieldShouldBeDisplayed";
+  v14[3] = v6;
+  v13[4] = @"phoneNumberFieldShouldBeDisplayed";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_phoneNumberFieldShouldBeDisplayed];
-  v15[4] = v7;
-  v14[5] = @"nameEditable";
+  v14[4] = v7;
+  v13[5] = @"nameEditable";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:self->_nameEditable];
-  v15[5] = v8;
-  v14[6] = @"emailAddressEditable";
+  v14[5] = v8;
+  v13[6] = @"emailAddressEditable";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_emailAddressEditable];
-  v15[6] = v9;
-  v14[7] = @"phoneNumberEditable";
+  v14[6] = v9;
+  v13[7] = @"phoneNumberEditable";
   v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_phoneNumberEditable];
-  v15[7] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:8];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[7] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:8];
 
   return v11;
 }

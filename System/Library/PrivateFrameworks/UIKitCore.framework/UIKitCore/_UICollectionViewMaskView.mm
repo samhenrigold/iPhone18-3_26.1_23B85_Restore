@@ -11,7 +11,7 @@
   v3 = [(UIView *)&v6 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
-    v4 = +[UIColor blackColor];
+    v4 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v3 setBackgroundColor:v4];
   }
 

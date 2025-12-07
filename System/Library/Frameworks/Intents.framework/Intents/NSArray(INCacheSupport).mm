@@ -7,29 +7,29 @@
 
 - (void)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        if ([v8 conformsToProtocol:{&unk_1F02E1EC8, v14}])
+        v8 = *(*(&v13 + 1) + 8 * i);
+        if ([v8 conformsToProtocol:{&unk_1F02E1EC8, v13}])
         {
           _intents_cacheableObjects = [v8 _intents_cacheableObjects];
           if ([_intents_cacheableObjects count])
@@ -44,7 +44,7 @@
         }
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -62,35 +62,34 @@
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)_intents_updateContainerWithCache:()INCacheSupport
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        if ([v10 conformsToProtocol:{&unk_1F02E1EC8, v17}])
+        v10 = *(*(&v16 + 1) + 8 * i);
+        if ([v10 conformsToProtocol:{&unk_1F02E1EC8, v16}])
         {
           [v10 _intents_updateContainerWithCache:v4];
         }
@@ -120,13 +119,11 @@
         }
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

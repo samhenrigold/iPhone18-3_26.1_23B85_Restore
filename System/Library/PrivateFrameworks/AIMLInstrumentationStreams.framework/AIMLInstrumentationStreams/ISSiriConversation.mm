@@ -11,12 +11,11 @@
 
 - (NSArray)turns
 {
-  v2 = *(self + OBJC_IVAR___ISSiriConversation_turns);
   type metadata accessor for SiriTurn();
 
-  v3 = sub_23C871894();
+  v2 = sub_23C871894();
 
-  return v3;
+  return v2;
 }
 
 - (double)timestamp
@@ -29,32 +28,27 @@
       goto LABEL_3;
     }
 
-LABEL_10:
+LABEL_8:
     __break(1u);
-    goto LABEL_11;
-  }
-
-  if (v2 < 0)
-  {
-    v6 = *(self + OBJC_IVAR___ISSiriConversation_turns);
+    goto LABEL_9;
   }
 
   selfCopy = self;
-  v8 = sub_23C871C34();
+  v7 = sub_23C871C34();
   self = selfCopy;
-  if (!v8)
+  if (!v7)
   {
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
 LABEL_3:
   if ((v2 & 0xC000000000000001) != 0)
   {
-LABEL_11:
+LABEL_9:
     selfCopy2 = self;
-    v10 = MEMORY[0x23EED7610](0, v2);
+    v9 = MEMORY[0x23EED7610](0, v2);
 
-    v3 = v10;
+    v3 = v9;
     goto LABEL_6;
   }
 
@@ -75,130 +69,117 @@ LABEL_6:
 {
   v3 = sub_23C870AE4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(self + OBJC_IVAR___ISSiriConversation_turns);
-  if (!(v8 >> 62))
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(self + OBJC_IVAR___ISSiriConversation_turns);
+  if (!(v7 >> 62))
   {
-    result = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_3;
     }
 
-LABEL_12:
+LABEL_10:
     __break(1u);
-    goto LABEL_13;
-  }
-
-  if (v8 < 0)
-  {
-    v15 = *(self + OBJC_IVAR___ISSiriConversation_turns);
+    goto LABEL_11;
   }
 
   result = sub_23C871C34();
   if (!result)
   {
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
 LABEL_3:
-  if ((v8 & 0xC000000000000001) != 0)
+  if ((v7 & 0xC000000000000001) != 0)
   {
-LABEL_13:
+LABEL_11:
     selfCopy = self;
-    v12 = MEMORY[0x23EED7610](0, v8);
+    v11 = MEMORY[0x23EED7610](0, v7);
     goto LABEL_6;
   }
 
-  if (!*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v7 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     __break(1u);
     return result;
   }
 
-  v10 = *(v8 + 32);
+  v9 = *(v7 + 32);
   selfCopy2 = self;
-  v12 = v10;
+  v11 = v9;
 LABEL_6:
-  v13 = *&v12[OBJC_IVAR___ISEventGraph_timestamp];
 
   sub_23C870A54();
-  v14 = sub_23C870A84();
-  (*(v4 + 8))(v7, v3);
+  v12 = sub_23C870A84();
+  (*(v4 + 8))(v6, v3);
 
-  return v14;
+  return v12;
 }
 
 - (NSUUID)firstTurnId
 {
   v3 = sub_23C870B74();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(self + OBJC_IVAR___ISSiriConversation_turns);
-  if (!(v8 >> 62))
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(self + OBJC_IVAR___ISSiriConversation_turns);
+  if (!(v7 >> 62))
   {
-    result = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_3;
     }
 
-LABEL_13:
+LABEL_11:
     __break(1u);
-    goto LABEL_14;
-  }
-
-  if (v8 < 0)
-  {
-    v16 = *(self + OBJC_IVAR___ISSiriConversation_turns);
+    goto LABEL_12;
   }
 
   result = sub_23C871C34();
   if (!result)
   {
-    goto LABEL_13;
+    goto LABEL_11;
   }
 
 LABEL_3:
-  if ((v8 & 0xC000000000000001) != 0)
+  if ((v7 & 0xC000000000000001) != 0)
   {
-LABEL_14:
+LABEL_12:
     selfCopy = self;
-    v12 = MEMORY[0x23EED7610](0, v8);
+    v11 = MEMORY[0x23EED7610](0, v7);
     goto LABEL_6;
   }
 
-  if (!*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v7 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     __break(1u);
-    goto LABEL_16;
+    goto LABEL_14;
   }
 
-  v10 = *(v8 + 32);
+  v9 = *(v7 + 32);
   selfCopy2 = self;
-  v12 = v10;
+  v11 = v9;
 LABEL_6:
-  v13 = v12;
+  v12 = v11;
   result = EventGraph.uei.getter();
   if (!result)
   {
-LABEL_16:
+LABEL_14:
     __break(1u);
     return result;
   }
 
-  v14 = sub_23C62FC3C();
+  v13 = sub_23C62FC3C();
 
   sub_23C870E24();
 
-  v15 = sub_23C870B24();
-  (*(v4 + 8))(v7, v3);
+  v14 = sub_23C870B24();
+  (*(v4 + 8))(v6, v3);
 
-  return v15;
+  return v14;
 }
 
 - (ISSiriConversation)initWithTurns:(id)turns

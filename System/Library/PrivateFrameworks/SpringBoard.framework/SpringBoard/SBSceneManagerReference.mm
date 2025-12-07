@@ -367,7 +367,7 @@ void __47__SBSceneManagerReference__autoreleaseManager___block_invoke(uint64_t a
     }
   }
 
-  if (([(NSMutableSet *)self->_retainingScenes containsObject:sceneCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_retainingScenes) & 1) == 0)
   {
     v5[0] = MEMORY[0x277D85DD0];
     v5[1] = 3221225472;

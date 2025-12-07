@@ -127,42 +127,35 @@
 
 - (void)setEvent:(__IOHIDEvent *)event
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v30 = a2;
+  v23 = a2;
   eventCopy = event;
   [(CBALSService *)self resetEventData];
   if (eventCopy)
   {
     selfCopy->super._event = eventCopy;
     CFRetain(selfCopy->super._event);
-    event = selfCopy->super._event;
     IOHIDEventGetDoubleValue();
-    *&selfCopy->_validData = v4;
+    *&selfCopy->_validData = v3;
     if (*&selfCopy->_validData < 0.0)
     {
       *&selfCopy->_validData = 0;
     }
 
-    v5 = selfCopy->super._event;
     if (IOHIDEventGetIntegerValue() == 1)
     {
-      v6 = selfCopy->super._event;
       IOHIDEventGetDoubleValue();
-      *&selfCopy->_validData = v7;
-      v8 = selfCopy->super._event;
+      *&selfCopy->_validData = v4;
       IOHIDEventGetDoubleValue();
-      selfCopy->_y = v9;
-      v10 = selfCopy->super._event;
+      selfCopy->_y = v5;
       IOHIDEventGetDoubleValue();
-      v25 = v11;
-      v12 = selfCopy->super._event;
+      v18 = v6;
       IOHIDEventGetDoubleValue();
-      v24 = v13;
-      v14 = selfCopy->super._event;
+      v17 = v7;
       IOHIDEventGetDoubleValue();
-      v23 = *&v15;
-      v22 = *&v25 + *&v24 + v15;
+      v16 = *&v8;
+      v15 = *&v18 + *&v17 + v8;
       if (selfCopy->super._logHandle)
       {
         logHandle = selfCopy->super._logHandle;
@@ -185,14 +178,14 @@
 
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v32, *&v22, v25, v24, v23, *&selfCopy->_validData, *&selfCopy->_y);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "sum:%f tempX=%f tempY=%f tempZ:%f lux=%f CCT=%f", v32, 0x3Eu);
+        __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v25, *&v15, v18, v17, v16, *&selfCopy->_validData, *&selfCopy->_y);
+        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "sum:%f tempX=%f tempY=%f tempZ:%f lux=%f CCT=%f", v25, 0x3Eu);
       }
 
-      if (v22 != 0.0)
+      if (v15 != 0.0)
       {
-        *&selfCopy->_colorSupport = *&v25 / v22;
-        selfCopy->_x = *&v24 / v22;
+        *&selfCopy->_colorSupport = *&v18 / v15;
+        selfCopy->_x = *&v17 / v15;
       }
     }
 
@@ -203,36 +196,34 @@
   {
     if (selfCopy->super._logHandle)
     {
-      v21 = selfCopy->super._logHandle;
+      v14 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v13 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v20 = init_default_corebrightness_log();
+        v13 = init_default_corebrightness_log();
       }
 
-      v21 = v20;
+      v14 = v13;
     }
 
-    v28 = v21;
-    v27 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v21 = v14;
+    v20 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      log = v28;
-      type = v27;
-      __os_log_helper_16_0_0(v26);
-      _os_log_impl(&dword_1DE8E5000, log, type, "nulling event", v26, 2u);
+      log = v21;
+      type = v20;
+      __os_log_helper_16_0_0(v19);
+      _os_log_impl(&dword_1DE8E5000, log, type, "nulling event", v19, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -278,8 +269,7 @@
 
 - (BOOL)updateEventData
 {
-  v7 = 0;
-  service = self->super._service;
+  v6 = 0;
   cf = IOHIDServiceClientCopyEvent();
   if (cf)
   {
@@ -291,20 +281,20 @@
   else
   {
     [(CBALSService *)self resetEventData];
-    v5 = [(CBHIDService *)self copyPropertyForKey:@"CurrentLuxValue"];
+    v4 = [(CBHIDService *)self copyPropertyForKey:@"CurrentLuxValue"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v5 doubleValue];
-      *&self->_validData = v3;
+      [v4 doubleValue];
+      *&self->_validData = v2;
       *(&self->super._builtIn + 1) = 1;
-      v7 = 1;
+      v6 = 1;
     }
 
-    MEMORY[0x1E69E5920](v5);
+    MEMORY[0x1E69E5920](v4);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

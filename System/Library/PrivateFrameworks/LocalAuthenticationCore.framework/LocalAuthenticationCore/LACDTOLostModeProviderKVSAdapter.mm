@@ -22,9 +22,9 @@
 
 - (void)lostModeStateWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = LACLogDTOLostMode();
+  v5 = LACLogDTOLostMode(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -34,19 +34,17 @@
 
   objc_initWeak(buf, self);
   kvStore = self->_kvStore;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __64__LACDTOLostModeProviderKVSAdapter_lostModeStateWithCompletion___block_invoke;
-  v9[3] = &unk_1E7A959C0;
-  objc_copyWeak(&v11, buf);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __64__LACDTOLostModeProviderKVSAdapter_lostModeStateWithCompletion___block_invoke;
+  v8[3] = &unk_1E7A959C0;
+  objc_copyWeak(&v10, buf);
   v7 = completionCopy;
-  v10 = v7;
-  [(LACDTOKVStore *)kvStore valueForKey:2 completion:v9];
+  v9 = v7;
+  [(LACDTOKVStore *)kvStore valueForKey:2 completion:v8];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__LACDTOLostModeProviderKVSAdapter_lostModeStateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -55,39 +53,38 @@ void __64__LACDTOLostModeProviderKVSAdapter_lostModeStateWithCompletion___block_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = LACLogDTOLostMode();
-    v9 = v8;
+    v9 = LACLogDTOLostMode(WeakRetained);
+    v10 = v9;
     if (v6)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke_3_cold_1(WeakRetained, v6, v9);
+        __86__LACDTOLocationProviderPersistenceDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke_3_cold_1(v8, v6, v10);
       }
 
-      v10 = *(a1 + 32);
-      v11 = +[LACDTOLostModeState nullInstance];
+      v11 = *(a1 + 32);
+      v12 = +[LACDTOLostModeState nullInstance];
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138543362;
-        v15 = WeakRetained;
-        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query", &v14, 0xCu);
+        v15 = v8;
+        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query", &v14, 0xCu);
       }
 
-      v10 = *(a1 + 32);
-      v11 = -[LACDTOLostModeState initWithIsInLostMode:]([LACDTOLostModeState alloc], "initWithIsInLostMode:", [v5 BOOLValue]);
+      v11 = *(a1 + 32);
+      v12 = -[LACDTOLostModeState initWithIsInLostMode:]([LACDTOLostModeState alloc], "initWithIsInLostMode:", [v5 BOOLValue]);
     }
 
-    v12 = v11;
-    (*(v10 + 16))(v10, v11);
+    v13 = v12;
+    (*(v11 + 16))(v11, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

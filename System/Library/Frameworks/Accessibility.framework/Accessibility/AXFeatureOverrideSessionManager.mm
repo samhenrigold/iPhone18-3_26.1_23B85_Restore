@@ -61,7 +61,7 @@ uint64_t __49__AXFeatureOverrideSessionManager_sharedInstance__block_invoke()
 
 - (id)beginOverrideSessionEnablingOptions:(unint64_t)options disablingOptions:(unint64_t)disablingOptions error:(id *)error
 {
-  v40[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   v9 = [AXFeatureOverrideSession alloc];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   v11 = [(AXFeatureOverrideSession *)v9 initWithUUID:uUID];
@@ -69,18 +69,18 @@ uint64_t __49__AXFeatureOverrideSessionManager_sharedInstance__block_invoke()
   v12 = objc_alloc(MEMORY[0x1E695DF20]);
   uuid = [(AXFeatureOverrideSession *)v11 uuid];
   uUIDString = [uuid UUIDString];
-  v40[0] = uUIDString;
+  v39[0] = uUIDString;
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:options];
-  v40[1] = v15;
+  v39[1] = v15;
   v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:disablingOptions];
-  v40[2] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+  v39[2] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
   v18 = [v12 initWithObjects:v17 forKeys:&unk_1F29D9B58];
 
   serverClient = self->_serverClient;
-  v33 = 0;
-  v20 = [(AXUIClient *)serverClient sendSynchronousMessage:v18 withIdentifier:1 error:&v33];
-  v21 = v33;
+  v32 = 0;
+  v20 = [(AXUIClient *)serverClient sendSynchronousMessage:v18 withIdentifier:1 error:&v32];
+  v21 = v32;
   if (v21)
   {
     if (!error)
@@ -89,10 +89,10 @@ uint64_t __49__AXFeatureOverrideSessionManager_sharedInstance__block_invoke()
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
+    v33 = *MEMORY[0x1E696A578];
     v23 = AXLocalizedString(@"FEATURE_OVERRIDE_ERROR_APP_NOT_ENTITLED");
-    v35 = v23;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v34 = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v25 = v22;
     v26 = 1;
     goto LABEL_4;
@@ -108,10 +108,10 @@ uint64_t __49__AXFeatureOverrideSessionManager_sharedInstance__block_invoke()
       if (error)
       {
         v29 = MEMORY[0x1E696ABC0];
-        v38 = *MEMORY[0x1E696A578];
+        v37 = *MEMORY[0x1E696A578];
         v23 = AXLocalizedString(@"FEATURE_OVERRIDE_ERROR_OVERRIDE_IS_ALREADY_ACTIVE");
-        v39 = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v23;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
         v25 = v29;
         v26 = 2;
 LABEL_4:
@@ -124,10 +124,10 @@ LABEL_4:
     else if (error)
     {
       v30 = MEMORY[0x1E696ABC0];
-      v36 = *MEMORY[0x1E696A578];
+      v35 = *MEMORY[0x1E696A578];
       v23 = AXLocalizedString(@"FEATURE_OVERRIDE_ERROR_INTERNAL_ERROR");
-      v37 = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v36 = v23;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v25 = v30;
       v26 = 0;
       goto LABEL_4;
@@ -141,28 +141,26 @@ LABEL_4:
 
 LABEL_12:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (BOOL)endOverrideSession:(id)session error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E695DF20];
   sessionCopy = session;
   v8 = [v6 alloc];
   uuid = [sessionCopy uuid];
 
   uUIDString = [uuid UUIDString];
-  v32[0] = uUIDString;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+  v31[0] = uUIDString;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
   v12 = [v8 initWithObjects:v11 forKeys:&unk_1F29D9B70];
 
   serverClient = self->_serverClient;
-  v27 = 0;
-  v14 = [(AXUIClient *)serverClient sendSynchronousMessage:v12 withIdentifier:2 error:&v27];
-  v15 = v27;
+  v26 = 0;
+  v14 = [(AXUIClient *)serverClient sendSynchronousMessage:v12 withIdentifier:2 error:&v26];
+  v15 = v26;
   if (v15)
   {
     if (!error)
@@ -173,10 +171,10 @@ LABEL_9:
     }
 
     v16 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
+    v27 = *MEMORY[0x1E696A578];
     v17 = AXLocalizedString(@"FEATURE_OVERRIDE_ERROR_APP_NOT_ENTITLED");
-    v29 = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v28 = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v19 = v16;
     v20 = 1;
 LABEL_8:
@@ -198,10 +196,10 @@ LABEL_8:
   if (error && integerValue == 2)
   {
     v24 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A578];
+    v29 = *MEMORY[0x1E696A578];
     v17 = AXLocalizedString(@"FEATURE_OVERRIDE_ERROR_OVERRIDE_NOT_FOUND_FOR_UUID");
-    v31 = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v30 = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v19 = v24;
     v20 = 3;
     goto LABEL_8;
@@ -209,7 +207,6 @@ LABEL_8:
 
 LABEL_10:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

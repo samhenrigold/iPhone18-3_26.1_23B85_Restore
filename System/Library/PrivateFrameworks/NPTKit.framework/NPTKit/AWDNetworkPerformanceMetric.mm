@@ -1944,75 +1944,72 @@ LABEL_254:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v34 = toCopy;
+  v8 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlElectionParameters)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlMasterChannel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlOpMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    awdlPowerState = self->_awdlPowerState;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlSchedule)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlSecondaryMasterChannel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlSyncChannelSequence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_awdlSyncState)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_btConnectedDevicesCount)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    btIsConnectable = self->_btIsConnectable;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
     has = self->_has;
     if ((*&has & 0x10) == 0)
     {
@@ -2031,9 +2028,8 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  btIsDiscoverable = self->_btIsDiscoverable;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
+  toCopy = v8;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -2047,360 +2043,356 @@ LABEL_24:
   }
 
 LABEL_455:
-  btIsPowerOn = self->_btIsPowerOn;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
+  toCopy = v8;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_25:
-    btIsScanning = self->_btIsScanning;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
 LABEL_26:
   if (self->_callingClient)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularActiveContexts)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x80) != 0)
   {
-    cellularAllowsVoip = self->_cellularAllowsVoip;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularAttached)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularBandinfo)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularBandwidth)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularCarrierName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularDataBearerSoMask)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularDataBearerTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularDataPlanSignalingReductionOverride)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularDataPossible)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularInHomeCountry)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularIndicator)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularIndicatorOverride)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularIsoCountryCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularLqm)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularLteMaxScheduledLayers)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMobileCountryCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMobileNetworkCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioCoverage)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioDataBearer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioMmwaveDataBearer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioNsaCoverage)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioNsaDataBearer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioSaCoverage)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioSaDataBearer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNewRadioSub6DataBearer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrConfiguredBw)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrLayers)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrModulation)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrRsrp)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrRsrq)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrSnr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularPid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRadioAccessTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRadioAccessTechnologyCtDataStatus)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRoamAllowed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRsrp)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularSnr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTac)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalActiveContexts)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalBw)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalCcs)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalLayers)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularUarfcn)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadCdnPop)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadCdnUuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadConnectionTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadDomainLookupTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadEndDataBearerTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadEndPrimaryIpv4Interface)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadEndRat)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadFileSize)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadInterfaceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadInterfaceServiceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
-  v10 = self->_has;
-  if ((*&v10 & 0x200) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200) != 0)
   {
-    downloadIsCellular = self->_downloadIsCellular;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
-    v10 = self->_has;
-    if ((*&v10 & 0x400) == 0)
+    toCopy = v8;
+    v6 = self->_has;
+    if ((*&v6 & 0x400) == 0)
     {
 LABEL_138:
-      if ((*&v10 & 0x800) == 0)
+      if ((*&v6 & 0x800) == 0)
       {
         goto LABEL_139;
       }
@@ -2409,19 +2401,18 @@ LABEL_138:
     }
   }
 
-  else if ((*&v10 & 0x400) == 0)
+  else if ((*&v6 & 0x400) == 0)
   {
     goto LABEL_138;
   }
 
-  downloadIsConstrained = self->_downloadIsConstrained;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v10 = self->_has;
-  if ((*&v10 & 0x800) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_139:
-    if ((*&v10 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_140;
     }
@@ -2430,14 +2421,13 @@ LABEL_139:
   }
 
 LABEL_459:
-  downloadIsExpensive = self->_downloadIsExpensive;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v10 = self->_has;
-  if ((*&v10 & 0x1000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((*&v6 & 0x1000) == 0)
   {
 LABEL_140:
-    if ((*&v10 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_141;
     }
@@ -2446,14 +2436,13 @@ LABEL_140:
   }
 
 LABEL_460:
-  downloadIsMultipath = self->_downloadIsMultipath;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v10 = self->_has;
-  if ((*&v10 & 0x2000) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_141:
-    if ((*&v10 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_143;
     }
@@ -2462,338 +2451,332 @@ LABEL_141:
   }
 
 LABEL_461:
-  downloadIsProxyConnection = self->_downloadIsProxyConnection;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
+  toCopy = v8;
   if ((*&self->_has & 0x4000) != 0)
   {
 LABEL_142:
-    downloadIsReusedConnection = self->_downloadIsReusedConnection;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
 LABEL_143:
   if (self->_downloadMaxSpeedObserved)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadNumberOfStreams)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadProtocolName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadRemoteAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadRemotePort)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadRequestTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadRequestToResponseTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadResponseTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadSecureConnectionTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadServer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStableSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStartDataBearerTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStartPrimaryIpv4Interface)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStartRat)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*(&self->_has + 1) & 0x80) != 0)
   {
-    networkIsAppleReachable = self->_networkIsAppleReachable;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkPrimaryIpv4InterfaceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkPrimaryIpv4ServiceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_nptkitFrameworkVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_performanceTestStartTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingLossPercent)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingMaxLatency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingMeanLatency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingMinLatency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingStandardDeviation)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_powerBatteryWarningLevel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_powerSourceType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_powerStateCaps)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemActiveProcessorCount)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemBatteryLevel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemBatteryState)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemDeviceClass)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemDeviceModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (*(&self->_has + 2))
   {
-    systemLowPowerModeEnabled = self->_systemLowPowerModeEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemOsVariant)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemPhysicalMemory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*(&self->_has + 2) & 2) != 0)
   {
-    systemPowersourceConnected = self->_systemPowersourceConnected;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemProcessorCount)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_systemVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadCdnPop)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadCdnUuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadConnectionTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadDomainLookupTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadEndDataBearerTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadEndPrimaryIpv4Interface)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadEndRat)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadFileSize)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadInterfaceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadInterfaceServiceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
-  v15 = self->_has;
-  if ((*&v15 & 0x40000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x40000) != 0)
   {
-    uploadIsCellular = self->_uploadIsCellular;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
-    v15 = self->_has;
-    if ((*&v15 & 0x80000) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((*&v7 & 0x80000) == 0)
     {
 LABEL_247:
-      if ((*&v15 & 0x100000) == 0)
+      if ((*&v7 & 0x100000) == 0)
       {
         goto LABEL_248;
       }
@@ -2802,19 +2785,18 @@ LABEL_247:
     }
   }
 
-  else if ((*&v15 & 0x80000) == 0)
+  else if ((*&v7 & 0x80000) == 0)
   {
     goto LABEL_247;
   }
 
-  uploadIsConstrained = self->_uploadIsConstrained;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v15 = self->_has;
-  if ((*&v15 & 0x100000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x100000) == 0)
   {
 LABEL_248:
-    if ((*&v15 & 0x200000) == 0)
+    if ((*&v7 & 0x200000) == 0)
     {
       goto LABEL_249;
     }
@@ -2823,14 +2805,13 @@ LABEL_248:
   }
 
 LABEL_465:
-  uploadIsExpensive = self->_uploadIsExpensive;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v15 = self->_has;
-  if ((*&v15 & 0x200000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x200000) == 0)
   {
 LABEL_249:
-    if ((*&v15 & 0x400000) == 0)
+    if ((*&v7 & 0x400000) == 0)
     {
       goto LABEL_250;
     }
@@ -2839,14 +2820,13 @@ LABEL_249:
   }
 
 LABEL_466:
-  uploadIsMultipath = self->_uploadIsMultipath;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
-  v15 = self->_has;
-  if ((*&v15 & 0x400000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((*&v7 & 0x400000) == 0)
   {
 LABEL_250:
-    if ((*&v15 & 0x800000) == 0)
+    if ((*&v7 & 0x800000) == 0)
     {
       goto LABEL_252;
     }
@@ -2855,614 +2835,608 @@ LABEL_250:
   }
 
 LABEL_467:
-  uploadIsProxyConnection = self->_uploadIsProxyConnection;
   PBDataWriterWriteBOOLField();
-  toCopy = v34;
+  toCopy = v8;
   if ((*&self->_has & 0x800000) != 0)
   {
 LABEL_251:
-    uploadIsReusedConnection = self->_uploadIsReusedConnection;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
 LABEL_252:
   if (self->_uploadMaxSpeedObserved)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadNumberOfStreams)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadProtocolName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadRemoteAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadRemotePort)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadRequestTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadRequestToResponseTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadResponseTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadSecureConnectionTime)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadServer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStableSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStartDataBearerTechnology)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStartPrimaryIpv4Interface)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStartRat)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (*(&self->_has + 3))
   {
-    useWifiWasSpecified = self->_useWifiWasSpecified;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiAveragePhyRateRx)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiAverageRssi)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiAverageSnr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiAverageTcpRtt)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiBtcMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiCca)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiChannel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiCwfCca)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiEapolControlMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiEapolSupplicantState)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiGuardInterval)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiHiddenState)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*(&self->_has + 3) & 2) != 0)
   {
-    wifiIsCaptive = self->_wifiIsCaptive;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiMcsIndex)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiNoise)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiNumberOfSpatialStreams)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiOpMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiPhyMode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiRssi)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiSecurity)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiTxRate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wrmChannelType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularCellid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    acceptablePerformanceResult = self->_acceptablePerformanceResult;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityResponsiveness)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularAggregatedDLBW)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularAggregatedULBW)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularIssa)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularLac)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularLteNrConfiguredBw)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMaxDlMod)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMaxNwMimoLyr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMaxSchdMimoLyr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMaxUeRank)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularMaxUlMod)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrSinr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularNrarfcn)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRadioFrequency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalDlMimoLayers)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularTotalNumCcs)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStartRadioFrequency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadEndRadioFrequency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkPrimaryIpv6InterfaceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkPrimaryIpv6ServiceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStartRadioFrequency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadEndRadioFrequency)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadError)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityError)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityDownloadSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityUploadSpeed)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_vpnConnectionState)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadError)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadErrorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadErrorCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadErrorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadErrorCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingError)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingErrorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_pingErrorCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityErrorDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_networkQualityErrorCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRnMobileCountryCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_cellularRnMobileNetworkCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (*(&self->_has + 1))
   {
-    cellularDataIsEnabled = self->_cellularDataIsEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadStartCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadEndCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadMaxCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadStartCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadEndCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadMaxCellularEstimate)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadResponsiveness)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadResponsivenessConfidence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadResponsivenessRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadSpeedConfidence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_downloadSpeedRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadResponsiveness)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadResponsivenessConfidence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadResponsivenessRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadSpeedConfidence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_uploadSpeedRating)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiChannelBand)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 
   if (self->_wifiChannelWidth)
   {
     PBDataWriterWriteStringField();
-    toCopy = v34;
+    toCopy = v8;
   }
 }
 
@@ -6110,7 +6084,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v76 = *(equalCopy + 1657);
     if (self->_awdlPowerState)
     {
       if ((*(equalCopy + 1657) & 1) == 0)
@@ -6181,7 +6154,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v77 = *(equalCopy + 1658);
     if (self->_btIsConnectable)
     {
       if ((*(equalCopy + 1658) & 1) == 0)
@@ -6208,7 +6180,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v78 = *(equalCopy + 1659);
     if (self->_btIsDiscoverable)
     {
       if ((*(equalCopy + 1659) & 1) == 0)
@@ -6235,7 +6206,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v79 = *(equalCopy + 1660);
     if (self->_btIsPowerOn)
     {
       if ((*(equalCopy + 1660) & 1) == 0)
@@ -6262,7 +6232,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v80 = *(equalCopy + 1661);
     if (self->_btIsScanning)
     {
       if ((*(equalCopy + 1661) & 1) == 0)
@@ -6305,7 +6274,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v81 = *(equalCopy + 1662);
     if (self->_cellularAllowsVoip)
     {
       if ((*(equalCopy + 1662) & 1) == 0)
@@ -6799,7 +6767,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v82 = *(equalCopy + 1664);
     if (self->_downloadIsCellular)
     {
       if ((*(equalCopy + 1664) & 1) == 0)
@@ -6826,7 +6793,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v83 = *(equalCopy + 1665);
     if (self->_downloadIsConstrained)
     {
       if ((*(equalCopy + 1665) & 1) == 0)
@@ -6853,7 +6819,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v84 = *(equalCopy + 1666);
     if (self->_downloadIsExpensive)
     {
       if ((*(equalCopy + 1666) & 1) == 0)
@@ -6880,7 +6845,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v85 = *(equalCopy + 1667);
     if (self->_downloadIsMultipath)
     {
       if ((*(equalCopy + 1667) & 1) == 0)
@@ -6907,7 +6871,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v86 = *(equalCopy + 1668);
     if (self->_downloadIsProxyConnection)
     {
       if ((*(equalCopy + 1668) & 1) == 0)
@@ -6934,7 +6897,6 @@ LABEL_32:
       goto LABEL_149;
     }
 
-    v87 = *(equalCopy + 1669);
     if (self->_downloadIsReusedConnection)
     {
       if ((*(equalCopy + 1669) & 1) == 0)
@@ -7086,15 +7048,14 @@ LABEL_32:
     }
   }
 
-  v103 = *(equalCopy + 421);
+  v91 = *(equalCopy + 421);
   if ((*(&self->_has + 1) & 0x80) != 0)
   {
-    if ((v103 & 0x8000) == 0)
+    if ((v91 & 0x8000) == 0)
     {
       goto LABEL_149;
     }
 
-    v104 = *(equalCopy + 1670);
     if (self->_networkIsAppleReachable)
     {
       if ((*(equalCopy + 1670) & 1) == 0)
@@ -7109,7 +7070,7 @@ LABEL_32:
     }
   }
 
-  else if ((v103 & 0x8000) != 0)
+  else if ((v91 & 0x8000) != 0)
   {
     goto LABEL_149;
   }
@@ -7273,15 +7234,14 @@ LABEL_32:
     }
   }
 
-  v123 = *(equalCopy + 421);
+  v110 = *(equalCopy + 421);
   if (*(&self->_has + 2))
   {
-    if ((v123 & 0x10000) == 0)
+    if ((v110 & 0x10000) == 0)
     {
       goto LABEL_149;
     }
 
-    v124 = *(equalCopy + 1671);
     if (self->_systemLowPowerModeEnabled)
     {
       if ((*(equalCopy + 1671) & 1) == 0)
@@ -7296,7 +7256,7 @@ LABEL_32:
     }
   }
 
-  else if ((v123 & 0x10000) != 0)
+  else if ((v110 & 0x10000) != 0)
   {
     goto LABEL_149;
   }
@@ -7325,15 +7285,14 @@ LABEL_32:
     }
   }
 
-  v128 = *(equalCopy + 421);
+  v114 = *(equalCopy + 421);
   if ((*(&self->_has + 2) & 2) != 0)
   {
-    if ((v128 & 0x20000) == 0)
+    if ((v114 & 0x20000) == 0)
     {
       goto LABEL_149;
     }
 
-    v129 = *(equalCopy + 1672);
     if (self->_systemPowersourceConnected)
     {
       if ((*(equalCopy + 1672) & 1) == 0)
@@ -7348,7 +7307,7 @@ LABEL_32:
     }
   }
 
-  else if ((v128 & 0x20000) != 0)
+  else if ((v114 & 0x20000) != 0)
   {
     goto LABEL_149;
   }
@@ -7458,16 +7417,15 @@ LABEL_32:
     }
   }
 
-  v142 = self->_has;
-  v143 = *(equalCopy + 421);
-  if ((*&v142 & 0x40000) != 0)
+  v127 = self->_has;
+  v128 = *(equalCopy + 421);
+  if ((*&v127 & 0x40000) != 0)
   {
-    if ((v143 & 0x40000) == 0)
+    if ((v128 & 0x40000) == 0)
     {
       goto LABEL_149;
     }
 
-    v144 = *(equalCopy + 1673);
     if (self->_uploadIsCellular)
     {
       if ((*(equalCopy + 1673) & 1) == 0)
@@ -7482,19 +7440,18 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x40000) != 0)
+  else if ((v128 & 0x40000) != 0)
   {
     goto LABEL_149;
   }
 
-  if ((*&v142 & 0x80000) != 0)
+  if ((*&v127 & 0x80000) != 0)
   {
-    if ((v143 & 0x80000) == 0)
+    if ((v128 & 0x80000) == 0)
     {
       goto LABEL_149;
     }
 
-    v145 = *(equalCopy + 1674);
     if (self->_uploadIsConstrained)
     {
       if ((*(equalCopy + 1674) & 1) == 0)
@@ -7509,19 +7466,18 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x80000) != 0)
+  else if ((v128 & 0x80000) != 0)
   {
     goto LABEL_149;
   }
 
-  if ((*&v142 & 0x100000) != 0)
+  if ((*&v127 & 0x100000) != 0)
   {
-    if ((v143 & 0x100000) == 0)
+    if ((v128 & 0x100000) == 0)
     {
       goto LABEL_149;
     }
 
-    v146 = *(equalCopy + 1675);
     if (self->_uploadIsExpensive)
     {
       if ((*(equalCopy + 1675) & 1) == 0)
@@ -7536,19 +7492,18 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x100000) != 0)
+  else if ((v128 & 0x100000) != 0)
   {
     goto LABEL_149;
   }
 
-  if ((*&v142 & 0x200000) != 0)
+  if ((*&v127 & 0x200000) != 0)
   {
-    if ((v143 & 0x200000) == 0)
+    if ((v128 & 0x200000) == 0)
     {
       goto LABEL_149;
     }
 
-    v147 = *(equalCopy + 1676);
     if (self->_uploadIsMultipath)
     {
       if ((*(equalCopy + 1676) & 1) == 0)
@@ -7563,19 +7518,18 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x200000) != 0)
+  else if ((v128 & 0x200000) != 0)
   {
     goto LABEL_149;
   }
 
-  if ((*&v142 & 0x400000) != 0)
+  if ((*&v127 & 0x400000) != 0)
   {
-    if ((v143 & 0x400000) == 0)
+    if ((v128 & 0x400000) == 0)
     {
       goto LABEL_149;
     }
 
-    v148 = *(equalCopy + 1677);
     if (self->_uploadIsProxyConnection)
     {
       if ((*(equalCopy + 1677) & 1) == 0)
@@ -7590,19 +7544,18 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x400000) != 0)
+  else if ((v128 & 0x400000) != 0)
   {
     goto LABEL_149;
   }
 
-  if ((*&v142 & 0x800000) != 0)
+  if ((*&v127 & 0x800000) != 0)
   {
-    if ((v143 & 0x800000) == 0)
+    if ((v128 & 0x800000) == 0)
     {
       goto LABEL_149;
     }
 
-    v149 = *(equalCopy + 1678);
     if (self->_uploadIsReusedConnection)
     {
       if ((*(equalCopy + 1678) & 1) == 0)
@@ -7617,7 +7570,7 @@ LABEL_32:
     }
   }
 
-  else if ((v143 & 0x800000) != 0)
+  else if ((v128 & 0x800000) != 0)
   {
     goto LABEL_149;
   }
@@ -7754,15 +7707,14 @@ LABEL_32:
     }
   }
 
-  v165 = *(equalCopy + 421);
+  v144 = *(equalCopy + 421);
   if (*(&self->_has + 3))
   {
-    if ((v165 & 0x1000000) == 0)
+    if ((v144 & 0x1000000) == 0)
     {
       goto LABEL_149;
     }
 
-    v166 = *(equalCopy + 1679);
     if (self->_useWifiWasSpecified)
     {
       if ((*(equalCopy + 1679) & 1) == 0)
@@ -7777,7 +7729,7 @@ LABEL_32:
     }
   }
 
-  else if ((v165 & 0x1000000) != 0)
+  else if ((v144 & 0x1000000) != 0)
   {
     goto LABEL_149;
   }
@@ -7887,15 +7839,14 @@ LABEL_32:
     }
   }
 
-  v179 = *(equalCopy + 421);
+  v157 = *(equalCopy + 421);
   if ((*(&self->_has + 3) & 2) != 0)
   {
-    if ((v179 & 0x2000000) == 0)
+    if ((v157 & 0x2000000) == 0)
     {
       goto LABEL_149;
     }
 
-    v180 = *(equalCopy + 1680);
     if (self->_wifiIsCaptive)
     {
       if ((*(equalCopy + 1680) & 1) == 0)
@@ -7910,7 +7861,7 @@ LABEL_32:
     }
   }
 
-  else if ((v179 & 0x2000000) != 0)
+  else if ((v157 & 0x2000000) != 0)
   {
     goto LABEL_149;
   }
@@ -8002,15 +7953,14 @@ LABEL_32:
     }
   }
 
-  v191 = *(equalCopy + 421);
+  v168 = *(equalCopy + 421);
   if ((*&self->_has & 2) != 0)
   {
-    if ((v191 & 2) == 0)
+    if ((v168 & 2) == 0)
     {
       goto LABEL_149;
     }
 
-    v192 = *(equalCopy + 1656);
     if (self->_acceptablePerformanceResult)
     {
       if ((*(equalCopy + 1656) & 1) == 0)
@@ -8025,7 +7975,7 @@ LABEL_32:
     }
   }
 
-  else if ((v191 & 2) != 0)
+  else if ((v168 & 2) != 0)
   {
     goto LABEL_149;
   }
@@ -8387,12 +8337,11 @@ LABEL_32:
     }
   }
 
-  v233 = *(equalCopy + 421);
+  v209 = *(equalCopy + 421);
   if (*(&self->_has + 1))
   {
-    if ((v233 & 0x100) != 0)
+    if ((v209 & 0x100) != 0)
     {
-      v234 = *(equalCopy + 1663);
       if (self->_cellularDataIsEnabled)
       {
         if ((*(equalCopy + 1663) & 1) == 0)
@@ -8414,7 +8363,7 @@ LABEL_149:
     goto LABEL_150;
   }
 
-  if ((v233 & 0x100) != 0)
+  if ((v209 & 0x100) != 0)
   {
     goto LABEL_149;
   }

@@ -4,6 +4,7 @@
 - (MCProfileTitlePageViewController)initWithViewModel:(id)model;
 - (id)_sectionControllersWithProfile:(id)profile;
 - (id)defaultView;
+- (void)_didFinishPINEntrySuccess:(BOOL)success pin:(id)pin;
 - (void)_resetNavigationBarStyleForViewController:(id)controller;
 - (void)_showAlertForInstallError:(id)error;
 - (void)_updateBottomInsetToEnableCompleteScrollAnimation;
@@ -23,14 +24,19 @@
 - (void)promptForPasscodeWithCompletionHandler:(id)handler;
 - (void)promptForUserInput:(id)input completionHandler:(id)handler;
 - (void)questionsController:(id)controller didFinishWithResponses:(id)responses;
+- (void)restoreViewController:(id)controller didReceiveUserAction:(BOOL)action;
 - (void)scrollViewDidEndDecelerating:(id)decelerating;
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillBeginDragging:(id)dragging;
+- (void)setUserInteractionEnabled:(BOOL)enabled;
 - (void)signInViewController:(id)controller didAuthenticateWithResults:(id)results error:(id)error;
 - (void)signInViewController:(id)controller willAuthenticateWithCompletionHandler:(id)handler;
 - (void)signInViewControllerDidCancelAuthentication:(id)authentication;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MCProfileTitlePageViewController
@@ -142,6 +148,34 @@
   [(MCProfileTitlePageViewController *)&v5 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MCProfileTitlePageViewController;
+  [(MCProfileTitlePageViewController *)&v5 viewWillAppear:appear];
+  navigationController = [(MCProfileTitlePageViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:1 animated:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MCProfileTitlePageViewController;
+  [(MCProfileTitlePageViewController *)&v5 viewDidAppear:appear];
+  [(MCProfileTitlePageViewController *)self _updateBottomInsetToEnableCompleteScrollAnimation];
+  profileTitlePageView = [(MCProfileTitlePageViewController *)self profileTitlePageView];
+  [profileTitlePageView showBottomView:1 animated:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MCProfileTitlePageViewController;
+  [(MCProfileTitlePageViewController *)&v5 viewDidDisappear:disappear];
+  navigationController = [(MCProfileTitlePageViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:0 animated:1];
+}
+
 - (void)dmc_viewControllerHasBeenDismissed
 {
   viewModel = [(MCProfileTitlePageViewController *)self viewModel];
@@ -152,7 +186,7 @@
 
 - (id)_sectionControllersWithProfile:(id)profile
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = objc_opt_new();
   v6 = [[MCProfileTitlePageMetaDataSectionController alloc] initWithProfile:profileCopy];
@@ -190,37 +224,36 @@
   }
 
   [v5 addObject:self->_metaDataSectionController];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v20 = v8;
-  v21 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [[MCProfileTitlePageWarningSectionController alloc] initWithWarning:*(*(&v29 + 1) + 8 * i)];
+        v25 = [[MCProfileTitlePageWarningSectionController alloc] initWithWarning:*(*(&v28 + 1) + 8 * i)];
         [v5 addObject:v25];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v22);
   }
 
   v26 = [v5 copy];
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -666,6 +699,36 @@ uint64_t __113__MCProfileTitlePageViewController_installationFinishedSuccessfull
   return [v2 _showAlertForInstallError:v3];
 }
 
+- (void)setUserInteractionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  view = [(MCProfileTitlePageViewController *)self view];
+  isUserInteractionEnabled = [view isUserInteractionEnabled];
+
+  if (enabledCopy)
+  {
+    if (isUserInteractionEnabled)
+    {
+      return;
+    }
+
+    NSLog(&cfstr_Mcprofiletitle.isa);
+  }
+
+  else
+  {
+    if (!isUserInteractionEnabled)
+    {
+      return;
+    }
+
+    NSLog(&cfstr_Mcprofiletitle_0.isa);
+  }
+
+  view2 = [(MCProfileTitlePageViewController *)self view];
+  [view2 setUserInteractionEnabled:enabledCopy];
+}
+
 - (void)_showAlertForInstallError:(id)error
 {
   v4 = MEMORY[0x277D75110];
@@ -732,6 +795,24 @@ uint64_t __89__MCProfileTitlePageViewController_presentRestoreFailedAlertWithErr
   return result;
 }
 
+- (void)_didFinishPINEntrySuccess:(BOOL)success pin:(id)pin
+{
+  successCopy = success;
+  pinCopy = pin;
+  objc_initWeak(&location, self);
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __66__MCProfileTitlePageViewController__didFinishPINEntrySuccess_pin___block_invoke;
+  v11 = &unk_279861990;
+  objc_copyWeak(&v12, &location);
+  dispatch_async(MEMORY[0x277D85CD0], &v8);
+  v7 = [(MCProfileTitlePageViewController *)self passcodeCompletionHandler:v8];
+  (v7)[2](v7, successCopy, pinCopy);
+
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&location);
+}
+
 void __66__MCProfileTitlePageViewController__didFinishPINEntrySuccess_pin___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -788,6 +869,18 @@ void __66__MCProfileTitlePageViewController__didFinishPINEntrySuccess_pin___bloc
   else
   {
     handlerCopy[2]();
+  }
+}
+
+- (void)restoreViewController:(id)controller didReceiveUserAction:(BOOL)action
+{
+  actionCopy = action;
+  restoreCompletionHandler = [(MCProfileTitlePageViewController *)self restoreCompletionHandler];
+
+  if (restoreCompletionHandler)
+  {
+    restoreCompletionHandler2 = [(MCProfileTitlePageViewController *)self restoreCompletionHandler];
+    restoreCompletionHandler2[2](restoreCompletionHandler2, actionCopy);
   }
 }
 

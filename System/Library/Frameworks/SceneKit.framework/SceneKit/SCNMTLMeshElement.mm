@@ -90,41 +90,47 @@
 
 - (void)setupWithElement:(void *)result
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
-    Type = C3DMeshElementGetType(a2);
-    v3[1] = C3DMeshElementTypeToMTLPrimitiveType(Type);
-    v3[2] = C3DMeshElementGetIndexCount(a2);
-    HIDWORD(v23) = 0;
-    if ((C3DMeshElementGetIndexes(a2, &v23 + 1) || C3DMeshElementGetMTLBuffer(a2)) && (HIDWORD(v23) - 1) >= 2)
+    Type = C3DMeshElementGetType(a2, a2);
+    v3[1] = C3DMeshElementTypeToMTLPrimitiveType(Type, v5);
+    v3[2] = C3DMeshElementGetIndexCount(a2, v6);
+    HIDWORD(v27) = 0;
+    Indexes = C3DMeshElementGetIndexes(a2, &v27 + 1);
+    if ((Indexes || (Indexes = C3DMeshElementGetMTLBuffer(a2)) != 0) && (HIDWORD(v27) - 1) >= 2)
     {
-      if (HIDWORD(v23) == 4)
+      if (HIDWORD(v27) == 4)
       {
-        v5 = 1;
+        v9 = 1;
         goto LABEL_6;
       }
 
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = scn_default_log(Indexes, v8);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      if (v13)
       {
-        OUTLINED_FUNCTION_5_4(&dword_21BEF7000, v9, v10, "Error: Invalid index size (%d bytes per index)", v11, v12, v13, v14, v22, v23, 0);
+        *buf = 67109120;
+        v29 = HIDWORD(v27);
+        OUTLINED_FUNCTION_5_4(&dword_21BEF7000, v14, v15, "Error: Invalid index size (%d bytes per index)", v16, v17, v18, v19, v26, v27);
       }
 
-      v15 = scn_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = scn_default_log(v13, v14);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        OUTLINED_FUNCTION_5_4(&dword_21BEF7000, v16, v17, "Unreachable code: Invalid index size (%d bytes per index)", v18, v19, v20, v21, v22, v23, 0);
+        *buf = 67109120;
+        v29 = HIDWORD(v27);
+        OUTLINED_FUNCTION_5_4(&dword_21BEF7000, v8, v21, "Unreachable code: Invalid index size (%d bytes per index)", v22, v23, v24, v25, v26, v27);
       }
     }
 
-    v5 = 0;
+    v9 = 0;
 LABEL_6:
-    v3[7] = v5;
-    v3[3] = C3DMeshElementGetInstanceCount(a2);
+    v3[7] = v9;
+    v3[3] = C3DMeshElementGetInstanceCount(a2, v8);
     PrimitiveRange = C3DMeshElementGetPrimitiveRange(a2);
-    return [(SCNMTLMeshElement *)v3 setPrimitiveRange:v7];
+    return [(SCNMTLMeshElement *)v3 setPrimitiveRange:v11];
   }
 
   return result;

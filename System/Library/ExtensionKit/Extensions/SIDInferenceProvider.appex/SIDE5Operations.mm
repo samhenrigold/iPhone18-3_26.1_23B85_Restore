@@ -174,8 +174,8 @@ LABEL_11:
     goto LABEL_25;
   }
 
-  [self bindOutputs:p error:error];
-  v15 = 0;
+  objc_msgSend_bindOutputs_error_(self);
+  v14[5] = 0;
   if (e5rt_execution_stream_create())
   {
     if (error)
@@ -183,7 +183,7 @@ LABEL_11:
       *error = [self generateErrorObject:0];
     }
 
-    for (i = v17; i; i = *i)
+    for (i = v16; i; i = *i)
     {
       e5rt_io_port_release();
     }
@@ -197,7 +197,7 @@ LABEL_11:
     }
 
     e5rt_execution_stream_release();
-    for (j = v17; j; j = *j)
+    for (j = v16; j; j = *j)
     {
       e5rt_io_port_release();
     }
@@ -208,7 +208,7 @@ LABEL_11:
     if (!e5rt_execution_stream_execute_sync())
     {
       e5rt_execution_stream_release();
-      sub_100003588(v14, v16);
+      sub_100003588(v14, v15);
       v10 = [self parseOutputData:v14 error:error];
       sub_1000034A4(v14);
       goto LABEL_24;
@@ -220,16 +220,16 @@ LABEL_11:
     }
 
     e5rt_execution_stream_release();
-    for (k = v17; k; k = *k)
+    for (k = v16; k; k = *k)
     {
       e5rt_io_port_release();
     }
   }
 
-  sub_10000352C(v16);
+  sub_10000352C(v15);
   v10 = 0;
 LABEL_24:
-  sub_1000034A4(v16);
+  sub_1000034A4(v15);
 LABEL_25:
 
   return v10;
@@ -370,21 +370,16 @@ LABEL_13:
 
 + (int)bindInputs:(e5rt_execution_stream_operation *)inputs inputData:(id)data error:(id *)error
 {
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  memset(v17, 0, sizeof(v17));
   dataCopy = data;
-  if (![dataCopy countByEnumeratingWithState:&v17 objects:v23 count:16])
+  if (![dataCopy countByEnumeratingWithState:v17 objects:v20 count:16])
   {
     iosurface = 0;
     goto LABEL_42;
   }
 
-  *v18;
-  *v18;
-  v7 = **(&v17 + 1);
-  v8 = **(&v17 + 1);
+  v7 = **(&v17[0] + 1);
+  v8 = **(&v17[0] + 1);
   [v7 UTF8String];
   iosurface = e5rt_execution_stream_operation_retain_input_port();
   if (iosurface)
@@ -474,10 +469,10 @@ LABEL_13:
                     v11 = [dataCopy objectForKeyedSubscript:v7];
                     if (error)
                     {
-                      v21 = NSLocalizedDescriptionKey;
+                      v18 = NSLocalizedDescriptionKey;
                       v13 = [NSString stringWithFormat:@"Unsupported tensor rank %zu for feature '%@'. Only ranks 1 and 2 are supported.", 0, v7];
-                      v22 = v13;
-                      v14 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+                      v19 = v13;
+                      v14 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
                       *error = [NSError errorWithDomain:@"SIDInferenceProvider" code:11 userInfo:v14];
                     }
 
@@ -649,7 +644,7 @@ LABEL_42:
 
       *(&__dst + v17) = 0;
       p_dst = &__dst;
-      sub_1000041A0(retstr, &__dst)[5] = v15;
+      sub_1000041A0(retstr, &__dst, &std::piecewise_construct, &p_dst)[5] = v15;
       if (v26 < 0)
       {
         operator delete(__dst);

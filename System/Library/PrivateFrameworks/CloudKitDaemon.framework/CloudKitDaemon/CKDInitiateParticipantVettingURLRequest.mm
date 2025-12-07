@@ -46,33 +46,30 @@
 
 - (void)fillOutRequestProperties:(id)properties
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v7 = objc_msgSend_shareRecordID(self, v5, v6);
-  v13[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v13, 1);
+  v12[0] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v12, 1);
   objc_msgSend_setModifyRecordIDs_(propertiesCopy, v10, v9);
 
-  v12.receiver = self;
-  v12.super_class = CKDInitiateParticipantVettingURLRequest;
-  [(CKDURLRequest *)&v12 fillOutRequestProperties:propertiesCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = CKDInitiateParticipantVettingURLRequest;
+  [(CKDURLRequest *)&v11 fillOutRequestProperties:propertiesCopy];
 }
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_operationType(self, a2, v2);
   v6 = objc_msgSend_operationRequestWithType_(self, v5, v4);
   v7 = objc_opt_new();
@@ -96,10 +93,8 @@
   v40 = objc_msgSend_shareVettingInitiateRequest(v6, v38, v39);
   objc_msgSend_setBaseToken_(v40, v41, v37);
 
-  v46[0] = v6;
-  v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v46, 1);
-
-  v44 = *MEMORY[0x277D85DE8];
+  v45[0] = v6;
+  v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v45, 1);
 
   return v43;
 }

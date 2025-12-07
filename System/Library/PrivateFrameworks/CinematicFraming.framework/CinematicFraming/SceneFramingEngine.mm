@@ -430,7 +430,7 @@ LABEL_7:
     v15 = *&time->var0;
     *&v16 = time->var3;
     tracksCopy2 = tracks;
-    [(SceneFramingEngine *)self determineSceneSummaryForTracks:tracksCopy2 currentViewport:&v15 atTime:x, y, width, height];
+    objc_msgSend_determineSceneSummaryForTracks_currentViewport_atTime_(self, x, y, width, height);
     v17 = v22;
     v18 = v23;
     v19 = v24;
@@ -1989,8 +1989,8 @@ LABEL_10:
     *&v40 = v38;
   }
 
-  v41 = v53.f32[0];
-  v42 = v40.f32[0];
+  v41 = *v53.i32;
+  v42 = *v40.i32;
   v43 = vsub_f32(vdup_lane_s32(v53, 1), v53).f32[0];
   v44 = vsub_f32(vdup_lane_s32(v40, 1), v40).f32[0];
   result.size.height = v44;

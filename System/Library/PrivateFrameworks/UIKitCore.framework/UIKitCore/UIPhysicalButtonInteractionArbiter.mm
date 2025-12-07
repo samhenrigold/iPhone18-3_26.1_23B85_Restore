@@ -634,7 +634,7 @@ void __55___UIPhysicalButtonInteractionArbiter__handleBSAction___block_invoke_23
             objc_enumerationMutation(v4);
           }
 
-          if ([(_UIPhysicalButtonConfiguration *)*(*(&v9 + 1) + 8 * i) _isEqualToConfigurationMinusGeneration:?])
+          if (([(_UIPhysicalButtonConfiguration *)*(*(&v9 + 1) + 8 * i) _isEqualToConfigurationMinusGeneration:?]& 1) != 0)
           {
 
             v4 = [(_UIPhysicalButtonInteraction *)a2 _bsActionDriver];

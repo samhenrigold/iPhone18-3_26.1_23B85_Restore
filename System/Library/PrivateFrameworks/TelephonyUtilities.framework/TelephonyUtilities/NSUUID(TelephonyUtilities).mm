@@ -25,28 +25,26 @@
 + (id)tu_UUIDv5ForData:()TelephonyUtilities namespaceUUID:
 {
   v4 = 0;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a3 && a4)
   {
     data[0] = 0;
     data[1] = 0;
     v6 = a3;
     [a4 getUUIDBytes:data];
-    memset(&v11, 0, sizeof(v11));
-    CC_SHA1_Init(&v11);
-    CC_SHA1_Update(&v11, data, 0x10u);
+    memset(&v10, 0, sizeof(v10));
+    CC_SHA1_Init(&v10);
+    CC_SHA1_Update(&v10, data, 0x10u);
     bytes = [v6 bytes];
     v8 = [v6 length];
 
-    CC_SHA1_Update(&v11, bytes, v8);
-    CC_SHA1_Final(md, &v11);
-    v14 = *md;
-    BYTE6(v14) = md[6] & 0xF | 0x50;
-    BYTE8(v14) = md[8] & 0x3F | 0x80;
-    v4 = [objc_alloc(objc_opt_class()) initWithUUIDBytes:&v14];
+    CC_SHA1_Update(&v10, bytes, v8);
+    CC_SHA1_Final(md, &v10);
+    v13 = *md;
+    BYTE6(v13) = md[6] & 0xF | 0x50;
+    BYTE8(v13) = md[8] & 0x3F | 0x80;
+    v4 = [objc_alloc(objc_opt_class()) initWithUUIDBytes:&v13];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

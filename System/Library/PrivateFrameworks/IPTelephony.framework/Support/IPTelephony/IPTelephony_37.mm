@@ -20,7 +20,7 @@ void sub_1E4EEEB94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZNK3ims10CallHandle6hangupERKNS_13CallEndReasonE_block_invoke(IPTelephonyManager *a1)
 {
-  IPTelephonyManager::getCallManager(a1, &v5);
+  IPTelephonyManager::getCallManager(&v5);
   v2 = v5;
   ImsUuid::ImsUuid(v3, a1 + 32);
   (*(*v2 + 56))(v2, v3, a1 + 56);
@@ -143,7 +143,7 @@ void sub_1E4EEEE60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZNK3ims10CallHandle6answerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE_block_invoke(IPTelephonyManager *a1)
 {
-  IPTelephonyManager::getCallManager(a1, &v5);
+  IPTelephonyManager::getCallManager(&v5);
   v2 = v5;
   ImsUuid::ImsUuid(v3, a1 + 32);
   (*(*v2 + 48))(v2, v3, a1 + 56);
@@ -225,9 +225,9 @@ void sub_1E4EEF0B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3ims10CallHandle12setRelayCallEb_block_invoke(unsigned __int8 *a1)
+void ___ZN3ims10CallHandle12setRelayCallEb_block_invoke(BOOL *a1)
 {
-  IPTelephonyManager::getCallManager(a1, &v5);
+  IPTelephonyManager::getCallManager(&v5);
   v2 = v5;
   ImsUuid::ImsUuid(v3, (a1 + 32));
   IMSCallManager::setRelayMode(v2, v3, a1[56]);
@@ -309,9 +309,9 @@ void sub_1E4EEF2B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN3ims10CallHandle16setScreeningCallEb_block_invoke(unsigned __int8 *a1)
+void ___ZN3ims10CallHandle16setScreeningCallEb_block_invoke(BOOL *a1)
 {
-  IPTelephonyManager::getCallManager(a1, &v5);
+  IPTelephonyManager::getCallManager(&v5);
   v2 = v5;
   ImsUuid::ImsUuid(v3, (a1 + 32));
   IMSCallManager::setScreeningMode(v2, v3, a1[56]);
@@ -677,11 +677,11 @@ ims::NetworkConfig *ims::NetworkConfig::NetworkConfig(ims::NetworkConfig *this, 
   *(this + 57) = 0;
   *(this + 58) = 0;
   *(this + 59) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 456, *(a2 + 57), *(a2 + 58), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 58) - *(a2 + 57)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 57, *(a2 + 57), *(a2 + 58), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 58) - *(a2 + 57)) >> 3));
   *(this + 60) = 0;
   *(this + 61) = 0;
   *(this + 62) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 480, *(a2 + 60), *(a2 + 61), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 61) - *(a2 + 60)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 60, *(a2 + 60), *(a2 + 61), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 61) - *(a2 + 60)) >> 3));
   if (*(a2 + 527) < 0)
   {
     std::string::__init_copy_ctor_external(this + 21, *(a2 + 63), *(a2 + 64));
@@ -726,52 +726,52 @@ ims::NetworkConfig *ims::NetworkConfig::NetworkConfig(ims::NetworkConfig *this, 
   return this;
 }
 
-void sub_1E4EEFCDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4EEFCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 559) < 0)
+  va_start(va, a3);
+  if (*(v3 + 559) < 0)
+  {
+    operator delete(*v8);
+  }
+
+  if (*(v3 + 527) < 0)
   {
     operator delete(*v7);
   }
 
-  if (*(v2 + 527) < 0)
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
+  if (*(v3 + 455) < 0)
+  {
+    operator delete(*(v3 + 432));
+  }
+
+  if (*(v3 + 431) < 0)
   {
     operator delete(*v6);
   }
 
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 455) < 0)
+  if (*(v3 + 407) < 0)
   {
-    operator delete(*(v2 + 432));
+    operator delete(*(v3 + 384));
   }
 
-  if (*(v2 + 431) < 0)
+  if (*(v3 + 383) < 0)
   {
     operator delete(*v5);
   }
 
-  if (*(v2 + 407) < 0)
+  if (*(v3 + 359) < 0)
   {
-    operator delete(*(v2 + 384));
+    operator delete(*(v3 + 336));
   }
 
-  if (*(v2 + 383) < 0)
+  if (*(v3 + 335) < 0)
   {
     operator delete(*v4);
   }
 
-  if (*(v2 + 359) < 0)
-  {
-    operator delete(*(v2 + 336));
-  }
-
-  if (*(v2 + 335) < 0)
-  {
-    operator delete(*v3);
-  }
-
-  ims::NetworkServices::~NetworkServices(v2);
+  ims::NetworkServices::~NetworkServices(v3);
   _Unwind_Resume(a1);
 }
 
@@ -805,7 +805,7 @@ ims::NetworkServices *ims::NetworkServices::NetworkServices(ims::NetworkServices
   *(this + 34) = 0;
   *(this + 35) = 0;
   *(this + 36) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 272, *(a2 + 34), *(a2 + 35), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 35) - *(a2 + 34)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 34, *(a2 + 34), *(a2 + 35), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 35) - *(a2 + 34)) >> 3));
   v6 = *(a2 + 37);
   *(this + 302) = *(a2 + 302);
   *(this + 37) = v6;
@@ -1005,7 +1005,7 @@ void sub_1E4EF0164(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1086,16 +1086,16 @@ ImsOutStream *SipSecurityMechanism::log(SipSecurityMechanism *this, ImsOutStream
   return a2;
 }
 
-uint64_t tlv::parseV<nas::tlv::SsacInfoVoice>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::SsacInfoVoice>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
-  v4 = *a1 + a2;
-  tlv::throwIfNotEnoughBytes(*a1, v4, 1);
-  v5 = *v3;
-  tlv::throwIfNotEnoughBytes((v3 + 1), v4, 2);
-  v6 = *(v3 + 1);
-  *a1 = (v3 + 3);
-  return (v6 << 16) | v5;
+  v5 = *a1;
+  v6 = *a1 + a2;
+  tlv::throwIfNotEnoughBytes(*a1, v6, 1);
+  v7 = *v5;
+  tlv::throwIfNotEnoughBytes((v5 + 1), v6, 2);
+  v8 = *(v5 + 1);
+  *a1 = (v5 + 3);
+  return (v8 << 16) | v7;
 }
 
 void sub_1E4EF04AC(void *a1)
@@ -1106,7 +1106,7 @@ void sub_1E4EF04AC(void *a1)
   JUMPOUT(0x1E4EF0498);
 }
 
-uint64_t nas::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, uint64_t a3)
+uint64_t nas::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1);
   *a3 = *a1;
@@ -1117,12 +1117,12 @@ uint64_t nas::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, uint64_t a
   return a1 + 4;
 }
 
-unint64_t tlv::parseV<nas::tlv::AcbInfoSignaling>(uint64_t *a1, int a2)
+unint64_t tlv::parseV<nas::tlv::AcbInfoSignaling>(uint64_t *a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v4 = 0;
-  v3 = 0;
-  *a1 = nas::tlv::parseField(*a1, (*a1 + a2), &v3);
-  return v3 | (v4 << 32);
+  v6 = 0;
+  v5 = 0;
+  *a1 = nas::tlv::parseField(*a1, (*a1 + a2), &v5, a4);
+  return v5 | (v6 << 32);
 }
 
 void sub_1E4EF0584(void *a1)
@@ -1133,12 +1133,12 @@ void sub_1E4EF0584(void *a1)
   JUMPOUT(0x1E4EF0568);
 }
 
-unint64_t tlv::parseV<nas::tlv::AcbInfoData>(uint64_t *a1, int a2)
+unint64_t tlv::parseV<nas::tlv::AcbInfoData>(uint64_t *a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v4 = 0;
-  v3 = 0;
-  *a1 = nas::tlv::parseField(*a1, (*a1 + a2), &v3);
-  return v3 | (v4 << 32);
+  v6 = 0;
+  v5 = 0;
+  *a1 = nas::tlv::parseField(*a1, (*a1 + a2), &v5, a4);
+  return v5 | (v6 << 32);
 }
 
 void sub_1E4EF05E4(void *a1)
@@ -1149,12 +1149,12 @@ void sub_1E4EF05E4(void *a1)
   JUMPOUT(0x1E4EF05C8);
 }
 
-BOOL tlv::parseV<nas::tlv::AcbInfoSkipVoice>(tlv **a1, int a2)
+BOOL tlv::parseV<nas::tlv::AcbInfoSkipVoice>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3 != 0;
-  *a1 = (v3 + 1);
+  result = *v5 != 0;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -1166,12 +1166,12 @@ void sub_1E4EF0638(void *a1)
   JUMPOUT(0x1E4EF062CLL);
 }
 
-BOOL tlv::parseV<nas::tlv::AcbInfoSkipSms>(tlv **a1, int a2)
+BOOL tlv::parseV<nas::tlv::AcbInfoSkipSms>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3 != 0;
-  *a1 = (v3 + 1);
+  result = *v5 != 0;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -1183,12 +1183,12 @@ void sub_1E4EF0690(void *a1)
   JUMPOUT(0x1E4EF0684);
 }
 
-uint64_t tlv::parseV<nas::tlv::SubInfoVSID>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::SubInfoVSID>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1200,12 +1200,12 @@ void sub_1E4EF06E0(void *a1)
   JUMPOUT(0x1E4EF06D4);
 }
 
-uint64_t tlv::parseV<nas::tlv::CallType>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::CallType>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 8);
-  result = *v3;
-  *a1 = (v3 + 8);
+  result = *v5;
+  *a1 = (v5 + 8);
   return result;
 }
 
@@ -1217,12 +1217,12 @@ void sub_1E4EF0730(void *a1)
   JUMPOUT(0x1E4EF0724);
 }
 
-uint64_t tlv::parseV<nas::tlv::SystemMode>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::SystemMode>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3;
-  *a1 = (v3 + 1);
+  result = *v5;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -1234,12 +1234,12 @@ void sub_1E4EF0780(void *a1)
   JUMPOUT(0x1E4EF0774);
 }
 
-uint64_t tlv::parseV<nas::tlv::VoiceSystemId>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::VoiceSystemId>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1251,12 +1251,12 @@ void sub_1E4EF07D0(void *a1)
   JUMPOUT(0x1E4EF07C4);
 }
 
-uint64_t tlv::parseV<nas::tlv::Response>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::Response>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1268,12 +1268,12 @@ void sub_1E4EF0820(void *a1)
   JUMPOUT(0x1E4EF0814);
 }
 
-uint64_t tlv::parseV<nas::tlv::BarringTime>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::BarringTime>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1285,12 +1285,12 @@ void sub_1E4EF0870(void *a1)
   JUMPOUT(0x1E4EF0864);
 }
 
-BOOL tlv::parseV<nas::tlv::NwCongestion>(tlv **a1, int a2)
+BOOL tlv::parseV<nas::tlv::NwCongestion>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3 != 0;
-  *a1 = (v3 + 1);
+  result = *v5 != 0;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -1302,12 +1302,12 @@ void sub_1E4EF08C8(void *a1)
   JUMPOUT(0x1E4EF08BCLL);
 }
 
-uint64_t tlv::parseV<nas::tlv::TimerValueRemaining>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::TimerValueRemaining>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1319,12 +1319,12 @@ void sub_1E4EF0918(void *a1)
   JUMPOUT(0x1E4EF090CLL);
 }
 
-uint64_t tlv::parseV<nas::tlv::RemainingTimerValue>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::RemainingTimerValue>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1336,12 +1336,12 @@ void sub_1E4EF0968(void *a1)
   JUMPOUT(0x1E4EF095CLL);
 }
 
-uint64_t tlv::parseV<nas::tlv::Status>(tlv **a1, int a2)
+uint64_t tlv::parseV<nas::tlv::Status>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 
@@ -1525,7 +1525,7 @@ void std::__shared_ptr_emplace<anonymous namespace::ActiveRatFieldImpl>::~__shar
   JUMPOUT(0x1E69235B0);
 }
 
-void anonymous namespace::ActiveRatFieldImpl::setLatestRat(_anonymous_namespace_::ActiveRatFieldImpl *this, const ims::AccessNetwork *a2)
+void anonymous namespace::ActiveRatFieldImpl::setLatestRat(time_t this, const ims::AccessNetwork *a2)
 {
   v2 = *(a2 + 23);
   if ((v2 & 0x80u) != 0)
@@ -1736,14 +1736,14 @@ void SDPLazuliBuilder::~SDPLazuliBuilder(SDPLazuliBuilder *this)
   JUMPOUT(0x1E69235B0);
 }
 
-void SDPLazuliBuilder::createSDP(void *a1@<X8>)
+void SDPLazuliBuilder::createSDP(void *a2@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a2 = 0;
+  a2[1] = 0;
   std::allocate_shared[abi:ne200100]<SDPModel,std::allocator<SDPModel>,std::shared_ptr<SDPModel> &,0>();
 }
 
-void sub_1E4EF1644(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_1E4EF1644(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
 {
   if (a55 == 1)
   {
@@ -1799,9 +1799,9 @@ void SDPLazuliBuilder::adjustModel(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1E4EF176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E4EF176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1893,7 +1893,7 @@ uint64_t QMIRTPCommandDriver::QMIRTPCommandDriver(uint64_t a1, NSObject **a2, ui
   return a1;
 }
 
-void *ims::SharedLoggable<QMIRTPCommandDriver>::SharedLoggable(void *a1, const char *a2)
+void *ims::SharedLoggable<QMIRTPCommandDriver>::SharedLoggable(void *a1, NSObject *a2)
 {
   v5 = a2;
   ims::getQueue(&object);
@@ -2037,7 +2037,7 @@ void sub_1E4EF1D10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t QMIRTPCommandDriver::getInstanceType(void *a1, void **a2)
+uint64_t QMIRTPCommandDriver::getInstanceType(void *a1, char *a2)
 {
   v4 = std::string::basic_string[abi:ne200100]<0>(v39, "rtp.qmidriver");
   v35[0] = 0;
@@ -2181,12 +2181,12 @@ LABEL_22:
 
 void QMIRTPCommandDriver::voiceSystemIdRetrieved(QMIRTPCommandDriver *this, unsigned int a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v26 = a2;
-  v5 = std::string::basic_string[abi:ne200100]<0>(&v27, "rtp.qmidriver");
-  v22[0] = 0;
-  v25 = 0;
-  v6 = ims::debug(v5, v22);
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = a2;
+  v5 = std::string::basic_string[abi:ne200100]<0>(&v26, "rtp.qmidriver");
+  v21[0] = 0;
+  v24 = 0;
+  v6 = ims::debug(v5, v21);
   if (!this)
   {
     __cxa_bad_typeid();
@@ -2204,7 +2204,7 @@ void QMIRTPCommandDriver::voiceSystemIdRetrieved(QMIRTPCommandDriver *this, unsi
   *(v7 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " [instance=", 11);
   *(v7 + 17) = 0;
-  MEMORY[0x1E6923350](*(v7 + 8), v26);
+  MEMORY[0x1E6923350](*(v7 + 8), v25);
   *(v7 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), ", voiceSystemId=", 16);
   *(v7 + 17) = 0;
@@ -2214,14 +2214,14 @@ void QMIRTPCommandDriver::voiceSystemIdRetrieved(QMIRTPCommandDriver *this, unsi
   *(v7 + 17) = 0;
   (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v7 + 17) = 0;
-  if (v25 == 1 && v24 < 0)
+  if (v24 == 1 && v23 < 0)
   {
     operator delete(__p);
   }
 
-  if (v28 < 0)
+  if (v27 < 0)
   {
-    operator delete(v27);
+    operator delete(v26);
   }
 
   v11 = *(this + 21);
@@ -2230,11 +2230,11 @@ void QMIRTPCommandDriver::voiceSystemIdRetrieved(QMIRTPCommandDriver *this, unsi
     v12 = std::__shared_weak_count::lock(v11);
     if (v12 && *(this + 20))
     {
-      QMIRTPStackController::setVoiceSystemIdForInstance(*(this + 20), v26, a3);
+      QMIRTPStackController::setVoiceSystemIdForInstance(*(this + 20), v25, a3);
       object = 0;
       ims::getQueue(&object);
-      memset(&v16, 0, sizeof(v16));
-      std::string::basic_string[abi:ne200100]<0>(&v16, "ims::RTP.");
+      memset(&v15, 0, sizeof(v15));
+      std::string::basic_string[abi:ne200100]<0>(&v15, "ims::RTP.");
       ims::detail::to_string_impl<unsigned int,std::integral_constant<BOOL,false>>::operator()();
     }
   }
@@ -2244,30 +2244,28 @@ void QMIRTPCommandDriver::voiceSystemIdRetrieved(QMIRTPCommandDriver *this, unsi
     v12 = 0;
   }
 
-  v13 = std::string::basic_string[abi:ne200100]<0>(&v27, "rtp.qmidriver");
-  v18[0] = 0;
-  v21 = 0;
-  v14 = ims::error(v13, v18);
+  v13 = std::string::basic_string[abi:ne200100]<0>(&v26, "rtp.qmidriver");
+  v17[0] = 0;
+  v20 = 0;
+  v14 = ims::error(v13, v17);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "No controller associated with this command driver!", 50);
   *(v14 + 17) = 0;
   (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v14 + 17) = 0;
-  if (v21 == 1 && v20 < 0)
+  if (v20 == 1 && v19 < 0)
   {
-    operator delete(v19);
+    operator delete(v18);
   }
 
-  if (v28 < 0)
+  if (v27 < 0)
   {
-    operator delete(v27);
+    operator delete(v26);
   }
 
   if (v12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4EF2D8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, std::__shared_weak_count *a33, dispatch_object_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, dispatch_object_t object, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, uint64_t a62, char a63)
@@ -2422,10 +2420,10 @@ void QMIRTPCommandDriver::sessionInitializeReq(void *a1, void *a2, uint64_t a3, 
         v14 = *a6;
         if (*a6)
         {
-          v15 = std::string::basic_string[abi:ne200100]<0>(&v88, "rtp.qmidriver");
-          v76[0] = 0;
-          v79 = 0;
-          v16 = ims::debug(v15, v76);
+          v15 = std::string::basic_string[abi:ne200100]<0>(&v81, "rtp.qmidriver");
+          v69[0] = 0;
+          v72 = 0;
+          v16 = ims::debug(v15, v69);
           if (!a1)
           {
             __cxa_bad_typeid();
@@ -2454,274 +2452,277 @@ void QMIRTPCommandDriver::sessionInitializeReq(void *a1, void *a2, uint64_t a3, 
           *(v17 + 17) = 0;
           (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
           *(v17 + 17) = 0;
-          if (v79 == 1 && v78 < 0)
+          if (v72 == 1 && v71 < 0)
           {
             operator delete(__p);
           }
 
-          if (v89 < 0)
+          if (v82 < 0)
           {
-            operator delete(v88.tv_sec);
+            operator delete(v81.tv_sec);
           }
 
-          v74 = 0u;
-          v75 = 0u;
-          qmi::MutableMessageBase::MutableMessageBase(&v74);
-          v72[0] = MEMORY[0x1E69E9820];
-          v72[1] = 0x40000000;
-          v72[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke;
-          v72[3] = &__block_descriptor_tmp_48;
-          v73 = a3;
-          v22 = *(&v74 + 1);
-          if (*(&v74 + 1) != v75)
+          v67 = 0u;
+          v68 = 0u;
+          qmi::MutableMessageBase::MutableMessageBase(&v67);
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 0x40000000;
+          v65[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke;
+          v65[3] = &__block_descriptor_tmp_48;
+          v66 = a3;
+          v22 = *(&v67 + 1);
+          if (*(&v67 + 1) != v68)
           {
             while (*(*v22 + 8) != 1)
             {
-              if (++v22 == v75)
+              if (++v22 == v68)
               {
                 goto LABEL_32;
               }
             }
           }
 
-          if (v22 == v75)
+          if (v22 == v68)
           {
 LABEL_32:
             operator new();
           }
 
-          v31 = ***v22;
-          if (!v32)
+          if (!v31)
           {
             goto LABEL_109;
           }
 
-          ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke(v72, v32 + 3);
-          v71[0] = MEMORY[0x1E69E9820];
-          v71[1] = 0x40000000;
-          v71[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2;
-          v71[3] = &__block_descriptor_tmp_50;
-          v71[4] = a4;
-          v33 = *(&v74 + 1);
-          if (*(&v74 + 1) != v75)
+          ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke(v65, v31 + 3);
+          v64[0] = MEMORY[0x1E69E9820];
+          v64[1] = 0x40000000;
+          v64[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2;
+          v64[3] = &__block_descriptor_tmp_50;
+          v64[4] = a4;
+          v32 = *(&v67 + 1);
+          if (*(&v67 + 1) != v68)
           {
-            while (*(*v33 + 8) != 2)
+            while (*(*v32 + 8) != 2)
             {
-              if (++v33 == v75)
+              if (++v32 == v68)
               {
                 goto LABEL_40;
               }
             }
           }
 
-          if (v33 == v75)
+          if (v32 == v68)
           {
 LABEL_40:
             operator new();
           }
 
-          v34 = ***v33;
-          if (!v35)
+          if (!v33)
           {
 LABEL_109:
             __cxa_bad_cast();
           }
 
-          ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2(v71, v35 + 4);
-          v64[0] = MEMORY[0x1E69E9820];
-          v64[1] = 1174405120;
-          v65 = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_3;
-          v66 = &__block_descriptor_tmp_51_0;
-          v67 = v14;
-          v68 = v13;
+          ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2(v64, v33 + 4);
+          v57[0] = MEMORY[0x1E69E9820];
+          v57[1] = 1174405120;
+          v58 = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_3;
+          v59 = &__block_descriptor_tmp_51_0;
+          v60 = v14;
+          v61 = v13;
           atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-          v36 = a2[1];
-          v69 = *a2;
-          v70 = v36;
-          if (v36)
+          v34 = a2[1];
+          v62 = *a2;
+          v63 = v34;
+          if (v34)
           {
-            atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v37 = *(&v74 + 1);
-          if (*(&v74 + 1) != v75)
+          v35 = *(&v67 + 1);
+          if (*(&v67 + 1) != v68)
           {
-            while (*(*v37 + 8) != 3)
+            while (*(*v35 + 8) != 3)
             {
-              if (++v37 == v75)
+              if (++v35 == v68)
               {
                 goto LABEL_50;
               }
             }
           }
 
-          if (v37 == v75)
+          if (v35 == v68)
           {
 LABEL_50:
             operator new();
           }
 
-          v38 = ***v37;
-          if (!v39)
+          if (!v36)
           {
             __cxa_bad_cast();
           }
 
-          v65(v64, v39 + 16);
+          v58(v57, v36 + 16);
           if (a5 == 2)
           {
             if (v14[584])
             {
-              v40 = v14 + 152;
+              v37 = v14 + 152;
               goto LABEL_59;
             }
           }
 
           else if (a5 == 6 && (v14[1856] & 1) != 0)
           {
-            v40 = v14 + 1496;
+            v37 = v14 + 1496;
 LABEL_59:
             if (v14[584])
             {
-              v41 = v14 + 152;
+              v38 = v14 + 152;
             }
 
             else
             {
-              v41 = 0;
+              v38 = 0;
             }
 
-            v63[0] = MEMORY[0x1E69E9820];
-            v63[1] = 0x40000000;
-            v63[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_52;
-            v63[3] = &__block_descriptor_tmp_54;
-            v63[4] = v40;
-            v42 = *(&v74 + 1);
-            if (*(&v74 + 1) != v75)
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 0x40000000;
+            v56[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_52;
+            v56[3] = &__block_descriptor_tmp_54;
+            v56[4] = v37;
+            v39 = *(&v67 + 1);
+            if (*(&v67 + 1) != v68)
             {
-              while (*(*v42 + 8) != 16)
+              while (*(*v39 + 8) != 16)
               {
-                if (++v42 == v75)
+                if (++v39 == v68)
                 {
                   goto LABEL_69;
                 }
               }
             }
 
-            if (v42 == v75)
+            if (v39 == v68)
             {
 LABEL_69:
               operator new();
             }
 
-            v43 = ***v42;
-            if (!v44)
+            if (!v40)
             {
               goto LABEL_110;
             }
 
-            ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_52(v63, v44 + 5);
-            v62[0] = MEMORY[0x1E69E9820];
-            v62[1] = 0x40000000;
-            v62[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2_55;
-            v62[3] = &__block_descriptor_tmp_56_0;
-            v62[4] = v41;
-            v45 = *(&v74 + 1);
-            if (*(&v74 + 1) != v75)
+            ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_52(v56, v40 + 5);
+            v55[0] = MEMORY[0x1E69E9820];
+            v55[1] = 0x40000000;
+            v55[2] = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2_55;
+            v55[3] = &__block_descriptor_tmp_56_0;
+            v55[4] = v38;
+            v41 = *(&v67 + 1);
+            if (*(&v67 + 1) != v68)
             {
-              while (*(*v45 + 8) != 17)
+              while (*(*v41 + 8) != 17)
               {
-                if (++v45 == v75)
+                if (++v41 == v68)
                 {
                   goto LABEL_77;
                 }
               }
             }
 
-            if (v45 == v75)
+            if (v41 == v68)
             {
 LABEL_77:
               operator new();
             }
 
-            v46 = ***v45;
-            if (!v47)
+            if (!v42)
             {
 LABEL_110:
               __cxa_bad_cast();
             }
 
-            ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2_55(v62, v47 + 8);
-            v57[0] = MEMORY[0x1E69E9820];
-            v57[1] = 1174405120;
-            v58 = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_3_57;
-            v59 = &__block_descriptor_tmp_59_2;
-            v48 = a2[1];
-            v60 = *a2;
-            v61 = v48;
-            if (v48)
+            ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_2_55(v55, v42 + 8);
+            v50[0] = MEMORY[0x1E69E9820];
+            v50[1] = 1174405120;
+            v51 = ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIRTPSessionEEhRKNS1_I9IpAddressEEN8SDPMedia9MediaTypeENS0_8weak_ptrI10SDPSessionEE_block_invoke_3_57;
+            v52 = &__block_descriptor_tmp_59_2;
+            v43 = a2[1];
+            v53 = *a2;
+            v54 = v43;
+            if (v43)
             {
-              atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v49 = *(&v74 + 1);
-            if (*(&v74 + 1) != v75)
+            v44 = *(&v67 + 1);
+            if (*(&v67 + 1) != v68)
             {
-              while (*(*v49 + 8) != 18)
+              while (*(*v44 + 8) != 18)
               {
-                if (++v49 == v75)
+                if (++v44 == v68)
                 {
                   goto LABEL_87;
                 }
               }
             }
 
-            if (v49 == v75)
+            if (v44 == v68)
             {
 LABEL_87:
               operator new();
             }
 
-            v50 = ***v49;
-            if (!v51)
+            if (!v45)
             {
               __cxa_bad_cast();
             }
 
-            v58(v57, v51 + 3);
-            v52 = *(&v74 + 1);
-            if (*(&v74 + 1) != v75)
+            v51(v50, v45 + 3);
+            v46 = *(&v67 + 1);
+            if (*(&v67 + 1) != v68)
             {
-              while (*(*v52 + 8) != 20)
+              while (*(*v46 + 8) != 20)
               {
-                if (++v52 == v75)
+                if (++v46 == v68)
                 {
                   goto LABEL_95;
                 }
               }
             }
 
-            if (v52 == v75)
+            if (v46 == v68)
             {
 LABEL_95:
               operator new();
             }
 
-            v53 = ***v52;
-            if (!v54)
+            if (!v47)
             {
               __cxa_bad_cast();
             }
 
-            v55 = v54 + 16;
-            v88.tv_sec = 0;
-            *&v88.tv_usec = 0;
-            gettimeofday(&v88, 0);
-            *v55 = 1000 * v88.tv_sec + v88.tv_usec / 1000 + 2208988800000;
+            v48 = v47 + 16;
+            v81.tv_sec = 0;
+            *&v81.tv_usec = 0;
+            gettimeofday(&v81, 0);
+            *v48 = 1000 * v81.tv_sec + v81.tv_usec / 1000 + 2208988800000;
             if (QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64)))
             {
               qmi::ClientRouter::get();
               operator new();
+            }
+
+            if (v54)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+            }
+
+            if (v63)
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](v63);
             }
 
             if (v61)
@@ -2729,24 +2730,14 @@ LABEL_95:
               std::__shared_weak_count::__release_shared[abi:ne200100](v61);
             }
 
-            if (v70)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v70);
-            }
-
-            if (v68)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v68);
-            }
-
-            qmi::MutableMessageBase::~MutableMessageBase(&v74);
+            qmi::MutableMessageBase::~MutableMessageBase(&v67);
             goto LABEL_105;
           }
 
-          v40 = v14 + 1032;
+          v37 = v14 + 1032;
           if (!v14[1328])
           {
-            v40 = 0;
+            v37 = 0;
           }
 
           goto LABEL_59;
@@ -2759,22 +2750,22 @@ LABEL_95:
       v13 = 0;
     }
 
-    v29 = std::string::basic_string[abi:ne200100]<0>(&v88, "rtp.qmidriver");
-    v80[0] = 0;
-    v83 = 0;
-    v30 = ims::error(v29, v80);
+    v29 = std::string::basic_string[abi:ne200100]<0>(&v81, "rtp.qmidriver");
+    v73[0] = 0;
+    v76 = 0;
+    v30 = ims::error(v29, v73);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v30 + 8), "SDPSession expired in QMIRTPCommandDriver::sessionInitializeReq", 63);
     *(v30 + 17) = 0;
     (*(*v30 + 64))(v30, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v30 + 17) = 0;
-    if (v83 == 1 && v82 < 0)
+    if (v76 == 1 && v75 < 0)
     {
-      operator delete(v81);
+      operator delete(v74);
     }
 
-    if (v89 < 0)
+    if (v82 < 0)
     {
-      operator delete(v88.tv_sec);
+      operator delete(v81.tv_sec);
     }
 
     if (v13)
@@ -2786,10 +2777,10 @@ LABEL_105:
 
   else
   {
-    v23 = std::string::basic_string[abi:ne200100]<0>(&v88, "rtp.qmidriver");
-    v84[0] = 0;
-    v87 = 0;
-    v24 = ims::error(v23, v84);
+    v23 = std::string::basic_string[abi:ne200100]<0>(&v81, "rtp.qmidriver");
+    v77[0] = 0;
+    v80 = 0;
+    v24 = ims::error(v23, v77);
     if (!a1)
     {
       __cxa_bad_typeid();
@@ -2809,19 +2800,19 @@ LABEL_105:
     *(v25 + 17) = 0;
     (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v25 + 17) = 0;
-    if (v87 == 1 && v86 < 0)
+    if (v80 == 1 && v79 < 0)
     {
-      operator delete(v85);
+      operator delete(v78);
     }
 
-    if (v89 < 0)
+    if (v82 < 0)
     {
-      operator delete(v88.tv_sec);
+      operator delete(v81.tv_sec);
     }
   }
 }
 
-void sub_1E4EF42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1E4EF42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, std::__shared_weak_count *a32, uint64_t a33, std::__shared_weak_count *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   v49 = *(v47 - 152);
   if (v49)
@@ -2899,11 +2890,8 @@ void ___ZN19QMIRTPCommandDriver20sessionInitializeReqENSt3__110shared_ptrI13QMIR
   }
 
   *a2 = v11;
-  v13 = 0;
-  v14 = 0;
-  v15 = 0;
-  v12 = **(a1 + 32);
-  IpAddress::asString();
+  memset(v12, 0, sizeof(v12));
+  IpAddress::asString(**(a1 + 32), v12, 0);
 }
 
 void sub_1E4EF45AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3305,7 +3293,7 @@ void ___ZN19QMIRTPCommandDriver33handleSessionInitializeIndicationERKN2ms17Sessi
   }
 }
 
-void QMIRTPCommandDriver::sessionUninitializeReq(void *a1, void *a2)
+void QMIRTPCommandDriver::sessionUninitializeReq(std::__shared_weak_count_vtbl *a1, uint64_t *a2)
 {
   if (*a2)
   {
@@ -3319,7 +3307,7 @@ void QMIRTPCommandDriver::sessionUninitializeReq(void *a1, void *a2)
     }
 
     v6 = v5;
-    v7 = *(*(*a1 - 8) + 8);
+    v7 = *(*(a1->~__shared_weak_count - 1) + 8);
     v8 = *(v5 + 8);
     v9 = strlen((v7 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v7 & 0x7FFFFFFFFFFFFFFFLL, v9);
@@ -3366,17 +3354,17 @@ void QMIRTPCommandDriver::sessionUninitializeReq(void *a1, void *a2)
     InstanceType = QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64));
     if (InstanceType)
     {
-      qmi::ClientRouter::send<ms::SessionUninitialize::Request>(&v27, (a1 + 8), InstanceType);
+      qmi::ClientRouter::send<ms::SessionUninitialize::Request>(v27, &a1[1].__get_deleter, InstanceType, v33);
     }
 
-    v20 = a1[21];
+    v20 = a1[4].~__shared_weak_count_0;
     if (v20)
     {
       v21 = std::__shared_weak_count::lock(v20);
       if (v21)
       {
         v22 = v21;
-        v23 = a1[20];
+        v23 = a1[4].~__shared_weak_count;
         if (v23)
         {
           v24 = a2[1];
@@ -3418,7 +3406,7 @@ void QMIRTPCommandDriver::sessionUninitializeReq(void *a1, void *a2)
     }
 
     v16 = v15;
-    v17 = *(*(*a1 - 8) + 8);
+    v17 = *(*(a1->~__shared_weak_count - 1) + 8);
     v18 = *(v15 + 8);
     v19 = strlen((v17 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v17 & 0x7FFFFFFFFFFFFFFFLL, v19);
@@ -3443,7 +3431,7 @@ void QMIRTPCommandDriver::sessionUninitializeReq(void *a1, void *a2)
   }
 }
 
-void sub_1E4EF50F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43)
+void sub_1E4EF50F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43)
 {
   if (a10)
   {
@@ -3460,14 +3448,15 @@ void sub_1E4EF50F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void qmi::ClientRouter::send<ms::SessionUninitialize::Request>(_DWORD *a1, uint64_t a2, int a3)
+void qmi::ClientRouter::send<ms::SessionUninitialize::Request>(_DWORD *a1, uint64_t a2, uint64_t a3, QMIServiceMsg *a4)
 {
+  v4 = a3;
   qmi::ClientRouter::get();
-  *a1 = a3;
+  *a1 = v4;
   operator new();
 }
 
-void QMIRTPCommandDriver::sessionInternalUninitializeReq(void *a1, char a2, void **a3)
+void QMIRTPCommandDriver::sessionInternalUninitializeReq(void *a1, char a2, char *a3)
 {
   memset(v11, 0, sizeof(v11));
   qmi::MutableMessageBase::MutableMessageBase(v11);
@@ -3481,13 +3470,13 @@ void QMIRTPCommandDriver::sessionInternalUninitializeReq(void *a1, char a2, void
   InstanceType = QMIRTPCommandDriver::getInstanceType(a1, a3);
   if (InstanceType)
   {
-    qmi::ClientRouter::send<ms::SessionUninitialize::Request>(&v8, (a1 + 8), InstanceType);
+    qmi::ClientRouter::send<ms::SessionUninitialize::Request>(v8, (a1 + 8), InstanceType, v11);
   }
 
   qmi::MutableMessageBase::~MutableMessageBase(v11);
 }
 
-void sub_1E4EF5498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27)
+void sub_1E4EF5498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27)
 {
   if (a27)
   {
@@ -3619,7 +3608,7 @@ void ___ZN19QMIRTPCommandDriver35handleSessionUninitializeIndicationERKN2ms19Ses
   }
 }
 
-void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
+void QMIRTPCommandDriver::sessionConfigureReq(std::__shared_weak_count_vtbl *a1, uint64_t *a2)
 {
   if (*a2)
   {
@@ -3633,7 +3622,7 @@ void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
     }
 
     v6 = v5;
-    v7 = *(*(*a1 - 8) + 8);
+    v7 = *(*(a1->~__shared_weak_count - 1) + 8);
     v8 = *(v5 + 8);
     v9 = strlen((v7 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v7 & 0x7FFFFFFFFFFFFFFFLL, v9);
@@ -3680,7 +3669,7 @@ void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
       v29[0] = 0;
       v32 = 0;
       v18 = ims::warn(v17, v29);
-      v19 = *(*(*a1 - 8) + 8);
+      v19 = *(*(a1->~__shared_weak_count - 1) + 8);
       v20 = strlen((v19 & 0x7FFFFFFFFFFFFFFFLL));
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), v19 & 0x7FFFFFFFFFFFFFFFLL, v20);
       *(v18 + 17) = 0;
@@ -3714,23 +3703,23 @@ void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
         atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v22 = a1[3];
-      if (!v22 || (v23 = a1[2], (v24 = std::__shared_weak_count::lock(v22)) == 0))
+      get_deleter = a1->__get_deleter;
+      if (!get_deleter || (on_zero_shared = a1->__on_zero_shared, (v24 = std::__shared_weak_count::lock(get_deleter)) == 0))
       {
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
 
       v25 = v24;
-      v26 = a1[4];
+      on_zero_shared_weak = a1->__on_zero_shared_weak;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 1174405120;
       v44 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
       v45 = &unk_1F5EDC868;
-      v47 = v23;
+      v47 = on_zero_shared;
       v48 = v25;
       atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
       v46 = v27;
-      dispatch_async(v26, block);
+      dispatch_async(on_zero_shared_weak, block);
       if (v48)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v48);
@@ -3758,7 +3747,7 @@ void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
     }
 
     v13 = v12;
-    v14 = *(*(*a1 - 8) + 8);
+    v14 = *(*(a1->~__shared_weak_count - 1) + 8);
     v15 = *(v12 + 8);
     v16 = strlen((v14 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v14 & 0x7FFFFFFFFFFFFFFFLL, v16);
@@ -3783,7 +3772,7 @@ void QMIRTPCommandDriver::sessionConfigureReq(void *a1, void *a2)
   }
 }
 
-void sub_1E4EF5D98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
+void sub_1E4EF5D98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
 {
   v57 = *(v55 - 136);
   if (v57)
@@ -3989,13 +3978,13 @@ void ___ZN19QMIRTPCommandDriver32handleSessionConfigureIndicationERKN2ms16Sessio
 
 void QMIRTPCommandDriver::sessionSetStreamDirectionReq(void *a1, void *a2, unsigned int a3, char a4)
 {
-  v45 = a3;
+  v44 = a3;
   if (!*a2)
   {
-    v8 = std::string::basic_string[abi:ne200100]<0>(&v46, "rtp.qmidriver");
-    v41[0] = 0;
-    v44 = 0;
-    v9 = ims::error(v8, v41);
+    v8 = std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
+    v40[0] = 0;
+    v43 = 0;
+    v9 = ims::error(v8, v40);
     if (!a1)
     {
       __cxa_bad_typeid();
@@ -4015,21 +4004,21 @@ void QMIRTPCommandDriver::sessionSetStreamDirectionReq(void *a1, void *a2, unsig
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v44 == 1 && v43 < 0)
+    if (v43 == 1 && v42 < 0)
     {
       operator delete(__p);
     }
 
-    if (v47 < 0)
+    if (v46 < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
   }
 
-  v14 = std::string::basic_string[abi:ne200100]<0>(&v46, "rtp.qmidriver");
-  v37[0] = 0;
-  v40 = 0;
-  v15 = ims::debug(v14, v37);
+  v14 = std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
+  v36[0] = 0;
+  v39 = 0;
+  v15 = ims::debug(v14, v36);
   if (!a1)
   {
     __cxa_bad_typeid();
@@ -4052,7 +4041,7 @@ void QMIRTPCommandDriver::sessionSetStreamDirectionReq(void *a1, void *a2, unsig
   *(v16 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), " direction=", 11);
   *(v16 + 17) = 0;
-  ims::toString<ms::MediaServiceDirection>(&v45, &aBlock);
+  ims::toString<ms::MediaServiceDirection>(&v44, &aBlock);
   (*(*v16 + 32))(v16, &aBlock);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "]", 1);
   *(v16 + 17) = 0;
@@ -4063,64 +4052,63 @@ void QMIRTPCommandDriver::sessionSetStreamDirectionReq(void *a1, void *a2, unsig
     operator delete(aBlock.__r_.__value_.__l.__data_);
   }
 
-  if (v40 == 1 && v39 < 0)
+  if (v39 == 1 && v38 < 0)
   {
-    operator delete(v38);
+    operator delete(v37);
   }
 
-  if (v47 < 0)
+  if (v46 < 0)
   {
-    operator delete(v46);
+    operator delete(v45);
   }
 
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  qmi::MutableMessageBase::MutableMessageBase(&v35);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 1174405120;
-  v31 = ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke;
-  v32 = &__block_descriptor_tmp_91_0;
+  qmi::MutableMessageBase::MutableMessageBase(&v34);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 1174405120;
+  v30 = ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke;
+  v31 = &__block_descriptor_tmp_91_0;
   v21 = a2[1];
-  v33 = *a2;
-  v34 = v21;
+  v32 = *a2;
+  v33 = v21;
   if (v21)
   {
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v22 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v35, 1);
-  v31(v30, v22);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 0x40000000;
-  v27[2] = ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke_92;
-  v27[3] = &__block_descriptor_tmp_94_0;
-  v29 = a4;
-  v28 = a3;
-  v23 = *(&v35 + 1);
-  if (*(&v35 + 1) != v36)
+  v22 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v34, 1);
+  v30(v29, v22);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 0x40000000;
+  v26[2] = ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke_92;
+  v26[3] = &__block_descriptor_tmp_94_0;
+  v28 = a4;
+  v27 = a3;
+  v23 = *(&v34 + 1);
+  if (*(&v34 + 1) != v35)
   {
     while (*(*v23 + 8) != 2)
     {
-      if (++v23 == v36)
+      if (++v23 == v35)
       {
         goto LABEL_25;
       }
     }
   }
 
-  if (v23 == v36)
+  if (v23 == v35)
   {
 LABEL_25:
     operator new();
   }
 
-  v24 = ***v23;
-  if (!v25)
+  if (!v24)
   {
     __cxa_bad_cast();
   }
 
-  ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke_92(v27, v25 + 3);
+  ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110shared_ptrI13QMIRTPSessionEEN2ms21MediaServiceDirectionEb_block_invoke_92(v26, v24 + 3);
   if (QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64)))
   {
     qmi::ClientRouter::get();
@@ -4129,18 +4117,18 @@ LABEL_25:
 
   if (a3 <= 3)
   {
-    QMIRTPCommandDriver::sendAudioCallEvent(a1, *(*a2 + 362), (*a2 + 64), a3 | 0x10, *(*a2 + 368));
+    QMIRTPCommandDriver::sendAudioCallEvent(a1, *(*a2 + 362), (*a2 + 64), a3 | 0x10u, *(*a2 + 368));
   }
 
-  if (v34)
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v35);
+  qmi::MutableMessageBase::~MutableMessageBase(&v34);
 }
 
-void sub_1E4EF6878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, char a46)
+void sub_1E4EF6878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, char a46)
 {
   v49 = *(v47 - 128);
   if (v49)
@@ -4175,12 +4163,13 @@ uint64_t ___ZN19QMIRTPCommandDriver28sessionSetStreamDirectionReqENSt3__110share
   return result;
 }
 
-void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, void **a3, unsigned int a4, char a5)
+void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, char *a3, uint64_t a4, char a5)
 {
+  v6 = a4;
   v10 = std::string::basic_string[abi:ne200100]<0>(aBlock, "rtp.qmidriver");
-  v70[0] = 0;
-  v73 = 0;
-  v11 = ims::debug(v10, v70);
+  v68[0] = 0;
+  v71 = 0;
+  v11 = ims::debug(v10, v68);
   if (!a1)
   {
     __cxa_bad_typeid();
@@ -4198,7 +4187,7 @@ void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, void **a3, un
   *(v12 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " [event=", 8);
   *(v12 + 17) = 0;
-  v16 = audio::asString(a4);
+  v16 = audio::asString(v6);
   v17 = strlen(v16);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), v16, v17);
   *(v12 + 17) = 0;
@@ -4206,12 +4195,12 @@ void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, void **a3, un
   *(v12 + 17) = 0;
   (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v12 + 17) = 0;
-  if (v73 == 1 && v72 < 0)
+  if (v71 == 1 && v70 < 0)
   {
-    operator delete(v71);
+    operator delete(v69);
   }
 
-  if (SHIBYTE(v75) < 0)
+  if (SHIBYTE(v73) < 0)
   {
     operator delete(aBlock[0]);
   }
@@ -4233,9 +4222,9 @@ void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, void **a3, un
           {
             v24 = ProfileByStackId;
             v25 = std::string::basic_string[abi:ne200100]<0>(aBlock, "rtp.qmidriver");
-            v54[0] = 0;
-            v57 = 0;
-            v26 = ims::debug(v25, v54);
+            v52[0] = 0;
+            v55 = 0;
+            v26 = ims::debug(v25, v52);
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "Using VoiceSystemId ", 20);
             *(v26 + 17) = 0;
             MEMORY[0x1E6923350](*(v26 + 8), HIDWORD(v24));
@@ -4245,128 +4234,126 @@ void QMIRTPCommandDriver::sendAudioCallEvent(uint64_t a1, char a2, void **a3, un
             (*(*v26 + 32))(v26, a3);
             (*(*v26 + 64))(v26, std::endl[abi:ne200100]<char,std::char_traits<char>>);
             *(v26 + 17) = 0;
-            if (v57 == 1 && v56 < 0)
+            if (v55 == 1 && v54 < 0)
             {
               operator delete(__p);
             }
 
-            if (SHIBYTE(v75) < 0)
+            if (SHIBYTE(v73) < 0)
             {
               operator delete(aBlock[0]);
             }
 
-            v52 = 0u;
-            v53 = 0u;
-            qmi::MutableMessageBase::MutableMessageBase(&v52);
-            v48[0] = MEMORY[0x1E69E9820];
-            v48[1] = 0x40000000;
-            v48[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke;
-            v48[3] = &__block_descriptor_tmp_231;
-            v49 = a4;
-            v50 = a5;
-            v51 = a2;
-            v27 = *(&v52 + 1);
-            if (*(&v52 + 1) != v53)
+            v50 = 0u;
+            v51 = 0u;
+            qmi::MutableMessageBase::MutableMessageBase(&v50);
+            v46[0] = MEMORY[0x1E69E9820];
+            v46[1] = 0x40000000;
+            v46[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke;
+            v46[3] = &__block_descriptor_tmp_231;
+            v47 = v6;
+            v48 = a5;
+            v49 = a2;
+            v27 = *(&v50 + 1);
+            if (*(&v50 + 1) != v51)
             {
               while (*(*v27 + 8) != 1)
               {
-                if (++v27 == v53)
+                if (++v27 == v51)
                 {
                   goto LABEL_42;
                 }
               }
             }
 
-            if (v27 == v53)
+            if (v27 == v51)
             {
 LABEL_42:
               operator new();
             }
 
-            v34 = ***v27;
-            if (!v35)
+            if (!v34)
             {
               goto LABEL_57;
             }
 
-            ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke(v48, v35 + 9);
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 0x40000000;
-            v43[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_2;
-            v43[3] = &__block_descriptor_tmp_233;
-            v43[4] = v24;
-            v44 = v23;
-            v45 = BYTE4(v23);
-            v46 = 0;
-            v47 = 0;
-            v36 = *(&v52 + 1);
-            if (*(&v52 + 1) != v53)
+            ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke(v46, v34 + 9);
+            v41[0] = MEMORY[0x1E69E9820];
+            v41[1] = 0x40000000;
+            v41[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_2;
+            v41[3] = &__block_descriptor_tmp_233;
+            v41[4] = v24;
+            v42 = v23;
+            v43 = BYTE4(v23);
+            v44 = 0;
+            v45 = 0;
+            v35 = *(&v50 + 1);
+            if (*(&v50 + 1) != v51)
             {
-              while (*(*v36 + 8) != 16)
+              while (*(*v35 + 8) != 16)
               {
-                if (++v36 == v53)
+                if (++v35 == v51)
                 {
                   goto LABEL_50;
                 }
               }
             }
 
-            if (v36 == v53)
+            if (v35 == v51)
             {
 LABEL_50:
               operator new();
             }
 
-            v37 = ***v36;
-            if (!v38)
+            if (!v36)
             {
 LABEL_57:
               __cxa_bad_cast();
             }
 
-            ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_2(v43, v38 + 3);
-            v39[5] = a1 + 80;
-            v39[6] = QMIServiceMsg::create();
-            v40 = 25000;
-            v41 = 0;
-            v42 = 0;
-            v39[0] = MEMORY[0x1E69E9820];
-            v39[1] = 0x40000000;
-            v39[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_3;
-            v39[3] = &__block_descriptor_tmp_235;
-            v39[4] = a1;
+            ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_2(v41, v36 + 3);
+            v37[5] = a1 + 80;
+            v37[6] = QMIServiceMsg::create();
+            v38 = 25000;
+            v39 = 0;
+            v40 = 0;
+            v37[0] = MEMORY[0x1E69E9820];
+            v37[1] = 0x40000000;
+            v37[2] = ___ZN19QMIRTPCommandDriver18sendAudioCallEventEhRKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN5audio5EventEb_block_invoke_3;
+            v37[3] = &__block_descriptor_tmp_235;
+            v37[4] = a1;
             aBlock[0] = MEMORY[0x1E69E9820];
             aBlock[1] = 0x40000000;
-            v75 = ___ZNO3qmi6Client9SendProxy8callbackIRKN5audio13SendCallEvent8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
-            v76 = &unk_1E876B298;
-            v77 = v39;
-            v42 = _Block_copy(aBlock);
+            v73 = ___ZNO3qmi6Client9SendProxy8callbackIRKN5audio13SendCallEvent8ResponseEEEOS1_U13block_pointerFvT_E_block_invoke;
+            v74 = &unk_1E876B298;
+            v75 = v37;
+            v40 = _Block_copy(aBlock);
             qmi::Client::send();
-            if (v42)
+            if (v40)
             {
-              _Block_release(v42);
+              _Block_release(v40);
             }
 
-            qmi::MutableMessageBase::~MutableMessageBase(&v52);
+            qmi::MutableMessageBase::~MutableMessageBase(&v50);
           }
 
           else
           {
             v32 = std::string::basic_string[abi:ne200100]<0>(aBlock, "rtp.qmidriver");
-            v58[0] = 0;
-            v61 = 0;
-            v33 = ims::error(v32, v58);
+            v56[0] = 0;
+            v59 = 0;
+            v33 = ims::error(v32, v56);
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "No profile associated with stack ", 33);
             *(v33 + 17) = 0;
             (*(*v33 + 32))(v33, a3);
             (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
             *(v33 + 17) = 0;
-            if (v61 == 1 && v60 < 0)
+            if (v59 == 1 && v58 < 0)
             {
-              operator delete(v59);
+              operator delete(v57);
             }
 
-            if (SHIBYTE(v75) < 0)
+            if (SHIBYTE(v73) < 0)
             {
               operator delete(aBlock[0]);
             }
@@ -4383,19 +4370,19 @@ LABEL_57:
     }
 
     v30 = std::string::basic_string[abi:ne200100]<0>(aBlock, "rtp.qmidriver");
-    v62[0] = 0;
-    v65 = 0;
-    v31 = ims::error(v30, v62);
+    v60[0] = 0;
+    v63 = 0;
+    v31 = ims::error(v30, v60);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v31 + 8), "No controller associated with this command driver!", 50);
     *(v31 + 17) = 0;
     (*(*v31 + 64))(v31, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v31 + 17) = 0;
-    if (v65 == 1 && v64 < 0)
+    if (v63 == 1 && v62 < 0)
     {
-      operator delete(v63);
+      operator delete(v61);
     }
 
-    if (SHIBYTE(v75) < 0)
+    if (SHIBYTE(v73) < 0)
     {
       operator delete(aBlock[0]);
     }
@@ -4410,26 +4397,26 @@ LABEL_54:
   else
   {
     v28 = std::string::basic_string[abi:ne200100]<0>(aBlock, "rtp.qmidriver");
-    v66[0] = 0;
-    v69 = 0;
-    v29 = ims::error(v28, v66);
+    v64[0] = 0;
+    v67 = 0;
+    v29 = ims::error(v28, v64);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v29 + 8), "SVC_AUDIO service is not initialized.", 37);
     *(v29 + 17) = 0;
     (*(*v29 + 64))(v29, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v29 + 17) = 0;
-    if (v69 == 1 && v68 < 0)
+    if (v67 == 1 && v66 < 0)
     {
-      operator delete(v67);
+      operator delete(v65);
     }
 
-    if (SHIBYTE(v75) < 0)
+    if (SHIBYTE(v73) < 0)
     {
       operator delete(aBlock[0]);
     }
   }
 }
 
-void sub_1E4EF7220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1E4EF7220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   qmi::Client::SendProxy::~SendProxy(&a15);
   qmi::MutableMessageBase::~MutableMessageBase(&a31);
@@ -4851,21 +4838,21 @@ void sub_1E4EF7B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QMIRTPCommandDriver::configureRTCPReportsReq(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void QMIRTPCommandDriver::configureRTCPReportsReq(std::__shared_weak_count_vtbl *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (!*a2)
   {
-    v12 = std::string::basic_string[abi:ne200100]<0>(&v75, "rtp.qmidriver");
-    v71[0] = 0;
-    v74 = 0;
-    v13 = ims::error(v12, v71);
+    v12 = std::string::basic_string[abi:ne200100]<0>(&v72, "rtp.qmidriver");
+    v68[0] = 0;
+    v71 = 0;
+    v13 = ims::error(v12, v68);
     if (!a1)
     {
       __cxa_bad_typeid();
     }
 
     v14 = v13;
-    v15 = *(*(*a1 - 8) + 8);
+    v15 = *(*(a1->~__shared_weak_count - 1) + 8);
     v16 = *(v13 + 8);
     v17 = strlen((v15 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v15 & 0x7FFFFFFFFFFFFFFFLL, v17);
@@ -4878,28 +4865,28 @@ void QMIRTPCommandDriver::configureRTCPReportsReq(void *a1, void *a2, uint64_t a
     *(v14 + 17) = 0;
     (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v14 + 17) = 0;
-    if (v74 == 1 && v73 < 0)
+    if (v71 == 1 && v70 < 0)
+    {
+      operator delete(v69);
+    }
+
+    if (v73 < 0)
     {
       operator delete(v72);
     }
-
-    if (v76 < 0)
-    {
-      operator delete(v75);
-    }
   }
 
-  v18 = std::string::basic_string[abi:ne200100]<0>(&v75, "rtp.qmidriver");
-  v67[0] = 0;
-  v70 = 0;
-  v19 = ims::debug(v18, v67);
+  v18 = std::string::basic_string[abi:ne200100]<0>(&v72, "rtp.qmidriver");
+  v64[0] = 0;
+  v67 = 0;
+  v19 = ims::debug(v18, v64);
   if (!a1)
   {
     __cxa_bad_typeid();
   }
 
   v20 = v19;
-  v21 = *(*(*a1 - 8) + 8);
+  v21 = *(*(a1->~__shared_weak_count - 1) + 8);
   v22 = *(v19 + 8);
   v23 = strlen((v21 & 0x7FFFFFFFFFFFFFFFLL));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v21 & 0x7FFFFFFFFFFFFFFFLL, v23);
@@ -4941,176 +4928,173 @@ void QMIRTPCommandDriver::configureRTCPReportsReq(void *a1, void *a2, uint64_t a
   *(v20 + 17) = 0;
   (*(*v20 + 64))(v20, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v20 + 17) = 0;
-  if (v70 == 1 && v69 < 0)
+  if (v67 == 1 && v66 < 0)
   {
     operator delete(__p);
   }
 
-  if (v76 < 0)
+  if (v73 < 0)
   {
-    operator delete(v75);
+    operator delete(v72);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  qmi::MutableMessageBase::MutableMessageBase(&v65);
-  v60[0] = MEMORY[0x1E69E9820];
-  v60[1] = 1174405120;
-  v61 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke;
-  v62 = &__block_descriptor_tmp_108_0;
+  v62 = 0u;
+  v63 = 0u;
+  qmi::MutableMessageBase::MutableMessageBase(&v62);
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 1174405120;
+  v58 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke;
+  v59 = &__block_descriptor_tmp_108_0;
   v25 = a2[1];
-  v63 = *a2;
-  v64 = v25;
+  v60 = *a2;
+  v61 = v25;
   if (v25)
   {
     atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v26 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v65, 1);
-  v61(v60, v26);
+  v26 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v62, 1);
+  v58(v57, v26);
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2000000000;
   v56 = 0;
-  v57 = &v56;
-  v58 = 0x2000000000;
-  v59 = 0;
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 1174405120;
-  v49 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_109;
-  v50 = &unk_1F5EDB958;
-  v54 = a3;
-  v55 = a4;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 1174405120;
+  v46 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_109;
+  v47 = &unk_1F5EDB958;
+  v51 = a3;
+  v52 = a4;
   v27 = a2[1];
-  v52 = *a2;
-  v53 = v27;
+  v49 = *a2;
+  v50 = v27;
   if (v27)
   {
     atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v51 = &v56;
-  v28 = *(&v65 + 1);
-  if (*(&v65 + 1) != v66)
+  v48 = &v53;
+  v28 = *(&v62 + 1);
+  if (*(&v62 + 1) != v63)
   {
     while (*(*v28 + 8) != 16)
     {
-      if (++v28 == v66)
+      if (++v28 == v63)
       {
         goto LABEL_25;
       }
     }
   }
 
-  if (v28 == v66)
+  if (v28 == v63)
   {
 LABEL_25:
     operator new();
   }
 
-  v29 = ***v28;
-  if (!v30)
+  if (!v29)
   {
     __cxa_bad_cast();
   }
 
-  v49(v48, v30 + 5);
-  if (a6 && a3 && *(v57 + 6))
+  v46(v45, v29 + 5);
+  if (a6 && a3 && *(v54 + 6))
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 0x40000000;
-    v46[2] = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_115;
-    v46[3] = &__block_descriptor_tmp_118;
-    v47 = a6;
-    v31 = *(&v65 + 1);
-    if (*(&v65 + 1) != v66)
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 0x40000000;
+    v43[2] = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_115;
+    v43[3] = &__block_descriptor_tmp_118;
+    v44 = a6;
+    v30 = *(&v62 + 1);
+    if (*(&v62 + 1) != v63)
     {
-      while (*(*v31 + 8) != 17)
+      while (*(*v30 + 8) != 17)
       {
-        if (++v31 == v66)
+        if (++v30 == v63)
         {
           goto LABEL_36;
         }
       }
     }
 
-    if (v31 == v66)
+    if (v30 == v63)
     {
 LABEL_36:
       operator new();
     }
 
-    v32 = ***v31;
-    if (!v33)
+    if (!v31)
     {
       __cxa_bad_cast();
     }
 
-    ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_115(v46, v33 + 5);
+    ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_115(v43, v31 + 5);
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 1174405120;
-  v40 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_2;
-  v41 = &__block_descriptor_tmp_123;
-  v44 = a3;
-  v45 = a4;
-  v34 = a2[1];
-  v42 = *a2;
-  v43 = v34;
-  if (v34)
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 1174405120;
+  v37 = ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_2;
+  v38 = &__block_descriptor_tmp_123;
+  v41 = a3;
+  v42 = a4;
+  v32 = a2[1];
+  v39 = *a2;
+  v40 = v32;
+  if (v32)
   {
-    atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v35 = *(&v65 + 1);
-  if (*(&v65 + 1) != v66)
+  v33 = *(&v62 + 1);
+  if (*(&v62 + 1) != v63)
   {
-    while (*(*v35 + 8) != 18)
+    while (*(*v33 + 8) != 18)
     {
-      if (++v35 == v66)
+      if (++v33 == v63)
       {
         goto LABEL_46;
       }
     }
   }
 
-  if (v35 == v66)
+  if (v33 == v63)
   {
 LABEL_46:
     operator new();
   }
 
-  v36 = ***v35;
-  if (!v37)
+  if (!v34)
   {
     __cxa_bad_cast();
   }
 
-  v40(v39, v37 + 3);
+  v37(v36, v34 + 3);
   if (QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64)))
   {
     qmi::ClientRouter::get();
     operator new();
   }
 
-  if (v43)
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
   }
 
-  if (v53)
+  if (v50)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v53);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (v64)
+  _Block_object_dispose(&v53, 8);
+  if (v61)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v64);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v61);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v65);
+  qmi::MutableMessageBase::~MutableMessageBase(&v62);
 }
 
-void sub_1E4EF8780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, std::__shared_weak_count *a40, char a41)
+void sub_1E4EF8780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, std::__shared_weak_count *a40, char a41)
 {
   v44 = *(v42 - 144);
   if (v44)
@@ -5259,7 +5243,7 @@ void sub_1E4EF8B30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_2(uint64_t a1, int *a2)
+void ___ZN19QMIRTPCommandDriver23configureRTCPReportsReqENSt3__110shared_ptrI13QMIRTPSessionEEbbtt_block_invoke_2(uint64_t a1, unsigned int *a2)
 {
   if (*(a1 + 48) == 1)
   {
@@ -5374,21 +5358,21 @@ void sub_1E4EF8D5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void QMIRTPCommandDriver::configureRTPLinkMonitorReq(void *a1, void *a2, __int16 a3)
+void QMIRTPCommandDriver::configureRTPLinkMonitorReq(std::__shared_weak_count_vtbl *a1, uint64_t *a2, __int16 a3)
 {
   if (!*a2)
   {
-    v6 = std::string::basic_string[abi:ne200100]<0>(&v43, "rtp.qmidriver");
-    v39[0] = 0;
-    v42 = 0;
-    v7 = ims::error(v6, v39);
+    v6 = std::string::basic_string[abi:ne200100]<0>(&v42, "rtp.qmidriver");
+    v38[0] = 0;
+    v41 = 0;
+    v7 = ims::error(v6, v38);
     if (!a1)
     {
       __cxa_bad_typeid();
     }
 
     v8 = v7;
-    v9 = *(*(*a1 - 8) + 8);
+    v9 = *(*(a1->~__shared_weak_count - 1) + 8);
     v10 = *(v7 + 8);
     v11 = strlen((v9 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v9 & 0x7FFFFFFFFFFFFFFFLL, v11);
@@ -5401,28 +5385,28 @@ void QMIRTPCommandDriver::configureRTPLinkMonitorReq(void *a1, void *a2, __int16
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v42 == 1 && v41 < 0)
+    if (v41 == 1 && v40 < 0)
     {
       operator delete(__p);
     }
 
-    if (v44 < 0)
+    if (v43 < 0)
     {
-      operator delete(v43);
+      operator delete(v42);
     }
   }
 
-  v12 = std::string::basic_string[abi:ne200100]<0>(&v43, "rtp.qmidriver");
-  v35[0] = 0;
-  v38 = 0;
-  v13 = ims::debug(v12, v35);
+  v12 = std::string::basic_string[abi:ne200100]<0>(&v42, "rtp.qmidriver");
+  v34[0] = 0;
+  v37 = 0;
+  v13 = ims::debug(v12, v34);
   if (!a1)
   {
     __cxa_bad_typeid();
   }
 
   v14 = v13;
-  v15 = *(*(*a1 - 8) + 8);
+  v15 = *(*(a1->~__shared_weak_count - 1) + 8);
   v16 = *(v13 + 8);
   v17 = strlen((v15 & 0x7FFFFFFFFFFFFFFFLL));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v15 & 0x7FFFFFFFFFFFFFFFLL, v17);
@@ -5440,78 +5424,77 @@ void QMIRTPCommandDriver::configureRTPLinkMonitorReq(void *a1, void *a2, __int16
   *(v14 + 17) = 0;
   (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v14 + 17) = 0;
-  if (v38 == 1 && v37 < 0)
+  if (v37 == 1 && v36 < 0)
   {
-    operator delete(v36);
+    operator delete(v35);
   }
 
-  if (v44 < 0)
+  if (v43 < 0)
   {
-    operator delete(v43);
+    operator delete(v42);
   }
 
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  qmi::MutableMessageBase::MutableMessageBase(&v33);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 1174405120;
-  v29 = ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke;
-  v30 = &__block_descriptor_tmp_127;
+  qmi::MutableMessageBase::MutableMessageBase(&v32);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 1174405120;
+  v28 = ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke;
+  v29 = &__block_descriptor_tmp_127;
   v19 = a2[1];
-  v31 = *a2;
-  v32 = v19;
+  v30 = *a2;
+  v31 = v19;
   if (v19)
   {
     atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v20 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v33, 1);
-  v29(v28, v20);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 0x40000000;
-  v26[2] = ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_128;
-  v26[3] = &__block_descriptor_tmp_130;
-  v27 = a3;
-  v21 = *(&v33 + 1);
-  if (*(&v33 + 1) != v34)
+  v20 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v32, 1);
+  v28(v27, v20);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 0x40000000;
+  v25[2] = ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_128;
+  v25[3] = &__block_descriptor_tmp_130;
+  v26 = a3;
+  v21 = *(&v32 + 1);
+  if (*(&v32 + 1) != v33)
   {
     while (*(*v21 + 8) != 16)
     {
-      if (++v21 == v34)
+      if (++v21 == v33)
       {
         goto LABEL_23;
       }
     }
   }
 
-  if (v21 == v34)
+  if (v21 == v33)
   {
 LABEL_23:
     operator new();
   }
 
-  v22 = ***v21;
-  if (!v23)
+  if (!v22)
   {
     __cxa_bad_cast();
   }
 
-  ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_128(v26, v23 + 5);
+  ___ZN19QMIRTPCommandDriver26configureRTPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_128(v25, v22 + 5);
   InstanceType = QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64));
   if (InstanceType)
   {
-    qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(&v25, (a1 + 8), InstanceType);
+    qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(v24, &a1[1].__get_deleter, InstanceType, &v32);
   }
 
-  if (v32)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v33);
+  qmi::MutableMessageBase::~MutableMessageBase(&v32);
 }
 
-void sub_1E4EF93A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, char a47)
+void sub_1E4EF93A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, char a47)
 {
   v50 = *(v48 - 128);
   if (v50)
@@ -5530,28 +5513,29 @@ void sub_1E4EF93A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(_DWORD *a1, uint64_t a2, int a3)
+void qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(_DWORD *a1, uint64_t a2, uint64_t a3, QMIServiceMsg *a4)
 {
+  v4 = a3;
   qmi::ClientRouter::get();
-  *a1 = a3;
+  *a1 = v4;
   operator new();
 }
 
-void QMIRTPCommandDriver::configureRTCPLinkMonitorReq(void *a1, void *a2, __int16 a3)
+void QMIRTPCommandDriver::configureRTCPLinkMonitorReq(std::__shared_weak_count_vtbl *a1, uint64_t *a2, __int16 a3)
 {
   if (!*a2)
   {
-    v6 = std::string::basic_string[abi:ne200100]<0>(&v43, "rtp.qmidriver");
-    v39[0] = 0;
-    v42 = 0;
-    v7 = ims::error(v6, v39);
+    v6 = std::string::basic_string[abi:ne200100]<0>(&v42, "rtp.qmidriver");
+    v38[0] = 0;
+    v41 = 0;
+    v7 = ims::error(v6, v38);
     if (!a1)
     {
       __cxa_bad_typeid();
     }
 
     v8 = v7;
-    v9 = *(*(*a1 - 8) + 8);
+    v9 = *(*(a1->~__shared_weak_count - 1) + 8);
     v10 = *(v7 + 8);
     v11 = strlen((v9 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v9 & 0x7FFFFFFFFFFFFFFFLL, v11);
@@ -5564,28 +5548,28 @@ void QMIRTPCommandDriver::configureRTCPLinkMonitorReq(void *a1, void *a2, __int1
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v42 == 1 && v41 < 0)
+    if (v41 == 1 && v40 < 0)
     {
       operator delete(__p);
     }
 
-    if (v44 < 0)
+    if (v43 < 0)
     {
-      operator delete(v43);
+      operator delete(v42);
     }
   }
 
-  v12 = std::string::basic_string[abi:ne200100]<0>(&v43, "rtp.qmidriver");
-  v35[0] = 0;
-  v38 = 0;
-  v13 = ims::debug(v12, v35);
+  v12 = std::string::basic_string[abi:ne200100]<0>(&v42, "rtp.qmidriver");
+  v34[0] = 0;
+  v37 = 0;
+  v13 = ims::debug(v12, v34);
   if (!a1)
   {
     __cxa_bad_typeid();
   }
 
   v14 = v13;
-  v15 = *(*(*a1 - 8) + 8);
+  v15 = *(*(a1->~__shared_weak_count - 1) + 8);
   v16 = *(v13 + 8);
   v17 = strlen((v15 & 0x7FFFFFFFFFFFFFFFLL));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v15 & 0x7FFFFFFFFFFFFFFFLL, v17);
@@ -5603,78 +5587,77 @@ void QMIRTPCommandDriver::configureRTCPLinkMonitorReq(void *a1, void *a2, __int1
   *(v14 + 17) = 0;
   (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v14 + 17) = 0;
-  if (v38 == 1 && v37 < 0)
+  if (v37 == 1 && v36 < 0)
   {
-    operator delete(v36);
+    operator delete(v35);
   }
 
-  if (v44 < 0)
+  if (v43 < 0)
   {
-    operator delete(v43);
+    operator delete(v42);
   }
 
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  qmi::MutableMessageBase::MutableMessageBase(&v33);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 1174405120;
-  v29 = ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke;
-  v30 = &__block_descriptor_tmp_133_0;
+  qmi::MutableMessageBase::MutableMessageBase(&v32);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 1174405120;
+  v28 = ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke;
+  v29 = &__block_descriptor_tmp_133_0;
   v19 = a2[1];
-  v31 = *a2;
-  v32 = v19;
+  v30 = *a2;
+  v31 = v19;
   if (v19)
   {
     atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v20 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v33, 1);
-  v29(v28, v20);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 0x40000000;
-  v26[2] = ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_134;
-  v26[3] = &__block_descriptor_tmp_136;
-  v27 = a3;
-  v21 = *(&v33 + 1);
-  if (*(&v33 + 1) != v34)
+  v20 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v32, 1);
+  v28(v27, v20);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 0x40000000;
+  v25[2] = ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_134;
+  v25[3] = &__block_descriptor_tmp_136;
+  v26 = a3;
+  v21 = *(&v32 + 1);
+  if (*(&v32 + 1) != v33)
   {
     while (*(*v21 + 8) != 17)
     {
-      if (++v21 == v34)
+      if (++v21 == v33)
       {
         goto LABEL_23;
       }
     }
   }
 
-  if (v21 == v34)
+  if (v21 == v33)
   {
 LABEL_23:
     operator new();
   }
 
-  v22 = ***v21;
-  if (!v23)
+  if (!v22)
   {
     __cxa_bad_cast();
   }
 
-  ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_134(v26, v23 + 5);
+  ___ZN19QMIRTPCommandDriver27configureRTCPLinkMonitorReqENSt3__110shared_ptrI13QMIRTPSessionEEt_block_invoke_134(v25, v22 + 5);
   InstanceType = QMIRTPCommandDriver::getInstanceType(a1, (*a2 + 64));
   if (InstanceType)
   {
-    qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(&v25, (a1 + 8), InstanceType);
+    qmi::ClientRouter::send<ms::SessionConfigureLinkMonitor::Request>(v24, &a1[1].__get_deleter, InstanceType, &v32);
   }
 
-  if (v32)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&v33);
+  qmi::MutableMessageBase::~MutableMessageBase(&v32);
 }
 
-void sub_1E4EF9B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, char a47)
+void sub_1E4EF9B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, char a47)
 {
   v50 = *(v48 - 128);
   if (v50)
@@ -5698,9 +5681,9 @@ void QMIRTPCommandDriver::handleConfigureLinkMonitorResp(void *a1, unsigned __in
   if (!*a3)
   {
     v6 = std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-    v40[0] = 0;
-    v43 = 0;
-    v7 = ims::error(v6, v40);
+    v39[0] = 0;
+    v42 = 0;
+    v7 = ims::error(v6, v39);
     if (!a1)
     {
       __cxa_bad_typeid();
@@ -5720,21 +5703,21 @@ void QMIRTPCommandDriver::handleConfigureLinkMonitorResp(void *a1, unsigned __in
     *(v8 + 17) = 0;
     (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v43 == 1 && v42 < 0)
+    if (v42 == 1 && v41 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v47) < 0)
+    if (SHIBYTE(v46) < 0)
     {
       operator delete(block[0]);
     }
   }
 
   v12 = std::string::basic_string[abi:ne200100]<0>(block, "rtp.qmidriver");
-  v36[0] = 0;
-  v39 = 0;
-  v13 = ims::debug(v12, v36);
+  v35[0] = 0;
+  v38 = 0;
+  v13 = ims::debug(v12, v35);
   if (!a1)
   {
     __cxa_bad_typeid();
@@ -5759,12 +5742,12 @@ void QMIRTPCommandDriver::handleConfigureLinkMonitorResp(void *a1, unsigned __in
   *(v14 + 17) = 0;
   (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v14 + 17) = 0;
-  if (v39 == 1 && v38 < 0)
+  if (v38 == 1 && v37 < 0)
   {
-    operator delete(v37);
+    operator delete(v36);
   }
 
-  if (SHIBYTE(v47) < 0)
+  if (SHIBYTE(v46) < 0)
   {
     operator delete(block[0]);
   }
@@ -5772,86 +5755,85 @@ void QMIRTPCommandDriver::handleConfigureLinkMonitorResp(void *a1, unsigned __in
   v19 = *(a2 + 1);
   if (v19)
   {
-    v20 = std::string::basic_string[abi:ne200100]<0>(&v52, "rtp.qmidriver");
+    v20 = std::string::basic_string[abi:ne200100]<0>(&v51, "rtp.qmidriver");
     LOBYTE(block[0]) = 0;
-    LOBYTE(v51) = 0;
+    LOBYTE(v50) = 0;
     v21 = ims::error(v20, block);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Error response for request: ", 28);
     *(v21 + 17) = 0;
-    v22 = QMIRTPCommandDriver::nameForRequestId(v44, *a2);
-    (*(*v21 + 32))(v21, v44, v22);
+    v22 = QMIRTPCommandDriver::nameForRequestId(v43, *a2);
+    (*(*v21 + 32))(v21, v43, v22);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " error:", 7);
     *(v21 + 17) = 0;
     MEMORY[0x1E6923350](*(v21 + 8), *(a2 + 1));
     *(v21 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " reason: ", 9);
     *(v21 + 17) = 0;
-    v23 = *(a2 + 1);
-    v24 = qmi::asString();
-    v25 = strlen(v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), v24, v25);
+    v23 = qmi::asString();
+    v24 = strlen(v23);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), v23, v24);
     *(v21 + 17) = 0;
     (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v21 + 17) = 0;
-    if (v45 < 0)
+    if (v44 < 0)
     {
-      operator delete(v44[0]);
+      operator delete(v43[0]);
     }
 
-    if (v51 == 1 && SHIBYTE(v49) < 0)
+    if (v50 == 1 && SHIBYTE(v48) < 0)
     {
-      operator delete(v47);
+      operator delete(v46);
     }
 
-    if (v53 < 0)
+    if (v52 < 0)
     {
-      operator delete(v52);
+      operator delete(v51);
     }
 
     v19 = 4;
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 1174405120;
-  v33[2] = ___ZN19QMIRTPCommandDriver30handleConfigureLinkMonitorRespERKN2ms27SessionConfigureLinkMonitor8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
-  v33[3] = &__block_descriptor_tmp_139_0;
-  v35 = v19;
-  v27 = *a3;
-  v26 = a3[1];
-  v33[4] = a1;
-  v33[5] = v27;
-  v34 = v26;
-  if (v26)
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 1174405120;
+  v32[2] = ___ZN19QMIRTPCommandDriver30handleConfigureLinkMonitorRespERKN2ms27SessionConfigureLinkMonitor8ResponseENSt3__110shared_ptrI13QMIRTPSessionEE_block_invoke;
+  v32[3] = &__block_descriptor_tmp_139_0;
+  v34 = v19;
+  v26 = *a3;
+  v25 = a3[1];
+  v32[4] = a1;
+  v32[5] = v26;
+  v33 = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v28 = a1[3];
-  if (!v28 || (v29 = a1[2], (v30 = std::__shared_weak_count::lock(v28)) == 0))
+  v27 = a1[3];
+  if (!v27 || (v28 = a1[2], (v29 = std::__shared_weak_count::lock(v27)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v31 = v30;
-  v32 = a1[4];
+  v30 = v29;
+  v31 = a1[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v47 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v48 = &unk_1F5EDC868;
-  v50 = v29;
-  v51 = v31;
-  atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
-  v49 = v33;
-  dispatch_async(v32, block);
-  if (v51)
+  v46 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v47 = &unk_1F5EDC868;
+  v49 = v28;
+  v50 = v30;
+  atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+  v48 = v32;
+  dispatch_async(v31, block);
+  if (v50)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v31);
-  if (v34)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 }
 
@@ -6119,11 +6101,12 @@ void ___ZN19QMIRTPCommandDriver28handleServiceErrorIndicationERKN2ms12ServiceErr
   }
 }
 
-void sub_1E4EFA918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_1E4EFA918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  ImsResult::~ImsResult(&a20);
+  va_start(va, a19);
+  ImsResult::~ImsResult(va);
   ImsResult::~ImsResult(&a9);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   _Unwind_Resume(a1);
 }
 
@@ -6265,7 +6248,7 @@ void ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18Serv
   }
 }
 
-uint64_t __copy_helper_block_e8_48c18_ZTS12RTCPSRPacket(void *a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_48c18_ZTS12RTCPSRPacket(void *a1, uint64_t a2)
 {
   a1[6] = &unk_1F5EDD2D8;
   v2 = *(a2 + 56);
@@ -6275,11 +6258,11 @@ uint64_t __copy_helper_block_e8_48c18_ZTS12RTCPSRPacket(void *a1, uint64_t a2)
   v3 = *(a2 + 72);
   v4 = *(a2 + 88);
   a1[12] = 0;
-  v5 = (a1 + 12);
-  *(v5 - 8) = v4;
-  *(v5 - 24) = v3;
-  *(v5 + 8) = 0;
-  *(v5 + 16) = 0;
+  v5 = a1 + 12;
+  *(v5 - 1) = v4;
+  *(v5 - 3) = v3;
+  v5[1] = 0;
+  v5[2] = 0;
   return std::vector<RTCPReceiverReport>::__init_with_size[abi:ne200100]<RTCPReceiverReport*,RTCPReceiverReport*>(v5, *(a2 + 96), *(a2 + 104), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 104) - *(a2 + 96)) >> 2));
 }
 
@@ -6468,7 +6451,7 @@ void ___ZN19QMIRTPCommandDriver34handleServiceRtcpReportsIndicationERKN2ms18Serv
   }
 }
 
-uint64_t __copy_helper_block_e8_48c18_ZTS12RTCPRRPacket(void *a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_48c18_ZTS12RTCPRRPacket(void *a1, uint64_t a2)
 {
   a1[6] = &unk_1F5EDD2D8;
   v2 = *(a2 + 56);
@@ -6477,10 +6460,10 @@ uint64_t __copy_helper_block_e8_48c18_ZTS12RTCPRRPacket(void *a1, uint64_t a2)
   a1[7] = v2;
   v3 = *(a2 + 72);
   a1[10] = 0;
-  v4 = (a1 + 10);
-  *(v4 - 8) = v3;
-  *(v4 + 8) = 0;
-  *(v4 + 16) = 0;
+  v4 = a1 + 10;
+  *(v4 - 2) = v3;
+  v4[1] = 0;
+  v4[2] = 0;
   return std::vector<RTCPReceiverReport>::__init_with_size[abi:ne200100]<RTCPReceiverReport*,RTCPReceiverReport*>(v4, *(a2 + 80), *(a2 + 88), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 88) - *(a2 + 80)) >> 2));
 }
 
@@ -7074,14 +7057,14 @@ void sub_1E4EFC33C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QMIRTPCommandDriver::processDTMFDigitQueue(uint64_t a1, void *a2)
+void QMIRTPCommandDriver::processDTMFDigitQueue(uint64_t a1, uint64_t *a2)
 {
   if (!*a2)
   {
-    v31 = std::string::basic_string[abi:ne200100]<0>(v86, "rtp.qmidriver");
-    v68[0] = 0;
-    v71 = 0;
-    v32 = ims::error(v31, v68);
+    v31 = std::string::basic_string[abi:ne200100]<0>(v83, "rtp.qmidriver");
+    v65[0] = 0;
+    v68 = 0;
+    v32 = ims::error(v31, v65);
     if (!a1)
     {
       __cxa_bad_typeid();
@@ -7101,19 +7084,19 @@ void QMIRTPCommandDriver::processDTMFDigitQueue(uint64_t a1, void *a2)
     *(v33 + 17) = 0;
     (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v33 + 17) = 0;
-    if (v71 != 1 || (v70 & 0x80000000) == 0)
+    if (v68 != 1 || (v67 & 0x80000000) == 0)
     {
       goto LABEL_36;
     }
 
-    v37 = v69;
+    v37 = v66;
     goto LABEL_35;
   }
 
-  v4 = std::string::basic_string[abi:ne200100]<0>(v86, "rtp.qmidriver");
-  v64[0] = 0;
-  v67 = 0;
-  v5 = ims::debug(v4, v64);
+  v4 = std::string::basic_string[abi:ne200100]<0>(v83, "rtp.qmidriver");
+  v61[0] = 0;
+  v64 = 0;
+  v5 = ims::debug(v4, v61);
   if (!a1)
   {
     __cxa_bad_typeid();
@@ -7138,23 +7121,23 @@ void QMIRTPCommandDriver::processDTMFDigitQueue(uint64_t a1, void *a2)
   *(v6 + 17) = 0;
   (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v6 + 17) = 0;
-  if (v67 == 1 && v66 < 0)
+  if (v64 == 1 && v63 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v87) < 0)
+  if (SHIBYTE(v84) < 0)
   {
-    operator delete(v86[0]);
+    operator delete(v83[0]);
   }
 
   *(a1 + 136) = 0;
   if (!*(a1 + 128))
   {
-    v38 = std::string::basic_string[abi:ne200100]<0>(v86, "rtp.qmidriver");
-    v60[0] = 0;
-    v63 = 0;
-    v39 = ims::debug(v38, v60);
+    v38 = std::string::basic_string[abi:ne200100]<0>(v83, "rtp.qmidriver");
+    v57[0] = 0;
+    v60 = 0;
+    v39 = ims::debug(v38, v57);
     v40 = *(*(*a1 - 8) + 8);
     v41 = strlen((v40 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v39 + 8), v40 & 0x7FFFFFFFFFFFFFFFLL, v41);
@@ -7167,28 +7150,28 @@ void QMIRTPCommandDriver::processDTMFDigitQueue(uint64_t a1, void *a2)
     *(v39 + 17) = 0;
     (*(*v39 + 64))(v39, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v39 + 17) = 0;
-    if (v63 != 1 || (v62 & 0x80000000) == 0)
+    if (v60 != 1 || (v59 & 0x80000000) == 0)
     {
 LABEL_36:
-      if (SHIBYTE(v87) < 0)
+      if (SHIBYTE(v84) < 0)
       {
-        operator delete(v86[0]);
+        operator delete(v83[0]);
       }
 
       return;
     }
 
-    v37 = v61;
+    v37 = v58;
 LABEL_35:
     operator delete(v37);
     goto LABEL_36;
   }
 
   v11 = *(*(a1 + 120) + 16);
-  v12 = std::string::basic_string[abi:ne200100]<0>(v86, "rtp.qmidriver");
-  v56[0] = 0;
-  v59 = 0;
-  v13 = ims::debug(v12, v56);
+  v12 = std::string::basic_string[abi:ne200100]<0>(v83, "rtp.qmidriver");
+  v53[0] = 0;
+  v56 = 0;
+  v13 = ims::debug(v12, v53);
   v14 = *(*(*a1 - 8) + 8);
   v15 = strlen((v14 & 0x7FFFFFFFFFFFFFFFLL));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), v14 & 0x7FFFFFFFFFFFFFFFLL, v15);
@@ -7209,14 +7192,14 @@ LABEL_35:
   *(v13 + 17) = 0;
   (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v13 + 17) = 0;
-  if (v59 == 1 && v58 < 0)
+  if (v56 == 1 && v55 < 0)
   {
-    operator delete(v57);
+    operator delete(v54);
   }
 
-  if (SHIBYTE(v87) < 0)
+  if (SHIBYTE(v84) < 0)
   {
-    operator delete(v86[0]);
+    operator delete(v83[0]);
   }
 
   v16 = *(a1 + 120);
@@ -7239,10 +7222,10 @@ LABEL_35:
   {
     v22 = *(v21 + 344);
     v23 = *(v21 + 345);
-    v24 = std::string::basic_string[abi:ne200100]<0>(&v90, "rtp.qmidriver");
-    LOBYTE(v86[0]) = 0;
-    v89 = 0;
-    v25 = ims::debug(v24, v86);
+    v24 = std::string::basic_string[abi:ne200100]<0>(&v87, "rtp.qmidriver");
+    LOBYTE(v83[0]) = 0;
+    v86 = 0;
+    v25 = ims::debug(v24, v83);
     v26 = *(*(*a1 - 8) + 8);
     v27 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), v26 & 0x7FFFFFFFFFFFFFFFLL, v27);
@@ -7260,167 +7243,164 @@ LABEL_35:
     *(v25 + 17) = 0;
     (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v25 + 17) = 0;
-    if (v89 == 1 && v88 < 0)
+    if (v86 == 1 && v85 < 0)
+    {
+      operator delete(v84);
+    }
+
+    if (v88 < 0)
     {
       operator delete(v87);
     }
 
-    if (v91 < 0)
-    {
-      operator delete(v90);
-    }
-
-    v84 = 0u;
-    v85 = 0u;
-    qmi::MutableMessageBase::MutableMessageBase(&v84);
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 1174405120;
-    v80 = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke;
-    v81 = &__block_descriptor_tmp_183_0;
-    v82 = v20;
-    v83 = v19;
+    v81 = 0u;
+    v82 = 0u;
+    qmi::MutableMessageBase::MutableMessageBase(&v81);
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 1174405120;
+    v77 = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke;
+    v78 = &__block_descriptor_tmp_183_0;
+    v79 = v20;
+    v80 = v19;
     if (v19)
     {
       atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v29 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v84, 1);
-    v80(v79, v29);
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 0x40000000;
-    v77[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_184;
-    v77[3] = &__block_descriptor_tmp_186;
-    v78 = v11;
-    v30 = *(&v84 + 1);
-    if (*(&v84 + 1) != v85)
+    v29 = qmi::MutableMessageBase::getTLV<ms::tlv::RTPSessionIdentifier>(&v81, 1);
+    v77(v76, v29);
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 0x40000000;
+    v74[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_184;
+    v74[3] = &__block_descriptor_tmp_186;
+    v75 = v11;
+    v30 = *(&v81 + 1);
+    if (*(&v81 + 1) != v82)
     {
       while (*(*v30 + 8) != 2)
       {
-        if (++v30 == v85)
+        if (++v30 == v82)
         {
           goto LABEL_46;
         }
       }
     }
 
-    if (v30 == v85)
+    if (v30 == v82)
     {
 LABEL_46:
       operator new();
     }
 
-    v42 = ***v30;
-    if (!v43)
+    if (!v42)
     {
       goto LABEL_73;
     }
 
-    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_184(v77, v43 + 9);
-    v75[0] = MEMORY[0x1E69E9820];
-    v75[1] = 0x40000000;
-    v75[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_2;
-    v75[3] = &__block_descriptor_tmp_188;
-    v76 = v22;
-    v48 = *(&v84 + 1);
-    if (*(&v84 + 1) != v85)
+    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_184(v74, v42 + 9);
+    v72[0] = MEMORY[0x1E69E9820];
+    v72[1] = 0x40000000;
+    v72[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_2;
+    v72[3] = &__block_descriptor_tmp_188;
+    v73 = v22;
+    v47 = *(&v81 + 1);
+    if (*(&v81 + 1) != v82)
     {
-      while (*(*v48 + 8) != 3)
+      while (*(*v47 + 8) != 3)
       {
-        if (++v48 == v85)
+        if (++v47 == v82)
         {
           goto LABEL_54;
         }
       }
     }
 
-    if (v48 == v85)
+    if (v47 == v82)
     {
 LABEL_54:
       operator new();
     }
 
-    v49 = ***v48;
-    if (!v50)
+    if (!v48)
     {
       goto LABEL_73;
     }
 
-    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_2(v75, v50 + 9);
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 0x40000000;
-    v73[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_3;
-    v73[3] = &__block_descriptor_tmp_190;
-    v74 = v23;
-    v51 = *(&v84 + 1);
-    if (*(&v84 + 1) != v85)
+    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_2(v72, v48 + 9);
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 0x40000000;
+    v70[2] = ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_3;
+    v70[3] = &__block_descriptor_tmp_190;
+    v71 = v23;
+    v49 = *(&v81 + 1);
+    if (*(&v81 + 1) != v82)
     {
-      while (*(*v51 + 8) != 4)
+      while (*(*v49 + 8) != 4)
       {
-        if (++v51 == v85)
+        if (++v49 == v82)
         {
           goto LABEL_62;
         }
       }
     }
 
-    if (v51 == v85)
+    if (v49 == v82)
     {
 LABEL_62:
       operator new();
     }
 
-    v52 = ***v51;
-    if (!v53)
+    if (!v50)
     {
 LABEL_73:
       __cxa_bad_cast();
     }
 
-    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_3(v73, v53 + 5);
+    ___ZN19QMIRTPCommandDriver11sendDTMFReqENSt3__110shared_ptrI13QMIRTPSessionEEcht_block_invoke_3(v70, v50 + 5);
     *(a1 + 176) = std::chrono::system_clock::now().__d_.__rep_ / 1000;
     InstanceType = QMIRTPCommandDriver::getInstanceType(a1, (v20 + 64));
-    v55 = InstanceType;
+    v52 = InstanceType;
     if (InstanceType)
     {
       qmi::ClientRouter::get();
-      v72 = v55;
+      v69 = v52;
       operator new();
     }
 
-    if (v83)
+    if (v80)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v83);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v80);
     }
 
-    qmi::MutableMessageBase::~MutableMessageBase(&v84);
+    qmi::MutableMessageBase::~MutableMessageBase(&v81);
   }
 
   else
   {
-    v44 = std::string::basic_string[abi:ne200100]<0>(&v90, "rtp.qmidriver");
-    LOBYTE(v86[0]) = 0;
-    v89 = 0;
-    v45 = ims::error(v44, v86);
-    v46 = *(*(*a1 - 8) + 8);
-    v47 = strlen((v46 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), v46 & 0x7FFFFFFFFFFFFFFFLL, v47);
-    *(v45 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), "::", 2);
-    *(v45 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), "sendDTMFReq", 11);
-    *(v45 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), " session is null", 16);
-    *(v45 + 17) = 0;
-    (*(*v45 + 64))(v45, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v45 + 17) = 0;
-    if (v89 == 1 && v88 < 0)
+    v43 = std::string::basic_string[abi:ne200100]<0>(&v87, "rtp.qmidriver");
+    LOBYTE(v83[0]) = 0;
+    v86 = 0;
+    v44 = ims::error(v43, v83);
+    v45 = *(*(*a1 - 8) + 8);
+    v46 = strlen((v45 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), v45 & 0x7FFFFFFFFFFFFFFFLL, v46);
+    *(v44 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), "::", 2);
+    *(v44 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), "sendDTMFReq", 11);
+    *(v44 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v44 + 8), " session is null", 16);
+    *(v44 + 17) = 0;
+    (*(*v44 + 64))(v44, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v44 + 17) = 0;
+    if (v86 == 1 && v85 < 0)
     {
-      operator delete(v87);
+      operator delete(v84);
     }
 
-    if (v91 < 0)
+    if (v88 < 0)
     {
-      operator delete(v90);
+      operator delete(v87);
     }
   }
 
@@ -7430,25 +7410,26 @@ LABEL_73:
   }
 }
 
-void sub_1E4EFD1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, __int16 a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_1E4EFD1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, __int16 a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, std::__shared_weak_count *a60, ...)
 {
-  v65 = *(v63 - 144);
-  if (v65)
+  va_start(va, a60);
+  v64 = *(v62 - 144);
+  if (v64)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v65);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v64);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v62);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v61);
   qmi::ClientRouter::SendProxy::~SendProxy(&a38);
   if (a60)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a60);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(&a61);
-  if (v61)
+  qmi::MutableMessageBase::~MutableMessageBase(va);
+  if (v60)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v61);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v60);
   }
 
   _Unwind_Resume(a1);
@@ -7552,7 +7533,7 @@ void __destroy_helper_block_e8_32c46_ZTSNSt3__18weak_ptrI21QMIRTPStackController
   }
 }
 
-void QMIRTPCommandDriver::sendDTMFDigit(void *a1, uint64_t a2, uint64_t a3)
+void QMIRTPCommandDriver::sendDTMFDigit(void *a1, void *a2, uint64_t a3)
 {
   if (*a2)
   {
@@ -7681,10 +7662,10 @@ void sub_1E4EFD9FC(_Unwind_Exception *exception_object)
 
 void QMIRTPCommandDriver::uninitializeAllSessionsReq(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = std::string::basic_string[abi:ne200100]<0>(&v68, "rtp.qmidriver");
-  v64[0] = 0;
-  v67 = 0;
-  v7 = ims::debug(v6, v64);
+  v6 = std::string::basic_string[abi:ne200100]<0>(&v67, "rtp.qmidriver");
+  v63[0] = 0;
+  v66 = 0;
+  v7 = ims::debug(v6, v63);
   if (!a1)
   {
     __cxa_bad_typeid();
@@ -7711,289 +7692,288 @@ void QMIRTPCommandDriver::uninitializeAllSessionsReq(void *a1, uint64_t a2, uint
   *(v8 + 17) = 0;
   (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v8 + 17) = 0;
-  if (v67 == 1 && v66 < 0)
+  if (v66 == 1 && v65 < 0)
   {
-    operator delete(v65);
+    operator delete(v64);
   }
 
-  if (v69 < 0)
+  if (v68 < 0)
   {
-    operator delete(v68);
+    operator delete(v67);
   }
 
+  v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  qmi::MutableMessageBase::MutableMessageBase(&v62);
+  qmi::MutableMessageBase::MutableMessageBase(&v61);
   if (a3 != 255)
   {
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 0x40000000;
-    v60[2] = ___ZN19QMIRTPCommandDriver26uninitializeAllSessionsReqERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN2ms7ApnTypeE_block_invoke;
-    v60[3] = &__block_descriptor_tmp_217;
-    v61 = a3;
-    v12 = *(&v62 + 1);
-    if (*(&v62 + 1) != v63)
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 0x40000000;
+    v59[2] = ___ZN19QMIRTPCommandDriver26uninitializeAllSessionsReqERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN2ms7ApnTypeE_block_invoke;
+    v59[3] = &__block_descriptor_tmp_217;
+    v60 = a3;
+    v12 = *(&v61 + 1);
+    if (*(&v61 + 1) != v62)
     {
       while (*(*v12 + 8) != 16)
       {
-        if (++v12 == v63)
+        if (++v12 == v62)
         {
           goto LABEL_15;
         }
       }
     }
 
-    if (v12 == v63)
+    if (v12 == v62)
     {
 LABEL_15:
       operator new();
     }
 
-    v13 = ***v12;
-    if (!v14)
+    if (!v13)
     {
       __cxa_bad_cast();
     }
 
-    ___ZN19QMIRTPCommandDriver26uninitializeAllSessionsReqERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN2ms7ApnTypeE_block_invoke(v60, v14 + 3);
+    ___ZN19QMIRTPCommandDriver26uninitializeAllSessionsReqERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN2ms7ApnTypeE_block_invoke(v59, v13 + 3);
   }
 
-  v15 = a1[21];
-  if (v15)
+  v14 = a1[21];
+  if (v14)
   {
-    v16 = std::__shared_weak_count::lock(v15);
-    if (v16)
+    v15 = std::__shared_weak_count::lock(v14);
+    if (v15)
     {
-      v48 = v16;
-      v17 = a1[20];
-      if (!v17)
+      v47 = v15;
+      v16 = a1[20];
+      if (!v16)
       {
 LABEL_49:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v48);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v47);
         goto LABEL_50;
       }
 
-      v18 = *(a2 + 23);
-      if (v18 < 0)
+      v17 = *(a2 + 23);
+      if (v17 < 0)
       {
         if (*(a2 + 8) != 15)
         {
 LABEL_28:
           QMIRTPStackController::getProfileByStackId(a1[20], a2);
-          v24 = v23;
-          if ((v23 & 0x100000000) != 0)
+          v23 = v22;
+          if ((v22 & 0x100000000) != 0)
           {
-            v25 = std::string::basic_string[abi:ne200100]<0>(&v68, "rtp.qmidriver");
-            v49[0] = 0;
-            v52 = 0;
-            v26 = ims::debug(v25, v49);
-            v27 = *(*(*a1 - 8) + 8);
-            v28 = strlen((v27 & 0x7FFFFFFFFFFFFFFFLL));
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), v27 & 0x7FFFFFFFFFFFFFFFLL, v28);
-            *(v26 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "::", 2);
-            *(v26 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "uninitializeAllSessionsReq", 26);
-            *(v26 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), " [instance=", 11);
-            *(v26 + 17) = 0;
-            MEMORY[0x1E6923350](*(v26 + 8), v24);
-            *(v26 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v26 + 8), "]", 1);
-            *(v26 + 17) = 0;
-            (*(*v26 + 64))(v26, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v26 + 17) = 0;
-            if (v52 == 1 && v51 < 0)
+            v24 = std::string::basic_string[abi:ne200100]<0>(&v67, "rtp.qmidriver");
+            v48[0] = 0;
+            v51 = 0;
+            v25 = ims::debug(v24, v48);
+            v26 = *(*(*a1 - 8) + 8);
+            v27 = strlen((v26 & 0x7FFFFFFFFFFFFFFFLL));
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), v26 & 0x7FFFFFFFFFFFFFFFLL, v27);
+            *(v25 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "::", 2);
+            *(v25 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "uninitializeAllSessionsReq", 26);
+            *(v25 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), " [instance=", 11);
+            *(v25 + 17) = 0;
+            MEMORY[0x1E6923350](*(v25 + 8), v23);
+            *(v25 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v25 + 8), "]", 1);
+            *(v25 + 17) = 0;
+            (*(*v25 + 64))(v25, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v25 + 17) = 0;
+            if (v51 == 1 && v50 < 0)
             {
               operator delete(__p);
             }
 
-            if (v69 < 0)
+            if (v68 < 0)
             {
-              operator delete(v68);
+              operator delete(v67);
             }
 
-            if (v24)
+            if (v23)
             {
-              v29 = 2 * (v24 == 1);
+              v28 = 2 * (v23 == 1);
             }
 
             else
             {
-              v29 = 1;
+              v28 = 1;
             }
 
-            if (v29)
+            if (v28)
             {
-              v30 = *(v17 + 176);
-              if (v30)
+              v29 = v16[22];
+              if (v29)
               {
-                v31 = v17 + 176;
+                v30 = v16 + 22;
                 do
                 {
-                  v32 = *(v30 + 28);
-                  v33 = v32 >= v24;
-                  v34 = v32 < v24;
-                  if (v33)
+                  v31 = *(v29 + 28);
+                  v32 = v31 >= v23;
+                  v33 = v31 < v23;
+                  if (v32)
                   {
-                    v31 = v30;
+                    v30 = v29;
                   }
 
-                  v30 = *(v30 + 8 * v34);
+                  v29 = *(v29 + 8 * v33);
                 }
 
-                while (v30);
-                if (v31 != v17 + 176 && *(v31 + 28) <= v24 && *(v31 + 32) == 2)
+                while (v29);
+                if (v30 != v16 + 22 && *(v30 + 7) <= v23 && *(v30 + 8) == 2)
                 {
-                  qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(v58, (a1 + 8), v29);
+                  qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(v57, (a1 + 8), v28, &v61);
                 }
               }
             }
           }
 
-          QMIRTPStackController::handleStackUninitializeAllSessions(v17, a2, a3);
+          QMIRTPStackController::handleStackUninitializeAllSessions(v16, a2, a3);
           goto LABEL_49;
         }
 
-        v19 = *a2;
+        v18 = *a2;
       }
 
       else
       {
-        v19 = a2;
-        if (v18 != 15)
+        v18 = a2;
+        if (v17 != 15)
         {
           goto LABEL_28;
         }
       }
 
-      v20 = *v19;
-      v21 = *(v19 + 7);
-      v22 = v20 == 0x536C6C41494D516BLL && v21 == 0x736E6F6973736553;
-      if (v22)
+      v19 = *v18;
+      v20 = *(v18 + 7);
+      v21 = v19 == 0x536C6C41494D516BLL && v20 == 0x736E6F6973736553;
+      if (v21)
       {
-        v35 = *(v17 + 144);
-        if (v35 != (v17 + 152))
+        v34 = v16[18];
+        if (v34 != v16 + 19)
         {
-          v36 = (v17 + 176);
+          v35 = v16 + 22;
           do
           {
-            v59 = 0;
-            memset(v58, 0, sizeof(v58));
-            if (*(v35 + 55) < 0)
+            v58 = 0;
+            memset(v57, 0, sizeof(v57));
+            if (*(v34 + 55) < 0)
             {
-              std::string::__init_copy_ctor_external(v58, v35[4], v35[5]);
+              std::string::__init_copy_ctor_external(v57, v34[4], v34[5]);
             }
 
             else
             {
-              *v58 = *(v35 + 2);
-              *&v58[16] = v35[6];
+              *v57 = *(v34 + 2);
+              *&v57[16] = v34[6];
             }
 
-            *&v58[24] = v35[7];
-            LODWORD(v59) = *(v35 + 16);
-            v37 = std::string::basic_string[abi:ne200100]<0>(&v68, "rtp.qmidriver");
-            v54[0] = 0;
-            v57 = 0;
-            v38 = ims::debug(v37, v54);
-            v39 = *(*(*a1 - 8) + 8);
-            v40 = strlen((v39 & 0x7FFFFFFFFFFFFFFFLL));
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), v39 & 0x7FFFFFFFFFFFFFFFLL, v40);
-            *(v38 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), "::", 2);
-            *(v38 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), "uninitializeAllSessionsReq", 26);
-            *(v38 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), " [instance=", 11);
-            *(v38 + 17) = 0;
-            MEMORY[0x1E6923350](*(v38 + 8), v59);
-            *(v38 + 17) = 0;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v38 + 8), "]", 1);
-            *(v38 + 17) = 0;
-            (*(*v38 + 64))(v38, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v38 + 17) = 0;
-            if (v57 == 1 && v56 < 0)
+            *&v57[24] = v34[7];
+            LODWORD(v58) = *(v34 + 16);
+            v36 = std::string::basic_string[abi:ne200100]<0>(&v67, "rtp.qmidriver");
+            v53[0] = 0;
+            v56 = 0;
+            v37 = ims::debug(v36, v53);
+            v38 = *(*(*a1 - 8) + 8);
+            v39 = strlen((v38 & 0x7FFFFFFFFFFFFFFFLL));
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), v38 & 0x7FFFFFFFFFFFFFFFLL, v39);
+            *(v37 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), "::", 2);
+            *(v37 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), "uninitializeAllSessionsReq", 26);
+            *(v37 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), " [instance=", 11);
+            *(v37 + 17) = 0;
+            MEMORY[0x1E6923350](*(v37 + 8), v58);
+            *(v37 + 17) = 0;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v37 + 8), "]", 1);
+            *(v37 + 17) = 0;
+            (*(*v37 + 64))(v37, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v37 + 17) = 0;
+            if (v56 == 1 && v55 < 0)
             {
-              operator delete(v55);
+              operator delete(v54);
             }
 
-            if (v69 < 0)
+            if (v68 < 0)
             {
-              operator delete(v68);
+              operator delete(v67);
             }
 
-            if (v59)
+            if (v58)
             {
-              v41 = 2 * (v59 == 1);
+              v40 = 2 * (v58 == 1);
             }
 
             else
             {
-              v41 = 1;
+              v40 = 1;
             }
 
-            if (v41)
+            if (v40)
             {
-              v42 = *v36;
-              if (*v36)
+              v41 = *v35;
+              if (*v35)
               {
-                v43 = v17 + 176;
+                v42 = v16 + 22;
                 do
                 {
-                  v44 = *(v42 + 28);
-                  v33 = v44 >= v59;
-                  v45 = v44 < v59;
-                  if (v33)
+                  v43 = *(v41 + 28);
+                  v32 = v43 >= v58;
+                  v44 = v43 < v58;
+                  if (v32)
                   {
-                    v43 = v42;
+                    v42 = v41;
                   }
 
-                  v42 = *(v42 + 8 * v45);
+                  v41 = *(v41 + 8 * v44);
                 }
 
-                while (v42);
-                if (v43 != v36 && *(v43 + 28) <= v59 && *(v43 + 32) == 2)
+                while (v41);
+                if (v42 != v35 && *(v42 + 7) <= v58 && *(v42 + 8) == 2)
                 {
-                  qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(&v53, (a1 + 8), v41);
+                  qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(v52, (a1 + 8), v40, &v61);
                 }
               }
             }
 
-            QMIRTPStackController::handleStackUninitializeAllSessions(v17, a2, a3);
-            if ((v58[23] & 0x80000000) != 0)
+            QMIRTPStackController::handleStackUninitializeAllSessions(v16, a2, a3);
+            if ((v57[23] & 0x80000000) != 0)
             {
-              operator delete(*v58);
+              operator delete(*v57);
             }
 
-            v46 = v35[1];
-            if (v46)
+            v45 = v34[1];
+            if (v45)
             {
               do
               {
-                v47 = v46;
-                v46 = *v46;
+                v46 = v45;
+                v45 = *v45;
               }
 
-              while (v46);
+              while (v45);
             }
 
             else
             {
               do
               {
-                v47 = v35[2];
-                v22 = *v47 == v35;
-                v35 = v47;
+                v46 = v34[2];
+                v21 = *v46 == v34;
+                v34 = v46;
               }
 
-              while (!v22);
+              while (!v21);
             }
 
-            v35 = v47;
+            v34 = v46;
           }
 
-          while (v47 != (v17 + 152));
+          while (v46 != v16 + 19);
         }
 
         goto LABEL_49;
@@ -8004,7 +7984,7 @@ LABEL_28:
   }
 
 LABEL_50:
-  qmi::MutableMessageBase::~MutableMessageBase(&v62);
+  qmi::MutableMessageBase::~MutableMessageBase(&v61);
 }
 
 void sub_1E4EFE4A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
@@ -8022,10 +8002,11 @@ void sub_1E4EFE4A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(_DWORD *a1, uint64_t a2, int a3)
+void qmi::ClientRouter::send<ms::ServiceUninitializeAllSessions::Request>(_DWORD *a1, uint64_t a2, uint64_t a3, QMIServiceMsg *a4)
 {
+  v4 = a3;
   qmi::ClientRouter::get();
-  *a1 = a3;
+  *a1 = v4;
   operator new();
 }
 
@@ -8034,9 +8015,9 @@ void QMIRTPCommandDriver::handleUninitializeAllSessionsResp(void *a1, unsigned _
   v3 = *(a2 + 1);
   if (v3)
   {
-    v5 = std::string::basic_string[abi:ne200100]<0>(&v26, "rtp.qmidriver");
+    v5 = std::string::basic_string[abi:ne200100]<0>(&v25, "rtp.qmidriver");
     LOBYTE(block[0]) = 0;
-    LOBYTE(v25) = 0;
+    LOBYTE(v24) = 0;
     v6 = ims::error(v5, block);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Error response for request: ", 28);
     *(v6 + 17) = 0;
@@ -8048,60 +8029,59 @@ void QMIRTPCommandDriver::handleUninitializeAllSessionsResp(void *a1, unsigned _
     *(v6 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " reason: ", 9);
     *(v6 + 17) = 0;
-    v8 = *(a2 + 1);
-    v9 = qmi::asString();
-    v10 = strlen(v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v9, v10);
+    v8 = qmi::asString();
+    v9 = strlen(v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), v8, v9);
     *(v6 + 17) = 0;
     (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v6 + 17) = 0;
-    if (v19 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v25 == 1 && SHIBYTE(v23) < 0)
+    if (v24 == 1 && SHIBYTE(v22) < 0)
     {
-      operator delete(v21);
+      operator delete(v20);
     }
 
-    if (v27 < 0)
+    if (v26 < 0)
     {
-      operator delete(v26);
+      operator delete(v25);
     }
 
     v3 = 4;
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 0x40000000;
-  v16[2] = ___ZN19QMIRTPCommandDriver33handleUninitializeAllSessionsRespERKN2ms30ServiceUninitializeAllSessions8ResponseEh_block_invoke;
-  v16[3] = &__block_descriptor_tmp_219;
-  v16[4] = a1;
-  v17 = v3;
-  v11 = a1[3];
-  if (!v11 || (v12 = a1[2], (v13 = std::__shared_weak_count::lock(v11)) == 0))
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 0x40000000;
+  v15[2] = ___ZN19QMIRTPCommandDriver33handleUninitializeAllSessionsRespERKN2ms30ServiceUninitializeAllSessions8ResponseEh_block_invoke;
+  v15[3] = &__block_descriptor_tmp_219;
+  v15[4] = a1;
+  v16 = v3;
+  v10 = a1[3];
+  if (!v10 || (v11 = a1[2], (v12 = std::__shared_weak_count::lock(v10)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v14 = v13;
-  v15 = a1[4];
+  v13 = v12;
+  v14 = a1[4];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 1174405120;
-  v21 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-  v22 = &unk_1F5EDC868;
-  v24 = v12;
-  v25 = v14;
-  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = v16;
-  dispatch_async(v15, block);
-  if (v25)
+  v20 = ___ZNK3ctu20SharedSynchronizableI19QMIRTPCommandDriverE15execute_wrappedEU13block_pointerFvvE_block_invoke;
+  v21 = &unk_1F5EDC868;
+  v23 = v11;
+  v24 = v13;
+  atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  v22 = v15;
+  dispatch_async(v14, block);
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v13);
 }
 
 void sub_1E4EFE91C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, char a31)
@@ -8774,7 +8754,7 @@ void sub_1E4EFF7FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<RTCPReceiverReport>::__init_with_size[abi:ne200100]<RTCPReceiverReport*,RTCPReceiverReport*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<RTCPReceiverReport>::__init_with_size[abi:ne200100]<RTCPReceiverReport*,RTCPReceiverReport*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8796,7 +8776,7 @@ void sub_1E4EFF8EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<RTCPReceiverReport>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RTCPReceiverReport>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x924924924924925)
   {
@@ -8806,7 +8786,7 @@ void std::vector<RTCPReceiverReport>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<bambi::XmlParserNamespace>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<RTCPSDesItem>::__init_with_size[abi:ne200100]<RTCPSDesItem*,RTCPSDesItem*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<RTCPSDesItem>::__init_with_size[abi:ne200100]<RTCPSDesItem*,RTCPSDesItem*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8816,14 +8796,14 @@ uint64_t std::vector<RTCPSDesItem>::__init_with_size[abi:ne200100]<RTCPSDesItem*
   return result;
 }
 
-void sub_1E4EFF9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1E4EFF9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<RTCPSDesItem>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<RTCPSDesItem>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RTCPSDesItem>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -9062,10 +9042,10 @@ void std::__function::__func<QMIRTPCommandDriver::setMediaServiceIndications(voi
   v2 = *a2;
   v3 = *(a1 + 8);
   v4 = *a2 == 2;
-  std::string::basic_string[abi:ne200100]<0>(&v41, "rtp.qmidriver");
-  v32[0] = 0;
-  v35 = 0;
-  v5 = ims::debug(&v41, v32);
+  std::string::basic_string[abi:ne200100]<0>(&v40, "rtp.qmidriver");
+  v31[0] = 0;
+  v34 = 0;
+  v5 = ims::debug(&v40, v31);
   if (!v3)
   {
     __cxa_bad_typeid();
@@ -9089,14 +9069,14 @@ void std::__function::__func<QMIRTPCommandDriver::setMediaServiceIndications(voi
   *(v6 + 17) = 0;
   (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v6 + 17) = 0;
-  if (v35 == 1 && v34 < 0)
+  if (v34 == 1 && v33 < 0)
   {
     operator delete(__p);
   }
 
-  if (SBYTE7(v42) < 0)
+  if (SBYTE7(v41) < 0)
   {
-    operator delete(v41);
+    operator delete(v40);
   }
 
   v10 = v3[21];
@@ -9104,10 +9084,10 @@ void std::__function::__func<QMIRTPCommandDriver::setMediaServiceIndications(voi
   {
     v11 = 0;
 LABEL_37:
-    v26 = std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
-    LOBYTE(v41) = 0;
-    v44 = 0;
-    v27 = ims::error(v26, &v41);
+    v26 = std::string::basic_string[abi:ne200100]<0>(&v44, "rtp.qmidriver");
+    LOBYTE(v40) = 0;
+    v43 = 0;
+    v27 = ims::error(v26, &v40);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "No controller associated with this command driver!", 50);
     *(v27 + 17) = 0;
     (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
@@ -9133,32 +9113,32 @@ LABEL_37:
     v15 = 0;
     do
     {
-      v43 = 0;
+      v42 = 0;
+      v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       if (*(v13 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(&v41, v13[4], v13[5]);
+        std::string::__init_copy_ctor_external(&v40, v13[4], v13[5]);
       }
 
       else
       {
-        v41 = *(v13 + 2);
-        *&v42 = v13[6];
+        v40 = *(v13 + 2);
+        *&v41 = v13[6];
       }
 
-      LODWORD(v43) = *(v13 + 16);
-      *(&v42 + 1) = v13[7];
-      v16 = HIDWORD(v42);
-      v17 = v43;
-      if (v43 == v4)
+      LODWORD(v42) = *(v13 + 16);
+      *(&v41 + 1) = v13[7];
+      v16 = HIDWORD(v41);
+      v17 = v42;
+      if (v42 == v4)
       {
-        v15 = HIDWORD(v42);
+        v15 = HIDWORD(v41);
       }
 
-      if (SBYTE7(v42) < 0)
+      if (SBYTE7(v41) < 0)
       {
-        operator delete(v41);
+        operator delete(v40);
       }
 
       if (v17 == v4)
@@ -9202,10 +9182,10 @@ LABEL_37:
     if (v15)
     {
 LABEL_27:
-      v21 = std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
-      LOBYTE(v41) = 0;
-      v44 = 0;
-      v22 = ims::debug(v21, &v41);
+      v21 = std::string::basic_string[abi:ne200100]<0>(&v44, "rtp.qmidriver");
+      LOBYTE(v40) = 0;
+      v43 = 0;
+      v22 = ims::debug(v21, &v40);
       v23 = *(*(*v3 - 8) + 8);
       v24 = strlen((v23 & 0x7FFFFFFFFFFFFFFFLL));
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), v23 & 0x7FFFFFFFFFFFFFFFLL, v24);
@@ -9222,54 +9202,53 @@ LABEL_27:
       *(v22 + 17) = 0;
       (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v22 + 17) = 0;
-      if (v44 == 1 && SHIBYTE(v43) < 0)
+      if (v43 == 1 && SHIBYTE(v42) < 0)
       {
-        operator delete(v42);
+        operator delete(v41);
       }
 
-      if (v46 < 0)
+      if (v45 < 0)
       {
-        operator delete(v45);
+        operator delete(v44);
       }
 
+      v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      qmi::MutableMessageBase::MutableMessageBase(&v39);
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 0x40000000;
-      v37[2] = ___ZN19QMIRTPCommandDriver14serviceBindReqEj_block_invoke;
-      v37[3] = &__block_descriptor_tmp_13;
-      v38 = v4;
-      v25 = *(&v39 + 1);
-      if (*(&v39 + 1) != v40)
+      qmi::MutableMessageBase::MutableMessageBase(&v38);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 0x40000000;
+      v36[2] = ___ZN19QMIRTPCommandDriver14serviceBindReqEj_block_invoke;
+      v36[3] = &__block_descriptor_tmp_13;
+      v37 = v4;
+      v25 = *(&v38 + 1);
+      if (*(&v38 + 1) != v39)
       {
         while (*(*v25 + 8) != 1)
         {
-          if (++v25 == v40)
+          if (++v25 == v39)
           {
             goto LABEL_51;
           }
         }
       }
 
-      if (v25 != v40)
+      if (v25 != v39)
       {
-        v29 = ***v25;
-        if (v30)
+        if (v29)
         {
-          ___ZN19QMIRTPCommandDriver14serviceBindReqEj_block_invoke(v37, v30 + 3);
+          ___ZN19QMIRTPCommandDriver14serviceBindReqEj_block_invoke(v36, v29 + 3);
           if (v2 == 2)
           {
-            v31 = 2;
+            v30 = 2;
           }
 
           else
           {
-            v31 = 1;
+            v30 = 1;
           }
 
           qmi::ClientRouter::get();
-          v36 = v31;
+          v35 = v30;
           operator new();
         }
 
@@ -9282,23 +9261,23 @@ LABEL_51:
   }
 
 LABEL_47:
-  v28 = std::string::basic_string[abi:ne200100]<0>(&v45, "rtp.qmidriver");
-  LOBYTE(v41) = 0;
-  v44 = 0;
-  v27 = ims::error(v28, &v41);
+  v28 = std::string::basic_string[abi:ne200100]<0>(&v44, "rtp.qmidriver");
+  LOBYTE(v40) = 0;
+  v43 = 0;
+  v27 = ims::error(v28, &v40);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "QMI client is supposed to start only after VSID is retrieved. Do not proceed with Service Bind request.", 103);
   *(v27 + 17) = 0;
   (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_38:
   *(v27 + 17) = 0;
-  if (v44 == 1 && SHIBYTE(v43) < 0)
+  if (v43 == 1 && SHIBYTE(v42) < 0)
   {
-    operator delete(v42);
+    operator delete(v41);
   }
 
-  if (v46 < 0)
+  if (v45 < 0)
   {
-    operator delete(v45);
+    operator delete(v44);
   }
 
   if (v11)
@@ -9307,7 +9286,7 @@ LABEL_38:
   }
 }
 
-void sub_1E4F00828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, char a42)
+void sub_1E4F00828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, char a42)
 {
   v46 = *(v44 - 152);
   if (v46)
@@ -9590,238 +9569,237 @@ void std::__function::__func<void qmi::ClientRouter::setIndHandler<QMIRTPCommand
   v4 = *a2;
   if (*(this + 10) != 1 || *(this + 22) == 3)
   {
+    v54 = 0;
     v55 = 0;
     v56 = 0;
-    v57 = 0;
-    QMIServiceMsg::serialize(&v55, this);
-    qmi::MessageBase::MessageBase(v37, v55);
-    qmi::MessageBase::validateMsgId(v37);
-    if (v55)
+    QMIServiceMsg::serialize(&v54, this);
+    qmi::MessageBase::MessageBase(v36, v54);
+    qmi::MessageBase::validateMsgId(v36);
+    if (v54)
     {
-      v56 = v55;
-      operator delete(v55);
+      v55 = v54;
+      operator delete(v54);
     }
   }
 
   else
   {
-    v6 = *(this + 6);
     QMIServiceMsg::getNewError(this);
     qmi::MessageBase::MessageBase();
-    qmi::MessageBase::validateMsgId(v37);
+    qmi::MessageBase::validateMsgId(v36);
   }
 
-  v7 = *(a1 + 8);
-  v8 = v4 == 2;
-  v9 = std::string::basic_string[abi:ne200100]<0>(&v55, "rtp.qmidriver");
-  v39[0] = 0;
-  v42 = 0;
-  v10 = ims::debug(v9, v39);
-  if (!v7)
+  v6 = *(a1 + 8);
+  v7 = v4 == 2;
+  v8 = std::string::basic_string[abi:ne200100]<0>(&v54, "rtp.qmidriver");
+  v38[0] = 0;
+  v41 = 0;
+  v9 = ims::debug(v8, v38);
+  if (!v6)
   {
     __cxa_bad_typeid();
   }
 
-  v11 = v10;
-  v12 = *(*(*v7 - 8) + 8);
-  v13 = *(v10 + 8);
-  v14 = strlen((v12 & 0x7FFFFFFFFFFFFFFFLL));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v12 & 0x7FFFFFFFFFFFFFFFLL, v14);
-  *(v11 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "::", 2);
-  *(v11 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "handleServiceInitializeIndication", 33);
-  *(v11 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), " [instance=", 11);
-  *(v11 + 17) = 0;
-  MEMORY[0x1E6923350](*(v11 + 8), v8);
-  *(v11 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "]", 1);
-  *(v11 + 17) = 0;
-  (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v11 + 17) = 0;
-  if (v42 == 1 && v41 < 0)
+  v10 = v9;
+  v11 = *(*(*v6 - 8) + 8);
+  v12 = *(v9 + 8);
+  v13 = strlen((v11 & 0x7FFFFFFFFFFFFFFFLL));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v11 & 0x7FFFFFFFFFFFFFFFLL, v13);
+  *(v10 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "::", 2);
+  *(v10 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "handleServiceInitializeIndication", 33);
+  *(v10 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " [instance=", 11);
+  *(v10 + 17) = 0;
+  MEMORY[0x1E6923350](*(v10 + 8), v7);
+  *(v10 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "]", 1);
+  *(v10 + 17) = 0;
+  (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v10 + 17) = 0;
+  if (v41 == 1 && v40 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v57) < 0)
+  if (SHIBYTE(v56) < 0)
   {
-    operator delete(v55);
+    operator delete(v54);
   }
 
-  if (v38)
+  if (v37)
   {
-    std::string::basic_string[abi:ne200100]<0>(v47, "rtp.qmidriver");
-    LOBYTE(v55) = 0;
-    v59 = 0;
-    v15 = ims::error(v47, &v55);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Error indication for request: ", 30);
-    *(v15 + 17) = 0;
-    v16 = QMIRTPCommandDriver::nameForRequestId(&v51, v37[0]);
-    (*(*v15 + 32))(v15, &v51, v16);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " error:", 7);
-    *(v15 + 17) = 0;
-    MEMORY[0x1E6923350](*(v15 + 8), v38);
-    *(v15 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " reason: ", 9);
-    *(v15 + 17) = 0;
-    v17 = qmi::asString();
-    v18 = strlen(v17);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), v17, v18);
-    *(v15 + 17) = 0;
-    (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v15 + 17) = 0;
-    if (SHIBYTE(v53) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v46, "rtp.qmidriver");
+    LOBYTE(v54) = 0;
+    v58 = 0;
+    v14 = ims::error(v46, &v54);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "Error indication for request: ", 30);
+    *(v14 + 17) = 0;
+    v15 = QMIRTPCommandDriver::nameForRequestId(&v50, v36[0]);
+    (*(*v14 + 32))(v14, &v50, v15);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " error:", 7);
+    *(v14 + 17) = 0;
+    MEMORY[0x1E6923350](*(v14 + 8), v37);
+    *(v14 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), " reason: ", 9);
+    *(v14 + 17) = 0;
+    v16 = qmi::asString();
+    v17 = strlen(v16);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), v16, v17);
+    *(v14 + 17) = 0;
+    (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v14 + 17) = 0;
+    if (SHIBYTE(v52) < 0)
     {
-      operator delete(v51);
+      operator delete(v50);
     }
 
-    if (v59 == 1 && v58 < 0)
+    if (v58 == 1 && v57 < 0)
     {
-      operator delete(v57);
+      operator delete(v56);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v47) < 0)
     {
-      operator delete(v47[0]);
+      operator delete(v46[0]);
     }
 
-    v19 = v7[21];
-    if (!v19)
+    v18 = v6[21];
+    if (!v18)
     {
       goto LABEL_30;
     }
 
-    v20 = std::__shared_weak_count::lock(v19);
-    if (v20)
+    v19 = std::__shared_weak_count::lock(v18);
+    if (v19)
     {
-      v21 = v7[20];
-      if (v21)
+      v20 = v6[20];
+      if (v20)
       {
-        v22 = *(v21 + 72);
-        v23 = *(v21 + 80);
-        if (v23)
+        v21 = *(v20 + 72);
+        v22 = *(v20 + 80);
+        if (v22)
         {
-          atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        RTPManager::logRTPError(v22, 24);
-        if (v23)
+        RTPManager::logRTPError(v21, 24);
+        if (v22)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
         }
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
 LABEL_30:
-      LODWORD(v20) = 0;
+      LODWORD(v19) = 0;
     }
   }
 
   else
   {
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2000000000;
-    v54 = 0;
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 0x40000000;
-    v48 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms17ServiceInitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
-    v49 = &unk_1E876AF00;
-    v50 = &v51;
-    v55 = v47;
-    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v37, &v55);
-    if (*(v52 + 6))
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2000000000;
+    v53 = 0;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 0x40000000;
+    v47 = ___ZN19QMIRTPCommandDriver23getStatusFromIndicationIN2ms17ServiceInitialize10IndicationEEENS1_9RTPStatusERKT__block_invoke;
+    v48 = &unk_1E876AF00;
+    v49 = &v50;
+    v54 = v46;
+    qmi::MessageBase::applyTlv<ms::tlv::IndicationStatus,void({block_pointer})(ms::tlv::IndicationStatus)>(v36, &v54);
+    if (*(v51 + 6))
     {
-      std::string::basic_string[abi:ne200100]<0>(v45, "rtp.qmidriver");
-      LOBYTE(v55) = 0;
-      v59 = 0;
-      v24 = ims::error(v45, &v55);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Error indication for request: ", 30);
-      *(v24 + 17) = 0;
-      v25 = QMIRTPCommandDriver::nameForRequestId(v43, v37[0]);
-      (*(*v24 + 32))(v24, v43, v25);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), " [error=", 8);
-      *(v24 + 17) = 0;
-      MEMORY[0x1E6923340](*(v24 + 8), *(v52 + 6));
-      *(v24 + 17) = 0;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "]", 1);
-      *(v24 + 17) = 0;
+      std::string::basic_string[abi:ne200100]<0>(v44, "rtp.qmidriver");
+      LOBYTE(v54) = 0;
+      v58 = 0;
+      v23 = ims::error(v44, &v54);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Error indication for request: ", 30);
+      *(v23 + 17) = 0;
+      v24 = QMIRTPCommandDriver::nameForRequestId(v42, v36[0]);
+      (*(*v23 + 32))(v23, v42, v24);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), " [error=", 8);
+      *(v23 + 17) = 0;
+      MEMORY[0x1E6923340](*(v23 + 8), *(v51 + 6));
+      *(v23 + 17) = 0;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "]", 1);
+      *(v23 + 17) = 0;
     }
 
     else
     {
-      std::string::basic_string[abi:ne200100]<0>(v45, "rtp.qmidriver");
-      LOBYTE(v55) = 0;
-      v59 = 0;
-      v24 = ims::spam(v45, &v55);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "Success indication for request: ", 32);
-      *(v24 + 17) = 0;
-      v26 = QMIRTPCommandDriver::nameForRequestId(v43, v37[0]);
-      (*(*v24 + 32))(v24, v43, v26);
+      std::string::basic_string[abi:ne200100]<0>(v44, "rtp.qmidriver");
+      LOBYTE(v54) = 0;
+      v58 = 0;
+      v23 = ims::spam(v44, &v54);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "Success indication for request: ", 32);
+      *(v23 + 17) = 0;
+      v25 = QMIRTPCommandDriver::nameForRequestId(v42, v36[0]);
+      (*(*v23 + 32))(v23, v42, v25);
     }
 
-    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v24 + 17) = 0;
-    if (v44 < 0)
+    (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v23 + 17) = 0;
+    if (v43 < 0)
     {
-      operator delete(v43[0]);
+      operator delete(v42[0]);
     }
 
-    if (v59 == 1 && v58 < 0)
+    if (v58 == 1 && v57 < 0)
     {
-      operator delete(v57);
+      operator delete(v56);
     }
 
-    if (v46 < 0)
+    if (v45 < 0)
     {
-      operator delete(v45[0]);
+      operator delete(v44[0]);
     }
 
-    v27 = *(v52 + 6);
-    _Block_object_dispose(&v51, 8);
-    LODWORD(v20) = v27 == 0;
+    v26 = *(v51 + 6);
+    _Block_object_dispose(&v50, 8);
+    LODWORD(v19) = v26 == 0;
   }
 
-  v28 = v7[21];
-  if (v28)
+  v27 = v6[21];
+  if (v27)
   {
-    v29 = std::__shared_weak_count::lock(v28);
-    if (v29)
+    v28 = std::__shared_weak_count::lock(v27);
+    if (v28)
     {
-      v30 = v29;
-      v31 = v7[20];
-      if (v31)
+      v29 = v28;
+      v30 = v6[20];
+      if (v30)
       {
-        v32 = *(v31 + 22);
-        if (v32)
+        v31 = *(v30 + 176);
+        if (v31)
         {
-          v33 = (v31 + 176);
+          v32 = v30 + 176;
           do
           {
-            v34 = *(v32 + 28);
-            v35 = v34 >= v8;
-            v36 = v34 < v8;
-            if (v35)
+            v33 = *(v31 + 28);
+            v34 = v33 >= v7;
+            v35 = v33 < v7;
+            if (v34)
             {
-              v33 = v32;
+              v32 = v31;
             }
 
-            v32 = *(v32 + 8 * v36);
+            v31 = *(v31 + 8 * v35);
           }
 
-          while (v32);
-          if (v33 != (v31 + 176) && *(v33 + 7) <= v8 && *(v33 + 8) == 1)
+          while (v31);
+          if (v32 != v30 + 176 && *(v32 + 28) <= v7 && *(v32 + 32) == 1)
           {
-            QMIRTPStackController::handleStackInitializeResponse(v31, v8, v20);
+            QMIRTPStackController::handleStackInitializeResponse(v30, v7, v19);
           }
         }
       }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
     }
   }
 
-  qmi::MessageBase::~MessageBase(v37);
+  qmi::MessageBase::~MessageBase(v36);
 }

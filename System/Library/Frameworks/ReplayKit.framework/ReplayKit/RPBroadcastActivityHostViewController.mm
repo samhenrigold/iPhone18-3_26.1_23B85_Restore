@@ -3,6 +3,7 @@
 - (RPBroadcastActivityViewController)broadcastActivityViewController;
 - (int64_t)modalPresentationStyle;
 - (unint64_t)popoverArrowDirection;
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled;
 - (void)presentationInfoWithCompletion:(id)completion;
 - (void)viewDidLoad;
 @end
@@ -17,6 +18,16 @@
   clearColor = [MEMORY[0x277D75348] clearColor];
   view = [(RPBroadcastActivityHostViewController *)self view];
   [view setBackgroundColor:clearColor];
+}
+
+- (void)extensionDidFinishWithLaunchURL:(id)l broadcastURL:(id)rL extensionBundleID:(id)d cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  dCopy = d;
+  rLCopy = rL;
+  lCopy = l;
+  WeakRetained = objc_loadWeakRetained(&self->_broadcastActivityViewController);
+  [WeakRetained extensionDidFinishWithLaunchURL:lCopy broadcastURL:rLCopy extensionBundleID:dCopy cancelled:cancelledCopy];
 }
 
 - (CGRect)popoverControllerSourceRect

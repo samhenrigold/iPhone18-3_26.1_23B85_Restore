@@ -31,18 +31,17 @@
 
 - (void)applicationWithBundleIdentifierEnteredForeground:(id)foreground
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   foregroundCopy = foreground;
-  v5 = CHSLogChronoServices();
+  v5 = CHSLogChronoServices(foregroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = foregroundCopy;
-    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "noting foreground launch for %@ with widget extension; trigger metadata query", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = foregroundCopy;
+    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "noting foreground launch for %@ with widget extension; trigger metadata query", &v6, 0xCu);
   }
 
   [(CHSChronoServicesConnection *)self->_connection reloadDescriptorsForContainerBundleIdentifier:foregroundCopy completion:&__block_literal_global_3];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __93__CHSApplicationProcessStateChangeConsumer_applicationWithBundleIdentifierEnteredForeground___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -50,50 +49,48 @@ void __93__CHSApplicationProcessStateChangeConsumer_applicationWithBundleIdentif
   v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CHSLogChronoServices(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __93__CHSApplicationProcessStateChangeConsumer_applicationWithBundleIdentifierEnteredForeground___block_invoke_cold_1(v6, v7);
+      __93__CHSApplicationProcessStateChangeConsumer_applicationWithBundleIdentifierEnteredForeground___block_invoke_cold_1(v7, v8);
     }
   }
 
   else
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHSLogChronoServices(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       if (v5)
       {
         v3 = [v5 descriptors];
-        v8 = [v3 count];
+        v9 = [v3 count];
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
       v10 = 134217984;
-      v11 = v8;
-      _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "CHSApplicationProcessStateChangeConsumer: cacheDescriptors request completed with %lu extensions found", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "CHSApplicationProcessStateChangeConsumer: cacheDescriptors request completed with %lu extensions found", &v10, 0xCu);
       if (v5)
       {
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __93__CHSApplicationProcessStateChangeConsumer_applicationWithBundleIdentifierEnteredForeground___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "CHSApplicationProcessStateChangeConsumer: cacheDescriptors request failed with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "CHSApplicationProcessStateChangeConsumer: cacheDescriptors request failed with error: %{public}@", &v2, 0xCu);
 }
 
 @end

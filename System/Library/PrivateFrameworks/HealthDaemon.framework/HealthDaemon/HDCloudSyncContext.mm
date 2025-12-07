@@ -61,47 +61,45 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  options = self->_options;
-  v5 = HKCloudSyncOptionsToString();
+  v4 = HKCloudSyncOptionsToString();
   syncRequest = [(HDCloudSyncContext *)self syncRequest];
-  v7 = [v3 stringWithFormat:@"Options: %@, \n Request: %@", v5, syncRequest];
+  v6 = [v3 stringWithFormat:@"Options: %@, \n Request: %@", v4, syncRequest];
 
   backgroundTask = self->_backgroundTask;
-  v9 = MEMORY[0x277CCACA8];
+  v8 = MEMORY[0x277CCACA8];
   shortIdentifier = self->_shortIdentifier;
-  reason = self->_reason;
-  v12 = HKCloudSyncReasonToString();
-  v13 = v12;
+  v10 = HKCloudSyncReasonToString();
+  v11 = v10;
   if (backgroundTask)
   {
     identifier = [(HDBackgroundSystemTask *)self->_backgroundTask identifier];
-    v15 = [v9 stringWithFormat:@"<%@ %@ (%@) %@>", shortIdentifier, v13, v7, identifier];
+    v13 = [v8 stringWithFormat:@"<%@ %@ (%@) %@>", shortIdentifier, v11, v6, identifier];
   }
 
   else
   {
-    v15 = [v9 stringWithFormat:@"<%@ %@ (%@)>", shortIdentifier, v12, v7];
+    v13 = [v8 stringWithFormat:@"<%@ %@ (%@)>", shortIdentifier, v10, v6];
   }
 
-  return v15;
+  return v13;
 }
 
 - (id)subContextByAddingOptions:(unint64_t)options
 {
   v4 = [objc_alloc(objc_opt_class()) initForPurpose:self->_purpose options:self->_options | options reason:self->_reason backgroundTask:self->_backgroundTask];
-  v5 = [(NSUUID *)self->_identifier copy];
+  v5 = objc_msgSend_copy(self->_identifier);
   v6 = v4[1];
   v4[1] = v5;
 
-  v7 = [(NSString *)self->_shortIdentifier copy];
+  v7 = objc_msgSend_copy(self->_shortIdentifier);
   v8 = v4[2];
   v4[2] = v7;
 
-  v9 = [(NSDate *)self->_unitTest_syncDateOverride copy];
+  v9 = objc_msgSend_copy(self->_unitTest_syncDateOverride);
   v10 = v4[8];
   v4[8] = v9;
 
-  v11 = [(HKCloudSyncRequest *)self->_syncRequest copy];
+  v11 = objc_msgSend_copy(self->_syncRequest);
   v12 = v4[6];
   v4[6] = v11;
 
@@ -111,19 +109,19 @@
 - (id)subContextByRemovingOptions:(unint64_t)options
 {
   v4 = [objc_alloc(objc_opt_class()) initForPurpose:self->_purpose options:self->_options & ~options reason:self->_reason backgroundTask:self->_backgroundTask];
-  v5 = [(NSUUID *)self->_identifier copy];
+  v5 = objc_msgSend_copy(self->_identifier);
   v6 = v4[1];
   v4[1] = v5;
 
-  v7 = [(NSString *)self->_shortIdentifier copy];
+  v7 = objc_msgSend_copy(self->_shortIdentifier);
   v8 = v4[2];
   v4[2] = v7;
 
-  v9 = [(NSDate *)self->_unitTest_syncDateOverride copy];
+  v9 = objc_msgSend_copy(self->_unitTest_syncDateOverride);
   v10 = v4[8];
   v4[8] = v9;
 
-  v11 = [(HKCloudSyncRequest *)self->_syncRequest copy];
+  v11 = objc_msgSend_copy(self->_syncRequest);
   v12 = v4[6];
   v4[6] = v11;
 

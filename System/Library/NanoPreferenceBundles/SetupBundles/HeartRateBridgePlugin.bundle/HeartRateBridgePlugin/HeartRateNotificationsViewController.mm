@@ -5,8 +5,11 @@
 - (id)okayButtonTitle;
 - (id)titleString;
 - (void)_resetHeartRateNotificationSettings;
+- (void)_setBradycardiaEnabled:(BOOL)enabled;
+- (void)_setTachycardiaEnabled:(BOOL)enabled;
 - (void)okayButtonPressed:(id)pressed;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HeartRateNotificationsViewController
@@ -63,6 +66,17 @@
 
   [(HeartRateNotificationsViewController *)self _setTachycardiaEnabled:1];
   [(HeartRateNotificationsViewController *)self _setBradycardiaEnabled:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HeartRateNotificationsViewController;
+  [(HeartRateNotificationsViewController *)&v4 viewWillDisappear:disappear];
+  if ([(HeartRateNotificationsViewController *)self isMovingFromParentViewController])
+  {
+    [(HeartRateNotificationsViewController *)self _resetHeartRateNotificationSettings];
+  }
 }
 
 + (BOOL)controllerNeedsToRunForBuddyControllerDelegate:(id)delegate
@@ -128,6 +142,74 @@
 {
   delegate = [(HeartRateNotificationsViewController *)self delegate];
   [delegate buddyControllerDone:self];
+}
+
+- (void)_setTachycardiaEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = kHKHeartRateKeyEnableStationaryDiscordanceDetection;
+  [(NSUserDefaults *)self->_userDefaults setBool:enabled forKey:kHKHeartRateKeyEnableStationaryDiscordanceDetection];
+  v6 = kHKHeartRateKeyStationaryDiscordanceMinimumBPM;
+  if (enabledCopy)
+  {
+    [(NSUserDefaults *)self->_userDefaults setInteger:_HKHeartSettingsTachycardiaThresholdHeartRateDefault forKey:kHKHeartRateKeyStationaryDiscordanceMinimumBPM];
+    HKHRSubmitNotificationsEnabledSignal();
+  }
+
+  v7 = [NSSet setWithObjects:v5, v6, 0];
+  v8 = +[_HKBehavior sharedBehavior];
+  tinkerModeEnabled = [v8 tinkerModeEnabled];
+
+  if (tinkerModeEnabled)
+  {
+    _HKInitializeLogging();
+    v10 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Tinker is enabled, do not sync tachycardia keys to guardian", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v10 = objc_alloc_init(NPSManager);
+    [v10 synchronizeUserDefaultsDomain:kHKHeartRateNotificationsPreferencesDomain keys:v7];
+  }
+}
+
+- (void)_setBradycardiaEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = kHKHeartRateKeyEnableBradycardiaDetection;
+  [(NSUserDefaults *)self->_userDefaults setBool:enabled forKey:kHKHeartRateKeyEnableBradycardiaDetection];
+  v6 = kHKHeartRateKeyBradycardiaThresholdBPM;
+  if (enabledCopy)
+  {
+    [(NSUserDefaults *)self->_userDefaults setInteger:_HKHeartSettingsBradycardiaThresholdHeartRateDefault forKey:kHKHeartRateKeyBradycardiaThresholdBPM];
+    HKHRSubmitNotificationsEnabledSignal();
+  }
+
+  v7 = [NSSet setWithObjects:v5, v6, 0];
+  v8 = +[_HKBehavior sharedBehavior];
+  tinkerModeEnabled = [v8 tinkerModeEnabled];
+
+  if (tinkerModeEnabled)
+  {
+    _HKInitializeLogging();
+    v10 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Tinker is enabled, do not sync bradycardia keys to guardian", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v10 = objc_alloc_init(NPSManager);
+    [v10 synchronizeUserDefaultsDomain:kHKHeartRateNotificationsPreferencesDomain keys:v7];
+  }
 }
 
 - (void)_resetHeartRateNotificationSettings

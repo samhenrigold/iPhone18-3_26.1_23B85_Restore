@@ -26,7 +26,7 @@
   fileSystemRepresentation2 = [v4 fileSystemRepresentation];
   if (!fileSystemRepresentation || (v7 = fileSystemRepresentation2) == 0)
   {
-    v12 = IFDefaultLog();
+    v12 = IFDefaultLog(fileSystemRepresentation2);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(NSURL(IconFoundationAdditions) *)self _IF_extendedAttributeForName:v4, v12];
@@ -58,7 +58,7 @@ LABEL_10:
 
 - (uint64_t)_IF_setExtendedAttribute:()IconFoundationAdditions forName:error:
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   fileSystemRepresentation = [self fileSystemRepresentation];
@@ -74,12 +74,12 @@ LABEL_5:
         v13 = *MEMORY[0x1E696A798];
         v14 = *__error();
         v15 = *MEMORY[0x1E696A278];
-        v30 = *MEMORY[0x1E696A278];
+        v31 = *MEMORY[0x1E696A278];
         v16 = MEMORY[0x1E696AEC0];
         v17 = __error();
-        v18 = [v16 stringWithFormat:@"Failed to set xattr %@ with name %@ error %s", v8, v9, strerror(*v17), v30];
-        v31 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v18 = [v16 stringWithFormat:@"Failed to set xattr %@ with name %@ error %s", v8, v9, strerror(*v17), v31];
+        v32 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v20 = v12;
         v21 = v13;
         v22 = v14;
@@ -99,10 +99,10 @@ LABEL_5:
   v23 = MEMORY[0x1E696ABC0];
   v24 = *MEMORY[0x1E696A768];
   v15 = *MEMORY[0x1E696A278];
-  v32 = *MEMORY[0x1E696A278];
+  v33 = *MEMORY[0x1E696A278];
   v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"XAttr set on invalid URL %@ or with invalid name %@", self, v9];
-  v33[0] = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v34[0] = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
   v20 = v23;
   v21 = v24;
   v22 = -43;
@@ -112,52 +112,53 @@ LABEL_7:
   if (!v25)
   {
 LABEL_15:
-    v28 = 1;
+    v29 = 1;
     goto LABEL_16;
   }
 
-  v26 = IFDefaultLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v27 = IFDefaultLog(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    [NSURL(IconFoundationAdditions) _IF_setExtendedAttribute:v25 forName:v15 error:v26];
+    [NSURL(IconFoundationAdditions) _IF_setExtendedAttribute:v25 forName:v15 error:v27];
   }
 
   if (a5)
   {
-    v27 = v25;
-    v28 = 0;
+    v28 = v25;
+    v29 = 0;
     *a5 = v25;
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
 LABEL_16:
 
-  return v28;
+  return v29;
 }
 
 - (id)_IF_contentModifiedDate
 {
-  v13 = 0;
-  v1 = [self _IF_getResourceValue:&v13 forKey:*MEMORY[0x1E695DA98] error:0];
-  v2 = v13;
-  if (!v1 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v14 = 0;
+  v1 = [self _IF_getResourceValue:&v14 forKey:*MEMORY[0x1E695DA98] error:0];
+  isKindOfClass = v14;
+  v3 = isKindOfClass;
+  if (!v1 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v3 = IFDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = IFDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(NSURL(IconFoundationAdditions) *)v3 _IF_contentModifiedDate:v4];
+      [(NSURL(IconFoundationAdditions) *)v4 _IF_contentModifiedDate:v5];
     }
 
     distantPast = [MEMORY[0x1E695DF00] distantPast];
 
-    v2 = distantPast;
+    v3 = distantPast;
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)_IF_getResourceValue:()IconFoundationAdditions forKey:error:
@@ -185,23 +186,24 @@ LABEL_16:
 
 - (id)_IF_attributeModifiedDate
 {
-  v13 = 0;
-  v1 = [self _IF_getResourceValue:&v13 forKey:*MEMORY[0x1E695DA80] error:0];
-  v2 = v13;
-  if (!v1 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v14 = 0;
+  v1 = [self _IF_getResourceValue:&v14 forKey:*MEMORY[0x1E695DA80] error:0];
+  isKindOfClass = v14;
+  v3 = isKindOfClass;
+  if (!v1 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v3 = IFDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = IFDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(NSURL(IconFoundationAdditions) *)v3 _IF_contentModifiedDate:v4];
+      [(NSURL(IconFoundationAdditions) *)v4 _IF_contentModifiedDate:v5];
     }
 
     distantPast = [MEMORY[0x1E695DF00] distantPast];
 
-    v2 = distantPast;
+    v3 = distantPast;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)_IF_modifiedDate
@@ -368,21 +370,22 @@ LABEL_16:
 
 - (uint64_t)_IF_isDirectory
 {
-  v13 = 0;
-  v1 = [self _IF_getResourceValue:&v13 forKey:*MEMORY[0x1E695DB78] error:0];
-  v2 = v13;
-  if (!v1 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v14 = 0;
+  v1 = [self _IF_getResourceValue:&v14 forKey:*MEMORY[0x1E695DB78] error:0];
+  isKindOfClass = v14;
+  v3 = isKindOfClass;
+  if (!v1 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v3 = IFDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = IFDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(NSURL(IconFoundationAdditions) *)v3 _IF_contentModifiedDate:v4];
+      [(NSURL(IconFoundationAdditions) *)v4 _IF_contentModifiedDate:v5];
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
-  bOOLValue = [v2 BOOLValue];
+  bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
 }

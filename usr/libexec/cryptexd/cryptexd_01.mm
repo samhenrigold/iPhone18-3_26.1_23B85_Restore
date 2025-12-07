@@ -1,3 +1,737 @@
+CFIndex codex_bootstrap_launch_agents_to_session(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a2;
+  v6 = *(a1 + 56);
+  v7 = *__error();
+  v8 = *(a1 + 72);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    if (v6)
+    {
+      v9 = v6;
+    }
+
+    else
+    {
+      v9 = "[anonymous]";
+    }
+
+    v20 = 136446210;
+    v21 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%{public}s: Waiting to search the codex for LaunchAgents", &v20, 0xCu);
+  }
+
+  *__error() = v7;
+  dispatch_group_wait(*(a1 + 112), 0xFFFFFFFFFFFFFFFFLL);
+  v10 = *(a1 + 56);
+  v11 = *__error();
+  v12 = *(a1 + 72);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    if (v10)
+    {
+      v13 = v10;
+    }
+
+    else
+    {
+      v13 = "[anonymous]";
+    }
+
+    v20 = 136446466;
+    v21 = v13;
+    v22 = 1024;
+    v23 = v4;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}s: Searching the codex for LaunchAgents - have uid of: %u.", &v20, 0x12u);
+  }
+
+  v14 = 0;
+  *__error() = v11;
+  while (1)
+  {
+    v15 = *(a1 + 144 + 8 * v14);
+    if (v15)
+    {
+      break;
+    }
+
+LABEL_15:
+    if (++v14 == 37)
+    {
+      return 0;
+    }
+  }
+
+  while (1)
+  {
+    v16 = quire_attach_launch_agents(v15 - 80, v4, a3);
+    if (v16)
+    {
+      break;
+    }
+
+    v15 = *(v15 + 8);
+    if (!v15)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v18 = v16;
+  TopLevelPosixError = _CFErrorGetTopLevelPosixError(v16);
+  CFRelease(v18);
+  return TopLevelPosixError;
+}
+
+int *codex_unbootstrap_launch_agents_from_session(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a2;
+  v5 = *(a1 + 56);
+  v6 = *__error();
+  v7 = *(a1 + 72);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = "[anonymous]";
+    if (v5)
+    {
+      v8 = v5;
+    }
+
+    v13 = 136446466;
+    v14 = v8;
+    v15 = 1024;
+    v16 = v3;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}s: Searching the codex for LaunchAgents - have uid of: %u.", &v13, 0x12u);
+  }
+
+  result = __error();
+  v10 = 0;
+  *result = v6;
+  v11 = a1 + 144;
+  do
+  {
+    for (i = *(v11 + 8 * v10); i; i = *(i + 8))
+    {
+      result = quire_detach_launch_agents(i - 80, v3);
+    }
+
+    ++v10;
+  }
+
+  while (v10 != 37);
+  return result;
+}
+
+uint64_t codex_install_cryptex(void *a1, void *a2, uint64_t a3)
+{
+  v5 = ctx_new(a1, 0x30uLL);
+  v5[4] = a3;
+  v5[5] = os_retain(a2);
+
+  return cryptex_async_f();
+}
+
+void _codex_install_cryptex_continue(void **a1)
+{
+  v2 = *a1;
+  v3 = a1[4];
+  if ((*(*a1 + 80) & 4) != 0)
+  {
+    v5 = *(v2 + 9);
+    if (v5)
+    {
+      if (os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR))
+      {
+        v6 = 3;
+      }
+
+      else
+      {
+        v6 = 2;
+      }
+
+      v7 = *(v2 + 7);
+      if (!v7)
+      {
+        v7 = "[anonymous]";
+      }
+
+      *v12 = 136446466;
+      *&v12[4] = v7;
+      *&v12[12] = 1024;
+      *&v12[14] = 58;
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, v5, 16, "%{public}s: codex is locked down; refusing cryptex installation %{darwin.errno}d", COERCE_DOUBLE(136446466), v12, 18, *v12, *&v12[8]);
+    }
+
+    else
+    {
+      v9 = *(v2 + 7);
+      if (!v9)
+      {
+        v9 = "[anonymous]";
+      }
+
+      *v12 = 136446466;
+      *&v12[4] = v9;
+      *&v12[12] = 1024;
+      *&v12[14] = 58;
+      v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: codex is locked down; refusing cryptex installation %{darwin.errno}d", COERCE_DOUBLE(136446466), v12, 18, *v12, *&v12[8]);
+    }
+
+    v10 = v8;
+    Error = createError("_codex_install_cryptex_continue", "codex.c", 2959, "com.apple.security.cryptex.posix", 58, 0, v8);
+    free(v10);
+    a1[2] = Error;
+    (*(v3 + 48))(v2, 0, Error, v3);
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = protex_create(a1[5], v2, 0);
+    cryptex_set_target_object();
+    protex_stage(v4, v3, _protex_stage_install_callback);
+  }
+
+  os_release(a1[5]);
+  ctx_destroy(a1);
+  if (v4)
+  {
+    os_release(v4);
+  }
+}
+
+uint64_t codex_mount(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = ctx_new(a1, 0x48uLL);
+  a2[6] = 1;
+  v8[4] = os_retain(a2);
+  v8[5] = 0;
+  v8[7] = a4;
+  v8[8] = a5;
+  v8[6] = 0;
+
+  return cryptex_async_f();
+}
+
+void _codex_mount_continue(uint64_t *a1)
+{
+  v2 = *a1;
+  if (cryptex_core_is_cryptex1())
+  {
+    a1[5] = protex_create(a1[4], v2, 1);
+    cryptex_set_target_object();
+    v3 = a1[5];
+
+    protex_stage(v3, a1, _codex_mount_continue2);
+  }
+
+  else
+  {
+    v4 = *(v2 + 72);
+    if (v4)
+    {
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v6 = *(v2 + 56);
+      if (!v6)
+      {
+        v6 = "[anonymous]";
+      }
+
+      *v11 = 136446466;
+      *&v11[4] = v6;
+      *&v11[12] = 1024;
+      *&v11[14] = 22;
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, v4, 16, "%{public}s: Cryptex1 format is required to mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v11, 18, *v11, *&v11[8]);
+    }
+
+    else
+    {
+      v8 = *(v2 + 56);
+      if (!v8)
+      {
+        v8 = "[anonymous]";
+      }
+
+      *v11 = 136446466;
+      *&v11[4] = v8;
+      *&v11[12] = 1024;
+      *&v11[14] = 22;
+      v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Cryptex1 format is required to mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v11, 18, *v11, *&v11[8]);
+    }
+
+    v9 = v7;
+    Error = createError("_codex_mount_continue", "codex.c", 3123, "com.apple.security.cryptex.posix", 22, 0, v7);
+    free(v9);
+    if (Error)
+    {
+      a1[2] = Error;
+      cryptex_target_async_f();
+    }
+  }
+}
+
+uint64_t codex_unmount(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v9 = ctx_new(a1, 0xD8uLL);
+  v10 = *(a3 + 112);
+  *(v9 + 8) = *(a3 + 96);
+  *(v9 + 9) = v10;
+  *(v9 + 10) = *(a3 + 128);
+  v9[22] = *(a3 + 144);
+  v9[23] = a2;
+  v11 = *(a3 + 48);
+  *(v9 + 4) = *(a3 + 32);
+  *(v9 + 5) = v11;
+  v12 = *(a3 + 80);
+  *(v9 + 6) = *(a3 + 64);
+  *(v9 + 7) = v12;
+  v13 = *(a3 + 16);
+  *(v9 + 2) = *a3;
+  *(v9 + 3) = v13;
+  v9[25] = a4;
+  v9[26] = a5;
+  v9[24] = 0;
+
+  return cryptex_async_f();
+}
+
+void _codex_unmount_continue(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[23];
+  v4 = codex_copy_quire(*a1, a1[4], a1[6]);
+  if (v4)
+  {
+    if (cryptex_core_is_cryptex1())
+    {
+      cryptex1_properties = cryptex_core_get_cryptex1_properties();
+      if (cryptex1_properties && (*(cryptex1_properties + 64) & 1) != 0)
+      {
+        a1[24] = os_retain(v4);
+        codex_unbootstrap(v2, v4, v3 & 1 | 4, a1, _codex_unmount_continue2);
+LABEL_43:
+        os_release(v4);
+        return;
+      }
+
+      v16 = *(v2 + 72);
+      if (v16)
+      {
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v18 = *(v2 + 56);
+        if (!v18)
+        {
+          v18 = "[anonymous]";
+        }
+
+        *v29 = 136446466;
+        *&v29[4] = v18;
+        *&v29[12] = 1024;
+        *&v29[14] = 22;
+        v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v16, 16, "%{public}s: This cryptex was not mounted via cryptex_mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v29, 18, *v29, *&v29[8]);
+      }
+
+      else
+      {
+        v27 = *(v2 + 56);
+        if (!v27)
+        {
+          v27 = "[anonymous]";
+        }
+
+        *v29 = 136446466;
+        *&v29[4] = v27;
+        *&v29[12] = 1024;
+        *&v29[14] = 22;
+        v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: This cryptex was not mounted via cryptex_mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v29, 18, *v29, *&v29[8]);
+      }
+
+      v23 = v19;
+      v24 = 3249;
+    }
+
+    else
+    {
+      v12 = *(v2 + 72);
+      if (v12)
+      {
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v14 = *(v2 + 56);
+        if (!v14)
+        {
+          v14 = "[anonymous]";
+        }
+
+        *v29 = 136446466;
+        *&v29[4] = v14;
+        *&v29[12] = 1024;
+        *&v29[14] = 22;
+        v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v12, 16, "%{public}s: Cryptex1 format is required to unmount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v29, 18, *v29, *&v29[8]);
+      }
+
+      else
+      {
+        v26 = *(v2 + 56);
+        if (!v26)
+        {
+          v26 = "[anonymous]";
+        }
+
+        *v29 = 136446466;
+        *&v29[4] = v26;
+        *&v29[12] = 1024;
+        *&v29[14] = 22;
+        v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Cryptex1 format is required to unmount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v29, 18, *v29, *&v29[8]);
+      }
+
+      v23 = v15;
+      v24 = 3242;
+    }
+
+    v25 = 22;
+  }
+
+  else
+  {
+    v6 = *(v2 + 72);
+    if (v6)
+    {
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = 2;
+      }
+
+      v8 = "[anonymous]";
+      if (*(v2 + 56))
+      {
+        v8 = *(v2 + 56);
+      }
+
+      v9 = a1[4];
+      v10 = *a1[6];
+      *v29 = 136446978;
+      *&v29[4] = v8;
+      *&v29[12] = 2080;
+      *&v29[14] = v9;
+      *&v29[22] = 2080;
+      LOWORD(v30) = 1024;
+      *(&v30 + 2) = 2;
+      v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, v6, 16, "%{public}s: No quire with name '%s' and version '%s' %{darwin.errno}d", v29, 38, *v29, *&v29[8], v10, v30);
+    }
+
+    else
+    {
+      v20 = *(v2 + 56);
+      if (!v20)
+      {
+        v20 = "[anonymous]";
+      }
+
+      v21 = a1[4];
+      v22 = *a1[6];
+      *v29 = 136446978;
+      *&v29[4] = v20;
+      *&v29[12] = 2080;
+      *&v29[14] = v21;
+      *&v29[22] = 2080;
+      LOWORD(v30) = 1024;
+      *(&v30 + 2) = 2;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: No quire with name '%s' and version '%s' %{darwin.errno}d", v29, 38, *v29, *&v29[8], v22, v30);
+    }
+
+    v23 = v11;
+    v24 = 3236;
+    v25 = 2;
+  }
+
+  Error = createError("_codex_unmount_continue", "codex.c", v24, "com.apple.security.cryptex.posix", v25, 0, v23);
+  free(v23);
+  if (Error)
+  {
+    a1[2] = Error;
+    cryptex_target_async_f();
+  }
+
+  if (v4)
+  {
+    goto LABEL_43;
+  }
+}
+
+void codex_uninstall(void *a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  v8 = ctx_new(a1, 0x50uLL);
+  v8[5] = os_retain(a2);
+  v8[7] = a3;
+  v8[8] = a4;
+  v8[6] = _codex_activate(a1, "uninstall");
+  v9 = a1[12];
+
+  dispatch_async_f(v9, v8, _codex_uninstall_continue);
+}
+
+uint64_t _codex_uninstall_continue(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[5];
+  bzero(v35, 0x400uLL);
+  dispatch_assert_queue_V2(*(v2 + 96));
+  if ((*(v3 + 176) & 0x10) != 0)
+  {
+    v8 = *(v2 + 72);
+    if (v8)
+    {
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v10 = *(v2 + 56);
+      if (!v10)
+      {
+        v10 = "[anonymous]";
+      }
+
+      *v34 = 136446466;
+      *&v34[4] = v10;
+      *&v34[12] = 1024;
+      *&v34[14] = 45;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v8, 16, "%{public}s: Uninstall is unsupported for this cryptex. %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+    }
+
+    else
+    {
+      v19 = *(v2 + 56);
+      if (!v19)
+      {
+        v19 = "[anonymous]";
+      }
+
+      *v34 = 136446466;
+      *&v34[4] = v19;
+      *&v34[12] = 1024;
+      *&v34[14] = 45;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Uninstall is unsupported for this cryptex. %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+    }
+
+    v20 = v11;
+    v21 = 1366;
+    v22 = 45;
+  }
+
+  else if (*(v3 + 480))
+  {
+    v4 = *(v2 + 72);
+    if (v4)
+    {
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v6 = *(v2 + 56);
+      if (!v6)
+      {
+        v6 = "[anonymous]";
+      }
+
+      *v34 = 136446466;
+      *&v34[4] = v6;
+      *&v34[12] = 1024;
+      *&v34[14] = 16;
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, v4, 16, "%{public}s: Uninstall is unsupported for this cryptex (active dependents currently installed). %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+    }
+
+    else
+    {
+      v23 = *(v2 + 56);
+      if (!v23)
+      {
+        v23 = "[anonymous]";
+      }
+
+      *v34 = 136446466;
+      *&v34[4] = v23;
+      *&v34[12] = 1024;
+      *&v34[14] = 16;
+      v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Uninstall is unsupported for this cryptex (active dependents currently installed). %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+    }
+
+    v20 = v7;
+    v21 = 1373;
+    v22 = 16;
+  }
+
+  else
+  {
+    if (!cryptex_core_get_asset())
+    {
+      _codex_uninstall_continue_cold_1();
+    }
+
+    v12 = realpath_np();
+    if (v12)
+    {
+      v13 = v12;
+      v14 = v12;
+      v15 = *(v2 + 72);
+      if (v15)
+      {
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+        {
+          v16 = 3;
+        }
+
+        else
+        {
+          v16 = 2;
+        }
+
+        v17 = *(v2 + 56);
+        if (!v17)
+        {
+          v17 = "[anonymous]";
+        }
+
+        *v34 = 136446466;
+        *&v34[4] = v17;
+        *&v34[12] = 1024;
+        *&v34[14] = v13;
+        v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, v15, 16, "%{public}s: realpath_np %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+      }
+
+      else
+      {
+        v30 = *(v2 + 56);
+        if (!v30)
+        {
+          v30 = "[anonymous]";
+        }
+
+        *v34 = 136446466;
+        *&v34[4] = v30;
+        *&v34[12] = 1024;
+        *&v34[14] = v12;
+        v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: realpath_np %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+      }
+
+      v20 = v18;
+      v21 = 1385;
+    }
+
+    else
+    {
+      v24 = _rmrfdir(v35);
+      if ((v24 & 0xFFFFFFFD) == 0)
+      {
+        a1[2] = 0;
+        return cryptex_async_f();
+      }
+
+      v25 = v24;
+      v14 = v24;
+      v26 = *(v2 + 72);
+      if (v26)
+      {
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+        {
+          v27 = 3;
+        }
+
+        else
+        {
+          v27 = 2;
+        }
+
+        v28 = *(v2 + 56);
+        if (!v28)
+        {
+          v28 = "[anonymous]";
+        }
+
+        *v34 = 136446466;
+        *&v34[4] = v28;
+        *&v34[12] = 1024;
+        *&v34[14] = v25;
+        v29 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, v26, 16, "%{public}s: Failed to delete cryptex root dir. %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+      }
+
+      else
+      {
+        v31 = *(v2 + 56);
+        if (!v31)
+        {
+          v31 = "[anonymous]";
+        }
+
+        *v34 = 136446466;
+        *&v34[4] = v31;
+        *&v34[12] = 1024;
+        *&v34[14] = v24;
+        v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to delete cryptex root dir. %{darwin.errno}d", COERCE_DOUBLE(136446466), v34, 18, *v34, *&v34[8]);
+      }
+
+      v20 = v29;
+      v21 = 1392;
+    }
+
+    v22 = v14;
+  }
+
+  Error = createError("_codex_uninstall_continue", "codex.c", v21, "com.apple.security.cryptex.posix", v22, 0, v20);
+  free(v20);
+  a1[2] = Error;
+  if (Error)
+  {
+    return cryptex_target_async_f();
+  }
+
+  return cryptex_async_f();
+}
+
 uint64_t codex_bootstrap(dispatch_group_t *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   daemon_assert_main_queue();
@@ -17,15 +751,46 @@ void _codex_bootstrap_continue(uint64_t *a1)
   v3 = a1[4];
   if (hash_lookup_node(*a1 + 448, v3 + 112))
   {
-    if (*(v2 + 72))
+    v4 = *(v2 + 72);
+    if (v4)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v6 = *(v2 + 56);
+      if (!v6)
+      {
+        v6 = "[anonymous]";
+      }
+
+      LODWORD(v13) = 136446210;
+      *(&v13 + 4) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, v4, 16, "%{public}s: Cryptex with the same name is still bootstrapped.", COERCE_DOUBLE(136446210), &v13, 12, v13);
     }
 
-    *(v2 + 56);
-    v6 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_bootstrap_continue", "codex.c", 1644, "com.apple.security.cryptex", 17, 0, v6);
-    free(v6);
+    else
+    {
+      v10 = *(v2 + 56);
+      if (!v10)
+      {
+        v10 = "[anonymous]";
+      }
+
+      LODWORD(v13) = 136446210;
+      *(&v13 + 4) = v10;
+      v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Cryptex with the same name is still bootstrapped.", COERCE_DOUBLE(136446210), &v13, 12, v13);
+    }
+
+    v11 = v7;
+    Error = createError("_codex_bootstrap_continue", "codex.c", 1644, "com.apple.security.cryptex", 17, 0, v7);
+    free(v11);
     if (Error)
     {
       a1[2] = CFRetain(Error);
@@ -36,10 +801,10 @@ void _codex_bootstrap_continue(uint64_t *a1)
 
   else
   {
-    v4 = *(v2 + 1412);
-    v5 = *(v2 + 1416);
+    v8 = *(v2 + 1412);
+    v9 = *(v2 + 1416);
 
-    quire_mount(v3, v4, v5, a1, _codex_bootstrap_continue2);
+    quire_mount(v3, v8, v9, a1, _codex_bootstrap_continue2);
   }
 }
 
@@ -82,69 +847,81 @@ void *_codex_unbootstrap_continue(uint64_t a1, uint64_t a2, const void *a3, uint
   {
     v10 = v9;
     v11 = v9;
-    if (*(a1 + 72))
+    v12 = *(a1 + 72);
+    if (v12)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-      v12 = *(a1 + 56);
-      if (!v12)
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
       {
-        v12 = "[anonymous]";
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      v14 = *(a1 + 56);
+      if (!v14)
+      {
+        v14 = "[anonymous]";
       }
 
       *buf = 136446466;
-      v43 = v12;
-      v44 = 1024;
-      LODWORD(v45) = v10;
+      *&buf[4] = v14;
+      *&buf[12] = 1024;
+      *&buf[14] = v10;
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v12, 16, "%{public}s: Failed to remove boot session state directory. %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
     else
     {
-      v17 = *(a1 + 56);
-      if (!v17)
+      v20 = *(a1 + 56);
+      if (!v20)
       {
-        v17 = "[anonymous]";
+        v20 = "[anonymous]";
       }
 
       *buf = 136446466;
-      v43 = v17;
-      v44 = 1024;
-      LODWORD(v45) = v9;
+      *&buf[4] = v20;
+      *&buf[12] = 1024;
+      *&buf[14] = v9;
+      v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to remove boot session state directory. %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
-    v18 = _os_log_send_and_compose_impl();
-    v19 = "com.apple.security.cryptex.posix";
-    v20 = 1481;
-    v21 = v11;
-    goto LABEL_43;
+    v21 = v15;
+    v22 = "com.apple.security.cryptex.posix";
+    v23 = 1481;
+    v24 = v11;
+    goto LABEL_52;
   }
 
   if (*(v7 + 56))
   {
-    v13 = *(v7 + 56);
+    v16 = *(v7 + 56);
   }
 
   else
   {
-    v13 = "[anonymous]";
+    v16 = "[anonymous]";
   }
 
-  v14 = *__error();
-  v15 = *(v7 + 72);
+  v17 = *__error();
+  v18 = *(v7 + 72);
   if (a3)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 208);
+      v19 = *(a1 + 208);
       *buf = 136446722;
-      v43 = v13;
-      v44 = 2080;
-      v45 = v16;
-      v46 = 2112;
-      v47 = a3;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s: quire unbootstrap: %s: %@", buf, 0x20u);
+      *&buf[4] = v16;
+      *&buf[12] = 2080;
+      *&buf[14] = v19;
+      *&buf[22] = 2112;
+      v52 = a3;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}s: quire unbootstrap: %s: %@", buf, 0x20u);
     }
 
-    *__error() = v14;
+    *__error() = v17;
     a4[2] = CFRetain(a3);
     if ((_CFErrorHasDomainAndCode(a3, @"com.apple.security.cryptex", 18) & 1) == 0)
     {
@@ -154,171 +931,195 @@ void *_codex_unbootstrap_continue(uint64_t a1, uint64_t a2, const void *a3, uint
 
   else
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v22 = *(a1 + 208);
+      v25 = *(a1 + 208);
       *buf = 136446466;
-      v43 = v13;
-      v44 = 2080;
-      v45 = v22;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%{public}s: quire unbootstrap: %s [no error]", buf, 0x16u);
+      *&buf[4] = v16;
+      *&buf[12] = 2080;
+      *&buf[14] = v25;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%{public}s: quire unbootstrap: %s [no error]", buf, 0x16u);
     }
 
-    *__error() = v14;
+    *__error() = v17;
     a4[2] = 0;
   }
 
   if ((*(a1 + 176) & 0x10) != 0 && (v8 & 2) == 0)
   {
-    if (*(a1 + 72))
+    v26 = *(a1 + 72);
+    if (v26)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-      v23 = *(a1 + 56);
-      if (!v23)
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
       {
-        v23 = "[anonymous]";
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      v28 = *(a1 + 56);
+      if (!v28)
+      {
+        v28 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v23;
+      *&buf[4] = v28;
+      v29 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, v26, 16, "%{public}s: Disallow unbootstrap of system quire.", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
     else
     {
-      v26 = *(a1 + 56);
-      if (!v26)
+      v35 = *(a1 + 56);
+      if (!v35)
       {
-        v26 = "[anonymous]";
+        v35 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v26;
+      *&buf[4] = v35;
+      v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Disallow unbootstrap of system quire.", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
-    v18 = _os_log_send_and_compose_impl();
-    v19 = "com.apple.security.cryptex";
-    v20 = 1503;
-LABEL_42:
-    v21 = 4;
-LABEL_43:
-    Error = createError("_codex_unbootstrap_continue", "codex.c", v20, v19, v21, 0, v18);
-    free(v18);
+    v21 = v29;
+    v22 = "com.apple.security.cryptex";
+    v23 = 1503;
+LABEL_51:
+    v24 = 4;
+LABEL_52:
+    Error = createError("_codex_unbootstrap_continue", "codex.c", v23, v22, v24, 0, v21);
+    free(v21);
     a4[2] = Error;
     return cryptex_target_async_f();
   }
 
   if (*(a1 + 480))
   {
-    if (*(a1 + 72))
+    v30 = *(a1 + 72);
+    if (v30)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-      v24 = *(a1 + 56);
-      if (!v24)
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
       {
-        v24 = "[anonymous]";
+        v31 = 3;
+      }
+
+      else
+      {
+        v31 = 2;
+      }
+
+      v32 = *(a1 + 56);
+      if (!v32)
+      {
+        v32 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v24;
+      *&buf[4] = v32;
+      v33 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, v30, 16, "%{public}s: Disallow unbootstrap of quire with active dependent quires.", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
     else
     {
-      v27 = *(a1 + 56);
-      if (!v27)
+      v36 = *(a1 + 56);
+      if (!v36)
       {
-        v27 = "[anonymous]";
+        v36 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v27;
+      *&buf[4] = v36;
+      v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Disallow unbootstrap of quire with active dependent quires.", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
-    v18 = _os_log_send_and_compose_impl();
-    v19 = "com.apple.security.cryptex";
-    v20 = 1514;
-    goto LABEL_42;
+    v21 = v33;
+    v22 = "com.apple.security.cryptex";
+    v23 = 1514;
+    goto LABEL_51;
   }
 
   if (v8)
   {
-    v30 = *(v7 + 56);
-    v31 = *__error();
-    v32 = *(v7 + 72);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v39 = *(v7 + 56);
+    v40 = *__error();
+    v41 = *(v7 + 72);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      if (v30)
+      if (v39)
       {
-        v33 = v30;
+        v42 = v39;
       }
 
       else
       {
-        v33 = "[anonymous]";
+        v42 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v33;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "%{public}s: will force unmount", buf, 0xCu);
+      *&buf[4] = v42;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "%{public}s: will force unmount", buf, 0xCu);
     }
 
-    *__error() = v31;
-    v25 = 1;
+    *__error() = v40;
+    v34 = 1;
   }
 
   else
   {
-    v25 = 0;
+    v34 = 0;
   }
 
   if ((v8 & 4) != 0)
   {
-    v34 = *(v7 + 56);
-    v35 = *__error();
-    v36 = *(v7 + 72);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v43 = *(v7 + 56);
+    v44 = *__error();
+    v45 = *(v7 + 72);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
-      if (v34)
+      if (v43)
       {
-        v37 = v34;
+        v46 = v43;
       }
 
       else
       {
-        v37 = "[anonymous]";
+        v46 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v43 = v37;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "%{public}s: unmount failure will not result in a quire husk", buf, 0xCu);
+      *&buf[4] = v46;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEBUG, "%{public}s: unmount failure will not result in a quire husk", buf, 0xCu);
     }
 
-    *__error() = v35;
-    v25 |= 2uLL;
+    *__error() = v44;
+    v34 |= 2uLL;
   }
 
-  v38 = *(v7 + 56);
-  v39 = *__error();
-  v40 = *(v7 + 72);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  v47 = *(v7 + 56);
+  v48 = *__error();
+  v49 = *(v7 + 72);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
-    if (v38)
+    if (v47)
     {
-      v41 = v38;
+      v50 = v47;
     }
 
     else
     {
-      v41 = "[anonymous]";
+      v50 = "[anonymous]";
     }
 
     *buf = 136446210;
-    v43 = v41;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "%{public}s: _codex_unbootstrap_continue progressing to quire unmount", buf, 0xCu);
+    *&buf[4] = v50;
+    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "%{public}s: _codex_unbootstrap_continue progressing to quire unmount", buf, 0xCu);
   }
 
-  *__error() = v39;
-  return quire_unmount(a1, v25, a4, _codex_unbootstrap_continue2);
+  *__error() = v48;
+  return quire_unmount(a1, v34, a4, _codex_unbootstrap_continue2);
 }
 
 void *codex_copy_quire(uint64_t a1, char *a2, uint64_t a3)
@@ -333,7 +1134,6 @@ void *codex_copy_quire(uint64_t a1, char *a2, uint64_t a3)
   v7 = v6;
   if (a3)
   {
-    v8 = *(v6 + 144);
     if (cryptex_version_compare())
     {
       return 0;
@@ -639,170 +1439,168 @@ LABEL_10:
 
 uint64_t _codex_import_initial_prep(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + a2[2]);
-  v4 = dup_np();
-  v5 = fdopendir(v4);
-  for (i = readdir(v5); i; i = readdir(v5))
+  v3 = dup_np();
+  v4 = fdopendir(v3);
+  for (i = readdir(v4); i; i = readdir(v4))
   {
     d_name = i->d_name;
     if (i->d_name[0] != 46 || i->d_name[1] && (i->d_name[1] != 46 || i->d_name[2]))
     {
-      v8 = *(a1 + 56);
-      v9 = *__error();
-      v10 = *(a1 + 72);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v7 = *(a1 + 56);
+      v8 = *__error();
+      v9 = *(a1 + 72);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446466;
-        v11 = "[anonymous]";
-        if (v8)
+        v10 = "[anonymous]";
+        if (v7)
         {
-          v11 = v8;
+          v10 = v7;
         }
 
-        v40 = v11;
-        v41 = 2080;
-        v42 = d_name;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%{public}s: importing pre-existing cryptex: %s", buf, 0x16u);
+        v38 = v10;
+        v39 = 2080;
+        v40 = d_name;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%{public}s: importing pre-existing cryptex: %s", buf, 0x16u);
       }
 
-      *__error() = v9;
-      v12 = openat(v4, d_name, 1048832);
-      if (v12 < 0)
+      *__error() = v8;
+      v11 = openat(v3, d_name, 1048832);
+      if (v11 < 0)
       {
-        v30 = *__error();
-        v31 = *(a1 + 56);
-        v32 = *__error();
-        v33 = *(a1 + 72);
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v29 = *__error();
+        v30 = *(a1 + 56);
+        v31 = *__error();
+        v32 = *(a1 + 72);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
-          v34 = "[anonymous]";
-          if (v31)
+          v33 = "[anonymous]";
+          if (v30)
           {
-            v34 = v31;
+            v33 = v30;
           }
 
-          v40 = v34;
-          v41 = 2080;
-          v42 = d_name;
-          v43 = 1024;
-          v44 = v30;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%{public}s: failed to open cryptex: %s: %{darwin.errno}d", buf, 0x1Cu);
+          v38 = v33;
+          v39 = 2080;
+          v40 = d_name;
+          v41 = 1024;
+          v42 = v29;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}s: failed to open cryptex: %s: %{darwin.errno}d", buf, 0x1Cu);
         }
 
-        *__error() = v32;
-        if (v12 != -1 && close(v12) == -1)
+        *__error() = v31;
+        if (v11 != -1 && close(v11) == -1)
         {
 LABEL_41:
-          daemon_init_cold_13(&v38, buf);
+          daemon_init_cold_13(v36, buf);
         }
       }
 
       else
       {
-        v13 = cryptex_core_create();
-        v14 = cryptex_core_set_assets_from_directory();
-        if (v14)
+        v12 = cryptex_core_create();
+        v13 = cryptex_core_set_assets_from_directory();
+        if (v13)
         {
-          v15 = v14;
-          v16 = *(a1 + 56);
-          v17 = *__error();
-          v18 = *(a1 + 72);
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v14 = v13;
+          v15 = *(a1 + 56);
+          v16 = *__error();
+          v17 = *(a1 + 72);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 136446722;
-            v19 = "[anonymous]";
-            if (v16)
+            v18 = "[anonymous]";
+            if (v15)
             {
-              v19 = v16;
+              v18 = v15;
             }
 
-            v40 = v19;
-            v41 = 2080;
-            v42 = d_name;
-            v43 = 1024;
-            v44 = v15;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}s: failed to create core from directory: %s: %{darwin.errno}d", buf, 0x1Cu);
+            v38 = v18;
+            v39 = 2080;
+            v40 = d_name;
+            v41 = 1024;
+            v42 = v14;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}s: failed to create core from directory: %s: %{darwin.errno}d", buf, 0x1Cu);
           }
 
-          *__error() = v17;
-          if (v15 == 2)
+          *__error() = v16;
+          if (v14 == 2)
           {
-            v20 = *(a1 + 56);
-            v21 = *__error();
-            v22 = *(a1 + 72);
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v19 = *(a1 + 56);
+            v20 = *__error();
+            v21 = *(a1 + 72);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 136446466;
-              v23 = "[anonymous]";
-              if (v20)
+              v22 = "[anonymous]";
+              if (v19)
               {
-                v23 = v20;
+                v22 = v19;
               }
 
-              v40 = v23;
-              v41 = 2080;
-              v42 = d_name;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%{public}s: removing broken cryptex: %s", buf, 0x16u);
+              v38 = v22;
+              v39 = 2080;
+              v40 = d_name;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%{public}s: removing broken cryptex: %s", buf, 0x16u);
             }
 
-            *__error() = v21;
-            v24 = _rmrfdirat(v4, d_name);
-            if (v24)
+            *__error() = v20;
+            v23 = _rmrfdirat(v3, d_name);
+            if (v23)
             {
-              v25 = v24;
-              v26 = *(a1 + 56);
-              v27 = *__error();
-              v28 = *(a1 + 72);
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v24 = v23;
+              v25 = *(a1 + 56);
+              v26 = *__error();
+              v27 = *(a1 + 72);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136446722;
-                v29 = "[anonymous]";
-                if (v26)
+                v28 = "[anonymous]";
+                if (v25)
                 {
-                  v29 = v26;
+                  v28 = v25;
                 }
 
-                v40 = v29;
-                v41 = 2080;
-                v42 = d_name;
-                v43 = 1024;
-                v44 = v25;
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}s: failed to remove core directory: %s: %{darwin.errno}d", buf, 0x1Cu);
+                v38 = v28;
+                v39 = 2080;
+                v40 = d_name;
+                v41 = 1024;
+                v42 = v24;
+                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}s: failed to remove core directory: %s: %{darwin.errno}d", buf, 0x1Cu);
               }
 
-              *__error() = v27;
+              *__error() = v26;
             }
           }
         }
 
         else
         {
-          *a2;
           cryptex_core_set_nonce_persistence();
           dispatch_group_enter(*(a1 + 104));
-          v35 = ctx_new(a1, 0xA0uLL);
-          v35[18] = _codex_import_initial_continue;
-          _codex_import_core_impl(a1, v13, v35);
+          v34 = ctx_new(a1, 0xA0uLL);
+          v34[18] = _codex_import_initial_continue;
+          _codex_import_core_impl(a1, v12, v34);
         }
 
-        if (close(v12) == -1)
+        if (close(v11) == -1)
         {
           goto LABEL_41;
         }
 
-        if (v13)
+        if (v12)
         {
-          os_release(v13);
+          os_release(v12);
         }
       }
     }
   }
 
-  result = closedir(v5);
+  result = closedir(v4);
   if (result == -1)
   {
-    view_iterate_resource_cold_2(&v38, buf);
+    view_iterate_resource_cold_2(v36, buf);
   }
 
   return result;
@@ -852,37 +1650,49 @@ void _codex_import_initial_continue(uint64_t a1, void *a2, void *a3, const void 
 {
   if (a4)
   {
-    if (*(a1 + 72))
+    v7 = *(a1 + 72);
+    if (v7)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-      v7 = *(a1 + 56);
-      if (!v7)
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
       {
-        v7 = "[anonymous]";
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v9 = *(a1 + 56);
+      if (!v9)
+      {
+        v9 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v19 = v7;
+      *&buf[4] = v9;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "%{public}s: cryptex is no longer valid", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
     else
     {
-      v14 = *(a1 + 56);
-      if (!v14)
+      v17 = *(a1 + 56);
+      if (!v17)
       {
-        v14 = "[anonymous]";
+        v17 = "[anonymous]";
       }
 
       *buf = 136446210;
-      v19 = v14;
+      *&buf[4] = v17;
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: cryptex is no longer valid", COERCE_DOUBLE(136446210), buf, 12, *buf, *&buf[8]);
     }
 
-    v15 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_import_initial_continue", "codex.c", 1900, "com.apple.security.cryptex", 15, a4, v15);
-    free(v15);
-    v17 = ctx_new(a1, 0x28uLL);
-    v17[4] = os_retain(a2);
-    dispatch_async_f(*(a1 + 96), v17, _codex_cleanup_stale_continue);
+    v18 = v10;
+    Error = createError("_codex_import_initial_continue", "codex.c", 1900, "com.apple.security.cryptex", 15, a4, v10);
+    free(v18);
+    v20 = ctx_new(a1, 0x28uLL);
+    v20[4] = os_retain(a2);
+    dispatch_async_f(*(a1 + 96), v20, _codex_cleanup_stale_continue);
     if (Error)
     {
       CFRelease(Error);
@@ -891,26 +1701,26 @@ void _codex_import_initial_continue(uint64_t a1, void *a2, void *a3, const void 
 
   else
   {
-    v9 = *(a1 + 56);
-    v10 = *__error();
-    v11 = *(a1 + 72);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = *(a1 + 56);
+    v13 = *__error();
+    v14 = *(a1 + 72);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v12 = "[anonymous]";
-      v13 = a3[26];
-      if (v9)
+      v15 = "[anonymous]";
+      v16 = a3[26];
+      if (v12)
       {
-        v12 = v9;
+        v15 = v12;
       }
 
       *buf = 136446466;
-      v19 = v12;
-      v20 = 2080;
-      v21 = v13;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%{public}s: imported: %s [no error]", buf, 0x16u);
+      *&buf[4] = v15;
+      *&buf[12] = 2080;
+      *&buf[14] = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%{public}s: imported: %s [no error]", buf, 0x16u);
     }
 
-    *__error() = v10;
+    *__error() = v13;
     codex_bootstrap(a1, a3, 0, _codex_import_initial_continue2);
   }
 }
@@ -925,33 +1735,45 @@ void _codex_import_core_impl(uint64_t a1, void *a2, void *a3)
   a3[6] = v7;
   v8 = a2[21];
   asset = cryptex_core_get_asset();
-  if (os_variant_allows_internal_security_policies() && v8 && (*(v8 + 40) & 4) != 0 || asset && ((memset(&v33, 0, sizeof(v33)), !fstat(*(asset + 16), &v33)) ? (v10 = v33.st_size == 0) : (v10 = 0), v10 && os_variant_allows_internal_security_policies()))
+  if (os_variant_allows_internal_security_policies() && v8 && (*(v8 + 40) & 4) != 0 || asset && ((memset(&v41, 0, sizeof(v41)), !fstat(*(asset + 16), &v41)) ? (v10 = v41.st_size == 0) : (v10 = 0), v10 && os_variant_allows_internal_security_policies()))
   {
     a2[5] |= 1uLL;
   }
 
   dispatch_group_enter(v7);
-  if (os_variant_allows_internal_security_policies())
-  {
-    v11 = v6[176] ^ 1;
-  }
-
-  v12 = cryptex_magister_create();
+  os_variant_allows_internal_security_policies();
+  v11 = cryptex_magister_create();
   cryptex_set_target_object();
   image_asset = cryptex_core_get_image_asset();
-  if (cryptex_asset_evaluate())
+  v13 = cryptex_asset_evaluate();
+  if (v13)
   {
-    memset(&v33, 0, 80);
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v32 = *(*(image_asset + 8) + 40);
-    _os_log_send_and_compose_impl();
+    v33 = v13;
+    v36 = 0;
+    memset(&v41, 0, 80);
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v34 = 3;
+    }
+
+    else
+    {
+      v34 = 2;
+    }
+
+    v35 = *(*(image_asset + 8) + 40);
+    v37 = 136315394;
+    v38 = v35;
+    v39 = 1024;
+    v40 = v33;
+    _os_log_send_and_compose_impl(v34, &v36, &v41, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: asset not valid on this configuration: %s: %{darwin.errno}d", &v37, 18);
     _os_crash_msg();
     __break(1u);
   }
 
   info_asset = cryptex_core_get_info_asset();
   v15 = info_asset;
-  if ((*(v12[11] + 40) & 1) == 0)
+  if ((*(v11[11] + 40) & 1) == 0)
   {
     if (cryptex_core_image_authapfs_enabled())
     {
@@ -966,92 +1788,109 @@ void _codex_import_core_impl(uint64_t a1, void *a2, void *a3)
           v19 = v16;
         }
 
-        v33.st_dev = 136446210;
-        *&v33.st_mode = v19;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%{public}s: AuthAPFS enabled, skip up-front dmg authentication.", &v33, 0xCu);
+        v41.st_dev = 136446210;
+        *&v41.st_mode = v19;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%{public}s: AuthAPFS enabled, skip up-front dmg authentication.", &v41, 0xCu);
       }
 
       *__error() = v17;
       if (v15)
       {
-        goto LABEL_22;
+        goto LABEL_20;
       }
 
-      goto LABEL_27;
-    }
-
-LABEL_26:
-    dispatch_group_enter(v7);
-    v21 = *(v12[11] + 176);
-    cryptex_magister_authenticate_f();
-    if (v15)
-    {
-LABEL_22:
-      dispatch_group_enter(v7);
-      v20 = *(v15 + 8);
-      cryptex_magister_authenticate_f();
-LABEL_32:
-      dispatch_group_enter(v7);
-      cryptex_magister_record_property();
-      goto LABEL_33;
+      goto LABEL_28;
     }
 
 LABEL_27:
-    v22 = *(a1 + 56);
-    v23 = *__error();
-    v24 = *(a1 + 72);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    dispatch_group_enter(v7);
+    cryptex_magister_authenticate_f();
+    if (v15)
     {
-      v25 = "[anonymous]";
-      v26 = _cryptex_asset_type_c411[5];
-      if (v22)
-      {
-        v25 = v22;
-      }
-
-      v33.st_dev = 136446466;
-      *&v33.st_mode = v25;
-      WORD2(v33.st_ino) = 2080;
-      *(&v33.st_ino + 6) = v26;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%{public}s: will use adhoc %s, skip authenticating it", &v33, 0x16u);
+LABEL_20:
+      dispatch_group_enter(v7);
+      cryptex_magister_authenticate_f();
+LABEL_33:
+      dispatch_group_enter(v7);
+      cryptex_magister_record_property();
+      goto LABEL_34;
     }
 
-    *__error() = v23;
-    goto LABEL_32;
+LABEL_28:
+    v24 = *(a1 + 56);
+    v25 = *__error();
+    v26 = *(a1 + 72);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    {
+      v27 = "[anonymous]";
+      v28 = _cryptex_asset_type_c411[5];
+      if (v24)
+      {
+        v27 = v24;
+      }
+
+      v41.st_dev = 136446466;
+      *&v41.st_mode = v27;
+      WORD2(v41.st_ino) = 2080;
+      *(&v41.st_ino + 6) = v28;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%{public}s: will use adhoc %s, skip authenticating it", &v41, 0x16u);
+    }
+
+    *__error() = v25;
+    goto LABEL_33;
   }
 
-  if (info_asset && _read_file(*(info_asset + 16), a3 + 10))
+  if (info_asset)
   {
-    memset(&v33, 0, 80);
-    v6 = &_os_log_default;
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v31 = *(*(v15 + 8) + 40);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_26;
+    file = _read_file(*(info_asset + 16), a3 + 10);
+    if (file)
+    {
+      v21 = file;
+      v36 = 0;
+      memset(&v41, 0, 80);
+      v6 = &_os_log_default;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v22 = 3;
+      }
+
+      else
+      {
+        v22 = 2;
+      }
+
+      v23 = *(*(v15 + 8) + 40);
+      v37 = 136315394;
+      v38 = v23;
+      v39 = 1024;
+      v40 = v21;
+      _os_log_send_and_compose_impl(v22, &v36, &v41, 80, &_mh_execute_header, &_os_log_default, 16, "unexpected failure: Failed to read unauth %s asset: %{darwin.errno}d", &v37, 18);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_27;
+    }
   }
 
-LABEL_33:
+LABEL_34:
   if ((*(a1 + 80) & 2) == 0 && a3[19])
   {
-    v27 = *(a1 + 56);
-    v28 = *__error();
-    v29 = *(a1 + 72);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v29 = *(a1 + 56);
+    v30 = *__error();
+    v31 = *(a1 + 72);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v30 = "[anonymous]";
-      if (v27)
+      v32 = "[anonymous]";
+      if (v29)
       {
-        v30 = v27;
+        v32 = v29;
       }
 
-      v33.st_dev = 136446210;
-      *&v33.st_mode = v30;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "%{public}s: corking import", &v33, 0xCu);
+      v41.st_dev = 136446210;
+      *&v41.st_mode = v32;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "%{public}s: corking import", &v41, 0xCu);
     }
 
-    *__error() = v28;
+    *__error() = v30;
     a3[4] = 0;
     **(a1 + 128) = a3;
     *(a1 + 128) = a3 + 4;
@@ -1067,7 +1906,7 @@ LABEL_33:
     os_release(v7);
   }
 
-  os_release(v12);
+  os_release(v11);
   if (v6)
   {
     os_release(v6);
@@ -1189,40 +2028,38 @@ void _codex_authenticate_info_notify(uint64_t a1, uint64_t a2, __n128 *a3, const
   dispatch_group_leave(v10);
 }
 
-void _codex_manifest_check_data_only(uint64_t a1, uint64_t *a2, const void *a3, void *a4)
+void _codex_manifest_check_data_only(uint64_t a1, void *a2, const void *a3, void *a4)
 {
   v6 = a4[6];
   if (!a2)
   {
-    v10 = *(a4[5] + 16);
-    v11 = *__error();
-    v12 = *(a4[5] + 32);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v8 = *(a4[5] + 16);
+    v9 = *__error();
+    v10 = *(a4[5] + 32);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = "[anonymous]";
-      if (v10)
+      v11 = "[anonymous]";
+      if (v8)
       {
-        v13 = v10;
+        v11 = v8;
       }
 
       *buf = 136446210;
-      v15 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}s: im4m missing DataOnly property", buf, 0xCu);
+      v13 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%{public}s: im4m missing DataOnly property", buf, 0xCu);
     }
 
-    *__error() = v11;
+    *__error() = v9;
     if (a3)
     {
       goto LABEL_3;
     }
 
 LABEL_9:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_10;
   }
 
-  v8 = *a2;
-  v7 = a2[1];
   __memcpy_chk();
   if (!a3)
   {
@@ -1230,825 +2067,1005 @@ LABEL_9:
   }
 
 LABEL_3:
-  v9 = CFRetain(a3);
+  v7 = CFRetain(a3);
 LABEL_10:
-  a4[7] = v9;
+  a4[7] = v7;
   dispatch_group_leave(v6);
 }
 
-void _codex_import_core_continue(uint64_t a1)
+void _codex_import_core_continue(__n128 *a1)
 {
-  v2 = *a1;
-  v3 = *(a1 + 40);
-  v5 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  v6 = *(a1 + 72);
-  v130 = 0;
-  memset(v129, 0, sizeof(v129));
-  v128 = 0;
-  v127 = 0u;
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
+  v2 = a1->n128_u64[0];
+  v3 = a1[2].n128_u64[1];
+  v5 = a1[3].n128_u64[1];
+  v4 = a1[4].n128_u64[0];
+  v6 = a1[4].n128_u64[1];
+  v174 = 0;
+  memset(v173, 0, sizeof(v173));
+  v172 = 0;
+  v171 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v167 = 0u;
+  v168 = 0u;
+  v165 = 0u;
+  v166 = 0u;
+  v163 = 0u;
   *xdict = 0u;
-  context = *(a1 + 152);
-  v118 = 0;
-  v117 = 0;
+  context = a1[9].n128_u64[1];
+  v162 = 0;
+  v161 = 0;
   daemon_assert_main_queue();
-  buff_xfer(v129, (a1 + 80));
-  v115 = v6;
+  buff_xfer(v173, a1 + 5);
+  v159 = v6;
   if (v4)
   {
-    if (*(v2 + 9))
+    v7 = *(v2 + 72);
+    if (v7)
     {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v7 = *(v2 + 7);
-      v8 = *(v3[22] + 40);
-      if (!v7)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v7 = "[anonymous]";
+        v8 = 3;
       }
 
-      buf = 136446466;
-      v134 = v7;
-      v135 = 2080;
-      v136 = v8;
-    }
-
-    else
-    {
-      v10 = "[anonymous]";
-      if (*(v2 + 7))
+      else
       {
-        v10 = *(v2 + 7);
+        v8 = 2;
       }
 
-      v11 = *(v3[22] + 40);
-      buf = 136446466;
-      v134 = v10;
-      v135 = 2080;
-      v136 = v11;
-    }
-
-    v12 = _os_log_send_and_compose_impl();
-    v13 = "com.apple.security.cryptex";
-    v14 = 641;
-    v15 = 14;
-    v16 = v4;
-LABEL_25:
-    Error = createError("_codex_import_core_continue", "codex.c", v14, v13, v15, v16, v12);
-    free(v12);
-    v23 = 0;
-    v24 = 0;
-    v113 = 0;
-LABEL_26:
-    v25 = 0;
-    goto LABEL_27;
-  }
-
-  if (v5)
-  {
-    if (*(v2 + 9))
-    {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v9 = *(v2 + 7);
+      v9 = *(v2 + 56);
+      v10 = *(v3[22] + 40);
       if (!v9)
       {
         v9 = "[anonymous]";
       }
 
-      buf = 136446210;
-      v134 = v9;
+      buf = 136446466;
+      v178 = v9;
+      v179 = 2080;
+      v180 = v10;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "%{public}s: _codex_import_core_continue failed with invalid asset: %s", COERCE_DOUBLE(136446466), &buf, 22);
     }
 
     else
     {
-      v21 = *(v2 + 7);
-      if (!v21)
+      v16 = "[anonymous]";
+      if (*(v2 + 56))
       {
-        v21 = "[anonymous]";
+        v16 = *(v2 + 56);
+      }
+
+      v17 = *(v3[22] + 40);
+      buf = 136446466;
+      v178 = v16;
+      v179 = 2080;
+      v180 = v17;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: _codex_import_core_continue failed with invalid asset: %s", COERCE_DOUBLE(136446466), &buf, 22);
+    }
+
+    v18 = v11;
+    v19 = "com.apple.security.cryptex";
+    v20 = 641;
+    v21 = 14;
+    v22 = v4;
+LABEL_34:
+    Error = createError("_codex_import_core_continue", "codex.c", v20, v19, v21, v22, v18);
+    free(v18);
+    v33 = 0;
+    v34 = 0;
+    v157 = 0;
+LABEL_35:
+    v35 = 0;
+    goto LABEL_36;
+  }
+
+  if (v5)
+  {
+    v12 = *(v2 + 72);
+    if (v12)
+    {
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      v14 = *(v2 + 56);
+      if (!v14)
+      {
+        v14 = "[anonymous]";
       }
 
       buf = 136446210;
-      v134 = v21;
+      v178 = v14;
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v12, 16, "%{public}s: _codex_import_core_continue failed to check 'data' property on manifest", COERCE_DOUBLE(136446210), &buf, 12);
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    v13 = "com.apple.security.cryptex";
-    v14 = 650;
-    v15 = 14;
-    v16 = v5;
-    goto LABEL_25;
+    else
+    {
+      v30 = *(v2 + 56);
+      if (!v30)
+      {
+        v30 = "[anonymous]";
+      }
+
+      buf = 136446210;
+      v178 = v30;
+      v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: _codex_import_core_continue failed to check 'data' property on manifest", COERCE_DOUBLE(136446210), &buf, 12);
+    }
+
+    v18 = v15;
+    v19 = "com.apple.security.cryptex";
+    v20 = 650;
+    v21 = 14;
+    v22 = v5;
+    goto LABEL_34;
   }
 
   info_asset = cryptex_core_get_info_asset();
   if (!info_asset)
   {
-    v29 = *(v2 + 7);
-    v30 = *__error();
-    v31 = *(v2 + 9);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v39 = *(v2 + 56);
+    v40 = *__error();
+    v41 = *(v2 + 72);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v32 = "[anonymous]";
-      if (v29)
+      v42 = "[anonymous]";
+      if (v39)
       {
-        v32 = v29;
+        v42 = v39;
       }
 
       buf = 136446210;
-      v134 = v32;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "%{public}s: no Info.plist found in core, generating adhoc one", &buf, 0xCu);
+      v178 = v42;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "%{public}s: no Info.plist found in core, generating adhoc one", &buf, 0xCu);
     }
 
-    *__error() = v30;
+    *__error() = v40;
     identifier = cryptex_core_generate_identifier();
     version = cryptex_core_generate_version();
-    v111 = identifier;
-    v35 = xpc_string_create(identifier);
-    v114 = version;
-    v36 = xpc_string_create(version);
+    v155 = identifier;
+    v45 = xpc_string_create(identifier);
+    v158 = version;
+    v46 = xpc_string_create(version);
     keys = *off_100072CF8;
-    values[0] = v35;
-    values[1] = v36;
-    v37 = xpc_dictionary_create(&keys, values, 2uLL);
-    if (os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_DEBUG))
+    values[0] = v45;
+    values[1] = v46;
+    v47 = xpc_dictionary_create(&keys, values, 2uLL);
+    if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_DEBUG))
     {
-      v109 = v37;
-      v107 = xpc_copy_description(v37);
-      v38 = *(v2 + 7);
+      v153 = v47;
+      v151 = xpc_copy_description(v47);
+      v48 = *(v2 + 56);
       log = *__error();
-      v39 = *(v2 + 9);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v49 = *(v2 + 72);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
-        v40 = "[anonymous]";
-        if (v38)
+        v50 = "[anonymous]";
+        if (v48)
         {
-          v40 = v38;
+          v50 = v48;
         }
 
         buf = 136446466;
-        v134 = v40;
-        v135 = 2080;
-        v136 = v107;
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "%{public}s: generated Info.plist: %s", &buf, 0x16u);
+        v178 = v50;
+        v179 = 2080;
+        v180 = v151;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "%{public}s: generated Info.plist: %s", &buf, 0x16u);
       }
 
       *__error() = log;
-      free(v107);
-      v37 = v109;
+      free(v151);
+      v47 = v153;
     }
 
-    if (v36)
+    if (v46)
     {
-      os_release(v36);
+      os_release(v46);
     }
 
     v5 = 0;
-    if (v35)
+    if (v45)
     {
-      os_release(v35);
+      os_release(v45);
     }
 
-    free(v114);
-    v41 = 0;
-    goto LABEL_67;
+    free(v158);
+    v51 = 0;
+    goto LABEL_76;
   }
 
   if (v6)
   {
-    v18 = info_asset;
-    if (*(v2 + 9))
+    v24 = info_asset;
+    v25 = *(v2 + 72);
+    if (v25)
     {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v19 = *(v2 + 7);
-      v20 = *(*(v18 + 8) + 40);
-      if (!v19)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v19 = "[anonymous]";
-      }
-
-      buf = 136446466;
-      v134 = v19;
-      v135 = 2080;
-      v136 = v20;
-    }
-
-    else
-    {
-      v54 = "[anonymous]";
-      if (*(v2 + 7))
-      {
-        v54 = *(v2 + 7);
-      }
-
-      v55 = *(*(info_asset + 8) + 40);
-      buf = 136446466;
-      v134 = v54;
-      v135 = 2080;
-      v136 = v55;
-    }
-
-    v56 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_import_core_continue", "codex.c", 661, "com.apple.security.cryptex", 14, v6, v56);
-    free(v56);
-    v23 = 0;
-    v24 = 0;
-    v113 = 0;
-    v25 = 0;
-    v5 = 0;
-    goto LABEL_27;
-  }
-
-  v48 = xpc_create_from_plist();
-  if (!v48)
-  {
-    v5 = 0;
-    if (*(v2 + 9))
-    {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v57 = *(v2 + 7);
-      if (!v57)
-      {
-        v57 = "[anonymous]";
-      }
-    }
-
-    else
-    {
-      v57 = *(v2 + 7);
-      if (!v57)
-      {
-        v57 = "[anonymous]";
-      }
-    }
-
-    buf = 136446466;
-    v134 = v57;
-    v135 = 1024;
-    LODWORD(v136) = 212;
-    v12 = _os_log_send_and_compose_impl();
-    v13 = "com.apple.security.cryptex.posix";
-    v14 = 669;
-    v15 = 212;
-    v16 = 0;
-    goto LABEL_25;
-  }
-
-  v41 = v48;
-  v5 = 0;
-  if (xpc_get_type(v48) != &_xpc_type_dictionary)
-  {
-    v49 = xpc_copy_description(v41);
-    v50 = v49;
-    v51 = *(v2 + 9);
-    v113 = v41;
-    if (v51)
-    {
-      os_log_type_enabled(v51, OS_LOG_TYPE_ERROR);
-      v52 = *(v2 + 7);
-      buf = 136446722;
-      if (v52)
-      {
-        v53 = v52;
+        v26 = 3;
       }
 
       else
       {
-        v53 = "[anonymous]";
+        v26 = 2;
       }
 
-      v134 = v53;
-      v135 = 2080;
-      v136 = v50;
-      v137 = 1024;
-      LODWORD(v138) = 212;
+      v27 = *(v2 + 56);
+      v28 = *(*(v24 + 8) + 40);
+      if (!v27)
+      {
+        v27 = "[anonymous]";
+      }
+
+      buf = 136446466;
+      v178 = v27;
+      v179 = 2080;
+      v180 = v28;
+      v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, v25, 16, "%{public}s: _codex_import_core_continue failed with invalid asset: %s", COERCE_DOUBLE(136446466), &buf, 22);
     }
 
     else
     {
-      v62 = "[anonymous]";
-      if (*(v2 + 7))
+      v67 = "[anonymous]";
+      if (*(v2 + 56))
       {
-        v62 = *(v2 + 7);
+        v67 = *(v2 + 56);
       }
 
-      buf = 136446722;
-      v134 = v62;
-      v135 = 2080;
-      v136 = v49;
-      v137 = 1024;
-      LODWORD(v138) = 212;
+      v68 = *(*(info_asset + 8) + 40);
+      buf = 136446466;
+      v178 = v67;
+      v179 = 2080;
+      v180 = v68;
+      v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: _codex_import_core_continue failed with invalid asset: %s", COERCE_DOUBLE(136446466), &buf, 22);
     }
 
-    v63 = _os_log_send_and_compose_impl();
-    v64 = 679;
-    v65 = 212;
-    goto LABEL_136;
+    v69 = v29;
+    Error = createError("_codex_import_core_continue", "codex.c", 661, "com.apple.security.cryptex", 14, v6, v29);
+    free(v69);
+    v33 = 0;
+    v34 = 0;
+    v157 = 0;
+    v35 = 0;
+    v5 = 0;
+    goto LABEL_36;
   }
 
-  if (os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_DEBUG))
+  v58 = xpc_create_from_plist();
+  if (!v58)
   {
-    v111 = xpc_copy_description(v41);
-    v58 = *(v2 + 7);
-    v59 = *__error();
-    v60 = *(v2 + 9);
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+    v70 = *(v2 + 72);
+    v5 = 0;
+    if (v70)
     {
-      v61 = "[anonymous]";
-      if (v58)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v61 = v58;
+        v71 = 3;
+      }
+
+      else
+      {
+        v71 = 2;
+      }
+
+      v72 = *(v2 + 56);
+      if (!v72)
+      {
+        v72 = "[anonymous]";
       }
 
       buf = 136446466;
-      v134 = v61;
-      v135 = 2080;
-      v136 = v111;
-      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "%{public}s: importing Info.plist: %s", &buf, 0x16u);
+      v178 = v72;
+      v179 = 1024;
+      LODWORD(v180) = 212;
+      v73 = _os_log_send_and_compose_impl(v71, 0, 0, 0, &_mh_execute_header, v70, 16, "%{public}s: invalid Info.plist %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
     }
 
-    *__error() = v59;
-    v37 = v41;
-    v5 = 0;
-LABEL_67:
-    free(v111);
-    goto LABEL_68;
+    else
+    {
+      v82 = *(v2 + 56);
+      if (!v82)
+      {
+        v82 = "[anonymous]";
+      }
+
+      buf = 136446466;
+      v178 = v82;
+      v179 = 1024;
+      LODWORD(v180) = 212;
+      v73 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: invalid Info.plist %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
+    }
+
+    v18 = v73;
+    v19 = "com.apple.security.cryptex.posix";
+    v20 = 669;
+    v21 = 212;
+    v22 = 0;
+    goto LABEL_34;
   }
 
-  v37 = v41;
-LABEL_68:
-  v113 = v41;
-  if (!context)
+  v51 = v58;
+  v5 = 0;
+  if (xpc_get_type(v58) != &_xpc_type_dictionary)
   {
-    v42 = daemon_copy();
-    v43 = v42;
-    v44 = v42[37];
-    if (!v44)
+    v59 = xpc_copy_description(v51);
+    v60 = v59;
+    v61 = *(v2 + 72);
+    v157 = v51;
+    if (v61)
     {
-      goto LABEL_115;
+      v62 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+      v63 = *(v2 + 56);
+      if (v62)
+      {
+        v64 = 3;
+      }
+
+      else
+      {
+        v64 = 2;
+      }
+
+      buf = 136446722;
+      if (v63)
+      {
+        v65 = v63;
+      }
+
+      else
+      {
+        v65 = "[anonymous]";
+      }
+
+      v178 = v65;
+      v179 = 2080;
+      v180 = v60;
+      v181 = 1024;
+      LODWORD(v182) = 212;
+      v66 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &_mh_execute_header, v61, 16, "%{public}s: Info.plist invalid root type: %s %{darwin.errno}d", COERCE_DOUBLE(136446722), &buf, 28);
     }
 
-    v110 = v37;
-    v112 = v42;
-    v45 = v42 + 37;
+    else
+    {
+      v78 = "[anonymous]";
+      if (*(v2 + 56))
+      {
+        v78 = *(v2 + 56);
+      }
+
+      buf = 136446722;
+      v178 = v78;
+      v179 = 2080;
+      v180 = v59;
+      v181 = 1024;
+      LODWORD(v182) = 212;
+      v66 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Info.plist invalid root type: %s %{darwin.errno}d", COERCE_DOUBLE(136446722), &buf, 28);
+    }
+
+    v79 = v66;
+    v80 = 679;
+    v81 = 212;
+    goto LABEL_158;
+  }
+
+  if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_DEBUG))
+  {
+    v155 = xpc_copy_description(v51);
+    v74 = *(v2 + 56);
+    v75 = *__error();
+    v76 = *(v2 + 72);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+    {
+      v77 = "[anonymous]";
+      if (v74)
+      {
+        v77 = v74;
+      }
+
+      buf = 136446466;
+      v178 = v77;
+      v179 = 2080;
+      v180 = v155;
+      _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "%{public}s: importing Info.plist: %s", &buf, 0x16u);
+    }
+
+    *__error() = v75;
+    v47 = v51;
+    v5 = 0;
+LABEL_76:
+    free(v155);
+    goto LABEL_77;
+  }
+
+  v47 = v51;
+LABEL_77:
+  v157 = v51;
+  if (!context)
+  {
+    v52 = daemon_copy();
+    v53 = v52;
+    v54 = v52[37];
+    if (!v54)
+    {
+      goto LABEL_131;
+    }
+
+    v154 = v47;
+    v156 = v52;
+    v55 = v52 + 37;
     while (1)
     {
-      v46 = *v44;
-      v47 = v3[20];
+      v56 = *v54;
+      v57 = v3[20];
       *&keys = 0;
       cryptex_core_parse_info_asset();
-      if (!memcmp((v47 + 112), v44 + 3335, 0x30uLL) && _streq_optional(keys, v44 + 8))
+      if (!memcmp((v57 + 112), v54 + 3335, 0x30uLL) && _streq_optional(keys, v54 + 8))
       {
         break;
       }
 
       free(keys);
-      v44 = v46;
-      if (!v46)
+      v54 = v56;
+      if (!v56)
       {
-        v43 = v112;
-        goto LABEL_114;
+        v53 = v156;
+        goto LABEL_130;
       }
     }
 
-    v66 = *(v2 + 7);
-    v108 = *__error();
-    loga = *(v2 + 9);
+    v83 = *(v2 + 56);
+    v152 = *__error();
+    loga = *(v2 + 72);
     if (os_log_type_enabled(loga, OS_LOG_TYPE_DEBUG))
     {
-      v67 = "[anonymous]";
+      v84 = "[anonymous]";
       buf = 136446722;
-      if (v66)
+      if (v83)
       {
-        v67 = v66;
+        v84 = v83;
       }
 
-      v134 = v67;
-      v135 = 2080;
-      v136 = v44 + 8;
-      v137 = 2080;
-      v138 = v44 + 3383;
+      v178 = v84;
+      v179 = 2080;
+      v180 = v54 + 8;
+      v181 = 2080;
+      v182 = v54 + 3383;
       _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_DEBUG, "%{public}s: found forerunner; will carry on the legacy: name = %s, hash = %s", &buf, 0x20u);
     }
 
-    *__error() = v108;
-    v68 = *v45;
-    if (*v45 == v44)
+    *__error() = v152;
+    v85 = *v55;
+    if (*v55 == v54)
     {
-      v43 = v112;
+      v53 = v156;
     }
 
     else
     {
-      v43 = v112;
+      v53 = v156;
       do
       {
-        v45 = v68;
-        v68 = *v68;
+        v55 = v85;
+        v85 = *v85;
       }
 
-      while (v68 != v44);
+      while (v85 != v54);
     }
 
-    *v45 = *v68;
-    *v44 = -1;
+    *v55 = *v85;
+    *v54 = -1;
     free(keys);
-LABEL_114:
-    v37 = v110;
-    if (v43)
+LABEL_130:
+    v47 = v154;
+    if (v53)
     {
-LABEL_115:
-      os_release(v43);
+LABEL_131:
+      os_release(v53);
     }
 
-    v118 = v44;
+    v162 = v54;
     v5 = 0;
   }
 
-  v69 = v3[27];
-  if (v69)
+  v86 = v3[27];
+  if (v86)
   {
-    LOBYTE(v69) = *(v69 + 64);
+    LOBYTE(v86) = *(v86 + 64);
   }
 
-  attr = quire_make_attr(v37, &v118, &v119, v69 & 1);
+  attr = quire_make_attr(v47, &v162, &v163, v86 & 1);
   if (attr)
   {
-    v71 = attr;
-    v72 = xpc_copy_description(v37);
-    v50 = v72;
-    v73 = v71;
-    if (*(v2 + 9))
+    v88 = attr;
+    v89 = xpc_copy_description(v47);
+    v60 = v89;
+    v90 = v88;
+    v91 = *(v2 + 72);
+    if (v91)
     {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v74 = *(v2 + 7);
-      buf = 136446722;
-      if (!v74)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v74 = "[anonymous]";
+        v92 = 3;
       }
 
-      v134 = v74;
-      v135 = 2080;
-      v136 = v50;
-      v137 = 1024;
-      LODWORD(v138) = v71;
+      else
+      {
+        v92 = 2;
+      }
+
+      v93 = *(v2 + 56);
+      buf = 136446722;
+      if (!v93)
+      {
+        v93 = "[anonymous]";
+      }
+
+      v178 = v93;
+      v179 = 2080;
+      v180 = v60;
+      v181 = 1024;
+      LODWORD(v182) = v88;
+      v94 = _os_log_send_and_compose_impl(v92, 0, 0, 0, &_mh_execute_header, v91, 16, "%{public}s: Info.plist invalid contents: %s %{darwin.errno}d", &buf, 28);
     }
 
     else
     {
-      v77 = *(v2 + 7);
-      if (!v77)
+      v100 = *(v2 + 56);
+      if (!v100)
       {
-        v77 = "[anonymous]";
+        v100 = "[anonymous]";
       }
 
       buf = 136446722;
-      v134 = v77;
-      v135 = 2080;
-      v136 = v72;
-      v137 = 1024;
-      LODWORD(v138) = v71;
+      v178 = v100;
+      v179 = 2080;
+      v180 = v89;
+      v181 = 1024;
+      LODWORD(v182) = v88;
+      v94 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Info.plist invalid contents: %s %{darwin.errno}d", &buf, 28);
     }
 
-    v63 = _os_log_send_and_compose_impl();
-    v64 = 713;
-LABEL_135:
-    v65 = v73;
-LABEL_136:
-    Error = createError("_codex_import_core_continue", "codex.c", v64, "com.apple.security.cryptex.posix", v65, 0, v63);
-    free(v63);
-LABEL_137:
-    v78 = v50;
-LABEL_138:
-    free(v78);
-    v23 = 0;
-LABEL_149:
-    v24 = 0;
-    goto LABEL_26;
+    v79 = v94;
+    v80 = 713;
+LABEL_157:
+    v81 = v90;
+LABEL_158:
+    Error = createError("_codex_import_core_continue", "codex.c", v80, "com.apple.security.cryptex.posix", v81, 0, v79);
+    free(v79);
+LABEL_159:
+    v101 = v60;
+LABEL_160:
+    free(v101);
+    v33 = 0;
+LABEL_175:
+    v34 = 0;
+    goto LABEL_35;
   }
 
-  v75 = codex_copy_quire(v2, v119, 0);
-  if (v75)
+  v95 = codex_copy_quire(v2, v163, 0);
+  if (v95)
   {
-    v23 = v75;
+    v33 = v95;
     if (context)
     {
-      context[5] = os_retain(v75);
+      context[5] = os_retain(v95);
     }
 
-    if (*(v2 + 9))
+    v96 = *(v2 + 72);
+    if (v96)
     {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v76 = *(v2 + 7);
-      if (!v76)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v76 = "[anonymous]";
+        v97 = 3;
       }
+
+      else
+      {
+        v97 = 2;
+      }
+
+      v98 = *(v2 + 56);
+      if (!v98)
+      {
+        v98 = "[anonymous]";
+      }
+
+      buf = 136446466;
+      v178 = v98;
+      v179 = 2080;
+      v180 = v163;
+      v99 = _os_log_send_and_compose_impl(v97, 0, 0, 0, &_mh_execute_header, v96, 16, "%{public}s: cryptex already exists: %s", COERCE_DOUBLE(136446466), &buf, 22);
     }
 
     else
     {
-      v76 = *(v2 + 7);
-      if (!v76)
+      v109 = *(v2 + 56);
+      if (!v109)
       {
-        v76 = "[anonymous]";
+        v109 = "[anonymous]";
       }
+
+      buf = 136446466;
+      v178 = v109;
+      v179 = 2080;
+      v180 = v163;
+      v99 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: cryptex already exists: %s", COERCE_DOUBLE(136446466), &buf, 22);
     }
 
-    buf = 136446466;
-    v134 = v76;
-    v135 = 2080;
-    v136 = v119;
-    v83 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_import_core_continue", "codex.c", 725, "com.apple.security.cryptex", 17, 0, v83);
-    free(v83);
-    goto LABEL_149;
+    v110 = v99;
+    Error = createError("_codex_import_core_continue", "codex.c", 725, "com.apple.security.cryptex", 17, 0, v99);
+    free(v110);
+    goto LABEL_175;
   }
 
   if (xpc_dictionary_get_array(xdict[1], "Dependencies"))
   {
     if (!context)
     {
-      if (*(v2 + 9))
+      v125 = *(v2 + 72);
+      if (v125)
       {
-        os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-        v92 = *(v2 + 7);
-        if (!v92)
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
         {
-          v92 = "[anonymous]";
+          v126 = 3;
         }
+
+        else
+        {
+          v126 = 2;
+        }
+
+        v127 = *(v2 + 56);
+        if (!v127)
+        {
+          v127 = "[anonymous]";
+        }
+
+        buf = 136446466;
+        v178 = v127;
+        v179 = 1024;
+        LODWORD(v180) = 45;
+        v128 = _os_log_send_and_compose_impl(v126, 0, 0, 0, &_mh_execute_header, v125, 16, "%{public}s: unable to install cryptex with dependencies without UID from codex_install_state %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
       }
 
       else
       {
-        v92 = *(v2 + 7);
-        if (!v92)
+        v130 = *(v2 + 56);
+        if (!v130)
         {
-          v92 = "[anonymous]";
+          v130 = "[anonymous]";
         }
+
+        buf = 136446466;
+        v178 = v130;
+        v179 = 1024;
+        LODWORD(v180) = 45;
+        v128 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: unable to install cryptex with dependencies without UID from codex_install_state %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
       }
 
-      buf = 136446466;
-      v134 = v92;
-      v135 = 1024;
-      LODWORD(v136) = 45;
-      v50 = _os_log_send_and_compose_impl();
-      v94 = "com.apple.security.cryptex.posix";
-      v95 = 737;
-      v96 = 45;
-      goto LABEL_173;
+      v60 = v128;
+      v131 = "com.apple.security.cryptex.posix";
+      v132 = 737;
+      v133 = 45;
+      goto LABEL_209;
     }
 
-    v79 = quire_attr_populate_dependencies(&v119, *(context + 18));
-    if (v79)
+    v102 = quire_attr_populate_dependencies(&v163, *(context + 18));
+    if (v102)
     {
-      v80 = v79;
-      v81 = xpc_copy_description(v37);
-      v50 = v81;
-      v73 = v80;
-      if (*(v2 + 9))
+      v103 = v102;
+      v104 = xpc_copy_description(v47);
+      v60 = v104;
+      v90 = v103;
+      v105 = *(v2 + 72);
+      if (v105)
       {
-        os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-        v82 = *(v2 + 7);
-        buf = 136446722;
-        if (!v82)
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
         {
-          v82 = "[anonymous]";
+          v106 = 3;
         }
 
-        v134 = v82;
-        v135 = 2080;
-        v136 = v50;
-        v137 = 1024;
-        LODWORD(v138) = v80;
+        else
+        {
+          v106 = 2;
+        }
+
+        v107 = *(v2 + 56);
+        buf = 136446722;
+        if (!v107)
+        {
+          v107 = "[anonymous]";
+        }
+
+        v178 = v107;
+        v179 = 2080;
+        v180 = v60;
+        v181 = 1024;
+        LODWORD(v182) = v103;
+        v108 = _os_log_send_and_compose_impl(v106, 0, 0, 0, &_mh_execute_header, v105, 16, "%{public}s: Failed to satisfy dependencies from Info.plist: %s %{darwin.errno}d", &buf, 28);
       }
 
       else
       {
-        v93 = *(v2 + 7);
-        if (!v93)
+        v129 = *(v2 + 56);
+        if (!v129)
         {
-          v93 = "[anonymous]";
+          v129 = "[anonymous]";
         }
 
         buf = 136446722;
-        v134 = v93;
-        v135 = 2080;
-        v136 = v81;
-        v137 = 1024;
-        LODWORD(v138) = v80;
+        v178 = v129;
+        v179 = 2080;
+        v180 = v104;
+        v181 = 1024;
+        LODWORD(v182) = v103;
+        v108 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to satisfy dependencies from Info.plist: %s %{darwin.errno}d", &buf, 28);
       }
 
-      v63 = _os_log_send_and_compose_impl();
-      v64 = 749;
-      goto LABEL_135;
+      v79 = v108;
+      v80 = 749;
+      goto LABEL_157;
     }
   }
 
   if (xpc_dictionary_get_array(xdict[1], "LimitInstallToApps"))
   {
-    v84 = quire_attr_enforce_install_limits(&v119);
-    if (v84)
+    v111 = quire_attr_enforce_install_limits(&v163);
+    if (v111)
     {
-      v25 = v84;
-      v85 = xpc_copy_description(v37);
-      v86 = v85;
-      if (*(v2 + 9))
+      v35 = v111;
+      v112 = xpc_copy_description(v47);
+      v113 = v112;
+      v114 = *(v2 + 72);
+      if (v114)
       {
-        os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-        v87 = *(v2 + 7);
-        buf = 136446722;
-        if (!v87)
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
         {
-          v87 = "[anonymous]";
+          v115 = 3;
         }
 
-        v134 = v87;
-        v135 = 2082;
-        v136 = v119;
-        v137 = 2080;
-        v138 = v86;
+        else
+        {
+          v115 = 2;
+        }
+
+        v116 = *(v2 + 56);
+        buf = 136446722;
+        if (!v116)
+        {
+          v116 = "[anonymous]";
+        }
+
+        v178 = v116;
+        v179 = 2082;
+        v180 = v163;
+        v181 = 2080;
+        v182 = v113;
+        v117 = _os_log_send_and_compose_impl(v115, 0, 0, 0, &_mh_execute_header, v114, 16, "%{public}s: Installing cryptex %{public}s is disallowed because it violates install limits in secure config.plist: %s", &buf, 32);
       }
 
       else
       {
-        v97 = *(v2 + 7);
-        if (!v97)
+        v134 = *(v2 + 56);
+        if (!v134)
         {
-          v97 = "[anonymous]";
+          v134 = "[anonymous]";
         }
 
         buf = 136446722;
-        v134 = v97;
-        v135 = 2082;
-        v136 = v119;
-        v137 = 2080;
-        v138 = v85;
+        v178 = v134;
+        v179 = 2082;
+        v180 = v163;
+        v181 = 2080;
+        v182 = v112;
+        v117 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Installing cryptex %{public}s is disallowed because it violates install limits in secure config.plist: %s", &buf, 32);
       }
 
-      v98 = _os_log_send_and_compose_impl();
-      Error = createError("_codex_import_core_continue", "codex.c", 764, "com.apple.security.cryptex", 15, 0, v98);
-      free(v98);
-      free(v86);
-      v23 = 0;
-      v24 = 0;
-      goto LABEL_27;
+      v135 = v117;
+      Error = createError("_codex_import_core_continue", "codex.c", 764, "com.apple.security.cryptex", 15, 0, v117);
+      free(v135);
+      free(v113);
+      v33 = 0;
+      v34 = 0;
+      goto LABEL_36;
     }
   }
 
-  if (v128 == 1)
+  if (v172 == 1)
   {
-    v88 = developer_mode_get(&v117);
-    if (v88)
+    v118 = developer_mode_get(&v161);
+    if (v118)
     {
-      v89 = v88;
-      v90 = v88;
-      if (*(v2 + 9))
+      v119 = v118;
+      v120 = v118;
+      v121 = *(v2 + 72);
+      if (v121)
       {
-        os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-        v91 = *(v2 + 7);
-        if (!v91)
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
         {
-          v91 = "[anonymous]";
+          v122 = 3;
+        }
+
+        else
+        {
+          v122 = 2;
+        }
+
+        v123 = *(v2 + 56);
+        if (!v123)
+        {
+          v123 = "[anonymous]";
         }
 
         buf = 136446466;
-        v134 = v91;
-        v135 = 1024;
-        LODWORD(v136) = v89;
+        v178 = v123;
+        v179 = 1024;
+        LODWORD(v180) = v119;
+        v124 = _os_log_send_and_compose_impl(v122, 0, 0, 0, &_mh_execute_header, v121, 16, "%{public}s: Failed to read developer mode status %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
       }
 
       else
       {
-        v100 = *(v2 + 7);
-        if (!v100)
+        v137 = *(v2 + 56);
+        if (!v137)
         {
-          v100 = "[anonymous]";
+          v137 = "[anonymous]";
         }
 
         buf = 136446466;
-        v134 = v100;
-        v135 = 1024;
-        LODWORD(v136) = v88;
+        v178 = v137;
+        v179 = 1024;
+        LODWORD(v180) = v118;
+        v124 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to read developer mode status %{darwin.errno}d", COERCE_DOUBLE(136446466), &buf, 18);
       }
 
-      v101 = _os_log_send_and_compose_impl();
-      Error = createError("_codex_import_core_continue", "codex.c", 774, "com.apple.security.cryptex.posix", v90, 0, v101);
-      v78 = v101;
-      goto LABEL_138;
+      v138 = v124;
+      Error = createError("_codex_import_core_continue", "codex.c", 774, "com.apple.security.cryptex.posix", v120, 0, v124);
+      v101 = v138;
+      goto LABEL_160;
     }
 
-    if (!v117)
+    if (!v161)
     {
-      if (*(v2 + 9))
+      v139 = *(v2 + 72);
+      if (v139)
       {
-        os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-        v102 = *(v2 + 7);
-        if (!v102)
+        if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
         {
-          v102 = "[anonymous]";
+          v140 = 3;
         }
+
+        else
+        {
+          v140 = 2;
+        }
+
+        v141 = *(v2 + 56);
+        if (!v141)
+        {
+          v141 = "[anonymous]";
+        }
+
+        buf = 136446466;
+        v178 = v141;
+        v179 = 2082;
+        v180 = v163;
+        v142 = _os_log_send_and_compose_impl(v140, 0, 0, 0, &_mh_execute_header, v139, 16, "%{public}s: Installing cryptex %{public}s is disallowed because developer mode is not enabled.", COERCE_DOUBLE(136446466), &buf, 22);
       }
 
       else
       {
-        v102 = *(v2 + 7);
-        if (!v102)
+        v147 = *(v2 + 56);
+        if (!v147)
         {
-          v102 = "[anonymous]";
+          v147 = "[anonymous]";
         }
+
+        buf = 136446466;
+        v178 = v147;
+        v179 = 2082;
+        v180 = v163;
+        v142 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Installing cryptex %{public}s is disallowed because developer mode is not enabled.", COERCE_DOUBLE(136446466), &buf, 22);
       }
 
-      buf = 136446466;
-      v134 = v102;
-      v135 = 2082;
-      v136 = v119;
-      v50 = _os_log_send_and_compose_impl();
-      v94 = "com.apple.security.cryptex";
-      v95 = 780;
-      v96 = 20;
-      goto LABEL_173;
+      v60 = v142;
+      v131 = "com.apple.security.cryptex";
+      v132 = 780;
+      v133 = 20;
+      goto LABEL_209;
     }
   }
 
-  v99 = xpc_dictionary_get_BOOL(xdict[1], "NoCode");
-  if (cryptex_core_is_cryptex1() && (v3[5] & 1) == 0 && ((v99 ^ ((v3[5] & 4) == 0)) & 1) == 0)
+  v136 = xpc_dictionary_get_BOOL(xdict[1], "NoCode");
+  if (cryptex_core_is_cryptex1() && (v3[5] & 1) == 0 && ((v136 ^ ((v3[5] & 4) == 0)) & 1) == 0)
   {
-    if (*(v2 + 9))
+    v143 = *(v2 + 72);
+    if (v143)
     {
-      os_log_type_enabled(*(v2 + 9), OS_LOG_TYPE_ERROR);
-      v103 = *(v2 + 7);
-      if (!v103)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v103 = "[anonymous]";
+        v144 = 3;
+      }
+
+      else
+      {
+        v144 = 2;
+      }
+
+      v145 = *(v2 + 56);
+      if (!v145)
+      {
+        v145 = "[anonymous]";
       }
 
       buf = 136446210;
-      v134 = v103;
+      v178 = v145;
+      v146 = _os_log_send_and_compose_impl(v144, 0, 0, 0, &_mh_execute_header, v143, 16, "%{public}s: Cryptex info plist 'NoCode' setting mismatches the 'data' entitlement in the personalization ticket.", COERCE_DOUBLE(136446210), &buf, 12);
     }
 
     else
     {
-      v104 = *(v2 + 7);
-      if (!v104)
+      v148 = *(v2 + 56);
+      if (!v148)
       {
-        v104 = "[anonymous]";
+        v148 = "[anonymous]";
       }
 
       buf = 136446210;
-      v134 = v104;
+      v178 = v148;
+      v146 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Cryptex info plist 'NoCode' setting mismatches the 'data' entitlement in the personalization ticket.", COERCE_DOUBLE(136446210), &buf, 12);
     }
 
-    v50 = _os_log_send_and_compose_impl();
-    v94 = "com.apple.security.cryptex";
-    v95 = 802;
-    v96 = 11;
-LABEL_173:
-    Error = createError("_codex_import_core_continue", "codex.c", v95, v94, v96, 0, v50);
-    goto LABEL_137;
+    v60 = v146;
+    v131 = "com.apple.security.cryptex";
+    v132 = 802;
+    v133 = 11;
+LABEL_209:
+    Error = createError("_codex_import_core_continue", "codex.c", v132, v131, v133, 0, v60);
+    goto LABEL_159;
   }
 
-  if (v99 || (v3[5] & 4) != 0)
+  if (v136 || (v3[5] & 4) != 0)
   {
-    quire_attr_disallow_code(&v119);
+    quire_attr_disallow_code(&v163);
   }
 
-  v24 = quire_create(v2, v3, &v119, 4);
+  v34 = quire_create(v2, v3, &v163, 4);
   cryptex_set_target_object();
   cryptex_activate();
-  _codex_insert_installed(v2, v24);
+  _codex_insert_installed(v2, v34);
   if (!context)
   {
-    v23 = 0;
+    v33 = 0;
     Error = 0;
-    goto LABEL_26;
+    goto LABEL_35;
   }
 
-  v23 = 0;
+  v33 = 0;
   Error = 0;
-  v25 = 0;
-  context[5] = os_retain(v24);
-LABEL_27:
-  buff_destroy(v129);
-  quire_destroy_attr(&v119);
-  v26 = *(a1 + 40);
-  v28 = *(a1 + 136);
-  v27 = *(a1 + 144);
-  if (v27)
+  v35 = 0;
+  context[5] = os_retain(v34);
+LABEL_36:
+  buff_destroy(v173, v32);
+  quire_destroy_attr(&v163);
+  v36 = a1[2].n128_u64[1];
+  v38 = a1[8].n128_u64[1];
+  v37 = a1[9].n128_u64[0];
+  if (v37)
   {
-    v27(v2, *(a1 + 40), v24, Error);
+    v37(v2, a1[2].n128_u64[1], v34, Error);
   }
 
-  _codex_deactivate(v2, v28);
+  _codex_deactivate(v2, v38);
   ctx_destroy(a1);
-  if (v26)
+  if (v36)
   {
-    os_release(v26);
+    os_release(v36);
   }
 
   if (context)
@@ -2061,24 +3078,24 @@ LABEL_27:
 
     else
     {
-      dispatch_async_f(*(v2 + 12), context, _codex_install_continue4);
+      dispatch_async_f(*(v2 + 96), context, _codex_install_continue4);
     }
   }
 
-  free(v118);
-  if (v23)
+  free(v162);
+  if (v33)
   {
-    os_release(v23);
+    os_release(v33);
   }
 
-  if (v24)
+  if (v34)
   {
-    os_release(v24);
+    os_release(v34);
   }
 
-  if (v113)
+  if (v157)
   {
-    os_release(v113);
+    os_release(v157);
   }
 
   if (Error)
@@ -2086,14 +3103,14 @@ LABEL_27:
     CFRelease(Error);
   }
 
-  if (v25)
+  if (v35)
   {
-    CFRelease(v25);
+    CFRelease(v35);
   }
 
-  if (v115)
+  if (v159)
   {
-    CFRelease(v115);
+    CFRelease(v159);
   }
 
   if (v5)
@@ -2144,7 +3161,7 @@ uint64_t _codex_insert_installed(uint64_t a1, void *a2)
   v10 = malloc_type_calloc(1uLL, 0x30uLL, 0x8709206FuLL);
   if (!v10)
   {
-    _codex_insert_installed_cold_2(&v15, buf);
+    _codex_insert_installed_cold_2(v15, buf);
   }
 
   v11 = v10;
@@ -2167,7 +3184,7 @@ uint64_t _codex_insert_installed(uint64_t a1, void *a2)
     v12 = strdup(v4);
     if (!v12)
     {
-      _codex_insert_installed_cold_1(v4, &v15, buf);
+      _codex_insert_installed_cold_1(v4, v15, buf);
     }
   }
 
@@ -2197,11 +3214,11 @@ uint64_t _codex_install_continue4(void *a1)
       v9 = v6;
     }
 
-    v23 = v9;
-    v24 = 2080;
-    v25 = v4;
-    v26 = 2080;
-    v27 = v5;
+    *&buf[4] = v9;
+    *&buf[12] = 2080;
+    *&buf[14] = v4;
+    *&buf[22] = 2080;
+    v30 = v5;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%{public}s: renaming: src = %s, dst = %s", buf, 0x20u);
   }
 
@@ -2216,78 +3233,108 @@ uint64_t _codex_install_continue4(void *a1)
   {
     v11 = *__error();
     v12 = v11;
-    if (*(v2 + 72))
+    v13 = *(v2 + 72);
+    if (v13)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
-      v13 = *(v2 + 56);
-      if (!v13)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v13 = "[anonymous]";
+        v14 = 3;
       }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v15 = *(v2 + 56);
+      if (!v15)
+      {
+        v15 = "[anonymous]";
+      }
+
+      *buf = 136446466;
+      *&buf[4] = v15;
+      *&buf[12] = 1024;
+      *&buf[14] = v11;
+      v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, v13, 16, "%{public}s: renameat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
     else
     {
-      v13 = *(v2 + 56);
-      if (!v13)
+      v23 = *(v2 + 56);
+      if (!v23)
       {
-        v13 = "[anonymous]";
+        v23 = "[anonymous]";
       }
+
+      *buf = 136446466;
+      *&buf[4] = v23;
+      *&buf[12] = 1024;
+      *&buf[14] = v11;
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: renameat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
-    *buf = 136446466;
-    v23 = v13;
-    v24 = 1024;
-    LODWORD(v25) = v11;
-    v17 = _os_log_send_and_compose_impl();
-    v18 = 1152;
-LABEL_25:
-    Error = createError("_codex_install_continue4", "codex.c", v18, "com.apple.security.cryptex.posix", v12, 0, v17);
-    free(v17);
-    goto LABEL_26;
+    v24 = v16;
+    v25 = 1152;
+LABEL_32:
+    Error = createError("_codex_install_continue4", "codex.c", v25, "com.apple.security.cryptex.posix", v12, 0, v24);
+    free(v24);
+    goto LABEL_33;
   }
 
-  v14 = _codex_broadcast_event(v3, 2);
-  if (v14)
+  v17 = _codex_broadcast_event(v3, 2);
+  if (v17)
   {
-    v15 = v14;
-    v12 = v14;
-    if (*(v2 + 72))
+    v18 = v17;
+    v12 = v17;
+    v19 = *(v2 + 72);
+    if (v19)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
-      v16 = *(v2 + 56);
-      if (!v16)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v16 = "[anonymous]";
+        v20 = 3;
+      }
+
+      else
+      {
+        v20 = 2;
+      }
+
+      v21 = *(v2 + 56);
+      if (!v21)
+      {
+        v21 = "[anonymous]";
       }
 
       *buf = 136446466;
-      v23 = v16;
-      v24 = 1024;
-      LODWORD(v25) = v15;
+      *&buf[4] = v21;
+      *&buf[12] = 1024;
+      *&buf[14] = v18;
+      v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v19, 16, "%{public}s: broadcast install event %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
     else
     {
-      v20 = *(v2 + 56);
-      if (!v20)
+      v27 = *(v2 + 56);
+      if (!v27)
       {
-        v20 = "[anonymous]";
+        v27 = "[anonymous]";
       }
 
       *buf = 136446466;
-      v23 = v20;
-      v24 = 1024;
-      LODWORD(v25) = v14;
+      *&buf[4] = v27;
+      *&buf[12] = 1024;
+      *&buf[14] = v17;
+      v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: broadcast install event %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18, *buf, *&buf[8]);
     }
 
-    v17 = _os_log_send_and_compose_impl();
-    v18 = 1159;
-    goto LABEL_25;
+    v24 = v22;
+    v25 = 1159;
+    goto LABEL_32;
   }
 
   Error = 0;
-LABEL_26:
+LABEL_33:
   a1[2] = Error;
   return cryptex_async_f();
 }
@@ -2422,7 +3469,7 @@ LABEL_26:
 
 uint64_t _codex_broadcast_event(uint64_t a1, uint64_t a2)
 {
-  v4 = event_server_copy_system();
+  v4 = event_server_copy_system(a1);
   MutableForCFTypes = _CFDictionaryCreateMutableForCFTypes();
   v6 = MutableForCFTypes;
   v7 = *(a1 + 224);
@@ -2586,103 +3633,100 @@ LABEL_9:
 void _codex_cleanup_stale_continue(uint64_t *a1)
 {
   v1 = *a1;
-  v2 = a1[4];
-  bzero(v33, 0x400uLL);
-  asset = cryptex_core_get_asset();
-  if (!asset)
+  bzero(v30, 0x400uLL);
+  if (!cryptex_core_get_asset())
   {
     _codex_cleanup_stale_continue_cold_1();
   }
 
-  v4 = *(asset + 16);
-  v5 = realpath_np();
-  if (v5)
+  v2 = realpath_np();
+  if (v2)
   {
-    v6 = v5;
-    v7 = *(v1 + 56);
-    v8 = *__error();
-    v9 = *(v1 + 72);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v3 = v2;
+    v4 = *(v1 + 56);
+    v5 = *__error();
+    v6 = *(v1 + 72);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      if (v7)
+      if (v4)
       {
-        v10 = v7;
+        v7 = v4;
       }
 
       else
       {
-        v10 = "[anonymous]";
+        v7 = "[anonymous]";
       }
 
-      v27 = 136446466;
-      v28 = v10;
-      v29 = 1024;
-      LODWORD(v30) = v6;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s: realpath: %{darwin.errno}d", &v27, 0x12u);
+      v24 = 136446466;
+      v25 = v7;
+      v26 = 1024;
+      LODWORD(v27) = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s: realpath: %{darwin.errno}d", &v24, 0x12u);
     }
 
-    *__error() = v8;
-    v11 = "[anonymous]";
+    *__error() = v5;
+    v8 = "[anonymous]";
     goto LABEL_9;
   }
 
-  v11 = basename(v33);
-  if (_rmrfdir(v33))
+  v8 = basename(v30);
+  if (_rmrfdir(v30))
   {
-    v6 = *__error();
-    v20 = *(v1 + 56);
-    v21 = *__error();
-    v22 = *(v1 + 72);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v3 = *__error();
+    v17 = *(v1 + 56);
+    v18 = *__error();
+    v19 = *(v1 + 72);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      if (v20)
+      if (v17)
       {
-        v23 = v20;
+        v20 = v17;
       }
 
       else
       {
-        v23 = "[anonymous]";
+        v20 = "[anonymous]";
       }
 
-      v27 = 136446466;
-      v28 = v23;
-      v29 = 1024;
-      LODWORD(v30) = v6;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}s: rmrfdir: %{darwin.errno}d", &v27, 0x12u);
+      v24 = 136446466;
+      v25 = v20;
+      v26 = 1024;
+      LODWORD(v27) = v3;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s: rmrfdir: %{darwin.errno}d", &v24, 0x12u);
     }
 
-    *__error() = v21;
-    if (v6)
+    *__error() = v18;
+    if (v3)
     {
 LABEL_9:
-      v12 = *(v1 + 56);
-      v13 = *__error();
-      v14 = *(v1 + 72);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v9 = *(v1 + 56);
+      v10 = *__error();
+      v11 = *(v1 + 72);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        if (v12)
+        if (v9)
         {
-          v15 = v12;
+          v12 = v9;
         }
 
         else
         {
-          v15 = "[anonymous]";
+          v12 = "[anonymous]";
         }
 
-        v27 = 136446722;
-        v28 = v15;
-        v29 = 2080;
-        v30 = v11;
-        v31 = 1024;
-        v32 = v6;
-        v16 = "%{public}s: uninstall stale cryptex: %s: %{darwin.errno}d";
-        v17 = v14;
-        v18 = OS_LOG_TYPE_ERROR;
-        v19 = 28;
+        v24 = 136446722;
+        v25 = v12;
+        v26 = 2080;
+        v27 = v8;
+        v28 = 1024;
+        v29 = v3;
+        v13 = "%{public}s: uninstall stale cryptex: %s: %{darwin.errno}d";
+        v14 = v11;
+        v15 = OS_LOG_TYPE_ERROR;
+        v16 = 28;
 LABEL_26:
-        _os_log_impl(&_mh_execute_header, v17, v18, v16, &v27, v19);
+        _os_log_impl(&_mh_execute_header, v14, v15, v13, &v24, v16);
         goto LABEL_27;
       }
 
@@ -2690,123 +3734,137 @@ LABEL_26:
     }
   }
 
-  v24 = *(v1 + 56);
-  v13 = *__error();
-  v25 = *(v1 + 72);
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v21 = *(v1 + 56);
+  v10 = *__error();
+  v22 = *(v1 + 72);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    if (v24)
+    if (v21)
     {
-      v26 = v24;
+      v23 = v21;
     }
 
     else
     {
-      v26 = "[anonymous]";
+      v23 = "[anonymous]";
     }
 
-    v27 = 136446466;
-    v28 = v26;
-    v29 = 2080;
-    v30 = v11;
-    v16 = "%{public}s: uninstall stale cryptex: %s: success";
-    v17 = v25;
-    v18 = OS_LOG_TYPE_DEBUG;
-    v19 = 22;
+    v24 = 136446466;
+    v25 = v23;
+    v26 = 2080;
+    v27 = v8;
+    v13 = "%{public}s: uninstall stale cryptex: %s: success";
+    v14 = v22;
+    v15 = OS_LOG_TYPE_DEBUG;
+    v16 = 22;
     goto LABEL_26;
   }
 
 LABEL_27:
-  *__error() = v13;
+  *__error() = v10;
   dispatch_group_leave(*(v1 + 104));
 }
 
 void _codex_install_continue2(void *a1)
 {
   v2 = *a1;
-  v3 = a1[4];
   dispatch_assert_queue_V2(*(*a1 + 96));
-  v4 = *(v3 + 104);
   if (cryptex_core_get_asset())
   {
-    v5 = *(v2 + 56);
-    v6 = *__error();
-    v7 = *(v2 + 72);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v3 = *(v2 + 56);
+    v4 = *__error();
+    v5 = *(v2 + 72);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = "[anonymous]";
-      if (v5)
+      v6 = "[anonymous]";
+      if (v3)
       {
-        v8 = v5;
+        v6 = v3;
       }
 
       *buf = 136446210;
-      v37 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}s: pre-canned manifest", buf, 0xCu);
+      v39 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%{public}s: pre-canned manifest", buf, 0xCu);
     }
 
-    *__error() = v6;
+    *__error() = v4;
     a1[2] = 0;
     goto LABEL_7;
   }
 
-  v9 = *(*(v3 + 104) + 160);
-  v10 = *(v2 + 56);
-  v11 = *__error();
-  v12 = *(v2 + 72);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v7 = *(v2 + 56);
+  v8 = *__error();
+  v9 = *(v2 + 72);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = "[anonymous]";
-    if (v10)
+    v10 = "[anonymous]";
+    if (v7)
     {
-      v13 = v10;
+      v10 = v7;
     }
 
     *buf = 136446210;
-    v37 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}s: writing im4m to disk", buf, 0xCu);
+    v39 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%{public}s: writing im4m to disk", buf, 0xCu);
   }
 
-  *__error() = v11;
-  v14 = *(v3 + 104);
+  *__error() = v8;
   asset = cryptex_core_get_asset();
-  v16 = openat(*(asset + 16), *(&_cryptex_asset_type_im4m + 5), 513, 438);
-  if (v16 < 0)
+  v12 = openat(*(asset + 16), *(&_cryptex_asset_type_im4m + 5), 513, 438);
+  if (v12 < 0)
   {
-    v25 = *__error();
-    if (*(v2 + 72))
+    v24 = *__error();
+    v25 = *(v2 + 72);
+    if (v25)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
-      v26 = *(v2 + 56);
-      if (!v26)
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
       {
-        v26 = "[anonymous]";
+        v26 = 3;
       }
+
+      else
+      {
+        v26 = 2;
+      }
+
+      v27 = *(v2 + 56);
+      if (!v27)
+      {
+        v27 = "[anonymous]";
+      }
+
+      *buf = 136446466;
+      v39 = v27;
+      v40 = 1024;
+      v41 = v24;
+      v28 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, v25, 16, "%{public}s: openat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18);
     }
 
     else
     {
-      v26 = *(v2 + 56);
-      if (!v26)
+      v32 = *(v2 + 56);
+      if (!v32)
       {
-        v26 = "[anonymous]";
+        v32 = "[anonymous]";
       }
+
+      *buf = 136446466;
+      v39 = v32;
+      v40 = 1024;
+      v41 = v24;
+      v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: openat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18);
     }
 
-    *buf = 136446466;
-    v37 = v26;
-    v38 = 1024;
-    v39 = v25;
-    v31 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_install_continue2", "codex.c", 1208, "com.apple.security.cryptex.posix", v25, 0, v31);
-    free(v31);
-LABEL_37:
-    if (v16 == -1)
+    v33 = v28;
+    Error = createError("_codex_install_continue2", "codex.c", 1208, "com.apple.security.cryptex.posix", v24, 0, v28);
+    free(v33);
+LABEL_44:
+    if (v12 == -1)
     {
-      goto LABEL_39;
+      goto LABEL_46;
     }
 
-    goto LABEL_38;
+    goto LABEL_45;
   }
 
   if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_DEBUG))
@@ -2814,79 +3872,90 @@ LABEL_37:
     bzero(buf, 0x400uLL);
     if (!realpath_np())
     {
-      v17 = *(v2 + 56);
-      v18 = *__error();
-      v19 = *(v2 + 72);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v13 = *(v2 + 56);
+      v14 = *__error();
+      v15 = *(v2 + 72);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v20 = "[anonymous]";
-        if (v17)
+        v16 = "[anonymous]";
+        if (v13)
         {
-          v20 = v17;
+          v16 = v13;
         }
 
-        *v32 = 136446466;
-        v33 = v20;
-        v34 = 2080;
-        v35 = buf;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%{public}s: im4m path: %s", v32, 0x16u);
+        *v34 = 136446466;
+        v35 = v16;
+        v36 = 2080;
+        v37 = buf;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%{public}s: im4m path: %s", v34, 0x16u);
       }
 
-      *__error() = v18;
+      *__error() = v14;
     }
   }
 
-  v21 = cryptex_signature_write();
-  v22 = v21;
-  if (!v21)
+  v17 = cryptex_signature_write();
+  v18 = v17;
+  if (!v17)
   {
     cryptex_asset_new();
-    v27 = *(v3 + 104);
     cryptex_core_set_asset();
     Error = 0;
-    goto LABEL_37;
+    goto LABEL_44;
   }
 
-  v23 = v21;
-  if (*(v2 + 72))
+  v19 = v17;
+  v20 = *(v2 + 72);
+  if (v20)
   {
-    os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
-    v24 = *(v2 + 56);
-    if (!v24)
+    if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
     {
-      v24 = "[anonymous]";
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v22 = *(v2 + 56);
+    if (!v22)
+    {
+      v22 = "[anonymous]";
     }
 
     *buf = 136446466;
-    v37 = v24;
-    v38 = 1024;
     v39 = v22;
+    v40 = 1024;
+    v41 = v18;
+    v23 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, v20, 16, "%{public}s: write im4m failed %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18);
   }
 
   else
   {
-    v29 = *(v2 + 56);
-    if (!v29)
+    v30 = *(v2 + 56);
+    if (!v30)
     {
-      v29 = "[anonymous]";
+      v30 = "[anonymous]";
     }
 
     *buf = 136446466;
-    v37 = v29;
-    v38 = 1024;
-    v39 = v21;
+    v39 = v30;
+    v40 = 1024;
+    v41 = v17;
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: write im4m failed %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, 18);
   }
 
-  v30 = _os_log_send_and_compose_impl();
-  Error = createError("_codex_install_continue2", "codex.c", 1226, "com.apple.security.cryptex.posix", v23, 0, v30);
-  free(v30);
-LABEL_38:
-  if (close(v16) == -1)
+  v31 = v23;
+  Error = createError("_codex_install_continue2", "codex.c", 1226, "com.apple.security.cryptex.posix", v19, 0, v23);
+  free(v31);
+LABEL_45:
+  if (close(v12) == -1)
   {
-    daemon_init_cold_13(v32, buf);
+    daemon_init_cold_13(v34, buf);
   }
 
-LABEL_39:
+LABEL_46:
   a1[2] = Error;
   if (!Error)
   {
@@ -2898,10 +3967,10 @@ LABEL_7:
   cryptex_target_async_f();
 }
 
-void _codex_install_continue3(uint64_t a1)
+void _codex_install_continue3(void **a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   daemon_assert_main_queue();
   v4 = *(v3 + 104);
   v5 = ctx_new(v2, 0xA0uLL);
@@ -2910,22 +3979,57 @@ void _codex_install_continue3(uint64_t a1)
   _codex_import_core_impl(v2, v4, v5);
 }
 
-void _protex_stage_install_callback(void *a1, uint64_t a2, int a3, uint64_t a4)
+void _protex_stage_install_callback(void *a1, uint64_t a2, int a3, uint64_t *a4)
 {
   v6 = *a4;
   if (a3)
   {
-    v7 = a3;
-    if (*(v6 + 72))
+    v8 = a3;
+    v9 = *(v6 + 72);
+    if (v9)
     {
-      os_log_type_enabled(*(v6 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(v6 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      v11 = *(v6 + 56);
+      if (!v11)
+      {
+        v11 = "[anonymous]";
+      }
+
+      *v17 = 136446466;
+      *&v17[4] = v11;
+      *&v17[12] = 1024;
+      *&v17[14] = a3;
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, v9, 16, "%{public}s: staging failed %{darwin.errno}d", COERCE_DOUBLE(136446466), v17, 18, *v17, *&v17[8]);
     }
 
-    *(v6 + 56);
-    v8 = _os_log_send_and_compose_impl();
-    Error = createError("_protex_stage_install_callback", "codex.c", 2936, "com.apple.security.cryptex.posix", v7, 0, v8);
-    free(v8);
-    *(a4 + 16) = Error;
+    else
+    {
+      v13 = *(v6 + 56);
+      if (!v13)
+      {
+        v13 = "[anonymous]";
+      }
+
+      *v17 = 136446466;
+      *&v17[4] = v13;
+      *&v17[12] = 1024;
+      *&v17[14] = a3;
+      v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: staging failed %{darwin.errno}d", COERCE_DOUBLE(136446466), v17, 18, *v17, *&v17[8]);
+    }
+
+    v14 = v12;
+    Error = createError("_protex_stage_install_callback", "codex.c", 2936, "com.apple.security.cryptex.posix", v8, 0, v12);
+    free(v14);
+    a4[2] = Error;
   }
 
   else if (!v6)
@@ -2933,10 +4037,10 @@ void _protex_stage_install_callback(void *a1, uint64_t a2, int a3, uint64_t a4)
     return;
   }
 
-  v10 = *(a4 + 48);
-  if (v10)
+  v16 = a4[6];
+  if (v16)
   {
-    codex_install(v6, a1, 0, *(a4 + 56), a4, v10);
+    codex_install(v6, a1, 0, *(a4 + 14), a4, v16);
   }
 }
 
@@ -2945,16 +4049,51 @@ void _codex_mount_continue2(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
   v5 = *a4;
   if (a3)
   {
-    v6 = a3;
-    if (*(v5 + 72))
+    v7 = a3;
+    v8 = *(v5 + 72);
+    if (v8)
     {
-      os_log_type_enabled(*(v5 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(v5 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v10 = *(v5 + 56);
+      if (!v10)
+      {
+        v10 = "[anonymous]";
+      }
+
+      *v16 = 136446466;
+      *&v16[4] = v10;
+      *&v16[12] = 1024;
+      *&v16[14] = a3;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v8, 16, "%{public}s: Failed to stage protex %{darwin.errno}d", COERCE_DOUBLE(136446466), v16, 18, *v16, *&v16[8]);
     }
 
-    *(v5 + 56);
-    v8 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_mount_continue2", "codex.c", 3096, "com.apple.security.cryptex.posix", v6, 0, v8);
-    free(v8);
+    else
+    {
+      v13 = *(v5 + 56);
+      if (!v13)
+      {
+        v13 = "[anonymous]";
+      }
+
+      *v16 = 136446466;
+      *&v16[4] = v13;
+      *&v16[12] = 1024;
+      *&v16[14] = a3;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to stage protex %{darwin.errno}d", COERCE_DOUBLE(136446466), v16, 18, *v16, *&v16[8]);
+    }
+
+    v14 = v11;
+    Error = createError("_codex_mount_continue2", "codex.c", 3096, "com.apple.security.cryptex.posix", v7, 0, v11);
+    free(v14);
     if (Error)
     {
       a4[2] = Error;
@@ -2964,10 +4103,10 @@ void _codex_mount_continue2(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
 
   else
   {
-    v7 = *(*(a1 + 104) + 216);
-    if (v7)
+    v12 = *(*(a1 + 104) + 216);
+    if (v12)
     {
-      *(v7 + 64) = 1;
+      *(v12 + 64) = 1;
     }
 
     cryptex_async_f();
@@ -2997,28 +4136,63 @@ void _codex_mount_callback(void **a1)
 void _codex_mount_continue3(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *(a1[5] + 104);
   if ((*(cryptex_core_get_asset() + 16) & 0x80000000) != 0)
   {
-    v5 = *__error();
-    if (*(v2 + 72))
+    v4 = *__error();
+    v5 = *(v2 + 72);
+    if (v5)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v6 = 3;
+      }
+
+      else
+      {
+        v6 = 2;
+      }
+
       if (*(v2 + 56))
       {
-        v6 = *(v2 + 56);
+        v7 = *(v2 + 56);
       }
+
+      else
+      {
+        v7 = "[anonymous]";
+      }
+
+      v8 = *__error();
+      *v14 = 136446466;
+      *&v14[4] = v7;
+      *&v14[12] = 1024;
+      *&v14[14] = v8;
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, v5, 16, "%{public}s: Failed to open cryptex directory %{darwin.errno}d", v14, 18, *v14, *&v14[8]);
     }
 
-    else if (*(v2 + 56))
+    else
     {
-      v7 = *(v2 + 56);
+      if (*(v2 + 56))
+      {
+        v10 = *(v2 + 56);
+      }
+
+      else
+      {
+        v10 = "[anonymous]";
+      }
+
+      v11 = *__error();
+      *v14 = 136446466;
+      *&v14[4] = v10;
+      *&v14[12] = 1024;
+      *&v14[14] = v11;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to open cryptex directory %{darwin.errno}d", v14, 18, *v14, *&v14[8]);
     }
 
-    v10 = *__error();
-    v8 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_mount_continue3", "codex.c", 3073, "com.apple.security.cryptex.posix", v5, 0, v8);
-    free(v8);
+    v12 = v9;
+    Error = createError("_codex_mount_continue3", "codex.c", 3073, "com.apple.security.cryptex.posix", v4, 0, v9);
+    free(v12);
     if (Error)
     {
       a1[2] = Error;
@@ -3028,9 +4202,9 @@ void _codex_mount_continue3(uint64_t *a1)
 
   else
   {
-    v4 = a1[5];
+    v3 = a1[5];
 
-    codex_install(v2, v4, 0, 0, a1, _codex_mount_continue4);
+    codex_install(v2, v3, 0, 0, a1, _codex_mount_continue4);
   }
 }
 
@@ -3038,62 +4212,159 @@ void _codex_mount_continue4(uint64_t a1, void *a2, const void *a3, uint64_t a4)
 {
   if (a3 && (_CFErrorHasDomainAndCode(a3, @"com.apple.security.cryptex", 17) & 1) == 0)
   {
-    if (*(a1 + 72))
+    v12 = *(a1 + 72);
+    if (v12)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      v14 = *(a1 + 56);
+      if (!v14)
+      {
+        v14 = "[anonymous]";
+      }
+
+      *v30 = 136446210;
+      *&v30[4] = v14;
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v12, 16, "%{public}s: Failed to install cryptex for mounting.", COERCE_DOUBLE(136446210), v30, 12, *v30, *&v30[8]);
     }
 
-    *(a1 + 56);
-    v8 = _os_log_send_and_compose_impl();
-    v9 = "com.apple.security.cryptex";
-    v10 = 3034;
-    v11 = 14;
-    v12 = a3;
-LABEL_16:
-    Error = createError("_codex_mount_continue4", "codex.c", v10, v9, v11, v12, v8);
-    free(v8);
+    else
+    {
+      v20 = *(a1 + 56);
+      if (!v20)
+      {
+        v20 = "[anonymous]";
+      }
+
+      *v30 = 136446210;
+      *&v30[4] = v20;
+      v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to install cryptex for mounting.", COERCE_DOUBLE(136446210), v30, 12, *v30, *&v30[8]);
+    }
+
+    v21 = v15;
+    v22 = "com.apple.security.cryptex";
+    v23 = 3034;
+    v24 = 14;
+    v25 = a3;
+LABEL_37:
+    Error = createError("_codex_mount_continue4", "codex.c", v23, v22, v24, v25, v21);
+    free(v21);
     if (!Error)
     {
       return;
     }
 
-    goto LABEL_17;
+    goto LABEL_38;
   }
 
   if (!a2)
   {
-    if (*(a1 + 72))
+    v16 = *(a1 + 72);
+    if (v16)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v17 = 3;
+      }
+
+      else
+      {
+        v17 = 2;
+      }
+
+      v18 = *(a1 + 56);
+      if (!v18)
+      {
+        v18 = "[anonymous]";
+      }
+
+      *v30 = 136446466;
+      *&v30[4] = v18;
+      *&v30[12] = 1024;
+      *&v30[14] = 2;
+      v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v16, 16, "%{public}s: Invalid quire to mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v30, 18, *v30, *&v30[8]);
     }
 
-    *(a1 + 56);
-    v8 = _os_log_send_and_compose_impl();
-    v9 = "com.apple.security.cryptex.posix";
-    v10 = 3040;
-    v11 = 2;
-    v12 = 0;
-    goto LABEL_16;
+    else
+    {
+      v26 = *(a1 + 56);
+      if (!v26)
+      {
+        v26 = "[anonymous]";
+      }
+
+      *v30 = 136446466;
+      *&v30[4] = v26;
+      *&v30[12] = 1024;
+      *&v30[14] = 2;
+      v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Invalid quire to mount. %{darwin.errno}d", COERCE_DOUBLE(136446466), v30, 18, *v30, *&v30[8]);
+    }
+
+    v21 = v19;
+    v22 = "com.apple.security.cryptex.posix";
+    v23 = 3040;
+    v24 = 2;
+    v25 = 0;
+    goto LABEL_37;
   }
 
   if (_CFErrorHasDomainAndCode(a3, @"com.apple.security.cryptex", 17))
   {
-    if (*(a1 + 72))
+    v8 = *(a1 + 72);
+    if (v8)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v10 = *(a1 + 56);
+      if (!v10)
+      {
+        v10 = "[anonymous]";
+      }
+
+      *v30 = 136446210;
+      *&v30[4] = v10;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v8, 16, "%{public}s: Cryptex already mounted", COERCE_DOUBLE(136446210), v30, 12, *v30, *&v30[8]);
     }
 
-    *(a1 + 56);
-    v14 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_mount_continue4", "codex.c", 3047, "com.apple.security.cryptex", 1, 0, v14);
-    free(v14);
+    else
+    {
+      v28 = *(a1 + 56);
+      if (!v28)
+      {
+        v28 = "[anonymous]";
+      }
+
+      *v30 = 136446210;
+      *&v30[4] = v28;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Cryptex already mounted", COERCE_DOUBLE(136446210), v30, 12, *v30, *&v30[8]);
+    }
+
+    v29 = v11;
+    Error = createError("_codex_mount_continue4", "codex.c", 3047, "com.apple.security.cryptex", 1, 0, v11);
+    free(v29);
     *(a4 + 48) = os_retain(a2);
     if (!Error)
     {
       return;
     }
 
-LABEL_17:
+LABEL_38:
     *(a4 + 16) = Error;
     cryptex_target_async_f();
     return;
@@ -3107,18 +4378,40 @@ void _codex_mount_continue5(uint64_t a1, void *object, const void *a3, uint64_t 
   *(a4 + 48) = os_retain(object);
   if (!a3)
   {
-    goto LABEL_6;
+    goto LABEL_14;
   }
 
-  if (*(a1 + 72))
+  v7 = *(a1 + 72);
+  if (v7)
   {
-    os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
+    v8 = os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR) ? 3 : 2;
+    v9 = *(a1 + 56);
+    if (!v9)
+    {
+      v9 = "[anonymous]";
+    }
+
+    LODWORD(v14) = 136446210;
+    *(&v14 + 4) = v9;
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "%{public}s: Failed to bootstrap quire.", COERCE_DOUBLE(136446210), &v14, 12, v14);
   }
 
-  *(a1 + 56);
-  v7 = _os_log_send_and_compose_impl();
-  Error = createError("_codex_mount_continue5", "codex.c", 3015, "com.apple.security.cryptex", 14, a3, v7);
-  free(v7);
+  else
+  {
+    v11 = *(a1 + 56);
+    if (!v11)
+    {
+      v11 = "[anonymous]";
+    }
+
+    LODWORD(v14) = 136446210;
+    *(&v14 + 4) = v11;
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to bootstrap quire.", COERCE_DOUBLE(136446210), &v14, 12, v14);
+  }
+
+  v12 = v10;
+  Error = createError("_codex_mount_continue5", "codex.c", 3015, "com.apple.security.cryptex", 14, a3, v10);
+  free(v12);
   if (Error)
   {
     *(a4 + 16) = CFRetain(Error);
@@ -3128,7 +4421,7 @@ void _codex_mount_continue5(uint64_t a1, void *object, const void *a3, uint64_t 
 
   else
   {
-LABEL_6:
+LABEL_14:
     *(a4 + 16) = 0;
     cryptex_target_async_f();
   }
@@ -3139,15 +4432,46 @@ void _codex_unmount_continue2(uint64_t a1, void *a2, const void *a3, uint64_t a4
   daemon_assert_main_queue();
   if (a3)
   {
-    if (*(a1 + 72))
+    v8 = *(a1 + 72);
+    if (v8)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v10 = *(a1 + 56);
+      if (!v10)
+      {
+        v10 = "[anonymous]";
+      }
+
+      LODWORD(v15) = 136446210;
+      *(&v15 + 4) = v10;
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v8, 16, "%{public}s: Failed to unmount quire", COERCE_DOUBLE(136446210), &v15, 12, v15);
     }
 
-    *(a1 + 56);
-    v8 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_unmount_continue2", "codex.c", 3204, "com.apple.security.cryptex", 2, a3, v8);
-    free(v8);
+    else
+    {
+      v12 = *(a1 + 56);
+      if (!v12)
+      {
+        v12 = "[anonymous]";
+      }
+
+      LODWORD(v15) = 136446210;
+      *(&v15 + 4) = v12;
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to unmount quire", COERCE_DOUBLE(136446210), &v15, 12, v15);
+    }
+
+    v13 = v11;
+    Error = createError("_codex_unmount_continue2", "codex.c", 3204, "com.apple.security.cryptex", 2, a3, v11);
+    free(v13);
     if (Error)
     {
       *(a4 + 16) = CFRetain(Error);
@@ -3186,20 +4510,46 @@ uint64_t _codex_unmount_continue3(uint64_t a1, uint64_t a2, const void *a3, uint
 {
   if (a3)
   {
-    if (*(a1 + 72))
+    v7 = *(a1 + 72);
+    if (v7)
     {
-      os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-      *(a1 + 56);
+      if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v9 = *(a1 + 56);
+      if (!v9)
+      {
+        v9 = "[anonymous]";
+      }
+
+      LODWORD(v15) = 136446210;
+      *(&v15 + 4) = v9;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "%{public}s: Failed to uninstall quire.", COERCE_DOUBLE(136446210), &v15, 12, v15);
     }
 
     else
     {
-      *(a1 + 56);
+      v11 = *(a1 + 56);
+      if (!v11)
+      {
+        v11 = "[anonymous]";
+      }
+
+      LODWORD(v15) = 136446210;
+      *(&v15 + 4) = v11;
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: Failed to uninstall quire.", COERCE_DOUBLE(136446210), &v15, 12, v15);
     }
 
-    v7 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_unmount_continue3", "codex.c", 3179, "com.apple.security.cryptex", 2, a3, v7);
-    free(v7);
+    v12 = v10;
+    Error = createError("_codex_unmount_continue3", "codex.c", 3179, "com.apple.security.cryptex", 2, a3, v10);
+    free(v12);
     if (Error)
     {
       *(a4 + 16) = Error;
@@ -3209,16 +4559,16 @@ uint64_t _codex_unmount_continue3(uint64_t a1, uint64_t a2, const void *a3, uint
   return cryptex_target_async_f();
 }
 
-void _codex_uninstall_callback(uint64_t a1)
+void _codex_uninstall_callback(void *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 56);
+  v3 = *(a1 + 5);
+  v4 = *(a1 + 2);
+  v5 = *(a1 + 7);
   daemon_assert_main_queue();
-  (*(a1 + 64))(v2, v3, v4, v5);
-  _codex_deactivate(v2, *(a1 + 48));
-  *(a1 + 48) = 0;
+  (*(a1 + 8))(v2, v3, v4, v5);
+  _codex_deactivate(v2, *(a1 + 6));
+  *(a1 + 6) = 0;
   ctx_destroy(a1);
   if (v4)
   {
@@ -3242,15 +4592,51 @@ uint64_t _codex_uninstall_continue2(uint64_t *a1)
   if (v4)
   {
     v5 = v4;
-    if (*(v2 + 72))
+    v6 = v4;
+    v7 = *(v2 + 72);
+    if (v7)
     {
-      os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(*(v2 + 72), OS_LOG_TYPE_ERROR))
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v9 = *(v2 + 56);
+      if (!v9)
+      {
+        v9 = "[anonymous]";
+      }
+
+      *v15 = 136446466;
+      *&v15[4] = v9;
+      *&v15[12] = 1024;
+      *&v15[14] = v5;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "%{public}s: broadcast uninstall event %{darwin.errno}d", COERCE_DOUBLE(136446466), v15, 18, *v15, *&v15[8]);
     }
 
-    *(v2 + 56);
-    v6 = _os_log_send_and_compose_impl();
-    Error = createError("_codex_uninstall_continue2", "codex.c", 1341, "com.apple.security.cryptex.posix", v5, 0, v6);
-    free(v6);
+    else
+    {
+      v11 = *(v2 + 56);
+      if (!v11)
+      {
+        v11 = "[anonymous]";
+      }
+
+      *v15 = 136446466;
+      *&v15[4] = v11;
+      *&v15[12] = 1024;
+      *&v15[14] = v4;
+      v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: broadcast uninstall event %{darwin.errno}d", COERCE_DOUBLE(136446466), v15, 18, *v15, *&v15[8]);
+    }
+
+    v12 = v10;
+    Error = createError("_codex_uninstall_continue2", "codex.c", 1341, "com.apple.security.cryptex.posix", v6, 0, v10);
+    free(v12);
     a1[2] = Error;
   }
 
@@ -3259,7 +4645,7 @@ uint64_t _codex_uninstall_continue2(uint64_t *a1)
 
 void _codex_bootstrap_continue2(uint64_t a1, uint64_t a2, const void *a3, uint64_t *a4)
 {
-  v22 = -1;
+  HIDWORD(v25) = -1;
   v7 = *a4;
   daemon_assert_main_queue();
   v8 = *(v7 + 56);
@@ -3275,9 +4661,9 @@ void _codex_bootstrap_continue2(uint64_t a1, uint64_t a2, const void *a3, uint64
     }
 
     *buf = 136446466;
-    v24 = v11;
-    v25 = 2080;
-    v26 = v12;
+    *&buf[4] = v11;
+    *&buf[12] = 2080;
+    *&buf[14] = v12;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%{public}s: quire mount: %s [no error]", buf, 0x16u);
   }
 
@@ -3290,7 +4676,7 @@ void _codex_bootstrap_continue2(uint64_t a1, uint64_t a2, const void *a3, uint64
       return;
     }
 
-LABEL_23:
+LABEL_26:
     a4[2] = CFRetain(Error);
     cryptex_target_async_f();
     CFRelease(Error);
@@ -3316,64 +4702,78 @@ LABEL_23:
     v15 = 0;
   }
 
-  v16 = _opendirat(*(v7 + 1424), *(a1 + 208), 512, 0, &v22);
+  v16 = _opendirat(*(v7 + 1424), *(a1 + 208), 512, 0, &v25 + 1);
   if (!v16)
   {
-    quire_bootstrap(a1, *(v7 + 1436), v22, v15, a4, _codex_bootstrap_continue3);
+    quire_bootstrap(a1, *(v7 + 1436), SHIDWORD(v25), v15, a4, _codex_bootstrap_continue3);
     return;
   }
 
   v17 = v16;
   v18 = v16;
-  if (*(a1 + 72))
+  v19 = *(a1 + 72);
+  if (v19)
   {
-    os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR);
-    v19 = *(a1 + 56);
-    if (!v19)
+    if (os_log_type_enabled(*(a1 + 72), OS_LOG_TYPE_ERROR))
     {
-      v19 = "[anonymous]";
+      v20 = 3;
+    }
+
+    else
+    {
+      v20 = 2;
+    }
+
+    v21 = *(a1 + 56);
+    if (!v21)
+    {
+      v21 = "[anonymous]";
     }
 
     *buf = 136446466;
-    v24 = v19;
-    v25 = 1024;
-    LODWORD(v26) = v17;
+    *&buf[4] = v21;
+    *&buf[12] = 1024;
+    *&buf[14] = v17;
+    LODWORD(v25) = 18;
+    v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v19, 16, "%{public}s: _opendirat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, v25, *buf, *&buf[8]);
   }
 
   else
   {
-    v20 = *(a1 + 56);
-    if (!v20)
+    v23 = *(a1 + 56);
+    if (!v23)
     {
-      v20 = "[anonymous]";
+      v23 = "[anonymous]";
     }
 
     *buf = 136446466;
-    v24 = v20;
-    v25 = 1024;
-    LODWORD(v26) = v16;
+    *&buf[4] = v23;
+    *&buf[12] = 1024;
+    *&buf[14] = v16;
+    LODWORD(v25) = 18;
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "%{public}s: _opendirat %{darwin.errno}d", COERCE_DOUBLE(136446466), buf, v25, *buf, *&buf[8]);
   }
 
-  v21 = _os_log_send_and_compose_impl();
-  Error = createError("_codex_bootstrap_continue2", "codex.c", 1618, "com.apple.security.cryptex.posix", v18, 0, v21);
-  free(v21);
+  v24 = v22;
+  Error = createError("_codex_bootstrap_continue2", "codex.c", 1618, "com.apple.security.cryptex.posix", v18, 0, v22);
+  free(v24);
   if (Error)
   {
-    goto LABEL_23;
+    goto LABEL_26;
   }
 }
 
-void _codex_bootstrap_callback(uint64_t a1)
+void _codex_bootstrap_callback(void *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 56);
+  v3 = *(a1 + 4);
+  v4 = *(a1 + 2);
+  v5 = *(a1 + 7);
   daemon_assert_main_queue();
-  (*(a1 + 64))(v2, v3, v4, v5);
-  _codex_deactivate(v2, *(a1 + 48));
-  *(a1 + 48) = 0;
-  dispatch_group_leave(v2[14]);
+  (*(a1 + 8))(v2, v3, v4, v5);
+  _codex_deactivate(v2, *(a1 + 6));
+  *(a1 + 6) = 0;
+  dispatch_group_leave(*(v2 + 112));
   ctx_destroy(a1);
   if (v4)
   {
@@ -3528,18 +4928,18 @@ uint64_t _codex_bootstrap_continue3(uint64_t a1, uint64_t a2, const void *a3, ui
   return cryptex_target_async_f();
 }
 
-void _codex_unbootstrap_callback(uint64_t a1)
+void _codex_unbootstrap_callback(void *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 56);
+  v3 = *(a1 + 4);
+  v4 = *(a1 + 2);
+  v5 = *(a1 + 7);
   daemon_assert_main_queue();
   if (hash_lookup_node(v2 + 448, (v3 + 14)))
   {
-    v6 = *(v2 + 7);
+    v6 = *(v2 + 56);
     v7 = *__error();
-    v8 = *(v2 + 9);
+    v8 = *(v2 + 72);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v9 = "[anonymous]";
@@ -3561,9 +4961,9 @@ void _codex_unbootstrap_callback(uint64_t a1)
     os_release(v3);
   }
 
-  (*(a1 + 64))(v2, v3, v4, v5);
-  _codex_deactivate(v2, *(a1 + 48));
-  *(a1 + 48) = 0;
+  (*(a1 + 8))(v2, v3, v4, v5);
+  _codex_deactivate(v2, *(a1 + 6));
+  *(a1 + 6) = 0;
   ctx_destroy(a1);
   if (v4)
   {
@@ -3714,11 +5114,10 @@ void ___codex_unbootstrap_continue2_block_invoke(uint64_t a1)
   *(*(a1 + 40) + 136) = v2;
   v3 = *(a1 + 40);
   bzero(__str, 0x400uLL);
-  bzero(v23, 0x400uLL);
+  bzero(v22, 0x400uLL);
   if ((*(v2 + 12) & 0x80000000) != 0)
   {
-    v15 = *(v2 + 12);
-    ___codex_unbootstrap_continue2_block_invoke_cold_1(&v16, buf);
+    ___codex_unbootstrap_continue2_block_invoke_cold_1(&v15, buf);
   }
 
   if (os_log_type_enabled(*(v3 + 72), OS_LOG_TYPE_DEBUG))
@@ -3733,7 +5132,7 @@ void ___codex_unbootstrap_continue2_block_invoke(uint64_t a1)
 
     if ((*(v2 + 8) & 0x80000000) != 0)
     {
-      strcpy(v23, "[none]");
+      strcpy(v22, "[none]");
     }
 
     else
@@ -3743,7 +5142,7 @@ void ___codex_unbootstrap_continue2_block_invoke(uint64_t a1)
       {
         v8 = v7;
         v9 = strerror(v7);
-        snprintf(v23, 0x400uLL, "[%d: %s]", v8, v9);
+        snprintf(v22, 0x400uLL, "[%d: %s]", v8, v9);
       }
     }
 
@@ -3759,11 +5158,11 @@ void ___codex_unbootstrap_continue2_block_invoke(uint64_t a1)
         v13 = v10;
       }
 
-      v18 = v13;
-      v19 = 2080;
-      v20 = __str;
-      v21 = 2080;
-      v22 = v23;
+      v17 = v13;
+      v18 = 2080;
+      v19 = __str;
+      v20 = 2080;
+      v21 = v22;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}s: claimed quire husk: dev = %s, mnt = %s", buf, 0x20u);
     }
 
@@ -3773,10 +5172,10 @@ void ___codex_unbootstrap_continue2_block_invoke(uint64_t a1)
 
   v14 = *(v3 + 96);
   *__str = _NSConcreteStackBlock;
-  v25 = 0x40000000;
-  v26 = ___codex_schedule_husk_cleanup_block_invoke;
-  v27 = &__block_descriptor_tmp_74;
-  v28 = v3;
+  v24 = 0x40000000;
+  v25 = ___codex_schedule_husk_cleanup_block_invoke;
+  v26 = &__block_descriptor_tmp_74;
+  v27 = v3;
   dispatch_async(v14, __str);
 }
 
@@ -3879,7 +5278,7 @@ int *___codex_schedule_husk_cleanup_onq_block_invoke(uint64_t a1)
     {
       v9 = v8;
       v8 = *v8;
-      if ((v9[2] & 0x80000000) == 0)
+      if ((v9[1] & 0x80000000) == 0)
       {
         v10 = _unmountat(v9 + 2, 0);
         v11 = *(v2 + 56);
@@ -3925,8 +5324,8 @@ LABEL_23:
         *__error() = v12;
       }
 
-      v18 = v9[3];
-      v9[2] = -1;
+      v18 = *(v9 + 3);
+      *(v9 + 2) = -1;
       if (v18 < 0)
       {
         break;
@@ -3980,7 +5379,7 @@ LABEL_24:
       }
     }
 
-    v9[3] = -1;
+    *(v9 + 3) = -1;
     v24 = *v7;
     if (*v7 == v9)
     {
@@ -4072,7 +5471,7 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  _codex_schedule_husk_cleanup_onq(v2);
+  _codex_schedule_husk_cleanup_onq(v2, v44);
   v30 = *(v2 + 56);
   v31 = *__error();
   v32 = *(v2 + 72);
@@ -4219,13 +5618,13 @@ LABEL_19:
   return result;
 }
 
-void _codex_lockdown_continue3(uint64_t a1)
+void _codex_lockdown_continue3(void **a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 2);
+  v4 = a1[4];
   daemon_assert_main_queue();
-  (*(a1 + 40))(v2, v3, v4);
+  (a1[5])(v2, v3, v4);
 
   ctx_destroy(a1);
 }
@@ -4287,19 +5686,19 @@ void _codex_list_installed_quire_continue(uint64_t *a1)
   dispatch_async_f(main_queue, a1, _codex_list_installed_quire_continue2);
 }
 
-void _codex_list_installed_callback_0(void **a1)
+void _codex_list_installed_callback_0(unsigned int *a1)
 {
-  (a1[8])(*a1, *(a1 + 2), a1[5], a1[7]);
-  xpc_release(a1[5]);
+  (*(a1 + 8))(*a1, a1[2], *(a1 + 5), *(a1 + 7));
+  xpc_release(*(a1 + 5));
 
   ctx_destroy(a1);
 }
 
-void _codex_list_installed_quire_continue2(uint64_t a1)
+void _codex_list_installed_quire_continue2(void **a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v2 = a1[4];
+  v3 = a1[5];
+  v4 = a1[6];
   xpc_array_append_value(v3, v4);
   dispatch_group_leave(v2);
   ctx_destroy(a1);
@@ -4320,9 +5719,9 @@ void _codex_list_installed_quire_continue2(uint64_t a1)
   }
 }
 
-void sub_1000265A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000265A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4380,10 +5779,10 @@ BOOL collation_map_lookup_cryptex_with_attributes(uint64_t a1, uint64_t a2, uint
   return v5;
 }
 
-uint64_t OUTLINED_FUNCTION_0_3()
+uint64_t OUTLINED_FUNCTION_0_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, v9, v8, 80, a5, v10, 16, a8);
 }
 
 void sub_remote_xpc_message_recv(void *a1)
@@ -4398,13 +5797,14 @@ void __sub_remote_xpc_message_recv_block_invoke(id a1, OS_xpc_object *a2)
   v2 = a2;
   if (xpc_get_type(v2) == &_xpc_type_error)
   {
-    v3 = *__error();
-    v4 = _remote_service_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = __error();
+    v4 = *v6;
+    v5 = _remote_service_log(v6);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
+      v11 = 136315138;
       string = xpc_dictionary_get_string(v2, _xpc_error_key_description);
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Received error from client: %s", &v8, 0xCu);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Received error from client: %s", &v11, 0xCu);
     }
 
     goto LABEL_8;
@@ -4412,46 +5812,48 @@ void __sub_remote_xpc_message_recv_block_invoke(id a1, OS_xpc_object *a2)
 
   if (xpc_get_type(v2) != &_xpc_type_dictionary)
   {
-    v3 = *__error();
-    v4 = _remote_service_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = __error();
+    v4 = *v3;
+    v5 = _remote_service_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Malformed message from client", &v8, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Malformed message from client", &v11, 2u);
     }
 
 LABEL_8:
 
-    *__error() = v3;
+    *__error() = v4;
     goto LABEL_12;
   }
 
-  v5 = xpc_copy_description(v2);
-  v6 = *__error();
-  v7 = _remote_service_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v7 = xpc_copy_description(v2);
+  v8 = __error();
+  v9 = *v8;
+  v10 = _remote_service_log(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315138;
-    string = v5;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "remote service msg recv: %s", &v8, 0xCu);
+    v11 = 136315138;
+    string = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "remote service msg recv: %s", &v11, 0xCu);
   }
 
-  *__error() = v6;
+  *__error() = v9;
   _sub_remote_service_demux(v2);
-  free(v5);
+  free(v7);
 LABEL_12:
 }
 
-id _remote_service_log()
+id _remote_service_log(uint64_t a1)
 {
   if (_remote_service_log_onceToken != -1)
   {
     _remote_service_log_cold_1();
   }
 
-  v1 = _remote_service_log_osl;
+  v2 = _remote_service_log_osl;
 
-  return v1;
+  return v2;
 }
 
 void _sub_remote_service_demux(void *a1)
@@ -4461,12 +5863,13 @@ void _sub_remote_service_demux(void *a1)
   v3 = v2;
   if (!v2)
   {
-    v4 = *__error();
-    v5 = _remote_service_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __error();
+    v5 = *v7;
+    v6 = _remote_service_log(v7);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Malformed message from client: no routine key found", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Malformed message from client: no routine key found", buf, 2u);
     }
 
     goto LABEL_8;
@@ -4474,105 +5877,134 @@ void _sub_remote_service_demux(void *a1)
 
   if (xpc_get_type(v2) != &_xpc_type_string)
   {
-    v4 = *__error();
-    v5 = _remote_service_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = __error();
+    v5 = *v4;
+    v6 = _remote_service_log(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Malformed message from client: routine is not a string", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Malformed message from client: routine is not a string", buf, 2u);
     }
 
 LABEL_8:
 
-    *__error() = v4;
+    *__error() = v5;
     reply = _xpc_create_reply(v1, 0, 22);
 LABEL_9:
-    v7 = reply;
+    v9 = reply;
     goto LABEL_10;
   }
 
   string_ptr = xpc_string_get_string_ptr(v3);
   if (!strcmp(string_ptr, "get-nonce"))
   {
-    v11 = v1;
-    *&v198 = 0;
-    v197 = 0u;
+    v14 = v1;
+    *&v233 = 0;
+    v232 = 0u;
     memset(buf, 0, sizeof(buf));
-    v126 = 0;
-    argv = _xpc_request_get_argv(v11, &v126);
-    v13 = v126;
-    v14 = v13;
+    v161 = 0;
+    argv = _xpc_request_get_argv(v14, &v161);
+    v16 = v161;
+    v17 = v16;
     if (argv)
     {
-      v15 = _remote_service_log();
+      v18 = _remote_service_log(v16);
 
-      if (v15)
+      if (v18)
       {
-        v16 = _remote_service_log();
-        os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+        v20 = _remote_service_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          v21 = 3;
+        }
+
+        else
+        {
+          v21 = 2;
+        }
+
         *block = 67109120;
         *&block[4] = argv;
-        v17 = _os_log_send_and_compose_impl();
+        v22 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, v20, 16, "failed to get argv from request %{darwin.errno}d", block, 8);
       }
 
       else
       {
         *block = 67109120;
         *&block[4] = argv;
-        v17 = _os_log_send_and_compose_impl();
+        v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "failed to get argv from request %{darwin.errno}d", block, 8);
       }
 
-      Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 110, "com.apple.security.cryptex.posix", argv, 0, v17);
-      free(v17);
-      reply_with_cferr = _xpc_create_reply_with_cferr(v11, 0, Error);
-      goto LABEL_51;
+      Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 110, "com.apple.security.cryptex.posix", argv, 0, v22);
+      free(v22);
+      reply_with_cferr = _xpc_create_reply_with_cferr(v14, 0, Error);
+      goto LABEL_63;
     }
 
-    if (_xpc_dictionary_key_with_type_exists(v13, "nonce-domain", &_xpc_type_uint64))
+    if (_xpc_dictionary_key_with_type_exists(v16, "nonce-domain", &_xpc_type_uint64))
     {
-      uint64 = xpc_dictionary_get_uint64(v14, "nonce-domain");
+      uint64 = xpc_dictionary_get_uint64(v17, "nonce-domain");
       if (!_img4_get_nonce_domain_from_index(uint64))
       {
-        v33 = _remote_service_log();
+        v41 = _remote_service_log(0);
 
-        if (v33)
+        if (v41)
         {
-          v34 = _remote_service_log();
-          os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+          v43 = _remote_service_log(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          {
+            v44 = 3;
+          }
+
+          else
+          {
+            v44 = 2;
+          }
+
           *block = 134217984;
           *&block[4] = uint64;
-          v35 = _os_log_send_and_compose_impl();
+          v45 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, v43, 16, "nonce domain doesn't exist for index: %llu", block);
         }
 
         else
         {
           *block = 134217984;
           *&block[4] = uint64;
-          v35 = _os_log_send_and_compose_impl();
+          v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "nonce domain doesn't exist for index: %llu", block);
         }
 
-        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 126, "com.apple.security.cryptex", 10, 0, v35);
-        free(v35);
-        reply_with_cferr = _xpc_create_reply_with_cferr(v11, 0, Error);
-        goto LABEL_51;
+        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 126, "com.apple.security.cryptex", 10, 0, v45);
+        free(v45);
+        reply_with_cferr = _xpc_create_reply_with_cferr(v14, 0, Error);
+        goto LABEL_63;
       }
     }
 
     else
     {
-      if (!_xpc_dictionary_key_with_type_exists(v14, "nonce-domain-handle", &_xpc_type_uint64))
+      v69 = _xpc_dictionary_key_with_type_exists(v17, "nonce-domain-handle", &_xpc_type_uint64);
+      if (!v69)
       {
-        v64 = _remote_service_log();
+        v85 = _remote_service_log(v69);
 
-        if (v64)
+        if (v85)
         {
-          v65 = _remote_service_log();
-          os_log_type_enabled(v65, OS_LOG_TYPE_ERROR);
+          v87 = _remote_service_log(v86);
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+          {
+            v88 = 3;
+          }
+
+          else
+          {
+            v88 = 2;
+          }
+
           *block = 136315394;
           *&block[4] = "nonce-domain";
           *&block[12] = 2080;
           *&block[14] = "nonce-domain-handle";
-          v66 = _os_log_send_and_compose_impl();
+          v89 = _os_log_send_and_compose_impl(v88, 0, 0, 0, &_mh_execute_header, v87, 16, "required key missing or with wrong type: %s or %s", block, 22);
         }
 
         else
@@ -4581,83 +6013,102 @@ LABEL_9:
           *&block[4] = "nonce-domain";
           *&block[12] = 2080;
           *&block[14] = "nonce-domain-handle";
-          v66 = _os_log_send_and_compose_impl();
+          v89 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "required key missing or with wrong type: %s or %s", block, 22);
         }
 
-        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 151, "com.apple.security.cryptex", 11, 0, v66);
-        free(v66);
-        reply_with_cferr = _xpc_create_reply_with_cferr(v11, 0, Error);
-        goto LABEL_51;
+        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 151, "com.apple.security.cryptex", 11, 0, v89);
+        free(v89);
+        reply_with_cferr = _xpc_create_reply_with_cferr(v14, 0, Error);
+        goto LABEL_63;
       }
 
-      v54 = xpc_dictionary_get_uint64(v14, "nonce-domain-handle");
+      v70 = xpc_dictionary_get_uint64(v17, "nonce-domain-handle");
       if (!img4_nonce_domain_get_from_handle())
       {
-        v99 = _remote_service_log();
+        v125 = _remote_service_log(0);
 
-        if (v99)
+        if (v125)
         {
-          v100 = _remote_service_log();
-          os_log_type_enabled(v100, OS_LOG_TYPE_ERROR);
+          v127 = _remote_service_log(v126);
+          if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+          {
+            v128 = 3;
+          }
+
+          else
+          {
+            v128 = 2;
+          }
+
           *block = 67109120;
-          *&block[4] = v54;
-          v101 = _os_log_send_and_compose_impl();
+          *&block[4] = v70;
+          v129 = _os_log_send_and_compose_impl(v128, 0, 0, 0, &_mh_execute_header, v127, 16, "nonce domain doesn't exist for handle: %u", block);
         }
 
         else
         {
           *block = 67109120;
-          *&block[4] = v54;
-          v101 = _os_log_send_and_compose_impl();
+          *&block[4] = v70;
+          v129 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "nonce domain doesn't exist for handle: %u", block);
         }
 
-        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 141, "com.apple.security.cryptex", 10, 0, v101);
-        free(v101);
-        reply_with_cferr = _xpc_create_reply_with_cferr(v11, 0, Error);
-        goto LABEL_51;
+        Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 141, "com.apple.security.cryptex", 10, 0, v129);
+        free(v129);
+        reply_with_cferr = _xpc_create_reply_with_cferr(v14, 0, Error);
+        goto LABEL_63;
       }
     }
 
-    v55 = img4_nonce_domain_copy_nonce();
-    if (!v55)
+    v71 = img4_nonce_domain_copy_nonce();
+    v72 = v71;
+    if (!v71)
     {
       empty = xpc_dictionary_create_empty();
       xpc_dictionary_set_data(empty, "nonce", buf, 0x38uLL);
-      v7 = _xpc_create_reply_with_cferr(v11, empty, 0);
+      v9 = _xpc_create_reply_with_cferr(v14, empty, 0);
 
-LABEL_53:
+LABEL_65:
       goto LABEL_10;
     }
 
-    v56 = _remote_service_log();
+    v73 = _remote_service_log(v71);
 
-    if (v56)
+    if (v73)
     {
-      v57 = _remote_service_log();
-      os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+      v75 = _remote_service_log(v74);
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      {
+        v76 = 3;
+      }
+
+      else
+      {
+        v76 = 2;
+      }
+
       *block = 67109120;
-      *&block[4] = v55;
-      v58 = _os_log_send_and_compose_impl();
+      *&block[4] = v72;
+      v77 = _os_log_send_and_compose_impl(v76, 0, 0, 0, &_mh_execute_header, v75, 16, "copy nonce failed %{darwin.errno}d", block, 8);
     }
 
     else
     {
       *block = 67109120;
-      *&block[4] = v55;
-      v58 = _os_log_send_and_compose_impl();
+      *&block[4] = v72;
+      v77 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "copy nonce failed %{darwin.errno}d", block, 8);
     }
 
-    Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 161, "com.apple.security.cryptex.posix", v55, 0, v58);
-    free(v58);
-    reply_with_cferr = _xpc_create_reply_with_cferr(v11, 0, Error);
-LABEL_51:
-    v7 = reply_with_cferr;
+    Error = createError("_remote_service_get_nonce", "sub_remote_service.m", 161, "com.apple.security.cryptex.posix", v72, 0, v77);
+    free(v77);
+    reply_with_cferr = _xpc_create_reply_with_cferr(v14, 0, Error);
+LABEL_63:
+    v9 = reply_with_cferr;
     if (Error)
     {
       CFRelease(Error);
     }
 
-    goto LABEL_53;
+    goto LABEL_65;
   }
 
   if (strcmp(string_ptr, "roll-nonce"))
@@ -4678,16 +6129,17 @@ LABEL_51:
           goto LABEL_12;
         }
 
-        v9 = *__error();
-        v10 = _remote_service_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = __error();
+        v12 = *v11;
+        v13 = _remote_service_log(v11);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
           *&buf[4] = string_ptr;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Unsupported routine: %s", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unsupported routine: %s", buf, 0xCu);
         }
 
-        *__error() = v9;
+        *__error() = v12;
         reply = _xpc_create_reply(v1, 0, 45);
         goto LABEL_9;
       }
@@ -4695,518 +6147,547 @@ LABEL_51:
       *block = 0;
       *&block[8] = block;
       *&block[16] = 0x3032000000;
-      v186 = __Block_byref_object_copy__2;
-      v187 = __Block_byref_object_dispose__2;
-      v42 = v1;
-      v188 = v42;
-      v126 = 0;
-      v127 = &v126;
-      v128 = 0x3032000000;
-      v129 = __Block_byref_object_copy__2;
-      v130 = __Block_byref_object_dispose__2;
-      v131 = 0;
-      v176 = 0;
-      v43 = _xpc_request_get_argv(v42, &v176);
-      v44 = v176;
-      v45 = v44;
-      if (v43)
+      v221 = __Block_byref_object_copy__2;
+      v222 = __Block_byref_object_dispose__2;
+      v55 = v1;
+      v223 = v55;
+      v161 = 0;
+      v162 = &v161;
+      v163 = 0x3032000000;
+      v164 = __Block_byref_object_copy__2;
+      v165 = __Block_byref_object_dispose__2;
+      v166 = 0;
+      v211 = 0;
+      v56 = _xpc_request_get_argv(v55, &v211);
+      v57 = v211;
+      v58 = v57;
+      if (v56)
       {
-        v46 = *__error();
-        v47 = _remote_service_log();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v59 = __error();
+        v60 = *v59;
+        v61 = _remote_service_log(v59);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *&buf[4] = v43;
-          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "failed to get argv from request: %{darwin.errno}d", buf, 8u);
+          *&buf[4] = v56;
+          _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "failed to get argv from request: %{darwin.errno}d", buf, 8u);
         }
 
-        *__error() = v46;
+        *__error() = v60;
       }
 
       else
       {
-        string = xpc_dictionary_get_string(v44, "remote-cryptex-identifier");
-        v68 = xpc_dictionary_get_string(v45, "remote-cryptex-version");
+        string = xpc_dictionary_get_string(v57, "remote-cryptex-identifier");
+        v91 = xpc_dictionary_get_string(v58, "remote-cryptex-version");
         if (string)
         {
-          if (v68)
+          if (v91)
           {
-            v69 = cryptex_version_new();
+            v92 = cryptex_version_new();
           }
 
           else
           {
-            v69 = 0;
+            v92 = 0;
           }
 
-          v104 = codex_copy_system();
-          v105 = *(v127 + 40);
-          *(v127 + 40) = v104;
+          v133 = codex_copy_system();
+          v134 = *(v162 + 40);
+          *(v162 + 40) = v133;
 
-          v106 = daemon_get_main_queue();
+          v135 = daemon_get_main_queue();
           *buf = _NSConcreteStackBlock;
           *&buf[8] = 3221225472;
           *&buf[16] = ___remote_service_uninstall_block_invoke;
           *&buf[24] = &unk_100073460;
-          *&v198 = string;
-          *(&v198 + 1) = v69;
-          *&v199 = 1;
-          *&v197 = &v126;
-          *(&v197 + 1) = block;
-          dispatch_async(v106, buf);
+          *&v233 = string;
+          *(&v233 + 1) = v92;
+          *&v234 = 1;
+          *&v232 = &v161;
+          *(&v232 + 1) = block;
+          dispatch_async(v135, buf);
 
-          v48 = 0;
-          goto LABEL_127;
+          v62 = 0;
+          goto LABEL_154;
         }
 
-        v102 = *__error();
-        v103 = _remote_service_log();
-        if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+        v130 = __error();
+        v131 = *v130;
+        v132 = _remote_service_log(v130);
+        if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
           *&buf[4] = "remote-cryptex-identifier";
           *&buf[12] = 1024;
           *&buf[14] = 22;
-          _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_ERROR, "required key missing or with wrong type: %s: %{darwin.errno}d", buf, 0x12u);
+          _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_ERROR, "required key missing or with wrong type: %s: %{darwin.errno}d", buf, 0x12u);
         }
 
-        *__error() = v102;
-        v43 = 22;
+        *__error() = v131;
+        v56 = 22;
       }
 
-      v48 = _xpc_create_reply(v42, 0, v43);
-      _remote_service_send_reply(v48);
-LABEL_127:
-      _Block_object_dispose(&v126, 8);
+      v62 = _xpc_create_reply(v55, 0, v56);
+      _remote_service_send_reply(v62);
+LABEL_154:
+      _Block_object_dispose(&v161, 8);
 
       _Block_object_dispose(block, 8);
       goto LABEL_12;
     }
 
-    v23 = v1;
-    v138 = 0;
-    v139 = &v138;
-    v140 = 0x3032000000;
-    v141 = __Block_byref_object_copy__2;
-    v142 = __Block_byref_object_dispose__2;
-    v143 = 0;
+    v30 = v1;
+    v173 = 0;
+    v174 = &v173;
+    v175 = 0x3032000000;
+    v176 = __Block_byref_object_copy__2;
+    v177 = __Block_byref_object_dispose__2;
+    v178 = 0;
     if ((remote_service_install_request_valid() & 1) == 0)
     {
-      v51 = *__error();
-      v52 = _remote_service_log();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v65 = __error();
+      v66 = *v65;
+      v67 = _remote_service_log(v65);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
         *&buf[4] = 22;
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "Invalid install request: %{darwin.errno}d", buf, 8u);
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "Invalid install request: %{darwin.errno}d", buf, 8u);
       }
 
-      v29 = 0;
-      v30 = 0;
-      v31 = 0;
-      v123 = 0;
-      v125 = 0;
-      v25 = 0;
-      v122 = 0;
-      *__error() = v51;
-      goto LABEL_57;
+      v37 = 0;
+      v38 = 0;
+      v39 = 0;
+      v158 = 0;
+      v160 = 0;
+      v32 = 0;
+      v157 = 0;
+      *__error() = v66;
+      goto LABEL_69;
     }
 
-    v137 = 0;
-    v24 = _xpc_request_get_argv(v23, &v137);
-    v25 = v137;
-    if (v24)
+    v172 = 0;
+    v31 = _xpc_request_get_argv(v30, &v172);
+    v32 = v172;
+    if (v31)
     {
-      v26 = *__error();
-      v27 = _remote_service_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v33 = __error();
+      v34 = *v33;
+      v35 = _remote_service_log(v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        *&buf[4] = v24;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "failed to get argv from request: %{darwin.errno}d", buf, 8u);
+        *&buf[4] = v31;
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "failed to get argv from request: %{darwin.errno}d", buf, 8u);
       }
 
-      v28 = __error();
-      v29 = 0;
-      v30 = 0;
-      v31 = 0;
-      v123 = 0;
-      v125 = 0;
-      v122 = 0;
-LABEL_34:
-      *v28 = v26;
-LABEL_58:
-      v53 = _xpc_create_reply(v23, 0, v24);
-      _remote_service_send_reply(v53);
-LABEL_59:
-      _Block_object_dispose(&v138, 8);
+      v36 = __error();
+      v37 = 0;
+      v38 = 0;
+      v39 = 0;
+      v158 = 0;
+      v160 = 0;
+      v157 = 0;
+LABEL_40:
+      *v36 = v34;
+LABEL_70:
+      v68 = _xpc_create_reply(v30, 0, v31);
+      _remote_service_send_reply(v68);
+LABEL_71:
+      _Block_object_dispose(&v173, 8);
 
       goto LABEL_12;
     }
 
-    v70 = codex_copy_system();
-    v71 = v139[5];
-    v139[5] = v70;
+    v93 = codex_copy_system();
+    v94 = v174[5];
+    v174[5] = v93;
 
-    v125 = xpc_dictionary_get_value(v25, "image");
-    int64 = xpc_dictionary_get_int64(v25, "image-type-index");
+    v160 = xpc_dictionary_get_value(v32, "image");
+    int64 = xpc_dictionary_get_int64(v32, "image-type-index");
     if (int64 >= 0xC)
     {
-      v73 = *__error();
-      v74 = _remote_service_log();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v96 = __error();
+      v97 = *v96;
+      v98 = _remote_service_log(v96);
+      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
         *&buf[4] = 22;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "Invalid install request (image_type_index OOB): %{darwin.errno}d", buf, 8u);
+        _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "Invalid install request (image_type_index OOB): %{darwin.errno}d", buf, 8u);
       }
 
-      v29 = 0;
-      v30 = 0;
-      v31 = 0;
-      v122 = 0;
-      v123 = 0;
-      *__error() = v73;
-LABEL_57:
-      v24 = 22;
-      goto LABEL_58;
+      v37 = 0;
+      v38 = 0;
+      v39 = 0;
+      v157 = 0;
+      v158 = 0;
+      *__error() = v97;
+LABEL_69:
+      v31 = 22;
+      goto LABEL_70;
     }
 
-    v124 = xpc_dictionary_get_value(v25, "trustcache");
-    v119 = xpc_dictionary_get_value(v25, "im4m");
-    v117 = xpc_dictionary_get_value(v25, "info");
-    v116 = xpc_dictionary_get_value(v25, "volumehash");
-    v81 = xpc_dictionary_get_uint64(v25, "persistence");
-    v82 = xpc_dictionary_get_uint64(v25, "nonce-persistence");
-    v83 = xpc_dictionary_get_uint64(v25, "auth");
-    v84 = xpc_dictionary_get_dictionary(v25, "cryptex1-properties");
-    v85 = int64;
-    v86 = v139[5];
-    v126 = _NSConcreteStackBlock;
-    v127 = 3221225472;
-    v128 = ___remote_service_install_block_invoke;
-    v129 = &unk_100072F50;
-    v120 = v85;
-    v133 = v85;
-    v122 = v84;
-    v130 = v122;
-    v132 = &v138;
-    v131 = v23;
-    v134 = v83;
-    v135 = v81;
-    v136 = v82;
-    v121 = v86;
-    v125 = v125;
-    v123 = v124;
-    v29 = v119;
-    v31 = v117;
-    v30 = v116;
-    v87 = &v126;
-    v208 = 0u;
-    memset(v209, 0, sizeof(v209));
-    v206 = 0u;
-    v207 = 0u;
-    v204 = 0u;
-    v205 = 0u;
-    v202 = 0u;
-    v203 = 0u;
-    v200 = 0u;
-    v201 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v197 = 0u;
+    v159 = xpc_dictionary_get_value(v32, "trustcache");
+    v154 = xpc_dictionary_get_value(v32, "im4m");
+    v152 = xpc_dictionary_get_value(v32, "info");
+    v151 = xpc_dictionary_get_value(v32, "volumehash");
+    v107 = xpc_dictionary_get_uint64(v32, "persistence");
+    v108 = xpc_dictionary_get_uint64(v32, "nonce-persistence");
+    v109 = xpc_dictionary_get_uint64(v32, "auth");
+    v110 = xpc_dictionary_get_dictionary(v32, "cryptex1-properties");
+    v111 = int64;
+    v112 = v174[5];
+    v161 = _NSConcreteStackBlock;
+    v162 = 3221225472;
+    v163 = ___remote_service_install_block_invoke;
+    v164 = &unk_100072F50;
+    v155 = v111;
+    v168 = v111;
+    v157 = v110;
+    v165 = v157;
+    v167 = &v173;
+    v166 = v30;
+    v169 = v109;
+    v170 = v107;
+    v171 = v108;
+    v156 = v112;
+    v160 = v160;
+    v158 = v159;
+    v37 = v154;
+    v39 = v152;
+    v38 = v151;
+    v113 = &v161;
+    v243 = 0u;
+    memset(v244, 0, sizeof(v244));
+    v241 = 0u;
+    v242 = 0u;
+    v239 = 0u;
+    v240 = 0u;
+    v237 = 0u;
+    v238 = 0u;
+    v235 = 0u;
+    v236 = 0u;
+    v233 = 0u;
+    v234 = 0u;
+    v232 = 0u;
     memset(buf, 0, sizeof(buf));
-    v184 = -1;
-    v182[0] = 0;
-    v182[1] = v182;
-    v182[2] = 0x2020000000;
-    v183 = 0;
-    v176 = 0;
-    v177 = &v176;
-    v178 = 0x3032000000;
-    v179 = __Block_byref_object_copy__2;
-    v180 = __Block_byref_object_dispose__2;
-    v181 = 0;
-    v174[0] = 0;
-    v174[1] = v174;
-    v174[2] = 0x3032000000;
-    v174[3] = __Block_byref_object_copy__30;
-    v174[4] = __Block_byref_object_dispose__31;
-    v118 = v87;
-    v175 = objc_retainBlock(v87);
-    v88 = _remote_service_get_queue();
-    dispatch_assert_queue_V2(v88);
+    v219 = -1;
+    v217[0] = 0;
+    v217[1] = v217;
+    v217[2] = 0x2020000000;
+    v218 = 0;
+    v211 = 0;
+    v212 = &v211;
+    v213 = 0x3032000000;
+    v214 = __Block_byref_object_copy__2;
+    v215 = __Block_byref_object_dispose__2;
+    v216 = 0;
+    v209[0] = 0;
+    v209[1] = v209;
+    v209[2] = 0x3032000000;
+    v209[3] = __Block_byref_object_copy__30;
+    v209[4] = __Block_byref_object_dispose__31;
+    v153 = v113;
+    v210 = objc_retainBlock(v113);
+    v114 = _remote_service_get_queue(v210);
+    dispatch_assert_queue_V2(v114);
 
     __snprintf_chk(buf, 0xFFuLL, 0, 0xFFuLL, "XXXXXX");
-    codex_mkodtempat(v121, &_codex_state_remote_stage, buf, &v184);
-    if (openat(v184, *(cryptex_asset_types[v120] + 40), 514, 438) < 0)
+    codex_mkodtempat(v156, &_codex_state_remote_stage, buf, &v219);
+    if (openat(v219, *(cryptex_asset_types[v155] + 40), 514, 438) < 0)
     {
-      v24 = *__error();
-      v97 = *__error();
-      v98 = _remote_service_log();
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+      v31 = *__error();
+      v136 = __error();
+      v123 = *v136;
+      v124 = _remote_service_log(v136);
+      if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
       {
         *block = 67109120;
-        *&block[4] = v24;
-        _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "failed to create file for image: %{darwin.errno}d", block, 8u);
+        *&block[4] = v31;
+        _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "failed to create file for image: %{darwin.errno}d", block, 8u);
       }
     }
 
     else
     {
-      v89 = cryptex_asset_types[v120];
       is_cryptex1 = cryptex_asset_type_is_cryptex1();
-      v91 = is_cryptex1;
+      v116 = is_cryptex1;
       if (is_cryptex1)
       {
-        v92 = &_cryptex_asset_type_ginf;
+        v117 = &_cryptex_asset_type_ginf;
       }
 
       else
       {
-        v92 = _cryptex_asset_type_c411;
+        v117 = _cryptex_asset_type_c411;
       }
 
       if (is_cryptex1)
       {
-        v93 = &_cryptex_asset_type_gtcd;
+        v118 = &_cryptex_asset_type_gtcd;
       }
 
       else
       {
-        v93 = &_cryptex_asset_type_ltrs;
+        v118 = &_cryptex_asset_type_ltrs;
       }
 
-      v113 = v93;
-      v114 = v92;
-      v94 = &_cryptex_asset_type_roothash;
+      v148 = v118;
+      v149 = v117;
+      v119 = &_cryptex_asset_type_roothash;
       if (is_cryptex1)
       {
-        v94 = &_cryptex_asset_type_gtgv;
+        v119 = &_cryptex_asset_type_gtgv;
       }
 
-      v115 = v94;
-      v95 = (&_cryptex_asset_type_ltrs + 40);
+      v150 = v119;
+      v120 = (&_cryptex_asset_type_ltrs + 40);
       if (is_cryptex1)
       {
-        v95 = (&_cryptex_asset_type_gtcd + 40);
+        v120 = (&_cryptex_asset_type_gtcd + 40);
       }
 
-      if (openat(v184, *v95, 514, 438) < 0)
+      if (openat(v219, *v120, 514, 438) < 0)
       {
-        v24 = *__error();
-        v97 = *__error();
-        v98 = _remote_service_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v31 = *__error();
+        v137 = __error();
+        v123 = *v137;
+        v124 = _remote_service_log(v137);
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
         {
           *block = 67109120;
-          *&block[4] = v24;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "failed to create file for trust cache: %{darwin.errno}d", block, 8u);
+          *&block[4] = v31;
+          _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "failed to create file for trust cache: %{darwin.errno}d", block, 8u);
         }
       }
 
-      else if (openat(v184, *(&_cryptex_asset_type_im4m + 5), 514, 438) < 0)
+      else if (openat(v219, *(&_cryptex_asset_type_im4m + 5), 514, 438) < 0)
       {
-        v24 = *__error();
-        v97 = *__error();
-        v98 = _remote_service_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v31 = *__error();
+        v138 = __error();
+        v123 = *v138;
+        v124 = _remote_service_log(v138);
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
         {
           *block = 67109120;
-          *&block[4] = v24;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "failed to create file for im4m: %{darwin.errno}d", block, 8u);
+          *&block[4] = v31;
+          _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "failed to create file for im4m: %{darwin.errno}d", block, 8u);
         }
       }
 
-      else if (v31 && (!v91 ? (v96 = _cryptex_asset_type_c411) : (v96 = &_cryptex_asset_type_ginf), openat(v184, v96[5], 514, 438) < 0))
+      else if (v39 && (!v116 ? (v121 = _cryptex_asset_type_c411) : (v121 = &_cryptex_asset_type_ginf), openat(v219, v121[5], 514, 438) < 0))
       {
-        v24 = *__error();
-        v97 = *__error();
-        v98 = _remote_service_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v31 = *__error();
+        v122 = __error();
+        v123 = *v122;
+        v124 = _remote_service_log(v122);
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
         {
           *block = 67109120;
-          *&block[4] = v24;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "failed to create file for info: %{darwin.errno}d", block, 8u);
+          *&block[4] = v31;
+          _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "failed to create file for info: %{darwin.errno}d", block, 8u);
         }
       }
 
       else
       {
-        if (!v30)
+        if (!v38)
         {
-          goto LABEL_151;
+          goto LABEL_178;
         }
 
-        v107 = &_cryptex_asset_type_roothash;
-        if (v91)
+        v139 = &_cryptex_asset_type_roothash;
+        if (v116)
         {
-          v107 = &_cryptex_asset_type_gtgv;
+          v139 = &_cryptex_asset_type_gtgv;
         }
 
-        if ((openat(v184, v107[5], 514, 438) & 0x80000000) == 0)
+        if ((openat(v219, v139[5], 514, 438) & 0x80000000) == 0)
         {
-LABEL_151:
-          v109 = dispatch_group_create();
-          v110 = v177[5];
-          v177[5] = v109;
+LABEL_178:
+          v143 = dispatch_group_create();
+          v144 = v212[5];
+          v212[5] = v143;
 
-          dispatch_group_enter(v177[5]);
-          dispatch_group_enter(v177[5]);
-          v168 = _NSConcreteStackBlock;
-          v169 = 3221225472;
-          v170 = ___remote_service_install_file_recv_block_invoke;
-          v171 = &unk_100072F78;
-          v172 = v182;
-          v173 = &v176;
+          dispatch_group_enter(v212[5]);
+          dispatch_group_enter(v212[5]);
+          v203 = _NSConcreteStackBlock;
+          v204 = 3221225472;
+          v205 = ___remote_service_install_file_recv_block_invoke;
+          v206 = &unk_100072F78;
+          v207 = v217;
+          v208 = &v211;
           xpc_file_transfer_write_to_fd();
-          dispatch_group_enter(v177[5]);
-          v162 = _NSConcreteStackBlock;
-          v163 = 3221225472;
-          v164 = ___remote_service_install_file_recv_block_invoke_34;
-          v165 = &unk_100072F78;
-          v166 = v182;
-          v167 = &v176;
+          dispatch_group_enter(v212[5]);
+          v197 = _NSConcreteStackBlock;
+          v198 = 3221225472;
+          v199 = ___remote_service_install_file_recv_block_invoke_34;
+          v200 = &unk_100072F78;
+          v201 = v217;
+          v202 = &v211;
           xpc_file_transfer_write_to_fd();
-          dispatch_group_enter(v177[5]);
-          v156 = _NSConcreteStackBlock;
-          v157 = 3221225472;
-          v158 = ___remote_service_install_file_recv_block_invoke_35;
-          v159 = &unk_100072F78;
-          v160 = v182;
-          v161 = &v176;
-          xpc_file_transfer_write_to_fd();
-          if (v31)
+          dispatch_group_enter(v212[5]);
+          v191 = _NSConcreteStackBlock;
+          v192 = 3221225472;
+          v193 = ___remote_service_install_file_recv_block_invoke_35;
+          v194 = &unk_100072F78;
+          v195 = v217;
+          v196 = &v211;
+          v145 = xpc_file_transfer_write_to_fd();
+          if (v39)
           {
-            dispatch_group_enter(v177[5]);
-            v150 = _NSConcreteStackBlock;
-            v151 = 3221225472;
-            v152 = ___remote_service_install_file_recv_block_invoke_36;
-            v153 = &unk_100072F78;
-            v154 = v182;
-            v155 = &v176;
-            xpc_file_transfer_write_to_fd();
+            dispatch_group_enter(v212[5]);
+            v185 = _NSConcreteStackBlock;
+            v186 = 3221225472;
+            v187 = ___remote_service_install_file_recv_block_invoke_36;
+            v188 = &unk_100072F78;
+            v189 = v217;
+            v190 = &v211;
+            v145 = xpc_file_transfer_write_to_fd();
           }
 
-          if (v30)
+          if (v38)
           {
-            dispatch_group_enter(v177[5]);
-            v144 = _NSConcreteStackBlock;
-            v145 = 3221225472;
-            v146 = ___remote_service_install_file_recv_block_invoke_37;
-            v147 = &unk_100072F78;
-            v148 = v182;
-            v149 = &v176;
-            xpc_file_transfer_write_to_fd();
+            dispatch_group_enter(v212[5]);
+            v179 = _NSConcreteStackBlock;
+            v180 = 3221225472;
+            v181 = ___remote_service_install_file_recv_block_invoke_37;
+            v182 = &unk_100072F78;
+            v183 = v217;
+            v184 = &v211;
+            v145 = xpc_file_transfer_write_to_fd();
           }
 
-          v111 = v177[5];
-          v112 = _remote_service_get_queue();
+          v146 = v212[5];
+          v147 = _remote_service_get_queue(v145);
           *block = _NSConcreteStackBlock;
           *&block[8] = 3221225472;
           *&block[16] = ___remote_service_install_file_recv_block_invoke_38;
-          v186 = &unk_100072FA0;
-          v195 = v184;
-          v191 = v120;
-          v192 = v113;
-          v187 = v31;
-          v193 = v114;
-          v188 = v30;
-          v189 = v174;
-          v194 = v115;
-          v190 = v182;
-          dispatch_group_notify(v111, v112, block);
+          v221 = &unk_100072FA0;
+          v230 = v219;
+          v226 = v155;
+          v227 = v148;
+          v222 = v39;
+          v228 = v149;
+          v223 = v38;
+          v224 = v209;
+          v229 = v150;
+          v225 = v217;
+          dispatch_group_notify(v146, v147, block);
 
-          dispatch_group_leave(v177[5]);
-          v24 = 0;
-          goto LABEL_146;
+          dispatch_group_leave(v212[5]);
+          v31 = 0;
+          goto LABEL_173;
         }
 
-        v24 = *__error();
-        v97 = *__error();
-        v98 = _remote_service_log();
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+        v31 = *__error();
+        v140 = __error();
+        v123 = *v140;
+        v124 = _remote_service_log(v140);
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
         {
           *block = 67109120;
-          *&block[4] = v24;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "failed to create file for volume hash: %{darwin.errno}d", block, 8u);
+          *&block[4] = v31;
+          _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "failed to create file for volume hash: %{darwin.errno}d", block, 8u);
         }
       }
     }
 
-    *__error() = v97;
-LABEL_146:
-    _Block_object_dispose(v174, 8);
+    *__error() = v123;
+LABEL_173:
+    _Block_object_dispose(v209, 8);
 
-    _Block_object_dispose(&v176, 8);
-    _Block_object_dispose(v182, 8);
+    _Block_object_dispose(&v211, 8);
+    _Block_object_dispose(v217, 8);
 
-    if (!v24)
+    if (!v31)
     {
-      v53 = 0;
-      goto LABEL_59;
+      v68 = 0;
+      goto LABEL_71;
     }
 
-    v26 = *__error();
-    v108 = _remote_service_log();
-    if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+    v141 = __error();
+    v34 = *v141;
+    v142 = _remote_service_log(v141);
+    if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *&buf[4] = v24;
-      _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_ERROR, "file receive failed: %{darwin.errno}d", buf, 8u);
+      *&buf[4] = v31;
+      _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_ERROR, "file receive failed: %{darwin.errno}d", buf, 8u);
     }
 
-    v28 = __error();
-    goto LABEL_34;
+    v36 = __error();
+    goto LABEL_40;
   }
 
-  v18 = v1;
-  if (!_xpc_dictionary_key_with_type_exists(v18, "nonce-domain", &_xpc_type_uint64))
+  v23 = v1;
+  if (!_xpc_dictionary_key_with_type_exists(v23, "nonce-domain", &_xpc_type_uint64))
   {
-    if (_xpc_dictionary_key_with_type_exists(v18, "nonce-domain-handle", &_xpc_type_uint64))
+    v46 = _xpc_dictionary_key_with_type_exists(v23, "nonce-domain-handle", &_xpc_type_uint64);
+    if (v46)
     {
-      v36 = xpc_dictionary_get_uint64(v18, "nonce-domain-handle");
+      v47 = xpc_dictionary_get_uint64(v23, "nonce-domain-handle");
       if (img4_nonce_domain_get_from_handle())
       {
-        goto LABEL_41;
+        goto LABEL_50;
       }
 
-      v78 = _remote_service_log();
+      v102 = _remote_service_log(0);
+
+      if (v102)
+      {
+        v104 = _remote_service_log(v103);
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+        {
+          v105 = 3;
+        }
+
+        else
+        {
+          v105 = 2;
+        }
+
+        *buf = 67109120;
+        *&buf[4] = v47;
+        v106 = _os_log_send_and_compose_impl(v105, 0, 0, 0, &_mh_execute_header, v104, 16, "nonce domain doesn't exist for handle: %u", buf);
+      }
+
+      else
+      {
+        *buf = 67109120;
+        *&buf[4] = v47;
+        v106 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "nonce domain doesn't exist for handle: %u", buf);
+      }
+
+      v99 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 211, "com.apple.security.cryptex", 10, 0, v106);
+      free(v106);
+      v100 = _xpc_create_reply_with_cferr(v23, 0, v99);
+    }
+
+    else
+    {
+      v78 = _remote_service_log(v46);
 
       if (v78)
       {
-        v79 = _remote_service_log();
-        os_log_type_enabled(v79, OS_LOG_TYPE_ERROR);
-        *buf = 67109120;
-        *&buf[4] = v36;
-        v80 = _os_log_send_and_compose_impl();
-      }
+        v80 = _remote_service_log(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+        {
+          v81 = 3;
+        }
 
-      else
-      {
-        *buf = 67109120;
-        *&buf[4] = v36;
-        v80 = _os_log_send_and_compose_impl();
-      }
+        else
+        {
+          v81 = 2;
+        }
 
-      v75 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 211, "com.apple.security.cryptex", 10, 0, v80);
-      free(v80);
-      v76 = _xpc_create_reply_with_cferr(v18, 0, v75);
-    }
-
-    else
-    {
-      v59 = _remote_service_log();
-
-      if (v59)
-      {
-        v60 = _remote_service_log();
-        os_log_type_enabled(v60, OS_LOG_TYPE_ERROR);
         *buf = 136315394;
         *&buf[4] = "nonce-domain";
         *&buf[12] = 2080;
         *&buf[14] = "nonce-domain-handle";
-        v61 = _os_log_send_and_compose_impl();
+        v82 = _os_log_send_and_compose_impl(v81, 0, 0, 0, &_mh_execute_header, v80, 16, "required key missing or with wrong type: %s or %s", buf, 22);
       }
 
       else
@@ -5215,98 +6696,116 @@ LABEL_146:
         *&buf[4] = "nonce-domain";
         *&buf[12] = 2080;
         *&buf[14] = "nonce-domain-handle";
-        v61 = _os_log_send_and_compose_impl();
+        v82 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "required key missing or with wrong type: %s or %s", buf, 22);
       }
 
-      v75 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 221, "com.apple.security.cryptex", 11, 0, v61);
-      free(v61);
-      v76 = _xpc_create_reply_with_cferr(v18, 0, v75);
+      v99 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 221, "com.apple.security.cryptex", 11, 0, v82);
+      free(v82);
+      v100 = _xpc_create_reply_with_cferr(v23, 0, v99);
     }
 
-LABEL_122:
-    v7 = v76;
-    if (v75)
+LABEL_149:
+    v9 = v100;
+    if (v99)
     {
-      CFRelease(v75);
+      CFRelease(v99);
     }
 
-    goto LABEL_124;
+    goto LABEL_151;
   }
 
-  v19 = xpc_dictionary_get_uint64(v18, "nonce-domain");
-  if (!_img4_get_nonce_domain_from_index(v19))
+  v24 = xpc_dictionary_get_uint64(v23, "nonce-domain");
+  if (!_img4_get_nonce_domain_from_index(v24))
   {
-    v20 = _remote_service_log();
+    v25 = _remote_service_log(0);
 
-    if (v20)
+    if (v25)
     {
-      v21 = _remote_service_log();
-      os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+      v27 = _remote_service_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        v28 = 3;
+      }
+
+      else
+      {
+        v28 = 2;
+      }
+
       *buf = 134217984;
-      *&buf[4] = v19;
-      v22 = _os_log_send_and_compose_impl();
+      *&buf[4] = v24;
+      v29 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, v27, 16, "nonce domain doesn't exist for index: %llu", buf);
     }
 
     else
     {
       *buf = 134217984;
-      *&buf[4] = v19;
-      v22 = _os_log_send_and_compose_impl();
+      *&buf[4] = v24;
+      v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "nonce domain doesn't exist for index: %llu", buf);
     }
 
-    v75 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 196, "com.apple.security.cryptex", 10, 0, v22);
-    free(v22);
-    v76 = _xpc_create_reply_with_cferr(v18, 0, v75);
-    goto LABEL_122;
+    v99 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 196, "com.apple.security.cryptex", 10, 0, v29);
+    free(v29);
+    v100 = _xpc_create_reply_with_cferr(v23, 0, v99);
+    goto LABEL_149;
   }
 
-LABEL_41:
-  v37 = img4_nonce_domain_roll_nonce();
-  if (v37)
+LABEL_50:
+  v48 = img4_nonce_domain_roll_nonce();
+  if (v48)
   {
-    v38 = v37;
-    v39 = _remote_service_log();
+    v49 = v48;
+    v50 = _remote_service_log(v48);
 
-    if (v39)
+    if (v50)
     {
-      v40 = _remote_service_log();
-      os_log_type_enabled(v40, OS_LOG_TYPE_ERROR);
+      v52 = _remote_service_log(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      {
+        v53 = 3;
+      }
+
+      else
+      {
+        v53 = 2;
+      }
+
       *buf = 67109120;
-      *&buf[4] = v38;
-      v41 = _os_log_send_and_compose_impl();
+      *&buf[4] = v49;
+      v54 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, v52, 16, "roll nonce failed %{darwin.errno}d", buf, 8);
     }
 
     else
     {
       *buf = 67109120;
-      *&buf[4] = v38;
-      v41 = _os_log_send_and_compose_impl();
+      *&buf[4] = v49;
+      v54 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "roll nonce failed %{darwin.errno}d", buf, 8);
     }
 
-    v75 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 231, "com.apple.security.cryptex.posix", v38, 0, v41);
-    free(v41);
-    v76 = _xpc_create_reply_with_cferr(v18, 0, v75);
-    goto LABEL_122;
+    v99 = createError("_remote_service_roll_nonce", "sub_remote_service.m", 231, "com.apple.security.cryptex.posix", v49, 0, v54);
+    free(v54);
+    v100 = _xpc_create_reply_with_cferr(v23, 0, v99);
+    goto LABEL_149;
   }
 
-  v62 = xpc_dictionary_create_empty();
-  v63 = _xpc_create_reply_with_cferr(v18, v62, 0);
+  v83 = xpc_dictionary_create_empty();
+  v84 = _xpc_create_reply_with_cferr(v23, v83, 0);
 
-  v7 = v63;
-LABEL_124:
+  v9 = v84;
+LABEL_151:
 
 LABEL_10:
-  if (v7)
+  if (v9)
   {
-    _remote_service_send_reply(v7);
+    _remote_service_send_reply(v9);
   }
 
 LABEL_12:
 }
 
-void sub_100028D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_100028D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a72, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x228], 8);
   _Block_object_dispose(&STACK[0x258], 8);
   _Block_object_dispose(&a36, 8);
@@ -5336,75 +6835,87 @@ void _remote_service_copy_installed(void *a1)
 void _remote_service_read_personalization_identifiers(void *a1)
 {
   v1 = a1;
-  memset(v13, 0, sizeof(v13));
-  LOWORD(v13[0]) = 6;
-  if (img4_chip_instantiate())
+  memset(v17, 0, sizeof(v17));
+  LOWORD(v17[0]) = 6;
+  v2 = img4_chip_instantiate();
+  if (v2)
   {
-    v2 = _remote_service_log();
+    v3 = _remote_service_log(v2);
 
-    if (v2)
+    if (v3)
     {
-      v3 = _remote_service_log();
-      os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+      v5 = _remote_service_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = 3;
+      }
+
+      else
+      {
+        v6 = 2;
+      }
+
       *buf = 67109120;
-      LODWORD(v12) = 5;
-      v4 = _os_log_send_and_compose_impl();
+      LODWORD(v16) = 5;
+      v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, v5, 16, "Failed to initialize AppleImage4 chip instance. %{darwin.errno}d", buf, 8);
     }
 
     else
     {
       *buf = 67109120;
-      LODWORD(v12) = 5;
-      v4 = _os_log_send_and_compose_impl();
+      LODWORD(v16) = 5;
+      v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Failed to initialize AppleImage4 chip instance. %{darwin.errno}d", buf, 8);
     }
 
-    Error = createError("_remote_service_read_personalization_identifiers", "sub_remote_service.m", 848, "com.apple.security.cryptex.posix", 5, 0, v4);
-    free(v4);
-LABEL_10:
-    v6 = 0;
-    goto LABEL_11;
+    Error = createError("_remote_service_read_personalization_identifiers", "sub_remote_service.m", 848, "com.apple.security.cryptex.posix", 5, 0, v7);
+    free(v7);
+LABEL_13:
+    v9 = 0;
+    goto LABEL_14;
   }
 
-  v10 = 0;
-  Error = img4_chip_instance_to_xpc(v13, &v10);
-  v6 = v10;
+  v14 = 0;
+  Error = img4_chip_instance_to_xpc(v17, &v14);
+  v9 = v14;
   if (Error)
   {
-    v7 = *__error();
-    v8 = _remote_service_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = __error();
+    v11 = *v10;
+    v12 = _remote_service_log(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = Error;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to encode AppleImage4 chip instance.: %@", buf, 0xCu);
+      v16 = Error;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to encode AppleImage4 chip instance.: %@", buf, 0xCu);
     }
 
-    *__error() = v7;
-    goto LABEL_10;
+    *__error() = v11;
+    goto LABEL_13;
   }
 
-LABEL_11:
-  reply_with_cferr = _xpc_create_reply_with_cferr(v1, v6, Error);
+LABEL_14:
+  reply_with_cferr = _xpc_create_reply_with_cferr(v1, v9, Error);
   _remote_service_send_reply(reply_with_cferr);
 }
 
 void _remote_service_send_reply(void *a1)
 {
   v1 = a1;
-  v2 = _remote_service_get_queue();
+  v2 = _remote_service_get_queue(v1);
   dispatch_assert_queue_V2(v2);
 
   v3 = xpc_copy_description(v1);
-  v4 = *__error();
-  v5 = _remote_service_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "remote service reply: %s", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = v3;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "remote service reply: %s", &v7, 0xCu);
   }
 
-  *__error() = v4;
+  *__error() = v5;
   xpc_dictionary_send_reply();
   free(v3);
 }
@@ -5416,104 +6927,103 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void ___remote_service_install_block_invoke(uint64_t a1, int a2)
+void ___remote_service_install_block_invoke(void *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7)
 {
   if (!a2)
   {
-    v6 = cryptex_core_create();
-    v8 = *(a1 + 56);
-    v9 = cryptex_core_set_assets_from_fds();
-    if (v9)
+    v12 = cryptex_core_create();
+    v14 = cryptex_core_set_assets_from_fds();
+    if (v14)
     {
-      v3 = v9;
-      v4 = *__error();
-      v5 = _remote_service_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v8 = v14;
+      v15 = __error();
+      v10 = *v15;
+      v11 = _remote_service_log(v15);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v24 = v3;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "set assets to core from fds failed: %{darwin.errno}d", buf, 8u);
+        v28 = v8;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "set assets to core from fds failed: %{darwin.errno}d", buf, 8u);
       }
 
       goto LABEL_5;
     }
 
-    v10 = *(a1 + 32);
     reply = cryptex_core_cx1_properties_create_with_xpc_dictionary();
     if (reply)
     {
       cryptex_core_set_cryptex1_properties();
     }
 
-    v11 = *(a1 + 40);
-    v13 = *(a1 + 64);
-    v12 = *(a1 + 72);
-    v14 = *(a1 + 80);
-    v15 = *(*(*(a1 + 48) + 8) + 40);
-    v16 = v11;
-    v6 = v6;
-    v17 = *__error();
-    v18 = _remote_service_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
-    if (v13 == 2)
+    v16 = a1[5];
+    v17 = a1[8];
+    v18 = *(*(a1[6] + 8) + 40);
+    v19 = v16;
+    v12 = v12;
+    v20 = __error();
+    v21 = *v20;
+    v22 = _remote_service_log(v20);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+    if (v17 == 2)
     {
-      if (v19)
+      if (v23)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "using NO signing service", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "using NO signing service", buf, 2u);
       }
     }
 
     else
     {
-      if (v13 != 1)
+      if (v17 != 1)
       {
-        if (v19)
+        if (v23)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "using default signing service", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "using default signing service", buf, 2u);
         }
 
-        v20 = 0;
-        *__error() = v17;
+        v24 = 0;
+        *__error() = v21;
         goto LABEL_23;
       }
 
-      if (v19)
+      if (v23)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "using supplemental signing service", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "using supplemental signing service", buf, 2u);
       }
     }
 
-    *__error() = v17;
-    v20 = cryptex_host_create();
+    *__error() = v21;
+    v24 = cryptex_host_create();
     cryptex_core_attach_host();
 LABEL_23:
     cryptex_core_set_install_persistence();
     cryptex_core_set_nonce_persistence();
-    v21 = v15;
-    started = pipeline_start_state_alloc(v21, 0, 0, 0, v16, _remote_service_install_cryptex_continue);
-    codex_install_cryptex(v21, v6, started);
+    v25 = v18;
+    started = pipeline_start_state_alloc(v25, 0, 0, 0, v19, _remote_service_install_cryptex_continue);
+    codex_install_cryptex(v25, v12, started);
 
     goto LABEL_6;
   }
 
-  v3 = a2;
-  v4 = *__error();
-  v5 = _remote_service_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v8 = a2;
+  v9 = __error();
+  v10 = *v9;
+  v11 = _remote_service_log(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v24 = v3;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "file transfer failed: %{darwin.errno}d", buf, 8u);
+    v28 = v8;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "file transfer failed: %{darwin.errno}d", buf, 8u);
   }
 
-  v6 = 0;
+  v12 = 0;
 LABEL_5:
 
-  *__error() = v4;
-  reply = _xpc_create_reply(*(a1 + 40), 0, v3);
+  *__error() = v10;
+  reply = _xpc_create_reply(a1[5], 0, v8);
   _remote_service_send_reply(reply);
 LABEL_6:
 }
@@ -5525,45 +7035,46 @@ id __Block_byref_object_copy__30(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id _remote_service_get_queue()
+id _remote_service_get_queue(uint64_t a1)
 {
   if (_remote_service_get_queue_onceToken != -1)
   {
     _remote_service_get_queue_cold_1();
   }
 
-  v1 = _remote_service_get_queue_queue;
+  v2 = _remote_service_get_queue_queue;
 
-  return v1;
+  return v2;
 }
 
 void ___remote_service_install_file_recv_block_invoke(uint64_t a1, int a2)
 {
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "image file transfer: %{darwin.errno}d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "image file transfer: %{darwin.errno}d", v8, 8u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "image file transfer [no error]", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "image file transfer [no error]", v8, 2u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 
   dispatch_group_leave(*(*(*(a1 + 40) + 8) + 40));
@@ -5571,31 +7082,32 @@ void ___remote_service_install_file_recv_block_invoke(uint64_t a1, int a2)
 
 void ___remote_service_install_file_recv_block_invoke_34(uint64_t a1, int a2)
 {
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "trustcache file transfer: %{darwin.errno}d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "trustcache file transfer: %{darwin.errno}d", v8, 8u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "trustcache file transfer [no error]", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "trustcache file transfer [no error]", v8, 2u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 
   dispatch_group_leave(*(*(*(a1 + 40) + 8) + 40));
@@ -5603,31 +7115,32 @@ void ___remote_service_install_file_recv_block_invoke_34(uint64_t a1, int a2)
 
 void ___remote_service_install_file_recv_block_invoke_35(uint64_t a1, int a2)
 {
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "im4m file transfer: %{darwin.errno}d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "im4m file transfer: %{darwin.errno}d", v8, 8u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "im4m file transfer [no error]", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "im4m file transfer [no error]", v8, 2u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 
   dispatch_group_leave(*(*(*(a1 + 40) + 8) + 40));
@@ -5635,31 +7148,32 @@ void ___remote_service_install_file_recv_block_invoke_35(uint64_t a1, int a2)
 
 void ___remote_service_install_file_recv_block_invoke_36(uint64_t a1, int a2)
 {
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "info file transfer: %{darwin.errno}d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "info file transfer: %{darwin.errno}d", v8, 8u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "info file transfer [no error]", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "info file transfer [no error]", v8, 2u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 
   dispatch_group_leave(*(*(*(a1 + 40) + 8) + 40));
@@ -5667,31 +7181,32 @@ void ___remote_service_install_file_recv_block_invoke_36(uint64_t a1, int a2)
 
 void ___remote_service_install_file_recv_block_invoke_37(uint64_t a1, int a2)
 {
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "volume hash file transfer: %{darwin.errno}d", v7, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "volume hash file transfer: %{darwin.errno}d", v8, 8u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v7[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "volume hash file transfer [no error]", v7, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "volume hash file transfer [no error]", v8, 2u);
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 
   dispatch_group_leave(*(*(*(a1 + 40) + 8) + 40));
@@ -5700,12 +7215,12 @@ void ___remote_service_install_file_recv_block_invoke_37(uint64_t a1, int a2)
 uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
 {
   v2 = openat(*(a1 + 96), *(cryptex_asset_types[*(a1 + 64)] + 40), 0, 438);
-  v3 = _remote_service_log();
+  v3 = _remote_service_log(v2);
   bzero(__str, 0x400uLL);
-  memset(&v59, 0, sizeof(v59));
+  memset(&v58, 0, sizeof(v58));
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    if (fstat(v2, &v59) == -1)
+    if (fstat(v2, &v58) == -1)
     {
       v8 = *__error();
       v9 = v3;
@@ -5713,11 +7228,11 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       {
         v10 = *__error();
         *buf = 136315650;
-        v61 = "imagefd_r";
-        v62 = 1024;
-        v63 = v2;
-        v64 = 1024;
-        LODWORD(v65) = v10;
+        v60 = "imagefd_r";
+        v61 = 1024;
+        v62 = v2;
+        v63 = 1024;
+        LODWORD(v64) = v10;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", buf, 0x18u);
       }
 
@@ -5733,7 +7248,7 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         snprintf(__str, 0x400uLL, "[%s]", v5);
       }
 
-      v6 = v59.st_mode >> 12;
+      v6 = v58.st_mode >> 12;
       if (v6 == 7)
       {
         v7 = "[unknown]";
@@ -5749,17 +7264,17 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316418;
-        v61 = "imagefd_r";
-        v62 = 1024;
-        v63 = v2;
-        v64 = 2080;
-        v65 = v7;
-        v66 = 2048;
-        st_size = v59.st_size;
-        v68 = 2080;
-        v69 = v11;
-        v70 = 2080;
-        v71 = __str;
+        v60 = "imagefd_r";
+        v61 = 1024;
+        v62 = v2;
+        v63 = 2080;
+        v64 = v7;
+        v65 = 2048;
+        st_size = v58.st_size;
+        v67 = 2080;
+        v68 = v11;
+        v69 = 2080;
+        v70 = __str;
         _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", buf, 0x3Au);
       }
 
@@ -5769,12 +7284,12 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
   }
 
   v13 = openat(*(a1 + 96), *(*(a1 + 72) + 40), 514, 438);
-  v14 = _remote_service_log();
+  v14 = _remote_service_log(v13);
   bzero(__str, 0x400uLL);
-  memset(&v59, 0, sizeof(v59));
+  memset(&v58, 0, sizeof(v58));
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    if (fstat(v13, &v59) == -1)
+    if (fstat(v13, &v58) == -1)
     {
       v19 = *__error();
       v20 = v14;
@@ -5782,11 +7297,11 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       {
         v21 = *__error();
         *buf = 136315650;
-        v61 = "tcfd_r";
-        v62 = 1024;
-        v63 = v13;
-        v64 = 1024;
-        LODWORD(v65) = v21;
+        v60 = "tcfd_r";
+        v61 = 1024;
+        v62 = v13;
+        v63 = 1024;
+        LODWORD(v64) = v21;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", buf, 0x18u);
       }
 
@@ -5802,7 +7317,7 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         snprintf(__str, 0x400uLL, "[%s]", v16);
       }
 
-      v17 = v59.st_mode >> 12;
+      v17 = v58.st_mode >> 12;
       if (v17 == 7)
       {
         v18 = "[unknown]";
@@ -5818,17 +7333,17 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316418;
-        v61 = "tcfd_r";
-        v62 = 1024;
-        v63 = v13;
-        v64 = 2080;
-        v65 = v18;
-        v66 = 2048;
-        st_size = v59.st_size;
-        v68 = 2080;
-        v69 = v22;
-        v70 = 2080;
-        v71 = __str;
+        v60 = "tcfd_r";
+        v61 = 1024;
+        v62 = v13;
+        v63 = 2080;
+        v64 = v18;
+        v65 = 2048;
+        st_size = v58.st_size;
+        v67 = 2080;
+        v68 = v22;
+        v69 = 2080;
+        v70 = __str;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", buf, 0x3Au);
       }
 
@@ -5838,12 +7353,12 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
   }
 
   v24 = openat(*(a1 + 96), *(&_cryptex_asset_type_im4m + 5), 514, 438);
-  v25 = _remote_service_log();
+  v25 = _remote_service_log(v24);
   bzero(__str, 0x400uLL);
-  memset(&v59, 0, sizeof(v59));
+  memset(&v58, 0, sizeof(v58));
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    if (fstat(v24, &v59) == -1)
+    if (fstat(v24, &v58) == -1)
     {
       v30 = *__error();
       v31 = v25;
@@ -5851,11 +7366,11 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       {
         v32 = *__error();
         *buf = 136315650;
-        v61 = "im4mfd_r";
-        v62 = 1024;
-        v63 = v24;
-        v64 = 1024;
-        LODWORD(v65) = v32;
+        v60 = "im4mfd_r";
+        v61 = 1024;
+        v62 = v24;
+        v63 = 1024;
+        LODWORD(v64) = v32;
         _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", buf, 0x18u);
       }
 
@@ -5871,7 +7386,7 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         snprintf(__str, 0x400uLL, "[%s]", v27);
       }
 
-      v28 = v59.st_mode >> 12;
+      v28 = v58.st_mode >> 12;
       if (v28 == 7)
       {
         v29 = "[unknown]";
@@ -5887,17 +7402,17 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136316418;
-        v61 = "im4mfd_r";
-        v62 = 1024;
-        v63 = v24;
-        v64 = 2080;
-        v65 = v29;
-        v66 = 2048;
-        st_size = v59.st_size;
-        v68 = 2080;
-        v69 = v33;
-        v70 = 2080;
-        v71 = __str;
+        v60 = "im4mfd_r";
+        v61 = 1024;
+        v62 = v24;
+        v63 = 2080;
+        v64 = v29;
+        v65 = 2048;
+        st_size = v58.st_size;
+        v67 = 2080;
+        v68 = v33;
+        v69 = 2080;
+        v70 = __str;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", buf, 0x3Au);
       }
 
@@ -5909,12 +7424,12 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
   if (*(a1 + 32))
   {
     v35 = openat(*(a1 + 96), *(*(a1 + 80) + 40), 514, 438);
-    v36 = _remote_service_log();
+    v36 = _remote_service_log(v35);
     bzero(__str, 0x400uLL);
-    memset(&v59, 0, sizeof(v59));
+    memset(&v58, 0, sizeof(v58));
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      if (fstat(v35, &v59) == -1)
+      if (fstat(v35, &v58) == -1)
       {
         v41 = *__error();
         v42 = v36;
@@ -5922,11 +7437,11 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         {
           v43 = *__error();
           *buf = 136315650;
-          v61 = "infofd_r";
-          v62 = 1024;
-          v63 = v35;
-          v64 = 1024;
-          LODWORD(v65) = v43;
+          v60 = "infofd_r";
+          v61 = 1024;
+          v62 = v35;
+          v63 = 1024;
+          LODWORD(v64) = v43;
           _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", buf, 0x18u);
         }
 
@@ -5942,7 +7457,7 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
           snprintf(__str, 0x400uLL, "[%s]", v38);
         }
 
-        v39 = v59.st_mode >> 12;
+        v39 = v58.st_mode >> 12;
         if (v39 == 7)
         {
           v40 = "[unknown]";
@@ -5958,17 +7473,17 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316418;
-          v61 = "infofd_r";
-          v62 = 1024;
-          v63 = v35;
-          v64 = 2080;
-          v65 = v40;
-          v66 = 2048;
-          st_size = v59.st_size;
-          v68 = 2080;
-          v69 = v44;
-          v70 = 2080;
-          v71 = __str;
+          v60 = "infofd_r";
+          v61 = 1024;
+          v62 = v35;
+          v63 = 2080;
+          v64 = v40;
+          v65 = 2048;
+          st_size = v58.st_size;
+          v67 = 2080;
+          v68 = v44;
+          v69 = 2080;
+          v70 = __str;
           _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", buf, 0x3Au);
         }
 
@@ -5981,12 +7496,12 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
   if (*(a1 + 40))
   {
     v46 = openat(*(a1 + 96), *(*(a1 + 88) + 40), 514, 438);
-    v47 = _remote_service_log();
+    v47 = _remote_service_log(v46);
     bzero(__str, 0x400uLL);
-    memset(&v59, 0, sizeof(v59));
+    memset(&v58, 0, sizeof(v58));
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
-      if (fstat(v46, &v59) == -1)
+      if (fstat(v46, &v58) == -1)
       {
         v52 = *__error();
         v53 = v47;
@@ -5994,11 +7509,11 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         {
           v54 = *__error();
           *buf = 136315650;
-          v61 = "volhashfd_r";
-          v62 = 1024;
-          v63 = v46;
-          v64 = 1024;
-          LODWORD(v65) = v54;
+          v60 = "volhashfd_r";
+          v61 = 1024;
+          v62 = v46;
+          v63 = 1024;
+          LODWORD(v64) = v54;
           _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", buf, 0x18u);
         }
 
@@ -6014,7 +7529,7 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
           snprintf(__str, 0x400uLL, "[%s]", v49);
         }
 
-        v50 = v59.st_mode >> 12;
+        v50 = v58.st_mode >> 12;
         if (v50 == 7)
         {
           v51 = "[unknown]";
@@ -6030,17 +7545,17 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136316418;
-          v61 = "volhashfd_r";
-          v62 = 1024;
-          v63 = v46;
-          v64 = 2080;
-          v65 = v51;
-          v66 = 2048;
-          st_size = v59.st_size;
-          v68 = 2080;
-          v69 = v55;
-          v70 = 2080;
-          v71 = __str;
+          v60 = "volhashfd_r";
+          v61 = 1024;
+          v62 = v46;
+          v63 = 2080;
+          v64 = v51;
+          v65 = 2048;
+          st_size = v58.st_size;
+          v67 = 2080;
+          v68 = v55;
+          v69 = 2080;
+          v70 = __str;
           _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", buf, 0x3Au);
         }
 
@@ -6050,7 +7565,6 @@ uint64_t ___remote_service_install_file_recv_block_invoke_38(uint64_t a1)
     }
   }
 
-  v57 = *(*(*(a1 + 56) + 8) + 24);
   return (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
 }
 
@@ -6067,32 +7581,34 @@ void _remote_service_install_cryptex_continue(void *a1, void *a2, void *a3, uint
   v7 = a1;
   v8 = a2;
   v9 = a3;
-  v18[0] = 0;
-  v18[1] = v18;
-  v18[2] = 0x2020000000;
-  v18[3] = a4;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = a4;
   v10 = *(a4 + 64);
   if (v9)
   {
-    v11 = *__error();
-    v12 = _remote_service_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = __error();
+    v12 = *v11;
+    v13 = _remote_service_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v9;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "installation failed: %@", buf, 0xCu);
+      v22 = v9;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "installation failed: %@", buf, 0xCu);
     }
 
-    *__error() = v11;
-    v13 = _remote_service_get_queue();
+    v14 = __error();
+    *v14 = v12;
+    v15 = _remote_service_get_queue(v14);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___remote_service_install_cryptex_continue_block_invoke;
     block[3] = &unk_1000733E8;
-    v15 = v10;
-    v16 = v9;
-    v17 = v18;
-    dispatch_async(v13, block);
+    v17 = v10;
+    v18 = v9;
+    v19 = v20;
+    dispatch_async(v15, block);
   }
 
   else
@@ -6100,12 +7616,12 @@ void _remote_service_install_cryptex_continue(void *a1, void *a2, void *a3, uint
     codex_bootstrap(v7, v8, a4, _remote_service_install_cryptex_continue2);
   }
 
-  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(v20, 8);
 }
 
-void sub_10002A9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002A9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6114,91 +7630,94 @@ void _remote_service_install_cryptex_continue2(void *a1, void *a2, const void *a
 {
   v7 = a1;
   v8 = a2;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = a4;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = a4;
   v9 = *(a4 + 64);
+  v10 = v9;
   if (a3)
   {
-    v10 = *__error();
-    v11 = _remote_service_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = __error();
+    v12 = *v11;
+    v13 = _remote_service_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = a3;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "bootstrap failed, unbootstrapping: %@", buf, 0xCu);
+      v25 = a3;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "bootstrap failed, unbootstrapping: %@", buf, 0xCu);
     }
 
-    *__error() = v10;
-    v12 = CFRetain(a3);
-    *(v19[3] + 16) = v12;
+    *__error() = v12;
+    v14 = CFRetain(a3);
+    *(v21[3] + 16) = v14;
     codex_unbootstrap(v7, v8, 1uLL, a4, _remote_service_install_cryptex_failure_unbootstrap_callback);
   }
 
   else
   {
-    v13 = _remote_service_get_queue();
+    v15 = _remote_service_get_queue(v9);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___remote_service_install_cryptex_continue2_block_invoke;
     block[3] = &unk_1000733E8;
-    v15 = v8;
-    v16 = v9;
-    v17 = &v18;
-    dispatch_async(v13, block);
+    v17 = v8;
+    v18 = v10;
+    v19 = &v20;
+    dispatch_async(v15, block);
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
-void sub_10002ABF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002ABF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void ___remote_service_install_cryptex_continue_block_invoke(uint64_t a1)
+void ___remote_service_install_cryptex_continue_block_invoke(void *a1)
 {
-  reply_with_cferr = _xpc_create_reply_with_cferr(*(a1 + 32), 0, *(a1 + 40));
+  reply_with_cferr = _xpc_create_reply_with_cferr(a1[4], 0, a1[5]);
   _remote_service_send_reply(reply_with_cferr);
-  pipeline_start_state_destroy((*(*(a1 + 48) + 8) + 24));
+  pipeline_start_state_destroy((*(a1[6] + 8) + 24));
 }
 
 void _remote_service_install_cryptex_failure_unbootstrap_callback(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
   v8 = a1;
-  v9 = *__error();
-  v10 = _remote_service_log();
-  v11 = v10;
+  v9 = __error();
+  v10 = *v9;
+  v11 = _remote_service_log(v9);
+  v12 = v11;
   if (a3)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = a3;
-      v12 = "unbootstrap: %@";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_ERROR;
-      v15 = 12;
+      v17 = 138412290;
+      v18 = a3;
+      v13 = "unbootstrap: %@";
+      v14 = v12;
+      v15 = OS_LOG_TYPE_ERROR;
+      v16 = 12;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v13, v14, v12, &v16, v15);
+      _os_log_impl(&_mh_execute_header, v14, v15, v13, &v17, v16);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v16) = 0;
-    v12 = "unbootstrap [no error]";
-    v13 = v11;
-    v14 = OS_LOG_TYPE_DEBUG;
-    v15 = 2;
+    LOWORD(v17) = 0;
+    v13 = "unbootstrap [no error]";
+    v14 = v12;
+    v15 = OS_LOG_TYPE_DEBUG;
+    v16 = 2;
     goto LABEL_6;
   }
 
-  *__error() = v9;
+  *__error() = v10;
   codex_uninstall(v8, v7, a4, _remote_service_install_cryptex_failure_uninstall_callback);
 }
 
@@ -6221,54 +7740,58 @@ void _remote_service_install_cryptex_failure_uninstall_callback(void *a1, void *
 {
   v7 = a1;
   v8 = a2;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v19[3] = a4;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x2020000000;
+  v22[3] = a4;
   v9 = *(a4 + 64);
   if (a3)
   {
-    v10 = *__error();
-    v11 = _remote_service_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = __error();
+    v11 = *v10;
+    v12 = _remote_service_log(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = a3;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "uninstall: %@", buf, 0xCu);
+      v24 = a3;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "uninstall: %@", buf, 0xCu);
     }
 
-    *__error() = v10;
+    v13 = __error();
+    *v13 = v11;
   }
 
   else
   {
-    v12 = *__error();
-    v13 = _remote_service_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = __error();
+    v15 = *v14;
+    v16 = _remote_service_log(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "uninstall [no error]", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "uninstall [no error]", buf, 2u);
     }
 
-    *__error() = v12;
+    v13 = __error();
+    *v13 = v15;
   }
 
-  v14 = _remote_service_get_queue();
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = ___remote_service_install_cryptex_failure_uninstall_callback_block_invoke;
-  v16[3] = &unk_100073410;
-  v17 = v9;
-  v18 = v19;
-  v15 = v9;
-  dispatch_async(v14, v16);
+  v17 = _remote_service_get_queue(v13);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = ___remote_service_install_cryptex_failure_uninstall_callback_block_invoke;
+  v19[3] = &unk_100073410;
+  v20 = v9;
+  v21 = v22;
+  v18 = v9;
+  dispatch_async(v17, v19);
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v22, 8);
 }
 
-void sub_10002B08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002B08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6307,27 +7830,29 @@ void ___remote_service_uninstall_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = *__error();
-    v4 = _remote_service_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = __error();
+    v4 = *v3;
+    v5 = _remote_service_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 48);
+      v6 = *(a1 + 48);
       *buf = 136315394;
-      v10 = v5;
-      v11 = 1024;
-      v12 = 2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "failed to find cryptex with identifier %s: %{darwin.errno}d", buf, 0x12u);
+      v12 = v6;
+      v13 = 1024;
+      v14 = 2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "failed to find cryptex with identifier %s: %{darwin.errno}d", buf, 0x12u);
     }
 
-    *__error() = v3;
-    v6 = _remote_service_get_queue();
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = ___remote_service_uninstall_block_invoke_74;
-    v7[3] = &unk_100073438;
-    v7[4] = *(a1 + 40);
-    v8 = 2;
-    dispatch_async(v6, v7);
+    v7 = __error();
+    *v7 = v4;
+    v8 = _remote_service_get_queue(v7);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = ___remote_service_uninstall_block_invoke_74;
+    v9[3] = &unk_100073438;
+    v9[4] = *(a1 + 40);
+    v10 = 2;
+    dispatch_async(v8, v9);
   }
 }
 
@@ -6336,35 +7861,36 @@ void _remote_service_uninstall_continue(void *a1, void *a2, uint64_t a3, void *a
   v7 = a4;
   v8 = a2;
   v9 = a1;
-  v10 = *__error();
-  v11 = _remote_service_log();
-  v12 = v11;
+  v10 = __error();
+  v11 = *v10;
+  v12 = _remote_service_log(v10);
+  v13 = v12;
   if (a3)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = a3;
-      v13 = "unbootstrap: %@";
-      v14 = v12;
-      v15 = OS_LOG_TYPE_ERROR;
-      v16 = 12;
+      v18 = 138412290;
+      v19 = a3;
+      v14 = "unbootstrap: %@";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_ERROR;
+      v17 = 12;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v14, v15, v13, &v17, v16);
+      _os_log_impl(&_mh_execute_header, v15, v16, v14, &v18, v17);
     }
   }
 
-  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v17) = 0;
-    v13 = "unbootstrap [no error]";
-    v14 = v12;
-    v15 = OS_LOG_TYPE_DEBUG;
-    v16 = 2;
+    LOWORD(v18) = 0;
+    v14 = "unbootstrap [no error]";
+    v15 = v13;
+    v16 = OS_LOG_TYPE_DEBUG;
+    v17 = 2;
     goto LABEL_6;
   }
 
-  *__error() = v10;
+  *__error() = v11;
   codex_uninstall(v9, v8, v7, _remote_service_uninstall_continue2);
 }
 
@@ -6379,39 +7905,42 @@ void _remote_service_uninstall_continue2(uint64_t a1, uint64_t a2, const void *a
   if (a3)
   {
     TopLevelPosixError = _CFErrorGetTopLevelPosixError(a3);
-    v7 = *__error();
-    v8 = _remote_service_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = __error();
+    v8 = *v7;
+    v9 = _remote_service_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = a3;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "uninstall: %@", buf, 0xCu);
+      v18 = a3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "uninstall: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = *__error();
-    v8 = _remote_service_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = __error();
+    v8 = *v10;
+    v9 = _remote_service_log(v10);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "uninstall [no error]", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "uninstall [no error]", buf, 2u);
     }
 
     TopLevelPosixError = 0;
   }
 
-  *__error() = v7;
-  v9 = _remote_service_get_queue();
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = ___remote_service_uninstall_continue2_block_invoke;
-  v11[3] = &unk_100073488;
-  v12 = a4;
-  v13 = TopLevelPosixError;
-  v10 = a4;
-  dispatch_async(v9, v11);
+  v11 = __error();
+  *v11 = v8;
+  v12 = _remote_service_get_queue(v11);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = ___remote_service_uninstall_continue2_block_invoke;
+  v14[3] = &unk_100073488;
+  v15 = a4;
+  v16 = TopLevelPosixError;
+  v13 = a4;
+  dispatch_async(v12, v14);
 }
 
 void ___remote_service_uninstall_continue2_block_invoke(uint64_t a1)
@@ -6435,26 +7964,26 @@ void _remote_service_list_continue(void *a1, void *a2)
   v4 = a1;
   v5 = dispatch_group_create();
   dispatch_group_enter(v5);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = ___remote_service_list_continue_block_invoke;
-  v14[3] = &unk_1000734B0;
-  v15 = v5;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = ___remote_service_list_continue_block_invoke;
+  v15[3] = &unk_1000734B0;
+  v16 = v5;
   v6 = xpc_array_create_empty();
-  v16 = v6;
+  v17 = v6;
   v7 = v5;
-  codex_installed_cryptex_apply(v4, v14);
+  codex_installed_cryptex_apply(v4, v15);
 
-  v8 = _remote_service_get_queue();
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = ___remote_service_list_continue_block_invoke_4;
-  v11[3] = &unk_1000734D8;
-  v12 = v6;
-  v13 = v3;
-  v9 = v3;
-  v10 = v6;
-  dispatch_group_notify(v7, v8, v11);
+  v9 = _remote_service_get_queue(v8);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = ___remote_service_list_continue_block_invoke_4;
+  v12[3] = &unk_1000734D8;
+  v13 = v6;
+  v14 = v3;
+  v10 = v3;
+  v11 = v6;
+  dispatch_group_notify(v7, v9, v12);
 
   dispatch_group_leave(v7);
 }
@@ -6508,9 +8037,7 @@ void ___remote_service_list_continue_block_invoke_4(uint64_t a1)
 uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
 {
   connect = 0;
-  v66 = 0;
-  v65 = 0u;
-  v64 = 0u;
+  v64 = 0;
   v63 = 0u;
   v62 = 0u;
   v61 = 0u;
@@ -6524,11 +8051,13 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
   v53 = 0u;
   v52 = 0u;
   v51 = 0u;
+  v50 = 0u;
+  v49 = 0u;
   inputStruct = 0x1BEEFFEEDLL;
   outputStruct = 0;
   outputStructCnt = 4;
   MutableForCFTypes = _CFDictionaryCreateMutableForCFTypes();
-  _CFCreateAssertImpl(MutableForCFTypes);
+  _CFCreateAssertImpl(MutableForCFTypes, "CFMutableDictionary");
   v5 = *(a1 + 2);
   if (v5)
   {
@@ -6539,10 +8068,10 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
   else
   {
     v7 = CFUUIDCreate(0);
-    _CFCreateAssertImpl(v7);
+    _CFCreateAssertImpl(v7, "CFUUID");
     cf = v7;
     v6 = CFUUIDCreateString(0, v7);
-    _CFCreateAssertImpl(v6);
+    _CFCreateAssertImpl(v6, "CFString");
   }
 
   bzero(__s, 0x400uLL);
@@ -6551,92 +8080,90 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
   if (a1[8])
   {
     bzero(__str, 0x400uLL);
-    v8 = **(a1 + 1);
-    v9 = realpath_np();
-    if (v9)
+    v8 = realpath_np();
+    if (v8)
     {
-      v10 = v9;
-      v11 = *__error();
-      v12 = *(a1 + 261);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v9 = v8;
+      v10 = *__error();
+      v11 = *(a1 + 261);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v47) = v10;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "realpath_np shdwfd: %{darwin.errno}d", buf, 8u);
+        LODWORD(v45) = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "realpath_np shdwfd: %{darwin.errno}d", buf, 8u);
       }
 
+      v12 = 0;
       v13 = 0;
-      v14 = 0;
       Data = 0;
-      v16 = 0;
-      *__error() = v11;
+      v15 = 0;
+      *__error() = v10;
       goto LABEL_17;
     }
 
     snprintf(__str, 0x400uLL, "%s/%s", __str, "shadow");
-    v17 = *__error();
-    v18 = *(a1 + 261);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v16 = *__error();
+    v17 = *(a1 + 261);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v47 = __str;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "shdwpath = %s", buf, 0xCu);
+      v45 = __str;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "shdwpath = %s", buf, 0xCu);
     }
 
-    *__error() = v17;
-    v19 = strlen(__str);
-    v14 = CFDataCreate(0, __str, v19);
-    _CFCreateAssertImpl(v14);
-    CFDictionarySetValue(MutableForCFTypes, @"shadow-path", v14);
+    *__error() = v16;
+    v18 = strlen(__str);
+    v13 = CFDataCreate(0, __str, v18);
+    _CFCreateAssertImpl(v13, "CFData");
+    CFDictionarySetValue(MutableForCFTypes, @"shadow-path", v13);
   }
 
   else
   {
     CFDictionarySetValue(MutableForCFTypes, @"write-protected", kCFBooleanTrue);
-    v14 = 0;
+    v13 = 0;
   }
 
-  v20 = *a1;
-  v21 = realpath_np();
-  if (v21)
+  v19 = realpath_np();
+  if (v19)
   {
-    v10 = v21;
-    v22 = *__error();
-    v23 = *(a1 + 261);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v9 = v19;
+    v20 = *__error();
+    v21 = *(a1 + 261);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *__str = 67109120;
-      *&__str[4] = v10;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "realpath_np hdi_dmgfd: %{darwin.errno}d", __str, 8u);
+      *&__str[4] = v9;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "realpath_np hdi_dmgfd: %{darwin.errno}d", __str, 8u);
     }
 
-    v13 = 0;
+    v12 = 0;
     Data = 0;
-    v16 = 0;
-    *__error() = v22;
+    v15 = 0;
+    *__error() = v20;
   }
 
   else
   {
-    v25 = strlen(__s);
-    v14 = CFDataCreate(0, __s, v25);
-    _CFCreateAssertImpl(v14);
-    CFDictionarySetValue(MutableForCFTypes, @"image-path", v14);
-    v13 = _CFNumberCreateFromInt32(*a1);
-    _CFCreateAssertImpl(v13);
-    CFDictionarySetValue(MutableForCFTypes, @"image-fd", v13);
-    v26 = *__error();
-    v27 = *(a1 + 261);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v23 = strlen(__s);
+    v13 = CFDataCreate(0, __s, v23);
+    _CFCreateAssertImpl(v13, "CFData");
+    CFDictionarySetValue(MutableForCFTypes, @"image-path", v13);
+    v12 = _CFNumberCreateFromInt32(*a1);
+    _CFCreateAssertImpl(v12, "CFNumber");
+    CFDictionarySetValue(MutableForCFTypes, @"image-fd", v12);
+    v24 = *__error();
+    v25 = *(a1 + 261);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *__str = 138412290;
       *&__str[4] = MutableForCFTypes;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "attach args = %@", __str, 0xCu);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "attach args = %@", __str, 0xCu);
     }
 
-    *__error() = v26;
+    *__error() = v24;
     Data = CFPropertyListCreateData(0, MutableForCFTypes, kCFPropertyListXMLFormat_v1_0, 0, 0);
-    _CFCreateAssertImpl(Data);
+    _CFCreateAssertImpl(Data, "CFData");
     BytePtr = CFDataGetBytePtr(Data);
     Length = CFDataGetLength(Data);
     if (Length < 0)
@@ -6644,45 +8171,45 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
       _CFStringCopyUTF8String_cold_1();
     }
 
-    *&v51 = BytePtr;
-    *(&v51 + 1) = Length;
-    v30 = IOServiceMatching("IOHDIXController");
-    MatchingService = IOServiceGetMatchingService(0, v30);
+    *&v49 = BytePtr;
+    *(&v49 + 1) = Length;
+    v28 = IOServiceMatching("IOHDIXController");
+    MatchingService = IOServiceGetMatchingService(0, v28);
     if (MatchingService)
     {
-      v16 = MatchingService;
+      v15 = MatchingService;
       if (IOServiceOpen(MatchingService, mach_task_self_, 0, &connect))
       {
-        v32 = *__error();
-        v33 = *(a1 + 261);
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v30 = *__error();
+        v31 = *(a1 + 261);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *__str = 67109120;
           *&__str[4] = 5;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "IOServiceOpen: %{mach.errno}x", __str, 8u);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "IOServiceOpen: %{mach.errno}x", __str, 8u);
         }
 
-        *__error() = v32;
-        v10 = 61;
+        *__error() = v30;
+        v9 = 61;
       }
 
       else
       {
-        v36 = IOConnectCallStructMethod(connect, 0, &inputStruct, 0x100uLL, &outputStruct, &outputStructCnt);
-        if (v36)
+        v34 = IOConnectCallStructMethod(connect, 0, &inputStruct, 0x100uLL, &outputStruct, &outputStructCnt);
+        if (v34)
         {
-          v37 = v36;
-          v38 = *__error();
-          v39 = *(a1 + 261);
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v35 = v34;
+          v36 = *__error();
+          v37 = *(a1 + 261);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *__str = 67109120;
-            *&__str[4] = v37;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "kIOHDIXControllerCreateDriveMethod: %{mach.errno}x", __str, 8u);
+            *&__str[4] = v35;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "kIOHDIXControllerCreateDriveMethod: %{mach.errno}x", __str, 8u);
           }
 
-          *__error() = v38;
-          v10 = 83;
+          *__error() = v36;
+          v9 = 83;
         }
 
         else
@@ -6692,17 +8219,17 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
             hdi_attach_cold_1(buf, __str);
           }
 
-          v40 = *__error();
-          v41 = *(a1 + 261);
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          v38 = *__error();
+          v39 = *(a1 + 261);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
             *__str = 67109120;
             *&__str[4] = outputStruct;
-            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "drive number: %d", __str, 8u);
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "drive number: %d", __str, 8u);
           }
 
-          *__error() = v40;
-          v10 = 0;
+          *__error() = v38;
+          v9 = 0;
           *a2 = CFRetain(v6);
         }
       }
@@ -6710,18 +8237,18 @@ uint64_t hdi_attach(unsigned int *a1, CFTypeRef *a2)
 
     else
     {
-      v34 = *__error();
-      v35 = *(a1 + 261);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v32 = *__error();
+      v33 = *(a1 + 261);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *__str = 136315138;
         *&__str[4] = "IOHDIXController";
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "could not find %s", __str, 0xCu);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "could not find %s", __str, 0xCu);
       }
 
-      v16 = 0;
-      *__error() = v34;
-      v10 = 78;
+      v15 = 0;
+      *__error() = v32;
+      v9 = 78;
     }
   }
 
@@ -6731,7 +8258,7 @@ LABEL_17:
     hdi_attach_cold_2(buf, __str);
   }
 
-  if (v16 + 1 < 2)
+  if (v15 + 1 < 2)
   {
     if (!Data)
     {
@@ -6749,14 +8276,14 @@ LABEL_21:
   }
 
 LABEL_22:
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
   if (v13)
   {
     CFRelease(v13);
+  }
+
+  if (v12)
+  {
+    CFRelease(v12);
   }
 
   if (v6)
@@ -6774,7 +8301,7 @@ LABEL_22:
     CFRelease(MutableForCFTypes);
   }
 
-  return v10;
+  return v9;
 }
 
 uint64_t hdi_find_attached(uint64_t a1, const void *a2, const char **a3, char *a4, char *a5)
@@ -6940,13 +8467,13 @@ uint64_t _hdi_copy_device_nodes(NSObject *a1, io_object_t object, const char **a
   v8 = object;
   if (IOObjectRetain(object))
   {
-    _hdi_copy_device_nodes_cold_1(&v47, buf);
+    _hdi_copy_device_nodes_cold_1(v47, buf);
   }
 
   entry = v8;
   if (IOObjectRetain(v8))
   {
-    _hdi_copy_device_nodes_cold_1(&v47, buf);
+    _hdi_copy_device_nodes_cold_1(v47, buf);
   }
 
   objecta = v8;
@@ -7133,7 +8660,7 @@ LABEL_57:
 
     if (v24 && IOObjectRelease(v24))
     {
-      hdi_find_attached_cold_3(&v47, buf);
+      hdi_find_attached_cold_3(v47, buf);
     }
   }
 
@@ -7151,13 +8678,13 @@ LABEL_57:
 
   if (objecta && IOObjectRelease(objecta))
   {
-    hdi_find_attached_cold_3(&v47, buf);
+    hdi_find_attached_cold_3(v47, buf);
   }
 
   return v29;
 }
 
-uint64_t hdi_mount(int *a1, int a2, uint64_t a3)
+uint64_t hdi_mount(unsigned int *a1, int a2, uint64_t a3)
 {
   v6 = *a1;
   v7 = os_log_create("com.apple.libcryptex", "hdi");
@@ -7226,17 +8753,17 @@ LABEL_116:
     {
       if (ioctl(v12, 0x20006415uLL))
       {
-        v69 = *__error();
-        v70 = *(a3 + 2088);
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v71 = *__error();
+        v72 = *(a3 + 2088);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
-          v71 = *__error();
+          v73 = *__error();
           *buf = 67109120;
-          *&buf[4] = v71;
-          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "failed to clean up device: %{darwin.errno}d", buf, 8u);
+          *&buf[4] = v73;
+          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "failed to clean up device: %{darwin.errno}d", buf, 8u);
         }
 
-        *__error() = v69;
+        *__error() = v71;
       }
 
       *(a3 + 33) = 0;
@@ -7249,15 +8776,15 @@ LABEL_116:
 
   if (!strcmp(*(a3 + 24), "hfs"))
   {
-    v89 = v6;
-    v91 = v12;
-    bzero(v102, 0x400uLL);
-    v96 = 511;
-    v93 = a3 + 1057;
-    v94 = getuid();
-    v95 = getgid();
-    v97 = xmmword_1000593C0;
-    v98 = 0;
+    v91 = v6;
+    v93 = v12;
+    bzero(v104, 0x400uLL);
+    v98 = 511;
+    v95 = a3 + 1057;
+    v96 = getuid();
+    v97 = getgid();
+    v99 = xmmword_1000593C0;
+    v100 = 0;
     v21 = *__error();
     v22 = *(a3 + 2088);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
@@ -7275,18 +8802,20 @@ LABEL_116:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        *&buf[4] = v102;
+        *&buf[4] = v104;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "mount point = %s", buf, 0xCu);
       }
 
       *__error() = v23;
     }
 
-    if (gettimeofday(0, &v97) == -1)
+    if (gettimeofday(0, &v99) == -1)
     {
       hdi_mount_cold_5(&__buf, buf);
     }
 
+    v128 = 0u;
+    v129 = 0u;
     v126 = 0u;
     v127 = 0u;
     v124 = 0u;
@@ -7307,13 +8836,11 @@ LABEL_116:
     v111 = 0u;
     v108 = 0u;
     v109 = 0u;
-    v106 = 0u;
     v107 = 0u;
-    v105 = 0u;
     memset(&__buf, 0, sizeof(__buf));
     v25 = open((a3 + 1057), 4);
     v26 = v25;
-    v12 = v91;
+    v12 = v93;
     if (v25 < 0)
     {
       v9 = *__error();
@@ -7326,126 +8853,126 @@ LABEL_116:
 LABEL_107:
       if (close(v26) == -1)
       {
-        daemon_init_cold_13(&v152, buf);
+        daemon_init_cold_13(&v154, buf);
       }
 
 LABEL_108:
-      v67 = *__error();
-      v68 = *(a3 + 2088);
+      v69 = *__error();
+      v70 = *(a3 + 2088);
       if (v9)
       {
         if (os_log_type_enabled(*(a3 + 2088), OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
           *&buf[4] = v9;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "could not get encoding: %{darwin.errno}d", buf, 8u);
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "could not get encoding: %{darwin.errno}d", buf, 8u);
         }
 
-        *__error() = v67;
+        *__error() = v69;
       }
 
       else
       {
-        v73 = a2 | 0x100001;
+        v75 = a2 | 0x100001;
         if (os_log_type_enabled(*(a3 + 2088), OS_LOG_TYPE_DEBUG))
         {
-          v74 = *(a3 + 24);
+          v76 = *(a3 + 24);
           *buf = 136315650;
-          *&buf[4] = v74;
+          *&buf[4] = v76;
           *&buf[12] = 1024;
-          *&buf[14] = v89;
+          *&buf[14] = v91;
           *&buf[18] = 1024;
-          *&buf[20] = v73;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "mount args: fs = %s, fd = %d, flags = %#x", buf, 0x18u);
+          *&buf[20] = v75;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEBUG, "mount args: fs = %s, fd = %d, flags = %#x", buf, 0x18u);
         }
 
-        *__error() = v67;
-        v75 = *(a3 + 2088);
+        *__error() = v69;
+        v77 = *(a3 + 2088);
         bzero(buf, 0x400uLL);
         memset(&__buf, 0, sizeof(__buf));
-        v42 = v89;
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+        v42 = v91;
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
         {
-          if (fstat(v89, &__buf) == -1)
+          if (fstat(v91, &__buf) == -1)
           {
-            v80 = *__error();
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+            v82 = *__error();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
             {
-              v81 = *__error();
-              v152.vfc_reserved1 = 136315650;
-              *v152.vfc_name = "mntfd";
-              *&v152.vfc_name[8] = 1024;
-              *&v152.vfc_name[10] = v89;
-              *&v152.vfc_name[14] = 1024;
-              v152.vfc_typenum = v81;
-              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", &v152, 0x18u);
+              v83 = *__error();
+              v154.vfc_reserved1 = 136315650;
+              *v154.vfc_name = "mntfd";
+              *&v154.vfc_name[8] = 1024;
+              *&v154.vfc_name[10] = v91;
+              *&v154.vfc_name[14] = 1024;
+              v154.vfc_typenum = v83;
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "%s fd[%d] : [invalid descriptor]: %{darwin.errno}d", &v154, 0x18u);
             }
 
-            *__error() = v80;
+            *__error() = v82;
           }
 
           else
           {
-            if (fcntl(v89, 50, buf))
+            if (fcntl(v91, 50, buf))
             {
-              v76 = __error();
-              v77 = strerror(*v76);
-              snprintf(buf, 0x400uLL, "[%s]", v77);
+              v78 = __error();
+              v79 = strerror(*v78);
+              snprintf(buf, 0x400uLL, "[%s]", v79);
             }
 
-            v78 = __buf.st_mode >> 12;
-            if (v78 == 7)
+            v80 = __buf.st_mode >> 12;
+            if (v80 == 7)
             {
-              v79 = "[unknown]";
+              v81 = "[unknown]";
             }
 
             else
             {
-              v79 = off_100073970[v78 ^ 8];
+              v81 = off_100073970[v80 ^ 8];
             }
 
-            v82 = os_flagset_copy_string();
-            v83 = *__error();
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+            v84 = os_flagset_copy_string();
+            v85 = *__error();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
             {
-              v152.vfc_reserved1 = 136316418;
-              *v152.vfc_name = "mntfd";
-              *&v152.vfc_name[8] = 1024;
-              *&v152.vfc_name[10] = v89;
-              *&v152.vfc_name[14] = 2080;
-              *&v152.vfc_typenum = v79;
-              LOWORD(v152.vfc_flags) = 2048;
-              *(&v152.vfc_flags + 2) = __buf.st_size;
-              HIWORD(v152.vfc_reserved3) = 2080;
-              v153 = v82;
-              v154 = 2080;
-              v155 = buf;
-              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", &v152, 0x3Au);
+              v154.vfc_reserved1 = 136316418;
+              *v154.vfc_name = "mntfd";
+              *&v154.vfc_name[8] = 1024;
+              *&v154.vfc_name[10] = v91;
+              *&v154.vfc_name[14] = 2080;
+              *&v154.vfc_typenum = v81;
+              LOWORD(v154.vfc_flags) = 2048;
+              *(&v154.vfc_flags + 2) = __buf.st_size;
+              HIWORD(v154.vfc_reserved3) = 2080;
+              v155 = v84;
+              v156 = 2080;
+              v157 = buf;
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "%s fd[%d]: type = %s, size = %lld, flags = %s, path = %s", &v154, 0x3Au);
             }
 
-            *__error() = v83;
-            free(v82);
-            v42 = v89;
+            *__error() = v85;
+            free(v84);
+            v42 = v91;
           }
         }
 
-        if (!fmount("hfs", v42, v73, &v93))
+        if (!fmount("hfs", v42, v75, &v95))
         {
           goto LABEL_146;
         }
 
         v9 = *__error();
-        v84 = *__error();
-        v85 = *(a3 + 2088);
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        v86 = *__error();
+        v87 = *(a3 + 2088);
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
           *&buf[4] = v9;
-          _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", buf, 8u);
+          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", buf, 8u);
         }
 
-        *__error() = v84;
-        v12 = v91;
+        *__error() = v86;
+        v12 = v93;
         if (!v9)
         {
           goto LABEL_146;
@@ -7495,18 +9022,18 @@ LABEL_108:
       goto LABEL_97;
     }
 
-    v129 = 1;
-    *v128 = 3;
-    memset(&v152, 0, sizeof(v152));
-    v101 = -1;
-    v100 = 4;
-    if (getvfsbyname("hfs", &v152) == -1)
+    v131 = 1;
+    *v130 = 3;
+    memset(&v154, 0, sizeof(v154));
+    v103 = -1;
+    v102 = 4;
+    if (getvfsbyname("hfs", &v154) == -1)
     {
-      hdi_mount_cold_5(&v99, buf);
+      hdi_mount_cold_5(v101, buf);
     }
 
-    v128[1] = v152.vfc_typenum;
-    if ((sysctl(v128, 3u, &v101, &v100, 0, 0) & 0x80000000) == 0)
+    v130[1] = v154.vfc_typenum;
+    if ((sysctl(v130, 3u, &v103, &v102, 0, 0) & 0x80000000) == 0)
     {
       *__error() = 0;
     }
@@ -7514,32 +9041,32 @@ LABEL_108:
     v43 = *__error();
     if (v43 && v43 != 45 && *__error())
     {
-      hdi_mount_cold_1(&v99, buf);
+      hdi_mount_cold_1(v101, buf);
     }
 
-    v40 = v101;
-    if ((v101 + 1) > 1)
+    v40 = v103;
+    if ((v103 + 1) > 1)
     {
 LABEL_97:
       if (v40 == 4)
       {
 LABEL_98:
         v9 = 0;
-        HIDWORD(v96) = v40;
+        HIDWORD(v98) = v40;
       }
 
       else
       {
-        v62 = -1;
-        v63 = &qword_1000593F8;
-        while (v62 != 36)
+        v64 = -1;
+        v65 = &qword_1000593F8;
+        while (v64 != 36)
         {
-          v64 = *v63;
-          v63 += 3;
-          ++v62;
-          if (v64 == v40)
+          v66 = *v65;
+          v65 += 3;
+          ++v64;
+          if (v66 == v40)
           {
-            if (v62 < 0x25)
+            if (v64 < 0x25)
             {
               goto LABEL_98;
             }
@@ -7548,18 +9075,18 @@ LABEL_98:
           }
         }
 
-        v65 = *__error();
-        v66 = *(a3 + 2088);
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v67 = *__error();
+        v68 = *(a3 + 2088);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
           *&buf[4] = v40;
-          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "unsupported encoding: %u", buf, 8u);
+          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "unsupported encoding: %u", buf, 8u);
         }
 
-        *__error() = v65;
+        *__error() = v67;
         v9 = 79;
-        v12 = v91;
+        v12 = v93;
       }
 
 LABEL_106:
@@ -7575,7 +9102,7 @@ LABEL_106:
     v44 = getpwuid(0);
     if (!v44)
     {
-      hdi_mount_cold_4(v128, &v152);
+      hdi_mount_cold_4(v130, &v154);
     }
 
     snprintf(buf, 0x400uLL, "%s/%s", v44->pw_dir, "/.CFUserTextEncoding");
@@ -7585,7 +9112,7 @@ LABEL_106:
       *__error() = 0;
     }
 
-    v88 = 0;
+    v90 = 0;
     v46 = *__error();
     if (v46 > 3)
     {
@@ -7600,57 +9127,57 @@ LABEL_106:
       if (!v46)
       {
 LABEL_80:
-        v52 = read(v45, buf, 0x400uLL);
-        if (v52)
+        v54 = read(v45, buf, 0x400uLL);
+        if (v54)
         {
-          v86 = v45;
-          if (v52 < 0)
+          v88 = v45;
+          if (v54 < 0)
           {
-            v57 = *__error();
-            v58 = *(a3 + 2088);
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            v59 = *__error();
+            v60 = *(a3 + 2088);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
-              v59 = *__error();
-              v152.vfc_reserved1 = 67109120;
-              *v152.vfc_name = v59;
-              _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "error reading encoding file: %{darwin.errno}d", &v152, 8u);
+              v61 = *__error();
+              v154.vfc_reserved1 = 67109120;
+              *v154.vfc_name = v61;
+              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "error reading encoding file: %{darwin.errno}d", &v154, 8u);
             }
 
-            v88 = 0;
-            *__error() = v57;
+            v90 = 0;
+            *__error() = v59;
           }
 
           else
           {
-            buf[v52] = 0;
-            v53 = *__error();
-            v54 = *(a3 + 2088);
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+            buf[v54] = 0;
+            v55 = *__error();
+            v56 = *(a3 + 2088);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
-              v152.vfc_reserved1 = 136315138;
-              *v152.vfc_name = buf;
-              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "read encoding: %s", &v152, 0xCu);
+              v154.vfc_reserved1 = 136315138;
+              *v154.vfc_name = buf;
+              _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "read encoding: %s", &v154, 0xCu);
             }
 
-            *__error() = v53;
-            v88 = strtol(buf, 0, 0);
+            *__error() = v55;
+            v90 = strtol(buf, 0, 0);
           }
 
-          v45 = v86;
+          v45 = v88;
         }
 
         else
         {
-          v55 = *__error();
-          v56 = *(a3 + 2088);
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+          v57 = *__error();
+          v58 = *(a3 + 2088);
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v152.vfc_reserved1) = 0;
-            _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "encoding file empty", &v152, 2u);
+            LOWORD(v154.vfc_reserved1) = 0;
+            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEBUG, "encoding file empty", &v154, 2u);
           }
 
-          v88 = 0;
-          *__error() = v55;
+          v90 = 0;
+          *__error() = v57;
         }
 
         goto LABEL_92;
@@ -7661,7 +9188,7 @@ LABEL_80:
 LABEL_79:
         if (*__error())
         {
-          hdi_mount_cold_1(v128, &v152);
+          hdi_mount_cold_1(v130, &v154);
         }
 
         goto LABEL_80;
@@ -7669,23 +9196,23 @@ LABEL_79:
     }
 
 LABEL_92:
-    v60 = *__error();
-    v61 = *(a3 + 2088);
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+    v62 = *__error();
+    v63 = *(a3 + 2088);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
     {
-      v152.vfc_reserved1 = 67109120;
-      *v152.vfc_name = v88;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEBUG, "returning encoding: %u", &v152, 8u);
+      v154.vfc_reserved1 = 67109120;
+      *v154.vfc_name = v90;
+      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEBUG, "returning encoding: %u", &v154, 8u);
     }
 
-    *__error() = v60;
+    *__error() = v62;
     if (v45 != -1 && close(v45) == -1)
     {
-      daemon_init_cold_13(v128, &v152);
+      daemon_init_cold_13(v130, &v154);
     }
 
-    v12 = v91;
-    v40 = v88;
+    v12 = v93;
+    v40 = v90;
     goto LABEL_97;
   }
 
@@ -7711,9 +9238,11 @@ LABEL_92:
   }
 
   v27 = v6;
-  v149 = 0;
-  v147 = 0u;
+  v151 = 0;
+  v149 = 0u;
+  v150 = 0u;
   v148 = 0u;
+  v147 = 0u;
   v146 = 0u;
   v145 = 0u;
   v144 = 0u;
@@ -7728,15 +9257,13 @@ LABEL_92:
   v135 = 0u;
   v134 = 0u;
   v133 = 0u;
-  v132 = 0u;
-  v131 = 0u;
   *&buf[12] = 0u;
   v28 = *(a3 + 2108);
   v29 = *(a3 + 2100);
-  v90 = *(a3 + 2104);
-  v87 = *(a3 + 2112);
-  v103 = 0;
-  memset(v102, 0, sizeof(v102));
+  v92 = *(a3 + 2104);
+  v89 = *(a3 + 2112);
+  v105 = 0;
+  memset(v104, 0, sizeof(v104));
   memset(&__buf, 0, 56);
   if (*(a3 + 32))
   {
@@ -7750,13 +9277,13 @@ LABEL_92:
 
   v31 = v30 | a2;
   *buf = a3 + 1057;
-  v150 = getuid();
-  v151 = getgid();
+  v152 = getuid();
+  v153 = getgid();
   *&buf[16] = 1;
   *&buf[8] = v31;
   if (*(a3 + 2096) == 1)
   {
-    file = _read_file(v28, v102);
+    file = _read_file(v28, v104);
     if (file)
     {
       v9 = file;
@@ -7764,12 +9291,12 @@ LABEL_92:
       v34 = *(a3 + 2088);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v152.vfc_reserved1 = 67109120;
-        *v152.vfc_name = v9;
+        v154.vfc_reserved1 = 67109120;
+        *v154.vfc_name = v9;
         v35 = "Failed to read im4m.: %{darwin.errno}d";
         v36 = v34;
 LABEL_45:
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, v35, &v152, 8u);
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, v35, &v154, 8u);
         goto LABEL_46;
       }
 
@@ -7783,8 +9310,8 @@ LABEL_45:
     {
       if (os_log_type_enabled(*(a3 + 2088), OS_LOG_TYPE_ERROR))
       {
-        v152.vfc_reserved1 = 67109120;
-        *v152.vfc_name = v9;
+        v154.vfc_reserved1 = 67109120;
+        *v154.vfc_name = v9;
         v35 = "Failed to read root volume hash.: %{darwin.errno}d";
         v36 = v41;
         goto LABEL_45;
@@ -7797,12 +9324,12 @@ LABEL_72:
       goto LABEL_74;
     }
 
-    v92 = v12;
+    v94 = v12;
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v152.vfc_reserved1 = 134217984;
-      *v152.vfc_name = *(&v102[0] + 1);
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "im4m len: %lu", &v152, 0xCu);
+      v154.vfc_reserved1 = 134217984;
+      *v154.vfc_name = *(&v104[0] + 1);
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "im4m len: %lu", &v154, 0xCu);
     }
 
     *__error() = v33;
@@ -7810,17 +9337,17 @@ LABEL_72:
     v50 = *(a3 + 2088);
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      v152.vfc_reserved1 = 134217984;
-      *v152.vfc_name = __buf.st_ino;
-      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "im4p len: %lu", &v152, 0xCu);
+      v154.vfc_reserved1 = 134217984;
+      *v154.vfc_name = __buf.st_ino;
+      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "im4p len: %lu", &v154, 0xCu);
     }
 
     *__error() = v49;
     *&buf[16] = 8;
-    v12 = v92;
-    v149 = __PAIR64__(v87, v90);
-    v148 = v102[0];
-    v147 = *&__buf.st_dev;
+    v12 = v94;
+    v151 = __PAIR64__(v89, v92);
+    v150 = v104[0];
+    v149 = *&__buf.st_dev;
   }
 
   v42 = v27;
@@ -7828,12 +9355,12 @@ LABEL_72:
   {
     v9 = *__error();
     v33 = *__error();
-    v51 = *(a3 + 2088);
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v52 = *(a3 + 2088);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      v152.vfc_reserved1 = 67109120;
-      *v152.vfc_name = v9;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", &v152, 8u);
+      v154.vfc_reserved1 = 67109120;
+      *v154.vfc_name = v9;
+      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "fmount: %{darwin.errno}d", &v154, 8u);
     }
 
     goto LABEL_72;
@@ -7841,8 +9368,8 @@ LABEL_72:
 
   v9 = 0;
 LABEL_74:
-  buff_destroy(v102);
-  buff_destroy(&__buf);
+  buff_destroy(v104, v51);
+  buff_destroy(&__buf, v53);
   if (v9)
   {
     v14 = *__error();
@@ -7861,7 +9388,7 @@ LABEL_74:
 LABEL_146:
   if (close(v42) == -1)
   {
-    hdi_mount_cold_7(v102, buf);
+    hdi_mount_cold_7(v104, buf);
   }
 
   v9 = 0;
@@ -8227,7 +9754,7 @@ LABEL_59:
   return v10;
 }
 
-uint64_t hdi_detach(int *a1, NSObject *a2)
+uint64_t hdi_detach(unsigned int *a1, NSObject *a2)
 {
   v4 = *a1;
   v15 = *a1;
@@ -8353,1568 +9880,4 @@ LABEL_33:
   }
 
   return v6;
-}
-
-double OUTLINED_FUNCTION_3_0(void *a1, _OWORD *a2)
-{
-  *a1 = 0;
-  result = 0.0;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
-  *a2 = 0u;
-  return result;
-}
-
-void _resource_dealloc(uint64_t a1)
-{
-  os_release(*(a1 + 64));
-  free(*(a1 + 72));
-  close_drop_optional_np();
-
-  object_proto_destroy(a1 + 16);
-}
-
-uint64_t resource_create(uint64_t a1, void *a2, const char *a3, uint64_t a4)
-{
-  v8 = _resource_alloc();
-  *(v8 + 40) = a4;
-  *(v8 + 64) = os_retain(a2);
-  *(v8 + 48) = a1;
-  if (_dispatch_is_multithreaded())
-  {
-    while (1)
-    {
-      v9 = strdup(a3);
-      if (v9)
-      {
-        break;
-      }
-
-      __os_temporary_resource_shortage();
-    }
-  }
-
-  else
-  {
-    v9 = strdup(a3);
-    if (!v9)
-    {
-      _protex_init_cold_1(a3, &v14, v15);
-    }
-  }
-
-  v10 = v9;
-  *(v8 + 72) = v9;
-  *(v8 + 80) = -1;
-  v11 = strrchr(v9, 47);
-  if (v11)
-  {
-    v12 = v11 + 1;
-  }
-
-  else
-  {
-    v12 = v10;
-  }
-
-  *(v8 + 56) = v12;
-  object_proto_init(v8 + 16, "com.apple.security.cryptexd", "resource");
-  object_set_name(v8 + 16, *(v8 + 56));
-  return v8;
-}
-
-uint64_t resource_open(uint64_t a1, int a2)
-{
-  v3 = *(a1 + 64);
-  v4 = *(v3 + 48);
-  v5 = **(a1 + 48);
-  v6 = _validators[v5];
-  v7 = openat(*(v3 + 56), *(a1 + 72), a2 & 0xFFFFFFFC);
-  v34 = v7;
-  if ((v7 & 0x80000000) == 0)
-  {
-    *__error() = 0;
-  }
-
-  if (*__error())
-  {
-    v8 = *__error();
-    v9 = *(a1 + 16);
-    v10 = *__error();
-    v11 = *(a1 + 32);
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-LABEL_9:
-      *__error() = v10;
-      goto LABEL_10;
-    }
-
-    v12 = "[anonymous]";
-    if (v9)
-    {
-      v12 = v9;
-    }
-
-    v13 = *(v4 + 8);
-    v14 = *(a1 + 72);
-    *buf = 136446978;
-    v37 = v12;
-    v38 = 2080;
-    v39 = v13;
-    v40 = 2080;
-    v41 = v14;
-    v42 = 1024;
-    v43 = v8;
-    v15 = "%{public}s: failed to open %s resource: %s: %{darwin.errno}d";
-    v16 = v11;
-    v17 = 38;
-LABEL_8:
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
-    goto LABEL_9;
-  }
-
-  v19 = *(a1 + 16);
-  v20 = *__error();
-  v21 = *(a1 + 32);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-  {
-    v22 = "[anonymous]";
-    if (v19)
-    {
-      v22 = v19;
-    }
-
-    v23 = *(v4 + 8);
-    v24 = *(a1 + 72);
-    *buf = 136446722;
-    v37 = v22;
-    v38 = 2080;
-    v39 = v23;
-    v40 = 2080;
-    v41 = v24;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%{public}s: opened %s resource: %s", buf, 0x20u);
-  }
-
-  *__error() = v20;
-  if ((v5 - 7) >= 0xFFFFFFFFFFFFFFFELL)
-  {
-    v25 = v6(a1, v7);
-    if (v25)
-    {
-      v8 = v25;
-      v26 = *(a1 + 16);
-      v10 = *__error();
-      v27 = *(a1 + 32);
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_9;
-      }
-
-      v28 = "[anonymous]";
-      v29 = *(a1 + 56);
-      if (v26)
-      {
-        v28 = v26;
-      }
-
-      *buf = 136446722;
-      v37 = v28;
-      v38 = 2080;
-      v39 = v29;
-      v40 = 1024;
-      LODWORD(v41) = v8;
-      v15 = "%{public}s: failed to validate resource: %s: %{darwin.errno}d";
-      v16 = v27;
-      v17 = 28;
-      goto LABEL_8;
-    }
-  }
-
-  if (fstat(v7, (a1 + 88)))
-  {
-    v8 = *__error();
-    v30 = *(a1 + 16);
-    v31 = *__error();
-    v32 = *(a1 + 32);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-    {
-      v33 = "[anonymous]";
-      if (v30)
-      {
-        v33 = v30;
-      }
-
-      *buf = 136446466;
-      v37 = v33;
-      v38 = 1024;
-      LODWORD(v39) = v8;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}s: fstat: %{darwin.errno}d", buf, 0x12u);
-    }
-
-    *__error() = v31;
-  }
-
-  else
-  {
-    v8 = 0;
-    *(a1 + 80) = _xferfd_unguarded(&v34);
-    LODWORD(v7) = v34;
-  }
-
-LABEL_10:
-  if (v7 != -1 && close(v7) == -1)
-  {
-    __os_cleanup_close_cold_1(&v35, buf);
-  }
-
-  return v8;
-}
-
-uint64_t _validator_bundle(uint64_t a1, uint64_t a2)
-{
-  bundleURL = 0;
-  v3 = _CFURLCreateFromFileDescriptor(a2, &bundleURL);
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *(a1 + 16);
-    v6 = *__error();
-    v7 = *(a1 + 32);
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-LABEL_7:
-      v10 = 0;
-      *__error() = v6;
-      goto LABEL_10;
-    }
-
-    v8 = "[anonymous]";
-    if (v5)
-    {
-      v8 = v5;
-    }
-
-    *buf = 136446466;
-    v17 = v8;
-    v18 = 1024;
-    v19 = v4;
-    v9 = "%{public}s: _CFURLCreateFromFileDescriptor: %{darwin.errno}d";
-LABEL_6:
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, v9, buf, 0x12u);
-    goto LABEL_7;
-  }
-
-  v11 = CFBundleCreate(kCFAllocatorDefault, bundleURL);
-  if (!v11)
-  {
-    v13 = *(a1 + 16);
-    v6 = *__error();
-    v7 = *(a1 + 32);
-    v4 = 22;
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_7;
-    }
-
-    v14 = "[anonymous]";
-    if (v13)
-    {
-      v14 = v13;
-    }
-
-    *buf = 136446466;
-    v17 = v14;
-    v18 = 1024;
-    v19 = 22;
-    v9 = "%{public}s: failed to create bundle from resource: %{darwin.errno}d";
-    goto LABEL_6;
-  }
-
-  v10 = v11;
-  v4 = 0;
-LABEL_10:
-  if (bundleURL)
-  {
-    CFRelease(bundleURL);
-  }
-
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  return v4;
-}
-
-void mount_sub_handle_request(void *a1)
-{
-  v1 = a1;
-  v2 = xpc_dictionary_get_remote_connection(v1);
-  string = xpc_dictionary_get_string(v1, "MOUNT_SUB_REQ");
-  v4 = string;
-  if (!string)
-  {
-    goto LABEL_4;
-  }
-
-  if (strcmp(string, "REQ:MOUNT"))
-  {
-    if (strcmp(v4, "REQ:UNMOUNT"))
-    {
-LABEL_4:
-      *buffer = *"unknown";
-      *&buffer[16] = *&algn_100059768[8];
-      pid = xpc_connection_get_pid(v2);
-      proc_name(pid, buffer, 0x20u);
-      v6 = _mount_sub_log();
-
-      if (v6)
-      {
-        v7 = _mount_sub_log();
-        os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-        if (v2)
-        {
-          v8 = xpc_connection_get_pid(v2);
-        }
-
-        else
-        {
-          v8 = -1;
-        }
-
-        LODWORD(v174[0]) = 136316162;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v8;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = v4;
-        WORD6(v174[1]) = 2080;
-        *(&v174[1] + 14) = "MOUNT_SUB_REQ";
-        WORD3(v174[2]) = 1024;
-        DWORD2(v174[2]) = 22;
-      }
-
-      else
-      {
-        v16 = &_os_log_default;
-        if (v2)
-        {
-          v17 = xpc_connection_get_pid(v2);
-        }
-
-        else
-        {
-          v17 = -1;
-        }
-
-        LODWORD(v174[0]) = 136316162;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v17;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = v4;
-        WORD6(v174[1]) = 2080;
-        *(&v174[1] + 14) = "MOUNT_SUB_REQ";
-        WORD3(v174[2]) = 1024;
-        DWORD2(v174[2]) = 22;
-        v7 = &_os_log_default;
-      }
-
-      v29 = _os_log_send_and_compose_impl();
-
-      Error = createError("mount_sub_handle_request", "sub_mount.m", 414, "com.apple.security.cryptex.posix", 22, 0, v29);
-      free(v29);
-      _mount_sub_mount_cryptex_reply(v1, Error, 0, 0, 0);
-      goto LABEL_227;
-    }
-
-    v18 = v1;
-    v19 = xpc_dictionary_get_remote_connection(v18);
-    LOBYTE(v168) = 0;
-    v169 = -1;
-    v20 = _mount_sub_authorize(v19, "com.apple.private.security.cryptex.unmount");
-    if (v20)
-    {
-      v174[0] = *"unknown";
-      v174[1] = *&algn_100059768[8];
-      v21 = xpc_connection_get_pid(v19);
-      proc_name(v21, v174, 0x20u);
-      v22 = _mount_sub_log();
-
-      if (v22)
-      {
-        v23 = _mount_sub_log();
-        os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-        if (v19)
-        {
-          v24 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v24 = -1;
-        }
-
-        *buffer = 136315650;
-        *&buffer[4] = v174;
-        *&buffer[12] = 1024;
-        *&buffer[14] = v24;
-        *&buffer[18] = 1024;
-        *&buffer[20] = v20;
-      }
-
-      else
-      {
-        v39 = &_os_log_default;
-        if (v19)
-        {
-          v40 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v40 = -1;
-        }
-
-        *buffer = 136315650;
-        *&buffer[4] = v174;
-        *&buffer[12] = 1024;
-        *&buffer[14] = v40;
-        *&buffer[18] = 1024;
-        *&buffer[20] = v20;
-        v23 = &_os_log_default;
-      }
-
-      v68 = _os_log_send_and_compose_impl();
-
-      v69 = createError("mount_sub_unmount_cryptex", "sub_mount.m", 359, "com.apple.security.cryptex.posix", v20, 0, v68);
-      v70 = v68;
-      goto LABEL_66;
-    }
-
-    v31 = xpc_dictionary_dup_fd(v18, "UNMOUNT:INFO_FD");
-    v169 = v31;
-    if (v31 == -1)
-    {
-      *buffer = *"unknown";
-      *&buffer[16] = *&algn_100059768[8];
-      v45 = xpc_connection_get_pid(v19);
-      proc_name(v45, buffer, 0x20u);
-      v46 = _mount_sub_log();
-
-      if (v46)
-      {
-        v47 = _mount_sub_log();
-        os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
-        if (v19)
-        {
-          v48 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v48 = -1;
-        }
-
-        LODWORD(v174[0]) = 136315906;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v48;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = "MOUNT:INFO_FD";
-        WORD6(v174[1]) = 1024;
-        *(&v174[1] + 14) = 22;
-      }
-
-      else
-      {
-        v79 = &_os_log_default;
-        if (v19)
-        {
-          v80 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v80 = -1;
-        }
-
-        LODWORD(v174[0]) = 136315906;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v80;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = "MOUNT:INFO_FD";
-        WORD6(v174[1]) = 1024;
-        *(&v174[1] + 14) = 22;
-        v47 = &_os_log_default;
-      }
-
-      v98 = _os_log_send_and_compose_impl();
-
-      v69 = createError("mount_sub_unmount_cryptex", "sub_mount.m", 367, "com.apple.security.cryptex.posix", 22, 0, v98);
-      v70 = v98;
-LABEL_66:
-      free(v70);
-      v31 = -1;
-      if (!v69)
-      {
-LABEL_224:
-        if (v31 == -1)
-        {
-LABEL_226:
-
-          goto LABEL_227;
-        }
-
-LABEL_225:
-        if (close(v31) == -1)
-        {
-          mount_sub_handle_request_cold_1(buffer, v174);
-        }
-
-        goto LABEL_226;
-      }
-
-LABEL_223:
-      _mount_sub_unmount_cryptex_reply(v18, v69);
-      goto LABEL_224;
-    }
-
-    v32 = _xpc_dictionary_try_get_BOOL(v18, "UNMOUNT:FORCE", &v168);
-    if (v32)
-    {
-      *buffer = *"unknown";
-      *&buffer[16] = *&algn_100059768[8];
-      v33 = xpc_connection_get_pid(v19);
-      proc_name(v33, buffer, 0x20u);
-      v34 = _mount_sub_log();
-
-      if (v34)
-      {
-        v35 = _mount_sub_log();
-        os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-        if (v19)
-        {
-          v36 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v36 = -1;
-        }
-
-        LODWORD(v174[0]) = 136315906;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v36;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = "UNMOUNT:FORCE";
-        WORD6(v174[1]) = 1024;
-        *(&v174[1] + 14) = v32;
-      }
-
-      else
-      {
-        v77 = &_os_log_default;
-        if (v19)
-        {
-          v78 = xpc_connection_get_pid(v19);
-        }
-
-        else
-        {
-          v78 = -1;
-        }
-
-        LODWORD(v174[0]) = 136315906;
-        *(v174 + 4) = buffer;
-        WORD6(v174[0]) = 1024;
-        *(v174 + 14) = v78;
-        WORD1(v174[1]) = 2080;
-        *(&v174[1] + 4) = "UNMOUNT:FORCE";
-        WORD6(v174[1]) = 1024;
-        *(&v174[1] + 14) = v32;
-        v35 = &_os_log_default;
-      }
-
-      v94 = _os_log_send_and_compose_impl();
-
-      v95 = createError("mount_sub_unmount_cryptex", "sub_mount.m", 375, "com.apple.security.cryptex.posix", v32, 0, v94);
-      goto LABEL_222;
-    }
-
-    v57 = v168;
-    v162 = v18;
-    v58 = xpc_dictionary_get_remote_connection(v162);
-    v181 = 0;
-    v179 = 0u;
-    v180 = 0u;
-    v177 = 0u;
-    v178 = 0u;
-    v175 = 0u;
-    v176 = 0u;
-    memset(v174, 0, sizeof(v174));
-    v173 = 0;
-    memset(v172, 0, sizeof(v172));
-    v164 = codex_copy_system();
-    file = _read_file(v31, v172);
-    if (file)
-    {
-      *buffer = *"unknown";
-      *&buffer[16] = *&algn_100059768[8];
-      v60 = xpc_connection_get_pid(v58);
-      proc_name(v60, buffer, 0x20u);
-      v61 = *__error();
-      v62 = _mount_sub_log();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-      {
-        if (v58)
-        {
-          v63 = xpc_connection_get_pid(v58);
-        }
-
-        else
-        {
-          v63 = -1;
-        }
-
-        *buf = 136315650;
-        *&buf[4] = buffer;
-        *&buf[12] = 1024;
-        *&buf[14] = v63;
-        *&buf[18] = 1024;
-        *&buf[20] = file;
-        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "XPC client <process=%s pid=%d>: Failed to read cryptex info from disk.: %{darwin.errno}d", buf, 0x18u);
-      }
-
-      v103 = 0;
-      v84 = 0;
-      *__error() = v61;
-    }
-
-    else
-    {
-      v83 = xpc_create_from_plist();
-      if (v83)
-      {
-        v84 = v83;
-        if (xpc_get_type(v84) == &_xpc_type_dictionary)
-        {
-          file = quire_make_attr(v84, 0, v174, 1);
-          if (file)
-          {
-            v104 = xpc_copy_description(v84);
-            *buf = *"unknown";
-            *&buf[16] = *&algn_100059768[8];
-            v105 = xpc_connection_get_pid(v58);
-            proc_name(v105, buf, 0x20u);
-            v160 = *__error();
-            v106 = _mount_sub_log();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
-            {
-              if (v58)
-              {
-                v107 = xpc_connection_get_pid(v58);
-              }
-
-              else
-              {
-                v107 = -1;
-              }
-
-              *buffer = 136315906;
-              *&buffer[4] = buf;
-              *&buffer[12] = 1024;
-              *&buffer[14] = v107;
-              *&buffer[18] = 2080;
-              *&buffer[20] = v104;
-              *&buffer[28] = 1024;
-              *&buffer[30] = file;
-              _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "XPC client <process=%s pid=%d>: Info.plist invalid contents: %s: %{darwin.errno}d", buffer, 0x22u);
-            }
-
-            *__error() = v160;
-            free(v104);
-          }
-
-          else
-          {
-            __copy_constructor_8_8_t0w24_s24_t32w88_s120_s128_s136_t144w2(buffer, v174);
-            codex_unmount(v164, v57, buffer, v162, _mount_sub_unmount_cryptex_continue);
-            file = 0;
-          }
-
-          v103 = v84;
-          goto LABEL_211;
-        }
-
-        v85 = xpc_copy_description(v84);
-        *buf = *"unknown";
-        *&buf[16] = *&algn_100059768[8];
-        v86 = xpc_connection_get_pid(v58);
-        proc_name(v86, buf, 0x20u);
-        v87 = *__error();
-        v88 = _mount_sub_log();
-        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
-        {
-          if (v58)
-          {
-            v89 = xpc_connection_get_pid(v58);
-          }
-
-          else
-          {
-            v89 = -1;
-          }
-
-          *buffer = 136315906;
-          *&buffer[4] = buf;
-          *&buffer[12] = 1024;
-          *&buffer[14] = v89;
-          *&buffer[18] = 2080;
-          *&buffer[20] = v85;
-          *&buffer[28] = 1024;
-          *&buffer[30] = 212;
-          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "XPC client <process=%s pid=%d>: Info.plist invalid root type: %s: %{darwin.errno}d", buffer, 0x22u);
-        }
-
-        *__error() = v87;
-        free(v85);
-        v103 = 0;
-      }
-
-      else
-      {
-        *buffer = *"unknown";
-        *&buffer[16] = *&algn_100059768[8];
-        v99 = xpc_connection_get_pid(v58);
-        proc_name(v99, buffer, 0x20u);
-        v100 = *__error();
-        v101 = _mount_sub_log();
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
-        {
-          if (v58)
-          {
-            v102 = xpc_connection_get_pid(v58);
-          }
-
-          else
-          {
-            v102 = -1;
-          }
-
-          *buf = 136315650;
-          *&buf[4] = buffer;
-          *&buf[12] = 1024;
-          *&buf[14] = v102;
-          *&buf[18] = 1024;
-          *&buf[20] = 212;
-          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "XPC client <process=%s pid=%d>: Failed to parse cryptex info: %{darwin.errno}d", buf, 0x18u);
-        }
-
-        v103 = 0;
-        v84 = 0;
-        *__error() = v100;
-      }
-
-      file = 212;
-    }
-
-LABEL_211:
-    buff_destroy(v172);
-
-    __destructor_8_s24_s120_s128_s136(v174);
-    if (!file)
-    {
-      goto LABEL_225;
-    }
-
-    v174[0] = *"unknown";
-    v174[1] = *&algn_100059768[8];
-    v146 = xpc_connection_get_pid(v19);
-    proc_name(v146, v174, 0x20u);
-    v147 = _mount_sub_log();
-
-    if (v147)
-    {
-      v148 = _mount_sub_log();
-      os_log_type_enabled(v148, OS_LOG_TYPE_ERROR);
-      if (v19)
-      {
-        v149 = xpc_connection_get_pid(v19);
-      }
-
-      else
-      {
-        v149 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v149;
-      *&buffer[18] = 1024;
-      *&buffer[20] = file;
-    }
-
-    else
-    {
-      v150 = &_os_log_default;
-      if (v19)
-      {
-        v151 = xpc_connection_get_pid(v19);
-      }
-
-      else
-      {
-        v151 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v151;
-      *&buffer[18] = 1024;
-      *&buffer[20] = file;
-      v148 = &_os_log_default;
-    }
-
-    v94 = _os_log_send_and_compose_impl();
-
-    v95 = createError("mount_sub_unmount_cryptex", "sub_mount.m", 383, "com.apple.security.cryptex.posix", file, 0, v94);
-LABEL_222:
-    v69 = v95;
-    free(v94);
-    if (!v69)
-    {
-      goto LABEL_224;
-    }
-
-    goto LABEL_223;
-  }
-
-  v9 = v1;
-  *buf = -1;
-  v168 = -1;
-  v169 = -1;
-  v166 = -1;
-  v167 = -1;
-  v10 = xpc_dictionary_get_remote_connection(v9);
-  v11 = _mount_sub_authorize(v10, "com.apple.private.security.cryptex.mount");
-  if (v11)
-  {
-    v174[0] = *"unknown";
-    v174[1] = *&algn_100059768[8];
-    v12 = xpc_connection_get_pid(v10);
-    proc_name(v12, v174, 0x20u);
-    v13 = _mount_sub_log();
-
-    if (v13)
-    {
-      v14 = _mount_sub_log();
-      os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v15 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v15 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v15;
-      *&buffer[18] = 1024;
-      *&buffer[20] = v11;
-    }
-
-    else
-    {
-      v37 = &_os_log_default;
-      if (v10)
-      {
-        v38 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v38 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v38;
-      *&buffer[18] = 1024;
-      *&buffer[20] = v11;
-      v14 = &_os_log_default;
-    }
-
-    v53 = _os_log_send_and_compose_impl();
-
-    v54 = createError("mount_sub_mount_cryptex", "sub_mount.m", 182, "com.apple.security.cryptex.posix", v11, 0, v53);
-LABEL_55:
-    v55 = v54;
-    v56 = v53;
-    goto LABEL_129;
-  }
-
-  *buf = xpc_dictionary_dup_fd(v9, "MOUNT:DMG_FD");
-  if ((*buf & 0x80000000) != 0)
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v41 = xpc_connection_get_pid(v10);
-    proc_name(v41, buffer, 0x20u);
-    v42 = _mount_sub_log();
-
-    if (v42)
-    {
-      v43 = _mount_sub_log();
-      os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v44 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v44 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v44;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:DMG_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v71 = &_os_log_default;
-      if (v10)
-      {
-        v72 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v72 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v72;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:DMG_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v43 = &_os_log_default;
-    }
-
-    v92 = _os_log_send_and_compose_impl();
-
-    v93 = createError("mount_sub_mount_cryptex", "sub_mount.m", 190, "com.apple.security.cryptex.posix", 22, 0, v92);
-    goto LABEL_128;
-  }
-
-  v169 = xpc_dictionary_dup_fd(v9, "MOUNT:LTRS_FD");
-  if (v169 < 0)
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v49 = xpc_connection_get_pid(v10);
-    proc_name(v49, buffer, 0x20u);
-    v50 = _mount_sub_log();
-
-    if (v50)
-    {
-      v51 = _mount_sub_log();
-      os_log_type_enabled(v51, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v52 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v52 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v52;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:LTRS_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v81 = &_os_log_default;
-      if (v10)
-      {
-        v82 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v82 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v82;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:LTRS_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v51 = &_os_log_default;
-    }
-
-    v92 = _os_log_send_and_compose_impl();
-
-    v93 = createError("mount_sub_mount_cryptex", "sub_mount.m", 198, "com.apple.security.cryptex.posix", 22, 0, v92);
-    goto LABEL_128;
-  }
-
-  v168 = xpc_dictionary_dup_fd(v9, "MOUNT:INFO_FD");
-  if (v168 < 0)
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v64 = xpc_connection_get_pid(v10);
-    proc_name(v64, buffer, 0x20u);
-    v65 = _mount_sub_log();
-
-    if (v65)
-    {
-      v66 = _mount_sub_log();
-      os_log_type_enabled(v66, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v67 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v67 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v67;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:INFO_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v90 = &_os_log_default;
-      if (v10)
-      {
-        v91 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v91 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v91;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:INFO_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v66 = &_os_log_default;
-    }
-
-    v92 = _os_log_send_and_compose_impl();
-
-    v93 = createError("mount_sub_mount_cryptex", "sub_mount.m", 206, "com.apple.security.cryptex.posix", 22, 0, v92);
-    goto LABEL_128;
-  }
-
-  v167 = xpc_dictionary_dup_fd(v9, "MOUNT:IM4M_FD");
-  if (v167 < 0)
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v73 = xpc_connection_get_pid(v10);
-    proc_name(v73, buffer, 0x20u);
-    v74 = _mount_sub_log();
-
-    if (v74)
-    {
-      v75 = _mount_sub_log();
-      os_log_type_enabled(v75, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v76 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v76 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v76;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:IM4M_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v96 = &_os_log_default;
-      if (v10)
-      {
-        v97 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v97 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v97;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:IM4M_FD";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v75 = &_os_log_default;
-    }
-
-    v92 = _os_log_send_and_compose_impl();
-
-    v93 = createError("mount_sub_mount_cryptex", "sub_mount.m", 214, "com.apple.security.cryptex.posix", 22, 0, v92);
-LABEL_128:
-    v55 = v93;
-    v56 = v92;
-LABEL_129:
-    free(v56);
-    v108 = 0;
-    if (!v55)
-    {
-      goto LABEL_131;
-    }
-
-    goto LABEL_130;
-  }
-
-  v166 = xpc_dictionary_dup_fd(v9, "MOUNT:VOLHASH_FD");
-  if (v166 < 0)
-  {
-    v174[0] = *"unknown";
-    v174[1] = *&algn_100059768[8];
-    v25 = xpc_connection_get_pid(v10);
-    proc_name(v25, v174, 0x20u);
-    v26 = *__error();
-    v27 = _mount_sub_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
-    {
-      if (v10)
-      {
-        v28 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v28 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v28;
-      *&buffer[18] = 2080;
-      *&buffer[20] = "MOUNT:VOLHASH_FD";
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "XPC client <process=%s pid=%d>: No value for optional key %s", buffer, 0x1Cu);
-    }
-
-    *__error() = v26;
-  }
-
-  v108 = xpc_dictionary_get_value(v9, "MOUNT:CX1_PROPERTIES");
-  if (!v108)
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v116 = xpc_connection_get_pid(v10);
-    proc_name(v116, buffer, 0x20u);
-    v117 = _mount_sub_log();
-
-    if (v117)
-    {
-      v118 = _mount_sub_log();
-      os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v119 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v119 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v119;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:CX1_PROPERTIES";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v126 = &_os_log_default;
-      if (v10)
-      {
-        v127 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v127 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v127;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:CX1_PROPERTIES";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v118 = &_os_log_default;
-    }
-
-    v53 = _os_log_send_and_compose_impl();
-
-    v54 = createError("mount_sub_mount_cryptex", "sub_mount.m", 228, "com.apple.security.cryptex.posix", 22, 0, v53);
-    goto LABEL_55;
-  }
-
-  int64 = xpc_dictionary_get_int64(v9, "MOUNT:DMG_ASSET_IDX_INT64");
-  if (int64 == 5 || int64 == 9)
-  {
-    v165 = v9;
-    v110 = v108;
-    v163 = codex_copy_system();
-    memset(v174, 0, 32);
-    xpc_dictionary_get_audit_token();
-    *buffer = v174[0];
-    *&buffer[16] = v174[1];
-    v161 = audit_token_to_euid(buffer);
-    v108 = v110;
-    v111 = cryptex_core_create();
-    if (v111)
-    {
-      v112 = cryptex_core_set_assets_from_fds();
-      if (v112)
-      {
-        v113 = *__error();
-        v114 = _mount_sub_log();
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
-        {
-          *buffer = 67109120;
-          *&buffer[4] = v112;
-          _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_ERROR, "Failed to set cryptex core assets.: %{darwin.errno}d", buffer, 8u);
-        }
-
-        v115 = 0;
-        *__error() = v113;
-      }
-
-      else
-      {
-        v128 = cryptex_core_cx1_properties_create_with_xpc_dictionary();
-        if (v128)
-        {
-          cryptex_core_set_cryptex1_properties();
-          v129 = v111;
-
-          v112 = 0;
-          v115 = v111;
-        }
-
-        else
-        {
-          v132 = *__error();
-          v133 = _mount_sub_log();
-          if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
-          {
-            *buffer = 67109120;
-            _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "Failed to parse Cryptex1 properties.: %{darwin.errno}d", buffer, 8u);
-          }
-
-          v115 = 0;
-          v112 = 0;
-          *__error() = v132;
-        }
-      }
-    }
-
-    else
-    {
-      v124 = *__error();
-      v125 = _mount_sub_log();
-      if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
-      {
-        *buffer = 0xC04000100;
-        _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_ERROR, "Failed to create cryptex core.: %{darwin.errno}d", buffer, 8u);
-      }
-
-      v115 = 0;
-      *__error() = v124;
-      v112 = 12;
-    }
-
-    v134 = v115;
-    if (v112)
-    {
-      v135 = *__error();
-      v136 = _mount_sub_log();
-      if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
-      {
-        *buffer = 67109120;
-        *&buffer[4] = v112;
-        _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_ERROR, "Failed to initialize cryptex core.: %{darwin.errno}d", buffer, 8u);
-      }
-
-      *__error() = v135;
-    }
-
-    else
-    {
-      codex_mount(v163, v134, v161, v165, _mount_sub_mount_cryptex_continue);
-    }
-
-    if (!v112)
-    {
-      goto LABEL_131;
-    }
-
-    v174[0] = *"unknown";
-    v174[1] = *&algn_100059768[8];
-    v137 = xpc_connection_get_pid(v10);
-    proc_name(v137, v174, 0x20u);
-    v138 = _mount_sub_log();
-
-    if (v138)
-    {
-      v139 = _mount_sub_log();
-      os_log_type_enabled(v139, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v140 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v140 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v140;
-      *&buffer[18] = 1024;
-      *&buffer[20] = v112;
-    }
-
-    else
-    {
-      v141 = &_os_log_default;
-      if (v10)
-      {
-        v142 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v142 = -1;
-      }
-
-      *buffer = 136315650;
-      *&buffer[4] = v174;
-      *&buffer[12] = 1024;
-      *&buffer[14] = v142;
-      *&buffer[18] = 1024;
-      *&buffer[20] = v112;
-      v139 = &_os_log_default;
-    }
-
-    v143 = _os_log_send_and_compose_impl();
-
-    v55 = createError("mount_sub_mount_cryptex", "sub_mount.m", 249, "com.apple.security.cryptex.posix", v112, 0, v143);
-    v144 = v143;
-  }
-
-  else
-  {
-    *buffer = *"unknown";
-    *&buffer[16] = *&algn_100059768[8];
-    v120 = xpc_connection_get_pid(v10);
-    proc_name(v120, buffer, 0x20u);
-    v121 = _mount_sub_log();
-
-    if (v121)
-    {
-      v122 = _mount_sub_log();
-      os_log_type_enabled(v122, OS_LOG_TYPE_ERROR);
-      if (v10)
-      {
-        v123 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v123 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v123;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:DMG_ASSET_IDX_INT64";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-    }
-
-    else
-    {
-      v130 = &_os_log_default;
-      if (v10)
-      {
-        v131 = xpc_connection_get_pid(v10);
-      }
-
-      else
-      {
-        v131 = -1;
-      }
-
-      LODWORD(v174[0]) = 136315906;
-      *(v174 + 4) = buffer;
-      WORD6(v174[0]) = 1024;
-      *(v174 + 14) = v131;
-      WORD1(v174[1]) = 2080;
-      *(&v174[1] + 4) = "MOUNT:DMG_ASSET_IDX_INT64";
-      WORD6(v174[1]) = 1024;
-      *(&v174[1] + 14) = 22;
-      v122 = &_os_log_default;
-    }
-
-    v145 = _os_log_send_and_compose_impl();
-
-    v55 = createError("mount_sub_mount_cryptex", "sub_mount.m", 240, "com.apple.security.cryptex.posix", 22, 0, v145);
-    v144 = v145;
-  }
-
-  free(v144);
-  if (v55)
-  {
-LABEL_130:
-    _mount_sub_mount_cryptex_reply(v9, v55, 0, 0, 0);
-  }
-
-LABEL_131:
-
-  if (v166 != -1 && close(v166) == -1)
-  {
-    *buffer = 0;
-    v175 = 0u;
-    v176 = 0u;
-    memset(v174, 0, sizeof(v174));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v152 = *__error();
-    LODWORD(v172[0]) = 67109120;
-    DWORD1(v172[0]) = v152;
-    _os_log_send_and_compose_impl();
-    v153 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v153);
-  }
-
-  if (v167 != -1 && close(v167) == -1)
-  {
-    *buffer = 0;
-    v175 = 0u;
-    v176 = 0u;
-    memset(v174, 0, sizeof(v174));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v154 = *__error();
-    LODWORD(v172[0]) = 67109120;
-    DWORD1(v172[0]) = v154;
-    _os_log_send_and_compose_impl();
-    v155 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v155);
-  }
-
-  if (v168 != -1 && close(v168) == -1)
-  {
-    *buffer = 0;
-    v175 = 0u;
-    v176 = 0u;
-    memset(v174, 0, sizeof(v174));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v156 = *__error();
-    LODWORD(v172[0]) = 67109120;
-    DWORD1(v172[0]) = v156;
-    _os_log_send_and_compose_impl();
-    v157 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v157);
-  }
-
-  if (v169 != -1 && close(v169) == -1)
-  {
-    *buffer = 0;
-    v175 = 0u;
-    v176 = 0u;
-    memset(v174, 0, sizeof(v174));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v158 = *__error();
-    LODWORD(v172[0]) = 67109120;
-    DWORD1(v172[0]) = v158;
-    _os_log_send_and_compose_impl();
-    v159 = _os_crash_msg();
-    aks_open_bag_for_uid_at_path_cold_1(v159);
-  }
-
-  if (*buf != -1 && close(*buf) == -1)
-  {
-    mount_sub_handle_request_cold_6(buffer, v174);
-  }
-
-LABEL_227:
 }

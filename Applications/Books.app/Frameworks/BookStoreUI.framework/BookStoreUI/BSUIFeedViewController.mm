@@ -5190,7 +5190,7 @@ LABEL_8:
 
 + (void)createSeriesViewControllerFromOptions:(NSDictionary *)options withParentTracker:(_TtC13BookAnalytics9BATracker *)tracker navigationTypeValue:(NSString *)value navigationContext:(BSUINavigationContext *)context shouldReportFigaro:(BOOL)figaro completion:(id)completion
 {
-  v15 = sub_6620C(&unk_3BDBB0);
+  v15 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v15 - 8);
   v17 = &v27 - v16;
   v18 = _Block_copy(completion);
@@ -5223,15 +5223,15 @@ LABEL_8:
 
 - (void)observeCardActiveState
 {
-  sub_6620C(&unk_3C0230);
+  sub_6620C(&unk_3C0230, &unk_2E2DE0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2E15C0;
   v4 = sub_2C09B8();
-  v5 = sub_144ADC(&qword_3BFDF0, &type metadata accessor for IsInCardTrait);
+  v5 = sub_144ADC(&qword_3BFDF0, &type metadata accessor for IsInCardTrait, &protocol conformance descriptor for IsInCardTrait);
   *(v3 + 32) = v4;
   *(v3 + 40) = v5;
   v6 = sub_2C1458();
-  v7 = sub_144ADC(&qword_3BFDF8, &type metadata accessor for IsInactiveCardTrait);
+  v7 = sub_144ADC(&qword_3BFDF8, &type metadata accessor for IsInactiveCardTrait, &protocol conformance descriptor for IsInactiveCardTrait);
   *(v3 + 48) = v6;
   *(v3 + 56) = v7;
   selfCopy = self;

@@ -23,10 +23,10 @@
 {
   mapCopy = map;
   selfCopy = self;
-  sub_2442B3CF8();
-  v7 = v6;
+  sub_2442B3CF8(selfCopy, v6);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 - (id)customImageViewControllerForIconView:(id)view
@@ -49,7 +49,7 @@
 {
   actionCopy = action;
   selfCopy = self;
-  sub_2442B07CC(actionCopy);
+  sub_2442B07CC(actionCopy, v6);
 
   return 0;
 }
@@ -65,20 +65,20 @@
 {
   managerCopy = manager;
   selfCopy = self;
-  v6 = sub_2442B3DA4();
+  v7 = sub_2442B3DA4(selfCopy, v6);
 
-  if (v6)
+  if (v7)
   {
     sub_2442A34F8(0, &qword_27EDDDAD0, 0x277D66130);
-    v7 = sub_2442B4948();
+    v8 = sub_2442B4948();
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)addWidgetSheetConfigurationManager:(id)manager isDescriptorSupported:(id)supported
@@ -97,11 +97,11 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_2442B4220(item);
+  v9 = sub_2442B4220(item, v8);
 
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 @end

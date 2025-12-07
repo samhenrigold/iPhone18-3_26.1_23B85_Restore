@@ -38,36 +38,36 @@
 
 + (void)virtualConferenceForRoomType:(id)type completion:(id)completion queue:(id)queue
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   completionCopy = completion;
   queueCopy = queue;
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x2020000000;
-  v53 = 0;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x2020000000;
+  v52 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke;
   aBlock[3] = &unk_1E77FFF98;
-  v51 = v52;
+  v50 = v51;
   v9 = completionCopy;
-  v50 = v9;
+  v49 = v9;
   v10 = _Block_copy(aBlock);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__21;
-  v47 = __Block_byref_object_dispose__21;
-  v48 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__21;
+  v46 = __Block_byref_object_dispose__21;
+  v47 = 0;
   v11 = MEMORY[0x1E696ABD0];
   extensionBundleIdentifier = [typeCopy extensionBundleIdentifier];
-  v13 = (v44 + 5);
-  obj = v44[5];
+  v13 = (v43 + 5);
+  obj = v43[5];
   v14 = [v11 extensionWithIdentifier:extensionBundleIdentifier error:&obj];
   objc_storeStrong(v13, obj);
 
-  if (v44[5] || !v14)
+  if (v43[5] || !v14)
   {
     v25 = EKLogHandle;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -75,66 +75,66 @@
       title = [typeCopy title];
       identifier = [typeCopy identifier];
       extensionBundleIdentifier2 = [typeCopy extensionBundleIdentifier];
-      v31 = v44[5];
+      v30 = v43[5];
       *buf = 138413058;
-      v58 = title;
-      v59 = 2112;
-      v60 = identifier;
-      v61 = 2112;
-      v62 = extensionBundleIdentifier2;
-      v63 = 2112;
-      v64 = v31;
+      v57 = title;
+      v58 = 2112;
+      v59 = identifier;
+      v60 = 2112;
+      v61 = extensionBundleIdentifier2;
+      v62 = 2112;
+      v63 = v30;
       _os_log_error_impl(&dword_1A805E000, v25, OS_LOG_TYPE_ERROR, "Could not load extension for room type title: %@ identifier: %@ extensionIdentifier: %@, error = %@", buf, 0x2Au);
     }
 
-    v10[2](v10, 0, v44[5]);
+    v10[2](v10, 0, v43[5]);
   }
 
   else
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17;
-    v38[3] = &unk_1E77FFFC0;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17;
+    v37[3] = &unk_1E77FFFC0;
     v15 = typeCopy;
-    v39 = v15;
+    v38 = v15;
     v16 = queueCopy;
-    v40 = v16;
+    v39 = v16;
     v17 = v10;
-    v41 = v17;
-    [v14 setRequestCompletionBlock:v38];
+    v40 = v17;
+    [v14 setRequestCompletionBlock:v37];
     v18 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-    v56[0] = @"_EKVirutalConferenceRequestTypeJoinMethodsForRoomType";
-    v55[0] = @"_EKVirtualConferenceRequestTypeKey";
-    v55[1] = @"_EKVirtualConferenceRequestRoomTypeIdentifier";
+    v55[0] = @"_EKVirutalConferenceRequestTypeJoinMethodsForRoomType";
+    v54[0] = @"_EKVirtualConferenceRequestTypeKey";
+    v54[1] = @"_EKVirtualConferenceRequestRoomTypeIdentifier";
     identifier2 = [v15 identifier];
-    v56[1] = identifier2;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
+    v55[1] = identifier2;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
     [v18 setUserInfo:v20];
 
-    v54 = v18;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-    v22 = (v44 + 5);
-    v37 = v44[5];
-    v23 = [v14 beginExtensionRequestWithOptions:1 inputItems:v21 error:&v37];
-    objc_storeStrong(v22, v37);
+    v53 = v18;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+    v22 = (v43 + 5);
+    v36 = v43[5];
+    v23 = [v14 beginExtensionRequestWithOptions:1 inputItems:v21 error:&v36];
+    objc_storeStrong(v22, v36);
 
-    if (v44[5])
+    if (v43[5])
     {
       v24 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v32 = v44[5];
+        v31 = v43[5];
         *buf = 138412802;
-        v58 = v14;
-        v59 = 2112;
-        v60 = v23;
-        v61 = 2112;
-        v62 = v32;
+        v57 = v14;
+        v58 = 2112;
+        v59 = v23;
+        v60 = 2112;
+        v61 = v31;
         _os_log_error_impl(&dword_1A805E000, v24, OS_LOG_TYPE_ERROR, "Failed to get virtual conference join methods, extension = %@ request = %@ error = %@", buf, 0x20u);
       }
 
-      v17[2](v17, 0, v44[5]);
+      v17[2](v17, 0, v43[5]);
     }
 
     else
@@ -144,16 +144,14 @@
       block[1] = 3221225472;
       block[2] = __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_30;
       block[3] = &unk_1E77FFFE8;
-      v36 = &v43;
-      v35 = v17;
+      v35 = &v42;
+      v34 = v17;
       dispatch_after(v26, v16, block);
     }
   }
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(v52, 8);
-
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(v51, 8);
 }
 
 uint64_t __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke(uint64_t result)
@@ -170,212 +168,203 @@ uint64_t __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue
 
 void __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v47 = a1;
-  v69 = *MEMORY[0x1E69E9840];
-  v48 = a2;
+  v41 = a1;
+  v63 = *MEMORY[0x1E69E9840];
+  v42 = a2;
   v4 = a3;
-  v49 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+  v5 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (!v5)
   {
-    v52 = 0;
-    v53 = 0;
+    v46 = 0;
+    v47 = 0;
     goto LABEL_35;
   }
 
   v6 = v5;
-  v52 = 0;
-  v53 = 0;
-  v7 = *v59;
-  v8 = 0x1E696A000uLL;
+  v46 = 0;
+  v47 = 0;
+  v7 = *v53;
   do
   {
-    v9 = 0;
-    v50 = v6;
+    v8 = 0;
+    v44 = v6;
     do
     {
-      if (*v59 != v7)
+      if (*v53 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v58 + 1) + 8 * v9);
-      v11 = [v10 userInfo];
-      v12 = [v11 objectForKey:@"_EKVirtualConferenceTypeIdentifierKey"];
+      v9 = *(*(&v52 + 1) + 8 * v8);
+      v10 = [v9 userInfo];
+      v11 = [v10 objectForKey:@"_EKVirtualConferenceTypeIdentifierKey"];
 
-      v13 = *(v8 + 3776);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = v12;
+        v12 = v11;
       }
 
       else
       {
-        v14 = 0;
+        v12 = 0;
       }
 
-      v15 = v14;
-      v16 = v15;
-      if (v15 && [v15 isEqualToString:@"_EKVirtualConferenceInfoTypeIdentifierKey"])
+      v13 = v12;
+      v14 = v13;
+      if (v13 && [v13 isEqualToString:@"_EKVirtualConferenceInfoTypeIdentifierKey"])
       {
-        v17 = [v10 userInfo];
-        v18 = [v17 objectForKey:@"_EKVirtualConferenceInfoTitleKey"];
+        v15 = [v9 userInfo];
+        v16 = [v15 objectForKey:@"_EKVirtualConferenceInfoTitleKey"];
 
-        v19 = [v10 userInfo];
-        v20 = [v19 objectForKey:@"_EKVirtualConferenceInfoDetailsKey"];
+        v17 = [v9 userInfo];
+        v18 = [v17 objectForKey:@"_EKVirtualConferenceInfoDetailsKey"];
 
-        v21 = *(v8 + 3776);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v22 = v18;
+          v19 = v16;
         }
 
         else
         {
-          v22 = 0;
+          v19 = 0;
         }
 
-        v23 = v22;
+        v20 = v19;
 
-        v24 = *(v8 + 3776);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = v20;
+          v21 = v18;
         }
 
         else
         {
-          v25 = 0;
+          v21 = 0;
         }
 
-        v26 = v53;
-        v52 = v23;
-        v53 = v25;
+        v22 = v47;
+        v46 = v20;
+        v47 = v21;
       }
 
       else
       {
-        if (![v16 isEqualToString:@"_EKVirtualConferenceJoinMethodTypeIdentifierKey"])
+        if (![v14 isEqualToString:@"_EKVirtualConferenceJoinMethodTypeIdentifierKey"])
         {
           goto LABEL_31;
         }
 
-        v27 = v7;
-        v28 = [v10 userInfo];
-        v18 = [v28 objectForKey:@"_EKVirtualConferenceJoinMethodTitleKey"];
+        v23 = v7;
+        v24 = [v9 userInfo];
+        v16 = [v24 objectForKey:@"_EKVirtualConferenceJoinMethodTitleKey"];
 
-        v29 = [v10 userInfo];
-        v20 = [v29 objectForKey:@"_EKVirtualConferenceJoinMethodURLKey"];
+        v25 = [v9 userInfo];
+        v18 = [v25 objectForKey:@"_EKVirtualConferenceJoinMethodURLKey"];
 
-        v30 = *(v8 + 3776);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v31 = v18;
+          v26 = v16;
         }
 
         else
         {
-          v31 = 0;
+          v26 = 0;
         }
 
-        v26 = v31;
+        v22 = v26;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v32 = v20;
+          v27 = v18;
         }
 
         else
         {
-          v32 = 0;
+          v27 = 0;
         }
 
-        v33 = v32;
-        if (v33)
+        v28 = v27;
+        if (v28)
         {
-          v34 = [[EKVirtualConferenceJoinMethod alloc] initWithTitle:v26 url:v33];
-          [v49 addObject:v34];
+          v29 = [[EKVirtualConferenceJoinMethod alloc] initWithTitle:v22 url:v28];
+          [v43 addObject:v29];
         }
 
         else
         {
-          v35 = EKLogHandle;
+          v30 = EKLogHandle;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            v63 = v10;
-            v64 = 2112;
-            v65 = v26;
-            v66 = 2112;
-            v67 = 0;
-            _os_log_error_impl(&dword_1A805E000, v35, OS_LOG_TYPE_ERROR, "Skipping extension join method %@ because it has insufficient information. Title = %@ URL = %@", buf, 0x20u);
+            v57 = v9;
+            v58 = 2112;
+            v59 = v22;
+            v60 = 2112;
+            v61 = 0;
+            _os_log_error_impl(&dword_1A805E000, v30, OS_LOG_TYPE_ERROR, "Skipping extension join method %@ because it has insufficient information. Title = %@ URL = %@", buf, 0x20u);
           }
         }
 
-        v7 = v27;
-        v6 = v50;
+        v7 = v23;
+        v6 = v44;
       }
 
-      v8 = 0x1E696A000;
 LABEL_31:
-
-      ++v9;
+      ++v8;
     }
 
-    while (v6 != v9);
-    v6 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+    while (v6 != v8);
+    v6 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
   }
 
   while (v6);
 LABEL_35:
 
-  if ([v49 count])
+  if ([v43 count])
   {
-    v37 = v52;
-    v36 = v53;
-    v38 = [[EKVirtualConference alloc] initWithTitle:v52 joinMethods:v49 conferenceDetails:v53];
-    v39 = 0;
-    v40 = v47;
+    v32 = v46;
+    v31 = v47;
+    v33 = [[EKVirtualConference alloc] initWithTitle:v46 joinMethods:v43 conferenceDetails:v47];
+    v34 = 0;
+    v35 = v41;
   }
 
   else
   {
-    v39 = [MEMORY[0x1E696ABC0] errorWithDomain:@"EKVirtualConferenceError" code:0 userInfo:0];
-    v41 = EKLogHandle;
-    v40 = v47;
-    v37 = v52;
-    v36 = v53;
+    v34 = [MEMORY[0x1E696ABC0] errorWithDomain:@"EKVirtualConferenceError" code:0 userInfo:0];
+    v36 = EKLogHandle;
+    v35 = v41;
+    v32 = v46;
+    v31 = v47;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17_cold_1(v47, v41);
+      __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17_cold_1(v41, v36);
     }
 
-    v38 = 0;
+    v33 = 0;
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_24;
   block[3] = &unk_1E77FEA98;
-  v42 = *(v40 + 40);
-  v43 = *(v40 + 48);
-  v56 = v39;
-  v57 = v43;
-  v55 = v38;
-  v44 = v39;
-  v45 = v38;
-  dispatch_async(v42, block);
-
-  v46 = *MEMORY[0x1E69E9840];
+  v37 = *(v35 + 40);
+  v38 = *(v35 + 48);
+  v50 = v34;
+  v51 = v38;
+  v49 = v33;
+  v39 = v34;
+  v40 = v33;
+  dispatch_async(v37, block);
 }
 
 uint64_t __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_30(uint64_t a1)
@@ -385,35 +374,34 @@ uint64_t __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(*(*(a1 + 40) + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
+  v5 = *(*(a1 + 32) + 16);
 
-  return v6();
+  return v5();
 }
 
 - (NSURL)firstPhoneNumber
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   joinMethods = [(EKVirtualConference *)self joinMethods];
-  v3 = [joinMethods countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [joinMethods countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(joinMethods);
       }
 
-      v7 = [*(*(&v10 + 1) + 8 * v6) URL];
+      v7 = [*(*(&v9 + 1) + 8 * v6) URL];
       if ([v7 cal_hasSchemeTel])
       {
         break;
@@ -421,7 +409,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [joinMethods countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [joinMethods countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -437,8 +425,6 @@ LABEL_3:
 LABEL_9:
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -540,14 +526,12 @@ LABEL_9:
 
 void __69__EKVirtualConference_virtualConferenceForRoomType_completion_queue___block_invoke_17_cold_1(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 extensionBundleIdentifier];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Extension %@ did not provide any join methods.", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Extension %@ did not provide any join methods.", v5, 0xCu);
 }
 
 @end

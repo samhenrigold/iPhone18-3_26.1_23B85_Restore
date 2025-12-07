@@ -487,13 +487,13 @@ LABEL_10:
   dCopy = d;
   chromeViewController = [(NavModeController *)self chromeViewController];
   routeAnnotationsController = [chromeViewController routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
+  v8 = objc_msgSend_configuration(routeAnnotationsController);
 
   v19 = 0u;
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  routes = [configuration routes];
+  routes = [v8 routes];
   v10 = [routes countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
@@ -720,13 +720,13 @@ LABEL_12:
   viewCopy = view;
   chromeViewController = [(NavModeController *)self chromeViewController];
   routeAnnotationsController = [chromeViewController routeAnnotationsController];
-  configuration = [routeAnnotationsController configuration];
+  v9 = objc_msgSend_configuration(routeAnnotationsController);
 
-  if ([configuration alternateRoutesEnabled])
+  if ([v9 alternateRoutesEnabled])
   {
     mapView = self->_mapView;
-    routes = [configuration routes];
-    selectedRoute = [configuration selectedRoute];
+    routes = [v9 routes];
+    selectedRoute = [v9 selectedRoute];
     v13 = +[MNNavigationService sharedService];
     v14 = sub_1007D8258(v13);
     v15 = [RouteAnnotationsResponder routeAtPoint:mapView inMapView:routes withRoutes:selectedRoute selectedRoute:v14 overlappingRouteSelectorBlock:x, y];

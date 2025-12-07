@@ -11,10 +11,9 @@
 - (void)reindexAllItemsForBundleID:(id)d protectionClass:(id)class acknowledgementHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC17FileIndexerDaemon32FileIndexerSpotlightDaemonClient_resetScanningState);
-  v7 = *&self->indexHandler[OBJC_IVAR____TtC17FileIndexerDaemon32FileIndexerSpotlightDaemonClient_resetScanningState];
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC17FileIndexerDaemon32FileIndexerSpotlightDaemonClient_resetScanningState);
   selfCopy = self;
-  v8();
+  v7();
   v6[2](v6);
 
   _Block_release(v6);

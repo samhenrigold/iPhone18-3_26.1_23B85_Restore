@@ -8,7 +8,7 @@
 
 + (id)urlForEKEventFromTextMessageWithUniqueIdentifier:(id)identifier
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -20,13 +20,11 @@
   [v6 setScheme:@"sms"];
   [v6 setHost:@"open"];
   v7 = [MEMORY[0x1E696AF60] queryItemWithName:@"message-guid" value:identifierCopy];
-  v13[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [v6 setQueryItems:v8];
 
   v9 = [v6 URL];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -50,7 +48,7 @@
 
 + (id)urlForEKEventFromMailMessageWithId:(id)id sentAt:(id)at opaqueKey:(id)key
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   atCopy = at;
   keyCopy = key;
@@ -100,15 +98,13 @@ LABEL_4:
   [atCopy timeIntervalSince1970];
   v16 = [v14 initWithFormat:@"%lu", v15];
   v17 = [v13 queryItemWithName:@"c" value:v16];
-  v26[0] = v17;
+  v25[0] = v17;
   v18 = [MEMORY[0x1E696AF60] queryItemWithName:@"k" value:keyCopy];
-  v26[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[1] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   [v12 setQueryItems:v19];
 
   v20 = [v12 URL];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

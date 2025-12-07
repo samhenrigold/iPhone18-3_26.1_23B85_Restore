@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)roamStatusAsString:(int)string;
+- (id)srvDomainAsString:(int)string;
+- (id)srvStatusAsString:(int)string;
+- (id)sysModeAsString:(int)string;
 - (int)StringAsRoamStatus:(id)status;
 - (int)StringAsSrvDomain:(id)domain;
 - (int)StringAsSrvStatus:(id)status;
@@ -53,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)sysModeAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_1003179D8 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSysMode:(id)mode
@@ -164,6 +183,79 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)srvStatusAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string > 0)
+    {
+      if (string == 1)
+      {
+        v4 = @"SYS_SRV_STATUS_LIMITED";
+      }
+
+      else
+      {
+        v4 = @"SYS_SRV_STATUS_SRV";
+      }
+    }
+
+    else if (string == -1)
+    {
+      v4 = @"SYS_SRV_STATUS_NONE";
+    }
+
+    else
+    {
+      if (string)
+      {
+LABEL_38:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"SYS_SRV_STATUS_NO_SRV";
+    }
+  }
+
+  else if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"SYS_SRV_STATUS_LIMITED_REGIONAL";
+    }
+
+    else
+    {
+      v4 = @"SYS_SRV_STATUS_PWR_SAVE";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 5:
+        v4 = @"SYS_SRV_STATUS_MAX";
+
+        break;
+      case 100:
+        v4 = @"SYS_SRV_STATUS_LOW_POWER_MODE";
+
+        break;
+      case 101:
+        v4 = @"SYS_SRV_STATUS_CMAS_ONLY_MODE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
+}
+
 - (int)StringAsSrvStatus:(id)status
 {
   statusCopy = status;
@@ -248,6 +340,21 @@
   *&self->_has = *&self->_has & 0xFFDF | v3;
 }
 
+- (id)srvDomainAsString:(int)string
+{
+  if ((string + 1) >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317A58 + (string + 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsSrvDomain:(id)domain
 {
   domainCopy = domain;
@@ -320,6 +427,83 @@
   }
 
   *&self->_has = *&self->_has & 0xFFEF | v3;
+}
+
+- (id)roamStatusAsString:(int)string
+{
+  v4 = @"SYS_ROAM_STATUS_NONE";
+  switch(string)
+  {
+    case -1:
+      goto LABEL_28;
+    case 0:
+      v4 = @"SYS_ROAM_STATUS_OFF";
+
+      break;
+    case 1:
+      v4 = @"SYS_ROAM_STATUS_ON";
+
+      break;
+    case 2:
+      v4 = @"SYS_ROAM_STATUS_BLINK";
+
+      break;
+    case 3:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_NEIGHBORHOOD";
+
+      break;
+    case 4:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_BLDG";
+
+      break;
+    case 5:
+      v4 = @"SYS_ROAM_STATUS_PREF_SYS";
+
+      break;
+    case 6:
+      v4 = @"SYS_ROAM_STATUS_AVAIL_SYS";
+
+      break;
+    case 7:
+      v4 = @"SYS_ROAM_STATUS_ALLIANCE_PARTNER";
+
+      break;
+    case 8:
+      v4 = @"SYS_ROAM_STATUS_PREMIUM_PARTNER";
+
+      break;
+    case 9:
+      v4 = @"SYS_ROAM_STATUS_FULL_SVC";
+
+      break;
+    case 10:
+      v4 = @"SYS_ROAM_STATUS_PARTIAL_SVC";
+
+      break;
+    case 11:
+      v4 = @"SYS_ROAM_STATUS_BANNER_ON";
+
+      break;
+    case 12:
+      v4 = @"SYS_ROAM_STATUS_BANNER_OFF";
+
+      break;
+    default:
+      if (string == 64)
+      {
+        v4 = @"SYS_ROAM_STATUS_HOME_SYSTEM";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_28:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsRoamStatus:(id)status
@@ -761,12 +945,11 @@ LABEL_14:
 {
   toCopy = to;
   has = self->_has;
-  v16 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v16;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x100) == 0)
     {
@@ -785,9 +968,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sysMode = self->_sysMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -801,9 +983,8 @@ LABEL_4:
   }
 
 LABEL_21:
-  srvStatus = self->_srvStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -817,9 +998,8 @@ LABEL_5:
   }
 
 LABEL_22:
-  srvDomain = self->_srvDomain;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -833,35 +1013,32 @@ LABEL_6:
   }
 
 LABEL_23:
-  roamStatus = self->_roamStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v16;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
+    toCopy = v7;
   }
 
 LABEL_8:
   if (self->_simHplmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v16;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x80) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
-    v7 = self->_has;
-    if ((v7 & 4) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 4) == 0)
     {
 LABEL_12:
-      if ((v7 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_14;
       }
@@ -870,27 +1047,25 @@ LABEL_12:
     }
   }
 
-  else if ((v7 & 4) == 0)
+  else if ((v6 & 4) == 0)
   {
     goto LABEL_12;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_13:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
+    toCopy = v7;
   }
 
 LABEL_14:
   if (self->_plmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v16;
+    toCopy = v7;
   }
 }
 

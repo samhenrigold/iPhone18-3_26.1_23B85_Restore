@@ -1,4 +1,5 @@
 @interface CBDRemoteXPCMessageSuccessReply
++ (id)replyToRemoteMessage:(id)message success:(BOOL)success error:(id)error;
 - (CBDRemoteXPCMessageSuccessReply)initWithCoder:(id)coder;
 - (CBDRemoteXPCMessageSuccessReply)initWithRemoteMessage:(id)message success:(BOOL)success error:(id)error;
 - (NSString)description;
@@ -7,6 +8,16 @@
 @end
 
 @implementation CBDRemoteXPCMessageSuccessReply
+
++ (id)replyToRemoteMessage:(id)message success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  messageCopy = message;
+  v10 = [[self alloc] initWithRemoteMessage:messageCopy success:successCopy error:errorCopy];
+
+  return v10;
+}
 
 - (CBDRemoteXPCMessageSuccessReply)initWithRemoteMessage:(id)message success:(BOOL)success error:(id)error
 {

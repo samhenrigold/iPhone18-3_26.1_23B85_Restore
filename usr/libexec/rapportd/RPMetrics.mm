@@ -2,6 +2,7 @@
 + (id)sharedMetrics;
 - (RPMetrics)init;
 - (void)_activate;
+- (void)_logReceivedMessageType:(int)type identifier:(id)identifier options:(id)options appID:(id)d timeBegin:(double)begin timeEnd:(double)end bytesAdded:(unint64_t)added messagesAdded:(unint64_t)self0;
 - (void)_reportMetrics;
 - (void)activate;
 - (void)logAWDLBrowseClient:(id)client;
@@ -25,9 +26,9 @@
 
 - (RPMetrics)init
 {
-  v21.receiver = self;
-  v21.super_class = RPMetrics;
-  v2 = [(RPMetrics *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = RPMetrics;
+  v2 = [(RPMetrics *)&v20 init];
   v3 = v2;
   if (v2)
   {
@@ -57,12 +58,11 @@
     handler[2] = sub_1000793AC;
     handler[3] = &unk_1001AA970;
     v15 = v3;
-    v20 = v15;
+    v19 = v15;
     dispatch_source_set_event_handler(v14, handler);
-    v16 = v3->_reportTimer;
     CUDispatchTimerSet();
     dispatch_resume(v3->_reportTimer);
-    v17 = v15;
+    v16 = v15;
   }
 
   return v3;
@@ -81,9 +81,12 @@
 
 - (void)_activate
 {
-  if (dword_1001D4158 <= 30 && (dword_1001D4158 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4158 <= 30)
   {
-    sub_10011DDD0();
+    if (dword_1001D4158 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10011DDD0(self, a2, v2);
+    }
   }
 }
 
@@ -154,6 +157,64 @@
     v27 = v16;
     v28 = v17;
     dispatch_async(dispatchQueue, block);
+  }
+}
+
+- (void)_logReceivedMessageType:(int)type identifier:(id)identifier options:(id)options appID:(id)d timeBegin:(double)begin timeEnd:(double)end bytesAdded:(unint64_t)added messagesAdded:(unint64_t)self0
+{
+  v15 = *&type;
+  if (begin == 0.0)
+  {
+    beginCopy = end;
+  }
+
+  else
+  {
+    beginCopy = begin;
+  }
+
+  dCopy = d;
+  optionsCopy = options;
+  identifierCopy = identifier;
+  v27 = objc_alloc_init(NSMutableDictionary);
+  [v27 setObject:dCopy forKeyedSubscript:@"appID"];
+
+  v20 = [NSNumber numberWithUnsignedLongLong:added];
+  [v27 setObject:v20 forKeyedSubscript:@"bytes"];
+
+  [v27 setObject:identifierCopy forKeyedSubscript:@"identifier"];
+  v21 = NSDictionaryGetNSNumber();
+  [v27 setObject:v21 forKeyedSubscript:@"linkType"];
+
+  v22 = [NSNumber numberWithUnsignedLongLong:messagesAdded];
+  [v27 setObject:v22 forKeyedSubscript:@"messages"];
+
+  CFStringGetTypeID();
+  TypedValue = CFDictionaryGetTypedValue();
+
+  [v27 setObject:TypedValue forKeyedSubscript:@"senderID"];
+  v24 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:beginCopy];
+  [v27 setObject:v24 forKeyedSubscript:@"timeBegin"];
+
+  v25 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:end];
+  [v27 setObject:v25 forKeyedSubscript:@"timeEnd"];
+
+  v26 = [NSNumber numberWithInt:v15];
+  [v27 setObject:v26 forKeyedSubscript:@"type"];
+
+  if (qword_1001D6310 != -1)
+  {
+    sub_10011DE08();
+  }
+
+  if (qword_1001D6318 && dlsym(qword_1001D6318, "PLLogRegisteredEvent"))
+  {
+    if (dword_1001D4158 <= 10 && (dword_1001D4158 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10011DE1C(v27);
+    }
+
+    off_1001D41C8(91, @"com.apple.rapport.receivedEvent", v27, 0);
   }
 }
 

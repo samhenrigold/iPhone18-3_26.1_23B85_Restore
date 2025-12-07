@@ -1608,23 +1608,23 @@ LABEL_32:
   y = 0.0;
   x = 0.0;
 LABEL_14:
-  v20 = begin + 152 * v16;
+  v20 = (begin + 152 * v16);
   v21 = _UIRegionSolveResult::boundingFrameForIndex(v20, index);
   v23 = v22;
   v24 = *(v20 + 12);
   v25 = *(v20 + 13);
   while (v24 != v25)
   {
-    auxillaryItem = [(_UICollectionLayoutFramesQueryResult *)*(v24 + 5) auxillaryItem];
+    auxillaryItem = [(_UICollectionLayoutFramesQueryResult *)*(v24 + 40) auxillaryItem];
     elementKind = [auxillaryItem elementKind];
 
-    LOBYTE(auxillaryItem) = [elementKind isEqualToString:kind];
+    LOBYTE(auxillaryItem) = objc_msgSend_isEqualToString_(elementKind);
     if (auxillaryItem)
     {
       goto LABEL_26;
     }
 
-    v24 = (v24 + 48);
+    v24 += 48;
   }
 
   v24 = *(v20 + 15);
@@ -1636,17 +1636,17 @@ LABEL_14:
 
   while (1)
   {
-    auxillaryItem2 = [(_UICollectionLayoutFramesQueryResult *)*(v24 + 5) auxillaryItem];
+    auxillaryItem2 = [(_UICollectionLayoutFramesQueryResult *)*(v24 + 40) auxillaryItem];
     elementKind2 = [auxillaryItem2 elementKind];
 
-    LOBYTE(auxillaryItem2) = [elementKind2 isEqualToString:kind];
+    LOBYTE(auxillaryItem2) = objc_msgSend_isEqualToString_(elementKind2);
     if (auxillaryItem2)
     {
       break;
     }
 
     v9 = 0;
-    v24 = (v24 + 48);
+    v24 += 48;
     if (v24 == v28)
     {
       goto LABEL_23;

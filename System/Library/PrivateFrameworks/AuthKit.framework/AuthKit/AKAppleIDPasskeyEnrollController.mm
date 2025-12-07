@@ -26,8 +26,8 @@
 
 - (void)setupPasskeyWithContext:(AKAppleIDPasskeySetupContext *)context forced:(BOOL)forced completion:(id)completion
 {
-  v9 = (*(*(sub_1001AD17C(&unk_100372310, &qword_10029CEC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
+  __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(completion);
   v13 = swift_allocObject();

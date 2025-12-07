@@ -1,8 +1,10 @@
 @interface BLTSettingSyncInternal
 - (BLTSettingSyncInternal)initWithSectionConfiguration:(id)configuration queue:(id)queue;
+- (unint64_t)willNanoPresentNotificationForSectionID:(id)d subsectionIDs:(id)ds subtype:(int64_t)subtype category:(id)category ignoresDowntime:(BOOL)downtime isCritical:(BOOL)critical;
 - (void)connect;
 - (void)dealloc;
 - (void)disableStandaloneTestMode;
+- (void)enableNotifications:(BOOL)notifications sectionID:(id)d mirror:(BOOL)mirror;
 - (void)enableStandaloneTestModeWithMinimumSendDelay:(unint64_t)delay maximumSendDelay:(unint64_t)sendDelay minimumResponseDelay:(unint64_t)responseDelay maximumResponseDelay:(unint64_t)maximumResponseDelay;
 - (void)observer:(id)observer updateGlobalSettings:(id)settings;
 - (void)setSectionInfo:(id)info completion:(id)completion;
@@ -97,6 +99,21 @@
   __assert_rtn("[BLTSettingSyncInternal setSectionSubtypeParametersIcon:forSectionID:forSubtypeID:]", "BLTSettingSyncInternal.m", 122, "0");
 }
 
+- (void)enableNotifications:(BOOL)notifications sectionID:(id)d mirror:(BOOL)mirror
+{
+  if (notifications)
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  [(BLTSettingSyncInternal *)self setNotificationsLevel:v5 sectionID:d mirror:mirror fromRemote:0];
+}
+
 - (void)enableStandaloneTestModeWithMinimumSendDelay:(unint64_t)delay maximumSendDelay:(unint64_t)sendDelay minimumResponseDelay:(unint64_t)responseDelay maximumResponseDelay:(unint64_t)maximumResponseDelay
 {
   connection = [(BLTSettingSyncInternal *)self connection];
@@ -109,48 +126,81 @@
   [connection disableStandaloneTestMode];
 }
 
+- (unint64_t)willNanoPresentNotificationForSectionID:(id)d subsectionIDs:(id)ds subtype:(int64_t)subtype category:(id)category ignoresDowntime:(BOOL)downtime isCritical:(BOOL)critical
+{
+  HIDWORD(v28) = critical;
+  downtimeCopy = downtime;
+  dCopy = d;
+  categoryCopy = category;
+  dsCopy = ds;
+  v16 = [(BLTSettingSyncInternal *)self _overriddenSectionInfoForSectionID:dCopy];
+  v17 = objc_alloc_init(BLTAlertStateTester);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __124__BLTSettingSyncInternal_willNanoPresentNotificationForSectionID_subsectionIDs_subtype_category_ignoresDowntime_isCritical___block_invoke;
+  v29[3] = &unk_278D32300;
+  v29[4] = self;
+  [(BLTAlertStateTester *)v17 setSectionInfoRetriever:v29];
+  factorySectionID = [v16 factorySectionID];
+
+  if (factorySectionID && (v19 = self->_sectionConfiguration, [v16 factorySectionID], v20 = downtimeCopy, v21 = objc_claimAutoreleasedReturnValue(), LODWORD(v19) = -[BLTSectionConfigurationInternal applyAllowListToChildSections:](v19, "applyAllowListToChildSections:", v21), v21, downtimeCopy = v20, v19))
+  {
+    sectionConfiguration = self->_sectionConfiguration;
+    factorySectionID2 = [v16 factorySectionID];
+    v24 = sectionConfiguration;
+    downtimeCopy = v20;
+    v25 = [(BLTSectionConfigurationInternal *)v24 coordinationTypeForSectionID:factorySectionID2 subtype:subtype category:categoryCopy];
+  }
+
+  else
+  {
+    v25 = [(BLTSectionConfigurationInternal *)self->_sectionConfiguration coordinationTypeForSectionID:dCopy subtype:subtype category:categoryCopy];
+  }
+
+  LOBYTE(v28) = BYTE4(v28);
+  v26 = [(BLTAlertStateTester *)v17 willNanoPresentNotificationForSectionInfo:v16 subsectionIDs:dsCopy isWristDetectDisabled:[(BLTSettingSyncInternal *)self isWristDetectDisabled] hasSectionIDOptedOutOfCoordination:v25 == 2 hasSectionIDOptedForwardOnly:v25 == 1 ignoresDowntime:downtimeCopy isCritical:v28];
+
+  return v26;
+}
+
 - (void)updateGlobalSettings:(id)settings
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
-  v5 = blt_global_settings_sync_log();
+  v5 = blt_global_settings_sync_log(settingsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = settingsCopy;
-    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ updateGlobalSettings: %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = settingsCopy;
+    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ updateGlobalSettings: %@", &v7, 0x16u);
   }
 
   remoteGlobalSettingsSyncServer = [(BLTSettingSyncInternal *)self remoteGlobalSettingsSyncServer];
   [remoteGlobalSettingsSyncServer updateLocalSettingsWithProvider:settingsCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer updateGlobalSettings:(id)settings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   settingsCopy = settings;
-  v8 = blt_global_settings_sync_log();
+  v8 = blt_global_settings_sync_log(settingsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412802;
+    v10 = 138412802;
     selfCopy = self;
-    v13 = 2112;
-    v14 = observerCopy;
-    v15 = 2112;
-    v16 = settingsCopy;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ observer: %@ globalSettings: %@", &v11, 0x20u);
+    v12 = 2112;
+    v13 = observerCopy;
+    v14 = 2112;
+    v15 = settingsCopy;
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ observer: %@ globalSettings: %@", &v10, 0x20u);
   }
 
   -[BLTSpokenSettingSync bbUpdateLocalGlobalSpokenSettingEnabled:](self->_spokenSettingSync, "bbUpdateLocalGlobalSpokenSettingEnabled:", [settingsCopy globalSpokenNotificationSetting]);
   remoteGlobalSettingsSyncServer = [(BLTSettingSyncInternal *)self remoteGlobalSettingsSyncServer];
   [remoteGlobalSettingsSyncServer observer:observerCopy updateGlobalSettings:settingsCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -2,6 +2,7 @@
 + (void)initializeMonitor;
 - (AXBHardwareManager)init;
 - (id)_stickyKeysClient;
+- (void)_notifyServerStickyKeyUpdatedForKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page down:(BOOL)down up:(BOOL)up locked:(BOOL)locked;
 - (void)_notifyServerStickyKeysDisabled;
 - (void)_notifyServerStickyKeysToggledViaShift;
 - (void)_stickyKeysEnabledChanged;
@@ -142,7 +143,7 @@ void __26__AXBHardwareManager_init__block_invoke_5(uint64_t a1)
 
 - (void)_updateCameraButtonSensitivity
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
   [mEMORY[0x29EDBDFA0] cameraButtonSensitivity];
   v4 = v3;
@@ -153,79 +154,74 @@ void __26__AXBHardwareManager_init__block_invoke_5(uint64_t a1)
   {
     v7 = [MEMORY[0x29EDBA070] numberWithDouble:v4];
     *buf = 138412290;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_29BBBD000, v6, OS_LOG_TYPE_DEFAULT, "CameraButton: Setting sensitivty: %@", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x29EDBA070] numberWithDouble:{v4, @"HalfPressThresholdModifier"}];
-  v12 = v8;
-  v9 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v11 = v8;
+  v9 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   BKSHIDServicesSetPersistentServiceProperties();
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateIgnoreTrackpadSettings
 {
-  v28[2] = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDB8ED8];
-  v3 = IOHIDEventSystemClientCreate();
-  if (v3)
+  v26[2] = *MEMORY[0x29EDCA608];
+  v2 = IOHIDEventSystemClientCreate();
+  if (v2)
   {
-    v4 = v3;
-    v27[0] = @"PrimaryUsagePage";
-    v27[1] = @"PrimaryUsage";
-    v28[0] = &unk_2A21217F8;
-    v28[1] = &unk_2A2121810;
-    v18 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v3 = v2;
+    v25[0] = @"PrimaryUsagePage";
+    v25[1] = @"PrimaryUsage";
+    v26[0] = &unk_2A21217F8;
+    v26[1] = &unk_2A2121810;
+    v16 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     IOHIDEventSystemClientSetMatching();
-    cf = v4;
+    cf = v3;
+    v18 = 0u;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v5 = IOHIDEventSystemClientCopyServices(v4);
-    v6 = [(__CFArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
-    if (v6)
+    v4 = IOHIDEventSystemClientCopyServices(v3);
+    v5 = [(__CFArray *)v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v21;
+      v6 = v5;
+      v7 = *v19;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v8)
+          if (*v19 != v7)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
-          v11 = MEMORY[0x29EDBA070];
+          v9 = *(*(&v18 + 1) + 8 * i);
+          v10 = MEMORY[0x29EDBA070];
           mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
-          IOHIDServiceClientSetProperty(v10, @"TrackpadExternallyDisabled", [v11 numberWithBool:{objc_msgSend(mEMORY[0x29EDBDFA0], "ignoreTrackpad")}]);
+          IOHIDServiceClientSetProperty(v9, @"TrackpadExternallyDisabled", [v10 numberWithBool:{objc_msgSend(mEMORY[0x29EDBDFA0], "ignoreTrackpad")}]);
 
-          v13 = AXLogCommon();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v12 = AXLogCommon();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = MEMORY[0x29EDBA070];
+            v13 = MEMORY[0x29EDBA070];
             mEMORY[0x29EDBDFA0]2 = [MEMORY[0x29EDBDFA0] sharedInstance];
-            v16 = [v14 numberWithBool:{objc_msgSend(mEMORY[0x29EDBDFA0]2, "ignoreTrackpad")}];
+            v15 = [v13 numberWithBool:{objc_msgSend(mEMORY[0x29EDBDFA0]2, "ignoreTrackpad")}];
             *buf = 138412290;
-            v25 = v16;
-            _os_log_impl(&dword_29BBBD000, v13, OS_LOG_TYPE_DEFAULT, "Applying ignore trackpad from pref change %@", buf, 0xCu);
+            v23 = v15;
+            _os_log_impl(&dword_29BBBD000, v12, OS_LOG_TYPE_DEFAULT, "Applying ignore trackpad from pref change %@", buf, 0xCu);
           }
         }
 
-        v7 = [(__CFArray *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v6 = [(__CFArray *)v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
 
     CFRelease(cf);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateStateForKeyboardEvent:(id)event
@@ -471,6 +467,42 @@ uint64_t __53__AXBHardwareManager__notifyServerStickyKeysDisabled__block_invoke(
   }
 
   return result;
+}
+
+- (void)_notifyServerStickyKeyUpdatedForKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page down:(BOOL)down up:(BOOL)up locked:(BOOL)locked
+{
+  v7 = *&page;
+  keycodeCopy = keycode;
+  v18[3] = *MEMORY[0x29EDCA608];
+  v9 = 1;
+  if (!up)
+  {
+    v9 = 2;
+  }
+
+  if (down)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  _stickyKeysClient = [(AXBHardwareManager *)self _stickyKeysClient];
+  v17[0] = *MEMORY[0x29EDBDF00];
+  v12 = [MEMORY[0x29EDBA070] numberWithUnsignedShort:keycodeCopy];
+  v18[0] = v12;
+  v17[1] = *MEMORY[0x29EDBDF08];
+  v13 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v7];
+  v18[1] = v13;
+  v17[2] = *MEMORY[0x29EDBDEF8];
+  v14 = [MEMORY[0x29EDBA070] numberWithInteger:v10];
+  v18[2] = v14;
+  v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  mainAccessQueue = [MEMORY[0x29EDBD688] mainAccessQueue];
+  [_stickyKeysClient sendAsynchronousMessage:v15 withIdentifier:10002 targetAccessQueue:mainAccessQueue completion:&__block_literal_global_353];
 }
 
 uint64_t __87__AXBHardwareManager__notifyServerStickyKeyUpdatedForKeycode_usagePage_down_up_locked___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

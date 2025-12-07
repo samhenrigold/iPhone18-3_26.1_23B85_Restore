@@ -6,11 +6,9 @@
 
 - (BOOL)safari_isEmpty
 {
-  v5 = *MEMORY[0x1E69E9840];
-  memset(v3, 0, sizeof(v3));
-  result = [self countByEnumeratingWithState:v3 objects:v4 count:16] == 0;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  memset(v2, 0, sizeof(v2));
+  return [self countByEnumeratingWithState:v2 objects:v3 count:16] == 0;
 }
 
 @end

@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  sub_10002006C(&unk_100942A70, v4, type metadata accessor for MarketingItemViewController);
+  sub_10002006C(&unk_100942A70, v4, type metadata accessor for MarketingItemViewController, &unk_100784608);
   selfCopy = self;
   sub_100769F3C();
   v6.receiver = selfCopy;

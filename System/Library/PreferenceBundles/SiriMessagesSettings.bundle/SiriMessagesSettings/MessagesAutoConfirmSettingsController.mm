@@ -35,16 +35,16 @@
   enabledCopy = enabled;
   specifierCopy = specifier;
   selfCopy = self;
-  sub_1D1B0();
+  sub_1D1B0(enabledCopy);
 }
 
 - (id)getMessageWithoutConfEnabledWithSpecifier:(id)specifier
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_1D5E0().super.super.isa;
+  v6 = sub_1D5E0();
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (void)setMessageWithoutConfHeadphonesEnabled:(id)enabled specifier:(id)specifier
@@ -59,9 +59,9 @@
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_1DCA0(selfCopy).super.super.isa;
+  v6 = sub_1DCA0(selfCopy);
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (void)setMessageWithoutConfCarPlayEnabled:(id)enabled specifier:(id)specifier
@@ -76,9 +76,9 @@
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_1DF4C(selfCopy).super.super.isa;
+  v6 = sub_1DF4C(selfCopy);
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (_TtC20SiriMessagesSettings37MessagesAutoConfirmSettingsController)initWithNibName:(id)name bundle:(id)bundle

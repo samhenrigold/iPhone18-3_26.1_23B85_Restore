@@ -25,8 +25,8 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_100006370(0, &qword_101A23BE0);
-  sub_10000FDE0(&qword_101A23BE8, &qword_101A23BE0);
+  sub_100006370(0, &qword_101A23BE0, UITouch_ptr);
+  sub_10000FDE0(&qword_101A23BE8, &qword_101A23BE0, UITouch_ptr, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
   selfCopy = self;

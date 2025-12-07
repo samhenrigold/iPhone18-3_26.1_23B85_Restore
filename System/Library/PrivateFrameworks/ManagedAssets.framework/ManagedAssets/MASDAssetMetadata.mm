@@ -3,7 +3,6 @@
 - (BOOL)isEqualForAllFields:(id)fields;
 - (MASDAssetMetadata)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)description;
 - (id)initAssetMetadataWithInfoDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -152,16 +151,6 @@
   }
 
   return v5;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  label = self->_label;
-  v5 = MASDConvertAssetTypeToString(self->_type);
-  v6 = *&self->_lastUpdatedOSVersion;
-  v7 = *&self->_syncOption;
-  return [v3 stringWithFormat:@"Metadata:{Label: %@, Type: %s, Create: %@, Update: %@, OS: %@, Algorithm: %@, CoP-Session: %@, CoP-Participant: %@, SyncOption: %ld, CKRecordID: %@, assetState: %ld, Enrollment Identifier: %@, Device Identifier: %@, Device Name: %@} ", label, v5, self->_creationTime, self->_lastUpdatedTime, self->_lastUpdatedOSVersion, self->_lastUpdatedAlgorithmVersion, self->_sessionIdentifier, self->_participantIdentifier, self->_syncOption, self->_ckrecordIdentifier, self->_assetState, self->_enrollmentIdentifier, self->_deviceIdentifier, self->_deviceName];
 }
 
 - (BOOL)isEqual:(id)equal

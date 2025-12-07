@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"totalCountOfV1LockedNotes";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"totalCountOfV1LockedNotes";
   totalCountOfV1LockedNotes = [(ICASLockedNotesItemData *)self totalCountOfV1LockedNotes];
   if (totalCountOfV1LockedNotes)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = totalCountOfV1LockedNotes2;
-  v19[0] = totalCountOfV1LockedNotes2;
-  v18[1] = @"totalCountOfV2LockedNotes";
+  v18[0] = totalCountOfV1LockedNotes2;
+  v17[1] = @"totalCountOfV2LockedNotes";
   totalCountOfV2LockedNotes = [(ICASLockedNotesItemData *)self totalCountOfV2LockedNotes];
   if (totalCountOfV2LockedNotes)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = totalCountOfV2LockedNotes2;
-  v19[1] = totalCountOfV2LockedNotes2;
-  v18[2] = @"totalCountOfLockedNotesWithDivergedMode";
+  v18[1] = totalCountOfV2LockedNotes2;
+  v17[2] = @"totalCountOfLockedNotesWithDivergedMode";
   totalCountOfLockedNotesWithDivergedMode = [(ICASLockedNotesItemData *)self totalCountOfLockedNotesWithDivergedMode];
   if (totalCountOfLockedNotesWithDivergedMode)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = totalCountOfLockedNotesWithDivergedMode2;
-  v19[2] = totalCountOfLockedNotesWithDivergedMode2;
-  v18[3] = @"totalCountOfLockedNotesWithDivergedPassword";
+  v18[2] = totalCountOfLockedNotesWithDivergedMode2;
+  v17[3] = @"totalCountOfLockedNotesWithDivergedPassword";
   totalCountOfLockedNotesWithDivergedPassword = [(ICASLockedNotesItemData *)self totalCountOfLockedNotesWithDivergedPassword];
   if (totalCountOfLockedNotesWithDivergedPassword)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = totalCountOfLockedNotesWithDivergedPassword2;
-  v19[3] = totalCountOfLockedNotesWithDivergedPassword2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = totalCountOfLockedNotesWithDivergedPassword2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

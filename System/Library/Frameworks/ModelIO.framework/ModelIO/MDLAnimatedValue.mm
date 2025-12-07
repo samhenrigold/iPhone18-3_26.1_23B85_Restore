@@ -38,11 +38,11 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  v10 = objc_msgSend_init(v7, v8, v9);
-  *(v10 + 32) = self->_interpolation;
-  sub_239F22B70((v10 + 8), &self->_timeSampledData);
-  return v10;
+  v16 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+  v28 = objc_msgSend_init(v16, v17, v18, v19, v24, v25, v26, v27, v20, v21, v22, v23);
+  v28[4] = self->_interpolation;
+  sub_239F22B70(v28 + 1, &self->_timeSampledData);
+  return v28;
 }
 
 - (VtValue)defaultVtValue
@@ -132,8 +132,9 @@
     do
     {
       v6 = objc_alloc(MEMORY[0x277CCABB0]);
-      v9 = objc_msgSend_initWithDouble_(v6, v7, v8, *(self->_timeSampledData.__begin_ + v4));
-      objc_msgSend_addObject_(v3, v10, v9);
+      v7.n128_u64[0] = *(self->_timeSampledData.__begin_ + v4);
+      v18 = objc_msgSend_initWithDouble_(v6, v8, v9, v10, v7, v15, v16, v17, v11, v12, v13, v14);
+      objc_msgSend_addObject_(v3, v19, v18, v20, v25, v26, v27, v28, v21, v22, v23, v24);
 
       ++v5;
       v4 += 24;

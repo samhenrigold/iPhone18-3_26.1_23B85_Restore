@@ -127,7 +127,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    snapshotID = self->_snapshotID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -147,12 +146,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  quotaReserved = self->_quotaReserved;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    lastModified = self->_lastModified;
     PBDataWriterWriteUint64Field();
   }
 
@@ -164,7 +161,6 @@ LABEL_5:
 
   if (*&self->_has)
   {
-    committed = self->_committed;
 
     PBDataWriterWriteUint64Field();
   }
@@ -271,7 +267,6 @@ LABEL_5:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 44);
     if ((has & 8) != 0)
     {
       if ((*(equal + 44) & 8) == 0 || self->_snapshotID != *(equal + 10))

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)hiPowerEventAsString:(int)string;
+- (id)hiPowerExitReasonAsString:(int)string;
 - (int)StringAsHiPowerEvent:(id)event;
 - (int)StringAsHiPowerExitReason:(id)reason;
 - (int)hiPowerEvent;
@@ -163,6 +165,21 @@
   *&self->_has = *&self->_has & 0xFFFD | v3;
 }
 
+- (id)hiPowerEventAsString:(int)string
+{
+  if (string >= 0xD)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825E678[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsHiPowerEvent:(id)event
 {
   eventCopy = event;
@@ -265,6 +282,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)hiPowerExitReasonAsString:(int)string
+{
+  if (string >= 0xD)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825E678[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsHiPowerExitReason:(id)reason
@@ -721,7 +753,6 @@ LABEL_18:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -741,7 +772,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  prevStateDurationSec = self->_prevStateDurationSec;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -756,7 +786,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  lqmState = self->_lqmState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -771,7 +800,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  sysMode = self->_sysMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -786,7 +814,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  isScreenOn = self->_isScreenOn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -801,7 +828,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  prevLqmState = self->_prevLqmState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -816,7 +842,6 @@ LABEL_8:
   }
 
 LABEL_27:
-  prevSysMode = self->_prevSysMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x8000) == 0)
@@ -831,7 +856,6 @@ LABEL_9:
   }
 
 LABEL_28:
-  prevIsScreenOn = self->_prevIsScreenOn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -846,7 +870,6 @@ LABEL_10:
   }
 
 LABEL_29:
-  hiPowerEvent = self->_hiPowerEvent;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -861,7 +884,6 @@ LABEL_11:
   }
 
 LABEL_30:
-  hiPowerExitReason = self->_hiPowerExitReason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -876,7 +898,6 @@ LABEL_12:
   }
 
 LABEL_31:
-  wcdmaEcio = self->_wcdmaEcio;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -891,7 +912,6 @@ LABEL_13:
   }
 
 LABEL_32:
-  wcdmaRscp = self->_wcdmaRscp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -906,7 +926,6 @@ LABEL_14:
   }
 
 LABEL_33:
-  lteRssi = self->_lteRssi;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -921,7 +940,6 @@ LABEL_15:
   }
 
 LABEL_34:
-  lteRsrp = self->_lteRsrp;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -936,12 +954,10 @@ LABEL_16:
   }
 
 LABEL_35:
-  lteRsrq = self->_lteRsrq;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_17:
-    lteRssnr = self->_lteRssnr;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1484,7 +1500,6 @@ LABEL_17:
       goto LABEL_88;
     }
 
-    v7 = *(equalCopy + 68);
     if (self->_isScreenOn)
     {
       if ((*(equalCopy + 68) & 1) == 0)
@@ -1538,7 +1553,7 @@ LABEL_17:
     }
 
 LABEL_88:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_89;
   }
 
@@ -1547,7 +1562,6 @@ LABEL_88:
     goto LABEL_88;
   }
 
-  v8 = *(equalCopy + 69);
   if (self->_prevIsScreenOn)
   {
     if ((*(equalCopy + 69) & 1) == 0)
@@ -1660,17 +1674,17 @@ LABEL_42:
       goto LABEL_88;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = (v6 & 0x80) == 0;
+    v7 = (v6 & 0x80) == 0;
   }
 
 LABEL_89:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

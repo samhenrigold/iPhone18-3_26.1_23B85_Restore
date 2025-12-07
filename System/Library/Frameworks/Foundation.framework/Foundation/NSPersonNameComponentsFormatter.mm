@@ -327,7 +327,7 @@ id __73__NSPersonNameComponentsFormatter__preferredLocalizationForCurrentLocale_
   return result;
 }
 
-uint64_t __51__NSPersonNameComponentsFormatter__cjkLanguagesSet__block_invoke()
+void *__51__NSPersonNameComponentsFormatter__cjkLanguagesSet__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{&off_1EEF57E30, &off_1EEF57E48, &off_1EEF57E60, &off_1EEF57E78, 0}];
   qword_1ED43F4E0 = result;
@@ -512,7 +512,7 @@ uint64_t __57__NSPersonNameComponentsFormatter_westernInitialsCreator__block_inv
   return _MergedGlobals_7_2;
 }
 
-uint64_t __107__NSPersonNameComponentsFormatter___shouldFallbackToGivenNameInitialForAbbreviatedNameFormatFamilyNameOnly__block_invoke(uint64_t a1)
+void *__107__NSPersonNameComponentsFormatter___shouldFallbackToGivenNameInitialForAbbreviatedNameFormatFamilyNameOnly__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   _MergedGlobals_7_2 = 0;
@@ -537,13 +537,13 @@ LABEL_3:
       }
 
       v7 = [objc_msgSend(MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:{*(*(&v9 + 1) + 8 * v6)), "objectForKey:", v5}];
-      result = [v7 isEqualToString:@"ja"];
+      result = objc_msgSend_isEqualToString_(v7);
       if (result)
       {
         break;
       }
 
-      result = [v7 isEqualToString:@"zh"];
+      result = objc_msgSend_isEqualToString_(v7);
       if (result)
       {
         _MergedGlobals_7_2 = 1;
@@ -802,7 +802,7 @@ id __60__NSPersonNameComponentsFormatter___familyNameFirstOrdering__block_invoke
   return [self __contents:katakana exclusivelyInCharacterSet:{qword_1ED43F4B0, v6, v7, v8, v9, selfCopy, v11}];
 }
 
-uint64_t __46__NSPersonNameComponentsFormatter_isKatakana___block_invoke(uint64_t a1)
+void *__46__NSPersonNameComponentsFormatter_isKatakana___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __getCharacterSetWithPattern:@"[:scx=Kana:]"];
   qword_1ED43F4B0 = result;
@@ -848,7 +848,7 @@ id __53__NSPersonNameComponentsFormatter___thaiConsonantSet__block_invoke(uint64
   CharactersPtr = CFStringGetCharactersPtr(pattern);
   if (CharactersPtr)
   {
-    (v11)(&v10, CharactersPtr, v4);
+    v11(&v10, CharactersPtr, v4);
   }
 
   else
@@ -877,7 +877,7 @@ id __53__NSPersonNameComponentsFormatter___thaiConsonantSet__block_invoke(uint64
     v21.location = 0;
     v21.length = v4;
     CFStringGetCharacters(pattern, v21, v7);
-    (v11)(&v10, v7, v4);
+    v11(&v10, v7, v4);
     if (v6 >= 0x101)
     {
       free(v7);
@@ -889,7 +889,7 @@ id __53__NSPersonNameComponentsFormatter___thaiConsonantSet__block_invoke(uint64
   return v8;
 }
 
-uint64_t __61__NSPersonNameComponentsFormatter___characterSetWithPattern___block_invoke(uint64_t a1)
+uint64_t __61__NSPersonNameComponentsFormatter___characterSetWithPattern___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   uset_openPattern();
   *(*(*(a1 + 32) + 8) + 40) = _CFCreateCharacterSetFromUSet();
@@ -913,7 +913,7 @@ uint64_t __61__NSPersonNameComponentsFormatter___characterSetWithPattern___block
     CharactersPtr = CFStringGetCharactersPtr(patternCopy);
     if (CharactersPtr)
     {
-      (v10)(&v9, CharactersPtr, v4);
+      v10(&v9, CharactersPtr, v4);
     }
 
     else
@@ -942,7 +942,7 @@ uint64_t __61__NSPersonNameComponentsFormatter___characterSetWithPattern___block
       v18.location = 0;
       v18.length = v4;
       CFStringGetCharacters(patternCopy, v18, v7);
-      (v10)(&v9, v7, v4);
+      v10(&v9, v7, v4);
       if (v6 >= 0x101)
       {
         free(v7);
@@ -956,7 +956,7 @@ uint64_t __61__NSPersonNameComponentsFormatter___characterSetWithPattern___block
   return patternCopy;
 }
 
-uint64_t __64__NSPersonNameComponentsFormatter___getCharacterSetWithPattern___block_invoke(uint64_t a1)
+uint64_t __64__NSPersonNameComponentsFormatter___getCharacterSetWithPattern___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = uset_openPattern();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1063,7 +1063,7 @@ uint64_t __72__NSPersonNameComponentsFormatter___contents_exclusivelyInCharacter
   return v3;
 }
 
-unint64_t __68__NSPersonNameComponentsFormatter___longestComponentFromComponents___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__68__NSPersonNameComponentsFormatter___longestComponentFromComponents___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 length];
   v6 = *(*(a1 + 32) + 8);
@@ -1231,7 +1231,7 @@ NSCharacterSet *__86__NSPersonNameComponentsFormatter___stringByStrippingNonInit
   return qword_1ED43F4F0;
 }
 
-uint64_t __56__NSPersonNameComponentsFormatter__cjkLocaleIdentifiers__block_invoke()
+void *__56__NSPersonNameComponentsFormatter__cjkLocaleIdentifiers__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"ja", @"zh", @"ko", 0}];
   qword_1ED43F4F0 = result;
@@ -1524,7 +1524,7 @@ LABEL_8:
   return v3();
 }
 
-uint64_t __54__NSPersonNameComponentsFormatter_thaiInitialsCreator__block_invoke(uint64_t a1, void *a2)
+void *__54__NSPersonNameComponentsFormatter_thaiInitialsCreator__block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 rangeOfCharacterFromSet:{+[NSPersonNameComponentsFormatter __thaiConsonantSet](NSPersonNameComponentsFormatter, "__thaiConsonantSet")}];
   if (v3 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1570,17 +1570,17 @@ uint64_t __57__NSPersonNameComponentsFormatter_tibetanInitialsCreator__block_inv
   return v4;
 }
 
-uint64_t __57__NSPersonNameComponentsFormatter_tibetanInitialsCreator__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+id *__57__NSPersonNameComponentsFormatter_tibetanInitialsCreator__block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v9 = result;
-  if (a4 == 1 && ((result = [*(result + 32) characterAtIndex:?], result == 3853) || result == 3851))
+  if (a4 == 1 && ((result = [result[4] characterAtIndex:{a3, 1, a5, a6}], result == 3853) || result == 3851))
   {
     *a7 = 1;
   }
 
-  else if (++*(*(*(v9 + 40) + 8) + 24) < 3uLL)
+  else if (++*(*(v9[5] + 1) + 24) < 3uLL)
   {
-    *(*(*(v9 + 48) + 8) + 24) += a4;
+    *(*(v9[6] + 1) + 24) += a4;
   }
 
   else
@@ -1612,9 +1612,9 @@ uint64_t __56__NSPersonNameComponentsFormatter_arabicInitialsCreator__block_invo
   v6 = v14;
   if (v5)
   {
-    v7 = [v14[5] isEqualToString:@"ه"];
+    isEqualToString = objc_msgSend_isEqualToString_(v14[5]);
     v6 = v14;
-    if (v7)
+    if (isEqualToString)
     {
       v8 = @"ه‍";
 LABEL_6:
@@ -1622,7 +1622,7 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v9 = [v14[5] isEqualToString:@"ہ"];
+    v9 = objc_msgSend_isEqualToString_(v14[5]);
     v6 = v14;
     if (v9)
     {
@@ -1637,7 +1637,7 @@ LABEL_7:
   return v10;
 }
 
-uint64_t __56__NSPersonNameComponentsFormatter_arabicInitialsCreator__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__56__NSPersonNameComponentsFormatter_arabicInitialsCreator__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;

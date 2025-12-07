@@ -100,20 +100,20 @@ LABEL_3:
   v5 = equalCopy;
   if (self == equalCopy)
   {
-    v6 = 1;
+    isEqual = 1;
   }
 
   else if (equalCopy && [(_UIDatePickerCalendarDateComponent *)self isMemberOfClass:objc_opt_class()])
   {
-    v6 = [(NSDateComponents *)self->_components isEqual:v5->_components];
+    isEqual = objc_msgSend_isEqual_(self->_components);
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (id)description

@@ -11,9 +11,7 @@
 {
   if (!self->_pauseTime)
   {
-    date = [MEMORY[0x277CBEAA8] date];
-    pauseTime = self->_pauseTime;
-    self->_pauseTime = date;
+    self->_pauseTime = [MEMORY[0x277CBEAA8] date];
 
     MEMORY[0x2821F96F8]();
   }

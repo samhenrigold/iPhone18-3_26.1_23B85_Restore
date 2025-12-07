@@ -116,8 +116,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v19[5] = *MEMORY[0x277D85DE8];
-  v18[0] = @"entryPoints";
+  v18[5] = *MEMORY[0x277D85DE8];
+  v17[0] = @"entryPoints";
   entryPoints = [(CAFPointOfInterest *)self entryPoints];
   arrayRepresentation = [entryPoints arrayRepresentation];
   v4 = arrayRepresentation;
@@ -126,9 +126,9 @@
     arrayRepresentation = [MEMORY[0x277CBEB68] null];
   }
 
-  v16 = arrayRepresentation;
-  v19[0] = arrayRepresentation;
-  v18[1] = @"location";
+  v15 = arrayRepresentation;
+  v18[0] = arrayRepresentation;
+  v17[1] = @"location";
   location = [(CAFPointOfInterest *)self location];
   dictionaryRepresentation = [location dictionaryRepresentation];
   null = dictionaryRepresentation;
@@ -137,11 +137,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[1] = null;
-  v18[2] = @"locationThreshold";
+  v18[1] = null;
+  v17[2] = @"locationThreshold";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CAFPointOfInterest locationThreshold](self, "locationThreshold")}];
-  v19[2] = v8;
-  v18[3] = @"userVisibleAddress";
+  v18[2] = v8;
+  v17[3] = @"userVisibleAddress";
   userVisibleAddress = [(CAFPointOfInterest *)self userVisibleAddress];
   null2 = userVisibleAddress;
   if (!userVisibleAddress)
@@ -149,8 +149,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[3] = null2;
-  v18[4] = @"userVisibleName";
+  v18[3] = null2;
+  v17[4] = @"userVisibleName";
   userVisibleName = [(CAFPointOfInterest *)self userVisibleName];
   null3 = userVisibleName;
   if (!userVisibleName)
@@ -158,8 +158,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[4] = null3;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[4] = null3;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
   if (!userVisibleName)
   {
   }
@@ -175,8 +175,6 @@
   if (!v4)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

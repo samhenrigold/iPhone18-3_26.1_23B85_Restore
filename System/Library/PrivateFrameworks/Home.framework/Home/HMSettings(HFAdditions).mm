@@ -28,7 +28,7 @@
 
 + (id)hf_LoadSettingsAllowlist:()HFAdditions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a3 != 1)
@@ -57,18 +57,18 @@ LABEL_8:
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v10 = [v9 URLForResource:v6 withExtension:@"plist"];
 
-  v18 = 0;
-  v8 = [HFAccessorySettingsEntity settingsAtURL:v10 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v8 = [HFAccessorySettingsEntity settingsAtURL:v10 error:&v17];
+  v11 = v17;
   if (v11 || !v8)
   {
     v12 = HFLogForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v11;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v11;
       _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "Error building Settings Allowlist: %@ %@", buf, 0x16u);
     }
   }
@@ -77,11 +77,11 @@ LABEL_8:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v11;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v11;
     _os_log_debug_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEBUG, "retrieved settings allowlist %@ %@ with error %@", buf, 0x20u);
   }
 
@@ -114,18 +114,17 @@ LABEL_21:
   }
 
 LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (uint64_t)hf_codex
 {
-  v0 = objc_opt_class();
-  v1 = [v0 isEqual:objc_opt_class()];
   v2 = objc_opt_class();
+  v3 = [v2 isEqual:objc_opt_class()];
+  v4 = objc_opt_class();
 
-  return [v2 hf_LoadSettingsAllowlist:v1];
+  return [v4 hf_LoadSettingsAllowlist:v3];
 }
 
 - (void)hf_accessorySettingGroupAtKeyPath:()HFAdditions
@@ -172,7 +171,7 @@ LABEL_23:
 
 - (id)hf_accessorySettingItemAtKeyPath:()HFAdditions
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -191,25 +190,25 @@ LABEL_23:
 
   else
   {
-    v29 = v5;
+    v28 = v5;
     v10 = [v5 componentsSeparatedByString:@"."];
     rootGroup2 = [self rootGroup];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v35;
+      v16 = *v34;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(v12);
           }
@@ -222,7 +221,7 @@ LABEL_19:
             goto LABEL_22;
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
+          v18 = *(*(&v33 + 1) + 8 * i);
           if ([v18 isEqualToString:@"root"])
           {
             v19 = @"root";
@@ -236,13 +235,13 @@ LABEL_19:
 
             v21 = objc_autoreleasePoolPush();
             settings = [rootGroup2 settings];
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __60__HMSettings_HFAdditions__hf_accessorySettingItemAtKeyPath___block_invoke;
-            v32[3] = &unk_277DF57B0;
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __60__HMSettings_HFAdditions__hf_accessorySettingItemAtKeyPath___block_invoke;
+            v31[3] = &unk_277DF57B0;
             v15 = v20;
-            v33 = v15;
-            selfCopy = [settings na_firstObjectPassingTest:v32];
+            v32 = v15;
+            selfCopy = [settings na_firstObjectPassingTest:v31];
 
             objc_autoreleasePoolPop(v21);
             if (selfCopy)
@@ -252,20 +251,20 @@ LABEL_19:
 
             v23 = objc_autoreleasePoolPush();
             groups = [rootGroup2 groups];
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __60__HMSettings_HFAdditions__hf_accessorySettingItemAtKeyPath___block_invoke_2;
-            v30[3] = &unk_277E00CC8;
+            v29[0] = MEMORY[0x277D85DD0];
+            v29[1] = 3221225472;
+            v29[2] = __60__HMSettings_HFAdditions__hf_accessorySettingItemAtKeyPath___block_invoke_2;
+            v29[3] = &unk_277E00CC8;
             v15 = v15;
-            v31 = v15;
-            v25 = [groups na_firstObjectPassingTest:v30];
+            v30 = v15;
+            v25 = [groups na_firstObjectPassingTest:v29];
 
             objc_autoreleasePoolPop(v23);
             rootGroup2 = v25;
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v14)
         {
           continue;
@@ -283,10 +282,8 @@ LABEL_19:
     rootGroup2 = rootGroup2;
     selfCopy = rootGroup2;
 LABEL_22:
-    v5 = v29;
+    v5 = v28;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

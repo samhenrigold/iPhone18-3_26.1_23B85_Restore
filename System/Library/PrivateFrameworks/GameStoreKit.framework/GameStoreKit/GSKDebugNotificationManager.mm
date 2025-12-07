@@ -50,7 +50,7 @@ void __45__GSKDebugNotificationManager_sharedInstance__block_invoke(uint64_t a1)
 {
   v14[3] = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
-  v5 = ASKBuildTypeGetCurrent();
+  v5 = ASKBuildTypeGetCurrent(notifyCopy);
   v14[0] = @"debug";
   v14[1] = @"internal";
   v14[2] = @"convergence";

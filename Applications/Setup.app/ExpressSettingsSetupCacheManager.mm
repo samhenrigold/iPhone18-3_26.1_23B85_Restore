@@ -17,7 +17,7 @@
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10000A52C(0, &qword_1003A0430);
+  sub_10000A52C(0, &qword_1003A0430, OS_dispatch_queue_ptr);
   (*(v3 + 104))(v5, enum case for DispatchQoS.QoSClass.default(_:), v2);
   v6 = static OS_dispatch_queue.global(qos:)();
   (*(v3 + 8))(v5, v2);

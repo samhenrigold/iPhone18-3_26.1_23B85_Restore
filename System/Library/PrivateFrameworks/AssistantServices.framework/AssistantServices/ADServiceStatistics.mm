@@ -19,12 +19,12 @@
   if (commandCopy)
   {
     _commandTimes = [(ADServiceStatistics *)self _commandTimes];
-    v6 = [_commandTimes objectForKey:commandCopy];
+    v6 = objc_msgSend_objectForKey_(_commandTimes);
 
     if (v6)
     {
       v7 = [(ADServiceStatistics *)self _statsForCommand:commandCopy];
-      v8 = [v7 objectForKey:@"Total Count"];
+      v8 = objc_msgSend_objectForKey_(v7);
       intValue = [v8 intValue];
 
       v10 = [NSNumber numberWithInt:(intValue + 1)];
@@ -35,7 +35,7 @@
         intValue = 9;
       }
 
-      v11 = [v7 objectForKey:@"Response Time"];
+      v11 = objc_msgSend_objectForKey_(v7);
       [v11 doubleValue];
       v13 = v12;
 
@@ -154,7 +154,7 @@
 {
   commandCopy = command;
   _statsDict = [(ADServiceStatistics *)self _statsDict];
-  v6 = [_statsDict objectForKey:commandCopy];
+  v6 = objc_msgSend_objectForKey_(_statsDict);
 
   if (!v6)
   {

@@ -12,6 +12,7 @@
 - (unint64_t)initialSelectedIndex;
 - (unsigned)mapKeyboardLayoutKey:(unsigned __int16)key;
 - (void)commitComposition;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 - (void)syncToLayoutState:(id)state;
 @end
 
@@ -80,6 +81,17 @@ LABEL_6:
   v6 = v5;
 
   return v5;
+}
+
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  fromCopy = from;
+  stateCopy = state;
+  [(TIKeyboardInputManager_zh_hant_Zhuyin *)self setAssertDefaultKeyPlane:0];
+  v10.receiver = self;
+  v10.super_class = TIKeyboardInputManager_zh_hant_Zhuyin;
+  [(TIKeyboardInputManagerChinesePhonetic *)&v10 syncToKeyboardState:stateCopy from:fromCopy afterContextChange:changeCopy];
 }
 
 - (void)syncToLayoutState:(id)state

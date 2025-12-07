@@ -2,10 +2,46 @@
 + (id)sharedInstance;
 - (BKHIDHapticFeedbackController)initWithHIDHapticFeedbackInterface:(id)interface;
 - (BOOL)_validateHapticFeedbackRequest:(id)request forAuditToken:(id *)token;
+- (BOOL)_validatePencilHapticFeedbackRequest:(id)request forPID:(int)d;
+- (BOOL)_validateTrackpadHapticFeedbackRequest:(id)request forPID:(int)d;
 - (void)postHapticFeedbackRequest:(id)request forAuditToken:(id *)token;
 @end
 
 @implementation BKHIDHapticFeedbackController
+
+- (BOOL)_validateTrackpadHapticFeedbackRequest:(id)request forPID:(int)d
+{
+  v4 = *&d;
+  mousePointerController = self->_mousePointerController;
+  if (!mousePointerController)
+  {
+    v7 = +[BKHIDEventProcessorRegistry sharedInstance];
+    v8 = [v7 eventProcessorOfClass:objc_opt_class()];
+    mousePointerController = [v8 mousePointerController];
+    v10 = self->_mousePointerController;
+    self->_mousePointerController = mousePointerController;
+
+    mousePointerController = self->_mousePointerController;
+  }
+
+  return [(BKMousePointerController *)mousePointerController destinationPIDMatchesHapticFeedbackRequestPID:v4];
+}
+
+- (BOOL)_validatePencilHapticFeedbackRequest:(id)request forPID:(int)d
+{
+  v4 = *&d;
+  genericGestureFocusObserver = self->_genericGestureFocusObserver;
+  if (!genericGestureFocusObserver)
+  {
+    v7 = +[BKTouchDeliveryGenericGestureFocusObserver sharedInstance];
+    v8 = self->_genericGestureFocusObserver;
+    self->_genericGestureFocusObserver = v7;
+
+    genericGestureFocusObserver = self->_genericGestureFocusObserver;
+  }
+
+  return [(BKTouchDeliveryGenericGestureFocusObserver *)genericGestureFocusObserver destinationPIDMatchesHapticFeedbackRequestPID:v4];
+}
 
 - (BOOL)_validateHapticFeedbackRequest:(id)request forAuditToken:(id *)token
 {

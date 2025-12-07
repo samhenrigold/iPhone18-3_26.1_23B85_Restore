@@ -52,7 +52,7 @@ uint64_t __43__AXBLookingGlassManager_initializeMonitor__block_invoke()
 
 - (void)_updateLookingGlassServicesIfNeeded
 {
-  if (LookingGlassServicesLibraryCore())
+  if (LookingGlassServicesLibraryCore(0))
   {
     sharedInstance = [getLookingGlassServicesClass() sharedInstance];
     [sharedInstance updateLookingGlassServices];
@@ -61,7 +61,7 @@ uint64_t __43__AXBLookingGlassManager_initializeMonitor__block_invoke()
 
 - (void)_showLookingGlassMenu
 {
-  if (LookingGlassServicesLibraryCore())
+  if (LookingGlassServicesLibraryCore(0))
   {
     v2 = AXLogLookingGlassUI();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))

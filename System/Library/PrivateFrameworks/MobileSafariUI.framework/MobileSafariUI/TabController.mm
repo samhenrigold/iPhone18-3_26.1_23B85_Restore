@@ -63,6 +63,7 @@
 - (NSString)startPageBackgroundImageIdentifier;
 - (TabController)initWithBrowserController:(id)controller;
 - (TabDocument)_activeTabDocumentForTabGroup:(TabDocument *)group;
+- (TabDocument)_tabForWBTab:(_BYTE *)tab didReuseTabDocument:;
 - (TabDocument)_unhibernateTabIfNeeded:(TabDocument *)needed;
 - (TabDocument)activeNonLibraryTab;
 - (TabDocument)activeTabDocument;
@@ -96,7 +97,7 @@
 - (id)_createFromCurrentTabsActionForTabGroupsMenu:(uint64_t)menu;
 - (id)_createNewTabGroupActionForTabGroupsMenu:;
 - (id)_deleteActionForTabGroup:(char)group forPickerSheet:;
-- (id)_dropWBTab:(void *)tab fromBrowserController:(unint64_t)controller atIndex:(int)index pinned:(void *)pinned anchorTab:;
+- (id)_dropWBTab:(void *)tab fromBrowserController:(char *)controller atIndex:(unsigned int)index pinned:(void *)pinned anchorTab:;
 - (id)_findPinnedTabMatchingURL:(uint64_t)l;
 - (id)_firstUnpinnedTab;
 - (id)_focusedTabGroupForWindowState:(_BYTE *)state;
@@ -120,7 +121,6 @@
 - (id)_syncedTabGroupsForActiveProfileWithOptions:(void *)options;
 - (id)_tabCountForDisplay;
 - (id)_tabDocumentForWebClip:(uint64_t)clip;
-- (id)_tabForWBTab:(_BYTE *)tab didReuseTabDocument:;
 - (id)_tabForWBTab:(id *)tab;
 - (id)_tabGroupAlertControllerWithTitle:(uint64_t)title message:(void *)message okActionTitle:(uint64_t)actionTitle role:(char)role showingSuggestionsIfPossible:(void *)possible actionHandler:(void *)handler completionHandler:;
 - (id)_tabGroupShareSheetWithTabGroupActivityItemConfiguration:(void *)configuration;
@@ -183,17 +183,13 @@
 - (id)wbTabWithUUID:(id)d;
 - (uint64_t)_controlledByAutomation;
 - (uint64_t)_currentTabsAreBlank;
-- (uint64_t)_didCompleteStateRestoration;
 - (uint64_t)_indexForInsertionAfterTab:(int)tab withPrivateBrowsingEnabled:;
 - (uint64_t)_indexForInsertionBeforeTab:(int)tab withPrivateBrowsingEnabled:;
-- (uint64_t)_isProfileActive:(uint64_t)result;
-- (uint64_t)_performWithFixedTabBarItems:(uint64_t)result;
 - (uint64_t)_shouldReloadAfterAutomaticallySwitchingToTab:(uint64_t)tab;
 - (uint64_t)_tabShouldBeHiddenFromWebExtensions:(void *)extensions;
 - (uint64_t)_wbTabIsBlank:(uint64_t)blank;
 - (uint64_t)_wbTabIsShowingStartPageOverriddenByExtension:(uint64_t)extension;
 - (uint64_t)canCloseLastTabInTabGroup:(uint64_t)group;
-- (uint64_t)isTabInActiveTabGroup:(uint64_t)result;
 - (uint64_t)tabCollectionViewManager;
 - (unint64_t)indexForTab:(id)tab;
 - (unint64_t)indexOfSelectedTab;
@@ -208,20 +204,22 @@
 - (void)_cancelPendingUpdateUserActivityTimer;
 - (void)_cancelVeryRecentlyClosedTabCountInvalidationTimer;
 - (void)_closeLibraryIfNeeded;
-- (void)_closeTab:(unsigned int)tab animated:(int)animated allowAddingToRecentlyClosedTabs:(char)tabs keepWebViewAlive:(char)alive showAutoCloseTabsAlert:;
+- (void)_closeTab:(uint64_t)tab animated:(uint64_t)animated allowAddingToRecentlyClosedTabs:(uint64_t)tabs keepWebViewAlive:(uint64_t)alive showAutoCloseTabsAlert:;
 - (void)_closeTabGroup:(id *)group;
-- (void)_closeTabs:(unsigned int)tabs animated:(int)animated allowAddingToRecentlyClosedTabs:(char)closedTabs keepWebViewAlive:(char)alive showAutoCloseTabsAlert:;
+- (void)_closeTabs:(unsigned int)tabs animated:(int)animated allowAddingToRecentlyClosedTabs:(char)closedTabs keepWebViewAlive:(int)alive showAutoCloseTabsAlert:;
 - (void)_cloudTabsDidUpdate:(id)update;
 - (void)_copyLinksActionForTabGroup:forPickerSheet:;
 - (void)_createInitialPrivateTabIfNeeded;
 - (void)_createVeryRecentlyClosedTabCountInvalidationTimer;
-- (void)_detachTab:(unsigned int)tab animated:;
+- (void)_detachTab:(uint64_t)tab animated:;
 - (void)_detachTabs:(id *)tabs;
+- (void)_didCompleteStateRestoration;
 - (void)_didPerformBatchUpdates;
 - (void)_forceUpdateTabGroupTitleIfNeeded:(id *)needed;
 - (void)_hasPinnedStartPageExcludingTabs:(void *)tabs;
 - (void)_hibernateTab:(char *)tab;
-- (void)_insertTab:(unint64_t)tab atIndex:(uint64_t)index inBackground:(unsigned int)background animated:(char)animated updateUI:;
+- (void)_insertTab:(void *)tab atIndex:(uint64_t)index inBackground:(unsigned int)background animated:(char)animated updateUI:;
+- (void)_isProfileActive:(void *)result;
 - (void)_lockedPrivateBrowsingStateDidChange:(id)change;
 - (void)_markAllTabsInTabGroupAsRead:(uint64_t)read;
 - (void)_movePinnedWBTab:(void *)tab toTabGroup:;
@@ -229,6 +227,7 @@
 - (void)_openBookmark:orURL:inTabGroup:;
 - (void)_openLibrary:cloudTabDeviceID:;
 - (void)_openSingleBookmark:(void *)bookmark orURL:(void *)l inTabGroup:(int)group setActive:;
+- (void)_performWithFixedTabBarItems:(void *)result;
 - (void)_prepareToMoveTabDocumentToWindow:(int)window createPlaceholderImage:;
 - (void)_presentAutomaticTabClosingPromptIfNeededForClosedTabCount:(int)count;
 - (void)_presentCloseAlertForTabGroup:completionHandler:;
@@ -304,6 +303,7 @@
 - (void)insertTabDocumentFromTabStateData:(id)data;
 - (void)insertTabWithUUIDForNavigation:(id)navigation;
 - (void)insertTabs:(id)tabs beforeTab:(id)tab inBackground:(BOOL)background animated:(BOOL)animated;
+- (void)isTabInActiveTabGroup:(void *)result;
 - (void)makeActiveTabDocumentActive;
 - (void)moveTab:(id)tab fromTabGroupWithUUID:(id)d toTabGroupWithUUID:(id)iD afterTab:(id)afterTab;
 - (void)moveTab:(id)tab overTab:(id)overTab;
@@ -1122,7 +1122,7 @@ uint64_t __36__TabController_privateTabDocuments__block_invoke(uint64_t a1, void
 
 - (void)updateFocusProfileEnteringForeground
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _application = [(TabController *)self _application];
   if ([_application needsFocusProfileUpdate] && (objc_msgSend(_application, "needsFocusedTabGroupUpdate") & 1) == 0)
   {
@@ -1164,14 +1164,14 @@ LABEL_22:
     if (v12)
     {
       role = [v12 role];
-      v15 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      v16 = v15;
+      v16 = WBS_LOG_CHANNEL_PREFIXSiriLink(role, v15);
+      v17 = v16;
       if (role == 1)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v23) = 0;
-          _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_DEFAULT, "Did not change profile when tab entered foreground because a FTG/profile alert is already in place.", &v23, 2u);
+          LOWORD(v25) = 0;
+          _os_log_impl(&dword_215819000, v17, OS_LOG_TYPE_DEFAULT, "Did not change profile when tab entered foreground because a FTG/profile alert is already in place.", &v25, 2u);
         }
 
 LABEL_21:
@@ -1179,24 +1179,24 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v21 = v16;
+        v23 = v17;
         [v13 role];
         OUTLINED_FUNCTION_3();
-        OUTLINED_FUNCTION_71(&dword_215819000, v21, v22, "Closing unexpected alert with role (%lu) that was in the way when changing focus profile.", &v23);
+        OUTLINED_FUNCTION_71(&dword_215819000, v23, v24, "Closing unexpected alert with role (%lu) that was in the way when changing focus profile.", &v25);
       }
 
       [v13 dismissViewControllerAnimated:1 completion:0];
     }
 
     identifier = [focusProfile identifier];
-    v18 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = WBS_LOG_CHANNEL_PREFIXSiriLink(identifier, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138543362;
-      v24 = identifier;
-      OUTLINED_FUNCTION_75(&dword_215819000, v19, v20, "Opening focus profile %{public}@ on entering foreground.", &v23);
+      v25 = 138543362;
+      v26 = identifier;
+      OUTLINED_FUNCTION_75(&dword_215819000, v21, v22, "Opening focus profile %{public}@ on entering foreground.", &v25);
     }
 
     [OUTLINED_FUNCTION_65() setActiveProfileIdentifier:?];
@@ -1209,7 +1209,7 @@ LABEL_23:
 
 - (void)updateFocusedTabGroupEnteringForeground
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _application = [(TabController *)self _application];
   if ([_application needsFocusedTabGroupUpdate] && (objc_msgSend(_application, "needsFocusProfileUpdate") & 1) == 0)
   {
@@ -1237,11 +1237,11 @@ LABEL_23:
         v10 = v9;
         if (v9 && [v9 role] == 1)
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = WBS_LOG_CHANNEL_PREFIXSiriLink(1, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v16) = 0;
-            _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Has open FTG alert on entering foreground", &v16, 2u);
+            LOWORD(v18) = 0;
+            _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Has open FTG alert on entering foreground", &v18, 2u);
           }
         }
 
@@ -1249,12 +1249,12 @@ LABEL_23:
         {
           [v10 dismissViewControllerAnimated:1 completion:0];
           uuid = [focusedTabGroup uuid];
-          v13 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = WBS_LOG_CHANNEL_PREFIXSiriLink(uuid, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = 138543362;
-            v17 = uuid;
-            OUTLINED_FUNCTION_75(&dword_215819000, v14, v15, "Opening FTG %{public}@ on entering foreground", &v16);
+            v18 = 138543362;
+            v19 = uuid;
+            OUTLINED_FUNCTION_75(&dword_215819000, v16, v17, "Opening FTG %{public}@ on entering foreground", &v18);
           }
 
           [OUTLINED_FUNCTION_65() setActiveTabGroupUUID:?];
@@ -1505,11 +1505,11 @@ LABEL_6:
   automaticTabClosingInterval = [MEMORY[0x277D49E28] automaticTabClosingInterval];
   if (self && ![MEMORY[0x277D49E28] automaticTabClosingInterval])
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = WBS_LOG_CHANNEL_PREFIXTabs(0, v4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Not closing any tabs, since the user's preference is to never close tabs automatically", buf, 2u);
+      _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_DEFAULT, "Not closing any tabs, since the user's preference is to never close tabs automatically", buf, 2u);
     }
   }
 
@@ -1517,40 +1517,40 @@ LABEL_6:
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     *buf = 0;
-    v31 = buf;
-    v32 = 0x2020000000;
-    v33 = v4;
+    v33 = buf;
+    v34 = 0x2020000000;
+    v35 = v5;
     localTabGroup = [(WBWindowState *)self->_windowState localTabGroup];
     tabs = [localTabGroup tabs];
     privateTabGroup = [(WBWindowState *)self->_windowState privateTabGroup];
     tabs2 = [privateTabGroup tabs];
-    v9 = [tabs arrayByAddingObjectsFromArray:tabs2];
+    v10 = [tabs arrayByAddingObjectsFromArray:tabs2];
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke;
-    v29[3] = &unk_2781D9780;
-    v29[4] = self;
-    v29[5] = buf;
-    v29[6] = automaticTabClosingInterval;
-    v10 = [v9 safari_filterObjectsUsingBlock:v29];
-    [MEMORY[0x277D49E28] setMostDistantLastViewedTime:*(v31 + 3)];
-    if ([v10 count])
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke;
+    v31[3] = &unk_2781D9780;
+    v31[4] = self;
+    v31[5] = buf;
+    v31[6] = automaticTabClosingInterval;
+    v11 = [v10 safari_filterObjectsUsingBlock:v31];
+    [MEMORY[0x277D49E28] setMostDistantLastViewedTime:*(v33 + 3)];
+    if ([v11 count])
     {
       activeTabGroup = [(TabController *)self activeTabGroup];
       isLocal = [activeTabGroup isLocal];
 
       if (isLocal)
       {
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_41;
-        v28[3] = &unk_2781D97A8;
-        v28[4] = self;
-        v13 = [v10 safari_mapAndFilterObjectsUsingBlock:v28];
-        if ([v13 count])
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_41;
+        v30[3] = &unk_2781D97A8;
+        v30[4] = self;
+        v15 = [v11 safari_mapAndFilterObjectsUsingBlock:v30];
+        if ([v15 count])
         {
-          [(TabController *)self _closeTabs:v13 animated:0 allowAddingToRecentlyClosedTabs:1 keepWebViewAlive:0 showAutoCloseTabsAlert:1];
+          [(TabController *)self _closeTabs:v15 animated:0 allowAddingToRecentlyClosedTabs:1 keepWebViewAlive:0 showAutoCloseTabsAlert:1];
         }
       }
 
@@ -1559,40 +1559,40 @@ LABEL_6:
         tabGroupManager = self->_tabGroupManager;
         localTabGroup2 = [(WBWindowState *)self->_windowState localTabGroup];
         uuid = [localTabGroup2 uuid];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_2;
-        v26[3] = &unk_2781D97D0;
-        v27 = v10;
-        [(WBTabGroupManager *)tabGroupManager updateTabsInTabGroupWithUUID:uuid persist:1 usingBlock:v26];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_2;
+        v28[3] = &unk_2781D97D0;
+        v29 = v11;
+        [(WBTabGroupManager *)tabGroupManager updateTabsInTabGroupWithUUID:uuid persist:1 usingBlock:v28];
       }
 
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_3;
-      v25[3] = &unk_2781D97A8;
-      v25[4] = self;
-      v19 = [v10 safari_mapAndFilterObjectsUsingBlock:v25];
-      if ([v19 count])
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_3;
+      v27[3] = &unk_2781D97A8;
+      v27[4] = self;
+      v21 = [v11 safari_mapAndFilterObjectsUsingBlock:v27];
+      if ([v21 count])
       {
-        [(TabController *)self _closeTabs:v19 animated:0 allowAddingToRecentlyClosedTabs:0 keepWebViewAlive:0 showAutoCloseTabsAlert:1];
-        v20 = +[Application sharedApplication];
-        [v20 updateLockedPrivateBrowsingState];
+        [(TabController *)self _closeTabs:v21 animated:0 allowAddingToRecentlyClosedTabs:0 keepWebViewAlive:0 showAutoCloseTabsAlert:1];
+        v22 = +[Application sharedApplication];
+        [v22 updateLockedPrivateBrowsingState];
       }
 
       mEMORY[0x277D499B8] = [MEMORY[0x277D499B8] sharedLogger];
-      v22 = [v10 count];
-      v23 = WBSAutomaticTabClosingIntervalAnalyticsTitle();
-      [mEMORY[0x277D499B8] didCloseTabsAutomaticallyWithCount:v22 tabClosingInterval:v23];
+      v24 = [v11 count];
+      v25 = WBSAutomaticTabClosingIntervalAnalyticsTitle();
+      [mEMORY[0x277D499B8] didCloseTabsAutomaticallyWithCount:v24 tabClosingInterval:v25];
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXTabs();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = WBS_LOG_CHANNEL_PREFIXTabs(0, v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "Not closing any tabs, because none were eligible to close automatically", v24, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_215819000, v17, OS_LOG_TYPE_DEFAULT, "Not closing any tabs, because none were eligible to close automatically", v26, 2u);
       }
     }
 
@@ -1600,76 +1600,77 @@ LABEL_6:
   }
 }
 
-uint64_t __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke(uint64_t a1, void *a2)
+uint64_t __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
+  v4 = a1[4];
   v5 = objc_alloc(MEMORY[0x277CCAD78]);
   v6 = [v3 uuid];
   v7 = [v5 initWithUUIDString:v6];
   v8 = [v4 tabWithUUID:v7];
 
-  if (![v8 isActive])
+  v9 = [v8 isActive];
+  if (!v9)
   {
-    v11 = [v3 localAttributes];
-    v12 = [v11 lastVisitTime];
+    v13 = [v3 localAttributes];
+    v14 = [v13 lastVisitTime];
 
-    if (v12 && ([v12 timeIntervalSinceReferenceDate], v13 > 0.0))
+    if (v14 && (v15 = [v14 timeIntervalSinceReferenceDate], v17 > 0.0))
     {
       WBSAutomaticTabClosingIntervalTimeInterval();
       if ([v3 canCloseAutomaticallyForInterval:?])
       {
-        v10 = 1;
+        v12 = 1;
 LABEL_11:
 
         goto LABEL_12;
       }
 
-      v16 = [MEMORY[0x277CBEAA8] now];
-      [v16 timeIntervalSinceDate:v12];
-      v18 = v17;
+      v20 = [MEMORY[0x277CBEAA8] now];
+      [v20 timeIntervalSinceDate:v14];
+      v22 = v21;
 
-      if (v18 > 0.0)
+      if (v22 > 0.0)
       {
-        v10 = 0;
-        v19 = *(*(a1 + 40) + 8);
-        v20 = *(v19 + 24);
-        if (v20 >= v18)
+        v12 = 0;
+        v23 = *(a1[5] + 8);
+        v24 = *(v23 + 24);
+        if (v24 >= v22)
         {
-          v20 = v18;
+          v24 = v22;
         }
 
-        *(v19 + 24) = v20;
+        *(v23 + 24) = v24;
         goto LABEL_11;
       }
     }
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXTabs();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v18 = WBS_LOG_CHANNEL_PREFIXTabs(v15, v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Not closing tab automatically because lastViewedTime is unknown.", v21, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Not closing tab automatically because lastViewedTime is unknown.", v25, 2u);
       }
     }
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_11;
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXTabs();
-  v10 = 0;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = WBS_LOG_CHANNEL_PREFIXTabs(v9, v10);
+  v12 = 0;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Not closing tab automatically because it is active", buf, 2u);
-    v10 = 0;
+    _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Not closing tab automatically because it is active", buf, 2u);
+    v12 = 0;
   }
 
 LABEL_12:
 
-  return v10;
+  return v12;
 }
 
 id __50__TabController_closeTabsAutomaticallyIfNecessary__block_invoke_41(uint64_t a1, void *a2)
@@ -2694,19 +2695,23 @@ void __46__TabController_closeTabs_inInactiveTabGroup___block_invoke(uint64_t a1
   [WeakRetained reloadSidebarAnimated:0];
 }
 
-- (void)_closeTab:(unsigned int)tab animated:(int)animated allowAddingToRecentlyClosedTabs:(char)tabs keepWebViewAlive:(char)alive showAutoCloseTabsAlert:
+- (void)_closeTab:(uint64_t)tab animated:(uint64_t)animated allowAddingToRecentlyClosedTabs:(uint64_t)tabs keepWebViewAlive:(uint64_t)alive showAutoCloseTabsAlert:
 {
   v14[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (a2)
     {
+      aliveCopy = alive;
+      tabsCopy = tabs;
+      animatedCopy = animated;
+      tabCopy = tab;
       v14[0] = a2;
       v11 = MEMORY[0x277CBEA60];
       v12 = a2;
       v13 = [v11 arrayWithObjects:v14 count:1];
 
-      [(TabController *)self _closeTabs:v13 animated:tab allowAddingToRecentlyClosedTabs:animated keepWebViewAlive:tabs showAutoCloseTabsAlert:alive];
+      [(TabController *)self _closeTabs:v13 animated:tabCopy allowAddingToRecentlyClosedTabs:animatedCopy keepWebViewAlive:tabsCopy showAutoCloseTabsAlert:aliveCopy];
     }
   }
 }
@@ -2779,7 +2784,7 @@ void __62__TabController_detachTabWithUUID_forMoveToBrowserController___block_in
   [*(*(a1 + 40) + 48) flushDeletedTabsInTabGroup:v4];
 }
 
-uint64_t __76__TabController__presentAutomaticTabClosingPromptIfNeededForClosedTabCount___block_invoke(uint64_t a1)
+void *__76__TabController__presentAutomaticTabClosingPromptIfNeededForClosedTabCount___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   [WeakRetained presentAutomaticTabClosingAlertController];
@@ -2951,7 +2956,7 @@ void __53__TabController_togglePinningTab_inInactiveTabGroup___block_invoke_2(ui
 
 - (id)switchToTabDocumentForWebClip:(id)clip
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   uuid = [clipCopy uuid];
   if (uuid)
@@ -2962,113 +2967,113 @@ void __53__TabController_togglePinningTab_inInactiveTabGroup___block_invoke_2(ui
 
     if (isPrivateBrowsingEnabled)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = WBS_LOG_CHANNEL_PREFIXTabGroup(v10, v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for web clip.", buf, 2u);
+        _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for web clip.", buf, 2u);
       }
 
       [(TabController *)self selectLocalTabGroup];
     }
 
-    v17 = [(TabController *)self _tabDocumentForWebClip:clipCopy, v10, v11, v12, v13, v14, v15, v51, v54, v57, v59, v61, v63];
-    if (v17)
+    v19 = [(TabController *)self _tabDocumentForWebClip:clipCopy, v12, v13, v14, v15, v16, v17, v53, v56, v59, v61, v63, v65];
+    if (v19)
     {
-      [(TabController *)self setActiveTabDocument:v17];
-      v6 = v17;
+      [(TabController *)self setActiveTabDocument:v19];
+      v6 = v19;
     }
 
     else
     {
       uUIDString = [uuid UUIDString];
-      v73 = 0u;
-      v74 = 0u;
       v75 = 0u;
       v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       tabGroups = [(TabController *)self tabGroups];
-      v20 = [tabGroups countByEnumeratingWithState:&v73 objects:v79 count:16];
-      if (v20)
+      v22 = [tabGroups countByEnumeratingWithState:&v75 objects:v81 count:16];
+      if (v22)
       {
-        v21 = v20;
-        v52 = 0;
-        v55 = uuid;
-        v58 = clipCopy;
+        v23 = v22;
+        v54 = 0;
+        v57 = uuid;
+        v60 = clipCopy;
         selfCopy = self;
-        v66 = 0;
-        v67 = 0;
-        v22 = *v74;
-        v62 = *v74;
-        v64 = tabGroups;
+        v68 = 0;
+        v69 = 0;
+        v24 = *v76;
+        v64 = *v76;
+        v66 = tabGroups;
         do
         {
-          v23 = 0;
-          v65 = v21;
+          v25 = 0;
+          v67 = v23;
           do
           {
-            if (*v74 != v22)
+            if (*v76 != v24)
             {
               objc_enumerationMutation(tabGroups);
             }
 
-            v24 = *(*(&v73 + 1) + 8 * v23);
-            if (([v24 isPrivateBrowsing] & 1) == 0)
+            v26 = *(*(&v75 + 1) + 8 * v25);
+            if (([v26 isPrivateBrowsing] & 1) == 0)
             {
-              tabs = [v24 tabs];
-              if ([v24 isLocal])
+              tabs = [v26 tabs];
+              if ([v26 isLocal])
               {
                 pinnedTabs = [(PinnedTabsManager *)selfCopy->_pinnedTabsManager pinnedTabs];
                 if ([pinnedTabs count])
                 {
-                  v27 = [pinnedTabs arrayByAddingObjectsFromArray:tabs];
+                  v29 = [pinnedTabs arrayByAddingObjectsFromArray:tabs];
 
-                  tabs = v27;
+                  tabs = v29;
                 }
               }
 
+              v73 = 0u;
+              v74 = 0u;
               v71 = 0u;
               v72 = 0u;
-              v69 = 0u;
-              v70 = 0u;
-              v28 = tabs;
-              v29 = [v28 countByEnumeratingWithState:&v69 objects:v78 count:16];
-              if (v29)
+              v30 = tabs;
+              v31 = [v30 countByEnumeratingWithState:&v71 objects:v80 count:16];
+              if (v31)
               {
-                v30 = v29;
-                v68 = v24;
-                v31 = *v70;
+                v32 = v31;
+                v70 = v26;
+                v33 = *v72;
                 while (2)
                 {
-                  for (i = 0; i != v30; ++i)
+                  for (i = 0; i != v32; ++i)
                   {
-                    if (*v70 != v31)
+                    if (*v72 != v33)
                     {
-                      objc_enumerationMutation(v28);
+                      objc_enumerationMutation(v30);
                     }
 
-                    v33 = *(*(&v69 + 1) + 8 * i);
-                    localAttributes = [v33 localAttributes];
+                    v35 = *(*(&v71 + 1) + 8 * i);
+                    localAttributes = [v35 localAttributes];
                     webClipIDString = [localAttributes webClipIDString];
-                    v36 = [webClipIDString isEqualToString:uUIDString];
+                    v38 = [webClipIDString isEqualToString:uUIDString];
 
-                    if (v36)
+                    if (v38)
                     {
-                      v37 = objc_alloc(MEMORY[0x277CCAD78]);
-                      uuid2 = [v68 uuid];
-                      v39 = [v37 initWithUUIDString:uuid2];
+                      v39 = objc_alloc(MEMORY[0x277CCAD78]);
+                      uuid2 = [v70 uuid];
+                      v41 = [v39 initWithUUIDString:uuid2];
 
-                      v40 = objc_alloc(MEMORY[0x277CCAD78]);
-                      uuidString = [v33 uuidString];
-                      v42 = [v40 initWithUUIDString:uuidString];
+                      v42 = objc_alloc(MEMORY[0x277CCAD78]);
+                      uuidString = [v35 uuidString];
+                      v44 = [v42 initWithUUIDString:uuidString];
 
-                      v66 = v39;
-                      v67 = v42;
+                      v68 = v41;
+                      v69 = v44;
                       goto LABEL_32;
                     }
                   }
 
-                  v30 = [v28 countByEnumeratingWithState:&v69 objects:v78 count:16];
-                  if (v30)
+                  v32 = [v30 countByEnumeratingWithState:&v71 objects:v80 count:16];
+                  if (v32)
                   {
                     continue;
                   }
@@ -3077,47 +3082,47 @@ void __53__TabController_togglePinningTab_inInactiveTabGroup___block_invoke_2(ui
                 }
 
 LABEL_32:
-                v22 = v62;
-                tabGroups = v64;
-                v21 = v65;
+                v24 = v64;
+                tabGroups = v66;
+                v23 = v67;
               }
             }
 
-            ++v23;
+            ++v25;
           }
 
-          while (v23 != v21);
-          v21 = [tabGroups countByEnumeratingWithState:&v73 objects:v79 count:16];
+          while (v25 != v23);
+          v23 = [tabGroups countByEnumeratingWithState:&v75 objects:v81 count:16];
         }
 
-        while (v21);
+        while (v23);
 
-        v43 = v67;
-        if (v67)
+        v45 = v69;
+        if (v69)
         {
-          v44 = v66;
-          [(TabController *)selfCopy switchToTabWithUUID:v67 inTabGroupWithUUID:v66];
-          clipCopy = v58;
-          v6 = [(TabController *)selfCopy _tabDocumentForWebClip:v58, v45, v46, v47, v48, v49, v50, v52, v55, v58, selfCopy, v62, v64];
-          v17 = v53;
-          uuid = v56;
+          v46 = v68;
+          [(TabController *)selfCopy switchToTabWithUUID:v69 inTabGroupWithUUID:v68];
+          clipCopy = v60;
+          v6 = [(TabController *)selfCopy _tabDocumentForWebClip:v60, v47, v48, v49, v50, v51, v52, v54, v57, v60, selfCopy, v64, v66];
+          v19 = v55;
+          uuid = v58;
         }
 
         else
         {
           v6 = 0;
-          uuid = v55;
-          clipCopy = v58;
-          v17 = v52;
-          v44 = v66;
+          uuid = v57;
+          clipCopy = v60;
+          v19 = v54;
+          v46 = v68;
         }
       }
 
       else
       {
 
-        v43 = 0;
-        v44 = 0;
+        v45 = 0;
+        v46 = 0;
         v6 = 0;
       }
     }
@@ -3717,13 +3722,13 @@ void __47__TabController__replaceTabs_withTabs_persist___block_invoke_2(uint64_t
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __37__TabController__cloudTabsDidUpdate___block_invoke(uint64_t a1)
+void __37__TabController__cloudTabsDidUpdate___block_invoke(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if ((*(v1 + 89) & 1) == 0)
   {
     *(v1 + 89) = 1;
-    [(TabController *)*(a1 + 32) _restoreEducationTabsIfNecessaryAnimated:?];
+    [(TabController *)*(result + 32) _restoreEducationTabsIfNecessaryAnimated:?];
   }
 }
 
@@ -3789,10 +3794,10 @@ id __37__TabController_moveTabsToNewWindow___block_invoke(uint64_t a1, void *a2)
 void __37__TabController_moveTabsToNewWindow___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXTabs(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __37__TabController_moveTabsToNewWindow___block_invoke_2_cold_1(v3);
+    __37__TabController_moveTabsToNewWindow___block_invoke_2_cold_1(v4);
   }
 }
 
@@ -4256,11 +4261,11 @@ uint64_t __58__TabController__createNewTabGroupActionForTabGroupsMenu___block_in
   return [v5 createTabGroupFromExistingTabs:0 completionHandler:v7];
 }
 
-void __58__TabController__createNewTabGroupActionForTabGroupsMenu___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void __58__TabController__createNewTabGroupActionForTabGroupsMenu___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a2)
   {
-    [(TabController *)*(a1 + 32) _reportTabGroupCreationPrepopulatedWithTabs:*(a1 + 40) fromPotentialAnalyticsSource:*(a1 + 48) TabGroupsMenu:a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18];
+    [(TabController *)*(result + 32) _reportTabGroupCreationPrepopulatedWithTabs:*(result + 40) fromPotentialAnalyticsSource:*(result + 48) TabGroupsMenu:a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18];
   }
 }
 
@@ -4768,7 +4773,7 @@ void __74__TabController__tabGroupShareSheetWithTabGroupActivityItemConfiguratio
   v9 = a2;
   v10 = a4;
   v11 = a5;
-  v12 = v11;
+  v13 = v11;
   if (a3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -4777,10 +4782,10 @@ void __74__TabController__tabGroupShareSheetWithTabGroupActivityItemConfiguratio
 
   else if (v11)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXTabGroup(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __74__TabController__tabGroupShareSheetWithTabGroupActivityItemConfiguration___block_invoke_cold_1(v13);
+      __74__TabController__tabGroupShareSheetWithTabGroupActivityItemConfiguration___block_invoke_cold_1(v14);
     }
   }
 }
@@ -4837,12 +4842,13 @@ void __46__TabController__markAllTabsInTabGroupAsRead___block_invoke(uint64_t a1
 void __47__TabController__requestContactsAccessIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXTabGroup(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __47__TabController__requestContactsAccessIfNeeded__block_invoke_cold_1(v4);
+      __47__TabController__requestContactsAccessIfNeeded__block_invoke_cold_1(v6);
     }
   }
 }
@@ -5299,7 +5305,7 @@ uint64_t __118__TabController_presentAlertToCreateTabGroupFromTabs_withTitle_mes
 
 - (void)dismissOpenTabGroupAlertIfNeeded
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_browserController);
   viewControllerToPresentFrom = [WeakRetained viewControllerToPresentFrom];
 
@@ -5307,15 +5313,15 @@ uint64_t __118__TabController_presentAlertToCreateTabGroupFromTabs_withTitle_mes
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [presentedViewController role] == 1)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXSiriLink(1, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       windowState = self->_windowState;
-      v8 = v6;
+      v9 = v7;
       uuid = [(WBWindowState *)windowState uuid];
-      v10 = 138543362;
-      v11 = uuid;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Dismissing open FTG alert on window %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = uuid;
+      _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing open FTG alert on window %{public}@", &v11, 0xCu);
     }
 
     [viewControllerToPresentFrom dismissViewControllerAnimated:1 completion:0];
@@ -5491,7 +5497,7 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
 
 - (void)setActiveTabGroupUUID:(id)d
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dCopy = d;
   activeTabGroup = [(TabController *)self activeTabGroup];
   v6 = [(WBTabGroupManager *)self->_tabGroupManager tabGroupWithUUID:dCopy];
@@ -5500,7 +5506,7 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
 
   if ([activeTabGroup isIdentical:v6])
   {
-    [TabController setActiveTabGroupUUID:?];
+    [(TabController *)self setActiveTabGroupUUID:v8];
   }
 
   else
@@ -5511,60 +5517,60 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
       [tabGroupManager endParticipantPresenceReportingForTabGroupWithUUID:self->_activeTabGroupUUID];
     }
 
-    v9 = objc_alloc_init(MEMORY[0x277D49B60]);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __39__TabController_setActiveTabGroupUUID___block_invoke;
-    v32[3] = &unk_2781D4D40;
-    v32[4] = self;
-    [v9 setHandler:v32];
-    v10 = [dCopy isEqualToString:self->_activeTabGroupUUID];
-    if ((v10 & 1) == 0)
+    v10 = objc_alloc_init(MEMORY[0x277D49B60]);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __39__TabController_setActiveTabGroupUUID___block_invoke;
+    v35[3] = &unk_2781D4D40;
+    v35[4] = self;
+    [v10 setHandler:v35];
+    v11 = [dCopy isEqualToString:self->_activeTabGroupUUID];
+    if ((v11 & 1) == 0)
     {
       [(TabController *)self persistAllCurrentTabsInBackground:0];
     }
 
-    v11 = [dCopy copy];
+    v12 = [dCopy copy];
     activeTabGroupUUID = self->_activeTabGroupUUID;
-    self->_activeTabGroupUUID = v11;
+    self->_activeTabGroupUUID = v12;
 
-    v13 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = WBS_LOG_CHANNEL_PREFIXTabGroup(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = @"YES";
-      if (v10)
+      v17 = @"YES";
+      if (v11)
       {
-        v14 = @"NO";
+        v17 = @"NO";
       }
 
-      v15 = v14;
-      v16 = v15;
-      v17 = &stru_2827BF158;
-      v18 = @", UUID is nil";
+      v18 = v17;
+      v19 = v18;
+      v20 = &stru_2827BF158;
+      v21 = @", UUID is nil";
       if (dCopy)
       {
-        v18 = &stru_2827BF158;
+        v21 = &stru_2827BF158;
       }
 
       *buf = 138543874;
-      v34 = v15;
-      v36 = v18;
-      v35 = 2114;
+      v37 = v18;
+      v39 = v21;
+      v38 = 2114;
       if (!v6)
       {
-        v17 = @", group is nil";
+        v20 = @", group is nil";
       }
 
-      v37 = 2114;
-      v38 = v17;
-      _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Did switch to tab group: %{public}@%{public}@%{public}@", buf, 0x20u);
+      v40 = 2114;
+      v41 = v20;
+      _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_DEFAULT, "Did switch to tab group: %{public}@%{public}@%{public}@", buf, 0x20u);
     }
 
     _application = [(TabController *)self _application];
     focusedTabGroupUUIDString = [_application focusedTabGroupUUIDString];
-    v21 = [focusedTabGroupUUIDString isEqualToString:dCopy];
+    v24 = [focusedTabGroupUUIDString isEqualToString:dCopy];
 
-    if (v21)
+    if (v24)
     {
       [_application setNeedsFocusedTabGroupUpdate:0];
     }
@@ -5576,7 +5582,7 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
       [WeakRetained willSelectTabGroupWithUUID:dCopy];
 
       [(PinnedTabsManager *)self->_pinnedTabsManager removePinnedTabsObserver:self];
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         [(TabControllerNotificationManager *)self->_notificationManager willBeginUpdates];
         [(TabCollectionViewManager *)self->_tabCollectionViewManager beginFixingTabBarItems];
@@ -5594,15 +5600,15 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
       }
 
       tabs = [v6 tabs];
-      v24 = [tabs count];
+      v27 = [tabs count];
 
-      if (!v24)
+      if (!v27)
       {
         [(TabController *)self didUpdateTabDocuments];
       }
 
       [(TabController *)self didFocusTabGroup:v6];
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         [(TabCollectionViewManager *)self->_tabCollectionViewManager endFixingTabBarItems];
         [(TabCollectionViewManager *)self->_tabCollectionViewManager endFixingTabOverviewItems];
@@ -5612,13 +5618,13 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
 
       activeTabDocument = [(TabController *)self activeTabDocument];
       [(TabCollectionViewManager *)self->_tabCollectionViewManager updateTabBarAnimated:0 keepingTabVisible:activeTabDocument];
-      v26 = objc_loadWeakRetained(&self->_browserController);
-      [v26 updateFavoritesForNewDocument];
-      [v26 reloadSidebarAnimated:0];
+      v29 = objc_loadWeakRetained(&self->_browserController);
+      [v29 updateFavoritesForNewDocument];
+      [v29 reloadSidebarAnimated:0];
       startPageBackgroundImageIdentifier = [(TabController *)self startPageBackgroundImageIdentifier];
-      [v26 loadBackgroundImageIfNeededForIdentifier:startPageBackgroundImageIdentifier];
+      [v29 loadBackgroundImageIfNeededForIdentifier:startPageBackgroundImageIdentifier];
 
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         [(TabController *)self setActiveTabGroupUUID:activeTabGroup];
       }
@@ -5631,10 +5637,10 @@ id __57__TabController__updateTabGroupSuggestions_matchingText___block_invoke(ui
       if ([v6 isSyncable])
       {
         mEMORY[0x277D28F58] = [MEMORY[0x277D28F58] sharedSiteMetadataManager];
-        v29 = objc_alloc(MEMORY[0x277D4A860]);
+        v32 = objc_alloc(MEMORY[0x277D4A860]);
         tabGroupManager2 = [(TabController *)self tabGroupManager];
-        v31 = [v29 initWithTabGroup:v6 tabProvider:tabGroupManager2];
-        [mEMORY[0x277D28F58] preloadRequest:v31 withPriority:0 responseHandler:0];
+        v34 = [v32 initWithTabGroup:v6 tabProvider:tabGroupManager2];
+        [mEMORY[0x277D28F58] preloadRequest:v34 withPriority:0 responseHandler:0];
       }
     }
   }
@@ -5652,137 +5658,138 @@ void __39__TabController_setActiveTabGroupUUID___block_invoke(uint64_t a1)
 
 - (void)_updateTabsForTabGroup:(uint64_t)group
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (group)
   {
     [*(group + 272) willBeginUpdates];
     v4 = objc_alloc_init(MEMORY[0x277D49B60]);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __40__TabController__updateTabsForTabGroup___block_invoke;
-    v47[3] = &unk_2781D4D40;
-    v47[4] = group;
-    v38 = v4;
-    [v4 setHandler:v47];
-    v5 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __40__TabController__updateTabsForTabGroup___block_invoke;
+    v53[3] = &unk_2781D4D40;
+    v53[4] = group;
+    v44 = v4;
+    v5 = [v4 setHandler:v53];
+    v7 = WBS_LOG_CHANNEL_PREFIXTabGroup(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = v5;
+      v8 = v7;
       privacyPreservingDescription = [v3 privacyPreservingDescription];
       LODWORD(buf) = 138543362;
       *(&buf + 4) = privacyPreservingDescription;
-      _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Updating tab documents for %{public}@", &buf, 0xCu);
+      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Updating tab documents for %{public}@", &buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((group + 8));
     tabsUUIDSet = [v3 tabsUUIDSet];
     isPrivateBrowsing = [v3 isPrivateBrowsing];
-    v11 = 16;
+    v13 = 16;
     if (isPrivateBrowsing)
     {
-      v11 = 24;
+      v13 = 24;
     }
 
-    v12 = [*(group + v11) copy];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __40__TabController__updateTabsForTabGroup___block_invoke_492;
-    v44[3] = &unk_2781D5200;
-    v37 = tabsUUIDSet;
-    v45 = v37;
+    v14 = [*(group + v13) copy];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __40__TabController__updateTabsForTabGroup___block_invoke_492;
+    v50[3] = &unk_2781D5200;
+    v43 = tabsUUIDSet;
+    v51 = v43;
     groupCopy = group;
-    v13 = [v12 safari_filterObjectsUsingBlock:v44];
+    v15 = [v14 safari_filterObjectsUsingBlock:v50];
 
     activeWebExtensionWindow = [WeakRetained activeWebExtensionWindow];
     [activeWebExtensionWindow idForWebExtensions];
-    v16 = v15;
-    v17 = MEMORY[0x277D4A8B0];
+    v18 = v17;
+    v19 = MEMORY[0x277D4A8B0];
     webExtensionTabs = [activeWebExtensionWindow webExtensionTabs];
-    v19 = [v17 tabIDToTabPositionDictionaryForTabs:webExtensionTabs];
+    v21 = [v19 tabIDToTabPositionDictionaryForTabs:webExtensionTabs];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v20 = v13;
-    v21 = [v20 countByEnumeratingWithState:&v40 objects:v56 count:16];
-    if (v21)
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v22 = v15;
+    v23 = [v22 countByEnumeratingWithState:&v46 objects:v62 count:16];
+    if (v23)
     {
-      v22 = *v41;
+      v24 = *v47;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v41 != v22)
+          if (*v47 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v22);
           }
 
-          v24 = *(*(&v40 + 1) + 8 * i);
-          [group willLoseOwnershipOfTab:v24];
-          [(TabController *)group _reuseTabIfNecessary:v24];
-          [(TabController *)group _tabWasAddedToReusableTabs:v24 fromWindowWithID:v19 previousTabPositions:v16];
+          v26 = *(*(&v46 + 1) + 8 * i);
+          [group willLoseOwnershipOfTab:v26];
+          [(TabController *)group _reuseTabIfNecessary:v26];
+          [(TabController *)group _tabWasAddedToReusableTabs:v26 fromWindowWithID:v21 previousTabPositions:v18];
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v40 objects:v56 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v46 objects:v62 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
 
-    v25 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v29 = WBS_LOG_CHANNEL_PREFIXTabGroup(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v26 = v25;
-      v27 = [v20 count];
+      v30 = v29;
+      v31 = [v22 count];
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v27;
-      _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_INFO, "Closing %zu tabs", &buf, 0xCu);
+      *(&buf + 4) = v31;
+      _os_log_impl(&dword_215819000, v30, OS_LOG_TYPE_INFO, "Closing %zu tabs", &buf, 0xCu);
     }
 
-    [(TabController *)group _detachTabs:v20];
+    [(TabController *)group _detachTabs:v22];
     tabs = [v3 tabs];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__10;
-    v54 = __Block_byref_object_dispose__10;
+    v58 = 0x3032000000;
+    v59 = __Block_byref_object_copy__10;
+    v60 = __Block_byref_object_dispose__10;
     array = [MEMORY[0x277CBEB18] array];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __40__TabController__updateTabsForTabGroup___block_invoke_493;
-    v39[3] = &unk_2781DA140;
-    v39[4] = group;
-    v39[5] = &buf;
-    v29 = [tabs safari_mapAndFilterObjectsUsingBlock:v39];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __40__TabController__updateTabsForTabGroup___block_invoke_493;
+    v45[3] = &unk_2781DA140;
+    v45[4] = group;
+    v45[5] = &buf;
+    v33 = [tabs safari_mapAndFilterObjectsUsingBlock:v45];
     if (![tabs count] && (objc_msgSend(v3, "isPrivateBrowsing") & 1) == 0)
     {
-      v30 = [[TabDocument alloc] initWithTitle:0 URL:0 UUID:0 privateBrowsingEnabled:0 controlledByAutomation:[(TabController *)group _controlledByAutomation] hibernated:0 bookmark:0 browserController:WeakRetained relatedWebView:0];
-      [(TabDocument *)v30 setIsBlank:1];
-      v50 = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+      v34 = [[TabDocument alloc] initWithTitle:0 URL:0 UUID:0 privateBrowsingEnabled:0 controlledByAutomation:[(TabController *)group _controlledByAutomation] hibernated:0 bookmark:0 browserController:WeakRetained relatedWebView:0];
+      [(TabDocument *)v34 setIsBlank:1];
+      v56 = v34;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
 
-      v29 = v31;
+      v33 = v35;
     }
 
-    if ([v29 count])
+    v36 = [v33 count];
+    if (v36)
     {
-      v32 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v38 = WBS_LOG_CHANNEL_PREFIXTabGroup(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v33 = [v29 count];
-        *v48 = 134217984;
-        v49 = v33;
-        _os_log_impl(&dword_215819000, v32, OS_LOG_TYPE_INFO, "Inserting %zu tabs", v48, 0xCu);
+        v39 = [v33 count];
+        *v54 = 134217984;
+        v55 = v39;
+        _os_log_impl(&dword_215819000, v38, OS_LOG_TYPE_INFO, "Inserting %zu tabs", v54, 0xCu);
       }
 
-      v34 = [*(*(&buf + 1) + 40) copy];
-      v35 = *(group + 184);
-      *(group + 184) = v34;
+      v40 = [*(*(&buf + 1) + 40) copy];
+      v41 = *(group + 184);
+      *(group + 184) = v40;
 
-      [group insertTabs:v29 beforeTab:0 inBackground:1 animated:1];
-      v36 = *(group + 184);
+      [group insertTabs:v33 beforeTab:0 inBackground:1 animated:1];
+      v42 = *(group + 184);
       *(group + 184) = 0;
 
       [(TabController *)group _tabDocumentsWereReusedWhenActiveTabGroupChanged:?];
@@ -7248,11 +7255,11 @@ void __83__TabController_openInTabGroupMenuWithNewTabGroupName_URL_descendantCou
 
   if (isNamed)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabGroup(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for external link.", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for external link.", v8, 2u);
     }
 
     [(TabController *)self selectLocalTabGroup];
@@ -8257,7 +8264,7 @@ id __65__TabController_tabGroupManager_didUpdateTabsInTabGroupWithUUID___block_i
 - (void)tabGroupManager:(id)manager didUpdateTabWithUUID:(id)d userDriven:(BOOL)driven
 {
   drivenCopy = driven;
-  v50 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v7 = [manager tabWithUUID:d];
   if (v7)
   {
@@ -8272,16 +8279,16 @@ id __65__TabController_tabGroupManager_didUpdateTabsInTabGroupWithUUID___block_i
       {
         [v11 setWBTab:v7];
         v12 = objc_alloc_init(MEMORY[0x277D49B60]);
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __65__TabController_tabGroupManager_didUpdateTabWithUUID_userDriven___block_invoke;
-        v44[3] = &unk_2781D58E8;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __65__TabController_tabGroupManager_didUpdateTabWithUUID_userDriven___block_invoke;
+        v50[3] = &unk_2781D58E8;
         v13 = v11;
-        v45 = v13;
+        v51 = v13;
         selfCopy = self;
         v14 = v7;
-        v47 = v14;
-        [v12 setHandler:v44];
+        v53 = v14;
+        [v12 setHandler:v50];
         title = [v13 title];
         title2 = [v14 title];
         if (WBSIsEqual())
@@ -8297,11 +8304,11 @@ id __65__TabController_tabGroupManager_didUpdateTabsInTabGroupWithUUID___block_i
             v12 = v17;
             if (isPinned == isPinned2)
             {
-              v20 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+              v22 = WBS_LOG_CHANNEL_PREFIXTabGroup(v20, v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_215819000, v20, OS_LOG_TYPE_INFO, "Ignoring tab update because title, url, and pinned state are identical", buf, 2u);
+                _os_log_impl(&dword_215819000, v22, OS_LOG_TYPE_INFO, "Ignoring tab update because title, url, and pinned state are identical", buf, 2u);
               }
 
 LABEL_26:
@@ -8310,75 +8317,77 @@ LABEL_26:
             }
 
 LABEL_12:
-            v21 = [v13 url];
-            v22 = [v14 url];
-            v23 = WBSIsEqual();
+            v23 = [v13 url];
+            v24 = [v14 url];
+            v25 = WBSIsEqual();
 
             expectedOrCurrentURL = [v13 expectedOrCurrentURL];
-            if ([expectedOrCurrentURL safari_isSafariWebExtensionURL])
+            safari_isSafariWebExtensionURL = [expectedOrCurrentURL safari_isSafariWebExtensionURL];
+            if (safari_isSafariWebExtensionURL)
             {
               webExtensionsController = [v13 webExtensionsController];
               [v14 url];
-              v26 = v43 = v12;
-              [webExtensionsController _extensionURLToLoadFromPersistentStateURL:v26];
-              v41 = v13;
-              v27 = v14;
-              v28 = v23;
-              v30 = v29 = expectedOrCurrentURL;
-              v31 = WBSIsEqual();
+              v30 = v49 = v12;
+              [webExtensionsController _extensionURLToLoadFromPersistentStateURL:v30];
+              v47 = v13;
+              v31 = v14;
+              v32 = v25;
+              v34 = v33 = expectedOrCurrentURL;
+              v35 = WBSIsEqual();
 
-              expectedOrCurrentURL = v29;
-              v23 = v28;
-              v14 = v27;
-              v13 = v41;
+              expectedOrCurrentURL = v33;
+              v25 = v32;
+              v14 = v31;
+              v13 = v47;
 
-              v12 = v43;
+              v12 = v49;
             }
 
             else
             {
-              v31 = 0;
+              v35 = 0;
             }
 
-            if (((v23 | v31) & 1) == 0)
+            if (((v25 | v35) & 1) == 0)
             {
-              v32 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+              v36 = WBS_LOG_CHANNEL_PREFIXTabGroup(safari_isSafariWebExtensionURL, v28);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109120;
-                v49 = drivenCopy;
-                _os_log_impl(&dword_215819000, v32, OS_LOG_TYPE_INFO, "Navigating tab because the URL has changed (user driven: %d)", buf, 8u);
+                v55 = drivenCopy;
+                _os_log_impl(&dword_215819000, v36, OS_LOG_TYPE_INFO, "Navigating tab because the URL has changed (user driven: %d)", buf, 8u);
               }
 
               if (drivenCopy)
               {
-                v39 = [(TabController *)self _unhibernateTabIfNeeded:v13];
-                [v39 unhibernate];
-                v33 = v39;
+                v45 = [(TabController *)self _unhibernateTabIfNeeded:v13];
+                [v45 unhibernate];
+                v37 = v45;
 
-                [v33 restoreStateFromTab:v14];
-                v13 = v33;
+                [v37 restoreStateFromTab:v14];
+                v13 = v37;
               }
 
               else
               {
                 [v13 clearBackForwardList];
-                v33 = [v14 url];
+                v37 = [v14 url];
                 title3 = [v14 title];
-                [v13 loadURL:v33 title:title3 skipSyncableTabUpdates:1];
+                [v13 loadURL:v37 title:title3 skipSyncableTabUpdates:1];
               }
 
               [v13 updateTabIcon];
             }
 
             isPinned3 = [v13 isPinned];
-            if (isPinned3 != [v14 isPinned])
+            isPinned4 = [v14 isPinned];
+            if (isPinned3 != isPinned4)
             {
-              v36 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+              v42 = WBS_LOG_CHANNEL_PREFIXTabGroup(isPinned4, v41);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_215819000, v36, OS_LOG_TYPE_INFO, "Changing pinned state of tab", buf, 2u);
+                _os_log_impl(&dword_215819000, v42, OS_LOG_TYPE_INFO, "Changing pinned state of tab", buf, 2u);
               }
 
               [v13 setPinned:{objc_msgSend(v14, "isPinned")}];
@@ -9307,11 +9316,11 @@ void __33__TabController_duplicateWBTabs___block_invoke_5(uint64_t a1, void *a2)
 
   if ((activeTabGroupUUID & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXTabGroup(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Will switch tab group to visible group.", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Will switch tab group to visible group.", v11, 2u);
     }
 
     uuid2 = [activeTabGroupOrTabGroupVisibleInSwitcher uuid];
@@ -9706,18 +9715,18 @@ void __82__TabController_didFetchRecentlyAcceptedSharedTabGroupWithUUID_accepted
   {
     v5 = *(a1 + 32);
     v4 = (a1 + 32);
-    v6 = [WeakRetained tabGroupWithUUID:v5];
-    if (v6)
+    v7 = [WeakRetained tabGroupWithUUID:v5];
+    if (v7)
     {
-      [(TabController *)v3 _selectAcceptedSharedTabGroup:v6];
+      [(TabController *)v3 _selectAcceptedSharedTabGroup:v7];
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXTabGroup(0, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __82__TabController_didFetchRecentlyAcceptedSharedTabGroupWithUUID_acceptedShareDate___block_invoke_cold_1(v4, v7, v8);
+        __82__TabController_didFetchRecentlyAcceptedSharedTabGroupWithUUID_acceptedShareDate___block_invoke_cold_1(v4, v8, v9);
       }
     }
   }
@@ -9811,7 +9820,7 @@ LABEL_3:
 - (void)bacgkroundTaskWillExpireWithTotalBackgroundTime:(double)time
 {
   v7 = *MEMORY[0x277D85DE8];
-  v4 = WBS_LOG_CHANNEL_PREFIXOther();
+  v4 = WBS_LOG_CHANNEL_PREFIXOther(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 134217984;
@@ -9933,7 +9942,7 @@ id __74__TabController_Persistence__persistTabs_inTabGroupWithUUID_inBackground_
   return v8;
 }
 
-- (uint64_t)_didCompleteStateRestoration
+- (void)_didCompleteStateRestoration
 {
   if (result)
   {
@@ -10039,7 +10048,7 @@ LABEL_12:
   return v10;
 }
 
-id __54__TabController_Persistence___mutableTabsForTabGroup___block_invoke(uint64_t a1, void *a2)
+HibernatedTab *__54__TabController_Persistence___mutableTabsForTabGroup___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
@@ -10078,7 +10087,7 @@ id __54__TabController_Persistence___mutableTabsForTabGroup___block_invoke(uint6
 
 - (id)_focusedTabGroupForWindowState:(_BYTE *)state
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!state || ([state isPrivateBrowsingEnabled] & 1) != 0)
   {
@@ -10101,23 +10110,32 @@ id __54__TabController_Persistence___mutableTabsForTabGroup___block_invoke(uint6
       [v5 setNeedsFocusedTabGroupUpdate:0];
     }
 
-    if (([v3 newlyCreated] & 1) == 0 && (objc_msgSend(state, "isTabGroupActive:", focusedTabGroup) & 1) == 0 && !objc_msgSend(v5, "prefersSingleWindow"))
+    newlyCreated = [v3 newlyCreated];
+    if ((newlyCreated & 1) == 0)
     {
-      v9 = focusedTabGroup;
-      focusedTabGroup = 0;
-      goto LABEL_15;
+      newlyCreated = [state isTabGroupActive:focusedTabGroup];
+      if ((newlyCreated & 1) == 0)
+      {
+        newlyCreated = [v5 prefersSingleWindow];
+        if (!newlyCreated)
+        {
+          v11 = focusedTabGroup;
+          focusedTabGroup = 0;
+          goto LABEL_15;
+        }
+      }
     }
 
-    v6 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = WBS_LOG_CHANNEL_PREFIXSiriLink(newlyCreated, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       uuid = [v3 uuid];
       uuid2 = [focusedTabGroup uuid];
-      [(TabController *)uuid _focusedTabGroupForWindowState:uuid2, v11, v6];
+      [(TabController *)uuid _focusedTabGroupForWindowState:uuid2, v13, v8];
     }
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_15:
 
 LABEL_17:
@@ -10161,7 +10179,7 @@ LABEL_7:
 
 - (BOOL)readState
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_browserController);
   windowState = [(TabController *)self windowState];
   v5 = [(TabController *)self _activeTabGroupForWindowState:windowState];
@@ -10179,7 +10197,8 @@ LABEL_7:
 
   v9 = v8;
 
-  if (![(TabController *)self isTabGroupActive:v9]|| !self->_didReadWindowState)
+  v10 = [(TabController *)self isTabGroupActive:v9];
+  if (!v10 || !self->_didReadWindowState)
   {
     if (self->_activeTabGroupUUID)
     {
@@ -10187,19 +10206,19 @@ LABEL_7:
       [tabGroupManager endParticipantPresenceReportingForTabGroupWithUUID:self->_activeTabGroupUUID];
     }
 
-    v11 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXTabGroup(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       privacyPreservingDescription = [v9 privacyPreservingDescription];
       *buf = 138543362;
-      v36 = privacyPreservingDescription;
-      _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Read active tab group from saved state: %{public}@", buf, 0xCu);
+      v42 = privacyPreservingDescription;
+      _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Read active tab group from saved state: %{public}@", buf, 0xCu);
     }
 
     uuid = [v9 uuid];
-    v14 = [uuid copy];
+    v16 = [uuid copy];
     activeTabGroupUUID = self->_activeTabGroupUUID;
-    self->_activeTabGroupUUID = v14;
+    self->_activeTabGroupUUID = v16;
 
     isPrivateBrowsing = [v9 isPrivateBrowsing];
     [WeakRetained setPrivateBrowsingEnabled:isPrivateBrowsing];
@@ -10213,55 +10232,55 @@ LABEL_7:
       localTabGroup = v9;
     }
 
-    v18 = localTabGroup;
-    v19 = [(TabController *)self _mutableTabsForTabGroup:localTabGroup];
+    v20 = localTabGroup;
+    v21 = [(TabController *)self _mutableTabsForTabGroup:localTabGroup];
     mutableNormalTabs = self->_mutableNormalTabs;
-    self->_mutableNormalTabs = v19;
+    self->_mutableNormalTabs = v21;
 
-    v21 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v25 = WBS_LOG_CHANNEL_PREFIXTabGroup(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [(NSMutableArray *)self->_mutableNormalTabs count];
+      v26 = [(NSMutableArray *)self->_mutableNormalTabs count];
       *buf = 134217984;
-      v36 = v22;
-      _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_DEFAULT, "Read %zu normal tabs from saved state", buf, 0xCu);
+      v42 = v26;
+      _os_log_impl(&dword_215819000, v25, OS_LOG_TYPE_DEFAULT, "Read %zu normal tabs from saved state", buf, 0xCu);
     }
 
     if (!self->_didReadWindowState)
     {
       privateTabGroup = [windowState privateTabGroup];
-      v24 = [(TabController *)self _mutableTabsForTabGroup:privateTabGroup];
+      v28 = [(TabController *)self _mutableTabsForTabGroup:privateTabGroup];
       mutablePrivateTabs = self->_mutablePrivateTabs;
-      self->_mutablePrivateTabs = v24;
+      self->_mutablePrivateTabs = v28;
 
-      v26 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v32 = WBS_LOG_CHANNEL_PREFIXTabGroup(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [(NSMutableArray *)self->_mutablePrivateTabs count];
+        v33 = [(NSMutableArray *)self->_mutablePrivateTabs count];
         *buf = 134217984;
-        v36 = v27;
-        _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_DEFAULT, "Read %zu private tabs from saved state", buf, 0xCu);
+        v42 = v33;
+        _os_log_impl(&dword_215819000, v32, OS_LOG_TYPE_DEFAULT, "Read %zu private tabs from saved state", buf, 0xCu);
       }
     }
 
     if ([v9 usesGlobalPinnedTabs])
     {
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __39__TabController_Persistence__readState__block_invoke;
-      v34[3] = &unk_2781D60B8;
-      v34[4] = self;
-      [(TabController *)self _performWithFixedTabBarItems:v34];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __39__TabController_Persistence__readState__block_invoke;
+      v40[3] = &unk_2781D60B8;
+      v40[4] = self;
+      [(TabController *)self _performWithFixedTabBarItems:v40];
     }
 
-    v28 = [(TabController *)self _activeTabDocumentForTabGroup:v18];
-    [(TabController *)self setNormalActiveTabDocument:v28];
+    v34 = [(TabController *)self _activeTabDocumentForTabGroup:v20];
+    [(TabController *)self setNormalActiveTabDocument:v34];
 
     if (!self->_didReadWindowState)
     {
       privateTabGroup2 = [windowState privateTabGroup];
-      v30 = [(TabController *)self _activeTabDocumentForTabGroup:privateTabGroup2];
-      [(TabController *)self setPrivateActiveTabDocument:v30];
+      v36 = [(TabController *)self _activeTabDocumentForTabGroup:privateTabGroup2];
+      [(TabController *)self setPrivateActiveTabDocument:v36];
     }
 
     [(TabController *)self openInitialBlankTabDocumentIfNeeded];
@@ -10298,9 +10317,10 @@ void __39__TabController_Persistence__readState__block_invoke(uint64_t a1)
   [WeakRetained writePrivateBrowsingEnabled:{objc_msgSend(activeTabGroupOrTabGroupVisibleInSwitcher, "isPrivateBrowsing")}];
 }
 
-- (void)_closeTabs:(unsigned int)tabs animated:(int)animated allowAddingToRecentlyClosedTabs:(char)closedTabs keepWebViewAlive:(char)alive showAutoCloseTabsAlert:
+- (void)_closeTabs:(unsigned int)tabs animated:(int)animated allowAddingToRecentlyClosedTabs:(char)closedTabs keepWebViewAlive:(int)alive showAutoCloseTabsAlert:
 {
-  v124 = *MEMORY[0x277D85DE8];
+  HIDWORD(aBlock) = tabs;
+  v122 = *MEMORY[0x277D85DE8];
   v10 = a2;
   if (!self)
   {
@@ -10317,19 +10337,19 @@ void __39__TabController_Persistence__readState__block_invoke(uint64_t a1)
   firstObject = [v10 firstObject];
   isPrivateBrowsingEnabled = [firstObject isPrivateBrowsingEnabled];
   array = [MEMORY[0x277CBEB18] array];
-  HIDWORD(v105) = isPrivateBrowsingEnabled;
-  v110 = [(TabController *)self _mutableTabsForPrivateBrowsing:isPrivateBrowsingEnabled];
+  HIDWORD(v103) = isPrivateBrowsingEnabled;
+  v108 = [(TabController *)self _mutableTabsForPrivateBrowsing:isPrivateBrowsingEnabled];
   wbTab = [firstObject wbTab];
   tabGroupUUID = [wbTab tabGroupUUID];
 
   selfCopy = self;
-  v107 = firstObject;
-  aBlock = alive;
+  v105 = firstObject;
+  LODWORD(aBlock) = alive;
   if (tabGroupUUID || ![firstObject isPrivateBrowsingEnabled])
   {
     if (!*(self + 56) || ([self currentTabs], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "containsObject:", firstObject), v18, !v19))
     {
-      v103 = tabGroupUUID;
+      v101 = tabGroupUUID;
       goto LABEL_10;
     }
 
@@ -10344,33 +10364,33 @@ void __39__TabController_Persistence__readState__block_invoke(uint64_t a1)
 
   v20 = uuid;
 
-  v103 = v20;
+  v101 = v20;
 LABEL_10:
-  v120 = 0u;
-  v121 = 0u;
   v118 = 0u;
   v119 = 0u;
-  v101 = v10;
+  v116 = 0u;
+  v117 = 0u;
+  v99 = v10;
   v21 = v10;
-  v22 = [v21 countByEnumeratingWithState:&v118 objects:v123 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v116 objects:v121 count:16];
   if (v22)
   {
     v24 = v22;
-    v25 = *v119;
+    v25 = *v117;
     do
     {
       v26 = 0;
       do
       {
-        if (*v119 != v25)
+        if (*v117 != v25)
         {
           objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v118 + 1) + 8 * v26);
+        v27 = *(*(&v116 + 1) + 8 * v26);
         if (animated)
         {
-          if (([*(*(&v118 + 1) + 8 * v26) isBlank] & 1) == 0)
+          if (([*(*(&v116 + 1) + 8 * v26) isBlank] & 1) == 0)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -10397,7 +10417,7 @@ LABEL_10:
       }
 
       while (v24 != v26);
-      v22 = OUTLINED_FUNCTION_93(v22, v23, &v118, v123);
+      v22 = OUTLINED_FUNCTION_93(v22, v23, &v116, v121);
       v24 = v22;
     }
 
@@ -10426,9 +10446,9 @@ LABEL_10:
     v33 = 0;
   }
 
-  HIDWORD(v108) = v33;
+  HIDWORD(v106) = v33;
   v34 = [v21 safari_filterObjectsUsingBlock:&__block_literal_global_109_1];
-  if ((v105 & 0x100000000) != 0)
+  if ((v103 & 0x100000000) != 0)
   {
     [selfCopy privateUnpinnedTabs];
   }
@@ -10440,7 +10460,7 @@ LABEL_10:
   v35 = ;
   v36 = [v35 count];
 
-  v100 = v34;
+  v98 = v34;
   v37 = [v34 count];
   v38 = [(TabController *)selfCopy _hasPinnedStartPageExcludingTabs:v21];
   if (v37 < v36)
@@ -10458,7 +10478,7 @@ LABEL_10:
   if ((v39 & 1) == 0 && (v38 & 1) == 0)
   {
     currentTabs = [selfCopy currentTabs];
-    v41 = [currentTabs containsObject:v107];
+    v41 = [currentTabs containsObject:v105];
 
     if (v41)
     {
@@ -10474,7 +10494,7 @@ LABEL_10:
         [*(selfCopy + 32) displayNewTabOverridePageIfNecessary];
       }
 
-      else if (HIDWORD(v105) == [selfCopy isPrivateBrowsingEnabled])
+      else if (HIDWORD(v103) == [selfCopy isPrivateBrowsingEnabled])
       {
         _openBlankTabDocument = [(TabController *)selfCopy _openBlankTabDocument];
       }
@@ -10483,13 +10503,13 @@ LABEL_10:
     else
     {
       alternateTabs = [selfCopy alternateTabs];
-      v44 = [alternateTabs containsObject:v107];
+      v44 = [alternateTabs containsObject:v105];
 
       if (v44)
       {
         OUTLINED_FUNCTION_49();
         v70 = [TabController _insertNewBlankTabDocumentWithPrivateBrowsing:v67 inBackground:v68 animated:v69];
-        if (HIDWORD(v105))
+        if (HIDWORD(v103))
         {
           objc_storeStrong((selfCopy + 280), v70);
           v71 = 32;
@@ -10509,7 +10529,7 @@ LABEL_10:
   v45 = activeTabDocument;
   tabThumbnailCollectionView = [*(selfCopy + 72) tabThumbnailCollectionView];
   v47 = v45;
-  if (((v32 | HIDWORD(v108) ^ 1) & 1) == 0)
+  if (((v32 | HIDWORD(v106) ^ 1) & 1) == 0)
   {
     v47 = [*(selfCopy + 304) tabToSelectBeforeClosingTabs:v21];
 
@@ -10523,32 +10543,32 @@ LABEL_10:
       }
     }
 
-    [*(selfCopy + 72) setSuppressTabBarAnimation:tabs ^ 1];
+    [*(selfCopy + 72) setSuppressTabBarAnimation:HIDWORD(aBlock) ^ 1u];
     [selfCopy setActiveTab:v47];
     [*(selfCopy + 72) setSuppressTabBarAnimation:0];
   }
 
-  v104 = tabThumbnailCollectionView;
-  v116 = 0u;
-  v117 = 0u;
-  *v114 = 0u;
+  v102 = tabThumbnailCollectionView;
+  v114 = 0u;
   v115 = 0u;
+  *v112 = 0u;
+  v113 = 0u;
   v49 = v21;
-  v50 = [v49 countByEnumeratingWithState:v114 objects:v122 count:16];
+  v50 = [v49 countByEnumeratingWithState:v112 objects:v120 count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v115;
+    v52 = *v113;
     do
     {
       for (i = 0; i != v51; ++i)
       {
-        if (*v115 != v52)
+        if (*v113 != v52)
         {
           objc_enumerationMutation(v49);
         }
 
-        v54 = *(v114[1] + 8 * i);
+        v54 = *(v112[1] + 8 * i);
         if ((closedTabs & 1) == 0)
         {
           objc_opt_class();
@@ -10558,7 +10578,7 @@ LABEL_10:
           }
         }
 
-        v55 = [v110 removeObject:v54];
+        v55 = [v108 removeObject:v54];
         v57 = *(selfCopy + 32);
         if (v54 == v57)
         {
@@ -10566,41 +10586,41 @@ LABEL_10:
         }
       }
 
-      v51 = OUTLINED_FUNCTION_93(v55, v56, v114, v122);
+      v51 = OUTLINED_FUNCTION_93(v55, v56, v112, v120);
     }
 
     while (v51);
   }
 
-  v58 = HIDWORD(v108);
-  [*(selfCopy + 272) didCloseTabDocuments:v49 includingActiveTab:HIDWORD(v108)];
-  v10 = v101;
+  v58 = HIDWORD(v106);
+  [*(selfCopy + 272) didCloseTabDocuments:v49 includingActiveTab:HIDWORD(v106)];
+  v10 = v99;
   if ((v32 & 1) == 0)
   {
-    [*(selfCopy + 72) setSuppressTabBarAnimation:tabs ^ 1];
+    [*(selfCopy + 72) setSuppressTabBarAnimation:HIDWORD(aBlock) ^ 1u];
     _application = [(TabController *)selfCopy _application];
     [_application updateTabCount];
 
     [*(selfCopy + 72) setSuppressTabBarAnimation:0];
-    itemToActivate = [v104 itemToActivate];
+    itemToActivate = [v102 itemToActivate];
     if (itemToActivate)
     {
       v61 = [v49 valueForKey:@"uuid"];
       [itemToActivate UUID];
       objc_claimAutoreleasedReturnValue();
-      v62 = [OUTLINED_FUNCTION_37() containsObject:HIDWORD(v108)];
+      v62 = [OUTLINED_FUNCTION_37() containsObject:HIDWORD(v106)];
 
-      v58 = HIDWORD(v108);
+      v58 = HIDWORD(v106);
       if (v62)
       {
         if (*(selfCopy + 32) == v47)
         {
-          [v104 setItemToActivate:0];
+          [v102 setItemToActivate:0];
         }
 
         else
         {
-          v72 = [v47 itemForTabCollectionView:v104];
+          v72 = [v47 itemForTabCollectionView:v102];
           [OUTLINED_FUNCTION_18() setItemToActivate:?];
         }
       }
@@ -10625,7 +10645,7 @@ LABEL_10:
       v74 = 0;
     }
 
-    [*(selfCopy + 72) updateTabBarAnimated:tabs keepingTabVisible:v74];
+    [*(selfCopy + 72) updateTabBarAnimated:HIDWORD(aBlock) keepingTabVisible:v74];
     _application2 = [(TabController *)selfCopy _application];
     v76 = *MEMORY[0x277D76628];
     [MEMORY[0x277D759A0] mainScreen];
@@ -10634,28 +10654,28 @@ LABEL_10:
 
     *(selfCopy + 112) = 0;
     [(TabController *)selfCopy _sendDidEndDocumentUpdates];
-    [(TabController *)selfCopy didUpdateTabDocumentsInTabGroupWithUUID:v103, v77, v78, v79, v80, v81, v82, v94, aBlock, v100, v101, v103, v104, v105, v107, v108, v110, selfCopy, array, v114[0], v114[1]];
-    if (WeakRetained && HIDWORD(v106) == [v73 isPrivateBrowsingEnabled] && objc_msgSend(v104, "presentationState"))
+    [(TabController *)selfCopy didUpdateTabDocumentsInTabGroupWithUUID:v101, v77, v78, v79, v80, v81, v82, v94, aBlock, v98, v99, v101, v102, v103, v105, v106, v108, selfCopy, array, v112[0], v112[1]];
+    if (WeakRetained && HIDWORD(v104) == [v73 isPrivateBrowsingEnabled] && objc_msgSend(v102, "presentationState"))
     {
-      if ([v110 count] != 1 || (-[TabController allowsClosingLastTab](v73) & 1) != 0 || *(v73 + 152) || (objc_msgSend(v110, "firstObject"), v92 = objc_claimAutoreleasedReturnValue(), v93 = objc_msgSend(v92, "isBlank"), v92, !v93))
+      if ([v108 count] != 1 || (-[TabController allowsClosingLastTab](v73) & 1) != 0 || *(v73 + 152) || (objc_msgSend(v108, "firstObject"), v92 = objc_claimAutoreleasedReturnValue(), v93 = objc_msgSend(v92, "isBlank"), v92, !v93))
       {
-        if (HIDWORD(v106))
+        if (HIDWORD(v104))
         {
-          [*(v73 + 72) updateExplanationViewVisibilityAnimated:v99];
+          [*(v73 + 72) updateExplanationViewVisibilityAnimated:HIDWORD(aBlocka)];
         }
       }
 
       else
       {
-        [v104 dismissAnimated:v99];
+        [v102 dismissAnimated:HIDWORD(aBlocka)];
       }
     }
 
-    if (*aBlocka)
+    if (aBlocka)
     {
       [v49 count];
       v84 = OUTLINED_FUNCTION_69();
-      [(TabController *)v84 _presentAutomaticTabClosingPromptIfNeededForClosedTabCount:v85, v86, v87, v88, v89, v90, v91, v95, aBlocka[0], v100, v102, v103, v104, v106, v107, v109, v110, v112, array, v114[0], v114[1]];
+      [(TabController *)v84 _presentAutomaticTabClosingPromptIfNeededForClosedTabCount:v85, v86, v87, v88, v89, v90, v91, v95, aBlocka, v98, v100, v101, v102, v104, v105, v107, v108, v110, array, v112[0], v112[1]];
     }
   }
 
@@ -11273,9 +11293,9 @@ LABEL_12:
   OUTLINED_FUNCTION_94();
 }
 
-- (void)_insertTab:(unint64_t)tab atIndex:(uint64_t)index inBackground:(unsigned int)background animated:(char)animated updateUI:
+- (void)_insertTab:(void *)tab atIndex:(uint64_t)index inBackground:(unsigned int)background animated:(char)animated updateUI:
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = v11;
   if (self)
@@ -11312,9 +11332,9 @@ LABEL_12:
       [mEMORY[0x277D499B8] reportTabUpdatedWithUpdateType:4];
 
       [*(self + 272) willBeginUpdates];
-      v46 = v12;
+      v48 = v12;
       v20 = [(TabController *)self _makeRoomForNewTab:?];
-      v18 = v46;
+      v18 = v48;
 
       if (v20)
       {
@@ -11328,7 +11348,7 @@ LABEL_12:
           [OUTLINED_FUNCTION_23() insertObject:? atIndex:?];
         }
 
-        v24 = backgroundCopy;
+        v26 = backgroundCopy;
         [(TabController *)self _reuseTabAfterInsertion:v18];
       }
 
@@ -11342,28 +11362,29 @@ LABEL_12:
 
         v22 = *(self + v21);
         v23 = [*(self + v16) copy];
-        if ([v23 containsObject:v22])
+        v24 = [v23 containsObject:v22];
+        if (v24)
         {
           [self replaceTabDocument:v22 withTabDocument:v18];
-          v24 = backgroundCopy;
+          v26 = backgroundCopy;
         }
 
         else
         {
-          v25 = WBS_LOG_CHANNEL_PREFIXTabs();
-          v24 = backgroundCopy;
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+          v27 = WBS_LOG_CHANNEL_PREFIXTabs(v24, v25);
+          v26 = backgroundCopy;
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
           {
-            v26 = @"NO";
+            v28 = @"NO";
             if (isPrivateBrowsingEnabled)
             {
-              v26 = @"YES";
+              v28 = @"YES";
             }
 
-            v27 = v26;
+            v29 = v28;
             *buf = 138543362;
-            v48 = v27;
-            _os_log_fault_impl(&dword_215819000, v25, OS_LOG_TYPE_FAULT, "Active tab document is not present in the list of tab documents; private browsing enabled: %{public}@", buf, 0xCu);
+            v50 = v29;
+            _os_log_fault_impl(&dword_215819000, v27, OS_LOG_TYPE_FAULT, "Active tab document is not present in the list of tab documents; private browsing enabled: %{public}@", buf, 0xCu);
           }
 
           [OUTLINED_FUNCTION_23() addObject:?];
@@ -11376,10 +11397,10 @@ LABEL_12:
       if (([*(self + 184) containsObject:v18] & 1) == 0)
       {
         OUTLINED_FUNCTION_1_6();
-        v42 = 3221225472;
-        v43 = __67__TabController__insertTab_atIndex_inBackground_animated_updateUI___block_invoke;
-        v44 = &unk_2781D4D40;
-        v45 = v18;
+        v44 = 3221225472;
+        v45 = __67__TabController__insertTab_atIndex_inBackground_animated_updateUI___block_invoke;
+        v46 = &unk_2781D4D40;
+        v47 = v18;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
 
@@ -11387,18 +11408,18 @@ LABEL_12:
       if (animated)
       {
         [v18 setNeedsNewTabSnapshot];
-        v28 = +[Application sharedApplication];
-        [v28 updateTabCount];
+        v30 = +[Application sharedApplication];
+        [v30 updateTabCount];
 
         [*(self + 72) updateTabOverviewItems];
         WeakRetained = objc_loadWeakRetained((self + 8));
         [WeakRetained clearCachedTabCompletionData];
-        if (!v24 || ([*(self + 72) hasTabBar] & 1) != 0 || (objc_msgSend(self, "activeTabDocument"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isShowingFindOnPage"), v30, (v31 & 1) == 0))
+        if (!v26 || ([*(self + 72) hasTabBar] & 1) != 0 || (objc_msgSend(self, "activeTabDocument"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "isShowingFindOnPage"), v32, (v33 & 1) == 0))
         {
           if (index)
           {
             [v18 lastViewedTime];
-            if (v32 == 0.0)
+            if (v34 == 0.0)
             {
               [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
               [v18 setLastViewedTime:?];
@@ -11410,7 +11431,7 @@ LABEL_12:
             [OUTLINED_FUNCTION_17() setActiveTab:? animated:?];
           }
 
-          [*(self + 72) updateTabBarAnimated:v24 keepingTabVisible:v18];
+          [*(self + 72) updateTabBarAnimated:v26 keepingTabVisible:v18];
           configuration = [WeakRetained configuration];
           allowsSearchFeedback = [configuration allowsSearchFeedback];
 
@@ -11418,11 +11439,11 @@ LABEL_12:
           {
             rootViewController = [WeakRetained rootViewController];
             capsuleCollectionViewLayout = [rootViewController capsuleCollectionViewLayout];
-            v37 = [capsuleCollectionViewLayout integerValue] != 2;
+            v39 = [capsuleCollectionViewLayout integerValue] != 2;
 
-            v38 = +[UniversalSearchSession sharedSession];
-            feedbackDispatcher = [v38 feedbackDispatcher];
-            [feedbackDispatcher sendNewTabFeedback:v37];
+            v40 = +[UniversalSearchSession sharedSession];
+            feedbackDispatcher = [v40 feedbackDispatcher];
+            [feedbackDispatcher sendNewTabFeedback:v39];
           }
         }
 
@@ -11905,7 +11926,7 @@ LABEL_4:
 LABEL_15:
 }
 
-- (void)_detachTab:(unsigned int)tab animated:
+- (void)_detachTab:(uint64_t)tab animated:
 {
   v8 = a2;
   if (self)
@@ -12483,7 +12504,7 @@ LABEL_11:
   return v8;
 }
 
-- (id)_dropWBTab:(void *)tab fromBrowserController:(unint64_t)controller atIndex:(int)index pinned:(void *)pinned anchorTab:
+- (id)_dropWBTab:(void *)tab fromBrowserController:(char *)controller atIndex:(unsigned int)index pinned:(void *)pinned anchorTab:
 {
   v79[1] = *MEMORY[0x277D85DE8];
   v11 = a2;
@@ -12764,7 +12785,7 @@ void __60__TabController_replaceBlankActiveTabWithTabs_andSelectTab___block_invo
 - (void)replaceTabDocument:(id)document withTabDocument:(id)tabDocument committingSpeculativeLoad:(BOOL)load
 {
   loadCopy = load;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   tabDocumentCopy = tabDocument;
   isPrivateBrowsingEnabled = [OUTLINED_FUNCTION_4() isPrivateBrowsingEnabled];
@@ -12780,7 +12801,7 @@ void __60__TabController_replaceBlankActiveTabWithTabs_andSelectTab___block_invo
   v13 = [v12 indexOfObject:documentCopy];
   if (v13 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v15 = v13;
+    v16 = v13;
     [(TabController *)self willLoseOwnershipOfTab:documentCopy];
     if (loadCopy)
     {
@@ -12788,27 +12809,27 @@ void __60__TabController_replaceBlankActiveTabWithTabs_andSelectTab___block_invo
       [tabDocument setUuid:uuid];
     }
 
-    [v12 replaceObjectAtIndex:v15 withObject:tabDocument];
+    [v12 replaceObjectAtIndex:v16 withObject:tabDocument];
     [OUTLINED_FUNCTION_18() didReplaceTabDocument:?];
     webExtensionsController = [documentCopy webExtensionsController];
     OUTLINED_FUNCTION_63();
-    [v18 didReplaceTab:? newTab:?];
+    [v19 didReplaceTab:? newTab:?];
 
-    v19 = [(TabController *)self _activeTabDocumentForPrivateBrowsing:isPrivateBrowsingEnabled];
+    v20 = [(TabController *)self _activeTabDocumentForPrivateBrowsing:isPrivateBrowsingEnabled];
 
     OUTLINED_FUNCTION_63();
-    [v20 didReplaceTabDocument:? withTabDocument:? replacedActiveTab:?];
+    [v21 didReplaceTabDocument:? withTabDocument:? replacedActiveTab:?];
     if (loadCopy)
     {
       ++self->_updateTabsSuppressionCount;
     }
 
-    if (v19 == documentCopy)
+    if (v20 == documentCopy)
     {
       if (isPrivateBrowsingEnabled != [(TabController *)self isPrivateBrowsingEnabled])
       {
-        v22 = OUTLINED_FUNCTION_66();
-        [(TabController *)v22 _setActiveTabDocument:v23, v24, v25, v26, v27, v28, v29, *v30, *&v30[8], *&v30[16], v31, v32, v33, v34, v35, v36, v37];
+        v23 = OUTLINED_FUNCTION_66();
+        [(TabController *)v23 _setActiveTabDocument:v24, v25, v26, v27, v28, v29, v30, *v31, *&v31[8], *&v31[16], v32, v33, v34, v35, v36, v37, v38];
         if (!loadCopy)
         {
           goto LABEL_17;
@@ -12836,16 +12857,16 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v15 = WBS_LOG_CHANNEL_PREFIXTabs(0x7FFFFFFFFFFFFFFFLL, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    *v30 = 138478339;
-    *&v30[4] = documentCopy;
-    *&v30[12] = 2113;
-    *&v30[14] = tabDocument;
-    *&v30[22] = 2113;
-    v31 = v12;
-    _os_log_fault_impl(&dword_215819000, v14, OS_LOG_TYPE_FAULT, "Failed to find old tab document %{private}@ in all tab documents %{private}@ to be replaced with new tab document %{private}@, inserting with default ordering instead", v30, 0x20u);
+    *v31 = 138478339;
+    *&v31[4] = documentCopy;
+    *&v31[12] = 2113;
+    *&v31[14] = tabDocument;
+    *&v31[22] = 2113;
+    v32 = v12;
+    _os_log_fault_impl(&dword_215819000, v15, OS_LOG_TYPE_FAULT, "Failed to find old tab document %{private}@ in all tab documents %{private}@ to be replaced with new tab document %{private}@, inserting with default ordering instead", v31, 0x20u);
   }
 
   [OUTLINED_FUNCTION_40() insertNewTabDocumentWithDefaultOrdering:? inBackground:? animated:?];
@@ -13207,11 +13228,11 @@ LABEL_7:
 {
   if (self)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = WBS_LOG_CHANNEL_PREFIXTabs(self, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_DEFAULT, "Reloading non-hibernated tabs due to web content filter change", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_DEFAULT, "Reloading non-hibernated tabs due to web content filter change", v4, 2u);
     }
 
     [(TabController *)self reloadTabsUsingFilter:?];
@@ -13303,7 +13324,7 @@ LABEL_11:
   }
 }
 
-- (uint64_t)_performWithFixedTabBarItems:(uint64_t)result
+- (void)_performWithFixedTabBarItems:(void *)result
 {
   if (result)
   {
@@ -13313,7 +13334,7 @@ LABEL_11:
     v5 = OUTLINED_FUNCTION_60();
     v6(v5);
 
-    v7 = *(v3 + 72);
+    v7 = v3[9];
 
     return [v7 endFixingTabBarItems];
   }
@@ -13865,7 +13886,7 @@ LABEL_5:
   }
 }
 
-- (uint64_t)_isProfileActive:(uint64_t)result
+- (void)_isProfileActive:(void *)result
 {
   if (result)
   {
@@ -13983,42 +14004,42 @@ id __44__TabController_submenuForSwitchingProfiles__block_invoke(uint64_t a1, vo
 - (void)_presentShareSheetWithTabGroupActivityItemConfiguration:sender:
 {
   OUTLINED_FUNCTION_47();
-  v8 = v1;
+  v35 = v1;
   if (v0)
   {
     v2 = OUTLINED_FUNCTION_34();
     v4 = [(TabController *)v2 _tabGroupShareSheetWithTabGroupActivityItemConfiguration:v3];
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_78())
+    v5 = objc_opt_class();
+    if (OUTLINED_FUNCTION_78(v5, v6, v7, v8, v9, v10, v11, v12, v32, v35))
     {
-      safari_popoverSourceInfo = [objc_alloc(MEMORY[0x277D28E78]) initWithItem:v8];
+      safari_popoverSourceInfo = [objc_alloc(MEMORY[0x277D28E78]) initWithItem:v35];
     }
 
     else
     {
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_78())
+      v14 = objc_opt_class();
+      if (OUTLINED_FUNCTION_78(v14, v15, v16, v17, v18, v19, v20, v21, v33, v35))
       {
-        safari_popoverSourceInfo = [v8 safari_popoverSourceInfo];
+        safari_popoverSourceInfo = [v35 safari_popoverSourceInfo];
       }
 
       else
       {
-        objc_opt_class();
-        if ((OUTLINED_FUNCTION_78() & 1) == 0)
+        v22 = objc_opt_class();
+        if ((OUTLINED_FUNCTION_78(v22, v23, v24, v25, v26, v27, v28, v29, v34, v35) & 1) == 0)
         {
-          v6 = 0;
+          v30 = 0;
           goto LABEL_9;
         }
 
-        safari_popoverSourceInfo = [objc_alloc(MEMORY[0x277D28F68]) initWithView:v8];
+        safari_popoverSourceInfo = [objc_alloc(MEMORY[0x277D28F68]) initWithView:v35];
       }
     }
 
-    v6 = safari_popoverSourceInfo;
+    v30 = safari_popoverSourceInfo;
 LABEL_9:
     WeakRetained = objc_loadWeakRetained((v0 + 8));
-    [WeakRetained presentModalViewController:v4 fromPopoverSource:v6];
+    [WeakRetained presentModalViewController:v4 fromPopoverSource:v30];
   }
 }
 
@@ -14070,31 +14091,31 @@ LABEL_8:
 
 - (WBTabGroup)focusedTabGroup
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _application = [(TabController *)self _application];
   focusedTabGroupUUIDString = [_application focusedTabGroupUUIDString];
 
   if (focusedTabGroupUUIDString)
   {
-    v4 = [OUTLINED_FUNCTION_18() tabGroupWithUUID:?];
-    if (!v4)
+    v5 = [OUTLINED_FUNCTION_18() tabGroupWithUUID:?];
+    if (!v5)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = 138543362;
-        v9 = focusedTabGroupUUIDString;
-        OUTLINED_FUNCTION_71(&dword_215819000, v5, v6, "Couldn't find FTG %{public}@", &v8);
+        v9 = 138543362;
+        v10 = focusedTabGroupUUIDString;
+        OUTLINED_FUNCTION_71(&dword_215819000, v6, v7, "Couldn't find FTG %{public}@", &v9);
       }
     }
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_presentOpenAlertForFocusProfile:(int)profile completionHandler:(int)handler
@@ -14106,29 +14127,30 @@ LABEL_8:
   a32 = *MEMORY[0x277D85DE8];
   v55 = v54;
   v56 = v48;
+  v58 = v56;
   if (v50)
   {
-    v57 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v59 = WBS_LOG_CHANNEL_PREFIXSiriLink(v56, v57);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = v57;
+      v60 = v59;
       identifier = [OUTLINED_FUNCTION_4() identifier];
       uuid = [*(v50 + 256) uuid];
       OUTLINED_FUNCTION_70(uuid, 5.8382e-34);
-      OUTLINED_FUNCTION_92(&dword_215819000, v60, v61, "Prompting to switch to focus profile %{public}@ on window %{public}@");
+      OUTLINED_FUNCTION_92(&dword_215819000, v62, v63, "Prompting to switch to focus profile %{public}@ on window %{public}@");
     }
 
-    if (v56)
+    if (v58)
     {
-      v62 = v56;
+      v64 = v58;
     }
 
     else
     {
-      v62 = &__block_literal_global_319;
+      v64 = &__block_literal_global_319;
     }
 
-    v56 = &_WBSLocalizableStringsBundleOnceToken;
+    v58 = &_WBSLocalizableStringsBundleOnceToken;
     OUTLINED_FUNCTION_42();
     _WBSLocalizedString();
     objc_claimAutoreleasedReturnValue();
@@ -14137,10 +14159,10 @@ LABEL_8:
     objc_claimAutoreleasedReturnValue();
 
     OUTLINED_FUNCTION_42();
-    v63 = _WBSLocalizedString();
+    v65 = _WBSLocalizedString();
     OUTLINED_FUNCTION_89();
-    v65 = [v64 alertControllerWithTitle:? message:? preferredStyle:?];
-    [v65 setRole:1];
+    v67 = [v66 alertControllerWithTitle:? message:? preferredStyle:?];
+    [v67 setRole:1];
     OUTLINED_FUNCTION_42();
     _WBSLocalizedString();
     objc_claimAutoreleasedReturnValue();
@@ -14148,20 +14170,20 @@ LABEL_8:
     a25 = 3221225472;
     a26 = __68__TabController__presentOpenAlertForFocusProfile_completionHandler___block_invoke_2;
     a27 = &unk_2781D9E10;
-    v66 = v62;
-    v67 = [OUTLINED_FUNCTION_50() actionWithTitle:? style:? handler:?];
+    v68 = v64;
+    v69 = [OUTLINED_FUNCTION_50() actionWithTitle:? style:? handler:?];
 
     OUTLINED_FUNCTION_42();
-    v68 = _WBSLocalizedString();
+    v70 = _WBSLocalizedString();
     OUTLINED_FUNCTION_3_2();
     a19 = __68__TabController__presentOpenAlertForFocusProfile_completionHandler___block_invoke_3;
     a20 = &unk_2781D9E88;
     a21 = v50;
     a22 = v55;
-    v69 = v62;
-    v70 = [OUTLINED_FUNCTION_51() actionWithTitle:? style:? handler:?];
+    v71 = v64;
+    v72 = [OUTLINED_FUNCTION_51() actionWithTitle:? style:? handler:?];
 
-    [v65 addAction:v67];
+    [v67 addAction:v69];
     [OUTLINED_FUNCTION_41() addAction:?];
     [OUTLINED_FUNCTION_41() setPreferredAction:?];
     WeakRetained = objc_loadWeakRetained((v50 + 8));
@@ -14171,24 +14193,24 @@ LABEL_8:
     a12 = 3221225472;
     a13 = __68__TabController__presentOpenAlertForFocusProfile_completionHandler___block_invoke_4;
     a14 = &unk_2781D4C88;
-    v73 = viewControllerToPresentFrom;
-    a15 = v73;
-    v74 = v65;
-    a16 = v74;
-    v75 = _Block_copy(&aBlock);
-    presentedViewController = [v73 presentedViewController];
+    v75 = viewControllerToPresentFrom;
+    a15 = v75;
+    v76 = v67;
+    a16 = v76;
+    v77 = _Block_copy(&aBlock);
+    presentedViewController = [v75 presentedViewController];
     objc_opt_class();
     OUTLINED_FUNCTION_69();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      [v73 dismissViewControllerAnimated:1 completion:v75];
+      [v75 dismissViewControllerAnimated:1 completion:v77];
     }
 
     else
     {
-      v75[2](v75);
+      v77[2](v77);
     }
   }
 
@@ -14204,29 +14226,30 @@ LABEL_8:
   a32 = *MEMORY[0x277D85DE8];
   v55 = v54;
   v56 = v48;
+  v58 = v56;
   if (v50)
   {
-    v57 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v59 = WBS_LOG_CHANNEL_PREFIXSiriLink(v56, v57);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = v57;
+      v60 = v59;
       uuid = [OUTLINED_FUNCTION_4() uuid];
       uuid2 = [*(v50 + 256) uuid];
       OUTLINED_FUNCTION_70(uuid2, 5.8382e-34);
-      OUTLINED_FUNCTION_92(&dword_215819000, v60, v61, "Prompting to open FTG %{public}@ on window %{public}@");
+      OUTLINED_FUNCTION_92(&dword_215819000, v62, v63, "Prompting to open FTG %{public}@ on window %{public}@");
     }
 
-    if (v56)
+    if (v58)
     {
-      v62 = v56;
+      v64 = v58;
     }
 
     else
     {
-      v62 = &__block_literal_global_330;
+      v64 = &__block_literal_global_330;
     }
 
-    v56 = &_WBSLocalizableStringsBundleOnceToken;
+    v58 = &_WBSLocalizableStringsBundleOnceToken;
     OUTLINED_FUNCTION_42();
     _WBSLocalizedString();
     objc_claimAutoreleasedReturnValue();
@@ -14235,10 +14258,10 @@ LABEL_8:
     objc_claimAutoreleasedReturnValue();
 
     OUTLINED_FUNCTION_42();
-    v63 = _WBSLocalizedString();
+    v65 = _WBSLocalizedString();
     OUTLINED_FUNCTION_89();
-    v65 = [v64 alertControllerWithTitle:? message:? preferredStyle:?];
-    [v65 setRole:1];
+    v67 = [v66 alertControllerWithTitle:? message:? preferredStyle:?];
+    [v67 setRole:1];
     OUTLINED_FUNCTION_42();
     _WBSLocalizedString();
     objc_claimAutoreleasedReturnValue();
@@ -14246,20 +14269,20 @@ LABEL_8:
     a25 = 3221225472;
     a26 = __71__TabController__presentOpenAlertForFocusedTabGroup_completionHandler___block_invoke_2;
     a27 = &unk_2781D9E10;
-    v66 = v62;
-    v67 = [OUTLINED_FUNCTION_50() actionWithTitle:? style:? handler:?];
+    v68 = v64;
+    v69 = [OUTLINED_FUNCTION_50() actionWithTitle:? style:? handler:?];
 
     OUTLINED_FUNCTION_42();
-    v68 = _WBSLocalizedString();
+    v70 = _WBSLocalizedString();
     OUTLINED_FUNCTION_3_2();
     a19 = __71__TabController__presentOpenAlertForFocusedTabGroup_completionHandler___block_invoke_3;
     a20 = &unk_2781D9E88;
     a21 = v50;
     a22 = v55;
-    v69 = v62;
-    v70 = [OUTLINED_FUNCTION_51() actionWithTitle:? style:? handler:?];
+    v71 = v64;
+    v72 = [OUTLINED_FUNCTION_51() actionWithTitle:? style:? handler:?];
 
-    [v65 addAction:v67];
+    [v67 addAction:v69];
     [OUTLINED_FUNCTION_41() addAction:?];
     [OUTLINED_FUNCTION_41() setPreferredAction:?];
     WeakRetained = objc_loadWeakRetained((v50 + 8));
@@ -14269,24 +14292,24 @@ LABEL_8:
     a12 = 3221225472;
     a13 = __71__TabController__presentOpenAlertForFocusedTabGroup_completionHandler___block_invoke_4;
     a14 = &unk_2781D4C88;
-    v73 = viewControllerToPresentFrom;
-    a15 = v73;
-    v74 = v65;
-    a16 = v74;
-    v75 = _Block_copy(&aBlock);
-    presentedViewController = [v73 presentedViewController];
+    v75 = viewControllerToPresentFrom;
+    a15 = v75;
+    v76 = v67;
+    a16 = v76;
+    v77 = _Block_copy(&aBlock);
+    presentedViewController = [v75 presentedViewController];
     objc_opt_class();
     OUTLINED_FUNCTION_69();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      [v73 dismissViewControllerAnimated:1 completion:v75];
+      [v75 dismissViewControllerAnimated:1 completion:v77];
     }
 
     else
     {
-      v75[2](v75);
+      v77[2](v77);
     }
   }
 
@@ -14612,13 +14635,13 @@ LABEL_8:
   }
 }
 
-- (uint64_t)isTabInActiveTabGroup:(uint64_t)result
+- (void)isTabInActiveTabGroup:(void *)result
 {
   if (result)
   {
     v2 = result;
     tabGroupUUID = [a2 tabGroupUUID];
-    v4 = [tabGroupUUID isEqualToString:*(v2 + 56)];
+    v4 = [tabGroupUUID isEqualToString:v2[7]];
 
     return v4;
   }
@@ -14915,7 +14938,7 @@ void __41__TabController__shareActionForTabGroup___block_invoke(uint64_t a1, voi
 
 - (void)_selectNewTabGroupIfNecessaryBeforeClosingTabGroup:(void *)group
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (group && [OUTLINED_FUNCTION_18() isTabGroupActive:?])
   {
@@ -14923,42 +14946,42 @@ void __41__TabController__shareActionForTabGroup___block_invoke(uint64_t a1, voi
     v6 = [tabGroups indexOfObject:v4];
     if (v6 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXTabGroup(0x7FFFFFFFFFFFFFFFLL, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = v7;
+        v12 = v8;
         privacyPreservingDescription = [OUTLINED_FUNCTION_21() privacyPreservingDescription];
         OUTLINED_FUNCTION_3();
-        OUTLINED_FUNCTION_71(&dword_215819000, v7, v12, "Attempt to delete nonexistent tabGroup: %{public}@", v13);
+        OUTLINED_FUNCTION_71(&dword_215819000, v8, v13, "Attempt to delete nonexistent tabGroup: %{public}@", v14);
       }
 
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v9 = v6;
+      v10 = v6;
       privacyPreservingDescription = (v6 + 1);
       if (v6 + 1 < [tabGroups count])
       {
-        v8 = v9 + 1;
+        v9 = v10 + 1;
       }
 
       else
       {
-        v8 = v9 - 1;
+        v9 = v10 - 1;
       }
     }
 
-    v10 = [tabGroups objectAtIndexedSubscript:v8];
-    if ([v10 isPrivateBrowsing])
+    v11 = [tabGroups objectAtIndexedSubscript:v9];
+    if ([v11 isPrivateBrowsing])
     {
       privacyPreservingDescription = [group unnamedTabGroup];
 
-      v10 = privacyPreservingDescription;
+      v11 = privacyPreservingDescription;
     }
 
-    [v10 uuid];
+    [v11 uuid];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_9() setActiveTabGroupUUID:?];
   }
@@ -14966,13 +14989,13 @@ void __41__TabController__shareActionForTabGroup___block_invoke(uint64_t a1, voi
 
 - (void)_reuseTabIfNecessary:(uint64_t)necessary
 {
-  v6 = a2;
+  v15 = a2;
   if (necessary)
   {
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_78())
+    v4 = objc_opt_class();
+    if (OUTLINED_FUNCTION_78(v4, v5, v6, v7, v8, v9, v10, v11, v14, v15))
     {
-      v4 = v6;
+      v12 = v15;
       oUTLINED_FUNCTION_4() = [OUTLINED_FUNCTION_4() sharedManager];
       [oUTLINED_FUNCTION_4() addReusableTab:v2];
     }
@@ -14993,25 +15016,25 @@ void __41__TabController__shareActionForTabGroup___block_invoke(uint64_t a1, voi
 
 - (void)_tabWasAddedToReusableTabs:(void *)tabs fromWindowWithID:(double)d previousTabPositions:
 {
-  v12 = a2;
+  v21 = a2;
   tabsCopy = tabs;
   if (self)
   {
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_78())
+    v9 = objc_opt_class();
+    if (OUTLINED_FUNCTION_78(v9, v10, v11, v12, v13, v14, v15, v16, v20, v21))
     {
-      v9 = v12;
-      v10 = MEMORY[0x277CCABB0];
-      [v9 idForWebExtensions];
-      [v10 numberWithDouble:?];
+      v17 = v21;
+      v18 = MEMORY[0x277CCABB0];
+      [v17 idForWebExtensions];
+      [v18 numberWithDouble:?];
       objc_claimAutoreleasedReturnValue();
-      v11 = [OUTLINED_FUNCTION_11() objectForKeyedSubscript:?];
+      v19 = [OUTLINED_FUNCTION_11() objectForKeyedSubscript:?];
 
-      if (v11)
+      if (v19)
       {
-        [v9 webExtensionsController];
+        [v17 webExtensionsController];
         objc_claimAutoreleasedReturnValue();
-        [v4 didMoveTab:v9 fromWindowWithID:objc_msgSend(OUTLINED_FUNCTION_29() indexInOldWindow:{"index"), d}];
+        [v4 didMoveTab:v17 fromWindowWithID:objc_msgSend(OUTLINED_FUNCTION_29() indexInOldWindow:{"index"), d}];
       }
     }
   }
@@ -15061,7 +15084,7 @@ void __41__TabController__shareActionForTabGroup___block_invoke(uint64_t a1, voi
   }
 }
 
-- (id)_tabForWBTab:(_BYTE *)tab didReuseTabDocument:
+- (TabDocument)_tabForWBTab:(_BYTE *)tab didReuseTabDocument:
 {
   v6 = a2;
   if (self)
@@ -16010,7 +16033,7 @@ void __37__TabController_moveTabsToNewWindow___block_invoke_2_cold_1(void *a1)
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Failed to move tabs to new scene: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Failed to move tabs to new scene: %{public}@", v6, v7, v8, v9);
 }
 
 void __30__TabController_tabExposeMenu__block_invoke_cold_1(uint64_t a1)
@@ -16025,7 +16048,7 @@ void __74__TabController__tabGroupShareSheetWithTabGroupActivityItemConfiguratio
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Tab group share sheet failed: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Tab group share sheet failed: %{public}@", v6, v7, v8, v9);
 }
 
 void __47__TabController__requestContactsAccessIfNeeded__block_invoke_cold_1(void *a1)
@@ -16033,7 +16056,7 @@ void __47__TabController__requestContactsAccessIfNeeded__block_invoke_cold_1(voi
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Failed to obtain contacts access: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_46(&dword_215819000, v4, v5, "Failed to obtain contacts access: %{public}@", v6, v7, v8, v9);
 }
 
 void __69__TabController_tabSwitcherShareConfigurationForTabGroup_completion___block_invoke_3_cold_1(uint64_t a1, void *a2)
@@ -16047,13 +16070,13 @@ void __69__TabController_tabSwitcherShareConfigurationForTabGroup_completion___b
   [TabController _presentShareSheetWithTabGroupActivityItemConfiguration:sender:];
 }
 
-- (void)setActiveTabGroupUUID:(void *)a1 .cold.2(void *a1)
+- (void)setActiveTabGroupUUID:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXTabGroup(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_215819000, v2, OS_LOG_TYPE_INFO, "Already in tab group.", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Already in tab group.", v4, 2u);
   }
 
   [(TabController *)a1 _closeLibraryIfNeeded];

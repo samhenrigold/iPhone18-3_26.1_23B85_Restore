@@ -1,6 +1,7 @@
 @interface VCAggregatorAirPlay
 - (VCAggregatorAirPlay)initWithDelegate:(id)delegate options:(id)options;
 - (id)aggregatedSegmentReport:(int)report;
+- (id)composeSegmentReport:(int)report;
 - (void)addVideoFeatureStatus:(id)status;
 - (void)composeChannelSequenceReport:(id)report;
 - (void)composeReceiverReport:(id)report;
@@ -31,10 +32,10 @@
 
 - (VCAggregatorAirPlay)initWithDelegate:(id)delegate options:(id)options
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = VCAggregatorAirPlay;
-  v5 = [(VCAggregator *)&v18 initWithDelegate:delegate nwParentActivity:0];
+  v30 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = VCAggregatorAirPlay;
+  v5 = [(VCAggregator *)&v17 initWithDelegate:delegate nwParentActivity:0];
   if (v5)
   {
     v5->_RBR = [[VCReportingHistogram alloc] initWithType:7 bucketValues:0];
@@ -69,13 +70,13 @@
 
         shouldReportLowLatencyInterfaceStatistics = v5->super.super._shouldReportLowLatencyInterfaceStatistics;
         *buf = 136315906;
-        v20 = v7;
-        v21 = 2080;
-        v22 = "[VCAggregatorAirPlay initWithDelegate:options:]";
-        v23 = 1024;
-        v24 = 193;
-        v25 = 1024;
-        LODWORD(v26) = shouldReportLowLatencyInterfaceStatistics;
+        v19 = v7;
+        v20 = 2080;
+        v21 = "[VCAggregatorAirPlay initWithDelegate:options:]";
+        v22 = 1024;
+        v23 = 193;
+        v24 = 1024;
+        LODWORD(v25) = shouldReportLowLatencyInterfaceStatistics;
         v10 = " [%s] %s:%d _shouldReportLowLatencyInterfaceStatistics=%d";
         v11 = v8;
         v12 = 34;
@@ -107,17 +108,17 @@
 
         v15 = v5->super.super._shouldReportLowLatencyInterfaceStatistics;
         *buf = 136316418;
-        v20 = v13;
-        v21 = 2080;
-        v22 = "[VCAggregatorAirPlay initWithDelegate:options:]";
-        v23 = 1024;
-        v24 = 193;
-        v25 = 2112;
-        v26 = v6;
-        v27 = 2048;
-        v28 = v5;
-        v29 = 1024;
-        v30 = v15;
+        v19 = v13;
+        v20 = 2080;
+        v21 = "[VCAggregatorAirPlay initWithDelegate:options:]";
+        v22 = 1024;
+        v23 = 193;
+        v24 = 2112;
+        v25 = v6;
+        v26 = 2048;
+        v27 = v5;
+        v28 = 1024;
+        v29 = v15;
         v10 = " [%s] %s:%d %@(%p) _shouldReportLowLatencyInterfaceStatistics=%d";
         v11 = v14;
         v12 = 54;
@@ -130,7 +131,6 @@ LABEL_14:
     [(VCAggregatorAirPlay *)v5 startNewSegment];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -143,14 +143,14 @@ LABEL_14:
 
 - (void)flushCurrentSegment
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionTotalDuration = self->_sessionTotalDuration;
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule("");
   if (sessionTotalDuration > 1.0)
   {
     if (ErrorLogLevelForModule < 8)
     {
-      goto LABEL_14;
+      return;
     }
 
     v5 = VRTraceErrorLogLevelToCSTR(8u);
@@ -161,51 +161,51 @@ LABEL_14:
       {
         segmentName = self->_segmentName;
         v8 = self->_sessionTotalDuration;
-        v19 = 136316162;
-        v20 = v5;
-        v21 = 2080;
-        v22 = "[VCAggregatorAirPlay flushCurrentSegment]";
-        v23 = 1024;
-        v24 = 235;
-        v25 = 2112;
-        v26 = segmentName;
-        v27 = 2048;
-        v28 = v8;
+        v18 = 136316162;
+        v19 = v5;
+        v20 = 2080;
+        v21 = "[VCAggregatorAirPlay flushCurrentSegment]";
+        v22 = 1024;
+        v23 = 235;
+        v24 = 2112;
+        v25 = segmentName;
+        v26 = 2048;
+        v27 = v8;
         v9 = " [%s] %s:%d VCAggregatorAirPlay: Segment '%@' with duration '%.3f' flushed";
 LABEL_10:
-        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v9, &v19, 0x30u);
-        goto LABEL_14;
+        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v9, &v18, 0x30u);
+        return;
       }
 
-      goto LABEL_14;
+      return;
     }
 
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_14;
+      return;
     }
 
     v13 = self->_segmentName;
     v14 = self->_sessionTotalDuration;
-    v19 = 136316162;
-    v20 = v5;
-    v21 = 2080;
-    v22 = "[VCAggregatorAirPlay flushCurrentSegment]";
-    v23 = 1024;
-    v24 = 235;
-    v25 = 2112;
-    v26 = v13;
-    v27 = 2048;
-    v28 = v14;
+    v18 = 136316162;
+    v19 = v5;
+    v20 = 2080;
+    v21 = "[VCAggregatorAirPlay flushCurrentSegment]";
+    v22 = 1024;
+    v23 = 235;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2048;
+    v27 = v14;
     v15 = " [%s] %s:%d VCAggregatorAirPlay: Segment '%@' with duration '%.3f' flushed";
 LABEL_16:
-    _os_log_debug_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEBUG, v15, &v19, 0x30u);
-    goto LABEL_14;
+    _os_log_debug_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEBUG, v15, &v18, 0x30u);
+    return;
   }
 
   if (ErrorLogLevelForModule < 8)
   {
-    goto LABEL_14;
+    return;
   }
 
   v10 = VRTraceErrorLogLevelToCSTR(8u);
@@ -214,21 +214,21 @@ LABEL_16:
   {
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_14;
+      return;
     }
 
-    v17 = self->_segmentName;
-    v18 = self->_sessionTotalDuration;
-    v19 = 136316162;
-    v20 = v10;
-    v21 = 2080;
-    v22 = "[VCAggregatorAirPlay flushCurrentSegment]";
-    v23 = 1024;
-    v24 = 232;
-    v25 = 2112;
-    v26 = v17;
-    v27 = 2048;
-    v28 = v18;
+    v16 = self->_segmentName;
+    v17 = self->_sessionTotalDuration;
+    v18 = 136316162;
+    v19 = v10;
+    v20 = 2080;
+    v21 = "[VCAggregatorAirPlay flushCurrentSegment]";
+    v22 = 1024;
+    v23 = 232;
+    v24 = 2112;
+    v25 = v16;
+    v26 = 2048;
+    v27 = v17;
     v15 = " [%s] %s:%d VCAggregatorAirPlay: Segment '%@' has too few events '%.3f'. Ignoring its stats";
     goto LABEL_16;
   }
@@ -237,22 +237,101 @@ LABEL_16:
   {
     v11 = self->_segmentName;
     v12 = self->_sessionTotalDuration;
-    v19 = 136316162;
-    v20 = v10;
-    v21 = 2080;
-    v22 = "[VCAggregatorAirPlay flushCurrentSegment]";
-    v23 = 1024;
-    v24 = 232;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2048;
-    v28 = v12;
+    v18 = 136316162;
+    v19 = v10;
+    v20 = 2080;
+    v21 = "[VCAggregatorAirPlay flushCurrentSegment]";
+    v22 = 1024;
+    v23 = 232;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2048;
+    v27 = v12;
     v9 = " [%s] %s:%d VCAggregatorAirPlay: Segment '%@' has too few events '%.3f'. Ignoring its stats";
     goto LABEL_10;
   }
+}
 
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
+- (id)composeSegmentReport:(int)report
+{
+  v32 = *MEMORY[0x277D85DE8];
+  if (self->_sessionTotalDuration == 0.0)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v3 = *&report;
+    v5 = objc_alloc(MEMORY[0x277CBEB38]);
+    v6 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{(self->_sessionTotalDuration * -[VCAggregator RTPeriod](self, "RTPeriod"))}];
+    v7 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super.super._direction];
+    v8 = [MEMORY[0x277CCABA8] numberWithInt:self->_videoWidth];
+    v9 = [MEMORY[0x277CCABA8] numberWithInt:self->_videoHeight];
+    v10 = [MEMORY[0x277CCABA8] numberWithInt:self->super.super._transportType];
+    v11 = [v5 initWithObjectsAndKeys:{v6, @"DRTN", v7, @"DRCT", v8, @"VW", v9, @"VH", v10, @"TT", objc_msgSend(MEMORY[0x277CCABA8], "numberWithUnsignedInt:", self->_rtcpTimeoutCount), @"RTCPTOCNT", &unk_284FA53A8, @"RVER", 0}];
+    v12 = v11;
+    segmentName = self->_segmentName;
+    if (segmentName)
+    {
+      [v11 setObject:segmentName forKeyedSubscript:@"CONFIG"];
+    }
+
+    [(VCAggregatorAirPlay *)self composeChannelSequenceReport:v12];
+    [(VCAggregator *)self addLowLatencyInterfaceStatisticsToPayload:v12];
+    [(VCAggregatorAirPlay *)self composeSystemInfoReport:v12];
+    if ([VCAggregator mediaStreamDirectionForSegmentReportDirection:v3]== 2)
+    {
+      [(VCAggregatorAirPlay *)self composeReceiverReport:v12];
+    }
+
+    else
+    {
+      [(VCAggregatorAirPlay *)self composeSenderReport:v12];
+    }
+  }
+
+  if (VRTraceGetErrorLogLevelForModule("") >= 7)
+  {
+    __str = 0;
+    v14 = v12 ? [objc_msgSend(v12 "description")] : "<nil>";
+    asprintf(&__str, "%s", v14);
+    if (__str)
+    {
+      __lasts = 0;
+      v15 = strtok_r(__str, "\n", &__lasts);
+      do
+      {
+        if (VRTraceGetErrorLogLevelForModule("") >= 7)
+        {
+          v16 = VRTraceErrorLogLevelToCSTR(7u);
+          v17 = gVRTraceOSLog;
+          if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136316162;
+            v23 = v16;
+            v24 = 2080;
+            v25 = "[VCAggregatorAirPlay composeSegmentReport:]";
+            v26 = 1024;
+            v27 = 268;
+            v28 = 2080;
+            v29 = "AirPlay: segmentReport";
+            v30 = 2080;
+            v31 = v15;
+            _os_log_impl(&dword_23D4DF000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
+          }
+        }
+
+        v15 = strtok_r(0, "\n", &__lasts);
+      }
+
+      while (v15);
+      free(__str);
+    }
+  }
+
+  v18 = v12;
+  return v12;
 }
 
 - (id)aggregatedSegmentReport:(int)report
@@ -282,7 +361,7 @@ LABEL_14:
   return v7;
 }
 
-uint64_t __47__VCAggregatorAirPlay_aggregatedSegmentReport___block_invoke(uint64_t a1)
+void *__47__VCAggregatorAirPlay_aggregatedSegmentReport___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) composeSegmentReport:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -350,7 +429,7 @@ uint64_t __47__VCAggregatorAirPlay_aggregatedSegmentReport___block_invoke(uint64
 
 - (void)composeReceiverReport:(id)report
 {
-  v64[5] = *MEMORY[0x277D85DE8];
+  v63[5] = *MEMORY[0x277D85DE8];
   sessionTotalDuration = self->_sessionTotalDuration;
   v6 = (sessionTotalDuration * [(VCAggregator *)self RTPeriod]);
   if (v6)
@@ -378,17 +457,17 @@ uint64_t __47__VCAggregatorAirPlay_aggregatedSegmentReport___block_invoke(uint64
     v11 = (self->_averageVideoRxMetadataOverheadBitrate / v8);
   }
 
-  v63[0] = @"VSP";
-  v64[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v7];
-  v63[1] = @"ARFR";
-  v64[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v9];
-  v63[2] = @"ARBR";
-  v64[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v10];
-  v63[3] = @"RBR";
-  v64[3] = [(VCHistogram *)self->_RBR description];
-  v63[4] = @"VRAMDO";
-  v64[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v11];
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v64, v63, 5)}];
+  v62[0] = @"VSP";
+  v63[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v7];
+  v62[1] = @"ARFR";
+  v63[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v9];
+  v62[2] = @"ARBR";
+  v63[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v10];
+  v62[3] = @"RBR";
+  v63[3] = [(VCHistogram *)self->_RBR description];
+  v62[4] = @"VRAMDO";
+  v63[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v11];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v63, v62, 5)}];
   [(VCAggregator *)self addFECStatsHolderKPIs:report usingFECStatsHolder:self->super.super._fecStatsHolder];
   videoStallCount = self->_videoStallCount;
   if (videoStallCount)
@@ -399,7 +478,7 @@ uint64_t __47__VCAggregatorAirPlay_aggregatedSegmentReport___block_invoke(uint64
     {
 LABEL_9:
       v12 = v6;
-      v44 = (self->_totalFIRCounter * 1000.0 / v6);
+      v43 = (self->_totalFIRCounter * 1000.0 / v6);
       v15 = (self->_videoFrameDisplayedCounter / v6);
       v16 = (self->_decodedVideoFrameEnqueueCounter / v6);
       v17 = (self->_videoFrameReceivedCounter / v6);
@@ -417,7 +496,7 @@ LABEL_9:
     }
   }
 
-  v44 = 0;
+  v43 = 0;
   v17 = 0.0;
   v15 = 0.0;
   v16 = 0.0;
@@ -460,38 +539,38 @@ LABEL_12:
     v24 = 0;
   }
 
-  v61[0] = @"AVSI";
-  v62[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v14];
-  v61[1] = @"VS";
-  v62[1] = [(VCHistogram *)self->_VST description];
-  v61[2] = @"VSTCNT";
-  v62[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_videoStallCount];
-  v61[3] = @"MVSI";
-  v62[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxVideoStallInterval * 1000.0)];
-  v61[4] = @"VRFR";
-  v62[4] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v15];
-  v61[5] = @"VREFR";
-  v62[5] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v16];
-  v61[6] = @"VRRFR";
-  v62[6] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v17];
-  v61[7] = @"VRExFR";
-  v62[7] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v18];
-  v61[8] = @"AFIRFR";
-  v62[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v44];
-  v61[9] = @"VPBEVALPD";
-  v62[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v20];
-  v61[10] = @"PEVFR";
-  v62[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v24];
-  v61[11] = @"VMFRERC";
-  v62[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxVideoFrameErasureCount];
-  v61[12] = @"VAFRERC";
-  v62[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v22];
-  v61[13] = @"MVSTCT";
-  v62[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxVideoStallCount];
-  v61[14] = @"MNVFR";
-  v62[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_minVideoFrameRate];
+  v60[0] = @"AVSI";
+  v61[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v14];
+  v60[1] = @"VS";
+  v61[1] = [(VCHistogram *)self->_VST description];
+  v60[2] = @"VSTCNT";
+  v61[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_videoStallCount];
+  v60[3] = @"MVSI";
+  v61[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxVideoStallInterval * 1000.0)];
+  v60[4] = @"VRFR";
+  v61[4] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v15];
+  v60[5] = @"VREFR";
+  v61[5] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v16];
+  v60[6] = @"VRRFR";
+  v61[6] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v17];
+  v60[7] = @"VRExFR";
+  v61[7] = [MEMORY[0x277CCACA0] stringWithFormat:@"%.2f", *&v18];
+  v60[8] = @"AFIRFR";
+  v61[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v43];
+  v60[9] = @"VPBEVALPD";
+  v61[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v20];
+  v60[10] = @"PEVFR";
+  v61[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v24];
+  v60[11] = @"VMFRERC";
+  v61[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxVideoFrameErasureCount];
+  v60[12] = @"VAFRERC";
+  v61[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v22];
+  v60[13] = @"MVSTCT";
+  v61[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxVideoStallCount];
+  v60[14] = @"MNVFR";
+  v61[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_minVideoFrameRate];
   reportCopy2 = report;
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v62, v61, 15)}];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v61, v60, 15)}];
   averageHIDEventLatencySampleCount = self->_averageHIDEventLatencySampleCount;
   if (averageHIDEventLatencySampleCount)
   {
@@ -557,40 +636,40 @@ LABEL_33:
 
   v37 = 0;
 LABEL_36:
-  v59[0] = @"MINHEL";
-  v60[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v30];
-  v59[1] = @"MAXHEL";
-  v60[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxHIDEventLatency];
-  v59[2] = @"AHEL";
-  v60[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v28];
-  v59[3] = @"HEL";
-  v60[3] = [(VCHistogram *)self->_HEL description];
-  v59[4] = @"HELSCNT";
-  v60[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_averageHIDEventLatencySampleCount];
-  v59[5] = @"AJBSCH";
-  v60[5] = [MEMORY[0x277CCABA8] numberWithDouble:v33];
-  v59[6] = @"PJBQZ";
-  v60[6] = [MEMORY[0x277CCABA8] numberWithDouble:v32];
-  v59[7] = @"MJBL";
-  v60[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxJitterQueueSize];
-  v59[8] = @"JBQS";
-  v60[8] = [(VCHistogram *)self->_VJS description];
-  v59[9] = @"AJBL";
-  v60[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v34];
-  v59[10] = @"AVPO";
-  v60[10] = [MEMORY[0x277CCABA8] numberWithDouble:v35];
-  v59[11] = @"MVPO";
-  v60[11] = [MEMORY[0x277CCABA8] numberWithDouble:self->_maxPlaybackOffset];
-  v59[12] = @"TWJBL";
-  v60[12] = [MEMORY[0x277CCABA8] numberWithDouble:v36];
-  v59[13] = @"VRDFR";
-  v60[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v37];
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v60, v59, 14)}];
+  v58[0] = @"MINHEL";
+  v59[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v30];
+  v58[1] = @"MAXHEL";
+  v59[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxHIDEventLatency];
+  v58[2] = @"AHEL";
+  v59[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v28];
+  v58[3] = @"HEL";
+  v59[3] = [(VCHistogram *)self->_HEL description];
+  v58[4] = @"HELSCNT";
+  v59[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_averageHIDEventLatencySampleCount];
+  v58[5] = @"AJBSCH";
+  v59[5] = [MEMORY[0x277CCABA8] numberWithDouble:v33];
+  v58[6] = @"PJBQZ";
+  v59[6] = [MEMORY[0x277CCABA8] numberWithDouble:v32];
+  v58[7] = @"MJBL";
+  v59[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxJitterQueueSize];
+  v58[8] = @"JBQS";
+  v59[8] = [(VCHistogram *)self->_VJS description];
+  v58[9] = @"AJBL";
+  v59[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v34];
+  v58[10] = @"AVPO";
+  v59[10] = [MEMORY[0x277CCABA8] numberWithDouble:v35];
+  v58[11] = @"MVPO";
+  v59[11] = [MEMORY[0x277CCABA8] numberWithDouble:self->_maxPlaybackOffset];
+  v58[12] = @"TWJBL";
+  v59[12] = [MEMORY[0x277CCABA8] numberWithDouble:v36];
+  v58[13] = @"VRDFR";
+  v59[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v37];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v59, v58, 14)}];
   [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", self->super.super._mediaStreamEndReason == 0), @"MSSuccess"}];
   [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->super.super._mediaStreamEndReason), @"MSEndReason"}];
-  v57 = @"CDC";
-  v58 = [MEMORY[0x277CCABA8] numberWithInt:self->_codec];
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v58, &v57, 1)}];
+  v56 = @"CDC";
+  v57 = [MEMORY[0x277CCABA8] numberWithInt:self->_codec];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v57, &v56, 1)}];
   if (self->_maxNumberEndpoints)
   {
     [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:"), @"ENDPTC"}];
@@ -620,15 +699,15 @@ LABEL_36:
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v48 = v40;
-            v49 = 2080;
-            v50 = "[VCAggregatorAirPlay composeReceiverReport:]";
-            v51 = 1024;
-            v52 = 426;
-            v53 = 2080;
-            v54 = "VideoStream: sessionReport";
-            v55 = 2080;
-            v56 = v39;
+            v47 = v40;
+            v48 = 2080;
+            v49 = "[VCAggregatorAirPlay composeReceiverReport:]";
+            v50 = 1024;
+            v51 = 426;
+            v52 = 2080;
+            v53 = "VideoStream: sessionReport";
+            v54 = 2080;
+            v55 = v39;
             _os_log_impl(&dword_23D4DF000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
           }
         }
@@ -646,12 +725,11 @@ LABEL_36:
   [reportCopy2 setObject:objc_msgSend(dispatchedAggregatedSessionReport forKeyedSubscript:{"objectForKeyedSubscript:", @"THERMDUR", @"THERMDUR"}];
   [reportCopy2 setObject:objc_msgSend(dispatchedAggregatedSessionReport forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONFQ", @"PCONFQ"}];
   [reportCopy2 setObject:objc_msgSend(dispatchedAggregatedSessionReport forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONP", @"PCONP"}];
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)composeSenderReport:(id)report
 {
-  v37[28] = *MEMORY[0x277D85DE8];
+  v36[28] = *MEMORY[0x277D85DE8];
   sessionTotalDuration = self->_sessionTotalDuration;
   v6 = (sessionTotalDuration * [(VCAggregator *)self RTPeriod]);
   v8 = self->_sessionTotalDuration;
@@ -686,12 +764,12 @@ LABEL_6:
     v23 = 0;
     v19 = 0;
     v15 = 0;
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
     v13 = 0;
     v17 = 0;
     mediaCaptureBufferRateTotal = self->_mediaCaptureBufferRateTotal;
-    v29 = 0;
+    v28 = 0;
     mediaCaptureJitterTotal = self->_mediaCaptureJitterTotal;
     if (v6)
     {
@@ -701,7 +779,7 @@ LABEL_6:
 
   else
   {
-    v31 = (self->_averageExpirationTime / v8);
+    v30 = (self->_averageExpirationTime / v8);
     *&v12 = self->_averageWiFiPacketDelay / v8;
     v13 = *&v12;
     LODWORD(v12) = self->_averageWiFiThroughput;
@@ -723,77 +801,77 @@ LABEL_6:
     *&v24 = v22 / v8;
     v25 = *&v24;
     LODWORD(v24) = self->_mediaCaptureJitterTotal;
-    v29 = v21;
+    v28 = v21;
     mediaCaptureJitterTotal = (v24 / v8);
-    v32 = (self->_averageVideoTxMetadataOverheadBitrate / v8);
+    v31 = (self->_averageVideoTxMetadataOverheadBitrate / v8);
     mediaCaptureBufferRateTotal = v25;
     if (v6)
     {
 LABEL_8:
-      v28 = self->_encodedVideoFrameCount / v6;
+      v27 = self->_encodedVideoFrameCount / v6;
       goto LABEL_11;
     }
   }
 
-  v28 = 0;
+  v27 = 0;
 LABEL_11:
-  v36[0] = @"ATXBR";
-  v37[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v9];
-  v36[1] = @"ASBR";
-  v37[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v10];
-  v36[2] = @"TBR";
-  v37[2] = [(VCHistogram *)self->_TBR description];
-  v36[3] = @"SBR";
-  v37[3] = [(VCHistogram *)self->_SBR description];
-  v36[4] = @"MTBR";
-  v37[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxTargetBitrate];
-  v36[5] = @"MSBR";
-  v37[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxSendBitrate];
-  v36[6] = @"MPLR";
-  v37[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxPLR];
-  v36[7] = @"PLR";
-  v37[7] = [(VCHistogram *)self->_PLR description];
-  v36[8] = @"APLR";
-  v37[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v17];
-  v36[9] = @"AWFPD";
-  v37[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v13];
-  v36[10] = @"AWFT";
-  v37[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v15];
-  v36[11] = @"ANAKR";
-  v37[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v11];
-  v36[12] = @"ABL";
-  v37[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v19];
-  v36[13] = @"MBL";
-  v37[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBurstyPacketLossCount];
-  v36[14] = @"BL";
-  v37[14] = [(VCHistogram *)self->_BPL description];
-  v36[15] = @"ARTT";
-  v37[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v23];
-  v36[16] = @"MRTT";
-  v37[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxRoundTripTime];
-  v36[17] = @"RTT";
-  v37[17] = [(VCHistogram *)self->_RTT description];
-  v36[18] = @"AEXT";
-  v37[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v31];
-  v36[19] = @"MEXT";
-  v37[19] = [MEMORY[0x277CCABA8] numberWithDouble:self->_maxExpirationTime];
-  v36[20] = @"EXT";
-  v37[20] = [(VCHistogram *)self->_EXT description];
-  v36[21] = @"ABWE";
-  v37[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v29];
-  v36[22] = @"MBWE";
-  v37[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBandwidthEstimation];
-  v36[23] = @"BWE";
-  v37[23] = [(VCHistogram *)self->_BWE description];
-  v36[24] = @"AMCJ";
-  v37[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:mediaCaptureJitterTotal];
-  v36[25] = @"AMCBR";
-  v37[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:mediaCaptureBufferRateTotal];
-  v36[26] = @"VTAMDO";
-  v37[26] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v32];
-  v36[27] = @"VTEFR";
-  v37[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v28];
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v37, v36, 28)}];
+  v35[0] = @"ATXBR";
+  v36[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v9];
+  v35[1] = @"ASBR";
+  v36[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v10];
+  v35[2] = @"TBR";
+  v36[2] = [(VCHistogram *)self->_TBR description];
+  v35[3] = @"SBR";
+  v36[3] = [(VCHistogram *)self->_SBR description];
+  v35[4] = @"MTBR";
+  v36[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxTargetBitrate];
+  v35[5] = @"MSBR";
+  v36[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxSendBitrate];
+  v35[6] = @"MPLR";
+  v36[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxPLR];
+  v35[7] = @"PLR";
+  v36[7] = [(VCHistogram *)self->_PLR description];
+  v35[8] = @"APLR";
+  v36[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v17];
+  v35[9] = @"AWFPD";
+  v36[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v13];
+  v35[10] = @"AWFT";
+  v36[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v15];
+  v35[11] = @"ANAKR";
+  v36[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v11];
+  v35[12] = @"ABL";
+  v36[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v19];
+  v35[13] = @"MBL";
+  v36[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBurstyPacketLossCount];
+  v35[14] = @"BL";
+  v36[14] = [(VCHistogram *)self->_BPL description];
+  v35[15] = @"ARTT";
+  v36[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v23];
+  v35[16] = @"MRTT";
+  v36[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxRoundTripTime];
+  v35[17] = @"RTT";
+  v36[17] = [(VCHistogram *)self->_RTT description];
+  v35[18] = @"AEXT";
+  v36[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v30];
+  v35[19] = @"MEXT";
+  v36[19] = [MEMORY[0x277CCABA8] numberWithDouble:self->_maxExpirationTime];
+  v35[20] = @"EXT";
+  v36[20] = [(VCHistogram *)self->_EXT description];
+  v35[21] = @"ABWE";
+  v36[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v28];
+  v35[22] = @"MBWE";
+  v36[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBandwidthEstimation];
+  v35[23] = @"BWE";
+  v36[23] = [(VCHistogram *)self->_BWE description];
+  v35[24] = @"AMCJ";
+  v36[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:mediaCaptureJitterTotal];
+  v35[25] = @"AMCBR";
+  v36[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:mediaCaptureBufferRateTotal];
+  v35[26] = @"VTAMDO";
+  v36[26] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v31];
+  v35[27] = @"VTEFR";
+  v36[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v27];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v36, v35, 28)}];
   dispatchedAggregatedSessionReport = [(VCAggregatorVideoStream *)self dispatchedAggregatedSessionReport];
   [report setObject:objc_msgSend(dispatchedAggregatedSessionReport forKeyedSubscript:{"objectForKeyedSubscript:", @"THERMDUR", @"THERMDUR"}];
   [report setObject:objc_msgSend(dispatchedAggregatedSessionReport forKeyedSubscript:{"objectForKeyedSubscript:", @"PCONFQ", @"PCONFQ"}];
@@ -801,9 +879,9 @@ LABEL_11:
   [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInt:", self->super.super._mediaStreamEndReason == 0), @"MSSuccess"}];
   [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->super.super._mediaStreamEndReason), @"MSEndReason"}];
   [(VCAggregator *)self addThermalMetricsToReportDictionary:report];
-  v34 = @"CDC";
-  v35 = [MEMORY[0x277CCABA8] numberWithInt:self->_codec];
-  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v35, &v34, 1)}];
+  v33 = @"CDC";
+  v34 = [MEMORY[0x277CCABA8] numberWithInt:self->_codec];
+  [report addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v34, &v33, 1)}];
   if (self->_maxNumberEndpoints)
   {
     [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:"), @"ENDPTC"}];
@@ -815,7 +893,6 @@ LABEL_11:
   }
 
   [(VCAggregatorAirPlay *)self addVideoFeatureStatus:report];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addVideoFeatureStatus:(id)status
@@ -1418,7 +1495,7 @@ LABEL_5:
 
 id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 8)
   {
     v2 = VRTraceErrorLogLevelToCSTR(8u);
@@ -1429,13 +1506,13 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
       {
         v4 = *(a1 + 48);
         *buf = 136315906;
-        v13 = v2;
-        v14 = 2080;
-        v15 = "[VCAggregatorAirPlay processEventWithCategory:type:payload:]_block_invoke";
-        v16 = 1024;
-        v17 = 944;
-        v18 = 1024;
-        v19 = v4;
+        v12 = v2;
+        v13 = 2080;
+        v14 = "[VCAggregatorAirPlay processEventWithCategory:type:payload:]_block_invoke";
+        v15 = 1024;
+        v16 = 944;
+        v17 = 1024;
+        v18 = v4;
         _os_log_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AirPlay: received method=%d", buf, 0x22u);
       }
     }
@@ -1450,9 +1527,9 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
   v5 = *(a1 + 48);
   v6 = *(a1 + 50);
   v7 = *(a1 + 40);
-  v11.receiver = *(a1 + 32);
-  v11.super_class = VCAggregatorAirPlay;
-  result = objc_msgSendSuper2(&v11, sel_dispatchedProcessEventWithCategory_type_payload_, v5, v6, v7);
+  v10.receiver = *(a1 + 32);
+  v10.super_class = VCAggregatorAirPlay;
+  result = objc_msgSendSuper2(&v10, sel_dispatchedProcessEventWithCategory_type_payload_, v5, v6, v7);
   v9 = *(a1 + 48);
   if (v9 > 0xC9)
   {
@@ -1460,18 +1537,18 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
     {
       if (v9 == 240)
       {
-        result = [*(a1 + 32) processRealtimeStats:*(a1 + 40)];
+        return [*(a1 + 32) processRealtimeStats:*(a1 + 40)];
       }
 
       else if (v9 == 374)
       {
-        result = [*(a1 + 32) processEndpointChanged:*(a1 + 50)];
+        return [*(a1 + 32) processEndpointChanged:*(a1 + 50)];
       }
     }
 
     else if (v9 == 202)
     {
-      result = [*(a1 + 32) processMediaStreamEndState:*(a1 + 40)];
+      return [*(a1 + 32) processMediaStreamEndState:*(a1 + 40)];
     }
 
     else if (v9 == 214)
@@ -1484,14 +1561,14 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
   {
     if (v9 == 48)
     {
-      result = [*(a1 + 32) updateVideoFeatureStatus:*(a1 + 40)];
+      return [*(a1 + 32) updateVideoFeatureStatus:*(a1 + 40)];
     }
 
     else if (v9 == 201)
     {
       [*(a1 + 32) startNewSegment];
       [*(a1 + 32) updateVideoStreamInfo:*(a1 + 40)];
-      result = [*(a1 + 32) updateSenderVideoStreamConfiguration:*(a1 + 40)];
+      return [*(a1 + 32) updateSenderVideoStreamConfiguration:*(a1 + 40)];
     }
   }
 
@@ -1499,7 +1576,7 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
   {
     if (*(a1 + 50) == 1)
     {
-      result = [*(a1 + 32) updateReceiverVideoStreamConfiguration:*(a1 + 40)];
+      return [*(a1 + 32) updateReceiverVideoStreamConfiguration:*(a1 + 40)];
     }
   }
 
@@ -1509,28 +1586,26 @@ id __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invok
     if (result)
     {
       *(*(a1 + 32) + 448) = [objc_msgSend(*(a1 + 40) objectForKeyedSubscript:{@"TransportType", "intValue"}];
-      result = [*(a1 + 32) initializeLowLatencyInterfaceStatistics];
+      return [*(a1 + 32) initializeLowLatencyInterfaceStatistics];
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __61__VCAggregatorAirPlay_processEventWithCategory_type_payload___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 48);
-  v5 = 136315906;
-  v6 = a1;
-  v7 = 2080;
-  v8 = "[VCAggregatorAirPlay processEventWithCategory:type:payload:]_block_invoke";
-  v9 = 1024;
-  v10 = 944;
-  v11 = 1024;
-  v12 = v3;
-  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d AirPlay: received method=%d", &v5, 0x22u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = a1;
+  v6 = 2080;
+  v7 = "[VCAggregatorAirPlay processEventWithCategory:type:payload:]_block_invoke";
+  v8 = 1024;
+  v9 = 944;
+  v10 = 1024;
+  v11 = v3;
+  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d AirPlay: received method=%d", &v4, 0x22u);
 }
 
 @end

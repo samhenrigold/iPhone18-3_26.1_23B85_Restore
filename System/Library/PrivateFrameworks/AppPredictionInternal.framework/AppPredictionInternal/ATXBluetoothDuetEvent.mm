@@ -50,25 +50,26 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     connected = [eventCopy connected];
-    v6 = [objc_opt_class() deviceTypeFromATXBluetoothDeviceType:{objc_msgSend(eventCopy, "deviceType")}];
+    v7 = [objc_opt_class() deviceTypeFromATXBluetoothDeviceType:{objc_msgSend(eventCopy, "deviceType")}];
     deviceName = [eventCopy deviceName];
     deviceAddress = [eventCopy deviceAddress];
     startTime = [eventCopy startTime];
     endTime = [eventCopy endTime];
-    self = [(ATXBluetoothDuetEvent *)self initWithBluetoothState:connected deviceType:v6 deviceName:deviceName hardwareAddress:deviceAddress startDate:startTime endDate:endTime];
+    self = [(ATXBluetoothDuetEvent *)self initWithBluetoothState:connected deviceType:v7 deviceName:deviceName hardwareAddress:deviceAddress startDate:startTime endDate:endTime];
 
     selfCopy = self;
   }
 
   else
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ATXBluetoothDuetEvent *)eventCopy initWithATXEvent:v12];
+      [(ATXBluetoothDuetEvent *)eventCopy initWithATXEvent:v13];
     }
 
     selfCopy = 0;
@@ -83,78 +84,67 @@
   keyPathForBluetoothDataDictionary = [MEMORY[0x277CFE338] keyPathForBluetoothDataDictionary];
   v5 = [userContext objectForKeyedSubscript:keyPathForBluetoothDataDictionary];
 
-  if (!v5)
+  if (!v5 || ([MEMORY[0x277CFE338] keyPathForBluetoothDataDictionary], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(userContext, "objectForKeyedSubscript:", v7), v8 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v8, v7, (isKindOfClass & 1) == 0))
   {
-    goto LABEL_16;
-  }
-
-  keyPathForBluetoothDataDictionary2 = [MEMORY[0x277CFE338] keyPathForBluetoothDataDictionary];
-  v7 = [userContext objectForKeyedSubscript:keyPathForBluetoothDataDictionary2];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0)
-  {
-LABEL_16:
-    bluetoothNameKey2 = __atxlog_handle_default();
+    bluetoothNameKey2 = __atxlog_handle_default(v6);
     if (os_log_type_enabled(bluetoothNameKey2, OS_LOG_TYPE_ERROR))
     {
-      [(ATXBluetoothDuetEvent *)bluetoothNameKey2 initWithCurrentContextStoreValues:v41];
+      [(ATXBluetoothDuetEvent *)bluetoothNameKey2 initWithCurrentContextStoreValues:v45];
     }
 
     goto LABEL_18;
   }
 
   bluetoothNameKey = [MEMORY[0x277CFE338] bluetoothNameKey];
-  v10 = [v5 objectForKeyedSubscript:bluetoothNameKey];
+  v11 = [v5 objectForKeyedSubscript:bluetoothNameKey];
   objc_opt_class();
-  v11 = objc_opt_isKindOfClass();
+  v12 = objc_opt_isKindOfClass();
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v49 = __atxlog_handle_default();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v53 = __atxlog_handle_default(v13);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       [(ATXBluetoothDuetEvent *)v5 initWithCurrentContextStoreValues];
     }
 
-    v50 = MEMORY[0x277CBEAD8];
-    v51 = *MEMORY[0x277CBE658];
+    v54 = MEMORY[0x277CBEAD8];
+    v55 = *MEMORY[0x277CBE658];
     bluetoothNameKey2 = [MEMORY[0x277CFE338] bluetoothNameKey];
-    v52 = [v5 objectForKeyedSubscript:bluetoothNameKey2];
-    v53 = objc_opt_class();
-    v54 = NSStringFromClass(v53);
-    [v50 raise:v51 format:{@"Value for 'bluetoothNameKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSString. Found %@ instead", v54}];
+    v56 = [v5 objectForKeyedSubscript:bluetoothNameKey2];
+    v57 = objc_opt_class();
+    v58 = NSStringFromClass(v57);
+    [v54 raise:v55 format:{@"Value for 'bluetoothNameKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSString. Found %@ instead", v58}];
 
     goto LABEL_18;
   }
 
   bluetoothNameKey3 = [MEMORY[0x277CFE338] bluetoothNameKey];
-  v13 = [v5 objectForKeyedSubscript:bluetoothNameKey3];
-  v14 = v13;
-  if (v13)
+  v15 = [v5 objectForKeyedSubscript:bluetoothNameKey3];
+  v16 = v15;
+  if (v15)
   {
-    v15 = v13;
+    v17 = v15;
   }
 
   else
   {
-    v15 = &stru_2839A6058;
+    v17 = &stru_2839A6058;
   }
 
-  bluetoothNameKey2 = v15;
+  bluetoothNameKey2 = v17;
 
   bluetoothAddressKey = [MEMORY[0x277CFE338] bluetoothAddressKey];
-  v18 = [v5 objectForKeyedSubscript:bluetoothAddressKey];
+  v20 = [v5 objectForKeyedSubscript:bluetoothAddressKey];
   objc_opt_class();
-  v19 = objc_opt_isKindOfClass();
+  v21 = objc_opt_isKindOfClass();
 
-  if ((v19 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    v55 = __atxlog_handle_default();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v59 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      [(ATXBluetoothDuetEvent *)v55 initWithCurrentContextStoreValues:v56];
+      [(ATXBluetoothDuetEvent *)v59 initWithCurrentContextStoreValues:v60];
     }
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Value for 'bluetoothAddressKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSString."];
@@ -164,63 +154,63 @@ LABEL_18:
   }
 
   bluetoothAddressKey2 = [MEMORY[0x277CFE338] bluetoothAddressKey];
-  v21 = [v5 objectForKeyedSubscript:bluetoothAddressKey2];
-  v22 = v21;
-  if (v21)
+  v24 = [v5 objectForKeyedSubscript:bluetoothAddressKey2];
+  v25 = v24;
+  if (v24)
   {
-    v23 = v21;
+    v26 = v24;
   }
 
   else
   {
-    v23 = &stru_2839A6058;
+    v26 = &stru_2839A6058;
   }
 
-  v24 = v23;
+  v27 = v26;
 
   bluetoothConnectionStatusKey = [MEMORY[0x277CFE338] bluetoothConnectionStatusKey];
-  v26 = [v5 objectForKeyedSubscript:bluetoothConnectionStatusKey];
+  v29 = [v5 objectForKeyedSubscript:bluetoothConnectionStatusKey];
   objc_opt_class();
-  v27 = objc_opt_isKindOfClass();
+  v30 = objc_opt_isKindOfClass();
 
-  if (v27)
+  if (v30)
   {
     bluetoothConnectionStatusKey2 = [MEMORY[0x277CFE338] bluetoothConnectionStatusKey];
-    v29 = [v5 objectForKeyedSubscript:bluetoothConnectionStatusKey2];
-    integerValue = [v29 integerValue];
+    v33 = [v5 objectForKeyedSubscript:bluetoothConnectionStatusKey2];
+    integerValue = [v33 integerValue];
 
-    v30 = MEMORY[0x277CCABB0];
+    v34 = MEMORY[0x277CCABB0];
     bluetoothDeviceTypeKey = [MEMORY[0x277CFE338] bluetoothDeviceTypeKey];
-    v32 = [v5 objectForKeyedSubscript:bluetoothDeviceTypeKey];
-    v33 = [v30 numberWithLong:v32];
-    v34 = [ATXBluetoothDuetEvent deviceTypeFromBluetoothDeviceType:v33];
+    v36 = [v5 objectForKeyedSubscript:bluetoothDeviceTypeKey];
+    v37 = [v34 numberWithLong:v36];
+    v38 = [ATXBluetoothDuetEvent deviceTypeFromBluetoothDeviceType:v37];
 
-    keyPathForBluetoothDataDictionary3 = [MEMORY[0x277CFE338] keyPathForBluetoothDataDictionary];
-    v36 = [userContext lastModifiedDateForContextualKeyPath:keyPathForBluetoothDataDictionary3];
+    keyPathForBluetoothDataDictionary2 = [MEMORY[0x277CFE338] keyPathForBluetoothDataDictionary];
+    v40 = [userContext lastModifiedDateForContextualKeyPath:keyPathForBluetoothDataDictionary2];
 
     date = [MEMORY[0x277CBEAA8] date];
-    v38 = date;
-    if (v36)
+    v42 = date;
+    if (v40)
     {
-      v39 = v36;
+      v43 = v40;
     }
 
     else
     {
-      v39 = date;
+      v43 = date;
     }
 
-    self = [(ATXBluetoothDuetEvent *)self initWithBluetoothState:integerValue deviceType:v34 deviceName:bluetoothNameKey2 hardwareAddress:v24 startDate:v39 endDate:date];
+    self = [(ATXBluetoothDuetEvent *)self initWithBluetoothState:integerValue deviceType:v38 deviceName:bluetoothNameKey2 hardwareAddress:v27 startDate:v43 endDate:date];
 
     selfCopy = self;
   }
 
   else
   {
-    v63 = __atxlog_handle_default();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v67 = __atxlog_handle_default(v31);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      [(ATXBluetoothDuetEvent *)v63 initWithCurrentContextStoreValues:v64];
+      [(ATXBluetoothDuetEvent *)v67 initWithCurrentContextStoreValues:v68];
     }
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Value for 'bluetoothConnectionStatusKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSNumber."];
@@ -302,7 +292,7 @@ LABEL_19:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -319,11 +309,11 @@ LABEL_19:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -334,7 +324,6 @@ LABEL_19:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -361,14 +350,14 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.Bluetooth" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_anchor();
+    v13 = __atxlog_handle_anchor(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForEndDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.Bluetooth" errorCode:-1 logHandle:v13];
 
     if (!v14 || ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, v15) || (v16 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"codingKeyForBluetoothState"), -[ATXBluetoothDuetEvent checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:", v16, @"codingKeyForBluetoothState", coderCopy, @"com.apple.proactive.ATXDuetEvent.Bluetooth", -1)) || (v17 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"codingKeyForDeviceType"), -[ATXBluetoothDuetEvent checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:", v17, @"codingKeyForDeviceType", coderCopy, @"com.apple.proactive.ATXDuetEvent.Bluetooth", -1)))
@@ -380,14 +369,14 @@ LABEL_7:
     {
       v19 = MEMORY[0x277D42620];
       v20 = objc_opt_class();
-      v21 = __atxlog_handle_anchor();
+      v21 = __atxlog_handle_anchor(v20);
       v22 = [v19 robustDecodeObjectOfClass:v20 forKey:@"codingKeyForDeviceName" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.Bluetooth" errorCode:-1 logHandle:v21];
 
       if (v22 && ([coderCopy error], v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
       {
         v24 = MEMORY[0x277D42620];
         v25 = objc_opt_class();
-        v26 = __atxlog_handle_anchor();
+        v26 = __atxlog_handle_anchor(v25);
         v27 = [v24 robustDecodeObjectOfClass:v25 forKey:@"codingKeyForHardwareAddress" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.Bluetooth" errorCode:-1 logHandle:v26];
 
         if (v27 && ([coderCopy error], v28 = objc_claimAutoreleasedReturnValue(), v28, !v28))
@@ -419,32 +408,28 @@ LABEL_7:
 
 - (void)initWithATXEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v7, 0x16u);
 }
 
 - (void)initWithCurrentContextStoreValues
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   bluetoothNameKey = [MEMORY[0x277CFE338] bluetoothNameKey];
   v5 = [self objectForKeyedSubscript:bluetoothNameKey];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138412290;
-  v10 = v7;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value for 'bluetoothNameKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSString. Found %@ instead", &v9, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412290;
+  v9 = v7;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value for 'bluetoothNameKey' in ContextStore's 'keyPathForBluetoothDataDictionary' is not an NSString. Found %@ instead", &v8, 0xCu);
 }
 
 @end

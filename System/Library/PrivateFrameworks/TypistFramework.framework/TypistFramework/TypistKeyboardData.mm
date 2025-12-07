@@ -9,20 +9,9 @@
 
 + (Class)keyboardData
 {
-  if (_forceLegacyImplementation)
-  {
-    v2 = off_279DF41A8;
-  }
+  v2 = objc_opt_class();
 
-  else
-  {
-    v2 = off_279DF41B0;
-  }
-
-  v3 = *v2;
-  v4 = objc_opt_class();
-
-  return v4;
+  return v2;
 }
 
 + (BOOL)isKeyboardUIOutOfProcess
@@ -35,7 +24,7 @@
   return isKeyboardUIOutOfProcess_oop;
 }
 
-uint64_t __46__TypistKeyboardData_isKeyboardUIOutOfProcess__block_invoke()
+void *__46__TypistKeyboardData_isKeyboardUIOutOfProcess__block_invoke()
 {
   result = [MEMORY[0x277D75658] usesInputSystemUI];
   isKeyboardUIOutOfProcess_oop = result;

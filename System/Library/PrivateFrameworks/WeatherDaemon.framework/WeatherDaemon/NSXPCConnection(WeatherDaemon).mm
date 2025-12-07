@@ -8,39 +8,39 @@
 
 - (id)wd_bundleIdentifier
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v25 = 0u;
+  v35 = *MEMORY[0x1E69E9840];
   v26 = 0u;
-  [self auditToken];
+  v27 = 0u;
+  objc_msgSend_auditToken(self, a2);
   memset(buf, 0, sizeof(buf));
-  v2 = MSVBundleIDForAuditToken();
-  if (!v2)
+  v3 = MSVBundleIDForAuditToken();
+  if (!v3)
   {
-    v3 = WDLogForCategory(1uLL);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WDLogForCategory(1uLL);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = self;
-      _os_log_impl(&dword_1B6020000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to retrieve bundle identifier of the requesting application from the audit_token_t; instead, using bundle identifier.", buf, 0xCu);
+      _os_log_impl(&dword_1B6020000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to retrieve bundle identifier of the requesting application from the audit_token_t; instead, using bundle identifier.", buf, 0xCu);
     }
   }
 
-  v24 = 0;
-  *buf = v25;
-  *&buf[16] = v26;
-  v4 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:buf error:&v24];
-  v5 = v24;
-  if (v5)
+  v25 = 0;
+  *buf = v26;
+  *&buf[16] = v27;
+  v5 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:buf error:&v25];
+  v6 = v25;
+  if (v6)
   {
-    v6 = WDLogForCategory(1uLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WDLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      msv_description = [v5 msv_description];
+      msv_description = [v6 msv_description];
       *buf = 138543618;
       *&buf[4] = self;
       *&buf[12] = 2114;
       *&buf[14] = msv_description;
-      _os_log_impl(&dword_1B6020000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to retrieve bundle extension record with error: %{public}@.", buf, 0x16u);
+      _os_log_impl(&dword_1B6020000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to retrieve bundle extension record with error: %{public}@.", buf, 0x16u);
     }
   }
 
@@ -52,89 +52,89 @@
       goto LABEL_20;
     }
 
-    v6 = v4;
-    containingBundleRecord = [v6 containingBundleRecord];
+    v7 = v5;
+    containingBundleRecord = [v7 containingBundleRecord];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = containingBundleRecord;
+      v10 = containingBundleRecord;
     }
 
     else
     {
-      v10 = WDLogForCategory(1uLL);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = WDLogForCategory(1uLL);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         *buf = 138544386;
         *&buf[4] = self;
         *&buf[12] = 2114;
-        *&buf[14] = v6;
+        *&buf[14] = v7;
         *&buf[22] = 2114;
-        *&buf[24] = v12;
-        v28 = 2114;
-        v29 = containingBundleRecord;
-        v30 = 2114;
-        v31 = v14;
-        _os_log_impl(&dword_1B6020000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting application extension %{public}@ (%{public}@) has a containing bundle which is not an application: %{public}@ (%{public}@).", buf, 0x34u);
+        *&buf[24] = v13;
+        v29 = 2114;
+        v30 = containingBundleRecord;
+        v31 = 2114;
+        v32 = v15;
+        _os_log_impl(&dword_1B6020000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Requesting application extension %{public}@ (%{public}@) has a containing bundle which is not an application: %{public}@ (%{public}@).", buf, 0x34u);
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
-    bundleIdentifier = [v9 bundleIdentifier];
+    bundleIdentifier = [v10 bundleIdentifier];
     if (bundleIdentifier)
     {
-      v16 = WDLogForCategory(1uLL);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = WDLogForCategory(1uLL);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_opt_class();
-        v23 = NSStringFromClass(v17);
         v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v24 = NSStringFromClass(v18);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138544642;
         *&buf[4] = self;
         *&buf[12] = 2114;
-        *&buf[14] = v6;
+        *&buf[14] = v7;
         *&buf[22] = 2114;
-        *&buf[24] = v23;
-        v28 = 2114;
-        v29 = bundleIdentifier;
-        v30 = 2114;
-        v31 = v9;
-        v32 = 2114;
-        v33 = v19;
-        _os_log_impl(&dword_1B6020000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Client is an application extension: %{public}@ (%{public}@). Using bundle identifier %{public}@ from containing application: %{public}@ (%{public}@).", buf, 0x3Eu);
+        *&buf[24] = v24;
+        v29 = 2114;
+        v30 = bundleIdentifier;
+        v31 = 2114;
+        v32 = v10;
+        v33 = 2114;
+        v34 = v20;
+        _os_log_impl(&dword_1B6020000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Client is an application extension: %{public}@ (%{public}@). Using bundle identifier %{public}@ from containing application: %{public}@ (%{public}@).", buf, 0x3Eu);
       }
 
-      v20 = bundleIdentifier;
-      v2 = v20;
+      v21 = bundleIdentifier;
+      v3 = v21;
     }
   }
 
 LABEL_20:
-  v21 = v2;
+  v22 = v3;
 
-  return v21;
+  return v22;
 }
 
 - (id)wd_codesigningIdentifier
 {
-  v1 = *MEMORY[0x1E695E480];
-  [self auditToken];
-  v2 = SecTaskCreateWithAuditToken(v1, &cf);
-  if (v2)
+  v2 = *MEMORY[0x1E695E480];
+  objc_msgSend_auditToken(self, a2);
+  v3 = SecTaskCreateWithAuditToken(v2, &cf);
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     *cf.val = 0;
-    v4 = SecTaskCopySigningIdentifier(v2, &cf);
+    v5 = SecTaskCopySigningIdentifier(v3, &cf);
     if (*cf.val)
     {
-      v5 = WDLogForCategory(1uLL);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = WDLogForCategory(1uLL);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [(NSXPCConnection(WeatherDaemon) *)&cf wd_codesigningIdentifier];
       }
@@ -142,21 +142,21 @@ LABEL_20:
       CFRelease(*cf.val);
     }
 
-    CFRelease(v3);
+    CFRelease(v4);
   }
 
   else
   {
-    v6 = WDLogForCategory(1uLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WDLogForCategory(1uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(NSXPCConnection(WeatherDaemon) *)v6 wd_codesigningIdentifier];
+      [(NSXPCConnection(WeatherDaemon) *)v7 wd_codesigningIdentifier];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)wd_codesigningIdentifier

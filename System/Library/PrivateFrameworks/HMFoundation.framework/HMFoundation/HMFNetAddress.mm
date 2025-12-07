@@ -27,13 +27,11 @@
 
 void __29__HMFNetAddress_localAddress__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = xmmword_22AE82970;
-  v0 = [[HMFNetAddress alloc] initWithSocketAddress:&v3];
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = xmmword_22AE82970;
+  v0 = [[HMFNetAddress alloc] initWithSocketAddress:&v2];
   v1 = _MergedGlobals_73;
   _MergedGlobals_73 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFNetAddress)init
@@ -90,23 +88,22 @@ void __29__HMFNetAddress_localAddress__block_invoke()
 LABEL_9:
   v13 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v14 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = HMFGetOSLogHandle(selfCopy, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v15 = HMFGetLogIdentifier(selfCopy);
-    v16 = address->sa_family;
+    v16 = HMFGetLogIdentifier(selfCopy);
+    v17 = address->sa_family;
     *buf = 138543618;
-    v21 = v15;
+    v21 = v16;
     v22 = 1024;
-    v23 = v16;
-    _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Invalid socket address family: 0x%02x", buf, 0x12u);
+    v23 = v17;
+    _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Invalid socket address family: 0x%02x", buf, 0x12u);
   }
 
   objc_autoreleasePoolPop(v13);
   v12 = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -134,20 +131,19 @@ LABEL_12:
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = HMFGetOSLogHandle(selfCopy, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier(selfCopy);
+      v13 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Invalid hostname", buf, 0xCu);
+      v17 = v13;
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid hostname", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -188,14 +184,12 @@ LABEL_12:
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   addressString = [(HMFNetAddress *)self addressString];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Address" value:addressString];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }

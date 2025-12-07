@@ -41,21 +41,18 @@
 {
   disappearanceCopy = disappearance;
   v5 = disappearanceCopy;
-  v24 = 0u;
-  v25 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
   if (disappearanceCopy)
   {
-    [disappearanceCopy transform];
+    objc_msgSend_transform(disappearanceCopy);
   }
 
-  v19[0] = v23;
-  v19[1] = v24;
-  v19[2] = v25;
-  [(PUDefaultTileTransitionCoordinator *)self _adjustDefaultDisappearanceTransform:v19];
+  objc_msgSend__adjustDefaultDisappearanceTransform_(self, v22, v23, v24);
+  v22 = v19;
   v23 = v20;
   v24 = v21;
-  v25 = v22;
   [v5 center];
   v7 = v6;
   v9 = v8;
@@ -65,10 +62,10 @@
   [v5 zPosition];
   v15 = v14;
   coordinateSystem = [v5 coordinateSystem];
+  v19 = v22;
   v20 = v23;
   v21 = v24;
-  v22 = v25;
-  v17 = [v5 layoutInfoWithCenter:&v20 size:coordinateSystem alpha:v7 transform:v9 zPosition:v11 coordinateSystem:{v13, 0.0, v15}];
+  v17 = [v5 layoutInfoWithCenter:&v19 size:coordinateSystem alpha:v7 transform:v9 zPosition:v11 coordinateSystem:{v13, 0.0, v15}];
 
   return v17;
 }

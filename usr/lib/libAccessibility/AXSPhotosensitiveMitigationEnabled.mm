@@ -3,7 +3,7 @@
 
 @implementation AXSPhotosensitiveMitigationEnabled
 
-uint64_t ___AXSPhotosensitiveMitigationEnabled_block_invoke()
+void *___AXSPhotosensitiveMitigationEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

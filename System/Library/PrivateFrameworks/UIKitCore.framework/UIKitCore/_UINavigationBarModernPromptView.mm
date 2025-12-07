@@ -109,7 +109,7 @@
   }
 
   obj = v5;
-  if (![(NSString *)self->_prompt isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_prompt) & 1) == 0)
   {
     objc_storeStrong(&self->_prompt, obj);
     [(_UINavigationBarModernPromptView *)self _updatePromptLabel];
@@ -125,7 +125,7 @@
   }
 
   obj = colorCopy;
-  if (![(UIColor *)self->_textColor isEqual:colorCopy])
+  if ((objc_msgSend_isEqual_(self->_textColor, colorCopy, colorCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_textColor, obj);
     [(_UINavigationBarModernPromptView *)self _updatePromptLabel];

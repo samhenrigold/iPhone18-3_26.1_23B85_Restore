@@ -25,7 +25,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   streamIdentifier = [(CMContinuityCaptureTransportDeviceSidecarStream *)self streamIdentifier];
-  v7 = [v3 stringWithFormat:@"%@: %@ entity:%u [%p]", v5, streamIdentifier, self->_entity, self];
+  v7 = [v3 stringWithFormat:v5, streamIdentifier, self->_entity, self];
 
   return v7;
 }
@@ -49,32 +49,29 @@
     if (![(CMContinuityCaptureTransportDeviceSidecarStream *)self isMediaStream])
     {
       stream = self->_stream;
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invoke;
-      v13[3] = &unk_278D5D130;
-      objc_copyWeak(&v15, &location);
-      v14 = streamIdentifier;
-      [(SidecarStream *)stream setHandler:v13];
+      v12[1] = MEMORY[0x277D85DD0];
+      v12[2] = 3221225472;
+      v12[3] = __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invoke;
+      v12[4] = &unk_278D5D130;
+      objc_copyWeak(&v14, &location);
+      v13 = streamIdentifier;
+      [(SidecarStream *)stream setHandler:?];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
     }
 
     v9 = self->_stream;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invoke_6;
-    v10[3] = &unk_278D5C260;
-    objc_copyWeak(&v12, &location);
+    v10 = MEMORY[0x277D85DD0];
+    objc_copyWeak(v12, &location);
     v11 = activateCopy;
-    [(SidecarStream *)v9 activateWithCompletion:v10];
+    [(SidecarStream *)v9 activateWithCompletion:v10, 3221225472, __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invoke_6, &unk_278D5C260];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(v12);
   }
 
   else
   {
-    v6 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:-536870911 userInfo:0];
+    v6 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
     (*(activateCopy + 2))(activateCopy, v6);
   }
 
@@ -101,7 +98,7 @@ void __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invo
       }
 
       v7 = objc_loadWeakRetained(WeakRetained + 4);
-      [v7 enqueueResponse:v3 identifier:*(a1 + 32)];
+      [v7 enqueueResponse:? identifier:?];
     }
   }
 }
@@ -144,41 +141,43 @@ void __60__CMContinuityCaptureTransportDeviceSidecarStream_activate___block_invo
   v9 = a4;
   completionCopy = completion;
   objc_initWeak(location, self);
-  v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v9];
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:CMContinuityCaptureGetMessageGenerationID()];
-  [v11 setObject:v12 forKeyedSubscript:@"ContinuityCaptureGID"];
+  v11 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:?];
+  v12 = MEMORY[0x277CCABB0];
+  CMContinuityCaptureGetMessageGenerationID();
+  v13 = [v12 numberWithUnsignedLongLong:?];
+  [v11 setObject:? forKeyedSubscript:?];
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_completion___block_invoke;
   block[3] = &unk_278D5C490;
-  objc_copyWeak(&v35, location);
-  v13 = messageCopy;
-  v33 = v13;
-  v14 = completionCopy;
+  objc_copyWeak(&v36, location);
+  v14 = messageCopy;
   v34 = v14;
-  v15 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_completion___block_invoke_11;
-  v26 = &unk_278D5D158;
-  objc_copyWeak(&v31, location);
-  v16 = v15;
-  v29 = v16;
-  v17 = v11;
-  v27 = v17;
-  v18 = v13;
+  v15 = completionCopy;
+  v35 = v15;
+  v16 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_completion___block_invoke_11;
+  v27 = &unk_278D5D158;
+  objc_copyWeak(&v32, location);
+  v17 = v16;
+  v30 = v17;
+  v18 = v11;
   v28 = v18;
   v19 = v14;
-  v30 = v19;
-  v20 = MEMORY[0x245D12020](&v23);
-  [(SidecarStream *)self->_stream sendOPACK:v17 completion:v20, v23, v24, v25, v26];
-  v21 = dispatch_time(0, 10000000000);
-  v22 = dispatch_get_global_queue(2, 0);
-  dispatch_after(v21, v22, v16);
+  v29 = v19;
+  v20 = v15;
+  v31 = v20;
+  v21 = MEMORY[0x245D12020](&v24);
+  [(SidecarStream *)self->_stream sendOPACK:v24 completion:v25, v26, v27];
+  v22 = dispatch_time(0, 10000000000);
+  v23 = dispatch_get_global_queue(2, 0);
+  dispatch_after(v22, v23, v17);
 
-  objc_destroyWeak(&v31);
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v36);
 
   objc_destroyWeak(location);
 }
@@ -201,7 +200,7 @@ void __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_c
     }
 
     v6 = *(a1 + 40);
-    v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:-536870186 userInfo:0];
+    v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
     (*(v6 + 16))(v6, v7);
   }
 }
@@ -215,9 +214,9 @@ void __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_c
     v5 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) objectForKeyedSubscript:@"ContinuityCaptureGID"];
+      v6 = [*(a1 + 32) objectForKeyedSubscript:?];
       v7 = *(a1 + 40);
-      v8 = [*(a1 + 32) objectForKeyedSubscript:@"ContinuityCaptureSelector"];
+      v8 = [*(a1 + 32) objectForKeyedSubscript:?];
       v9 = 138544386;
       v10 = WeakRetained;
       v11 = 2114;
@@ -261,7 +260,7 @@ void __82__CMContinuityCaptureTransportDeviceSidecarStream_sendMessage_message_c
       v20 = v19;
       if (v19)
       {
-        v19 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v19];
+        v19 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:?];
       }
 
       v21 = v19;

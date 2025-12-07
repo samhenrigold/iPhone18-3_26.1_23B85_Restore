@@ -43,7 +43,7 @@
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained auditToken];
+    objc_msgSend_auditToken(WeakRetained);
   }
 
   else
@@ -126,11 +126,11 @@
     if (os_log_type_enabled(qword_100015440, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v36 = "AUHostingService.mm";
-      v37 = 1024;
-      v38 = 148;
-      v39 = 2112;
-      v40 = v13;
+      v35 = "AUHostingService.mm";
+      v36 = 1024;
+      v37 = 148;
+      v38 = 2112;
+      v39 = v13;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%25s:%-5d Attempting to retrieve %@", buf, 0x1Cu);
     }
 
@@ -152,13 +152,13 @@
       uUIDString = [audioUnitUUID UUIDString];
       v21 = self->_host;
       *buf = 136315906;
-      v36 = "AUHostingService.mm";
-      v37 = 1024;
-      v38 = 150;
-      v39 = 2112;
-      v40 = uUIDString;
-      v41 = 2112;
-      v42 = v21;
+      v35 = "AUHostingService.mm";
+      v36 = 1024;
+      v37 = 150;
+      v38 = 2112;
+      v39 = uUIDString;
+      v40 = 2112;
+      v41 = v21;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%25s:%-5d Connected to Audio Unit with UUID: %@ host instance: %@", buf, 0x26u);
     }
   }
@@ -184,13 +184,13 @@
       uUIDString2 = [audioUnitUUID2 UUIDString];
       v29 = self->_host;
       *buf = 136315906;
-      v36 = "AUHostingService.mm";
-      v37 = 1024;
-      v38 = 153;
-      v39 = 2112;
-      v40 = uUIDString2;
-      v41 = 2112;
-      v42 = v29;
+      v35 = "AUHostingService.mm";
+      v36 = 1024;
+      v37 = 153;
+      v38 = 2112;
+      v39 = uUIDString2;
+      v40 = 2112;
+      v41 = v29;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%25s:%-5d Hosting Audio Unit with UUID: %@ host instance: %@", buf, 0x26u);
     }
 
@@ -201,7 +201,7 @@
 
   if (self->_host)
   {
-    CAFormatter::CAFormatter(&v34, &self->_componentDescription);
+    CAFormatter::CAFormatter(&v33, &self->_componentDescription);
     if ((atomic_load_explicit(&qword_100015450, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100015450))
     {
       sub_100005B6C("com.apple.coreaudio", "AUHostingService");
@@ -212,30 +212,25 @@
     if (os_log_type_enabled(qword_100015440, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v36 = "AUHostingService.mm";
-      v37 = 1024;
-      v38 = 164;
-      v39 = 2080;
-      v40 = v34;
+      v35 = "AUHostingService.mm";
+      v36 = 1024;
+      v37 = 164;
+      v38 = 2080;
+      v39 = v33;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%25s:%-5d Hosting Audio Unit: %s", buf, 0x1Cu);
     }
 
-    if (*(&self->_instanceUUID.__rep_.__l + 23) < 0)
-    {
-      data = self->_instanceUUID.__rep_.__l.__data_;
-    }
-
     replyCopy[2](replyCopy, 0);
-    if (v34)
+    if (v33)
     {
-      free(v34);
+      free(v33);
     }
   }
 
   else
   {
-    v33 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-10875 userInfo:0];
-    (replyCopy)[2](replyCopy, v33);
+    v32 = [NSError errorWithDomain:NSOSStatusErrorDomain code:-10875 userInfo:0];
+    (replyCopy)[2](replyCopy, v32);
   }
 }
 
@@ -278,9 +273,9 @@
 - (AUHostingService)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v20.receiver = self;
-  v20.super_class = AUHostingService;
-  v5 = [(AUHostingService *)&v20 init];
+  v18.receiver = self;
+  v18.super_class = AUHostingService;
+  v5 = [(AUHostingService *)&v18 init];
   v6 = v5;
   if (v5)
   {
@@ -313,17 +308,12 @@
         }
 
         *buf = 136315650;
-        v22 = "AUHostingService.mm";
-        v23 = 1024;
-        v24 = 96;
-        v25 = 2080;
-        v26 = p_instanceUUID;
+        v20 = "AUHostingService.mm";
+        v21 = 1024;
+        v22 = 96;
+        v23 = 2080;
+        v24 = p_instanceUUID;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%25s:%-5d Launched new Audio Unit Hosting Service %s", buf, 0x1Cu);
-      }
-
-      if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
-      {
-        data = v6->_instanceUUID.__rep_.__l.__data_;
       }
     }
 
@@ -333,30 +323,25 @@
       __cxa_guard_release(&qword_100015450);
     }
 
-    v15 = qword_100015440;
+    v14 = qword_100015440;
     if (os_log_type_enabled(qword_100015440, OS_LOG_TYPE_INFO))
     {
-      v16 = &v6->_instanceUUID;
+      v15 = &v6->_instanceUUID;
       if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
       {
-        v16 = v16->__data_;
+        v15 = v15->__data_;
       }
 
       *buf = 136315650;
-      v22 = "AUHostingService.mm";
-      v23 = 1024;
-      v24 = 100;
-      v25 = 2080;
-      v26 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%25s:%-5d New connection with Audio Unit Hosting Service %s", buf, 0x1Cu);
+      v20 = "AUHostingService.mm";
+      v21 = 1024;
+      v22 = 100;
+      v23 = 2080;
+      v24 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%25s:%-5d New connection with Audio Unit Hosting Service %s", buf, 0x1Cu);
     }
 
-    if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
-    {
-      v17 = v6->_instanceUUID.__rep_.__l.__data_;
-    }
-
-    v18 = v6;
+    v16 = v6;
   }
 
   return v6;

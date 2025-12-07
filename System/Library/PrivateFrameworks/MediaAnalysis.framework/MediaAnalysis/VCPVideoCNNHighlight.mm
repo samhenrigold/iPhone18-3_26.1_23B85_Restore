@@ -85,7 +85,7 @@
   *p_inputsData->__begin_ = [runCopy outputBeforeTemporalPooling];
   *(p_inputsData->__begin_ + 1) = self->_analysisInput;
   begin = p_inputsData->__begin_;
-  if (!*p_inputsData->__begin_ || !*(begin + 8))
+  if (!*p_inputsData->__begin_ || !begin[1])
   {
     goto LABEL_16;
   }
@@ -94,7 +94,7 @@
   v38 = 0;
   v39 = 0;
   v37 = 0;
-  std::vector<float *>::__init_with_size[abi:ne200100]<float **,float **>(&v37, begin, self->_inputsData.__end_, (self->_inputsData.__end_ - begin) >> 3);
+  std::vector<float *>::__init_with_size[abi:ne200100]<float **,float **>(&v37, begin, self->_inputsData.__end_, self->_inputsData.__end_ - begin);
   v14 = [(VCPCNNModelEspresso *)modelEspresso espressoForwardInputs:&v37];
   if (v37)
   {
@@ -107,7 +107,7 @@
     v15 = self->_modelEspresso;
     if (v15)
     {
-      [(VCPCNNModelEspresso *)v15 outputBlob];
+      objc_msgSend_outputBlob(v15);
       value = time.value;
       if (time.value)
       {

@@ -1116,7 +1116,7 @@ id __57__AMSPurchaseRequestEncoder__parametersFromPurchaseInfo___block_invoke(ui
   v8 = v7;
   if (v7)
   {
-    if (AMSErrorIsEqual(v7, @"AMSErrorDomain", 12))
+    if (AMSErrorIsEqual(v7, @"AMSErrorDomain", 0xC))
     {
       v9 = +[AMSLogConfig sharedPurchaseConfig];
       if (!v9)

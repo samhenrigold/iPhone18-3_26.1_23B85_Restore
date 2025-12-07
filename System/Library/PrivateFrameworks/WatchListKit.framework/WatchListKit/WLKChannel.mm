@@ -83,134 +83,132 @@ void __41__WLKChannel_initWithDictionary_context___block_invoke(uint64_t a1, voi
 
 + (id)channelsWithDictionaries:(id)dictionaries context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   contextCopy = context;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = dictionariesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [WLKChannel alloc];
-        v15 = [(WLKChannel *)v14 initWithDictionary:v13 context:contextCopy, v19];
+        v15 = [(WLKChannel *)v14 initWithDictionary:v13 context:contextCopy, v18];
         if (v15)
         {
           [v7 addObject:v15];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v7 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)channelsWithDictionaries:(id)dictionaries context:(id)context seasons:(id)seasons
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   contextCopy = context;
   seasonsCopy = seasons;
-  v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
+  v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = dictionariesCopy;
-  v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v28)
   {
     v10 = 0;
-    v27 = *v37;
+    v26 = *v36;
     do
     {
       v11 = 0;
       do
       {
-        if (*v37 != v27)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v36 + 1) + 8 * v11);
-        v31 = v11;
-        v12 = [v30 wlk_arrayForKey:@"seasons"];
+        v29 = *(*(&v35 + 1) + 8 * v11);
+        v30 = v11;
+        v12 = [v29 wlk_arrayForKey:@"seasons"];
 
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v10 = v12;
-        v13 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v33;
+          v15 = *v32;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v33 != v15)
+              if (*v32 != v15)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v17 = [*(*(&v32 + 1) + 8 * i) wlk_stringForKey:@"id"];
+              v17 = [*(*(&v31 + 1) + 8 * i) wlk_stringForKey:@"id"];
               v18 = [seasonsCopy wlk_dictionaryForKey:v17];
               v19 = [v18 wlk_numberForKey:@"seasonNumber"];
 
               [v9 addObject:v19];
             }
 
-            v14 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v14 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
           }
 
           while (v14);
         }
 
-        v20 = [v30 mutableCopy];
+        v20 = [v29 mutableCopy];
         [v20 setObject:v9 forKey:@"seasonNumbers"];
         v21 = [[WLKChannel alloc] initWithDictionary:v20 context:contextCopy];
         if (v21)
         {
-          [v26 addObject:v21];
+          [v25 addObject:v21];
         }
 
-        v11 = v31 + 1;
+        v11 = v30 + 1;
       }
 
-      while (v31 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v30 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v22 = [v26 copy];
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = [v25 copy];
 
   return v22;
 }

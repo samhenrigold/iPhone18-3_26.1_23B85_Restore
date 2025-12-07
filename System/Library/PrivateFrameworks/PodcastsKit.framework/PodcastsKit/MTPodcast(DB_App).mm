@@ -11,22 +11,22 @@
 - (uint64_t)hasAtLeastOneSeason;
 - (uint64_t)seasonSortDescriptorsForSortOrder;
 - (uint64_t)setDeletePlayedEpisodes:()DB_App;
-- (uint64_t)setFeedChangedDate:()DB_App;
-- (uint64_t)setLastImplicitlyFollowedDate:()DB_App;
 - (uint64_t)setModifiedDate:()DB_App;
-- (uint64_t)setUpdateAvg:()DB_App;
-- (uint64_t)setUpdateStdDev:()DB_App;
 - (uint64_t)sortDescriptorsForPlayOrderByEpisodeNumber;
 - (uint64_t)sortDescriptorsForPlayOrderByPubDate;
 - (uint64_t)updateCursorPosition:()DB_App;
 - (void)markPlaylistsForUpdate;
 - (void)setAuthor:()DB_App;
+- (void)setFeedChangedDate:()DB_App;
 - (void)setImageURL:()DB_App;
 - (void)setItemDescription:()DB_App;
+- (void)setLastImplicitlyFollowedDate:()DB_App;
 - (void)setPlaybackNewestToOldest:()DB_App;
 - (void)setShowTypeInFeed:()DB_App;
 - (void)setShowTypeSetting:()DB_App;
 - (void)setSortAscending:()DB_App;
+- (void)setUpdateAvg:()DB_App;
+- (void)setUpdateStdDev:()DB_App;
 - (void)setWebpageURL:()DB_App;
 @end
 
@@ -34,39 +34,37 @@
 
 - (void)markPlaylistsForUpdate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   playlistSettings = [self playlistSettings];
-  v2 = [playlistSettings countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [playlistSettings countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(playlistSettings);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         [v6 setNeedsUpdate:1];
         playlist = [v6 playlist];
         [playlist setNeedsUpdate:1];
       }
 
-      v3 = [playlistSettings countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [playlistSettings countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)setDeletePlayedEpisodes:()DB_App
@@ -81,7 +79,7 @@
   return [self markPlaylistsForUpdate];
 }
 
-- (uint64_t)setLastImplicitlyFollowedDate:()DB_App
+- (void)setLastImplicitlyFollowedDate:()DB_App
 {
   result = [self lastImplicitlyFollowedDate];
   if (v5 < a2)
@@ -153,7 +151,7 @@
   }
 }
 
-- (uint64_t)setFeedChangedDate:()DB_App
+- (void)setFeedChangedDate:()DB_App
 {
   result = [self feedChangedDate];
   if (vabdd_f64(v5, a2) > 2.22044605e-16)
@@ -169,7 +167,7 @@
   return result;
 }
 
-- (uint64_t)setUpdateStdDev:()DB_App
+- (void)setUpdateStdDev:()DB_App
 {
   result = [self updateStdDev];
   if (vabdd_f64(v5, a2) > 2.22044605e-16)
@@ -185,7 +183,7 @@
   return result;
 }
 
-- (uint64_t)setUpdateAvg:()DB_App
+- (void)setUpdateAvg:()DB_App
 {
   result = [self updateAvg];
   if (vabdd_f64(v5, a2) > 2.22044605e-16)
@@ -266,7 +264,7 @@
 
 - (void)setShowTypeSetting:()DB_App
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([self showTypeSetting] != a3)
   {
     v5 = [self isValidShowTypeSetting:a3];
@@ -280,17 +278,17 @@
         feedURL = [self feedURL];
         storeCollectionId = [self storeCollectionId];
         uuid = [self uuid];
-        v15 = 134350083;
-        v16 = a3;
-        v17 = 2113;
-        v18 = title;
-        v19 = 2113;
-        v20 = feedURL;
-        v21 = 2049;
-        v22 = storeCollectionId;
-        v23 = 2114;
-        v24 = uuid;
-        _os_log_impl(&dword_25E9F0000, v6, OS_LOG_TYPE_DEFAULT, "Switching show type setting to %{public}lld, show %{private}@, %{private}@, %{private}lld, %{public}@", &v15, 0x34u);
+        v14 = 134350083;
+        v15 = a3;
+        v16 = 2113;
+        v17 = title;
+        v18 = 2113;
+        v19 = feedURL;
+        v20 = 2049;
+        v21 = storeCollectionId;
+        v22 = 2114;
+        v23 = uuid;
+        _os_log_impl(&dword_25E9F0000, v6, OS_LOG_TYPE_DEFAULT, "Switching show type setting to %{public}lld, show %{private}@, %{private}@, %{private}lld, %{public}@", &v14, 0x34u);
       }
 
       v12 = *MEMORY[0x277D3DEC0];
@@ -306,13 +304,11 @@
     {
       if (v7)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_25E9F0000, v6, OS_LOG_TYPE_DEFAULT, "WARNING: Ignoring attempt to set an invalid show type", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_25E9F0000, v6, OS_LOG_TYPE_DEFAULT, "WARNING: Ignoring attempt to set an invalid show type", &v14, 2u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)applyShowTypeSetting:()DB_App
@@ -326,7 +322,7 @@
 
 - (void)setSortAscending:()DB_App
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = _MTLogCategoryDatabase();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -344,17 +340,17 @@
     feedURL = [self feedURL];
     storeCollectionId = [self storeCollectionId];
     uuid = [self uuid];
-    v15 = 138544387;
-    v16 = v6;
-    v17 = 2113;
-    v18 = title;
-    v19 = 2113;
-    v20 = feedURL;
-    v21 = 2049;
-    v22 = storeCollectionId;
-    v23 = 2114;
-    v24 = uuid;
-    _os_log_impl(&dword_25E9F0000, v5, OS_LOG_TYPE_DEFAULT, "Switching SortAscendingFlag to %{public}@, show %{private}@, %{private}@, %{private}lld, %{public}@", &v15, 0x34u);
+    v14 = 138544387;
+    v15 = v6;
+    v16 = 2113;
+    v17 = title;
+    v18 = 2113;
+    v19 = feedURL;
+    v20 = 2049;
+    v21 = storeCollectionId;
+    v22 = 2114;
+    v23 = uuid;
+    _os_log_impl(&dword_25E9F0000, v5, OS_LOG_TYPE_DEFAULT, "Switching SortAscendingFlag to %{public}@, show %{private}@, %{private}@, %{private}lld, %{public}@", &v14, 0x34u);
   }
 
   flags = [self flags];
@@ -371,53 +367,49 @@
     mEMORY[0x277D3DB80] = [MEMORY[0x277D3DB80] shared];
     [mEMORY[0x277D3DB80] markSubscriptionSyncDirty:1 for:{objc_msgSend(self, "syncType")}];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allPossibleEpisodeListSortOrderProperties
 {
-  v23[4] = *MEMORY[0x277D85DE8];
-  v19 = objc_alloc(MEMORY[0x277CBEB18]);
-  v21 = *MEMORY[0x277D3DCA0];
+  v22[4] = *MEMORY[0x277D85DE8];
+  v18 = objc_alloc(MEMORY[0x277CBEB18]);
+  v20 = *MEMORY[0x277D3DCA0];
   v0 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:? ascending:?];
-  v23[0] = v0;
+  v22[0] = v0;
   v1 = *MEMORY[0x277D3DC18];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:1];
-  v23[1] = v2;
+  v22[1] = v2;
   v3 = *MEMORY[0x277D3DC58];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:0];
-  v23[2] = v4;
+  v22[2] = v4;
   v5 = *MEMORY[0x277D3DCB8];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
-  v23[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
-  v20 = [v19 initWithArray:v7];
+  v22[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v19 = [v18 initWithArray:v7];
 
-  v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v21 ascending:0];
-  v22[0] = v8;
+  v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v20 ascending:0];
+  v21[0] = v8;
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v1 ascending:0];
-  v22[1] = v9;
+  v21[1] = v9;
   v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v3 ascending:1];
-  v22[2] = v10;
+  v21[2] = v10;
   v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v5 ascending:1 selector:sel_localizedStandardCompare_];
-  v22[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  [v20 addObjectsFromArray:v12];
+  v21[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  [v19 addObjectsFromArray:v12];
 
   v13 = MEMORY[0x277CBEB98];
-  v14 = [v20 mt_compactMap:&__block_literal_global_4];
+  v14 = [v19 mt_compactMap:&__block_literal_global_4];
   v15 = [v13 setWithArray:v14];
   allObjects = [v15 allObjects];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
 
 - (id)sortDescriptorsForSortOrder
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   if ([self isSerialShowTypeInFeed])
   {
     seasonSortDescriptorsForSortOrder = [self seasonSortDescriptorsForSortOrder];
@@ -431,24 +423,10 @@
     if (sortAscending)
     {
       v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v5 ascending:1];
-      v16[0] = v6;
-      v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:1];
-      v16[1] = v7;
-      v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:0];
-      v16[2] = v8;
-      v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
-      v16[3] = v9;
-      v10 = MEMORY[0x277CBEA60];
-      v11 = v16;
-    }
-
-    else
-    {
-      v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v5 ascending:0];
       v15[0] = v6;
-      v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:0];
+      v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:1];
       v15[1] = v7;
-      v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:1];
+      v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:0];
       v15[2] = v8;
       v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
       v15[3] = v9;
@@ -456,11 +434,23 @@
       v11 = v15;
     }
 
+    else
+    {
+      v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:v5 ascending:0];
+      v14[0] = v6;
+      v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:0];
+      v14[1] = v7;
+      v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:1];
+      v14[2] = v8;
+      v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
+      v14[3] = v9;
+      v10 = MEMORY[0x277CBEA60];
+      v11 = v14;
+    }
+
     v12 = [v10 arrayWithObjects:v11 count:4];
     seasonSortDescriptorsForSortOrder = [v4 initWithArray:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return seasonSortDescriptorsForSortOrder;
 }
@@ -475,36 +465,32 @@
 
 + (id)sortDescriptorsForOldestOnTop
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCA0] ascending:1];
-  v7[0] = v0;
+  v6[0] = v0;
   v1 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:1];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:0];
-  v7[2] = v2;
+  v6[2] = v2;
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
-  v7[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }
 
 + (id)sortDescriptorsForNewestOnTop
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCA0] ascending:0];
-  v7[0] = v0;
+  v6[0] = v0;
   v1 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC18] ascending:0];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DC58] ascending:1];
-  v7[2] = v2;
+  v6[2] = v2;
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277D3DCB8] ascending:1 selector:sel_localizedStandardCompare_];
-  v7[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }

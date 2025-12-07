@@ -39,38 +39,38 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   ingredients = [(HKFullMedicationSearchResult *)self ingredients];
-  v5 = [ingredients countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v5 = [ingredients countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v35;
+    v7 = *v34;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v35 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(ingredients);
         }
 
-        dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v33 + 1) + 8 * i) dictionaryRepresentation];
         [v3 addObject:dictionaryRepresentation];
       }
 
-      v6 = [ingredients countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v6 = [ingredients countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v6);
   }
 
-  v38[0] = @"productId";
+  v37[0] = @"productId";
   productId = [(HKFullMedicationSearchResult *)self productId];
   v11 = productId;
   if (productId)
@@ -83,8 +83,8 @@
     v12 = @"(null)";
   }
 
-  v39[0] = v12;
-  v38[1] = @"packagingNDC";
+  v38[0] = v12;
+  v37[1] = @"packagingNDC";
   packagingNDC = [(HKFullMedicationSearchResult *)self packagingNDC];
   v14 = packagingNDC;
   if (packagingNDC)
@@ -97,8 +97,8 @@
     v15 = @"(null)";
   }
 
-  v39[1] = v15;
-  v38[2] = @"productGenericName";
+  v38[1] = v15;
+  v37[2] = @"productGenericName";
   productGenericName = [(HKFullMedicationSearchResult *)self productGenericName];
   v17 = productGenericName;
   if (productGenericName)
@@ -111,8 +111,8 @@
     v18 = @"(null)";
   }
 
-  v39[2] = v18;
-  v38[3] = @"productBrandName";
+  v38[2] = v18;
+  v37[3] = @"productBrandName";
   productBrandName = [(HKFullMedicationSearchResult *)self productBrandName];
   v20 = productBrandName;
   if (productBrandName)
@@ -125,8 +125,8 @@
     v21 = @"(null)";
   }
 
-  v39[3] = v21;
-  v38[4] = @"packagingName";
+  v38[3] = v21;
+  v37[4] = @"packagingName";
   packagingName = [(HKFullMedicationSearchResult *)self packagingName];
   v23 = packagingName;
   if (packagingName)
@@ -139,8 +139,8 @@
     v24 = @"(null)";
   }
 
-  v39[4] = v24;
-  v38[5] = @"route";
+  v38[4] = v24;
+  v37[5] = @"route";
   route = [(HKFullMedicationSearchResult *)self route];
   v26 = route;
   if (route)
@@ -153,8 +153,8 @@
     v27 = @"(null)";
   }
 
-  v39[5] = v27;
-  v38[6] = @"doseForm";
+  v38[5] = v27;
+  v37[6] = @"doseForm";
   doseForm = [(HKFullMedicationSearchResult *)self doseForm];
   v29 = doseForm;
   if (doseForm)
@@ -167,12 +167,10 @@
     v30 = @"(null)";
   }
 
-  v38[7] = @"ingredients";
-  v39[6] = v30;
-  v39[7] = v3;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:8];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v37[7] = @"ingredients";
+  v38[6] = v30;
+  v38[7] = v3;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:8];
 
   return v31;
 }

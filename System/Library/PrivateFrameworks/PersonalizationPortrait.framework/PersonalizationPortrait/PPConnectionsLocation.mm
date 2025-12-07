@@ -716,16 +716,14 @@ LABEL_97:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_identifier;
-  v5 = [v3 initWithFormat:@"<PPConnectionsLocation i:%@ n:%@ l:%@ v:%@ b:%@ t:%@ s:%@ loc:%@ a:%@ p:%@ c:%@ ll:(%@, %@) w:%@ lt:%@ pb:%d mu:%@ ah:%@ ch:%@>", self->_identifier, self->_name, self->_label, self->_value, self->_originatingBundleID, self->_thoroughfare, self->_subThoroughfare, self->_locality, self->_administrativeArea, self->_postalCode, self->_country, self->_latitude, self->_longitude, self->_originatingWebsiteURL, self->_lifetime, self->_copiedToPasteboard, self->_mapItemURL, self->_authorHandle, self->_contactHandles];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<PPConnectionsLocation i:%@ n:%@ l:%@ v:%@ b:%@ t:%@ s:%@ loc:%@ a:%@ p:%@ c:%@ ll:(%@, %@) w:%@ lt:%@ pb:%d mu:%@ ah:%@ ch:%@>", self->_identifier, self->_name, self->_label, self->_value, self->_originatingBundleID, self->_thoroughfare, self->_subThoroughfare, self->_locality, self->_administrativeArea, self->_postalCode, self->_country, self->_latitude, self->_longitude, self->_originatingWebsiteURL, self->_lifetime, self->_copiedToPasteboard, self->_mapItemURL, self->_authorHandle, self->_contactHandles];
 
-  return v5;
+  return v2;
 }
 
 - (id)addressDictionary
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (addressDictionary_onceToken != -1)
   {
     dispatch_once(&addressDictionary_onceToken, &__block_literal_global_2062);
@@ -736,8 +734,8 @@ LABEL_97:
   v5 = v4;
   if (v4)
   {
-    v16[0] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     [v3 setObject:v6 forKeyedSubscript:@"FormattedAddressLines"];
   }
 
@@ -748,18 +746,17 @@ LABEL_97:
   }
 
   v8 = addressDictionary_mapping;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __42__PPConnectionsLocation_addressDictionary__block_invoke_2;
-  v14[3] = &unk_1E77F6858;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __42__PPConnectionsLocation_addressDictionary__block_invoke_2;
+  v13[3] = &unk_1E77F6858;
+  v13[4] = self;
   v9 = v3;
-  v15 = v9;
-  [v8 enumerateKeysAndObjectsUsingBlock:v14];
-  v10 = v15;
+  v14 = v9;
+  [v8 enumerateKeysAndObjectsUsingBlock:v13];
+  v10 = v14;
   v11 = v9;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -777,24 +774,22 @@ void __42__PPConnectionsLocation_addressDictionary__block_invoke_2(uint64_t a1, 
 
 void __42__PPConnectionsLocation_addressDictionary__block_invoke()
 {
-  v6[5] = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E696A910];
-  v5[0] = *MEMORY[0x1E696A930];
-  v5[1] = v0;
-  v6[0] = @"Street";
-  v6[1] = @"City";
+  v4[0] = *MEMORY[0x1E696A930];
+  v4[1] = v0;
+  v5[0] = @"Street";
+  v5[1] = @"City";
   v1 = *MEMORY[0x1E696A938];
-  v5[2] = *MEMORY[0x1E696A928];
-  v5[3] = v1;
-  v6[2] = @"State";
-  v6[3] = @"ZIP";
-  v5[4] = *MEMORY[0x1E696A918];
-  v6[4] = @"Country";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:5];
+  v4[2] = *MEMORY[0x1E696A928];
+  v4[3] = v1;
+  v5[2] = @"State";
+  v5[3] = @"ZIP";
+  v4[4] = *MEMORY[0x1E696A918];
+  v5[4] = @"Country";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:5];
   v3 = addressDictionary_mapping;
   addressDictionary_mapping = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_roundedPredictionAge

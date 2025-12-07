@@ -20,8 +20,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_2F4818(appear);
+  sub_2F4818(appearCopy);
 }
 
 - (void)viewWillLayoutSubviews

@@ -77,7 +77,7 @@ void __63__VUIViewControllerContentPresenter_setCurrentContentViewType___block_i
   {
     v4 = [WeakRetained currentContentViewType];
     v5 = *(a1 + 40);
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(v4);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (v4 == v5)
     {

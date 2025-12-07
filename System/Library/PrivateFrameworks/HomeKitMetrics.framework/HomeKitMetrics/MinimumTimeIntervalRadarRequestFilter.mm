@@ -17,19 +17,17 @@
 - (void)radarRequestedForDisplayReason:(id)reason
 {
   v4 = sub_22B0DF0E0();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC14HomeKitMetrics37MinimumTimeIntervalRadarRequestFilter_dateFactory);
-  v8 = *&self->minimumRequestInterval[OBJC_IVAR____TtC14HomeKitMetrics37MinimumTimeIntervalRadarRequestFilter_dateFactory];
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC14HomeKitMetrics37MinimumTimeIntervalRadarRequestFilter_dateFactory);
   selfCopy = self;
-  v9();
-  v11 = selfCopy + OBJC_IVAR____TtC14HomeKitMetrics37MinimumTimeIntervalRadarRequestFilter_filterStorage;
+  v7();
+  v9 = selfCopy + OBJC_IVAR____TtC14HomeKitMetrics37MinimumTimeIntervalRadarRequestFilter_filterStorage;
   swift_beginAccess();
-  v12 = *(v11 + 24);
-  v13 = *(v11 + 32);
-  __swift_mutable_project_boxed_opaque_existential_1(v11, v12);
-  (*(v13 + 16))(v7, v12, v13);
+  v10 = *(v9 + 24);
+  v11 = *(v9 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(v9, v10);
+  (*(v11 + 16))(v6, v10, v11);
   swift_endAccess();
 }
 

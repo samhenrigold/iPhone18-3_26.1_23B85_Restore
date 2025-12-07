@@ -268,12 +268,12 @@ LABEL_29:
 
 - (PREResponseSuggestionsExpConfig)initWithNamespaceName:(id)name withTrialClient:(id)client shouldDownloadAssets:(BOOL)assets
 {
-  v114[1] = *MEMORY[0x277D85DE8];
+  v113[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   clientCopy = client;
-  v95.receiver = self;
-  v95.super_class = PREResponseSuggestionsExpConfig;
-  v11 = [(PREResponseSuggestionsExpConfig *)&v95 init];
+  v94.receiver = self;
+  v94.super_class = PREResponseSuggestionsExpConfig;
+  v11 = [(PREResponseSuggestionsExpConfig *)&v94 init];
   v12 = v11;
   if (!v11)
   {
@@ -290,7 +290,7 @@ LABEL_29:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v97 = nameCopy;
+    v96 = nameCopy;
     _os_log_impl(&dword_260CE3000, v13, OS_LOG_TYPE_DEFAULT, "PRE Experiment config -- setting up config for namespace %@", buf, 0xCu);
   }
 
@@ -338,7 +338,7 @@ LABEL_6:
       {
         namespaceName = v12->_namespaceName;
         *buf = 138412290;
-        v97 = namespaceName;
+        v96 = namespaceName;
         v26 = "Smart Reply: treatmentId without experimentId for namespace %@";
         v27 = v24;
         v28 = 12;
@@ -392,11 +392,11 @@ LABEL_66:
           if ([directoryValue hasPath])
           {
             path = [directoryValue path];
-            v90 = 0;
+            v89 = 0;
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            v43 = [defaultManager fileExistsAtPath:path isDirectory:&v90];
+            v43 = [defaultManager fileExistsAtPath:path isDirectory:&v89];
 
-            if (v43 && (v90 & 1) != 0)
+            if (v43 && (v89 & 1) != 0)
             {
               v44 = [(NSString *)v12->_treatmentName stringByAppendingString:@".model.chunk"];
               v45 = [(NSString *)v12->_treatmentName stringByAppendingString:@".config.plist"];
@@ -406,17 +406,17 @@ LABEL_66:
               inferenceModelFilePath = v12->_inferenceModelFilePath;
               v12->_inferenceModelFilePath = v48;
 
-              v89 = v45;
+              v88 = v45;
               v50 = [path stringByAppendingPathComponent:v45];
               inferenceModelConfigPath = v12->_inferenceModelConfigPath;
               v12->_inferenceModelConfigPath = v50;
 
-              v88 = v46;
+              v87 = v46;
               v52 = [path stringByAppendingPathComponent:v46];
               espressoBinFilePath = v12->_espressoBinFilePath;
               v12->_espressoBinFilePath = v52;
 
-              v87 = v47;
+              v86 = v47;
               v54 = [path stringByAppendingPathComponent:v47];
               vocabFilePath = v12->_vocabFilePath;
               v12->_vocabFilePath = v54;
@@ -463,32 +463,32 @@ LABEL_66:
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
                 {
                   v68 = v12->_treatmentName;
-                  v82 = v12->_inferenceModelDescription;
-                  v83 = v12->_inferenceModelFilePath;
-                  v84 = v12->_inferenceModelConfigPath;
-                  v85 = v12->_espressoBinFilePath;
-                  v86 = v12->_vocabFilePath;
+                  v81 = v12->_inferenceModelDescription;
+                  v82 = v12->_inferenceModelFilePath;
+                  v83 = v12->_inferenceModelConfigPath;
+                  v84 = v12->_espressoBinFilePath;
+                  v85 = v12->_vocabFilePath;
                   experimentId2 = [(TRIExperimentIdentifiers *)v12->_experimentIdentifiers experimentId];
                   treatmentId3 = [(TRIExperimentIdentifiers *)v12->_experimentIdentifiers treatmentId];
                   isMLModelEnabled = v12->_isMLModelEnabled;
                   *buf = 138414338;
-                  v97 = v68;
-                  v98 = 2112;
-                  v99 = v82;
-                  v100 = 2112;
-                  v101 = v83;
-                  v102 = 2112;
-                  v103 = v84;
-                  v104 = 2112;
-                  v105 = v85;
-                  v106 = 2112;
-                  v107 = v86;
-                  v108 = 2112;
-                  v109 = experimentId2;
-                  v110 = 2112;
-                  v111 = treatmentId3;
-                  v112 = 1024;
-                  v113 = isMLModelEnabled;
+                  v96 = v68;
+                  v97 = 2112;
+                  v98 = v81;
+                  v99 = 2112;
+                  v100 = v82;
+                  v101 = 2112;
+                  v102 = v83;
+                  v103 = 2112;
+                  v104 = v84;
+                  v105 = 2112;
+                  v106 = v85;
+                  v107 = 2112;
+                  v108 = experimentId2;
+                  v109 = 2112;
+                  v110 = treatmentId3;
+                  v111 = 1024;
+                  v112 = isMLModelEnabled;
                   _os_log_impl(&dword_260CE3000, v67, OS_LOG_TYPE_DEFAULT, "Smart Reply reading from trial factor values {treatmentName: %@ inferenceModelDescription: %@ inferenceModelFilePath: %@ inferenceModelConfigPath: %@ espresso.bin: %@ vocab: %@ experimentId: %@ treatmentId: %@ isMLModelEnabled: %d}", buf, 0x58u);
                 }
 
@@ -497,19 +497,19 @@ LABEL_66:
 
               else
               {
-                v78 = pre_responses_handle();
-                if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
+                v77 = pre_responses_handle();
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
                 {
-                  v79 = v12->_inferenceModelFilePath;
-                  v80 = v12->_inferenceModelConfigPath;
-                  v81 = v12->_espressoBinFilePath;
+                  v78 = v12->_inferenceModelFilePath;
+                  v79 = v12->_inferenceModelConfigPath;
+                  v80 = v12->_espressoBinFilePath;
                   *buf = 138412802;
-                  v97 = v79;
-                  v98 = 2112;
-                  v99 = v80;
-                  v100 = 2112;
-                  v101 = v81;
-                  _os_log_fault_impl(&dword_260CE3000, v78, OS_LOG_TYPE_FAULT, "Smart Reply: some required file factor not readable with config path %@, inference path %@, and espresso bin path %@", buf, 0x20u);
+                  v96 = v78;
+                  v97 = 2112;
+                  v98 = v79;
+                  v99 = 2112;
+                  v100 = v80;
+                  _os_log_fault_impl(&dword_260CE3000, v77, OS_LOG_TYPE_FAULT, "Smart Reply: some required file factor not readable with config path %@, inference path %@, and espresso bin path %@", buf, 0x20u);
                 }
 
                 v40 = 0;
@@ -543,22 +543,22 @@ LABEL_66:
             dispatch_once(&initWithNamespaceName_withTrialClient_shouldDownloadAssets___pasOnceToken11, &__block_literal_global_1112);
           }
 
-          v114[0] = @"modelAssets";
+          v113[0] = @"modelAssets";
           v73 = MEMORY[0x277CBEA60];
           path = initWithNamespaceName_withTrialClient_shouldDownloadAssets___pasExprOnceResult;
-          v74 = [v73 arrayWithObjects:v114 count:1];
+          v74 = [v73 arrayWithObjects:v113 count:1];
           v75 = v12->_namespaceName;
-          v93[0] = MEMORY[0x277D85DD0];
-          v93[1] = 3221225472;
-          v93[2] = __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_2;
-          v93[3] = &unk_279ABAEA8;
-          v94 = nameCopy;
-          v91[0] = MEMORY[0x277D85DD0];
-          v91[1] = 3221225472;
-          v91[2] = __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_76;
-          v91[3] = &unk_279ABAED0;
-          v92 = v12;
-          [clientCopy downloadLevelsForFactors:v74 withNamespace:v75 queue:path options:0 progress:v93 completion:v91];
+          v92[0] = MEMORY[0x277D85DD0];
+          v92[1] = 3221225472;
+          v92[2] = __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_2;
+          v92[3] = &unk_279ABAEA8;
+          v93 = nameCopy;
+          v90[0] = MEMORY[0x277D85DD0];
+          v90[1] = 3221225472;
+          v90[2] = __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_76;
+          v90[3] = &unk_279ABAED0;
+          v91 = v12;
+          [clientCopy downloadLevelsForFactors:v74 withNamespace:v75 queue:path options:0 progress:v92 completion:v90];
         }
 
         else
@@ -567,7 +567,7 @@ LABEL_66:
           if (os_log_type_enabled(path, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v97 = nameCopy;
+            v96 = nameCopy;
             _os_log_impl(&dword_260CE3000, path, OS_LOG_TYPE_DEFAULT, "Smart Reply: assets for %@ not found on device, not downloading for this request", buf, 0xCu);
           }
         }
@@ -618,30 +618,27 @@ LABEL_28:
   v40 = 0;
 LABEL_61:
 
-  v76 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
 void __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_2(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = pre_responses_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_impl(&dword_260CE3000, v4, OS_LOG_TYPE_DEFAULT, "Smart Reply: download progress %d%% for namespace %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v5;
+    _os_log_impl(&dword_260CE3000, v4, OS_LOG_TYPE_DEFAULT, "Smart Reply: download progress %d%% for namespace %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke_76(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = pre_responses_handle();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -652,27 +649,25 @@ void __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient
       v8 = [v5 userInfo];
       v9 = [v8 description];
       v10 = *(*(a1 + 32) + 8);
-      v13 = 138412802;
-      *v14 = v9;
-      *&v14[8] = 1024;
-      *&v14[10] = a2;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_260CE3000, v6, OS_LOG_TYPE_DEFAULT, "Smart Reply: Trial download error %@ with result %d for namespace %@", &v13, 0x1Cu);
+      v12 = 138412802;
+      *v13 = v9;
+      *&v13[8] = 1024;
+      *&v13[10] = a2;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_260CE3000, v6, OS_LOG_TYPE_DEFAULT, "Smart Reply: Trial download error %@ with result %d for namespace %@", &v12, 0x1Cu);
     }
   }
 
   else if (v7)
   {
     v11 = *(*(a1 + 32) + 8);
-    v13 = 67109378;
-    *v14 = a2;
-    *&v14[4] = 2112;
-    *&v14[6] = v11;
-    _os_log_impl(&dword_260CE3000, v6, OS_LOG_TYPE_DEFAULT, "Smart Reply: Trial download result %d for namespace %@", &v13, 0x12u);
+    v12 = 67109378;
+    *v13 = a2;
+    *&v13[4] = 2112;
+    *&v13[6] = v11;
+    _os_log_impl(&dword_260CE3000, v6, OS_LOG_TYPE_DEFAULT, "Smart Reply: Trial download result %d for namespace %@", &v12, 0x12u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PREResponseSuggestionsExpConfig_initWithNamespaceName_withTrialClient_shouldDownloadAssets___block_invoke()

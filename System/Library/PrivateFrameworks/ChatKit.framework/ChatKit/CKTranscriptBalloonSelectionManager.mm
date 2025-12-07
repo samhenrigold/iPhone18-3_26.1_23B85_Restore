@@ -238,7 +238,7 @@ void __63__CKTranscriptBalloonSelectionManager_indexOfGuid_inChatItems___block_i
   }
 }
 
-unint64_t __77__CKTranscriptBalloonSelectionManager_addSelectedMessageGuid_selectionState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__77__CKTranscriptBalloonSelectionManager_addSelectedMessageGuid_selectionState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) indexOfGuid:a2 inChatItems:*(a1 + 40)];
   if (result != 0x7FFFFFFFFFFFFFFFLL && *(a1 + 72) < result)

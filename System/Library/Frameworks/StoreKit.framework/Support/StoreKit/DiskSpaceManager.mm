@@ -152,7 +152,7 @@
       v25 = qword_1003D3E50;
       if (os_log_type_enabled(qword_1003D3E50, OS_LOG_TYPE_ERROR))
       {
-        sub_1002C9B98(v25);
+        sub_1002C9B98(v25, self);
       }
 
       v26 = [self availableDiskSpaceAtPath:pathCopy];

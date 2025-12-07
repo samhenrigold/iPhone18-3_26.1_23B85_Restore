@@ -103,7 +103,7 @@ LABEL_6:
 
 void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -122,8 +122,8 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
       goto LABEL_21;
     }
 
-    v20 = 138412290;
-    v21 = v7;
+    v19 = 138412290;
+    v20 = v7;
     v11 = "Could not generate thumbnail because an error occurred while fetching the contents of the item: %@. #Thumbnail";
     v12 = v10;
     v13 = OS_LOG_TYPE_ERROR;
@@ -140,9 +140,9 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
       v15 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
-        v18 = MEMORY[0x277D43EF8];
+        v17 = MEMORY[0x277D43EF8];
         QLSInitLogging();
-        v15 = *v18;
+        v15 = *v17;
       }
 
       if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
@@ -150,7 +150,7 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
         goto LABEL_21;
       }
 
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v11 = "Could not get thumbnail version because no versions can be created for data and spotlight contents. #Thumbnail";
       v12 = v15;
       v13 = OS_LOG_TYPE_INFO;
@@ -161,9 +161,9 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
       v16 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
-        v19 = MEMORY[0x277D43EF8];
+        v18 = MEMORY[0x277D43EF8];
         QLSInitLogging();
-        v16 = *v19;
+        v16 = *v18;
       }
 
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -171,7 +171,7 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
         goto LABEL_21;
       }
 
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
       v11 = "Could not get thumbnail version because content of the item is not supported. #Thumbnail";
       v12 = v16;
       v13 = OS_LOG_TYPE_ERROR;
@@ -179,7 +179,7 @@ void __75__QLSingleItemThumbnailGenerator__thumbnailVersionForItem_completionBlo
 
     v14 = 2;
 LABEL_20:
-    _os_log_impl(&dword_261653000, v12, v13, v11, &v20, v14);
+    _os_log_impl(&dword_261653000, v12, v13, v11, &v19, v14);
 LABEL_21:
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
     goto LABEL_22;
@@ -189,7 +189,6 @@ LABEL_21:
   (*(*(a1 + 32) + 16))();
 
 LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateThumbnailWithSize:(CGSize)size contentMode:(unint64_t)mode completionBlock:(id)block

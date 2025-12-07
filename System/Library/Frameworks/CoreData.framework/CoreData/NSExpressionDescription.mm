@@ -101,10 +101,12 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(<%@ : %p>), name %@, expression %@, resultType %lu, userInfo %@", objc_opt_class(), self, -[NSPropertyDescription name](self, "name"), -[NSExpressionDescription expression](self, "expression"), -[NSExpressionDescription expressionResultType](self, "expressionResultType"), -[NSPropertyDescription userInfo](self, "userInfo")];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_opt_class();
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, self, [(NSPropertyDescription *)self name], [(NSExpressionDescription *)self expression], [(NSExpressionDescription *)self expressionResultType], [(NSPropertyDescription *)self userInfo]);
   objc_autoreleasePoolPop(v3);
 
-  return v4;
+  return v6;
 }
 
 - (void)setUnderlyingAttribute:(void *)result

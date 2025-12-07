@@ -7,37 +7,37 @@
 
 - (id)CNFQueryDictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   query = [self query];
   v4 = query;
   if (query && [query length])
   {
     v5 = [v4 componentsSeparatedByString:@"&"];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
+          v18 = 0;
           v19 = 0;
-          v20 = 0;
-          v11 = _parseKeyValuePair(v10, &v20, &v19);
-          v12 = v20;
-          v13 = v19;
+          v11 = _parseKeyValuePair(v10, &v19, &v18);
+          v12 = v19;
+          v13 = v18;
           v14 = v13;
           if (v11)
           {
@@ -55,14 +55,12 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

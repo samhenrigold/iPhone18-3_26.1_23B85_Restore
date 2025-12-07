@@ -923,7 +923,7 @@ LABEL_5:
   v9 = *MEMORY[0x1E69E9840];
   if ((*(&self->_tiFlags + 3) & 4) != 0)
   {
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v3 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &undoManagerWillRemoveAllActions___s_category) + 8);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -1270,7 +1270,7 @@ void __64__UITextInputController_metadataDictionariesForDictationResults__block_
   return _textStorage;
 }
 
-uint64_t __32__UITextInputController_hasText__block_invoke(uint64_t a1, void *a2)
+void *__32__UITextInputController_hasText__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 length];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -1325,9 +1325,9 @@ void __57__UITextInputController_dictationLanguageForSelectedText__block_invoke(
   {
     v14 = [*(a1 + 32) attribute:@"_UITextInputDictationResultMetadata" atIndex:a3 effectiveRange:0];
     v10 = [v14 objectForKeyedSubscript:@"dictationLanguage"];
-    v11 = [*(*(*(a1 + 40) + 8) + 40) isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(*(*(*(a1 + 40) + 8) + 40));
     v12 = *(*(a1 + 40) + 8);
-    if ((v11 & 1) != 0 || (v13 = *(v12 + 40)) == 0)
+    if ((isEqualToString & 1) != 0 || (v13 = *(v12 + 40)) == 0)
     {
       objc_storeStrong((v12 + 40), v10);
     }
@@ -2651,7 +2651,7 @@ LABEL_13:
   _selectableText = [(UITextInputController *)self _selectableText];
   if (![textCopy length])
   {
-    v11 = [_selectableText textRangeFromPosition:positionCopy toPosition:positionCopy];
+    v12 = [_selectableText textRangeFromPosition:positionCopy toPosition:positionCopy];
     goto LABEL_30;
   }
 
@@ -2659,14 +2659,16 @@ LABEL_13:
   if (v9)
   {
     v10 = [_selectableText textInRange:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
   }
 
   else
   {
     v10 = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if (![v10 isEqualToString:textCopy])
+  if (!isEqualToString)
   {
     beginningOfDocument = [_selectableText positionFromPosition:positionCopy offset:{-objc_msgSend(textCopy, "length")}];
     if (!beginningOfDocument)
@@ -2674,37 +2676,37 @@ LABEL_13:
       beginningOfDocument = [_selectableText beginningOfDocument];
     }
 
-    v14 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
+    v15 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [_selectableText textInRange:v14];
+      v16 = [_selectableText textInRange:v15];
 
-      v16 = [v15 length];
-      if (v16 <= [textCopy length])
+      v17 = [v16 length];
+      if (v17 <= [textCopy length])
       {
-        v12 = v14;
-        v10 = v15;
+        v13 = v15;
+        v10 = v16;
 LABEL_25:
-        v21 = [(UITextInputController *)self _normalizedStringForRangeComparison:v10];
-        v22 = [(UITextInputController *)self _normalizedStringForRangeComparison:textCopy];
-        if ([v21 isEqualToString:v22])
+        v22 = [(UITextInputController *)self _normalizedStringForRangeComparison:v10];
+        v23 = [(UITextInputController *)self _normalizedStringForRangeComparison:textCopy];
+        if (objc_msgSend_isEqualToString_(v22))
         {
-          v11 = v12;
+          v12 = v13;
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
         goto LABEL_29;
       }
 
-      v17 = 0;
+      v18 = 0;
       while (1)
       {
-        v18 = beginningOfDocument;
+        v19 = beginningOfDocument;
         beginningOfDocument = [_selectableText positionFromPosition:beginningOfDocument offset:1];
 
         if (!beginningOfDocument)
@@ -2718,21 +2720,21 @@ LABEL_25:
           break;
         }
 
-        v12 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
+        v13 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_24;
         }
 
-        v10 = [_selectableText textInRange:v12];
+        v10 = [_selectableText textInRange:v13];
 
-        v19 = [v10 length];
-        if (v19 > [textCopy length])
+        v20 = [v10 length];
+        if (v20 > [textCopy length])
         {
-          v14 = v12;
-          v15 = v10;
-          if (v17++ < 9)
+          v15 = v13;
+          v16 = v10;
+          if (v18++ < 9)
           {
             continue;
           }
@@ -2746,23 +2748,23 @@ LABEL_25:
 
     else
     {
-      v15 = v10;
+      v16 = v10;
     }
 
 LABEL_24:
 
-    v12 = 0;
+    v13 = 0;
     v10 = 0;
     goto LABEL_25;
   }
 
-  v12 = v9;
-  v11 = v12;
+  v13 = v9;
+  v12 = v13;
 LABEL_29:
 
 LABEL_30:
 
-  return v11;
+  return v12;
 }
 
 - (id)_rangeOfTextUnit:(int64_t)unit enclosingPosition:(id)position
@@ -3098,14 +3100,14 @@ LABEL_12:
   v9 = [rangeCopy end];
   v10 = [tokenizer rangeEnclosingPosition:v9 withGranularity:4 inDirection:0];
 
-  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend(v8, "isEqual:", v10) & 1) != 0)
+  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend_isEqual_(v8) & 1) != 0)
   {
     goto LABEL_9;
   }
 
   start2 = [v8 start];
   start3 = [v10 start];
-  if ([start2 isEqual:start3])
+  if (objc_msgSend_isEqual_(start2))
   {
 
 LABEL_9:
@@ -3115,9 +3117,9 @@ LABEL_9:
 
   v13 = [v8 end];
   v14 = [v10 end];
-  v28 = [v13 isEqual:v14];
+  isEqual = objc_msgSend_isEqual_(v13);
 
-  if (v28)
+  if (isEqual)
   {
     goto LABEL_9;
   }
@@ -3134,12 +3136,12 @@ LABEL_9:
 
   if (v21)
   {
-    while (([v21 isEqual:v10] & 1) == 0)
+    while ((objc_msgSend_isEqual_(v21) & 1) == 0)
     {
       v22 = [v21 end];
       v23 = [tokenizer rangeEnclosingPosition:v22 withGranularity:4 inDirection:0];
 
-      if ([v23 isEqual:v21])
+      if (objc_msgSend_isEqual_(v23))
       {
 
         break;
@@ -3621,7 +3623,7 @@ uint64_t __84__UITextInputController_UITextInput_Internal___rangeOfSmartSelectio
     goto LABEL_19;
   }
 
-  if ([historyCopy anchor] == 1)
+  if (objc_msgSend_anchor(historyCopy) == 1)
   {
     cursor2 = [historyCopy cursor];
 LABEL_5:
@@ -3629,10 +3631,10 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  anchor = [historyCopy anchor];
+  v8 = objc_msgSend_anchor(historyCopy);
   cursor2 = [historyCopy cursor];
   [historyCopy setStart:cursor2];
-  if (anchor != 2)
+  if (v8 != 2)
   {
     goto LABEL_5;
   }
@@ -3645,7 +3647,7 @@ LABEL_6:
 
   if (v11 >= 1)
   {
-    if ([historyCopy anchor] == 1)
+    if (objc_msgSend_anchor(historyCopy) == 1)
     {
       v12 = 2;
     }
@@ -3663,9 +3665,9 @@ LABEL_6:
   v15 = [_selectableText textRangeFromPosition:start2 toPosition:v14];
 
   -[UITextInputController _updateSelectionWithTextRange:withAffinityDownstream:](self, "_updateSelectionWithTextRange:withAffinityDownstream:", v15, [historyCopy affinityDownstream]);
-  if ([historyCopy anchor])
+  if (objc_msgSend_anchor(historyCopy))
   {
-    if ([historyCopy anchor] == 1)
+    if (objc_msgSend_anchor(historyCopy) == 1)
     {
       [_selectableText _lastRectForRange:v15];
     }
@@ -3720,12 +3722,12 @@ LABEL_19:
   v16 = [selectedTextRange2 end];
   [(UITextInputArrowKeyHistory *)v11 setEnd:v16];
 
-  anchor = [(UITextInputArrowKeyHistory *)v11 anchor];
+  v17 = objc_msgSend_anchor(v11);
   selectedTextRange3 = [_selectableText selectedTextRange];
   v19 = selectedTextRange3;
   if (v7 == 2)
   {
-    if (anchor == 1)
+    if (v17 == 1)
     {
 LABEL_7:
       start2 = [selectedTextRange3 end];
@@ -3733,7 +3735,7 @@ LABEL_7:
     }
   }
 
-  else if (anchor != 2)
+  else if (v17 != 2)
   {
     goto LABEL_7;
   }
@@ -3768,7 +3770,7 @@ LABEL_17:
   }
 
 LABEL_12:
-  if (![(UITextInputArrowKeyHistory *)v11 anchor]|| [(UITextInputController *)self _isEmptySelection])
+  if (!objc_msgSend_anchor(v11) || [(UITextInputController *)self _isEmptySelection])
   {
     goto LABEL_17;
   }
@@ -5997,7 +5999,7 @@ void __50__UITextInputController__insertText_fromKeyboard___block_invoke(uint64_
       [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"suffixPunctuationAdded"];
     }
 
-    if ([*(a1 + 32) isEqualToString:&stru_1EFB14550])
+    if (objc_msgSend_isEqualToString_(*(a1 + 32)))
     {
       [v7 setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"suffixPunctuationAdded"];
     }
@@ -6293,15 +6295,15 @@ void __50__UITextInputController__resolveNaturalDirection___block_invoke(uint64_
     inlineCompletionAsMarkedText = [WeakRetained inlineCompletionAsMarkedText];
 
     string = [inlineCompletionAsMarkedText string];
-    v8 = [string isEqualToString:textCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(string);
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)attributedSubstringForMarkedRange
@@ -6674,25 +6676,25 @@ uint64_t __60__UITextInputController__insertAttributedText_fromKeyboard___block_
   return [v2 replaceCharactersInRange:v4 withString:{v3, &stru_1EFB14550}];
 }
 
-uint64_t __60__UITextInputController__insertAttributedText_fromKeyboard___block_invoke_3(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
+void *__60__UITextInputController__insertAttributedText_fromKeyboard___block_invoke_3(void *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     v5 = result;
-    v6 = *(result + 32);
-    v7 = *(result + 40) + a3;
+    v6 = result[4];
+    v7 = result[5] + a3;
     v8 = a2;
     v9 = [v6 _textStorage];
     v10 = [v9 string];
     v11 = [v10 substringWithRange:{v7, 1}];
-    v12 = [v11 isEqualToString:@" "];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    v13 = v7 + v12;
+    v13 = v7 + isEqualToString;
     v14 = [v8 isLowConfidence];
 
-    v15 = *(v5 + 32);
+    v15 = v5[4];
 
-    return [v15 addTextAlternativesDisplayStyle:v14 toRange:{v13, a4 - v12}];
+    return [v15 addTextAlternativesDisplayStyle:v14 toRange:{v13, a4 - isEqualToString}];
   }
 
   return result;
@@ -7304,7 +7306,7 @@ LABEL_20:
 
     v12 = [(UITextInputController *)self nsRangeForTextRange:v17];
     v14 = v13;
-    if (([v17 isEqual:v10] & 1) == 0)
+    if ((objc_msgSend_isEqual_(v17) & 1) == 0)
     {
       selectedRange = [(UITextInputController *)self selectedRange];
       if (selectedRange + v16 < v12 || [(UITextInputController *)self selectedRange]> v12 + v14)
@@ -7345,9 +7347,9 @@ LABEL_20:
     goto LABEL_8;
   }
 
-  v8 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(UITextInputController *)self setTypingAttributes:0];
@@ -7592,7 +7594,7 @@ BOOL __48__UITextInputController_selectionRectsForRange___block_invoke_5(uint64_
 {
   v4 = a2;
   v5 = a3;
-  if ([v4 isEqual:v5])
+  if (objc_msgSend_isEqual_(v4))
   {
     v6 = 1;
   }
@@ -8098,7 +8100,7 @@ void __47__UITextInputController_attributedTextInRange___block_invoke(uint64_t a
   keyboardCopy = keyboard;
   if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging"))
     {
       if (byte_1EA95E17C)
       {
@@ -8432,7 +8434,7 @@ void __120__UITextInputController__replaceRange_withAttributedTextFromKeyboard_a
   }
 
   selectedTextRange2 = [(UITextInputController *)self selectedTextRange];
-  -[UITextInputController _sendDelegateChangeNotificationsForText:selection:](self, "_sendDelegateChangeNotificationsForText:selection:", 1, [selectedTextRange isEqual:selectedTextRange2] ^ 1);
+  [(UITextInputController *)self _sendDelegateChangeNotificationsForText:1 selection:objc_msgSend_isEqual_(selectedTextRange) ^ 1];
 }
 
 void __82__UITextInputController_replaceRangeWithTextWithoutClosingTyping_replacementText___block_invoke(uint64_t a1)
@@ -8612,9 +8614,9 @@ void __82__UITextInputController_replaceRangeWithTextWithoutClosingTyping_replac
       string3 = [_textStorage4 string];
       v36 = [string3 substringWithRange:{self->_markedTextRange.location, self->_markedTextRange.length}];
       string4 = [v28 string];
-      v38 = [v36 isEqualToString:string4];
+      isEqualToString = objc_msgSend_isEqualToString_(v36);
 
-      if (v38)
+      if (isEqualToString)
       {
         goto LABEL_19;
       }
@@ -8794,7 +8796,7 @@ void __90__UITextInputController__setAttributedMarkedText_selectedRange_fromKeyb
   return v6;
 }
 
-uint64_t __46__UITextInputController_markedTextFromClient___block_invoke(uint64_t a1, void *a2)
+void *__46__UITextInputController_markedTextFromClient___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 BOOLValue];
   if (result)
@@ -9208,9 +9210,9 @@ void __82__UITextInputController__newAttributedStringForInsertionOfAttributedTex
 
   string = [v29[5] string];
   string2 = [textCopy string];
-  v11 = [string isEqualToString:string2];
+  isEqualToString = objc_msgSend_isEqualToString_(string);
 
-  if (v11)
+  if (isEqualToString)
   {
     v12 = [v29[5] mutableCopy];
     v25 = 0u;
@@ -9920,7 +9922,7 @@ LABEL_11:
     newlineCharacterSet = +[UIKeyboardImpl activeInstance];
     if ([newlineCharacterSet nextInputWouldStartSentence])
     {
-      v9 = [v8 isEqualToString:@" "] ^ 1;
+      v9 = objc_msgSend_isEqualToString_(v8) ^ 1;
     }
 
     else
@@ -9938,7 +9940,7 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  LOBYTE(v9) = [groupCopy isEqualToString:@" "];
+  LOBYTE(v9) = objc_msgSend_isEqualToString_(groupCopy);
 LABEL_12:
 
   return v9;
@@ -10181,7 +10183,7 @@ LABEL_11:
 
   if (replacements)
   {
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v8 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED4A2328) + 8);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -10203,7 +10205,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v9 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED4A2330) + 8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -10722,7 +10724,7 @@ void __56__UITextInputController__layoutManagerDidCompleteLayout__block_invoke_2
   }
 
   v21 = _UIMainBundleIdentifier();
-  if ([v21 isEqual:@"com.apple.MobileSMS"])
+  if (objc_msgSend_isEqual_(v21))
   {
     mainScreen = [objc_opt_self() mainScreen];
     [mainScreen scale];
@@ -11014,9 +11016,9 @@ void __62__UITextInputController_rangeWithTextAlternatives_atPosition___block_in
 
     v15 = [(UITextInputController *)self textInRange:v14];
     primaryString4 = [alternativesCopy primaryString];
-    v17 = [v15 isEqualToString:primaryString4];
+    isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-    if (v17)
+    if (isEqualToString)
     {
       _textStorage = [(UITextInputController *)self _textStorage];
       v19[0] = MEMORY[0x1E69E9820];
@@ -11048,9 +11050,9 @@ void __45__UITextInputController_addTextAlternatives___block_invoke(uint64_t a1,
   {
     v10 = [v8 primaryString];
     v11 = [v4 primaryString];
-    v12 = [v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-    if (v12)
+    if (isEqualToString)
     {
       v13 = MEMORY[0x1E695DFA0];
       v14 = [v9 alternativeStrings];
@@ -11286,7 +11288,7 @@ void __44__UITextInputController__userEditedTextInfo__block_invoke_2(uint64_t a1
   }
 }
 
-void __44__UITextInputController__userEditedTextInfo__block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __44__UITextInputController__userEditedTextInfo__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v39 = a2;
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -11307,7 +11309,7 @@ void __44__UITextInputController__userEditedTextInfo__block_invoke_3(uint64_t a1
   *(v18 + 32) = v17;
   *(v18 + 40) = v19;
   [*(*(*(a1 + 64) + 8) + 40) addObject:v39];
-  if ([*(a1 + 48) count] - 1 == a3)
+  if (([*(a1 + 48) count] - 1) == a3)
   {
     v20 = [v39 rangeValue];
     [v39 rangeValue];
@@ -12329,9 +12331,9 @@ void __33__UITextInputController_replace___block_invoke_2(uint64_t a1, void *a2,
   v12 = a2;
   v7 = *(a1 + 32);
   v8 = [v7 replacementText];
-  v9 = [v8 isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = *(a1 + 40);
     v11 = [v7 originalText];
@@ -14357,7 +14359,7 @@ void __83__UITextInputController_replaceRange_withAnnotatedString_relativeReplac
 {
   annotationCopy = annotation;
   rangeCopy = range;
-  if ([annotationCopy isEqualToString:*off_1E70ECA00])
+  if (objc_msgSend_isEqualToString_(annotationCopy))
   {
     [(UITextInputController *)self removeSpellingMarkersFromWordInRange:rangeCopy];
   }

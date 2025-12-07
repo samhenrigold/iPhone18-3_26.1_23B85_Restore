@@ -49,49 +49,49 @@
 
 - (BOOL)successfullyAccumulatedInterruptingSessions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB58]);
   v4 = +[_ATXAppIconState sharedInstance];
   allInstalledAppsKnownToSpringBoard = [v4 allInstalledAppsKnownToSpringBoard];
   v6 = [v3 initWithArray:allInstalledAppsKnownToSpringBoard];
 
   v7 = [(BPSPublisher *)self->_notificationPublisher orderedMergeWithOther:self->_appLaunchPublisher comparator:&__block_literal_global_182];
-  v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = __Block_byref_object_copy__81;
-  v21[3] = __Block_byref_object_dispose__81;
-  v22 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __86__ATXInterruptingNotificationsAccumulator_successfullyAccumulatedInterruptingSessions__block_invoke_16;
-  v19[3] = &unk_278597540;
-  v19[4] = &v20;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __86__ATXInterruptingNotificationsAccumulator_successfullyAccumulatedInterruptingSessions__block_invoke_2;
-  v16[3] = &unk_2785988C8;
+  v19 = 0;
+  v20[0] = &v19;
+  v20[1] = 0x3032000000;
+  v20[2] = __Block_byref_object_copy__81;
+  v20[3] = __Block_byref_object_dispose__81;
+  v21 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __86__ATXInterruptingNotificationsAccumulator_successfullyAccumulatedInterruptingSessions__block_invoke_16;
+  v18[3] = &unk_278597540;
+  v18[4] = &v19;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __86__ATXInterruptingNotificationsAccumulator_successfullyAccumulatedInterruptingSessions__block_invoke_2;
+  v15[3] = &unk_2785988C8;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   selfCopy = self;
-  v9 = [v7 sinkWithCompletion:v19 receiveInput:v16];
-  v10 = *(v21[0] + 40);
+  v9 = [v7 sinkWithCompletion:v18 receiveInput:v15];
+  v10 = *(v20[0] + 40);
   if (v10)
   {
-    p_super = __atxlog_handle_usage_insights();
+    p_super = __atxlog_handle_usage_insights(v9);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      [(ATXInterruptingNotificationsAccumulator *)v21 successfullyAccumulatedInterruptingSessions];
+      [(ATXInterruptingNotificationsAccumulator *)v20 successfullyAccumulatedInterruptingSessions];
     }
   }
 
   else
   {
-    v12 = __atxlog_handle_usage_insights();
+    v12 = __atxlog_handle_usage_insights(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v24 = "[ATXInterruptingNotificationsAccumulator successfullyAccumulatedInterruptingSessions]";
+      v23 = "[ATXInterruptingNotificationsAccumulator successfullyAccumulatedInterruptingSessions]";
       _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "%s: Successfully accumulated interrupting app session events", buf, 0xCu);
     }
 
@@ -100,8 +100,7 @@
     self->_allInterruptingAppSessions = interruptingAppsessions;
   }
 
-  _Block_object_dispose(&v20, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
   return v10 == 0;
 }
 
@@ -186,14 +185,13 @@ LABEL_12:
 
 - (void)successfullyAccumulatedInterruptingSessions
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXInterruptingNotificationsAccumulator successfullyAccumulatedInterruptingSessions]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading merged notifications and app launch streams: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXInterruptingNotificationsAccumulator successfullyAccumulatedInterruptingSessions]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading merged notifications and app launch streams: %@", &v3, 0x16u);
 }
 
 @end

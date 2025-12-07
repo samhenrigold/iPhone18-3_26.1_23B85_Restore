@@ -85,70 +85,66 @@
 
 - (BOOL)hasCompleteDataSet
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if ([(NSDictionary *)self->_pagingContexts count])
+  v17 = *MEMORY[0x277D85DE8];
+  if (![(NSDictionary *)self->_pagingContexts count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v3 = self->_pagingContexts;
-    v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = *v14;
-      while (2)
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v14 != v6)
-          {
-            objc_enumerationMutation(v3);
-          }
+    return 0;
+  }
 
-          v8 = [(NSDictionary *)self->_pagingContexts objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
-          if ([v8 isFetchingData])
-          {
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = self->_pagingContexts;
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v13 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = [(NSDictionary *)self->_pagingContexts objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i), v12];
+        if ([v8 isFetchingData])
+        {
 
 LABEL_15:
-            v10 = 0;
-            goto LABEL_16;
-          }
-
-          requiresPaging = [v8 requiresPaging];
-
-          if (requiresPaging)
-          {
-            goto LABEL_15;
-          }
+          v10 = 0;
+          goto LABEL_16;
         }
 
-        v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        v10 = 1;
-        if (v5)
+        requiresPaging = [v8 requiresPaging];
+
+        if (requiresPaging)
         {
-          continue;
+          goto LABEL_15;
         }
-
-        break;
       }
-    }
 
-    else
-    {
+      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 1;
-    }
+      if (v5)
+      {
+        continue;
+      }
 
-LABEL_16:
+      break;
+    }
   }
 
   else
   {
-    v10 = 0;
+    v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+LABEL_16:
+
   return v10;
 }
 
@@ -178,7 +174,7 @@ LABEL_16:
 
 - (void)startCollectingDataWithUpdateHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = MEMORY[0x253092270]();
   updateCallback = self->_updateCallback;
@@ -192,68 +188,67 @@ LABEL_16:
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   updateController = [WeakRetained updateController];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-  v10 = [sampleTypes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [sampleTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        [updateController addObserver:self forType:*(*(&v15 + 1) + 8 * v13++)];
+        [updateController addObserver:self forType:*(*(&v14 + 1) + 8 * v13++)];
       }
 
       while (v11 != v13);
-      v11 = [sampleTypes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [sampleTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
 
   [(WDSampleListDataProvider *)self _requestNextPageOfData];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopCollectingData
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   updateCallback = self->_updateCallback;
   self->_updateCallback = 0;
 
   [(WDSampleListDataProvider *)self _stopAllQueries];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-  v5 = [sampleTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [sampleTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         WeakRetained = objc_loadWeakRetained(&self->_profile);
         updateController = [WeakRetained updateController];
         [updateController removeObserver:self forType:v9];
@@ -262,39 +257,37 @@ LABEL_16:
       }
 
       while (v6 != v8);
-      v6 = [sampleTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [sampleTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAllQueries
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-  v4 = [sampleTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [sampleTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        v8 = [(WDSampleListDataProvider *)self _pagingContextForSampleType:*(*(&v12 + 1) + 8 * v7)];
+        v8 = [(WDSampleListDataProvider *)self _pagingContextForSampleType:*(*(&v11 + 1) + 8 * v7)];
         currentDataFetcher = [v8 currentDataFetcher];
 
         if (currentDataFetcher)
@@ -307,13 +300,11 @@ LABEL_16:
       }
 
       while (v5 != v7);
-      v5 = [sampleTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [sampleTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetAllData
@@ -467,29 +458,29 @@ uint64_t __84__WDSampleListDataProvider_deleteObjectsAtIndexPath_healthStore_opt
 
 - (void)viewControllerWantsDataIncludingDate:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [(WDSampleListDataProvider *)self _resetAllData];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-  v6 = [sampleTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [sampleTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [(WDSampleListDataProvider *)self _pagingContextForSampleType:v10];
         if (dateCopy)
         {
@@ -506,7 +497,7 @@ uint64_t __84__WDSampleListDataProvider_deleteObjectsAtIndexPath_healthStore_opt
         [(WDSampleListDataProvider *)self _requestNextPageOfDataForSampleType:v10];
       }
 
-      v7 = [sampleTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [sampleTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -517,80 +508,76 @@ uint64_t __84__WDSampleListDataProvider_deleteObjectsAtIndexPath_healthStore_opt
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestNextPageOfData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-  v4 = [sampleTypes countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [sampleTypes countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        [(WDSampleListDataProvider *)self _requestNextPageOfDataForSampleType:*(*(&v9 + 1) + 8 * v7++)];
+        [(WDSampleListDataProvider *)self _requestNextPageOfDataForSampleType:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [sampleTypes countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [sampleTypes countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pagingContextForSampleType:(id)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   pagingContexts = self->_pagingContexts;
   if (!pagingContexts)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     sampleTypes = [(WDSampleListDataProvider *)self sampleTypes];
-    v8 = [sampleTypes countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [sampleTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(sampleTypes);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           v13 = objc_alloc_init(_WDSampleListDataProviderPagingContext);
           [(_WDSampleListDataProviderPagingContext *)v13 setRequiresPaging:1];
           [(NSDictionary *)v6 setObject:v13 forKeyedSubscript:v12];
         }
 
-        v9 = [sampleTypes countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [sampleTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -603,8 +590,6 @@ LABEL_13:
   }
 
   v15 = [(NSDictionary *)pagingContexts objectForKeyedSubscript:typeCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -623,7 +608,7 @@ LABEL_13:
 
 - (void)_requestNextPageOfDataForSampleType:(id)type
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = [(WDSampleListDataProvider *)self _pagingContextForSampleType:typeCopy];
   if (([v5 isFetchingData] & 1) != 0 || !objc_msgSend(v5, "requiresPaging"))
@@ -663,26 +648,26 @@ LABEL_7:
 
 LABEL_8:
   v15 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:*MEMORY[0x277CCCD38] ascending:0];
-  v29[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke;
-  v27[3] = &unk_2796E8270;
-  v27[4] = self;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke;
+  v26[3] = &unk_2796E8270;
+  v26[4] = self;
   v17 = typeCopy;
-  v28 = v17;
-  v18 = MEMORY[0x253092270](v27);
+  v27 = v17;
+  v18 = MEMORY[0x253092270](v26);
   v19 = [(WDSampleListDataProvider *)self createDataFetcherForSampleType:v17 predicate:v6 limit:200 sortDescriptors:v16 resultsHandler:v18];
   if (!v19)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke_317;
-    v25[3] = &unk_2796E8298;
-    v26 = v18;
-    v20 = [(WDSampleListDataProvider *)self createQueryForSampleType:v17 predicate:v6 limit:200 sortDescriptors:v16 resultsHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke_317;
+    v24[3] = &unk_2796E8298;
+    v25 = v18;
+    v20 = [(WDSampleListDataProvider *)self createQueryForSampleType:v17 predicate:v6 limit:200 sortDescriptors:v16 resultsHandler:v24];
     v21 = objc_alloc(MEMORY[0x277D12A20]);
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     healthStore = [WeakRetained healthStore];
@@ -694,7 +679,6 @@ LABEL_8:
   [v19 start];
 
 LABEL_11:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -715,32 +699,30 @@ void __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_
   dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
-uint64_t __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke_2(uint64_t a1)
+uint64_t __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 32) = 1;
   if (*(a1 + 40))
   {
     _HKInitializeLogging();
-    v2 = HKLogWellnessDashboard();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = HKLogWellnessDashboard();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 40);
-      v5 = *(a1 + 48);
-      v7 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_error_impl(&dword_251E85000, v2, OS_LOG_TYPE_ERROR, "%@: Error fetching samples of type (%@): %@", &v8, 0x20u);
+      v7 = *(a1 + 40);
+      v6 = *(a1 + 48);
+      v8 = *(a1 + 32);
+      v9 = 138412802;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_error_impl(&dword_251E85000, v4, OS_LOG_TYPE_ERROR, "%@: Error fetching samples of type (%@): %@", &v9, 0x20u);
     }
   }
 
-  result = [*(a1 + 32) _handleQueryResultsForSampleType:*(a1 + 48) results:*(a1 + 56)];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleQueryResultsForSampleType:*(a1 + 48) results:*(a1 + 56)];
 }
 
 - (void)_handleQueryResultsForSampleType:(id)type results:(id)results
@@ -786,31 +768,31 @@ uint64_t __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___bl
 
 - (id)_UUIDsForSamplesWithEndDate:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allSamples = [(HKSortedSampleArray *)self->_samples allSamples];
   reverseObjectEnumerator = [allSamples reverseObjectEnumerator];
 
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         endDate = [v12 endDate];
         if (HKUIObjectIsLarger())
         {
@@ -825,7 +807,7 @@ uint64_t __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___bl
         }
       }
 
-      v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -836,8 +818,6 @@ uint64_t __64__WDSampleListDataProvider__requestNextPageOfDataForSampleType___bl
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -854,33 +834,33 @@ LABEL_13:
 - (void)updateController:(id)controller didReceiveUpdateForType:(id)type samplesAdded:(id)added objectsRemoved:(id)removed recoveringFromError:(BOOL)error
 {
   errorCopy = error;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v11 = [(WDSampleListDataProvider *)self _handleObjectsRemoved:removed];
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v13 = addedCopy;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       v17 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * v17);
+        v18 = *(*(&v21 + 1) + 8 * v17);
         defaultQueryPredicateFilter = self->_defaultQueryPredicateFilter;
-        if (!defaultQueryPredicateFilter || [(HKSampleListDataProviderFilter *)defaultQueryPredicateFilter acceptsDataObject:*(*(&v22 + 1) + 8 * v17)])
+        if (!defaultQueryPredicateFilter || [(HKSampleListDataProviderFilter *)defaultQueryPredicateFilter acceptsDataObject:*(*(&v21 + 1) + 8 * v17)])
         {
           [v12 addObject:v18];
         }
@@ -889,7 +869,7 @@ LABEL_13:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
@@ -897,15 +877,13 @@ LABEL_13:
 
   if (((v11 | [(HKSortedSampleArray *)self->_samples insertSamples:v12]) & 1) != 0 || errorCopy)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __117__WDSampleListDataProvider_updateController_didReceiveUpdateForType_samplesAdded_objectsRemoved_recoveringFromError___block_invoke;
-    v21[3] = &unk_2796E82C0;
-    v21[4] = self;
-    [(WDSampleListDataProvider *)self refineSamplesWithCompletion:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __117__WDSampleListDataProvider_updateController_didReceiveUpdateForType_samplesAdded_objectsRemoved_recoveringFromError___block_invoke;
+    v20[3] = &unk_2796E82C0;
+    v20[4] = self;
+    [(WDSampleListDataProvider *)self refineSamplesWithCompletion:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __117__WDSampleListDataProvider_updateController_didReceiveUpdateForType_samplesAdded_objectsRemoved_recoveringFromError___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -944,44 +922,43 @@ uint64_t __117__WDSampleListDataProvider_updateController_didReceiveUpdateForTyp
 
 - (BOOL)_handleObjectsRemoved:(id)removed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = removedCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        uUID = [*(*(&v15 + 1) + 8 * v10) UUID];
+        uUID = [*(*(&v14 + 1) + 8 * v10) UUID];
         [v5 addObject:uUID];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [(HKSortedSampleArray *)self->_samples removeSamplesWithUUIDs:v5];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

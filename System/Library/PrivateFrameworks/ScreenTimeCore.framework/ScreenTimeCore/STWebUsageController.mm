@@ -661,13 +661,12 @@ void __54__STWebUsageController__asynchronousProxyWithHandler___block_invoke(uin
 
 void __54__STWebUsageController__asynchronousProxyWithHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = @"com.apple.ScreenTimeAgent.private";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = @"com.apple.ScreenTimeAgent.private";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@", &v2, 0x16u);
 }
 
 @end

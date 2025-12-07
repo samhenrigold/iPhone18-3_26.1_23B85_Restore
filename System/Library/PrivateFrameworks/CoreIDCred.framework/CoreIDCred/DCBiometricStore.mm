@@ -20,6 +20,7 @@
 - (void)nonceForAuthorizationTokenWithCompletion:(id)completion;
 - (void)passcodeBindingUnboundACL:(id)l;
 - (void)prearmCredentialWithAuthorizationToken:(id)token completion:(id)completion;
+- (void)refreshProgenitorKeyDesignationsWithSessionHandoffToken:(id)token onlyIfNeeded:(BOOL)needed completion:(id)completion;
 - (void)revokeCredentialAuthorizationToken:(id)token;
 - (void)setGlobalAuthACL:(id)l ofType:(unint64_t)type completion:(id)completion;
 - (void)setModifiedGlobalAuthACL:(id)l externalizedLAContext:(id)context completion:(id)completion;
@@ -219,6 +220,15 @@
   lCopy = l;
   client = [(DCBiometricStore *)self client];
   [client boundAppletPresentmentACL:lCopy];
+}
+
+- (void)refreshProgenitorKeyDesignationsWithSessionHandoffToken:(id)token onlyIfNeeded:(BOOL)needed completion:(id)completion
+{
+  neededCopy = needed;
+  completionCopy = completion;
+  tokenCopy = token;
+  client = [(DCBiometricStore *)self client];
+  [client refreshProgenitorKeyDesignationsWithSessionHandoffToken:tokenCopy onlyIfNeeded:neededCopy completion:completionCopy];
 }
 
 - (void)clearProgenitorKeyDesignationsWithCompletion:(id)completion

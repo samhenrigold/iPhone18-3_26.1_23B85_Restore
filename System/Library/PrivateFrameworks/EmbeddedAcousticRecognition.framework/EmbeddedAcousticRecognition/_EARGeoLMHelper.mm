@@ -9,24 +9,26 @@
 
 - (_EARGeoLMHelper)initWithLocale:(id)locale config:(id)config
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   configCopy = config;
-  if ([(__CFString *)localeCopy length]&& [(__CFString *)configCopy length])
+  v9 = [(__CFString *)localeCopy length];
+  if (v9 && (v9 = [(__CFString *)configCopy length]) != 0)
   {
-    v19.receiver = self;
-    v19.super_class = _EARGeoLMHelper;
-    v9 = [(_EARGeoLMHelper *)&v19 init];
-    if (v9)
+    v21.receiver = self;
+    v21.super_class = _EARGeoLMHelper;
+    v10 = [(_EARGeoLMHelper *)&v21 init];
+    v11 = v10;
+    if (v10)
     {
-      v10 = EarGeoLMHelperLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = EarGeoLMHelperLogger(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [_EARGeoLMHelper initWithLocale:config:];
       }
 
-      objc_storeStrong(&v9->_locale, locale);
-      v18 = &unk_1F2D13EE8;
+      objc_storeStrong(&v11->_locale, locale);
+      v20 = &unk_1F2D13EE8;
       operator new();
     }
 
@@ -36,32 +38,32 @@
 
   else
   {
-    v11 = EarGeoLMHelperLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = EarGeoLMHelperLogger(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(__CFString *)localeCopy length];
-      v15 = [(__CFString *)configCopy length];
-      v16 = @"(none)";
-      if (v14)
+      v16 = [(__CFString *)localeCopy length];
+      v17 = [(__CFString *)configCopy length];
+      v18 = @"(none)";
+      if (v16)
       {
-        v17 = localeCopy;
+        v19 = localeCopy;
       }
 
       else
       {
-        v17 = @"(none)";
+        v19 = @"(none)";
       }
 
-      if (v15)
+      if (v17)
       {
-        v16 = configCopy;
+        v18 = configCopy;
       }
 
       __p = 138412546;
-      __p_4 = v17;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_error_impl(&dword_1B501D000, v11, OS_LOG_TYPE_ERROR, "GeoLM: Cannot initialize helper with locale: %@, config: %@", &__p, 0x16u);
+      __p_4 = v19;
+      v24 = 2112;
+      v25 = v18;
+      _os_log_error_impl(&dword_1B501D000, v13, OS_LOG_TYPE_ERROR, "GeoLM: Cannot initialize helper with locale: %@, config: %@", &__p, 0x16u);
     }
 
     selfCopy = 0;
@@ -85,7 +87,7 @@
     quasar::Geography::getGeoContext();
   }
 
-  v12 = EarGeoLMHelperLogger();
+  v12 = EarGeoLMHelperLogger(v9);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     locale = self->_locale;
@@ -114,15 +116,15 @@
   {
     v10.receiver = self;
     v10.super_class = _EARGeoLMHelper;
-    if ([(_EARGeoLMHelper *)&v10 init])
+    v6 = [(_EARGeoLMHelper *)&v10 init];
+    if (v6)
     {
-      v6 = EarGeoLMHelperLogger();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = EarGeoLMHelperLogger(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [_EARGeoLMHelper initWithConfiguration:];
       }
 
-      v9 = &unk_1F2D13EE8;
       operator new();
     }
 
@@ -165,7 +167,7 @@
   OUTLINED_FUNCTION_0_2();
   (*(v0 + 16))();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "GeoLM: Internal C++ exception: %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "GeoLM: Internal C++ exception: %s", v3, v4, v5, v6);
 }
 
 - (void)regionIdForLocale:latitude:longitude:.cold.3()

@@ -72,7 +72,7 @@
         v11 = v10;
         if (v9 == v10)
         {
-          v13 = 1;
+          isEqual = 1;
         }
 
         else
@@ -89,34 +89,34 @@
 
           if (v12)
           {
-            v13 = 0;
+            isEqual = 0;
           }
 
           else
           {
-            v13 = [(NSString *)v9 isEqual:v10];
+            isEqual = objc_msgSend_isEqual_(v9);
           }
         }
       }
 
       else
       {
-        v13 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v13 = 1;
+      isEqual = 1;
     }
   }
 
   else
   {
-    v13 = 0;
+    isEqual = 0;
   }
 
-  return v13;
+  return isEqual;
 }
 
 - (id)_ui_descriptionBuilder

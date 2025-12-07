@@ -73,18 +73,17 @@
   __swift_project_boxed_opaque_existential_1(v3, v4);
   v6 = *(v5 + 56);
   selfCopy = self;
-  v6(v15, v4, v5);
-  LOBYTE(v4) = v15[0];
-  LOBYTE(v5) = BYTE1(v15[0]);
-  v8 = v15[1];
-  LOBYTE(v6) = v16;
-  v9 = v17;
-  v10 = v18;
+  v6(v14, v4, v5);
+  LOBYTE(v4) = v14[0];
+  LOBYTE(v5) = BYTE1(v14[0]);
+  v8 = v14[1];
+  LOBYTE(v6) = v15;
+  v9 = v16;
+  v10 = v17;
   swift_endAccess();
   v11 = [objc_allocWithZone(CHUISControlInstanceConfiguration) init];
 
   v12 = &v11[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration];
-  v13 = *&v11[OBJC_IVAR___CHUISControlInstanceConfiguration__configuration + 32];
   *v12 = v4;
   v12[1] = v5;
   *(v12 + 1) = v8;
@@ -255,7 +254,7 @@
   selfCopy = self;
   v11(v7, v6, v9, v10);
 
-  sub_1D92E5F4C(v7);
+  sub_1D92E5F4C(v7, v6);
   __swift_destroy_boxed_opaque_existential_1Tm(v13);
 }
 

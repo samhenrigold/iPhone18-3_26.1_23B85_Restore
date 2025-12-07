@@ -27,24 +27,23 @@
 {
   if (!self->_isPrewarmed)
   {
-    v3 = VCPSignPostLog();
+    v3 = VCPSignPostLog(self);
     v4 = os_signpost_id_generate(v3);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v6 = VCPSignPostLog(v5);
+    v7 = v6;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MAD_VSKClientWarmup", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MAD_VSKClientWarmup", "", buf, 2u);
     }
 
-    [(VSKClient *)self->_client warmup];
-    v7 = VCPSignPostLog();
-    v8 = v7;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v8 = VCPSignPostLog([(VSKClient *)self->_client warmup]);
+    v9 = v8;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
-      *v9 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v4, "MAD_VSKClientWarmup", "", v9, 2u);
+      *v10 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_END, v4, "MAD_VSKClientWarmup", "", v10, 2u);
     }
 
     self->_isPrewarmed = 1;
@@ -55,26 +54,25 @@
 {
   if (self->_isPrewarmed)
   {
-    v13 = v2;
-    v14 = v3;
-    v5 = VCPSignPostLog();
+    v14 = v2;
+    v15 = v3;
+    v5 = VCPSignPostLog(self);
     v6 = os_signpost_id_generate(v5);
 
-    v7 = VCPSignPostLog();
-    v8 = v7;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v8 = VCPSignPostLog(v7);
+    v9 = v8;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKClientCooldown", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MAD_VSKClientCooldown", "", buf, 2u);
     }
 
-    [(VSKClient *)self->_client cooldown];
-    v9 = VCPSignPostLog();
-    v10 = v9;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v10 = VCPSignPostLog([(VSKClient *)self->_client cooldown]);
+    v11 = v10;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      *v11 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKClientCooldown", "", v11, 2u);
+      *v12 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v6, "MAD_VSKClientCooldown", "", v12, 2u);
     }
 
     self->_isPrewarmed = 0;

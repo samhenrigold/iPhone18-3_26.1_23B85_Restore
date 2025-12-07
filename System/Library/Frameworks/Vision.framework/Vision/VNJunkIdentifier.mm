@@ -340,9 +340,9 @@ LABEL_19:
   return v14;
 }
 
-void __59__VNJunkIdentifier_completeInitializationForSession_error___block_invoke(uint64_t a1)
+void __59__VNJunkIdentifier_completeInitializationForSession_error___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = 0u;
+  v3 = 0u;
   [*(a1 + 40) UTF8String];
   [*(a1 + 48) UTF8String];
   operator new();

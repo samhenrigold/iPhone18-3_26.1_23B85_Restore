@@ -166,7 +166,6 @@ double __54__AKAuthorizationSubPaneInfoLabel_setString_animated___block_invoke(u
 
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (AKAuthorizationSubPaneInfoLabel)infoLabelWithString:(id)string

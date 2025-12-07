@@ -199,14 +199,14 @@
     [(CRLImageResamplingOperation *)self desiredAlternateSizeIfConvertedToPNG];
     if (v12 != CGSizeZero.width || v11 != CGSizeZero.height)
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v14 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_1013446D0();
       }
 
-      v14 = off_1019EDA68;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = off_1019EDA68;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1013446E4();
       }
@@ -216,74 +216,74 @@
         sub_101344774();
       }
 
-      v15 = off_1019EDA68;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = off_1019EDA68;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_10134479C();
+        sub_10134479C(v14);
       }
 
-      v16 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
-      v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
-      [CRLAssertionHandler handleFailureInFunction:v16 file:v17 lineNumber:81 isFatal:0 description:"Should not specify an alternate size if a precise size is required!"];
+      v17 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
+      v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
+      [CRLAssertionHandler handleFailureInFunction:v17 file:v18 lineNumber:81 isFatal:0 description:"Should not specify an alternate size if a precise size is required!"];
     }
   }
 
-  v18 = optionsCopy & 1;
+  v19 = optionsCopy & 1;
   [(CRLImageResamplingOperation *)self desiredSize];
-  v22 = sub_10011FBF0(v19, v20, 1.0);
-  v23 = v21;
+  v23 = sub_10011FBF0(v20, v21, 1.0);
+  v24 = v22;
   if ((optionsCopy & 8) == 0)
   {
-    v22 = sub_100121EF4(0, v8, v10, v22, v21);
-    v23 = v24;
+    v23 = sub_100121EF4(0, v8, v10, v23, v22);
+    v24 = v25;
   }
 
   if (optionsCopy)
   {
-    v25 = 0.5;
+    v26 = 0.5;
   }
 
   else
   {
-    v25 = 0.699999988;
+    v26 = 0.699999988;
   }
 
-  v26 = objc_opt_class();
+  v27 = objc_opt_class();
   imageProvider2 = [(CRLImageResamplingOperation *)self imageProvider];
-  v28 = sub_100014370(v26, imageProvider2);
+  v29 = sub_100014370(v27, imageProvider2);
 
-  if ((optionsCopy & 2) == 0 && !v28)
+  if ((optionsCopy & 2) == 0 && !v29)
   {
-    v29 = [_TtC8Freeform27CRLPreinsertionAssetWrapper alloc];
+    v30 = [_TtC8Freeform27CRLPreinsertionAssetWrapper alloc];
     imageProvider3 = [(CRLImageResamplingOperation *)self imageProvider];
     imageData = [(__CFString *)imageProvider3 imageData];
-    v32 = [(CRLPreinsertionAssetWrapper *)v29 initWithAlreadyInsertedAsset:imageData owner:self->mAssetOwner];
+    v33 = [(CRLPreinsertionAssetWrapper *)v30 initWithAlreadyInsertedAsset:imageData owner:self->mAssetOwner];
     goto LABEL_141;
   }
 
-  cGImageSource = [v28 CGImageSource];
+  cGImageSource = [v29 CGImageSource];
   isrc = cGImageSource;
-  if (cGImageSource && (v34 = cGImageSource, CGImageSourceGetStatus(cGImageSource) == kCGImageStatusComplete))
+  if (cGImageSource && (v35 = cGImageSource, CGImageSourceGetStatus(cGImageSource) == kCGImageStatusComplete))
   {
-    v105 = CGImageSourceCopyPropertiesAtIndex(v34, 0, 0);
-    if (v105)
+    v107 = CGImageSourceCopyPropertiesAtIndex(v35, 0, 0);
+    if (v107)
     {
-      cf = v105;
-      v133 = 1;
-      v135 = CFDictionaryGetValue(v105, kCGImagePropertyHasAlpha) == kCFBooleanTrue;
+      cf = v107;
+      v135 = 1;
+      v137 = CFDictionaryGetValue(v107, kCGImagePropertyHasAlpha) == kCFBooleanTrue;
       goto LABEL_27;
     }
 
-    v133 = 1;
+    v135 = 1;
   }
 
   else
   {
-    v133 = 0;
+    v135 = 0;
   }
 
   cf = 0;
-  v135 = [v28 isOpaque] ^ 1;
+  v137 = [v29 isOpaque] ^ 1;
 LABEL_27:
   displayName = [(CRLImageResamplingOperation *)self displayName];
   imageProvider3 = [displayName stringByDeletingPathExtension];
@@ -307,7 +307,7 @@ LABEL_27:
     }
   }
 
-  v131 = v28;
+  v133 = v29;
   displayName2 = [(CRLImageResamplingOperation *)self displayName];
   imageData = [displayName2 pathExtension];
 
@@ -321,18 +321,18 @@ LABEL_27:
     imageData = pathExtension;
   }
 
-  v45 = [UTType typeWithTag:imageData tagClass:UTTagClassFilenameExtension conformingToType:0];
-  v128 = v45;
-  if (!v45)
+  v46 = [UTType typeWithTag:imageData tagClass:UTTagClassFilenameExtension conformingToType:0];
+  v130 = v46;
+  if (!v46)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v47 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_101344844();
     }
 
-    v46 = off_1019EDA68;
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v48 = off_1019EDA68;
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       sub_10134486C();
     }
@@ -342,101 +342,101 @@ LABEL_27:
       sub_101344908();
     }
 
-    v47 = off_1019EDA68;
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v49 = off_1019EDA68;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      sub_10134479C();
+      sub_10134479C(v47);
     }
 
-    v48 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
-    v49 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
-    [CRLAssertionHandler handleFailureInFunction:v48 file:v49 lineNumber:129 isFatal:0 description:"invalid nil value for '%{public}s'", "utTypeForOriginalFile"];
+    v50 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
+    v51 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
+    [CRLAssertionHandler handleFailureInFunction:v50 file:v51 lineNumber:129 isFatal:0 description:"invalid nil value for '%{public}s'", "utTypeForOriginalFile"];
 
-    v45 = 0;
+    v46 = 0;
   }
 
-  if ([v45 conformsToType:UTTypeJPEG])
+  if ([v46 conformsToType:UTTypeJPEG])
   {
-    LOBYTE(v50) = 0;
+    LOBYTE(v52) = 0;
   }
 
   else
   {
-    v51 = +[CRLIngestionTypes highEfficiencyImageUTTypes];
-    if ([v45 crl_conformsToAnyUTType:v51])
+    v53 = +[CRLIngestionTypes highEfficiencyImageUTTypes];
+    if ([v46 crl_conformsToAnyUTType:v53])
     {
-      LOBYTE(v50) = 0;
+      LOBYTE(v52) = 0;
     }
 
     else
     {
-      v50 = [v45 conformsToType:UTTypeWebP] ^ 1;
+      v52 = [v46 conformsToType:UTTypeWebP] ^ 1;
     }
   }
 
-  if ((v135 | v50))
+  if ((v137 | v52))
   {
-    v52 = UTTypePNG;
+    v54 = UTTypePNG;
   }
 
   else
   {
-    v52 = UTTypeJPEG;
+    v54 = UTTypeJPEG;
   }
 
-  v53 = v52;
-  if ([(UTType *)v53 isEqual:UTTypePNG])
+  v55 = v54;
+  if ([(UTType *)v55 isEqual:UTTypePNG])
   {
     [(CRLImageResamplingOperation *)self desiredAlternateSizeIfConvertedToPNG];
-    if (v55 != CGSizeZero.width || v54 != CGSizeZero.height)
+    if (v57 != CGSizeZero.width || v56 != CGSizeZero.height)
     {
       [(CRLImageResamplingOperation *)self desiredAlternateSizeIfConvertedToPNG];
-      v22 = sub_100121EF4(0, v8, v10, v56, v57);
-      v23 = v58;
+      v23 = sub_100121EF4(0, v8, v10, v58, v59);
+      v24 = v60;
     }
   }
 
-  preferredFilenameExtension = [(UTType *)v53 preferredFilenameExtension];
-  v127 = [(__CFString *)imageProvider3 stringByAppendingPathExtension:preferredFilenameExtension];
-  v60 = v133 ^ 1;
+  preferredFilenameExtension = [(UTType *)v55 preferredFilenameExtension];
+  v129 = [(__CFString *)imageProvider3 stringByAppendingPathExtension:preferredFilenameExtension];
+  v62 = v135 ^ 1;
   if ((optionsCopy & 0x18) != 0)
   {
-    v60 = 1;
+    v62 = 1;
   }
 
-  v129 = v53;
-  v125 = preferredFilenameExtension;
-  if ((v60 & 1) == 0 && v22 < v8 && v23 < v10)
+  v131 = v55;
+  v127 = preferredFilenameExtension;
+  if ((v62 & 1) == 0 && v23 < v8 && v24 < v10)
   {
-    v144[0] = kCGImageSourceCreateThumbnailFromImageAlways;
-    v144[1] = kCGImageSourceCreateThumbnailWithTransform;
-    v145[0] = &__kCFBooleanTrue;
-    v145[1] = &__kCFBooleanTrue;
-    v144[2] = kCGImageSourceThumbnailMaxPixelSize;
-    v61 = v22 >= v23 ? v22 : v23;
-    v62 = [NSNumber numberWithDouble:v61];
-    v145[2] = v62;
-    v63 = [NSDictionary dictionaryWithObjects:v145 forKeys:v144 count:3];
+    v146[0] = kCGImageSourceCreateThumbnailFromImageAlways;
+    v146[1] = kCGImageSourceCreateThumbnailWithTransform;
+    v147[0] = &__kCFBooleanTrue;
+    v147[1] = &__kCFBooleanTrue;
+    v146[2] = kCGImageSourceThumbnailMaxPixelSize;
+    v63 = v23 >= v24 ? v23 : v24;
+    v64 = [NSNumber numberWithDouble:v63];
+    v147[2] = v64;
+    v65 = [NSDictionary dictionaryWithObjects:v147 forKeys:v146 count:3];
 
-    ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(isrc, 0, v63);
+    ThumbnailAtIndex = CGImageSourceCreateThumbnailAtIndex(isrc, 0, v65);
     if (ThumbnailAtIndex)
     {
       goto LABEL_95;
     }
   }
 
-  v65 = contextOptionsCopy | 2;
-  if (!v135)
+  v67 = contextOptionsCopy | 2;
+  if (!v137)
   {
-    v65 = contextOptionsCopy;
+    v67 = contextOptionsCopy;
   }
 
-  v66 = v65 | (4 * v18);
-  v67 = sub_10012211C(v22);
-  v69 = v68;
-  if ((v133 & 1) != 0 && (-[CRLImageResamplingOperation imageProvider](self, "imageProvider"), v70 = objc_claimAutoreleasedReturnValue(), [v70 imageData], v71 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v71, "newCGImage"), v71, v70, v73 = sub_10050E434(v72, v66, v67, v69), v74 = v72, v53 = v129, CGImageRelease(v74), v73))
+  v68 = v67 | (4 * v19);
+  v69 = sub_10012211C(v23);
+  v71 = v70;
+  if ((v135 & 1) != 0 && (-[CRLImageResamplingOperation imageProvider](self, "imageProvider"), v72 = objc_claimAutoreleasedReturnValue(), [v72 imageData], v73 = objc_claimAutoreleasedReturnValue(), v74 = objc_msgSend(v73, "newCGImage"), v73, v72, v75 = sub_10050E434(v74, v68, v69, v71), v76 = v74, v55 = v131, CGImageRelease(v76), v75))
   {
-    v75 = isrc;
+    v77 = isrc;
   }
 
   else
@@ -446,17 +446,17 @@ LABEL_27:
 
     if (imageGamut == 2)
     {
-      v78 = v66;
+      v80 = v68;
     }
 
     else
     {
-      v78 = v66 | 0x20;
+      v80 = v68 | 0x20;
     }
 
-    v79 = sub_10050DF80(v78, v67, v69);
-    v75 = isrc;
-    if (!v79)
+    v81 = sub_10050DF80(v80, v69, v71);
+    v77 = isrc;
+    if (!v81)
     {
 LABEL_105:
       +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -465,167 +465,167 @@ LABEL_105:
         sub_101344B24();
       }
 
-      v98 = v127;
+      v100 = v129;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
         sub_101344B4C();
       }
 
-      v28 = v131;
+      v29 = v133;
       if (qword_101AD5A10 != -1)
       {
         sub_101344BE8();
       }
 
-      v99 = off_1019EDA68;
+      v101 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130DA10(v99);
+        sub_10130DA10(v101);
       }
 
-      v88 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
-      v100 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
-      [CRLAssertionHandler handleFailureInFunction:v88 file:v100 lineNumber:239 isFatal:0 description:"invalid nil value for '%{public}s'", "resampledImage", v125];
+      v90 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
+      v102 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
+      [CRLAssertionHandler handleFailureInFunction:v90 file:v102 lineNumber:239 isFatal:0 description:"invalid nil value for '%{public}s'", "resampledImage", v127];
 
-      v32 = 0;
-      v101 = v129;
+      v33 = 0;
+      v103 = v131;
       goto LABEL_138;
     }
 
-    v73 = v79;
+    v75 = v81;
   }
 
-  if (v18)
+  if (v19)
   {
-    v80 = kCGInterpolationNone;
+    v82 = kCGInterpolationNone;
   }
 
   else
   {
-    v80 = kCGInterpolationLow;
+    v82 = kCGInterpolationLow;
   }
 
-  CGContextSetInterpolationQuality(v73, v80);
-  if (!v135)
+  CGContextSetInterpolationQuality(v75, v82);
+  if (!v137)
   {
+    v24 = v71;
     v23 = v69;
-    v22 = v67;
   }
 
-  if (v75 && ((Type = CGImageSourceGetType(v75), v8 / v22 >= v10 / v23) ? (v82 = v8 / v22) : (v82 = v10 / v23), [v131 isValid] && (objc_msgSend(UTTypeJPEG, "identifier"), v83 = objc_claimAutoreleasedReturnValue(), v84 = CFEqual(Type, v83), v83, v84) && v82 >= 2.0))
+  if (v77 && ((Type = CGImageSourceGetType(v77), v8 / v23 >= v10 / v24) ? (v84 = v8 / v23) : (v84 = v10 / v24), [v133 isValid] && (objc_msgSend(UTTypeJPEG, "identifier"), v85 = objc_claimAutoreleasedReturnValue(), v86 = CFEqual(Type, v85), v85, v86) && v84 >= 2.0))
   {
-    if (v82 >= 8.0)
+    if (v84 >= 8.0)
     {
-      v86 = 8;
-      v85 = v131;
+      v88 = 8;
+      v87 = v133;
     }
 
     else
     {
-      v85 = v131;
-      if (v82 >= 4.0)
+      v87 = v133;
+      if (v84 >= 4.0)
       {
-        v86 = 4;
+        v88 = 4;
       }
 
       else
       {
-        v86 = 2;
+        v88 = 2;
       }
     }
 
-    v142 = @"kCGImageSourceSubsampleFactor";
-    v114 = [NSNumber numberWithInt:v86];
-    v143 = v114;
-    imageProvider7 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+    v144 = @"kCGImageSourceSubsampleFactor";
+    v116 = [NSNumber numberWithInt:v88];
+    v145 = v116;
+    imageProvider7 = [NSDictionary dictionaryWithObjects:&v145 forKeys:&v144 count:1];
 
     ImageAtIndex = CGImageSourceCreateImageAtIndex(isrc, 0, imageProvider7);
-    v116 = sub_10011ECB4();
-    v118 = v117;
+    v118 = sub_10011ECB4();
     v120 = v119;
     v122 = v121;
-    CGContextSaveGState(v73);
-    v146.origin.x = v116;
-    v146.origin.y = v118;
-    v146.size.width = v120;
-    v146.size.height = v122;
-    MinY = CGRectGetMinY(v146);
-    v147.origin.x = v116;
-    v147.origin.y = v118;
-    v147.size.width = v120;
-    v147.size.height = v122;
-    MaxY = CGRectGetMaxY(v147);
-    CGContextTranslateCTM(v73, 0.0, MinY + MaxY);
-    CGContextScaleCTM(v73, 1.0, -1.0);
-    sub_1004F3D84([v85 orientation], 1, &transform, v116, v118, v120, v122);
-    CGContextConcatCTM(v73, &transform);
-    v148.origin.x = v116;
-    v148.origin.y = v118;
-    v148.size.width = v120;
-    v148.size.height = v122;
-    CGContextDrawImage(v73, v148, ImageAtIndex);
+    v124 = v123;
+    CGContextSaveGState(v75);
+    v148.origin.x = v118;
+    v148.origin.y = v120;
+    v148.size.width = v122;
+    v148.size.height = v124;
+    MinY = CGRectGetMinY(v148);
+    v149.origin.x = v118;
+    v149.origin.y = v120;
+    v149.size.width = v122;
+    v149.size.height = v124;
+    MaxY = CGRectGetMaxY(v149);
+    CGContextTranslateCTM(v75, 0.0, MinY + MaxY);
+    CGContextScaleCTM(v75, 1.0, -1.0);
+    sub_1004F3D84([v87 orientation], 1, &transform, v118, v120, v122, v124);
+    CGContextConcatCTM(v75, &transform);
+    v150.origin.x = v118;
+    v150.origin.y = v120;
+    v150.size.width = v122;
+    v150.size.height = v124;
+    CGContextDrawImage(v75, v150, ImageAtIndex);
     if (ImageAtIndex)
     {
       CFRelease(ImageAtIndex);
     }
 
-    CGContextRestoreGState(v73);
-    v53 = v129;
+    CGContextRestoreGState(v75);
+    v55 = v131;
   }
 
   else
   {
     imageProvider7 = [(CRLImageResamplingOperation *)self imageProvider];
-    [(__CFDictionary *)imageProvider7 drawImageInContext:v73 rect:sub_10011ECB4()];
+    [(__CFDictionary *)imageProvider7 drawImageInContext:v75 rect:sub_10011ECB4()];
   }
 
-  ThumbnailAtIndex = CGBitmapContextCreateImage(v73);
-  CGContextRelease(v73);
+  ThumbnailAtIndex = CGBitmapContextCreateImage(v75);
+  CGContextRelease(v75);
   if (!ThumbnailAtIndex)
   {
     goto LABEL_105;
   }
 
 LABEL_95:
-  v88 = objc_alloc_init(NSMutableData);
-  identifier = [(UTType *)v53 identifier];
-  v90 = CGImageDestinationCreateWithData(v88, identifier, 1uLL, 0);
+  v90 = objc_alloc_init(NSMutableData);
+  identifier = [(UTType *)v55 identifier];
+  v92 = CGImageDestinationCreateWithData(v90, identifier, 1uLL, 0);
 
-  if (v90)
+  if (v92)
   {
-    v140 = kCGImageDestinationLossyCompressionQuality;
-    v91 = [NSNumber numberWithDouble:v25];
-    v141 = v91;
-    v92 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+    v142 = kCGImageDestinationLossyCompressionQuality;
+    v93 = [NSNumber numberWithDouble:v26];
+    v143 = v93;
+    v94 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
 
-    v93 = v92;
-    CGImageDestinationSetProperties(v90, v92);
-    if (v133)
+    v95 = v94;
+    CGImageDestinationSetProperties(v92, v94);
+    if (v135)
     {
-      v136 = v92;
+      v138 = v94;
       Mutable = CFDictionaryCreateMutable(0, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      CFDictionaryAddValue(Mutable, kCGImageDestinationLossyCompressionQuality, [NSNumber numberWithDouble:v25]);
-      v95 = CGImageSourceCopyPropertiesAtIndex(isrc, 0, 0);
-      if (CFDictionaryContainsKey(v95, kCGImagePropertyDPIWidth))
+      CFDictionaryAddValue(Mutable, kCGImageDestinationLossyCompressionQuality, [NSNumber numberWithDouble:v26]);
+      v97 = CGImageSourceCopyPropertiesAtIndex(isrc, 0, 0);
+      if (CFDictionaryContainsKey(v97, kCGImagePropertyDPIWidth))
       {
-        Value = CFDictionaryGetValue(v95, kCGImagePropertyDPIWidth);
+        Value = CFDictionaryGetValue(v97, kCGImagePropertyDPIWidth);
         CFDictionaryAddValue(Mutable, kCGImagePropertyDPIWidth, Value);
       }
 
-      if (CFDictionaryContainsKey(v95, kCGImagePropertyDPIHeight))
+      if (CFDictionaryContainsKey(v97, kCGImagePropertyDPIHeight))
       {
-        v97 = CFDictionaryGetValue(v95, kCGImagePropertyDPIHeight);
-        CFDictionaryAddValue(Mutable, kCGImagePropertyDPIHeight, v97);
+        v99 = CFDictionaryGetValue(v97, kCGImagePropertyDPIHeight);
+        CFDictionaryAddValue(Mutable, kCGImagePropertyDPIHeight, v99);
       }
 
-      CGImageDestinationAddImage(v90, ThumbnailAtIndex, Mutable);
-      v28 = v131;
-      if (v95)
+      CGImageDestinationAddImage(v92, ThumbnailAtIndex, Mutable);
+      v29 = v133;
+      if (v97)
       {
-        CFRelease(v95);
+        CFRelease(v97);
       }
 
-      v93 = v136;
+      v95 = v138;
       if (Mutable)
       {
         CFRelease(Mutable);
@@ -634,36 +634,36 @@ LABEL_95:
 
     else
     {
-      CGImageDestinationAddImage(v90, ThumbnailAtIndex, 0);
-      v28 = v131;
+      CGImageDestinationAddImage(v92, ThumbnailAtIndex, 0);
+      v29 = v133;
     }
 
-    CGImageDestinationFinalize(v90);
-    CFRelease(v90);
-    v106 = [_TtC8Freeform27CRLPreinsertionAssetWrapper alloc];
+    CGImageDestinationFinalize(v92);
+    CFRelease(v92);
+    v108 = [_TtC8Freeform27CRLPreinsertionAssetWrapper alloc];
     mAssetOwner = self->mAssetOwner;
-    v138 = 0;
-    v98 = v127;
-    v32 = [(CRLPreinsertionAssetWrapper *)v106 initWithData:v88 filename:v127 owner:mAssetOwner error:&v138];
-    v104 = v138;
-    if (v32)
+    v140 = 0;
+    v100 = v129;
+    v33 = [(CRLPreinsertionAssetWrapper *)v108 initWithData:v90 filename:v129 owner:mAssetOwner error:&v140];
+    v106 = v140;
+    if (v33)
     {
-      v101 = v129;
+      v103 = v131;
     }
 
     else
     {
-      v137 = v93;
-      v134 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v139 = v95;
+      v136 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_101344930();
       }
 
-      v108 = off_1019EDA68;
-      if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+      v110 = off_1019EDA68;
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
       {
-        sub_101344958(v104, v134);
+        sub_101344958(v106, v136);
       }
 
       if (qword_101AD5A10 != -1)
@@ -671,20 +671,20 @@ LABEL_95:
         sub_101344A10();
       }
 
-      v109 = off_1019EDA68;
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+      v111 = off_1019EDA68;
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
       {
-        sub_10134479C();
+        sub_10134479C(v136);
       }
 
-      v110 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
-      v111 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
-      [CRLAssertionHandler handleFailureInFunction:v110 file:v111 lineNumber:282 isFatal:0 description:"Error %@ creating pre-insertion asset wrapper for data.", v104, v125];
+      v112 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
+      v113 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
+      [CRLAssertionHandler handleFailureInFunction:v112 file:v113 lineNumber:282 isFatal:0 description:"Error %@ creating pre-insertion asset wrapper for data.", v106, v127];
 
-      v28 = v131;
-      v101 = v129;
-      v98 = v127;
-      v93 = v137;
+      v29 = v133;
+      v103 = v131;
+      v100 = v129;
+      v95 = v139;
     }
   }
 
@@ -696,7 +696,7 @@ LABEL_95:
       sub_101344A38();
     }
 
-    v98 = v127;
+    v100 = v129;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
       sub_101344A60();
@@ -707,19 +707,19 @@ LABEL_95:
       sub_101344AFC();
     }
 
-    v101 = v129;
-    v102 = off_1019EDA68;
+    v103 = v131;
+    v104 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130DA10(v102);
+      sub_10130DA10(v104);
     }
 
-    v103 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
-    v104 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
-    v93 = v103;
-    [CRLAssertionHandler handleFailureInFunction:v103 file:v104 lineNumber:244 isFatal:0 description:"invalid nil value for '%{public}s'", "destination", v125];
-    v32 = 0;
-    v28 = v131;
+    v105 = [NSString stringWithUTF8String:"[CRLImageResamplingOperation performResampleOperationWithResampleOptions:bitmapContextOptions:]"];
+    v106 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLImageResamplingOperation.m"];
+    v95 = v105;
+    [CRLAssertionHandler handleFailureInFunction:v105 file:v106 lineNumber:244 isFatal:0 description:"invalid nil value for '%{public}s'", "destination", v127];
+    v33 = 0;
+    v29 = v133;
   }
 
   CFRelease(ThumbnailAtIndex);
@@ -731,9 +731,9 @@ LABEL_138:
   }
 
 LABEL_141:
-  v112 = v32;
+  v114 = v33;
 
-  return v32;
+  return v33;
 }
 
 - (CGSize)desiredSize

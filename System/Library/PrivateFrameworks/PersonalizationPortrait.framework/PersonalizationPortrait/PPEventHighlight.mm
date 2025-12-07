@@ -248,7 +248,7 @@ LABEL_36:
 
 - (PPEventHighlight)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = objc_opt_class();
   v5 = objc_opt_class();
@@ -268,13 +268,13 @@ LABEL_36:
   if (v6 && v7 && v8 && v9 && v10 && v15)
   {
     v17 = PPCreateCalendarColorWithDecoder(coderCopy);
-    v27 = [coderCopy decodeObjectOfClass:v4 forKey:@"loc"];
+    v26 = [coderCopy decodeObjectOfClass:v4 forKey:@"loc"];
     v18 = [coderCopy decodeObjectOfClass:v4 forKey:@"org"];
     v19 = [coderCopy decodeInt32ForKey:@"pft"];
     [coderCopy decodeDoubleForKey:@"scr"];
     v21 = v20;
-    LOBYTE(v26) = [coderCopy decodeBoolForKey:@"ise"];
-    v22 = [(PPEventHighlight *)self initWithEventIdentifier:v6 externalURI:v7 title:v8 startDate:v9 endDate:v16 location:v27 organizer:v21 calendarColor:v18 prominentFeature:v17 features:v19 score:v15 isExtraordinary:v26];
+    LOBYTE(v25) = [coderCopy decodeBoolForKey:@"ise"];
+    v22 = [(PPEventHighlight *)self initWithEventIdentifier:v6 externalURI:v7 title:v8 startDate:v9 endDate:v16 location:v26 organizer:v21 calendarColor:v18 prominentFeature:v17 features:v19 score:v15 isExtraordinary:v25];
 
     CGColorRelease(v17);
     self = v22;
@@ -286,14 +286,13 @@ LABEL_36:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v30 = coderCopy;
+      v29 = coderCopy;
       _os_log_error_impl(&dword_1A7FD3000, v23, OS_LOG_TYPE_ERROR, "failed to decode eventIdentifier, externalURI, title, startDate, endDate, or features from %@", buf, 0xCu);
     }
 
     v22 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -317,7 +316,7 @@ LABEL_36:
 
 - (unint64_t)hash
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_eventIdentifier hash];
   v4 = [(NSURL *)self->_externalURI hash]- v3 + 32 * v3;
   v5 = [(NSString *)self->_title hash]- v4 + 32 * v4;
@@ -328,31 +327,31 @@ LABEL_36:
   features = self->_features;
   v11 = self->_prominentFeature - (v9 - v8 + 32 * v8) + 32 * (v9 - v8 + 32 * v8);
   v12 = self->_score - v11 + 32 * v11;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v13 = features;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       v17 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v12 = [*(*(&v22 + 1) + 8 * v17++) unsignedIntegerValue] - v12 + 32 * v12;
+        v12 = [*(*(&v21 + 1) + 8 * v17++) unsignedIntegerValue] - v12 + 32 * v12;
       }
 
       while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
@@ -361,7 +360,6 @@ LABEL_36:
   v18 = [MEMORY[0x1E696AD98] numberWithBool:self->_isExtraordinary];
   unsignedIntegerValue = [v18 unsignedIntegerValue];
 
-  v20 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue - v12 + 32 * v12;
 }
 

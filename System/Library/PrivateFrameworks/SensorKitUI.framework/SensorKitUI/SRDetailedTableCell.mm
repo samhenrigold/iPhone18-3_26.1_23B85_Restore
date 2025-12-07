@@ -7,10 +7,10 @@
 
 - (SRDetailedTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = SRDetailedTableCell;
-  v4 = [(SRDetailedTableCell *)&v11 initWithStyle:style reuseIdentifier:identifier];
+  v11[6] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SRDetailedTableCell;
+  v4 = [(SRDetailedTableCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v4->_titleLabel = objc_opt_new();
@@ -29,16 +29,15 @@
     [(UILabel *)v4->_detailLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [-[SRDetailedTableCell contentView](v4 "contentView")];
     v8 = MEMORY[0x277CCAAD0];
-    v12[0] = [-[UILabel topAnchor](v4->_titleLabel "topAnchor")];
-    v12[1] = [-[UILabel leadingAnchor](v4->_titleLabel "leadingAnchor")];
-    v12[2] = [-[UILabel bottomAnchor](v4->_titleLabel "bottomAnchor")];
-    v12[3] = [-[UILabel leadingAnchor](v4->_detailLabel "leadingAnchor")];
-    v12[4] = [-[UILabel trailingAnchor](v4->_detailLabel "trailingAnchor")];
-    v12[5] = [-[UILabel centerYAnchor](v4->_detailLabel "centerYAnchor")];
-    [v8 activateConstraints:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 6)}];
+    v11[0] = [-[UILabel topAnchor](v4->_titleLabel "topAnchor")];
+    v11[1] = [-[UILabel leadingAnchor](v4->_titleLabel "leadingAnchor")];
+    v11[2] = [-[UILabel bottomAnchor](v4->_titleLabel "bottomAnchor")];
+    v11[3] = [-[UILabel leadingAnchor](v4->_detailLabel "leadingAnchor")];
+    v11[4] = [-[UILabel trailingAnchor](v4->_detailLabel "trailingAnchor")];
+    v11[5] = [-[UILabel centerYAnchor](v4->_detailLabel "centerYAnchor")];
+    [v8 activateConstraints:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 6)}];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

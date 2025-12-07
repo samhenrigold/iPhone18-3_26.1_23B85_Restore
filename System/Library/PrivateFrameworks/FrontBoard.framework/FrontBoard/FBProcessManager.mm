@@ -8,10 +8,12 @@
 - (id)_reallyRegisterProcessForHandle:(id)handle;
 - (id)allApplicationProcesses;
 - (id)allProcesses;
+- (id)applicationProcessForPID:(int)d;
 - (id)applicationProcessesForBundleIdentifier:(id)identifier;
 - (id)incomingWorkspaceEndpoint;
 - (id)legacySceneManagerCreatingIfNecessary:(BOOL)necessary;
 - (id)processForIdentity:(id)identity;
+- (id)processForPID:(int)d;
 - (id)processForVersionedPID:(int64_t)d;
 - (id)processesForBundleIdentifier:(id)identifier;
 - (id)registerProcessForAuditToken:(id *)token;
@@ -102,30 +104,28 @@
 
 void __50__FBProcessManager__sharedInstanceCreateIfNeeded___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [FBWorkspaceDomain alloc];
   v3 = [MEMORY[0x1E699FCC0] _sharedInstance];
   v4 = [MEMORY[0x1E699FCB8] _findDomainSpecification];
-  v5 = [(FBWorkspaceDomain *)v2 _initWithCoupler:v3 specification:v4];
+  v5 = [(FBWorkspaceDomain *)&v2->super.isa _initWithCoupler:v3 specification:v4];
 
   v6 = [(FBWorkspaceDomain *)v5 selfAssertRuntime];
   if (v6)
   {
     v7 = v6;
-    v8 = FBLogProcessWorkspace();
+    v8 = FBLogProcessWorkspace(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = NSStringFromFBWorkspaceDomainSelfAssertRuntime(v7);
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "This process will acquire %{public}@ workspace self-assertions.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_1A89DD000, v8, OS_LOG_TYPE_DEFAULT, "This process will acquire %{public}@ workspace self-assertions.", &v11, 0xCu);
     }
   }
 
   v10 = [(FBProcessManager *)objc_alloc(*(a1 + 32)) _initWithWorkspaceDomain:v5];
   atomic_store(v10, &_sharedInstanceCreateIfNeeded____SharedManager);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initWithWorkspaceDomain:(void *)domain
@@ -137,7 +137,7 @@ void __50__FBProcessManager__sharedInstanceCreateIfNeeded___block_invoke(uint64_
     v5 = v3;
     if (!v5)
     {
-      [FBProcessManager _initWithWorkspaceDomain:?];
+      [(FBProcessManager *)sel__initWithWorkspaceDomain_ _initWithWorkspaceDomain:domain];
     }
 
     v6 = v5;
@@ -322,7 +322,7 @@ void __50__FBProcessManager__sharedInstanceCreateIfNeeded___block_invoke(uint64_
 
 void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x1E69C7630]);
   [v4 setValues:3];
@@ -331,20 +331,18 @@ void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_2(uint64_t a
   if ([(FBWorkspaceDomain *)*(a1 + 32) monitorAllSuspendableProcesses])
   {
     v5 = [MEMORY[0x1E69C7610] predicateMatchingSuspendableProcesses];
-    v10[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     [v3 setPredicates:v6];
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3;
-  v8[3] = &unk_1E783CFA8;
-  objc_copyWeak(&v9, (a1 + 40));
-  [v3 setUpdateHandler:v8];
-  objc_destroyWeak(&v9);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3;
+  v7[3] = &unk_1E783CFA8;
+  objc_copyWeak(&v8, (a1 + 40));
+  [v3 setUpdateHandler:v7];
+  objc_destroyWeak(&v8);
 }
 
 void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -354,7 +352,7 @@ void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3(uint64_t a
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v6)
   {
-    [v6 auditToken];
+    objc_msgSend_auditToken(v6);
   }
 
   v9 = [WeakRetained processForVersionedPID:BSVersionedPIDForAuditToken()];
@@ -374,8 +372,10 @@ void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3(uint64_t a
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = self;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -407,6 +407,27 @@ void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3(uint64_t a
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (id)processForPID:(int)d
+{
+  if (d < 1)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v3 = *&d;
+    os_unfair_lock_lock(&self->_lock);
+    lock_processesByPID = self->_lock_processesByPID;
+    v6 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+    v7 = [(NSMutableDictionary *)lock_processesByPID objectForKey:v6];
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  return v7;
+}
+
 - (id)processForVersionedPID:(int64_t)d
 {
   if (d == -1)
@@ -429,10 +450,10 @@ void __45__FBProcessManager__initWithWorkspaceDomain___block_invoke_3(uint64_t a
 
       if (v7)
       {
-        v10 = FBLogProcess();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = FBLogProcess(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          [FBProcessManager processForVersionedPID:];
+          [(FBProcessManager *)v7 processForVersionedPID:d];
         }
       }
     }
@@ -487,72 +508,87 @@ uint64_t __31__FBProcessManager_description__block_invoke(uint64_t a1, void *a2,
 
 - (id)allApplicationProcesses
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_lock_processesByPID objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 isApplicationProcess])
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
+- (id)applicationProcessForPID:(int)d
+{
+  v3 = [(FBProcessManager *)self processForPID:*&d];
+  if ([v3 isApplicationProcess])
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
 - (id)processesForBundleIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allProcesses = [(FBProcessManager *)self allProcesses];
-  v7 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allProcesses);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         bundleIdentifier = [v11 bundleIdentifier];
         v13 = [bundleIdentifier isEqualToString:identifierCopy];
 
@@ -562,42 +598,40 @@ uint64_t __31__FBProcessManager_description__block_invoke(uint64_t a1, void *a2,
         }
       }
 
-      v8 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)applicationProcessesForBundleIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allProcesses = [(FBProcessManager *)self allProcesses];
-  v7 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allProcesses);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 isApplicationProcess])
         {
           bundleIdentifier = [v11 bundleIdentifier];
@@ -610,13 +644,11 @@ uint64_t __31__FBProcessManager_description__block_invoke(uint64_t a1, void *a2,
         }
       }
 
-      v8 = [allProcesses countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allProcesses countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -624,8 +656,8 @@ uint64_t __31__FBProcessManager_description__block_invoke(uint64_t a1, void *a2,
 - (id)registerProcessForAuditToken:(id *)token
 {
   v6 = *&token->var0[4];
-  v28 = *token->var0;
-  v29 = v6;
+  v31 = *token->var0;
+  v32 = v6;
   v7 = BSVersionedPIDForAuditToken();
   if (v7 == -1)
   {
@@ -645,48 +677,49 @@ uint64_t __31__FBProcessManager_description__block_invoke(uint64_t a1, void *a2,
   v11 = MEMORY[0x1E69C75D0];
   if (v10)
   {
-    v27 = 0;
+    v30 = 0;
     v12 = *&token->var0[4];
-    v28 = *token->var0;
-    v29 = v12;
-    v13 = [MEMORY[0x1E69C75D0] handleForAuditToken:&v28 error:&v27];
-    v14 = v27;
+    v31 = *token->var0;
+    v32 = v12;
+    v13 = [MEMORY[0x1E69C75D0] handleForAuditToken:&v31 error:&v30];
+    v14 = v30;
+    v15 = v14;
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
       if (v8 != BSVersionedPIDForAuditToken())
       {
-        v23 = MEMORY[0x1E696AEC0];
-        v24 = NSStringFromBSVersionedPID();
-        v25 = NSStringFromBSVersionedPID();
-        v19 = [v23 stringWithFormat:@"handleForAudiToken: returned a mismatched vpid : requested=%@ actual=%@ handle=%@", v24, v25, v13];
+        v26 = MEMORY[0x1E696AEC0];
+        v27 = NSStringFromBSVersionedPID();
+        v28 = NSStringFromBSVersionedPID();
+        v20 = [v26 stringWithFormat:@"handleForAudiToken: returned a mismatched vpid : requested=%@ actual=%@ handle=%@", v27, v28, v13];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [FBProcessManager registerProcessForAuditToken:a2];
+          [(FBProcessManager *)a2 registerProcessForAuditToken:?];
         }
 
 LABEL_30:
-        [v19 UTF8String];
+        [v20 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1A8A2D848);
       }
 
-      v15 = [(FBProcessManager *)self _reallyRegisterProcessForHandle:v13];
-      if (v15)
+      v16 = [(FBProcessManager *)self _reallyRegisterProcessForHandle:v13];
+      if (v16)
       {
-        v9 = v15;
-        if (v8 != [v15 versionedPID])
+        v9 = v16;
+        if (v8 != [v16 versionedPID])
         {
-          v16 = MEMORY[0x1E696AEC0];
-          v17 = NSStringFromBSVersionedPID();
+          v17 = MEMORY[0x1E696AEC0];
           v18 = NSStringFromBSVersionedPID();
-          v19 = [v16 stringWithFormat:@"_reallyRegisterProcessForHandle: returned a mismatched vpid : requested=%@ actual=%@ handle=%@", v17, v18, v9];
+          v19 = NSStringFromBSVersionedPID();
+          v20 = [v17 stringWithFormat:@"_reallyRegisterProcessForHandle: returned a mismatched vpid : requested=%@ actual=%@ handle=%@", v18, v19, v9];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            [FBProcessManager registerProcessForAuditToken:a2];
+            [(FBProcessManager *)a2 registerProcessForAuditToken:?];
           }
 
           goto LABEL_30;
@@ -695,36 +728,36 @@ LABEL_30:
         goto LABEL_24;
       }
 
-      v21 = FBLogProcess();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = FBLogProcess(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [FBProcessManager registerProcessForAuditToken:];
+        [FBProcessManager registerProcessForAuditToken:v8];
       }
     }
 
     else
     {
-      v21 = FBLogProcess();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = FBLogProcess(v14);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(FBProcessManager *)v8 registerProcessForAuditToken:v14];
+        [(FBProcessManager *)v8 registerProcessForAuditToken:v15];
       }
     }
 
     goto LABEL_22;
   }
 
-  v20 = [MEMORY[0x1E696AD98] numberWithInt:v8];
-  v26 = 0;
-  v13 = [v11 handleForIdentifier:v20 error:&v26];
-  v14 = v26;
+  v21 = [MEMORY[0x1E696AD98] numberWithInt:v8];
+  v29 = 0;
+  v13 = [v11 handleForIdentifier:v21 error:&v29];
+  v15 = v29;
 
   if (!v13)
   {
-    v21 = FBLogProcess();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = FBLogProcess(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [FBProcessManager registerProcessForAuditToken:v14];
+      [FBProcessManager registerProcessForAuditToken:v15];
     }
 
 LABEL_22:
@@ -735,12 +768,13 @@ LABEL_23:
   }
 
   v9 = [(FBProcessManager *)self _reallyRegisterProcessForHandle:v13];
-  if (v8 != [v9 versionedPID])
+  versionedPID = [v9 versionedPID];
+  if (v8 != versionedPID)
   {
-    v21 = FBLogProcess();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = FBLogProcess(versionedPID);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [FBProcessManager registerProcessForAuditToken:];
+      [(FBProcessManager *)v9 registerProcessForAuditToken:v8];
     }
 
     goto LABEL_23;
@@ -755,11 +789,11 @@ LABEL_25:
 
 - (id)registerProcessForHandle:(id)handle
 {
-  auditToken = [handle auditToken];
-  v5 = auditToken;
-  if (auditToken)
+  v4 = objc_msgSend_auditToken(handle, a2);
+  v5 = v4;
+  if (v4)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v4);
   }
 
   else
@@ -877,44 +911,42 @@ LABEL_25:
 
 void __52__FBProcessManager__noteShellInitializationComplete__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(a1 + 32) + 112));
   *(*(a1 + 32) + 160) = 1;
   v2 = [*(*(a1 + 32) + 120) allValues];
   v3 = [v2 copy];
 
   os_unfair_lock_unlock((*(a1 + 32) + 112));
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) noteProcessPublished];
+        [*(*(&v9 + 1) + 8 * v8++) noteProcessPublished];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)watchdogPolicyForProcess:(id)process eventContext:(id)context
@@ -929,7 +961,7 @@ void __52__FBProcessManager__noteShellInitializationComplete__block_invoke(uint6
 
 - (void)noteProcessAssertionStateDidChange:(id)change
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   domain = [(FBWorkspaceEventDispatcher *)self->_eventDispatcher domain];
   selfAssertRuntime = [(FBWorkspaceDomain *)domain selfAssertRuntime];
@@ -940,69 +972,69 @@ void __52__FBProcessManager__noteShellInitializationComplete__block_invoke(uint6
   }
 
   v8 = 0;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
   v47 = 0u;
-  v46 = 0u;
   allProcesses = [(FBProcessManager *)self allProcesses];
-  v10 = [allProcesses countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v10 = [allProcesses countByEnumeratingWithState:&v47 objects:v54 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v47;
+    v12 = *v48;
     do
     {
       v13 = 0;
       do
       {
-        if (*v47 != v12)
+        if (*v48 != v12)
         {
           objc_enumerationMutation(allProcesses);
         }
 
-        v8 = FBWorkspaceStateCombine(v8, [*(*(&v46 + 1) + 8 * v13++) workspaceState]);
+        v8 = FBWorkspaceStateCombine(v8, [*(*(&v47 + 1) + 8 * v13++) workspaceState]);
       }
 
       while (v11 != v13);
-      v11 = [allProcesses countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v11 = [allProcesses countByEnumeratingWithState:&v47 objects:v54 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_lock(&self->_bootstrapLock);
-  v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v14 = self->_bootstrap_pendingProcesses;
-  v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v15 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v43;
+    v17 = *v44;
     do
     {
       v18 = 0;
       do
       {
-        if (*v43 != v17)
+        if (*v44 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v8 = FBWorkspaceStateCombine(v8, [*(*(&v42 + 1) + 8 * v18++) workspaceState]);
+        v8 = FBWorkspaceStateCombine(v8, [*(*(&v43 + 1) + 8 * v18++) workspaceState]);
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v16 = [(NSMutableSet *)v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
     }
 
     while (v16);
   }
 
   os_unfair_lock_unlock(&self->_bootstrapLock);
-  v41 = v8;
+  v42 = v8;
   domain2 = [(FBWorkspaceEventDispatcher *)self->_eventDispatcher domain];
   v20 = [(FBWorkspaceDomain *)domain2 selfAssertionAttributesForWorkspaceState:?];
 
@@ -1019,23 +1051,24 @@ void __52__FBProcessManager__noteShellInitializationComplete__block_invoke(uint6
   }
 
   fb_workspaceState = [(RBSAssertion *)lock_assertion fb_workspaceState];
-  if (FBWorkspaceStateEqual(v41, fb_workspaceState))
+  v23 = FBWorkspaceStateEqual(v42, fb_workspaceState);
+  if (v23)
   {
 LABEL_20:
-    v23 = 0;
+    v24 = 0;
     goto LABEL_21;
   }
 
-  v26 = FBLogProcessWorkspace();
+  v26 = FBLogProcessWorkspace(v23);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = NSStringFromFBWorkspaceState(v41);
+    v27 = NSStringFromFBWorkspaceState(v42);
     *buf = 138543362;
-    v51 = v27;
+    v52 = v27;
     _os_log_impl(&dword_1A89DD000, v26, OS_LOG_TYPE_DEFAULT, "Updating self-assertion for unified workspace priority: %{public}@", buf, 0xCu);
   }
 
-  v23 = self->_lock_assertion;
+  v24 = self->_lock_assertion;
   v28 = self->_lock_assertion;
   self->_lock_assertion = 0;
 
@@ -1044,32 +1077,33 @@ LABEL_20:
     selfCopy = self;
     v30 = objc_alloc(MEMORY[0x1E69C7548]);
     currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-    v24 = [v30 initWithExplanation:@"FBWorkspace Self-Assert" target:currentProcess attributes:v20];
+    v25 = [v30 initWithExplanation:@"FBWorkspace Self-Assert" target:currentProcess attributes:v20];
     v32 = self->_lock_assertion;
-    self->_lock_assertion = v24;
+    self->_lock_assertion = v25;
 
-    [(RBSAssertion *)self->_lock_assertion fb_setWorkspaceState:v41];
+    [(RBSAssertion *)self->_lock_assertion fb_setWorkspaceState:v42];
     v33 = self->_lock_assertion;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke;
-    v39[3] = &unk_1E783D040;
-    v40 = selfCopy;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke;
+    v40[3] = &unk_1E783D040;
+    v41 = selfCopy;
     v34 = selfCopy;
-    [(RBSAssertion *)v33 setInvalidationHandler:v39];
+    [(RBSAssertion *)v33 setInvalidationHandler:v40];
 
     os_unfair_lock_unlock(&self->_lock);
-    if (v24)
+    if (v25)
     {
-      v38 = 0;
-      v35 = [(RBSAssertion *)v24 acquireWithError:&v38];
-      v36 = v38;
+      v39 = 0;
+      v35 = [(RBSAssertion *)v25 acquireWithError:&v39];
+      v36 = v39;
+      v37 = v36;
       if ((v35 & 1) == 0)
       {
-        v37 = FBLogProcessWorkspace();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v38 = FBLogProcessWorkspace(v36);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          [FBProcessManager noteProcessAssertionStateDidChange:v36];
+          [FBProcessManager noteProcessAssertionStateDidChange:v37];
         }
       }
     }
@@ -1079,22 +1113,21 @@ LABEL_20:
 
 LABEL_21:
   os_unfair_lock_unlock(&self->_lock);
-  v24 = 0;
+  v25 = 0;
 LABEL_22:
-  if (v23)
+  if (v24)
   {
-    [(RBSAssertion *)v23 invalidate];
+    [(RBSAssertion *)v24 invalidate];
   }
 
 LABEL_25:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = a2;
-  v7 = FBLogProcessWorkspace();
+  v7 = FBLogProcessWorkspace(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_cold_1(v5);
@@ -1130,37 +1163,37 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(ui
 
 - (void)domain:(id)domain didReceiveConnection:(id)connection withContext:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   remoteToken = [connectionCopy remoteToken];
   v8 = remoteToken;
   if (remoteToken)
   {
-    [remoteToken realToken];
+    objc_msgSend_realToken(remoteToken);
   }
 
   else
   {
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
   }
 
-  v9 = [(FBProcessManager *)self registerProcessForAuditToken:v17];
+  v9 = [(FBProcessManager *)self registerProcessForAuditToken:v16];
   v10 = v9;
   if (v9)
   {
     workspace = [v9 workspace];
-    v12 = FBLogProcessWorkspace();
+    v12 = FBLogProcessWorkspace(workspace);
     v13 = v12;
     if (workspace)
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         workspace2 = [v10 workspace];
-        LODWORD(v17[0]) = 134218242;
-        *(v17 + 4) = workspace2;
-        WORD6(v17[0]) = 2114;
-        *(v17 + 14) = v10;
-        _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_INFO, "FBWorkspaceDomain: Assigning new workspace connection to workspace (%p) owned by process: %{public}@", v17, 0x16u);
+        LODWORD(v16[0]) = 134218242;
+        *(v16 + 4) = workspace2;
+        WORD6(v16[0]) = 2114;
+        *(v16 + 14) = v10;
+        _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_INFO, "FBWorkspaceDomain: Assigning new workspace connection to workspace (%p) owned by process: %{public}@", v16, 0x16u);
       }
 
       [(FBWorkspace *)workspace _setIncomingConnection:connectionCopy];
@@ -1179,7 +1212,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(ui
 
   else
   {
-    v15 = FBLogProcessWorkspace();
+    v15 = FBLogProcessWorkspace(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [FBProcessManager domain:didReceiveConnection:withContext:];
@@ -1187,8 +1220,6 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(ui
 
     [connectionCopy invalidate];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_reallyRegisterProcessForHandle:(id)handle
@@ -1240,7 +1271,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(ui
 - (id)_bootstrapProcessWithExecutionContext:(id)context synchronously:(BOOL)synchronously error:(id *)error
 {
   synchronouslyCopy = synchronously;
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -1256,78 +1287,78 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke(ui
   v14 = identity;
   if (!identity || ![identity supportsLaunchingDirectly])
   {
-    v20 = MEMORY[0x1E696ABC0];
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_4;
-    v48[3] = &unk_1E783BC58;
-    v49 = v14;
-    v19 = [v20 bs_errorWithDomain:@"FBProcessManager" code:1 configuration:v48];
+    v22 = MEMORY[0x1E696ABC0];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_4;
+    v50[3] = &unk_1E783BC58;
+    v51 = v14;
+    v20 = [v22 bs_errorWithDomain:@"FBProcessManager" code:1 configuration:v50];
 
-    v17 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
   os_unfair_lock_lock(&self->_bootstrapLock);
-  v15 = FBLogProcess();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = FBLogProcess(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *v59 = v14;
-    _os_log_impl(&dword_1A89DD000, v15, OS_LOG_TYPE_DEFAULT, "Asked to bootstrap a new process with identity: %{public}@", buf, 0xCu);
+    *v61 = v14;
+    _os_log_impl(&dword_1A89DD000, v16, OS_LOG_TYPE_DEFAULT, "Asked to bootstrap a new process with identity: %{public}@", buf, 0xCu);
   }
 
-  v16 = [(FBProcessManager *)self processForIdentity:v14];
-  if (v16)
+  v17 = [(FBProcessManager *)self processForIdentity:v14];
+  if (v17)
   {
-    v17 = v16;
-    v18 = MEMORY[0x1E696ABC0];
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_3;
-    v50[3] = &unk_1E783BC58;
-    v51 = v14;
-    v19 = [v18 bs_errorWithDomain:@"FBProcessManager" code:2 configuration:v50];
+    v18 = v17;
+    v19 = MEMORY[0x1E696ABC0];
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_3;
+    v52[3] = &unk_1E783BC58;
+    v53 = v14;
+    v20 = [v19 bs_errorWithDomain:@"FBProcessManager" code:2 configuration:v52];
     os_unfair_lock_unlock(&self->_bootstrapLock);
 
     goto LABEL_9;
   }
 
-  v39 = synchronouslyCopy;
+  v41 = synchronouslyCopy;
   errorCopy = error;
   selfCopy = self;
+  v58 = 0u;
+  v59 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v28 = self->_bootstrap_pendingProcesses;
-  v29 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (v29)
+  v29 = self->_bootstrap_pendingProcesses;
+  v30 = [(NSMutableSet *)v29 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  if (v30)
   {
-    v30 = v29;
-    v31 = *v55;
+    v31 = v30;
+    v32 = *v57;
 LABEL_27:
-    v32 = 0;
+    v33 = 0;
     while (1)
     {
-      if (*v55 != v31)
+      if (*v57 != v32)
       {
-        objc_enumerationMutation(v28);
+        objc_enumerationMutation(v29);
       }
 
-      v33 = *(*(&v54 + 1) + 8 * v32);
-      identity2 = [v33 identity];
-      v35 = [identity2 isEqual:v14];
+      v34 = *(*(&v56 + 1) + 8 * v33);
+      identity2 = [v34 identity];
+      v36 = [identity2 isEqual:v14];
 
-      if (v35)
+      if (v36)
       {
         break;
       }
 
-      if (v30 == ++v32)
+      if (v31 == ++v33)
       {
-        v30 = [(NSMutableSet *)v28 countByEnumeratingWithState:&v54 objects:v60 count:16];
-        if (v30)
+        v31 = [(NSMutableSet *)v29 countByEnumeratingWithState:&v56 objects:v62 count:16];
+        if (v31)
         {
           goto LABEL_27;
         }
@@ -1336,20 +1367,20 @@ LABEL_27:
       }
     }
 
-    v17 = v33;
+    v18 = v34;
 
-    if (!v17)
+    if (!v18)
     {
       goto LABEL_36;
     }
 
-    v36 = MEMORY[0x1E696ABC0];
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_2;
-    v52[3] = &unk_1E783BC58;
-    v53 = v14;
-    v19 = [v36 bs_errorWithDomain:@"FBProcessManager" code:2 configuration:v52];
+    v38 = MEMORY[0x1E696ABC0];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_2;
+    v54[3] = &unk_1E783BC58;
+    v55 = v14;
+    v20 = [v38 bs_errorWithDomain:@"FBProcessManager" code:2 configuration:v54];
 
     error = errorCopy;
     self = selfCopy;
@@ -1363,52 +1394,52 @@ LABEL_36:
   self = selfCopy;
   if (selfCopy->_bootstrapLock_invalidated)
   {
-    v37 = [MEMORY[0x1E696ABC0] bs_errorWithDomain:@"FBProcessManager" code:3 configuration:&__block_literal_global_135];
+    v39 = [MEMORY[0x1E696ABC0] bs_errorWithDomain:@"FBProcessManager" code:3 configuration:&__block_literal_global_135];
   }
 
   else
   {
-    v38 = FBLogProcess();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = FBLogProcess(v37);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v59 = v39;
-      *&v59[4] = 2114;
-      *&v59[6] = v14;
-      _os_log_impl(&dword_1A89DD000, v38, OS_LOG_TYPE_DEFAULT, "Creating process (sync=%{BOOL}u) with identity: %{public}@", buf, 0x12u);
+      *v61 = v41;
+      *&v61[4] = 2114;
+      *&v61[6] = v14;
+      _os_log_impl(&dword_1A89DD000, v40, OS_LOG_TYPE_DEFAULT, "Creating process (sync=%{BOOL}u) with identity: %{public}@", buf, 0x12u);
     }
 
-    v17 = [objc_alloc(objc_msgSend(v14 "fb_processClass"))];
-    [(NSMutableSet *)selfCopy->_bootstrap_pendingProcesses addObject:v17];
-    v19 = 0;
-    v37 = 0;
-    if (v17)
+    v18 = [objc_alloc(objc_msgSend(v14 "fb_processClass"))];
+    [(NSMutableSet *)selfCopy->_bootstrap_pendingProcesses addObject:v18];
+    v20 = 0;
+    v39 = 0;
+    if (v18)
     {
 LABEL_41:
-      [(FBProcessManager *)self _bootstrap_consumeLock_addProcess:v17 synchronously:v39];
+      v21 = [(FBProcessManager *)self _bootstrap_consumeLock_addProcess:v18 synchronously:v41];
       goto LABEL_9;
     }
   }
 
   os_unfair_lock_unlock(&selfCopy->_bootstrapLock);
-  v17 = 0;
-  v19 = v37;
+  v18 = 0;
+  v20 = v39;
 LABEL_9:
   if (completion)
   {
-    if (!v17)
+    if (!v18)
     {
-      v23 = +[FBProcess calloutQueue];
+      v25 = +[FBProcess calloutQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_6;
       block[3] = &unk_1E783C368;
-      v44 = completion;
-      v24 = v19;
-      v43 = v24;
-      dispatch_async(v23, block);
+      v46 = completion;
+      v26 = v20;
+      v45 = v26;
+      dispatch_async(v25, block);
 
-      if (!v24)
+      if (!v26)
       {
         goto LABEL_20;
       }
@@ -1416,39 +1447,39 @@ LABEL_9:
       goto LABEL_17;
     }
 
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_5;
-    v45[3] = &unk_1E783D068;
-    v47 = completion;
-    v46 = v19;
-    [v17 _executeBlockAfterBootstrap:v45];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke_5;
+    v47[3] = &unk_1E783D068;
+    v49 = completion;
+    v48 = v20;
+    [v18 _executeBlockAfterBootstrap:v47];
   }
 
-  if (!v19)
+  if (!v20)
   {
     goto LABEL_20;
   }
 
-  if (!v17)
+  if (!v18)
   {
 LABEL_17:
-    v21 = FBLogProcess();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = FBLogProcess(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [FBProcessManager _bootstrapProcessWithExecutionContext:v19 synchronously:? error:?];
+      [FBProcessManager _bootstrapProcessWithExecutionContext:v20 synchronously:? error:?];
     }
 
     goto LABEL_19;
   }
 
-  v21 = FBLogProcess();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = FBLogProcess(v21);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    localizedFailureReason = [v19 localizedFailureReason];
+    localizedFailureReason = [v20 localizedFailureReason];
     *buf = 138543362;
-    *v59 = localizedFailureReason;
-    _os_log_impl(&dword_1A89DD000, v21, OS_LOG_TYPE_DEFAULT, "Did not create a new process: %{public}@", buf, 0xCu);
+    *v61 = localizedFailureReason;
+    _os_log_impl(&dword_1A89DD000, v23, OS_LOG_TYPE_DEFAULT, "Did not create a new process: %{public}@", buf, 0xCu);
   }
 
 LABEL_19:
@@ -1456,15 +1487,13 @@ LABEL_19:
 LABEL_20:
   if (error)
   {
-    v25 = v19;
-    *error = v19;
+    v27 = v20;
+    *error = v20;
   }
 
   os_unfair_lock_assert_not_owner(&self->_bootstrapLock);
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v18;
 }
 
 void __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronously_error___block_invoke(uint64_t a1, void *a2)
@@ -1512,7 +1541,7 @@ uint64_t __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronou
 - (id)_bootstrapProcessWithHandle:(id)handle synchronously:(BOOL)synchronously error:(id *)error
 {
   synchronouslyCopy = synchronously;
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (!handleCopy)
   {
@@ -1520,37 +1549,37 @@ uint64_t __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronou
   }
 
   v10 = handleCopy;
-  [handleCopy auditToken];
+  objc_msgSend_auditToken(handleCopy);
   v11 = BSVersionedPIDForAuditToken();
   if (v11 != -1)
   {
     v12 = v11;
     os_unfair_lock_lock(&self->_bootstrapLock);
-    v13 = FBLogProcess();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = FBLogProcess(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *v59 = v10;
-      _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "Asked to bootstrap a new process for handle: %{public}@", buf, 0xCu);
+      *v61 = v10;
+      _os_log_impl(&dword_1A89DD000, v14, OS_LOG_TYPE_DEFAULT, "Asked to bootstrap a new process for handle: %{public}@", buf, 0xCu);
     }
 
-    v14 = [(FBProcessManager *)self processForVersionedPID:v12];
-    if (v14)
+    v15 = [(FBProcessManager *)self processForVersionedPID:v12];
+    if (v15)
     {
-      v15 = v14;
-      v16 = FBLogProcess();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v16 = v15;
+      v17 = FBLogProcess(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *v59 = v15;
-        _os_log_impl(&dword_1A89DD000, v16, OS_LOG_TYPE_DEFAULT, "A process already exists for this handle: %{public}@", buf, 0xCu);
+        *v61 = v16;
+        _os_log_impl(&dword_1A89DD000, v17, OS_LOG_TYPE_DEFAULT, "A process already exists for this handle: %{public}@", buf, 0xCu);
       }
 
-      v17 = MEMORY[0x1E696ABC0];
-      v51 = *MEMORY[0x1E696A588];
-      v52 = @"A process already exists for this handle.";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-      v19 = [v17 errorWithDomain:@"FBProcessManager" code:2 userInfo:v18];
+      v18 = MEMORY[0x1E696ABC0];
+      v53 = *MEMORY[0x1E696A588];
+      v54 = @"A process already exists for this handle.";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      v20 = [v18 errorWithDomain:@"FBProcessManager" code:2 userInfo:v19];
 
       os_unfair_lock_unlock(&self->_bootstrapLock);
       if (!error)
@@ -1559,8 +1588,8 @@ uint64_t __78__FBProcessManager__bootstrapProcessWithExecutionContext_synchronou
       }
 
 LABEL_9:
-      v20 = v19;
-      *error = v19;
+      v21 = v20;
+      *error = v20;
 LABEL_10:
       os_unfair_lock_assert_not_owner(&self->_bootstrapLock);
 LABEL_15:
@@ -1568,7 +1597,7 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v43 = synchronouslyCopy;
+    v45 = synchronouslyCopy;
     errorCopy = error;
     identity = [v10 identity];
     if (!identity)
@@ -1576,26 +1605,26 @@ LABEL_15:
       [FBProcessManager _bootstrapProcessWithHandle:v10 synchronously:a2 error:?];
     }
 
+    v51 = 0u;
+    v52 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
     v25 = self->_bootstrap_pendingProcesses;
-    v26 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v26 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v48;
+      v28 = *v50;
 LABEL_22:
       v29 = 0;
       while (1)
       {
-        if (*v48 != v28)
+        if (*v50 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v47 + 1) + 8 * v29);
+        v30 = *(*(&v49 + 1) + 8 * v29);
         versionedPID = [v30 versionedPID];
         if (v12 == versionedPID)
         {
@@ -1615,7 +1644,7 @@ LABEL_22:
 
         if (v27 == ++v29)
         {
-          v27 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v27 = [(NSMutableSet *)v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
           if (v27)
           {
             goto LABEL_22;
@@ -1625,27 +1654,27 @@ LABEL_22:
         }
       }
 
-      v15 = v30;
+      v16 = v30;
 
-      if (!v15)
+      if (!v16)
       {
         goto LABEL_35;
       }
 
-      v34 = FBLogProcess();
+      v35 = FBLogProcess(v34);
       error = errorCopy;
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *v59 = v15;
-        _os_log_impl(&dword_1A89DD000, v34, OS_LOG_TYPE_DEFAULT, "A pending process already exists for this handle: %{public}@", buf, 0xCu);
+        *v61 = v16;
+        _os_log_impl(&dword_1A89DD000, v35, OS_LOG_TYPE_DEFAULT, "A pending process already exists for this handle: %{public}@", buf, 0xCu);
       }
 
-      v35 = MEMORY[0x1E696ABC0];
-      v53 = *MEMORY[0x1E696A588];
-      v54 = @"A pending process already exists for this handle.";
-      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-      v19 = [v35 errorWithDomain:@"FBProcessManager" code:2 userInfo:v36];
+      v36 = MEMORY[0x1E696ABC0];
+      v55 = *MEMORY[0x1E696A588];
+      v56 = @"A pending process already exists for this handle.";
+      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v20 = [v36 errorWithDomain:@"FBProcessManager" code:2 userInfo:v37];
 
       goto LABEL_41;
     }
@@ -1656,48 +1685,52 @@ LABEL_35:
     error = errorCopy;
     if (self->_bootstrapLock_invalidated)
     {
-      v37 = [MEMORY[0x1E696ABC0] bs_errorWithDomain:@"FBProcessManager" code:3 configuration:&__block_literal_global_166];
+      v38 = [MEMORY[0x1E696ABC0] bs_errorWithDomain:@"FBProcessManager" code:3 configuration:&__block_literal_global_166];
     }
 
     else
     {
-      v38 = FBLogProcess();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v39 = FBLogProcess(v34);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109378;
-        *v59 = v43;
-        *&v59[4] = 2114;
-        *&v59[6] = v10;
-        _os_log_impl(&dword_1A89DD000, v38, OS_LOG_TYPE_DEFAULT, "Creating process (sync=%{BOOL}u) for handle: %{public}@", buf, 0x12u);
+        *v61 = v45;
+        *&v61[4] = 2114;
+        *&v61[6] = v10;
+        _os_log_impl(&dword_1A89DD000, v39, OS_LOG_TYPE_DEFAULT, "Creating process (sync=%{BOOL}u) for handle: %{public}@", buf, 0x12u);
       }
 
-      v15 = [objc_alloc(objc_msgSend(identity "fb_processClass"))];
-      [(NSMutableSet *)self->_bootstrap_pendingProcesses addObject:v15];
-      v19 = 0;
-      v37 = 0;
-      if (v15)
+      v16 = [objc_alloc(objc_msgSend(identity "fb_processClass"))];
+      [(NSMutableSet *)self->_bootstrap_pendingProcesses addObject:v16];
+      v20 = 0;
+      v38 = 0;
+      if (v16)
       {
 LABEL_41:
-        [(FBProcessManager *)self _bootstrap_consumeLock_addProcess:v15 synchronously:v43];
-        if (v43 && v12 != [v15 versionedPID])
+        [(FBProcessManager *)self _bootstrap_consumeLock_addProcess:v16 synchronously:v45];
+        if (v45)
         {
-          v39 = FBLogProcess();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          versionedPID2 = [v16 versionedPID];
+          if (v12 != versionedPID2)
           {
-            v40 = NSStringFromBSVersionedPID();
-            *buf = 138543618;
-            *v59 = v40;
-            *&v59[8] = 2114;
-            *&v59[10] = v15;
-            _os_log_impl(&dword_1A89DD000, v39, OS_LOG_TYPE_DEFAULT, "resolved process does not match handle %{public}@: %{public}@", buf, 0x16u);
+            v41 = FBLogProcess(versionedPID2);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            {
+              v42 = NSStringFromBSVersionedPID();
+              *buf = 138543618;
+              *v61 = v42;
+              *&v61[8] = 2114;
+              *&v61[10] = v16;
+              _os_log_impl(&dword_1A89DD000, v41, OS_LOG_TYPE_DEFAULT, "resolved process does not match handle %{public}@: %{public}@", buf, 0x16u);
+            }
+
+            v48 = 0;
+            v43 = [(FBProcessManager *)self _bootstrapProcessWithHandle:v10 synchronously:1 error:&v48];
+            v44 = v48;
+
+            v16 = v43;
+            v20 = v44;
           }
-
-          v46 = 0;
-          v41 = [(FBProcessManager *)self _bootstrapProcessWithHandle:v10 synchronously:1 error:&v46];
-          v42 = v46;
-
-          v15 = v41;
-          v19 = v42;
         }
 
 LABEL_47:
@@ -1712,34 +1745,32 @@ LABEL_47:
     }
 
     os_unfair_lock_unlock(&self->_bootstrapLock);
-    v15 = 0;
-    v19 = v37;
+    v16 = 0;
+    v20 = v38;
     goto LABEL_47;
   }
 
-  v21 = FBLogProcess();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = FBLogProcess(-1);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     [FBProcessManager _bootstrapProcessWithHandle:synchronously:error:];
   }
 
   if (error)
   {
-    v22 = MEMORY[0x1E696ABC0];
-    v56 = *MEMORY[0x1E696A588];
-    v57 = @"Specified process is not valid.";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-    [v22 errorWithDomain:@"FBProcessManager" code:1 userInfo:v19];
-    *error = v15 = 0;
+    v23 = MEMORY[0x1E696ABC0];
+    v58 = *MEMORY[0x1E696A588];
+    v59 = @"Specified process is not valid.";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    [v23 errorWithDomain:@"FBProcessManager" code:1 userInfo:v20];
+    *error = v16 = 0;
     goto LABEL_15;
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_16:
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 void __68__FBProcessManager__bootstrapProcessWithHandle_synchronously_error___block_invoke(uint64_t a1, void *a2)
@@ -1819,7 +1850,7 @@ uint64_t __68__FBProcessManager__bootstrap_consumeLock_addProcess_synchronously_
 
 void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = *(*(a1 + 32) + 88);
   v5 = a2;
@@ -1829,32 +1860,32 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke(uin
 
   os_unfair_lock_lock((*(a1 + 32) + 72));
   [*(*(a1 + 32) + 80) removeObject:*(a1 + 40)];
-  [*(*(a1 + 32) + 88) removeObject:*(a1 + 40)];
+  v6 = [*(*(a1 + 32) + 88) removeObject:*(a1 + 40)];
   if (v3)
   {
-    v6 = FBLogProcess();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = FBLogProcess(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       *buf = 138543362;
-      v44 = v7;
-      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "Adding: %{public}@", buf, 0xCu);
+      v43 = v8;
+      _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, "Adding: %{public}@", buf, 0xCu);
     }
 
     os_unfair_lock_lock((*(a1 + 32) + 112));
-    v8 = [*(a1 + 40) identity];
-    v9 = [*(*(a1 + 32) + 136) objectForKey:v8];
-    v10 = v9;
-    if (v9)
+    v9 = [*(a1 + 40) identity];
+    v10 = [*(*(a1 + 32) + 136) objectForKey:v9];
+    v11 = v10;
+    if (v10)
     {
-      [v9 addObject:*(a1 + 40)];
+      [v10 addObject:*(a1 + 40)];
     }
 
     else
     {
       v13 = *(*(a1 + 32) + 136);
       v14 = [MEMORY[0x1E695DF70] arrayWithObject:*(a1 + 40)];
-      [v13 setObject:v14 forKey:v8];
+      [v13 setObject:v14 forKey:v9];
     }
 
     v15 = [*(a1 + 40) pid];
@@ -1887,29 +1918,29 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke(uin
       goto LABEL_17;
     }
 
-    v31 = [*(a1 + 40) rbsHandle];
-    v32 = [v31 fb_canTaskSuspend];
+    v30 = [*(a1 + 40) rbsHandle];
+    v31 = [v30 fb_canTaskSuspend];
 
-    if (!v32)
+    if (!v31)
     {
 LABEL_15:
       v24 = 0;
 LABEL_19:
       v26 = *(a1 + 32);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_179;
-      v41[3] = &unk_1E783D090;
-      v41[4] = v26;
-      v42 = *(a1 + 40);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2;
-      v39[3] = &unk_1E783B240;
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_179;
+      v40[3] = &unk_1E783D090;
+      v40[4] = v26;
+      v41 = *(a1 + 40);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2;
+      v38[3] = &unk_1E783B240;
       v27 = *(a1 + 40);
-      v39[4] = *(a1 + 32);
-      v40 = v27;
-      [v26 _notifyObserversUsingBlock:v41 completion:v39];
+      v38[4] = *(a1 + 32);
+      v39 = v27;
+      [v26 _notifyObserversUsingBlock:v40 completion:v38];
       os_unfair_lock_unlock((*(a1 + 32) + 112));
       v28 = *(a1 + 32);
       if (v24)
@@ -1917,12 +1948,12 @@ LABEL_19:
         os_unfair_lock_lock(v28 + 19);
         os_unfair_lock_unlock((*(a1 + 32) + 72));
         v29 = *(*(a1 + 32) + 56);
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_3;
-        v37[3] = &unk_1E783D0B8;
-        v38 = v24;
-        [v29 updateConfiguration:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_3;
+        v36[3] = &unk_1E783D0B8;
+        v37 = v24;
+        [v29 updateConfiguration:v36];
         os_unfair_lock_unlock((*(a1 + 32) + 76));
       }
 
@@ -1931,7 +1962,6 @@ LABEL_19:
         os_unfair_lock_unlock(v28 + 18);
       }
 
-      v30 = *MEMORY[0x1E69E9840];
       return;
     }
 
@@ -1944,18 +1974,18 @@ LABEL_17:
 
     else
     {
-      v33 = *(*(a1 + 32) + 96);
-      if (v33)
+      v32 = *(*(a1 + 32) + 96);
+      if (v32)
       {
-        [v33 addObject:v25];
+        [v32 addObject:v25];
       }
 
       else
       {
-        v34 = [MEMORY[0x1E695DFA8] setWithObject:v25];
-        v35 = *(a1 + 32);
-        v36 = *(v35 + 96);
-        *(v35 + 96) = v34;
+        v33 = [MEMORY[0x1E695DFA8] setWithObject:v25];
+        v34 = *(a1 + 32);
+        v35 = *(v34 + 96);
+        *(v34 + 96) = v33;
       }
 
       v24 = [*(*(a1 + 32) + 96) allObjects];
@@ -1964,7 +1994,6 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   v12 = (*(a1 + 32) + 72);
 
   os_unfair_lock_unlock(v12);
@@ -1986,7 +2015,7 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2(u
 
 - (void)_removeProcess:(id)process
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   processCopy = process;
   if (!processCopy)
   {
@@ -1994,12 +2023,11 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2(u
   }
 
   v6 = processCopy;
-  [processCopy bootstrapLock:&__block_literal_global_182];
-  v7 = FBLogProcess();
+  v7 = FBLogProcess([processCopy bootstrapLock:&__block_literal_global_182]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = v6;
+    v29 = v6;
     _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, "Removing: %{public}@", buf, 0xCu);
   }
 
@@ -2068,12 +2096,12 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2(u
     os_unfair_lock_lock(&self->_bootstrapPredicatesLock);
     os_unfair_lock_unlock(&self->_bootstrapLock);
     processMonitor = self->_processMonitor;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __35__FBProcessManager__removeProcess___block_invoke_183;
-    v27[3] = &unk_1E783D0B8;
-    v28 = allObjects;
-    [(RBSProcessMonitor *)processMonitor updateConfiguration:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __35__FBProcessManager__removeProcess___block_invoke_183;
+    v26[3] = &unk_1E783D0B8;
+    v27 = allObjects;
+    [(RBSProcessMonitor *)processMonitor updateConfiguration:v26];
     os_unfair_lock_unlock(&self->_bootstrapPredicatesLock);
   }
 
@@ -2082,16 +2110,14 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2(u
     os_unfair_lock_unlock(&self->_bootstrapLock);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __35__FBProcessManager__removeProcess___block_invoke_2;
-  v25[3] = &unk_1E783D090;
-  v25[4] = self;
-  v26 = v6;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __35__FBProcessManager__removeProcess___block_invoke_2;
+  v24[3] = &unk_1E783D090;
+  v24[4] = self;
+  v25 = v6;
   v23 = v6;
-  [(FBProcessManager *)self _notifyObserversUsingBlock:v25 completion:0];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [(FBProcessManager *)self _notifyObserversUsingBlock:v24 completion:0];
 }
 
 - (void)_notifyObserversUsingBlock:(id)block completion:(id)completion
@@ -2113,49 +2139,46 @@ void __54__FBProcessManager__bootstrap_consumeLock_addProcess___block_invoke_2(u
 
 void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1[4] + 112));
   v2 = [*(a1[4] + 144) copy];
   os_unfair_lock_unlock((a1[4] + 112));
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
         (*(a1[5] + 16))(a1[5]);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9 = a1[6];
-  if (v9)
+  v8 = a1[6];
+  if (v8)
   {
-    (*(v9 + 16))(v9);
+    (*(v8 + 16))(v8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initWithWorkspaceDomain:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
@@ -2201,7 +2224,6 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 - (void)_initWithWorkspaceDomain:(char *)a1 .cold.2(char *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Must have a current process."];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -2209,8 +2231,10 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v11) = 138544642;
+    *(&v11 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, DWORD2(v11));
   }
 
   v10 = v2;
@@ -2221,8 +2245,7 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 - (void)_initWithWorkspaceDomain:(uint64_t)a1 .cold.3(uint64_t a1, char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown processClass for currentProcessHandle : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown processClass for currentProcessHandle : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2230,7 +2253,7 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13);
   }
 
   v11 = v3;
@@ -2241,8 +2264,7 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 - (void)_initWithWorkspaceDomain:(uint64_t)a1 .cold.4(uint64_t a1, char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RunningBoard returned a currentProcess with no identity : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RunningBoard returned a currentProcess with no identity : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2250,7 +2272,7 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v13, v14);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v12, v13);
   }
 
   v11 = v3;
@@ -2261,7 +2283,6 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 - (void)_initWithWorkspaceDomain:(char *)a1 .cold.5(char *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to communicate with RunningBoard"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -2269,8 +2290,10 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v11) = 138544642;
+    *(&v11 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, DWORD2(v11));
   }
 
   v10 = v2;
@@ -2279,109 +2302,91 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
   __break(0);
 }
 
-- (void)_initWithWorkspaceDomain:(const char *)a1 .cold.6(const char *a1)
+- (void)_initWithWorkspaceDomain:(const char *)a1 .cold.6(const char *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"workspaceDomain", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"workspaceDomain", v13, 2u);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v17 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v15, v16);
   }
 
-  v12 = v4;
-  [v4 UTF8String];
+  v14 = v6;
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)processForVersionedPID:.cold.1()
+- (void)processForVersionedPID:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = NSStringFromBSVersionedPID();
+  v2 = NSStringFromBSVersionedPID();
   OUTLINED_FUNCTION_5_3();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)registerProcessForAuditToken:.cold.1()
+- (void)registerProcessForAuditToken:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = NSStringFromBSVersionedPID();
+  v2 = NSStringFromBSVersionedPID();
   OUTLINED_FUNCTION_5_3();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)registerProcessForAuditToken:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 succinctDescription];
+  v6 = [a1 succinctDescription];
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-- (void)registerProcessForAuditToken:(const char *)a1 .cold.3(const char *a1)
+- (void)registerProcessForAuditToken:(const char *)a1 .cold.3(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-- (void)registerProcessForAuditToken:(const char *)a1 .cold.4(const char *a1)
+- (void)registerProcessForAuditToken:(const char *)a1 .cold.4(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-- (void)registerProcessForAuditToken:.cold.5()
+- (void)registerProcessForAuditToken:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = NSStringFromBSVersionedPID();
+  v1 = NSStringFromBSVersionedPID();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)registerProcessForAuditToken:(uint64_t)a1 .cold.6(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromBSVersionedPID();
-  v10 = [a2 succinctDescription];
+  v9 = [a2 succinctDescription];
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)launchProcessWithContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[context identity] != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2389,7 +2394,7 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[context identity] != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2399,13 +2404,10 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 - (void)noteProcessAssertionStateDidChange:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 descriptionWithMultilinePrefix:0];
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteProcessAssertionStateDidChange:(char *)a1 .cold.2(char *a1)
@@ -2417,8 +2419,10 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -2428,36 +2432,31 @@ void __58__FBProcessManager__notifyObserversUsingBlock_completion___block_invoke
 
 void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 descriptionWithMultilinePrefix:0];
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)domain:didReceiveConnection:withContext:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_1();
-  _os_log_error_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_ERROR, "FBWorkspaceDomain: Unable to assign new incoming connection to a process because its server was unable to be found for process=%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_ERROR, "FBWorkspaceDomain: Unable to assign new incoming connection to a process because its server was unable to be found for process=%@", v1, 0xCu);
 }
 
 - (void)domain:didReceiveConnection:withContext:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1A89DD000, v1, OS_LOG_TYPE_ERROR, "FBWorkspaceDomain: Unable to assign new incoming connection to a process because a process was unable to be found or created for connection=%@ with remoteToken=%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A89DD000, v1, OS_LOG_TYPE_ERROR, "FBWorkspaceDomain: Unable to assign new incoming connection to a process because a process was unable to be found or created for connection=%@ with remoteToken=%@", v2, 0x16u);
 }
 
 - (void)_reallyRegisterProcessForHandle:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:RBSProcessHandleClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2465,7 +2464,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:RBSProcessHandleClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2475,18 +2474,15 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_bootstrapProcessWithExecutionContext:(void *)a1 synchronously:error:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 localizedFailureReason];
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_bootstrapProcessWithExecutionContext:(char *)a1 synchronously:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"executionContext != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2494,7 +2490,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"executionContext != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2504,7 +2500,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_bootstrapProcessWithHandle:(uint64_t)a1 synchronously:(char *)a2 error:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RunningBoard returned no identity for a processHandle : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RunningBoard returned no identity for a processHandle : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -2512,7 +2508,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -2522,15 +2518,14 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_bootstrapProcessWithHandle:synchronously:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_1();
-  _os_log_error_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_ERROR, "Not registering process %{public}@ with an invalid audit token.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A89DD000, v0, OS_LOG_TYPE_ERROR, "Not registering process %{public}@ with an invalid audit token.", v1, 0xCu);
 }
 
 - (void)_bootstrapProcessWithHandle:(char *)a1 synchronously:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"processHandle != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2538,7 +2533,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"processHandle != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2548,7 +2543,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_bootstrap_consumeLock_addProcess:(char *)a1 synchronously:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"process != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2556,7 +2551,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"process != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2566,7 +2561,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_bootstrap_consumeLock_addProcess:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"process"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2574,7 +2569,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"process", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2584,7 +2579,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
 
 - (void)_removeProcess:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"process"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2592,7 +2587,7 @@ void __55__FBProcessManager_noteProcessAssertionStateDidChange___block_invoke_co
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"process", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

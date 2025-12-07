@@ -1,1970 +1,3 @@
-dispatch_data_t boringssl_session_export_secret_data(uint64_t a1, size_t a2, const void *a3, size_t a4, const void *a5, size_t a6)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  if (*a1 != -1252936367)
-  {
-    return 0;
-  }
-
-  if (!*(a1 + 8))
-  {
-    return 0;
-  }
-
-  v6 = boringssl_session_export_secret_with_context(a1, a2, a3, a4, a5, a6);
-  if (!v6)
-  {
-    return 0;
-  }
-
-  v7 = v6;
-  v8 = dispatch_data_create(v6[1], *v6, 0, 0);
-  v9 = v7[1];
-  if (v9)
-  {
-    free(v9);
-  }
-
-  free(v7);
-  return v8;
-}
-
-dispatch_data_t boringssl_session_copy_authenticator(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v7 = a2;
-  v8 = v7;
-  if (a1 && *a1 == -1252936367)
-  {
-    v9 = 0;
-    if (v7)
-    {
-      v10 = *(a1 + 8);
-      if (v10)
-      {
-        v11 = boringssl_identity_create_from_identity(v7);
-        if (v11 && boringssl_context_set_temporary_identity(a1, v8) && (v14 = 0xAAAAAAAAAAAAAAAALL, v15 = 0, v12 = SSL_generate_authenticator(*(v10 + 392), a3, a4, &v15, &v14), boringssl_context_set_temporary_identity(a1, 0), v12))
-        {
-          v9 = dispatch_data_create(v15, v14, 0, 0);
-          OPENSSL_free(v15);
-        }
-
-        else
-        {
-          v9 = 0;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9;
-}
-
-sec_trust_t boringssl_session_copy_authenticator_trust(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!a1 || *a1 != -1252936367)
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  if (a3)
-  {
-    if (a2)
-    {
-      v4 = *(a1 + 8);
-      if (v4)
-      {
-        if (SSL_validate_authenticator(*(v4 + 392), a2, a3))
-        {
-          session = SSL_get_session(*(v4 + 392));
-          v6 = SSL_SESSION_get0_peer_certificates(session);
-          v7 = boringssl_helper_copy_certificates_from_CRYPTO_BUFFERs(v4, v6);
-          if (v7)
-          {
-            v8 = v7;
-            SSLWithKeyUsage = SecPolicyCreateSSLWithKeyUsage();
-            if (SSLWithKeyUsage)
-            {
-              v10 = SSLWithKeyUsage;
-              trust = 0;
-              SecTrustCreateWithCertificates(v8, SSLWithKeyUsage, &trust);
-              CFRelease(v10);
-              CFRelease(v8);
-              if (trust)
-              {
-                v3 = sec_trust_create(trust);
-                CFRelease(trust);
-                return v3;
-              }
-            }
-
-            else
-            {
-              CFRelease(v8);
-            }
-
-            return 0;
-          }
-
-          WeakRetained = objc_loadWeakRetained((v4 + 16));
-          if (WeakRetained)
-          {
-            v19 = WeakRetained;
-            v20 = objc_loadWeakRetained((v4 + 16));
-            v21 = v20[435];
-
-            if (v21)
-            {
-              return 0;
-            }
-          }
-
-          v22 = objc_loadWeakRetained((v4 + 16));
-          if (v22)
-          {
-            v23 = objc_loadWeakRetained((v4 + 16));
-            v24 = (v23[435] & 1) == 0;
-          }
-
-          else
-          {
-            v24 = 1;
-          }
-
-          v3 = 0;
-          if (v24 && g_boringssl_log)
-          {
-            v25 = g_boringssl_log;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-            {
-              boringssl_session_copy_authenticator_trust_cold_1();
-            }
-
-LABEL_30:
-
-            return 0;
-          }
-        }
-
-        else
-        {
-          v11 = objc_loadWeakRetained((v4 + 16));
-          if (v11)
-          {
-            v12 = v11;
-            v13 = objc_loadWeakRetained((v4 + 16));
-            v14 = v13[435];
-
-            if (v14)
-            {
-              return 0;
-            }
-          }
-
-          v15 = objc_loadWeakRetained((v4 + 16));
-          if (v15)
-          {
-            v16 = objc_loadWeakRetained((v4 + 16));
-            v17 = (v16[435] & 1) == 0;
-          }
-
-          else
-          {
-            v17 = 1;
-          }
-
-          v3 = 0;
-          if (v17 && g_boringssl_log)
-          {
-            v25 = g_boringssl_log;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-            {
-              boringssl_session_copy_authenticator_trust_cold_2();
-            }
-
-            goto LABEL_30;
-          }
-        }
-      }
-    }
-  }
-
-  return v3;
-}
-
-uint64_t boringssl_session_get_stack_error(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  if (*a1 != -1252936367)
-  {
-    return 0;
-  }
-
-  v1 = *(a1 + 8);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v1 + 16));
-
-  if (!WeakRetained)
-  {
-    return 0;
-  }
-
-  v3 = objc_loadWeakRetained((v1 + 16));
-  error = nw_protocol_boringssl_get_error(v3);
-
-  return error;
-}
-
-uint64_t boringssl_session_get_negotiated_pake(uint64_t a1)
-{
-  if (a1 && *a1 == -1252936367 && (v1 = *(a1 + 8)) != 0 && (v2 = *(v1 + 392)) != 0)
-  {
-    return SSL_negotiated_pake(v2);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t boringssl_session_get_current_handshake_state(uint64_t result)
-{
-  if (result)
-  {
-    if (*result == -1252936367 && (v1 = *(result + 8)) != 0)
-    {
-      return *(v1 + 296);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t boringssl_session_get_ech_was_used(uint64_t result)
-{
-  if (result)
-  {
-    if (*result == -1252936367 && (v1 = *(result + 8)) != 0)
-    {
-      result = *(v1 + 392);
-      if (result)
-      {
-        return SSL_ech_accepted(result);
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t boringssl_session_set_ech_config(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = v3;
-  if (!a1 || *a1 != -1252936367)
-  {
-    goto LABEL_21;
-  }
-
-  v5 = 0;
-  if (v3)
-  {
-    v6 = *(a1 + 8);
-    if (v6)
-    {
-      v7 = *(v6 + 392);
-      if (!v7)
-      {
-        goto LABEL_21;
-      }
-
-      size = dispatch_data_get_size(v3);
-      if (!size)
-      {
-        goto LABEL_21;
-      }
-
-      v9 = size;
-      v5 = malloc_type_malloc(size, 0x100004077774924uLL);
-      if (v5)
-      {
-        boringssl_helper_dispatch_data_copyout(v4, v5, v9);
-        if (SSL_set1_ech_config_list(v7, v5, v9))
-        {
-          free(v5);
-          v5 = 1;
-          goto LABEL_22;
-        }
-
-        WeakRetained = objc_loadWeakRetained((v6 + 16));
-        if (!WeakRetained || (v11 = WeakRetained, v12 = objc_loadWeakRetained((v6 + 16)), v13 = v12[435], v12, v11, (v13 & 1) == 0))
-        {
-          v14 = objc_loadWeakRetained((v6 + 16));
-          if (v14)
-          {
-            v15 = objc_loadWeakRetained((v6 + 16));
-            v16 = (v15[435] & 1) == 0;
-          }
-
-          else
-          {
-            v16 = 1;
-          }
-
-          if (v16)
-          {
-            if (g_boringssl_log)
-            {
-              v17 = g_boringssl_log;
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-              {
-                boringssl_session_set_ech_config_cold_1();
-              }
-            }
-          }
-        }
-
-        free(v5);
-LABEL_21:
-        v5 = 0;
-      }
-    }
-  }
-
-LABEL_22:
-
-  return v5;
-}
-
-uint64_t boringssl_private_key_sign_callback(const SSL *a1, uint64_t a2, unint64_t *a3, unint64_t a4, int a5, const void *a6, size_t a7)
-{
-  v13 = SSL_get_ex_data(a1, 0);
-  if (!v13)
-  {
-    return 2;
-  }
-
-  v14 = v13;
-  if (*v13 != -1252936367)
-  {
-    return 2;
-  }
-
-  v15 = v13[1];
-  if (!v15)
-  {
-    return 2;
-  }
-
-  boringssl_session_update_metadata(v13);
-  v16 = dispatch_data_create(a6, a7, 0, 0);
-  v17 = v15[12];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __boringssl_private_key_sign_callback_block_invoke;
-  v21[3] = &__block_descriptor_40_e45_v20__0__boringssl_concrete_boringssl_ctx_8B16l;
-  v21[4] = v14;
-  v18 = boringssl_identity_private_key_sign(v17, a2, a3, a4, a5, v16, v15, v21);
-  if (v18 > 2)
-  {
-    v19 = 2;
-  }
-
-  else
-  {
-    v19 = dword_1A90A9338[v18];
-  }
-
-  return v19;
-}
-
-uint64_t boringssl_private_key_decrypt_callback(const SSL *a1, void *a2, size_t *a3, size_t a4, const void *a5, size_t a6)
-{
-  v11 = SSL_get_ex_data(a1, 0);
-  if (!v11)
-  {
-    return 2;
-  }
-
-  v12 = v11;
-  if (*v11 != -1252936367)
-  {
-    return 2;
-  }
-
-  v13 = v11[1];
-  if (!v13)
-  {
-    return 2;
-  }
-
-  boringssl_session_update_metadata(v11);
-  v14 = dispatch_data_create(a5, a6, 0, 0);
-  v15 = v13[12];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __boringssl_private_key_decrypt_callback_block_invoke;
-  v19[3] = &__block_descriptor_40_e45_v20__0__boringssl_concrete_boringssl_ctx_8B16l;
-  v19[4] = v12;
-  v16 = boringssl_identity_private_key_decrypt(v15, a2, a3, a4, v14, v13, v19);
-  if (v16 > 2)
-  {
-    v17 = 2;
-  }
-
-  else
-  {
-    v17 = dword_1A90A9338[v16];
-  }
-
-  return v17;
-}
-
-uint64_t boringssl_private_key_complete(const SSL *a1, uint64_t a2, size_t *a3, uint64_t a4)
-{
-  v7 = SSL_get_ex_data(a1, 0);
-  if (v7 && *v7 == -1252936367 && (v8 = v7[1]) != 0 && (v9 = boringssl_identity_private_key_complete(*(v8 + 96), a2, a3, a4), v9 <= 2))
-  {
-    return dword_1A90A9338[v9];
-  }
-
-  else
-  {
-    return 2;
-  }
-}
-
-uint64_t __boringssl_session_apply_protocol_options_for_transport_block_invoke_17(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = a3;
-  v5 = xpc_array_get_value(v4, 0);
-  v6 = xpc_array_get_value(v4, 1uLL);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  length = xpc_data_get_length(v5);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = malloc_type_malloc(v39[3], 0x7EF0C982uLL);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = xpc_data_get_length(v6);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = malloc_type_malloc(v31[3], 0x10E9EEC3uLL);
-  v7 = v35[3];
-  if (v7)
-  {
-    if (v27[3])
-    {
-      bytes = xpc_data_get_bytes(v5, v7, 0, v39[3]);
-      v9 = xpc_data_get_bytes(v6, v27[3], 0, v31[3]);
-      if (bytes == v39[3] && v9 == v31[3])
-      {
-        v10 = v35[3];
-        v11 = dispatch_workloop_copy_current();
-        destructor[0] = MEMORY[0x1E69E9820];
-        destructor[1] = 3221225472;
-        destructor[2] = __boringssl_session_apply_protocol_options_for_transport_block_invoke_2;
-        destructor[3] = &unk_1E785EA58;
-        destructor[4] = &v38;
-        destructor[5] = &v34;
-        v12 = dispatch_data_create(v10, bytes, v11, destructor);
-
-        v13 = v27[3];
-        v14 = v31[3];
-        v15 = dispatch_workloop_copy_current();
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __boringssl_session_apply_protocol_options_for_transport_block_invoke_19;
-        v24[3] = &unk_1E785EA58;
-        v24[4] = &v30;
-        v24[5] = &v26;
-        v16 = dispatch_data_create(v13, v14, v15, v24);
-
-        v17 = boringssl_psk_create(v12, v16);
-        boringssl_psk_cache_add_psk(*(*(a1 + 32) + 40), v17);
-
-        goto LABEL_12;
-      }
-
-      v18 = v35[3];
-      cc_clear();
-      v19 = v35[3];
-      if (v19)
-      {
-        free(v19);
-        v35[3] = 0;
-      }
-
-      v20 = v31[3];
-      v21 = v27[3];
-      cc_clear();
-    }
-
-    else
-    {
-      free(v35[3]);
-      v35[3] = 0;
-    }
-  }
-
-  v22 = v27[3];
-  if (v22)
-  {
-    free(v22);
-    v27[3] = 0;
-  }
-
-LABEL_12:
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-
-  return 1;
-}
-
-void sub_1A9044ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void __boringssl_session_apply_protocol_options_for_transport_block_invoke_2(uint64_t a1)
-{
-  if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
-  {
-    __boringssl_session_apply_protocol_options_for_transport_block_invoke_2_cold_1();
-  }
-
-  v2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  cc_clear();
-  v4 = *(*(*(a1 + 40) + 8) + 24);
-  if (v4)
-  {
-    free(v4);
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-  }
-}
-
-void __boringssl_session_apply_protocol_options_for_transport_block_invoke_19(uint64_t a1)
-{
-  if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
-  {
-    __boringssl_session_apply_protocol_options_for_transport_block_invoke_19_cold_1();
-  }
-
-  v2 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  cc_clear();
-  v4 = *(*(*(a1 + 40) + 8) + 24);
-  if (v4)
-  {
-    free(v4);
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-  }
-}
-
-const SSL *boringssl_session_psk_client13_ext_callback_handler(const SSL *result)
-{
-  if (result)
-  {
-    result = SSL_get_ex_data(result, 0);
-    if (result)
-    {
-      if (result->version == -1252936367 && (method = result->method) != 0)
-      {
-        ssl_connect = method[2].ssl_connect;
-        return (nw_protocol_options_access_handle() ^ 1);
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
-size_t boringssl_session_server_psk_callback_handler(const SSL *a1, const char *a2, uint64_t a3, unsigned int a4)
-{
-  if (a1)
-  {
-    v7 = SSL_get_ex_data(a1, 0);
-    if (v7)
-    {
-      if (*v7 == -1252936367)
-      {
-        v8 = v7[1];
-        if (v8)
-        {
-          v9 = *(v8 + 512);
-          nw_protocol_metadata_access_handle();
-          if (a2 && *a2)
-          {
-            WeakRetained = objc_loadWeakRetained((v8 + 16));
-            if (!WeakRetained || (v11 = WeakRetained, v12 = objc_loadWeakRetained((v8 + 16)), v13 = v12[435], v12, v11, (v13 & 1) == 0))
-            {
-              v14 = objc_loadWeakRetained((v8 + 16));
-              if (v14)
-              {
-                v15 = objc_loadWeakRetained((v8 + 16));
-                v16 = (v15[435] & 1) == 0;
-              }
-
-              else
-              {
-                v16 = 1;
-              }
-
-              if (v16)
-              {
-                if (g_boringssl_log)
-                {
-                  v29 = g_boringssl_log;
-                  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
-                  {
-                    boringssl_session_server_psk_callback_handler_cold_1();
-                  }
-                }
-              }
-            }
-
-            v30 = strlen(a2);
-            v31 = dispatch_data_create(a2, v30, 0, 0);
-            psk = boringssl_psk_cache_lookup_psk(*(v8 + 40), v31, *(v8 + 512));
-
-            if (!psk)
-            {
-              goto LABEL_34;
-            }
-          }
-
-          else
-          {
-            v19 = objc_loadWeakRetained((v8 + 16));
-            if (!v19 || (v20 = v19, v21 = objc_loadWeakRetained((v8 + 16)), v22 = v21[435], v21, v20, (v22 & 1) == 0))
-            {
-              v23 = objc_loadWeakRetained((v8 + 16));
-              if (v23)
-              {
-                v24 = objc_loadWeakRetained((v8 + 16));
-                v25 = (v24[435] & 1) == 0;
-              }
-
-              else
-              {
-                v25 = 1;
-              }
-
-              if (v25)
-              {
-                if (g_boringssl_log)
-                {
-                  v26 = g_boringssl_log;
-                  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-                  {
-                    boringssl_session_server_psk_callback_handler_cold_2();
-                  }
-                }
-              }
-            }
-
-            psk = boringssl_psk_cache_copy_first_psk(*(v8 + 40));
-            if (!psk)
-            {
-LABEL_34:
-              v32 = objc_loadWeakRetained((v8 + 16));
-              if (!v32 || (v33 = v32, v34 = objc_loadWeakRetained((v8 + 16)), v35 = v34[435], v34, v33, (v35 & 1) == 0))
-              {
-                v36 = objc_loadWeakRetained((v8 + 16));
-                if (v36)
-                {
-                  v37 = objc_loadWeakRetained((v8 + 16));
-                  v38 = (v37[435] & 1) == 0;
-                }
-
-                else
-                {
-                  v38 = 1;
-                }
-
-                size = 0;
-                if (!v38 || !g_boringssl_log)
-                {
-                  goto LABEL_45;
-                }
-
-                v39 = g_boringssl_log;
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
-                {
-                  boringssl_session_server_psk_callback_handler_cold_3();
-                }
-              }
-
-              size = 0;
-LABEL_45:
-
-              return size;
-            }
-          }
-
-          v28 = boringssl_psk_copy_key(psk);
-          size = dispatch_data_get_size(v28);
-          if (size)
-          {
-            *(v8 + 552) |= 1u;
-            boringssl_helper_dispatch_data_copyout(v28, a3, a4);
-          }
-
-          goto LABEL_45;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t boringssl_session_client_psk_callback_handler(const SSL *a1, const char *a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
-{
-  if (a1)
-  {
-    LODWORD(v6) = a6;
-    v11 = SSL_get_ex_data(a1, 0);
-    if (v11)
-    {
-      if (*v11 == -1252936367)
-      {
-        v12 = v11[1];
-        if (v12)
-        {
-          v13 = *(v12 + 512);
-          nw_protocol_metadata_access_handle();
-          WeakRetained = objc_loadWeakRetained((v12 + 16));
-          v15 = WeakRetained;
-          if (a2)
-          {
-            if (!WeakRetained || (v16 = objc_loadWeakRetained((v12 + 16)), v17 = v16[435], v16, v15, (v17 & 1) == 0))
-            {
-              v18 = objc_loadWeakRetained((v12 + 16));
-              if (v18)
-              {
-                v19 = objc_loadWeakRetained((v12 + 16));
-                v20 = (v19[435] & 1) == 0;
-              }
-
-              else
-              {
-                v20 = 1;
-              }
-
-              if (v20)
-              {
-                if (g_boringssl_log)
-                {
-                  v27 = g_boringssl_log;
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
-                  {
-                    boringssl_session_client_psk_callback_handler_cold_1();
-                  }
-                }
-              }
-            }
-
-            v28 = strlen(a2);
-            v29 = dispatch_data_create(a2, v28, 0, 0);
-LABEL_30:
-            v31 = boringssl_psk_cache_lookup_psk(*(v12 + 40), v29, *(v12 + 512));
-            v32 = v31;
-            if (v31)
-            {
-              v33 = boringssl_psk_copy_identity(v31);
-              v34 = v33;
-              if (v33 && dispatch_data_get_size(v33))
-              {
-                boringssl_helper_dispatch_data_copyout(v34, a3, a4);
-              }
-
-              v35 = boringssl_psk_copy_key(v32);
-              v36 = v35;
-              if (v35)
-              {
-                size = dispatch_data_get_size(v35);
-                v38 = v6;
-                if (size >= v6)
-                {
-                  v6 = v6;
-                }
-
-                else
-                {
-                  v6 = size;
-                }
-
-                boringssl_helper_dispatch_data_copyout(v36, a5, v38);
-              }
-
-              else
-              {
-                v6 = 0;
-              }
-
-              *(v12 + 552) |= 1u;
-            }
-
-            else
-            {
-              v39 = objc_loadWeakRetained((v12 + 16));
-              if (v39)
-              {
-                v40 = v39;
-                v41 = objc_loadWeakRetained((v12 + 16));
-                v42 = v41[435];
-
-                if (v42)
-                {
-                  v6 = 0;
-                  goto LABEL_46;
-                }
-              }
-
-              v43 = objc_loadWeakRetained((v12 + 16));
-              if (v43)
-              {
-                v44 = objc_loadWeakRetained((v12 + 16));
-                v45 = (v44[435] & 1) == 0;
-              }
-
-              else
-              {
-                v45 = 1;
-              }
-
-              v6 = 0;
-              if (!v45 || !g_boringssl_log)
-              {
-                goto LABEL_46;
-              }
-
-              v34 = g_boringssl_log;
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
-              {
-                boringssl_session_client_psk_callback_handler_cold_3();
-              }
-
-              v6 = 0;
-            }
-
-LABEL_46:
-            return v6;
-          }
-
-          if (!WeakRetained || (v22 = objc_loadWeakRetained((v12 + 16)), v23 = v22[435], v22, v15, (v23 & 1) == 0))
-          {
-            v24 = objc_loadWeakRetained((v12 + 16));
-            if (v24)
-            {
-              v25 = objc_loadWeakRetained((v12 + 16));
-              v26 = (v25[435] & 1) == 0;
-            }
-
-            else
-            {
-              v26 = 1;
-            }
-
-            v29 = 0;
-            if (!v26 || !g_boringssl_log)
-            {
-              goto LABEL_30;
-            }
-
-            v30 = g_boringssl_log;
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
-            {
-              boringssl_session_client_psk_callback_handler_cold_2();
-            }
-          }
-
-          v29 = 0;
-          goto LABEL_30;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-BOOL __boringssl_session_apply_protocol_options_for_transport_block_invoke_22(uint64_t a1, size_t a2)
-{
-  uint64 = xpc_array_get_uint64(*(a1 + 32), a2);
-  if (uint64 == 4588)
-  {
-    v4 = *(a1 + 40);
-    if (v4)
-    {
-      if (*v4 == -1252936367)
-      {
-        v5 = *(v4 + 8);
-        if (v5)
-        {
-          *(v5 + 552) |= 0x20u;
-        }
-      }
-    }
-  }
-
-  return uint64 != 4588;
-}
-
-void __boringssl_context_start_handshake_timer_block_invoke(uint64_t a1)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  ++*(*(a1 + 32) + 320);
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    if (*v2 == -1252936367)
-    {
-      v3 = *(v2 + 8);
-      if (v3)
-      {
-        if ((*(v3 + 548) & 0x20) != 0)
-        {
-          v4 = *(v3 + 392);
-          if (!v4 || (memset(v26, 170, 16), !DTLSv1_get_timeout(v4, v26)) || *v26 || *&v26[8] || (v6 = *(v3 + 392)) != 0 && DTLSv1_handle_timeout(v6, v5) == 1)
-          {
-            boringssl_context_start_handshake_timer(v2);
-          }
-
-          else
-          {
-            WeakRetained = objc_loadWeakRetained((v3 + 16));
-            if (!WeakRetained || (v9 = WeakRetained, v10 = objc_loadWeakRetained((v3 + 16)), v1 = v10[435], v10, v9, (v1 & 1) == 0))
-            {
-              v11 = objc_loadWeakRetained((v3 + 16));
-              if (v11)
-              {
-                v12 = objc_loadWeakRetained((v3 + 16));
-                v13 = (v12[435] & 1) == 0;
-              }
-
-              else
-              {
-                v13 = 1;
-              }
-
-              if (v13)
-              {
-                if (g_boringssl_log)
-                {
-                  v14 = g_boringssl_log;
-                  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-                  {
-                    v15 = objc_loadWeakRetained((v3 + 16));
-                    if (v15)
-                    {
-                      v1 = objc_loadWeakRetained((v3 + 16));
-                      v16 = v1 + 351;
-                    }
-
-                    else
-                    {
-                      v16 = &unk_1A9098A9F;
-                    }
-
-                    v17 = objc_loadWeakRetained((v3 + 16));
-                    *v26 = 136447234;
-                    *&v26[4] = "boringssl_context_handle_handshake_timer";
-                    *&v26[12] = 1024;
-                    *&v26[14] = 347;
-                    v27 = 2082;
-                    v28 = v16;
-                    v29 = 2048;
-                    v30 = v17;
-                    v31 = 1024;
-                    v32 = 10;
-                    _os_log_impl(&dword_1A8FF5000, v14, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] Handshake took more than %d seconds to complete, closing this session", v26, 0x2Cu);
-
-                    if (v15)
-                    {
-                    }
-                  }
-                }
-              }
-            }
-
-            v18 = objc_loadWeakRetained((v3 + 16));
-            v19 = v18[35];
-
-            if (v19)
-            {
-              v20 = objc_loadWeakRetained((v3 + 16));
-              v21 = v20[35];
-              nw_queue_cancel_source();
-
-              v22 = objc_loadWeakRetained((v3 + 16));
-              v22[35] = 0;
-            }
-
-            v23 = objc_loadWeakRetained((v3 + 16));
-            nw_protocol_boringssl_internal_error(v23, 60);
-
-            v24 = objc_loadWeakRetained((v3 + 16));
-            v25 = nw_protocol_upcast();
-            nw_protocol_boringssl_disconnect(v25);
-          }
-        }
-      }
-    }
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __boringssl_context_start_handshake_timer_block_invoke_2(uint64_t a1)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  if (!v3)
-  {
-    goto LABEL_7;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v3 + 16));
-  if (WeakRetained)
-  {
-    v5 = WeakRetained;
-    v6 = objc_loadWeakRetained((*(a1 + 32) + 16));
-    v1 = v6[435];
-
-    if (v1)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v7 = *(a1 + 32);
-  if (v7)
-  {
-    v8 = objc_loadWeakRetained((v7 + 16));
-    if (v8)
-    {
-      v9 = objc_loadWeakRetained((*(a1 + 32) + 16));
-      v10 = (v9[435] & 1) == 0;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    if (!v10)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-LABEL_7:
-    v10 = 1;
-  }
-
-  if (g_boringssl_log)
-  {
-    v11 = g_boringssl_log;
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-    {
-LABEL_12:
-
-      goto LABEL_13;
-    }
-
-    v13 = *(a1 + 32);
-    if (v13)
-    {
-      v10 = objc_loadWeakRetained((v13 + 16));
-      v18 = *(a1 + 32);
-      if (v10)
-      {
-        v14 = v18 != 0;
-        if (v18)
-        {
-          v1 = objc_loadWeakRetained((v18 + 16));
-          v18 = *(a1 + 32);
-        }
-
-        else
-        {
-          v1 = 0;
-        }
-
-        v17 = v1 + 351;
-      }
-
-      else
-      {
-        v14 = 0;
-        v17 = &unk_1A9098A9F;
-      }
-
-      if (v18)
-      {
-        v15 = objc_loadWeakRetained((v18 + 16));
-        v16 = 0;
-      }
-
-      else
-      {
-        v15 = 0;
-        v16 = 1;
-      }
-    }
-
-    else
-    {
-      v14 = 0;
-      v15 = 0;
-      v16 = 1;
-      v17 = &unk_1A9098A9F;
-    }
-
-    v19 = 136446978;
-    v20 = "boringssl_context_start_handshake_timer_block_invoke_2";
-    v21 = 1024;
-    v22 = 379;
-    v23 = 2082;
-    v24 = v17;
-    v25 = 2048;
-    v26 = v15;
-    _os_log_debug_impl(&dword_1A8FF5000, v11, OS_LOG_TYPE_DEBUG, "%{public}s(%d) %{public}s[%p] Cancelling TLS handshake timer", &v19, 0x26u);
-    if (v16)
-    {
-      if (!v14)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else
-    {
-
-      if (!v14)
-      {
-LABEL_27:
-        if (!v13)
-        {
-          goto LABEL_12;
-        }
-
-        goto LABEL_31;
-      }
-    }
-
-    if (!v13)
-    {
-      goto LABEL_12;
-    }
-
-LABEL_31:
-
-    goto LABEL_12;
-  }
-
-LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void __boringssl_private_key_sign_callback_block_invoke(uint64_t a1, void *a2, int a3)
-{
-  v5 = a2;
-  if (a3)
-  {
-    v6 = *(a1 + 32);
-    if (!v6 || *v6 != -1252936367 || (v7 = *(v6 + 8)) == 0 || *(v7 + 292) <= 3u && (*(v7 + 548) & 2) == 0)
-    {
-      v9 = v5;
-      WeakRetained = objc_loadWeakRetained(v5 + 2);
-      nw_protocol_boringssl_handshake_negotiate(WeakRetained);
-
-      v5 = v9;
-    }
-  }
-}
-
-void __boringssl_private_key_decrypt_callback_block_invoke(uint64_t a1, void *a2, int a3)
-{
-  v5 = a2;
-  if (a3)
-  {
-    v6 = *(a1 + 32);
-    if (!v6 || *v6 != -1252936367 || (v7 = *(v6 + 8)) == 0 || *(v7 + 292) <= 3u && (*(v7 + 548) & 2) == 0)
-    {
-      v9 = v5;
-      WeakRetained = objc_loadWeakRetained(v5 + 2);
-      nw_protocol_boringssl_handshake_negotiate(WeakRetained);
-
-      v5 = v9;
-    }
-  }
-}
-
-uint64_t __boringssl_session_psk_client13_ext_callback_handler_block_invoke(uint64_t a1, uint64_t a2)
-{
-  v87 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 72);
-  v5 = v4;
-  if (v4 && xpc_array_get_count(v4))
-  {
-    v6 = xpc_array_get_array(v5, 0);
-    v7 = v6;
-    if (!v6 || xpc_array_get_count(v6) != 2)
-    {
-      v18 = 0;
-LABEL_26:
-
-      goto LABEL_27;
-    }
-
-    v8 = xpc_array_get_value(v7, 0);
-    length = xpc_data_get_length(v8);
-    v10 = xpc_array_get_value(v7, 1uLL);
-    v11 = xpc_data_get_length(v10);
-    v12 = *(a2 + 48);
-    v13 = v12;
-    v74 = a1;
-    if (!v12 || !xpc_array_get_count(v12))
-    {
-      v19 = 0;
-      v17 = 0;
-      goto LABEL_19;
-    }
-
-    v14 = xpc_array_get_value(v13, 0);
-    v15 = MEMORY[0x1AC57FB30]();
-    v16 = MEMORY[0x1E69E9F10];
-    if (v15 == MEMORY[0x1E69E9F10])
-    {
-      v20 = v14;
-    }
-
-    else
-    {
-      if (MEMORY[0x1AC57FB30](v14) != MEMORY[0x1E69E9E50])
-      {
-        v17 = 0;
-        goto LABEL_17;
-      }
-
-      v20 = xpc_array_get_value(v14, 0);
-    }
-
-    v17 = v20;
-    if (v20 && MEMORY[0x1AC57FB30](v20) == v16)
-    {
-      v19 = xpc_string_get_length(v17);
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v19 = 0;
-LABEL_18:
-
-LABEL_19:
-    v18 = 0;
-    if (!length || !v11)
-    {
-      goto LABEL_25;
-    }
-
-    if (length > **(v74 + 32) || v11 > **(v74 + 40) || v19 > **(v74 + 48))
-    {
-      v18 = 0;
-LABEL_25:
-
-      goto LABEL_26;
-    }
-
-    v72 = v19;
-    v73 = v11;
-    v23 = *(v74 + 56);
-    if (!v23)
-    {
-      goto LABEL_35;
-    }
-
-    WeakRetained = objc_loadWeakRetained((v23 + 16));
-    if (WeakRetained)
-    {
-      v25 = WeakRetained;
-      v26 = objc_loadWeakRetained((*(v74 + 56) + 16));
-      v27 = v26[435];
-
-      if (v27)
-      {
-LABEL_59:
-        v40 = *(v74 + 56);
-        if (!v40)
-        {
-          goto LABEL_65;
-        }
-
-        v41 = objc_loadWeakRetained((v40 + 16));
-        if (v41)
-        {
-          v42 = v41;
-          v43 = objc_loadWeakRetained((*(v74 + 56) + 16));
-          v44 = v43[435];
-
-          if (v44)
-          {
-LABEL_89:
-            *(*(v74 + 56) + 552) |= 0x80u;
-            **(v74 + 64) = SSL_get_cipher_by_value(4865);
-            **(v74 + 32) = length;
-            v58 = *(v74 + 72);
-            bytes_ptr = xpc_data_get_bytes_ptr(v8);
-            memcpy(v58, bytes_ptr, length);
-            **(v74 + 40) = v73;
-            v60 = *(v74 + 80);
-            v61 = xpc_data_get_bytes_ptr(v10);
-            memcpy(v60, v61, v73);
-            **(v74 + 48) = v72;
-            if (v72)
-            {
-              v62 = *(v74 + 88);
-              string_ptr = xpc_string_get_string_ptr(v17);
-              memcpy(v62, string_ptr, v72);
-            }
-
-            v18 = 1;
-            goto LABEL_25;
-          }
-        }
-
-        v45 = *(v74 + 56);
-        if (v45)
-        {
-          v46 = objc_loadWeakRetained((v45 + 16));
-          if (v46)
-          {
-            v47 = objc_loadWeakRetained((*(v74 + 56) + 16));
-            v48 = (v47[435] & 1) == 0;
-          }
-
-          else
-          {
-            v48 = 1;
-          }
-        }
-
-        else
-        {
-LABEL_65:
-          v48 = 1;
-        }
-
-        if (v48 && g_boringssl_log)
-        {
-          v49 = g_boringssl_log;
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
-          {
-            v50 = *(v74 + 56);
-            loga = v50;
-            if (v50)
-            {
-              v51 = objc_loadWeakRetained(&v50[2].isa);
-              v52 = *(v74 + 56);
-              v67 = v51;
-              if (v51)
-              {
-                v69 = v52 != 0;
-                if (v52)
-                {
-                  v51 = objc_loadWeakRetained((v52 + 16));
-                  v52 = *(v74 + 56);
-                }
-
-                else
-                {
-                  v51 = 0;
-                }
-
-                v54 = v51 + 351;
-              }
-
-              else
-              {
-                v69 = 0;
-                v54 = &unk_1A9098A9F;
-              }
-
-              v66 = v51;
-              if (v52)
-              {
-                v56 = v54;
-                v57 = objc_loadWeakRetained((v52 + 16));
-                v54 = v56;
-                v55 = v57;
-                v53 = 0;
-              }
-
-              else
-              {
-                v55 = 0;
-                v53 = 1;
-              }
-            }
-
-            else
-            {
-              v69 = 0;
-              v53 = 1;
-              v54 = &unk_1A9098A9F;
-              v55 = 0;
-            }
-
-            *buf = 136446978;
-            v76 = "boringssl_session_psk_client13_ext_callback_handler_block_invoke";
-            v77 = 1024;
-            v78 = 1832;
-            v79 = 2082;
-            v80 = v54;
-            v81 = 2048;
-            v82 = v55;
-            _os_log_impl(&dword_1A8FF5000, v49, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] Running TLS 1.3 external PSK client callback", buf, 0x26u);
-            if ((v53 & 1) == 0)
-            {
-            }
-
-            if (v69)
-            {
-            }
-
-            if (loga)
-            {
-            }
-          }
-        }
-
-        goto LABEL_89;
-      }
-    }
-
-    v28 = *(v74 + 56);
-    if (v28)
-    {
-      v29 = objc_loadWeakRetained((v28 + 16));
-      if (v29)
-      {
-        v30 = objc_loadWeakRetained((*(v74 + 56) + 16));
-        v31 = (v30[435] & 1) == 0;
-      }
-
-      else
-      {
-        v31 = 1;
-      }
-    }
-
-    else
-    {
-LABEL_35:
-      v31 = 1;
-    }
-
-    if (v31 && g_boringssl_log)
-    {
-      v32 = g_boringssl_log;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-      {
-        v33 = *(v74 + 56);
-        v68 = v33;
-        log = v32;
-        if (v33)
-        {
-          v34 = objc_loadWeakRetained((v33 + 16));
-          v35 = *(v74 + 56);
-          v36 = v73;
-          v65 = v34;
-          if (v34)
-          {
-            LODWORD(v67) = v35 != 0;
-            if (v35)
-            {
-              v34 = objc_loadWeakRetained((v35 + 16));
-              v35 = *(v74 + 56);
-            }
-
-            else
-            {
-              v34 = 0;
-            }
-
-            v38 = v34 + 351;
-          }
-
-          else
-          {
-            LODWORD(v67) = 0;
-            v38 = &unk_1A9098A9F;
-          }
-
-          v64 = v34;
-          if (v35)
-          {
-            v37 = objc_loadWeakRetained((v35 + 16));
-            LODWORD(v66) = 0;
-          }
-
-          else
-          {
-            v37 = 0;
-            LODWORD(v66) = 1;
-          }
-        }
-
-        else
-        {
-          LODWORD(v67) = 0;
-          v37 = 0;
-          LODWORD(v66) = 1;
-          v38 = &unk_1A9098A9F;
-          v36 = v73;
-        }
-
-        *buf = 136447490;
-        v76 = "boringssl_session_psk_client13_ext_callback_handler_block_invoke";
-        v77 = 1024;
-        v78 = 1831;
-        v79 = 2082;
-        v80 = v38;
-        v81 = 2048;
-        v39 = v37;
-        v82 = v37;
-        v83 = 2048;
-        v84 = length;
-        v85 = 2048;
-        v86 = v36;
-        v32 = log;
-        _os_log_impl(&dword_1A8FF5000, log, OS_LOG_TYPE_INFO, "%{public}s(%d) %{public}s[%p] secret_len: %zu, identity_len: %zu", buf, 0x3Au);
-        if ((v66 & 1) == 0)
-        {
-        }
-
-        if (v67)
-        {
-        }
-
-        if (v68)
-        {
-        }
-      }
-    }
-
-    goto LABEL_59;
-  }
-
-  v18 = 0;
-LABEL_27:
-
-  v21 = *MEMORY[0x1E69E9840];
-  return v18;
-}
-
-BOOL __boringssl_session_server_psk_callback_handler_block_invoke(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v3 = boringssl_psk_cache_copy_psk_object_array(*(*(a1 + 32) + 40));
-    v4 = *(a2 + 96);
-    *(a2 + 96) = v3;
-  }
-
-  return a2 != 0;
-}
-
-BOOL __boringssl_session_client_psk_callback_handler_block_invoke(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v3 = boringssl_psk_cache_copy_psk_object_array(*(*(a1 + 32) + 40));
-    v4 = *(a2 + 96);
-    *(a2 + 96) = v3;
-  }
-
-  return a2 != 0;
-}
-
-id OUTLINED_FUNCTION_8()
-{
-  v3 = (v0 + *v1);
-
-  return objc_loadWeakRetained(v3);
-}
-
-id OUTLINED_FUNCTION_9(uint64_t a1)
-{
-  v3 = (a1 + *v1);
-
-  return objc_loadWeakRetained(v3);
-}
-
-void OUTLINED_FUNCTION_17(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x30u);
-}
-
-uint64_t nw_protocol_boringssl_allocate_batching_frame(void *a1, unsigned int a2)
-{
-  v3 = a1;
-  nw_frame_array_init();
-  nw_protocol_upcast();
-  output_handler = nw_protocol_get_output_handler();
-  if (!output_handler)
-  {
-    if ((*(v3 + 435) & 1) == 0)
-    {
-      nw_protocol_boringssl_allocate_batching_frame_cold_6();
-      goto LABEL_27;
-    }
-
-    goto LABEL_18;
-  }
-
-  v5 = output_handler;
-  nw_protocol_upcast();
-  if ((nw_protocol_get_output_frames_is_valid() & 1) == 0)
-  {
-    if ((*(v3 + 435) & 1) == 0)
-    {
-      nw_protocol_boringssl_allocate_batching_frame_cold_1(v3, v5, &v17);
-      goto LABEL_27;
-    }
-
-LABEL_18:
-    v9 = 0;
-    goto LABEL_19;
-  }
-
-  v6 = *(v3 + 41);
-  if (v6 <= a2)
-  {
-    v6 = a2;
-  }
-
-  if (v6 >= nw_batching_finaltxt_size)
-  {
-    v7 = nw_batching_finaltxt_size;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  nw_protocol_upcast();
-  if (!nw_protocol_get_output_frames() || nw_frame_array_is_empty())
-  {
-    v8 = *(v3 + 435);
-    if ((*(v3 + 350) & 2) != 0)
-    {
-      if ((*(v3 + 435) & 1) == 0)
-      {
-        nw_protocol_boringssl_allocate_batching_frame_cold_4(v3, v7, &v17);
-        goto LABEL_27;
-      }
-    }
-
-    else if ((*(v3 + 435) & 1) == 0)
-    {
-      nw_protocol_boringssl_allocate_batching_frame_cold_5(v3, v7, &v17);
-LABEL_27:
-      v9 = v17;
-      goto LABEL_19;
-    }
-
-    goto LABEL_18;
-  }
-
-  v11 = nw_frame_array_first();
-  v12 = *(v3 + 19);
-  *(v3 + 19) = v11;
-
-  v13 = *(v3 + 19);
-  nw_frame_array_remove();
-  *(v3 + 40) = 0;
-  v14 = *(v3 + 19);
-  v15 = nw_frame_unclaimed_length();
-  v16 = *(v3 + 435);
-  if ((*(v3 + 350) & 2) != 0)
-  {
-    if ((*(v3 + 435) & 1) == 0)
-    {
-      nw_protocol_boringssl_allocate_batching_frame_cold_2(v3, v15, &v17);
-      goto LABEL_27;
-    }
-  }
-
-  else if ((*(v3 + 435) & 1) == 0)
-  {
-    nw_protocol_boringssl_allocate_batching_frame_cold_3(v3, v15, &v17);
-    goto LABEL_27;
-  }
-
-  v9 = 1;
-LABEL_19:
-
-  return v9;
-}
-
-void nw_protocol_boringssl_flush_batching_frame(void *a1, uint64_t a2)
-{
-  v3 = a1;
-  v4 = v3;
-  if (a2 && boringssl_session_get_state(v3[37]) <= 3 && (boringssl_session_is_cancelled(v4[37]) & 1) == 0 && v4[19])
-  {
-    nw_frame_array_init();
-    v5 = v4[19];
-    nw_frame_collapse();
-    v6 = v4[19];
-    nw_protocol_upcast();
-    v7 = *(v4 + 40);
-    nw_frame_unclaim();
-    v8 = v4[19];
-    nw_frame_array_append();
-    v9 = v4[19];
-    v4[19] = 0;
-
-    *(v4 + 40) = 0;
-    nw_protocol_upcast();
-    if (nw_protocol_get_output_handler())
-    {
-      if (nw_protocol_finalize_output_frames_is_valid())
-      {
-        nw_protocol_finalize_output_frames();
-        v10 = *(v4 + 435);
-        if ((*(v4 + 350) & 2) != 0)
-        {
-          if ((*(v4 + 435) & 1) == 0)
-          {
-            nw_protocol_boringssl_flush_batching_frame_cold_2();
-          }
-        }
-
-        else if ((*(v4 + 435) & 1) == 0)
-        {
-          nw_protocol_boringssl_flush_batching_frame_cold_3();
-        }
-      }
-
-      else if ((*(v4 + 435) & 1) == 0)
-      {
-        nw_protocol_boringssl_flush_batching_frame_cold_1();
-      }
-    }
-
-    else if ((*(v4 + 435) & 1) == 0)
-    {
-      nw_protocol_boringssl_flush_batching_frame_cold_4();
-    }
-  }
-}
-
-uint64_t nw_protocol_boringssl_internal_error(void *a1, int a2)
-{
-  v3 = a1;
-  v4 = v3;
-  if (v3 && (*(v3 + 350) & 4) == 0)
-  {
-    *(v3 + 350) |= 4u;
-    v5 = v3[37];
-    v7 = v4;
-    if (v5)
-    {
-      boringssl_context_set_internal_error(v5, a2);
-      boringssl_metrics_log_connection_failure(v7[37]);
-      boringssl_metrics_log_ech(v7[37]);
-    }
-
-    nw_protocol_upcast();
-    if (nw_protocol_get_input_handler() && (*(v7 + 348) & 4) != 0)
-    {
-      nw_protocol_upcast();
-      nw_protocol_error();
-    }
-  }
-
-  return MEMORY[0x1EEE66BB8]();
-}
-
-__int128 *nw_protocol_boringssl_identifier()
-{
-  if (nw_protocol_boringssl_identifier_onceToken != -1)
-  {
-    nw_protocol_boringssl_identifier_cold_1();
-  }
-
-  return &g_boringssl_protocol_identifier;
-}
-
-void nw_protocol_boringssl_disconnected(uint64_t a1)
-{
-  if (a1)
-  {
-    v2 = nw_protocol_downcast();
-    if (v2)
-    {
-      v3 = v2;
-      if ((*(v2 + 435) & 1) == 0)
-      {
-        nw_protocol_boringssl_disconnected_cold_1();
-      }
-
-      if ((*(v3 + 350) & 0x20) != 0)
-      {
-        if ((*(v3 + 435) & 1) == 0)
-        {
-          nw_protocol_boringssl_disconnected_cold_2();
-        }
-      }
-
-      else
-      {
-        v4 = *(a1 + 48);
-        nw_protocol_disconnected_quiet();
-      }
-    }
-  }
-}
-
-uint64_t nw_protocol_boringssl_reset(uint64_t a1)
-{
-  v1 = a1;
-  if (a1)
-  {
-    v2 = nw_protocol_downcast();
-    if (v2)
-    {
-      v3 = v2;
-      if ((*(v2 + 435) & 1) == 0)
-      {
-        nw_protocol_boringssl_reset_cold_1();
-      }
-
-      nw_protocol_boringssl_cleanup(v3);
-      v4 = *(v3 + 272);
-      v5 = nw_parameters_copy_context();
-      if (v5)
-      {
-        v6 = boringssl_context_create_with_nw_context(v3, v5);
-        *(v3 + 296) = v6;
-        if (v6)
-        {
-          v7 = boringssl_bio_create(v3, nw_protocol_boringssl_read_bytes_wrapper, nw_protocol_boringssl_write_bytes_wrapper);
-          *(v3 + 304) = v7;
-          if (v7)
-          {
-            *(v3 + 240) = 0u;
-            *(v3 + 256) = 0u;
-            v8 = *(v3 + 328);
-            *(v3 + 328) = 0;
-
-            *(v3 + 336) = 0;
-            *(v3 + 348) &= 0x1Au;
-            *(v3 + 349) &= 0x18u;
-            *(v3 + 350) &= 0xF8u;
-            nw_protocol_get_output_handler();
-            if (nw_protocol_reset_is_valid())
-            {
-              nw_protocol_get_output_handler();
-              nw_protocol_reset();
-            }
-
-            v1 = 1;
-            goto LABEL_18;
-          }
-
-          if ((*(v3 + 435) & 1) == 0)
-          {
-            nw_protocol_boringssl_reset_cold_2();
-            v1 = v10;
-            goto LABEL_18;
-          }
-
-          goto LABEL_17;
-        }
-
-        if ((*(v3 + 435) & 1) == 0)
-        {
-          nw_protocol_boringssl_reset_cold_3();
-          v1 = v11;
-          goto LABEL_18;
-        }
-      }
-
-      else if ((*(v3 + 435) & 1) == 0)
-      {
-        nw_protocol_boringssl_reset_cold_4();
-        v1 = v12;
-LABEL_18:
-
-        return v1;
-      }
-
-LABEL_17:
-      v1 = 0;
-      goto LABEL_18;
-    }
-
-    return 0;
-  }
-
-  return v1;
-}
-
 uint64_t nw_protocol_boringssl_get_error(uint64_t result)
 {
   if (result)
@@ -1975,13 +8,11 @@ uint64_t nw_protocol_boringssl_get_error(uint64_t result)
   return result;
 }
 
-uint64_t nw_protocol_boringssl_send_alert(void *a1, unsigned int a2)
+uint64_t nw_protocol_boringssl_send_alert(void *a1, unsigned int a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = v3;
+  v4 = a1;
   if (a2 <= 3)
   {
-    v5 = *(v3 + 30);
     nw_protocol_upcast();
     nw_protocol_error();
   }
@@ -1989,7 +20,7 @@ uint64_t nw_protocol_boringssl_send_alert(void *a1, unsigned int a2)
   return 1;
 }
 
-uint64_t nw_protocol_error_print()
+uint64_t nw_protocol_error_print(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
   {
@@ -2001,17 +32,17 @@ uint64_t nw_protocol_error_print()
 
 uint64_t __nw_protocol_boringssl_write_frames_block_invoke_138(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v26 = 0;
-  v25 = 0;
+  v24 = 0;
+  v23 = 0;
   v5 = (a1 + 32);
   v4 = *(a1 + 32);
   v6 = *(v4 + 120);
   if (v6)
   {
-    v26 = *(v4 + 120);
-    v25 = *(v4 + 128);
+    v24 = *(v4 + 120);
+    v23 = *(v4 + 128);
   }
 
   else if (nw_frame_uses_external_data())
@@ -2020,63 +51,63 @@ uint64_t __nw_protocol_boringssl_write_frames_block_invoke_138(uint64_t a1, void
     v8 = v7;
     if (v7)
     {
-      v9 = nw_dispatch_data_create_subrange_map(v7, 0, v25, &v26);
+      v9 = nw_dispatch_data_create_subrange_map(v7, 0, v23, &v24);
       v10 = *(*v5 + 112);
       *(*v5 + 112) = v9;
 
       v11 = *v5;
       if (*(*v5 + 112))
       {
-        *(v11 + 120) = v26;
-        *(*v5 + 128) = v25;
+        *(v11 + 120) = v24;
+        *(*v5 + 128) = v23;
       }
 
       else if ((*(v11 + 435) & 1) == 0)
       {
-        v22 = g_boringssl_log;
+        v20 = g_boringssl_log;
         if (g_boringssl_log)
         {
           if (os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_ERROR))
           {
-            v23 = *v5;
-            v24 = (*v5 + 351);
+            v21 = *v5;
+            v22 = (*v5 + 351);
             if (!*v5)
             {
-              v24 = &unk_1A9098A9F;
+              v22 = &unk_1A9098A9F;
             }
 
             *buf = 136447746;
-            v28 = "nw_protocol_boringssl_write_frames_block_invoke";
-            v29 = 1024;
-            v30 = 1207;
-            v31 = 2082;
-            v32 = v24;
-            v33 = 2048;
-            v34 = v23;
-            v35 = 2112;
-            v36 = v8;
+            v26 = "nw_protocol_boringssl_write_frames_block_invoke";
+            v27 = 1024;
+            v28 = 1207;
+            v29 = 2082;
+            v30 = v22;
+            v31 = 2048;
+            v32 = v21;
+            v33 = 2112;
+            v34 = v8;
+            v35 = 1024;
+            v36 = 0;
             v37 = 1024;
-            v38 = 0;
-            v39 = 1024;
-            v40 = v25;
-            _os_log_error_impl(&dword_1A8FF5000, v22, OS_LOG_TYPE_ERROR, "%{public}s(%d) %{public}s[%p] Failed to flatten external data %@ (offset %u, unclaimed %u)", buf, 0x3Cu);
+            v38 = v23;
+            _os_log_error_impl(&dword_1A8FF5000, v20, OS_LOG_TYPE_ERROR, "%{public}s(%d) %{public}s[%p] Failed to flatten external data %@ (offset %u, unclaimed %u)", buf, 0x3Cu);
           }
         }
       }
     }
 
-    v6 = v26;
+    v6 = v24;
   }
 
   else
   {
     v6 = nw_frame_unclaimed_bytes();
-    v26 = v6;
+    v24 = v6;
   }
 
   if (v6)
   {
-    v12 = v25 == 0;
+    v12 = v23 == 0;
   }
 
   else
@@ -2086,13 +117,13 @@ uint64_t __nw_protocol_boringssl_write_frames_block_invoke_138(uint64_t a1, void
 
   if (!v12)
   {
-    v13 = (v25 & 0x3FFF) + 93;
-    if ((v25 & 0x3FFF) == 0)
+    v13 = (v23 & 0x3FFF) + 93;
+    if ((v23 & 0x3FFF) == 0)
     {
       v13 = 0;
     }
 
-    *(*v5 + 164) = v13 + 16477 * (v25 >> 14);
+    *(*v5 + 164) = v13 + 16477 * (v23 >> 14);
     v14 = (*(*v5 + 32))(*(*v5 + 296));
     if (v14 >= 1)
     {
@@ -2110,8 +141,8 @@ uint64_t __nw_protocol_boringssl_write_frames_block_invoke_138(uint64_t a1, void
       }
     }
 
-    v16 = v25;
-    if ((v25 & 0x80000000) == 0 || (!*v5 || (*(*v5 + 435) & 1) == 0) && (__nw_protocol_boringssl_write_frames_block_invoke_138_cold_1(a1 + 32, &v25, buf) & 1) == 0 && (v16 = *buf, (*buf & 0x80000000) == 0))
+    v16 = v23;
+    if ((v23 & 0x80000000) == 0 || (!*v5 || (*(*v5 + 435) & 1) == 0) && (__nw_protocol_boringssl_write_frames_block_invoke_138_cold_1(a1 + 32, &v23, buf) & 1) == 0 && (v16 = *buf, (*buf & 0x80000000) == 0))
     {
       if (v14 < v16)
       {
@@ -2128,12 +159,10 @@ uint64_t __nw_protocol_boringssl_write_frames_block_invoke_138(uint64_t a1, void
 
     *(*v5 + 120) = 0;
     *(*v5 + 128) = 0;
-    v19 = *v5;
     nw_frame_array_remove();
     nw_frame_finalize();
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -2146,8 +175,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
@@ -2156,8 +184,7 @@ uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke(uint64_t a1, 
 
 uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
@@ -2166,8 +193,7 @@ uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_2(uint64_t a1
 
 uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_3(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
@@ -2176,8 +202,7 @@ uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_3(uint64_t a1
 
 uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_4(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
@@ -2186,8 +211,7 @@ uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_4(uint64_t a1
 
 uint64_t __nw_protocol_boringssl_remove_input_handler_block_invoke_5(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
@@ -2202,14 +226,13 @@ void __nw_protocol_boringssl_get_input_frames_block_invoke(uint64_t a1)
     v2 = *v1;
     if (!*v1 || (*(v2 + 435) & 1) == 0)
     {
-      __nw_protocol_boringssl_get_input_frames_block_invoke_cold_1(v1, v2, &v5);
-      v2 = v5;
+      __nw_protocol_boringssl_get_input_frames_block_invoke_cold_1(v1, v2, &v4);
+      v2 = v4;
     }
 
     *(v2 + 348) &= ~0x80u;
-    v3 = *v1;
-    v4 = nw_protocol_upcast();
-    nw_boringssl_read(v4);
+    v3 = nw_protocol_upcast();
+    nw_boringssl_read(v3);
   }
 }
 
@@ -2230,32 +253,32 @@ LABEL_15:
   v8 = v5 <= v6;
   if (v5 > v6)
   {
-    v11 = *(a1 + 48);
-    v12 = v3;
-    if (v11)
+    v9 = *(a1 + 48);
+    v10 = v3;
+    if (v9)
     {
-      v13 = nw_protocol_downcast();
-      if (v13)
+      v11 = nw_protocol_downcast();
+      if (v11)
       {
-        v14 = v13;
-        if ((*(v13 + 435) & 1) == 0)
+        v12 = v11;
+        if ((*(v11 + 435) & 1) == 0)
         {
           __nw_protocol_boringssl_get_input_frames_block_invoke_143_cold_1();
         }
 
         nw_frame_unclaimed_bytes();
-        if ((*(v14 + 435) & 1) == 0)
+        if ((*(v12 + 435) & 1) == 0)
         {
           __nw_protocol_boringssl_get_input_frames_block_invoke_143_cold_4();
         }
       }
     }
 
-    v15 = *(a1 + 56);
-    if (!v15 || (*(v15 + 435) & 1) == 0)
+    v13 = *(a1 + 56);
+    if (!v13 || (*(v13 + 435) & 1) == 0)
     {
       __nw_protocol_boringssl_get_input_frames_block_invoke_143_cold_5();
-      v8 = v17;
+      v8 = v15;
       goto LABEL_16;
     }
 
@@ -2270,9 +293,7 @@ LABEL_15:
 
   ++*(*(*(a1 + 32) + 8) + 24);
   *(*(*(a1 + 40) + 8) + 24) += v7;
-  v9 = *(a1 + 56);
   nw_frame_array_remove();
-  v10 = *(a1 + 64);
   nw_frame_array_append();
 LABEL_16:
 
@@ -2281,11 +302,11 @@ LABEL_16:
 
 uint64_t nw_protocol_boringssl_initiate_pqtls_fallback(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   result = nw_protocol_downcast();
   if (!result)
   {
-    goto LABEL_42;
+    return result;
   }
 
   v3 = result;
@@ -2296,9 +317,7 @@ uint64_t nw_protocol_boringssl_initiate_pqtls_fallback(uint64_t a1)
 
   if ((*(v3 + 349) & 8) != 0)
   {
-LABEL_41:
-    result = 0;
-    goto LABEL_42;
+    return 0;
   }
 
   if (!boringssl_session_get_pqtls_enabled(*(v3 + 296)))
@@ -2309,17 +328,17 @@ LABEL_41:
       result = os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO);
       if (!result)
       {
-        goto LABEL_42;
+        return result;
       }
 
       *buf = 136446466;
-      v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-      v27 = 1024;
-      v28 = 2258;
+      v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+      v26 = 1024;
+      v27 = 2258;
       _os_log_impl(&dword_1A8FF5000, v17, OS_LOG_TYPE_INFO, "%{public}s(%d) PQ-TLS disabled; skipping fallback path", buf, 0x12u);
     }
 
-    goto LABEL_41;
+    return 0;
   }
 
   v4 = (*(*(*(a1 + 48) + 24) + 136))();
@@ -2330,9 +349,9 @@ LABEL_41:
     if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
     {
       *buf = 136446466;
-      v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-      v27 = 1024;
-      v28 = 2255;
+      v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+      v26 = 1024;
+      v27 = 2255;
       _os_log_impl(&dword_1A8FF5000, v18, OS_LOG_TYPE_INFO, "%{public}s(%d) no remote endpoint; skipping PQ-TLS fallback", buf, 0x12u);
     }
 
@@ -2366,16 +385,16 @@ LABEL_41:
     }
 
     *buf = 136446466;
-    v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-    v27 = 1024;
-    v28 = 2252;
+    v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+    v26 = 1024;
+    v27 = 2252;
     v20 = "%{public}s(%d) PQ-TLS fallback disallowed for endpoint; skipping PQ-TLS fallback";
 LABEL_30:
     _os_log_impl(&dword_1A8FF5000, v19, OS_LOG_TYPE_INFO, v20, buf, 0x12u);
 LABEL_39:
 
 LABEL_40:
-    goto LABEL_41;
+    return 0;
   }
 
   if (!*(a1 + 48))
@@ -2387,9 +406,9 @@ LABEL_40:
     }
 
     *buf = 136446466;
-    v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-    v27 = 1024;
-    v28 = 2249;
+    v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+    v26 = 1024;
+    v27 = 2249;
     v20 = "%{public}s(%d) input protocol is NULL; skipping PQ-TLS fallback";
     goto LABEL_30;
   }
@@ -2404,9 +423,9 @@ LABEL_40:
     }
 
     *buf = 136446466;
-    v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-    v27 = 1024;
-    v28 = 2246;
+    v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+    v26 = 1024;
+    v27 = 2246;
     v22 = "%{public}s(%d) no parameters; skipping PQ-TLS fallback";
     goto LABEL_37;
   }
@@ -2421,9 +440,9 @@ LABEL_40:
     }
 
     *buf = 136446466;
-    v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-    v27 = 1024;
-    v28 = 2243;
+    v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+    v26 = 1024;
+    v27 = 2243;
     v22 = "%{public}s(%d) no TLS options; skipping PQ-TLS fallback";
 LABEL_37:
     _os_log_impl(&dword_1A8FF5000, v21, OS_LOG_TYPE_INFO, v22, buf, 0x12u);
@@ -2435,44 +454,46 @@ LABEL_38:
   v13 = v12;
   sec_protocol_options_set_pqtls_mode();
   v14 = g_boringssl_log;
-  if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
+  if (g_boringssl_log)
   {
-    *buf = 136446466;
-    v26 = "nw_protocol_boringssl_initiate_pqtls_fallback";
-    v27 = 1024;
-    v28 = 2225;
-    _os_log_impl(&dword_1A8FF5000, v14, OS_LOG_TYPE_INFO, "%{public}s(%d) Initiating PQ-TLS fallback", buf, 0x12u);
+    if (os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136446466;
+      v25 = "nw_protocol_boringssl_initiate_pqtls_fallback";
+      v26 = 1024;
+      v27 = 2225;
+      _os_log_impl(&dword_1A8FF5000, v14, OS_LOG_TYPE_INFO, "%{public}s(%d) Initiating PQ-TLS fallback", buf, 0x12u);
+    }
   }
 
   v15 = nw_parameters_copy_context();
   *(v3 + 350) |= 0x20u;
-  v24 = v3;
-  v16 = v24;
+  v23 = v3;
+  v16 = v23;
   nw_queue_context_async();
 
-  result = 1;
-LABEL_42:
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void __nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 350) &= ~0x20u;
-  v1 = *(a1 + 32);
   nw_protocol_upcast();
   input_handler = nw_protocol_get_input_handler();
-  v3 = g_boringssl_log;
+  v2 = g_boringssl_log;
   if (input_handler)
   {
-    if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
+    if (g_boringssl_log)
     {
-      v5 = 136446466;
-      v6 = "nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke";
-      v7 = 1024;
-      v8 = 2234;
-      _os_log_impl(&dword_1A8FF5000, v3, OS_LOG_TYPE_INFO, "%{public}s(%d) Performing PQ-TLS fallback", &v5, 0x12u);
+      if (os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
+      {
+        v3 = 136446466;
+        v4 = "nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke";
+        v5 = 1024;
+        v6 = 2234;
+        _os_log_impl(&dword_1A8FF5000, v2, OS_LOG_TYPE_INFO, "%{public}s(%d) Performing PQ-TLS fallback", &v3, 0x12u);
+      }
     }
 
     nw_protocol_notify();
@@ -2480,17 +501,15 @@ void __nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke(uint64_t a1)
 
   else if (g_boringssl_log && os_log_type_enabled(g_boringssl_log, OS_LOG_TYPE_INFO))
   {
-    v5 = 136446466;
-    v6 = "nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke";
-    v7 = 1024;
-    v8 = 2238;
-    _os_log_impl(&dword_1A8FF5000, v3, OS_LOG_TYPE_INFO, "%{public}s(%d) safe input protocol is NULL; skipping PQ-TLS fallback", &v5, 0x12u);
+    v3 = 136446466;
+    v4 = "nw_protocol_boringssl_initiate_pqtls_fallback_block_invoke";
+    v5 = 1024;
+    v6 = 2238;
+    _os_log_impl(&dword_1A8FF5000, v2, OS_LOG_TYPE_INFO, "%{public}s(%d) safe input protocol is NULL; skipping PQ-TLS fallback", &v3, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __nw_protocol_boringssl_begin_connection_block_invoke(uint64_t a1, void *a2, uint64_t a3, int a4)
+void __nw_protocol_boringssl_begin_connection_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = a2;
   nw_protocol_boringssl_internal_error(v5, a4);
@@ -2501,8 +520,8 @@ void __nw_protocol_boringssl_begin_connection_block_invoke(uint64_t a1, void *a2
 
 void __nw_protocol_boringssl_begin_connection_block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (boringssl_session_in_early_data(*(*(a1 + 32) + 296)))
+  v4 = a2;
+  if (boringssl_session_in_early_data(*(*(a1 + 32) + 296), v3))
   {
     nw_protocol_upcast();
     nw_protocol_get_input_handler();
@@ -2593,7 +612,7 @@ void __nw_boringssl_batching_register_batching_size_updates_block_invoke_2(uint6
 
 uint64_t __nw_protocol_boringssl_cleanup_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   buffer = nw_frame_get_buffer();
   if (nw_frame_buffer_get_manager())
   {
@@ -2606,7 +625,6 @@ uint64_t __nw_protocol_boringssl_cleanup_block_invoke(uint64_t a1, void *a2)
   }
 
   nw_frame_reset();
-  v5 = *(a1 + 32);
   nw_frame_array_remove();
 
   return 1;
@@ -2614,7 +632,7 @@ uint64_t __nw_protocol_boringssl_cleanup_block_invoke(uint64_t a1, void *a2)
 
 uint64_t __nw_protocol_boringssl_cleanup_block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (nw_frame_uses_external_data())
   {
     nw_frame_set_external_data();
@@ -2627,7 +645,6 @@ uint64_t __nw_protocol_boringssl_cleanup_block_invoke_2(uint64_t a1, void *a2)
   }
 
   nw_frame_reset();
-  v5 = *(a1 + 32);
   nw_frame_array_remove();
 
   return 1;
@@ -2651,10 +668,11 @@ BOOL OUTLINED_FUNCTION_36()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_37(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_37(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
 void OUTLINED_FUNCTION_42(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -2663,10 +681,11 @@ void OUTLINED_FUNCTION_42(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_impl(a1, a2, OS_LOG_TYPE_INFO, a4, a5, 0x26u);
 }
 
-void OUTLINED_FUNCTION_46(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_46(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x26u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
 double EVP_md5_init()
@@ -2720,9 +739,9 @@ double EVP_sha512_init()
 uint64_t md5_sha1_init(uint64_t a1)
 {
   v1 = *(a1 + 8);
-  digest_init(v1);
+  digest_init(v1, 3);
 
-  return digest_init(v1 + 1032);
+  return digest_init(v1 + 1032, 8);
 }
 
 uint64_t md5_sha1_update(uint64_t a1)
@@ -2940,7 +959,7 @@ uint64_t ssl_credential_st::SetLeafCert(uint64_t a1, uint64_t *a2, int a3)
   }
 
   v7 = EVP_PKEY_id(pkey);
-  if (!bssl::ssl_is_key_type_supported(v7))
+  if ((bssl::ssl_is_key_type_supported(v7) & 1) == 0)
   {
     v18 = 233;
 LABEL_19:
@@ -3006,35 +1025,35 @@ LABEL_21:
   return v17;
 }
 
-void sub_1A9048D04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9048D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<evp_pkey_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
-void bssl::new_leafless_chain(unint64_t **a1@<X8>)
+void bssl::new_leafless_chain(unint64_t **__return_ptr a1@<X8>)
 {
-  v3 = OPENSSL_sk_new_null();
-  v5 = v3;
-  if (v3 && OPENSSL_sk_push(v3, 0))
+  v2 = OPENSSL_sk_new_null();
+  v4 = v2;
+  if (v2 && OPENSSL_sk_push(v2, 0))
   {
-    v4 = v5;
-    v5 = 0;
+    v3 = v4;
+    v4 = 0;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  *a1 = v4;
-  std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](&v5, 0);
+  *a1 = v3;
+  std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](&v4, 0);
 }
 
-void sub_1A9048D84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9048D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -3061,7 +1080,7 @@ const EVP_MD_CTX *ssl_credential_st::ClearIntermediateCerts(ssl_credential_st *t
   return result;
 }
 
-unint64_t *ssl_credential_st::AppendIntermediateCert(uint64_t a1, unsigned int **a2)
+uint64_t ssl_credential_st::AppendIntermediateCert(uint64_t a1, unsigned int **a2)
 {
   if ((*(a1 + 4) & 0xFFFFFFFE) == 2)
   {
@@ -3142,7 +1161,7 @@ uint64_t SSL_CREDENTIAL_set_private_key_method(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t SSL_CREDENTIAL_set1_cert_chain(ssl_credential_st *a1, uint64_t *a2, unint64_t a3)
+BOOL SSL_CREDENTIAL_set1_cert_chain(ssl_credential_st *a1, uint64_t *a2, unint64_t a3)
 {
   if (!a3 || (*(a1 + 1) & 0xFFFFFFFE) == 2)
   {
@@ -3209,9 +1228,9 @@ uint64_t SSL_CREDENTIAL_set1_cert_chain(ssl_credential_st *a1, uint64_t *a2, uni
   return v9;
 }
 
-void sub_1A904915C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A904915C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -3285,7 +1304,7 @@ LABEL_8:
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
   CRYPTO_BUFFER_init_CBS(a2, &v7);
-  if ((bssl::ssl_is_sct_list_valid(&v7) & 1) == 0)
+  if (!bssl::ssl_is_sct_list_valid(&v7))
   {
     v2 = 269;
     v3 = 493;
@@ -3478,9 +1497,9 @@ uint64_t SSL_add1_credential(uint64_t a1, ssl_credential_st *this)
   return 0;
 }
 
-void sub_1A90496D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A90496D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<ssl_credential_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -3550,83 +1569,83 @@ LABEL_9:
 
 uint64_t bssl::dtls1_open_handshake(uint64_t a1, unint64_t *a2, char *a3, uint64_t a4, unint64_t a5)
 {
-  v37 = -86;
-  v35 = 0;
+  v38 = -86;
   v36 = 0;
-  result = bssl::dtls_open_record(a1, &v37, &v35, a2, a3, a4, a5);
+  v37 = 0;
+  result = bssl::dtls_open_record(a1, &v38, &v36, a2, a3, a4, a5);
   if (result)
   {
     return result;
   }
 
-  if (v37 == 20)
+  if (v38 == 20)
   {
     if (**(*(a1 + 48) + 264))
     {
-      v29 = 318;
+      v30 = 318;
       goto LABEL_61;
     }
 
-    if (v36 != 1 || *v35 != 1)
+    if (v37 != 1 || *v36 != 1)
     {
-      v27 = 103;
-      v28 = 324;
+      v28 = 103;
+      v29 = 324;
       goto LABEL_64;
     }
 
     **(a1 + 56) |= 1u;
-    bssl::ssl_do_msg_callback(a1, 0, 20, v35, v36);
+    bssl::ssl_do_msg_callback(a1, 0, 20, v36, v37);
     return 0;
   }
 
-  if (v37 != 22)
+  if (v38 != 22)
   {
-    if (v37 == 23)
+    if (v38 == 23)
     {
       if (**(*(a1 + 48) + 264))
       {
         return 1;
       }
 
-      v29 = 305;
+      v30 = 305;
     }
 
     else
     {
-      v29 = 340;
+      v30 = 340;
     }
 
 LABEL_61:
-    ERR_put_error(16, 0, 225, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", v29);
-    v26 = 10;
+    ERR_put_error(16, 0, 225, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", v30);
+    v27 = 10;
     goto LABEL_65;
   }
 
-  v33 = v35;
   v34 = v36;
-  if (!v36)
+  v35 = v37;
+  if (!v37)
   {
     return 0;
   }
 
   while (1)
   {
-    memset(v32, 170, 20);
+    memset(v33, 170, 20);
     __src = 0xAAAAAAAAAAAAAAAALL;
     __n = 0xAAAAAAAAAAAAAAAALL;
-    if ((bssl::dtls1_parse_fragment(&v33, v32, &__src) & 1) == 0)
+    if ((bssl::dtls1_parse_fragment(&v34, v33, &__src) & 1) == 0)
     {
       ERR_put_error(16, 0, 109, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", 352);
-      v26 = 50;
+      v27 = 50;
       goto LABEL_65;
     }
 
-    v9 = HIDWORD(v32[1]);
-    v10 = HIDWORD(v32[0]);
-    if (HIDWORD(v32[1]) > HIDWORD(v32[0]) || (v11 = LODWORD(v32[2]) + HIDWORD(v32[1]), v11 > HIDWORD(v32[0])) || bssl::ssl_max_handshake_message_len(a1, v8) < v10)
+    v9 = HIDWORD(v33[1]);
+    v10 = HIDWORD(v33[0]);
+    if (HIDWORD(v33[1]) > HIDWORD(v33[0]) || (v11 = LODWORD(v33[2]) + HIDWORD(v33[1]), v11 > HIDWORD(v33[0])) || bssl::ssl_max_handshake_message_len(a1, v8) < v10)
     {
-      v27 = 150;
-      v28 = 363;
+      v28 = 150;
+      v29 = 363;
       goto LABEL_64;
     }
 
@@ -3634,62 +1653,62 @@ LABEL_61:
     v13 = *(v12 + 50);
     if (*(v12 + 2) == 1)
     {
-      v14 = LOWORD(v32[1]) == v13;
-      v13 = LOWORD(v32[1]);
+      v14 = LOWORD(v33[1]) == v13;
+      v13 = LOWORD(v33[1]);
       if (!v14)
       {
-        v29 = 370;
+        v30 = 370;
         goto LABEL_61;
       }
     }
 
-    if (LOWORD(v32[1]) >= v13 && v13 + 7 >= LOWORD(v32[1]))
+    if (LOWORD(v33[1]) >= v13 && v13 + 7 >= LOWORD(v33[1]))
     {
       break;
     }
 
 LABEL_51:
-    if (!v34)
+    if (!v35)
     {
       return 0;
     }
   }
 
-  if ((LOWORD(v32[1]) - v13) > 6)
+  if ((LOWORD(v33[1]) - v13) > 6)
   {
     goto LABEL_68;
   }
 
-  v16 = (LOWORD(v32[1]) - 7 * ((613566757 * LOWORD(v32[1])) >> 32));
+  v16 = (LOWORD(v33[1]) - 7 * ((613566757 * LOWORD(v33[1])) >> 32));
   v17 = *(v12 + 8 * v16 + 80);
   if (!v17)
   {
     *&v19 = 0xAAAAAAAAAAAAAAAALL;
     *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40[1] = v19;
-    v40[2] = v19;
-    v40[0] = v19;
-    CBB_zero(v40);
+    v41[1] = v19;
+    v41[2] = v19;
+    v41[0] = v19;
+    CBB_zero(v41);
     v20 = OPENSSL_malloc(0x18uLL);
     if (v20)
     {
       *(v20 + 1) = 0;
       *(v20 + 2) = 0;
-      v39 = v20;
-      *v20 = v32[0];
-      *(v20 + 1) = v32[1];
-      v21 = HIDWORD(v32[0]);
-      *(v20 + 1) = HIDWORD(v32[0]);
+      v40 = v20;
+      *v20 = v33[0];
+      *(v20 + 1) = v33[1];
+      v21 = HIDWORD(v33[0]);
+      *(v20 + 1) = HIDWORD(v33[0]);
       v22 = OPENSSL_malloc((v21 + 12));
-      *(v39 + 1) = v22;
-      if (!v22 || !CBB_init_fixed(v40, v22, 12) || !CBB_add_u8(v40, LOBYTE(v32[0])) || !CBB_add_u24(v40, HIDWORD(v32[0])) || !CBB_add_u16(v40, LOWORD(v32[1])) || !CBB_add_u24(v40, 0) || !CBB_add_u24(v40, HIDWORD(v32[0])) || !CBB_finish(v40, 0, 0))
+      *(v40 + 1) = v22;
+      if (!v22 || !CBB_init_fixed(v41, v22, 12) || !CBB_add_u8(v41, LOBYTE(v33[0])) || !CBB_add_u24(v41, HIDWORD(v33[0])) || !CBB_add_u16(v41, LOWORD(v33[1])) || !CBB_add_u24(v41, 0) || !CBB_add_u24(v41, HIDWORD(v33[0])) || !CBB_finish(v41, 0, 0))
       {
         goto LABEL_42;
       }
 
-      if (HIDWORD(v32[0]))
+      if (HIDWORD(v33[0]))
       {
-        if (HIDWORD(v32[0]) >= 0xFFFFFFF9)
+        if (HIDWORD(v33[0]) >= 0xFFFFFFF9)
         {
           ERR_put_error(16, 0, 69, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", 183);
 LABEL_42:
@@ -3697,9 +1716,9 @@ LABEL_42:
           goto LABEL_43;
         }
 
-        v24 = OPENSSL_zalloc((HIDWORD(v32[0]) + 7) >> 3);
-        v23 = v39;
-        *(v39 + 2) = v24;
+        v24 = OPENSSL_zalloc((HIDWORD(v33[0]) + 7) >> 3);
+        v23 = v40;
+        *(v40 + 2) = v24;
         if (!v24)
         {
           goto LABEL_42;
@@ -3708,7 +1727,7 @@ LABEL_42:
 
       else
       {
-        v23 = v39;
+        v23 = v40;
       }
     }
 
@@ -3717,20 +1736,20 @@ LABEL_42:
       v23 = 0;
     }
 
-    v39 = 0;
+    v40 = 0;
 LABEL_43:
-    v38 = v23;
+    v39 = v23;
+    std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100](&v40, 0);
+    CBB_cleanup(v41, v25);
+    v26 = *(a1 + 56) + 8 * v16;
+    v39 = 0;
+    std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100]((v26 + 80), v23);
     std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100](&v39, 0);
-    CBB_cleanup(v40);
-    v25 = *(a1 + 56) + 8 * v16;
-    v38 = 0;
-    std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100]((v25 + 80), v23);
-    std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100](&v38, 0);
     v17 = *(*(a1 + 56) + 8 * v16 + 80);
     if (!v17)
     {
 LABEL_68:
-      v26 = 80;
+      v27 = 80;
       goto LABEL_65;
     }
 
@@ -3738,15 +1757,15 @@ LABEL_68:
     goto LABEL_45;
   }
 
-  if (*(v17 + 1) != LOWORD(v32[1]))
+  if (*(v17 + 1) != LOWORD(v33[1]))
   {
     bssl::dtls1_open_handshake();
   }
 
-  if (*v17 == LOBYTE(v32[0]))
+  if (*v17 == LOBYTE(v33[0]))
   {
     v18 = *(v17 + 1);
-    if (v18 == HIDWORD(v32[0]))
+    if (v18 == HIDWORD(v33[0]))
     {
 LABEL_45:
       if (v18 != v10)
@@ -3773,23 +1792,23 @@ LABEL_45:
     }
   }
 
-  v27 = 152;
-  v28 = 276;
+  v28 = 152;
+  v29 = 276;
 LABEL_64:
-  ERR_put_error(16, 0, v27, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", v28);
-  v26 = 47;
+  ERR_put_error(16, 0, v28, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", v29);
+  v27 = 47;
 LABEL_65:
-  *a3 = v26;
+  *a3 = v27;
   return 4;
 }
 
-void sub_1A9049CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1A9049CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, bssl::hm_fragment *);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v21 = va_arg(va1, bssl::hm_fragment *);
   std::unique_ptr<bssl::hm_fragment,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
-  CBB_cleanup(va1);
+  CBB_cleanup(va1, v20);
   _Unwind_Resume(a1);
 }
 
@@ -4166,25 +2185,26 @@ uint64_t bssl::add_outgoing(bssl *this, ssl_st *a2, uint64_t a3)
   return 1;
 }
 
-void sub_1A904A4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_1A904A4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   bssl::Array<unsigned char>::~Array(&a9);
-  bssl::Array<unsigned char>::~Array(&a12);
+  bssl::Array<unsigned char>::~Array(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t bssl::dtls1_add_change_cipher_spec(bssl *this, ssl_st *a2)
+uint64_t bssl::dtls1_add_change_cipher_spec(bssl *this, ssl_st *a2, unsigned __int16 a3)
 {
-  if (bssl::ssl_protocol_version(this, a2) > 0x303)
+  if (bssl::ssl_protocol_version(this, a2, a3) > 0x303)
   {
     return 1;
   }
 
-  v5[0] = 0;
-  v5[1] = 0;
-  v3 = bssl::add_outgoing(this, 1, v5);
-  OPENSSL_free(v5[0]);
-  return v3;
+  v6[0] = 0;
+  v6[1] = 0;
+  v4 = bssl::add_outgoing(this, 1, v6);
+  OPENSSL_free(v6[0]);
+  return v4;
 }
 
 uint64_t bssl::dtls1_flush_flight(bssl *this, ssl_st *a2)
@@ -4235,7 +2255,7 @@ LABEL_3:
   }
 
   data = 0;
-  v36 = 0;
+  v39 = 0;
   if (!bssl::Array<unsigned char>::InitUninitialized(&data, v7))
   {
 LABEL_57:
@@ -4245,10 +2265,10 @@ LABEL_57:
 
   while (2)
   {
-    v8 = *(this + 7);
-    v9 = *(v8 + 312);
-    v10 = *(v8 + 304);
-    if (v10 <= v9)
+    v9 = *(this + 7);
+    v10 = *(v9 + 312);
+    v11 = *(v9 + 304);
+    if (v11 <= v10)
     {
       if (BIO_flush(*(this + 4)) > 0)
       {
@@ -4260,141 +2280,141 @@ LABEL_57:
       goto LABEL_57;
     }
 
-    v11 = 0;
     v12 = 0;
-    v33 = *(v8 + 316);
-    v34 = *(v8 + 312);
-    v14 = data;
-    v13 = v36;
+    v13 = 0;
+    v36 = *(v9 + 316);
+    v37 = *(v9 + 312);
+    v15 = data;
+    v14 = v39;
     while (1)
     {
-      *v37 = 0xAAAAAAAAAAAAAAAALL;
-      if (v10 <= v9)
+      *v40 = 0xAAAAAAAAAAAAAAAALL;
+      if (v11 <= v10)
       {
         __assert_rtn("seal_next_message", "d1_both.cc", 603, "ssl->d1->outgoing_written < ssl->d1->outgoing_messages.size()");
       }
 
-      v15 = v8 + 24 * v9;
-      v16 = bssl::dtls_max_seal_overhead(this, *(v15 + 152));
-      v17 = bssl::dtls_seal_prefix_len(this, *(v15 + 152));
-      if (*(v15 + 154) != 1)
+      v16 = v9 + 24 * v10;
+      v17 = bssl::dtls_max_seal_overhead(this, *(v16 + 152), v8);
+      v19 = bssl::dtls_seal_prefix_len(this, *(v16 + 152), v18);
+      if (*(v16 + 154) != 1)
       {
         break;
       }
 
-      if (v16 + 1 > v13)
+      if (v17 + 1 > v14)
       {
         goto LABEL_53;
       }
 
-      if (!bssl::dtls_seal_record(this, v14, v37, v13, 20, &bssl::seal_next_message(ssl_st *,unsigned char *,unsigned long *,unsigned long,bssl::DTLS_OUTGOING_MESSAGE const*)::kChangeCipherSpec, 1, *(v15 + 152), v32))
+      if (!bssl::dtls_seal_record(this, v15, v40, v14, 20, &bssl::seal_next_message(ssl_st *,unsigned char *,unsigned long *,unsigned long,bssl::DTLS_OUTGOING_MESSAGE const*)::kChangeCipherSpec, 1, *(v16 + 152), v35))
       {
         goto LABEL_57;
       }
 
       bssl::ssl_do_msg_callback(this, 1, 20, &bssl::seal_next_message(ssl_st *,unsigned char *,unsigned long *,unsigned long,bssl::DTLS_OUTGOING_MESSAGE const*)::kChangeCipherSpec, 1);
-      v18 = *v37;
-      v11 += *v37;
+      v20 = *v40;
+      v12 += *v40;
 LABEL_48:
-      v14 = (v14 + v18);
-      v13 = (v13 - v18);
-      v8 = *(this + 7);
-      LOBYTE(v9) = *(v8 + 312) + 1;
-      *(v8 + 312) = v9;
-      v10 = *(v8 + 304);
-      v12 = 1;
-      if (v10 <= v9)
+      v15 = (v15 + v20);
+      v14 = (v14 - v20);
+      v9 = *(this + 7);
+      LOBYTE(v10) = *(v9 + 312) + 1;
+      *(v9 + 312) = v10;
+      v11 = *(v9 + 304);
+      v13 = 1;
+      if (v11 <= v10)
       {
         goto LABEL_54;
       }
     }
 
-    v19 = v17;
-    v42 = 0xAAAAAAAAAAAAAAAALL;
-    v43 = 0xAAAAAAAAAAAAAAAALL;
-    memset(v41, 170, 20);
-    v20 = *(v15 + 144);
-    v44 = *(v15 + 136);
-    v45 = v20;
-    v21 = bssl::dtls1_parse_fragment(&v44, v41, &v42);
-    if (HIDWORD(v41[1]))
+    v21 = v19;
+    v45 = 0xAAAAAAAAAAAAAAAALL;
+    v46 = 0xAAAAAAAAAAAAAAAALL;
+    memset(v44, 170, 20);
+    v22 = *(v16 + 144);
+    v47 = *(v16 + 136);
+    v48 = v22;
+    v23 = bssl::dtls1_parse_fragment(&v47, v44, &v45);
+    if (HIDWORD(v44[1]))
     {
-      v22 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v22 = v21;
+      v24 = v23;
     }
 
-    if (v22 != 1 || v43 != LODWORD(v41[2]) || v43 != HIDWORD(v41[0]) || !CBS_skip(&v42, *(*(this + 7) + 316)) || v45)
+    if (v24 != 1 || v46 != LODWORD(v44[2]) || v46 != HIDWORD(v44[0]) || !CBS_skip(&v45, *(*(this + 7) + 316)) || v48)
     {
       ERR_put_error(16, 0, 68, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", 637);
       goto LABEL_57;
     }
 
-    if (v16 + 13 > v13 || v13 < v19)
+    if (v17 + 13 > v14 || v14 < v21)
     {
       goto LABEL_53;
     }
 
-    *&v23 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v40[1] = v23;
-    v40[2] = v23;
-    if (v43 >= v13 - v16 - 12)
+    *&v25 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v43[1] = v25;
+    v43[2] = v25;
+    if (v46 >= v14 - v17 - 12)
     {
-      v24 = v13 - v16 - 12;
+      v26 = v14 - v17 - 12;
     }
 
     else
     {
-      v24 = v43;
+      v26 = v46;
     }
 
-    v40[0] = v23;
-    CBB_zero(v40);
-    *&v25 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v39[1] = v25;
-    v39[2] = v25;
-    v39[0] = v25;
-    v38 = 0xAAAAAAAAAAAAAAAALL;
-    if (!CBB_init_fixed(v40, v14 + v19, v13 - v19) || !CBB_add_u8(v40, LOBYTE(v41[0])) || !CBB_add_u24(v40, HIDWORD(v41[0])) || !CBB_add_u16(v40, LOWORD(v41[1])) || !CBB_add_u24(v40, *(*(this + 7) + 316)) || !CBB_add_u24_length_prefixed(v40, v39) || !CBB_add_bytes(v39, v42, v24) || !CBB_finish(v40, 0, &v38))
+    v43[0] = v25;
+    CBB_zero(v43);
+    *&v27 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v42[1] = v27;
+    v42[2] = v27;
+    v42[0] = v27;
+    v41 = 0xAAAAAAAAAAAAAAAALL;
+    if (!CBB_init_fixed(v43, v15 + v21, v14 - v21) || !CBB_add_u8(v43, LOBYTE(v44[0])) || !CBB_add_u24(v43, HIDWORD(v44[0])) || !CBB_add_u16(v43, LOWORD(v44[1])) || !CBB_add_u24(v43, *(*(this + 7) + 316)) || !CBB_add_u24_length_prefixed(v43, v42) || !CBB_add_bytes(v42, v45, v26) || !CBB_finish(v43, 0, &v41))
     {
       ERR_put_error(16, 0, 68, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", 663);
       goto LABEL_45;
     }
 
-    bssl::ssl_do_msg_callback(this, 1, 22, v14 + v19, v38);
-    if ((bssl::dtls_seal_record(this, v14, v37, v13, 22, v14 + v19, v38, *(v15 + 152), v32) & 1) == 0)
+    bssl::ssl_do_msg_callback(this, 1, 22, v15 + v21, v41);
+    if ((bssl::dtls_seal_record(this, v15, v40, v14, 22, v15 + v21, v41, *(v16 + 152), v35) & 1) == 0)
     {
 LABEL_45:
-      v28 = 0;
+      v31 = 0;
       goto LABEL_46;
     }
 
-    v26 = *(this + 7);
-    if (v24 == v43)
+    v29 = *(this + 7);
+    if (v26 == v46)
     {
-      v27 = 0;
-      v28 = 3;
+      v30 = 0;
+      v31 = 3;
     }
 
     else
     {
-      v27 = *(v26 + 316) + v24;
-      v28 = 2;
+      v30 = *(v29 + 316) + v26;
+      v31 = 2;
     }
 
-    *(v26 + 316) = v27;
+    *(v29 + 316) = v30;
 LABEL_46:
-    CBB_cleanup(v40);
-    if ((v28 - 2) < 2)
+    CBB_cleanup(v43, v28);
+    if ((v31 - 2) < 2)
     {
-      v18 = *v37;
-      v11 += *v37;
-      if (v28 == 2)
+      v20 = *v40;
+      v12 += *v40;
+      if (v31 == 2)
       {
         goto LABEL_54;
       }
@@ -4402,20 +2422,20 @@ LABEL_46:
       goto LABEL_48;
     }
 
-    if (!v28)
+    if (!v31)
     {
       goto LABEL_57;
     }
 
 LABEL_53:
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       ERR_put_error(16, 0, 169, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/d1_both.cc", 723);
       goto LABEL_57;
     }
 
 LABEL_54:
-    v4 = BIO_write(*(this + 4), data, v11);
+    v4 = BIO_write(*(this + 4), data, v12);
     if (v4 > 0)
     {
       continue;
@@ -4424,31 +2444,31 @@ LABEL_54:
     break;
   }
 
-  v30 = *(this + 6);
-  v29 = *(this + 7);
-  *(v29 + 312) = v34;
-  *(v29 + 316) = v33;
-  *(v30 + 196) = 3;
+  v33 = *(this + 6);
+  v32 = *(this + 7);
+  *(v32 + 312) = v37;
+  *(v32 + 316) = v36;
+  *(v33 + 196) = 3;
 LABEL_58:
   OPENSSL_free(data);
   return v4;
 }
 
-void sub_1A904AAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A904AAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a6);
+  va_start(va, a6);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
-  CBB_cleanup(va1);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  CBB_cleanup(va1, a2);
   bssl::Array<unsigned char>::~Array(va);
   _Unwind_Resume(a1);
 }
@@ -4486,23 +2506,23 @@ uint64_t bssl::InplaceVector<bssl::DTLS_OUTGOING_MESSAGE,7ul>::TryPushBack(uint6
   return v4;
 }
 
-uint64_t SSL_state_int(uint64_t a1)
+uint64_t SSL_state_int(uint64_t a1, bssl::SSL_HANDSHAKE *a2)
 {
-  v2 = *(*(a1 + 48) + 280);
-  if (!v2)
+  v3 = *(*(a1 + 48) + 280);
+  if (!v3)
   {
     return 724109320;
   }
 
   if (*(a1 + 180))
   {
-    return bssl::ssl_server_handshake_int_state(v2);
+    return bssl::ssl_server_handshake_int_state(v3);
   }
 
-  return bssl::ssl_client_handshake_int_state(v2);
+  return bssl::ssl_client_handshake_int_state(v3);
 }
 
-uint64_t x25519_init_key(uint64_t a1, __int128 *a2, uint64_t a3)
+uint64_t x25519_init_key(uint64_t a1, int8x16_t *a2, uint64_t a3)
 {
   if (a3 == 32)
   {
@@ -4522,14 +2542,13 @@ uint64_t x25519_init_key(uint64_t a1, __int128 *a2, uint64_t a3)
 
 uint64_t x25519_encap_with_seed(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v17 = *MEMORY[0x1E69E9840];
   if (a6 <= 0x1F)
   {
     v10 = 137;
     v11 = 313;
 LABEL_11:
     ERR_put_error(6, 0, v10, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/hpke/hpke.c", v11);
-    goto LABEL_12;
+    return 0;
   }
 
   if (a10 != 32)
@@ -4540,79 +2559,68 @@ LABEL_11:
   }
 
   result = ccrng();
-  if (result)
+  if (!result)
   {
-    if (cccurve25519_make_pub_with_rng())
-    {
-LABEL_12:
-      result = 0;
-      goto LABEL_13;
-    }
-
-    if (a8 != 32)
-    {
-      v10 = 134;
-      v11 = 330;
-      goto LABEL_11;
-    }
-
-    cchpke_params_x25519_AESGCM128_HKDF_SHA256();
-    if (cchpke_initiator_setup() || cchpke_initiator_export())
-    {
-      goto LABEL_12;
-    }
-
-    *a5 = 32;
-    *a3 = 32;
-    result = 1;
+    return result;
   }
 
-LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  if (!cccurve25519_make_pub_with_rng())
+  {
+    if (a8 == 32)
+    {
+      cchpke_params_x25519_AESGCM128_HKDF_SHA256();
+      if (!cchpke_initiator_setup() && !cchpke_initiator_export())
+      {
+        *a5 = 32;
+        *a3 = 32;
+        return 1;
+      }
+
+      return 0;
+    }
+
+    v10 = 134;
+    v11 = 330;
+    goto LABEL_11;
+  }
+
+  return 0;
 }
 
-uint64_t x25519_decap(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t x25519_decap(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (a5 != 32)
+  if (a5 == 32)
+  {
+    cchpke_params_x25519_AESGCM128_HKDF_SHA256();
+    if (!cchpke_responder_setup() && !cchpke_responder_export())
+    {
+      *a3 = 32;
+      return 1;
+    }
+  }
+
+  else
   {
     ERR_put_error(6, 0, 134, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/hpke/hpke.c", 357);
-LABEL_6:
-    result = 0;
-    goto LABEL_7;
   }
 
-  cchpke_params_x25519_AESGCM128_HKDF_SHA256();
-  v7 = *(*a1 + 16);
-  if (cchpke_responder_setup() || cchpke_responder_export())
-  {
-    goto LABEL_6;
-  }
-
-  *a3 = 32;
-  result = 1;
-LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 uint64_t EVP_HPKE_CTX_setup_sender(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, size_t a11)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   *&v19 = 0xAAAAAAAAAAAAAAAALL;
   *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v19;
-  v23 = v19;
+  v22 = v19;
   RAND_bytes(buf, *(a5 + 24));
-  result = EVP_HPKE_CTX_setup_sender_with_seed_for_testing(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, buf, *(a5 + 24));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return EVP_HPKE_CTX_setup_sender_with_seed_for_testing(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, buf, *(a5 + 24));
 }
 
 uint64_t EVP_HPKE_CTX_setup_sender_with_seed_for_testing(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, size_t a11, uint64_t a12, uint64_t a13)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   bzero(a1, 0x2C8uLL);
   EVP_AEAD_CTX_zero(a1 + 3);
   *(a1 + 176) = 1;
@@ -4621,112 +2629,106 @@ uint64_t EVP_HPKE_CTX_setup_sender_with_seed_for_testing(void *a1, uint64_t a2, 
   *a1 = a5;
   *&v20 = 0xAAAAAAAAAAAAAAAALL;
   *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25[0] = v20;
-  v25[1] = v20;
-  v24 = 0xAAAAAAAAAAAAAAAALL;
-  if ((*(a5 + 56))(a5, v25, &v24, a2, a3, a4, a8, a9, a12, a13) && hpke_key_schedule(a1, 0, v25, v24, a10, a11))
+  v24[0] = v20;
+  v24[1] = v20;
+  v23 = 0xAAAAAAAAAAAAAAAALL;
+  if ((*(a5 + 56))(a5, v24, &v23, a2, a3, a4, a8, a9, a12, a13) && hpke_key_schedule(a1, 0, v24, v23, a10, a11))
   {
-    result = 1;
+    return 1;
   }
 
-  else
-  {
-    EVP_AEAD_CTX_cleanup((a1 + 3));
-    result = 0;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  EVP_AEAD_CTX_cleanup(a1 + 3);
+  return 0;
 }
 
 uint64_t hpke_key_schedule(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, const void *a5, size_t a6)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v36 = -21846;
-  v35 = 0xAAAAAAAAAAAAAAAALL;
-  result = hpke_build_suite_id(a1, &v35);
+  v36 = *MEMORY[0x1E69E9840];
+  v35 = -21846;
+  v34 = 0xAAAAAAAAAAAAAAAALL;
+  result = hpke_build_suite_id(a1, &v34);
   if (result)
   {
     v13 = (*(*(a1 + 16) + 8))();
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v34[2] = v14;
-    v34[3] = v14;
-    v34[0] = v14;
-    v34[1] = v14;
-    v28 = 0xAAAAAAAAAAAAAAAALL;
-    result = hpke_labeled_extract(v13, v34, &v28, 0, 0, &v35, "psk_id_hash", 0, 0);
+    v33[2] = v14;
+    v33[3] = v14;
+    v33[0] = v14;
+    v33[1] = v14;
+    v27 = 0xAAAAAAAAAAAAAAAALL;
+    result = hpke_labeled_extract(v13, v33, &v27, 0, 0, &v34, "psk_id_hash", 0, 0);
     if (result)
     {
       *&v15 = 0xAAAAAAAAAAAAAAAALL;
       *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v33[2] = v15;
-      v33[3] = v15;
-      v33[0] = v15;
-      v33[1] = v15;
-      v27 = 0xAAAAAAAAAAAAAAAALL;
-      result = hpke_labeled_extract(v13, v33, &v27, 0, 0, &v35, "info_hash", a5, a6);
+      v32[2] = v15;
+      v32[3] = v15;
+      v32[0] = v15;
+      v32[1] = v15;
+      v26 = 0xAAAAAAAAAAAAAAAALL;
+      result = hpke_labeled_extract(v13, v32, &v26, 0, 0, &v34, "info_hash", a5, a6);
       if (result)
       {
-        v32 = -86;
+        v31 = -86;
         *&v16 = 0xAAAAAAAAAAAAAAAALL;
         *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v31[6] = v16;
-        v31[7] = v16;
-        v31[4] = v16;
-        v31[5] = v16;
-        v31[2] = v16;
-        v31[3] = v16;
-        v31[0] = v16;
-        v31[1] = v16;
-        v26 = 0xAAAAAAAAAAAAAAAALL;
-        v25[1] = v16;
-        v25[2] = v16;
-        v25[0] = v16;
-        CBB_init_fixed(v25, v31, 129);
-        result = CBB_add_u8(v25, a2);
+        v30[6] = v16;
+        v30[7] = v16;
+        v30[4] = v16;
+        v30[5] = v16;
+        v30[2] = v16;
+        v30[3] = v16;
+        v30[0] = v16;
+        v30[1] = v16;
+        v25 = 0xAAAAAAAAAAAAAAAALL;
+        v24[1] = v16;
+        v24[2] = v16;
+        v24[0] = v16;
+        CBB_init_fixed(v24, v30, 129);
+        result = CBB_add_u8(v24, a2);
         if (result)
         {
-          result = CBB_add_bytes(v25, v34, v28);
+          result = CBB_add_bytes(v24, v33, v27);
           if (result)
           {
-            result = CBB_add_bytes(v25, v33, v27);
+            result = CBB_add_bytes(v24, v32, v26);
             if (result)
             {
-              result = CBB_finish(v25, 0, &v26);
+              result = CBB_finish(v24, 0, &v25);
               if (result)
               {
                 *&v17 = 0xAAAAAAAAAAAAAAAALL;
                 *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v30[2] = v17;
-                v30[3] = v17;
-                v30[0] = v17;
-                v30[1] = v17;
-                v24 = 0xAAAAAAAAAAAAAAAALL;
-                result = hpke_labeled_extract(v13, v30, &v24, a3, a4, &v35, "secret", 0, 0);
+                v29[2] = v17;
+                v29[3] = v17;
+                v29[0] = v17;
+                v29[1] = v17;
+                v23 = 0xAAAAAAAAAAAAAAAALL;
+                result = hpke_labeled_extract(v13, v29, &v23, a3, a4, &v34, "secret", 0, 0);
                 if (result)
                 {
                   v18 = (*(*(a1 + 8) + 8))();
                   *&v19 = 0xAAAAAAAAAAAAAAAALL;
                   *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                  v29[3] = v19;
-                  v29[4] = v19;
-                  v29[1] = v19;
-                  v29[2] = v19;
-                  v29[0] = v19;
+                  v28[3] = v19;
+                  v28[4] = v19;
+                  v28[1] = v19;
+                  v28[2] = v19;
+                  v28[0] = v19;
                   v20 = EVP_AEAD_key_length(v18);
-                  result = hpke_labeled_expand(v13, v29, v20, v30, v24, &v35, "key", v31, v26);
+                  result = hpke_labeled_expand(v13, v28, v20, v29, v23, &v34, "key", v30, v25);
                   if (result)
                   {
-                    result = EVP_AEAD_CTX_init((a1 + 24), v18, v29, v20, 0);
+                    result = EVP_AEAD_CTX_init((a1 + 24), v18, v28, v20, 0);
                     if (result)
                     {
                       v21 = EVP_AEAD_nonce_length(v18);
-                      result = hpke_labeled_expand(v13, a1 + 608, v21, v30, v24, &v35, "base_nonce", v31, v26);
+                      result = hpke_labeled_expand(v13, a1 + 608, v21, v29, v23, &v34, "base_nonce", v30, v25);
                       if (result)
                       {
                         v22 = EVP_MD_size(v13);
-                        result = hpke_labeled_expand(v13, a1 + 632, v22, v30, v24, &v35, "exp", v31, v26);
+                        return hpke_labeled_expand(v13, a1 + 632, v22, v29, v23, &v34, "exp", v30, v25);
                       }
                     }
                   }
@@ -4739,13 +2741,12 @@ uint64_t hpke_key_schedule(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t EVP_HPKE_CTX_setup_recipient(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, size_t a8)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   bzero(a1, 0x2C8uLL);
   EVP_AEAD_CTX_zero(a1 + 3);
   *(a1 + 176) = 0;
@@ -4755,35 +2756,28 @@ uint64_t EVP_HPKE_CTX_setup_recipient(void *a1, uint64_t *a2, uint64_t a3, uint6
   *a1 = v16;
   *&v17 = 0xAAAAAAAAAAAAAAAALL;
   *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21[0] = v17;
-  v21[1] = v17;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
-  if ((*(v16 + 64))(a2, v21, &v20, a5, a6) && hpke_key_schedule(a1, 0, v21, v20, a7, a8))
+  v20[0] = v17;
+  v20[1] = v17;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
+  if ((*(v16 + 64))(a2, v20, &v19, a5, a6) && hpke_key_schedule(a1, 0, v20, v19, a7, a8))
   {
-    result = 1;
+    return 1;
   }
 
-  else
-  {
-    EVP_AEAD_CTX_cleanup((a1 + 3));
-    result = 0;
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  EVP_AEAD_CTX_cleanup(a1 + 3);
+  return 0;
 }
 
 uint64_t EVP_HPKE_CTX_open(uint64_t a1, char *a2, size_t *a3, size_t a4, char *a5, unint64_t a6)
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   if (*(a1 + 704))
   {
     v6 = 66;
     v7 = 1119;
 LABEL_3:
     ERR_put_error(6, 0, v6, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/hpke/hpke.c", v7);
-    result = 0;
-    goto LABEL_4;
+    return 0;
   }
 
   if (*(a1 + 696) == -1)
@@ -4793,18 +2787,16 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  memset(v17, 170, 24);
-  v16 = EVP_AEAD_nonce_length(*(a1 + 24));
-  hpke_nonce(a1, v17, v16);
-  result = EVP_AEAD_CTX_open((a1 + 24), a2, a3, a4, v17, v16, a5, a6);
+  memset(v16, 170, 24);
+  v15 = EVP_AEAD_nonce_length(*(a1 + 24));
+  hpke_nonce(a1, v16, v15);
+  result = EVP_AEAD_CTX_open((a1 + 24), a2, a3, a4, v16, v15, a5, a6);
   if (result)
   {
     ++*(a1 + 696);
-    result = 1;
+    return 1;
   }
 
-LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4836,38 +2828,35 @@ void hpke_nonce(uint64_t a1, _BYTE *a2, size_t a3)
   while (v3);
 }
 
-uint64_t EVP_HPKE_CTX_seal(uint64_t a1, char *a2, unint64_t *a3, size_t a4, char *a5, size_t a6)
+uint64_t EVP_HPKE_CTX_seal(uint64_t a1, char *a2, unint64_t *a3, size_t a4, char *a5, size_t a6, uint64_t a7, uint64_t a8)
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   if (!*(a1 + 704))
   {
-    v14 = 66;
-    v15 = 1143;
+    v16 = 66;
+    v17 = 1143;
 LABEL_7:
-    ERR_put_error(6, 0, v14, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/hpke/hpke.c", v15);
-    result = 0;
-    goto LABEL_8;
+    ERR_put_error(6, 0, v16, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/hpke/hpke.c", v17);
+    return 0;
   }
 
   if (*(a1 + 696) == -1)
   {
-    v14 = 69;
-    v15 = 1147;
+    v16 = 69;
+    v17 = 1147;
     goto LABEL_7;
   }
 
-  memset(v17, 170, 24);
-  v12 = EVP_AEAD_nonce_length(*(a1 + 24));
-  hpke_nonce(a1, v17, v12);
-  result = EVP_AEAD_CTX_seal(a1 + 24, a2, a3, a4, v17, v12, a5, a6);
+  memset(v18, 170, 24);
+  v14 = EVP_AEAD_nonce_length(*(a1 + 24));
+  hpke_nonce(a1, v18, v14);
+  result = EVP_AEAD_CTX_seal(a1 + 24, a2, a3, a4, v18, v14, a5, a6);
   if (result)
   {
     ++*(a1 + 696);
-    result = 1;
+    return 1;
   }
 
-LABEL_8:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4896,50 +2885,50 @@ uint64_t hpke_build_suite_id(unsigned __int16 **a1, uint64_t a2)
   return result;
 }
 
-BOOL hpke_labeled_expand(EVP_MD *a1, int a2, int a3, uint64_t a4, uint64_t a5, const void *a6, const char *a7, const void *a8, size_t a9)
+BOOL hpke_labeled_expand(EVP_MD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const void *a6, const char *a7, const void *a8, size_t a9)
 {
-  *&v15 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19[1] = v15;
-  v19[2] = v15;
-  v19[0] = v15;
-  if (CBB_init(v19, 0) && CBB_add_u16(v19, a3) && CBB_add_bytes(v19, "HPKE-v1", 7uLL) && CBB_add_bytes(v19, a6, 0xAuLL) && (v16 = strlen(a7), CBB_add_bytes(v19, a7, v16)) && CBB_add_bytes(v19, a8, a9))
+  *&v17 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v24[1] = v17;
+  v24[2] = v17;
+  v24[0] = v17;
+  if (CBB_init(v24, 0) && CBB_add_u16(v24, a3) && CBB_add_bytes(v24, "HPKE-v1", 7uLL) && CBB_add_bytes(v24, a6, 0xAuLL) && (v19 = strlen(a7), CBB_add_bytes(v24, a7, v19)) && CBB_add_bytes(v24, a8, a9))
   {
-    CBB_data(v19);
-    CBB_len(v19);
-    v17 = HKDF_expand(a2, a3, a1);
+    v20 = CBB_data(v24, v18);
+    v21 = CBB_len(v24);
+    v22 = HKDF_expand(a2, a3, a1, a4, a5, v20, v21);
   }
 
   else
   {
-    v17 = 0;
+    v22 = 0;
   }
 
-  CBB_cleanup(v19);
-  return v17;
+  CBB_cleanup(v24, v18);
+  return v22;
 }
 
-BOOL hpke_labeled_extract(EVP_MD *a1, int a2, void *a3, uint64_t a4, uint64_t a5, const void *a6, const char *a7, const void *a8, size_t a9)
+BOOL hpke_labeled_extract(EVP_MD *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, const void *a6, const char *a7, const void *a8, size_t a9)
 {
-  *&v15 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19[1] = v15;
-  v19[2] = v15;
-  v19[0] = v15;
-  if (CBB_init(v19, 0) && CBB_add_bytes(v19, "HPKE-v1", 7uLL) && CBB_add_bytes(v19, a6, 0xAuLL) && (v16 = strlen(a7), CBB_add_bytes(v19, a7, v16)) && CBB_add_bytes(v19, a8, a9))
+  *&v17 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v24[1] = v17;
+  v24[2] = v17;
+  v24[0] = v17;
+  if (CBB_init(v24, 0) && CBB_add_bytes(v24, "HPKE-v1", 7uLL) && CBB_add_bytes(v24, a6, 0xAuLL) && (v19 = strlen(a7), CBB_add_bytes(v24, a7, v19)) && CBB_add_bytes(v24, a8, a9))
   {
-    CBB_data(v19);
-    CBB_len(v19);
-    v17 = HKDF_extract(a2, a3, a1) != 0;
+    v20 = CBB_data(v24, v18);
+    v21 = CBB_len(v24);
+    v22 = HKDF_extract(a2, a3, a1, v20, v21, a4, a5) != 0;
   }
 
   else
   {
-    v17 = 0;
+    v22 = 0;
   }
 
-  CBB_cleanup(v19);
-  return v17;
+  CBB_cleanup(v24, v18);
+  return v22;
 }
 
 uint64_t bssl::tls13_init_early_key_schedule(bssl *this, ssl_cipher_st **a2, const ssl_session_st *a3)
@@ -4965,7 +2954,7 @@ uint64_t bssl::tls13_init_early_key_schedule(bssl *this, ssl_cipher_st **a2, con
   {
     v9 = *(a2 + 58);
 
-    return bssl::hkdf_extract_to_secret(this, (this + v5));
+    return bssl::hkdf_extract_to_secret(this, (this + v5), a2 + 10, v9);
   }
 
   return result;
@@ -5028,9 +3017,9 @@ uint64_t bssl::tls13_rotate_traffic_key(SSL *a1, uint64_t a2)
   return result;
 }
 
-uint64_t bssl::tls13_export_keying_material(SSL *a1, int a2, int a3, uint64_t a4, uint64_t a5, const void *a6, size_t a7, uint64_t a8, const void *a9, size_t a10)
+uint64_t bssl::tls13_export_keying_material(SSL *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const void *a6, size_t a7, uint64_t a8, const void *a9, size_t a10)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (!a5)
   {
     bssl::tls13_export_keying_material();
@@ -5044,44 +3033,43 @@ uint64_t bssl::tls13_export_keying_material(SSL *a1, int a2, int a3, uint64_t a4
   md[3] = v19;
   md[0] = v19;
   md[1] = v19;
-  v36 = v19;
-  v37 = v19;
-  *v34 = v19;
   v35 = v19;
-  v31 = -1431655766;
+  v36 = v19;
+  *v33 = v19;
+  v34 = v19;
+  v30 = -1431655766;
   size = -1431655766;
   result = EVP_Digest(a9, a10, md, &size, digest, 0);
   if (result)
   {
-    result = EVP_Digest(0, 0, v34, &v31, digest, 0);
+    result = EVP_Digest(0, 0, v33, &v30, digest, 0);
     if (result)
     {
-      v21 = v31;
-      v29 = size;
+      v21 = v30;
+      v28 = size;
       *&v22 = 0xAAAAAAAAAAAAAAAALL;
       *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v33[2] = v22;
-      v33[3] = v22;
-      v33[0] = v22;
-      v33[1] = v22;
+      v32[2] = v22;
+      v32[3] = v22;
+      v32[0] = v22;
+      v32[1] = v22;
       v23 = EVP_MD_size(digest);
       is_dtls = SSL_is_dtls(a1);
-      result = bssl::hkdf_expand_label(v33, v23, digest, a4, a5, a6, a7, v25, v34, v21, is_dtls != 0);
+      result = bssl::hkdf_expand_label(v32, v23, digest, a4, a5, a6, a7, v25, v33, v21, is_dtls != 0);
       if (result)
       {
         v26 = SSL_is_dtls(a1) != 0;
-        result = bssl::hkdf_expand_label(a2, a3, digest, v33, v23, "exporter", 8uLL, v27, md, v29, v26);
+        return bssl::hkdf_expand_label(a2, a3, digest, v32, v23, "exporter", 8uLL, v27, md, v28, v26);
       }
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t bssl::tls13_write_psk_binder(unsigned __int8 ***a1, ssl_session_st *a2, char *a3, size_t a4, size_t *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v10 = *a1;
   digest = bssl::ssl_session_get_digest((*a1)[13], a2);
   v12 = EVP_MD_size(digest);
@@ -5091,12 +3079,12 @@ uint64_t bssl::tls13_write_psk_binder(unsigned __int8 ***a1, ssl_session_st *a2,
   __src[3] = v13;
   __src[0] = v13;
   __src[1] = v13;
-  v21 = 0xAAAAAAAAAAAAAAAALL;
+  v20 = 0xAAAAAAAAAAAAAAAALL;
   v14 = v10[13];
   v15 = v14[440];
   v16 = SSL_is_dtls(*a1) != 0;
-  v17 = bssl::tls13_psk_binder(__src, &v21, v14, a2, a3, a4, v12 + 3, v16, v15 >> 7);
-  if (v21 == v12)
+  v17 = bssl::tls13_psk_binder(__src, &v20, v14, a2, a3, a4, v12 + 3, v16, v15 >> 7);
+  if (v20 == v12)
   {
     v18 = v17;
   }
@@ -5129,48 +3117,39 @@ uint64_t bssl::tls13_write_psk_binder(unsigned __int8 ***a1, ssl_session_st *a2,
     ERR_put_error(16, 0, 68, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_enc.cc", 528);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 uint64_t bssl::tls13_psk_binder(unsigned __int8 *a1, ssl_session_st *a2, bssl *this, bssl::SSLTranscript *a4, const void *a5, size_t a6, size_t a7, char a8, char a9)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   digest = bssl::ssl_session_get_digest(this, a2);
   *&v17 = 0xAAAAAAAAAAAAAAAALL;
   *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v40 = v17;
-  v41 = v17;
-  *md = v17;
+  v38 = v17;
   v39 = v17;
+  *md = v17;
+  v37 = v17;
   size = -1431655766;
-  memset(v37, 0, sizeof(v37));
-  v30 = 0xAAAAAAAAAAAAAAAALL;
-  memset(v36, 0, sizeof(v36));
+  memset(v35, 0, sizeof(v35));
+  v28 = 0xAAAAAAAAAAAAAAAALL;
+  memset(v34, 0, sizeof(v34));
   v18 = EVP_MD_size(digest);
-  if (!EVP_Digest(0, 0, md, &size, digest, 0))
+  if (!EVP_Digest(0, 0, md, &size, digest, 0) || !HKDF_extract(v35, &v28, digest, this + 10, *(this + 58), 0, 0))
   {
-    goto LABEL_9;
+    return 0;
   }
 
-  v19 = *(this + 58);
-  if (!HKDF_extract(v37, &v30, digest))
+  v20 = a9 ? "ext binder" : "res binder";
+  if (!bssl::hkdf_expand_label(v34, v18, digest, v35, v28, v20, 0xAuLL, v19, md, size, a8))
   {
-    goto LABEL_9;
-  }
-
-  v21 = a9 ? "ext binder" : "res binder";
-  if (!bssl::hkdf_expand_label(v36, v18, digest, v37, v30, v21, 0xAuLL, v20, md, size, a8))
-  {
-    goto LABEL_9;
+    return 0;
   }
 
   if (a6 < a7)
   {
     ERR_put_error(16, 0, 68, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_enc.cc", 483);
-LABEL_9:
-    v22 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   if (a6 >= a6 - a7)
@@ -5178,36 +3157,34 @@ LABEL_9:
     a6 -= a7;
   }
 
-  *&v25 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v34 = v25;
-  v35 = v25;
-  *v32 = v25;
-  v33 = v25;
+  *&v23 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v32 = v23;
+  v33 = v23;
+  *v30 = v23;
+  v31 = v23;
   s = -1431655766;
-  *&ctx.digest = v25;
-  *&ctx.flags = v25;
+  *&ctx.digest = v23;
+  *&ctx.flags = v23;
   EVP_MD_CTX_init(&ctx);
-  if (bssl::SSLTranscript::CopyToHashContext(a4, &ctx, digest) && EVP_DigestUpdate(&ctx, a5, a6) && EVP_DigestFinal_ex(&ctx, v32, &s) && bssl::tls13_verify_data(a1, a2, digest, v36, v18, v32, s, a8))
+  if (bssl::SSLTranscript::CopyToHashContext(a4, &ctx, digest) && EVP_DigestUpdate(&ctx, a5, a6) && EVP_DigestFinal_ex(&ctx, v30, &s) && bssl::tls13_verify_data(a1, a2, digest, v34, v18, v30, s, a8))
   {
-    v26 = *&a2->ssl_version;
-    if (v26 != EVP_MD_size(digest))
+    v24 = *&a2->ssl_version;
+    if (v24 != EVP_MD_size(digest))
     {
       __assert_rtn("tls13_psk_binder", "tls13_enc.cc", 502, "*out_len == EVP_MD_size(digest)");
     }
 
-    v22 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
   EVP_MD_CTX_cleanup(&ctx);
-LABEL_10:
-  v23 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v21;
 }
 
 void sub_1A904C2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, EVP_MD_CTX *ctx)
@@ -5222,26 +3199,25 @@ void sub_1A904C2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t bssl::tls13_verify_psk_binder(unsigned __int8 ***a1, bssl *a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19[2] = v7;
-  v19[3] = v7;
-  v19[0] = v7;
-  v19[1] = v7;
-  v17 = 0xAAAAAAAAAAAAAAAALL;
-  v18 = 0;
+  v18[2] = v7;
+  v18[3] = v7;
+  v18[0] = v7;
+  v18[1] = v7;
   v16 = 0xAAAAAAAAAAAAAAAALL;
+  v17 = 0;
+  v15 = 0xAAAAAAAAAAAAAAAALL;
   v8 = *(a3 + 24);
   v9 = *(a3 + 32);
   v10 = *(a4 + 8);
   v11 = SSL_is_dtls(*a1) != 0;
-  if (bssl::tls13_psk_binder(v19, &v18, a2, (a1 + 53), v8, v9, v10 + 2, v11, 0) && CBS_get_u8_length_prefixed(a4, &v16))
+  if (bssl::tls13_psk_binder(v18, &v17, a2, (a1 + 53), v8, v9, v10 + 2, v11, 0) && CBS_get_u8_length_prefixed(a4, &v15))
   {
-    if (v17 == v18 && !CRYPTO_memcmp(v16, v19, v17))
+    if (v16 == v17 && !CRYPTO_memcmp(v15, v18, v16))
     {
-      result = 1;
-      goto LABEL_8;
+      return 1;
     }
 
     v12 = 142;
@@ -5255,109 +3231,71 @@ uint64_t bssl::tls13_verify_psk_binder(unsigned __int8 ***a1, bssl *a2, uint64_t
   }
 
   ERR_put_error(16, 0, v12, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_enc.cc", v13);
-  result = 0;
-LABEL_8:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-BOOL bssl::ssl_ech_accept_confirmation(unsigned __int8 ***a1, int a2, uint64_t a3, int a4, int a5, bssl::SSLTranscript *a6, int a7, int a8, char *d, unint64_t a10, unint64_t a11)
+BOOL bssl::ssl_ech_accept_confirmation(unsigned __int8 ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, bssl::SSLTranscript *a6, int a7, int a8, char *d, size_t a10, size_t a11)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (a10 >= a11 + 8)
   {
-    *&v16 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v37 = v16;
-    v38 = v16;
+    *&v18 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v39 = v18;
+    v40 = v18;
     if (a10 >= a11)
     {
-      v17 = a11;
+      v19 = a11;
     }
 
     else
     {
-      v17 = a10;
+      v19 = a10;
     }
 
-    v36 = v16;
-    *md = v16;
+    v38 = v18;
+    *md = v18;
     s = -1431655766;
-    *&ctx.digest = v16;
-    *&ctx.flags = v16;
+    *&ctx.digest = v18;
+    *&ctx.flags = v18;
     EVP_MD_CTX_init(&ctx);
-    v18 = bssl::SSLTranscript::Digest(a6);
-    if (!bssl::SSLTranscript::CopyToHashContext(a6, &ctx, v18))
-    {
-      goto LABEL_20;
-    }
-
-    if (!EVP_DigestUpdate(&ctx, d, v17))
-    {
-      goto LABEL_20;
-    }
-
-    if (!EVP_DigestUpdate(&ctx, &bssl::ssl_ech_accept_confirmation(bssl::SSL_HANDSHAKE const*,bssl::Span<unsigned char>,bssl::Span<unsigned char const>,bssl::SSLTranscript const&,BOOL,bssl::Span<unsigned char const>,unsigned long)::kZeros, 8uLL))
-    {
-      goto LABEL_20;
-    }
-
-    if (!EVP_DigestUpdate(&ctx, &d[a11 + 8], a10 - (a11 + 8)))
-    {
-      goto LABEL_20;
-    }
-
-    if (!EVP_DigestFinal_ex(&ctx, md, &s))
-    {
-      goto LABEL_20;
-    }
-
-    *&v19 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v34[2] = v19;
-    v34[3] = v19;
-    v34[0] = v19;
-    v34[1] = v19;
-    v31 = 0xAAAAAAAAAAAAAAAALL;
     v20 = bssl::SSLTranscript::Digest(a6);
-    bssl::SSLTranscript::DigestLen(a6);
-    if (HKDF_extract(v34, &v31, v20))
+    if (bssl::SSLTranscript::CopyToHashContext(a6, &ctx, v20) && EVP_DigestUpdate(&ctx, d, v19) && EVP_DigestUpdate(&ctx, &bssl::ssl_ech_accept_confirmation(bssl::SSL_HANDSHAKE const*,bssl::Span<unsigned char>,bssl::Span<unsigned char const>,bssl::SSLTranscript const&,BOOL,bssl::Span<unsigned char const>,unsigned long)::kZeros, 8uLL) && EVP_DigestUpdate(&ctx, &d[a11 + 8], a10 - (a11 + 8)) && EVP_DigestFinal_ex(&ctx, md, &s) && (*&v21 = 0xAAAAAAAAAAAAAAAALL, *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL, v36[2] = v21, v36[3] = v21, v36[0] = v21, v36[1] = v21, v33 = 0xAAAAAAAAAAAAAAAALL, v22 = bssl::SSLTranscript::Digest(a6), v23 = bssl::SSLTranscript::DigestLen(a6), HKDF_extract(v36, &v33, v22, a4, a5, &bssl::ssl_ech_accept_confirmation(bssl::SSL_HANDSHAKE const*,bssl::Span<unsigned char>,bssl::Span<unsigned char const>,bssl::SSLTranscript const&,BOOL,bssl::Span<unsigned char const>,unsigned long)::kZeros, v23)))
     {
       if (a3 != 8)
       {
         __assert_rtn("ssl_ech_accept_confirmation", "tls13_enc.cc", 620, "out.size() == ECH_CONFIRMATION_SIGNAL_LEN");
       }
 
-      v21 = bssl::SSLTranscript::Digest(a6);
-      v22 = v31;
-      v23 = s;
+      v24 = bssl::SSLTranscript::Digest(a6);
+      v25 = v33;
+      v26 = s;
       is_dtls = SSL_is_dtls(*a1);
       if (a7)
       {
-        v26 = "hrr ech accept confirmation";
+        v29 = "hrr ech accept confirmation";
       }
 
       else
       {
-        v26 = "ech accept confirmation";
+        v29 = "ech accept confirmation";
       }
 
       if (a7)
       {
-        v27 = 27;
+        v30 = 27;
       }
 
       else
       {
-        v27 = 23;
+        v30 = 23;
       }
 
-      v11 = bssl::hkdf_expand_label(a2, 8, v21, v34, v22, v26, v27, v25, md, v23, is_dtls != 0);
+      v11 = bssl::hkdf_expand_label(a2, 8, v24, v36, v25, v29, v30, v28, md, v26, is_dtls != 0);
     }
 
     else
     {
-LABEL_20:
       v11 = 0;
     }
 
@@ -5367,10 +3305,9 @@ LABEL_20:
   else
   {
     ERR_put_error(16, 0, 68, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/tls13_enc.cc", 595);
-    v11 = 0;
+    return 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -6146,7 +4083,7 @@ BOOL ec_GFp_simple_is_on_curve(_DWORD *a1, uint64_t a2)
   return (ec_felem_non_zero_mask(a1, (a2 + 144)) & v8 & 1) == 0;
 }
 
-uint64_t ec_GFp_simple_points_equal(uint64_t a1, uint64_t a2, _OWORD *a3)
+uint64_t ec_GFp_simple_points_equal(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v7 = *(*a1 + 88);
   v6 = *(*a1 + 96);
@@ -6172,16 +4109,16 @@ uint64_t ec_GFp_simple_points_equal(uint64_t a1, uint64_t a2, _OWORD *a3)
   v11[3] = v8;
   v11[0] = v8;
   v11[1] = v8;
-  v6(a1, v11, (a3 + 9));
+  v6(a1, v11, a3 + 18);
   v7(a1, v17, a2, v11);
-  v6(a1, v13, a2 + 144);
+  v6(a1, v13, (a2 + 144));
   v7(a1, v15, a3, v13);
   ec_felem_sub(a1, v17, v17, v15);
   LODWORD(v6) = ec_felem_non_zero_mask(a1, v17);
   v7(a1, v11, v11, a3 + 9);
-  v7(a1, v17, (a2 + 72), v11);
+  v7(a1, v17, a2 + 72, v11);
   v7(a1, v13, v13, (a2 + 144));
-  v7(a1, v15, (a3 + 72), v13);
+  v7(a1, v15, (a3 + 9), v13);
   ec_felem_sub(a1, v17, v17, v15);
   LODWORD(v6) = ec_felem_non_zero_mask(a1, v17) | v6;
   LODWORD(a2) = ec_felem_non_zero_mask(a1, (a2 + 144));
@@ -6211,7 +4148,7 @@ uint64_t ec_GFp_simple_cmp_x_coordinate(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-BOOL HKDF(int a1, int a2, EVP_MD *md, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+BOOL HKDF(uint64_t a1, uint64_t a2, EVP_MD *md, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = EVP_MD_type(md);
   boringssl_crypto_hash_nid_to_cc_digest(v9);
@@ -6460,10 +4397,10 @@ uint64_t BCM_sha512_init(uint64_t a1)
   return 0;
 }
 
-unint64_t sha512_final_impl(void *a1, unint64_t a2, int8x16_t *a3)
+uint64_t sha512_final_impl(void *a1, unint64_t a2, int8x16_t *a3)
 {
   v3 = a3;
-  v6 = &a3[5];
+  v6 = a3 + 5;
   v7 = a3[13].u32[0];
   a3[5].i8[v7] = 0x80;
   v8 = v7 + 1;
@@ -6479,14 +4416,14 @@ unint64_t sha512_final_impl(void *a1, unint64_t a2, int8x16_t *a3)
   {
     if (v7 != 127)
     {
-      bzero(v6 + v8, 127 - v7);
+      bzero(&v6->i8[v8], 127 - v7);
     }
 
     sha512_block_data_order(v3, v6, 1);
     v8 = 0;
   }
 
-  bzero(v6 + v8, 112 - v8);
+  bzero(&v6->i8[v8], 112 - v8);
 LABEL_7:
   v9 = vrev64q_s8(v3[4]);
   v3[12] = vextq_s8(v9, v9, 8uLL);
@@ -6513,7 +4450,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t BCM_sha512_update(unint64_t a1, unint64_t *__src, size_t __n)
+uint64_t BCM_sha512_update(uint64_t a1, char *__src, size_t __n)
 {
   if (!__n)
   {
@@ -6568,7 +4505,7 @@ LABEL_13:
   return 0;
 }
 
-unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
+uint64_t sha512_block_data_order(uint64_t result, unint64_t *a2, uint64_t a3)
 {
   v122 = result;
   if (a3)
@@ -6671,9 +4608,9 @@ unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
         v78 = v77 + v63;
         v79 = (__ROR8__(v75, 28) ^ __ROR8__(v75, 34) ^ __ROR8__(v75, 39)) + (v75 & (v70 ^ v66) ^ v70 & v66) + v77;
         v80 = v19 + v52 + (__ROR8__(v23, 1) ^ __ROR8__(v23, 8) ^ (v23 >> 7)) + (__ROR8__(v72, 19) ^ __ROR8__(v72, 61) ^ (v72 >> 6));
-        v81 = (v80 + result + *(v71 - 13) + (v78 & v74 | v69 & ~v78) + (__ROR8__(v77 + v63, 14) ^ __ROR8__(v77 + v63, 18) ^ __ROR8__(v78, 41)));
-        v82 = &v81[v66];
-        v83 = &v81[(__ROR8__(v79, 28) ^ __ROR8__(v79, 34) ^ __ROR8__(v79, 39)) + (v79 & (v75 ^ v70) ^ v75 & v70)];
+        v81 = v80 + result + *(v71 - 13) + (v78 & v74 | v69 & ~v78) + (__ROR8__(v77 + v63, 14) ^ __ROR8__(v77 + v63, 18) ^ __ROR8__(v78, 41));
+        v82 = v81 + v66;
+        v83 = (__ROR8__(v79, 28) ^ __ROR8__(v79, 34) ^ __ROR8__(v79, 39)) + (v79 & (v75 ^ v70) ^ v75 & v70) + v81;
         v84 = v76;
         v133 = v76;
         v85 = v23 + v56 + (__ROR8__(v27, 1) ^ __ROR8__(v27, 8) ^ (v27 >> 7)) + (__ROR8__(v76, 19) ^ __ROR8__(v76, 61) ^ (v76 >> 6));
@@ -6690,8 +4627,8 @@ unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
         v93 = v92 + v79;
         v94 = (__ROR8__(v91, 28) ^ __ROR8__(v91, 34) ^ __ROR8__(v91, 39)) + (v91 & (v88 ^ v83) ^ v88 & v83) + v92;
         v35 += v67 + (__ROR8__(v137, 1) ^ __ROR8__(v137, 8) ^ (v137 >> 7)) + (__ROR8__(v27, 19) ^ __ROR8__(v27, 61) ^ (v27 >> 6));
-        v95 = &v82[*(v71 - 9) + v35 + (v93 & v90 | v87 & ~v93) + (__ROR8__(v93, 14) ^ __ROR8__(v93, 18) ^ __ROR8__(v93, 41))];
-        v96 = &v83[v95];
+        v95 = v35 + *(v71 - 9) + v82 + (v93 & v90 | v87 & ~v93) + (__ROR8__(v93, 14) ^ __ROR8__(v93, 18) ^ __ROR8__(v93, 41));
+        v96 = v95 + v83;
         v97 = (__ROR8__(v94, 28) ^ __ROR8__(v94, 34) ^ __ROR8__(v94, 39)) + (v94 & (v91 ^ v88) ^ v91 & v88) + v95;
         v98 = (__ROR8__(v136, 1) ^ __ROR8__(v136, 8) ^ (v136 >> 7)) + v137 + v72 + (__ROR8__(v31, 19) ^ __ROR8__(v31, 61) ^ (v31 >> 6));
         v99 = *(v71 - 8) + v98 + v87 + (v96 & v93 | v90 & ~v96) + (__ROR8__(v96, 14) ^ __ROR8__(v96, 18) ^ __ROR8__(v96, 41));
@@ -6706,7 +4643,7 @@ unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
         v108 = v107 + v94;
         v109 = (__ROR8__(v105, 28) ^ __ROR8__(v105, 34) ^ __ROR8__(v105, 39)) + (v105 & (v101 ^ v97) ^ v101 & v97) + v107;
         v48 += (__ROR8__(v52, 1) ^ __ROR8__(v52, 8) ^ (v52 >> 7)) + v139 + (__ROR8__(v102, 19) ^ __ROR8__(v102, 61) ^ (v102 >> 6));
-        v110 = &v96[v48 + *(v71 - 5) + (v108 & v104 | v100 & ~v108) + (__ROR8__(v108, 14) ^ __ROR8__(v108, 18) ^ __ROR8__(v108, 41))];
+        v110 = v48 + *(v71 - 5) + v96 + (v108 & v104 | v100 & ~v108) + (__ROR8__(v108, 14) ^ __ROR8__(v108, 18) ^ __ROR8__(v108, 41));
         v111 = v110 + v97;
         v112 = (__ROR8__(v109, 28) ^ __ROR8__(v109, 34) ^ __ROR8__(v109, 39)) + (v109 & (v105 ^ v101) ^ v105 & v101) + v110;
         v135 = v106;
@@ -6769,7 +4706,7 @@ unint64_t sha512_block_data_order(unint64_t result, unint64_t *a2, uint64_t a3)
   return result;
 }
 
-void std::unique_ptr<spake2plus_ctx_st,bssl::internal::Deleter>::reset[abi:ne200100](void **a1, void *a2)
+void std::unique_ptr<spake2plus_ctx_st,bssl::internal::Deleter>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -6794,23 +4731,23 @@ uint64_t bssl::resolve_ecdhe_secret(uint64_t a1, uint64_t a2)
 {
   v3 = *a1;
   v4 = *(*(a1 + 1536) + 6);
-  v37 = -86;
-  v35 = 0;
-  v36 = 0;
-  v34 = 50;
-  if (bssl::ssl_ext_key_share_parse_clienthello(a1, &v37, &v35, &v34, a2))
+  v39 = -86;
+  v37 = 0;
+  v38 = 0;
+  v36 = 50;
+  if (bssl::ssl_ext_key_share_parse_clienthello(a1, &v39, &v37, &v36, a2))
   {
-    if ((v37 & 1) != 0 || *(a1 + 1680))
+    if ((v39 & 1) != 0 || *(a1 + 1680))
     {
-      v32 = 0;
-      v33 = 0;
+      v34 = 0;
+      v35 = 0;
       v5 = *(a1 + 1688);
       if (v5)
       {
         v6 = *(a1 + 1696);
-        if (bssl::Array<unsigned char>::InitUninitialized(&v32, v6) && v6)
+        if (bssl::Array<unsigned char>::InitUninitialized(&v34, v6) && v6)
         {
-          v7 = v32;
+          v7 = v34;
           do
           {
             v8 = *v5++;
@@ -6846,11 +4783,11 @@ uint64_t bssl::resolve_ecdhe_secret(uint64_t a1, uint64_t a2)
 
           v16 = *(v10 + 56);
           v15 = *(v10 + 64);
-          if (bssl::Array<unsigned char>::InitUninitialized(&v32, v15))
+          if (bssl::Array<unsigned char>::InitUninitialized(&v34, v15))
           {
             if (v15)
             {
-              v17 = v32;
+              v17 = v34;
               do
               {
                 v18 = *v16++;
@@ -6873,76 +4810,76 @@ LABEL_34:
 
       *&v19 = 0xAAAAAAAAAAAAAAAALL;
       *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v31[1] = v19;
-      v31[2] = v19;
-      v31[0] = v19;
-      CBB_zero(v31);
-      v30 = 0xAAAAAAAAAAAAAAAALL;
-      bssl::SSLKeyShare::Create(v4, &v30);
-      if (v30 && CBB_init(v31, 0x20uLL) && (*(*v30 + 32))(v30, v31, &v32, &v34, v35, v36) && bssl::CBBFinishArray(v31, a1 + 648))
+      v33[1] = v19;
+      v33[2] = v19;
+      v33[0] = v19;
+      CBB_zero(v33);
+      v32 = 0xAAAAAAAAAAAAAAAALL;
+      bssl::SSLKeyShare::Create(&v32, v4);
+      if (v32 && CBB_init(v33, 0x20uLL) && (*(*v32 + 32))(v32, v33, &v34, &v36, v37, v38) && bssl::CBBFinishArray(v33, a1 + 648))
       {
         if (!v10 || (*(a1 + 1602) & 8) == 0)
         {
 LABEL_31:
-          std::unique_ptr<bssl::SSLKeyShare,bssl::internal::Deleter>::reset[abi:ne200100](&v30, 0);
-          CBB_cleanup(v31);
+          std::unique_ptr<bssl::SSLKeyShare,bssl::internal::Deleter>::reset[abi:ne200100](&v32, 0);
+          CBB_cleanup(v33, v20);
 LABEL_9:
-          v9 = bssl::tls13_advance_key_schedule(a1);
+          v9 = bssl::tls13_advance_key_schedule(a1, v34, v35);
 LABEL_35:
-          OPENSSL_free(v32);
+          OPENSSL_free(v34);
           return v9;
         }
 
         *(v10 + 32) = v4;
-        v22 = *(a1 + 648);
-        v23 = *(a1 + 656);
-        if (bssl::Array<unsigned char>::InitUninitialized(v10 + 40, v23))
+        v24 = *(a1 + 648);
+        v25 = *(a1 + 656);
+        if (bssl::Array<unsigned char>::InitUninitialized(v10 + 40, v25))
         {
-          if (v23)
+          if (v25)
           {
-            v24 = *(v10 + 40);
+            v26 = *(v10 + 40);
             do
             {
-              v25 = *v22++;
-              *v24++ = v25;
-              --v23;
+              v27 = *v24++;
+              *v26++ = v27;
+              --v25;
             }
 
-            while (v23);
+            while (v25);
           }
 
-          v27 = v32;
-          v26 = v33;
-          if (bssl::Array<unsigned char>::InitUninitialized(v10 + 56, v33))
+          v29 = v34;
+          v28 = v35;
+          if (bssl::Array<unsigned char>::InitUninitialized(v10 + 56, v35))
           {
-            if (v26)
+            if (v28)
             {
-              v28 = *(v10 + 56);
+              v30 = *(v10 + 56);
               do
               {
-                v29 = *v27++;
-                *v28++ = v29;
-                --v26;
+                v31 = *v29++;
+                *v30++ = v31;
+                --v28;
               }
 
-              while (v26);
+              while (v28);
             }
 
             goto LABEL_31;
           }
         }
 
-        v20 = 80;
+        v21 = 80;
       }
 
       else
       {
-        v20 = v34;
+        v21 = v36;
       }
 
-      bssl::ssl_send_alert(v3, 2, v20);
-      std::unique_ptr<bssl::SSLKeyShare,bssl::internal::Deleter>::reset[abi:ne200100](&v30, 0);
-      CBB_cleanup(v31);
+      bssl::ssl_send_alert(v3, 2, v21);
+      std::unique_ptr<bssl::SSLKeyShare,bssl::internal::Deleter>::reset[abi:ne200100](&v32, 0);
+      CBB_cleanup(v33, v22);
       goto LABEL_34;
     }
 
@@ -6952,15 +4889,15 @@ LABEL_35:
 
   else
   {
-    bssl::ssl_send_alert(v3, 2, v34);
+    bssl::ssl_send_alert(v3, 2, v36);
   }
 
   return 0;
 }
 
-void sub_1A904F12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A904F12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   bssl::Array<unsigned char>::~Array(va);
   _Unwind_Resume(a1);
 }
@@ -7032,16 +4969,16 @@ LABEL_43:
   v11 = 0;
   while (1)
   {
-    v31 = 0xAAAAAAAAAAAAAAAALL;
-    bssl::SSL_SESSION_dup(*(this + 192), 2, &v31);
-    if (!v31 || !RAND_bytes(&v31[1].session_id[16], 4))
+    v33 = 0xAAAAAAAAAAAAAAAALL;
+    bssl::SSL_SESSION_dup(&v33, *(this + 192), 2);
+    if (!v33 || !RAND_bytes(&v33[1].session_id[16], 4))
     {
-      std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](&v31, 0);
+      std::unique_ptr<ssl_session_st,bssl::internal::Deleter>::reset[abi:ne200100](&v33, 0);
       return 0;
     }
 
-    v12 = v31;
-    LOBYTE(v31[1].peer) |= 8u;
+    v12 = v33;
+    LOBYTE(v33[1].peer) |= 8u;
     if ((*(v5 + 180) & 4) == 0)
     {
 LABEL_17:
@@ -7067,103 +5004,103 @@ LABEL_17:
     *&v12[1].session_id[20] = v14;
     v13 = 1;
 LABEL_23:
-    v30 = v11;
+    v32 = v11;
     *&v15 = 0xAAAAAAAAAAAAAAAALL;
     *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v29[1] = v15;
-    v29[2] = v15;
-    v29[0] = v15;
-    CBB_zero(v29);
+    v31[1] = v15;
+    v31[2] = v15;
+    v31[0] = v15;
+    CBB_zero(v31);
     *&v16 = 0xAAAAAAAAAAAAAAAALL;
     *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v28[1] = v16;
+    v30[1] = v16;
+    v30[2] = v16;
+    v30[0] = v16;
+    v29[1] = v16;
+    v29[2] = v16;
     v28[2] = v16;
+    v29[0] = v16;
     v28[0] = v16;
+    v28[1] = v16;
     v27[1] = v16;
     v27[2] = v16;
-    v26[2] = v16;
     v27[0] = v16;
-    v26[0] = v16;
-    v26[1] = v16;
-    v25[1] = v16;
-    v25[2] = v16;
-    v25[0] = v16;
-    if (!(*(*v5 + 88))(v5, v29, v28, 4))
+    if (!(*(*v5 + 88))(v5, v31, v30, 4))
     {
       break;
     }
 
-    if (!CBB_add_u32(v28, v31->time))
+    if (!CBB_add_u32(v30, v33->time))
     {
       break;
     }
 
-    if (!CBB_add_u32(v28, *&v31[1].session_id[16]))
+    if (!CBB_add_u32(v30, *&v33[1].session_id[16]))
     {
       break;
     }
 
-    if (!CBB_add_u8_length_prefixed(v28, v27))
+    if (!CBB_add_u8_length_prefixed(v30, v29))
     {
       break;
     }
 
-    if (!CBB_add_bytes(v27, &v30, 1uLL))
+    if (!CBB_add_bytes(v29, &v32, 1uLL))
     {
       break;
     }
 
-    if (!CBB_add_u16_length_prefixed(v28, v26))
+    if (!CBB_add_u16_length_prefixed(v30, v28))
     {
       break;
     }
 
-    v17 = v31;
-    v18 = SSL_is_dtls(v5) != 0;
-    if (!bssl::tls13_derive_session_psk(v17, &v30, 1uLL, v18))
+    v18 = v33;
+    v19 = SSL_is_dtls(v5) != 0;
+    if (!bssl::tls13_derive_session_psk(v18, &v32, 1uLL, v19))
     {
       break;
     }
 
-    if (!bssl::ssl_encrypt_ticket(this, v26, v31))
+    if (!bssl::ssl_encrypt_ticket(this, v28, v33))
     {
       break;
     }
 
-    if (!CBB_add_u16_length_prefixed(v28, v25))
+    if (!CBB_add_u16_length_prefixed(v30, v27))
     {
       break;
     }
 
     if (v13)
     {
-      *&v19 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v24[1] = v19;
-      v24[2] = v19;
-      v24[0] = v19;
-      if (!CBB_add_u16(v25, 0x2Au) || !CBB_add_u16_length_prefixed(v25, v24) || !CBB_add_u32(v24, *&v31[1].session_id[20]) || !CBB_flush(v25))
+      *&v20 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v26[1] = v20;
+      v26[2] = v20;
+      v26[0] = v20;
+      if (!CBB_add_u16(v27, 0x2Au) || !CBB_add_u16_length_prefixed(v27, v26) || !CBB_add_u32(v26, *&v33[1].session_id[20]) || !CBB_flush(v27))
       {
         break;
       }
     }
 
     grease_value = bssl::ssl_get_grease_value(this, 5u);
-    if (!CBB_add_u16(v25, grease_value) || !CBB_add_u16(v25, 0))
+    if (!CBB_add_u16(v27, grease_value) || !CBB_add_u16(v27, 0))
     {
       break;
     }
 
-    v21 = bssl::ssl_add_message_cbb(v5, v29);
-    CBB_cleanup(v29);
-    v22 = v31;
-    v31 = 0;
-    if (v22)
+    v22 = bssl::ssl_add_message_cbb(v5, v31);
+    CBB_cleanup(v31, v23);
+    v24 = v33;
+    v33 = 0;
+    if (v24)
     {
-      SSL_SESSION_free(v22);
+      SSL_SESSION_free(v24);
     }
 
-    if ((v21 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
       return 0;
     }
@@ -7174,12 +5111,12 @@ LABEL_23:
     }
   }
 
-  CBB_cleanup(v29);
-  v23 = v31;
-  v31 = 0;
-  if (v23)
+  CBB_cleanup(v31, v17);
+  v25 = v33;
+  v33 = 0;
+  if (v25)
   {
-    SSL_SESSION_free(v23);
+    SSL_SESSION_free(v25);
   }
 
   return 0;
@@ -7602,7 +5539,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t bssl::dtls1_write_app_data(bssl *a1, _BYTE *a2, const unsigned __int8 **a3, char *a4, const unsigned __int8 *a5)
+uint64_t bssl::dtls1_write_app_data(bssl *a1, _BYTE *a2, unint64_t *a3, char *a4, const unsigned __int8 *a5)
 {
   if (SSL_in_init(a1))
   {
@@ -7642,22 +5579,22 @@ LABEL_6:
   return result;
 }
 
-uint64_t bssl::dtls1_write_record(bssl *this, char a2, char *a3, const unsigned __int8 *a4, ssl_st *a5)
+uint64_t bssl::dtls1_write_record(unsigned __int16 **this, char a2, char *a3, const unsigned __int8 *a4, ssl_st *a5)
 {
   if (a4 > 0x4000)
   {
     bssl::dtls1_write_record();
   }
 
-  v6 = *(this + 6);
+  v6 = this[6];
   if (v6[58])
   {
     bssl::dtls1_write_record();
   }
 
   *v17 = 0xAAAAAAAAAAAAAAAALL;
-  v11 = bssl::dtls_record_header_write_len(this, a5);
-  v12 = bssl::SSLAEADContext::ExplicitNonceLen(*(*(this + 6) + 272));
+  v11 = bssl::dtls_record_header_write_len(this, a5, a3);
+  v12 = bssl::SSLAEADContext::ExplicitNonceLen(*(this[6] + 34));
   v13 = SSL_max_seal_overhead(this);
   if (bssl::SSLBuffer::EnsureCap((v6 + 52), v12 + v11, &a4[v13]) && (bssl::dtls_seal_record(this, (*(v6 + 13) + v6[56] + v6[58]), v17, (v6[59] - v6[58]), a2, a3, a4, a5, v16) & 1) != 0)
   {
@@ -7681,21 +5618,20 @@ uint64_t bssl::dtls1_write_record(bssl *this, char a2, char *a3, const unsigned 
   }
 }
 
-uint64_t bssl::dtls1_dispatch_alert(BIO **this, ssl_st *a2)
+uint64_t bssl::dtls1_dispatch_alert(bssl *this, ssl_st *a2)
 {
-  v3 = bssl::dtls1_write_record(this, 21, &this[6][4].cb_arg + 5, 2, WORD2(this[7]->method));
+  v3 = bssl::dtls1_write_record(this, 21, (*(this + 6) + 469), 2, *(*(this + 7) + 4));
   if (v3 >= 1)
   {
-    *(&this[6][1].ex_data.dummy + 3) &= ~0x400u;
-    v4 = this[6];
-    if (BYTE5(v4[4].cb_arg) == 2)
+    *(*(this + 6) + 222) &= ~0x400u;
+    v4 = *(this + 6);
+    if (*(v4 + 469) == 2)
     {
-      BIO_flush(this[4]);
-      v4 = this[6];
+      BIO_flush(*(this + 4));
+      v4 = *(this + 6);
     }
 
-    bssl::ssl_do_msg_callback(this, 1, 21, &v4[4].cb_arg + 5, 2);
-    v5 = *(&this[6][4].cb_arg + 5);
+    bssl::ssl_do_msg_callback(this, 1, 21, v4 + 469, 2);
     bssl::ssl_do_info_callback(this, 0x4008);
   }
 
@@ -7704,7 +5640,7 @@ uint64_t bssl::dtls1_dispatch_alert(BIO **this, ssl_st *a2)
 
 BOOL SSL_generate_key_block(SSL *a1, ssl_session_st *a2, size_t a3)
 {
-  if (SSL_in_init(a1) || bssl::ssl_protocol_version(a1, v6) >= 0x304)
+  if (SSL_in_init(a1) || bssl::ssl_protocol_version(a1, v6, v7) >= 0x304)
   {
     ERR_put_error(16, 0, 66, "/Library/Caches/com.apple.xbs/Sources/boringssl/ssl/t1_enc.cc", 323);
     return 0;
@@ -7717,9 +5653,9 @@ BOOL SSL_generate_key_block(SSL *a1, ssl_session_st *a2, size_t a3)
   }
 }
 
-uint64_t SSL_export_keying_material(bssl *this, ssl_st *a2, size_t a3, const void *a4, size_t a5, const void *a6, size_t a7, int a8)
+uint64_t SSL_export_keying_material(bssl *this, ssl_st *a2, uint64_t a3, const void *a4, size_t a5, const void *a6, size_t a7, int a8)
 {
-  if (*(*(this + 6) + 208) && bssl::ssl_protocol_version(this, a2) >= 0x304)
+  if (*(*(this + 6) + 208) && bssl::ssl_protocol_version(this, a2, a3) >= 0x304)
   {
     v17 = *(this + 6);
     if (*(v17 + 442))
@@ -7820,9 +5756,9 @@ LABEL_29:
   return v20;
 }
 
-void sub_1A9050464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A9050464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   bssl::Array<unsigned char>::~Array(va);
   _Unwind_Resume(a1);
 }
@@ -7862,7 +5798,7 @@ uint64_t bssl::ssl_cert_extract_issuer(__int128 *a1, void *a2)
       result = CBS_get_asn1(&v5[1], v5, 536870928);
       if (result)
       {
-        result = CBS_get_optional_asn1(v5, 0, 0, -1610612736);
+        result = CBS_get_optional_asn1(v5, 0, 0, 2684354560);
         if (result)
         {
           result = CBS_get_asn1(v5, 0, 2);
@@ -7940,7 +5876,7 @@ LABEL_11:
   return 0;
 }
 
-void bssl::SSL_parse_CA_list(uint64_t a1@<X0>, _BYTE *a2@<X1>, unsigned __int8 **a3@<X2>, unint64_t **a4@<X8>)
+void bssl::SSL_parse_CA_list(uint64_t a1@<X0>, _BYTE *a2@<X1>, unsigned __int8 **a3@<X2>, uint64_t *a4@<X8>)
 {
   v8 = *(*(a1 + 120) + 800);
   v15 = OPENSSL_sk_new_null();
@@ -8014,9 +5950,9 @@ LABEL_16:
   std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](&v15, 0);
 }
 
-void sub_1A9050898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A9050898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::unique_ptr<stack_st_CRYPTO_BUFFER,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8147,9 +6083,9 @@ LABEL_4:
   }
 }
 
-void SSL_certs_clear(uint64_t a1)
+void SSL_certs_clear(uint64_t result)
 {
-  v1 = *(a1 + 8);
+  v1 = *(result + 8);
   if (v1)
   {
     v2 = *(v1 + 32);
@@ -8202,9 +6138,9 @@ BOOL SSL_set_signed_cert_timestamp_list(uint64_t a1, const void *a2, unint64_t a
   return v6;
 }
 
-void sub_1A9050C70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9050C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8223,9 +6159,9 @@ BOOL SSL_CTX_set_ocsp_response(uint64_t a1, const void *a2, unint64_t a3)
   return v6;
 }
 
-void sub_1A9050CFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9050CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8249,9 +6185,9 @@ BOOL SSL_set_ocsp_response(uint64_t a1, const void *a2, unint64_t a3)
   return v6;
 }
 
-void sub_1A9050D94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9050D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<crypto_buffer_st,bssl::internal::Deleter>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -8309,7 +6245,7 @@ LABEL_16:
   return v13;
 }
 
-const char *SSL_SESSION_get_version(uint64_t a1)
+char *SSL_SESSION_get_version(uint64_t a1)
 {
   v1 = *(a1 + 4);
   v2 = &off_1E785EE48;
@@ -8330,7 +6266,7 @@ const char *SSL_SESSION_get_version(uint64_t a1)
 
 uint64_t bssl::SSLTranscript::UpdateForHelloRetryRequest(bssl::SSLTranscript *this)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*this)
   {
     **this = 0;
@@ -8338,31 +6274,30 @@ uint64_t bssl::SSLTranscript::UpdateForHelloRetryRequest(bssl::SSLTranscript *th
 
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13 = v2;
-  v14 = v2;
-  *v11 = v2;
   v12 = v2;
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  result = bssl::SSLTranscript::GetHash(this, v11, &v10);
+  v13 = v2;
+  *v10 = v2;
+  v11 = v2;
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  result = bssl::SSLTranscript::GetHash(this, v10, &v9);
   if (result)
   {
-    v7 = 254;
-    v8 = 0;
-    v4 = v10;
-    v9 = v10;
+    v6 = 254;
+    v7 = 0;
+    v4 = v9;
+    v8 = v9;
     v5 = EVP_MD_CTX_md((this + 8));
     result = EVP_DigestInit_ex((this + 8), v5, 0);
     if (result)
     {
-      result = bssl::SSLTranscript::AddToBufferOrHash(this, &v7, 4uLL);
+      result = bssl::SSLTranscript::AddToBufferOrHash(this, &v6, 4uLL);
       if (result)
       {
-        result = bssl::SSLTranscript::AddToBufferOrHash(this, v11, v4);
+        return bssl::SSLTranscript::AddToBufferOrHash(this, v10, v4);
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8413,7 +6348,7 @@ LABEL_4:
   return 1;
 }
 
-BOOL bssl::ssl_is_key_type_supported(bssl *this)
+uint64_t bssl::ssl_is_key_type_supported(bssl *this)
 {
   v1 = this == 949;
   if (this == 408)
@@ -8439,7 +6374,7 @@ uint64_t bssl::ssl_private_key_decrypt(uint64_t *a1, uint64_t a2, uint64_t a3, u
     v10 = *a1;
     if ((v6 & 0x20000) != 0)
     {
-      v11 = (*(v9 + 16))(v10, a2, a3, a4);
+      v11 = (*(v9 + 16))(v10, a2, a3, a4, a5, a6);
     }
 
     else
@@ -8520,16 +6455,14 @@ void aead_tls_cleanup(uint64_t a1)
 
 uint64_t aead_tls_open(uint64_t a1, unsigned __int8 *a2, size_t *a3, unint64_t a4, const unsigned __int8 *a5, uint64_t a6, const unsigned __int8 *a7, unint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (*(a1 + 36))
   {
     v10 = 112;
     v11 = 244;
 LABEL_13:
     ERR_put_error(30, 0, v10, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/cipher_extra/e_tls.c", v11);
-LABEL_14:
-    result = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   if (HMAC_size((a1 + 160)) > a8)
@@ -8573,75 +6506,75 @@ LABEL_14:
     result = EVP_DecryptUpdate((a1 + 8), a2, &outl, a7, a8);
     if (result)
     {
-      v22 = outl;
+      v21 = outl;
       result = EVP_DecryptFinal_ex((a1 + 8), &a2[outl], &outl);
       if (result)
       {
-        if (outl + v22 != a8)
+        if (outl + v21 != a8)
         {
           aead_tls_open_cold_1();
         }
 
+        v36 = 0xAAAAAAAAAAAAAAAALL;
         v37 = 0xAAAAAAAAAAAAAAAALL;
-        v38 = 0xAAAAAAAAAAAAAAAALL;
         if (EVP_CIPHER_CTX_mode(a1 + 8) == 2)
         {
-          v23 = EVP_CIPHER_CTX_block_size((a1 + 8));
-          v24 = HMAC_size((a1 + 160));
-          if (!EVP_tls_cbc_remove_padding(&v37, &v38, a2, a8, v23, v24))
+          v22 = EVP_CIPHER_CTX_block_size((a1 + 8));
+          v23 = HMAC_size((a1 + 160));
+          if (!EVP_tls_cbc_remove_padding(&v36, &v37, a2, a8, v22, v23))
           {
             v10 = 101;
             v11 = 308;
             goto LABEL_13;
           }
 
-          v25 = v38;
+          v24 = v37;
         }
 
         else
         {
-          v37 = -1;
-          v38 = a8;
-          v25 = a8;
+          v36 = -1;
+          v37 = a8;
+          v24 = a8;
           if (HMAC_size((a1 + 160)) > a8)
           {
             aead_tls_open_cold_2();
           }
         }
 
-        v26 = v25 - HMAC_size((a1 + 160));
+        v25 = v24 - HMAC_size((a1 + 160));
         *data = *a9;
         *&data[7] = *(a9 + 7);
-        v46 = bswap32(v26) >> 16;
-        *&v27 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v43 = v27;
-        v44 = v27;
-        *md = v27;
-        v42 = v27;
-        v36 = 0xAAAAAAAAAAAAAAAALL;
-        v40[2] = v27;
-        v40[3] = v27;
-        v40[0] = v27;
-        v40[1] = v27;
+        v45 = bswap32(v25) >> 16;
+        *&v26 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v42 = v26;
+        v43 = v26;
+        *md = v26;
+        v41 = v26;
+        v35 = 0xAAAAAAAAAAAAAAAALL;
+        v39[2] = v26;
+        v39[3] = v26;
+        v39[0] = v26;
+        v39[1] = v26;
         if (EVP_CIPHER_CTX_mode(a1 + 8) == 2 && EVP_tls_cbc_record_digest_supported(*(a1 + 160)))
         {
-          if (!EVP_tls_cbc_digest_record(*(a1 + 160), md, &v36, data, a2, v38, a8, a1 + 264, *(a1 + 328)))
+          if (!EVP_tls_cbc_digest_record(*(a1 + 160), md, &v35, data, a2, v37, a8, a1 + 264, *(a1 + 328)))
           {
             v10 = 101;
             v11 = 346;
             goto LABEL_13;
           }
 
-          v28 = v36;
-          if (v28 != HMAC_size((a1 + 160)))
+          v27 = v35;
+          if (v27 != HMAC_size((a1 + 160)))
           {
             aead_tls_open_cold_3();
           }
 
-          v29 = v40;
-          EVP_tls_cbc_copy_mac(v40, v36, a2, v38, a8);
-          v30 = v36;
+          v28 = v39;
+          EVP_tls_cbc_copy_mac(v39, v35, a2, v37, a8);
+          v29 = v35;
         }
 
         else
@@ -8653,44 +6586,43 @@ LABEL_14:
 
           len = -1431655766;
           HMAC_Init_ex((a1 + 160), 0, 0, 0, 0);
-          if (!v31)
+          if (!v30)
           {
-            goto LABEL_14;
+            return 0;
           }
 
           HMAC_Update((a1 + 160), data, 0xDuLL);
-          if (!v32)
+          if (!v31)
           {
-            goto LABEL_14;
+            return 0;
           }
 
-          HMAC_Update((a1 + 160), a2, v26);
-          if (!v33)
+          HMAC_Update((a1 + 160), a2, v25);
+          if (!v32)
           {
-            goto LABEL_14;
+            return 0;
           }
 
           HMAC_Final((a1 + 160), md, &len);
-          if (!v34)
+          if (!v33)
           {
-            goto LABEL_14;
+            return 0;
           }
 
-          v30 = len;
-          v36 = len;
-          if (HMAC_size((a1 + 160)) != v30)
+          v29 = len;
+          v35 = len;
+          if (HMAC_size((a1 + 160)) != v29)
           {
             aead_tls_open_cold_4();
           }
 
-          v29 = &a2[v26];
+          v28 = &a2[v25];
         }
 
-        if (!CRYPTO_memcmp(v29, md, v30) && v37)
+        if (!CRYPTO_memcmp(v28, md, v29) && v36)
         {
-          *a3 = v26;
-          result = 1;
-          goto LABEL_15;
+          *a3 = v25;
+          return 1;
         }
 
         v10 = 101;
@@ -8700,14 +6632,12 @@ LABEL_14:
     }
   }
 
-LABEL_15:
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void aead_tls_seal_scatter(uint64_t a1, unsigned __int8 *a2, void *a3, unint64_t *a4, unint64_t a5, const unsigned __int8 *a6, uint64_t a7, const unsigned __int8 *a8, unint64_t a9, uint64_t a10, uint64_t a11, unsigned __int8 *data, uint64_t a13)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 36))
   {
     v13 = 112;
@@ -8721,7 +6651,7 @@ void aead_tls_seal_scatter(uint64_t a1, unsigned __int8 *a2, void *a3, unint64_t
     v14 = 134;
 LABEL_25:
     ERR_put_error(30, 0, v13, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/cipher_extra/e_tls.c", v14);
-    goto LABEL_26;
+    return;
   }
 
   if (aead_tls_tag_len(a1, a9, a11) > a5)
@@ -8745,13 +6675,13 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  *v41 = bswap32(a9) >> 16;
+  *v40 = bswap32(a9) >> 16;
   *&v22 = 0xAAAAAAAAAAAAAAAALL;
   *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v60 = v22;
-  v61 = v22;
-  *md = v22;
   v59 = v22;
+  v60 = v22;
+  *md = v22;
+  v58 = v22;
   len = -1431655766;
   HMAC_Init_ex((a1 + 160), 0, 0, 0, 0);
   if (v23)
@@ -8759,7 +6689,7 @@ LABEL_25:
     HMAC_Update((a1 + 160), data, 0xBuLL);
     if (v24)
     {
-      HMAC_Update((a1 + 160), v41, 2uLL);
+      HMAC_Update((a1 + 160), v40, 2uLL);
       if (v25)
       {
         HMAC_Update((a1 + 160), a8, a9);
@@ -8786,14 +6716,14 @@ LABEL_25:
                   *&v31 = 0xAAAAAAAAAAAAAAAALL;
                   *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
                   *out = v31;
-                  v43 = v31;
-                  v38 = -1431655766;
-                  if (!EVP_EncryptUpdate((a1 + 8), out, &v38, md, v30))
+                  v42 = v31;
+                  v37 = -1431655766;
+                  if (!EVP_EncryptUpdate((a1 + 8), out, &v37, md, v30))
                   {
-                    goto LABEL_26;
+                    return;
                   }
 
-                  if (v38 != v29)
+                  if (v37 != v29)
                   {
                     aead_tls_seal_scatter_cold_2();
                   }
@@ -8810,10 +6740,10 @@ LABEL_25:
 
                 if (!EVP_EncryptUpdate((a1 + 8), a3 + v30, &outl, &md[v30], len - v32))
                 {
-                  goto LABEL_26;
+                  return;
                 }
 
-                v34 = v30 + outl;
+                v33 = v30 + outl;
                 if (v29 < 2)
                 {
                   goto LABEL_36;
@@ -8829,48 +6759,48 @@ LABEL_25:
                   aead_tls_seal_scatter_cold_3();
                 }
 
-                *&v35 = 0xAAAAAAAAAAAAAAAALL;
-                *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                v56 = v35;
-                v57 = v35;
-                v54 = v35;
-                v55 = v35;
-                v52 = v35;
-                v53 = v35;
-                v50 = v35;
-                v51 = v35;
-                v48 = v35;
-                v49 = v35;
-                v46 = v35;
-                v47 = v35;
-                v44 = v35;
-                v45 = v35;
-                *out = v35;
-                v43 = v35;
-                v36 = (len + a9) % v29;
-                v37 = v29 - v36;
-                if (v29 != v36)
+                *&v34 = 0xAAAAAAAAAAAAAAAALL;
+                *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                v55 = v34;
+                v56 = v34;
+                v53 = v34;
+                v54 = v34;
+                v51 = v34;
+                v52 = v34;
+                v49 = v34;
+                v50 = v34;
+                v47 = v34;
+                v48 = v34;
+                v45 = v34;
+                v46 = v34;
+                v43 = v34;
+                v44 = v34;
+                *out = v34;
+                v42 = v34;
+                v35 = (len + a9) % v29;
+                v36 = v29 - v35;
+                if (v29 != v35)
                 {
                   __memset_chk();
                 }
 
-                if (EVP_EncryptUpdate((a1 + 8), a3 + v34, &outl, out, v37))
+                if (EVP_EncryptUpdate((a1 + 8), a3 + v33, &outl, out, v36))
                 {
-                  v34 += outl;
+                  v33 += outl;
 LABEL_36:
-                  if (EVP_EncryptFinal_ex((a1 + 8), a3 + v34, &outl))
+                  if (EVP_EncryptFinal_ex((a1 + 8), a3 + v33, &outl))
                   {
                     if (outl)
                     {
                       aead_tls_seal_scatter_cold_4();
                     }
 
-                    if (v34 != aead_tls_tag_len(a1, a9, a11))
+                    if (v33 != aead_tls_tag_len(a1, a9, a11))
                     {
                       aead_tls_seal_scatter_cold_5();
                     }
 
-                    *a4 = v34;
+                    *a4 = v33;
                   }
                 }
               }
@@ -8880,12 +6810,9 @@ LABEL_36:
       }
     }
   }
-
-LABEL_26:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
-unint64_t aead_tls_tag_len(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t aead_tls_tag_len(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -9064,7 +6991,7 @@ uint64_t aead_des_ede3_cbc_sha1_tls_implicit_iv_init(uint64_t a1, char *a2, uint
 
 int BN_mod_exp_mont(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (!BN_is_odd(m))
   {
     v12 = 104;
@@ -9079,8 +7006,6 @@ int BN_mod_exp_mont(BIGNUM *r, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m
 LABEL_8:
     ERR_put_error(3, 0, v12, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/bn/exponentiation.c.inc", v13);
     LODWORD(v14) = 0;
-LABEL_9:
-    v15 = *MEMORY[0x1E69E9840];
     return v14;
   }
 
@@ -9091,209 +7016,209 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v17 = BN_num_bits(p);
-  if (v17)
+  v16 = BN_num_bits(p);
+  if (v16)
   {
-    v18 = v17;
-    v47 = 0xAAAAAAAAAAAAAAAALL;
-    *&v19 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v46[14] = v19;
-    v46[13] = v19;
-    v46[12] = v19;
-    v46[11] = v19;
-    v46[10] = v19;
-    v46[9] = v19;
-    v46[8] = v19;
-    v46[7] = v19;
-    v46[6] = v19;
-    v46[5] = v19;
-    v46[4] = v19;
-    v46[3] = v19;
-    v46[2] = v19;
-    v46[1] = v19;
-    v46[0] = v19;
+    v17 = v16;
+    v45 = 0xAAAAAAAAAAAAAAAALL;
+    *&v18 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v44[14] = v18;
+    v44[13] = v18;
+    v44[12] = v18;
+    v44[11] = v18;
+    v44[10] = v18;
+    v44[9] = v18;
+    v44[8] = v18;
+    v44[7] = v18;
+    v44[6] = v18;
+    v44[5] = v18;
+    v44[4] = v18;
+    v44[3] = v18;
+    v44[2] = v18;
+    v44[1] = v18;
+    v44[0] = v18;
     BN_CTX_start(ctx);
+    v19 = BN_CTX_get(ctx);
     v20 = BN_CTX_get(ctx);
-    v21 = BN_CTX_get(ctx);
-    v22 = 0;
+    v21 = 0;
     LODWORD(v14) = 0;
-    v45 = v21;
-    if (!v20 || !v21)
+    v43 = v20;
+    if (!v19 || !v20)
     {
       goto LABEL_69;
     }
 
     if (m_ctx)
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v22 = BN_MONT_CTX_new_consttime(m, ctx);
-      m_ctx = v22;
-      if (!v22)
+      v21 = BN_MONT_CTX_new_consttime(m, ctx);
+      m_ctx = v21;
+      if (!v21)
       {
         LODWORD(v14) = 0;
 LABEL_69:
-        BN_MONT_CTX_free(v22);
+        BN_MONT_CTX_free(v21);
         BN_CTX_end(ctx);
-        goto LABEL_9;
+        return v14;
       }
     }
 
-    mont = v22;
-    b = v20;
-    if (v18 <= 0x29F)
+    mont = v21;
+    b = v19;
+    if (v17 <= 0x29F)
     {
-      if (v18 <= 0xEF)
+      if (v17 <= 0xEF)
       {
-        if (v18 <= 0x4F)
+        if (v17 <= 0x4F)
         {
-          if (v18 <= 0x17)
+          if (v17 <= 0x17)
           {
-            v24 = 1;
+            v22 = 1;
           }
 
           else
           {
-            v24 = 3;
+            v22 = 3;
           }
         }
 
         else
         {
-          v24 = 4;
+          v22 = 4;
         }
       }
 
       else
       {
-        v24 = 5;
+        v22 = 5;
       }
     }
 
     else
     {
-      v24 = 6;
+      v22 = 6;
     }
 
-    if (BN_to_montgomery(v21, a, m_ctx, ctx))
+    if (BN_to_montgomery(v20, a, m_ctx, ctx))
     {
-      v42 = v24;
-      v40 = v24 - 2;
-      if (v24 < 2)
+      v40 = v22;
+      v38 = v22 - 2;
+      if (v22 < 2)
       {
 LABEL_39:
-        v30 = 0;
-        v31 = v18 - 1;
-        v32 = v42;
+        v28 = 0;
+        v29 = v17 - 1;
+        v30 = v40;
         while (1)
         {
-          while (!BN_is_bit_set(p, v31))
+          while (!BN_is_bit_set(p, v29))
           {
-            if (v30)
+            if (v28)
             {
-              if (!BN_mod_mul_montgomery(v20, v20, v20, m_ctx, ctx))
+              if (!BN_mod_mul_montgomery(v19, v19, v19, m_ctx, ctx))
               {
                 goto LABEL_67;
               }
 
-              if (!v31)
+              if (!v29)
               {
                 goto LABEL_70;
               }
             }
 
-            else if (!v31)
+            else if (!v29)
             {
               BN_mod_exp_mont_cold_1();
             }
 
-            --v31;
+            --v29;
           }
 
-          v41 = v30;
-          v33 = 0;
-          v34 = 1;
-          if (v32 >= 2)
+          v39 = v28;
+          v31 = 0;
+          v32 = 1;
+          if (v30 >= 2)
           {
-            v35 = v31 - 1;
-            if (v31 >= 1)
+            v33 = v29 - 1;
+            if (v29 >= 1)
             {
-              v33 = 0;
-              v36 = v40;
-              if (v35 < v40)
+              v31 = 0;
+              v34 = v38;
+              if (v33 < v38)
               {
-                v36 = v31 - 1;
+                v34 = v29 - 1;
               }
 
-              v37 = v36 + 1;
-              v38 = 1;
+              v35 = v34 + 1;
+              v36 = 1;
               do
               {
-                if (BN_is_bit_set(p, v35))
+                if (BN_is_bit_set(p, v33))
                 {
-                  v34 = (v34 << (v38 - v33)) | 1;
-                  v33 = v38;
+                  v32 = (v32 << (v36 - v31)) | 1;
+                  v31 = v36;
                 }
 
-                ++v38;
+                ++v36;
+                --v33;
                 --v35;
-                --v37;
               }
 
-              while (v37);
+              while (v35);
             }
           }
 
-          v20 = b;
-          if ((v41 & (v33 >= 0)) == 1)
+          v19 = b;
+          if ((v39 & (v31 >= 0)) == 1)
           {
             break;
           }
 
 LABEL_59:
-          if ((v34 & 1) == 0)
+          if ((v32 & 1) == 0)
           {
             BN_mod_exp_mont_cold_3();
           }
 
-          v32 = v42;
-          if (v34 >= 1 << v42)
+          v30 = v40;
+          if (v32 >= 1 << v40)
           {
             BN_mod_exp_mont_cold_2();
           }
 
-          if (v41)
+          if (v39)
           {
-            if (!BN_mod_mul_montgomery(b, b, *(&v45 + (v34 >> 1)), m_ctx, ctx))
+            if (!BN_mod_mul_montgomery(b, b, *(&v43 + (v32 >> 1)), m_ctx, ctx))
             {
               goto LABEL_67;
             }
           }
 
-          else if (!BN_copy(b, *(&v45 + (v34 >> 1))))
+          else if (!BN_copy(b, *(&v43 + (v32 >> 1))))
           {
             goto LABEL_67;
           }
 
-          if (v31 == v33)
+          if (v29 == v31)
           {
 LABEL_70:
-            LODWORD(v14) = BN_from_montgomery(r, v20, m_ctx, ctx) != 0;
+            LODWORD(v14) = BN_from_montgomery(r, v19, m_ctx, ctx) != 0;
             goto LABEL_68;
           }
 
-          v31 += ~v33;
-          v30 = 1;
+          v29 += ~v31;
+          v28 = 1;
         }
 
-        v39 = v33 + 1;
+        v37 = v31 + 1;
         while (BN_mod_mul_montgomery(b, b, b, m_ctx, ctx))
         {
-          if (!--v39)
+          if (!--v37)
           {
             goto LABEL_59;
           }
@@ -9302,32 +7227,32 @@ LABEL_70:
 
       else
       {
-        v25 = BN_CTX_get(ctx);
-        v14 = v25;
-        if (!v25)
+        v23 = BN_CTX_get(ctx);
+        v14 = v23;
+        if (!v23)
         {
 LABEL_68:
-          v22 = mont;
+          v21 = mont;
           goto LABEL_69;
         }
 
-        if (BN_mod_mul_montgomery(v25, v21, v21, m_ctx, ctx))
+        if (BN_mod_mul_montgomery(v23, v20, v20, m_ctx, ctx))
         {
-          v26 = v46;
-          v27 = 2;
+          v24 = v44;
+          v25 = 2;
           while (1)
           {
-            v28 = BN_CTX_get(ctx);
-            *v26 = v28;
-            if (!v28 || !BN_mod_mul_montgomery(v28, *(v26 - 1), v14, m_ctx, ctx))
+            v26 = BN_CTX_get(ctx);
+            *v24 = v26;
+            if (!v26 || !BN_mod_mul_montgomery(v26, *(v24 - 1), v14, m_ctx, ctx))
             {
               break;
             }
 
-            v29 = v27 >> (v42 - 1);
-            ++v26;
-            ++v27;
-            if (v29)
+            v27 = v25 >> (v40 - 1);
+            ++v24;
+            ++v25;
+            if (v27)
             {
               goto LABEL_39;
             }
@@ -9345,10 +7270,8 @@ LABEL_67:
   {
     BN_zero(r);
     LODWORD(v14) = 1;
-    goto LABEL_9;
+    return v14;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return BN_one(r);
 }
@@ -9385,103 +7308,103 @@ void bn_mod_exp_mont_small(unint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4
       }
     }
 
-    v15 = BN_num_bits_word(v12);
-    v16 = v11 + v15;
-    v17 = __CFADD__(v16, 1);
-    v18 = v16 + 1;
-    if (v17)
+    v14 = BN_num_bits_word(v12);
+    v15 = v11 + v14;
+    v16 = __CFADD__(v15, 1);
+    v17 = v15 + 1;
+    if (v16)
     {
       bn_mod_exp_mont_small_cold_4();
     }
 
-    v41 = a3;
-    if (v18 <= 0x29F)
+    v39 = a3;
+    if (v17 <= 0x29F)
     {
-      if (v18 <= 0xEF)
+      if (v17 <= 0xEF)
       {
-        if (v18 <= 0x17)
+        if (v17 <= 0x17)
         {
-          v20 = 1;
+          v19 = 1;
         }
 
         else
         {
-          v20 = 3;
+          v19 = 3;
         }
 
-        if (v18 <= 0x4F)
+        if (v17 <= 0x4F)
         {
-          v19 = v20;
+          v18 = v19;
         }
 
         else
         {
-          v19 = 4;
+          v18 = 4;
         }
       }
 
       else
       {
-        v19 = 5;
+        v18 = 5;
       }
     }
 
     else
     {
-      v19 = 6;
+      v18 = 6;
     }
 
-    v21 = v15;
-    if (v19 >= 5)
+    v20 = v14;
+    if (v18 >= 5)
     {
-      v22 = 5;
+      v21 = 5;
     }
 
     else
     {
-      v22 = v19;
+      v21 = v18;
     }
 
-    v40 = v22;
+    v38 = v21;
     memset(__b, 170, 0x480uLL);
-    if (v41)
+    if (v39)
     {
       __memcpy_chk();
     }
 
-    v39 = v19;
-    if (v19 >= 2)
+    v37 = v18;
+    if (v18 >= 2)
     {
-      v43 = 0xAAAAAAAAAAAAAAAALL;
-      *&v23 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v42[2] = v23;
-      v42[3] = v23;
-      v42[0] = v23;
-      v42[1] = v23;
-      bn_mod_mul_montgomery_small(v42, __b, __b, v41, v7);
-      if (v40 != 1)
+      v41 = 0xAAAAAAAAAAAAAAAALL;
+      *&v22 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v40[2] = v22;
+      v40[3] = v22;
+      v40[0] = v22;
+      v40[1] = v22;
+      bn_mod_mul_montgomery_small(v40, __b, __b, v39, v7);
+      if (v38 != 1)
       {
-        v24 = 2;
+        v23 = 2;
         do
         {
-          bn_mod_mul_montgomery_small(&__b[9 * v24 - 9], &__b[9 * v24 - 18], v42, v41, v7);
+          bn_mod_mul_montgomery_small(&__b[9 * v23 - 9], &__b[9 * v23 - 18], v40, v39, v7);
         }
 
-        while (!(v24++ >> (v40 - 1)));
+        while (!(v23++ >> (v38 - 1)));
       }
     }
 
-    v26 = 0;
-    v27 = v21 + v11;
-    v38 = v7;
+    v25 = 0;
+    v26 = v20 + v11;
+    v36 = v7;
     while (1)
     {
-      for (i = v27; !bn_is_bit_set_words(a4, v8, i); --i)
+      for (i = v26; !bn_is_bit_set_words(a4, v8, i); --i)
       {
-        if (v26)
+        if (v25)
         {
-          bn_mod_mul_montgomery_small(a1, a1, a1, v41, v7);
+          bn_mod_mul_montgomery_small(a1, a1, a1, v39, v7);
           if (!i)
           {
             goto LABEL_63;
@@ -9494,159 +7417,156 @@ void bn_mod_exp_mont_small(unint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4
         }
       }
 
-      if (v19 < 2 || !i)
+      if (v18 < 2 || !i)
       {
         break;
       }
 
-      v29 = 0;
-      v30 = i - 1;
-      v31 = v40 - 2;
-      if (i - 1 < v40 - 2)
+      v28 = 0;
+      v29 = i - 1;
+      v30 = v38 - 2;
+      if (i - 1 < v38 - 2)
       {
-        v31 = i - 1;
+        v30 = i - 1;
       }
 
-      v32 = v31 + 1;
+      v31 = v30 + 1;
+      v32 = 1;
       v33 = 1;
-      v34 = 1;
       do
       {
-        if (bn_is_bit_set_words(a4, v8, v30))
+        if (bn_is_bit_set_words(a4, v8, v29))
         {
-          v34 = (v34 << (v33 - v29)) | 1;
-          v29 = v33;
+          v33 = (v33 << (v32 - v28)) | 1;
+          v28 = v32;
         }
 
-        --v30;
-        ++v33;
-        --v32;
+        --v29;
+        ++v32;
+        --v31;
       }
 
-      while (v32);
-      v7 = v38;
-      if ((v26 & 1) == 0)
+      while (v31);
+      v7 = v36;
+      if ((v25 & 1) == 0)
       {
-        v35 = v41;
+        v34 = v39;
         goto LABEL_55;
       }
 
-      v35 = v41;
-      v19 = v39;
-      if (v29 != -1)
+      v34 = v39;
+      v18 = v37;
+      if (v28 != -1)
       {
         goto LABEL_51;
       }
 
 LABEL_56:
-      if ((v34 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
         bn_mod_exp_mont_small_cold_3();
       }
 
-      if (v34 >> v40)
+      if (v33 >> v38)
       {
         bn_mod_exp_mont_small_cold_2();
       }
 
-      if ((v26 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
 LABEL_60:
-        if (v35)
+        if (v34)
         {
-          memcpy(a1, &__b[9 * (v34 >> 1)], 8 * v41);
+          memcpy(a1, &__b[9 * (v33 >> 1)], 8 * v39);
         }
 
         goto LABEL_62;
       }
 
-      bn_mod_mul_montgomery_small(a1, a1, &__b[9 * (v34 >> 1)], v35, v7);
+      bn_mod_mul_montgomery_small(a1, a1, &__b[9 * (v33 >> 1)], v34, v7);
 LABEL_62:
-      v27 = i - (v29 + 1);
-      v26 = 1;
-      if (i == v29)
+      v26 = i - (v28 + 1);
+      v25 = 1;
+      if (i == v28)
       {
 LABEL_63:
         OPENSSL_cleanse(__b, 0x480uLL);
-        v37 = *MEMORY[0x1E69E9840];
         return;
       }
     }
 
-    v29 = 0;
-    v34 = 1;
-    v35 = v41;
-    if ((v26 & 1) == 0)
+    v28 = 0;
+    v33 = 1;
+    v34 = v39;
+    if ((v25 & 1) == 0)
     {
       goto LABEL_60;
     }
 
 LABEL_51:
-    v36 = v29 + 1;
+    v35 = v28 + 1;
     do
     {
-      bn_mod_mul_montgomery_small(a1, a1, a1, v35, v7);
-      --v36;
+      bn_mod_mul_montgomery_small(a1, a1, a1, v34, v7);
+      --v35;
     }
 
-    while (v36);
+    while (v35);
 LABEL_55:
-    v19 = v39;
+    v18 = v37;
     goto LABEL_56;
   }
 
 LABEL_9:
   v13 = *v7;
-  v14 = *MEMORY[0x1E69E9840];
 
   bn_from_montgomery_small(a1, a3, v13, a3, v7);
 }
 
 void bn_mod_inverse0_prime_mont_small(unint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a3 > 9 || *(a4 + 32) != a3)
   {
     abort();
   }
 
   v8 = 0xAAAAAAAAAAAAAAAALL;
-  v17 = 0xAAAAAAAAAAAAAAAALL;
+  v15 = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v16[2] = v9;
-  v16[3] = v9;
-  v16[0] = v9;
-  v16[1] = v9;
-  if (a3 && (v10 = *(a4 + 24), __memcpy_chk(), v8 = *&v16[0], *&v16[0] < 2uLL))
+  v14[2] = v9;
+  v14[3] = v9;
+  v14[0] = v9;
+  v14[1] = v9;
+  if (a3 && (__memcpy_chk(), v8 = *&v14[0], *&v14[0] < 2uLL))
   {
-    *&v16[0] |= 0xFFFFFFFFFFFFFFFELL;
+    *&v14[0] |= 0xFFFFFFFFFFFFFFFELL;
     if (a3 != 1)
     {
-      v12 = a3 - 2;
-      v13 = v16 + 1;
+      v10 = a3 - 2;
+      v11 = v14 + 1;
       do
       {
-        v14 = v12;
-        if ((*v13++)-- != 0)
+        v12 = v10;
+        if ((*v11++)-- != 0)
         {
           break;
         }
 
-        --v12;
+        --v10;
       }
 
-      while (v14);
+      while (v12);
     }
   }
 
   else
   {
-    *&v16[0] = v8 - 2;
+    *&v14[0] = v8 - 2;
   }
 
-  bn_mod_exp_mont_small(a1, a2, a3, v16, a3, a4);
-  v11 = *MEMORY[0x1E69E9840];
+  bn_mod_exp_mont_small(a1, a2, a3, v14, a3, a4);
 }
 
 int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p, const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *in_mont)
@@ -9905,4 +7825,2878 @@ LABEL_67:
   }
 
   return BN_one(rr);
+}
+
+uint64_t copy_to_prebuf(uint64_t a1, int a2, uint64_t a3, int a4)
+{
+  result = bn_copy_words((a3 + 8 * a4 * a2), a2, a1);
+  if (!result)
+  {
+    copy_to_prebuf_cold_1();
+  }
+
+  return result;
+}
+
+uint64_t copy_from_prebuf(uint64_t a1, unsigned int a2, uint64_t a3, int a4, char a5)
+{
+  v10 = a2;
+  result = bn_wexpand(a1, a2);
+  if (result)
+  {
+    v12 = 8 * v10;
+    if (a2)
+    {
+      bzero(*a1, v12);
+    }
+
+    v13 = 0;
+    do
+    {
+      if (a2 >= 1)
+      {
+        v14 = 0;
+        v15 = *a1;
+        do
+        {
+          v15[v14] |= *(a3 + v14 * 8) & ((((v13 ^ a4) - 1) & ~(v13 ^ a4)) >> 63);
+          ++v14;
+        }
+
+        while (a2 != v14);
+      }
+
+      ++v13;
+      a3 += v12;
+    }
+
+    while (!(v13 >> a5));
+    *(a1 + 8) = a2;
+    return 1;
+  }
+
+  return result;
+}
+
+int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)
+{
+  neg = a->neg;
+  if (neg == b->neg)
+  {
+    result = bn_uadd_consttime(r, a, b);
+    if (!result)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_15;
+  }
+
+  v6 = neg == 0;
+  if (neg)
+  {
+    v7 = b;
+  }
+
+  else
+  {
+    v7 = a;
+  }
+
+  if (v6)
+  {
+    v8 = b;
+  }
+
+  else
+  {
+    v8 = a;
+  }
+
+  if (BN_ucmp(v7, v8) < 0)
+  {
+    result = bn_usub_consttime(r, v8, v7);
+    if (!result)
+    {
+      return result;
+    }
+
+    neg = 1;
+    goto LABEL_15;
+  }
+
+  v9 = bn_usub_consttime(r, v7, v8);
+  neg = 0;
+  result = 0;
+  if (v9)
+  {
+LABEL_15:
+    bn_set_minimal_width(r);
+    result = 1;
+LABEL_16:
+    r->neg = neg;
+  }
+
+  return result;
+}
+
+int BN_usub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)
+{
+  result = bn_usub_consttime(r, a, b);
+  if (result)
+  {
+    bn_set_minimal_width(r);
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t bn_uadd_consttime(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a2 + 8);
+  v5 = *(a3 + 8);
+  if (v4 >= v5)
+  {
+    v6 = a3;
+  }
+
+  else
+  {
+    v6 = a2;
+  }
+
+  if (v4 >= v5)
+  {
+    v7 = a2;
+  }
+
+  else
+  {
+    v7 = a3;
+  }
+
+  v8 = *(v7 + 8);
+  v9 = *(v6 + 8);
+  result = bn_wexpand(a1, v8 + 1);
+  if (result)
+  {
+    *(a1 + 8) = v8 + 1;
+    v11 = bn_add_words(*a1, *v7, *v6, v9);
+    if (v9 >= v8)
+    {
+      v16 = *a1;
+    }
+
+    else
+    {
+      v12 = 8 * v9;
+      v13 = v8 - v9;
+      do
+      {
+        if (v11 >= 2)
+        {
+          bn_uadd_consttime_cold_1();
+        }
+
+        v14 = *(*v7 + v12);
+        v15 = v14 + v11;
+        v11 = __CFADD__(v14, v11);
+        v16 = *a1;
+        *(*a1 + v12) = v15;
+        v12 += 8;
+        --v13;
+      }
+
+      while (v13);
+    }
+
+    v16[v8] = v11;
+    return 1;
+  }
+
+  return result;
+}
+
+int BN_add_word(BIGNUM *a, unint64_t w)
+{
+  if (!w)
+  {
+    goto LABEL_16;
+  }
+
+  v2 = w;
+  if (!BN_is_zero(a))
+  {
+    if (a->neg)
+    {
+      a->neg = 0;
+      LODWORD(v2) = BN_sub_word(a, v2);
+      if (!BN_is_zero(a))
+      {
+        a->neg = a->neg == 0;
+      }
+
+      return v2;
+    }
+
+    v5 = 0;
+    top = a->top;
+    while ((top & ~(top >> 31)) != v5)
+    {
+      v7 = a->d[v5];
+      v8 = __CFADD__(v7, v2);
+      a->d[v5++] = v7 + v2;
+      v2 = 1;
+      if (!v8)
+      {
+        return v2;
+      }
+    }
+
+    if ((top & 0x80000000) == 0)
+    {
+      if (!bn_wexpand(&a->d, top + 1))
+      {
+        LODWORD(v2) = 0;
+        return v2;
+      }
+
+      ++a->top;
+      a->d[top] = v2;
+    }
+
+LABEL_16:
+    LODWORD(v2) = 1;
+    return v2;
+  }
+
+  return BN_set_word(a, v2);
+}
+
+int BN_sub_word(BIGNUM *a, unint64_t w)
+{
+  if (!w)
+  {
+    return 1;
+  }
+
+  v2 = w;
+  if (BN_is_zero(a))
+  {
+    v4 = BN_set_word(a, v2);
+    if (v4)
+    {
+      BN_set_negative(a, 1);
+    }
+
+    return v4;
+  }
+
+  if (a->neg)
+  {
+    a->neg = 0;
+    result = BN_add_word(a, v2);
+    a->neg = 1;
+    return result;
+  }
+
+  v6 = bn_minimal_width(a);
+  d = a->d;
+  v8 = *a->d;
+  if (v6 != 1 || v8 >= v2)
+  {
+    v9 = 0;
+    v10 = v8 - v2;
+    if (v8 < v2)
+    {
+      v2 = 1;
+      do
+      {
+        *d = v10;
+        v11 = d[1];
+        ++d;
+        v8 = v11;
+        ++v9;
+        v10 = -1;
+      }
+
+      while (!v11);
+    }
+
+    v12 = v8 - v2;
+    *d = v12;
+    if (!v12 && v9 == a->top - 1)
+    {
+      a->top = v9;
+    }
+
+    return 1;
+  }
+
+  *d = v2 - v8;
+  v4 = 1;
+  a->neg = 1;
+  return v4;
+}
+
+int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b)
+{
+  v3 = b;
+  neg = b->neg;
+  if (a->neg)
+  {
+    if (neg)
+    {
+      v6 = a;
+      goto LABEL_10;
+    }
+
+    v7 = 1;
+LABEL_7:
+    result = bn_uadd_consttime(r, a, b);
+    if (!result)
+    {
+      return result;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (neg)
+  {
+    v7 = 0;
+    goto LABEL_7;
+  }
+
+  v6 = b;
+  v3 = a;
+LABEL_10:
+  if (BN_ucmp(v3, v6) < 0)
+  {
+    result = bn_usub_consttime(r, v6, v3);
+    if (!result)
+    {
+      return result;
+    }
+
+    v7 = 1;
+    goto LABEL_15;
+  }
+
+  v9 = bn_usub_consttime(r, v3, v6);
+  v7 = 0;
+  result = 0;
+  if (v9)
+  {
+LABEL_15:
+    bn_set_minimal_width(r);
+    r->neg = v7;
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t bn_usub_consttime(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a3 + 8);
+  v7 = *(a2 + 8);
+  if (v6 > v7)
+  {
+    if (!bn_fits_in_words(a3, v7))
+    {
+      v16 = 229;
+      goto LABEL_16;
+    }
+
+    v7 = *(a2 + 8);
+    v6 = v7;
+  }
+
+  result = bn_wexpand(a1, v7);
+  if (!result)
+  {
+    return result;
+  }
+
+  v9 = bn_sub_words(*a1, *a2, *a3, v6);
+  v10 = *(a2 + 8);
+  v11 = v10 - v6;
+  if (v10 > v6)
+  {
+    v12 = 8 * v6;
+    do
+    {
+      if (v9 >= 2)
+      {
+        bn_usub_consttime_cold_1();
+      }
+
+      v13 = *(*a2 + v12);
+      v14 = v13 >= v9;
+      v15 = v13 - v9;
+      v9 = !v14;
+      *(*a1 + v12) = v15;
+      v12 += 8;
+      --v11;
+    }
+
+    while (v11);
+  }
+
+  if (!v9)
+  {
+    *(a1 + 8) = v10;
+    *(a1 + 16) = 0;
+    return 1;
+  }
+
+  v16 = 245;
+LABEL_16:
+  ERR_put_error(3, 0, 100, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/bn/add.c.inc", v16);
+  return 0;
+}
+
+BIGNUM *__cdecl BN_mod_sqrt(BIGNUM *ret, const BIGNUM *a, const BIGNUM *n, BN_CTX *ctx)
+{
+  if (!BN_is_odd(n) || BN_abs_is_word(n, 1))
+  {
+    if (!BN_abs_is_word(n, 2))
+    {
+      ERR_put_error(3, 0, 114, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/bn/sqrt.c.inc", 88);
+      return 0;
+    }
+
+    v8 = ret;
+    if (ret || (v8 = BN_new()) != 0)
+    {
+      is_bit_set = BN_is_bit_set(a, 0);
+      goto LABEL_13;
+    }
+
+LABEL_14:
+    if (v8 != ret)
+    {
+      BN_free(v8);
+    }
+
+    return 0;
+  }
+
+  if (!BN_is_zero(a) && !BN_is_one(a))
+  {
+    BN_CTX_start(ctx);
+    v11 = BN_CTX_get(ctx);
+    v12 = BN_CTX_get(ctx);
+    v13 = BN_CTX_get(ctx);
+    v14 = BN_CTX_get(ctx);
+    v15 = BN_CTX_get(ctx);
+    v16 = BN_CTX_get(ctx);
+    if (!v16)
+    {
+LABEL_62:
+      v8 = 0;
+      goto LABEL_63;
+    }
+
+    v17 = v16;
+    r = v12;
+    v8 = ret;
+    if (!ret)
+    {
+      v8 = BN_new();
+      if (!v8)
+      {
+        goto LABEL_60;
+      }
+    }
+
+    if (!BN_nnmod(v11, a, n, ctx))
+    {
+      goto LABEL_60;
+    }
+
+    v18 = 0;
+    do
+    {
+      ++v18;
+    }
+
+    while (!BN_is_bit_set(n, v18));
+    if (v18 == 2)
+    {
+      if (!bn_mod_lshift1_consttime(v14, v11, n, ctx))
+      {
+        goto LABEL_60;
+      }
+
+      if (!BN_rshift(v13, n, 3))
+      {
+        goto LABEL_60;
+      }
+
+      v13->neg = 0;
+      if (!BN_mod_exp_mont(r, v14, v13, n, ctx, 0) || !BN_mod_sqr(v17, r, n, ctx) || !BN_mod_mul(v14, v14, v17, n, ctx) || !BN_sub_word(v14, 1uLL) || !BN_mod_mul(v15, v11, r, n, ctx) || !BN_mod_mul(v15, v15, v14, n, ctx))
+      {
+        goto LABEL_60;
+      }
+
+      v21 = v8;
+LABEL_41:
+      if (!BN_copy(v21, v15))
+      {
+        goto LABEL_60;
+      }
+
+      goto LABEL_29;
+    }
+
+    if (v18 == 1)
+    {
+      if (BN_rshift(v13, n, 2))
+      {
+        v13->neg = 0;
+        if (BN_add_word(v13, 1uLL))
+        {
+          if (BN_mod_exp_mont(v8, v11, v13, n, ctx, 0))
+          {
+LABEL_29:
+            if (!BN_mod_sqr(v15, v8, n, ctx))
+            {
+              goto LABEL_60;
+            }
+
+            if (!BN_cmp(v15, v11))
+            {
+LABEL_63:
+              BN_CTX_end(ctx);
+              return v8;
+            }
+
+            v19 = 110;
+            v20 = 409;
+            goto LABEL_59;
+          }
+        }
+      }
+
+LABEL_60:
+      if (v8 != ret)
+      {
+        BN_clear_free(v8);
+      }
+
+      goto LABEL_62;
+    }
+
+    if (!BN_copy(v13, n))
+    {
+      goto LABEL_60;
+    }
+
+    aa = v15;
+    v13->neg = 0;
+    v22 = 2;
+    while (1)
+    {
+      if (v22 <= 0x15)
+      {
+        goto LABEL_50;
+      }
+
+      v23 = BN_num_bits(n);
+      if (!BN_pseudo_rand(v17, v23, 0, 0) || (BN_ucmp(v17, n) & 0x80000000) == 0 && BN_usub(v17, v17, n))
+      {
+        goto LABEL_60;
+      }
+
+      if (BN_is_zero(v17))
+      {
+LABEL_50:
+        if (!BN_set_word(v17, v22))
+        {
+          goto LABEL_60;
+        }
+      }
+
+      v24 = bn_jacobi(v17, v13, ctx);
+      if (v24 < -1)
+      {
+        goto LABEL_60;
+      }
+
+      if (v24 != 1)
+      {
+        break;
+      }
+
+      if (++v22 == 82)
+      {
+        goto LABEL_58;
+      }
+    }
+
+    if (v24 != -1)
+    {
+      if (!v24)
+      {
+        v19 = 114;
+        v20 = 257;
+        goto LABEL_59;
+      }
+
+LABEL_58:
+      v19 = 115;
+      v20 = 267;
+      goto LABEL_59;
+    }
+
+    if (!BN_rshift(v13, v13, v18) || !BN_mod_exp_mont(v17, v17, v13, n, ctx, 0))
+    {
+      goto LABEL_60;
+    }
+
+    if (BN_is_one(v17))
+    {
+      v19 = 114;
+      v20 = 282;
+LABEL_59:
+      ERR_put_error(3, 0, v19, "/Library/Caches/com.apple.xbs/Sources/boringssl/crypto/fipsmodule/bn/sqrt.c.inc", v20);
+      goto LABEL_60;
+    }
+
+    if (!BN_rshift1(v14, v13))
+    {
+      goto LABEL_60;
+    }
+
+    if (BN_is_zero(v14))
+    {
+      if (!BN_nnmod(v14, v11, n, ctx))
+      {
+        goto LABEL_60;
+      }
+
+      if (!BN_is_zero(v14))
+      {
+        if (!BN_one(aa))
+        {
+          goto LABEL_60;
+        }
+
+LABEL_77:
+        if (BN_mod_sqr(r, aa, n, ctx) && BN_mod_mul(r, r, v11, n, ctx))
+        {
+          v25 = aa;
+          v26 = aa;
+          for (i = v11; BN_mod_mul(v25, v26, i, n, ctx); i = v17)
+          {
+            if (BN_is_one(r))
+            {
+              v21 = v8;
+              v15 = aa;
+              goto LABEL_41;
+            }
+
+            v28 = v18 - 2;
+            if (v18 < 2)
+            {
+LABEL_98:
+              v19 = 110;
+              v20 = 377;
+              goto LABEL_59;
+            }
+
+            v29 = v18 - 1;
+            v18 = 1;
+            while (1)
+            {
+              if (v18 == 1)
+              {
+                if (!BN_mod_sqr(v14, r, n, ctx))
+                {
+                  goto LABEL_60;
+                }
+              }
+
+              else if (!BN_mod_mul(v14, v14, v14, n, ctx))
+              {
+                goto LABEL_60;
+              }
+
+              if (BN_is_one(v14))
+              {
+                break;
+              }
+
+              ++v18;
+              --v28;
+              --v29;
+              if (v28 == -1)
+              {
+                goto LABEL_98;
+              }
+            }
+
+            if (!BN_copy(v14, v17))
+            {
+              goto LABEL_60;
+            }
+
+            if (v28 >= 1)
+            {
+              while (BN_mod_sqr(v14, v14, n, ctx))
+              {
+                if (--v29 < 2)
+                {
+                  goto LABEL_95;
+                }
+              }
+
+              goto LABEL_60;
+            }
+
+LABEL_95:
+            if (!BN_mod_mul(v17, v14, v14, n, ctx) || !BN_mod_mul(aa, aa, v14, n, ctx))
+            {
+              goto LABEL_60;
+            }
+
+            v25 = r;
+            v26 = r;
+          }
+        }
+
+        goto LABEL_60;
+      }
+    }
+
+    else
+    {
+      if (!BN_mod_exp_mont(aa, v11, v14, n, ctx, 0))
+      {
+        goto LABEL_60;
+      }
+
+      if (!BN_is_zero(aa))
+      {
+        goto LABEL_77;
+      }
+    }
+
+    BN_zero(v8);
+    goto LABEL_63;
+  }
+
+  v8 = ret;
+  if (!ret)
+  {
+    v8 = BN_new();
+    if (!v8)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  is_bit_set = BN_is_one(a);
+LABEL_13:
+  if (!BN_set_word(v8, is_bit_set))
+  {
+    goto LABEL_14;
+  }
+
+  return v8;
+}
+
+void bn_sqr_words(unint64_t *rp, const unint64_t *ap, int num)
+{
+  if (*&num)
+  {
+    if (*&num < 4uLL)
+    {
+      goto LABEL_8;
+    }
+
+    do
+    {
+      *rp = *ap * *ap;
+      *(rp + 1) = ap[1] * ap[1];
+      *(rp + 2) = ap[2] * ap[2];
+      *(rp + 3) = ap[3] * ap[3];
+      ap += 4;
+      rp += 8;
+      *&num -= 4;
+    }
+
+    while (*&num >= 4uLL);
+    if (*&num)
+    {
+LABEL_8:
+      do
+      {
+        v3 = *ap++;
+        *rp = v3 * v3;
+        rp += 2;
+        --*&num;
+      }
+
+      while (*&num);
+    }
+  }
+}
+
+void *bn_mul_comba8(void *result, unint64_t *a2, unint64_t *a3)
+{
+  v4 = *a3;
+  v5 = *a2;
+  v3 = (*a3 * v5) >> 64;
+  *result = *a3 * *a2;
+  v6 = a2[1];
+  v8 = *a3;
+  v7 = a3[1];
+  v9 = (__PAIR128__(v7, v4) * v5) >> 64;
+  if (__CFADD__(v7 * *a2, v3))
+  {
+    v10 = ((v7 * *a2) >> 64) + 1;
+  }
+
+  else
+  {
+    v10 = (v7 * *a2) >> 64;
+  }
+
+  v11 = (v8 * v6) >> 64;
+  v12 = v8 * v6;
+  v13 = __CFADD__(v12, v9);
+  v14 = v12 + v9;
+  if (v13)
+  {
+    v15 = v11 + 1;
+  }
+
+  else
+  {
+    v15 = v11;
+  }
+
+  result[1] = v14;
+  v16 = a2[2];
+  v17 = a3[1];
+  v18 = (*a3 * v16) >> 64;
+  v19 = *a3 * v16;
+  v13 = __CFADD__(v19, v15 + v10);
+  v20 = v19 + v15 + v10;
+  if (v13)
+  {
+    v21 = v18 + 1;
+  }
+
+  else
+  {
+    v21 = v18;
+  }
+
+  v13 = __CFADD__(__CFADD__(v15, v10), v21);
+  v22 = __CFADD__(v15, v10) + v21;
+  v23 = v13;
+  v25 = *a2;
+  v24 = a2[1];
+  v26 = (v17 * v24) >> 64;
+  v27 = v17 * v24;
+  v13 = __CFADD__(v20, v27);
+  v28 = v20 + v27;
+  if (v13)
+  {
+    v29 = v26 + 1;
+  }
+
+  else
+  {
+    v29 = v26;
+  }
+
+  v13 = __CFADD__(v22, v29);
+  v30 = v22 + v29;
+  v31 = v13;
+  v32 = a3[2];
+  v33 = (v32 * v25) >> 64;
+  v34 = v32 * v25;
+  v13 = __CFADD__(v28, v34);
+  v35 = v28 + v34;
+  if (v13)
+  {
+    v36 = v33 + 1;
+  }
+
+  else
+  {
+    v36 = v33;
+  }
+
+  v13 = __CFADD__(v30, v36);
+  v37 = v30 + v36;
+  v38 = v23 + v13 + v31;
+  result[2] = v35;
+  v39 = a2[1];
+  v41 = a3[2];
+  v40 = a3[3];
+  v42 = v40 * *a2;
+  v13 = __CFADD__(v42, v37);
+  v43 = v42 + v37;
+  if (v13)
+  {
+    v44 = ((v40 * *a2) >> 64) + 1;
+  }
+
+  else
+  {
+    v44 = (v40 * *a2) >> 64;
+  }
+
+  v45 = v38 + v44;
+  v46 = (v41 * v39) >> 64;
+  v47 = v41 * v39;
+  v13 = __CFADD__(v43, v47);
+  v48 = v43 + v47;
+  if (v13)
+  {
+    v49 = v46 + 1;
+  }
+
+  else
+  {
+    v49 = v46;
+  }
+
+  v13 = __CFADD__(v45, v49);
+  v50 = v45 + v49;
+  v51 = v13;
+  if (__CFADD__(v38, v44))
+  {
+    v52 = v51 + 1;
+  }
+
+  else
+  {
+    v52 = v51;
+  }
+
+  v53 = a2[2];
+  v54 = a2[3];
+  v56 = *a3;
+  v55 = a3[1];
+  v57 = (v55 * v53) >> 64;
+  v58 = v55 * v53;
+  v13 = __CFADD__(v48, v58);
+  v59 = v48 + v58;
+  if (v13)
+  {
+    v60 = v57 + 1;
+  }
+
+  else
+  {
+    v60 = v57;
+  }
+
+  v13 = __CFADD__(v50, v60);
+  v61 = v50 + v60;
+  v62 = v13;
+  v63 = (v56 * v54) >> 64;
+  v64 = v56 * v54;
+  v13 = __CFADD__(v59, v64);
+  v65 = v59 + v64;
+  if (v13)
+  {
+    v66 = v63 + 1;
+  }
+
+  else
+  {
+    v66 = v63;
+  }
+
+  v67 = __PAIR128__(v52, v61) + __PAIR128__(v62, v66);
+  result[3] = v65;
+  v68 = a3[1];
+  v69 = *a3 * a2[4] + v67;
+  v70 = *(&v67 + 1) + v67;
+  v71 = __CFADD__(*(&v67 + 1), v67);
+  v73 = a2[2];
+  v72 = a2[3];
+  v74 = (v68 * v72) >> 64;
+  v75 = v68 * v72;
+  v13 = __CFADD__(v69, v75);
+  v76 = v69 + v75;
+  if (v13)
+  {
+    v77 = v74 + 1;
+  }
+
+  else
+  {
+    v77 = v74;
+  }
+
+  v13 = __CFADD__(v70, v77);
+  v78 = v70 + v77;
+  v79 = v13;
+  v80 = a3[2];
+  v81 = a3[3];
+  v82 = (v80 * v73) >> 64;
+  v83 = v80 * v73;
+  v13 = __CFADD__(v76, v83);
+  v84 = v76 + v83;
+  if (v13)
+  {
+    v85 = v82 + 1;
+  }
+
+  else
+  {
+    v85 = v82;
+  }
+
+  v13 = __CFADD__(v78, v85);
+  v86 = v78 + v85;
+  v87 = v71 + v13 + v79;
+  v89 = *a2;
+  v88 = a2[1];
+  v90 = (v81 * v88) >> 64;
+  v91 = v81 * v88;
+  v13 = __CFADD__(v84, v91);
+  v92 = v84 + v91;
+  if (v13)
+  {
+    v93 = v90 + 1;
+  }
+
+  else
+  {
+    v93 = v90;
+  }
+
+  v13 = __CFADD__(v86, v93);
+  v94 = v86 + v93;
+  v95 = v13;
+  v96 = a3[4];
+  v97 = (v96 * v89) >> 64;
+  v98 = v96 * v89;
+  v13 = __CFADD__(v92, v98);
+  v99 = v92 + v98;
+  if (v13)
+  {
+    v100 = v97 + 1;
+  }
+
+  else
+  {
+    v100 = v97;
+  }
+
+  v101 = __PAIR128__(v87, v94) + __PAIR128__(v95, v100);
+  result[4] = v99;
+  v102 = a2[1];
+  v103 = a3[4];
+  v104 = a3[5] * *a2 + v101;
+  v105 = *(&v101 + 1) + v101;
+  v106 = (v103 * v102) >> 64;
+  v107 = v103 * v102;
+  v13 = __CFADD__(v104, v107);
+  v108 = v104 + v107;
+  if (v13)
+  {
+    v109 = v106 + 1;
+  }
+
+  else
+  {
+    v109 = v106;
+  }
+
+  v13 = __CFADD__(v105, v109);
+  v110 = v105 + v109;
+  v111 = v13;
+  if (__CFADD__(*(&v101 + 1), v101))
+  {
+    v112 = v111 + 1;
+  }
+
+  else
+  {
+    v112 = v111;
+  }
+
+  v113 = a2[2];
+  v114 = a2[3];
+  v116 = a3[2];
+  v115 = a3[3];
+  v117 = (v115 * v113) >> 64;
+  v118 = v115 * v113;
+  v13 = __CFADD__(v108, v118);
+  v119 = v108 + v118;
+  if (v13)
+  {
+    v120 = v117 + 1;
+  }
+
+  else
+  {
+    v120 = v117;
+  }
+
+  v13 = __CFADD__(v110, v120);
+  v121 = v110 + v120;
+  v122 = v13;
+  v123 = (v116 * v114) >> 64;
+  v124 = v116 * v114;
+  v13 = __CFADD__(v119, v124);
+  v125 = v119 + v124;
+  if (v13)
+  {
+    v126 = v123 + 1;
+  }
+
+  else
+  {
+    v126 = v123;
+  }
+
+  v127 = __PAIR128__(v112, v121) + __PAIR128__(v122, v126);
+  v128 = a2[4];
+  v129 = a2[5];
+  v131 = *a3;
+  v130 = a3[1];
+  v132 = (v130 * v128) >> 64;
+  v133 = v130 * v128;
+  v13 = __CFADD__(v125, v133);
+  v134 = v125 + v133;
+  if (v13)
+  {
+    v135 = v132 + 1;
+  }
+
+  else
+  {
+    v135 = v132;
+  }
+
+  v136 = __CFADD__(v127, v135);
+  v137 = (v131 * v129) >> 64;
+  v138 = v131 * v129;
+  v13 = __CFADD__(v134, v138);
+  v139 = v134 + v138;
+  if (v13)
+  {
+    v140 = v137 + 1;
+  }
+
+  else
+  {
+    v140 = v137;
+  }
+
+  v141 = v127 + __PAIR128__(v136, v140);
+  result[5] = v139;
+  v142 = a3[1];
+  v143 = *a3 * a2[6] + v141;
+  v144 = *(&v141 + 1) + v141;
+  v145 = __CFADD__(*(&v141 + 1), v141);
+  v147 = a2[4];
+  v146 = a2[5];
+  v148 = (v142 * v146) >> 64;
+  v149 = v142 * v146;
+  v13 = __CFADD__(v143, v149);
+  v150 = v143 + v149;
+  if (v13)
+  {
+    v151 = v148 + 1;
+  }
+
+  else
+  {
+    v151 = v148;
+  }
+
+  v13 = __CFADD__(v144, v151);
+  v152 = v144 + v151;
+  v153 = v13;
+  v154 = a3[2];
+  v155 = a3[3];
+  v156 = (v154 * v147) >> 64;
+  v157 = v154 * v147;
+  v13 = __CFADD__(v150, v157);
+  v158 = v150 + v157;
+  if (v13)
+  {
+    v159 = v156 + 1;
+  }
+
+  else
+  {
+    v159 = v156;
+  }
+
+  v13 = __CFADD__(v152, v159);
+  v160 = v152 + v159;
+  v161 = v145 + v13 + v153;
+  v163 = a2[2];
+  v162 = a2[3];
+  v164 = (v155 * v162) >> 64;
+  v165 = v155 * v162;
+  v13 = __CFADD__(v158, v165);
+  v166 = v158 + v165;
+  if (v13)
+  {
+    v167 = v164 + 1;
+  }
+
+  else
+  {
+    v167 = v164;
+  }
+
+  v13 = __CFADD__(v160, v167);
+  v168 = v160 + v167;
+  v169 = v13;
+  v170 = a3[4];
+  v171 = a3[5];
+  v172 = (v170 * v163) >> 64;
+  v173 = v170 * v163;
+  v13 = __CFADD__(v166, v173);
+  v174 = v166 + v173;
+  if (v13)
+  {
+    v175 = v172 + 1;
+  }
+
+  else
+  {
+    v175 = v172;
+  }
+
+  v176 = __PAIR128__(v161, v168) + __PAIR128__(v169, v175);
+  v178 = *a2;
+  v177 = a2[1];
+  v179 = (v171 * v177) >> 64;
+  v180 = v171 * v177;
+  v13 = __CFADD__(v174, v180);
+  v181 = v174 + v180;
+  if (v13)
+  {
+    v182 = v179 + 1;
+  }
+
+  else
+  {
+    v182 = v179;
+  }
+
+  v183 = __CFADD__(v176, v182);
+  v184 = a3[6];
+  v185 = (v184 * v178) >> 64;
+  v186 = v184 * v178;
+  v13 = __CFADD__(v181, v186);
+  v187 = v181 + v186;
+  if (v13)
+  {
+    v188 = v185 + 1;
+  }
+
+  else
+  {
+    v188 = v185;
+  }
+
+  v189 = v176 + __PAIR128__(v183, v188);
+  result[6] = v187;
+  v190 = a2[1];
+  v191 = a3[6];
+  v192 = a3[7] * *a2 + v189;
+  v193 = *(&v189 + 1) + v189;
+  v194 = (v191 * v190) >> 64;
+  v195 = v191 * v190;
+  v13 = __CFADD__(v192, v195);
+  v196 = v192 + v195;
+  if (v13)
+  {
+    v197 = v194 + 1;
+  }
+
+  else
+  {
+    v197 = v194;
+  }
+
+  v13 = __CFADD__(v193, v197);
+  v198 = v193 + v197;
+  v199 = v13;
+  if (__CFADD__(*(&v189 + 1), v189))
+  {
+    v200 = v199 + 1;
+  }
+
+  else
+  {
+    v200 = v199;
+  }
+
+  v201 = a2[2];
+  v202 = a2[3];
+  v204 = a3[4];
+  v203 = a3[5];
+  v205 = (v203 * v201) >> 64;
+  v206 = v203 * v201;
+  v13 = __CFADD__(v196, v206);
+  v207 = v196 + v206;
+  if (v13)
+  {
+    v208 = v205 + 1;
+  }
+
+  else
+  {
+    v208 = v205;
+  }
+
+  v13 = __CFADD__(v198, v208);
+  v209 = v198 + v208;
+  v210 = v13;
+  v211 = (v204 * v202) >> 64;
+  v212 = v204 * v202;
+  v13 = __CFADD__(v207, v212);
+  v213 = v207 + v212;
+  if (v13)
+  {
+    v214 = v211 + 1;
+  }
+
+  else
+  {
+    v214 = v211;
+  }
+
+  v215 = __PAIR128__(v200, v209) + __PAIR128__(v210, v214);
+  v216 = a2[4];
+  v217 = a2[5];
+  v219 = a3[2];
+  v218 = a3[3];
+  v220 = (v218 * v216) >> 64;
+  v221 = v218 * v216;
+  v13 = __CFADD__(v213, v221);
+  v222 = v213 + v221;
+  if (v13)
+  {
+    v223 = v220 + 1;
+  }
+
+  else
+  {
+    v223 = v220;
+  }
+
+  v224 = __CFADD__(v215, v223);
+  v225 = (v219 * v217) >> 64;
+  v226 = v219 * v217;
+  v13 = __CFADD__(v222, v226);
+  v227 = v222 + v226;
+  if (v13)
+  {
+    v228 = v225 + 1;
+  }
+
+  else
+  {
+    v228 = v225;
+  }
+
+  v229 = v215 + __PAIR128__(v224, v228);
+  v230 = a2[6];
+  v231 = a2[7];
+  v233 = *a3;
+  v232 = a3[1];
+  v234 = (v232 * v230) >> 64;
+  v235 = v232 * v230;
+  v13 = __CFADD__(v227, v235);
+  v236 = v227 + v235;
+  if (v13)
+  {
+    v237 = v234 + 1;
+  }
+
+  else
+  {
+    v237 = v234;
+  }
+
+  v238 = __CFADD__(v229, v237);
+  v239 = (v233 * v231) >> 64;
+  v240 = v233 * v231;
+  v13 = __CFADD__(v236, v240);
+  v241 = v236 + v240;
+  if (v13)
+  {
+    v242 = v239 + 1;
+  }
+
+  else
+  {
+    v242 = v239;
+  }
+
+  v243 = v229 + __PAIR128__(v238, v242);
+  result[7] = v241;
+  v244 = a3[2];
+  v245 = a3[1] * a2[7] + v243;
+  v246 = *(&v243 + 1) + v243;
+  v247 = __CFADD__(*(&v243 + 1), v243);
+  v249 = a2[5];
+  v248 = a2[6];
+  v250 = (v244 * v248) >> 64;
+  v251 = v244 * v248;
+  v13 = __CFADD__(v245, v251);
+  v252 = v245 + v251;
+  if (v13)
+  {
+    v253 = v250 + 1;
+  }
+
+  else
+  {
+    v253 = v250;
+  }
+
+  v13 = __CFADD__(v246, v253);
+  v254 = v246 + v253;
+  v255 = v13;
+  v256 = a3[3];
+  v257 = a3[4];
+  v258 = (v256 * v249) >> 64;
+  v259 = v256 * v249;
+  v13 = __CFADD__(v252, v259);
+  v260 = v252 + v259;
+  if (v13)
+  {
+    v261 = v258 + 1;
+  }
+
+  else
+  {
+    v261 = v258;
+  }
+
+  v13 = __CFADD__(v254, v261);
+  v262 = v254 + v261;
+  v263 = v247 + v13 + v255;
+  v265 = a2[3];
+  v264 = a2[4];
+  v266 = (v257 * v264) >> 64;
+  v267 = v257 * v264;
+  v13 = __CFADD__(v260, v267);
+  v268 = v260 + v267;
+  if (v13)
+  {
+    v269 = v266 + 1;
+  }
+
+  else
+  {
+    v269 = v266;
+  }
+
+  v13 = __CFADD__(v262, v269);
+  v270 = v262 + v269;
+  v271 = v13;
+  v272 = a3[5];
+  v273 = a3[6];
+  v274 = (v272 * v265) >> 64;
+  v275 = v272 * v265;
+  v13 = __CFADD__(v268, v275);
+  v276 = v268 + v275;
+  if (v13)
+  {
+    v277 = v274 + 1;
+  }
+
+  else
+  {
+    v277 = v274;
+  }
+
+  v278 = __PAIR128__(v263, v270) + __PAIR128__(v271, v277);
+  v280 = a2[1];
+  v279 = a2[2];
+  v281 = (v273 * v279) >> 64;
+  v282 = v273 * v279;
+  v13 = __CFADD__(v276, v282);
+  v283 = v276 + v282;
+  if (v13)
+  {
+    v284 = v281 + 1;
+  }
+
+  else
+  {
+    v284 = v281;
+  }
+
+  v285 = __CFADD__(v278, v284);
+  v286 = a3[7];
+  v287 = (v286 * v280) >> 64;
+  v288 = v286 * v280;
+  v13 = __CFADD__(v283, v288);
+  v289 = v283 + v288;
+  if (v13)
+  {
+    v290 = v287 + 1;
+  }
+
+  else
+  {
+    v290 = v287;
+  }
+
+  v291 = v278 + __PAIR128__(v285, v290);
+  result[8] = v289;
+  v292 = a2[3];
+  v293 = a3[6];
+  v294 = a3[7] * a2[2] + v291;
+  v295 = *(&v291 + 1) + v291;
+  v296 = (v293 * v292) >> 64;
+  v297 = v293 * v292;
+  v13 = __CFADD__(v294, v297);
+  v298 = v294 + v297;
+  if (v13)
+  {
+    v299 = v296 + 1;
+  }
+
+  else
+  {
+    v299 = v296;
+  }
+
+  v13 = __CFADD__(v295, v299);
+  v300 = v295 + v299;
+  v301 = v13;
+  if (__CFADD__(*(&v291 + 1), v291))
+  {
+    v302 = v301 + 1;
+  }
+
+  else
+  {
+    v302 = v301;
+  }
+
+  v303 = a2[4];
+  v304 = a2[5];
+  v306 = a3[4];
+  v305 = a3[5];
+  v307 = (v305 * v303) >> 64;
+  v308 = v305 * v303;
+  v13 = __CFADD__(v298, v308);
+  v309 = v298 + v308;
+  if (v13)
+  {
+    v310 = v307 + 1;
+  }
+
+  else
+  {
+    v310 = v307;
+  }
+
+  v13 = __CFADD__(v300, v310);
+  v311 = v300 + v310;
+  v312 = v13;
+  v313 = (v306 * v304) >> 64;
+  v314 = v306 * v304;
+  v13 = __CFADD__(v309, v314);
+  v315 = v309 + v314;
+  if (v13)
+  {
+    v316 = v313 + 1;
+  }
+
+  else
+  {
+    v316 = v313;
+  }
+
+  v317 = __PAIR128__(v302, v311) + __PAIR128__(v312, v316);
+  v318 = a2[6];
+  v319 = a2[7];
+  v321 = a3[2];
+  v320 = a3[3];
+  v322 = (v320 * v318) >> 64;
+  v323 = v320 * v318;
+  v13 = __CFADD__(v315, v323);
+  v324 = v315 + v323;
+  if (v13)
+  {
+    v325 = v322 + 1;
+  }
+
+  else
+  {
+    v325 = v322;
+  }
+
+  v326 = __CFADD__(v317, v325);
+  v327 = (v321 * v319) >> 64;
+  v328 = v321 * v319;
+  v13 = __CFADD__(v324, v328);
+  v329 = v324 + v328;
+  if (v13)
+  {
+    v330 = v327 + 1;
+  }
+
+  else
+  {
+    v330 = v327;
+  }
+
+  v331 = v317 + __PAIR128__(v326, v330);
+  result[9] = v329;
+  v332 = a3[4];
+  v333 = a3[3] * a2[7] + v331;
+  v334 = *(&v331 + 1) + v331;
+  v335 = __CFADD__(*(&v331 + 1), v331);
+  v337 = a2[5];
+  v336 = a2[6];
+  v338 = (v332 * v336) >> 64;
+  v339 = v332 * v336;
+  v13 = __CFADD__(v333, v339);
+  v340 = v333 + v339;
+  if (v13)
+  {
+    v341 = v338 + 1;
+  }
+
+  else
+  {
+    v341 = v338;
+  }
+
+  v13 = __CFADD__(v334, v341);
+  v342 = v334 + v341;
+  v343 = v13;
+  v344 = a3[5];
+  v345 = a3[6];
+  v346 = (v344 * v337) >> 64;
+  v347 = v344 * v337;
+  v13 = __CFADD__(v340, v347);
+  v348 = v340 + v347;
+  if (v13)
+  {
+    v349 = v346 + 1;
+  }
+
+  else
+  {
+    v349 = v346;
+  }
+
+  v13 = __CFADD__(v342, v349);
+  v350 = v342 + v349;
+  v351 = v335 + v13 + v343;
+  v353 = a2[3];
+  v352 = a2[4];
+  v354 = (v345 * v352) >> 64;
+  v355 = v345 * v352;
+  v13 = __CFADD__(v348, v355);
+  v356 = v348 + v355;
+  if (v13)
+  {
+    v357 = v354 + 1;
+  }
+
+  else
+  {
+    v357 = v354;
+  }
+
+  v13 = __CFADD__(v350, v357);
+  v358 = v350 + v357;
+  v359 = v13;
+  v360 = a3[7];
+  v361 = (v360 * v353) >> 64;
+  v362 = v360 * v353;
+  v13 = __CFADD__(v356, v362);
+  v363 = v356 + v362;
+  if (v13)
+  {
+    v364 = v361 + 1;
+  }
+
+  else
+  {
+    v364 = v361;
+  }
+
+  v365 = __PAIR128__(v351, v358) + __PAIR128__(v359, v364);
+  result[10] = v363;
+  v366 = a2[5];
+  v367 = a3[6];
+  v368 = a3[7] * a2[4] + v365;
+  v369 = *(&v365 + 1) + v365;
+  v370 = (v367 * v366) >> 64;
+  v371 = v367 * v366;
+  v13 = __CFADD__(v368, v371);
+  v372 = v368 + v371;
+  if (v13)
+  {
+    v373 = v370 + 1;
+  }
+
+  else
+  {
+    v373 = v370;
+  }
+
+  v13 = __CFADD__(v369, v373);
+  v374 = v369 + v373;
+  v375 = v13;
+  v376 = a2[6];
+  v377 = a2[7];
+  v379 = a3[4];
+  v378 = a3[5];
+  v380 = (v378 * v376) >> 64;
+  v381 = v378 * v376;
+  if (__CFADD__(*(&v365 + 1), v365))
+  {
+    ++v375;
+  }
+
+  v13 = __CFADD__(v372, v381);
+  v382 = v372 + v381;
+  if (v13)
+  {
+    v383 = v380 + 1;
+  }
+
+  else
+  {
+    v383 = v380;
+  }
+
+  v13 = __CFADD__(v374, v383);
+  v384 = v374 + v383;
+  v385 = v13;
+  v386 = (v379 * v377) >> 64;
+  v387 = v379 * v377;
+  v13 = __CFADD__(v382, v387);
+  v388 = v382 + v387;
+  if (v13)
+  {
+    v389 = v386 + 1;
+  }
+
+  else
+  {
+    v389 = v386;
+  }
+
+  v390 = __PAIR128__(v375, v384) + __PAIR128__(v385, v389);
+  result[11] = v388;
+  v391 = a3[6];
+  v392 = a3[5] * a2[7] + v390;
+  v393 = *(&v390 + 1) + v390;
+  v394 = __CFADD__(*(&v390 + 1), v390);
+  v396 = a2[5];
+  v395 = a2[6];
+  v397 = (v391 * v395) >> 64;
+  v398 = v391 * v395;
+  v13 = __CFADD__(v392, v398);
+  v399 = v392 + v398;
+  if (v13)
+  {
+    v400 = v397 + 1;
+  }
+
+  else
+  {
+    v400 = v397;
+  }
+
+  v13 = __CFADD__(v393, v400);
+  v401 = v393 + v400;
+  v402 = v13;
+  v403 = a3[7];
+  v404 = (v403 * v396) >> 64;
+  v405 = v403 * v396;
+  v13 = __CFADD__(v399, v405);
+  v406 = v399 + v405;
+  if (v13)
+  {
+    v407 = v404 + 1;
+  }
+
+  else
+  {
+    v407 = v404;
+  }
+
+  v13 = __CFADD__(v401, v407);
+  v408 = v401 + v407;
+  v409 = v394 + v13 + v402;
+  result[12] = v406;
+  v410 = a2[6];
+  v411 = a2[7];
+  v413 = a3[6];
+  v412 = a3[7];
+  v414 = (v412 * v410) >> 64;
+  v415 = v412 * v410;
+  v13 = __CFADD__(v415, v408);
+  v416 = v415 + v408;
+  if (v13)
+  {
+    v417 = v414 + 1;
+  }
+
+  else
+  {
+    v417 = v414;
+  }
+
+  v418 = v409 + v417;
+  v419 = (v413 * v411) >> 64;
+  v420 = v413 * v411;
+  v13 = __CFADD__(v416, v420);
+  v421 = v416 + v420;
+  if (v13)
+  {
+    v422 = v419 + 1;
+  }
+
+  else
+  {
+    v422 = v419;
+  }
+
+  v13 = __CFADD__(v418, v422);
+  v423 = v418 + v422;
+  v424 = v13;
+  result[13] = v421;
+  v425 = a2[7];
+  v426 = a3[7];
+  v427 = (v426 * v425) >> 64;
+  v428 = v426 * v425;
+  v13 = __CFADD__(v428, v423);
+  v429 = v428 + v423;
+  if (v13)
+  {
+    v430 = v427 + 1;
+  }
+
+  else
+  {
+    v430 = v427;
+  }
+
+  result[14] = v429;
+  result[15] = v424 + __CFADD__(v409, v417) + v430;
+  return result;
+}
+
+void *bn_sqr_comba8(void *result, unint64_t *a2)
+{
+  v2 = (*a2 * *a2) >> 64;
+  *result = *a2 * *a2;
+  v3 = a2[1];
+  v4 = (*a2 * v3) >> 64;
+  v5 = *a2 * v3;
+  v6 = __CFADD__(v5, v2);
+  v7 = v5 + v2;
+  if (v6)
+  {
+    v8 = v4 + 1;
+  }
+
+  else
+  {
+    v8 = v4;
+  }
+
+  v6 = __CFADD__(v7, v5);
+  v9 = v7 + v5;
+  if (v6)
+  {
+    v10 = v4 + 1;
+  }
+
+  else
+  {
+    v10 = v4;
+  }
+
+  result[1] = v9;
+  v12 = *a2;
+  v11 = a2[1];
+  v13 = (v11 * v11) >> 64;
+  v14 = v11 * v11;
+  v6 = __CFADD__(v14, v10 + v8);
+  v15 = v14 + v10 + v8;
+  if (v6)
+  {
+    v16 = v13 + 1;
+  }
+
+  else
+  {
+    v16 = v13;
+  }
+
+  v6 = __CFADD__(__CFADD__(v10, v8), v16);
+  v17 = __CFADD__(v10, v8) + v16;
+  v18 = v6;
+  v19 = a2[2];
+  v20 = (v12 * v19) >> 64;
+  v21 = v12 * v19;
+  v6 = __CFADD__(v15, v21);
+  v22 = v15 + v21;
+  if (v6)
+  {
+    v23 = v20 + 1;
+  }
+
+  else
+  {
+    v23 = v20;
+  }
+
+  v6 = __CFADD__(v17, v23);
+  v24 = v17 + v23;
+  v25 = v6;
+  v6 = __CFADD__(v22, v21);
+  v26 = v22 + v21;
+  if (v6)
+  {
+    v27 = v20 + 1;
+  }
+
+  else
+  {
+    v27 = v20;
+  }
+
+  v6 = __CFADD__(v24, v27);
+  v28 = v24 + v27;
+  v29 = v18 + v6 + v25;
+  result[2] = v26;
+  v31 = a2[2];
+  v30 = a2[3];
+  v32 = a2[1];
+  v33 = (*a2 * v30) >> 64;
+  v34 = *a2 * v30;
+  v6 = __CFADD__(v34, v28);
+  v35 = v34 + v28;
+  if (v6)
+  {
+    v36 = v33 + 1;
+  }
+
+  else
+  {
+    v36 = v33;
+  }
+
+  v37 = v29 + v36;
+  v6 = __CFADD__(v35, v34);
+  v38 = v35 + v34;
+  if (v6)
+  {
+    v39 = v33 + 1;
+  }
+
+  else
+  {
+    v39 = v33;
+  }
+
+  v6 = __CFADD__(v37, v39);
+  v40 = v37 + v39;
+  v41 = v6;
+  if (__CFADD__(v29, v36))
+  {
+    v42 = v41 + 1;
+  }
+
+  else
+  {
+    v42 = v41;
+  }
+
+  v43 = (v32 * v31) >> 64;
+  v44 = v32 * v31;
+  v6 = __CFADD__(v38, v44);
+  v45 = v38 + v44;
+  if (v6)
+  {
+    v46 = v43 + 1;
+  }
+
+  else
+  {
+    v46 = v43;
+  }
+
+  v6 = __CFADD__(v40, v46);
+  v47 = v40 + v46;
+  v48 = v6;
+  v6 = __CFADD__(v45, v44);
+  v49 = v45 + v44;
+  if (v6)
+  {
+    v50 = v43 + 1;
+  }
+
+  else
+  {
+    v50 = v43;
+  }
+
+  v51 = __PAIR128__(v42, v47) + __PAIR128__(v48, v50);
+  result[3] = v49;
+  v52 = a2[3];
+  v53 = a2[2] * a2[2] + v51;
+  v54 = *(&v51 + 1) + v51;
+  v55 = __CFADD__(*(&v51 + 1), v51);
+  v57 = *a2;
+  v56 = a2[1];
+  v58 = (v56 * v52) >> 64;
+  v59 = v56 * v52;
+  v6 = __CFADD__(v53, v59);
+  v60 = v53 + v59;
+  if (v6)
+  {
+    v61 = v58 + 1;
+  }
+
+  else
+  {
+    v61 = v58;
+  }
+
+  v6 = __CFADD__(v54, v61);
+  v62 = v54 + v61;
+  v63 = v6;
+  v6 = __CFADD__(v60, v59);
+  v64 = v60 + v59;
+  if (v6)
+  {
+    v65 = v58 + 1;
+  }
+
+  else
+  {
+    v65 = v58;
+  }
+
+  v6 = __CFADD__(v62, v65);
+  v66 = v62 + v65;
+  v67 = v55 + v6 + v63;
+  v68 = a2[4];
+  v69 = (v57 * v68) >> 64;
+  v70 = v57 * v68;
+  v6 = __CFADD__(v64, v70);
+  v71 = v64 + v70;
+  if (v6)
+  {
+    v72 = v69 + 1;
+  }
+
+  else
+  {
+    v72 = v69;
+  }
+
+  v6 = __CFADD__(v66, v72);
+  v73 = v66 + v72;
+  v74 = v6;
+  v6 = __CFADD__(v71, v70);
+  v75 = v71 + v70;
+  if (v6)
+  {
+    v76 = v69 + 1;
+  }
+
+  else
+  {
+    v76 = v69;
+  }
+
+  v77 = __PAIR128__(v67, v73) + __PAIR128__(v74, v76);
+  result[4] = v75;
+  v79 = a2[4];
+  v78 = a2[5];
+  v80 = a2[1];
+  v81 = (*a2 * v78) >> 64;
+  v82 = *a2 * v78;
+  v83 = v82 + v77;
+  if (__CFADD__(v82, v77))
+  {
+    v84 = v81 + 1;
+  }
+
+  else
+  {
+    v84 = v81;
+  }
+
+  v85 = *(&v77 + 1) + v84;
+  v6 = __CFADD__(v83, v82);
+  v86 = v83 + v82;
+  if (v6)
+  {
+    v87 = v81 + 1;
+  }
+
+  else
+  {
+    v87 = v81;
+  }
+
+  v6 = __CFADD__(v85, v87);
+  v88 = v85 + v87;
+  v89 = v6;
+  if (__CFADD__(*(&v77 + 1), v84))
+  {
+    v90 = v89 + 1;
+  }
+
+  else
+  {
+    v90 = v89;
+  }
+
+  v91 = (v80 * v79) >> 64;
+  v92 = v80 * v79;
+  v6 = __CFADD__(v86, v92);
+  v93 = v86 + v92;
+  if (v6)
+  {
+    v94 = v91 + 1;
+  }
+
+  else
+  {
+    v94 = v91;
+  }
+
+  v6 = __CFADD__(v88, v94);
+  v95 = v88 + v94;
+  v96 = v6;
+  v6 = __CFADD__(v93, v92);
+  v97 = v93 + v92;
+  if (v6)
+  {
+    v98 = v91 + 1;
+  }
+
+  else
+  {
+    v98 = v91;
+  }
+
+  v99 = __PAIR128__(v90, v95) + __PAIR128__(v96, v98);
+  v101 = a2[2];
+  v100 = a2[3];
+  v102 = (v101 * v100) >> 64;
+  v103 = v101 * v100;
+  v6 = __CFADD__(v97, v103);
+  v104 = v97 + v103;
+  if (v6)
+  {
+    v105 = v102 + 1;
+  }
+
+  else
+  {
+    v105 = v102;
+  }
+
+  v106 = __CFADD__(v99, v105);
+  v6 = __CFADD__(v104, v103);
+  v107 = v104 + v103;
+  if (v6)
+  {
+    v108 = v102 + 1;
+  }
+
+  else
+  {
+    v108 = v102;
+  }
+
+  v109 = v99 + __PAIR128__(v106, v108);
+  result[5] = v107;
+  v110 = a2[2];
+  v111 = a2[3] * a2[3] + v109;
+  v112 = *(&v109 + 1) + v109;
+  v113 = __CFADD__(*(&v109 + 1), v109);
+  v114 = a2[4];
+  v115 = a2[5];
+  v116 = (v110 * v114) >> 64;
+  v117 = v110 * v114;
+  v6 = __CFADD__(v111, v117);
+  v118 = v111 + v117;
+  if (v6)
+  {
+    v119 = v116 + 1;
+  }
+
+  else
+  {
+    v119 = v116;
+  }
+
+  v6 = __CFADD__(v112, v119);
+  v120 = v112 + v119;
+  v121 = v6;
+  v6 = __CFADD__(v118, v117);
+  v122 = v118 + v117;
+  if (v6)
+  {
+    v123 = v116 + 1;
+  }
+
+  else
+  {
+    v123 = v116;
+  }
+
+  v6 = __CFADD__(v120, v123);
+  v124 = v120 + v123;
+  v125 = v113 + v6 + v121;
+  v127 = *a2;
+  v126 = a2[1];
+  v128 = (v126 * v115) >> 64;
+  v129 = v126 * v115;
+  v6 = __CFADD__(v122, v129);
+  v130 = v122 + v129;
+  if (v6)
+  {
+    v131 = v128 + 1;
+  }
+
+  else
+  {
+    v131 = v128;
+  }
+
+  v6 = __CFADD__(v124, v131);
+  v132 = v124 + v131;
+  v133 = v6;
+  v6 = __CFADD__(v130, v129);
+  v134 = v130 + v129;
+  if (v6)
+  {
+    v135 = v128 + 1;
+  }
+
+  else
+  {
+    v135 = v128;
+  }
+
+  v136 = __PAIR128__(v125, v132) + __PAIR128__(v133, v135);
+  v137 = a2[6];
+  v138 = (v127 * v137) >> 64;
+  v139 = v127 * v137;
+  v6 = __CFADD__(v134, v139);
+  v140 = v134 + v139;
+  if (v6)
+  {
+    v141 = v138 + 1;
+  }
+
+  else
+  {
+    v141 = v138;
+  }
+
+  v142 = __CFADD__(v136, v141);
+  v6 = __CFADD__(v140, v139);
+  v143 = v140 + v139;
+  if (v6)
+  {
+    v144 = v138 + 1;
+  }
+
+  else
+  {
+    v144 = v138;
+  }
+
+  v145 = v136 + __PAIR128__(v142, v144);
+  result[6] = v143;
+  v147 = a2[6];
+  v146 = a2[7];
+  v148 = a2[1];
+  v149 = (*a2 * v146) >> 64;
+  v150 = *a2 * v146;
+  v151 = v150 + v145;
+  if (__CFADD__(v150, v145))
+  {
+    v152 = v149 + 1;
+  }
+
+  else
+  {
+    v152 = v149;
+  }
+
+  v153 = *(&v145 + 1) + v152;
+  v6 = __CFADD__(v151, v150);
+  v154 = v151 + v150;
+  if (v6)
+  {
+    v155 = v149 + 1;
+  }
+
+  else
+  {
+    v155 = v149;
+  }
+
+  v6 = __CFADD__(v153, v155);
+  v156 = v153 + v155;
+  v157 = v6;
+  if (__CFADD__(*(&v145 + 1), v152))
+  {
+    v158 = v157 + 1;
+  }
+
+  else
+  {
+    v158 = v157;
+  }
+
+  v159 = (v148 * v147) >> 64;
+  v160 = v148 * v147;
+  v6 = __CFADD__(v154, v160);
+  v161 = v154 + v160;
+  if (v6)
+  {
+    v162 = v159 + 1;
+  }
+
+  else
+  {
+    v162 = v159;
+  }
+
+  v6 = __CFADD__(v156, v162);
+  v163 = v156 + v162;
+  v164 = v6;
+  v6 = __CFADD__(v161, v160);
+  v165 = v161 + v160;
+  if (v6)
+  {
+    v166 = v159 + 1;
+  }
+
+  else
+  {
+    v166 = v159;
+  }
+
+  v167 = __PAIR128__(v158, v163) + __PAIR128__(v164, v166);
+  v169 = a2[4];
+  v168 = a2[5];
+  v170 = a2[2];
+  v171 = a2[3];
+  v172 = (v170 * v168) >> 64;
+  v173 = v170 * v168;
+  v6 = __CFADD__(v165, v173);
+  v174 = v165 + v173;
+  if (v6)
+  {
+    v175 = v172 + 1;
+  }
+
+  else
+  {
+    v175 = v172;
+  }
+
+  v176 = __CFADD__(v167, v175);
+  v6 = __CFADD__(v174, v173);
+  v177 = v174 + v173;
+  if (v6)
+  {
+    v178 = v172 + 1;
+  }
+
+  else
+  {
+    v178 = v172;
+  }
+
+  v179 = v167 + __PAIR128__(v176, v178);
+  v180 = (v171 * v169) >> 64;
+  v181 = v171 * v169;
+  v6 = __CFADD__(v177, v181);
+  v182 = v177 + v181;
+  if (v6)
+  {
+    v183 = v180 + 1;
+  }
+
+  else
+  {
+    v183 = v180;
+  }
+
+  v184 = __CFADD__(v179, v183);
+  v6 = __CFADD__(v182, v181);
+  v185 = v182 + v181;
+  if (v6)
+  {
+    ++v180;
+  }
+
+  v186 = v179 + __PAIR128__(v184, v180);
+  result[7] = v185;
+  v187 = a2[3];
+  v188 = a2[4] * a2[4] + v186;
+  v189 = *(&v186 + 1) + v186;
+  v190 = __CFADD__(*(&v186 + 1), v186);
+  v191 = a2[5];
+  v192 = a2[6];
+  v193 = (v187 * v191) >> 64;
+  v194 = v187 * v191;
+  v6 = __CFADD__(v188, v194);
+  v195 = v188 + v194;
+  if (v6)
+  {
+    v196 = v193 + 1;
+  }
+
+  else
+  {
+    v196 = v193;
+  }
+
+  v6 = __CFADD__(v189, v196);
+  v197 = v189 + v196;
+  v198 = v6;
+  v6 = __CFADD__(v195, v194);
+  v199 = v195 + v194;
+  if (v6)
+  {
+    v200 = v193 + 1;
+  }
+
+  else
+  {
+    v200 = v193;
+  }
+
+  v6 = __CFADD__(v197, v200);
+  v201 = v197 + v200;
+  v202 = v190 + v6 + v198;
+  v204 = a2[1];
+  v203 = a2[2];
+  v205 = (v203 * v192) >> 64;
+  v206 = v203 * v192;
+  v6 = __CFADD__(v199, v206);
+  v207 = v199 + v206;
+  if (v6)
+  {
+    v208 = v205 + 1;
+  }
+
+  else
+  {
+    v208 = v205;
+  }
+
+  v6 = __CFADD__(v201, v208);
+  v209 = v201 + v208;
+  v210 = v6;
+  v6 = __CFADD__(v207, v206);
+  v211 = v207 + v206;
+  if (v6)
+  {
+    v212 = v205 + 1;
+  }
+
+  else
+  {
+    v212 = v205;
+  }
+
+  v213 = __PAIR128__(v202, v209) + __PAIR128__(v210, v212);
+  v214 = a2[7];
+  v215 = (v204 * v214) >> 64;
+  v216 = v204 * v214;
+  v6 = __CFADD__(v211, v216);
+  v217 = v211 + v216;
+  if (v6)
+  {
+    v218 = v215 + 1;
+  }
+
+  else
+  {
+    v218 = v215;
+  }
+
+  v219 = __CFADD__(v213, v218);
+  v6 = __CFADD__(v217, v216);
+  v220 = v217 + v216;
+  if (v6)
+  {
+    v221 = v215 + 1;
+  }
+
+  else
+  {
+    v221 = v215;
+  }
+
+  v222 = v213 + __PAIR128__(v219, v221);
+  result[8] = v220;
+  v224 = a2[6];
+  v223 = a2[7];
+  v225 = a2[2];
+  v226 = a2[3];
+  v227 = (v225 * v223) >> 64;
+  v228 = v225 * v223;
+  v229 = v228 + v222;
+  if (__CFADD__(v228, v222))
+  {
+    v230 = v227 + 1;
+  }
+
+  else
+  {
+    v230 = v227;
+  }
+
+  v231 = *(&v222 + 1) + v230;
+  v6 = __CFADD__(v229, v228);
+  v232 = v229 + v228;
+  if (v6)
+  {
+    v233 = v227 + 1;
+  }
+
+  else
+  {
+    v233 = v227;
+  }
+
+  v6 = __CFADD__(v231, v233);
+  v234 = v231 + v233;
+  v235 = v6;
+  if (__CFADD__(*(&v222 + 1), v230))
+  {
+    v236 = v235 + 1;
+  }
+
+  else
+  {
+    v236 = v235;
+  }
+
+  v237 = (v226 * v224) >> 64;
+  v238 = v226 * v224;
+  v6 = __CFADD__(v232, v238);
+  v239 = v232 + v238;
+  if (v6)
+  {
+    v240 = v237 + 1;
+  }
+
+  else
+  {
+    v240 = v237;
+  }
+
+  v6 = __CFADD__(v234, v240);
+  v241 = v234 + v240;
+  v242 = v6;
+  v6 = __CFADD__(v239, v238);
+  v243 = v239 + v238;
+  if (v6)
+  {
+    v244 = v237 + 1;
+  }
+
+  else
+  {
+    v244 = v237;
+  }
+
+  v245 = __PAIR128__(v236, v241) + __PAIR128__(v242, v244);
+  v247 = a2[4];
+  v246 = a2[5];
+  v248 = (v247 * v246) >> 64;
+  v249 = v247 * v246;
+  v6 = __CFADD__(v243, v249);
+  v250 = v243 + v249;
+  if (v6)
+  {
+    v251 = v248 + 1;
+  }
+
+  else
+  {
+    v251 = v248;
+  }
+
+  v252 = __CFADD__(v245, v251);
+  v6 = __CFADD__(v250, v249);
+  v253 = v250 + v249;
+  if (v6)
+  {
+    v254 = v248 + 1;
+  }
+
+  else
+  {
+    v254 = v248;
+  }
+
+  v255 = v245 + __PAIR128__(v252, v254);
+  result[9] = v253;
+  v256 = a2[6];
+  v257 = a2[5] * a2[5] + v255;
+  v258 = *(&v255 + 1) + v255;
+  v259 = __CFADD__(*(&v255 + 1), v255);
+  v261 = a2[3];
+  v260 = a2[4];
+  v262 = (v260 * v256) >> 64;
+  v263 = v260 * v256;
+  v6 = __CFADD__(v257, v263);
+  v264 = v257 + v263;
+  if (v6)
+  {
+    v265 = v262 + 1;
+  }
+
+  else
+  {
+    v265 = v262;
+  }
+
+  v6 = __CFADD__(v258, v265);
+  v266 = v258 + v265;
+  v267 = v6;
+  v6 = __CFADD__(v264, v263);
+  v268 = v264 + v263;
+  if (v6)
+  {
+    v269 = v262 + 1;
+  }
+
+  else
+  {
+    v269 = v262;
+  }
+
+  v6 = __CFADD__(v266, v269);
+  v270 = v266 + v269;
+  v271 = v259 + v6 + v267;
+  v272 = a2[7];
+  v273 = (v261 * v272) >> 64;
+  v274 = v261 * v272;
+  v6 = __CFADD__(v268, v274);
+  v275 = v268 + v274;
+  if (v6)
+  {
+    v276 = v273 + 1;
+  }
+
+  else
+  {
+    v276 = v273;
+  }
+
+  v6 = __CFADD__(v270, v276);
+  v277 = v270 + v276;
+  v278 = v6;
+  v6 = __CFADD__(v275, v274);
+  v279 = v275 + v274;
+  if (v6)
+  {
+    v280 = v273 + 1;
+  }
+
+  else
+  {
+    v280 = v273;
+  }
+
+  v281 = __PAIR128__(v271, v277) + __PAIR128__(v278, v280);
+  result[10] = v279;
+  v283 = a2[6];
+  v282 = a2[7];
+  v284 = a2[4];
+  v285 = a2[5];
+  v286 = (v284 * v282) >> 64;
+  v287 = v284 * v282;
+  v288 = v287 + v281;
+  if (__CFADD__(v287, v281))
+  {
+    v289 = v286 + 1;
+  }
+
+  else
+  {
+    v289 = v286;
+  }
+
+  v290 = *(&v281 + 1) + v289;
+  v6 = __CFADD__(v288, v287);
+  v291 = v288 + v287;
+  if (v6)
+  {
+    v292 = v286 + 1;
+  }
+
+  else
+  {
+    v292 = v286;
+  }
+
+  v6 = __CFADD__(v290, v292);
+  v293 = v290 + v292;
+  v294 = v6;
+  if (__CFADD__(*(&v281 + 1), v289))
+  {
+    v295 = v294 + 1;
+  }
+
+  else
+  {
+    v295 = v294;
+  }
+
+  v296 = (v285 * v283) >> 64;
+  v297 = v285 * v283;
+  v6 = __CFADD__(v291, v297);
+  v298 = v291 + v297;
+  if (v6)
+  {
+    v299 = v296 + 1;
+  }
+
+  else
+  {
+    v299 = v296;
+  }
+
+  v6 = __CFADD__(v293, v299);
+  v300 = v293 + v299;
+  v301 = v6;
+  v6 = __CFADD__(v298, v297);
+  v302 = v298 + v297;
+  if (v6)
+  {
+    v303 = v296 + 1;
+  }
+
+  else
+  {
+    v303 = v296;
+  }
+
+  v304 = __PAIR128__(v295, v300) + __PAIR128__(v301, v303);
+  result[11] = v302;
+  v305 = a2[5];
+  v306 = a2[6] * a2[6] + v304;
+  v307 = *(&v304 + 1) + v304;
+  v308 = __CFADD__(*(&v304 + 1), v304);
+  v309 = a2[7];
+  v310 = (v305 * v309) >> 64;
+  v311 = v305 * v309;
+  v6 = __CFADD__(v306, v311);
+  v312 = v306 + v311;
+  if (v6)
+  {
+    v313 = v310 + 1;
+  }
+
+  else
+  {
+    v313 = v310;
+  }
+
+  v6 = __CFADD__(v307, v313);
+  v314 = v307 + v313;
+  v315 = v6;
+  v6 = __CFADD__(v312, v311);
+  v316 = v312 + v311;
+  if (v6)
+  {
+    v317 = v310 + 1;
+  }
+
+  else
+  {
+    v317 = v310;
+  }
+
+  v6 = __CFADD__(v314, v317);
+  v318 = v314 + v317;
+  v319 = v308 + v6 + v315;
+  result[12] = v316;
+  v321 = a2[6];
+  v320 = a2[7];
+  v322 = (v321 * v320) >> 64;
+  v323 = v321 * v320;
+  v6 = __CFADD__(v323, v318);
+  v324 = v323 + v318;
+  if (v6)
+  {
+    v325 = v322 + 1;
+  }
+
+  else
+  {
+    v325 = v322;
+  }
+
+  v326 = v319 + v325;
+  v6 = __CFADD__(v324, v323);
+  v327 = v324 + v323;
+  if (v6)
+  {
+    v328 = v322 + 1;
+  }
+
+  else
+  {
+    v328 = v322;
+  }
+
+  v6 = __CFADD__(v326, v328);
+  v329 = v326 + v328;
+  v330 = v6;
+  result[13] = v327;
+  v331 = a2[7];
+  v332 = (v331 * v331) >> 64;
+  v333 = v331 * v331;
+  v6 = __CFADD__(v333, v329);
+  v334 = v333 + v329;
+  if (v6)
+  {
+    v335 = v332 + 1;
+  }
+
+  else
+  {
+    v335 = v332;
+  }
+
+  result[14] = v334;
+  result[15] = v330 + __CFADD__(v319, v325) + v335;
+  return result;
 }

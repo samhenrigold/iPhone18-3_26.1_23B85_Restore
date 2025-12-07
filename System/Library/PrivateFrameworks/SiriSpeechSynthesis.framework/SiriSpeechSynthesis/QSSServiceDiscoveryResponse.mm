@@ -41,7 +41,7 @@ flatbuffers::DetachedBuffer *__43__QSSServiceDiscoveryResponse_flatbuffData__blo
 
 - (Offset<siri::speech::schema_fb::ServiceDiscoveryResponse>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   session_id = [(QSSServiceDiscoveryResponse *)self session_id];
   v6 = session_id;
   if (!session_id)
@@ -65,52 +65,52 @@ flatbuffers::DetachedBuffer *__43__QSSServiceDiscoveryResponse_flatbuffData__blo
   v14 = strlen(uTF8String2);
   v15 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v14);
 
-  memset(&v37, 0, sizeof(v37));
+  memset(&v36, 0, sizeof(v36));
   zk_node = [(QSSServiceDiscoveryResponse *)self zk_node];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v37, [zk_node count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v36, [zk_node count]);
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   zk_node2 = [(QSSServiceDiscoveryResponse *)self zk_node];
-  v18 = [zk_node2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v18 = [zk_node2 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v18)
   {
-    v19 = *v34;
+    v19 = *v33;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(zk_node2);
         }
 
-        uTF8String3 = [*(*(&v33 + 1) + 8 * i) UTF8String];
+        uTF8String3 = [*(*(&v32 + 1) + 8 * i) UTF8String];
         v22 = strlen(uTF8String3);
-        v32 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v22);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v37, &v32);
+        v31 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v22);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v36, &v31);
       }
 
-      v18 = [zk_node2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v18 = [zk_node2 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v18);
   }
 
-  begin = v37.__begin_;
-  if (v37.__end_ == v37.__begin_)
+  begin = v36.__begin_;
+  if (v36.__end_ == v36.__begin_)
   {
     v24 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v24 = v37.__begin_;
+    v24 = v36.__begin_;
   }
 
-  v25 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v24, v37.__end_ - v37.__begin_);
+  v25 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v24, v36.__end_ - v36.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v26 = *(buffer + 8);
@@ -126,7 +126,6 @@ flatbuffers::DetachedBuffer *__43__QSSServiceDiscoveryResponse_flatbuffData__blo
     operator delete(begin);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

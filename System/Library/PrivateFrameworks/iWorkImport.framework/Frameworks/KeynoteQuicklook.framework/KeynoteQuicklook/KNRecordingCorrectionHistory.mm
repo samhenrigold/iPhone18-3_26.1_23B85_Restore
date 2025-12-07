@@ -18,16 +18,15 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277D811A8]);
-  v5 = objc_msgSend_initWithObject_(v3, v4, self);
-  if (objc_msgSend_didAddMissingEventsForRadar49654305(self, v6, v7))
+  v3 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:self];
+  if ([(KNRecordingCorrectionHistory *)self didAddMissingEventsForRadar49654305])
   {
-    objc_msgSend_addFieldValue_(v5, v8, @"didAddMissingEventsForRadar49654305");
+    [v3 addFieldValue:@"didAddMissingEventsForRadar49654305"];
   }
 
-  v10 = objc_msgSend_descriptionString(v5, v8, v9);
+  descriptionString = [v3 descriptionString];
 
-  return v10;
+  return descriptionString;
 }
 
 - (BOOL)isEqual:(id)equal

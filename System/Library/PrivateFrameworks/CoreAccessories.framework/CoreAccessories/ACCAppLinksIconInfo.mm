@@ -163,19 +163,17 @@ void __68__ACCAppLinksIconInfo_getIconDataForBundleID_forIconSize_withReply___bl
 
 - (void)getIconDataForBundleID:forIconSize:withReply:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_221CB0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_221CB0000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v0, 0x12u);
 }
 
 void __68__ACCAppLinksIconInfo_getIconDataForBundleID_forIconSize_withReply___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_221CB0000, a2, OS_LOG_TYPE_FAULT, "can't invoke remote object %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_221CB0000, a2, OS_LOG_TYPE_FAULT, "can't invoke remote object %@", &v2, 0xCu);
 }
 
 @end

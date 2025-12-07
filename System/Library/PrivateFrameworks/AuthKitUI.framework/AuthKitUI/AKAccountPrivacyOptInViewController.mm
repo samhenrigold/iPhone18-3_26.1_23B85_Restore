@@ -286,7 +286,6 @@ void __73__AKAccountPrivacyOptInViewController__optUserWithChoice_withCompletion
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureViews
@@ -362,7 +361,6 @@ void __73__AKAccountPrivacyOptInViewController__optUserWithChoice_withCompletion
   [buttonTray setPrivacyLinkForBundles:?];
   MEMORY[0x277D82BD8](v2);
   MEMORY[0x277D82BD8](buttonTray);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupOldViews
@@ -424,8 +422,6 @@ void __73__AKAccountPrivacyOptInViewController__optUserWithChoice_withCompletion
 
     MEMORY[0x277D82BD8](obj);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -12,34 +12,33 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   stringValue = self->_stringValue;
   if (stringValue)
   {
     key = self->_key;
-    v11[0] = @"key";
-    v11[1] = @"value";
-    v12[0] = key;
-    v12[1] = stringValue;
+    v10[0] = @"key";
+    v10[1] = @"value";
+    v11[0] = key;
+    v11[1] = stringValue;
     v4 = MEMORY[0x1E695DF20];
-    v5 = v12;
-    v6 = v11;
+    v5 = v11;
+    v6 = v10;
   }
 
   else
   {
-    v13[0] = @"key";
-    v13[1] = @"value";
+    v12[0] = @"key";
+    v12[1] = @"value";
     numberValue = self->_numberValue;
-    v14[0] = self->_key;
-    v14[1] = numberValue;
+    v13[0] = self->_key;
+    v13[1] = numberValue;
     v4 = MEMORY[0x1E695DF20];
-    v5 = v14;
-    v6 = v13;
+    v5 = v13;
+    v6 = v12;
   }
 
   v8 = [v4 dictionaryWithObjects:v5 forKeys:v6 count:2];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

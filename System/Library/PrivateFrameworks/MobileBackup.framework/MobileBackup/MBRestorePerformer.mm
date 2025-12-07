@@ -47,48 +47,46 @@
 {
   v5 = sub_1000042B4(&qword_10041E820, &unk_1002B9740);
   v6 = v5 - 8;
-  v28 = *(v5 - 8);
-  v7 = *(v28 + 64);
+  v26 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v9 = &selfCopy - v8;
-  v10 = type metadata accessor for Date();
-  v11 = *(v10 - 8);
-  v12 = v11[8];
-  v13 = __chkstk_darwin(v10);
-  v15 = &selfCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &selfCopy - v16;
+  v8 = &selfCopy - v7;
+  v9 = type metadata accessor for Date();
+  v10 = *(v9 - 8);
+  v11 = __chkstk_darwin(v9);
+  v13 = &selfCopy - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = &selfCopy - v14;
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = *(&self->super.isa + OBJC_IVAR____TtC7backupd18MBRestorePerformer_restorablePlacementSummary);
-  v19 = *(v6 + 56);
-  v20 = v11[2];
-  v20(v9, v17, v10);
-  v20(&v9[v19], v15, v10);
-  v21 = OBJC_IVAR____TtC7backupd28MBRestorablePlacementSummary_durations;
-  v22 = *(v18 + OBJC_IVAR____TtC7backupd28MBRestorablePlacementSummary_durations);
+  v16 = *(&self->super.isa + OBJC_IVAR____TtC7backupd18MBRestorePerformer_restorablePlacementSummary);
+  v17 = *(v6 + 56);
+  v18 = *(v10 + 16);
+  v18(v8, v15, v9);
+  v18(&v8[v17], v13, v9);
+  v19 = OBJC_IVAR____TtC7backupd28MBRestorablePlacementSummary_durations;
+  v20 = *(v16 + OBJC_IVAR____TtC7backupd28MBRestorablePlacementSummary_durations);
   selfCopy = self;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v18 + v21) = v22;
+  *(v16 + v19) = v20;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v22 = sub_10000F2D8(0, v22[2] + 1, 1, v22);
-    *(v18 + v21) = v22;
+    v20 = sub_10000F2D8(0, v20[2] + 1, 1, v20);
+    *(v16 + v19) = v20;
   }
 
-  v25 = v22[2];
-  v24 = v22[3];
-  if (v25 >= v24 >> 1)
+  v23 = v20[2];
+  v22 = v20[3];
+  if (v23 >= v22 >> 1)
   {
-    v22 = sub_10000F2D8(v24 > 1, v25 + 1, 1, v22);
+    v20 = sub_10000F2D8((v22 > 1), v23 + 1, 1, v20);
   }
 
-  v22[2] = v25 + 1;
-  sub_100023344(v9, v22 + ((*(v28 + 80) + 32) & ~*(v28 + 80)) + *(v28 + 72) * v25);
-  *(v18 + v21) = v22;
-  v26 = v11[1];
-  v26(v15, v10);
-  v26(v17, v10);
+  v20[2] = v23 + 1;
+  sub_100023344(v8, v20 + ((*(v26 + 80) + 32) & ~*(v26 + 80)) + *(v26 + 72) * v23);
+  *(v16 + v19) = v20;
+  v24 = *(v10 + 8);
+  v24(v13, v9);
+  v24(v15, v9);
 }
 
 - (BOOL)placeWithSymlink:(id)symlink symlinkTarget:(id)target isHardlink:(BOOL)hardlink error:(id *)error

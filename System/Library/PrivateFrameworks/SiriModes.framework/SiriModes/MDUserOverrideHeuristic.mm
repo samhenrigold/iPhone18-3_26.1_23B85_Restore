@@ -33,7 +33,7 @@
 
 - (id)determineCurrentMode
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   internalModeOverride = [(MDUserOverrideHeuristic *)self internalModeOverride];
   if (internalModeOverride == -1)
   {
@@ -48,17 +48,15 @@
     {
       v5 = v4;
       v6 = MDModeGetName(v3);
-      v10 = 136315394;
-      v11 = "[MDUserOverrideHeuristic determineCurrentMode]";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_26807E000, v5, OS_LOG_TYPE_DEFAULT, "%s #modes: Override value being used: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[MDUserOverrideHeuristic determineCurrentMode]";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_26807E000, v5, OS_LOG_TYPE_DEFAULT, "%s #modes: Override value being used: %@", &v9, 0x16u);
     }
 
     v7 = [[MDModeDecision alloc] initWithMode:v3];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -112,13 +110,12 @@
 
 - (void)internalModeOverride
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[MDUserOverrideHeuristic internalModeOverride]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[MDUserOverrideHeuristic internalModeOverride]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_26807E000, a2, OS_LOG_TYPE_ERROR, "%s #modes Invalid mode override value: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26807E000, a2, OS_LOG_TYPE_ERROR, "%s #modes Invalid mode override value: %@", &v2, 0x16u);
 }
 
 @end

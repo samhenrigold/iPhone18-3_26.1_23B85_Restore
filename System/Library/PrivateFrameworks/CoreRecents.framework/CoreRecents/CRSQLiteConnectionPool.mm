@@ -1,5 +1,6 @@
 @interface CRSQLiteConnectionPool
 - (CRSQLiteConnectionPool)initWithDelegate:(id)delegate maxConcurrentReaders:(unint64_t)readers;
+- (id)_connectionForWriting:(BOOL)writing;
 - (unint64_t)cacheSize;
 - (void)checkInConnection:(id)connection;
 - (void)dealloc;
@@ -45,6 +46,50 @@
   v3.receiver = self;
   v3.super_class = CRSQLiteConnectionPool;
   [(CRSQLiteConnectionPool *)&v3 dealloc];
+}
+
+- (id)_connectionForWriting:(BOOL)writing
+{
+  writingCopy = writing;
+  v5 = 88;
+  if (writing)
+  {
+    v5 = 104;
+  }
+
+  v6 = 80;
+  if (writing)
+  {
+    v6 = 96;
+  }
+
+  v7 = *(&self->super.isa + v6);
+  v8 = (self + v5);
+  atomic_fetch_add((self + v5), 1u);
+  dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+  atomic_fetch_add(v8, 0xFFFFFFFF);
+  [(NSLock *)self->_cacheLock lock];
+  cacheGeneration = self->_cacheGeneration;
+  anyObject = [(NSMutableSet *)self->_cache anyObject];
+  if (anyObject)
+  {
+    v11 = anyObject;
+    [(NSMutableSet *)self->_cache removeObject:anyObject];
+    [(NSLock *)self->_cacheLock unlock];
+  }
+
+  else
+  {
+    [(NSLock *)self->_cacheLock unlock];
+    v11 = [[_CRSQLiteConnectionWrapper alloc] initWithConnection:[(CRSQLiteConnectionPoolDelegate *)self->_delegate newConnectionForConnectionPool:self] generation:cacheGeneration];
+  }
+
+  [(_CRSQLiteConnectionWrapper *)v11 setIsWriter:writingCopy];
+  [(NSLock *)self->_checkoutLock lock];
+  CFDictionarySetValue(self->_checkoutMap, [(_CRSQLiteConnectionWrapper *)v11 connection], v11);
+  [(NSLock *)self->_checkoutLock unlock];
+
+  return [(_CRSQLiteConnectionWrapper *)v11 connection];
 }
 
 - (void)checkInConnection:(id)connection

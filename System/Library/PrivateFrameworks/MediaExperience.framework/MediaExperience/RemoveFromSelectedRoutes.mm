@@ -7,21 +7,18 @@ uint64_t __routingContextResilientRemote_RemoveFromSelectedRoutes_block_invoke(u
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 96);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 96);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 96;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
 void __routingContext_RemoveFromSelectedRoutes_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*v2 == 9)
   {
@@ -53,8 +50,6 @@ void __routingContext_RemoveFromSelectedRoutes_block_invoke(uint64_t a1)
   {
     CFRelease(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

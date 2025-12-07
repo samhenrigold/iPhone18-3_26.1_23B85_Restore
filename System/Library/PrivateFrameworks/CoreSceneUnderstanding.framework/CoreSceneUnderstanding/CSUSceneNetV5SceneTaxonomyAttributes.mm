@@ -7,11 +7,11 @@
 
 - (CSUSceneNetV5SceneTaxonomyAttributes)initWithAttributePaths:(id)paths error:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
-  v47.receiver = self;
-  v47.super_class = CSUSceneNetV5SceneTaxonomyAttributes;
-  v11 = [(CSUSceneNetV5SceneTaxonomyAttributes *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = CSUSceneNetV5SceneTaxonomyAttributes;
+  v11 = [(CSUSceneNetV5SceneTaxonomyAttributes *)&v46 init];
   if (v11)
   {
     v12 = objc_msgSend_copy(pathsCopy, v7, v8, v9, v10);
@@ -23,31 +23,31 @@
     v11->_attributes = v14;
 
     v20 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v16, v17, v18, v19);
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v21 = v11->_attributePaths;
-    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v43, v48, 16);
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v42, v47, 16);
     if (v26)
     {
-      v27 = *v44;
+      v27 = *v43;
       while (2)
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v44 != v27)
+          if (*v43 != v27)
           {
             objc_enumerationMutation(v21);
           }
 
-          v29 = *(*(&v43 + 1) + 8 * i);
+          v29 = *(*(&v42 + 1) + 8 * i);
           v30 = objc_msgSend_objectForKeyedSubscript_(v11->_attributePaths, v23, v29, v24, v25);
           if ((objc_msgSend_fileExistsAtPath_(v20, v31, v30, v32, v33) & 1) == 0)
           {
             if (error)
             {
-              v38 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v34, @"Data file %@ for attribute %@ does not exist!", v35, v36, v30, v29, v43);
+              v38 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v34, @"Data file %@ for attribute %@ does not exist!", v35, v36, v30, v29, v42);
               *error = objc_msgSend_errorWithCode_message_(CSUError, v39, 10, v38, v40);
             }
 
@@ -56,7 +56,7 @@
           }
         }
 
-        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v43, v48, 16);
+        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v42, v47, 16);
         if (v26)
         {
           continue;
@@ -81,7 +81,6 @@ LABEL_14:
     v37 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

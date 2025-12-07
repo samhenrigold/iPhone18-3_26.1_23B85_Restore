@@ -25,7 +25,7 @@
   sub_269D9A8E0();
   v5[2] = self;
   selfCopy = self;
-  sub_269C71EBC(sub_269C74AA4, v5);
+  sub_269C71EBC(sub_269C74AA4, v5, "SleepHealthUI/SleepActivityConfigurationModel.swift", 51, 2u, 108);
 }
 
 @end

@@ -406,7 +406,7 @@ LABEL_38:
         _screen = [(UIScene *)v12 _screen];
         screen = [v16 screen];
 
-        if (_screen == screen || (-[UIScene _screen](v12, "_screen"), v23 = objc_claimAutoreleasedReturnValue(), [v23 displayConfiguration], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "identity"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "rootIdentity"), v26 = objc_claimAutoreleasedReturnValue(), v25, v24, v23, objc_msgSend(v16, "screen"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "displayConfiguration"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "identity"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "rootIdentity"), v30 = objc_claimAutoreleasedReturnValue(), v29, v28, v27, LODWORD(v27) = objc_msgSend(v26, "isEqual:", v30), v30, v26, v27))
+        if (_screen == screen || (-[UIScene _screen](v12, "_screen"), v23 = objc_claimAutoreleasedReturnValue(), [v23 displayConfiguration], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "identity"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "rootIdentity"), v26 = objc_claimAutoreleasedReturnValue(), v25, v24, v23, objc_msgSend(v16, "screen"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "displayConfiguration"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "identity"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "rootIdentity"), v30 = objc_claimAutoreleasedReturnValue(), v29, v28, v27, LODWORD(v27) = objc_msgSend_isEqual_(v26), v30, v26, v27))
         {
           if (_UIEventDeferringManagerIsAvailableForScene(v16))
           {
@@ -496,7 +496,7 @@ LABEL_7:
   session = [(UIScene *)self session];
   role = [session role];
 
-  if ([role isEqualToString:@"UIWindowSceneSessionRoleCarPlay"] & 1) != 0 || (objc_msgSend(role, "isEqualToString:", @"UIWindowSceneSessionRoleExternalDisplayNonInteractive"))
+  if (objc_msgSend_isEqualToString_(role) & 1) != 0 || (objc_msgSend_isEqualToString_(role))
   {
     v5 = 1;
   }
@@ -1142,7 +1142,7 @@ void __39__UIScene__refreshActivationConditions__block_invoke(uint64_t a1, void 
   v3 = a2;
   v4 = *(*(a1 + 32) + 48);
   v5 = objc_alloc_init(UISceneActivationConditions);
-  LOBYTE(v4) = [v4 isEqual:v5];
+  LOBYTE(v4) = objc_msgSend_isEqual_(v4);
 
   if (v4)
   {
@@ -1665,7 +1665,7 @@ LABEL_26:
   applicationInitializationContext = [v59 applicationInitializationContext];
   defaultSceneToken = [applicationInitializationContext defaultSceneToken];
   identityToken = [(FBSScene *)v11->_scene identityToken];
-  if ([defaultSceneToken isEqual:identityToken])
+  if (objc_msgSend_isEqual_(defaultSceneToken))
   {
     v63 = 0x4000;
   }
@@ -1753,22 +1753,24 @@ LABEL_58:
   if (v4)
   {
     v5 = v4;
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
   }
 
   else
   {
     v5 = &stru_1EFB14550;
+    isEqualToString = objc_msgSend_isEqualToString_(&stru_1EFB14550);
   }
 
-  if (([(__CFString *)v5 isEqualToString:self->_title]& 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     objc_storeStrong(&self->_title, v5);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __20__UIScene_setTitle___block_invoke;
-    v6[3] = &unk_1E70F44D8;
-    v7 = v5;
-    [(UIScene *)self _updateUIClientSettingsWithBlock:v6];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __20__UIScene_setTitle___block_invoke;
+    v7[3] = &unk_1E70F44D8;
+    v8 = v5;
+    [(UIScene *)self _updateUIClientSettingsWithBlock:v7];
   }
 }
 
@@ -1781,7 +1783,7 @@ LABEL_58:
   }
 
   obj = v4;
-  if (([(__CFString *)v4 isEqualToString:self->_subtitle]& 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v4) & 1) == 0)
   {
     objc_storeStrong(&self->_subtitle, obj);
   }
@@ -1794,12 +1796,12 @@ LABEL_58:
   if (v6 != v5)
   {
     v8 = v5;
-    v7 = [(UISceneActivationConditions *)v6 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v6, v5, v5);
     [(UISceneActivationConditions *)self->_activationConditions _setUIScene:0];
     [(UISceneActivationConditions *)v8 _setUIScene:self];
     objc_storeStrong(&self->_activationConditions, activationConditions);
     v5 = v8;
-    if (!v7)
+    if ((isEqual & 1) == 0)
     {
       [(UIScene *)self _refreshActivationConditions];
       v5 = v8;
@@ -2768,9 +2770,9 @@ id __56__UIScene__updateUIClientSettingsWithUITransitionBlock___block_invoke(uin
   }
 }
 
-uint64_t __58__UIScene__noteDisplayIdentityDidChangeWithConfiguration___block_invoke(uint64_t result)
+void *__58__UIScene__noteDisplayIdentityDidChangeWithConfiguration___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     return [UIScreen _FBSDisplayIdentityDisconnected:?];
   }
@@ -3555,10 +3557,10 @@ LABEL_33:
 
 uint64_t __66__UIScene__sceneForFBSScene_create_withSession_connectionOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _FBSScene];
-  v4 = [v3 isEqual:*(a1 + 32)];
+  v2 = [a2 _FBSScene];
+  isEqual = objc_msgSend_isEqual_(v2);
 
-  return v4;
+  return isEqual;
 }
 
 void __66__UIScene__sceneForFBSScene_create_withSession_connectionOptions___block_invoke_2(uint64_t a1, void *a2)
@@ -4583,9 +4585,9 @@ void __64__UIScene_scene_didUpdateWithDiff_transitionContext_completion___block_
   if (v4)
   {
     v8 = [v7 identity];
-    v9 = [v5 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v5);
 
-    if ((v9 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [*(a1 + 32) _noteDisplayIdentityDidChangeWithConfiguration:v7];
     }
@@ -5465,15 +5467,15 @@ void __76__UIScene__UISceneEnhancedStateRestoration_Private___extendStateRestora
   dispatch_sync(v4, v5);
 }
 
-void __78__UIScene__UISceneEnhancedStateRestoration_Private___completeStateRestoration__block_invoke(uint64_t a1)
+double __78__UIScene__UISceneEnhancedStateRestoration_Private___completeStateRestoration__block_invoke(uint64_t a1)
 {
   v2 = [_sceneToCount objectForKey:*(a1 + 32)];
   v3 = [v2 integerValue];
 
   if (v3 <= 0)
   {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v6 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"_UISceneEnhancedStateRestoration.m" lineNumber:61 description:@"UIScene._completeStateRestoration called without corresponding call toUIScene._extendStateRestoration"];
+    v7 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v7 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"_UISceneEnhancedStateRestoration.m" lineNumber:61 description:@"UIScene._completeStateRestoration called without corresponding call toUIScene._extendStateRestoration"];
 
     goto LABEL_3;
   }
@@ -5482,22 +5484,23 @@ void __78__UIScene__UISceneEnhancedStateRestoration_Private___completeStateResto
   {
 LABEL_3:
     v4 = _sceneToCount;
-    v7 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-    [v4 setObject:v7 forKey:*(a1 + 32)];
+    v8 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+    [v4 setObject:v8 forKey:*(a1 + 32)];
 
-    return;
+    return result;
   }
 
   [_sceneToCount removeObjectForKey:*(a1 + 32)];
   if (![_sceneToCount count])
   {
-    v5 = _sceneToCount;
+    v6 = _sceneToCount;
     _sceneToCount = 0;
   }
 
   [*(a1 + 32) _setShouldHoldSceneEventResponses:0];
 
   kdebug_trace();
+  return result;
 }
 
 @end

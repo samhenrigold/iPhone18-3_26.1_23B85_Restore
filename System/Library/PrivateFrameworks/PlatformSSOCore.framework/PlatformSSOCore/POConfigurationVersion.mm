@@ -4,7 +4,6 @@
 - (int64_t)checkVersion;
 - (unint64_t)_state;
 - (void)_setStateAndNotify:(unint64_t)notify type:(int64_t)type;
-- (void)_state;
 - (void)dealloc;
 - (void)increaseVersionWithMessage:(id)message;
 - (void)reset;
@@ -15,15 +14,15 @@
 
 - (POConfigurationVersion)initWithConfigurationType:(int64_t)type
 {
-  v5 = PO_LOG_POConfigurationVersion();
+  v5 = PO_LOG_POConfigurationVersion(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(POConfigurationVersion *)self initWithConfigurationType:v5];
   }
 
-  v12.receiver = self;
-  v12.super_class = POConfigurationVersion;
-  v6 = [(POConfigurationVersion *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = POConfigurationVersion;
+  v6 = [(POConfigurationVersion *)&v13 init];
   v7 = v6;
   if (v6)
   {
@@ -35,8 +34,8 @@
 
     if (v9)
     {
-      v10 = PO_LOG_POConfigurationVersion();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PO_LOG_POConfigurationVersion(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [POConfigurationVersion initWithConfigurationType:];
       }
@@ -48,15 +47,28 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_7(&dword_25E8B1000, v0, v1, "notify_cancel() failed with %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  token = self->_token;
+  if (token != -1)
+  {
+    v4 = notify_cancel(token);
+    if (v4)
+    {
+      v5 = PO_LOG_POConfigurationVersion(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        [POConfigurationVersion dealloc];
+      }
+    }
+  }
+
+  v6.receiver = self;
+  v6.super_class = POConfigurationVersion;
+  [(POConfigurationVersion *)&v6 dealloc];
 }
 
 - (int64_t)checkVersion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   _state = [(POConfigurationVersion *)selfCopy _state];
@@ -82,19 +94,19 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v6 = PO_LOG_POConfigurationVersion();
+    v6 = PO_LOG_POConfigurationVersion(_state);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       version = selfCopy->_version;
-      v10 = 136315906;
-      v11 = "[POConfigurationVersion checkVersion]";
-      v12 = 2048;
-      v13 = version;
-      v14 = 2048;
-      v15 = v4;
-      v16 = 2112;
-      v17 = selfCopy;
-      _os_log_impl(&dword_25E8B1000, v6, OS_LOG_TYPE_DEFAULT, "%s config version changed from from 0x%016llX to 0x%016llX on %@", &v10, 0x2Au);
+      v9 = 136315906;
+      v10 = "[POConfigurationVersion checkVersion]";
+      v11 = 2048;
+      v12 = version;
+      v13 = 2048;
+      v14 = v4;
+      v15 = 2112;
+      v16 = selfCopy;
+      _os_log_impl(&dword_25E8B1000, v6, OS_LOG_TYPE_DEFAULT, "%s config version changed from from 0x%016llX to 0x%016llX on %@", &v9, 0x2Au);
     }
 
     selfCopy->_version = v4;
@@ -104,7 +116,6 @@ LABEL_6:
 LABEL_10:
   objc_sync_exit(selfCopy);
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -118,8 +129,8 @@ LABEL_10:
   [date timeIntervalSince1970];
   selfCopy->_version = (v7 * 1000.0);
 
-  v8 = PO_LOG_POConfigurationVersion();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PO_LOG_POConfigurationVersion(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     _state = [(POConfigurationVersion *)selfCopy _state];
     version = selfCopy->_version;
@@ -133,19 +144,17 @@ LABEL_10:
     v19 = messageCopy;
     v20 = 2112;
     v21 = selfCopy;
-    _os_log_impl(&dword_25E8B1000, v8, OS_LOG_TYPE_DEFAULT, "%s config version increased from 0x%016llX to 0x%016llX (%{public}@) on %@", &v12, 0x34u);
+    _os_log_impl(&dword_25E8B1000, v9, OS_LOG_TYPE_DEFAULT, "%s config version increased from 0x%016llX to 0x%016llX (%{public}@) on %@", &v12, 0x34u);
   }
 
   [(POConfigurationVersion *)selfCopy _setStateAndNotify:selfCopy->_version type:selfCopy->_type];
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPlatformSSOUnavailable
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POConfigurationVersion();
+  v3 = PO_LOG_POConfigurationVersion(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -156,21 +165,19 @@ LABEL_10:
   }
 
   selfCopy2 = self;
-  objc_sync_enter(selfCopy2);
+  v5 = objc_sync_enter(selfCopy2);
   selfCopy2->_version = -1;
-  v5 = PO_LOG_POConfigurationVersion();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PO_LOG_POConfigurationVersion(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v7) = 0;
-    _os_log_impl(&dword_25E8B1000, v5, OS_LOG_TYPE_DEFAULT, "set config version to PlatformSSO unavailable", &v7, 2u);
+    _os_log_impl(&dword_25E8B1000, v6, OS_LOG_TYPE_DEFAULT, "set config version to PlatformSSO unavailable", &v7, 2u);
   }
 
   [(POConfigurationVersion *)selfCopy2 _setStateAndNotify:selfCopy2->_version type:0];
   [(POConfigurationVersion *)selfCopy2 _setStateAndNotify:selfCopy2->_version type:1];
   [(POConfigurationVersion *)selfCopy2 _setStateAndNotify:selfCopy2->_version type:2];
   objc_sync_exit(selfCopy2);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -188,19 +195,20 @@ LABEL_10:
   token = self->_token;
   if (token == -1)
   {
-    v3 = PO_LOG_POConfigurationVersion();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PO_LOG_POConfigurationVersion(token);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(POConfigurationVersion *)v3 _state];
+      [(POConfigurationVersion *)v4 _state];
     }
 
     goto LABEL_7;
   }
 
-  if (notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (state)
   {
-    v3 = PO_LOG_POConfigurationVersion();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PO_LOG_POConfigurationVersion(state);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [POConfigurationVersion _state];
     }
@@ -213,22 +221,23 @@ LABEL_7:
 
 - (void)_setStateAndNotify:(unint64_t)notify type:(int64_t)type
 {
-  if (notify_set_state(self->_token, notify))
+  v5 = notify_set_state(self->_token, notify);
+  if (v5)
   {
-    v5 = PO_LOG_POConfigurationVersion();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PO_LOG_POConfigurationVersion(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [POConfigurationVersion _setStateAndNotify:type:];
     }
   }
 
-  v6 = [POConfigurationVersion notificationForType:type];
-  v7 = notify_post([v6 UTF8String]);
+  v7 = [POConfigurationVersion notificationForType:type];
+  v8 = notify_post([v7 UTF8String]);
 
-  if (v7)
+  if (v8)
   {
-    v8 = PO_LOG_POConfigurationVersion();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = PO_LOG_POConfigurationVersion(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [POConfigurationVersion _setStateAndNotify:type:];
     }
@@ -256,45 +265,12 @@ LABEL_7:
 
 - (void)initWithConfigurationType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[POConfigurationVersion initWithConfigurationType:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithConfigurationType:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_7(&dword_25E8B1000, v0, v1, "notify_register_check() failed with %u", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_state
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_7(&dword_25E8B1000, v0, v1, "notify_get_state() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setStateAndNotify:type:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_7(&dword_25E8B1000, v0, v1, "notify_set_state() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setStateAndNotify:type:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_7(&dword_25E8B1000, v0, v1, "notify_post() failed with error %u", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[POConfigurationVersion initWithConfigurationType:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v2, 0x16u);
 }
 
 @end

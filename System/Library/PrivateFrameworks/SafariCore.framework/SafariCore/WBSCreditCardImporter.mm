@@ -34,7 +34,7 @@
 
 - (BOOL)parseFileHandle:(id)handle error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
@@ -57,9 +57,9 @@
   if (!self->_foundCreditCardArray && !v12)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"Could not find credit card array in JSON file";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"Could not find credit card array in JSON file";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.Safari.Core.WBSCreditCardImporterErrorDomain" code:2 userInfo:v14];
     v16 = self->_lastError;
     self->_lastError = v15;
@@ -76,56 +76,51 @@
 
   v17 = v12 == 0;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 && v11;
 }
 
 - (BOOL)_checkNotAtRootLevel
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_stack count];
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Root node is expected to be a dictionary";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Root node is expected to be a dictionary";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.Safari.Core.WBSCreditCardImporterErrorDomain" code:1 userInfo:v5];
     lastError = self->_lastError;
     self->_lastError = v6;
   }
 
-  result = v3 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 0;
 }
 
 - (BOOL)_isParsingCreditCardArray
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E1B0;
-  v6[1] = @"payment_cards";
-  v6[2] = &unk_1F308E1C8;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = &unk_1F308E1B0;
+  v5[1] = @"payment_cards";
+  v5[2] = &unk_1F308E1C8;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
 - (BOOL)_isParsingCreditCard
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E1B0;
-  v6[1] = @"payment_cards";
-  v6[2] = &unk_1F308E1C8;
-  v6[3] = &unk_1F308E1B0;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = &unk_1F308E1B0;
+  v5[1] = @"payment_cards";
+  v5[2] = &unk_1F308E1C8;
+  v5[3] = &unk_1F308E1B0;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
@@ -257,8 +252,8 @@ LABEL_21:
 {
   if ([(WBSCreditCardImporter *)self _isParsingCreditCard])
   {
-    v4 = [(WBSCreditCardImporter *)self _sanitizedCardNumberFromImportedCardNumber:self->_cardNumber];
-    if (v4)
+    v5 = [(WBSCreditCardImporter *)self _sanitizedCardNumberFromImportedCardNumber:self->_cardNumber];
+    if (v5)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       cardName = self->_cardName;
@@ -268,24 +263,24 @@ LABEL_21:
       lastUsedDateTimeInterval = self->_lastUsedDateTimeInterval;
       if (lastUsedDateTimeInterval)
       {
-        v11 = MEMORY[0x1E695DF00];
+        v12 = MEMORY[0x1E695DF00];
         [(NSNumber *)lastUsedDateTimeInterval doubleValue];
-        v13 = [v11 dateWithTimeIntervalSince1970:v12 / 1000000.0];
-        [WeakRetained importCreditCardDataWithCardNumber:v4 cardName:cardName cardholderName:cardholderName cardExpirationMonth:expirationDateMonth cardExpirationYear:expirationDateYear lastUsedDate:v13];
+        v14 = [v12 dateWithTimeIntervalSince1970:v13 / 1000000.0];
+        [WeakRetained importCreditCardDataWithCardNumber:v5 cardName:cardName cardholderName:cardholderName cardExpirationMonth:expirationDateMonth cardExpirationYear:expirationDateYear lastUsedDate:v14];
       }
 
       else
       {
-        [WeakRetained importCreditCardDataWithCardNumber:v4 cardName:self->_cardName cardholderName:self->_cardholderName cardExpirationMonth:self->_expirationDateMonth cardExpirationYear:self->_expirationDateYear lastUsedDate:0];
+        [WeakRetained importCreditCardDataWithCardNumber:v5 cardName:self->_cardName cardholderName:self->_cardholderName cardExpirationMonth:self->_expirationDateMonth cardExpirationYear:self->_expirationDateYear lastUsedDate:0];
       }
     }
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXImport(0, v4);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [WBSCreditCardImporter jsonReaderEndObject:v14];
+        [WBSCreditCardImporter jsonReaderEndObject:v15];
       }
     }
   }

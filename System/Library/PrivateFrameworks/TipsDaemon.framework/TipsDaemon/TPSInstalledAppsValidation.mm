@@ -23,7 +23,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   appInfo = [(TPSInstalledAppsValidation *)self appInfo];
   bundleID = [appInfo bundleID];
@@ -84,18 +84,17 @@
       v22 = v21;
       appInfo5 = [(TPSInstalledAppsValidation *)self appInfo];
       v24 = [appInfo5 debugDescription];
-      v27 = 138412802;
-      v28 = v21;
-      v29 = 2112;
-      v30 = v24;
-      v31 = 1024;
-      v32 = 1;
-      _os_log_impl(&dword_232D6F000, targeting2, OS_LOG_TYPE_INFO, "%@ - no bundleID specified in appInfo: %@, Valid: %d", &v27, 0x1Cu);
+      v26 = 138412802;
+      v27 = v21;
+      v28 = 2112;
+      v29 = v24;
+      v30 = 1024;
+      v31 = 1;
+      _os_log_impl(&dword_232D6F000, targeting2, OS_LOG_TYPE_INFO, "%@ - no bundleID specified in appInfo: %@, Valid: %d", &v26, 0x1Cu);
     }
   }
 
   completionCopy[2](completionCopy, v20, 0);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -112,20 +111,18 @@
 
 - (void)validateWithCompletion:(NSObject *)a3 .cold.1(void *a1, char a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_class();
   v7 = v6;
   v8 = [a1 appInfo];
   v9 = [v8 debugDescription];
-  v11 = 138412802;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v9;
-  v15 = 1024;
-  v16 = a2 & 1;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - checking installed app: %@, Valid: %d", &v11, 0x1Cu);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412802;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v9;
+  v14 = 1024;
+  v15 = a2 & 1;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - checking installed app: %@, Valid: %d", &v10, 0x1Cu);
 }
 
 @end

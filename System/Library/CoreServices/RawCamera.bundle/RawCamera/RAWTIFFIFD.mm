@@ -14,50 +14,50 @@
 {
   namespaceCopy = namespace;
   reverseNamespaceCopy = reverseNamespace;
-  v32.receiver = self;
-  v32.super_class = RAWTIFFIFD;
-  v12 = [(RAWTIFFIFD *)&v32 init];
-  if (v12)
+  v12.receiver = self;
+  v12.super_class = RAWTIFFIFD;
+  v8 = [(RAWTIFFIFD *)&v12 init];
+  if (v8)
   {
-    v13 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9, v10, v11);
-    objc_msgSend_setMTagsByID_(v12, v14, v13, v15, v16);
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    [(RAWTIFFIFD *)v8 setMTagsByID:dictionary];
 
-    v21 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v17, v18, v19, v20);
-    objc_msgSend_setMTagsByName_(v12, v22, v21, v23, v24);
+    dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    [(RAWTIFFIFD *)v8 setMTagsByName:dictionary2];
 
-    objc_msgSend_setMNamespace_(v12, v25, namespaceCopy, v26, v27);
-    objc_msgSend_setMNamespaceReverse_(v12, v28, reverseNamespaceCopy, v29, v30);
+    [(RAWTIFFIFD *)v8 setMNamespace:namespaceCopy];
+    [(RAWTIFFIFD *)v8 setMNamespaceReverse:reverseNamespaceCopy];
   }
 
-  return v12;
+  return v8;
 }
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
 {
   mTagsByID = self->mTagsByID;
-  v6 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], a2, subscript, v3, v4);
-  v10 = objc_msgSend_objectForKeyedSubscript_(mTagsByID, v7, v6, v8, v9);
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:subscript];
+  v5 = [(NSMutableDictionary *)mTagsByID objectForKeyedSubscript:v4];
 
-  return v10;
+  return v5;
 }
 
 - (void)setObject:(id)object atIndexedSubscript:(unint64_t)subscript
 {
   objectCopy = object;
-  v9 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v6, subscript, v7, v8);
-  v14 = objc_msgSend_mTagsByID(self, v10, v11, v12, v13);
-  objc_msgSend_setObject_forKeyedSubscript_(v14, v15, objectCopy, v9, v16);
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:subscript];
+  mTagsByID = [(RAWTIFFIFD *)self mTagsByID];
+  [mTagsByID setObject:objectCopy forKeyedSubscript:v6];
 
-  v21 = objc_msgSend_mNamespace(self, v17, v18, v19, v20);
-  v25 = objc_msgSend_objectForKeyedSubscript_(v21, v22, v9, v23, v24);
-  v29 = objc_msgSend_objectForKeyedSubscript_(v25, v26, @"Name", v27, v28);
+  mNamespace = [(RAWTIFFIFD *)self mNamespace];
+  v9 = [mNamespace objectForKeyedSubscript:v6];
+  v10 = [v9 objectForKeyedSubscript:@"Name"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = objc_msgSend_mTagsByName(self, v30, v31, v32, v33);
-    v39 = objc_msgSend_lowercaseString(v29, v35, v36, v37, v38);
-    objc_msgSend_setObject_forKeyedSubscript_(v34, v40, objectCopy, v39, v41);
+    mTagsByName = [(RAWTIFFIFD *)self mTagsByName];
+    lowercaseString = [v10 lowercaseString];
+    [mTagsByName setObject:objectCopy forKeyedSubscript:lowercaseString];
   }
 }
 
@@ -66,13 +66,13 @@
   subscriptCopy = subscript;
   if ((atomic_load_explicit(&qword_27DE37DA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DE37DA0))
   {
-    qword_27DE37D98 = objc_msgSend_regularExpressionWithPattern_options_error_(MEMORY[0x277CCAC68], v4, @"([[:digit:]]+(?:%[[:digit:]]+)?\\[[[:digit:]]+\\])|([[:digit:]]+(?:%[[:digit:]]+)?)|([[:alpha:]][[:alnum:]]*(?:%[[:digit:]]+)?\\[[[:digit:]]\\])|([[:alpha:]][[:alnum:]]*(?:%[[:digit:]]+)?)", 1, 0);
+    qword_27DE37D98 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"([[:digit:]]+(?:%[[:digit:]]+)?\\[[[:digit:]]+\\])|([[:digit:]]+(?:%[[:digit:]]+)?)|([[:alpha:]][[:alnum:]]*(?:%[[:digit:]]+)?\\[[[:digit:]]\\])|([[:alpha:]][[:alnum:]]*(?:%[[:digit:]]+)?)" options:1 error:0];
     __cxa_guard_release(&qword_27DE37DA0);
   }
 
   if ((atomic_load_explicit(&qword_27DE37DB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DE37DB0))
   {
-    qword_27DE37DA8 = objc_msgSend_regularExpressionWithPattern_options_error_(MEMORY[0x277CCAC68], v4, @"([[:alnum:]]+)\\[([[:digit:]]+)\\]", 1, 0);
+    qword_27DE37DA8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"([[:alnum:]]+)\\[([[:digit:]]+)\\]" options:1 error:0];
     __cxa_guard_release(&qword_27DE37DB0);
   }
 
@@ -82,102 +82,94 @@
     __cxa_guard_release(&qword_27DE37DC0);
   }
 
-  v8 = objc_msgSend_componentsSeparatedByString_(subscriptCopy, v4, @".", v5, v6);
-  v13 = objc_msgSend_firstObject(v8, v9, v10, v11, v12);
-  v14 = qword_27DE37D98;
-  v19 = objc_msgSend_length(v13, v15, v16, v17, v18);
-  v21 = objc_msgSend_firstMatchInString_options_range_(v14, v20, v13, 0, 0, v19);
-  if (objc_msgSend_numberOfRanges(v21, v22, v23, v24, v25) != 5)
+  v5 = [subscriptCopy componentsSeparatedByString:@"."];
+  firstObject = [v5 firstObject];
+  v7 = [qword_27DE37D98 firstMatchInString:firstObject options:0 range:{0, objc_msgSend(firstObject, "length")}];
+  if ([v7 numberOfRanges] != 5)
   {
     goto LABEL_9;
   }
 
-  if (!objc_msgSend_rangeAtIndex_(v21, v26, 1, v27, v28))
+  if (![v7 rangeAtIndex:1])
   {
-    v42 = objc_msgSend_rangeAtIndex_(v21, v29, 1, v30, v31);
-    v45 = objc_msgSend_substringWithRange_(v13, v43, v42, v43, v44);
-    v46 = qword_27DE37DA8;
-    v51 = objc_msgSend_length(v45, v47, v48, v49, v50);
-    v53 = objc_msgSend_firstMatchInString_options_range_(v46, v52, v45, 0, 0, v51);
-    if (objc_msgSend_numberOfRanges(v53, v54, v55, v56, v57) == 3)
+    v9 = [v7 rangeAtIndex:1];
+    v11 = [firstObject substringWithRange:{v9, v10}];
+    mTagsByName2 = [qword_27DE37DA8 firstMatchInString:v11 options:0 range:{0, objc_msgSend(v11, "length")}];
+    if ([mTagsByName2 numberOfRanges] == 3)
     {
-      v61 = objc_msgSend_rangeAtIndex_(v53, v58, 1, v59, v60);
-      v265 = objc_msgSend_substringWithRange_(v45, v62, v61, v62, v63);
-      v67 = objc_msgSend_rangeAtIndex_(v53, v64, 2, v65, v66);
-      v266 = objc_msgSend_substringWithRange_(v45, v68, v67, v68, v69);
-      v74 = objc_msgSend_mTagsByID(self, v70, v71, v72, v73);
-      v75 = MEMORY[0x277CCABB0];
-      v80 = objc_msgSend_integerValue(v265, v76, v77, v78, v79);
-      v84 = objc_msgSend_numberWithInteger_(v75, v81, v80, v82, v83);
-      v88 = objc_msgSend_objectForKeyedSubscript_(v74, v85, v84, v86, v87);
+      v13 = [mTagsByName2 rangeAtIndex:1];
+      v48 = [v11 substringWithRange:{v13, v14}];
+      v15 = [mTagsByName2 rangeAtIndex:2];
+      v49 = [v11 substringWithRange:{v15, v16}];
+      mTagsByID = [(RAWTIFFIFD *)self mTagsByID];
+      v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v48, "integerValue")}];
+      v19 = [mTagsByID objectForKeyedSubscript:v18];
 
-      v93 = objc_msgSend_integerValue(v266, v89, v90, v91, v92);
-      v97 = objc_msgSend_objectAtIndexedSubscript_(v88, v94, v93, v95, v96);
+      v20 = [v19 objectAtIndexedSubscript:{objc_msgSend(v49, "integerValue")}];
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
 LABEL_28:
 
-        v132 = v265;
+        lowercaseString2 = v48;
         goto LABEL_29;
       }
 
 LABEL_27:
-      v235 = v97[2](v97);
+      v42 = v20[2](v20);
 
-      v240 = objc_msgSend_integerValue(v266, v236, v237, v238, v239);
-      objc_msgSend_setObject_atIndexedSubscript_(v88, v241, v235, v240, v242);
-      v97 = v235;
+      [v19 setObject:v42 atIndexedSubscript:{objc_msgSend(v49, "integerValue")}];
+      v20 = v42;
       goto LABEL_28;
     }
 
 LABEL_18:
-    v41 = 0;
+    firstObject2 = 0;
     goto LABEL_30;
   }
 
-  if (objc_msgSend_rangeAtIndex_(v21, v29, 2, v30, v31))
+  if ([v7 rangeAtIndex:2])
   {
-    if (objc_msgSend_rangeAtIndex_(v21, v32, 3, v33, v34))
+    if ([v7 rangeAtIndex:3])
     {
-      if (objc_msgSend_rangeAtIndex_(v21, v35, 4, v36, v37))
+      if ([v7 rangeAtIndex:4])
       {
 LABEL_9:
-        v41 = 0;
+        firstObject2 = 0;
         goto LABEL_32;
       }
 
-      v191 = objc_msgSend_rangeAtIndex_(v21, v38, 4, v39, v40);
-      v45 = objc_msgSend_substringWithRange_(v13, v192, v191, v192, v193);
-      v198 = objc_msgSend_mTagsByName(self, v194, v195, v196, v197);
-      v203 = objc_msgSend_lowercaseString(v45, v199, v200, v201, v202);
-      v207 = objc_msgSend_objectForKeyedSubscript_(v198, v204, v203, v205, v206);
+      v37 = [v7 rangeAtIndex:4];
+      v11 = [firstObject substringWithRange:{v37, v38}];
+      mTagsByName = [(RAWTIFFIFD *)self mTagsByName];
+      lowercaseString = [v11 lowercaseString];
+      v41 = [mTagsByName objectForKeyedSubscript:lowercaseString];
 
       if (objc_opt_isKindOfClass())
       {
-        v97 = v207[2](v207);
+        v20 = v41[2](v41);
 
-        v53 = objc_msgSend_mTagsByName(self, v208, v209, v210, v211);
-        v132 = objc_msgSend_lowercaseString(v45, v212, v213, v214, v215);
-        objc_msgSend_setObject_forKeyedSubscript_(v53, v216, v97, v132, v217);
+        mTagsByName2 = [(RAWTIFFIFD *)self mTagsByName];
+        lowercaseString2 = [v11 lowercaseString];
+        [mTagsByName2 setObject:v20 forKeyedSubscript:lowercaseString2];
         goto LABEL_29;
       }
 
-      v53 = v207;
+      mTagsByName2 = v41;
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(v53, v218, v219, v220, v221) != 1)
+      if ((objc_opt_isKindOfClass() & 1) == 0 || [mTagsByName2 count] != 1)
       {
-        v41 = v53;
+        firstObject2 = mTagsByName2;
         goto LABEL_30;
       }
 
-      v41 = objc_msgSend_firstObject(v53, v222, v223, v224, v225);
+      firstObject2 = [mTagsByName2 firstObject];
 
       if (objc_opt_isKindOfClass())
       {
-        v132 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v226, v53, v227, v228);
-        v97 = v41[2](v41);
+        lowercaseString2 = [MEMORY[0x277CBEB18] arrayWithArray:mTagsByName2];
+        v20 = firstObject2[2](firstObject2);
 
-        objc_msgSend_setObject_atIndexedSubscript_(v132, v229, v97, 0, v230);
+        [lowercaseString2 setObject:v20 atIndexedSubscript:0];
         goto LABEL_29;
       }
 
@@ -186,37 +178,34 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v135 = objc_msgSend_rangeAtIndex_(v21, v35, 3, v36, v37);
-    v45 = objc_msgSend_substringWithRange_(v13, v136, v135, v136, v137);
-    v138 = qword_27DE37DA8;
-    v143 = objc_msgSend_length(v45, v139, v140, v141, v142);
-    v53 = objc_msgSend_firstMatchInString_options_range_(v138, v144, v45, 0, 0, v143);
-    if (objc_msgSend_numberOfRanges(v53, v145, v146, v147, v148) == 3)
+    v26 = [v7 rangeAtIndex:3];
+    v11 = [firstObject substringWithRange:{v26, v27}];
+    mTagsByName2 = [qword_27DE37DA8 firstMatchInString:v11 options:0 range:{0, objc_msgSend(v11, "length")}];
+    if ([mTagsByName2 numberOfRanges] == 3)
     {
-      v152 = objc_msgSend_rangeAtIndex_(v53, v149, 1, v150, v151);
-      v265 = objc_msgSend_substringWithRange_(v45, v153, v152, v153, v154);
-      v158 = objc_msgSend_rangeAtIndex_(v53, v155, 2, v156, v157);
-      v266 = objc_msgSend_substringWithRange_(v45, v159, v158, v159, v160);
-      v165 = objc_msgSend_mTagsByName(self, v161, v162, v163, v164);
-      v170 = objc_msgSend_lowercaseString(v265, v166, v167, v168, v169);
-      v174 = objc_msgSend_objectForKeyedSubscript_(v165, v171, v170, v172, v173);
+      v28 = [mTagsByName2 rangeAtIndex:1];
+      v48 = [v11 substringWithRange:{v28, v29}];
+      v30 = [mTagsByName2 rangeAtIndex:2];
+      v49 = [v11 substringWithRange:{v30, v31}];
+      mTagsByName3 = [(RAWTIFFIFD *)self mTagsByName];
+      lowercaseString3 = [v48 lowercaseString];
+      v34 = [mTagsByName3 objectForKeyedSubscript:lowercaseString3];
 
       if (objc_opt_isKindOfClass())
       {
-        v88 = v174[2](v174);
+        v19 = v34[2](v34);
 
-        v183 = objc_msgSend_mTagsByName(self, v179, v180, v181, v182);
-        v188 = objc_msgSend_lowercaseString(v45, v184, v185, v186, v187);
-        objc_msgSend_setObject_forKeyedSubscript_(v183, v189, v88, v188, v190);
+        mTagsByName4 = [(RAWTIFFIFD *)self mTagsByName];
+        lowercaseString4 = [v11 lowercaseString];
+        [mTagsByName4 setObject:v19 forKeyedSubscript:lowercaseString4];
       }
 
       else
       {
-        v88 = v174;
+        v19 = v34;
       }
 
-      v231 = objc_msgSend_integerValue(v266, v175, v176, v177, v178);
-      v97 = objc_msgSend_objectAtIndexedSubscript_(v88, v232, v231, v233, v234);
+      v20 = [v19 objectAtIndexedSubscript:{objc_msgSend(v49, "integerValue")}];
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_28;
@@ -228,60 +217,55 @@ LABEL_30:
     goto LABEL_18;
   }
 
-  v98 = objc_msgSend_rangeAtIndex_(v21, v32, 2, v33, v34);
-  v45 = objc_msgSend_substringWithRange_(v13, v99, v98, v99, v100);
-  v105 = objc_msgSend_mTagsByID(self, v101, v102, v103, v104);
-  v106 = MEMORY[0x277CCABB0];
-  v111 = objc_msgSend_integerValue(v45, v107, v108, v109, v110);
-  v115 = objc_msgSend_numberWithInteger_(v106, v112, v111, v113, v114);
-  v41 = objc_msgSend_objectForKeyedSubscript_(v105, v116, v115, v117, v118);
+  v21 = [v7 rangeAtIndex:2];
+  v11 = [firstObject substringWithRange:{v21, v22}];
+  mTagsByID2 = [(RAWTIFFIFD *)self mTagsByID];
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v11, "integerValue")}];
+  firstObject2 = [mTagsByID2 objectForKeyedSubscript:v24];
 
   if (objc_opt_isKindOfClass())
   {
-    v97 = v41[2](v41);
+    v20 = firstObject2[2](firstObject2);
 
-    v53 = objc_msgSend_mTagsByID(self, v119, v120, v121, v122);
-    v123 = MEMORY[0x277CCABB0];
-    v128 = objc_msgSend_integerValue(v45, v124, v125, v126, v127);
-    v132 = objc_msgSend_numberWithInteger_(v123, v129, v128, v130, v131);
-    objc_msgSend_setObject_forKeyedSubscript_(v53, v133, v97, v132, v134);
+    mTagsByName2 = [(RAWTIFFIFD *)self mTagsByID];
+    lowercaseString2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v11, "integerValue")}];
+    [mTagsByName2 setObject:v20 forKeyedSubscript:lowercaseString2];
 LABEL_29:
 
-    v41 = v97;
+    firstObject2 = v20;
     goto LABEL_30;
   }
 
 LABEL_31:
 
 LABEL_32:
-  if (objc_msgSend_count(v8, v243, v244, v245, v246) >= 2)
+  if ([v5 count] >= 2)
   {
-    v251 = objc_msgSend_count(v8, v247, v248, v249, v250);
-    v254 = objc_msgSend_subarrayWithRange_(v8, v252, 1, v251 - 1, v253);
-    v258 = objc_msgSend_componentsJoinedByString_(v254, v255, @".", v256, v257);
+    v43 = [v5 subarrayWithRange:{1, objc_msgSend(v5, "count") - 1}];
+    v44 = [v43 componentsJoinedByString:@"."];
 
-    v262 = objc_msgSend_objectForKeyedSubscript_(v41, v259, v258, v260, v261);
+    v45 = [firstObject2 objectForKeyedSubscript:v44];
 
     if (objc_opt_isKindOfClass())
     {
-      v263 = v262[2](v262);
+      v46 = v45[2](v45);
 
-      v262 = v263;
+      v45 = v46;
     }
 
-    v41 = v262;
+    firstObject2 = v45;
   }
 
-  return v41;
+  return firstObject2;
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript
 {
   objectCopy = object;
   subscriptCopy = subscript;
-  v11 = objc_msgSend_mTagsByName(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_lowercaseString(subscriptCopy, v12, v13, v14, v15);
-  objc_msgSend_setObject_forKeyedSubscript_(v11, v17, objectCopy, v16, v18);
+  mTagsByName = [(RAWTIFFIFD *)self mTagsByName];
+  lowercaseString = [subscriptCopy lowercaseString];
+  [mTagsByName setObject:objectCopy forKeyedSubscript:lowercaseString];
 }
 
 - (void)dumpObjCInfoKey:(id)key value:(id)value indent:(unint64_t)indent
@@ -294,43 +278,42 @@ LABEL_32:
     v10 = MEMORY[0x277D85DF8];
     v11 = *MEMORY[0x277D85DF8];
     sub_2337477D0(__b, indent, 9);
-    v12 = v100;
+    v12 = v41;
     v13 = __b[0];
-    v14 = keyCopy;
-    v19 = objc_msgSend_UTF8String(v14, v15, v16, v17, v18);
-    v20 = __b;
+    uTF8String = [keyCopy UTF8String];
+    v15 = __b;
     if (v12 < 0)
     {
-      v20 = v13;
+      v15 = v13;
     }
 
-    fprintf(v11, "%s%s : (\n", v20, v19);
-    if (v100 < 0)
+    fprintf(v11, "%s%s : (\n", v15, uTF8String);
+    if (v41 < 0)
     {
       operator delete(__b[0]);
     }
 
-    v98[0] = MEMORY[0x277D85DD0];
-    v98[1] = 3221225472;
-    v98[2] = sub_233747880;
-    v98[3] = &unk_2789EE9E0;
-    v98[4] = self;
-    v98[5] = indent;
-    objc_msgSend_enumerateObjectsUsingBlock_(valueCopy, v21, v98, v22, v23);
-    v24 = *v10;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = sub_233747880;
+    v39[3] = &unk_2789EE9E0;
+    v39[4] = self;
+    v39[5] = indent;
+    [valueCopy enumerateObjectsUsingBlock:v39];
+    v16 = *v10;
     sub_2337477D0(__b, indent, 9);
-    if (v100 >= 0)
+    if (v41 >= 0)
     {
-      v25 = __b;
+      v17 = __b;
     }
 
     else
     {
-      v25 = __b[0];
+      v17 = __b[0];
     }
 
-    fprintf(v24, "%s)\n", v25);
-    if (v100 < 0)
+    fprintf(v16, "%s)\n", v17);
+    if (v41 < 0)
     {
       operator delete(__b[0]);
     }
@@ -338,52 +321,50 @@ LABEL_32:
 
   else
   {
-    v26 = valueCopy;
+    v18 = valueCopy;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v27 = MEMORY[0x277D85DF8];
-      v28 = *MEMORY[0x277D85DF8];
+      v19 = MEMORY[0x277D85DF8];
+      v20 = *MEMORY[0x277D85DF8];
       sub_2337477D0(__b, indent, 9);
-      v29 = v100;
-      v30 = __b[0];
-      v31 = keyCopy;
-      v36 = objc_msgSend_UTF8String(v31, v32, v33, v34, v35);
-      v37 = __b;
-      if (v29 < 0)
+      v21 = v41;
+      v22 = __b[0];
+      uTF8String2 = [keyCopy UTF8String];
+      v24 = __b;
+      if (v21 < 0)
       {
-        v37 = v30;
+        v24 = v22;
       }
 
-      fprintf(v28, "%s%s : {\n", v37, v36);
-      if (v100 < 0)
+      fprintf(v20, "%s%s : {\n", v24, uTF8String2);
+      if (v41 < 0)
       {
         operator delete(__b[0]);
       }
 
-      v42 = objc_msgSend_count(v26, v38, v39, v40, v41);
-      NSLog(&cfstr_NsdictionaryLu.isa, v42);
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = sub_233747A2C;
-      v97[3] = &unk_2789EEA08;
-      v97[4] = self;
-      v97[5] = indent;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v26, v43, v97, v44, v45);
-      v46 = *v27;
+      NSLog(&cfstr_NsdictionaryLu.isa, [v18 count]);
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = sub_233747A2C;
+      v38[3] = &unk_2789EEA08;
+      v38[4] = self;
+      v38[5] = indent;
+      [v18 enumerateKeysAndObjectsUsingBlock:v38];
+      v25 = *v19;
       sub_2337477D0(__b, indent, 9);
-      if (v100 >= 0)
+      if (v41 >= 0)
       {
-        v47 = __b;
+        v26 = __b;
       }
 
       else
       {
-        v47 = __b[0];
+        v26 = __b[0];
       }
 
-      fprintf(v46, "%s}\n", v47);
-      if (v100 < 0)
+      fprintf(v25, "%s}\n", v26);
+      if (v41 < 0)
       {
         operator delete(__b[0]);
       }
@@ -391,30 +372,27 @@ LABEL_32:
 
     else
     {
-      v48 = v26;
+      v27 = v18;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v49 = *MEMORY[0x277D85DF8];
+        v28 = *MEMORY[0x277D85DF8];
         sub_2337477D0(__b, indent, 9);
-        if (v100 >= 0)
+        if (v41 >= 0)
         {
-          v50 = __b;
+          v29 = __b;
         }
 
         else
         {
-          v50 = __b[0];
+          v29 = __b[0];
         }
 
-        v51 = keyCopy;
-        v56 = objc_msgSend_UTF8String(v51, v52, v53, v54, v55);
-        v61 = objc_msgSend_stringValue(v48, v57, v58, v59, v60);
-        v62 = v61;
-        v67 = objc_msgSend_UTF8String(v62, v63, v64, v65, v66);
-        fprintf(v49, "%s%s : @%s\n", v50, v56, v67);
+        uTF8String3 = [keyCopy UTF8String];
+        stringValue = [v27 stringValue];
+        fprintf(v28, "%s%s : @%s\n", v29, uTF8String3, [stringValue UTF8String]);
 
-        if (v100 < 0)
+        if (v41 < 0)
         {
           operator delete(__b[0]);
         }
@@ -422,24 +400,20 @@ LABEL_32:
 
       else
       {
-        v68 = v48;
+        v32 = v27;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v69 = *MEMORY[0x277D85DF8];
-          v70 = __b;
+          v33 = *MEMORY[0x277D85DF8];
+          v34 = __b;
           sub_2337477D0(__b, indent, 9);
-          if (v100 < 0)
+          if (v41 < 0)
           {
-            v70 = __b[0];
+            v34 = __b[0];
           }
 
-          v71 = keyCopy;
-          v76 = objc_msgSend_UTF8String(v71, v72, v73, v74, v75);
-          v77 = v68;
-          v82 = objc_msgSend_UTF8String(v77, v78, v79, v80, v81);
-          fprintf(v69, "%s%s : @%s\n", v70, v76, v82);
-          if (v100 < 0)
+          fprintf(v33, "%s%s : @%s\n", v34, [keyCopy UTF8String], objc_msgSend(v32, "UTF8String"));
+          if (v41 < 0)
           {
             operator delete(__b[0]);
           }
@@ -447,23 +421,20 @@ LABEL_32:
 
         else
         {
-          v83 = v68;
+          v35 = v32;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v84 = *MEMORY[0x277D85DF8];
-            v85 = __b;
+            v36 = *MEMORY[0x277D85DF8];
+            v37 = __b;
             sub_2337477D0(__b, indent, 9);
-            if (v100 < 0)
+            if (v41 < 0)
             {
-              v85 = __b[0];
+              v37 = __b[0];
             }
 
-            v86 = keyCopy;
-            v91 = objc_msgSend_UTF8String(v86, v87, v88, v89, v90);
-            v96 = objc_msgSend_length(v83, v92, v93, v94, v95);
-            fprintf(v84, "%s%s : %lu bytes\n", v85, v91, v96);
-            if (v100 < 0)
+            fprintf(v36, "%s%s : %lu bytes\n", v37, [keyCopy UTF8String], objc_msgSend(v35, "length"));
+            if (v41 < 0)
             {
               operator delete(__b[0]);
             }
@@ -476,64 +447,63 @@ LABEL_32:
 
 - (void)dumpMemoryInfoKey:(id)key indent:(unint64_t)indent
 {
-  v162 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v10 = objc_msgSend_mTagsByID(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_count(v10, v11, v12, v13, v14);
+  mTagsByID = [(RAWTIFFIFD *)self mTagsByID];
+  v7 = [mTagsByID count];
 
-  if (v15)
+  if (v7)
   {
-    v20 = *MEMORY[0x277D85DF8];
-    v21 = __p;
+    v8 = *MEMORY[0x277D85DF8];
+    v9 = __p;
     sub_2337477D0(__p, indent, 9);
-    if (v159 < 0)
+    if (v60 < 0)
     {
-      v21 = __p[0];
+      v9 = __p[0];
     }
 
-    v22 = keyCopy;
-    v27 = objc_msgSend_UTF8String(keyCopy, v23, v24, v25, v26);
-    v32 = objc_msgSend_mTagsByID(self, v28, v29, v30, v31);
-    v37 = objc_msgSend_count(v32, v33, v34, v35, v36);
-    fprintf(v20, "%s%s : TagsByID( %lu items\n", v21, v27, v37);
+    v10 = keyCopy;
+    uTF8String = [keyCopy UTF8String];
+    mTagsByID2 = [(RAWTIFFIFD *)self mTagsByID];
+    fprintf(v8, "%s%s : TagsByID( %lu items\n", v9, uTF8String, [mTagsByID2 count]);
 
-    if (v159 < 0)
+    if (v60 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v42 = objc_msgSend_mTagsByID(self, v38, v39, v40, v41);
-    v47 = objc_msgSend_allKeys(v42, v43, v44, v45, v46);
-    v51 = objc_msgSend_sortedArrayUsingComparator_(v47, v48, &unk_284904C10, v49, v50);
+    mTagsByID3 = [(RAWTIFFIFD *)self mTagsByID];
+    allKeys = [mTagsByID3 allKeys];
+    v15 = [allKeys sortedArrayUsingComparator:&unk_284904C10];
 
-    v156 = 0u;
-    v157 = 0u;
-    v154 = 0u;
-    v155 = 0u;
-    v52 = v51;
-    v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v53, &v154, v161, 16);
-    if (v58)
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v16 = v15;
+    v17 = [v16 countByEnumeratingWithState:&v55 objects:v62 count:16];
+    if (v17)
     {
-      v59 = *v155;
+      v18 = *v56;
       do
       {
-        for (i = 0; i != v58; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v155 != v59)
+          if (*v56 != v18)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v16);
           }
 
-          v61 = *(*(&v154 + 1) + 8 * i);
-          v62 = objc_msgSend_mTagsByID(self, v54, v55, v56, v57);
-          v66 = objc_msgSend_objectForKeyedSubscript_(v62, v63, v61, v64, v65);
+          v20 = *(*(&v55 + 1) + 8 * i);
+          mTagsByID4 = [(RAWTIFFIFD *)self mTagsByID];
+          v22 = [mTagsByID4 objectForKeyedSubscript:v20];
 
-          v67 = v66;
+          v23 = v22;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v72 = objc_msgSend_stringValue(v61, v68, v69, v70, v71);
-            objc_msgSend_dumpMemoryInfoKey_indent_(v67, v73, v72, indent + 1, v74);
+            stringValue = [v20 stringValue];
+            [v23 dumpMemoryInfoKey:stringValue indent:indent + 1];
           }
 
           else
@@ -541,100 +511,99 @@ LABEL_32:
             NSClassFromString(&cfstr_Nsblock.isa);
             if (objc_opt_isKindOfClass())
             {
-              v72 = objc_msgSend_stringValue(v61, v75, v76, v77, v78);
-              v79 = v67[2](v67);
-              objc_msgSend_dumpObjCInfoKey_value_indent_(self, v80, v72, v79, indent + 1);
+              stringValue = [v20 stringValue];
+              v25 = v23[2](v23);
+              [(RAWTIFFIFD *)self dumpObjCInfoKey:stringValue value:v25 indent:indent + 1];
             }
 
             else
             {
-              v72 = objc_msgSend_stringValue(v61, v75, v76, v77, v78);
-              objc_msgSend_dumpObjCInfoKey_value_indent_(self, v81, v72, v67, indent + 1);
+              stringValue = [v20 stringValue];
+              [(RAWTIFFIFD *)self dumpObjCInfoKey:stringValue value:v23 indent:indent + 1];
             }
           }
         }
 
-        v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v54, &v154, v161, 16);
+        v17 = [v16 countByEnumeratingWithState:&v55 objects:v62 count:16];
       }
 
-      while (v58);
+      while (v17);
     }
 
-    v82 = *MEMORY[0x277D85DF8];
+    v26 = *MEMORY[0x277D85DF8];
     sub_2337477D0(__p, indent, 9);
-    if (v159 >= 0)
+    if (v60 >= 0)
     {
-      v83 = __p;
+      v27 = __p;
     }
 
     else
     {
-      v83 = __p[0];
+      v27 = __p[0];
     }
 
-    fprintf(v82, "%s)\n", v83);
-    if (v159 < 0)
+    fprintf(v26, "%s)\n", v27);
+    if (v60 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v84 = objc_msgSend_mTagsByName(self, v16, v17, v18, v19);
-  v89 = objc_msgSend_count(v84, v85, v86, v87, v88) == 0;
+  mTagsByName = [(RAWTIFFIFD *)self mTagsByName];
+  v29 = [mTagsByName count] == 0;
 
-  if (!v89)
+  if (!v29)
   {
-    v90 = *MEMORY[0x277D85DF8];
-    v91 = __p;
+    v30 = *MEMORY[0x277D85DF8];
+    v31 = __p;
     sub_2337477D0(__p, indent, 9);
-    if (v159 < 0)
+    if (v60 < 0)
     {
-      v91 = __p[0];
+      v31 = __p[0];
     }
 
-    v92 = keyCopy;
-    v97 = objc_msgSend_UTF8String(keyCopy, v93, v94, v95, v96);
-    v102 = objc_msgSend_mTagsByName(self, v98, v99, v100, v101);
-    v107 = objc_msgSend_count(v102, v103, v104, v105, v106);
-    fprintf(v90, "%s%s : TagsByName( %lu items\n", v91, v97, v107);
+    v32 = keyCopy;
+    uTF8String2 = [keyCopy UTF8String];
+    mTagsByName2 = [(RAWTIFFIFD *)self mTagsByName];
+    fprintf(v30, "%s%s : TagsByName( %lu items\n", v31, uTF8String2, [mTagsByName2 count]);
 
-    if (v159 < 0)
+    if (v60 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v112 = objc_msgSend_mTagsByName(self, v108, v109, v110, v111);
-    v117 = objc_msgSend_allKeys(v112, v113, v114, v115, v116);
-    v121 = objc_msgSend_sortedArrayUsingComparator_(v117, v118, &unk_284904C30, v119, v120);
+    mTagsByName3 = [(RAWTIFFIFD *)self mTagsByName];
+    allKeys2 = [mTagsByName3 allKeys];
+    v37 = [allKeys2 sortedArrayUsingComparator:&unk_284904C30];
 
-    v152 = 0u;
-    v153 = 0u;
-    v150 = 0u;
-    v151 = 0u;
-    obj = v121;
-    v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v122, &v150, v160, 16);
-    if (v126)
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    obj = v37;
+    v38 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+    if (v38)
     {
-      v127 = *v151;
+      v39 = *v52;
       do
       {
-        for (j = 0; j != v126; ++j)
+        for (j = 0; j != v38; ++j)
         {
-          if (*v151 != v127)
+          if (*v52 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v129 = *(*(&v150 + 1) + 8 * j);
-          v130 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v123, @"@%@", v124, v125, v129);
-          v135 = objc_msgSend_mTagsByName(self, v131, v132, v133, v134);
-          v139 = objc_msgSend_objectForKeyedSubscript_(v135, v136, v129, v137, v138);
+          v41 = *(*(&v51 + 1) + 8 * j);
+          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"@%@", v41];
+          mTagsByName4 = [(RAWTIFFIFD *)self mTagsByName];
+          v44 = [mTagsByName4 objectForKeyedSubscript:v41];
 
-          v140 = v139;
+          v45 = v44;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            objc_msgSend_dumpMemoryInfoKey_indent_(v140, v141, v130, indent + 1, v142);
+            [v45 dumpMemoryInfoKey:v42 indent:indent + 1];
           }
 
           else
@@ -642,37 +611,37 @@ LABEL_32:
             NSClassFromString(&cfstr_Nsblock.isa);
             if (objc_opt_isKindOfClass())
             {
-              v144 = v140[2](v140);
-              objc_msgSend_dumpObjCInfoKey_value_indent_(self, v145, v130, v144, indent + 1);
+              v46 = v45[2](v45);
+              [(RAWTIFFIFD *)self dumpObjCInfoKey:v42 value:v46 indent:indent + 1];
             }
 
             else
             {
-              objc_msgSend_dumpObjCInfoKey_value_indent_(self, v143, v130, v140, indent + 1);
+              [(RAWTIFFIFD *)self dumpObjCInfoKey:v42 value:v45 indent:indent + 1];
             }
           }
         }
 
-        v126 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v123, &v150, v160, 16);
+        v38 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
       }
 
-      while (v126);
+      while (v38);
     }
 
-    v146 = *MEMORY[0x277D85DF8];
+    v47 = *MEMORY[0x277D85DF8];
     sub_2337477D0(__p, indent, 9);
-    if (v159 >= 0)
+    if (v60 >= 0)
     {
-      v147 = __p;
+      v48 = __p;
     }
 
     else
     {
-      v147 = __p[0];
+      v48 = __p[0];
     }
 
-    fprintf(v146, "%s)\n", v147);
-    if (v159 < 0)
+    fprintf(v47, "%s)\n", v48);
+    if (v60 < 0)
     {
       operator delete(__p[0]);
     }

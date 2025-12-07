@@ -29,20 +29,18 @@
 
 void __71__HFAccessoryInfoDetailsItemProvider_preferredCharacteristicOrderArray__block_invoke()
 {
-  v5[6] = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCFA58];
-  v5[0] = *MEMORY[0x277CCF968];
-  v5[1] = v0;
-  v5[2] = *MEMORY[0x277CCF970];
-  v5[3] = @"HFAccessoryInfoTypeNetworkPreferredOrderKey";
+  v4[0] = *MEMORY[0x277CCF968];
+  v4[1] = v0;
+  v4[2] = *MEMORY[0x277CCF970];
+  v4[3] = @"HFAccessoryInfoTypeNetworkPreferredOrderKey";
   v1 = *MEMORY[0x277CCFA88];
-  v5[4] = *MEMORY[0x277CCF8B8];
-  v5[5] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
+  v4[4] = *MEMORY[0x277CCF8B8];
+  v4[5] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
   v3 = _MergedGlobals_3_0;
   _MergedGlobals_3_0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HFAccessoryInfoDetailsItemProvider)init
@@ -113,41 +111,17 @@ void __71__HFAccessoryInfoDetailsItemProvider_preferredCharacteristicOrderArray_
   items = [(HFAccessoryInfoDetailsItemProvider *)self items];
   v6 = [items containsObject:itemCopy];
 
-  if (!v6)
+  if (v6 && (-[HFAccessoryInfoDetailsItemProvider networkItem](self, "networkItem"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7 == itemCopy) && (-[HFAccessoryInfoDetailsItemProvider accessory](self, "accessory"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 hf_isHomePod], v8, v9) && (objc_msgSend_home(self), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "hf_currentUserIsOwner"), v10, v11))
   {
-    goto LABEL_6;
-  }
-
-  networkItem = [(HFAccessoryInfoDetailsItemProvider *)self networkItem];
-
-  if (networkItem != itemCopy)
-  {
-    goto LABEL_6;
-  }
-
-  accessory = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
-  hf_isHomePod = [accessory hf_isHomePod];
-
-  if (!hf_isHomePod)
-  {
-    goto LABEL_6;
-  }
-
-  home = [(HFAccessoryInfoDetailsItemProvider *)self home];
-  hf_currentUserIsOwner = [home hf_currentUserIsOwner];
-
-  if (hf_currentUserIsOwner)
-  {
-    home2 = [(HFAccessoryInfoDetailsItemProvider *)self home];
-    accessory2 = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
-    mediaProfile = [accessory2 mediaProfile];
-    v15 = [home2 hf_relatedHomeTheaterMediaProfileContainerFor:mediaProfile];
+    v12 = objc_msgSend_home(self);
+    accessory = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
+    mediaProfile = [accessory mediaProfile];
+    v15 = [v12 hf_relatedHomeTheaterMediaProfileContainerFor:mediaProfile];
     v16 = v15 == 0;
   }
 
   else
   {
-LABEL_6:
     v16 = 0;
   }
 
@@ -182,8 +156,8 @@ LABEL_6:
 
   else
   {
-    home = [(HFAccessoryInfoDetailsItemProvider *)self home];
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    v4 = objc_msgSend_home(self, a2);
+    hf_characteristicValueManager = [v4 hf_characteristicValueManager];
   }
 
   return hf_characteristicValueManager;
@@ -204,17 +178,15 @@ LABEL_6:
 
 - (id)invalidationReasons
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFAccessoryInfoDetailsItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"service";
-  v8[1] = @"accessory";
-  v8[2] = @"room";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFAccessoryInfoDetailsItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"service";
+  v7[1] = @"accessory";
+  v7[2] = @"room";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -266,22 +238,22 @@ uint64_t __74__HFAccessoryInfoDetailsItemProvider_accessoryInfoServiceDetailComp
 
   v5 = [HFAccessoryInfoItem alloc];
   accessory = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
-  home = [(HFAccessoryInfoDetailsItemProvider *)self home];
-  v8 = [(HFAccessoryInfoItem *)v5 initWithAccessory:accessory infoType:1 home:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [(HFAccessoryInfoItem *)v5 initWithAccessory:accessory infoType:1 home:v7];
   firmwareItem = self->_firmwareItem;
   self->_firmwareItem = v8;
 
   v10 = [HFAccessoryInfoItem alloc];
   accessory2 = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
-  home2 = [(HFAccessoryInfoDetailsItemProvider *)self home];
-  v13 = [(HFAccessoryInfoItem *)v10 initWithAccessory:accessory2 infoType:2 home:home2];
+  v12 = objc_msgSend_home(self);
+  v13 = [(HFAccessoryInfoItem *)v10 initWithAccessory:accessory2 infoType:2 home:v12];
   softwareItem = self->_softwareItem;
   self->_softwareItem = v13;
 
   v15 = [HFAccessoryNetworkInfoItem alloc];
   accessory3 = [(HFAccessoryInfoDetailsItemProvider *)self accessory];
-  home3 = [(HFAccessoryInfoDetailsItemProvider *)self home];
-  v18 = [(HFAccessoryNetworkInfoItem *)v15 initWithAccessory:accessory3 home:home3];
+  v17 = objc_msgSend_home(self);
+  v18 = [(HFAccessoryNetworkInfoItem *)v15 initWithAccessory:accessory3 home:v17];
   networkItem = self->_networkItem;
   self->_networkItem = v18;
 
@@ -433,7 +405,7 @@ id __62__HFAccessoryInfoDetailsItemProvider_accessoryInfoDetailItems__block_invo
   [v3 setObject:*(a1 + 48) forKeyedSubscript:@"description"];
   if (*(a1 + 48))
   {
-    v13 = [WeakRetained home];
+    v13 = objc_msgSend_home(WeakRetained);
     v14 = [v13 hf_currentUserIsRestrictedGuest];
   }
 
@@ -512,19 +484,19 @@ id __62__HFAccessoryInfoDetailsItemProvider_accessoryInfoDetailItems__block_invo
 
 + (id)_displayValueForCachedValue:(id)value characteristicType:(id)type accessoryInfoService:(id)service
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   typeCopy = type;
   serviceCopy = service;
   if (!valueCopy && +[HFUtilities isInternalInstall](HFUtilities, "isInternalInstall") && (([serviceCopy hf_characteristicOfType:typeCopy], v10 = objc_claimAutoreleasedReturnValue(), v10, !serviceCopy) || v10))
   {
-    v14 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = [MEMORY[0x277CD1970] localizedDescriptionForCharacteristicType:typeCopy];
-      v16 = 138412290;
-      v17 = v15;
-      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Missing cached value for accessory information characteristic %@!", &v16, 0xCu);
+      v14 = [MEMORY[0x277CD1970] localizedDescriptionForCharacteristicType:typeCopy];
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Missing cached value for accessory information characteristic %@!", &v15, 0xCu);
     }
 
     v11 = @"(null - file a radar!)";
@@ -534,8 +506,6 @@ id __62__HFAccessoryInfoDetailsItemProvider_accessoryInfoDetailItems__block_invo
   {
     v11 = valueCopy;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

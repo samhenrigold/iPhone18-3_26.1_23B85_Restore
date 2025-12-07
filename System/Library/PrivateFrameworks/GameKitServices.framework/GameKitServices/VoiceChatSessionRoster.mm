@@ -76,37 +76,39 @@
 
 - (void)configureDeviceRating
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
-  *v20 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
   v21 = 0u;
-  v9 = 64;
-  sysctlbyname("hw.model", v20, &v9, 0, 0);
-  if (!strncasecmp("j1", v20, 2uLL) || !strncasecmp("j2", v20, 2uLL) || !strncasecmp("n94", v20, 3uLL) || !strncasecmp("k93", v20, 3uLL) || !strncasecmp("k94", v20, 3uLL) || !strncasecmp("k95", v20, 3uLL))
+  v22 = 0u;
+  *v19 = 0u;
+  v20 = 0u;
+  v8 = 64;
+  sysctlbyname("hw.model", v19, &v8, 0, 0);
+  if (!strncasecmp("j1", v19, 2uLL) || !strncasecmp("j2", v19, 2uLL) || !strncasecmp("n94", v19, 3uLL) || !strncasecmp("k93", v19, 3uLL) || !strncasecmp("k94", v19, 3uLL) || !strncasecmp("k95", v19, 3uLL))
   {
     v3 = 40;
     goto LABEL_13;
   }
 
-  if (!strncasecmp("n90", v20, 3uLL) || !strncasecmp("n92", v20, 3uLL) || !strncasecmp("n81", v20, 3uLL))
+  if (!strncasecmp("n90", v19, 3uLL) || !strncasecmp("n92", v19, 3uLL) || !strncasecmp("n81", v19, 3uLL))
   {
-    v8 = 30;
-LABEL_19:
-    self->_deviceRating = v8;
-    goto LABEL_14;
+    v7 = 30;
   }
 
-  if (!strncasecmp("n88", v20, 3uLL))
+  else
   {
-    v8 = 15;
-    goto LABEL_19;
-  }
-
-  v3 = 45;
+    if (strncasecmp("n88", v19, 3uLL))
+    {
+      v3 = 45;
 LABEL_13:
-  self->_deviceRating = v3;
-  [(GKVoiceChatSessionInternal *)self->_gkvs setIsUsingSuppression:0];
+      self->_deviceRating = v3;
+      [(GKVoiceChatSessionInternal *)self->_gkvs setIsUsingSuppression:0];
+      goto LABEL_14;
+    }
+
+    v7 = 15;
+  }
+
+  self->_deviceRating = v7;
 LABEL_14:
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -116,25 +118,23 @@ LABEL_14:
     {
       deviceRating = self->_deviceRating;
       *buf = 136316162;
-      v11 = v4;
-      v12 = 2080;
-      v13 = "[VoiceChatSessionRoster configureDeviceRating]";
-      v14 = 1024;
-      v15 = 1256;
-      v16 = 2080;
-      v17 = v20;
-      v18 = 1024;
-      v19 = deviceRating;
+      v10 = v4;
+      v11 = 2080;
+      v12 = "[VoiceChatSessionRoster configureDeviceRating]";
+      v13 = 1024;
+      v14 = 1256;
+      v15 = 2080;
+      v16 = v19;
+      v17 = 1024;
+      v18 = deviceRating;
       _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d hwModel %s device rating is %u", buf, 0x2Cu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)recalculateFocusRating
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->resMutex);
   v3 = self->_gkvs;
   pthread_mutex_unlock(&self->resMutex);
@@ -184,21 +184,21 @@ LABEL_14:
       {
         deviceRating = self->_deviceRating;
         v14 = self->_focusRating;
-        v19 = 136316674;
-        v20 = v12;
-        v21 = 2080;
-        v22 = "[VoiceChatSessionRoster recalculateFocusRating]";
-        v23 = 1024;
-        v24 = 1300;
-        v25 = 1024;
-        v26 = v14;
-        v27 = 1024;
-        v28 = v11;
-        v29 = 1024;
-        v30 = v9;
-        v31 = 1024;
-        v32 = deviceRating;
-        _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Focus rating updated from %d to %d (%d and %d)", &v19, 0x34u);
+        v18 = 136316674;
+        v19 = v12;
+        v20 = 2080;
+        v21 = "[VoiceChatSessionRoster recalculateFocusRating]";
+        v22 = 1024;
+        v23 = 1300;
+        v24 = 1024;
+        v25 = v14;
+        v26 = 1024;
+        v27 = v11;
+        v28 = 1024;
+        v29 = v9;
+        v30 = 1024;
+        v31 = deviceRating;
+        _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Focus rating updated from %d to %d (%d and %d)", &v18, 0x34u);
       }
     }
 
@@ -213,36 +213,34 @@ LABEL_14:
     pthread_mutex_unlock(&self->resMutex);
   }
 
-  result = v11 != focusRating;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11 != focusRating;
 }
 
 - (void)startBeacon
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(VoiceChatSessionRoster *)self recalculateFocusRating];
   pthread_mutex_lock(&self->resMutex);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   connectedPeers = self->_connectedPeers;
-  v4 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:v8];
         if (!v9)
         {
@@ -255,7 +253,7 @@ LABEL_14:
         self->_needsUpdateBeaconList = 1;
       }
 
-      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -277,60 +275,9 @@ LABEL_14:
   }
 
   pthread_mutex_unlock(&self->resMutex);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBeacon
-{
-  v16 = *MEMORY[0x277D85DE8];
-  pthread_mutex_lock(&self->resMutex);
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  connectedPeers = self->_connectedPeers;
-  v4 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v12;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(connectedPeers);
-        }
-
-        v8 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
-        if (v8)
-        {
-          v9 = v8;
-          [v8 setNeedsSend:1];
-          [v9 setTypeToSend:0];
-          self->_needsUpdateBeaconList = 1;
-        }
-      }
-
-      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v5);
-  }
-
-  [(VoiceChatSessionRoster *)self sendBeacons];
-  if (!self->_waitingToCalculateFocus)
-  {
-    self->_waitingToCalculateFocus = 1;
-    [MEMORY[0x277CCACC8] detachNewThreadSelector:sel_calculateFocus_ toTarget:self withObject:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceNow:", 0.5)}];
-  }
-
-  pthread_mutex_unlock(&self->resMutex);
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopBeacon
 {
   v15 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->resMutex);
@@ -354,11 +301,60 @@ LABEL_14:
         }
 
         v8 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:*(*(&v10 + 1) + 8 * i)];
+        if (v8)
+        {
+          v9 = v8;
+          [v8 setNeedsSend:1];
+          [v9 setTypeToSend:0];
+          self->_needsUpdateBeaconList = 1;
+        }
+      }
+
+      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v5);
+  }
+
+  [(VoiceChatSessionRoster *)self sendBeacons];
+  if (!self->_waitingToCalculateFocus)
+  {
+    self->_waitingToCalculateFocus = 1;
+    [MEMORY[0x277CCACC8] detachNewThreadSelector:sel_calculateFocus_ toTarget:self withObject:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceNow:", 0.5)}];
+  }
+
+  pthread_mutex_unlock(&self->resMutex);
+}
+
+- (void)stopBeacon
+{
+  v14 = *MEMORY[0x277D85DE8];
+  pthread_mutex_lock(&self->resMutex);
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  connectedPeers = self->_connectedPeers;
+  v4 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v10;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v10 != v6)
+        {
+          objc_enumerationMutation(connectedPeers);
+        }
+
+        v8 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:*(*(&v9 + 1) + 8 * i)];
         [v8 setNeedsSend:1];
         [v8 setTypeToSend:1];
       }
 
-      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -374,7 +370,6 @@ LABEL_14:
   self->_focusID = 0;
   self->_hasFocus = 0;
   pthread_mutex_unlock(&self->resMutex);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendBeacon:(tagVoiceChatBeacon *)beacon ToPeer:(id)peer
@@ -395,31 +390,31 @@ LABEL_14:
 
 - (void)sendBeacons
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self->_isBeaconUp)
   {
-    v21 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+    v20 = objc_alloc_init(MEMORY[0x277CCA8B0]);
     v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     connectedPeers = self->_connectedPeers;
-    v6 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v22 objects:v31 count:16];
+    v6 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v23;
-      for (i = *v23; ; i = *v23)
+      v9 = *v22;
+      for (i = *v22; ; i = *v22)
       {
         if (i != v9)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v8);
+        v11 = *(*(&v21 + 1) + 8 * v8);
         v12 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:v11];
         if ([v12 needsSend])
         {
@@ -459,7 +454,7 @@ LABEL_14:
 
         if (++v8 >= v7)
         {
-          v16 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v22 objects:v31 count:16];
+          v16 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v21 objects:v30 count:16];
           if (!v16)
           {
             break;
@@ -480,58 +475,56 @@ LABEL_14:
       {
         if (v4)
         {
-          v19 = [objc_msgSend(v4 "description")];
+          uTF8String = [objc_msgSend_description(v4) UTF8String];
         }
 
         else
         {
-          v19 = "<nil>";
+          uTF8String = "<nil>";
         }
 
         *buf = 136315906;
         *&buf[4] = v17;
         *&buf[12] = 2080;
         *&buf[14] = "[VoiceChatSessionRoster sendBeacons]";
-        v27 = 1024;
-        v28 = 1475;
-        v29 = 2080;
-        v30 = v19;
+        v26 = 1024;
+        v27 = 1475;
+        v28 = 2080;
+        v29 = uTF8String;
         _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sendBeacons : sendPeerList %s ", buf, 0x26u);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calculateFocus:(id)focus
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   [MEMORY[0x277CCACC8] sleepUntilDate:focus];
   pthread_mutex_lock(&self->resMutex);
   chosenFocusRating = self->_chosenFocusRating;
   focusID = self->_focusID;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   connectedPeers = self->_connectedPeers;
-  v9 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v26 objects:v42 count:16];
+  v9 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v25 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         v14 = [(NSMutableDictionary *)self->_peerStateTable objectForKeyedSubscript:v13];
         if ([v14 receivedState] == 1)
         {
@@ -545,7 +538,7 @@ LABEL_14:
         }
       }
 
-      v10 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v26 objects:v42 count:16];
+      v10 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v25 objects:v41 count:16];
     }
 
     while (v10);
@@ -597,17 +590,17 @@ LABEL_18:
       v23 = self->_chosenFocusRating;
       v22 = self->_focusID;
       *buf = 136316418;
-      v31 = v20;
-      v32 = 2080;
-      v33 = "[VoiceChatSessionRoster calculateFocus:]";
-      v34 = 1024;
-      v35 = 1545;
-      v36 = 1024;
-      v37 = v22;
-      v38 = 1024;
-      v39 = v23;
-      v40 = 1024;
-      v41 = v19;
+      v30 = v20;
+      v31 = 2080;
+      v32 = "[VoiceChatSessionRoster calculateFocus:]";
+      v33 = 1024;
+      v34 = 1545;
+      v35 = 1024;
+      v36 = v22;
+      v37 = 1024;
+      v38 = v23;
+      v39 = 1024;
+      v40 = v19;
       _os_log_impl(&dword_24E50C000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d The focus that we calculated is %u with value %d.  did change? %d", buf, 0x2Eu);
     }
   }
@@ -615,13 +608,11 @@ LABEL_18:
   v24 = self->_gkvs;
   pthread_mutex_unlock(&self->resMutex);
   [(GKVoiceChatSessionInternal *)v24 updatedFocusID:self->_focusID];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peer:(id)peer didChangeState:(unsigned int)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->resMutex);
   if (state == 5)
   {
@@ -687,23 +678,23 @@ LABEL_13:
       connectedPeers = self->_connectedPeers;
       if (connectedPeers)
       {
-        v15 = [-[NSMutableArray description](connectedPeers "description")];
+        uTF8String = [objc_msgSend_description(connectedPeers) UTF8String];
       }
 
       else
       {
-        v15 = "<nil>";
+        uTF8String = "<nil>";
       }
 
-      v18 = 136315906;
-      v19 = v12;
-      v20 = 2080;
-      v21 = "[VoiceChatSessionRoster peer:didChangeState:]";
-      v22 = 1024;
-      v23 = 1606;
-      v24 = 2080;
-      v25 = v15;
-      _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VoiceChatSessionRoster: is connected %s", &v18, 0x26u);
+      v17 = 136315906;
+      v18 = v12;
+      v19 = 2080;
+      v20 = "[VoiceChatSessionRoster peer:didChangeState:]";
+      v21 = 1024;
+      v22 = 1606;
+      v23 = 2080;
+      v24 = uTF8String;
+      _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VoiceChatSessionRoster: is connected %s", &v17, 0x26u);
     }
   }
 
@@ -718,13 +709,11 @@ LABEL_13:
   {
     [(GKVoiceChatSessionInternal *)v16 updatedSubscribedBeaconList:[(VoiceChatSessionRoster *)self subscribedPeers]];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedBeacon:(id)beacon fromPeer:(id)peer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   pthread_mutex_lock(&self->resMutex);
   bytes = [beacon bytes];
@@ -739,25 +728,25 @@ LABEL_13:
       v11 = *(bytes + 4);
       if (peer)
       {
-        v12 = [objc_msgSend(peer "description")];
+        uTF8String = [objc_msgSend_description(peer) UTF8String];
       }
 
       else
       {
-        v12 = "<nil>";
+        uTF8String = "<nil>";
       }
 
-      v19 = 136316162;
-      v20 = v9;
-      v21 = 2080;
-      v22 = "[VoiceChatSessionRoster receivedBeacon:fromPeer:]";
-      v23 = 1024;
-      v24 = 1635;
-      v25 = 1024;
-      v26 = v11;
-      v27 = 2080;
-      v28 = v12;
-      _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Session sent stream %u from %s", &v19, 0x2Cu);
+      v18 = 136316162;
+      v19 = v9;
+      v20 = 2080;
+      v21 = "[VoiceChatSessionRoster receivedBeacon:fromPeer:]";
+      v22 = 1024;
+      v23 = 1635;
+      v24 = 1024;
+      v25 = v11;
+      v26 = 2080;
+      v27 = uTF8String;
+      _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Session sent stream %u from %s", &v18, 0x2Cu);
     }
   }
 
@@ -779,13 +768,13 @@ LABEL_13:
         v16 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136315650;
-          v20 = v15;
-          v21 = 2080;
-          v22 = "[VoiceChatSessionRoster receivedBeacon:fromPeer:]";
-          v23 = 1024;
-          v24 = 1655;
-          _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Don't understand beacon type", &v19, 0x1Cu);
+          v18 = 136315650;
+          v19 = v15;
+          v20 = 2080;
+          v21 = "[VoiceChatSessionRoster receivedBeacon:fromPeer:]";
+          v22 = 1024;
+          v23 = 1655;
+          _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Don't understand beacon type", &v18, 0x1Cu);
         }
       }
     }
@@ -804,13 +793,11 @@ LABEL_13:
   v17 = self->_gkvs;
   pthread_mutex_unlock(&self->resMutex);
   [(GKVoiceChatSessionInternal *)v17 updatedSubscribedBeaconList:[(VoiceChatSessionRoster *)self subscribedPeers]];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processUnsubscribeBeacon:(tagVoiceChatBeacon *)beacon beaconState:(id)state fromPeer:(id)peer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   gameStateSession = [(VoiceChatSessionRoster *)self gameStateSession];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -820,26 +807,26 @@ LABEL_13:
     {
       if ([(GKVoiceChatPeerInfoProvider *)gameStateSession displayNameForPeer:[(GKVoiceChatSessionInternal *)self->_gkvs encodePeerID:peer]])
       {
-        v12 = [objc_msgSend(-[GKVoiceChatPeerInfoProvider displayNameForPeer:](gameStateSession displayNameForPeer:{-[GKVoiceChatSessionInternal encodePeerID:](self->_gkvs, "encodePeerID:", peer)), "description"), "UTF8String"}];
+        v12 = [objc_msgSend_description(-[GKVoiceChatPeerInfoProvider displayNameForPeer:](gameStateSession displayNameForPeer:{-[GKVoiceChatSessionInternal encodePeerID:](self->_gkvs, "encodePeerID:", peer))), "UTF8String"}];
         if (peer)
         {
 LABEL_5:
-          v13 = [objc_msgSend(peer "description")];
+          uTF8String = [objc_msgSend_description(peer) UTF8String];
 LABEL_8:
           focusID = self->_focusID;
-          v17 = 136316418;
-          v18 = v10;
-          v19 = 2080;
-          v20 = "[VoiceChatSessionRoster processUnsubscribeBeacon:beaconState:fromPeer:]";
-          v21 = 1024;
-          v22 = 1681;
-          v23 = 2080;
-          v24 = v12;
-          v25 = 2080;
-          v26 = v13;
-          v27 = 1024;
-          v28 = focusID;
-          _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processUnsubscribeBeacon from %s (%s), _focusID = %u", &v17, 0x36u);
+          v16 = 136316418;
+          v17 = v10;
+          v18 = 2080;
+          v19 = "[VoiceChatSessionRoster processUnsubscribeBeacon:beaconState:fromPeer:]";
+          v20 = 1024;
+          v21 = 1681;
+          v22 = 2080;
+          v23 = v12;
+          v24 = 2080;
+          v25 = uTF8String;
+          v26 = 1024;
+          v27 = focusID;
+          _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processUnsubscribeBeacon from %s (%s), _focusID = %u", &v16, 0x36u);
           goto LABEL_9;
         }
       }
@@ -853,7 +840,7 @@ LABEL_8:
         }
       }
 
-      v13 = "<nil>";
+      uTF8String = "<nil>";
       goto LABEL_8;
     }
   }
@@ -876,16 +863,14 @@ LABEL_9:
 
     [state setReceivedState:2];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSubscribeBeacon:(tagVoiceChatBeacon *)beacon beaconState:(id)state fromPeer:(id)peer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (beacon->var1)
   {
-    goto LABEL_16;
+    return;
   }
 
   if (self->_focusID == [peer longLongValue])
@@ -899,19 +884,19 @@ LABEL_9:
         chosenFocusRating = self->_chosenFocusRating;
         focusID = self->_focusID;
         var3 = beacon->var3;
-        v19 = 136316418;
-        v20 = v8;
-        v21 = 2080;
-        v22 = "[VoiceChatSessionRoster processSubscribeBeacon:beaconState:fromPeer:]";
-        v23 = 1024;
-        v24 = 1709;
-        v25 = 1024;
-        v26 = focusID;
-        v27 = 1024;
-        v28 = chosenFocusRating;
-        v29 = 1024;
-        v30 = var3;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processSubscribeBeacon: Our focus %d changed rating from %d to %d", &v19, 0x2Eu);
+        v18 = 136316418;
+        v19 = v8;
+        v20 = 2080;
+        v21 = "[VoiceChatSessionRoster processSubscribeBeacon:beaconState:fromPeer:]";
+        v22 = 1024;
+        v23 = 1709;
+        v24 = 1024;
+        v25 = focusID;
+        v26 = 1024;
+        v27 = chosenFocusRating;
+        v28 = 1024;
+        v29 = var3;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d processSubscribeBeacon: Our focus %d changed rating from %d to %d", &v18, 0x2Eu);
       }
     }
 
@@ -940,17 +925,17 @@ LABEL_8:
       {
         v16 = beacon->var0;
         sentState = [state sentState];
-        v19 = 136316162;
-        v20 = v14;
-        v21 = 2080;
-        v22 = "[VoiceChatSessionRoster processSubscribeBeacon:beaconState:fromPeer:]";
-        v23 = 1024;
-        v24 = 1725;
-        v25 = 1024;
-        v26 = v16;
-        v27 = 1024;
-        v28 = sentState;
-        _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d beaconHeader->receivedState = %d, beaconState.sentState = %d", &v19, 0x28u);
+        v18 = 136316162;
+        v19 = v14;
+        v20 = 2080;
+        v21 = "[VoiceChatSessionRoster processSubscribeBeacon:beaconState:fromPeer:]";
+        v22 = 1024;
+        v23 = 1725;
+        v24 = 1024;
+        v25 = v16;
+        v26 = 1024;
+        v27 = sentState;
+        _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d beaconHeader->receivedState = %d, beaconState.sentState = %d", &v18, 0x28u);
       }
     }
 
@@ -959,49 +944,46 @@ LABEL_8:
   }
 
   [state setReceivedState:1];
-LABEL_16:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)subscribedPeers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->resMutex);
   v3 = [MEMORY[0x277CBEB18] arrayWithArray:self->_connectedPeers];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   connectedPeers = self->_connectedPeers;
-  v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([-[NSMutableDictionary objectForKeyedSubscript:](self->_peerStateTable objectForKeyedSubscript:{v9), "receivedState"}] != 1)
         {
           [v3 removeObject:v9];
         }
       }
 
-      v6 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   pthread_mutex_unlock(&self->resMutex);
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

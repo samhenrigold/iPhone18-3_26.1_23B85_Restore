@@ -8,7 +8,7 @@
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_BE70(0, &unk_955620);
+  sub_BE70(0, &unk_955620, AIDAServiceOperationResult_ptr);
   v6 = sub_7690F0();
   controllerCopy = controller;
   selfCopy = self;

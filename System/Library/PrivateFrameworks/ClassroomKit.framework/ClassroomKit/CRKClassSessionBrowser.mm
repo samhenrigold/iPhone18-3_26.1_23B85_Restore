@@ -558,37 +558,38 @@ LABEL_3:
 
 - (void)sessionDidLoseBeacon:(id)beacon
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   beaconCopy = beacon;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = beaconCopy;
-    v6 = _CRKLogGeneral_22();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = beaconCopy;
+    v7 = _CRKLogGeneral_22(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      identifier = [v5 identifier];
-      v11 = 138543618;
-      v12 = identifier;
-      v13 = 1024;
-      flags = [v5 flags];
-      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Class session lost beacon %{public}@ [%d]", &v11, 0x12u);
+      identifier = [v6 identifier];
+      v12 = 138543618;
+      v13 = identifier;
+      v14 = 1024;
+      flags = [v6 flags];
+      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Class session lost beacon %{public}@ [%d]", &v12, 0x12u);
     }
 
-    identifier2 = [v5 identifier];
+    identifier2 = [v6 identifier];
     [(CRKClassSessionBrowser *)self delegateDidRemoveClassSession:identifier2];
   }
 
   else
   {
-    v5 = _CRKLogGeneral_22();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CRKLogGeneral_22(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       endpoint = [beaconCopy endpoint];
       stringValue = [endpoint stringValue];
-      v11 = 138543362;
-      v12 = stringValue;
-      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Invite session lost beacon %{public}@", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = stringValue;
+      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Invite session lost beacon %{public}@", &v12, 0xCu);
     }
   }
 
@@ -701,7 +702,7 @@ LABEL_3:
   v11 = [(NSMutableDictionary *)self->mClassSessionsByIdentifier objectForKeyedSubscript:sessionCopy];
   if (!v11)
   {
-    v12 = _CRKLogGeneral_22();
+    v12 = _CRKLogGeneral_22(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138543618;
@@ -721,8 +722,7 @@ LABEL_3:
     }
   }
 
-  [(CRKClassSessionBrowser *)self addInRangeClassSession:v11];
-  v13 = _CRKLogGeneral_22();
+  v13 = _CRKLogGeneral_22([(CRKClassSessionBrowser *)self addInRangeClassSession:v11]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138543618;
@@ -748,7 +748,7 @@ LABEL_15:
   v6 = [(NSMutableDictionary *)self->mInvitationSessionsByEndpoint objectForKeyedSubscript:endpointCopy];
   if (!v6)
   {
-    v7 = _CRKLogGeneral_22();
+    v7 = _CRKLogGeneral_22(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       stringValue = [endpointCopy stringValue];
@@ -1090,7 +1090,7 @@ LABEL_8:
 
         v19 = *(*(&v35 + 1) + 8 * j);
         v20 = [(NSMutableDictionary *)self->mClassSessionsByIdentifier objectForKeyedSubscript:v19, v29];
-        v21 = _CRKLogGeneral_22();
+        v21 = _CRKLogGeneral_22(v20);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = v29;
@@ -1115,22 +1115,23 @@ LABEL_8:
     v31 = 0u;
     v32 = 0u;
     allValues2 = [(NSMutableDictionary *)self->mInvitationSessionsByEndpoint allValues];
-    v23 = [allValues2 countByEnumeratingWithState:&v31 objects:v43 count:16];
-    if (v23)
+    invalidate = [allValues2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    if (invalidate)
     {
-      v24 = v23;
+      v24 = invalidate;
       v25 = *v32;
       do
       {
-        for (k = 0; k != v24; ++k)
+        v26 = 0;
+        do
         {
           if (*v32 != v25)
           {
             objc_enumerationMutation(allValues2);
           }
 
-          v27 = *(*(&v31 + 1) + 8 * k);
-          v28 = _CRKLogGeneral_22();
+          v27 = *(*(&v31 + 1) + 8 * v26);
+          v28 = _CRKLogGeneral_22(invalidate);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
@@ -1138,13 +1139,16 @@ LABEL_8:
             _os_log_impl(&dword_243550000, v28, OS_LOG_TYPE_DEFAULT, "Invalidating invitation session because we are not browsing for invitations: %{public}@", buf, 0xCu);
           }
 
-          [v27 invalidate];
+          invalidate = [v27 invalidate];
+          ++v26;
         }
 
-        v24 = [allValues2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        while (v24 != v26);
+        invalidate = [allValues2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v24 = invalidate;
       }
 
-      while (v24);
+      while (invalidate);
     }
   }
 }
@@ -1237,7 +1241,7 @@ LABEL_8:
 
 - (void)delegateDidFindClassSession:(id)session transport:(id)transport
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   transportCopy = transport;
   delegate = [(CRKClassSessionBrowser *)self delegate];
@@ -1245,12 +1249,12 @@ LABEL_8:
 
   if (v9)
   {
-    v10 = _CRKLogGeneral_22();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CRKLogGeneral_22(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = sessionCopy;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "Found class session %{public}@", &v12, 0xCu);
+      v13 = 138543362;
+      v14 = sessionCopy;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "Found class session %{public}@", &v13, 0xCu);
     }
 
     delegate2 = [(CRKClassSessionBrowser *)self delegate];
@@ -1273,19 +1277,19 @@ LABEL_8:
 
 - (void)delegateDidRemoveClassSession:(id)session
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   delegate = [(CRKClassSessionBrowser *)self delegate];
   v6 = objc_opt_respondsToSelector();
 
   if (v6)
   {
-    v7 = _CRKLogGeneral_22();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CRKLogGeneral_22(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = sessionCopy;
-      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Removed class session %{public}@", &v9, 0xCu);
+      v10 = 138543362;
+      v11 = sessionCopy;
+      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Removed class session %{public}@", &v10, 0xCu);
     }
 
     delegate2 = [(CRKClassSessionBrowser *)self delegate];
@@ -1328,7 +1332,7 @@ LABEL_8:
 
 - (void)delegateDidFindInvitationSession:(id)session transport:(id)transport
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   transportCopy = transport;
   invitationSessionDelegate = [(CRKClassSessionBrowser *)self invitationSessionDelegate];
@@ -1336,14 +1340,14 @@ LABEL_8:
 
   if (v9)
   {
-    v10 = _CRKLogGeneral_22();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CRKLogGeneral_22(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       endpoint = [sessionCopy endpoint];
       stringValue = [endpoint stringValue];
-      v15 = 138543362;
-      v16 = stringValue;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "Found invitation session %{public}@", &v15, 0xCu);
+      v16 = 138543362;
+      v17 = stringValue;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "Found invitation session %{public}@", &v16, 0xCu);
     }
 
     invitationSessionDelegate2 = [(CRKClassSessionBrowser *)self invitationSessionDelegate];

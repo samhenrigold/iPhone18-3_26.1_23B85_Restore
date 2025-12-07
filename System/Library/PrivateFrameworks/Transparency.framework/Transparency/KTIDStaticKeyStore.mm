@@ -119,7 +119,7 @@ void __94__KTIDStaticKeyStore_updateStaticKeyEntry_contactServerPath_contactIden
 
 void __94__KTIDStaticKeyStore_updateStaticKeyEntry_contactServerPath_contactIdentifier_mappings_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -129,16 +129,14 @@ void __94__KTIDStaticKeyStore_updateStaticKeyEntry_contactServerPath_contactIden
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown updateStaticKeyEntry error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown updateStaticKeyEntry error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __94__KTIDStaticKeyStore_updateStaticKeyEntry_contactServerPath_contactIdentifier_mappings_error___block_invoke_4()
@@ -237,7 +235,7 @@ void __57__KTIDStaticKeyStore_updateStaticKeyEntry_contact_error___block_invoke_
 
 void __57__KTIDStaticKeyStore_updateStaticKeyEntry_contact_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -247,16 +245,14 @@ void __57__KTIDStaticKeyStore_updateStaticKeyEntry_contact_error___block_invoke_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown updateStaticKeyEntry error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown updateStaticKeyEntry error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __57__KTIDStaticKeyStore_updateStaticKeyEntry_contact_error___block_invoke_4()
@@ -308,7 +304,7 @@ uint64_t __57__KTIDStaticKeyStore_updateStaticKeyEntry_contact_error___block_inv
 
 void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -323,7 +319,7 @@ void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection removeEntryByKDID error: %@", buf, 0xCu);
     }
 
@@ -333,15 +329,13 @@ void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke(uint64_t a1
   else
   {
     v8 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_123;
-    v11[3] = &unk_1E8702528;
-    v12 = *(a1 + 40);
-    [v5 removeEntryByKDID:v8 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_123;
+    v10[3] = &unk_1E8702528;
+    v11 = *(a1 + 40);
+    [v5 removeEntryByKDID:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_2()
@@ -369,7 +363,7 @@ void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_123(uint64_
 
 void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_2_125(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -379,16 +373,14 @@ void __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_2_125(uint6
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByKDID error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByKDID error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_3()
@@ -440,7 +432,7 @@ uint64_t __46__KTIDStaticKeyStore_removeEntryByKDID_error___block_invoke_3()
 
 void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -455,7 +447,7 @@ void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invok
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection removeEntryByContactIdentifier error: %@", buf, 0xCu);
     }
 
@@ -465,15 +457,13 @@ void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invok
   else
   {
     v8 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke_130;
-    v11[3] = &unk_1E8702528;
-    v12 = *(a1 + 40);
-    [v5 removeEntryByContactIdentifier:v8 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke_130;
+    v10[3] = &unk_1E8702528;
+    v11 = *(a1 + 40);
+    [v5 removeEntryByContactIdentifier:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke_2()
@@ -501,7 +491,7 @@ void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invok
 
 void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke_2_131(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -511,16 +501,14 @@ void __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invok
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_invoke_3()
@@ -572,7 +560,7 @@ uint64_t __59__KTIDStaticKeyStore_removeEntryByContactIdentifier_error___block_i
 
 void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -587,7 +575,7 @@ void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke(uint64_t
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection removeEntryByContactIdentifier error: %@", buf, 0xCu);
     }
 
@@ -600,15 +588,13 @@ void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke(uint64_t
   else
   {
     v8 = [*(a1 + 32) identifier];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_136;
-    v13[3] = &unk_1E8702528;
-    v14 = *(a1 + 40);
-    [v5 removeEntryByContactIdentifier:v8 complete:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_136;
+    v12[3] = &unk_1E8702528;
+    v13 = *(a1 + 40);
+    [v5 removeEntryByContactIdentifier:v8 complete:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_2()
@@ -636,7 +622,7 @@ void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_136(uint
 
 void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_2_137(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -646,16 +632,14 @@ void __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_2_137(ui
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_3()
@@ -709,7 +693,7 @@ uint64_t __49__KTIDStaticKeyStore_removeEntryByContact_error___block_invoke_3()
 
 void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -724,7 +708,7 @@ void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection findKeyByHandle error: %@", buf, 0xCu);
     }
 
@@ -734,15 +718,13 @@ void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke(uint64_t a1, 
   else
   {
     v8 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_142;
-    v11[3] = &unk_1E87024B0;
-    v12 = *(a1 + 40);
-    [v5 findStaticKeyStoreMappingByIDSURI:v8 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_142;
+    v10[3] = &unk_1E87024B0;
+    v11 = *(a1 + 40);
+    [v5 findStaticKeyStoreMappingByIDSURI:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_2()
@@ -776,7 +758,7 @@ void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_142(uint64_t 
 
 void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_2_143(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -786,16 +768,14 @@ void __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_2_143(uint64_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown removeEntryByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_3()
@@ -849,7 +829,7 @@ uint64_t __44__KTIDStaticKeyStore_findKeyByHandle_error___block_invoke_3()
 
 void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -864,7 +844,7 @@ void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke(uint6
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection findKeyByHandle error: %@", buf, 0xCu);
     }
 
@@ -874,15 +854,13 @@ void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke(uint6
   else
   {
     v8 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_148;
-    v11[3] = &unk_1E87024B0;
-    v12 = *(a1 + 40);
-    [v5 findStaticKeyStoreMappingByContactIdentifer:v8 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_148;
+    v10[3] = &unk_1E87024B0;
+    v11 = *(a1 + 40);
+    [v5 findStaticKeyStoreMappingByContactIdentifer:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_2()
@@ -916,7 +894,7 @@ void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_148(u
 
 void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_2_149(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -926,16 +904,14 @@ void __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_2_149
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_3()
@@ -989,7 +965,7 @@ uint64_t __52__KTIDStaticKeyStore_findByContactIdentifier_error___block_invoke_3
 
 void __42__KTIDStaticKeyStore_findByContact_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1004,7 +980,7 @@ void __42__KTIDStaticKeyStore_findByContact_error___block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Connection findKeyByHandle error: %@", buf, 0xCu);
     }
 
@@ -1014,15 +990,13 @@ void __42__KTIDStaticKeyStore_findByContact_error___block_invoke(uint64_t a1, vo
   else
   {
     v8 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __42__KTIDStaticKeyStore_findByContact_error___block_invoke_154;
-    v11[3] = &unk_1E87024B0;
-    v12 = *(a1 + 40);
-    [v5 findStaticKeyStoreMappingByContact:v8 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __42__KTIDStaticKeyStore_findByContact_error___block_invoke_154;
+    v10[3] = &unk_1E87024B0;
+    v11 = *(a1 + 40);
+    [v5 findStaticKeyStoreMappingByContact:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__KTIDStaticKeyStore_findByContact_error___block_invoke_2()
@@ -1056,7 +1030,7 @@ void __42__KTIDStaticKeyStore_findByContact_error___block_invoke_154(uint64_t a1
 
 void __42__KTIDStaticKeyStore_findByContact_error___block_invoke_2_155(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1066,16 +1040,14 @@ void __42__KTIDStaticKeyStore_findByContact_error___block_invoke_2_155(uint64_t 
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__KTIDStaticKeyStore_findByContact_error___block_invoke_3()
@@ -1171,7 +1143,7 @@ void __45__KTIDStaticKeyStore_findByIdentifier_error___block_invoke_2(uint64_t a
 
 void __45__KTIDStaticKeyStore_findByIdentifier_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1181,16 +1153,14 @@ void __45__KTIDStaticKeyStore_findByIdentifier_error___block_invoke_3(uint64_t a
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown findByIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__KTIDStaticKeyStore_findByIdentifier_error___block_invoke_4()
@@ -1286,7 +1256,7 @@ void __49__KTIDStaticKeyStore_validateByIdentifier_error___block_invoke_2(uint64
 
 void __49__KTIDStaticKeyStore_validateByIdentifier_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1296,16 +1266,14 @@ void __49__KTIDStaticKeyStore_validateByIdentifier_error___block_invoke_3(uint64
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown validateByIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown validateByIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__KTIDStaticKeyStore_validateByIdentifier_error___block_invoke_4()
@@ -1409,7 +1377,7 @@ void __56__KTIDStaticKeyStore_validateByContactIdentifier_error___block_invoke_2
 
 void __56__KTIDStaticKeyStore_validateByContactIdentifier_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1419,16 +1387,14 @@ void __56__KTIDStaticKeyStore_validateByContactIdentifier_error___block_invoke_3
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown validateByContactIdentifier error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown validateByContactIdentifier error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__KTIDStaticKeyStore_validateByContactIdentifier_error___block_invoke_4()
@@ -1517,7 +1483,7 @@ void __31__KTIDStaticKeyStore_listKTID___block_invoke_2(uint64_t a1, void *a2, v
 
 void __31__KTIDStaticKeyStore_listKTID___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1527,16 +1493,14 @@ void __31__KTIDStaticKeyStore_listKTID___block_invoke_3(uint64_t a1, void *a2)
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown listKTID error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown listKTID error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__KTIDStaticKeyStore_listKTID___block_invoke_4()
@@ -1622,7 +1586,7 @@ void __52__KTIDStaticKeyStore_setErrorCode_forMapping_error___block_invoke_2(uin
 
 void __52__KTIDStaticKeyStore_setErrorCode_forMapping_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1632,16 +1596,14 @@ void __52__KTIDStaticKeyStore_setErrorCode_forMapping_error___block_invoke_3(uin
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setErrorCode error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setErrorCode error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__KTIDStaticKeyStore_setErrorCode_forMapping_error___block_invoke_4()
@@ -1720,7 +1682,7 @@ void __34__KTIDStaticKeyStore_triggerSync___block_invoke_2(uint64_t a1, char a2,
 
 void __34__KTIDStaticKeyStore_triggerSync___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1730,16 +1692,14 @@ void __34__KTIDStaticKeyStore_triggerSync___block_invoke_3(uint64_t a1, void *a2
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown triggerSync error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown triggerSync error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __34__KTIDStaticKeyStore_triggerSync___block_invoke_4()
@@ -1820,7 +1780,7 @@ void __45__KTIDStaticKeyStore_setupCloudSchema_error___block_invoke_2(uint64_t a
 
 void __45__KTIDStaticKeyStore_setupCloudSchema_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1830,16 +1790,14 @@ void __45__KTIDStaticKeyStore_setupCloudSchema_error___block_invoke_3(uint64_t a
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setupCloudSchema error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setupCloudSchema error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__KTIDStaticKeyStore_setupCloudSchema_error___block_invoke_4()
@@ -1918,7 +1876,7 @@ void __36__KTIDStaticKeyStore_resetCloudKit___block_invoke_2(uint64_t a1, char a
 
 void __36__KTIDStaticKeyStore_resetCloudKit___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_14 != -1)
   {
@@ -1928,16 +1886,14 @@ void __36__KTIDStaticKeyStore_resetCloudKit___block_invoke_3(uint64_t a1, void *
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_14;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_14, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown resetCloudKit error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown resetCloudKit error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__KTIDStaticKeyStore_resetCloudKit___block_invoke_4()

@@ -194,19 +194,19 @@
     v6 = v5;
     v8 = v7;
     v10 = v9;
-    if ([*(self + 472) _contentViewIgnoresBackgroundInsets])
+    if ([self[59] _contentViewIgnoresBackgroundInsets])
     {
-      [*(self + 472) backgroundInsets];
+      [self[59] backgroundInsets];
       if (v14 != 0.0 || v11 != 0.0 || v13 != 0.0 || v12 != 0.0)
       {
-        [*(self + 472) backgroundInsets];
+        [self[59] backgroundInsets];
         v16 = v15;
-        [*(self + 472) backgroundInsets];
+        [self[59] backgroundInsets];
         v18 = v17;
         v34 = -v17;
-        [*(self + 472) backgroundInsets];
+        [self[59] backgroundInsets];
         v20 = -v19;
-        [*(self + 472) backgroundInsets];
+        [self[59] backgroundInsets];
         v22 = v21;
         if ([self _shouldReverseLayoutDirection])
         {
@@ -286,7 +286,7 @@
   [(UIView *)&v3 layoutSubviews];
   if (self)
   {
-    [(_UISystemBackgroundView *)self _layoutContentView];
+    [(_UISystemBackgroundView *)&self->super.super.super.isa _layoutContentView];
     [(_UISystemBackgroundView *)self _performStandardLayoutOfSubviewType:?];
     [(_UISystemBackgroundView *)self _performStandardLayoutOfSubviewType:?];
     [(_UISystemBackgroundView *)self _performStandardLayoutOfSubviewType:?];
@@ -1926,7 +1926,7 @@ LABEL_90:
       {
         layer3 = [viewCopy layer];
         cornerCurve = [layer3 cornerCurve];
-        systemBackgroundViewFlags = [cornerCurve isEqualToString:*MEMORY[0x1E69796E8]];
+        systemBackgroundViewFlags = objc_msgSend_isEqualToString_(cornerCurve);
       }
 
       layer4 = [viewCopy layer];
@@ -1998,7 +1998,7 @@ LABEL_39:
   v11 = v10;
   v13 = v12;
   v14 = *(self + 448);
-  v15 = *(self + 464);
+  isEqualToString = *(self + 464);
   if (v14 <= 0.0)
   {
     __maskedCorners = 0;
@@ -2047,16 +2047,16 @@ LABEL_39:
     [layer3 cornerRadius];
     v14 = v26;
 
-    if (v15)
+    if (isEqualToString)
     {
-      v15 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       layer4 = [v5 layer];
       cornerCurve = [layer4 cornerCurve];
-      v15 = [cornerCurve isEqualToString:*MEMORY[0x1E69796E8]];
+      isEqualToString = objc_msgSend_isEqualToString_(cornerCurve);
     }
 
     layer5 = [v5 layer];
@@ -2104,7 +2104,7 @@ LABEL_18:
   v48 = CGRectApplyAffineTransform(v47, &v45);
   if (__maskedCorners && v14 > 0.0)
   {
-    v42 = [UIBezierPath _roundedRectBezierPath:__maskedCorners & 0xF withRoundedCorners:16 cornerRadius:(v15 & 1) == 0 segments:v48.origin.x legacyCorners:v48.origin.y, v48.size.width, v48.size.height, v14];
+    v42 = [UIBezierPath _roundedRectBezierPath:__maskedCorners & 0xF withRoundedCorners:16 cornerRadius:(isEqualToString & 1) == 0 segments:v48.origin.x legacyCorners:v48.origin.y, v48.size.width, v48.size.height, v14];
   }
 
   else

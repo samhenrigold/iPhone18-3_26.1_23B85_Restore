@@ -7,15 +7,14 @@
 
 - (void)dealloc
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC18ActivityAwardsCore35ActivityAwardsMonthlyChallengeQuery_lock);
   selfCopy = self;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D7CE5B0, qword_227782AF0);
   sub_227781E08();
 
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ActivityAwardsMonthlyChallengeQuery();
-  [(ActivityAwardsMonthlyChallengeQuery *)&v4 dealloc];
+  v3.receiver = selfCopy;
+  v3.super_class = type metadata accessor for ActivityAwardsMonthlyChallengeQuery(0);
+  [(ActivityAwardsMonthlyChallengeQuery *)&v3 dealloc];
 }
 
 - (_TtC18ActivityAwardsCore35ActivityAwardsMonthlyChallengeQuery)init

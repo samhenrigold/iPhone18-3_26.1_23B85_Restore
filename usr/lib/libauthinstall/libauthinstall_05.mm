@@ -1,29 +1,3 @@
-void sub_298501EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a23 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a17 < 0)
-  {
-    operator delete(a12);
-    if ((v24 & 1) == 0)
-    {
-LABEL_8:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v24)
-  {
-    goto LABEL_8;
-  }
-
-  __cxa_free_exception(v23);
-  goto LABEL_8;
-}
-
 uint64_t *std::map<ImageType_t,unsigned short>::at(uint64_t a1, int *a2)
 {
   v2 = *(a1 + 8);
@@ -73,63 +47,63 @@ BOOL SERestoreInfo::IcefallDeliveryObject::matchID(uint64_t a1, uint64_t a2)
 
 double SERestoreInfo::IcefallFirmware::makeDeliveryObject@<D0>(DERItem *a1@<X1>, _OWORD *a2@<X8>)
 {
-  _ZNSt3__115allocate_sharedB8ne200100IN13SERestoreInfo21IcefallDeliveryObjectENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v40);
-  v5 = DERParseSequenceContent(a1, 0x16u, &IcefallFirmwareDERSpec::DeliveryObjectItemSpec, v17, 0x160uLL);
-  if (v5)
+  _ZNSt3__115allocate_sharedB8ne200100IN13SERestoreInfo21IcefallDeliveryObjectENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v39);
+  v4 = DERParseSequenceContent(a1, 0x16u, &IcefallFirmwareDERSpec::DeliveryObjectItemSpec, v16, 0x160uLL);
+  if (v4)
   {
-    v13 = v5;
+    v12 = v4;
     exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(v16, "Fail to parse IcefallFW per DeliveryObjectItemSpec.");
-    v15 = SERestoreInfo::SEException::SEException(exception, v16, v13, @"libDERErrorDomain");
+    std::string::basic_string[abi:ne200100]<0>(&v15, "Fail to parse IcefallFW per DeliveryObjectItemSpec.");
+    v14 = SERestoreInfo::SEException::SEException(exception, &v15, v12, @"libDERErrorDomain");
   }
 
-  if (v17[1] != 2 || (v6 = v23) != 0 && v24 > 1 || *v17[0] || *(v17[0] + 1) < 7u || v19 != 32 || (v7 = v18) == 0 || v21 != 32 || (v8 = v20) == 0 || v26[1] != 16 || !v26[0] || v29[1] != 16 || !v29[0] || v36[1] != 16 || !v36[0] || v27[1] != 2 || !v27[0] || v30[1] != 2 || !v30[0] || v37[1] != 2 || !v37[0] || v34[1] && v34[0] && (v32[1] != 16 || !v32[0] || v33[1] != 2 || !v33[0]))
+  if (v16[1] != 2 || (v5 = v22) != 0 && v23 > 1 || *v16[0] || *(v16[0] + 1) < 7u || v18 != 32 || (v6 = v17) == 0 || v20 != 32 || (v7 = v19) == 0 || v25[1] != 16 || !v25[0] || v28[1] != 16 || !v28[0] || v35[1] != 16 || !v35[0] || v26[1] != 2 || !v26[0] || v29[1] != 2 || !v29[0] || v36[1] != 2 || !v36[0] || v33[1] && v33[0] && (v31[1] != 16 || !v31[0] || v32[1] != 2 || !v32[0]))
   {
-    v11 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(v16, "Fail to validate delivery object.");
-    v12 = SERestoreInfo::SEException::SEException(v11, v16, 15, @"SEUpdaterErrorDomain");
+    v10 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "Fail to validate delivery object.");
+    v11 = SERestoreInfo::SEException::SEException(v10, &v15, 15, @"SEUpdaterErrorDomain");
   }
 
-  v9 = v40;
-  *(v40 + 80) = *v22 == 0;
-  *(v9 + 96) = v8;
-  *(v9 + 104) = 32;
-  *(v9 + 128) = v7;
-  *(v9 + 136) = 32;
-  if (v6 && v24)
+  v8 = v39;
+  *(v39 + 80) = *v21 == 0;
+  *(v8 + 96) = v7;
+  *(v8 + 104) = 32;
+  *(v8 + 128) = v6;
+  *(v8 + 136) = 32;
+  if (v5 && v23)
   {
-    *(v9 + 81) = *v6;
+    *(v8 + 81) = *v5;
   }
 
-  SERestoreInfo::IcefallDeliveryObject::addMac(v9, 0, v26);
-  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v40, 0, v27);
-  SERestoreInfo::IcefallDeliveryObject::addMac(v40, 4, v29);
-  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v40, 4, v30);
-  SERestoreInfo::IcefallDeliveryObject::addMac(v40, 2, v36);
-  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v40, 2, v37);
-  if (v32[0])
+  SERestoreInfo::IcefallDeliveryObject::addMac(v8, 0, v25);
+  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v39, 0, v26);
+  SERestoreInfo::IcefallDeliveryObject::addMac(v39, 4, v28);
+  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v39, 4, v29);
+  SERestoreInfo::IcefallDeliveryObject::addMac(v39, 2, v35);
+  SERestoreInfo::IcefallDeliveryObject::addImageVersion(v39, 2, v36);
+  if (v31[0])
   {
-    SERestoreInfo::IcefallDeliveryObject::addMac(v40, 3, v32);
-    SERestoreInfo::IcefallDeliveryObject::addImageVersion(v40, 3, v33);
+    SERestoreInfo::IcefallDeliveryObject::addMac(v39, 3, v31);
+    SERestoreInfo::IcefallDeliveryObject::addImageVersion(v39, 3, v32);
   }
 
-  SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 6, &v25);
-  SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 8, &v39);
-  if (v35)
+  SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 6, &v24);
+  SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 8, &v38);
+  if (v34)
   {
-    SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 7, &v35);
+    SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 7, &v34);
   }
 
-  SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 0, &v28);
-  SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 4, &v31);
-  SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 2, &v38);
-  if (v34[0])
+  SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 0, &v27);
+  SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 4, &v30);
+  SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 2, &v37);
+  if (v33[0])
   {
-    SERestoreInfo::IcefallDeliveryObject::addApdu(v40, 3, v34);
+    SERestoreInfo::IcefallDeliveryObject::addApdu(v39, 3, v33);
   }
 
-  result = *&v40;
-  *a2 = v40;
+  result = *&v39;
+  *a2 = v39;
   return result;
 }
 
@@ -169,7 +143,7 @@ uint64_t **SERestoreInfo::IcefallDeliveryObject::addImageVersion(uint64_t a1, in
 
   v3 = **a3;
   *&v9 = &v11;
-  result = std::__tree<std::__value_type<ImageType_t,unsigned short>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,unsigned short>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,unsigned short>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>((a1 + 56), &v11, &std::piecewise_construct, &v9);
+  result = std::__tree<std::__value_type<ImageType_t,unsigned short>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,unsigned short>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,unsigned short>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>(a1 + 56, &v11, &std::piecewise_construct, &v9);
   *(result + 16) = v3;
   return result;
 }
@@ -228,10 +202,10 @@ void SERestoreInfo::IcefallDeliveryObject::print(void *a1@<X8>)
   a1[2] = 0;
 }
 
-uint64_t **std::__tree<std::__value_type<ImageType_t,unsigned short>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,unsigned short>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,unsigned short>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
+uint64_t **std::__tree<std::__value_type<ImageType_t,unsigned short>,std::__map_value_compare<ImageType_t,std::__value_type<ImageType_t,unsigned short>,std::less<ImageType_t>,true>,std::allocator<std::__value_type<ImageType_t,unsigned short>>>::__emplace_unique_key_args<ImageType_t,std::piecewise_construct_t const&,std::tuple<ImageType_t const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v7 = a1 + 1;
-  v6 = a1[1];
+  v7 = (a1 + 8);
+  v6 = *(a1 + 8);
   if (v6)
   {
     v8 = *a2;
@@ -270,7 +244,7 @@ uint64_t **std::__tree<std::__value_type<ImageType_t,unsigned short>,std::__map_
 
   else
   {
-    v9 = a1 + 1;
+    v9 = (a1 + 8);
 LABEL_10:
     v11 = operator new(0x28uLL);
     v11[7] = **a4;
@@ -294,19 +268,19 @@ void std::__tree<std::__value_type<ImageType_t,SERestoreInfo::BLOB>,std::__map_v
   }
 }
 
-void std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::destroy(uint64_t a1, char *a2)
+void std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::destroy(uint64_t a1, void *a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::destroy(a1, *(a2 + 1));
-    v4 = (a2 + 40);
+    std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::destroy(a1, a2[1]);
+    v4 = (a2 + 5);
     std::vector<SERestoreInfo::ApduBLOB>::__destroy_vector::operator()[abi:ne200100](&v4);
     operator delete(a2);
   }
 }
 
-void std::vector<SERestoreInfo::ApduBLOB>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<SERestoreInfo::ApduBLOB>::__destroy_vector::operator()[abi:ne200100](SERestoreInfo::BLOB ***a1)
 {
   v2 = *a1;
   if (*v2)
@@ -337,10 +311,10 @@ void std::vector<SERestoreInfo::ApduBLOB>::__base_destruct_at_end[abi:ne200100](
   *(a1 + 8) = a2;
 }
 
-uint64_t **std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::__emplace_unique_key_args<SERestoreInfo::ApduType_t,std::piecewise_construct_t const&,std::tuple<SERestoreInfo::ApduType_t const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
+uint64_t **std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::__map_value_compare<SERestoreInfo::ApduType_t,std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>,std::less<SERestoreInfo::ApduType_t>,true>,std::allocator<std::__value_type<SERestoreInfo::ApduType_t,std::vector<SERestoreInfo::ApduBLOB>>>>::__emplace_unique_key_args<SERestoreInfo::ApduType_t,std::piecewise_construct_t const&,std::tuple<SERestoreInfo::ApduType_t const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v7 = a1 + 1;
-  v6 = a1[1];
+  v7 = (a1 + 8);
+  v6 = *(a1 + 8);
   if (v6)
   {
     v8 = *a2;
@@ -379,7 +353,7 @@ uint64_t **std::__tree<std::__value_type<SERestoreInfo::ApduType_t,std::vector<S
 
   else
   {
-    v9 = a1 + 1;
+    v9 = (a1 + 8);
 LABEL_10:
     v11 = operator new(0x40uLL);
     v11[8] = **a4;
@@ -458,9 +432,9 @@ uint64_t std::vector<SERestoreInfo::ApduBLOB>::__emplace_back_slow_path<SERestor
   return v17;
 }
 
-void sub_298502A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_298502A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<SERestoreInfo::ApduBLOB>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1033,7 +1007,7 @@ CFMutableDictionaryRef SEUpdaterGetTags(SERestoreInfo::SERestoreInfoLog *a1, __C
 
   Value = CFDictionaryGetValue(a1, @"DeviceInfo");
   v7 = SERestoreInfo::SERestoreInfoLog::get(Value);
-  getCFTypeDescription(Value, &v53);
+  getCFTypeDescription(&v53, Value);
   if (v54 >= 0)
   {
     v8 = &v53;
@@ -1147,7 +1121,7 @@ LABEL_41:
     v33 = SERestoreInfo::SERestoreInfoLog::get(CFError);
     if (v32)
     {
-      getCFTypeDescription(v52, &v53);
+      getCFTypeDescription(&v53, v52);
       if (v54 >= 0)
       {
         v34 = &v53;
@@ -1163,7 +1137,7 @@ LABEL_41:
 
     else
     {
-      getCFTypeDescription(v21, &v53);
+      getCFTypeDescription(&v53, v21);
       if (v54 >= 0)
       {
         v35 = &v53;
@@ -1231,7 +1205,7 @@ LABEL_41:
     goto LABEL_74;
   }
 
-  SERestoreInfo::makeSERestoreInfo(a1, &v45);
+  SERestoreInfo::makeSERestoreInfo(&v45, a1);
   if (v52)
   {
     v27 = 0;
@@ -1314,8 +1288,9 @@ LABEL_41:
   return v21;
 }
 
-void sub_2985040E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_2985040E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
+  v42 = a2;
   if (a22 < 0)
   {
     operator delete(__p);
@@ -1332,10 +1307,10 @@ void sub_2985040E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   a29 = 0;
   if (v45)
   {
-    (*(*v45 + 8))(v45);
+    (*(*v45 + 8))(v45, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a2 == 2)
+  if (v42 == 2)
   {
     v46 = __cxa_begin_catch(a1);
     *(v41 - 104) = SERestoreInfo::SEException::CreateCFError(v46);
@@ -1343,7 +1318,7 @@ void sub_2985040E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   else
   {
-    if (a2 != 1)
+    if (v42 != 1)
     {
       _Unwind_Resume(a1);
     }
@@ -1373,19 +1348,19 @@ void sub_2985042EC(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x298504188);
 }
 
-void getCFTypeDescription(void *a1@<X0>, void *a2@<X8>)
+void getCFTypeDescription(void *__return_ptr a1@<X8>, void *a2@<X0>)
 {
-  if (a1)
+  if (a2)
   {
-    v4 = CFGetTypeID(a1);
+    v4 = CFGetTypeID(a2);
     if (v4 == CFErrorGetTypeID())
     {
-      v5 = CFErrorCopyDescription(a1);
+      v5 = CFErrorCopyDescription(a2);
     }
 
     else
     {
-      v5 = CFCopyDescription(a1);
+      v5 = CFCopyDescription(a2);
     }
 
     v6 = v5;
@@ -1400,7 +1375,7 @@ void getCFTypeDescription(void *a1@<X0>, void *a2@<X8>)
       v8 = "null description";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(a2, v8);
+    std::string::basic_string[abi:ne200100]<0>(a1, v8);
     if (v6)
     {
       CFRelease(v6);
@@ -1410,7 +1385,7 @@ void getCFTypeDescription(void *a1@<X0>, void *a2@<X8>)
   else
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a2, "null value");
+    std::string::basic_string[abi:ne200100]<0>(a1, "null value");
   }
 }
 
@@ -1436,7 +1411,7 @@ void *SEUpdaterCreateRequest(SERestoreInfo::SERestoreInfoLog *a1, void *a2)
 {
   v4 = SERestoreInfo::SERestoreInfoLog::get(a1);
   Value = CFDictionaryGetValue(a1, @"DeviceInfo");
-  getCFTypeDescription(Value, &v38);
+  getCFTypeDescription(&v38, Value);
   if (v39 >= 0)
   {
     v6 = &v38;
@@ -1455,7 +1430,7 @@ void *SEUpdaterCreateRequest(SERestoreInfo::SERestoreInfoLog *a1, void *a2)
 
   v8 = SERestoreInfo::SERestoreInfoLog::get(v7);
   v9 = CFDictionaryGetValue(a1, @"FirmwareData");
-  getCFTypeDescription(v9, &v38);
+  getCFTypeDescription(&v38, v9);
   if (v39 >= 0)
   {
     v10 = &v38;
@@ -1474,7 +1449,7 @@ void *SEUpdaterCreateRequest(SERestoreInfo::SERestoreInfoLog *a1, void *a2)
 
   v12 = SERestoreInfo::SERestoreInfoLog::get(v11);
   v13 = CFDictionaryGetValue(a1, @"BuildIdentity");
-  getCFTypeDescription(v13, &v38);
+  getCFTypeDescription(&v38, v13);
   if (v39 >= 0)
   {
     v14 = &v38;
@@ -1496,7 +1471,7 @@ void *SEUpdaterCreateRequest(SERestoreInfo::SERestoreInfoLog *a1, void *a2)
   {
     v16 = CFDictionaryGetValue(v15, @"Rose");
     v17 = SERestoreInfo::SERestoreInfoLog::get(v16);
-    getCFTypeDescription(v16, &v38);
+    getCFTypeDescription(&v38, v16);
     v18 = v39 >= 0 ? &v38 : v38;
     SERestoreInfo::SERestoreInfoLog::printLog(v17, 2, "SEUpdaterCreateRequest", "[in] %s %s", "kSEOptionRoseInfo", v18);
     if (SHIBYTE(v39) < 0)
@@ -1537,7 +1512,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  SERestoreInfo::makeSERestoreInfo(a1, &v32);
+  SERestoreInfo::makeSERestoreInfo(&v32, a1);
   if (v37)
   {
     goto LABEL_29;
@@ -1589,7 +1564,7 @@ LABEL_32:
   v23 = SERestoreInfo::SERestoreInfoLog::get(CFError);
   if (v22)
   {
-    getCFTypeDescription(v37, &v38);
+    getCFTypeDescription(&v38, v37);
     if (v39 >= 0)
     {
       v24 = &v38;
@@ -1605,7 +1580,7 @@ LABEL_32:
 
   else
   {
-    getCFTypeDescription(v20, &v38);
+    getCFTypeDescription(&v38, v20);
     if (v39 >= 0)
     {
       v25 = &v38;
@@ -1643,7 +1618,7 @@ void sub_298504A40(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x298504900);
 }
 
-void *SEUpdaterCopyFirmwareLogSink(SERestoreInfo::SERestoreInfoLog *a1, void (*a2)(void *, const char *), void *a3, CFTypeRef *a4)
+uint64_t SEUpdaterCopyFirmwareLogSink(SERestoreInfo::SERestoreInfoLog *a1, void (*a2)(void *, const char *), void *a3, CFTypeRef *a4)
 {
   v8 = SERestoreInfo::SERestoreInfoLog::get(a1);
   SERestoreInfo::SERestoreInfoLog::registerLogSink(v8, a2, a3);
@@ -1651,95 +1626,95 @@ void *SEUpdaterCopyFirmwareLogSink(SERestoreInfo::SERestoreInfoLog *a1, void (*a
   return SEUpdaterCopyFirmware(a1, a4);
 }
 
-void *SEUpdaterCopyFirmware(SERestoreInfo::SERestoreInfoLog *a1, CFTypeRef *a2)
+uint64_t SEUpdaterCopyFirmware(SERestoreInfo::SERestoreInfoLog *a1, CFTypeRef *a2)
 {
-  v61 = *MEMORY[0x29EDCA608];
+  v60 = *MEMORY[0x29EDCA608];
   v4 = SERestoreInfo::SERestoreInfoLog::get(a1);
   Value = CFDictionaryGetValue(a1, @"DeviceInfo");
-  getCFTypeDescription(Value, &v59);
-  if (SHIBYTE(v60) >= 0)
+  getCFTypeDescription(&v58, Value);
+  if (SHIBYTE(v59) >= 0)
   {
-    v6 = &v59;
+    v6 = &v58;
   }
 
   else
   {
-    v6 = v59;
+    v6 = v58;
   }
 
   SERestoreInfo::SERestoreInfoLog::printLog(v4, 2, "SEUpdaterCopyFirmware", "[in] %s %s", "kSEOptionDeviceInfo", v6);
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
   v8 = SERestoreInfo::SERestoreInfoLog::get(v7);
   v9 = CFDictionaryGetValue(a1, @"FirmwareData");
-  getCFTypeDescription(v9, &v59);
-  if (SHIBYTE(v60) >= 0)
+  getCFTypeDescription(&v58, v9);
+  if (SHIBYTE(v59) >= 0)
   {
-    v10 = &v59;
+    v10 = &v58;
   }
 
   else
   {
-    v10 = v59;
+    v10 = v58;
   }
 
   SERestoreInfo::SERestoreInfoLog::printLog(v8, 2, "SEUpdaterCopyFirmware", "[in] %s %s", "kSEOptionFirmwareData", v10);
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
   v12 = SERestoreInfo::SERestoreInfoLog::get(v11);
   v13 = CFDictionaryGetValue(a1, @"BuildIdentity");
-  getCFTypeDescription(v13, &v59);
-  if (SHIBYTE(v60) >= 0)
+  getCFTypeDescription(&v58, v13);
+  if (SHIBYTE(v59) >= 0)
   {
-    v14 = &v59;
+    v14 = &v58;
   }
 
   else
   {
-    v14 = v59;
+    v14 = v58;
   }
 
   SERestoreInfo::SERestoreInfoLog::printLog(v12, 2, "SEUpdaterCopyFirmware", "[in] %s %s", "kSEOptionBuildIdentity", v14);
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
   v16 = SERestoreInfo::SERestoreInfoLog::get(v15);
   v17 = CFDictionaryGetValue(a1, @"BundlePath");
-  getCFTypeDescription(v17, &v59);
-  if (SHIBYTE(v60) >= 0)
+  getCFTypeDescription(&v58, v17);
+  if (SHIBYTE(v59) >= 0)
   {
-    v18 = &v59;
+    v18 = &v58;
   }
 
   else
   {
-    v18 = v59;
+    v18 = v58;
   }
 
   SERestoreInfo::SERestoreInfoLog::printLog(v16, 2, "SEUpdaterCopyFirmware", "[in] %s %s", "kSEOptionSourceBundlePath", v18);
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v59) < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
+  v56 = 0;
   v57 = 0;
-  v58 = 0;
   CFError = 0;
   if (!a1)
   {
-    v33 = std::string::basic_string[abi:ne200100]<0>(&v54, "options is nullptr");
-    CFError = SERestoreInfo::CreateCFError(v33, 2, 0, @"SEUpdaterErrorDomain");
-    if (v55 < 0)
+    v32 = std::string::basic_string[abi:ne200100]<0>(&v53, "options is nullptr");
+    CFError = SERestoreInfo::CreateCFError(v32, 2, 0, @"SEUpdaterErrorDomain");
+    if (v54 < 0)
     {
-      operator delete(v54);
+      operator delete(v53);
     }
 
     goto LABEL_39;
@@ -1748,23 +1723,23 @@ void *SEUpdaterCopyFirmware(SERestoreInfo::SERestoreInfoLog *a1, CFTypeRef *a2)
   v19 = CFDictionaryGetValue(a1, @"FirmwareData");
   if (v19)
   {
-    v57 = CFRetain(v19);
-    if (v57)
+    v56 = CFRetain(v19);
+    if (v56)
     {
 LABEL_39:
-      v27 = SEUpdaterCopyFirmware_cold_2(a2, &CFError, &v57, &v59);
-      v28 = v59;
+      v27 = SEUpdaterCopyFirmware_cold_2(a2, &CFError, &v56, &v58);
+      v28 = v58;
       if (v27)
       {
-        getCFTypeDescription(v57, &v59);
-        if (SHIBYTE(v60) >= 0)
+        getCFTypeDescription(&v58, v56);
+        if (SHIBYTE(v59) >= 0)
         {
-          v29 = &v59;
+          v29 = &v58;
         }
 
         else
         {
-          v29 = v59;
+          v29 = v58;
         }
 
         SERestoreInfo::SERestoreInfoLog::printLog(v28, 2, "SEUpdaterCopyFirmware", "[out] %s", v29);
@@ -1772,29 +1747,29 @@ LABEL_39:
 
       else
       {
-        getCFTypeDescription(CFError, &v59);
-        if (SHIBYTE(v60) >= 0)
+        getCFTypeDescription(&v58, CFError);
+        if (SHIBYTE(v59) >= 0)
         {
-          v30 = &v59;
+          v30 = &v58;
         }
 
         else
         {
-          v30 = v59;
+          v30 = v58;
         }
 
         SERestoreInfo::SERestoreInfoLog::printLog(v28, 0, "SEUpdaterCopyFirmware", "%s", v30);
       }
 
-      if (SHIBYTE(v60) < 0)
+      if (SHIBYTE(v59) < 0)
       {
-        operator delete(v59);
+        operator delete(v58);
       }
 
-      if (v58)
+      if (v57)
       {
-        CFRelease(v58);
-        v58 = 0;
+        CFRelease(v57);
+        v57 = 0;
       }
 
       if (CFError)
@@ -1802,59 +1777,58 @@ LABEL_39:
         CFRelease(CFError);
       }
 
-      result = v57;
-      goto LABEL_55;
+      return v56;
     }
   }
 
   else
   {
-    v57 = 0;
+    v56 = 0;
   }
 
-  SERestoreInfo::makeSERestoreInfo(a1, &v53);
+  SERestoreInfo::makeSERestoreInfo(&v52, a1);
   if (CFError)
   {
     goto LABEL_59;
   }
 
-  if (!v53)
+  if (!v52)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    v35 = std::string::basic_string[abi:ne200100]<0>(v52, "Assertion: ");
-    v36 = std::string::append(v35, "restoreInfo");
-    v37 = *&v36->__r_.__value_.__l.__data_;
-    v60 = v36->__r_.__value_.__r.__words[2];
-    v59 = v37;
-    v36->__r_.__value_.__l.__size_ = 0;
-    v36->__r_.__value_.__r.__words[2] = 0;
-    v36->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C28BB00](exception, &v59);
+    v34 = std::string::basic_string[abi:ne200100]<0>(v51, "Assertion: ");
+    v35 = std::string::append(v34, "restoreInfo");
+    v36 = *&v35->__r_.__value_.__l.__data_;
+    v59 = v35->__r_.__value_.__r.__words[2];
+    v58 = v36;
+    v35->__r_.__value_.__l.__size_ = 0;
+    v35->__r_.__value_.__r.__words[2] = 0;
+    v35->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C28BB00](exception, &v58);
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  (*(*v53 + 24))(&v59);
-  v20 = *v59;
-  *(&v59 + 1) = v59;
-  operator delete(v59);
+  (*(*v52 + 24))(&v58);
+  v20 = *v58;
+  *(&v58 + 1) = v58;
+  operator delete(v58);
   v21 = 0;
-  *&v59 = @"BuildIdentity";
-  *(&v59 + 1) = v20;
-  v60 = @"Info";
+  *&v58 = @"BuildIdentity";
+  *(&v58 + 1) = v20;
+  v59 = @"Info";
   v22 = a1;
   do
   {
-    v22 = CFDictionaryGetValue(v22, *(&v59 + v21));
+    v22 = CFDictionaryGetValue(v22, *(&v58 + v21));
     if (!v22)
     {
-      std::string::basic_string[abi:ne200100]<0>(v50, "Missing dict along the path");
-      CFError = SERestoreInfo::CreateCFError(v50, 16, 0, @"SEUpdaterErrorDomain");
-      if ((v51 & 0x80000000) == 0)
+      std::string::basic_string[abi:ne200100]<0>(v49, "Missing dict along the path");
+      CFError = SERestoreInfo::CreateCFError(v49, 16, 0, @"SEUpdaterErrorDomain");
+      if ((v50 & 0x80000000) == 0)
       {
         goto LABEL_59;
       }
 
-      v32 = v50;
+      v31 = v49;
       goto LABEL_58;
     }
 
@@ -1864,103 +1838,102 @@ LABEL_39:
   while (v21 != 24);
   if (!CFDictionaryGetValue(v22, @"Path"))
   {
-    std::string::basic_string[abi:ne200100]<0>(v48, "Missing string for path key");
-    CFError = SERestoreInfo::CreateCFError(v48, 16, 0, @"SEUpdaterErrorDomain");
-    if ((v49 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v47, "Missing string for path key");
+    CFError = SERestoreInfo::CreateCFError(v47, 16, 0, @"SEUpdaterErrorDomain");
+    if ((v48 & 0x80000000) == 0)
     {
       goto LABEL_59;
     }
 
-    v32 = v48;
+    v31 = v47;
 LABEL_58:
-    operator delete(*v32);
+    operator delete(*v31);
     goto LABEL_59;
   }
 
   if (!CFDictionaryGetValue(a1, @"BundlePath"))
   {
-    std::string::basic_string[abi:ne200100]<0>(v46, "Missing kSEOptionSourceBundlePath");
-    CFError = SERestoreInfo::CreateCFError(v46, 16, 0, @"SEUpdaterErrorDomain");
-    if ((v47 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v45, "Missing kSEOptionSourceBundlePath");
+    CFError = SERestoreInfo::CreateCFError(v45, 16, 0, @"SEUpdaterErrorDomain");
+    if ((v46 & 0x80000000) == 0)
     {
       goto LABEL_59;
     }
 
-    v32 = v46;
+    v31 = v45;
     goto LABEL_58;
   }
 
   v23 = AMSupportPlatformCopyURLWithAppendedComponent();
   if (v23)
   {
-    std::string::basic_string[abi:ne200100]<0>(v44, "Fail to run AMSupportPlatformCopyURLWithAppendedComponent");
-    CFError = SERestoreInfo::CreateCFError(v44, v23, 0, @"libAmSupportErrorDomain");
-    if ((v45 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v43, "Fail to run AMSupportPlatformCopyURLWithAppendedComponent");
+    CFError = SERestoreInfo::CreateCFError(v43, v23, 0, @"libAmSupportErrorDomain");
+    if ((v44 & 0x80000000) == 0)
     {
       goto LABEL_59;
     }
 
-    v32 = v44;
+    v31 = v43;
     goto LABEL_58;
   }
 
-  if (!v58)
+  if (!v57)
   {
-    std::string::basic_string[abi:ne200100]<0>(v42, "Fail to do AMSupportPlatformCopyURLWithAppendedComponent");
-    CFError = SERestoreInfo::CreateCFError(v42, 3, 0, @"SEUpdaterErrorDomain");
-    if ((v43 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v41, "Fail to do AMSupportPlatformCopyURLWithAppendedComponent");
+    CFError = SERestoreInfo::CreateCFError(v41, 3, 0, @"SEUpdaterErrorDomain");
+    if ((v42 & 0x80000000) == 0)
     {
       goto LABEL_59;
     }
 
-    v32 = v42;
+    v31 = v41;
     goto LABEL_58;
   }
 
   DataFromFileURL = AMSupportCreateDataFromFileURL();
   if (DataFromFileURL)
   {
-    std::string::basic_string[abi:ne200100]<0>(v40, "Fail to run AMSupportCreateDataFromFileURL");
-    CFError = SERestoreInfo::CreateCFError(v40, DataFromFileURL, 0, @"libAmSupportErrorDomain");
-    if ((v41 & 0x80000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v39, "Fail to run AMSupportCreateDataFromFileURL");
+    CFError = SERestoreInfo::CreateCFError(v39, DataFromFileURL, 0, @"libAmSupportErrorDomain");
+    if ((v40 & 0x80000000) == 0)
     {
       goto LABEL_59;
     }
 
-    v32 = v40;
+    v31 = v39;
     goto LABEL_58;
   }
 
-  if (v57)
+  if (v56)
   {
     v25 = 0;
     goto LABEL_38;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v38, "fileData is nullptr");
-  CFError = SERestoreInfo::CreateCFError(v38, 3, 0, @"SEUpdaterErrorDomain");
-  if (v39 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v37, "fileData is nullptr");
+  CFError = SERestoreInfo::CreateCFError(v37, 3, 0, @"SEUpdaterErrorDomain");
+  if (v38 < 0)
   {
-    v32 = v38;
+    v31 = v37;
     goto LABEL_58;
   }
 
 LABEL_59:
   v25 = 4;
 LABEL_38:
-  result = SEUpdaterCopyFirmware_cold_1(&v53, v25);
+  result = SEUpdaterCopyFirmware_cold_1(&v52, v25);
   if ((result & 1) == 0)
   {
     goto LABEL_39;
   }
 
-LABEL_55:
-  v31 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_298505174(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_298505174(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
+  v59 = a2;
   if (a22 < 0)
   {
     operator delete(__p);
@@ -1970,10 +1943,10 @@ void sub_298505174(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   *(v58 - 152) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a2 == 2)
+  if (v59 == 2)
   {
     v62 = __cxa_begin_catch(exception_object);
     *(v58 - 120) = SERestoreInfo::SEException::CreateCFError(v62);
@@ -1982,7 +1955,7 @@ void sub_298505174(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   else
   {
-    if (a2 != 1)
+    if (v59 != 1)
     {
       _Unwind_Resume(exception_object);
     }
@@ -2052,8 +2025,8 @@ void *SERestoreInfo::SERestoreInfoBase::SERestoreInfoBase(void *a1, CFTypeRef cf
   if (!Mutable)
   {
     exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(v9, "Cannot allocate request dict");
-    v8 = SERestoreInfo::SEException::SEException(exception, v9, 3, @"SEUpdaterErrorDomain");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "Cannot allocate request dict");
+    v8 = SERestoreInfo::SEException::SEException(exception, &v9, 3, @"SEUpdaterErrorDomain");
   }
 
   return a1;
@@ -2194,25 +2167,25 @@ LABEL_10:
   if (v6)
   {
     Value = CFDictionaryGetValue(v7, @"FirmwareData");
-    SERestoreInfo::makeSEFirmware(Value, v9, &context);
+    SERestoreInfo::makeSEFirmware(&context, Value, v9);
     v10 = context;
     v12 = *(this + 3);
     v11 = *(this + 4);
-    v34 = *(this + 2);
-    v35 = v12;
+    v35 = *(this + 2);
+    v36 = v12;
     if (v12)
     {
       atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(*v10 + 16))(v10, v11, &v34);
-    if (v35)
+    (*(*v10 + 16))(v10, v11, &v35);
+    if (v36)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
 
     v13 = context;
-    context = 0;
+    *&context = 0;
     if (v13)
     {
       (*(*v13 + 8))(v13);
@@ -2229,14 +2202,14 @@ LABEL_10:
     }
 
     v14 = CFDictionaryGetValue(*(this + 1), @"BuildIdentity");
-    context = *(this + 4);
-    (*(*this + 24))(__p, this);
-    __p[3] = (*(*this + 32))(this);
+    *&context = *(this + 4);
+    (*(*this + 24))(&context + 1, this);
+    v34 = (*(*this + 32))(this);
     CFDictionaryApplyFunction(v14, SERestoreInfo::_WalkThroughDict, &context);
-    if (__p[0])
+    if (*(&context + 1))
     {
-      __p[1] = __p[0];
-      operator delete(__p[0]);
+      v33 = *(&context + 1);
+      operator delete(*(&context + 1));
     }
   }
 
@@ -2433,9 +2406,9 @@ uint64_t SERestoreInfo::SERestoreInfoBase::getRequestDict(uint64_t *a1)
   return result;
 }
 
-SERestoreInfo::SEFirmwareBase *SERestoreInfo::makeSEFirmware@<X0>(SERestoreInfo *this@<X0>, const __CFData *a2@<X1>, SERestoreInfo::SEFirmwareBase **a3@<X8>)
+SERestoreInfo::SEFirmwareBase *SERestoreInfo::makeSEFirmware@<X0>(SERestoreInfo::SEFirmwareBase **__return_ptr a1@<X8>, SERestoreInfo *this@<X0>, const __CFData *a3@<X1>)
 {
-  FormatVer = SERestoreInfo::SEFirmwareBase::getFormatVer(this, a2);
+  FormatVer = SERestoreInfo::SEFirmwareBase::getFormatVer(this, a3);
   if (FormatVer == 1)
   {
     v7 = operator new(0x28uLL);
@@ -2466,7 +2439,7 @@ SERestoreInfo::SEFirmwareBase *SERestoreInfo::makeSEFirmware@<X0>(SERestoreInfo 
   }
 
   *v7 = v9;
-  *a3 = v7;
+  *a1 = v7;
   return result;
 }
 
@@ -2485,104 +2458,104 @@ void sub_2985060B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SERestoreInfo::makeSERestoreInfo(SERestoreInfo *this@<X0>, void *a2@<X8>)
+void SERestoreInfo::makeSERestoreInfo(uint64_t *__return_ptr a1@<X8>, SERestoreInfo *this@<X0>)
 {
   value = 0;
   if (!this)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v37, "Assertion: ");
-    v22 = std::string::append(&v37, "options");
-    v23 = *&v22->__r_.__value_.__l.__data_;
-    v36 = v22->__r_.__value_.__r.__words[2];
-    v35 = v23;
-    v22->__r_.__value_.__l.__size_ = 0;
-    v22->__r_.__value_.__r.__words[2] = 0;
-    v22->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C28BB00](exception, &v35);
+    std::string::basic_string[abi:ne200100]<0>(&v35, "Assertion: ");
+    v20 = std::string::append(&v35, "options");
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    v34 = v20->__r_.__value_.__r.__words[2];
+    v33 = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C28BB00](exception, &v33);
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  *a2 = 0;
+  *a1 = 0;
   if (CFDictionaryGetValueIfPresent(this, @"DeviceInfo", &value))
   {
-    v6 = value == 0;
+    v4 = value == 0;
   }
 
   else
   {
-    v6 = 1;
+    v4 = 1;
   }
 
-  if (v6)
+  if (v4)
   {
-    v27 = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v35, "Cannot find key kSEOptionDeviceInfo in options");
-    v28 = SERestoreInfo::SEException::SEException(v27, &v35, 2, @"SEUpdaterErrorDomain");
+    v25 = __cxa_allocate_exception(0x48uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v33, "Cannot find key kSEOptionDeviceInfo in options");
+    v26 = SERestoreInfo::SEException::SEException(v25, &v33, 2, @"SEUpdaterErrorDomain");
   }
 
-  v7 = CFGetTypeID(value);
-  if (v7 == CFDataGetTypeID())
+  v5 = CFGetTypeID(value);
+  if (v5 == CFDataGetTypeID())
   {
-    SERestoreInfo::BLOB::BLOB(&v35, value);
-    SERestoreInfo::makeDeviceInfo<SERestoreInfo::BLOB>(&v35, &v37);
-    v31 = *&v37.__r_.__value_.__l.__data_;
-    *&v37.__r_.__value_.__l.__data_ = 0uLL;
-    SERestoreInfo::BLOB::~BLOB(&v35);
-    v8 = v31;
+    SERestoreInfo::BLOB::BLOB(&v33, value);
+    SERestoreInfo::makeDeviceInfo<SERestoreInfo::BLOB>(&v33, &v35);
+    v29 = *&v35.__r_.__value_.__l.__data_;
+    *&v35.__r_.__value_.__l.__data_ = 0uLL;
+    SERestoreInfo::BLOB::~BLOB(&v33);
+    v6 = v29;
   }
 
   else
   {
-    v9 = CFGetTypeID(value);
-    if (v9 != CFDictionaryGetTypeID())
+    v7 = CFGetTypeID(value);
+    if (v7 != CFDictionaryGetTypeID())
     {
-      v29 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v35, "kSEOptionDeviceInfo is neither CFData or CFDictionary");
-      v30 = SERestoreInfo::SEException::SEException(v29, &v35, 16, @"SEUpdaterErrorDomain");
+      v27 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v33, "kSEOptionDeviceInfo is neither CFData or CFDictionary");
+      v28 = SERestoreInfo::SEException::SEException(v27, &v33, 16, @"SEUpdaterErrorDomain");
     }
 
-    v37.__r_.__value_.__r.__words[0] = value;
-    SERestoreInfo::makeDeviceInfo<__CFDictionary const*>(&v37, &v35);
-    v8 = v35;
+    v35.__r_.__value_.__r.__words[0] = value;
+    SERestoreInfo::makeDeviceInfo<__CFDictionary const*>(&v35, &v33);
+    v6 = v33;
   }
 
-  v32 = v8;
-  v10 = v8.n128_u64[1];
-  if (!v8.n128_u64[0])
+  v30 = v6;
+  v8 = v6.n128_u64[1];
+  if (!v6.n128_u64[0])
   {
-    v24 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v37, "Assertion: ");
-    v25 = std::string::append(&v37, "deviceInfo");
-    v26 = *&v25->__r_.__value_.__l.__data_;
-    v36 = v25->__r_.__value_.__r.__words[2];
-    v35 = v26;
-    v25->__r_.__value_.__l.__size_ = 0;
-    v25->__r_.__value_.__r.__words[2] = 0;
-    v25->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C28BB00](v24, &v35);
-    __cxa_throw(v24, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+    v22 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v35, "Assertion: ");
+    v23 = std::string::append(&v35, "deviceInfo");
+    v24 = *&v23->__r_.__value_.__l.__data_;
+    v34 = v23->__r_.__value_.__r.__words[2];
+    v33 = v24;
+    v23->__r_.__value_.__l.__size_ = 0;
+    v23->__r_.__value_.__r.__words[2] = 0;
+    v23->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C28BB00](v22, &v33);
+    __cxa_throw(v22, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  v11 = (*(*v8.n128_u64[0] + 32))(v8.n128_u64[0], v8);
-  if (v11 > 199)
+  v9 = (*(*v6.n128_u64[0] + 32))(v6.n128_u64[0], v6);
+  if (v9 > 199)
   {
-    if (v11 != 200)
+    if (v9 != 200)
     {
-      if (v11 == 131601)
+      if (v9 == 131601)
       {
-        v19 = operator new(0x28uLL);
-        v20 = v19;
-        v33 = v32;
-        if (v10)
+        v17 = operator new(0x28uLL);
+        v18 = v17;
+        v31 = v30;
+        if (v8)
         {
-          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        SERestoreInfo::IcefallRestoreInfo::IcefallRestoreInfo(v19, this, &v33);
-        *a2 = v20;
-        v15 = v33.n128_u64[1];
-        if (v33.n128_u64[1])
+        SERestoreInfo::IcefallRestoreInfo::IcefallRestoreInfo(v17, this, &v31);
+        *a1 = v18;
+        v13 = v31.n128_u64[1];
+        if (v31.n128_u64[1])
         {
           goto LABEL_19;
         }
@@ -2590,7 +2563,7 @@ void SERestoreInfo::makeSERestoreInfo(SERestoreInfo *this@<X0>, void *a2@<X8>)
         goto LABEL_20;
       }
 
-      if (v11 != 210)
+      if (v9 != 210)
       {
         goto LABEL_28;
       }
@@ -2599,45 +2572,45 @@ void SERestoreInfo::makeSERestoreInfo(SERestoreInfo *this@<X0>, void *a2@<X8>)
 
   else
   {
-    v12 = (v11 - 54) > 0x3D || ((1 << (v11 - 54)) & 0x2000400000000007) == 0;
-    if (v12 && v11 != 44)
+    v10 = (v9 - 54) > 0x3D || ((1 << (v9 - 54)) & 0x2000400000000007) == 0;
+    if (v10 && v9 != 44)
     {
 LABEL_28:
-      v16 = __cxa_allocate_exception(0x10uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v37, "Assertion: ");
-      v17 = std::string::append(&v37, "false");
-      v18 = *&v17->__r_.__value_.__l.__data_;
-      v36 = v17->__r_.__value_.__r.__words[2];
-      v35 = v18;
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
-      MEMORY[0x29C28BB00](v16, &v35);
-      __cxa_throw(v16, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+      v14 = __cxa_allocate_exception(0x10uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v35, "Assertion: ");
+      v15 = std::string::append(&v35, "false");
+      v16 = *&v15->__r_.__value_.__l.__data_;
+      v34 = v15->__r_.__value_.__r.__words[2];
+      v33 = v16;
+      v15->__r_.__value_.__l.__size_ = 0;
+      v15->__r_.__value_.__r.__words[2] = 0;
+      v15->__r_.__value_.__r.__words[0] = 0;
+      MEMORY[0x29C28BB00](v14, &v33);
+      __cxa_throw(v14, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
   }
 
-  v13 = operator new(0x28uLL);
-  v14 = v13;
-  v34 = v32;
-  if (v10)
+  v11 = operator new(0x28uLL);
+  v12 = v11;
+  v32 = v30;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SERestoreInfo::P73BaseRestoreInfo::P73BaseRestoreInfo(v13, this, &v34);
-  *a2 = v14;
-  v15 = v34.n128_u64[1];
-  if (v34.n128_u64[1])
+  SERestoreInfo::P73BaseRestoreInfo::P73BaseRestoreInfo(v11, this, &v32);
+  *a1 = v12;
+  v13 = v32.n128_u64[1];
+  if (v32.n128_u64[1])
   {
 LABEL_19:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
 LABEL_20:
-  if (v10)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 }
 
@@ -2694,7 +2667,7 @@ void sub_2985066F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double SERestoreInfo::makeDeviceInfo<__CFDictionary const*>@<D0>(const __CFDictionary *const *a1@<X0>, _OWORD *a2@<X8>)
+double SERestoreInfo::makeDeviceInfo<__CFDictionary const*>@<D0>(SERestoreInfo **a1@<X0>, _OWORD *a2@<X8>)
 {
   std::allocate_shared[abi:ne200100]<SERestoreInfo::IcefallDeviceInfo,std::allocator<SERestoreInfo::IcefallDeviceInfo>,__CFDictionary const* const&,0>(a1, v4);
   result = v4[0];
@@ -3019,7 +2992,7 @@ void std::__shared_ptr_emplace<SERestoreInfo::SN300V3DeviceInfo>::~__shared_ptr_
   operator delete(v1);
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::IcefallDeviceInfo,std::allocator<SERestoreInfo::IcefallDeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<SERestoreInfo::IcefallDeviceInfo,std::allocator<SERestoreInfo::IcefallDeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xB8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::IcefallDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::IcefallDeviceInfo>,0>(v4, a1);
@@ -3028,7 +3001,7 @@ void *std::allocate_shared[abi:ne200100]<SERestoreInfo::IcefallDeviceInfo,std::a
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::IcefallDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::IcefallDeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+void *std::__shared_ptr_emplace<SERestoreInfo::IcefallDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::IcefallDeviceInfo>,0>(void *a1, SERestoreInfo **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3037,25 +3010,25 @@ void *std::__shared_ptr_emplace<SERestoreInfo::IcefallDeviceInfo>::__shared_ptr_
   return a1;
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::P73DeviceInfo,std::allocator<SERestoreInfo::P73DeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+uint64_t std::allocate_shared[abi:ne200100]<SERestoreInfo::P73DeviceInfo,std::allocator<SERestoreInfo::P73DeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xE8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::P73DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::P73DeviceInfo>,0>(v4, a1);
-  *a2 = v4 + 3;
+  *a2 = v4 + 24;
   a2[1] = v4;
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::P73DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::P73DeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+uint64_t std::__shared_ptr_emplace<SERestoreInfo::P73DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::P73DeviceInfo>,0>(uint64_t a1, SERestoreInfo **a2)
 {
-  a1[1] = 0;
-  a1[2] = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
   *a1 = &unk_2A1EE91F8;
-  SERestoreInfo::P73DeviceInfo::P73DeviceInfo((a1 + 3), a2);
+  SERestoreInfo::P73DeviceInfo::P73DeviceInfo((a1 + 24), a2);
   return a1;
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN100VDeviceInfo,std::allocator<SERestoreInfo::SN100VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN100VDeviceInfo,std::allocator<SERestoreInfo::SN100VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xE8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::SN100VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN100VDeviceInfo>,0>(v4, a1);
@@ -3064,7 +3037,7 @@ void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN100VDeviceInfo,std::al
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::SN100VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN100VDeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+void *std::__shared_ptr_emplace<SERestoreInfo::SN100VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN100VDeviceInfo>,0>(void *a1, SERestoreInfo **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3073,7 +3046,7 @@ void *std::__shared_ptr_emplace<SERestoreInfo::SN100VDeviceInfo>::__shared_ptr_e
   return a1;
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN200VDeviceInfo,std::allocator<SERestoreInfo::SN200VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN200VDeviceInfo,std::allocator<SERestoreInfo::SN200VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xE8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::SN200VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN200VDeviceInfo>,0>(v4, a1);
@@ -3082,7 +3055,7 @@ void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN200VDeviceInfo,std::al
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::SN200VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN200VDeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+void *std::__shared_ptr_emplace<SERestoreInfo::SN200VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN200VDeviceInfo>,0>(void *a1, SERestoreInfo **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3109,7 +3082,7 @@ void *std::__shared_ptr_emplace<SERestoreInfo::SN210VDeviceInfo>::__shared_ptr_e
   return a1;
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300VDeviceInfo,std::allocator<SERestoreInfo::SN300VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300VDeviceInfo,std::allocator<SERestoreInfo::SN300VDeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xE8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::SN300VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300VDeviceInfo>,0>(v4, a1);
@@ -3118,7 +3091,7 @@ void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300VDeviceInfo,std::al
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::SN300VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300VDeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+void *std::__shared_ptr_emplace<SERestoreInfo::SN300VDeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300VDeviceInfo>,0>(void *a1, SERestoreInfo **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3163,7 +3136,7 @@ void *std::__shared_ptr_emplace<SERestoreInfo::SN300V2DeviceInfo>::__shared_ptr_
   return a1;
 }
 
-void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300V3DeviceInfo,std::allocator<SERestoreInfo::SN300V3DeviceInfo>,__CFDictionary const* const&,0>@<X0>(const __CFDictionary *const *a1@<X1>, void *a2@<X8>)
+void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300V3DeviceInfo,std::allocator<SERestoreInfo::SN300V3DeviceInfo>,__CFDictionary const* const&,0>@<X0>(SERestoreInfo **a1@<X1>, void *a2@<X8>)
 {
   v4 = operator new(0xE8uLL);
   result = std::__shared_ptr_emplace<SERestoreInfo::SN300V3DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300V3DeviceInfo>,0>(v4, a1);
@@ -3172,7 +3145,7 @@ void *std::allocate_shared[abi:ne200100]<SERestoreInfo::SN300V3DeviceInfo,std::a
   return result;
 }
 
-void *std::__shared_ptr_emplace<SERestoreInfo::SN300V3DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300V3DeviceInfo>,0>(void *a1, const __CFDictionary *const *a2)
+void *std::__shared_ptr_emplace<SERestoreInfo::SN300V3DeviceInfo>::__shared_ptr_emplace[abi:ne200100]<__CFDictionary const* const&,std::allocator<SERestoreInfo::SN300V3DeviceInfo>,0>(void *a1, SERestoreInfo **a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3331,13 +3304,13 @@ void sub_2985082F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *SERestoreInfo::getValueFromCFDict(CFDataRef *a1, uint64_t a2, void *a3)
+void **SERestoreInfo::getValueFromCFDict(CFDataRef *a1, uint64_t a2, void **a3)
 {
   BytePtr = CFDataGetBytePtr(*a1);
   result = CFDataGetLength(*a1);
   if (result <= a2)
   {
-    return std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, BytePtr, &result[BytePtr], result);
+    return std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, BytePtr, result + BytePtr, result);
   }
 
   return result;
@@ -3380,7 +3353,7 @@ void SERestoreInfo::SERestoreInfoLog::registerLogSink(SERestoreInfo::SERestoreIn
 
 void SERestoreInfo::SERestoreInfoLog::printToOsLog(SERestoreInfo::SERestoreInfoLog *this, char *a2, const char *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   std::string::basic_string[abi:ne200100]<0>(&__str, a2);
   v3 = 0;
   v4 = MEMORY[0x29EDCA988];
@@ -3388,29 +3361,29 @@ void SERestoreInfo::SERestoreInfoLog::printToOsLog(SERestoreInfo::SERestoreInfoL
   {
     if (v3 >= SHIBYTE(__str.__r_.__value_.__r.__words[2]))
     {
-      goto LABEL_14;
+      return;
     }
 
 LABEL_6:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      std::string::basic_string(&v7, &__str, v3, 0x3E8uLL, &v9);
-      if ((v7.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string(&v6, &__str, v3, 0x3E8uLL, &v8);
+      if ((v6.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v5 = &v7;
+        v5 = &v6;
       }
 
       else
       {
-        v5 = v7.__r_.__value_.__r.__words[0];
+        v5 = v6.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315138;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_29849C000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
-      if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v7.__r_.__value_.__l.__data_);
+        operator delete(v6.__r_.__value_.__l.__data_);
       }
     }
 
@@ -3423,8 +3396,6 @@ LABEL_6:
   }
 
   operator delete(__str.__r_.__value_.__l.__data_);
-LABEL_14:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 char *SERestoreInfo::SERestoreInfoLog::FormatMsg(SERestoreInfo::SERestoreInfoLog *this, const char *a2, ...)
@@ -3600,161 +3571,159 @@ SERestoreInfo::SN200VDeviceInfo *SERestoreInfo::SN200VDeviceInfo::SN200VDeviceIn
 void VinylRestoreHost::create(VinylRestoreHost *this@<X0>, const __CFDictionary *a2@<X1>, VinylRestoreHost **a3@<X8>)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreHost: %s\n", v8, v9, v10, v11, v12, "VinylRestoreHost");
-  v14 = ACFULogging::getLogInstance(v13);
-  ACFULogging::handleMessage(v14, 0, "%s::%s: VinylUpdater Version: %s\n", v15, v16, v17, v18, v19, "VinylRestoreHost");
-  v20 = operator new(0xE8uLL);
-  VinylRestoreHost::VinylRestoreHost(v20);
-  *a3 = v20;
-  if (((*(*v20 + 32))(v20, this, a2) & 1) == 0)
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreHost: %s\n", "VinylRestoreHost", "create", "create");
+  v8 = ACFULogging::getLogInstance(v7);
+  ACFULogging::handleMessage(v8, 0, "%s::%s: VinylUpdater Version: %s\n", "VinylRestoreHost", "create", "VinylRestore-144~7392");
+  v9 = operator new(0xE8uLL);
+  VinylRestoreHost::VinylRestoreHost(v9);
+  *a3 = v9;
+  if (((*(*v9 + 32))(v9, this, a2) & 1) == 0)
   {
     *a3 = 0;
-    v21 = (*(*v20 + 24))(v20);
-    v22 = ACFULogging::getLogInstance(v21);
-    ACFULogging::handleMessage(v22, 4u, "%s::%s: leaving: VinylRestoreHost: %s\n", v23, v24, v25, v26, v27, "VinylRestoreHost");
+    v10 = (*(*v9 + 24))(v9);
+    v11 = ACFULogging::getLogInstance(v10);
+    ACFULogging::handleMessage(v11, 4, "%s::%s: leaving: VinylRestoreHost: %s\n", "VinylRestoreHost", "create", "create");
   }
 }
 
-__CFDictionary *VinylRestoreHost::createRequest(ACFULogging *a1, const __CFData *a2)
+ACFULogging *VinylRestoreHost::createRequest(ACFULogging *a1, const __CFData *a2)
 {
-  v51 = 0;
-  v52 = 0;
+  v36 = 0;
+  v37 = 0;
   error = 0;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: entering: %s\n", v5, v6, v7, v8, v9, "VinylRestoreHost");
-  v10 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], a2, 0, 0, &error);
-  v11 = v10;
-  v51 = v10;
-  if (!v10)
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: entering: %s\n", "VinylRestoreHost", "createRequest", "createRequest");
+  v5 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], a2, 0, 0, &error);
+  v6 = v5;
+  v36 = v5;
+  if (!v5)
   {
-    v29 = ACFULogging::getLogInstance(0);
-    std::string::basic_string[abi:ne200100]<0>(&v46, "VinylRestoreHost");
-    v30 = std::string::append(&v46, "::");
-    v31 = *&v30->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v31;
-    v30->__r_.__value_.__l.__size_ = 0;
-    v30->__r_.__value_.__r.__words[2] = 0;
-    v30->__r_.__value_.__r.__words[0] = 0;
-    v32 = std::string::append(&v47, "createRequest");
-    v33 = *&v32->__r_.__value_.__l.__data_;
-    v49 = v32->__r_.__value_.__r.__words[2];
-    *__p = v33;
-    v32->__r_.__value_.__l.__size_ = 0;
-    v32->__r_.__value_.__r.__words[2] = 0;
-    v32->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v29, __p, 2, "Failed to create propertylist from data, error: ", error);
+    v19 = ACFULogging::getLogInstance(0);
+    std::string::basic_string[abi:ne200100]<0>(&v31, "VinylRestoreHost");
+    v20 = std::string::append(&v31, "::");
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    v32.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+    *&v32.__r_.__value_.__l.__data_ = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    v22 = std::string::append(&v32, "createRequest");
+    v23 = *&v22->__r_.__value_.__l.__data_;
+    v34 = v22->__r_.__value_.__r.__words[2];
+    *__p = v23;
+    v22->__r_.__value_.__l.__size_ = 0;
+    v22->__r_.__value_.__r.__words[2] = 0;
+    v22->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v19, __p, 2, "Failed to create propertylist from data, error: ", error);
 LABEL_18:
-    if (SHIBYTE(v49) < 0)
+    if (SHIBYTE(v34) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v47.__r_.__value_.__l.__data_);
+      operator delete(v32.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v31.__r_.__value_.__l.__data_);
     }
 
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-  v12 = CFGetTypeID(v10);
+  v7 = CFGetTypeID(v5);
   TypeID = CFDictionaryGetTypeID();
-  if (v12 != TypeID)
+  if (v7 != TypeID)
   {
-    v34 = ACFULogging::getLogInstance(TypeID);
-    std::string::basic_string[abi:ne200100]<0>(&v46, "VinylRestoreHost");
-    v35 = std::string::append(&v46, "::");
-    v36 = *&v35->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v36;
-    v35->__r_.__value_.__l.__size_ = 0;
-    v35->__r_.__value_.__r.__words[2] = 0;
-    v35->__r_.__value_.__r.__words[0] = 0;
-    v37 = std::string::append(&v47, "createRequest");
-    v38 = *&v37->__r_.__value_.__l.__data_;
-    v49 = v37->__r_.__value_.__r.__words[2];
-    *__p = v38;
-    v37->__r_.__value_.__l.__size_ = 0;
-    v37->__r_.__value_.__r.__words[2] = 0;
-    v37->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v34, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v11);
+    v24 = ACFULogging::getLogInstance(TypeID);
+    std::string::basic_string[abi:ne200100]<0>(&v31, "VinylRestoreHost");
+    v25 = std::string::append(&v31, "::");
+    v26 = *&v25->__r_.__value_.__l.__data_;
+    v32.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
+    *&v32.__r_.__value_.__l.__data_ = v26;
+    v25->__r_.__value_.__l.__size_ = 0;
+    v25->__r_.__value_.__r.__words[2] = 0;
+    v25->__r_.__value_.__r.__words[0] = 0;
+    v27 = std::string::append(&v32, "createRequest");
+    v28 = *&v27->__r_.__value_.__l.__data_;
+    v34 = v27->__r_.__value_.__r.__words[2];
+    *__p = v28;
+    v27->__r_.__value_.__l.__size_ = 0;
+    v27->__r_.__value_.__r.__words[2] = 0;
+    v27->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v24, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v6);
     goto LABEL_18;
   }
 
-  __p[0] = v11;
-  v14 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v52, __p);
-  if (!v52)
+  __p[0] = v6;
+  v9 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v37, __p);
+  if (!v37)
   {
-    v39 = ACFULogging::getLogInstance(v14);
-    v45 = "%s::%s: Failed fo retain firmwareDict\n";
+    v29 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v29, 2, "%s::%s: Failed fo retain firmwareDict\n");
 LABEL_26:
-    ACFULogging::handleMessage(v39, 2u, v45, v40, v41, v42, v43, v44, "VinylRestoreHost");
-LABEL_27:
-    v21 = 0;
+    v16 = 0;
     goto LABEL_11;
   }
 
-  v15 = ACFULogging::getLogInstance(v14);
-  std::string::basic_string[abi:ne200100]<0>(&v46, "VinylRestoreHost");
-  v16 = std::string::append(&v46, "::");
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v47.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v47.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v47, "createRequest");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v49 = v18->__r_.__value_.__r.__words[2];
-  *__p = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v15, __p, 0, "firmwareDict: ", v52);
-  if (SHIBYTE(v49) < 0)
+  v10 = ACFULogging::getLogInstance(v9);
+  std::string::basic_string[abi:ne200100]<0>(&v31, "VinylRestoreHost");
+  v11 = std::string::append(&v31, "::");
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v32.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v32.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v32, "createRequest");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v34 = v13->__r_.__value_.__r.__words[2];
+  *__p = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v10, __p, 0, "firmwareDict: ", v37);
+  if (SHIBYTE(v34) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
-  RequestDict = VinylRestoreHost::createRequestDict(a1, v52);
-  v21 = RequestDict;
+  RequestDict = VinylRestoreHost::createRequestDict(a1, v37);
+  v16 = RequestDict;
   if (!RequestDict)
   {
-    v39 = ACFULogging::getLogInstance(0);
-    v45 = "%s::%s: failed to create output request dictionary\n";
+    v30 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v30, 2, "%s::%s: failed to create output request dictionary\n");
     goto LABEL_26;
   }
 
 LABEL_11:
-  v22 = ACFULogging::getLogInstance(RequestDict);
-  ACFULogging::handleMessage(v22, 4u, "%s::%s: leaving: %s\n", v23, v24, v25, v26, v27, "VinylRestoreHost");
-  if (v11)
+  v17 = ACFULogging::getLogInstance(RequestDict);
+  ACFULogging::handleMessage(v17, 4, "%s::%s: leaving: %s\n", "VinylRestoreHost", "createRequest", "createRequest");
+  if (v6)
   {
-    CFRelease(v11);
+    CFRelease(v6);
   }
 
-  if (v52)
+  if (v37)
   {
-    CFRelease(v52);
+    CFRelease(v37);
   }
 
-  return v21;
+  return v16;
 }
 
 void sub_298509190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -3796,408 +3765,405 @@ const void **ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,vo
 __CFDictionary *VinylRestoreHost::createRequestDict(CFDictionaryRef *this, const __CFDictionary *a2)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreHost: %s\n", v5, v6, v7, v8, v9, "VinylRestoreHost");
-  v127 = 0;
-  v128 = 0;
-  v126 = 0;
-  v125 = 0;
-  v11 = ACFULogging::getLogInstance(v10);
-  ACFULogging::handleMessage(v11, 4u, "%s::%s: VinylRestoreHost::createRequestDict\n", v12, v13, v14, v15, v16, "VinylRestoreHost");
-  v18 = ACFULogging::getLogInstance(v17);
-  std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-  v19 = std::string::append(&v121, "::");
-  v20 = *&v19->__r_.__value_.__l.__data_;
-  v122.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-  *&v122.__r_.__value_.__l.__data_ = v20;
-  v19->__r_.__value_.__l.__size_ = 0;
-  v19->__r_.__value_.__r.__words[2] = 0;
-  v19->__r_.__value_.__r.__words[0] = 0;
-  v21 = std::string::append(&v122, "createRequestDict");
-  v22 = *&v21->__r_.__value_.__l.__data_;
-  v124 = v21->__r_.__value_.__r.__words[2];
-  *__p = v22;
-  v21->__r_.__value_.__l.__size_ = 0;
-  v21->__r_.__value_.__r.__words[2] = 0;
-  v21->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v18, __p, 4, "firmwareInfoDict: ", a2);
-  if (SHIBYTE(v124) < 0)
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreHost: %s\n", "VinylRestoreHost", "createRequestDict", "createRequestDict");
+  v98 = 0;
+  v99 = 0;
+  v97 = 0;
+  v96 = 0;
+  v6 = ACFULogging::getLogInstance(v5);
+  ACFULogging::handleMessage(v6, 4, "%s::%s: VinylRestoreHost::createRequestDict\n", "VinylRestoreHost", "createRequestDict");
+  v8 = ACFULogging::getLogInstance(v7);
+  std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+  v9 = std::string::append(&v92, "::");
+  v10 = *&v9->__r_.__value_.__l.__data_;
+  v93.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+  *&v93.__r_.__value_.__l.__data_ = v10;
+  v9->__r_.__value_.__l.__size_ = 0;
+  v9->__r_.__value_.__r.__words[2] = 0;
+  v9->__r_.__value_.__r.__words[0] = 0;
+  v11 = std::string::append(&v93, "createRequestDict");
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v95 = v11->__r_.__value_.__r.__words[2];
+  *__p = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v8, __p, 4, "firmwareInfoDict: ", a2);
+  if (SHIBYTE(v95) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v122.__r_.__value_.__l.__data_);
+    operator delete(v93.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v121.__r_.__value_.__l.__data_);
+    operator delete(v92.__r_.__value_.__l.__data_);
   }
 
   Value = CFDictionaryGetValue(a2, @"eUICC,Im4pGold");
-  v24 = CFDictionaryGetValue(a2, @"eUICC,Im4pMain");
-  if (!Value || (v25 = v24) == 0)
+  v14 = CFDictionaryGetValue(a2, @"eUICC,Im4pMain");
+  if (!Value || (v15 = v14) == 0)
   {
-    v108 = ACFULogging::getLogInstance(v24);
-    v114 = "%s::%s: failed to get im4p values\n";
+    v88 = ACFULogging::getLogInstance(v14);
+    ACFULogging::handleMessage(v88, 2, "%s::%s: failed to get im4p values\n");
     goto LABEL_79;
   }
 
-  VinylFirmware::generateMeasurement(Value, &v122.__r_.__value_.__l.__data_);
-  __p[0] = v128;
-  v128 = v122.__r_.__value_.__r.__words[0];
-  v122.__r_.__value_.__r.__words[0] = 0;
+  VinylFirmware::generateMeasurement(&v93.__r_.__value_.__l.__data_, Value);
+  __p[0] = v99;
+  v99 = v93.__r_.__value_.__r.__words[0];
+  v93.__r_.__value_.__r.__words[0] = 0;
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(__p);
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v122.__r_.__value_.__l.__data_);
-  VinylFirmware::generateMeasurement(v25, &v122.__r_.__value_.__l.__data_);
-  __p[0] = v127;
-  v127 = v122.__r_.__value_.__r.__words[0];
-  v122.__r_.__value_.__r.__words[0] = 0;
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v93.__r_.__value_.__l.__data_);
+  VinylFirmware::generateMeasurement(&v93.__r_.__value_.__l.__data_, v15);
+  __p[0] = v98;
+  v98 = v93.__r_.__value_.__r.__words[0];
+  v93.__r_.__value_.__r.__words[0] = 0;
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(__p);
-  v26 = ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v122.__r_.__value_.__l.__data_);
-  if (!v128 || !v127)
+  v16 = ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v93.__r_.__value_.__l.__data_);
+  if (!v99 || !v98)
   {
-    v108 = ACFULogging::getLogInstance(v26);
-    v114 = "%s::%s: failed to get measurements\n";
+    v87 = ACFULogging::getLogInstance(v16);
+    ACFULogging::handleMessage(v87, 2, "%s::%s: failed to get measurements\n");
 LABEL_79:
-    ACFULogging::handleMessage(v108, 2u, v114, v109, v110, v111, v112, v113, "VinylRestoreHost");
     Mutable = 0;
     goto LABEL_67;
   }
 
-  v27 = *MEMORY[0x29EDB8ED8];
+  v17 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v29 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v126 = v29;
-  v30 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v31 = v30;
-  v125 = v30;
-  if (Mutable && v29 && v30)
+  v19 = CFDictionaryCreateMutable(v17, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+  v97 = v19;
+  v20 = CFDictionaryCreateMutable(v17, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+  v21 = v20;
+  v96 = v20;
+  if (Mutable && v19 && v20)
   {
-    v32 = CFDictionaryGetValue(this[2], @"DeviceInfo");
-    if (v32)
+    v22 = CFDictionaryGetValue(this[2], @"DeviceInfo");
+    if (v22)
     {
-      v33 = this[8];
-      v34 = this[9];
-      while (v33 != v34)
+      v23 = this[8];
+      v24 = this[9];
+      while (v23 != v24)
       {
-        v35 = *v33;
-        if (!CFDictionaryGetValue(v32, *v33))
+        v25 = *v23;
+        if (!CFDictionaryGetValue(v22, *v23))
         {
-          v91 = ACFULogging::getLogInstance(0);
-          std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-          v92 = std::string::append(&v121, "::");
-          v93 = *&v92->__r_.__value_.__l.__data_;
-          v122.__r_.__value_.__r.__words[2] = v92->__r_.__value_.__r.__words[2];
-          *&v122.__r_.__value_.__l.__data_ = v93;
-          v92->__r_.__value_.__l.__size_ = 0;
-          v92->__r_.__value_.__r.__words[2] = 0;
-          v92->__r_.__value_.__r.__words[0] = 0;
-          v94 = std::string::append(&v122, "createRequestDict");
-          v95 = *&v94->__r_.__value_.__l.__data_;
-          v124 = v94->__r_.__value_.__r.__words[2];
-          *__p = v95;
-          v94->__r_.__value_.__l.__size_ = 0;
-          v94->__r_.__value_.__r.__words[2] = 0;
-          v94->__r_.__value_.__r.__words[0] = 0;
-          ACFULogging::handleMessageCFType(v91, __p, 2, "Failed to find deviceTag: ", v35);
+          v76 = ACFULogging::getLogInstance(0);
+          std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+          v77 = std::string::append(&v92, "::");
+          v78 = *&v77->__r_.__value_.__l.__data_;
+          v93.__r_.__value_.__r.__words[2] = v77->__r_.__value_.__r.__words[2];
+          *&v93.__r_.__value_.__l.__data_ = v78;
+          v77->__r_.__value_.__l.__size_ = 0;
+          v77->__r_.__value_.__r.__words[2] = 0;
+          v77->__r_.__value_.__r.__words[0] = 0;
+          v79 = std::string::append(&v93, "createRequestDict");
+          v80 = *&v79->__r_.__value_.__l.__data_;
+          v95 = v79->__r_.__value_.__r.__words[2];
+          *__p = v80;
+          v79->__r_.__value_.__l.__size_ = 0;
+          v79->__r_.__value_.__r.__words[2] = 0;
+          v79->__r_.__value_.__r.__words[0] = 0;
+          ACFULogging::handleMessageCFType(v76, __p, 2, "Failed to find deviceTag: ", v25);
 LABEL_70:
-          if (SHIBYTE(v124) < 0)
+          if (SHIBYTE(v95) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v122.__r_.__value_.__l.__data_);
+            operator delete(v93.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v121.__r_.__value_.__l.__data_);
+            operator delete(v92.__r_.__value_.__l.__data_);
           }
 
-          goto LABEL_84;
+          goto LABEL_83;
         }
 
-        v36 = CFDictionaryGetValue(v32, v35);
-        CFDictionarySetValue(Mutable, v35, v36);
-        ++v33;
+        v26 = CFDictionaryGetValue(v22, v25);
+        CFDictionarySetValue(Mutable, v25, v26);
+        ++v23;
       }
 
-      v37 = this[11];
-      v38 = this[12];
-      while (v37 != v38)
+      v27 = this[11];
+      v28 = this[12];
+      while (v27 != v28)
       {
-        v39 = *v37;
-        if (!CFDictionaryGetValue(v32, *v37))
+        v29 = *v27;
+        if (!CFDictionaryGetValue(v22, *v27))
         {
-          v96 = ACFULogging::getLogInstance(0);
-          std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-          v97 = std::string::append(&v121, "::");
-          v98 = *&v97->__r_.__value_.__l.__data_;
-          v122.__r_.__value_.__r.__words[2] = v97->__r_.__value_.__r.__words[2];
-          *&v122.__r_.__value_.__l.__data_ = v98;
-          v97->__r_.__value_.__l.__size_ = 0;
-          v97->__r_.__value_.__r.__words[2] = 0;
-          v97->__r_.__value_.__r.__words[0] = 0;
-          v99 = std::string::append(&v122, "createRequestDict");
-          v100 = *&v99->__r_.__value_.__l.__data_;
-          v124 = v99->__r_.__value_.__r.__words[2];
-          *__p = v100;
-          v99->__r_.__value_.__l.__size_ = 0;
-          v99->__r_.__value_.__r.__words[2] = 0;
-          v99->__r_.__value_.__r.__words[0] = 0;
-          ACFULogging::handleMessageCFType(v96, __p, 2, "Failed to find requestTag: ", v39);
+          v81 = ACFULogging::getLogInstance(0);
+          std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+          v82 = std::string::append(&v92, "::");
+          v83 = *&v82->__r_.__value_.__l.__data_;
+          v93.__r_.__value_.__r.__words[2] = v82->__r_.__value_.__r.__words[2];
+          *&v93.__r_.__value_.__l.__data_ = v83;
+          v82->__r_.__value_.__l.__size_ = 0;
+          v82->__r_.__value_.__r.__words[2] = 0;
+          v82->__r_.__value_.__r.__words[0] = 0;
+          v84 = std::string::append(&v93, "createRequestDict");
+          v85 = *&v84->__r_.__value_.__l.__data_;
+          v95 = v84->__r_.__value_.__r.__words[2];
+          *__p = v85;
+          v84->__r_.__value_.__l.__size_ = 0;
+          v84->__r_.__value_.__r.__words[2] = 0;
+          v84->__r_.__value_.__r.__words[0] = 0;
+          ACFULogging::handleMessageCFType(v81, __p, 2, "Failed to find requestTag: ", v29);
           goto LABEL_70;
         }
 
-        v40 = CFDictionaryGetValue(v32, v39);
-        CFDictionarySetValue(Mutable, v39, v40);
-        ++v37;
+        v30 = CFDictionaryGetValue(v22, v29);
+        CFDictionarySetValue(Mutable, v29, v30);
+        ++v27;
       }
 
-      if (CFDictionaryContainsKey(v32, @"eUICC,BypassSEPPairing"))
+      if (CFDictionaryContainsKey(v22, @"eUICC,BypassSEPPairing"))
       {
-        v41 = CFDictionaryGetValue(v32, @"eUICC,BypassSEPPairing");
-        CFDictionarySetValue(Mutable, @"eUICC,BypassSEPPairing", v41);
-        v43 = ACFULogging::getLogInstance(v42);
-        std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-        v44 = std::string::append(&v121, "::");
-        v45 = *&v44->__r_.__value_.__l.__data_;
-        v122.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
-        *&v122.__r_.__value_.__l.__data_ = v45;
-        v44->__r_.__value_.__l.__size_ = 0;
-        v44->__r_.__value_.__r.__words[2] = 0;
-        v44->__r_.__value_.__r.__words[0] = 0;
-        v46 = std::string::append(&v122, "createRequestDict");
-        v47 = *&v46->__r_.__value_.__l.__data_;
-        v124 = v46->__r_.__value_.__r.__words[2];
-        *__p = v47;
-        v46->__r_.__value_.__l.__size_ = 0;
-        v46->__r_.__value_.__r.__words[2] = 0;
-        v46->__r_.__value_.__r.__words[0] = 0;
-        v48 = CFDictionaryGetValue(v32, @"eUICC,BypassSEPPairing");
-        ACFULogging::handleMessageCFType(v43, __p, 4, "kVinylBypassSEPPairing value: ", v48);
-        if (SHIBYTE(v124) < 0)
+        v31 = CFDictionaryGetValue(v22, @"eUICC,BypassSEPPairing");
+        CFDictionarySetValue(Mutable, @"eUICC,BypassSEPPairing", v31);
+        v33 = ACFULogging::getLogInstance(v32);
+        std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+        v34 = std::string::append(&v92, "::");
+        v35 = *&v34->__r_.__value_.__l.__data_;
+        v93.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
+        *&v93.__r_.__value_.__l.__data_ = v35;
+        v34->__r_.__value_.__l.__size_ = 0;
+        v34->__r_.__value_.__r.__words[2] = 0;
+        v34->__r_.__value_.__r.__words[0] = 0;
+        v36 = std::string::append(&v93, "createRequestDict");
+        v37 = *&v36->__r_.__value_.__l.__data_;
+        v95 = v36->__r_.__value_.__r.__words[2];
+        *__p = v37;
+        v36->__r_.__value_.__l.__size_ = 0;
+        v36->__r_.__value_.__r.__words[2] = 0;
+        v36->__r_.__value_.__r.__words[0] = 0;
+        v38 = CFDictionaryGetValue(v22, @"eUICC,BypassSEPPairing");
+        ACFULogging::handleMessageCFType(v33, __p, 4, "kVinylBypassSEPPairing value: ", v38);
+        if (SHIBYTE(v95) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v122.__r_.__value_.__l.__data_);
+          operator delete(v93.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v121.__r_.__value_.__l.__data_);
+          operator delete(v92.__r_.__value_.__l.__data_);
         }
       }
 
-      v49 = CFDictionaryGetValue(Mutable, @"eUICC,Gold");
-      v50 = CFDictionaryGetValue(v49, @"Nonce");
-      v51 = v50;
-      if (!v50)
+      v39 = CFDictionaryGetValue(Mutable, @"eUICC,Gold");
+      v40 = CFDictionaryGetValue(v39, @"Nonce");
+      v41 = v40;
+      if (!v40)
       {
-        v101 = ACFULogging::getLogInstance(0);
-        v107 = "%s::%s: failed to get goldNonce\n";
+        v90 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v90, 2, "%s::%s: failed to get goldNonce\n");
         goto LABEL_83;
       }
 
-      v52 = ACFULogging::getLogInstance(v50);
-      std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-      v53 = std::string::append(&v121, "::");
+      v42 = ACFULogging::getLogInstance(v40);
+      std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+      v43 = std::string::append(&v92, "::");
+      v44 = *&v43->__r_.__value_.__l.__data_;
+      v93.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
+      *&v93.__r_.__value_.__l.__data_ = v44;
+      v43->__r_.__value_.__l.__size_ = 0;
+      v43->__r_.__value_.__r.__words[2] = 0;
+      v43->__r_.__value_.__r.__words[0] = 0;
+      v45 = std::string::append(&v93, "createRequestDict");
+      v46 = *&v45->__r_.__value_.__l.__data_;
+      v95 = v45->__r_.__value_.__r.__words[2];
+      *__p = v46;
+      v45->__r_.__value_.__l.__size_ = 0;
+      v45->__r_.__value_.__r.__words[2] = 0;
+      v45->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v42, __p, 4, "goldNonce: ", v41);
+      if (SHIBYTE(v95) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v93.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v92.__r_.__value_.__l.__data_);
+      }
+
+      v47 = CFDictionaryGetValue(Mutable, @"eUICC,Main");
+      v48 = CFDictionaryGetValue(v47, @"Nonce");
+      v49 = v48;
+      if (!v48)
+      {
+        v91 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v91, 2, "%s::%s: failed to get mainNonce\n");
+        goto LABEL_83;
+      }
+
+      v50 = ACFULogging::getLogInstance(v48);
+      std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+      v51 = std::string::append(&v92, "::");
+      v52 = *&v51->__r_.__value_.__l.__data_;
+      v93.__r_.__value_.__r.__words[2] = v51->__r_.__value_.__r.__words[2];
+      *&v93.__r_.__value_.__l.__data_ = v52;
+      v51->__r_.__value_.__l.__size_ = 0;
+      v51->__r_.__value_.__r.__words[2] = 0;
+      v51->__r_.__value_.__r.__words[0] = 0;
+      v53 = std::string::append(&v93, "createRequestDict");
       v54 = *&v53->__r_.__value_.__l.__data_;
-      v122.__r_.__value_.__r.__words[2] = v53->__r_.__value_.__r.__words[2];
-      *&v122.__r_.__value_.__l.__data_ = v54;
+      v95 = v53->__r_.__value_.__r.__words[2];
+      *__p = v54;
       v53->__r_.__value_.__l.__size_ = 0;
       v53->__r_.__value_.__r.__words[2] = 0;
       v53->__r_.__value_.__r.__words[0] = 0;
-      v55 = std::string::append(&v122, "createRequestDict");
-      v56 = *&v55->__r_.__value_.__l.__data_;
-      v124 = v55->__r_.__value_.__r.__words[2];
-      *__p = v56;
-      v55->__r_.__value_.__l.__size_ = 0;
-      v55->__r_.__value_.__r.__words[2] = 0;
-      v55->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v52, __p, 4, "goldNonce: ", v51);
-      if (SHIBYTE(v124) < 0)
+      ACFULogging::handleMessageCFType(v50, __p, 4, "mainNonce: ", v49);
+      if (SHIBYTE(v95) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v122.__r_.__value_.__l.__data_);
+        operator delete(v93.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v121.__r_.__value_.__l.__data_);
+        operator delete(v92.__r_.__value_.__l.__data_);
       }
 
-      v57 = CFDictionaryGetValue(Mutable, @"eUICC,Main");
-      v58 = CFDictionaryGetValue(v57, @"Nonce");
-      v59 = v58;
-      if (!v58)
+      CFDictionarySetValue(v19, @"Digest", v99);
+      CFDictionarySetValue(v19, @"Nonce", v41);
+      v56 = ACFULogging::getLogInstance(v55);
+      std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+      v57 = std::string::append(&v92, "::");
+      v58 = *&v57->__r_.__value_.__l.__data_;
+      v93.__r_.__value_.__r.__words[2] = v57->__r_.__value_.__r.__words[2];
+      *&v93.__r_.__value_.__l.__data_ = v58;
+      v57->__r_.__value_.__l.__size_ = 0;
+      v57->__r_.__value_.__r.__words[2] = 0;
+      v57->__r_.__value_.__r.__words[0] = 0;
+      v59 = std::string::append(&v93, "createRequestDict");
+      v60 = *&v59->__r_.__value_.__l.__data_;
+      v95 = v59->__r_.__value_.__r.__words[2];
+      *__p = v60;
+      v59->__r_.__value_.__l.__size_ = 0;
+      v59->__r_.__value_.__r.__words[2] = 0;
+      v59->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v56, __p, 4, "goldDict: ", v19);
+      if (SHIBYTE(v95) < 0)
       {
-        v101 = ACFULogging::getLogInstance(0);
-        v107 = "%s::%s: failed to get mainNonce\n";
-        goto LABEL_83;
+        operator delete(__p[0]);
       }
 
-      v60 = ACFULogging::getLogInstance(v58);
-      std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-      v61 = std::string::append(&v121, "::");
-      v62 = *&v61->__r_.__value_.__l.__data_;
-      v122.__r_.__value_.__r.__words[2] = v61->__r_.__value_.__r.__words[2];
-      *&v122.__r_.__value_.__l.__data_ = v62;
-      v61->__r_.__value_.__l.__size_ = 0;
-      v61->__r_.__value_.__r.__words[2] = 0;
-      v61->__r_.__value_.__r.__words[0] = 0;
-      v63 = std::string::append(&v122, "createRequestDict");
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v93.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v92.__r_.__value_.__l.__data_);
+      }
+
+      CFDictionaryReplaceValue(Mutable, @"eUICC,Gold", v19);
+      CFDictionarySetValue(v21, @"Digest", v98);
+      CFDictionarySetValue(v21, @"Nonce", v49);
+      v62 = ACFULogging::getLogInstance(v61);
+      std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+      v63 = std::string::append(&v92, "::");
       v64 = *&v63->__r_.__value_.__l.__data_;
-      v124 = v63->__r_.__value_.__r.__words[2];
-      *__p = v64;
+      v93.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
+      *&v93.__r_.__value_.__l.__data_ = v64;
       v63->__r_.__value_.__l.__size_ = 0;
       v63->__r_.__value_.__r.__words[2] = 0;
       v63->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v60, __p, 4, "mainNonce: ", v59);
-      if (SHIBYTE(v124) < 0)
+      v65 = std::string::append(&v93, "createRequestDict");
+      v66 = *&v65->__r_.__value_.__l.__data_;
+      v95 = v65->__r_.__value_.__r.__words[2];
+      *__p = v66;
+      v65->__r_.__value_.__l.__size_ = 0;
+      v65->__r_.__value_.__r.__words[2] = 0;
+      v65->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v62, __p, 4, "mainDict: ", v21);
+      if (SHIBYTE(v95) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v122.__r_.__value_.__l.__data_);
+        operator delete(v93.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v121.__r_.__value_.__l.__data_);
+        operator delete(v92.__r_.__value_.__l.__data_);
       }
 
-      CFDictionarySetValue(v29, @"Digest", v128);
-      CFDictionarySetValue(v29, @"Nonce", v51);
-      v66 = ACFULogging::getLogInstance(v65);
-      std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-      v67 = std::string::append(&v121, "::");
-      v68 = *&v67->__r_.__value_.__l.__data_;
-      v122.__r_.__value_.__r.__words[2] = v67->__r_.__value_.__r.__words[2];
-      *&v122.__r_.__value_.__l.__data_ = v68;
-      v67->__r_.__value_.__l.__size_ = 0;
-      v67->__r_.__value_.__r.__words[2] = 0;
-      v67->__r_.__value_.__r.__words[0] = 0;
-      v69 = std::string::append(&v122, "createRequestDict");
+      CFDictionaryReplaceValue(Mutable, @"eUICC,Main", v21);
+      v68 = ACFULogging::getLogInstance(v67);
+      std::string::basic_string[abi:ne200100]<0>(&v92, "VinylRestoreHost");
+      v69 = std::string::append(&v92, "::");
       v70 = *&v69->__r_.__value_.__l.__data_;
-      v124 = v69->__r_.__value_.__r.__words[2];
-      *__p = v70;
+      v93.__r_.__value_.__r.__words[2] = v69->__r_.__value_.__r.__words[2];
+      *&v93.__r_.__value_.__l.__data_ = v70;
       v69->__r_.__value_.__l.__size_ = 0;
       v69->__r_.__value_.__r.__words[2] = 0;
       v69->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v66, __p, 4, "goldDict: ", v29);
-      if (SHIBYTE(v124) < 0)
+      v71 = std::string::append(&v93, "createRequestDict");
+      v72 = *&v71->__r_.__value_.__l.__data_;
+      v95 = v71->__r_.__value_.__r.__words[2];
+      *__p = v72;
+      v71->__r_.__value_.__l.__size_ = 0;
+      v71->__r_.__value_.__r.__words[2] = 0;
+      v71->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v68, __p, 4, "requestDict after digest: ", Mutable);
+      if (SHIBYTE(v95) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v122.__r_.__value_.__l.__data_);
+        operator delete(v93.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v121.__r_.__value_.__l.__data_);
+        operator delete(v92.__r_.__value_.__l.__data_);
       }
 
-      CFDictionaryReplaceValue(Mutable, @"eUICC,Gold", v29);
-      CFDictionarySetValue(v31, @"Digest", v127);
-      CFDictionarySetValue(v31, @"Nonce", v59);
-      v72 = ACFULogging::getLogInstance(v71);
-      std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-      v73 = std::string::append(&v121, "::");
-      v74 = *&v73->__r_.__value_.__l.__data_;
-      v122.__r_.__value_.__r.__words[2] = v73->__r_.__value_.__r.__words[2];
-      *&v122.__r_.__value_.__l.__data_ = v74;
-      v73->__r_.__value_.__l.__size_ = 0;
-      v73->__r_.__value_.__r.__words[2] = 0;
-      v73->__r_.__value_.__r.__words[0] = 0;
-      v75 = std::string::append(&v122, "createRequestDict");
-      v76 = *&v75->__r_.__value_.__l.__data_;
-      v124 = v75->__r_.__value_.__r.__words[2];
-      *__p = v76;
-      v75->__r_.__value_.__l.__size_ = 0;
-      v75->__r_.__value_.__r.__words[2] = 0;
-      v75->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v72, __p, 4, "mainDict: ", v31);
-      if (SHIBYTE(v124) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v122.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v121.__r_.__value_.__l.__data_);
-      }
-
-      CFDictionaryReplaceValue(Mutable, @"eUICC,Main", v31);
-      v78 = ACFULogging::getLogInstance(v77);
-      std::string::basic_string[abi:ne200100]<0>(&v121, "VinylRestoreHost");
-      v79 = std::string::append(&v121, "::");
-      v80 = *&v79->__r_.__value_.__l.__data_;
-      v122.__r_.__value_.__r.__words[2] = v79->__r_.__value_.__r.__words[2];
-      *&v122.__r_.__value_.__l.__data_ = v80;
-      v79->__r_.__value_.__l.__size_ = 0;
-      v79->__r_.__value_.__r.__words[2] = 0;
-      v79->__r_.__value_.__r.__words[0] = 0;
-      v81 = std::string::append(&v122, "createRequestDict");
-      v82 = *&v81->__r_.__value_.__l.__data_;
-      v124 = v81->__r_.__value_.__r.__words[2];
-      *__p = v82;
-      v81->__r_.__value_.__l.__size_ = 0;
-      v81->__r_.__value_.__r.__words[2] = 0;
-      v81->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v78, __p, 4, "requestDict after digest: ", Mutable);
-      if (SHIBYTE(v124) < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v122.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v121.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v121.__r_.__value_.__l.__data_);
-      }
-
-      v84 = ACFULogging::getLogInstance(v83);
-      ACFULogging::handleMessage(v84, 4u, "%s::%s: leaving: VinylRestoreHost: %s\n", v85, v86, v87, v88, v89, "VinylRestoreHost");
+      v74 = ACFULogging::getLogInstance(v73);
+      ACFULogging::handleMessage(v74, 4, "%s::%s: leaving: VinylRestoreHost: %s\n", "VinylRestoreHost", "createRequestDict", "createRequestDict");
       goto LABEL_63;
     }
 
-    v115 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v115, 2u, "%s::%s: failed to get deviceInfoDict\n", v116, v117, v118, v119, v120, "VinylRestoreHost");
+    v89 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v89, 2, "%s::%s: failed to get deviceInfoDict\n", "VinylRestoreHost", "createRequestDict");
   }
 
   else
   {
-    v101 = ACFULogging::getLogInstance(v30);
-    v107 = "%s::%s: failed to get create request Dictionary\n";
+    v86 = ACFULogging::getLogInstance(v20);
+    ACFULogging::handleMessage(v86, 2, "%s::%s: failed to get create request Dictionary\n");
 LABEL_83:
-    ACFULogging::handleMessage(v101, 2u, v107, v102, v103, v104, v105, v106, "VinylRestoreHost");
-LABEL_84:
     if (!Mutable)
     {
       goto LABEL_63;
@@ -4207,19 +4173,19 @@ LABEL_84:
   CFRelease(Mutable);
   Mutable = 0;
 LABEL_63:
-  if (v31)
+  if (v21)
   {
-    CFRelease(v31);
+    CFRelease(v21);
   }
 
-  if (v29)
+  if (v19)
   {
-    CFRelease(v29);
+    CFRelease(v19);
   }
 
 LABEL_67:
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v127);
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v128);
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v98);
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v99);
   return Mutable;
 }
 
@@ -4262,7 +4228,7 @@ void VinylRestoreHost::~VinylRestoreHost(VinylRestoreHost *this)
 {
   *this = &unk_2A1EE9588;
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: VinylRestoreHost: destructor\n", v3, v4, v5, v6, v7, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: VinylRestoreHost: destructor\n", "VinylRestoreHost", "~VinylRestoreHost");
 
   ACFURestoreHost::~ACFURestoreHost(this);
 }
@@ -4278,21 +4244,21 @@ void VinylRestoreHost::VinylRestoreHost(VinylRestoreHost *this)
   ACFURestoreHost::ACFURestoreHost(this);
   *v1 = &unk_2A1EE9588;
   LogInstance = ACFULogging::getLogInstance(v1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: VinylRestoreHost: constructor\n", v3, v4, v5, v6, v7, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: VinylRestoreHost: constructor\n", "VinylRestoreHost", "VinylRestoreHost");
 }
 
-ACFULogging *VinylRestoreHost::init(uint64_t **this, const __CFDictionary *a2, const __CFString *a3)
+ACFULogging *VinylRestoreHost::init(void **this, const __CFDictionary *a2, const __CFString *a3)
 {
-  v30[1] = *MEMORY[0x29EDCA608];
+  v19[1] = *MEMORY[0x29EDCA608];
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreHost: %s\n", v7, v8, v9, v10, v11, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreHost: %s\n", "VinylRestoreHost", "init", "init");
   __src = xmmword_29EE9C338;
-  *&v27 = @"eUICC,Main";
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(this + 5, &__src, &v27 + 8, 3uLL);
+  *&v16 = @"eUICC,Main";
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(this + 5, &__src, &v16 + 8, 3uLL);
   __src = xmmword_29EE9C350;
-  v27 = *&off_29EE9C360;
-  v28 = xmmword_29EE9C370;
-  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(this + 8, &__src, v29, 6uLL);
+  v16 = *&off_29EE9C360;
+  v17 = xmmword_29EE9C370;
+  std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(this + 8, &__src, v18, 6uLL);
   *&__src = @"@eUICC,Ticket";
   std::vector<__CFString const*>::__assign_with_size[abi:ne200100]<__CFString const* const*,__CFString const* const*>(this + 11, &__src, &__src + 8, 1uLL);
   *&__src = @"eUICC,Ticket";
@@ -4300,336 +4266,335 @@ ACFULogging *VinylRestoreHost::init(uint64_t **this, const __CFDictionary *a2, c
   TypeID = CFNumberGetTypeID();
   *&__src = @"eUICC,ChipID";
   *(&__src + 1) = TypeID;
-  v13 = CFDataGetTypeID();
-  *&v27 = @"eUICC,EID";
-  *(&v27 + 1) = v13;
-  v14 = CFDataGetTypeID();
-  *&v28 = @"eUICC,GoldNonce";
-  *(&v28 + 1) = v14;
-  v15 = CFDataGetTypeID();
-  v29[0] = @"eUICC,MainNonce";
-  v29[1] = v15;
-  v16 = CFDataGetTypeID();
-  v29[2] = @"eUICC,RootKeyIdentifier";
-  v29[3] = v16;
-  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__assign_unique<std::pair<__CFString const* const,unsigned long> const*>(this + 20, &__src, v30);
+  v8 = CFDataGetTypeID();
+  *&v16 = @"eUICC,EID";
+  *(&v16 + 1) = v8;
+  v9 = CFDataGetTypeID();
+  *&v17 = @"eUICC,GoldNonce";
+  *(&v17 + 1) = v9;
+  v10 = CFDataGetTypeID();
+  v18[0] = @"eUICC,MainNonce";
+  v18[1] = v10;
+  v11 = CFDataGetTypeID();
+  v18[2] = @"eUICC,RootKeyIdentifier";
+  v18[3] = v11;
+  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__assign_unique<std::pair<__CFString const* const,unsigned long> const*>(this + 20, &__src, v19);
   *&__src = @"eUICC,Gold";
   WORD4(__src) = 0;
-  *&v27 = @"eUICC,Main";
-  WORD4(v27) = 0;
-  std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(this + 25, &__src, &v28);
+  *&v16 = @"eUICC,Main";
+  WORD4(v16) = 0;
+  std::__tree<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,ACFURestoreHost::DemoteConfig>>>::__assign_unique<std::pair<__CFString const* const,ACFURestoreHost::DemoteConfig> const*>(this + 25, &__src, &v17);
   __src = xmmword_29EE9C380;
-  v27 = *&off_29EE9C390;
-  std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(this + 17, &__src, &v28, 2uLL);
+  v16 = *&off_29EE9C390;
+  std::vector<ACFURestoreHost::FileList>::__assign_with_size[abi:ne200100]<ACFURestoreHost::FileList const*,ACFURestoreHost::FileList const*>(this + 17, &__src, &v17, 2uLL);
   this[28] = @"Vinyl";
-  v17 = ACFURestoreHost::init(this, a2, a3);
-  v18 = ACFULogging::getLogInstance(v17);
-  ACFULogging::handleMessage(v18, 4u, "%s::%s: leaving: VinylRestoreHost: %s\n", v19, v20, v21, v22, v23, "VinylRestoreHost");
-  v24 = *MEMORY[0x29EDCA608];
-  return v17;
+  v12 = ACFURestoreHost::init(this, a2, a3);
+  v13 = ACFULogging::getLogInstance(v12);
+  ACFULogging::handleMessage(v13, 4, "%s::%s: leaving: VinylRestoreHost: %s\n", "VinylRestoreHost", "init", "init");
+  return v12;
 }
 
 ACFULogging *VinylRestoreHost::copyFirmwareUpdater(ACFULogging **a1, const __CFDictionary *a2, int a3)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreHost: %s\n", v7, v8, v9, v10, v11, "VinylRestoreHost");
-  v129 = 0;
-  v130 = 0;
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreHost: %s\n", "VinylRestoreHost", "copyFirmwareUpdater", "copyFirmwareUpdater");
+  v104 = 0;
+  v105 = 0;
   error = 0;
   if (!a2)
   {
-    VinylRestoreHost::copyFirmwareUpdater(v12);
+    VinylRestoreHost::copyFirmwareUpdater(v7);
     return 0;
   }
 
   Value = CFDictionaryGetValue(a1[2], @"DeviceInfo");
-  if (!Value || (v14 = Value, v15 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v15 != Value))
+  if (!Value || (v9 = Value, v10 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v10 != Value))
   {
     VinylRestoreHost::copyFirmwareUpdater(Value);
     return 0;
   }
 
-  v16 = ACFULogging::getLogInstance(Value);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v17 = std::string::append(&v124, "::");
-  v18 = *&v17->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v18;
-  v17->__r_.__value_.__l.__size_ = 0;
-  v17->__r_.__value_.__r.__words[2] = 0;
-  v17->__r_.__value_.__r.__words[0] = 0;
-  v19 = std::string::append(&v125, "copyFirmwareUpdater");
-  v20 = *&v19->__r_.__value_.__l.__data_;
-  v127 = v19->__r_.__value_.__r.__words[2];
-  *__p = v20;
-  v19->__r_.__value_.__l.__size_ = 0;
-  v19->__r_.__value_.__r.__words[2] = 0;
-  v19->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v16, __p, 0, "VinylRestore::copyFirmwareUpdater kUpdaterDeviceInfo value : ", v14);
-  if (SHIBYTE(v127) < 0)
+  v11 = ACFULogging::getLogInstance(Value);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v12 = std::string::append(&v99, "::");
+  v13 = *&v12->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  v14 = std::string::append(&v100, "copyFirmwareUpdater");
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v102 = v14->__r_.__value_.__r.__words[2];
+  *__p = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v11, __p, 0, "VinylRestore::copyFirmwareUpdater kUpdaterDeviceInfo value : ", v9);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  TypeID = CFDictionaryGetValue(v14, @"eUICC,RootKeyIdentifier");
-  if (!TypeID || (v22 = TypeID, v23 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v23 != TypeID))
+  TypeID = CFDictionaryGetValue(v9, @"eUICC,RootKeyIdentifier");
+  if (!TypeID || (v17 = TypeID, v18 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v18 != TypeID))
   {
     VinylRestoreHost::copyFirmwareUpdater(TypeID);
     return 0;
   }
 
-  v24 = ACFULogging::getLogInstance(TypeID);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v25 = std::string::append(&v124, "::");
-  v26 = *&v25->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v26;
-  v25->__r_.__value_.__l.__size_ = 0;
-  v25->__r_.__value_.__r.__words[2] = 0;
-  v25->__r_.__value_.__r.__words[0] = 0;
-  v27 = std::string::append(&v125, "copyFirmwareUpdater");
-  v28 = *&v27->__r_.__value_.__l.__data_;
-  v127 = v27->__r_.__value_.__r.__words[2];
-  *__p = v28;
-  v27->__r_.__value_.__l.__size_ = 0;
-  v27->__r_.__value_.__r.__words[2] = 0;
-  v27->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v24, __p, 4, "VinylTransport::getTicket  certIdentifier: ", v22);
-  if (SHIBYTE(v127) < 0)
+  v19 = ACFULogging::getLogInstance(TypeID);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v20 = std::string::append(&v99, "::");
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  v22 = std::string::append(&v100, "copyFirmwareUpdater");
+  v23 = *&v22->__r_.__value_.__l.__data_;
+  v102 = v22->__r_.__value_.__r.__words[2];
+  *__p = v23;
+  v22->__r_.__value_.__l.__size_ = 0;
+  v22->__r_.__value_.__r.__words[2] = 0;
+  v22->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v19, __p, 4, "VinylTransport::getTicket  certIdentifier: ", v17);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  v29 = CFDictionaryGetValue(v14, @"eUICC,FirmwareLoaderVersion");
-  if (!v29 || (v30 = v29, v31 = CFGetTypeID(v29), v29 = CFDataGetTypeID(), v31 != v29))
+  v24 = CFDictionaryGetValue(v9, @"eUICC,FirmwareLoaderVersion");
+  if (!v24 || (v25 = v24, v26 = CFGetTypeID(v24), v24 = CFDataGetTypeID(), v26 != v24))
   {
-    VinylRestoreHost::copyFirmwareUpdater(v29);
+    VinylRestoreHost::copyFirmwareUpdater(v24);
     return 0;
   }
 
-  v32 = ACFULogging::getLogInstance(v29);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v33 = std::string::append(&v124, "::");
-  v34 = *&v33->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v34;
-  v33->__r_.__value_.__l.__size_ = 0;
-  v33->__r_.__value_.__r.__words[2] = 0;
-  v33->__r_.__value_.__r.__words[0] = 0;
-  v35 = std::string::append(&v125, "copyFirmwareUpdater");
-  v36 = *&v35->__r_.__value_.__l.__data_;
-  v127 = v35->__r_.__value_.__r.__words[2];
-  *__p = v36;
-  v35->__r_.__value_.__l.__size_ = 0;
-  v35->__r_.__value_.__r.__words[2] = 0;
-  v35->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v32, __p, 0, "VinylTransport::getTicket  firmwareLoaderVersion: ", v30);
-  if (SHIBYTE(v127) < 0)
+  v27 = ACFULogging::getLogInstance(v24);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v28 = std::string::append(&v99, "::");
+  v29 = *&v28->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v29;
+  v28->__r_.__value_.__l.__size_ = 0;
+  v28->__r_.__value_.__r.__words[2] = 0;
+  v28->__r_.__value_.__r.__words[0] = 0;
+  v30 = std::string::append(&v100, "copyFirmwareUpdater");
+  v31 = *&v30->__r_.__value_.__l.__data_;
+  v102 = v30->__r_.__value_.__r.__words[2];
+  *__p = v31;
+  v30->__r_.__value_.__l.__size_ = 0;
+  v30->__r_.__value_.__r.__words[2] = 0;
+  v30->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v27, __p, 0, "VinylTransport::getTicket  firmwareLoaderVersion: ", v25);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  v37 = CFDictionaryGetValue(v14, @"eUICC,MainFwMac");
-  if (!v37 || (v38 = v37, v39 = CFGetTypeID(v37), v37 = CFDataGetTypeID(), v39 != v37))
+  v32 = CFDictionaryGetValue(v9, @"eUICC,MainFwMac");
+  if (!v32 || (v33 = v32, v34 = CFGetTypeID(v32), v32 = CFDataGetTypeID(), v34 != v32))
   {
-    VinylRestoreHost::copyFirmwareUpdater(v37);
+    VinylRestoreHost::copyFirmwareUpdater(v32);
     return 0;
   }
 
-  v40 = ACFULogging::getLogInstance(v37);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v41 = std::string::append(&v124, "::");
-  v42 = *&v41->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v42;
-  v41->__r_.__value_.__l.__size_ = 0;
-  v41->__r_.__value_.__r.__words[2] = 0;
-  v41->__r_.__value_.__r.__words[0] = 0;
-  v43 = std::string::append(&v125, "copyFirmwareUpdater");
-  v44 = *&v43->__r_.__value_.__l.__data_;
-  v127 = v43->__r_.__value_.__r.__words[2];
-  *__p = v44;
-  v43->__r_.__value_.__l.__size_ = 0;
-  v43->__r_.__value_.__r.__words[2] = 0;
-  v43->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v40, __p, 4, "VinylTransport::getTicket  mainFwMac: ", v38);
-  if (SHIBYTE(v127) < 0)
+  v35 = ACFULogging::getLogInstance(v32);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v36 = std::string::append(&v99, "::");
+  v37 = *&v36->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v37;
+  v36->__r_.__value_.__l.__size_ = 0;
+  v36->__r_.__value_.__r.__words[2] = 0;
+  v36->__r_.__value_.__r.__words[0] = 0;
+  v38 = std::string::append(&v100, "copyFirmwareUpdater");
+  v39 = *&v38->__r_.__value_.__l.__data_;
+  v102 = v38->__r_.__value_.__r.__words[2];
+  *__p = v39;
+  v38->__r_.__value_.__l.__size_ = 0;
+  v38->__r_.__value_.__r.__words[2] = 0;
+  v38->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v35, __p, 4, "VinylTransport::getTicket  mainFwMac: ", v33);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  v45 = CFDictionaryGetValue(v14, @"eUICC,GoldFwMac");
-  if (!v45 || (v46 = v45, v47 = CFGetTypeID(v45), v45 = CFDataGetTypeID(), v47 != v45))
+  v40 = CFDictionaryGetValue(v9, @"eUICC,GoldFwMac");
+  if (!v40 || (v41 = v40, v42 = CFGetTypeID(v40), v40 = CFDataGetTypeID(), v42 != v40))
   {
-    VinylRestoreHost::copyFirmwareUpdater(v45);
+    VinylRestoreHost::copyFirmwareUpdater(v40);
     return 0;
   }
 
-  v48 = ACFULogging::getLogInstance(v45);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v49 = std::string::append(&v124, "::");
-  v50 = *&v49->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v49->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v50;
-  v49->__r_.__value_.__l.__size_ = 0;
-  v49->__r_.__value_.__r.__words[2] = 0;
-  v49->__r_.__value_.__r.__words[0] = 0;
-  v51 = std::string::append(&v125, "copyFirmwareUpdater");
-  v52 = *&v51->__r_.__value_.__l.__data_;
-  v127 = v51->__r_.__value_.__r.__words[2];
-  *__p = v52;
-  v51->__r_.__value_.__l.__size_ = 0;
-  v51->__r_.__value_.__r.__words[2] = 0;
-  v51->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v48, __p, 0, "VinylTransport::getTicket  goldFwMac: ", v46);
-  if (SHIBYTE(v127) < 0)
+  v43 = ACFULogging::getLogInstance(v40);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v44 = std::string::append(&v99, "::");
+  v45 = *&v44->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v45;
+  v44->__r_.__value_.__l.__size_ = 0;
+  v44->__r_.__value_.__r.__words[2] = 0;
+  v44->__r_.__value_.__r.__words[0] = 0;
+  v46 = std::string::append(&v100, "copyFirmwareUpdater");
+  v47 = *&v46->__r_.__value_.__l.__data_;
+  v102 = v46->__r_.__value_.__r.__words[2];
+  *__p = v47;
+  v46->__r_.__value_.__l.__size_ = 0;
+  v46->__r_.__value_.__r.__words[2] = 0;
+  v46->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v43, __p, 0, "VinylTransport::getTicket  goldFwMac: ", v41);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  v54 = ACFULogging::getLogInstance(v53);
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v55 = std::string::append(&v124, "::");
-  v56 = *&v55->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v55->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v56;
-  v55->__r_.__value_.__l.__size_ = 0;
-  v55->__r_.__value_.__r.__words[2] = 0;
-  v55->__r_.__value_.__r.__words[0] = 0;
-  v57 = std::string::append(&v125, "copyFirmwareUpdater");
-  v58 = *&v57->__r_.__value_.__l.__data_;
-  v127 = v57->__r_.__value_.__r.__words[2];
-  *__p = v58;
-  v57->__r_.__value_.__l.__size_ = 0;
-  v57->__r_.__value_.__r.__words[2] = 0;
-  v57->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v54, __p, 0, "Firmware File Dictionary: ", a2);
-  if (SHIBYTE(v127) < 0)
+  v49 = ACFULogging::getLogInstance(v48);
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v50 = std::string::append(&v99, "::");
+  v51 = *&v50->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v50->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v51;
+  v50->__r_.__value_.__l.__size_ = 0;
+  v50->__r_.__value_.__r.__words[2] = 0;
+  v50->__r_.__value_.__r.__words[0] = 0;
+  v52 = std::string::append(&v100, "copyFirmwareUpdater");
+  v53 = *&v52->__r_.__value_.__l.__data_;
+  v102 = v52->__r_.__value_.__r.__words[2];
+  *__p = v53;
+  v52->__r_.__value_.__l.__size_ = 0;
+  v52->__r_.__value_.__r.__words[2] = 0;
+  v52->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v49, __p, 0, "Firmware File Dictionary: ", a2);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
   if (CFDictionaryContainsKey(a2, a1[1]))
   {
-    v59 = a1[1];
+    v54 = a1[1];
   }
 
   else
   {
-    v59 = @"eUICC,Gold";
+    v54 = @"eUICC,Gold";
   }
 
-  v60 = ACFURestoreHost::copyDataFromFileDictionary(v59, a2, a3);
-  v61 = ACFULogging::getLogInstance(v60);
-  v67 = v61;
-  if (!v60)
+  v55 = ACFURestoreHost::copyDataFromFileDictionary(v54, a2, a3);
+  v56 = ACFULogging::getLogInstance(v55);
+  v57 = v56;
+  if (!v55)
   {
-    ACFULogging::handleMessage(v61, 2u, "%s::%s: failed to get fwData\n", v62, v63, v64, v65, v66, "VinylRestoreHost");
-    return v60;
+    ACFULogging::handleMessage(v56, 2, "%s::%s: failed to get fwData\n", "VinylRestoreHost", "copyFirmwareUpdater");
+    return v55;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-  v68 = std::string::append(&v124, "::");
-  v69 = *&v68->__r_.__value_.__l.__data_;
-  v125.__r_.__value_.__r.__words[2] = v68->__r_.__value_.__r.__words[2];
-  *&v125.__r_.__value_.__l.__data_ = v69;
-  v68->__r_.__value_.__l.__size_ = 0;
-  v68->__r_.__value_.__r.__words[2] = 0;
-  v68->__r_.__value_.__r.__words[0] = 0;
-  v70 = std::string::append(&v125, "copyFirmwareUpdater");
-  v71 = *&v70->__r_.__value_.__l.__data_;
-  v127 = v70->__r_.__value_.__r.__words[2];
-  *__p = v71;
-  v70->__r_.__value_.__l.__size_ = 0;
-  v70->__r_.__value_.__r.__words[2] = 0;
-  v70->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v67, __p, 4, "fwData: ", v60);
-  if (SHIBYTE(v127) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+  v58 = std::string::append(&v99, "::");
+  v59 = *&v58->__r_.__value_.__l.__data_;
+  v100.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
+  *&v100.__r_.__value_.__l.__data_ = v59;
+  v58->__r_.__value_.__l.__size_ = 0;
+  v58->__r_.__value_.__r.__words[2] = 0;
+  v58->__r_.__value_.__r.__words[0] = 0;
+  v60 = std::string::append(&v100, "copyFirmwareUpdater");
+  v61 = *&v60->__r_.__value_.__l.__data_;
+  v102 = v60->__r_.__value_.__r.__words[2];
+  *__p = v61;
+  v60->__r_.__value_.__l.__size_ = 0;
+  v60->__r_.__value_.__r.__words[2] = 0;
+  v60->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v57, __p, 4, "fwData: ", v55);
+  if (SHIBYTE(v102) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v125.__r_.__value_.__l.__data_);
+    operator delete(v100.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v99.__r_.__value_.__l.__data_);
   }
 
-  v72 = eUICCFwReaderOpen(v60);
-  v73 = ACFULogging::getLogInstance(v72);
-  if (v72)
+  v62 = eUICCFwReaderOpen(v55);
+  v63 = ACFULogging::getLogInstance(v62);
+  if (v62)
   {
-    ACFULogging::handleMessage(v73, 0, "%s::%s: Extracting the Zip payload\n", v74, v75, v76, v77, v78, "VinylRestoreHost");
-    v79 = VinylGoldFirmwareCreate(v60, v22, v30, v46);
-    v130 = v79;
-    v80 = VinylMainFirmwareCreate(v60, v22, v30, v38);
-    v81 = v80;
-    v129 = v80;
-    if (!v79)
+    ACFULogging::handleMessage(v63, 0, "%s::%s: Extracting the Zip payload\n", "VinylRestoreHost", "copyFirmwareUpdater");
+    v64 = VinylGoldFirmwareCreate(v55, v17, v25, v41);
+    v105 = v64;
+    v65 = VinylMainFirmwareCreate(v55, v17, v25, v33);
+    v66 = v65;
+    v104 = v65;
+    if (!v64)
     {
       goto LABEL_90;
     }
@@ -4637,162 +4602,162 @@ ACFULogging *VinylRestoreHost::copyFirmwareUpdater(ACFULogging **a1, const __CFD
 
   else
   {
-    ACFULogging::handleMessage(v73, 0, "%s::%s: Possibly OTA flow, fwData is already unziped and extracted, copy directly\n", v74, v75, v76, v77, v78, "VinylRestoreHost");
-    v83 = VinylRestoreHost::createGoldFw(v82, v60, &v130);
-    v80 = VinylRestoreHost::createMainFw(v83, v60, &v129);
-    v81 = v129;
-    v79 = v130;
-    if (!v130)
+    ACFULogging::handleMessage(v63, 0, "%s::%s: Possibly OTA flow, fwData is already unziped and extracted, copy directly\n", "VinylRestoreHost", "copyFirmwareUpdater");
+    v68 = VinylRestoreHost::createGoldFw(v67, v55, &v105);
+    v65 = VinylRestoreHost::createMainFw(v68, v55, &v104);
+    v66 = v104;
+    v64 = v105;
+    if (!v105)
     {
       goto LABEL_90;
     }
   }
 
-  if (v81)
+  if (v66)
   {
-    v84 = *MEMORY[0x29EDB8ED8];
+    v69 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     if (Mutable)
     {
-      v86 = Mutable;
-      Im4p = VinylFirmware::getIm4p(v79);
-      CFDictionarySetValue(v86, @"eUICC,Im4pGold", Im4p);
-      FwData = VinylFirmware::getFwData(v79);
-      CFDictionarySetValue(v86, @"eUICC,Gold", FwData);
-      if (VinylFirmware::getRecoveryFwData(v79))
+      v71 = Mutable;
+      Im4p = VinylFirmware::getIm4p(v64);
+      CFDictionarySetValue(v71, @"eUICC,Im4pGold", Im4p);
+      FwData = VinylFirmware::getFwData(v64);
+      CFDictionarySetValue(v71, @"eUICC,Gold", FwData);
+      if (VinylFirmware::getRecoveryFwData(v64))
       {
-        RecoveryFwData = VinylFirmware::getRecoveryFwData(v79);
-        CFDictionarySetValue(v86, @"eUICC,GoldRecoveryFw", RecoveryFwData);
+        RecoveryFwData = VinylFirmware::getRecoveryFwData(v64);
+        CFDictionarySetValue(v71, @"eUICC,GoldRecoveryFw", RecoveryFwData);
       }
 
-      InfoPlistData = VinylFirmware::getInfoPlistData(v79);
-      CFDictionarySetValue(v86, @"eUICC,InfoPlistDataGold", InfoPlistData);
-      ProfileData = VinylFirmware::getProfileData(v79);
-      CFDictionarySetValue(v86, @"eUICC,ProfileDataGold", ProfileData);
-      v92 = VinylFirmware::getIm4p(v81);
-      CFDictionarySetValue(v86, @"eUICC,Im4pMain", v92);
-      v93 = VinylFirmware::getFwData(v81);
-      CFDictionarySetValue(v86, @"eUICC,Main", v93);
-      if (VinylFirmware::getRecoveryFwData(v81))
+      InfoPlistData = VinylFirmware::getInfoPlistData(v64);
+      CFDictionarySetValue(v71, @"eUICC,InfoPlistDataGold", InfoPlistData);
+      ProfileData = VinylFirmware::getProfileData(v64);
+      CFDictionarySetValue(v71, @"eUICC,ProfileDataGold", ProfileData);
+      v77 = VinylFirmware::getIm4p(v66);
+      CFDictionarySetValue(v71, @"eUICC,Im4pMain", v77);
+      v78 = VinylFirmware::getFwData(v66);
+      CFDictionarySetValue(v71, @"eUICC,Main", v78);
+      if (VinylFirmware::getRecoveryFwData(v66))
       {
-        v94 = VinylFirmware::getRecoveryFwData(v81);
-        CFDictionarySetValue(v86, @"eUICC,MainRecoveryFw", v94);
+        v79 = VinylFirmware::getRecoveryFwData(v66);
+        CFDictionarySetValue(v71, @"eUICC,MainRecoveryFw", v79);
       }
 
-      v95 = VinylFirmware::getInfoPlistData(v81);
-      CFDictionarySetValue(v86, @"eUICC,InfoPlistDataMain", v95);
-      v96 = VinylFirmware::getProfileData(v81);
-      CFDictionarySetValue(v86, @"eUICC,ProfileDataMain", v96);
-      v97 = CFPropertyListCreateData(v84, v86, kCFPropertyListXMLFormat_v1_0, 0, &error);
-      v98 = ACFULogging::getLogInstance(v97);
-      std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-      v99 = std::string::append(&v124, "::");
-      v100 = *&v99->__r_.__value_.__l.__data_;
-      v125.__r_.__value_.__r.__words[2] = v99->__r_.__value_.__r.__words[2];
-      *&v125.__r_.__value_.__l.__data_ = v100;
-      v99->__r_.__value_.__l.__size_ = 0;
-      v99->__r_.__value_.__r.__words[2] = 0;
-      v99->__r_.__value_.__r.__words[0] = 0;
-      v101 = std::string::append(&v125, "copyFirmwareUpdater");
-      v102 = *&v101->__r_.__value_.__l.__data_;
-      v127 = v101->__r_.__value_.__r.__words[2];
-      *__p = v102;
-      v101->__r_.__value_.__l.__size_ = 0;
-      v101->__r_.__value_.__r.__words[2] = 0;
-      v101->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v98, __p, 0, "firmwareInfoDict: ", v86);
-      if (SHIBYTE(v127) < 0)
+      v80 = VinylFirmware::getInfoPlistData(v66);
+      CFDictionarySetValue(v71, @"eUICC,InfoPlistDataMain", v80);
+      v81 = VinylFirmware::getProfileData(v66);
+      CFDictionarySetValue(v71, @"eUICC,ProfileDataMain", v81);
+      v82 = CFPropertyListCreateData(v69, v71, kCFPropertyListXMLFormat_v1_0, 0, &error);
+      v83 = ACFULogging::getLogInstance(v82);
+      std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+      v84 = std::string::append(&v99, "::");
+      v85 = *&v84->__r_.__value_.__l.__data_;
+      v100.__r_.__value_.__r.__words[2] = v84->__r_.__value_.__r.__words[2];
+      *&v100.__r_.__value_.__l.__data_ = v85;
+      v84->__r_.__value_.__l.__size_ = 0;
+      v84->__r_.__value_.__r.__words[2] = 0;
+      v84->__r_.__value_.__r.__words[0] = 0;
+      v86 = std::string::append(&v100, "copyFirmwareUpdater");
+      v87 = *&v86->__r_.__value_.__l.__data_;
+      v102 = v86->__r_.__value_.__r.__words[2];
+      *__p = v87;
+      v86->__r_.__value_.__l.__size_ = 0;
+      v86->__r_.__value_.__r.__words[2] = 0;
+      v86->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v83, __p, 0, "firmwareInfoDict: ", v71);
+      if (SHIBYTE(v102) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v125.__r_.__value_.__l.__data_);
+        operator delete(v100.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v99.__r_.__value_.__l.__data_);
       }
 
-      v104 = ACFULogging::getLogInstance(v103);
-      v110 = v104;
-      if (v97)
+      v89 = ACFULogging::getLogInstance(v88);
+      v90 = v89;
+      if (v82)
       {
-        ACFULogging::handleMessage(v104, 0, "%s::%s: leaving: VinylRestoreHost: %s\n", v105, v106, v107, v108, v109, "VinylRestoreHost");
+        ACFULogging::handleMessage(v89, 0, "%s::%s: leaving: VinylRestoreHost: %s\n", "VinylRestoreHost", "copyFirmwareUpdater", "copyFirmwareUpdater");
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(&v124, "VinylRestoreHost");
-        v120 = std::string::append(&v124, "::");
-        v121 = *&v120->__r_.__value_.__l.__data_;
-        v125.__r_.__value_.__r.__words[2] = v120->__r_.__value_.__r.__words[2];
-        *&v125.__r_.__value_.__l.__data_ = v121;
-        v120->__r_.__value_.__l.__size_ = 0;
-        v120->__r_.__value_.__r.__words[2] = 0;
-        v120->__r_.__value_.__r.__words[0] = 0;
-        v122 = std::string::append(&v125, "copyFirmwareUpdater");
-        v123 = *&v122->__r_.__value_.__l.__data_;
-        v127 = v122->__r_.__value_.__r.__words[2];
-        *__p = v123;
-        v122->__r_.__value_.__l.__size_ = 0;
-        v122->__r_.__value_.__r.__words[2] = 0;
-        v122->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v110, __p, 2, "Failed to serialize dictionary, error: ", error);
-        if (SHIBYTE(v127) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v99, "VinylRestoreHost");
+        v95 = std::string::append(&v99, "::");
+        v96 = *&v95->__r_.__value_.__l.__data_;
+        v100.__r_.__value_.__r.__words[2] = v95->__r_.__value_.__r.__words[2];
+        *&v100.__r_.__value_.__l.__data_ = v96;
+        v95->__r_.__value_.__l.__size_ = 0;
+        v95->__r_.__value_.__r.__words[2] = 0;
+        v95->__r_.__value_.__r.__words[0] = 0;
+        v97 = std::string::append(&v100, "copyFirmwareUpdater");
+        v98 = *&v97->__r_.__value_.__l.__data_;
+        v102 = v97->__r_.__value_.__r.__words[2];
+        *__p = v98;
+        v97->__r_.__value_.__l.__size_ = 0;
+        v97->__r_.__value_.__r.__words[2] = 0;
+        v97->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v90, __p, 2, "Failed to serialize dictionary, error: ", error);
+        if (SHIBYTE(v102) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v125.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v125.__r_.__value_.__l.__data_);
+          operator delete(v100.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v99.__r_.__value_.__l.__data_);
         }
       }
 
-      CFRelease(v86);
+      CFRelease(v71);
     }
 
     else
     {
       VinylRestoreHost::copyFirmwareUpdater(0);
-      v97 = 0;
+      v82 = 0;
     }
 
-    CFRelease(v60);
+    CFRelease(v55);
     goto LABEL_78;
   }
 
 LABEL_90:
-  v114 = ACFULogging::getLogInstance(v80);
-  ACFULogging::handleMessage(v114, 2u, "%s::%s: failed to get firmware object\n", v115, v116, v117, v118, v119, "VinylRestoreHost");
-  CFRelease(v60);
-  v97 = 0;
-  v60 = 0;
-  if (v79)
+  v94 = ACFULogging::getLogInstance(v65);
+  ACFULogging::handleMessage(v94, 2, "%s::%s: failed to get firmware object\n", "VinylRestoreHost", "copyFirmwareUpdater");
+  CFRelease(v55);
+  v82 = 0;
+  v55 = 0;
+  if (v64)
   {
 LABEL_78:
-    VinylFirmware::~VinylFirmware(v79);
-    operator delete(v111);
-    v130 = 0;
-    v81 = v129;
-    v60 = v97;
+    VinylFirmware::~VinylFirmware(v64);
+    operator delete(v91);
+    v105 = 0;
+    v66 = v104;
+    v55 = v82;
   }
 
-  if (v81)
+  if (v66)
   {
-    VinylFirmware::~VinylFirmware(v81);
-    operator delete(v112);
+    VinylFirmware::~VinylFirmware(v66);
+    operator delete(v92);
   }
 
-  return v60;
+  return v55;
 }
 
 void sub_29850ACB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -4817,14 +4782,14 @@ void sub_29850ACB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t VinylRestoreHost::createGoldFw(VinylRestoreHost *this, const __CFData *a2, VinylFirmware **a3)
 {
-  v57 = 0;
-  v58 = 0;
+  v49 = 0;
+  v50 = 0;
   error = 0;
   if (a2)
   {
     v4 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], a2, 0, 0, &error);
     v5 = v4;
-    v57 = v4;
+    v49 = v4;
     if (v4)
     {
       v6 = CFGetTypeID(v4);
@@ -4832,50 +4797,50 @@ uint64_t VinylRestoreHost::createGoldFw(VinylRestoreHost *this, const __CFData *
       if (v6 == TypeID)
       {
         __p[0] = v5;
-        v8 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v58, __p);
-        if (v58)
+        v8 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v50, __p);
+        if (v50)
         {
           LogInstance = ACFULogging::getLogInstance(v8);
-          std::string::basic_string[abi:ne200100]<0>(&v52, "VinylRestoreHost");
-          v10 = std::string::append(&v52, "::");
+          std::string::basic_string[abi:ne200100]<0>(&v44, "VinylRestoreHost");
+          v10 = std::string::append(&v44, "::");
           v11 = *&v10->__r_.__value_.__l.__data_;
-          v53.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-          *&v53.__r_.__value_.__l.__data_ = v11;
+          v45.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+          *&v45.__r_.__value_.__l.__data_ = v11;
           v10->__r_.__value_.__l.__size_ = 0;
           v10->__r_.__value_.__r.__words[2] = 0;
           v10->__r_.__value_.__r.__words[0] = 0;
-          v12 = std::string::append(&v53, "createGoldFw");
+          v12 = std::string::append(&v45, "createGoldFw");
           v13 = *&v12->__r_.__value_.__l.__data_;
-          v55 = v12->__r_.__value_.__r.__words[2];
+          v47 = v12->__r_.__value_.__r.__words[2];
           *__p = v13;
           v12->__r_.__value_.__l.__size_ = 0;
           v12->__r_.__value_.__r.__words[2] = 0;
           v12->__r_.__value_.__r.__words[0] = 0;
-          ACFULogging::handleMessageCFType(LogInstance, __p, 0, "vinylFirmwareInfoDict: ", v58);
-          if (SHIBYTE(v55) < 0)
+          ACFULogging::handleMessageCFType(LogInstance, __p, 0, "vinylFirmwareInfoDict: ", v50);
+          if (SHIBYTE(v47) < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v53.__r_.__value_.__l.__data_);
+            operator delete(v45.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v52.__r_.__value_.__l.__data_);
+            operator delete(v44.__r_.__value_.__l.__data_);
           }
 
-          Value = CFDictionaryGetValue(v58, @"eUICC,Im4pGold");
+          Value = CFDictionaryGetValue(v50, @"eUICC,Im4pGold");
           v15 = Value;
           if (Value && (v16 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v16 == Value))
           {
-            v17 = CFDictionaryGetValue(v58, @"eUICC,InfoPlistDataGold");
+            v17 = CFDictionaryGetValue(v50, @"eUICC,InfoPlistDataGold");
             v18 = v17;
-            if (v17 && (v19 = CFGetTypeID(v17), v17 = CFDataGetTypeID(), v19 == v17) && (v17 = CFDictionaryGetValue(v58, @"eUICC,ProfileDataGold"), (v20 = v17) != 0) && (v21 = CFGetTypeID(v17), v17 = CFDataGetTypeID(), v21 == v17))
+            if (v17 && (v19 = CFGetTypeID(v17), v17 = CFDataGetTypeID(), v19 == v17) && (v17 = CFDictionaryGetValue(v50, @"eUICC,ProfileDataGold"), (v20 = v17) != 0) && (v21 = CFGetTypeID(v17), v17 = CFDataGetTypeID(), v21 == v17))
             {
-              v22 = CFDictionaryGetValue(v58, @"eUICC,Gold");
+              v22 = CFDictionaryGetValue(v50, @"eUICC,Gold");
               v23 = v22;
               if (v22)
               {
@@ -4883,7 +4848,7 @@ uint64_t VinylRestoreHost::createGoldFw(VinylRestoreHost *this, const __CFData *
                 v22 = CFDataGetTypeID();
                 if (v24 == v22)
                 {
-                  v25 = CFDictionaryGetValue(v58, @"eUICC,GoldRecoveryFw");
+                  v25 = CFDictionaryGetValue(v50, @"eUICC,GoldRecoveryFw");
                   v26 = VinylFirmwareCreate(v23, v25, v15, v18, v20, 0);
                   v27 = 0;
                   *a3 = v26;
@@ -4893,65 +4858,63 @@ LABEL_20:
                 }
               }
 
-              v29 = ACFULogging::getLogInstance(v22);
-              v35 = "%s::%s: goldFwData not present in the input\n";
+              v31 = ACFULogging::getLogInstance(v22);
+              ACFULogging::handleMessage(v31, 2, "%s::%s: goldFwData not present in the input\n");
             }
 
             else
             {
               v29 = ACFULogging::getLogInstance(v17);
-              v35 = "%s::%s: goldInfoPlistData not present in the input\n";
+              ACFULogging::handleMessage(v29, 2, "%s::%s: goldInfoPlistData not present in the input\n");
             }
           }
 
           else
           {
-            v29 = ACFULogging::getLogInstance(Value);
-            v35 = "%s::%s: goldIm4p not present in the input\n";
+            v30 = ACFULogging::getLogInstance(Value);
+            ACFULogging::handleMessage(v30, 2, "%s::%s: goldIm4p not present in the input\n");
           }
         }
 
         else
         {
-          v29 = ACFULogging::getLogInstance(v8);
-          v35 = "%s::%s: Fw data dictionary not present in the input\n";
+          v43 = ACFULogging::getLogInstance(v8);
+          ACFULogging::handleMessage(v43, 2, "%s::%s: Fw data dictionary not present in the input\n");
         }
-
-        ACFULogging::handleMessage(v29, 2u, v35, v30, v31, v32, v33, v34, "VinylRestoreHost");
       }
 
       else
       {
-        v47 = ACFULogging::getLogInstance(TypeID);
-        std::string::basic_string[abi:ne200100]<0>(&v52, "VinylRestoreHost");
-        v48 = std::string::append(&v52, "::");
-        v49 = *&v48->__r_.__value_.__l.__data_;
-        v53.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
-        *&v53.__r_.__value_.__l.__data_ = v49;
-        v48->__r_.__value_.__l.__size_ = 0;
-        v48->__r_.__value_.__r.__words[2] = 0;
-        v48->__r_.__value_.__r.__words[0] = 0;
-        v50 = std::string::append(&v53, "createGoldFw");
-        v51 = *&v50->__r_.__value_.__l.__data_;
-        v55 = v50->__r_.__value_.__r.__words[2];
-        *__p = v51;
-        v50->__r_.__value_.__l.__size_ = 0;
-        v50->__r_.__value_.__r.__words[2] = 0;
-        v50->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v47, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v5);
-        if (SHIBYTE(v55) < 0)
+        v38 = ACFULogging::getLogInstance(TypeID);
+        std::string::basic_string[abi:ne200100]<0>(&v44, "VinylRestoreHost");
+        v39 = std::string::append(&v44, "::");
+        v40 = *&v39->__r_.__value_.__l.__data_;
+        v45.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+        *&v45.__r_.__value_.__l.__data_ = v40;
+        v39->__r_.__value_.__l.__size_ = 0;
+        v39->__r_.__value_.__r.__words[2] = 0;
+        v39->__r_.__value_.__r.__words[0] = 0;
+        v41 = std::string::append(&v45, "createGoldFw");
+        v42 = *&v41->__r_.__value_.__l.__data_;
+        v47 = v41->__r_.__value_.__r.__words[2];
+        *__p = v42;
+        v41->__r_.__value_.__l.__size_ = 0;
+        v41->__r_.__value_.__r.__words[2] = 0;
+        v41->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v38, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v5);
+        if (SHIBYTE(v47) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v53.__r_.__value_.__l.__data_);
+          operator delete(v45.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v52.__r_.__value_.__l.__data_);
+          operator delete(v44.__r_.__value_.__l.__data_);
         }
       }
 
@@ -4959,50 +4922,50 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v42 = ACFULogging::getLogInstance(0);
-    std::string::basic_string[abi:ne200100]<0>(&v52, "VinylRestoreHost");
-    v43 = std::string::append(&v52, "::");
-    v44 = *&v43->__r_.__value_.__l.__data_;
-    v53.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
-    *&v53.__r_.__value_.__l.__data_ = v44;
-    v43->__r_.__value_.__l.__size_ = 0;
-    v43->__r_.__value_.__r.__words[2] = 0;
-    v43->__r_.__value_.__r.__words[0] = 0;
-    v45 = std::string::append(&v53, "createGoldFw");
-    v46 = *&v45->__r_.__value_.__l.__data_;
-    v55 = v45->__r_.__value_.__r.__words[2];
-    *__p = v46;
-    v45->__r_.__value_.__l.__size_ = 0;
-    v45->__r_.__value_.__r.__words[2] = 0;
-    v45->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v42, __p, 2, "Failed to create propertylist from data, error: ", error);
-    if (SHIBYTE(v55) < 0)
+    v33 = ACFULogging::getLogInstance(0);
+    std::string::basic_string[abi:ne200100]<0>(&v44, "VinylRestoreHost");
+    v34 = std::string::append(&v44, "::");
+    v35 = *&v34->__r_.__value_.__l.__data_;
+    v45.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
+    *&v45.__r_.__value_.__l.__data_ = v35;
+    v34->__r_.__value_.__l.__size_ = 0;
+    v34->__r_.__value_.__r.__words[2] = 0;
+    v34->__r_.__value_.__r.__words[0] = 0;
+    v36 = std::string::append(&v45, "createGoldFw");
+    v37 = *&v36->__r_.__value_.__l.__data_;
+    v47 = v36->__r_.__value_.__r.__words[2];
+    *__p = v37;
+    v36->__r_.__value_.__l.__size_ = 0;
+    v36->__r_.__value_.__r.__words[2] = 0;
+    v36->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v33, __p, 2, "Failed to create propertylist from data, error: ", error);
+    if (SHIBYTE(v47) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v53.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      operator delete(v44.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v36 = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(v36, 2u, "%s::%s: Failed to get Vinyl Firmware Data\n", v37, v38, v39, v40, v41, "VinylRestoreHost");
+    v32 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v32, 2, "%s::%s: Failed to get Vinyl Firmware Data\n", "VinylRestoreHost", "createGoldFw");
   }
 
   v27 = 1;
 LABEL_21:
-  if (v58)
+  if (v50)
   {
-    CFRelease(v58);
+    CFRelease(v50);
   }
 
   return v27;
@@ -5032,14 +4995,14 @@ void sub_29850B1C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t VinylRestoreHost::createMainFw(VinylRestoreHost *this, const __CFData *a2, VinylFirmware **a3)
 {
-  v52 = 0;
-  v53 = 0;
+  v45 = 0;
+  v46 = 0;
   error = 0;
   if (a2)
   {
     v4 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], a2, 0, 0, &error);
     v5 = v4;
-    v52 = v4;
+    v45 = v4;
     if (v4)
     {
       v6 = CFGetTypeID(v4);
@@ -5047,22 +5010,22 @@ uint64_t VinylRestoreHost::createMainFw(VinylRestoreHost *this, const __CFData *
       if (v6 == TypeID)
       {
         __p[0] = v5;
-        ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v53, __p);
-        if (v53)
+        ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v46, __p);
+        if (v46)
         {
-          Value = CFDictionaryGetValue(v53, @"eUICC,Im4pMain");
+          Value = CFDictionaryGetValue(v46, @"eUICC,Im4pMain");
           v9 = Value;
           if (Value && (v10 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v10 == Value))
           {
-            v11 = CFDictionaryGetValue(v53, @"eUICC,InfoPlistDataMain");
+            v11 = CFDictionaryGetValue(v46, @"eUICC,InfoPlistDataMain");
             v12 = v11;
             if (v11 && (v13 = CFGetTypeID(v11), v11 = CFDataGetTypeID(), v13 == v11))
             {
-              v14 = CFDictionaryGetValue(v53, @"eUICC,ProfileDataMain");
+              v14 = CFDictionaryGetValue(v46, @"eUICC,ProfileDataMain");
               v15 = v14;
               if (v14 && (v16 = CFGetTypeID(v14), v14 = CFDataGetTypeID(), v16 == v14))
               {
-                v17 = CFDictionaryGetValue(v53, @"eUICC,Main");
+                v17 = CFDictionaryGetValue(v46, @"eUICC,Main");
                 v18 = v17;
                 if (v17)
                 {
@@ -5070,7 +5033,7 @@ uint64_t VinylRestoreHost::createMainFw(VinylRestoreHost *this, const __CFData *
                   v17 = CFDataGetTypeID();
                   if (v19 == v17)
                   {
-                    v20 = CFDictionaryGetValue(v53, @"eUICC,MainRecoveryFw");
+                    v20 = CFDictionaryGetValue(v46, @"eUICC,MainRecoveryFw");
                     v21 = VinylFirmwareCreate(v18, v20, v9, v12, v15, 0);
                     v22 = 0;
                     *a3 = v21;
@@ -5081,71 +5044,69 @@ LABEL_14:
                 }
 
                 LogInstance = ACFULogging::getLogInstance(v17);
-                v30 = "%s::%s: mainFwData not present in the input\n";
+                ACFULogging::handleMessage(LogInstance, 2, "%s::%s: mainFwData not present in the input\n");
               }
 
               else
               {
-                LogInstance = ACFULogging::getLogInstance(v14);
-                v30 = "%s::%s: mainProfileData not present in the input\n";
+                v26 = ACFULogging::getLogInstance(v14);
+                ACFULogging::handleMessage(v26, 2, "%s::%s: mainProfileData not present in the input\n");
               }
             }
 
             else
             {
-              LogInstance = ACFULogging::getLogInstance(v11);
-              v30 = "%s::%s: mainInfoPlistData not present in the input\n";
+              v25 = ACFULogging::getLogInstance(v11);
+              ACFULogging::handleMessage(v25, 2, "%s::%s: mainInfoPlistData not present in the input\n");
             }
           }
 
           else
           {
-            LogInstance = ACFULogging::getLogInstance(Value);
-            v30 = "%s::%s: mainIm4p not present in the input\n";
+            v24 = ACFULogging::getLogInstance(Value);
+            ACFULogging::handleMessage(v24, 2, "%s::%s: mainIm4p not present in the input\n");
           }
         }
 
         else
         {
-          LogInstance = ACFULogging::getLogInstance(0);
-          v30 = "%s::%s: Fw data dictionary not present in the input\n";
+          v39 = ACFULogging::getLogInstance(0);
+          ACFULogging::handleMessage(v39, 2, "%s::%s: Fw data dictionary not present in the input\n");
         }
-
-        ACFULogging::handleMessage(LogInstance, 2u, v30, v25, v26, v27, v28, v29, "VinylRestoreHost");
       }
 
       else
       {
-        v42 = ACFULogging::getLogInstance(TypeID);
-        std::string::basic_string[abi:ne200100]<0>(&v47, "VinylRestoreHost");
-        v43 = std::string::append(&v47, "::");
-        v44 = *&v43->__r_.__value_.__l.__data_;
-        v48.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
-        *&v48.__r_.__value_.__l.__data_ = v44;
-        v43->__r_.__value_.__l.__size_ = 0;
-        v43->__r_.__value_.__r.__words[2] = 0;
-        v43->__r_.__value_.__r.__words[0] = 0;
-        v45 = std::string::append(&v48, "createMainFw");
-        v46 = *&v45->__r_.__value_.__l.__data_;
-        v50 = v45->__r_.__value_.__r.__words[2];
-        *__p = v46;
-        v45->__r_.__value_.__l.__size_ = 0;
-        v45->__r_.__value_.__r.__words[2] = 0;
-        v45->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v42, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v5);
-        if (SHIBYTE(v50) < 0)
+        v34 = ACFULogging::getLogInstance(TypeID);
+        std::string::basic_string[abi:ne200100]<0>(&v40, "VinylRestoreHost");
+        v35 = std::string::append(&v40, "::");
+        v36 = *&v35->__r_.__value_.__l.__data_;
+        v41.__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+        *&v41.__r_.__value_.__l.__data_ = v36;
+        v35->__r_.__value_.__l.__size_ = 0;
+        v35->__r_.__value_.__r.__words[2] = 0;
+        v35->__r_.__value_.__r.__words[0] = 0;
+        v37 = std::string::append(&v41, "createMainFw");
+        v38 = *&v37->__r_.__value_.__l.__data_;
+        v43 = v37->__r_.__value_.__r.__words[2];
+        *__p = v38;
+        v37->__r_.__value_.__l.__size_ = 0;
+        v37->__r_.__value_.__r.__words[2] = 0;
+        v37->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v34, __p, 2, "Deserialized plist data is not a dictionary firmwarePlist: ", v5);
+        if (SHIBYTE(v43) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v48.__r_.__value_.__l.__data_);
+          operator delete(v41.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          operator delete(v40.__r_.__value_.__l.__data_);
         }
       }
 
@@ -5153,50 +5114,50 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v37 = ACFULogging::getLogInstance(0);
-    std::string::basic_string[abi:ne200100]<0>(&v47, "VinylRestoreHost");
-    v38 = std::string::append(&v47, "::");
-    v39 = *&v38->__r_.__value_.__l.__data_;
-    v48.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
-    *&v48.__r_.__value_.__l.__data_ = v39;
-    v38->__r_.__value_.__l.__size_ = 0;
-    v38->__r_.__value_.__r.__words[2] = 0;
-    v38->__r_.__value_.__r.__words[0] = 0;
-    v40 = std::string::append(&v48, "createMainFw");
-    v41 = *&v40->__r_.__value_.__l.__data_;
-    v50 = v40->__r_.__value_.__r.__words[2];
-    *__p = v41;
-    v40->__r_.__value_.__l.__size_ = 0;
-    v40->__r_.__value_.__r.__words[2] = 0;
-    v40->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v37, __p, 2, "Failed to create propertylist from data, error: ", error);
-    if (SHIBYTE(v50) < 0)
+    v29 = ACFULogging::getLogInstance(0);
+    std::string::basic_string[abi:ne200100]<0>(&v40, "VinylRestoreHost");
+    v30 = std::string::append(&v40, "::");
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    v41.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+    *&v41.__r_.__value_.__l.__data_ = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    v32 = std::string::append(&v41, "createMainFw");
+    v33 = *&v32->__r_.__value_.__l.__data_;
+    v43 = v32->__r_.__value_.__r.__words[2];
+    *__p = v33;
+    v32->__r_.__value_.__l.__size_ = 0;
+    v32->__r_.__value_.__r.__words[2] = 0;
+    v32->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v29, __p, 2, "Failed to create propertylist from data, error: ", error);
+    if (SHIBYTE(v43) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v48.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v47.__r_.__value_.__l.__data_);
+      operator delete(v40.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v31 = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(v31, 2u, "%s::%s: Failed to get Vinyl Firmware Data\n", v32, v33, v34, v35, v36, "VinylRestoreHost");
+    v28 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v28, 2, "%s::%s: Failed to get Vinyl Firmware Data\n", "VinylRestoreHost", "createMainFw");
   }
 
   v22 = 1;
 LABEL_15:
-  if (v53)
+  if (v46)
   {
-    CFRelease(v53);
+    CFRelease(v46);
   }
 
   return v22;
@@ -5244,37 +5205,37 @@ void *ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(v
 void VinylRestoreHost::copyFirmwareUpdater(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get create firmwareInfoDict\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get create firmwareInfoDict\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: goldFwMac is not a CFData type\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: goldFwMac is not a CFData type\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: mainFwMac is not a CFData type\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: mainFwMac is not a CFData type\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmwareLoaderVersion is not a CFData type\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmwareLoaderVersion is not a CFData type\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: certIdentifier is not a CFData type\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: certIdentifier is not a CFData type\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Deviceinfo is not a dictionary\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Deviceinfo is not a dictionary\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmwareFileDictionary is null\n", v2, v3, v4, v5, v6, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmwareFileDictionary is null\n", "VinylRestoreHost", "copyFirmwareUpdater");
 }
 
 void *vinyl_unzOpen2(uint64_t a1, _OWORD *a2, uint64_t a3)
@@ -5408,17 +5369,17 @@ LABEL_33:
 void *eUICCFwReaderOpen(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v3, v4, v5, v6, v7, "eUICCFwReader");
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "eUICCFwReader", "eUICCFwReaderOpen", "eUICCFwReaderOpen");
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
-  v10 = vinyl_unzOpen(BytePtr, Length);
-  if (!v10)
+  v5 = vinyl_unzOpen(BytePtr, Length);
+  if (!v5)
   {
-    v11 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v11, 2u, "%s::%s: failed to open bbfw archive for reading eUICCFwReaderOpen\n", v12, v13, v14, v15, v16, "eUICCFwReader");
+    v6 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v6, 2, "%s::%s: failed to open bbfw archive for reading eUICCFwReaderOpen\n", "eUICCFwReader", "eUICCFwReaderOpen");
   }
 
-  return v10;
+  return v5;
 }
 
 uint64_t eUICCFwReaderFindAndCopyFileData(ACFULogging *a1, const __CFString *a2, CFTypeRef *a3)
@@ -5489,26 +5450,26 @@ void eUICCFwReaderFindAndCopyFileData_cold_1(uint64_t a1, void **a2, uint64_t a3
   }
 }
 
-void eUICCFwReaderFindAndCopyFileData_cold_2(uint64_t a1, const __CFString *a2, CFTypeRef *a3, CFTypeRef *a4, _DWORD *a5)
+void eUICCFwReaderFindAndCopyFileData_cold_2(uint64_t a1, const __CFString *a2, const void **a3, CFTypeRef *a4, int *a5)
 {
   File = BbfwReaderFindFile(a1, a2);
   if (File)
   {
     v10 = File;
     LogInstance = ACFULogging::getLogInstance(File);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to find bbfw item status %d\n", v12, v13, v14, v15, v16, "eUICCFwReader");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to find bbfw item status %d\n", "eUICCFwReader", "eUICCFwReaderFindAndCopyFileData", v10);
   }
 
   else
   {
-    v17 = eUICCFwReaderCopyFileData(a1, a3);
-    v10 = v17;
-    if (v17)
+    v12 = eUICCFwReaderCopyFileData(a1, a3);
+    v10 = v12;
+    if (v12)
     {
-      v18 = ACFULogging::getLogInstance(v17);
-      ACFULogging::handleMessage(v18, 2u, "%s::%s: failed to extract bbfw item status %d\n", v19, v20, v21, v22, v23, "eUICCFwReader");
-      v24 = *a3;
-      if (!v24)
+      v13 = ACFULogging::getLogInstance(v12);
+      ACFULogging::handleMessage(v13, 2, "%s::%s: failed to extract bbfw item status %d\n", "eUICCFwReader", "eUICCFwReaderFindAndCopyFileData", v10);
+      v14 = *a3;
+      if (!v14)
       {
         goto LABEL_3;
       }
@@ -5516,26 +5477,26 @@ void eUICCFwReaderFindAndCopyFileData_cold_2(uint64_t a1, const __CFString *a2, 
 
     else
     {
-      v24 = *a3;
-      if (!v24)
+      v14 = *a3;
+      if (!v14)
       {
-        v25 = ACFULogging::getLogInstance(v17);
-        ACFULogging::handleMessage(v25, 2u, "%s::%s: failed to extract bbfw item fileData is NULL\n", v26, v27, v28, v29, v30, "eUICCFwReader");
+        v15 = ACFULogging::getLogInstance(v12);
+        ACFULogging::handleMessage(v15, 2, "%s::%s: failed to extract bbfw item fileData is NULL\n", "eUICCFwReader", "eUICCFwReaderFindAndCopyFileData");
         v10 = 0;
         goto LABEL_3;
       }
 
-      *a4 = CFRetain(v24);
+      *a4 = CFRetain(v14);
     }
 
-    CFRelease(v24);
+    CFRelease(v14);
   }
 
 LABEL_3:
   *a5 = v10;
 }
 
-ACFULogging *VinylUpdaterGetTags(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
+ACFULogging *VinylUpdaterGetTags(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, ACFULogging **a4)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
   inited = ACFULogging::initLog(LogInstance, a1, a2, a3);
@@ -5543,9 +5504,9 @@ ACFULogging *VinylUpdaterGetTags(ACFULogging *a1, void (*a2)(void *, const char 
   {
     VinylUpdaterGetTags_cold_3(inited);
 LABEL_11:
-    v17 = 0;
+    v12 = 0;
 LABEL_13:
-    v19 = 0;
+    v14 = 0;
     goto LABEL_6;
   }
 
@@ -5553,179 +5514,179 @@ LABEL_13:
   v11 = ACFULogging::getLogInstance(inited);
   if (v10)
   {
-    Tags_cold_1 = VinylUpdaterGetTags_cold_1(v11, v10, a4, v12, v13, v14, v15, v16);
+    Tags_cold_1 = VinylUpdaterGetTags_cold_1(v11, v10, a4);
     goto LABEL_11;
   }
 
-  ACFULogging::handleMessage(v11, 4u, "%s::%s: entering: VinylRestoreInfo: %s\n", v12, v13, v14, v15, v16, "VinylRestoreHost");
-  VinylRestoreHost::create(a1, @"VinylRestoreInfo", &v33);
-  v17 = v33;
-  if (!v33)
+  ACFULogging::handleMessage(v11, 4, "%s::%s: entering: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterGetTags", "VinylUpdaterGetTags");
+  VinylRestoreHost::create(a1, @"VinylRestoreInfo", &v18);
+  v12 = v18;
+  if (!v18)
   {
     Tags_cold_1 = VinylUpdaterGetTags_cold_2(a4);
     goto LABEL_13;
   }
 
-  Tags_cold_1 = (**v33)(v33);
-  v19 = Tags_cold_1;
+  Tags_cold_1 = (**v18)(v18);
+  v14 = Tags_cold_1;
   if (!Tags_cold_1)
   {
-    v27 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v27, 2u, "%s::%s: failed to get tags\n", v28, v29, v30, v31, v32, "VinylRestoreHost");
-    Tags_cold_1 = ACFURestoreHost::getError(v17);
-    v19 = 0;
+    v17 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: failed to get tags\n", "VinylRestoreHost", "VinylUpdaterGetTags");
+    Tags_cold_1 = ACFURestoreHost::getError(v12);
+    v14 = 0;
     *a4 = Tags_cold_1;
   }
 
 LABEL_6:
-  v20 = ACFULogging::getLogInstance(Tags_cold_1);
-  ACFULogging::handleMessage(v20, 4u, "%s::%s: leaving: VinylRestoreInfo: %s\n", v21, v22, v23, v24, v25, "VinylRestoreHost");
-  if (v17)
+  v15 = ACFULogging::getLogInstance(Tags_cold_1);
+  ACFULogging::handleMessage(v15, 4, "%s::%s: leaving: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterGetTags", "VinylUpdaterGetTags");
+  if (v12)
   {
-    (*(*v17 + 24))(v17);
+    (*(*v12 + 24))(v12);
   }
 
-  return v19;
+  return v14;
 }
 
-ACFURestoreHost *VinylUpdaterCopyFirmware(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, ACFULogging *a4)
+ACFURestoreHost *VinylUpdaterCopyFirmware(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreInfo: %s\n", v9, v10, v11, v12, v13, "VinylRestoreHost");
-  v15 = ACFULogging::getLogInstance(v14);
-  inited = ACFULogging::initLog(v15, a1, a2, a3);
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterCopyFirmware", "VinylUpdaterCopyFirmware");
+  v10 = ACFULogging::getLogInstance(v9);
+  inited = ACFULogging::initLog(v10, a1, a2, a3);
   if (inited)
   {
-    VinylUpdaterCopyFirmware_cold_1(a4, inited, &v33);
-    return v33;
+    VinylUpdaterCopyFirmware_cold_1(a4, inited, &v18);
+    return v18;
   }
 
-  VinylRestoreHost::create(a1, @"VinylRestoreInfo", &v33);
-  v17 = v33;
-  if (!v33)
+  VinylRestoreHost::create(a1, @"VinylRestoreInfo", &v18);
+  v12 = v18;
+  if (!v18)
   {
-    VinylUpdaterCopyFirmware_cold_2(a4, &v33);
-    return v33;
+    VinylUpdaterCopyFirmware_cold_2(a4, &v18);
+    return v18;
   }
 
-  v18 = ACFURestoreHost::copyFirmware(v33);
-  v19 = v18;
-  if (v18)
+  v13 = ACFURestoreHost::copyFirmware(v18);
+  v14 = v13;
+  if (v13)
   {
-    v20 = ACFULogging::getLogInstance(v18);
-    ACFULogging::handleMessage(v20, 4u, "%s::%s: leaving: VinylRestoreInfo: %s\n", v21, v22, v23, v24, v25, "VinylRestoreHost");
+    v15 = ACFULogging::getLogInstance(v13);
+    ACFULogging::handleMessage(v15, 4, "%s::%s: leaving: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterCopyFirmware", "VinylUpdaterCopyFirmware");
   }
 
   else
   {
-    v27 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v27, 2u, "%s::%s: failed to copy firmware\n", v28, v29, v30, v31, v32, "VinylRestoreHost");
+    v17 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: failed to copy firmware\n", "VinylRestoreHost", "VinylUpdaterCopyFirmware");
     if (a4)
     {
-      *a4 = ACFURestoreHost::getError(v17);
+      *a4 = ACFURestoreHost::getError(v12);
     }
   }
 
-  (*(*v17 + 24))(v17);
-  return v19;
+  (*(*v12 + 24))(v12);
+  return v14;
 }
 
-__CFDictionary *VinylUpdaterCreateRequest(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
+ACFULogging *VinylUpdaterCreateRequest(ACFULogging *a1, void (*a2)(void *, const char *), void *a3, CFErrorRef *a4)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: VinylRestoreInfo: %s\n", v9, v10, v11, v12, v13, "VinylRestoreHost");
-  v14 = ACFUError::ACFUError(v64, @"VinylRestoreInfo");
-  v63 = 0;
-  v62[1] = @"eUICC,ApProductionMode";
-  v62[2] = @"eUICC,ApSecMode";
-  v15 = ACFULogging::getLogInstance(v14);
-  inited = ACFULogging::initLog(v15, a1, a2, a3);
-  v17 = ACFULogging::getLogInstance(inited);
-  ACFULogging::handleMessage(v17, 4u, "%s::%s: VinylUpdaterCreateRequest  ACFUInitLog returning %d\n", v18, v19, v20, v21, v22, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterCreateRequest", "VinylUpdaterCreateRequest");
+  ACFUError::ACFUError(v29, @"VinylRestoreInfo");
+  v28 = 0;
+  v27[1] = @"eUICC,ApProductionMode";
+  v27[2] = @"eUICC,ApSecMode";
+  v10 = ACFULogging::getLogInstance(v9);
+  inited = ACFULogging::initLog(v10, a1, a2, a3);
+  v12 = ACFULogging::getLogInstance(inited);
+  ACFULogging::handleMessage(v12, 4, "%s::%s: VinylUpdaterCreateRequest  ACFUInitLog returning %d\n", "VinylRestoreHost", "VinylUpdaterCreateRequest", inited);
   if (inited)
   {
-    v36 = ACFULogging::getLogInstance(v23);
-    ACFULogging::handleMessage(v36, 2u, "%s::%s: failed to init logging\n", v37, v38, v39, v40, v41, "VinylRestoreHost");
-    v42 = inited;
+    v21 = ACFULogging::getLogInstance(v13);
+    ACFULogging::handleMessage(v21, 2, "%s::%s: failed to init logging\n", "VinylRestoreHost", "VinylUpdaterCreateRequest");
+    v22 = inited;
     goto LABEL_11;
   }
 
-  VinylRestoreHost::create(a1, @"VinylRestoreInfo", v62);
-  v25 = v62[0];
-  if (!v62[0])
+  VinylRestoreHost::create(a1, @"VinylRestoreInfo", v27);
+  v15 = v27[0];
+  if (!v27[0])
   {
-    v43 = ACFULogging::getLogInstance(v24);
-    ACFULogging::handleMessage(v43, 2u, "%s::%s: failed to create host object\n", v44, v45, v46, v47, v48, "VinylRestoreHost");
+    v23 = ACFULogging::getLogInstance(v14);
+    ACFULogging::handleMessage(v23, 2, "%s::%s: failed to create host object\n", "VinylRestoreHost", "VinylUpdaterCreateRequest");
     if (!a4)
     {
 LABEL_12:
-      v28 = 0;
+      v18 = 0;
       goto LABEL_7;
     }
 
-    v42 = 4000;
+    v22 = 4000;
 LABEL_11:
-    *a4 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", v42, 0);
+    *a4 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", v22, 0);
     goto LABEL_12;
   }
 
   Value = CFDictionaryGetValue(a1, @"FirmwareData");
   if (!Value)
   {
-    v49 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v49, 0, "%s::%s: Invalid or no firmware file present in restore options\n", v50, v51, v52, v53, v54, "VinylRestoreHost");
+    v24 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v24, 0, "%s::%s: Invalid or no firmware file present in restore options\n", "VinylRestoreHost", "VinylUpdaterCreateRequest");
     goto LABEL_18;
   }
 
-  Request = VinylRestoreHost::createRequest(v25, Value);
-  v28 = Request;
+  Request = VinylRestoreHost::createRequest(v15, Value);
+  v18 = Request;
   if (!Request)
   {
-    v55 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v55, 2u, "%s::%s: failed to create request dict\n", v56, v57, v58, v59, v60, "VinylRestoreHost");
-    std::string::__init(&v61, "VinylUpdaterCreateRequest: failed to create request dict", 0x38uLL);
-    ACFUError::addError(v64, &v61, 0xFA1uLL, 0);
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    v25 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v25, 2, "%s::%s: failed to create request dict\n", "VinylRestoreHost", "VinylUpdaterCreateRequest");
+    std::string::__init(&v26, "VinylUpdaterCreateRequest: failed to create request dict", 0x38uLL);
+    ACFUError::addError(v29, &v26, 0xFA1uLL, 0);
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
     if (a4)
     {
-      v28 = 0;
-      *a4 = ACFURestoreHost::getError(v25);
+      v18 = 0;
+      *a4 = ACFURestoreHost::getError(v15);
       goto LABEL_6;
     }
 
 LABEL_18:
-    v28 = 0;
+    v18 = 0;
     goto LABEL_6;
   }
 
-  v29 = ACFULogging::getLogInstance(Request);
-  ACFULogging::handleMessage(v29, 4u, "%s::%s: leaving: VinylRestoreInfo: %s\n", v30, v31, v32, v33, v34, "VinylRestoreHost");
+  v19 = ACFULogging::getLogInstance(Request);
+  ACFULogging::handleMessage(v19, 4, "%s::%s: leaving: VinylRestoreInfo: %s\n", "VinylRestoreHost", "VinylUpdaterCreateRequest", "VinylUpdaterCreateRequest");
 LABEL_6:
-  (*(*v25 + 24))(v25);
+  (*(*v15 + 24))(v15);
 LABEL_7:
-  ACFUError::~ACFUError(v64);
-  return v28;
+  ACFUError::~ACFUError(v29);
+  return v18;
 }
 
-void sub_29850C578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_29850C578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  (*(*v17 + 24))(v17);
+  (*(*v17 + 24))(v17, a2, a3, a4, a5, a6, a7, a8);
   ACFUError::~ACFUError((v18 - 64));
   _Unwind_Resume(a1);
 }
 
-CFErrorRef VinylUpdaterGetTags_cold_1(uint64_t a1, int a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFErrorRef VinylUpdaterGetTags_cold_1(uint64_t a1, int a2, CFErrorRef *a3)
 {
-  ACFULogging::handleMessage(a1, 2u, "%s::%s: failed to init logging\n", a4, a5, a6, a7, a8, "VinylRestoreHost");
+  ACFULogging::handleMessage(a1, 2, "%s::%s: failed to init logging\n", "VinylRestoreHost", "VinylUpdaterGetTags");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", a2, 0);
   *a3 = result;
   return result;
@@ -5734,7 +5695,7 @@ CFErrorRef VinylUpdaterGetTags_cold_1(uint64_t a1, int a2, CFErrorRef *a3, uint6
 CFErrorRef VinylUpdaterGetTags_cold_2(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create host object\n", v3, v4, v5, v6, v7, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create host object\n", "VinylRestoreHost", "VinylUpdaterGetTags");
   result = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", 4000, 0);
   *a1 = result;
   return result;
@@ -5743,7 +5704,7 @@ CFErrorRef VinylUpdaterGetTags_cold_2(ACFULogging *a1)
 void VinylUpdaterCopyFirmware_cold_1(ACFULogging *a1, int a2, void *a3)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init logging\n", v7, v8, v9, v10, v11, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init logging\n", "VinylRestoreHost", "VinylUpdaterCopyFirmware");
   if (a1)
   {
     *a1 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", a2, 0);
@@ -5755,7 +5716,7 @@ void VinylUpdaterCopyFirmware_cold_1(ACFULogging *a1, int a2, void *a3)
 void VinylUpdaterCopyFirmware_cold_2(ACFULogging *a1, void *a2)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create host object\n", v5, v6, v7, v8, v9, "VinylRestoreHost");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create host object\n", "VinylRestoreHost", "VinylUpdaterCopyFirmware");
   if (a1)
   {
     *a1 = CFErrorCreate(*MEMORY[0x29EDB8ED8], @"VinylRestoreInfo", 4000, 0);
@@ -5801,177 +5762,175 @@ FILE *(**vinyl_fill_fopen_filefunc(FILE *(**result)(int a1, void *__buf, int a3,
   return result;
 }
 
-VinylFirmware *VinylGoldFirmwareCreate(const __CFData *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4)
+const __CFString **VinylGoldFirmwareCreate(const __CFData *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v9, v10, v11, v12, v13, "VinylFirmware");
-  v15 = ACFULogging::getLogInstance(v14);
-  std::string::basic_string[abi:ne200100]<0>(&v37, "VinylFirmware");
-  v16 = std::string::append(&v37, "::");
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v38.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v38.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v38, "VinylGoldFirmwareCreate");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v40 = v18->__r_.__value_.__r.__words[2];
-  *__p = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v15, __p, 0, "fwZipData: ", a1);
-  if (SHIBYTE(v40) < 0)
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "VinylGoldFirmwareCreate", "VinylGoldFirmwareCreate");
+  v10 = ACFULogging::getLogInstance(v9);
+  std::string::basic_string[abi:ne200100]<0>(&v22, "VinylFirmware");
+  v11 = std::string::append(&v22, "::");
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v23.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v23.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v23, "VinylGoldFirmwareCreate");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v25 = v13->__r_.__value_.__r.__words[2];
+  *__p = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v10, __p, 0, "fwZipData: ", a1);
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v38.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v37.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  v20 = operator new(0xC0uLL);
-  VinylFirmware::VinylFirmware(v20, @"/update/gold/firmware.der", @"/update/gold/info.plist", @"/update/gold/profile.bin", off_29EE9C400);
-  v21 = VinylFirmware::setFwInfo(v20, a1, a2, a3);
-  if (v21)
+  v15 = operator new(0xC0uLL);
+  VinylFirmware::VinylFirmware(v15, @"/update/gold/firmware.der", @"/update/gold/info.plist", @"/update/gold/profile.bin", off_29EE9C400);
+  v16 = VinylFirmware::setFwInfo(v15, a1, a2, a3);
+  if (v16)
   {
-    v22 = ACFULogging::getLogInstance(v21);
-    ACFULogging::handleMessage(v22, 2u, "%s::%s: setFwInfo failed delete vinylFirmware object\n", v23, v24, v25, v26, v27, "VinylFirmware");
-    VinylFirmware::~VinylFirmware(v20);
-    operator delete(v28);
-    v20 = 0;
+    v17 = ACFULogging::getLogInstance(v16);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: setFwInfo failed delete vinylFirmware object\n", "VinylFirmware", "VinylGoldFirmwareCreate");
+    VinylFirmware::~VinylFirmware(v15);
+    operator delete(v18);
+    v15 = 0;
   }
 
   else
   {
-    v29 = VinylFirmware::setRecoveryFwInfo(v20, a1, a2, a3, 0, a4);
+    v19 = VinylFirmware::setRecoveryFwInfo(v15, a1, a2, a3, 0, a4);
   }
 
-  v30 = ACFULogging::getLogInstance(v29);
-  ACFULogging::handleMessage(v30, 4u, "%s::%s: leaving: %s\n", v31, v32, v33, v34, v35, "VinylFirmware");
-  return v20;
+  v20 = ACFULogging::getLogInstance(v19);
+  ACFULogging::handleMessage(v20, 4, "%s::%s: leaving: %s\n", "VinylFirmware", "VinylGoldFirmwareCreate", "VinylGoldFirmwareCreate");
+  return v15;
 }
 
-uint64_t VinylFirmware::setFwInfo(VinylFirmware *this, const __CFData *a2, const __CFData *a3, const __CFData *a4)
+uint64_t VinylFirmware::setFwInfo(const __CFString **this, const __CFData *a2, const __CFData *a3, const __CFData *a4)
 {
-  v57 = 0;
+  v34 = 0;
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v9, v10, v11, v12, v13, "VinylFirmware");
-  v55 = 0;
-  v56 = 0;
-  *(this + 15) = 0;
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "setFwInfo", "setFwInfo");
+  v32 = 0;
+  v33 = 0;
+  this[15] = 0;
   if (!a2 || !a3 || !a4)
   {
-    v28 = ACFULogging::getLogInstance(v14);
-    v34 = "%s::%s: invalid params passed\n";
+    v23 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v23, 2, "%s::%s: invalid params passed\n");
 LABEL_17:
-    ACFULogging::handleMessage(v28, 2u, v34, v29, v30, v31, v32, v33, "VinylFirmware");
-    v24 = 99;
+    v19 = 99;
     goto LABEL_14;
   }
 
-  FWSrcPath = VinylFirmware::getFWSrcPath(v14, a3, a4);
-  v16 = FWSrcPath;
-  v56 = FWSrcPath;
+  FWSrcPath = VinylFirmware::getFWSrcPath(v9, a3, a4);
+  v11 = FWSrcPath;
+  v33 = FWSrcPath;
   if (!FWSrcPath)
   {
-    v28 = ACFULogging::getLogInstance(0);
-    v34 = "%s::%s: Get FW source path failed\n";
+    v24 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v24, 2, "%s::%s: Get FW source path failed\n");
     goto LABEL_17;
   }
 
-  FileDataFromZip = VinylFirmware::getFileDataFromZip(FWSrcPath, a2, FWSrcPath, *(this + 12));
-  v18 = FileDataFromZip;
-  v55 = FileDataFromZip;
+  FileDataFromZip = VinylFirmware::getFileDataFromZip(FWSrcPath, a2, FWSrcPath, this[12]);
+  v13 = FileDataFromZip;
+  v32 = FileDataFromZip;
   if (!FileDataFromZip)
   {
-    v35 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v35, 2u, "%s::%s: Get FW Data from Zip failed\n", v36, v37, v38, v39, v40, "VinylFirmware");
-    v24 = 99;
+    v25 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v25, 2, "%s::%s: Get FW Data from Zip failed\n", "VinylFirmware", "setFwInfo");
+    v19 = 99;
     goto LABEL_13;
   }
 
-  v19 = VinylFirmware::getFileDataFromZip(FileDataFromZip, a2, v16, *(this + 13));
-  *(this + 18) = v19;
-  if (!v19)
+  v14 = VinylFirmware::getFileDataFromZip(FileDataFromZip, a2, v11, this[13]);
+  this[18] = v14;
+  if (!v14)
   {
-    v41 = ACFULogging::getLogInstance(0);
-    v47 = "%s::%s: Get InfoPlist Data from Zip failed\n";
+    v26 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v26, 2, "%s::%s: Get InfoPlist Data from Zip failed\n");
 LABEL_24:
-    ACFULogging::handleMessage(v41, 2u, v47, v42, v43, v44, v45, v46, "VinylFirmware");
-    v24 = 99;
+    v19 = 99;
     goto LABEL_12;
   }
 
-  v20 = VinylFirmware::getFileDataFromZip(v19, a2, v16, *(this + 14));
-  *(this + 19) = v20;
-  if (!v20)
+  v15 = VinylFirmware::getFileDataFromZip(v14, a2, v11, this[14]);
+  this[19] = v15;
+  if (!v15)
   {
-    v41 = ACFULogging::getLogInstance(0);
-    v47 = "%s::%s: Get Profile Data from Zip failed\n";
+    v27 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v27, 2, "%s::%s: Get Profile Data from Zip failed\n");
     goto LABEL_24;
   }
 
-  v21 = *MEMORY[0x29EDB8ED8];
-  MutableCopy = CFDataCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, v18);
-  *(this + 15) = MutableCopy;
+  v16 = *MEMORY[0x29EDB8ED8];
+  MutableCopy = CFDataCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, v13);
+  this[15] = MutableCopy;
   if (!MutableCopy)
   {
-    v41 = ACFULogging::getLogInstance(0);
-    v47 = "%s::%s: Create FwData copy failed\n";
+    v28 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v28, 2, "%s::%s: Create FwData copy failed\n");
     goto LABEL_24;
   }
 
   Im4p = VinylFirmware::createIm4p(this, a2, this + 2, this + 17);
-  v24 = Im4p;
+  v19 = Im4p;
   if (Im4p)
   {
-    v48 = ACFULogging::getLogInstance(Im4p);
-    ACFULogging::handleMessage(v48, 2u, "%s::%s: error getting properlylist\n", v49, v50, v51, v52, v53, "VinylFirmware");
+    v29 = ACFULogging::getLogInstance(Im4p);
+    ACFULogging::handleMessage(v29, 2, "%s::%s: error getting properlylist\n", "VinylFirmware", "setFwInfo");
     goto LABEL_12;
   }
 
-  v25 = *(this + 18);
+  v20 = this[18];
   error[0] = 0;
-  error[1] = &v57;
-  *(this + 21) = CFPropertyListCreateWithData(v21, v25, 0, 0, error);
-  v26 = ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(error);
-  if (!*(this + 21))
+  error[1] = &v34;
+  this[21] = CFPropertyListCreateWithData(v16, v20, 0, 0, error);
+  v21 = ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(error);
+  if (!this[21])
   {
-    v41 = ACFULogging::getLogInstance(v26);
-    v47 = "%s::%s: error getting properlylist\n";
+    v30 = ACFULogging::getLogInstance(v21);
+    ACFULogging::handleMessage(v30, 2, "%s::%s: error getting properlylist\n");
     goto LABEL_24;
   }
 
-  v24 = 0;
+  v19 = 0;
 LABEL_12:
-  CFRelease(v18);
+  CFRelease(v13);
 LABEL_13:
-  CFRelease(v16);
+  CFRelease(v11);
 LABEL_14:
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v57);
-  return v24;
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v34);
+  return v19;
 }
 
-void sub_29850CDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29850CDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, const void *);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, const void *);
+  v11 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v10 = va_arg(va3, const void *);
+  v13 = va_arg(va3, const void *);
   ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(va);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va2);
@@ -5979,313 +5938,310 @@ void sub_29850CDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-const void **VinylFirmware::setRecoveryFwInfo(VinylFirmware *this, const __CFData *a2, const __CFData *a3, const __CFData *a4, uint64_t a5, const __CFData *a6)
+const void **VinylFirmware::setRecoveryFwInfo(VinylFirmware *this, const __CFData *a2, const __CFData *a3, const __CFData *a4, int a5, const __CFData *a6)
 {
-  v161 = *MEMORY[0x29EDCA608];
-  v156 = 0;
-  v157 = 0;
-  v154 = 0;
-  v155 = 0;
+  v114 = *MEMORY[0x29EDCA608];
+  v109 = 0;
+  v110 = 0;
+  v107 = 0;
+  v108 = 0;
   cf = 0;
   *(this + 16) = 0;
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: entering: %s\n", v10, v11, v12, v13, v14, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: entering: %s\n", "VinylFirmware", "setRecoveryFwInfo", "setRecoveryFwInfo");
   if (!a2 || !a3 || !a4 || !a6)
   {
-    v120 = ACFULogging::getLogInstance(v15);
-    v126 = "%s::%s: invalid params passed\n";
-LABEL_94:
-    ACFULogging::handleMessage(v120, 2u, v126, v121, v122, v123, v124, v125, "VinylFirmware");
+    v89 = ACFULogging::getLogInstance(v10);
+    ACFULogging::handleMessage(v89, 2, "%s::%s: invalid params passed\n");
     goto LABEL_79;
   }
 
-  FwMac = VinylFirmware::getFwMac(v15, *(this + 21));
-  v17 = FwMac;
+  FwMac = VinylFirmware::getFwMac(v10, *(this + 21));
+  v12 = FwMac;
   if (!FwMac)
   {
-    v120 = ACFULogging::getLogInstance(0);
-    v126 = "%s::%s: Failed getting FW MAC\n";
-    goto LABEL_94;
+    v90 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v90, 2, "%s::%s: Failed getting FW MAC\n");
+    goto LABEL_79;
   }
 
-  v18 = ACFULogging::getLogInstance(FwMac);
-  std::string::basic_string[abi:ne200100]<0>(&v149, "VinylFirmware");
-  v19 = std::string::append(&v149, "::");
-  v20 = *&v19->__r_.__value_.__l.__data_;
-  v150.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-  *&v150.__r_.__value_.__l.__data_ = v20;
-  v19->__r_.__value_.__l.__size_ = 0;
-  v19->__r_.__value_.__r.__words[2] = 0;
-  v19->__r_.__value_.__r.__words[0] = 0;
-  v21 = std::string::append(&v150, "setRecoveryFwInfo");
-  v22 = *&v21->__r_.__value_.__l.__data_;
-  v152 = v21->__r_.__value_.__r.__words[2];
-  *__p = v22;
-  v21->__r_.__value_.__l.__size_ = 0;
-  v21->__r_.__value_.__r.__words[2] = 0;
-  v21->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v18, __p, 0, "fwMac : ", v17);
-  if (SHIBYTE(v152) < 0)
+  v13 = ACFULogging::getLogInstance(FwMac);
+  std::string::basic_string[abi:ne200100]<0>(&v102, "VinylFirmware");
+  v14 = std::string::append(&v102, "::");
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v103.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v103.__r_.__value_.__l.__data_ = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  v16 = std::string::append(&v103, "setRecoveryFwInfo");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v105 = v16->__r_.__value_.__r.__words[2];
+  *__p = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v13, __p, 0, "fwMac : ", v12);
+  if (SHIBYTE(v105) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v150.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v150.__r_.__value_.__l.__data_);
+    operator delete(v103.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v149.__r_.__value_.__l.__data_);
+    operator delete(v102.__r_.__value_.__l.__data_);
   }
 
-  v24 = ACFULogging::getLogInstance(v23);
-  std::string::basic_string[abi:ne200100]<0>(&v149, "VinylFirmware");
-  v25 = std::string::append(&v149, "::");
-  v26 = *&v25->__r_.__value_.__l.__data_;
-  v150.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-  *&v150.__r_.__value_.__l.__data_ = v26;
-  v25->__r_.__value_.__l.__size_ = 0;
-  v25->__r_.__value_.__r.__words[2] = 0;
-  v25->__r_.__value_.__r.__words[0] = 0;
-  v27 = std::string::append(&v150, "setRecoveryFwInfo");
-  v28 = *&v27->__r_.__value_.__l.__data_;
-  v152 = v27->__r_.__value_.__r.__words[2];
-  *__p = v28;
-  v27->__r_.__value_.__l.__size_ = 0;
-  v27->__r_.__value_.__r.__words[2] = 0;
-  v27->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v24, __p, 0, "mac : ", a6);
-  if (SHIBYTE(v152) < 0)
+  v19 = ACFULogging::getLogInstance(v18);
+  std::string::basic_string[abi:ne200100]<0>(&v102, "VinylFirmware");
+  v20 = std::string::append(&v102, "::");
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v103.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+  *&v103.__r_.__value_.__l.__data_ = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  v22 = std::string::append(&v103, "setRecoveryFwInfo");
+  v23 = *&v22->__r_.__value_.__l.__data_;
+  v105 = v22->__r_.__value_.__r.__words[2];
+  *__p = v23;
+  v22->__r_.__value_.__l.__size_ = 0;
+  v22->__r_.__value_.__r.__words[2] = 0;
+  v22->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v19, __p, 0, "mac : ", a6);
+  if (SHIBYTE(v105) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v150.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v150.__r_.__value_.__l.__data_);
+    operator delete(v103.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v149.__r_.__value_.__l.__data_);
+    operator delete(v102.__r_.__value_.__l.__data_);
   }
 
-  BytePtr = CFDataGetBytePtr(v17);
-  v30 = CFDataGetBytePtr(a6);
-  Length = CFDataGetLength(v17);
+  BytePtr = CFDataGetBytePtr(v12);
+  v25 = CFDataGetBytePtr(a6);
+  Length = CFDataGetLength(v12);
   if (Length >= CFDataGetLength(a6))
   {
-    v32 = a6;
+    v27 = a6;
   }
 
   else
   {
-    v32 = v17;
+    v27 = v12;
   }
 
-  v33 = CFDataGetLength(v32);
-  v34 = memcmp(BytePtr, v30, v33);
-  v35 = v34;
-  v36 = ACFULogging::getLogInstance(v34);
-  v139 = a5;
-  ACFULogging::handleMessage(v36, 0, "%s::%s: SM::Recovery -- normal? %d macMatchRequired %d\n", v37, v38, v39, v40, v41, "VinylFirmware");
-  if (v35)
+  v28 = CFDataGetLength(v27);
+  v29 = memcmp(BytePtr, v25, v28);
+  v30 = v29;
+  v31 = ACFULogging::getLogInstance(v29);
+  ACFULogging::handleMessage(v31, 0, "%s::%s: SM::Recovery -- normal? %d macMatchRequired %d\n", "VinylFirmware", "setRecoveryFwInfo", v30 == 0, a5);
+  if (v30)
   {
     if ((a5 & 1) == 0)
     {
-      strcpy(v160, "/recovery/gold-");
-      strcpy(v159, "/firmware.der");
-      strcpy(v158, "/info.plist");
-      FWSrcPath = VinylFirmware::getFWSrcPath(v42, a3, a4);
-      v148 = FWSrcPath;
+      strcpy(v113, "/recovery/gold-");
+      strcpy(v112, "/firmware.der");
+      strcpy(v111, "/info.plist");
+      FWSrcPath = VinylFirmware::getFWSrcPath(v32, a3, a4);
+      v101 = FWSrcPath;
       if (FWSrcPath)
       {
-        v44 = malloc(0x22uLL);
-        v45 = malloc(0x20uLL);
-        v141 = v45;
-        __str = v44;
-        if (v44 && v45)
+        v34 = malloc(0x22uLL);
+        v35 = malloc(0x20uLL);
+        v94 = v35;
+        __str = v34;
+        if (v34 && v35)
         {
-          v143 = FWSrcPath;
-          v46 = 0;
-          v47 = 0;
-          v48 = 0;
-          v49 = 0;
+          v96 = FWSrcPath;
+          v36 = 0;
+          v37 = 0;
+          v38 = 0;
+          v39 = 0;
           alloc = *MEMORY[0x29EDB8ED8];
-          v50 = "%s%03d%s";
-          v51 = "::";
+          v40 = "%s%03d%s";
+          v41 = "::";
           while (1)
           {
-            v52 = snprintf(__str, 0x22uLL, v50, v160, v49, v159, v139);
+            v42 = snprintf(__str, 0x22uLL, v40, v113, v39, v112);
             __str[33] = 0;
-            v53 = ACFULogging::getLogInstance(v52);
-            ACFULogging::handleMessage(v53, 0, "%s::%s: fwFileName %s\n", v54, v55, v56, v57, v58, "VinylFirmware");
-            v59 = CFStringCreateWithCString(alloc, __str, 0x8000100u);
-            v60 = v59;
-            v156 = v59;
-            if (v48)
+            v43 = ACFULogging::getLogInstance(v42);
+            ACFULogging::handleMessage(v43, 0, "%s::%s: fwFileName %s\n", "VinylFirmware", "setRecoveryFwInfo", __str);
+            v44 = CFStringCreateWithCString(alloc, __str, 0x8000100u);
+            v45 = v44;
+            v109 = v44;
+            if (v38)
             {
-              CFRelease(v48);
+              CFRelease(v38);
             }
 
-            if (!v60)
+            if (!v45)
             {
-              v113 = ACFULogging::getLogInstance(v59);
-              v119 = "%s::%s: Failed to alloc create fwFilePath CFString\n";
+              v87 = ACFULogging::getLogInstance(v44);
+              ACFULogging::handleMessage(v87, 2, "%s::%s: Failed to alloc create fwFilePath CFString\n");
               goto LABEL_90;
             }
 
-            v61 = ACFULogging::getLogInstance(v59);
-            std::string::basic_string[abi:ne200100]<0>(&v149, "VinylFirmware");
-            v62 = std::string::append(&v149, v51);
-            v63 = *&v62->__r_.__value_.__l.__data_;
-            v150.__r_.__value_.__r.__words[2] = v62->__r_.__value_.__r.__words[2];
-            *&v150.__r_.__value_.__l.__data_ = v63;
-            v62->__r_.__value_.__l.__size_ = 0;
-            v62->__r_.__value_.__r.__words[2] = 0;
-            v62->__r_.__value_.__r.__words[0] = 0;
-            v64 = std::string::append(&v150, "setRecoveryFwInfo");
-            v65 = *&v64->__r_.__value_.__l.__data_;
-            v152 = v64->__r_.__value_.__r.__words[2];
-            *__p = v65;
-            v64->__r_.__value_.__l.__size_ = 0;
-            v64->__r_.__value_.__r.__words[2] = 0;
-            v64->__r_.__value_.__r.__words[0] = 0;
-            ACFULogging::handleMessageCFType(v61, __p, 0, "fwFilePath : ", v60);
-            if (SHIBYTE(v152) < 0)
+            v46 = ACFULogging::getLogInstance(v44);
+            std::string::basic_string[abi:ne200100]<0>(&v102, "VinylFirmware");
+            v47 = std::string::append(&v102, v41);
+            v48 = *&v47->__r_.__value_.__l.__data_;
+            v103.__r_.__value_.__r.__words[2] = v47->__r_.__value_.__r.__words[2];
+            *&v103.__r_.__value_.__l.__data_ = v48;
+            v47->__r_.__value_.__l.__size_ = 0;
+            v47->__r_.__value_.__r.__words[2] = 0;
+            v47->__r_.__value_.__r.__words[0] = 0;
+            v49 = std::string::append(&v103, "setRecoveryFwInfo");
+            v50 = *&v49->__r_.__value_.__l.__data_;
+            v105 = v49->__r_.__value_.__r.__words[2];
+            *__p = v50;
+            v49->__r_.__value_.__l.__size_ = 0;
+            v49->__r_.__value_.__r.__words[2] = 0;
+            v49->__r_.__value_.__r.__words[0] = 0;
+            ACFULogging::handleMessageCFType(v46, __p, 0, "fwFilePath : ", v45);
+            if (SHIBYTE(v105) < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (SHIBYTE(v150.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v150.__r_.__value_.__l.__data_);
+              operator delete(v103.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v149.__r_.__value_.__l.__data_);
+              operator delete(v102.__r_.__value_.__l.__data_);
             }
 
-            v66 = snprintf(v141, 0x20uLL, v50, v160, v49, v158);
-            v141[31] = 0;
-            v67 = ACFULogging::getLogInstance(v66);
-            ACFULogging::handleMessage(v67, 0, "%s::%s: plistFileName %s\n", v68, v69, v70, v71, v72, "VinylFirmware");
-            v73 = CFStringCreateWithCString(alloc, v141, 0x8000100u);
-            v74 = v73;
-            v155 = v73;
-            if (v47)
+            v51 = snprintf(v94, 0x20uLL, v40, v113, v39, v111);
+            v94[31] = 0;
+            v52 = ACFULogging::getLogInstance(v51);
+            ACFULogging::handleMessage(v52, 0, "%s::%s: plistFileName %s\n", "VinylFirmware", "setRecoveryFwInfo", v94);
+            v53 = CFStringCreateWithCString(alloc, v94, 0x8000100u);
+            v54 = v53;
+            v108 = v53;
+            if (v37)
             {
-              CFRelease(v47);
+              CFRelease(v37);
             }
 
-            if (!v74)
+            if (!v54)
             {
               break;
             }
 
-            v75 = ACFULogging::getLogInstance(v73);
-            std::string::basic_string[abi:ne200100]<0>(&v149, "VinylFirmware");
-            v76 = std::string::append(&v149, v51);
-            v77 = *&v76->__r_.__value_.__l.__data_;
-            v150.__r_.__value_.__r.__words[2] = v76->__r_.__value_.__r.__words[2];
-            *&v150.__r_.__value_.__l.__data_ = v77;
-            v76->__r_.__value_.__l.__size_ = 0;
-            v76->__r_.__value_.__r.__words[2] = 0;
-            v76->__r_.__value_.__r.__words[0] = 0;
-            v78 = std::string::append(&v150, "setRecoveryFwInfo");
-            v79 = *&v78->__r_.__value_.__l.__data_;
-            v152 = v78->__r_.__value_.__r.__words[2];
-            *__p = v79;
-            v78->__r_.__value_.__l.__size_ = 0;
-            v78->__r_.__value_.__r.__words[2] = 0;
-            v78->__r_.__value_.__r.__words[0] = 0;
-            ACFULogging::handleMessageCFType(v75, __p, 0, "plistFilePath : ", v74);
-            v81 = v143;
-            if (SHIBYTE(v152) < 0)
+            v55 = ACFULogging::getLogInstance(v53);
+            std::string::basic_string[abi:ne200100]<0>(&v102, "VinylFirmware");
+            v56 = std::string::append(&v102, v41);
+            v57 = *&v56->__r_.__value_.__l.__data_;
+            v103.__r_.__value_.__r.__words[2] = v56->__r_.__value_.__r.__words[2];
+            *&v103.__r_.__value_.__l.__data_ = v57;
+            v56->__r_.__value_.__l.__size_ = 0;
+            v56->__r_.__value_.__r.__words[2] = 0;
+            v56->__r_.__value_.__r.__words[0] = 0;
+            v58 = std::string::append(&v103, "setRecoveryFwInfo");
+            v59 = *&v58->__r_.__value_.__l.__data_;
+            v105 = v58->__r_.__value_.__r.__words[2];
+            *__p = v59;
+            v58->__r_.__value_.__l.__size_ = 0;
+            v58->__r_.__value_.__r.__words[2] = 0;
+            v58->__r_.__value_.__r.__words[0] = 0;
+            ACFULogging::handleMessageCFType(v55, __p, 0, "plistFilePath : ", v54);
+            v61 = v96;
+            if (SHIBYTE(v105) < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (SHIBYTE(v150.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v150.__r_.__value_.__l.__data_);
+              operator delete(v103.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v149.__r_.__value_.__l.__data_);
+              operator delete(v102.__r_.__value_.__l.__data_);
             }
 
-            FileDataFromZip = VinylFirmware::getFileDataFromZip(v80, a2, v143, v60);
-            v154 = FileDataFromZip;
-            if (v46)
+            FileDataFromZip = VinylFirmware::getFileDataFromZip(v60, a2, v96, v45);
+            v107 = FileDataFromZip;
+            if (v36)
             {
-              CFRelease(v46);
-              v81 = v148;
+              CFRelease(v36);
+              v61 = v101;
             }
 
-            v83 = v155;
-            v84 = VinylFirmware::getFileDataFromZip(FileDataFromZip, a2, v81, v155);
-            v85 = cf;
-            cf = v84;
-            if (v85)
+            v63 = v108;
+            v64 = VinylFirmware::getFileDataFromZip(FileDataFromZip, a2, v61, v108);
+            v65 = cf;
+            cf = v64;
+            if (v65)
             {
-              CFRelease(v85);
+              CFRelease(v65);
             }
 
-            v46 = v154;
-            v86 = 1;
-            if (v154 && v84)
+            v36 = v107;
+            v66 = 1;
+            if (v107 && v64)
             {
-              v142 = v83;
-              v143 = v81;
-              v87 = v49;
-              v88 = v51;
-              v89 = v50;
+              v95 = v63;
+              v96 = v61;
+              v67 = v39;
+              v68 = v41;
+              v69 = v40;
               __p[0] = 0;
-              __p[1] = &v157;
-              v90 = CFPropertyListCreateWithData(alloc, v84, 0, 0, __p);
-              v150.__r_.__value_.__r.__words[0] = v90;
-              v91 = ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(__p);
-              v92 = VinylFirmware::getFwMac(v91, v90);
-              v93 = CFDataGetBytePtr(v92);
-              v94 = CFDataGetBytePtr(a6);
-              v95 = CFDataGetLength(v92);
-              if (v95 >= CFDataGetLength(a6))
+              __p[1] = &v110;
+              v70 = CFPropertyListCreateWithData(alloc, v64, 0, 0, __p);
+              v103.__r_.__value_.__r.__words[0] = v70;
+              v71 = ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(__p);
+              v72 = VinylFirmware::getFwMac(v71, v70);
+              v73 = CFDataGetBytePtr(v72);
+              v74 = CFDataGetBytePtr(a6);
+              v75 = CFDataGetLength(v72);
+              if (v75 >= CFDataGetLength(a6))
               {
-                v96 = a6;
+                v76 = a6;
               }
 
               else
               {
-                v96 = v92;
+                v76 = v72;
               }
 
-              v97 = CFDataGetLength(v96);
-              v98 = memcmp(v93, v94, v97);
-              if (!v98)
+              v77 = CFDataGetLength(v76);
+              v78 = memcmp(v73, v74, v77);
+              if (!v78)
               {
-                *(this + 16) = CFDataCreateMutableCopy(alloc, 0, v46);
+                *(this + 16) = CFDataCreateMutableCopy(alloc, 0, v36);
               }
 
-              v50 = v89;
-              if (v90)
+              v40 = v69;
+              if (v70)
               {
-                CFRelease(v90);
+                CFRelease(v70);
               }
 
-              v86 = 1;
-              if (v98)
+              v66 = 1;
+              if (v78)
               {
-                v51 = v88;
-                v48 = v60;
-                v99 = v87 == 999;
-                v49 = (v87 + 1);
-                v47 = v142;
-                if (!v99)
+                v41 = v68;
+                v38 = v45;
+                v79 = v67 == 999;
+                v39 = (v67 + 1);
+                v37 = v95;
+                if (!v79)
                 {
                   continue;
                 }
@@ -6295,38 +6251,37 @@ LABEL_94:
             goto LABEL_61;
           }
 
-          v113 = ACFULogging::getLogInstance(v73);
-          v119 = "%s::%s: Failed to alloc create plistFilePath CFString\n";
-LABEL_90:
-          ACFULogging::handleMessage(v113, 2u, v119, v114, v115, v116, v117, v118, "VinylFirmware");
+          v88 = ACFULogging::getLogInstance(v53);
+          ACFULogging::handleMessage(v88, 2, "%s::%s: Failed to alloc create plistFilePath CFString\n");
         }
 
         else
         {
-          v133 = ACFULogging::getLogInstance(v45);
-          ACFULogging::handleMessage(v133, 2u, "%s::%s: Failed to alloc memory for filename\n", v134, v135, v136, v137, v138, "VinylFirmware");
+          v92 = ACFULogging::getLogInstance(v35);
+          ACFULogging::handleMessage(v92, 2, "%s::%s: Failed to alloc memory for filename\n", "VinylFirmware", "setRecoveryFwInfo");
         }
 
-        v86 = 0;
+LABEL_90:
+        v66 = 0;
       }
 
       else
       {
-        v127 = ACFULogging::getLogInstance(0);
-        ACFULogging::handleMessage(v127, 2u, "%s::%s: Get FW source path failed\n", v128, v129, v130, v131, v132, "VinylFirmware");
-        v86 = 0;
-        v141 = 0;
+        v91 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v91, 2, "%s::%s: Get FW source path failed\n", "VinylFirmware", "setRecoveryFwInfo");
+        v66 = 0;
+        v94 = 0;
         __str = 0;
       }
 
 LABEL_61:
-      v42 = v148;
-      if (v148)
+      v32 = v101;
+      if (v101)
       {
-        CFRelease(v148);
+        CFRelease(v101);
       }
 
-      if ((v86 & 1) == 0)
+      if ((v66 & 1) == 0)
       {
         goto LABEL_75;
       }
@@ -6338,51 +6293,51 @@ LABEL_61:
   else
   {
     *(this + 16) = *(this + 15);
-    v42 = AMSupportSafeRetain();
+    v32 = AMSupportSafeRetain();
   }
 
-  v141 = 0;
+  v94 = 0;
   __str = 0;
 LABEL_67:
   if (*(this + 16))
   {
-    v100 = ACFULogging::getLogInstance(v42);
-    std::string::basic_string[abi:ne200100]<0>(&v149, "VinylFirmware");
-    v101 = std::string::append(&v149, "::");
-    v102 = *&v101->__r_.__value_.__l.__data_;
-    v150.__r_.__value_.__r.__words[2] = v101->__r_.__value_.__r.__words[2];
-    *&v150.__r_.__value_.__l.__data_ = v102;
-    v101->__r_.__value_.__l.__size_ = 0;
-    v101->__r_.__value_.__r.__words[2] = 0;
-    v101->__r_.__value_.__r.__words[0] = 0;
-    v103 = std::string::append(&v150, "setRecoveryFwInfo");
-    v104 = *&v103->__r_.__value_.__l.__data_;
-    v152 = v103->__r_.__value_.__r.__words[2];
-    *__p = v104;
-    v103->__r_.__value_.__l.__size_ = 0;
-    v103->__r_.__value_.__r.__words[2] = 0;
-    v103->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v100, __p, 0, "recoveryFwData : ", *(this + 16));
-    if (SHIBYTE(v152) < 0)
+    v80 = ACFULogging::getLogInstance(v32);
+    std::string::basic_string[abi:ne200100]<0>(&v102, "VinylFirmware");
+    v81 = std::string::append(&v102, "::");
+    v82 = *&v81->__r_.__value_.__l.__data_;
+    v103.__r_.__value_.__r.__words[2] = v81->__r_.__value_.__r.__words[2];
+    *&v103.__r_.__value_.__l.__data_ = v82;
+    v81->__r_.__value_.__l.__size_ = 0;
+    v81->__r_.__value_.__r.__words[2] = 0;
+    v81->__r_.__value_.__r.__words[0] = 0;
+    v83 = std::string::append(&v103, "setRecoveryFwInfo");
+    v84 = *&v83->__r_.__value_.__l.__data_;
+    v105 = v83->__r_.__value_.__r.__words[2];
+    *__p = v84;
+    v83->__r_.__value_.__l.__size_ = 0;
+    v83->__r_.__value_.__r.__words[2] = 0;
+    v83->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v80, __p, 0, "recoveryFwData : ", *(this + 16));
+    if (SHIBYTE(v105) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v150.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v150.__r_.__value_.__l.__data_);
+      operator delete(v103.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v149.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v149.__r_.__value_.__l.__data_);
+      operator delete(v102.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v105 = ACFULogging::getLogInstance(v42);
-    ACFULogging::handleMessage(v105, 0, "%s::%s: Recovery Fw is not available\n", v106, v107, v108, v109, v110, "VinylFirmware");
+    v85 = ACFULogging::getLogInstance(v32);
+    ACFULogging::handleMessage(v85, 0, "%s::%s: Recovery Fw is not available\n", "VinylFirmware", "setRecoveryFwInfo");
   }
 
 LABEL_75:
@@ -6391,9 +6346,9 @@ LABEL_75:
     free(__str);
   }
 
-  if (v141)
+  if (v94)
   {
-    free(v141);
+    free(v94);
   }
 
 LABEL_79:
@@ -6402,24 +6357,22 @@ LABEL_79:
     CFRelease(cf);
   }
 
-  if (v154)
+  if (v107)
   {
-    CFRelease(v154);
+    CFRelease(v107);
   }
 
-  if (v155)
+  if (v108)
   {
-    CFRelease(v155);
+    CFRelease(v108);
   }
 
-  if (v156)
+  if (v109)
   {
-    CFRelease(v156);
+    CFRelease(v109);
   }
 
-  result = ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v157);
-  v112 = *MEMORY[0x29EDCA608];
-  return result;
+  return ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v110);
 }
 
 void sub_29850D754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, const void *a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, const void *a41)
@@ -6433,86 +6386,86 @@ void sub_29850D754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-VinylFirmware *VinylMainFirmwareCreate(const __CFData *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4)
+const __CFString **VinylMainFirmwareCreate(const __CFData *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v9, v10, v11, v12, v13, "VinylFirmware");
-  v15 = ACFULogging::getLogInstance(v14);
-  std::string::basic_string[abi:ne200100]<0>(&v37, "VinylFirmware");
-  v16 = std::string::append(&v37, "::");
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v38.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v38.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  v18 = std::string::append(&v38, "VinylMainFirmwareCreate");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v40 = v18->__r_.__value_.__r.__words[2];
-  *__p = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v15, __p, 0, "fwZipData: ", a1);
-  if (SHIBYTE(v40) < 0)
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "VinylMainFirmwareCreate", "VinylMainFirmwareCreate");
+  v10 = ACFULogging::getLogInstance(v9);
+  std::string::basic_string[abi:ne200100]<0>(&v22, "VinylFirmware");
+  v11 = std::string::append(&v22, "::");
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  v23.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v23.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  v13 = std::string::append(&v23, "VinylMainFirmwareCreate");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v25 = v13->__r_.__value_.__r.__words[2];
+  *__p = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v10, __p, 0, "fwZipData: ", a1);
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v38.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v37.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  v20 = operator new(0xC0uLL);
-  VinylFirmware::VinylFirmware(v20, @"/update/main/firmware.der", @"/update/main/info.plist", @"/update/main/profile.bin", off_29EE9C3A0);
-  v21 = VinylFirmware::setFwInfo(v20, a1, a2, a3);
-  if (v21)
+  v15 = operator new(0xC0uLL);
+  VinylFirmware::VinylFirmware(v15, @"/update/main/firmware.der", @"/update/main/info.plist", @"/update/main/profile.bin", off_29EE9C3A0);
+  v16 = VinylFirmware::setFwInfo(v15, a1, a2, a3);
+  if (v16)
   {
-    v22 = ACFULogging::getLogInstance(v21);
-    ACFULogging::handleMessage(v22, 2u, "%s::%s: setFwInfo failed delete vinylFirmware object\n", v23, v24, v25, v26, v27, "VinylFirmware");
-    VinylFirmware::~VinylFirmware(v20);
-    operator delete(v28);
-    v20 = 0;
+    v17 = ACFULogging::getLogInstance(v16);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: setFwInfo failed delete vinylFirmware object\n", "VinylFirmware", "VinylMainFirmwareCreate");
+    VinylFirmware::~VinylFirmware(v15);
+    operator delete(v18);
+    v15 = 0;
   }
 
   else
   {
-    v29 = VinylFirmware::setRecoveryFwInfo(v20, a1, a2, a3, 1, a4);
+    v19 = VinylFirmware::setRecoveryFwInfo(v15, a1, a2, a3, 1, a4);
   }
 
-  v30 = ACFULogging::getLogInstance(v29);
-  ACFULogging::handleMessage(v30, 4u, "%s::%s: leaving: %s\n", v31, v32, v33, v34, v35, "VinylFirmware");
-  return v20;
+  v20 = ACFULogging::getLogInstance(v19);
+  ACFULogging::handleMessage(v20, 4, "%s::%s: leaving: %s\n", "VinylFirmware", "VinylMainFirmwareCreate", "VinylMainFirmwareCreate");
+  return v15;
 }
 
 VinylFirmware *VinylFirmwareCreate(__CFData *a1, __CFData *a2, const __CFData *a3, const __CFData *a4, const __CFData *a5, const __CFData *a6)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v13, v14, v15, v16, v17, "VinylFirmware");
-  v18 = operator new(0xC0uLL);
-  v19 = VinylFirmware::VinylFirmware(v18, a1, a2, a3, a4, a5, off_29EE9C400);
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "VinylFirmwareCreate", "VinylFirmwareCreate");
+  v13 = operator new(0xC0uLL);
+  v14 = VinylFirmware::VinylFirmware(v13, a1, a2, a3, a4, a5, off_29EE9C400);
   if (a6)
   {
-    v19 = VinylFirmware::setAuthPayload(v18, a6);
-    if (v19)
+    v14 = VinylFirmware::setAuthPayload(v13, a6);
+    if (v14)
     {
-      v27 = ACFULogging::getLogInstance(v19);
-      ACFULogging::handleMessage(v27, 2u, "%s::%s: setAuthPayload failed delete vinylFirmware object\n", v28, v29, v30, v31, v32, "VinylFirmware");
-      VinylFirmware::~VinylFirmware(v18);
-      operator delete(v33);
-      v18 = 0;
+      v17 = ACFULogging::getLogInstance(v14);
+      ACFULogging::handleMessage(v17, 2, "%s::%s: setAuthPayload failed delete vinylFirmware object\n", "VinylFirmware", "VinylFirmwareCreate");
+      VinylFirmware::~VinylFirmware(v13);
+      operator delete(v18);
+      v13 = 0;
     }
   }
 
-  v20 = ACFULogging::getLogInstance(v19);
-  ACFULogging::handleMessage(v20, 4u, "%s::%s: leaving: %s\n", v21, v22, v23, v24, v25, "VinylFirmware");
-  return v18;
+  v15 = ACFULogging::getLogInstance(v14);
+  ACFULogging::handleMessage(v15, 4, "%s::%s: leaving: %s\n", "VinylFirmware", "VinylFirmwareCreate", "VinylFirmwareCreate");
+  return v13;
 }
 
 uint64_t VinylFirmware::VinylFirmware(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5)
@@ -6538,9 +6491,7 @@ uint64_t VinylFirmware::VinylFirmware(uint64_t a1, uint64_t a2, uint64_t a3, uin
   *(a1 + 176) = "/usr/lib/libauthinstall.dylib";
   *(a1 + 184) = 0;
   AMSupportSafeRetain();
-  v10 = *(a1 + 104);
   AMSupportSafeRetain();
-  v11 = *(a1 + 112);
   AMSupportSafeRetain();
   *(a1 + 184) = dlopen(*(a1 + 176), 1);
   return a1;
@@ -6568,32 +6519,28 @@ uint64_t VinylFirmware::VinylFirmware(uint64_t a1, uint64_t a2, uint64_t a3, uin
   *(a1 + 152) = a6;
   *(a1 + 176) = "/usr/lib/libauthinstall.dylib";
   *(a1 + 184) = 0;
-  v20 = 0;
+  v16 = 0;
   AMSupportSafeRetain();
-  v13 = *(a1 + 128);
   AMSupportSafeRetain();
-  v14 = *(a1 + 136);
   AMSupportSafeRetain();
-  v15 = *(a1 + 144);
   AMSupportSafeRetain();
-  v16 = *(a1 + 152);
   AMSupportSafeRetain();
-  v17 = *MEMORY[0x29EDB8ED8];
+  v13 = *MEMORY[0x29EDB8ED8];
   error[0] = 0;
-  error[1] = &v20;
-  *(a1 + 168) = CFPropertyListCreateWithData(v17, a5, 0, 0, error);
+  error[1] = &v16;
+  *(a1 + 168) = CFPropertyListCreateWithData(v13, a5, 0, 0, error);
   ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(error);
   *(a1 + 184) = dlopen(*(a1 + 176), 1);
-  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v20);
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&v16);
   return a1;
 }
 
-void sub_29850DD8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29850DD8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy(va);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va1);
   _Unwind_Resume(a1);
@@ -6602,94 +6549,93 @@ void sub_29850DD8C(_Unwind_Exception *a1, uint64_t a2, ...)
 void VinylFirmware::~VinylFirmware(VinylFirmware *this)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: VinylFirmware destructor called\n", v3, v4, v5, v6, v7, "VinylFirmware");
-  v8 = *(this + 12);
-  if (v8)
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: VinylFirmware destructor called\n", "VinylFirmware", "~VinylFirmware");
+  v3 = *(this + 12);
+  if (v3)
   {
-    CFRelease(v8);
+    CFRelease(v3);
     *(this + 12) = 0;
   }
 
-  v9 = *(this + 13);
-  if (v9)
+  v4 = *(this + 13);
+  if (v4)
   {
-    CFRelease(v9);
+    CFRelease(v4);
     *(this + 13) = 0;
   }
 
-  v10 = *(this + 14);
-  if (v10)
+  v5 = *(this + 14);
+  if (v5)
   {
-    CFRelease(v10);
+    CFRelease(v5);
     *(this + 14) = 0;
   }
 
-  v11 = *(this + 15);
-  if (v11)
+  v6 = *(this + 15);
+  if (v6)
   {
-    CFRelease(v11);
+    CFRelease(v6);
     *(this + 15) = 0;
   }
 
-  v12 = *(this + 16);
-  if (v12)
+  v7 = *(this + 16);
+  if (v7)
   {
-    CFRelease(v12);
+    CFRelease(v7);
     *(this + 16) = 0;
   }
 
-  v13 = *(this + 17);
-  if (v13)
+  v8 = *(this + 17);
+  if (v8)
   {
-    CFRelease(v13);
+    CFRelease(v8);
     *(this + 17) = 0;
   }
 
-  v14 = *(this + 18);
-  if (v14)
+  v9 = *(this + 18);
+  if (v9)
   {
-    CFRelease(v14);
+    CFRelease(v9);
     *(this + 18) = 0;
   }
 
-  v15 = *(this + 19);
-  if (v15)
+  v10 = *(this + 19);
+  if (v10)
   {
-    CFRelease(v15);
+    CFRelease(v10);
     *(this + 19) = 0;
   }
 
-  v16 = *(this + 21);
-  if (v16)
+  v11 = *(this + 21);
+  if (v11)
   {
-    CFRelease(v16);
+    CFRelease(v11);
     *(this + 21) = 0;
   }
 
-  v17 = *(this + 20);
-  if (v17)
+  v12 = *(this + 20);
+  if (v12)
   {
-    CFRelease(v17);
+    CFRelease(v12);
     *(this + 20) = 0;
   }
 
-  v18 = *(this + 23);
-  if (v18)
+  v13 = *(this + 23);
+  if (v13)
   {
-    dlclose(v18);
+    dlclose(v13);
     *(this + 23) = 0;
   }
 }
 
 ACFULogging *VinylFirmware::getFWSrcPath(VinylFirmware *this, const __CFData *a2, const __CFData *a3)
 {
-  v70 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   v5 = malloc(0x41uLL);
   if (!v5)
   {
     VinylFirmware::getFWSrcPath(0);
-    v51 = 0;
-    goto LABEL_37;
+    return 0;
   }
 
   v6 = v5;
@@ -6697,203 +6643,201 @@ ACFULogging *VinylFirmware::getFWSrcPath(VinylFirmware *this, const __CFData *a2
   {
     VinylFirmware::getFWSrcPath(v5);
 LABEL_41:
-    v51 = 0;
+    v36 = 0;
     goto LABEL_36;
   }
 
   MutableCopy = CFDataCreateMutableCopy(0, 0, a2);
   LogInstance = ACFULogging::getLogInstance(MutableCopy);
-  v14 = LogInstance;
+  v9 = LogInstance;
   if (!MutableCopy)
   {
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: certPlusLdrVer memory alloc failed\n", v9, v10, v11, v12, v13, "VinylFirmware");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: certPlusLdrVer memory alloc failed\n", "VinylFirmware", "getFWSrcPath");
     goto LABEL_41;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v65, "VinylFirmware");
-  v15 = std::string::append(&v65, "::");
-  v16 = *&v15->__r_.__value_.__l.__data_;
-  v66.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-  *&v66.__r_.__value_.__l.__data_ = v16;
-  v15->__r_.__value_.__l.__size_ = 0;
-  v15->__r_.__value_.__r.__words[2] = 0;
-  v15->__r_.__value_.__r.__words[0] = 0;
-  v17 = std::string::append(&v66, "getFWSrcPath");
-  v18 = *&v17->__r_.__value_.__l.__data_;
-  v68 = v17->__r_.__value_.__r.__words[2];
-  *__p = v18;
-  v17->__r_.__value_.__l.__size_ = 0;
-  v17->__r_.__value_.__r.__words[2] = 0;
-  v17->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v14, __p, 4, "vinylgetFwData certPlusLdrVer just certIdentifier: ", MutableCopy);
-  if (SHIBYTE(v68) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v44, "VinylFirmware");
+  v10 = std::string::append(&v44, "::");
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  v45.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+  *&v45.__r_.__value_.__l.__data_ = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  v12 = std::string::append(&v45, "getFWSrcPath");
+  v13 = *&v12->__r_.__value_.__l.__data_;
+  v47 = v12->__r_.__value_.__r.__words[2];
+  *__p = v13;
+  v12->__r_.__value_.__l.__size_ = 0;
+  v12->__r_.__value_.__r.__words[2] = 0;
+  v12->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v9, __p, 4, "vinylgetFwData certPlusLdrVer just certIdentifier: ", MutableCopy);
+  if (SHIBYTE(v47) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v66.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
   BytePtr = CFDataGetBytePtr(a3);
   Length = CFDataGetLength(a3);
   CFDataAppendBytes(MutableCopy, BytePtr, Length - 1);
-  v22 = ACFULogging::getLogInstance(v21);
-  std::string::basic_string[abi:ne200100]<0>(&v65, "VinylFirmware");
-  v23 = std::string::append(&v65, "::");
-  v24 = *&v23->__r_.__value_.__l.__data_;
-  v66.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v66.__r_.__value_.__l.__data_ = v24;
-  v23->__r_.__value_.__l.__size_ = 0;
-  v23->__r_.__value_.__r.__words[2] = 0;
-  v23->__r_.__value_.__r.__words[0] = 0;
-  v25 = std::string::append(&v66, "getFWSrcPath");
-  v26 = *&v25->__r_.__value_.__l.__data_;
-  v68 = v25->__r_.__value_.__r.__words[2];
-  *__p = v26;
-  v25->__r_.__value_.__l.__size_ = 0;
-  v25->__r_.__value_.__r.__words[2] = 0;
-  v25->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v22, __p, 0, "vinylgetFwData certPlusLdrVer: ", MutableCopy);
-  if (SHIBYTE(v68) < 0)
+  v17 = ACFULogging::getLogInstance(v16);
+  std::string::basic_string[abi:ne200100]<0>(&v44, "VinylFirmware");
+  v18 = std::string::append(&v44, "::");
+  v19 = *&v18->__r_.__value_.__l.__data_;
+  v45.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+  *&v45.__r_.__value_.__l.__data_ = v19;
+  v18->__r_.__value_.__l.__size_ = 0;
+  v18->__r_.__value_.__r.__words[2] = 0;
+  v18->__r_.__value_.__r.__words[0] = 0;
+  v20 = std::string::append(&v45, "getFWSrcPath");
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v47 = v20->__r_.__value_.__r.__words[2];
+  *__p = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v17, __p, 0, "vinylgetFwData certPlusLdrVer: ", MutableCopy);
+  if (SHIBYTE(v47) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v66.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
   CFDataGetBytePtr(MutableCopy);
   CFDataGetLength(MutableCopy);
-  v27 = AMSupportDigestSha256();
-  if (v27)
+  v22 = AMSupportDigestSha256();
+  if (v22)
   {
-    VinylFirmware::getFWSrcPath(v27);
+    VinylFirmware::getFWSrcPath(v22);
   }
 
   else
   {
-    v28 = CFDataCreate(0, bytes, 32);
-    v29 = ACFULogging::getLogInstance(v28);
-    v35 = v29;
-    if (v28)
+    v23 = CFDataCreate(0, bytes, 32);
+    v24 = ACFULogging::getLogInstance(v23);
+    v25 = v24;
+    if (v23)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v65, "VinylFirmware");
-      v36 = std::string::append(&v65, "::");
-      v37 = *&v36->__r_.__value_.__l.__data_;
-      v66.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
-      *&v66.__r_.__value_.__l.__data_ = v37;
-      v36->__r_.__value_.__l.__size_ = 0;
-      v36->__r_.__value_.__r.__words[2] = 0;
-      v36->__r_.__value_.__r.__words[0] = 0;
-      v38 = std::string::append(&v66, "getFWSrcPath");
-      v39 = *&v38->__r_.__value_.__l.__data_;
-      v68 = v38->__r_.__value_.__r.__words[2];
-      *__p = v39;
-      v38->__r_.__value_.__l.__size_ = 0;
-      v38->__r_.__value_.__r.__words[2] = 0;
-      v38->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v35, __p, 0, "digestRef: ", v28);
-      if (SHIBYTE(v68) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v44, "VinylFirmware");
+      v26 = std::string::append(&v44, "::");
+      v27 = *&v26->__r_.__value_.__l.__data_;
+      v45.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+      *&v45.__r_.__value_.__l.__data_ = v27;
+      v26->__r_.__value_.__l.__size_ = 0;
+      v26->__r_.__value_.__r.__words[2] = 0;
+      v26->__r_.__value_.__r.__words[0] = 0;
+      v28 = std::string::append(&v45, "getFWSrcPath");
+      v29 = *&v28->__r_.__value_.__l.__data_;
+      v47 = v28->__r_.__value_.__r.__words[2];
+      *__p = v29;
+      v28->__r_.__value_.__l.__size_ = 0;
+      v28->__r_.__value_.__r.__words[2] = 0;
+      v28->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v25, __p, 0, "digestRef: ", v23);
+      if (SHIBYTE(v47) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v66.__r_.__value_.__l.__data_);
+        operator delete(v45.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v44.__r_.__value_.__l.__data_);
       }
 
-      v40 = bytes;
-      v41 = 65;
-      v42 = v6;
+      v30 = bytes;
+      v31 = 65;
+      v32 = v6;
       do
       {
-        v43 = *v40++;
-        v44 = snprintf(v42, v41, "%02x", v43);
-        v42 += 2;
-        v41 -= 2;
+        v33 = *v30++;
+        v34 = snprintf(v32, v31, "%02x", v33);
+        v32 += 2;
+        v31 -= 2;
       }
 
-      while (v41 != 1);
+      while (v31 != 1);
       v6[64] = 0;
-      v45 = ACFULogging::getLogInstance(v44);
-      ACFULogging::handleMessage(v45, 4u, "%s::%s: vinylgetFwData srcPath %s:\n", v46, v47, v48, v49, v50, "VinylFirmware");
-      v51 = CFStringCreateWithCString(0, v6, 0x8000100u);
-      v52 = ACFULogging::getLogInstance(v51);
-      v58 = v52;
-      if (v51)
+      v35 = ACFULogging::getLogInstance(v34);
+      ACFULogging::handleMessage(v35, 4, "%s::%s: vinylgetFwData srcPath %s:\n", "VinylFirmware", "getFWSrcPath", v6);
+      v36 = CFStringCreateWithCString(0, v6, 0x8000100u);
+      v37 = ACFULogging::getLogInstance(v36);
+      v38 = v37;
+      if (v36)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v65, "VinylFirmware");
-        v59 = std::string::append(&v65, "::");
-        v60 = *&v59->__r_.__value_.__l.__data_;
-        v66.__r_.__value_.__r.__words[2] = v59->__r_.__value_.__r.__words[2];
-        *&v66.__r_.__value_.__l.__data_ = v60;
-        v59->__r_.__value_.__l.__size_ = 0;
-        v59->__r_.__value_.__r.__words[2] = 0;
-        v59->__r_.__value_.__r.__words[0] = 0;
-        v61 = std::string::append(&v66, "getFWSrcPath");
-        v62 = *&v61->__r_.__value_.__l.__data_;
-        v68 = v61->__r_.__value_.__r.__words[2];
-        *__p = v62;
-        v61->__r_.__value_.__l.__size_ = 0;
-        v61->__r_.__value_.__r.__words[2] = 0;
-        v61->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v58, __p, 0, "vinylgetFwData fwSrcpath: ", v51);
-        if (SHIBYTE(v68) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v44, "VinylFirmware");
+        v39 = std::string::append(&v44, "::");
+        v40 = *&v39->__r_.__value_.__l.__data_;
+        v45.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+        *&v45.__r_.__value_.__l.__data_ = v40;
+        v39->__r_.__value_.__l.__size_ = 0;
+        v39->__r_.__value_.__r.__words[2] = 0;
+        v39->__r_.__value_.__r.__words[0] = 0;
+        v41 = std::string::append(&v45, "getFWSrcPath");
+        v42 = *&v41->__r_.__value_.__l.__data_;
+        v47 = v41->__r_.__value_.__r.__words[2];
+        *__p = v42;
+        v41->__r_.__value_.__l.__size_ = 0;
+        v41->__r_.__value_.__r.__words[2] = 0;
+        v41->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v38, __p, 0, "vinylgetFwData fwSrcpath: ", v36);
+        if (SHIBYTE(v47) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v66.__r_.__value_.__l.__data_);
+          operator delete(v45.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v44.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        ACFULogging::handleMessage(v52, 2u, "%s::%s: fwSrcPath memory alloc failed\n", v53, v54, v55, v56, v57, "VinylFirmware");
+        ACFULogging::handleMessage(v37, 2, "%s::%s: fwSrcPath memory alloc failed\n", "VinylFirmware", "getFWSrcPath");
       }
 
-      CFRelease(v28);
+      CFRelease(v23);
       goto LABEL_35;
     }
 
-    ACFULogging::handleMessage(v29, 2u, "%s::%s: digestRef memory alloc failed\n", v30, v31, v32, v33, v34, "VinylFirmware");
+    ACFULogging::handleMessage(v24, 2, "%s::%s: digestRef memory alloc failed\n", "VinylFirmware", "getFWSrcPath");
   }
 
-  v51 = 0;
+  v36 = 0;
 LABEL_35:
   CFRelease(MutableCopy);
 LABEL_36:
   free(v6);
-LABEL_37:
-  v63 = *MEMORY[0x29EDCA608];
-  return v51;
+  return v36;
 }
 
 void sub_29850E3C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -7089,389 +7033,389 @@ const void **ctu::cf::CFSharedRef<__CFData const>::operator=(const void **a1, co
 
 uint64_t VinylFirmware::createIm4p(ACFULogging *a1, ACFULogging *a2, uint64_t *a3, uint64_t *a4)
 {
-  v114 = *MEMORY[0x29EDCA608];
-  v111 = 0;
-  v110 = 0;
+  v98 = *MEMORY[0x29EDCA608];
+  v95 = 0;
+  v94 = 0;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v7, v8, v9, v10, v11, "VinylFirmware");
-  v12 = MEMORY[0x29EDB9000];
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "createIm4p", "createIm4p");
+  v7 = MEMORY[0x29EDB9000];
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x29EDB9000]);
   values = Mutable;
-  v113 = CFArrayCreateMutable(0, 0, v12);
-  theArray = v113;
-  v14 = 1;
-  v15 = Mutable;
+  v97 = CFArrayCreateMutable(0, 0, v7);
+  theArray = v97;
+  v9 = 1;
+  v10 = Mutable;
   if (!a2 || !a3)
   {
     goto LABEL_100;
   }
 
-  v16 = 0;
-  v17 = 0;
+  v11 = 0;
+  v12 = 0;
   if (!a4)
   {
     goto LABEL_82;
   }
 
-  v14 = 2;
+  v9 = 2;
   if (!Mutable)
   {
 LABEL_100:
-    v16 = 0;
-    v17 = 0;
+    v11 = 0;
+    v12 = 0;
     goto LABEL_82;
   }
 
-  v16 = 0;
-  v17 = 0;
-  if (!v113)
+  v11 = 0;
+  v12 = 0;
+  if (!v97)
   {
     goto LABEL_82;
   }
 
-  v18 = CFArrayCreate(0, &values, 2, MEMORY[0x29EDB9000]);
-  a3[6] = v18;
-  if (!v18)
+  v13 = CFArrayCreate(0, &values, 2, MEMORY[0x29EDB9000]);
+  a3[6] = v13;
+  if (!v13)
   {
     goto LABEL_107;
   }
 
-  v107[0] = a1;
-  v107[1] = a3;
-  v19 = eUICCFwReaderStart(a2, VinylFirmwareReaderInfoPlistCallback, v107);
-  v14 = v19;
-  if (v19)
+  v91[0] = a1;
+  v91[1] = a3;
+  v14 = eUICCFwReaderStart(a2, VinylFirmwareReaderInfoPlistCallback, v91);
+  v9 = v14;
+  if (v14)
   {
-    VinylFirmware::createIm4p(v19);
+    VinylFirmware::createIm4p(v14);
 LABEL_107:
-    v17 = 0;
-    v16 = 0;
+    v12 = 0;
+    v11 = 0;
     goto LABEL_83;
   }
 
   if (!a3[7])
   {
-    VinylFirmware::createIm4p(v19);
+    VinylFirmware::createIm4p(v14);
 LABEL_106:
-    v14 = 0;
+    v9 = 0;
     goto LABEL_107;
   }
 
-  v14 = eUICCFwReaderStart(a2, VinylFirmwareReaderCallback, v107);
-  v20 = ACFULogging::getLogInstance(v14);
-  v26 = v20;
-  if (v14)
+  v9 = eUICCFwReaderStart(a2, VinylFirmwareReaderCallback, v91);
+  v15 = ACFULogging::getLogInstance(v9);
+  v16 = v15;
+  if (v9)
   {
-    ACFULogging::handleMessage(v20, 2u, "%s::%s: failed to read zip file\n", v21, v22, v23, v24, v25, "VinylFirmware");
+    ACFULogging::handleMessage(v15, 2, "%s::%s: failed to read zip file\n", "VinylFirmware", "createIm4p");
     goto LABEL_107;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-  v27 = std::string::append(&v103, "::");
-  v28 = *&v27->__r_.__value_.__l.__data_;
-  v104.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-  *&v104.__r_.__value_.__l.__data_ = v28;
-  v27->__r_.__value_.__l.__size_ = 0;
-  v27->__r_.__value_.__r.__words[2] = 0;
-  v27->__r_.__value_.__r.__words[0] = 0;
-  v29 = std::string::append(&v104, "createIm4p");
+  std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+  v17 = std::string::append(&v87, "::");
+  v18 = *&v17->__r_.__value_.__l.__data_;
+  v88.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+  *&v88.__r_.__value_.__l.__data_ = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
+  v19 = std::string::append(&v88, "createIm4p");
+  v20 = *&v19->__r_.__value_.__l.__data_;
+  v90 = v19->__r_.__value_.__r.__words[2];
+  *__p = v20;
+  v19->__r_.__value_.__l.__size_ = 0;
+  v19->__r_.__value_.__r.__words[2] = 0;
+  v19->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v16, __p, 0, "tag4cc : ", *a3);
+  if (SHIBYTE(v90) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v88.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v87.__r_.__value_.__l.__data_);
+  }
+
+  v22 = ACFULogging::getLogInstance(v21);
+  std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+  v23 = std::string::append(&v87, "::");
+  v24 = *&v23->__r_.__value_.__l.__data_;
+  v88.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+  *&v88.__r_.__value_.__l.__data_ = v24;
+  v23->__r_.__value_.__l.__size_ = 0;
+  v23->__r_.__value_.__r.__words[2] = 0;
+  v23->__r_.__value_.__r.__words[0] = 0;
+  v25 = std::string::append(&v88, "createIm4p");
+  v26 = *&v25->__r_.__value_.__l.__data_;
+  v90 = v25->__r_.__value_.__r.__words[2];
+  *__p = v26;
+  v25->__r_.__value_.__l.__size_ = 0;
+  v25->__r_.__value_.__r.__words[2] = 0;
+  v25->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v22, __p, 0, "filename : ", a3[1]);
+  if (SHIBYTE(v90) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v88.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v87.__r_.__value_.__l.__data_);
+  }
+
+  v28 = ACFULogging::getLogInstance(v27);
+  std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+  v29 = std::string::append(&v87, "::");
   v30 = *&v29->__r_.__value_.__l.__data_;
-  v106 = v29->__r_.__value_.__r.__words[2];
-  *__p = v30;
+  v88.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+  *&v88.__r_.__value_.__l.__data_ = v30;
   v29->__r_.__value_.__l.__size_ = 0;
   v29->__r_.__value_.__r.__words[2] = 0;
   v29->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v26, __p, 0, "tag4cc : ", *a3);
-  if (SHIBYTE(v106) < 0)
+  v31 = std::string::append(&v88, "createIm4p");
+  v32 = v10;
+  v33 = *&v31->__r_.__value_.__l.__data_;
+  v90 = v31->__r_.__value_.__r.__words[2];
+  *__p = v33;
+  v31->__r_.__value_.__l.__size_ = 0;
+  v31->__r_.__value_.__r.__words[2] = 0;
+  v31->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v28, __p, 0, "plist_filename : ", a3[2]);
+  if (SHIBYTE(v90) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v104.__r_.__value_.__l.__data_);
+    operator delete(v88.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v103.__r_.__value_.__l.__data_);
-  }
-
-  v32 = ACFULogging::getLogInstance(v31);
-  std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-  v33 = std::string::append(&v103, "::");
-  v34 = *&v33->__r_.__value_.__l.__data_;
-  v104.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-  *&v104.__r_.__value_.__l.__data_ = v34;
-  v33->__r_.__value_.__l.__size_ = 0;
-  v33->__r_.__value_.__r.__words[2] = 0;
-  v33->__r_.__value_.__r.__words[0] = 0;
-  v35 = std::string::append(&v104, "createIm4p");
-  v36 = *&v35->__r_.__value_.__l.__data_;
-  v106 = v35->__r_.__value_.__r.__words[2];
-  *__p = v36;
-  v35->__r_.__value_.__l.__size_ = 0;
-  v35->__r_.__value_.__r.__words[2] = 0;
-  v35->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v32, __p, 0, "filename : ", a3[1]);
-  if (SHIBYTE(v106) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v104.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v103.__r_.__value_.__l.__data_);
-  }
-
-  v38 = ACFULogging::getLogInstance(v37);
-  std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-  v39 = std::string::append(&v103, "::");
-  v40 = *&v39->__r_.__value_.__l.__data_;
-  v104.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-  *&v104.__r_.__value_.__l.__data_ = v40;
-  v39->__r_.__value_.__l.__size_ = 0;
-  v39->__r_.__value_.__r.__words[2] = 0;
-  v39->__r_.__value_.__r.__words[0] = 0;
-  v41 = std::string::append(&v104, "createIm4p");
-  v42 = v15;
-  v43 = *&v41->__r_.__value_.__l.__data_;
-  v106 = v41->__r_.__value_.__r.__words[2];
-  *__p = v43;
-  v41->__r_.__value_.__l.__size_ = 0;
-  v41->__r_.__value_.__r.__words[2] = 0;
-  v41->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v38, __p, 0, "plist_filename : ", a3[2]);
-  if (SHIBYTE(v106) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v104.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v103.__r_.__value_.__l.__data_);
+    operator delete(v87.__r_.__value_.__l.__data_);
   }
 
   if (a3[3])
   {
-    v45 = ACFULogging::getLogInstance(v44);
-    std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-    v46 = std::string::append(&v103, "::");
-    v47 = *&v46->__r_.__value_.__l.__data_;
-    v104.__r_.__value_.__r.__words[2] = v46->__r_.__value_.__r.__words[2];
-    *&v104.__r_.__value_.__l.__data_ = v47;
-    v46->__r_.__value_.__l.__size_ = 0;
-    v46->__r_.__value_.__r.__words[2] = 0;
-    v46->__r_.__value_.__r.__words[0] = 0;
-    v48 = std::string::append(&v104, "createIm4p");
-    v42 = v15;
-    v49 = *&v48->__r_.__value_.__l.__data_;
-    v106 = v48->__r_.__value_.__r.__words[2];
-    *__p = v49;
-    v48->__r_.__value_.__l.__size_ = 0;
-    v48->__r_.__value_.__r.__words[2] = 0;
-    v48->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v45, __p, 0, "data : ", a3[3]);
-    if (SHIBYTE(v106) < 0)
+    v35 = ACFULogging::getLogInstance(v34);
+    std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+    v36 = std::string::append(&v87, "::");
+    v37 = *&v36->__r_.__value_.__l.__data_;
+    v88.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
+    *&v88.__r_.__value_.__l.__data_ = v37;
+    v36->__r_.__value_.__l.__size_ = 0;
+    v36->__r_.__value_.__r.__words[2] = 0;
+    v36->__r_.__value_.__r.__words[0] = 0;
+    v38 = std::string::append(&v88, "createIm4p");
+    v32 = v10;
+    v39 = *&v38->__r_.__value_.__l.__data_;
+    v90 = v38->__r_.__value_.__r.__words[2];
+    *__p = v39;
+    v38->__r_.__value_.__l.__size_ = 0;
+    v38->__r_.__value_.__r.__words[2] = 0;
+    v38->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v35, __p, 0, "data : ", a3[3]);
+    if (SHIBYTE(v90) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v104.__r_.__value_.__l.__data_);
+      operator delete(v88.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v103.__r_.__value_.__l.__data_);
+      operator delete(v87.__r_.__value_.__l.__data_);
     }
   }
 
   if (a3[4])
   {
-    v50 = ACFULogging::getLogInstance(v44);
-    std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-    v51 = std::string::append(&v103, "::");
-    v52 = *&v51->__r_.__value_.__l.__data_;
-    v104.__r_.__value_.__r.__words[2] = v51->__r_.__value_.__r.__words[2];
-    *&v104.__r_.__value_.__l.__data_ = v52;
-    v51->__r_.__value_.__l.__size_ = 0;
-    v51->__r_.__value_.__r.__words[2] = 0;
-    v51->__r_.__value_.__r.__words[0] = 0;
-    v53 = std::string::append(&v104, "createIm4p");
-    v42 = v15;
-    v54 = *&v53->__r_.__value_.__l.__data_;
-    v106 = v53->__r_.__value_.__r.__words[2];
-    *__p = v54;
-    v53->__r_.__value_.__l.__size_ = 0;
-    v53->__r_.__value_.__r.__words[2] = 0;
-    v53->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v50, __p, 0, "certIdToFind : ", a3[4]);
-    if (SHIBYTE(v106) < 0)
+    v40 = ACFULogging::getLogInstance(v34);
+    std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+    v41 = std::string::append(&v87, "::");
+    v42 = *&v41->__r_.__value_.__l.__data_;
+    v88.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
+    *&v88.__r_.__value_.__l.__data_ = v42;
+    v41->__r_.__value_.__l.__size_ = 0;
+    v41->__r_.__value_.__r.__words[2] = 0;
+    v41->__r_.__value_.__r.__words[0] = 0;
+    v43 = std::string::append(&v88, "createIm4p");
+    v32 = v10;
+    v44 = *&v43->__r_.__value_.__l.__data_;
+    v90 = v43->__r_.__value_.__r.__words[2];
+    *__p = v44;
+    v43->__r_.__value_.__l.__size_ = 0;
+    v43->__r_.__value_.__r.__words[2] = 0;
+    v43->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v40, __p, 0, "certIdToFind : ", a3[4]);
+    if (SHIBYTE(v90) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v104.__r_.__value_.__l.__data_);
+      operator delete(v88.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v103.__r_.__value_.__l.__data_);
+      operator delete(v87.__r_.__value_.__l.__data_);
     }
   }
 
   if (a3[5])
   {
-    v55 = ACFULogging::getLogInstance(v44);
-    std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-    v56 = std::string::append(&v103, "::");
-    v57 = *&v56->__r_.__value_.__l.__data_;
-    v104.__r_.__value_.__r.__words[2] = v56->__r_.__value_.__r.__words[2];
-    *&v104.__r_.__value_.__l.__data_ = v57;
-    v56->__r_.__value_.__l.__size_ = 0;
-    v56->__r_.__value_.__r.__words[2] = 0;
-    v56->__r_.__value_.__r.__words[0] = 0;
-    v58 = std::string::append(&v104, "createIm4p");
-    v42 = v15;
-    v59 = *&v58->__r_.__value_.__l.__data_;
-    v106 = v58->__r_.__value_.__r.__words[2];
-    *__p = v59;
-    v58->__r_.__value_.__l.__size_ = 0;
-    v58->__r_.__value_.__r.__words[2] = 0;
-    v58->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v55, __p, 0, "tafwLdrVerToFindg4cc : ", a3[5]);
-    if (SHIBYTE(v106) < 0)
+    v45 = ACFULogging::getLogInstance(v34);
+    std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+    v46 = std::string::append(&v87, "::");
+    v47 = *&v46->__r_.__value_.__l.__data_;
+    v88.__r_.__value_.__r.__words[2] = v46->__r_.__value_.__r.__words[2];
+    *&v88.__r_.__value_.__l.__data_ = v47;
+    v46->__r_.__value_.__l.__size_ = 0;
+    v46->__r_.__value_.__r.__words[2] = 0;
+    v46->__r_.__value_.__r.__words[0] = 0;
+    v48 = std::string::append(&v88, "createIm4p");
+    v32 = v10;
+    v49 = *&v48->__r_.__value_.__l.__data_;
+    v90 = v48->__r_.__value_.__r.__words[2];
+    *__p = v49;
+    v48->__r_.__value_.__l.__size_ = 0;
+    v48->__r_.__value_.__r.__words[2] = 0;
+    v48->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v45, __p, 0, "tafwLdrVerToFindg4cc : ", a3[5]);
+    if (SHIBYTE(v90) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v104.__r_.__value_.__l.__data_);
+      operator delete(v88.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v103.__r_.__value_.__l.__data_);
+      operator delete(v87.__r_.__value_.__l.__data_);
     }
   }
 
   if (a3[6])
   {
-    v60 = ACFULogging::getLogInstance(v44);
-    std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-    v61 = std::string::append(&v103, "::");
-    v62 = *&v61->__r_.__value_.__l.__data_;
-    v104.__r_.__value_.__r.__words[2] = v61->__r_.__value_.__r.__words[2];
-    *&v104.__r_.__value_.__l.__data_ = v62;
-    v61->__r_.__value_.__l.__size_ = 0;
-    v61->__r_.__value_.__r.__words[2] = 0;
-    v61->__r_.__value_.__r.__words[0] = 0;
-    v63 = std::string::append(&v104, "createIm4p");
-    v42 = v15;
-    v64 = *&v63->__r_.__value_.__l.__data_;
-    v106 = v63->__r_.__value_.__r.__words[2];
-    *__p = v64;
-    v63->__r_.__value_.__l.__size_ = 0;
-    v63->__r_.__value_.__r.__words[2] = 0;
-    v63->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v60, __p, 0, "array : ", a3[6]);
-    if (SHIBYTE(v106) < 0)
+    v50 = ACFULogging::getLogInstance(v34);
+    std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+    v51 = std::string::append(&v87, "::");
+    v52 = *&v51->__r_.__value_.__l.__data_;
+    v88.__r_.__value_.__r.__words[2] = v51->__r_.__value_.__r.__words[2];
+    *&v88.__r_.__value_.__l.__data_ = v52;
+    v51->__r_.__value_.__l.__size_ = 0;
+    v51->__r_.__value_.__r.__words[2] = 0;
+    v51->__r_.__value_.__r.__words[0] = 0;
+    v53 = std::string::append(&v88, "createIm4p");
+    v32 = v10;
+    v54 = *&v53->__r_.__value_.__l.__data_;
+    v90 = v53->__r_.__value_.__r.__words[2];
+    *__p = v54;
+    v53->__r_.__value_.__l.__size_ = 0;
+    v53->__r_.__value_.__r.__words[2] = 0;
+    v53->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v50, __p, 0, "array : ", a3[6]);
+    if (SHIBYTE(v90) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v104.__r_.__value_.__l.__data_);
+      operator delete(v88.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v103.__r_.__value_.__l.__data_);
+      operator delete(v87.__r_.__value_.__l.__data_);
     }
   }
 
-  Count = CFArrayGetCount(v42);
-  v66 = Count;
+  Count = CFArrayGetCount(v32);
+  v56 = Count;
   if (Count <= 0)
   {
     VinylFirmware::createIm4p(Count);
     goto LABEL_106;
   }
 
-  v67 = CFArrayGetCount(theArray);
-  if (v66 != v67)
+  v57 = CFArrayGetCount(theArray);
+  if (v56 != v57)
   {
-    VinylFirmware::createIm4p(v67);
+    VinylFirmware::createIm4p(v57);
     goto LABEL_106;
   }
 
-  v17 = malloc(8 * v66);
-  v68 = malloc(8 * v66);
-  v16 = v68;
-  if (v17 && v68)
+  v12 = malloc(8 * v56);
+  v58 = malloc(8 * v56);
+  v11 = v58;
+  if (v12 && v58)
   {
-    v115.location = 0;
-    v115.length = v66;
-    CFArrayGetValues(v15, v115, v17);
-    v116.location = 0;
-    v116.length = v66;
-    CFArrayGetValues(theArray, v116, v16);
+    v99.location = 0;
+    v99.length = v56;
+    CFArrayGetValues(v10, v99, v12);
+    v100.location = 0;
+    v100.length = v56;
+    CFArrayGetValues(theArray, v100, v11);
     DEREncoderCreate();
     DEREncoderCreate();
-    v69 = 0;
+    v59 = 0;
     do
     {
       DEREncoderCreate();
-      CFDataGetBytePtr(v17[v69]);
-      CFDataGetLength(v17[v69]);
-      v70 = DEREncoderAddData();
-      if (v70)
+      CFDataGetBytePtr(v12[v59]);
+      CFDataGetLength(v12[v59]);
+      v60 = DEREncoderAddData();
+      if (v60)
       {
-        VinylFirmware::createIm4p(v70);
+        VinylFirmware::createIm4p(v60);
         goto LABEL_81;
       }
 
-      CFDataGetBytePtr(v16[v69]);
-      CFDataGetLength(v16[v69]);
-      v71 = DEREncoderAddData();
-      if (v71)
+      CFDataGetBytePtr(v11[v59]);
+      CFDataGetLength(v11[v59]);
+      v61 = DEREncoderAddData();
+      if (v61)
       {
-        VinylFirmware::createIm4p(v71);
+        VinylFirmware::createIm4p(v61);
         goto LABEL_81;
       }
 
-      v72 = DEREncoderAddSequenceFromEncoder();
-      if (v72)
+      v62 = DEREncoderAddSequenceFromEncoder();
+      if (v62)
       {
-        VinylFirmware::createIm4p(v72);
+        VinylFirmware::createIm4p(v62);
         goto LABEL_81;
       }
 
       DEREncoderDestroy();
-      ++v69;
+      ++v59;
     }
 
-    while (v66 != v69);
-    v73 = DEREncoderAddSequenceFromEncoder();
-    if (v73)
+    while (v56 != v59);
+    v63 = DEREncoderAddSequenceFromEncoder();
+    if (v63)
     {
-      VinylFirmware::createIm4p(v73);
+      VinylFirmware::createIm4p(v63);
     }
 
     else
@@ -7485,87 +7429,87 @@ LABEL_106:
 
       else
       {
-        v75 = CFDataCreateWithBytesNoCopy(0, v111, v110, *MEMORY[0x29EDB8EE0]);
-        if (!v75)
+        v65 = CFDataCreateWithBytesNoCopy(0, v95, v94, *MEMORY[0x29EDB8EE0]);
+        if (!v65)
         {
-          v14 = 2;
+          v9 = 2;
           goto LABEL_82;
         }
 
         if (CFStringGetCString(*a3, buffer, 5, 0x8000100u))
         {
-          CString = CFStringGetCString(@"1.0", v108, 5, 0x8000100u);
+          CString = CFStringGetCString(@"1.0", v92, 5, 0x8000100u);
           if (CString)
           {
-            v77 = ACFULogging::getLogInstance(CString);
-            std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-            v78 = std::string::append(&v103, "::");
-            v79 = *&v78->__r_.__value_.__l.__data_;
-            v104.__r_.__value_.__r.__words[2] = v78->__r_.__value_.__r.__words[2];
-            *&v104.__r_.__value_.__l.__data_ = v79;
-            v78->__r_.__value_.__l.__size_ = 0;
-            v78->__r_.__value_.__r.__words[2] = 0;
-            v78->__r_.__value_.__r.__words[0] = 0;
-            v80 = std::string::append(&v104, "createIm4p");
-            v81 = *&v80->__r_.__value_.__l.__data_;
-            v106 = v80->__r_.__value_.__r.__words[2];
-            *__p = v81;
-            v80->__r_.__value_.__l.__size_ = 0;
-            v80->__r_.__value_.__r.__words[2] = 0;
-            v80->__r_.__value_.__r.__words[0] = 0;
-            ACFULogging::handleMessageCFType(v77, __p, 0, "measurementSeq : ", v75);
-            if (SHIBYTE(v106) < 0)
+            v67 = ACFULogging::getLogInstance(CString);
+            std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+            v68 = std::string::append(&v87, "::");
+            v69 = *&v68->__r_.__value_.__l.__data_;
+            v88.__r_.__value_.__r.__words[2] = v68->__r_.__value_.__r.__words[2];
+            *&v88.__r_.__value_.__l.__data_ = v69;
+            v68->__r_.__value_.__l.__size_ = 0;
+            v68->__r_.__value_.__r.__words[2] = 0;
+            v68->__r_.__value_.__r.__words[0] = 0;
+            v70 = std::string::append(&v88, "createIm4p");
+            v71 = *&v70->__r_.__value_.__l.__data_;
+            v90 = v70->__r_.__value_.__r.__words[2];
+            *__p = v71;
+            v70->__r_.__value_.__l.__size_ = 0;
+            v70->__r_.__value_.__r.__words[2] = 0;
+            v70->__r_.__value_.__r.__words[0] = 0;
+            ACFULogging::handleMessageCFType(v67, __p, 0, "measurementSeq : ", v65);
+            if (SHIBYTE(v90) < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (SHIBYTE(v104.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v104.__r_.__value_.__l.__data_);
+              operator delete(v88.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v103.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v103.__r_.__value_.__l.__data_);
+              operator delete(v87.__r_.__value_.__l.__data_);
             }
 
-            v82 = *(a1 + 23);
-            if (v82)
+            v72 = *(a1 + 23);
+            if (v72)
             {
-              v83 = dlsym(v82, "AMAuthInstallApImg4CreatePayload");
-              v84 = dlerror();
-              if (!v84 && v83)
+              v73 = dlsym(v72, "AMAuthInstallApImg4CreatePayload");
+              v74 = dlerror();
+              if (!v74 && v73)
               {
-                v14 = (v83)(buffer, v108, v75, 0, 0, a4);
-                v85 = ACFULogging::getLogInstance(v14);
-                v91 = v85;
-                if (!v14)
+                v9 = (v73)(buffer, v92, v65, 0, 0, a4);
+                v75 = ACFULogging::getLogInstance(v9);
+                v76 = v75;
+                if (!v9)
                 {
-                  std::string::basic_string[abi:ne200100]<0>(&v103, "VinylFirmware");
-                  v92 = std::string::append(&v103, "::");
-                  v93 = *&v92->__r_.__value_.__l.__data_;
-                  v104.__r_.__value_.__r.__words[2] = v92->__r_.__value_.__r.__words[2];
-                  *&v104.__r_.__value_.__l.__data_ = v93;
-                  v92->__r_.__value_.__l.__size_ = 0;
-                  v92->__r_.__value_.__r.__words[2] = 0;
-                  v92->__r_.__value_.__r.__words[0] = 0;
-                  v94 = std::string::append(&v104, "createIm4p");
-                  v95 = *&v94->__r_.__value_.__l.__data_;
-                  v106 = v94->__r_.__value_.__r.__words[2];
-                  *__p = v95;
-                  v94->__r_.__value_.__l.__size_ = 0;
-                  v94->__r_.__value_.__r.__words[2] = 0;
-                  v94->__r_.__value_.__r.__words[0] = 0;
-                  ACFULogging::handleMessageCFType(v91, __p, 0, "outPayload : ", *a4);
-                  VinylFirmware::createIm4p(__p, &v103, &v104);
+                  std::string::basic_string[abi:ne200100]<0>(&v87, "VinylFirmware");
+                  v77 = std::string::append(&v87, "::");
+                  v78 = *&v77->__r_.__value_.__l.__data_;
+                  v88.__r_.__value_.__r.__words[2] = v77->__r_.__value_.__r.__words[2];
+                  *&v88.__r_.__value_.__l.__data_ = v78;
+                  v77->__r_.__value_.__l.__size_ = 0;
+                  v77->__r_.__value_.__r.__words[2] = 0;
+                  v77->__r_.__value_.__r.__words[0] = 0;
+                  v79 = std::string::append(&v88, "createIm4p");
+                  v80 = *&v79->__r_.__value_.__l.__data_;
+                  v90 = v79->__r_.__value_.__r.__words[2];
+                  *__p = v80;
+                  v79->__r_.__value_.__l.__size_ = 0;
+                  v79->__r_.__value_.__r.__words[2] = 0;
+                  v79->__r_.__value_.__r.__words[0] = 0;
+                  ACFULogging::handleMessageCFType(v76, __p, 0, "outPayload : ", *a4);
+                  VinylFirmware::createIm4p(__p, &v87, &v88);
 LABEL_81:
-                  v14 = 0;
+                  v9 = 0;
                   goto LABEL_82;
                 }
 
-                ACFULogging::handleMessage(v85, 0, "%s::%s: failed to create im4p\n", v86, v87, v88, v89, v90, "VinylFirmware");
+                ACFULogging::handleMessage(v75, 0, "%s::%s: failed to create im4p\n", "VinylFirmware", "createIm4p");
 LABEL_82:
-                if (!v15)
+                if (!v10)
                 {
                   goto LABEL_84;
                 }
@@ -7573,7 +7517,7 @@ LABEL_82:
                 goto LABEL_83;
               }
 
-              VinylFirmware::createIm4p(v84);
+              VinylFirmware::createIm4p(v74);
             }
 
             else
@@ -7581,60 +7525,59 @@ LABEL_82:
               VinylFirmware::createIm4p(0);
             }
 
-            v14 = 99;
+            v9 = 99;
             goto LABEL_82;
           }
         }
       }
     }
 
-    v14 = 3;
+    v9 = 3;
     goto LABEL_82;
   }
 
-  VinylFirmware::createIm4p(v68);
-  v14 = 0;
+  VinylFirmware::createIm4p(v58);
+  v9 = 0;
 LABEL_83:
-  CFRelease(v15);
+  CFRelease(v10);
 LABEL_84:
   if (theArray)
   {
     CFRelease(theArray);
   }
 
-  if (v17)
+  if (v12)
   {
-    free(v17);
+    free(v12);
   }
 
-  if (v16)
+  if (v11)
   {
-    free(v16);
+    free(v11);
   }
 
   DEREncoderDestroy();
   DEREncoderDestroy();
-  v96 = a3[6];
-  if (v96)
+  v81 = a3[6];
+  if (v81)
   {
-    CFRelease(v96);
+    CFRelease(v81);
     a3[6] = 0;
   }
 
-  v97 = a3[7];
-  if (v97)
+  v82 = a3[7];
+  if (v82)
   {
-    CFRelease(v97);
+    CFRelease(v82);
     a3[7] = 0;
   }
 
-  if (v111)
+  if (v95)
   {
-    free(v111);
+    free(v95);
   }
 
-  v98 = *MEMORY[0x29EDCA608];
-  return v14;
+  return v9;
 }
 
 void sub_29850F360(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -7901,7 +7844,7 @@ CFStringRef VinylFirmware::getPathComponent(VinylFirmware *this, const __CFStrin
   return Copy;
 }
 
-BOOL VinylFirmware::checkVinylFwLdrVerLegacy(VinylFirmware *this, CFArrayRef theArray)
+uint64_t VinylFirmware::checkVinylFwLdrVerLegacy(VinylFirmware *this, CFArrayRef theArray)
 {
   Count = CFArrayGetCount(theArray);
   if (Count <= 0)
@@ -7944,7 +7887,7 @@ BOOL VinylFirmware::checkVinylFwLdrVerLegacy(VinylFirmware *this, CFArrayRef the
   return v11;
 }
 
-const __CFData *VinylFirmware::fwLdrVerEqual(VinylFirmware *this, CFArrayRef theArray, const UInt8 *a3)
+const UInt8 *VinylFirmware::fwLdrVerEqual(VinylFirmware *this, CFArrayRef theArray, const UInt8 *a3)
 {
   if (!theArray || (this = CFArrayGetCount(theArray), this <= 0))
   {
@@ -8009,62 +7952,60 @@ LABEL_17:
   return a3;
 }
 
-void VinylFirmware::generateMeasurement(VinylFirmware *this@<X0>, const void **a2@<X8>)
+void VinylFirmware::generateMeasurement(const void **__return_ptr a1@<X8>, VinylFirmware *this@<X0>)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: entering: %s\n", v6, v7, v8, v9, v10, "VinylFirmware");
-  *a2 = 0;
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: entering: %s\n", "VinylFirmware", "generateMeasurement", "generateMeasurement");
+  *a1 = 0;
   CFDataGetBytePtr(this);
   CFDataGetLength(this);
-  v11 = AMSupportDigestSha256();
-  if (v11)
+  v5 = AMSupportDigestSha256();
+  if (v5)
   {
-    v26 = ACFULogging::getLogInstance(v11);
-    ACFULogging::handleMessage(v26, 2u, "%s::%s: failed to compute digest\n", v27, v28, v29, v30, v31, "VinylFirmware");
+    v14 = ACFULogging::getLogInstance(v5);
+    ACFULogging::handleMessage(v14, 2, "%s::%s: failed to compute digest\n", "VinylFirmware", "generateMeasurement");
   }
 
   else
   {
     __p[0] = CFDataCreate(0, bytes, 32);
-    v12 = ctu::cf::CFSharedRef<__CFData const>::operator=(a2, __p);
-    v13 = ACFULogging::getLogInstance(v12);
-    std::string::basic_string[abi:ne200100]<0>(&v32, "VinylFirmware");
-    v14 = std::string::append(&v32, "::");
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v33.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-    *&v33.__r_.__value_.__l.__data_ = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    v16 = std::string::append(&v33, "generateMeasurement");
-    v17 = *&v16->__r_.__value_.__l.__data_;
-    v35 = v16->__r_.__value_.__r.__words[2];
-    *__p = v17;
-    v16->__r_.__value_.__l.__size_ = 0;
-    v16->__r_.__value_.__r.__words[2] = 0;
-    v16->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v13, __p, 0, "digestRef: ", *a2);
-    if (SHIBYTE(v35) < 0)
+    v6 = ctu::cf::CFSharedRef<__CFData const>::operator=(a1, __p);
+    v7 = ACFULogging::getLogInstance(v6);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "VinylFirmware");
+    v8 = std::string::append(&v15, "::");
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v16.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v16.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v16, "generateMeasurement");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v18 = v10->__r_.__value_.__r.__words[2];
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v7, __p, 0, "digestRef: ", *a1);
+    if (SHIBYTE(v18) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v33.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v15.__r_.__value_.__l.__data_);
     }
 
-    v19 = ACFULogging::getLogInstance(v18);
-    ACFULogging::handleMessage(v19, 4u, "%s::%s: leaving: %s\n", v20, v21, v22, v23, v24, "VinylFirmware");
+    v13 = ACFULogging::getLogInstance(v12);
+    ACFULogging::handleMessage(v13, 4, "%s::%s: leaving: %s\n", "VinylFirmware", "generateMeasurement", "generateMeasurement");
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29850FCA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -8112,85 +8053,85 @@ const void **ctu::cf::detail::TakeOwnershipProxy<__CFError>::~TakeOwnershipProxy
 void VinylFirmware::getFWSrcPath(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: AMSupportDigestSha256 failed:\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: AMSupportDigestSha256 failed:\n", "VinylFirmware", "getFWSrcPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid params passed\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid params passed\n", "VinylFirmware", "getFWSrcPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: srcPath memory alloc failed\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: srcPath memory alloc failed\n", "VinylFirmware", "getFWSrcPath");
 }
 
 uint64_t VinylFirmware::getFileDataFromZip(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, a1, v3, v4, v5, v6, v7, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, a1, "VinylFirmware", "getFileDataFromZip");
   return eUICCFwReaderClose(0);
 }
 
 void VinylFirmware::createIm4p(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to read zip file\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to read zip file\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Count of certID != hashVad \n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Count of certID != hashVad \n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to add certId\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to add certId\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to add VAD\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to add VAD\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to add certId-VAD sequence\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to add certId-VAD sequence\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to add top-level sequence\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to add top-level sequence\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to encode DER buffer\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to encode DER buffer\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize LAI lib create function\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize LAI lib create function\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to open libauthinstall dylib\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to open libauthinstall dylib\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Memory alloc failed certIds/VadDigest\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Memory alloc failed certIds/VadDigest\n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: No sources found \n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: No sources found \n", "VinylFirmware", "createIm4p");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to build vinyl info.plist dictionary\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to build vinyl info.plist dictionary\n", "VinylFirmware", "createIm4p");
 }
 
 void VinylFirmware::createIm4p(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8214,87 +8155,87 @@ void VinylFirmware::createIm4p(uint64_t a1, uint64_t a2, uint64_t a3)
 void VinylFirmware::getFwMac(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: fwMacData is wrong type\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: fwMacData is wrong type\n", "VinylFirmware", "getFwMac");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Missing firmwareMac in info.plist -- firmware too old\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Missing firmwareMac in info.plist -- firmware too old\n", "VinylFirmware", "getFwMac");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid plistDict\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Invalid plistDict\n", "VinylFirmware", "getFwMac");
 }
 
 void VinylFirmware::getPathComponent(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create dirPath\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create dirPath\n", "VinylFirmware", "getPathComponent");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create dirURL\n", v3, v4, v5, v6, v7, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create dirURL\n", "VinylFirmware", "getPathComponent");
 
   CFRelease(a1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create fullURL\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create fullURL\n", "VinylFirmware", "getPathComponent");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: fullPath is null\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: fullPath is null\n", "VinylFirmware", "getPathComponent");
 }
 
 void VinylFirmware::checkVinylFwLdrVerLegacy(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ldrVerComponents count is not expected\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ldrVerComponents count is not expected\n", "VinylFirmware", "checkVinylFwLdrVerLegacy");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get ldrVer\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get ldrVer\n", "VinylFirmware", "checkVinylFwLdrVerLegacy");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ldrVers count is zero\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ldrVers count is zero\n", "VinylFirmware", "checkVinylFwLdrVerLegacy");
 }
 
 void VinylFirmware::fwLdrVerEqual(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ldrVerComponents count is not expected\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ldrVerComponents count is not expected\n", "VinylFirmware", "fwLdrVerEqual");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get byte ptr of fwldrver\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get byte ptr of fwldrver\n", "VinylFirmware", "fwLdrVerEqual");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get ldrVer\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get ldrVer\n", "VinylFirmware", "fwLdrVerEqual");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: fwldrver is null\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: fwldrver is null\n", "VinylFirmware", "fwLdrVerEqual");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ldrVersStrArray count is zero\n", v2, v3, v4, v5, v6, "VinylFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ldrVersStrArray count is zero\n", "VinylFirmware", "fwLdrVerEqual");
 }
 
-CFDataRef AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo(const void *a1, const __CFURL *a2, const void *a3, const void *a4, void *a5)
+CFDataRef AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo(__CFDictionary *a1, const __CFURL *a2, const void *a3, const void *a4, void *a5)
 {
-  v23 = 0;
+  v24 = 0;
   if (a1)
   {
     if (a3 && a4)
@@ -8308,28 +8249,28 @@ CFDataRef AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo(const v
         {
           CFDictionarySetValue(Mutable, @"cncn", a3);
           CFDictionarySetValue(v16, @"cncx", a4);
-          AMAuthInstallApImg4EncodeRestoreInfo(StitchTicket, v16, &v23);
+          AMAuthInstallApImg4EncodeRestoreInfo(StitchTicket, v16, &v24);
         }
 
         else
         {
-          OUTLINED_FUNCTION_6();
-          OUTLINED_FUNCTION_2_0();
+          v22 = OUTLINED_FUNCTION_6();
+          OUTLINED_FUNCTION_2_0(v22, v23);
         }
       }
     }
 
     else
     {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_4();
+      v20 = OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_4(v20, v21);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_4();
+    v18 = OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_4(v18, v19);
   }
 
   AMSupportSafeRelease();
@@ -8338,10 +8279,10 @@ CFDataRef AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo(const v
   AMSupportSafeRelease();
   if (a5 && *a5)
   {
-    AMAuthInstallLog(3, "AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo", "failed: %@", v17, v18, v19, v20, v21, *a5);
+    AMAuthInstallLog(3, "AMAuthInstallUpdaterCryptex1MobileAssetCopyImg4WithRestoreInfo", "failed: %@", *a5);
   }
 
-  return v23;
+  return v24;
 }
 
 __CFArray *_AMAuthInstallCryptex1CopyManifestProperties()
@@ -8395,16 +8336,17 @@ __CFArray *_AMAuthInstallCryptex1CopyObjectTags()
   return v1;
 }
 
-uint64_t _AMAuthInstallCryptex1Log(void (*a1)(uint64_t, const char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t _AMAuthInstallCryptex1Log(void (*a1)(uint64_t, const char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = *MEMORY[0x29EDB8ED8];
-  v12 = CFStringCreateWithCString(*MEMORY[0x29EDB8ED8], "%s failed: %@", 0x8000100u);
-  if (v12)
+  va_start(va, a8);
+  v10 = *MEMORY[0x29EDB8ED8];
+  v11 = CFStringCreateWithCString(*MEMORY[0x29EDB8ED8], "%s failed: %@", 0x8000100u);
+  if (v11)
   {
-    v13 = CFStringCreateWithFormatAndArguments(v11, 0, v12, &a9);
-    if (v13)
+    v12 = CFStringCreateWithFormatAndArguments(v10, 0, v11, va);
+    if (v12)
     {
-      CStringPtr = CFStringGetCStringPtr(v13, 0x8000100u);
+      CStringPtr = CFStringGetCStringPtr(v12, 0x8000100u);
       a1(a2, CStringPtr);
     }
   }
@@ -8418,22 +8360,22 @@ __CFDictionary *AMAuthInstallUpdaterCryptex1CreateRequest(const __CFDictionary *
   valuePtr = -1;
   v8 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v62 = a2;
-  v63 = a3;
+  v61 = a2;
+  v62 = a3;
   if (!Mutable || (Value = CFDictionaryGetValue(a1, @"BuildIdentity")) == 0 || (v11 = Value, !CFDictionaryGetValue(a1, @"DeviceInfo")))
   {
     OUTLINED_FUNCTION_5();
     AMSupportCreateErrorInternal();
-    goto LABEL_42;
+    goto LABEL_39;
   }
 
   v12 = _AMAuthInstallCryptex1CopyManifestProperties();
   v13 = v12;
   if (!v12)
   {
-    OUTLINED_FUNCTION_5();
-    OUTLINED_FUNCTION_2_0();
-    goto LABEL_42;
+    v59 = OUTLINED_FUNCTION_5();
+    OUTLINED_FUNCTION_2_0(v59, v60);
+    goto LABEL_39;
   }
 
   if (CFArrayGetCount(v12) >= 1)
@@ -8458,12 +8400,12 @@ __CFDictionary *AMAuthInstallUpdaterCryptex1CreateRequest(const __CFDictionary *
   v18 = v17;
   if (!v17)
   {
-LABEL_49:
-    OUTLINED_FUNCTION_2_0();
-    goto LABEL_42;
+LABEL_46:
+    OUTLINED_FUNCTION_2_0(a4, @"AuthInstallErrorDomain");
+    goto LABEL_39;
   }
 
-  v64 = a4;
+  v63 = a4;
   if (CFArrayGetCount(v17) >= 1)
   {
     for (i = 0; i < CFArrayGetCount(v18); ++i)
@@ -8486,8 +8428,8 @@ LABEL_49:
               v27 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
               if (!v27)
               {
-                a4 = v64;
-                goto LABEL_49;
+                a4 = v63;
+                goto LABEL_46;
               }
 
               v28 = v27;
@@ -8514,7 +8456,7 @@ LABEL_49:
   }
 
   Boolean = AMSupportCFDictionaryGetBoolean();
-  a4 = v64;
+  a4 = v63;
   if (Boolean)
   {
     AMSupportCFDictionarySetInteger32();
@@ -8524,17 +8466,7 @@ LABEL_49:
     CFDictionaryRemoveValue(Mutable, @"Cryptex1,ExclaveLiveNonceDomain");
     if (valuePtr == 1)
     {
-      if (AMSupportCFDictionaryGetBoolean())
-      {
-        v33 = kAMAuthInstallTagX86UseGlobalSigning;
-      }
-
-      else
-      {
-        v33 = kAMAuthInstallTagApUseGlobalSigning;
-      }
-
-      v41 = *v33;
+      AMSupportCFDictionaryGetBoolean();
       AMSupportCFDictionarySetInteger32();
     }
   }
@@ -8542,63 +8474,63 @@ LABEL_49:
   else
   {
     TypeID = CFNumberGetTypeID();
-    v35 = OUTLINED_FUNCTION_7(TypeID, @"ApChipId", TypeID);
-    if (!v35)
+    v34 = OUTLINED_FUNCTION_7(TypeID, @"ApChipId", TypeID);
+    if (!v34)
     {
-      goto LABEL_42;
+      goto LABEL_39;
     }
 
-    v36 = v35;
-    v37 = CFNumberGetTypeID();
-    v38 = OUTLINED_FUNCTION_7(v37, @"ApECID", v37);
-    if (!v38)
+    v35 = v34;
+    v36 = CFNumberGetTypeID();
+    v37 = OUTLINED_FUNCTION_7(v36, @"ApECID", v36);
+    if (!v37)
     {
-      goto LABEL_42;
+      goto LABEL_39;
     }
 
-    v39 = v38;
+    v38 = v37;
     *bytes = 0;
-    v67 = 0;
-    CFNumberGetValue(v36, kCFNumberSInt32Type, &bytes[4]);
-    CFNumberGetValue(v39, kCFNumberSInt64Type, &v67);
+    v66 = 0;
+    CFNumberGetValue(v35, kCFNumberSInt32Type, &bytes[4]);
+    CFNumberGetValue(v38, kCFNumberSInt64Type, &v66);
     *&bytes[4] = bswap32(*&bytes[4]);
-    v67 = bswap64(v67);
-    v40 = CFDataCreate(v8, bytes, 16);
-    if (!v40)
+    v66 = bswap64(v66);
+    v39 = CFDataCreate(v8, bytes, 16);
+    if (!v39)
     {
       OUTLINED_FUNCTION_5();
       AMSupportCreateErrorInternal();
-      goto LABEL_42;
+      goto LABEL_39;
     }
 
-    CFDictionarySetValue(Mutable, @"Cryptex1,UDID", v40);
+    CFDictionarySetValue(Mutable, @"Cryptex1,UDID", v39);
   }
 
-  v42 = CFBooleanGetTypeID();
-  v43 = OUTLINED_FUNCTION_7(v42, @"ApProductionMode", v42);
-  if (v43)
+  v40 = CFBooleanGetTypeID();
+  v41 = OUTLINED_FUNCTION_7(v40, @"ApProductionMode", v40);
+  if (v41)
   {
-    CFDictionarySetValue(Mutable, @"Cryptex1,ProductionMode", v43);
+    CFDictionarySetValue(Mutable, @"Cryptex1,ProductionMode", v41);
     if (!Boolean)
     {
-      v46 = OUTLINED_FUNCTION_3(v44, @"Cryptex1,Nonce", v45, @"Nonce");
-      if (v46)
+      v44 = OUTLINED_FUNCTION_3(v42, @"Cryptex1,Nonce", v43, @"Nonce");
+      if (v44)
       {
         if (valuePtr == 4)
         {
-          v48 = OUTLINED_FUNCTION_3(v46, @"Cryptex1,LiveNonce", v47, @"LiveNonce");
-          if (v48)
+          v46 = OUTLINED_FUNCTION_3(v44, @"Cryptex1,LiveNonce", v45, @"LiveNonce");
+          if (v46)
           {
-            v50 = OUTLINED_FUNCTION_3(v48, @"Cryptex1,ExclaveNonce", v49, @"ExclaveNonce");
-            if (v50)
+            v48 = OUTLINED_FUNCTION_3(v46, @"Cryptex1,ExclaveNonce", v47, @"ExclaveNonce");
+            if (v48)
             {
-              if (OUTLINED_FUNCTION_3(v50, @"Cryptex1,ExclaveLiveNonce", v51, @"ExclaveLiveNonce"))
+              if (OUTLINED_FUNCTION_3(v48, @"Cryptex1,ExclaveLiveNonce", v49, @"ExclaveLiveNonce"))
               {
-                v52 = CFDataGetTypeID();
-                v53 = OUTLINED_FUNCTION_7(v52, @"BootUUID", v52);
-                if (v53)
+                v50 = CFDataGetTypeID();
+                v51 = OUTLINED_FUNCTION_7(v50, @"BootUUID", v50);
+                if (v51)
                 {
-                  CFDictionarySetValue(Mutable, @"Cryptex1,BootUUID", v53);
+                  CFDictionarySetValue(Mutable, @"Cryptex1,BootUUID", v51);
                 }
               }
             }
@@ -8608,14 +8540,13 @@ LABEL_49:
     }
   }
 
-LABEL_42:
+LABEL_39:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   if (a4 && *a4)
   {
-    v61 = *a4;
-    _AMAuthInstallCryptex1Log(v62, v63, v54, v55, v56, v57, v58, v59, "AMAuthInstallUpdaterCryptex1CreateRequest");
+    _AMAuthInstallCryptex1Log(v61, v62, v52, v53, v54, v55, v56, v57, "AMAuthInstallUpdaterCryptex1CreateRequest", *a4);
     return 0;
   }
 
@@ -8750,19 +8681,19 @@ uint64_t AMAuthInstallSetSigningServerRetry(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t AMAuthInstallSetFusingServerURL(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallSetFusingServerURL(uint64_t a1, const void *a2)
 {
   result = 1;
   if (a1 && a2)
   {
-    v11 = *(a1 + 160);
-    if (v11 != a2)
+    v5 = *(a1 + 160);
+    if (v5 != a2)
     {
-      SafeRelease(v11);
+      SafeRelease(v5);
       *(a1 + 160) = CFRetain(a2);
     }
 
-    AMAuthInstallLog(6, "AMAuthInstallSetFusingServerURL", "fusing server: %@", a4, a5, a6, a7, a8, a2);
+    AMAuthInstallLog(6, "AMAuthInstallSetFusingServerURL", "fusing server: %@", a2);
     return 0;
   }
 
@@ -8925,109 +8856,106 @@ uint64_t AMAuthInstallAddTrustedSSLCACert(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t AMAuthInstallApServerRequestAddRequiredTagsWithRecoveryOS(void *a1, __CFDictionary *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFIndex AMAuthInstallApServerRequestAddRequiredTagsWithRecoveryOS(void *a1, __CFDictionary *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = 1;
+  v4 = 1;
   if (!a1 || !a2)
   {
-    return v8;
+    return v4;
   }
 
-  v10 = a4;
-  v13 = a1[2];
-  if (v13)
+  v6 = a4;
+  v7 = a3;
+  v9 = a1[2];
+  if (v9)
   {
-    if (*(v13 + 112))
+    if (*(v9 + 112))
     {
       if (a4)
       {
-        v14 = AMAuthInstallApImg4ServerRequestAddRequiredTagsWithRecoveryOS(a1, a2, a3, 1);
+        v10 = AMAuthInstallApImg4ServerRequestAddRequiredTagsWithRecoveryOS(a1, a2, a3, 1);
       }
 
       else
       {
-        v14 = AMAuthInstallApImg4ServerRequestAddRequiredTags(a1, a2, a3);
+        v10 = AMAuthInstallApImg4ServerRequestAddRequiredTags(a1, a2, a3);
       }
 
-      v8 = v14;
-      if (v14)
+      v4 = v10;
+      if (v10)
       {
-        v20 = "failed to add Ap Img4 tags";
-LABEL_14:
-        AMAuthInstallLog(3, "AMAuthInstallApServerRequestAddRequiredTagsWithRecoveryOS", v20, v15, v16, v17, v18, v19, v22);
-        return v8;
+        AMAuthInstallLog(3, "AMAuthInstallApServerRequestAddRequiredTagsWithRecoveryOS", "failed to add Ap Img4 tags");
       }
 
-      return v8;
+      return v4;
     }
   }
 
   else
   {
-    AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+    AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
   }
 
-  v8 = AMAuthInstallApImg3ServerRequestAddRequiredTags(a1, a2, a3, v10);
-  if (v8)
+  v4 = AMAuthInstallApImg3ServerRequestAddRequiredTags(a1, a2, v7, v6);
+  if (v4)
   {
-    v20 = "failed to add Ap Img3 tags";
-    goto LABEL_14;
+    AMAuthInstallLog(3, "AMAuthInstallApServerRequestAddRequiredTagsWithRecoveryOS", "failed to add Ap Img3 tags");
   }
 
-  return v8;
+  return v4;
 }
 
-uint64_t AMAuthInstallApSupportsLocalSigning(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApSupportsLocalSigning(uint64_t a1, _BYTE *a2)
 {
   result = 1;
   if (a1 && a2)
   {
-    v11 = *(a1 + 16);
-    if (v11)
+    v5 = *(a1 + 16);
+    if (v5)
     {
-      if (*(v11 + 112))
+      if (*(v5 + 112))
       {
-        v12 = AMAuthInstallApImg4SupportsLocalSigning(a1);
+        v6 = AMAuthInstallApImg4SupportsLocalSigning(a1);
 LABEL_8:
-        v13 = v12;
+        v7 = v6;
         result = 0;
-        *a2 = v13;
+        *a2 = v7;
         return result;
       }
     }
 
     else
     {
-      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
     }
 
-    v12 = AMAuthInstallApImg3SupportsLocalSigning();
+    v6 = AMAuthInstallApImg3SupportsLocalSigning();
     goto LABEL_8;
   }
 
   return result;
 }
 
-uint64_t AMAuthInstallApSupportsGlobalSigning(uint64_t a1, BOOL *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApSupportsGlobalSigning(uint64_t a1, BOOL *a2)
 {
   result = 1;
   if (a1 && a2)
   {
-    v11 = *(a1 + 16);
-    if (v11)
+    v5 = *(a1 + 16);
+    if (v5)
     {
-      if (*(v11 + 112))
+      if (*(v5 + 112))
       {
-        v12 = AMAuthInstallApImg4SupportsGlobalSigning(a1);
+        v6 = AMAuthInstallApImg4SupportsGlobalSigning(a1);
         result = 0;
-        *a2 = v12;
+        *a2 = v6;
         return result;
       }
     }
 
     else
     {
-      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
     }
 
     return 13;
@@ -9060,447 +8988,440 @@ uint64_t AMAuthInstallApSetParameters(uint64_t a1, CFDictionaryRef theDict)
       v8 = CFGetTypeID(Value);
       if (v8 == CFNumberGetTypeID() && !CFNumberGetValue(v7, kCFNumberSInt64Type, *(a1 + 16)))
       {
-        v140 = v7;
-        v139 = "failed to convert ECID %@";
+        v117 = v7;
+        v116 = "failed to convert ECID %@";
         goto LABEL_128;
       }
     }
 
-    v14 = CFDictionaryGetValue(theDict, @"ApChipID");
-    if (v14)
+    v9 = CFDictionaryGetValue(theDict, @"ApChipID");
+    if (v9)
     {
-      v15 = v14;
-      v16 = CFGetTypeID(v14);
-      if (v16 == CFNumberGetTypeID() && !CFNumberGetValue(v15, kCFNumberSInt32Type, (*(a1 + 16) + 8)))
+      v10 = v9;
+      v11 = CFGetTypeID(v9);
+      if (v11 == CFNumberGetTypeID() && !CFNumberGetValue(v10, kCFNumberSInt32Type, (*(a1 + 16) + 8)))
       {
-        v140 = v15;
-        v139 = "failed to convert chip ID %@";
+        v117 = v10;
+        v116 = "failed to convert chip ID %@";
         goto LABEL_128;
       }
     }
 
-    v17 = CFDictionaryGetValue(theDict, @"ApBoardID");
-    if (v17)
+    v12 = CFDictionaryGetValue(theDict, @"ApBoardID");
+    if (v12)
     {
-      v18 = v17;
-      v19 = CFGetTypeID(v17);
-      if (v19 == CFNumberGetTypeID() && !CFNumberGetValue(v18, kCFNumberSInt32Type, (*(a1 + 16) + 12)))
+      v13 = v12;
+      v14 = CFGetTypeID(v12);
+      if (v14 == CFNumberGetTypeID() && !CFNumberGetValue(v13, kCFNumberSInt32Type, (*(a1 + 16) + 12)))
       {
-        v140 = v18;
-        v139 = "failed to convert board ID %@";
+        v117 = v13;
+        v116 = "failed to convert board ID %@";
         goto LABEL_128;
       }
     }
 
-    v20 = CFDictionaryGetValue(theDict, @"ApSikaFuse");
-    if (v20)
+    v15 = CFDictionaryGetValue(theDict, @"ApSikaFuse");
+    if (v15)
     {
-      v21 = v20;
-      v22 = CFGetTypeID(v20);
-      if (v22 == CFNumberGetTypeID())
+      v16 = v15;
+      v17 = CFGetTypeID(v15);
+      if (v17 == CFNumberGetTypeID())
       {
-        v23 = *(*(a1 + 16) + 176);
         AMSupportSafeRelease();
-        *(*(a1 + 16) + 176) = CFRetain(v21);
+        *(*(a1 + 16) + 176) = CFRetain(v16);
       }
     }
 
-    v24 = CFDictionaryGetValue(theDict, @"UIDMode");
+    v18 = CFDictionaryGetValue(theDict, @"UIDMode");
+    if (v18)
+    {
+      v19 = v18;
+      v20 = CFGetTypeID(v18);
+      if (v20 == CFBooleanGetTypeID())
+      {
+        AMSupportSafeRelease();
+        *(*(a1 + 16) + 184) = CFRetain(v19);
+      }
+    }
+
+    v21 = CFDictionaryGetValue(theDict, @"RequiresUIDMode");
+    if (v21)
+    {
+      v22 = v21;
+      v23 = CFGetTypeID(v21);
+      if (v23 == CFBooleanGetTypeID())
+      {
+        AMSupportSafeRelease();
+        *(*(a1 + 16) + 192) = CFRetain(v22);
+      }
+    }
+
+    v24 = CFDictionaryGetValue(theDict, @"Ap,EphemeralDataMode");
     if (v24)
     {
       v25 = v24;
       v26 = CFGetTypeID(v24);
       if (v26 == CFBooleanGetTypeID())
       {
-        v27 = *(*(a1 + 16) + 184);
         AMSupportSafeRelease();
-        *(*(a1 + 16) + 184) = CFRetain(v25);
+        *(*(a1 + 16) + 200) = CFRetain(v25);
       }
     }
 
-    v28 = CFDictionaryGetValue(theDict, @"RequiresUIDMode");
-    if (v28)
+    v27 = CFDictionaryGetValue(theDict, @"Ap,DisablePlatformOnlyCode");
+    if (v27)
     {
-      v29 = v28;
-      v30 = CFGetTypeID(v28);
-      if (v30 == CFBooleanGetTypeID())
+      v28 = v27;
+      v29 = CFGetTypeID(v27);
+      if (v29 == CFBooleanGetTypeID())
       {
-        v31 = *(*(a1 + 16) + 192);
         AMSupportSafeRelease();
-        *(*(a1 + 16) + 192) = CFRetain(v29);
+        *(*(a1 + 16) + 208) = CFRetain(v28);
       }
     }
 
-    v32 = CFDictionaryGetValue(theDict, @"Ap,EphemeralDataMode");
-    if (v32)
+    v30 = CFDictionaryGetValue(theDict, @"ApSecurityDomain");
+    if (v30)
     {
-      v33 = v32;
-      v34 = CFGetTypeID(v32);
-      if (v34 == CFBooleanGetTypeID())
+      v31 = v30;
+      v32 = CFGetTypeID(v30);
+      if (v32 == CFNumberGetTypeID() && !CFNumberGetValue(v31, kCFNumberSInt32Type, (*(a1 + 16) + 16)))
       {
-        v35 = *(*(a1 + 16) + 200);
-        AMSupportSafeRelease();
-        *(*(a1 + 16) + 200) = CFRetain(v33);
-      }
-    }
-
-    v36 = CFDictionaryGetValue(theDict, @"Ap,DisablePlatformOnlyCode");
-    if (v36)
-    {
-      v37 = v36;
-      v38 = CFGetTypeID(v36);
-      if (v38 == CFBooleanGetTypeID())
-      {
-        v39 = *(*(a1 + 16) + 208);
-        AMSupportSafeRelease();
-        *(*(a1 + 16) + 208) = CFRetain(v37);
-      }
-    }
-
-    v40 = CFDictionaryGetValue(theDict, @"ApSecurityDomain");
-    if (v40)
-    {
-      v41 = v40;
-      v42 = CFGetTypeID(v40);
-      if (v42 == CFNumberGetTypeID() && !CFNumberGetValue(v41, kCFNumberSInt32Type, (*(a1 + 16) + 16)))
-      {
-        v140 = v41;
-        v139 = "failed to convert security domain %@";
+        v117 = v31;
+        v116 = "failed to convert security domain %@";
         goto LABEL_128;
       }
     }
 
-    v43 = CFDictionaryGetValue(theDict, @"CertificateEpoch");
-    if (v43)
+    v33 = CFDictionaryGetValue(theDict, @"CertificateEpoch");
+    if (v33)
     {
-      v44 = v43;
-      v45 = CFGetTypeID(v43);
-      if (v45 == CFNumberGetTypeID())
+      v34 = v33;
+      v35 = CFGetTypeID(v33);
+      if (v35 == CFNumberGetTypeID())
       {
-        CFRetain(v44);
-        v46 = *(*(a1 + 16) + 64);
+        CFRetain(v34);
         AMSupportSafeRelease();
-        *(*(a1 + 16) + 64) = v44;
+        *(*(a1 + 16) + 64) = v34;
       }
     }
 
-    v47 = CFDictionaryGetValue(theDict, @"SerialString");
-    if (v47)
+    v36 = CFDictionaryGetValue(theDict, @"SerialString");
+    if (v36)
     {
-      v48 = v47;
-      v49 = CFGetTypeID(v47);
-      if (v49 == CFStringGetTypeID() && !*(*(a1 + 16) + 72))
+      v37 = v36;
+      v38 = CFGetTypeID(v36);
+      if (v38 == CFStringGetTypeID() && !*(*(a1 + 16) + 72))
       {
-        CFRetain(v48);
-        v50 = *(*(a1 + 16) + 72);
+        CFRetain(v37);
         AMSupportSafeRelease();
-        *(*(a1 + 16) + 72) = v48;
+        *(*(a1 + 16) + 72) = v37;
       }
     }
 
-    v51 = CFDictionaryGetValue(theDict, @"ApProductionMode");
-    if (v51)
+    v39 = CFDictionaryGetValue(theDict, @"ApProductionMode");
+    if (v39)
     {
-      v52 = v51;
-      v53 = CFGetTypeID(v51);
-      if (v53 == CFBooleanGetTypeID())
+      v40 = v39;
+      v41 = CFGetTypeID(v39);
+      if (v41 == CFBooleanGetTypeID())
       {
-        *(*(a1 + 16) + 20) = CFBooleanGetValue(v52);
+        *(*(a1 + 16) + 20) = CFBooleanGetValue(v40);
       }
     }
 
-    v54 = CFDictionaryGetValue(theDict, @"ApSupportsImg4");
-    if (v54)
+    v42 = CFDictionaryGetValue(theDict, @"ApSupportsImg4");
+    if (v42)
     {
-      v55 = v54;
-      v56 = CFGetTypeID(v54);
-      if (v56 == CFBooleanGetTypeID())
+      v43 = v42;
+      v44 = CFGetTypeID(v42);
+      if (v44 == CFBooleanGetTypeID())
       {
-        *(*(a1 + 16) + 112) = CFBooleanGetValue(v55);
+        *(*(a1 + 16) + 112) = CFBooleanGetValue(v43);
       }
     }
 
-    v57 = CFDictionaryGetValue(theDict, @"ApImg4DigestType");
-    if (v57 && (v58 = v57, v59 = CFGetTypeID(v57), v59 == CFStringGetTypeID()))
+    v45 = CFDictionaryGetValue(theDict, @"ApImg4DigestType");
+    if (v45 && (v46 = v45, v47 = CFGetTypeID(v45), v47 == CFStringGetTypeID()))
     {
-      if (CFStringCompare(v58, @"sha1", 1uLL) == kCFCompareEqualTo)
+      if (CFStringCompare(v46, @"sha1", 1uLL) == kCFCompareEqualTo)
       {
         *(*(a1 + 16) + 128) = 1;
 LABEL_54:
-        v67 = CFDictionaryGetValue(theDict, @"ApNonce");
-        if (v67)
+        v50 = CFDictionaryGetValue(theDict, @"ApNonce");
+        if (v50)
         {
-          v68 = v67;
-          v69 = CFGetTypeID(v67);
-          if (v69 == CFDataGetTypeID())
+          v51 = v50;
+          v52 = CFGetTypeID(v50);
+          if (v52 == CFDataGetTypeID())
           {
-            *(*(a1 + 16) + 24) = CFRetain(v68);
+            *(*(a1 + 16) + 24) = CFRetain(v51);
           }
         }
 
-        v70 = CFDictionaryGetValue(theDict, @"SepNonce");
-        if (v70)
+        v53 = CFDictionaryGetValue(theDict, @"SepNonce");
+        if (v53)
         {
-          v71 = CFGetTypeID(v70);
-          if (v71 == CFDataGetTypeID())
+          v54 = CFGetTypeID(v53);
+          if (v54 == CFDataGetTypeID())
           {
-            v72 = OUTLINED_FUNCTION_3_0();
-            v74 = AMAuthInstallApImg4SetSepNonce(v72, v73);
-            if (v74)
+            v55 = OUTLINED_FUNCTION_3_0();
+            v57 = AMAuthInstallApImg4SetSepNonce(v55, v56);
+            if (v57)
             {
-              return v74;
+              return v57;
             }
           }
         }
 
-        v75 = CFDictionaryGetValue(theDict, @"ApNonceSlotID");
-        if (v75)
+        v58 = CFDictionaryGetValue(theDict, @"ApNonceSlotID");
+        if (v58)
         {
-          v76 = CFGetTypeID(v75);
-          if (v76 == CFNumberGetTypeID())
+          v59 = CFGetTypeID(v58);
+          if (v59 == CFNumberGetTypeID())
           {
-            v137 = OUTLINED_FUNCTION_3_0();
-            AMAuthInstallApImg4SetApNonceSlotID(v137, v138);
+            v114 = OUTLINED_FUNCTION_3_0();
+            AMAuthInstallApImg4SetApNonceSlotID(v114, v115);
           }
         }
 
-        v77 = CFDictionaryGetValue(theDict, @"SepNonceSlotID");
-        if (v77)
+        v60 = CFDictionaryGetValue(theDict, @"SepNonceSlotID");
+        if (v60)
         {
-          v78 = CFGetTypeID(v77);
-          if (v78 == CFNumberGetTypeID())
+          v61 = CFGetTypeID(v60);
+          if (v61 == CFNumberGetTypeID())
           {
-            v79 = OUTLINED_FUNCTION_3_0();
-            AMAuthInstallApImg4SetSepNonceSlotID(v79, v80);
+            v62 = OUTLINED_FUNCTION_3_0();
+            AMAuthInstallApImg4SetSepNonceSlotID(v62, v63);
           }
         }
 
-        v81 = CFDictionaryGetValue(theDict, @"Ap,SoftwareNonceForUpdateFreshness");
-        if (v81)
+        v64 = CFDictionaryGetValue(theDict, @"Ap,SoftwareNonceForUpdateFreshness");
+        if (v64)
         {
-          v82 = v81;
-          v83 = CFGetTypeID(v81);
-          if (v83 == CFDataGetTypeID())
+          v65 = v64;
+          v66 = CFGetTypeID(v64);
+          if (v66 == CFDataGetTypeID())
           {
-            *(*(a1 + 16) + 40) = CFRetain(v82);
+            *(*(a1 + 16) + 40) = CFRetain(v65);
           }
         }
 
-        v84 = CFDictionaryGetValue(theDict, @"ApSecurityMode");
-        if (v84)
+        v67 = CFDictionaryGetValue(theDict, @"ApSecurityMode");
+        if (v67)
         {
-          v85 = v84;
-          v86 = CFGetTypeID(v84);
-          if (v86 == CFBooleanGetTypeID())
+          v68 = v67;
+          v69 = CFGetTypeID(v67);
+          if (v69 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 88) = CFBooleanGetValue(v85);
+            *(*(a1 + 16) + 88) = CFBooleanGetValue(v68);
           }
         }
 
-        v87 = CFDictionaryGetValue(theDict, @"ApInRomDFU");
-        if (v87)
+        v70 = CFDictionaryGetValue(theDict, @"ApInRomDFU");
+        if (v70)
         {
-          v88 = v87;
-          v89 = CFGetTypeID(v87);
-          if (v89 == CFBooleanGetTypeID())
+          v71 = v70;
+          v72 = CFGetTypeID(v70);
+          if (v72 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 96) = CFBooleanGetValue(v88);
+            *(*(a1 + 16) + 96) = CFBooleanGetValue(v71);
           }
         }
 
-        v90 = CFDictionaryGetValue(theDict, @"ApEffectiveSecurityMode");
-        if (v90)
+        v73 = CFDictionaryGetValue(theDict, @"ApEffectiveSecurityMode");
+        if (v73)
         {
-          v91 = v90;
-          v92 = CFGetTypeID(v90);
-          if (v92 == CFBooleanGetTypeID())
+          v74 = v73;
+          v75 = CFGetTypeID(v73);
+          if (v75 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 98) = CFBooleanGetValue(v91);
+            *(*(a1 + 16) + 98) = CFBooleanGetValue(v74);
           }
         }
 
-        v93 = CFDictionaryGetValue(theDict, @"ApEffectiveProductionMode");
-        if (v93)
+        v76 = CFDictionaryGetValue(theDict, @"ApEffectiveProductionMode");
+        if (v76)
         {
-          v94 = v93;
-          v95 = CFGetTypeID(v93);
-          if (v95 == CFBooleanGetTypeID())
+          v77 = v76;
+          v78 = CFGetTypeID(v76);
+          if (v78 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 97) = CFBooleanGetValue(v94);
+            *(*(a1 + 16) + 97) = CFBooleanGetValue(v77);
           }
         }
 
-        v96 = CFDictionaryGetValue(theDict, @"DemotionPolicy");
-        if (v96 && (v97 = v96, v98 = CFGetTypeID(v96), v98 == CFStringGetTypeID()))
+        v79 = CFDictionaryGetValue(theDict, @"DemotionPolicy");
+        if (v79 && (v80 = v79, v81 = CFGetTypeID(v79), v81 == CFStringGetTypeID()))
         {
-          v99 = CFRetain(v97);
+          v82 = CFRetain(v80);
         }
 
         else
         {
-          v99 = &stru_2A1EE9D10;
+          v82 = &stru_2A1EE9D10;
         }
 
-        *(*(a1 + 16) + 104) = v99;
-        v100 = CFDictionaryGetValue(theDict, @"HardwareModel");
-        if (v100)
+        *(*(a1 + 16) + 104) = v82;
+        v83 = CFDictionaryGetValue(theDict, @"HardwareModel");
+        if (v83)
         {
-          v101 = v100;
-          v102 = CFGetTypeID(v100);
-          if (v102 == CFStringGetTypeID())
+          v84 = v83;
+          v85 = CFGetTypeID(v83);
+          if (v85 == CFStringGetTypeID())
           {
-            *(*(a1 + 16) + 120) = CFRetain(v101);
+            *(*(a1 + 16) + 120) = CFRetain(v84);
           }
         }
 
-        v103 = CFDictionaryGetValue(theDict, @"ApX86");
-        if (v103)
+        v86 = CFDictionaryGetValue(theDict, @"ApX86");
+        if (v86)
         {
-          v104 = v103;
-          v105 = CFGetTypeID(v103);
-          if (v105 == CFBooleanGetTypeID())
+          v87 = v86;
+          v88 = CFGetTypeID(v86);
+          if (v88 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 132) = CFBooleanGetValue(v104);
+            *(*(a1 + 16) + 132) = CFBooleanGetValue(v87);
           }
         }
 
-        v106 = CFDictionaryGetValue(theDict, @"UseGlobalSigning");
-        if (v106)
+        v89 = CFDictionaryGetValue(theDict, @"UseGlobalSigning");
+        if (v89)
         {
-          v107 = v106;
-          v108 = CFGetTypeID(v106);
-          if (v108 == CFBooleanGetTypeID())
+          v90 = v89;
+          v91 = CFGetTypeID(v89);
+          if (v91 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 95) = CFBooleanGetValue(v107);
+            *(*(a1 + 16) + 95) = CFBooleanGetValue(v90);
           }
         }
 
-        v109 = CFDictionaryGetValue(theDict, @"Ap,InternalUseOnlySW");
-        if (v109)
+        v92 = CFDictionaryGetValue(theDict, @"Ap,InternalUseOnlySW");
+        if (v92)
         {
-          v110 = v109;
-          v111 = CFGetTypeID(v109);
-          if (v111 == CFBooleanGetTypeID())
+          v93 = v92;
+          v94 = CFGetTypeID(v92);
+          if (v94 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 91) = CFBooleanGetValue(v110);
+            *(*(a1 + 16) + 91) = CFBooleanGetValue(v93);
           }
         }
 
-        v112 = CFDictionaryGetValue(theDict, @"NoDefaultRequestRules");
-        if (v112)
+        v95 = CFDictionaryGetValue(theDict, @"NoDefaultRequestRules");
+        if (v95)
         {
-          v113 = v112;
-          v114 = CFGetTypeID(v112);
-          if (v114 == CFBooleanGetTypeID())
+          v96 = v95;
+          v97 = CFGetTypeID(v95);
+          if (v97 == CFBooleanGetTypeID())
           {
-            *(*(a1 + 16) + 168) = CFBooleanGetValue(v113);
+            *(*(a1 + 16) + 168) = CFBooleanGetValue(v96);
           }
         }
 
-        v115 = CFDictionaryGetValue(theDict, @"TagPrefix");
-        if (!v115 || (v116 = v115, v117 = CFGetTypeID(v115), v117 != CFStringGetTypeID()))
+        v98 = CFDictionaryGetValue(theDict, @"TagPrefix");
+        if (!v98 || (v99 = v98, v100 = CFGetTypeID(v98), v100 != CFStringGetTypeID()))
         {
 LABEL_106:
-          v122 = CFDictionaryGetValue(theDict, @"APTagOverrides");
-          if (v122)
+          v105 = CFDictionaryGetValue(theDict, @"APTagOverrides");
+          if (v105)
           {
-            v129 = v122;
-            v130 = CFGetTypeID(v122);
-            if (v130 == CFDictionaryGetTypeID())
+            v106 = v105;
+            v107 = CFGetTypeID(v105);
+            if (v107 == CFDictionaryGetTypeID())
             {
               SafeRelease(*(*(a1 + 16) + 152));
-              v131 = CFRetain(v129);
-              *(*(a1 + 16) + 152) = v131;
-              v132 = CFDictionaryGetValue(v131, @"@ApImg4Ticket");
-              if (v132)
+              v108 = CFRetain(v106);
+              *(*(a1 + 16) + 152) = v108;
+              v109 = CFDictionaryGetValue(v108, @"@ApImg4Ticket");
+              if (v109)
               {
-                v133 = v132;
-                if (CFStringGetLength(v132) >= 3 && CFStringGetCharacterAtIndex(v133, 0) == 64)
+                v110 = v109;
+                if (CFStringGetLength(v109) >= 3 && CFStringGetCharacterAtIndex(v110, 0) == 64)
                 {
                   SafeRelease(*(a1 + 88));
-                  v134 = CFGetAllocator(a1);
-                  v141.length = CFStringGetLength(v133) - 1;
-                  v141.location = 1;
-                  *(a1 + 88) = CFStringCreateWithSubstring(v134, v133, v141);
+                  v111 = CFGetAllocator(a1);
+                  v118.length = CFStringGetLength(v110) - 1;
+                  v118.location = 1;
+                  *(a1 + 88) = CFStringCreateWithSubstring(v111, v110, v118);
                 }
               }
             }
           }
 
-          v135 = *(a1 + 16);
-          if (!v135)
+          v112 = *(a1 + 16);
+          if (!v112)
           {
-            AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", v124, v125, v126, v127, v128, "AMAuthInstallApIsImg4");
+            AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
             return 0;
           }
 
-          if (!*(v135 + 112))
-          {
-            return 0;
-          }
-
-          v74 = AMAuthInstallApImg4SetParameters(a1, theDict, v123, v124, v125, v126, v127, v128);
-          if (!v74)
+          if (!*(v112 + 112))
           {
             return 0;
           }
 
-          return v74;
+          v57 = AMAuthInstallApImg4SetParameters(a1, theDict);
+          if (!v57)
+          {
+            return 0;
+          }
+
+          return v57;
         }
 
         SafeRelease(*(*(a1 + 16) + 160));
-        CFStringGetLength(v116);
-        MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, v116);
+        CFStringGetLength(v99);
+        MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x29EDB8ED8], 0, v99);
         *(*(a1 + 16) + 160) = MutableCopy;
         if (MutableCopy)
         {
-          if (CFStringHasSuffix(v116, @","))
+          if (CFStringHasSuffix(v99, @","))
           {
-            v119 = *(*(a1 + 16) + 160);
-            Length = CFStringGetLength(v119);
-            CFStringPad(v119, 0, Length - 1, 0);
+            v102 = *(*(a1 + 16) + 160);
+            Length = CFStringGetLength(v102);
+            CFStringPad(v102, 0, Length - 1, 0);
           }
 
           SafeRelease(*(a1 + 88));
-          v121 = CFGetAllocator(a1);
-          *(a1 + 88) = CFStringCreateWithFormat(v121, 0, @"%@,Ticket", *(*(a1 + 16) + 160));
+          v104 = CFGetAllocator(a1);
+          *(a1 + 88) = CFStringCreateWithFormat(v104, 0, @"%@,Ticket", *(*(a1 + 16) + 160));
           goto LABEL_106;
         }
 
-        v140 = v116;
-        v139 = "failed to convert TagPrefix %@";
+        v117 = v99;
+        v116 = "failed to convert TagPrefix %@";
 LABEL_128:
         v2 = 3;
-        AMAuthInstallLog(3, "AMAuthInstallApSetParameters", v139, v9, v10, v11, v12, v13, v140);
+        AMAuthInstallLog(3, "AMAuthInstallApSetParameters", v116, v117);
         return v2;
       }
 
-      if (CFStringCompare(v58, @"sha2-256", 1uLL))
+      if (CFStringCompare(v46, @"sha2-256", 1uLL))
       {
-        if (CFStringCompare(v58, @"sha2-384", 1uLL))
+        if (CFStringCompare(v46, @"sha2-384", 1uLL))
         {
-          AMAuthInstallLog(3, "AMAuthInstallApSetParameters", "unsupported digest type %@", v60, v61, v62, v63, v64, v58);
+          AMAuthInstallLog(3, "AMAuthInstallApSetParameters", "unsupported digest type %@", v46);
           goto LABEL_54;
         }
 
-        v65 = *(a1 + 16);
-        v66 = 384;
+        v48 = *(a1 + 16);
+        v49 = 384;
       }
 
       else
       {
-        v65 = *(a1 + 16);
-        v66 = 256;
+        v48 = *(a1 + 16);
+        v49 = 256;
       }
     }
 
     else
     {
-      v65 = *(a1 + 16);
-      v66 = 1;
+      v48 = *(a1 + 16);
+      v49 = 1;
     }
 
-    *(v65 + 128) = v66;
+    *(v48 + 128) = v49;
     goto LABEL_54;
   }
 
@@ -9549,131 +9470,120 @@ uint64_t AMAuthInstallApCopyParameters(const void **cf, CFTypeRef *a2)
     Mutable = CFDictionaryCreateMutable(v6, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     if (!Mutable)
     {
-      AMAuthInstallLog(3, "AMAuthInstallApCopyParameters", "failed to allocate parameters dict", v7, v8, v9, v10, v11, v60);
+      AMAuthInstallLog(3, "AMAuthInstallApCopyParameters", "failed to allocate parameters dict");
       v4 = 2;
       goto LABEL_30;
     }
 
-    v12 = CFGetAllocator(cf);
-    v13 = CFNumberCreate(v12, kCFNumberSInt64Type, cf[2]);
-    if (v13)
+    v7 = CFGetAllocator(cf);
+    v8 = CFNumberCreate(v7, kCFNumberSInt64Type, cf[2]);
+    if (v8)
     {
-      v19 = v13;
-      OUTLINED_FUNCTION_5_0(v13, @"ECID");
-      CFRelease(v19);
-      v20 = CFGetAllocator(cf);
-      v21 = CFNumberCreate(v20, kCFNumberSInt32Type, cf[2] + 8);
-      if (v21)
+      v9 = v8;
+      OUTLINED_FUNCTION_5_0(v8, @"ECID");
+      CFRelease(v9);
+      v10 = CFGetAllocator(cf);
+      v11 = CFNumberCreate(v10, kCFNumberSInt32Type, cf[2] + 8);
+      if (v11)
       {
-        v22 = v21;
-        OUTLINED_FUNCTION_5_0(v21, @"ApChipID");
-        CFRelease(v22);
-        v23 = CFGetAllocator(cf);
-        v24 = CFNumberCreate(v23, kCFNumberSInt32Type, cf[2] + 12);
-        if (v24)
+        v12 = v11;
+        OUTLINED_FUNCTION_5_0(v11, @"ApChipID");
+        CFRelease(v12);
+        v13 = CFGetAllocator(cf);
+        v14 = CFNumberCreate(v13, kCFNumberSInt32Type, cf[2] + 12);
+        if (v14)
         {
-          v25 = v24;
-          OUTLINED_FUNCTION_5_0(v24, @"ApBoardID");
-          CFRelease(v25);
-          v26 = CFGetAllocator(cf);
-          v27 = CFNumberCreate(v26, kCFNumberSInt32Type, cf[2] + 16);
-          if (v27)
+          v15 = v14;
+          OUTLINED_FUNCTION_5_0(v14, @"ApBoardID");
+          CFRelease(v15);
+          v16 = CFGetAllocator(cf);
+          v17 = CFNumberCreate(v16, kCFNumberSInt32Type, cf[2] + 16);
+          if (v17)
           {
-            v28 = v27;
-            OUTLINED_FUNCTION_5_0(v27, @"ApSecurityDomain");
-            CFRelease(v28);
-            v29 = cf[2];
-            v30 = v29[8];
-            if (v30)
+            v18 = v17;
+            OUTLINED_FUNCTION_5_0(v17, @"ApSecurityDomain");
+            CFRelease(v18);
+            v19 = cf[2];
+            v20 = v19[8];
+            if (v20)
             {
-              CFDictionarySetValue(Mutable, @"CertificateEpoch", v30);
-              v29 = cf[2];
+              CFDictionarySetValue(Mutable, @"CertificateEpoch", v20);
+              v19 = cf[2];
             }
 
-            v31 = v29[9];
-            if (v31)
+            v21 = v19[9];
+            if (v21)
             {
-              CFDictionarySetValue(Mutable, @"SerialString", v31);
-              v29 = cf[2];
+              CFDictionarySetValue(Mutable, @"SerialString", v21);
             }
 
-            v32 = *(v29 + 20);
-            v33 = *MEMORY[0x29EDB8F00];
-            v34 = *MEMORY[0x29EDB8EF8];
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApProductionMode", v35);
-            v36 = *(cf[2] + 112);
+            CFDictionarySetValue(Mutable, @"ApProductionMode", v22);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApSupportsImg4", v37);
-            v38 = cf[2];
-            v39 = v38[3];
-            if (v39)
+            CFDictionarySetValue(Mutable, @"ApSupportsImg4", v23);
+            v24 = cf[2];
+            v25 = v24[3];
+            if (v25)
             {
-              CFDictionarySetValue(Mutable, @"ApNonce", v39);
-              v38 = cf[2];
+              CFDictionarySetValue(Mutable, @"ApNonce", v25);
+              v24 = cf[2];
             }
 
-            v40 = v38[6];
-            if (v40)
+            v26 = v24[6];
+            if (v26)
             {
-              CFDictionarySetValue(Mutable, @"SepNonce", v40);
-              v38 = cf[2];
+              CFDictionarySetValue(Mutable, @"SepNonce", v26);
+              v24 = cf[2];
             }
 
-            v41 = v38[5];
-            if (v41)
+            v27 = v24[5];
+            if (v27)
             {
-              CFDictionarySetValue(Mutable, @"Ap,SoftwareNonceForUpdateFreshness", v41);
-              v38 = cf[2];
+              CFDictionarySetValue(Mutable, @"Ap,SoftwareNonceForUpdateFreshness", v27);
             }
 
-            v42 = *(v38 + 88);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApSecurityMode", v43);
-            v44 = *(cf[2] + 96);
+            CFDictionarySetValue(Mutable, @"ApSecurityMode", v28);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApInRomDFU", v45);
-            v46 = *(cf[2] + 98);
+            CFDictionarySetValue(Mutable, @"ApInRomDFU", v29);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApEffectiveSecurityMode", v47);
-            v48 = *(cf[2] + 97);
+            CFDictionarySetValue(Mutable, @"ApEffectiveSecurityMode", v30);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"ApEffectiveProductionMode", v49);
-            v50 = *(cf[2] + 91);
+            CFDictionarySetValue(Mutable, @"ApEffectiveProductionMode", v31);
             OUTLINED_FUNCTION_2_1();
-            CFDictionarySetValue(Mutable, @"Ap,InternalUseOnlySW", v51);
-            v53 = cf[2];
-            v54 = v53[25];
-            if (v54)
+            CFDictionarySetValue(Mutable, @"Ap,InternalUseOnlySW", v32);
+            v34 = cf[2];
+            v35 = v34[25];
+            if (v35)
             {
-              CFDictionarySetValue(Mutable, @"Ap,EphemeralDataMode", v54);
-              v53 = cf[2];
+              CFDictionarySetValue(Mutable, @"Ap,EphemeralDataMode", v35);
+              v34 = cf[2];
             }
 
-            v55 = v53[26];
-            if (v55)
+            v36 = v34[26];
+            if (v36)
             {
-              CFDictionarySetValue(Mutable, @"Ap,DisablePlatformOnlyCode", v55);
-              v53 = cf[2];
+              CFDictionarySetValue(Mutable, @"Ap,DisablePlatformOnlyCode", v36);
+              v34 = cf[2];
             }
 
-            if (*(v53 + 132))
+            if (*(v34 + 132))
             {
-              OUTLINED_FUNCTION_5_0(v52, @"ApX86");
-              v53 = cf[2];
+              OUTLINED_FUNCTION_5_0(v33, @"ApX86");
+              v34 = cf[2];
             }
 
-            v56 = v53[13];
-            if (v56)
+            v37 = v34[13];
+            if (v37)
             {
-              CFDictionarySetValue(Mutable, @"DemotionPolicy", v56);
-              v53 = cf[2];
+              CFDictionarySetValue(Mutable, @"DemotionPolicy", v37);
+              v34 = cf[2];
             }
 
-            v57 = v53[15];
-            if (v57)
+            v38 = v34[15];
+            if (v38)
             {
-              CFDictionarySetValue(Mutable, @"HardwareModel", v57);
+              CFDictionarySetValue(Mutable, @"HardwareModel", v38);
             }
 
             v4 = 0;
@@ -9681,28 +9591,28 @@ uint64_t AMAuthInstallApCopyParameters(const void **cf, CFTypeRef *a2)
             goto LABEL_30;
           }
 
-          v59 = "failed to convert securityDomain";
+          v40 = "failed to convert securityDomain";
         }
 
         else
         {
-          v59 = "failed to convert boardID";
+          v40 = "failed to convert boardID";
         }
       }
 
       else
       {
-        v59 = "failed to convert chipID";
+        v40 = "failed to convert chipID";
       }
     }
 
     else
     {
-      v59 = "failed to convert ecid";
+      v40 = "failed to convert ecid";
     }
 
     v4 = 3;
-    AMAuthInstallLog(3, "AMAuthInstallApCopyParameters", v59, v14, v15, v16, v17, v18, v60);
+    AMAuthInstallLog(3, "AMAuthInstallApCopyParameters", v40);
   }
 
 LABEL_30:
@@ -9740,7 +9650,7 @@ uint64_t AMAuthInstallApSetNonce(uint64_t a1, CFTypeRef cf)
       }
 
       v9 = CFDataGetLength(cf);
-      AMAuthInstallLog(3, "AMAuthInstallApSetNonce", "AMAuthInstallApSetNonce bad Nonce length: %d", v10, v11, v12, v13, v14, v9);
+      AMAuthInstallLog(3, "AMAuthInstallApSetNonce", "AMAuthInstallApSetNonce bad Nonce length: %d", v9);
     }
 
     return 1;
@@ -9767,15 +9677,15 @@ uint64_t AMAuthInstallApEnableRelaxedImageVerification(uint64_t a1, char a2)
   return result;
 }
 
-uint64_t AMAuthInstallApWriteSignatureStripped(uint64_t a1, const void *a2, const __CFURL *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApWriteSignatureStripped(uint64_t a1, const void *a2, const __CFURL *a3)
 {
   result = 1;
   if (a1 && a2 && a3)
   {
-    v12 = *(a1 + 16);
-    if (v12)
+    v7 = *(a1 + 16);
+    if (v7)
     {
-      if (*(v12 + 112))
+      if (*(v7 + 112))
       {
         return 0;
       }
@@ -9783,7 +9693,7 @@ uint64_t AMAuthInstallApWriteSignatureStripped(uint64_t a1, const void *a2, cons
 
     else
     {
-      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
     }
 
     result = AMAuthInstallApImg3WriteSignatureStrippedImage3(a2, a3);
@@ -9871,4 +9781,82 @@ LABEL_14:
   SafeFree(v3);
   SafeFree(v4);
   return v6;
+}
+
+CFIndex AMAuthInstallApCreateMeasurementsWithTag(void *cf, const __CFURL *a2, const __CFString *a3, uint64_t a4, uint64_t a5, int a6, CFTypeRef *a7)
+{
+  v23 = 0;
+  if (!cf)
+  {
+    Code = 1;
+    goto LABEL_16;
+  }
+
+  Code = 1;
+  if (a7)
+  {
+    if (a2)
+    {
+      v10 = cf[2];
+      if (v10)
+      {
+        v11 = a4;
+        if (a6 == 2)
+        {
+          v16 = CFGetAllocator(cf);
+          MeasurementsWithTag = AMAuthInstallApFtabCreateMeasurementsWithTag(v16, a2, a3, v11, a7);
+        }
+
+        else
+        {
+          if (a6 == 1)
+          {
+            err = 0;
+            v13 = CFGetAllocator(cf);
+            v14 = AMAuthInstallSupportCopyTagAndFileURL(v13, a2, 0, &v23);
+            if (v14)
+            {
+              Code = v14;
+            }
+
+            else
+            {
+              v15 = AMAuthInstallApMeasureBinary(v23, 0x100000, v11, &err);
+              *a7 = v15;
+              if (v15)
+              {
+                Code = 0;
+              }
+
+              else
+              {
+                Code = CFErrorGetCode(err);
+              }
+            }
+
+            goto LABEL_16;
+          }
+
+          v18 = a5;
+          v19 = *(v10 + 112);
+          v20 = CFGetAllocator(cf);
+          if (v19)
+          {
+            MeasurementsWithTag = AMAuthInstallApImg4CreateMeasurementsWithTag(v20, a2, a3, v11, a7);
+          }
+
+          else
+          {
+            MeasurementsWithTag = AMAuthInstallApImg3CreateMeasurementsFromURL(v20, a2, a7, v18);
+          }
+        }
+
+        Code = MeasurementsWithTag;
+      }
+    }
+  }
+
+LABEL_16:
+  AMSupportSafeRelease();
+  return Code;
 }

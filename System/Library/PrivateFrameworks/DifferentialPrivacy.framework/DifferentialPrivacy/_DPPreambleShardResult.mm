@@ -8,11 +8,10 @@
 
 - (NSArray)inputShares
 {
-  v2 = *(self + OBJC_IVAR____DPPreambleShardResult_inputShares);
 
-  v3 = sub_22628EB4C();
+  v2 = sub_22628EB4C();
 
-  return v3;
+  return v2;
 }
 
 - (_DPPreambleShardResult)initWithPublicShare:(id)share inputShares:(id)shares nonce:(id)nonce dimension:(int64_t)dimension cohortSigma:(double)sigma sigmaLocal:(double)local scalingFactor:(double)factor

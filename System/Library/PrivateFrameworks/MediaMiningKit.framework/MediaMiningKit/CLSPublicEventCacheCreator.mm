@@ -559,7 +559,7 @@ LABEL_30:
   return v13;
 }
 
-uint64_t __98__CLSPublicEventCacheCreator_createCacheForTimeLocationTuples_cachingOptions_progressBlock_error___block_invoke_101(uint64_t a1)
+void *__98__CLSPublicEventCacheCreator_createCacheForTimeLocationTuples_cachingOptions_progressBlock_error___block_invoke_101(uint64_t a1)
 {
   v27[3] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();

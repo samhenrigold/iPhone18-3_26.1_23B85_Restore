@@ -442,7 +442,7 @@ uint64_t __63__PUWallpaperPosterEditViewModel_observable_didChange_context___blo
       PXSizeRoundToPixel();
       v11 = v10;
       v13 = v12;
-      [v8 extent];
+      objc_msgSend_extent(v8);
       v16 = v11 / v15;
       if (v11 / v15 < v13 / v14)
       {
@@ -451,11 +451,11 @@ uint64_t __63__PUWallpaperPosterEditViewModel_observable_didChange_context___blo
 
       v17 = [v8 px_imageByApplyingScale:v16];
 
-      [v17 extent];
+      objc_msgSend_extent(v17);
       PXRectWithAspectRatioFittingRect();
       v18 = [v17 imageByCroppingToRect:?];
 
-      [v18 extent];
+      objc_msgSend_extent(v18);
       v20 = v19;
       v22 = v21;
       v24 = v23;
@@ -527,7 +527,7 @@ uint64_t __63__PUWallpaperPosterEditViewModel_observable_didChange_context___blo
       [sourceOverCompositingFilter setBackgroundImage:outputImage7];
       outputImage8 = [sourceOverCompositingFilter outputImage];
       context = [MEMORY[0x1E695F620] context];
-      [outputImage8 extent];
+      objc_msgSend_extent(outputImage8);
       v52 = [context createCGImage:outputImage8 fromRect:?];
       if (v52)
       {
@@ -1120,7 +1120,7 @@ void __63__PUWallpaperPosterEditViewModel__updateOffscreenStylesPreheat__block_i
   v13[0] = 0;
   v13[1] = 0;
   v14 = 0;
-  [(PUWallpaperPosterEditViewModel *)self scrollPosition];
+  objc_msgSend_scrollPosition(self, a2);
   if (0.0 <= 0.5)
   {
     v3 = v13;
@@ -1178,7 +1178,7 @@ LABEL_9:
   v30[5] = 0;
   v30[6] = 0;
   v31 = 0;
-  [(PUWallpaperPosterEditViewModel *)self scrollPosition];
+  objc_msgSend_scrollPosition(self, a2);
   v3 = 0;
   v4 = 0.0;
   if ((PXFloatEqualToFloatWithTolerance() & 1) == 0)
@@ -1302,7 +1302,7 @@ void __68__PUWallpaperPosterEditViewModel__updateVisibleLayerStackViewModels__bl
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  [(PUWallpaperPosterEditViewModel *)self scrollPosition];
+  objc_msgSend_scrollPosition(self);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __67__PUWallpaperPosterEditViewModel__updateActiveLayerStackViewModels__block_invoke;
@@ -1392,7 +1392,7 @@ uint64_t __67__PUWallpaperPosterEditViewModel__updateActiveLayerStackViewModels_
 
 - (id)posterEditConfigurationRepresentation
 {
-  [(PUWallpaperPosterEditViewModel *)self scrollPosition];
+  objc_msgSend_scrollPosition(self, a2);
   v3 = *&v26[16 * (v27 > 0.5)];
   layerStackViewModelsByStyleKind = [(PUWallpaperPosterEditViewModel *)self layerStackViewModelsByStyleKind];
   v5 = [layerStackViewModelsByStyleKind objectForKeyedSubscript:v3];
@@ -3053,13 +3053,13 @@ void __60__PUWallpaperPosterEditViewModel_setIsUserPanningOrZooming___block_invo
   }
 }
 
-void __54__PUWallpaperPosterEditViewModel_shutdownWithTimeout___block_invoke()
+void __54__PUWallpaperPosterEditViewModel_shutdownWithTimeout___block_invoke(uint64_t a1)
 {
-  v0 = PLWallpaperGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = PLWallpaperGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B36F3000, v0, OS_LOG_TYPE_DEBUG, "Inflight renders complete after canceling", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1B36F3000, v1, OS_LOG_TYPE_DEBUG, "Inflight renders complete after canceling", v2, 2u);
   }
 }
 

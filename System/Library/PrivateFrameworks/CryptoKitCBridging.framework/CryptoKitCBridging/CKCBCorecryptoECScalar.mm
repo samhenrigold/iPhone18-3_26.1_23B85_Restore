@@ -19,29 +19,27 @@
 - (CKCBCorecryptoECScalar)initWithx963Representation:(id)representation group:(ccec_cp *)group
 {
   selfCopy = self;
-  v15[1] = *MEMORY[0x277D85DE8];
-  v6 = (32 * group->var0) | 0x10;
+  v13[1] = *MEMORY[0x277D85DE8];
   MEMORY[0x28223BE20](self, a2, representation);
-  v8 = (v15 - v7);
-  v10 = v9;
-  [v10 length];
-  [v10 bytes];
+  v7 = (v13 - v6);
+  v9 = v8;
+  [v9 length];
+  [v9 bytes];
 
   if (ccec_x963_import_priv())
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v12 = malloc_type_malloc([(CKCBCorecryptoECScalar *)selfCopy scalarAllocationSizeForGroup:group], 0xC3B76D40uLL);
-    memcpy(v12, &v8[3 * **v8 + 2], [(CKCBCorecryptoECScalar *)selfCopy scalarAllocationSizeForGroup:group]);
-    selfCopy = [(CKCBCorecryptoECScalar *)selfCopy initWithScalarPointer:v12 forGroup:group];
-    v11 = selfCopy;
+    v11 = malloc_type_malloc([(CKCBCorecryptoECScalar *)selfCopy scalarAllocationSizeForGroup:group], 0xC3B76D40uLL);
+    memcpy(v11, &v7[3 * **v7 + 2], [(CKCBCorecryptoECScalar *)selfCopy scalarAllocationSizeForGroup:group]);
+    selfCopy = [(CKCBCorecryptoECScalar *)selfCopy initWithScalarPointer:v11 forGroup:group];
+    v10 = selfCopy;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v10;
 }
 
 - (CKCBCorecryptoECScalar)initWithScalarPointer:(unint64_t *)pointer forGroup:(ccec_cp *)group
@@ -60,65 +58,58 @@
 
 - (id)x963Representation
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = (32 * self->_group->var0) | 0x10;
-  v4 = (MEMORY[0x28223BE20])(self, a2);
-  v6 = (&v18 - v5);
-  serializedBigEndianScalar = [v4 serializedBigEndianScalar];
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = [(MEMORY[0x28223BE20])(self a2)];
   [(CKCBCorecryptoECScalar *)self group];
-  [serializedBigEndianScalar length];
-  [serializedBigEndianScalar bytes];
-  HIDWORD(v18) = ccec_raw_import_priv_only();
-  if (HIDWORD(v18))
+  [v3 length];
+  [v3 bytes];
+  v11 = ccec_raw_import_priv_only();
+  if (v11)
   {
-    v8 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v9 = [[CKCBCorecryptoECPoint alloc] initWithGeneratorForCP:self->_group];
-    v10 = [(CKCBCorecryptoECPoint *)v9 multiply:self corecryptoError:&v18 + 4];
-    v11 = v10;
-    if (HIDWORD(v18))
+    v5 = [[CKCBCorecryptoECPoint alloc] initWithGeneratorForCP:self->_group];
+    v6 = [(CKCBCorecryptoECPoint *)v5 multiply:self corecryptoError:&v11];
+    v7 = v6;
+    if (v11)
     {
-      v8 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v12 = [v10 serializedPublicKey:0];
-      group = self->_group;
-      [v12 length];
-      [v12 bytes];
-      HIDWORD(v18) = ccec_raw_import_pub();
-      if (HIDWORD(v18))
+      v8 = [v6 serializedPublicKey:0];
+      [v8 length];
+      [v8 bytes];
+      v11 = ccec_raw_import_pub();
+      if (v11)
       {
-        v8 = 0;
+        v4 = 0;
       }
 
       else
       {
-        v14 = *v6;
-        v15 = [MEMORY[0x277CBEB28] dataWithLength:3 * ((cczp_bitlen() + 7) >> 3) + 1];
-        [v15 mutableBytes];
-        HIDWORD(v18) = ccec_x963_export();
-        if (HIDWORD(v18))
+        v9 = [MEMORY[0x277CBEB28] dataWithLength:3 * ((cczp_bitlen() + 7) >> 3) + 1];
+        [v9 mutableBytes];
+        v11 = ccec_x963_export();
+        if (v11)
         {
-          v8 = 0;
+          v4 = 0;
         }
 
         else
         {
-          v8 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:objc_msgSend(v15 length:{"bytes"), objc_msgSend(v15, "length")}];
-          memset_s([v15 mutableBytes], objc_msgSend(v15, "length"), 0, objc_msgSend(v15, "length"));
+          v4 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:objc_msgSend(v9 length:{"bytes"), objc_msgSend(v9, "length")}];
+          memset_s([v9 mutableBytes], objc_msgSend(v9, "length"), 0, objc_msgSend(v9, "length"));
         }
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v4;
 }
 
 - (CKCBCorecryptoECScalar)initWithRandomScalarInGroup:(ccec_cp *)group
@@ -152,12 +143,11 @@ LABEL_8:
 
 - (CKCBCorecryptoECScalar)initWithData:(id)data inGroup:(ccec_cp *)group reduction:(BOOL)reduction corecryptoError:(int *)error
 {
-  reductionCopy = reduction;
   dataCopy = data;
   cczp_n();
-  v11 = [(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:group];
-  v12 = malloc_type_malloc(2 * v11, 0x33CF7ACuLL);
-  v13 = malloc_type_malloc(v11, 0x99A30F8EuLL);
+  v10 = [(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:group];
+  v11 = malloc_type_malloc(2 * v10, 0x33CF7ACuLL);
+  v12 = malloc_type_malloc(v10, 0x99A30F8EuLL);
   [dataCopy length];
   [dataCopy bytes];
 
@@ -165,100 +155,88 @@ LABEL_8:
   *error = uint;
   if (uint)
   {
-    free(v12);
+    free(v11);
   }
 
   else
   {
-    if (!reductionCopy)
-    {
-      v15 = &group[1] + 40 * group->var0;
-    }
-
     *error = cczp_mod();
-    free(v12);
+    free(v11);
     if (!*error)
     {
-      self = [(CKCBCorecryptoECScalar *)self initWithScalarPointer:v13 forGroup:group];
+      self = [(CKCBCorecryptoECScalar *)self initWithScalarPointer:v12 forGroup:group];
       selfCopy = self;
-      goto LABEL_7;
+      goto LABEL_5;
     }
   }
 
-  free(v13);
+  free(v12);
   selfCopy = 0;
-LABEL_7:
+LABEL_5:
 
   return selfCopy;
 }
 
 - (id)serializedBigEndianScalar
 {
-  v3 = [MEMORY[0x277CBEB28] dataWithLength:{-[CKCBCorecryptoECScalar scalarAllocationSizeForGroup:](self, "scalarAllocationSizeForGroup:", -[CKCBCorecryptoECScalar group](self, "group"))}];
-  group = self->_group;
-  corecryptoScalar = self->_corecryptoScalar;
-  var0 = group->var0;
-  [v3 length];
-  [v3 mutableBytes];
+  v2 = [MEMORY[0x277CBEB28] dataWithLength:{-[CKCBCorecryptoECScalar scalarAllocationSizeForGroup:](self, "scalarAllocationSizeForGroup:", -[CKCBCorecryptoECScalar group](self, "group"))}];
+  [v2 length];
+  [v2 mutableBytes];
   if ((ccn_write_uint_padded_ct() & 0x80000000) != 0)
   {
-    v7 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v7 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:objc_msgSend(v3 length:{"bytes"), objc_msgSend(v3, "length")}];
+    v3 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:objc_msgSend(v2 length:{"bytes"), objc_msgSend(v2, "length")}];
   }
 
-  memset_s([v3 mutableBytes], objc_msgSend(v3, "length"), 0, objc_msgSend(v3, "length"));
+  memset_s([v2 mutableBytes], objc_msgSend(v2, "length"), 0, objc_msgSend(v2, "length"));
 
-  return v7;
+  return v3;
 }
 
 - (id)mapToCurve_SSWU_RandomOracle
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v3 = (24 * self->_group->var0 + 31) & 0xFFFFFFFFFFFFFFF0;
-  v4 = (MEMORY[0x28223BE20])(self, a2);
-  v6 = v11 - v5;
-  v7 = *(v4 + 8);
-  if ((v7 == MEMORY[0x24C1BBEF0]() || v7 == MEMORY[0x24C1BBF00]() || v7 == ccec_cp_521()) && ([(CKCBCorecryptoECScalar *)self corecryptoScalar], !map_to_curve_sswu()))
+  v9[1] = *MEMORY[0x277D85DE8];
+  v3 = (MEMORY[0x28223BE20])(self, a2);
+  v5 = v9 - v4;
+  v6 = *(v3 + 8);
+  if ((v6 == MEMORY[0x24C1BBEF0]() || v6 == MEMORY[0x24C1BBF00]() || v6 == ccec_cp_521()) && ([(CKCBCorecryptoECScalar *)self corecryptoScalar], !map_to_curve_sswu()))
   {
-    v8 = [[CKCBCorecryptoECPoint alloc] initWithPublicKey:v6];
+    v7 = [[CKCBCorecryptoECPoint alloc] initWithPublicKey:v5];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 - (id)add:(id)add corecryptoError:(int *)error
 {
-  v6 = self->_group + 40 * self->_group->var0;
   addCopy = add;
-  v8 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0xE16E4793uLL);
+  v7 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0xE16E4793uLL);
   [(CKCBCorecryptoECScalar *)self corecryptoScalar];
   [addCopy corecryptoScalar];
 
-  v9 = cczp_add();
-  *error = v9;
-  if (v9)
+  v8 = cczp_add();
+  *error = v8;
+  if (v8)
   {
-    free(v8);
-    v10 = 0;
+    free(v7);
+    v9 = 0;
   }
 
   else
   {
-    v10 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v8 forGroup:self->_group];
+    v9 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v7 forGroup:self->_group];
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)sub:(id)sub corecryptoError:(int *)error
@@ -270,11 +248,39 @@ LABEL_7:
     goto LABEL_4;
   }
 
-  var0 = self->_group->var0;
-  v9 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0x8DB8D423uLL);
+  v8 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0x8DB8D423uLL);
   [(CKCBCorecryptoECScalar *)self corecryptoScalar];
   [subCopy corecryptoScalar];
-  v10 = cczp_sub();
+  v9 = cczp_sub();
+  *error = v9;
+  if (v9)
+  {
+    free(v8);
+LABEL_4:
+    v10 = 0;
+    goto LABEL_5;
+  }
+
+  v10 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v8 forGroup:self->_group];
+LABEL_5:
+
+  return v10;
+}
+
+- (id)multiply:(id)multiply corecryptoError:(int *)error
+{
+  multiplyCopy = multiply;
+  group = [(CKCBCorecryptoECScalar *)self group];
+  if (group != [multiplyCopy group])
+  {
+    goto LABEL_4;
+  }
+
+  v8 = cczp_n();
+  v9 = malloc_type_malloc(8 * v8, 0x3FBFD56EuLL);
+  [(CKCBCorecryptoECScalar *)self corecryptoScalar];
+  [multiplyCopy corecryptoScalar];
+  v10 = cczp_mul();
   *error = v10;
   if (v10)
   {
@@ -290,45 +296,12 @@ LABEL_5:
   return v11;
 }
 
-- (id)multiply:(id)multiply corecryptoError:(int *)error
-{
-  multiplyCopy = multiply;
-  group = [(CKCBCorecryptoECScalar *)self group];
-  if (group != [multiplyCopy group])
-  {
-    goto LABEL_4;
-  }
-
-  v8 = self->_group + 40 * self->_group->var0;
-  v9 = cczp_n();
-  v10 = malloc_type_malloc(8 * v9, 0x3FBFD56EuLL);
-  [(CKCBCorecryptoECScalar *)self corecryptoScalar];
-  [multiplyCopy corecryptoScalar];
-  v11 = cczp_mul();
-  *error = v11;
-  if (v11)
-  {
-    free(v10);
-LABEL_4:
-    v12 = 0;
-    goto LABEL_5;
-  }
-
-  v12 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v10 forGroup:self->_group];
-LABEL_5:
-
-  return v12;
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   group = [(CKCBCorecryptoECScalar *)self group];
   if (group == [equalCopy group])
   {
-    group = self->_group;
-    corecryptoScalar = self->_corecryptoScalar;
-    var0 = group->var0;
     [equalCopy corecryptoScalar];
     v6 = ccn_cmp() == 0;
   }
@@ -343,21 +316,20 @@ LABEL_5:
 
 - (id)inverseModOrder
 {
-  var0 = self->_group->var0;
-  v4 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0xA3772DBEuLL);
+  v3 = malloc_type_malloc([(CKCBCorecryptoECScalar *)self scalarAllocationSizeForGroup:[(CKCBCorecryptoECScalar *)self group]], 0xA3772DBEuLL);
   [(CKCBCorecryptoECScalar *)self corecryptoScalar];
   if (cczp_inv())
   {
-    free(v4);
-    v5 = 0;
+    free(v3);
+    v4 = 0;
   }
 
   else
   {
-    v5 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v4 forGroup:self->_group];
+    v4 = [[CKCBCorecryptoECScalar alloc] initWithScalarPointer:v3 forGroup:self->_group];
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)dealloc

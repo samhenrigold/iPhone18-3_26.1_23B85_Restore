@@ -65,7 +65,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKDateSelectorCollectionViewCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -78,24 +78,31 @@
   [(PKDateSelectorCollectionViewCell *)&v4 layoutSubviews];
   contentView = [(PKDateSelectorCollectionViewCell *)self contentView];
   [contentView bounds];
-  [(PKDateSelectorCollectionViewCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout
 {
+  height = bounds.size.height;
   width = bounds.size.width;
+  y = bounds.origin.y;
+  x = bounds.origin.x;
   [(UIDatePicker *)self->_datePicker sizeThatFits:bounds.size.width, 1.79769313e308];
-  v8 = v7;
+  v17 = v11.n128_f64[0];
   if (!layout)
   {
-    PKSizeAlignedInRect();
+    v12.n128_f64[0] = x;
+    v13.n128_f64[0] = y;
+    v14.n128_f64[0] = width;
+    v15.n128_f64[0] = height;
+    PKSizeAlignedInRect(*&self->_contentAlignment, v10, v11, v12, v13, v14, v15, v16);
     [(UIDatePicker *)self->_datePicker setFrame:?];
   }
 
-  v9 = width;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v18 = width;
+  v19 = v17;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 

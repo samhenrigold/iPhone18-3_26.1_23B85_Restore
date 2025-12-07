@@ -377,4 +377,25 @@ LABEL_38:
   return v48;
 }
 
+- (void)_performAnnotationWithEvents:(void *)a1 handler:.cold.2(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "PhotoMemory: Base Events, %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)_performAnnotationWithEvents:(void *)a1 handler:.cold.3(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "PhotoMemory: Bundles count, %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)getBaseEvents:(void *)a1 .cold.2(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "PhotoMemory: Found %lu base events", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 @end

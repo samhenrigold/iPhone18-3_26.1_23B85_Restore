@@ -56,13 +56,13 @@
 
 - (VGChargingNetwork)initWithChargingNetworkStorage:(id)storage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   if ([storageCopy hasIdentifier])
   {
-    v13.receiver = self;
-    v13.super_class = VGChargingNetwork;
-    v5 = [(VGChargingNetwork *)&v13 init];
+    v12.receiver = self;
+    v12.super_class = VGChargingNetwork;
+    v5 = [(VGChargingNetwork *)&v12 init];
     if (v5)
     {
       name = [storageCopy name];
@@ -83,48 +83,47 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = storageCopy;
+      v14 = storageCopy;
       _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_ERROR, "Failed to initialize a network with storage: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (VGChargingNetwork)initWithBrandInfoMapping:(id)mapping
 {
   selfCopy = self;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   countryCode = [currentLocale countryCode];
   lowercaseString = [countryCode lowercaseString];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v32 = mappingCopy;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = mappingCopy;
   scopedBrandInfos = [mappingCopy scopedBrandInfos];
-  v8 = [scopedBrandInfos countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [scopedBrandInfos countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v35;
+    v11 = *v34;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v35 != v11)
+      if (*v34 != v11)
       {
         objc_enumerationMutation(scopedBrandInfos);
       }
 
-      v13 = *(*(&v34 + 1) + 8 * v12);
+      v13 = *(*(&v33 + 1) + 8 * v12);
       isoCountryCode = [v13 isoCountryCode];
       v15 = [lowercaseString isEqualToString:isoCountryCode];
 
@@ -145,7 +144,7 @@ LABEL_3:
 
       if (v9 == ++v12)
       {
-        v9 = [scopedBrandInfos countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v9 = [scopedBrandInfos countByEnumeratingWithState:&v33 objects:v39 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -158,7 +157,7 @@ LABEL_3:
     v19 = v13;
 
     v21 = selfCopy;
-    v20 = v32;
+    v20 = v31;
     if (v19)
     {
       goto LABEL_19;
@@ -171,14 +170,14 @@ LABEL_3:
 LABEL_15:
 
     v21 = selfCopy;
-    v20 = v32;
+    v20 = v31;
   }
 
   v22 = VGGetChargingNetworksLog();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v39 = v20;
+    v38 = v20;
     _os_log_impl(&dword_270EC1000, v22, OS_LOG_TYPE_INFO, "Didn't find local scoped brand info in mapping: %@, falling back to global", buf, 0xCu);
   }
 
@@ -191,9 +190,9 @@ LABEL_19:
 
   if (v25)
   {
-    v33.receiver = v21;
-    v33.super_class = VGChargingNetwork;
-    v26 = [(VGChargingNetwork *)&v33 init];
+    v32.receiver = v21;
+    v32.super_class = VGChargingNetwork;
+    v26 = [(VGChargingNetwork *)&v32 init];
     if (v26)
     {
       v26->_globalBrandID = [v20 globalBrandId];
@@ -210,14 +209,13 @@ LABEL_19:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v39 = v20;
+      v38 = v20;
       _os_log_impl(&dword_270EC1000, v28, OS_LOG_TYPE_ERROR, "Failed to initialize a network with mapping: %{public}@", buf, 0xCu);
     }
 
     v27 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

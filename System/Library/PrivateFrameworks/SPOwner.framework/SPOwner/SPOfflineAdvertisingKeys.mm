@@ -36,20 +36,19 @@
 
 - (SPOfflineAdvertisingKeys)initWithCoder:(id)coder
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   self->_rotationInterval = [coderCopy decodeIntegerForKey:@"interval"];
   v5 = MEMORY[0x277CBEB98];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"keys"];
 
   keys = self->_keys;
   self->_keys = v8;
 
-  v10 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -66,16 +65,14 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = *MEMORY[0x277CBDF30];
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = *MEMORY[0x277CBDF30];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SPOfflineAdvertisingKeys rotationInterval](self, "rotationInterval")}];
-  v9[0] = v3;
-  v8[1] = *MEMORY[0x277CBDF28];
+  v8[0] = v3;
+  v7[1] = *MEMORY[0x277CBDF28];
   keys = [(SPOfflineAdvertisingKeys *)self keys];
-  v9[1] = keys;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = keys;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

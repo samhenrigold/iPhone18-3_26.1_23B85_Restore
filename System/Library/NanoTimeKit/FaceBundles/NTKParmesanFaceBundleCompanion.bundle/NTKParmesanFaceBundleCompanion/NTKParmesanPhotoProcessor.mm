@@ -13,7 +13,7 @@
 
 + (void)processAssetsWithIdentifiers:(NSArray *)identifiers dstDir:(NSString *)dir completion:(id)completion
 {
-  v9 = sub_23BF4A264(&qword_27E1E0510);
+  v9 = sub_23BF4A264(&qword_27E1E0510, &qword_23C001D30);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(completion);
@@ -41,7 +41,7 @@
 
 + (void)fullSizeMaskDataForAssetIdentifier:(NSString *)identifier completion:(id)completion
 {
-  v7 = sub_23BF4A264(&qword_27E1E0510);
+  v7 = sub_23BF4A264(&qword_27E1E0510, &qword_23C001D30);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
@@ -93,7 +93,7 @@
 
 + (void)fetchGalleryShufflesWithCompletion:(id)completion
 {
-  v5 = sub_23BF4A264(&qword_27E1E0510);
+  v5 = sub_23BF4A264(&qword_27E1E0510, &qword_23C001D30);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);
@@ -117,7 +117,7 @@
 
 + (void)fetchAssetsInGalleryShuffle:(_TtC30NTKParmesanFaceBundleCompanion12NTKShuffleID *)shuffle completion:(id)completion
 {
-  v7 = sub_23BF4A264(&qword_27E1E0510);
+  v7 = sub_23BF4A264(&qword_27E1E0510, &qword_23C001D30);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
@@ -145,13 +145,11 @@
 {
   v7 = _Block_copy(block);
   v8 = _Block_copy(completionBlock);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v7;
-  v10 = swift_allocObject();
-  *(v10 + 16) = v8;
+  *(swift_allocObject() + 16) = v7;
+  *(swift_allocObject() + 16) = v8;
   swift_getObjCClassMetadata();
   dailyCopy = daily;
-  sub_23BFCC67C(dailyCopy, sub_23BFD391C, v9, sub_23BFD3924, v10);
+  sub_23BFCC67C();
 }
 
 - (NTKParmesanPhotoProcessor)init

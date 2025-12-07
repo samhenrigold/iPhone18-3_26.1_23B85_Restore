@@ -194,7 +194,7 @@ LABEL_8:
   descriptionCopy = description;
   currentDevice = 1008;
   packageView = self->_packageView;
-  v19 = descriptionCopy;
+  v47 = descriptionCopy;
   if (!packageView)
   {
     v9 = objc_alloc_init(CCUICAPackageView);
@@ -205,106 +205,117 @@ LABEL_8:
     view = [(CCUICustomContentModuleBackgroundViewController *)self view];
     [view addSubview:self->_packageView];
 
-    descriptionCopy = v19;
+    descriptionCopy = v47;
     packageView = self->_packageView;
   }
 
-  [(CCUICAPackageView *)packageView setPackageDescription:descriptionCopy];
-  v12 = self->_packageView;
-  v21.origin.x = CCUIReferenceScreenBounds();
-  Width = CGRectGetWidth(v21);
-  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], self = objc_claimAutoreleasedReturnValue(), -[CCUICustomContentModuleBackgroundViewController userInterfaceIdiom](self, "userInterfaceIdiom") != 1) || SBFEffectiveHomeButtonType() == 2)
+  v12 = [(CCUICAPackageView *)packageView setPackageDescription:descriptionCopy];
+  v13 = self->_packageView;
+  v49.origin.x = CCUIReferenceScreenBounds(v12, v14);
+  Width = CGRectGetWidth(v49);
+  if (Width < 1024.0 || ([MEMORY[0x1E69DC938] currentDevice], self = objc_claimAutoreleasedReturnValue(), v15 = -[CCUICustomContentModuleBackgroundViewController userInterfaceIdiom](self, "userInterfaceIdiom"), v15 != 1) || (v15 = SBFEffectiveHomeButtonType(), v15 == 2))
   {
-    v22.origin.x = CCUIReferenceScreenBounds();
-    v14 = CGRectGetWidth(v22);
-    if (v14 >= 1024.0)
+    v50.origin.x = CCUIReferenceScreenBounds(v15, v16);
+    v20 = CGRectGetWidth(v50);
+    if (v20 >= 1024.0)
     {
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-      if ([currentDevice userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+      if (userInterfaceIdiom == 1)
       {
-        [(CCUICAPackageView *)v12 setScale:1.25];
+        userInterfaceIdiom = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom == 2)
+        {
+          [(CCUICAPackageView *)v13 setScale:1.25];
 LABEL_41:
 
 LABEL_42:
-        if (Width < 1024.0)
-        {
-          goto LABEL_44;
-        }
+          if (Width < 1024.0)
+          {
+            goto LABEL_44;
+          }
 
-        goto LABEL_43;
+          goto LABEL_43;
+        }
       }
     }
 
-    v23.origin.x = CCUIReferenceScreenBounds();
-    v15 = CGRectGetWidth(v23);
-    if (v15 >= 834.0)
+    v51.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v19);
+    v23 = CGRectGetWidth(v51);
+    if (v23 >= 834.0)
     {
       currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([currentDevice2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+      userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+      if (userInterfaceIdiom2 == 1)
       {
-        [(CCUICAPackageView *)v12 setScale:1.25];
+        userInterfaceIdiom2 = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom2 == 2)
+        {
+          [(CCUICAPackageView *)v13 setScale:1.25];
 LABEL_39:
 
 LABEL_40:
-        if (v14 < 1024.0)
-        {
-          goto LABEL_42;
-        }
+          if (v20 < 1024.0)
+          {
+            goto LABEL_42;
+          }
 
-        goto LABEL_41;
+          goto LABEL_41;
+        }
       }
     }
 
-    v24.origin.x = CCUIReferenceScreenBounds();
-    v16 = CGRectGetWidth(v24);
-    if (v16 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+    v52.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom2, v22);
+    v24 = CGRectGetWidth(v52);
+    if (v24 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
     {
-      [(CCUICAPackageView *)v12 setScale:1.25];
+      [(CCUICAPackageView *)v13 setScale:1.25];
     }
 
     else
     {
       currentDevice3 = [MEMORY[0x1E69DC938] currentDevice];
-      v18 = 1.25;
-      if ([currentDevice3 userInterfaceIdiom] != 1)
+      userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
+      v28 = 1.25;
+      if (userInterfaceIdiom3 != 1)
       {
-        v25.origin.x = CCUIReferenceScreenBounds();
-        v18 = 1.5;
-        if (CGRectGetWidth(v25) < 430.0)
+        v53.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom3, v27);
+        v28 = 1.5;
+        if (CGRectGetWidth(v53) < 430.0)
         {
-          v26.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v26) < 428.0)
+          v54.origin.x = CCUIReferenceScreenBounds(v29, v30);
+          if (CGRectGetWidth(v54) < 428.0)
           {
-            v27.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v27) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+            v55.origin.x = CCUIReferenceScreenBounds(v31, v32);
+            if (CGRectGetWidth(v55) < 420.0 || (v33 = SBFEffectiveHomeButtonType(), v33 != 2))
             {
-              v28.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v28) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+              v56.origin.x = CCUIReferenceScreenBounds(v33, v34);
+              if (CGRectGetWidth(v56) < 414.0 || (v35 = SBFEffectiveHomeButtonType(), v35 != 2))
               {
-                v29.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v29) < 414.0)
+                v57.origin.x = CCUIReferenceScreenBounds(v35, v36);
+                if (CGRectGetWidth(v57) < 414.0)
                 {
-                  v30.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v30) < 393.0)
+                  v58.origin.x = CCUIReferenceScreenBounds(v37, v38);
+                  if (CGRectGetWidth(v58) < 393.0)
                   {
-                    v31.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v31) < 390.0)
+                    v59.origin.x = CCUIReferenceScreenBounds(v39, v40);
+                    if (CGRectGetWidth(v59) < 390.0)
                     {
-                      v32.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v32) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                      v60.origin.x = CCUIReferenceScreenBounds(v41, v42);
+                      if (CGRectGetWidth(v60) < 375.0 || (v43 = SBFEffectiveHomeButtonType(), v43 != 2))
                       {
-                        v33.origin.x = CCUIReferenceScreenBounds();
-                        if (CGRectGetWidth(v33) < 375.0)
+                        v61.origin.x = CCUIReferenceScreenBounds(v43, v44);
+                        if (CGRectGetWidth(v61) < 375.0)
                         {
-                          v34.origin.x = CCUIReferenceScreenBounds();
-                          if (CGRectGetWidth(v34) < 320.0)
+                          v62.origin.x = CCUIReferenceScreenBounds(v45, v46);
+                          if (CGRectGetWidth(v62) < 320.0)
                           {
-                            v18 = 1.25;
+                            v28 = 1.25;
                           }
 
                           else
                           {
-                            v18 = 1.5;
+                            v28 = 1.5;
                           }
                         }
                       }
@@ -317,12 +328,12 @@ LABEL_40:
         }
       }
 
-      [(CCUICAPackageView *)v12 setScale:v18];
+      [(CCUICAPackageView *)v13 setScale:v28];
 
-      if (v16 < 834.0)
+      if (v24 < 834.0)
       {
 LABEL_38:
-        if (v15 < 834.0)
+        if (v23 < 834.0)
         {
           goto LABEL_40;
         }
@@ -334,7 +345,7 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  [(CCUICAPackageView *)v12 setScale:1.25];
+  [(CCUICAPackageView *)v13 setScale:1.25];
 LABEL_43:
 
 LABEL_44:
@@ -713,89 +724,91 @@ LABEL_11:
 
   image = [(UIImageView *)self->_headerImageView image];
   [image size];
-  if (([image isSymbolImage] & 1) == 0)
+  isSymbolImage = [image isSymbolImage];
+  if ((isSymbolImage & 1) == 0)
   {
-    v39.origin.x = CCUIReferenceScreenBounds();
-    Width = CGRectGetWidth(v39);
+    v72.origin.x = CCUIReferenceScreenBounds(isSymbolImage, v6);
+    Width = CGRectGetWidth(v72);
     currentDevice4 = 0x1E69DC000;
-    if (Width >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+    if (Width >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v67 = objc_claimAutoreleasedReturnValue(), userInterfaceIdiom = objc_msgSend(v67, "userInterfaceIdiom"), userInterfaceIdiom == 1) && (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom != 2))
     {
-      v36 = 0;
-      v9 = 0;
-      v10 = 0;
-      v8 = 0;
+      v69 = 0;
+      v13 = 0;
+      v14 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v40.origin.x = CCUIReferenceScreenBounds();
-      v7 = CGRectGetWidth(v40);
-      v8 = v7 >= 1024.0;
-      if (v7 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() == 2)
+      v73.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+      v11 = CGRectGetWidth(v73);
+      v12 = v11 >= 1024.0;
+      if (v11 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v65 = objc_claimAutoreleasedReturnValue(), userInterfaceIdiom = objc_msgSend(v65, "userInterfaceIdiom"), userInterfaceIdiom == 1) && (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom == 2))
       {
-        v36 = 0;
-        v9 = 0;
-        v10 = 0;
-        v8 = 1;
+        v69 = 0;
+        v13 = 0;
+        v14 = 0;
+        v12 = 1;
       }
 
       else
       {
-        v41.origin.x = CCUIReferenceScreenBounds();
-        v11 = CGRectGetWidth(v41);
-        v10 = v11 >= 834.0;
-        if (v11 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() == 2)
+        v74.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+        v15 = CGRectGetWidth(v74);
+        v14 = v15 >= 834.0;
+        if (v15 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v63 = objc_claimAutoreleasedReturnValue(), userInterfaceIdiom = objc_msgSend(v63, "userInterfaceIdiom"), userInterfaceIdiom == 1) && (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom == 2))
         {
-          v36 = 0;
-          v9 = 0;
-          v10 = 1;
+          v69 = 0;
+          v13 = 0;
+          v14 = 1;
         }
 
         else
         {
-          v42.origin.x = CCUIReferenceScreenBounds();
-          v12 = CGRectGetWidth(v42);
-          v9 = v12 >= 834.0;
-          if (v12 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+          v75.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+          v16 = CGRectGetWidth(v75);
+          v13 = v16 >= 834.0;
+          if (v16 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v61 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v61, "userInterfaceIdiom") == 1) && (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom != 2))
           {
-            v36 = 0;
-            v9 = 1;
+            v69 = 0;
+            v13 = 1;
           }
 
           else
           {
             currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-            if ([currentDevice userInterfaceIdiom] != 1)
+            userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+            if (userInterfaceIdiom != 1)
             {
-              v43.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v43) < 430.0)
+              v76.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+              if (CGRectGetWidth(v76) < 430.0)
               {
-                v44.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v44) < 428.0)
+                v77.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                if (CGRectGetWidth(v77) < 428.0)
                 {
-                  v45.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v45) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+                  v78.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                  if (CGRectGetWidth(v78) < 420.0 || (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom != 2))
                   {
-                    v46.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v46) < 414.0 || SBFEffectiveHomeButtonType() != 2)
+                    v79.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                    if (CGRectGetWidth(v79) < 414.0 || (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom != 2))
                     {
-                      v47.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v47) < 414.0)
+                      v80.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                      if (CGRectGetWidth(v80) < 414.0)
                       {
-                        v48.origin.x = CCUIReferenceScreenBounds();
-                        if (CGRectGetWidth(v48) < 393.0)
+                        v81.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                        if (CGRectGetWidth(v81) < 393.0)
                         {
-                          v49.origin.x = CCUIReferenceScreenBounds();
-                          if (CGRectGetWidth(v49) < 390.0)
+                          v82.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                          if (CGRectGetWidth(v82) < 390.0)
                           {
-                            v50.origin.x = CCUIReferenceScreenBounds();
-                            if (CGRectGetWidth(v50) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                            v83.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                            if (CGRectGetWidth(v83) < 375.0 || (userInterfaceIdiom = SBFEffectiveHomeButtonType(), userInterfaceIdiom != 2))
                             {
-                              v51.origin.x = CCUIReferenceScreenBounds();
-                              if (CGRectGetWidth(v51) < 375.0)
+                              v84.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                              if (CGRectGetWidth(v84) < 375.0)
                               {
-                                v52.origin.x = CCUIReferenceScreenBounds();
-                                CGRectGetWidth(v52);
+                                v85.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+                                CGRectGetWidth(v85);
                               }
                             }
                           }
@@ -807,100 +820,113 @@ LABEL_11:
               }
             }
 
-            v36 = 1;
+            v69 = 1;
           }
         }
       }
     }
 
-    v53.origin.x = CCUIReferenceScreenBounds();
-    v13 = CGRectGetWidth(v53);
-    if (v13 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+    v86.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom, v8);
+    v19 = CGRectGetWidth(v86);
+    if (v19 >= 1024.0 && ([MEMORY[0x1E69DC938] currentDevice], v20 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v20, "userInterfaceIdiom"), v66 = v20, v17 == 1) && (v17 = SBFEffectiveHomeButtonType(), v17 != 2))
     {
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v15 = 0;
+      v26 = 0;
+      v27 = 0;
+      v28 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v54.origin.x = CCUIReferenceScreenBounds();
-      v14 = CGRectGetWidth(v54);
-      v15 = v14 >= 1024.0;
-      if (v14 >= 1024.0)
+      v87.origin.x = CCUIReferenceScreenBounds(v17, v18);
+      v23 = CGRectGetWidth(v87);
+      v24 = v23 >= 1024.0;
+      if (v23 >= 1024.0)
       {
         currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
-        if ([currentDevice2 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+        userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+        v64 = currentDevice2;
+        if (userInterfaceIdiom2 == 1)
         {
-          v16 = 0;
-          v17 = 0;
-          v18 = 0;
-          v15 = 1;
-          goto LABEL_68;
+          userInterfaceIdiom2 = SBFEffectiveHomeButtonType();
+          if (userInterfaceIdiom2 == 2)
+          {
+            v26 = 0;
+            v27 = 0;
+            v28 = 0;
+            v24 = 1;
+            goto LABEL_68;
+          }
         }
       }
 
-      v55.origin.x = CCUIReferenceScreenBounds();
-      v19 = CGRectGetWidth(v55);
-      v18 = v19 >= 834.0;
-      if (v19 >= 834.0)
+      v88.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom2, v22);
+      v31 = CGRectGetWidth(v88);
+      v28 = v31 >= 834.0;
+      if (v31 >= 834.0)
       {
         currentDevice3 = [MEMORY[0x1E69DC938] currentDevice];
-        if ([currentDevice3 userInterfaceIdiom] == 1 && SBFEffectiveHomeButtonType() == 2)
+        userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
+        v62 = currentDevice3;
+        if (userInterfaceIdiom3 == 1)
         {
-          v16 = 0;
-          v17 = 0;
-          v18 = 1;
-          goto LABEL_68;
+          userInterfaceIdiom3 = SBFEffectiveHomeButtonType();
+          if (userInterfaceIdiom3 == 2)
+          {
+            v26 = 0;
+            v27 = 0;
+            v28 = 1;
+            goto LABEL_68;
+          }
         }
       }
 
-      v56.origin.x = CCUIReferenceScreenBounds();
-      v20 = CGRectGetWidth(v56);
-      v17 = v20 >= 834.0;
-      if (v20 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
+      v89.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom3, v30);
+      v33 = CGRectGetWidth(v89);
+      v27 = v33 >= 834.0;
+      if (v33 >= 834.0 && ([MEMORY[0x1E69DC938] currentDevice], v60 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v60, "userInterfaceIdiom") == 1) && SBFEffectiveHomeButtonType() != 2)
       {
-        v16 = 0;
-        v17 = 1;
+        v26 = 0;
+        v27 = 1;
       }
 
       else
       {
         currentDevice4 = [MEMORY[0x1E69DC938] currentDevice];
-        if ([currentDevice4 userInterfaceIdiom] != 1)
+        userInterfaceIdiom4 = [currentDevice4 userInterfaceIdiom];
+        if (userInterfaceIdiom4 != 1)
         {
-          v57.origin.x = CCUIReferenceScreenBounds();
-          if (CGRectGetWidth(v57) < 430.0)
+          v90.origin.x = CCUIReferenceScreenBounds(userInterfaceIdiom4, v35);
+          if (CGRectGetWidth(v90) < 430.0)
           {
-            v58.origin.x = CCUIReferenceScreenBounds();
-            if (CGRectGetWidth(v58) < 428.0)
+            v91.origin.x = CCUIReferenceScreenBounds(v36, v37);
+            if (CGRectGetWidth(v91) < 428.0)
             {
-              v59.origin.x = CCUIReferenceScreenBounds();
-              if (CGRectGetWidth(v59) < 420.0 || SBFEffectiveHomeButtonType() != 2)
+              v92.origin.x = CCUIReferenceScreenBounds(v38, v39);
+              if (CGRectGetWidth(v92) < 420.0 || (v40 = SBFEffectiveHomeButtonType(), v40 != 2))
               {
-                v60.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v60) >= 414.0 && SBFEffectiveHomeButtonType() == 2 || (v61.origin.x = CCUIReferenceScreenBounds(), CGRectGetWidth(v61) >= 414.0))
+                v93.origin.x = CCUIReferenceScreenBounds(v40, v41);
+                if (CGRectGetWidth(v93) >= 414.0 && (v42 = SBFEffectiveHomeButtonType(), v42 == 2) || (v94.origin.x = CCUIReferenceScreenBounds(v42, v43), CGRectGetWidth(v94) >= 414.0))
                 {
 LABEL_64:
-                  v16 = 1;
+                  v26 = 1;
                   goto LABEL_68;
                 }
 
-                v62.origin.x = CCUIReferenceScreenBounds();
-                if (CGRectGetWidth(v62) < 393.0)
+                v95.origin.x = CCUIReferenceScreenBounds(v44, v45);
+                if (CGRectGetWidth(v95) < 393.0)
                 {
-                  v63.origin.x = CCUIReferenceScreenBounds();
-                  if (CGRectGetWidth(v63) < 390.0)
+                  v96.origin.x = CCUIReferenceScreenBounds(v46, v47);
+                  if (CGRectGetWidth(v96) < 390.0)
                   {
-                    v64.origin.x = CCUIReferenceScreenBounds();
-                    if (CGRectGetWidth(v64) < 375.0 || SBFEffectiveHomeButtonType() != 2)
+                    v97.origin.x = CCUIReferenceScreenBounds(v48, v49);
+                    if (CGRectGetWidth(v97) < 375.0 || (v50 = SBFEffectiveHomeButtonType(), v50 != 2))
                     {
-                      v65.origin.x = CCUIReferenceScreenBounds();
-                      if (CGRectGetWidth(v65) < 375.0)
+                      v98.origin.x = CCUIReferenceScreenBounds(v50, v51);
+                      if (CGRectGetWidth(v98) < 375.0)
                       {
-                        v66.origin.x = CCUIReferenceScreenBounds();
-                        CGRectGetWidth(v66);
+                        v99.origin.x = CCUIReferenceScreenBounds(v52, v53);
+                        CGRectGetWidth(v99);
                       }
                     }
 
@@ -912,25 +938,25 @@ LABEL_64:
           }
         }
 
-        v16 = 1;
+        v26 = 1;
       }
     }
 
 LABEL_68:
     UISizeRoundToScale();
-    if (v16)
+    if (v26)
     {
 
-      if (!v17)
+      if (!v27)
       {
         goto LABEL_70;
       }
     }
 
-    else if (!v17)
+    else if (!v27)
     {
 LABEL_70:
-      if (v18)
+      if (v28)
       {
         goto LABEL_71;
       }
@@ -938,30 +964,30 @@ LABEL_70:
       goto LABEL_75;
     }
 
-    if (v18)
+    if (v28)
     {
 LABEL_71:
 
-      if (!v15)
+      if (!v24)
       {
 LABEL_77:
-        if (v13 >= 1024.0)
+        if (v19 >= 1024.0)
         {
         }
 
-        if (v36)
+        if (v69)
         {
 
-          if (!v9)
+          if (!v13)
           {
             goto LABEL_81;
           }
         }
 
-        else if (!v9)
+        else if (!v13)
         {
 LABEL_81:
-          if (v10)
+          if (v14)
           {
             goto LABEL_82;
           }
@@ -969,11 +995,11 @@ LABEL_81:
           goto LABEL_86;
         }
 
-        if (v10)
+        if (v14)
         {
 LABEL_82:
 
-          if (!v8)
+          if (!v12)
           {
 LABEL_88:
             if (Width >= 1024.0)
@@ -989,7 +1015,7 @@ LABEL_87:
         }
 
 LABEL_86:
-        if (!v8)
+        if (!v12)
         {
           goto LABEL_88;
         }
@@ -1003,7 +1029,7 @@ LABEL_76:
     }
 
 LABEL_75:
-    if (!v15)
+    if (!v24)
     {
       goto LABEL_77;
     }
@@ -1020,11 +1046,11 @@ LABEL_90:
   [(CCUICAPackageView *)packageView bounds];
   UIRectCenteredAboutPointScale();
   [(CCUICAPackageView *)packageView setFrame:?];
-  v23 = self->_headerImageView;
-  if (v23)
+  v56 = self->_headerImageView;
+  if (v56)
   {
-    [(UIImageView *)v23 frame];
-    Height = CGRectGetHeight(v67);
+    [(UIImageView *)v56 frame];
+    Height = CGRectGetHeight(v100);
   }
 
   else
@@ -1032,17 +1058,17 @@ LABEL_90:
     Height = 0.0;
   }
 
-  v25 = self->_packageView;
-  if (v25)
+  v58 = self->_packageView;
+  if (v58)
   {
-    [(CCUICAPackageView *)v25 frame];
-    Height = CGRectGetHeight(v68);
+    [(CCUICAPackageView *)v58 frame];
+    Height = CGRectGetHeight(v101);
   }
 
   if (Height > 0.0)
   {
     [(UILabel *)self->_headerTitleLabel frame];
-    CGRectGetHeight(v69);
+    CGRectGetHeight(v102);
   }
 
   headerTitleLabel = self->_headerTitleLabel;

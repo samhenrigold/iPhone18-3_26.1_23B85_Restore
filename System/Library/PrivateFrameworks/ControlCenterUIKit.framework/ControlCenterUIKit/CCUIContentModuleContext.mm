@@ -182,7 +182,7 @@ uint64_t __71__CCUIContentModuleContext_requestAuthenticationWithCompletionHandl
   dispatch_async(queue, block);
 }
 
-void __54__CCUIContentModuleContext_openURL_completionHandler___block_invoke(uint64_t *a1)
+void __54__CCUIContentModuleContext_openURL_completionHandler___block_invoke(void *a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6963608] defaultWorkspace];

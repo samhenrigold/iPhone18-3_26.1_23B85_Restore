@@ -23,6 +23,7 @@
 - (void)expandCollapseTapped:(id)tapped;
 - (void)prepareForReuse;
 - (void)setCollapsed:(BOOL)collapsed;
+- (void)setCollapsed:(BOOL)collapsed animated:(BOOL)animated;
 - (void)setCollapsible:(BOOL)collapsible;
 - (void)setTableViewItem:(id)item;
 - (void)setUpForHeaderItem:(id)item;
@@ -535,6 +536,26 @@ LABEL_17:
   {
     self->_collapsed = collapsed;
     [(ICSETableViewCell *)self updateCollapsedDisclosure];
+  }
+}
+
+- (void)setCollapsed:(BOOL)collapsed animated:(BOOL)animated
+{
+  if (animated)
+  {
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_10000453C;
+    v5[3] = &unk_1000F2268;
+    v5[4] = self;
+    collapsedCopy = collapsed;
+    [UIView animateWithDuration:0 delay:v5 usingSpringWithDamping:0 initialSpringVelocity:0.3 options:0.0 animations:1.0 completion:0.0];
+  }
+
+  else
+  {
+
+    [(ICSETableViewCell *)self setCollapsed:collapsed];
   }
 }
 

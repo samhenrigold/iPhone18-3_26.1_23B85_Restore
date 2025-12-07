@@ -21,16 +21,16 @@
 - (id)outputImage
 {
   v3 = +[PIHeadroomSettings sharedInstance];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v5 = v4;
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v7 = v6;
   p_extendedRect = &self->_extendedRect;
   v9 = self->_extendedRect.size.height - v5;
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v11 = v10;
   v13 = v12;
-  [(CIImage *)self->_matteImage extent];
+  objc_msgSend_extent(self->_matteImage);
   memset(&v94, 0, sizeof(v94));
   CGAffineTransformMakeScale(&v94, v11 / v14, v11 / v14);
   matteImage = self->_matteImage;
@@ -68,7 +68,7 @@
   CGAffineTransformMakeScale(&v93, 1.0, 3.0);
   v26 = [v25 imageByApplyingTransform:&v93];
 
-  [v26 extent];
+  objc_msgSend_extent(v26);
   CGAffineTransformMakeTranslation(&v93, 0.0, v5 - v27 + -1.0);
   v28 = [v26 imageByApplyingTransform:&v93];
 
@@ -148,7 +148,7 @@
     v30 = v89;
     v85 = smoothLinearGradientFilter;
     outputImage3 = [smoothLinearGradientFilter outputImage];
-    [v89 extent];
+    objc_msgSend_extent(v89);
     v55 = [outputImage3 imageByCroppingToRect:?];
 
     [v3 aperture];
@@ -156,7 +156,7 @@
 
     if (v34)
     {
-      [v34 extent];
+      objc_msgSend_extent(v34);
       v58 = [PISegmentationHelper erodeMask:v34 withRadius:v57 * 0.00125];
 
       subtract = [MEMORY[0x1E695F608] subtract];
@@ -179,7 +179,7 @@
     hdrGainMap = self->_hdrGainMap;
     if (hdrGainMap)
     {
-      [(CIImage *)hdrGainMap extent];
+      objc_msgSend_extent(hdrGainMap);
       memset(&v93, 0, sizeof(v93));
       CGAffineTransformMakeScale(&v93, v11 / v65, v11 / v65);
       v66 = self->_hdrGainMap;
@@ -190,7 +190,7 @@
       CGAffineTransformMakeScale(&v92, 1.0, 3.0);
       v70 = [v69 imageByApplyingTransform:&v92];
 
-      [v70 extent];
+      objc_msgSend_extent(v70);
       CGAffineTransformMakeTranslation(&v92, 0.0, v5 - v71 + -1.0);
       v72 = [v70 imageByApplyingTransform:&v92];
 

@@ -56,7 +56,7 @@ void __68__EKConferenceInvalidationRecord_generateNewValidURLForOriginalURL___bl
 
 void __68__EKConferenceInvalidationRecord_generateNewValidURLForOriginalURL___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v4 = [a2 joinMethods];
@@ -67,29 +67,27 @@ void __68__EKConferenceInvalidationRecord_generateNewValidURLForOriginalURL___bl
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Generated URL %@ to replace %@", &v12, 0x16u);
+      v10 = 138412546;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Generated URL %@ to replace %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) finishWithURL:v6 error:0];
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = *(a1 + 32);
-    v11 = *MEMORY[0x1E69E9840];
+    v9 = *(a1 + 32);
 
-    [v10 finishWithURL:0 error:a3];
+    [v9 finishWithURL:0 error:a3];
   }
 }
 
 - (void)finishWithURL:(id)l error:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   errorCopy = error;
   os_unfair_lock_lock(&_invalidationLock);
@@ -100,38 +98,36 @@ void __68__EKConferenceInvalidationRecord_generateNewValidURLForOriginalURL___bl
 
   v11 = [(NSMutableSet *)self->_replacementForURLs copy];
   os_unfair_lock_unlock(&_invalidationLock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = v9;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v16) + 16))(*(*(&v18 + 1) + 8 * v16));
+        (*(*(*(&v17 + 1) + 8 * v16) + 16))(*(*(&v17 + 1) + 8 * v16));
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

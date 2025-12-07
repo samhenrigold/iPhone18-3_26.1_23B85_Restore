@@ -5,6 +5,7 @@
 - (id)objectForKey:(id)key;
 - (void)registerDefaults:(id)defaults;
 - (void)removeObjectForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)userDefaultsDidChange:(id)change;
 @end
@@ -22,6 +23,14 @@
   defaultsCopy = defaults;
   userDefaults = [(WFSecuredPreferences *)self userDefaults];
   [userDefaults registerDefaults:defaultsCopy];
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  userDefaults = [(WFSecuredPreferences *)self userDefaults];
+  [userDefaults setBool:boolCopy forKey:keyCopy];
 }
 
 - (BOOL)BOOLForKey:(id)key

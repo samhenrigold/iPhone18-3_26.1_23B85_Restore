@@ -109,7 +109,7 @@ void __64__PXCuratedLibraryGuestAssetTracker__checkForGuestAssetsVisible__block_
     v6 = zoomablePhotosViewModel;
     if (zoomablePhotosViewModel)
     {
-      [zoomablePhotosViewModel zoomState];
+      objc_msgSend_zoomState(zoomablePhotosViewModel);
       v3 = v7 ^ 1;
     }
 
@@ -179,7 +179,7 @@ void __64__PXCuratedLibraryGuestAssetTracker__checkForGuestAssetsVisible__block_
 
       if ((_isViewSettled & isDisplayingIndividualItems) == 1)
       {
-        [(PXCuratedLibraryGuestAssetTracker *)self setCanDisplayGuestAssets:zoomLevel == 4, *v19, *&v19[16], v20, *v21, *&v21[16]];
+        [(PXCuratedLibraryGuestAssetTracker *)self setCanDisplayGuestAssets:zoomLevel == 4, *v19, *&v19[8], v20, *v21, *&v21[8]];
         if ([(PXCuratedLibraryGuestAssetTracker *)self canDisplayGuestAssets])
         {
           _checkForGuestAssetsVisible = [(PXCuratedLibraryGuestAssetTracker *)self _checkForGuestAssetsVisible];

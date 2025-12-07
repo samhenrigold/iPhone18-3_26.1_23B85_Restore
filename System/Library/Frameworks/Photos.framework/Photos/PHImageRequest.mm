@@ -873,7 +873,7 @@ void __69__PHImageRequest_handleAvailabilityChangeForResource_url_info_error___b
   (*(*(a1 + 40) + 16))();
 }
 
-void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
+void __30__PHImageRequest_startRequest__block_invoke(id *a1, uint64_t a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -885,14 +885,14 @@ void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
 
     if (PHSignpostEventsEnabled_eventsEnabled == 1)
     {
-      v4 = [*(a1 + 32) signpostID];
+      v4 = [a1[4] signpostID];
       if ((v4 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
         v5 = v4;
         v6 = PLImageManagerGetLog();
-        v7 = [*(a1 + 32) managerID];
-        v8 = [*(a1 + 32) requestID];
-        v9 = [*(a1 + 32) requestIndex];
+        v7 = [a1[4] managerID];
+        v8 = [a1[4] requestID];
+        v9 = [a1[4] requestIndex];
         if (os_signpost_enabled(v6))
         {
           *buf = 134218752;
@@ -911,7 +911,7 @@ void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
     v10 = PLImageManagerGetLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [*(a1 + 32) identifierString];
+      v11 = [a1[4] identifierString];
       *buf = 138412290;
       v20 = v11;
       _os_log_impl(&dword_19C86F000, v10, OS_LOG_TYPE_DEBUG, "[RM][cache]: %@ request vended image from cache", buf, 0xCu);
@@ -919,14 +919,14 @@ void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
 
     if (PHImageManagerRecordEnabled())
     {
-      v15 = [*(a1 + 32) requestID];
-      v16 = [*(a1 + 32) identifierString];
+      v15 = [a1[4] requestID];
+      v16 = [a1[4] identifierString];
       [PHImageManagerRequestTracer traceMessageForRequestID:v15 message:@"[RM][cache]: %@ request vended image from cache", v16];
     }
 
-    [*(*(a1 + 32) + 152) setImageRef:a2];
-    v12 = [*(a1 + 32) delegate];
-    [v12 mediaRequest:*(a1 + 32) didFinishWithResult:*(*(a1 + 32) + 152)];
+    [*(a1[4] + 19) setImageRef:a2];
+    v12 = [a1[4] delegate];
+    [v12 mediaRequest:a1[4] didFinishWithResult:*(a1[4] + 19)];
   }
 
   else
@@ -934,7 +934,7 @@ void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
     v13 = PLImageManagerGetLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [*(a1 + 32) identifierString];
+      v14 = [a1[4] identifierString];
       *buf = 138412290;
       v20 = v14;
       _os_log_impl(&dword_19C86F000, v13, OS_LOG_TYPE_DEBUG, "[RM][cache]: %@ cache request was cancelled or errored, restarting request", buf, 0xCu);
@@ -942,13 +942,13 @@ void __30__PHImageRequest_startRequest__block_invoke(uint64_t a1, uint64_t a2)
 
     if (PHImageManagerRecordEnabled())
     {
-      v17 = [*(a1 + 32) requestID];
-      v18 = [*(a1 + 32) identifierString];
+      v17 = [a1[4] requestID];
+      v18 = [a1[4] identifierString];
       [PHImageManagerRequestTracer traceMessageForRequestID:v17 message:@"[RM][cache]: %@ cache request was cancelled or errored, restarting request", v18];
     }
 
-    *(*(a1 + 32) + 184) = 1;
-    [*(a1 + 32) startRequest];
+    *(a1[4] + 184) = 1;
+    [a1[4] startRequest];
   }
 }
 

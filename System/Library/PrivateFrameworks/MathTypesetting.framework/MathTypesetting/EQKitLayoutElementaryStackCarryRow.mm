@@ -14,10 +14,10 @@
   v9 = v8;
   if (v8)
   {
-    p_mCrossouts = &v8->mCrossouts;
+    p_begin = &v8->mCrossouts.__begin_;
     if (&v9->mCrossouts != crossouts)
     {
-      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:ne200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>(p_mCrossouts, *crossouts, *(crossouts + 1), (*(crossouts + 1) - *crossouts) >> 2);
+      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:ne200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>(p_begin, *crossouts, *(crossouts + 1), (*(crossouts + 1) - *crossouts) >> 2);
     }
   }
 

@@ -1066,7 +1066,7 @@ LABEL_16:
     }
   }
 
-  while ((_parseQuotedPair(a1, 0) & 1) != 0 || (_parseComment(a1) & 1) != 0);
+  while (_parseQuotedPair(a1, 0) || (_parseComment(a1) & 1) != 0);
   v18 = a1[3];
   if (v18 < 0)
   {
@@ -2551,7 +2551,7 @@ void sub_22D096B0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _parseQContent(uint64_t a1, unsigned __int16 *a2)
+BOOL _parseQContent(uint64_t a1, unsigned __int16 *a2)
 {
   v4 = *(a1 + 24);
   if (v4 < 0 || (v5 = *(a1 + 16), v6 = *(v5 + 160), v6 <= v4))
@@ -2617,7 +2617,7 @@ uint64_t _parseQContent(uint64_t a1, unsigned __int16 *a2)
   }
 }
 
-uint64_t _parseQuotedPair(uint64_t a1, unsigned __int16 *a2)
+BOOL _parseQuotedPair(uint64_t a1, unsigned __int16 *a2)
 {
   v2 = *(a1 + 24);
   if (v2 < 0)
@@ -2815,25 +2815,25 @@ LABEL_66:
   return result;
 }
 
-void sub_22D09777C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, void *a12, void *a13, void *a14, void *a15, char a16, char a17, char a18, char a19, void *a20)
+void sub_22D09777C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, void *a12, void *a13, void *a14, void *a15, char a16, char a17, char a18, char a19, char arg3C, void *a20, void *a22)
 {
-  if ((v22 & 0x80) == 0)
+  if ((v24 & 0x80) == 0)
   {
   }
 
-  if ((v20 & 8) != 0)
+  if ((v22 & 8) != 0)
   {
   }
 
-  if ((v21 & 0x10) == 0)
+  if ((v23 & 0x10) == 0)
   {
   }
 
-  if ((a17 & 0x40) == 0)
+  if ((arg3C & 0x40) == 0)
   {
   }
 
-  if ((a18 & 0x20) == 0)
+  if ((a20 & 0x20) == 0)
   {
   }
 
@@ -2841,7 +2841,7 @@ void sub_22D09777C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   {
   }
 
-  if ((a19 & 2) == 0)
+  if ((BYTE4(a20) & 2) == 0)
   {
   }
 
@@ -3506,10 +3506,10 @@ LABEL_18:
   return result;
 }
 
-void sub_22D09F5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22D09F5B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ECSignatureInfo;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3527,24 +3527,24 @@ void sub_22D09F7A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _ef_log_ECCMSEncoder()
+id _ef_log_ECCMSEncoder(uint64_t a1)
 {
   if (_ef_log_ECCMSEncoder_onceToken != -1)
   {
     _ef_log_ECCMSEncoder_cold_1();
   }
 
-  v1 = _ef_log_ECCMSEncoder_log;
+  v2 = _ef_log_ECCMSEncoder_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_22D0A124C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22D0A124C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ECCMSRecipient;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3568,22 +3568,23 @@ void sub_22D0A188C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _ef_log_ECDKIMCryptoUtil()
+id _ef_log_ECDKIMCryptoUtil(uint64_t a1)
 {
   if (_ef_log_ECDKIMCryptoUtil_onceToken != -1)
   {
     _ef_log_ECDKIMCryptoUtil_cold_1();
   }
 
-  v1 = _ef_log_ECDKIMCryptoUtil_log;
+  v2 = _ef_log_ECDKIMCryptoUtil_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_22D0A3340(_Unwind_Exception *a1)
@@ -3593,23 +3594,25 @@ void sub_22D0A3340(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _ef_log_ECDKIMVerifier()
+id _ef_log_ECDKIMVerifier(uint64_t a1)
 {
   if (_ef_log_ECDKIMVerifier_onceToken != -1)
   {
     _ef_log_ECDKIMVerifier_cold_1();
   }
 
-  v1 = _ef_log_ECDKIMVerifier_log;
+  v2 = _ef_log_ECDKIMVerifier_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_22D0A5BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31)
+void sub_22D0A5BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, ...)
 {
-  _Block_object_dispose(&a25, 8);
+  va_start(va, a30);
 
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -3647,7 +3650,7 @@ void sub_22D0A7990(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22D0A7B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_22D0A7B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3661,7 +3664,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22D0A7EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_22D0A7EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -3671,7 +3674,7 @@ void sub_22D0A7EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void query_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v22 = MEMORY[0x2318C92C0](a11);
+  v22 = MEMORY[0x2318C92C0](a11, a2, a3, a4, a5, a6, a7);
   if (!a4 && a8 && a9 && a11)
   {
     v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:a9 length:a8];
@@ -3768,7 +3771,7 @@ void sub_22D0AB004(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _parseDText(uint64_t a1, unsigned __int16 *a2)
+BOOL _parseDText(uint64_t a1, unsigned __int16 *a2)
 {
   v4 = *(a1 + 24);
   if (v4 < 0 || (v5 = *(a1 + 16), v6 = *(v5 + 160), v6 <= v4))
@@ -3942,20 +3945,22 @@ void sub_22D0AC51C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22D0AC6B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22D0AC6B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 96), 8);
+  _Block_object_dispose((v12 - 96), 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_22D0AE3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_22D0AE3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v31 - 152), 8);
-  _Block_object_dispose((v31 - 120), 8);
+  va_start(va, a29);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 152), 8);
+  _Block_object_dispose((v30 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3973,21 +3978,21 @@ void sub_22D0AFA14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _ef_log_ECHeaderAuthenticationResults()
+id _ef_log_ECHeaderAuthenticationResults(uint64_t a1)
 {
   if (_ef_log_ECHeaderAuthenticationResults_onceToken != -1)
   {
     _ef_log_ECHeaderAuthenticationResults_cold_1();
   }
 
-  v1 = _ef_log_ECHeaderAuthenticationResults_log;
+  v2 = _ef_log_ECHeaderAuthenticationResults_log;
 
-  return v1;
+  return v2;
 }
 
 __CFString *_stringByApplyingIDNATranslationWithRange(void *a1, uint64_t (*a2)(uint64_t, const UniChar *, unint64_t, uint64_t, void, _DWORD *, int *))
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (_stringByApplyingIDNATranslationWithRange_onceToken != -1)
   {
@@ -4000,88 +4005,88 @@ __CFString *_stringByApplyingIDNATranslationWithRange(void *a1, uint64_t (*a2)(u
     goto LABEL_6;
   }
 
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *(v26 + 14) = v8;
-  v25[29] = v8;
-  v26[0] = v8;
-  v25[27] = v8;
-  v25[28] = v8;
-  v25[25] = v8;
-  v25[26] = v8;
-  v25[23] = v8;
-  v25[24] = v8;
-  v25[21] = v8;
-  v25[22] = v8;
-  v25[19] = v8;
-  v25[20] = v8;
-  v25[17] = v8;
-  v25[18] = v8;
-  v25[15] = v8;
-  v25[16] = v8;
-  v25[13] = v8;
-  v25[14] = v8;
-  v25[11] = v8;
-  v25[12] = v8;
-  v25[9] = v8;
-  v25[10] = v8;
-  v25[7] = v8;
-  v25[8] = v8;
-  v25[6] = v8;
-  v25[4] = v8;
-  v25[5] = v8;
-  v25[2] = v8;
-  v25[3] = v8;
-  v25[0] = v8;
-  v25[1] = v8;
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *(v25 + 14) = v7;
+  v24[29] = v7;
+  v25[0] = v7;
+  v24[27] = v7;
+  v24[28] = v7;
+  v24[25] = v7;
+  v24[26] = v7;
+  v24[23] = v7;
+  v24[24] = v7;
+  v24[21] = v7;
+  v24[22] = v7;
+  v24[19] = v7;
+  v24[20] = v7;
+  v24[17] = v7;
+  v24[18] = v7;
+  v24[15] = v7;
+  v24[16] = v7;
+  v24[13] = v7;
+  v24[14] = v7;
+  v24[11] = v7;
+  v24[12] = v7;
+  v24[9] = v7;
+  v24[10] = v7;
+  v24[7] = v7;
+  v24[8] = v7;
+  v24[6] = v7;
+  v24[4] = v7;
+  v24[5] = v7;
+  v24[2] = v7;
+  v24[3] = v7;
+  v24[0] = v7;
+  v24[1] = v7;
   CharactersPtr = CFStringGetCharactersPtr(v3);
   if (CharactersPtr)
   {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
     goto LABEL_18;
   }
 
-  v11 = v4 > 0xFF;
+  v10 = v4 > 0xFF;
   if (v4 < 0x100)
   {
-    v10 = v25;
+    v9 = v24;
     goto LABEL_17;
   }
 
-  v10 = MEMORY[0x2318C8830](*MEMORY[0x277CBECE8], (2 * v4), 0x1000040BDFB0063, 0);
-  if (v10)
+  v9 = MEMORY[0x2318C8830](*MEMORY[0x277CBECE8], (2 * v4), 0x1000040BDFB0063, 0);
+  if (v9)
   {
 LABEL_17:
-    [(__CFString *)v3 getCharacters:v10 range:0, v4];
-    CharactersPtr = v10;
+    [(__CFString *)v3 getCharacters:v9 range:0, v4];
+    CharactersPtr = v9;
 LABEL_18:
-    ptr = v10;
-    v24 = 0;
-    LOWORD(v23[0]) = 16;
-    memset(v23 + 2, 0, 14);
-    v13 = a2(_stringByApplyingIDNATranslationWithRange_sIDNA, CharactersPtr, v4, 0, 0, v23, &v24);
-    v14 = v13;
-    v16 = v24 < 1 && v23[1] == 0;
-    if (v24 == 15 || v16)
+    ptr = v9;
+    v23 = 0;
+    LOWORD(v22[0]) = 16;
+    memset(v22 + 2, 0, 14);
+    v12 = a2(_stringByApplyingIDNATranslationWithRange_sIDNA, CharactersPtr, v4, 0, 0, v22, &v23);
+    v13 = v12;
+    v15 = v23 < 1 && v22[1] == 0;
+    if (v23 == 15 || v15)
     {
-      v17 = *MEMORY[0x277CBECE8];
-      v18 = MEMORY[0x2318C8830](*MEMORY[0x277CBECE8], 2 * (v13 + 1), 0x1000040BDFB0063, 0);
-      v19 = v18;
-      v20 = v18 ? 0 : 7;
-      v24 = v20;
-      if (v18)
+      v16 = *MEMORY[0x277CBECE8];
+      v17 = MEMORY[0x2318C8830](*MEMORY[0x277CBECE8], 2 * (v12 + 1), 0x1000040BDFB0063, 0);
+      v18 = v17;
+      v19 = v17 ? 0 : 7;
+      v23 = v19;
+      if (v17)
       {
-        LOWORD(v22[0]) = 16;
-        memset(v22 + 2, 0, 14);
-        a2(_stringByApplyingIDNATranslationWithRange_sIDNA, CharactersPtr, v4, v18, (v14 + 1), v22, &v24);
-        if (v24 <= 0 && !v22[1])
+        LOWORD(v21[0]) = 16;
+        memset(v21 + 2, 0, 14);
+        a2(_stringByApplyingIDNATranslationWithRange_sIDNA, CharactersPtr, v4, v17, (v13 + 1), v21, &v23);
+        if (v23 <= 0 && !v21[1])
         {
-          v5 = CFStringCreateWithCharactersNoCopy(v17, v19, v14, v17);
+          v5 = CFStringCreateWithCharactersNoCopy(v16, v18, v13, v16);
           if (v5)
           {
 LABEL_35:
-            if (v11)
+            if (v10)
             {
               CFAllocatorDeallocate(*MEMORY[0x277CBECE8], ptr);
             }
@@ -4090,7 +4095,7 @@ LABEL_35:
           }
         }
 
-        CFAllocatorDeallocate(v17, v19);
+        CFAllocatorDeallocate(v16, v18);
       }
     }
 
@@ -4098,16 +4103,14 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v12 = ECIDNALog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v11 = ECIDNALog(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    _stringByApplyingIDNATranslationWithRange_cold_2(2 * v4, v12);
+    _stringByApplyingIDNATranslationWithRange_cold_2(2 * v4, v11);
   }
 
   v5 = 0;
 LABEL_6:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -4116,32 +4119,31 @@ void ___stringByApplyingIDNATranslationWithRange_block_invoke()
 {
   v5 = *MEMORY[0x277D85DE8];
   code = U_ZERO_ERROR;
-  _stringByApplyingIDNATranslationWithRange_sIDNA = MEMORY[0x2318C9780](60, &code);
+  v0 = MEMORY[0x2318C9780](60, &code);
+  _stringByApplyingIDNATranslationWithRange_sIDNA = v0;
   if (code >= U_ILLEGAL_ARGUMENT_ERROR)
   {
-    v0 = ECIDNALog();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = ECIDNALog(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v1 = u_errorName(code);
-      ___stringByApplyingIDNATranslationWithRange_block_invoke_cold_1(v1, buf, v0);
+      v2 = u_errorName(code);
+      ___stringByApplyingIDNATranslationWithRange_block_invoke_cold_1(v2, buf, v1);
     }
 
     _stringByApplyingIDNATranslationWithRange_sIDNA = 0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-id ECIDNALog()
+id ECIDNALog(uint64_t a1)
 {
   if (ECIDNALog_onceToken != -1)
   {
     ECIDNALog_cold_1();
   }
 
-  v1 = ECIDNALog_log;
+  v2 = ECIDNALog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ECIDNALog_block_invoke()
@@ -4158,16 +4160,16 @@ void sub_22D0B2D94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id ECSMIMELog()
+id ECSMIMELog(uint64_t a1)
 {
   if (ECSMIMELog_onceToken != -1)
   {
     ECSMIMELog_cold_1();
   }
 
-  v1 = ECSMIMELog_log;
+  v2 = ECSMIMELog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ECSMIMELog_block_invoke()
@@ -4332,7 +4334,7 @@ void sub_22D0B4448(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22D0B4F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_22D0B4F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a25, 8);
 
@@ -4405,7 +4407,7 @@ BOOL bufferIsHorizontalSeparator(char *a1, unint64_t a2)
   return v4 > 0;
 }
 
-uint64_t isWhitespaceCharacter(unsigned int a1)
+BOOL isWhitespaceCharacter(unsigned int a1)
 {
   result = 1;
   if (a1 > 0x20 || ((1 << a1) & 0x100003600) == 0)
@@ -4417,7 +4419,7 @@ uint64_t isWhitespaceCharacter(unsigned int a1)
   return result;
 }
 
-uint64_t _ef_log_ECMessageBodyParser()
+uint64_t _ef_log_ECMessageBodyParser(uint64_t a1, uint64_t a2)
 {
   if (_ef_log_ECMessageBodyParser_onceToken != -1)
   {
@@ -4465,7 +4467,7 @@ uint64_t ECGetNextHeaderFromBytes(void *a1, void *a2, void *a3, _BYTE *a4, unsig
       if (a5 < a6)
       {
         v37 = a1;
-        v14 = (a6 - 1);
+        v14 = a6 - 1;
         do
         {
           if (*a5 == 10)
@@ -4507,7 +4509,7 @@ uint64_t ECGetNextHeaderFromBytes(void *a1, void *a2, void *a3, _BYTE *a4, unsig
             v19 = a6;
           }
 
-          v20 = (a5 - a4);
+          v20 = a5 - a4;
           if (a5 == a4 && (v21 = a5 + 5, a5 + 5 <= v19) && !strncasecmp(a5, "From ", 5uLL))
           {
             if (v13 && (v38 != 5 || strncasecmp(v13, "From ", 5uLL)))
@@ -4664,14 +4666,14 @@ void ECAssertNetworkActivityAllowed()
 
     if (v2)
     {
-      v3 = ECNetworkAllowedLog();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+      v4 = ECNetworkAllowedLog(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
-        ECAssertNetworkActivityAllowed_cold_1(v3);
+        ECAssertNetworkActivityAllowed_cold_1(v4);
       }
     }
 
-    else if ((EFIsSeedBuild() & 1) != 0 || ([MEMORY[0x277D07148] currentDevice], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isInternal"), v4, v5))
+    else if ((EFIsSeedBuild() & 1) != 0 || ([MEMORY[0x277D07148] currentDevice], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isInternal"), v5, v6))
     {
       ECAssertNetworkActivityAllowed_cold_2();
     }
@@ -4694,16 +4696,16 @@ BOOL _ECIsNetworkActivityAllowed()
   return result;
 }
 
-id ECNetworkAllowedLog()
+id ECNetworkAllowedLog(uint64_t a1)
 {
   if (ECNetworkAllowedLog_onceToken != -1)
   {
     ECNetworkAllowedLog_cold_1();
   }
 
-  v1 = ECNetworkAllowedLog_log;
+  v2 = ECNetworkAllowedLog_log;
 
-  return v1;
+  return v2;
 }
 
 BOOL _ThreadLocalAssertionForKey(void *a1)
@@ -4760,18 +4762,18 @@ void sub_22D0BF5A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22D0C09CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22D0C09CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ECSASLClient;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-uint64_t getMechanismInformation(uint64_t result, int a2, void *a3)
+void *getMechanismInformation(void *result, int a2, void *a3)
 {
   if (a2 == 1)
   {
-    return [a3 setMechanismUsesPlainText:(*(*(result + 16) + 12) & 1) == 0];
+    return [a3 setMechanismUsesPlainText:(*(result[2] + 12) & 1) == 0];
   }
 
   return result;
@@ -4779,7 +4781,7 @@ uint64_t getMechanismInformation(uint64_t result, int a2, void *a3)
 
 void __initializeSASLIfNecessary_block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   initializeSASLIfNecessary_saslInitializationStatus = sasl_client_init(0);
   if (initializeSASLIfNecessary_saslInitializationStatus)
   {
@@ -4799,14 +4801,12 @@ void __initializeSASLIfNecessary_block_invoke()
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v10 = initializeSASLIfNecessary_saslInitializationStatus;
-      v11 = 2114;
-      v12 = v6;
+      v9 = initializeSASLIfNecessary_saslInitializationStatus;
+      v10 = 2114;
+      v11 = v6;
       _os_log_impl(&dword_22D092000, v7, OS_LOG_TYPE_DEFAULT, "Failed to initialize the SASL library, %d (%{public}@)", buf, 0x12u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22D0C1FCC(_Unwind_Exception *a1)
@@ -5169,12 +5169,12 @@ void sub_22D0C2AB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22D0C2FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22D0C2FE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ECSecureMIMETrustEvaluation;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5333,30 +5333,30 @@ id __copyRegexForPrefixStrings_block_invoke(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-id _ef_log_ECTagValueList()
+id _ef_log_ECTagValueList(uint64_t a1)
 {
   if (_ef_log_ECTagValueList_onceToken[0] != -1)
   {
     _ef_log_ECTagValueList_cold_1();
   }
 
-  v1 = _ef_log_ECTagValueList_log;
+  v2 = _ef_log_ECTagValueList_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_22D0C71FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22D0C71FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ECTagValueList;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 void sub_22D0C82A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, _Unwind_Exception *exception_objecta, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, void *a47, void *a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
 
   _Unwind_Resume(a1);
 }
@@ -5418,9 +5418,9 @@ void sub_22D0CCD90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **ECFindHTMLEntity(char *__s1, int a2)
+char **ECFindHTMLEntity(char *__s1, unsigned int a2)
 {
-  if ((a2 - 2) > 6)
+  if (a2 - 2 > 6)
   {
     return 0;
   }
@@ -5494,7 +5494,7 @@ LABEL_16:
 
   v12 = &(&ECFindHTMLEntity_wordlist)[2 * v11];
   v13 = *v12;
-  if (v9 != **v12 || strncmp(__s1 + 1, v13 + 1, (a2 - 1)) || v13[a2])
+  if (v9 != **v12 || strncmp(__s1 + 1, v13 + 1, a2 - 1) || v13[a2])
   {
     return 0;
   }
@@ -5504,7 +5504,7 @@ LABEL_16:
 
 uint64_t parseEntity(const __CFString *a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     parseEntity_cold_1();
@@ -5513,24 +5513,24 @@ uint64_t parseEntity(const __CFString *a1, void *a2)
   Length = CFStringGetLength(a1);
   if (Length > 19)
   {
-    goto LABEL_67;
+    return 0;
   }
 
   v5 = Length;
   *__s1 = 0;
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
-  v36 = 0xAAAAAAAAAAAAAAAALL;
+  v35 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buffer = v6;
-  v35 = v6;
-  v41.location = 0;
-  v41.length = Length;
-  CFStringGetCharacters(a1, v41, buffer);
+  v34 = v6;
+  v40.location = 0;
+  v40.length = Length;
+  CFStringGetCharacters(a1, v40, buffer);
   if (v5 < 1)
   {
-    goto LABEL_67;
+    return 0;
   }
 
   v7 = 0;
@@ -5631,7 +5631,7 @@ LABEL_53:
 LABEL_55:
     if (v10 >= v11)
     {
-      goto LABEL_67;
+      return 0;
     }
   }
 
@@ -5742,14 +5742,12 @@ LABEL_61:
       *a2 = [v29 stringWithFormat:@"&%@", v30];
     }
 
-LABEL_67:
-    v7 = 0;
-    goto LABEL_68;
+    return 0;
   }
 
   if (a2)
   {
-    v33 = 0;
+    v32 = 0;
     if (v7 < 0x10000)
     {
       v28 = 1;
@@ -5759,25 +5757,22 @@ LABEL_67:
     else
     {
       v27 = ((v7 + 67043328) >> 10) - 10240;
-      HIWORD(v33) = v7 & 0x3FF | 0xDC00;
+      HIWORD(v32) = v7 & 0x3FF | 0xDC00;
       v28 = 2;
     }
 
-    LOWORD(v33) = v27;
-    *a2 = [MEMORY[0x277CCACA8] stringWithCharacters:&v33 length:v28];
+    LOWORD(v32) = v27;
+    *a2 = [MEMORY[0x277CCACA8] stringWithCharacters:&v32 length:v28];
   }
 
-LABEL_68:
-  v31 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t ECLocalMessageActionID.stringValue.getter()
+uint64_t ECLocalMessageActionID.stringValue.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + OBJC_IVAR___ECLocalMessageActionID_stringValue);
-  v2 = *(v0 + OBJC_IVAR___ECLocalMessageActionID_stringValue + 8);
+  v3 = *(v2 + OBJC_IVAR___ECLocalMessageActionID_stringValue);
 
-  return v1;
+  return v3;
 }
 
 id ECLocalMessageActionID.init(databaseID:)(uint64_t a1)
@@ -5838,7 +5833,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5914,7 +5908,7 @@ uint64_t anonymous_server_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "ANONYMOUS version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "ANONYMOUS version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -5933,7 +5927,7 @@ uint64_t anonymous_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "ANONYMOUS version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "ANONYMOUS version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -6054,9 +6048,9 @@ uint64_t anonymous_client_mech_new(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-uint64_t anonymous_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t **a5, void *a6, unsigned int *a7, uint64_t a8)
+uint64_t anonymous_client_mech_step(char **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, char **a6, unsigned int *a7, uint64_t a8)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   __src = 0;
   if (a2 && a6 && a7 && a8)
   {
@@ -6064,16 +6058,16 @@ uint64_t anonymous_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a
     *a7 = 0;
     if (a4)
     {
-      (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Nonzero serverinlen in ANONYMOUS continue_step");
-      simple = 4294967291;
+      (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Nonzero serverinlen in ANONYMOUS continue_step", a4, a5);
+      return 4294967291;
     }
 
     else
     {
-      v16 = *(a2 + 24);
+      v15 = *(a2 + 24);
       if (*(a2 + 80) <= *(a2 + 112))
       {
-        simple = _plug_get_simple(v16, 16385, 0, &__src, a5);
+        simple = _plug_get_simple(v15, 16385, 0, &__src, a5);
         if ((simple & 0xFFFFFFFD) == 0)
         {
           if (a5 && *a5)
@@ -6087,60 +6081,60 @@ uint64_t anonymous_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a
             prompts = _plug_make_prompts(*(a2 + 24), a5, "Please enter anonymous identification", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             if (prompts)
             {
-              simple = prompts;
+              return prompts;
             }
 
             else
             {
-              simple = 2;
+              return 2;
             }
           }
 
           else
           {
-            v19 = __src;
+            v18 = __src;
             if (!__src || !*__src)
             {
-              v19 = "anonymous";
+              v18 = "anonymous";
               __src = "anonymous";
             }
 
-            v20 = strlen(v19);
-            v21 = (*(a2 + 152))(*(*(a2 + 24) + 8), "anonymous", 0, 3, a8);
-            if (v21)
+            v19 = strlen(v18);
+            v20 = (*(a2 + 152))(*(*(a2 + 24) + 8), "anonymous", 0, 3, a8);
+            if (v20)
             {
-              simple = v21;
+              return v20;
             }
 
             else
             {
-              v39 = 0u;
-              v40 = 0u;
-              v37 = 0u;
               v38 = 0u;
-              v35 = 0u;
+              v39 = 0u;
               v36 = 0u;
-              v33 = 0u;
+              v37 = 0u;
               v34 = 0u;
-              v31 = 0u;
+              v35 = 0u;
               v32 = 0u;
-              v29 = 0u;
+              v33 = 0u;
               v30 = 0u;
-              v27 = 0u;
+              v31 = 0u;
               v28 = 0u;
-              *__s = 0u;
+              v29 = 0u;
               v26 = 0u;
+              v27 = 0u;
+              *__s = 0u;
+              v25 = 0u;
               gethostname(__s, 0x100uLL);
-              HIBYTE(v40) = 0;
-              v22 = strlen(__s) + v20 + 1;
-              *a7 = v22;
-              simple = _plug_buf_alloc(*(a2 + 24), a1, (a1 + 8), v22);
+              HIBYTE(v39) = 0;
+              v21 = strlen(__s) + v19 + 1;
+              *a7 = v21;
+              simple = _plug_buf_alloc(*(a2 + 24), a1, a1 + 2, v21);
               if (!simple)
               {
                 strcpy(*a1, __src);
-                *(*a1 + v20) = 64;
-                v23 = strlen(__s);
-                memcpy((*a1 + v20 + 1), __s, v23);
+                (*a1)[v19] = 64;
+                v22 = strlen(__s);
+                memcpy(&(*a1)[v19 + 1], __s, v22);
                 *a6 = *a1;
                 *a8 = 1;
                 *(a8 + 136) = 0;
@@ -6155,8 +6149,8 @@ uint64_t anonymous_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a
 
       else
       {
-        (*(v16 + 264))(*(v16 + 8), 0, "SSF requested of ANONYMOUS plugin");
-        simple = 4294967281;
+        (*(v15 + 264))(*(v15 + 8), 0, "SSF requested of ANONYMOUS plugin");
+        return 4294967281;
       }
     }
   }
@@ -6168,10 +6162,9 @@ uint64_t anonymous_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a
       (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Parameter Error in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/plugins/anonymous.c near line %d", 245);
     }
 
-    simple = 4294967289;
+    return 4294967289;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return simple;
 }
 
@@ -6205,7 +6198,7 @@ uint64_t apop_server_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWORD
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "APOP version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "APOP version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -6224,7 +6217,7 @@ uint64_t apop_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWORD
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "APOP version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "APOP version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -6471,7 +6464,7 @@ uint64_t apop_client_mech_new(uint64_t a1, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t apop_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a4, const void ***a5, void *a6, _DWORD *a7, uint64_t a8)
+uint64_t apop_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void ***a5, void *a6, _DWORD *a7, uint64_t a8)
 {
   *a6 = 0;
   *a7 = 0;
@@ -6482,13 +6475,13 @@ uint64_t apop_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, int a4, co
 
   if (*(a2 + 80) > *(a2 + 112))
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "The APOP plugin cannot support any SSF");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "The APOP plugin cannot support any SSF", a4, a5);
     return 4294967281;
   }
 
   if (a3 || a4)
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "The APOP plugin received initial data.");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "The APOP plugin received initial data.", a4, a5);
     return 4294967291;
   }
 
@@ -6818,7 +6811,7 @@ uint64_t atoken_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWO
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "ATOKEN version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "ATOKEN version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -6848,18 +6841,18 @@ uint64_t atoken_client_mech_new(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, void *a6, unsigned int *a7, uint64_t a8)
+uint64_t atoken_client_mech_step(char **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, void *a6, unsigned int *a7, uint64_t a8)
 {
   *a6 = 0;
   *a7 = 0;
   if (*(a2 + 80) > *(a2 + 112))
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of ATOKEN plugin");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of ATOKEN plugin", a4, a5);
     return 4294967281;
   }
 
-  v15 = (a1 + 24);
-  if (*(a1 + 24))
+  v15 = a1 + 3;
+  if (a1[3])
   {
     v16 = 0;
   }
@@ -6875,14 +6868,14 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     }
   }
 
-  if (*(a1 + 16))
+  if (a1[2])
   {
     v17 = 0;
   }
 
   else
   {
-    v40 = _plug_get_simple(*(a2 + 24), 18945, 1, (a1 + 16), a5);
+    v40 = _plug_get_simple(*(a2 + 24), 18945, 1, a1 + 2, a5);
     v17 = v40;
     v9 = v40;
     if ((v40 & 0xFFFFFFFD) != 0)
@@ -6891,14 +6884,14 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     }
   }
 
-  if (*(a1 + 32))
+  if (a1[4])
   {
     v18 = 0;
   }
 
   else
   {
-    v41 = _plug_get_simple(*(a2 + 24), 18946, 1, (a1 + 32), a5);
+    v41 = _plug_get_simple(*(a2 + 24), 18946, 1, a1 + 4, a5);
     v18 = v41;
     v9 = v41;
     if ((v41 & 0xFFFFFFFD) != 0)
@@ -6907,14 +6900,14 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     }
   }
 
-  if (*(a1 + 40))
+  if (a1[5])
   {
     v48 = 0;
   }
 
   else
   {
-    v9 = _plug_get_simple(*(a2 + 24), 18949, 1, (a1 + 40), a5);
+    v9 = _plug_get_simple(*(a2 + 24), 18949, 1, a1 + 5, a5);
     v48 = v9;
     if ((v9 & 0xFFFFFFFD) != 0)
     {
@@ -6922,14 +6915,14 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     }
   }
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
     LODWORD(v19) = 0;
   }
 
   else
   {
-    v19 = _plug_get_simple(*(a2 + 24), 18950, 1, (a1 + 48), a5);
+    v19 = _plug_get_simple(*(a2 + 24), 18950, 1, a1 + 6, a5);
     v9 = v19;
     if ((v19 & 0xFFFFFFFD) != 0)
     {
@@ -6937,7 +6930,7 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     }
   }
 
-  if (*(a1 + 56))
+  if (a1[7])
   {
     LODWORD(v9) = 0;
   }
@@ -6945,7 +6938,7 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   else
   {
     v45 = v19;
-    v46 = _plug_get_simple(*(a2 + 24), 18951, 1, (a1 + 56), a5);
+    v46 = _plug_get_simple(*(a2 + 24), 18951, 1, a1 + 7, a5);
     LODWORD(v19) = v45;
     v9 = v46;
     if ((v46 & 0xFFFFFFFD) != 0)
@@ -7003,14 +6996,14 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     return prompts;
   }
 
-  v20 = strlen(*(a1 + 24));
-  v21 = strlen(*(a1 + 16));
-  v22 = strlen(*(a1 + 32));
-  v23 = strlen(*(a1 + 40));
-  v24 = strlen(*(a1 + 48));
-  v25 = v20 + v21 + v22 + v23 + v24 + strlen(*(a1 + 56)) + 5;
+  v20 = strlen(a1[3]);
+  v21 = strlen(a1[2]);
+  v22 = strlen(a1[4]);
+  v23 = strlen(a1[5]);
+  v24 = strlen(a1[6]);
+  v25 = v20 + v21 + v22 + v23 + v24 + strlen(a1[7]) + 5;
   *a7 = v25;
-  prompts = _plug_buf_alloc(*(a2 + 24), a1, (a1 + 8), v25);
+  prompts = _plug_buf_alloc(*(a2 + 24), a1, a1 + 2, v25);
   if (prompts)
   {
     return prompts;
@@ -7018,25 +7011,25 @@ uint64_t atoken_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
   bzero(*a1, *a7);
   v27 = *a1;
-  v28 = strlen(*(a1 + 24));
-  memcpy(*a1, *(a1 + 24), v28);
-  v29 = (v27 + strlen(*(a1 + 24)) + 1);
-  v30 = strlen(*(a1 + 16));
-  memcpy(v29, *(a1 + 16), v30);
-  v31 = &v29[strlen(*(a1 + 16)) + 1];
-  v32 = strlen(*(a1 + 32));
-  memcpy(v31, *(a1 + 32), v32);
-  v33 = &v31[strlen(*(a1 + 32)) + 1];
-  v34 = strlen(*(a1 + 40));
-  memcpy(v33, *(a1 + 40), v34);
-  v35 = &v33[strlen(*(a1 + 40)) + 1];
-  v36 = strlen(*(a1 + 48));
-  memcpy(v35, *(a1 + 48), v36);
-  v37 = &v35[strlen(*(a1 + 48))];
-  v38 = strlen(*(a1 + 56));
-  memcpy(v37 + 1, *(a1 + 56), v38);
+  v28 = strlen(a1[3]);
+  memcpy(*a1, a1[3], v28);
+  v29 = (v27 + strlen(a1[3]) + 1);
+  v30 = strlen(a1[2]);
+  memcpy(v29, a1[2], v30);
+  v31 = &v29[strlen(a1[2]) + 1];
+  v32 = strlen(a1[4]);
+  memcpy(v31, a1[4], v32);
+  v33 = &v31[strlen(a1[4]) + 1];
+  v34 = strlen(a1[5]);
+  memcpy(v33, a1[5], v34);
+  v35 = &v33[strlen(a1[5]) + 1];
+  v36 = strlen(a1[6]);
+  memcpy(v35, a1[6], v36);
+  v37 = &v35[strlen(a1[6])];
+  v38 = strlen(a1[7]);
+  memcpy(v37 + 1, a1[7], v38);
   *a6 = *a1;
-  prompts = (*(a2 + 152))(*(*(a2 + 24) + 8), *(a1 + 16), 0, 1, a8);
+  prompts = (*(a2 + 152))(*(*(a2 + 24) + 8), a1[2], 0, 1, a8);
   if (prompts)
   {
     return prompts;
@@ -7085,7 +7078,7 @@ uint64_t atoken2_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DW
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "ATOKEN2 version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "ATOKEN2 version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -7185,7 +7178,7 @@ uint64_t atoken2_client_mech_step(void *a1, uint64_t a2, uint64_t a3, uint64_t a
 
   else
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of ATOKEN2 plugin");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of ATOKEN2 plugin", a4, a5);
     return 4294967281;
   }
 
@@ -7501,7 +7494,7 @@ LABEL_23:
 
       else
       {
-        v16 = off_280B0E730();
+        v16 = off_280B0E730(v11, v14 + 32);
         if (v16)
         {
           *(ctx + 5) = v16;
@@ -7542,62 +7535,62 @@ void prop_clear(propctx *ctx, int requests)
   v4 = alloc_proppool(*(*(ctx + 5) + 8) + 24 * (*(ctx + 4) + 1));
   if (!v4)
   {
-    _sasl_log(0, 1, "failed to allocate memory\n", v5, v6, v7, v8, v9, v19);
+    _sasl_log(0, 1, "failed to allocate memory\n");
     exit(1);
   }
 
-  v10 = v4;
+  v5 = v4;
   if (requests)
   {
-    v11 = 0;
+    v6 = 0;
     *(ctx + 4) = 0;
   }
 
   else
   {
-    v11 = *(ctx + 4);
-    if (v11)
+    v6 = *(ctx + 4);
+    if (v6)
     {
-      v12 = v4 + 3;
-      v13 = *ctx;
-      v14 = *(ctx + 4);
+      v7 = v4 + 3;
+      v8 = *ctx;
+      v9 = *(ctx + 4);
       do
       {
-        v15 = *v13;
-        v13 += 3;
-        *v12 = v15;
-        v12 += 3;
-        --v14;
+        v10 = *v8;
+        v8 += 3;
+        *v7 = v10;
+        v7 += 3;
+        --v9;
       }
 
-      while (v14);
+      while (v9);
     }
   }
 
-  v16 = *(ctx + 5);
-  if (v16)
+  v11 = *(ctx + 5);
+  if (v11)
   {
     do
     {
-      *(ctx + 5) = *v16;
-      off_280B0E738(v16);
-      v16 = *(ctx + 5);
+      *(ctx + 5) = *v11;
+      off_280B0E738(v11);
+      v11 = *(ctx + 5);
     }
 
-    while (v16);
-    v11 = *(ctx + 4);
+    while (v11);
+    v6 = *(ctx + 4);
   }
 
-  v17 = (v11 + 1);
-  *(ctx + 5) = v17;
-  v18 = v10[1];
-  v10[2] = v18 - 24 * v17;
-  *ctx = v10 + 3;
+  v12 = (v6 + 1);
+  *(ctx + 5) = v12;
+  v13 = v5[1];
+  v5[2] = v13 - 24 * v12;
+  *ctx = v5 + 3;
   *(ctx + 1) = 0;
-  *(ctx + 5) = v10;
-  *(ctx + 6) = v10;
-  *(ctx + 3) = v10 + v18 + 24;
-  *(ctx + 4) = &v10[3 * v17 + 3];
+  *(ctx + 5) = v5;
+  *(ctx + 6) = v5;
+  *(ctx + 3) = v5 + v13 + 24;
+  *(ctx + 4) = &v5[3 * v12 + 3];
 }
 
 const propval *__cdecl prop_get(const propval *ctx)
@@ -8110,7 +8103,7 @@ int sasl_auxprop_add_plugin(const char *plugname, sasl_auxprop_init_t *auxpropfu
   if (v2)
   {
     v4 = sasl_errstring(v2, 0, 0);
-    _sasl_log(0, 1, "auxpropfunc error %s\n", v5, v6, v7, v8, v9, v4);
+    _sasl_log(0, 1, "auxpropfunc error %s\n", v4);
   }
 
   return v3;
@@ -8118,10 +8111,10 @@ int sasl_auxprop_add_plugin(const char *plugname, sasl_auxprop_init_t *auxpropfu
 
 int sasl_auxprop_add_plugin_nolog(const char *plugname, sasl_auxprop_init_t *auxpropfunc)
 {
-  v15 = -1431655766;
-  v14 = 0xAAAAAAAAAAAAAAAALL;
-  v2 = (auxpropfunc)(sasl_global_utils, 8, &v15, &v14, plugname);
-  if (v15 < 4 && v2 == 0)
+  v10 = -1431655766;
+  v9 = 0xAAAAAAAAAAAAAAAALL;
+  v2 = (auxpropfunc)(sasl_global_utils, 8, &v10, &v9, plugname);
+  if (v10 < 4 && v2 == 0)
   {
     v4 = -23;
   }
@@ -8134,20 +8127,20 @@ int sasl_auxprop_add_plugin_nolog(const char *plugname, sasl_auxprop_init_t *aux
   if (v4)
   {
     v5 = sasl_errstring(v4, 0, 0);
-    _sasl_log(0, 1, "auxpropfunc error %s\n", v6, v7, v8, v9, v10, v5);
+    _sasl_log(0, 1, "auxpropfunc error %s\n", v5);
   }
 
-  else if (*(v14 + 24))
+  else if (*(v9 + 24))
   {
-    v12 = _sasl_allocation_utils(24);
-    if (v12)
+    v7 = _sasl_allocation_utils(24);
+    if (v7)
     {
       v4 = 0;
-      v13 = v14;
-      *v12 = auxprop_head;
-      *(v12 + 8) = v13;
-      *(v12 + 16) = v15;
-      auxprop_head = v12;
+      v8 = v9;
+      *v7 = auxprop_head;
+      *(v7 + 8) = v8;
+      *(v7 + 16) = v10;
+      auxprop_head = v7;
     }
 
     else
@@ -8166,110 +8159,110 @@ int sasl_auxprop_add_plugin_nolog(const char *plugname, sasl_auxprop_init_t *aux
 
 uint64_t _sasl_auxprop_lookup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v41 = 0xAAAAAAAAAAAAAAAALL;
-  v42 = 0xAAAAAAAAAAAAAAAALL;
-  v40 = 0;
-  if (_sasl_getcallback(*(*(a1 + 80) + 8), 1, &v42, &v41))
+  v36 = 0xAAAAAAAAAAAAAAAALL;
+  v37 = 0xAAAAAAAAAAAAAAAALL;
+  v35 = 0;
+  if (_sasl_getcallback(*(*(a1 + 80) + 8), 1, &v37, &v36))
   {
     goto LABEL_4;
   }
 
-  if ((v42)(v41, 0, "auxprop_plugin", &v40, 0))
+  if ((v37)(v36, 0, "auxprop_plugin", &v35, 0))
   {
-    v40 = 0;
+    v35 = 0;
 LABEL_4:
-    v13 = auxprop_head;
+    v8 = auxprop_head;
     if (!auxprop_head)
     {
-      v14 = 4294967292;
+      v9 = 4294967292;
       goto LABEL_12;
     }
 
-    v14 = 4294967292;
+    v9 = 4294967292;
     do
     {
-      v15 = *(v13 + 8);
-      v16 = *(v15 + 24);
-      v17 = *(v15 + 8);
-      if (*(v13 + 16) == 4)
+      v10 = *(v8 + 8);
+      v11 = *(v10 + 24);
+      v12 = *(v10 + 8);
+      if (*(v8 + 16) == 4)
       {
-        v16(v17, a1, a2, a3, a4);
-        v18 = 0;
+        v11(v12, a1, a2, a3, a4);
+        v13 = 0;
       }
 
       else
       {
-        v18 = (v16)(v17, a1, a2, a3, a4);
+        v13 = (v11)(v12, a1, a2, a3, a4);
       }
 
-      v14 = _sasl_account_status(v14, v18);
-      v13 = *v13;
+      v9 = _sasl_account_status(v9, v13);
+      v8 = *v8;
     }
 
-    while (v13);
-    return v14;
+    while (v8);
+    return v9;
   }
 
-  if (!v40)
+  if (!v35)
   {
     goto LABEL_4;
   }
 
-  v39 = 0;
-  if (_sasl_strdup(v40, &v39, 0))
+  v34 = 0;
+  if (_sasl_strdup(v35, &v34, 0))
   {
     return 4294967294;
   }
 
-  v21 = 0;
-  v14 = 4294967292;
-  v22 = v39;
-  v23 = MEMORY[0x277D85DE0];
-  v24 = v39;
+  v16 = 0;
+  v9 = 4294967292;
+  v17 = v34;
+  v18 = MEMORY[0x277D85DE0];
+  v19 = v34;
   do
   {
-    v25 = *v24;
-    if (!*v24)
+    v20 = *v19;
+    if (!*v19)
     {
       break;
     }
 
-    while ((v25 & 0x80) == 0)
+    while ((v20 & 0x80) == 0)
     {
-      if ((*(v23 + 4 * v25 + 60) & 0x4000) == 0)
+      if ((*(v18 + 4 * v20 + 60) & 0x4000) == 0)
       {
         goto LABEL_27;
       }
 
 LABEL_25:
-      v26 = *++v24;
-      v25 = v26;
-      if (!v26)
+      v21 = *++v19;
+      v20 = v21;
+      if (!v21)
       {
         goto LABEL_47;
       }
     }
 
-    if (__maskrune(v25, 0x4000uLL))
+    if (__maskrune(v20, 0x4000uLL))
     {
       goto LABEL_25;
     }
 
 LABEL_27:
-    v27 = *v24;
-    if (!*v24)
+    v22 = *v19;
+    if (!*v19)
     {
       break;
     }
 
-    v38 = v21;
-    v28 = v24;
-    v37 = v22;
+    v33 = v16;
+    v23 = v19;
+    v32 = v17;
     while (2)
     {
-      if ((v27 & 0x80) == 0)
+      if ((v22 & 0x80) == 0)
       {
-        if ((*(v23 + 4 * v27 + 60) & 0x4000) != 0)
+        if ((*(v18 + 4 * v22 + 60) & 0x4000) != 0)
         {
           break;
         }
@@ -8277,12 +8270,12 @@ LABEL_27:
         goto LABEL_33;
       }
 
-      if (!__maskrune(v27, 0x4000uLL))
+      if (!__maskrune(v22, 0x4000uLL))
       {
 LABEL_33:
-        v29 = *++v28;
-        v27 = v29;
-        if (!v29)
+        v24 = *++v23;
+        v22 = v24;
+        if (!v24)
         {
           goto LABEL_37;
         }
@@ -8293,61 +8286,61 @@ LABEL_33:
       break;
     }
 
-    if (*v28)
+    if (*v23)
     {
-      v36 = 0;
-      *v28 = 0;
+      v31 = 0;
+      *v23 = 0;
       goto LABEL_38;
     }
 
 LABEL_37:
-    v36 = 1;
+    v31 = 1;
 LABEL_38:
     for (i = auxprop_head; i; i = *i)
     {
-      v31 = *(i + 8);
-      v32 = v31[4];
-      if (v32 && !strcasecmp(v32, v24))
+      v26 = *(i + 8);
+      v27 = v26[4];
+      if (v27 && !strcasecmp(v27, v19))
       {
-        v33 = v31[3];
-        v34 = v31[1];
+        v28 = v26[3];
+        v29 = v26[1];
         if (*(i + 16) == 4)
         {
-          v33(v34, a1, a2, a3, a4);
-          v35 = 0;
+          v28(v29, a1, a2, a3, a4);
+          v30 = 0;
         }
 
         else
         {
-          v35 = (v33)(v34, a1, a2, a3, a4);
+          v30 = (v28)(v29, a1, a2, a3, a4);
         }
 
-        v14 = _sasl_account_status(v14, v35);
-        v38 = 1;
+        v9 = _sasl_account_status(v9, v30);
+        v33 = 1;
       }
     }
 
-    v24 = v28 + 1;
-    v22 = v37;
-    v21 = v38;
+    v19 = v23 + 1;
+    v17 = v32;
+    v16 = v33;
   }
 
-  while (!v36);
+  while (!v31);
 LABEL_47:
-  off_280B0E738(v22);
-  if (!v21)
+  off_280B0E738(v17);
+  if (!v16)
   {
 LABEL_12:
-    v19 = v40;
-    if (!v40)
+    v14 = v35;
+    if (!v35)
     {
-      v19 = "[all]";
+      v14 = "[all]";
     }
 
-    _sasl_log(*(*(a1 + 80) + 8), 5, "could not find auxprop plugin, was searching for '%s'", v8, v9, v10, v11, v12, v19);
+    _sasl_log(*(*(a1 + 80) + 8), 5, "could not find auxprop plugin, was searching for '%s'", v14);
   }
 
-  return v14;
+  return v9;
 }
 
 uint64_t _sasl_account_status(uint64_t a1, uint64_t a2)
@@ -8418,7 +8411,7 @@ LABEL_10:
 
 int sasl_auxprop_store(sasl_conn_t *conn, propctx *ctx, const char *user)
 {
-  v39 = 0;
+  v34 = 0;
   if (ctx)
   {
     result = -7;
@@ -8437,121 +8430,121 @@ int sasl_auxprop_store(sasl_conn_t *conn, propctx *ctx, const char *user)
     v8 = 0;
   }
 
-  v40 = 0xAAAAAAAAAAAAAAAALL;
-  v41 = 0xAAAAAAAAAAAAAAAALL;
-  if (!_sasl_getcallback(conn, 1, &v41, &v40) && (v41)(v40, 0, "auxprop_plugin", &v39, 0))
+  v35 = 0xAAAAAAAAAAAAAAAALL;
+  v36 = 0xAAAAAAAAAAAAAAAALL;
+  if (!_sasl_getcallback(conn, 1, &v36, &v35) && (v36)(v35, 0, "auxprop_plugin", &v34, 0))
   {
-    v39 = 0;
+    v34 = 0;
     goto LABEL_50;
   }
 
-  if (!v39)
+  if (!v34)
   {
 LABEL_50:
-    v31 = auxprop_head;
+    v26 = auxprop_head;
     if (!auxprop_head)
     {
       goto LABEL_65;
     }
 
-    v16 = 0;
-    v15 = 0;
+    v11 = 0;
+    v10 = 0;
     do
     {
-      v32 = v31[1];
-      v33 = *(v32 + 40);
-      if (v33)
+      v27 = v26[1];
+      v28 = *(v27 + 40);
+      if (v28)
       {
-        v34 = v33(*(v32 + 8), v7, ctx, user, v8);
-        if (v34 == -30)
+        v29 = v28(*(v27 + 8), v7, ctx, user, v8);
+        if (v29 == -30)
         {
-          v14 = 0;
+          v9 = 0;
         }
 
         else
         {
-          v14 = v34;
+          v9 = v29;
         }
 
-        if (v34 == -30)
+        if (v29 == -30)
         {
-          ++v15;
+          ++v10;
         }
       }
 
       else
       {
-        v14 = 0;
+        v9 = 0;
       }
 
-      ++v16;
-      if (v14)
+      ++v11;
+      if (v9)
       {
         break;
       }
 
-      v31 = *v31;
+      v26 = *v26;
     }
 
-    while (v31);
+    while (v26);
     goto LABEL_62;
   }
 
-  v38 = 0;
-  if (_sasl_strdup(v39, &v38, 0))
+  v33 = 0;
+  if (_sasl_strdup(v34, &v33, 0))
   {
     return -1;
   }
 
-  v14 = 0;
-  v15 = 0;
-  v16 = 0;
-  v17 = v38;
-  v18 = MEMORY[0x277D85DE0];
-  v19 = v38;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  v12 = v33;
+  v13 = MEMORY[0x277D85DE0];
+  v14 = v33;
   do
   {
-    v20 = *v19;
-    if (!*v19)
+    v15 = *v14;
+    if (!*v14)
     {
       break;
     }
 
-    while ((v20 & 0x80) == 0)
+    while ((v15 & 0x80) == 0)
     {
-      if ((*(v18 + 4 * v20 + 60) & 0x4000) == 0)
+      if ((*(v13 + 4 * v15 + 60) & 0x4000) == 0)
       {
         goto LABEL_17;
       }
 
 LABEL_15:
-      v21 = *++v19;
-      v20 = v21;
-      if (!v21)
+      v16 = *++v14;
+      v15 = v16;
+      if (!v16)
       {
         goto LABEL_46;
       }
     }
 
-    if (__maskrune(v20, 0x4000uLL))
+    if (__maskrune(v15, 0x4000uLL))
     {
       goto LABEL_15;
     }
 
 LABEL_17:
-    v22 = *v19;
-    if (!*v19)
+    v17 = *v14;
+    if (!*v14)
     {
       break;
     }
 
-    v23 = v19;
-    v37 = v17;
+    v18 = v14;
+    v32 = v12;
     while (2)
     {
-      if ((v22 & 0x80) == 0)
+      if ((v17 & 0x80) == 0)
       {
-        if ((*(MEMORY[0x277D85DE0] + 4 * v22 + 60) & 0x4000) != 0)
+        if ((*(MEMORY[0x277D85DE0] + 4 * v17 + 60) & 0x4000) != 0)
         {
           break;
         }
@@ -8559,12 +8552,12 @@ LABEL_17:
         goto LABEL_23;
       }
 
-      if (!__maskrune(v22, 0x4000uLL))
+      if (!__maskrune(v17, 0x4000uLL))
       {
 LABEL_23:
-        v24 = *++v23;
-        v22 = v24;
-        if (!v24)
+        v19 = *++v18;
+        v17 = v19;
+        if (!v19)
         {
           goto LABEL_27;
         }
@@ -8575,92 +8568,92 @@ LABEL_23:
       break;
     }
 
-    if (*v23)
+    if (*v18)
     {
-      v36 = 0;
-      *v23 = 0;
+      v31 = 0;
+      *v18 = 0;
       goto LABEL_28;
     }
 
 LABEL_27:
-    v36 = 1;
+    v31 = 1;
 LABEL_28:
-    v25 = auxprop_head;
-    if (auxprop_head && !v14)
+    v20 = auxprop_head;
+    if (auxprop_head && !v9)
     {
       do
       {
-        v26 = v25[1];
-        v27 = v26[4];
-        if (v27 && !strcasecmp(v27, v19) && (++v16, (v29 = v26[5]) != 0))
+        v21 = v20[1];
+        v22 = v21[4];
+        if (v22 && !strcasecmp(v22, v14) && (++v11, (v24 = v21[5]) != 0))
         {
-          v30 = v29(v26[1], v7, ctx, user, v8);
-          if (v30 == -30)
+          v25 = v24(v21[1], v7, ctx, user, v8);
+          if (v25 == -30)
           {
-            v14 = 0;
+            v9 = 0;
           }
 
           else
           {
-            v14 = v30;
+            v9 = v25;
           }
 
-          if (v30 == -30)
+          if (v25 == -30)
           {
-            ++v15;
+            ++v10;
           }
         }
 
         else
         {
-          v14 = 0;
+          v9 = 0;
         }
 
-        v25 = *v25;
-        if (v25)
+        v20 = *v20;
+        if (v20)
         {
-          v28 = v14 == 0;
+          v23 = v9 == 0;
         }
 
         else
         {
-          v28 = 0;
+          v23 = 0;
         }
       }
 
-      while (v28);
+      while (v23);
     }
 
-    v19 = v23 + 1;
-    v17 = v37;
-    v18 = MEMORY[0x277D85DE0];
+    v14 = v18 + 1;
+    v12 = v32;
+    v13 = MEMORY[0x277D85DE0];
   }
 
-  while (!v36);
+  while (!v31);
 LABEL_46:
-  off_280B0E738(v17);
-  if (v16)
+  off_280B0E738(v12);
+  if (v11)
   {
 LABEL_62:
-    if (v16 == v15)
+    if (v11 == v10)
     {
       return -30;
     }
 
     else
     {
-      return v14;
+      return v9;
     }
   }
 
 LABEL_65:
-  v35 = v39;
-  if (!v39)
+  v30 = v34;
+  if (!v34)
   {
-    v35 = "[all]";
+    v30 = "[all]";
   }
 
-  _sasl_log(0, 1, "could not find auxprop plugin, was searching for %s", v9, v10, v11, v12, v13, v35);
+  _sasl_log(0, 1, "could not find auxprop plugin, was searching for %s", v30);
   return -1;
 }
 
@@ -8907,28 +8900,28 @@ int sasl_canonuser_add_plugin(const char *plugname, sasl_canonuser_init_t *canon
 {
   if (plugname && strlen(plugname) < 0x400)
   {
-    v16 = -1431655766;
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    v5 = (canonuserfunc)(sasl_global_utils, 5, &v16, &v15, plugname);
+    v11 = -1431655766;
+    v10 = 0xAAAAAAAAAAAAAAAALL;
+    v5 = (canonuserfunc)(sasl_global_utils, 5, &v11, &v10, plugname);
     if (v5)
     {
       v4 = v5;
-      _sasl_log(0, 1, "%s_canonuser_plug_init() failed in sasl_canonuser_add_plugin(): %z\n", v6, v7, v8, v9, v10, plugname);
+      _sasl_log(0, 1, "%s_canonuser_plug_init() failed in sasl_canonuser_add_plugin(): %z\n", plugname, v5);
     }
 
-    else if (*(v15 + 32) || *(v15 + 40))
+    else if (*(v10 + 32) || *(v10 + 40))
     {
-      v11 = _sasl_allocation_utils(1040);
-      if (v11)
+      v6 = _sasl_allocation_utils(1040);
+      if (v6)
       {
-        v12 = v11;
-        v13 = v11 + 8;
-        strncpy((v11 + 8), plugname, 0x3FFuLL);
+        v7 = v6;
+        v8 = v6 + 8;
+        strncpy((v6 + 8), plugname, 0x3FFuLL);
         v4 = 0;
-        *(v13 + strlen(plugname)) = 0;
-        v12[129] = v15;
-        *v12 = canonuser_head;
-        canonuser_head = v12;
+        *(v8 + strlen(plugname)) = 0;
+        v7[129] = v10;
+        *v7 = canonuser_head;
+        canonuser_head = v7;
       }
 
       else
@@ -8939,7 +8932,7 @@ int sasl_canonuser_add_plugin(const char *plugname, sasl_canonuser_init_t *canon
 
     else
     {
-      _sasl_log(0, 1, "canonuser plugin '%s' without either client or server side", v6, v7, v8, v9, v10, plugname);
+      _sasl_log(0, 1, "canonuser plugin '%s' without either client or server side", plugname);
       return -5;
     }
   }
@@ -9139,26 +9132,26 @@ LABEL_31:
 
 uint64_t _sasl_auxprop_verify_apop(sasl_conn_t *conn, uint64_t a2, const char *a3, const char *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  memset(v23, 170, sizeof(v23));
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v22, 170, sizeof(v22));
   names[0] = "*userPassword";
   names[1] = 0;
   if (conn && a2 && a3 && a4)
   {
-    v22 = -86;
+    v21 = -86;
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v20 = v7;
-    v21 = v7;
+    *v19 = v7;
+    v20 = v7;
     vals[0] = v7;
     vals[1] = v7;
     vals[2] = v7;
-    *v17.state = v7;
-    *v17.count = v7;
-    *&v17.buffer[8] = v7;
-    *&v17.buffer[24] = v7;
-    *&v17.buffer[40] = v7;
-    *&v17.buffer[56] = 0xAAAAAAAAAAAAAAAALL;
+    *v16.state = v7;
+    *v16.count = v7;
+    *&v16.buffer[8] = v7;
+    *&v16.buffer[24] = v7;
+    *&v16.buffer[40] = v7;
+    *&v16.buffer[56] = 0xAAAAAAAAAAAAAAAALL;
     v8 = prop_getnames(*(*(conn + 572) + 152), names, vals);
     if ((v8 & 0x80000000) != 0)
     {
@@ -9166,7 +9159,7 @@ uint64_t _sasl_auxprop_verify_apop(sasl_conn_t *conn, uint64_t a2, const char *a
       sasl_seterror(conn, 0, "could not perform password lookup");
       if (v14 != -13)
       {
-        goto LABEL_18;
+        return v14;
       }
     }
 
@@ -9175,34 +9168,31 @@ uint64_t _sasl_auxprop_verify_apop(sasl_conn_t *conn, uint64_t a2, const char *a
       if (!*&vals[0] || !*(&vals[0] + 1) || !**(&vals[0] + 1))
       {
         sasl_seterror(conn, 0, "could not find password");
-        v14 = 4294967276;
-        goto LABEL_18;
+        return 4294967276;
       }
 
-      _sasl_MD5Init(&v17);
+      _sasl_MD5Init(&v16);
       v9 = strlen(a3);
-      _sasl_MD5Update(&v17, a3, v9);
+      _sasl_MD5Update(&v16, a3, v9);
       v10 = strlen(**(&vals[0] + 1));
-      _sasl_MD5Update(&v17, **(&vals[0] + 1), v10);
-      v11 = v23;
-      _sasl_MD5Final(v23, &v17);
+      _sasl_MD5Update(&v16, **(&vals[0] + 1), v10);
+      v11 = v22;
+      _sasl_MD5Final(v22, &v16);
       (*(*(*(conn + 572) + 80) + 360))(*(*(conn + 572) + 152), names[0]);
       for (i = 0; i != 32; i += 2)
       {
         v13 = *v11++;
-        sprintf(&v20[i], "%02x", v13);
+        sprintf(&v19[i], "%02x", v13);
       }
 
-      if (!strncasecmp(v20, a4, 0x20uLL))
+      if (!strncasecmp(v19, a4, 0x20uLL))
       {
-        v14 = 0;
-        goto LABEL_18;
+        return 0;
       }
     }
 
     sasl_seterror(conn, 1u, "login incorrect");
-    v14 = 4294967283;
-    goto LABEL_18;
+    return 4294967283;
   }
 
   v14 = 4294967289;
@@ -9212,8 +9202,6 @@ uint64_t _sasl_auxprop_verify_apop(sasl_conn_t *conn, uint64_t a2, const char *a
     *(conn + 600) = -7;
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -9222,66 +9210,66 @@ int sasl_client_add_plugin(const char *plugname, sasl_client_plug_init_t *cplugf
   v2 = -7;
   if (plugname && cplugfunc)
   {
-    v21 = -1431655766;
-    v20 = 0xAAAAAAAAAAAAAAAALL;
-    v19 = -1431655766;
-    v4 = (cplugfunc)(*cmechlist, 4, &v19, &v20, &v21);
+    v16 = -1431655766;
+    v15 = 0xAAAAAAAAAAAAAAAALL;
+    v14 = -1431655766;
+    v4 = (cplugfunc)(*cmechlist, 4, &v14, &v15, &v16);
     if (v4)
     {
       v2 = v4;
-      _sasl_log(0, 3, "sasl_client_add_plugin(): entry_point(): failed for plugname %s: %z", v5, v6, v7, v8, v9, plugname);
+      _sasl_log(0, 3, "sasl_client_add_plugin(): entry_point(): failed for plugname %s: %z", plugname, v4);
     }
 
-    else if (v19 == 4)
+    else if (v14 == 4)
     {
-      if (v21 < 1)
+      if (v16 < 1)
       {
         return 0;
       }
 
       else
       {
-        v10 = 0;
+        v5 = 0;
         while (1)
         {
-          v11 = _sasl_allocation_utils(32);
-          if (!v11)
+          v6 = _sasl_allocation_utils(32);
+          if (!v6)
           {
             break;
           }
 
-          v12 = v11;
-          *(v11 + 16) = v20;
-          if (_sasl_strdup(plugname, (v11 + 8), 0))
+          v7 = v6;
+          *(v6 + 16) = v15;
+          if (_sasl_strdup(plugname, (v6 + 8), 0))
           {
-            off_280B0E738(v12);
+            off_280B0E738(v7);
             return -2;
           }
 
-          *v12 = v19;
-          v13 = cmechlist;
-          v15 = (cmechlist + 16);
-          v14 = *(cmechlist + 16);
-          v16 = v20;
-          if (v14 && (mech_compare(v20, *(v14 + 16)) & 0x80000000) != 0)
+          *v7 = v14;
+          v8 = cmechlist;
+          v10 = (cmechlist + 16);
+          v9 = *(cmechlist + 16);
+          v11 = v15;
+          if (v9 && (mech_compare(v15, *(v9 + 16)) & 0x80000000) != 0)
           {
             do
             {
-              v17 = v14;
-              v14 = *(v14 + 24);
+              v12 = v9;
+              v9 = *(v9 + 24);
             }
 
-            while (v14 && mech_compare(v16, *(v14 + 16)) < 1);
-            v15 = (v17 + 24);
+            while (v9 && mech_compare(v11, *(v9 + 16)) < 1);
+            v10 = (v12 + 24);
           }
 
           v2 = 0;
-          *(v12 + 24) = v14;
-          *v15 = v12;
-          ++*(v13 + 24);
-          ++v10;
-          v20 = v16 + 24;
-          if (v10 >= v21)
+          *(v7 + 24) = v9;
+          *v10 = v7;
+          ++*(v8 + 24);
+          ++v5;
+          v15 = (v11 + 24);
+          if (v5 >= v16)
           {
             return v2;
           }
@@ -9293,7 +9281,7 @@ int sasl_client_add_plugin(const char *plugname, sasl_client_plug_init_t *cplugf
 
     else
     {
-      _sasl_log(0, 3, "version conflict in sasl_client_add_plugin for %s", v5, v6, v7, v8, v9, plugname);
+      _sasl_log(0, 3, "version conflict in sasl_client_add_plugin for %s", plugname);
       return -23;
     }
   }
@@ -9421,19 +9409,19 @@ uint64_t mech_compare(_DWORD *a1, _DWORD *a2)
 
 int sasl_client_init(const sasl_callback_t *callbacks)
 {
-  v10[6] = *MEMORY[0x277D85DE8];
-  v10[0] = "sasl_client_plug_init";
-  v10[1] = sasl_client_add_plugin;
-  v10[2] = "sasl_canonuser_init";
-  v10[5] = 0;
-  v10[3] = sasl_canonuser_add_plugin;
-  v10[4] = 0;
+  v9[6] = *MEMORY[0x277D85DE8];
+  v9[0] = "sasl_client_plug_init";
+  v9[1] = sasl_client_add_plugin;
+  v9[2] = "sasl_canonuser_init";
+  v9[5] = 0;
+  v9[3] = sasl_canonuser_add_plugin;
+  v9[4] = 0;
   ++_sasl_allocation_locked;
   if (_sasl_client_active)
   {
     v1 = 0;
     ++_sasl_client_active;
-    goto LABEL_10;
+    return v1;
   }
 
   global_callbacks_client = callbacks;
@@ -9441,9 +9429,7 @@ int sasl_client_init(const sasl_callback_t *callbacks)
   cmechlist = _sasl_allocation_utils(32);
   if (!cmechlist)
   {
-LABEL_9:
-    v1 = -2;
-    goto LABEL_10;
+    return -2;
   }
 
   _sasl_client_active = 1;
@@ -9453,14 +9439,14 @@ LABEL_9:
   if (!v3)
   {
     client_done();
-    goto LABEL_9;
+    return -2;
   }
 
   *(v4 + 16) = 0;
   *(v4 + 24) = 0;
   sasl_client_add_plugin("EXTERNAL", external_client_plug_init);
   plugins = _sasl_common_init(&global_callbacks_client);
-  if (plugins || (getpath_callback = _sasl_find_getpath_callback(callbacks), verifyfile_callback = _sasl_find_verifyfile_callback(callbacks), (plugins = _sasl_load_plugins(v10, getpath_callback, verifyfile_callback)) != 0))
+  if (plugins || (getpath_callback = _sasl_find_getpath_callback(callbacks), verifyfile_callback = _sasl_find_verifyfile_callback(callbacks), (plugins = _sasl_load_plugins(v9, getpath_callback, verifyfile_callback)) != 0))
   {
     v1 = plugins;
     client_done();
@@ -9470,11 +9456,9 @@ LABEL_9:
   {
     _sasl_client_cleanup_hook = client_done;
     _sasl_client_idle_hook = client_idle;
-    v1 = _sasl_build_mechlist();
+    return _sasl_build_mechlist();
   }
 
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -9560,13 +9544,12 @@ uint64_t client_idle(uint64_t a1)
 
 int sasl_client_new(const char *service, const char *serverFQDN, const char *iplocalport, const char *ipremoteport, const sasl_callback_t *prompt_supp, unsigned int flags, sasl_conn_t **pconn)
 {
-  v73 = *MEMORY[0x277D85DE8];
-  *v54 = 0;
-  v53 = 0;
+  v60 = *MEMORY[0x277D85DE8];
+  *v41 = 0;
+  v40 = 0;
   if (!_sasl_client_active)
   {
-    v8 = -12;
-    goto LABEL_13;
+    return -12;
   }
 
   v8 = -7;
@@ -9576,139 +9559,139 @@ int sasl_client_new(const char *service, const char *serverFQDN, const char *ipl
     *pconn = v15;
     if (v15)
     {
-      *&v21 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v71 = v21;
-      v72 = v21;
-      v69 = v21;
-      v70 = v21;
-      v67 = v21;
-      v68 = v21;
-      v65 = v21;
-      v66 = v21;
-      v64 = v21;
-      v62 = v21;
-      v63 = v21;
-      v60 = v21;
-      v61 = v21;
-      v58 = v21;
-      v59 = v21;
-      v57 = v21;
+      *&v16 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v58 = v16;
+      v59 = v16;
+      v56 = v16;
+      v57 = v16;
+      v54 = v16;
+      v55 = v16;
+      v52 = v16;
+      v53 = v16;
+      v51 = v16;
+      v49 = v16;
+      v50 = v16;
+      v47 = v16;
+      v48 = v16;
+      v45 = v16;
+      v46 = v16;
+      v44 = v16;
       bzero(v15, 0x11E8uLL);
       *(*pconn + 1) = client_dispose;
-      v22 = *pconn;
+      v17 = *pconn;
       *(*pconn + 568) = 0;
-      v23 = _sasl_allocation_utils(192);
-      *(v22 + 569) = v23;
-      if (v23)
+      v18 = _sasl_allocation_utils(192);
+      *(v17 + 569) = v18;
+      if (v18)
       {
-        v23[10] = 0u;
-        v23[11] = 0u;
-        v23[8] = 0u;
-        v23[9] = 0u;
-        v23[6] = 0u;
-        v23[7] = 0u;
-        v23[4] = 0u;
-        v23[5] = 0u;
-        v23[2] = 0u;
-        v23[3] = 0u;
-        *v23 = 0u;
-        v23[1] = 0u;
+        v18[10] = 0u;
+        v18[11] = 0u;
+        v18[8] = 0u;
+        v18[9] = 0u;
+        v18[6] = 0u;
+        v18[7] = 0u;
+        v18[4] = 0u;
+        v18[5] = 0u;
+        v18[2] = 0u;
+        v18[3] = 0u;
+        *v18 = 0u;
+        v18[1] = 0u;
         v8 = _sasl_conn_init(*pconn, service, flags, 2, client_idle, serverFQDN, iplocalport, ipremoteport, prompt_supp, &global_callbacks_client);
-        v24 = *pconn;
+        v19 = *pconn;
         if (v8)
         {
-          if (v8 < 0 && v24)
+          if (v8 < 0 && v19)
           {
-            *(v24 + 600) = v8;
+            *(v19 + 600) = v8;
           }
 
-          goto LABEL_13;
+          return v8;
         }
 
-        v29 = _sasl_alloc_utils(v24, &global_callbacks_client);
-        if (v29)
+        v23 = _sasl_alloc_utils(v19, &global_callbacks_client);
+        if (v23)
         {
-          v30 = v29;
-          v55 = 0xAAAAAAAAAAAAAAAALL;
-          v56 = 0xAAAAAAAAAAAAAAAALL;
-          *(v29 + 8) = *pconn;
-          *(*(v22 + 569) + 24) = v29;
-          if (!_sasl_getcallback(*pconn, 1, &v56, &v55))
+          v24 = v23;
+          v42 = 0xAAAAAAAAAAAAAAAALL;
+          v43 = 0xAAAAAAAAAAAAAAAALL;
+          *(v23 + 8) = *pconn;
+          *(*(v17 + 569) + 24) = v23;
+          if (!_sasl_getcallback(*pconn, 1, &v43, &v42))
           {
-            (v56)(v55, 0, "client_mech_list", v54, 0);
+            (v43)(v42, 0, "client_mech_list", v41, 0);
           }
 
-          v31 = *v54;
-          if (!*v54)
+          v25 = *v41;
+          if (!*v41)
           {
-            v44 = cmechlist;
-            *(v22 + 571) = *(cmechlist + 16);
-            *(v22 + 1144) = *(v44 + 24);
+            v38 = cmechlist;
+            *(v17 + 571) = *(cmechlist + 16);
+            *(v17 + 1144) = *(v38 + 24);
             goto LABEL_52;
           }
 
-          v32 = **v54;
-          if (!**v54)
+          v26 = **v41;
+          if (!**v41)
           {
             goto LABEL_52;
           }
 
-          v33 = 0;
-          v34 = MEMORY[0x277D85DE0];
+          v27 = 0;
+          v28 = MEMORY[0x277D85DE0];
           while (1)
           {
-            if (v32 < 0)
+            if (v26 < 0)
             {
-              if (__maskrune(v32, 0x4000uLL))
+              if (__maskrune(v26, 0x4000uLL))
               {
                 goto LABEL_29;
               }
             }
 
-            else if ((*(v34 + 4 * v32 + 60) & 0x4000) != 0)
+            else if ((*(v28 + 4 * v26 + 60) & 0x4000) != 0)
             {
               goto LABEL_29;
             }
 
-            v35 = *++v31;
-            v32 = v35;
-            if (v35)
+            v29 = *++v25;
+            v26 = v29;
+            if (v29)
             {
               continue;
             }
 
 LABEL_29:
-            v36 = *(cmechlist + 16);
-            if (v36)
+            v30 = *(cmechlist + 16);
+            if (v30)
             {
-              while (!_sasl_is_equal_mech(*v54, **(v36 + 16), &v31[-*v54], &v53))
+              while (!_sasl_is_equal_mech(*v41, **(v30 + 16), &v25[-*v41], &v40))
               {
-                v36 = *(v36 + 24);
-                if (!v36)
+                v30 = *(v30 + 24);
+                if (!v30)
                 {
                   goto LABEL_32;
                 }
               }
 
-              v38 = _sasl_allocation_utils(32);
-              if (!v38)
+              v32 = _sasl_allocation_utils(32);
+              if (!v32)
               {
                 v8 = -2;
                 goto LABEL_57;
               }
 
-              v37 = v38;
-              v39 = *(v36 + 16);
-              *v38 = *v36;
-              *(v38 + 16) = v39;
-              *(v38 + 24) = 0;
-              v40 = (v22 + 4568);
-              if (*(v22 + 571))
+              v31 = v32;
+              v33 = *(v30 + 16);
+              *v32 = *v30;
+              *(v32 + 16) = v33;
+              *(v32 + 24) = 0;
+              v34 = (v17 + 4568);
+              if (*(v17 + 571))
               {
-                if (v33)
+                if (v27)
                 {
-                  v40 = (v33 + 24);
+                  v34 = (v27 + 24);
                   goto LABEL_37;
                 }
               }
@@ -9716,86 +9699,85 @@ LABEL_29:
               else
               {
 LABEL_37:
-                *v40 = v38;
+                *v34 = v32;
               }
 
-              ++*(v22 + 1144);
+              ++*(v17 + 1144);
               goto LABEL_39;
             }
 
 LABEL_32:
-            v37 = v33;
+            v31 = v27;
 LABEL_39:
-            *v54 = v31;
-            v41 = *v31;
-            if (!*v31)
+            *v41 = v25;
+            v35 = *v25;
+            if (!*v25)
             {
               goto LABEL_52;
             }
 
-            v42 = (v31 + 1);
-            while ((v41 & 0x80) == 0)
+            v36 = (v25 + 1);
+            while ((v35 & 0x80) == 0)
             {
-              if ((*(v34 + 4 * v41 + 60) & 0x4000) == 0)
+              if ((*(v28 + 4 * v35 + 60) & 0x4000) == 0)
               {
                 goto LABEL_47;
               }
 
 LABEL_45:
-              *v54 = v42;
-              v43 = *v42++;
-              v41 = v43;
-              if (!v43)
+              *v41 = v36;
+              v37 = *v36++;
+              v35 = v37;
+              if (!v37)
               {
                 goto LABEL_52;
               }
             }
 
-            if (__maskrune(v41, 0x4000uLL))
+            if (__maskrune(v35, 0x4000uLL))
             {
               goto LABEL_45;
             }
 
 LABEL_47:
-            v31 = *v54;
-            v32 = **v54;
-            v33 = v37;
-            if (!**v54)
+            v25 = *v41;
+            v26 = **v41;
+            v27 = v31;
+            if (!**v41)
             {
 LABEL_52:
-              if (*(v22 + 571))
+              if (*(v17 + 571))
               {
-                v45 = *(v22 + 569);
-                *(v45 + 24) = v30;
-                *(v45 + 152) = _sasl_canon_user_lookup;
-                *(v45 + 180) = flags;
-                *(v45 + 32) = *(*pconn + 296);
-                v57 = 0u;
+                v39 = *(v17 + 569);
+                *(v39 + 24) = v24;
+                *(v39 + 152) = _sasl_canon_user_lookup;
+                *(v39 + 180) = flags;
+                *(v39 + 32) = *(*pconn + 296);
+                v44 = 0u;
+                v45 = 0u;
+                v53 = 0u;
+                v54 = 0u;
+                v51 = 0u;
+                v52 = 0u;
+                v49 = 0u;
+                v50 = 0u;
+                v47 = 0u;
+                v48 = 0u;
                 v58 = 0u;
-                v66 = 0u;
-                v67 = 0u;
-                v64 = 0u;
-                v65 = 0u;
-                v62 = 0u;
-                v63 = 0u;
-                v60 = 0u;
-                v61 = 0u;
-                v71 = 0u;
-                v72 = 0u;
-                v69 = 0u;
-                v70 = 0u;
-                v68 = 0u;
                 v59 = 0u;
-                if (get_fqhostname(&v57, 256, 0))
+                v56 = 0u;
+                v57 = 0u;
+                v55 = 0u;
+                v46 = 0u;
+                if (get_fqhostname(&v44, 256, 0))
                 {
-                  v8 = -1;
-                  goto LABEL_13;
+                  return -1;
                 }
 
-                v8 = _sasl_strdup(&v57, v22 + 570, 0);
+                v8 = _sasl_strdup(&v44, v17 + 570, 0);
                 if (!v8)
                 {
-                  goto LABEL_13;
+                  return v8;
                 }
               }
 
@@ -9809,34 +9791,34 @@ LABEL_57:
               _sasl_conn_dispose(*pconn);
               off_280B0E738(*pconn);
               *pconn = 0;
-              _sasl_log(0, 1, "Out of memory in sasl_client_new", v46, v47, v48, v49, v50, v52);
-              goto LABEL_13;
+              _sasl_log(0, 1, "Out of memory in sasl_client_new");
+              return v8;
             }
           }
         }
 
-        v27 = *pconn;
+        v21 = *pconn;
         if (*pconn)
         {
-          v28 = 443;
+          v22 = 443;
 LABEL_16:
-          sasl_seterror(v27, 0, "Out of Memory in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/lib/client.c near line %d", v28);
+          sasl_seterror(v21, 0, "Out of Memory in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/lib/client.c near line %d", v22);
           v8 = -2;
           if (*pconn)
           {
             *(*pconn + 600) = -2;
           }
 
-          goto LABEL_13;
+          return v8;
         }
       }
 
       else
       {
-        v27 = *pconn;
+        v21 = *pconn;
         if (*pconn)
         {
-          v28 = 432;
+          v22 = 432;
           goto LABEL_16;
         }
       }
@@ -9844,13 +9826,11 @@ LABEL_16:
 
     else
     {
-      _sasl_log(0, 1, "Out of memory allocating connection context", v16, v17, v18, v19, v20, v51);
+      _sasl_log(0, 1, "Out of memory allocating connection context");
     }
 
-    v8 = -2;
+    return -2;
   }
 
-LABEL_13:
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }

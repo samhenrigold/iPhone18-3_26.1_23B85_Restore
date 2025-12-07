@@ -22,6 +22,7 @@
 - (void)avServerConnectionDiedNotification;
 - (void)dealloc;
 - (void)infoDidChange:(id)change;
+- (void)playbackStateDidChange:(unsigned int)change;
 - (void)registerForAVNotifications;
 - (void)sendCommand:(unsigned __int8)command;
 - (void)setCurrentSupportedCommands:(__CFArray *)commands;
@@ -467,6 +468,13 @@ LABEL_18:
   [(MediaInfo *)self setCurrentIdentifier:change];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained mediaPlayerDidChange];
+}
+
+- (void)playbackStateDidChange:(unsigned int)change
+{
+  [(MediaInfo *)self setCurrentPlaybackState:*&change];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained mediaStateDidChange];
 }
 
 - (void)infoDidChange:(id)change

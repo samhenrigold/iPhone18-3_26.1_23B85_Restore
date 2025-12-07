@@ -1,5 +1,5 @@
 @interface _UIImageContentLayoutDrawingTarget
-+ (id)targetWithSize:(double)size scale:;
++ (_UIImageContentLayoutDrawingTarget)targetWithSize:(CGFloat)size scale:(double)scale;
 - (CGRect)bounds;
 - (UIEdgeInsets)_additionalAlignmentRectInsetsForRenderingSource:(id)source;
 - (id)_effectsForRenderingSource:(id)source size:(CGSize)size symbolConfiguration:(id)configuration renditionContext:(id)context;
@@ -8,19 +8,19 @@
 
 @implementation _UIImageContentLayoutDrawingTarget
 
-+ (id)targetWithSize:(double)size scale:
++ (_UIImageContentLayoutDrawingTarget)targetWithSize:(CGFloat)size scale:(double)scale
 {
   objc_opt_self();
-  v6 = objc_opt_new();
-  if (v6)
+  v7 = objc_opt_new();
+  if (v7)
   {
-    *(v6 + 16) = *MEMORY[0x1E695EFF8];
-    *(v6 + 32) = self;
-    *(v6 + 40) = a2;
-    *(v6 + 8) = size;
+    *(v7 + 16) = *MEMORY[0x1E695EFF8];
+    *(v7 + 32) = a2;
+    *(v7 + 40) = size;
+    *(v7 + 8) = scale;
   }
 
-  return v6;
+  return v7;
 }
 
 - (UIEdgeInsets)_additionalAlignmentRectInsetsForRenderingSource:(id)source

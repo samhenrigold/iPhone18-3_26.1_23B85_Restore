@@ -138,6 +138,8 @@
 - (void)activateSystemMonitor;
 - (void)addPreventExitForLocaleReason:(id)reason;
 - (void)addServerName:(id)name forHostName:(id)hostName;
+- (void)airDropTransactionBegin:(BOOL)begin;
+- (void)airDropTransactionEnd:(BOOL)end;
 - (void)appleIDAccountInfoChanged:(id)changed;
 - (void)backlight:(id)backlight activatingWithEvent:(id)event;
 - (void)backlight:(id)backlight deactivatingWithEvent:(id)event;
@@ -218,9 +220,11 @@
 - (void)resetMeCardWithReason:(id)reason;
 - (void)restartBonjourNameMonitor;
 - (void)retryInstallBluetoothMonitor;
+- (void)screenOnStateChangedTo:(BOOL)to;
 - (void)sessionDidConnect:(id)connect;
 - (void)sessionDidDisconnect:(id)disconnect;
 - (void)setAirDropPublished:(BOOL)published;
+- (void)setAirplaneModeEnabled:(BOOL)enabled;
 - (void)setBluetoothEnabled:(BOOL)enabled;
 - (void)setDiscoverableMode:(id)mode;
 - (void)setFinderServer:(id)server;
@@ -435,10 +439,9 @@
   deviceKeyBagState = self->_deviceKeyBagState;
   if (!deviceKeyBagState)
   {
-    mkbOptions = self->_mkbOptions;
-    v5 = [NSNumber numberWithInt:MKBGetDeviceLockState()];
-    v6 = self->_deviceKeyBagState;
-    self->_deviceKeyBagState = v5;
+    v4 = [NSNumber numberWithInt:MKBGetDeviceLockState()];
+    v5 = self->_deviceKeyBagState;
+    self->_deviceKeyBagState = v4;
 
     deviceKeyBagState = self->_deviceKeyBagState;
   }
@@ -473,34 +476,33 @@
 
 - (BOOL)deviceSupportsRanging
 {
-  wifiDevice = self->_wifiDevice;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = WiFiDeviceClientCopyProperty();
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v22 count:16];
-  if (v5)
+  v3 = WiFiDeviceClientCopyProperty();
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v21 count:16];
+  if (v4)
   {
-    v6 = *v13;
+    v5 = *v12;
     while (2)
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v4; i = i + 1)
       {
-        if (*v13 != v6)
+        if (*v12 != v5)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) integerValue] == 58)
+        if ([*(*(&v11 + 1) + 8 * i) integerValue] == 58)
         {
-          LODWORD(v5) = 1;
+          LODWORD(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v22 count:16];
-      if (v5)
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v21 count:16];
+      if (v4)
       {
         continue;
       }
@@ -511,26 +513,26 @@
 
 LABEL_11:
 
-  v8 = auto_unlock_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v7 = auto_unlock_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = @"NO";
-    v11 = self->_wifiDevice;
+    v9 = @"NO";
+    wifiDevice = self->_wifiDevice;
     *buf = 138412802;
-    if (v5)
+    if (v4)
     {
-      v10 = @"YES";
+      v9 = @"YES";
     }
 
-    v17 = v10;
-    v18 = 2112;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Device supports ranging %@, capabilities: %@, wifiDevice: %@", buf, 0x20u);
+    v16 = v9;
+    v17 = 2112;
+    v18 = v3;
+    v19 = 2112;
+    v20 = wifiDevice;
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Device supports ranging %@, capabilities: %@, wifiDevice: %@", buf, 0x20u);
   }
 
-  return v5;
+  return v4;
 }
 
 - (NSString)deviceInformation
@@ -693,18 +695,8 @@ LABEL_11:
   }
 
   myAppleIDValidationRecord = [(SDStatusMonitor *)self myAppleIDValidationRecord];
-  if (!myAppleIDValidationRecord)
+  if (!myAppleIDValidationRecord || (v12 = myAppleIDValidationRecord, -[SDStatusMonitor myAppleIDValidationRecord](self, "myAppleIDValidationRecord"), v13 = objc_claimAutoreleasedReturnValue(), [v13 objectForKeyedSubscript:@"AppleIDAccountValidationRecordData"], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, !v14))
   {
-    goto LABEL_15;
-  }
-
-  v12 = myAppleIDValidationRecord;
-  myAppleIDValidationRecord2 = [(SDStatusMonitor *)self myAppleIDValidationRecord];
-  v14 = [myAppleIDValidationRecord2 objectForKeyedSubscript:@"AppleIDAccountValidationRecordData"];
-
-  if (!v14)
-  {
-LABEL_15:
     v10 |= 8u;
   }
 
@@ -814,59 +806,71 @@ LABEL_5:
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v16 = 0;
-  currentDiscoverableMode = self->_currentDiscoverableMode;
-  NSAppendPrintF();
-  v3 = v16;
+  v20 = 0;
+  NSAppendPrintF(&v20, "-- SDStatusMonitor --\n");
+  v3 = v20;
+  v19 = v3;
+  NSAppendPrintF(&v19, "Current Discoverable Mode:    %@\n", self->_currentDiscoverableMode);
+  v4 = v19;
 
+  v18 = v4;
   if ([(SDStatusMonitor *)self isAirDropAvailable])
   {
-    v4 = "yes";
+    v5 = "yes";
   }
 
   else
   {
-    v4 = "no";
+    v5 = "no";
   }
 
-  v13 = v4;
-  NSAppendPrintF();
-  v5 = v3;
+  NSAppendPrintF(&v18, "AirDrop Available:            %s\n", v5);
+  v6 = v18;
 
+  v17 = v6;
   if ([(SDStatusMonitor *)self isAirDropAllowed])
   {
-    v6 = "yes";
+    v7 = "yes";
   }
 
   else
   {
-    v6 = "no";
+    v7 = "no";
   }
 
-  v14 = v6;
-  NSAppendPrintF();
-  v7 = v5;
+  NSAppendPrintF(&v17, "AirDrop Allowed:              %s\n", v7);
+  v8 = v17;
 
+  v16 = v8;
   if ([(SDStatusMonitor *)self enableAirDropAdvertising])
   {
-    v8 = "yes";
+    v9 = "yes";
   }
 
   else
   {
-    v8 = "no";
+    v9 = "no";
   }
 
-  v15 = v8;
-  NSAppendPrintF();
-  v9 = v7;
+  NSAppendPrintF(&v16, "AirDrop Advertising:          %s\n", v9);
+  v10 = v16;
 
-  [(SDStatusMonitor *)self enableAirDropReceiving];
-  NSAppendPrintF();
-  v10 = v9;
+  v15 = v10;
+  if ([(SDStatusMonitor *)self enableAirDropReceiving])
+  {
+    v11 = "yes";
+  }
 
-  return v9;
+  else
+  {
+    v11 = "no";
+  }
+
+  NSAppendPrintF(&v15, "AirDrop Receiving:            %s\n", v11);
+  v12 = v15;
+  v13 = v15;
+
+  return v12;
 }
 
 - (BOOL)isAirDropAllowed
@@ -1337,6 +1341,25 @@ LABEL_5:
   {
     [(NSMutableDictionary *)self->_serverNames setValue:nameCopy forKey:v9];
   }
+
+  pthread_mutex_unlock(&stru_100972F48);
+}
+
+- (void)airDropTransactionBegin:(BOOL)begin
+{
+  beginCopy = begin;
+  pthread_mutex_lock(&stru_100972F48);
+  [(SDStatusMonitor *)self logAirDropTransactionForClientServer:beginCopy beginEnd:1 count:self->_airDropCount];
+
+  pthread_mutex_unlock(&stru_100972F48);
+}
+
+- (void)airDropTransactionEnd:(BOOL)end
+{
+  endCopy = end;
+  pthread_mutex_lock(&stru_100972F48);
+  --self->_airDropCount;
+  [(SDStatusMonitor *)self logAirDropTransactionForClientServer:endCopy beginEnd:0 count:?];
 
   pthread_mutex_unlock(&stru_100972F48);
 }
@@ -2189,60 +2212,58 @@ LABEL_5:
 {
   nameCopy = name;
   [(SDStatusMonitor *)self awdlPeerList];
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v5 = v28 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = v26 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
-    v9 = &kSFNodeProtocolWebDAVS_ptr;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v26 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
-        v12 = v9[214];
+        v10 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = v11;
-          v14 = [v13 objectForKeyedSubscript:@"STATION_AWDL_SERVICES"];
+          v11 = v10;
+          v12 = [v11 objectForKeyedSubscript:@"STATION_AWDL_SERVICES"];
+          v19 = 0u;
+          v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          v24 = 0u;
-          v15 = v14;
-          v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
-          if (v16)
+          v13 = v12;
+          v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          if (v14)
           {
-            v17 = v16;
-            v18 = *v22;
+            v15 = v14;
+            v16 = *v20;
             while (2)
             {
-              for (j = 0; j != v17; j = j + 1)
+              for (j = 0; j != v15; j = j + 1)
               {
-                if (*v22 != v18)
+                if (*v20 != v16)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v13);
                 }
 
-                if ([*(*(&v21 + 1) + 8 * j) containsString:nameCopy])
+                if ([*(*(&v19 + 1) + 8 * j) containsString:nameCopy])
                 {
 
                   goto LABEL_21;
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
-              if (v17)
+              v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+              if (v15)
               {
                 continue;
               }
@@ -2250,13 +2271,11 @@ LABEL_5:
               break;
             }
           }
-
-          v9 = &kSFNodeProtocolWebDAVS_ptr;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
-      v13 = 0;
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v11 = 0;
     }
 
     while (v7);
@@ -2264,12 +2283,12 @@ LABEL_5:
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
 LABEL_21:
 
-  return v13;
+  return v11;
 }
 
 - (id)awdlNetwork
@@ -3065,21 +3084,20 @@ LABEL_7:
   personalHotspotAutoState = self->_personalHotspotAutoState;
   if (!personalHotspotAutoState)
   {
-    wifiManager = self->_wifiManager;
     AutoInstantHotspotMode = WiFiManagerClientGetAutoInstantHotspotMode();
     if (AutoInstantHotspotMode <= 2)
     {
-      v6 = AutoInstantHotspotMode;
+      v5 = AutoInstantHotspotMode;
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = [NSNumber numberWithUnsignedInt:v6];
-    v8 = self->_personalHotspotAutoState;
-    self->_personalHotspotAutoState = v7;
+    v6 = [NSNumber numberWithUnsignedInt:v5];
+    v7 = self->_personalHotspotAutoState;
+    self->_personalHotspotAutoState = v6;
 
     personalHotspotAutoState = self->_personalHotspotAutoState;
   }
@@ -3090,53 +3108,52 @@ LABEL_7:
 - (void)updateAutoHotspotState
 {
   integerValue = [(NSNumber *)self->_personalHotspotAutoState integerValue];
-  wifiManager = self->_wifiManager;
   AutoInstantHotspotMode = WiFiManagerClientGetAutoInstantHotspotMode();
   if (AutoInstantHotspotMode <= 2)
   {
-    v6 = AutoInstantHotspotMode;
+    v5 = AutoInstantHotspotMode;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = [NSNumber numberWithUnsignedInt:v6];
+  v6 = [NSNumber numberWithUnsignedInt:v5];
   personalHotspotAutoState = self->_personalHotspotAutoState;
-  self->_personalHotspotAutoState = v7;
+  self->_personalHotspotAutoState = v6;
 
   if (integerValue != [(NSNumber *)self->_personalHotspotAutoState integerValue])
   {
-    v9 = daemon_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = daemon_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       if (integerValue > 2)
       {
-        v10 = "?";
+        v9 = "?";
       }
 
       else
       {
-        v10 = off_1008D5118[integerValue];
+        v9 = off_1008D5118[integerValue];
       }
 
       integerValue2 = [(NSNumber *)self->_personalHotspotAutoState integerValue];
       if (integerValue2 > 2)
       {
-        v12 = "?";
+        v11 = "?";
       }
 
       else
       {
-        v12 = off_1008D5118[integerValue2];
+        v11 = off_1008D5118[integerValue2];
       }
 
-      v13 = 136315394;
-      v14 = v10;
-      v15 = 2080;
-      v16 = v12;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Auto Hotspot state changed %s -> %s", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = v9;
+      v14 = 2080;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Auto Hotspot state changed %s -> %s", &v12, 0x16u);
     }
 
     [(SDStatusMonitor *)self postNotification:@"com.apple.sharingd.HotspotAutoStateChanged"];
@@ -3145,11 +3162,10 @@ LABEL_7:
 
 - (void)cellularDataEnabled:(BOOL *)enabled airplaneMode:(BOOL *)mode
 {
-  coreTelephonyServerConnection = self->_coreTelephonyServerConnection;
   if (_CTServerConnectionGetCellularDataSettings())
   {
-    v7 = daemon_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = daemon_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100231BB4();
     }
@@ -3206,76 +3222,75 @@ LABEL_6:
     self->_personalHotspotFamilyStates = v4;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v6 = [[NSMutableString alloc] initWithString:@"Family Hotspot State: "];
-  wifiManager = self->_wifiManager;
-  v8 = WiFiManagerClientCopyFamilyHotspotPreferences();
-  v9 = [v8 count];
-  v10 = daemon_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v7 = WiFiManagerClientCopyFamilyHotspotPreferences();
+  v8 = [v7 count];
+  v9 = daemon_log();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v35) = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Family hotspot entries: %d", buf, 8u);
+    LODWORD(v34) = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Family hotspot entries: %d", buf, 8u);
   }
 
-  if (!v9)
+  if (!v8)
   {
-    *(v27 + 24) = 1;
+    *(v26 + 24) = 1;
   }
 
-  v16 = _NSConcreteStackBlock;
-  v17 = 3221225472;
-  v18 = sub_1002272B4;
-  v19 = &unk_1008D4D90;
-  v25 = personalHotspotFamilyStates == 0;
-  v11 = v6;
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_1002272B4;
+  v18 = &unk_1008D4D90;
+  v24 = personalHotspotFamilyStates == 0;
+  v10 = v6;
+  v19 = v10;
+  v11 = v7;
   v20 = v11;
-  v12 = v8;
-  v21 = v12;
   selfCopy = self;
-  v23 = &v30;
-  v24 = &v26;
-  [v12 enumerateObjectsUsingBlock:&v16];
+  v22 = &v29;
+  v23 = &v25;
+  [v11 enumerateObjectsUsingBlock:&v15];
   personalHotspotFamilyEnabled = self->_personalHotspotFamilyEnabled;
-  self->_personalHotspotFamilyEnabled = *(v27 + 24) ^ 1;
+  self->_personalHotspotFamilyEnabled = *(v26 + 24) ^ 1;
   if (!personalHotspotFamilyStates)
   {
-    v14 = daemon_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = daemon_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v27 + 24))
+      if (*(v26 + 24))
       {
-        v15 = @"Disabled";
+        v14 = @"Disabled";
       }
 
       else
       {
-        v15 = &stru_1008EFBD0;
+        v14 = &stru_1008EFBD0;
       }
 
       *buf = 138412546;
-      v35 = v11;
-      v36 = 2112;
-      v37 = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
+      v34 = v10;
+      v35 = 2112;
+      v36 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
     }
   }
 
-  if ((v31[3] & 1) != 0 || personalHotspotFamilyEnabled != self->_personalHotspotFamilyEnabled)
+  if ((v30[3] & 1) != 0 || personalHotspotFamilyEnabled != self->_personalHotspotFamilyEnabled)
   {
-    [(SDStatusMonitor *)self postNotification:@"com.apple.sharingd.HotspotFamilyStateChanged", v16, v17, v18, v19, v20];
+    [(SDStatusMonitor *)self postNotification:@"com.apple.sharingd.HotspotFamilyStateChanged", v15, v16, v17, v18, v19];
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 - (BOOL)personalHotspotAllowed
@@ -3607,6 +3622,15 @@ LABEL_6:
   pthread_mutex_unlock(&stru_100972F48);
 }
 
+- (void)setAirplaneModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  pthread_mutex_lock(&stru_100972F48);
+  [(RadiosPreferences *)self->_radiosPreferences setAirplaneMode:enabledCopy];
+
+  pthread_mutex_unlock(&stru_100972F48);
+}
+
 - (NSDictionary)awdlInfo
 {
   awdlState = [(SDStatusMonitor *)self awdlState];
@@ -3655,11 +3679,10 @@ LABEL_6:
 
   if (awdlDevice)
   {
-    awdlDevice = self->_awdlDevice;
     if (WiFiDeviceClientCopyInterfaceStateInfo())
     {
-      v5 = daemon_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = daemon_log();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_100231CA8();
       }
@@ -3667,8 +3690,8 @@ LABEL_6:
 
     else
     {
-      v5 = daemon_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v3 = daemon_log();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_100231D18();
       }
@@ -3677,8 +3700,8 @@ LABEL_6:
 
   else
   {
-    v5 = daemon_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = daemon_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100231D54();
     }
@@ -4711,7 +4734,6 @@ LABEL_23:
 
   pthread_mutex_lock(&stru_100972F48);
   wifiDeviceAttachmentRegistered = self->_wifiDeviceAttachmentRegistered;
-  wifiManager = self->_wifiManager;
   self->_wifiDeviceAttachmentRegistered = 1;
   pthread_mutex_unlock(&stru_100972F48);
   if (!wifiDeviceAttachmentRegistered)
@@ -4729,33 +4751,33 @@ LABEL_23:
     WiFiManagerClientRegisterServerRestartCallback();
   }
 
-  v7 = WiFiManagerClientCopyDevices();
-  if (v7)
+  v6 = WiFiManagerClientCopyDevices();
+  if (v6)
   {
-    v8 = v7;
-    if (CFArrayGetCount(v7))
+    v7 = v6;
+    if (CFArrayGetCount(v6))
     {
-      v29 = v8;
+      v27 = v7;
+      v28 = 0u;
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v9 = WiFiManagerClientCopyInterfaces();
-      v10 = [v9 countByEnumeratingWithState:&v30 objects:v36 count:16];
-      if (v10)
+      v8 = WiFiManagerClientCopyInterfaces();
+      v9 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      if (v9)
       {
-        v11 = v10;
-        v12 = *v31;
+        v10 = v9;
+        v11 = *v29;
         do
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v10; i = i + 1)
           {
-            if (*v31 != v12)
+            if (*v29 != v11)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v8);
             }
 
-            v14 = *(*(&v30 + 1) + 8 * i);
+            v13 = *(*(&v28 + 1) + 8 * i);
             pthread_mutex_lock(&stru_100972F48);
             wifiDevice = self->_wifiDevice;
             pthread_mutex_unlock(&stru_100972F48);
@@ -4763,74 +4785,74 @@ LABEL_23:
             {
               if (WiFiDeviceClientGetInterfaceRoleIndex())
               {
-                v16 = 0;
+                v15 = 0;
               }
 
               else
               {
                 pthread_mutex_lock(&stru_100972F48);
-                v16 = v14;
-                self->_wifiDevice = v16;
+                v15 = v13;
+                self->_wifiDevice = v15;
                 pthread_mutex_unlock(&stru_100972F48);
                 WiFiDeviceClientRegisterPowerCallback();
               }
 
-              v17 = daemon_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v16 = daemon_log();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v35 = v16;
-                _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Wi-Fi device %@", buf, 0xCu);
+                v33 = v15;
+                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Wi-Fi device %@", buf, 0xCu);
               }
             }
 
             pthread_mutex_lock(&stru_100972F48);
-            v18 = self->_awdlDevice;
+            v17 = self->_awdlDevice;
             pthread_mutex_unlock(&stru_100972F48);
-            if (!v18 && WiFiDeviceClientIsInterfaceAWDL())
+            if (!v17 && WiFiDeviceClientIsInterfaceAWDL())
             {
               pthread_mutex_lock(&stru_100972F48);
-              v19 = v14;
-              self->_awdlDevice = v19;
+              v18 = v13;
+              self->_awdlDevice = v18;
               pthread_mutex_unlock(&stru_100972F48);
               WiFiDeviceClientRegisterVirtualInterfaceStateChangeCallback();
               WiFiDeviceClientCopyInterfaceStateInfo();
               [(SDStatusMonitor *)self handleAWDLState:0];
-              v20 = daemon_log();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              v19 = daemon_log();
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v35 = v19;
-                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "AWDL device %@", buf, 0xCu);
+                v33 = v18;
+                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "AWDL device %@", buf, 0xCu);
               }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
-        while (v11);
+        while (v10);
       }
 
-      v8 = v29;
+      v7 = v27;
     }
 
     else
     {
-      v9 = daemon_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = daemon_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100231FFC();
       }
     }
 
-    CFRelease(v8);
+    CFRelease(v7);
   }
 
   else
   {
-    v21 = daemon_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = daemon_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_100232038();
     }
@@ -4838,38 +4860,37 @@ LABEL_23:
 
 LABEL_37:
   pthread_mutex_lock(&stru_100972F48);
-  v22 = self->_wifiDevice;
-  v23 = self->_wifiDeviceAttachmentRegistered;
+  v21 = self->_wifiDevice;
+  v22 = self->_wifiDeviceAttachmentRegistered;
   wifiScheduledOnRunLoop = self->_wifiScheduledOnRunLoop;
-  v25 = self->_wifiManager;
   pthread_mutex_unlock(&stru_100972F48);
-  if (!v22)
+  if (!v21)
   {
     if (wifiScheduledOnRunLoop)
     {
       return;
     }
 
-    v28 = daemon_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v26 = daemon_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "SDStatusMonitor: WiFi device monitor started", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "SDStatusMonitor: WiFi device monitor started", buf, 2u);
     }
 
     goto LABEL_52;
   }
 
-  if (v23)
+  if (v22)
   {
-    v26 = daemon_log();
-    v27 = v26;
+    v24 = daemon_log();
+    v25 = v24;
     if (wifiScheduledOnRunLoop)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "SDStatusMonitor: WiFi device attached", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "SDStatusMonitor: WiFi device attached", buf, 2u);
       }
 
       [(SDStatusMonitor *)self postNotification:@"com.apple.sharingd.WiFiDeviceAttached"];
@@ -4877,7 +4898,7 @@ LABEL_37:
 
     else
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         sub_100232074();
       }
@@ -5304,9 +5325,9 @@ LABEL_6:
 
 - (void)carplayStatusNotification:(id)notification
 {
-  sharedAVSystemController = [(objc_class *)off_100972FA8() sharedAVSystemController];
-  v5 = off_100972FB0();
-  v6 = [sharedAVSystemController attributeForKey:v5];
+  v4 = [off_100972FA8(self a2];
+  v5 = off_100972FB0(v4);
+  v6 = [v4 attributeForKey:v5];
   bOOLValue = [v6 BOOLValue];
 
   v8 = daemon_log();
@@ -5341,26 +5362,26 @@ LABEL_6:
 
 - (void)installCarPlayStatusMonitor
 {
-  sharedAVSystemController = [(objc_class *)off_100972FA8() sharedAVSystemController];
-  v4 = off_100972FB8();
-  v13[0] = v4;
-  v5 = off_100972FC0();
-  v13[1] = v5;
-  v6 = [NSArray arrayWithObjects:v13 count:2];
+  v3 = [(off_100972FA8)(self a2)];
+  v4 = off_100972FB8(v3);
+  v16[0] = v4;
+  v5 = off_100972FC0(v4);
+  v16[1] = v5;
+  v6 = [NSArray arrayWithObjects:v16 count:2];
 
-  v7 = off_100972FC8();
-  [sharedAVSystemController setAttribute:v6 forKey:v7 error:0];
+  v8 = off_100972FC8(v7);
+  [v3 setAttribute:v6 forKey:v8 error:0];
 
-  v8 = +[NSNotificationCenter defaultCenter];
-  v9 = off_100972FB8();
-  [v8 addObserver:self selector:"carplayMonitorDiedNotification:" name:v9 object:0];
+  v9 = +[NSNotificationCenter defaultCenter];
+  v10 = off_100972FB8(v9);
+  [v9 addObserver:self selector:"carplayMonitorDiedNotification:" name:v10 object:0];
 
-  v10 = off_100972FC0();
-  [v8 addObserver:self selector:"carplayStatusNotification:" name:v10 object:0];
+  v12 = off_100972FC0(v11);
+  [v9 addObserver:self selector:"carplayStatusNotification:" name:v12 object:0];
 
-  v11 = off_100972FB0();
-  v12 = [sharedAVSystemController attributeForKey:v11];
-  self->_carplayConnected = [v12 BOOLValue];
+  v14 = off_100972FB0(v13);
+  v15 = [v3 attributeForKey:v14];
+  self->_carplayConnected = [v15 BOOLValue];
 }
 
 - (void)installWirelessCarPlayMonitor
@@ -5426,12 +5447,12 @@ LABEL_6:
 
 - (void)uninstallCarPlayStatusMonitor
 {
-  v5 = +[NSNotificationCenter defaultCenter];
-  v3 = off_100972FB8();
-  [v5 removeObserver:self name:v3 object:0];
+  v6 = +[NSNotificationCenter defaultCenter];
+  v3 = off_100972FB8(v6);
+  [v6 removeObserver:self name:v3 object:0];
 
-  v4 = off_100972FC0();
-  [v5 removeObserver:self name:v4 object:0];
+  v5 = off_100972FC0(v4);
+  [v6 removeObserver:self name:v5 object:0];
 
   self->_carplayConnected = 0;
 }
@@ -6296,6 +6317,55 @@ LABEL_11:
   [(SDStatusMonitor *)self screenOnStateChangedTo:0];
 }
 
+- (void)screenOnStateChangedTo:(BOOL)to
+{
+  toCopy = to;
+  if (!CFPrefs_GetInt64())
+  {
+    pthread_mutex_lock(&stru_100972F48);
+    screenOn = self->_screenOn;
+    if (screenOn)
+    {
+      bOOLValue = [(NSNumber *)screenOn BOOLValue];
+      v7 = [NSNumber numberWithBool:toCopy];
+      v8 = self->_screenOn;
+      self->_screenOn = v7;
+
+      pthread_mutex_unlock(&stru_100972F48);
+      if (bOOLValue == toCopy)
+      {
+        return;
+      }
+    }
+
+    else
+    {
+      v9 = [NSNumber numberWithBool:toCopy];
+      v10 = self->_screenOn;
+      self->_screenOn = v9;
+
+      pthread_mutex_unlock(&stru_100972F48);
+    }
+
+    v11 = daemon_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      bOOLValue2 = [(NSNumber *)self->_screenOn BOOLValue];
+      v13 = @"Off";
+      if (bOOLValue2)
+      {
+        v13 = @"On";
+      }
+
+      *buf = 138412290;
+      v15 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Screen state changed to %@", buf, 0xCu);
+    }
+
+    [(SDStatusMonitor *)self postNotification:@"com.apple.sharingd.ScreenStateChanged"];
+  }
+}
+
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvents:(id)events abortedEvents:(id)abortedEvents
 {
   v8 = daemon_log();
@@ -6777,11 +6847,10 @@ LABEL_10:
     {
       v11 = [NSNumber numberWithDouble:v9];
       *buf = 138412290;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Scheduling everyone mode expiry handler for interval %@", buf, 0xCu);
     }
 
-    v12 = self->_airDropEveryoneModeExpiryTimer;
     SFDispatchTimerSet();
     dispatch_resume(self->_airDropEveryoneModeExpiryTimer);
     pthread_mutex_unlock(&stru_100972F48);

@@ -4,6 +4,7 @@
 - (void)completeSession;
 - (void)dispose;
 - (void)fetchVirtualInterfaceTypeWithCompletionHandler:(id)handler;
+- (void)requestSocket:(BOOL)socket interface:(id)interface local:(id)local remote:(id)remote completionHandler:(id)handler;
 - (void)setAppUUIDMap:(id)map;
 - (void)setTunnelConfiguration:(id)configuration completionHandler:(id)handler;
 - (void)setupVirtualInterface:(id)interface;
@@ -70,7 +71,7 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
 
 - (void)setAppUUIDMap:(id)map
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   v6 = ne_log_obj();
@@ -84,9 +85,9 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
       _os_log_impl(&dword_1BA83C000, packetFlow, OS_LOG_TYPE_DEFAULT, "%@: Setting the app UUID map", buf, 0xCu);
     }
 
-    v28 = _principalObject;
+    v27 = _principalObject;
     packetFlow = [_principalObject packetFlow];
-    v29 = mapCopy;
+    v28 = mapCopy;
     v8 = mapCopy;
     v9 = v8;
     if (packetFlow)
@@ -94,41 +95,41 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
       selfa = packetFlow;
       allKeys = [v8 allKeys];
       v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
       obj = allKeys;
-      v12 = [obj countByEnumeratingWithState:&v31 objects:buf count:16];
+      v12 = [obj countByEnumeratingWithState:&v30 objects:buf count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v32;
+        v14 = *v31;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v31 + 1) + 8 * i);
+            v16 = *(*(&v30 + 1) + 8 * i);
             v17 = [v9 objectForKeyedSubscript:v16];
             v18 = [NEFlowMetaData alloc];
             v19 = v16;
             v20 = v17;
             if (v18)
             {
-              v36.receiver = v18;
-              v36.super_class = NEFlowMetaData;
-              v21 = [(NEExtensionPacketTunnelProviderContext *)&v36 init];
+              v35.receiver = v18;
+              v35.super_class = NEFlowMetaData;
+              v21 = [(NEExtensionPacketTunnelProviderContext *)&v35 init];
               v18 = v21;
               if (v21)
               {
                 objc_storeStrong(&v21->super.super._hostContext, v17);
-                v35 = [v19 hash];
-                v22 = [MEMORY[0x1E695DEF0] dataWithBytes:&v35 length:8];
+                v34 = [v19 hash];
+                v22 = [MEMORY[0x1E695DEF0] dataWithBytes:&v34 length:8];
                 sourceAppUniqueIdentifier = v18->_sourceAppUniqueIdentifier;
                 v18->_sourceAppUniqueIdentifier = v22;
               }
@@ -137,7 +138,7 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
             [v11 setObject:v18 forKeyedSubscript:v19];
           }
 
-          v13 = [obj countByEnumeratingWithState:&v31 objects:buf count:16];
+          v13 = [obj countByEnumeratingWithState:&v30 objects:buf count:16];
         }
 
         while (v13);
@@ -148,8 +149,8 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
       objc_setProperty_atomic(selfa, v25, v24, 72);
     }
 
-    _principalObject = v28;
-    mapCopy = v29;
+    _principalObject = v27;
+    mapCopy = v28;
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -158,8 +159,28 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
     selfCopy2 = self;
     _os_log_error_impl(&dword_1BA83C000, packetFlow, OS_LOG_TYPE_ERROR, "%@: No provider when setting the app UUID map", buf, 0xCu);
   }
+}
 
-  v26 = *MEMORY[0x1E69E9840];
+- (void)requestSocket:(BOOL)socket interface:(id)interface local:(id)local remote:(id)remote completionHandler:(id)handler
+{
+  socketCopy = socket;
+  v23 = *MEMORY[0x1E69E9840];
+  interfaceCopy = interface;
+  handlerCopy = handler;
+  remoteCopy = remote;
+  localCopy = local;
+  v16 = ne_log_obj();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    v19 = 138412546;
+    selfCopy = self;
+    v21 = 2112;
+    v22 = interfaceCopy;
+    _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@: Requesting IKE socket for interface %@", &v19, 0x16u);
+  }
+
+  hostContext = [(NEExtensionProviderContext *)self hostContext];
+  [hostContext requestSocket:socketCopy interface:interfaceCopy local:localCopy remote:remoteCopy completionHandler:handlerCopy];
 }
 
 - (void)fetchVirtualInterfaceTypeWithCompletionHandler:(id)handler
@@ -231,15 +252,15 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
 
 - (void)stopWithReason:(int)reason
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   v6 = ne_log_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v13 = 2080;
-    v14 = ne_session_stop_reason_to_string();
+    v12 = 2080;
+    v13 = ne_session_stop_reason_to_string();
     _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEFAULT, "%@: Calling stopTunnelWithReason because: %s", buf, 0x16u);
   }
 
@@ -253,15 +274,13 @@ void __83__NEExtensionPacketTunnelProviderContext_setTunnelConfiguration_complet
     v7 = 0;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __57__NEExtensionPacketTunnelProviderContext_stopWithReason___block_invoke;
-  v9[3] = &unk_1E7F086C0;
-  v9[4] = self;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __57__NEExtensionPacketTunnelProviderContext_stopWithReason___block_invoke;
+  v8[3] = &unk_1E7F086C0;
+  v8[4] = self;
   reasonCopy = reason;
-  [_principalObject stopTunnelWithReason:v7 completionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [_principalObject stopTunnelWithReason:v7 completionHandler:v8];
 }
 
 id __57__NEExtensionPacketTunnelProviderContext_stopWithReason___block_invoke(uint64_t a1)
@@ -281,21 +300,21 @@ id __57__NEExtensionPacketTunnelProviderContext_stopWithReason___block_invoke(ui
 
 - (void)startWithOptions:(id)options completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
-  v14.receiver = self;
-  v14.super_class = NEExtensionPacketTunnelProviderContext;
-  [(NEExtensionProviderContext *)&v14 startWithOptions:optionsCopy completionHandler:handlerCopy];
+  v13.receiver = self;
+  v13.super_class = NEExtensionPacketTunnelProviderContext;
+  [(NEExtensionProviderContext *)&v13 startWithOptions:optionsCopy completionHandler:handlerCopy];
 
   v9 = ne_log_obj();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v17 = 2048;
-    v18 = optionsCopy;
+    v16 = 2048;
+    v17 = optionsCopy;
     _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "%@: Calling startTunnelWithOptions with options %p", buf, 0x16u);
   }
 
@@ -312,14 +331,12 @@ id __57__NEExtensionPacketTunnelProviderContext_stopWithReason___block_invoke(ui
     }
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __77__NEExtensionPacketTunnelProviderContext_startWithOptions_completionHandler___block_invoke;
-  v13[3] = &unk_1E7F0B4A8;
-  v13[4] = self;
-  [_principalObject startTunnelWithOptions:optionsCopy completionHandler:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __77__NEExtensionPacketTunnelProviderContext_startWithOptions_completionHandler___block_invoke;
+  v12[3] = &unk_1E7F0B4A8;
+  v12[4] = self;
+  [_principalObject startTunnelWithOptions:optionsCopy completionHandler:v12];
 }
 
 void __77__NEExtensionPacketTunnelProviderContext_startWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -372,9 +389,11 @@ void __77__NEExtensionPacketTunnelProviderContext_startWithOptions_completionHan
 
 uint64_t __73__NEExtensionPacketTunnelProviderContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_2446 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C1D80];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C1D80];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_2446;
+  _extensionAuxiliaryHostProtocol_protocol_2446 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol

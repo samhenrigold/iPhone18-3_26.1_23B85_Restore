@@ -7,47 +7,36 @@
 
 - (id)fb_processClass
 {
-  v10 = 0;
-  v2 = [self treatedAsAnAppByFrontBoard:&v10];
-  v3 = v10;
+  v8 = 0;
+  v2 = [self treatedAsAnAppByFrontBoard:&v8];
+  v3 = v8;
+  v4 = v3;
   if (v3)
   {
-    v4 = FBLogProcess();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = FBLogProcess(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessIdentity(FBProcess) fb_processClass];
     }
   }
 
-  if (v2)
+  if ((v2 & 1) == 0)
   {
-    v5 = off_1E783A820;
+    [self isXPCService];
   }
 
-  else
-  {
-    isXPCService = [self isXPCService];
-    v5 = off_1E783A898;
-    if (isXPCService)
-    {
-      v5 = off_1E783A848;
-    }
-  }
+  v6 = objc_opt_class();
 
-  v7 = *v5;
-  v8 = objc_opt_class();
-
-  return v8;
+  return v6;
 }
 
 - (void)fb_processClass
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_1();
-  v4 = 2112;
-  v5 = v0;
-  OUTLINED_FUNCTION_16(&dword_1A89DD000, v1, v1, "treatedAsAnAppByFrontBoard for %@ returned error %@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  OUTLINED_FUNCTION_16(&dword_1A89DD000, v1, v1, "treatedAsAnAppByFrontBoard for %@ returned error %@", v2);
 }
 
 @end

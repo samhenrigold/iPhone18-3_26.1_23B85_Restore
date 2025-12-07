@@ -6,46 +6,47 @@
 void __playerairplay_CreatePlaybackItem_block_invoke(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v3 = CMBaseObjectGetDerivedStorage();
-  v4 = *MEMORY[0x1E695E480];
-  v5 = MEMORY[0x1E695E9D8];
-  v6 = MEMORY[0x1E695E9E8];
-  v7 = OUTLINED_FUNCTION_173_0();
-  Mutable = CFDictionaryCreateMutable(v7, v8, v5, v6);
-  v10 = OUTLINED_FUNCTION_173_0();
-  v12 = CFDictionaryCreateMutable(v10, v11, v5, v6);
+  CMBaseObjectGetDerivedStorage();
+  v3 = *MEMORY[0x1E695E480];
+  v4 = MEMORY[0x1E695E9D8];
+  v5 = MEMORY[0x1E695E9E8];
+  v6 = OUTLINED_FUNCTION_173_0();
+  Mutable = CFDictionaryCreateMutable(v6, v7, v4, v5);
+  v9 = OUTLINED_FUNCTION_173_0();
+  v11 = CFDictionaryCreateMutable(v9, v10, v4, v5);
   cf = 0;
   if (!*(DerivedStorage + 72) && !*(DerivedStorage + 352))
   {
-    FigPlayerGetFigBaseObject(*(v3 + 8));
+    FigPlayerGetFigBaseObject();
     if (*(*(CMBaseObjectGetVTable() + 8) + 48))
     {
-      v13 = OUTLINED_FUNCTION_111_2();
-      v14(v13);
+      v12 = OUTLINED_FUNCTION_111_2();
+      v13(v12);
     }
 
     FigCFDictionarySetValue();
-    FigPlayerGetFigBaseObject(*(v3 + 8));
+    FigPlayerGetFigBaseObject();
     if (*(*(CMBaseObjectGetVTable() + 8) + 48))
     {
-      v15 = OUTLINED_FUNCTION_111_2();
-      v16(v15);
+      v14 = OUTLINED_FUNCTION_111_2();
+      v15(v14);
     }
 
     FigCFDictionarySetValue();
-    FigPlayerGetFigBaseObject(*(v3 + 8));
+    FigPlayerGetFigBaseObject();
     if (*(*(CMBaseObjectGetVTable() + 8) + 48))
     {
-      v17 = OUTLINED_FUNCTION_111_2();
-      v18(v17);
+      v16 = OUTLINED_FUNCTION_111_2();
+      v17(v16);
     }
 
     FigCFDictionarySetValue();
-    FigBaseObject = FigPlayerGetFigBaseObject(*(v3 + 8));
+    FigPlayerGetFigBaseObject();
+    v19 = v18;
     v20 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v20)
     {
-      v20(FigBaseObject, @"AllowsLegibleFallbackMediaSelectionCriteriaForAllAudibleMediaSelections", v4, &cf);
+      v20(v19, @"AllowsLegibleFallbackMediaSelectionCriteriaForAllAudibleMediaSelections", v3, &cf);
     }
 
     FigCFDictionarySetValue();
@@ -67,9 +68,9 @@ void __playerairplay_CreatePlaybackItem_block_invoke(uint64_t a1)
     CFRelease(Mutable);
   }
 
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
   v25 = *(a1 + 32);

@@ -32,6 +32,8 @@
   v6 = v5;
   selfCopy = self;
   sub_1000449FC(v4, v6);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)updateMigrationDisplayCount:(id)count
@@ -63,6 +65,8 @@
   appCopy = app;
   selfCopy = self;
   sub_100045BB4(v15, v17, itemsCopy, bluetoothCopy, fiCopy, broadcastCopy, timeoutCopy, appCopy);
+
+  v17, v25, v26, v27, v28, v29, v30, v31;
 }
 
 - (void)showMigrationPickerWithOverrideBundleID:(id)d
@@ -81,6 +85,8 @@
 
   selfCopy = self;
   sub_1000465F0(v4, v6);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)upgradeAccessory:(id)accessory needsBluetooth:(id)bluetooth needsWiFi:(id)fi needsDeviceOTANameBroadcast:(id)broadcast discoveryTimeout:(id)timeout overrideBundleID:(id)d
@@ -104,6 +110,10 @@
   timeoutCopy = timeout;
   selfCopy = self;
   sub_1000471B8(v14, v16, bluetoothCopy, fiCopy, broadcastCopy, timeoutCopy, v17, d);
+
+  v16, v24, v25, v26, v27, v28, v29, v30;
+
+  d, v31, v32, v33, v34, v35, v36, v37;
 }
 
 - (void)renameAccessory:(id)accessory currentName:(id)name updateSSID:(id)d overrideBundleID:(id)iD
@@ -126,6 +136,11 @@
   dCopy = d;
   selfCopy = self;
   sub_100047ACC(v9, v11, v12, v14, dCopy, v15, iD);
+
+  v11, v19, v20, v21, v22, v23, v24, v25;
+  v14, v26, v27, v28, v29, v30, v31, v32;
+
+  iD, v33, v34, v35, v36, v37, v38, v39;
 }
 
 - (void)updatePickerWith:(id)with
@@ -133,6 +148,8 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100048074(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12;
 }
 
 - (void)endDiscoveryInPicker

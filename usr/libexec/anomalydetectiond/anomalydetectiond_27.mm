@@ -1240,25 +1240,24 @@ void CMMsl::InEarAdditionalState::~InEarAdditionalState(CMMsl::InEarAdditionalSt
   operator delete();
 }
 
-uint64_t CMMsl::InEarAdditionalState::InEarAdditionalState(uint64_t this, const CMMsl::InEarAdditionalState *a2)
+CMMsl::InEarAdditionalState *CMMsl::InEarAdditionalState::InEarAdditionalState(CMMsl::InEarAdditionalState *this, const CMMsl::InEarAdditionalState *a2)
 {
   *this = off_10041F148;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 36) = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 9) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_100078C7C();
+    sub_100078C7C(this + 1, *v2);
   }
 
   if (*(a2 + 36))
   {
-    v4 = *(a2 + 8);
+    v3 = *(a2 + 8);
     *(this + 36) |= 1u;
-    *(this + 32) = v4;
+    *(this + 8) = v3;
   }
 
   return this;
@@ -1554,7 +1553,7 @@ LABEL_45:
       {
         if (v22 == 1)
         {
-          sub_100079D8C();
+          sub_100079D8C(this + 1);
         }
 
         if ((PB::Reader::skip(a2, v22, v10 & 7, 0) & 1) == 0)
@@ -1680,19 +1679,19 @@ void CMMsl::InEarBaseline::~InEarBaseline(CMMsl::InEarBaseline *this)
   operator delete();
 }
 
-uint64_t CMMsl::InEarBaseline::InEarBaseline(uint64_t this, const CMMsl::InEarBaseline *a2)
+CMMsl::InEarBaseline *CMMsl::InEarBaseline::InEarBaseline(CMMsl::InEarBaseline *this, const CMMsl::InEarBaseline *a2)
 {
   *this = off_10041F180;
   *(this + 8) = 0u;
   *(this + 24) = 0u;
-  *(this + 52) = 0;
-  *(this + 60) = 0;
-  *(this + 40) = 0;
+  *(this + 13) = 0;
+  *(this + 15) = 0;
+  *(this + 5) = 0;
   if (*(a2 + 60))
   {
     v3 = *(a2 + 12);
     *(this + 60) = 1;
-    *(this + 48) = v3;
+    *(this + 12) = v3;
     v2 = 3;
     if ((*(a2 + 60) & 2) == 0)
     {
@@ -1708,15 +1707,14 @@ uint64_t CMMsl::InEarBaseline::InEarBaseline(uint64_t this, const CMMsl::InEarBa
 LABEL_5:
     v4 = *(a2 + 13);
     *(this + 60) = v2;
-    *(this + 52) = v4;
+    *(this + 13) = v4;
   }
 
 LABEL_6:
   v5 = *(a2 + 3);
   if (v5 != *(a2 + 4))
   {
-    v6 = *v5;
-    sub_100078C7C();
+    sub_100078C7C(this + 3, *v5);
   }
 
   if (*(a2 + 2))
@@ -1729,20 +1727,20 @@ LABEL_6:
     operator new();
   }
 
-  v7 = *(a2 + 60);
-  if ((v7 & 4) != 0)
+  v6 = *(a2 + 60);
+  if ((v6 & 4) != 0)
   {
-    v8 = *(a2 + 56);
+    v7 = *(a2 + 56);
     *(this + 60) |= 4u;
-    *(this + 56) = v8;
-    v7 = *(a2 + 60);
+    *(this + 56) = v7;
+    v6 = *(a2 + 60);
   }
 
-  if ((v7 & 8) != 0)
+  if ((v6 & 8) != 0)
   {
-    v9 = *(a2 + 57);
+    v8 = *(a2 + 57);
     *(this + 60) |= 8u;
-    *(this + 57) = v9;
+    *(this + 57) = v8;
   }
 
   return this;
@@ -2206,7 +2204,7 @@ LABEL_81:
             *(this + 13) = v45;
             goto LABEL_82;
           case 3:
-            sub_100079D8C();
+            sub_100079D8C(this + 3);
         }
       }
 
@@ -2344,7 +2342,6 @@ uint64_t CMMsl::InEarBaseline::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::InEarBaseline::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 60);
   if (*(a1 + 60))
   {
     if ((*(a2 + 60) & 1) == 0 || *(a1 + 48) != *(a2 + 48))
@@ -2377,32 +2374,32 @@ BOOL CMMsl::InEarBaseline::operator==(uint64_t a1, uint64_t a2)
     return result;
   }
 
-  v6 = *(a1 + 16);
-  v7 = *(a2 + 16);
-  if (v6)
+  v5 = *(a1 + 16);
+  v6 = *(a2 + 16);
+  if (v5)
   {
-    if (!v7 || !CMMsl::ClefMeasurement::operator==(v6, v7))
+    if (!v6 || !CMMsl::ClefMeasurement::operator==(v5, v6))
     {
       return 0;
     }
   }
 
-  else if (v7)
+  else if (v6)
   {
     return 0;
   }
 
-  v8 = *(a1 + 8);
-  v9 = *(a2 + 8);
-  if (v8)
+  v7 = *(a1 + 8);
+  v8 = *(a2 + 8);
+  if (v7)
   {
-    if (!v9 || !CMMsl::ClefMeasurement::operator==(v8, v9))
+    if (!v8 || !CMMsl::ClefMeasurement::operator==(v7, v8))
     {
       return 0;
     }
   }
 
-  else if (v9)
+  else if (v8)
   {
     return 0;
   }
@@ -2526,9 +2523,9 @@ LABEL_32:
   return v3 ^ v2 ^ v5 ^ v4 ^ v14 ^ v23 ^ v24;
 }
 
-uint64_t CMMsl::InEarBaseline::makeOldOpenLid(uint64_t this)
+void *CMMsl::InEarBaseline::makeOldOpenLid(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -2536,9 +2533,9 @@ uint64_t CMMsl::InEarBaseline::makeOldOpenLid(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarBaseline::makeNewOpenLid(uint64_t this)
+void *CMMsl::InEarBaseline::makeNewOpenLid(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2598,18 +2595,18 @@ void CMMsl::InEarBaselining::~InEarBaselining(CMMsl::InEarBaselining *this)
   operator delete();
 }
 
-uint64_t CMMsl::InEarBaselining::InEarBaselining(uint64_t this, const CMMsl::InEarBaselining *a2)
+CMMsl::InEarBaselining *CMMsl::InEarBaselining::InEarBaselining(CMMsl::InEarBaselining *this, const CMMsl::InEarBaselining *a2)
 {
   *this = off_10041F1B8;
-  *(this + 8) = 0;
-  *(this + 56) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 14) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   if (*(a2 + 56))
   {
     v3 = *(a2 + 4);
     *(this + 56) = 1;
-    *(this + 32) = v3;
+    *(this + 4) = v3;
     v2 = 9;
     if ((*(a2 + 56) & 8) == 0)
     {
@@ -2625,7 +2622,7 @@ uint64_t CMMsl::InEarBaselining::InEarBaselining(uint64_t this, const CMMsl::InE
 LABEL_5:
     v4 = *(a2 + 12);
     *(this + 56) = v2;
-    *(this + 48) = v4;
+    *(this + 12) = v4;
   }
 
 LABEL_6:
@@ -2649,7 +2646,7 @@ LABEL_6:
   {
     v7 = *(a2 + 10);
     *(this + 56) |= 2u;
-    *(this + 40) = v7;
+    *(this + 10) = v7;
     v5 = *(a2 + 56);
     if ((v5 & 0x10) == 0)
     {
@@ -2670,7 +2667,7 @@ LABEL_14:
 
   v8 = *(a2 + 13);
   *(this + 56) |= 0x10u;
-  *(this + 52) = v8;
+  *(this + 13) = v8;
   if ((*(a2 + 56) & 4) == 0)
   {
     return this;
@@ -2679,7 +2676,7 @@ LABEL_14:
 LABEL_15:
   v6 = *(a2 + 11);
   *(this + 56) |= 4u;
-  *(this + 44) = v6;
+  *(this + 11) = v6;
   return this;
 }
 
@@ -3507,9 +3504,9 @@ LABEL_49:
   return v2 ^ *&v1 ^ v3 ^ v12 ^ v21 ^ v30 ^ v32 ^ v34;
 }
 
-uint64_t CMMsl::InEarBaselining::makeMinimum(uint64_t this)
+void *CMMsl::InEarBaselining::makeMinimum(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -3517,9 +3514,9 @@ uint64_t CMMsl::InEarBaselining::makeMinimum(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarBaselining::makeBaseline(uint64_t this)
+void *CMMsl::InEarBaselining::makeBaseline(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -3527,9 +3524,9 @@ uint64_t CMMsl::InEarBaselining::makeBaseline(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarBaselining::makeLastBaseline(uint64_t this)
+void *CMMsl::InEarBaselining::makeLastBaseline(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -3580,18 +3577,18 @@ void CMMsl::InEarConstraints::~InEarConstraints(CMMsl::InEarConstraints *this)
   operator delete();
 }
 
-uint64_t CMMsl::InEarConstraints::InEarConstraints(uint64_t this, const CMMsl::InEarConstraints *a2)
+CMMsl::InEarConstraints *CMMsl::InEarConstraints::InEarConstraints(CMMsl::InEarConstraints *this, const CMMsl::InEarConstraints *a2)
 {
   *this = off_10041F1F0;
-  *(this + 8) = 0;
-  *(this + 48) = 0;
-  *(this + 16) = 0;
+  *(this + 1) = 0;
+  *(this + 12) = 0;
+  *(this + 2) = 0;
   v2 = *(a2 + 24);
   if (v2)
   {
     v4 = *(a2 + 3);
-    *(this + 48) = 1;
-    *(this + 24) = v4;
+    *(this + 24) = 1;
+    *(this + 3) = v4;
     v3 = 3;
     if ((*(a2 + 24) & 2) == 0)
     {
@@ -3606,8 +3603,8 @@ uint64_t CMMsl::InEarConstraints::InEarConstraints(uint64_t this, const CMMsl::I
   {
 LABEL_5:
     v5 = *(a2 + 8);
-    *(this + 48) = v3;
-    *(this + 32) = v5;
+    *(this + 24) = v3;
+    *(this + 8) = v5;
   }
 
 LABEL_6:
@@ -3625,7 +3622,7 @@ LABEL_6:
   if ((v6 & 0x80) != 0)
   {
     v8 = *(a2 + 41);
-    *(this + 48) |= 0x80u;
+    *(this + 24) |= 0x80u;
     *(this + 41) = v8;
     v6 = *(a2 + 24);
     if ((v6 & 0x20) == 0)
@@ -3646,7 +3643,7 @@ LABEL_12:
   }
 
   v9 = *(a2 + 39);
-  *(this + 48) |= 0x20u;
+  *(this + 24) |= 0x20u;
   *(this + 39) = v9;
   v6 = *(a2 + 24);
   if ((v6 & 4) == 0)
@@ -3662,7 +3659,7 @@ LABEL_13:
 
 LABEL_23:
   v10 = *(a2 + 36);
-  *(this + 48) |= 4u;
+  *(this + 24) |= 4u;
   *(this + 36) = v10;
   v6 = *(a2 + 24);
   if ((v6 & 8) == 0)
@@ -3678,7 +3675,7 @@ LABEL_14:
 
 LABEL_24:
   v11 = *(a2 + 37);
-  *(this + 48) |= 8u;
+  *(this + 24) |= 8u;
   *(this + 37) = v11;
   v6 = *(a2 + 24);
   if ((v6 & 0x40) == 0)
@@ -3694,7 +3691,7 @@ LABEL_15:
 
 LABEL_25:
   v12 = *(a2 + 40);
-  *(this + 48) |= 0x40u;
+  *(this + 24) |= 0x40u;
   *(this + 40) = v12;
   v6 = *(a2 + 24);
   if ((v6 & 0x200) == 0)
@@ -3710,7 +3707,7 @@ LABEL_16:
 
 LABEL_26:
   v13 = *(a2 + 43);
-  *(this + 48) |= 0x200u;
+  *(this + 24) |= 0x200u;
   *(this + 43) = v13;
   v6 = *(a2 + 24);
   if ((v6 & 0x100) == 0)
@@ -3726,7 +3723,7 @@ LABEL_17:
 
 LABEL_27:
   v14 = *(a2 + 42);
-  *(this + 48) |= 0x100u;
+  *(this + 24) |= 0x100u;
   *(this + 42) = v14;
   v6 = *(a2 + 24);
   if ((v6 & 0x10) == 0)
@@ -3742,7 +3739,7 @@ LABEL_18:
 
 LABEL_28:
   v15 = *(a2 + 38);
-  *(this + 48) |= 0x10u;
+  *(this + 24) |= 0x10u;
   *(this + 38) = v15;
   if ((*(a2 + 24) & 0x400) == 0)
   {
@@ -3751,7 +3748,7 @@ LABEL_28:
 
 LABEL_19:
   v7 = *(a2 + 44);
-  *(this + 48) |= 0x400u;
+  *(this + 24) |= 0x400u;
   *(this + 44) = v7;
   return this;
 }
@@ -3854,7 +3851,7 @@ uint64_t CMMsl::InEarConstraints::InEarConstraints(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::InEarConstraints::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::InEarConstraints::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4912,9 +4909,9 @@ LABEL_41:
   return v3 ^ *&v2 ^ v4 ^ v13 ^ v22 ^ v23 ^ v24 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29 ^ v30;
 }
 
-uint64_t CMMsl::InEarConstraints::makeCurrent(uint64_t this)
+void *CMMsl::InEarConstraints::makeCurrent(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4922,9 +4919,9 @@ uint64_t CMMsl::InEarConstraints::makeCurrent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarConstraints::makeThreshold(uint64_t this)
+void *CMMsl::InEarConstraints::makeThreshold(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -4984,18 +4981,18 @@ void CMMsl::InEarOpenLid::~InEarOpenLid(CMMsl::InEarOpenLid *this)
   operator delete();
 }
 
-uint64_t CMMsl::InEarOpenLid::InEarOpenLid(uint64_t this, const CMMsl::InEarOpenLid *a2)
+CMMsl::InEarOpenLid *CMMsl::InEarOpenLid::InEarOpenLid(CMMsl::InEarOpenLid *this, const CMMsl::InEarOpenLid *a2)
 {
   *this = off_10041F228;
-  *(this + 8) = 0;
-  *(this + 44) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 11) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   if (*(a2 + 44))
   {
     v3 = *(a2 + 4);
     *(this + 44) = 1;
-    *(this + 32) = v3;
+    *(this + 4) = v3;
     v2 = 3;
     if ((*(a2 + 44) & 2) == 0)
     {
@@ -5011,7 +5008,7 @@ uint64_t CMMsl::InEarOpenLid::InEarOpenLid(uint64_t this, const CMMsl::InEarOpen
 LABEL_5:
     v4 = *(a2 + 10);
     *(this + 44) = v2;
-    *(this + 40) = v4;
+    *(this + 10) = v4;
   }
 
 LABEL_6:
@@ -5455,7 +5452,6 @@ uint64_t CMMsl::InEarOpenLid::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::InEarOpenLid::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 44);
   if (*(a1 + 44))
   {
     if ((*(a2 + 44) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
@@ -5482,44 +5478,44 @@ BOOL CMMsl::InEarOpenLid::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 24);
-  v6 = *(a2 + 24);
-  if (v5)
+  v4 = *(a1 + 24);
+  v5 = *(a2 + 24);
+  if (v4)
   {
-    if (!v6 || !CMMsl::ClefMeasurement::operator==(v5, v6))
+    if (!v5 || !CMMsl::ClefMeasurement::operator==(v4, v5))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
 
-  v7 = *(a1 + 8);
-  v8 = *(a2 + 8);
-  if (v7)
+  v6 = *(a1 + 8);
+  v7 = *(a2 + 8);
+  if (v6)
   {
-    if (!v8 || !CMMsl::ClefMeasurement::operator==(v7, v8))
+    if (!v7 || !CMMsl::ClefMeasurement::operator==(v6, v7))
     {
       return 0;
     }
   }
 
-  else if (v8)
+  else if (v7)
   {
     return 0;
   }
 
-  v9 = *(a2 + 16);
-  result = v9 == 0;
+  v8 = *(a2 + 16);
+  result = v8 == 0;
   if (!*(a1 + 16))
   {
     return result;
   }
 
-  return v9 && CMMsl::ClefMeasurement::operator==(*(a1 + 16), v9);
+  return v8 && CMMsl::ClefMeasurement::operator==(*(a1 + 16), v8);
 }
 
 uint64_t CMMsl::InEarOpenLid::hash_value(CMMsl::InEarOpenLid *this)
@@ -5626,9 +5622,9 @@ LABEL_8:
   return v2 ^ *&v1 ^ v3 ^ v12 ^ v21;
 }
 
-uint64_t CMMsl::InEarOpenLid::makeMinimum(uint64_t this)
+void *CMMsl::InEarOpenLid::makeMinimum(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -5636,9 +5632,9 @@ uint64_t CMMsl::InEarOpenLid::makeMinimum(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarOpenLid::makeCurrent(uint64_t this)
+void *CMMsl::InEarOpenLid::makeCurrent(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5646,9 +5642,9 @@ uint64_t CMMsl::InEarOpenLid::makeCurrent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarOpenLid::makeLast(uint64_t this)
+void *CMMsl::InEarOpenLid::makeLast(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -5956,7 +5952,7 @@ uint64_t CMMsl::InEarOptical::InEarOptical(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::InEarOptical::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::InEarOptical::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7141,26 +7137,24 @@ LABEL_9:
     v23 = 0;
   }
 
-  v24 = *(this + 1);
-  v25 = *(this + 2);
-  v26 = PBHashBytes();
+  v24 = PBHashBytes();
   if ((*(this + 108) & 0x40) == 0)
   {
-    v27 = 0;
+    v25 = 0;
     if ((*(this + 108) & 0x20) != 0)
     {
       goto LABEL_37;
     }
 
 LABEL_47:
-    v29 = 0;
+    v27 = 0;
     if ((*(this + 108) & 0x80) != 0)
     {
       goto LABEL_41;
     }
 
 LABEL_48:
-    v30 = 0;
+    v28 = 0;
     if ((*(this + 108) & 0x10) != 0)
     {
       goto LABEL_42;
@@ -7169,15 +7163,15 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v32 = *(this + 25);
-  if (v32 == 0.0)
+  v30 = *(this + 25);
+  if (v30 == 0.0)
   {
-    v27 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v27 = LODWORD(v32);
+    v25 = LODWORD(v30);
   }
 
   if ((*(this + 108) & 0x20) == 0)
@@ -7186,15 +7180,15 @@ LABEL_48:
   }
 
 LABEL_37:
-  v28 = *(this + 24);
-  if (v28 == 0.0)
+  v26 = *(this + 24);
+  if (v26 == 0.0)
   {
-    v29 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v29 = LODWORD(v28);
+    v27 = LODWORD(v26);
   }
 
   if ((*(this + 108) & 0x80) == 0)
@@ -7203,27 +7197,25 @@ LABEL_37:
   }
 
 LABEL_41:
-  v30 = *(this + 104);
+  v28 = *(this + 104);
   if ((*(this + 108) & 0x10) != 0)
   {
 LABEL_42:
-    v31 = *(this + 23);
+    v29 = *(this + 23);
     goto LABEL_50;
   }
 
 LABEL_49:
-  v31 = 0;
+  v29 = 0;
 LABEL_50:
-  v33 = *(this + 4);
-  v34 = *(this + 5);
-  v35 = PBHashBytes();
+  v31 = PBHashBytes();
   if ((*(this + 108) & 2) != 0)
   {
-    v39 = *(this + 20);
-    v36 = LODWORD(v39);
-    if (v39 == 0.0)
+    v35 = *(this + 20);
+    v32 = LODWORD(v35);
+    if (v35 == 0.0)
     {
-      v36 = 0;
+      v32 = 0;
     }
 
     if ((*(this + 108) & 4) != 0)
@@ -7232,30 +7224,30 @@ LABEL_50:
     }
 
 LABEL_58:
-    v38 = 0;
-    return v3 ^ v2 ^ v13 ^ v23 ^ v27 ^ v29 ^ v30 ^ v31 ^ v26 ^ v35 ^ v36 ^ v38;
+    v34 = 0;
+    return v3 ^ v2 ^ v13 ^ v23 ^ v25 ^ v27 ^ v28 ^ v29 ^ v24 ^ v31 ^ v32 ^ v34;
   }
 
-  v36 = 0;
+  v32 = 0;
   if ((*(this + 108) & 4) == 0)
   {
     goto LABEL_58;
   }
 
 LABEL_52:
-  v37 = *(this + 21);
-  v38 = LODWORD(v37);
-  if (v37 == 0.0)
+  v33 = *(this + 21);
+  v34 = LODWORD(v33);
+  if (v33 == 0.0)
   {
-    v38 = 0;
+    v34 = 0;
   }
 
-  return v3 ^ v2 ^ v13 ^ v23 ^ v27 ^ v29 ^ v30 ^ v31 ^ v26 ^ v35 ^ v36 ^ v38;
+  return v3 ^ v2 ^ v13 ^ v23 ^ v25 ^ v27 ^ v28 ^ v29 ^ v24 ^ v31 ^ v32 ^ v34;
 }
 
-uint64_t CMMsl::InEarOptical::makeCurrent(uint64_t this)
+void *CMMsl::InEarOptical::makeCurrent(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -7263,9 +7255,9 @@ uint64_t CMMsl::InEarOptical::makeCurrent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarOptical::makeInstability(uint64_t this)
+void *CMMsl::InEarOptical::makeInstability(void *this)
 {
-  if (!*(this + 64))
+  if (!this[8])
   {
     operator new();
   }
@@ -7318,18 +7310,18 @@ void CMMsl::InEarSession::~InEarSession(CMMsl::InEarSession *this)
   operator delete();
 }
 
-uint64_t CMMsl::InEarSession::InEarSession(uint64_t this, const CMMsl::InEarSession *a2)
+CMMsl::InEarSession *CMMsl::InEarSession::InEarSession(CMMsl::InEarSession *this, const CMMsl::InEarSession *a2)
 {
   *this = off_10041F298;
+  *(this + 1) = 0;
+  *(this + 7) = 0;
   *(this + 8) = 0;
-  *(this + 28) = 0;
-  *(this + 32) = 0;
-  *(this + 16) = 0;
+  *(this + 2) = 0;
   if (*(a2 + 32))
   {
     v3 = *(a2 + 6);
     *(this + 32) = 1;
-    *(this + 24) = v3;
+    *(this + 6) = v3;
     v2 = 3;
     if ((*(a2 + 32) & 2) == 0)
     {
@@ -7345,7 +7337,7 @@ uint64_t CMMsl::InEarSession::InEarSession(uint64_t this, const CMMsl::InEarSess
 LABEL_5:
     v4 = *(a2 + 7);
     *(this + 32) = v2;
-    *(this + 28) = v4;
+    *(this + 7) = v4;
   }
 
 LABEL_6:
@@ -7819,7 +7811,6 @@ uint64_t CMMsl::InEarSession::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::InEarSession::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 32);
   if (*(a1 + 32))
   {
     if ((*(a2 + 32) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -7846,29 +7837,29 @@ BOOL CMMsl::InEarSession::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 16);
-  v6 = *(a2 + 16);
-  if (v5)
+  v4 = *(a1 + 16);
+  v5 = *(a2 + 16);
+  if (v4)
   {
-    if (!v6 || !CMMsl::ClefMeasurement::operator==(v5, v6))
+    if (!v5 || !CMMsl::ClefMeasurement::operator==(v4, v5))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
 
-  v7 = *(a2 + 8);
-  result = v7 == 0;
+  v6 = *(a2 + 8);
+  result = v6 == 0;
   if (!*(a1 + 8))
   {
     return result;
   }
 
-  return v7 && CMMsl::ClefMeasurement::operator==(*(a1 + 8), v7);
+  return v6 && CMMsl::ClefMeasurement::operator==(*(a1 + 8), v6);
 }
 
 uint64_t CMMsl::InEarSession::hash_value(CMMsl::InEarSession *this)
@@ -7946,9 +7937,9 @@ LABEL_6:
   return v2 ^ v1 ^ v3 ^ v12;
 }
 
-uint64_t CMMsl::InEarSession::makeMinimum(uint64_t this)
+void *CMMsl::InEarSession::makeMinimum(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -7956,9 +7947,9 @@ uint64_t CMMsl::InEarSession::makeMinimum(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::InEarSession::makeMaximum(uint64_t this)
+void *CMMsl::InEarSession::makeMaximum(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9040,8 +9031,7 @@ LABEL_6:
   v8 = *(a2 + 9);
   if (v8 != *(a2 + 10))
   {
-    v9 = *v8;
-    sub_100078C7C();
+    sub_100078C7C(this + 9, *v8);
   }
 
   if (this != a2)
@@ -9060,27 +9050,26 @@ LABEL_6:
     operator new();
   }
 
-  v10 = *(a2 + 132);
-  if ((v10 & 8) != 0)
+  v9 = *(a2 + 132);
+  if ((v9 & 8) != 0)
   {
-    v11 = *(a2 + 129);
+    v10 = *(a2 + 129);
     *(this + 132) |= 8u;
-    *(this + 129) = v11;
-    v10 = *(a2 + 132);
+    *(this + 129) = v10;
+    v9 = *(a2 + 132);
   }
 
-  if ((v10 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
-    v12 = *(a2 + 128);
+    v11 = *(a2 + 128);
     *(this + 132) |= 4u;
-    *(this + 128) = v12;
+    *(this + 128) = v11;
   }
 
-  v13 = *(a2 + 12);
-  if (v13 != *(a2 + 13))
+  v12 = *(a2 + 12);
+  if (v12 != *(a2 + 13))
   {
-    v14 = *v13;
-    sub_100126834();
+    sub_100126834(this + 12, *v12);
   }
 
   return this;
@@ -9211,7 +9200,7 @@ uint64_t CMMsl::InEarTransitionEntry::InEarTransitionEntry(uint64_t a1, uint64_t
   return a1;
 }
 
-CMMsl *CMMsl::InEarTransitionEntry::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::InEarTransitionEntry::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9456,7 +9445,7 @@ LABEL_21:
               *(this + 128) = v81;
               goto LABEL_74;
             case 0xA:
-              sub_100127830();
+              sub_100127830(this + 12);
           }
         }
       }
@@ -9645,7 +9634,7 @@ LABEL_148:
         switch(v23)
         {
           case 3:
-            sub_100079D8C();
+            sub_100079D8C(this + 9);
           case 4:
             if (v22 != 2)
             {

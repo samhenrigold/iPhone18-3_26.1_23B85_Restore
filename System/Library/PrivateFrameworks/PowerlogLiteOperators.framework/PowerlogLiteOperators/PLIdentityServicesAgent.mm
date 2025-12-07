@@ -16,6 +16,7 @@
 - (PLIdentityServicesAgent)init;
 - (void)createBTAccountingEvents:(id)events;
 - (void)createIDSAccountingEventsWithEntries:(id)entries;
+- (void)deviceLinkTypeDidChange:(id)change linkType:(unsigned __int8)type;
 - (void)initOperatorDependancies;
 - (void)initTaskOperatorDependancies;
 - (void)logCloudMessaging:(id)messaging;
@@ -35,50 +36,47 @@
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_206(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_INFO, "IDS IncomingPushReceived payload %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_INFO, "IDS IncomingPushReceived payload %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logIDSIncomingPushReceived:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_198(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_INFO, "IDS OutgoingPushSent payload %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_INFO, "IDS OutgoingPushSent payload %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logIDSOutgoingPushSent:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_167(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local InfraWiFi Request callback: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local InfraWiFi Request callback: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logLocalInfraWiFiFrequests:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -91,393 +89,367 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_167(ui
 
 + (id)entryEventForwardDefinitions
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"LocalLinkType";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"LocalLinkType";
   v2 = +[PLIdentityServicesAgent entryDefinitionLocalLink];
-  v10[0] = v2;
-  v9[1] = @"LocalInfraWiFiRequests";
+  v9[0] = v2;
+  v8[1] = @"LocalInfraWiFiRequests";
   v3 = +[PLIdentityServicesAgent entryDefinitionLocalInfraWiFiRequests];
-  v10[1] = v3;
-  v9[2] = @"CloudMessaging";
+  v9[1] = v3;
+  v8[2] = @"CloudMessaging";
   v4 = +[PLIdentityServicesAgent entryDefinitionCloudMessaging];
-  v10[2] = v4;
-  v9[3] = @"Session";
+  v9[2] = v4;
+  v8[3] = @"Session";
   v5 = +[PLIdentityServicesAgent entryDefinitionSession];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 + (id)entryDefinitionLocalLink
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C128;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"linkType";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C128;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"linkType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v10 = commonTypeDict_IntegerFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_IntegerFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryDefinitionCloudMessaging
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C138;
-  v13[1] = MEMORY[0x277CBEC28];
-  v12[2] = *MEMORY[0x277D3F580];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"IDSClientBringsUpCloudMessaging";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C138;
+  v12[1] = MEMORY[0x277CBEC28];
+  v11[2] = *MEMORY[0x277D3F580];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"IDSClientBringsUpCloudMessaging";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v11 = commonTypeDict_StringFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_StringFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryDefinitionSession
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1C138;
-  v19[1] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"isInitiator";
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1C138;
+  v18[1] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"isInitiator";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v17[0] = commonTypeDict_BoolFormat;
-  v16[1] = @"serviceName";
+  v16[0] = commonTypeDict_BoolFormat;
+  v15[1] = @"serviceName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v17[1] = commonTypeDict_StringFormat_withBundleID;
-  v16[2] = @"state";
+  v16[1] = commonTypeDict_StringFormat_withBundleID;
+  v15[2] = @"state";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v17[2] = commonTypeDict_IntegerFormat;
-  v16[3] = @"sessionID";
+  v16[2] = commonTypeDict_IntegerFormat;
+  v15[3] = @"sessionID";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v17[3] = commonTypeDict_StringFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[3] = commonTypeDict_StringFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"IDSMessagePeriodic";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"IDSMessagePeriodic";
   v2 = +[PLIdentityServicesAgent entryDefinitionIDSMessageStats];
-  v7[1] = @"IDSSocketPeriodic";
-  v8[0] = v2;
+  v6[1] = @"IDSSocketPeriodic";
+  v7[0] = v2;
   v3 = +[PLIdentityServicesAgent entryDefinitionIDSSocketStats];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryDefinitionIDSMessageStats
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
-  v25 = *MEMORY[0x277D3F568];
-  v26 = &unk_282C1C148;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v28[0] = v22;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"timestampEnd";
+  v27[2] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
+  v24 = *MEMORY[0x277D3F568];
+  v25 = &unk_282C1C148;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v27[0] = v21;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v24[0] = commonTypeDict_DateFormat;
-  v23[1] = @"topic";
+  v23[0] = commonTypeDict_DateFormat;
+  v22[1] = @"topic";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v24[1] = commonTypeDict_StringFormat;
-  v23[2] = @"priority";
+  v23[1] = commonTypeDict_StringFormat;
+  v22[2] = @"priority";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v24[2] = commonTypeDict_StringFormat2;
-  v23[3] = @"OutgoingBytes";
+  v23[2] = commonTypeDict_StringFormat2;
+  v22[3] = @"OutgoingBytes";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v24[3] = commonTypeDict_IntegerFormat;
-  v23[4] = @"IncomingBytes";
+  v23[3] = commonTypeDict_IntegerFormat;
+  v22[4] = @"IncomingBytes";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v24[4] = commonTypeDict_IntegerFormat2;
-  v23[5] = @"OutgoingMessages";
+  v23[4] = commonTypeDict_IntegerFormat2;
+  v22[5] = @"OutgoingMessages";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v24[5] = commonTypeDict_IntegerFormat3;
-  v23[6] = @"IncomingMessages";
+  v23[5] = commonTypeDict_IntegerFormat3;
+  v22[6] = @"IncomingMessages";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v24[6] = commonTypeDict_IntegerFormat4;
-  v23[7] = @"LinkType";
+  v23[6] = commonTypeDict_IntegerFormat4;
+  v22[7] = @"LinkType";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v24[7] = commonTypeDict_IntegerFormat5;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:8];
-  v28[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v23[7] = commonTypeDict_IntegerFormat5;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:8];
+  v27[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   return v11;
 }
 
 + (id)entryDefinitionIDSSocketStats
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v23[0] = *MEMORY[0x277D3F4E8];
-  v21 = *MEMORY[0x277D3F568];
-  v22 = &unk_282C1C138;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24[0] = v18;
-  v23[1] = *MEMORY[0x277D3F540];
-  v19[0] = @"timestampEnd";
+  v23[2] = *MEMORY[0x277D85DE8];
+  v22[0] = *MEMORY[0x277D3F4E8];
+  v20 = *MEMORY[0x277D3F568];
+  v21 = &unk_282C1C138;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v17;
+  v22[1] = *MEMORY[0x277D3F540];
+  v18[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v20[0] = commonTypeDict_DateFormat;
-  v19[1] = @"topic";
+  v19[0] = commonTypeDict_DateFormat;
+  v18[1] = @"topic";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v20[1] = commonTypeDict_StringFormat;
-  v19[2] = @"OutgoingBytes";
+  v19[1] = commonTypeDict_StringFormat;
+  v18[2] = @"OutgoingBytes";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v20[2] = commonTypeDict_IntegerFormat;
-  v19[3] = @"IncomingBytes";
+  v19[2] = commonTypeDict_IntegerFormat;
+  v18[3] = @"IncomingBytes";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v20[3] = commonTypeDict_IntegerFormat2;
-  v19[4] = @"OutgoingPackets";
+  v19[3] = commonTypeDict_IntegerFormat2;
+  v18[4] = @"OutgoingPackets";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v20[4] = commonTypeDict_IntegerFormat3;
-  v19[5] = @"IncomingPackets";
+  v19[4] = commonTypeDict_IntegerFormat3;
+  v18[5] = @"IncomingPackets";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v20[5] = commonTypeDict_IntegerFormat4;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
-  v24[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[5] = commonTypeDict_IntegerFormat4;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v23[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   return v11;
 }
 
 + (id)entryDefinitionLocalInfraWiFiRequests
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v15 = *MEMORY[0x277D3F568];
-  v16 = &unk_282C1C128;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v2;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"requestingServices";
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16[0] = *MEMORY[0x277D3F4E8];
+  v14 = *MEMORY[0x277D3F568];
+  v15 = &unk_282C1C128;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v2;
+  v16[1] = *MEMORY[0x277D3F540];
+  v12[0] = @"requestingServices";
   v3 = *MEMORY[0x277D3F5A0];
-  v11[0] = *MEMORY[0x277D3F5A8];
-  v11[1] = v3;
-  v12[0] = &unk_282C113E8;
-  v12[1] = &unk_282C11400;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v13[1] = @"reason";
-  v14[0] = v4;
+  v10[0] = *MEMORY[0x277D3F5A8];
+  v10[1] = v3;
+  v11[0] = &unk_282C113E8;
+  v11[1] = &unk_282C11400;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v12[1] = @"reason";
+  v13[0] = v4;
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v14[1] = commonTypeDict_StringFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v17[2] = *MEMORY[0x277D3F4B0];
-  v18[1] = v7;
-  v18[2] = &unk_282C14220;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v13[1] = commonTypeDict_StringFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v16[2] = *MEMORY[0x277D3F4B0];
+  v17[1] = v7;
+  v17[2] = &unk_282C14220;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   return v8;
 }
 
 + (id)entryEventPointDefinitions
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"IDSLocalMessage";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"IDSLocalMessage";
   entryEventPointDefinitionIDSLocalMessage = [self entryEventPointDefinitionIDSLocalMessage];
-  v11[0] = entryEventPointDefinitionIDSLocalMessage;
-  v10[1] = @"IDSLinkPreferenceRequest";
+  v10[0] = entryEventPointDefinitionIDSLocalMessage;
+  v9[1] = @"IDSLinkPreferenceRequest";
   entryEventPointDefinitionIDSLinkPreferenceRequest = [self entryEventPointDefinitionIDSLinkPreferenceRequest];
-  v11[1] = entryEventPointDefinitionIDSLinkPreferenceRequest;
-  v10[2] = @"IDSOutgoingPushSent";
+  v10[1] = entryEventPointDefinitionIDSLinkPreferenceRequest;
+  v9[2] = @"IDSOutgoingPushSent";
   entryEventPointDefinitionIDSOutgoingPushSent = [self entryEventPointDefinitionIDSOutgoingPushSent];
-  v11[2] = entryEventPointDefinitionIDSOutgoingPushSent;
-  v10[3] = @"IDSIncomingPushReceived";
+  v10[2] = entryEventPointDefinitionIDSOutgoingPushSent;
+  v9[3] = @"IDSIncomingPushReceived";
   entryEventPointDefinitionIDSIncomingPushReceived = [self entryEventPointDefinitionIDSIncomingPushReceived];
-  v11[3] = entryEventPointDefinitionIDSIncomingPushReceived;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = entryEventPointDefinitionIDSIncomingPushReceived;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionIDSLocalMessage
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4B8];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C158;
-  v15[1] = MEMORY[0x277CBEC38];
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C158;
+  v14[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277D3F4C0];
-  v14[2] = *MEMORY[0x277D3F4C8];
-  v14[3] = v3;
-  v15[2] = &unk_282C11418;
-  v15[3] = &unk_282C11418;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-  v17[0] = v4;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12 = @"IDSDeviceDidWakeHintTopic";
-  v10 = *MEMORY[0x277D3F5A8];
-  v11 = &unk_282C11400;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v13 = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  v17[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D3F4C8];
+  v13[3] = v3;
+  v14[2] = &unk_282C11418;
+  v14[3] = &unk_282C11418;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v16[0] = v4;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11 = @"IDSDeviceDidWakeHintTopic";
+  v9 = *MEMORY[0x277D3F5A8];
+  v10 = &unk_282C11400;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v12 = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v16[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionIDSLinkPreferenceRequest
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1C138;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"InputBytesPerSecond";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1C138;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"InputBytesPerSecond";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11[1] = @"ServiceName";
-  v12[0] = commonTypeDict_IntegerFormat;
+  v10[1] = @"ServiceName";
+  v11[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v12[1] = commonTypeDict_StringFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_StringFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
 
 + (id)entryEventPointDefinitionIDSOutgoingPushSent
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1C128;
-  v17[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"CommandContext";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1C128;
+  v16[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"CommandContext";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v15[0] = commonTypeDict_IntegerFormat;
-  v14[1] = @"CommandID";
+  v14[0] = commonTypeDict_IntegerFormat;
+  v13[1] = @"CommandID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v15[1] = commonTypeDict_IntegerFormat2;
-  v14[2] = @"Topic";
+  v14[1] = commonTypeDict_IntegerFormat2;
+  v13[2] = @"Topic";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v15[2] = commonTypeDict_StringFormat_withBundleID;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_StringFormat_withBundleID;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitionIDSIncomingPushReceived
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1C128;
-  v17[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"CommandContext";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1C128;
+  v16[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"CommandContext";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v15[0] = commonTypeDict_IntegerFormat;
-  v14[1] = @"CommandID";
+  v14[0] = commonTypeDict_IntegerFormat;
+  v13[1] = @"CommandID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v15[1] = commonTypeDict_IntegerFormat2;
-  v14[2] = @"Topic";
+  v14[1] = commonTypeDict_IntegerFormat2;
+  v13[2] = @"Topic";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat_withBundleID];
-  v15[2] = commonTypeDict_StringFormat_withBundleID;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_StringFormat_withBundleID;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
@@ -510,12 +482,12 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_167(ui
 
 - (void)setCurrentLinkType
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = PLLogIDS();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v19) = 0;
-    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: setting current linktype", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: setting current linktype", &v18, 2u);
   }
 
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
@@ -527,8 +499,8 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_167(ui
   {
     if (v8)
     {
-      LOWORD(v19) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: initialized companionPeerIdentifier", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: initialized companionPeerIdentifier", &v18, 2u);
     }
 
     v7 = [MEMORY[0x277D2C9C8] newDeviceIdentifierWithBluetoothUUID:v6];
@@ -538,8 +510,8 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_167(ui
     {
       if (v10)
       {
-        v19 = 138412290;
-        v20 = v6;
+        v18 = 138412290;
+        v19 = v6;
         v15 = "setCurrentLinkType:: Failed to create NRDeviceIdentifier for bluetooth UUID %@";
         v16 = v9;
         v17 = 12;
@@ -553,8 +525,8 @@ LABEL_15:
 
     if (v10)
     {
-      LOWORD(v19) = 0;
-      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: initialized networkRelayIdentifier", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: initialized networkRelayIdentifier", &v18, 2u);
     }
 
     v11 = objc_alloc(MEMORY[0x277D2C9E8]);
@@ -569,12 +541,12 @@ LABEL_15:
       v9 = PLLogIDS();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
         v15 = "setCurrentLinkType:: NRDeviceMonitor init failed";
         v16 = v9;
         v17 = 2;
 LABEL_18:
-        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, v15, &v19, v17);
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, v15, &v18, v17);
         goto LABEL_15;
       }
 
@@ -584,14 +556,39 @@ LABEL_18:
 
   else if (v8)
   {
-    v19 = 138412290;
-    v20 = getActivePairedDevice;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: No bluetooth ID from active device %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = getActivePairedDevice;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setCurrentLinkType:: No bluetooth ID from active device %@", &v18, 0xCu);
   }
 
 LABEL_16:
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)deviceLinkTypeDidChange:(id)change linkType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v6 = PLLogIDS();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "deviceLinkTypeDidChange:: checking current link type", buf, 2u);
+  }
+
+  v7 = [(PLOperator *)PLIdentityServicesAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"LocalLinkType"];
+  v8 = objc_msgSend_storage(self);
+  v9 = [v8 lastEntryForKey:v7];
+
+  if (!v9 || ([v9 objectForKeyedSubscript:@"linkType"], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedChar:", typeCopy), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, (v12 & 1) == 0))
+  {
+    v13 = PLLogIDS();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      *v14 = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "deviceLinkTypeDidChange:: adding current link type", v14, 2u);
+    }
+
+    [(PLIdentityServicesAgent *)self logLocalLinkType:typeCopy];
+  }
 }
 
 - (void)initOperatorDependancies
@@ -680,23 +677,22 @@ LABEL_16:
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local Network Stats callback recieved payload %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local Network Stats callback recieved payload %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logIDSNetworkEntries:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_175(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = [v6 objectForKey:@"IDSLinkType"];
 
@@ -705,65 +701,60 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_175(ui
     v8 = PLLogIDS();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "IDS Local Link callback: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "IDS Local Link callback: %@", &v11, 0xCu);
     }
 
     v9 = *(a1 + 32);
     v10 = [v6 objectForKey:@"IDSLinkType"];
     [v9 logLocalLinkType:{objc_msgSend(v10, "integerValue")}];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_183(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local Message Received callback: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDS Local Message Received callback: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logLocalMessageTopic:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_188(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDSLinkPreferenceRequest payload %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDSLinkPreferenceRequest payload %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logIDSLinkPreference:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDSDSession payload %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "IDSDSession payload %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logIDSSession:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTaskOperatorDependancies
@@ -781,18 +772,17 @@ void __51__PLIdentityServicesAgent_initOperatorDependancies__block_invoke_214(ui
 
 void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogIDS();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Force Cloud Messaging callback: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Force Cloud Messaging callback: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logCloudMessaging:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logLocalMessageTopic:(id)topic
@@ -914,54 +904,54 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
 
 - (void)logIDSNetworkEntries:(id)entries
 {
-  v167 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   v5 = [entriesCopy objectForKeyedSubscript:@"IDSLocalStatisticsCategory"];
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   previousStatsByPriority = [(PLIdentityServicesAgent *)self previousStatsByPriority];
   v7 = [previousStatsByPriority objectForKeyedSubscript:v5];
 
-  v146 = v7;
+  v145 = v7;
   if (!v7)
   {
     v8 = objc_opt_new();
     previousStatsByPriority2 = [(PLIdentityServicesAgent *)self previousStatsByPriority];
-    v146 = v8;
+    v145 = v8;
     [previousStatsByPriority2 setObject:v8 forKeyedSubscript:v5];
   }
 
   v10 = [v5 isEqualToString:@"Sockets"];
-  v127 = objc_opt_new();
+  v126 = objc_opt_new();
   v11 = *MEMORY[0x277D3F5D8];
-  v129 = v5;
+  v128 = v5;
   selfCopy = self;
-  v126 = entriesCopy;
+  v125 = entriesCopy;
   if (!v10)
   {
-    v128 = [(PLOperator *)PLIdentityServicesAgent entryKeyForType:v11 andName:@"IDSMessagePeriodic"];
+    v127 = [(PLOperator *)PLIdentityServicesAgent entryKeyForType:v11 andName:@"IDSMessagePeriodic"];
+    v150 = 0u;
     v151 = 0u;
     v152 = 0u;
     v153 = 0u;
-    v154 = 0u;
     v71 = entriesCopy;
-    v72 = [v71 countByEnumeratingWithState:&v151 objects:v161 count:16];
+    v72 = [v71 countByEnumeratingWithState:&v150 objects:v160 count:16];
     if (v72)
     {
       v73 = v72;
-      v74 = *v152;
-      v142 = *v152;
+      v74 = *v151;
+      v141 = *v151;
       do
       {
         v75 = 0;
-        v144 = v73;
+        v143 = v73;
         do
         {
-          if (*v152 != v74)
+          if (*v151 != v74)
           {
             objc_enumerationMutation(v71);
           }
 
-          v76 = *(*(&v151 + 1) + 8 * v75);
+          v76 = *(*(&v150 + 1) + 8 * v75);
           if (([v76 isEqualToString:@"IDSLocalStatisticsCategory"] & 1) == 0 && (objc_msgSend(v76, "containsString:", @"__pl_internal") & 1) == 0)
           {
             v77 = [v71 objectForKeyedSubscript:v76];
@@ -977,7 +967,7 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
                 initialEntryDate = [(PLIdentityServicesAgent *)self initialEntryDate];
               }
 
-              v148 = initialEntryDate;
+              v147 = initialEntryDate;
               v81 = objc_opt_new();
               v82 = [v71 objectForKeyedSubscript:v76];
               v83 = [v82 objectForKeyedSubscript:@"IDSLocalOutgoingMessageBytes"];
@@ -995,9 +985,9 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               v89 = [v88 objectForKeyedSubscript:@"IDSLocalIncomingMessages"];
               [v81 setObject:v89 atIndexedSubscript:3];
 
-              v90 = [v146 objectForKeyedSubscript:v76];
-              [v146 setObject:v81 forKeyedSubscript:v76];
-              v150 = v90;
+              v90 = [v145 objectForKeyedSubscript:v76];
+              [v145 setObject:v81 forKeyedSubscript:v76];
+              v149 = v90;
               if (v90 && v81)
               {
                 v91 = v81;
@@ -1008,27 +998,27 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
 
                 unsignedLongValue2 = [v94 unsignedLongValue];
                 v95 = unsignedLongValue2 >= unsignedLongValue ? unsignedLongValue : 0;
-                v137 = v95;
+                v136 = v95;
                 v96 = v91;
-                v97 = [v150 objectAtIndexedSubscript:1];
+                v97 = [v149 objectAtIndexedSubscript:1];
                 unsignedLongValue3 = [v97 unsignedLongValue];
 
                 v99 = [v96 objectAtIndexedSubscript:1];
 
                 unsignedLongValue4 = [v99 unsignedLongValue];
                 v100 = unsignedLongValue4 >= unsignedLongValue3 ? unsignedLongValue3 : 0;
-                v135 = v100;
+                v134 = v100;
                 v101 = v96;
-                v102 = [v150 objectAtIndexedSubscript:2];
+                v102 = [v149 objectAtIndexedSubscript:2];
                 unsignedLongValue5 = [v102 unsignedLongValue];
 
                 v104 = [v101 objectAtIndexedSubscript:2];
 
                 unsignedLongValue6 = [v104 unsignedLongValue];
                 v106 = unsignedLongValue6 >= unsignedLongValue5 ? unsignedLongValue5 : 0;
-                v131 = v106;
+                v130 = v106;
                 v107 = v101;
-                v108 = [v150 objectAtIndexedSubscript:3];
+                v108 = [v149 objectAtIndexedSubscript:3];
                 unsignedLongValue7 = [v108 unsignedLongValue];
 
                 v110 = [v107 objectAtIndexedSubscript:3];
@@ -1036,24 +1026,24 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
                 unsignedLongValue8 = [v110 unsignedLongValue];
                 self = selfCopy;
                 v112 = unsignedLongValue8 >= unsignedLongValue7 ? unsignedLongValue7 : 0;
-                v5 = v129;
-                v113 = unsignedLongValue2 - v137;
-                if (unsignedLongValue2 != v137 || unsignedLongValue4 != v135 || unsignedLongValue6 != v131 || unsignedLongValue8 != v112)
+                v5 = v128;
+                v113 = unsignedLongValue2 - v136;
+                if (unsignedLongValue2 != v136 || unsignedLongValue4 != v134 || unsignedLongValue6 != v130 || unsignedLongValue8 != v112)
                 {
-                  v140 = unsignedLongValue8 - v112;
-                  v114 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v128 withDate:v148];
+                  v139 = unsignedLongValue8 - v112;
+                  v114 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v127 withDate:v147];
                   [v114 setObject:v76 forKeyedSubscript:@"topic"];
-                  [v114 setObject:v129 forKeyedSubscript:@"priority"];
+                  [v114 setObject:v128 forKeyedSubscript:@"priority"];
                   v115 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v113];
                   [v114 setObject:v115 forKeyedSubscript:@"OutgoingBytes"];
 
-                  v135 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue4 - v135];
-                  [v114 setObject:v135 forKeyedSubscript:@"IncomingBytes"];
+                  v134 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue4 - v134];
+                  [v114 setObject:v134 forKeyedSubscript:@"IncomingBytes"];
 
-                  v131 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue6 - v131];
-                  [v114 setObject:v131 forKeyedSubscript:@"OutgoingMessages"];
+                  v130 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue6 - v130];
+                  [v114 setObject:v130 forKeyedSubscript:@"OutgoingMessages"];
 
-                  v118 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v140];
+                  v118 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v139];
                   [v114 setObject:v118 forKeyedSubscript:@"IncomingMessages"];
 
                   [v114 setObject:monotonicDate forKeyedSubscript:@"timestampEnd"];
@@ -1062,13 +1052,13 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
                   [v114 setObject:v120 forKeyedSubscript:@"LinkType"];
 
                   self = selfCopy;
-                  [v127 addObject:v114];
+                  [v126 addObject:v114];
                 }
               }
 
-              v74 = v142;
-              v73 = v144;
-              v121 = v148;
+              v74 = v141;
+              v73 = v143;
+              v121 = v147;
             }
 
             else
@@ -1078,7 +1068,7 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               {
                 v122 = [v71 objectForKeyedSubscript:v76];
                 *buf = 138412290;
-                v165 = v122;
+                v164 = v122;
                 _os_log_debug_impl(&dword_21A4C6000, v121, OS_LOG_TYPE_DEBUG, "Key %@ does not support objectForKeyedSubscript", buf, 0xCu);
               }
             }
@@ -1088,17 +1078,17 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
         }
 
         while (v73 != v75);
-        v73 = [v71 countByEnumeratingWithState:&v151 objects:v161 count:16];
+        v73 = [v71 countByEnumeratingWithState:&v150 objects:v160 count:16];
       }
 
       while (v73);
     }
 
-    v69 = v127;
-    v159 = v128;
-    v160 = v127;
-    v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
-    [(PLOperator *)self logEntries:v123 withGroupID:v128];
+    v69 = v126;
+    v158 = v127;
+    v159 = v126;
+    v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
+    [(PLOperator *)self logEntries:v123 withGroupID:v127];
 
     if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
     {
@@ -1108,33 +1098,33 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
     goto LABEL_85;
   }
 
-  v128 = [(PLOperator *)PLIdentityServicesAgent entryKeyForType:v11 andName:@"IDSSocketPeriodic"];
+  v127 = [(PLOperator *)PLIdentityServicesAgent entryKeyForType:v11 andName:@"IDSSocketPeriodic"];
+  v154 = 0u;
   v155 = 0u;
   v156 = 0u;
   v157 = 0u;
-  v158 = 0u;
   v12 = entriesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v155 objects:v166 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v154 objects:v165 count:16];
   if (!v13)
   {
     goto LABEL_46;
   }
 
   v14 = v13;
-  v15 = *v156;
-  v149 = *v156;
+  v15 = *v155;
+  v148 = *v155;
   do
   {
     v16 = 0;
-    v132 = v14;
+    v131 = v14;
     do
     {
-      if (*v156 != v15)
+      if (*v155 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v155 + 1) + 8 * v16);
+      v17 = *(*(&v154 + 1) + 8 * v16);
       if (([v17 isEqualToString:@"IDSLocalStatisticsCategory"] & 1) == 0 && (objc_msgSend(v17, "containsString:", @"__pl_internal") & 1) == 0)
       {
         v18 = [v12 objectForKeyedSubscript:v17];
@@ -1159,8 +1149,8 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
           v28 = [v27 objectForKeyedSubscript:@"IDSLocalIncomingSocketPackets"];
           [v20 setObject:v28 atIndexedSubscript:3];
 
-          v29 = [v146 objectForKeyedSubscript:v17];
-          [v146 setObject:v20 forKeyedSubscript:v17];
+          v29 = [v145 objectForKeyedSubscript:v17];
+          [v145 setObject:v20 forKeyedSubscript:v17];
           lastLocalDeliveryLogDate3 = 0;
           if (v29 && v20)
           {
@@ -1188,7 +1178,7 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
             else
             {
               lastEntryDatePerCategory2 = [(PLIdentityServicesAgent *)self lastEntryDatePerCategory];
-              lastLocalDeliveryLogDate3 = [lastEntryDatePerCategory2 objectForKeyedSubscript:v129];
+              lastLocalDeliveryLogDate3 = [lastEntryDatePerCategory2 objectForKeyedSubscript:v128];
             }
 
             v38 = v20;
@@ -1208,7 +1198,7 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               v42 = 0;
             }
 
-            v138 = v42;
+            v137 = v42;
             v43 = v38;
             v44 = [v29 objectAtIndexedSubscript:1];
             unsignedLongValue11 = [v44 unsignedLongValue];
@@ -1226,7 +1216,7 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               v47 = 0;
             }
 
-            v136 = v47;
+            v135 = v47;
             v48 = v43;
             v49 = [v29 objectAtIndexedSubscript:2];
             unsignedLongValue13 = [v49 unsignedLongValue];
@@ -1244,9 +1234,9 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               v53 = 0;
             }
 
-            v147 = v53;
+            v146 = v53;
             v54 = v48;
-            v143 = v29;
+            v142 = v29;
             v55 = [v29 objectAtIndexedSubscript:3];
             unsignedLongValue15 = [v55 unsignedLongValue];
 
@@ -1263,44 +1253,44 @@ void __55__PLIdentityServicesAgent_initTaskOperatorDependancies__block_invoke(ui
               v59 = 0;
             }
 
-            v60 = v136;
-            if (unsignedLongValue10 != v138 || unsignedLongValue12 != v136 || unsignedLongValue14 != v147 || unsignedLongValue16 != v59)
+            v60 = v135;
+            if (unsignedLongValue10 != v137 || unsignedLongValue12 != v135 || unsignedLongValue14 != v146 || unsignedLongValue16 != v59)
             {
               if (!lastLocalDeliveryLogDate3)
               {
                 initialEntryDate2 = [(PLIdentityServicesAgent *)selfCopy initialEntryDate];
-                v60 = v136;
+                v60 = v135;
                 lastLocalDeliveryLogDate3 = initialEntryDate2;
               }
 
               v62 = unsignedLongValue12 - v60;
               v63 = unsignedLongValue16 - v59;
-              v64 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v128 withDate:lastLocalDeliveryLogDate3];
+              v64 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v127 withDate:lastLocalDeliveryLogDate3];
               [v64 setObject:v17 forKeyedSubscript:@"topic"];
-              v138 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue10 - v138];
-              [v64 setObject:v138 forKeyedSubscript:@"OutgoingBytes"];
+              v137 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue10 - v137];
+              [v64 setObject:v137 forKeyedSubscript:@"OutgoingBytes"];
 
               v66 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v62];
               [v64 setObject:v66 forKeyedSubscript:@"IncomingBytes"];
 
-              v147 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue14 - v147];
-              [v64 setObject:v147 forKeyedSubscript:@"OutgoingPackets"];
+              v146 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongValue14 - v146];
+              [v64 setObject:v146 forKeyedSubscript:@"OutgoingPackets"];
 
               v68 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v63];
               [v64 setObject:v68 forKeyedSubscript:@"IncomingPackets"];
 
               [v64 setObject:monotonicDate forKeyedSubscript:@"timestampEnd"];
-              [v127 addObject:v64];
+              [v126 addObject:v64];
             }
 
-            v29 = v143;
+            v29 = v142;
             self = selfCopy;
-            v14 = v132;
+            v14 = v131;
           }
 
 LABEL_42:
 
-          v15 = v149;
+          v15 = v148;
         }
 
         else
@@ -1310,7 +1300,7 @@ LABEL_42:
           {
             v36 = [v12 objectForKeyedSubscript:v17];
             *buf = 138412290;
-            v165 = v36;
+            v164 = v36;
             _os_log_debug_impl(&dword_21A4C6000, lastLocalDeliveryLogDate3, OS_LOG_TYPE_DEBUG, "IDS Sockets - Key %@ does not support objectForKeyedSubscript", buf, 0xCu);
           }
         }
@@ -1320,19 +1310,19 @@ LABEL_42:
     }
 
     while (v14 != v16);
-    v14 = [v12 countByEnumeratingWithState:&v155 objects:v166 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v154 objects:v165 count:16];
   }
 
   while (v14);
 LABEL_46:
 
-  v69 = v127;
-  v162 = v128;
-  v163 = v127;
-  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v163 forKeys:&v162 count:1];
-  [(PLOperator *)self logEntries:v70 withGroupID:v128];
+  v69 = v126;
+  v161 = v127;
+  v162 = v126;
+  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
+  [(PLOperator *)self logEntries:v70 withGroupID:v127];
 
-  v5 = v129;
+  v5 = v128;
   if ([MEMORY[0x277D3F208] isHomePod])
   {
     goto LABEL_85;
@@ -1344,17 +1334,16 @@ LABEL_85:
 
   lastEntryDatePerCategory3 = [(PLIdentityServicesAgent *)self lastEntryDatePerCategory];
   [lastEntryDatePerCategory3 setObject:monotonicDate forKeyedSubscript:v5];
-
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBTAccountingEvents:(id)events
 {
   eventsCopy = events;
-  if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
+  isHomePod = [MEMORY[0x277D3F208] isHomePod];
+  if ((isHomePod & 1) == 0)
   {
-    v3 = [eventsCopy objectForKey:@"linkType"];
-    integerValue = [v3 integerValue];
+    v4 = [eventsCopy objectForKey:@"linkType"];
+    integerValue = [v4 integerValue];
 
     mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
     entryDate = [eventsCopy entryDate];
@@ -1369,40 +1358,40 @@ LABEL_85:
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isHomePod);
 }
 
 - (void)createIDSAccountingEventsWithEntries:(id)entries
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   isHomePod = [MEMORY[0x277D3F208] isHomePod];
   if (entriesCopy && (isHomePod & 1) == 0 && [entriesCopy count])
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v6 = entriesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
     allKeys = v6;
     if (v7)
     {
       v9 = v7;
-      v36 = entriesCopy;
-      v10 = *v42;
+      v35 = entriesCopy;
+      v10 = *v41;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v42 != v10)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v41 + 1) + 8 * i);
+          v13 = *(*(&v40 + 1) + 8 * i);
           v14 = [v13 objectForKeyedSubscript:@"topic"];
           v15 = v14;
           if (v14 && ([v14 isEqualToString:@"localdelivery"] & 1) == 0)
@@ -1420,37 +1409,37 @@ LABEL_85:
           }
         }
 
-        v9 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v9);
 
-      entriesCopy = v36;
+      entriesCopy = v35;
       if (v11 <= 0.0)
       {
         goto LABEL_23;
       }
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       allKeys = [dictionary allKeys];
-      v23 = [allKeys countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v23 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v38;
+        v25 = *v37;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v38 != v25)
+            if (*v37 != v25)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v27 = *(*(&v37 + 1) + 8 * j);
+            v27 = *(*(&v36 + 1) + 8 * j);
             v28 = [dictionary objectForKeyedSubscript:v27];
             [v28 doubleValue];
             v30 = v29;
@@ -1459,7 +1448,7 @@ LABEL_85:
             [dictionary setObject:v31 forKeyedSubscript:v27];
           }
 
-          v24 = [allKeys countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v24 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
         }
 
         while (v24);
@@ -1472,8 +1461,6 @@ LABEL_23:
     v34 = [firstObject objectForKeyedSubscript:@"timestampEnd"];
     [mEMORY[0x277D3F0C0] createDistributionEventBackwardWithDistributionID:31 withChildNodeNameToWeight:dictionary withEndDate:v34];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 @end

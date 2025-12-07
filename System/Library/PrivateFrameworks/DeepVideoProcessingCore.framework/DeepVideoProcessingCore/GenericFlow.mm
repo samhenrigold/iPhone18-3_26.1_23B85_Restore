@@ -198,11 +198,11 @@
     v17 = [(ImageProcessor_Ext *)self->_imageProcessor preserveCMAttachmentFirstFrame:frameCopy secondFrame:secondFrameCopy];
     if (!v17)
     {
-      OUTLINED_FUNCTION_0_0();
+      OUTLINED_FUNCTION_0_0(732313708);
       v17 = -[ImageProcessor_Ext preProcessFirstInput:secondInput:waitForCompletion:](self->_imageProcessor, "preProcessFirstInput:secondInput:waitForCompletion:", [frameCopy buffer], objc_msgSend(secondFrameCopy, "buffer"), 0);
       if (!v17 && (!self->_useHomographyInFlow || (v17 = [(GenericFlow *)self preProcessHomographyFirstFrame:frameCopy secondFrame:secondFrameCopy previousFlow:self->_previousFlow]) == 0))
       {
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732313744);
         v17 = [(GenericFlow *)self computeForwardFlow:flow backwardFlow:backwardFlow];
         if (!v17)
         {
@@ -269,7 +269,7 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(732313724);
     Width = CVPixelBufferGetWidth([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
     Height = CVPixelBufferGetHeight([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
     if (self->_streamingMode)
@@ -280,103 +280,86 @@ LABEL_22:
       {
         [(VEOpticalFlowEstimator *)self->_opticalFlow opticalFlowFrom:[(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst] to:[(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond] flow:flow];
         pImageRegInstance = self->_pImageRegInstance;
-        packedDownscaledFirstRGB = [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledFirstRGB];
-        packedDownscaledSecondRGB = [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledSecondRGB];
+        [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledFirstRGB];
+        [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledSecondRGB];
         if (pImageRegInstance)
         {
-          v19 = packedDownscaledSecondRGB;
-          v20 = pImageRegInstance;
-          flowCopy2 = flow;
-          v22 = 0;
-          v23 = packedDownscaledFirstRGB;
-          v24 = v14;
-          v25 = v15;
-          v26 = 1;
-LABEL_12:
-          [(ImageReg *)v20 extractHomographyFromFlow:flowCopy2 depth:v22 im1:v23 im2:v19 targetResolution:v26 currentPairFlow:v24, v25];
+          objc_msgSend_extractHomographyFromFlow_depth_im1_im2_targetResolution_currentPairFlow_(pImageRegInstance, v14, v15);
           goto LABEL_14;
         }
       }
 
       else
       {
-        v30 = self->_pImageRegInstance;
-        previousDepth = self->_previousDepth;
-        packedDownscaledFirstRGB2 = [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledFirstRGB];
-        packedDownscaledSecondRGB2 = [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledSecondRGB];
-        if (v30)
+        v18 = self->_pImageRegInstance;
+        [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledFirstRGB];
+        [(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledSecondRGB];
+        if (v18)
         {
-          v19 = packedDownscaledSecondRGB2;
-          v20 = v30;
-          flowCopy2 = flow;
-          v22 = previousDepth;
-          v23 = packedDownscaledFirstRGB2;
-          v24 = v14;
-          v25 = v15;
-          v26 = 0;
-          goto LABEL_12;
+          objc_msgSend_extractHomographyFromFlow_depth_im1_im2_targetResolution_currentPairFlow_(v18, v14, v15);
+LABEL_14:
+          self->_result12 = v25;
+          *self->_anon_50 = v26;
+          *&self->_anon_50[16] = v27;
+          *&self->_anon_50[32] = v28;
+          v19 = *&self->_anon_50[32] > 0.3 && *&self->_anon_50[36] > 100;
+          self->_homo12good = v19;
+          v29 = __invert_f3(*&self->_result12.confidence);
+          self->_result21.width = v29.columns[0].i32[2];
+          *&self->_result21.confidence = v29.columns[0].i64[0];
+          *&self->_anon_90[8] = v29.columns[1].i32[2];
+          *self->_anon_90 = v29.columns[1].i64[0];
+          *&self->_anon_90[24] = v29.columns[2].i32[2];
+          *&self->_anon_90[16] = v29.columns[2].i64[0];
+          *&self->_anon_90[32] = *&self->_anon_50[32];
+          *&self->_anon_90[36] = *&self->_anon_50[36];
+          *&self->_anon_90[44] = *&self->_anon_50[44];
+          if (self->_homo12good)
+          {
+            if (!self->_warpedImage)
+            {
+              v20 = CVPixelBufferGetWidth([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
+              v21 = CVPixelBufferGetHeight([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
+              PixelBuffer = CreatePixelBuffer(v20, v21, [(ImageProcessor_Ext *)self->_imageProcessor RGBAFormat]);
+              self->_warpedImage = PixelBuffer;
+              if (!PixelBuffer)
+              {
+                v11 = 9;
+                goto LABEL_23;
+              }
+            }
+
+            v23 = [self->_pImageRegInstance preprocessFirst:[(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond:v25] warpedFirst:self->_warpedImage withHomography:*&self->_result21.confidence, *self->_anon_90, *&self->_anon_90[16]];
+            if (v23)
+            {
+              v11 = v23;
+              goto LABEL_23;
+            }
+          }
+
+          OUTLINED_FUNCTION_0_0(732313728);
+          goto LABEL_22;
         }
       }
     }
 
     else
     {
-      v27 = self->_pImageRegInstance;
-      rgbaFirst = [(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst];
-      rgbaSecond = [(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond];
-      if (v27)
+      v17 = self->_pImageRegInstance;
+      [(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst];
+      [(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond];
+      if (v17)
       {
-        [(ImageReg *)v27 registerImage0:rgbaFirst toImage1:rgbaSecond Normalize:0];
+        objc_msgSend_registerImage0_toImage1_Normalize_(v17);
         goto LABEL_14;
       }
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0;
-    v41 = 0u;
-LABEL_14:
-    self->_result12 = v40;
-    *self->_anon_50 = v41;
-    *&self->_anon_50[16] = v42;
-    *&self->_anon_50[32] = v43;
-    v34 = *&self->_anon_50[32] > 0.3 && *&self->_anon_50[36] > 100;
-    self->_homo12good = v34;
-    v44 = __invert_f3(*&self->_result12.confidence);
-    self->_result21.width = v44.columns[0].i32[2];
-    *&self->_result21.confidence = v44.columns[0].i64[0];
-    *&self->_anon_90[8] = v44.columns[1].i32[2];
-    *self->_anon_90 = v44.columns[1].i64[0];
-    *&self->_anon_90[24] = v44.columns[2].i32[2];
-    *&self->_anon_90[16] = v44.columns[2].i64[0];
-    *&self->_anon_90[32] = *&self->_anon_50[32];
-    *&self->_anon_90[36] = *&self->_anon_50[36];
-    *&self->_anon_90[44] = *&self->_anon_50[44];
-    if (self->_homo12good)
-    {
-      if (!self->_warpedImage)
-      {
-        v35 = CVPixelBufferGetWidth([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
-        v36 = CVPixelBufferGetHeight([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
-        PixelBuffer = CreatePixelBuffer(v35, v36, [(ImageProcessor_Ext *)self->_imageProcessor RGBAFormat]);
-        self->_warpedImage = PixelBuffer;
-        if (!PixelBuffer)
-        {
-          v11 = 9;
-          goto LABEL_23;
-        }
-      }
-
-      v38 = [self->_pImageRegInstance preprocessFirst:[(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond:v40] warpedFirst:self->_warpedImage withHomography:*&self->_result21.confidence, *self->_anon_90, *&self->_anon_90[16]];
-      if (v38)
-      {
-        v11 = v38;
-        goto LABEL_23;
-      }
-    }
-
-    OUTLINED_FUNCTION_0_0();
-    goto LABEL_22;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0;
+    v26 = 0u;
+    goto LABEL_14;
   }
 
 LABEL_23:
@@ -389,7 +372,7 @@ LABEL_23:
   v4 = 12;
   if (flow && backwardFlow)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(732313748);
     [(VEOpticalFlowEstimator *)self->_opticalFlow setInputRotation:0];
     useHomographyInFlow = self->_useHomographyInFlow;
     opticalFlow = self->_opticalFlow;
@@ -413,10 +396,10 @@ LABEL_23:
     }
 
     [VEOpticalFlowEstimator opticalFlowsFrom:v10 to:"opticalFlowsFrom:to:forwardFlow:backwardFlow:" forwardFlow:v11 backwardFlow:?];
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(732313752);
     if (self->_useHomographyInFlow && self->_homo12good)
     {
-      OUTLINED_FUNCTION_0_0();
+      OUTLINED_FUNCTION_0_0(732313788);
       CVPixelBufferGetWidth([(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst]);
       CVPixelBufferGetWidth(flow);
       OUTLINED_FUNCTION_2_7();
@@ -448,7 +431,7 @@ LABEL_23:
       {
         self->_isFirstFrameInStream = 0;
 LABEL_18:
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732313792);
       }
     }
 

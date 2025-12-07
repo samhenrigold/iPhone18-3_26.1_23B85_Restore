@@ -366,11 +366,10 @@ LABEL_14:
 
 - (id)analyticsKey
 {
-  mailboxType = self->_mailboxType;
-  v3 = NSStringFromMailboxUidType();
-  v4 = [NSString stringWithFormat:@"Unified_%@", v3];
+  v2 = NSStringFromMailboxUidType();
+  v3 = [NSString stringWithFormat:@"Unified_%@", v2];
 
-  return v4;
+  return v3;
 }
 
 @end

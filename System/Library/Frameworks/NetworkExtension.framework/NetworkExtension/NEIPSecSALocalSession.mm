@@ -8,7 +8,7 @@
 
 - (BOOL)addLarvalSA:(id)a
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   aCopy = a;
   v5 = [aCopy spi];
   if (v5)
@@ -16,18 +16,18 @@
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412546;
+      v12 = 138412546;
       selfCopy = self;
-      v15 = 1024;
-      v16 = bswap32([aCopy spi]);
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ SPI is not 0, it is %X", &v13, 0x12u);
+      v14 = 1024;
+      v15 = bswap32([aCopy spi]);
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ SPI is not 0, it is %X", &v12, 0x12u);
     }
 
     v7 = ne_log_obj();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "SPI is not 0", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "SPI is not 0", &v12, 2u);
     }
   }
 
@@ -52,7 +52,6 @@
     [Property addObject:aCopy];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5 == 0;
 }
 

@@ -426,79 +426,80 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v35 = __atxlog_handle_default();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+    v36 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
-      [(ATXHomeScreenEvent *)self initWithProto:v35];
+      [(ATXHomeScreenEvent *)self initWithProto:v36];
     }
 
     goto LABEL_9;
   }
 
-  v37.receiver = self;
-  v37.super_class = ATXHomeScreenEvent;
-  v5 = [(ATXHomeScreenEvent *)&v37 init];
-  if (v5)
+  v38.receiver = self;
+  v38.super_class = ATXHomeScreenEvent;
+  v6 = [(ATXHomeScreenEvent *)&v38 init];
+  if (v6)
   {
-    v6 = protoCopy;
-    v5->_absoluteDate = [(ATXPBHomeScreenEvent *)v6 date];
-    eventTypeString = [(ATXPBHomeScreenEvent *)v6 eventTypeString];
-    eventTypeString = v5->_eventTypeString;
-    v5->_eventTypeString = eventTypeString;
+    v7 = protoCopy;
+    v6->_absoluteDate = [(ATXPBHomeScreenEvent *)v7 date];
+    eventTypeString = [(ATXPBHomeScreenEvent *)v7 eventTypeString];
+    eventTypeString = v6->_eventTypeString;
+    v6->_eventTypeString = eventTypeString;
 
-    reason = [(ATXPBHomeScreenEvent *)v6 reason];
-    reason = v5->_reason;
-    v5->_reason = reason;
+    reason = [(ATXPBHomeScreenEvent *)v7 reason];
+    reason = v6->_reason;
+    v6->_reason = reason;
 
-    blendingCacheId = [(ATXPBHomeScreenEvent *)v6 blendingCacheId];
-    blendingCacheId = v5->_blendingCacheId;
-    v5->_blendingCacheId = blendingCacheId;
+    blendingCacheId = [(ATXPBHomeScreenEvent *)v7 blendingCacheId];
+    blendingCacheId = v6->_blendingCacheId;
+    v6->_blendingCacheId = blendingCacheId;
 
-    stackId = [(ATXPBHomeScreenEvent *)v6 stackId];
-    stackId = v5->_stackId;
-    v5->_stackId = stackId;
+    stackId = [(ATXPBHomeScreenEvent *)v7 stackId];
+    stackId = v6->_stackId;
+    v6->_stackId = stackId;
 
-    stackKind = [(ATXPBHomeScreenEvent *)v6 stackKind];
-    v5->_stackKind = ATXStackKindForPBKind(stackKind);
-    stackLocation = [(ATXPBHomeScreenEvent *)v6 stackLocation];
-    v5->_stackLocation = ATXStackLocationForPBLocation(stackLocation);
-    widgetBundleId = [(ATXPBHomeScreenEvent *)v6 widgetBundleId];
-    widgetBundleId = v5->_widgetBundleId;
-    v5->_widgetBundleId = widgetBundleId;
+    stackKind = [(ATXPBHomeScreenEvent *)v7 stackKind];
+    v6->_stackKind = ATXStackKindForPBKind(stackKind);
+    stackLocation = [(ATXPBHomeScreenEvent *)v7 stackLocation];
+    v6->_stackLocation = ATXStackLocationForPBLocation(stackLocation);
+    widgetBundleId = [(ATXPBHomeScreenEvent *)v7 widgetBundleId];
+    widgetBundleId = v6->_widgetBundleId;
+    v6->_widgetBundleId = widgetBundleId;
 
-    widgetKind = [(ATXPBHomeScreenEvent *)v6 widgetKind];
-    widgetKind = v5->_widgetKind;
-    v5->_widgetKind = widgetKind;
+    widgetKind = [(ATXPBHomeScreenEvent *)v7 widgetKind];
+    widgetKind = v6->_widgetKind;
+    v6->_widgetKind = widgetKind;
 
-    widgetSize = [(ATXPBHomeScreenEvent *)v6 widgetSize];
-    v5->_widgetSize = ATXStackLayoutSizeForPBLayoutSize(widgetSize);
-    intentDescription = [(ATXPBHomeScreenEvent *)v6 intentDescription];
-    intentDescription = v5->_intentDescription;
-    v5->_intentDescription = intentDescription;
+    widgetSize = [(ATXPBHomeScreenEvent *)v7 widgetSize];
+    v6->_widgetSize = ATXStackLayoutSizeForPBLayoutSize(widgetSize);
+    intentDescription = [(ATXPBHomeScreenEvent *)v7 intentDescription];
+    intentDescription = v6->_intentDescription;
+    v6->_intentDescription = intentDescription;
 
-    widgetUniqueId = [(ATXPBHomeScreenEvent *)v6 widgetUniqueId];
-    widgetUniqueId = v5->_widgetUniqueId;
-    v5->_widgetUniqueId = widgetUniqueId;
+    widgetUniqueId = [(ATXPBHomeScreenEvent *)v7 widgetUniqueId];
+    widgetUniqueId = v6->_widgetUniqueId;
+    v6->_widgetUniqueId = widgetUniqueId;
 
-    appBundleId = [(ATXPBHomeScreenEvent *)v6 appBundleId];
-    appBundleId = v5->_appBundleId;
-    v5->_appBundleId = appBundleId;
+    appBundleId = [(ATXPBHomeScreenEvent *)v7 appBundleId];
+    appBundleId = v6->_appBundleId;
+    v6->_appBundleId = appBundleId;
 
-    suggestionIds = [(ATXPBHomeScreenEvent *)v6 suggestionIds];
-    suggestionIds = v5->_suggestionIds;
-    v5->_suggestionIds = suggestionIds;
+    suggestionIds = [(ATXPBHomeScreenEvent *)v7 suggestionIds];
+    suggestionIds = v6->_suggestionIds;
+    v6->_suggestionIds = suggestionIds;
 
-    v30 = [ATXHomeScreenEventMetadata alloc];
-    metadata = [(ATXPBHomeScreenEvent *)v6 metadata];
+    v31 = [ATXHomeScreenEventMetadata alloc];
+    metadata = [(ATXPBHomeScreenEvent *)v7 metadata];
 
-    v32 = [(ATXHomeScreenEventMetadata *)v30 initWithProto:metadata];
-    metadata = v5->_metadata;
-    v5->_metadata = v32;
+    v33 = [(ATXHomeScreenEventMetadata *)v31 initWithProto:metadata];
+    metadata = v6->_metadata;
+    v6->_metadata = v33;
   }
 
-  self = v5;
+  self = v6;
   selfCopy = self;
 LABEL_10:
 

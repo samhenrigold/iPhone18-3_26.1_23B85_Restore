@@ -3,6 +3,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)configureWithDuration:(double)duration block:(id)block;
 - (void)faceViewWantsCustomKeylineFramesReloadedForEditMode:(int64_t)mode;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation NTKFaceViewControllerAccessibility
@@ -24,6 +25,13 @@
   v2.receiver = self;
   v2.super_class = NTKFaceViewControllerAccessibility;
   [(NTKFaceViewControllerAccessibility *)&v2 _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NTKFaceViewControllerAccessibility;
+  [(NTKFaceViewControllerAccessibility *)&v3 viewDidAppear:appear];
 }
 
 - (void)configureWithDuration:(double)duration block:(id)block

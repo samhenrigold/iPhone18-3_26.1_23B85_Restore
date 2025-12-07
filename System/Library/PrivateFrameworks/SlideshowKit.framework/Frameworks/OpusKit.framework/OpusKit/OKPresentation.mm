@@ -1406,7 +1406,7 @@ LABEL_12:
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __50__OKPresentation__didEnterBackgroundNotification___block_invoke(uint64_t a1)
+void *__50__OKPresentation__didEnterBackgroundNotification___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
   if (!result)
@@ -1456,7 +1456,7 @@ uint64_t __50__OKPresentation__didEnterBackgroundNotification___block_invoke_2(u
   _Block_object_dispose(&v8, 8);
 }
 
-uint64_t __45__OKPresentation__willTerminateNotification___block_invoke(uint64_t a1)
+void *__45__OKPresentation__willTerminateNotification___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
   if (!result)

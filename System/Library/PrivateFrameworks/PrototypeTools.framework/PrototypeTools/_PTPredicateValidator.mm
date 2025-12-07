@@ -1,5 +1,5 @@
 @interface _PTPredicateValidator
-+ (void)validatorWithPredicate:(uint64_t)predicate;
++ (_PTPredicateValidator)validatorWithPredicate:(uint64_t)predicate;
 - (uint64_t)evaluate;
 - (void)visitPredicateExpression:(id)expression;
 - (void)visitPredicateOperator:(id)operator;
@@ -7,7 +7,7 @@
 
 @implementation _PTPredicateValidator
 
-+ (void)validatorWithPredicate:(uint64_t)predicate
++ (_PTPredicateValidator)validatorWithPredicate:(uint64_t)predicate
 {
   v2 = a2;
   objc_opt_self();

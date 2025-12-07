@@ -8649,19 +8649,19 @@ LABEL_12:
   }
 }
 
-void __87__RTLearnedLocationStore__fetchCloudStorePersistentHistorySinceDate_earlyStop_handler___block_invoke_2(uint64_t a1)
+void __87__RTLearnedLocationStore__fetchCloudStorePersistentHistorySinceDate_earlyStop_handler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
+  v37 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
   while (1)
   {
-    v3 = objc_autoreleasePoolPush();
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v32 = 0;
-    v6 = [v4 executeRequest:v5 error:&v32];
-    v7 = v32;
-    if (v7)
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v33 = 0;
+    v7 = [v5 executeRequest:v6 error:&v33];
+    v8 = v33;
+    if (v8)
     {
       break;
     }
@@ -8669,70 +8669,70 @@ void __87__RTLearnedLocationStore__fetchCloudStorePersistentHistorySinceDate_ear
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v20 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138412290;
-        v35 = v22;
-        _os_log_error_impl(&dword_2304B3000, v20, OS_LOG_TYPE_ERROR, "error while fetching history; unexpected result class, %@", buf, 0xCu);
+        v36 = v23;
+        _os_log_error_impl(&dword_2304B3000, v21, OS_LOG_TYPE_ERROR, "error while fetching history; unexpected result class, %@", buf, 0xCu);
       }
 
       (*(*(a1 + 48) + 16))();
       goto LABEL_18;
     }
 
-    context = v3;
-    v24 = v6;
-    v8 = v6;
-    v25 = [v8 result];
-    v23 = [v25 count];
-    v28 = 0u;
+    context = v4;
+    v25 = v7;
+    v9 = v7;
+    v26 = [v9 result];
+    v24 = [v26 count];
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v26 = v8;
-    v9 = [v8 result];
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v10)
+    v32 = 0u;
+    v27 = v9;
+    v10 = [v9 result];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v29;
+      v12 = v11;
+      v13 = *v30;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v12)
+          if (*v30 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v14;
-            v16 = [v15 changes];
-            v17 = [v16 count];
+            v16 = v15;
+            v17 = [v16 changes];
+            v18 = [v17 count];
 
-            if (v17)
+            if (v18)
             {
-              [v2 addObject:v15];
+              [v3 addObject:v16];
               if (*(a1 + 56) == 1)
               {
                 (*(*(a1 + 48) + 16))();
 
-                v3 = context;
-                v6 = v24;
+                v4 = context;
+                v7 = v25;
                 goto LABEL_18;
               }
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
-        if (v11)
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        if (v12)
         {
           continue;
         }
@@ -8741,30 +8741,30 @@ void __87__RTLearnedLocationStore__fetchCloudStorePersistentHistorySinceDate_ear
       }
     }
 
-    [*(a1 + 40) setFetchOffset:{objc_msgSend(*(a1 + 40), "fetchOffset") + v23}];
+    [*(a1 + 40) setFetchOffset:{objc_msgSend(*(a1 + 40), "fetchOffset") + v24}];
     [*(a1 + 32) reset];
 
     objc_autoreleasePoolPop(context);
-    if (!v23)
+    if (!v24)
     {
       (*(*(a1 + 48) + 16))();
       goto LABEL_19;
     }
   }
 
-  v18 = v7;
-  v19 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v19 = v8;
+  v20 = _rt_log_facility_get_os_log(RTLogFacilityDatabase);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v35 = v18;
-    _os_log_error_impl(&dword_2304B3000, v19, OS_LOG_TYPE_ERROR, "error while fetching history, %@", buf, 0xCu);
+    v36 = v19;
+    _os_log_error_impl(&dword_2304B3000, v20, OS_LOG_TYPE_ERROR, "error while fetching history, %@", buf, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
 LABEL_18:
 
-  objc_autoreleasePoolPop(v3);
+  objc_autoreleasePoolPop(v4);
 LABEL_19:
 }
 

@@ -50,16 +50,17 @@
     v3->_supportedHandleTypes = v10;
 
     *&v3->_supportsCurrentPlatform = 257;
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
       v3->_supportsAudioTranslation = 1;
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = CXDefaultLog(has_internal_diagnostics);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         supportsAudioTranslation = v3->_supportsAudioTranslation;
         *buf = 67109120;
         v18 = supportsAudioTranslation;
-        _os_log_impl(&dword_1B47F3000, v12, OS_LOG_TYPE_DEFAULT, "internal build: _supportsAudioTranslation: %d", buf, 8u);
+        _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "internal build: _supportsAudioTranslation: %d", buf, 8u);
       }
     }
 
@@ -69,7 +70,6 @@
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -211,28 +211,28 @@
     {
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
       path2 = [v9 path];
-      v25 = 0;
-      v15 = [defaultManager3 attributesOfItemAtPath:path2 error:&v25];
-      v16 = v25;
+      v26 = 0;
+      v15 = [defaultManager3 attributesOfItemAtPath:path2 error:&v26];
+      v16 = v26;
 
       if (v15)
       {
-        v17 = [v15 objectForKeyedSubscript:*MEMORY[0x1E696A3D8]];
-        v18 = *MEMORY[0x1E696A3F0];
+        v18 = [v15 objectForKeyedSubscript:*MEMORY[0x1E696A3D8]];
+        v19 = *MEMORY[0x1E696A3F0];
 
-        if (v17 != v18)
+        if (v18 != v19)
         {
-          v19 = [[CXSandboxExtendedURL alloc] initWithURL:v9];
-          [(CXProviderConfiguration *)self setRingtoneSoundURL:v19];
+          v20 = [[CXSandboxExtendedURL alloc] initWithURL:v9];
+          [(CXProviderConfiguration *)self setRingtoneSoundURL:v20];
         }
       }
 
       if (v16)
       {
-        v20 = CXDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = CXDefaultLog(v17);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          [(CXProviderConfiguration *)v16 setRingtoneSound:v20];
+          [(CXProviderConfiguration *)v16 setRingtoneSound:v21];
         }
       }
     }
@@ -242,12 +242,12 @@
     if (!ringtoneSoundURL)
     {
       mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-      v23 = [mainBundle URLForResource:v4 withExtension:0];
+      v24 = [mainBundle URLForResource:v4 withExtension:0];
 
-      if (v23)
+      if (v24)
       {
-        v24 = [[CXSandboxExtendedURL alloc] initWithURL:v23];
-        [(CXProviderConfiguration *)self setRingtoneSoundURL:v24];
+        v25 = [[CXSandboxExtendedURL alloc] initWithURL:v24];
+        [(CXProviderConfiguration *)self setRingtoneSoundURL:v25];
       }
     }
   }
@@ -302,19 +302,7 @@
             {
               v32 = prioritizedSenderIdentities;
               maximumCallGroups = [(CXProviderConfiguration *)self maximumCallGroups];
-              if (maximumCallGroups != [configurationCopy maximumCallGroups])
-              {
-                goto LABEL_17;
-              }
-
-              maximumCallsPerCallGroup = [(CXProviderConfiguration *)self maximumCallsPerCallGroup];
-              if (maximumCallsPerCallGroup != [configurationCopy maximumCallsPerCallGroup])
-              {
-                goto LABEL_17;
-              }
-
-              supportsAudioOnly = [(CXProviderConfiguration *)self supportsAudioOnly];
-              if (supportsAudioOnly == [configurationCopy supportsAudioOnly] && (v19 = -[CXProviderConfiguration supportsVideo](self, "supportsVideo"), v19 == objc_msgSend(configurationCopy, "supportsVideo")) && (v20 = -[CXProviderConfiguration supportsEmergency](self, "supportsEmergency"), v20 == objc_msgSend(configurationCopy, "supportsEmergency")) && (v21 = -[CXProviderConfiguration supportsCurrentPlatform](self, "supportsCurrentPlatform"), v21 == objc_msgSend(configurationCopy, "supportsCurrentPlatform")) && (v22 = -[CXProviderConfiguration supportsVoicemail](self, "supportsVoicemail"), v22 == objc_msgSend(configurationCopy, "supportsVoicemail")) && (v23 = -[CXProviderConfiguration supportsRinging](self, "supportsRinging"), v23 == objc_msgSend(configurationCopy, "supportsRinging")) && (v24 = -[CXProviderConfiguration includesCallsInRecents](self, "includesCallsInRecents"), v24 == objc_msgSend(configurationCopy, "includesCallsInRecents")))
+              if (maximumCallGroups == [configurationCopy maximumCallGroups] && (v17 = -[CXProviderConfiguration maximumCallsPerCallGroup](self, "maximumCallsPerCallGroup"), v17 == objc_msgSend(configurationCopy, "maximumCallsPerCallGroup")) && (v18 = -[CXProviderConfiguration supportsAudioOnly](self, "supportsAudioOnly"), v18 == objc_msgSend(configurationCopy, "supportsAudioOnly")) && (v19 = -[CXProviderConfiguration supportsVideo](self, "supportsVideo"), v19 == objc_msgSend(configurationCopy, "supportsVideo")) && (v20 = -[CXProviderConfiguration supportsEmergency](self, "supportsEmergency"), v20 == objc_msgSend(configurationCopy, "supportsEmergency")) && (v21 = -[CXProviderConfiguration supportsCurrentPlatform](self, "supportsCurrentPlatform"), v21 == objc_msgSend(configurationCopy, "supportsCurrentPlatform")) && (v22 = -[CXProviderConfiguration supportsVoicemail](self, "supportsVoicemail"), v22 == objc_msgSend(configurationCopy, "supportsVoicemail")) && (v23 = -[CXProviderConfiguration supportsRinging](self, "supportsRinging"), v23 == objc_msgSend(configurationCopy, "supportsRinging")) && (v24 = -[CXProviderConfiguration includesCallsInRecents](self, "includesCallsInRecents"), v24 == objc_msgSend(configurationCopy, "includesCallsInRecents")))
               {
                 audioSessionID = [(CXProviderConfiguration *)self audioSessionID];
                 if (audioSessionID == [configurationCopy audioSessionID] && (v28 = -[CXProviderConfiguration supportsDynamicSystemUI](self, "supportsDynamicSystemUI"), v28 == objc_msgSend(configurationCopy, "supportsDynamicSystemUI")))
@@ -344,7 +332,6 @@
 
               else
               {
-LABEL_17:
                 LOBYTE(v25) = 0;
                 prioritizedSenderIdentities = v32;
               }
@@ -681,18 +668,17 @@ LABEL_17:
 
       else
       {
-        v62 = CXDefaultLog();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        v63 = CXDefaultLog(v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v67 = v59;
-          _os_log_impl(&dword_1B47F3000, v62, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring ringtone sound URL because CXProviderConfiguration client did not have access to it: %@", buf, 0xCu);
+          _os_log_impl(&dword_1B47F3000, v63, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring ringtone sound URL because CXProviderConfiguration client did not have access to it: %@", buf, 0xCu);
         }
       }
     }
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -782,11 +768,10 @@ LABEL_17:
 
 - (void)setRingtoneSound:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error while querying file attributes: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error while querying file attributes: %@", &v2, 0xCu);
 }
 
 @end

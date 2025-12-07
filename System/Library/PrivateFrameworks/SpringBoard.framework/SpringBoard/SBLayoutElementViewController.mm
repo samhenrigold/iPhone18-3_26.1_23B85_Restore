@@ -216,10 +216,11 @@
 void __106__SBLayoutElementViewController_configureWithWorkspaceEntity_forLayoutElement_layoutState_referenceFrame___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v4 = a2;
-  [v4 setLayoutRole:{SBSDisplayLayoutRoleForLayoutRole(objc_msgSend(v3, "layoutRole"))}];
-  [v4 setLevel:1];
-  [v4 setReferenceFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
+  v6 = a2;
+  v4 = [v3 layoutRole];
+  [v6 setLayoutRole:{SBSDisplayLayoutRoleForLayoutRole(v4, v5)}];
+  [v6 setLevel:1];
+  [v6 setReferenceFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
 }
 
 - (void)prepareForReuse
@@ -249,7 +250,7 @@ void __106__SBLayoutElementViewController_configureWithWorkspaceEntity_forLayout
 - (void)willBeginTransitionToVisible:(BOOL)visible
 {
   v17 = *MEMORY[0x277D85DE8];
-  v5 = SBLogAppSwitcher();
+  v5 = SBLogAppSwitcher(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -274,7 +275,7 @@ void __106__SBLayoutElementViewController_configureWithWorkspaceEntity_forLayout
 - (void)didEndTransitionToVisible:(BOOL)visible
 {
   v17 = *MEMORY[0x277D85DE8];
-  v5 = SBLogAppSwitcher();
+  v5 = SBLogAppSwitcher(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();

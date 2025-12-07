@@ -35,6 +35,7 @@
 - (void)rebaseForDetachment;
 - (void)setAbsoluteDate:(NSDate *)absoluteDate;
 - (void)setBookmarkURL:(id)l;
+- (void)setDefaultAlarm:(BOOL)alarm;
 - (void)setEmailAddress:(NSString *)emailAddress;
 - (void)setOriginalAlarm:(id)alarm;
 - (void)setProximity:(EKAlarmProximity)proximity;
@@ -63,13 +64,11 @@
 
 void __43__EKAlarm_knownRelationshipSingleValueKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992490];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992490];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipSingleValueKeys_keys_4;
   knownRelationshipSingleValueKeys_keys_4 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipMultiValueKeys
@@ -86,13 +85,11 @@ void __43__EKAlarm_knownRelationshipSingleValueKeys__block_invoke()
 
 void __42__EKAlarm_knownRelationshipMultiValueKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992488];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992488];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipMultiValueKeys_keys_4;
   knownRelationshipMultiValueKeys_keys_4 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownIdentityKeysForComparison
@@ -109,13 +106,11 @@ void __42__EKAlarm_knownRelationshipMultiValueKeys__block_invoke()
 
 void __41__EKAlarm_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_8;
   knownIdentityKeysForComparison_keys_8 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -132,24 +127,22 @@ void __41__EKAlarm_knownIdentityKeysForComparison__block_invoke()
 
 void __44__EKAlarm_knownSingleValueKeysForComparison__block_invoke()
 {
-  v7[8] = *MEMORY[0x1E69E9840];
+  v6[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992440];
-  v7[0] = *MEMORY[0x1E6992438];
-  v7[1] = v0;
+  v6[0] = *MEMORY[0x1E6992438];
+  v6[1] = v0;
   v1 = *MEMORY[0x1E6992468];
-  v7[2] = *MEMORY[0x1E6992498];
-  v7[3] = v1;
+  v6[2] = *MEMORY[0x1E6992498];
+  v6[3] = v1;
   v2 = *MEMORY[0x1E6992480];
-  v7[4] = *MEMORY[0x1E6992478];
-  v7[5] = v2;
+  v6[4] = *MEMORY[0x1E6992478];
+  v6[5] = v2;
   v3 = *MEMORY[0x1E69924A0];
-  v7[6] = *MEMORY[0x1E6992458];
-  v7[7] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:8];
+  v6[6] = *MEMORY[0x1E6992458];
+  v6[7] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:8];
   v5 = knownSingleValueKeysForComparison_keys_7;
   knownSingleValueKeysForComparison_keys_7 = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -166,15 +159,13 @@ void __44__EKAlarm_knownSingleValueKeysForComparison__block_invoke()
 
 void __36__EKAlarm_knownRelationshipWeakKeys__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992448];
-  v4[0] = *MEMORY[0x1E6992450];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992450];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownRelationshipWeakKeys_keys_5;
   knownRelationshipWeakKeys_keys_5 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (EKAlarm)alarmWithAbsoluteDate:(NSDate *)date
@@ -404,6 +395,12 @@ LABEL_8:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDefaultAlarm:(BOOL)alarm
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:alarm];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992468]];
 }
 
 - (void)setOriginalAlarm:(id)alarm

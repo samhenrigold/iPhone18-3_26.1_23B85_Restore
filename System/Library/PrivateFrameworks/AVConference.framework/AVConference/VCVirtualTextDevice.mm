@@ -208,15 +208,15 @@ LABEL_11:
   return v12;
 }
 
-uint64_t __28__VCVirtualTextDevice_start__block_invoke(uint64_t result)
+void *__28__VCVirtualTextDevice_start__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(v1 + 16);
   if (v2)
   {
     v3 = result;
     result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32026 detailCode:v2 description:@"Invalid state"];
-    *(*(*(v3 + 40) + 8) + 40) = result;
+    *(*(v3[5] + 8) + 40) = result;
   }
 
   else
@@ -380,9 +380,9 @@ LABEL_11:
   return v12;
 }
 
-uint64_t __28__VCVirtualTextDevice_pause__block_invoke(uint64_t result)
+void *__28__VCVirtualTextDevice_pause__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(v1 + 16);
   if (v2 == 2)
   {
@@ -393,7 +393,7 @@ uint64_t __28__VCVirtualTextDevice_pause__block_invoke(uint64_t result)
   {
     v3 = result;
     result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32026 detailCode:v2 description:@"Invalid state"];
-    *(*(*(v3 + 40) + 8) + 40) = result;
+    *(*(v3[5] + 8) + 40) = result;
   }
 
   return result;
@@ -480,9 +480,9 @@ LABEL_11:
   return v12;
 }
 
-uint64_t __29__VCVirtualTextDevice_resume__block_invoke(uint64_t result)
+void *__29__VCVirtualTextDevice_resume__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(v1 + 16);
   if (v2 == 1)
   {
@@ -493,7 +493,7 @@ uint64_t __29__VCVirtualTextDevice_resume__block_invoke(uint64_t result)
   {
     v3 = result;
     result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32026 detailCode:v2 description:@"Invalid state"];
-    *(*(*(v3 + 40) + 8) + 40) = result;
+    *(*(v3[5] + 8) + 40) = result;
   }
 
   return result;

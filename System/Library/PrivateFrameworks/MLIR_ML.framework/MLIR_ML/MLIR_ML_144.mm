@@ -1,3 +1,106 @@
+void mlir::memref::ReinterpretCastOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, unint64_t a7, int a8, void *a9, unint64_t a10, void *a11, uint64_t a12)
+{
+  v30 = *MEMORY[0x277D85DE8];
+  __src = &v27[2];
+  *v27 = 0x400000000;
+  if (a7 >= 5)
+  {
+    llvm::SmallVectorBase<unsigned int>::grow_pod();
+  }
+
+  __dst = a6;
+  *v29 = xmmword_25736B790;
+  if (a7)
+  {
+    v17 = 0;
+    v18 = &v27[2];
+    do
+    {
+      *v18 = mlir::ValueRange::dereference_iterator(&__dst, v17) | 4;
+      v18 += 2;
+      v17 = *v29 + 1;
+      *v29 = v17;
+    }
+
+    while (v17 != a7);
+    v19 = v27[0];
+    v20 = __src;
+  }
+
+  else
+  {
+    v19 = 0;
+    v20 = &v27[2];
+  }
+
+  __dst = &v29[2];
+  *v29 = 0x600000000;
+  v21 = v19 + a7;
+  v27[0] = v21;
+  if (v21)
+  {
+    if (v20 == &v27[2])
+    {
+      if (v21 >= 7)
+      {
+        llvm::SmallVectorBase<unsigned int>::grow_pod();
+      }
+
+      memcpy(__dst, v20, 8 * v21);
+      v20 = __src;
+      v29[0] = v21;
+    }
+
+    else
+    {
+      __dst = v20;
+      v29[0] = v21;
+      v29[1] = v27[1];
+      __src = &v27[2];
+      v27[1] = 0;
+      v20 = &v27[2];
+    }
+
+    v27[0] = 0;
+  }
+
+  if (v20 != &v27[2])
+  {
+    free(v20);
+  }
+
+  if (a10 >= 5)
+  {
+    llvm::SmallVectorBase<unsigned int>::grow_pod();
+  }
+
+  __src = a9;
+  *v27 = xmmword_25736B790;
+  if (a10)
+  {
+    v22 = 0;
+    v23 = v25;
+    do
+    {
+      *v23++ = mlir::ValueRange::dereference_iterator(&__src, v22) | 4;
+      v22 = *v27 + 1;
+      *v27 = v22;
+    }
+
+    while (v22 != a10);
+  }
+
+  __src = &v27[2];
+  *v27 = 0x600000000;
+  if (a10)
+  {
+    memcpy(__src, v25, 8 * a10);
+    v27[0] = a10;
+  }
+
+  mlir::memref::ReinterpretCastOp::build(a1, a2, a3, a4, a5 | 4, __dst, v29[0], a8, __src, a10, a11, a12);
+}
+
 BOOL mlir::memref::ReinterpretCastOp::verify(mlir::Operation **this)
 {
   v55 = *MEMORY[0x277D85DE8];
@@ -29,7 +132,7 @@ BOOL mlir::memref::ReinterpretCastOp::verify(mlir::Operation **this)
 
     v42 = "different element types specified for source type ";
     v43 = 259;
-    mlir::OpState::emitError(this, &v42, v44);
+    mlir::OpState::emitError(v44, this, &v42);
     if (v44[0])
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v38, v41);
@@ -167,7 +270,7 @@ LABEL_53:
   {
     v42 = "different memory spaces specified for source type ";
     v43 = 259;
-    mlir::OpState::emitError(this, &v42, v44);
+    mlir::OpState::emitError(v44, this, &v42);
     if (v44[0])
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v38, v41);
@@ -445,7 +548,7 @@ uint64_t mlir::memref::ExpandShapeOp::getAsmResultNames(uint64_t a1, uint64_t (*
 void mlir::memref::CollapseShapeOp::getReassociationMaps(mlir::memref::CollapseShapeOp *this@<X0>, uint64_t a2@<X8>)
 {
   v9[16] = *MEMORY[0x277D85DE8];
-  mlir::memref::CollapseShapeOp::getReassociationExprs(this, &v7);
+  mlir::memref::CollapseShapeOp::getReassociationExprs(&v7, this);
   mlir::getSymbolLessAffineMaps(v7, v8, a2);
   v3 = v7;
   if (v8)
@@ -474,28 +577,28 @@ void mlir::memref::CollapseShapeOp::getReassociationMaps(mlir::memref::CollapseS
   }
 }
 
-void mlir::memref::CollapseShapeOp::getReassociationExprs(mlir::memref::CollapseShapeOp *this@<X0>, void *a2@<X8>)
+void mlir::memref::CollapseShapeOp::getReassociationExprs(char **__return_ptr a1@<X8>, mlir::memref::CollapseShapeOp *this@<X0>)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   Context = mlir::Attribute::getContext((*this + 24));
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &v13);
-  mlir::convertReassociationIndicesToExprs(Context, v13, v14, &v16);
-  *a2 = a2 + 2;
-  a2[1] = 0x400000000;
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v13, this);
+  mlir::convertReassociationIndicesToExprs(&v16, Context, v13, v14);
+  *a1 = (a1 + 2);
+  a1[1] = 0x400000000;
   if (v17)
   {
-    llvm::SmallVectorImpl<llvm::SmallVector<mlir::AffineExpr,2u>>::operator=(a2, &v16);
+    llvm::SmallVectorImpl<llvm::SmallVector<mlir::AffineExpr,2u>>::operator=(a1, &v16);
     v5 = v16;
     if (!v17)
     {
       goto LABEL_8;
     }
 
-    v6 = &v16[4 * v17 - 2];
+    v6 = &v16[32 * v17 - 16];
     v7 = -32 * v17;
     do
     {
-      v8 = *(v6 - 16);
+      v8 = *(v6 - 2);
       if (v6 != v8)
       {
         free(v8);
@@ -545,7 +648,7 @@ LABEL_8:
 void mlir::memref::ExpandShapeOp::getReassociationMaps(mlir::memref::ExpandShapeOp *this@<X0>, uint64_t a2@<X8>)
 {
   v9[16] = *MEMORY[0x277D85DE8];
-  mlir::memref::ExpandShapeOp::getReassociationExprs(this, &v7);
+  mlir::memref::ExpandShapeOp::getReassociationExprs(&v7, this);
   mlir::getSymbolLessAffineMaps(v7, v8, a2);
   v3 = v7;
   if (v8)
@@ -574,28 +677,28 @@ void mlir::memref::ExpandShapeOp::getReassociationMaps(mlir::memref::ExpandShape
   }
 }
 
-void mlir::memref::ExpandShapeOp::getReassociationExprs(mlir::memref::ExpandShapeOp *this@<X0>, void *a2@<X8>)
+void mlir::memref::ExpandShapeOp::getReassociationExprs(char **__return_ptr a1@<X8>, mlir::memref::ExpandShapeOp *this@<X0>)
 {
   v18[8] = *MEMORY[0x277D85DE8];
   Context = mlir::Attribute::getContext((*this + 24));
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &v13);
-  mlir::convertReassociationIndicesToExprs(Context, v13, v14, &v16);
-  *a2 = a2 + 2;
-  a2[1] = 0x400000000;
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v13, this);
+  mlir::convertReassociationIndicesToExprs(&v16, Context, v13, v14);
+  *a1 = (a1 + 2);
+  a1[1] = 0x400000000;
   if (v17)
   {
-    llvm::SmallVectorImpl<llvm::SmallVector<mlir::AffineExpr,2u>>::operator=(a2, &v16);
+    llvm::SmallVectorImpl<llvm::SmallVector<mlir::AffineExpr,2u>>::operator=(a1, &v16);
     v5 = v16;
     if (!v17)
     {
       goto LABEL_8;
     }
 
-    v6 = &v16[4 * v17 - 2];
+    v6 = &v16[32 * v17 - 16];
     v7 = -32 * v17;
     do
     {
-      v8 = *(v6 - 16);
+      v8 = *(v6 - 2);
       if (v6 != v8)
       {
         free(v8);
@@ -642,7 +745,7 @@ LABEL_8:
   }
 }
 
-unint64_t mlir::memref::ExpandShapeOp::computeExpandedType(uint64_t a1, uint64_t *a2, unint64_t a3, const void **a4, uint64_t a5)
+unint64_t mlir::memref::ExpandShapeOp::computeExpandedType(uint64_t a1, llvm::hashing::detail *a2, unint64_t a3, const void **a4, uint64_t a5)
 {
   v77[6] = *MEMORY[0x277D85DE8];
   v65 = a1;
@@ -727,7 +830,7 @@ unint64_t mlir::memref::ExpandShapeOp::computeExpandedType(uint64_t a1, uint64_t
       *(v72 + v28) = v27;
       v28 = v73 + 1;
       LODWORD(v73) = v73 + 1;
-      v30 = a2[v24];
+      v30 = *(a2 + v24);
       if (!v30)
       {
         v27 = 0;
@@ -996,9 +1099,9 @@ LABEL_9:
 
 void mlir::memref::ExpandShapeOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17 = v19;
-  v18 = 0x600000000;
+  v25 = *MEMORY[0x277D85DE8];
+  v18 = v20;
+  v19 = 0x600000000;
   if (((8 * a8) >> 3) >= 7)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -1008,20 +1111,20 @@ void mlir::memref::ExpandShapeOp::build(uint64_t **a1, uint64_t a2, uint64_t a3,
   v15 = 8 * a8;
   if (a8)
   {
-    memcpy(v17, a7, v15);
-    v14 = v18;
+    memcpy(v18, a7, v15);
+    v14 = v19;
   }
 
-  LODWORD(v18) = v14 + (v15 >> 3);
-  mlir::decomposeMixedValues(&v17, v20);
-  if (v17 != v19)
+  LODWORD(v19) = v14 + (v15 >> 3);
+  mlir::decomposeMixedValues(&v18, &v21);
+  if (v18 != v20)
   {
-    free(v17);
+    free(v18);
   }
 
   ReassociationIndicesAttribute = mlir::getReassociationIndicesAttribute(a1, a5, a6);
-  mlir::ValueRange::ValueRange(&v17, v20[8], v21);
-  mlir::memref::ExpandShapeOp::build(a1, a2, a3, a4, ReassociationIndicesAttribute, v17, v18);
+  mlir::ValueRange::ValueRange(&v18, v23, v24);
+  mlir::memref::ExpandShapeOp::build(a1, a2, a3, a4, ReassociationIndicesAttribute, v18, v19, v17, v21, v22);
 }
 
 {
@@ -1030,19 +1133,19 @@ void mlir::memref::ExpandShapeOp::build(uint64_t **a1, uint64_t a2, uint64_t a3,
   mlir::memref::ExpandShapeOp::build(a1, a2, a3, a4, v14, v15, a7, a8);
 }
 
-void mlir::memref::ExpandShapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+void mlir::memref::ExpandShapeOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = a4;
-  mlir::OperationState::addOperands(a2, &v12, 1uLL);
+  v16 = a4;
+  mlir::OperationState::addOperands(a2, &v16, 1uLL);
   mlir::OperationState::addOperands(a2, a6, a7);
-  v11 = *(a2 + 256);
-  if (!v11)
+  v15 = *(a2 + 256);
+  if (!v15)
   {
     operator new();
   }
 
-  *v11 = a5;
-  mlir::Builder::getDenseI64ArrayAttr();
+  *v15 = a5;
+  mlir::Builder::getDenseI64ArrayAttr(a1, a9, a10);
 }
 
 void mlir::memref::ExpandShapeOp::build(mlir::IndexType **a1, uint64_t *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -1079,14 +1182,14 @@ void mlir::memref::ExpandShapeOp::build(mlir::IndexType **a1, uint64_t *a2, void
   mlir::memref::ExpandShapeOp::build(a1, a2, a3, a4, v10, v11);
 }
 
-void mlir::memref::ExpandShapeOp::build(mlir::IndexType **a1, uint64_t *a2, uint64_t *a3, unint64_t a4, uint64_t a5, const void **a6, uint64_t a7)
+void mlir::memref::ExpandShapeOp::build(mlir::IndexType **a1, uint64_t *a2, llvm::hashing::detail *a3, unint64_t a4, uint64_t a5, const void **a6, uint64_t a7)
 {
   v12 = mlir::memref::ExpandShapeOp::computeExpandedType(*(a5 + 8) & 0xFFFFFFFFFFFFFFF8, a3, a4, a6, a7);
 
   mlir::memref::ExpandShapeOp::build(a1, a2, v12, a5, a6, a7);
 }
 
-void mlir::memref::ExpandShapeOp::build(uint64_t **a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5, const void **a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10)
+void mlir::memref::ExpandShapeOp::build(uint64_t **a1, uint64_t a2, llvm::hashing::detail *a3, unint64_t a4, uint64_t a5, const void **a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10)
 {
   v15 = mlir::memref::ExpandShapeOp::computeExpandedType(*(a5 + 8) & 0xFFFFFFFFFFFFFFF8, a3, a4, a6, a7);
 
@@ -1121,7 +1224,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
     v48 = v47;
     v49 = mlir::MemRefType::getShape(&v90);
     v51 = v50;
-    mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &v94);
+    mlir::tensor::ExpandShapeOp::getReassociationIndices(&v94, this);
     v52 = verifyCollapsedShape(v45, Shape, v48, v49, v51, v94, v95);
     v53 = v94;
     if (v95)
@@ -1149,7 +1252,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
       free(v53);
     }
 
-    if ((v52 & 1) == 0)
+    if (!v52)
     {
       return 0;
     }
@@ -1157,7 +1260,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
     v57 = v91;
     v58 = mlir::MemRefType::getShape(&v90);
     v60 = v59;
-    mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &v94);
+    mlir::tensor::ExpandShapeOp::getReassociationIndices(&v94, this);
     v61 = mlir::memref::ExpandShapeOp::computeExpandedType(v57, v58, v60, v94, v95);
     v63 = v62;
     v64 = v94;
@@ -1196,7 +1299,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
 
       v88[0] = "expected expanded type to be ";
       v89 = 259;
-      mlir::OpState::emitOpError(this, v88, &v94);
+      mlir::OpState::emitOpError(&v94, this, v88);
       if (v94)
       {
         mlir::DiagnosticArgument::DiagnosticArgument(&v92, v61);
@@ -1323,7 +1426,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
     {
       v88[0] = "invalid source layout map";
       v89 = 259;
-      mlir::OpState::emitOpError(this, v88, &v94);
+      mlir::OpState::emitOpError(&v94, this, v88);
       v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v94);
       if (v94)
       {
@@ -1395,7 +1498,7 @@ BOOL mlir::memref::ExpandShapeOp::verify(mlir::Operation **this)
     v12 = v11;
     v88[0] = "has source rank ";
     v89 = 259;
-    mlir::OpState::emitOpError(this, v88, &v94);
+    mlir::OpState::emitOpError(&v94, this, v88);
     if (v94)
     {
       LODWORD(v92) = 2;
@@ -1637,7 +1740,7 @@ LABEL_98:
   return v36;
 }
 
-uint64_t verifyCollapsedShape(mlir::Operation *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+BOOL verifyCollapsedShape(mlir::Operation *a1, uint64_t a2, const char *a3, void *a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v149 = *MEMORY[0x277D85DE8];
   if (a3 != a7)
@@ -1810,7 +1913,7 @@ LABEL_188:
         while (1)
         {
           v12 = v41;
-          v43 = v41 - 1;
+          v43 = (v41 - 1);
           if (v41 - 1 != *(__dst + v38 * 8))
           {
             break;
@@ -2911,9 +3014,9 @@ uint64_t mlir::memref::CollapseShapeOp::computeCollapsedType(uint64_t a1, uint64
   if (a3)
   {
     v5 = a2 + 32 * a3;
-    for (i = a2; i != v5; i += 4)
+    for (i = a2; i != v5; i += 32)
     {
-      v9 = *(i + 2);
+      v9 = *(i + 8);
       if (v9)
       {
         LOBYTE(v10) = 0;
@@ -3168,7 +3271,7 @@ uint64_t mlir::memref::CollapseShapeOp::build(uint64_t a1, uint64_t a2, uint64_t
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -3204,7 +3307,7 @@ uint64_t mlir::memref::CollapseShapeOp::verify(mlir::Operation **this)
     v12 = v11;
     v109[0] = "has source rank ";
     v110 = 259;
-    mlir::OpState::emitOpError(this, v109, &Layout);
+    mlir::OpState::emitOpError(&Layout, this, v109);
     if (Layout)
     {
       LODWORD(v113) = 2;
@@ -3450,7 +3553,7 @@ LABEL_79:
   v48 = v47;
   v49 = mlir::MemRefType::getShape(&v112);
   v51 = v50;
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &Layout);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&Layout, this);
   v52 = verifyCollapsedShape(v45, Shape, v48, v49, v51, Layout, v116);
   v53 = Layout;
   if (v116)
@@ -3478,7 +3581,7 @@ LABEL_79:
     free(v53);
   }
 
-  if ((v52 & 1) == 0)
+  if (!v52)
   {
     return 0;
   }
@@ -3496,7 +3599,7 @@ LABEL_79:
   }
 
   v77 = v112;
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(this, &Layout);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&Layout, this);
   v36 = computeCollapsedLayoutMap(v77, Layout, v116, 0);
   v79 = v78;
   v80 = Layout;
@@ -3529,7 +3632,7 @@ LABEL_79:
   {
     v109[0] = "invalid source layout map or collapsing non-contiguous dims";
     v110 = 259;
-    mlir::OpState::emitOpError(this, v109, &Layout);
+    mlir::OpState::emitOpError(&Layout, this, v109);
     v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
     if (Layout)
     {
@@ -3680,7 +3783,7 @@ LABEL_49:
 
   v109[0] = "expected collapsed type to be ";
   v110 = 259;
-  mlir::OpState::emitOpError(this, v109, &Layout);
+  mlir::OpState::emitOpError(&Layout, this, v109);
   if (Layout)
   {
     mlir::DiagnosticArgument::DiagnosticArgument(&v113, v63);
@@ -3989,8 +4092,8 @@ LABEL_38:
     return *(*(v61 + 72) + 24) | 4;
   }
 
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v62, &v66);
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v61, &v63);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v66, &v62);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v63, &v61);
   v40 = v64;
   if (v67 == v64)
   {
@@ -4283,8 +4386,8 @@ LABEL_38:
     return *(*(v61 + 72) + 24) | 4;
   }
 
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v62, &v66);
-  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v61, &v63);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v66, &v62);
+  mlir::tensor::ExpandShapeOp::getReassociationIndices(&v63, &v61);
   v40 = v64;
   if (v67 == v64)
   {
@@ -4556,7 +4659,7 @@ LABEL_32:
 LABEL_65:
     v58[0] = "element types of source and destination memref types should be the same";
     v59 = 259;
-    mlir::OpState::emitOpError(this, v58, &Layout);
+    mlir::OpState::emitOpError(&Layout, this, v58);
     v33 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
     if (Layout)
     {
@@ -4645,7 +4748,7 @@ LABEL_33:
   {
     v58[0] = "source memref type should have identity affine map";
     v59 = 259;
-    mlir::OpState::emitOpError(this, v58, &Layout);
+    mlir::OpState::emitOpError(&Layout, this, v58);
     v33 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
     if (Layout)
     {
@@ -4736,7 +4839,7 @@ LABEL_33:
       {
         v58[0] = "cannot use shape operand with dynamic length to reshape to statically-ranked memref type";
         v59 = 259;
-        mlir::OpState::emitOpError(this, v58, &Layout);
+        mlir::OpState::emitOpError(&Layout, this, v58);
         v33 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
         if (Layout)
         {
@@ -4756,7 +4859,7 @@ LABEL_33:
       {
         v58[0] = "length of shape operand differs from the result's memref rank";
         v59 = 259;
-        mlir::OpState::emitOpError(this, v58, &Layout);
+        mlir::OpState::emitOpError(&Layout, this, v58);
         v33 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
         mlir::InFlightDiagnostic::~InFlightDiagnostic(&Layout);
         return v33;
@@ -4767,7 +4870,7 @@ LABEL_33:
 
     v58[0] = "result memref type should have identity affine map";
     v59 = 259;
-    mlir::OpState::emitOpError(this, v58, &Layout);
+    mlir::OpState::emitOpError(&Layout, this, v58);
     v33 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&Layout);
     if (Layout)
     {
@@ -4861,7 +4964,7 @@ uint64_t mlir::memref::SubViewOp::getAsmResultNames(uint64_t a1, uint64_t (*a2)(
   return a2(a3, NextResultAtOffset, "subview", 7);
 }
 
-uint64_t mlir::memref::SubViewOp::inferResultType(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t *a4, mlir::AffineMap *a5, uint64_t *a6, uint64_t a7)
+uint64_t mlir::memref::SubViewOp::inferResultType(uint64_t a1, uint64_t *a2, unint64_t a3, llvm::hashing::detail *a4, mlir::AffineMap *a5, uint64_t *a6, uint64_t a7)
 {
   v60[7] = *MEMORY[0x277D85DE8];
   v54 = a1;
@@ -5254,7 +5357,7 @@ LABEL_26:
   return v18;
 }
 
-uint64_t mlir::memref::SubViewOp::inferRankReducedResultType(uint64_t *a1, mlir::AffineMap *a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t *a6, mlir::AffineMap *a7, uint64_t a8, uint64_t *a9, uint64_t a10)
+uint64_t mlir::memref::SubViewOp::inferRankReducedResultType(llvm::hashing::detail *a1, unint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5, llvm::hashing::detail *a6, mlir::AffineMap *a7, uint64_t a8, uint64_t *a9, uint64_t a10)
 {
   v55 = *MEMORY[0x277D85DE8];
   v47 = mlir::memref::SubViewOp::inferResultType(a3, a4, a5, a6, a7, a9, a10);
@@ -5438,7 +5541,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t mlir::memref::SubViewOp::inferRankReducedResultType(uint64_t *a1, mlir::AffineMap *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t a10)
+uint64_t mlir::memref::SubViewOp::inferRankReducedResultType(llvm::hashing::detail *a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t a10)
 {
   v32[6] = *MEMORY[0x277D85DE8];
   v30 = v32;
@@ -5490,29 +5593,29 @@ uint64_t mlir::memref::SubViewOp::inferRankReducedResultType(uint64_t *a1, mlir:
   return v14;
 }
 
-void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t *a9, uint64_t a10, void *__src, uint64_t a12)
+void mlir::memref::SubViewOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t *a9, uint64_t a10, void *__src, uint64_t a12)
 {
-  v38[6] = *MEMORY[0x277D85DE8];
-  v36 = v38;
-  v37 = 0x600000000;
-  v33 = &v35;
-  v34 = 0x600000000;
-  v30 = &v32;
-  v31 = 0x600000000;
-  v27 = &v29;
-  v28 = 0x600000000;
-  v24 = &v26;
-  v25 = 0x600000000;
-  v21 = &v23;
-  v22 = 0x600000000;
-  mlir::dispatchIndexOpFoldResults(a5, a6, &v27, &v36);
-  mlir::dispatchIndexOpFoldResults(a7, a8, &v24, &v33);
-  mlir::dispatchIndexOpFoldResults(a9, a10, &v21, &v30);
+  v39[6] = *MEMORY[0x277D85DE8];
+  v37 = v39;
+  v38 = 0x600000000;
+  v34 = &v36;
+  v35 = 0x600000000;
+  v31 = &v33;
+  v32 = 0x600000000;
+  v28 = &v30;
+  v29 = 0x600000000;
+  v25 = &v27;
+  v26 = 0x600000000;
+  v22 = &v24;
+  v23 = 0x600000000;
+  mlir::dispatchIndexOpFoldResults(a5, a6, &v28, &v37);
+  mlir::dispatchIndexOpFoldResults(a7, a8, &v25, &v34);
+  mlir::dispatchIndexOpFoldResults(a9, a10, &v22, &v31);
   if (a3)
   {
     *(a2 + 192) = 0;
-    v16 = *(a2 + 120);
-    if (a12 + v16 <= *(a2 + 124))
+    v17 = *(a2 + 120);
+    if (a12 + v17 <= *(a2 + 124))
     {
       goto LABEL_3;
     }
@@ -5520,23 +5623,23 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
 
   else
   {
-    mlir::memref::SubViewOp::inferResultType(*(a4 + 8) & 0xFFFFFFFFFFFFFFF8, v36, v37, v33, v34, v30, v31);
+    mlir::memref::SubViewOp::inferResultType(*(a4 + 8) & 0xFFFFFFFFFFFFFFF8, v37, v38, v34, v35, v31, v32);
     *(a2 + 192) = 0;
-    v16 = *(a2 + 120);
-    if (a12 + v16 <= *(a2 + 124))
+    v17 = *(a2 + 120);
+    if (a12 + v17 <= *(a2 + 124))
     {
 LABEL_3:
       if (a12)
       {
-        memcpy((*(a2 + 112) + 16 * v16), __src, 16 * a12);
-        LODWORD(v16) = *(a2 + 120);
+        memcpy((*(a2 + 112) + 16 * v17), __src, 16 * a12);
+        LODWORD(v17) = *(a2 + 120);
       }
 
-      *(a2 + 120) = v16 + a12;
-      mlir::ValueRange::ValueRange(&v20, v27, v28);
-      mlir::ValueRange::ValueRange(&v19, v24, v25);
-      mlir::ValueRange::ValueRange(&v18, v21, v22);
-      mlir::Builder::getDenseI64ArrayAttr();
+      *(a2 + 120) = v17 + a12;
+      mlir::ValueRange::ValueRange(&v21, v28, v29);
+      mlir::ValueRange::ValueRange(&v20, v25, v26);
+      mlir::ValueRange::ValueRange(&v19, v22, v23);
+      mlir::Builder::getDenseI64ArrayAttr(a1, v37, v38);
     }
   }
 
@@ -5920,7 +6023,7 @@ void mlir::memref::SubViewOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uin
   mlir::memref::SubViewOp::build(a1, a2, a3, a4, v46, v47, __src, v44[0], __dst, a10, a11, a12);
 }
 
-void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, unint64_t a6, void *a7, unint64_t a8, void *a9, unint64_t a10)
+void mlir::memref::SubViewOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, unint64_t a6, void *a7, unint64_t a8, void *a9, unint64_t a10)
 {
   v36 = *MEMORY[0x277D85DE8];
   __src = &v33[2];
@@ -5931,7 +6034,7 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
   }
 
   v34 = a5;
-  v35 = xmmword_25736B790;
+  *v35 = xmmword_25736B790;
   if (a6)
   {
     v16 = 0;
@@ -5940,8 +6043,8 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
     {
       *v17 = mlir::ValueRange::dereference_iterator(&v34, v16) | 4;
       v17 += 2;
-      v16 = v35 + 1;
-      *&v35 = v16;
+      v16 = *v35 + 1;
+      *v35 = v16;
     }
 
     while (v16 != a6);
@@ -5955,8 +6058,8 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
     v19 = &v33[2];
   }
 
-  v34 = &v35 + 2;
-  *&v35 = 0x600000000;
+  v34 = &v35[2];
+  *v35 = 0x600000000;
   v20 = v18 + a6;
   v33[0] = v20;
   if (v20)
@@ -5970,13 +6073,14 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
 
       memcpy(v34, v19, 8 * v20);
       v19 = __src;
-      LODWORD(v35) = v20;
+      v35[0] = v20;
     }
 
     else
     {
       v34 = v19;
-      *&v35 = __PAIR64__(v33[1], v20);
+      v35[0] = v20;
+      v35[1] = v33[1];
       __src = &v33[2];
       v33[1] = 0;
       v19 = &v33[2];
@@ -5990,8 +6094,8 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
     free(v19);
   }
 
-  __dst = v31 + 8;
-  *&v31[0] = 0x400000000;
+  __dst = &v31[2];
+  *v31 = 0x400000000;
   if (a8 >= 5)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -6002,10 +6106,11 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
   if (a8)
   {
     v21 = 0;
-    v22 = v31 + 1;
+    v22 = &v31[2];
     do
     {
-      *v22++ = mlir::ValueRange::dereference_iterator(&__src, v21) | 4;
+      *v22 = mlir::ValueRange::dereference_iterator(&__src, v21) | 4;
+      v22 += 2;
       v21 = *v33 + 1;
       *v33 = v21;
     }
@@ -6018,16 +6123,16 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
   else
   {
     v23 = 0;
-    v24 = v31 + 8;
+    v24 = &v31[2];
   }
 
   __src = &v33[2];
   *v33 = 0x600000000;
   v25 = v23 + a8;
-  LODWORD(v31[0]) = v25;
+  v31[0] = v25;
   if (v25)
   {
-    if (v24 == v31 + 8)
+    if (v24 == &v31[2])
     {
       if (v25 >= 7)
       {
@@ -6043,16 +6148,16 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
     {
       __src = v24;
       v33[0] = v25;
-      v33[1] = DWORD1(v31[0]);
-      __dst = v31 + 8;
-      DWORD1(v31[0]) = 0;
-      v24 = v31 + 8;
+      v33[1] = v31[1];
+      __dst = &v31[2];
+      v31[1] = 0;
+      v24 = &v31[2];
     }
 
-    LODWORD(v31[0]) = 0;
+    v31[0] = 0;
   }
 
-  if (v24 != v31 + 8)
+  if (v24 != &v31[2])
   {
     free(v24);
   }
@@ -6063,7 +6168,7 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
   }
 
   __dst = a9;
-  v31[0] = xmmword_25736B790;
+  *v31 = xmmword_25736B790;
   if (a10)
   {
     v26 = 0;
@@ -6071,22 +6176,22 @@ void mlir::memref::SubViewOp::build(int a1, uint64_t a2, uint64_t a3, uint64_t a
     do
     {
       *v27++ = mlir::ValueRange::dereference_iterator(&__dst, v26) | 4;
-      v26 = *&v31[0] + 1;
-      *&v31[0] = v26;
+      v26 = *v31 + 1;
+      *v31 = v26;
     }
 
     while (v26 != a10);
   }
 
-  __dst = v31 + 8;
-  *&v31[0] = 0x600000000;
+  __dst = &v31[2];
+  *v31 = 0x600000000;
   if (a10)
   {
     memcpy(__dst, v29, 8 * a10);
-    LODWORD(v31[0]) = a10;
+    v31[0] = a10;
   }
 
-  mlir::memref::SubViewOp::build(a1, a2, a3, a4, v34, v35, __src, v33[0], __dst, a10, 0, 0);
+  mlir::memref::SubViewOp::build(a1, a2, a3, a4, v34, v35[0], __src, v33[0], __dst, a10, 0, 0);
 }
 
 BOOL mlir::memref::SubViewOp::verify(mlir::Operation **this)
@@ -6118,7 +6223,7 @@ BOOL mlir::memref::SubViewOp::verify(mlir::Operation **this)
 
     v50 = "base type ";
     v51 = 259;
-    mlir::OpState::emitError(this, &v50, &v39);
+    mlir::OpState::emitError(&v39, this, &v50);
     if (v39)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v37, v36);
@@ -6237,7 +6342,7 @@ LABEL_51:
   {
     v50 = "different memory spaces specified for base memref type ";
     v51 = 259;
-    mlir::OpState::emitError(this, &v50, &v39);
+    mlir::OpState::emitError(&v39, this, &v50);
     if (v39)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v37, v36);
@@ -7062,7 +7167,7 @@ LABEL_3:
   }
 
   v17 = v14;
-  mlir::Attribute::print(&v17, v3);
+  mlir::Attribute::print(&v17, v3, 0);
   v7 = *(v3 + 4);
   if (*(v3 + 3) != v7)
   {
@@ -7120,7 +7225,7 @@ LABEL_14:
   }
 
   v17 = v15;
-  mlir::Attribute::print(&v17, v3);
+  mlir::Attribute::print(&v17, v3, 0);
   v10 = *(v3 + 4);
   if (*(v3 + 3) == v10)
   {
@@ -7152,7 +7257,7 @@ LABEL_19:
   }
 
   v17 = v16;
-  mlir::Attribute::print(&v17, v3);
+  mlir::Attribute::print(&v17, v3, 0);
   return v3;
 }
 
@@ -7247,7 +7352,7 @@ LABEL_12:
   return result;
 }
 
-void mlir::memref::createCanonicalRankReducingSubViewOp(mlir::IndexType **a1, uint64_t a2, uint64_t a3, uint64_t *a4, mlir::AffineMap *a5)
+void mlir::memref::createCanonicalRankReducingSubViewOp(mlir::IndexType **a1, uint64_t a2, uint64_t a3, llvm::hashing::detail *a4, unint64_t a5)
 {
   v43[1] = *MEMORY[0x277D85DE8];
   v29 = *(a3 + 8) & 0xFFFFFFFFFFFFFFF8;
@@ -7357,7 +7462,7 @@ LABEL_24:
   }
 }
 
-unint64_t mlir::memref::SubViewOp::rankReduceIfNeeded(mlir::IndexType **a1, uint64_t a2, uint64_t a3, uint64_t *a4, mlir::AffineMap *a5)
+unint64_t mlir::memref::SubViewOp::rankReduceIfNeeded(mlir::IndexType **a1, uint64_t a2, uint64_t a3, llvm::hashing::detail *a4, unint64_t a5)
 {
   v7 = a3;
   v22 = *MEMORY[0x277D85DE8];
@@ -7666,7 +7771,7 @@ uint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3,
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -7813,7 +7918,7 @@ BOOL mlir::memref::TransposeOp::verify(mlir::Operation **this)
 
       v38[0] = "result type ";
       v39 = 259;
-      mlir::OpState::emitOpError(this, v38, v42);
+      mlir::OpState::emitOpError(v42, this, v38);
       if (v42[0])
       {
         mlir::DiagnosticArgument::DiagnosticArgument(&v40, v5 & 0xFFFFFFFFFFFFFFF8);
@@ -7951,7 +8056,7 @@ LABEL_60:
     {
       v38[0] = "expected a permutation map of same rank as the input";
       v39 = 259;
-      mlir::OpState::emitOpError(this, v38, v42);
+      mlir::OpState::emitOpError(v42, this, v38);
       v9 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v42);
       if (v42[0])
       {
@@ -8019,7 +8124,7 @@ LABEL_60:
   {
     v38[0] = "expected a permutation map";
     v39 = 259;
-    mlir::OpState::emitOpError(this, v38, v42);
+    mlir::OpState::emitOpError(v42, this, v38);
     v9 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v42);
     if (v42[0])
     {
@@ -8173,7 +8278,7 @@ BOOL mlir::memref::ViewOp::verify(mlir::Operation **this)
   {
     v61[0] = "unsupported map for base memref type ";
     v62 = 259;
-    mlir::OpState::emitError(this, v61, &Layout);
+    mlir::OpState::emitError(&Layout, this, v61);
     if (Layout)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v65, v64);
@@ -8264,7 +8369,7 @@ BOOL mlir::memref::ViewOp::verify(mlir::Operation **this)
   {
     v61[0] = "unsupported map for result memref type ";
     v62 = 259;
-    mlir::OpState::emitError(this, v61, &Layout);
+    mlir::OpState::emitError(&Layout, this, v61);
     if (Layout)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v65, v63);
@@ -8364,7 +8469,7 @@ LABEL_76:
 
       v61[0] = "incorrect number of size operands for type ";
       v62 = 259;
-      mlir::OpState::emitError(this, v61, &Layout);
+      mlir::OpState::emitError(&Layout, this, v61);
       if (Layout)
       {
         mlir::DiagnosticArgument::DiagnosticArgument(&v65, v63);
@@ -8510,7 +8615,7 @@ LABEL_75:
 
   v61[0] = "different memory spaces specified for base memref type ";
   v62 = 259;
-  mlir::OpState::emitError(this, v61, &Layout);
+  mlir::OpState::emitError(&Layout, this, v61);
   if (Layout)
   {
     mlir::DiagnosticArgument::DiagnosticArgument(&v65, v64);
@@ -8779,7 +8884,7 @@ uint64_t *mlir::memref::detail::AssumeAlignmentOpGenericAdaptorBase::getAlignmen
   return v2;
 }
 
-uint64_t mlir::memref::AssumeAlignmentOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::AssumeAlignmentOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v38 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 24);
@@ -9263,7 +9368,7 @@ unint64_t mlir::memref::AssumeAlignmentOp::getInherentAttr(uint64_t a1, void *a2
   }
 }
 
-void *mlir::memref::AssumeAlignmentOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::memref::AssumeAlignmentOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 9 && *a2 == 0x6E656D6E67696C61 && *(a2 + 8) == 116)
   {
@@ -9301,7 +9406,7 @@ uint64_t mlir::memref::AssumeAlignmentOp::populateInherentAttrs(uint64_t a1, uin
   return result;
 }
 
-uint64_t mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
+BOOL mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(uint64_t a1, uint64_t a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
 {
   v46 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -9480,15 +9585,15 @@ LABEL_12:
   return v19;
 }
 
-uint64_t mlir::memref::AssumeAlignmentOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::AssumeAlignmentOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::IntegerAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::IntegerAttr>(a1, v2);
 }
 
 uint64_t mlir::memref::AssumeAlignmentOp::setAlignment(mlir::memref::AssumeAlignmentOp *this, unsigned int a2)
@@ -9501,11 +9606,11 @@ uint64_t mlir::memref::AssumeAlignmentOp::setAlignment(mlir::memref::AssumeAlign
   return result;
 }
 
-uint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *mlir::memref::AssumeAlignmentOp::build(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v8 = a3;
   result = mlir::OperationState::addOperands(a2, &v8, 1uLL);
-  v7 = *(a2 + 256);
+  v7 = a2[32];
   if (!v7)
   {
     operator new();
@@ -9515,7 +9620,7 @@ uint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint64
   return result;
 }
 
-unint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15 = a5;
   result = mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -9550,13 +9655,13 @@ unint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint6
   return result;
 }
 
-uint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, unsigned int a4)
+void *mlir::memref::AssumeAlignmentOp::build(uint64_t **a1, void *a2, uint64_t a3, unsigned int a4)
 {
   v10 = a3;
   mlir::OperationState::addOperands(a2, &v10, 1uLL);
   IntegerType = mlir::Builder::getIntegerType(a1, 32);
   result = mlir::Builder::getIntegerAttr(a1, IntegerType, a4);
-  v9 = *(a2 + 256);
+  v9 = a2[32];
   if (!v9)
   {
     operator new();
@@ -9566,7 +9671,7 @@ uint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t **a1, uint64_t a2, uint
   return result;
 }
 
-unint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
+void *mlir::memref::AssumeAlignmentOp::build(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
   v17 = a5;
   mlir::OperationState::addOperands(a2, &v17, 1uLL);
@@ -9665,7 +9770,7 @@ uint64_t mlir::memref::AssumeAlignmentOp::build(uint64_t a1, uint64_t a2, uint64
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -9679,22 +9784,14 @@ BOOL mlir::memref::AssumeAlignmentOp::verifyInvariantsImpl(mlir::Operation **thi
   if (v1)
   {
     v15[0] = *this;
-    if (mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(v1, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15))
-    {
-      return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1;
-    }
-
-    else
-    {
-      return 0;
-    }
+    return mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(v1, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps1(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v15) && mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0);
   }
 
   else
   {
     v13 = "requires attribute 'alignment'";
     v14 = 259;
-    mlir::OpState::emitOpError(this, &v13, v15);
+    mlir::OpState::emitOpError(v15, this, &v13);
     v3 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v15);
     if (v15[0])
     {
@@ -9762,222 +9859,4 @@ BOOL mlir::memref::AssumeAlignmentOp::verifyInvariantsImpl(mlir::Operation **thi
   }
 
   return v3;
-}
-
-uint64_t mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(mlir::Operation *a1, uint64_t a2, void **a3, void **a4, unsigned int a5)
-{
-  v53 = *MEMORY[0x277D85DE8];
-  v6 = *a2;
-  if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
-  {
-    {
-      v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v28 = *(v6 + 8);
-      v29 = *(v6 + 16);
-      if (!v29)
-      {
-        goto LABEL_55;
-      }
-    }
-
-    else
-    {
-      mlir::tensor::ExpandShapeOp::fold();
-      v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v28 = *(v6 + 8);
-      v29 = *(v6 + 16);
-      if (!v29)
-      {
-        goto LABEL_55;
-      }
-    }
-
-    v30 = v28;
-    v31 = v29;
-    do
-    {
-      v32 = v31 >> 1;
-      v33 = &v30[2 * (v31 >> 1)];
-      v35 = *v33;
-      v34 = v33 + 2;
-      v31 += ~(v31 >> 1);
-      if (v35 < v27)
-      {
-        v30 = v34;
-      }
-
-      else
-      {
-        v31 = v32;
-      }
-    }
-
-    while (v31);
-    if (v30 != &v28[2 * v29] && *v30 == v27)
-    {
-      v36 = v30[1];
-      goto LABEL_57;
-    }
-
-LABEL_55:
-    v36 = 0;
-LABEL_57:
-    v42[0] = a2;
-    v42[1] = v36;
-    mlir::ShapedType::getElementType(v42);
-    return 1;
-  }
-
-  v39 = 261;
-  v38[0] = a3;
-  v38[1] = a4;
-  mlir::Operation::emitOpError(v42, a1, v38);
-  if (v42[0])
-  {
-    LODWORD(v40) = 3;
-    *(&v40 + 1) = " #";
-    v41 = 2;
-    if (v44 >= v45)
-    {
-      if (v43 > &v40 || v43 + 24 * v44 <= &v40)
-      {
-        llvm::SmallVectorBase<unsigned int>::grow_pod();
-      }
-
-      llvm::SmallVectorBase<unsigned int>::grow_pod();
-    }
-
-    v8 = v43 + 24 * v44;
-    v9 = v40;
-    *(v8 + 2) = v41;
-    *v8 = v9;
-    v10 = ++v44;
-    if (v42[0])
-    {
-      LODWORD(v40) = 5;
-      *(&v40 + 1) = a5;
-      if (v10 >= v45)
-      {
-        if (v43 > &v40 || v43 + 24 * v10 <= &v40)
-        {
-          llvm::SmallVectorBase<unsigned int>::grow_pod();
-        }
-
-        llvm::SmallVectorBase<unsigned int>::grow_pod();
-      }
-
-      v11 = v43 + 24 * v44;
-      v12 = v40;
-      *(v11 + 2) = v41;
-      *v11 = v12;
-      v13 = ++v44;
-      if (v42[0])
-      {
-        LODWORD(v40) = 3;
-        *(&v40 + 1) = " must be memref of any type values, but got ";
-        v41 = 44;
-        if (v13 >= v45)
-        {
-          if (v43 > &v40 || v43 + 24 * v13 <= &v40)
-          {
-            llvm::SmallVectorBase<unsigned int>::grow_pod();
-          }
-
-          llvm::SmallVectorBase<unsigned int>::grow_pod();
-        }
-
-        v14 = v43 + 24 * v44;
-        v15 = v40;
-        *(v14 + 2) = v41;
-        *v14 = v15;
-        ++v44;
-        if (v42[0])
-        {
-          mlir::DiagnosticArgument::DiagnosticArgument(&v40, a2);
-          if (v44 >= v45)
-          {
-            if (v43 > &v40 || v43 + 24 * v44 <= &v40)
-            {
-              llvm::SmallVectorBase<unsigned int>::grow_pod();
-            }
-
-            llvm::SmallVectorBase<unsigned int>::grow_pod();
-          }
-
-          v16 = v43 + 24 * v44;
-          v17 = v40;
-          *(v16 + 2) = v41;
-          *v16 = v17;
-          ++v44;
-        }
-      }
-    }
-  }
-
-  v18 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v42);
-  if (v42[0])
-  {
-    mlir::InFlightDiagnostic::report(v42);
-  }
-
-  if (v52 == 1)
-  {
-    if (v51 != &v52)
-    {
-      free(v51);
-    }
-
-    v19 = __p;
-    if (__p)
-    {
-      v20 = v50;
-      v21 = __p;
-      if (v50 != __p)
-      {
-        do
-        {
-          v20 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v20 - 1);
-        }
-
-        while (v20 != v19);
-        v21 = __p;
-      }
-
-      v50 = v19;
-      operator delete(v21);
-    }
-
-    v22 = v47;
-    if (v47)
-    {
-      v23 = v48;
-      v24 = v47;
-      if (v48 != v47)
-      {
-        do
-        {
-          v26 = *--v23;
-          v25 = v26;
-          *v23 = 0;
-          if (v26)
-          {
-            MEMORY[0x259C63150](v25, 0x1000C8077774924);
-          }
-        }
-
-        while (v23 != v22);
-        v24 = v47;
-      }
-
-      v48 = v22;
-      operator delete(v24);
-    }
-
-    if (v43 != &v46)
-    {
-      free(v43);
-    }
-  }
-
-  return v18;
 }

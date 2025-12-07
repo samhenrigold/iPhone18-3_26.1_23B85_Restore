@@ -11,12 +11,10 @@
 
 - (NSString)stringValue
 {
-  v2 = *(self + OBJC_IVAR___ECLocalMessageActionID_stringValue);
-  v3 = *(self + OBJC_IVAR___ECLocalMessageActionID_stringValue + 8);
 
-  v4 = sub_22D0E81FC();
+  v2 = sub_22D0E81FC();
 
-  return v4;
+  return v2;
 }
 
 - (ECLocalMessageActionID)initWithDatabaseID:(int64_t)d

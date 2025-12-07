@@ -8,28 +8,26 @@
 
 + (void)registerCapabilities:(id)capabilities
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v7 = 138412290;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Registering service %@", v7, 0xCu);
+    *v6 = 138412290;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Registering service %@", v6, 0xCu);
   }
 
-  [capabilitiesCopy publishCapability:@"com.apple.instruments.server.services.screenshot" withVersion:2 forClass:{self, *v7}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  [capabilitiesCopy publishCapability:@"com.apple.instruments.server.services.screenshot" withVersion:2 forClass:{self, *v6, *&v6[8]}];
 }
 
 - (id)takeScreenshot
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v18 = 0;
-  v4 = [(DTScreenshotRequestService *)self _screenshotWithError:&v18];
-  v5 = v18;
+  v17 = 0;
+  v4 = [(DTScreenshotRequestService *)self _screenshotWithError:&v17];
+  v5 = v17;
   v6 = v5;
   if (v4)
   {
@@ -39,9 +37,9 @@
       v8 = v7;
       v9 = [v4 length];
       *buf = 138412546;
-      v20 = v7;
-      v21 = 2048;
-      v22 = v9;
+      v19 = v7;
+      v20 = 2048;
+      v21 = v9;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@: Screenshot succeeded (%lu bytes)", buf, 0x16u);
     }
 
@@ -53,9 +51,9 @@
     if (!v5)
     {
       v11 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
-      v24[0] = @"Unknown error.";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23[0] = @"Unknown error.";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v6 = [v11 errorWithDomain:@"DTScreenshotRequestService" code:1 userInfo:v12];
     }
 
@@ -63,9 +61,9 @@
     {
       v13 = objc_opt_class();
       *buf = 138412546;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v6;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v6;
       v14 = v13;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@: Screenshot failed: %@", buf, 0x16u);
     }
@@ -75,8 +73,6 @@
   }
 
   v15 = v10;
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

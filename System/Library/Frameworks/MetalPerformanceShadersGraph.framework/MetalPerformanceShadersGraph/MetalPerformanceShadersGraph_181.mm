@@ -70,7 +70,7 @@ _BYTE *mlir::detail::packBooleanData(_BYTE *result, unint64_t a2, char *a3, uint
   return result;
 }
 
-void mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(uint64_t a1, uint64_t a2, unint64_t a3)
+void mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(unsigned __int8 *a1, uint64_t a2, unint64_t a3)
 {
   v105[5] = *MEMORY[0x1E69E9840];
   v102 = a1;
@@ -839,7 +839,7 @@ LABEL_184:
   }
 }
 
-void mlir::copyElementsAttrData<complex_support::complex_fp<half,(void *)0>>(uint64_t a1, uint64_t a2, unint64_t a3)
+void mlir::copyElementsAttrData<complex_support::complex_fp<half,(void *)0>>(unsigned __int8 *a1, uint64_t a2, float32x4_t *a3)
 {
   v110[5] = *MEMORY[0x1E69E9840];
   v107 = a1;
@@ -1054,7 +1054,7 @@ LABEL_27:
 
 LABEL_142:
     v70 = 0;
-    v71 = (a3 + 2);
+    v71 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1112,7 +1112,7 @@ LABEL_20:
     NumElements = 1;
 LABEL_29:
     v26 = 0;
-    v27 = (a3 + 2);
+    v27 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1142,7 +1142,7 @@ LABEL_29:
     NumElements = 1;
 LABEL_39:
     v30 = 0;
-    v31 = (a3 + 2);
+    v31 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1173,7 +1173,7 @@ LABEL_39:
     NumElements = 1;
 LABEL_52:
     v33 = 0;
-    v34 = (a3 + 2);
+    v34 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1201,7 +1201,7 @@ LABEL_52:
     NumElements = 1;
 LABEL_62:
     v36 = 0;
-    v37 = (a3 + 2);
+    v37 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1229,7 +1229,7 @@ LABEL_62:
     NumElements = 1;
 LABEL_72:
     v39 = 0;
-    v40 = (a3 + 2);
+    v40 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1260,7 +1260,7 @@ LABEL_72:
     NumElements = 1;
 LABEL_82:
     v47 = 0;
-    v48 = (a3 + 2);
+    v48 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1291,7 +1291,7 @@ LABEL_82:
     NumElements = 1;
 LABEL_92:
     v51 = 0;
-    v52 = (a3 + 2);
+    v52 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1322,7 +1322,7 @@ LABEL_92:
     NumElements = 1;
 LABEL_102:
     v55 = 0;
-    v56 = (a3 + 2);
+    v56 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1353,7 +1353,7 @@ LABEL_102:
     NumElements = 1;
 LABEL_112:
     v59 = 0;
-    v60 = a3 + 2;
+    v60 = a3->i64 + 2;
     do
     {
       if (v18)
@@ -1380,7 +1380,7 @@ LABEL_112:
     NumElements = 1;
 LABEL_122:
     v62 = 0;
-    v63 = (a3 + 2);
+    v63 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1411,7 +1411,7 @@ LABEL_122:
     NumElements = 1;
 LABEL_132:
     v66 = 0;
-    v67 = (a3 + 2);
+    v67 = &a3->i16[1];
     do
     {
       if (v18)
@@ -1452,7 +1452,7 @@ LABEL_148:
     if (NumElements >= 1)
     {
       v76 = 0;
-      v77 = (a3 + 2);
+      v77 = &a3->i16[1];
       do
       {
         if (v18)
@@ -1507,7 +1507,7 @@ LABEL_148:
       if (NumElements >= 1)
       {
         v82 = 0;
-        v83 = (a3 + 2);
+        v83 = &a3->i16[1];
         do
         {
           if (v18)
@@ -1550,11 +1550,11 @@ LABEL_148:
 
       if (v18)
       {
-        if (NumElements >= 8 && ((RawStringData + 4) <= a3 || a3 + 4 * NumElements <= RawStringData))
+        if (NumElements >= 8 && (RawStringData + 4 <= a3 || &a3->f32[NumElements] <= RawStringData))
         {
           v88 = NumElements & 0x7FFFFFFFFFFFFFF8;
           v101 = vld1q_dup_f32(RawStringData);
-          v102 = (a3 + 16);
+          v102 = a3 + 1;
           v103 = NumElements & 0x7FFFFFFFFFFFFFF8;
           do
           {
@@ -1577,7 +1577,7 @@ LABEL_148:
         }
 
         v89 = NumElements - v88;
-        v90 = (a3 + 4 * v88);
+        v90 = &a3->i32[v88];
         do
         {
           *v90++ = *RawStringData;
@@ -1594,22 +1594,22 @@ LABEL_148:
         goto LABEL_184;
       }
 
-      if (a3 - RawStringData <= 0x1F)
+      if ((a3 - RawStringData) <= 0x1F)
       {
         goto LABEL_184;
       }
 
       v91 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v92 = (RawStringData + 16);
-      v93 = (a3 + 16);
+      f32 = a3[1].f32;
       v94 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
         v95 = *v92;
-        *(v93 - 1) = *(v92 - 1);
-        *v93 = v95;
+        *(f32 - 1) = *(v92 - 1);
+        *f32 = v95;
         v92 += 2;
-        v93 += 2;
+        f32 += 2;
         v94 -= 8;
       }
 
@@ -2948,23 +2948,23 @@ uint64_t llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn
       if (*v8 == 28781 && v8[2] == 115)
       {
         Context = mlir::Attribute::getContext((a2 + 24));
-        v43 = 0;
+        v42 = 0;
         v33 = *(a2 + 16);
-        v35 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v34);
-        v44 = v33;
-        v45 = v35;
-        v36 = *(a2 + 48);
-        if (*(v36 + 16) == &mlir::detail::TypeIDResolver<void,void>::id)
+        MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+        v43 = v33;
+        v44 = v34;
+        v35 = *(a2 + 48);
+        if (*(v35 + 16) == &mlir::detail::TypeIDResolver<void,void>::id)
         {
-          v39 = *(v36 + 8);
-          mlir::SparseElementsAttr::getValues(&v39);
+          v38 = *(v35 + 8);
+          mlir::SparseElementsAttr::getValues(&v38);
         }
 
-        mlir::mps::MPSDialect::convertUnregisteredOperation(&Context, *a1, a2, &v39);
+        mlir::mps::MPSDialect::convertUnregisteredOperation(&Context, *a1, a2, &v38);
         v11 = 0;
-        v6 = v39;
-        v2 = v40;
-        v10 = v41 ^ 1;
+        v6 = v38;
+        v2 = v39;
+        v10 = v40 ^ 1;
         v9 = 3;
         InterfaceFor = mlir::OpInterface<mlir::UpgraderInterface,mlir::detail::UpgraderInterfaceInterfaceTraits>::getInterfaceFor(a2);
         if (!InterfaceFor)
@@ -2999,8 +2999,8 @@ uint64_t llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn
     }
 
 LABEL_16:
-    v37 = 0;
-    v38 = InterfaceFor;
+    v36 = 0;
+    v37 = InterfaceFor;
     goto LABEL_20;
   }
 
@@ -3017,28 +3017,28 @@ LABEL_16:
   }
 
 LABEL_9:
-  v37 = a2;
-  v38 = mlir::OpInterface<mlir::UpgraderInterface,mlir::detail::UpgraderInterfaceInterfaceTraits>::getInterfaceFor(a2);
+  v36 = a2;
+  v37 = mlir::OpInterface<mlir::UpgraderInterface,mlir::detail::UpgraderInterfaceInterfaceTraits>::getInterfaceFor(a2);
   if (a2)
   {
     v16 = a1[1];
     if (v9 == *(v16 + 8) && (!v9 || !memcmp(v8, *v16, v9)))
     {
       Context = mlir::Attribute::getContext((a2 + 24));
-      v43 = 0;
-      v18 = *(a2 + 16);
-      v20 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v19);
-      v44 = v18;
-      v45 = v20;
-      mlir::DowngraderInterface::downgradeToVersion(&v37, &Context, *a1);
-      if ((v41 & 1) == 0)
+      v42 = 0;
+      v19 = *(a2 + 16);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      v43 = v19;
+      v44 = v20;
+      mlir::DowngraderInterface::downgradeToVersion(&v36, &Context, *a1);
+      if ((v40 & 1) == 0)
       {
         return 0;
       }
 
-      v6 = v39;
-      v2 = v40;
-      if (!v40)
+      v6 = v38;
+      v2 = v39;
+      if (!v39)
       {
         return 1;
       }
@@ -3134,7 +3134,7 @@ LABEL_22:
       while (!v14);
     }
 
-    mlir::Operation::erase(a2);
+    mlir::Operation::erase(a2, v18);
     return 1;
   }
 
@@ -3327,9 +3327,9 @@ LABEL_17:
   v33[0] = mlir::Attribute::getContext((a2 + 24));
   v33[1] = 0;
   v15 = *(a2 + 16);
-  v17 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   v33[2] = v15;
-  v33[3] = v17;
+  v33[3] = v16;
   mlir::DowngraderInterface::downgradeToVersion(&v34, v33, v14);
   if (v32 != 1)
   {
@@ -3338,16 +3338,16 @@ LABEL_17:
 
   if (v31)
   {
-    v18 = 0;
+    v17 = 0;
     while (1)
     {
-      NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v30, v18);
+      NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v30, v17);
       if (mlir::Value::getDefiningOp(&NextResultAtOffset) != a2)
       {
         break;
       }
 
-      if (v31 == ++v18)
+      if (v31 == ++v17)
       {
         return 1;
       }
@@ -3415,7 +3415,7 @@ LABEL_17:
       while (v23 != v20 && v23 != v31);
     }
 
-    mlir::Operation::erase(a2);
+    mlir::Operation::erase(a2, v18);
   }
 
   return 1;
@@ -4325,7 +4325,7 @@ unint64_t mlir::mps::getDataSize(void *a1)
   }
 }
 
-void mlir::mps::mixed_precision::defaultMixedPrecisionCheck(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7)
+void mlir::mps::mixed_precision::defaultMixedPrecisionCheck(mlir::Block **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7)
 {
   v7 = a5;
   v8 = a3;
@@ -4349,7 +4349,7 @@ void mlir::mps::mixed_precision::defaultMixedPrecisionCheck(uint64_t a1, uint64_
       isF16 = mlir::Type::isF16(v127);
       isBF16 = mlir::Type::isBF16(v127);
       isF32 = mlir::Type::isF32(v127);
-      v19 = *(*v127[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id;
+      v19 = *(*v127[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id;
       if (mlir::Type::isIntOrIndex(v127))
       {
         llvm::DenseMapBase<llvm::DenseMap<mlir::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Block *,void>,llvm::detail::DenseSetPair<mlir::Block *>>,mlir::Block *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Block *,void>,llvm::detail::DenseSetPair<mlir::Block *>>::try_emplace<llvm::detail::DenseSetEmpty&>(&v129, v127, &v135);
@@ -5322,7 +5322,7 @@ LABEL_49:
   goto LABEL_50;
 }
 
-BOOL mlir::detail::verifyLoopLikeOpInterface(mlir::detail *this, mlir::Operation *a2)
+uint64_t mlir::detail::verifyLoopLikeOpInterface(mlir::Block **this, mlir::Operation *a2)
 {
   v252 = *MEMORY[0x1E69E9840];
   if (this)
@@ -5557,7 +5557,7 @@ LABEL_11:
           OperandNumber = mlir::OpOperand::getOperandNumber(v12);
           if ((*(this + 46) & 0x80) != 0)
           {
-            v16 = *(this + 9);
+            v16 = this[9];
           }
 
           else
@@ -7156,7 +7156,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ArgMinMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ArgMinMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ArgMinMax>>(&v566);
-  mlir::OperationName::Impl::Impl(v18, "anec.arg_min_max", 16, a1, &mlir::detail::TypeIDResolver<mlir::anec::ArgMinMax,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v18, "anec.arg_min_max", 0x10uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ArgMinMax,void>::id, &v566);
   v19 = v566;
   if (v567)
   {
@@ -7211,7 +7211,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::BatchNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::BatchNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::BatchNorm>>(&v566);
-  mlir::OperationName::Impl::Impl(v26, "anec.batch_norm", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::BatchNorm,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v26, "anec.batch_norm", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::BatchNorm,void>::id, &v566);
   v27 = v566;
   if (v567)
   {
@@ -7255,7 +7255,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::BatchToSpace>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::BatchToSpace>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::BatchToSpace>>(&v566);
-  mlir::OperationName::Impl::Impl(v32, "anec.batch_to_space", 19, a1, &mlir::detail::TypeIDResolver<mlir::anec::BatchToSpace,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v32, "anec.batch_to_space", 0x13uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::BatchToSpace,void>::id, &v566);
   v33 = v566;
   if (v567)
   {
@@ -7321,7 +7321,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Ceil>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Ceil>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Ceil>>(&v566);
-  mlir::OperationName::Impl::Impl(v42, "anec.ceil", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Ceil,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v42, "anec.ceil", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Ceil,void>::id, &v566);
   v43 = v566;
   if (v567)
   {
@@ -7365,7 +7365,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ChannelToSpace>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ChannelToSpace>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ChannelToSpace>>(&v566);
-  mlir::OperationName::Impl::Impl(v48, "anec.channel_to_space", 21, a1, &mlir::detail::TypeIDResolver<mlir::anec::ChannelToSpace,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v48, "anec.channel_to_space", 0x15uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ChannelToSpace,void>::id, &v566);
   v49 = v566;
   if (v567)
   {
@@ -7411,7 +7411,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ClampedRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ClampedRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ClampedRelu>>(&v566);
-  mlir::OperationName::Impl::Impl(v54, "anec.clamped_relu", 17, a1, &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v54, "anec.clamped_relu", 0x11uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id, &v566);
   v55 = v566;
   if (v567)
   {
@@ -7456,7 +7456,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Concat>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Concat>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Concat>>(&v566);
-  mlir::OperationName::Impl::Impl(v60, "anec.concat", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::Concat,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v60, "anec.concat", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Concat,void>::id, &v566);
   v61 = v566;
   if (v567)
   {
@@ -7500,7 +7500,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Convolution>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Convolution>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Convolution>>(&v566);
-  mlir::OperationName::Impl::Impl(v66, "anec.convolution", 16, a1, &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v66, "anec.convolution", 0x10uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Convolution,void>::id, &v566);
   v67 = v566;
   if (v567)
   {
@@ -7546,7 +7546,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Cos>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Cos>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Cos>>(&v566);
-  mlir::OperationName::Impl::Impl(v72, "anec.cos", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::Cos,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v72, "anec.cos", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Cos,void>::id, &v566);
   v73 = v566;
   if (v567)
   {
@@ -7591,7 +7591,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::CropResize>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::CropResize>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::CropResize>>(&v566);
-  mlir::OperationName::Impl::Impl(v78, "anec.crop_resize", 16, a1, &mlir::detail::TypeIDResolver<mlir::anec::CropResize,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v78, "anec.crop_resize", 0x10uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::CropResize,void>::id, &v566);
   v79 = v566;
   if (v567)
   {
@@ -7636,7 +7636,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::DeQuant>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::DeQuant>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::DeQuant>>(&v566);
-  mlir::OperationName::Impl::Impl(v84, "anec.dequant", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::DeQuant,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v84, "anec.dequant", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::DeQuant,void>::id, &v566);
   v85 = v566;
   if (v567)
   {
@@ -7680,7 +7680,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Deconvolution>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Deconvolution>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Deconvolution>>(&v566);
-  mlir::OperationName::Impl::Impl(v90, "anec.deconvolution", 18, a1, &mlir::detail::TypeIDResolver<mlir::anec::Deconvolution,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v90, "anec.deconvolution", 0x12uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Deconvolution,void>::id, &v566);
   v91 = v566;
   if (v567)
   {
@@ -7726,7 +7726,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Degamma>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Degamma>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Degamma>>(&v566);
-  mlir::OperationName::Impl::Impl(v96, "anec.degamma", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::Degamma,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v96, "anec.degamma", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Degamma,void>::id, &v566);
   v97 = v566;
   if (v567)
   {
@@ -7772,7 +7772,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Dirac>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Dirac>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Dirac>>(&v566);
-  mlir::OperationName::Impl::Impl(v102, "anec.dirac", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::Dirac,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v102, "anec.dirac", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Dirac,void>::id, &v566);
   v103 = v566;
   if (v567)
   {
@@ -7807,7 +7807,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v108 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseAbs>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseAbs>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseAbs>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseAbs>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseAbs>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseAbs>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseAbs>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseAbs>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseAbs>>(&v566);
-  mlir::OperationName::Impl::Impl(v108, "anec.abs", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAbs,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v108, "anec.abs", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAbs,void>::id, &v566);
   v109 = v566;
   if (v567)
   {
@@ -7853,7 +7853,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseAdd>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseAdd>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseAdd>>(&v566);
-  mlir::OperationName::Impl::Impl(v114, "anec.add", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v114, "anec.add", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id, &v566);
   v115 = v566;
   if (v567)
   {
@@ -7899,7 +7899,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseDiv>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseDiv>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseDiv>>(&v566);
-  mlir::OperationName::Impl::Impl(v120, "anec.div", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseDiv,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v120, "anec.div", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseDiv,void>::id, &v566);
   v121 = v566;
   if (v567)
   {
@@ -7945,7 +7945,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseEqual>>(&v566);
-  mlir::OperationName::Impl::Impl(v126, "anec.equal", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqual,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v126, "anec.equal", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqual,void>::id, &v566);
   v127 = v566;
   if (v567)
   {
@@ -7980,7 +7980,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v132 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseEqualZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseEqualZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseEqualZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseEqualZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v132, "anec.equal_zero", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v132, "anec.equal_zero", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id, &v566);
   v133 = v566;
   if (v567)
   {
@@ -8026,7 +8026,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThan>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThan>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThan>>(&v566);
-  mlir::OperationName::Impl::Impl(v138, "anec.greater_than", 17, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThan,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v138, "anec.greater_than", 0x11uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThan,void>::id, &v566);
   v139 = v566;
   if (v567)
   {
@@ -8072,7 +8072,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThanEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThanEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseGreaterThanEqual>>(&v566);
-  mlir::OperationName::Impl::Impl(v144, "anec.greater_than_equal", 23, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqual,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v144, "anec.greater_than_equal", 0x17uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqual,void>::id, &v566);
   v145 = v566;
   if (v567)
   {
@@ -8107,7 +8107,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v150 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseGreaterThanEqualZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v150, "anec.greater_than_equal_zero", 28, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqualZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v150, "anec.greater_than_equal_zero", 0x1CuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqualZero,void>::id, &v566);
   v151 = v566;
   if (v567)
   {
@@ -8142,7 +8142,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v156 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseGreaterThanZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseGreaterThanZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseGreaterThanZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v156, "anec.greater_than_zero", 22, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v156, "anec.greater_than_zero", 0x16uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanZero,void>::id, &v566);
   v157 = v566;
   if (v567)
   {
@@ -8188,7 +8188,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThan>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThan>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThan>>(&v566);
-  mlir::OperationName::Impl::Impl(v162, "anec.less_than", 14, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThan,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v162, "anec.less_than", 0xEuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThan,void>::id, &v566);
   v163 = v566;
   if (v567)
   {
@@ -8234,7 +8234,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThanEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThanEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseLessThanEqual>>(&v566);
-  mlir::OperationName::Impl::Impl(v168, "anec.less_than_equal", 20, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqual,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v168, "anec.less_than_equal", 0x14uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqual,void>::id, &v566);
   v169 = v566;
   if (v567)
   {
@@ -8269,7 +8269,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v174 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseLessThanEqualZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseLessThanEqualZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseLessThanEqualZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v174, "anec.less_than_equal_zero", 25, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqualZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v174, "anec.less_than_equal_zero", 0x19uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqualZero,void>::id, &v566);
   v175 = v566;
   if (v567)
   {
@@ -8304,7 +8304,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v180 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseLessThanZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseLessThanZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseLessThanZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseLessThanZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v180, "anec.less_than_zero", 19, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v180, "anec.less_than_zero", 0x13uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanZero,void>::id, &v566);
   v181 = v566;
   if (v567)
   {
@@ -8350,7 +8350,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMax>>(&v566);
-  mlir::OperationName::Impl::Impl(v186, "anec.max", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMax,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v186, "anec.max", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMax,void>::id, &v566);
   v187 = v566;
   if (v567)
   {
@@ -8396,7 +8396,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMin>>(&v566);
-  mlir::OperationName::Impl::Impl(v192, "anec.min", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMin,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v192, "anec.min", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMin,void>::id, &v566);
   v193 = v566;
   if (v567)
   {
@@ -8442,7 +8442,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMult>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMult>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseMult>>(&v566);
-  mlir::OperationName::Impl::Impl(v198, "anec.mult", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v198, "anec.mult", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseMult,void>::id, &v566);
   v199 = v566;
   if (v567)
   {
@@ -8488,7 +8488,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseNotEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseNotEqual>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseNotEqual>>(&v566);
-  mlir::OperationName::Impl::Impl(v204, "anec.not_equal", 14, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqual,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v204, "anec.not_equal", 0xEuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqual,void>::id, &v566);
   v205 = v566;
   if (v567)
   {
@@ -8523,7 +8523,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v210 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseNotEqualZero>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseNotEqualZero>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseNotEqualZero>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseNotEqualZero>>(&v566);
-  mlir::OperationName::Impl::Impl(v210, "anec.not_equal_zero", 19, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqualZero,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v210, "anec.not_equal_zero", 0x13uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseNotEqualZero,void>::id, &v566);
   v211 = v566;
   if (v567)
   {
@@ -8569,7 +8569,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwisePower>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwisePower>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwisePower>>(&v566);
-  mlir::OperationName::Impl::Impl(v216, "anec.power", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwisePower,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v216, "anec.power", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwisePower,void>::id, &v566);
   v217 = v566;
   if (v567)
   {
@@ -8604,7 +8604,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
 
   v222 = operator new(0x70uLL);
   mlir::detail::InterfaceMap::get<mlir::OpTrait::ZeroRegions<mlir::anec::ElementwiseSquare>,mlir::OpTrait::OneResult<mlir::anec::ElementwiseSquare>,mlir::OpTrait::OneTypedResult<mlir::MemRefType>::Impl<mlir::anec::ElementwiseSquare>,mlir::OpTrait::ZeroSuccessors<mlir::anec::ElementwiseSquare>,mlir::OpTrait::OneOperand<mlir::anec::ElementwiseSquare>,mlir::OpTrait::OpInvariants<mlir::anec::ElementwiseSquare>,mlir::MemoryEffectOpInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::ZinIrUnitInfoInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::PlistGeneratorInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::ANECompilerVerifierInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::VerifyAttributesWithFamilyInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::ReshapeSwapInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::TransposeSwapInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl<mlir::anec::ElementwiseSquare>,mlir::ExecutionCostOpInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::InferTypeOpInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::anec::InferReturnTypesInterface::Trait<mlir::anec::ElementwiseSquare>,mlir::CompatibleReturnTypesInterface::Trait<mlir::anec::ElementwiseSquare>>(&v566);
-  mlir::OperationName::Impl::Impl(v222, "anec.square", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSquare,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v222, "anec.square", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSquare,void>::id, &v566);
   v223 = v566;
   if (v567)
   {
@@ -8650,7 +8650,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseSub>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseSub>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ElementwiseSub>>(&v566);
-  mlir::OperationName::Impl::Impl(v228, "anec.sub", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSub,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v228, "anec.sub", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseSub,void>::id, &v566);
   v229 = v566;
   if (v567)
   {
@@ -8696,7 +8696,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Elu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Elu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Elu>>(&v566);
-  mlir::OperationName::Impl::Impl(v234, "anec.elu", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::Elu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v234, "anec.elu", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Elu,void>::id, &v566);
   v235 = v566;
   if (v567)
   {
@@ -8742,7 +8742,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Erf>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Erf>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Erf>>(&v566);
-  mlir::OperationName::Impl::Impl(v240, "anec.erf", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::Erf,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v240, "anec.erf", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Erf,void>::id, &v566);
   v241 = v566;
   if (v567)
   {
@@ -8788,7 +8788,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Exp2>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Exp2>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Exp2>>(&v566);
-  mlir::OperationName::Impl::Impl(v246, "anec.exp2", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v246, "anec.exp2", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id, &v566);
   v247 = v566;
   if (v567)
   {
@@ -8833,7 +8833,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Flatten>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Flatten>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Flatten>>(&v566);
-  mlir::OperationName::Impl::Impl(v252, "anec.flatten", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::Flatten,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v252, "anec.flatten", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Flatten,void>::id, &v566);
   v253 = v566;
   if (v567)
   {
@@ -8879,7 +8879,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Floor>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Floor>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Floor>>(&v566);
-  mlir::OperationName::Impl::Impl(v258, "anec.floor", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v258, "anec.floor", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id, &v566);
   v259 = v566;
   if (v567)
   {
@@ -8924,7 +8924,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::GOC>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GOC>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GOC>>(&v566);
-  mlir::OperationName::Impl::Impl(v264, "anec.gain_offset_control", 24, a1, &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v264, "anec.gain_offset_control", 0x18uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id, &v566);
   v265 = v566;
   if (v567)
   {
@@ -8969,7 +8969,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::GatherND>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GatherND>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GatherND>>(&v566);
-  mlir::OperationName::Impl::Impl(v270, "anec.gather_nd", 14, a1, &mlir::detail::TypeIDResolver<mlir::anec::GatherND,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v270, "anec.gather_nd", 0xEuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::GatherND,void>::id, &v566);
   v271 = v566;
   if (v567)
   {
@@ -9015,7 +9015,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Gelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Gelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Gelu>>(&v566);
-  mlir::OperationName::Impl::Impl(v276, "anec.gelu", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Gelu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v276, "anec.gelu", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Gelu,void>::id, &v566);
   v277 = v566;
   if (v567)
   {
@@ -9060,7 +9060,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::GlobalArgMinMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GlobalArgMinMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::GlobalArgMinMax>>(&v566);
-  mlir::OperationName::Impl::Impl(v282, "anec.global_arg_min_max", 23, a1, &mlir::detail::TypeIDResolver<mlir::anec::GlobalArgMinMax,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v282, "anec.global_arg_min_max", 0x17uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::GlobalArgMinMax,void>::id, &v566);
   v283 = v566;
   if (v567)
   {
@@ -9106,7 +9106,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::HighPrecisionSigmoid>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::HighPrecisionSigmoid>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::HighPrecisionSigmoid>>(&v566);
-  mlir::OperationName::Impl::Impl(v288, "anec.high_precision_sigmoid", 27, a1, &mlir::detail::TypeIDResolver<mlir::anec::HighPrecisionSigmoid,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v288, "anec.high_precision_sigmoid", 0x1BuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::HighPrecisionSigmoid,void>::id, &v566);
   v289 = v566;
   if (v567)
   {
@@ -9151,7 +9151,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::InputView>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::InputView>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::InputView>>(&v566);
-  mlir::OperationName::Impl::Impl(v294, "anec.input_view", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v294, "anec.input_view", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id, &v566);
   v295 = v566;
   if (v567)
   {
@@ -9196,7 +9196,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::InstanceNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::InstanceNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::InstanceNorm>>(&v566);
-  mlir::OperationName::Impl::Impl(v300, "anec.instance_norm", 18, a1, &mlir::detail::TypeIDResolver<mlir::anec::InstanceNorm,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v300, "anec.instance_norm", 0x12uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::InstanceNorm,void>::id, &v566);
   v301 = v566;
   if (v567)
   {
@@ -9242,7 +9242,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Invert>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Invert>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Invert>>(&v566);
-  mlir::OperationName::Impl::Impl(v306, "anec.invert", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::Invert,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v306, "anec.invert", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Invert,void>::id, &v566);
   v307 = v566;
   if (v567)
   {
@@ -9297,7 +9297,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::LayerNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::LayerNorm>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::LayerNorm>>(&v566);
-  mlir::OperationName::Impl::Impl(v314, "anec.layer_norm", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::LayerNorm,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v314, "anec.layer_norm", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::LayerNorm,void>::id, &v566);
   v315 = v566;
   if (v567)
   {
@@ -9343,7 +9343,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::LeakyRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::LeakyRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::LeakyRelu>>(&v566);
-  mlir::OperationName::Impl::Impl(v320, "anec.leaky_relu", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::LeakyRelu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v320, "anec.leaky_relu", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::LeakyRelu,void>::id, &v566);
   v321 = v566;
   if (v567)
   {
@@ -9387,7 +9387,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Linear>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Linear>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Linear>>(&v566);
-  mlir::OperationName::Impl::Impl(v326, "anec.linear", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::Linear,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v326, "anec.linear", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Linear,void>::id, &v566);
   v327 = v566;
   if (v567)
   {
@@ -9433,7 +9433,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Log2>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Log2>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Log2>>(&v566);
-  mlir::OperationName::Impl::Impl(v332, "anec.log2", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Log2,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v332, "anec.log2", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Log2,void>::id, &v566);
   v333 = v566;
   if (v567)
   {
@@ -9478,7 +9478,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::MatMul>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::MatMul>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::MatMul>>(&v566);
-  mlir::OperationName::Impl::Impl(v338, "anec.matmul", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v338, "anec.matmul", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id, &v566);
   v339 = v566;
   if (v567)
   {
@@ -9534,7 +9534,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::NRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::NRelu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::NRelu>>(&v566);
-  mlir::OperationName::Impl::Impl(v346, "anec.n_relu", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::NRelu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v346, "anec.n_relu", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::NRelu,void>::id, &v566);
   v347 = v566;
   if (v567)
   {
@@ -9579,7 +9579,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Padding>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Padding>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Padding>>(&v566);
-  mlir::OperationName::Impl::Impl(v352, "anec.padding", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::Padding,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v352, "anec.padding", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Padding,void>::id, &v566);
   v353 = v566;
   if (v567)
   {
@@ -9623,7 +9623,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::PixelShuffle>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::PixelShuffle>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::PixelShuffle>>(&v566);
-  mlir::OperationName::Impl::Impl(v358, "anec.pixel_shuffle", 18, a1, &mlir::detail::TypeIDResolver<mlir::anec::PixelShuffle,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v358, "anec.pixel_shuffle", 0x12uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::PixelShuffle,void>::id, &v566);
   v359 = v566;
   if (v567)
   {
@@ -9667,7 +9667,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::PixelUnshuffle>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::PixelUnshuffle>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::PixelUnshuffle>>(&v566);
-  mlir::OperationName::Impl::Impl(v364, "anec.pixel_unshuffle", 20, a1, &mlir::detail::TypeIDResolver<mlir::anec::PixelUnshuffle,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v364, "anec.pixel_unshuffle", 0x14uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::PixelUnshuffle,void>::id, &v566);
   v365 = v566;
   if (v567)
   {
@@ -9712,7 +9712,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Quant>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Quant>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Quant>>(&v566);
-  mlir::OperationName::Impl::Impl(v370, "anec.quant", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::Quant,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v370, "anec.quant", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Quant,void>::id, &v566);
   v371 = v566;
   if (v567)
   {
@@ -9757,7 +9757,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceAvg>>(&v566);
-  mlir::OperationName::Impl::Impl(v376, "anec.reduce_avg", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceAvg,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v376, "anec.reduce_avg", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceAvg,void>::id, &v566);
   v377 = v566;
   if (v567)
   {
@@ -9802,7 +9802,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceMax>>(&v566);
-  mlir::OperationName::Impl::Impl(v382, "anec.reduce_max", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceMax,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v382, "anec.reduce_max", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceMax,void>::id, &v566);
   v383 = v566;
   if (v567)
   {
@@ -9847,7 +9847,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceMin>>(&v566);
-  mlir::OperationName::Impl::Impl(v388, "anec.reduce_min", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceMin,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v388, "anec.reduce_min", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceMin,void>::id, &v566);
   v389 = v566;
   if (v567)
   {
@@ -9892,7 +9892,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ReduceSum>>(&v566);
-  mlir::OperationName::Impl::Impl(v394, "anec.reduce_sum", 15, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceSum,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v394, "anec.reduce_sum", 0xFuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ReduceSum,void>::id, &v566);
   v395 = v566;
   if (v567)
   {
@@ -9948,7 +9948,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Relu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Relu>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Relu>>(&v566);
-  mlir::OperationName::Impl::Impl(v402, "anec.relu", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Relu,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v402, "anec.relu", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Relu,void>::id, &v566);
   v403 = v566;
   if (v567)
   {
@@ -9993,7 +9993,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Resample>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Resample>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Resample>>(&v566);
-  mlir::OperationName::Impl::Impl(v408, "anec.resample", 13, a1, &mlir::detail::TypeIDResolver<mlir::anec::Resample,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v408, "anec.resample", 0xDuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Resample,void>::id, &v566);
   v409 = v566;
   if (v567)
   {
@@ -10048,7 +10048,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Resize>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Resize>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Resize>>(&v566);
-  mlir::OperationName::Impl::Impl(v416, "anec.resize", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::Resize,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v416, "anec.resize", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Resize,void>::id, &v566);
   v417 = v566;
   if (v567)
   {
@@ -10093,7 +10093,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::RingBufferReader>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RingBufferReader>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RingBufferReader>>(&v566);
-  mlir::OperationName::Impl::Impl(v422, "anec.ring_buffer_reader", 23, a1, &mlir::detail::TypeIDResolver<mlir::anec::RingBufferReader,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v422, "anec.ring_buffer_reader", 0x17uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::RingBufferReader,void>::id, &v566);
   v423 = v566;
   if (v567)
   {
@@ -10138,7 +10138,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::RingBufferWriter>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RingBufferWriter>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RingBufferWriter>>(&v566);
-  mlir::OperationName::Impl::Impl(v428, "anec.ring_buffer_writer", 23, a1, &mlir::detail::TypeIDResolver<mlir::anec::RingBufferWriter,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v428, "anec.ring_buffer_writer", 0x17uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::RingBufferWriter,void>::id, &v566);
   v429 = v566;
   if (v567)
   {
@@ -10184,7 +10184,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::RoundNearest>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RoundNearest>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::RoundNearest>>(&v566);
-  mlir::OperationName::Impl::Impl(v434, "anec.round_nearest", 18, a1, &mlir::detail::TypeIDResolver<mlir::anec::RoundNearest,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v434, "anec.round_nearest", 0x12uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::RoundNearest,void>::id, &v566);
   v435 = v566;
   if (v567)
   {
@@ -10230,7 +10230,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Rsqrt>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Rsqrt>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Rsqrt>>(&v566);
-  mlir::OperationName::Impl::Impl(v440, "anec.r_sqrt", 11, a1, &mlir::detail::TypeIDResolver<mlir::anec::Rsqrt,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v440, "anec.r_sqrt", 0xBuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Rsqrt,void>::id, &v566);
   v441 = v566;
   if (v567)
   {
@@ -10275,7 +10275,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ScaledDotProductAttention>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ScaledDotProductAttention>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ScaledDotProductAttention>>(&v566);
-  mlir::OperationName::Impl::Impl(v446, "anec.sdpa", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::ScaledDotProductAttention,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v446, "anec.sdpa", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ScaledDotProductAttention,void>::id, &v566);
   v447 = v566;
   if (v567)
   {
@@ -10320,7 +10320,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::ScaledElementWise>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ScaledElementWise>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::ScaledElementWise>>(&v566);
-  mlir::OperationName::Impl::Impl(v452, "anec.scaled_elementwise", 23, a1, &mlir::detail::TypeIDResolver<mlir::anec::ScaledElementWise,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v452, "anec.scaled_elementwise", 0x17uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::ScaledElementWise,void>::id, &v566);
   v453 = v566;
   if (v567)
   {
@@ -10366,7 +10366,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Sigmoid>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sigmoid>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sigmoid>>(&v566);
-  mlir::OperationName::Impl::Impl(v458, "anec.sigmoid", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sigmoid,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v458, "anec.sigmoid", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sigmoid,void>::id, &v566);
   v459 = v566;
   if (v567)
   {
@@ -10412,7 +10412,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Sign>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sign>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sign>>(&v566);
-  mlir::OperationName::Impl::Impl(v464, "anec.sign", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sign,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v464, "anec.sign", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sign,void>::id, &v566);
   v465 = v566;
   if (v567)
   {
@@ -10458,7 +10458,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Sin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sin>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sin>>(&v566);
-  mlir::OperationName::Impl::Impl(v470, "anec.sin", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sin,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v470, "anec.sin", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sin,void>::id, &v566);
   v471 = v566;
   if (v567)
   {
@@ -10504,7 +10504,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Softmax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Softmax>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Softmax>>(&v566);
-  mlir::OperationName::Impl::Impl(v476, "anec.softmax", 12, a1, &mlir::detail::TypeIDResolver<mlir::anec::Softmax,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v476, "anec.softmax", 0xCuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Softmax,void>::id, &v566);
   v477 = v566;
   if (v567)
   {
@@ -10548,7 +10548,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::SpaceToBatch>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::SpaceToBatch>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::SpaceToBatch>>(&v566);
-  mlir::OperationName::Impl::Impl(v482, "anec.space_to_batch", 19, a1, &mlir::detail::TypeIDResolver<mlir::anec::SpaceToBatch,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v482, "anec.space_to_batch", 0x13uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::SpaceToBatch,void>::id, &v566);
   v483 = v566;
   if (v567)
   {
@@ -10592,7 +10592,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::SpaceToChannel>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::SpaceToChannel>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::SpaceToChannel>>(&v566);
-  mlir::OperationName::Impl::Impl(v488, "anec.space_to_channel", 21, a1, &mlir::detail::TypeIDResolver<mlir::anec::SpaceToChannel,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v488, "anec.space_to_channel", 0x15uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::SpaceToChannel,void>::id, &v566);
   v489 = v566;
   if (v567)
   {
@@ -10638,7 +10638,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Sqr>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sqr>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sqr>>(&v566);
-  mlir::OperationName::Impl::Impl(v494, "anec.sqr", 8, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sqr,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v494, "anec.sqr", 8uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sqr,void>::id, &v566);
   v495 = v566;
   if (v567)
   {
@@ -10684,7 +10684,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Sqrt>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sqrt>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Sqrt>>(&v566);
-  mlir::OperationName::Impl::Impl(v500, "anec.sqrt", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sqrt,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v500, "anec.sqrt", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Sqrt,void>::id, &v566);
   v501 = v566;
   if (v567)
   {
@@ -10728,7 +10728,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::State>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::State>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::State>>(&v566);
-  mlir::OperationName::Impl::Impl(v506, "anec.state", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::State,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v506, "anec.state", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::State,void>::id, &v566);
   v507 = v566;
   if (v567)
   {
@@ -10774,7 +10774,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Swish>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Swish>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Swish>>(&v566);
-  mlir::OperationName::Impl::Impl(v512, "anec.swish", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::Swish,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v512, "anec.swish", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Swish,void>::id, &v566);
   v513 = v566;
   if (v567)
   {
@@ -10820,7 +10820,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Tanh>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Tanh>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Tanh>>(&v566);
-  mlir::OperationName::Impl::Impl(v518, "anec.tanh", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Tanh,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v518, "anec.tanh", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Tanh,void>::id, &v566);
   v519 = v566;
   if (v567)
   {
@@ -10864,7 +10864,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::TensorBufferToTensor>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::TensorBufferToTensor>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::TensorBufferToTensor>>(&v566);
-  mlir::OperationName::Impl::Impl(v524, "anec.tensor_buffer_to_tensor", 28, a1, &mlir::detail::TypeIDResolver<mlir::anec::TensorBufferToTensor,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v524, "anec.tensor_buffer_to_tensor", 0x1CuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::TensorBufferToTensor,void>::id, &v566);
   v525 = v566;
   if (v567)
   {
@@ -10908,7 +10908,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::TensorToTensorBuffer>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::TensorToTensorBuffer>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::TensorToTensorBuffer>>(&v566);
-  mlir::OperationName::Impl::Impl(v530, "anec.tensor_to_tensor_buffer", 28, a1, &mlir::detail::TypeIDResolver<mlir::anec::TensorToTensorBuffer,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v530, "anec.tensor_to_tensor_buffer", 0x1CuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::TensorToTensorBuffer,void>::id, &v566);
   v531 = v566;
   if (v567)
   {
@@ -10953,7 +10953,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Tile>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Tile>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Tile>>(&v566);
-  mlir::OperationName::Impl::Impl(v536, "anec.tile", 9, a1, &mlir::detail::TypeIDResolver<mlir::anec::Tile,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v536, "anec.tile", 9uLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Tile,void>::id, &v566);
   v537 = v566;
   if (v567)
   {
@@ -10998,7 +10998,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Transpose>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Transpose>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Transpose>>(&v566);
-  mlir::OperationName::Impl::Impl(v542, "anec.transpose", 14, a1, &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v542, "anec.transpose", 0xEuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Transpose,void>::id, &v566);
   v543 = v566;
   if (v567)
   {
@@ -11044,7 +11044,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Trunc>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Trunc>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Trunc>>(&v566);
-  mlir::OperationName::Impl::Impl(v548, "anec.trunc", 10, a1, &mlir::detail::TypeIDResolver<mlir::anec::Trunc,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v548, "anec.trunc", 0xAuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Trunc,void>::id, &v566);
   v549 = v566;
   if (v567)
   {
@@ -11089,7 +11089,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::InferTypeOpInterfaceInterfaceTraits::Model<mlir::anec::Unflatten>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::InferReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Unflatten>>(&v566);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::CompatibleReturnTypesInterfaceInterfaceTraits::Model<mlir::anec::Unflatten>>(&v566);
-  mlir::OperationName::Impl::Impl(v554, "anec.unflatten", 14, a1, &mlir::detail::TypeIDResolver<mlir::anec::Unflatten,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v554, "anec.unflatten", 0xEuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::Unflatten,void>::id, &v566);
   v555 = v566;
   if (v567)
   {
@@ -11126,7 +11126,7 @@ void *mlir::Dialect::addOperations<mlir::anec::A11Legacy,mlir::anec::A12,mlir::a
   v566 = v568;
   v567 = 0x300000000;
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::UnrealizedConversionCast>>(&v566);
-  mlir::OperationName::Impl::Impl(v560, "anec.unrealized_conversion_cast", 31, a1, &mlir::detail::TypeIDResolver<mlir::anec::UnrealizedConversionCast,void>::id, &v566);
+  mlir::OperationName::Impl::Impl(v560, "anec.unrealized_conversion_cast", 0x1FuLL, a1, &mlir::detail::TypeIDResolver<mlir::anec::UnrealizedConversionCast,void>::id, &v566);
   v561 = v566;
   if (v567)
   {

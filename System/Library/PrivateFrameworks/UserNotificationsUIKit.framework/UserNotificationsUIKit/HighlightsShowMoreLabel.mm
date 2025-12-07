@@ -28,20 +28,20 @@
     v5 = sub_21E792C10(v2, v3);
     v2(v5);
 
-    sub_21E792694(v2);
+    sub_21E792694(v2, v3);
   }
 }
 
 - (void)_updateTextAttributes
 {
   selfCopy = self;
-  sub_21E91D01C();
+  sub_21E91D01C(selfCopy);
 }
 
 - (BOOL)adjustForContentSizeCategoryChange
 {
   selfCopy = self;
-  sub_21E91D15C();
+  sub_21E91D15C(selfCopy);
 
   return 1;
 }

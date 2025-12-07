@@ -9,15 +9,15 @@
 
 - (MTLSharedEventListenerInternal)init
 {
-  v8.receiver = self;
-  v8.super_class = MTLSharedEventListenerInternal;
-  v2 = [(MTLSharedEventListener *)&v8 init];
+  v7.receiver = self;
+  v7.super_class = MTLSharedEventListenerInternal;
+  v2 = [(MTLSharedEventListener *)&v7 init];
   if (v2)
   {
     v2->_notificationPort = IONotificationPortCreate(*MEMORY[0x1E696CD68]);
     v3 = dispatch_queue_create("MTLSharedEventListener", 0);
     v2->_dispatchQueue = v3;
-    if (!v3 || (v4 = v3, (notificationPort = v2->_notificationPort) == 0) || (IONotificationPortSetDispatchQueue(notificationPort, v4), v6 = v2->_notificationPort, IOSurfaceSharedEventAddEventListener()))
+    if (!v3 || (v4 = v3, (notificationPort = v2->_notificationPort) == 0) || (IONotificationPortSetDispatchQueue(notificationPort, v4), IOSurfaceSharedEventAddEventListener()))
     {
 
       return 0;
@@ -29,14 +29,14 @@
 
 - (MTLSharedEventListenerInternal)initWithDispatchQueue:(id)queue
 {
-  v8.receiver = self;
-  v8.super_class = MTLSharedEventListenerInternal;
-  v4 = [(MTLSharedEventListener *)&v8 init];
+  v7.receiver = self;
+  v7.super_class = MTLSharedEventListenerInternal;
+  v4 = [(MTLSharedEventListener *)&v7 init];
   if (v4)
   {
     v5 = IONotificationPortCreate(*MEMORY[0x1E696CD68]);
     *(v4 + 1) = v5;
-    if (!queue || !v5 || (*(v4 + 2) = queue, dispatch_retain(queue), IONotificationPortSetDispatchQueue(*(v4 + 1), *(v4 + 2)), v6 = *(v4 + 1), IOSurfaceSharedEventAddEventListener()))
+    if (!queue || !v5 || (*(v4 + 2) = queue, dispatch_retain(queue), IONotificationPortSetDispatchQueue(*(v4 + 1), *(v4 + 2)), IOSurfaceSharedEventAddEventListener()))
     {
 
       return 0;

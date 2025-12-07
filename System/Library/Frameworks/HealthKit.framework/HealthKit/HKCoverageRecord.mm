@@ -2,6 +2,7 @@
 + (id)_newCoverageRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 coverageTypeCodingCollection:(id)self6 subscriber:(id)self7 subscriberId:(id)self8 beneficiary:(id)self9 policyHolder:(id)holder payor:(id)payor relationshipCodingCollection:(id)codingCollection classification:(id)classification network:(id)network periodStartDate:(id)startDate periodEndDate:(id)endDate subscriberIdentifier:(id)subscriberIdentifier beneficiaryIdentifier:(id)beneficiaryIdentifier config:(id)config;
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)coverageRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 statusCoding:(id)self4 coverageTypeCodingCollection:(id)self5 subscriber:(id)self6 subscriberId:(id)self7 beneficiary:(id)self8 policyHolder:(id)self9 payor:(id)payor relationshipCodingCollection:(id)codingCollection classification:(id)classification network:(id)network periodStartDate:(id)startDate periodEndDate:(id)endDate subscriberIdentifier:(id)subscriberIdentifier beneficiaryIdentifier:(id)beneficiaryIdentifier;
++ (id)coverageRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 coverageTypeCodingCollection:(id)self6 subscriber:(id)self7 subscriberId:(id)self8 beneficiary:(id)self9 policyHolder:(id)holder payor:(id)payor relationshipCodingCollection:(id)codingCollection classification:(id)classification network:(id)network periodStartDate:(id)startDate periodEndDate:(id)endDate subscriberIdentifier:(id)subscriberIdentifier beneficiaryIdentifier:(id)beneficiaryIdentifier;
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
@@ -81,7 +82,7 @@
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -96,8 +97,8 @@
     statusCoding = [(HKCoverageRecord *)self statusCoding];
     v10 = [HKMedicalCodingCollection collectionWithCoding:statusCoding];
     v11 = [HKIndexableObject indexableObjectWithObject:v10];
-    v25[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v24[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
 
     goto LABEL_12;
   }
@@ -106,9 +107,9 @@
   {
     coverageTypeCodingCollection = [(HKCoverageRecord *)self coverageTypeCodingCollection];
     v14 = [HKIndexableObject indexableObjectWithObject:coverageTypeCodingCollection];
-    v24 = v14;
+    v23 = v14;
     v15 = MEMORY[0x1E695DEC8];
-    v16 = &v24;
+    v16 = &v23;
 LABEL_10:
     v12 = [v15 arrayWithObjects:v16 count:1];
 
@@ -124,9 +125,9 @@ LABEL_11:
     {
       coverageTypeCodingCollection = [(HKCoverageRecord *)self relationshipCodingCollection];
       v14 = [HKIndexableObject indexableObjectWithObject:coverageTypeCodingCollection];
-      v23 = v14;
+      v22 = v14;
       v15 = MEMORY[0x1E695DEC8];
-      v16 = &v23;
+      v16 = &v22;
       goto LABEL_10;
     }
 
@@ -159,12 +160,10 @@ LABEL_19:
     goto LABEL_12;
   }
 
-  v22.receiver = self;
-  v22.super_class = HKCoverageRecord;
-  v12 = [(HKMedicalRecord *)&v22 codingsForKeyPath:pathCopy error:error];
+  v21.receiver = self;
+  v21.super_class = HKCoverageRecord;
+  v12 = [(HKMedicalRecord *)&v21 codingsForKeyPath:pathCopy error:error];
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -339,6 +338,13 @@ LABEL_8:
   return v53;
 }
 
++ (id)coverageRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 coverageTypeCodingCollection:(id)self6 subscriber:(id)self7 subscriberId:(id)self8 beneficiary:(id)self9 policyHolder:(id)holder payor:(id)payor relationshipCodingCollection:(id)codingCollection classification:(id)classification network:(id)network periodStartDate:(id)startDate periodEndDate:(id)endDate subscriberIdentifier:(id)subscriberIdentifier beneficiaryIdentifier:(id)beneficiaryIdentifier
+{
+  v28 = [self _newCoverageRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state statusCoding:coding coverageTypeCodingCollection:collection subscriber:subscriber subscriberId:id beneficiary:beneficiary policyHolder:holder payor:payor relationshipCodingCollection:codingCollection classification:classification network:network periodStartDate:startDate periodEndDate:endDate subscriberIdentifier:subscriberIdentifier beneficiaryIdentifier:beneficiaryIdentifier config:0];
+
+  return v28;
+}
+
 + (id)_newCoverageRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 coverageTypeCodingCollection:(id)self6 subscriber:(id)self7 subscriberId:(id)self8 beneficiary:(id)self9 policyHolder:(id)holder payor:(id)payor relationshipCodingCollection:(id)codingCollection classification:(id)classification network:(id)network periodStartDate:(id)startDate periodEndDate:(id)endDate subscriberIdentifier:(id)subscriberIdentifier beneficiaryIdentifier:(id)beneficiaryIdentifier config:(id)config
 {
   errorCopy = error;
@@ -489,13 +495,12 @@ void __390__HKCoverageRecord__newCoverageRecordWithType_note_enteredInError_modi
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKCoverageRecord;
-  v6 = [(HKSample *)&v10 description];
-  statusCoding = self->_statusCoding;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@statusCoding = %@coverageTypeCodingCollection = %@subscriber = %@subscriberId = %@beneficiary = %@policyHolder = %@payor = %@relationshipCodingCollection = %@classification = %@network = %@periodStartDate = %@periodEndDate = %@subscriberIdentifier = %@beneficiaryIdentifier = %@>", v5, self, v6, statusCoding, self->_coverageTypeCodingCollection, self->_subscriber, self->_subscriberId, self->_beneficiary, self->_policyHolder, self->_payor, self->_relationshipCodingCollection, self->_classification, self->_network, self->_periodStartDate, self->_periodEndDate, self->_subscriberIdentifier, self->_beneficiaryIdentifier];
+  v9.receiver = self;
+  v9.super_class = HKCoverageRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@statusCoding = %@coverageTypeCodingCollection = %@subscriber = %@subscriberId = %@beneficiary = %@policyHolder = %@payor = %@relationshipCodingCollection = %@classification = %@network = %@periodStartDate = %@periodEndDate = %@subscriberIdentifier = %@beneficiaryIdentifier = %@>", v5, self, v6, self->_statusCoding, self->_coverageTypeCodingCollection, self->_subscriber, self->_subscriberId, self->_beneficiary, self->_policyHolder, self->_payor, self->_relationshipCodingCollection, self->_classification, self->_network, self->_periodStartDate, self->_periodEndDate, self->_subscriberIdentifier, self->_beneficiaryIdentifier];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1253,17 +1258,17 @@ LABEL_91:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKCoverageRecord _setStatus:v5];
+      [HKCoverageRecord _setStatus:v6];
     }
   }
 
-  v6 = [statusCopy copy];
+  v7 = [statusCopy copy];
   status = self->_status;
-  self->_status = v6;
+  self->_status = v7;
 }
 
 - (HKConcept)coverageType
@@ -1288,17 +1293,17 @@ LABEL_91:
   typeCopy = type;
   if (!typeCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKCoverageRecord _setCoverageType:v5];
+      [HKCoverageRecord _setCoverageType:v6];
     }
   }
 
-  v6 = [typeCopy copy];
+  v7 = [typeCopy copy];
   coverageType = self->_coverageType;
-  self->_coverageType = v6;
+  self->_coverageType = v7;
 }
 
 - (HKConcept)relationship

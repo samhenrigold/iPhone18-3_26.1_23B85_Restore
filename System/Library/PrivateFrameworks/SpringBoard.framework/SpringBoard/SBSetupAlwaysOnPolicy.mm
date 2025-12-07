@@ -51,7 +51,7 @@
     v12 = v4;
     modeCopy = mode;
     self->_inSetupMode = mode;
-    v7 = SBLogBacklight();
+    v7 = SBLogBacklight(self);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (modeCopy)
     {

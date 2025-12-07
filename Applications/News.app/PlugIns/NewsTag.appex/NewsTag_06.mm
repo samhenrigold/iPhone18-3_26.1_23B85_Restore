@@ -1,6 +1,6 @@
 uint64_t sub_10008E8E4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100017A54(&qword_1000E57F0);
+  v4 = sub_100017A54(&qword_1000E57F0, &qword_1000AADD8);
   __chkstk_darwin(v4);
   v6 = &v21 - v5;
   sub_10008EC0C(a1, &v21 - v5);
@@ -25,7 +25,7 @@ uint64_t sub_10008E8E4(uint64_t a1, uint64_t a2)
     sub_1000A3370();
     v12 = v22;
     v13 = v23;
-    sub_10001FE6C(v6, &qword_1000E57F0);
+    sub_10001FE6C(v6, &qword_1000E57F0, &qword_1000AADD8);
     v14 = sub_10008B5B0(v12, v13, &v24);
 
     *(v9 + 4) = v14;
@@ -37,19 +37,19 @@ uint64_t sub_10008E8E4(uint64_t a1, uint64_t a2)
   else
   {
 
-    sub_10001FE6C(v6, &qword_1000E57F0);
+    sub_10001FE6C(v6, &qword_1000E57F0, &qword_1000AADD8);
   }
 
   v15 = [objc_allocWithZone(ATXBiomeUIStream) init];
   isa = sub_1000A1770().super.isa;
   v17 = swift_allocObject();
-  *(v17 + 16) = &_swiftEmptyArrayStorage;
+  *(v17 + 16) = _swiftEmptyArrayStorage;
   v18 = [v15 publisherFromStartTime:CFDateGetAbsoluteTime(isa)];
   *(&v21 - 4) = __chkstk_darwin(v18);
   *(&v21 - 3) = v17;
   *(&v21 - 2) = a1;
   *(&v21 - 1) = a2;
-  sub_100017A54(&qword_1000E8BE8);
+  sub_100017A54(&qword_1000E8BE8, &qword_1000AF0C0);
   swift_allocObject();
   v19 = sub_1000A1BD0();
 
@@ -58,7 +58,7 @@ uint64_t sub_10008E8E4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10008EC0C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100017A54(&qword_1000E57F0);
+  v4 = sub_100017A54(&qword_1000E57F0, &qword_1000AADD8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -90,7 +90,7 @@ uint64_t sub_10008ED50(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10008ED68(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for TaskContext();
+  v4 = type metadata accessor for TaskContext(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -98,11 +98,11 @@ uint64_t sub_10008ED68(uint64_t a1, uint64_t a2)
 uint64_t sub_10008EDCC()
 {
   v1 = v0;
-  v2 = (sub_100017A54(&qword_1000E57F0) - 8);
+  v2 = (sub_100017A54(&qword_1000E57F0, &qword_1000AADD8) - 8);
   v3 = *(*v2 + 80);
   v4 = (v3 + 16) & ~v3;
   v5 = *(*v2 + 64);
-  v6 = (type metadata accessor for TaskContext() - 8);
+  v6 = (type metadata accessor for TaskContext(0) - 8);
   v7 = *(*v6 + 80);
   v8 = (v4 + v5 + v7) & ~v7;
   v33 = *(*v6 + 64);
@@ -116,7 +116,7 @@ uint64_t sub_10008EDCC()
   v14 = sub_1000A2C20();
   (*(*(v14 - 8) + 8))(v1 + v8, v14);
   v15 = v1 + v8 + v6[7];
-  v16 = type metadata accessor for NewsTimelineEntry();
+  v16 = type metadata accessor for NewsTimelineEntry(0);
   v17 = (*(*(v16 - 8) + 48))(v15, 1, v16);
   v18 = v33;
   if (!v17)
@@ -125,9 +125,9 @@ uint64_t sub_10008EDCC()
     v11(v15, v10);
     v19 = (v15 + *(v16 + 20));
 
-    v20 = type metadata accessor for TodayContent();
+    v20 = type metadata accessor for TodayContent(0);
     v21 = v19 + *(v20 + 20);
-    v22 = type metadata accessor for Banner();
+    v22 = type metadata accessor for Banner(0);
     if (!(*(*(v22 - 1) + 48))(v21, 1, v22))
     {
 
@@ -168,10 +168,10 @@ uint64_t sub_10008EDCC()
 
 void sub_10008F1F8(void *a1)
 {
-  v3 = *(sub_100017A54(&qword_1000E57F0) - 8);
+  v3 = *(sub_100017A54(&qword_1000E57F0, &qword_1000AADD8) - 8);
   v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
   v5 = *(v3 + 64);
-  v6 = *(type metadata accessor for TaskContext() - 8);
+  v6 = *(type metadata accessor for TaskContext(0) - 8);
   v7 = (v4 + v5 + *(v6 + 80)) & ~*(v6 + 80);
   v8 = *(v1 + ((*(v6 + 64) + v7 + 7) & 0xFFFFFFFFFFFFFFF8));
 
@@ -221,61 +221,61 @@ Swift::Void __swiftcall TelemetryManager.flush()()
   v2 = sub_1000A1810();
   v3 = *(v2 - 8);
   v4 = __chkstk_darwin(v2);
-  v6 = &v54 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v56 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
-  v8 = &v54 - v7;
+  v8 = &v56 - v7;
   sub_100018688((v0 + 16), *(v0 + 40));
   v9 = sub_10004B138();
-  v59 = FCAnalyticsLog;
-  sub_1000A3090();
+  v61 = FCAnalyticsLog;
+  v10 = sub_1000A3090();
   if (v9)
   {
-    sub_1000A1DB0();
+    sub_1000A1DB0("Will flush telemetry events", 27, 2, &_mh_execute_header, v61, v10, _swiftEmptyArrayStorage);
 
     sub_1000A1800();
-    v10 = [objc_allocWithZone(NTPBTelemetry) init];
-    if (!v10)
+    v11 = [objc_allocWithZone(NTPBTelemetry) init];
+    if (!v11)
     {
 LABEL_31:
       __break(1u);
       goto LABEL_32;
     }
 
-    v11 = v10;
-    v12 = *(v1 + 56);
-    v13 = OBJC_IVAR____TtC7NewsTag16TelemetryManager_lastFlushDate;
+    v12 = v11;
+    v13 = *(v1 + 56);
+    v14 = OBJC_IVAR____TtC7NewsTag16TelemetryManager_lastFlushDate;
     swift_beginAccess();
-    v14 = *(v3 + 16);
-    v59 = v13;
-    v14(v6, &v13[v1], v2);
+    v15 = *(v3 + 16);
+    v61 = v14;
+    v15(v6, &v14[v1], v2);
     isa = sub_1000A1770().super.isa;
-    v16 = v6;
-    v17 = *(v3 + 8);
-    v17(v16, v2);
-    v18 = sub_1000A1770().super.isa;
-    [v12 populateTelemetry:v11 withNetworkEventsFromDate:isa toDate:v18];
+    v17 = v6;
+    v18 = *(v3 + 8);
+    v18(v17, v2);
+    v19 = sub_1000A1770().super.isa;
+    [v13 populateTelemetry:v12 withNetworkEventsFromDate:isa toDate:v19];
 
-    v19 = [v11 networkEventGroups];
-    if (v19)
+    v20 = [v12 networkEventGroups];
+    if (v20)
     {
-      v20 = v19;
-      if ([v20 count])
+      v21 = v20;
+      if ([v21 count])
       {
-        v57 = v17;
-        [*(v1 + 64) annotateTelemetry:v11 withOptions:4095];
-        v21 = [objc_opt_self() nss_envelopeWithIdentifier];
-        if (!v21)
+        v59 = v18;
+        [*(v1 + 64) annotateTelemetry:v12 withOptions:4095];
+        v22 = [objc_opt_self() nss_envelopeWithIdentifier];
+        if (!v22)
         {
 LABEL_32:
           __break(1u);
           goto LABEL_33;
         }
 
-        v22 = v21;
-        [v21 setContentType:2];
-        v23 = v11;
-        v24 = [v23 data];
-        if (!v24)
+        v23 = v22;
+        [v22 setContentType:2];
+        v24 = v12;
+        v25 = [v24 data];
+        if (!v25)
         {
 LABEL_33:
           __break(1u);
@@ -284,103 +284,103 @@ LABEL_34:
           return;
         }
 
-        v25 = v24;
-        v58 = v3 + 8;
-        v56 = v3;
+        v26 = v25;
+        v60 = v3 + 8;
+        v58 = v3;
 
-        v26 = [v25 fc_zlibDeflate];
-        v55 = v23;
-        if (v26)
+        v27 = [v26 fc_zlibDeflate];
+        v57 = v24;
+        if (v27)
         {
-          v27 = sub_1000A1730();
-          v29 = v28;
+          v28 = sub_1000A1730();
+          v30 = v29;
 
-          v30.super.isa = sub_1000A1720().super.isa;
-          sub_10001AA1C(v27, v29);
+          v31.super.isa = sub_1000A1720().super.isa;
+          sub_10001AA1C(v28, v30);
         }
 
         else
         {
-          v30.super.isa = 0;
+          v31.super.isa = 0;
         }
 
-        [v22 setContent:v30.super.isa];
+        [v23 setContent:v31.super.isa];
 
-        v34 = FCAnalyticsLog;
-        sub_100017A54(&unk_1000E5270);
-        v35 = swift_allocObject();
-        *(v35 + 16) = xmmword_1000AA450;
-        v36 = v34;
-        v37 = [v20 count];
+        v36 = FCAnalyticsLog;
+        sub_100017A54(&unk_1000E5270, &unk_1000AAC10);
+        v37 = swift_allocObject();
+        *(v37 + 16) = xmmword_1000AA450;
+        v38 = v36;
+        v39 = [v21 count];
 
-        *(v35 + 56) = &type metadata for Int;
-        *(v35 + 64) = &protocol witness table for Int;
-        *(v35 + 32) = v37;
-        v38 = [v22 content];
-        if (!v38)
+        *(v37 + 56) = &type metadata for Int;
+        *(v37 + 64) = &protocol witness table for Int;
+        *(v37 + 32) = v39;
+        v40 = [v23 content];
+        if (!v40)
         {
           goto LABEL_34;
         }
 
-        v39 = v38;
-        v40 = sub_1000A1730();
-        v42 = v41;
+        v41 = v40;
+        v42 = sub_1000A1730();
+        v44 = v43;
 
-        v43 = v42;
-        v44 = v42 >> 62;
-        if ((v42 >> 62) <= 1)
+        v45 = v44;
+        v46 = v44 >> 62;
+        if ((v44 >> 62) <= 1)
         {
-          if (!v44)
+          if (!v46)
           {
-            sub_10001AA1C(v40, v42);
-            v45 = BYTE6(v42);
+            sub_10001AA1C(v42, v44);
+            v47 = BYTE6(v44);
 LABEL_25:
-            v48 = v56;
+            v50 = v58;
 LABEL_28:
-            *(v35 + 96) = &type metadata for Int;
-            *(v35 + 104) = &protocol witness table for Int;
-            *(v35 + 72) = v45;
+            *(v37 + 96) = &type metadata for Int;
+            *(v37 + 104) = &protocol witness table for Int;
+            *(v37 + 72) = v47;
             sub_1000A3090();
-            sub_1000A1DB0();
+            sub_1000A1DB0("Will submit telemetry events, groupCount=%lu, bytes=%ld", v56, v57);
 
-            v49 = [objc_allocWithZone(NSSNewsAnalyticsSubmitEnvelopesOperation) init];
-            sub_100017A54(&qword_1000E88F0);
-            v50 = swift_allocObject();
-            *(v50 + 16) = xmmword_1000AF1A0;
-            *(v50 + 32) = v22;
+            v51 = [objc_allocWithZone(NSSNewsAnalyticsSubmitEnvelopesOperation) init];
+            sub_100017A54(&qword_1000E88F0, &unk_1000AB040);
+            v52 = swift_allocObject();
+            *(v52 + 16) = xmmword_1000AF1A0;
+            *(v52 + 32) = v23;
             sub_10008FC28();
-            v51 = v22;
-            v52 = sub_1000A2F00().super.isa;
+            v53 = v23;
+            v54 = sub_1000A2F00().super.isa;
 
-            [v49 setEnvelopes:v52];
+            [v51 setEnvelopes:v54];
 
-            [v49 start];
-            v53 = v59;
+            [v51 start];
+            v55 = v61;
             swift_beginAccess();
-            (*(v48 + 24))(&v53[v1], v8, v2);
+            (*(v50 + 24))(&v55[v1], v8, v2);
             swift_endAccess();
-            v57(v8, v2);
+            v59(v8, v2);
             return;
           }
 
           goto LABEL_23;
         }
 
-        if (v44 == 2)
+        if (v46 == 2)
         {
-          v47 = *(v40 + 16);
-          v46 = *(v40 + 24);
-          sub_10001AA1C(v40, v43);
-          v45 = v46 - v47;
-          if (__OFSUB__(v46, v47))
+          v49 = *(v42 + 16);
+          v48 = *(v42 + 24);
+          sub_10001AA1C(v42, v45);
+          v47 = v48 - v49;
+          if (__OFSUB__(v48, v49))
           {
             __break(1u);
 LABEL_23:
-            sub_10001AA1C(v40, v43);
-            LODWORD(v45) = HIDWORD(v40) - v40;
-            if (!__OFSUB__(HIDWORD(v40), v40))
+            sub_10001AA1C(v42, v45);
+            LODWORD(v47) = HIDWORD(v42) - v42;
+            if (!__OFSUB__(HIDWORD(v42), v42))
             {
-              v45 = v45;
+              v47 = v47;
               goto LABEL_25;
             }
 
@@ -391,34 +391,34 @@ LABEL_23:
 
         else
         {
-          sub_10001AA1C(v40, v42);
-          v45 = 0;
+          sub_10001AA1C(v42, v44);
+          v47 = 0;
         }
 
-        v48 = v56;
+        v50 = v58;
         goto LABEL_28;
       }
     }
 
-    v32 = FCAnalyticsLog;
-    sub_1000A3090();
-    sub_1000A1DB0();
+    v33 = FCAnalyticsLog;
+    v34 = sub_1000A3090();
+    sub_1000A1DB0("Found no telemetry event groups to submit", 41, 2, &_mh_execute_header, v33, v34, _swiftEmptyArrayStorage);
 
-    v33 = v59;
+    v35 = v61;
     swift_beginAccess();
-    (*(v3 + 24))(&v33[v1], v8, v2);
+    (*(v3 + 24))(&v35[v1], v8, v2);
     swift_endAccess();
-    v17(v8, v2);
+    v18(v8, v2);
     return;
   }
 
-  sub_1000A1DB0();
-  v31 = v59;
+  sub_1000A1DB0("Will not flush telemetry events because telemetry is disabled", 61, 2, &_mh_execute_header, v61, v10, _swiftEmptyArrayStorage);
+  v32 = v61;
 }
 
 uint64_t TelemetryManager.deinit()
 {
-  sub_100018720(v0 + 16);
+  sub_100018720((v0 + 16));
 
   v1 = OBJC_IVAR____TtC7NewsTag16TelemetryManager_lastFlushDate;
   v2 = sub_1000A1810();
@@ -428,7 +428,7 @@ uint64_t TelemetryManager.deinit()
 
 uint64_t TelemetryManager.__deallocating_deinit()
 {
-  sub_100018720(v0 + 16);
+  sub_100018720((v0 + 16));
 
   v1 = OBJC_IVAR____TtC7NewsTag16TelemetryManager_lastFlushDate;
   v2 = sub_1000A1810();
@@ -450,7 +450,7 @@ unint64_t sub_10008FC28()
   return result;
 }
 
-uint64_t type metadata accessor for TelemetryManager()
+uint64_t type metadata accessor for TelemetryManager(uint64_t a1)
 {
   result = qword_1000E8C40;
   if (!qword_1000E8C40)
@@ -461,10 +461,10 @@ uint64_t type metadata accessor for TelemetryManager()
   return result;
 }
 
-uint64_t sub_10008FCC8()
+uint64_t sub_10008FCC8(uint64_t a1)
 {
   result = sub_1000A1810();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -491,10 +491,10 @@ uint64_t NTPBTodaySectionConfigWebEmbed.conforms(to:)(__objc2_prot *a1)
   }
 }
 
-uint64_t sub_10008FE60()
+uint64_t sub_10008FE60(uint64_t a1)
 {
   result = type metadata accessor for Item.Headline(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     return 0;
@@ -503,7 +503,7 @@ uint64_t sub_10008FE60()
   return result;
 }
 
-uint64_t sub_10008FEFC(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10008FEFC(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -518,7 +518,7 @@ uint64_t sub_10008FEFC(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = sub_100017A54(&unk_1000E5DD0);
+    v8 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 24);
 
@@ -536,7 +536,7 @@ void *sub_10008FFCC(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = sub_100017A54(&unk_1000E5DD0);
+    v7 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 24);
 
@@ -546,16 +546,16 @@ void *sub_10008FFCC(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_10009007C()
+void sub_10009007C(uint64_t a1)
 {
   sub_100090120();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1000369B4();
-    if (v1 <= 0x3F)
+    sub_1000369B4(319);
+    if (v2 <= 0x3F)
     {
       sub_100090184();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -622,7 +622,7 @@ void *sub_1000901D4()
 id sub_100090358()
 {
   v1 = v0;
-  v2 = sub_100017A54(&qword_1000E6670);
+  v2 = sub_100017A54(&qword_1000E6670, &qword_1000ABE68);
   __chkstk_darwin(v2 - 8);
   v4 = &v17 - v3;
   v5 = type metadata accessor for ImageStore.Key(0);
@@ -648,7 +648,7 @@ id sub_100090358()
     sub_10009108C(v4);
     if ((*(v6 + 48))(v4, 1, v5) == 1)
     {
-      sub_10001FE6C(v4, &qword_1000E6670);
+      sub_10001FE6C(v4, &qword_1000E6670, &qword_1000ABE68);
       v15 = 0;
     }
 
@@ -667,7 +667,7 @@ id sub_100090358()
 
 id sub_100090618()
 {
-  v1 = sub_100017A54(&unk_1000E5DD0);
+  v1 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
   __chkstk_darwin(v1 - 8);
   v3 = &v14 - v2;
   v4 = sub_1000A1700();
@@ -678,7 +678,7 @@ id sub_100090618()
   sub_10001AA70(v0 + *(v8 + 24), v3);
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10001FE6C(v3, &unk_1000E5DD0);
+    sub_10001FE6C(v3, &unk_1000E5DD0, &unk_1000AB260);
     return 0;
   }
 
@@ -696,7 +696,7 @@ id sub_100090618()
 
 id sub_1000907C8()
 {
-  v1 = sub_100017A54(&qword_1000E6670);
+  v1 = sub_100017A54(&qword_1000E6670, &qword_1000ABE68);
   __chkstk_darwin(v1 - 8);
   v3 = &v12 - v2;
   v4 = type metadata accessor for ImageStore.Key(0);
@@ -706,7 +706,7 @@ id sub_1000907C8()
   sub_100090E90(v3);
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10001FE6C(v3, &qword_1000E6670);
+    sub_10001FE6C(v3, &qword_1000E6670, &qword_1000ABE68);
     return 0;
   }
 
@@ -733,7 +733,7 @@ id sub_1000907C8()
 
 id sub_100090984()
 {
-  v1 = sub_100017A54(&qword_1000E8F90);
+  v1 = sub_100017A54(&qword_1000E8F90, &qword_1000AF6F8);
   __chkstk_darwin(v1 - 8);
   v3 = &v12 - v2;
   v4 = *v0;
@@ -749,7 +749,7 @@ id sub_100090984()
   (*(*(v7 - 8) + 56))(v3, 0, 1, v7);
   v8 = sub_1000A1A20();
 
-  sub_10001FE6C(v3, &qword_1000E8F90);
+  sub_10001FE6C(v3, &qword_1000E8F90, &qword_1000AF6F8);
   if (v8)
   {
     result = [v4 sourceName];
@@ -792,7 +792,7 @@ uint64_t sub_100090B18()
       v9 = sub_1000A2D40();
       v11 = v10;
 
-      sub_100028E34(0, &unk_1000E5F20);
+      sub_100028E34(0, &unk_1000E5F20, UIColor_ptr);
       v12._countAndFlagsBits = v4;
       v12._object = v6;
       isa = UIColor.init(hex:)(v12).super.isa;
@@ -954,10 +954,10 @@ uint64_t sub_100091350()
   }
 }
 
-uint64_t sub_1000913A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1000913A4@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_10009321C(a1, a2);
-  *a3 = result;
+  result = sub_10009321C(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1039,12 +1039,12 @@ Swift::Int sub_1000914EC()
   return sub_1000A3620();
 }
 
-uint64_t sub_100091570()
+uint64_t sub_100091570(uint64_t a1)
 {
   sub_1000A2DD0();
 }
 
-Swift::Int sub_1000915E0()
+Swift::Int sub_1000915E0(uint64_t a1)
 {
   sub_1000A35F0();
   sub_1000A2DD0();
@@ -1103,7 +1103,7 @@ uint64_t sub_1000917B0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v24 = type metadata accessor for Item.Headline(0);
   __chkstk_darwin(v24);
   v5 = v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100017A54(&qword_1000E8EA0);
+  v6 = sub_100017A54(&qword_1000E8EA0, &qword_1000AF308);
   v23 = *(v6 - 8);
   __chkstk_darwin(v6);
   v8 = v22 - v7;
@@ -1140,7 +1140,7 @@ uint64_t sub_1000917B0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     else
     {
       v27 = 1;
-      sub_100092B60(&qword_1000E8EB8, type metadata accessor for Item.Headline);
+      sub_100092B60(&qword_1000E8EB8, type metadata accessor for Item.Headline, &unk_1000AF268);
       sub_1000A34B0();
       (*(v13 + 8))(v8, v6);
       v21 = v22[0];
@@ -1163,7 +1163,7 @@ uint64_t sub_100091B0C(void *a1)
   v5 = type metadata accessor for Item(0);
   __chkstk_darwin(v5);
   v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100017A54(&qword_1000E8EC0);
+  v8 = sub_100017A54(&qword_1000E8EC0, &qword_1000AF310);
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v16 - v10;
@@ -1198,7 +1198,7 @@ uint64_t sub_100091B0C(void *a1)
     if (!v15)
     {
       v20 = 1;
-      sub_100092B60(&qword_1000E8ED0, type metadata accessor for Item.Headline);
+      sub_100092B60(&qword_1000E8ED0, type metadata accessor for Item.Headline, &unk_1000AF240);
       sub_1000A3520();
     }
 
@@ -1232,10 +1232,10 @@ uint64_t sub_100091EF0()
   }
 }
 
-uint64_t sub_100091F8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_100091F8C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_100093388(a1, a2);
-  *a3 = result;
+  result = sub_100093388(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1256,10 +1256,10 @@ uint64_t sub_100091FFC(uint64_t a1)
 void sub_100092038(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v24 = a2;
-  v3 = sub_100017A54(&unk_1000E5DD0);
+  v3 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
   __chkstk_darwin(v3);
   v5 = &v20 - v4;
-  v6 = sub_100017A54(&qword_1000E8ED8);
+  v6 = sub_100017A54(&qword_1000E8ED8, &qword_1000AF318);
   v25 = *(v6 - 8);
   __chkstk_darwin(v6);
   v8 = &v20 - v7;
@@ -1285,8 +1285,8 @@ void sub_100092038(void *a1@<X0>, uint64_t a2@<X8>)
   sub_100034B00();
   sub_1000A34B0();
   v16 = v28;
-  sub_100028E34(0, &unk_1000E7DD0);
-  sub_100028E34(0, &qword_1000E8EE8);
+  sub_100028E34(0, &unk_1000E7DD0, NSKeyedUnarchiver_ptr);
+  sub_100028E34(0, &qword_1000E8EE8, NTHeadline_ptr);
   v17 = sub_1000A30A0();
   v22 = v16;
   if (!v17)
@@ -1310,13 +1310,13 @@ LABEL_3:
   v20 = v18;
   *(v14 + 8) = v28;
   LOBYTE(v28) = 2;
-  sub_100092DB4(&qword_1000E5FC0, &qword_1000E5FC8);
+  sub_100092DB4(&qword_1000E5FC0, &qword_1000E5FC8, &protocol conformance descriptor for URL, &protocol conformance descriptor for <A> A?);
   v19 = v26;
   sub_1000A34B0();
   sub_10007B3AC(v19, v14 + *(v9 + 24));
-  sub_100017A54(&qword_1000E8F00);
+  sub_100017A54(&qword_1000E8F00, &qword_1000AF320);
   v29 = 3;
-  sub_100092E50(&qword_1000E8F08, sub_100092CA4);
+  sub_100092E50(&qword_1000E8F08, sub_100092CA4, &protocol conformance descriptor for <A> A?);
   sub_1000A34B0();
   (*(v15 + 8))(v8, v6);
   sub_10001AA1C(v22, v21);
@@ -1329,7 +1329,7 @@ LABEL_3:
 uint64_t sub_10009259C(void *a1)
 {
   v3 = v1;
-  v5 = sub_100017A54(&unk_1000E8F18);
+  v5 = sub_100017A54(&unk_1000E8F18, &qword_1000AF328);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v21 - v7;
@@ -1365,8 +1365,8 @@ uint64_t sub_10009259C(void *a1)
 
     v22 = type metadata accessor for Item.Headline(0);
     LOBYTE(v24) = 2;
-    sub_100017A54(&unk_1000E5DD0);
-    sub_100092DB4(&qword_1000E6000, &qword_1000E7A50);
+    sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
+    sub_100092DB4(&qword_1000E6000, &qword_1000E7A50, &protocol conformance descriptor for URL, &protocol conformance descriptor for <A> A?);
     sub_1000A3520();
     v18 = v3 + *(v22 + 28);
     v20 = *(v18 + 1);
@@ -1375,8 +1375,8 @@ uint64_t sub_10009259C(void *a1)
     v25 = v20;
     v23 = 3;
     sub_1000278C4(v24, v20);
-    sub_100017A54(&qword_1000E8F00);
-    sub_100092E50(&qword_1000E8F30, sub_100092EC8);
+    sub_100017A54(&qword_1000E8F00, &qword_1000AF320);
+    sub_100092E50(&qword_1000E8F30, sub_100092EC8, &protocol conformance descriptor for <A> A?);
     sub_1000A3520();
     sub_10001AA1C(v13, v15);
     sub_1000350F4(v19, v20);
@@ -1443,7 +1443,7 @@ unint64_t sub_100092B0C()
   return result;
 }
 
-uint64_t sub_100092B60(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100092B60(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1523,13 +1523,13 @@ unint64_t sub_100092D60()
   return result;
 }
 
-uint64_t sub_100092DB4(unint64_t *a1, unint64_t *a2)
+uint64_t sub_100092DB4(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_100017A9C(&unk_1000E5DD0);
-    sub_100092B60(a2, &type metadata accessor for URL);
+    sub_100017A9C(&unk_1000E5DD0, &unk_1000AB260);
+    sub_100092B60(a2, &type metadata accessor for URL, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1537,12 +1537,12 @@ uint64_t sub_100092DB4(unint64_t *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100092E50(unint64_t *a1, void (*a2)(void))
+uint64_t sub_100092E50(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_100017A9C(&qword_1000E8F00);
+    sub_100017A9C(&qword_1000E8F00, &qword_1000AF320);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -1779,7 +1779,7 @@ uint64_t sub_100093588(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = sub_100017A54(&unk_1000E5DD0);
+    v8 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 28);
 
@@ -1797,7 +1797,7 @@ uint64_t sub_100093658(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = sub_100017A54(&unk_1000E5DD0);
+    v7 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 28);
 
@@ -1807,7 +1807,7 @@ uint64_t sub_100093658(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata accessor for Banner()
+uint64_t type metadata accessor for Banner(uint64_t a1)
 {
   result = qword_1000E8FF0;
   if (!qword_1000E8FF0)
@@ -1818,16 +1818,16 @@ uint64_t type metadata accessor for Banner()
   return result;
 }
 
-void sub_100093754()
+void sub_100093754(uint64_t a1)
 {
-  sub_1000369B4();
-  if (v0 <= 0x3F)
+  sub_1000369B4(319);
+  if (v1 <= 0x3F)
   {
-    sub_100093830(319, &qword_1000E7AF0);
-    if (v1 <= 0x3F)
+    sub_100093830(319, &qword_1000E7AF0, &type metadata for String);
+    if (v2 <= 0x3F)
     {
-      sub_100093830(319, &unk_1000E9000);
-      if (v2 <= 0x3F)
+      sub_100093830(319, &unk_1000E9000, &type metadata for Banner.Image);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1835,14 +1835,14 @@ void sub_100093754()
   }
 }
 
-void sub_100093830(uint64_t a1, unint64_t *a2)
+void sub_100093830(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = sub_1000A31A0();
-    if (!v4)
+    v4 = sub_1000A31A0();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
@@ -1904,7 +1904,7 @@ uint64_t sub_1000938F4(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_100093948(uint64_t *a1)
+uint64_t sub_100093948(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -1938,14 +1938,14 @@ void *sub_100093960(void *result, int a2)
 
 void sub_100093990(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v80 = a3;
-  v7 = sub_100017A54(&unk_1000E5DD0);
+  v82 = a3;
+  v7 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
   v8 = __chkstk_darwin(v7 - 8);
-  v10 = &v79 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v81 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __chkstk_darwin(v8);
-  v13 = &v79 - v12;
+  v13 = &v81 - v12;
   __chkstk_darwin(v11);
-  v15 = &v79 - v14;
+  v15 = &v81 - v14;
   v16 = [a1 identifier];
   v17 = sub_1000A2D40();
   v19 = v18;
@@ -1964,7 +1964,7 @@ void sub_100093990(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@
 
   a4[4] = v25;
   a4[5] = v27;
-  v79 = a2;
+  v81 = a2;
   sub_10001AA70(a2, v13);
   v28 = sub_1000A1700();
   v29 = *(v28 - 8);
@@ -1999,10 +1999,10 @@ void sub_100093990(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@
     (*(v29 + 56))(v15, 0, 1, v28);
   }
 
-  v34 = type metadata accessor for Banner();
+  v34 = type metadata accessor for Banner(0);
   sub_10007B3AC(v15, a4 + v34[7]);
   v35 = [a1 actionButtonText];
-  v36 = v80;
+  v36 = v82;
   if (v35)
   {
     v37 = v35;
@@ -2051,7 +2051,7 @@ LABEL_17:
     v45 = [a1 solidBackgroundColorPair];
     if (v45)
     {
-      sub_100028E34(0, &qword_1000E85F0);
+      sub_100028E34(0, &qword_1000E85F0, FCColor_ptr);
       v46 = sub_1000A2F10();
 
       if (v46 >> 62)
@@ -2071,7 +2071,7 @@ LABEL_17:
     if (v47 == 2)
     {
       v64 = [a1 gradientBackgroundPair];
-      sub_100028E34(0, &qword_1000E9098);
+      sub_100028E34(0, &qword_1000E9098, FCColorGradient_ptr);
       v65 = sub_1000A2F10();
 
       if (v65 >> 62)
@@ -2097,11 +2097,11 @@ LABEL_40:
       v63 = 0;
 LABEL_55:
 
-      sub_10001AAE0(v79);
-      v78 = a4 + v34[10];
-      *v78 = v61;
-      *(v78 + 1) = v62;
-      v78[16] = v63;
+      sub_10001AAE0(v81);
+      v80 = a4 + v34[10];
+      *v80 = v61;
+      *(v80 + 1) = v62;
+      v80[16] = v63;
       return;
     }
 
@@ -2113,15 +2113,15 @@ LABEL_55:
     v48 = [a1 solidBackgroundColorPair];
     if (!v48)
     {
-      sub_100028E34(0, &qword_1000E76B0);
+      sub_100028E34(0, &qword_1000E76B0, OS_os_log_ptr);
       v72 = sub_1000A3190();
-      sub_1000A3070();
-      sub_1000A1DB0();
+      v73 = sub_1000A3070();
+      sub_1000A1DB0("Solid background method indicated but no color provided", 55, 2, &_mh_execute_header, v72, v73, _swiftEmptyArrayStorage);
       goto LABEL_47;
     }
 
     v49 = v48;
-    sub_100028E34(0, &qword_1000E85F0);
+    sub_100028E34(0, &qword_1000E85F0, FCColor_ptr);
     v50 = sub_1000A2F10();
 
     if ((v50 & 0xC000000000000001) != 0)
@@ -2168,50 +2168,50 @@ LABEL_42:
       break;
     }
 
-    sub_100028E34(0, &qword_1000E76B0);
+    sub_100028E34(0, &qword_1000E76B0, OS_os_log_ptr);
     v72 = sub_1000A3190();
-    sub_1000A3070();
-    sub_1000A1DB0();
-    v36 = v80;
+    v74 = sub_1000A3070();
+    sub_1000A1DB0("Solid background method indicated but no dark mode color provided", 65, 2, &_mh_execute_header, v72, v74, _swiftEmptyArrayStorage);
+    v36 = v82;
 LABEL_47:
 
 LABEL_48:
-    v73 = [a1 gradientBackgroundPair];
-    sub_100028E34(0, &qword_1000E9098);
-    v74 = sub_1000A2F10();
-
-    if ((v74 & 0xC000000000000001) != 0)
-    {
-      v75 = sub_1000A32D0();
-    }
-
-    else
-    {
-      if (!*((v74 & 0xFFFFFFFFFFFFFF8) + 0x10))
-      {
-        __break(1u);
-        goto LABEL_61;
-      }
-
-      v75 = *(v74 + 32);
-    }
-
-    v61 = v75;
-
-    v44 = [a1 gradientBackgroundPair];
+    v75 = [a1 gradientBackgroundPair];
+    sub_100028E34(0, &qword_1000E9098, FCColorGradient_ptr);
     v76 = sub_1000A2F10();
 
     if ((v76 & 0xC000000000000001) != 0)
     {
       v77 = sub_1000A32D0();
+    }
+
+    else
+    {
+      if (!*((v76 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        __break(1u);
+        goto LABEL_61;
+      }
+
+      v77 = *(v76 + 32);
+    }
+
+    v61 = v77;
+
+    v44 = [a1 gradientBackgroundPair];
+    v78 = sub_1000A2F10();
+
+    if ((v78 & 0xC000000000000001) != 0)
+    {
+      v79 = sub_1000A32D0();
       goto LABEL_54;
     }
 
-    if (*((v76 & 0xFFFFFFFFFFFFFF8) + 0x10) >= 2uLL)
+    if (*((v78 & 0xFFFFFFFFFFFFFF8) + 0x10) >= 2uLL)
     {
-      v77 = *(v76 + 40);
+      v79 = *(v78 + 40);
 LABEL_54:
-      v62 = v77;
+      v62 = v79;
 
       v63 = 1;
       goto LABEL_55;
@@ -2245,7 +2245,7 @@ LABEL_34:
 
     v62 = [v60 colorWithHexString:v59];
     v63 = 0;
-    v36 = v80;
+    v36 = v82;
     goto LABEL_55;
   }
 
@@ -2258,24 +2258,24 @@ LABEL_34:
   __break(1u);
 }
 
-uint64_t sub_1000942BC(void *a1)
+uint64_t sub_1000942BC(void *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = sub_100017A54(&qword_1000E9108);
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v8 - v5;
+  v5 = sub_100017A54(&qword_1000E9108, &qword_1000AF968);
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v10 - v7;
   sub_100018688(a1, a1[3]);
   sub_100097510();
   sub_1000A3660();
-  v10 = 0;
+  v12 = 0;
   sub_1000A3510();
-  if (!v1)
+  if (!v3)
   {
-    v9 = 1;
+    v11 = 1;
     sub_1000A3510();
   }
 
-  return (*(v4 + 8))(v6, v3);
+  return (*(v6 + 8))(v8, v5);
 }
 
 uint64_t sub_100094444()
@@ -2338,13 +2338,13 @@ uint64_t sub_1000945B4(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_1000945F0@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1000945F0@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_100096660(a1);
+  result = sub_100096660(a2);
   if (!v2)
   {
-    *a2 = result;
-    a2[1] = v5;
+    *a1 = result;
+    a1[1] = v5;
   }
 
   return result;
@@ -2393,10 +2393,10 @@ uint64_t sub_100094638()
   }
 }
 
-uint64_t sub_100094710@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_100094710@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_100096808(a1, a2);
-  *a3 = result;
+  result = sub_100096808(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2417,15 +2417,15 @@ uint64_t sub_100094780(uint64_t a1)
 void sub_1000947BC(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v25 = a2;
-  v3 = sub_100017A54(&unk_1000E5DD0);
+  v3 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
   __chkstk_darwin(v3);
   v5 = &v24 - v4;
-  v6 = sub_100017A54(&qword_1000E9048);
+  v6 = sub_100017A54(&qword_1000E9048, &qword_1000AF928);
   v26 = *(v6 - 8);
   v27 = v6;
   __chkstk_darwin(v6);
   v8 = &v24 - v7;
-  v9 = type metadata accessor for Banner();
+  v9 = type metadata accessor for Banner(0);
   __chkstk_darwin(v9);
   v11 = (&v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v12 = a1[3];
@@ -2456,7 +2456,7 @@ void sub_1000947BC(void *a1@<X0>, uint64_t a2@<X8>)
     v11[4] = v18;
     v11[5] = v19;
     LOBYTE(v30) = 3;
-    sub_1000964EC(&qword_1000E5FC0, &qword_1000E5FC8);
+    sub_1000964EC(&qword_1000E5FC0, &qword_1000E5FC8, &protocol conformance descriptor for URL, &protocol conformance descriptor for <A> A?);
     v21 = v27;
     v20 = v28;
     sub_1000A34B0();
@@ -2469,14 +2469,14 @@ void sub_1000947BC(void *a1@<X0>, uint64_t a2@<X8>)
     else
     {
       sub_10007B3AC(v14, v11 + v9[7]);
-      sub_100017A54(&unk_1000E7E10);
+      sub_100017A54(&unk_1000E7E10, &qword_1000ADB20);
       v32 = 4;
-      sub_100063DB0(&qword_1000E7A10);
+      sub_100063DB0(&qword_1000E7A10, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
       sub_1000A34B0();
       *(v11 + v9[8]) = v30;
-      sub_100017A54(&qword_1000E9058);
+      sub_100017A54(&qword_1000E9058, &qword_1000AF930);
       v32 = 5;
-      sub_10009630C(&qword_1000E9060, sub_100096384);
+      sub_10009630C(&qword_1000E9060, sub_100096384, &protocol conformance descriptor for <A> A?);
       sub_1000A34B0();
       *(v11 + v9[9]) = v30;
       v32 = 6;
@@ -2497,7 +2497,7 @@ void sub_1000947BC(void *a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_100094D90(void *a1)
 {
   v3 = v1;
-  v5 = sub_100017A54(&qword_1000E9078);
+  v5 = sub_100017A54(&qword_1000E9078, &qword_1000AF938);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v13 - v7;
@@ -2512,20 +2512,20 @@ uint64_t sub_100094D90(void *a1)
     sub_1000A34E0();
     LOBYTE(v13) = 2;
     sub_1000A34E0();
-    v9 = type metadata accessor for Banner();
+    v9 = type metadata accessor for Banner(0);
     LOBYTE(v13) = 3;
-    sub_100017A54(&unk_1000E5DD0);
-    sub_1000964EC(&qword_1000E6000, &qword_1000E7A50);
+    sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
+    sub_1000964EC(&qword_1000E6000, &qword_1000E7A50, &protocol conformance descriptor for URL, &protocol conformance descriptor for <A> A?);
     sub_1000A3520();
     v13 = *(v3 + v9[8]);
     v15 = 4;
-    sub_100017A54(&unk_1000E7E10);
-    sub_100063DB0(&qword_1000E7A60);
+    sub_100017A54(&unk_1000E7E10, &qword_1000ADB20);
+    sub_100063DB0(&qword_1000E7A60, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
     sub_1000A3520();
     *&v13 = *(v3 + v9[9]);
     v15 = 5;
-    sub_100017A54(&qword_1000E9058);
-    sub_10009630C(&qword_1000E9080, sub_1000965B8);
+    sub_100017A54(&qword_1000E9058, &qword_1000AF930);
+    sub_10009630C(&qword_1000E9080, sub_1000965B8, &protocol conformance descriptor for <A> A?);
     sub_1000A3520();
     v10 = (v3 + v9[10]);
     v11 = *(v10 + 16);
@@ -2664,12 +2664,12 @@ Swift::Int sub_1000953A8()
   return sub_1000A3620();
 }
 
-uint64_t sub_100095430()
+uint64_t sub_100095430(uint64_t a1)
 {
   sub_1000A2DD0();
 }
 
-Swift::Int sub_1000954A4()
+Swift::Int sub_1000954A4(uint64_t a1)
 {
   sub_1000A35F0();
   sub_1000A2DD0();
@@ -2702,7 +2702,7 @@ uint64_t sub_100095628(void *a1, void *a2)
   v21 = v5;
   __chkstk_darwin(v5);
   v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100017A54(&qword_1000E90B8);
+  v8 = sub_100017A54(&qword_1000E90B8, &qword_1000AF948);
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v19 - v10;
@@ -2749,12 +2749,12 @@ uint64_t sub_100095628(void *a1, void *a2)
   return (*(v9 + 8))(v11, v8);
 }
 
-void *sub_1000958D0@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *sub_1000958D0@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_100096A68(a1);
+  result = sub_100096A68(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -2779,10 +2779,10 @@ uint64_t sub_100095918()
   }
 }
 
-uint64_t sub_100095970@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_100095970@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_100096D60(a1, a2);
-  *a3 = result;
+  result = sub_100096D60(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2864,12 +2864,12 @@ Swift::Int sub_100095AB4()
   return sub_1000A3620();
 }
 
-uint64_t sub_100095B34()
+uint64_t sub_100095B34(uint64_t a1)
 {
   sub_1000A2DD0();
 }
 
-Swift::Int sub_100095BA0()
+Swift::Int sub_100095BA0(uint64_t a1)
 {
   sub_1000A35F0();
   sub_1000A2DD0();
@@ -2924,7 +2924,7 @@ void sub_100095C84(uint64_t *a1@<X8>)
 uint64_t sub_100095D70(void *a1, uint64_t a2, uint64_t a3, char a4)
 {
   v46 = a3;
-  v8 = sub_100017A54(&qword_1000E90E8);
+  v8 = sub_100017A54(&qword_1000E90E8, &qword_1000AF958);
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v43 - v10;
@@ -2933,7 +2933,8 @@ uint64_t sub_100095D70(void *a1, uint64_t a2, uint64_t a3, char a4)
   sub_1000A3660();
   if (a4)
   {
-    *v47 = 256;
+    v47[1] = 1;
+    v47[0] = 0;
     sub_1000974BC();
     sub_1000A3520();
     if (!v4)
@@ -3052,14 +3053,14 @@ LABEL_10:
   return (*(v9 + 8))(v11, v8);
 }
 
-void *sub_100096264@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void *sub_100096264@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = sub_100096E80(a1);
+  result = sub_100096E80(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
-    *(a2 + 16) = v6 & 1;
+    *a1 = result;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = v6 & 1;
   }
 
   return result;
@@ -3077,12 +3078,12 @@ unint64_t sub_1000962B8()
   return result;
 }
 
-uint64_t sub_10009630C(unint64_t *a1, void (*a2)(void))
+uint64_t sub_10009630C(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_100017A9C(&qword_1000E9058);
+    sub_100017A9C(&qword_1000E9058, &qword_1000AF930);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -3117,25 +3118,25 @@ unint64_t sub_1000963D8()
 
 uint64_t sub_10009642C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for Banner();
+  v4 = type metadata accessor for Banner(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100096490(uint64_t a1)
 {
-  v2 = type metadata accessor for Banner();
+  v2 = type metadata accessor for Banner(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_1000964EC(unint64_t *a1, unint64_t *a2)
+uint64_t sub_1000964EC(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_100017A9C(&unk_1000E5DD0);
-    sub_100096574(a2);
+    sub_100017A9C(&unk_1000E5DD0, &unk_1000AB260);
+    sub_100096574(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -3143,7 +3144,7 @@ uint64_t sub_1000964EC(unint64_t *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100096574(unint64_t *a1)
+uint64_t sub_100096574(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -3182,7 +3183,7 @@ unint64_t sub_10009660C()
 
 uint64_t sub_100096660(void *a1)
 {
-  v2 = sub_100017A54(&qword_1000E90F8);
+  v2 = sub_100017A54(&qword_1000E90F8, &qword_1000AF960);
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v8[-v4];
@@ -3260,7 +3261,7 @@ uint64_t sub_100096808(uint64_t a1, uint64_t a2)
 
 void *sub_100096A68(void *a1)
 {
-  v3 = sub_100017A54(&qword_1000E90A0);
+  v3 = sub_100017A54(&qword_1000E90A0, &qword_1000AF940);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v9 - v5;
@@ -3367,7 +3368,7 @@ uint64_t sub_100096D60(uint64_t a1, uint64_t a2)
 
 void *sub_100096E80(void *a1)
 {
-  v3 = sub_100017A54(&qword_1000E90C8);
+  v3 = sub_100017A54(&qword_1000E90C8, &qword_1000AF950);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v23 - v5;
@@ -3391,8 +3392,8 @@ void *sub_100096E80(void *a1)
     v24 = v9;
     v10 = v28;
     v26 = v27;
-    v11 = sub_100028E34(0, &unk_1000E7DD0);
-    sub_100028E34(0, &qword_1000E9098);
+    v11 = sub_100028E34(0, &unk_1000E7DD0, NSKeyedUnarchiver_ptr);
+    sub_100028E34(0, &qword_1000E9098, FCColorGradient_ptr);
     v25 = v10;
     v23 = v11;
     v7 = sub_1000A30A0();
@@ -3433,8 +3434,8 @@ LABEL_18:
     v24 = v15;
     v16 = v28;
     v26 = v27;
-    v17 = sub_100028E34(0, &unk_1000E7DD0);
-    sub_100028E34(0, &qword_1000E85F0);
+    v17 = sub_100028E34(0, &unk_1000E7DD0, NSKeyedUnarchiver_ptr);
+    sub_100028E34(0, &qword_1000E85F0, FCColor_ptr);
     v25 = v16;
     v23 = v17;
     v7 = sub_1000A30A0();
@@ -3905,7 +3906,7 @@ unint64_t sub_100097C90()
 void *sub_100097CE8@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9290);
+  sub_100017A54(&qword_1000E9290, qword_1000AAFD8);
   result = sub_1000A1A10();
   if (!v51)
   {
@@ -3914,7 +3915,7 @@ void *sub_100097CE8@<X0>(void *a1@<X0>, void *a2@<X8>)
   }
 
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, &qword_1000E9280);
+  sub_100028E34(0, &qword_1000E9280, off_1000D5830);
   result = sub_1000A1A00();
   if (!result)
   {
@@ -3925,7 +3926,7 @@ LABEL_9:
 
   v5 = result;
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9268);
+  sub_100017A54(&qword_1000E9268, &unk_1000B00B0);
   result = sub_1000A1A00();
   if (!result)
   {
@@ -3936,7 +3937,7 @@ LABEL_10:
 
   v6 = result;
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, &qword_1000E92B0);
+  sub_100028E34(0, &qword_1000E92B0, off_1000D5828);
   result = sub_1000A1A00();
   if (!result)
   {
@@ -3947,7 +3948,7 @@ LABEL_11:
 
   v7 = result;
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E92A0);
+  sub_100017A54(&qword_1000E92A0, &qword_1000B00D0);
   result = sub_1000A1A10();
   if (!v49)
   {
@@ -3961,7 +3962,7 @@ LABEL_12:
   v42 = v5;
   v43 = a2;
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, &qword_1000E9270);
+  sub_100028E34(0, &qword_1000E9270, off_1000D5840);
   result = sub_1000A19E0();
   if (result)
   {
@@ -3984,7 +3985,7 @@ LABEL_12:
     v47[3] = v19;
     v47[4] = &off_1000DA0B8;
     v47[0] = v17;
-    v20 = type metadata accessor for WidgetAssetStore();
+    v20 = type metadata accessor for WidgetAssetStore(0);
     v45 = v20;
     v46 = &off_1000D7EF8;
     v44[0] = v18;
@@ -4031,10 +4032,10 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_1000982AC@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *sub_1000982AC@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9238);
+  sub_100017A54(&qword_1000E9238, &unk_1000B0080);
   result = sub_1000A1A10();
   if (v19)
   {
@@ -4099,19 +4100,19 @@ id sub_100098570()
   return [v0 init];
 }
 
-uint64_t sub_1000985A8(void *a1)
+id sub_1000985A8(void *a1)
 {
-  sub_100017A54(&qword_1000E88F0);
+  sub_100017A54(&qword_1000E88F0, &unk_1000AB040);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1000AF1A0;
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, &qword_1000E9278);
+  sub_100028E34(0, &qword_1000E9278, &off_1000D5848);
   result = sub_1000A1A00();
   if (result)
   {
     *(v2 + 32) = result;
     v4 = objc_allocWithZone(FTAggregateWidgetEventTracker);
-    sub_100017A54(&unk_1000E5AC0);
+    sub_100017A54(&unk_1000E5AC0, &unk_1000AB050);
     isa = sub_1000A2F00().super.isa;
 
     v6 = [v4 initWithEventTrackers:isa];
@@ -4127,10 +4128,10 @@ uint64_t sub_1000985A8(void *a1)
   return result;
 }
 
-uint64_t sub_1000986B8(void *a1, unint64_t *a2)
+uint64_t sub_1000986B8(void *a1, unint64_t *a2, void *a3)
 {
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, a2);
+  sub_100028E34(0, a2, a3);
   result = sub_1000A1A00();
   if (!result)
   {
@@ -4140,10 +4141,10 @@ uint64_t sub_1000986B8(void *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100098728@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *sub_100098728@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E92A0);
+  sub_100017A54(&qword_1000E92A0, &qword_1000B00D0);
   result = sub_1000A1A10();
   if (v19)
   {
@@ -4152,7 +4153,7 @@ uint64_t sub_100098728@<X0>(void *a1@<X0>, void *a2@<X8>)
     v6 = (v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
     (*(v7 + 16))(v6);
     v8 = *v6;
-    v9 = type metadata accessor for WidgetAssetStore();
+    v9 = type metadata accessor for WidgetAssetStore(0);
     v17[3] = v9;
     v17[4] = &off_1000D7EF8;
     v17[0] = v8;
@@ -4183,10 +4184,10 @@ uint64_t sub_100098728@<X0>(void *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-id sub_100098960(void *a1)
+void *sub_100098960(void *a1)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9250);
+  sub_100017A54(&qword_1000E9250, &unk_1000B0090);
   result = sub_1000A1A10();
   if (v9 == 1)
   {
@@ -4218,7 +4219,7 @@ id sub_100098960(void *a1)
 void *sub_100098A5C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9258);
+  sub_100017A54(&qword_1000E9258, &unk_1000B00A0);
   result = sub_1000A1A00();
   if (result)
   {
@@ -4242,16 +4243,16 @@ uint64_t sub_100098B20()
   return swift_allocObject();
 }
 
-uint64_t sub_100098B78(void *a1, uint64_t *a2, uint64_t a3, Class *a4, SEL *a5)
+id sub_100098B78(void *a1, uint64_t *a2, uint64_t *a3, Class *a4, SEL *a5)
 {
   sub_100018688(a1, a1[3]);
-  sub_100017A54(a2);
+  sub_100017A54(a2, a3);
   result = sub_1000A1A00();
   if (result)
   {
-    v9 = [objc_allocWithZone(*a4) *a5];
+    v10 = [objc_allocWithZone(*a4) *a5];
     swift_unknownObjectRelease();
-    return v9;
+    return v10;
   }
 
   else
@@ -4269,7 +4270,7 @@ id sub_100098C1C(void *a1)
   __chkstk_darwin(v2);
   v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E9288);
+  sub_100017A54(&qword_1000E9288, &unk_1000B00C0);
   result = sub_1000A1A00();
   if (result)
   {
@@ -4300,10 +4301,10 @@ id sub_100098C1C(void *a1)
   return result;
 }
 
-uint64_t sub_100098D94(void *a1)
+id sub_100098D94(void *a1)
 {
   sub_100018688(a1, a1[3]);
-  sub_100028E34(0, &qword_1000E9298);
+  sub_100028E34(0, &qword_1000E9298, FCNewsAvailabilityMonitor_ptr);
   result = sub_1000A1A00();
   if (result)
   {
@@ -4321,31 +4322,30 @@ uint64_t sub_100098D94(void *a1)
   return result;
 }
 
-uint64_t sub_100098E38(void *a1, void *a2)
+void sub_100098E38(void *a1, void *a2)
 {
   sub_100018688(a2, a2[3]);
-  sub_100017A54(&qword_1000E5A10);
-  result = sub_1000A1A00();
-  if (result)
+  sub_100017A54(&qword_1000E5A10, &unk_1000B00E0);
+  v3 = sub_1000A1A00();
+  if (v3)
   {
-    v4 = result;
+    v4 = v3;
     v5 = sub_100018688(a1, a1[3]);
     v6 = swift_allocObject();
     *(v6 + 16) = v4;
     v7 = *v5;
-    v8 = *(*v5 + 16);
+    v9 = *(*v5 + 16);
+    v8 = *(*v5 + 24);
     *(v7 + 16) = sub_10009A770;
     *(v7 + 24) = v6;
 
-    return sub_1000862F8(v8);
+    sub_1000862F8(v9, v8);
   }
 
   else
   {
     __break(1u);
   }
-
-  return result;
 }
 
 void sub_100098EFC(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, double a5)
@@ -4398,13 +4398,13 @@ id sub_1000990B4()
   return [v0 initWithProcessVariant:0];
 }
 
-void sub_1000990F0(void *a1@<X0>, void *a2@<X8>)
+void sub_1000990F0(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = sub_1000A1700();
   __chkstk_darwin(v4 - 8);
   v6 = v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100018688(a1, a1[3]);
-  sub_100017A54(&qword_1000E92A8);
+  sub_100017A54(&qword_1000E92A8, &qword_1000B00D8);
   sub_1000A1A10();
   if (v26)
   {
@@ -4424,7 +4424,7 @@ void sub_1000990F0(void *a1@<X0>, void *a2@<X8>)
       v23 = sub_1000A2B00();
       v24 = &off_1000D9510;
       v22[0] = v14;
-      v15 = type metadata accessor for WidgetAssetStore();
+      v15 = type metadata accessor for WidgetAssetStore(0);
       v16 = objc_allocWithZone(v15);
       v17 = sub_10002F1F4(v22, v23);
       __chkstk_darwin(v17);
@@ -4470,34 +4470,34 @@ id sub_100099474(uint64_t a1, uint64_t a2, char *a3)
   ObjectType = swift_getObjectType();
   v6 = sub_1000A1980();
   __chkstk_darwin(v6 - 8);
-  v43[3] = sub_1000A2B00();
-  v43[4] = &off_1000D9510;
-  v43[0] = a1;
+  v47[3] = sub_1000A2B00();
+  v47[4] = &off_1000D9510;
+  v47[0] = a1;
   *&a3[OBJC_IVAR____TtC7NewsTag16WidgetAssetStore____lazy_storage___pruneThrottler] = 0;
   v7 = OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_lock;
   sub_1000A1970();
   sub_1000A19A0();
   swift_allocObject();
   *&a3[v7] = sub_1000A1990();
-  sub_10002F244(v43, &a3[OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_infoService]);
+  sub_10002F244(v47, &a3[OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_infoService]);
   v8 = OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_directoryUrl;
   v9 = sub_1000A1700();
-  v39 = *(v9 - 8);
-  (*(v39 + 16))(&a3[v8], a2, v9);
+  v43 = *(v9 - 8);
+  (*(v43 + 16))(&a3[v8], a2, v9);
   v10 = [objc_opt_self() defaultManager];
   sub_1000A1670(v11);
   v13 = v12;
-  v42[0] = 0;
-  v14 = [v10 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:v42];
+  v46[0] = 0;
+  v14 = [v10 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:v46];
 
   if (v14)
   {
-    v15 = v42[0];
+    v15 = v46[0];
   }
 
   else
   {
-    v16 = v42[0];
+    v16 = v46[0];
     sub_1000A1600();
 
     swift_willThrow();
@@ -4510,58 +4510,58 @@ id sub_100099474(uint64_t a1, uint64_t a2, char *a3)
 
     else
     {
-      v19 = PrefetchLog();
-      sub_1000A3070();
-      sub_100017A54(&unk_1000E5270);
-      v20 = swift_allocObject();
-      *(v20 + 16) = xmmword_1000AA7C0;
+      v20 = PrefetchLog(v19);
+      v21 = sub_1000A3070();
+      sub_100017A54(&unk_1000E5270, &unk_1000AAC10);
+      v22 = swift_allocObject();
+      *(v22 + 16) = xmmword_1000AA7C0;
       sub_100070450();
-      v21 = sub_1000A3550();
-      v23 = v22;
-      *(v20 + 56) = &type metadata for String;
-      *(v20 + 64) = sub_10001A97C();
-      *(v20 + 32) = v21;
-      *(v20 + 40) = v23;
-      sub_1000A1DB0();
+      v23 = sub_1000A3550();
+      v25 = v24;
+      *(v22 + 56) = &type metadata for String;
+      *(v22 + 64) = sub_10001A97C();
+      *(v22 + 32) = v23;
+      *(v22 + 40) = v25;
+      sub_1000A1DB0("error creating asset store directory at %{public}@", 50, 2, &_mh_execute_header, v20, v21, v22);
     }
   }
 
-  v24 = sub_10001BA80();
-  v25 = sub_10001FD08(v24);
+  v26 = sub_10001BA80();
+  v27 = sub_10001FD08(v26);
 
-  *&a3[OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_keysOfInterest] = v25;
-  v26 = PrefetchLog();
-  sub_1000A3060();
-  sub_100017A54(&unk_1000E5270);
-  v27 = swift_allocObject();
-  *(v27 + 16) = xmmword_1000AA450;
+  *&a3[OBJC_IVAR____TtC7NewsTag16WidgetAssetStore_keysOfInterest] = v27;
+  v29 = PrefetchLog(v28);
+  v42 = sub_1000A3060();
+  sub_100017A54(&unk_1000E5270, &unk_1000AAC10);
+  v30 = swift_allocObject();
+  *(v30 + 16) = xmmword_1000AA450;
   sub_100070450();
-  v28 = sub_1000A3550();
-  v29 = v9;
-  v30 = a2;
-  v32 = v31;
-  *(v27 + 56) = &type metadata for String;
-  v33 = sub_10001A97C();
-  *(v27 + 64) = v33;
-  *(v27 + 32) = v28;
-  *(v27 + 40) = v32;
+  v31 = sub_1000A3550();
+  v32 = v9;
+  v33 = a2;
+  v35 = v34;
+  *(v30 + 56) = &type metadata for String;
+  v36 = sub_10001A97C();
+  *(v30 + 64) = v36;
+  *(v30 + 32) = v31;
+  *(v30 + 40) = v35;
   swift_beginAccess();
 
-  v34 = sub_1000A3020();
-  v36 = v35;
+  v37 = sub_1000A3020();
+  v39 = v38;
 
-  *(v27 + 96) = &type metadata for String;
-  *(v27 + 104) = v33;
-  *(v27 + 72) = v34;
-  *(v27 + 80) = v36;
-  sub_1000A1DB0();
+  *(v30 + 96) = &type metadata for String;
+  *(v30 + 104) = v36;
+  *(v30 + 72) = v37;
+  *(v30 + 80) = v39;
+  sub_1000A1DB0("set up asset store at %@ with keys %@", 37, 2, &_mh_execute_header, v29, v42, v30);
 
-  v41.receiver = a3;
-  v41.super_class = ObjectType;
-  v37 = objc_msgSendSuper2(&v41, "init");
-  (*(v39 + 8))(v30, v29);
-  sub_100018720(v43);
-  return v37;
+  v45.receiver = a3;
+  v45.super_class = ObjectType;
+  v40 = objc_msgSendSuper2(&v45, "init");
+  (*(v43 + 8))(v33, v32);
+  sub_100018720(v47);
+  return v40;
 }
 
 uint64_t sub_1000998EC(uint64_t a1)
@@ -4575,11 +4575,11 @@ uint64_t sub_1000998EC(uint64_t a1)
   __chkstk_darwin(v3);
   v6 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000A1A60();
-  sub_100017A54(&qword_1000E9238);
+  sub_100017A54(&qword_1000E9238, &unk_1000B0080);
   sub_1000A1AE0();
 
   sub_1000A1A60();
-  sub_100017A54(&unk_1000E9240);
+  sub_100017A54(&unk_1000E9240, &qword_1000AC310);
   sub_1000A1AE0();
 
   v7 = enum case for Scope.singleton(_:);
@@ -4593,7 +4593,7 @@ uint64_t sub_1000998EC(uint64_t a1)
   v38 = v9;
   v42 = v4 + 8;
   sub_1000A1A60();
-  sub_100017A54(&qword_1000E5AF8);
+  sub_100017A54(&qword_1000E5AF8, &unk_1000AB078);
   sub_1000A1AD0();
 
   v8(v6, v7, v3);
@@ -4603,11 +4603,11 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v9(v6, v3);
   sub_1000A1A60();
-  sub_100017A54(&unk_1000E5C10);
+  sub_100017A54(&unk_1000E5C10, &unk_1000AF040);
   sub_1000A1AD0();
 
   sub_1000A1A60();
-  sub_100028E34(0, &unk_1000E5AB0);
+  sub_100028E34(0, &unk_1000E5AB0, off_1000D5838);
   sub_1000A1AD0();
 
   v11 = v40;
@@ -4622,7 +4622,7 @@ uint64_t sub_1000998EC(uint64_t a1)
   sub_1000A1AD0();
 
   sub_1000A1A60();
-  sub_100017A54(&unk_1000E5C00);
+  sub_100017A54(&unk_1000E5C00, &qword_1000AB1D8);
   sub_1000A1AD0();
 
   v15 = v11;
@@ -4633,7 +4633,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A60();
-  sub_100017A54(&qword_1000E8A38);
+  sub_100017A54(&qword_1000E8A38, &unk_1000AEF80);
   sub_1000A1AE0();
 
   v17(v6, v15, v13);
@@ -4645,7 +4645,7 @@ uint64_t sub_1000998EC(uint64_t a1)
   sub_1000A1AD0();
 
   sub_1000A1A70();
-  sub_100017A54(&qword_1000E9250);
+  sub_100017A54(&qword_1000E9250, &unk_1000B0090);
   sub_1000A1AE0();
 
   v17(v6, v15, v13);
@@ -4653,7 +4653,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A70();
-  v35 = sub_100017A54(&qword_1000E9258);
+  v35 = sub_100017A54(&qword_1000E9258, &unk_1000B00A0);
   sub_1000A1AD0();
 
   v18 = v40;
@@ -4662,7 +4662,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E9260);
+  sub_100028E34(0, &qword_1000E9260, FCTranslationManager_ptr);
   sub_1000A1AD0();
 
   v17(v6, v18, v13);
@@ -4670,7 +4670,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A70();
-  sub_100017A54(&qword_1000E9268);
+  sub_100017A54(&qword_1000E9268, &unk_1000B00B0);
   sub_1000A1AD0();
 
   v17(v6, v18, v13);
@@ -4678,7 +4678,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E9270);
+  sub_100028E34(0, &qword_1000E9270, off_1000D5840);
   sub_1000A1AD0();
 
   v17(v6, v18, v13);
@@ -4687,11 +4687,11 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v14(v6, v13);
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E9278);
+  sub_100028E34(0, &qword_1000E9278, &off_1000D5848);
   sub_1000A1AD0();
 
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E9280);
+  sub_100028E34(0, &qword_1000E9280, off_1000D5830);
   sub_1000A1AD0();
 
   v33 = v13;
@@ -4701,12 +4701,12 @@ uint64_t sub_1000998EC(uint64_t a1)
   v14(v6, v13);
   v32 = a1;
   sub_1000A1A70();
-  sub_100017A54(&qword_1000E9288);
+  sub_100017A54(&qword_1000E9288, &unk_1000B00C0);
   sub_1000A1AD0();
 
   sub_1000A1A80();
   sub_100018688(v43, v44);
-  sub_100017A54(&qword_1000E9290);
+  sub_100017A54(&qword_1000E9290, qword_1000AAFD8);
   v19 = enum case for CallbackScope.any(_:);
   v20 = v41;
   v31 = *(v41 + 104);
@@ -4726,7 +4726,7 @@ uint64_t sub_1000998EC(uint64_t a1)
   v24(v21, v22);
   sub_100018720(v43);
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E9298);
+  sub_100028E34(0, &qword_1000E9298, FCNewsAvailabilityMonitor_ptr);
   sub_1000A1AD0();
 
   v25 = v40;
@@ -4738,7 +4738,7 @@ uint64_t sub_1000998EC(uint64_t a1)
   v28 = v38;
   v38(v6, v26);
   sub_1000A1A70();
-  sub_100017A54(&qword_1000E92A0);
+  sub_100017A54(&qword_1000E92A0, &qword_1000B00D0);
   sub_1000A1AE0();
 
   v27(v6, v25, v26);
@@ -4746,7 +4746,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v28(v6, v26);
   sub_1000A1A70();
-  sub_100017A54(&qword_1000E92A8);
+  sub_100017A54(&qword_1000E92A8, &qword_1000B00D8);
   sub_1000A1AE0();
 
   v27(v6, v25, v26);
@@ -4754,7 +4754,7 @@ uint64_t sub_1000998EC(uint64_t a1)
 
   v28(v6, v26);
   sub_1000A1A70();
-  sub_100028E34(0, &qword_1000E92B0);
+  sub_100028E34(0, &qword_1000E92B0, off_1000D5828);
   sub_1000A1AD0();
 
   v27(v6, v25, v26);
@@ -4777,11 +4777,11 @@ uint64_t sub_10009A738()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-id TagIntent.init()()
+id TagIntent.init()(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TagIntent();
-  return objc_msgSendSuper2(&v2, "init");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TagIntent();
+  return objc_msgSendSuper2(&v3, "init");
 }
 
 id TagIntent.init(coder:)(void *a1)
@@ -4886,11 +4886,11 @@ Swift::Int sub_10009AD54()
   return sub_1000A3620();
 }
 
-Swift::Int sub_10009ADC8()
+Swift::Int sub_10009ADC8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1000A35F0();
-  sub_1000A3600(v1);
+  sub_1000A3600(v2);
   return sub_1000A3620();
 }
 
@@ -5088,11 +5088,11 @@ uint64_t sub_10009B61C(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-id TodayIntent.init()()
+id TodayIntent.init()(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TodayIntent();
-  return objc_msgSendSuper2(&v2, "init");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TodayIntent();
+  return objc_msgSendSuper2(&v3, "init");
 }
 
 id TodayIntent.init(coder:)(void *a1)
@@ -5458,7 +5458,7 @@ id sub_10009CCCC(uint64_t (*a1)(void))
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t sub_10009CD30(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_10009CD30(int a1, int a2, int a3, int a4)
 {
   if (qword_1000F1B78 == -1)
   {
@@ -5682,146 +5682,146 @@ uint64_t sub_10009CEC4(uint64_t result)
 
 void sub_10009D1F8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D2BC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "widgetEventTracker"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "widgetEventTracker", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D380()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D444()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D508()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetHandlesByRemoteURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetHandlesByRemoteURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D5E0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "JSONArray"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "JSONArray", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D6A4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "flintDocumentURLAssetHandlesByRemoteURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "flintDocumentURLAssetHandlesByRemoteURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D768()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetManager", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D82C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "encodableElement"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "encodableElement", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D8F0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetHandlesByRemoteURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetHandlesByRemoteURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009D9B4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "JSONArray"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "JSONArray", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DA78()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "todaySourceIdentifier"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "todaySourceIdentifier", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DB3C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "a"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "a", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DC00()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "b"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "b", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DCC4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DD88()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "todaySourceIdentifier"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "todaySourceIdentifier", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DE4C()
@@ -5838,20 +5838,20 @@ void sub_10009DE4C()
 
 void sub_10009DF20()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "startState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "startState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009DFE4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "startDate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "startDate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E0A8()
@@ -5868,119 +5868,119 @@ void sub_10009E0A8()
 
 void sub_10009E17C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "self.startState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "self.startState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E240()
 {
-  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"expected nil value for '%s'", "self.startDate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "self.startDate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E304()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "endTodaySourceIdentifier"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "endTodaySourceIdentifier", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E3C8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "sessionManager"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sessionManager", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E48C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "userIDProvider"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "userIDProvider", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E550()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "changeDate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "changeDate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E614()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E6D8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "lastVisibleItemsChangeDate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "lastVisibleItemsChangeDate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E79C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E860()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "engagement"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "engagement", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E924()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009E9E8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "event"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "event", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009EAAC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009EB70()
@@ -6009,47 +6009,47 @@ void sub_10009EC50()
 
 void sub_10009ED30()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "URL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "URL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009EDF4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "reporter"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "reporter", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009EEB8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "widgetEventTracker"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "widgetEventTracker", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009EF7C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F040()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F104()
@@ -6092,38 +6092,38 @@ void sub_10009F2C4()
 
 void sub_10009F3A4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headlines"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headlines", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F468()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "sectionsByHeadline"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionsByHeadline", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F52C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetHandlesByRemoteURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetHandlesByRemoteURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F5F0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "NewsArticleID"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "NewsArticleID", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009F6B4()
@@ -6190,56 +6190,56 @@ void sub_10009FA40()
 
 void sub_10009FB20()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "referralItem"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "referralItem", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FBE4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "sharedDirectoryFileURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sharedDirectoryFileURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FCA8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "sourceFilePath"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sourceFilePath", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FD6C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetManager", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FE30()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "itemClass"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "itemClass", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FEF4()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "queryValue"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "queryValue", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10009FFB8()
@@ -6271,7 +6271,7 @@ void sub_1000A018C(uint64_t a1, id *a2)
   v3 = [*(a1 + 40) identifier];
   v4 = [*a2 downloadError];
   sub_1000124FC();
-  sub_100012514(&_mh_execute_header, v5, v6, "failed to download JSON for banner %{public}@ with error %{public}@", v7, v8, v9, v10, v11);
+  sub_100012514(&_mh_execute_header, v5, v6, "failed to download JSON for banner %{public}@ with error %{public}@", v7, v8, v9, v10);
 }
 
 void sub_1000A0234(uint64_t a1, id *a2)
@@ -6279,7 +6279,7 @@ void sub_1000A0234(uint64_t a1, id *a2)
   v3 = [*(a1 + 40) identifier];
   v4 = [*a2 downloadError];
   sub_1000124FC();
-  sub_100012514(&_mh_execute_header, v5, v6, "failed to download JSON for headline %{public}@ with error %{public}@", v7, v8, v9, v10, v11);
+  sub_100012514(&_mh_execute_header, v5, v6, "failed to download JSON for headline %{public}@ with error %{public}@", v7, v8, v9, v10);
 }
 
 void sub_1000A02F0()
@@ -6308,56 +6308,56 @@ void sub_1000A03D0()
 
 void sub_1000A04B0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "widgetEventTracker"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "widgetEventTracker", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0574()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "predicate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "predicate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0638()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A06FC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A07C0()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0884()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "fetchInfo"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fetchInfo", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0948()
@@ -6386,38 +6386,38 @@ void sub_1000A0A28()
 
 void sub_1000A0B08()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0BCC()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0C90()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "section"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "section", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0D54()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "trackableWidgetState"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "trackableWidgetState", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0E18()
@@ -6436,65 +6436,65 @@ void sub_1000A0E18()
 
 void sub_1000A0F04()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "todayEventTracker"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "todayEventTracker", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A0FC8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "documentsDirectoryFileURL"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "documentsDirectoryFileURL", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A108C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "visibleHeadlines"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "visibleHeadlines", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A1150()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "visibleHeadlinesAppearanceDate"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "visibleHeadlinesAppearanceDate", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A1214()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "date", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A12D8()
 {
-  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [[NSString alloc] initWithFormat:@"Invalid parameter not satisfying %s", "visibleHeadlines"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "visibleHeadlines", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_1000A139C()
 {
-  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'"];
+  v0 = [[NSString alloc] initWithFormat:@"invalid nil value for '%s'", "contentContext"];
   sub_100009E00();
   sub_100009DF0();
   sub_100009DDC();
-  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "contentContext", v6, 2u);
+  sub_100009E10(&_mh_execute_header, &_os_log_default, v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void operator delete(void *__p)

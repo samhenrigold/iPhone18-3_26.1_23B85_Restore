@@ -75,46 +75,46 @@
 
 - (id)contactFromRecommendationWithIdentifier:(id)identifier
 {
-  v25[19] = *MEMORY[0x1E69E9840];
+  v24[19] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     v4 = *MEMORY[0x1E695C240];
-    v25[0] = *MEMORY[0x1E695C300];
-    v25[1] = v4;
+    v24[0] = *MEMORY[0x1E695C300];
+    v24[1] = v4;
     v5 = *MEMORY[0x1E695C230];
-    v25[2] = *MEMORY[0x1E695C2F0];
-    v25[3] = v5;
+    v24[2] = *MEMORY[0x1E695C2F0];
+    v24[3] = v5;
     v6 = *MEMORY[0x1E695C308];
-    v25[4] = *MEMORY[0x1E695C390];
-    v25[5] = v6;
+    v24[4] = *MEMORY[0x1E695C390];
+    v24[5] = v6;
     v7 = *MEMORY[0x1E695C328];
-    v25[6] = *MEMORY[0x1E695C310];
-    v25[7] = v7;
+    v24[6] = *MEMORY[0x1E695C310];
+    v24[7] = v7;
     v8 = *MEMORY[0x1E695C2C8];
-    v25[8] = *MEMORY[0x1E695C1F8];
-    v25[9] = v8;
+    v24[8] = *MEMORY[0x1E695C1F8];
+    v24[9] = v8;
     v9 = *MEMORY[0x1E695C350];
-    v25[10] = *MEMORY[0x1E695C348];
-    v25[11] = v9;
+    v24[10] = *MEMORY[0x1E695C348];
+    v24[11] = v9;
     v10 = *MEMORY[0x1E695C358];
-    v25[12] = *MEMORY[0x1E695C340];
-    v25[13] = v10;
+    v24[12] = *MEMORY[0x1E695C340];
+    v24[13] = v10;
     v11 = *MEMORY[0x1E695C330];
-    v25[14] = *MEMORY[0x1E695C410];
-    v25[15] = v11;
+    v24[14] = *MEMORY[0x1E695C410];
+    v24[15] = v11;
     v12 = *MEMORY[0x1E695C400];
-    v25[16] = *MEMORY[0x1E695C208];
-    v25[17] = v12;
-    v25[18] = *MEMORY[0x1E695C3A8];
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:19];
+    v24[16] = *MEMORY[0x1E695C208];
+    v24[17] = v12;
+    v24[18] = *MEMORY[0x1E695C3A8];
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:19];
     v14 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
     v15 = [v13 arrayByAddingObject:v14];
 
     v16 = objc_alloc_init(MEMORY[0x1E695CE18]);
     v17 = MEMORY[0x1E695CD58];
-    v24 = identifierCopy;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v23 = identifierCopy;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
     v19 = [v17 predicateForContactsWithIdentifiers:v18];
 
     v20 = [v16 unifiedContactsMatchingPredicate:v19 keysToFetch:v15 error:0];
@@ -123,7 +123,7 @@
 
   else
   {
-    v15 = _FALogSystem();
+    v15 = _FALogSystem(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [FARecommendedFamilyMember contactFromRecommendationWithIdentifier:v15];
@@ -131,8 +131,6 @@
 
     firstObject = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

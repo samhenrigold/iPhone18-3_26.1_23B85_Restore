@@ -60,9 +60,9 @@
   [v5 setObject:v10 forKeyedSubscript:@"notifications"];
   if ([v4 detailLevel] == 2)
   {
-    service = [self service];
+    v11 = objc_msgSend_service(self);
     v12 = [v4 copyWithDetailLevel:0];
-    [v5 appendObject:service withName:@"service" context:v12];
+    [v5 appendObject:v11 withName:@"service" context:v12];
 
     metadata = [self metadata];
     v14 = [v4 copyWithDetailLevel:0];

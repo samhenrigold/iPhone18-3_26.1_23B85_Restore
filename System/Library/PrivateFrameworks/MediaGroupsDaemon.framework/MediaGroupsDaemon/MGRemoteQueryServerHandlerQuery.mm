@@ -96,7 +96,6 @@
   responseBoundary = [(MGRemoteQueryServerHandlerQuery *)self responseBoundary];
   v10 = [v8 stringWithFormat:@"multipart/x-mixed-replace boundary=%@", responseBoundary];;
 
-  v11 = *MEMORY[0x277CD9278];
   [v10 UTF8String];
   nw_http_fields_append();
 
@@ -128,7 +127,7 @@
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invoke(uint64_t a1)
+void *__55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setPayloadProvider:*(a1 + 40)];
   result = [*(a1 + 32) pendingUpdate];
@@ -138,7 +137,7 @@ uint64_t __55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invok
 
 - (void)_requestParse
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   request = [(MGRemoteQueryServerHandlerQuery *)self request];
   v3 = [request URL];
 
@@ -152,28 +151,28 @@ uint64_t __55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invok
     v4 = 0;
   }
 
-  v19 = v4;
+  v18 = v4;
   [v4 queryItems];
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v5 = v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v19 = 0u;
+  v5 = v20 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
-    v8 = *v21;
+    v8 = *v20;
     *&v7 = 134218498;
-    v17 = v7;
+    v16 = v7;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         name = [v10 name];
         v12 = [@"predicate" isEqual:name];
 
@@ -197,7 +196,7 @@ uint64_t __55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invok
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v6)
       {
         continue;
@@ -208,13 +207,11 @@ uint64_t __55__MGRemoteQueryServerHandlerQuery_provideResponseData___block_invok
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryStart
 {
-  v27[5] = *MEMORY[0x277D85DE8];
+  v26[5] = *MEMORY[0x277D85DE8];
   query = [(MGRemoteQueryServerHandlerQuery *)self query];
 
   if (query)
@@ -232,16 +229,16 @@ LABEL_18:
   {
     v5 = MEMORY[0x277CCA920];
     rq_predicateForHaveCurrentHome = [MEMORY[0x277D27440] rq_predicateForHaveCurrentHome];
-    v27[0] = rq_predicateForHaveCurrentHome;
+    v26[0] = rq_predicateForHaveCurrentHome;
     rq_predicateForLocal = [MEMORY[0x277D27440] rq_predicateForLocal];
-    v27[1] = rq_predicateForLocal;
+    v26[1] = rq_predicateForLocal;
     rq_predicateForRestrictedTypes = [MEMORY[0x277D27440] rq_predicateForRestrictedTypes];
-    v27[2] = rq_predicateForRestrictedTypes;
+    v26[2] = rq_predicateForRestrictedTypes;
     rq_predicateForInCurrentHome = [MEMORY[0x277D27440] rq_predicateForInCurrentHome];
-    v27[3] = rq_predicateForInCurrentHome;
+    v26[3] = rq_predicateForInCurrentHome;
     requestPredicate = [(MGRemoteQueryServerHandlerQuery *)self requestPredicate];
-    v27[4] = requestPredicate;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+    v26[4] = requestPredicate;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
     v4 = [v5 andPredicateWithSubpredicates:v11];
 
     v12 = MGLogForCategory(5);
@@ -249,35 +246,33 @@ LABEL_18:
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v25 = 2112;
-      v26 = v4;
+      v24 = 2112;
+      v25 = v4;
       _os_log_debug_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEBUG, "%p handler starting query with predicate %@", buf, 0x16u);
     }
 
     objc_initWeak(&location, self);
     v13 = MEMORY[0x277D27458];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __46__MGRemoteQueryServerHandlerQuery__queryStart__block_invoke;
-    v20 = &unk_27989F060;
-    objc_copyWeak(&v21, &location);
-    v14 = [v13 queryWithPredicate:v4 updateHandler:&v17];
-    [(MGRemoteQueryServerHandlerQuery *)self setQuery:v14, v17, v18, v19, v20];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __46__MGRemoteQueryServerHandlerQuery__queryStart__block_invoke;
+    v19 = &unk_27989F060;
+    objc_copyWeak(&v20, &location);
+    v14 = [v13 queryWithPredicate:v4 updateHandler:&v16];
+    [(MGRemoteQueryServerHandlerQuery *)self setQuery:v14, v16, v17, v18, v19];
     v15 = MGLogForCategory(5);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v25 = 2112;
-      v26 = v14;
+      v24 = 2112;
+      v25 = v14;
       _os_log_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEFAULT, "%p handler started query %@", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__MGRemoteQueryServerHandlerQuery__queryStart__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -326,54 +321,51 @@ uint64_t __61__MGRemoteQueryServerHandlerQuery__queryHandleResults_error___block
   [*(a1 + 32) setQueryGroups:*(a1 + 40)];
   [*(a1 + 32) setQueryError:*(a1 + 48)];
   [*(a1 + 32) setPendingUpdate:1];
-  v2 = [*(a1 + 32) payloadProvider];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) payloadProvider];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)_querySendResults
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__21;
-  v35 = __Block_byref_object_dispose__22;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__21;
-  v29 = __Block_byref_object_dispose__22;
+  v38 = *MEMORY[0x277D85DE8];
   v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__3;
-  v23 = __Block_byref_object_dispose__3;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__21;
+  v34 = __Block_byref_object_dispose__22;
+  v35 = 0;
   v24 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __52__MGRemoteQueryServerHandlerQuery__querySendResults__block_invoke;
-  v18[3] = &unk_27989F0B0;
-  v18[4] = self;
-  v18[5] = &v31;
-  v18[6] = &v25;
-  v18[7] = &v19;
-  [(MGRemoteQueryServerHandlerQuery *)self _withLock:v18];
-  if (v20[5])
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__21;
+  v28 = __Block_byref_object_dispose__22;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __52__MGRemoteQueryServerHandlerQuery__querySendResults__block_invoke;
+  v17[3] = &unk_27989F0B0;
+  v17[4] = self;
+  v17[5] = &v30;
+  v17[6] = &v24;
+  v17[7] = &v18;
+  [(MGRemoteQueryServerHandlerQuery *)self _withLock:v17];
+  if (v19[5])
   {
-    if (v32[5])
+    if (v31[5])
     {
       v3 = [MGRemoteQueryReply replyWithGroups:?];
     }
 
     else
     {
-      if (!v26[5])
+      if (!v25[5])
       {
         v4 = 0;
         goto LABEL_9;
@@ -386,13 +378,13 @@ uint64_t __61__MGRemoteQueryServerHandlerQuery__queryHandleResults_error___block
 LABEL_9:
     v5 = MEMORY[0x277CCAAA0];
     rq_coded = [v4 rq_coded];
-    v17 = 0;
-    v7 = [v5 dataWithJSONObject:rq_coded options:0 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [v5 dataWithJSONObject:rq_coded options:0 error:&v16];
+    v8 = v16;
 
     if (v8)
     {
-      (*(v20[5] + 16))();
+      (*(v19[5] + 16))();
     }
 
     else
@@ -407,7 +399,7 @@ LABEL_9:
       v15 = [v13 mutableCopy];
       [v15 appendData:v14];
       [v15 appendData:v7];
-      (*(v20[5] + 16))();
+      (*(v19[5] + 16))();
     }
 
     goto LABEL_13;
@@ -423,25 +415,24 @@ LABEL_9:
 
 LABEL_13:
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v31, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __52__MGRemoteQueryServerHandlerQuery__querySendResults__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) pendingUpdate] & 1) == 0)
   {
-    v13 = MGLogForCategory(5);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v12 = MGLogForCategory(5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(a1 + 32);
-      v17 = 134217984;
-      v18 = v16;
-      _os_log_debug_impl(&dword_25863A000, v13, OS_LOG_TYPE_DEBUG, "%p transaction not sending query results without update", &v17, 0xCu);
+      v14 = *(a1 + 32);
+      v15 = 134217984;
+      v16 = v14;
+      _os_log_debug_impl(&dword_25863A000, v12, OS_LOG_TYPE_DEBUG, "%p transaction not sending query results without update", &v15, 0xCu);
     }
 
     goto LABEL_10;
@@ -459,18 +450,18 @@ void __52__MGRemoteQueryServerHandlerQuery__querySendResults__block_invoke(uint6
 
   if (!*(*(*(a1 + 40) + 8) + 40) && !*(*(*(a1 + 48) + 8) + 40))
   {
-    v13 = MGLogForCategory(5);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = MGLogForCategory(5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v17 = 134217984;
-      v18 = v15;
-      _os_log_error_impl(&dword_25863A000, v13, OS_LOG_TYPE_ERROR, "%p transaction has no result or error to send", &v17, 0xCu);
+      v13 = *(a1 + 32);
+      v15 = 134217984;
+      v16 = v13;
+      _os_log_error_impl(&dword_25863A000, v12, OS_LOG_TYPE_ERROR, "%p transaction has no result or error to send", &v15, 0xCu);
     }
 
 LABEL_10:
 
-    goto LABEL_11;
+    return;
   }
 
   v8 = [*(a1 + 32) payloadProvider];
@@ -479,17 +470,12 @@ LABEL_10:
   *(v9 + 40) = v8;
 
   [*(a1 + 32) setPayloadProvider:0];
-  if (!*(*(*(a1 + 56) + 8) + 40))
+  if (*(*(*(a1 + 56) + 8) + 40))
   {
-LABEL_11:
-    v14 = *MEMORY[0x277D85DE8];
-    return;
+    v11 = *(a1 + 32);
+
+    [v11 setPendingUpdate:0];
   }
-
-  v11 = *(a1 + 32);
-  v12 = *MEMORY[0x277D85DE8];
-
-  [v11 setPendingUpdate:0];
 }
 
 - (NSArray)queryGroups

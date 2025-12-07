@@ -24,7 +24,7 @@
     v10->_invalidationHandler = v11;
 
     v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v14 = MRGroupSessionSubsystemGetQueue();
+    v14 = MRGroupSessionSubsystemGetQueue(v13);
     v15 = dispatch_queue_create_with_target_V2("com.apple.MRDGroupSessionClient.queue", v13, v14);
     queue = v10->_queue;
     v10->_queue = v15;
@@ -54,53 +54,48 @@
 
 - (void)initializeConnection
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRGroupSessionXPCConnection] <%p> Received nil XPC endpoint. Failing.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRGroupSessionXPCConnection] <%p> Received nil XPC endpoint. Failing.", &v2, 0xCu);
 }
 
 void __51__MRGroupSessionXPCConnection_initializeConnection__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = _MRLogForCategory(0xCuLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> XPC interrupted.", &v5, 0xCu);
+      v4 = 134217984;
+      v5 = WeakRetained;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> XPC interrupted.", &v4, 0xCu);
     }
 
     v3 = [WeakRetained connection];
     [v3 invalidate];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MRGroupSessionXPCConnection_initializeConnection__block_invoke_58(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = _MRLogForCategory(0xCuLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> XPC invalidated.", &v5, 0xCu);
+      v4 = 134217984;
+      v5 = WeakRetained;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> XPC invalidated.", &v4, 0xCu);
     }
 
     v3 = [WeakRetained invalidationHandler];
     v3[2]();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)server
@@ -118,20 +113,18 @@ void __51__MRGroupSessionXPCConnection_initializeConnection__block_invoke_58(uin
 
 void __37__MRGroupSessionXPCConnection_server__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> Server proxy error %@.", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionXPCConnection] <%p> Server proxy error %@.", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(id)message

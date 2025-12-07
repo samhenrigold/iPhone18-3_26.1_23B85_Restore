@@ -14,7 +14,7 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_24A043E18();
+  v9 = sub_24A043E18(connectionCopy);
 
   return v9 & 1;
 }

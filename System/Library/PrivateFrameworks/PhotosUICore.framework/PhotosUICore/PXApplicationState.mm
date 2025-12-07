@@ -365,18 +365,18 @@ void __44__PXApplicationState_endDisablingIdleTimer___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __34__PXApplicationState_setIsHidden___block_invoke(uint64_t a1)
+uint64_t __34__PXApplicationState_setIsHidden___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 106);
-    v5 = 136315394;
-    v6 = "[PXApplicationState setIsHidden:]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "%s isHidden: %i", &v5, 0x12u);
+    v4 = *(*(a1 + 32) + 106);
+    v6 = 136315394;
+    v7 = "[PXApplicationState setIsHidden:]_block_invoke";
+    v8 = 1024;
+    v9 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "%s isHidden: %i", &v6, 0x12u);
   }
 
   *(*(a1 + 32) + 106) = *(a1 + 40);
@@ -399,19 +399,19 @@ uint64_t __34__PXApplicationState_setIsHidden___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __36__PXApplicationState_setIsInactive___block_invoke(uint64_t a1)
+uint64_t __36__PXApplicationState_setIsInactive___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 105) = *(a1 + 40);
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 105);
-    v5 = 136315394;
-    v6 = "[PXApplicationState setIsInactive:]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "%s isInactive: %i", &v5, 0x12u);
+    v4 = *(*(a1 + 32) + 105);
+    v6 = 136315394;
+    v7 = "[PXApplicationState setIsInactive:]_block_invoke";
+    v8 = 1024;
+    v9 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "%s isInactive: %i", &v6, 0x12u);
   }
 
   return [*(a1 + 32) _invalidateVisibilityState];

@@ -17,8 +17,8 @@ uint64_t LoudnessMeter::LoudnessMeter(uint64_t a1, int a2, unsigned int a3, int 
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
-  v24 = 0;
-  std::vector<float>::vector[abi:ne200100](__p, a5);
+  v26 = 0;
+  std::vector<float>::vector[abi:ne200100](__p, a5, &v26);
   std::vector<std::vector<float>>::vector[abi:ne200100]((a1 + 72), a3);
   if (__p[0])
   {
@@ -37,67 +37,71 @@ uint64_t LoudnessMeter::LoudnessMeter(uint64_t a1, int a2, unsigned int a3, int 
   {
     if (a2 == 2)
     {
-      v12 = 3;
+      v13 = 3;
       do
       {
-        v20 = 0;
+        v22 = 0;
         *__p = DspLib::Biquad::kBypassSection;
         DspLib::Biquad::Filter::setCoefficients(a1, __p, 1, 0, 0x41uLL);
-        --v12;
+        --v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
     else
     {
-      v24 = 15;
-      v25 = 1108869120;
-      v26 = 1056964608;
-      DspLib::Biquad::Design::ParametricEQ::design(&v24, *(a1 + 124), 0, v10, __p);
+      v26 = 15;
+      v12.n128_u32[1] = 0;
+      v27 = 1108869120;
+      v28 = 1056964608;
+      v12.n128_f32[0] = *(a1 + 124);
+      DspLib::Biquad::Design::ParametricEQ::design(&v26, v12, 0, __p, v11);
       DspLib::Biquad::Filter::setCoefficients(a1, __p, 1, 0, 0x41uLL);
-      v21 = 12;
-      v22 = 0x4080000044D20000;
-      v23 = 0;
-      DspLib::Biquad::Design::ParametricEQ::design(&v21, *(a1 + 124), 0, v13, __p);
+      v23 = 12;
+      v14.n128_u32[1] = 1082130432;
+      v24 = 0x4080000044D20000;
+      v25 = 0;
+      v14.n128_f32[0] = *(a1 + 124);
+      DspLib::Biquad::Design::ParametricEQ::design(&v23, v14, 0, __p, v15);
       DspLib::Biquad::Filter::setCoefficients(a1, __p, 1, 1, 0x41uLL);
     }
   }
 
   else
   {
-    LODWORD(v11) = *(a1 + 124);
+    v12.n128_u32[0] = *(a1 + 124);
     if (a2)
     {
-      DspLib::Biquad::Design::cWeighting(v11, __p);
+      DspLib::Biquad::Design::cWeighting(v12.n128_u64[0], v10, __p);
       DspLib::Biquad::Filter::setCoefficients(a1, __p, 2, 0, 0x41uLL);
       *__p = DspLib::Biquad::kBypassSection;
-      v20 = 0;
+      v22 = 0;
       DspLib::Biquad::Filter::setCoefficients(a1, __p, 1, 2, 0x41uLL);
     }
 
     else
     {
-      DspLib::Biquad::Design::aWeighting(v11, __p);
+      DspLib::Biquad::Design::aWeighting(v12.n128_u64[0], v10, __p);
       DspLib::Biquad::Filter::setCoefficients(a1, __p, 3, 0, 0x41uLL);
     }
   }
 
   DspLib::Biquad::SetupWrapper::reset((a1 + 48));
-  v14 = *(a1 + 128);
-  if (v14)
+  v16 = *(a1 + 128);
+  if (v16)
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 24 * v14;
+    v17 = 0;
+    v18 = 0;
+    v19 = 24 * v16;
     do
     {
-      *(*(a1 + 96) + v15) = *(*(a1 + 72) + v16);
-      v16 += 24;
-      v15 += 8;
+      *(*(a1 + 96) + v17) = *(*(a1 + 72) + v18);
+      v18 += 24;
+      v17 += 8;
     }
 
-    while (v17 != v16);
+    while (v19 != v18);
   }
 
   return a1;

@@ -353,7 +353,6 @@ void __100__AKAppleIDPasskeyAuthenticationController_canCreateiCloudKeychainPass
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)appleIDPasskeysForAccount:(id)account withCompletion:(id)completion
@@ -485,51 +484,50 @@ void __85__AKAppleIDPasskeyAuthenticationController_appleIDPasskeysForAccount_wi
 
 void __85__AKAppleIDPasskeyAuthenticationController_appleIDPasskeysForAccount_withCompletion___block_invoke_61(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v17[1] = a1;
+  v16[1] = a1;
   if (location[0])
   {
-    v9 = +[AKAccountManager sharedInstance];
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(location[0], "count")}];
-    v2 = a1[5];
-    [AKAccountManager setPasskeysInKeychainCount:v9 forAccount:"setPasskeysInKeychainCount:forAccount:"];
+    v8 = +[AKAccountManager sharedInstance];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(location[0], "count")}];
+    [AKAccountManager setPasskeysInKeychainCount:v8 forAccount:"setPasskeysInKeychainCount:forAccount:"];
+    MEMORY[0x1E69E5920](v7);
     MEMORY[0x1E69E5920](v8);
+    v16[0] = 0;
+    v9 = +[AKAccountManager sharedInstance];
+    v2 = a1[5];
+    v15 = v16[0];
+    [(AKAccountManager *)v9 saveAccount:v2 error:&v15];
+    objc_storeStrong(v16, v15);
     MEMORY[0x1E69E5920](v9);
-    v17[0] = 0;
-    v10 = +[AKAccountManager sharedInstance];
-    v3 = a1[5];
-    v16 = v17[0];
-    [(AKAccountManager *)v10 saveAccount:v3 error:&v16];
-    objc_storeStrong(v17, v16);
-    MEMORY[0x1E69E5920](v10);
-    if (v17[0])
+    if (v16[0])
     {
-      v15 = _AKLogSystem();
-      v14 = 17;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v14 = _AKLogSystem();
+      v13 = 17;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        log = v15;
-        type = v14;
-        __os_log_helper_16_0_0(v13);
-        _os_log_fault_impl(&dword_193225000, log, type, "Failed to save setPasskeyInKeychainCount to account", v13, 2u);
+        log = v14;
+        type = v13;
+        __os_log_helper_16_0_0(v12);
+        _os_log_fault_impl(&dword_193225000, log, type, "Failed to save setPasskeyInKeychainCount to account", v12, 2u);
       }
 
-      objc_storeStrong(&v15, 0);
+      objc_storeStrong(&v14, 0);
     }
 
     else
     {
-      v12 = _AKLogPasskey();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = _AKLogPasskey();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_1_8_0(v19, [location[0] count]);
-        _os_log_debug_impl(&dword_193225000, v12, OS_LOG_TYPE_DEBUG, "Saved passkeyInKeychainCount (%lu) to account", v19, 0xCu);
+        __os_log_helper_16_0_1_8_0(v18, [location[0] count]);
+        _os_log_debug_impl(&dword_193225000, v11, OS_LOG_TYPE_DEBUG, "Saved passkeyInKeychainCount (%lu) to account", v18, 0xCu);
       }
 
-      objc_storeStrong(&v12, 0);
+      objc_storeStrong(&v11, 0);
     }
 
     if (a1[6])
@@ -537,19 +535,18 @@ void __85__AKAppleIDPasskeyAuthenticationController_appleIDPasskeysForAccount_wi
       (*(a1[6] + 16))();
     }
 
-    objc_storeStrong(v17, 0);
+    objc_storeStrong(v16, 0);
   }
 
   else if (a1[6])
   {
-    v4 = a1[6];
-    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AKAppleIDPasskeyError" code:-120019 userInfo:?];
-    (*(v4 + 16))(v4, 0);
-    MEMORY[0x1E69E5920](v5);
+    v3 = a1[6];
+    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AKAppleIDPasskeyError" code:-120019 userInfo:?];
+    (*(v3 + 16))(v3, 0);
+    MEMORY[0x1E69E5920](v4);
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllPasskeysForAccount:(id)account withCompletion:(id)completion
@@ -718,7 +715,6 @@ void __87__AKAppleIDPasskeyAuthenticationController_deleteAllPasskeysForAccount_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_createPasskeyWithContext:(id)context completion:(id)completion
@@ -914,7 +910,6 @@ void __87__AKAppleIDPasskeyAuthenticationController_deleteAllPasskeysForAccount_
   objc_storeStrong(&relyingPartyIdentifier, 0);
   objc_storeStrong(&v49, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_pushPasskeyRequestState:(id)state forController:(id)controller
@@ -1155,7 +1150,6 @@ void __87__AKAppleIDPasskeyAuthenticationController_deleteAllPasskeysForAccount_
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&v53, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_authorizationControllerForAccount:(id)account
@@ -1223,7 +1217,6 @@ void __87__AKAppleIDPasskeyAuthenticationController_deleteAllPasskeysForAccount_
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v5 = v19;
 
   return v5;

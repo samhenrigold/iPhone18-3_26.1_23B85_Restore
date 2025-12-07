@@ -1,5 +1,7 @@
 @interface DirectFileInterface
 - (BOOL)closeOutputFDWithError:(id *)error;
+- (BOOL)finalizeFileWithAccessTime:(timeval)time modTime:(timeval)modTime mode:(unsigned __int16)mode error:(id *)error;
+- (BOOL)openOutputFDWithFlags:(int)flags mode:(unsigned __int16)mode quarantineInfo:(void *)info performCachedWrites:(BOOL)writes error:(id *)error;
 - (BOOL)setCurrentOffset:(int64_t)offset error:(id *)error;
 - (BOOL)writeBuffer:(const void *)buffer length:(unint64_t)length error:(id *)error;
 - (DirectFileInterface)initWithFilePath:(id)path expectedSize:(int64_t)size resumptionState:(id)state;
@@ -10,6 +12,20 @@
 @end
 
 @implementation DirectFileInterface
+
+- (BOOL)finalizeFileWithAccessTime:(timeval)time modTime:(timeval)modTime mode:(unsigned __int16)mode error:(id *)error
+{
+  modeCopy = mode;
+  v7 = *&modTime.tv_usec;
+  tv_sec = modTime.tv_sec;
+  v9 = *&time.tv_usec;
+  v10 = time.tv_sec;
+  v12 = [(DirectFileInterface *)self outputFD:time.tv_sec];
+  path = [(DirectFileInterface *)self path];
+  sub_10000C4E0(v12, [path fileSystemRepresentation], v10, v9, tv_sec, v7, modeCopy);
+
+  return 1;
+}
 
 - (void)configureFileAndSetOwnership:(BOOL)ownership toUID:(unsigned int)d GID:(unsigned int)iD
 {
@@ -160,6 +176,60 @@
   }
 
   return 0;
+}
+
+- (BOOL)openOutputFDWithFlags:(int)flags mode:(unsigned __int16)mode quarantineInfo:(void *)info performCachedWrites:(BOOL)writes error:(id *)error
+{
+  modeCopy = mode;
+  flagsCopy = flags;
+  v12 = [(DirectFileInterface *)self path:*&flags];
+  fileSize = [(DirectFileInterface *)self fileSize];
+  if (([(DirectFileInterface *)self outputFD]& 0x80000000) == 0)
+  {
+    v14 = sub_10000126C();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      v23 = v12;
+      v24 = 2112;
+      v25 = 0;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Output FD is already open; refusing to open again for path %@. : %@", buf, 0x16u);
+    }
+
+    v16 = sub_1000015F4("[DirectFileInterface openOutputFDWithFlags:mode:quarantineInfo:performCachedWrites:error:]", 57, @"SZExtractorErrorDomain", 1, 0, 0, @"Output FD is already open refusing to open again for path %@.", v15, v12);;
+    if (error)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_9:
+    v18 = 0;
+    goto LABEL_10;
+  }
+
+  v21 = 0;
+  v19 = sub_10000D8E8([v12 fileSystemRepresentation], flagsCopy, modeCopy, writes, fileSize, &v21);
+  if ((v19 & 0x80000000) == 0)
+  {
+    [(DirectFileInterface *)self setOutputFD:v19];
+    v16 = 0;
+    v18 = 1;
+    goto LABEL_10;
+  }
+
+  v16 = v21;
+  if (!error)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_5:
+  v17 = v16;
+  v18 = 0;
+  *error = v16;
+LABEL_10:
+
+  return v18;
 }
 
 - (void)dealloc

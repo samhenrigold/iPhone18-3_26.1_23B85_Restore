@@ -45,7 +45,7 @@
     v5 = objc_opt_class();
     if (v5 == objc_opt_class())
     {
-      return CFBasicHashesAreEqual(self->_ht, *(equal + 6)) != 0;
+      return CFBasicHashesAreEqual(self->_ht, *(equal + 6), v6, v7, v8, v9) != 0;
     }
   }
 
@@ -77,7 +77,7 @@
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  CFBasicHashFindBucket(self->_ht, item, &v4);
+  CFBasicHashFindBucket(self->_ht, &v4, item);
   if (*(&v6 + 1))
   {
     return *(&v5 + 1);
@@ -98,7 +98,7 @@
 
   ht = self->_ht;
 
-  CFBasicHashSetValue(ht, item);
+  CFBasicHashSetValue(ht, item, item);
 }
 
 - (void)addObject:(id)object
@@ -110,7 +110,7 @@
 
   ht = self->_ht;
 
-  CFBasicHashAddValue(ht, object);
+  CFBasicHashAddValue(ht, object, object);
 }
 
 - (void)insertKnownAbsentItem:(const void *)item
@@ -127,7 +127,7 @@
   v11 = 0;
   v10 = 0u;
   memset(v9, 0, sizeof(v9));
-  CFBasicHashFindBucket(self->_ht, item, v9);
+  CFBasicHashFindBucket(self->_ht, v9, item);
   if (*(&v10 + 1))
   {
     item = [NSString stringWithFormat:@"*** NSHashInsertKnownAbsent(): item %p already in table", item];
@@ -139,7 +139,7 @@ LABEL_8:
 
   ht = self->_ht;
 
-  CFBasicHashAddValue(ht, item);
+  CFBasicHashAddValue(ht, item, item);
 }
 
 - (void)removeItem:(const void *)item
@@ -156,28 +156,29 @@ LABEL_8:
 
 - (id)description
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  if (!CFBasicHashGetCount(self->_ht))
+  v18[4] = *MEMORY[0x1E69E9840];
+  if (!CFBasicHashGetCount(self->_ht, a2, v2, v3, v4, v5))
   {
     return [NSString stringWithFormat:@"<NSHashTable: %p> {}", self];
   }
 
-  v8[3] = 1;
-  v3 = [objc_allocWithZone(NSMutableString) initWithCapacity:CFBasicHashGetCount(self->_ht) << 6];
-  objc_msgSend(v3, "appendFormat:", @"<NSHashTable: %p> ("), self;
+  v18[3] = 1;
+  v7 = objc_allocWithZone(NSMutableString);
+  v13 = [v7 initWithCapacity:{CFBasicHashGetCount(self->_ht, v8, v9, v10, v11, v12) << 6}];
+  objc_msgSend(v13, "appendFormat:", @"<NSHashTable: %p> ("), self;
   describe = self->_callBacks.describe;
-  v8[0] = self;
-  v8[1] = describe;
-  v8[2] = v3;
+  v18[0] = self;
+  v18[1] = describe;
+  v18[2] = v13;
   ht = self->_ht;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __33__NSClassicHashTable_description__block_invoke;
-  v7[3] = &__block_descriptor_40_e18_C64__0___qQQQQQQ_8l;
-  v7[4] = v8;
-  CFBasicHashApply(ht, v7);
-  [v3 appendString:@""]);
-  return v3;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __33__NSClassicHashTable_description__block_invoke;
+  v17[3] = &__block_descriptor_40_e18_C64__0___qQQQQQQ_8l;
+  v17[4] = v18;
+  CFBasicHashApply(ht, v17);
+  [v13 appendString:@""]);
+  return v13;
 }
 
 uint64_t __33__NSClassicHashTable_description__block_invoke(uint64_t a1, uint64_t a2)
@@ -207,56 +208,56 @@ uint64_t __33__NSClassicHashTable_description__block_invoke(uint64_t a1, uint64_
 
 - (id)allObjects
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  Count = CFBasicHashGetCount(self->_ht);
-  v4 = Count;
+  v20[5] = *MEMORY[0x1E69E9840];
+  Count = CFBasicHashGetCount(self->_ht, a2, v2, v3, v4, v5);
+  v8 = Count;
   if (Count >> 60)
   {
-    v13 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
-    v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v13 userInfo:0];
-    CFRelease(v13);
-    objc_exception_throw(v14);
+    v17 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v17 userInfo:0];
+    CFRelease(v17);
+    objc_exception_throw(v18);
   }
 
-  v16[4] = 0;
-  v5 = _CFCreateArrayStorage();
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  v16[3] = v5;
+  v20[4] = 0;
+  v9 = _CFCreateArrayStorage();
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = v9;
   ht = self->_ht;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __32__NSClassicHashTable_allObjects__block_invoke;
-  v15[3] = &unk_1E69F3E88;
-  v15[4] = v16;
-  CFBasicHashApply(ht, v15);
-  if (v5)
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __32__NSClassicHashTable_allObjects__block_invoke;
+  v19[3] = &unk_1E69F3E88;
+  v19[4] = v20;
+  CFBasicHashApply(ht, v19);
+  if (v9)
   {
-    if (v4)
+    if (v8)
     {
-      v7 = v5;
-      v8 = v4;
+      v11 = v9;
+      v12 = v8;
       do
       {
-        v9 = *v7++;
-        --v8;
+        v13 = *v11++;
+        --v12;
       }
 
-      while (v8);
+      while (v12);
     }
 
-    v10 = [objc_alloc(MEMORY[0x1E695DEC8]) _initByAdoptingBuffer:v5 count:v4 size:v4];
+    v14 = [objc_alloc(MEMORY[0x1E695DEC8]) _initByAdoptingBuffer:v9 count:v8 size:v8];
   }
 
   else
   {
-    v10 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:0 count:v4];
+    v14 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:0 count:v8];
   }
 
-  v11 = v10;
-  _Block_object_dispose(v16, 8);
-  return v11;
+  v15 = v14;
+  _Block_object_dispose(v20, 8);
+  return v15;
 }
 
 uint64_t __32__NSClassicHashTable_allObjects__block_invoke(uint64_t a1, uint64_t a2)
@@ -271,24 +272,24 @@ uint64_t __32__NSClassicHashTable_allObjects__block_invoke(uint64_t a1, uint64_t
 
 - (void)getKeys:(const void *)keys count:(unint64_t *)count
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
-  v8[1] = v8;
-  v8[2] = 0x2020000000;
-  v8[3] = keys;
+  v13[4] = *MEMORY[0x1E69E9840];
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v13[3] = keys;
   ht = self->_ht;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __36__NSClassicHashTable_getKeys_count___block_invoke;
-  v7[3] = &unk_1E69F3E88;
-  v7[4] = v8;
-  CFBasicHashApply(ht, v7);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __36__NSClassicHashTable_getKeys_count___block_invoke;
+  v12[3] = &unk_1E69F3E88;
+  v12[4] = v13;
+  CFBasicHashApply(ht, v12);
   if (count)
   {
-    *count = CFBasicHashGetCount(self->_ht);
+    *count = CFBasicHashGetCount(self->_ht, v7, v8, v9, v10, v11);
   }
 
-  _Block_object_dispose(v8, 8);
+  _Block_object_dispose(v13, 8);
 }
 
 uint64_t __36__NSClassicHashTable_getKeys_count___block_invoke(uint64_t a1, uint64_t a2)

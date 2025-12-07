@@ -14,6 +14,7 @@
 - (unint64_t)machAbsoluteNanosecondsToTicks:(unint64_t)ticks;
 - (unint64_t)machAbsoluteTicksToNanoseconds:(unint64_t)nanoseconds;
 - (void)_changedClockMaster;
+- (void)_updateLockState:(int)state;
 - (void)_updateTimeSyncTime:(unint64_t)time timeSyncInterval:(unint64_t)interval domainTime:(unint64_t)domainTime domainInterval:(unint64_t)domainInterval;
 @end
 
@@ -22,8 +23,8 @@
 - (TSXTranslationClock)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSXTranslationClock init]"];
-  [v3 raise:*MEMORY[0x277CBE660] format:{@"Do not call %@", v4}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -95,8 +96,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *domainTimeCopy++ = [(TSXTranslationClock *)self machAbsoluteTicksToNanoseconds:v9];
+          ++timeCopy;
+          *domainTimeCopy++ = [(TSXTranslationClock *)self machAbsoluteTicksToNanoseconds:?];
           --countCopy;
         }
 
@@ -109,14 +110,14 @@
     else
     {
       [TSXTranslationClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSXTranslationClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -133,8 +134,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *absoluteTimeCopy++ = [(TSXTranslationClock *)self machAbsoluteNanosecondsToTicks:v9];
+          ++timeCopy;
+          *absoluteTimeCopy++ = [(TSXTranslationClock *)self machAbsoluteNanosecondsToTicks:?];
           --countCopy;
         }
 
@@ -147,14 +148,14 @@
     else
     {
       [TSXTranslationClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSXTranslationClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -244,8 +245,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *domainTimeCopy++ = [(TSXTranslationClock *)self convertFromTimeSyncToDomainTime:v9];
+          ++timeCopy;
+          *domainTimeCopy++ = [(TSXTranslationClock *)self convertFromTimeSyncToDomainTime:?];
           --countCopy;
         }
 
@@ -258,14 +259,14 @@
     else
     {
       [TSXTranslationClock convertFromTimeSyncTime:toDomainTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSXTranslationClock convertFromTimeSyncTime:toDomainTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -282,8 +283,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *syncTimeCopy++ = [(TSXTranslationClock *)self convertFromDomainToTimeSyncTime:v9];
+          ++timeCopy;
+          *syncTimeCopy++ = [(TSXTranslationClock *)self convertFromDomainToTimeSyncTime:?];
           --countCopy;
         }
 
@@ -296,14 +297,14 @@
     else
     {
       [TSXTranslationClock convertFromDomainTime:toTimeSyncTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSXTranslationClock convertFromDomainTime:toTimeSyncTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -385,10 +386,43 @@
   return validIndex < 8;
 }
 
+- (void)_updateLockState:(int)state
+{
+  v14 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    clockIdentifier = [(TSXTranslationClock *)self clockIdentifier];
+    v12 = 1024;
+    stateCopy = state;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSXTranslationClock(0x%016llx) updateLockState:%d", buf, 0x12u);
+  }
+
+  propertyUpdateQueue = [(TSXTranslationClock *)self propertyUpdateQueue];
+  v6 = propertyUpdateQueue == 0;
+
+  if (v6)
+  {
+    [(TSXTranslationClock *)self setLockState:?];
+  }
+
+  else
+  {
+    propertyUpdateQueue2 = [(TSXTranslationClock *)self propertyUpdateQueue];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __40__TSXTranslationClock__updateLockState___block_invoke;
+    v8[3] = &unk_279DBE030;
+    v8[4] = self;
+    stateCopy2 = state;
+    dispatch_async(propertyUpdateQueue2, v8);
+  }
+}
+
 void __40__TSXTranslationClock__updateLockState___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setLockState:*(a1 + 40)];
+  [*(a1 + 32) setLockState:?];
 
   objc_autoreleasePoolPop(v2);
 }
@@ -409,263 +443,244 @@ void __40__TSXTranslationClock__updateLockState___block_invoke(uint64_t a1)
 
 - (void)_changedClockMaster
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 134217984;
+    v3 = 134217984;
     clockIdentifier = [(TSXTranslationClock *)self clockIdentifier];
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSXTranslationClock(0x%016llx) changedClockMaster", &v4, 0xCu);
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSXTranslationClock(0x%016llx) changedClockMaster", &v3, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_updateLock);
   self->_validIndex = -1;
   os_unfair_lock_unlock(&self->_updateLock);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncToDomainTime:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncToDomainTime:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainToTimeSyncTime:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainToTimeSyncTime:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

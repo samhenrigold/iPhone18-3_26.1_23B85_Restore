@@ -677,20 +677,20 @@ void __95__GKLocalPlayer_AuthenticationExtras__authenticationShowSignInUIForLoca
   }
 }
 
-uint64_t __53__GKLocalPlayer_Friends__sendFriendInviteTo_groupId___block_invoke(uint64_t result, uint64_t a2, void *a3, uint64_t a4)
+void *__53__GKLocalPlayer_Friends__sendFriendInviteTo_groupId___block_invoke(void *result, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a2 && !a4)
   {
     v5 = result;
-    v6 = *(result + 32);
+    v6 = result[4];
     v7 = a3;
     [v6 setObject:a2 forKeyedSubscript:@"friendCode"];
-    [*(v5 + 32) setObject:v7 forKeyedSubscript:@"friendUrl"];
+    [v5[4] setObject:v7 forKeyedSubscript:@"friendUrl"];
 
-    v9 = *(v5 + 32);
-    v8 = *(v5 + 40);
-    v10 = *(v5 + 48);
-    v11 = *(v5 + 56);
+    v9 = v5[4];
+    v8 = v5[5];
+    v10 = v5[6];
+    v11 = v5[7];
 
     return [v8 openMessagesWith:v9 recipient:v10 groupId:v11];
   }
@@ -726,6 +726,27 @@ void __52__GKLocalPlayer_Photos__deleteMonogramsWithHandler___block_invoke_4_col
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&dword_24DE53000, a2, OS_LOG_TYPE_ERROR, "Error deleting monogram image for local player %@", &v2, 0xCu);
+}
+
+void __87__GKLocalPlayer_AuthenticationExtras__showOnboardingUIFromViewController_signInOrigin___block_invoke_5_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_10(&dword_24DE53000, a2, a3, "showOnboardingUIFromViewController: Failed to set up remote for Onboarding view controller due to error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __106__GKLocalPlayer_AuthenticationExtras__authenticationShowGreenBuddyUIForLocalPlayer_withCompletionHandler___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_10(&dword_24DE53000, a2, a3, "Failed to set up remote for Sign In ViewController due to error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __95__GKLocalPlayer_AuthenticationExtras__authenticationShowSignInUIForLocalPlayer_origin_dismiss___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_10(&dword_24DE53000, a2, a3, "authenticationShowSignInUIForLocalPlayer - Failed to set up remote for Sign In ViewController.Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -26,9 +26,11 @@
 
 uint64_t __42__CFXEffectFactoryDelegate_sharedInstance__block_invoke()
 {
-  sharedInstance_sInstance = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sInstance;
+  sharedInstance_sInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)effectFactory:(id)factory effectIDsAvailableForType:(int)type completion:(id)completion

@@ -35,7 +35,7 @@
     v12 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_masque_connection_copy_description";
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null masqueConnection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;

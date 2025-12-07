@@ -6,9 +6,9 @@
 
 - (WFObjectType)wfType
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [WFObjectType typeWithClass:v0];
+  return [WFObjectType typeWithClass:v1];
 }
 
 @end

@@ -569,7 +569,7 @@ LABEL_45:
     v17 = +[NSXPCConnection currentConnection];
     processIdentifier = [v17 processIdentifier];
     v19 = byte_100590548;
-    v20 = sub_100097574();
+    v20 = sub_100097574(processIdentifier);
     [v16 reportIssueForError:errorCopy type:type subtype:subtypeCopy context:contextCopy processIdentifier:processIdentifier walkboutStatus:v19 triggerForIDSIdentifiers:v20];
   }
 }
@@ -601,7 +601,7 @@ LABEL_45:
     v14 = +[NSXPCConnection currentConnection];
     processIdentifier = [v14 processIdentifier];
     v16 = byte_100590548;
-    v17 = sub_100097574();
+    v17 = sub_100097574(processIdentifier);
     [v13 reportIssueForError:errorCopy type:type context:contextCopy processIdentifier:processIdentifier walkboutStatus:v16 triggerForIDSIdentifiers:v17];
   }
 }
@@ -764,7 +764,7 @@ LABEL_45:
         v13 = 1;
         self->_waitingForSpeechRecognition = 1;
         self->_usingLocalSpeechRecognizer = 1;
-        v53 = CoreEmbeddedSpeechRecognizerTaskDictation;
+        v54 = CoreEmbeddedSpeechRecognizerTaskDictation;
         taskHint = [optionsCopy taskHint];
         if (taskHint <= 2)
         {
@@ -807,7 +807,7 @@ LABEL_24:
 
               v15 = 0;
               v13 = 0;
-              v53 = @"DictationCC";
+              v54 = @"DictationCC";
 LABEL_25:
               offlineLanguage = [optionsCopy offlineLanguage];
               v24 = offlineLanguage;
@@ -821,67 +821,68 @@ LABEL_25:
                 v25 = languageCopy;
               }
 
-              v52 = v25;
+              v53 = v25;
 
               modelOverrideURL = [optionsCopy modelOverrideURL];
               fieldLabel = [(AFDictationOptions *)self->_dictationOptions fieldLabel];
-              v49 = AFIsDictationRequestSpeechApiRequest();
+              v50 = AFIsDictationRequestSpeechApiRequest();
 
               interactionIdentifier = [optionsCopy interactionIdentifier];
               applicationName = [(AFDictationOptions *)self->_dictationOptions applicationName];
               v28 = [(ADDictationConnection *)self _localSpeechRecognizerSupportingBackground:v15];
               if (v28)
               {
-                v48 = [CESRSpeechParameters alloc];
+                v49 = [CESRSpeechParameters alloc];
                 originalAudioFileURL = [optionsCopy originalAudioFileURL];
                 detectUtterances = [optionsCopy detectUtterances];
-                v45 = narrowbandCopy;
-                v29 = sub_100214D74();
+                v47 = detectUtterances;
+                v46 = narrowbandCopy;
+                v30 = sub_100214D74(detectUtterances);
                 farField = [optionsCopy farField];
                 [optionsCopy maximumRecognitionDuration];
-                v32 = v31;
+                v33 = v32;
                 emojiRecognition = [optionsCopy emojiRecognition];
-                BYTE1(v44) = [optionsCopy autoPunctuation];
-                LOBYTE(v44) = emojiRecognition;
-                LOWORD(v43) = 0;
-                LOBYTE(v42) = v49;
-                HIBYTE(v41) = 0;
-                *(&v41 + 5) = 0;
-                BYTE4(v41) = v13;
-                BYTE3(v41) = farField;
-                BYTE2(v41) = v29;
-                BYTE1(v41) = detectUtterances;
-                LOBYTE(v41) = v45;
-                v34 = modelOverrideURL;
-                v35 = interactionIdentifier;
+                BYTE1(v45) = [optionsCopy autoPunctuation];
+                LOBYTE(v45) = emojiRecognition;
+                LOWORD(v44) = 0;
+                LOBYTE(v43) = v50;
+                HIBYTE(v42) = 0;
+                *(&v42 + 5) = 0;
+                BYTE4(v42) = v13;
+                BYTE3(v42) = farField;
+                BYTE2(v42) = v30;
+                BYTE1(v42) = v47;
+                LOBYTE(v42) = v46;
+                v35 = modelOverrideURL;
                 v36 = interactionIdentifier;
-                v37 = applicationName;
-                v38 = [v48 initWithLanguage:v52 requestIdentifier:0 dictationUIInteractionIdentifier:v36 task:v53 loggingContext:0 applicationName:applicationName profile:v32 overrides:0.0 modelOverrideURL:0 originalAudioFileURL:0 codec:modelOverrideURL narrowband:originalAudioFileURL detectUtterances:0 censorSpeech:v41 farField:v42 secureOfflineOnly:0 shouldStoreAudioOnDevice:0 continuousListening:0 shouldHandleCapitalization:v43 isSpeechAPIRequest:0 maximumRecognitionDuration:v44 endpointStart:? inputOrigin:? location:? jitGrammar:? deliverEagerPackage:? disableDeliveringAsrFeatures:? sharedUserIds:? enableEmojiRecognition:? enableAutoPunctuation:?];
+                v37 = interactionIdentifier;
+                v38 = applicationName;
+                v39 = [v49 initWithLanguage:v53 requestIdentifier:0 dictationUIInteractionIdentifier:v37 task:v54 loggingContext:0 applicationName:applicationName profile:v33 overrides:0.0 modelOverrideURL:0 originalAudioFileURL:0 codec:modelOverrideURL narrowband:originalAudioFileURL detectUtterances:0 censorSpeech:v42 farField:v43 secureOfflineOnly:0 shouldStoreAudioOnDevice:0 continuousListening:0 shouldHandleCapitalization:v44 isSpeechAPIRequest:0 maximumRecognitionDuration:v45 endpointStart:? inputOrigin:? location:? jitGrammar:? deliverEagerPackage:? disableDeliveringAsrFeatures:? sharedUserIds:? enableEmojiRecognition:? enableAutoPunctuation:?];
 
-                v54[0] = _NSConcreteStackBlock;
-                v54[1] = 3221225472;
-                v54[2] = sub_10032DB98;
-                v54[3] = &unk_10051C1E8;
-                v54[4] = self;
-                [v28 startSpeechRecognitionWithParameters:v38 didStartHandler:v54];
+                v55[0] = _NSConcreteStackBlock;
+                v55[1] = 3221225472;
+                v55[2] = sub_10032DB98;
+                v55[3] = &unk_10051C1E8;
+                v55[4] = self;
+                [v28 startSpeechRecognitionWithParameters:v39 didStartHandler:v55];
               }
 
               else
               {
-                v35 = interactionIdentifier;
-                v34 = modelOverrideURL;
-                v39 = AFSiriLogContextDaemon;
+                v36 = interactionIdentifier;
+                v35 = modelOverrideURL;
+                v40 = AFSiriLogContextDaemon;
                 if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136315138;
-                  v56 = "[ADDictationConnection startRecordedAudioDictationWithOptions:language:narrowband:forceSampling:]";
-                  _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%s Could not make recognizer", buf, 0xCu);
+                  v57 = "[ADDictationConnection startRecordedAudioDictationWithOptions:language:narrowband:forceSampling:]";
+                  _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%s Could not make recognizer", buf, 0xCu);
                 }
 
                 serviceDelegate = self->_serviceDelegate;
-                v38 = [NSError errorWithDomain:kAFAssistantErrorDomain code:601 userInfo:0];
-                [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v38];
-                v37 = applicationName;
+                v39 = [NSError errorWithDomain:kAFAssistantErrorDomain code:601 userInfo:0];
+                [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v39];
+                v38 = applicationName;
               }
 
               goto LABEL_34;
@@ -890,7 +891,7 @@ LABEL_25:
           }
         }
 
-        v53 = v22;
+        v54 = v22;
         goto LABEL_25;
       }
 
@@ -926,7 +927,7 @@ LABEL_15:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v56 = "[ADDictationConnection startRecordedAudioDictationWithOptions:language:narrowband:forceSampling:]";
+    v57 = "[ADDictationConnection startRecordedAudioDictationWithOptions:language:narrowband:forceSampling:]";
     _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s Called from outside of an XPC connection", buf, 0xCu);
   }
 
@@ -1091,11 +1092,11 @@ LABEL_34:
   optionsCopy = options;
   v4 = +[NSXPCConnection currentConnection];
   audioFileHandle = [optionsCopy audioFileHandle];
-  if (audioFileHandle && (v6 = audioFileHandle, v7 = sub_10032E474(v4), v6, !v7))
+  if (audioFileHandle && (v7 = audioFileHandle, v8 = sub_10032E474(v4, v6), v7, !v8))
   {
     serviceDelegate = self->_serviceDelegate;
-    v8 = [AFError errorWithCode:1700];
-    [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v8];
+    v9 = [AFError errorWithCode:1700];
+    [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v9];
   }
 
   else
@@ -1106,9 +1107,9 @@ LABEL_34:
       goto LABEL_7;
     }
 
-    sub_10032E4D4(optionsCopy);
-    v8 = +[ADCommandCenter sharedCommandCenter];
-    [v8 updateSpeechOptions:optionsCopy forDelegate:self];
+    sub_10032E4D4(optionsCopy, v4);
+    v9 = +[ADCommandCenter sharedCommandCenter];
+    [v9 updateSpeechOptions:optionsCopy forDelegate:self];
   }
 
 LABEL_7:
@@ -1118,9 +1119,9 @@ LABEL_7:
 {
   optionsCopy = options;
   v5 = @"Siri Event";
-  v18[0] = @"Siri Event";
-  v18[1] = @"stopReason";
-  v19[0] = @"Dictation stop";
+  v19[0] = @"Siri Event";
+  v19[1] = @"stopReason";
+  v20[0] = @"Dictation stop";
   stopContext = [optionsCopy stopContext];
   v7 = [stopContext objectForKeyedSubscript:@"stopDictation"];
   v8 = v7;
@@ -1130,17 +1131,17 @@ LABEL_7:
     v9 = v7;
   }
 
-  v19[1] = v9;
-  v10 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v20[1] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
   sub_100215208(v10);
 
   v11 = +[NSXPCConnection currentConnection];
   audioFileHandle = [optionsCopy audioFileHandle];
-  if (audioFileHandle && (v13 = audioFileHandle, v14 = sub_10032E474(v11), v13, !v14))
+  if (audioFileHandle && (v14 = audioFileHandle, v15 = sub_10032E474(v11, v13), v14, !v15))
   {
     serviceDelegate = self->_serviceDelegate;
-    v17 = [AFError errorWithCode:1700];
-    [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v17];
+    v18 = [AFError errorWithCode:1700];
+    [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v18];
   }
 
   else
@@ -1154,9 +1155,9 @@ LABEL_7:
 
     else
     {
-      sub_10032E4D4(optionsCopy);
-      v15 = +[ADCommandCenter sharedCommandCenter];
-      [v15 stopSpeechWithOptions:optionsCopy forDelegate:self];
+      sub_10032E4D4(optionsCopy, v11);
+      v16 = +[ADCommandCenter sharedCommandCenter];
+      [v16 stopSpeechWithOptions:optionsCopy forDelegate:self];
 
       [(ADDictationSessionTracker *)self->_sessionTracker stopSessionForReason:@"dictation is stopping"];
       if (!self->_shouldFinalizeRequestOnNextFinalResult && !self->_didFinalizeUtteranceDetectionRequest)
@@ -1202,86 +1203,86 @@ LABEL_7:
   optionsCopy = options;
   speechOptionsCopy = speechOptions;
   audioFileHandle = [speechOptionsCopy audioFileHandle];
-  if (audioFileHandle && (v12 = audioFileHandle, +[NSXPCConnection currentConnection], v13 = objc_claimAutoreleasedReturnValue(), v14 = sub_10032E474(v13), v13, v12, !v14))
+  if (audioFileHandle && (v12 = audioFileHandle, +[NSXPCConnection currentConnection], v13 = objc_claimAutoreleasedReturnValue(), v15 = sub_10032E474(v13, v14), v13, v12, !v15))
   {
     serviceDelegate = self->_serviceDelegate;
-    v23 = 1700;
+    v24 = 1700;
   }
 
   else
   {
-    v15 = +[AFPreferences sharedPreferences];
-    dictationIsEnabled = [v15 dictationIsEnabled];
+    v16 = +[AFPreferences sharedPreferences];
+    dictationIsEnabled = [v16 dictationIsEnabled];
 
     if (dictationIsEnabled)
     {
-      v17 = +[NSXPCConnection currentConnection];
-      if (!AFDictationRequiresRequestValidation() || (sub_10032D974(v17, 0) & 1) != 0 || (AFIsDictationRequestFromAppleClient() & 1) != 0)
+      v18 = +[NSXPCConnection currentConnection];
+      if (!AFDictationRequiresRequestValidation() || (sub_10032D974(v18, 0) & 1) != 0 || (AFIsDictationRequestFromAppleClient() & 1) != 0)
       {
-        v18 = [(ADDictationConnection *)self _updateDictationOptionsForOnDeviceDictation:optionsCopy language:codeCopy];
-        if (!v18)
+        v19 = [(ADDictationConnection *)self _updateDictationOptionsForOnDeviceDictation:optionsCopy language:codeCopy];
+        if (!v19)
         {
           applicationName = [optionsCopy applicationName];
           if (codeCopy)
           {
-            v25 = codeCopy;
+            v26 = codeCopy;
           }
 
           else
           {
-            v25 = &stru_10051F508;
+            v26 = &stru_10051F508;
           }
 
-          v29 = @"language-code";
-          v30 = v25;
-          v26 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-          [AFDictationDiscoverabilitySignalsStreamManager sendDictationRequestStartedEventWithBundleIdentifier:applicationName context:0 userInfo:v26];
+          v30 = @"language-code";
+          v31 = v26;
+          v27 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          [AFDictationDiscoverabilitySignalsStreamManager sendDictationRequestStartedEventWithBundleIdentifier:applicationName context:0 userInfo:v27];
 
-          sub_10032E4D4(speechOptionsCopy);
-          [(ADDictationConnection *)self _startDictationWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy xpcconnection:v17];
-          v19 = 0;
+          sub_10032E4D4(speechOptionsCopy, v18);
+          [(ADDictationConnection *)self _startDictationWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy xpcconnection:v18];
+          v20 = 0;
           goto LABEL_19;
         }
 
-        v19 = v18;
-        v20 = self->_serviceDelegate;
+        v20 = v19;
+        v21 = self->_serviceDelegate;
       }
 
       else
       {
-        v27 = AFSiriLogContextDaemon;
+        v28 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v32 = "[ADDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
-          _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%s Dictation request validation failed", buf, 0xCu);
+          v33 = "[ADDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
+          _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s Dictation request validation failed", buf, 0xCu);
         }
 
-        v28 = self->_serviceDelegate;
-        v19 = [AFError errorWithCode:1700];
-        v20 = v28;
+        v29 = self->_serviceDelegate;
+        v20 = [AFError errorWithCode:1700];
+        v21 = v29;
       }
 
-      [(AFDictationServiceDelegate *)v20 speechRecognitionDidFinishWithError:v19];
+      [(AFDictationServiceDelegate *)v21 speechRecognitionDidFinishWithError:v20];
 LABEL_19:
 
       goto LABEL_20;
     }
 
-    v21 = AFSiriLogContextDaemon;
+    v22 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v32 = "[ADDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
-      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%s Dictation requested even though it is disabled", buf, 0xCu);
+      v33 = "[ADDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s Dictation requested even though it is disabled", buf, 0xCu);
     }
 
     serviceDelegate = self->_serviceDelegate;
-    v23 = 34;
+    v24 = 34;
   }
 
-  v17 = [AFError errorWithCode:v23];
-  [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v17];
+  v18 = [AFError errorWithCode:v24];
+  [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v18];
 LABEL_20:
 }
 
@@ -1296,48 +1297,48 @@ LABEL_20:
   {
     v15 = audioFileHandle;
     v16 = +[NSXPCConnection currentConnection];
-    v17 = sub_10032E474(v16);
+    v18 = sub_10032E474(v16, v17);
 
-    if (!v17)
+    if (!v18)
     {
       serviceDelegate = self->_serviceDelegate;
-      v24 = 1700;
+      v25 = 1700;
 LABEL_9:
-      v25 = [AFError errorWithCode:v24];
-      [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v25];
+      v26 = [AFError errorWithCode:v25];
+      [(AFDictationServiceDelegate *)serviceDelegate speechRecognitionDidFinishWithError:v26];
 
       replyCopy[2](replyCopy, 0);
       goto LABEL_10;
     }
   }
 
-  v18 = +[AFPreferences sharedPreferences];
-  dictationIsEnabled = [v18 dictationIsEnabled];
+  v19 = +[AFPreferences sharedPreferences];
+  dictationIsEnabled = [v19 dictationIsEnabled];
 
   if ((dictationIsEnabled & 1) == 0)
   {
-    v22 = AFSiriLogContextDaemon;
+    v23 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v29 = "[ADDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:reply:]";
-      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s Dictation requested even though it is disabled", buf, 0xCu);
+      v30 = "[ADDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:reply:]";
+      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%s Dictation requested even though it is disabled", buf, 0xCu);
     }
 
     serviceDelegate = self->_serviceDelegate;
-    v24 = 34;
+    v25 = 34;
     goto LABEL_9;
   }
 
-  v20 = [(ADDictationConnection *)self _dictationWillStartWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy xpcconnection:0];
-  v21 = +[ADCommandCenter sharedCommandCenter];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10032EF54;
-  v26[3] = &unk_10051C1C0;
-  v26[4] = self;
-  v27 = replyCopy;
-  [v21 startRecordingForPendingDictationWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy sessionUUID:v20 delegate:self completion:v26];
+  v21 = [(ADDictationConnection *)self _dictationWillStartWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy xpcconnection:0];
+  v22 = +[ADCommandCenter sharedCommandCenter];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10032EF54;
+  v27[3] = &unk_10051C1C0;
+  v27[4] = self;
+  v28 = replyCopy;
+  [v22 startRecordingForPendingDictationWithLanguageCode:codeCopy options:optionsCopy speechOptions:speechOptionsCopy sessionUUID:v21 delegate:self completion:v27];
 
 LABEL_10:
 }

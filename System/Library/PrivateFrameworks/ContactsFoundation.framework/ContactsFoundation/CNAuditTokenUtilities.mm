@@ -40,7 +40,7 @@ uint64_t __31__CNAuditTokenUtilities_os_log__block_invoke()
     goto LABEL_16;
   }
 
-  [tokenCopy audit_token];
+  objc_msgSend_audit_token(tokenCopy);
   v6 = [self _bundleIdentifierFromSecTaskForAuditToken:v15];
   if (off_1EF440728(&__block_literal_global_122, v6))
   {
@@ -55,7 +55,7 @@ uint64_t __31__CNAuditTokenUtilities_os_log__block_invoke()
 
   else
   {
-    [v5 audit_token];
+    objc_msgSend_audit_token(v5);
     v10 = [self _bundleIdentifierFromInfoPlistForAuditToken:v15];
 
     v11 = off_1EF440728(&__block_literal_global_122, v10);
@@ -91,10 +91,10 @@ LABEL_16:
 
 + (id)processNameForAuditToken:(id)token
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (token)
   {
-    [token audit_token];
+    objc_msgSend_audit_token(token, a2);
     v4 = audit_token_to_pid(&atoken);
     LOBYTE(atoken.val[0]) = 0;
     if (proc_pidpath(v4, &atoken, 0x800u) > 0)
@@ -123,7 +123,6 @@ LABEL_16:
 
   v7 = 0;
 LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -135,7 +134,7 @@ LABEL_11:
     return 0;
   }
 
-  [token audit_token];
+  objc_msgSend_audit_token(token, a2);
   return audit_token_to_pid(&v4);
 }
 
@@ -170,7 +169,7 @@ LABEL_11:
   os_log2 = [self os_log];
   if (os_log_type_enabled(os_log2, OS_LOG_TYPE_ERROR))
   {
-    [CNAuditTokenUtilities _bundleIdentifierFromSecTaskForAuditToken:?];
+    +[CNAuditTokenUtilities _bundleIdentifierFromSecTaskForAuditToken:];
   }
 
   v11 = SecTaskCopyValueForEntitlement(v6, @"application-identifier", &v21);
@@ -218,12 +217,10 @@ LABEL_29:
 
 + (id)_bundleIdentifierFromInfoPlistForAuditToken:(id *)token
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = *token->var0;
-  v5 = *&token->var0[4];
-  v6 = audit_token_to_pid(v19);
-  v7 = proc_pidpath(v6, v19, 0x1000u);
-  if (v7 <= 0)
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = audit_token_to_pid(v16);
+  v5 = proc_pidpath(v4, v16, 0x1000u);
+  if (v5 <= 0)
   {
     os_log = [self os_log];
     if (os_log_type_enabled(os_log, OS_LOG_TYPE_ERROR))
@@ -234,7 +231,7 @@ LABEL_29:
     goto LABEL_8;
   }
 
-  os_log = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v19 length:v7 encoding:4];
+  os_log = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v16 length:v5 encoding:4];
   if (access([os_log UTF8String], 4))
   {
     os_log2 = [self os_log];
@@ -246,46 +243,44 @@ LABEL_29:
     goto LABEL_8;
   }
 
-  v13 = CFURLCreateWithFileSystemPath(0, os_log, kCFURLPOSIXPathStyle, 0);
-  if (!v13)
+  v10 = CFURLCreateWithFileSystemPath(0, os_log, kCFURLPOSIXPathStyle, 0);
+  if (!v10)
   {
 LABEL_8:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_9;
   }
 
-  v14 = v13;
-  v15 = _CFBundleCopyBundleURLForExecutableURL();
-  if (v15)
+  v11 = v10;
+  v12 = _CFBundleCopyBundleURLForExecutableURL();
+  if (v12)
   {
-    v16 = v15;
-    v17 = CFBundleCreate(0, v15);
-    if (v17)
+    v13 = v12;
+    v14 = CFBundleCreate(0, v12);
+    if (v14)
     {
-      v18 = v17;
-      v10 = CFBundleGetIdentifier(v17);
-      CFRelease(v18);
+      v15 = v14;
+      v8 = CFBundleGetIdentifier(v14);
+      CFRelease(v15);
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
 
-    CFRelease(v16);
+    CFRelease(v13);
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  CFRelease(v14);
+  CFRelease(v11);
 LABEL_9:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v8;
 }
 
 + (void)bundleIdentifierForAuditToken:.cold.1()
@@ -297,20 +292,18 @@ LABEL_9:
 
 + (void)bundleIdentifierForAuditToken:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Looked up bundle ID %@ from audit token using Info.plist.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Looked up bundle ID %@ from audit token using Info.plist.", &v2, 0xCu);
 }
 
 + (void)bundleIdentifierForAuditToken:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Looked up bundle ID %@ from audit token using SecTask.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Looked up bundle ID %@ from audit token using SecTask.", &v2, 0xCu);
 }
 
 + (void)processNameForAuditToken:.cold.1()
@@ -318,15 +311,6 @@ LABEL_9:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)_bundleIdentifierFromSecTaskForAuditToken:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_bundleIdentifierFromSecTaskForAuditToken:.cold.2()
@@ -341,22 +325,6 @@ LABEL_9:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)_bundleIdentifierFromInfoPlistForAuditToken:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_bundleIdentifierFromInfoPlistForAuditToken:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -5,30 +5,30 @@
 
 id __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceThreshold___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CCAB68] string];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         [v11 confidence];
         v13 = v12;
         v14 = [v5 count];
@@ -48,7 +48,7 @@ id __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceT
         v9 = v9 + v13 / v14;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -69,8 +69,6 @@ id __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceT
   v19 = [v5 lastObject];
   [v18 setHasSpaceAfter:{objc_msgSend(v19, "hasSpaceAfter")}];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
@@ -88,30 +86,30 @@ id __83___LTSpeechRecognitionSausage_Daemon__initWithRecognition_wordConfidenceT
 
 id __76___LTSpeechRecognitionSausage_Osprey__initWithOspreySausage_choices_locale___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CCAB68] string];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = [v2 tokens];
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         v11 = [v10 confidence];
         v12 = [v2 tokens];
         v13 = [v12 count];
@@ -127,7 +125,7 @@ id __76___LTSpeechRecognitionSausage_Osprey__initWithOspreySausage_choices_local
         v8 = v8 + (v11 / v13);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -148,8 +146,6 @@ id __76___LTSpeechRecognitionSausage_Osprey__initWithOspreySausage_choices_local
   v18 = [v2 tokens];
   v19 = [v18 lastObject];
   [v17 setHasSpaceAfter:{objc_msgSend(v19, "add_space_after")}];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -8,6 +8,8 @@
 - (__CFArray)copyHotspotsArray:(id)array;
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
+- (id)copyDieTempSensorIndexSetForFourthChar:(char)char sensors:(__CFArray *)sensors filteredOnly:(BOOL)only;
+- (id)findComponent:(int)component;
 - (id)getGridX;
 - (id)getGridY;
 - (id)initProduct:(id)product;
@@ -16,11 +18,13 @@
 - (int)compute2DGridTemps;
 - (int)computeMaxCGTemp;
 - (int)dieTempFilteredMaxAverage;
+- (int)getCurrentMaxLIForComponent:(unsigned int)component;
 - (int)getHighestSkinTemp;
 - (int)maxControlEffort;
 - (int)sensorIndexFromList:(__CFArray *)list fourCharCode:(__CFString *)code;
 - (unint64_t)getMaxSensorValue;
 - (unint64_t)getPotentialForcedThermalLevel:(unint64_t)level;
+- (void)applyAlternateHotSpotTargets:(BOOL)targets;
 - (void)clearControlEffortOverrides;
 - (void)clearLoadingIndexOverrides;
 - (void)createConnectionToCT;
@@ -33,6 +37,7 @@
 - (void)handleMCSThermalPressure;
 - (void)logTrapEntryForAC:(id)c;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)overrideLifetimeServoParam:(id)param value:(int)value;
 - (void)probeAllSupervisorControlLoadingIndex;
 - (void)putDeviceInLowTempSimulationMode:(id)mode;
 - (void)putDeviceInThermalSimulationMode:(id)mode;
@@ -49,9 +54,15 @@
 - (void)tryTakeAction;
 - (void)updateAllThermalLoad:(BOOL)load;
 - (void)updateContextualClamp;
+- (void)updateControlEffortFor:(int)for :(unsigned int)a4;
 - (void)updateDisplayDriver:(BOOL)driver;
+- (void)updateHotSpotPIDTargetFor:(int)for :(unsigned int)a4;
 - (void)updateLifetimeServo;
+- (void)updateMaxLIFor:(int)for :(unsigned int)a4;
 - (void)updatePowerzoneTelemetry;
+- (void)updateSleepTargetFor:(int)for :(unsigned int)a4;
+- (void)updateSystemPowerState:(BOOL)state;
+- (void)updateTrapTargetFor:(int)for :(unsigned int)a4;
 - (void)writeAllCornerTemperatures:(int)temperatures;
 @end
 
@@ -406,7 +417,7 @@ LABEL_9:
   v9 = sub_100031D48(v8, @"noDisplay");
   v10 = [product getConfigurationFor:@"powerZoneParams"];
   v11 = sub_100031D48(v8, @"usesSMCSensorExchange");
-  byte_1000ABC38 = v11;
+  byte_1000ABC38 = v11 != 0;
   if (v11)
   {
     [+[SensorExchangeHelper sharedInstance](SensorExchangeHelper registerCLTMSensorIndex:"registerCLTMSensorIndex:forSMCKey:atSMCIndex:" forSMCKey:10 atSMCIndex:@"zETM", 10];
@@ -419,7 +430,7 @@ LABEL_9:
   }
 
   v13 = sub_100031D48(v8, @"usesACSK");
-  byte_1000AB2F9 = v13;
+  byte_1000AB2F9 = v13 != 0;
   if (v13)
   {
     v14 = qword_1000AB718;
@@ -431,7 +442,7 @@ LABEL_9:
   }
 
   v15 = sub_100031D48(v8, @"usesKeyboardHelper");
-  byte_1000AB2FB = v15;
+  byte_1000AB2FB = v15 != 0;
   if (v15)
   {
     v16 = sub_100031D48(v8, @"needsCLPCClient");
@@ -480,8 +491,8 @@ LABEL_9:
 
   if (!sub_100031D48(v8, @"skipMitigationController"))
   {
-    v4[44] = sub_100031D48(v8, @"needsFastDieControl");
-    qword_1000ABCB0 = -[MitigationController initForFastLoop:noDisplay:powerSaveParams:powerZoneParams:]([MitigationController alloc], "initForFastLoop:noDisplay:powerSaveParams:powerZoneParams:", v4[44], v9, [product getConfigurationFor:@"powerSaveParams"], v10);
+    v4[44] = sub_100031D48(v8, @"needsFastDieControl") != 0;
+    qword_1000ABCB0 = -[MitigationController initForFastLoop:noDisplay:powerSaveParams:powerZoneParams:]([MitigationController alloc], "initForFastLoop:noDisplay:powerSaveParams:powerZoneParams:", v4[44], v9 != 0, [product getConfigurationFor:@"powerSaveParams"], v10);
   }
 
   v20 = [product getConfigurationFor:@"packageComponentControl"];
@@ -773,7 +784,7 @@ LABEL_84:
     }
   }
 
-  byte_1000AB720 = sub_100031D48(v8, @"hasInternalSensorFiltering");
+  byte_1000AB720 = sub_100031D48(v8, @"hasInternalSensorFiltering") != 0;
   v77 = qword_1000AB718;
   if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
   {
@@ -921,7 +932,7 @@ LABEL_129:
     [v4 enableSendingMaxTempToDisplayDriver];
   }
 
-  v4[104] = sub_100031D48(v8, @"canForceThermalLevels");
+  v4[104] = sub_100031D48(v8, @"canForceThermalLevels") != 0;
   *(v4 + 6) = -[TableDrivenDecisionTree initWithComponentControllers:hotspotControllers:decisionTreeTable:]([TableDrivenDecisionTree alloc], "initWithComponentControllers:hotspotControllers:decisionTreeTable:", *(v4 + 2), *(v4 + 3), [product getConfigurationFor:@"DecisionTreeTable"]);
   if (sub_100031D48(v8, @"monitorsCameraSensors"))
   {
@@ -1075,7 +1086,7 @@ LABEL_170:
     }
   }
 
-  v4[106] = sub_100031D48(v8, @"needsAppleConnectThermalTrapLogging");
+  v4[106] = sub_100031D48(v8, @"needsAppleConnectThermalTrapLogging") != 0;
   qword_1000ABCA8 = 0;
   *(v4 + 56) = 0;
   if (sub_100031D48(v8, @"needsPushingTSFDtoDisplayDriver"))
@@ -1184,7 +1195,7 @@ LABEL_170:
   byte_1000ABCA1 = 0;
   [v4 registerDefaultsDomain];
   [*(v4 + 49) addObserver:v4 forKeyPath:@"watchdogUpdates" options:1 context:v4];
-  byte_1000ABCA2 = sub_100031D48(v8, @"needsPowerZoneTelemetry");
+  byte_1000ABCA2 = sub_100031D48(v8, @"needsPowerZoneTelemetry") != 0;
   +[PowerZoneTelemetry sharedInstance];
   *(v4 + 22) = 1;
   sub_100002A20(v8, @"moderatePressureVersion", kCFNumberIntType, v4 + 88);
@@ -1428,6 +1439,41 @@ LABEL_15:
   v4.receiver = self;
   v4.super_class = CommonProduct;
   [(CommonProduct *)&v4 dealloc];
+}
+
+- (id)copyDieTempSensorIndexSetForFourthChar:(char)char sensors:(__CFArray *)sensors filteredOnly:(BOOL)only
+{
+  onlyCopy = only;
+  charCopy = char;
+  v9 = [[NSMutableArray alloc] initWithCapacity:0];
+  if (CFArrayGetCount(sensors) >= 1)
+  {
+    v10 = 0;
+    do
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(sensors, v10);
+      if ([(CommonProduct *)self fourCharCodeMatchesDieTempType:charCopy fourCharCode:CFDictionaryGetValue(ValueAtIndex, @"4CharCode")]&& (!onlyCopy || [+[HidSensors getFilterTimeConstantForSensor:"getFilterTimeConstantForSensor:"])
+      {
+        [v9 addObject:{+[NSNumber numberWithInt:](NSNumber, "numberWithInt:", v10)}];
+      }
+
+      ++v10;
+    }
+
+    while (CFArrayGetCount(sensors) > v10);
+  }
+
+  if ([v9 count])
+  {
+    v12 = [v9 copy];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)fourCharCodeMatchesDieTempType:(char)type fourCharCode:(__CFString *)code
@@ -1675,6 +1721,98 @@ LABEL_7:
   logEventForAppleCare();
 }
 
+- (id)findComponent:(int)component
+{
+  v3 = *&component;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  listOfSupervisorControl = self->listOfSupervisorControl;
+  v6 = [(NSMutableArray *)listOfSupervisorControl countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v22;
+LABEL_3:
+    v9 = 0;
+    while (1)
+    {
+      if (*v22 != v8)
+      {
+        objc_enumerationMutation(listOfSupervisorControl);
+      }
+
+      v10 = *(*(&v21 + 1) + 8 * v9);
+      if ([v10 isEqualMType:v3])
+      {
+        break;
+      }
+
+      if (v7 == ++v9)
+      {
+        v7 = [(NSMutableArray *)listOfSupervisorControl countByEnumeratingWithState:&v21 objects:v26 count:16];
+        if (v7)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    listofComponentControl = self->listofComponentControl;
+    v12 = [(NSMutableArray *)listofComponentControl countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v18;
+LABEL_11:
+      v15 = 0;
+      while (1)
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(listofComponentControl);
+        }
+
+        v10 = *(*(&v17 + 1) + 8 * v15);
+        if ([v10 isEqualMType:v3])
+        {
+          break;
+        }
+
+        if (v13 == ++v15)
+        {
+          v13 = [(NSMutableArray *)listofComponentControl countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v10 = 0;
+          if (v13)
+          {
+            goto LABEL_11;
+          }
+
+          return v10;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v10;
+}
+
 - (void)getAllComponentID:(__SCPreferences *)d
 {
   Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -1737,6 +1875,13 @@ LABEL_7:
   SCPreferencesSetValue(d, @"listComponentID_CLTMV2", Mutable);
   SCPreferencesCommitChanges(d);
   CFRelease(Mutable);
+}
+
+- (int)getCurrentMaxLIForComponent:(unsigned int)component
+{
+  v3 = [(CommonProduct *)self findComponent:*&component];
+
+  return [v3 getReleaseMaxLI];
 }
 
 - (id)newBacklightComponentController:(__CFDictionary *)controller
@@ -2206,6 +2351,53 @@ LABEL_23:
   return 0;
 }
 
+- (void)overrideLifetimeServoParam:(id)param value:(int)value
+{
+  v4 = *&value;
+  lifetimeServoController = self->lifetimeServoController;
+  if (lifetimeServoController)
+  {
+    [(LifetimeServoController *)lifetimeServoController overrideParam:param value:*&value];
+  }
+
+  lifetimeServoStatePersistence = self->lifetimeServoStatePersistence;
+  if (lifetimeServoStatePersistence)
+  {
+
+    [(LifetimeServoStatePersistenceBase *)lifetimeServoStatePersistence overrideParam:param value:v4];
+  }
+}
+
+- (void)updateControlEffortFor:(int)for :(unsigned int)a4
+{
+  v4 = *&a4;
+  v5 = *&for;
+  v7 = [(CommonProduct *)self findComponent:?];
+  if (v7)
+  {
+    v8 = v7;
+    [v7 setControlEffort:v4];
+    [v8 setAllowCEOverride:1];
+  }
+
+  v9 = [(CommonProduct *)self findComponent:v5];
+  if (v9)
+  {
+    v10 = v9;
+    [v9 setControlEffort:v4];
+
+    [v10 setAllowCEOverride:1];
+  }
+}
+
+- (void)updateHotSpotPIDTargetFor:(int)for :(unsigned int)a4
+{
+  v5 = [(CommonProduct *)self findComponent:*&for];
+
+  *&v6 = a4 / 100.0;
+  [v5 overrideTargetTemperature:v6];
+}
+
 - (void)removeHotspotTargetOverrides
 {
   v7 = 0u;
@@ -2234,6 +2426,74 @@ LABEL_23:
     }
 
     while (v4);
+  }
+}
+
+- (void)applyAlternateHotSpotTargets:(BOOL)targets
+{
+  targetsCopy = targets;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  listOfSupervisorControl = self->listOfSupervisorControl;
+  v5 = [(NSMutableArray *)listOfSupervisorControl countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(listOfSupervisorControl);
+        }
+
+        [*(*(&v9 + 1) + 8 * i) applyAlternateTarget:targetsCopy];
+      }
+
+      v6 = [(NSMutableArray *)listOfSupervisorControl countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+- (void)updateMaxLIFor:(int)for :(unsigned int)a4
+{
+  v4 = *&a4;
+  v5 = [(CommonProduct *)self findComponent:*&for];
+  if (v5)
+  {
+    v6 = v5;
+    [v5 setAllowLIOverride:0];
+    [v6 setMaxLoadingIndex:v4 releaseIndex:v4];
+
+    [v6 setAllowLIOverride:1];
+  }
+}
+
+- (void)updateSleepTargetFor:(int)for :(unsigned int)a4
+{
+  v5 = [(CommonProduct *)self findComponent:*&for];
+  if (v5)
+  {
+
+    *&v6 = a4 / 100.0;
+    [v5 setTHERMAL_TRAP_SLEEP:v6];
+  }
+}
+
+- (void)updateTrapTargetFor:(int)for :(unsigned int)a4
+{
+  v5 = [(CommonProduct *)self findComponent:*&for];
+  if (v5)
+  {
+
+    *&v6 = a4 / 100.0;
+    [v5 setTHERMAL_TRAP_LOAD:v6];
   }
 }
 
@@ -2364,6 +2624,18 @@ LABEL_9:
   }
 
   return v4;
+}
+
+- (void)updateSystemPowerState:(BOOL)state
+{
+  stateCopy = state;
+  [+[ContextAwareThermalManager sharedInstance](ContextAwareThermalManager updateSystemPowerState:"updateSystemPowerState:", state];
+  lifetimeServoController = self->lifetimeServoController;
+  if (lifetimeServoController)
+  {
+
+    [(LifetimeServoController *)lifetimeServoController updateSystemPowerState:stateCopy];
+  }
 }
 
 - (BOOL)shouldSuppressStandardBehaviors:(__CFDictionary *)behaviors

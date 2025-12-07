@@ -83,7 +83,7 @@ LABEL_6:
 
 void __50__HDWorkoutSeriesDataAggregator_setConfiguration___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC298];
@@ -93,25 +93,23 @@ void __50__HDWorkoutSeriesDataAggregator_setConfiguration___block_invoke(uint64_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v8;
-      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: setConfiguration requestedAggregation success", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v8;
+      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: setConfiguration requestedAggregation success", &v12, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = v6;
-    v12 = [v5 localizedDescription];
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v12;
-    _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: setConfiguration requestedAggregation error: %{public}@", &v13, 0x16u);
+    v9 = *(a1 + 32);
+    v10 = v6;
+    v11 = [v5 localizedDescription];
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v11;
+    _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: setConfiguration requestedAggregation error: %{public}@", &v12, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_isWorkoutFirstParty:(id)party

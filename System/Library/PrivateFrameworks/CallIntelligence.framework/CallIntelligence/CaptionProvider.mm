@@ -28,19 +28,18 @@
 {
   v6 = type metadata accessor for LanguageDetectorResult(0);
   v7 = v6 - 8;
-  v8 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   hypothesisCopy = hypothesis;
   selfCopy = self;
   dominantLocale = [hypothesisCopy dominantLocale];
   sub_1D2EE3F28();
 
   [hypothesisCopy dominantLocaleConfidence];
-  *&v10[*(v7 + 28)] = v14;
-  sub_1D2E83890(v10);
+  *&v9[*(v7 + 28)] = v13;
+  sub_1D2E83890(v9);
 
-  sub_1D2E87884(v10);
+  sub_1D2E87884(v9);
 }
 
 - (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error

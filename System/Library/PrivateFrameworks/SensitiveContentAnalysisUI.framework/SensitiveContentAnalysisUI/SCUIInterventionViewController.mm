@@ -187,9 +187,8 @@
 
 + (Class)rootScreenClass
 {
-  v2 = sub_1BC72AED0();
+  sub_1BC72AED0();
   swift_beginAccess();
-  v3 = *v2;
   return swift_getObjCClassFromMetadata();
 }
 
@@ -287,11 +286,12 @@
   {
     selfCopy2 = self;
     v6 = 0;
+    v5 = 0;
   }
 
   [(SCUIInterventionViewController *)self dismissViewControllerAnimated:1 completion:v6];
 
-  sub_1BC635484(v4);
+  sub_1BC635484(v4, v5);
   _Block_release(v6);
 }
 

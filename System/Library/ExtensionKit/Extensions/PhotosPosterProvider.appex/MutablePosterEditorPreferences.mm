@@ -125,8 +125,9 @@
 
 - (void)setDepthEffectEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_100008FC0();
+  sub_100008FC0(enabledCopy);
 }
 
 - (CGRect)px_preferredTitleBounds

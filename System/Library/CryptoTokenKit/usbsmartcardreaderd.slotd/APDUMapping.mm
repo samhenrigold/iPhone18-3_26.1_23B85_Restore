@@ -49,28 +49,29 @@
   WeakRetained = objc_loadWeakRetained(&self->_transmitter);
   v17 = [WeakRetained transmitAndReceive:transmitCopy maxPayload:payload outTimeout:timeoutCopy inTimeout:inTimeoutCopy transmitted:transmittedCopy];
 
-  if ([v17 messageType] == 128)
+  messageType = [v17 messageType];
+  if (messageType == 128)
   {
     if ([v17 bChainParameter] == 1)
     {
       aPayload = [v17 aPayload];
-      v19 = [NSMutableData dataWithData:aPayload];
+      v20 = [NSMutableData dataWithData:aPayload];
 
       do
       {
-        v20 = v17;
-        v21 = +[CCIDMessageView create:withPayload:](CCIDMessageView, "create:withPayload:", [transmitCopy messageType], 0);
-        [v21 setWLevelParameter:16];
-        [v21 setBBWI:0];
-        v22 = objc_loadWeakRetained(&self->_transmitter);
-        v17 = [v22 transmitAndReceive:v21 maxPayload:0 outTimeout:timeoutCopy inTimeout:inTimeoutCopy transmitted:transmittedCopy];
+        v21 = v17;
+        v22 = +[CCIDMessageView create:withPayload:](CCIDMessageView, "create:withPayload:", [transmitCopy messageType], 0);
+        [v22 setWLevelParameter:16];
+        [v22 setBBWI:0];
+        v23 = objc_loadWeakRetained(&self->_transmitter);
+        v17 = [v23 transmitAndReceive:v22 maxPayload:0 outTimeout:timeoutCopy inTimeout:inTimeoutCopy transmitted:transmittedCopy];
 
         aPayload2 = [v17 aPayload];
-        [v19 appendData:aPayload2];
+        [v20 appendData:aPayload2];
       }
 
       while ([v17 bChainParameter] != 2);
-      aPayload3 = [NSData dataWithData:v19];
+      aPayload3 = [NSData dataWithData:v20];
     }
 
     else
@@ -81,8 +82,8 @@
 
   else
   {
-    v25 = sub_100008B80();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = sub_100008B80(messageType);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_100016444();
     }
@@ -96,7 +97,7 @@
 - (id)transmit:(id)transmit
 {
   transmitCopy = transmit;
-  v5 = sub_100008B80();
+  v5 = sub_100008B80(transmitCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100016480();
@@ -117,7 +118,7 @@
 {
   uCopy = u;
   secureCopy = secure;
-  v8 = sub_100008B80();
+  v8 = sub_100008B80(secureCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000164B4();

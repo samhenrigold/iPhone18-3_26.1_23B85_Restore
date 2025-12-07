@@ -7,11 +7,11 @@
 - (id)_clientToServerRecord:(uint64_t)record;
 - (id)_clientToServerRecordZoneID:(id)d;
 - (id)_mapObjects:(char)objects toClient:(void *)client withBlock:;
-- (id)_mapRecordIDs:(char)ds toClient:;
-- (id)_mapRecordZoneIDs:(char)ds toClient:;
+- (id)_mapRecordIDs:(uint64_t)ds toClient:;
 - (id)_mapRecordZoneIDs:(char)ds toClient:(char)client expectUnknownZones:;
-- (id)_mapRecords:(char)records toClient:;
-- (id)_mapZones:(char)zones toClient:;
+- (id)_mapRecordZoneIDs:(uint64_t)ds toClient:;
+- (id)_mapRecords:(uint64_t)records toClient:;
+- (id)_mapZones:(uint64_t)zones toClient:;
 - (id)_serverToClientError:(uint64_t)error;
 - (id)_serverToClientRecord:(uint64_t)record;
 - (id)_serverToClientRecordZoneID:(id)d;
@@ -35,12 +35,13 @@
 - (void)enumerateActiveDestinationsWithOptions:(void *)options handler:;
 - (void)enumeratePayloadsWithRecordIDs:(void *)ds records:(void *)records zoneIDs:(void *)iDs zones:(uint64_t)zones options:(void *)options payloadHandler:;
 - (void)fetchAllDatabaseChangesWithServerChangeToken:(id)token qualityOfService:(int64_t)service completionQueue:(id)queue completionHandler:(id)handler;
+- (void)fetchChangesForRecordZoneID:(id)d changeToken:(id)token desiredKeys:(id)keys fetchAllChanges:(BOOL)changes qualityOfService:(int64_t)service completionHandler:(id)handler;
 - (void)fetchSecureDatabaseSupportedWithCompletionHandler:(uint64_t)handler;
 - (void)registerZonePruningAssistants:(uint64_t)assistants;
 - (void)registerZoneRestorationSources:(uint64_t)sources;
 - (void)reportEncryptionMigrationError:(uint64_t)error;
 - (void)reportPostMigrationCleanupError:(uint64_t)error;
-- (void)reportRecoverableStartUpError:(uint64_t)error;
+- (void)reportRecoverableStartUpError:(uint64_t)result;
 - (void)t_performStartUpWithCompletion:(uint64_t)completion;
 - (void)takeDatabaseOfflineDueToError:(uint64_t)error;
 - (void)zoneIDsUsingSecureContainer;
@@ -1056,319 +1057,315 @@
   v532[42] = v506;
   v505 = [FCCKRecordFieldSchema fieldWithName:1 type:1 isEncrypted:?];
   v532[43] = v505;
-  v0 = [FCCKRecordFieldSchema fieldWithName:3 type:1 isEncrypted:?];
-  v532[44] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v532 count:45];
-  v2 = [FCCKRecordSchema recordWithType:v1 fields:?];
-  v569[36] = v2;
-  v3 = [FCCKRecordFieldSchema fieldWithName:3 type:0 isEncrypted:?];
-  v531[0] = v3;
+  v1 = [FCCKRecordFieldSchema fieldWithName:3 type:1 isEncrypted:?];
+  v532[44] = v1;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v532 count:45];
+  v3 = [FCCKRecordSchema recordWithType:v2 fields:?];
+  v569[36] = v3;
   v4 = [FCCKRecordFieldSchema fieldWithName:3 type:0 isEncrypted:?];
-  v531[1] = v4;
-  v5 = [FCCKRecordFieldSchema fieldWithName:5 type:1 isEncrypted:?];
-  v531[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v531 count:3];
-  v7 = [FCCKRecordSchema recordWithType:v6 fields:?];
-  v569[37] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v569 count:38];
+  v531[0] = v4;
+  v5 = [FCCKRecordFieldSchema fieldWithName:3 type:0 isEncrypted:?];
+  v531[1] = v5;
+  v6 = [FCCKRecordFieldSchema fieldWithName:5 type:1 isEncrypted:?];
+  v531[2] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v531 count:3];
+  v8 = [FCCKRecordSchema recordWithType:v7 fields:?];
+  v569[37] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v569 count:38];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 + (id)privateDatabaseSchema
 {
-  v202 = *MEMORY[0x1E69E9840];
+  v203 = *MEMORY[0x1E69E9840];
+  v129 = objc_opt_self();
   objc_opt_self();
-  objc_opt_self();
-  v188 = @"static_sentinel";
-  v189 = @"SharedPersonalizationProfile";
-  v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v188 count:2];
+  v189 = @"static_sentinel";
+  v190 = @"SharedPersonalizationProfile";
+  v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v189 count:2];
   v118 = [FCCKZoneSchema defaultZoneWithStaticRecordNames:v126 shouldUseSecureContainer:0];
-  v136 = v118;
-  v174 = @"static_sentinel_secure";
-  v175 = @"SharedPersonalizationProfileSecure";
-  v116 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v174 count:2];
+  v137 = v118;
+  v175 = @"static_sentinel_secure";
+  v176 = @"SharedPersonalizationProfileSecure";
+  v116 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v175 count:2];
   v115 = [FCCKZoneSchema defaultZoneWithStaticRecordNames:v116 shouldUseSecureContainer:1];
-  v137 = v115;
+  v138 = v115;
   v113 = [FCCKZoneSchema zoneWithName:?];
-  v138 = v113;
+  v139 = v113;
   v110 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v139 = v110;
+  v140 = v110;
   v108 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v140 = v108;
+  v141 = v108;
   v106 = [FCCKZoneSchema zoneWithName:?];
-  v141 = v106;
+  v142 = v106;
   v103 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v142 = v103;
+  v143 = v103;
   v97 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v143 = v97;
+  v144 = v97;
   v95 = [FCCKZoneSchema zoneWithName:?];
-  v144 = v95;
+  v145 = v95;
   v93 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v145 = v93;
+  v146 = v93;
   v91 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v146 = v91;
+  v147 = v91;
   v89 = [FCCKZoneSchema zoneWithName:?];
-  v147 = v89;
+  v148 = v89;
   v87 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v148 = v87;
+  v149 = v87;
   v85 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v149 = v85;
+  v150 = v85;
   v83 = [FCCKZoneSchema zoneWithName:?];
-  v150 = v83;
+  v151 = v83;
   v80 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v151 = v80;
+  v152 = v80;
   v78 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v152 = v78;
+  v153 = v78;
   v76 = [FCCKZoneSchema zoneWithName:?];
-  v153 = v76;
+  v154 = v76;
   v74 = [FCCKZoneSchema zoneWithName:?];
-  v154 = v74;
+  v155 = v74;
   v72 = [FCCKZoneSchema zoneWithName:?];
-  v155 = v72;
+  v156 = v72;
   v70 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v156 = v70;
+  v157 = v70;
   v68 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v157 = v68;
+  v158 = v68;
   v66 = [FCCKZoneSchema zoneWithName:?];
-  v158 = v66;
+  v159 = v66;
   v64 = [FCCKZoneSchema zoneWithName:3 options:0 staticRecordNames:?];
-  v159 = v64;
+  v160 = v64;
   v61 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v160 = v61;
+  v161 = v61;
   v57 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v161 = v57;
+  v162 = v57;
   v55 = [FCCKZoneSchema zoneWithName:?];
-  v162 = v55;
+  v163 = v55;
   v53 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v163 = v53;
+  v164 = v53;
   v49 = [FCCKZoneSchema zoneWithName:?];
-  v164 = v49;
-  v0 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
-  v165 = v0;
-  v1 = [FCCKZoneSchema zoneWithName:?];
+  v165 = v49;
+  v1 = [FCCKZoneSchema zoneWithName:7 options:0 staticRecordNames:?];
   v166 = v1;
-  v171[0] = @"user_info_static_record_name_secure";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v171 count:1];
-  v3 = [FCCKZoneSchema zoneWithName:7 options:v2 staticRecordNames:?];
-  v167 = v3;
-  v170[0] = @"user_info_static_record_name_secure2";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v170 count:1];
-  v5 = [FCCKZoneSchema zoneWithName:7 options:v4 staticRecordNames:?];
-  v168 = v5;
-  v173 = @"static_user_privacy_exporter_record";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v173 count:1];
-  v7 = [FCCKZoneSchema zoneWithName:2 options:v6 staticRecordNames:?];
-  v169 = v7;
-  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:34];
+  v2 = [FCCKZoneSchema zoneWithName:?];
+  v167 = v2;
+  v172[0] = @"user_info_static_record_name_secure";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v172 count:1];
+  v4 = [FCCKZoneSchema zoneWithName:7 options:v3 staticRecordNames:?];
+  v168 = v4;
+  v171[0] = @"user_info_static_record_name_secure2";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v171 count:1];
+  v6 = [FCCKZoneSchema zoneWithName:7 options:v5 staticRecordNames:?];
+  v169 = v6;
+  v174 = @"static_user_privacy_exporter_record";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v174 count:1];
+  v8 = [FCCKZoneSchema zoneWithName:2 options:v7 staticRecordNames:?];
+  v170 = v8;
+  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:34];
 
-  v104 = +[FCCKPrivateDatabase recordSchemas];
+  v104 = +[(FCCKPrivateDatabase *)v129];
   objc_opt_self();
-  v8 = *MEMORY[0x1E695B800];
+  v9 = *MEMORY[0x1E695B800];
   v98 = [FCPair pairWithFirst:*MEMORY[0x1E695B800] second:?];
-  v136 = v98;
-  v96 = [FCPair pairWithFirst:v8 second:@"Sentinel"];
-  v137 = v96;
-  v94 = [FCPair pairWithFirst:v8 second:@"SentinelSecure"];
-  v138 = v94;
+  v137 = v98;
+  v96 = [FCPair pairWithFirst:v9 second:@"Sentinel"];
+  v138 = v96;
+  v94 = [FCPair pairWithFirst:v9 second:@"SentinelSecure"];
+  v139 = v94;
   v92 = [FCPair pairWithFirst:@"AudioPlaylist" second:@"AudioPlaylistItem"];
-  v139 = v92;
+  v140 = v92;
   v90 = [FCPair pairWithFirst:@"IssueReadingHistory" second:?];
-  v140 = v90;
+  v141 = v90;
   v88 = [FCPair pairWithFirst:@"PuzzleHistory" second:?];
-  v141 = v88;
+  v142 = v88;
   v86 = [FCPair pairWithFirst:@"ReadingHistory" second:?];
-  v142 = v86;
+  v143 = v86;
   v84 = [FCPair pairWithFirst:@"ReadingList" second:?];
-  v143 = v84;
+  v144 = v84;
   v82 = [FCPair pairWithFirst:@"ChannelMemberships" second:@"ReferenceToMembership"];
-  v144 = v82;
+  v145 = v82;
   v81 = [FCPair pairWithFirst:@"SensitiveSubscriptions" second:@"Subscription"];
-  v145 = v81;
+  v146 = v81;
   v79 = [FCPair pairWithFirst:@"Shortcuts" second:?];
-  v146 = v79;
+  v147 = v79;
   v77 = [FCPair pairWithFirst:@"Subscriptions" second:@"Subscription"];
-  v147 = v77;
+  v148 = v77;
   v75 = [FCPair pairWithFirst:@"UserEventHistory" second:@"UserEventHistorySession"];
-  v148 = v75;
+  v149 = v75;
   v73 = [FCPair pairWithFirst:@"UserInfo" second:?];
-  v149 = v73;
+  v150 = v73;
   v69 = [FCPair pairWithFirst:@"UserInfo" second:?];
-  v150 = v69;
+  v151 = v69;
   v67 = [FCPair pairWithFirst:@"UserInfo" second:?];
-  v151 = v67;
+  v152 = v67;
   v65 = [FCPair pairWithFirst:@"UserPrivacyExporter" second:@"UserPrivacyExporter"];
-  v152 = v65;
+  v153 = v65;
   v62 = [FCPair pairWithFirst:@"RecipeUserEventHistory" second:@"UserEventHistorySession"];
-  v153 = v62;
-  v127 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:18];
-  v71 = v8;
-  v58 = [FCPair pairWithFirst:v8 second:@"PersonalizationProfile"];
-  v174 = v58;
-  v54 = [FCPair pairWithFirst:v8 second:@"PersonalizationProfileSecure"];
-  v188 = v54;
+  v154 = v62;
+  v127 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:18];
+  v71 = v9;
+  v58 = [FCPair pairWithFirst:v9 second:@"PersonalizationProfile"];
+  v175 = v58;
+  v54 = [FCPair pairWithFirst:v9 second:@"PersonalizationProfileSecure"];
+  v189 = v54;
   v50 = [FCPair pairWithFirst:@"AudioPlaylist" second:@"AudioPlaylistItem"];
-  v175 = v50;
+  v176 = v50;
   v63 = [FCPair pairWithFirst:@"AudioPlaylistSecure" second:@"AudioPlaylistItemSecure"];
-  v189 = v63;
+  v190 = v63;
   v46 = [FCPair pairWithFirst:@"IssueReadingHistory" second:@"IssueReadingHistoryItem"];
-  v176 = v46;
+  v177 = v46;
   v60 = [FCPair pairWithFirst:@"IssueReadingHistorySecure" second:@"IssueReadingHistoryItemSecure"];
-  v190 = v60;
+  v191 = v60;
   v44 = [FCPair pairWithFirst:@"PuzzleHistory" second:@"PuzzleHistoryItem"];
-  v177 = v44;
+  v178 = v44;
   v59 = [FCPair pairWithFirst:@"PuzzleHistorySecure" second:@"PuzzleHistoryItemSecure"];
-  v191 = v59;
+  v192 = v59;
   v42 = [FCPair pairWithFirst:@"ReadingHistory" second:@"ReadingHistoryItem"];
-  v178 = v42;
+  v179 = v42;
   v56 = [FCPair pairWithFirst:@"ReadingHistorySecure" second:@"ReadingHistoryItemSecure"];
-  v192 = v56;
+  v193 = v56;
   v41 = [FCPair pairWithFirst:@"ReadingList" second:@"ReadingListEntry"];
-  v179 = v41;
+  v180 = v41;
   v52 = [FCPair pairWithFirst:@"ReadingListSecure" second:@"ReadingListEntrySecure"];
-  v193 = v52;
+  v194 = v52;
   v40 = [FCPair pairWithFirst:@"SensitiveSubscriptions" second:@"Subscription"];
-  v180 = v40;
+  v181 = v40;
   v39 = [FCPair pairWithFirst:@"SensitiveSubscriptionsSecure" second:@"SubscriptionSecure"];
-  v194 = v39;
+  v195 = v39;
   v38 = [FCPair pairWithFirst:@"Shortcuts" second:@"Shortcut"];
-  v181 = v38;
+  v182 = v38;
   v48 = [FCPair pairWithFirst:@"ShortcutsSecure" second:@"ShortcutSecure"];
-  v195 = v48;
+  v196 = v48;
   v37 = [FCPair pairWithFirst:@"Subscriptions" second:@"Subscription"];
-  v182 = v37;
+  v183 = v37;
   v47 = [FCPair pairWithFirst:@"Subscriptions_CK" second:@"Subscription_CK"];
-  v196 = v47;
+  v197 = v47;
   v122 = [FCPair pairWithFirst:@"UserEventHistory" second:@"UserEventHistorySession"];
-  v183 = v122;
+  v184 = v122;
   v45 = [FCPair pairWithFirst:@"UserEventHistorySecure" second:@"UserEventHistorySessionSecure"];
-  v197 = v45;
+  v198 = v45;
   v36 = [FCPair pairWithFirst:@"UserInfo" second:@"UserInfo"];
-  v184 = v36;
+  v185 = v36;
   v35 = [FCPair pairWithFirst:@"UserInfoSecure" second:@"UserInfoSecure"];
-  v198 = v35;
+  v199 = v35;
   v34 = [FCPair pairWithFirst:@"UserInfo" second:@"TagSettings"];
-  v185 = v34;
+  v186 = v34;
   v33 = [FCPair pairWithFirst:@"UserInfoSecure" second:@"TagSettingsSecure"];
-  v199 = v33;
+  v200 = v33;
   v32 = [FCPair pairWithFirst:@"UserInfo" second:@"PuzzleTypeSettings"];
-  v186 = v32;
+  v187 = v32;
   v31 = [FCPair pairWithFirst:@"UserInfoSecure" second:?];
-  v200 = v31;
+  v201 = v31;
   v125 = [FCPair pairWithFirst:@"RecipeUserEventHistory" second:@"UserEventHistorySession"];
-  v187 = v125;
+  v188 = v125;
   v51 = [FCPair pairWithFirst:@"RecipeUserEventHistorySecure" second:@"UserEventHistorySessionSecure"];
-  v201 = v51;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v174 count:14];
+  v202 = v51;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v175 count:14];
   v30 = [FCPair pairWithFirst:@"Subscriptions" second:@"Subscription"];
-  v172 = v30;
+  v173 = v30;
   v43 = [FCPair pairWithFirst:@"SensitiveSubscriptionsSecure" second:@"SubscriptionSecure"];
-  v173 = v43;
-  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+  v174 = v43;
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
   v121 = [FCPair pairWithFirst:@"AudioPlaylist" second:@"AudioPlaylistItem"];
-  v170[0] = v121;
+  v171[0] = v121;
   v102 = [FCPair pairWithFirst:@"AudioPlaylistSecure2" second:@"AudioPlaylistItemSecure2"];
-  v171[0] = v102;
+  v172[0] = v102;
   v120 = [FCPair pairWithFirst:@"IssueReadingHistory" second:@"IssueReadingHistoryItem"];
-  v170[1] = v120;
+  v171[1] = v120;
   v107 = [FCPair pairWithFirst:@"IssueReadingHistorySecure2" second:@"IssueReadingHistoryItemSecure2"];
-  v171[1] = v107;
+  v172[1] = v107;
   v119 = [FCPair pairWithFirst:@"PuzzleHistory" second:@"PuzzleHistoryItem"];
-  v170[2] = v119;
+  v171[2] = v119;
   v109 = [FCPair pairWithFirst:@"PuzzleHistorySecure2" second:@"PuzzleHistoryItemSecure2"];
-  v171[2] = v109;
+  v172[2] = v109;
   v111 = [FCPair pairWithFirst:@"ReadingHistory" second:@"ReadingHistoryItem"];
-  v170[3] = v111;
+  v171[3] = v111;
   v101 = [FCPair pairWithFirst:@"ReadingHistorySecure2" second:@"ReadingHistoryItemSecure2"];
-  v171[3] = v101;
+  v172[3] = v101;
   v114 = [FCPair pairWithFirst:@"ReadingList" second:@"ReadingListEntry"];
-  v170[4] = v114;
+  v171[4] = v114;
   v112 = [FCPair pairWithFirst:@"ReadingListSecure2" second:@"ReadingListEntrySecure2"];
-  v171[4] = v112;
-  v131 = [FCPair pairWithFirst:@"SensitiveSubscriptions" second:@"Subscription"];
-  v170[5] = v131;
+  v172[4] = v112;
+  v132 = [FCPair pairWithFirst:@"SensitiveSubscriptions" second:@"Subscription"];
+  v171[5] = v132;
   v100 = [FCPair pairWithFirst:@"SensitiveSubscriptionsSecure2" second:@"SubscriptionSecure2"];
-  v171[5] = v100;
-  v133 = [FCPair pairWithFirst:@"Shortcuts" second:@"Shortcut"];
-  v170[6] = v133;
+  v172[5] = v100;
+  v134 = [FCPair pairWithFirst:@"Shortcuts" second:@"Shortcut"];
+  v171[6] = v134;
   v117 = [FCPair pairWithFirst:@"ShortcutsSecure2" second:@"ShortcutSecure2"];
-  v171[6] = v117;
+  v172[6] = v117;
   v123 = [FCPair pairWithFirst:@"Subscriptions" second:@"Subscription"];
-  v170[7] = v123;
+  v171[7] = v123;
   v99 = [FCPair pairWithFirst:@"SensitiveSubscriptionsSecure2" second:@"SubscriptionSecure2"];
-  v171[7] = v99;
-  v9 = [FCPair pairWithFirst:@"UserInfo" second:@"UserInfo"];
-  v170[8] = v9;
-  v10 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"UserInfoSecure2"];
+  v172[7] = v99;
+  v10 = [FCPair pairWithFirst:@"UserInfo" second:@"UserInfo"];
   v171[8] = v10;
-  v11 = [FCPair pairWithFirst:@"UserInfo" second:@"TagSettings"];
-  v170[9] = v11;
-  v12 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"TagSettingsSecure2"];
+  v11 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"UserInfoSecure2"];
+  v172[8] = v11;
+  v12 = [FCPair pairWithFirst:@"UserInfo" second:@"TagSettings"];
   v171[9] = v12;
-  v13 = [FCPair pairWithFirst:@"UserInfo" second:@"PuzzleTypeSettings"];
-  v170[10] = v13;
-  v14 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"PuzzleTypeSettingsSecure"];
+  v13 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"TagSettingsSecure2"];
+  v172[9] = v13;
+  v14 = [FCPair pairWithFirst:@"UserInfo" second:@"PuzzleTypeSettings"];
   v171[10] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v171 forKeys:v170 count:11];
-  v135 = [FCCKPrivateDatabaseVersionMapping mappingWithBaseValues:v127 V2Changes:v29 V3Changes:v28 V4Changes:v15];
+  v15 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"PuzzleTypeSettingsSecure"];
+  v172[10] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v172 forKeys:v171 count:11];
+  v136 = [FCCKPrivateDatabaseVersionMapping mappingWithBaseValues:v127 V2Changes:v29 V3Changes:v28 V4Changes:v16];
 
   objc_opt_self();
-  v134 = [FCPair pairWithFirst:v71 second:@"static_sentinel"];
-  v136 = v134;
-  v132 = [FCPair pairWithFirst:v71 second:@"static_sentinel_secure"];
-  v137 = v132;
-  v129 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfile"];
-  v138 = v129;
+  v135 = [FCPair pairWithFirst:v71 second:@"static_sentinel"];
+  v137 = v135;
+  v133 = [FCPair pairWithFirst:v71 second:@"static_sentinel_secure"];
+  v138 = v133;
+  v130 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfile"];
+  v139 = v130;
   v128 = [FCPair pairWithFirst:@"UserInfo" second:@"user_info_static_record_name"];
-  v139 = v128;
-  v130 = [FCPair pairWithFirst:@"UserPrivacyExporter" second:@"static_user_privacy_exporter_record"];
-  v140 = v130;
-  v124 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:5];
-  v16 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfile"];
-  v174 = v16;
-  v17 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfileSecure"];
-  v188 = v17;
-  v18 = [FCPair pairWithFirst:@"UserInfo" second:@"user_info_static_record_name"];
-  v175 = v18;
-  v19 = [FCPair pairWithFirst:@"UserInfoSecure" second:@"user_info_static_record_name_secure"];
-  v189 = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v188 forKeys:&v174 count:2];
-  v21 = [FCPair pairWithFirst:@"UserInfo" second:@"user_info_static_record_name"];
-  v170[0] = v21;
-  v22 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"user_info_static_record_name_secure2"];
+  v140 = v128;
+  v131 = [FCPair pairWithFirst:@"UserPrivacyExporter" second:@"static_user_privacy_exporter_record"];
+  v141 = v131;
+  v124 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:5];
+  v17 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfile"];
+  v175 = v17;
+  v18 = [FCPair pairWithFirst:v71 second:@"SharedPersonalizationProfileSecure"];
+  v189 = v18;
+  v19 = [FCPair pairWithFirst:@"UserInfo" second:@"user_info_static_record_name"];
+  v176 = v19;
+  v20 = [FCPair pairWithFirst:@"UserInfoSecure" second:@"user_info_static_record_name_secure"];
+  v190 = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v189 forKeys:&v175 count:2];
+  v22 = [FCPair pairWithFirst:@"UserInfo" second:@"user_info_static_record_name"];
   v171[0] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v171 forKeys:v170 count:1];
-  v24 = [FCCKPrivateDatabaseVersionMapping mappingWithBaseValues:v124 V2Changes:v20 V3Changes:MEMORY[0x1E695E0F8] V4Changes:v23];
+  v23 = [FCPair pairWithFirst:@"UserInfoSecure2" second:@"user_info_static_record_name_secure2"];
+  v172[0] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v172 forKeys:v171 count:1];
+  v25 = [FCCKPrivateDatabaseVersionMapping mappingWithBaseValues:v124 V2Changes:v21 V3Changes:MEMORY[0x1E695E0F8] V4Changes:v24];
 
-  v25 = [FCCKPrivateDatabaseSchema databaseSchemaWithZones:v105 records:v104 recordTypeVersionMapping:v135 recordNameVersionMapping:v24];
+  v26 = [FCCKPrivateDatabaseSchema databaseSchemaWithZones:v105 records:v104 recordTypeVersionMapping:v136 recordNameVersionMapping:v25];
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v26;
 }
 
 - (id)initWithCKProperties:(void *)properties schema:(void *)schema middleware:(void *)middleware encryptionDelegate:(void *)delegate networkBehaviorMonitor:
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v12 = a2;
   propertiesCopy = properties;
   schemaCopy = schema;
   middlewareCopy = middleware;
   delegateCopy = delegate;
-  v53.receiver = self;
-  v53.super_class = FCCKPrivateDatabase;
-  v17 = objc_msgSendSuper2(&v53, sel_init);
+  v52.receiver = self;
+  v52.super_class = FCCKPrivateDatabase;
+  v17 = objc_msgSendSuper2(&v52, sel_init);
   v18 = v17;
   if (v17)
   {
-    v45 = delegateCopy;
-    v47 = v12;
+    v44 = delegateCopy;
+    v46 = v12;
     objc_storeStrong(v17 + 9, a2);
     objc_storeStrong(v18 + 10, properties);
     objc_storeStrong(v18 + 15, schema);
-    v46 = middlewareCopy;
+    v45 = middlewareCopy;
     objc_storeWeak(v18 + 2, middlewareCopy);
     objc_storeStrong(v18 + 3, delegate);
     v19 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
@@ -1401,27 +1398,27 @@
     dispatch_group_enter(v18[19]);
     v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v32 = v18[15];
-    v33 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v50;
+      v35 = *v49;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v50 != v35)
+          if (*v49 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v37 = *(*(&v49 + 1) + 8 * i);
+          v37 = *(*(&v48 + 1) + 8 * i);
           if ([v37 conformsToProtocol:&unk_1F2ECAF58])
           {
             [v30 addObject:v37];
@@ -1434,11 +1431,11 @@
 
           if ([v37 conformsToProtocol:&unk_1F2E8AC60])
           {
-            [v48 addObject:v37];
+            [v47 addObject:v37];
           }
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v48 objects:v53 count:16];
       }
 
       while (v34);
@@ -1453,14 +1450,13 @@
     v41 = v31;
 
     v42 = v18[18];
-    v18[18] = v48;
+    v18[18] = v47;
 
-    v12 = v47;
-    middlewareCopy = v46;
-    delegateCopy = v45;
+    v12 = v46;
+    middlewareCopy = v45;
+    delegateCopy = v44;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1745,24 +1741,22 @@ void __36__FCCKPrivateDatabase_addOperation___block_invoke(uint64_t a1)
 
 - (void)_beginInitialStartUpIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (self && (*(self + 9) & 1) == 0)
+  v7 = *MEMORY[0x1E69E9840];
+  if (result && (*(result + 9) & 1) == 0)
   {
     v2 = FCPrivateDataEncryptionLog;
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(self + 128);
-      v6 = 138412290;
-      v7 = v3;
+      v3 = *(result + 128);
+      v5 = 138412290;
+      v6 = v3;
       v4 = v2;
-      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Starting up with middleware: %@", &v6, 0xCu);
+      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Starting up with middleware: %@", &v5, 0xCu);
     }
 
-    *(self + 9) = 1;
-    [(FCCKPrivateDatabase *)self _continueStartUp];
+    *(result + 9) = 1;
+    [(FCCKPrivateDatabase *)result _continueStartUp];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __36__FCCKPrivateDatabase_addOperation___block_invoke_2(uint64_t a1)
@@ -1871,9 +1865,9 @@ LABEL_6:
 
 - (id)pruningAssistantForZoneName:(id *)name
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v22 = v3;
+  v21 = v3;
   if (name)
   {
     v4 = MEMORY[0x1E695BA90];
@@ -1884,41 +1878,41 @@ LABEL_6:
     v8 = [(FCCKPrivateDatabase *)name _serverToClientRecordZoneID:v7];
     zoneName = [v8 zoneName];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v10 = name[24];
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
       v14 = MEMORY[0x1E69E9C10];
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * i);
+          v17 = *(*(&v22 + 1) + 8 * i);
           if ([v17 canHelpPruneZoneName:zoneName])
           {
             if (v13 && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't have multiple assistants pruning the same zone"];
               *buf = 136315906;
-              v28 = "[FCCKPrivateDatabase pruningAssistantForZoneName:]";
-              v29 = 2080;
-              v30 = "FCCKPrivateDatabase.m";
-              v31 = 1024;
-              v32 = 411;
-              v33 = 2114;
-              v34 = v19;
+              v27 = "[FCCKPrivateDatabase pruningAssistantForZoneName:]";
+              v28 = 2080;
+              v29 = "FCCKPrivateDatabase.m";
+              v30 = 1024;
+              v31 = 411;
+              v32 = 2114;
+              v33 = v19;
               _os_log_error_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -1928,7 +1922,7 @@ LABEL_6:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v34 count:16];
       }
 
       while (v12);
@@ -1944,8 +1938,6 @@ LABEL_6:
   {
     v13 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -2159,19 +2151,17 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
 - (id)_clientToServerRecordZoneID:(id)d
 {
   dCopy = d;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (d)
   {
-    v9 = a2;
+    v8 = a2;
     v3 = MEMORY[0x1E695DEC8];
     v4 = a2;
-    v5 = [v3 arrayWithObjects:&v9 count:1];
+    v5 = [v3 arrayWithObjects:&v8 count:1];
 
     v6 = [(FCCKPrivateDatabase *)dCopy _mapRecordZoneIDs:v5 toClient:0];
     dCopy = [v6 firstObject];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
@@ -2187,7 +2177,7 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
 
 uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneIDs_zones_options_payloadHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 48) == 1)
@@ -2200,10 +2190,10 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
     v5 = *(a1 + 32);
     if (v5)
     {
-      v17 = v3;
+      v16 = v3;
       v6 = MEMORY[0x1E695DEC8];
       v7 = v3;
-      v8 = [v6 arrayWithObjects:&v17 count:1];
+      v8 = [v6 arrayWithObjects:&v16 count:1];
 
       v9 = [(FCCKPrivateDatabase *)v5 _mapRecordIDs:v8 toClient:0];
       v5 = [v9 firstObject];
@@ -2221,7 +2211,6 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
   v13 = [(FCCKPrivateDatabaseSchema *)v12 schemaForZoneContainingRecordID:v5];
   v14 = (*(v11 + 16))(v11, v13);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2393,7 +2382,7 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
 
 - (void)_preflightOperation:(void *)operation
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (operation)
   {
@@ -2412,15 +2401,15 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
       perRecordCompletionBlock = [v4 perRecordCompletionBlock];
       if (perRecordCompletionBlock && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKModifyRecordsOperation.perRecordCompletionBlock is not supported"];
+        v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKModifyRecordsOperation.perRecordCompletionBlock is not supported"];
         *buf = 136315906;
         *&buf[4] = "[FCCKPrivateDatabase _preflightRecordsInModifyOperation:]";
         *&buf[12] = 2080;
         *&buf[14] = "FCCKPrivateDatabase.m";
         *&buf[22] = 1024;
-        LODWORD(v53) = 821;
-        WORD2(v53) = 2114;
-        *(&v53 + 6) = v39;
+        LODWORD(v52) = 821;
+        WORD2(v52) = 2114;
+        *(&v52 + 6) = v38;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -2434,9 +2423,9 @@ uint64_t __99__FCCKPrivateDatabase_enumeratePayloadsWithRecordIDs_records_zoneID
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __58__FCCKPrivateDatabase__preflightRecordsInModifyOperation___block_invoke;
-      *&v53 = &unk_1E7C3FAC0;
-      *(&v53 + 1) = operation;
-      v54 = modifyRecordsCompletionBlock;
+      *&v52 = &unk_1E7C3FAC0;
+      *(&v52 + 1) = operation;
+      v53 = modifyRecordsCompletionBlock;
       [v4 setModifyRecordsCompletionBlock:buf];
 LABEL_14:
 
@@ -2457,15 +2446,15 @@ LABEL_16:
       perRecordCompletionBlock = [v4 perRecordCompletionBlock];
       if (perRecordCompletionBlock && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKFetchRecordsOperation.perRecordCompletionBlock is not supported"];
+        v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"CKFetchRecordsOperation.perRecordCompletionBlock is not supported"];
         *buf = 136315906;
         *&buf[4] = "[FCCKPrivateDatabase _preflightRecordsInFetchOperation:]";
         *&buf[12] = 2080;
         *&buf[14] = "FCCKPrivateDatabase.m";
         *&buf[22] = 1024;
-        LODWORD(v53) = 922;
-        WORD2(v53) = 2114;
-        *(&v53 + 6) = v42;
+        LODWORD(v52) = 922;
+        WORD2(v52) = 2114;
+        *(&v52 + 6) = v41;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -2479,9 +2468,9 @@ LABEL_16:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __57__FCCKPrivateDatabase__preflightRecordsInFetchOperation___block_invoke;
-      *&v53 = &unk_1E7C37C88;
-      *(&v53 + 1) = operation;
-      v54 = fetchRecordsCompletionBlock;
+      *&v52 = &unk_1E7C37C88;
+      *(&v52 + 1) = operation;
+      v53 = fetchRecordsCompletionBlock;
       [v4 setFetchRecordsCompletionBlock:buf];
       goto LABEL_14;
     }
@@ -2491,12 +2480,12 @@ LABEL_16:
     {
       v4 = v3;
       recordZonesToSave = [v4 recordZonesToSave];
-      v17 = [(FCCKPrivateDatabase *)operation _mapZones:recordZonesToSave toClient:0];
-      [v4 setRecordZonesToSave:v17];
+      v16 = [(FCCKPrivateDatabase *)operation _mapZones:recordZonesToSave toClient:0];
+      [v4 setRecordZonesToSave:v16];
 
       recordZoneIDsToDelete = [v4 recordZoneIDsToDelete];
-      v19 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDsToDelete toClient:0];
-      [v4 setRecordZoneIDsToDelete:v19];
+      v18 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDsToDelete toClient:0];
+      [v4 setRecordZoneIDsToDelete:v18];
 
       modifyRecordZonesCompletionBlock = [v4 modifyRecordZonesCompletionBlock];
       perRecordCompletionBlock = modifyRecordZonesCompletionBlock;
@@ -2508,9 +2497,9 @@ LABEL_16:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __63__FCCKPrivateDatabase__preflightZoneIDsInModifyZonesOperation___block_invoke;
-      *&v53 = &unk_1E7C3FAC0;
-      *(&v53 + 1) = operation;
-      v54 = modifyRecordZonesCompletionBlock;
+      *&v52 = &unk_1E7C3FAC0;
+      *(&v52 + 1) = operation;
+      v53 = modifyRecordZonesCompletionBlock;
       [v4 setModifyRecordZonesCompletionBlock:buf];
 LABEL_24:
 
@@ -2522,8 +2511,8 @@ LABEL_24:
     {
       v4 = v3;
       recordZoneIDs = [v4 recordZoneIDs];
-      v22 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDs toClient:0];
-      [v4 setRecordZoneIDs:v22];
+      v21 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDs toClient:0];
+      [v4 setRecordZoneIDs:v21];
 
       fetchRecordZonesCompletionBlock = [v4 fetchRecordZonesCompletionBlock];
       perRecordCompletionBlock = fetchRecordZonesCompletionBlock;
@@ -2535,9 +2524,9 @@ LABEL_24:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __63__FCCKPrivateDatabase__preflightZonesIDsInFetchZonesOperation___block_invoke;
-      *&v53 = &unk_1E7C37C88;
-      *(&v53 + 1) = operation;
-      v54 = fetchRecordZonesCompletionBlock;
+      *&v52 = &unk_1E7C37C88;
+      *(&v52 + 1) = operation;
+      v53 = fetchRecordZonesCompletionBlock;
       [v4 setFetchRecordZonesCompletionBlock:buf];
       goto LABEL_24;
     }
@@ -2551,8 +2540,8 @@ LABEL_24:
       if (recordZoneIDs2)
       {
         recordZoneIDs3 = [v4 recordZoneIDs];
-        v26 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDs3 toClient:0];
-        [v4 setRecordZoneIDs:v26];
+        v25 = [(FCCKPrivateDatabase *)operation _mapRecordZoneIDs:recordZoneIDs3 toClient:0];
+        [v4 setRecordZoneIDs:v25];
       }
 
       configurationsByRecordZoneID = [v4 configurationsByRecordZoneID];
@@ -2560,13 +2549,13 @@ LABEL_24:
       if (configurationsByRecordZoneID)
       {
         configurationsByRecordZoneID2 = [v4 configurationsByRecordZoneID];
-        v51[0] = MEMORY[0x1E69E9820];
-        v51[1] = 3221225472;
-        v51[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke;
-        v51[3] = &unk_1E7C3FAE8;
-        v51[4] = operation;
-        v29 = [configurationsByRecordZoneID2 fc_dictionaryByTransformingKeysWithBlock:v51];
-        [v4 setConfigurationsByRecordZoneID:v29];
+        v50[0] = MEMORY[0x1E69E9820];
+        v50[1] = 3221225472;
+        v50[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke;
+        v50[3] = &unk_1E7C3FAE8;
+        v50[4] = operation;
+        v28 = [configurationsByRecordZoneID2 fc_dictionaryByTransformingKeysWithBlock:v50];
+        [v4 setConfigurationsByRecordZoneID:v28];
       }
 
       recordChangedBlock = [v4 recordChangedBlock];
@@ -2576,10 +2565,10 @@ LABEL_24:
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_2;
-        *&v53 = &unk_1E7C3FB10;
-        v31 = recordChangedBlock;
-        *(&v53 + 1) = operation;
-        v54 = v31;
+        *&v52 = &unk_1E7C3FB10;
+        v30 = recordChangedBlock;
+        *(&v52 + 1) = operation;
+        v53 = v30;
         [v4 setRecordChangedBlock:buf];
       }
 
@@ -2587,52 +2576,52 @@ LABEL_24:
       v11 = recordWithIDWasDeletedBlock;
       if (recordWithIDWasDeletedBlock)
       {
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_3;
-        v49[3] = &unk_1E7C3FB38;
-        v49[4] = operation;
-        v50 = recordWithIDWasDeletedBlock;
-        [v4 setRecordWithIDWasDeletedBlock:v49];
+        v48[0] = MEMORY[0x1E69E9820];
+        v48[1] = 3221225472;
+        v48[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_3;
+        v48[3] = &unk_1E7C3FB38;
+        v48[4] = operation;
+        v49 = recordWithIDWasDeletedBlock;
+        [v4 setRecordWithIDWasDeletedBlock:v48];
       }
 
       recordZoneChangeTokensUpdatedBlock = [v4 recordZoneChangeTokensUpdatedBlock];
-      v34 = recordZoneChangeTokensUpdatedBlock;
+      v33 = recordZoneChangeTokensUpdatedBlock;
       if (recordZoneChangeTokensUpdatedBlock)
       {
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_4;
-        v47[3] = &unk_1E7C3FB60;
-        v47[4] = operation;
-        v48 = recordZoneChangeTokensUpdatedBlock;
-        [v4 setRecordZoneChangeTokensUpdatedBlock:v47];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_4;
+        v46[3] = &unk_1E7C3FB60;
+        v46[4] = operation;
+        v47 = recordZoneChangeTokensUpdatedBlock;
+        [v4 setRecordZoneChangeTokensUpdatedBlock:v46];
       }
 
       recordZoneFetchCompletionBlock = [v4 recordZoneFetchCompletionBlock];
-      v36 = recordZoneFetchCompletionBlock;
+      v35 = recordZoneFetchCompletionBlock;
       if (recordZoneFetchCompletionBlock)
       {
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_5;
-        v45[3] = &unk_1E7C3FB88;
-        v45[4] = operation;
-        v46 = recordZoneFetchCompletionBlock;
-        [v4 setRecordZoneFetchCompletionBlock:v45];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_5;
+        v44[3] = &unk_1E7C3FB88;
+        v44[4] = operation;
+        v45 = recordZoneFetchCompletionBlock;
+        [v4 setRecordZoneFetchCompletionBlock:v44];
       }
 
       fetchRecordZoneChangesCompletionBlock = [v4 fetchRecordZoneChangesCompletionBlock];
-      v38 = fetchRecordZoneChangesCompletionBlock;
+      v37 = fetchRecordZoneChangesCompletionBlock;
       if (fetchRecordZoneChangesCompletionBlock)
       {
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_6;
-        v43[3] = &unk_1E7C39710;
-        v43[4] = operation;
-        v44 = fetchRecordZoneChangesCompletionBlock;
-        [v4 setFetchRecordZoneChangesCompletionBlock:v43];
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_6;
+        v42[3] = &unk_1E7C39710;
+        v42[4] = operation;
+        v43 = fetchRecordZoneChangesCompletionBlock;
+        [v4 setFetchRecordZoneChangesCompletionBlock:v42];
       }
 
       goto LABEL_15;
@@ -2653,18 +2642,18 @@ LABEL_24:
         goto LABEL_17;
       }
 
-      v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't handle queries on the private database"];
+      v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't handle queries on the private database"];
       *buf = 136315906;
       *&buf[4] = "[FCCKPrivateDatabase _preflightOperation:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCCKPrivateDatabase.m";
       *&buf[22] = 1024;
-      LODWORD(v53) = 797;
-      WORD2(v53) = 2114;
-      *(&v53 + 6) = v40;
-      v41 = MEMORY[0x1E69E9C10];
+      LODWORD(v52) = 797;
+      WORD2(v52) = 2114;
+      *(&v52 + 6) = v39;
+      v40 = MEMORY[0x1E69E9C10];
 LABEL_46:
-      _os_log_error_impl(&dword_1B63EF000, v41, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+      _os_log_error_impl(&dword_1B63EF000, v40, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       goto LABEL_17;
     }
@@ -2675,57 +2664,55 @@ LABEL_46:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"all CK operations MUST go through database preflight"];
+        v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"all CK operations MUST go through database preflight"];
         *buf = 136315906;
         *&buf[4] = "[FCCKPrivateDatabase _preflightOperation:]";
         *&buf[12] = 2080;
         *&buf[14] = "FCCKPrivateDatabase.m";
         *&buf[22] = 1024;
-        LODWORD(v53) = 809;
-        WORD2(v53) = 2114;
-        *(&v53 + 6) = v40;
-        v41 = MEMORY[0x1E69E9C10];
+        LODWORD(v52) = 809;
+        WORD2(v52) = 2114;
+        *(&v52 + 6) = v39;
+        v40 = MEMORY[0x1E69E9C10];
         goto LABEL_46;
       }
     }
   }
 
 LABEL_17:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addCKOperation:(uint64_t)operation destination:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v6 = *(self + 136);
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v34 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v24;
+      v10 = *v23;
 LABEL_4:
       v11 = 0;
       v12 = v9;
       while (1)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v11);
-        v22 = v12;
-        v14 = [v13 database:self willEnqueueOperation:v5 error:&v22];
-        v9 = v22;
+        v13 = *(*(&v22 + 1) + 8 * v11);
+        v21 = v12;
+        v14 = [v13 database:self willEnqueueOperation:v5 error:&v21];
+        v9 = v21;
 
         if (v14 == 2)
         {
@@ -2743,7 +2730,7 @@ LABEL_4:
         v12 = v9;
         if (v8 == v11)
         {
-          v8 = [v6 countByEnumeratingWithState:&v23 objects:v35 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v22 objects:v34 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -2816,13 +2803,13 @@ LABEL_20:
 
       v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
       *buf = 136315906;
-      v28 = "[FCCKPrivateDatabase _addCKOperation:destination:]";
-      v29 = 2080;
-      v30 = "FCCKPrivateDatabase.m";
-      v31 = 1024;
-      v32 = 759;
-      v33 = 2114;
-      v34 = v20;
+      v27 = "[FCCKPrivateDatabase _addCKOperation:destination:]";
+      v28 = 2080;
+      v29 = "FCCKPrivateDatabase.m";
+      v30 = 1024;
+      v31 = 759;
+      v32 = 2114;
+      v33 = v20;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -2830,51 +2817,45 @@ LABEL_20:
   }
 
 LABEL_30:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueStartUp
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (!self)
+  v13 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-LABEL_6:
-    v8 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  *(self + 11) = 1;
-  if ([*(self + 128) count])
-  {
-    v2 = *(self + 128);
-    firstObject = [v2 firstObject];
-
-    v4 = FCPrivateDataEncryptionLog;
-    if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
+    *(self + 11) = 1;
+    if ([*(self + 128) count])
     {
-      v5 = v4;
-      *buf = 138412290;
-      v14 = objc_opt_class();
-      v6 = v14;
-      _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Performing startup for middleware: %@", buf, 0xCu);
+      v2 = *(self + 128);
+      firstObject = [v2 firstObject];
+
+      v4 = FCPrivateDataEncryptionLog;
+      if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v5 = v4;
+        *buf = 138412290;
+        v12 = objc_opt_class();
+        v6 = v12;
+        _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Performing startup for middleware: %@", buf, 0xCu);
+      }
+
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __39__FCCKPrivateDatabase__continueStartUp__block_invoke;
+      v8[3] = &unk_1E7C36C80;
+      v9 = firstObject;
+      selfCopy = self;
+      v7 = firstObject;
+      [v7 performStartUpForDatabase:self completion:v8];
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __39__FCCKPrivateDatabase__continueStartUp__block_invoke;
-    v10[3] = &unk_1E7C36C80;
-    v11 = firstObject;
-    selfCopy = self;
-    v7 = firstObject;
-    [v7 performStartUpForDatabase:self completion:v10];
+    else
+    {
 
-    goto LABEL_6;
+      [(FCCKPrivateDatabase *)self _finishStartUpWithError:?];
+    }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-
-  [(FCCKPrivateDatabase *)self _finishStartUpWithError:?];
 }
 
 - (void)t_performStartUpWithCompletion:(uint64_t)completion
@@ -2898,42 +2879,39 @@ LABEL_6:
 
 void __39__FCCKPrivateDatabase__continueStartUp__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = v4;
+    v5 = v4;
     *buf = 138412546;
-    v16 = objc_opt_class();
-    v17 = 2112;
-    v18 = v3;
-    v7 = v16;
-    _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "Finished startup for middleware: %@, result error %@", buf, 0x16u);
+    v14 = objc_opt_class();
+    v15 = 2112;
+    v16 = v3;
+    v6 = v14;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Finished startup for middleware: %@, result error %@", buf, 0x16u);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v7 = *(a1 + 40);
+  if (v7)
   {
-    v9 = *(v8 + 88);
+    v8 = *(v7 + 88);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145;
-  v12[3] = &unk_1E7C36C58;
-  v13 = v3;
-  v14 = v8;
-  v10 = v3;
-  FCDispatchAsyncWithQualityOfService(v9, 25, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145;
+  v10[3] = &unk_1E7C36C58;
+  v11 = v3;
+  v12 = v7;
+  v9 = v3;
+  FCDispatchAsyncWithQualityOfService(v8, 25, v10);
 }
 
 void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
@@ -2974,7 +2952,7 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
 
 - (void)_finishStartUpWithError:(uint64_t)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (error)
   {
@@ -2989,11 +2967,11 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
           v5 = @"enabled";
         }
 
-        v14 = 138543618;
-        v15 = v5;
-        v16 = 2114;
-        v17 = v3;
-        _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Private database startup failed with encryption %{public}@, error: %{public}@", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v5;
+        v15 = 2114;
+        v16 = v3;
+        _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Private database startup failed with encryption %{public}@, error: %{public}@", &v13, 0x16u);
       }
     }
 
@@ -3012,11 +2990,11 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
 
       v8 = v4;
       v9 = FCCKPrivateDatabaseVersionString(v6);
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2114;
-      v17 = v9;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "Private database startup succeeded with encryption %{public}@, version=%{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "Private database startup succeeded with encryption %{public}@, version=%{public}@", &v13, 0x16u);
     }
 
     started = FCCKDatabaseStartUpResultFromError(v3);
@@ -3041,8 +3019,6 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
       *(error + 176) = date;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_preflightRecordsInDatabaseChangesOperation:(uint64_t)operation
@@ -3088,13 +3064,14 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
   }
 }
 
-- (id)_mapRecords:(char)records toClient:
+- (id)_mapRecords:(uint64_t)records toClient:
 {
+  recordsCopy = records;
   v5 = a2;
   v6 = v5;
   if (self)
   {
-    if ((records & 1) == 0)
+    if ((recordsCopy & 1) == 0)
     {
       v7 = v5;
       v8 = *(self + 80);
@@ -3112,9 +3089,9 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
     v11[1] = 3221225472;
     v11[2] = __44__FCCKPrivateDatabase__mapRecords_toClient___block_invoke;
     v11[3] = &unk_1E7C3FCA0;
-    recordsCopy = records;
+    v12 = recordsCopy;
     v11[4] = self;
-    v9 = [(FCCKPrivateDatabase *)self _mapObjects:v6 toClient:records withBlock:v11];
+    v9 = [(FCCKPrivateDatabase *)self _mapObjects:v6 toClient:recordsCopy withBlock:v11];
   }
 
   else
@@ -3125,7 +3102,7 @@ void __39__FCCKPrivateDatabase__continueStartUp__block_invoke_145(uint64_t a1)
   return v9;
 }
 
-- (id)_mapRecordIDs:(char)ds toClient:
+- (id)_mapRecordIDs:(uint64_t)ds toClient:
 {
   if (self)
   {
@@ -3246,7 +3223,7 @@ void __58__FCCKPrivateDatabase__preflightRecordsInModifyOperation___block_invoke
   return v6;
 }
 
-- (id)_mapRecordZoneIDs:(char)ds toClient:
+- (id)_mapRecordZoneIDs:(uint64_t)ds toClient:
 {
   if (self)
   {
@@ -3266,69 +3243,64 @@ void __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___b
 
 - (id)_serverToClientRecord:(uint64_t)record
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   firstObject = 0;
   if (record && v3)
   {
-    v10[0] = v3;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v7 = [(FCCKPrivateDatabase *)record _mapRecords:v6 toClient:1];
     firstObject = [v7 firstObject];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 void __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
   v7 = a3;
   v8 = a2;
-  v16 = [(FCCKPrivateDatabase *)v6 _clientRecordID:v8];
+  v15 = [(FCCKPrivateDatabase *)v6 _clientRecordID:v8];
   v9 = *(a1 + 32);
   v10 = v8;
   if (v9)
   {
-    v20[0] = v7;
+    v19[0] = v7;
     v11 = MEMORY[0x1E695DEC8];
     v12 = v7;
-    v13 = [v11 arrayWithObjects:v20 count:1];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __62__FCCKPrivateDatabase__serverToClientRecordType_withRecordID___block_invoke;
-    v17[3] = &unk_1E7C3FCF0;
-    v18 = v10;
-    v19 = v9;
-    v14 = [(FCCKPrivateDatabase *)v9 _mapObjects:v13 toClient:1 withBlock:v17];
+    v13 = [v11 arrayWithObjects:v19 count:1];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __62__FCCKPrivateDatabase__serverToClientRecordType_withRecordID___block_invoke;
+    v16[3] = &unk_1E7C3FCF0;
+    v17 = v10;
+    v18 = v9;
+    v14 = [(FCCKPrivateDatabase *)v9 _mapObjects:v13 toClient:1 withBlock:v16];
     v9 = [v14 firstObject];
   }
 
-  (*(v5 + 16))(v5, v16, v9);
-  v15 = *MEMORY[0x1E69E9840];
+  (*(v5 + 16))(v5, v15, v9);
 }
 
 - (id)_clientRecordID:(id)d
 {
   dCopy = d;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (d)
   {
-    v9 = a2;
+    v8 = a2;
     v3 = MEMORY[0x1E695DEC8];
     v4 = a2;
-    v5 = [v3 arrayWithObjects:&v9 count:1];
+    v5 = [v3 arrayWithObjects:&v8 count:1];
 
     v6 = [(FCCKPrivateDatabase *)dCopy _mapRecordIDs:v5 toClient:1];
     dCopy = [v6 firstObject];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
@@ -3346,19 +3318,17 @@ void __69__FCCKPrivateDatabase__preflightRecordsInRecordZoneChangesOperation___b
 - (id)_serverToClientRecordZoneID:(id)d
 {
   dCopy = d;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (d)
   {
-    v9 = a2;
+    v8 = a2;
     v3 = MEMORY[0x1E695DEC8];
     v4 = a2;
-    v5 = [v3 arrayWithObjects:&v9 count:1];
+    v5 = [v3 arrayWithObjects:&v8 count:1];
 
     v6 = [(FCCKPrivateDatabase *)dCopy _mapRecordZoneIDs:v5 toClient:1];
     dCopy = [v6 firstObject];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
@@ -3393,7 +3363,7 @@ void __67__FCCKPrivateDatabase__preflightRecordsInDatabaseChangesOperation___blo
 - (id)_serverToClientRecordZoneID:(id)d expectUnknownZones:(void *)zones
 {
   dCopy = d;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (d)
   {
     zonesCopy = zones;
@@ -3404,8 +3374,6 @@ void __67__FCCKPrivateDatabase__preflightRecordsInDatabaseChangesOperation___blo
     v6 = [(FCCKPrivateDatabase *)dCopy _mapRecordZoneIDs:v5 toClient:1 expectUnknownZones:1];
     dCopy = [v6 firstObject];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return dCopy;
 }
@@ -3495,37 +3463,36 @@ void __63__FCCKPrivateDatabase__preflightZonesIDsInFetchZonesOperation___block_i
 
 void __63__FCCKPrivateDatabase__preflightZonesIDsInFetchZonesOperation___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = a3;
-  v14 = [(FCCKPrivateDatabase *)v5 _serverToClientRecordZoneID:a2];
+  v13 = [(FCCKPrivateDatabase *)v5 _serverToClientRecordZoneID:a2];
   v7 = *(a1 + 32);
   v8 = v6;
   v9 = v8;
   v10 = 0;
   if (v8 && v7)
   {
-    v15[0] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+    v14[0] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     v12 = [(FCCKPrivateDatabase *)v7 _mapZones:v11 toClient:1];
     v10 = [v12 firstObject];
   }
 
-  if (v14 && v10)
+  if (v13 && v10)
   {
-    [*(a1 + 40) setObject:v10 forKeyedSubscript:v14];
+    [*(a1 + 40) setObject:v10 forKeyedSubscript:v13];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (id)_mapZones:(char)zones toClient:
+- (id)_mapZones:(uint64_t)zones toClient:
 {
+  zonesCopy = zones;
   v5 = a2;
   v6 = v5;
   if (self)
   {
-    if ((zones & 1) == 0)
+    if ((zonesCopy & 1) == 0)
     {
       v7 = v5;
       v8 = *(self + 80);
@@ -3543,9 +3510,9 @@ void __63__FCCKPrivateDatabase__preflightZonesIDsInFetchZonesOperation___block_i
     v11[1] = 3221225472;
     v11[2] = __42__FCCKPrivateDatabase__mapZones_toClient___block_invoke;
     v11[3] = &unk_1E7C3FCC8;
-    zonesCopy = zones;
+    v12 = zonesCopy;
     v11[4] = self;
-    v9 = [(FCCKPrivateDatabase *)self _mapObjects:v6 toClient:zones withBlock:v11];
+    v9 = [(FCCKPrivateDatabase *)self _mapObjects:v6 toClient:zonesCopy withBlock:v11];
   }
 
   else
@@ -3571,14 +3538,14 @@ void __63__FCCKPrivateDatabase__preflightZoneIDsInModifyZonesOperation___block_i
 
 id __46__FCCKPrivateDatabase__mapRecordIDs_toClient___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = *(a1 + 32);
   if (*(a1 + 40) == 1)
   {
-    v14 = 0;
-    v7 = [a3 serverToClientRecordID:v5 inDatabase:v6 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [a3 serverToClientRecordID:v5 inDatabase:v6 error:&v13];
+    v8 = v13;
     if (v7)
     {
       goto LABEL_8;
@@ -3591,16 +3558,16 @@ id __46__FCCKPrivateDatabase__mapRecordIDs_toClient___block_invoke(uint64_t a1, 
     }
 
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v8;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v8;
     v10 = "Failed to map server record ID %{public}@ to client with error: %{public}@";
     goto LABEL_12;
   }
 
-  v13 = 0;
-  v7 = [a3 clientToServerRecordID:v5 inDatabase:v6 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [a3 clientToServerRecordID:v5 inDatabase:v6 error:&v12];
+  v8 = v12;
   if (v7)
   {
     goto LABEL_8;
@@ -3610,9 +3577,9 @@ id __46__FCCKPrivateDatabase__mapRecordIDs_toClient___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v8;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v8;
     v10 = "Failed to map client record ID %{public}@ to server with error: %{public}@";
 LABEL_12:
     _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
@@ -3622,68 +3589,66 @@ LABEL_7:
   v7 = 0;
 LABEL_8:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)_mapObjects:(char)objects toClient:(void *)client withBlock:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = a2;
   clientCopy = client;
-  v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v6, "count")}];
-  v25 = *(self + 144);
+  v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v24 = *(self + 144);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = v6;
-  v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v25)
   {
-    v23 = *v32;
+    v22 = *v31;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(*(&v31 + 1) + 8 * i) copy];
+        v9 = [*(*(&v30 + 1) + 8 * i) copy];
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         if (objects)
         {
-          reverseObjectEnumerator = [v25 reverseObjectEnumerator];
+          reverseObjectEnumerator = [v24 reverseObjectEnumerator];
         }
 
         else
         {
-          reverseObjectEnumerator = v25;
+          reverseObjectEnumerator = v24;
         }
 
         v11 = reverseObjectEnumerator;
-        v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v28;
+          v14 = *v27;
 LABEL_11:
           v15 = 0;
           v16 = v9;
           while (1)
           {
-            if (*v28 != v14)
+            if (*v27 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v27 + 1) + 8 * v15);
+            v17 = *(*(&v26 + 1) + 8 * v15);
             v18 = objc_autoreleasePoolPush();
             v9 = clientCopy[2](clientCopy, v16, v17);
 
@@ -3697,7 +3662,7 @@ LABEL_11:
             v16 = v9;
             if (v13 == v15)
             {
-              v13 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v13)
               {
                 goto LABEL_11;
@@ -3717,20 +3682,18 @@ LABEL_11:
           }
 
 LABEL_19:
-          [v21 addObject:v9];
+          [v20 addObject:v9];
           v11 = v9;
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v25 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v20;
 }
 
 - (id)_mapRecordZoneIDs:(char)ds toClient:(char)client expectUnknownZones:
@@ -3749,7 +3712,7 @@ LABEL_19:
 
 id __69__FCCKPrivateDatabase__mapRecordZoneIDs_toClient_expectUnknownZones___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 zoneName];
@@ -3764,36 +3727,8 @@ id __69__FCCKPrivateDatabase__mapRecordZoneIDs_toClient_expectUnknownZones___blo
   v10 = *(a1 + 32);
   if (*(a1 + 40) == 1)
   {
-    v17 = 0;
-    v9 = [v6 serverToClientRecordZoneID:v5 inDatabase:v10 error:&v17];
-    v11 = v17;
-    if (v9)
-    {
-      goto LABEL_11;
-    }
-
-    if (*(a1 + 41))
-    {
-      goto LABEL_11;
-    }
-
-    v12 = FCPrivateDataEncryptionLog;
-    if (!os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_11;
-    }
-
-    *buf = 138543618;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v11;
-    v13 = "Failed to map server record zone ID %{public}@ to client with error: %{public}@";
-  }
-
-  else
-  {
     v16 = 0;
-    v9 = [v6 clientToServerRecordZoneID:v5 inDatabase:v10 error:&v16];
+    v9 = [v6 serverToClientRecordZoneID:v5 inDatabase:v10 error:&v16];
     v11 = v16;
     if (v9)
     {
@@ -3812,9 +3747,37 @@ id __69__FCCKPrivateDatabase__mapRecordZoneIDs_toClient_expectUnknownZones___blo
     }
 
     *buf = 138543618;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v11;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v11;
+    v13 = "Failed to map server record zone ID %{public}@ to client with error: %{public}@";
+  }
+
+  else
+  {
+    v15 = 0;
+    v9 = [v6 clientToServerRecordZoneID:v5 inDatabase:v10 error:&v15];
+    v11 = v15;
+    if (v9)
+    {
+      goto LABEL_11;
+    }
+
+    if (*(a1 + 41))
+    {
+      goto LABEL_11;
+    }
+
+    v12 = FCPrivateDataEncryptionLog;
+    if (!os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_11;
+    }
+
+    *buf = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v11;
     v13 = "Failed to map client record zone ID %{public}@ to server with error: %{public}@";
   }
 
@@ -3822,40 +3785,37 @@ id __69__FCCKPrivateDatabase__mapRecordZoneIDs_toClient_expectUnknownZones___blo
 LABEL_11:
 
 LABEL_12:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_clientToServerRecord:(uint64_t)record
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   firstObject = 0;
   if (record && v3)
   {
-    v10[0] = v3;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v7 = [(FCCKPrivateDatabase *)record _mapRecords:v6 toClient:0];
     firstObject = [v7 firstObject];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
 id __44__FCCKPrivateDatabase__mapRecords_toClient___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = *(a1 + 32);
   if (*(a1 + 40) == 1)
   {
-    v14 = 0;
-    v7 = [a3 serverToClientRecord:v5 inDatabase:v6 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [a3 serverToClientRecord:v5 inDatabase:v6 error:&v13];
+    v8 = v13;
     if (v7)
     {
       goto LABEL_8;
@@ -3868,16 +3828,16 @@ id __44__FCCKPrivateDatabase__mapRecords_toClient___block_invoke(uint64_t a1, vo
     }
 
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v8;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v8;
     v10 = "Failed to map server record %{public}@ to client with error: %{public}@";
     goto LABEL_12;
   }
 
-  v13 = 0;
-  v7 = [a3 clientToServerRecord:v5 inDatabase:v6 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [a3 clientToServerRecord:v5 inDatabase:v6 error:&v12];
+  v8 = v12;
   if (v7)
   {
     goto LABEL_8;
@@ -3887,9 +3847,9 @@ id __44__FCCKPrivateDatabase__mapRecords_toClient___block_invoke(uint64_t a1, vo
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v8;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v8;
     v10 = "Failed to map client record %{public}@ to server with error: %{public}@";
 LABEL_12:
     _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
@@ -3899,14 +3859,12 @@ LABEL_7:
   v7 = 0;
 LABEL_8:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 id __42__FCCKPrivateDatabase__mapZones_toClient___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 zoneID];
@@ -3922,31 +3880,8 @@ id __42__FCCKPrivateDatabase__mapZones_toClient___block_invoke(uint64_t a1, void
   v11 = *(a1 + 32);
   if (*(a1 + 40) == 1)
   {
-    v18 = 0;
-    v10 = [v6 serverToClientRecordZone:v5 inDatabase:v11 error:&v18];
-    v12 = v18;
-    if (v10)
-    {
-      goto LABEL_9;
-    }
-
-    v13 = FCPrivateDataEncryptionLog;
-    if (!os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_9;
-    }
-
-    *buf = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v12;
-    v14 = "Failed to map server record zone %{public}@ to client with error: %{public}@";
-  }
-
-  else
-  {
     v17 = 0;
-    v10 = [v6 clientToServerRecordZone:v5 inDatabase:v11 error:&v17];
+    v10 = [v6 serverToClientRecordZone:v5 inDatabase:v11 error:&v17];
     v12 = v17;
     if (v10)
     {
@@ -3960,9 +3895,32 @@ id __42__FCCKPrivateDatabase__mapZones_toClient___block_invoke(uint64_t a1, void
     }
 
     *buf = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v12;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v12;
+    v14 = "Failed to map server record zone %{public}@ to client with error: %{public}@";
+  }
+
+  else
+  {
+    v16 = 0;
+    v10 = [v6 clientToServerRecordZone:v5 inDatabase:v11 error:&v16];
+    v12 = v16;
+    if (v10)
+    {
+      goto LABEL_9;
+    }
+
+    v13 = FCPrivateDataEncryptionLog;
+    if (!os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_9;
+    }
+
+    *buf = 138543618;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v12;
     v14 = "Failed to map client record zone %{public}@ to server with error: %{public}@";
   }
 
@@ -3970,37 +3928,34 @@ id __42__FCCKPrivateDatabase__mapZones_toClient___block_invoke(uint64_t a1, void
 LABEL_9:
 
 LABEL_10:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 id __62__FCCKPrivateDatabase__serverToClientRecordType_withRecordID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
-  v14 = 0;
-  v8 = [a3 serverToClientRecordType:v5 withRecordID:v6 inDatabase:v7 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [a3 serverToClientRecordType:v5 withRecordID:v6 inDatabase:v7 error:&v13];
+  v9 = v13;
   if (!v8)
   {
     v10 = FCPrivateDataEncryptionLog;
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138543874;
-      v16 = v5;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v9;
+      v15 = v5;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v9;
       _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "Failed to map server record type %{public}@ and ID %{public}@ to client with error: %{public}@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -4113,7 +4068,7 @@ void __50__FCCKPrivateDatabase_zoneIDsUsingSecureContainer__block_invoke(uint64_
 
 - (void)takeDatabaseOfflineDueToError:(uint64_t)error
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (error)
   {
@@ -4121,7 +4076,7 @@ void __50__FCCKPrivateDatabase_zoneIDsUsingSecureContainer__block_invoke(uint64_
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "Taking database offline due to error: %{public}@", buf, 0xCu);
     }
 
@@ -4133,11 +4088,9 @@ void __50__FCCKPrivateDatabase_zoneIDsUsingSecureContainer__block_invoke(uint64_
     block[4] = error;
     dispatch_sync(v5, block);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __53__FCCKPrivateDatabase_takeDatabaseOfflineDueToError___block_invoke(uint64_t a1)
+void *__53__FCCKPrivateDatabase_takeDatabaseOfflineDueToError___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2)
@@ -4172,9 +4125,9 @@ uint64_t __53__FCCKPrivateDatabase_takeDatabaseOfflineDueToError___block_invoke(
   return result;
 }
 
-- (void)reportRecoverableStartUpError:(uint64_t)error
+- (void)reportRecoverableStartUpError:(uint64_t)result
 {
-  if (error)
+  if (result)
   {
     [FCCKPrivateDatabase _possiblySimulateCrashForError:a2 message:@"Private database startup failed with recoverable error"];
   }
@@ -4182,7 +4135,7 @@ uint64_t __53__FCCKPrivateDatabase_takeDatabaseOfflineDueToError___block_invoke(
 
 - (void)_possiblySimulateCrashForError:(void *)error message:(void *)message
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   messageCopy = message;
   if (NFInternalBuild())
@@ -4194,34 +4147,32 @@ uint64_t __53__FCCKPrivateDatabase_takeDatabaseOfflineDueToError___block_invoke(
 
     else
     {
-      v7 = FCShouldErrorBeExcludedFromSimulatedCrashes(errorCopy);
+      v6 = FCShouldErrorBeExcludedFromSimulatedCrashes(errorCopy);
 
-      if ((v7 & 1) == 0)
+      if ((v6 & 1) == 0)
       {
-        v8 = FCPrivateDataEncryptionCrashLog;
+        v7 = FCPrivateDataEncryptionCrashLog;
         if (os_log_type_enabled(FCPrivateDataEncryptionCrashLog, OS_LOG_TYPE_INFO))
         {
-          v9 = 138543618;
-          v10 = messageCopy;
-          v11 = 2114;
-          v12 = errorCopy;
-          _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v9, 0x16u);
-          v8 = FCPrivateDataEncryptionCrashLog;
+          v8 = 138543618;
+          v9 = messageCopy;
+          v10 = 2114;
+          v11 = errorCopy;
+          _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_INFO, "%{public}@: %{public}@", &v8, 0x16u);
+          v7 = FCPrivateDataEncryptionCrashLog;
         }
 
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
-          v9 = 138543618;
-          v10 = messageCopy;
-          v11 = 2114;
-          v12 = errorCopy;
-          _os_log_fault_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@", &v9, 0x16u);
+          v8 = 138543618;
+          v9 = messageCopy;
+          v10 = 2114;
+          v11 = errorCopy;
+          _os_log_fault_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@", &v8, 0x16u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportEncryptionMigrationError:(uint64_t)error
@@ -4285,7 +4236,7 @@ uint64_t __64__FCCKPrivateDatabase__privateDatabaseDeprecatedRecordTestBlock__bl
 
 - (void)fetchAllDatabaseChangesWithServerChangeToken:(id)token qualityOfService:(int64_t)service completionQueue:(id)queue completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   queueCopy = queue;
   handlerCopy = handler;
@@ -4305,16 +4256,16 @@ uint64_t __64__FCCKPrivateDatabase__privateDatabaseDeprecatedRecordTestBlock__bl
     }
 
     [(FCOperation *)v13 setRelativePriority:v14];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke;
-    v17[3] = &unk_1E7C40E20;
-    v17[4] = self;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke;
+    v16[3] = &unk_1E7C40E20;
+    v16[4] = self;
     serviceCopy = service;
-    v18 = queueCopy;
-    v20 = handlerCopy;
-    v19 = tokenCopy;
-    [(FCCKPrivateFetchDatabaseChangesOperation *)v13 setFetchDatabaseChangesCompletionBlock:v17];
+    v17 = queueCopy;
+    v19 = handlerCopy;
+    v18 = tokenCopy;
+    [(FCCKPrivateFetchDatabaseChangesOperation *)v13 setFetchDatabaseChangesCompletionBlock:v16];
     [(FCCKPrivateDatabase *)self addOperation:v13];
   }
 
@@ -4322,22 +4273,20 @@ uint64_t __64__FCCKPrivateDatabase__privateDatabaseDeprecatedRecordTestBlock__bl
   {
     v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
     *buf = 136315906;
-    v23 = "[FCCKPrivateDatabase(Additions) fetchAllDatabaseChangesWithServerChangeToken:qualityOfService:completionQueue:completionHandler:]";
-    v24 = 2080;
-    v25 = "FCCKPrivateDatabase+Additions.m";
-    v26 = 1024;
-    v27 = 25;
-    v28 = 2114;
-    v29 = v15;
+    v22 = "[FCCKPrivateDatabase(Additions) fetchAllDatabaseChangesWithServerChangeToken:qualityOfService:completionQueue:completionHandler:]";
+    v23 = 2080;
+    v24 = "FCCKPrivateDatabase+Additions.m";
+    v25 = 1024;
+    v26 = 25;
+    v27 = 2114;
+    v28 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, char a5, void *a6)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -4363,7 +4312,7 @@ void __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChan
       if (os_log_type_enabled(FCCloudKitLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v37 = v15;
+        v36 = v15;
         _os_log_error_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_ERROR, "Error fetching database changes: %{public}@", buf, 0xCu);
       }
 
@@ -4375,7 +4324,7 @@ void __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChan
         block[1] = 3221225472;
         block[2] = __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke_4;
         block[3] = &unk_1E7C379C8;
-        v35 = v22;
+        v34 = v22;
         dispatch_async(v23, block);
       }
     }
@@ -4388,7 +4337,7 @@ void __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChan
   {
     v19 = *(a1 + 48);
     *buf = 138412290;
-    v37 = v19;
+    v36 = v19;
     _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Fetched database changes with serverChangeToken: %@", buf, 0xCu);
   }
 
@@ -4418,26 +4367,93 @@ LABEL_17:
   if (v24)
   {
     v25 = *(a1 + 40);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke_7;
-    v27[3] = &unk_1E7C40DF8;
-    v32 = v24;
-    v28 = 0;
-    v29 = v20;
-    v30 = v21;
-    v31 = v13;
-    v33 = a5;
-    dispatch_async(v25, v27);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __130__FCCKPrivateDatabase_Additions__fetchAllDatabaseChangesWithServerChangeToken_qualityOfService_completionQueue_completionHandler___block_invoke_7;
+    v26[3] = &unk_1E7C40DF8;
+    v31 = v24;
+    v27 = 0;
+    v28 = v20;
+    v29 = v21;
+    v30 = v13;
+    v32 = a5;
+    dispatch_async(v25, v26);
   }
 
 LABEL_20:
-  v26 = *MEMORY[0x1E69E9840];
+}
+
+- (void)fetchChangesForRecordZoneID:(id)d changeToken:(id)token desiredKeys:(id)keys fetchAllChanges:(BOOL)changes qualityOfService:(int64_t)service completionHandler:(id)handler
+{
+  changesCopy = changes;
+  v38 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  tokenCopy = token;
+  keysCopy = keys;
+  handlerCopy = handler;
+  v18 = handlerCopy;
+  if (handlerCopy)
+  {
+    if (dCopy)
+    {
+      v19 = objc_alloc_init(FCCKPrivateFetchRecordZoneChangesOperation);
+      [(FCCKPrivateDatabaseOperation *)v19 setDatabase:self];
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setRecordZoneID:dCopy];
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setPreviousServerChangeToken:tokenCopy];
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setDesiredKeys:keysCopy];
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setFetchAllChanges:changesCopy];
+      [(FCOperation *)v19 setQualityOfService:service];
+      if (service == 9)
+      {
+        v20 = -1;
+      }
+
+      else
+      {
+        v20 = service == 33 || service == 25;
+      }
+
+      [(FCOperation *)v19 setRelativePriority:v20];
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setFetchNewestChangesFirst:1];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __137__FCCKPrivateDatabase_Additions__fetchChangesForRecordZoneID_changeToken_desiredKeys_fetchAllChanges_qualityOfService_completionHandler___block_invoke;
+      v22[3] = &unk_1E7C40E48;
+      v23 = tokenCopy;
+      selfCopy = self;
+      v25 = dCopy;
+      v29 = changesCopy;
+      v26 = keysCopy;
+      serviceCopy = service;
+      v27 = v18;
+      [(FCCKPrivateFetchRecordZoneChangesOperation *)v19 setFetchRecordZoneChangesCompletionBlock:v22];
+      [(FCCKPrivateDatabase *)self addOperation:v19];
+    }
+
+    else
+    {
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, 0, 0, 0);
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler != nil"];
+    *buf = 136315906;
+    v31 = "[FCCKPrivateDatabase(Additions) fetchChangesForRecordZoneID:changeToken:desiredKeys:fetchAllChanges:qualityOfService:completionHandler:]";
+    v32 = 2080;
+    v33 = "FCCKPrivateDatabase+Additions.m";
+    v34 = 1024;
+    v35 = 77;
+    v36 = 2114;
+    v37 = v21;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
 }
 
 void __137__FCCKPrivateDatabase_Additions__fetchChangesForRecordZoneID_changeToken_desiredKeys_fetchAllChanges_qualityOfService_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -4445,16 +4461,16 @@ void __137__FCCKPrivateDatabase_Additions__fetchChangesForRecordZoneID_changeTok
   {
     if (!*(a1 + 32) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"how did a nil change token expire?"];
-      v16 = 136315906;
-      v17 = "[FCCKPrivateDatabase(Additions) fetchChangesForRecordZoneID:changeToken:desiredKeys:fetchAllChanges:qualityOfService:completionHandler:]_block_invoke";
-      v18 = 2080;
-      v19 = "FCCKPrivateDatabase+Additions.m";
-      v20 = 1024;
-      v21 = 101;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+      v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"how did a nil change token expire?"];
+      v15 = 136315906;
+      v16 = "[FCCKPrivateDatabase(Additions) fetchChangesForRecordZoneID:changeToken:desiredKeys:fetchAllChanges:qualityOfService:completionHandler:]_block_invoke";
+      v17 = 2080;
+      v18 = "FCCKPrivateDatabase+Additions.m";
+      v19 = 1024;
+      v20 = 101;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
     }
 
     [*(a1 + 40) fetchChangesForRecordZoneID:*(a1 + 48) changeToken:0 desiredKeys:*(a1 + 56) fetchAllChanges:*(a1 + 80) qualityOfService:*(a1 + 72) completionHandler:*(a1 + 64)];
@@ -4464,8 +4480,6 @@ void __137__FCCKPrivateDatabase_Additions__fetchChangesForRecordZoneID_changeTok
   {
     (*(*(a1 + 64) + 16))(*(a1 + 64), a6 == 0, v11, v12, 0, v13, a5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

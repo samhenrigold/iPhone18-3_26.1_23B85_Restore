@@ -6,7 +6,7 @@
 
 - (BOOL)checkHasEntitlements:(id)entitlements error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   entitlementsCopy = entitlements;
   if ([(__CFArray *)entitlementsCopy count])
   {
@@ -19,26 +19,26 @@
       CFRelease(v7);
       if (v8)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         error = entitlementsCopy;
-        v10 = [(__CFArray *)error countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v10 = [(__CFArray *)error countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v27;
+          v12 = *v26;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v27 != v12)
+              if (*v26 != v12)
               {
                 objc_enumerationMutation(error);
               }
 
-              v14 = *(*(&v26 + 1) + 8 * i);
+              v14 = *(*(&v25 + 1) + 8 * i);
               v15 = [(__CFDictionary *)v8 objectForKeyedSubscript:v14];
               bOOLValue = [v15 BOOLValue];
 
@@ -56,7 +56,7 @@
               }
             }
 
-            v11 = [(__CFArray *)error countByEnumeratingWithState:&v26 objects:v31 count:16];
+            v11 = [(__CFArray *)error countByEnumeratingWithState:&v25 objects:v30 count:16];
             v17 = 1;
             if (v11)
             {
@@ -110,7 +110,6 @@ LABEL_22:
     v17 = 1;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

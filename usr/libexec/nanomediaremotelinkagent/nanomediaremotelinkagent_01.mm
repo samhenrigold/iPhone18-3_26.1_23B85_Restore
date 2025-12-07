@@ -1,23 +1,3 @@
-id sub_10002F8B0(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 32);
-  v3 = [a2 uniqueIdentifier];
-  v4 = [v2 containsObject:v3];
-
-  return v4;
-}
-
-void sub_10002FE90(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  v4 = [v2 object];
-  v5 = *(a1 + 48);
-  v7 = v4;
-  v6 = [NSArray arrayWithObjects:&v7 count:1];
-  [v5 _sendOriginUpdatesToClient:v6];
-}
-
 void sub_100030060(uint64_t a1)
 {
   v2 = MRMediaRemoteCopyLocalDeviceSystemMediaApplicationDisplayID();
@@ -143,53 +123,32 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_100030980(uint64_t a1)
+void sub_100030980()
 {
-  sub_10000DC44(a1, __stack_chk_guard);
+  sub_10000DC44(__stack_chk_guard);
   sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v1, v2, "[%@] executeUpdateBlock", v3, v4, v5, v6, v7);
+  sub_10000DC1C(&_mh_execute_header, v0, v1, "[%@] executeUpdateBlock", v2, v3, v4, v5);
 }
 
-void sub_1000309E8(uint64_t *a1)
+void sub_100030B2C()
 {
-  v1 = *a1;
+  sub_10000DC44(__stack_chk_guard);
   sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v2, v3, "[%@] setting state to pending and bailing", v4, v5, v6, v7, v8);
+  sub_10000DC1C(&_mh_execute_header, v0, v1, "[%@] finished block", v2, v3, v4, v5);
 }
 
-void sub_100030A54(uint64_t *a1)
+void sub_100030B94()
 {
-  v1 = *a1;
+  sub_10000DC44(__stack_chk_guard);
   sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v2, v3, "[%@] setting state to updating", v4, v5, v6, v7, v8);
+  sub_10000DC1C(&_mh_execute_header, v0, v1, "[%@] state is pending, will retry", v2, v3, v4, v5);
 }
 
-void sub_100030AC0(uint64_t *a1)
+void sub_100030BFC()
 {
-  v1 = *a1;
+  sub_10000DC44(__stack_chk_guard);
   sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v2, v3, "[%@] calling block", v4, v5, v6, v7, v8);
-}
-
-void sub_100030B2C(uint64_t a1)
-{
-  sub_10000DC44(a1, __stack_chk_guard);
-  sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v1, v2, "[%@] finished block", v3, v4, v5, v6, v7);
-}
-
-void sub_100030B94(uint64_t a1)
-{
-  sub_10000DC44(a1, __stack_chk_guard);
-  sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v1, v2, "[%@] state is pending, will retry", v3, v4, v5, v6, v7);
-}
-
-void sub_100030BFC(uint64_t a1)
-{
-  sub_10000DC44(a1, __stack_chk_guard);
-  sub_10000DC38();
-  sub_10000DC1C(&_mh_execute_header, v1, v2, "[%@] setting state to idle, ", v3, v4, v5, v6, v7);
+  sub_10000DC1C(&_mh_execute_header, v0, v1, "[%@] setting state to idle, ", v2, v3, v4, v5);
 }
 
 void sub_100030DC4()
@@ -214,7 +173,7 @@ void sub_100030F90()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100018764() uniqueIdentifier];
   sub_100018724();
-  sub_100018744(&_mh_execute_header, v3, v4, "[LinkAgent] (%@-%@) Failed to fetch now playing playback queue with error: %@", v5, v6, v7, v8, v9);
+  sub_100018744(&_mh_execute_header, v3, v4, "[LinkAgent] (%@-%@) Failed to fetch now playing playback queue with error: %@", v5, v6, v7, v8);
 }
 
 void sub_10003102C()
@@ -224,24 +183,16 @@ void sub_10003102C()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100018764() uniqueIdentifier];
   sub_100018724();
-  sub_100018744(&_mh_execute_header, v3, v4, "[LinkAgent] (%@-%@) Failed to fetch now playing client with error: %@", v5, v6, v7, v8, v9);
-}
-
-void sub_1000310C8(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 48);
-  sub_10001CD94();
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "[Origin] Trying to set invalid activeOrigin identifier: %@, falling back to: %@", v4, 0x16u);
+  sub_100018744(&_mh_execute_header, v3, v4, "[LinkAgent] (%@-%@) Failed to fetch now playing client with error: %@", v5, v6, v7, v8);
 }
 
 void sub_1000311CC(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v6 = [*(a1 + 32) name];
-  v7 = *(a1 + 40);
+  v5 = [*(a1 + 32) name];
   sub_10001CD94();
-  v10 = v8;
-  v11 = a2;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "[%@] Failed to connect to route %@ with error: %@", v9, 0x20u);
+  v8 = v6;
+  v9 = a2;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "[%@] Failed to connect to route %@ with error: %@", v7, 0x20u);
 }
 
 void sub_100031280(uint64_t a1, uint64_t a2, os_log_t log)

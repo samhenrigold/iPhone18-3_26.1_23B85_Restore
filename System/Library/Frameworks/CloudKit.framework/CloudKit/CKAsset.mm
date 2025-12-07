@@ -19,6 +19,7 @@
 - (CKAsset)initWithAssetReference:(id)reference;
 - (CKAsset)initWithCoder:(id)coder;
 - (CKAsset)initWithDeviceID:(id)d fileID:(id)iD generationID:(id)generationID;
+- (CKAsset)initWithFileDescriptor:(int)descriptor;
 - (CKAsset)initWithFileURL:(NSURL *)fileURL;
 - (CKAsset)initWithFileURL:(id)l signature:(id)signature;
 - (CKAsset)initWithFileURL:(id)l signature:(id)signature assetHandleUUID:(id)d;
@@ -316,6 +317,30 @@ LABEL_3:
   }
 
   return v24;
+}
+
+- (CKAsset)initWithFileDescriptor:(int)descriptor
+{
+  if (descriptor <= 0)
+  {
+    objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D940], @"Invalid fileDescriptor");
+  }
+
+  inited = objc_msgSend_initInternal(self, a2, *&descriptor);
+  if (inited)
+  {
+    v6 = objc_alloc(MEMORY[0x1E696AC00]);
+    v7 = dup(descriptor);
+    v9 = objc_msgSend_initWithFileDescriptor_closeOnDealloc_(v6, v8, v7, 1);
+    fileHandle = inited->_fileHandle;
+    inited->_fileHandle = v9;
+
+    v11 = CKCreateGUID();
+    UUID = inited->_UUID;
+    inited->_UUID = v11;
+  }
+
+  return inited;
 }
 
 - (CKAsset)initWithAssetContent:(id)content itemTypeHint:(id)hint
@@ -671,7 +696,7 @@ LABEL_7:
 
 + (id)openToReadRawEncryptedDataWithOpenInfo:(id)info error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = objc_msgSend_path(info, a2, info);
   if (v6)
   {
@@ -713,11 +738,11 @@ LABEL_7:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v24 = v6;
-      v25 = 1024;
-      v26 = v9;
-      v27 = 1024;
-      v28 = v12;
+      v23 = v6;
+      v24 = 1024;
+      v25 = v9;
+      v26 = 1024;
+      v27 = v12;
       _os_log_error_impl(&dword_1883EA000, v15, OS_LOG_TYPE_ERROR, "MKBBackupOpen failed at %{public}@ with rc:%d errno:%d", buf, 0x18u);
     }
   }
@@ -731,8 +756,6 @@ LABEL_7:
 
   v16 = 0;
 LABEL_16:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -776,24 +799,24 @@ LABEL_16:
 + (id)_openUnencryptedWithOpenInfo:(id)info genCountCheck:(BOOL)check error:(id *)error
 {
   checkCopy = check;
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   if (objc_msgSend_shouldReadRawEncryptedData(infoCopy, v9, v10) == checkCopy)
   {
     __assert_rtn("+[CKAsset _openUnencryptedWithOpenInfo:genCountCheck:error:]", "CKAsset.m", 457, "(!genCountCheck && openInfo.shouldReadRawEncryptedData) || (genCountCheck && !openInfo.shouldReadRawEncryptedData)");
   }
 
-  v116 = -1;
+  v115 = -1;
   v13 = objc_msgSend_path(infoCopy, v11, v12);
   v16 = objc_msgSend_deviceID(infoCopy, v14, v15);
   v19 = objc_msgSend_fileID(infoCopy, v17, v18);
-  v108 = objc_msgSend_generationID(infoCopy, v20, v21);
+  v107 = objc_msgSend_generationID(infoCopy, v20, v21);
   v24 = objc_msgSend_fileHandle(infoCopy, v22, v23);
   v27 = objc_msgSend_assetDownloadStagingInfo(infoCopy, v25, v26);
   v30 = objc_msgSend_assetDownloadStagingManager(infoCopy, v28, v29);
   v33 = v30;
-  v115 = 1;
-  v109 = v19;
+  v114 = 1;
+  v108 = v19;
   if (!v16 && !v19 && !v13 && !v24 && (!v27 || !v30))
   {
     v35 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v31, @"CKInternalErrorDomain", 1017, @"Invalid arguments: %@, %@, %@", 0, 0, 0);
@@ -825,15 +848,15 @@ LABEL_16:
     {
       v36 = objc_msgSend_fileDescriptor(v24, v31, v32);
       v35 = 0;
-      v116 = v36;
-      v115 = 0;
+      v115 = v36;
+      v114 = 0;
       if ((v36 & 0x80000000) == 0)
       {
 LABEL_15:
-        v111 = xmmword_1886FE4A8;
-        v112 = 512;
-        memset(v110, 0, 20);
-        if (fgetattrlist(v36, &v111, v110, 0x14uLL, 0x20u))
+        v110 = xmmword_1886FE4A8;
+        v111 = 512;
+        memset(v109, 0, 20);
+        if (fgetattrlist(v36, &v110, v109, 0x14uLL, 0x20u))
         {
           v39 = __error();
           v40 = *v39;
@@ -841,16 +864,16 @@ LABEL_15:
           objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v42, @"CKInternalErrorDomain", 3001, v13, @"fgetattrlist error: %d (%s)", v40, v41);
         }
 
-        else if ((WORD2(v110[0]) & 0xF000) == 0x8000)
+        else if ((WORD2(v109[0]) & 0xF000) == 0x8000)
         {
-          if (!checkCopy || !objc_msgSend_unsignedIntegerValue(v108, v37, v38) || (v48 = LODWORD(v110[1]), objc_msgSend_unsignedIntegerValue(v108, v46, v47) == v48))
+          if (!checkCopy || !objc_msgSend_unsignedIntegerValue(v107, v37, v38) || (v48 = LODWORD(v109[1]), objc_msgSend_unsignedIntegerValue(v107, v46, v47) == v48))
           {
             v51 = objc_alloc(MEMORY[0x1E696AC00]);
-            v53 = objc_msgSend_initWithFileDescriptor_closeOnDealloc_(v51, v52, v116, v115);
+            v53 = objc_msgSend_initWithFileDescriptor_closeOnDealloc_(v51, v52, v115, v114);
 
-            v116 = -1;
+            v115 = -1;
             v54 = [CKFileOpenResult alloc];
-            v56 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v55, *(&v110[1] + 4));
+            v56 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v55, *(&v109[1] + 4));
             v58 = objc_msgSend_initWithFileHandle_fileSize_(v54, v57, v53, v56);
 
             v24 = v53;
@@ -863,8 +886,8 @@ LABEL_15:
             goto LABEL_68;
           }
 
-          v61 = LODWORD(v110[1]);
-          v62 = objc_msgSend_unsignedIntegerValue(v108, v49, v50);
+          v61 = LODWORD(v109[1]);
+          v62 = objc_msgSend_unsignedIntegerValue(v107, v49, v50);
           objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v63, @"CKInternalErrorDomain", 3003, v13, @"generation counter mismatch (%lu != %lu)", v61, v62);
         }
 
@@ -887,16 +910,16 @@ LABEL_46:
       }
 
       error = errorCopy;
-      v106 = v67;
+      v105 = v67;
       v68 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
         buf.st_dev = 138413570;
         *&buf.st_mode = v16;
         WORD2(buf.st_ino) = 2114;
-        *(&buf.st_ino + 6) = v109;
+        *(&buf.st_ino + 6) = v108;
         HIWORD(buf.st_gid) = 2114;
-        *&buf.st_rdev = v108;
+        *&buf.st_rdev = v107;
         LOWORD(buf.st_atimespec.tv_sec) = 2114;
         *(&buf.st_atimespec.tv_sec + 2) = v13;
         WORD1(buf.st_atimespec.tv_nsec) = 2112;
@@ -916,25 +939,25 @@ LABEL_46:
           {
             v84 = objc_alloc(MEMORY[0x1E696AD98]);
             v85 = getuid() == buf.st_uid;
-            v103 = objc_msgSend_initWithBool_(v84, v86, v85);
+            v102 = objc_msgSend_initWithBool_(v84, v86, v85);
             v87 = objc_alloc(MEMORY[0x1E696AD98]);
-            v105 = objc_msgSend_initWithBool_(v87, v88, HIBYTE(buf.st_mode) & 1);
+            v104 = objc_msgSend_initWithBool_(v87, v88, HIBYTE(buf.st_mode) & 1);
             v89 = objc_alloc(MEMORY[0x1E696AD98]);
-            v102 = objc_msgSend_initWithBool_(v89, v90, (buf.st_mode >> 5) & 1);
+            v101 = objc_msgSend_initWithBool_(v89, v90, (buf.st_mode >> 5) & 1);
             v91 = objc_alloc(MEMORY[0x1E696AD98]);
             v93 = objc_msgSend_initWithBool_(v91, v92, (buf.st_mode >> 2) & 1);
             v94 = strerror(13);
-            v101 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v95, @"CKInternalErrorDomain", v106, v13, @"open error: %d (%s). isOwner:%@ canOwnerRead:%@ canGroupRead:%@ canOtherRead:%@", 13, v94, v103, v105, v102, v93);
+            v100 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v95, @"CKInternalErrorDomain", v105, v13, @"open error: %d (%s). isOwner:%@ canOwnerRead:%@ canGroupRead:%@ canOtherRead:%@", 13, v94, v102, v104, v101, v93);
 
             error = errorCopy;
-            v35 = v101;
+            v35 = v100;
           }
         }
       }
 
       else
       {
-        if (v109)
+        if (v108)
         {
           v71 = v16 == 0;
         }
@@ -946,7 +969,7 @@ LABEL_46:
 
         if (v71 && v13)
         {
-          v104 = v65;
+          v103 = v65;
           v72 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v69, v70);
           v74 = objc_msgSend_attributesOfItemAtPath_error_(v72, v73, v13, 0);
           v76 = objc_msgSend_objectForKey_(v74, v75, *MEMORY[0x1E696A3A0]);
@@ -955,14 +978,14 @@ LABEL_46:
           if (v76 && (objc_msgSend_isEqual_(v76, v78, *MEMORY[0x1E696A388]) & 1) == 0 && (objc_msgSend_isEqual_(v76, v79, *MEMORY[0x1E695DAF8]) & 1) == 0)
           {
             v80 = strerror(1);
-            v82 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v81, @"CKInternalErrorDomain", v106, v13, @"open error: %d (%s). protection class %@ likely unavailable.", 1, v80, v76);
+            v82 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v81, @"CKInternalErrorDomain", v105, v13, @"open error: %d (%s). protection class %@ likely unavailable.", 1, v80, v76);
 
             v35 = v82;
             v77 = v76;
           }
 
           error = errorCopy;
-          v65 = v104;
+          v65 = v103;
         }
       }
 
@@ -970,7 +993,7 @@ LABEL_46:
       {
         v96 = strerror(v65);
         error = errorCopy;
-        v35 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v97, @"CKInternalErrorDomain", v106, v13, @"open error: %d (%s)", v65, v96);
+        v35 = objc_msgSend_errorWithDomain_code_path_format_(CKPrettyError, v97, @"CKInternalErrorDomain", v105, v13, @"open error: %d (%s)", v65, v96);
       }
 
       goto LABEL_68;
@@ -997,9 +1020,9 @@ LABEL_46:
     {
       *&buf.st_mode = 0;
       buf.st_dev = objc_msgSend_intValue(v16, v31, v32);
-      v113 = objc_msgSend_unsignedLongLongValue(v19, v44, v45);
-      v116 = openbyid_np();
-      if (v116 < 0)
+      v112 = objc_msgSend_unsignedLongLongValue(v19, v44, v45);
+      v115 = openbyid_np();
+      if (v115 < 0)
       {
         v60 = 30000;
         do
@@ -1015,16 +1038,16 @@ LABEL_46:
           }
 
           usleep(0x3E8u);
-          v116 = openbyid_np();
+          v115 = openbyid_np();
         }
 
-        while (v116 < 0);
+        while (v115 < 0);
       }
 
       v35 = 0;
 LABEL_11:
-      v36 = v116;
-      if (v116 < 0)
+      v36 = v115;
+      if (v115 < 0)
       {
         goto LABEL_46;
       }
@@ -1036,7 +1059,7 @@ LABEL_45:
     v64 = objc_msgSend_fileSystemRepresentation(v13, v31, v32);
     v36 = open(v64, 260);
     v35 = 0;
-    v116 = v36;
+    v115 = v36;
     if ((v36 & 0x80000000) == 0)
     {
       goto LABEL_15;
@@ -1045,9 +1068,9 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v114 = 0;
-  v34 = objc_msgSend_openWithAssetDownloadStagingInfo_fileDescriptor_closeOnDealloc_error_(v30, v31, v27, &v116, &v115, &v114);
-  v35 = v114;
+  v113 = 0;
+  v34 = objc_msgSend_openWithAssetDownloadStagingInfo_fileDescriptor_closeOnDealloc_error_(v30, v31, v27, &v115, &v114, &v113);
+  v35 = v113;
   if (v34)
   {
     goto LABEL_11;
@@ -1056,9 +1079,9 @@ LABEL_45:
 LABEL_36:
   error = errorCopy;
 LABEL_68:
-  if ((v116 & 0x80000000) == 0 && v115 == 1)
+  if ((v115 & 0x80000000) == 0 && v114 == 1)
   {
-    close(v116);
+    close(v115);
   }
 
   if (error)
@@ -1075,14 +1098,12 @@ LABEL_68:
 
 LABEL_74:
 
-  v99 = *MEMORY[0x1E69E9840];
-
   return v58;
 }
 
 + (id)openWithOpenInfo:(id)info error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v9 = objc_msgSend_path(infoCopy, v7, v8);
   v12 = objc_msgSend_deviceID(infoCopy, v10, v11);
@@ -1103,11 +1124,11 @@ LABEL_74:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v38 = 0;
-      v39 = 2114;
-      v40 = 0;
-      v41 = 2114;
-      v42 = 0;
+      v37 = 0;
+      v38 = 2114;
+      v39 = 0;
+      v40 = 2114;
+      v41 = 0;
       _os_log_error_impl(&dword_1883EA000, v32, OS_LOG_TYPE_ERROR, "Invalid arguments, deviceID:%@, fileID:%{public}@, path:%{public}@", buf, 0x20u);
     }
 
@@ -1126,9 +1147,9 @@ LABEL_74:
     goto LABEL_19;
   }
 
-  v36 = 0;
-  v30 = objc_msgSend__openUnencryptedWithOpenInfo_genCountCheck_error_(self, v28, infoCopy, 1, &v36);
-  v31 = v36;
+  v35 = 0;
+  v30 = objc_msgSend__openUnencryptedWithOpenInfo_genCountCheck_error_(self, v28, infoCopy, 1, &v35);
+  v31 = v35;
   if (error)
   {
 LABEL_16:
@@ -1143,7 +1164,6 @@ LABEL_18:
   v29 = v30;
 
 LABEL_19:
-  v34 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -1195,31 +1215,31 @@ LABEL_19:
 
 + (id)getFileMetadataWithFileHandle:(id)handle openInfo:(id)info error:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   infoCopy = info;
   if (!handleCopy)
   {
-    v38 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v10, v11);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKAsset.m", 676, @"Expected non-nil fileHandle");
+    v37 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v10, v11);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKAsset.m", 676, @"Expected non-nil fileHandle");
   }
 
-  v44 = 512;
-  v42 = 0u;
-  v43 = xmmword_1886FE4C0;
-  v40 = 0u;
+  v43 = 512;
   v41 = 0u;
+  v42 = xmmword_1886FE4C0;
+  v39 = 0u;
+  v40 = 0u;
   v13 = objc_msgSend_fileDescriptor(handleCopy, v10, v11);
-  if (!fgetattrlist(v13, &v43, &v40, 0x30uLL, 0x20u))
+  if (!fgetattrlist(v13, &v42, &v39, 0x30uLL, 0x20u))
   {
     v24 = [CKFileMetadata alloc];
-    v26 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v25, DWORD1(v40));
-    v28 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v27, v42);
-    v30 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], v29, HIDWORD(v41));
-    v33 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v31, *(&v40 + 1));
-    if ((WORD4(v41) & 0xF000) == 0x8000)
+    v26 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v25, DWORD1(v39));
+    v28 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v27, v41);
+    v30 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], v29, HIDWORD(v40));
+    v33 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v31, *(&v39 + 1));
+    if ((WORD4(v40) & 0xF000) == 0x8000)
     {
-      objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v32, *(&v42 + 1));
+      objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v32, *(&v41 + 1));
     }
 
     else
@@ -1247,9 +1267,9 @@ LABEL_19:
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v46 = infoCopy;
-    v47 = 2112;
-    v48 = v20;
+    v45 = infoCopy;
+    v46 = 2112;
+    v47 = v20;
     _os_log_error_impl(&dword_1883EA000, v21, OS_LOG_TYPE_ERROR, "Failed to get the attr list for %@: %@\n", buf, 0x16u);
     if (error)
     {
@@ -1268,8 +1288,6 @@ LABEL_8:
 
   v23 = 0;
 LABEL_15:
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -1307,39 +1325,39 @@ LABEL_15:
 
 + (id)_expandTemplateURL:(id)l fieldValues:(id)values
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   lCopy = l;
   valuesCopy = values;
   v11 = objc_msgSend_regularExpressionWithPattern_options_error_(MEMORY[0x1E696AE70], v8, @"\\$\\{([^\\}]*?)\\}", 1, 0);
   if (!v11)
   {
-    v54 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v54, v55, a2, self, @"CKAsset.m", 732, @"Couldn't create regex?");
+    v53 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v53, v54, a2, self, @"CKAsset.m", 732, @"Couldn't create regex?");
   }
 
-  v60 = objc_msgSend_mutableCopy(lCopy, v9, v10);
+  v59 = objc_msgSend_mutableCopy(lCopy, v9, v10);
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v14 = objc_msgSend_length(lCopy, v12, v13);
   obj = objc_msgSend_matchesInString_options_range_(v11, v15, lCopy, 0, 0, v14);
   v17 = v11;
-  v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v61, v65, 16);
-  if (v58)
+  v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v60, v64, 16);
+  if (v57)
   {
     v20 = 0;
-    v57 = *v62;
+    v56 = *v61;
 LABEL_5:
     v21 = 0;
     while (1)
     {
-      if (*v62 != v57)
+      if (*v61 != v56)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v61 + 1) + 8 * v21);
+      v22 = *(*(&v60 + 1) + 8 * v21);
       if (objc_msgSend_numberOfRanges(v22, v18, v19) != 2)
       {
         break;
@@ -1349,7 +1367,7 @@ LABEL_5:
       v26 = objc_msgSend_substringWithRange_(lCopy, v25, v24, v25);
       v29 = objc_msgSend_range(v22, v27, v28);
       v31 = v30;
-      v32 = objc_msgSend_replacementStringForResult_inString_offset_template_(v17, v30, v22, v60, v20, @"$0");
+      v32 = objc_msgSend_replacementStringForResult_inString_offset_template_(v17, v30, v22, v59, v20, @"$0");
       if (!v32)
       {
 
@@ -1369,7 +1387,7 @@ LABEL_5:
         v47 = v17;
         v48 = lCopy;
         v49 = v45 + v44;
-        objc_msgSend_replaceCharactersInRange_withString_(v60, v50, v29 + v46, v31, v41);
+        objc_msgSend_replaceCharactersInRange_withString_(v59, v50, v29 + v46, v31, v41);
 
         v51 = v49;
         lCopy = v48;
@@ -1377,10 +1395,10 @@ LABEL_5:
         v20 = v51;
       }
 
-      if (v58 == ++v21)
+      if (v57 == ++v21)
       {
-        v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v61, v65, 16);
-        if (v58)
+        v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v60, v64, 16);
+        if (v57)
         {
           goto LABEL_5;
         }
@@ -1390,9 +1408,7 @@ LABEL_5:
     }
   }
 
-  v52 = *MEMORY[0x1E69E9840];
-
-  return v60;
+  return v59;
 }
 
 + (id)_canonicalizeTemplateURL:(id)l
@@ -1418,7 +1434,7 @@ LABEL_5:
 + (id)_downloadURLWithTemplate:(id)template fileName:(id)name
 {
   templateCopy = template;
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (template)
   {
     if (name)
@@ -1431,18 +1447,16 @@ LABEL_5:
       nameCopy = @"UNKNOWN_ASSET.dat";
     }
 
-    v16 = @"f";
-    v17[0] = nameCopy;
+    v15 = @"f";
+    v16[0] = nameCopy;
     v6 = MEMORY[0x1E695DF20];
     nameCopy2 = name;
     v8 = templateCopy;
-    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v9, v17, &v16, 1);
+    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v9, v16, &v15, 1);
     v12 = objc_msgSend__expandTemplateURL_fieldValues_(CKAsset, v11, v8, v10);
 
     templateCopy = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v13, v12);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return templateCopy;
 }
@@ -1507,7 +1521,7 @@ LABEL_5:
   deviceID = self->_deviceID;
   self->_deviceID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, deviceID);
 }
 
 - (void)setFileID_modelMutation:(id)mutation
@@ -1516,7 +1530,7 @@ LABEL_5:
   fileID = self->_fileID;
   self->_fileID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fileID);
 }
 
 - (void)setAssetContent_modelMutation:(id)mutation
@@ -1532,21 +1546,25 @@ LABEL_5:
   assetTransferOptions = self->_assetTransferOptions;
   self->_assetTransferOptions = v6;
 
-  if (objc_msgSend_isReference(self, v8, v9))
+  isReference = objc_msgSend_isReference(self, v8, v9);
+  v12 = optionsCopy;
+  if (isReference)
   {
-    v11 = objc_msgSend_useMMCSEncryptionV2(optionsCopy, optionsCopy, v10);
-    v14 = v11;
-    if (v11)
+    v13 = objc_msgSend_useMMCSEncryptionV2(optionsCopy, optionsCopy, v11);
+    v16 = v13;
+    if (v13)
     {
-      v15 = objc_msgSend_BOOLValue(v11, v12, v13);
-      if (v15 != objc_msgSend_useMMCSEncryptionV2(self, v16, v17))
+      v17 = objc_msgSend_BOOLValue(v13, v14, v15);
+      if (v17 != objc_msgSend_useMMCSEncryptionV2(self, v18, v19))
       {
-        objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v18, *MEMORY[0x1E695D940], @"Value specified for CKAssetTransferOptions.useMMCSEncryptionV2 is inconsistent with referenced asset encryption.");
+        objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v20, *MEMORY[0x1E695D940], @"Value specified for CKAssetTransferOptions.useMMCSEncryptionV2 is inconsistent with referenced asset encryption.");
       }
     }
+
+    v12 = optionsCopy;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](isReference, v12);
 }
 
 - (void)setAssetContent:(id)content

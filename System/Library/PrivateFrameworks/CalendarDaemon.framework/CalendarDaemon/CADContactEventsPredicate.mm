@@ -12,13 +12,13 @@
 
 - (CADContactEventsPredicate)initWithCalendarIDs:(id)ds startDate:(id)date endDate:(id)endDate contacts:(id)contacts
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   contactsCopy = contacts;
-  v66.receiver = self;
-  v66.super_class = CADContactEventsPredicate;
-  v13 = [(EKPredicate *)&v66 initWithCalendars:ds];
+  v64.receiver = self;
+  v64.super_class = CADContactEventsPredicate;
+  v13 = [(EKPredicate *)&v64 initWithCalendars:ds];
   if (!v13)
   {
     goto LABEL_31;
@@ -35,11 +35,11 @@
         v16 = objc_opt_class();
         v17 = NSStringFromClass(v16);
         *buf = 138412802;
-        v70 = v17;
+        v68 = v17;
+        v69 = 2112;
+        v70 = dateCopy;
         v71 = 2112;
-        v72 = dateCopy;
-        v73 = 2112;
-        v74 = endDateCopy;
+        v72 = endDateCopy;
         v18 = "[%@] must be given a 'startDate' that occurs before the given 'endDate.'  startDate: [%@] endDate: [%@]";
         v19 = v15;
         v20 = 32;
@@ -52,109 +52,108 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v51 = dateCopy;
+    v49 = dateCopy;
     [(EKPredicate *)v13 setStartDate:dateCopy];
-    v48 = v13;
-    v50 = endDateCopy;
+    v46 = v13;
+    v48 = endDateCopy;
     [(EKPredicate *)v13 setEndDate:endDateCopy];
     v24 = objc_opt_new();
-    v52 = objc_opt_new();
+    v50 = objc_opt_new();
+    v60 = 0u;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    v49 = contactsCopy;
+    v47 = contactsCopy;
     obj = contactsCopy;
-    v25 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+    v25 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v63;
+      v27 = *v61;
       v28 = *MEMORY[0x277CBCFC0];
-      v57 = *MEMORY[0x277CBD000];
-      v29 = *MEMORY[0x277CBCFF8];
-      v53 = *MEMORY[0x277CBCFF8];
-      v54 = *MEMORY[0x277CBCFC0];
+      v55 = *MEMORY[0x277CBD000];
+      v51 = *MEMORY[0x277CBCFF8];
+      v52 = *MEMORY[0x277CBCFC0];
       do
       {
-        v30 = 0;
-        v55 = v26;
+        v29 = 0;
+        v53 = v26;
         do
         {
-          if (*v63 != v27)
+          if (*v61 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v62 + 1) + 8 * v30);
-          if ([v31 isKeyAvailable:v28])
+          v30 = *(*(&v60 + 1) + 8 * v29);
+          if ([v30 isKeyAvailable:v28])
           {
-            v32 = v27;
-            emailAddresses = [v31 emailAddresses];
-            v34 = [emailAddresses valueForKey:@"value"];
+            v31 = v27;
+            emailAddresses = [v30 emailAddresses];
+            v33 = [emailAddresses valueForKey:@"value"];
+            v56 = 0u;
+            v57 = 0u;
             v58 = 0u;
             v59 = 0u;
-            v60 = 0u;
-            v61 = 0u;
-            v35 = [v34 countByEnumeratingWithState:&v58 objects:v67 count:16];
-            if (v35)
+            v34 = [v33 countByEnumeratingWithState:&v56 objects:v65 count:16];
+            if (v34)
             {
-              v36 = v35;
-              v37 = *v59;
+              v35 = v34;
+              v36 = *v57;
               do
               {
-                for (i = 0; i != v36; ++i)
+                for (i = 0; i != v35; ++i)
                 {
-                  if (*v59 != v37)
+                  if (*v57 != v36)
                   {
-                    objc_enumerationMutation(v34);
+                    objc_enumerationMutation(v33);
                   }
 
-                  lowercaseString = [*(*(&v58 + 1) + 8 * i) lowercaseString];
+                  lowercaseString = [*(*(&v56 + 1) + 8 * i) lowercaseString];
                   [v24 addObject:lowercaseString];
                 }
 
-                v36 = [v34 countByEnumeratingWithState:&v58 objects:v67 count:16];
+                v35 = [v33 countByEnumeratingWithState:&v56 objects:v65 count:16];
               }
 
-              while (v36);
+              while (v35);
             }
 
-            v27 = v32;
-            v28 = v54;
-            v26 = v55;
+            v27 = v31;
+            v28 = v52;
+            v26 = v53;
           }
 
-          if ([v31 isKeyAvailable:v57] && objc_msgSend(v31, "isKeyAvailable:", v53))
+          if ([v30 isKeyAvailable:v55] && objc_msgSend(v30, "isKeyAvailable:", v51))
           {
-            familyName = [v31 familyName];
-            givenName = [v31 givenName];
-            v42 = [familyName stringByAppendingString:givenName];
-            [v52 addObject:v42];
+            familyName = [v30 familyName];
+            givenName = [v30 givenName];
+            v41 = [familyName stringByAppendingString:givenName];
+            [v50 addObject:v41];
 
-            givenName2 = [v31 givenName];
-            familyName2 = [v31 familyName];
-            v45 = [givenName2 stringByAppendingString:familyName2];
-            [v52 addObject:v45];
+            givenName2 = [v30 givenName];
+            familyName2 = [v30 familyName];
+            v44 = [givenName2 stringByAppendingString:familyName2];
+            [v50 addObject:v44];
           }
 
-          ++v30;
+          ++v29;
         }
 
-        while (v30 != v26);
-        v26 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+        while (v29 != v26);
+        v26 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
       }
 
       while (v26);
     }
 
-    v13 = v48;
-    [(CADContactEventsPredicate *)v48 setContactEmailAddresses:v24];
-    [(CADContactEventsPredicate *)v48 setContactNameComponents:v52];
+    v13 = v46;
+    [(CADContactEventsPredicate *)v46 setContactEmailAddresses:v24];
+    [(CADContactEventsPredicate *)v46 setContactNameComponents:v50];
 
-    endDateCopy = v50;
-    dateCopy = v51;
-    contactsCopy = v49;
+    endDateCopy = v48;
+    dateCopy = v49;
+    contactsCopy = v47;
 LABEL_31:
     v23 = v13;
     goto LABEL_32;
@@ -167,7 +166,7 @@ LABEL_31:
     v22 = objc_opt_class();
     v17 = NSStringFromClass(v22);
     *buf = 138412290;
-    v70 = v17;
+    v68 = v17;
     v18 = "[%@] must be given non-nil 'startDate' and 'endDate'";
     v19 = v15;
     v20 = 12;
@@ -178,7 +177,6 @@ LABEL_10:
   v23 = 0;
 LABEL_32:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -373,23 +371,22 @@ LABEL_27:
   v39 = *MEMORY[0x277D85DE8];
   startDate = [(EKPredicate *)self startDate];
   endDate = [(EKPredicate *)self endDate];
-  v6 = [startDate CalIsAfterDate:endDate];
+  v7 = [startDate CalIsAfterDate:endDate];
 
-  if (v6)
+  if (v7)
   {
-    v7 = MEMORY[0x277CBEBF8];
-    goto LABEL_16;
+    return MEMORY[0x277CBEBF8];
   }
 
-  v8 = CalDatabaseCopyEventOccurrenceCache();
+  v9 = CalDatabaseCopyEventOccurrenceCache();
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
-  v10 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v11 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  FilterFromRowIDs = CreateFilterFromRowIDs(v10, v11);
-  v13 = CADLogHandle;
+  v11 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  v12 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  FilterFromRowIDs = CreateFilterFromRowIDs(v11, v12, 2, database);
+  v14 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v13;
+    v15 = v14;
     startDate2 = [(EKPredicate *)self startDate];
     endDate2 = [(EKPredicate *)self endDate];
     *buf = 138412802;
@@ -397,48 +394,48 @@ LABEL_27:
     v35 = 2112;
     v36 = endDate2;
     v37 = 2112;
-    v38 = v10;
-    _os_log_impl(&dword_22430B000, v14, OS_LOG_TYPE_DEBUG, "Commencing contact event search with start date: [%@] end date: [%@] calendar object IDs: [%@]", buf, 0x20u);
+    v38 = v11;
+    _os_log_impl(&dword_22430B000, v15, OS_LOG_TYPE_DEBUG, "Commencing contact event search with start date: [%@] end date: [%@] calendar object IDs: [%@]", buf, 0x20u);
   }
 
   startDate3 = [(EKPredicate *)self startDate];
   endDate3 = [(EKPredicate *)self endDate];
   defaultTimeZone = [MEMORY[0x277CBEBB0] defaultTimeZone];
-  v20 = CalEventOccurrenceCacheCopyEventOccurrencesInDateRange();
+  v21 = CalEventOccurrenceCacheCopyEventOccurrencesInDateRange();
 
-  if (v20)
+  if (v21)
   {
-    v29 = v11;
-    Count = CFArrayGetCount(v20);
-    v22 = CADLogHandle;
+    v29 = v12;
+    Count = CFArrayGetCount(v21);
+    v23 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
       selfCopy = Count;
-      _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_DEBUG, "Found [%ld] contact event candidates.  Proceeding to filter.", buf, 0xCu);
+      _os_log_impl(&dword_22430B000, v23, OS_LOG_TYPE_DEBUG, "Found [%ld] contact event candidates.  Proceeding to filter.", buf, 0xCu);
     }
 
-    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
+    v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:Count];
     if (Count >= 1)
     {
       for (i = 0; i != Count; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v20, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(v21, i);
         CalEventOccurrenceGetEvent();
-        v25 = CalCalendarItemCopyAttendees();
+        v26 = CalCalendarItemCopyAttendees();
         v30[0] = MEMORY[0x277D85DD0];
         v30[1] = 3221225472;
         v30[2] = __59__CADContactEventsPredicate_copyMatchingItemsWithDatabase___block_invoke;
         v30[3] = &unk_27851A1C0;
         v30[4] = self;
-        v31 = v7;
+        v31 = v8;
         v32 = ValueAtIndex;
-        [v25 enumerateObjectsUsingBlock:v30];
+        [v26 enumerateObjectsUsingBlock:v30];
       }
     }
 
-    CFRelease(v20);
-    v11 = v29;
+    CFRelease(v21);
+    v12 = v29;
     if (!FilterFromRowIDs)
     {
       goto LABEL_13;
@@ -455,7 +452,7 @@ LABEL_27:
       _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_DEBUG, "NULL occurrences array returned for [%@].", buf, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
     if (!FilterFromRowIDs)
     {
       goto LABEL_13;
@@ -464,14 +461,12 @@ LABEL_27:
 
   CFRelease(FilterFromRowIDs);
 LABEL_13:
-  if (v8)
+  if (v9)
   {
-    CFRelease(v8);
+    CFRelease(v9);
   }
 
-LABEL_16:
-  v26 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 void __59__CADContactEventsPredicate_copyMatchingItemsWithDatabase___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

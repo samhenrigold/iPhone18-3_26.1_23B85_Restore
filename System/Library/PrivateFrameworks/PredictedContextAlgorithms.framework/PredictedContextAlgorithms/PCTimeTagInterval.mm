@@ -24,7 +24,7 @@
 
 - (double)overlapsScoreForStartDate:(id)date endDate:(id)endDate
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   v8 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
@@ -34,15 +34,15 @@
     startDate = [dateInterval startDate];
     dateInterval2 = [(PCTimeTagInterval *)self dateInterval];
     endDate = [dateInterval2 endDate];
-    v36 = 138413058;
-    v37 = dateCopy;
-    v38 = 2112;
-    v39 = endDateCopy;
-    v40 = 2112;
-    v41 = startDate;
-    v42 = 2112;
-    v43 = endDate;
-    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "overlapsScoreForStartDate, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v36, 0x2Au);
+    v35 = 138413058;
+    v36 = dateCopy;
+    v37 = 2112;
+    v38 = endDateCopy;
+    v39 = 2112;
+    v40 = startDate;
+    v41 = 2112;
+    v42 = endDate;
+    _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEBUG, "overlapsScoreForStartDate, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v35, 0x2Au);
   }
 
   if (!endDateCopy || [dateCopy isEqualToDate:endDateCopy])
@@ -59,15 +59,15 @@
       startDate2 = [dateInterval3 startDate];
       dateInterval4 = [(PCTimeTagInterval *)self dateInterval];
       endDate2 = [dateInterval4 endDate];
-      v36 = 138413058;
-      v37 = dateCopy;
-      v38 = 2112;
-      v39 = endDateCopy;
-      v40 = 2112;
-      v41 = startDate2;
-      v42 = 2112;
-      v43 = endDate2;
-      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_ERROR, "overlapsScoreForStartDate, invalid time range, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v36, 0x2Au);
+      v35 = 138413058;
+      v36 = dateCopy;
+      v37 = 2112;
+      v38 = endDateCopy;
+      v39 = 2112;
+      v40 = startDate2;
+      v41 = 2112;
+      v42 = endDate2;
+      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_ERROR, "overlapsScoreForStartDate, invalid time range, startDate, %@, endDate, %@, self.startDate, %@, self.endDate, %@", &v35, 0x2Au);
     }
 
 LABEL_9:
@@ -87,39 +87,38 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v23 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:dateCopy endDate:endDateCopy];
-  [v23 duration];
+  v22 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:dateCopy endDate:endDateCopy];
+  [v22 duration];
   v20 = 0.0;
-  if (v24 > 0.0)
+  if (v23 > 0.0)
   {
     dateInterval6 = [(PCTimeTagInterval *)self dateInterval];
-    v26 = [dateInterval6 intersectsDateInterval:v23];
+    v25 = [dateInterval6 intersectsDateInterval:v22];
 
-    if (v26)
+    if (v25)
     {
       dateInterval7 = [(PCTimeTagInterval *)self dateInterval];
-      v28 = [dateInterval7 intersectionWithDateInterval:v23];
-      [v28 duration];
-      v30 = v29;
+      v27 = [dateInterval7 intersectionWithDateInterval:v22];
+      [v27 duration];
+      v29 = v28;
 
-      [v23 duration];
-      v32 = v31 - v30;
-      [v23 duration];
-      v34 = v30 / v33;
-      if (v34 > 0.5 && v32 < 1800.0)
+      [v22 duration];
+      v31 = v30 - v29;
+      [v22 duration];
+      v33 = v29 / v32;
+      if (v33 > 0.5 && v31 < 1800.0)
       {
         v20 = 1.0;
       }
 
       else
       {
-        v20 = v34;
+        v20 = v33;
       }
     }
   }
 
 LABEL_12:
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

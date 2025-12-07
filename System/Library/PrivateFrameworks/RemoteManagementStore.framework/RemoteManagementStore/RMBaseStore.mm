@@ -11,6 +11,7 @@
 - (void)declarationsWithTypes:(id)types completionHandler:(id)handler;
 - (void)encodeWithCoder:(id)coder;
 - (void)fetchDataAtURL:(id)l completionHandler:(id)handler;
+- (void)setShouldInstallConfiguration:(id)configuration shouldInstall:(BOOL)install completionHandler:(id)handler;
 - (void)waitForActiveAndValidDeclarations:(id)declarations timeout:(double)timeout completionHandler:(id)handler;
 - (void)waitForProcessingOfDeclarations:(id)declarations timeout:(double)timeout completionHandler:(id)handler;
 @end
@@ -318,6 +319,32 @@ void __55__RMBaseStore_declarationsWithTypes_completionHandler___block_invoke_35
   return self;
 }
 
+- (void)setShouldInstallConfiguration:(id)configuration shouldInstall:(BOOL)install completionHandler:(id)handler
+{
+  installCopy = install;
+  handlerCopy = handler;
+  configurationCopy = configuration;
+  xpcConnection = [(RMBaseStore *)self xpcConnection];
+  connection = [xpcConnection connection];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __77__RMBaseStore_setShouldInstallConfiguration_shouldInstall_completionHandler___block_invoke;
+  v18[3] = &unk_279B05310;
+  v12 = handlerCopy;
+  v19 = v12;
+  v13 = [connection remoteObjectProxyWithErrorHandler:v18];
+
+  identifier = [(RMBaseStore *)self identifier];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __77__RMBaseStore_setShouldInstallConfiguration_shouldInstall_completionHandler___block_invoke_36;
+  v16[3] = &unk_279B051D0;
+  v16[4] = self;
+  v17 = v12;
+  v15 = v12;
+  [v13 setShouldInstallConfiguration:configurationCopy shouldInstall:installCopy storeIdentifier:identifier completionHandler:v16];
+}
+
 void __77__RMBaseStore_setShouldInstallConfiguration_shouldInstall_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -618,7 +645,7 @@ LABEL_11:
   return v17;
 }
 
-void __38__RMBaseStore_metadataReturningError___block_invoke()
+void __38__RMBaseStore_metadataReturningError___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -645,44 +672,44 @@ void __38__RMBaseStore_metadataReturningError___block_invoke_41(uint64_t a1, voi
   keyCopy = key;
   xpcConnection = [(RMBaseStore *)self xpcConnection];
   connection = [xpcConnection connection];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __41__RMBaseStore_metadataValueForKey_error___block_invoke;
-  v22[3] = &unk_279B05448;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __41__RMBaseStore_metadataValueForKey_error___block_invoke;
+  v28[3] = &unk_279B05448;
   v9 = keyCopy;
-  v23 = v9;
-  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v29 = v9;
+  v10 = [connection synchronousRemoteObjectProxyWithErrorHandler:v28];
 
-  v19 = 0;
-  v20[0] = &v19;
-  v20[1] = 0x3032000000;
-  v20[2] = __Block_byref_object_copy_;
-  v20[3] = __Block_byref_object_dispose_;
-  v21 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x3032000000;
-  v17[2] = __Block_byref_object_copy_;
-  v17[3] = __Block_byref_object_dispose_;
-  v18 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
   identifier = [(RMBaseStore *)self identifier];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __41__RMBaseStore_metadataValueForKey_error___block_invoke_43;
   v15[3] = &unk_279B05470;
-  v15[4] = &v19;
+  v15[4] = &v22;
   v15[5] = &v16;
   [v10 metadataValueForKey:v9 storeIdentifier:identifier completionHandler:v15];
 
-  if (*(v17[0] + 40))
+  if (v17[5])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [RMBaseStore metadataValueForKey:v9 error:v17];
+      [RMBaseStore metadataValueForKey:error:];
       if (error)
       {
 LABEL_4:
-        v12 = *(v17[0] + 40);
+        v12 = v17[5];
         if (v12)
         {
           v13 = 0;
@@ -703,14 +730,14 @@ LABEL_4:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    [RMBaseStore metadataValueForKey:v9 error:v20];
+    [RMBaseStore metadataValueForKey:error:];
   }
 
-  v13 = *(v20[0] + 40);
+  v13 = v23[5];
 LABEL_11:
   _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v22, 8);
 
   return v13;
 }
@@ -963,192 +990,49 @@ LABEL_36:
   return v13;
 }
 
-void __56__RMBaseStore_declarationManifestWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching declaration manifest: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __56__RMBaseStore_declarationManifestWithCompletionHandler___block_invoke_29_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch declaration manifest: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__RMBaseStore_declarationWithIdentifier_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__RMBaseStore_declarationWithIdentifier_completionHandler___block_invoke_31_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch declaration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __49__RMBaseStore_declarationsWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __49__RMBaseStore_declarationsWithCompletionHandler___block_invoke_33_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __55__RMBaseStore_declarationsWithTypes_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching declarations with types: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __55__RMBaseStore_declarationsWithTypes_completionHandler___block_invoke_35_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch declarations with types: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__RMBaseStore_setShouldInstallConfiguration_shouldInstall_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while setting shouldInstallConfiguration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__RMBaseStore_setShouldInstallConfiguration_shouldInstall_completionHandler___block_invoke_36_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to set shouldInstallConfiguration: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __48__RMBaseStore_fetchDataAtURL_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while setting fetchDataAtURL: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __48__RMBaseStore_fetchDataAtURL_completionHandler___block_invoke_37_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch data for URL: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMBaseStore_waitForActiveAndValidDeclarations_timeout_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while waiting for declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMBaseStore_waitForActiveAndValidDeclarations_timeout_completionHandler___block_invoke_39_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to wait for declarations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__RMBaseStore_waitForProcessingOfDeclarations_timeout_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while waiting for declarations to be processed: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__RMBaseStore_waitForProcessingOfDeclarations_timeout_completionHandler___block_invoke_40_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to wait for declarations to be processed: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)metadataReturningError:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], a3, "Failed to read all metadata: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], a3, "Failed to read all metadata: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)metadataReturningError:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *(*a1 + 40);
-  v3 = 138543362;
-  v4 = v1;
-  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read all metadata: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = v1;
+  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read all metadata: %{public}@", &v2, 0xCu);
 }
 
-void __38__RMBaseStore_metadataReturningError___block_invoke_cold_1()
+- (void)metadataValueForKey:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while reading all metadata: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)metadataValueForKey:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_5();
-  v6 = 2114;
-  v7 = v3;
-  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to read metadata key %{public}@: %{public}@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5();
+  v2 = 2114;
+  v3 = v0;
+  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to read metadata key %{public}@: %{public}@", v1, 0x16u);
 }
 
-- (void)metadataValueForKey:(uint64_t)a1 error:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
+- (void)metadataValueForKey:error:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_5();
-  v6 = 2114;
-  v7 = v3;
-  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read metadata key %{public}@: %{public}@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5();
+  v2 = 2114;
+  v3 = v0;
+  _os_log_debug_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Read metadata key %{public}@: %{public}@", v1, 0x16u);
 }
 
 void __41__RMBaseStore_metadataValueForKey_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543618;
-  v5 = v2;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed XPC connection while reading metadata key %{public}@: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = v2;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed XPC connection while reading metadata key %{public}@: %{public}@", &v3, 0x16u);
 }
 
 @end

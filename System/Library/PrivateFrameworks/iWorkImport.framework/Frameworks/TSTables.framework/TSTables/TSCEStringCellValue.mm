@@ -18,53 +18,53 @@
 {
   stringCopy = string;
   localeCopy = locale;
-  v29.receiver = self;
-  v29.super_class = TSCEStringCellValue;
-  v11 = [(TSCECellValue *)&v29 initWithLocale:localeCopy];
-  if (v11)
+  v25.receiver = self;
+  v25.super_class = TSCEStringCellValue;
+  v10 = [(TSCECellValue *)&v25 initWithLocale:localeCopy];
+  if (v10)
   {
     if (!stringCopy)
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEStringCellValue initWithString:locale:]", v9, v10);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 28, 0, "Creating a TSCEStringCellValue with a nil string.");
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSCEStringCellValue initWithString:locale:]", v9);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 28, 0, "Creating a TSCEStringCellValue with a nil string.");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     }
 
-    v11->super._valueType = 7;
-    TSCEFormat::TSCEFormat(v28, 260);
-    v25 = objc_msgSend_stringValue_format_(TSCEStringValue, v23, stringCopy, v28, v24);
-    stringValue = v11->_stringValue;
-    v11->_stringValue = v25;
+    v10->super._valueType = 7;
+    TSCEFormat::TSCEFormat(v24, 260);
+    v21 = objc_msgSend_stringValue_format_(TSCEStringValue, v20, stringCopy, v24);
+    stringValue = v10->_stringValue;
+    v10->_stringValue = v21;
   }
 
-  return v11;
+  return v10;
 }
 
 - (TSCEStringCellValue)initWithStringValue:(id)value locale:(id)locale
 {
   valueCopy = value;
-  v34.receiver = self;
-  v34.super_class = TSCEStringCellValue;
-  v7 = [(TSCECellValue *)&v34 initWithLocale:locale];
-  v12 = v7;
+  v30.receiver = self;
+  v30.super_class = TSCEStringCellValue;
+  v7 = [(TSCECellValue *)&v30 initWithLocale:locale];
+  v11 = v7;
   if (v7)
   {
     v7->super._valueType = 7;
     if (valueCopy)
     {
-      objc_msgSend_format(valueCopy, v8, v9, v10, v11);
-      if (LODWORD(v33[0].super_class))
+      objc_msgSend_format(valueCopy, v8, v9, v10);
+      if (LODWORD(v29[0].super_class))
       {
 LABEL_7:
-        v17 = objc_msgSend_asRawString(valueCopy, v13, v14, v15, v16);
-        isRegex = objc_msgSend_isRegex(valueCopy, v18, v19, v20, v21);
-        isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(valueCopy, v23, v24, v25, v26);
-        v29 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v28, v17, v33, isRegex, isCaseSensitiveRegex, 0);
-        stringValue = v12->_stringValue;
-        v12->_stringValue = v29;
+        v15 = objc_msgSend_asRawString(valueCopy, v12, v13, v14);
+        isRegex = objc_msgSend_isRegex(valueCopy, v16, v17, v18);
+        isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(valueCopy, v20, v21, v22);
+        v25 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v24, v15, v29, isRegex, isCaseSensitiveRegex, 0);
+        stringValue = v11->_stringValue;
+        v11->_stringValue = v25;
 
         goto LABEL_8;
       }
@@ -72,17 +72,17 @@ LABEL_7:
 
     else
     {
-      memset(v33, 0, sizeof(v33));
+      memset(v29, 0, sizeof(v29));
     }
 
-    TSCEFormat::TSCEFormat(v32, 260);
-    TSCEFormat::operator=(v33, v32);
+    TSCEFormat::TSCEFormat(v28, 260);
+    TSCEFormat::operator=(v29, v28);
     goto LABEL_7;
   }
 
 LABEL_8:
 
-  return v12;
+  return v11;
 }
 
 - (id)tsceValue
@@ -90,15 +90,15 @@ LABEL_8:
   stringValue = self->_stringValue;
   if (stringValue)
   {
-    v6 = stringValue;
+    v5 = stringValue;
   }
 
   else
   {
-    v6 = objc_msgSend_nilValue(TSCENilValue, a2, v2, v3, v4);
+    v5 = objc_msgSend_nilValue(TSCENilValue, a2, v2, v3);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)format
@@ -106,97 +106,97 @@ LABEL_8:
   stringValue = self->_stringValue;
   if (stringValue)
   {
-    objc_msgSend_format(stringValue, a2, v2, v3, v4);
+    objc_msgSend_format(stringValue, a2, v2, v3);
   }
 
   else
   {
-    memset(&v13, 0, sizeof(v13));
+    memset(&v11, 0, sizeof(v11));
   }
 
-  v6 = TSCEFormat::tskFormat(&v13, a2, v2, v3, v4);
-  v9 = v6;
-  if (v6)
+  v5 = TSCEFormat::tskFormat(&v11, a2, v2, v3);
+  v7 = v5;
+  if (v5)
   {
-    v10 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v10 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v7, 260, 0, v8);
+    v8 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v6, 260, 0);
   }
 
-  v11 = v10;
+  v9 = v8;
 
-  return v11;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSCEStringCellValue alloc];
   stringValue = self->_stringValue;
-  v10 = objc_msgSend_locale(self, v6, v7, v8, v9);
-  v13 = objc_msgSend_initWithStringValue_locale_(v4, v11, stringValue, v10, v12);
+  v9 = objc_msgSend_locale(self, v6, v7, v8);
+  v11 = objc_msgSend_initWithStringValue_locale_(v4, v10, stringValue, v9);
 
-  return v13;
+  return v11;
 }
 
 - (BOOL)isEqualToCellValue:(id)value
 {
   valueCopy = value;
-  if (objc_msgSend_valueType(valueCopy, v5, v6, v7, v8) != 7)
+  if (objc_msgSend_valueType(valueCopy, v5, v6, v7) != 7)
   {
-    LOBYTE(v19) = 0;
+    LOBYTE(v16) = 0;
     goto LABEL_16;
   }
 
-  v17 = objc_msgSend_stringValue(valueCopy, v9, v10, v11, v12);
+  v14 = objc_msgSend_stringValue(valueCopy, v8, v9, v10);
   stringValue = self->_stringValue;
   if (!stringValue)
   {
-    memset(&v53, 0, sizeof(v53));
-    if (v17)
+    memset(&v43, 0, sizeof(v43));
+    if (v14)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    memset(&v52, 0, sizeof(v52));
+    memset(&v42, 0, sizeof(v42));
     goto LABEL_8;
   }
 
-  objc_msgSend_format(stringValue, v13, v14, v15, v16);
-  if (!v17)
+  objc_msgSend_format(stringValue, v11, v12, v13);
+  if (!v14)
   {
     goto LABEL_7;
   }
 
 LABEL_4:
-  objc_msgSend_format(v17, v13, v14, v15, v16);
+  objc_msgSend_format(v14, v11, v12, v13);
 LABEL_8:
-  if (TSCEFormat::isEqualNotCountingExplicitness(&v53, &v52, v14, v15, v16))
+  if (TSCEFormat::isEqualNotCountingExplicitness(&v43, &v42, v12, v13))
   {
-    v24 = objc_msgSend_asRawString(self->_stringValue, v20, v21, v22, v23);
-    v29 = objc_msgSend_asRawString(v17, v25, v26, v27, v28);
-    if ((objc_msgSend_isEqualToString_(v24, v30, v29, v31, v32) & 1) != 0 && (isRegex = objc_msgSend_isRegex(self->_stringValue, v33, v34, v35, v36), isRegex == objc_msgSend_isRegex(v17, v38, v39, v40, v41)))
+    v20 = objc_msgSend_asRawString(self->_stringValue, v17, v18, v19);
+    v24 = objc_msgSend_asRawString(v14, v21, v22, v23);
+    if ((objc_msgSend_isEqualToString_(v20, v25, v24, v26) & 1) != 0 && (isRegex = objc_msgSend_isRegex(self->_stringValue, v27, v28, v29), isRegex == objc_msgSend_isRegex(v14, v31, v32, v33)))
     {
-      isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v42, v43, v44, v45);
-      v19 = isCaseSensitiveRegex ^ objc_msgSend_isCaseSensitiveRegex(v17, v47, v48, v49, v50) ^ 1;
+      isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v34, v35, v36);
+      v16 = isCaseSensitiveRegex ^ objc_msgSend_isCaseSensitiveRegex(v14, v38, v39, v40) ^ 1;
     }
 
     else
     {
-      LOBYTE(v19) = 0;
+      LOBYTE(v16) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v19) = 0;
+    LOBYTE(v16) = 0;
   }
 
 LABEL_16:
-  return v19;
+  return v16;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -209,144 +209,144 @@ LABEL_16:
 - (int64_t)compareToCellValue:(id)value
 {
   valueCopy = value;
-  v9 = valueCopy[8];
-  if (v9 > 7)
+  v8 = valueCopy[8];
+  if (v8 > 7)
   {
     goto LABEL_6;
   }
 
-  v10 = 1;
-  if (((1 << v9) & 0x2D) == 0)
+  v9 = 1;
+  if (((1 << v8) & 0x2D) == 0)
   {
-    if (v9 == 7)
+    if (v8 == 7)
     {
-      v12 = objc_msgSend_stringValue(self, v4, v5, v6, v7);
-      v17 = objc_msgSend_asRawString(v12, v13, v14, v15, v16);
-      v22 = objc_msgSend_stringValue(valueCopy, v18, v19, v20, v21);
-      v27 = objc_msgSend_asRawString(v22, v23, v24, v25, v26);
-      v10 = objc_msgSend_compare_(v17, v28, v27, v29, v30);
+      v11 = objc_msgSend_stringValue(self, v4, v5, v6);
+      v15 = objc_msgSend_asRawString(v11, v12, v13, v14);
+      v19 = objc_msgSend_stringValue(valueCopy, v16, v17, v18);
+      v23 = objc_msgSend_asRawString(v19, v20, v21, v22);
+      v9 = objc_msgSend_compare_(v15, v24, v23, v25);
 
       goto LABEL_3;
     }
 
 LABEL_6:
-    v31 = MEMORY[0x277D81150];
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEStringCellValue compareToCellValue:]", v6, v7);
-    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v34, v35);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v37, v32, v36, 117, 0, "Unexpected value type found");
+    v26 = MEMORY[0x277D81150];
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSCEStringCellValue compareToCellValue:]", v6);
+    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v29);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v31, v27, v30, 117, 0, "Unexpected value type found");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41);
-    v10 = 1;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34);
+    v9 = 1;
   }
 
 LABEL_3:
 
-  return v10;
+  return v9;
 }
 
 - (TSCEStringCellValue)initWithArchive:(const void *)archive locale:(id)locale
 {
   localeCopy = locale;
-  v26.receiver = self;
-  v26.super_class = TSCEStringCellValue;
-  v7 = [(TSCECellValue *)&v26 initWithLocale:localeCopy];
-  v11 = v7;
+  v24.receiver = self;
+  v24.super_class = TSCEStringCellValue;
+  v7 = [(TSCECellValue *)&v24 initWithLocale:localeCopy];
+  v10 = v7;
   if (v7)
   {
     v7->super._valueType = 7;
     if (*(archive + 4))
     {
-      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, *(archive + 4), v9, v10);
+      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, *(archive + 4), v9);
     }
 
     else
     {
-      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, MEMORY[0x277D80740], v9, v10);
+      objc_msgSend_formatFromArchive_(MEMORY[0x277D80680], v8, MEMORY[0x277D80740], v9);
     }
-    v12 = ;
-    v13 = *(archive + 4);
-    if ((v13 & 8) != 0)
+    v11 = ;
+    v12 = *(archive + 4);
+    if ((v12 & 8) != 0)
     {
-      v14 = *(archive + 41);
+      v13 = *(archive + 41);
     }
 
-    else if ((v13 & 4) != 0)
+    else if ((v12 & 4) != 0)
     {
-      v14 = *(archive + 40) ^ 1;
+      v13 = *(archive + 40) ^ 1;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    TSCEFormat::TSCEFormat(&v25, v12, v14 & 1);
-    v15 = *(archive + 42);
-    v16 = *(archive + 43);
-    v20 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v17, *(archive + 3) & 0xFFFFFFFFFFFFFFFELL, v18, v19);
-    v22 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v21, v20, &v25, v15, v16, 0);
-    stringValue = v11->_stringValue;
-    v11->_stringValue = v22;
+    TSCEFormat::TSCEFormat(&v23, v11, v13 & 1);
+    v14 = *(archive + 42);
+    v15 = *(archive + 43);
+    v18 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v16, *(archive + 3) & 0xFFFFFFFFFFFFFFFELL, v17);
+    v20 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v19, v18, &v23, v14, v15, 0);
+    stringValue = v10->_stringValue;
+    v10->_stringValue = v20;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)encodeToArchive:(void *)archive
 {
-  v7 = objc_msgSend_asRawString(self->_stringValue, a2, archive, v3, v4);
-  v12 = objc_msgSend_tsp_protobufString(v7, v8, v9, v10, v11);
-  if (v12)
+  v6 = objc_msgSend_asRawString(self->_stringValue, a2, archive, v3);
+  v10 = objc_msgSend_tsp_protobufString(v6, v7, v8, v9);
+  if (v10)
   {
-    sub_221184204(archive, v12);
+    sub_221184204(archive, v10);
   }
 
   else
   {
     sub_221184204(archive, "");
-    v17 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSCEStringCellValue encodeToArchive:]", v19, v20);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v26, v21, v25, 164, 0, "Avoid using nil to mean empty string in a TSCEStringValue, string is: %@", v7);
+    v14 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSCEStringCellValue encodeToArchive:]", v16);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEStringCellValue.mm", v19);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v21, v17, v20, 164, 0, "Avoid using nil to mean empty string in a TSCEStringValue, string is: %@", v6);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24);
   }
 
-  v33 = objc_msgSend_format(self, v13, v14, v15, v16);
+  v26 = objc_msgSend_format(self, v11, v12, v13);
   *(archive + 4) |= 2u;
-  v34 = *(archive + 4);
-  if (!v34)
+  v27 = *(archive + 4);
+  if (!v27)
   {
-    v35 = *(archive + 1);
-    if (v35)
+    v28 = *(archive + 1);
+    if (v28)
     {
-      v35 = *(v35 & 0xFFFFFFFFFFFFFFFELL);
+      v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v34 = MEMORY[0x223DA02D0](v35);
-    *(archive + 4) = v34;
+    v27 = MEMORY[0x223DA02D0](v28);
+    *(archive + 4) = v27;
   }
 
-  objc_msgSend_encodeToArchive_archivingCustomFormats_(v33, v31, v34, 1, v32);
+  objc_msgSend_encodeToArchive_archivingCustomFormats_(v26, v25, v27, 1);
 
   stringValue = self->_stringValue;
   if (stringValue)
   {
-    objc_msgSend_format(stringValue, v36, v37, v38, v39);
-    v41 = v48 == 1;
+    objc_msgSend_format(stringValue, v29, v30, v31);
+    v33 = v39 == 1;
   }
 
   else
   {
-    v41 = 0;
+    v33 = 0;
   }
 
   *(archive + 4) |= 8u;
-  *(archive + 41) = v41;
-  isRegex = objc_msgSend_isRegex(self->_stringValue, v36, v37, v38, v39);
+  *(archive + 41) = v33;
+  isRegex = objc_msgSend_isRegex(self->_stringValue, v29, v30, v31);
   *(archive + 4) |= 0x10u;
   *(archive + 42) = isRegex;
-  isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v43, v44, v45, v46);
+  isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v35, v36, v37);
   *(archive + 4) |= 0x20u;
   *(archive + 43) = isCaseSensitiveRegex;
 }
@@ -354,30 +354,30 @@ LABEL_3:
 - (void)setPopulatedCustomFormat:(id)format
 {
   formatCopy = format;
-  v9 = formatCopy;
+  v8 = formatCopy;
   if (formatCopy)
   {
-    v14 = formatCopy;
+    v12 = formatCopy;
   }
 
   else
   {
-    v15 = MEMORY[0x277D80680];
-    v16 = objc_msgSend_locale(self, v5, v6, v7, v8);
-    v14 = objc_msgSend_defaultFormatWithFormatType_locale_(v15, v17, 260, v16, v18);
+    v13 = MEMORY[0x277D80680];
+    v14 = objc_msgSend_locale(self, v5, v6, v7);
+    v12 = objc_msgSend_defaultFormatWithFormatType_locale_(v13, v15, 260, v14);
   }
 
-  v19 = objc_msgSend_format(self, v10, v11, v12, v13);
+  v16 = objc_msgSend_format(self, v9, v10, v11);
 
-  if (v14 != v19)
+  if (v12 != v16)
   {
-    v24 = objc_msgSend_asRawString(self->_stringValue, v20, v21, v22, v23);
-    TSCEFormat::TSCEFormat(&v38, v14, 0);
-    isRegex = objc_msgSend_isRegex(self->_stringValue, v25, v26, v27, v28);
-    isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v30, v31, v32, v33);
-    v36 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v35, v24, &v38, isRegex, isCaseSensitiveRegex, 0);
+    v20 = objc_msgSend_asRawString(self->_stringValue, v17, v18, v19);
+    TSCEFormat::TSCEFormat(&v32, v12, 0);
+    isRegex = objc_msgSend_isRegex(self->_stringValue, v21, v22, v23);
+    isCaseSensitiveRegex = objc_msgSend_isCaseSensitiveRegex(self->_stringValue, v25, v26, v27);
+    v30 = objc_msgSend_stringValue_format_isRegex_isCaseSensitiveRegex_isLiteralString_(TSCEStringValue, v29, v20, &v32, isRegex, isCaseSensitiveRegex, 0);
     stringValue = self->_stringValue;
-    self->_stringValue = v36;
+    self->_stringValue = v30;
   }
 }
 

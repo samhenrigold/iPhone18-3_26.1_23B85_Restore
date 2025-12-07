@@ -1,8 +1,13 @@
 @interface _INPBStartAudioCallIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBStartAudioCallIntent)initWithCoder:(id)coder;
+- (id)audioRouteAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)destinationTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)preferredCallProviderAsString:(int)string;
+- (id)recordTypeForRedialingAsString:(int)string;
+- (id)ttyTypeAsString:(int)string;
 - (int)StringAsAudioRoute:(id)route;
 - (int)StringAsDestinationType:(id)type;
 - (int)StringAsPreferredCallProvider:(id)provider;
@@ -30,7 +35,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBStartAudioCallIntent *)self hasAudioRoute])
   {
@@ -55,30 +60,30 @@
   if ([(NSArray *)self->_contacts count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v9 = self->_contacts;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v40;
+      v12 = *v39;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v40 != v12)
+          if (*v39 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v11);
@@ -143,30 +148,30 @@
   if ([(NSArray *)self->_targetContacts count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v25 = self->_targetContacts;
-    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v36;
+      v28 = *v35;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v36 != v28)
+          if (*v35 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          dictionaryRepresentation4 = [*(*(&v35 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v34 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation4];
         }
 
-        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v27);
@@ -190,8 +195,6 @@
 
     [dictionary setObject:v32 forKeyedSubscript:@"ttyType"];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -523,11 +526,10 @@ LABEL_39:
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBStartAudioCallIntent *)self hasAudioRoute])
   {
-    audioRoute = self->_audioRoute;
     PBDataWriterWriteInt32Field();
   }
 
@@ -539,41 +541,39 @@ LABEL_39:
     PBDataWriterWriteSubmessage();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v8 = self->_contacts;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v9)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = self->_contacts;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v32;
+    v9 = v8;
+    v10 = *v24;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v32 != v11)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   if ([(_INPBStartAudioCallIntent *)self hasDestinationType])
   {
-    destinationType = self->_destinationType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -587,55 +587,49 @@ LABEL_39:
 
   if ([(_INPBStartAudioCallIntent *)self hasPreferredCallProvider])
   {
-    preferredCallProvider = self->_preferredCallProvider;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBStartAudioCallIntent *)self hasRecordTypeForRedialing])
   {
-    recordTypeForRedialing = self->_recordTypeForRedialing;
     PBDataWriterWriteInt32Field();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v19 = self->_targetContacts;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v20)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v14 = self->_targetContacts;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v15)
   {
-    v21 = v20;
-    v22 = *v28;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      v23 = 0;
+      v18 = 0;
       do
       {
-        if (*v28 != v22)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v14);
         }
 
-        v24 = *(*(&v27 + 1) + 8 * v23);
         PBDataWriterWriteSubmessage();
-        ++v23;
+        ++v18;
       }
 
-      while (v21 != v23);
-      v21 = [(NSArray *)v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
-    while (v21);
+    while (v16);
   }
 
   if ([(_INPBStartAudioCallIntent *)self hasTtyType])
   {
-    ttyType = self->_ttyType;
     PBDataWriterWriteInt32Field();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsTTYType:(id)type
@@ -659,6 +653,21 @@ LABEL_39:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)ttyTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283510[string];
   }
 
   return v4;
@@ -772,6 +781,22 @@ LABEL_39:
   return v4;
 }
 
+- (id)recordTypeForRedialingAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E72834C8[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)setHasRecordTypeForRedialing:(BOOL)redialing
 {
   if (redialing)
@@ -823,6 +848,21 @@ LABEL_39:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)preferredCallProviderAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72834B0[string - 2];
   }
 
   return v4;
@@ -889,6 +929,21 @@ LABEL_39:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)destinationTypeAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283488[string - 1];
   }
 
   return v4;
@@ -972,6 +1027,21 @@ LABEL_39:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)audioRouteAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283470[string - 2];
   }
 
   return v4;

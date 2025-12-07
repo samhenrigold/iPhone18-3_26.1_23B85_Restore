@@ -24,10 +24,7 @@ void sub_1254(uint64_t a1, void *a2)
 
 uint64_t sub_12F8(uint64_t a1)
 {
-  v2 = objc_alloc_init(SpeechModelTrainingClient);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = objc_alloc_init(SpeechModelTrainingClient);
 
   return _objc_release_x1();
 }
@@ -62,7 +59,9 @@ void *sub_1528(void *result)
 
   return result;
 }
- }
+
+ "Attachment count=%lu", buf, 0xCu);
+    }
 
     v17 = [v4 recipe];
     v18 = [v17 attachments];

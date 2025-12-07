@@ -44,7 +44,7 @@
 - (void)add:(id)add
 {
   objc_sync_enter(self);
-  objc_msgSend_addObject_(self->_sources, v5, add, v6);
+  objc_msgSend_addObject_(self->_sources, v5, add);
 
   objc_sync_exit(self);
 }
@@ -52,7 +52,7 @@
 - (void)remove:(id)remove
 {
   objc_sync_enter(self);
-  objc_msgSend_removeObject_(self->_sources, v5, remove, v6);
+  objc_msgSend_removeObject_(self->_sources, v5, remove);
 
   objc_sync_exit(self);
 }
@@ -93,16 +93,16 @@
 
 + (void)registerUIKitSource:(id)source
 {
-  v5 = objc_msgSend_sharedInstance(self, a2, source, v3);
+  v4 = objc_msgSend_sharedInstance(self, a2, source);
 
-  MEMORY[0x1EEE66B58](v5, sel_add_, source, v6);
+  MEMORY[0x1EEE66B58](v4, sel_add_, source);
 }
 
 + (void)unregisterUIKitSource:(id)source
 {
-  v5 = objc_msgSend_sharedInstance(self, a2, source, v3);
+  v4 = objc_msgSend_sharedInstance(self, a2, source);
 
-  MEMORY[0x1EEE66B58](v5, sel_remove_, source, v6);
+  MEMORY[0x1EEE66B58](v4, sel_remove_, source);
 }
 
 @end

@@ -2,6 +2,7 @@
 - (HMHomeManager)homeManager;
 - (HMNetworkRouterFirewallRuleManager)initWithHomeManager:(id)manager;
 - (void)__sendMessage:(id)message;
+- (void)_addOverrides:(id)overrides replace:(BOOL)replace completion:(id)completion;
 - (void)_dumpCloudRecordsForProductGroup:(id)group productNumber:(id)number rawOutput:(BOOL)output listOnly:(BOOL)only verifySignatures:(BOOL)signatures completion:(id)completion;
 - (void)_dumpLocalRulesForProductGroup:(id)group productNumber:(id)number firmwareVersion:(id)version ignoreOverrides:(BOOL)overrides rawOutput:(BOOL)output completion:(id)completion;
 - (void)_dumpPairedMetadataForProductGroup:(id)group productNumber:(id)number firmwareVersion:(id)version ignoreOverrides:(BOOL)overrides rawOutput:(BOOL)output completion:(id)completion;
@@ -97,6 +98,35 @@ void __95__HMNetworkRouterFirewallRuleManager__removeOverridesForProductGroup_pr
   v5 = [v7 context];
   v6 = [v5 delegateCaller];
   [v6 callCompletion:*(a1 + 40) error:v4];
+}
+
+- (void)_addOverrides:(id)overrides replace:(BOOL)replace completion:(id)completion
+{
+  replaceCopy = replace;
+  v20[2] = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v19[0] = @"HMNetworkRouterFirewallRuleManagerAddOverridesDataKey";
+  v19[1] = @"HMNetworkRouterFirewallRuleManagerAddOverridesReplaceKey";
+  v20[0] = overrides;
+  v9 = MEMORY[0x1E696AD98];
+  overridesCopy = overrides;
+  v11 = [v9 numberWithBool:replaceCopy];
+  v20[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+
+  v13 = MEMORY[0x1E69A2A10];
+  messageDestination = [(HMNetworkRouterFirewallRuleManager *)self messageDestination];
+  v15 = [v13 messageWithName:@"HMNetworkRouterFirewallRuleManagerAddOverridesMessageKey" destination:messageDestination payload:v12];
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __71__HMNetworkRouterFirewallRuleManager__addOverrides_replace_completion___block_invoke;
+  v17[3] = &unk_1E754DE00;
+  v17[4] = self;
+  v18 = completionCopy;
+  v16 = completionCopy;
+  [v15 setResponseHandler:v17];
+  [(HMNetworkRouterFirewallRuleManager *)self __sendMessage:v15];
 }
 
 void __71__HMNetworkRouterFirewallRuleManager__addOverrides_replace_completion___block_invoke(uint64_t a1, void *a2)

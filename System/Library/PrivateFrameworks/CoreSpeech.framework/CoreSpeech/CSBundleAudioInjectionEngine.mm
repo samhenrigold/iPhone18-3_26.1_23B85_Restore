@@ -8,6 +8,7 @@
 - (CSBundleAudioInjectionEngine)initWithStreamHandleId:(unint64_t)id;
 - (id)_compensateChannelDataIfNeeded:(id)needed receivedNumChannels:(unsigned int)channels;
 - (void)audioBufferAvailable:(id)available;
+- (void)audioStreamDidStartSuccessfully:(BOOL)successfully error:(id)error;
 - (void)audioStreamDidStopSuccessfully:(BOOL)successfully error:(id)error;
 - (void)start;
 - (void)stop;
@@ -71,7 +72,7 @@
   else
   {
 
-    return +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+    return objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   }
 }
 
@@ -107,6 +108,28 @@
   {
     v9 = objc_loadWeakRetained(&self->_delegate);
     [v9 audioEngineDidStopRecord:self audioStreamHandleId:-[CSBundleAudioInjectionEngine audioStreamHandleId](self reason:{"audioStreamHandleId"), 0}];
+  }
+}
+
+- (void)audioStreamDidStartSuccessfully:(BOOL)successfully error:(id)error
+{
+  successfullyCopy = successfully;
+  errorCopy = error;
+  v7 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136315138;
+    v12 = "[CSBundleAudioInjectionEngine audioStreamDidStartSuccessfully:error:]";
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s ", &v11, 0xCu);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v9 = objc_opt_respondsToSelector();
+
+  if (v9)
+  {
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v10 audioEngineDidStartRecord:self audioStreamHandleId:-[CSBundleAudioInjectionEngine audioStreamHandleId](self successfully:"audioStreamHandleId") error:{successfullyCopy, errorCopy}];
   }
 }
 
@@ -286,7 +309,7 @@ LABEL_24:
   v16 = (v14 * v15);
   [(CSBundleAudioProviding *)self->_audioPlugin setDelegate:self];
   v17 = self->_audioPlugin;
-  [(CSBundleAudioInjectionEngine *)self _defaultOutASBD];
+  objc_msgSend__defaultOutASBD(self);
   if (([(CSBundleAudioProviding *)v17 setupAudioFormatWithBlockSize:v16 audioFormat:&v30 outError:error]& 1) == 0)
   {
     v25 = CSLogContextFacilityCoreSpeech;

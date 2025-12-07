@@ -25,7 +25,7 @@
   if (storagesCopy)
   {
     sub_1000060C8(0, &qword_1009391E0, REMObjectID_ptr);
-    sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr);
+    sub_10000CDE4(&qword_1009391F0, &qword_1009391E0, REMObjectID_ptr, &protocol conformance descriptor for NSObject);
     v17 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -38,7 +38,7 @@
   _Block_copy(v10);
   sub_100577DC8(invocationCopy, v14, v16, v17, selfCopy, v18, v10);
   _Block_release(v10);
-
+  v17, v19, v20, v21, v22, v23, v24, v25;
   _Block_release(v10);
   sub_10001BBA0(v14, v16);
 }

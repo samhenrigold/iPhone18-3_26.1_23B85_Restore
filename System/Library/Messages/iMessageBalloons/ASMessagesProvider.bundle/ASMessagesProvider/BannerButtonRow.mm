@@ -14,10 +14,10 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = sub_BD88(&qword_950B38);
+  v9 = sub_BD88(&qword_950B38, &qword_7B0540);
   __chkstk_darwin(v9);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider15BannerButtonRow_buttonViews) = _swiftEmptyArrayStorage;
-  sub_BE70(0, &qword_960F00);
+  sub_BE70(0, &qword_960F00, UIButton_ptr);
   sub_7667C0();
   sub_361AB8();
   sub_767480();
@@ -30,10 +30,10 @@
 
 - (_TtC18ASMessagesProvider15BannerButtonRow)initWithCoder:(id)coder
 {
-  v4 = sub_BD88(&qword_950B38);
+  v4 = sub_BD88(&qword_950B38, &qword_7B0540);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider15BannerButtonRow_buttonViews) = _swiftEmptyArrayStorage;
-  sub_BE70(0, &qword_960F00);
+  sub_BE70(0, &qword_960F00, UIButton_ptr);
   sub_7667C0();
   sub_361AB8();
   sub_767480();

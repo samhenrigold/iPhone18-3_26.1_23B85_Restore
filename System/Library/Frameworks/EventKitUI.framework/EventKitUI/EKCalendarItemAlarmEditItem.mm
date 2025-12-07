@@ -158,14 +158,14 @@ void __53__EKCalendarItemAlarmEditItem_cellForSubitemAtIndex___block_invoke(uint
   }
 }
 
-uint64_t __53__EKCalendarItemAlarmEditItem_cellForSubitemAtIndex___block_invoke_2(uint64_t result, int a2)
+id *__53__EKCalendarItemAlarmEditItem_cellForSubitemAtIndex___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) _updateAlarms];
-    [*(v2 + 32) notifySubitemDidSave:0];
-    v3 = *(v2 + 32);
+    [result[4] _updateAlarms];
+    [v2[4] notifySubitemDidSave:0];
+    v3 = v2[4];
 
     return [v3 editItemViewController:0 didCompleteWithAction:2];
   }

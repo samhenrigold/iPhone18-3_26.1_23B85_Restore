@@ -3,16 +3,20 @@
 + (unsigned)_generateSessionID;
 + (void)initializeSessionClose;
 - (ACCExternalAccessorySessionManager)init;
+- (BOOL)_accessoryCloseSessionForEASessionUUID:(id)d informAccessory:(BOOL)accessory;
 - (BOOL)_continueOpenSessionForSingleSessionPerEAProtocol:(id)protocol fromPrimaryAccessoryUUID:(id)d fromClient:(id)client;
 - (BOOL)_eaProtocolHasValidMatchActionForOpeningSession:(id)session;
 - (BOOL)_isSessionOpenForProtocol:(id)protocol filterPrimaryUUID:(id)d filterClientBundleID:(id)iD;
 - (BOOL)_sessionUUIDClientSupportsBackgroundEA:(id)a;
+- (BOOL)accessoryCloseSessionforEASessionID:(unsigned __int16)d;
 - (BOOL)closeSessionsForPrimaryAccessoryUUID:(id)d;
 - (BOOL)eaClientHasOpenEASession:(id)session;
 - (BOOL)handleIncomingExternalAccessoryData:(id)data forEndpointUUID:(id)d;
+- (BOOL)handleIncomingExternalAccessoryData:(id)data forSessionID:(unsigned __int16)d;
 - (BOOL)openSocketFromAccessoryToApp:(id)app;
 - (BOOL)openSocketFromAppToAccessory:(id)accessory;
 - (BOOL)outgoingEADataFromClientAvailable:(id)available;
+- (__CFData)returnAppToAccessoryDataForSession:(id)session maxBufferSize:(unsigned int)size;
 - (id)_accessoryForPrimaryUUID:(id)d;
 - (id)_appBundleIDForSessionUUID:(id)d;
 - (id)_clientsOwningSessionForProtocol:(id)protocol withAccessoryUUID:(id)d;
@@ -24,6 +28,7 @@
 - (id)eaSessionUUIDForEndpointUUID:(id)d;
 - (id)eaSessionUUIDForSessionID:(unsigned __int16)d;
 - (id)sessionInfoDictionaryForSessionUUID:(id)d;
+- (unsigned)readAppToAccessoryDataForSession:(id)session maxBufferSize:(unsigned int)size dataBuffer:(__CFData *)buffer;
 - (void)_eaNativeDataArrived:(id)arrived;
 - (void)_handleApplicationStateChange:(id)change;
 - (void)_sendSessionCloseNotification;
@@ -317,7 +322,7 @@ LABEL_31:
 
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          [ACCExternalAccessorySessionManager _internalCloseSessionForEASessionUUID:? informAccessory:?];
+          [ACCExternalAccessorySessionManager _internalCloseSessionForEASessionUUID:informAccessory:];
         }
 
         [v19 removeObject:*(*(&buf + 1) + 40)];
@@ -476,6 +481,58 @@ void __92__ACCExternalAccessorySessionManager__internalCloseSessionForEASessionU
   return v5;
 }
 
+- (unsigned)readAppToAccessoryDataForSession:(id)session maxBufferSize:(unsigned int)size dataBuffer:(__CFData *)buffer
+{
+  v6 = *&size;
+  sessionCopy = session;
+  openEASessionHandlersLock = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+  [openEASessionHandlersLock lock];
+
+  openEASessionHandlers = [(ACCExternalAccessorySessionManager *)self openEASessionHandlers];
+  v11 = [openEASessionHandlers objectForKey:sessionCopy];
+
+  openEASessionHandlersLock2 = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+  [openEASessionHandlersLock2 unlock];
+
+  if (v11)
+  {
+    v13 = [v11 readEASessionDataFromApp:buffer maxReadSize:v6];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+- (__CFData)returnAppToAccessoryDataForSession:(id)session maxBufferSize:(unsigned int)size
+{
+  v4 = *&size;
+  sessionCopy = session;
+  openEASessionHandlersLock = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+  [openEASessionHandlersLock lock];
+
+  openEASessionHandlers = [(ACCExternalAccessorySessionManager *)self openEASessionHandlers];
+  v9 = [openEASessionHandlers objectForKey:sessionCopy];
+
+  openEASessionHandlersLock2 = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+  [openEASessionHandlersLock2 unlock];
+
+  if (v9)
+  {
+    v11 = [v9 returnEASessionDataFromApp:v4];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (void)stopIncomingDataNotificationsForEASessionUUID:(id)d
 {
   dCopy = d;
@@ -536,6 +593,222 @@ void __92__ACCExternalAccessorySessionManager__internalCloseSessionForEASessionU
   }
 
   return v6 != 0;
+}
+
+- (BOOL)accessoryCloseSessionforEASessionID:(unsigned __int16)d
+{
+  selfCopy = self;
+  v4 = [(ACCExternalAccessorySessionManager *)self eaSessionUUIDForSessionID:d];
+  LOBYTE(selfCopy) = [(ACCExternalAccessorySessionManager *)selfCopy _accessoryCloseSessionForEASessionUUID:v4 informAccessory:0];
+
+  return selfCopy;
+}
+
+- (BOOL)_accessoryCloseSessionForEASessionUUID:(id)d informAccessory:(BOOL)accessory
+{
+  accessoryCopy = accessory;
+  dCopy = d;
+  if (dCopy)
+  {
+    if ([(ACCExternalAccessorySessionManager *)self _sessionUUIDClientSupportsBackgroundEA:dCopy])
+    {
+      v7 = [(ACCExternalAccessorySessionManager *)self _appBundleIDForSessionUUID:dCopy];
+      pidForOpenSessionUUID = [(ACCExternalAccessorySessionManager *)self pidForOpenSessionUUID];
+      v9 = [pidForOpenSessionUUID objectForKey:dCopy];
+      platform_system_toggleProcessAssertionForBundleID(v7, [v9 intValue]);
+    }
+
+    v10 = +[ACCExternalAccessorySessionManager sharedManager];
+    v11 = [v10 _internalCloseSessionForEASessionUUID:dCopy informAccessory:accessoryCopy];
+
+    if (v11)
+    {
+      v12 = +[ACCExternalAccessoryServer sharedServer];
+      v13 = [v12 accessoryClosingExternalAccessorySession:dCopy];
+
+      if (gLogObjects)
+      {
+        v14 = gNumLogObjects <= 9;
+      }
+
+      else
+      {
+        v14 = 1;
+      }
+
+      v15 = !v14;
+      if (v13)
+      {
+        if (v15)
+        {
+          v16 = *(gLogObjects + 72);
+        }
+
+        else
+        {
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            platform_connectionInfo_configStreamGetCategories_cold_2();
+          }
+
+          v16 = &_os_log_default;
+          v22 = &_os_log_default;
+        }
+
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          v25 = 138412290;
+          v26 = dCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "_accessoryCloseSessionForEASessionUUID: Successfully closed eaSessionUUID %@", &v25, 0xCu);
+        }
+
+        v19 = 1;
+        goto LABEL_48;
+      }
+
+      if (v15)
+      {
+        v16 = *(gLogObjects + 72);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v16 = &_os_log_default;
+        v23 = &_os_log_default;
+      }
+
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_47:
+        v19 = 0;
+LABEL_48:
+
+        goto LABEL_49;
+      }
+
+      v25 = 138412290;
+      v26 = dCopy;
+      v21 = "ERROR - _accessoryCloseSessionForEASessionUUID: Unable to close eaSessionUUID %@";
+    }
+
+    else
+    {
+      if (gLogObjects && gNumLogObjects >= 10)
+      {
+        v16 = *(gLogObjects + 72);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v16 = &_os_log_default;
+        v20 = &_os_log_default;
+      }
+
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_47;
+      }
+
+      v25 = 138412290;
+      v26 = dCopy;
+      v21 = "ERROR - _accessoryCloseSessionforEASessionID: Accessory failed to close session eaSessionUUID %@";
+    }
+
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v21, &v25, 0xCu);
+    goto LABEL_47;
+  }
+
+  if (gLogObjects)
+  {
+    v17 = gNumLogObjects < 10;
+  }
+
+  else
+  {
+    v17 = 1;
+  }
+
+  if (v17)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v11 = &_os_log_default;
+    v18 = &_os_log_default;
+  }
+
+  else
+  {
+    v11 = *(gLogObjects + 72);
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v25) = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ERROR - _accessoryCloseSessionforEASessionID: No eaSessionUUID", &v25, 2u);
+  }
+
+  v19 = 0;
+LABEL_49:
+
+  return v19;
+}
+
+- (BOOL)handleIncomingExternalAccessoryData:(id)data forSessionID:(unsigned __int16)d
+{
+  dCopy = d;
+  dataCopy = data;
+  v7 = [(ACCExternalAccessorySessionManager *)self eaSessionUUIDForSessionID:dCopy];
+  if (v7)
+  {
+    openEASessionHandlersLock = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+    [openEASessionHandlersLock lock];
+
+    openEASessionHandlers = [(ACCExternalAccessorySessionManager *)self openEASessionHandlers];
+    v10 = [openEASessionHandlers objectForKey:v7];
+
+    openEASessionHandlersLock2 = [(ACCExternalAccessorySessionManager *)self openEASessionHandlersLock];
+    [openEASessionHandlersLock2 unlock];
+
+    if (v10)
+    {
+      [v10 sendEABufferDataToApp:dataCopy];
+      v12 = 0;
+    }
+
+    else
+    {
+      v13 = +[ACCExternalAccessoryServer sharedServer];
+      v12 = [v13 handleIncomingExternalAccessoryData:dataCopy forEASessionIdentifier:v7];
+    }
+
+    if ([(ACCExternalAccessorySessionManager *)self _sessionUUIDClientSupportsBackgroundEA:v7])
+    {
+      v14 = [(ACCExternalAccessorySessionManager *)self _appBundleIDForSessionUUID:v7];
+      pidForOpenSessionUUID = [(ACCExternalAccessorySessionManager *)self pidForOpenSessionUUID];
+      v16 = [pidForOpenSessionUUID objectForKey:v7];
+      platform_system_toggleProcessAssertionForBundleID(v14, [v16 intValue]);
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)handleIncomingExternalAccessoryData:(id)data forEndpointUUID:(id)d
@@ -1626,7 +1899,7 @@ LABEL_8:
       {
         OUTLINED_FUNCTION_1_25();
         LODWORD(v161) = v25;
-        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v79, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v80, v81, v82, v83, v142, v144, v146, v148, v151, v153, v155, v157, buf[0]);
+        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v79, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v80, v81, v82, v83, v142, v144, v146, v148, v151, v153, v155, v157);
       }
 
       v26 = &_os_log_default;
@@ -1677,7 +1950,7 @@ LABEL_5:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_4_29();
-        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v122, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v123, v124, v125, v126, v143, v144, v146, v148, v151, 0, uUIDString, v157, buf[0]);
+        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v122, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v123, v124, v125, v126, v143, v144, v146, v148, v151, 0, uUIDString, v157);
       }
 
       v32 = &_os_log_default;
@@ -1686,7 +1959,8 @@ LABEL_5:
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_11_13(&_mh_execute_header, v34, v35, "protocolIndex is nil", v36, v37, v38, v39, v143, v144, v146, v148, v151, v154, v156, v157, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_11_13(&_mh_execute_header, v34, v35, "protocolIndex is nil", v36, v37, v38, v39, v143, v144, v146, v148, v151, v154, v156, v157);
     }
   }
 
@@ -1704,7 +1978,7 @@ LABEL_5:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_4_29();
-      OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v107, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v108, v109, v110, v111, v143, v144, v146, v148, v151, v154, v156, v157, buf[0]);
+      OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v107, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v108, v109, v110, v111, v143, v144, v146, v148, v151, v154, v156, v157);
     }
 
     v42 = &_os_log_default;
@@ -1738,7 +2012,7 @@ LABEL_5:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_4_29();
-        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v127, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v128, v129, v130, v131, v143, 0, v146, v148, v151, v154, v156, v157, buf[0]);
+        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v127, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v128, v129, v130, v131, v143, 0, v146, v148, v151, v154, v156, v157);
       }
 
       v46 = &_os_log_default;
@@ -1747,7 +2021,8 @@ LABEL_5:
 
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_11_13(&_mh_execute_header, v48, v49, "sessionIDNum is nil", v50, v51, v52, v53, v143, v145, v146, v148, v151, v154, v156, v157, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_11_13(&_mh_execute_header, v48, v49, "sessionIDNum is nil", v50, v51, v52, v53, v143, v145, v146, v148, v151, v154, v156, v157);
     }
   }
 
@@ -1786,7 +2061,7 @@ LABEL_5:
       {
         OUTLINED_FUNCTION_1_25();
         LODWORD(v161) = v63;
-        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v117, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v118, v119, v120, v121, v143, v145, v146, v148, v152, v154, v156, v157, buf[0]);
+        OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v117, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v118, v119, v120, v121, v143, v145, v146, v148, v152, v154, v156, v157);
       }
 
       v64 = &_os_log_default;
@@ -1814,7 +2089,7 @@ LABEL_5:
         {
           OUTLINED_FUNCTION_1_25();
           LODWORD(v161) = v66;
-          OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v132, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v133, v134, v135, v136, v143, v145, v146, v148, v152, v154, v156, v157, buf[0]);
+          OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v132, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v133, v134, v135, v136, v143, v145, v146, v148, v152, v154, v156, v157);
         }
 
         v67 = &_os_log_default;
@@ -1872,7 +2147,7 @@ LABEL_5:
           {
             OUTLINED_FUNCTION_1_25();
             LODWORD(v161) = v84;
-            OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v137, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v138, v139, v140, v141, v143, v145, v146, v62, v152, v154, v156, v157, buf[0]);
+            OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v137, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v138, v139, v140, v141, v143, v145, v146, v62, v152, v154, v156, v157);
           }
 
           v78 = &_os_log_default;
@@ -1910,7 +2185,7 @@ LABEL_5:
     {
       OUTLINED_FUNCTION_1_25();
       LODWORD(v161) = v90;
-      OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v112, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v113, v114, v115, v116, v143, v145, v147, clientCopy, v152, v154, v156, v157, buf[0]);
+      OUTLINED_FUNCTION_6_23(&_mh_execute_header, &_os_log_default, v112, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v113, v114, v115, v116, v143, v145, v147, clientCopy, v152, v154, v156, v157);
     }
 
     v91 = &_os_log_default;
@@ -2195,12 +2470,11 @@ LABEL_31:
   return v23;
 }
 
-- (void)_internalCloseSessionForEASessionUUID:(uint64_t)a1 informAccessory:.cold.5(uint64_t a1)
+- (void)_internalCloseSessionForEASessionUUID:informAccessory:.cold.5()
 {
-  v6 = *(*a1 + 40);
   OUTLINED_FUNCTION_7_18();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_internalCloseSessionForEASessionUUID:(NSObject *)a3 informAccessory:.cold.7(uint64_t a1, void *a2, NSObject *a3)

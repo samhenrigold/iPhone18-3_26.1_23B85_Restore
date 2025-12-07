@@ -421,27 +421,27 @@
 
 - (unint64_t)totalHashOfElementsFromArray:(id)array
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = arrayCopy;
-  if (arrayCopy && (v14 = 0u, v15 = 0u, v12 = 0u, v13 = 0u, (v5 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16]) != 0))
+  if (arrayCopy && (v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, (v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16]) != 0))
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v7 ^= [*(*(&v12 + 1) + 8 * i) hash];
+        v7 ^= [*(*(&v11 + 1) + 8 * i) hash];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -452,30 +452,29 @@
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (unint64_t)hash
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   seedRecipients = [(_PSPredictionContext *)self seedRecipients];
-  v37 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:seedRecipients];
+  v35 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:seedRecipients];
 
   locationUUIDs = [(_PSPredictionContext *)self locationUUIDs];
-  v36 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:locationUUIDs];
+  v34 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:locationUUIDs];
 
   attachments = [(_PSPredictionContext *)self attachments];
-  v35 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:attachments];
+  v33 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:attachments];
 
   suggestionsFilteredByBundleIds = [(_PSPredictionContext *)self suggestionsFilteredByBundleIds];
-  v34 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:suggestionsFilteredByBundleIds];
+  v32 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:suggestionsFilteredByBundleIds];
 
   seedContactIdentifiers = [(_PSPredictionContext *)self seedContactIdentifiers];
-  v33 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:seedContactIdentifiers];
+  v31 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:seedContactIdentifiers];
 
   linkMetadataFromClient = [(_PSPredictionContext *)self linkMetadataFromClient];
-  v32 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:linkMetadataFromClient];
+  v30 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:linkMetadataFromClient];
 
   peopleInPhotoIdentifiers = [(_PSPredictionContext *)self peopleInPhotoIdentifiers];
   v10 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:peopleInPhotoIdentifiers];
@@ -483,31 +482,31 @@
   sceneTagsInPhotoIdentifiers = [(_PSPredictionContext *)self sceneTagsInPhotoIdentifiers];
   v12 = [(_PSPredictionContext *)self totalHashOfElementsFromArray:sceneTagsInPhotoIdentifiers];
 
-  v44 = 0u;
-  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v13 = self->_photoSuggestedPeople;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v43;
+    v17 = *v41;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v43 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = [*(*(&v42 + 1) + 8 * i) objectForKeyedSubscript:{@"contactIdentifier", v32}];
+        v19 = [*(*(&v40 + 1) + 8 * i) objectForKeyedSubscript:{@"contactIdentifier", v30}];
         v16 ^= [v19 hash];
       }
 
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v15);
@@ -518,30 +517,30 @@
     v16 = 0;
   }
 
-  v40 = 0u;
-  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v20 = self->_appBundleIdsToShareExtensionBundleIdsMapping;
-  v21 = [(NSDictionary *)v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v21 = [(NSDictionary *)v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v21)
   {
     v22 = v21;
     v23 = 0;
-    v24 = *v39;
+    v24 = *v37;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v39 != v24)
+        if (*v37 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v23 ^= [*(*(&v38 + 1) + 8 * j) hash];
+        v23 ^= [*(*(&v36 + 1) + 8 * j) hash];
       }
 
-      v22 = [(NSDictionary *)v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v22 = [(NSDictionary *)v20 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v22);
@@ -555,14 +554,12 @@
   v26 = [(NSString *)self->_sessionID hash];
   v27 = [(NSDate *)self->_suggestionDate hash];
   v28 = [(NSString *)self->_bundleID hash];
-  v29 = [(NSString *)self->_accountIdentifier hash];
-  v30 = *MEMORY[0x1E69E9840];
-  return v36 ^ v37 ^ v35 ^ v34 ^ v33 ^ v32 ^ v10 ^ v12 ^ v16 ^ v26 ^ v27 ^ v28 ^ v29 ^ self->_showPotentialFamilyMembers ^ v23 ^ self->_isSharePlayAvailable ^ self->_suggestionPurpose ^ self->_locationType ^ self->_isCollaborationAvailable ^ self->_isFallbackFetch ^ self->_bypassIDSFilter;
+  return v34 ^ v35 ^ v33 ^ v32 ^ v31 ^ v30 ^ v10 ^ v12 ^ v16 ^ v26 ^ v27 ^ v28 ^ [(NSString *)self->_accountIdentifier hash]^ self->_showPotentialFamilyMembers ^ v23 ^ self->_isSharePlayAvailable ^ self->_suggestionPurpose ^ self->_locationType ^ self->_isCollaborationAvailable ^ self->_isFallbackFetch ^ self->_bypassIDSFilter;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (self == equalCopy)
@@ -574,274 +571,217 @@
   {
     v6 = v5;
     sessionID = [(_PSPredictionContext *)self sessionID];
-    if (sessionID)
+    if (sessionID && (v8 = sessionID, -[_PSPredictionContext sessionID](v6, "sessionID"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9) && (-[_PSPredictionContext sessionID](self, "sessionID"), v10 = objc_claimAutoreleasedReturnValue(), -[_PSPredictionContext sessionID](v6, "sessionID"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v10 isEqualToString:v11], v11, v10, !v12) || (-[_PSPredictionContext bundleID](self, "bundleID"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, -[_PSPredictionContext bundleID](v6, "bundleID"), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15) && (-[_PSPredictionContext bundleID](self, "bundleID"), v16 = objc_claimAutoreleasedReturnValue(), -[_PSPredictionContext bundleID](v6, "bundleID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, !v18) || (-[_PSPredictionContext accountIdentifier](self, "accountIdentifier"), (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, -[_PSPredictionContext accountIdentifier](v6, "accountIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v21) && (-[_PSPredictionContext accountIdentifier](self, "accountIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), -[_PSPredictionContext accountIdentifier](v6, "accountIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqualToString:", v23), v23, v22, !v24) || (v25 = -[_PSPredictionContext showPotentialFamilyMembers](self, "showPotentialFamilyMembers"), v25 != -[_PSPredictionContext showPotentialFamilyMembers](v6, "showPotentialFamilyMembers")) || (v26 = -[_PSPredictionContext isSharePlayAvailable](self, "isSharePlayAvailable"), v26 != -[_PSPredictionContext isSharePlayAvailable](v6, "isSharePlayAvailable")) || (v27 = -[_PSPredictionContext isCollaborationAvailable](self, "isCollaborationAvailable"), v27 != -[_PSPredictionContext isCollaborationAvailable](v6, "isCollaborationAvailable")) || (v28 = -[_PSPredictionContext bypassIDSFilter](self, "bypassIDSFilter"), v28 != -[_PSPredictionContext bypassIDSFilter](v6, "bypassIDSFilter")) || -[_PSPredictionContext suggestionPurpose](self, "suggestionPurpose") && -[_PSPredictionContext suggestionPurpose](v6, "suggestionPurpose") && (v31 = -[_PSPredictionContext suggestionPurpose](self, "suggestionPurpose"), v31 != -[_PSPredictionContext suggestionPurpose](v6, "suggestionPurpose")) || -[_PSPredictionContext locationType](self, "locationType") && -[_PSPredictionContext locationType](v6, "locationType") && (v32 = -[_PSPredictionContext locationType](self, "locationType"), v32 != -[_PSPredictionContext locationType](v6, "locationType")))
     {
-      v8 = sessionID;
-      sessionID2 = [(_PSPredictionContext *)v6 sessionID];
-
-      if (sessionID2)
-      {
-        sessionID3 = [(_PSPredictionContext *)self sessionID];
-        sessionID4 = [(_PSPredictionContext *)v6 sessionID];
-        v12 = [sessionID3 isEqualToString:sessionID4];
-
-        if (!v12)
-        {
-          goto LABEL_17;
-        }
-      }
-    }
-
-    bundleID = [(_PSPredictionContext *)self bundleID];
-    if (bundleID)
-    {
-      v14 = bundleID;
-      bundleID2 = [(_PSPredictionContext *)v6 bundleID];
-
-      if (bundleID2)
-      {
-        bundleID3 = [(_PSPredictionContext *)self bundleID];
-        bundleID4 = [(_PSPredictionContext *)v6 bundleID];
-        v18 = [bundleID3 isEqualToString:bundleID4];
-
-        if (!v18)
-        {
-          goto LABEL_17;
-        }
-      }
-    }
-
-    accountIdentifier = [(_PSPredictionContext *)self accountIdentifier];
-    if (accountIdentifier)
-    {
-      v20 = accountIdentifier;
-      accountIdentifier2 = [(_PSPredictionContext *)v6 accountIdentifier];
-
-      if (accountIdentifier2)
-      {
-        accountIdentifier3 = [(_PSPredictionContext *)self accountIdentifier];
-        accountIdentifier4 = [(_PSPredictionContext *)v6 accountIdentifier];
-        v24 = [accountIdentifier3 isEqualToString:accountIdentifier4];
-
-        if (!v24)
-        {
-          goto LABEL_17;
-        }
-      }
-    }
-
-    if ((v25 = [(_PSPredictionContext *)self showPotentialFamilyMembers], v25 != [(_PSPredictionContext *)v6 showPotentialFamilyMembers]) || (v26 = [(_PSPredictionContext *)self isSharePlayAvailable], v26 != [(_PSPredictionContext *)v6 isSharePlayAvailable]) || (v27 = [(_PSPredictionContext *)self isCollaborationAvailable], v27 != [(_PSPredictionContext *)v6 isCollaborationAvailable]) || (v28 = [(_PSPredictionContext *)self bypassIDSFilter], v28 != [(_PSPredictionContext *)v6 bypassIDSFilter]) || [(_PSPredictionContext *)self suggestionPurpose]&& [(_PSPredictionContext *)v6 suggestionPurpose]&& (v32 = [(_PSPredictionContext *)self suggestionPurpose], v32 != [(_PSPredictionContext *)v6 suggestionPurpose]) || [(_PSPredictionContext *)self locationType]&& [(_PSPredictionContext *)v6 locationType]&& (v33 = [(_PSPredictionContext *)self locationType], v33 != [(_PSPredictionContext *)v6 locationType]))
-    {
-LABEL_17:
       LOBYTE(v29) = 0;
     }
 
     else
     {
-      v34 = objc_alloc(MEMORY[0x1E695DFA8]);
+      v33 = objc_alloc(MEMORY[0x1E695DFA8]);
       seedRecipients = [(_PSPredictionContext *)self seedRecipients];
-      v36 = [v34 initWithArray:seedRecipients];
+      v35 = [v33 initWithArray:seedRecipients];
 
-      v37 = objc_alloc(MEMORY[0x1E695DFA8]);
+      v36 = objc_alloc(MEMORY[0x1E695DFA8]);
       seedRecipients2 = [(_PSPredictionContext *)v6 seedRecipients];
-      v39 = [v37 initWithArray:seedRecipients2];
+      v38 = [v36 initWithArray:seedRecipients2];
 
-      v40 = [v36 count];
-      if (v40 == [v39 count] && objc_msgSend(v36, "isEqualToSet:", v39))
+      v39 = [v35 count];
+      if (v39 == [v38 count] && objc_msgSend(v35, "isEqualToSet:", v38))
       {
-        [v36 count];
-        v41 = objc_alloc(MEMORY[0x1E695DFA8]);
+        [v35 count];
+        v40 = objc_alloc(MEMORY[0x1E695DFA8]);
         locationUUIDs = [(_PSPredictionContext *)self locationUUIDs];
-        v43 = [v41 initWithArray:locationUUIDs];
+        v42 = [v40 initWithArray:locationUUIDs];
 
-        v44 = objc_alloc(MEMORY[0x1E695DFA8]);
+        v43 = objc_alloc(MEMORY[0x1E695DFA8]);
         locationUUIDs2 = [(_PSPredictionContext *)v6 locationUUIDs];
-        v46 = [v44 initWithArray:locationUUIDs2];
+        v45 = [v43 initWithArray:locationUUIDs2];
 
-        v47 = [v43 count];
-        if (v47 == [v46 count] && objc_msgSend(v43, "isEqualToSet:", v46))
+        v46 = [v42 count];
+        if (v46 == [v45 count] && objc_msgSend(v42, "isEqualToSet:", v45))
         {
-          [v43 count];
-          v48 = objc_alloc(MEMORY[0x1E695DFA8]);
+          [v42 count];
+          v47 = objc_alloc(MEMORY[0x1E695DFA8]);
           attachments = [(_PSPredictionContext *)self attachments];
-          v50 = [v48 initWithArray:attachments];
+          v49 = [v47 initWithArray:attachments];
 
-          v51 = objc_alloc(MEMORY[0x1E695DFA8]);
+          v50 = objc_alloc(MEMORY[0x1E695DFA8]);
           attachments2 = [(_PSPredictionContext *)v6 attachments];
-          v53 = [v51 initWithArray:attachments2];
+          v52 = [v50 initWithArray:attachments2];
 
-          v54 = v53;
-          v55 = [v50 count];
-          if (v55 == [v54 count] && objc_msgSend(v50, "isEqualToSet:", v54))
+          v53 = v52;
+          v54 = [v49 count];
+          if (v54 == [v53 count] && objc_msgSend(v49, "isEqualToSet:", v53))
           {
-            v117 = v54;
-            v118 = v50;
-            v119 = v46;
-            v120 = v43;
-            v121 = v39;
-            [v50 count];
-            v56 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v116 = v53;
+            v117 = v49;
+            v118 = v45;
+            v119 = v42;
+            v120 = v38;
+            [v49 count];
+            v55 = objc_alloc_init(MEMORY[0x1E695DFA8]);
             photoSuggestedPeople = [(_PSPredictionContext *)self photoSuggestedPeople];
-            v58 = [photoSuggestedPeople count];
+            v57 = [photoSuggestedPeople count];
 
-            if (v58)
+            if (v57)
             {
-              v59 = 0;
+              v58 = 0;
               do
               {
                 photoSuggestedPeople2 = [(_PSPredictionContext *)self photoSuggestedPeople];
-                v61 = [photoSuggestedPeople2 objectAtIndexedSubscript:v59];
-                v62 = [v61 objectForKeyedSubscript:@"contactIdentifier"];
+                v60 = [photoSuggestedPeople2 objectAtIndexedSubscript:v58];
+                v61 = [v60 objectForKeyedSubscript:@"contactIdentifier"];
 
-                [v56 addObject:v62];
-                ++v59;
+                [v55 addObject:v61];
+                ++v58;
                 photoSuggestedPeople3 = [(_PSPredictionContext *)self photoSuggestedPeople];
-                v64 = [photoSuggestedPeople3 count];
+                v63 = [photoSuggestedPeople3 count];
               }
 
-              while (v64 > v59);
+              while (v63 > v58);
             }
 
-            v123 = v56;
-            v65 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v122 = v55;
+            v64 = objc_alloc_init(MEMORY[0x1E695DFA8]);
             photoSuggestedPeople4 = [(_PSPredictionContext *)v6 photoSuggestedPeople];
-            v67 = [photoSuggestedPeople4 count];
+            v66 = [photoSuggestedPeople4 count];
 
-            if (v67)
+            if (v66)
             {
-              v68 = 0;
+              v67 = 0;
               do
               {
                 photoSuggestedPeople5 = [(_PSPredictionContext *)v6 photoSuggestedPeople];
-                v70 = [photoSuggestedPeople5 objectAtIndexedSubscript:v68];
-                v71 = [v70 objectForKeyedSubscript:@"contactIdentifier"];
+                v69 = [photoSuggestedPeople5 objectAtIndexedSubscript:v67];
+                v70 = [v69 objectForKeyedSubscript:@"contactIdentifier"];
 
-                [v65 addObject:v71];
-                ++v68;
+                [v64 addObject:v70];
+                ++v67;
                 photoSuggestedPeople6 = [(_PSPredictionContext *)v6 photoSuggestedPeople];
-                v73 = [photoSuggestedPeople6 count];
+                v72 = [photoSuggestedPeople6 count];
               }
 
-              while (v73 > v68);
+              while (v72 > v67);
             }
 
-            v74 = [v123 count];
-            v122 = v65;
-            if (v74 == [v65 count] && objc_msgSend(v123, "isEqualToSet:", v65))
+            v73 = [v122 count];
+            v121 = v64;
+            if (v73 == [v64 count] && objc_msgSend(v122, "isEqualToSet:", v64))
             {
-              [v123 count];
-              v75 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+              [v122 count];
+              v74 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+              v127 = 0u;
               v128 = 0u;
               v129 = 0u;
               v130 = 0u;
-              v131 = 0u;
               appBundleIdsToShareExtensionBundleIdsMapping = [(_PSPredictionContext *)self appBundleIdsToShareExtensionBundleIdsMapping];
-              v77 = [appBundleIdsToShareExtensionBundleIdsMapping countByEnumeratingWithState:&v128 objects:v133 count:16];
-              if (v77)
+              v76 = [appBundleIdsToShareExtensionBundleIdsMapping countByEnumeratingWithState:&v127 objects:v132 count:16];
+              if (v76)
               {
-                v78 = v77;
-                v79 = *v129;
+                v77 = v76;
+                v78 = *v128;
                 do
                 {
-                  for (i = 0; i != v78; ++i)
+                  for (i = 0; i != v77; ++i)
                   {
-                    if (*v129 != v79)
+                    if (*v128 != v78)
                     {
                       objc_enumerationMutation(appBundleIdsToShareExtensionBundleIdsMapping);
                     }
 
-                    [v75 addObject:*(*(&v128 + 1) + 8 * i)];
+                    [v74 addObject:*(*(&v127 + 1) + 8 * i)];
                   }
 
-                  v78 = [appBundleIdsToShareExtensionBundleIdsMapping countByEnumeratingWithState:&v128 objects:v133 count:16];
+                  v77 = [appBundleIdsToShareExtensionBundleIdsMapping countByEnumeratingWithState:&v127 objects:v132 count:16];
                 }
 
-                while (v78);
+                while (v77);
               }
 
-              v81 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+              v80 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+              v123 = 0u;
               v124 = 0u;
               v125 = 0u;
               v126 = 0u;
-              v127 = 0u;
               appBundleIdsToShareExtensionBundleIdsMapping2 = [(_PSPredictionContext *)v6 appBundleIdsToShareExtensionBundleIdsMapping];
-              v83 = [appBundleIdsToShareExtensionBundleIdsMapping2 countByEnumeratingWithState:&v124 objects:v132 count:16];
-              if (v83)
+              v82 = [appBundleIdsToShareExtensionBundleIdsMapping2 countByEnumeratingWithState:&v123 objects:v131 count:16];
+              if (v82)
               {
-                v84 = v83;
-                v85 = *v125;
+                v83 = v82;
+                v84 = *v124;
                 do
                 {
-                  for (j = 0; j != v84; ++j)
+                  for (j = 0; j != v83; ++j)
                   {
-                    if (*v125 != v85)
+                    if (*v124 != v84)
                     {
                       objc_enumerationMutation(appBundleIdsToShareExtensionBundleIdsMapping2);
                     }
 
-                    [v81 addObject:*(*(&v124 + 1) + 8 * j)];
+                    [v80 addObject:*(*(&v123 + 1) + 8 * j)];
                   }
 
-                  v84 = [appBundleIdsToShareExtensionBundleIdsMapping2 countByEnumeratingWithState:&v124 objects:v132 count:16];
+                  v83 = [appBundleIdsToShareExtensionBundleIdsMapping2 countByEnumeratingWithState:&v123 objects:v131 count:16];
                 }
 
-                while (v84);
+                while (v83);
               }
 
-              v87 = [v75 count];
-              if (v87 == [v81 count] && objc_msgSend(v75, "isEqualToSet:", v81))
+              v86 = [v74 count];
+              if (v86 == [v80 count] && objc_msgSend(v74, "isEqualToSet:", v80))
               {
-                [v75 count];
-                v88 = objc_alloc(MEMORY[0x1E695DFD8]);
+                [v74 count];
+                v87 = objc_alloc(MEMORY[0x1E695DFD8]);
                 suggestionsFilteredByBundleIds = [(_PSPredictionContext *)self suggestionsFilteredByBundleIds];
-                v90 = [v88 initWithArray:suggestionsFilteredByBundleIds];
+                v89 = [v87 initWithArray:suggestionsFilteredByBundleIds];
 
-                v91 = objc_alloc(MEMORY[0x1E695DFD8]);
+                v90 = objc_alloc(MEMORY[0x1E695DFD8]);
                 suggestionsFilteredByBundleIds2 = [(_PSPredictionContext *)v6 suggestionsFilteredByBundleIds];
-                v93 = [v91 initWithArray:suggestionsFilteredByBundleIds2];
+                v92 = [v90 initWithArray:suggestionsFilteredByBundleIds2];
 
-                v115 = v93;
-                v116 = v90;
-                if ([v90 isEqualToSet:v93])
+                v114 = v92;
+                v115 = v89;
+                if ([v89 isEqualToSet:v92])
                 {
-                  [v90 count];
-                  v94 = objc_alloc(MEMORY[0x1E695DFD8]);
+                  [v89 count];
+                  v93 = objc_alloc(MEMORY[0x1E695DFD8]);
                   seedContactIdentifiers = [(_PSPredictionContext *)self seedContactIdentifiers];
-                  v96 = [v94 initWithArray:seedContactIdentifiers];
+                  v95 = [v93 initWithArray:seedContactIdentifiers];
 
-                  v97 = objc_alloc(MEMORY[0x1E695DFD8]);
+                  v96 = objc_alloc(MEMORY[0x1E695DFD8]);
                   seedContactIdentifiers2 = [(_PSPredictionContext *)v6 seedContactIdentifiers];
-                  v99 = [v97 initWithArray:seedContactIdentifiers2];
+                  v98 = [v96 initWithArray:seedContactIdentifiers2];
 
-                  v113 = v99;
-                  v114 = v96;
-                  if ([v96 isEqualToSet:v99])
+                  v112 = v98;
+                  v113 = v95;
+                  if ([v95 isEqualToSet:v98])
                   {
-                    [v96 count];
-                    v100 = objc_alloc(MEMORY[0x1E695DFD8]);
+                    [v95 count];
+                    v99 = objc_alloc(MEMORY[0x1E695DFD8]);
                     linkMetadataFromClient = [(_PSPredictionContext *)self linkMetadataFromClient];
-                    v102 = [v100 initWithArray:linkMetadataFromClient];
+                    v101 = [v99 initWithArray:linkMetadataFromClient];
 
-                    v103 = objc_alloc(MEMORY[0x1E695DFD8]);
+                    v102 = objc_alloc(MEMORY[0x1E695DFD8]);
                     linkMetadataFromClient2 = [(_PSPredictionContext *)v6 linkMetadataFromClient];
-                    v105 = [v103 initWithArray:linkMetadataFromClient2];
+                    v104 = [v102 initWithArray:linkMetadataFromClient2];
 
-                    v112 = v102;
-                    if ([v102 isEqualToSet:v105])
+                    v111 = v101;
+                    if ([v101 isEqualToSet:v104])
                     {
-                      [v102 count];
-                      v106 = objc_alloc(MEMORY[0x1E695DFD8]);
+                      [v101 count];
+                      v105 = objc_alloc(MEMORY[0x1E695DFD8]);
                       peopleInPhotoIdentifiers = [(_PSPredictionContext *)self peopleInPhotoIdentifiers];
-                      v108 = [v106 initWithArray:peopleInPhotoIdentifiers];
+                      v107 = [v105 initWithArray:peopleInPhotoIdentifiers];
 
-                      v109 = objc_alloc(MEMORY[0x1E695DFD8]);
+                      v108 = objc_alloc(MEMORY[0x1E695DFD8]);
                       peopleInPhotoIdentifiers2 = [(_PSPredictionContext *)v6 peopleInPhotoIdentifiers];
-                      v111 = [v109 initWithArray:peopleInPhotoIdentifiers2];
+                      v110 = [v108 initWithArray:peopleInPhotoIdentifiers2];
 
-                      v29 = [v108 isEqualToSet:v111];
+                      v29 = [v107 isEqualToSet:v110];
                       if (v29)
                       {
-                        [v108 count];
+                        [v107 count];
                       }
                     }
 
@@ -874,11 +814,11 @@ LABEL_17:
               LOBYTE(v29) = 0;
             }
 
-            v43 = v120;
-            v39 = v121;
-            v50 = v118;
-            v46 = v119;
-            v54 = v117;
+            v42 = v119;
+            v38 = v120;
+            v49 = v117;
+            v45 = v118;
+            v53 = v116;
           }
 
           else
@@ -905,7 +845,6 @@ LABEL_17:
     LOBYTE(v29) = 0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

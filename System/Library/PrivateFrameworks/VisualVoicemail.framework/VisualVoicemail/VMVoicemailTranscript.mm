@@ -32,11 +32,11 @@
 
 - (VMVoicemailTranscript)initWithTranscription:(id)transcription
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   transcriptionCopy = transcription;
-  v38.receiver = self;
-  v38.super_class = VMVoicemailTranscript;
-  v5 = [(VMVoicemailTranscript *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = VMVoicemailTranscript;
+  v5 = [(VMVoicemailTranscript *)&v37 init];
   v6 = v5;
   if (v5)
   {
@@ -52,27 +52,27 @@
 
     +[VMConfiguration confidenceSegmentThreshold];
     v13 = v12;
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     segments2 = [transcriptionCopy segments];
-    v15 = [segments2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v15 = [segments2 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v35;
+      v17 = *v34;
       v18 = 0.0;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v35 != v17)
+          if (*v34 != v17)
           {
             objc_enumerationMutation(segments2);
           }
 
-          v20 = *(*(&v34 + 1) + 8 * i);
+          v20 = *(*(&v33 + 1) + 8 * i);
           v21 = [VMVoicemailTranscriptSegment alloc];
           LODWORD(v22) = v13;
           v23 = [(VMVoicemailTranscriptSegment *)v21 initWithTranscriptionSegment:v20 confidenceThreshold:v22];
@@ -81,7 +81,7 @@
           [v11 addObject:v23];
         }
 
-        v16 = [segments2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v16 = [segments2 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v16);
@@ -135,17 +135,16 @@
     v6->_confidenceRating = v28;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (VMVoicemailTranscript)initWithTranscriberResult:(id)result
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v34.receiver = self;
-  v34.super_class = VMVoicemailTranscript;
-  v5 = [(VMVoicemailTranscript *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = VMVoicemailTranscript;
+  v5 = [(VMVoicemailTranscript *)&v35 init];
   v6 = v5;
   if (v5)
   {
@@ -156,26 +155,26 @@
     firstObject = [transcriptions firstObject];
 
     string = [MEMORY[0x277CCAB68] string];
-    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
     v11 = firstObject;
-    v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v32;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v31 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * i);
+          v16 = *(*(&v31 + 1) + 8 * i);
           text = [v16 text];
           [string appendString:text];
 
@@ -184,7 +183,7 @@
           v6->_confidence = *&v18;
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
       while (v13);
@@ -198,48 +197,47 @@
 
     v6->_confidence = confidence;
     objc_storeStrong(&v6->_transcriptionString, string);
-    v20 = vm_framework_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = vm_framework_log(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       transcriptionString = v6->_transcriptionString;
-      v22 = v6->_confidence;
+      v24 = v6->_confidence;
       *buf = 138412546;
-      v36 = transcriptionString;
-      v37 = 2048;
-      v38 = v22;
-      _os_log_impl(&dword_2721BA000, v20, OS_LOG_TYPE_DEFAULT, "Segment dictation result:%@ , confidence = %f", buf, 0x16u);
+      v37 = transcriptionString;
+      v38 = 2048;
+      v39 = v24;
+      _os_log_impl(&dword_2721BA000, v22, OS_LOG_TYPE_DEFAULT, "Segment dictation result:%@ , confidence = %f", buf, 0x16u);
     }
 
-    v23 = v6->_confidence;
-    if (v23 == 0.0)
+    v25 = v6->_confidence;
+    if (v25 == 0.0)
     {
-      v24 = 0;
+      v26 = 0;
     }
 
     else
     {
       +[VMConfiguration confidenceLowQualityThreshold];
-      if (v23 >= v25)
+      if (v25 >= v27)
       {
-        v24 = 3;
+        v26 = 3;
       }
 
       else
       {
-        v26 = v6->_confidence;
+        v28 = v6->_confidence;
         +[VMConfiguration confidenceThreshold];
-        v24 = 2;
-        if (v26 < v27)
+        v26 = 2;
+        if (v28 < v29)
         {
-          v24 = 1;
+          v26 = 1;
         }
       }
     }
 
-    v6->_confidenceRating = v24;
+    v6->_confidenceRating = v26;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -318,7 +316,7 @@
 
 - (id)debugDescription
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"=====================================================\n"];
   transcriptionString = [(VMVoicemailTranscript *)self transcriptionString];
@@ -326,30 +324,30 @@
 
   [v3 appendFormat:@"=====================================================\n"];
   [v3 appendString:@"Comprised of:\n"];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   segments = [(VMVoicemailTranscript *)self segments];
-  v6 = [segments countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [segments countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(segments);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * i) debugDescription];
+        v10 = [*(*(&v14 + 1) + 8 * i) debugDescription];
         [v3 appendFormat:@"%@\n", v10];
       }
 
-      v7 = [segments countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [segments countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -358,8 +356,6 @@
   [(VMVoicemailTranscript *)self confidence];
   [v3 appendFormat:@"With an overall confidence of %f (rating:%lu)", v11, -[VMVoicemailTranscript confidenceRating](self, "confidenceRating")];
   v12 = [v3 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

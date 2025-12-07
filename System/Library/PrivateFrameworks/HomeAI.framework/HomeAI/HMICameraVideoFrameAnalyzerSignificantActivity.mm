@@ -29,9 +29,9 @@
   thresholdsCopy = thresholds;
   confidenceThresholdsCopy = confidenceThresholds;
   configurationCopy = configuration;
-  v45.receiver = self;
-  v45.super_class = HMICameraVideoFrameAnalyzerSignificantActivity;
-  v14 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)&v45 init];
+  v41.receiver = self;
+  v41.super_class = HMICameraVideoFrameAnalyzerSignificantActivity;
+  v14 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)&v41 init];
   v15 = v14;
   if (!v14)
   {
@@ -39,29 +39,23 @@
   }
 
   objc_storeStrong(&v14->_analyzerConfiguration, configuration);
-  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:7];
+  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
   for (i = 0; i != 7; ++i)
   {
-    [v16 setObject:&unk_284075378 atIndexedSubscript:i];
+    [v16 setObject:? atIndexedSubscript:?];
   }
 
   v18 = +[HMICameraVideoFrameAnalyzerSignificantActivity classHierarchyMap];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __138__HMICameraVideoFrameAnalyzerSignificantActivity_initWithMediumConfidenceThresholds_highConfidenceThresholds_analyzerConfiguration_error___block_invoke;
-  v42[3] = &unk_278755898;
-  v43 = thresholdsCopy;
+  v40 = thresholdsCopy;
   v19 = v16;
-  v44 = v19;
-  [v18 enumerateKeysAndObjectsUsingBlock:v42];
+  [v18 enumerateKeysAndObjectsUsingBlock:?];
 
   objc_storeStrong(&v15->_mediumConfidenceThresholds, thresholds);
   objc_storeStrong(&v15->_highConfidenceThresholds, confidenceThresholds);
   v20 = [HMISignificantActivityFcosDetector alloc];
   v21 = +[HMISignificantActivityFcosDetector defaultNMSConfiguration];
-  v41 = 0;
-  v22 = [(HMISignificantActivityFcosDetector *)v20 initWithConfidenceThresholds:v19 nmsConfiguration:v21 error:&v41];
-  v23 = v41;
+  v22 = [HMISignificantActivityFcosDetector initWithConfidenceThresholds:v20 nmsConfiguration:"initWithConfidenceThresholds:nmsConfiguration:error:" error:?];
+  v23 = 0;
   significantActivityFcosDetector = v15->_significantActivityFcosDetector;
   v15->_significantActivityFcosDetector = v22;
 
@@ -79,16 +73,15 @@
 
     if (!shouldEnableTorsoRecognition || (v30 = objc_alloc_init(HMITorsoClassifier), torsoClassifier = v15->_torsoClassifier, v15->_torsoClassifier = v30, torsoClassifier, v15->_torsoClassifier))
     {
-      v40 = v23;
-      v32 = [[HMIFaceClassifierVIP alloc] initWithError:&v40];
-      v33 = v40;
+      v32 = [[HMIFaceClassifierVIP alloc] initWithError:?];
+      v33 = v23;
 
       faceClassifier = v15->_faceClassifier;
       v15->_faceClassifier = v32;
 
       if (v15->_faceClassifier)
       {
-        v35 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"HMICameraVideoFrameAnalyzerSignificantActivity"];
+        v35 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:?];
         transaction = v15->_transaction;
         v15->_transaction = v35;
 
@@ -118,10 +111,12 @@ LABEL_14:
 void __138__HMICameraVideoFrameAnalyzerSignificantActivity_initWithMediumConfidenceThresholds_highConfidenceThresholds_analyzerConfiguration_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2;
-  v5 = [*(a1 + 32) objectForKeyedSubscript:a3];
-  if (v5)
+  v4 = [*(a1 + 32) objectForKeyedSubscript:?];
+  if (v4)
   {
-    [*(a1 + 40) setObject:v5 atIndexedSubscript:{objc_msgSend(v6, "integerValue")}];
+    v5 = *(a1 + 40);
+    [v6 integerValue];
+    [v5 setObject:? atIndexedSubscript:?];
   }
 }
 
@@ -141,80 +136,72 @@ void __138__HMICameraVideoFrameAnalyzerSignificantActivity_initWithMediumConfide
 
 - (CGRect)regionOfInterestForMotionDetections:(id)detections foregroundEvents:(id)events frameSize:(CGSize)size
 {
-  height = size.height;
-  width = size.width;
   detectionsCopy = detections;
   eventsCopy = events;
-  v11 = [HMIMotionDetection firstMotionDetectionInArray:detectionsCopy withMode:2];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x4010000000;
-  v43 = &unk_22D2C2491;
-  v44 = 0u;
-  v45 = 0u;
-  [v11 motionScore];
-  if (v12 <= 0.0)
+  v9 = [HMIMotionDetection firstMotionDetectionInArray:"firstMotionDetectionInArray:withMode:" withMode:?];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x4010000000;
+  v37 = &unk_22D2C2491;
+  v38 = 0u;
+  v39 = 0u;
+  [v9 motionScore];
+  if (v10 <= 0.0)
   {
-    v17 = *(MEMORY[0x277CBF398] + 16);
-    v44 = *MEMORY[0x277CBF398];
-    v45 = v17;
+    v15 = *(MEMORY[0x277CBF398] + 16);
+    v38 = *MEMORY[0x277CBF398];
+    v39 = v15;
   }
 
   else
   {
-    [v11 boundingBox];
-    *&v44 = v13;
-    *(&v44 + 1) = v14;
-    *&v45 = v15;
-    *(&v45 + 1) = v16;
+    [v9 boundingBox];
+    *&v38 = v11;
+    *(&v38 + 1) = v12;
+    *&v39 = v13;
+    *(&v39 + 1) = v14;
   }
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __113__HMICameraVideoFrameAnalyzerSignificantActivity_regionOfInterestForMotionDetections_foregroundEvents_frameSize___block_invoke;
-  v39[3] = &unk_278752EF8;
-  v39[4] = &v40;
-  [eventsCopy na_each:v39];
-  if (CGRectIsNull(v41[1]))
+  [eventsCopy na_each:?];
+  if (CGRectIsNull(v35[1]))
   {
-    v20 = v41[1].size.width;
-    v19 = v41[1].size.height;
-    x = v41[1].origin.x;
-    y = v41[1].origin.y;
+    width = v35[1].size.width;
+    height = v35[1].size.height;
+    x = v35[1].origin.x;
+    y = v35[1].origin.y;
   }
 
   else
   {
-    LODWORD(v18) = 1.0;
-    [HMIVisionUtilities maintainAspectRatio:v41[1].origin.x originalSize:v41[1].origin.y ratioThreshold:v41[1].size.width, v41[1].size.height, width, height, v18];
-    v23 = v41;
-    v41[1].origin.x = v24;
-    v23[1].origin.y = v25;
-    v23[1].size.width = v26;
-    v23[1].size.height = v27;
+    [HMIVisionUtilities maintainAspectRatio:"maintainAspectRatio:originalSize:ratioThreshold:" originalSize:? ratioThreshold:?];
+    p_x = &v35->origin.x;
+    v35[1].origin.x = v21;
+    p_x[5] = v22;
+    p_x[6] = v23;
+    p_x[7] = v24;
     [(HMICameraVideoFrameAnalyzerSignificantActivity *)self inputDimensions];
-    [HMIVisionUtilities imposeMinSizeFor:v23[1].origin.x withOriginalSize:v23[1].origin.y minCrop:v23[1].size.width, v23[1].size.height, width, height, v28, v29];
-    x = v30;
-    y = v31;
-    v20 = v32;
-    v19 = v33;
-    p_x = &v41->origin.x;
-    v41[1].origin.x = v30;
-    p_x[5] = v31;
-    p_x[6] = v32;
-    p_x[7] = v33;
+    [HMIVisionUtilities imposeMinSizeFor:"imposeMinSizeFor:withOriginalSize:minCrop:" withOriginalSize:? minCrop:?];
+    x = v25;
+    y = v26;
+    width = v27;
+    height = v28;
+    v29 = &v35->origin.x;
+    v35[1].origin.x = v25;
+    v29[5] = v26;
+    v29[6] = v27;
+    v29[7] = v28;
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v34, 8);
 
-  v35 = x;
-  v36 = y;
-  v37 = v20;
-  v38 = v19;
-  result.size.height = v38;
-  result.size.width = v37;
-  result.origin.y = v36;
-  result.origin.x = v35;
+  v30 = x;
+  v31 = y;
+  v32 = width;
+  v33 = height;
+  result.size.height = v33;
+  result.size.width = v32;
+  result.origin.y = v31;
+  result.origin.x = v30;
   return result;
 }
 
@@ -249,135 +236,108 @@ void __113__HMICameraVideoFrameAnalyzerSignificantActivity_regionOfInterestForMo
 
 - (id)analyzeFrame:(id)frame regionOfInterest:(CGRect)interest
 {
-  v9 = 0;
-  v4 = -[HMICameraVideoFrameAnalyzerSignificantActivity analyzePixelBuffer:regionOfInterest:error:](self, "analyzePixelBuffer:regionOfInterest:error:", [frame pixelBuffer], &v9, interest.origin.x, interest.origin.y, interest.size.width, interest.size.height);
-  v5 = v4;
-  if (v9)
-  {
-    v6 = [MEMORY[0x277CBEB98] set];
-  }
+  [frame pixelBuffer];
+  v5 = [HMICameraVideoFrameAnalyzerSignificantActivity analyzePixelBuffer:"analyzePixelBuffer:regionOfInterest:error:" regionOfInterest:? error:?];
+  v6 = v5;
 
-  else
-  {
-    v6 = v4;
-  }
-
-  v7 = v6;
-
-  return v7;
+  return v6;
 }
 
 - (id)getAnalyzerEvents:(id)events eventTriggers:(int64_t)triggers enableFaceClassification:(BOOL)classification enableTorsoRecognition:(BOOL)recognition
 {
-  recognitionCopy = recognition;
-  classificationCopy = classification;
-  v45[4] = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v11 = [eventsCopy na_filter:&__block_literal_global_36];
-  v12 = +[HMIPreference sharedInstance];
-  v13 = &off_22D297000;
-  if ([v12 hasPreferenceForKey:@"personDetected"])
+  v8 = [eventsCopy na_filter:?];
+  v9 = +[HMIPreference sharedInstance];
+  if ([v9 hasPreferenceForKey:?])
   {
     goto LABEL_6;
   }
 
-  v14 = +[HMIPreference sharedInstance];
-  if ([v14 hasPreferenceForKey:@"petDetected"])
+  v10 = +[HMIPreference sharedInstance];
+  if ([v10 hasPreferenceForKey:?])
   {
 LABEL_5:
 
 LABEL_6:
 LABEL_7:
-    v16 = MEMORY[0x277CBEB98];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v45[2] = objc_opt_class();
-    v45[3] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
-    v18 = [v16 setWithArray:v17];
+    v12 = MEMORY[0x277CBEB98];
+    v37 = objc_opt_class();
+    v38 = objc_opt_class();
+    v39 = objc_opt_class();
+    v40 = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v14 = [v12 setWithArray:?];
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = *(v13 + 437);
-    v40[2] = __130__HMICameraVideoFrameAnalyzerSignificantActivity_getAnalyzerEvents_eventTriggers_enableFaceClassification_enableTorsoRecognition___block_invoke_2;
-    v40[3] = &unk_278752F20;
-    v40[4] = self;
-    v19 = [v18 na_map:v40];
+    v15 = [v14 na_map:?];
 
-    v11 = v19;
+    v8 = v15;
     goto LABEL_8;
   }
 
-  v15 = +[HMIPreference sharedInstance];
-  if ([v15 hasPreferenceForKey:@"vehicleDetected"])
+  v11 = +[HMIPreference sharedInstance];
+  if ([v11 hasPreferenceForKey:?])
   {
 
-    v13 = &off_22D297000;
     goto LABEL_5;
   }
 
   +[HMIPreference sharedInstance];
-  v35 = v37 = eventsCopy;
-  v36 = [v35 hasPreferenceForKey:@"packageDetected"];
+  v30 = v32 = eventsCopy;
+  v31 = [v30 hasPreferenceForKey:?];
 
-  eventsCopy = v37;
-  v13 = &off_22D297000;
-  if (v36)
+  eventsCopy = v32;
+  if (v31)
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  v20 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _targetEventsSetFromEventTriggers:triggers enableFaceClassification:classificationCopy enableTorsoRecognition:recognitionCopy];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = *(v13 + 437);
-  v38[2] = __130__HMICameraVideoFrameAnalyzerSignificantActivity_getAnalyzerEvents_eventTriggers_enableFaceClassification_enableTorsoRecognition___block_invoke_3;
-  v38[3] = &unk_278755120;
-  v21 = v20;
-  v39 = v21;
-  v22 = [v11 na_filter:v38];
+  v16 = [HMICameraVideoFrameAnalyzerSignificantActivity _targetEventsSetFromEventTriggers:"_targetEventsSetFromEventTriggers:enableFaceClassification:enableTorsoRecognition:" enableFaceClassification:? enableTorsoRecognition:?];
+  v17 = [v8 na_filter:?];
 
-  v23 = [HMIFaceUtilities mergedPersonEventsFromEvents:v22];
+  v18 = [HMIFaceUtilities mergedPersonEventsFromEvents:?];
 
-  v24 = +[HMIPreference sharedInstance];
-  v25 = [v24 hasPreferenceForKey:@"syntheticEvents"];
+  v19 = +[HMIPreference sharedInstance];
+  v20 = [v19 hasPreferenceForKey:?];
 
-  if (v25)
+  if (v20)
   {
-    v26 = +[HMIPreference sharedInstance];
-    v27 = [v26 stringPreferenceForKey:@"syntheticEvents" defaultValue:&stru_284057FB8];
+    v21 = +[HMIPreference sharedInstance];
+    v22 = [v21 stringPreferenceForKey:? defaultValue:?];
 
-    v28 = [HMIVideoAnalyzerEvent eventsWithContentsOfFile:v27];
-    if (v28)
+    v23 = [HMIVideoAnalyzerEvent eventsWithContentsOfFile:?];
+    if (v23)
     {
-      v29 = objc_autoreleasePoolPush();
+      v24 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v31 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v26 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v32 = HMFGetLogIdentifier();
+        v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v32;
-        v43 = 2112;
-        v44 = v27;
-        _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_DEBUG, "%{public}@Reading and injecting synthesized events from path %@", buf, 0x16u);
+        v34 = v27;
+        v35 = 2112;
+        v36 = v22;
+        _os_log_impl(&dword_22D12F000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Reading and injecting synthesized events from path %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v29);
-      v33 = v28;
+      objc_autoreleasePoolPop(v24);
+      v28 = v23;
 
-      v23 = v33;
+      v18 = v28;
     }
   }
 
-  return v23;
+  return v18;
 }
 
-uint64_t __130__HMICameraVideoFrameAnalyzerSignificantActivity_getAnalyzerEvents_eventTriggers_enableFaceClassification_enableTorsoRecognition___block_invoke_3(uint64_t a1)
+void *__130__HMICameraVideoFrameAnalyzerSignificantActivity_getAnalyzerEvents_eventTriggers_enableFaceClassification_enableTorsoRecognition___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v2 = *(a1 + 32);
+  objc_opt_class();
 
-  return [v1 containsObject:v2];
+  return [v2 containsObject:?];
 }
 
 - (id)getPackageEvents:(id)events foregroundEvents:(id)foregroundEvents newBackgroundEvents:(id)backgroundEvents backgroundTimeStamp:(id *)stamp
@@ -385,40 +345,40 @@ uint64_t __130__HMICameraVideoFrameAnalyzerSignificantActivity_getAnalyzerEvents
   foregroundEventsCopy = foregroundEvents;
   backgroundEventsCopy = backgroundEvents;
   eventsCopy = events;
-  v13 = [eventsCopy na_filter:&__block_literal_global_26_0];
-  v14 = [eventsCopy na_filter:&__block_literal_global_28];
+  v13 = [eventsCopy na_filter:?];
+  v14 = [eventsCopy na_filter:?];
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_3;
-  v29[3] = &unk_2787558C0;
-  v30 = v14;
-  v31 = backgroundEventsCopy;
+  v32 = MEMORY[0x277D85DD0];
+  v33 = 3221225472;
+  v34 = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_3;
+  v35 = &unk_2787558C0;
+  v36 = v14;
+  v37 = backgroundEventsCopy;
   v15 = backgroundEventsCopy;
   v16 = v14;
-  v17 = [v13 na_filter:v29];
+  v17 = [v13 na_filter:?];
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_6;
-  v27[3] = &unk_278755120;
-  v28 = foregroundEventsCopy;
+  v27 = MEMORY[0x277D85DD0];
+  v28 = 3221225472;
+  v29 = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_6;
+  v30 = &unk_278755120;
+  v31 = foregroundEventsCopy;
   v18 = foregroundEventsCopy;
-  v19 = [v17 na_filter:v27];
+  v19 = [v17 na_filter:?];
 
-  [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundTimeStamp];
+  [&time1 backgroundTimeStamp];
   v25 = *stamp;
   if (CMTimeCompare(&time1, &v25))
   {
     time1 = *stamp;
-    [(HMICameraVideoFrameAnalyzerSignificantActivity *)self setBackgroundTimeStamp:&time1];
+    [(HMICameraVideoFrameAnalyzerSignificantActivity *)self setBackgroundTimeStamp:?];
     backgroundEvents = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundEvents];
     [backgroundEvents removeAllObjects];
   }
 
   backgroundEvents2 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundEvents];
   v22 = [backgroundEvents2 copy];
-  v23 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _filterPackageEvents:v19 backgroundEvents:v22];
+  v23 = [HMICameraVideoFrameAnalyzerSignificantActivity _filterPackageEvents:"_filterPackageEvents:backgroundEvents:" backgroundEvents:?];
 
   return v23;
 }
@@ -485,30 +445,22 @@ uint64_t __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_
   else
   {
     v6 = *(a1 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_4;
-    v13[3] = &unk_278755120;
-    v7 = v3;
-    v14 = v7;
-    LODWORD(v6) = [v6 na_any:v13];
+    v12 = v3;
+    LODWORD(v6) = [v6 na_any:?];
 
     if (v6)
     {
-      [*(a1 + 40) addObject:v7];
+      [*(a1 + 40) addObject:?];
     }
   }
 
-  v8 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_5;
-  v11[3] = &unk_278755120;
-  v12 = v3;
-  v9 = v3;
-  LODWORD(v8) = [v8 na_any:v11];
+  v7 = *(a1 + 32);
+  v10 = MEMORY[0x277D85DD0];
+  v11 = v3;
+  v8 = v3;
+  LODWORD(v7) = [v7 na_any:{v10, 3221225472, __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_5, &unk_278755120}];
 
-  return v8 ^ 1;
+  return v7 ^ 1;
 }
 
 BOOL __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_4(uint64_t a1, void *a2)
@@ -573,17 +525,17 @@ BOOL __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_fore
   return v6;
 }
 
-uint64_t __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_6(uint64_t a1, void *a2)
+void *__124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_7;
-  v8[3] = &unk_278755120;
-  v9 = v3;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_foregroundEvents_newBackgroundEvents_backgroundTimeStamp___block_invoke_7;
+  v11 = &unk_278755120;
+  v12 = v3;
   v5 = v3;
-  v6 = [v4 na_any:v8];
+  v6 = [v4 na_any:?];
 
   return v6;
 }
@@ -609,26 +561,23 @@ BOOL __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_fore
 
 - (id)analyzeBackgroundFrame:(id)frame packageEvents:(id)events newBackgroundEvents:(id)backgroundEvents regionOfInterest:(CGRect)interest
 {
-  height = interest.size.height;
-  width = interest.size.width;
-  y = interest.origin.y;
-  x = interest.origin.x;
   backgroundEventsCopy = backgroundEvents;
   eventsCopy = events;
-  v15 = -[HMICameraVideoFrameAnalyzerSignificantActivity analyzePixelBuffer:regionOfInterest:error:](self, "analyzePixelBuffer:regionOfInterest:error:", [frame pixelBuffer], 0, x, y, width, height);
-  v16 = [v15 na_filter:&__block_literal_global_30_0];
+  [frame pixelBuffer];
+  v11 = [HMICameraVideoFrameAnalyzerSignificantActivity analyzePixelBuffer:"analyzePixelBuffer:regionOfInterest:error:" regionOfInterest:? error:?];
+  v12 = [v11 na_filter:?];
 
-  [backgroundEventsCopy unionSet:v16];
-  v17 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _filterPackageEvents:eventsCopy backgroundEvents:backgroundEventsCopy];
+  [backgroundEventsCopy unionSet:?];
+  v13 = [HMICameraVideoFrameAnalyzerSignificantActivity _filterPackageEvents:"_filterPackageEvents:backgroundEvents:" backgroundEvents:?];
 
   backgroundEvents = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundEvents];
   allObjects = [backgroundEventsCopy allObjects];
-  [backgroundEvents addObjectsFromArray:allObjects];
+  [backgroundEvents addObjectsFromArray:?];
 
   backgroundEvents2 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundEvents];
-  v21 = [backgroundEvents2 count];
+  v17 = [backgroundEvents2 count];
 
-  if (v21 >= 0x65)
+  if (v17 >= 0x65)
   {
     do
     {
@@ -636,13 +585,13 @@ BOOL __124__HMICameraVideoFrameAnalyzerSignificantActivity_getPackageEvents_fore
       [backgroundEvents3 hmf_removeFirstObject];
 
       backgroundEvents4 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self backgroundEvents];
-      v24 = [backgroundEvents4 count];
+      v20 = [backgroundEvents4 count];
     }
 
-    while (v24 > 0x64);
+    while (v20 > 0x64);
   }
 
-  return v17;
+  return v13;
 }
 
 BOOL __124__HMICameraVideoFrameAnalyzerSignificantActivity_analyzeBackgroundFrame_packageEvents_newBackgroundEvents_regionOfInterest___block_invoke(uint64_t a1, void *a2)
@@ -734,64 +683,28 @@ LABEL_21:
   frameCopy = frame;
   dCopy = d;
   eventsCopy = events;
-  v27.origin.x = x;
-  v27.origin.y = y;
-  v27.size.width = width;
-  v27.size.height = height;
-  IsNull = CGRectIsNull(v27);
-  v17 = 0.0;
-  if (IsNull)
-  {
-    v18 = 1.0;
-  }
-
-  else
-  {
-    v18 = height;
-  }
-
-  if (IsNull)
-  {
-    v19 = 1.0;
-  }
-
-  else
-  {
-    v19 = width;
-  }
-
-  if (IsNull)
-  {
-    v20 = 0.0;
-  }
-
-  else
-  {
-    v20 = y;
-  }
-
-  if (!IsNull)
-  {
-    v17 = x;
-  }
-
-  v21 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _eventsWithClassificationsFromEvents:eventsCopy videoFrame:frameCopy regionOfInterest:dCopy homeUUID:v17, v20, v19, v18];
+  v22.origin.x = x;
+  v22.origin.y = y;
+  v22.size.width = width;
+  v22.size.height = height;
+  CGRectIsNull(v22);
+  v16 = [HMICameraVideoFrameAnalyzerSignificantActivity _eventsWithClassificationsFromEvents:"_eventsWithClassificationsFromEvents:videoFrame:regionOfInterest:homeUUID:" videoFrame:? regionOfInterest:? homeUUID:?];
 
   if (frameCopy)
   {
-    [frameCopy presentationTimeStamp];
+    [v20 presentationTimeStamp];
   }
 
   else
   {
-    memset(v25, 0, sizeof(v25));
+    memset(v20, 0, sizeof(v20));
   }
 
-  height = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _eventsWithSessionEntitiesFromEvents:v21 regionOfInterest:v25 timeStamp:dCopy homeUUID:x, y, width, height];
+  v17 = [HMICameraVideoFrameAnalyzerSignificantActivity _eventsWithSessionEntitiesFromEvents:"_eventsWithSessionEntitiesFromEvents:regionOfInterest:timeStamp:homeUUID:" regionOfInterest:? timeStamp:? homeUUID:?];
 
-  v23 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self eventsWithFaceEventsFromTorsoEventsFromEvents:height homeUUID:dCopy];
+  v18 = [HMICameraVideoFrameAnalyzerSignificantActivity eventsWithFaceEventsFromTorsoEventsFromEvents:"eventsWithFaceEventsFromTorsoEventsFromEvents:homeUUID:" homeUUID:?];
 
-  return v23;
+  return v18;
 }
 
 - (id)analyzePixelBuffer:(__CVBuffer *)buffer regionOfInterest:(CGRect)interest error:(id *)error
@@ -802,51 +715,41 @@ LABEL_21:
   x = interest.origin.x;
   if (CGRectIsNull(interest))
   {
-    v12 = [MEMORY[0x277CBEB98] set];
+    v11 = [MEMORY[0x277CBEB98] set];
   }
 
   else
   {
     Size = HMICVPixelBufferGetSize(buffer);
-    HMICGRectPixelFromNormalized(x, y, width, height, Size, v14);
-    v16 = v15;
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
+    HMICGRectPixelFromNormalized(x, y, width, height, Size, v13);
     [(HMICameraVideoFrameAnalyzerSignificantActivity *)self inputDimensions];
-    v25 = [HMIVisionUtilities transferPixelBuffer:buffer crop:1111970369 size:1 pixelFormat:error options:v16 error:v18, v20, v22, v23, v24];
-    v26 = HMICVPixelBufferGetSize(buffer);
-    v12 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _predictEventsFromCropPixelBuffer:v25 cropRect:error imageSize:v16 error:v18, v20, v22, v26, v27];
-    CVPixelBufferRelease(v25);
+    v14 = [HMIVisionUtilities transferPixelBuffer:"transferPixelBuffer:crop:size:pixelFormat:options:error:" crop:? size:? pixelFormat:? options:? error:?];
+    HMICVPixelBufferGetSize(buffer);
+    v11 = [HMICameraVideoFrameAnalyzerSignificantActivity _predictEventsFromCropPixelBuffer:"_predictEventsFromCropPixelBuffer:cropRect:imageSize:error:" cropRect:? imageSize:? error:?];
+    CVPixelBufferRelease(v14);
   }
 
-  return v12;
+  return v11;
 }
 
 - (id)_predictEventsFromCropPixelBuffer:(__CVBuffer *)buffer cropRect:(CGRect)rect imageSize:(CGSize)size error:(id *)error
 {
-  height = size.height;
-  width = size.width;
-  v9 = rect.size.height;
-  v10 = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   array = [MEMORY[0x277CBEB18] array];
   significantActivityFcosDetector = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self significantActivityFcosDetector];
-  LOBYTE(error) = [significantActivityFcosDetector predict:buffer detectedObjects:array error:error];
+  v9 = [significantActivityFcosDetector predict:? detectedObjects:? error:?];
 
-  if (error)
+  if (v9)
   {
-    height = [HMIObjectDetectionUtils convertObjectDetections:array cropRect:x originalImageSize:y, v10, v9, width, height];
-    v18 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _analyzerEventsFromObjectDetections:height];
+    v10 = [HMIObjectDetectionUtils convertObjectDetections:"convertObjectDetections:cropRect:originalImageSize:" cropRect:? originalImageSize:?];
+    v11 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self _analyzerEventsFromObjectDetections:?];
   }
 
   else
   {
-    v18 = [MEMORY[0x277CBEB98] set];
+    v11 = [MEMORY[0x277CBEB98] set];
   }
 
-  return v18;
+  return v11;
 }
 
 - (id)flushAndGetAnalysisStateUpdateForHome:(id)home enableFaceClassification:(BOOL)classification
@@ -868,7 +771,7 @@ LABEL_6:
     }
 
     sessionEntityManager = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self sessionEntityManager];
-    v11 = [sessionEntityManager updateTorsoModelAndGetTorsoAnnotationsForHome:homeCopy];
+    v11 = [sessionEntityManager updateTorsoModelAndGetTorsoAnnotationsForHome:?];
 
     if ([v11 hmf_isEmpty])
     {
@@ -891,8 +794,8 @@ LABEL_6:
 
     objc_autoreleasePoolPop(v12);
     v16 = [HMIAnalysisStateUpdate alloc];
-    v17 = [MEMORY[0x277CBEB98] setWithArray:v11];
-    v7 = [(HMIAnalysisStateUpdate *)v16 initWithTorsoAnnotations:v17];
+    v17 = [MEMORY[0x277CBEB98] setWithArray:?];
+    v7 = [(HMIAnalysisStateUpdate *)v16 initWithTorsoAnnotations:?];
   }
 
 LABEL_10:
@@ -903,21 +806,17 @@ LABEL_10:
 - (id)eventsWithFaceEventsFromTorsoEventsFromEvents:(id)events homeUUID:(id)d
 {
   dCopy = d;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __105__HMICameraVideoFrameAnalyzerSignificantActivity_eventsWithFaceEventsFromTorsoEventsFromEvents_homeUUID___block_invoke;
-  v10[3] = &unk_278755910;
-  v11 = dCopy;
-  selfCopy = self;
-  v7 = dCopy;
-  v8 = [events na_map:v10];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = dCopy;
+  v6 = dCopy;
+  v7 = [events na_map:{v9, 3221225472, __105__HMICameraVideoFrameAnalyzerSignificantActivity_eventsWithFaceEventsFromTorsoEventsFromEvents_homeUUID___block_invoke, &unk_278755910}];
 
-  return v8;
+  return v7;
 }
 
 HMIVideoAnalyzerEventPerson *__105__HMICameraVideoFrameAnalyzerSignificantActivity_eventsWithFaceEventsFromTorsoEventsFromEvents_homeUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -944,182 +843,165 @@ HMIVideoAnalyzerEventPerson *__105__HMICameraVideoFrameAnalyzerSignificantActivi
     if (!v11)
     {
       v11 = [(HMIVideoAnalyzerEvent *)v10 userInfo];
-      v12 = [v11 objectForKeyedSubscript:@"FaceFilteredState"];
+      v12 = [v11 objectForKeyedSubscript:?];
       v13 = HMIFaceFilteredStateAsString(2);
-      if (([v12 isEqualToString:v13] & 1) == 0)
+      if (([v12 isEqualToString:?] & 1) == 0)
       {
-        v98 = a1;
+        v81 = a1;
         v16 = [(HMIVideoAnalyzerEvent *)v10 userInfo];
-        v17 = [v16 objectForKeyedSubscript:@"FaceFilteredState"];
+        v17 = [v16 objectForKeyedSubscript:?];
         v18 = HMIFaceFilteredStateAsString(4);
-        v19 = [v17 isEqualToString:v18];
+        v19 = [v17 isEqualToString:?];
 
         if ((v19 & 1) == 0)
         {
-          v97 = [v5 torso];
-          v96 = [v97 torsoRecognition];
-          v20 = [v96 classification];
+          v80 = [v5 torso];
+          v79 = [v80 torsoRecognition];
+          v20 = [v79 classification];
           v21 = +[HMIPersonsModelManager sharedInstance];
-          v22 = v98;
-          v23 = *(v98 + 32);
-          v24 = [v20 personUUID];
-          v25 = [v20 sourceUUID];
-          v26 = [v21 faceCropFromTorsoModelForHomeUUID:v23 personUUID:v24 sourceUUID:v25];
+          v22 = v81;
+          v23 = [v20 personUUID];
+          v24 = [v20 sourceUUID];
+          v25 = [v21 faceCropFromTorsoModelForHomeUUID:? personUUID:? sourceUUID:?];
 
-          v95 = v26;
-          if (v26)
+          v78 = v25;
+          if (v25)
           {
+            v26 = [MEMORY[0x277CCAD78] UUID];
             v27 = [MEMORY[0x277CCAD78] UUID];
             v28 = [MEMORY[0x277CCAD78] UUID];
-            v29 = [MEMORY[0x277CCAD78] UUID];
-            v88 = [HMIFaceprint sentinelFaceprintWithUUID:v27 modelUUID:v28 faceCropUUID:v29];
+            v72 = [HMIFaceprint sentinelFaceprintWithUUID:"sentinelFaceprintWithUUID:modelUUID:faceCropUUID:" modelUUID:? faceCropUUID:?];
 
-            v30 = [HMIPersonsModelPrediction alloc];
-            v31 = [v20 sourceUUID];
-            v32 = [v20 personUUID];
-            v33 = MEMORY[0x277CCABB0];
+            v29 = [HMIPersonsModelPrediction alloc];
+            v30 = [v20 sourceUUID];
+            v31 = [v20 personUUID];
+            v32 = MEMORY[0x277CCABB0];
             [v20 confidence];
-            v34 = [v33 numberWithDouble:?];
-            v35 = [(HMIPersonsModelPrediction *)v30 initWithSourceUUID:v31 personUUID:v32 confidence:v34 linkedEntityUUID:0];
+            v33 = [v32 numberWithDouble:?];
+            v34 = [HMIPersonsModelPrediction initWithSourceUUID:v29 personUUID:"initWithSourceUUID:personUUID:confidence:linkedEntityUUID:" confidence:? linkedEntityUUID:?];
 
-            v36 = +[HMIPersonsModelManager sharedInstance];
-            v37 = *(v98 + 32);
-            v103 = 0;
-            v92 = v35;
-            v38 = [v36 linkedPredictionsForPrediction:v35 homeUUID:v37 error:&v103];
-            v91 = v103;
+            v35 = +[HMIPersonsModelManager sharedInstance];
+            v75 = v34;
+            v36 = [v35 linkedPredictionsForPrediction:? homeUUID:? error:?];
+            v74 = 0;
 
-            if (!v38 || [v38 hmf_isEmpty])
+            if (!v36 || [v36 hmf_isEmpty])
             {
-              v93 = v38;
-              v39 = objc_autoreleasePoolPush();
-              v40 = *(v98 + 40);
-              v41 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+              v76 = v36;
+              v37 = objc_autoreleasePoolPush();
+              v38 = *(v81 + 40);
+              v39 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                v42 = HMFGetLogIdentifier();
-                v43 = [v20 personUUID];
-                v44 = *(v98 + 32);
+                v40 = HMFGetLogIdentifier();
+                v41 = [v20 personUUID];
+                v42 = *(v81 + 32);
                 *buf = 138544130;
-                v105 = v42;
-                v106 = 2112;
-                v107 = v43;
-                v108 = 2112;
-                v109 = v44;
-                v110 = 2112;
-                v111 = v91;
-                _os_log_impl(&dword_22D12F000, v41, OS_LOG_TYPE_ERROR, "%{public}@Couldn't retrieve linked predictions from torsomodel for personUUID: %@ homeUUID: %@ error: %@", buf, 0x2Au);
+                v86 = v40;
+                v87 = 2112;
+                v88 = v41;
+                v89 = 2112;
+                v90 = v42;
+                v91 = 2112;
+                v92 = v74;
+                _os_log_impl(&dword_22D12F000, v39, OS_LOG_TYPE_ERROR, "%{public}@Couldn't retrieve linked predictions from torsomodel for personUUID: %@ homeUUID: %@ error: %@", buf, 0x2Au);
 
-                v22 = v98;
+                v22 = v81;
               }
 
-              objc_autoreleasePoolPop(v39);
-              v38 = [MEMORY[0x277CBEB98] setWithObject:v92];
+              objc_autoreleasePoolPop(v37);
+              v36 = [MEMORY[0x277CBEB98] setWithObject:?];
             }
 
             if (v10)
             {
-              v45 = objc_autoreleasePoolPush();
-              v46 = *(v22 + 40);
-              v47 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+              v43 = objc_autoreleasePoolPush();
+              v44 = *(v22 + 40);
+              v45 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
               {
-                v48 = HMFGetLogIdentifier();
+                v46 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v105 = v48;
-                v106 = 2112;
-                v107 = v10;
-                _os_log_impl(&dword_22D12F000, v47, OS_LOG_TYPE_INFO, "%{public}@Dropping Face event: %@ due to torso recognition", buf, 0x16u);
+                v86 = v46;
+                v87 = 2112;
+                v88 = v10;
+                _os_log_impl(&dword_22D12F000, v45, OS_LOG_TYPE_INFO, "%{public}@Dropping Face event: %@ due to torso recognition", buf, 0x16u);
 
-                v22 = v98;
+                v22 = v81;
               }
 
-              objc_autoreleasePoolPop(v45);
-              v49 = *(v22 + 32);
-              v50 = [*(v22 + 40) analyzerConfiguration];
-              v51 = [v50 camera];
-              [HMIAnalytics sendEventForFaceEvent:v10 homePersonManagerUUID:v49 camera:v51];
+              objc_autoreleasePoolPop(v43);
+              v47 = [*(v22 + 40) analyzerConfiguration];
+              v48 = [v47 camera];
+              [HMIAnalytics sendEventForFaceEvent:"sendEventForFaceEvent:homePersonManagerUUID:camera:" homePersonManagerUUID:? camera:?];
             }
 
-            v90 = v20;
-            v99[0] = MEMORY[0x277D85DD0];
-            v99[1] = 3221225472;
-            v99[2] = __105__HMICameraVideoFrameAnalyzerSignificantActivity_eventsWithFaceEventsFromTorsoEventsFromEvents_homeUUID___block_invoke_39;
-            v99[3] = &unk_2787558E8;
-            v52 = v96;
-            v100 = v52;
-            v53 = v95;
-            v101 = v53;
-            v54 = v88;
-            v102 = v54;
-            v94 = v38;
-            v55 = [v38 na_map:v99];
-            v56 = [HMIFaceRecognition alloc];
-            v57 = [v52 predictedLinkedEntityUUIDs];
-            v58 = [v52 sessionEntityAssignment];
-            v59 = [v52 sessionEntityUUID];
-            v60 = v53;
-            v89 = v54;
-            v61 = v55;
-            v62 = [(HMIFaceRecognition *)v56 initWithFaceCrop:v60 faceprint:v54 classifications:v55 predictedLinkedEntityUUIDs:v57 faceQualityScore:v58 sessionEntityAssignment:v59 sessionEntityUUID:1.0];
+            v73 = v20;
+            v82 = v79;
+            v83 = v78;
+            v84 = v72;
+            v77 = v36;
+            v49 = [v36 na_map:?];
+            v50 = [HMIFaceRecognition alloc];
+            v51 = [v82 predictedLinkedEntityUUIDs];
+            [v82 sessionEntityAssignment];
+            v52 = [v82 sessionEntityUUID];
+            v53 = v49;
+            v54 = [HMIFaceRecognition initWithFaceCrop:v50 faceprint:"initWithFaceCrop:faceprint:classifications:predictedLinkedEntityUUIDs:faceQualityScore:sessionEntityAssignment:sessionEntityUUID:" classifications:? predictedLinkedEntityUUIDs:? faceQualityScore:? sessionEntityAssignment:? sessionEntityUUID:?];
 
-            v63 = [HMIVideoAnalyzerEventFace alloc];
-            v64 = [v97 confidence];
-            [v97 boundingBox];
-            v65 = [(HMIVideoAnalyzerEventFace *)v63 initWithConfidence:v64 boundingBox:v62 faceRecognition:?];
+            v55 = [HMIVideoAnalyzerEventFace alloc];
+            v56 = [v80 confidence];
+            [v80 boundingBox];
+            v57 = [HMIVideoAnalyzerEventFace initWithConfidence:v55 boundingBox:"initWithConfidence:boundingBox:faceRecognition:" faceRecognition:?];
 
-            v66 = objc_autoreleasePoolPush();
-            v67 = *(v98 + 40);
-            v68 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+            v58 = objc_autoreleasePoolPush();
+            v59 = *(v81 + 40);
+            v60 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
             {
-              v69 = HMFGetLogIdentifier();
+              v61 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v105 = v69;
-              v106 = 2112;
-              v107 = v65;
-              v108 = 2112;
-              v109 = v97;
-              _os_log_impl(&dword_22D12F000, v68, OS_LOG_TYPE_INFO, "%{public}@Creating face recognition event: %@ from torso recognition event: %@", buf, 0x20u);
+              v86 = v61;
+              v87 = 2112;
+              v88 = v57;
+              v89 = 2112;
+              v90 = v80;
+              _os_log_impl(&dword_22D12F000, v60, OS_LOG_TYPE_INFO, "%{public}@Creating face recognition event: %@ from torso recognition event: %@", buf, 0x20u);
             }
 
-            objc_autoreleasePoolPop(v66);
-            v70 = [HMIVideoAnalyzerEventPerson alloc];
-            v71 = [v5 confidence];
+            objc_autoreleasePoolPop(v58);
+            v62 = [HMIVideoAnalyzerEventPerson alloc];
+            v63 = [v5 confidence];
             [v5 boundingBox];
-            v73 = v72;
-            v75 = v74;
-            v77 = v76;
-            v79 = v78;
-            v80 = [v5 torso];
-            v14 = [(HMIVideoAnalyzerEventPerson *)v70 initWithConfidence:v71 boundingBox:v65 face:v80 torso:v73, v75, v77, v79];
+            v64 = [v5 torso];
+            v14 = [HMIVideoAnalyzerEventPerson initWithConfidence:v62 boundingBox:"initWithConfidence:boundingBox:face:torso:" face:? torso:?];
 
-            v81 = v96;
-            v20 = v90;
+            v65 = v79;
+            v20 = v73;
           }
 
           else
           {
-            v82 = objc_autoreleasePoolPush();
-            v83 = *(v98 + 40);
-            v84 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+            v66 = objc_autoreleasePoolPush();
+            v67 = *(v81 + 40);
+            v68 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
-              v85 = HMFGetLogIdentifier();
-              v86 = [v20 personUUID];
-              v87 = *(v98 + 32);
+              v69 = HMFGetLogIdentifier();
+              v70 = [v20 personUUID];
+              v71 = *(v81 + 32);
               *buf = 138543874;
-              v105 = v85;
-              v106 = 2112;
-              v107 = v86;
-              v108 = 2112;
-              v109 = v87;
-              _os_log_impl(&dword_22D12F000, v84, OS_LOG_TYPE_ERROR, "%{public}@Error while retrieving facecrop from torsomodel for personUUID: %@ homeUUID: %@", buf, 0x20u);
+              v86 = v69;
+              v87 = 2112;
+              v88 = v70;
+              v89 = 2112;
+              v90 = v71;
+              _os_log_impl(&dword_22D12F000, v68, OS_LOG_TYPE_ERROR, "%{public}@Error while retrieving facecrop from torsomodel for personUUID: %@ homeUUID: %@", buf, 0x20u);
             }
 
-            objc_autoreleasePoolPop(v82);
+            objc_autoreleasePoolPop(v66);
             v14 = v5;
-            v81 = v96;
+            v65 = v79;
           }
 
           goto LABEL_10;
@@ -1149,104 +1031,85 @@ HMIFaceClassification *__105__HMICameraVideoFrameAnalyzerSignificantActivity_eve
   v5 = [v3 personUUID];
   v6 = [v3 sourceUUID];
   v7 = [*(a1 + 32) sessionEntityUUID];
-  v9 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v10 = [v3 confidence];
+  v8 = [v3 confidence];
 
-  [v10 doubleValue];
-  v11 = [(HMIFaceClassification *)v4 initWithUUID:v5 sourceUUID:v6 sessionEntityUUID:v7 faceCrop:v9 faceprint:v8 confidence:1 fromTorsoClassification:2 familiarity:?];
+  [v8 doubleValue];
+  v9 = [HMIFaceClassification initWithUUID:v4 sourceUUID:"initWithUUID:sourceUUID:sessionEntityUUID:faceCrop:faceprint:confidence:fromTorsoClassification:familiarity:" sessionEntityUUID:2 faceCrop:? faceprint:? confidence:? fromTorsoClassification:? familiarity:?];
 
-  return v11;
+  return v9;
 }
 
 - (id)_simulatedEventForEventClass:(Class)class
 {
-  v32[4] = *MEMORY[0x277D85DE8];
-  v31[0] = objc_opt_class();
-  v32[0] = @"personDetected";
-  v31[1] = objc_opt_class();
-  v32[1] = @"petDetected";
-  v31[2] = objc_opt_class();
-  v32[2] = @"vehicleDetected";
-  v31[3] = objc_opt_class();
-  v32[3] = @"packageDetected";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
-  v6 = [v5 objectForKeyedSubscript:class];
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v6 = [v5 objectForKeyedSubscript:?];
   if (!v6)
   {
     v13 = 0;
-    goto LABEL_25;
+    goto LABEL_23;
   }
 
   v7 = +[HMIPreference sharedInstance];
-  v8 = [v7 valuePreferenceForKey:v6 defaultValue:@"none" withParser:&__block_literal_global_51];
+  v8 = [v7 valuePreferenceForKey:? defaultValue:? withParser:?];
 
-  v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_2840756A8];
-  v10 = [v9 containsObject:v8];
+  v9 = [MEMORY[0x277CBEB98] setWithArray:?];
+  v10 = [v9 containsObject:?];
 
   if (v10)
   {
-    v11 = [&unk_284075B08 objectForKeyedSubscript:v8];
+    v11 = [&unk_284075B08 objectForKeyedSubscript:?];
     integerValue = [v11 integerValue];
 
     if (objc_opt_class() != class || integerValue != 1)
     {
-      if (integerValue == 2)
+      if (integerValue == 1)
       {
-        v14 = 1.0;
-      }
-
-      else
-      {
-        v14 = 0.0;
-        if (integerValue == 1)
-        {
-          highConfidenceThresholds = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self highConfidenceThresholds];
-          v16 = [highConfidenceThresholds objectForKeyedSubscript:class];
-          [v16 doubleValue];
-          v14 = v17 + -0.01;
-        }
+        highConfidenceThresholds = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self highConfidenceThresholds];
+        v15 = [highConfidenceThresholds objectForKeyedSubscript:?];
+        [v15 doubleValue];
       }
 
       mediumConfidenceThresholds = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self mediumConfidenceThresholds];
-      v19 = [mediumConfidenceThresholds objectForKeyedSubscript:class];
-      v30[0] = v19;
+      v26 = [mediumConfidenceThresholds objectForKeyedSubscript:?];
       highConfidenceThresholds2 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self highConfidenceThresholds];
-      v21 = [highConfidenceThresholds2 objectForKeyedSubscript:class];
-      v30[1] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+      v27 = [highConfidenceThresholds2 objectForKeyedSubscript:?];
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
       if (objc_opt_class() == class)
       {
-        v23 = HMIVideoAnalyzerEventPerson;
+        v19 = HMIVideoAnalyzerEventPerson;
       }
 
       else
       {
         if (objc_opt_class() == class)
         {
-          v27 = [HMIVideoAnalyzerEventFace alloc];
-          v25 = [[HMIConfidence alloc] initWithValue:v22 levelThresholds:v14];
-          v26 = [(HMIVideoAnalyzerEventFace *)v27 initWithConfidence:v25 boundingBox:&unk_2840753C0 yaw:&unk_2840753C0 roll:0 faceRecognition:0 userInfo:0.0, 0.0, 1.0, 1.0];
-          goto LABEL_22;
+          v23 = [HMIVideoAnalyzerEventFace alloc];
+          v21 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
+          v22 = [HMIVideoAnalyzerEventFace initWithConfidence:v23 boundingBox:"initWithConfidence:boundingBox:yaw:roll:faceRecognition:userInfo:" yaw:? roll:? faceRecognition:? userInfo:?];
+          goto LABEL_20;
         }
 
         if (objc_opt_class() == class)
         {
-          v28 = [HMIVideoAnalyzerEventTorso alloc];
-          v25 = [[HMIConfidence alloc] initWithValue:v22 levelThresholds:v14];
-          v26 = [(HMIVideoAnalyzerEventTorso *)v28 initWithConfidence:v25 boundingBox:&unk_2840753C0 roll:0 torsoRecognition:0.0, 0.0, 1.0, 1.0];
-          goto LABEL_22;
+          v24 = [HMIVideoAnalyzerEventTorso alloc];
+          v21 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
+          v22 = [HMIVideoAnalyzerEventTorso initWithConfidence:v24 boundingBox:"initWithConfidence:boundingBox:roll:torsoRecognition:" roll:? torsoRecognition:?];
+          goto LABEL_20;
         }
 
         if (objc_opt_class() == class)
         {
-          v23 = HMIVideoAnalyzerEventPet;
+          v19 = HMIVideoAnalyzerEventPet;
         }
 
         else if (objc_opt_class() == class)
         {
-          v23 = HMIVideoAnalyzerEventVehicle;
+          v19 = HMIVideoAnalyzerEventVehicle;
         }
 
         else
@@ -1254,29 +1117,29 @@ HMIFaceClassification *__105__HMICameraVideoFrameAnalyzerSignificantActivity_eve
           if (objc_opt_class() != class)
           {
             v13 = 0;
-LABEL_23:
+LABEL_21:
 
-            goto LABEL_24;
+            goto LABEL_22;
           }
 
-          v23 = HMIVideoAnalyzerEventPackage;
+          v19 = HMIVideoAnalyzerEventPackage;
         }
       }
 
-      v24 = [v23 alloc];
-      v25 = [[HMIConfidence alloc] initWithValue:v22 levelThresholds:v14];
-      v26 = [v24 initWithConfidence:v25 boundingBox:{0.0, 0.0, 1.0, 1.0}];
-LABEL_22:
-      v13 = v26;
+      v20 = [v19 alloc];
+      v21 = [HMIConfidence initWithValue:"initWithValue:levelThresholds:" levelThresholds:?];
+      v22 = [v20 initWithConfidence:? boundingBox:?];
+LABEL_20:
+      v13 = v22;
 
-      goto LABEL_23;
+      goto LABEL_21;
     }
   }
 
   v13 = 0;
-LABEL_24:
+LABEL_22:
 
-LABEL_25:
+LABEL_23:
 
   return v13;
 }
@@ -1321,20 +1184,24 @@ LABEL_9:
   v8 = [MEMORY[0x277CBEB58] set];
   if ((triggersCopy & 2) != 0)
   {
-    [v8 addObject:objc_opt_class()];
+    objc_opt_class();
+    [v8 addObject:?];
     if (classificationCopy)
     {
-      [v8 addObject:objc_opt_class()];
+      objc_opt_class();
+      [v8 addObject:?];
       if (recognitionCopy)
       {
-        [v8 addObject:objc_opt_class()];
+        objc_opt_class();
+        [v8 addObject:?];
       }
     }
   }
 
   if ((triggersCopy & 4) != 0)
   {
-    [v8 addObject:objc_opt_class()];
+    objc_opt_class();
+    [v8 addObject:?];
     if ((triggersCopy & 8) == 0)
     {
 LABEL_7:
@@ -1352,11 +1219,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  [v8 addObject:objc_opt_class()];
+  objc_opt_class();
+  [v8 addObject:?];
   if ((triggersCopy & 0x10) != 0)
   {
 LABEL_8:
-    [v8 addObject:objc_opt_class()];
+    objc_opt_class();
+    [v8 addObject:?];
   }
 
 LABEL_9:
@@ -1368,48 +1237,36 @@ LABEL_9:
 - (id)_analyzerEventsFromObjectDetections:(id)detections
 {
   v3 = MEMORY[0x277CBEB98];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __86__HMICameraVideoFrameAnalyzerSignificantActivity__analyzerEventsFromObjectDetections___block_invoke;
-  v7[3] = &unk_278755958;
-  v7[4] = self;
-  v4 = [detections na_map:v7];
-  v5 = [v3 setWithArray:v4];
+  v4 = [detections na_map:?];
+  v5 = [v3 setWithArray:?];
 
   return v5;
 }
 
 HMIVideoAnalyzerEventFace *__86__HMICameraVideoFrameAnalyzerSignificantActivity__analyzerEventsFromObjectDetections___block_invoke(uint64_t a1, void *a2)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 labelIndex];
   v4 = objc_opt_class();
   v5 = v4;
   v6 = [*(a1 + 32) mediumConfidenceThresholds];
-  v7 = [v6 objectForKeyedSubscript:v4];
-  v39[0] = v7;
-  v8 = [*(a1 + 32) highConfidenceThresholds];
-  v9 = [v8 objectForKeyedSubscript:v4];
-  v39[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v21 = [v6 objectForKeyedSubscript:?];
+  v7 = [*(a1 + 32) highConfidenceThresholds];
+  v22 = [v7 objectForKeyedSubscript:?];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   if (v4 != objc_opt_class())
   {
     if (v4 == objc_opt_class())
     {
-      v16 = [HMIVideoAnalyzerEventFace alloc];
-      v17 = [HMIConfidence alloc];
+      v14 = [HMIVideoAnalyzerEventFace alloc];
+      v15 = [HMIConfidence alloc];
       [v3 confidence];
-      v15 = [(HMIConfidence *)v17 initWithValue:v10 levelThresholds:?];
+      v13 = [HMIConfidence initWithValue:v15 levelThresholds:"initWithValue:levelThresholds:"];
       [v3 boundingBox];
-      v19 = v18;
-      v21 = v20;
-      v23 = v22;
-      v25 = v24;
-      v26 = [v3 yaw];
-      v27 = [v3 roll];
-      v11 = [(HMIVideoAnalyzerEventFace *)v16 initWithConfidence:v15 boundingBox:v26 yaw:v27 roll:0 faceRecognition:0 userInfo:v19, v21, v23, v25];
+      v16 = [v3 yaw];
+      v17 = [v3 roll];
+      v9 = [HMIVideoAnalyzerEventFace initWithConfidence:v14 boundingBox:"initWithConfidence:boundingBox:yaw:roll:faceRecognition:userInfo:" yaw:? roll:? faceRecognition:? userInfo:?];
     }
 
     else
@@ -1418,84 +1275,75 @@ HMIVideoAnalyzerEventFace *__86__HMICameraVideoFrameAnalyzerSignificantActivity_
       {
         if (v4 == objc_opt_class())
         {
-          v12 = HMIVideoAnalyzerEventPet;
+          v10 = HMIVideoAnalyzerEventPet;
         }
 
         else if (v4 == objc_opt_class())
         {
-          v12 = HMIVideoAnalyzerEventVehicle;
+          v10 = HMIVideoAnalyzerEventVehicle;
         }
 
         else
         {
           if (v4 != objc_opt_class())
           {
-            v11 = 0;
+            v9 = 0;
             goto LABEL_14;
           }
 
-          v12 = HMIVideoAnalyzerEventPackage;
+          v10 = HMIVideoAnalyzerEventPackage;
         }
 
         goto LABEL_9;
       }
 
-      v28 = [HMIVideoAnalyzerEventTorso alloc];
-      v29 = [HMIConfidence alloc];
+      v18 = [HMIVideoAnalyzerEventTorso alloc];
+      v19 = [HMIConfidence alloc];
       [v3 confidence];
-      v15 = [(HMIConfidence *)v29 initWithValue:v10 levelThresholds:?];
+      v13 = [HMIConfidence initWithValue:v19 levelThresholds:"initWithValue:levelThresholds:"];
       [v3 boundingBox];
-      v31 = v30;
-      v33 = v32;
-      v35 = v34;
-      v37 = v36;
-      v26 = [v3 roll];
-      v11 = [(HMIVideoAnalyzerEventTorso *)v28 initWithConfidence:v15 boundingBox:v26 roll:0 torsoRecognition:v31, v33, v35, v37];
+      v16 = [v3 roll];
+      v9 = [HMIVideoAnalyzerEventTorso initWithConfidence:v18 boundingBox:"initWithConfidence:boundingBox:roll:torsoRecognition:" roll:? torsoRecognition:?];
     }
 
     goto LABEL_13;
   }
 
-  v12 = HMIVideoAnalyzerEventPerson;
+  v10 = HMIVideoAnalyzerEventPerson;
 LABEL_9:
-  v13 = [v12 alloc];
-  v14 = [HMIConfidence alloc];
+  v11 = [v10 alloc];
+  v12 = [HMIConfidence alloc];
   [v3 confidence];
-  v15 = [(HMIConfidence *)v14 initWithValue:v10 levelThresholds:?];
+  v13 = [HMIConfidence initWithValue:v12 levelThresholds:"initWithValue:levelThresholds:"];
   [v3 boundingBox];
-  v11 = [v13 initWithConfidence:v15 boundingBox:?];
+  v9 = [v11 initWithConfidence:? boundingBox:?];
 LABEL_13:
 
 LABEL_14:
 
-  return v11;
+  return v9;
 }
 
 - (id)_filterPackageEvents:(id)events backgroundEvents:(id)backgroundEvents
 {
   backgroundEventsCopy = backgroundEvents;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __88__HMICameraVideoFrameAnalyzerSignificantActivity__filterPackageEvents_backgroundEvents___block_invoke;
-  v9[3] = &unk_278755120;
-  v10 = backgroundEventsCopy;
-  v6 = backgroundEventsCopy;
-  v7 = [events na_filter:v9];
+  v5 = backgroundEventsCopy;
+  v6 = [events na_filter:?];
 
-  return v7;
+  return v6;
 }
 
 uint64_t __88__HMICameraVideoFrameAnalyzerSignificantActivity__filterPackageEvents_backgroundEvents___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __88__HMICameraVideoFrameAnalyzerSignificantActivity__filterPackageEvents_backgroundEvents___block_invoke_2;
-  v7[3] = &unk_278755120;
-  v8 = v3;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __88__HMICameraVideoFrameAnalyzerSignificantActivity__filterPackageEvents_backgroundEvents___block_invoke_2;
+  v10 = &unk_278755120;
+  v11 = v3;
   v5 = v3;
-  LODWORD(v4) = [v4 na_any:v7];
+  LODWORD(v4) = [v4 na_any:?];
 
   return v4 ^ 1;
 }
@@ -1549,53 +1397,38 @@ BOOL __88__HMICameraVideoFrameAnalyzerSignificantActivity__filterPackageEvents_b
 
 - (id)_eventsWithClassificationsFromEvents:(id)events videoFrame:(id)frame regionOfInterest:(CGRect)interest homeUUID:(id)d
 {
-  height = interest.size.height;
-  width = interest.size.width;
-  y = interest.origin.y;
-  x = interest.origin.x;
   eventsCopy = events;
   frameCopy = frame;
   dCopy = d;
-  v16 = [MEMORY[0x277CBEB58] set];
-  v19 = +[HMIPreference isProductTypeJ105](HMIPreference, "isProductTypeJ105") && (+[HMIThermalMonitor sharedInstance](HMIThermalMonitor, "sharedInstance"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 thermalLevel], v17, v18 > 1) || +[HMIPreference isProductTypeB238](HMIPreference, "isProductTypeB238");
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v40 = 0;
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x2020000000;
-  v38 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __124__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithClassificationsFromEvents_videoFrame_regionOfInterest_homeUUID___block_invoke;
-  v25[3] = &unk_278755980;
-  v20 = v16;
-  v30 = v39;
-  v26 = v20;
-  selfCopy = self;
-  v21 = frameCopy;
-  v28 = v21;
-  v36 = v19;
-  v22 = dCopy;
-  v29 = v22;
-  v31 = v37;
-  v32 = x;
-  v33 = y;
-  v34 = width;
-  v35 = height;
-  [eventsCopy enumerateObjectsUsingBlock:v25];
-  v23 = [v20 copy];
+  v11 = [MEMORY[0x277CBEB58] set];
+  if (!+[HMIPreference isProductTypeJ105](HMIPreference, "isProductTypeJ105") || (+[HMIThermalMonitor sharedInstance](HMIThermalMonitor, "sharedInstance"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 thermalLevel], v12, v13 <= 1))
+  {
+    +[HMIPreference isProductTypeB238];
+  }
 
-  _Block_object_dispose(v37, 8);
-  _Block_object_dispose(v39, 8);
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v22 = 0;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x2020000000;
+  v20 = 0;
+  v16 = v11;
+  v17 = frameCopy;
+  v18 = dCopy;
+  [eventsCopy enumerateObjectsUsingBlock:?];
+  v14 = [v16 copy];
 
-  return v23;
+  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v21, 8);
+
+  return v14;
 }
 
 void __124__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithClassificationsFromEvents_videoFrame_regionOfInterest_homeUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1612,78 +1445,75 @@ void __124__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithClassifica
 
   if (!v5)
   {
-    [*(a1 + 32) addObject:v3];
+    [*(a1 + 32) addObject:?];
     goto LABEL_30;
   }
 
   v6 = [v5 face];
   if (!v6 || (v7 = *(*(a1 + 64) + 8), v8 = *(v7 + 24), v8 > 4))
   {
-    v14 = 0;
+    v11 = 0;
     goto LABEL_18;
   }
 
   *(v7 + 24) = v8 + 1;
-  v9 = [[HMISignpost alloc] initWithName:@"ClassifyFaceEvent"];
+  v9 = [[HMISignpost alloc] initWithName:?];
   v10 = *(*(a1 + 40) + 40);
-  v11 = [*(a1 + 48) pixelBuffer];
-  v12 = *(a1 + 112);
-  v13 = *(a1 + 56);
-  v41 = 0;
-  v14 = [v10 classifyFaceEvent:v6 pixelBuffer:v11 fastMode:v12 homeUUID:v13 error:&v41];
-  v15 = v41;
+  [*(a1 + 48) pixelBuffer];
+  v11 = [v10 classifyFaceEvent:? pixelBuffer:? fastMode:? homeUUID:? error:?];
+  v12 = 0;
   [(HMISignpost *)v9 end];
-  if (!v14)
+  if (!v11)
   {
-    v17 = objc_autoreleasePoolPush();
-    v18 = *(a1 + 40);
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v14 = objc_autoreleasePoolPush();
+    v15 = *(a1 + 40);
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v20 = v38 = v17;
+      v17 = v33 = v14;
       *buf = 138543874;
-      v43 = v20;
-      v44 = 2112;
-      v45 = v6;
-      v46 = 2112;
-      v47 = v15;
-      v21 = "%{public}@Faceprinting failed for face: %@, error: %@";
-      v22 = v19;
-      v23 = OS_LOG_TYPE_ERROR;
-      v24 = 32;
+      v36 = v17;
+      v37 = 2112;
+      v38 = v6;
+      v39 = 2112;
+      v40 = v12;
+      v18 = "%{public}@Faceprinting failed for face: %@, error: %@";
+      v19 = v16;
+      v20 = OS_LOG_TYPE_ERROR;
+      v21 = 32;
       goto LABEL_15;
     }
 
 LABEL_16:
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v14);
     goto LABEL_17;
   }
 
-  v16 = [v14 faceRecognition];
+  v13 = [v11 faceRecognition];
 
-  if (!v16)
+  if (!v13)
   {
-    v17 = objc_autoreleasePoolPush();
-    v18 = *(a1 + 40);
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v14 = objc_autoreleasePoolPush();
+    v15 = *(a1 + 40);
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v20 = v38 = v17;
+      v17 = v33 = v14;
       *buf = 138543618;
-      v43 = v20;
-      v44 = 2112;
-      v45 = v6;
-      v21 = "%{public}@Face: %@ didn't produce any classifications";
-      v22 = v19;
-      v23 = OS_LOG_TYPE_INFO;
-      v24 = 22;
+      v36 = v17;
+      v37 = 2112;
+      v38 = v6;
+      v18 = "%{public}@Face: %@ didn't produce any classifications";
+      v19 = v16;
+      v20 = OS_LOG_TYPE_INFO;
+      v21 = 22;
 LABEL_15:
-      _os_log_impl(&dword_22D12F000, v22, v23, v21, buf, v24);
+      _os_log_impl(&dword_22D12F000, v19, v20, v18, buf, v21);
 
-      v17 = v38;
+      v14 = v33;
       goto LABEL_16;
     }
 
@@ -1693,33 +1523,31 @@ LABEL_15:
 LABEL_17:
 
 LABEL_18:
-  v25 = [v5 torso];
-  if (v25 && (v26 = *(*(a1 + 72) + 8), v27 = *(v26 + 24), v27 <= 4))
+  v22 = [v5 torso];
+  if (v22 && (v23 = *(*(a1 + 72) + 8), v24 = *(v23 + 24), v24 <= 4))
   {
-    *(v26 + 24) = v27 + 1;
-    v28 = [[HMISignpost alloc] initWithName:@"ClassifyTorsoEvent"];
-    v29 = *(*(a1 + 40) + 48);
-    v30 = [*(a1 + 48) pixelBuffer];
-    v31 = *(a1 + 56);
-    v40 = 0;
-    v32 = [v29 classifyTorsoEvent:v25 regionOfInterest:v30 pixelBuffer:v31 homeUUID:&v40 error:{*(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104)}];
-    v33 = v40;
-    [(HMISignpost *)v28 end];
-    if (!v32)
+    *(v23 + 24) = v24 + 1;
+    v25 = [[HMISignpost alloc] initWithName:?];
+    v26 = *(*(a1 + 40) + 48);
+    [*(a1 + 48) pixelBuffer];
+    v27 = [v26 classifyTorsoEvent:? regionOfInterest:? pixelBuffer:? homeUUID:? error:?];
+    v28 = 0;
+    [(HMISignpost *)v25 end];
+    if (!v27)
     {
       context = objc_autoreleasePoolPush();
-      v39 = *(a1 + 40);
-      v34 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v34 = *(a1 + 40);
+      v29 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v36 = HMFGetLogIdentifier();
+        v31 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v43 = v36;
-        v44 = 2112;
-        v45 = v25;
-        v46 = 2112;
-        v47 = v33;
-        _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_ERROR, "%{public}@Torsoprinting failed for torso: %@, error: %@", buf, 0x20u);
+        v36 = v31;
+        v37 = 2112;
+        v38 = v22;
+        v39 = 2112;
+        v40 = v28;
+        _os_log_impl(&dword_22D12F000, v29, OS_LOG_TYPE_ERROR, "%{public}@Torsoprinting failed for torso: %@, error: %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(context);
@@ -1728,18 +1556,18 @@ LABEL_18:
 
   else
   {
-    v32 = 0;
+    v27 = 0;
   }
 
-  if (v14 | v32)
+  if (v11 | v27)
   {
-    v35 = [v5 copyWithFaceEvent:v14 torso:v32];
-    [*(a1 + 32) addObject:v35];
+    v30 = [v5 copyWithFaceEvent:? torso:?];
+    [*(a1 + 32) addObject:?];
   }
 
   else
   {
-    [*(a1 + 32) addObject:v3];
+    [*(a1 + 32) addObject:?];
   }
 
 LABEL_30:
@@ -1747,56 +1575,43 @@ LABEL_30:
 
 - (id)_eventsWithSessionEntitiesFromEvents:(id)events regionOfInterest:(CGRect)interest timeStamp:(id *)stamp homeUUID:(id)d
 {
-  height = interest.size.height;
-  width = interest.size.width;
-  y = interest.origin.y;
-  x = interest.origin.x;
   dCopy = d;
-  v14 = MEMORY[0x277CBEB58];
+  v10 = MEMORY[0x277CBEB58];
   eventsCopy = events;
-  v16 = [v14 set];
-  v17 = [MEMORY[0x277CBEB58] set];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __123__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithSessionEntitiesFromEvents_regionOfInterest_timeStamp_homeUUID___block_invoke;
-  v29[3] = &unk_2787559A8;
-  v18 = v17;
-  v30 = v18;
-  v19 = v16;
-  v31 = v19;
-  [eventsCopy na_each:v29];
+  v12 = [v10 set];
+  v13 = [MEMORY[0x277CBEB58] set];
+  v14 = v12;
+  [eventsCopy na_each:?];
 
   sessionEntityManager = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self sessionEntityManager];
 
   if (!sessionEntityManager)
   {
-    v21 = objc_alloc_init(HMISessionEntityManager);
+    v16 = objc_alloc_init(HMISessionEntityManager);
     sessionEntityManager = self->_sessionEntityManager;
-    self->_sessionEntityManager = v21;
+    self->_sessionEntityManager = v16;
   }
 
-  if (([v18 hmf_isEmpty] & 1) == 0)
+  if (([v13 hmf_isEmpty] & 1) == 0)
   {
     sessionEntityManager2 = [(HMICameraVideoFrameAnalyzerSignificantActivity *)self sessionEntityManager];
-    v27 = *&stamp->var0;
-    var3 = stamp->var3;
-    v24 = [sessionEntityManager2 assignSessionEntitiesToPersonEvents:v18 regionOfInterest:&v27 timeStamp:dCopy homeUUID:{x, y, width, height}];
+    v19 = [sessionEntityManager2 assignSessionEntitiesToPersonEvents:*&stamp->var0 regionOfInterest:stamp->var3 timeStamp:? homeUUID:?];
 
-    [v19 unionSet:v24];
+    [v14 unionSet:?];
   }
 
-  v25 = [v19 copy];
+  v20 = [v14 copy];
 
-  return v25;
+  return v20;
 }
 
 void __123__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithSessionEntitiesFromEvents_regionOfInterest_timeStamp_homeUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v7;
+    v3 = v6;
   }
 
   else
@@ -1808,16 +1623,14 @@ void __123__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithSessionEnt
   if (v4)
   {
     v5 = *(a1 + 32);
-    v6 = v4;
   }
 
   else
   {
     v5 = *(a1 + 40);
-    v6 = v7;
   }
 
-  [v5 addObject:v6];
+  [v5 addObject:?];
 }
 
 + (NSDictionary)classHierarchyMap
@@ -1834,20 +1647,20 @@ void __123__HMICameraVideoFrameAnalyzerSignificantActivity__eventsWithSessionEnt
 
 void __67__HMICameraVideoFrameAnalyzerSignificantActivity_classHierarchyMap__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = &unk_284075390;
-  v3[0] = objc_opt_class();
-  v2[1] = &unk_2840753D8;
-  v3[1] = objc_opt_class();
-  v2[2] = &unk_2840753A8;
-  v3[2] = objc_opt_class();
-  v2[3] = &unk_2840753F0;
-  v3[3] = objc_opt_class();
-  v2[4] = &unk_284075408;
-  v3[4] = objc_opt_class();
-  v2[5] = &unk_284075420;
-  v3[5] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = &unk_284075390;
+  v8 = objc_opt_class();
+  v3 = &unk_2840753D8;
+  v9 = objc_opt_class();
+  v4 = &unk_2840753A8;
+  v10 = objc_opt_class();
+  v5 = &unk_2840753F0;
+  v11 = objc_opt_class();
+  v6 = &unk_284075408;
+  v12 = objc_opt_class();
+  v7 = &unk_284075420;
+  v13 = objc_opt_class();
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = classHierarchyMap_hierarchyMap;
   classHierarchyMap_hierarchyMap = v0;
 }
@@ -1859,27 +1672,27 @@ void __67__HMICameraVideoFrameAnalyzerSignificantActivity_classHierarchyMap__blo
     +[HMICameraVideoFrameAnalyzerSignificantActivity labelIndexForEventClass:];
   }
 
-  v4 = labelIndexForEventClass__map;
+  v3 = labelIndexForEventClass__map;
 
-  return [v4 objectForKeyedSubscript:class];
+  return [v3 objectForKeyedSubscript:?];
 }
 
 void __74__HMICameraVideoFrameAnalyzerSignificantActivity_labelIndexForEventClass___block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_284075390;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_2840753A8;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_2840753D8;
-  v2[3] = objc_opt_class();
-  v3[3] = &unk_2840753F0;
-  v2[4] = objc_opt_class();
-  v3[4] = &unk_284075408;
-  v2[5] = objc_opt_class();
-  v3[5] = &unk_284075420;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v8 = &unk_284075390;
+  v3 = objc_opt_class();
+  v9 = &unk_2840753A8;
+  v4 = objc_opt_class();
+  v10 = &unk_2840753D8;
+  v5 = objc_opt_class();
+  v11 = &unk_2840753F0;
+  v6 = objc_opt_class();
+  v12 = &unk_284075408;
+  v7 = objc_opt_class();
+  v13 = &unk_284075420;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = labelIndexForEventClass__map;
   labelIndexForEventClass__map = v0;
 }
@@ -1891,21 +1704,21 @@ void __74__HMICameraVideoFrameAnalyzerSignificantActivity_labelIndexForEventClas
     +[HMICameraVideoFrameAnalyzerSignificantActivity desLabelIndexForEventClass:];
   }
 
-  v4 = desLabelIndexForEventClass__map;
+  v3 = desLabelIndexForEventClass__map;
 
-  return [v4 objectForKeyedSubscript:class];
+  return [v3 objectForKeyedSubscript:?];
 }
 
 void __77__HMICameraVideoFrameAnalyzerSignificantActivity_desLabelIndexForEventClass___block_invoke()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_284075390;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_284075438;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_2840753D8;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v5 = &unk_284075390;
+  v3 = objc_opt_class();
+  v6 = &unk_284075438;
+  v4 = objc_opt_class();
+  v7 = &unk_2840753D8;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = desLabelIndexForEventClass__map;
   desLabelIndexForEventClass__map = v0;
 }

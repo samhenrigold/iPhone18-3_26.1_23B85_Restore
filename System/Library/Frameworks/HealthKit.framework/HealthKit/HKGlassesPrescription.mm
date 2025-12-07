@@ -83,10 +83,9 @@ void __126__HKGlassesPrescription_prescriptionWithRightEyeSpecification_leftEyeS
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  leftEye = self->_leftEye;
-  v7 = [v3 stringWithFormat:@"<%@:%p Left=%@, Right=%@>", v5, self, leftEye, self->_rightEye];
+  v6 = [v3 stringWithFormat:@"<%@:%p Left=%@, Right=%@>", v5, self, self->_leftEye, self->_rightEye];
 
-  return v7;
+  return v6;
 }
 
 - (void)_setRightEyeSpecification:(id)specification

@@ -533,7 +533,7 @@ void sub_10066DC20(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, void 
 
       v52 = [[IDSServiceProperties alloc] initWithServiceIdentifier:*(a1 + 112)];
       v118 = [v52 dataUsageBundleID];
-      v53 = [IDSDaemon _IMTransferServiceController]_0();
+      v53 = [IDSDaemon _IMTransferServiceController]_0(v118);
       v54 = +[NSString stringGUID];
       v55 = *(a1 + 112);
       v56 = [v134 _FTDataFromHexString];
@@ -2391,7 +2391,7 @@ LABEL_33:
     v28 = [v27 serviceWithPushTopic:*(a1 + 48)];
     v29 = [v28 dontFilterSelfMessagesForUnknownDevice];
 
-    v30 = [*(a1 + 48) isEqualToIgnoringCase:@"com.apple.madrid"];
+    v30 = objc_msgSend_isEqualToIgnoringCase_(*(a1 + 48));
     if (!a3 || v30 & 1 | (([*(a1 + 88) isEqualToURI:*(a1 + 96)] & 1) == 0) | v29 & 1 || (objc_msgSend(*(a1 + 64), "_isDeviceInAccountRegistration:forService:", *(a1 + 104), *(a1 + 48)) & 1) != 0)
     {
       goto LABEL_74;
@@ -3143,7 +3143,7 @@ LABEL_112:
             {
               v60 = [v59 getFromService];
               v61 = [*(v122 + 112) identifier];
-              if ([v60 isEqualToIgnoringCase:v61])
+              if (objc_msgSend_isEqualToIgnoringCase_(v60))
               {
                 v62 = [v59 destinationsContainFromURI:*(v122 + 96)];
 
@@ -3591,7 +3591,7 @@ LABEL_25:
                   [v160 setPendingCount:v166];
 
                   v167 = [*(a1 + 80) serverTimestamp];
-                  [v167 doubleValue];
+                  objc_msgSend_doubleValue(v167);
                   v169 = [NSDate dateWithTimeIntervalSince1970:v168 / 1000000000.0];
                   [v160 setDate:v169];
 
@@ -3628,7 +3628,7 @@ LABEL_25:
               v71 = [v173 initWithPreferredServiceType:v175 senderURI:v213 recipientURI:v176];
 
               v177 = [*(a1 + 80) expirationDate];
-              [v177 doubleValue];
+              objc_msgSend_doubleValue(v177);
               v178 = [NSDate dateWithTimeIntervalSince1970:?];
               [v71 setExpirationDate:v178];
 
@@ -4383,7 +4383,7 @@ LABEL_26:
         if (v16)
         {
           v17 = [*(*(a1 + 48) + 488) objectForKey:v16];
-          v18 = [v17 isEqualToIgnoringCase:*(a1 + 32)];
+          v18 = objc_msgSend_isEqualToIgnoringCase_(v17);
 
           if ((v18 & 1) == 0)
           {
@@ -5177,7 +5177,7 @@ LABEL_115:
     switch(v44)
     {
       case 120:
-        if (([v13 wantsRemoteErrors] & 1) == 0 && !objc_msgSend(*(a1 + 64), "isEqualToIgnoringCase:", @"com.apple.madrid"))
+        if (([v13 wantsRemoteErrors] & 1) == 0 && !objc_msgSend_isEqualToIgnoringCase_(*(a1 + 64)))
         {
           v64 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
@@ -5765,11 +5765,11 @@ void sub_100686EC0(void *a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_100686F4C(uint64_t a1, void *a2)
+void sub_100686F4C(uint64_t a1, void *a2, char a3, char a4)
 {
-  v3 = a2;
-  v5 = *(a1 + 32);
-  v4 = v3;
+  v5 = a2;
+  v7 = *(a1 + 32);
+  v6 = v5;
   im_dispatch_after_primary_queue();
 }
 
@@ -7582,10 +7582,9 @@ void sub_100696FA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-NSSet *sub_100698878()
+NSSet *sub_100698878(uint64_t a1)
 {
   objc_opt_self();
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
@@ -7593,7 +7592,8 @@ NSSet *sub_100698878()
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  return [NSSet setWithObjects:v0, v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0];
+  v8 = objc_opt_class();
+  return [NSSet setWithObjects:v1, v2, v3, v4, v5, v6, v7, v8, objc_opt_class(), 0];
 }
 
 id sub_10069997C(uint64_t a1, void *a2)
@@ -8175,10 +8175,11 @@ void sub_1006A4678(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1006A57C4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1006A57C4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 IDSDAccount *__cdecl sub_1006A58F4(id a1, IDSServiceProperties *a2, int a3)
@@ -8317,9 +8318,9 @@ void sub_1006A8018(uint64_t a1)
   }
 }
 
-void sub_1006ABC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006ABC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8500,7 +8501,7 @@ void sub_1006AE470(uint64_t a1, uint64_t a2, void *a3)
 {
   v7 = a3;
   v4 = [v7 objectForKeyedSubscript:IDSDeviceConnectionAWDMetricsCreatedAtKey];
-  [v4 doubleValue];
+  objc_msgSend_doubleValue(v4);
   v6 = v5;
 
   if (*(a1 + 40) - v6 >= 86400.0)
@@ -8613,9 +8614,9 @@ uint64_t sub_1006B10DC(uint64_t result, int a2)
   return result;
 }
 
-void sub_1006B2B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006B2B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8631,9 +8632,9 @@ void sub_1006B2B98(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_1006B305C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1006B305C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8672,9 +8673,9 @@ id sub_1006B32D4(uint64_t a1)
   return v5;
 }
 
-void sub_1006B3854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1006B3854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8689,9 +8690,9 @@ uint64_t sub_1006B386C(uint64_t a1)
   return _objc_release_x1(v2, v4);
 }
 
-void sub_1006B3BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1006B3BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8760,10 +8761,10 @@ void sub_1006B7334(id a1)
   pthread_mutex_init(&stru_100CBF4D8, 0);
 }
 
-void sub_1006B7380(void *a1, void *a2)
+void sub_1006B7380(void *a1, void *a2, double a3)
 {
-  v3 = a1;
-  v4 = sub_10000AB24(a2);
+  v4 = a1;
+  v5 = sub_10000AB24(a2);
   CSDBPerformBlockAfterDelay();
 }
 
@@ -8895,22 +8896,22 @@ uint64_t sub_1006B7918(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_1006B7A70()
+uint64_t sub_1006B7A70(uint64_t a1, uint64_t a2)
 {
   CSDBRecordStoreCreateTablesForClass();
   CSDBRecordStoreCreateTablesForClass();
   CSDBRecordStoreCreateTablesForClass();
 
-  return sub_1006BB09C();
+  return sub_1006BB09C(a2);
 }
 
-uint64_t sub_1006B7ADC()
+uint64_t sub_1006B7ADC(uint64_t a1, uint64_t a2)
 {
-  v0 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Enabling WAL journal mode.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Enabling WAL journal mode.", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -8919,11 +8920,11 @@ uint64_t sub_1006B7ADC()
   }
 
   CSDBSqliteConnectionPerformSQL();
-  v1 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v3 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v3 = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Enabling Foreign Key support.", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Enabling Foreign Key support.", v5, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -9393,7 +9394,7 @@ LABEL_388:
                                                                           {
                                                                             CSDBSqliteDatabaseSetVersion();
 LABEL_398:
-                                                                            sub_1006BB09C();
+                                                                            sub_1006BB09C(a2);
                                                                             CSDBSqliteConnectionCommit();
                                                                             CSDBSqliteConnectionPerformSQL();
                                                                             return 0;

@@ -6,8 +6,6 @@
 - (BOOL)stopLocationUpdates;
 - (WISCLLocationManager)init;
 - (id).cxx_construct;
-- (void)callAuthStatusCallback:(int)callback;
-- (void)callOnLocationFailedCallback;
 - (void)callOnLocationUpdateCallback:(id)callback;
 - (void)dealloc;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
@@ -17,7 +15,6 @@
 - (void)onLocationFailureCallback:(function<void)(;
 - (void)onLocationUpdateCallback:(function<void (CLLocation *);
 - (void)prepareForShutdown;
-- (void)setDesiredLocationAccuracy:(double)accuracy;
 @end
 
 @implementation WISCLLocationManager
@@ -186,25 +183,10 @@ LABEL_9:
   return v3;
 }
 
-- (void)setDesiredLocationAccuracy:(double)accuracy
-{
-  selfCopy = self;
-  fObj = self->fQueue.fObj.fObj;
-  operator new();
-}
-
 - (void)onAuthStatusUpdateCallback:(function<void)(BOOL
 {
-  selfCopy = self;
-  sub_100100BD8(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
-  operator new();
-}
-
-- (void)callAuthStatusCallback:(int)callback
-{
-  selfCopy = self;
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100100BD8(&v4, a3);
   operator new();
 }
 
@@ -223,9 +205,8 @@ LABEL_9:
 
 - (void)onLocationUpdateCallback:(function<void (CLLocation *)
 {
-  selfCopy = self;
-  sub_100100F20(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100100F20(&v4, a3);
   operator new();
 }
 
@@ -236,23 +217,14 @@ LABEL_9:
   {
     selfCopy = self;
     v6 = callbackCopy;
-    fObj = self->fQueue.fObj.fObj;
     operator new();
   }
 }
 
 - (void)onLocationFailureCallback:(function<void)(
 {
-  selfCopy = self;
-  sub_100101280(&v7, a3);
-  fObj = self->fQueue.fObj.fObj;
-  operator new();
-}
-
-- (void)callOnLocationFailedCallback
-{
-  selfCopy = self;
-  fObj = self->fQueue.fObj.fObj;
+  self;
+  sub_100101280(&v4, a3);
   operator new();
 }
 

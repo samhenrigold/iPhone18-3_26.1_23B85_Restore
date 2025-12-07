@@ -145,13 +145,13 @@
 
 - (PSGResponseSuggestionsExpConfig)initWithNamespaceName:(id)name withLanguage:(id)language withTrialClient:(id)client shouldDownloadAssets:(BOOL)assets
 {
-  v115[1] = *MEMORY[0x277D85DE8];
+  v114[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   languageCopy = language;
   clientCopy = client;
-  v96.receiver = self;
-  v96.super_class = PSGResponseSuggestionsExpConfig;
-  v14 = [(PSGResponseSuggestionsExpConfig *)&v96 init];
+  v95.receiver = self;
+  v95.super_class = PSGResponseSuggestionsExpConfig;
+  v14 = [(PSGResponseSuggestionsExpConfig *)&v95 init];
   if (v14)
   {
     if (!nameCopy)
@@ -163,7 +163,7 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v98 = nameCopy;
+      v97 = nameCopy;
       _os_log_impl(&dword_260D36000, v15, OS_LOG_TYPE_DEFAULT, "ZKW Experiment config -- setting up config for namespace %@", buf, 0xCu);
     }
 
@@ -211,7 +211,7 @@ LABEL_8:
         {
           namespaceName = v14->_namespaceName;
           *buf = 138412290;
-          v98 = namespaceName;
+          v97 = namespaceName;
           _os_log_fault_impl(&dword_260D36000, v26, OS_LOG_TYPE_FAULT, "ZKW: treatmentId without experimentId for namespace %@", buf, 0xCu);
         }
 
@@ -260,105 +260,105 @@ LABEL_8:
             if ([directoryValue hasPath])
             {
               path = [directoryValue path];
-              v91 = 0;
+              v90 = 0;
               defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-              v44 = [defaultManager fileExistsAtPath:path isDirectory:&v91];
+              v43 = [defaultManager fileExistsAtPath:path isDirectory:&v90];
 
-              if (v44 && (v91 & 1) != 0)
+              if (v43 && (v90 & 1) != 0)
               {
-                v45 = [(NSString *)v14->_treatmentName stringByAppendingString:@".model.chunk"];
-                v46 = [(NSString *)v14->_treatmentName stringByAppendingString:@".config.plist"];
-                v47 = [(NSString *)v14->_treatmentName stringByAppendingString:@".espresso.bin"];
-                v48 = [(NSString *)v14->_treatmentName stringByAppendingString:@".vocab.trie"];
-                v49 = [path stringByAppendingPathComponent:v45];
+                v44 = [(NSString *)v14->_treatmentName stringByAppendingString:@".model.chunk"];
+                v45 = [(NSString *)v14->_treatmentName stringByAppendingString:@".config.plist"];
+                v46 = [(NSString *)v14->_treatmentName stringByAppendingString:@".espresso.bin"];
+                v47 = [(NSString *)v14->_treatmentName stringByAppendingString:@".vocab.trie"];
+                v48 = [path stringByAppendingPathComponent:v44];
                 inferenceModelFilePath = v14->_inferenceModelFilePath;
-                v14->_inferenceModelFilePath = v49;
+                v14->_inferenceModelFilePath = v48;
 
-                v90 = v46;
-                v51 = [path stringByAppendingPathComponent:v46];
+                v89 = v45;
+                v50 = [path stringByAppendingPathComponent:v45];
                 inferenceModelConfigPath = v14->_inferenceModelConfigPath;
-                v14->_inferenceModelConfigPath = v51;
+                v14->_inferenceModelConfigPath = v50;
 
-                v89 = v47;
-                v53 = [path stringByAppendingPathComponent:v47];
+                v88 = v46;
+                v52 = [path stringByAppendingPathComponent:v46];
                 espressoBinFilePath = v14->_espressoBinFilePath;
-                v14->_espressoBinFilePath = v53;
+                v14->_espressoBinFilePath = v52;
 
-                v88 = v48;
-                v55 = [path stringByAppendingPathComponent:v48];
+                v87 = v47;
+                v54 = [path stringByAppendingPathComponent:v47];
                 vocabFilePath = v14->_vocabFilePath;
-                v14->_vocabFilePath = v55;
+                v14->_vocabFilePath = v54;
 
                 defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-                LOBYTE(v47) = [defaultManager2 isReadableFileAtPath:v14->_inferenceModelFilePath];
+                LOBYTE(v46) = [defaultManager2 isReadableFileAtPath:v14->_inferenceModelFilePath];
 
-                if ((v47 & 1) == 0)
+                if ((v46 & 1) == 0)
                 {
-                  v58 = v14->_inferenceModelFilePath;
+                  v57 = v14->_inferenceModelFilePath;
                   v14->_inferenceModelFilePath = 0;
                 }
 
                 defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-                v60 = [defaultManager3 isReadableFileAtPath:v14->_inferenceModelConfigPath];
+                v59 = [defaultManager3 isReadableFileAtPath:v14->_inferenceModelConfigPath];
 
-                if ((v60 & 1) == 0)
+                if ((v59 & 1) == 0)
                 {
-                  v61 = v14->_inferenceModelConfigPath;
+                  v60 = v14->_inferenceModelConfigPath;
                   v14->_inferenceModelConfigPath = 0;
                 }
 
                 defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-                v63 = [defaultManager4 isReadableFileAtPath:v14->_espressoBinFilePath];
+                v62 = [defaultManager4 isReadableFileAtPath:v14->_espressoBinFilePath];
 
-                v64 = v45;
-                if ((v63 & 1) == 0)
+                v63 = v44;
+                if ((v62 & 1) == 0)
                 {
-                  v65 = v14->_espressoBinFilePath;
+                  v64 = v14->_espressoBinFilePath;
                   v14->_espressoBinFilePath = 0;
                 }
 
                 defaultManager5 = [MEMORY[0x277CCAA00] defaultManager];
-                v67 = [defaultManager5 isReadableFileAtPath:v14->_vocabFilePath];
+                v66 = [defaultManager5 isReadableFileAtPath:v14->_vocabFilePath];
 
-                if ((v67 & 1) == 0)
+                if ((v66 & 1) == 0)
                 {
-                  v68 = v14->_vocabFilePath;
+                  v67 = v14->_vocabFilePath;
                   v14->_vocabFilePath = 0;
                 }
 
                 if (v14->_inferenceModelConfigPath && (v14->_inferenceModelFilePath || v14->_espressoBinFilePath))
                 {
-                  v69 = psg_default_log_handle();
-                  if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+                  v68 = psg_default_log_handle();
+                  if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
                   {
-                    v83 = v14->_treatmentName;
-                    v84 = v14->_inferenceModelDescription;
-                    v85 = v14->_inferenceModelConfigPath;
-                    v86 = v14->_espressoBinFilePath;
-                    v87 = v14->_vocabFilePath;
-                    v82 = v14->_inferenceModelFilePath;
+                    v82 = v14->_treatmentName;
+                    v83 = v14->_inferenceModelDescription;
+                    v84 = v14->_inferenceModelConfigPath;
+                    v85 = v14->_espressoBinFilePath;
+                    v86 = v14->_vocabFilePath;
+                    v81 = v14->_inferenceModelFilePath;
                     experimentId2 = [(TRIExperimentIdentifiers *)v14->_experimentIdentifiers experimentId];
                     treatmentId3 = [(TRIExperimentIdentifiers *)v14->_experimentIdentifiers treatmentId];
                     isMLModelEnabled = v14->_isMLModelEnabled;
                     *buf = 138414338;
-                    v98 = v83;
-                    v99 = 2112;
-                    v100 = v84;
-                    v101 = 2112;
-                    v102 = v82;
-                    v103 = 2112;
-                    v104 = v85;
-                    v105 = 2112;
-                    v106 = v86;
-                    v107 = 2112;
-                    v108 = v87;
-                    v109 = 2112;
-                    v110 = experimentId2;
-                    v111 = 2112;
-                    v112 = treatmentId3;
-                    v113 = 1024;
-                    v114 = isMLModelEnabled;
-                    _os_log_impl(&dword_260D36000, v69, OS_LOG_TYPE_DEFAULT, "ZKW reading from trial factor values {treatmentName: %@ inferenceModelDescription: %@ inferenceModelFilePath: %@ inferenceModelConfigPath: %@ espresso.bin: %@ vocab: %@ experimentId: %@ treatmentId: %@ isMLModelEnabled: %d}", buf, 0x58u);
+                    v97 = v82;
+                    v98 = 2112;
+                    v99 = v83;
+                    v100 = 2112;
+                    v101 = v81;
+                    v102 = 2112;
+                    v103 = v84;
+                    v104 = 2112;
+                    v105 = v85;
+                    v106 = 2112;
+                    v107 = v86;
+                    v108 = 2112;
+                    v109 = experimentId2;
+                    v110 = 2112;
+                    v111 = treatmentId3;
+                    v112 = 1024;
+                    v113 = isMLModelEnabled;
+                    _os_log_impl(&dword_260D36000, v68, OS_LOG_TYPE_DEFAULT, "ZKW reading from trial factor values {treatmentName: %@ inferenceModelDescription: %@ inferenceModelFilePath: %@ inferenceModelConfigPath: %@ espresso.bin: %@ vocab: %@ experimentId: %@ treatmentId: %@ isMLModelEnabled: %d}", buf, 0x58u);
                   }
 
                   v27 = v14;
@@ -366,19 +366,19 @@ LABEL_8:
 
                 else
                 {
-                  v78 = psg_default_log_handle();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
+                  v77 = psg_default_log_handle();
+                  if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
                   {
-                    v79 = v14->_inferenceModelFilePath;
-                    v80 = v14->_inferenceModelConfigPath;
-                    v81 = v14->_espressoBinFilePath;
+                    v78 = v14->_inferenceModelFilePath;
+                    v79 = v14->_inferenceModelConfigPath;
+                    v80 = v14->_espressoBinFilePath;
                     *buf = 138412802;
-                    v98 = v79;
-                    v99 = 2112;
-                    v100 = v80;
-                    v101 = 2112;
-                    v102 = v81;
-                    _os_log_fault_impl(&dword_260D36000, v78, OS_LOG_TYPE_FAULT, "ZKW: some required file factor not readable with config path %@, inference path %@, and espresso bin path %@", buf, 0x20u);
+                    v97 = v78;
+                    v98 = 2112;
+                    v99 = v79;
+                    v100 = 2112;
+                    v101 = v80;
+                    _os_log_fault_impl(&dword_260D36000, v77, OS_LOG_TYPE_FAULT, "ZKW: some required file factor not readable with config path %@, inference path %@, and espresso bin path %@", buf, 0x20u);
                   }
 
                   v27 = 0;
@@ -387,11 +387,11 @@ LABEL_8:
 
               else
               {
-                v64 = psg_default_log_handle();
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+                v63 = psg_default_log_handle();
+                if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 0;
-                  _os_log_fault_impl(&dword_260D36000, v64, OS_LOG_TYPE_FAULT, "ZKW: directory factor download completed, but directory path not found", buf, 2u);
+                  _os_log_fault_impl(&dword_260D36000, v63, OS_LOG_TYPE_FAULT, "ZKW: directory factor download completed, but directory path not found", buf, 2u);
                 }
 
                 v27 = 0;
@@ -400,11 +400,11 @@ LABEL_8:
               goto LABEL_63;
             }
 
-            v73 = psg_default_log_handle();
-            if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+            v72 = psg_default_log_handle();
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_260D36000, v73, OS_LOG_TYPE_DEFAULT, "ZKW: assets directory factor is being queued for download", buf, 2u);
+              _os_log_impl(&dword_260D36000, v72, OS_LOG_TYPE_DEFAULT, "ZKW: assets directory factor is being queued for download", buf, 2u);
             }
 
             if (initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___pasOnceToken11 != -1)
@@ -412,22 +412,22 @@ LABEL_8:
               dispatch_once(&initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___pasOnceToken11, &__block_literal_global_1648);
             }
 
-            v115[0] = @"modelAssets";
-            v74 = MEMORY[0x277CBEA60];
+            v114[0] = @"modelAssets";
+            v73 = MEMORY[0x277CBEA60];
             path = initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___pasExprOnceResult;
-            v75 = [v74 arrayWithObjects:v115 count:1];
-            v76 = v14->_namespaceName;
-            v94[0] = MEMORY[0x277D85DD0];
-            v94[1] = 3221225472;
-            v94[2] = __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_2;
-            v94[3] = &unk_279ABE428;
-            v95 = nameCopy;
-            v92[0] = MEMORY[0x277D85DD0];
-            v92[1] = 3221225472;
-            v92[2] = __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_35;
-            v92[3] = &unk_279ABE450;
-            v93 = v14;
-            [clientCopy downloadLevelsForFactors:v75 withNamespace:v76 queue:path options:0 progress:v94 completion:v92];
+            v74 = [v73 arrayWithObjects:v114 count:1];
+            v75 = v14->_namespaceName;
+            v93[0] = MEMORY[0x277D85DD0];
+            v93[1] = 3221225472;
+            v93[2] = __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_2;
+            v93[3] = &unk_279ABE428;
+            v94 = nameCopy;
+            v91[0] = MEMORY[0x277D85DD0];
+            v91[1] = 3221225472;
+            v91[2] = __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_35;
+            v91[3] = &unk_279ABE450;
+            v92 = v14;
+            [clientCopy downloadLevelsForFactors:v74 withNamespace:v75 queue:path options:0 progress:v93 completion:v91];
           }
 
           else
@@ -436,7 +436,7 @@ LABEL_8:
             if (os_log_type_enabled(path, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v98 = nameCopy;
+              v97 = nameCopy;
               _os_log_impl(&dword_260D36000, path, OS_LOG_TYPE_DEFAULT, "ZKW: assets for %@ not found on device, not downloading for this request", buf, 0xCu);
             }
           }
@@ -487,30 +487,27 @@ LABEL_13:
   v27 = 0;
 LABEL_35:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 void __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_2(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = psg_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_impl(&dword_260D36000, v4, OS_LOG_TYPE_DEFAULT, "ZKW: download progress %d%% for namespace %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v5;
+    _os_log_impl(&dword_260D36000, v4, OS_LOG_TYPE_DEFAULT, "ZKW: download progress %d%% for namespace %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke_35(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = psg_default_log_handle();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -521,27 +518,25 @@ void __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_w
       v8 = [v5 userInfo];
       v9 = [v8 description];
       v10 = *(*(a1 + 32) + 16);
-      v13 = 138412802;
-      *v14 = v9;
-      *&v14[8] = 1024;
-      *&v14[10] = a2;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "ZKW: Trial download error %@ with result %d for namespace %@", &v13, 0x1Cu);
+      v12 = 138412802;
+      *v13 = v9;
+      *&v13[8] = 1024;
+      *&v13[10] = a2;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "ZKW: Trial download error %@ with result %d for namespace %@", &v12, 0x1Cu);
     }
   }
 
   else if (v7)
   {
     v11 = *(*(a1 + 32) + 16);
-    v13 = 67109378;
-    *v14 = a2;
-    *&v14[4] = 2112;
-    *&v14[6] = v11;
-    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "ZKW: Trial download result %d for namespace %@", &v13, 0x12u);
+    v12 = 67109378;
+    *v13 = a2;
+    *&v13[4] = 2112;
+    *&v13[6] = v11;
+    _os_log_impl(&dword_260D36000, v6, OS_LOG_TYPE_DEFAULT, "ZKW: Trial download result %d for namespace %@", &v12, 0x12u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __107__PSGResponseSuggestionsExpConfig_initWithNamespaceName_withLanguage_withTrialClient_shouldDownloadAssets___block_invoke()

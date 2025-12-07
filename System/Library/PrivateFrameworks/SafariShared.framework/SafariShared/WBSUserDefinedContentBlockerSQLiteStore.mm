@@ -156,9 +156,9 @@ LABEL_11:
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE content_blocker (id INTEGER PRIMARY KEY AUTOINCREMENT,host TEXT NOT NULL,type NUMERIC NOT NULL,version NUMERIC NOT NULL,exclude_global NUMERIC NULL,binary_cache BLOB NULL,UNIQUE(host, type))");
   if (v3 != 101)
   {
-    v5 = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v3;
+    v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -168,26 +168,27 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE cross_site_content (id INTEGER PRIMARY KEY AUTOINCREMENT,source TEXT NOT NULL,title TEXT NULL,extra_attributes BLOB NULL,version NUMERIC NOT NULL)");
-  if (v4 != 101)
-  {
-    v5 = v4;
-    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-      objc_claimAutoreleasedReturnValue();
-      [WBSUserDefinedContentBlockerSQLiteStore _createFreshDatabaseSchema];
-    }
-
-    goto LABEL_10;
-  }
-
-  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE action (id INTEGER PRIMARY KEY AUTOINCREMENT,content_blocker_id INTEGER NOT NULL,selector TEXT NOT NULL,type TEXT NOT NULL,version NUMERIC NOT NULL,cross_site_content_id INTEGER NULL,extra_attributes BLOB NULL,FOREIGN KEY (content_blocker_id) REFERENCES content_blocker(id) ON DELETE CASCADE,FOREIGN KEY (cross_site_content_id) REFERENCES cross_site_content(id) ON DELETE SET NULL)");
+  v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE cross_site_content (id INTEGER PRIMARY KEY AUTOINCREMENT,source TEXT NOT NULL,title TEXT NULL,extra_attributes BLOB NULL,version NUMERIC NOT NULL)");
   if (v5 != 101)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = v5;
+    v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
+      objc_claimAutoreleasedReturnValue();
+      [WBSUserDefinedContentBlockerSQLiteStore _createFreshDatabaseSchema];
+    }
+
+    goto LABEL_10;
+  }
+
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE action (id INTEGER PRIMARY KEY AUTOINCREMENT,content_blocker_id INTEGER NOT NULL,selector TEXT NOT NULL,type TEXT NOT NULL,version NUMERIC NOT NULL,cross_site_content_id INTEGER NULL,extra_attributes BLOB NULL,FOREIGN KEY (content_blocker_id) REFERENCES content_blocker(id) ON DELETE CASCADE,FOREIGN KEY (cross_site_content_id) REFERENCES cross_site_content(id) ON DELETE SET NULL)");
+  v9 = v7;
+  if (v7 != 101)
+  {
+    v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -197,7 +198,7 @@ LABEL_11:
 LABEL_10:
   }
 
-  return v5;
+  return v9;
 }
 
 - (WBSUserDefinedContentBlockerSQLiteStore)initWithDatabaseURL:(id)l
@@ -423,15 +424,15 @@ void __108__WBSUserDefinedContentBlockerSQLiteStore_getPerSiteContentBlockerForH
       block[2] = __85__WBSUserDefinedContentBlockerSQLiteStore_updateContentBlockerActionExtraAttributes___block_invoke;
       block[3] = &unk_1E7FB7C70;
       block[4] = self;
-      v11 = extraAttributesData;
-      v12 = databaseID;
+      v13 = extraAttributesData;
+      v14 = databaseID;
       dispatch_async(databaseQueue, block);
     }
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [WBSUserDefinedContentBlockerSQLiteStore updateContentBlockerActionExtraAttributes:];
       }
@@ -440,8 +441,8 @@ void __108__WBSUserDefinedContentBlockerSQLiteStore_getPerSiteContentBlockerForH
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerSQLiteStore updateContentBlockerActionExtraAttributes:];
     }
@@ -520,10 +521,11 @@ BOOL __67__WBSUserDefinedContentBlockerSQLiteStore__migrateToSchemaVersion___blo
 - (int)_migrateToSchemaVersion_2
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"ALTER TABLE action ADD COLUMN extra_attributes BLOB NULL");
+  v5 = v3;
   if (v3 != 101)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -531,29 +533,29 @@ BOOL __67__WBSUserDefinedContentBlockerSQLiteStore__migrateToSchemaVersion___blo
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (int)_setDatabaseSchemaVersion:(int)version
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   database = self->_database;
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", *&version];
   v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
 
   if (v7 != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       *buf = 67109634;
       versionCopy = version;
-      v13 = 2114;
-      v14 = lastErrorMessage;
-      v15 = 1024;
-      v16 = v7;
-      _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set the User Defined Content Blocker store database schema version to %d: %{public}@ (%d)", buf, 0x18u);
+      v15 = 2114;
+      v16 = lastErrorMessage;
+      v17 = 1024;
+      v18 = v7;
+      _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to set the User Defined Content Blocker store database schema version to %d: %{public}@ (%d)", buf, 0x18u);
     }
   }
 
@@ -570,11 +572,11 @@ BOOL __67__WBSUserDefinedContentBlockerSQLiteStore__migrateToSchemaVersion___blo
 - (BOOL)_deleteFromAllTables
 {
   v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM action");
-  v4 = v3 == 101;
+  v5 = v3 == 101;
   if (v3 != 101)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
@@ -582,66 +584,67 @@ BOOL __67__WBSUserDefinedContentBlockerSQLiteStore__migrateToSchemaVersion___blo
     }
   }
 
-  v6 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM content_blocker WHERE type != ?"];
-  [v6 bindInt:1 atParameterIndex:1];
-  execute = [v6 execute];
-  [v6 reset];
+  v7 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM content_blocker WHERE type != ?"];
+  [v7 bindInt:1 atParameterIndex:1];
+  execute = [v7 execute];
+  reset = [v7 reset];
   if (execute != 101)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(reset, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
       [WBSUserDefinedContentBlockerSQLiteStore _deleteFromAllTables];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM cross_site_content") != 101)
+  v12 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DELETE FROM cross_site_content");
+  if (v12 != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       objc_claimAutoreleasedReturnValue();
       [WBSUserDefinedContentBlockerSQLiteStore _deleteFromAllTables];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)_insertContentBlockerWithType:(int64_t)type host:(id)host excludeGlobal:(BOOL)global
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   hostCopy = host;
   globalCopy = global;
   v7 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:{@"INSERT INTO content_blocker (type, host, exclude_global, version)VALUES (?, ?, ?, ?)"}];
   SafariShared::_WBSSQLiteStatementBindAllParameters<1,WBSUserDefinedContentBlockerType &,NSString * {__strong}&,BOOL &,int const&>(v7, &typeCopy, &hostCopy, &globalCopy, &WBSUserDefinedContentBlockerSupportedVersion);
   execute = [v7 execute];
-  [v7 reset];
+  reset = [v7 reset];
   if (execute != 101)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(reset, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = hostCopy;
-      v12 = typeCopy;
+      v13 = hostCopy;
+      v14 = typeCopy;
       lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
       *buf = 134218755;
-      v18 = v12;
-      v19 = 2113;
-      v20 = v11;
-      v21 = 2114;
-      v22 = lastErrorMessage;
-      v23 = 1024;
-      v24 = execute;
-      _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to create content blocker(type %lu) for %{private}@: %{public}@ (%d)", buf, 0x26u);
+      v20 = v14;
+      v21 = 2113;
+      v22 = v13;
+      v23 = 2114;
+      v24 = lastErrorMessage;
+      v25 = 1024;
+      v26 = execute;
+      _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to create content blocker(type %lu) for %{private}@: %{public}@ (%d)", buf, 0x26u);
     }
   }
 
@@ -796,18 +799,19 @@ void __93__WBSUserDefinedContentBlockerSQLiteStore__getContentBlockerWithType_ho
 
 - (int64_t)_insertAction:(id)action forContentBlockerID:(int64_t)d
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   databaseID = [actionCopy databaseID];
+  v9 = databaseID;
   if (databaseID)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(databaseID, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      -[WBSUserDefinedContentBlockerSQLiteStore _insertAction:forContentBlockerID:].cold.1(buf, [actionCopy databaseID], v9);
+      -[WBSUserDefinedContentBlockerSQLiteStore _insertAction:forContentBlockerID:].cold.1(buf, [actionCopy databaseID], v11);
     }
 
-    databaseID = 0;
+    v9 = 0;
   }
 
   else if (d)
@@ -817,48 +821,48 @@ void __93__WBSUserDefinedContentBlockerSQLiteStore__getContentBlockerWithType_ho
     typeString = [actionCopy typeString];
     *buf = d;
     extraAttributesData = [actionCopy extraAttributesData];
-    v11 = SafariShared::WBSSQLiteDatabaseFetch<NSString * {__strong},NSString * {__strong},int,int const&,NSData * {__strong}>(database, @"INSERT INTO action (selector, type, content_blocker_id, version, extra_attributes)VALUES (?, ?, ?, ?, ?)RETURNING id", &selector, &typeString, buf, &WBSUserDefinedContentBlockerActionSupportedVersion, &extraAttributesData);
+    v13 = SafariShared::WBSSQLiteDatabaseFetch<NSString * {__strong},NSString * {__strong},int,int const&,NSData * {__strong}>(database, @"INSERT INTO action (selector, type, content_blocker_id, version, extra_attributes)VALUES (?, ?, ?, ?, ?)RETURNING id", &selector, &typeString, buf, &WBSUserDefinedContentBlockerActionSupportedVersion, &extraAttributesData);
 
-    lastResultCode = [v11 lastResultCode];
-    nextObject = [v11 nextObject];
-    v14 = nextObject;
-    if (!nextObject || (v15 = [nextObject int64AtIndex:0], v14, !v15))
+    lastResultCode = [v13 lastResultCode];
+    nextObject = [v13 nextObject];
+    v17 = nextObject;
+    if (!nextObject || (v18 = [nextObject int64AtIndex:0], v17, !v18))
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(nextObject, v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         typeString2 = [actionCopy typeString];
         selector2 = [actionCopy selector];
         lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
         *buf = 138413314;
-        v25 = typeString2;
-        v26 = 2112;
-        v27 = selector2;
-        v28 = 2048;
+        v28 = typeString2;
+        v29 = 2112;
+        v30 = selector2;
+        v31 = 2048;
         dCopy = d;
-        v30 = 2114;
-        v31 = lastErrorMessage;
-        v32 = 1024;
-        v33 = lastResultCode;
-        _os_log_error_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_ERROR, "Failed to create action(%@) with selector(%@) for contentBlockerID(%ld): %{public}@ (%d)", buf, 0x30u);
+        v33 = 2114;
+        v34 = lastErrorMessage;
+        v35 = 1024;
+        v36 = lastResultCode;
+        _os_log_error_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_ERROR, "Failed to create action(%@) with selector(%@) for contentBlockerID(%ld): %{public}@ (%d)", buf, 0x30u);
       }
 
-      v15 = 0;
+      v18 = 0;
     }
 
-    databaseID = v15;
+    v9 = v18;
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerSQLiteStore _insertAction:forContentBlockerID:];
     }
   }
 
-  return databaseID;
+  return v9;
 }
 
 - (void)_getActionsForContentBlockerID:(int64_t)d isGlobal:(BOOL)global completionHandler:(id)handler
@@ -895,33 +899,33 @@ void __93__WBSUserDefinedContentBlockerSQLiteStore__getContentBlockerWithType_ho
 
 - (void)_deleteActionsForContentBlockerID:(int64_t)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (d)
   {
     v6 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM action WHERE content_blocker_id = ?"];
     [v6 bindInt:d atParameterIndex:1];
     execute = [v6 execute];
-    [v6 reset];
+    reset = [v6 reset];
     if (execute != 101)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(reset, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-        v10 = 134218498;
+        v12 = 134218498;
         dCopy = d;
-        v12 = 2114;
-        v13 = lastErrorMessage;
-        v14 = 1024;
-        v15 = execute;
-        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to delete actions for contentBlockerID(%ld): %{public}@ (%d)", &v10, 0x1Cu);
+        v14 = 2114;
+        v15 = lastErrorMessage;
+        v16 = 1024;
+        v17 = execute;
+        _os_log_error_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_ERROR, "Failed to delete actions for contentBlockerID(%ld): %{public}@ (%d)", &v12, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
+    v4 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerSQLiteStore _deleteActionsForContentBlockerID:];
@@ -931,7 +935,7 @@ void __93__WBSUserDefinedContentBlockerSQLiteStore__getContentBlockerWithType_ho
 
 - (void)_deleteActions:(id)actions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   v5 = [actionsCopy safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_114];
   if ([v5 count])
@@ -940,20 +944,20 @@ void __93__WBSUserDefinedContentBlockerSQLiteStore__getContentBlockerWithType_ho
     v7 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:self->_database query:@"DELETE FROM action WHERE id IN (?)"];
     [v7 bindString:v6 atParameterIndex:1];
     execute = [v7 execute];
-    [v7 reset];
+    reset = [v7 reset];
     if (execute != 101)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(reset, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         lastErrorMessage = [(WBSSQLiteDatabase *)self->_database lastErrorMessage];
-        v11 = 138412802;
-        v12 = v6;
-        v13 = 2114;
-        v14 = lastErrorMessage;
-        v15 = 1024;
-        v16 = execute;
-        _os_log_error_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_ERROR, "Failed to delete action(s) - (%@): %{public}@ (%d)", &v11, 0x1Cu);
+        v13 = 138412802;
+        v14 = v6;
+        v15 = 2114;
+        v16 = lastErrorMessage;
+        v17 = 1024;
+        v18 = execute;
+        _os_log_error_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_ERROR, "Failed to delete action(s) - (%@): %{public}@ (%d)", &v13, 0x1Cu);
       }
     }
   }
@@ -964,21 +968,21 @@ id __58__WBSUserDefinedContentBlockerSQLiteStore__deleteActions___block_invoke(u
   v2 = a2;
   if ([v2 databaseID])
   {
-    v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v2, "databaseID")}];
+    v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v2, "databaseID")}];
   }
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __58__WBSUserDefinedContentBlockerSQLiteStore__deleteActions___block_invoke_cold_1();
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_updateExtraAttributes:(id)attributes forContentBlockerID:(int64_t)d
@@ -986,11 +990,12 @@ id __58__WBSUserDefinedContentBlockerSQLiteStore__deleteActions___block_invoke(u
   dCopy = d;
   attributesCopy = attributes;
   database = self->_database;
-  v8 = dCopy;
-  if (SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSData * {__strong}&,int>(database, 0, @"UPDATE action SET extra_attributes = ? WHERE id = ?", &attributesCopy, &v8) != 101)
+  v10 = dCopy;
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSData * {__strong}&,int>(database, 0, @"UPDATE action SET extra_attributes = ? WHERE id = ?", &attributesCopy, &v10);
+  if (v7 != 101)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerSQLiteStore _updateExtraAttributes:forContentBlockerID:];
     }

@@ -113,7 +113,7 @@
   if (v46 != 0.0)
   {
     versionAtCreation = [v12 versionAtCreation];
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    objc_msgSend_getScaleForImage_(self);
     v15 = v44;
     v16 = v45;
     v43 = 0x3FF0000000000000;
@@ -122,7 +122,7 @@
     [v9 getBoolValue:&v42 fromParm:3 atFxTime:info->var0.var1];
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
@@ -132,8 +132,8 @@
 
     if (v42 == 1)
     {
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-      [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+      objc_msgSend_getInversePixelTransformForImage_(self);
+      objc_msgSend_getPixelTransformForImage_(self);
       v17 = HGObject::operator new(0x1C0uLL);
       HGNode::HGNode(v17);
       *v17 = &unk_2871D9F38;
@@ -164,16 +164,16 @@
     else
     {
       v33 = v41;
-      if (v41 != 0.0)
+      if (*&v41)
       {
-        (*(**&v41 + 16))(COERCE_FLOAT64_T(*&v41));
+        (*(**&v41 + 16))(*&v41);
       }
 
-      [(PAESharedDefaultBase *)self smear:&v33 fromImage:input toImage:input];
+      objc_msgSend_smear_fromImage_toImage_(self);
       v27 = v38[0].f64[0];
       if (*&v41 == *&v38[0].f64[0])
       {
-        if (v41 != 0.0)
+        if (*&v41)
         {
           (*(**&v38[0].f64[0] + 24))(*&v38[0].f64[0]);
         }
@@ -181,9 +181,9 @@
 
       else
       {
-        if (v41 != 0.0)
+        if (*&v41)
         {
-          (*(**&v41 + 24))(COERCE_FLOAT64_T(*&v41));
+          (*(**&v41 + 24))(*&v41);
           v27 = v38[0].f64[0];
         }
 
@@ -202,7 +202,7 @@
       v30 = v15;
       v31 = v16;
       HGaussianBlur::init(v28, v29, v30, v31, versionAtCreation == 0, 0, 0);
-      (*(*v28 + 120))(v28, 0, COERCE_FLOAT64_T(*&v41));
+      (*(*v28 + 120))(v28, 0, *&v41);
       (*(*v28 + 16))(v28);
       (*(*v28 + 24))(v28);
     }
@@ -213,7 +213,7 @@
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input, v46);
   }
 
   else

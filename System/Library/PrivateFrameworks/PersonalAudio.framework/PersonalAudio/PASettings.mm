@@ -35,11 +35,21 @@
 - (void)resetValueForSelector:(SEL)selector forAddress:(id)address;
 - (void)setAccommodationTypes:(unint64_t)types forRouteUID:(id)d;
 - (void)setAudiogramConfiguration:(id)configuration forRouteUID:(id)d;
+- (void)setConfigurationCameFromEnrollment:(BOOL)enrollment;
+- (void)setConfigurationCameFromUser:(BOOL)user;
 - (void)setCurrentEnrollmentProgress:(unint64_t)progress;
+- (void)setPersonalMediaAutomationSkipHeadphoneRequirement:(BOOL)requirement;
 - (void)setPersonalMediaConfiguration:(id)configuration;
 - (void)setPersonalMediaConfiguration:(id)configuration forRouteUID:(id)d;
+- (void)setPersonalMediaDebugMode:(BOOL)mode;
+- (void)setPersonalMediaEnabled:(BOOL)enabled forRouteUID:(id)d;
+- (void)setPersonalSoundVisible:(BOOL)visible;
+- (void)setShouldUpdateAccessory:(BOOL)accessory;
 - (void)setTransparencyAmplification:(double)amplification forAddress:(id)address;
+- (void)setTransparencyAutobeamformer:(BOOL)autobeamformer forAddress:(id)address;
 - (void)setTransparencyBalance:(double)balance forAddress:(id)address;
+- (void)setTransparencyBeamforming:(BOOL)beamforming forAddress:(id)address;
+- (void)setTransparencyCustomized:(BOOL)customized forAddress:(id)address;
 - (void)setTransparencyNoiseSupressor:(double)supressor forAddress:(id)address;
 - (void)setTransparencyOwnVoice:(double)voice forAddress:(id)address;
 - (void)setTransparencyTone:(double)tone forAddress:(id)address;
@@ -156,17 +166,15 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetValueForSelector:(SEL)selector forAddress:(id)address
@@ -194,6 +202,24 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
 {
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:progress];
   [(HCSettings *)self setValue:v4 forPreferenceKey:@"currentEnrollmentProgress"];
+}
+
+- (void)setConfigurationCameFromEnrollment:(BOOL)enrollment
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enrollment];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"configurationCameFromEnrollment"];
+}
+
+- (void)setConfigurationCameFromUser:(BOOL)user
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:user];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"configurationCameFromUser"];
+}
+
+- (void)setShouldUpdateAccessory:(BOOL)accessory
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:accessory];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"shouldUpdateAccessory"];
 }
 
 - (NSDictionary)transparencyCustomized
@@ -350,6 +376,35 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
   return bOOLValue;
 }
 
+- (void)setPersonalMediaEnabled:(BOOL)enabled forRouteUID:(id)d
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = [(PASettings *)self sanitizedRouteUID:d];
+  if ([v6 length])
+  {
+    v7 = MEMORY[0x277CBEB38];
+    personalMediaEnabledByRouteUID = [(PASettings *)self personalMediaEnabledByRouteUID];
+    v9 = [v7 dictionaryWithDictionary:personalMediaEnabledByRouteUID];
+
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [v9 setValue:v10 forKey:v6];
+
+    additionalInfoForPrefenceUpdate = [MEMORY[0x277D12B58] additionalInfoForPrefenceUpdate];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v6, @"_UpdateInfo"];
+    [v9 setValue:additionalInfoForPrefenceUpdate forKey:v12];
+
+    [(PASettings *)self setPersonalMediaEnabledByRouteUID:v9];
+    v13 = HCLogAudioAccommodations();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v15 = v9;
+      _os_log_impl(&dword_25E445000, v13, OS_LOG_TYPE_DEFAULT, "Updating enabled %@", buf, 0xCu);
+    }
+  }
+}
+
 - (id)personalMediaConfigurationForRouteUID:(id)d
 {
   v4 = [(PASettings *)self sanitizedRouteUID:d];
@@ -378,7 +433,7 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
 
 - (void)setPersonalMediaConfiguration:(id)configuration forRouteUID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v7 = [(PASettings *)self sanitizedRouteUID:d];
   v8 = [(PASettings *)self archivedDataFromConfiguration:configurationCopy];
@@ -394,13 +449,11 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     v12 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Updating configs %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Updating configs %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)audiogramConfigurationForRouteUID:(id)d
@@ -474,7 +527,7 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
 
 - (void)setAccommodationTypes:(unint64_t)types forRouteUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [(PASettings *)self sanitizedRouteUID:d];
   if ([v6 length])
   {
@@ -489,13 +542,11 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     v11 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_25E445000, v11, OS_LOG_TYPE_DEFAULT, "Updating types %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v9;
+      _os_log_impl(&dword_25E445000, v11, OS_LOG_TYPE_DEFAULT, "Updating types %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)transparencyCustomizedForAddress:(id)address
@@ -522,6 +573,23 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
   }
 
   return bOOLValue;
+}
+
+- (void)setTransparencyCustomized:(BOOL)customized forAddress:(id)address
+{
+  customizedCopy = customized;
+  addressCopy = address;
+  if ([addressCopy length])
+  {
+    v6 = MEMORY[0x277CBEB38];
+    transparencyCustomized = [(PASettings *)self transparencyCustomized];
+    v8 = [v6 dictionaryWithDictionary:transparencyCustomized];
+
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:customizedCopy];
+    [v8 setValue:v9 forKey:addressCopy];
+
+    [(PASettings *)self setTransparencyCustomized:v8];
+  }
 }
 
 - (double)transparencyAmplificationForAddress:(id)address
@@ -679,6 +747,23 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
   return bOOLValue;
 }
 
+- (void)setTransparencyBeamforming:(BOOL)beamforming forAddress:(id)address
+{
+  beamformingCopy = beamforming;
+  addressCopy = address;
+  if ([addressCopy length])
+  {
+    v6 = MEMORY[0x277CBEB38];
+    transparencyBeamforming = [(PASettings *)self transparencyBeamforming];
+    v8 = [v6 dictionaryWithDictionary:transparencyBeamforming];
+
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:beamformingCopy];
+    [v8 setValue:v9 forKey:addressCopy];
+
+    [(PASettings *)self setTransparencyBeamforming:v8];
+  }
+}
+
 - (double)transparencyNoiseSupressorForAddress:(id)address
 {
   addressCopy = address;
@@ -748,6 +833,23 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
   return bOOLValue;
 }
 
+- (void)setTransparencyAutobeamformer:(BOOL)autobeamformer forAddress:(id)address
+{
+  autobeamformerCopy = autobeamformer;
+  addressCopy = address;
+  if ([addressCopy length])
+  {
+    v6 = MEMORY[0x277CBEB38];
+    transparencyAutobeamformer = [(PASettings *)self transparencyAutobeamformer];
+    v8 = [v6 dictionaryWithDictionary:transparencyAutobeamformer];
+
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:autobeamformerCopy];
+    [v8 setValue:v9 forKey:addressCopy];
+
+    [(PASettings *)self setTransparencyAutobeamformer:v8];
+  }
+}
+
 - (double)transparencyOwnVoiceForAddress:(id)address
 {
   addressCopy = address;
@@ -791,9 +893,27 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
   }
 }
 
+- (void)setPersonalSoundVisible:(BOOL)visible
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:visible];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"personalSoundVisible"];
+}
+
+- (void)setPersonalMediaDebugMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"PersonalMediaDebug"];
+}
+
+- (void)setPersonalMediaAutomationSkipHeadphoneRequirement:(BOOL)requirement
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:requirement];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"PersonalMediaAutomationSkipHeadphoneRequirementPreference"];
+}
+
 - (void)updateConfiguration:(id *)configuration forRouteID:(id)d
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy length])
   {
@@ -814,15 +934,15 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     v11 = [v10 isEqual:v7];
     v12 = HCLogAudioAccommodations();
     v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    v31 = v9;
+    v30 = v9;
     if (v11)
     {
       if (v13)
       {
         *buf = 138412546;
-        *v33 = dCopy;
-        *&v33[8] = 2112;
-        *&v33[10] = v10;
+        *v32 = dCopy;
+        *&v32[8] = 2112;
+        *&v32[10] = v10;
         _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Skipping update. Configuration didn't change %@ = %@", buf, 0x16u);
       }
     }
@@ -832,9 +952,9 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
       if (v13)
       {
         *buf = 138412546;
-        *v33 = dCopy;
-        *&v33[8] = 2112;
-        *&v33[10] = v7;
+        *v32 = dCopy;
+        *&v32[8] = 2112;
+        *&v32[10] = v7;
         _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Updating config for %@ = %@", buf, 0x16u);
       }
 
@@ -846,7 +966,7 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     {
       v15 = [MEMORY[0x277CCABB0] numberWithBool:configuration->var0];
       *buf = 138412290;
-      *v33 = v15;
+      *v32 = v15;
       _os_log_impl(&dword_25E445000, v14, OS_LOG_TYPE_DEFAULT, "Speech enabled %@", buf, 0xCu);
     }
 
@@ -855,7 +975,7 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     {
       v17 = [MEMORY[0x277CCABB0] numberWithBool:configuration->var1];
       *buf = 138412290;
-      *v33 = v17;
+      *v32 = v17;
       _os_log_impl(&dword_25E445000, v16, OS_LOG_TYPE_DEFAULT, "Media enabled %@", buf, 0xCu);
     }
 
@@ -878,7 +998,7 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     accommodationTypesByRouteUID = [(PASettings *)self accommodationTypesByRouteUID];
 
     v21 = [(PASettings *)self valueForRouteUID:dCopy fromCombinedValue:accommodationTypesByRouteUID];
-    v30 = v10;
+    v29 = v10;
     if (v21 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       unsignedIntegerValue = [v21 unsignedIntegerValue];
@@ -895,19 +1015,19 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
       v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19];
       v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
       *buf = 67109634;
-      *v33 = unsignedIntegerValue != v19;
-      *&v33[4] = 2112;
-      *&v33[6] = v24;
-      *&v33[14] = 2112;
-      *&v33[16] = v25;
+      *v32 = unsignedIntegerValue != v19;
+      *&v32[4] = 2112;
+      *&v32[6] = v24;
+      *&v32[14] = 2112;
+      *&v32[16] = v25;
       _os_log_impl(&dword_25E445000, v23, OS_LOG_TYPE_DEFAULT, "Setting types %d = %@ - %@", buf, 0x1Cu);
     }
 
     if (unsignedIntegerValue == v19)
     {
       v26 = HCLogAudioAccommodations();
-      v28 = v30;
-      v27 = v31;
+      v28 = v29;
+      v27 = v30;
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -918,32 +1038,28 @@ void __39__PASettings_preferenceKeyForSelector___block_invoke()
     else
     {
       [(PASettings *)self setAccommodationTypes:v19 forRouteUID:dCopy];
-      v28 = v30;
-      v27 = v31;
+      v28 = v29;
+      v27 = v30;
     }
 
     [(PASettings *)self setShouldUpdateAccessory:1];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurationFromData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Exception decoding data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Exception decoding data: %@", &v2, 0xCu);
 }
 
 - (void)archivedDataFromConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Exception encoding data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Exception encoding data: %@", &v2, 0xCu);
 }
 
 @end

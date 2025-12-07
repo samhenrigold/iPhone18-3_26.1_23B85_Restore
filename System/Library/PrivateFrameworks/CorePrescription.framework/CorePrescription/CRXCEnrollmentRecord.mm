@@ -18,22 +18,21 @@
 - (NSDate)modifiedDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE4D8B0, &qword_247369DB0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - v5;
-  sub_24735116C(self + OBJC_IVAR___CRXCEnrollmentRecord_modifiedDate, &v13 - v5, &unk_27EE4D8B0, &qword_247369DB0);
-  v7 = sub_247365B94();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_24735116C(self + OBJC_IVAR___CRXCEnrollmentRecord_modifiedDate, &v12 - v4, &unk_27EE4D8B0, &qword_247369DB0);
+  v6 = sub_247365B94();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
-    v11 = sub_247365B54();
-    (*(v8 + 8))(v6, v7);
-    v10 = v11;
+    v10 = sub_247365B54();
+    (*(v7 + 8))(v5, v6);
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

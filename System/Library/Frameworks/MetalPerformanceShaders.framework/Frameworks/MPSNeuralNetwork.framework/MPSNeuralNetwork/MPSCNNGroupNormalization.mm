@@ -15,9 +15,9 @@
 
 - (MPSCNNGroupNormalization)initWithDevice:(id)device dataSource:(id)dataSource
 {
-  v44.receiver = self;
-  v44.super_class = MPSCNNGroupNormalization;
-  v5 = [(MPSCNNKernel *)&v44 initWithDevice:?];
+  v52.receiver = self;
+  v52.super_class = MPSCNNGroupNormalization;
+  v5 = [(MPSCNNKernel *)&v52 initWithDevice:?];
   if (v5)
   {
     if (MPSDevice::GetMPSDevice())
@@ -28,14 +28,14 @@
       {
         v42 = objc_opt_class();
         NSStringFromClass(v42);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x2E4, @"[%@ encode...] filter initialized with no feature channels.", v43, v44, v45, v46);
       }
 
       if (v5->_numberOfFeatureChannels % v5->_numberOfGroups && MTLReportFailureTypeEnabled())
       {
-        v43 = objc_opt_class();
-        NSStringFromClass(v43);
-        MTLReportFailure();
+        v47 = objc_opt_class();
+        NSStringFromClass(v47);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x2E7, @"[%@ encode...] filter: numberOfFeatureChannels must be divisible by numOfGroups.", v48, v49, v50, v51);
       }
 
       v5->_epsilon = 1.1755e-38;
@@ -106,19 +106,19 @@
 
   if (v31 > self->_numberOfFeatureChannels && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x332, @"Cannot create state for images with more feature channels than used to initialize batch normalization filter.", v24, v25, v26, v27);
   }
 
   objc_msgSend_numberOfImages(sourceImage, v21, v22, v23, v24, v25, v26, v27);
   if (objc_msgSend_numberOfImages(sourceImage, v32, v33, v34, v35, v36, v37, v38) != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x335, @"Cannot create state for images containing multiple images.", v42, v43, v44, v45);
   }
 
   objc_msgSend_numberOfImages(destinationImage, v39, v40, v41, v42, v43, v44, v45);
   if (objc_msgSend_numberOfImages(destinationImage, v46, v47, v48, v49, v50, v51, v52) != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x336, @"Cannot create state for images containing multiple images.", v71, v72, v73, v74);
   }
 
   v53 = [MPSCNNGroupNormalizationGradientState alloc];
@@ -156,19 +156,19 @@
 
   if (v32 > self->_numberOfFeatureChannels && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x351, @"Cannot create state for images with more feature channels than used to initialize batch normalization filter.", v25, v26, v27, v28);
   }
 
   objc_msgSend_numberOfImages(sourceImage, v22, v23, v24, v25, v26, v27, v28);
   if (objc_msgSend_numberOfImages(sourceImage, v33, v34, v35, v36, v37, v38, v39) != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x354, @"Cannot create state for images containing multiple images.", v43, v44, v45, v46);
   }
 
   objc_msgSend_numberOfImages(destinationImage, v40, v41, v42, v43, v44, v45, v46);
   if (objc_msgSend_numberOfImages(destinationImage, v47, v48, v49, v50, v51, v52, v53) != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x355, @"Cannot create state for images containing multiple images.", v63, v55, v56, v57);
   }
 
   v61 = objc_msgSend_temporaryStateWithCommandBuffer_numberOfFeatureChannels_groupNormalization_(MPSCNNGroupNormalizationGradientState, v54, commandBuffer, v32, self, v55, v56, v57);
@@ -182,22 +182,22 @@
 
 - (MPSCNNGroupNormalization)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v30.receiver = self;
-  v30.super_class = MPSCNNGroupNormalization;
+  v34.receiver = self;
+  v34.super_class = MPSCNNGroupNormalization;
   v5 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   if (v5)
   {
     if (MPSDevice::GetMPSDevice())
     {
-      v31 = 0;
-      v11 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v6, @"kMPSCNNGroupNormalization.s", &v31, v7, v8, v9, v10);
-      if (v31)
+      v35 = 0;
+      v11 = objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v6, @"kMPSCNNGroupNormalization.s", &v35, v7, v8, v9, v10);
+      if (v35)
       {
         v12 = v11;
         if (v11)
         {
           v13 = objc_alloc(MEMORY[0x277CCACA8]);
-          v18 = objc_msgSend_initWithBytes_length_encoding_(v13, v14, v12, v31 - 1, 1, v15, v16, v17);
+          v18 = objc_msgSend_initWithBytes_length_encoding_(v13, v14, v12, v35 - 1, 1, v15, v16, v17);
           v19 = v18;
           if (v18)
           {
@@ -213,7 +213,7 @@
 
             else if (MTLReportFailureTypeEnabled())
             {
-              MTLReportFailure();
+              MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSCoreInternal.h", 0x2ED, @"Error: Can not decode. Unable to find class implementation for %@.", v29, v30, v31, v32);
             }
           }
         }
@@ -231,9 +231,9 @@
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v64.receiver = self;
-  v64.super_class = MPSCNNGroupNormalization;
-  [(MPSCNNKernel *)&v64 encodeWithCoder:?];
+  v68.receiver = self;
+  v68.super_class = MPSCNNGroupNormalization;
+  [(MPSCNNKernel *)&v68 encodeWithCoder:?];
   if (self->_dataSource)
   {
     if (objc_msgSend_conformsToProtocol_(self->_dataSource, v6, &unk_284D09FA0, v7, v8, v9, v10, v11))
@@ -250,7 +250,7 @@
         NSStringFromClass(v56);
         NSStringFromSelector(a2);
         objc_msgSend_debugDescription(self->_dataSource, v57, v58, v59, v60, v61, v62, v63);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x3AE, @"[%@ %@] Error: dataSource does not support NSSecureCoding\n\t%@", v64, v65, v66, v67);
       }
     }
 
@@ -393,7 +393,7 @@ LABEL_9:
 
   if ((!objc_msgSend_gamma(gammaAndBetaState, v11, v12, v13, v14, v15, v16, v17) || !objc_msgSend_beta(gammaAndBetaState, v18, v19, v20, v21, v22, v23, v24)) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNGroupNormalization.mm", 0x42F, @"state does not have valid gamma and beta buffers.", v28, v29, v30, v31);
   }
 
   gamma = self->_gamma;

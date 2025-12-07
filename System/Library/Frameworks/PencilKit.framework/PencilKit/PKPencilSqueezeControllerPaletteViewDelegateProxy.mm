@@ -5,7 +5,6 @@
 - (NSUndoManager)cachedUndoManager;
 - (id)_currentUndoManager;
 - (id)initWithController:(void *)controller paletteView:;
-- (uint64_t)dismissEyeDropper;
 - (uint64_t)isColorPickerVisible;
 - (unint64_t)paletteViewRedoCount:(id)count;
 - (unint64_t)paletteViewUndoCount:(id)count;
@@ -19,6 +18,7 @@
 - (void)autoRefineSettingsDidChange;
 - (void)colorPickerControllerDidChangeSelectedColor:(id)color isContinuousColorSelection:(BOOL)selection;
 - (void)didDismissViewController:(uint64_t)controller;
+- (void)dismissEyeDropper;
 - (void)handwritingEducationPaneSettingsDidChange;
 - (void)insertStickerFromItemProvider:(id)provider completionHandler:(id)handler;
 - (void)moreOptionsViewControllerDidSelectOpenPencilSettings:(id)settings;
@@ -73,7 +73,7 @@
 
 - (void)pencilInteractionSettingsDidChange
 {
-  if (self)
+  if (result)
   {
     v2 = os_log_create("com.apple.pencilkit", "PencilSqueeze");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -82,7 +82,7 @@
       _os_log_impl(&dword_1C7CCA000, v2, OS_LOG_TYPE_DEFAULT, "Handle pencil interaction settings did change", v3, 2u);
     }
 
-    [(PKPencilSqueezeControllerPaletteViewDelegateProxy *)self _updateMoreOptionsViewController];
+    [(PKPencilSqueezeControllerPaletteViewDelegateProxy *)result _updateMoreOptionsViewController];
   }
 }
 
@@ -122,42 +122,42 @@
   }
 
   v7 = v6;
-  [self[4] setShouldShowTapToRadarOption:-[PKSqueezePaletteViewContext canShowTapToRadar](v7)];
+  [self[4] setShouldShowTapToRadarOption:{-[PKSqueezePaletteViewContext canShowTapToRadar](v7, v8)}];
 
-  v8 = objc_loadWeakRetained(self + 2);
-  v9 = v8;
-  if (v8)
+  v9 = objc_loadWeakRetained(self + 2);
+  v10 = v9;
+  if (v9)
   {
-    v10 = *(v8 + 72);
+    v11 = *(v9 + 72);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = v10;
-  [self[4] setShouldShowResetHandwritingEducationPane:-[PKSqueezePaletteViewContext canShowResetHandwritingEducationPane](v11)];
+  v12 = v11;
+  [self[4] setShouldShowResetHandwritingEducationPane:-[PKSqueezePaletteViewContext canShowResetHandwritingEducationPane](v12)];
 
-  v12 = objc_loadWeakRetained(self + 2);
-  v13 = v12;
-  if (!v12)
+  v13 = objc_loadWeakRetained(self + 2);
+  v14 = v13;
+  if (!v13)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_20;
   }
 
-  v14 = v12[72];
-  if (!v14)
+  v15 = v13[72];
+  if (!v15)
   {
 LABEL_20:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
-  v15 = PKCurrentDeviceSupportsPencil();
+  v16 = PKCurrentDeviceSupportsPencil();
 LABEL_14:
-  [self[4] setShouldShowOpenPencilSettingsOption:v15];
+  [self[4] setShouldShowOpenPencilSettingsOption:v16];
 
   [self[4] setIsAutoRefineOn:{+[PKSettingsDaemon autoRefineEnabled](PKSettingsDaemon, "autoRefineEnabled")}];
   [self[4] setIsProofreadingOn:{+[PKSettingsDaemon proofreadingEnabled](PKSettingsDaemon, "proofreadingEnabled")}];
@@ -193,12 +193,12 @@ LABEL_14:
   }
 }
 
-- (uint64_t)dismissEyeDropper
+- (void)dismissEyeDropper
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 64))
+    if (result[8])
     {
       v2 = os_log_create("com.apple.pencilkit", "PencilSqueeze");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -207,7 +207,7 @@ LABEL_14:
         _os_log_impl(&dword_1C7CCA000, v2, OS_LOG_TYPE_DEFAULT, "Dismiss eye dropper", v3, 2u);
       }
 
-      return [*(v1 + 64) dismissEyeDropper];
+      return [v1[8] dismissEyeDropper];
     }
   }
 
@@ -1147,7 +1147,7 @@ void __96__PKPencilSqueezeControllerPaletteViewDelegateProxy_paletteViewDidInvok
   }
 
   [PKSettingsDaemon setPrefersPencilOnlyDrawing:isFingerDrawsOn ^ 1u];
-  [PKStatisticsManager recordDrawWithFingerToggle:?];
+  [(PKStatisticsManager *)self->_statisticsManager recordDrawWithFingerToggle:isFingerDrawsOn];
   WeakRetained = objc_loadWeakRetained(&self->_controller);
   v7 = WeakRetained;
   if (WeakRetained)

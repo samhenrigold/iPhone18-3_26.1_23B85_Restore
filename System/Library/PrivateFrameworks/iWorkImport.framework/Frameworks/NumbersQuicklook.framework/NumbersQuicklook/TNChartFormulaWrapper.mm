@@ -932,7 +932,7 @@ LABEL_80:
   v10 = selfCopy->_cachedOutputValueVector;
   if (&selfCopy->_cachedChromeCoords != &v201)
   {
-    sub_275F163D0(&selfCopy->_cachedChromeCoords.__begin_, v201, __dst, (__dst - v201) >> 3);
+    sub_275F163D0(&selfCopy->_cachedChromeCoords, v201, __dst, (__dst - v201) >> 3);
   }
 
   selfCopy->_cachedSkipHiddenData = dataCopy;

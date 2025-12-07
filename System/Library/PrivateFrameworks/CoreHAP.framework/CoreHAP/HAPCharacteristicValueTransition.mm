@@ -268,37 +268,37 @@ LABEL_47:
 
 - (id)serializeWithError:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
+  v69 = *MEMORY[0x277D85DE8];
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
+  v52 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
   TLV8BufferInit();
   hAPInstanceID = [(HAPCharacteristicValueTransition *)self HAPInstanceID];
 
   if (hAPInstanceID)
   {
     hAPInstanceID2 = [(HAPCharacteristicValueTransition *)self HAPInstanceID];
-    v48 = 0;
-    v7 = [hAPInstanceID2 serializeWithError:&v48];
-    v8 = v48;
+    v47 = 0;
+    v7 = [hAPInstanceID2 serializeWithError:&v47];
+    v8 = v47;
 
     if (v8)
     {
@@ -334,9 +334,9 @@ LABEL_57:
   if (controllerContext)
   {
     controllerContext2 = [(HAPCharacteristicValueTransition *)self controllerContext];
-    v47 = 0;
-    v7 = [controllerContext2 serializeWithError:&v47];
-    v8 = v47;
+    v46 = 0;
+    v7 = [controllerContext2 serializeWithError:&v46];
+    v8 = v46;
 
     if (!v8)
     {
@@ -369,9 +369,9 @@ LABEL_18:
   if (endBehavior)
   {
     endBehavior2 = [(HAPCharacteristicValueTransition *)self endBehavior];
-    v46 = 0;
-    v7 = [endBehavior2 serializeWithError:&v46];
-    v8 = v46;
+    v45 = 0;
+    v7 = [endBehavior2 serializeWithError:&v45];
+    v8 = v45;
 
     if (v8)
     {
@@ -392,9 +392,9 @@ LABEL_18:
   if (linearTransition)
   {
     linearTransition2 = [(HAPCharacteristicValueTransition *)self linearTransition];
-    v45 = 0;
-    v7 = [linearTransition2 serializeWithError:&v45];
-    v8 = v45;
+    v44 = 0;
+    v7 = [linearTransition2 serializeWithError:&v44];
+    v8 = v44;
 
     if (!v8)
     {
@@ -427,9 +427,9 @@ LABEL_31:
   if (linearDerivedTransition)
   {
     linearDerivedTransition2 = [(HAPCharacteristicValueTransition *)self linearDerivedTransition];
-    v44 = 0;
-    v7 = [linearDerivedTransition2 serializeWithError:&v44];
-    v8 = v44;
+    v43 = 0;
+    v7 = [linearDerivedTransition2 serializeWithError:&v43];
+    v8 = v43;
 
     if (!v8)
     {
@@ -462,9 +462,9 @@ LABEL_40:
   if (valueUpdateTimeInterval)
   {
     valueUpdateTimeInterval2 = [(HAPCharacteristicValueTransition *)self valueUpdateTimeInterval];
-    v43 = 0;
-    v7 = [valueUpdateTimeInterval2 serializeWithError:&v43];
-    v8 = v43;
+    v42 = 0;
+    v7 = [valueUpdateTimeInterval2 serializeWithError:&v42];
+    v8 = v42;
 
     if (v8)
     {
@@ -485,9 +485,9 @@ LABEL_40:
   if (notifyValueChangeThreshold)
   {
     notifyValueChangeThreshold2 = [(HAPCharacteristicValueTransition *)self notifyValueChangeThreshold];
-    v42 = 0;
-    v7 = [notifyValueChangeThreshold2 serializeWithError:&v42];
-    v8 = v42;
+    v41 = 0;
+    v7 = [notifyValueChangeThreshold2 serializeWithError:&v41];
+    v8 = v41;
 
     if (!v8)
     {
@@ -530,9 +530,9 @@ LABEL_53:
   if (notifyTimeIntervalThreshold)
   {
     notifyTimeIntervalThreshold2 = [(HAPCharacteristicValueTransition *)self notifyTimeIntervalThreshold];
-    v41 = 0;
-    v7 = [notifyTimeIntervalThreshold2 serializeWithError:&v41];
-    v8 = v41;
+    v40 = 0;
+    v7 = [notifyTimeIntervalThreshold2 serializeWithError:&v40];
+    v8 = v40;
 
     if (v8)
     {
@@ -549,12 +549,10 @@ LABEL_53:
     }
   }
 
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v49 length:?];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v48 length:?];
   v8 = 0;
 LABEL_58:
   TLV8BufferFree();
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -608,7 +606,7 @@ LABEL_46:
   v14 = bytes + v8;
   while (1)
   {
-    v72 = 0;
+    v72[0] = 0;
     v70[1] = 0;
     v71 = 0;
     v70[0] = 0;
@@ -640,14 +638,14 @@ LABEL_46:
       break;
     }
 
-    if (v72 > 4u)
+    if (v72[0] > 4u)
     {
       v20 = v10;
-      if (v72 > 6u)
+      if (v72[0] > 6u)
       {
-        if (v72 != 7)
+        if (v72[0] != 7)
         {
-          if (v72 != 8)
+          if (v72[0] != 8)
           {
             goto LABEL_31;
           }
@@ -680,9 +678,9 @@ LABEL_46:
 
       else
       {
-        if (v72 != 5)
+        if (v72[0] != 5)
         {
-          if (v72 != 6)
+          if (v72[0] != 6)
           {
             goto LABEL_31;
           }
@@ -722,9 +720,9 @@ LABEL_23:
       goto LABEL_30;
     }
 
-    if (v72 > 2u)
+    if (v72[0] > 2u)
     {
-      if (v72 == 3)
+      if (v72[0] == 3)
       {
         v16 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
         v66 = v9;
@@ -741,7 +739,7 @@ LABEL_23:
         goto LABEL_28;
       }
 
-      if (v72 == 4)
+      if (v72[0] == 4)
       {
         v65 = v9;
         v16 = HAPTLVParseContiguousTlvs(4, bytes, v14, v70, &v65);
@@ -769,7 +767,7 @@ LABEL_29:
 
     else
     {
-      if (v72 == 1)
+      if (v72[0] == 1)
       {
         v16 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
         v69 = v9;
@@ -791,7 +789,7 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      if (v72 == 2)
+      if (v72[0] == 2)
       {
         v68 = v9;
         v16 = HAPTLVParseContiguousTlvs(2, bytes, v14, v70, &v68);

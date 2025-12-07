@@ -15,9 +15,9 @@
     v5 = v3[1];
     v6 = state == 2;
     selfCopy = self;
-    sub_24A5173CC(v4);
+    sub_24A5173CC(v4, v5);
     v4(v6, 0);
-    sub_24A50D354(v4);
+    sub_24A50D354(v4, v5);
     v8 = *v3;
   }
 
@@ -30,7 +30,7 @@
   v10 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_24A50D354(v8);
+  sub_24A50D354(v8, v10);
 }
 
 - (void)didFailWithError:(id)error
@@ -42,10 +42,10 @@
     v6 = v3[1];
     selfCopy = self;
     errorCopy = error;
-    sub_24A5173CC(v4);
+    sub_24A5173CC(v4, v6);
     v4(error, 1);
 
-    sub_24A50D354(v4);
+    sub_24A50D354(v4, v6);
     v9 = *v3;
   }
 
@@ -58,7 +58,7 @@
   v11 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_24A50D354(v9);
+  sub_24A50D354(v9, v11);
 }
 
 - (_TtCC11FMFindingUI22FMR1AvailabilityHelper32FMR1AvailabilityHelperTrampoline)init

@@ -1,13 +1,13 @@
-id AXNTKFormattingManager()
+id AXNTKFormattingManager(uint64_t a1)
 {
   if (AXNTKFormattingManager_onceToken != -1)
   {
     AXNTKFormattingManager_cold_1();
   }
 
-  v1 = AXNTKFormattingManager_FormattingManager;
+  v2 = AXNTKFormattingManager_FormattingManager;
 
-  return v1;
+  return v2;
 }
 
 void __AXNTKFormattingManager_block_invoke()

@@ -1,5 +1,6 @@
 @interface AVTCoreDataStoreBackend
 + (id)cdFetchRequestForAvatarFetchRequest:(id)request recordTransformer:(id)transformer;
++ (id)cdFetchRequestWithPredicate:(id)predicate fetchLimit:(int64_t)limit ascending:(BOOL)ascending;
 - (AVTCoreDataStoreBackend)initWithConfiguration:(id)configuration environment:(id)environment;
 - (AVTCoreDataStoreBackend)initWithConfiguration:(id)configuration recordTransformer:(id)transformer remoteChangesObserver:(id)observer localProcessName:(id)name recordChangeTracker:(id)tracker environment:(id)environment;
 - (AVTStoreBackendDelegate)backendDelegate;
@@ -108,13 +109,13 @@
 
 - (id)recordIdentifiersForManagedObjectIDs:(id)ds managedObjectContext:(id)context error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   contextCopy = context;
   v9 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"Avatar"];
   [v9 setResultType:2];
-  v35[0] = @"identifier";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = @"identifier";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   [v9 setPropertiesToFetch:v10];
 
   dsCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"self in %@", dsCopy];
@@ -123,31 +124,31 @@
   v12 = [contextCopy executeFetchRequest:v9 error:error];
   if (v12)
   {
-    v25 = v9;
-    v26 = contextCopy;
-    v27 = dsCopy;
+    v24 = v9;
+    v25 = contextCopy;
+    v26 = dsCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v24 = v12;
+    v23 = v12;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = [*(*(&v30 + 1) + 8 * i) objectForKeyedSubscript:@"identifier"];
+          v18 = [*(*(&v29 + 1) + 8 * i) objectForKeyedSubscript:@"identifier"];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_respondsToSelector())
           {
@@ -161,16 +162,16 @@
           [array addObject:v21];
         }
 
-        v15 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v15);
     }
 
-    contextCopy = v26;
-    dsCopy = v27;
-    v12 = v24;
-    v9 = v25;
+    contextCopy = v25;
+    dsCopy = v26;
+    v12 = v23;
+    v9 = v24;
   }
 
   else
@@ -178,72 +179,70 @@
     array = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (void)getChangedObjectIDsOfInterest:(id *)interest deletedIdentifiers:(id *)identifiers forTransactions:(id)transactions
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   transactionsCopy = transactions;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   localProcessName = [(AVTCoreDataStoreBackend *)self localProcessName];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = transactionsCopy;
-  v8 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v41;
-    v29 = *v41;
-    v30 = localProcessName;
+    v10 = *v40;
+    v28 = *v40;
+    v29 = localProcessName;
     do
     {
       v11 = 0;
-      v31 = v9;
+      v30 = v9;
       do
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * v11);
+        v12 = *(*(&v39 + 1) + 8 * v11);
         processID = [v12 processID];
         v14 = [processID isEqual:localProcessName];
 
         if ((v14 & 1) == 0)
         {
-          v33 = v11;
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
+          v32 = v11;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           changes = [v12 changes];
-          v16 = [changes countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v16 = [changes countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (!v16)
           {
             goto LABEL_23;
           }
 
           v17 = v16;
-          v18 = *v37;
+          v18 = *v36;
           while (1)
           {
             v19 = 0;
             do
             {
-              if (*v37 != v18)
+              if (*v36 != v18)
               {
                 objc_enumerationMutation(changes);
               }
 
-              v20 = *(*(&v36 + 1) + 8 * v19);
+              v20 = *(*(&v35 + 1) + 8 * v19);
               if (!(*(AVTIsPersistentChangeOfInterest + 2))(AVTIsPersistentChangeOfInterest, v20))
               {
                 logger = [(AVTCoreDataStoreBackend *)self logger];
@@ -283,16 +282,16 @@ LABEL_19:
             }
 
             while (v17 != v19);
-            v25 = [changes countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v25 = [changes countByEnumeratingWithState:&v35 objects:v43 count:16];
             v17 = v25;
             if (!v25)
             {
 LABEL_23:
 
-              v10 = v29;
-              localProcessName = v30;
-              v9 = v31;
-              v11 = v33;
+              v10 = v28;
+              localProcessName = v29;
+              v9 = v30;
+              v11 = v32;
               break;
             }
           }
@@ -302,7 +301,7 @@ LABEL_23:
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v9 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v9);
@@ -310,8 +309,6 @@ LABEL_23:
 
   *interest = [array copy];
   *identifiers = [array2 copy];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startObservingChangesIfNeeded
@@ -446,66 +443,65 @@ LABEL_17:
 
 void __56__AVTCoreDataStoreBackend_avatarsForFetchRequest_error___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = *(a1 + 40);
-  v7 = [*(a1 + 32) recordTransformer];
-  v8 = [v5 cdFetchRequestForAvatarFetchRequest:v6 recordTransformer:v7];
+  v4 = objc_opt_class();
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 32) recordTransformer];
+  v7 = [v4 cdFetchRequestForAvatarFetchRequest:v5 recordTransformer:v6];
 
-  v9 = *(*(a1 + 48) + 8);
-  obj = *(v9 + 40);
-  v10 = [v3 executeFetchRequest:v8 error:&obj];
-  objc_storeStrong((v9 + 40), obj);
-  if (v10)
+  v8 = *(*(a1 + 48) + 8);
+  obj = *(v8 + 40);
+  v9 = [v3 executeFetchRequest:v7 error:&obj];
+  objc_storeStrong((v8 + 40), obj);
+  if (v9)
   {
-    v11 = +[AVTPAvatarStore maximumNumberOfFetchableAvatars];
-    v39 = v8;
-    v40 = v3;
-    if ([v10 count] > v11)
+    v10 = +[AVTPAvatarStore maximumNumberOfFetchableAvatars];
+    v37 = v7;
+    v38 = v3;
+    if ([v9 count] > v10)
     {
-      v12 = [*(a1 + 32) logger];
-      [v12 logTooManyAvatars:objc_msgSend(v10 limit:{"count"), v11}];
+      v11 = [*(a1 + 32) logger];
+      [v11 logTooManyAvatars:objc_msgSend(v9 limit:{"count"), v10}];
 
-      v13 = [v10 subarrayWithRange:{objc_msgSend(v10, "count") - v11, v11}];
+      v12 = [v9 subarrayWithRange:{objc_msgSend(v9, "count") - v10, v10}];
 
-      v10 = v13;
+      v9 = v12;
     }
 
-    v14 = [*(a1 + 40) criteria];
-    v15 = [MEMORY[0x277CBEB18] array];
+    v13 = [*(a1 + 40) criteria];
+    v14 = [MEMORY[0x277CBEB18] array];
+    v43 = 0u;
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v16 = v10;
-    v43 = [v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
-    if (v43)
+    v15 = v9;
+    v41 = [v15 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    if (v41)
     {
-      v17 = *v46;
-      v41 = a1;
-      v42 = v14;
+      v16 = *v44;
+      v39 = a1;
+      v40 = v13;
       do
       {
-        v18 = 0;
+        v17 = 0;
         do
         {
-          if (*v46 != v17)
+          if (*v44 != v16)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * v18);
-          v20 = [*(a1 + 32) recordTransformer];
-          v44 = 0;
-          v21 = [v20 recordWithManagedRecord:v19 error:&v44];
-          v22 = v44;
+          v18 = *(*(&v43 + 1) + 8 * v17);
+          v19 = [*(a1 + 32) recordTransformer];
+          v42 = 0;
+          v20 = [v19 recordWithManagedRecord:v18 error:&v42];
+          v21 = v42;
 
-          if (v21)
+          if (v20)
           {
-            [v15 addObject:v21];
-            if (v14 == 5)
+            [v14 addObject:v20];
+            if (v13 == 5)
             {
 
               goto LABEL_18;
@@ -514,76 +510,73 @@ void __56__AVTCoreDataStoreBackend_avatarsForFetchRequest_error___block_invoke(u
 
           else
           {
-            if ([v22 code] == 703)
+            if ([v21 code] == 703)
             {
-              v23 = MEMORY[0x277CCACA8];
-              v24 = [v22 description];
-              [v22 userInfo];
-              v26 = v25 = v15;
-              [v26 objectForKeyedSubscript:0];
-              v27 = v17;
-              v29 = v28 = v16;
-              v30 = [v23 stringWithFormat:@"%@ : unexpected class is %@", v24, v29];
+              v22 = MEMORY[0x277CCACA8];
+              v23 = [v21 description];
+              [v21 userInfo];
+              v25 = v24 = v14;
+              [v25 objectForKeyedSubscript:0];
+              v26 = v16;
+              v28 = v27 = v15;
+              v29 = [v22 stringWithFormat:@"%@ : unexpected class is %@", v23, v28];
 
-              v16 = v28;
-              v17 = v27;
+              v15 = v27;
+              v16 = v26;
 
-              v15 = v25;
-              a1 = v41;
-              v14 = v42;
+              v14 = v24;
+              a1 = v39;
+              v13 = v40;
 
-              v31 = [*(v41 + 32) logger];
-              v32 = v31;
-              v33 = v30;
-              v34 = 1;
+              v30 = [*(v39 + 32) logger];
+              v31 = v30;
+              v32 = v29;
+              v33 = 1;
             }
 
             else
             {
-              v30 = [*(a1 + 32) logger];
-              v32 = [v22 description];
-              v31 = v30;
-              v33 = v32;
-              v34 = 0;
+              v29 = [*(a1 + 32) logger];
+              v31 = [v21 description];
+              v30 = v29;
+              v32 = v31;
+              v33 = 0;
             }
 
-            [v31 logUnableToReadRemoteRecord:v33 isCritical:v34];
+            [v30 logUnableToReadRemoteRecord:v32 isCritical:v33];
           }
 
-          ++v18;
+          ++v17;
         }
 
-        while (v43 != v18);
-        v43 = [v16 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        while (v41 != v17);
+        v41 = [v15 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
-      while (v43);
+      while (v41);
     }
 
 LABEL_18:
 
-    v35 = [v15 copy];
-    v36 = *(*(a1 + 56) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = v35;
+    v34 = [v14 copy];
+    v35 = *(*(a1 + 56) + 8);
+    v36 = *(v35 + 40);
+    *(v35 + 40) = v34;
 
-    v8 = v39;
-    v3 = v40;
+    v7 = v37;
+    v3 = v38;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveAvatar:(id)avatar error:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   avatarCopy = avatar;
   v6 = MEMORY[0x277CBEA60];
   avatarCopy2 = avatar;
   v8 = [v6 arrayWithObjects:&avatarCopy count:1];
 
-  LOBYTE(error) = [(AVTCoreDataStoreBackend *)self saveAvatars:v8 error:error, avatarCopy, v12];
-  v9 = *MEMORY[0x277D85DE8];
+  LOBYTE(error) = [(AVTCoreDataStoreBackend *)self saveAvatars:v8 error:error, avatarCopy, v11];
   return error;
 }
 
@@ -639,99 +632,98 @@ LABEL_18:
 
 void __45__AVTCoreDataStoreBackend_saveAvatars_error___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __45__AVTCoreDataStoreBackend_saveAvatars_error___block_invoke_2;
-  v47[3] = &unk_278CF9FF0;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __45__AVTCoreDataStoreBackend_saveAvatars_error___block_invoke_2;
+  v45[3] = &unk_278CF9FF0;
   v4 = *(a1 + 32);
-  v47[4] = *(a1 + 40);
-  v5 = [v4 avt_map:v47];
-  v6 = *(a1 + 40);
-  v7 = objc_opt_class();
-  v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"identifier", v5];
-  v9 = [v7 cdFetchRequestWithPredicate:v8 fetchLimit:0];
+  v45[4] = *(a1 + 40);
+  v5 = [v4 avt_map:v45];
+  v6 = objc_opt_class();
+  v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"identifier", v5];
+  v8 = [v6 cdFetchRequestWithPredicate:v7 fetchLimit:0];
 
-  v10 = *(*(a1 + 48) + 8);
-  obj = *(v10 + 40);
-  v11 = [v3 executeFetchRequest:v9 error:&obj];
-  objc_storeStrong((v10 + 40), obj);
-  if (v11)
+  v9 = *(*(a1 + 48) + 8);
+  obj = *(v9 + 40);
+  v10 = [v3 executeFetchRequest:v8 error:&obj];
+  objc_storeStrong((v9 + 40), obj);
+  if (v10)
   {
-    v12 = [MEMORY[0x277CBEAC0] _avtui_dictionaryByIndexingObjectsInArray:v11 by:&__block_literal_global];
-    v13 = *(a1 + 40);
-    v14 = *(*(a1 + 48) + 8);
-    v45 = *(v14 + 40);
-    v15 = [v13 nts_avatarCountWithManagedObjectContext:v3 error:&v45];
-    objc_storeStrong((v14 + 40), v45);
-    if (v15 != 0x7FFFFFFFFFFFFFFFLL)
+    v11 = [MEMORY[0x277CBEAC0] _avtui_dictionaryByIndexingObjectsInArray:v10 by:&__block_literal_global];
+    v12 = *(a1 + 40);
+    v13 = *(*(a1 + 48) + 8);
+    v43 = *(v13 + 40);
+    v14 = [v12 nts_avatarCountWithManagedObjectContext:v3 error:&v43];
+    objc_storeStrong((v13 + 40), v43);
+    if (v14 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v16 = [*(a1 + 32) count];
-      v17 = [v11 count];
-      if (v16 == v17 || v16 + v15 - v17 <= +[AVTPAvatarStore maximumNumberOfSavableAvatars])
+      v15 = [*(a1 + 32) count];
+      v16 = [v10 count];
+      if (v15 == v16 || v15 + v14 - v16 <= +[AVTPAvatarStore maximumNumberOfSavableAvatars])
       {
-        v36 = v11;
-        v37 = v9;
-        v38 = v5;
-        v39 = v3;
-        v43 = 0u;
-        v44 = 0u;
+        v34 = v10;
+        v35 = v8;
+        v36 = v5;
+        v37 = v3;
         v41 = 0u;
         v42 = 0u;
-        v21 = *(a1 + 32);
-        v22 = [v21 countByEnumeratingWithState:&v41 objects:v48 count:16];
-        if (v22)
+        v39 = 0u;
+        v40 = 0u;
+        v20 = *(a1 + 32);
+        v21 = [v20 countByEnumeratingWithState:&v39 objects:v46 count:16];
+        if (v21)
         {
-          v23 = v22;
-          v24 = *v42;
+          v22 = v21;
+          v23 = *v40;
           do
           {
-            for (i = 0; i != v23; ++i)
+            for (i = 0; i != v22; ++i)
             {
-              if (*v42 != v24)
+              if (*v40 != v23)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v20);
               }
 
-              v26 = *(*(&v41 + 1) + 8 * i);
-              v27 = [*(a1 + 40) recordTransformer];
-              v28 = [v26 identifier];
-              v29 = [v27 managedRecordIdentifierForIdentifier:v28];
+              v25 = *(*(&v39 + 1) + 8 * i);
+              v26 = [*(a1 + 40) recordTransformer];
+              v27 = [v25 identifier];
+              v28 = [v26 managedRecordIdentifierForIdentifier:v27];
 
-              v30 = [v12 objectForKeyedSubscript:v29];
-              if (!v30)
+              v29 = [v11 objectForKeyedSubscript:v28];
+              if (!v29)
               {
-                v30 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:@"Avatar" inManagedObjectContext:v39];
+                v29 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:@"Avatar" inManagedObjectContext:v37];
               }
 
-              v31 = [*(a1 + 40) recordTransformer];
-              [v31 updateManagedRecord:v30 withRecord:v26];
+              v30 = [*(a1 + 40) recordTransformer];
+              [v30 updateManagedRecord:v29 withRecord:v25];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v41 objects:v48 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v39 objects:v46 count:16];
           }
 
-          while (v23);
+          while (v22);
         }
 
-        v32 = *(a1 + 40);
-        v33 = *(*(a1 + 48) + 8);
-        v40 = *(v33 + 40);
-        v3 = v39;
-        v34 = [v32 nts_saveManagedObjectContext:v39 error:&v40];
-        objc_storeStrong((v33 + 40), v40);
-        *(*(*(a1 + 56) + 8) + 24) = v34;
-        v9 = v37;
-        v5 = v38;
-        v11 = v36;
+        v31 = *(a1 + 40);
+        v32 = *(*(a1 + 48) + 8);
+        v38 = *(v32 + 40);
+        v3 = v37;
+        v33 = [v31 nts_saveManagedObjectContext:v37 error:&v38];
+        objc_storeStrong((v32 + 40), v38);
+        *(*(*(a1 + 56) + 8) + 24) = v33;
+        v8 = v35;
+        v5 = v36;
+        v10 = v34;
         goto LABEL_18;
       }
 
-      v18 = [AVTError errorWithCode:578 userInfo:0];
-      v19 = *(*(a1 + 48) + 8);
-      v20 = *(v19 + 40);
-      *(v19 + 40) = v18;
+      v17 = [AVTError errorWithCode:578 userInfo:0];
+      v18 = *(*(a1 + 48) + 8);
+      v19 = *(v18 + 40);
+      *(v18 + 40) = v17;
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -742,8 +734,6 @@ LABEL_18:
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
 LABEL_19:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 id __45__AVTCoreDataStoreBackend_saveAvatars_error___block_invoke_2(uint64_t a1, void *a2)
@@ -872,7 +862,7 @@ void __60__AVTCoreDataStoreBackend_deleteAvatarWithIdentifier_error___block_invo
 
 void __55__AVTCoreDataStoreBackend_duplicateAvatarRecord_error___block_invoke(uint64_t a1, void *a2)
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(*(a1 + 48) + 8);
@@ -883,83 +873,80 @@ void __55__AVTCoreDataStoreBackend_duplicateAvatarRecord_error___block_invoke(ui
   {
     if (v6 >= +[AVTPAvatarStore maximumNumberOfSavableAvatars])
     {
-      v24 = [AVTError errorWithCode:578 userInfo:0];
-      v25 = *(*(a1 + 48) + 8);
-      v14 = *(v25 + 40);
-      *(v25 + 40) = v24;
+      v23 = [AVTError errorWithCode:578 userInfo:0];
+      v24 = *(*(a1 + 48) + 8);
+      v13 = *(v24 + 40);
+      *(v24 + 40) = v23;
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = MEMORY[0x277CCAC30];
+      v7 = objc_opt_class();
+      v8 = MEMORY[0x277CCAC30];
+      v9 = [*(a1 + 40) orderDate];
       v10 = [*(a1 + 40) orderDate];
-      v11 = [*(a1 + 40) orderDate];
-      v12 = [v11 dateByAddingTimeInterval:1.0];
-      v13 = [v9 predicateWithFormat:@"%K > %@ AND %K < %@", @"orderDate", v10, @"orderDate", v12];
-      v14 = [v8 cdFetchRequestWithPredicate:v13 fetchLimit:1];
+      v11 = [v10 dateByAddingTimeInterval:1.0];
+      v12 = [v8 predicateWithFormat:@"%K > %@ AND %K < %@", @"orderDate", v9, @"orderDate", v11];
+      v13 = [v7 cdFetchRequestWithPredicate:v12 fetchLimit:1];
 
-      [v14 setResultType:2];
-      v42[0] = @"orderDate";
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
-      [v14 setPropertiesToFetch:v15];
+      [v13 setResultType:2];
+      v40[0] = @"orderDate";
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+      [v13 setPropertiesToFetch:v14];
 
-      v16 = *(*(a1 + 48) + 8);
-      v40 = *(v16 + 40);
-      v17 = [v3 executeFetchRequest:v14 error:&v40];
-      objc_storeStrong((v16 + 40), v40);
-      if (v17)
+      v15 = *(*(a1 + 48) + 8);
+      v38 = *(v15 + 40);
+      v16 = [v3 executeFetchRequest:v13 error:&v38];
+      objc_storeStrong((v15 + 40), v38);
+      if (v16)
       {
-        if ([v17 count])
+        if ([v16 count])
         {
-          v18 = [v17 firstObject];
-          v19 = [v18 objectForKeyedSubscript:@"orderDate"];
-          v20 = [*(a1 + 40) orderDate];
-          [v19 timeIntervalSinceDate:v20];
-          v22 = v21;
+          v17 = [v16 firstObject];
+          v18 = [v17 objectForKeyedSubscript:@"orderDate"];
+          v19 = [*(a1 + 40) orderDate];
+          [v18 timeIntervalSinceDate:v19];
+          v21 = v20;
 
-          v23 = v22 * 0.5;
+          v22 = v21 * 0.5;
         }
 
         else
         {
-          v23 = 0.5;
+          v22 = 0.5;
         }
 
-        v28 = [*(a1 + 40) orderDate];
-        v27 = [v28 dateByAddingTimeInterval:v23];
+        v27 = [*(a1 + 40) orderDate];
+        v26 = [v27 dateByAddingTimeInterval:v22];
 
-        v29 = [AVTAvatarRecord alloc];
-        v30 = [*(a1 + 40) avatarData];
-        v31 = [v30 copy];
-        v32 = [(AVTAvatarRecord *)v29 initWithAvatarData:v31 orderDate:v27];
+        v28 = [AVTAvatarRecord alloc];
+        v29 = [*(a1 + 40) avatarData];
+        v30 = [v29 copy];
+        v31 = [(AVTAvatarRecord *)v28 initWithAvatarData:v30 orderDate:v26];
 
-        v33 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:@"Avatar" inManagedObjectContext:v3];
-        v34 = [*(a1 + 32) recordTransformer];
-        [v34 updateManagedRecord:v33 withRecord:v32];
+        v32 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:@"Avatar" inManagedObjectContext:v3];
+        v33 = [*(a1 + 32) recordTransformer];
+        [v33 updateManagedRecord:v32 withRecord:v31];
 
-        v35 = *(a1 + 32);
-        v36 = *(*(a1 + 48) + 8);
-        v39 = *(v36 + 40);
-        v37 = [v35 nts_saveManagedObjectContext:v3 error:&v39];
-        objc_storeStrong((v36 + 40), v39);
-        if (v37)
+        v34 = *(a1 + 32);
+        v35 = *(*(a1 + 48) + 8);
+        v37 = *(v35 + 40);
+        v36 = [v34 nts_saveManagedObjectContext:v3 error:&v37];
+        objc_storeStrong((v35 + 40), v37);
+        if (v36)
         {
-          objc_storeStrong((*(*(a1 + 56) + 8) + 40), v32);
+          objc_storeStrong((*(*(a1 + 56) + 8) + 40), v31);
         }
       }
 
       else
       {
-        v26 = *(*(a1 + 56) + 8);
-        v27 = *(v26 + 40);
-        *(v26 + 40) = 0;
+        v25 = *(*(a1 + 56) + 8);
+        v26 = *(v25 + 40);
+        *(v25 + 40) = 0;
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)nts_avatarCountWithManagedObjectContext:(id)context error:(id *)error
@@ -1048,9 +1035,32 @@ void __52__AVTCoreDataStoreBackend_canCreateAvatarWithError___block_invoke(void 
   }
 }
 
++ (id)cdFetchRequestWithPredicate:(id)predicate fetchLimit:(int64_t)limit ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277CBE428];
+  predicateCopy = predicate;
+  v9 = [v7 fetchRequestWithEntityName:@"Avatar"];
+  [v9 setPredicate:predicateCopy];
+
+  [v9 setReturnsObjectsAsFaults:0];
+  if (limit)
+  {
+    [v9 setFetchLimit:limit];
+  }
+
+  v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"orderDate" ascending:ascendingCopy];
+  v13[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  [v9 setSortDescriptors:v11];
+
+  return v9;
+}
+
 + (id)cdFetchRequestForAvatarFetchRequest:(id)request recordTransformer:(id)transformer
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   transformerCopy = transformer;
   criteria = [requestCopy criteria];
@@ -1076,33 +1086,33 @@ void __52__AVTCoreDataStoreBackend_canCreateAvatarWithError___block_invoke(void 
       identifiers2 = [requestCopy identifiers];
       v21 = [v19 arrayWithCapacity:{objc_msgSend(identifiers2, "count")}];
 
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       identifiers3 = [requestCopy identifiers];
-      v23 = [identifiers3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v23 = [identifiers3 countByEnumeratingWithState:&v39 objects:v44 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v41;
+        v25 = *v40;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v41 != v25)
+            if (*v40 != v25)
             {
               objc_enumerationMutation(identifiers3);
             }
 
-            v27 = [transformerCopy managedRecordIdentifierForIdentifier:*(*(&v40 + 1) + 8 * i)];
+            v27 = [transformerCopy managedRecordIdentifierForIdentifier:*(*(&v39 + 1) + 8 * i)];
             if (v27)
             {
               [v21 addObject:v27];
             }
           }
 
-          v24 = [identifiers3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+          v24 = [identifiers3 countByEnumeratingWithState:&v39 objects:v44 count:16];
         }
 
         while (v24);
@@ -1131,33 +1141,33 @@ void __52__AVTCoreDataStoreBackend_canCreateAvatarWithError___block_invoke(void 
       identifiers4 = [requestCopy identifiers];
       v11 = [v9 arrayWithCapacity:{objc_msgSend(identifiers4, "count")}];
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       excludingIdentifiers = [requestCopy excludingIdentifiers];
-      v13 = [excludingIdentifiers countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v13 = [excludingIdentifiers countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v37;
+        v15 = *v36;
         do
         {
           for (j = 0; j != v14; ++j)
           {
-            if (*v37 != v15)
+            if (*v36 != v15)
             {
               objc_enumerationMutation(excludingIdentifiers);
             }
 
-            v17 = [transformerCopy managedRecordIdentifierForIdentifier:*(*(&v36 + 1) + 8 * j)];
+            v17 = [transformerCopy managedRecordIdentifierForIdentifier:*(*(&v35 + 1) + 8 * j)];
             if (v17)
             {
               [v11 addObject:v17];
             }
           }
 
-          v14 = [excludingIdentifiers countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v14 = [excludingIdentifiers countByEnumeratingWithState:&v35 objects:v43 count:16];
         }
 
         while (v14);
@@ -1181,8 +1191,6 @@ LABEL_33:
   v29 = 1;
 LABEL_34:
   v33 = [self cdFetchRequestWithPredicate:v18 fetchLimit:fetchLimit ascending:v29];
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

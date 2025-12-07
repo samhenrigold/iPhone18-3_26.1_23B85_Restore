@@ -10,14 +10,14 @@
   v7 = sub_20C138FA4();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (swift_unknownObjectWeakLoadStrong())
   {
     swift_getObjectType();
     errorCopy = error;
     selfCopy = self;
     sub_20C138F94();
-    sub_20BDDD25C();
+    sub_20BDDD25C(v13);
     sub_20C13A764();
 
     swift_unknownObjectRelease();

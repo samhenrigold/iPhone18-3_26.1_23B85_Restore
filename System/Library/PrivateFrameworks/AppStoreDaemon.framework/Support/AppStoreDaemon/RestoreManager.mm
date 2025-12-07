@@ -56,13 +56,13 @@
 - (void)_bootstrapWhenReadyWithInfo:(id)info
 {
   selfa = info;
-  v4 = sub_100006B78();
+  v4 = sub_100006B78(DeviceStateMonitor);
   v5 = sub_10028D40C(self);
   if (sub_10023D5E0(v4))
   {
     if (sub_10023CFD0(v4))
     {
-      v6 = sub_100227468();
+      v6 = sub_100227468(NetworkMonitor);
       v7 = v5 & [v6 isConnected];
 
       if (v7 == 1)
@@ -141,15 +141,15 @@
 
         sub_100287244(self, v48, v50, v47 & 1);
 
-        if (sub_100289018())
+        if (sub_100289018(RestoreManager))
         {
-          if (sub_10028A788(self) < 1 || sub_1003D6248())
+          if (sub_10028A788(self) < 1 || sub_1003D6248(AppDefaultsManager))
           {
             v42 = ASDLogHandleForCategory();
             if (os_log_type_enabled(&v42->super, OS_LOG_TYPE_DEFAULT))
             {
               v51 = sub_10028A788(self);
-              v52 = sub_1003D6248();
+              v52 = sub_1003D6248(AppDefaultsManager);
               *buf = 134218240;
               v59 = v51;
               v60 = 1024;
@@ -203,7 +203,7 @@ LABEL_42:
     v17 = v16;
     v18 = sub_10023D5E0(v4);
     v19 = sub_10023CFD0(v4);
-    v20 = sub_100227468();
+    v20 = sub_100227468(NetworkMonitor);
 
     *buf = 138544386;
     v59 = v16;
@@ -218,7 +218,7 @@ LABEL_42:
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not ready to bootstrap restore for reason: %{public}@. Setup complete: %d migrator complete: %d network available: %d bag loaded: %d", buf, 0x24u);
   }
 
-  v21 = sub_100227468();
+  v21 = sub_100227468(NetworkMonitor);
   if ([v21 isConnected])
   {
 
@@ -266,7 +266,7 @@ LABEL_42:
   }
 
   v28 = +[NSNotificationCenter defaultCenter];
-  v29 = sub_100227468();
+  v29 = sub_100227468(NetworkMonitor);
   [v28 addObserver:self selector:"_handleMonitorStateDidChangeNotification:" name:@"NetworkStateDidChangeNotification" object:v29];
 
   if (self)
@@ -304,7 +304,7 @@ LABEL_26:
     }
 
     v35 = +[NSNotificationCenter defaultCenter];
-    v36 = sub_100006B78();
+    v36 = sub_100006B78(DeviceStateMonitor);
     [v35 addObserver:self selector:"_handleMonitorStateDidChangeNotification:" name:@"DeviceStateDidChangeNotification" object:v36];
 
     if (self)

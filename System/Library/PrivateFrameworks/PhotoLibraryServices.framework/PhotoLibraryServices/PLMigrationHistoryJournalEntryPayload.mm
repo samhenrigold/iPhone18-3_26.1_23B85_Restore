@@ -53,9 +53,9 @@
   if ([propertyCopy requiresConversion])
   {
     v14 = [propertyCopy key];
-    v15 = [v14 isEqualToString:@"globalKeyValues"];
+    isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-    if (v15)
+    if (isEqualToString)
     {
       v16 = MEMORY[0x1E696B0A0];
       v17 = objectCopy;
@@ -103,7 +103,7 @@
   keyCopy = key;
   valueCopy = value;
   builderCopy = builder;
-  if ([keyCopy isEqualToString:@"globalKeyValues"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [MEMORY[0x1E696B0A0] valueTransformerForName:@"PLGlobalKeyValueAnyTransformer"];
     v12 = [v11 transformedValue:valueCopy];

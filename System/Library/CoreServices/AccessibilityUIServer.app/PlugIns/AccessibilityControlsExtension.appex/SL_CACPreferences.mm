@@ -8,7 +8,9 @@
 - (id)alwaysShowOverlayType;
 - (void)setAlwaysShowOverlayType:(id)type;
 - (void)setAttentionAware:(BOOL)aware;
+- (void)setPlaySoundUponRecognition:(BOOL)recognition;
 - (void)setShowHints:(BOOL)hints;
+- (void)setShowTextResponseUponRecognition:(BOOL)recognition;
 @end
 
 @implementation SL_CACPreferences
@@ -66,12 +68,26 @@
   return showTextResponseUponRecognition;
 }
 
+- (void)setShowTextResponseUponRecognition:(BOOL)recognition
+{
+  recognitionCopy = recognition;
+  cacPrefs = [(SL_CACPreferences *)self cacPrefs];
+  [cacPrefs setShowTextResponseUponRecognition:recognitionCopy];
+}
+
 - (BOOL)playSoundUponRecognition
 {
   cacPrefs = [(SL_CACPreferences *)self cacPrefs];
   playSoundUponRecognition = [cacPrefs playSoundUponRecognition];
 
   return playSoundUponRecognition;
+}
+
+- (void)setPlaySoundUponRecognition:(BOOL)recognition
+{
+  recognitionCopy = recognition;
+  cacPrefs = [(SL_CACPreferences *)self cacPrefs];
+  [cacPrefs setPlaySoundUponRecognition:recognitionCopy];
 }
 
 - (BOOL)showHints

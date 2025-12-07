@@ -7,7 +7,7 @@ void __44__IDSService_MSPExtras___msp_currentAccount__block_invoke(uint64_t a1, 
 {
   v24 = *MEMORY[0x277D85DE8];
   v8 = a2;
-  v9 = MSPGetSharedTripLog();
+  v9 = MSPGetSharedTripLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = *(a1 + 40);
@@ -24,14 +24,15 @@ void __44__IDSService_MSPExtras___msp_currentAccount__block_invoke(uint64_t a1, 
     _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "Checking account %lu/%lu: %{private}@ (%{public}@)...", &v16, 0x2Au);
   }
 
-  if ([v8 accountType] == 1 && objc_msgSend(v8, "isActive") && objc_msgSend(v8, "canSend"))
+  v13 = [v8 accountType];
+  if (v13 == 1 && (v13 = [v8 isActive], v13) && (v13 = objc_msgSend(v8, "canSend"), v13))
   {
-    v13 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v16 = 134217984;
       v17 = a3 + 1;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_INFO, "- account %lu is eligible for trip sharing", &v16, 0xCu);
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "- account %lu is eligible for trip sharing", &v16, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -40,15 +41,13 @@ void __44__IDSService_MSPExtras___msp_currentAccount__block_invoke(uint64_t a1, 
 
   else
   {
-    v14 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = MSPGetSharedTripLog(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(v16) = 0;
-      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "- account is NOT eligible for trip sharing", &v16, 2u);
+      _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_DEBUG, "- account is NOT eligible for trip sharing", &v16, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

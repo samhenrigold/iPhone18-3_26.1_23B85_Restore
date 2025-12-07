@@ -81,10 +81,10 @@
   {
     v3 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler);
     selfCopy = self;
-    v5 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v2);
+    v5 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v2, v3);
     v2(v5);
 
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v2);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v2, v3);
   }
 }
 

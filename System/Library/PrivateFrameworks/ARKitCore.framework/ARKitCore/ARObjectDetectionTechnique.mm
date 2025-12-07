@@ -27,7 +27,7 @@
     dataSemaphore = v5->_dataSemaphore;
     v5->_dataSemaphore = v8;
 
-    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique.objectDetection");
+    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.technique.objectDetection", 4294967285);
     loadObjectsQueue = v5->_loadObjectsQueue;
     v5->_loadObjectsQueue = v10;
 
@@ -35,7 +35,7 @@
     detectionSemaphore = v5->_detectionSemaphore;
     v5->_detectionSemaphore = v12;
 
-    v14 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.technique.objectDetection");
+    v14 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.technique.objectDetection", 33, 4294967285);
     processDataQueue = v5->_processDataQueue;
     v5->_processDataQueue = v14;
   }
@@ -212,7 +212,7 @@ uint64_t __66__ARObjectDetectionTechnique_processResultData_timestamp_context___
 
     else
     {
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
       [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
     }
   }
@@ -226,7 +226,7 @@ uint64_t __66__ARObjectDetectionTechnique_processResultData_timestamp_context___
   v5 = self->_detectionSemaphore;
   if (dispatch_semaphore_wait(v5, 0))
   {
-    [blockingCopy timestamp];
+    objc_msgSend_timestamp(blockingCopy);
     [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
   }
 
@@ -265,19 +265,19 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
 
 - (void)_processImageDataInBackgound:(id)backgound
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   backgoundCopy = backgound;
   dispatch_assert_queue_V2(self->_processDataQueue);
-  [backgoundCopy timestamp];
+  objc_msgSend_timestamp(backgoundCopy);
   kdebug_trace();
   currentWorldTrackingPose = [(ARObjectDetectionTechnique *)self currentWorldTrackingPose];
   if (currentWorldTrackingPose && (-[ARObjectDetectionTechnique currentWorldTrackingPose](self, "currentWorldTrackingPose"), v6 = objc_claimAutoreleasedReturnValue(), [v6 worldTrackingState], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "vioTrackingState"), v7, v6, currentWorldTrackingPose, !v8))
   {
     odtHandleManager = self->_odtHandleManager;
     currentWorldTrackingPose2 = [(ARObjectDetectionTechnique *)self currentWorldTrackingPose];
-    v35 = 0;
-    LODWORD(odtHandleManager) = [(ARODTHandleManager *)odtHandleManager detectReferenceObjectsForImageData:backgoundCopy worldTrackingPose:currentWorldTrackingPose2 imageContext:0 pResultArray:&v35];
-    v9 = v35;
+    v36 = 0;
+    LODWORD(odtHandleManager) = [(ARODTHandleManager *)odtHandleManager detectReferenceObjectsForImageData:backgoundCopy worldTrackingPose:currentWorldTrackingPose2 imageContext:0 pResultArray:&v36];
+    v9 = v36;
 
     if (odtHandleManager)
     {
@@ -290,7 +290,7 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
       v12 = objc_opt_new();
       v13 = 0;
       *&v14 = 138543874;
-      v34 = v14;
+      v35 = v14;
       while ([v9 count] > v13)
       {
         referenceObjecteMap = [(ARObjectDetectionTechnique *)self referenceObjecteMap];
@@ -301,13 +301,13 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
 
         if (v19)
         {
-          v20 = objc_opt_new();
-          v21 = [v9 objectAtIndexedSubscript:v13];
-          [v21 visionTransform];
-          [v20 setVisionTransform:?];
+          v21 = objc_opt_new();
+          v22 = [v9 objectAtIndexedSubscript:v13];
+          [v22 visionTransform];
+          [v21 setVisionTransform:?];
 
-          [v20 setReferenceObject:v19];
-          [v12 addObject:v20];
+          [v21 setReferenceObject:v19];
+          [v12 addObject:v21];
         }
 
         else
@@ -317,40 +317,40 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
             [ARObjectDetectionTechnique _processImageDataInBackgound:];
           }
 
-          v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v23 = _ARLogGeneral();
-          v20 = v23;
-          if (v22 == 1)
+          v23 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v24 = _ARLogGeneral(v20);
+          v21 = v24;
+          if (v23 == 1)
           {
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              v24 = objc_opt_class();
-              v25 = NSStringFromClass(v24);
-              v26 = [v9 objectAtIndexedSubscript:v13];
-              detectedObjectID = [v26 detectedObjectID];
-              *buf = v34;
-              v38 = v25;
-              v39 = 2048;
+              v25 = objc_opt_class();
+              v26 = NSStringFromClass(v25);
+              v27 = [v9 objectAtIndexedSubscript:v13];
+              detectedObjectID = [v27 detectedObjectID];
+              *buf = v35;
+              v39 = v26;
+              v40 = 2048;
               selfCopy2 = self;
-              v41 = 2048;
-              v42 = detectedObjectID;
-              _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unknown 'detectedObjectID' %llu encountered.", buf, 0x20u);
+              v42 = 2048;
+              v43 = detectedObjectID;
+              _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unknown 'detectedObjectID' %llu encountered.", buf, 0x20u);
             }
           }
 
-          else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v28 = objc_opt_class();
-            v29 = NSStringFromClass(v28);
-            v30 = [v9 objectAtIndexedSubscript:v13];
-            detectedObjectID2 = [v30 detectedObjectID];
-            *buf = v34;
-            v38 = v29;
-            v39 = 2048;
+            v29 = objc_opt_class();
+            v30 = NSStringFromClass(v29);
+            v31 = [v9 objectAtIndexedSubscript:v13];
+            detectedObjectID2 = [v31 detectedObjectID];
+            *buf = v35;
+            v39 = v30;
+            v40 = 2048;
             selfCopy2 = self;
-            v41 = 2048;
-            v42 = detectedObjectID2;
-            _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unknown 'detectedObjectID' %llu encountered.", buf, 0x20u);
+            v42 = 2048;
+            v43 = detectedObjectID2;
+            _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unknown 'detectedObjectID' %llu encountered.", buf, 0x20u);
           }
         }
 
@@ -359,11 +359,11 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
 
       if ([v12 count])
       {
-        v32 = objc_opt_new();
-        [v32 setDetectedObjects:v12];
-        v36 = v32;
-        v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-        [(ARImageBasedTechnique *)self pushResultData:v33 forFrame:0];
+        v33 = objc_opt_new();
+        [v33 setDetectedObjects:v12];
+        v37 = v33;
+        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+        [(ARImageBasedTechnique *)self pushResultData:v34 forFrame:0];
       }
 
       else
@@ -371,7 +371,7 @@ void __68__ARObjectDetectionTechnique__enqueueObjectForDetectionNonBlocking___bl
         [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forFrame:0];
       }
 
-      [backgoundCopy timestamp];
+      objc_msgSend_timestamp(backgoundCopy);
       [v9 count];
       kdebug_trace();
       dispatch_semaphore_signal(self->_detectionSemaphore);

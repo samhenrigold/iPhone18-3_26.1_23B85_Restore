@@ -28,7 +28,7 @@
 
 - (void)dealloc
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAAccountServiceDaemonConnection *)self dealloc];
@@ -128,8 +128,7 @@ id __56__AAAccountUserNotificationDaemonConnection__connection__block_invoke(uin
     v23[3] = &unk_1E7C9A818;
     objc_copyWeak(&v24, &location);
     [v13 setInvalidationHandler:v23];
-    [*(*(a1 + 32) + 16) resume];
-    v14 = _AALogSystem();
+    v14 = _AALogSystem([*(*(a1 + 32) + 16) resume]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __56__AAAccountUserNotificationDaemonConnection__connection__block_invoke_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
@@ -158,7 +157,7 @@ void __56__AAAccountUserNotificationDaemonConnection__connection__block_invoke_3
 
 - (void)_connectionInterruptionHandler
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAAccountUserNotificationDaemonConnection *)v3 _connectionInterruptionHandler:v4];
@@ -184,7 +183,7 @@ void __75__AAAccountUserNotificationDaemonConnection__connectionInterruptionHand
 
 - (void)_connectionInvalidationHandler
 {
-  v3 = _AALogSystem();
+  v3 = _AALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAAccountUserNotificationDaemonConnection *)v3 _connectionInvalidationHandler:v4];

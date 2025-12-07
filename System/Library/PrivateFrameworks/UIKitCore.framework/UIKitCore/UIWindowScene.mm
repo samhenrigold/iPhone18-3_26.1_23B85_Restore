@@ -105,7 +105,7 @@
 - (void)_enqueueEvaluationOfDisablesMirroring;
 - (void)_enrollInSuperlayerSecurityAnalysis;
 - (void)_enumerateWindowsIncludingInternalWindows:(BOOL)windows onlyVisibleWindows:(BOOL)visibleWindows asCopy:(BOOL)copy stopped:(BOOL *)stopped withBlock:(id)block;
-- (void)_evaluateSceneKeyWindowForWindowMadeKey:(char)key consideringVisibility:(int)visibility findingNewKeyWindowIfNeeded:(int)needed ignoringOldKeyWindow:(void *)window forReason:;
+- (void)_evaluateSceneKeyWindowForWindowMadeKey:(char)key consideringVisibility:(int)visibility findingNewKeyWindowIfNeeded:(unsigned int)needed ignoringOldKeyWindow:(void *)window forReason:;
 - (void)_finishSceneConnection;
 - (void)_hostTraitCollectionDidChange:(id)change;
 - (void)_internalInterfaceOrientation;
@@ -120,11 +120,11 @@
 - (void)_prepareForResume;
 - (void)_prepareForSuspend;
 - (void)_previousKeyWindowDidChangeVisibility;
-- (void)_pushKeyWindow:(int)window ignoringOldKeyWindow:;
+- (void)_pushKeyWindow:(uint64_t)window ignoringOldKeyWindow:;
 - (void)_readySceneForConnection;
 - (void)_registerAuxiliaryChildEnvironmentForTraitInvalidations:(id)invalidations;
 - (void)_registerSceneComponent:(id)component forKey:(id)key;
-- (void)_removeWindowFromKeyWindowHistoryFindingNewKeyWindowIfNeeded:(int)needed ignoringOldKeyWindow:(void *)window forReason:;
+- (void)_removeWindowFromKeyWindowHistoryFindingNewKeyWindowIfNeeded:(uint64_t)needed ignoringOldKeyWindow:(void *)window forReason:;
 - (void)_requestSceneDestructionForAllScenes:(void *)scenes;
 - (void)_scheduleResizeFinishedActionAndFadeOutSnapshot;
 - (void)_screenDidChangeFromScreen:(id)screen toScreen:(id)toScreen;
@@ -252,7 +252,7 @@
 
 - (_UIDisplayInfoProviding)_displayInfoProvider
 {
-  if ([UIApp _sceneSettingsIncludeSafeAreaInsets] && ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceIOSDeviceInsets, @"ForceIOSDeviceInsets", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48A8BC))
+  if ([UIApp _sceneSettingsIncludeSafeAreaInsets] && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceIOSDeviceInsets, @"ForceIOSDeviceInsets", _UIInternalPreferenceUpdateBool) || !byte_1ED48A8BC))
   {
     _effectiveUISettings = [(UIScene *)self _effectiveUISettings];
     if ([_effectiveUISettings isUISubclass])
@@ -333,7 +333,7 @@ LABEL_2:
   {
     session = [(UIScene *)self session];
     role = [session role];
-    v5 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"] ^ 1;
+    v5 = objc_msgSend_isEqualToString_(role) ^ 1;
   }
 
   else
@@ -636,10 +636,10 @@ uint64_t __52__UIWindowScene__internalOverrideUserInterfaceStyle__block_invoke()
 uint64_t __49__UIWindowScene__supportsPassthroughInteractions__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  v1 = [v0 isEqualToString:@"com.apple.assistivetouchd"];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
 
   result = [UIApp _isSpringBoard];
-  if (result & 1) != 0 || (result = +[UIApplication _isSystemUIService](UIApplication, "_isSystemUIService"), (result) || (result = +[UIApplication _isUIKitSystemProcess], ((result | v1)))
+  if (result & 1) != 0 || (result = +[UIApplication _isSystemUIService](UIApplication, "_isSystemUIService"), (result) || (result = +[UIApplication _isUIKitSystemProcess], ((result | isEqualToString)))
   {
     v3 = 0;
   }
@@ -797,7 +797,7 @@ void __78__UIWindowScene__screenTraitCollectionWithOverridesAppliedFromSceneUISe
 
   v5 = transitionEffectiveGeometry;
   v4 = [UIWindowSceneGeometry _calculateEffectiveGeometryForWindowScene:?];
-  if (!v5 || ([v4 isEqual:v5] & 1) == 0)
+  if (!v5 || (objc_msgSend_isEqual_(v4) & 1) == 0)
   {
     [(UIWindowScene *)self _startChangeToNewEffectiveGeometrySettingValue:v4];
     [(UIWindowScene *)self _completeChangeFromPreviousEffectiveGeometry:v5];
@@ -994,16 +994,16 @@ void __78__UIWindowScene__screenTraitCollectionWithOverridesAppliedFromSceneUISe
   if (session)
   {
     role = [session role];
-    v6 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
   _enhancedWindowingEnabled = 0;
-  if (_MergedGlobals_73_0 == 1 && (v6 & 1) == 0)
+  if (_MergedGlobals_73_0 == 1 && (isEqualToString & 1) == 0)
   {
     _enhancedWindowingEnabled = [(UIWindowScene *)self _enhancedWindowingEnabled];
   }
@@ -1095,11 +1095,11 @@ void __78__UIWindowScene__screenTraitCollectionWithOverridesAppliedFromSceneUISe
     isFrontBoard = [UIApp isFrontBoard];
     session = [(UIScene *)self session];
     role = [session role];
-    v12 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
 
     _visibleWindows = [(UIWindowScene *)self _visibleWindows];
 
-    if ((isFrontBoard & 1) == 0 && (v12 & 1) == 0 && !_visibleWindows)
+    if ((isFrontBoard & 1) == 0 && (isEqualToString & 1) == 0 && !_visibleWindows)
     {
       v14 = *(__UILogGetCategoryCachedImpl("WindowScene", &_performDeferredInitialWindowUpdateForConnection___s_category) + 8);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -1530,7 +1530,7 @@ LABEL_8:
   return _contextMenuSceneComponent;
 }
 
-uint64_t __54__UIWindowScene__enqueueEvaluationOfDisablesMirroring__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__54__UIWindowScene__enqueueEvaluationOfDisablesMirroring__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _canDisableMirroring];
   if (result)
@@ -2531,8 +2531,8 @@ void __54__UIWindowScene__windowOrientationPreferencesObserver__block_invoke_2(u
 
 LABEL_5:
     windowScene = [windowCopy windowScene];
-    v10 = [windowScene isEqual:self];
-    if ((v10 & 1) == 0)
+    isEqual = objc_msgSend_isEqual_(windowScene);
+    if ((isEqual & 1) == 0)
     {
       [windowScene _detachWindow:windowCopy];
       [(UIWindowScene *)self _delegate_windowWillAttach:windowCopy];
@@ -2562,7 +2562,7 @@ LABEL_5:
 
       if (v14)
       {
-        v15 = v10;
+        v15 = isEqual;
       }
 
       else
@@ -2688,10 +2688,11 @@ LABEL_18:
   }
 }
 
-- (void)_removeWindowFromKeyWindowHistoryFindingNewKeyWindowIfNeeded:(int)needed ignoringOldKeyWindow:(void *)window forReason:
+- (void)_removeWindowFromKeyWindowHistoryFindingNewKeyWindowIfNeeded:(uint64_t)needed ignoringOldKeyWindow:(void *)window forReason:
 {
   if (self)
   {
+    neededCopy = needed;
     windowScene = [a2 windowScene];
     if (windowScene == self)
     {
@@ -2742,7 +2743,7 @@ LABEL_11:
 LABEL_14:
         if (self[47] == v10)
         {
-          [(UIWindowScene *)self _evaluateSceneKeyWindowForWindowMadeKey:1 consideringVisibility:1 findingNewKeyWindowIfNeeded:needed ignoringOldKeyWindow:window forReason:?];
+          [(UIWindowScene *)self _evaluateSceneKeyWindowForWindowMadeKey:1 consideringVisibility:1 findingNewKeyWindowIfNeeded:neededCopy ignoringOldKeyWindow:window forReason:?];
         }
       }
     }
@@ -3789,10 +3790,11 @@ LABEL_5:
   return v4;
 }
 
-- (void)_pushKeyWindow:(int)window ignoringOldKeyWindow:
+- (void)_pushKeyWindow:(uint64_t)window ignoringOldKeyWindow:
 {
   if (self)
   {
+    windowCopy = window;
     if (!a2)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -3855,12 +3857,12 @@ LABEL_15:
       }
 
       v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %p: Window requested to become key in scene: %p", objc_opt_class(), self, a2];
-      [(UIWindowScene *)self _evaluateSceneKeyWindowForWindowMadeKey:0 consideringVisibility:0 findingNewKeyWindowIfNeeded:window ignoringOldKeyWindow:v14 forReason:?];
+      [(UIWindowScene *)self _evaluateSceneKeyWindowForWindowMadeKey:0 consideringVisibility:0 findingNewKeyWindowIfNeeded:windowCopy ignoringOldKeyWindow:v14 forReason:?];
     }
   }
 }
 
-- (void)_evaluateSceneKeyWindowForWindowMadeKey:(char)key consideringVisibility:(int)visibility findingNewKeyWindowIfNeeded:(int)needed ignoringOldKeyWindow:(void *)window forReason:
+- (void)_evaluateSceneKeyWindowForWindowMadeKey:(char)key consideringVisibility:(int)visibility findingNewKeyWindowIfNeeded:(unsigned int)needed ignoringOldKeyWindow:(void *)window forReason:
 {
   v90 = *MEMORY[0x1E69E9840];
   windowCopy = window;
@@ -4234,7 +4236,7 @@ void __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_consideringVis
   }
 }
 
-uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_consideringVisibility_findingNewKeyWindowIfNeeded_ignoringOldKeyWindow_forReason___block_invoke_2_278(uint64_t result)
+void *__138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_consideringVisibility_findingNewKeyWindowIfNeeded_ignoringOldKeyWindow_forReason___block_invoke_2_278(void *result)
 {
   v20 = *MEMORY[0x1E69E9840];
   if (*(result + 64) == 1)
@@ -4242,7 +4244,7 @@ uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_considerin
     v1 = result;
     if (*(result + 65) == 1)
     {
-      result = *(result + 32);
+      result = result[4];
       if (result)
       {
         v2 = objc_opt_class();
@@ -4253,9 +4255,9 @@ uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_considerin
           v5 = *(CategoryCachedImpl + 8);
           if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
           {
-            v6 = *(v1 + 56);
-            v7 = *(v1 + 32);
-            v8 = *(v1 + 40);
+            v6 = v1[7];
+            v7 = v1[4];
+            v8 = v1[5];
             v9 = v5;
             v10 = 136447234;
             v11 = v6;
@@ -4271,8 +4273,8 @@ uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_considerin
           }
         }
 
-        [*(v1 + 32) resignKeyWindow];
-        return [*(v1 + 48) postNotificationName:@"UIWindowDidResignKeyNotification" object:*(v1 + 32)];
+        [v1[4] resignKeyWindow];
+        return [v1[6] postNotificationName:@"UIWindowDidResignKeyNotification" object:v1[4]];
       }
     }
   }
@@ -4280,16 +4282,16 @@ uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_considerin
   return result;
 }
 
-uint64_t __138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_consideringVisibility_findingNewKeyWindowIfNeeded_ignoringOldKeyWindow_forReason___block_invoke_279(uint64_t result)
+id *__138__UIWindowScene__evaluateSceneKeyWindowForWindowMadeKey_consideringVisibility_findingNewKeyWindowIfNeeded_ignoringOldKeyWindow_forReason___block_invoke_279(id *result)
 {
   if (*(result + 48) == 1)
   {
     v1 = result;
     if (*(result + 49) == 1)
     {
-      [*(result + 32) becomeKeyWindow];
-      v3 = *(v1 + 32);
-      v2 = *(v1 + 40);
+      [result[4] becomeKeyWindow];
+      v3 = v1[4];
+      v2 = v1[5];
 
       return [v2 postNotificationName:@"UIWindowDidBecomeKeyNotification" object:v3];
     }
@@ -4477,7 +4479,7 @@ void __55__UIWindowScene__computeMetrics_withTransitionContext___block_invoke(ui
   v22 = [UIWindowSceneGeometry _calculateEffectiveGeometryForWindowScene:v15];
   v23 = v22;
   v67 = v22;
-  if (callback || !v8 || ([v22 isEqual:v8] & 1) == 0)
+  if (callback || !v8 || (objc_msgSend_isEqual_(v22) & 1) == 0)
   {
     [(UIWindowScene *)v15 _startChangeToNewEffectiveGeometrySettingValue:v23];
     v24 = 1;
@@ -4536,7 +4538,7 @@ LABEL_10:
     LOBYTE(v31) = CGRectEqualToRect(v78, v79);
     interfaceOrientation = [_effectiveSettings2 interfaceOrientation];
     interfaceOrientation2 = [_oldSettings interfaceOrientation];
-    v51 = [v30 isEqual:v32];
+    isEqual = objc_msgSend_isEqual_(v30);
 
     v52 = v31 ^ 1;
     if (interfaceOrientation != interfaceOrientation2)
@@ -4544,7 +4546,7 @@ LABEL_10:
       v52 = 1;
     }
 
-    v27 = v52 | v51 ^ 1;
+    v27 = v52 | isEqual ^ 1;
   }
 
   v53 = *(__UILogGetCategoryCachedImpl("InterfaceStyle", &_computeTraitCollectionAndCoordinateSpaceForcingDelegateCallback_withAction____s_category) + 8);
@@ -4669,9 +4671,9 @@ LABEL_10:
 
   if (v14 && v15)
   {
-    v19 = [v14 isEqual:v15];
+    isEqual = objc_msgSend_isEqual_(v14);
 
-    if (v19)
+    if (isEqual)
     {
       goto LABEL_14;
     }

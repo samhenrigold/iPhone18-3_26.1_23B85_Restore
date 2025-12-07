@@ -15,10 +15,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    DTKPSetupLogging();
+    DTKPSetupLogging(v3, v4);
   }
 }
 
@@ -146,7 +147,7 @@ LABEL_6:
 
 - (int)start:(id *)start
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lock = [(DTKPTrigger *)self lock];
   dispatch_semaphore_wait(lock, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -155,9 +156,9 @@ LABEL_6:
   {
     *buf = 67109632;
     triggerID = [(DTKPTrigger *)self triggerID];
+    v26 = 2048;
+    v27 = [(DTKPTriggerTime *)self sampleRate]/ 0x3E8;
     v28 = 2048;
-    v29 = [(DTKPTriggerTime *)self sampleRate]/ 0x3E8;
-    v30 = 2048;
     pmcEventCount = [(DTKPTrigger *)self pmcEventCount];
     _os_log_impl(&dword_247F67000, v6, OS_LOG_TYPE_DEBUG, "DTKPTriggerTime: Starting Time Trigger (%d). Period: %lld us. PMCs: %lu", buf, 0x1Cu);
   }
@@ -228,17 +229,16 @@ LABEL_6:
               *buf = 1;
               if (sysctlbyname("kperf.lightweight_pet", 0, 0, buf, 4uLL))
               {
-                v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error enabling LPET mode: %d", *__error()];
-                v15 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPTriggerTime", start, 4294967290, v23);
+                v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error enabling LPET mode: %d", *__error()];
+                v15 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPTriggerTime", start, 4294967290, v22);
 
                 goto LABEL_19;
               }
 
-              timerID = self->_timerID;
               if (kperf_timer_pet_set())
               {
-                v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error enabling the PET mode timer: %d", *__error()];
-                v15 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPTriggerTime", start, 4294967290, v25);
+                v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error enabling the PET mode timer: %d", *__error()];
+                v15 = DTKPSetErrorAndOrLogWithFileAndLine(1, "DTKPTriggerTime", start, 4294967290, v23);
 
                 goto LABEL_19;
               }
@@ -266,7 +266,6 @@ LABEL_19:
   lock2 = [(DTKPTrigger *)self lock];
   dispatch_semaphore_signal(lock2);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

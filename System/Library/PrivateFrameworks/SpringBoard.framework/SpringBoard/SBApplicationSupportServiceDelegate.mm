@@ -252,118 +252,117 @@ void __129__SBApplicationSupportServiceDelegate_destroyScenesWithPersistentIdent
   }
 }
 
-void __129__SBApplicationSupportServiceDelegate_destroyScenesWithPersistentIdentifiers_animationType_destroySessions_forClient_completion___block_invoke_2(uint64_t a1)
+void __129__SBApplicationSupportServiceDelegate_destroyScenesWithPersistentIdentifiers_animationType_destroySessions_forClient_completion___block_invoke_2(uint64_t a1, const char *a2)
 {
   v40 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  v36 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(v36, 0, sizeof(v36));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 realToken];
+    objc_msgSend_realToken(v3, a2);
   }
 
-  v3 = SBRunningApplicationForAuditToken();
-  v4 = [MEMORY[0x277CBEB58] set];
-  v31 = 0u;
+  v4 = SBRunningApplicationForAuditToken(v36);
+  v5 = [MEMORY[0x277CBEB58] set];
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v26 = a1;
-  v5 = *(a1 + 40);
-  v28 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v28)
+  v35 = 0u;
+  v27 = a1;
+  v6 = *(a1 + 40);
+  v29 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  if (v29)
   {
-    v6 = *v32;
-    v7 = off_2783A1000;
-    v27 = *v32;
+    v7 = *v33;
+    v8 = off_2783A1000;
+    v28 = *v33;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v32 != v6)
+        if (*v33 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
-        v10 = [(__objc2_class *)v7[364] sharedInstance];
-        v11 = [v10 sceneManagerForPersistenceIdentifier:v9];
+        v10 = *(*(&v32 + 1) + 8 * i);
+        v11 = [(__objc2_class *)v8[364] sharedInstance];
+        v12 = [v11 sceneManagerForPersistenceIdentifier:v10];
 
-        v12 = [v11 existingSceneHandleForPersistenceIdentifier:v9];
-        if (v12)
+        v13 = [v12 existingSceneHandleForPersistenceIdentifier:v10];
+        if (v13)
         {
-          v13 = v12;
+          v14 = v13;
         }
 
         else
         {
-          v15 = [v3 _sceneIdentifierForStoredPersistenceIdentifier:v9];
-          if (!v15)
+          v16 = [v4 _sceneIdentifierForStoredPersistenceIdentifier:v10];
+          if (!v16)
           {
-            v13 = 0;
+            v14 = 0;
             goto LABEL_17;
           }
 
-          v16 = v15;
-          v17 = v5;
-          v18 = v4;
-          v19 = [MEMORY[0x277D0ADC0] identityForIdentifier:v15];
-          v20 = [v11 displayIdentity];
-          v21 = [SBApplicationSceneHandleRequest defaultRequestForApplication:v3 sceneIdentity:v19 displayIdentity:v20];
+          v17 = v16;
+          v18 = v6;
+          v19 = v5;
+          v20 = [MEMORY[0x277D0ADC0] identityForIdentifier:v16];
+          v21 = [v12 displayIdentity];
+          v22 = [SBApplicationSceneHandleRequest defaultRequestForApplication:v4 sceneIdentity:v20 displayIdentity:v21];
 
-          v13 = [v11 fetchOrCreateApplicationSceneHandleForRequest:v21];
+          v14 = [v12 fetchOrCreateApplicationSceneHandleForRequest:v22];
 
-          v4 = v18;
-          v5 = v17;
-          if (!v13)
+          v5 = v19;
+          v6 = v18;
+          if (!v14)
           {
-            v6 = v27;
-            v7 = off_2783A1000;
+            v7 = v28;
+            v8 = off_2783A1000;
             goto LABEL_17;
           }
 
-          v6 = v27;
-          v7 = off_2783A1000;
+          v7 = v28;
+          v8 = off_2783A1000;
         }
 
-        v14 = [v13 application];
+        v15 = [v14 application];
 
-        if (v14 == v3)
+        if (v15 == v4)
         {
-          [v4 addObject:v13];
+          [v5 addObject:v14];
         }
 
 LABEL_17:
       }
 
-      v28 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v29 = [v6 countByEnumeratingWithState:&v32 objects:v39 count:16];
     }
 
-    while (v28);
+    while (v29);
   }
 
-  if ([v4 count])
+  if ([v5 count])
   {
-    v22 = SBApplicationSceneEntityDestructionMakeIntentFromServicesRequest(*(v26 + 56), *(v26 + 64));
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __129__SBApplicationSupportServiceDelegate_destroyScenesWithPersistentIdentifiers_animationType_destroySessions_forClient_completion___block_invoke_3;
-    v29[3] = &unk_2783B7568;
-    v30 = *(v26 + 48);
-    SBWorkspaceDestroyApplicationSceneHandlesWithIntent(v4, v22, v29);
-    v23 = v30;
+    v23 = SBApplicationSceneEntityDestructionMakeIntentFromServicesRequest(*(v27 + 56), *(v27 + 64));
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __129__SBApplicationSupportServiceDelegate_destroyScenesWithPersistentIdentifiers_animationType_destroySessions_forClient_completion___block_invoke_3;
+    v30[3] = &unk_2783B7568;
+    v31 = *(v27 + 48);
+    SBWorkspaceDestroyApplicationSceneHandlesWithIntent(v5, v23, v30);
+    v24 = v31;
   }
 
   else
   {
-    v24 = *(v26 + 48);
-    v25 = MEMORY[0x277CCA9B8];
+    v25 = *(v27 + 48);
+    v26 = MEMORY[0x277CCA9B8];
     v37 = *MEMORY[0x277CCA470];
     v38 = @"No scene handles found for provided persistence IDs.";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v23 = [v25 errorWithDomain:@"SBApplicationSupportService" code:2 userInfo:v22];
-    (*(v24 + 16))(v24, 0, v23);
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v24 = [v26 errorWithDomain:@"SBApplicationSupportService" code:2 userInfo:v23];
+    (*(v25 + 16))(v25, 0, v24);
   }
 }
 

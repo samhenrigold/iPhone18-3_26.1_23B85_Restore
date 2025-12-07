@@ -16,35 +16,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_contents count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v5 = self->_contents;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v31;
+      v8 = *v30;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v31 != v8)
+          if (*v30 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v7);
@@ -56,30 +56,30 @@
   if ([(NSArray *)self->_filters count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v12 = self->_filters;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation2 = [*(*(&v26 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v25 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v14);
@@ -99,8 +99,6 @@
   userTask = [(_INPBControlHomeIntent *)self userTask];
   dictionaryRepresentation5 = [userTask dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"userTask"];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -305,70 +303,68 @@ LABEL_28:
 
 - (void)writeTo:(id)to
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   v5 = self->_contents;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  v26 = 0u;
-  v27 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v11 = self->_filters;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v12)
+  v21 = 0u;
+  v22 = 0u;
+  v10 = self->_filters;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v25;
+    v12 = v11;
+    v13 = *v22;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v14)
+        if (*v22 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * v15);
         PBDataWriterWriteSubmessage();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   intentMetadata = [(_INPBControlHomeIntent *)self intentMetadata];
@@ -394,8 +390,6 @@ LABEL_28:
     userTask2 = [(_INPBControlHomeIntent *)self userTask];
     PBDataWriterWriteSubmessage();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFilters:(id)filters

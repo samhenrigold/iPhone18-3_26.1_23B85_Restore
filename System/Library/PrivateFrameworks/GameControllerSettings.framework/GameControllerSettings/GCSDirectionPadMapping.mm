@@ -2,6 +2,8 @@
 + (id)archivalClasses;
 - (BOOL)isCustomized;
 - (GCSDirectionPadMapping)initWithCoder:(id)coder;
+- (GCSDirectionPadMapping)initWithElementKey:(id)key mappingKey:(id)mappingKey remappingOrder:(int)order;
+- (GCSDirectionPadMapping)initWithElementKey:(id)key mappingKey:(id)mappingKey remappingOrder:(int)order invertHorizontally:(BOOL)horizontally invertVertically:(BOOL)vertically swapAxes:(BOOL)axes;
 - (GCSDirectionPadMapping)initWithJSONObject:(id)object;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -10,6 +12,28 @@
 @end
 
 @implementation GCSDirectionPadMapping
+
+- (GCSDirectionPadMapping)initWithElementKey:(id)key mappingKey:(id)mappingKey remappingOrder:(int)order
+{
+  v6.receiver = self;
+  v6.super_class = GCSDirectionPadMapping;
+  return [(GCSElementMapping *)&v6 initWithElementKey:key mappingKey:mappingKey remappingOrder:*&order];
+}
+
+- (GCSDirectionPadMapping)initWithElementKey:(id)key mappingKey:(id)mappingKey remappingOrder:(int)order invertHorizontally:(BOOL)horizontally invertVertically:(BOOL)vertically swapAxes:(BOOL)axes
+{
+  v12.receiver = self;
+  v12.super_class = GCSDirectionPadMapping;
+  result = [(GCSElementMapping *)&v12 initWithElementKey:key mappingKey:mappingKey remappingOrder:*&order];
+  if (result)
+  {
+    result->_invertHorizontally = horizontally;
+    result->_invertVertically = vertically;
+    result->_swapAxes = axes;
+  }
+
+  return result;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {
@@ -111,25 +135,23 @@
 
 - (id)jsonObject
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = GCSDirectionPadMapping;
-  jsonObject = [(GCSElementMapping *)&v11 jsonObject];
+  v12[3] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = GCSDirectionPadMapping;
+  jsonObject = [(GCSElementMapping *)&v10 jsonObject];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary addEntriesFromDictionary:jsonObject];
-  v12[0] = @"invertHorizontally";
+  v11[0] = @"invertHorizontally";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_invertHorizontally];
-  v13[0] = v5;
-  v12[1] = @"invertVertically";
+  v12[0] = v5;
+  v11[1] = @"invertVertically";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_invertVertically];
-  v13[1] = v6;
-  v12[2] = @"swapAxes";
+  v12[1] = v6;
+  v11[2] = @"swapAxes";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_swapAxes];
-  v13[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [dictionary addEntriesFromDictionary:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

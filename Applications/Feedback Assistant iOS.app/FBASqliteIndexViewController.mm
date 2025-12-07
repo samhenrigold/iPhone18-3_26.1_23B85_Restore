@@ -11,6 +11,7 @@
 - (void)documentInteractionControllerDidEndPreview:(id)preview;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBASqliteIndexViewController
@@ -34,6 +35,30 @@
   v2.receiver = self;
   v2.super_class = FBASqliteIndexViewController;
   [(FBASqliteIndexViewController *)&v2 didReceiveMemoryWarning];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = FBASqliteIndexViewController;
+  [(FBASqliteIndexViewController *)&v12 viewWillAppear:appear];
+  dbUrl = [(FBASqliteIndexViewController *)self dbUrl];
+  lastPathComponent = [dbUrl lastPathComponent];
+  navigationItem = [(FBASqliteIndexViewController *)self navigationItem];
+  [navigationItem setTitle:lastPathComponent];
+
+  v7 = [FBASqliteReader alloc];
+  dbUrl2 = [(FBASqliteIndexViewController *)self dbUrl];
+  v9 = [(FBASqliteReader *)v7 initWithFile:dbUrl2];
+  [(FBASqliteIndexViewController *)self setReader:v9];
+
+  v10 = dispatch_get_global_queue(0, 0);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100038D78;
+  block[3] = &unk_1000DE430;
+  block[4] = self;
+  dispatch_async(v10, block);
 }
 
 + (BOOL)canDisplayURL:(id)l

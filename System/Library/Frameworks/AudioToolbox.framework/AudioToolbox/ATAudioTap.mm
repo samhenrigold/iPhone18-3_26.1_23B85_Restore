@@ -86,13 +86,13 @@
 
 - (ATAudioTap)initWithTapDescription:(id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if (descriptionCopy)
   {
-    v12.receiver = self;
-    v12.super_class = ATAudioTap;
-    v6 = [(ATAudioTap *)&v12 init];
+    v11.receiver = self;
+    v11.super_class = ATAudioTap;
+    v6 = [(ATAudioTap *)&v11 init];
     v7 = v6;
     if (v6)
     {
@@ -109,16 +109,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "ATAudioTap.mm";
-      v15 = 1024;
-      v16 = 409;
+      v13 = "ATAudioTap.mm";
+      v14 = 1024;
+      v15 = 409;
       _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d tapDescription should be non-nil", buf, 0x12u);
     }
 
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

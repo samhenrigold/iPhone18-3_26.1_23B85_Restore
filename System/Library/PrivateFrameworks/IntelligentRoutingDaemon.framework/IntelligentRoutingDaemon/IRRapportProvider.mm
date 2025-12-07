@@ -59,7 +59,7 @@
 
 - (void)addObserver:(id)observer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
   if (![(NSHashTable *)self->_observers containsObject:observerCopy])
@@ -74,11 +74,11 @@
       v8 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
       {
-        v11 = 136315394;
-        v12 = "#rapport-provider, ";
-        v13 = 2112;
-        v14 = v7;
-        _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEBUG, "%s[%@], Registering for rapport discovery notifications", &v11, 0x16u);
+        v10 = 136315394;
+        v11 = "#rapport-provider, ";
+        v12 = 2112;
+        v13 = v7;
+        _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEBUG, "%s[%@], Registering for rapport discovery notifications", &v10, 0x16u);
       }
 
       [(IRRapportProvider *)self _startRapportDiscovery];
@@ -89,8 +89,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -109,7 +107,7 @@
 
 - (void)didUpdateRapportDevices:(id)devices
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   os_unfair_lock_lock(&self->_lock);
   if (([(NSSet *)self->_knownDevices isEqual:devicesCopy]& 1) == 0)
@@ -119,30 +117,30 @@
     self->_knownDevices = v5;
 
     v7 = [(NSSet *)self->_knownDevices copy];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = self->_observers;
-    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v9)
     {
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) provider:self didUpdateRapportDevices:{v7, v13}];
+          [*(*(&v12 + 1) + 8 * v11++) provider:self didUpdateRapportDevices:{v7, v12}];
         }
 
         while (v9 != v11);
-        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -152,8 +150,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logActiveDevices
@@ -166,27 +162,25 @@
 
 - (void)_logActiveDevices
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [(NSSet *)self->_knownDevices copy];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __38__IRRapportProvider__logActiveDevices__block_invoke;
-  v10[3] = &unk_2797E1250;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __38__IRRapportProvider__logActiveDevices__block_invoke;
+  v9[3] = &unk_2797E1250;
   v5 = v3;
-  v11 = v5;
-  [v4 enumerateObjectsUsingBlock:v10];
+  v10 = v5;
+  [v4 enumerateObjectsUsingBlock:v9];
   v6 = *MEMORY[0x277D21270];
   if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = [v5 componentsJoinedByString:@"\n"];
     *buf = 138412290;
-    v13 = v8;
+    v12 = v8;
     _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#rapport-provider, Rapport Active Devices:\n%@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __38__IRRapportProvider__logActiveDevices__block_invoke(uint64_t a1, void *a2)
@@ -208,7 +202,7 @@ void __38__IRRapportProvider__logActiveDevices__block_invoke(uint64_t a1, void *
 
 - (void)_stopDiscoveryAndResetKnownDevicesIfNeeded
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   allObjects = [(NSHashTable *)self->_observers allObjects];
   v4 = [allObjects count];
 
@@ -218,11 +212,11 @@ void __38__IRRapportProvider__logActiveDevices__block_invoke(uint64_t a1, void *
     v6 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315394;
-      v11 = "#rapport-provider, ";
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], unregistering for rapport discovery notifications and reset knownDevices", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "#rapport-provider, ";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_25543D000, v6, OS_LOG_TYPE_DEBUG, "%s[%@], unregistering for rapport discovery notifications and reset knownDevices", &v9, 0x16u);
     }
 
     [(IRRapportProvider *)self _stopRapportDiscovery];
@@ -230,8 +224,6 @@ void __38__IRRapportProvider__logActiveDevices__block_invoke(uint64_t a1, void *
     knownDevices = self->_knownDevices;
     self->_knownDevices = v7;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -55,6 +55,7 @@
 - (void)installApplication:(id)application withProvisioningProfileInfo:(id)info forTestFlight:(BOOL)flight onDeviceWithPairingID:(id)d completion:(id)completion;
 - (void)installApplicationAtURL:(id)l onDeviceWithPairingID:(id)d installOptions:(id)options size:(int64_t)size completion:(id)completion;
 - (void)installProvisioningProfileWithData:(id)data onDeviceWithPairingID:(id)d completion:(id)completion;
+- (void)installRequestFailedForApp:(id)app forDeviceWithPairingID:(id)d failureReason:(id)reason wasUserInitiated:(BOOL)initiated completion:(id)completion;
 - (void)killDaemonForTesting:(id)testing;
 - (void)removeApplication:(id)application fromDeviceWithPairingID:(id)d completion:(id)completion;
 - (void)removeProvisioningProfileWithID:(id)d fromDeviceWithPairingID:(id)iD completion:(id)completion;
@@ -240,7 +241,7 @@
   v4 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -3002,6 +3003,64 @@ LABEL_16:
     else
     {
       completionCopy[2](completionCopy, 0, v14);
+    }
+  }
+}
+
+- (void)installRequestFailedForApp:(id)app forDeviceWithPairingID:(id)d failureReason:(id)reason wasUserInitiated:(BOOL)initiated completion:(id)completion
+{
+  initiatedCopy = initiated;
+  appCopy = app;
+  dCopy = d;
+  reasonCopy = reason;
+  completionCopy = completion;
+  if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+  {
+    [(ACXDeviceConnectionClient *)self clientName];
+    v27 = dCopy;
+    v25 = v29 = reasonCopy;
+    v26 = appCopy;
+    MOLogWrite();
+  }
+
+  v16 = [NSString stringWithUTF8String:"[ACXDeviceConnectionClient installRequestFailedForApp:forDeviceWithPairingID:failureReason:wasUserInitiated:completion:]", v25, v26, v27, v29];
+  v17 = [(ACXDeviceConnectionClient *)self _hasEntitlement:@"com.apple.companionappd.connect.allow" forRequestType:v16];
+
+  if (v17)
+  {
+    completionCopy[2](completionCopy, v17);
+  }
+
+  else
+  {
+    v30 = 0;
+    v18 = [(ACXDeviceConnectionClient *)self _deviceForPairingID:dCopy error:&v30];
+    v19 = v30;
+    if (v18)
+    {
+      if ([v18 isReachable])
+      {
+        companionSyncConnectionManager = [(ACXDeviceConnectionClient *)self companionSyncConnectionManager];
+        v21 = [companionSyncConnectionManager connectionForDevice:v18];
+
+        [v21 noteInstallFailure:reasonCopy forWatchAppWithBundleID:appCopy wasUserInitiated:initiatedCopy];
+        completionCopy[2](completionCopy, 0);
+      }
+
+      else
+      {
+        uUIDString = [dCopy UUIDString];
+        clientName = [(ACXDeviceConnectionClient *)self clientName];
+        v24 = sub_1000061DC("[ACXDeviceConnectionClient installRequestFailedForApp:forDeviceWithPairingID:failureReason:wasUserInitiated:completion:]", 1666, @"ACXErrorDomain", 55, 0, 0, @"Ignoring request to send message to gizmo about install request failure for app %@ as the device with pairing ID %@ isn't reachable (requested by %@)", v23, appCopy);
+
+        completionCopy[2](completionCopy, v24);
+        v19 = v24;
+      }
+    }
+
+    else
+    {
+      completionCopy[2](completionCopy, v19);
     }
   }
 }

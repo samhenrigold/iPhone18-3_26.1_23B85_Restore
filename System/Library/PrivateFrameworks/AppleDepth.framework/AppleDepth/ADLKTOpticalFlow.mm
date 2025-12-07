@@ -56,12 +56,12 @@
   pyramidsArrayCopy = pyramidsArray;
   mapCopy = map;
   confidenceMapCopy = confidenceMap;
-  v102.origin.x = x;
-  v102.origin.y = y;
-  v102.size.width = width;
-  v102.size.height = height;
-  v79 = pyramidsArrayCopy;
-  if (CGRectIsNull(v102))
+  v96.origin.x = x;
+  v96.origin.y = y;
+  v96.size.width = width;
+  v96.size.height = height;
+  v73 = pyramidsArrayCopy;
+  if (CGRectIsNull(v96))
   {
     v23 = [pyramidsArrayCopy objectAtIndexedSubscript:0];
     width = [v23 width];
@@ -92,30 +92,30 @@
         v31 = [pyramidsArrayCopy objectAtIndexedSubscript:0];
         height2 = [v31 height];
 
-        v99 = 335681520;
-        v100 = 0u;
-        v101 = 0u;
+        v93 = 335681520;
+        v94 = 0u;
+        v95 = 0u;
         kdebug_trace();
         uv_tex = self->_uv_tex;
         [(ADLKTOpticalFlow *)self _zeroFlowWithCommandBuffer:bufferCopy uv_tex:self->_uv_pxbuf[self->_nscales + 1]];
-        v84 = confidenceMapCopy;
+        v78 = confidenceMapCopy;
         v33 = width;
         *&v34 = v33 / width2;
         v35 = height;
         *(&v34 + 1) = v35 / height2;
-        v85 = v34;
+        v79 = v34;
         nscales = self->_nscales;
         if (nscales < 1)
         {
-          v91 = 0;
+          v85 = 0;
         }
 
         else
         {
           v37 = 0;
-          v91 = 0;
+          v85 = 0;
           nwarpings = self->_nwarpings;
-          v81 = nscales - 1;
+          v75 = nscales - 1;
           w_tex = self->_w_tex;
           __asm { FMOV            V8.2S, #1.0 }
 
@@ -134,109 +134,111 @@
             v48 = nwarpings[v46];
             if (v48)
             {
-              v80 = v43;
+              v74 = v43;
               _ZF = v48 == 1 && v43 == 1;
               if (_ZF && !self->_useNonLocalRegularization)
               {
                 v50 = mapCopy;
-                firstScaleStride = self->_firstScaleStride;
               }
 
               else
               {
                 v50 = uv_tex[v37 ^ 1][v46];
-                firstScaleStride = 1;
               }
 
               if (self->_useNonLocalRegularization && nwarpings[v46] == 1)
               {
-                v52 = w_tex[v46];
+                v51 = w_tex[v46];
 
-                v91 = v52;
+                v85 = v51;
               }
 
-              v53 = v84 && v46 == [(ADLKTConfidenceParameters *)self->_confidenceParameters scaleIdxForConfidenceComponents]&& nwarpings[v46] == 1;
-              v97 = 0u;
-              v98 = 0u;
+              if (v78)
+              {
+                [(ADLKTConfidenceParameters *)self->_confidenceParameters scaleIdxForConfidenceComponents];
+              }
+
+              v91 = 0u;
+              v92 = 0u;
               *buf = 0u;
-              v54 = uv_tex[v37];
-              [(ADLKTOpticalFlow *)self _prepareLKTGPUUniforms:v54[v81] out_uv_tex:v50 coeff:firstScaleStride stride:v53 computeConfidenceComponents:v47];
-              v55 = [arrayCopy objectAtIndexedSubscript:v46];
-              v56 = [derivitiveArrayCopy objectAtIndexedSubscript:v46];
-              v57 = [featuresArrayCopy objectAtIndexedSubscript:v46];
-              v58 = [previousDerivitiveArrayCopy objectAtIndexedSubscript:v46];
-              v59 = v54[v81];
-              v93 = *buf;
-              v94 = v97;
-              v95 = v98;
-              [(ADLKTOpticalFlow *)self _doSolverWithCommandBuffer:bufferCopy currentFeatures:v55 currentDerivitive:v56 previousFeatures:v57 previousDerivitive:v58 in_uv_tex:v59 out_uv_tex:v85 out_w_tex:v50 uniforms:v91 cropSizeRatio:&v93];
+              objc_msgSend__prepareLKTGPUUniforms_out_uv_tex_coeff_stride_computeConfidenceComponents_(self, v47);
+              v52 = [arrayCopy objectAtIndexedSubscript:v46];
+              v53 = [derivitiveArrayCopy objectAtIndexedSubscript:v46];
+              v54 = [featuresArrayCopy objectAtIndexedSubscript:v46];
+              v55 = [previousDerivitiveArrayCopy objectAtIndexedSubscript:v46];
+              v56 = uv_tex[v37][v75];
+              v87 = *buf;
+              v88 = v91;
+              v89 = v92;
+              [(ADLKTOpticalFlow *)self _doSolverWithCommandBuffer:bufferCopy currentFeatures:v52 currentDerivitive:v53 previousFeatures:v54 previousDerivitive:v55 in_uv_tex:v56 out_uv_tex:v79 out_w_tex:v50 uniforms:v85 cropSizeRatio:&v87];
 
               v37 ^= 1uLL;
-              v60 = nwarpings[v46];
-              if (v60 >= 2)
+              v57 = nwarpings[v46];
+              if (v57 >= 2)
               {
-                for (i = 2; i <= v60; ++i)
+                for (i = 2; i <= v57; ++i)
                 {
-                  if (i != v60 || v46 || self->_useNonLocalRegularization)
+                  if (i != v57 || v46 || self->_useNonLocalRegularization)
                   {
-                    v62 = uv_tex[v37 ^ 1][v46];
-                    v63 = 1;
+                    v59 = uv_tex[v37 ^ 1][v46];
                   }
 
                   else
                   {
-                    v62 = mapCopy;
-                    v63 = self->_firstScaleStride;
+                    v59 = mapCopy;
                   }
 
                   if (self->_useNonLocalRegularization && i == nwarpings[v46])
                   {
-                    v64 = w_tex[v46];
+                    v60 = w_tex[v46];
 
-                    v91 = v64;
+                    v85 = v60;
                   }
 
-                  v65 = v84 && v46 == [(ADLKTConfidenceParameters *)self->_confidenceParameters scaleIdxForConfidenceComponents]&& i == nwarpings[v46];
-                  v97 = 0u;
-                  v98 = 0u;
+                  if (v78)
+                  {
+                    [(ADLKTConfidenceParameters *)self->_confidenceParameters scaleIdxForConfidenceComponents];
+                  }
+
+                  v91 = 0u;
+                  v92 = 0u;
                   *buf = 0u;
-                  v66 = uv_tex[v37];
-                  [(ADLKTOpticalFlow *)self _prepareLKTGPUUniforms:v66[v46] out_uv_tex:v62 coeff:v63 stride:v65 computeConfidenceComponents:_D8];
-                  v67 = [arrayCopy objectAtIndexedSubscript:v46];
-                  v68 = [derivitiveArrayCopy objectAtIndexedSubscript:v46];
-                  v69 = [featuresArrayCopy objectAtIndexedSubscript:v46];
-                  v70 = [previousDerivitiveArrayCopy objectAtIndexedSubscript:v46];
-                  v71 = v66[v46];
-                  v93 = *buf;
-                  v94 = v97;
-                  v95 = v98;
-                  [(ADLKTOpticalFlow *)self _doSolverWithCommandBuffer:bufferCopy currentFeatures:v67 currentDerivitive:v68 previousFeatures:v69 previousDerivitive:v70 in_uv_tex:v71 out_uv_tex:v85 out_w_tex:v62 uniforms:v91 cropSizeRatio:&v93];
+                  objc_msgSend__prepareLKTGPUUniforms_out_uv_tex_coeff_stride_computeConfidenceComponents_(self, _D8);
+                  v61 = [arrayCopy objectAtIndexedSubscript:v46];
+                  v62 = [derivitiveArrayCopy objectAtIndexedSubscript:v46];
+                  v63 = [featuresArrayCopy objectAtIndexedSubscript:v46];
+                  v64 = [previousDerivitiveArrayCopy objectAtIndexedSubscript:v46];
+                  v65 = uv_tex[v37][v46];
+                  v87 = *buf;
+                  v88 = v91;
+                  v89 = v92;
+                  [(ADLKTOpticalFlow *)self _doSolverWithCommandBuffer:bufferCopy currentFeatures:v61 currentDerivitive:v62 previousFeatures:v63 previousDerivitive:v64 in_uv_tex:v65 out_uv_tex:v79 out_w_tex:v59 uniforms:v85 cropSizeRatio:&v87];
 
                   v37 ^= 1uLL;
                   nwarpings = self->_nwarpings;
-                  v60 = self->_nwarpings[v46];
+                  v57 = self->_nwarpings[v46];
                 }
               }
 
-              v81 = v46;
-              v43 = v80;
+              v75 = v46;
+              v43 = v74;
             }
 
             if (self->_useNonLocalRegularization)
             {
-              v72 = uv_tex[v37 ^ 1][v46];
+              v66 = uv_tex[v37 ^ 1][v46];
               if (!v46)
               {
-                v73 = mapCopy;
+                v67 = mapCopy;
 
-                v72 = v73;
+                v66 = v67;
               }
 
-              v74 = [(MTLTexture *)uv_tex[v37][v46] newTextureViewWithPixelFormat:53];
-              v75 = [v79 objectAtIndexedSubscript:v46];
-              v76 = [v75 newTextureViewWithPixelFormat:53];
+              v68 = [(MTLTexture *)uv_tex[v37][v46] newTextureViewWithPixelFormat:53];
+              v69 = [v73 objectAtIndexedSubscript:v46];
+              v70 = [v69 newTextureViewWithPixelFormat:53];
 
-              [(ADLKTOpticalFlow *)self _doNLRegularizationWithCommandBuffer:bufferCopy in_uv_tex:v74 join_tex:v76 w_tex:v91 out_uv_tex:v72 cropSizeRatio:v85];
+              [(ADLKTOpticalFlow *)self _doNLRegularizationWithCommandBuffer:bufferCopy in_uv_tex:v68 join_tex:v70 w_tex:v85 out_uv_tex:v66 cropSizeRatio:v79];
               v37 ^= 1uLL;
             }
 
@@ -247,16 +249,16 @@
           while (!v45);
         }
 
-        confidenceMapCopy = v84;
-        if (v84)
+        confidenceMapCopy = v78;
+        if (v78)
         {
-          [(ADLKTOpticalFlow *)self _computeConfidence:bufferCopy shiftMap:mapCopy outConfidenceMap:v84 cropSizeRatio:v85];
+          [(ADLKTOpticalFlow *)self _computeConfidence:bufferCopy shiftMap:mapCopy outConfidenceMap:v78 cropSizeRatio:v79];
         }
 
         kdebug_trace();
-        pyramidsArrayCopy = v79;
-        v77 = 0;
-        goto LABEL_59;
+        pyramidsArrayCopy = v73;
+        v71 = 0;
+        goto LABEL_55;
       }
     }
 
@@ -266,7 +268,7 @@
       _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "validBufferRect is larger input size", buf, 2u);
     }
 
-    v77 = -22957;
+    v71 = -22957;
   }
 
   else
@@ -277,12 +279,12 @@
       _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "validBufferRect origin is different than (0,0)", buf, 2u);
     }
 
-    v77 = -22951;
+    v71 = -22951;
   }
 
-LABEL_59:
+LABEL_55:
 
-  return v77;
+  return v71;
 }
 
 - (int64_t)encodePyramidFeaturesToCommandBuffer:(id)buffer grayscaleTexture:(id)texture validBufferRect:(CGRect)rect outPyramidsArray:(id)array outFeaturesArray:(id)featuresArray outDerivitiveArray:(id)derivitiveArray outMeanIntensityAtCoarsestScale:(id)scale
@@ -553,7 +555,7 @@ LABEL_11:
   height = size.height;
   width = size.width;
   deviceCopy = device;
-  +[ADLKTOpticalFlow defaultConfig];
+  objc_msgSend_defaultConfig(ADLKTOpticalFlow);
   scalesCopy = scales;
   v12[0] = scales;
   v10 = v16;

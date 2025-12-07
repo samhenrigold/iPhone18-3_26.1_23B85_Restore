@@ -72,179 +72,179 @@
 - (id)featureValueForName:(id)name
 {
   nameCopy = name;
-  if ([nameCopy isEqualToString:@"HomeSSD_class_prob0"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_class_prob0];
 LABEL_51:
     v7 = homeSSD_class_prob0;
-    v8 = [v5 featureValueWithMultiArray:homeSSD_class_prob0];
+    v8 = [v5 featureValueWithMultiArray:?];
 
     goto LABEL_52;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box0_offset0"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box0_offset0];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box1_offset0"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box1_offset0];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_roll0"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_roll0];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_yaw0"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_yaw0];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_class_prob1"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_class_prob1];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box0_offset1"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box0_offset1];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box1_offset1"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box1_offset1];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_roll1"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_roll1];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_yaw1"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_yaw1];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_class_prob2"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_class_prob2];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box0_offset2"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box0_offset2];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box1_offset2"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box1_offset2];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_roll2"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_roll2];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_yaw2"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_yaw2];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_class_prob3"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_class_prob3];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box0_offset3"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box0_offset3];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box1_offset3"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box1_offset3];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_roll3"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_roll3];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_yaw3"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_yaw3];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_class_prob4"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_class_prob4];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box0_offset4"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box0_offset4];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_box1_offset4"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_box1_offset4];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_roll4"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_roll4];
     goto LABEL_51;
   }
 
-  if ([nameCopy isEqualToString:@"HomeSSD_object_yaw4"])
+  if ([nameCopy isEqualToString:?])
   {
     v5 = MEMORY[0x277CBFEF8];
     homeSSD_class_prob0 = [(SignificantActivityFcosOutput *)self HomeSSD_object_yaw4];

@@ -29,7 +29,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDPhotoLibraryObserver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -45,9 +45,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Update timer fired", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Update timer fired", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -64,9 +64,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change debounce timer fired", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change debounce timer fired", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -74,30 +74,16 @@
 LABEL_9:
     [delegate observerDidObserveChange:self];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)photoLibraryPersonsDidChange
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDPhotoLibraryObserver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   initiallyDebouncedChangeDate = [(HMDPhotoLibraryObserver *)self initiallyDebouncedChangeDate];
-  if (!initiallyDebouncedChangeDate)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = initiallyDebouncedChangeDate;
-  initiallyDebouncedChangeDate2 = [(HMDPhotoLibraryObserver *)self initiallyDebouncedChangeDate];
-  [initiallyDebouncedChangeDate2 timeIntervalSinceNow];
-  v8 = -v7;
-  [(HMDPhotoLibraryObserver *)self changeDebounceLimit];
-  v10 = v9;
-
-  if (v10 < v8)
+  if (initiallyDebouncedChangeDate && (v5 = initiallyDebouncedChangeDate, -[HMDPhotoLibraryObserver initiallyDebouncedChangeDate](self, "initiallyDebouncedChangeDate"), v6 = objc_claimAutoreleasedReturnValue(), [v6 timeIntervalSinceNow], v8 = -v7, -[HMDPhotoLibraryObserver changeDebounceLimit](self, "changeDebounceLimit"), v10 = v9, v6, v5, v10 < v8))
   {
     v11 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -105,12 +91,12 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      initiallyDebouncedChangeDate3 = [(HMDPhotoLibraryObserver *)selfCopy initiallyDebouncedChangeDate];
-      v24 = 138543618;
-      v25 = v14;
-      v26 = 2112;
-      v27 = initiallyDebouncedChangeDate3;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change; handling change immediately since we've been debouncing since %@", &v24, 0x16u);
+      initiallyDebouncedChangeDate2 = [(HMDPhotoLibraryObserver *)selfCopy initiallyDebouncedChangeDate];
+      v23 = 138543618;
+      v24 = v14;
+      v25 = 2112;
+      v26 = initiallyDebouncedChangeDate2;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change; handling change immediately since we've been debouncing since %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -120,22 +106,21 @@ LABEL_9:
 
   else
   {
-LABEL_6:
     v17 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v19 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v20;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change; resuming debounce timer", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v20;
+      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Photo library persons did change; resuming debounce timer", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
-    initiallyDebouncedChangeDate4 = [(HMDPhotoLibraryObserver *)selfCopy2 initiallyDebouncedChangeDate];
+    initiallyDebouncedChangeDate3 = [(HMDPhotoLibraryObserver *)selfCopy2 initiallyDebouncedChangeDate];
 
-    if (!initiallyDebouncedChangeDate4)
+    if (!initiallyDebouncedChangeDate3)
     {
       v22 = [MEMORY[0x277CBEAA8] now];
       [(HMDPhotoLibraryObserver *)selfCopy2 setInitiallyDebouncedChangeDate:v22];
@@ -144,8 +129,6 @@ LABEL_6:
     changeDebounceTimer = [(HMDPhotoLibraryObserver *)selfCopy2 changeDebounceTimer];
     [changeDebounceTimer resume];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -240,12 +223,11 @@ LABEL_6:
 
 uint64_t __38__HMDPhotoLibraryObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_67988;
-  logCategory__hmf_once_v5_67988 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_67988;
+  logCategory__hmf_once_v5_67988 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

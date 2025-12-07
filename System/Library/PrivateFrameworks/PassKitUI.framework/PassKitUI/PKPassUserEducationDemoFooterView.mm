@@ -823,29 +823,33 @@ void __66__PKPassUserEducationDemoFooterView__buttonForType_failureReason___bloc
 {
   actionCopy = action;
   titleCopy = title;
-  PKFloatRoundToPixel();
-  v8 = v7;
-  v9 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
-  [v9 lineHeight];
-  PKFloatRoundToPixel();
-  v14 = v10;
-  v15 = xmmword_1BE0B69E0;
-  v16 = vdupq_n_s64(2uLL);
-  v11 = [[PKContinuousButton alloc] initWithConfiguration:&v14];
-  [(PKContinuousButton *)v11 setContentEdgeInsets:v8, 25.0, 16.0 - v8, 25.0];
-  titleLabel = [(PKContinuousButton *)v11 titleLabel];
-  [titleLabel setFont:v9];
+  v7.n128_u64[0] = 8.0;
+  PKFloatRoundToPixel(v7, v8);
+  v10 = v9;
+  v11 = 16.0 - v9;
+  v12 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
+  [v12 lineHeight];
+  v14.n128_u64[0] = 0.5;
+  v15.n128_f64[0] = (v11 + v10 + v13) * 0.5;
+  PKFloatRoundToPixel(v15, v14);
+  v20 = v16;
+  v21 = xmmword_1BE0B69E0;
+  v22 = vdupq_n_s64(2uLL);
+  v17 = [[PKContinuousButton alloc] initWithConfiguration:&v20];
+  [(PKContinuousButton *)v17 setContentEdgeInsets:v10, 25.0, 16.0 - v10, 25.0];
+  titleLabel = [(PKContinuousButton *)v17 titleLabel];
+  [titleLabel setFont:v12];
   [titleLabel setMinimumScaleFactor:0.5];
   [titleLabel setTextAlignment:1];
   [titleLabel setLineBreakMode:4];
-  [(PKContinuousButton *)v11 setTitle:titleCopy forState:0];
+  [(PKContinuousButton *)v17 setTitle:titleCopy forState:0];
 
-  [(PKContinuousButton *)v11 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
-  [(PKContinuousButton *)v11 setExclusiveTouch:1];
-  [(PKContinuousButton *)v11 sizeToFit];
-  [(PKContinuousButton *)v11 addAction:actionCopy forControlEvents:64];
+  [(PKContinuousButton *)v17 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
+  [(PKContinuousButton *)v17 setExclusiveTouch:1];
+  [(PKContinuousButton *)v17 sizeToFit];
+  [(PKContinuousButton *)v17 addAction:actionCopy forControlEvents:64];
 
-  return v11;
+  return v17;
 }
 
 - (void)_endContactlessPaymentSession

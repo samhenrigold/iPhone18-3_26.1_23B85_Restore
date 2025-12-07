@@ -69,8 +69,8 @@
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    if (v6 <= SKUICompactThreshold())
+    bounds = [keyWindow bounds];
+    if (v8 <= SKUICompactThreshold(bounds, v7))
     {
     }
 
@@ -149,9 +149,9 @@ LABEL_7:
   navigationItem = [(SKUIViewController *)self navigationItem];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v7 = [(SKUIViewController *)self _defaultRightBarButtonItemsIsCompact:v6 <= SKUICompactThreshold()];
-  [navigationItem setRightBarButtonItems:v7];
+  bounds = [keyWindow bounds];
+  v9 = [(SKUIViewController *)self _defaultRightBarButtonItemsIsCompact:v8 <= SKUICompactThreshold(bounds, v7)];
+  [navigationItem setRightBarButtonItems:v9];
 
   navigationItem2 = [(SKUIViewController *)self navigationItem];
   _defaultLeftBarButtonItems = [(SKUIViewController *)self _defaultLeftBarButtonItems];
@@ -166,8 +166,8 @@ LABEL_7:
   [v5 setLeftBarButtonItems:_defaultLeftBarButtonItems];
 
   navigationItem = [(SKUIViewController *)self navigationItem];
-  v7 = [(SKUIViewController *)self _defaultRightBarButtonItemsIsCompact:width <= SKUICompactThreshold()];
-  [navigationItem setRightBarButtonItems:v7];
+  v8 = [(SKUIViewController *)self _defaultRightBarButtonItemsIsCompact:width <= SKUICompactThreshold(navigationItem, v7)];
+  [navigationItem setRightBarButtonItems:v8];
 }
 
 - (void)showDefaultNavigationItemsIsCompact:(BOOL)compact
@@ -220,12 +220,13 @@ LABEL_7:
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (SKUIUserInterfaceIdiom(self->_clientContext) == 1)
+  v2 = SKUIUserInterfaceIdiom(self->_clientContext);
+  if (v2 == 1)
   {
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v2, v3))
   {
     return 26;
   }
@@ -329,22 +330,22 @@ LABEL_7:
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v13 = v12;
-  v14 = SKUICompactThreshold();
+  bounds = [keyWindow bounds];
+  v14 = v13;
+  v16 = SKUICompactThreshold(bounds, v15);
 
-  if (v13 <= v14)
+  if (v14 <= v16)
   {
 LABEL_7:
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __57__SKUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke;
-    v28[3] = &unk_2781F80C8;
-    v23 = &v29;
-    v28[4] = self;
-    v29 = itemCopy;
-    v25 = itemCopy;
-    [wishlistCopy dismissViewControllerAnimated:1 completion:v28];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __57__SKUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke;
+    v30[3] = &unk_2781F80C8;
+    v25 = &v31;
+    v30[4] = self;
+    v31 = itemCopy;
+    v27 = itemCopy;
+    [wishlistCopy dismissViewControllerAnimated:1 completion:v30];
     goto LABEL_8;
   }
 
@@ -359,28 +360,28 @@ LABEL_7:
 
   if (!self->_productPageOverlayController)
   {
-    v17 = [[SKUIProductPageOverlayController alloc] initWithParentViewController:self];
+    v19 = [[SKUIProductPageOverlayController alloc] initWithParentViewController:self];
     productPageOverlayController = self->_productPageOverlayController;
-    self->_productPageOverlayController = v17;
+    self->_productPageOverlayController = v19;
 
-    v19 = self->_productPageOverlayController;
+    v21 = self->_productPageOverlayController;
     clientContext = [(SKUIViewController *)self clientContext];
-    [(SKUIProductPageOverlayController *)v19 setClientContext:clientContext];
+    [(SKUIProductPageOverlayController *)v21 setClientContext:clientContext];
 
     [(SKUIProductPageOverlayController *)self->_productPageOverlayController setDelegate:self];
   }
 
   UIAnimationDragCoefficient();
-  v22 = dispatch_time(0, (v21 * 0.35 * 1000000000.0));
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __57__SKUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_4;
-  v26[3] = &unk_2781F80C8;
-  v23 = &v27;
-  v26[4] = self;
-  v27 = itemCopy;
-  v24 = itemCopy;
-  dispatch_after(v22, MEMORY[0x277D85CD0], v26);
+  v24 = dispatch_time(0, (v23 * 0.35 * 1000000000.0));
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __57__SKUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_4;
+  v28[3] = &unk_2781F80C8;
+  v25 = &v29;
+  v28[4] = self;
+  v29 = itemCopy;
+  v26 = itemCopy;
+  dispatch_after(v24, MEMORY[0x277D85CD0], v28);
 LABEL_8:
 }
 
@@ -437,11 +438,11 @@ void __57__SKUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v8 = v7;
-  v9 = SKUICompactThreshold();
+  bounds = [keyWindow bounds];
+  v9 = v8;
+  v11 = SKUICompactThreshold(bounds, v10);
 
-  if (v8 <= v9)
+  if (v9 <= v11)
   {
 LABEL_7:
     [(SKUIViewController *)self _presentWishlistFromSheet];
@@ -453,7 +454,7 @@ LABEL_7:
   {
     [(SKUIPopoverObserver *)wishlistPopoverObserver setTarget:0 selector:0];
     [(SKUIPopoverObserver *)self->_wishlistPopoverObserver dismissPopoverAnimated:1];
-    v11 = self->_wishlistPopoverObserver;
+    v13 = self->_wishlistPopoverObserver;
     self->_wishlistPopoverObserver = 0;
 
     [(SKUIWishlistViewController *)self->_wishlistViewController setDelegate:0];

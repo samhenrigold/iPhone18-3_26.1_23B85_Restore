@@ -1,163 +1,163 @@
-size_t FigH264Bridge_GetSPS_VUI_NCLC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+size_t FigH264Bridge_GetSPS_VUI_NCLC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_41(a1, a2, a3, a4, a5);
+  OUTLINED_FUNCTION_41(a1, a2, a3, a4, a5, a6, a7, a8, theData, v22);
   OUTLINED_FUNCTION_11_11();
-  v11 = RemoveEmulation3Byte(BytePtr, v9, v10);
-  if (v11)
+  v14 = RemoveEmulation3Byte(BytePtr, v12, v13);
+  if (v14)
   {
-    return v11;
+    return v14;
   }
 
-  v12 = theData;
-  if (theData)
+  v15 = theDataa;
+  if (theDataa)
   {
-    BytePtr = CFDataGetBytePtr(theData);
-    LODWORD(v9) = CFDataGetLength(theData);
+    BytePtr = CFDataGetBytePtr(theDataa);
+    LODWORD(v12) = CFDataGetLength(theDataa);
   }
 
   OUTLINED_FUNCTION_52();
-  if (v13)
+  if (v16)
   {
-    v14 = *BytePtr;
+    v17 = *BytePtr;
   }
 
-  else if (v9)
+  else if (v12)
   {
     OUTLINED_FUNCTION_23_6();
     __memcpy_chk();
-    v14 = v18;
+    v17 = v23;
   }
 
   else
   {
-    v14 = 0;
+    v17 = 0;
   }
 
-  v15 = OUTLINED_FUNCTION_21_7(v14, theData);
-  if (v12)
+  v18 = OUTLINED_FUNCTION_21_7(v17, theDataa);
+  if (v15)
   {
-    CFRelease(v12);
+    CFRelease(v15);
   }
 
-  if (!v15)
+  if (!v18)
   {
-    v15 = 4294954584;
-    if (v19)
+    v18 = 4294954584;
+    if (v24)
     {
-      if (v20)
+      if (v25)
       {
-        v15 = 0;
-        *v7 = v21;
-        *v6 = v22;
-        *v5 = v23;
+        v18 = 0;
+        *v10 = v26;
+        *v9 = v27;
+        *v8 = v28;
       }
     }
   }
 
-  return v15;
+  return v18;
 }
 
-size_t FigH264Bridge_GetSPS_VUI_AspectRatio(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+size_t FigH264Bridge_GetSPS_VUI_AspectRatio(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_29_2(a1, a2, a3, a4, a5);
+  OUTLINED_FUNCTION_29_2(a1, a2, a3, a4, a5, a6, a7, a8, theData, v23);
   OUTLINED_FUNCTION_11_11();
-  v10 = RemoveEmulation3Byte(BytePtr, v8, v9);
-  if (v10)
+  v13 = RemoveEmulation3Byte(BytePtr, v11, v12);
+  if (v13)
   {
-    return v10;
+    return v13;
   }
 
-  v11 = theData;
-  if (theData)
+  v14 = theDataa;
+  if (theDataa)
   {
-    BytePtr = CFDataGetBytePtr(theData);
-    LODWORD(v8) = CFDataGetLength(theData);
+    BytePtr = CFDataGetBytePtr(theDataa);
+    LODWORD(v11) = CFDataGetLength(theDataa);
   }
 
   OUTLINED_FUNCTION_34_1();
-  if (v12)
+  if (v15)
   {
-    v13 = *BytePtr;
+    v16 = *BytePtr;
   }
 
-  else if (v8)
+  else if (v11)
   {
     OUTLINED_FUNCTION_23_6();
     __memcpy_chk();
-    v13 = v19;
+    v16 = v24;
   }
 
   else
   {
-    v13 = 0;
+    v16 = 0;
   }
 
-  v14 = OUTLINED_FUNCTION_21_7(v13, theData);
-  if (v11)
+  v17 = OUTLINED_FUNCTION_21_7(v16, theDataa);
+  if (v14)
   {
-    CFRelease(v11);
+    CFRelease(v14);
   }
 
-  if (!v14)
+  if (!v17)
   {
-    v14 = 4294954584;
-    if (v20)
+    v17 = 4294954584;
+    if (v25)
     {
-      if (v21)
+      if (v26)
       {
-        if (v22 == 255)
+        if (v27 == 255)
         {
-          *v6 = v23;
-          v15 = v24;
+          *v9 = v28;
+          v18 = v29;
         }
 
         else
         {
-          if (v22 - 1 > 0xF)
+          if (v27 - 1 > 0xF)
           {
             return 0;
           }
 
-          v16 = &kH264SampleAspectRatioIndicators + 2 * v22;
-          *v6 = *v16;
-          v15 = v16[1];
+          v19 = &kH264SampleAspectRatioIndicators + 2 * v27;
+          *v9 = *v19;
+          v18 = v19[1];
         }
 
-        v14 = 0;
-        *v5 = v15;
+        v17 = 0;
+        *v8 = v18;
       }
     }
   }
 
-  return v14;
+  return v17;
 }
 
-size_t FigCFCreateExtendedDictionary(const __CFAllocator *a1, CFDictionaryRef theDict, const void *a3, const void *a4, uint64_t a5, CFDictionaryRef *a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCFCreateExtendedDictionary(const __CFAllocator *a1, CFDictionaryRef theDict, const void *a3, const void *a4, uint64_t a5, CFDictionaryRef *a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
   if (!a6)
   {
-    v15 = qword_1EAF1CE20;
-    v16 = v8;
-    v17 = 4294954306;
-    v18 = 2707;
+    v16 = qword_1EAF1CE20;
+    v17 = v9;
+    v18 = 4294954306;
+    v19 = 2707;
     goto LABEL_21;
   }
 
   if (!a3 && a5 >= 1)
   {
-    v15 = qword_1EAF1CE20;
-    v16 = v8;
-    v17 = 4294954306;
-    v18 = 2709;
+    v16 = qword_1EAF1CE20;
+    v17 = v9;
+    v18 = 4294954306;
+    v19 = 2709;
     goto LABEL_21;
   }
 
   if (!a4 && a5 >= 1)
   {
-    v15 = qword_1EAF1CE20;
-    v16 = v8;
-    v17 = 4294954306;
-    v18 = 2711;
+    v16 = qword_1EAF1CE20;
+    v17 = v9;
+    v18 = 4294954306;
+    v19 = 2711;
     goto LABEL_21;
   }
 
@@ -172,63 +172,63 @@ size_t FigCFCreateExtendedDictionary(const __CFAllocator *a1, CFDictionaryRef th
     Count = 0;
   }
 
-  v20 = Count + a5;
+  v21 = Count + a5;
   if ((Count + a5 - 0x2000000000000000) < 0xE000000000000001)
   {
-    v22 = 0;
+    v23 = 0;
   }
 
   else
   {
     numValues = Count + a5;
-    v21 = 8 * v20;
-    v22 = malloc_type_malloc(8 * v20, 0x1BA7A198uLL);
-    if (v22)
+    v22 = 8 * v21;
+    v23 = malloc_type_malloc(8 * v21, 0x1BA7A198uLL);
+    if (v23)
     {
-      v23 = malloc_type_malloc(v21, 0x6E406C51uLL);
-      if (v23)
+      v24 = malloc_type_malloc(v22, 0x6E406C51uLL);
+      if (v24)
       {
         if (theDict)
         {
-          CFDictionaryGetKeysAndValues(theDict, v22, v23);
+          CFDictionaryGetKeysAndValues(theDict, v23, v24);
         }
 
-        v24 = 8 * a5;
-        memcpy(&v22[Count], a3, v24);
-        memcpy(&v23[Count], a4, v24);
-        *a6 = CFDictionaryCreate(a1, v22, v23, numValues, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        v25 = 8 * a5;
+        memcpy(&v23[Count], a3, v25);
+        memcpy(&v24[Count], a4, v25);
+        *a6 = CFDictionaryCreate(a1, v23, v24, numValues, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       }
 
       goto LABEL_18;
     }
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_18:
-  free(v22);
   free(v23);
+  free(v24);
   if (*a6)
   {
     return 0;
   }
 
-  v15 = qword_1EAF1CE20;
-  v16 = v8;
-  v17 = 4294954305;
-  v18 = 2739;
+  v16 = qword_1EAF1CE20;
+  v17 = v9;
+  v18 = 4294954305;
+  v19 = 2739;
 LABEL_21:
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v17, "<<< FigCFUtilities >>>", v18, v16, a7, a8);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v18, "<<< FigCFUtilities >>>", v19, v17, a7, a8, a9);
 }
 
-size_t FigVideoFormatDescriptionRegisterOnce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigVideoFormatDescriptionRegisterOnce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v9 = 0;
-  v13 = figVideoFormatDescriptionFinalize;
-  v12 = figVideoFormatDescriptionCopyDebugDesc;
-  v10 = 12;
-  v11 = figVideoFormatDescriptionEqual;
-  return FigDerivedFormatDescriptionRegister(0x76696465u, &v9, a3, a4, a5, a6, a7, a8);
+  v10 = 0;
+  v14 = figVideoFormatDescriptionFinalize;
+  v13 = figVideoFormatDescriptionCopyDebugDesc;
+  v11 = 12;
+  v12 = figVideoFormatDescriptionEqual;
+  return FigDerivedFormatDescriptionRegister(0x76696465u, &v10, a3, a4, a5, a6, a7, a8, v9);
 }
 
 uint64_t FigSignalErrorAt(uint64_t a1, const char *a2, const char *a3, const char *a4, char *a5, char *a6, uint64_t a7)
@@ -258,25 +258,25 @@ uint64_t FigFileWrapDarwinFileDesc(int a1, void *a2)
   return result;
 }
 
-size_t FigCFCreateCombinedDictionary(const __CFAllocator *a1, CFDictionaryRef *a2, uint64_t a3, CFDictionaryRef *a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCFCreateCombinedDictionary(const __CFAllocator *a1, CFDictionaryRef *a2, uint64_t a3, CFDictionaryRef *a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
   if (!a4)
   {
-    v13 = qword_1EAF1CE20;
-    v14 = v8;
-    v15 = 4294954306;
-    v16 = 2216;
+    v14 = qword_1EAF1CE20;
+    v15 = v9;
+    v16 = 4294954306;
+    v17 = 2216;
     goto LABEL_23;
   }
 
-  v10 = a3;
-  v11 = a2;
+  v11 = a3;
+  v12 = a2;
   if (!a2 && a3 >= 1)
   {
-    v13 = qword_1EAF1CE20;
-    v14 = v8;
-    v15 = 4294954306;
-    v16 = 2218;
+    v14 = qword_1EAF1CE20;
+    v15 = v9;
+    v16 = 4294954306;
+    v17 = 2218;
     goto LABEL_23;
   }
 
@@ -286,100 +286,101 @@ size_t FigCFCreateCombinedDictionary(const __CFAllocator *a1, CFDictionaryRef *a
     goto LABEL_16;
   }
 
-  v17 = 0;
-  v18 = a2;
-  v19 = a3;
+  v18 = 0;
+  v19 = a2;
+  v20 = a3;
   do
   {
-    v20 = *v18++;
-    v17 += CFDictionaryGetCount(v20);
-    --v19;
+    v21 = *v19++;
+    v18 += CFDictionaryGetCount(v21);
+    --v20;
   }
 
-  while (v19);
-  if ((v17 - 0x2000000000000000) < 0xE000000000000001)
+  while (v20);
+  if ((v18 - 0x2000000000000000) < 0xE000000000000001)
   {
 LABEL_16:
-    v22 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v21 = 8 * v17;
-    v22 = malloc_type_malloc(8 * v17, 0xA0CC8AA0uLL);
-    if (v22)
+    v22 = 8 * v18;
+    v23 = malloc_type_malloc(8 * v18, 0xA0CC8AA0uLL);
+    if (v23)
     {
-      v23 = malloc_type_malloc(v21, 0xC58A2C5EuLL);
-      if (v23)
+      v24 = malloc_type_malloc(v22, 0xC58A2C5EuLL);
+      if (v24)
       {
-        if (v10 < 1)
+        if (v11 < 1)
         {
-          v24 = 0;
+          v25 = 0;
         }
 
         else
         {
-          v24 = 0;
+          v25 = 0;
           do
           {
-            Count = CFDictionaryGetCount(*v11);
-            v26 = *v11++;
-            CFDictionaryGetKeysAndValues(v26, &v22[v24], &v23[v24]);
-            v24 += Count;
-            --v10;
+            Count = CFDictionaryGetCount(*v12);
+            v27 = *v12++;
+            CFDictionaryGetKeysAndValues(v27, &v23[v25], &v24[v25]);
+            v25 += Count;
+            --v11;
           }
 
-          while (v10);
+          while (v11);
         }
 
-        *a4 = CFDictionaryCreate(a1, v22, v23, v24, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        *a4 = CFDictionaryCreate(a1, v23, v24, v25, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       }
 
       goto LABEL_20;
     }
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_20:
-  free(v22);
   free(v23);
+  free(v24);
   if (*a4)
   {
     return 0;
   }
 
-  v13 = qword_1EAF1CE20;
-  v14 = v8;
-  v15 = 4294954305;
-  v16 = 2246;
+  v14 = qword_1EAF1CE20;
+  v15 = v9;
+  v16 = 4294954305;
+  v17 = 2246;
 LABEL_23:
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, v15, "<<< FigCFUtilities >>>", v16, v14, a7, a8);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v16, "<<< FigCFUtilities >>>", v17, v15, a7, a8, a9);
 }
 
 size_t FigScheduledIOCreateForReadingByteStream(uint64_t a1, const void *a2, int a3, CFTypeRef *a4)
 {
   cf = 0;
-  CMBaseObject = CMByteStreamGetCMBaseObject(a2);
-  v9 = *(*(CMBaseObjectGetVTable(CMBaseObject) + 8) + 48);
-  if (!v9)
+  CMByteStreamGetCMBaseObject();
+  v9 = v8;
+  v10 = *(*(CMBaseObjectGetVTable(v8) + 8) + 48);
+  if (!v10)
   {
     return 4294954514;
   }
 
-  result = v9(CMBaseObject, @"FBS_ScheduledIO", a1, a4);
+  result = v10(v9, @"FBS_ScheduledIO", a1, a4);
   if (result == -12784)
   {
-    result = FigScheduledIOFRSCreateForByteStream(a1, a2, a3, &cf, v11, v12, v13, v14);
+    result = FigScheduledIOFRSCreateForByteStream(a1, a2, a3, &cf, v12, v13, v14, v15);
     if (result)
     {
-      v15 = result;
+      v16 = result;
       if (cf)
       {
         CFRelease(cf);
       }
 
-      return v15;
+      return v16;
     }
 
     else
@@ -391,128 +392,129 @@ size_t FigScheduledIOCreateForReadingByteStream(uint64_t a1, const void *a2, int
   return result;
 }
 
-size_t RegisterFigScheduledIOBaseType()
+size_t RegisterFigScheduledIOBaseType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigScheduledIOClassDesc, ClassID, 1, &sFigScheduledIOClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigScheduledIOClassDesc, ClassID, 1, &sFigScheduledIOClassID, v10, v11, v12, v13, a9);
 }
 
-uint64_t bufQDataBecameReady(uint64_t a1, void *a2)
+uint64_t bufQDataBecameReady(uint64_t a1, uint64_t a2)
 {
-  FigReentrantMutexLock(a2[2]);
-  v3 = a2[20];
+  FigReentrantMutexLock(*(a2 + 16));
+  v3 = *(a2 + 160);
   if (v3)
   {
     CFSetApplyFunction(v3, evaluateAndMaybeFireTrigger, a2);
   }
 
-  v4 = a2[2];
+  v4 = *(a2 + 16);
 
   return FigReentrantMutexUnlock(v4);
 }
 
-uint64_t PeekBits(uint64_t a1, unsigned int a2)
+uint64_t PeekBits(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v4 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  if (v4 >= v3)
+  v10 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  if (v10 >= v9)
   {
-    v5 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v5 = *(a1 + 36) & 7 | (8 * (v3 - (*(a1 + 40) + v4) + (*(a1 + 36) >> 3)));
+    v11 = *(a1 + 36) & 7 | (8 * (v9 - (*(a1 + 40) + v10) + (*(a1 + 36) >> 3)));
   }
 
-  if (v5 < a2)
+  if (v11 < a2)
   {
     return 0;
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 32);
-  result = GetBits(a1, a2);
-  *(a1 + 16) = v4;
-  *(a1 + 32) = v7;
-  *(a1 + 40) = v6;
+  v12 = *(a1 + 40);
+  v13 = *(a1 + 32);
+  result = GetBits(a1, a2, a3, a4, a5, a6, a7, a8);
+  *(a1 + 16) = v10;
+  *(a1 + 32) = v13;
+  *(a1 + 40) = v12;
   return result;
 }
 
-uint64_t GetBits(uint64_t a1, unsigned int a2)
+uint64_t GetBits(uint64_t Word, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = *(a1 + 36);
-  v4 = a2 - v3;
-  if (a2 <= v3)
+  v8 = Word;
+  v9 = *(Word + 36);
+  v10 = a2 - v9;
+  if (a2 <= v9)
   {
-    v6 = 0;
-    v4 = 0;
+    v12 = 0;
+    LODWORD(v10) = 0;
   }
 
   else
   {
-    if (v3)
+    if (v9)
     {
-      v5 = 0xFFFFFFFF >> -v3;
+      v11 = 0xFFFFFFFF >> -v9;
     }
 
     else
     {
-      v5 = 0;
+      v11 = 0;
     }
 
-    v6 = *(a1 + 32) & v5;
-    *(a1 + 16) += 4;
-    CopyNextWord(a1);
-    v3 = *(a1 + 36);
-    a2 = v4;
+    v12 = *(Word + 32) & v11;
+    *(Word + 16) += 4;
+    Word = CopyNextWord(Word);
+    v9 = *(v8 + 36);
+    a2 = v10;
   }
 
-  v7 = v3 - a2;
-  if (v3 < a2)
+  v13 = v9 - a2;
+  if (v9 < a2)
   {
-    GetBits_cold_1();
+    GetBits_cold_1(Word, a2, a3, a4, a5, a6, a7, a8, v20);
     return 0;
   }
 
   else
   {
-    if (v7 == 32)
+    if (v13 == 32)
     {
-      v8 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v9 = -1 << -a2;
+      v15 = -1 << -a2;
       if (!a2)
       {
-        v9 = 0;
+        v15 = 0;
       }
 
-      v10 = v9 >> -v3;
-      if (v3)
+      v16 = v15 >> -v9;
+      if (v9)
       {
-        v11 = v10;
+        v17 = v16;
       }
 
       else
       {
-        v11 = 0;
+        v17 = 0;
       }
 
-      v8 = (*(a1 + 32) & v11) >> v7;
+      v14 = (*(v8 + 32) & v17) >> v13;
     }
 
-    v12 = v6 << v4;
-    if (v4 == 32)
+    v18 = v12 << v10;
+    if (v10 == 32)
     {
-      v12 = 0;
+      v18 = 0;
     }
 
-    result = v8 | v12;
-    *(a1 + 36) = v7;
+    result = v14 | v18;
+    *(v8 + 36) = v13;
   }
 
   return result;
@@ -538,9 +540,8 @@ uint64_t FigHALAudioBrokeredPluginCreateDeviceBroker(const void *a1, void *a2)
 
 size_t brokeredPlugin_CreateBrokeredPluginObjectInternal(const __CFAllocator *a1, const void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, CFTypeRef *a7)
 {
-  cf = 0;
-  ClassID = FigHALAudioPluginGetClassID();
-  v19 = CMDerivedObjectCreate(a1, &kFigHALAudioBrokeredPluginVTable, ClassID, &cf, v15, v16, v17, v18);
+  ClassID = FigHALAudioPluginGetClassID(a1, a2);
+  v19 = CMDerivedObjectCreate(a1, kFigHALAudioBrokeredPluginVTable, ClassID, &cf, v15, v16, v17, v18, 0);
   if (v19)
   {
     v22 = v19;
@@ -829,7 +830,7 @@ LABEL_11:
   return v14;
 }
 
-void FigKTraceInit()
+void FigKTraceInit(uint64_t result, uint64_t a2)
 {
   if (initializeOnceToken != -1)
   {
@@ -845,20 +846,20 @@ uint64_t fig_ktrace_initialize()
   return result;
 }
 
-const char *fig_gm_ktrace_wrapper(uint64_t a1, int a2, const char *a3, const char *a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, const char *a9)
+const char *fig_gm_ktrace_wrapper(uint64_t result, int a2, const char *a3, const char *a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a3 != 3)
   {
-    result = fig_trace_point_arg_to_ktrace_arg(a3, &a9);
+    v13 = fig_trace_point_arg_to_ktrace_arg(a3, &a9);
     if (a4 != 3)
     {
-      result = fig_trace_point_arg_to_ktrace_arg(a4, &a9);
+      v13 = fig_trace_point_arg_to_ktrace_arg(a4, &a9);
       if (a5 != 3)
       {
-        result = fig_trace_point_arg_to_ktrace_arg(a5, &a9);
+        v13 = fig_trace_point_arg_to_ktrace_arg(a5, &a9);
         if (a6 != 3)
         {
-          result = fig_trace_point_arg_to_ktrace_arg(a6, &a9);
+          v13 = fig_trace_point_arg_to_ktrace_arg(a6, &a9);
         }
       }
     }
@@ -868,7 +869,7 @@ const char *fig_gm_ktrace_wrapper(uint64_t a1, int a2, const char *a3, const cha
   {
     if (gGMFigKTraceEnabled != 1)
     {
-      return result;
+      return v13;
     }
 
     return kdebug_trace();
@@ -878,7 +879,7 @@ const char *fig_gm_ktrace_wrapper(uint64_t a1, int a2, const char *a3, const cha
   {
     if (gGMFigKTraceEnabled != 1)
     {
-      return result;
+      return v13;
     }
 
     return kdebug_trace();
@@ -889,7 +890,7 @@ const char *fig_gm_ktrace_wrapper(uint64_t a1, int a2, const char *a3, const cha
     return kdebug_trace();
   }
 
-  return result;
+  return v13;
 }
 
 const char *fig_trace_point_arg_to_ktrace_arg(const char *result, const char **a2)
@@ -910,10 +911,10 @@ const char *fig_trace_point_arg_to_ktrace_arg(const char *result, const char **a
 
 uint64_t FigEndpointManagerRemoteCreateWithType(const void *a1, CFTypeRef *a2)
 {
-  v23 = 0;
+  v25 = 0;
   cf = 0;
   v2 = 4294950586;
-  v22 = 0;
+  v24 = 0;
   if (a1 && a2)
   {
     if (remoteXPCFigEndpointManager_initializeLogging_initLoggingOnce != -1)
@@ -922,8 +923,8 @@ uint64_t FigEndpointManagerRemoteCreateWithType(const void *a1, CFTypeRef *a2)
     }
 
     v5 = *MEMORY[0x1E695E480];
-    ClassID = FigEndpointManagerGetClassID();
-    v11 = CMDerivedObjectCreate(v5, &kFigEndpointManagerRemoteXPC_EndpointVTable, ClassID, &cf, v7, v8, v9, v10);
+    ClassID = FigEndpointManagerGetClassID(a1, a2);
+    v11 = CMDerivedObjectCreate(v5, kFigEndpointManagerRemoteXPC_EndpointVTable, ClassID, &cf, v7, v8, v9, v10, v24);
     if (v11)
     {
 LABEL_18:
@@ -956,35 +957,36 @@ LABEL_18:
                 v16 = *MEMORY[0x1E695E4C0];
                 v17 = DerivedStorage[2];
                 block = MEMORY[0x1E69E9820];
-                v26 = 0x40000000;
-                v27 = __remoteXPCEndpointManager_SetCachedProperty_block_invoke;
-                v28 = &__block_descriptor_tmp_26;
-                v29 = v16;
-                v30 = DerivedStorage;
-                v31 = @"EndpointPresent";
+                v28 = 0x40000000;
+                v29 = __remoteXPCEndpointManager_SetCachedProperty_block_invoke;
+                v30 = &__block_descriptor_tmp_26;
+                v31 = v16;
+                v32 = DerivedStorage;
+                v33 = @"EndpointPresent";
                 dispatch_sync(v17, &block);
                 DerivedStorage[6] = 0;
-                *DerivedStorage = CFRetain(a1);
-                IsAppleTV = CelestialIsAppleTV();
-                if (!FigEndpointManagerGetSupportedFeatures(a1, IsAppleTV, &v23))
+                v18 = CFRetain(a1);
+                *DerivedStorage = v18;
+                IsAppleTV = CelestialIsAppleTV(v18, v19);
+                if (!FigEndpointManagerGetSupportedFeatures(a1, IsAppleTV, &v25))
                 {
-                  remoteXPCEndpointManager_SetCachedPropertyInt64(DerivedStorage, @"SupportedFeatures", v23);
+                  remoteXPCEndpointManager_SetCachedPropertyInt64(DerivedStorage, @"SupportedFeatures", v25);
                 }
 
-                if (!FigEndpointManagerGetSupportedDiscoveryFeatures(a1, &v22))
+                if (!FigEndpointManagerGetSupportedDiscoveryFeatures(a1, &v24))
                 {
-                  remoteXPCEndpointManager_SetCachedPropertyInt64(DerivedStorage, @"SupportedDiscoveryFeatures", v22);
+                  remoteXPCEndpointManager_SetCachedPropertyInt64(DerivedStorage, @"SupportedDiscoveryFeatures", v24);
                 }
 
-                v19 = DerivedStorage[2];
+                v21 = DerivedStorage[2];
                 block = MEMORY[0x1E69E9820];
-                v26 = 0x40000000;
-                v27 = __remoteXPCEndpointManager_SetCachedProperty_block_invoke;
-                v28 = &__block_descriptor_tmp_26;
-                v29 = v16;
-                v30 = DerivedStorage;
-                v31 = @"EndpointPresent";
-                dispatch_sync(v19, &block);
+                v28 = 0x40000000;
+                v29 = __remoteXPCEndpointManager_SetCachedProperty_block_invoke;
+                v30 = &__block_descriptor_tmp_26;
+                v31 = v16;
+                v32 = DerivedStorage;
+                v33 = @"EndpointPresent";
+                dispatch_sync(v21, &block);
                 v2 = 0;
                 *a2 = cf;
                 return v2;
@@ -995,21 +997,21 @@ LABEL_18:
           goto LABEL_18;
         }
 
-        v21 = 882;
+        v23 = 882;
       }
 
       else
       {
-        v21 = 879;
+        v23 = 879;
       }
     }
 
     else
     {
-      v21 = 876;
+      v23 = 876;
     }
 
-    FigEndpointManagerRemoteCreateWithType_cold_2(v21, &block);
+    FigEndpointManagerRemoteCreateWithType_cold_2(v23, &block);
     v2 = block;
   }
 
@@ -1090,7 +1092,7 @@ void remoteXPCEndpointManager_SetCachedPropertyInt64(uint64_t a1, uint64_t a2, u
 
 uint64_t FigEndpointManagerRemoteCopyAirPlayManager(CFTypeRef *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (FigEndpointManagerRemoteCopyAirPlayManager_sCreateOnce != -1)
@@ -1108,18 +1110,19 @@ uint64_t FigEndpointManagerRemoteCopyAirPlayManager(CFTypeRef *a1)
 
   else
   {
-    if (FigEndpointManagerRemoteCopyAirPlayManager_cold_2(v14))
+    if (FigEndpointManagerRemoteCopyAirPlayManager_cold_2(v15))
     {
       return 0;
     }
 
-    v2 = v14[0];
+    v2 = v15[0];
   }
 
-  v10[0] = 0;
+  v10 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v10, &type);
-  v5 = v10[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v10, &type);
+  v5 = v10;
+  v6 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v7 = v5;
@@ -1132,12 +1135,12 @@ uint64_t FigEndpointManagerRemoteCopyAirPlayManager(CFTypeRef *a1)
 
   if (v7)
   {
-    v10[1] = 136315394;
-    v11 = "FigEndpointManagerRemoteCopyAirPlayManager";
-    v12 = 1024;
-    v13 = v2;
-    v8 = _os_log_send_and_compose_impl();
-    LOBYTE(v5) = v10[0];
+    v11 = 136315394;
+    v12 = "FigEndpointManagerRemoteCopyAirPlayManager";
+    v13 = 1024;
+    v14 = v2;
+    v8 = _os_log_send_and_compose_impl(v7, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<< FigEndpointManagerXPCRemote >> %s: Failed to copy AirPlayManager due to %d\n", &v11, 18);
+    LOBYTE(v5) = v10;
   }
 
   else
@@ -1145,18 +1148,19 @@ uint64_t FigEndpointManagerRemoteCopyAirPlayManager(CFTypeRef *a1)
     v8 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != v14, v5, 0, v6);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != v15, v5);
   return v2;
 }
 
 void __FigEndpointManagerRemoteCopyAirPlayManager_block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   FigEndpointManagerRemoteCopyAirPlayManager_sCreationResult = FigEndpointManagerRemoteCreateWithType(@"AirPlay", &FigEndpointManagerRemoteCopyAirPlayManager_sAirPlayManager);
-  v6[0] = 0;
+  v6 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v6, &type);
-  v1 = v6[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v6, &type);
+  v1 = v6;
+  v2 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v3 = v1;
@@ -1169,12 +1173,12 @@ void __FigEndpointManagerRemoteCopyAirPlayManager_block_invoke()
 
   if (v3)
   {
-    v6[1] = 136315394;
-    v7 = "FigEndpointManagerRemoteCopyAirPlayManager_block_invoke";
-    v8 = 1024;
-    v9 = FigEndpointManagerRemoteCopyAirPlayManager_sCreationResult;
-    v4 = _os_log_send_and_compose_impl();
-    LOBYTE(v1) = v6[0];
+    v7 = 136315394;
+    v8 = "FigEndpointManagerRemoteCopyAirPlayManager_block_invoke";
+    v9 = 1024;
+    v10 = FigEndpointManagerRemoteCopyAirPlayManager_sCreationResult;
+    v4 = _os_log_send_and_compose_impl(v3, 0, v11, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<< FigEndpointManagerXPCRemote >> %s: AirPlayManager creation result: %d", &v7, 18);
+    LOBYTE(v1) = v6;
   }
 
   else
@@ -1182,12 +1186,12 @@ void __FigEndpointManagerRemoteCopyAirPlayManager_block_invoke()
     v4 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v4, v4 != &v10, v1, 0, v2);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v4, v4 != v11, v1);
 }
 
 uint64_t FigEndpointManagerRemoteCopyCarPlayManager(CFTypeRef *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (FigEndpointManagerRemoteCopyCarPlayManager_sCreateOnce != -1)
@@ -1208,10 +1212,11 @@ uint64_t FigEndpointManagerRemoteCopyCarPlayManager(CFTypeRef *a1)
     v2 = 4294950586;
   }
 
-  v10[0] = 0;
+  v10 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v10, &type);
-  v5 = v10[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v10, &type);
+  v5 = v10;
+  v6 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v7 = v5;
@@ -1224,12 +1229,12 @@ uint64_t FigEndpointManagerRemoteCopyCarPlayManager(CFTypeRef *a1)
 
   if (v7)
   {
-    v10[1] = 136315394;
-    v11 = "FigEndpointManagerRemoteCopyCarPlayManager";
-    v12 = 1024;
-    v13 = v2;
-    v8 = _os_log_send_and_compose_impl();
-    LOBYTE(v5) = v10[0];
+    v11 = 136315394;
+    v12 = "FigEndpointManagerRemoteCopyCarPlayManager";
+    v13 = 1024;
+    v14 = v2;
+    v8 = _os_log_send_and_compose_impl(v7, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<< FigEndpointManagerXPCRemote >> %s: Failed to copy CarPlayManager due to %d\n", &v11, 18);
+    LOBYTE(v5) = v10;
   }
 
   else
@@ -1237,18 +1242,19 @@ uint64_t FigEndpointManagerRemoteCopyCarPlayManager(CFTypeRef *a1)
     v8 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != &v14, v5, 0, v6);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != v15, v5);
   return v2;
 }
 
 void __FigEndpointManagerRemoteCopyCarPlayManager_block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   FigEndpointManagerRemoteCopyCarPlayManager_sCreationResult = FigEndpointManagerRemoteCreateWithType(@"CarPlay", &FigEndpointManagerRemoteCopyCarPlayManager_sCarPlayManager);
-  v6[0] = 0;
+  v6 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v6, &type);
-  v1 = v6[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v6, &type);
+  v1 = v6;
+  v2 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v3 = v1;
@@ -1261,12 +1267,12 @@ void __FigEndpointManagerRemoteCopyCarPlayManager_block_invoke()
 
   if (v3)
   {
-    v6[1] = 136315394;
-    v7 = "FigEndpointManagerRemoteCopyCarPlayManager_block_invoke";
-    v8 = 1024;
-    v9 = FigEndpointManagerRemoteCopyCarPlayManager_sCreationResult;
-    v4 = _os_log_send_and_compose_impl();
-    LOBYTE(v1) = v6[0];
+    v7 = 136315394;
+    v8 = "FigEndpointManagerRemoteCopyCarPlayManager_block_invoke";
+    v9 = 1024;
+    v10 = FigEndpointManagerRemoteCopyCarPlayManager_sCreationResult;
+    v4 = _os_log_send_and_compose_impl(v3, 0, v11, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<< FigEndpointManagerXPCRemote >> %s: CarPlayManager creation result: %d", &v7, 18);
+    LOBYTE(v1) = v6;
   }
 
   else
@@ -1274,12 +1280,12 @@ void __FigEndpointManagerRemoteCopyCarPlayManager_block_invoke()
     v4 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v4, v4 != &v10, v1, 0, v2);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v4, v4 != v11, v1);
 }
 
 uint64_t FigEndpointManagerRemoteCopyNeroManager(CFTypeRef *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (FigEndpointManagerRemoteCopyNeroManager_sCreateOnce != -1)
@@ -1300,10 +1306,11 @@ uint64_t FigEndpointManagerRemoteCopyNeroManager(CFTypeRef *a1)
     v2 = 4294950586;
   }
 
-  v10[0] = 0;
+  v10 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v10, &type);
-  v5 = v10[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v10, &type);
+  v5 = v10;
+  v6 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v7 = v5;
@@ -1316,12 +1323,12 @@ uint64_t FigEndpointManagerRemoteCopyNeroManager(CFTypeRef *a1)
 
   if (v7)
   {
-    v10[1] = 136315394;
-    v11 = "FigEndpointManagerRemoteCopyNeroManager";
-    v12 = 1024;
-    v13 = v2;
-    v8 = _os_log_send_and_compose_impl();
-    LOBYTE(v5) = v10[0];
+    v11 = 136315394;
+    v12 = "FigEndpointManagerRemoteCopyNeroManager";
+    v13 = 1024;
+    v14 = v2;
+    v8 = _os_log_send_and_compose_impl(v7, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<< FigEndpointManagerXPCRemote >> %s: Failed to copy NeroManager due to %d\n", &v11, 18);
+    LOBYTE(v5) = v10;
   }
 
   else
@@ -1329,18 +1336,19 @@ uint64_t FigEndpointManagerRemoteCopyNeroManager(CFTypeRef *a1)
     v8 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != &v14, v5, 0, v6);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != v15, v5);
   return v2;
 }
 
-void *__FigEndpointManagerRemoteCopyNeroManager_block_invoke()
+uint64_t *__FigEndpointManagerRemoteCopyNeroManager_block_invoke()
 {
-  v13[16] = *MEMORY[0x1E69E9840];
+  v14[16] = *MEMORY[0x1E69E9840];
   FigEndpointManagerRemoteCopyNeroManager_sCreationResult = FigEndpointManagerRemoteCreateWithType(@"Nero/Stevenote", &FigEndpointManagerRemoteCopyNeroManager_sNeroManager);
-  v9[0] = 0;
+  v9 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v9, &type);
-  v1 = v9[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v9, &type);
+  v1 = v9;
+  v2 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v3 = v1;
@@ -1353,12 +1361,12 @@ void *__FigEndpointManagerRemoteCopyNeroManager_block_invoke()
 
   if (v3)
   {
-    v9[1] = 136315394;
-    v10 = "FigEndpointManagerRemoteCopyNeroManager_block_invoke";
-    v11 = 1024;
-    v12 = FigEndpointManagerRemoteCopyNeroManager_sCreationResult;
-    v4 = _os_log_send_and_compose_impl();
-    LOBYTE(v1) = v9[0];
+    v10 = 136315394;
+    v11 = "FigEndpointManagerRemoteCopyNeroManager_block_invoke";
+    v12 = 1024;
+    v13 = FigEndpointManagerRemoteCopyNeroManager_sCreationResult;
+    v4 = _os_log_send_and_compose_impl(v3, 0, v14, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<< FigEndpointManagerXPCRemote >> %s: NeroManager creation result: %d", &v10, 18);
+    LOBYTE(v1) = v9;
   }
 
   else
@@ -1366,22 +1374,22 @@ void *__FigEndpointManagerRemoteCopyNeroManager_block_invoke()
     v4 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v4, v4 != v13, v1, 0, v2);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v4, v4 != v14, v1);
   v5 = FigEndpointManagerRemoteCopyNeroManager_sNeroManager;
   DerivedStorage = CMBaseObjectGetDerivedStorage(FigEndpointManagerRemoteCopyNeroManager_sNeroManager);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 0x40000000;
-  v13[2] = __remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke;
-  v13[3] = &__block_descriptor_tmp_30;
-  v13[4] = v5;
-  result = NeroValeriaListenerCreate(v13);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 0x40000000;
+  v14[2] = __remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke;
+  v14[3] = &__block_descriptor_tmp_30;
+  v14[4] = v5;
+  result = NeroValeriaListenerCreate(v14);
   *(DerivedStorage + 8) = result;
   return result;
 }
 
 uint64_t FigEndpointManagerRemoteCopySidePlayManager(CFTypeRef *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (FigEndpointManagerRemoteCopySidePlayManager_sCreateOnce != -1)
@@ -1402,10 +1410,11 @@ uint64_t FigEndpointManagerRemoteCopySidePlayManager(CFTypeRef *a1)
     v2 = 4294950586;
   }
 
-  v10[0] = 0;
+  v10 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v10, &type);
-  v5 = v10[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v10, &type);
+  v5 = v10;
+  v6 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v7 = v5;
@@ -1418,12 +1427,12 @@ uint64_t FigEndpointManagerRemoteCopySidePlayManager(CFTypeRef *a1)
 
   if (v7)
   {
-    v10[1] = 136315394;
-    v11 = "FigEndpointManagerRemoteCopySidePlayManager";
-    v12 = 1024;
-    v13 = v2;
-    v8 = _os_log_send_and_compose_impl();
-    LOBYTE(v5) = v10[0];
+    v11 = 136315394;
+    v12 = "FigEndpointManagerRemoteCopySidePlayManager";
+    v13 = 1024;
+    v14 = v2;
+    v8 = _os_log_send_and_compose_impl(v7, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<< FigEndpointManagerXPCRemote >> %s: Failed to copy SidePlayManager due to %d\n", &v11, 18);
+    LOBYTE(v5) = v10;
   }
 
   else
@@ -1431,18 +1440,19 @@ uint64_t FigEndpointManagerRemoteCopySidePlayManager(CFTypeRef *a1)
     v8 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != &v14, v5, 0, v6);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != v15, v5);
   return v2;
 }
 
 void __FigEndpointManagerRemoteCopySidePlayManager_block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   FigEndpointManagerRemoteCopySidePlayManager_sCreationResult = FigEndpointManagerRemoteCreateWithType(@"SidePlay", &FigEndpointManagerRemoteCopySidePlayManager_sSidePlayManager);
-  v6[0] = 0;
+  v6 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v6, &type);
-  v1 = v6[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v6, &type);
+  v1 = v6;
+  v2 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v3 = v1;
@@ -1455,12 +1465,12 @@ void __FigEndpointManagerRemoteCopySidePlayManager_block_invoke()
 
   if (v3)
   {
-    v6[1] = 136315394;
-    v7 = "FigEndpointManagerRemoteCopySidePlayManager_block_invoke";
-    v8 = 1024;
-    v9 = FigEndpointManagerRemoteCopySidePlayManager_sCreationResult;
-    v4 = _os_log_send_and_compose_impl();
-    LOBYTE(v1) = v6[0];
+    v7 = 136315394;
+    v8 = "FigEndpointManagerRemoteCopySidePlayManager_block_invoke";
+    v9 = 1024;
+    v10 = FigEndpointManagerRemoteCopySidePlayManager_sCreationResult;
+    v4 = _os_log_send_and_compose_impl(v3, 0, v11, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<< FigEndpointManagerXPCRemote >> %s: SidePlayManager creation result: %d", &v7, 18);
+    LOBYTE(v1) = v6;
   }
 
   else
@@ -1468,12 +1478,12 @@ void __FigEndpointManagerRemoteCopySidePlayManager_block_invoke()
     v4 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v4, v4 != &v10, v1, 0, v2);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v4, v4 != v11, v1);
 }
 
 uint64_t remoteXPCEndpointManager_getSharedXPCClient(uint64_t *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&remoteXPCEndpointManager_getSharedXPCClient_lock);
   v3 = remoteXPCEndpointManager_getSharedXPCClient_sSharedClient;
   if (remoteXPCEndpointManager_getSharedXPCClient_err)
@@ -1494,16 +1504,18 @@ uint64_t remoteXPCEndpointManager_getSharedXPCClient(uint64_t *a1)
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   CFDictionarySetValue(Mutable, @"xpcRemoteClientOption_DeathNoticeName", @"EndpointManager_ServerConnectionDied");
   CFDictionarySetValue(Mutable, @"xpcRemoteClientOption_PrivilegedConnection", *MEMORY[0x1E695E4D0]);
-  v21 = 0;
+  v22 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v21, &type);
-  v7 = v21;
-  if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type) ? v7 : v7 & 0xFFFFFFFE)
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v22, &type);
+  v7 = v22;
+  v8 = type;
+  v9 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type) ? v7 : v7 & 0xFFFFFFFE;
+  if (v9)
   {
-    v22 = 136315138;
-    v23 = "remoteXPCEndpointManager_getSharedXPCClient";
-    v10 = _os_log_send_and_compose_impl();
-    LOBYTE(v7) = v21;
+    v23 = 136315138;
+    v24 = "remoteXPCEndpointManager_getSharedXPCClient";
+    v10 = _os_log_send_and_compose_impl(v9, 0, v27, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v8, "<< FigEndpointManagerXPCRemote >> %s: Endpoint Manager Remote Client creating...", &v23);
+    LOBYTE(v7) = v22;
   }
 
   else
@@ -1511,20 +1523,22 @@ uint64_t remoteXPCEndpointManager_getSharedXPCClient(uint64_t *a1)
     v10 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v10, v10 != v26, v7, 0, v8);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v10, v10 != v27, v7);
   remoteXPCEndpointManager_getSharedXPCClient_err = FigXPCRemoteClientCreate("com.apple.coremedia.endpointmanager.xpc", remoteXPCEndpointManager_getSharedXPCClient_clientCallbacks, Mutable, &remoteXPCEndpointManager_getSharedXPCClient_sSharedClient);
-  v21 = 0;
+  v22 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v21, &type);
-  v12 = v21;
-  if (os_log_type_enabled(v11, type) ? v12 : v12 & 0xFFFFFFFE)
+  v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v22, &type);
+  v12 = v22;
+  v13 = type;
+  v14 = os_log_type_enabled(v11, type) ? v12 : v12 & 0xFFFFFFFE;
+  if (v14)
   {
-    v22 = 136315394;
-    v23 = "remoteXPCEndpointManager_getSharedXPCClient";
-    v24 = 1024;
-    v25 = remoteXPCEndpointManager_getSharedXPCClient_err;
-    v15 = _os_log_send_and_compose_impl();
-    LOBYTE(v12) = v21;
+    v23 = 136315394;
+    v24 = "remoteXPCEndpointManager_getSharedXPCClient";
+    v25 = 1024;
+    v26 = remoteXPCEndpointManager_getSharedXPCClient_err;
+    v15 = _os_log_send_and_compose_impl(v14, 0, v27, 128, &dword_196FA7000, v11, v13, "<< FigEndpointManagerXPCRemote >> %s: Endpoint Manager Remote Client created, result = %d", &v23, 18);
+    LOBYTE(v12) = v22;
   }
 
   else
@@ -1532,7 +1546,7 @@ uint64_t remoteXPCEndpointManager_getSharedXPCClient(uint64_t *a1)
     v15 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v15, v15 != v26, v12, 0, v13);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v15, v15 != v27, v12);
   if (Mutable)
   {
     CFRelease(Mutable);
@@ -1542,7 +1556,7 @@ uint64_t remoteXPCEndpointManager_getSharedXPCClient(uint64_t *a1)
   if (!remoteXPCEndpointManager_getSharedXPCClient_sSharedClient)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, remoteXPCEndpointManager_getSharedXPCClient_err, "<< FigEndpointManagerXPCRemote >>", 0x187, v1, v18, v19);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, remoteXPCEndpointManager_getSharedXPCClient_err, "<< FigEndpointManagerXPCRemote >>", 0x187, v1, v18, v19, v20);
   }
 
   else
@@ -1608,13 +1622,14 @@ LABEL_5:
 
 void __remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  CMBaseObject = FigEndpointManagerGetCMBaseObject(*(a1 + 32));
-  v2 = *(*(CMBaseObjectGetVTable(CMBaseObject) + 8) + 56);
-  if (v2)
+  v17 = *MEMORY[0x1E69E9840];
+  FigEndpointManagerGetCMBaseObject();
+  v2 = v1;
+  v3 = *(*(CMBaseObjectGetVTable(v1) + 8) + 56);
+  if (v3)
   {
-    v3 = v2(CMBaseObject, @"ValeriaConnected", *MEMORY[0x1E695E4D0]);
-    if (!v3)
+    v4 = v3(v2, @"ValeriaConnected", *MEMORY[0x1E695E4D0]);
+    if (!v4)
     {
       return;
     }
@@ -1622,39 +1637,40 @@ void __remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke
 
   else
   {
-    v3 = -12782;
+    v4 = -12782;
   }
 
-  v10[0] = 0;
+  v11 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, v10, &type);
-  v5 = v10[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 0, &v11, &type);
+  v6 = v11;
+  v7 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
-    v7 = v5;
+    v8 = v6;
   }
 
   else
   {
-    v7 = v5 & 0xFFFFFFFE;
+    v8 = v6 & 0xFFFFFFFE;
   }
 
-  if (v7)
+  if (v8)
   {
-    v10[1] = 136315394;
-    v11 = "remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke";
-    v12 = 1024;
-    v13 = v3;
-    v8 = _os_log_send_and_compose_impl();
-    LOBYTE(v5) = v10[0];
+    v12 = 136315394;
+    v13 = "remoteXPCEndpointManager_startListeningForValeriaConnections_block_invoke";
+    v14 = 1024;
+    v15 = v4;
+    v9 = _os_log_send_and_compose_impl(v8, 0, v16, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v7, "<< FigEndpointManagerXPCRemote >> %s: Failed to set ValeriaConnected property to true, error: %d", &v12, 18);
+    LOBYTE(v6) = v11;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v8, v8 != &v14, v5, 0, v6);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 0, 1, v9, v9 != v16, v6);
 }
 
 uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, __int16 a12, char a13, char a14, int a15)
@@ -1665,10 +1681,10 @@ uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &a15, &a14);
 }
 
-uint64_t OUTLINED_FUNCTION_5()
+uint64_t OUTLINED_FUNCTION_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, 0, a3, 128, a5, v8, v9, a8);
 }
 
 uint64_t OUTLINED_FUNCTION_6(int a1)
@@ -1698,7 +1714,7 @@ BOOL OUTLINED_FUNCTION_10(NSObject *a1, int a2, int a3, int a4, int a5, int a6, 
   return os_log_type_enabled(a1, type);
 }
 
-uint64_t FigWatchdogMonitorDispatchQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigWatchdogMonitorDispatchQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -1722,7 +1738,7 @@ uint64_t FigWatchdogMonitorDispatchQueue(uint64_t a1, uint64_t a2, uint64_t a3, 
   }
 }
 
-uint64_t FigWatchdogBeginVitalWork(const char *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigWatchdogBeginVitalWork(const char *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -1773,7 +1789,7 @@ uint64_t FigWatchdogBeginVitalWork(const char *a1, uint64_t *a2, uint64_t a3, ui
   }
 }
 
-uint64_t FigWatchdogCompleteVitalWork(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigWatchdogCompleteVitalWork(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1 <= 0)
   {
@@ -1892,40 +1908,40 @@ uint64_t FigBaseProtocolRegisterProtocol(__int128 *a1, uint64_t a2, void *a3)
   return result;
 }
 
-size_t CMDerivedObjectCreate(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t CMDerivedObjectCreate(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
   if (!a2 || !a4)
   {
-    CMDerivedObjectCreate_cold_5(&v29);
-    return v29;
+    CMDerivedObjectCreate_cold_5(&v36);
+    return v36;
   }
 
-  v11 = **(a2 + 8);
-  if (!v11)
+  v12 = *a2[1];
+  if (!v12)
   {
-    CMDerivedObjectCreate_cold_4(&v29, a2, a3, a4, a5, a6, a7, a8);
-    return v29;
+    CMDerivedObjectCreate_cold_4(&v36, a2, a3, a4, a5, a6, a7, a8);
+    return v36;
   }
 
-  if (v11 >= 6)
+  if (v12 >= 6)
   {
-    CMDerivedObjectCreate_cold_3(&v29, a2, a3, a4, a5, a6, a7, a8);
-    return v29;
+    CMDerivedObjectCreate_cold_3(&v36, a2, a3, a4, a5, a6, a7, a8);
+    return v36;
   }
 
   if (*a2)
   {
-    CMDerivedObjectCreate_cold_1(&v29);
-    return v29;
+    CMDerivedObjectCreate_cold_1(&v36);
+    return v36;
   }
 
   if (a3)
   {
-    v13 = a3;
-    while (!v13[14])
+    v14 = a3;
+    while (!v14[14])
     {
-      v13 = *v13;
-      if (!v13)
+      v14 = *v14;
+      if (!v14)
       {
         goto LABEL_10;
       }
@@ -1934,40 +1950,40 @@ size_t CMDerivedObjectCreate(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, ui
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v23 = Instance;
+      v24 = Instance;
       Instance[2] = a3;
       Instance[3] = a2;
-      bzero(Instance + 4, *(*(a2 + 8) + 8));
-      v24 = *(a2 + 8);
-      if (*v24 >= 2uLL && (v25 = v24[8]) != 0 && v25 == FigBaseObjectStandardNotificationBarrier && (DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter(), v27 = CMNotificationCenterRegisterForBarrierSupport(DefaultLocalCenter, v23), v27))
+      bzero(Instance + 4, *(a2[1] + 8));
+      v25 = a2[1];
+      if (*v25 >= 2uLL && (v26 = v25[8]) != 0 && v26 == FigBaseObjectStandardNotificationBarrier && (DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter(), v33 = CMNotificationCenterRegisterForBarrierSupport(DefaultLocalCenter, v24, 0, v28, v29, v30, v31, v32, v35), v33))
       {
-        v28 = v27;
-        CFRelease(v23);
+        v34 = v33;
+        CFRelease(v24);
       }
 
       else
       {
-        v28 = 0;
-        *a4 = v23;
+        v34 = 0;
+        *a4 = v24;
       }
 
-      return v28;
+      return v34;
     }
 
-    CMDerivedObjectCreate_cold_2(&v29, v16, v17, v18, v19, v20, v21, v22);
-    return v29;
+    CMDerivedObjectCreate_cold_2(&v36, v17, v18, v19, v20, v21, v22, v23);
+    return v36;
   }
 
 LABEL_10:
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE14uLL, "(Fig)", 0x11B, v8, a7, a8);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE14uLL, "(Fig)", 0x11B, v9, a7, a8, a9);
 }
 
-size_t FigBaseObjectStandardNotificationBarrier(uint64_t a1)
+size_t FigBaseObjectStandardNotificationBarrier(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
 
-  return CMNotificationCenterBarrier(DefaultLocalCenter, a1);
+  return CMNotificationCenterBarrier(DefaultLocalCenter, a1, v11, v12, v13, v14, v15, v16, a9);
 }
 
 uint64_t CMBaseObjectGetVTable(uint64_t result)
@@ -2093,7 +2109,7 @@ uint64_t CMBaseClassGetCFTypeID(void *a1)
   return v1;
 }
 
-uint64_t CMBaseObjectIsMemberOfClass(char *cf, void *a2)
+uint64_t CMBaseObjectIsMemberOfClass(char *cf, char *a2)
 {
   if (!a2)
   {
@@ -2103,7 +2119,7 @@ uint64_t CMBaseObjectIsMemberOfClass(char *cf, void *a2)
   v4 = a2;
   while (1)
   {
-    v5 = v4[14];
+    v5 = *(v4 + 14);
     if (v5)
     {
       break;
@@ -2195,20 +2211,20 @@ uint64_t _FigEnsureReadyToCollectIncrementalCoverageData(uint64_t a1)
 
   (*(a1 + 8))();
   theString = 0;
-  v9 = xmmword_1971651C0;
+  v16 = xmmword_1971651C0;
   result = xmmword_1971651C0;
   v2 = FigCopyCoverageFilePathPattern(&theString);
-  v3 = theString;
+  v10 = theString;
   if (v2)
   {
-    v5 = v2;
+    v12 = v2;
   }
 
   else
   {
     if (theString)
     {
-      if (CFStringFind(theString, @"%m", 4uLL).location != -1 || CFStringFind(v3, @"%c", 4uLL).location != -1)
+      if (CFStringFind(theString, @"%m", 4uLL).location != -1 || CFStringFind(v10, @"%c", 4uLL).location != -1)
       {
         MutableCopy = 0;
         goto LABEL_7;
@@ -2217,43 +2233,43 @@ uint64_t _FigEnsureReadyToCollectIncrementalCoverageData(uint64_t a1)
 
     else
     {
-      _FigEnsureReadyToCollectIncrementalCoverageData_cold_1();
+      _FigEnsureReadyToCollectIncrementalCoverageData_cold_1(v2, v3, v4, v5, v6, v7, v8, v9, v16);
     }
 
-    MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, v3);
-    v13.length = CFStringGetLength(MutableCopy);
-    v13.location = 0;
-    if (CFStringFindWithOptions(MutableCopy, @"/", v13, 4uLL, &result))
+    MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, v10);
+    v20.length = CFStringGetLength(MutableCopy);
+    v20.location = 0;
+    if (CFStringFindWithOptions(MutableCopy, @"/", v20, 4uLL, &result))
     {
       Length = CFStringGetLength(MutableCopy);
-      v14.location = result.location;
-      v14.length = Length - result.location;
+      v21.location = result.location;
+      v21.length = Length - result.location;
       result.length = Length - result.location;
-      if (CFStringFindWithOptions(MutableCopy, @".", v14, 4uLL, &v9))
+      if (CFStringFindWithOptions(MutableCopy, @".", v21, 4uLL, &v16))
       {
-        v8 = v9;
+        v15 = v16;
       }
 
       else
       {
-        v8 = CFStringGetLength(MutableCopy);
+        v15 = CFStringGetLength(MutableCopy);
       }
 
-      CFStringInsert(MutableCopy, v8, @"-%m");
+      CFStringInsert(MutableCopy, v15, @"-%m");
       theString = MutableCopy;
       if (MutableCopy)
       {
         CFRetain(MutableCopy);
       }
 
-      if (v3)
+      if (v10)
       {
-        CFRelease(v3);
+        CFRelease(v10);
       }
 
-      v3 = MutableCopy;
+      v10 = MutableCopy;
 LABEL_7:
-      v5 = _FigSetCoverageFilePathPattern(a1, v3);
+      v12 = _FigSetCoverageFilePathPattern(a1, v10);
       if (!MutableCopy)
       {
         goto LABEL_9;
@@ -2262,23 +2278,23 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    _FigEnsureReadyToCollectIncrementalCoverageData_cold_2(&v12);
-    v5 = v12;
+    _FigEnsureReadyToCollectIncrementalCoverageData_cold_2(&v19);
+    v12 = v19;
     if (MutableCopy)
     {
 LABEL_8:
       CFRelease(MutableCopy);
-      v3 = theString;
+      v10 = theString;
     }
   }
 
 LABEL_9:
-  if (v3)
+  if (v10)
   {
-    CFRelease(v3);
+    CFRelease(v10);
   }
 
-  return v5;
+  return v12;
 }
 
 uint64_t _FigSetCoverageFilePathPattern(uint64_t a1, CFStringRef theString)
@@ -2424,11 +2440,12 @@ __CFArray *FigEndpointManagerCopyMatchingEndpoints(uint64_t a1, unsigned int (*a
 {
   theArray = 0;
   v5 = *MEMORY[0x1E695E480];
-  CMBaseObject = FigEndpointManagerGetCMBaseObject(a1);
-  v7 = *(*(CMBaseObjectGetVTable(CMBaseObject) + 8) + 48);
-  if (v7)
+  FigEndpointManagerGetCMBaseObject();
+  v7 = v6;
+  v8 = *(*(CMBaseObjectGetVTable(v6) + 8) + 48);
+  if (v8)
   {
-    v7(CMBaseObject, @"AvailableEndpoints", v5, &theArray);
+    v8(v7, @"AvailableEndpoints", v5, &theArray);
   }
 
   Mutable = CFArrayCreateMutable(v5, 0, MEMORY[0x1E695E9C0]);
@@ -2437,14 +2454,14 @@ __CFArray *FigEndpointManagerCopyMatchingEndpoints(uint64_t a1, unsigned int (*a
     Count = CFArrayGetCount(theArray);
     if (Count >= 1)
     {
-      v10 = Count;
-      for (i = 0; i != v10; ++i)
+      v11 = Count;
+      for (i = 0; i != v11; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-        v13 = ValueAtIndex;
+        v14 = ValueAtIndex;
         if (!a2 || a2(ValueAtIndex, a3))
         {
-          CFArrayAppendValue(Mutable, v13);
+          CFArrayAppendValue(Mutable, v14);
         }
       }
     }
@@ -2628,26 +2645,27 @@ uint64_t FigEndpointUtility_EndpointManagerPredicate_IsEndpointManagerOfType(uin
   }
 
   cf = 0;
-  CMBaseObject = FigEndpointManagerGetCMBaseObject(a1);
-  v4 = *(*(CMBaseObjectGetVTable(CMBaseObject) + 8) + 48);
-  if (v4)
+  FigEndpointManagerGetCMBaseObject();
+  v4 = v3;
+  v5 = *(*(CMBaseObjectGetVTable(v3) + 8) + 48);
+  if (v5)
   {
-    v4(CMBaseObject, @"Name", *MEMORY[0x1E695E480], &cf);
-    v5 = cf;
+    v5(v4, @"Name", *MEMORY[0x1E695E480], &cf);
+    v6 = cf;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = FigCFEqual(v5, a2);
+  v7 = FigCFEqual(v6, a2);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v6;
+  return v7;
 }
 
 void CMSetAttachment(CMAttachmentBearerRef target, CFStringRef key, CFTypeRef value, CMAttachmentMode attachmentMode)
@@ -2681,7 +2699,7 @@ LABEL_3:
     v14 = 226;
 LABEL_7:
 
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", v14, v13, v4, v5);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", v14, v13, v4, v5, v17);
     return;
   }
 
@@ -2703,7 +2721,7 @@ CFTypeRef CMGetAttachment(CMAttachmentBearerRef target, CFStringRef key, CMAttac
     }
 
 LABEL_8:
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0xF0, v5, v3, v4);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0xF0, v5, v3, v4, v13);
     return 0;
   }
 
@@ -2748,7 +2766,7 @@ void CMRemoveAttachment(CMAttachmentBearerRef target, CFStringRef key)
     return;
   }
 
-  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x100, v4, v2, v3);
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x100, v4, v2, v3, v11);
 }
 
 void CMRemoveAllAttachments(CMAttachmentBearerRef target)
@@ -2777,7 +2795,7 @@ CFDictionaryRef CMCopyDictionaryOfAttachments(CFAllocatorRef allocator, CMAttach
     }
 
 LABEL_8:
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x117, v5, v3, v4);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x117, v5, v3, v4, v13);
     return 0;
   }
 
@@ -2826,34 +2844,34 @@ void CMPropagateAttachments(CMAttachmentBearerRef source, CMAttachmentBearerRef 
   }
 }
 
-CFMutableDictionaryRef figAttachmentsMakeAttachmentBearerRegistrationDictionary()
+CFMutableDictionaryRef figAttachmentsMakeAttachmentBearerRegistrationDictionary(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   result = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, 0);
   sFigAttachmentBearerCallbacksPerTypeID = result;
   if (!result)
   {
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x6D, v0, v2, v3);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, "(Fig)", 0x6D, v9, v11, v12, a9);
   }
 
   return result;
 }
 
-void figAttachmentsRegisterInternalBearers()
+void figAttachmentsRegisterInternalBearers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  FigThreadRunOnce(&sFigAttachmentsEnsureAttachmentBearerRegistrationDictionaryOnce, figAttachmentsMakeAttachmentBearerRegistrationDictionary);
-  FigAttachmentsRegisterBlockBuffer();
-  FigAttachmentsRegisterSampleBuffer();
+  v9 = FigThreadRunOnce(&sFigAttachmentsEnsureAttachmentBearerRegistrationDictionaryOnce, figAttachmentsMakeAttachmentBearerRegistrationDictionary);
+  FigAttachmentsRegisterBlockBuffer(v9, v10, v11, v12, v13, v14, v15, v16, vars0);
+  FigAttachmentsRegisterSampleBuffer(v17, v18, v19, v20, v21, v22, v23, v24, vars0a);
 
-  FigAttachmentsRegisterCVBuffer();
+  FigAttachmentsRegisterCVBuffer(v25, v26, v27, v28, v29, v30, v31, v32, a9);
 }
 
-void FigAttachmentsRegisterBlockBuffer()
+void FigAttachmentsRegisterBlockBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   FigThreadRunOnce(&sRegisterFigBlockBufferTypeOnce, RegisterFigBlockBufferType);
-  v0 = sFigBlockBufferID;
+  v15 = sFigBlockBufferID;
 
-  FigRuntimeRegisterAttachmentBearerWithTypeID(sFigBlockBufferAttachmentBearerCallbacks, v0);
+  FigRuntimeRegisterAttachmentBearerWithTypeID(sFigBlockBufferAttachmentBearerCallbacks, v15, v9, v10, v11, v12, v13, v14, a9);
 }
 
 OSStatus CMBlockBufferCreateEmpty(CFAllocatorRef structureAllocator, uint32_t subBlockCapacity, CMBlockBufferFlags flags, CMBlockBufferRef *blockBufferOut)
@@ -2882,7 +2900,7 @@ OSStatus CMBlockBufferCreateEmpty(CFAllocatorRef structureAllocator, uint32_t su
 
     else
     {
-      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE64uLL, "(Fig)", 0x44B, v6, v10, v11);
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE64uLL, "(Fig)", 0x44B, v6, v10, v11, v14);
     }
 
     *blockBufferOut = v12;
@@ -2891,7 +2909,7 @@ OSStatus CMBlockBufferCreateEmpty(CFAllocatorRef structureAllocator, uint32_t su
   else
   {
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x450, v6, v4, v5);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x450, v6, v4, v5, v16);
   }
 
   return result;
@@ -2930,7 +2948,7 @@ OSStatus CMBlockBufferAppendMemoryBlock(CMBlockBufferRef theBuffer, void *memory
     v14 = 1125;
 LABEL_10:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v13, "(Fig)", v14, v12);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v13, "(Fig)", v14, v12, dataLength, flags, v38);
   }
 
   if (__CFADD__(*(theBuffer + 5), blockLength))
@@ -3147,7 +3165,7 @@ OSStatus CMBlockBufferCreateWithMemoryBlock(CFAllocatorRef structureAllocator, v
   else
   {
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x4D5, v9, dataLength, *&flags);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x4D5, v9, dataLength, flags, 0);
   }
 }
 
@@ -3190,7 +3208,7 @@ OSStatus CMBlockBufferAppendBufferReference(CMBlockBufferRef theBuffer, CMBlockB
     v11 = 1360;
 LABEL_21:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v10, "(Fig)", v11, v9, v5, v6);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v10, "(Fig)", v11, v9, v5, v6, v16);
   }
 
   if (!dataLength)
@@ -3264,7 +3282,7 @@ OSStatus CMBlockBufferCreateWithBufferReference(CFAllocatorRef structureAllocato
   else
   {
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x599, v8, v6, v7);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x599, v8, v6, v7, v19);
   }
 }
 
@@ -3385,67 +3403,67 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x5C7, v7, v5, v6);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x5C7, v7, v5, v6, v25);
 }
 
-size_t FigBlockBufferGetDataPointerAndOrigin(uint64_t a1, unint64_t a2, unint64_t *a3, void *a4, unint64_t *a5, void *a6, unint64_t *a7, CMBlockBufferRef *a8)
+size_t FigBlockBufferGetDataPointerAndOrigin(uint64_t a1, unint64_t a2, unint64_t *a3, void *a4, CMBlockBufferRef **a5, void *a6, unint64_t *a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
-  v25 = 0;
   v26 = 0;
+  v27 = 0;
   if (a1)
   {
     if (a6)
     {
       if (a7)
       {
-        v13 = *(a1 + 32);
-        if (v13 < 1)
+        v14 = *(a1 + 32);
+        if (v14 < 1)
         {
 LABEL_8:
           LODWORD(result) = 0;
           goto LABEL_9;
         }
 
-        v15 = 0;
-        v16 = (a1 + 72);
+        v16 = 0;
+        v17 = (a1 + 72);
         while (1)
         {
-          v17 = *(v16 - 1) + v15;
-          if (v17 > a2)
+          v18 = *(v17 - 1) + v16;
+          if (v18 > a2)
           {
             break;
           }
 
-          v16 += 6;
-          v15 = v17;
-          if (!--v13)
+          v17 += 6;
+          v16 = v18;
+          if (!--v14)
           {
             goto LABEL_8;
           }
         }
 
         LODWORD(result) = 0;
-        v23 = *(v16 - 6);
-        if (v23 <= 2)
+        v24 = *(v17 - 6);
+        if (v24 <= 2)
         {
-          if (v23 == 1)
+          if (v24 == 1)
           {
-            LODWORD(result) = FigBlockBufferGetDataPointerAndOrigin(*v16, a2 - v15 + *(v16 - 2), &v26, 0, &v25);
+            LODWORD(result) = FigBlockBufferGetDataPointerAndOrigin(*v17, a2 - v16 + *(v17 - 2), &v27, 0, &v26, a6, a7, a8, v26);
             if (!result)
             {
-              v24 = v15 - a2 + *(v16 - 1);
-              if (v26 < v24)
+              v25 = v16 - a2 + *(v17 - 1);
+              if (v27 < v25)
               {
-                v24 = v26;
+                v25 = v27;
               }
 
-              v26 = v24;
+              v27 = v25;
             }
 
             goto LABEL_9;
           }
 
-          if (v23 != 2)
+          if (v24 != 2)
           {
             goto LABEL_9;
           }
@@ -3453,37 +3471,37 @@ LABEL_8:
 
         else
         {
-          if (v23 == 5)
+          if (v24 == 5)
           {
 LABEL_32:
             LODWORD(result) = 0;
             *a6 = a1;
             *a7 = a2;
-            v26 = v17 - a2;
-            v25 = *v16 + *(v16 - 2) + a2 - v15;
+            v27 = v18 - a2;
+            v26 = (*v17 + *(v17 - 2) + a2 - v16);
             goto LABEL_9;
           }
 
-          if (v23 != 4)
+          if (v24 != 4)
           {
-            if (v23 == 3)
+            if (v24 == 3)
             {
               goto LABEL_32;
             }
 
 LABEL_9:
-            v19 = v25;
-            if (v25)
+            v20 = v26;
+            if (v26)
             {
-              v20 = 0;
+              v21 = 0;
             }
 
             else
             {
-              v20 = result == 0;
+              v21 = result == 0;
             }
 
-            if (v20)
+            if (v21)
             {
               result = 4294954593;
             }
@@ -3495,7 +3513,7 @@ LABEL_9:
 
             if (a3)
             {
-              *a3 = v26;
+              *a3 = v27;
             }
 
             if (a4)
@@ -3505,7 +3523,7 @@ LABEL_9:
 
             if (a5)
             {
-              *a5 = v19;
+              *a5 = v20;
             }
 
             return result;
@@ -3516,24 +3534,24 @@ LABEL_9:
         goto LABEL_9;
       }
 
-      v21 = v8;
-      v22 = 1567;
+      v22 = v9;
+      v23 = 1567;
     }
 
     else
     {
-      v21 = v8;
-      v22 = 1565;
+      v22 = v9;
+      v23 = 1565;
     }
   }
 
   else
   {
-    v21 = v8;
-    v22 = 1563;
+    v22 = v9;
+    v23 = 1563;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", v22, v21, a7, a8);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", v23, v22, a7, a8, a9);
 }
 
 OSStatus CMBlockBufferCopyDataBytes(CMBlockBufferRef theSourceBuffer, size_t offsetToData, size_t dataLength, void *destination)
@@ -3580,7 +3598,7 @@ OSStatus CMBlockBufferCopyDataBytes(CMBlockBufferRef theSourceBuffer, size_t off
     v14 = 1736;
 LABEL_12:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v13, "(Fig)", v14, v12, v4, v5);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v13, "(Fig)", v14, v12, v4, v5, v20);
   }
 
   if (dataLength + offsetToData < offsetToData)
@@ -3668,7 +3686,7 @@ OSStatus CMBlockBufferReplaceDataBytes(const void *sourceBytes, CMBlockBufferRef
     v13 = 1794;
 LABEL_12:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v12, "(Fig)", v13, v11, v4, v5);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v12, "(Fig)", v13, v11, v4, v5, v20);
   }
 
   v15 = sourceBytes;
@@ -3725,7 +3743,7 @@ OSStatus CMBlockBufferAssureBlockMemory(CMBlockBufferRef theBuffer)
     v20 = 1959;
 LABEL_24:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v19, "(Fig)", v20, v18, v1, v2);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v19, "(Fig)", v20, v18, v1, v2, v23);
   }
 
   v5 = *(theBuffer + 8);
@@ -3767,7 +3785,7 @@ LABEL_24:
             v14 = v3;
             v15 = 1986;
 LABEL_16:
-            result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE63uLL, "(Fig)", v15, v14, v11, v12);
+            result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE63uLL, "(Fig)", v15, v14, v11, v12, v21);
             break;
           }
 
@@ -3836,7 +3854,7 @@ OSStatus CMBlockBufferFillDataBytes(char fillByte, CMBlockBufferRef destinationB
     v12 = 1854;
 LABEL_11:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v11, "(Fig)", v12, v10, v4, v5);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v11, "(Fig)", v12, v10, v4, v5, v20);
   }
 
   v14 = fillByte;
@@ -3976,7 +3994,7 @@ OSStatus CMBlockBufferAccessDataBytes(CMBlockBufferRef theBuffer, size_t offset,
     v17 = 1901;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v16, "(Fig)", v17, v15, v5, v6);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v16, "(Fig)", v17, v15, v5, v6, v27);
 }
 
 OSStatus CMBlockBufferCreateContiguous(CFAllocatorRef structureAllocator, CMBlockBufferRef sourceBuffer, CFAllocatorRef blockAllocator, const CMBlockBufferCustomBlockSource *customBlockSource, size_t offsetToData, size_t dataLength, CMBlockBufferFlags flags, CMBlockBufferRef *blockBufferOut)
@@ -4013,7 +4031,7 @@ OSStatus CMBlockBufferCreateContiguous(CFAllocatorRef structureAllocator, CMBloc
     v15 = 2065;
 LABEL_10:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v14, "(Fig)", v15, v13, flags, blockBufferOut);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v14, "(Fig)", v15, v13, *&flags, blockBufferOut, v27);
   }
 
   theBuffer = 0;
@@ -4059,7 +4077,7 @@ Boolean CMBlockBufferIsRangeContiguous(CMBlockBufferRef theBuffer, size_t offset
 {
   if (!theBuffer)
   {
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x847, v5, v3, v4);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5FuLL, "(Fig)", 0x847, v5, v3, v4, v12);
     return 0;
   }
 
@@ -4120,7 +4138,7 @@ uint64_t FigBlockBufferImpliedIndicesForSwiftOverlay(uint64_t a1)
   return 0;
 }
 
-uint64_t FigBlockBufferEnumerateBlocksForSwiftOverlay(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigBlockBufferEnumerateBlocksForSwiftOverlay(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -4227,7 +4245,7 @@ BOOL __FigCreateBlockBufferWithDispatchDataNoCopyForSwiftOverlay_block_invoke_2(
   return v7 == 0;
 }
 
-__CFString *BBufCopyDebugDesc(uint64_t a1)
+CFMutableStringRef BBufCopyDebugDesc(uint64_t a1)
 {
   Mutable = CFStringCreateMutable(0, 0);
   AppendBBufDescription(Mutable, a1, 0, 0);
@@ -4336,7 +4354,7 @@ LABEL_26:
     }
 
     v19 = *(i - 2);
-    v20 = (a4 + 1);
+    v20 = a4 + 1;
     v21 = a1;
     v22 = a3;
 LABEL_10:
@@ -4376,7 +4394,7 @@ void DescribeBBufAnnotation(const __CFString *a1, uint64_t a2, uint64_t a3)
   CFStringAppendFormat(*a3, 0, @"%*s %-10s%s = %@\n", (4 * *(a3 + 8)), "", buffer, v5, a2);
 }
 
-void BBufSetAttachment(char *cf, void *key, void *value, int a4)
+void BBufSetAttachment(char *cf, void *key, void *value, unsigned int a4)
 {
   v7 = 1 - a4;
   v8 = cf + 16;
@@ -4498,7 +4516,7 @@ uint64_t RegisterFigCaptionTextOutlineType()
   return result;
 }
 
-uint64_t FigCaptionTextOutlineCreate(uint64_t a1, uint64_t a2, uint64_t a3, CGColor *a4, void *a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionTextOutlineCreate(uint64_t a1, uint64_t a2, uint64_t a3, CGColor *a4, void *a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a5)
   {
@@ -4517,21 +4535,21 @@ uint64_t FigCaptionTextOutlineCreate(uint64_t a1, uint64_t a2, uint64_t a3, CGCo
 
     else
     {
-      FigCaptionTextOutlineCreate_cold_1(0, v13, v14, v15, v16, v17, v18, v19);
+      FigCaptionTextOutlineCreate_cold_1(0, v13, v14, v15, v16, v17, v18, v19, v23);
       return 0;
     }
   }
 
   else
   {
-    FigCaptionTextOutlineCreate_cold_2(&v23, a2, a3, a4, 0, a6, a7, a8);
-    return v23;
+    FigCaptionTextOutlineCreate_cold_2(&v24, a2, a3, a4, 0, a6, a7, a8);
+    return v24;
   }
 
   return result;
 }
 
-uint64_t FigCaptionTextOutlineCreateNone(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionTextOutlineCreateNone(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a2)
   {
@@ -4548,15 +4566,15 @@ uint64_t FigCaptionTextOutlineCreateNone(uint64_t a1, uint64_t *a2, uint64_t a3,
 
     else
     {
-      FigCaptionTextOutlineCreateNone_cold_1(0, v10, v11, v12, v13, v14, v15, v16);
+      FigCaptionTextOutlineCreateNone_cold_1(0, v10, v11, v12, v13, v14, v15, v16, v19);
       return 0;
     }
   }
 
   else
   {
-    FigCaptionTextOutlineCreateNone_cold_2(&v19, 0, a3, a4, a5, a6, a7, a8);
-    return v19;
+    FigCaptionTextOutlineCreateNone_cold_2(&v20, 0, a3, a4, a5, a6, a7, a8);
+    return v20;
   }
 
   return result;
@@ -4616,19 +4634,19 @@ size_t __FigVirtualCaptureCardCreate_block_invoke(uint64_t a1)
 
 size_t FigVirtualCaptureCardCreateInternal(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   cf = 0;
   sVCCEnableCrashRecovery = 1;
   if (!a2)
   {
-    FigVirtualCaptureCardCreateInternal_cold_2(&v31);
+    FigVirtualCaptureCardCreateInternal_cold_2(&v33);
 LABEL_30:
-    st_dev = v31.st_dev;
+    st_dev = v33.st_dev;
     goto LABEL_13;
   }
 
   ClassID = FigVirtualCaptureCardGetClassID();
-  v10 = CMDerivedObjectCreate(a1, &kFigVirtualCaptureCardVTable, ClassID, &cf, v6, v7, v8, v9);
+  v10 = CMDerivedObjectCreate(a1, kFigVirtualCaptureCardVTable, ClassID, &cf, v6, v7, v8, v9, v29);
   if (v10)
   {
     st_dev = v10;
@@ -4638,7 +4656,7 @@ LABEL_30:
   DerivedStorage = CMBaseObjectGetDerivedStorage(cf);
   if (!DerivedStorage)
   {
-    FigVirtualCaptureCardCreateInternal_cold_1(&v31);
+    FigVirtualCaptureCardCreateInternal_cold_1(&v33);
     goto LABEL_30;
   }
 
@@ -4668,13 +4686,13 @@ LABEL_17:
   }
 
   v17 = v16;
-  memset(&v31, 0, sizeof(v31));
-  if (lstat(sVCCPreallocationSaveToSymlinkCString, &v31))
+  memset(&v33, 0, sizeof(v33));
+  if (lstat(sVCCPreallocationSaveToSymlinkCString, &v33))
   {
     goto LABEL_7;
   }
 
-  v22 = readlink(sVCCPreallocationSaveToSymlinkCString, &v31, 0x400uLL);
+  v22 = readlink(sVCCPreallocationSaveToSymlinkCString, &v33, 0x400uLL);
   if ((v22 - 1024) < 0xFFFFFFFFFFFFFC01)
   {
     v18 = 0;
@@ -4683,22 +4701,22 @@ LABEL_17:
   }
 
   v23 = v22;
-  *(&v31.st_dev + v22) = 0;
+  *(&v33.st_dev + v22) = 0;
   if (!FigFileDoesFileExist(*(v17 + 16)))
   {
     goto LABEL_7;
   }
 
   *(v17 + 8) = vcc_StatFileCapacity(*(v17 + 16));
-  memset(&v30, 0, 40);
-  st_dev = FigFileGetFileInfo(*(v17 + 16), &v30);
+  memset(&v32, 0, 40);
+  st_dev = FigFileGetFileInfo(*(v17 + 16), &v32);
   if (st_dev)
   {
     v18 = 0;
     goto LABEL_9;
   }
 
-  if (*&v30.st_dev <= 0)
+  if (*&v32.st_dev <= 0)
   {
 LABEL_7:
     v18 = 0;
@@ -4706,7 +4724,7 @@ LABEL_7:
 
   else
   {
-    v18 = CFURLCreateFromFileSystemRepresentation(0, &v31, v23, 0);
+    v18 = CFURLCreateFromFileSystemRepresentation(0, &v33, v23, 0);
     if (FigFileDoesFileExist(v18))
     {
       goto LABEL_9;
@@ -4721,7 +4739,7 @@ LABEL_7:
       {
         v25 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Unable to recover preallocated file data %@ due to FigVirtualCaptureCard_SaveCapture err: %d", v15, v24);
         emitter = fig_log_get_emitter("com.apple.coremedia", "");
-        st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", 0x1D8, v2, v27, v28);
+        st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", 0x1D8, v2, v27, v28, v30);
         CFRelease(v25);
         goto LABEL_9;
       }
@@ -4730,8 +4748,8 @@ LABEL_7:
 
   st_dev = 0;
 LABEL_9:
-  memset(&v30, 0, sizeof(v30));
-  if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v30))
+  memset(&v32, 0, sizeof(v32));
+  if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v32))
   {
     st_dev = FigFileDeleteFile(sVCCPreallocationSaveToSymlink);
   }
@@ -4790,11 +4808,11 @@ size_t __FigVirtualCaptureCardGetSingleton_block_invoke(uint64_t a1)
 
 CFTypeRef FigVirtualCaptureCardInitializeFilesystemPaths()
 {
-  v29 = *MEMORY[0x1E69E9840];
-  memset(&v27, 0, sizeof(v27));
-  v26 = 0;
+  v31 = *MEMORY[0x1E69E9840];
+  memset(&v29, 0, sizeof(v29));
+  v28 = 0;
   v1 = getuid();
-  if (getpwuid_r(v1, &v27, v28, 0x400uLL, &v26) || !v26)
+  if (getpwuid_r(v1, &v29, v30, 0x400uLL, &v28) || !v28)
   {
     v2 = *MEMORY[0x1E695E480];
     v14 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Failed to get user home dir with getpwuid_r()");
@@ -4802,7 +4820,7 @@ CFTypeRef FigVirtualCaptureCardInitializeFilesystemPaths()
     goto LABEL_8;
   }
 
-  if (!v27.pw_dir)
+  if (!v29.pw_dir)
   {
 LABEL_10:
     v13 = CFURLCreateWithString(0, @"/var/mobile/Library/VirtualCaptureCard", 0);
@@ -4810,14 +4828,14 @@ LABEL_10:
   }
 
   v2 = *MEMORY[0x1E695E480];
-  v3 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v27.pw_dir, 0x600u);
+  v3 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v29.pw_dir, 0x600u);
   if (!v3)
   {
-    v14 = CFStringCreateWithFormat(v2, 0, @"Failed to create user homedir from string %s", v27.pw_dir);
+    v14 = CFStringCreateWithFormat(v2, 0, @"Failed to create user homedir from string %s", v29.pw_dir);
     v15 = 579;
 LABEL_8:
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v19 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v15, v0, v17, v18);
+    v19 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v15, v0, v17, v18, v26);
     CFRelease(v14);
     if (v19)
     {
@@ -4825,7 +4843,7 @@ LABEL_8:
       v21 = 604;
 LABEL_13:
       v22 = fig_log_get_emitter("com.apple.coremedia", "");
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v21, v0, v23, v24);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v21, v0, v23, v24, v27);
       CFRelease(v20);
       goto LABEL_14;
     }
@@ -5001,7 +5019,7 @@ LABEL_15:
   if (!CFEqual(a2, @"FigVirtualCaptureCardProperty_PreallocatedStorageFileURL"))
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC5uLL, "<<< FigVirtualCaptureCard >>>", 0xA9, v4, v16, v17);
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC5uLL, "<<< FigVirtualCaptureCard >>>", 0xA9, v4, v16, v17, *&v18[0]);
     goto LABEL_17;
   }
 
@@ -5025,36 +5043,36 @@ size_t FigVirtualCaptureCard_SetProperty(uint64_t a1, const void *a2, const void
   FigSimpleMutexLock(*DerivedStorage);
   if (!a2)
   {
-    FigVirtualCaptureCard_SetProperty_cold_4(&v15);
+    FigVirtualCaptureCard_SetProperty_cold_4(&v16);
 LABEL_13:
-    v10 = v15;
+    v10 = v16;
     goto LABEL_8;
   }
 
   if (!a3)
   {
-    FigVirtualCaptureCard_SetProperty_cold_3(&v15);
+    FigVirtualCaptureCard_SetProperty_cold_3(&v16);
     goto LABEL_13;
   }
 
   if (!CFEqual(a2, @"FigVirtualCaptureCardProperty_Capacity"))
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC5uLL, "<<< FigVirtualCaptureCard >>>", 0xC4, v3, v12, v13);
+    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC5uLL, "<<< FigVirtualCaptureCard >>>", 0xC4, v3, v12, v13, v15);
     goto LABEL_8;
   }
 
   v8 = CFGetTypeID(a3);
   if (v8 != CFNumberGetTypeID())
   {
-    FigVirtualCaptureCard_SetProperty_cold_1(&v15);
+    FigVirtualCaptureCard_SetProperty_cold_1(&v16);
     goto LABEL_13;
   }
 
   SInt64 = FigCFNumberGetSInt64(a3);
   if (vcc_FigVirtualCaptureCardPreallocateCapacity(a1, SInt64))
   {
-    FigVirtualCaptureCard_SetProperty_cold_2(&v15);
+    FigVirtualCaptureCard_SetProperty_cold_2(&v16);
     goto LABEL_13;
   }
 
@@ -5072,15 +5090,15 @@ size_t vcc_FigVirtualCaptureCardPreallocateCapacity(uint64_t a1, uint64_t a2)
   v5 = DerivedStorage[2];
   if (!v5)
   {
-    vcc_FigVirtualCaptureCardPreallocateCapacity_cold_3(&v20);
-    v15 = v20;
+    vcc_FigVirtualCaptureCardPreallocateCapacity_cold_3(&v21);
+    v15 = v21;
     goto LABEL_11;
   }
 
   if (DerivedStorage[3])
   {
-    vcc_FigVirtualCaptureCardPreallocateCapacity_cold_1(&v18);
-    v15 = v18;
+    vcc_FigVirtualCaptureCardPreallocateCapacity_cold_1(&v19);
+    v15 = v19;
     goto LABEL_11;
   }
 
@@ -5088,8 +5106,8 @@ size_t vcc_FigVirtualCaptureCardPreallocateCapacity(uint64_t a1, uint64_t a2)
   {
     if (FigFileDoesFileExist(v5))
     {
-      vcc_FigVirtualCaptureCardPreallocateCapacity_cold_2(v6, a2, &v19);
-      v15 = v19;
+      vcc_FigVirtualCaptureCardPreallocateCapacity_cold_2(v6, a2, &v20);
+      v15 = v20;
       goto LABEL_11;
     }
 
@@ -5122,7 +5140,7 @@ size_t vcc_FigVirtualCaptureCardPreallocateCapacity(uint64_t a1, uint64_t a2)
     v13 = 502;
   }
 
-  v15 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC2uLL, "<<< FigVirtualCaptureCard >>>", v13, v12, v10, v11);
+  v15 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC2uLL, "<<< FigVirtualCaptureCard >>>", v13, v12, v10, v11, v18);
   CFRelease(v8);
 LABEL_11:
   v16 = vcc_StatFileCapacity(*v6);
@@ -5133,40 +5151,40 @@ LABEL_12:
 
 size_t FigVirtualCaptureCard_ReserveForCaptureToFile(uint64_t a1, const __CFURL *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   FigSimpleMutexLock(*DerivedStorage);
   if (!*(DerivedStorage + 16))
   {
-    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_4(&v17);
+    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_4(&v18);
 LABEL_21:
-    st_dev = v17.st_dev;
+    st_dev = v18.st_dev;
     goto LABEL_11;
   }
 
   if (*(DerivedStorage + 24))
   {
-    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_1(&v17);
+    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_1(&v18);
     goto LABEL_21;
   }
 
   if (!a2)
   {
-    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_3(&v17);
+    FigVirtualCaptureCard_ReserveForCaptureToFile_cold_3(&v18);
     goto LABEL_21;
   }
 
   if (sVCCEnableCrashRecovery == 1)
   {
-    memset(&v17, 0, sizeof(v17));
-    if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v17))
+    memset(&v18, 0, sizeof(v18));
+    if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v18))
     {
-      FigVirtualCaptureCard_ReserveForCaptureToFile_cold_2(&v17);
+      FigVirtualCaptureCard_ReserveForCaptureToFile_cold_2(&v18);
       goto LABEL_21;
     }
   }
 
-  if (!CFURLGetFileSystemRepresentation(a2, 1u, &v17, 1024))
+  if (!CFURLGetFileSystemRepresentation(a2, 1u, &v18, 1024))
   {
     v6 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Save to file path %@ is invalid", a2);
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
@@ -5183,17 +5201,17 @@ LABEL_21:
     v10 = v2;
     v11 = 241;
 LABEL_10:
-    st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v11, v10, v8, v9);
+    st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCBEuLL, "<<< FigVirtualCaptureCard >>>", v11, v10, v8, v9, v17);
     CFRelease(v6);
     goto LABEL_11;
   }
 
-  if (sVCCEnableCrashRecovery == 1 && symlink(&v17, sVCCPreallocationSaveToSymlinkCString))
+  if (sVCCEnableCrashRecovery == 1 && symlink(&v18, sVCCPreallocationSaveToSymlinkCString))
   {
     v14 = __error();
     v15 = *MEMORY[0x1E695E480];
     v16 = strerror(*v14);
-    v6 = CFStringCreateWithFormat(v15, 0, @"symlink failed for: %s -> %s, err: %s", sVCCPreallocationSaveToSymlinkCString, &v17, v16);
+    v6 = CFStringCreateWithFormat(v15, 0, @"symlink failed for: %s -> %s, err: %s", sVCCPreallocationSaveToSymlinkCString, &v18, v16);
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
     v10 = v2;
     v11 = 251;
@@ -5216,39 +5234,39 @@ LABEL_11:
 
 size_t FigVirtualCaptureCard_SaveCapture(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   FigSimpleMutexLock(*DerivedStorage);
   if (!*(DerivedStorage + 16))
   {
-    FigVirtualCaptureCard_SaveCapture_cold_3(&v26);
+    FigVirtualCaptureCard_SaveCapture_cold_3(&v27);
     goto LABEL_23;
   }
 
   v4 = *(DerivedStorage + 24);
   if (!v4)
   {
-    FigVirtualCaptureCard_SaveCapture_cold_2(&v26);
+    FigVirtualCaptureCard_SaveCapture_cold_2(&v27);
     goto LABEL_23;
   }
 
   if (sVCCEnableCrashRecovery == 1)
   {
-    memset(&v26, 0, sizeof(v26));
-    if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v26))
+    memset(&v27, 0, sizeof(v27));
+    if (!lstat(sVCCPreallocationSaveToSymlinkCString, &v27))
     {
       v4 = *(DerivedStorage + 24);
       goto LABEL_6;
     }
 
-    FigVirtualCaptureCard_SaveCapture_cold_1(&v26);
+    FigVirtualCaptureCard_SaveCapture_cold_1(&v27);
 LABEL_23:
-    st_dev = v26.st_dev;
+    st_dev = v27.st_dev;
     goto LABEL_11;
   }
 
 LABEL_6:
-  if (!CFURLGetFileSystemRepresentation(v4, 1u, &v26, 1024))
+  if (!CFURLGetFileSystemRepresentation(v4, 1u, &v27, 1024))
   {
     v11 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Save to file path %@ is invalid", *(DerivedStorage + 24));
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
@@ -5272,7 +5290,7 @@ LABEL_6:
     v16 = 4294950077;
     v17 = 286;
 LABEL_10:
-    st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v16, "<<< FigVirtualCaptureCard >>>", v17, v15, v13, v14);
+    st_dev = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v16, "<<< FigVirtualCaptureCard >>>", v17, v15, v13, v14, v26);
     CFRelease(v11);
     goto LABEL_11;
   }
@@ -5283,7 +5301,7 @@ LABEL_10:
     v22 = *v21;
     v23 = *MEMORY[0x1E695E480];
     v24 = strerror(*v21);
-    v11 = CFStringCreateWithFormat(v23, 0, @"FigFileDeleteFile failed for %s, errno 0x%08x, strerror = %s", &sVCCPreallocationFileCString, v22, v24);
+    v11 = CFStringCreateWithFormat(v23, 0, @"FigFileDeleteFile failed for %s, errno 0x%08x, strerror = %s", sVCCPreallocationFileCString, v22, v24);
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
     v15 = v1;
     v16 = 4294950078;
@@ -5314,12 +5332,12 @@ LABEL_11:
 
 size_t FigFoundationCreateHardLink(uint64_t a1, const __CFURL *a2)
 {
-  v11 = 0;
+  v12 = 0;
   v5 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if (FigFileDoesFileExist(a2) || ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBE22uLL, "<FigFoundationUtilities>", 0x71, v2, v8, v9);
+    v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBE22uLL, "<FigFoundationUtilities>", 0x71, v2, v8, v9, v11);
   }
 
   else
@@ -5334,55 +5352,58 @@ CFTypeRef FigCFStringCreateWithBytesWithUnknownEncoding(const __CFAllocator *a1,
 {
   cf = 0;
   v12 = objc_autoreleasePoolPush();
+  v20 = v12;
   if (!a2 && a3)
   {
-    FigCFStringCreateWithBytesWithUnknownEncoding_cold_11();
+    FigCFStringCreateWithBytesWithUnknownEncoding_cold_11(v12, v13, v14, v15, v16, v17, v18, v19, v101);
     goto LABEL_36;
   }
 
   if (a3 < 0)
   {
-    FigCFStringCreateWithBytesWithUnknownEncoding_cold_10();
+    FigCFStringCreateWithBytesWithUnknownEncoding_cold_10(v12, v13, v14, v15, v16, v17, v18, v19, v101);
     goto LABEL_36;
   }
 
   if (a4)
   {
-    v13 = CFGetTypeID(a4);
-    if (v13 != CFDictionaryGetTypeID())
+    v21 = CFGetTypeID(a4);
+    TypeID = CFDictionaryGetTypeID();
+    if (v21 != TypeID)
     {
-      FigCFStringCreateWithBytesWithUnknownEncoding_cold_1();
+      FigCFStringCreateWithBytesWithUnknownEncoding_cold_1(TypeID, v23, v24, v25, v26, v27, v28, v29, v101);
       goto LABEL_36;
     }
   }
 
   if (a3)
   {
-    v14 = a2;
-    while ((*v14 & 0x80000000) == 0)
+    v30 = a2;
+    while ((*v30 & 0x80000000) == 0)
     {
-      if (++v14 >= &a2[a3])
+      if (++v30 >= &a2[a3])
       {
         goto LABEL_10;
       }
     }
 
-    v17 = CFDataCreate(a1, a2, a3);
-    if (!v17)
+    v33 = CFDataCreate(a1, a2, a3);
+    if (!v33)
     {
-      FigCFStringCreateWithBytesWithUnknownEncoding_cold_9();
+      FigCFStringCreateWithBytesWithUnknownEncoding_cold_9(0, v34, v35, v36, v37, v38, v39, v40, v101);
       goto LABEL_36;
     }
 
-    v15 = v17;
+    v31 = v33;
     if (a4)
     {
       if ([a4 objectForKey:*MEMORY[0x1E696A8E0]])
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          FigCFStringCreateWithBytesWithUnknownEncoding_cold_2();
+          FigCFStringCreateWithBytesWithUnknownEncoding_cold_2(isKindOfClass, v42, v43, v44, v45, v46, v47, v48, v101);
           goto LABEL_35;
         }
       }
@@ -5390,43 +5411,47 @@ CFTypeRef FigCFStringCreateWithBytesWithUnknownEncoding(const __CFAllocator *a1,
       if ([a4 objectForKey:*MEMORY[0x1E696A8C0]])
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v49 = objc_opt_isKindOfClass();
+        if ((v49 & 1) == 0)
         {
-          FigCFStringCreateWithBytesWithUnknownEncoding_cold_3();
+          FigCFStringCreateWithBytesWithUnknownEncoding_cold_3(v49, v50, v51, v52, v53, v54, v55, v56, v101);
           goto LABEL_35;
         }
       }
 
-      v18 = [a4 objectForKey:*MEMORY[0x1E696A8E8]];
-      if (v18)
+      v57 = [a4 objectForKey:*MEMORY[0x1E696A8E8]];
+      if (v57)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v58 = objc_opt_isKindOfClass();
+        if ((v58 & 1) == 0)
         {
-          FigCFStringCreateWithBytesWithUnknownEncoding_cold_4();
+          FigCFStringCreateWithBytesWithUnknownEncoding_cold_4(v58, v59, v60, v61, v62, v63, v64, v65, v101);
           goto LABEL_35;
         }
       }
 
-      v19 = [a4 objectForKey:*MEMORY[0x1E696A8F0]];
-      if (v19)
+      v66 = [a4 objectForKey:*MEMORY[0x1E696A8F0]];
+      if (v66)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v67 = objc_opt_isKindOfClass();
+        if ((v67 & 1) == 0)
         {
-          FigCFStringCreateWithBytesWithUnknownEncoding_cold_5();
+          FigCFStringCreateWithBytesWithUnknownEncoding_cold_5(v67, v68, v69, v70, v71, v72, v73, v74, v101);
           goto LABEL_35;
         }
       }
 
-      if (![v19 BOOLValue] || objc_msgSend(v18, "count") >= 2)
+      if (![v66 BOOLValue] || objc_msgSend(v57, "count") >= 2)
       {
         if ([a4 objectForKey:*MEMORY[0x1E696A8D0]])
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v75 = objc_opt_isKindOfClass();
+          if ((v75 & 1) == 0)
           {
-            FigCFStringCreateWithBytesWithUnknownEncoding_cold_6();
+            FigCFStringCreateWithBytesWithUnknownEncoding_cold_6(v75, v76, v77, v78, v79, v80, v81, v82, v101);
             goto LABEL_35;
           }
         }
@@ -5434,9 +5459,10 @@ CFTypeRef FigCFStringCreateWithBytesWithUnknownEncoding(const __CFAllocator *a1,
         if ([a4 objectForKey:*MEMORY[0x1E696A8D8]])
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v83 = objc_opt_isKindOfClass();
+          if ((v83 & 1) == 0)
           {
-            FigCFStringCreateWithBytesWithUnknownEncoding_cold_7();
+            FigCFStringCreateWithBytesWithUnknownEncoding_cold_7(v83, v84, v85, v86, v87, v88, v89, v90, v101);
             goto LABEL_35;
           }
         }
@@ -5444,22 +5470,23 @@ CFTypeRef FigCFStringCreateWithBytesWithUnknownEncoding(const __CFAllocator *a1,
         if ([a4 objectForKey:*MEMORY[0x1E696A8C8]])
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v91 = objc_opt_isKindOfClass();
+          if ((v91 & 1) == 0)
           {
-            FigCFStringCreateWithBytesWithUnknownEncoding_cold_8();
+            FigCFStringCreateWithBytesWithUnknownEncoding_cold_8(v91, v92, v93, v94, v95, v96, v97, v98, v101);
             goto LABEL_35;
           }
         }
       }
     }
 
-    v20 = [MEMORY[0x1E696AEC0] stringEncodingForData:v15 encodingOptions:a4 convertedString:&cf usedLossyConversion:a6];
+    v99 = [MEMORY[0x1E696AEC0] stringEncodingForData:v31 encodingOptions:a4 convertedString:&cf usedLossyConversion:a6];
     if (cf)
     {
       cf = CFRetain(cf);
-      *a5 = CFStringConvertNSStringEncodingToEncoding(v20);
+      *a5 = CFStringConvertNSStringEncodingToEncoding(v99);
 LABEL_35:
-      CFRelease(v15);
+      CFRelease(v31);
       goto LABEL_36;
     }
   }
@@ -5467,24 +5494,24 @@ LABEL_35:
   else
   {
 LABEL_10:
-    v15 = 0;
+    v31 = 0;
   }
 
   cf = CFStringCreateWithBytes(a1, a2, a3, 0x8000100u, 1u);
-  v16 = 0xFFFFFFFFLL;
+  v32 = 0xFFFFFFFFLL;
   if (cf)
   {
-    v16 = 134217984;
+    v32 = 134217984;
   }
 
-  *a5 = v16;
-  if (v15)
+  *a5 = v32;
+  if (v31)
   {
     goto LABEL_35;
   }
 
 LABEL_36:
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v20);
   return cf;
 }
 
@@ -5555,18 +5582,18 @@ size_t figBufferQueueCreateWithCallbacksOrHandlers(uint64_t a1, uint64_t a2, uin
         if (a3 && (*a3 > 1u || !*(a3 + 28)))
         {
           emitter = fig_log_get_emitter("com.apple.coremedia", "");
-          v22 = v5;
-          v23 = 4294954534;
-          v24 = 1158;
+          v27 = v5;
+          v28 = 4294954534;
+          v29 = 1158;
         }
 
         else if (!a4 || *a4 == 1 && *(a4 + 24))
         {
           DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-          v12 = CMNotificationCenterRegisterForBarrierSupport(DefaultLocalCenter, Instance);
-          if (v12)
+          v17 = CMNotificationCenterRegisterForBarrierSupport(DefaultLocalCenter, Instance, 0, v12, v13, v14, v15, v16, v38);
+          if (v17)
           {
-            v13 = v12;
+            v18 = v17;
 LABEL_21:
             CFRelease(Instance);
             Instance = 0;
@@ -5582,13 +5609,13 @@ LABEL_21:
             *(Instance + 76) = *(a3 + 28);
             *(Instance + 84) = *(a3 + 36);
             *(Instance + 92) = *(a3 + 44);
-            v26 = *(a3 + 52);
-            if (v26)
+            v31 = *(a3 + 52);
+            if (v31)
             {
-              v26 = CFRetain(v26);
+              v31 = CFRetain(v31);
             }
 
-            *(Instance + 100) = v26;
+            *(Instance + 100) = v31;
             if (*a3)
             {
               *(Instance + 108) = *(a3 + 60);
@@ -5605,28 +5632,28 @@ LABEL_21:
             *(Instance + 72) = _Block_copy(*(a4 + 24));
             *(Instance + 80) = _Block_copy(*(a4 + 32));
             *(Instance + 88) = _Block_copy(*(a4 + 40));
-            v27 = *(a4 + 48);
-            if (v27)
+            v32 = *(a4 + 48);
+            if (v32)
             {
-              v27 = CFRetain(v27);
+              v32 = CFRetain(v32);
             }
 
-            *(Instance + 96) = v27;
+            *(Instance + 96) = v32;
             *(Instance + 104) = _Block_copy(*(a4 + 56));
           }
 
-          v28 = FigReentrantMutexCreate();
-          *(Instance + 16) = v28;
-          if (v28)
+          v33 = FigReentrantMutexCreate();
+          *(Instance + 16) = v33;
+          if (v33)
           {
-            CMTimeMake(&v33, 0, 1);
-            *(Instance + 124) = v33;
+            CMTimeMake(&v39, 0, 1);
+            *(Instance + 124) = v39;
             *(Instance + 152) = 0;
             *(Instance + 40) = a2;
             if (!a2)
             {
 LABEL_39:
-              v13 = 0;
+              v18 = 0;
               *(Instance + 216) = *&kCMTimeInvalid.value;
               *(Instance + 232) = 0;
               *(Instance + 240) = *&kCMTimeZero.value;
@@ -5634,62 +5661,62 @@ LABEL_39:
               goto LABEL_23;
             }
 
-            v29 = CFGetAllocator(Instance);
-            Mutable = CFArrayCreateMutable(v29, *(Instance + 40), MEMORY[0x1E695E9C0]);
+            v34 = CFGetAllocator(Instance);
+            Mutable = CFArrayCreateMutable(v34, *(Instance + 40), MEMORY[0x1E695E9C0]);
             *(Instance + 24) = Mutable;
             if (Mutable)
             {
-              v31 = CFGetAllocator(Instance);
-              v32 = CFDictionaryCreateMutable(v31, *(Instance + 40), 0, MEMORY[0x1E695E9E8]);
-              *(Instance + 32) = v32;
-              if (v32)
+              v36 = CFGetAllocator(Instance);
+              v37 = CFDictionaryCreateMutable(v36, *(Instance + 40), 0, MEMORY[0x1E695E9E8]);
+              *(Instance + 32) = v37;
+              if (v37)
               {
                 goto LABEL_39;
               }
 
               emitter = fig_log_get_emitter("com.apple.coremedia", "");
-              v22 = v5;
-              v23 = 4294954536;
-              v24 = 1227;
+              v27 = v5;
+              v28 = 4294954536;
+              v29 = 1227;
             }
 
             else
             {
               emitter = fig_log_get_emitter("com.apple.coremedia", "");
-              v22 = v5;
-              v23 = 4294954536;
-              v24 = 1221;
+              v27 = v5;
+              v28 = 4294954536;
+              v29 = 1221;
             }
           }
 
           else
           {
             emitter = fig_log_get_emitter("com.apple.coremedia", "");
-            v22 = v5;
-            v23 = 4294954536;
-            v24 = 1207;
+            v27 = v5;
+            v28 = 4294954536;
+            v29 = 1207;
           }
         }
 
         else
         {
           emitter = fig_log_get_emitter("com.apple.coremedia", "");
-          v22 = v5;
-          v23 = 4294954534;
-          v24 = 1165;
+          v27 = v5;
+          v28 = 4294954534;
+          v29 = 1165;
         }
       }
 
       else
       {
         emitter = fig_log_get_emitter("com.apple.coremedia", "");
-        v22 = v5;
-        v23 = 4294954536;
-        v24 = 1152;
+        v27 = v5;
+        v28 = 4294954536;
+        v29 = 1152;
       }
 
-      v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v23, "<<< CMBufferQueue >>>", v24, v22, v20, v21);
-      if (!v13)
+      v18 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v28, "<<< CMBufferQueue >>>", v29, v27, v25, v26, v38);
+      if (!v18)
       {
         goto LABEL_22;
       }
@@ -5703,21 +5730,21 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v14 = fig_log_get_emitter("com.apple.coremedia", "");
-    v17 = v5;
-    v18 = 1146;
+    v19 = fig_log_get_emitter("com.apple.coremedia", "");
+    v22 = v5;
+    v23 = 1146;
   }
 
   else
   {
-    v14 = fig_log_get_emitter("com.apple.coremedia", "");
-    v17 = v5;
-    v18 = 1138;
+    v19 = fig_log_get_emitter("com.apple.coremedia", "");
+    v22 = v5;
+    v23 = 1138;
   }
 
-  v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", v18, v17, v15, v16);
+  v18 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v19, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", v23, v22, v20, v21, v38);
   Instance = 0;
-  if (v13)
+  if (v18)
   {
     goto LABEL_20;
   }
@@ -5729,7 +5756,7 @@ LABEL_23:
     *a5 = Instance;
   }
 
-  return v13;
+  return v18;
 }
 
 OSStatus CMBufferQueueEnqueue(CMBufferQueueRef queue, CMBufferRef buf)
@@ -5744,7 +5771,7 @@ OSStatus CMBufferQueueEnqueue(CMBufferQueueRef queue, CMBufferRef buf)
       v9 = 4294954530;
       v10 = 1798;
 LABEL_10:
-      v15 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v9, "<<< CMBufferQueue >>>", v10, v8, v6, v7);
+      v15 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v9, "<<< CMBufferQueue >>>", v10, v8, v6, v7, v34);
 LABEL_11:
       v16 = v15;
 LABEL_12:
@@ -5835,9 +5862,9 @@ LABEL_12:
         v24 = *(queue + 3);
         v25 = figBufferQueueCallCompareCallback;
 LABEL_29:
-        v39.location = 0;
-        v39.length = v21;
-        v31 = CFArrayBSearchValues(v24, v39, buf, v25, &v34);
+        v40.location = 0;
+        v40.length = v21;
+        v31 = CFArrayBSearchValues(v24, v40, buf, v25, &v34);
         if (v31 >= v21)
         {
           v32 = v21;
@@ -5878,7 +5905,7 @@ LABEL_34:
 
   v11 = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x6FC, v2, v12, v13);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x6FC, v2, v12, v13, v39);
 }
 
 uint64_t figBufferQueueCallCompareCallback(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5954,7 +5981,7 @@ OSStatus CMBufferQueueSetValidationCallback(CMBufferQueueRef queue, CMBufferVali
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x76C, v3, v8, v9);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x76C, v3, v8, v9, v11);
   }
 
   return 0;
@@ -5973,7 +6000,7 @@ OSStatus CMBufferQueueSetValidationHandler(CMBufferQueueRef queue, CMBufferValid
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x787, v2, v7, v8);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x787, v2, v7, v8, v10);
     v5 = 0;
   }
 
@@ -5986,7 +6013,7 @@ CMBufferRef CMBufferQueueDequeueAndRetain(CMBufferQueueRef queue)
   if (!queue)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7A1, v1, v8, v9);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7A1, v1, v8, v9, v13);
     return 0;
   }
 
@@ -5994,7 +6021,7 @@ CMBufferRef CMBufferQueueDequeueAndRetain(CMBufferQueueRef queue)
   if (*(queue + 168))
   {
     v3 = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x7AB, v1, v4, v5);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x7AB, v1, v4, v5, v13);
   }
 
   else
@@ -6025,7 +6052,7 @@ CMBufferRef CMBufferQueueDequeueIfDataReadyAndRetain(CMBufferQueueRef queue)
   if (!queue)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7C9, v1, v8, v9);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7C9, v1, v8, v9, v15);
     return 0;
   }
 
@@ -6069,7 +6096,7 @@ CMBufferRef CMBufferQueueDequeueIfDataReadyAndRetain(CMBufferQueueRef queue)
   }
 
   v3 = fig_log_get_emitter("com.apple.coremedia", "");
-  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x7D3, v1, v4, v5);
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x7D3, v1, v4, v5, v15);
 LABEL_4:
   v6 = 0;
 LABEL_5:
@@ -6082,7 +6109,7 @@ const void *FigBufferQueueDequeueIfMatchingAndRetain(uint64_t a1, const void *a2
   if (!a1 || (v3 = a2) == 0)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7F7, v2, v9, v10);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x7F7, v2, v9, v10, v13);
     return 0;
   }
 
@@ -6090,7 +6117,7 @@ const void *FigBufferQueueDequeueIfMatchingAndRetain(uint64_t a1, const void *a2
   if (*(a1 + 168))
   {
     v5 = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x801, v2, v6, v7);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x801, v2, v6, v7, v13);
   }
 
   else
@@ -6132,7 +6159,7 @@ CMBufferRef CMBufferQueueGetHead(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x81E, v1, v6, v7);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x81E, v1, v6, v7, v9);
     return 0;
   }
 
@@ -6166,7 +6193,7 @@ CMBufferRef CMBufferQueueCopyHead(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x837, v1, v7, v8);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x837, v1, v7, v8, v10);
     return 0;
   }
 
@@ -6195,7 +6222,7 @@ Boolean CMBufferQueueIsEmpty(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x852, v1, v6, v7);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x852, v1, v6, v7, v9);
     return 1;
   }
 
@@ -6210,7 +6237,7 @@ OSStatus CMBufferQueueMarkEndOfData(CMBufferQueueRef queue)
     if (*(queue + 168))
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x87C, v1, v4, v5);
+      v6 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x87C, v1, v4, v5, v12);
     }
 
     else
@@ -6234,7 +6261,7 @@ OSStatus CMBufferQueueMarkEndOfData(CMBufferQueueRef queue)
   {
     v7 = fig_log_get_emitter("com.apple.coremedia", "");
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x872, v1, v8, v9);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x872, v1, v8, v9, v14);
   }
 }
 
@@ -6250,7 +6277,7 @@ Boolean CMBufferQueueContainsEndOfData(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x892, v1, v5, v6);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x892, v1, v5, v6, v8);
     return 1;
   }
 
@@ -6276,14 +6303,14 @@ Boolean CMBufferQueueIsAtEndOfData(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x8A9, v1, v5, v6);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x8A9, v1, v5, v6, v8);
     LOBYTE(v3) = 1;
   }
 
   return v3;
 }
 
-size_t resetWithCallback(uint64_t a1, void (*a2)(CFTypeRef, uint64_t), uint64_t a3)
+size_t resetWithCallback(uint64_t a1, void (*a2)(CFTypeRef, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
@@ -6291,15 +6318,15 @@ size_t resetWithCallback(uint64_t a1, void (*a2)(CFTypeRef, uint64_t), uint64_t 
     if (*(a1 + 168))
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x8CF, v3, v8, v9);
+      v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x8CF, v9, v14, v15, v29);
       Mutable = 0;
     }
 
     else
     {
       *(a1 + 121) = 0;
-      v16 = *(a1 + 24);
-      if (v16)
+      v22 = *(a1 + 24);
+      if (v22)
       {
         if (!a2)
         {
@@ -6307,14 +6334,14 @@ size_t resetWithCallback(uint64_t a1, void (*a2)(CFTypeRef, uint64_t), uint64_t 
           goto LABEL_24;
         }
 
-        v17 = CFGetAllocator(a1);
+        v23 = CFGetAllocator(a1);
         Count = CFArrayGetCount(*(a1 + 24));
-        Mutable = CFArrayCreateMutable(v17, Count, MEMORY[0x1E695E9C0]);
+        Mutable = CFArrayCreateMutable(v23, Count, MEMORY[0x1E695E9C0]);
         while (1)
         {
-          v16 = *(a1 + 24);
+          v22 = *(a1 + 24);
 LABEL_24:
-          if (!CFArrayGetCount(v16))
+          if (!CFArrayGetCount(v22))
           {
             break;
           }
@@ -6335,13 +6362,13 @@ LABEL_24:
       }
 
       *(a1 + 184) = 1;
-      v19 = *(a1 + 160);
-      if (v19)
+      v25 = *(a1 + 160);
+      if (v25)
       {
-        CFSetApplyFunction(v19, evaluateAndMaybeFireTrigger, a1);
+        CFSetApplyFunction(v25, evaluateAndMaybeFireTrigger, a1);
       }
 
-      v10 = 0;
+      v16 = 0;
       if (a2 && Mutable)
       {
         FigReentrantMutexUnlock(*(a1 + 16));
@@ -6349,20 +6376,20 @@ LABEL_24:
         {
           do
           {
-            v20 = CFArrayGetValueAtIndex(Mutable, 0);
-            v21 = CFRetain(v20);
+            v26 = CFArrayGetValueAtIndex(Mutable, 0);
+            v27 = CFRetain(v26);
             CFArrayRemoveValueAtIndex(Mutable, 0);
-            a2(v21, a3);
-            CFRelease(v21);
+            a2(v27, a3);
+            CFRelease(v27);
           }
 
           while (CFArrayGetCount(Mutable));
-          v10 = 0;
+          v16 = 0;
         }
 
         else
         {
-          v10 = 0;
+          v16 = 0;
         }
 
         goto LABEL_5;
@@ -6372,20 +6399,20 @@ LABEL_24:
     FigReentrantMutexUnlock(*(a1 + 16));
     if (!Mutable)
     {
-      return v10;
+      return v16;
     }
 
 LABEL_5:
     CFRelease(Mutable);
-    return v10;
+    return v16;
   }
 
-  v13 = fig_log_get_emitter("com.apple.coremedia", "");
+  v19 = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x8C5, v3, v14, v15);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v19, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x8C5, v9, v20, v21, a9);
 }
 
-size_t FigBufferQueueTwoPassFilter(uint64_t a1, void (*a2)(const void *, uint64_t), uint64_t (*a3)(const void *, uint64_t), uint64_t a4)
+size_t FigBufferQueueTwoPassFilter(uint64_t a1, void (*a2)(const void *, uint64_t), uint64_t (*a3)(const void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1)
   {
@@ -6393,63 +6420,63 @@ size_t FigBufferQueueTwoPassFilter(uint64_t a1, void (*a2)(const void *, uint64_
     if (*(a1 + 168))
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x921, v4, v10, v11);
+      v17 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE22uLL, "<<< CMBufferQueue >>>", 0x921, v9, v15, v16, v33);
     }
 
     else
     {
-      v17 = *(a1 + 24);
-      if (v17)
+      v22 = *(a1 + 24);
+      if (v22)
       {
-        Count = CFArrayGetCount(v17);
-        v19 = Count;
+        Count = CFArrayGetCount(v22);
+        v24 = Count;
         if (a2 && Count >= 1)
         {
-          v20 = 0;
+          v25 = 0;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 24), v20);
+            ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 24), v25);
             a2(ValueAtIndex, a4);
-            ++v20;
+            ++v25;
           }
 
-          while (v19 != v20);
+          while (v24 != v25);
         }
 
         if (a3)
         {
-          v22 = CFGetAllocator(a1);
-          Mutable = CFArrayCreateMutable(v22, v19, MEMORY[0x1E695E9C0]);
-          if (v19 >= 1)
+          v27 = CFGetAllocator(a1);
+          Mutable = CFArrayCreateMutable(v27, v24, MEMORY[0x1E695E9C0]);
+          if (v24 >= 1)
           {
-            v24 = 0;
+            v29 = 0;
             do
             {
-              v25 = CFArrayGetValueAtIndex(*(a1 + 24), v24);
-              v26 = a3(v25, a4);
-              if (v26)
+              v30 = CFArrayGetValueAtIndex(*(a1 + 24), v29);
+              v31 = a3(v30, a4);
+              if (v31)
               {
-                v27 = v26;
-                if (v26 != v25)
+                v32 = v31;
+                if (v31 != v30)
                 {
-                  CFArrayAppendValue(Mutable, v25);
-                  bufQRemoveElementAtIndex(a1, v24);
-                  bufQInsertElementAtIndex(a1, v24, v27);
+                  CFArrayAppendValue(Mutable, v30);
+                  bufQRemoveElementAtIndex(a1, v29);
+                  bufQInsertElementAtIndex(a1, v29, v32);
                 }
 
-                ++v24;
-                CFRelease(v27);
+                ++v29;
+                CFRelease(v32);
               }
 
               else
               {
-                CFArrayAppendValue(Mutable, v25);
-                bufQRemoveElementAtIndex(a1, v24);
-                --v19;
+                CFArrayAppendValue(Mutable, v30);
+                bufQRemoveElementAtIndex(a1, v29);
+                --v24;
               }
             }
 
-            while (v24 < v19);
+            while (v29 < v24);
           }
 
           FigReentrantMutexUnlock(*(a1 + 16));
@@ -6462,16 +6489,16 @@ size_t FigBufferQueueTwoPassFilter(uint64_t a1, void (*a2)(const void *, uint64_
         }
       }
 
-      v12 = 0;
+      v17 = 0;
     }
 
     FigReentrantMutexUnlock(*(a1 + 16));
-    return v12;
+    return v17;
   }
 
-  v13 = fig_log_get_emitter("com.apple.coremedia", "");
+  v18 = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x918, v4, v14, v15);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v18, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x918, v9, v19, v20, a9);
 }
 
 CMTime *__cdecl CMBufferQueueGetMinDecodeTimeStamp(CMTime *__return_ptr retstr, CMBufferQueueRef queue)
@@ -6515,9 +6542,9 @@ CMTime *__cdecl CMBufferQueueGetMinDecodeTimeStamp(CMTime *__return_ptr retstr, 
       v14[1] = v10;
       v14[2] = v12;
       v13 = *(queue + 3);
-      v16.length = CFArrayGetCount(v13);
-      v16.location = 0;
-      CFArrayApplyFunction(v13, v16, findBestTimeStamp, v14);
+      v17.length = CFArrayGetCount(v13);
+      v17.location = 0;
+      CFArrayApplyFunction(v13, v17, findBestTimeStamp, v14);
     }
 
     return FigReentrantMutexUnlock(*(queue + 2));
@@ -6525,7 +6552,7 @@ CMTime *__cdecl CMBufferQueueGetMinDecodeTimeStamp(CMTime *__return_ptr retstr, 
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x974, v2, v6, v7);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x974, v2, v6, v7, v16);
 }
 
 CMTime *__cdecl CMBufferQueueGetFirstDecodeTimeStamp(CMTime *__return_ptr retstr, CMBufferQueueRef queue)
@@ -6574,7 +6601,7 @@ LABEL_14:
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x99C, v2, v5, v6);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x99C, v2, v5, v6, v15);
 }
 
 CMTime *__cdecl CMBufferQueueGetMinPresentationTimeStamp(CMTime *__return_ptr retstr, CMBufferQueueRef queue)
@@ -6663,7 +6690,7 @@ CMTime *__cdecl CMBufferQueueGetMinPresentationTimeStamp(CMTime *__return_ptr re
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x9DD, v2, v6, v7);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0x9DD, v2, v6, v7, v22);
 }
 
 double bufQReconstructBounds(uint64_t a1)
@@ -6843,7 +6870,7 @@ CMTime *__cdecl CMBufferQueueGetMaxPresentationTimeStamp(CMTime *__return_ptr re
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xA5D, v2, v6, v7);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xA5D, v2, v6, v7, v23);
 }
 
 CMTime *__cdecl CMBufferQueueGetEndPresentationTimeStamp(CMTime *__return_ptr retstr, CMBufferQueueRef queue)
@@ -6880,9 +6907,9 @@ CMTime *__cdecl CMBufferQueueGetEndPresentationTimeStamp(CMTime *__return_ptr re
       v12[1] = v10;
       v12[2] = queue + 48;
       v11 = *(queue + 3);
-      v14.length = CFArrayGetCount(v11);
-      v14.location = 0;
-      CFArrayApplyFunction(v11, v14, findBestTimeStamp, v12);
+      v15.length = CFArrayGetCount(v11);
+      v15.location = 0;
+      CFArrayApplyFunction(v11, v15, findBestTimeStamp, v12);
     }
 
     return FigReentrantMutexUnlock(*(queue + 2));
@@ -6890,7 +6917,7 @@ CMTime *__cdecl CMBufferQueueGetEndPresentationTimeStamp(CMTime *__return_ptr re
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xAF2, v2, v6, v7);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xAF2, v2, v6, v7, v14);
 }
 
 CMTime *bufQGetEndPTSUsingHandlers@<X0>(uint64_t a1@<X1>, CMTime *a2@<X8>)
@@ -6946,7 +6973,7 @@ LABEL_14:
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB1D, v2, v5, v6);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB1D, v2, v5, v6, v15);
 }
 
 CMItemCount CMBufferQueueGetBufferCount(CMBufferQueueRef queue)
@@ -6971,7 +6998,7 @@ CMItemCount CMBufferQueueGetBufferCount(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB38, v1, v6, v7);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB38, v1, v6, v7, v9);
     return 0;
   }
 
@@ -6996,7 +7023,7 @@ CMTime *__cdecl CMBufferQueueGetDuration(CMTime *__return_ptr retstr, CMBufferQu
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB4E, v2, v8, v9);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB4E, v2, v8, v9, v11);
   }
 }
 
@@ -7012,14 +7039,14 @@ size_t CMBufferQueueGetTotalSize(CMBufferQueueRef queue)
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB63, v1, v5, v6);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xB63, v1, v5, v6, v8);
     return 0;
   }
 
   return v3;
 }
 
-size_t FigBufferQueueInstallTriggerWithTimeAndIntegerThresholds(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int128 *a5, uint64_t a6, uint64_t *a7)
+size_t FigBufferQueueInstallTriggerWithTimeAndIntegerThresholds(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int128 *a5, uint64_t a6, uint64_t *a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a1 && a4 && a2 | a7)
   {
@@ -7027,44 +7054,44 @@ size_t FigBufferQueueInstallTriggerWithTimeAndIntegerThresholds(uint64_t a1, uin
     {
       if (a4 == 12 || a4 == 15)
       {
-        v15 = *a5;
-        v16 = *(a5 + 2);
-        return bufQInstallTrigger(a1, a2, a3, 0, a4, &v15, a6, a7);
+        v17 = *a5;
+        v18 = *(a5 + 2);
+        return bufQInstallTrigger(a1, a2, a3, 0, a4, &v17, a6, a7);
       }
 
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v11 = v7;
-      v12 = 4294954529;
-      v13 = 3183;
+      v13 = v9;
+      v14 = 4294954529;
+      v15 = 3183;
     }
 
     else
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v11 = v7;
-      v12 = 4294954531;
-      v13 = 3174;
+      v13 = v9;
+      v14 = 4294954531;
+      v15 = 3174;
     }
   }
 
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v11 = v7;
-    v12 = 4294954535;
-    v13 = 3169;
+    v13 = v9;
+    v14 = 4294954535;
+    v15 = 3169;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v12, "<<< CMBufferQueue >>>", v13, v11, v9, v10);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v14, "<<< CMBufferQueue >>>", v15, v13, v11, v12, a9);
 }
 
-size_t figBufferQueueInstallTriggerCallbackOrHandler(char *queue, uint64_t a2, uint64_t a3, const void *a4, unsigned int a5, uint64_t a6, uint64_t *a7)
+size_t figBufferQueueInstallTriggerCallbackOrHandler(char *queue, uint64_t a2, uint64_t a3, const void *a4, unsigned int a5, uint64_t a6, uint64_t *a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (queue && a5 && (a2 || a4 || a7))
   {
     if (a5 == 6)
     {
-      CMBufferQueueGetMaxPresentationTimeStamp(&v22, queue);
+      CMBufferQueueGetMaxPresentationTimeStamp(&v24, queue);
     }
 
     else
@@ -7076,9 +7103,9 @@ size_t figBufferQueueInstallTriggerCallbackOrHandler(char *queue, uint64_t a2, u
           if ((*(a6 + 12) & 0x1D) != 1 || *(a6 + 16))
           {
             emitter = fig_log_get_emitter("com.apple.coremedia", "");
-            v18 = v7;
-            v19 = 4294954531;
-            v20 = 3087;
+            v20 = v9;
+            v21 = 4294954531;
+            v22 = 3087;
             goto LABEL_7;
           }
         }
@@ -7092,19 +7119,19 @@ size_t figBufferQueueInstallTriggerCallbackOrHandler(char *queue, uint64_t a2, u
         if (a5 > 9 || ((1 << a5) & 0x39E) == 0)
         {
           emitter = fig_log_get_emitter("com.apple.coremedia", "");
-          v18 = v7;
-          v19 = 4294954529;
-          v20 = 3108;
+          v20 = v9;
+          v21 = 4294954529;
+          v22 = 3108;
           goto LABEL_7;
         }
 
         goto LABEL_23;
       }
 
-      CMBufferQueueGetMinPresentationTimeStamp(&v22, queue);
+      CMBufferQueueGetMinPresentationTimeStamp(&v24, queue);
     }
 
-    *a6 = v22;
+    *a6 = v24;
     if (queue[120])
     {
       if (!*(queue + 68))
@@ -7117,45 +7144,45 @@ size_t figBufferQueueInstallTriggerCallbackOrHandler(char *queue, uint64_t a2, u
     {
 LABEL_24:
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v18 = v7;
-      v19 = 4294954529;
-      v20 = 3103;
+      v20 = v9;
+      v21 = 4294954529;
+      v22 = 3103;
       goto LABEL_7;
     }
 
 LABEL_23:
-    v22 = *a6;
-    return bufQInstallTrigger(queue, a2, a3, a4, a5, &v22, 0, a7);
+    v24 = *a6;
+    return bufQInstallTrigger(queue, a2, a3, a4, a5, &v24, 0, a7);
   }
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  v18 = v7;
-  v19 = 4294954535;
-  v20 = 3068;
+  v20 = v9;
+  v21 = 4294954535;
+  v22 = 3068;
 LABEL_7:
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v19, "<<< CMBufferQueue >>>", v20, v18, v16, v17);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v21, "<<< CMBufferQueue >>>", v22, v20, v18, v19, a9);
 }
 
-size_t figBufferQueueInstallTriggerWithIntegerThresholdCallbackOrHandler(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, unsigned int a5, uint64_t a6, uint64_t *a7)
+size_t figBufferQueueInstallTriggerWithIntegerThresholdCallbackOrHandler(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, unsigned int a5, uint64_t a6, uint64_t *a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (!a1 || !a5 || !a2 && !a4 && !a7)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v11 = v7;
-    v12 = 4294954535;
-    v13 = 3135;
+    v13 = v9;
+    v14 = 4294954535;
+    v15 = 3135;
 LABEL_7:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v12, "<<< CMBufferQueue >>>", v13, v11, v9, v10);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v14, "<<< CMBufferQueue >>>", v15, v13, v11, v12, a9);
   }
 
   if (a5 > 0xE || ((1 << a5) & 0x6C00) == 0)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v11 = v7;
-    v12 = 4294954529;
-    v13 = 3146;
+    v13 = v9;
+    v14 = 4294954529;
+    v15 = 3146;
     goto LABEL_7;
   }
 
@@ -7199,7 +7226,7 @@ OSStatus CMBufferQueueRemoveTrigger(CMBufferQueueRef queue, CMBufferQueueTrigger
       v10 = 3287;
     }
 
-    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v9, "<<< CMBufferQueue >>>", v10, v8, v6, v7);
+    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v9, "<<< CMBufferQueue >>>", v10, v8, v6, v7, v17);
 LABEL_14:
     FigReentrantMutexUnlock(*(queue + 2));
     return v16;
@@ -7207,7 +7234,7 @@ LABEL_14:
 
   v11 = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xCC6, v2, v12, v13);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xCC6, v2, v12, v13, v19);
 }
 
 Boolean CMBufferQueueTestTrigger(CMBufferQueueRef queue, CMBufferQueueTriggerToken triggerToken)
@@ -7224,7 +7251,7 @@ Boolean CMBufferQueueTestTrigger(CMBufferQueueRef queue, CMBufferQueueTriggerTok
     else
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE20uLL, "<<< CMBufferQueue >>>", 0xD01, v2, v11, v12);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE20uLL, "<<< CMBufferQueue >>>", 0xD01, v2, v11, v12, v14);
       v6 = 0;
     }
 
@@ -7234,7 +7261,7 @@ Boolean CMBufferQueueTestTrigger(CMBufferQueueRef queue, CMBufferQueueTriggerTok
   else
   {
     v7 = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xCF7, v2, v8, v9);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xCF7, v2, v8, v9, v14);
     return 0;
   }
 
@@ -7269,7 +7296,7 @@ OSStatus CMBufferQueueCallForEachBuffer(CMBufferQueueRef queue, OSStatus (__cdec
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xD26, v3, v11, v12);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xD26, v3, v11, v12, v13[0]);
     return 0;
   }
 }
@@ -7320,7 +7347,7 @@ LABEL_11:
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xD47, v3, v10, v11);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE27uLL, "<<< CMBufferQueue >>>", 0xD47, v3, v10, v11, v17);
     return 0;
   }
 
@@ -7519,24 +7546,43 @@ LABEL_4:
   return v6;
 }
 
-uint64_t FigCanTriggerTapToRadar()
+uint64_t FigCanTriggerTapToRadar(uint64_t a1, uint64_t a2)
 {
-  result = FigDebugIsInternalBuild();
+  result = FigDebugIsInternalBuild(a1, a2);
   if (result)
   {
-    result = figIsAllowedToTriggerTapToRadar();
+    result = figIsAllowedToTriggerTapToRadar(result, v3);
     if (result)
     {
-      return _MergedGlobals[0]() != 0;
+      return _MergedGlobals() != 0;
     }
   }
 
   return result;
 }
 
-uint64_t figIsAllowedToTriggerTapToRadar()
+uint64_t figIsAllowedToTriggerTapToRadar(uint64_t a1, uint64_t a2)
 {
-  if (FigServer_IsMediaplaybackd() || FigServer_IsMediaparserd() || FigServer_IsAirplayd() || FigServer_IsVideocodecd() || FigServer_IsMediaserverd())
+  IsMediaplaybackd = FigServer_IsMediaplaybackd(a1, a2);
+  if (IsMediaplaybackd)
+  {
+    return 1;
+  }
+
+  IsMediaparserd = FigServer_IsMediaparserd(IsMediaplaybackd, v3);
+  if (IsMediaparserd)
+  {
+    return 1;
+  }
+
+  IsAirplayd = FigServer_IsAirplayd(IsMediaparserd, v5);
+  if (IsAirplayd)
+  {
+    return 1;
+  }
+
+  IsVideocodecd = FigServer_IsVideocodecd(IsAirplayd, v7);
+  if (IsVideocodecd || FigServer_IsMediaserverd(IsVideocodecd, v9))
   {
     return 1;
   }
@@ -7556,7 +7602,7 @@ Class initTapToRadarService()
 
   result = objc_getClass("TapToRadarService");
   classTapToRadarService = result;
-  _MergedGlobals[0] = TapToRadarServiceFunction;
+  _MergedGlobals = TapToRadarServiceFunction;
   return result;
 }
 
@@ -7576,7 +7622,7 @@ Class initRadarDraft()
 
   result = objc_getClass("RadarDraft");
   classRadarDraft = result;
-  off_1ED4CBF78[0] = RadarDraftFunction;
+  off_1ED4CBF78 = RadarDraftFunction;
   return result;
 }
 
@@ -7629,7 +7675,7 @@ OSStatus CMTextFormatDescriptionGetDisplayFlags(CMFormatDescriptionRef desc, CMT
     else
     {
 
-      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0x74, v2, v6, v7);
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0x74, v2, v6, v7, v15);
     }
   }
 
@@ -7728,7 +7774,7 @@ LABEL_24:
   v12 = 165;
 LABEL_11:
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", v12, v11, v8, v9);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", v12, v11, v8, v9, v24);
 }
 
 OSStatus CMTextFormatDescriptionGetDefaultTextBox(CMFormatDescriptionRef desc, Boolean originIsAtTopLeft, CGFloat heightOfTextTrack, CGRect *defaultTextBoxOut)
@@ -7825,7 +7871,7 @@ OSStatus CMTextFormatDescriptionGetDefaultTextBox(CMFormatDescriptionRef desc, B
     return v34;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0xC8, v4, v10, v11);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0xC8, v4, v10, v11, v36);
 }
 
 OSStatus CMTextFormatDescriptionGetDefaultStyle(CMFormatDescriptionRef desc, uint16_t *localFontIDOut, Boolean *boldOut, Boolean *italicOut, Boolean *underlineOut, CGFloat *fontSizeOut, CGFloat *colorComponentsOut)
@@ -8061,7 +8107,7 @@ LABEL_40:
     v20 = 256;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", v20, v19, v16, v17);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", v20, v19, v16, v17, v70);
 }
 
 OSStatus CMTextFormatDescriptionGetFontName(CMFormatDescriptionRef desc, uint16_t localFontID, CFStringRef *fontNameOut)
@@ -8144,12 +8190,12 @@ OSStatus CMTextFormatDescriptionGetFontName(CMFormatDescriptionRef desc, uint16_
     return v23;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0x173, v3, v8, v9);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE5AuLL, "(Fig)", 0x173, v3, v8, v9, v25);
 }
 
-void sub_196FC41AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_196FC41AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8163,13 +8209,13 @@ void sub_196FC44F4(_Unwind_Exception *a1)
 
 uint64_t FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID(int a1, uint64_t a2)
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   v4 = objc_autoreleasePoolPush();
-  v5 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigPurgeAndRenewProcessStateTracker[1], @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v5, 0, gFigPurgeAndRenewProcessStateTracker);
+  v6 = FigNote_AllowInternalDefaultLogs(v4, v5) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC58, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v6, 0, &gFigPurgeAndRenewProcessStateTracker);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC68, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CC60);
   if (qword_1ED4CC3D8 != -1)
   {
@@ -8180,19 +8226,19 @@ uint64_t FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID(int a1, ui
   block[1] = 3221225472;
   block[2] = __FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID_block_invoke;
   block[3] = &unk_1E749CEB8;
-  v9 = a1;
-  block[4] = &v10;
+  v10 = a1;
+  block[4] = &v11;
   block[5] = a2;
   dispatch_sync(sProcessStateTrackerDispatchQueue, block);
   objc_autoreleasePoolPop(v4);
-  v6 = *(v11 + 6);
-  _Block_object_dispose(&v10, 8);
-  return v6;
+  v7 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v7;
 }
 
-void sub_196FC4914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_196FC4914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8236,36 +8282,36 @@ LABEL_6:
 
 uint64_t FigPurgeAndRenewProcessStateTrackerModifyPurgeEligibilityForPID(int a1, char a2)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   v4 = objc_autoreleasePoolPush();
-  v5 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigPurgeAndRenewProcessStateTracker[1], @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v5, 0, gFigPurgeAndRenewProcessStateTracker);
+  v6 = FigNote_AllowInternalDefaultLogs(v4, v5) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC58, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v6, 0, &gFigPurgeAndRenewProcessStateTracker);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC68, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CC60);
   if (qword_1ED4CC3D8 != -1)
   {
     FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID_cold_1();
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __FigPurgeAndRenewProcessStateTrackerModifyPurgeEligibilityForPID_block_invoke;
-  v8[3] = &unk_1E749CEE0;
-  v8[4] = &v11;
-  v9 = a1;
-  v10 = a2;
-  dispatch_sync(sProcessStateTrackerDispatchQueue, v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __FigPurgeAndRenewProcessStateTrackerModifyPurgeEligibilityForPID_block_invoke;
+  v9[3] = &unk_1E749CEE0;
+  v9[4] = &v12;
+  v10 = a1;
+  v11 = a2;
+  dispatch_sync(sProcessStateTrackerDispatchQueue, v9);
   objc_autoreleasePoolPop(v4);
-  v6 = *(v12 + 6);
-  _Block_object_dispose(&v11, 8);
-  return v6;
+  v7 = *(v13 + 6);
+  _Block_object_dispose(&v12, 8);
+  return v7;
 }
 
-void sub_196FC4B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_196FC4B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8273,15 +8319,15 @@ void sub_196FC4B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void FigPurgeAndRenewProcessStateTrackerStartTrackingPIDWithBlock(int a1, uint64_t a2)
 {
   v4 = objc_autoreleasePoolPush();
-  v5 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigPurgeAndRenewProcessStateTracker[1], @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v5, 0, gFigPurgeAndRenewProcessStateTracker);
+  v6 = FigNote_AllowInternalDefaultLogs(v4, v5) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC58, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v6, 0, &gFigPurgeAndRenewProcessStateTracker);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC68, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CC60);
   if (_os_feature_enabled_impl() && FigGetCFPreferenceNumberWithDefault(@"purge_timeout_seconds", @"com.apple.coremedia", 600))
   {
-    v8[0] = 0;
-    v8[1] = v8;
-    v8[2] = 0x2020000000;
-    v9 = 0;
+    v9[0] = 0;
+    v9[1] = v9;
+    v9[2] = 0x2020000000;
+    v10 = 0;
     if (qword_1ED4CC3D8 != -1)
     {
       FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID_cold_1();
@@ -8291,11 +8337,11 @@ void FigPurgeAndRenewProcessStateTrackerStartTrackingPIDWithBlock(int a1, uint64
     block[1] = 3221225472;
     block[2] = __startProcessStateTracking_block_invoke;
     block[3] = &unk_1E749CF30;
-    v7 = a1;
+    v8 = a1;
     block[4] = a2;
-    block[5] = v8;
+    block[5] = v9;
     dispatch_sync(sProcessStateTrackerDispatchQueue, block);
-    _Block_object_dispose(v8, 8);
+    _Block_object_dispose(v9, 8);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -8304,37 +8350,37 @@ void FigPurgeAndRenewProcessStateTrackerStartTrackingPIDWithBlock(int a1, uint64
 uint64_t FigPurgeAndRenewProcessStateTrackerGetOperatorForPID(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3052000000;
-  v11 = __Block_byref_object_copy_;
-  v12 = __Block_byref_object_dispose_;
-  v13 = 0;
-  v3 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigPurgeAndRenewProcessStateTracker[1], @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v3, 0, gFigPurgeAndRenewProcessStateTracker);
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3052000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
+  v4 = FigNote_AllowInternalDefaultLogs(v2, v3) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC58, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v4, 0, &gFigPurgeAndRenewProcessStateTracker);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC68, @"processtatetracker_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CC60);
   if (qword_1ED4CC3D8 != -1)
   {
     FigPurgeAndRenewProcessStateTrackerGetPurgeEligibilityForPID_cold_1();
   }
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __FigPurgeAndRenewProcessStateTrackerGetOperatorForPID_block_invoke;
-  v7[3] = &unk_1E749CF08;
-  v7[4] = v4;
-  v7[5] = &v8;
-  dispatch_sync(sProcessStateTrackerDispatchQueue, v7);
-  v5 = v9[5];
-  _Block_object_dispose(&v8, 8);
+  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __FigPurgeAndRenewProcessStateTrackerGetOperatorForPID_block_invoke;
+  v8[3] = &unk_1E749CF08;
+  v8[4] = v5;
+  v8[5] = &v9;
+  dispatch_sync(sProcessStateTrackerDispatchQueue, v8);
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
   objc_autoreleasePoolPop(v2);
-  return v5;
+  return v6;
 }
 
-void sub_196FC4EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_196FC4EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8348,7 +8394,7 @@ id __ensureProcessStateTrackerDispatchQExists_block_invoke()
   return result;
 }
 
-size_t __startProcessStateTracking_block_invoke(uint64_t a1)
+void *__startProcessStateTracking_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = *(a1 + 32);
@@ -8430,15 +8476,17 @@ void __startProcessTrackerOnQueue_block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t defaultBlock_block_invoke(uint64_t a1, int a2)
+uint64_t defaultBlock_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v16 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC68)
   {
-    v10[0] = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, v10, &type);
-    v4 = v10[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC60, 1, &v10, &type);
+    v4 = v10;
+    v5 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v6 = v4;
@@ -8451,12 +8499,12 @@ uint64_t defaultBlock_block_invoke(uint64_t a1, int a2)
 
     if (v6)
     {
-      v10[1] = 136315394;
-      v11 = "defaultBlock_block_invoke";
-      v12 = 1024;
-      v13 = a2;
-      v7 = _os_log_send_and_compose_impl();
-      LOBYTE(v4) = v10[0];
+      v11 = 136315394;
+      v12 = "defaultBlock_block_invoke";
+      v13 = 1024;
+      v14 = v2;
+      v7 = _os_log_send_and_compose_impl(v6, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< FigPurgeAndRenewProcessStateTracker >>> %s: start purge pid %d", &v11, 18);
+      LOBYTE(v4) = v10;
     }
 
     else
@@ -8464,22 +8512,22 @@ uint64_t defaultBlock_block_invoke(uint64_t a1, int a2)
       v7 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1u, 1, v7, v7 != &v14, v4, 0, v5);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC60, 1, 1, v7, v7 != v15, v4);
   }
 
-  return FigXPCPurgeObjectsForPIDWithReportingBlock(a2, &__block_literal_global_108);
+  return FigXPCPurgeObjectsForPIDWithReportingBlock(v2, &__block_literal_global_108);
 }
 
-void __FigCAStatsReportingSubmitData_block_invoke(uint64_t a1)
+void __FigCAStatsReportingSubmitData_block_invoke(void *a1)
 {
   AnalyticsSendEvent();
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   if (v2)
   {
     CFRelease(v2);
   }
 
-  v3 = *(a1 + 40);
+  v3 = a1[5];
   if (v3)
   {
 
@@ -8511,20 +8559,21 @@ dispatch_queue_t __frcs_initOnce_block_invoke()
   return result;
 }
 
-uint64_t FigAudioDeviceSupportsPresentationTime(AudioObjectID inObjectID)
+uint64_t FigAudioDeviceSupportsPresentationTime(uint64_t inObjectID, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3.mElement = 0;
-  *&v3.mSelector = *"tptbbolg";
+  v8 = inObjectID;
+  v10.mElement = 0;
+  *&v10.mSelector = *"tptbbolg";
   if (sCheckTraceOnceToken != -1)
   {
     FigAudioDeviceSupportsPresentationTime_cold_1();
-    if (inObjectID)
+    if (v8)
     {
-      return AudioObjectHasProperty(inObjectID, &v3);
+      return AudioObjectHasProperty(v8, &v10);
     }
 
 LABEL_6:
-    FigAudioDeviceSupportsPresentationTime_cold_2();
+    FigAudioDeviceSupportsPresentationTime_cold_2(inObjectID, a2, a3, a4, a5, a6, a7, a8, *&v10.mSelector);
     return 0;
   }
 
@@ -8533,14 +8582,14 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  return AudioObjectHasProperty(inObjectID, &v3);
+  return AudioObjectHasProperty(v8, &v10);
 }
 
-size_t RegisterFigCaptionDataBaseType()
+size_t RegisterFigCaptionDataBaseType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigCaptionDataClassDesc, ClassID, 1, &sFigCaptionDataClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigCaptionDataClassDesc, ClassID, 1, &sFigCaptionDataClassID, v10, v11, v12, v13, a9);
 }
 
 uint64_t FigCaptionDataGetTypeID()
@@ -8604,14 +8653,14 @@ LABEL_8:
   return v8;
 }
 
-size_t figProcessStateMonitorInformRemoteOfIndirectDependencyDeathApply(uint64_t a1, uint64_t a2, const void *a3)
+size_t figProcessStateMonitorInformRemoteOfIndirectDependencyDeathApply(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
 
-  return CMNotificationCenterPostNotification(DefaultLocalCenter, @"MediaServicesProcessDeath", a2, a3);
+  return CMNotificationCenterPostNotification(DefaultLocalCenter, @"MediaServicesProcessDeath", a2, a3, 0, v12, v13, v14, a9);
 }
 
-uint64_t FigProcessStateMonitorPurgePreventionAssertionGetTypeID()
+uint64_t FigProcessStateMonitorPurgePreventionAssertionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (qword_1ED4CC408 != -1)
   {
@@ -8628,27 +8677,28 @@ uint64_t registerFigProcessStateMonitorPurgePreventionAssertionType()
   return result;
 }
 
-uint64_t figProcessStateMonitorMustNotPurgeClientObjects(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t figProcessStateMonitorMustNotPurgeClientObjects(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    figProcessStateMonitorMustNotPurgeClientObjects_cold_2(v24, a2, a3, a4, a5, a6, a7, a8);
-    return v24[0];
+    figProcessStateMonitorMustNotPurgeClientObjects_cold_2(v25, a2, a3, a4, a5, a6, a7, a8);
+    return v25[0];
   }
 
   if (!a2)
   {
-    figProcessStateMonitorMustNotPurgeClientObjects_cold_1(v24, 0, a3, a4, a5, a6, a7, a8);
-    return v24[0];
+    figProcessStateMonitorMustNotPurgeClientObjects_cold_1(v25, 0, a3, a4, a5, a6, a7, a8);
+    return v25[0];
   }
 
   if (dword_1EAF1CC88)
   {
-    v18[0] = 0;
+    v18 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, v18, &type);
-    v11 = v18[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v18, &type);
+    v11 = v18;
+    v12 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v13 = v11;
@@ -8661,14 +8711,14 @@ uint64_t figProcessStateMonitorMustNotPurgeClientObjects(uint64_t a1, const void
 
     if (v13)
     {
-      v18[1] = 136315650;
-      v19 = "figProcessStateMonitorMustNotPurgeClientObjects";
-      v20 = 2114;
-      v21 = a1;
-      v22 = 2114;
-      v23 = a2;
-      v14 = _os_log_send_and_compose_impl();
-      LOBYTE(v11) = v18[0];
+      v19 = 136315650;
+      v20 = "figProcessStateMonitorMustNotPurgeClientObjects";
+      v21 = 2114;
+      v22 = a1;
+      v23 = 2114;
+      v24 = a2;
+      v14 = _os_log_send_and_compose_impl(v13, 0, v25, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v12, "<<<< FigProcessStateMonitorServer >>>> %s: Must not purge objects of %{public}@, assertion: %{public}@", &v19, 32);
+      LOBYTE(v11) = v18;
     }
 
     else
@@ -8676,7 +8726,7 @@ uint64_t figProcessStateMonitorMustNotPurgeClientObjects(uint64_t a1, const void
       v14 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v14, v14 != v24, v11, 0, v12);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v14, v14 != v25, v11);
   }
 
   FigReentrantMutexLock(*(a1 + 64));
@@ -8701,7 +8751,7 @@ void figProcessStateMonitorPurgePreventionAssertionTimeoutFinalizer(CFTypeRef cf
 
 void __FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   context = dispatch_get_context(*(a1 + 32));
   v2 = FigCFWeakReferenceHolderCopyReferencedObject(context);
   if (v2)
@@ -8711,10 +8761,11 @@ void __FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_blo
     {
       if (dword_1EAF1CC88)
       {
-        v17[0] = 0;
+        v17 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, v17, &type);
-        v11 = v17[0];
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v17, &type);
+        v11 = v17;
+        v12 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
           v13 = v11;
@@ -8727,12 +8778,12 @@ void __FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_blo
 
         if (v13)
         {
-          v17[1] = 136315394;
-          v18 = "FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_block_invoke";
-          v19 = 2112;
-          v20 = v9;
-          v14 = _os_log_send_and_compose_impl();
-          LOBYTE(v11) = v17[0];
+          v18 = 136315394;
+          v19 = "FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_block_invoke";
+          v20 = 2112;
+          v21 = v9;
+          v14 = _os_log_send_and_compose_impl(v13, 0, v22, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v12, "<<<< FigProcessStateMonitorServer >>>> %s: Expiring assertion %@, timer fired", &v18, 22);
+          LOBYTE(v11) = v17;
         }
 
         else
@@ -8740,7 +8791,7 @@ void __FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_blo
           v14 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v14, v14 != &v21, v11, 0, v12);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v14, v14 != v22, v11);
       }
 
       figProcessStateMonitorMayPurgeClientObjects(v9[4], v9[3], v3, v4, v5, v6, v7, v8);
@@ -8757,24 +8808,24 @@ void __FigProcessStateMonitorCreateExpiringAssertionOnBehalfOfProcessWithPID_blo
   }
 }
 
-uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    return figProcessStateMonitorMayPurgeClientObjects_cold_3(0, a2, a3, a4, a5, a6, a7, a8);
+    return figProcessStateMonitorMayPurgeClientObjects_cold_3(0, a2, a3, a4, a5, a6, a7, a8, v31);
   }
 
   if (!a2)
   {
-    return figProcessStateMonitorMayPurgeClientObjects_cold_2(a1, 0, a3, a4, a5, a6, a7, a8);
+    return figProcessStateMonitorMayPurgeClientObjects_cold_2(a1, 0, a3, a4, a5, a6, a7, a8, v31);
   }
 
   FigReentrantMutexLock(*(a1 + 64));
   FirstIndexOfValue = FigCFArrayGetFirstIndexOfValue(*(a1 + 48), a2);
   if (FirstIndexOfValue == -1)
   {
-    figProcessStateMonitorMayPurgeClientObjects_cold_1(-1, v11, v12, v13, v14, v15, v16, v17);
+    figProcessStateMonitorMayPurgeClientObjects_cold_1(-1, v11, v12, v13, v14, v15, v16, v17, v31);
   }
 
   else
@@ -8782,10 +8833,11 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
     v18 = FirstIndexOfValue;
     if (dword_1EAF1CC88)
     {
-      v32 = 0;
+      v34 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v32, &type);
-      v20 = v32;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v34, &type);
+      v20 = v34;
+      v21 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v22 = v20;
@@ -8798,14 +8850,14 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
 
       if (v22)
       {
-        v33 = 136315650;
-        v34 = "figProcessStateMonitorMayPurgeClientObjects";
-        v35 = 2114;
-        v36 = a1;
+        v35 = 136315650;
+        v36 = "figProcessStateMonitorMayPurgeClientObjects";
         v37 = 2114;
-        v38 = a2;
-        v23 = _os_log_send_and_compose_impl();
-        LOBYTE(v20) = v32;
+        v38 = a1;
+        v39 = 2114;
+        v40 = a2;
+        v23 = _os_log_send_and_compose_impl(v22, 0, v41, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v21, "<<<< FigProcessStateMonitorServer >>>> %s: Removing assertion: %{public}@ for %{public}@", &v35, 32);
+        LOBYTE(v20) = v34;
       }
 
       else
@@ -8813,7 +8865,7 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
         v23 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v23, v23 != v39, v20, 0, v21);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v23, v23 != v41, v20);
     }
 
     CFArrayRemoveValueAtIndex(*(a1 + 48), v18);
@@ -8823,10 +8875,11 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
       *(a1 + 56) = 1;
       if (dword_1EAF1CC88)
       {
-        v32 = 0;
+        v34 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v32, &type);
-        v26 = v32;
+        v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v34, &type);
+        v26 = v34;
+        v27 = type;
         if (os_log_type_enabled(v25, type))
         {
           v28 = v26;
@@ -8839,12 +8892,13 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
 
         if (v28)
         {
-          v33 = 136315394;
-          v34 = "figProcessStateMonitorMayPurgeClientObjects";
-          v35 = 2114;
-          v36 = a1;
-          v29 = _os_log_send_and_compose_impl();
-          LOBYTE(v26) = v32;
+          v35 = 136315394;
+          v36 = "figProcessStateMonitorMayPurgeClientObjects";
+          v37 = 2114;
+          v38 = a1;
+          LODWORD(v32) = 22;
+          v29 = _os_log_send_and_compose_impl(v28, 0, v41, 128, &dword_196FA7000, v25, v27, "<<<< FigProcessStateMonitorServer >>>> %s: Client objects of %{public}@ may now be purgable", &v35, v32);
+          LOBYTE(v26) = v34;
         }
 
         else
@@ -8852,7 +8906,7 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
           v29 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v29, v29 != v39, v26, 0, v27);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v29, v29 != v41, v26);
       }
     }
   }
@@ -8860,216 +8914,220 @@ uint64_t figProcessStateMonitorMayPurgeClientObjects(uint64_t a1, const void *a2
   return FigReentrantMutexUnlock(*(a1 + 64));
 }
 
-void __FigProcessStateMonitorEnsureServerStarted_block_invoke()
+void __FigProcessStateMonitorEnsureServerStarted_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v16[0] = 1;
-  v16[1] = FigProcessStateMonitor_handleMessage;
-  v16[2] = FigProcessStateMonitor_noReplyHandleMessage;
-  memset(&v16[3], 0, 24);
-  v0 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigProcessStateMonitorServerTrace[1], @"figprocessstatemonitor_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v0, 0, gFigProcessStateMonitorServerTrace);
+  v24 = *MEMORY[0x1E69E9840];
+  v18[0] = 1;
+  v18[1] = FigProcessStateMonitor_handleMessage;
+  v18[2] = FigProcessStateMonitor_noReplyHandleMessage;
+  memset(&v18[3], 0, 24);
+  v2 = FigNote_AllowInternalDefaultLogs(a1, a2) != 0;
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CC78, @"figprocessstatemonitor_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v2, 0, &gFigProcessStateMonitorServerTrace);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CC88, @"figprocessstatemonitor_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CC80);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
   {
-    __FigProcessStateMonitorEnsureServerStarted_block_invoke_cold_1(v16, Mutable);
+    __FigProcessStateMonitorEnsureServerStarted_block_invoke_cold_1(v18, Mutable, v5, v6, v7, v8, v9, v10);
   }
 
   else
   {
-    __FigProcessStateMonitorEnsureServerStarted_block_invoke_cold_2(0, v2, v3, v4, v5, v6, v7, v8);
+    __FigProcessStateMonitorEnsureServerStarted_block_invoke_cold_2(0, v4, v5, v6, v7, v8, v9, v10);
   }
 
   if (dword_1EAF1CC88)
   {
-    v15 = 0;
+    v17 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v15, &type);
-    v10 = v15;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v17, &type);
+    v12 = v17;
+    v13 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
-      v12 = v10;
+      v14 = v12;
     }
 
     else
     {
-      v12 = v10 & 0xFFFFFFFE;
+      v14 = v12 & 0xFFFFFFFE;
     }
 
-    if (v12)
+    if (v14)
     {
-      v17 = 136315394;
-      v18 = "FigProcessStateMonitorEnsureServerStarted_block_invoke";
-      v19 = 1024;
-      v20 = _MergedGlobals_6;
-      v13 = _os_log_send_and_compose_impl();
-      LOBYTE(v10) = v15;
+      v19 = 136315394;
+      v20 = "FigProcessStateMonitorEnsureServerStarted_block_invoke";
+      v21 = 1024;
+      v22 = _MergedGlobals_6;
+      v15 = _os_log_send_and_compose_impl(v14, 0, v23, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v13, "<<<< FigProcessStateMonitorServer >>>> %s: FigProcessStateMonitor start err %d", &v19, 18);
+      LOBYTE(v12) = v17;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v13, v13 != &v21, v10, 0, v11);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v15, v15 != v23, v12);
   }
 }
 
 size_t FigProcessStateMonitor_handleMessage(_xpc_connection_s *a1, xpc_object_t xdict, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v39 = 0;
+  v62 = *MEMORY[0x1E69E9840];
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v47 = 0;
   uint64 = xpc_dictionary_get_uint64(xdict, ".objectID");
-  OpCode = FigXPCMessageGetOpCode(xdict, &v39);
-  *(v41 + 6) = OpCode;
+  OpCode = FigXPCMessageGetOpCode(xdict, &v47);
+  *(v49 + 6) = OpCode;
   if (!OpCode)
   {
-    if (v39 == 1668441460)
+    if (v47 == 1668441460)
     {
       value = 0;
       pid = xpc_connection_get_pid(a1);
       FigThreadRunOnce(&sRegisterFigProcessStateMonitorCompanionClassOnce, RegisterFigProcessStateMonitorCompanionClass);
-      v10 = *MEMORY[0x1E695E480];
+      v16 = *MEMORY[0x1E695E480];
       Instance = _CFRuntimeCreateInstance();
-      v14 = Instance;
+      v20 = Instance;
       if (Instance)
       {
         *(Instance + 16) = pid;
-        v15 = FigDispatchQueueCreateWithPriority("com.apple.coremedia.figprocessstatemonitor.server", 0, 0);
-        *(v14 + 24) = v15;
-        if (v15)
+        v21 = FigDispatchQueueCreateWithPriority("com.apple.coremedia.figprocessstatemonitor.server", 0, 0);
+        *(v20 + 24) = v21;
+        if (v21)
         {
-          Mutable = CFArrayCreateMutable(v10, 0, MEMORY[0x1E695E9C0]);
-          *(v14 + 48) = Mutable;
+          Mutable = CFArrayCreateMutable(v16, 0, MEMORY[0x1E695E9C0]);
+          *(v20 + 48) = Mutable;
           if (Mutable)
           {
-            *(v14 + 32) = 0;
-            *(v14 + 40) = 0;
-            *(v14 + 56) = 1;
-            v19 = FigReentrantMutexCreate();
-            *(v14 + 64) = v19;
-            if (v19)
+            *(v20 + 32) = 0;
+            *(v20 + 40) = 0;
+            *(v20 + 56) = 1;
+            v25 = FigReentrantMutexCreate();
+            *(v20 + 64) = v25;
+            if (v25)
             {
               if (dword_1EAF1CC88)
               {
-                v46 = 0;
+                v54 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v46, &type);
-                v21 = v46;
+                os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v54, &type);
+                v27 = v54;
+                v28 = type;
                 if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
                 {
-                  v23 = v21;
+                  v29 = v27;
                 }
 
                 else
                 {
-                  v23 = v21 & 0xFFFFFFFE;
+                  v29 = v27 & 0xFFFFFFFE;
                 }
 
-                if (v23)
+                if (v29)
                 {
-                  v47 = 136315394;
-                  v48 = "fpsmServer_createCompanion";
-                  v49 = 2114;
-                  *v50 = v14;
-                  v24 = _os_log_send_and_compose_impl();
-                  LOBYTE(v21) = v46;
+                  v55 = 136315394;
+                  v56 = "fpsmServer_createCompanion";
+                  v57 = 2114;
+                  *v58 = v20;
+                  v30 = _os_log_send_and_compose_impl(v29, 0, v61, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v28, "<<<< FigProcessStateMonitorServer >>>> %s: Created companion %{public}@", &v55, 22);
+                  LOBYTE(v27) = v54;
                 }
 
                 else
                 {
-                  v24 = 0;
+                  v30 = 0;
                 }
 
-                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v24, v24 != v53, v21, 0, v22);
+                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v30, v30 != v61, v27);
               }
 
               goto LABEL_17;
             }
 
-            v36 = 355;
+            v42 = 355;
           }
 
           else
           {
-            v36 = 347;
+            v42 = 347;
           }
         }
 
         else
         {
-          v36 = 343;
+          v42 = 343;
         }
 
-        OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB419uLL, "<<<< FigProcessStateMonitorServer >>>>", v36, v3, v16, v17);
-        CFRelease(v14);
+        OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB419uLL, "<<<< FigProcessStateMonitorServer >>>>", v42, v3, v22, v23, v43);
+        CFRelease(v20);
       }
 
       else
       {
-        OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB419uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x153, v3, v12, v13);
+        OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB419uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x153, v3, v18, v19, v43);
       }
 
-      v14 = 0;
+      v20 = 0;
       if (OpCode)
       {
 LABEL_20:
         if (dword_1EAF1CC88)
         {
-          v46 = 0;
+          v54 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v46, &type);
-          v31 = v46;
-          if (os_log_type_enabled(v30, type))
+          v36 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v54, &type);
+          v37 = v54;
+          v38 = type;
+          if (os_log_type_enabled(v36, type))
           {
-            v33 = v31;
+            v39 = v37;
           }
 
           else
           {
-            v33 = v31 & 0xFFFFFFFE;
+            v39 = v37 & 0xFFFFFFFE;
           }
 
-          if (v33)
+          if (v39)
           {
-            v47 = 136315906;
-            v48 = "figProcessStateMonitorHandleCreate";
-            v49 = 1024;
-            *v50 = pid;
-            *&v50[4] = 2114;
-            *&v50[6] = v14;
-            v51 = 1024;
-            v52 = OpCode;
-            v34 = _os_log_send_and_compose_impl();
-            LOBYTE(v31) = v46;
+            v55 = 136315906;
+            v56 = "figProcessStateMonitorHandleCreate";
+            v57 = 1024;
+            *v58 = pid;
+            *&v58[4] = 2114;
+            *&v58[6] = v20;
+            v59 = 1024;
+            v60 = OpCode;
+            LODWORD(v44) = 34;
+            v40 = _os_log_send_and_compose_impl(v39, 0, v61, 128, &dword_196FA7000, v36, v38, "<<<< FigProcessStateMonitorServer >>>> %s: client:%d companion:%{public}@ err:%d", &v55, v44);
+            LOBYTE(v37) = v54;
           }
 
           else
           {
-            v34 = 0;
+            v40 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v34, v34 != v53, v31, 0, v32);
+          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v40, v40 != v61, v37);
         }
 
-        if (v14)
+        if (v20)
         {
-          CFRelease(v14);
+          CFRelease(v20);
         }
 
         goto LABEL_30;
       }
 
 LABEL_17:
-      OpCode = FigXPCServerAssociateObjectWithConnection(a1, v14, 0, 0, 0, &value);
+      OpCode = FigXPCServerAssociateObjectWithConnection(a1, v20, 0, 0, 0, &value);
       if (!OpCode)
       {
-        OpCode = FigCFWeakReferenceTableAddValueAssociatedWithKey(qword_1ED4CC400, v14, value);
+        OpCode = FigCFWeakReferenceTableAddValueAssociatedWithKey(qword_1ED4CC400, v20, value);
         if (!OpCode)
         {
           xpc_dictionary_set_uint64(a3, ".objectID", value);
@@ -9080,87 +9138,87 @@ LABEL_17:
       goto LABEL_20;
     }
 
-    v25 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64);
-    v28 = v25;
-    if (!v25)
+    v31 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64, v8, v9, v10, v11, v12, v13);
+    v34 = v31;
+    if (!v31)
     {
-      OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x2A5, v3, v26, v27);
+      OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x2A5, v3, v32, v33, v43);
 LABEL_30:
-      *(v41 + 6) = OpCode;
+      *(v49 + 6) = OpCode;
       goto LABEL_31;
     }
 
-    v29 = v25[3];
+    v35 = *(v31 + 24);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __FigProcessStateMonitor_handleMessage_block_invoke;
     block[3] = &unk_1E749D3C8;
-    v38 = v39;
+    v46 = v47;
     block[4] = a1;
     block[5] = xdict;
     block[6] = a3;
-    block[7] = &v40;
-    dispatch_sync(v29, block);
-    CFRelease(v28);
-    OpCode = *(v41 + 6);
+    block[7] = &v48;
+    dispatch_sync(v35, block);
+    CFRelease(v34);
+    OpCode = *(v49 + 6);
   }
 
 LABEL_31:
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v48, 8);
   return OpCode;
 }
 
-void sub_196FC64CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_196FC64CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-size_t FigProcessStateMonitor_noReplyHandleMessage(uint64_t a1, xpc_object_t xdict)
+size_t FigProcessStateMonitor_noReplyHandleMessage(CMBlockBufferRef *a1, xpc_object_t xdict)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v15 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v21 = 0;
   uint64 = xpc_dictionary_get_uint64(xdict, ".objectID");
-  OpCode = FigXPCMessageGetOpCode(xdict, &v15);
-  *(v17 + 6) = OpCode;
+  OpCode = FigXPCMessageGetOpCode(xdict, &v21);
+  *(v23 + 6) = OpCode;
   if (!OpCode)
   {
-    v7 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64);
-    v10 = v7;
-    if (v7)
+    v13 = FigCFWeakReferenceTableCopyValue(qword_1ED4CC400, uint64, v6, v7, v8, v9, v10, v11);
+    v16 = v13;
+    if (v13)
     {
-      v11 = v7[3];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __FigProcessStateMonitor_noReplyHandleMessage_block_invoke;
-      v13[3] = &unk_1E749D450;
-      v14 = v15;
-      v13[4] = a1;
-      v13[5] = xdict;
-      v13[6] = &v16;
-      dispatch_sync(v11, v13);
-      CFRelease(v10);
-      OpCode = *(v17 + 6);
+      v17 = *(v13 + 24);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __FigProcessStateMonitor_noReplyHandleMessage_block_invoke;
+      v19[3] = &unk_1E749D450;
+      v20 = v21;
+      v19[4] = a1;
+      v19[5] = xdict;
+      v19[6] = &v22;
+      dispatch_sync(v17, v19);
+      CFRelease(v16);
+      OpCode = *(v23 + 6);
     }
 
     else
     {
-      OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x2CE, v2, v8, v9);
-      *(v17 + 6) = OpCode;
+      OpCode = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CC80, 0xFFFFB418uLL, "<<<< FigProcessStateMonitorServer >>>>", 0x2CE, v2, v14, v15, v19[0]);
+      *(v23 + 6) = OpCode;
     }
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
   return OpCode;
 }
 
-void sub_196FC664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_196FC664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9185,15 +9243,16 @@ double fpsmServerCompanion_init(_OWORD *a1)
   return result;
 }
 
-void fpsmServerCompanion_finalize(void *a1)
+void fpsmServerCompanion_finalize(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CC88)
   {
-    v15[0] = 0;
+    v15 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, v15, &type);
-    v3 = v15[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v15, &type);
+    v3 = v15;
+    v4 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v5 = v3;
@@ -9206,12 +9265,12 @@ void fpsmServerCompanion_finalize(void *a1)
 
     if (v5)
     {
-      v15[1] = 136315394;
-      v16 = "fpsmServerCompanion_finalize";
-      v17 = 2048;
-      v18 = a1;
-      v6 = _os_log_send_and_compose_impl();
-      LOBYTE(v3) = v15[0];
+      v16 = 136315394;
+      v17 = "fpsmServerCompanion_finalize";
+      v18 = 2048;
+      v19 = a1;
+      v6 = _os_log_send_and_compose_impl(v5, 0, v20, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<<< FigProcessStateMonitorServer >>>> %s: finalize companion %p", &v16, 22);
+      LOBYTE(v3) = v15;
     }
 
     else
@@ -9219,47 +9278,47 @@ void fpsmServerCompanion_finalize(void *a1)
       v6 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v6, v6 != &v19, v3, 0, v4);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v6, v6 != v20, v3);
   }
 
-  v7 = a1[3];
+  v7 = *(a1 + 24);
   if (v7)
   {
     dispatch_release(v7);
   }
 
-  v8 = a1[4];
+  v8 = *(a1 + 32);
   if (v8)
   {
     CFRelease(v8);
   }
 
-  v9 = a1[6];
+  v9 = *(a1 + 48);
   if (v9)
   {
     CFRelease(v9);
   }
 
-  v10 = a1[5];
+  v10 = *(a1 + 40);
   if (v10)
   {
     CFRelease(v10);
   }
 
-  FigReentrantMutexDestroy(a1[8]);
-  v11 = a1[11];
+  FigReentrantMutexDestroy(*(a1 + 64));
+  v11 = *(a1 + 88);
   if (v11)
   {
     CFRelease(v11);
   }
 
-  v12 = a1[12];
+  v12 = *(a1 + 96);
   if (v12)
   {
     CFRelease(v12);
   }
 
-  v13 = a1[14];
+  v13 = *(a1 + 112);
   if (v13)
   {
     CFRelease(v13);
@@ -9279,6 +9338,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v18, &type);
       v4 = v18;
+      v5 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v6 = v4;
@@ -9296,7 +9356,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
         v20 = "figProcessStateMonitorHandleEnrollInPurge_block_invoke";
         v21 = 2114;
         v22 = v7;
-        v8 = _os_log_send_and_compose_impl();
+        v8 = _os_log_send_and_compose_impl(v6, 0, v23, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<<< FigProcessStateMonitorServer >>>> %s: %{public}@ point of no return for purge", &v19, 22);
         LOBYTE(v4) = v18;
       }
 
@@ -9305,7 +9365,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
         v8 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v8, v8 != v23, v4, 0, v5);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v8, v8 != v23, v4);
       v2 = *(a1 + 32);
     }
 
@@ -9325,6 +9385,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
     type = OS_LOG_TYPE_DEFAULT;
     v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 0, &v18, &type);
     v10 = v18;
+    v11 = type;
     if (os_log_type_enabled(v9, type))
     {
       v12 = v10;
@@ -9339,7 +9400,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
     {
       v19 = 136315138;
       v20 = "figProcessStateMonitorHandleEnrollInPurge_block_invoke";
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v12, 0, v23, 128, &dword_196FA7000, v9, v11, "<<<< FigProcessStateMonitorServer >>>> %s: Attempt to purge client which is not eligible!", &v19);
       LOBYTE(v10) = v18;
     }
 
@@ -9348,7 +9409,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
       v13 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 0, 1, v13, v13 != v23, v10, 0, v11);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 0, 1, v13, v13 != v23, v10);
   }
 
   return FigReentrantMutexUnlock(*(*(a1 + 32) + 64));
@@ -9356,7 +9417,7 @@ uint64_t __figProcessStateMonitorHandleEnrollInPurge_block_invoke_41(uint64_t a1
 
 void __figProcessStateMonitorHandleEnrollInPurge_block_invoke_42(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 32);
   if (*v8 != a4)
   {
@@ -9387,10 +9448,11 @@ void __figProcessStateMonitorHandleEnrollInPurge_block_invoke_42(uint64_t a1, ui
 
   if (dword_1EAF1CC88)
   {
-    v23[0] = 0;
+    v23 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, v23, &type);
-    v16 = v23[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CC80, 1, &v23, &type);
+    v16 = v23;
+    v17 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v18 = v16;
@@ -9405,21 +9467,21 @@ void __figProcessStateMonitorHandleEnrollInPurge_block_invoke_42(uint64_t a1, ui
     {
       v19 = *(a1 + 40);
       v20 = "could not";
-      v24 = "figProcessStateMonitorHandleEnrollInPurge_block_invoke";
-      v23[1] = 136315906;
-      v25 = 2114;
+      v25 = "figProcessStateMonitorHandleEnrollInPurge_block_invoke";
+      v24 = 136315906;
+      v26 = 2114;
       if (!a5)
       {
         v20 = "did";
       }
 
-      v26 = v19;
-      v27 = 2048;
-      v28 = a4;
-      v29 = 2080;
-      v30 = v20;
-      v21 = _os_log_send_and_compose_impl();
-      LOBYTE(v16) = v23[0];
+      v27 = v19;
+      v28 = 2048;
+      v29 = a4;
+      v30 = 2080;
+      v31 = v20;
+      v21 = _os_log_send_and_compose_impl(v18, 0, v32, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v17, "<<<< FigProcessStateMonitorServer >>>> %s: %{public}@ purge complete, purge marker is %lld, we %s purge all objects", &v24, 42);
+      LOBYTE(v16) = v23;
     }
 
     else
@@ -9427,7 +9489,7 @@ void __figProcessStateMonitorHandleEnrollInPurge_block_invoke_42(uint64_t a1, ui
       v21 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1u, 1, v21, v21 != &v31, v16, 0, v17);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CC80, 1, 1, v21, v21 != v32, v16);
   }
 
   FigMemoryBarrier();
@@ -9441,7 +9503,7 @@ double FigProcessStateMonitorPurgePreventionAssertion_Init(uint64_t a1)
   return result;
 }
 
-void FigProcessStateMonitorPurgePreventionAssertion_Finalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void FigProcessStateMonitorPurgePreventionAssertion_Finalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!*(a1 + 16))
   {
@@ -9725,171 +9787,4 @@ CFPropertyListRef CMFormatDescriptionGetExtension(CMFormatDescriptionRef desc, C
   {
     return 0;
   }
-}
-
-OSStatus CMFormatDescriptionCreate(CFAllocatorRef allocator, CMMediaType mediaType, FourCharCode mediaSubType, CFDictionaryRef extensions, CMFormatDescriptionRef *formatDescriptionOut)
-{
-  if (formatDescriptionOut)
-  {
-    v11 = *&mediaType;
-    FigThreadRunOnce(&sFigGenericFormatDescriptionRegisterOnce, FigGenericFormatDescriptionRegisterOnce);
-
-    return FigDerivedFormatDescriptionCreate(allocator, v11, mediaSubType, extensions, formatDescriptionOut, v13, v14, v15);
-  }
-
-  else
-  {
-    v17 = qword_1EAF1CCA0;
-
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v17, 0xFFFFCE5AuLL, "<<<< FormatDescription >>>>", 0x49E, v7, v5, v6);
-  }
-}
-
-CFHashCode figCFFormatDescriptionHashForCFDictionaryKeyCallbacks(_DWORD *cf)
-{
-  if (cf && (v2 = CFGetTypeID(cf), FigThreadRunOnce(&CMFormatDescriptionGetTypeID_sRegisterFigFormatDescriptionOnce, registerFigFormatDescription), v2 == sFigFormatDescriptionID))
-  {
-    v8 = cf[4];
-    v3 = *(cf + 3);
-    v4 = CFHashBytes();
-    if (v8 == 1986618469)
-    {
-      CMVideoFormatDescriptionGetDimensions(cf);
-      v5 = ((v4 << 6) + 2654435769u + (v4 >> 2) + CFHashBytes()) ^ v4;
-      v4 = (CFHashBytes() + 2654435769 + (v5 << 6) + (v5 >> 2)) ^ v5;
-    }
-
-    v6 = (CFHashBytes() + 2654435769 + (v4 << 6) + (v4 >> 2)) ^ v4;
-    if (v3)
-    {
-      v6 ^= (v6 << 6) + 2654435769u + (v6 >> 2) + CFHash(v3);
-    }
-
-    return v6;
-  }
-
-  else
-  {
-
-    return CFHash(cf);
-  }
-}
-
-__CFString *figFormatDescriptionCopyDebugDesc(uint64_t a1)
-{
-  v2 = CFGetAllocator(a1);
-  Mutable = CFStringCreateMutable(v2, 0);
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 20);
-  if (v4 && ((Value = CFDictionaryGetValue(sFigFormatDescriptionRegistry, *(a1 + 16))) != 0 || (Value = CFDictionaryGetValue(sFigFormatDescriptionRegistry, 0x67656E72)) != 0) && (v7 = *(Value + 20)) != 0)
-  {
-    v8 = v7(a1);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(a1 + 24);
-  if (v9)
-  {
-    v10 = CFCopyDescription(v9);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (v4 <= 1885564003)
-  {
-    if (v4 <= 1668310897)
-    {
-      if (v4 == 1635088502)
-      {
-        v11 = @"AuxiliaryPicture";
-        goto LABEL_38;
-      }
-
-      if (v4 == 1668047728)
-      {
-        v11 = @"ClosedCaption";
-        goto LABEL_38;
-      }
-    }
-
-    else
-    {
-      switch(v4)
-      {
-        case 1668310898:
-          v11 = @"CaptionGroup";
-          goto LABEL_38;
-        case 1835365473:
-          v11 = @"Metadata";
-          goto LABEL_38;
-        case 1836415096:
-          v11 = @"Muxed";
-          goto LABEL_38;
-      }
-    }
-  }
-
-  else if (v4 > 1936684397)
-  {
-    switch(v4)
-    {
-      case 1936684398:
-        v11 = @"Audio";
-        goto LABEL_38;
-      case 1952807028:
-        v11 = @"Text";
-        goto LABEL_38;
-      case 1986618469:
-        v11 = @"Video";
-        goto LABEL_38;
-    }
-  }
-
-  else
-  {
-    switch(v4)
-    {
-      case 1885564004:
-        v11 = @"PointCloud";
-        goto LABEL_38;
-      case 1935832172:
-        v11 = @"Subtitle";
-        goto LABEL_38;
-      case 1935893870:
-        v11 = @"Scene";
-        goto LABEL_38;
-    }
-  }
-
-  if (v4 == 1952606066)
-  {
-    v11 = @"TaggedBufferGroup";
-  }
-
-  else
-  {
-    v11 = &stru_1F0B78830;
-  }
-
-LABEL_38:
-  v12 = CFGetAllocator(a1);
-  CFStringAppendFormat(Mutable, 0, @"<CM%@FormatDescription %p [%p]> {\n\tmediaType:'%c%c%c%c' \n\tmediaSubType:'%c%c%c%c' \n\tmediaSpecific: {\n%@ \n\t} \n\textensions: {%@}\n}", v11, a1, v12, HIBYTE(v4), BYTE2(v4), BYTE1(v4), v4, HIBYTE(v5), BYTE2(v5), BYTE1(v5), v5, v8, v10);
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  return Mutable;
 }

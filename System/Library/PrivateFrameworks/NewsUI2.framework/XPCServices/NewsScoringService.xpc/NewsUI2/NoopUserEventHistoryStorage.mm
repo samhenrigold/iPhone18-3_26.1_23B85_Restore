@@ -14,17 +14,16 @@
 {
   if (*(self + OBJC_IVAR____TtC18NewsScoringServiceP33_C5702952914E111DC8B8265D9BB1866627NoopUserEventHistoryStorage_sessionIDs))
   {
-    v2 = *(self + OBJC_IVAR____TtC18NewsScoringServiceP33_C5702952914E111DC8B8265D9BB1866627NoopUserEventHistoryStorage_sessionIDs);
 
-    v3.super.isa = sub_10000A2BC().super.isa;
+    v2.super.isa = sub_10000A2BC().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (NSArray)sessions
@@ -47,31 +46,29 @@
 - (NSDate)earliestSessionDate
 {
   sub_1000088F8(0, &qword_100015AA0, &type metadata accessor for Date, &type metadata accessor for Optional);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  sub_100008A28(self + OBJC_IVAR____TtC18NewsScoringServiceP33_C5702952914E111DC8B8265D9BB1866627NoopUserEventHistoryStorage_earliestSessionDate, &v13 - v5);
-  v7 = sub_100009D9C();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_100008A28(self + OBJC_IVAR____TtC18NewsScoringServiceP33_C5702952914E111DC8B8265D9BB1866627NoopUserEventHistoryStorage_earliestSessionDate, &v12 - v4);
+  v6 = sub_100009D9C();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
     isa = sub_100009D8C().super.isa;
-    (*(v8 + 8))(v6, v7);
-    v10 = isa;
+    (*(v7 + 8))(v5, v6);
+    v9 = isa;
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSArray)prunedSessionIDs
 {
-  v2 = *(self + OBJC_IVAR____TtC18NewsScoringServiceP33_C5702952914E111DC8B8265D9BB1866627NoopUserEventHistoryStorage_prunedSessionIDs);
 
-  v3.super.isa = sub_10000A2BC().super.isa;
+  v2.super.isa = sub_10000A2BC().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setMetadata:(id)metadata

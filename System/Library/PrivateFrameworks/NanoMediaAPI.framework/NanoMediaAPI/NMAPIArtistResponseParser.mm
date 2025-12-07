@@ -6,7 +6,7 @@
 
 - (id)resultsWithDictionary:(id)dictionary error:(id *)error
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [dictionaryCopy objectForKey:@"data"];
@@ -33,11 +33,11 @@ LABEL_34:
       goto LABEL_35;
     }
 
-    v48 = v8;
+    v47 = v8;
     v13 = [v10 valueForKeyPath:@"relationships.default-playable-content"];
     v14 = NMAPIOptionalDictionaryWithObject(v13, @"defaultPlayableContent", error);
 
-    v49 = v14;
+    v48 = v14;
     if (v14)
     {
       v15 = [v14 objectForKey:@"data"];
@@ -48,7 +48,7 @@ LABEL_34:
         v21 = 0;
 LABEL_33:
 
-        v8 = v48;
+        v8 = v47;
         goto LABEL_34;
       }
 
@@ -82,29 +82,29 @@ LABEL_33:
 
       if (v27)
       {
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
         obj = v27;
-        v50 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-        if (v50)
+        v49 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+        if (v49)
         {
-          v51 = *v53;
-          v45 = dictionaryCopy;
-          v46 = v6;
-          v43 = v27;
-          v44 = v12;
+          v50 = *v52;
+          v44 = dictionaryCopy;
+          v45 = v6;
+          v42 = v27;
+          v43 = v12;
           while (2)
           {
-            for (i = 0; i != v50; ++i)
+            for (i = 0; i != v49; ++i)
             {
-              if (*v53 != v51)
+              if (*v52 != v50)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v29 = [v25 objectForKey:*(*(&v52 + 1) + 8 * i)];
+              v29 = [v25 objectForKey:*(*(&v51 + 1) + 8 * i)];
               v30 = NMAPIDictionaryWithObject(v29, @"view", error);
 
               if (!v30)
@@ -131,10 +131,10 @@ LABEL_29:
 
 LABEL_30:
                   v21 = 0;
-                  dictionaryCopy = v45;
-                  v6 = v46;
-                  v27 = v43;
-                  v12 = v44;
+                  dictionaryCopy = v44;
+                  v6 = v45;
+                  v27 = v42;
+                  v12 = v43;
                   goto LABEL_31;
                 }
 
@@ -145,19 +145,19 @@ LABEL_30:
                 v38 = [NMAPISectionResult alloc];
                 v39 = [v35 copy];
                 v40 = [(NMAPISectionResult *)v38 initWithSectionIdentifier:v34 sectionDictionary:v39 itemsArray:v32];
-                [v46 addObject:v40];
+                [v45 addObject:v40];
 
                 v25 = v37;
                 v10 = v36;
               }
             }
 
-            dictionaryCopy = v45;
-            v6 = v46;
-            v27 = v43;
-            v12 = v44;
-            v50 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-            if (v50)
+            dictionaryCopy = v44;
+            v6 = v45;
+            v27 = v42;
+            v12 = v43;
+            v49 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+            if (v49)
             {
               continue;
             }
@@ -189,7 +189,6 @@ LABEL_31:
 LABEL_35:
 
 LABEL_36:
-  v41 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

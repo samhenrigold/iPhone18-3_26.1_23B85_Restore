@@ -1,27 +1,27 @@
-void sub_243BE90F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243BE90F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243BE9328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243BE9328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243BE9AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243BE9AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243BE9CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243BE9CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -42,10 +42,10 @@ id MessagesSettingsLocalizedString(void *a1)
   return v3;
 }
 
-void _CNFRegLog(void *a1, void *a2)
+void _CNFRegLog(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v3 = a1;
-  v4 = a2;
+  v10 = a1;
+  v11 = a2;
   if (DLCShouldLogLevel())
   {
     DLCLogWithLevelV();
@@ -54,65 +54,66 @@ void _CNFRegLog(void *a1, void *a2)
 
 void CNFRegLogBacktraceToDepth(uint64_t a1, size_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (DLCShouldLogLevel())
   {
     v4 = CNFCopyBacktraceToDepth(a1);
-    v14[1] = v14;
-    MEMORY[0x28223BE20]();
-    v5 = v14 - ((a2 + 16) & 0xFFFFFFFFFFFFFFF0);
+    v13[1] = v13;
+    MEMORY[0x28223BE20](v4);
+    v5 = v13 - ((a2 + 16) & 0xFFFFFFFFFFFFFFF0);
     memset(v5, 32, a2);
     v5[a2] = 0;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v7)
     {
-      v9 = *v17;
+      v9 = *v16;
       *&v8 = 136315394;
-      v15 = v8;
+      v14 = v8;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           v12 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v15;
-            v21 = v5;
-            v22 = 2112;
-            v23 = v11;
+            *buf = v14;
+            v20 = v5;
+            v21 = 2112;
+            v22 = v11;
             _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "%s%@", buf, 0x16u);
           }
 
-          if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+          if (os_log_shim_legacy_logging_enabled())
           {
-            IMLogString();
+            if (IMShouldLog())
+            {
+              IMLogString();
+            }
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v15 objects:v23 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void CNFRegLogBacktraceWithMessage(void *a1)
+void CNFRegLogBacktraceWithMessage(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v1 = a1;
+  v9 = a1;
   if (DLCShouldLogLevel())
   {
     DLCLogWithLevelV();
@@ -178,7 +179,7 @@ BOOL CNFRegCurrentStringTableMatchesType(uint64_t a1)
 
 uint64_t CNFRegSetStringTableForServiceType(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = @"CNFRegistration";
   v2 = sStringTableName;
   if (a1 == 1)
@@ -192,7 +193,7 @@ uint64_t CNFRegSetStringTableForServiceType(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = sStringTableName;
+    v6 = sStringTableName;
     _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Setting string table name to: %@", buf, 0xCu);
   }
 
@@ -202,11 +203,10 @@ uint64_t CNFRegSetStringTableForServiceType(uint64_t a1)
     result = IMShouldLog();
     if (result)
     {
-      result = IMLogString();
+      return IMLogString();
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -236,67 +236,65 @@ id CNFRegStringTableName()
   return v0;
 }
 
-id CNFRegLoadSpecifiers(void *a1, void *a2, void *a3, void *a4, void *a5)
+id CNFRegLoadSpecifiers(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v9 = a1;
-  v10 = a2;
-  v11 = a3;
-  v12 = a4;
-  v13 = a5;
-  v14 = objc_alloc(MEMORY[0x277CBEAC0]);
-  v33 = v11;
-  v15 = [v10 pathForResource:v11 ofType:@"plist"];
-  v16 = [v14 initWithContentsOfFile:v15];
+  v43 = *MEMORY[0x277D85DE8];
+  v11 = a1;
+  v12 = a2;
+  v13 = a3;
+  v14 = a4;
+  v15 = a5;
+  v16 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v34 = v13;
+  v17 = [v12 pathForResource:v13 ofType:@"plist"];
+  v18 = [v16 initWithContentsOfFile:v17];
 
-  v17 = CNFRegStringTableName();
-  v40 = 0;
-  v31 = v13;
-  v34 = v10;
-  v35 = v9;
-  v32 = v12;
-  v18 = SpecifiersFromPlist();
-  v30 = v40;
+  v19 = CNFRegStringTableName();
+  v41 = 0;
+  v32 = v15;
+  v35 = v12;
+  v36 = v11;
+  v33 = v14;
+  v20 = SpecifiersFromPlist();
+  v31 = v41;
 
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v36 objects:v41 count:{16, &v40}];
-  if (v20)
+  v38 = 0u;
+  v21 = v20;
+  v22 = [v21 countByEnumeratingWithState:&v37 objects:v42 count:{16, &v41}];
+  if (v22)
   {
-    v21 = v20;
-    v22 = *v37;
-    v23 = *MEMORY[0x277D3FFA0];
-    v24 = *MEMORY[0x277D3FF48];
-    v25 = MEMORY[0x277D3FC90];
+    v23 = v22;
+    v24 = *v38;
+    v25 = *MEMORY[0x277D3FFA0];
+    v26 = *MEMORY[0x277D3FF48];
+    v27 = MEMORY[0x277D3FC90];
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v37 != v22)
+        if (*v38 != v24)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v36 + 1) + 8 * i);
-        if (!*&v27[*v25])
+        v29 = *(*(&v37 + 1) + 8 * i);
+        if (!*&v29[*v27])
         {
-          [*(*(&v36 + 1) + 8 * i) setProperty:@"CNFRegTableHeaderLabel" forKey:v23];
-          [v27 setProperty:@"CNFRegTableFooterLabel" forKey:v24];
+          [*(*(&v37 + 1) + 8 * i) setProperty:@"CNFRegTableHeaderLabel" forKey:v25];
+          [v29 setProperty:@"CNFRegTableFooterLabel" forKey:v26];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
-    while (v21);
+    while (v23);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v21;
 }
 
 id CNFRegLoadSpecifiersFromPlist(void *a1, void *a2, void *a3)
@@ -306,24 +304,26 @@ id CNFRegLoadSpecifiersFromPlist(void *a1, void *a2, void *a3)
   v7 = a1;
   v8 = [v7 specifier];
   v9 = [v7 bundle];
-  v10 = CNFRegLoadSpecifiers(v8, v9, v6, v5, v7);
+  v12 = 0;
+  v13 = 0;
+  v10 = CNFRegLoadSpecifiers(v8, v9, v6, v5, v7, &v13, &v12);
 
-  [v7 setSpecifierID:0];
-  [v7 setTitle:0];
+  [v7 setSpecifierID:v13];
+  [v7 setTitle:v12];
 
   return v10;
 }
 
 __CFString *CNFRegNonLocStringForRegistrationFailure(unint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1 >= 0x13)
   {
     v3 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = a1;
+      v6 = a1;
       _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountRegistrationFailureReason: %ld", buf, 0xCu);
     }
 
@@ -340,14 +340,12 @@ __CFString *CNFRegNonLocStringForRegistrationFailure(unint64_t a1)
     v2 = off_278DE7F50[a1];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 __CFString *CNFRegStringForRegistrationFailure(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CNFShouldShowTechnicalFailureUI();
   switch(a1)
@@ -514,7 +512,7 @@ LABEL_41:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v19 = a1;
+        v18 = a1;
         _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountRegistrationFailureReason: %ld", buf, 0xCu);
       }
 
@@ -526,12 +524,10 @@ LABEL_41:
       goto LABEL_41;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
-id CNFRegStringForAliasValidationStatus(uint64_t a1)
+id CNFRegStringForAliasValidationStatus(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (a1 > 0)
@@ -542,34 +538,34 @@ id CNFRegStringForAliasValidationStatus(uint64_t a1)
       {
         if (a1 == 3)
         {
-          v2 = 0;
+          v3 = 0;
           goto LABEL_13;
         }
 
         goto LABEL_16;
       }
 
-      v3 = CommunicationsSetupUIBundle();
-      v4 = CNFRegStringTableName();
-      v5 = [v3 localizedStringForKey:@"FACETIME_ALIAS_STATUS_VALIDATING" value:&stru_2856D3978 table:v4];
+      v4 = CommunicationsSetupUIBundle();
+      v5 = CNFRegStringTableName();
+      v6 = [v4 localizedStringForKey:@"FACETIME_ALIAS_STATUS_VALIDATING" value:&stru_2856D3978 table:v5];
 LABEL_12:
-      v2 = v5;
+      v3 = v6;
 
       goto LABEL_13;
     }
 
 LABEL_8:
-    v3 = CommunicationsSetupUIBundle();
-    v4 = CNFRegStringTableName();
-    v5 = [v3 localizedStringForKey:@"FACETIME_ALIAS_STATUS_DEFAULT" value:&stru_2856D3978 table:v4];
+    v4 = CommunicationsSetupUIBundle();
+    v5 = CNFRegStringTableName();
+    v6 = [v4 localizedStringForKey:@"FACETIME_ALIAS_STATUS_DEFAULT" value:&stru_2856D3978 table:v5];
     goto LABEL_12;
   }
 
   if (a1 == -1)
   {
-    v3 = CommunicationsSetupUIBundle();
-    v4 = CNFRegStringTableName();
-    v5 = [v3 localizedStringForKey:@"FACETIME_ALIAS_STATUS_FAILURE" value:&stru_2856D3978 table:v4];
+    v4 = CommunicationsSetupUIBundle();
+    v5 = CNFRegStringTableName();
+    v6 = [v4 localizedStringForKey:@"FACETIME_ALIAS_STATUS_FAILURE" value:&stru_2856D3978 table:v5];
     goto LABEL_12;
   }
 
@@ -581,7 +577,7 @@ LABEL_8:
 LABEL_16:
   v8 = CommunicationsSetupUIBundle();
   v9 = CNFRegStringTableName();
-  v2 = [v8 localizedStringForKey:@"FACETIME_ALIAS_STATUS_DEFAULT" value:&stru_2856D3978 table:v9];
+  v3 = [v8 localizedStringForKey:@"FACETIME_ALIAS_STATUS_DEFAULT" value:&stru_2856D3978 table:v9];
 
   v10 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -597,21 +593,20 @@ LABEL_16:
   }
 
 LABEL_13:
-  v6 = *MEMORY[0x277D85DE8];
 
-  return v2;
+  return v3;
 }
 
 __CFString *CNFRegNonLocStringForAliasValidationStatus(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ((a1 + 1) >= 5)
   {
     v3 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = a1;
+      v6 = a1;
       _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountAliasValidationStatus: %ld", buf, 0xCu);
     }
 
@@ -628,14 +623,12 @@ __CFString *CNFRegNonLocStringForAliasValidationStatus(uint64_t a1)
     v1 = off_278DE8020[a1 + 1];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v1;
 }
 
 __CFString *CNFRegStringForAliasValidationFailure(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = CNFShouldShowTechnicalFailureUI();
   if (a1 > 2)
   {
@@ -704,7 +697,7 @@ LABEL_15:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v13 = a1;
+    v12 = a1;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountAliasValidationErrorReason: %ld", buf, 0xCu);
   }
 
@@ -719,7 +712,6 @@ LABEL_24:
   v3 = [v8 localizedStringForKey:@"FACETIME_EMAIL_ERROR_GENERIC" value:&stru_2856D3978 table:v9];
 
 LABEL_25:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -757,14 +749,14 @@ __CFString *CNFRegStringForAccount(void *a1)
 
 __CFString *CNFRegNonLocStringForRegistrationStatus(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if ((a1 + 1) >= 7)
   {
     v3 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v7 = a1;
+      v6 = a1;
       _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountRegistrationStatus: %ld", buf, 0xCu);
     }
 
@@ -781,44 +773,39 @@ __CFString *CNFRegNonLocStringForRegistrationStatus(uint64_t a1)
     v1 = off_278DE7FE8[a1 + 1];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
   return v1;
 }
 
 __CFString *CNFRegNonLocStringForProfileValidationStatus(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if ((a1 + 1) >= 5)
+  v6 = *MEMORY[0x277D85DE8];
+  if ((a1 + 1) < 5)
   {
-    v3 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134217984;
-      v6 = a1;
-      _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountProfileValidationStatus: %ld", buf, 0xCu);
-    }
+    return off_278DE8020[a1 + 1];
+  }
 
-    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  v3 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v5 = a1;
+    _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountProfileValidationStatus: %ld", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled())
+  {
+    if (IMShouldLog())
     {
       IMLogString();
     }
-
-    result = @"Unknown";
   }
 
-  else
-  {
-    result = off_278DE8020[a1 + 1];
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 __CFString *CNFRegStringForProfileValidationFailure(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = CNFShouldShowTechnicalFailureUI();
   if (a1 <= 0)
   {
@@ -868,7 +855,7 @@ LABEL_10:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v12 = a1;
+      v11 = a1;
       _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Unexpected IMAccountProfileValidationErrorReason: %ld", buf, 0xCu);
     }
 
@@ -892,7 +879,6 @@ LABEL_19:
   v3 = [v7 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_GENERIC" value:&stru_2856D3978 table:v8];
 
 LABEL_20:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -912,15 +898,15 @@ id CNFRegFormattedPhoneNumberForString(void *a1)
 
 id CNFRegLocalPhoneNumberString()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v0 = [MEMORY[0x277D18D28] sharedInstance];
   v1 = [v0 activeAccounts];
 
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (!v2)
   {
 
@@ -934,17 +920,17 @@ LABEL_17:
 
   v3 = v2;
   v4 = 0;
-  v5 = *v14;
+  v5 = *v13;
   do
   {
     for (i = 0; i != v3; ++i)
     {
-      if (*v14 != v5)
+      if (*v13 != v5)
       {
         objc_enumerationMutation(v1);
       }
 
-      v7 = *(*(&v13 + 1) + 8 * i);
+      v7 = *(*(&v12 + 1) + 8 * i);
       if ([v7 accountType] == 2 && objc_msgSend(v7, "CNFRegSignInComplete"))
       {
         v8 = [v7 aliasesForType:2];
@@ -957,7 +943,7 @@ LABEL_17:
       }
     }
 
-    v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
   }
 
   while (v3);
@@ -968,7 +954,6 @@ LABEL_17:
   }
 
 LABEL_18:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1014,20 +999,20 @@ uint64_t CNFRegSupportsLocalPhoneNumberSentinelAlias()
   return v1;
 }
 
-id CNFRegLocalizedSplashScreenURL()
+id CNFRegLocalizedSplashScreenURL(uint64_t a1, uint64_t a2)
 {
-  v0 = CommunicationsSetupUIBundle();
-  v1 = CNFRegStringTableName();
-  v2 = [v0 localizedStringForKey:@"FACETIME_SPLASH_LEARN_MORE_URL" value:&stru_2856D3978 table:v1];
+  v2 = CommunicationsSetupUIBundle();
+  v3 = CNFRegStringTableName();
+  v4 = [v2 localizedStringForKey:@"FACETIME_SPLASH_LEARN_MORE_URL" value:&stru_2856D3978 table:v3];
 
-  v3 = [MEMORY[0x277CBEBC0] URLWithString:v2];
+  v5 = [MEMORY[0x277CBEBC0] URLWithString:v4];
 
-  return v3;
+  return v5;
 }
 
 id CNFRegiForgotURL()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D07DF0] sharedInstance];
   v1 = [v0 urlWithKey:@"ds-iforgot-url"];
   if (!v1)
@@ -1036,20 +1021,18 @@ id CNFRegiForgotURL()
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = @"https://iforgot.apple.com";
+      v6 = @"https://iforgot.apple.com";
       _os_log_impl(&dword_243BE5000, v2, OS_LOG_TYPE_DEFAULT, "Could not obtain iForgot url from bag. Falling back to %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v5 = @"https://iforgot.apple.com";
+      v4 = @"https://iforgot.apple.com";
       IMLogString();
     }
 
-    v1 = [MEMORY[0x277CBEBC0] URLWithString:{@"https://iforgot.apple.com", v5}];
+    v1 = [MEMORY[0x277CBEBC0] URLWithString:{@"https://iforgot.apple.com", v4}];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -1152,7 +1135,7 @@ __CFString *CKStringFromCTLazuliToggleStateType(uint64_t a1)
   }
 }
 
-id CNFRegGetSSAccountStoreClass()
+id CNFRegGetSSAccountStoreClass(uint64_t a1)
 {
   if (CNFRegControllerLoadStoreServicesLibraryIfNecessary_predicate != -1)
   {
@@ -1161,20 +1144,20 @@ id CNFRegGetSSAccountStoreClass()
 
   if (CNFRegControllerLoadStoreServicesLibraryIfNecessary___SSLibraryHandle)
   {
-    v1 = __SSAccountStoreClass;
+    v2 = __SSAccountStoreClass;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 void __CNFRegControllerLoadStoreServicesLibraryIfNecessary_block_invoke()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = GSSystemRootDirectory();
   v1 = [v0 stringByAppendingPathComponent:@"System/Library/PrivateFrameworks/StoreServices.framework/StoreServices"];
 
@@ -1191,9 +1174,9 @@ void __CNFRegControllerLoadStoreServicesLibraryIfNecessary_block_invoke()
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v6 = v2;
-      v7 = 2080;
-      v8 = dlerror();
+      v5 = v2;
+      v6 = 2080;
+      v7 = dlerror();
       _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Could not load framework {%s} : %s", buf, 0x16u);
     }
 
@@ -1203,8 +1186,6 @@ void __CNFRegControllerLoadStoreServicesLibraryIfNecessary_block_invoke()
       IMLogString();
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_243C0DF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -1288,16 +1269,16 @@ void sub_243C15F00(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_243C168F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_243C168F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243C16DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C16DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1494,37 +1475,37 @@ uint64_t ___handleSIMSubscriptionsUpdateNotification_block_invoke(uint64_t a1)
   return [*(a1 + 32) findSpamExtensions];
 }
 
-void sub_243C30000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_243C30000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCKSettingsHostingViewControllerClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!MessagesSettingsUILibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __MessagesSettingsUILibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278DE8800;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __MessagesSettingsUILibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278DE8800;
+    v5 = 0;
     MessagesSettingsUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!MessagesSettingsUILibraryCore_frameworkLibrary)
   {
-    __getCKSettingsHostingViewControllerClass_block_invoke_cold_2(v4);
+    __getCKSettingsHostingViewControllerClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("CKSettingsHostingViewController");
@@ -1535,21 +1516,17 @@ Class __getCKSettingsHostingViewControllerClass_block_invoke(uint64_t a1)
   }
 
   getCKSettingsHostingViewControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __MessagesSettingsUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MessagesSettingsUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t csui_log()
+uint64_t csui_log(uint64_t a1, uint64_t a2)
 {
   if (csui_log_onceToken != -1)
   {
@@ -1566,9 +1543,9 @@ os_log_t __csui_log_block_invoke()
   return result;
 }
 
-void sub_243C37FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_243C37FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1662,9 +1639,9 @@ void sub_243C47B94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_243C4D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C4D39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1676,23 +1653,23 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_243C4D524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C4D524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243C4E4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_243C4E4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243C50F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C50F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1738,52 +1715,52 @@ BOOL CNFShouldShowTechnicalFailureUI()
 
 CFIndex CNFiMessageLogLevel()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v0 = _CNFiMessageDebugLoggingDefaults();
   if ([v0 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v1 = v0;
-    v2 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v20;
+      v4 = *v19;
       do
       {
         v5 = 0;
         do
         {
-          if (*v20 != v4)
+          if (*v19 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v19 + 1) + 8 * v5);
+          v6 = *(*(&v18 + 1) + 8 * v5);
+          v14 = 0u;
           v15 = 0u;
           v16 = 0u;
           v17 = 0u;
-          v18 = 0u;
           v7 = [v1 objectForKey:{v6, 0}];
-          v8 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v16;
+            v10 = *v15;
             while (2)
             {
               v11 = 0;
               do
               {
-                if (*v16 != v10)
+                if (*v15 != v10)
                 {
                   objc_enumerationMutation(v7);
                 }
 
-                if (!CFPreferencesGetAppBooleanValue(*(*(&v15 + 1) + 8 * v11), v6, 0))
+                if (!CFPreferencesGetAppBooleanValue(*(*(&v14 + 1) + 8 * v11), v6, 0))
                 {
 
                   goto LABEL_19;
@@ -1793,7 +1770,7 @@ CFIndex CNFiMessageLogLevel()
               }
 
               while (v9 != v11);
-              v9 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
               if (v9)
               {
                 continue;
@@ -1807,7 +1784,7 @@ CFIndex CNFiMessageLogLevel()
         }
 
         while (v5 != v3);
-        v3 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v3);
@@ -1822,7 +1799,6 @@ LABEL_19:
     AppIntegerValue = -1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return AppIntegerValue;
 }
 
@@ -1899,18 +1875,18 @@ LABEL_9:
 
 void _CNFSetDefaultsDictionary(int a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [v3 allKeys];
-  v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     if (a1)
     {
       v7 = *MEMORY[0x277CBED28];
@@ -1926,37 +1902,37 @@ void _CNFSetDefaultsDictionary(int a1, void *a2)
       v8 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         v10 = [v3 objectForKey:v9];
-        v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v18;
+          v13 = *v17;
           do
           {
             v14 = 0;
             do
             {
-              if (*v18 != v13)
+              if (*v17 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              CFPreferencesSetAppValue(*(*(&v17 + 1) + 8 * v14++), v7, v9);
+              CFPreferencesSetAppValue(*(*(&v16 + 1) + 8 * v14++), v7, v9);
             }
 
             while (v12 != v14);
-            v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v12);
@@ -1967,13 +1943,11 @@ void _CNFSetDefaultsDictionary(int a1, void *a2)
       }
 
       while (v8 != v5);
-      v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void CNFDumpiMessageLogs(void *a1)
@@ -1995,50 +1969,50 @@ void CNFDumpiMessageLogs(void *a1)
 
 uint64_t CNFRegistrationLogLevel()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v0 = _CNFRegistrationLoggingDefaults();
   if ([v0 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v1 = v0;
-    v2 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v20;
+      v4 = *v19;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v20 != v4)
+          if (*v19 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v19 + 1) + 8 * i);
+          v6 = *(*(&v18 + 1) + 8 * i);
+          v14 = 0u;
           v15 = 0u;
           v16 = 0u;
           v17 = 0u;
-          v18 = 0u;
           v7 = [v1 objectForKey:{v6, 0}];
-          v8 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v16;
+            v10 = *v15;
             while (2)
             {
               for (j = 0; j != v9; ++j)
               {
-                if (*v16 != v10)
+                if (*v15 != v10)
                 {
                   objc_enumerationMutation(v7);
                 }
 
-                if (!CFPreferencesGetAppBooleanValue(*(*(&v15 + 1) + 8 * j), v6, 0))
+                if (!CFPreferencesGetAppBooleanValue(*(*(&v14 + 1) + 8 * j), v6, 0))
                 {
 
                   v12 = -1;
@@ -2046,7 +2020,7 @@ uint64_t CNFRegistrationLogLevel()
                 }
               }
 
-              v9 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
               if (v9)
               {
                 continue;
@@ -2057,7 +2031,7 @@ uint64_t CNFRegistrationLogLevel()
           }
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
         v12 = 0;
       }
 
@@ -2077,7 +2051,6 @@ LABEL_21:
     v12 = -1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2132,50 +2105,50 @@ void CNFDumpRegistrationLogs(void *a1)
 
 uint64_t CNFIsPushLoggingEnabled()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v0 = _CNFPushLoggingDefaults();
   if ([v0 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v1 = v0;
-    v2 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v20;
+      v4 = *v19;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v20 != v4)
+          if (*v19 != v4)
           {
             objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v19 + 1) + 8 * i);
+          v6 = *(*(&v18 + 1) + 8 * i);
+          v14 = 0u;
           v15 = 0u;
           v16 = 0u;
           v17 = 0u;
-          v18 = 0u;
           v7 = [v1 objectForKey:{v6, 0}];
-          v8 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v16;
+            v10 = *v15;
             while (2)
             {
               for (j = 0; j != v9; ++j)
               {
-                if (*v16 != v10)
+                if (*v15 != v10)
                 {
                   objc_enumerationMutation(v7);
                 }
 
-                if (!CFPreferencesGetAppBooleanValue(*(*(&v15 + 1) + 8 * j), v6, 0))
+                if (!CFPreferencesGetAppBooleanValue(*(*(&v14 + 1) + 8 * j), v6, 0))
                 {
 
                   v12 = 0;
@@ -2183,7 +2156,7 @@ uint64_t CNFIsPushLoggingEnabled()
                 }
               }
 
-              v9 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v14 objects:v22 count:16];
               if (v9)
               {
                 continue;
@@ -2194,7 +2167,7 @@ uint64_t CNFIsPushLoggingEnabled()
           }
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v3 = [v1 countByEnumeratingWithState:&v18 objects:v23 count:16];
         v12 = 1;
       }
 
@@ -2214,7 +2187,6 @@ LABEL_21:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2295,60 +2267,63 @@ void CNFSetBasebandLoggingEnabled(uint64_t a1)
   if (a1)
   {
     v2 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    CNFSetBasebandValue(v2);
+    CNFSetBasebandValue(v2, @"CSILog", @"enabled");
 
-    CNFSetBasebandValue(@"512");
+    CNFSetBasebandValue(@"512", @"CSILog", @"history");
     v3 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    CNFSetBasebandValue(v3);
+    CNFSetBasebandValue(v3, @"CSILog", @"enableGlobalLogging");
 
-    CNFSetBasebandValue(@"1");
-    CNFSetBasebandValue(@"2");
-    CNFSetBasebandValue(@"512");
+    CNFSetBasebandValue(@"1", @"EURCoreDump", @"enabled");
+    CNFSetBasebandValue(@"2", @"CoreDump", @"enabled");
+    CNFSetBasebandValue(@"512", @"DIAG", @"history");
     v4 = @"default";
+    v5 = @"file";
+    v6 = @"DIAG";
   }
 
   else
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    CNFSetBasebandValue(v5);
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    CNFSetBasebandValue(v7, @"CSILog", @"enabled");
 
-    CNFSetBasebandValue(@"64");
-    v6 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    CNFSetBasebandValue(v6);
+    CNFSetBasebandValue(@"64", @"CSILog", @"history");
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    CNFSetBasebandValue(v8, @"CSILog", @"enableGlobalLogging");
 
-    CNFSetBasebandValue(@"0");
+    CNFSetBasebandValue(@"0", @"EURCoreDump", @"enabled");
+    v6 = @"CoreDump";
     v4 = @"0";
+    v5 = @"enabled";
   }
 
-  CNFSetBasebandValue(v4);
-  v7 = [MEMORY[0x277CCABB0] numberWithBool:a1];
-  CNFSetBasebandValue(v7);
+  CNFSetBasebandValue(v4, v6, v5);
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:a1];
+  CNFSetBasebandValue(v9, @"DIAG", @"enabled");
 }
 
-void CNFSetBasebandValue(void *a1)
+void CNFSetBasebandValue(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = a1;
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = _CTServerConnectionCreate();
-  if (v3)
+  v3 = a1;
+  v4 = _CTServerConnectionCreate();
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v6 = v1;
+    v7 = v3;
     if ((isKindOfClass & 1) == 0)
     {
-      v7 = [(__CFString *)v1 BOOLValue:0];
-      v6 = @"false";
-      if (v7)
+      v8 = [(__CFString *)v3 BOOLValue:0];
+      v7 = @"false";
+      if (v8)
       {
-        v6 = @"true";
+        v7 = @"true";
       }
     }
 
-    v8 = v6;
+    v9 = v7;
     _CTServerConnectionSetTraceProperty();
-    CFRelease(v4);
+    CFRelease(v5);
   }
 }
 
@@ -2381,64 +2356,62 @@ void _reloadSpecifiersFromNotification(uint64_t a1, void *a2)
   }
 }
 
-void sub_243C5B494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C5B494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v7 + 40));
+  objc_destroyWeak((v13 + 40));
   _Unwind_Resume(a1);
 }
 
 void _removeSpecifiersWithIdentifiers(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v3 specifierForID:*(*(&v11 + 1) + 8 * v8)];
+        v9 = [v3 specifierForID:*(*(&v10 + 1) + 8 * v8)];
         [v3 removeObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_243C6581C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_243C6581C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_243C65D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243C65D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2450,10 +2423,11 @@ uint64_t __Block_byref_object_copy__917(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
@@ -2573,18 +2547,18 @@ double CNFGetDomainCGSizeForKey(CFStringRef applicationID, CFStringRef key, doub
   return a3;
 }
 
-double CNFGetSharedCGSizeForKey(double a1, uint64_t a2, void *a3)
+double CNFGetSharedCGSizeForKey(uint64_t a1, void *a2, double a3)
 {
-  v4 = a3;
+  v4 = a2;
   v5 = CPCopySharedResourcesPreferencesDomainForDomain();
   if (v5)
   {
     v6 = v5;
-    a1 = CNFGetDomainCGSizeForKey(v5, v4, a1);
+    a3 = CNFGetDomainCGSizeForKey(v5, v4, a3);
     CFRelease(v6);
   }
 
-  return a1;
+  return a3;
 }
 
 id CNFCopyDomainStringForKey(const __CFString *a1, const __CFString *a2, void *a3)
@@ -2702,32 +2676,31 @@ double CNFGetDomainFloatForKey(CFStringRef applicationID, CFStringRef key, doubl
   return a3;
 }
 
-double CNFGetSharedFloatForKey(double a1, uint64_t a2, void *a3)
+double CNFGetSharedFloatForKey(uint64_t a1, void *a2, double a3)
 {
-  v4 = a3;
+  v4 = a2;
   v5 = CPCopySharedResourcesPreferencesDomainForDomain();
   if (v5)
   {
     v6 = v5;
-    a1 = CNFGetDomainFloatForKey(v5, v4, a1);
+    a3 = CNFGetDomainFloatForKey(v5, v4, a3);
     CFRelease(v6);
   }
 
-  return a1;
+  return a3;
 }
 
-void CNFAssert(char a1, int a2, void *a3)
+void CNFAssert(uint64_t result, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if ((a1 & 1) == 0)
+  if ((result & 1) == 0)
   {
-    _CNFLogv(a2, a3);
+    _CNFLogv(a2, a3, &a9);
   }
 }
 
-void _CNFLogv(int a1, void *a2)
+void _CNFLogv(int a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  v3 = logNameForType_kLogNames[a1];
+  v3 = a2;
   if (DLCSessionShouldLogLevel())
   {
     DLCSessionLogWithLevelV();
@@ -2736,7 +2709,7 @@ void _CNFLogv(int a1, void *a2)
 
 id CNFCopyBacktraceToDepth(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if ((a1 + 1) < 0x80)
   {
     v1 = a1 + 1;
@@ -2748,8 +2721,8 @@ id CNFCopyBacktraceToDepth(uint64_t a1)
   }
 
   v2 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v1];
-  MEMORY[0x28223BE20]();
-  v5 = (v17 - v4);
+  MEMORY[0x28223BE20](v2);
+  v5 = (v16 - v4);
   if (v3 >= 0x200)
   {
     v6 = 512;
@@ -2760,7 +2733,7 @@ id CNFCopyBacktraceToDepth(uint64_t a1)
     v6 = v3;
   }
 
-  bzero(v17 - v4, v6);
+  bzero(v16 - v4, v6);
   v7 = backtrace(v5, v1);
   v8 = backtrace_symbols(v5, v7);
   v9 = v8;
@@ -2782,48 +2755,46 @@ id CNFCopyBacktraceToDepth(uint64_t a1)
   }
 
   free(v9);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
-void CNFLogBacktraceToDepth(int a1, uint64_t a2)
+void CNFLogBacktraceToDepth(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v20 = *MEMORY[0x277D85DE8];
   if (DLCSessionShouldLogLevel())
   {
     v4 = CNFCopyBacktraceToDepth(a2);
-    v10 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
-      v6 = v5;
-      v7 = *v11;
+      v12 = v5;
+      v13 = *v16;
       do
       {
-        v8 = 0;
+        v14 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v4);
           }
 
-          _CNFLog(a1, *(*(&v10 + 1) + 8 * v8++));
+          _CNFLog(v3, *(*(&v15 + 1) + 8 * v14++), v6, v7, v8, v9, v10, v11, v15);
         }
 
-        while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        while (v12 != v14);
+        v12 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v6);
+      while (v12);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id CommunicationsSetupUIBundle()
@@ -2841,26 +2812,26 @@ id CommunicationsSetupUIBundle()
   return v0;
 }
 
-BOOL CNFSyncSharedPreferences()
+BOOL CNFSyncSharedPreferences(uint64_t a1)
 {
-  v0 = CPCopySharedResourcesPreferencesDomainForDomain();
-  v1 = v0;
-  if (v0)
+  v1 = CPCopySharedResourcesPreferencesDomainForDomain();
+  v2 = v1;
+  if (v1)
   {
-    v2 = CFPreferencesAppSynchronize(v0) != 0;
+    v3 = CFPreferencesAppSynchronize(v1) != 0;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t CNFSyncLoggingPrefs()
 {
-  CNFSyncSharedPreferences();
+  CNFSyncSharedPreferences(@"com.apple.conference");
   CNFGetSharedBooleanValueForKey(@"com.apple.conference", @"Log");
 
   return CNFGetSharedBooleanValueForKey(@"com.apple.conference", @"Log.Everything");
@@ -2940,51 +2911,51 @@ id CNFLocalizedStringFromTableInBundleWithFallback(void *a1, void *a2, void *a3)
   v10 = CNFRegStringTableName();
   v11 = [v9 localizedStringForKey:v8 value:&stru_2856D3978 table:v10];
 
-  if (v11 && ([v11 isEqualToString:v8] & 1) == 0)
+  if (v11 && (v12 = [v11 isEqualToString:v8], (v12 & 1) == 0))
   {
-    v16 = v11;
-    v18 = v16;
+    v18 = v11;
+    v20 = v18;
   }
 
   else
   {
-    v12 = csui_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = csui_log(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      CNFLocalizedStringFromTableInBundleWithFallback_cold_1(v5, v8, v12);
+      CNFLocalizedStringFromTableInBundleWithFallback_cold_1(v5, v8, v14);
     }
 
-    v13 = CNFStringKeyForIdiom(v5);
-    v14 = [v7 localizedStringForKey:v13 value:&stru_2856D3978 table:v6];
+    v15 = CNFStringKeyForIdiom(v5);
+    v16 = [v7 localizedStringForKey:v15 value:&stru_2856D3978 table:v6];
 
-    if (v14 && ([v14 isEqualToString:v13] & 1) == 0)
+    if (v16 && ([v16 isEqualToString:v15] & 1) == 0)
     {
-      NSLog(&cfstr_WeDidAFallback.isa, v13, v8);
-      v16 = v14;
+      NSLog(&cfstr_WeDidAFallback.isa, v15, v8);
       v18 = v16;
+      v20 = v18;
     }
 
     else
     {
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v5, @"_iphone"];
-      v16 = [v7 localizedStringForKey:v15 value:&stru_2856D3978 table:v6];
+      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v5, @"_iphone"];
+      v18 = [v7 localizedStringForKey:v17 value:&stru_2856D3978 table:v6];
 
-      if (v16 && ([v16 isEqualToString:v15] & 1) == 0)
+      if (v18 && ([v18 isEqualToString:v17] & 1) == 0)
       {
-        NSLog(&cfstr_WeDidAFallback.isa, v15, v8);
-        v18 = v16;
+        NSLog(&cfstr_WeDidAFallback.isa, v17, v8);
+        v20 = v18;
       }
 
       else
       {
         NSLog(&cfstr_ErrorWeAreMiss.isa, v5);
-        v17 = CNFStringKeyForProduct(v5);
-        v18 = [v7 localizedStringForKey:v17 value:&stru_2856D3978 table:v6];
+        v19 = CNFStringKeyForProduct(v5);
+        v20 = [v7 localizedStringForKey:v19 value:&stru_2856D3978 table:v6];
       }
     }
   }
 
-  return v18;
+  return v20;
 }
 
 void __CNFProductName_block_invoke()
@@ -3057,11 +3028,11 @@ uint64_t sub_243C6B994()
   return sub_243C6F0D8();
 }
 
-uint64_t sub_243C6BA08()
+uint64_t sub_243C6BA08(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_243C6F0B8();
-  MEMORY[0x245D4CB60](v1);
+  MEMORY[0x245D4CB60](v2);
   return sub_243C6F0D8();
 }
 
@@ -3116,15 +3087,13 @@ id CKSettingsCheckInDevicesList.init(fullDataSharing:)(char a1)
 
 uint64_t sub_243C6BC88()
 {
-  v1 = *(*(sub_243C6EF78() - 8) + 64);
-  MEMORY[0x28223BE20]();
-  v5 = *(v0 + OBJC_IVAR____TtC21CommunicationsSetupUI28CKSettingsCheckInDevicesList_view);
-  v6 = *(v0 + OBJC_IVAR____TtC21CommunicationsSetupUI28CKSettingsCheckInDevicesList_view + 8);
-  v2 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB0, &qword_243C83AF0));
-  v3 = sub_243C6EF38();
+  v0 = sub_243C6EF78();
+  MEMORY[0x28223BE20](v0 - 8);
+  v1 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB0, &qword_243C83AF0));
+  v2 = sub_243C6EF38();
   sub_243C6EF68();
   sub_243C6EF28();
-  return v3;
+  return v2;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -3132,7 +3101,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3154,35 +3122,35 @@ id CKSettingsCheckInDevicesList.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t sub_243C6BF40@<X0>(uint64_t a1@<X8>)
+uint64_t sub_243C6BF40@<X0>(uint64_t a2@<X8>)
 {
-  *a1 = sub_243C6EF18();
-  *(a1 + 8) = 0x4024000000000000;
-  *(a1 + 16) = 0;
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB8, &qword_243C83AF8) + 44);
+  *a2 = sub_243C6EF18();
+  *(a2 + 8) = 0x4024000000000000;
+  *(a2 + 16) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB8, &qword_243C83AF8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BC0, &qword_243C83B00);
-  sub_243C6DC14(&qword_27EDA8BC8, &qword_27EDA8BC0, &qword_243C83B00);
+  sub_243C6DC14(&qword_27EDA8BC8, &qword_27EDA8BC0, &qword_243C83B00, MEMORY[0x277CE14C0]);
   sub_243C6F068();
-  v3 = sub_243C6EF88();
+  v4 = sub_243C6EF88();
   sub_243C6EEC8();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD0, &qword_243C83B08) + 36);
-  *v12 = v3;
-  *(v12 + 8) = v5;
-  *(v12 + 16) = v7;
-  *(v12 + 24) = v9;
-  *(v12 + 32) = v11;
-  *(v12 + 40) = 0;
-  v13 = [objc_opt_self() secondarySystemGroupedBackgroundColor];
-  v14 = sub_243C6F018();
-  v15 = sub_243C6EF88();
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v13 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD0, &qword_243C83B08) + 36);
+  *v13 = v4;
+  *(v13 + 8) = v6;
+  *(v13 + 16) = v8;
+  *(v13 + 24) = v10;
+  *(v13 + 32) = v12;
+  *(v13 + 40) = 0;
+  v14 = [objc_opt_self() secondarySystemGroupedBackgroundColor];
+  v15 = sub_243C6F018();
+  v16 = sub_243C6EF88();
   result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD8, &qword_243C83B10);
-  v17 = a1 + *(result + 36);
-  *v17 = v14;
-  *(v17 + 8) = v15;
+  v18 = a2 + *(result + 36);
+  *v18 = v15;
+  *(v18 + 8) = v16;
   return result;
 }
 
@@ -3190,26 +3158,25 @@ uint64_t sub_243C6C0D0@<X0>(char a1@<W0>, _BYTE *a2@<X8>)
 {
   v4 = sub_243C6F058();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = (MEMORY[0x28223BE20])();
-  v9 = &v17[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v7);
-  v11 = &v17[-v10];
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v16[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v6);
+  v10 = &v16[-v9];
   sub_243C6F048();
-  v19 = 0;
-  v12 = v5[2];
-  v12(v9, v11, v4);
-  v18 = 1;
-  *a2 = v19;
+  v18 = 0;
+  v11 = *(v5 + 16);
+  v11(v8, v10, v4);
+  v17 = 1;
+  *a2 = v18;
   a2[1] = a1;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8C78, &qword_243C83DF8);
-  v12(&a2[*(v13 + 48)], v9, v4);
-  v14 = &a2[*(v13 + 64)];
-  *v14 = v18;
-  v14[1] = a1;
-  v15 = v5[1];
-  v15(v11, v4);
-  return (v15)(v9, v4);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8C78, &qword_243C83DF8);
+  v11(&a2[*(v12 + 48)], v8, v4);
+  v13 = &a2[*(v12 + 64)];
+  *v13 = v17;
+  v13[1] = a1;
+  v14 = *(v5 + 8);
+  v14(v10, v4);
+  return (v14)(v8, v4);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
@@ -3217,7 +3184,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3227,35 +3193,33 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
 
 uint64_t sub_243C6C2E8@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *v1;
-  v4 = *(v1 + 8);
   *a1 = sub_243C6EF18();
   *(a1 + 8) = 0x4024000000000000;
   *(a1 + 16) = 0;
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB8, &qword_243C83AF8) + 44);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BB8, &qword_243C83AF8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BC0, &qword_243C83B00);
-  sub_243C6DC14(&qword_27EDA8BC8, &qword_27EDA8BC0, &qword_243C83B00);
+  sub_243C6DC14(&qword_27EDA8BC8, &qword_27EDA8BC0, &qword_243C83B00, MEMORY[0x277CE14C0]);
   sub_243C6F068();
-  v6 = sub_243C6EF88();
+  v2 = sub_243C6EF88();
   sub_243C6EEC8();
+  v4 = v3;
+  v6 = v5;
   v8 = v7;
   v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v15 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD0, &qword_243C83B08) + 36);
-  *v15 = v6;
-  *(v15 + 8) = v8;
-  *(v15 + 16) = v10;
-  *(v15 + 24) = v12;
-  *(v15 + 32) = v14;
-  *(v15 + 40) = 0;
-  v16 = [objc_opt_self() secondarySystemGroupedBackgroundColor];
-  v17 = sub_243C6F018();
-  v18 = sub_243C6EF88();
+  v11 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD0, &qword_243C83B08) + 36);
+  *v11 = v2;
+  *(v11 + 8) = v4;
+  *(v11 + 16) = v6;
+  *(v11 + 24) = v8;
+  *(v11 + 32) = v10;
+  *(v11 + 40) = 0;
+  v12 = [objc_opt_self() secondarySystemGroupedBackgroundColor];
+  v13 = sub_243C6F018();
+  v14 = sub_243C6EF88();
   result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8BD8, &qword_243C83B10);
-  v20 = a1 + *(result + 36);
-  *v20 = v17;
-  *(v20 + 8) = v18;
+  v16 = a1 + *(result + 36);
+  *v16 = v13;
+  *(v16 + 8) = v14;
   return result;
 }
 
@@ -3285,7 +3249,7 @@ uint64_t sub_243C6C564@<X0>(__int16 a1@<W0>, uint64_t a2@<X8>)
   {
     v46 = sub_243C6EF18();
     v55 = 1;
-    sub_243C6CE64();
+    sub_243C6CE64(a1 & 1);
     sub_243C6DCDC();
     v17 = sub_243C6EFD8();
     v43 = v18;
@@ -3407,7 +3371,7 @@ uint64_t sub_243C6C564@<X0>(__int16 a1@<W0>, uint64_t a2@<X8>)
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8C50, &qword_243C83DE8);
     sub_243C6DB90();
     v3 = v47;
-    sub_243C6DC14(&qword_27EDA8C60, &qword_27EDA8C50, &qword_243C83DE8);
+    sub_243C6DC14(&qword_27EDA8C60, &qword_27EDA8C50, &qword_243C83DE8, MEMORY[0x277CE1198]);
     sub_243C6EF48();
     if ((a1 & 1) == 0)
     {
@@ -3422,7 +3386,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  *&v57[0] = sub_243C6CE64();
+  *&v57[0] = sub_243C6CE64(a1 & 1);
   *(&v57[0] + 1) = v4;
   sub_243C6DCDC();
   v5 = sub_243C6EFD8();
@@ -3441,7 +3405,7 @@ LABEL_5:
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8C48, &qword_243C83DE0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDA8C50, &qword_243C83DE8);
   sub_243C6DB90();
-  sub_243C6DC14(&qword_27EDA8C60, &qword_27EDA8C50, &qword_243C83DE8);
+  sub_243C6DC14(&qword_27EDA8C60, &qword_27EDA8C50, &qword_243C83DE8, MEMORY[0x277CE1198]);
   sub_243C6EF48();
   if (a1)
   {
@@ -3463,9 +3427,9 @@ LABEL_6:
   memcpy(__dst, v57, 0x139uLL);
 
   sub_243C6DD48(v52, __src, &qword_27EDA8C68, &qword_243C83DF0);
-  sub_243C6DC5C(v12);
+  sub_243C6DC5C(v12, v16, v14);
 
-  sub_243C6DC9C(v12);
+  sub_243C6DC9C(v12, v16, v14);
   *a2 = v3;
   *(a2 + 8) = KeyPath;
   *(a2 + 16) = v50;
@@ -3477,7 +3441,7 @@ LABEL_6:
   *(a2 + 376) = v39;
   *(a2 + 384) = v40;
 
-  sub_243C6DC9C(v12);
+  sub_243C6DC9C(v12, v16, v14);
   memcpy(__src, v51, 0x139uLL);
   sub_243C6DDB0(__src, &qword_27EDA8C68, &qword_243C83DF0);
 }
@@ -3495,18 +3459,16 @@ uint64_t sub_243C6CE20(char a1)
   }
 }
 
-uint64_t sub_243C6CE64()
+uint64_t sub_243C6CE64(char a1)
 {
-  v0 = sub_243C6EE98();
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0 - 8);
+  v1 = sub_243C6EE98();
+  MEMORY[0x28223BE20](v1 - 8);
   v2 = sub_243C6F098();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
   sub_243C6F088();
   sub_243C6CFF4();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v5 = [objc_opt_self() bundleForClass_];
+  v4 = [objc_opt_self() bundleForClass_];
   sub_243C6EE88();
   return sub_243C6F0A8();
 }
@@ -3527,11 +3489,9 @@ unint64_t sub_243C6CFF4()
 uint64_t sub_243C6D040(char a1, char a2)
 {
   v4 = sub_243C6EE98();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v6 = sub_243C6F098();
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
+  v5 = sub_243C6F098();
+  MEMORY[0x28223BE20](v5 - 8);
   if (a2)
   {
     if (a1 != 2)
@@ -3540,7 +3500,7 @@ LABEL_3:
       sub_243C6F088();
       sub_243C6CFF4();
       ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-      v9 = [objc_opt_self() bundleForClass_];
+      v7 = [objc_opt_self() bundleForClass_];
       sub_243C6EE88();
       return sub_243C6F0A8();
     }
@@ -4156,7 +4116,7 @@ unint64_t sub_243C6D9BC()
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27EDA8BD8, &qword_243C83B10);
     sub_243C6DA74();
-    sub_243C6DC14(&qword_27EDA8C20, &qword_27EDA8C28, &qword_243C83D98);
+    sub_243C6DC14(&qword_27EDA8C20, &qword_27EDA8C28, &qword_243C83D98, MEMORY[0x277CE0728]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27EDA8C00);
   }
@@ -4170,7 +4130,7 @@ unint64_t sub_243C6DA74()
   if (!qword_27EDA8C08)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27EDA8BD0, &qword_243C83B08);
-    sub_243C6DC14(&qword_27EDA8C10, &qword_27EDA8C18, &qword_243C83D90);
+    sub_243C6DC14(&qword_27EDA8C10, &qword_27EDA8C18, &qword_243C83D90, MEMORY[0x277CE1198]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27EDA8C08);
   }
@@ -4183,13 +4143,6 @@ uint64_t sub_243C6DB2C@<X0>(uint64_t *a1@<X8>)
   result = sub_243C6EEE8();
   *a1 = result;
   return result;
-}
-
-uint64_t sub_243C6DB58(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return sub_243C6EEF8();
 }
 
 unint64_t sub_243C6DB90()
@@ -4205,7 +4158,7 @@ unint64_t sub_243C6DB90()
   return result;
 }
 
-uint64_t sub_243C6DC14(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_243C6DC14(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -4218,7 +4171,7 @@ uint64_t sub_243C6DC14(unint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_243C6DC5C(uint64_t result)
+uint64_t sub_243C6DC5C(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -4227,7 +4180,7 @@ uint64_t sub_243C6DC5C(uint64_t result)
   return result;
 }
 
-uint64_t sub_243C6DC9C(uint64_t result)
+uint64_t sub_243C6DC9C(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -4320,42 +4273,39 @@ uint64_t sub_243C6DFAC()
   return sub_243C6EEA8();
 }
 
-uint64_t sub_243C6E078(void *a1, uint64_t a2)
+uint64_t sub_243C6E078(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_243C6EEB8();
+  v4 = sub_243C6EEB8();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t sub_243C6E0F0@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_243C6E0F0@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_243C6EEB8();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_243C6EEB8();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -4381,13 +4331,22 @@ void __getCKSettingsHostingViewControllerClass_block_invoke_cold_2(void *a1)
 
 void CNFLocalizedStringFromTableInBundleWithFallback_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_243BE5000, log, OS_LOG_TYPE_FAULT, "ERROR! We are missing a string in our bundle for the key %@ for our current platform (key = %@). This means the user could be seeing the incorrect copy text.", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_243BE5000, log, OS_LOG_TYPE_FAULT, "ERROR! We are missing a string in our bundle for the key %@ for our current platform (key = %@). This means the user could be seeing the incorrect copy text.", &v3, 0x16u);
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }
 
 CGSize CGSizeFromString(NSString *string)

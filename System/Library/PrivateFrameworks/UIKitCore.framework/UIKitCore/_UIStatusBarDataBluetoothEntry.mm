@@ -75,15 +75,15 @@
           v12 = v11;
           if (v10 == v11)
           {
-            v13 = 1;
+            isEqual = 1;
           }
 
           else
           {
-            v13 = 0;
+            isEqual = 0;
             if (v10 && v11)
             {
-              v13 = [(_UIStatusBarDataBatteryEntry *)v10 isEqual:v11];
+              isEqual = objc_msgSend_isEqual_(v10);
             }
           }
 
@@ -95,19 +95,19 @@
 
         else
         {
-          v13 = 1;
+          isEqual = 1;
         }
       }
 
       else
       {
-        v13 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v13 = 1;
+      isEqual = 1;
     }
 
 LABEL_19:
@@ -115,10 +115,10 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v13 = 0;
+  isEqual = 0;
 LABEL_20:
 
-  return v13;
+  return isEqual;
 }
 
 - (id)_ui_descriptionBuilder

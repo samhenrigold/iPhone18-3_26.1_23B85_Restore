@@ -3,7 +3,7 @@
 
 @implementation NSSetI
 
-uint64_t ____NSSetI_new_block_invoke(uint64_t a1, uint64_t a2)
+id ____NSSetI_new_block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
@@ -67,7 +67,6 @@ uint64_t ____NSSetI_new_block_invoke(uint64_t a1, uint64_t a2)
 
 void *__51____NSSetI_enumerateObjectsWithOptions_usingBlock___block_invoke(void *result, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v2 = atomic_load((*(result[6] + 8) + 24));
   if ((v2 & 1) == 0)
   {
@@ -76,11 +75,10 @@ void *__51____NSSetI_enumerateObjectsWithOptions_usingBlock___block_invoke(void 
     {
       v4 = _CFAutoreleasePoolPush();
       __NSSET_IS_CALLING_OUT_TO_A_BLOCK__(v3[5]);
-      result = _CFAutoreleasePoolPop(v4);
+      return _CFAutoreleasePoolPop(v4);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

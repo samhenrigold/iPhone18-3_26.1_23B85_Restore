@@ -246,8 +246,8 @@ LABEL_6:
   v20[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   familyNameCopy = familyName;
-  contacts = [(CNVisualIdentity *)self contacts];
-  firstObject = [contacts firstObject];
+  v8 = objc_msgSend_contacts(self);
+  firstObject = [v8 firstObject];
   v10 = [firstObject mutableCopy];
 
   if (v10)
@@ -257,8 +257,8 @@ LABEL_6:
     freeze = [v10 freeze];
     v20[0] = freeze;
     v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-    contacts2 = [(CNVisualIdentity *)self contacts];
-    _cn_tail = [contacts2 _cn_tail];
+    v13 = objc_msgSend_contacts(self);
+    _cn_tail = [v13 _cn_tail];
     v15 = [v12 arrayByAddingObjectsFromArray:_cn_tail];
     [(CNVisualIdentity *)self setContacts:v15];
 
@@ -461,8 +461,8 @@ LABEL_6:
   linkedContacts = [(CNVisualIdentity *)self linkedContacts];
   [(CNVisualIdentity *)v4 setLinkedContacts:linkedContacts];
 
-  contacts = [(CNVisualIdentity *)self contacts];
-  [(CNVisualIdentity *)v4 setContacts:contacts];
+  v14 = objc_msgSend_contacts(self);
+  [(CNVisualIdentity *)v4 setContacts:v14];
 
   [(CNVisualIdentity *)v4 setIdentityType:[(CNVisualIdentity *)self identityType]];
   memojiMetadata = [(CNVisualIdentity *)self memojiMetadata];
@@ -484,8 +484,8 @@ LABEL_6:
   {
     if ([identityCopy numberOfContacts] == 1)
     {
-      contacts = [identityCopy contacts];
-      firstObject = [contacts firstObject];
+      v6 = objc_msgSend_contacts(identityCopy);
+      firstObject = [v6 firstObject];
       v5 = [(CNVisualIdentity *)v5 initWithContact:firstObject];
     }
 
@@ -537,9 +537,9 @@ LABEL_6:
       linkedContacts = v5->_linkedContacts;
       v5->_linkedContacts = 0;
 
-      contacts2 = [identityCopy contacts];
+      v26 = objc_msgSend_contacts(identityCopy);
       contacts = v5->_contacts;
-      v5->_contacts = contacts2;
+      v5->_contacts = v26;
 
       memojiMetadata = v5->_memojiMetadata;
       v5->_memojiMetadata = 0;

@@ -39,7 +39,7 @@
 
 void __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -71,20 +71,20 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v19 = rbs_general_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = rbs_general_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_2(a1);
+      __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_2();
     }
 
     if (*(a1 + 48))
     {
       v9 = MEMORY[0x277CCA9B8];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Domain %@ attribute %@ contains entitlement name of wrong type: %@", *(a1 + 32), *(a1 + 40), v5, *MEMORY[0x277CCA470]];
-      v21 = v10;
+      v20 = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = &v21;
-      v13 = &v20;
+      v12 = &v20;
+      v13 = &v19;
       goto LABEL_8;
     }
   }
@@ -94,18 +94,18 @@ LABEL_11:
     v8 = rbs_general_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_1(a1);
+      __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_1();
     }
 
     if (*(a1 + 48))
     {
       v9 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA470];
+      v21 = *MEMORY[0x277CCA470];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Domain %@ attribute %@ contains entitlement value of wrong type: %@", *(a1 + 32), *(a1 + 40), v6];
-      v23[0] = v10;
+      v22[0] = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = v23;
-      v13 = &v22;
+      v12 = v22;
+      v13 = &v21;
 LABEL_8:
       v14 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
       v15 = [v9 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:2 userInfo:v14];
@@ -115,8 +115,6 @@ LABEL_8:
   }
 
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)matchesEntitlements:(id)entitlements
@@ -242,26 +240,6 @@ void __44__RBAllEntitlementPredicate_allEntitlements__block_invoke(uint64_t a1, 
   v6 = [v3 initWithFormat:@"(%@)", v5];
 
   return v6;
-}
-
-void __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_13(&dword_262485000, v3, v4, "Domain %{public}@ attribute %{public}@ contains entitlement value of wrong type: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RBAllEntitlementPredicate_initWithDictionary_forDomain_attribute_errors___block_invoke_cold_2(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_13(&dword_262485000, v3, v4, "Domain %{public}@ attribute %{public}@ contains entitlement name of wrong type: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

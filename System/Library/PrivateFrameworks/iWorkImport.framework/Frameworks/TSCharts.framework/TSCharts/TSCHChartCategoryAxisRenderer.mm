@@ -192,7 +192,7 @@ LABEL_17:
               memset(&v198, 0, sizeof(v198));
               if (v191)
               {
-                objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(v191, v153, 0.0, v163.width, v156, v128, &v199, &v200);
+                objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(v191, 0.0, v163.width, v156);
               }
 
               if (!CGRectIsNull(v200))
@@ -600,7 +600,7 @@ LABEL_13:
   v52 = objc_msgSend_range(selectionCopy, v33, 0.0, *&v51, v34);
   if (v27)
   {
-    objc_msgSend_transformForRenderingLabel_range_outElementSize_outClipRect_(v27, v53, v54, v55, v56, v48, v52, v53, &v62, &v63);
+    objc_msgSend_transformForRenderingLabel_range_outElementSize_outClipRect_(v27, v54, v55, v56, v53, v48, v52, v53, &v62, &v63);
   }
 
   else
@@ -671,7 +671,7 @@ LABEL_8:
 
   if (isEqual)
   {
-    v45 = objc_msgSend_indexForSelectionPathLabelIndex_(v24, v46, v47, v48, v49, v45);
+    objc_msgSend_indexForSelectionPathLabelIndex_(v24, v46, v47, v48, v49, v45);
     v54 = objc_msgSend_categoryAxisLayoutItem(self, v50, v51, v52, v53);
     v59 = objc_msgSend_axisCategoryLabelsLayoutItem(v54, v55, v56, v57, v58);
     v60 = 1052;
@@ -688,28 +688,28 @@ LABEL_8:
   {
     v91 = *MEMORY[0x277CBF3A8];
     v71 = *(MEMORY[0x277CBF398] + 16);
-    v90[0] = *MEMORY[0x277CBF398];
-    v90[1] = v71;
-    v88 = 0u;
-    v89 = 0u;
+    v89 = *MEMORY[0x277CBF398];
+    v90 = v71;
     v87 = 0u;
+    v88 = 0u;
+    v86 = 0u;
     v72 = objc_msgSend_editingString(self, v69, 0.0, *&v71, v70);
-    objc_msgSend_transformForRenderingLabel_usingString_outElementSize_outClipRect_useAngle_(v59, v73, v74, v75, v76, v45, v72, &v91, v90, 1);
+    objc_msgSend_transformForRenderingLabel_usingString_outElementSize_outClipRect_useAngle_(v59, v73, v74, v75);
 
-    v77 = objc_alloc(MEMORY[0x277D80300]);
-    v86[0] = v87;
-    v86[1] = v88;
-    v86[2] = v89;
-    v79 = objc_msgSend_initWithSize_transform_(v77, v78, *&v91, *(&v91 + 1), *&v89, v86);
-    v84 = objc_msgSend_infoGeometry(v79, v80, v81, v82, v83);
+    v76 = objc_alloc(MEMORY[0x277D80300]);
+    v85[0] = v86;
+    v85[1] = v87;
+    v85[2] = v88;
+    v78 = objc_msgSend_initWithSize_transform_(v76, v77, *&v91, *(&v91 + 1), *&v88, v85);
+    v83 = objc_msgSend_infoGeometry(v78, v79, v80, v81, v82);
   }
 
   else
   {
-    v84 = 0;
+    v83 = 0;
   }
 
-  return v84;
+  return v83;
 }
 
 - (CGRect)frameForEditingTextForSelectionPath:(id)path
@@ -735,13 +735,13 @@ LABEL_8:
       }
 
 LABEL_11:
-      v67.receiver = self;
-      v67.super_class = TSCHChartCategoryAxisRenderer;
-      [(TSCHChartAxisRenderer *)&v67 frameForEditingTextForSelectionPath:pathCopy];
+      v65.receiver = self;
+      v65.super_class = TSCHChartCategoryAxisRenderer;
+      [(TSCHChartAxisRenderer *)&v65 frameForEditingTextForSelectionPath:pathCopy];
+      v50 = v49;
       v52 = v51;
       v54 = v53;
       v56 = v55;
-      v58 = v57;
       goto LABEL_12;
     }
 
@@ -758,30 +758,30 @@ LABEL_10:
 
 LABEL_7:
   v42 = objc_msgSend_p_labelGeometryForSelectionPath_(self, v28, v29, v30, v31, pathCopy);
-  objc_msgSend_size(v42, v43, v44, v45, v46);
+  objc_msgSend_size(v42, v43, v44, v45);
   TSURectWithSize();
   TSUCenterOfRect();
   if (v42)
   {
-    objc_msgSend_transform(v42, v47, v48, v49, v50);
+    objc_msgSend_transform(v42, v46, v47, v48);
   }
 
   TSUSubtractPoints();
   TSURectWithOriginAndSize();
-  v52 = v63;
-  v54 = v64;
-  v56 = v65;
-  v58 = v66;
+  v50 = v61;
+  v52 = v62;
+  v54 = v63;
+  v56 = v64;
 
 LABEL_12:
-  v59 = v52;
-  v60 = v54;
-  v61 = v56;
-  v62 = v58;
-  result.size.height = v62;
-  result.size.width = v61;
-  result.origin.y = v60;
-  result.origin.x = v59;
+  v57 = v50;
+  v58 = v52;
+  v59 = v54;
+  v60 = v56;
+  result.size.height = v60;
+  result.size.width = v59;
+  result.origin.y = v58;
+  result.origin.x = v57;
   return result;
 }
 

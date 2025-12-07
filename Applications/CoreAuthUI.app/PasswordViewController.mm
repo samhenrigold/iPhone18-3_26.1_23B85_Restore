@@ -9,6 +9,7 @@
 - (void)_setCredential:(id)credential;
 - (void)didReceiveAuthenticationData;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PasswordViewController
@@ -21,6 +22,17 @@
   view = [(PasswordViewController *)self view];
   v4 = [UIColor colorWithWhite:0.0 alpha:0.3];
   [view setBackgroundColor:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PasswordViewController;
+  [(TransitionViewController *)&v4 viewDidAppear:appear];
+  if (!self->_alertController)
+  {
+    [(PasswordViewController *)self _configureAndShowAlertController];
+  }
 }
 
 - (void)didReceiveAuthenticationData

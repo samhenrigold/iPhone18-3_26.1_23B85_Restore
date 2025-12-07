@@ -224,7 +224,7 @@ LABEL_10:
 
   else
   {
-    inited = uni_logger_api();
+    inited = uni_logger_api(0);
     if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
     {
       sub_2956CF344(self, inited);

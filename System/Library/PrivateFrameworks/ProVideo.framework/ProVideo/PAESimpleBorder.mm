@@ -94,7 +94,7 @@ LABEL_5:
   v23 = 0.0;
   memset(v22, 0, sizeof(v22));
   v21 = 0;
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+  objc_msgSend_getPixelTransformForImage_(self);
   [v10 getFloatValue:&v23 fromParm:1 atFxTime:info->var0.var1];
   [v10 getRedValue:v22 greenValue:v22 + 8 blueValue:&v22[1] alphaValue:&v22[1] + 8 fromParm:2 atFxTime:info->var0.var1];
   v11.f64[0] = *(v22 + 1);
@@ -118,7 +118,7 @@ LABEL_5:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
@@ -126,11 +126,11 @@ LABEL_5:
       v19 = 0;
     }
 
-    [(PAESharedDefaultBase *)self getImageBoundary:input];
+    objc_msgSend_getImageBoundary_(self);
     v18[0] = vcvtq_f64_f32(v17[0]);
     v18[1] = vcvtq_f64_f32(v17[1]);
     *&v15 = v23;
-    fxSimpleBorder(v18, v20, v21, v17, v15, v15);
+    fxSimpleBorder(&v19, v18, v22, v20, v21, v17, v15, v15);
     [output setHeliumRef:v17];
     if (v17[0])
     {

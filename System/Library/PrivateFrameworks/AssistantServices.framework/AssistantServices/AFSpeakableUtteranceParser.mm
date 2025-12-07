@@ -544,7 +544,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  if (providers && !*providers && ([v16 isEqualToString:@"tts"] & 1) == 0 && (objc_msgSend(v16, "isEqualToString:", @"fn") & 1) == 0)
+  if (providers && !*providers && (objc_msgSend_isEqualToString_(v16) & 1) == 0 && (objc_msgSend_isEqualToString_(v16) & 1) == 0)
   {
     *providers = 1;
   }
@@ -650,7 +650,7 @@ LABEL_51:
   if (objc_opt_respondsToSelector())
   {
     v42 = [v41 stringForExpression:v38];
-    v46 = [v38 isEqualToString:v42] ^ 1;
+    v46 = objc_msgSend_isEqualToString_(v38) ^ 1;
   }
 
   else
@@ -687,56 +687,54 @@ LABEL_24:
 
 - (void)setHandlesFunctions:(BOOL)functions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (functions && ![(AFSpeakableUtteranceParser *)self handlesFunctions])
   {
     functionHandler = self->_functionHandler;
     if (!functionHandler)
     {
-      v6 = [[AFSUPFunctionProvider alloc] initWithLocale:self->_locale];
-      v7 = self->_functionHandler;
-      self->_functionHandler = v6;
+      v5 = [[AFSUPFunctionProvider alloc] initWithLocale:self->_locale];
+      v6 = self->_functionHandler;
+      self->_functionHandler = v5;
 
-      v18 = 0u;
-      v19 = 0u;
       v16 = 0u;
       v17 = 0u;
-      v8 = self->_providers;
-      v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v9)
+      v14 = 0u;
+      v15 = 0u;
+      v7 = self->_providers;
+      v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
       {
-        v10 = v9;
-        v11 = *v17;
+        v9 = v8;
+        v10 = *v15;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v11)
+            if (*v15 != v10)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * i);
-            v14 = [(NSMutableDictionary *)self->_providers objectForKey:v13, v16];
-            [self->_functionHandler registerProvider:v14 forNamespace:v13];
+            v12 = *(*(&v14 + 1) + 8 * i);
+            v13 = [(NSMutableDictionary *)self->_providers objectForKey:v12, v14];
+            [self->_functionHandler registerProvider:v13 forNamespace:v12];
           }
 
-          v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
-        while (v10);
+        while (v9);
       }
 
       functionHandler = self->_functionHandler;
     }
 
-    [(AFSpeakableUtteranceParser *)self registerProvider:functionHandler forNamespace:@"fn", v16];
-    v15 = *MEMORY[0x1E69E9840];
+    [(AFSpeakableUtteranceParser *)self registerProvider:functionHandler forNamespace:@"fn", v14];
   }
 
   else
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     [(AFSpeakableUtteranceParser *)self registerProvider:0 forNamespace:@"fn"];
   }
@@ -823,7 +821,7 @@ LABEL_24:
 
 + (id)parseUserGeneratedMessage:(id)message
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (parseUserGeneratedMessage__onceToken != -1)
   {
@@ -836,21 +834,21 @@ LABEL_24:
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315394;
-      v9 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]";
-      v10 = 2112;
-      v11 = messageCopy;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s User Generated Message: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]";
+      v9 = 2112;
+      v10 = messageCopy;
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s User Generated Message: %@", &v7, 0x16u);
       v5 = AFSiriLogContextConnection;
     }
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315394;
-      v9 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]";
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Transformed Text: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]";
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Transformed Text: %@", &v7, 0x16u);
     }
   }
 
@@ -859,60 +857,55 @@ LABEL_24:
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 void __56__AFSpeakableUtteranceParser_parseUserGeneratedMessage___block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!parseUserGeneratedMessage__AXSpeechTransformTextHandle)
   {
-    v1 = dlopen("/usr/lib/libAXSpeechManager.dylib", 1);
-    if (v1)
+    v0 = dlopen("/usr/lib/libAXSpeechManager.dylib", 1);
+    if (v0)
     {
-      parseUserGeneratedMessage__AXSpeechTransformTextHandle = dlsym(v1, "AXSpeechTransformText");
+      parseUserGeneratedMessage__AXSpeechTransformTextHandle = dlsym(v0, "AXSpeechTransformText");
       if (parseUserGeneratedMessage__AXSpeechTransformTextHandle)
       {
-        goto LABEL_2;
+        return;
       }
 
-      v2 = AFSiriLogContextConnection;
+      v1 = AFSiriLogContextConnection;
       if (!os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_2;
+        return;
       }
 
-      v3 = v2;
-      v6 = 136315394;
-      v7 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]_block_invoke";
-      v8 = 2082;
-      v9 = dlerror();
-      v4 = "%s Could not find AXSpeechTransformText: %{public}s";
+      v2 = v1;
+      v5 = 136315394;
+      v6 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]_block_invoke";
+      v7 = 2082;
+      v8 = dlerror();
+      v3 = "%s Could not find AXSpeechTransformText: %{public}s";
     }
 
     else
     {
-      v5 = AFSiriLogContextConnection;
+      v4 = AFSiriLogContextConnection;
       if (!os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_2;
+        return;
       }
 
-      v3 = v5;
-      v6 = 136315394;
-      v7 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]_block_invoke";
-      v8 = 2082;
-      v9 = dlerror();
-      v4 = "%s Could not open speech manager dylib: %{public}s";
+      v2 = v4;
+      v5 = 136315394;
+      v6 = "+[AFSpeakableUtteranceParser parseUserGeneratedMessage:]_block_invoke";
+      v7 = 2082;
+      v8 = dlerror();
+      v3 = "%s Could not open speech manager dylib: %{public}s";
     }
 
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, v4, &v6, 0x16u);
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, v3, &v5, 0x16u);
   }
-
-LABEL_2:
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 @end

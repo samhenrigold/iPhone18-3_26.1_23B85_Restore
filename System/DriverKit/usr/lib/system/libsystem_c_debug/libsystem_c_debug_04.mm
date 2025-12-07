@@ -1,4 +1,4 @@
-unsigned int *MCGetMsg(uint64_t a1, int a2)
+unsigned int *MCGetMsg(uint64_t a1, unsigned int a2)
 {
   if (!a1 || *(a1 + 36) || a2 <= 0)
   {
@@ -62,7 +62,7 @@ unsigned int *MCGetMsg(uint64_t a1, int a2)
   return 0;
 }
 
-unsigned int *MCGetSet(uint64_t a1, int a2)
+unsigned int *MCGetSet(uint64_t a1, unsigned int a2)
 {
   if (!a1 || a2 <= 0)
   {
@@ -70,7 +70,7 @@ unsigned int *MCGetSet(uint64_t a1, int a2)
   }
 
   v6 = 0;
-  if (a2 - 1 < *(a1 + 8))
+  if ((a2 - 1) < *(a1 + 8))
   {
     v4 = a2 - 1;
     v5 = a2;
@@ -283,7 +283,7 @@ int asprintf(char **a1, const char *a2, ...)
 
   else
   {
-    return vasprintf_l(a1, &__global_locale, a2, va);
+    return vasprintf_l(a1, __global_locale, a2, va);
   }
 }
 
@@ -552,24 +552,23 @@ uint64_t __sflush(uint64_t a1)
 
   if ((__len_4 & 8) != 0)
   {
-    v1 = __OFSUB__(*a1, __src);
     __lena = *a1 - __src;
     *a1 = __src;
     if ((__len_4 & 3) != 0)
     {
-      v3 = 0;
+      v2 = 0;
     }
 
     else
     {
-      v3 = *(a1 + 32);
+      v2 = *(a1 + 32);
     }
 
-    *(a1 + 12) = v3;
+    *(a1 + 12) = v2;
     while (__lena > 0)
     {
-      v4 = _swrite(a1, __src, __lena);
-      if (v4 <= 0)
+      v3 = _swrite(a1, __src, __lena);
+      if (v3 <= 0)
       {
         if (__src > *a1)
         {
@@ -586,8 +585,8 @@ uint64_t __sflush(uint64_t a1)
         return -1;
       }
 
-      __lena -= v4;
-      __src += v4;
+      __lena -= v3;
+      __src += v3;
     }
   }
 
@@ -637,17 +636,16 @@ int fgetc(FILE *a1)
 
 uint64_t __slbexpand(uint64_t a1, unint64_t a2)
 {
-  v5 = a2;
+  v4 = a2;
   if (*(a1 + 128) < a2)
   {
     if (a2 <= 0x7FFFFFFF)
     {
-      v2 = *(a1 + 120);
-      v4 = malloc_type_realloc();
-      if (v4)
+      v3 = malloc_type_realloc();
+      if (v3)
       {
-        *(a1 + 120) = v4;
-        *(a1 + 128) = v5;
+        *(a1 + 120) = v3;
+        *(a1 + 128) = v4;
         return 0;
       }
 
@@ -922,7 +920,7 @@ wint_t fgetwc_l(FILE *a1, locale_t a2)
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   flockfile(a1);
@@ -1010,7 +1008,7 @@ __int32 *__cdecl fgetws_l(__int32 *a1, int a2, FILE *a3, locale_t a4)
 
   else
   {
-    v14 = &__c_locale;
+    v14 = __c_locale;
   }
 
   v9 = *(v14 + 166);
@@ -1437,7 +1435,7 @@ int fprintf(FILE *a1, const char *a2, ...)
 
   else
   {
-    return vfprintf_l(a1, &__global_locale, a2, va);
+    return vfprintf_l(a1, __global_locale, a2, va);
   }
 }
 
@@ -1630,7 +1628,7 @@ wint_t fputwc_l(__int32 a1, FILE *a2, locale_t a3)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   flockfile(a2);
@@ -1665,7 +1663,7 @@ int fputws_l(const __int32 *a1, FILE *a2, locale_t a3)
 
   else
   {
-    v12 = &__c_locale;
+    v12 = __c_locale;
   }
 
   v5 = *(*(v12 + 166) + 104);
@@ -1787,7 +1785,7 @@ size_t fread(void *a1, size_t a2, size_t a3, FILE *a4)
   return v5;
 }
 
-unint64_t __fread(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t __fread(char *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = a1;
   v9 = a3;
@@ -1833,7 +1831,7 @@ unint64_t __fread(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
   return v9;
 }
 
-uint64_t __fread0(char *a1, unsigned int a2, uint64_t a3)
+uint64_t __fread0(char *a1, signed int a2, uint64_t a3)
 {
   v10 = a2;
   while (1)
@@ -1856,7 +1854,7 @@ uint64_t __fread0(char *a1, unsigned int a2, uint64_t a3)
 
     if (v6)
     {
-      return a2 - v10;
+      return (a2 - v10);
     }
   }
 
@@ -1871,7 +1869,7 @@ uint64_t __fread0(char *a1, unsigned int a2, uint64_t a3)
         v11 = *(a3 + 32);
         *(a3 + 24) = v5;
         *a3 = *(a3 + 24);
-        return a2 - v11;
+        return (a2 - v11);
       }
 
       *(a3 + 24) += *(a3 + 8);
@@ -1900,7 +1898,7 @@ uint64_t __fread0(char *a1, unsigned int a2, uint64_t a3)
       v10 -= __na;
       if (__srefill1(a3))
       {
-        return a2 - v10;
+        return (a2 - v10);
       }
     }
 
@@ -1914,182 +1912,180 @@ uint64_t __fread0(char *a1, unsigned int a2, uint64_t a3)
 
 FILE *__cdecl freopen(const char *a1, const char *a2, FILE *a3)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = 0;
-  v12 = 0;
-  v11 = 0;
+  v14 = a1;
+  v13 = a2;
+  v12 = a3;
+  file = 0;
   v10 = 0;
   v9 = 0;
-  v6 = 0;
+  v8 = 0;
+  v7 = 0;
+  v4 = 0;
   libc_hooks_will_read_cstring(a1);
-  libc_hooks_will_read_cstring(v15);
-  libc_hooks_will_write(v14, 152);
-  v11 = __sflags(v15, &v9);
-  if (v11)
+  libc_hooks_will_read_cstring(v13);
+  libc_hooks_will_write(v12, 152);
+  v9 = __sflags(v13, &v7);
+  if (v9)
   {
     pthread_once(&__sdidinit, __sinit);
-    flockfile(v14);
-    if (v16)
+    flockfile(v12);
+    if (v14)
     {
-      if (v14->_flags)
+      if (v12->_flags)
       {
-        if ((v14->_flags & 8) != 0)
+        if ((v12->_flags & 8) != 0)
         {
-          __sflush(v14);
+          __sflush(v12);
         }
 
-        if (v14->_close)
+        if (v12->_close)
         {
-          (v14->_close)(v14->_cookie);
+          (v12->_close)(v12->_cookie);
         }
 
-        v10 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v14->_flags = 32;
-        v10 = 0;
+        v12->_flags = 32;
+        v8 = 0;
       }
 
-      v13 = open_NOCANCEL();
-      if (v13 < 0 && v10 && (*__error() == 23 || *__error() == 24))
+      file = open_NOCANCEL();
+      if (file < 0 && v8 && (*__error() == 23 || *__error() == 24))
       {
-        (v14->_close)(v14->_cookie);
-        v10 = 0;
-        v13 = open_NOCANCEL();
+        (v12->_close)(v12->_cookie);
+        v8 = 0;
+        file = open_NOCANCEL();
       }
 
-      v6 = *__error();
+      v4 = *__error();
     }
 
     else
     {
-      if (!v14->_flags)
+      if (!v12->_flags)
       {
-        funlockfile(v14);
+        funlockfile(v12);
         *__error() = 22;
         return 0;
       }
 
-      file = v14->_file;
-      v12 = fcntl_NOCANCEL();
-      if (v12 < 0)
+      v10 = fcntl_NOCANCEL();
+      if (v10 < 0)
       {
         goto LABEL_7;
       }
 
-      if ((v12 & 3) != 2 && (v12 & 3) != (v9 & 3))
+      if ((v10 & 3) != 2 && (v10 & 3) != (v7 & 3))
       {
-        fclose(v14);
-        funlockfile(v14);
+        fclose(v12);
+        funlockfile(v12);
         *__error() = 9;
         return 0;
       }
 
-      if ((v14->_flags & 8) != 0)
+      if ((v12->_flags & 8) != 0)
       {
-        __sflush(v14);
+        __sflush(v12);
       }
 
-      if (((v9 ^ v12) & 8) != 0)
+      if (((v7 ^ v10) & 8) != 0)
       {
-        v12 &= ~8u;
-        v12 |= v9 & 8;
-        v4 = v14->_file;
+        v10 &= ~8u;
+        v10 |= v7 & 8;
         if ((fcntl_NOCANCEL() & 0x80000000) != 0)
         {
 LABEL_7:
-          v8 = *__error();
-          fclose(v14);
-          funlockfile(v14);
-          *__error() = v8;
+          v6 = *__error();
+          fclose(v12);
+          funlockfile(v12);
+          *__error() = v6;
           return 0;
         }
       }
 
-      if ((v9 & 0x400) != 0)
+      if ((v7 & 0x400) != 0)
       {
-        ftruncate(v14->_file, 0);
+        ftruncate(v12->_file, 0);
       }
 
-      if ((v9 & 8) == 0)
+      if ((v7 & 8) == 0)
       {
-        _sseek(v14, 0, 0);
+        _sseek(v12, 0, 0);
       }
 
-      v13 = v14->_file;
-      v10 = 0;
+      file = v12->_file;
+      v8 = 0;
     }
 
-    if (v10)
+    if (v8)
     {
-      (v14->_close)(v14->_cookie);
+      (v12->_close)(v12->_cookie);
     }
 
-    if ((v14->_flags & 0x80) != 0)
+    if ((v12->_flags & 0x80) != 0)
     {
-      free(v14->_bf._base);
+      free(v12->_bf._base);
     }
 
-    v14->_w = 0;
-    v14->_r = 0;
-    v14->_p = 0;
-    v14->_bf._base = 0;
-    v14->_bf._size = 0;
-    v14->_lbfsize = 0;
-    if (v14->_ub._base)
+    v12->_w = 0;
+    v12->_r = 0;
+    v12->_p = 0;
+    v12->_bf._base = 0;
+    v12->_bf._size = 0;
+    v12->_lbfsize = 0;
+    if (v12->_ub._base)
     {
-      if (v14->_ub._base != v14->_ubuf)
+      if (v12->_ub._base != v12->_ubuf)
       {
-        free(v14->_ub._base);
+        free(v12->_ub._base);
       }
 
-      v14->_ub._base = 0;
+      v12->_ub._base = 0;
     }
 
-    v14->_ub._size = 0;
-    if (v14->_lb._base)
+    v12->_ub._size = 0;
+    if (v12->_lb._base)
     {
-      free(v14->_lb._base);
-      v14->_lb._base = 0;
+      free(v12->_lb._base);
+      v12->_lb._base = 0;
     }
 
-    v14->_lb._size = 0;
-    *(v14->_extra + 72) &= 0xF8u;
-    memset(v14->_extra + 80, 0, 0x80uLL);
-    if (v13 < 0)
+    v12->_lb._size = 0;
+    *(v12->_extra + 72) &= 0xF8u;
+    memset(v12->_extra + 80, 0, 0x80uLL);
+    if (file < 0)
     {
-      funlockfile(v14);
-      __sfprelease(v14);
-      *__error() = v6;
+      funlockfile(v12);
+      __sfprelease(v12);
+      *__error() = v4;
       return 0;
     }
 
-    else if (v13 < 0x8000)
+    else if (file < 0x8000)
     {
-      v14->_flags = v11;
-      v14->_file = v13;
-      v14->_cookie = v14;
-      v14->_read = __sread;
-      v14->_write = __swrite;
-      v14->_seek = __sseek;
-      v14->_close = __sclose;
-      if ((v9 & 8) != 0)
+      v12->_flags = v9;
+      v12->_file = file;
+      v12->_cookie = v12;
+      v12->_read = __sread;
+      v12->_write = __swrite;
+      v12->_seek = __sseek;
+      v12->_close = __sclose;
+      if ((v7 & 8) != 0)
       {
-        _sseek(v14, 0, 2u);
+        _sseek(v12, 0, 2u);
       }
 
-      funlockfile(v14);
-      return v14;
+      funlockfile(v12);
+      return v12;
     }
 
     else
     {
-      funlockfile(v14);
-      __sfprelease(v14);
+      funlockfile(v12);
+      __sfprelease(v12);
       *__error() = 24;
       return 0;
     }
@@ -2097,9 +2093,9 @@ LABEL_7:
 
   else
   {
-    v7 = *__error();
-    fclose(v14);
-    *__error() = v7;
+    v5 = *__error();
+    fclose(v12);
+    *__error() = v5;
     return 0;
   }
 }
@@ -2140,7 +2136,7 @@ int fscanf_l(FILE *a1, locale_t a2, const char *a3, ...)
 
   else
   {
-    a2 = &__c_locale;
+    a2 = __c_locale;
   }
 
   flockfile(a1);
@@ -3110,23 +3106,22 @@ uint64_t expandtofit(uint64_t *a1, unint64_t a2, uint64_t *a3)
     {
       if (a2 == 0x8000000000000000)
       {
-        v5 = 0x8000000000000000;
+        v4 = 0x8000000000000000;
       }
 
       else
       {
-        v5 = p2roundup(a2);
+        v4 = p2roundup(a2);
       }
 
-      v3 = *a1;
-      v6 = malloc_type_realloc();
-      if (!v6)
+      v5 = malloc_type_realloc();
+      if (!v5)
       {
         return -1;
       }
 
-      *a3 = v5;
-      *a1 = v6;
+      *a3 = v4;
+      *a1 = v5;
     }
 
     return 0;
@@ -3733,15 +3728,10 @@ LABEL_24:
   }
 }
 
-uint64_t _mkostemps_action(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4)
+uint64_t _mkostemps_action(unsigned int a1, uint64_t a2, int *a3, _DWORD *a4)
 {
-  if (a3)
-  {
-    v6 = *a3;
-  }
-
-  v7 = openat_NOCANCEL();
-  if (v7 < 0)
+  v6 = openat_NOCANCEL();
+  if (v6 < 0)
   {
     if (*__error() == 17)
     {
@@ -3756,7 +3746,7 @@ uint64_t _mkostemps_action(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4)
 
   else
   {
-    *a4 = v7;
+    *a4 = v6;
     return 0;
   }
 }
@@ -4453,7 +4443,7 @@ uint64_t inittypes(uint64_t result)
   return result;
 }
 
-uint64_t addaster(_DWORD *a1, _BYTE **a2)
+uint64_t addaster(uint64_t a1, char **a2)
 {
   v4 = 0;
   for (i = *a2; (*i - 48) <= 9; ++i)
@@ -4471,11 +4461,11 @@ uint64_t addaster(_DWORD *a1, _BYTE **a2)
     return 0;
   }
 
-  v3 = a1[12];
-  a1[12] = v4;
+  v3 = *(a1 + 48);
+  *(a1 + 48) = v4;
   if (!addtype(a1, 2))
   {
-    a1[12] = v3;
+    *(a1 + 48) = v3;
     *a2 = i + 1;
     return 0;
   }
@@ -4483,7 +4473,7 @@ uint64_t addaster(_DWORD *a1, _BYTE **a2)
   return -1;
 }
 
-uint64_t addtype(_DWORD *a1, int a2)
+uint64_t addtype(uint64_t *a1, int a2)
 {
   if (_ensurespace(a1))
   {
@@ -4493,13 +4483,13 @@ uint64_t addtype(_DWORD *a1, int a2)
   else
   {
     v2 = *a1;
-    v3 = a1[12]++;
+    v3 = (*(a1 + 12))++;
     *(v2 + 4 * v3) = a2;
     return 0;
   }
 }
 
-uint64_t addsarg(_DWORD *a1, __int16 a2)
+uint64_t addsarg(uint64_t *a1, __int16 a2)
 {
   if (_ensurespace(a1))
   {
@@ -4511,35 +4501,35 @@ uint64_t addsarg(_DWORD *a1, __int16 a2)
     if ((a2 & 0x1000) != 0)
     {
       v2 = *a1;
-      v3 = a1[12]++;
+      v3 = (*(a1 + 12))++;
       *(v2 + 4 * v3) = 16;
     }
 
     else if ((a2 & 0x400) != 0)
     {
       v4 = *a1;
-      v5 = a1[12]++;
+      v5 = (*(a1 + 12))++;
       *(v4 + 4 * v5) = 13;
     }
 
     else if ((a2 & 0x800) != 0)
     {
       v6 = *a1;
-      v7 = a1[12]++;
+      v7 = (*(a1 + 12))++;
       *(v6 + 4 * v7) = 11;
     }
 
     else if ((a2 & 0x20) != 0)
     {
       v8 = *a1;
-      v9 = a1[12]++;
+      v9 = (*(a1 + 12))++;
       *(v8 + 4 * v9) = 8;
     }
 
     else
     {
       v10 = *a1;
-      v11 = a1[12]++;
+      v11 = (*(a1 + 12))++;
       if ((a2 & 0x10) != 0)
       {
         *(v10 + 4 * v11) = 5;
@@ -4555,7 +4545,7 @@ uint64_t addsarg(_DWORD *a1, __int16 a2)
   }
 }
 
-uint64_t adduarg(_DWORD *a1, __int16 a2)
+uint64_t adduarg(uint64_t *a1, __int16 a2)
 {
   if (_ensurespace(a1))
   {
@@ -4567,35 +4557,35 @@ uint64_t adduarg(_DWORD *a1, __int16 a2)
     if ((a2 & 0x1000) != 0)
     {
       v2 = *a1;
-      v3 = a1[12]++;
+      v3 = (*(a1 + 12))++;
       *(v2 + 4 * v3) = 17;
     }
 
     else if ((a2 & 0x400) != 0)
     {
       v4 = *a1;
-      v5 = a1[12]++;
+      v5 = (*(a1 + 12))++;
       *(v4 + 4 * v5) = 14;
     }
 
     else if ((a2 & 0x800) != 0)
     {
       v6 = *a1;
-      v7 = a1[12]++;
+      v7 = (*(a1 + 12))++;
       *(v6 + 4 * v7) = 14;
     }
 
     else if ((a2 & 0x20) != 0)
     {
       v8 = *a1;
-      v9 = a1[12]++;
+      v9 = (*(a1 + 12))++;
       *(v8 + 4 * v9) = 9;
     }
 
     else
     {
       v10 = *a1;
-      v11 = a1[12]++;
+      v11 = (*(a1 + 12))++;
       if ((a2 & 0x10) != 0)
       {
         *(v10 + 4 * v11) = 6;
@@ -4613,149 +4603,149 @@ uint64_t adduarg(_DWORD *a1, __int16 a2)
 
 uint64_t build_arg_table(uint64_t result, _DWORD *a2, uint64_t *a3)
 {
-  v34 = result;
-  if (*(result + 44) < 8 || (v3 = 16 * *(result + 44), result = malloc_type_malloc(), (*a3 = result) != 0))
+  v33 = result;
+  if (*(result + 44) < 8 || (result = malloc_type_malloc(), (*a3 = result) != 0))
   {
     **a3 = 0;
-    for (i = 1; i <= *(v34 + 44); ++i)
+    for (i = 1; i <= *(v33 + 44); ++i)
     {
-      result = *(*v34 + 4 * i);
+      result = *(*v33 + 4 * i);
       switch(result)
       {
         case 0:
-          v4 = a2;
+          v3 = a2;
           a2 += 2;
-          *(*a3 + 16 * i) = *v4;
+          *(*a3 + 16 * i) = *v3;
           break;
         case 1:
-          v6 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v6;
-          break;
-        case 2:
-          v7 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v7;
-          break;
-        case 3:
-          v8 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v8;
-          break;
-        case 4:
-          v9 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v9;
-          break;
-        case 5:
-          v10 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v10;
-          break;
-        case 6:
-          v11 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v11;
-          break;
-        case 7:
-          v12 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v12;
-          break;
-        case 8:
-          v13 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v13;
-          break;
-        case 9:
-          v14 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v14;
-          break;
-        case 10:
-          v15 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v15;
-          break;
-        case 11:
-          v16 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v16;
-          break;
-        case 12:
-          v17 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v17;
-          break;
-        case 13:
-          v19 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v19;
-          break;
-        case 14:
-          v18 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v18;
-          break;
-        case 15:
-          v20 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v20;
-          break;
-        case 16:
-          v21 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v21;
-          break;
-        case 17:
-          v22 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v22;
-          break;
-        case 18:
-          v23 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v23;
-          break;
-        case 19:
-          v28 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v28;
-          break;
-        case 20:
-          v27 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v27;
-          break;
-        case 21:
           v5 = a2;
           a2 += 2;
           *(*a3 + 16 * i) = *v5;
           break;
+        case 2:
+          v6 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v6;
+          break;
+        case 3:
+          v7 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v7;
+          break;
+        case 4:
+          v8 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v8;
+          break;
+        case 5:
+          v9 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v9;
+          break;
+        case 6:
+          v10 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v10;
+          break;
+        case 7:
+          v11 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v11;
+          break;
+        case 8:
+          v12 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v12;
+          break;
+        case 9:
+          v13 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v13;
+          break;
+        case 10:
+          v14 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v14;
+          break;
+        case 11:
+          v15 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v15;
+          break;
+        case 12:
+          v16 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v16;
+          break;
+        case 13:
+          v18 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v18;
+          break;
+        case 14:
+          v17 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v17;
+          break;
+        case 15:
+          v19 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v19;
+          break;
+        case 16:
+          v20 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v20;
+          break;
+        case 17:
+          v21 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v21;
+          break;
+        case 18:
+          v22 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v22;
+          break;
+        case 19:
+          v27 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v27;
+          break;
+        case 20:
+          v26 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v26;
+          break;
+        case 21:
+          v4 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v4;
+          break;
         case 22:
+          v23 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v23;
+          break;
+        case 23:
           v24 = a2;
           a2 += 2;
           *(*a3 + 16 * i) = *v24;
           break;
-        case 23:
-          v25 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v25;
-          break;
         case 24:
+          v28 = a2;
+          a2 += 2;
+          *(*a3 + 16 * i) = *v28;
+          break;
+        case 25:
           v29 = a2;
           a2 += 2;
           *(*a3 + 16 * i) = *v29;
           break;
-        case 25:
-          v30 = a2;
-          a2 += 2;
-          *(*a3 + 16 * i) = *v30;
-          break;
         case 26:
-          v26 = ((a2 + 15) & 0xFFFFFFFFFFFFFFF0);
-          a2 = v26 + 1;
-          *(*a3 + 16 * i) = *v26;
+          v25 = (a2 + 15) & 0xFFFFFFFFFFFFFFF0;
+          a2 = (v25 + 16);
+          *(*a3 + 16 * i) = *v25;
           break;
         default:
           continue;
@@ -5108,7 +5098,7 @@ LABEL_81:
   return v11;
 }
 
-uint64_t addwaster(_DWORD *a1, _DWORD **a2)
+uint64_t addwaster(uint64_t a1, _DWORD **a2)
 {
   v4 = 0;
   for (i = *a2; (*i - 48) <= 9; ++i)
@@ -5126,11 +5116,11 @@ uint64_t addwaster(_DWORD *a1, _DWORD **a2)
     return 0;
   }
 
-  v3 = a1[12];
-  a1[12] = v4;
+  v3 = *(a1 + 48);
+  *(a1 + 48) = v4;
   if (!addtype(a1, 2))
   {
-    a1[12] = v3;
+    *(a1 + 48) = v3;
     *a2 = i + 1;
     return 0;
   }
@@ -5586,7 +5576,7 @@ int scanf_l(locale_t a1, const char *a2, ...)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   flockfile(__stdinp);
@@ -5773,7 +5763,7 @@ int sprintf(char *a1, const char *a2, ...)
 
   else
   {
-    return vsprintf_l(a1, &__global_locale, a2, va);
+    return vsprintf_l(a1, __global_locale, a2, va);
   }
 }
 
@@ -6215,7 +6205,6 @@ uint64_t __submore(uint64_t a1)
   else
   {
     __na = *(a1 + 96);
-    v1 = *(a1 + 88);
     __srcb = malloc_type_realloc();
     if (__srcb)
     {
@@ -6305,7 +6294,7 @@ wint_t ungetwc_l(wint_t a1, FILE *a2, locale_t a3)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   flockfile(a2);
@@ -6383,7 +6372,7 @@ int vasprintf(char **a1, const char *a2, va_list a3)
 
   else
   {
-    return _vasprintf(-1, 0, a1, &__global_locale, a2, a3);
+    return _vasprintf(-1, 0, a1, __global_locale, a2, a3);
   }
 }
 
@@ -6478,7 +6467,7 @@ int vfprintf(FILE *a1, const char *a2, va_list a3)
 
   else
   {
-    v3 = __xvprintf(-1, 0, a1, &__global_locale, a2, a3);
+    v3 = __xvprintf(-1, 0, a1, __global_locale, a2, a3);
   }
 
   v5 = v3;
@@ -9108,7 +9097,7 @@ LABEL_443:
         v291 = v331 - __s1 + 32;
         if (v291 >= 33)
         {
-          abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)");
+          abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)", "vfprintf.c", "__vfprintf", 1045, v291, 32);
         }
 
         if ((v318 & 0x200) != 0 && v291)
@@ -9334,7 +9323,7 @@ _BYTE *__ultoa(unint64_t a1, _BYTE *a2, int a3, int a4, uint64_t a5)
   {
     if (a3 != 16)
     {
-      abort_report_np("%s:%s:%u: __ultoa: invalid base=%d");
+      abort_report_np("%s:%s:%u: __ultoa: invalid base=%d", "printfcommon.h", "__ultoa", 208, a3);
     }
 
     do
@@ -9547,7 +9536,7 @@ uint64_t __svfscanf_l(int *a1, _xlocale *a2, unsigned __int8 *a3, uint64_t *a4)
 
   else
   {
-    v105 = &__c_locale;
+    v105 = __c_locale;
   }
 
   v89 = *(*(v105 + 166) + 64);

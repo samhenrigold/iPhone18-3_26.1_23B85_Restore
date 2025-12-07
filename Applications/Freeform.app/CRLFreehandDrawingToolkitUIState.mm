@@ -1406,12 +1406,12 @@ LABEL_32:
       sub_10130DA10(v21);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should have at least one stroke width option.", v22, v23, v24, v25, v26, v27, v28, "[CRLFreehandDrawingToolkitUIState strokeWidthIndexForToolType:]");
-    v29 = [NSString stringWithUTF8String:"[CRLFreehandDrawingToolkitUIState strokeWidthIndexForToolType:]"];
-    v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingToolkitUIState.m"];
-    [CRLAssertionHandler handleFailureInFunction:v29 file:v30 lineNumber:701 isFatal:1 description:"Should have at least one stroke width option."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Should have at least one stroke width option.", "[CRLFreehandDrawingToolkitUIState strokeWidthIndexForToolType:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingToolkitUIState.m", 701);
+    v22 = [NSString stringWithUTF8String:"[CRLFreehandDrawingToolkitUIState strokeWidthIndexForToolType:]"];
+    v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingToolkitUIState.m"];
+    [CRLAssertionHandler handleFailureInFunction:v22 file:v23 lineNumber:701 isFatal:1 description:"Should have at least one stroke width option."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v31, v32);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v24, v25);
     abort();
   }
 

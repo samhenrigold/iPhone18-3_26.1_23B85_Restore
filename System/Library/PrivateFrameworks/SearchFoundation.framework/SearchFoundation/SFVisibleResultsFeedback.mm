@@ -137,7 +137,7 @@
 
 - (SFVisibleResultsFeedback)initWithResults:(id)results triggerEvent:(unint64_t)event visibleButtons:(id)buttons visibleCardSections:(id)sections
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   buttonsCopy = buttons;
   sectionsCopy = sections;
   v12 = [(SFVisibleResultsFeedback *)self initWithResults:results triggerEvent:event];
@@ -146,27 +146,27 @@
     if ([buttonsCopy count])
     {
       v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(buttonsCopy, "count")}];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
-      v34 = buttonsCopy;
+      v33 = buttonsCopy;
       v14 = buttonsCopy;
-      v15 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v40;
+        v17 = *v39;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v40 != v17)
+            if (*v39 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v39 + 1) + 8 * i);
+            v19 = *(*(&v38 + 1) + 8 * i);
             if ([v19 uniqueId])
             {
               v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v19, "uniqueId")}];
@@ -174,7 +174,7 @@
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
         while (v16);
@@ -183,32 +183,32 @@
       v21 = [v13 copy];
       [(SFVisibleResultsFeedback *)v12 setUniqueIdsOfVisibleButtons:v21];
 
-      buttonsCopy = v34;
+      buttonsCopy = v33;
     }
 
     if ([sectionsCopy count])
     {
       v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(sectionsCopy, "count")}];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v23 = sectionsCopy;
-      v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v36;
+        v26 = *v35;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v36 != v26)
+            if (*v35 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v35 + 1) + 8 * j);
+            v28 = *(*(&v34 + 1) + 8 * j);
             cardSectionId = [v28 cardSectionId];
 
             if (cardSectionId)
@@ -218,7 +218,7 @@
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
         }
 
         while (v25);
@@ -229,7 +229,6 @@
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

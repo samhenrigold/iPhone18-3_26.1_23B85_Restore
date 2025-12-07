@@ -3,7 +3,7 @@
 
 @implementation AXSAllowsMixToUplink
 
-uint64_t ___AXSAllowsMixToUplink_block_invoke()
+void *___AXSAllowsMixToUplink_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

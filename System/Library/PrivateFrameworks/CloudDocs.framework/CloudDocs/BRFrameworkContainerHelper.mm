@@ -60,7 +60,7 @@ uint64_t __42__BRFrameworkContainerHelper_sharedHelper__block_invoke()
 
 - (id)fetchContainerForMangledID:(id)d personaID:(id)iD
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -68,13 +68,13 @@ uint64_t __42__BRFrameworkContainerHelper_sharedHelper__block_invoke()
     v7 = +[BRDaemonConnection secondaryConnection];
     newSyncProxy = [v7 newSyncProxy];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __67__BRFrameworkContainerHelper_fetchContainerForMangledID_personaID___block_invoke;
-    v20[3] = &unk_1E7A16778;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __67__BRFrameworkContainerHelper_fetchContainerForMangledID_personaID___block_invoke;
+    v19[3] = &unk_1E7A16778;
     v9 = newSyncProxy;
-    v21 = v9;
-    [v9 getContainerForMangledID:dCopy personaID:iDCopy reply:v20];
+    v20 = v9;
+    [v9 getContainerForMangledID:dCopy personaID:iDCopy reply:v19];
 
     result = [v9 result];
     error = [v9 error];
@@ -92,11 +92,11 @@ uint64_t __42__BRFrameworkContainerHelper_sharedHelper__block_invoke()
         {
           error3 = [v9 error];
           *buf = 138412802;
-          v23 = dCopy;
-          v24 = 2112;
-          v25 = error3;
-          v26 = 2112;
-          v27 = v15;
+          v22 = dCopy;
+          v23 = 2112;
+          v24 = error3;
+          v25 = 2112;
+          v26 = v15;
           _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] Failed getting container for MangledID: %@, error: %@%@", buf, 0x20u);
         }
       }
@@ -107,8 +107,6 @@ uint64_t __42__BRFrameworkContainerHelper_sharedHelper__block_invoke()
   {
     result = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return result;
 }
@@ -177,49 +175,49 @@ void __70__BRFrameworkContainerHelper__resolveItemIdentifierAtURL_withHandler___
 
 - (unsigned)br_capabilityToMoveFromURL:(id)l toNewParent:(id)parent error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   lCopy = l;
   parentCopy = parent;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__9;
-  v31 = __Block_byref_object_dispose__9;
-  v32 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 1;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __75__BRFrameworkContainerHelper_br_capabilityToMoveFromURL_toNewParent_error___block_invoke;
-  v19[3] = &unk_1E7A167C8;
-  v21 = &v23;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__9;
+  v30 = __Block_byref_object_dispose__9;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 1;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __75__BRFrameworkContainerHelper_br_capabilityToMoveFromURL_toNewParent_error___block_invoke;
+  v18[3] = &unk_1E7A167C8;
+  v20 = &v22;
   v10 = lCopy;
-  v20 = v10;
-  v22 = &v27;
-  [(BRFrameworkContainerHelper *)self _resolveItemIdentifierAtURL:parentCopy withHandler:v19];
-  v11 = v28[5];
+  v19 = v10;
+  v21 = &v26;
+  [(BRFrameworkContainerHelper *)self _resolveItemIdentifierAtURL:parentCopy withHandler:v18];
+  v11 = v27[5];
   if (v11)
   {
     v12 = brc_bread_crumbs("[BRFrameworkContainerHelper br_capabilityToMoveFromURL:toNewParent:error:]", 3098);
     v13 = brc_default_log(0, 0);
     if (os_log_type_enabled(v13, 0x90u))
     {
-      v18 = "(passed to caller)";
+      v17 = "(passed to caller)";
       *buf = 136315906;
-      v34 = "[BRFrameworkContainerHelper br_capabilityToMoveFromURL:toNewParent:error:]";
-      v35 = 2080;
+      v33 = "[BRFrameworkContainerHelper br_capabilityToMoveFromURL:toNewParent:error:]";
+      v34 = 2080;
       if (!error)
       {
-        v18 = "(ignored by caller)";
+        v17 = "(ignored by caller)";
       }
 
-      v36 = v18;
-      v37 = 2112;
-      v38 = v11;
-      v39 = 2112;
-      v40 = v12;
+      v35 = v17;
+      v36 = 2112;
+      v37 = v11;
+      v38 = 2112;
+      v39 = v12;
       _os_log_error_impl(&dword_1AE2A9000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -230,11 +228,10 @@ void __70__BRFrameworkContainerHelper__resolveItemIdentifierAtURL_withHandler___
     *error = v11;
   }
 
-  v15 = *(v24 + 12);
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v27, 8);
+  v15 = *(v23 + 12);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

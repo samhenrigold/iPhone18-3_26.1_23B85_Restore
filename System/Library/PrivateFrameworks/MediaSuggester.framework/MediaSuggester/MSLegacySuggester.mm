@@ -108,20 +108,19 @@
 {
   v5 = sub_22CA209F0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v16 - v11;
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v15 - v10;
   sub_22CA209D0();
   sub_22CA209D0();
-  v13 = *(v6 + 8);
-  v13(v10, v5);
-  v13(v12, v5);
+  v12 = *(v6 + 8);
+  v12(v9, v5);
+  v12(v11, v5);
   type metadata accessor for MSSuggestion(0);
-  v14 = sub_22CA20EB0();
+  v13 = sub_22CA20EB0();
 
-  return v14;
+  return v13;
 }
 
 - (void)suggestionsWith:(id)with completion:(id)completion

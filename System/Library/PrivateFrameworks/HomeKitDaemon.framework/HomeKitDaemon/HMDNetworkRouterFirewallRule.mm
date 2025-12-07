@@ -1,6 +1,8 @@
 @interface HMDNetworkRouterFirewallRule
++ (id)__transportProtocolToString:(unsigned __int8)string;
 + (id)logCategory;
 - (BOOL)isEqual:(id)equal;
+- (HMDNetworkRouterFirewallRule)initWithJSONDictionary:(id)dictionary critical:(BOOL)critical;
 - (HMDNetworkRouterFirewallRule)initWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical;
 - (NSDictionary)prettyJSONDictionary;
 - (NSString)jsonString;
@@ -12,13 +14,13 @@
 
 - (NSString)jsonString
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   jsonDictionary = [(HMDNetworkRouterFirewallRule *)self jsonDictionary];
   if (jsonDictionary)
   {
-    v15 = 0;
-    v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:jsonDictionary options:2 error:&v15];
-    v5 = v15;
+    v14 = 0;
+    v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:jsonDictionary options:2 error:&v14];
+    v5 = v14;
     if (v4)
     {
       v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v4 encoding:4];
@@ -33,11 +35,11 @@
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v17 = v10;
-        v18 = 2112;
-        v19 = selfCopy;
-        v20 = 2112;
-        v21 = v5;
+        v16 = v10;
+        v17 = 2112;
+        v18 = selfCopy;
+        v19 = 2112;
+        v20 = v5;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Failed to convert firewall WAN rule %@ to JSON: %@", buf, 0x20u);
       }
 
@@ -55,38 +57,32 @@
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (NSDictionary)prettyJSONDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"name";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"name";
   name = [(HMDNetworkRouterFirewallRule *)self name];
-  v7[0] = name;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = name;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDNetworkRouterFirewallRule *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDNetworkRouterFirewallRule isCritical](self, "isCritical")}];
   v8 = [v6 initWithName:@"IsCritical" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -146,6 +142,27 @@
   return v10;
 }
 
+- (HMDNetworkRouterFirewallRule)initWithJSONDictionary:(id)dictionary critical:(BOOL)critical
+{
+  criticalCopy = critical;
+  dictionaryCopy = dictionary;
+  v11 = 0;
+  v7 = decodeStringFromJSONDictionary(dictionaryCopy, @"n", 1, &v11);
+  v8 = v11;
+  if (v7)
+  {
+    self = [(HMDNetworkRouterFirewallRule *)self initWithJSONDictionary:dictionaryCopy name:v8 critical:criticalCopy];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
 - (HMDNetworkRouterFirewallRule)initWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical
 {
   dictionaryCopy = dictionary;
@@ -165,6 +182,21 @@
   return v12;
 }
 
++ (id)__transportProtocolToString:(unsigned __int8)string
+{
+  if (string >= 3u)
+  {
+    string = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown (%d)", string];
+  }
+
+  else
+  {
+    string = off_27867A320[string];
+  }
+
+  return string;
+}
+
 + (id)logCategory
 {
   if (logCategory__hmf_once_t0_134733 != -1)
@@ -179,10 +211,9 @@
 
 void __43__HMDNetworkRouterFirewallRule_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_134735;
-  logCategory__hmf_once_v1_134735 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_134735;
+  logCategory__hmf_once_v1_134735 = v0;
 }
 
 @end

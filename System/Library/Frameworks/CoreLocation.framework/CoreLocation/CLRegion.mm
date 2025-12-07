@@ -6,6 +6,7 @@
 - (CLRegion)initWithClientRegion:(id *)region;
 - (CLRegion)initWithCoder:(id)coder;
 - (CLRegion)initWithIdentifier:(id)identifier;
+- (CLRegion)initWithIdentifier:(id)identifier andRegionType:(int)type;
 - (CLRegion)initWithIdentifier:(id)identifier onBehalfOf:(id)of regionType:(int)type notifyOnEntry:(BOOL)entry notifyOnExit:(BOOL)exit conservativeEntry:(BOOL)conservativeEntry emergency:(BOOL)emergency deviceId:(id)self0 handoffTag:(id)self1;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -26,16 +27,16 @@
 
 - (CLRegion)initWithClientRegion:(id *)region
 {
-  v9.receiver = self;
-  v9.super_class = CLRegion;
-  result = [(CLRegion *)&v9 init];
+  v14.receiver = self;
+  v14.super_class = CLRegion;
+  result = [(CLRegion *)&v14 init];
   if (result)
   {
-    v5 = result;
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:region];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:region->var1];
-    LOBYTE(v8) = region->var7;
-    return [(CLRegion *)v5 initWithIdentifier:v6 onBehalfOf:v7 regionType:region->var3 notifyOnEntry:region->var4 notifyOnExit:region->var5 conservativeEntry:region->var6 emergency:v8];
+    v7 = result;
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v5, region, v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v9, region->var1, v10);
+    var7 = region->var7;
+    return objc_msgSend_initWithIdentifier_onBehalfOf_regionType_notifyOnEntry_notifyOnExit_conservativeEntry_emergency_(v7, v12, v8, v11, region->var3, region->var4, region->var5, region->var6, var7);
   }
 
   return result;
@@ -48,18 +49,33 @@
 
   v9 = [CLCircularRegion alloc];
 
-  return [(CLCircularRegion *)v9 initWithCenter:identifier radius:latitude identifier:longitude, radius];
+  return objc_msgSend_initWithCenter_radius_identifier_(v9, v10, identifier, v11, latitude, longitude, radius);
 }
 
 - (CLRegion)initWithIdentifier:(id)identifier
 {
-  v6.receiver = self;
-  v6.super_class = CLRegion;
-  result = [(CLRegion *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = CLRegion;
+  result = [(CLRegion *)&v7 init];
   if (result)
   {
-    LOBYTE(v5) = 0;
-    return [(CLRegion *)result initWithIdentifier:identifier onBehalfOf:0 regionType:1 notifyOnEntry:1 notifyOnExit:1 conservativeEntry:0 emergency:v5];
+    v6 = 0;
+    return objc_msgSend_initWithIdentifier_onBehalfOf_regionType_notifyOnEntry_notifyOnExit_conservativeEntry_emergency_(result, v5, identifier, 0, 1, 1, 1, 0, v6);
+  }
+
+  return result;
+}
+
+- (CLRegion)initWithIdentifier:(id)identifier andRegionType:(int)type
+{
+  v4 = *&type;
+  v9.receiver = self;
+  v9.super_class = CLRegion;
+  result = [(CLRegion *)&v9 init];
+  if (result)
+  {
+    v8 = 0;
+    return objc_msgSend_initWithIdentifier_onBehalfOf_regionType_notifyOnEntry_notifyOnExit_conservativeEntry_emergency_(result, v7, identifier, 0, v4, 1, 1, 0, v8);
   }
 
   return result;
@@ -67,7 +83,7 @@
 
 - (CLRegion)initWithIdentifier:(id)identifier onBehalfOf:(id)of regionType:(int)type notifyOnEntry:(BOOL)entry notifyOnExit:(BOOL)exit conservativeEntry:(BOOL)conservativeEntry emergency:(BOOL)emergency deviceId:(id)self0 handoffTag:(id)self1
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (!identifier)
   {
     if (qword_1ED519088 != -1)
@@ -79,9 +95,9 @@
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289026;
-      v28 = 0;
-      v29 = 2082;
-      v30 = "";
+      v39 = 0;
+      v40 = 2082;
+      v41 = "";
       _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:identifier is nil}", buf, 0x12u);
       if (qword_1ED519088 != -1)
       {
@@ -96,20 +112,19 @@
     }
 
     *buf = 68289026;
-    v28 = 0;
-    v29 = 2082;
-    v30 = "";
+    v39 = 0;
+    v40 = 2082;
+    v41 = "";
     v20 = "identifier is nil";
     v21 = "{msg%{public}.0s:identifier is nil}";
 LABEL_17:
     _os_signpost_emit_with_name_impl(&dword_19B873000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v20, v21, buf, 0x12u);
 LABEL_20:
 
-    v23 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
-  if ([identifier lengthOfBytesUsingEncoding:4] >= 0x201)
+  if (objc_msgSend_lengthOfBytesUsingEncoding_(identifier, a2, 4, of) >= 0x201)
   {
     if (qword_1ED519088 != -1)
     {
@@ -120,9 +135,9 @@ LABEL_20:
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289026;
-      v28 = 0;
-      v29 = 2082;
-      v30 = "";
+      v39 = 0;
+      v40 = 2082;
+      v41 = "";
       _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:identifier is too long}", buf, 0x12u);
       if (qword_1ED519088 != -1)
       {
@@ -137,9 +152,9 @@ LABEL_20:
     }
 
     *buf = 68289026;
-    v28 = 0;
-    v29 = 2082;
-    v30 = "";
+    v39 = 0;
+    v40 = 2082;
+    v41 = "";
     v20 = "identifier is too long";
     v21 = "{msg%{public}.0s:identifier is too long}";
     goto LABEL_17;
@@ -150,194 +165,202 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v26.receiver = self;
-  v26.super_class = CLRegion;
-  v23 = [(CLRegion *)&v26 init];
+  v37.receiver = self;
+  v37.super_class = CLRegion;
+  v23 = [(CLRegion *)&v37 init];
   if (v23)
   {
-    v23->_identifier = [identifier copy];
+    v23->_identifier = objc_msgSend_copy(identifier, v25, v26, v27);
     v23->_notifyOnEntry = entry;
     v23->_notifyOnExit = exit;
-    v23->_onBehalfOfBundleId = [of copy];
+    v23->_onBehalfOfBundleId = objc_msgSend_copy(of, v28, v29, v30);
     v23->_type = type;
     v23->_conservativeEntry = conservativeEntry;
     v23->_emergency = emergency;
-    v23->_deviceId = [id copy];
-    v23->_handoffTag = [tag copy];
+    v23->_deviceId = objc_msgSend_copy(id, v31, v32, v33);
+    v23->_handoffTag = objc_msgSend_copy(tag, v34, v35, v36);
   }
 
-LABEL_21:
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (CLRegion)initWithCoder:(id)coder
 {
-  if ([(CLRegion *)self isMemberOfClass:objc_opt_class()])
+  v5 = objc_opt_class();
+  if (objc_msgSend_isMemberOfClass_(self, v6, v5, v7))
   {
 
-    v5 = [CLCircularRegion alloc];
+    v11 = [CLCircularRegion alloc];
 
-    return MEMORY[0x1EEE66B58](v5, sel_initLegacyObjectWithCoder_);
+    return MEMORY[0x1EEE66B58](v11, sel_initLegacyObjectWithCoder_, coder, v12);
   }
 
   else
   {
-    v17 = 0;
-    if ([coder allowsKeyedCoding])
+    v60 = 0;
+    if (objc_msgSend_allowsKeyedCoding(coder, v8, v9, v10))
     {
-      decodeObject = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLRegionCodingKeyIdentifier"];
-      decodeObject2 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLRegionCodingKeyOnBehalfOfBundleId"];
-      v8 = [coder decodeBoolForKey:@"kCLRegionCodingKeyNotifyOnEntry"];
-      HIBYTE(v17) = v8;
-      v9 = [coder decodeBoolForKey:@"kCLRegionCodingKeyNotifyOnExit"];
-      BYTE2(v17) = v9;
-      v10 = [coder decodeBoolForKey:@"kCLRegionCodingKeyConservativeEntry"];
-      BYTE1(v17) = v10;
-      v11 = [coder decodeBoolForKey:@"kCLRegionCodingKeyEmergency"];
-      LOBYTE(v17) = v11;
-      if ([coder containsValueForKey:@"kCLRegionCodingKeyRegionType"])
+      v16 = objc_opt_class();
+      v18 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v17, v16, @"kCLRegionCodingKeyIdentifier");
+      v19 = objc_opt_class();
+      v21 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v20, v19, @"kCLRegionCodingKeyOnBehalfOfBundleId");
+      v24 = objc_msgSend_decodeBoolForKey_(coder, v22, @"kCLRegionCodingKeyNotifyOnEntry", v23);
+      HIBYTE(v60) = v24;
+      v27 = objc_msgSend_decodeBoolForKey_(coder, v25, @"kCLRegionCodingKeyNotifyOnExit", v26);
+      BYTE2(v60) = v27;
+      v30 = objc_msgSend_decodeBoolForKey_(coder, v28, @"kCLRegionCodingKeyConservativeEntry", v29);
+      BYTE1(v60) = v30;
+      v33 = objc_msgSend_decodeBoolForKey_(coder, v31, @"kCLRegionCodingKeyEmergency", v32);
+      LOBYTE(v60) = v33;
+      if (objc_msgSend_containsValueForKey_(coder, v34, @"kCLRegionCodingKeyRegionType", v35))
       {
-        v12 = [coder decodeIntForKey:@"kCLRegionCodingKeyRegionType"];
+        v38 = objc_msgSend_decodeIntForKey_(coder, v36, @"kCLRegionCodingKeyRegionType", v37);
       }
 
       else
       {
-        v12 = 1;
+        v38 = 1;
       }
 
-      decodeObject3 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLRegionCodingKeyDeviceId"];
-      decodeObject4 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLRegionCodingKeyHandoffTag"];
+      v55 = objc_opt_class();
+      v49 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v56, v55, @"kCLRegionCodingKeyDeviceId");
+      v57 = objc_opt_class();
+      v53 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v58, v57, @"kCLRegionCodingKeyHandoffTag");
     }
 
     else
     {
-      decodeObject = [coder decodeObject];
-      decodeObject2 = [coder decodeObject];
-      [coder decodeValueOfObjCType:"B" at:&v17 + 3];
-      [coder decodeValueOfObjCType:"B" at:&v17 + 2];
-      [coder decodeValueOfObjCType:"B" at:&v17 + 1];
-      [coder decodeValueOfObjCType:"B" at:&v17];
-      decodeObject3 = [coder decodeObject];
-      decodeObject4 = [coder decodeObject];
-      v11 = v17;
-      v10 = BYTE1(v17);
-      v9 = BYTE2(v17);
-      v12 = 1;
-      v8 = HIBYTE(v17);
+      v18 = objc_msgSend_decodeObject(coder, v13, v14, v15);
+      v21 = objc_msgSend_decodeObject(coder, v39, v40, v41);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v42, "B", &v60 + 3);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v43, "B", &v60 + 2);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v44, "B", &v60 + 1);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v45, "B", &v60);
+      v49 = objc_msgSend_decodeObject(coder, v46, v47, v48);
+      v53 = objc_msgSend_decodeObject(coder, v50, v51, v52);
+      v33 = v60;
+      v30 = BYTE1(v60);
+      v27 = BYTE2(v60);
+      v38 = 1;
+      v24 = HIBYTE(v60);
     }
 
-    LOBYTE(v16) = v11 & 1;
-    return [(CLRegion *)self initWithIdentifier:decodeObject onBehalfOf:decodeObject2 regionType:v12 notifyOnEntry:v8 & 1 notifyOnExit:v9 & 1 conservativeEntry:v10 & 1 emergency:v16 deviceId:decodeObject3 handoffTag:decodeObject4];
+    return objc_msgSend_initWithIdentifier_onBehalfOf_regionType_notifyOnEntry_notifyOnExit_conservativeEntry_emergency_deviceId_handoffTag_(self, v54, v18, v21, v38, v24 & 1, v27 & 1, v30 & 1, v33 & 1, v49, v53);
   }
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if ([(CLRegion *)self isMemberOfClass:objc_opt_class()])
+  v6 = objc_opt_class();
+  if (objc_msgSend_isMemberOfClass_(self, v7, v6, v8))
   {
-    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v9, v10, v11);
 
-    [currentHandler handleFailureInMethod:a2 object:self file:@"CLRegion.m" lineNumber:263 description:@"CLRegion is an abstract class. Use one of the derived classes"];
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CLRegion.m", 263, @"CLRegion is an abstract class. Use one of the derived classes");
   }
 
   else
   {
-    notifyOnEntry = [(CLRegion *)self notifyOnEntry];
-    v18 = notifyOnEntry;
-    notifyOnExit = [(CLRegion *)self notifyOnExit];
-    v17 = notifyOnExit;
-    conservativeEntry = [(CLRegion *)self conservativeEntry];
-    v16 = conservativeEntry;
-    emergency = [(CLRegion *)self emergency];
-    v15 = emergency;
-    type = [(CLRegion *)self type];
-    allowsKeyedCoding = [coder allowsKeyedCoding];
+    v14 = objc_msgSend_notifyOnEntry(self, v9, v10, v11);
+    v60 = v14;
+    v18 = objc_msgSend_notifyOnExit(self, v15, v16, v17);
+    v59 = v18;
+    v22 = objc_msgSend_conservativeEntry(self, v19, v20, v21);
+    v58 = v22;
+    v26 = objc_msgSend_emergency(self, v23, v24, v25);
+    v57 = v26;
+    v30 = objc_msgSend_type(self, v27, v28, v29);
+    v34 = objc_msgSend_allowsKeyedCoding(coder, v31, v32, v33);
     identifier = self->_identifier;
-    if (allowsKeyedCoding)
+    if (v34)
     {
-      [coder encodeObject:identifier forKey:@"kCLRegionCodingKeyIdentifier"];
-      [coder encodeObject:self->_onBehalfOfBundleId forKey:@"kCLRegionCodingKeyOnBehalfOfBundleId"];
-      [coder encodeBool:notifyOnEntry forKey:@"kCLRegionCodingKeyNotifyOnEntry"];
-      [coder encodeBool:notifyOnExit forKey:@"kCLRegionCodingKeyNotifyOnExit"];
-      [coder encodeBool:conservativeEntry forKey:@"kCLRegionCodingKeyConservativeEntry"];
-      [coder encodeBool:emergency forKey:@"kCLRegionCodingKeyEmergency"];
-      [coder encodeInt:type forKey:@"kCLRegionCodingKeyRegionType"];
-      [coder encodeObject:self->_deviceId forKey:@"kCLRegionCodingKeyDeviceId"];
+      objc_msgSend_encodeObject_forKey_(coder, v35, identifier, @"kCLRegionCodingKeyIdentifier");
+      objc_msgSend_encodeObject_forKey_(coder, v38, self->_onBehalfOfBundleId, @"kCLRegionCodingKeyOnBehalfOfBundleId");
+      objc_msgSend_encodeBool_forKey_(coder, v39, v14, @"kCLRegionCodingKeyNotifyOnEntry");
+      objc_msgSend_encodeBool_forKey_(coder, v40, v18, @"kCLRegionCodingKeyNotifyOnExit");
+      objc_msgSend_encodeBool_forKey_(coder, v41, v22, @"kCLRegionCodingKeyConservativeEntry");
+      objc_msgSend_encodeBool_forKey_(coder, v42, v26, @"kCLRegionCodingKeyEmergency");
+      objc_msgSend_encodeInt_forKey_(coder, v43, v30, @"kCLRegionCodingKeyRegionType");
+      objc_msgSend_encodeObject_forKey_(coder, v44, self->_deviceId, @"kCLRegionCodingKeyDeviceId");
       handoffTag = self->_handoffTag;
 
-      [coder encodeObject:handoffTag forKey:@"kCLRegionCodingKeyHandoffTag"];
+      objc_msgSend_encodeObject_forKey_(coder, v45, handoffTag, @"kCLRegionCodingKeyHandoffTag");
     }
 
     else
     {
-      [coder encodeObject:identifier];
-      [coder encodeObject:self->_onBehalfOfBundleId];
-      [coder encodeValueOfObjCType:"B" at:&v18];
-      [coder encodeValueOfObjCType:"B" at:&v17];
-      [coder encodeValueOfObjCType:"B" at:&v16];
-      [coder encodeValueOfObjCType:"B" at:&v15];
-      [coder encodeObject:self->_deviceId];
-      [coder encodeObject:self->_handoffTag];
+      objc_msgSend_encodeObject_(coder, v35, identifier, v36);
+      objc_msgSend_encodeObject_(coder, v47, self->_onBehalfOfBundleId, v48);
+      objc_msgSend_encodeValueOfObjCType_at_(coder, v49, "B", &v60);
+      objc_msgSend_encodeValueOfObjCType_at_(coder, v50, "B", &v59);
+      objc_msgSend_encodeValueOfObjCType_at_(coder, v51, "B", &v58);
+      objc_msgSend_encodeValueOfObjCType_at_(coder, v52, "B", &v57);
+      objc_msgSend_encodeObject_(coder, v53, self->_deviceId, v54);
+      objc_msgSend_encodeObject_(coder, v55, self->_handoffTag, v56);
     }
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  deviceId = self->_deviceId;
-  LOBYTE(v7) = self->_emergency;
-  return [v4 initWithIdentifier:self->_identifier onBehalfOf:self->_onBehalfOfBundleId regionType:self->_type notifyOnEntry:self->_notifyOnEntry notifyOnExit:self->_notifyOnExit conservativeEntry:self->_conservativeEntry emergency:v7 deviceId:deviceId handoffTag:self->_handoffTag];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  emergency = self->_emergency;
+  return objc_msgSend_initWithIdentifier_onBehalfOf_regionType_notifyOnEntry_notifyOnExit_conservativeEntry_emergency_deviceId_handoffTag_(v8, v9, self->_identifier, self->_onBehalfOfBundleId, self->_type, self->_notifyOnEntry, self->_notifyOnExit, self->_conservativeEntry, emergency, self->_deviceId, self->_handoffTag);
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isMemberOfClass) = 1;
   }
 
   else
   {
-    v14 = v4;
-    v15 = v3;
-    if (([equal isMemberOfClass:objc_opt_class()] & 1) != 0 || -[CLRegion isMemberOfClass:](self, "isMemberOfClass:", objc_opt_class()) && (objc_msgSend(equal, "isMemberOfClass:", objc_opt_class()) & 1) != 0 || (v12 = -[CLRegion isMemberOfClass:](self, "isMemberOfClass:", objc_opt_class())) != 0 && (v12 = objc_msgSend(equal, "isMemberOfClass:", objc_opt_class())) != 0)
+    v47 = v4;
+    v48 = v3;
+    v9 = objc_opt_class();
+    if (objc_msgSend_isMemberOfClass_(equal, v10, v9, v11) & 1) != 0 || (v34 = objc_opt_class(), objc_msgSend_isMemberOfClass_(self, v35, v34, v36)) && (v37 = objc_opt_class(), (objc_msgSend_isMemberOfClass_(equal, v38, v37, v39)) || (v40 = objc_opt_class(), (isMemberOfClass = objc_msgSend_isMemberOfClass_(self, v41, v40, v42)) != 0) && (v43 = objc_opt_class(), (isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v44, v43, v45)) != 0))
     {
-      if (-[CLRegion onBehalfOfBundleId](self, "onBehalfOfBundleId", v6, v5, v14, v15, v7, v8) || [equal onBehalfOfBundleId])
+      if (objc_msgSend_onBehalfOfBundleId(self, v12, v13, v14, v6, v5, v47, v48) || objc_msgSend_onBehalfOfBundleId(equal, v15, v16, v17))
       {
-        v11 = -[NSString isEqual:](-[CLRegion onBehalfOfBundleId](self, "onBehalfOfBundleId"), "isEqual:", [equal onBehalfOfBundleId]);
+        v18 = objc_msgSend_onBehalfOfBundleId(self, v15, v16, v17);
+        v22 = objc_msgSend_onBehalfOfBundleId(equal, v19, v20, v21);
+        isEqual = objc_msgSend_isEqual_(v18, v23, v22, v24);
       }
 
       else
       {
-        v11 = 1;
+        isEqual = 1;
       }
 
-      LOBYTE(v12) = -[NSString isEqualToString:](-[CLRegion identifier](self, "identifier"), "isEqualToString:", [equal identifier]) & v11;
+      v26 = objc_msgSend_identifier(self, v15, v16, v17);
+      v30 = objc_msgSend_identifier(equal, v27, v28, v29);
+      LOBYTE(isMemberOfClass) = objc_msgSend_isEqualToString_(v26, v31, v30, v32) & isEqual;
     }
   }
 
-  return v12;
+  return isMemberOfClass;
 }
 
 - (unint64_t)hash
 {
-  identifier = [(CLRegion *)self identifier];
+  v4 = objc_msgSend_identifier(self, a2, v2, v3);
 
-  return [(NSString *)identifier hash];
+  return objc_msgSend_hash(v4, v5, v6, v7);
 }
 
 - (BOOL)containsCoordinate:(CLLocationCoordinate2D)coordinate
 {
   longitude = coordinate.longitude;
   latitude = coordinate.latitude;
-  [(CLRegion *)self center];
-  v7 = v6;
-  [(CLRegion *)self center];
-  v9 = sub_19B87E164(latitude, longitude, v7, v8);
-  [(CLRegion *)self radius];
-  return v9 <= v10;
+  objc_msgSend_center(self, a2, v3, v4);
+  v9 = v8;
+  objc_msgSend_center(self, v10, v11, v12);
+  v14 = sub_19B87E164(latitude, longitude, v9, v13);
+  objc_msgSend_radius(self, v15, v16, v17);
+  return v14 <= v18;
 }
 
 - (CLLocationCoordinate2D)center

@@ -136,21 +136,21 @@ uint64_t __77__HDDatabaseControlServer_remote_obliterateHealthDataWithOptions_co
   [(HDDemoDataGenerator *)v10 generateThroughEndDate:date completion:v18];
 }
 
-uint64_t __68__HDDatabaseControlServer__queryDistinctTypesWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __68__HDDatabaseControlServer__queryDistinctTypesWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
-  [v3 addObject:v4];
+  v3 = HDSQLiteColumnAsInt64();
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCABB0] numberWithInteger:v3];
+  [v4 addObject:v5];
 
   return 1;
 }
 
-uint64_t __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke(uint64_t a1)
+uint64_t __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCD830] _quantityTypeWithCode:{objc_msgSend(*(a1 + 32), "integerValue")}];
-  v3 = [MEMORY[0x277CCABB0] numberWithInteger:HDSQLiteColumnAsInt64()];
-  [*(a1 + 40) setObject:v3 forKeyedSubscript:v2];
+  v3 = [MEMORY[0x277CCD830] _quantityTypeWithCode:{objc_msgSend(*(a1 + 32), "integerValue")}];
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:HDSQLiteColumnAsInt64()];
+  [*(a1 + 40) setObject:v4 forKeyedSubscript:v3];
 
   return 1;
 }
@@ -195,10 +195,10 @@ uint64_t __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___
 
 BOOL __64__HDDatabaseControlServer_remote_hkqa_statisticsWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v45 = 0;
-  v41 = a1;
+  v44 = 0;
+  v40 = a1;
   if (!*(a1 + 32))
   {
     v31 = 0;
@@ -206,11 +206,11 @@ BOOL __64__HDDatabaseControlServer_remote_hkqa_statisticsWithCompletion___block_
   }
 
   aBlock = MEMORY[0x277D85DD0];
-  v55 = 3221225472;
-  v56 = __67__HDDatabaseControlServer__querySampleCount_withTransaction_error___block_invoke;
-  v57 = &__block_descriptor_40_e26_B24__0__HDSQLiteRow__8__16l;
-  v58 = &v45;
-  v40 = v4;
+  v54 = 3221225472;
+  v55 = __67__HDDatabaseControlServer__querySampleCount_withTransaction_error___block_invoke;
+  v56 = &__block_descriptor_40_e26_B24__0__HDSQLiteRow__8__16l;
+  v57 = &v44;
+  v39 = v4;
   v5 = v4;
   v6 = _Block_copy(&aBlock);
   v7 = [v5 protectedDatabase];
@@ -218,17 +218,17 @@ BOOL __64__HDDatabaseControlServer_remote_hkqa_statisticsWithCompletion___block_
   v8 = [v7 executeSQL:@"SELECT COUNT(*) FROM samples JOIN objects USING (data_id) WHERE type=1;" error:a3 bindingHandler:0 enumerationHandler:v6];
   if (v8)
   {
-    v9 = *(v41 + 32);
+    v9 = *(v40 + 32);
     if (v9)
     {
       v10 = MEMORY[0x277CBEB18];
       v11 = v5;
       v12 = [v10 array];
       aBlock = MEMORY[0x277D85DD0];
-      v55 = 3221225472;
-      v56 = __68__HDDatabaseControlServer__queryDistinctTypesWithTransaction_error___block_invoke;
-      v57 = &unk_278614098;
-      v58 = v12;
+      v54 = 3221225472;
+      v55 = __68__HDDatabaseControlServer__queryDistinctTypesWithTransaction_error___block_invoke;
+      v56 = &unk_278614098;
+      v57 = v12;
       v13 = v12;
       v14 = _Block_copy(&aBlock);
       v15 = [v11 protectedDatabase];
@@ -248,54 +248,54 @@ BOOL __64__HDDatabaseControlServer_remote_hkqa_statisticsWithCompletion___block_
 
       if (v18)
       {
-        v19 = *(v41 + 32);
-        v39 = v18;
-        v43 = v11;
+        v19 = *(v40 + 32);
+        v38 = v18;
+        v42 = v11;
         if (v19)
         {
           v20 = [MEMORY[0x277CBEB38] dictionary];
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
           v51 = 0u;
-          obj = v39;
-          v21 = [obj countByEnumeratingWithState:&v50 objects:&aBlock count:16];
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          obj = v38;
+          v21 = [obj countByEnumeratingWithState:&v49 objects:&aBlock count:16];
           if (v21)
           {
-            v22 = *v51;
+            v22 = *v50;
             v23 = MEMORY[0x277D85DD0];
             while (2)
             {
               v24 = 0;
               do
               {
-                if (*v51 != v22)
+                if (*v50 != v22)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v25 = *(*(&v50 + 1) + 8 * v24);
-                v49[0] = 0;
-                v49[1] = v49;
-                v49[2] = 0x2020000000;
-                v49[3] = [v25 integerValue];
-                v47[0] = v23;
-                v47[1] = 3221225472;
-                v47[2] = __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke;
-                v47[3] = &unk_2786140C0;
-                v47[4] = v25;
-                v48 = v20;
-                v26 = _Block_copy(v47);
+                v25 = *(*(&v49 + 1) + 8 * v24);
+                v48[0] = 0;
+                v48[1] = v48;
+                v48[2] = 0x2020000000;
+                v48[3] = [v25 integerValue];
                 v46[0] = v23;
                 v46[1] = 3221225472;
-                v46[2] = __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke_2;
-                v46[3] = &unk_2786140E8;
-                v46[4] = v49;
-                v27 = _Block_copy(v46);
-                v28 = [v43 protectedDatabase];
+                v46[2] = __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke;
+                v46[3] = &unk_2786140C0;
+                v46[4] = v25;
+                v47 = v20;
+                v26 = _Block_copy(v46);
+                v45[0] = v23;
+                v45[1] = 3221225472;
+                v45[2] = __66__HDDatabaseControlServer__queryTypeCounts_withTransaction_error___block_invoke_2;
+                v45[3] = &unk_2786140E8;
+                v45[4] = v48;
+                v27 = _Block_copy(v45);
+                v28 = [v42 protectedDatabase];
                 v29 = [v28 executeSQL:@"SELECT COUNT(*) FROM samples JOIN objects USING (data_id) WHERE type = 1 AND data_type = ?;" error:a3 bindingHandler:v27 enumerationHandler:v26];
 
-                _Block_object_dispose(v49, 8);
+                _Block_object_dispose(v48, 8);
                 if ((v29 & 1) == 0)
                 {
 
@@ -307,7 +307,7 @@ BOOL __64__HDDatabaseControlServer_remote_hkqa_statisticsWithCompletion___block_
               }
 
               while (v21 != v24);
-              v21 = [obj countByEnumeratingWithState:&v50 objects:&aBlock count:16];
+              v21 = [obj countByEnumeratingWithState:&v49 objects:&aBlock count:16];
               if (v21)
               {
                 continue;
@@ -330,14 +330,14 @@ LABEL_20:
         if (v30)
         {
           v32 = objc_alloc(MEMORY[0x277CCD7D8]);
-          v33 = [MEMORY[0x277CCABB0] numberWithInteger:v45];
+          v33 = [MEMORY[0x277CCABB0] numberWithInteger:v44];
           v34 = [v32 initWithSampleCount:v33 sampleCountByType:v30];
-          v35 = *(*(v41 + 40) + 8);
+          v35 = *(*(v40 + 40) + 8);
           v36 = *(v35 + 40);
           *(v35 + 40) = v34;
         }
 
-        v9 = v39;
+        v9 = v38;
         goto LABEL_26;
       }
 
@@ -352,10 +352,9 @@ LABEL_26:
 
   v31 = 0;
 LABEL_27:
-  v4 = v40;
+  v4 = v39;
 LABEL_28:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -649,10 +648,9 @@ void __183__HDDatabaseControlServer_remote_deletedSamplesDetailWithReferenceDate
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

@@ -13,7 +13,7 @@
   title = self->_title;
   if (!title)
   {
-    v4 = BKLibraryFrameworkBundle();
+    v4 = BKLibraryFrameworkBundle(0);
     v5 = [v4 localizedStringForKey:@"Collections_AllBooks" value:@"All Books" table:&stru_D8298];
     v6 = self->_title;
     self->_title = v5;

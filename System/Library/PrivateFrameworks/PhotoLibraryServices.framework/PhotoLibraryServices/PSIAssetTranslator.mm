@@ -219,7 +219,7 @@ void __55__PSIAssetTranslator__appendStyleCastToAsset_forAsset___block_invoke(ui
     }
 
     observationCopy = v33;
-    if ([obj count])
+    if (objc_msgSend_count(obj))
     {
       v26 = PLServicesLocalizedFrameworkString();
       v27 = assetCopy;
@@ -1345,7 +1345,7 @@ LABEL_27:
   allSceneClassifications = [helperCopy allSceneClassifications];
   v61 = [v16 setWithArray:allSceneClassifications];
 
-  if (![v61 count])
+  if (!objc_msgSend_count(v61))
   {
     goto LABEL_100;
   }
@@ -1628,7 +1628,7 @@ LABEL_81:
   }
 
   *buf = 0;
-  v52 = PLSearchDominantSceneWithIdentifierInSceneClassifications(v39, 881, v63, buf, 0);
+  v52 = PLSearchDominantSceneWithIdentifierInSceneClassifications(v39, 0x371u, v63, buf, 0);
   v53 = *buf;
   if (PLStickerSuggestionPeopleDistractorDominantSceneAreaMaxThreshold_token != -1)
   {
@@ -1833,7 +1833,7 @@ LABEL_30:
               [scenesCopy addContentString:v28 identifier:v32 category:v33 owningCategory:0];
               v34 = [v25 localizedSynonymsWithLocale:localeCopy];
               v35 = v34;
-              if (v34 && [v34 count])
+              if (v34 && objc_msgSend_count(v34))
               {
                 v51 = sceneIdentifier;
                 v47 = v26;
@@ -1862,7 +1862,7 @@ LABEL_30:
                       v42 = *(*(&v55 + 1) + 8 * j);
                       if (v42 && [*(*(&v55 + 1) + 8 * j) length])
                       {
-                        if ([v42 isEqualToString:v28])
+                        if (objc_msgSend_isEqualToString_(v42))
                         {
                           v43 = PLSearchBackendSceneTaxonomyGetLog();
                           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
@@ -1952,7 +1952,7 @@ LABEL_51:
   allSceneClassifications = [helperCopy allSceneClassifications];
   v19 = [v17 setWithArray:allSceneClassifications];
 
-  if ([v19 count])
+  if (objc_msgSend_count(v19))
   {
     additionalAttributes = [forAssetCopy additionalAttributes];
     sceneAnalysisVersion = [additionalAttributes sceneAnalysisVersion];
@@ -2025,7 +2025,7 @@ void __100__PSIAssetTranslator__appendSceneClassificationsToAsset_sceneTaxonomyP
           }
 
           v17 = *(*(&v19 + 1) + 8 * i);
-          if ([v17 isEqualToString:v8])
+          if (objc_msgSend_isEqualToString_(v17))
           {
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
@@ -2064,7 +2064,7 @@ void __100__PSIAssetTranslator__appendSceneClassificationsToAsset_sceneTaxonomyP
   {
     searchIndexDateFormatter = [contextCopy searchIndexDateFormatter];
     v12 = [searchIndexDateFormatter newLocalizedComponentsFromDate:localDateCreated includeMonth:0];
-    if ([v12 count] == 1)
+    if (objc_msgSend_count(v12) == 1)
     {
       firstObject = [v12 firstObject];
       v14 = assetCopy;
@@ -2292,7 +2292,7 @@ void __73__PSIAssetTranslator__appendDateCreatedToAsset_indexingContext_forAsset
       v13 = assetCopy;
       v49 = v12;
       tokens = [v13 tokens];
-      if ([tokens count])
+      if (objc_msgSend_count(tokens))
       {
         __assert_rtn("PLIndexRevGeoPlace", "PSIAssetTranslator.m", 60, "tokens.count == 0");
       }
@@ -2781,7 +2781,7 @@ LABEL_23:
       additionalAttributes = [assetCopy additionalAttributes];
       keywords = [additionalAttributes keywords];
 
-      v36 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(keywords, "count")}];
+      v36 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(keywords)];
       v61 = 0u;
       v62 = 0u;
       v63 = 0u;

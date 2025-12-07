@@ -11,9 +11,9 @@
     +[SBHIconGridSizeClassDomain(PRWidgetGridUtilities) pr_widgetDomain];
   }
 
-  v1 = pr_widgetDomain_domain;
+  v2 = pr_widgetDomain_domain;
 
-  return v1;
+  return v2;
 }
 
 @end

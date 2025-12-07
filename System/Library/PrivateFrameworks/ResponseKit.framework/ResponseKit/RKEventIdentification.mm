@@ -90,30 +90,30 @@ LABEL_11:
 
 - (void)enumerateTopKClassificationsForEachString:(unint64_t)string block:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   selfCopy = self;
-  v14 = self->_tokenSequences;
-  v7 = [(NSArray *)v14 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v13 = self->_tokenSequences;
+  v7 = [(NSArray *)v13 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v11 = [*(*(&v16 + 1) + 8 * v10) count];
+        v11 = [*(*(&v15 + 1) + 8 * v10) count];
         if (v11 >= kMaxSequenceLength)
         {
           v12 = kMaxSequenceLength;
@@ -124,46 +124,44 @@ LABEL_11:
           v12 = v11;
         }
 
-        findTopKClassifications(&(&v14)[-2 * string], string, selfCopy->_probabilities, v8, v12);
-        blockCopy[2](blockCopy, &(&v14)[-2 * string]);
+        findTopKClassifications(&(&v13)[-2 * string], string, selfCopy->_probabilities, v8, v12);
+        blockCopy[2](blockCopy, &(&v13)[-2 * string]);
         v8 += v12;
         ++v10;
       }
 
       while (v7 != v10);
-      v7 = [(NSArray *)v14 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v13 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTopKClassifications:(unint64_t)classifications block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_tokenSequences;
   v8 = 0;
-  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * i) count];
+        v12 = [*(*(&v14 + 1) + 8 * i) count];
         if (kMaxSequenceLength >= v12)
         {
           v13 = v12;
@@ -177,16 +175,14 @@ LABEL_11:
         v8 += v13;
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
-  findTopKClassifications(&v15 - classifications, classifications, self->_probabilities, 0, v8);
-  blockCopy[2](blockCopy, &v15 - classifications);
-
-  v14 = *MEMORY[0x277D85DE8];
+  findTopKClassifications(&v14 - classifications, classifications, self->_probabilities, 0, v8);
+  blockCopy[2](blockCopy, &v14 - classifications);
 }
 
 - ($A8567127CD1317684890FBE2DC5448B6)topClassification
@@ -244,35 +240,34 @@ __n128 __42__RKEventIdentification_topClassification__block_invoke(uint64_t a1, 
 void __36__RKEventIdentification_description__block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
   if (*a2 > 4uLL)
   {
-    v8 = @"INVALID";
+    v7 = @"INVALID";
   }
 
   else
   {
-    v8 = off_279B10AC8[*a2];
+    v7 = off_279B10AC8[*a2];
   }
 
-  v9 = *(a2 + 16);
-  if (v9 > 4)
+  v8 = *(a2 + 16);
+  if (v8 > 4)
   {
-    v10 = @"INVALID";
+    v9 = @"INVALID";
   }
 
   else
   {
-    v10 = off_279B10AC8[v9];
+    v9 = off_279B10AC8[v8];
   }
 
-  v14 = v7;
-  v11 = [v4 initWithFormat:@"[%@ %@=%0.2f, %@=%0.2f]", v7, v8, *(a2 + 8), v10, *(a2 + 24)];
-  v12 = *(*(a1 + 40) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
+  v13 = v6;
+  v10 = [v4 initWithFormat:@"[%@ %@=%0.2f, %@=%0.2f]", v6, v7, *(a2 + 8), v9, *(a2 + 24)];
+  v11 = *(*(a1 + 40) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v10;
 }
 
 @end

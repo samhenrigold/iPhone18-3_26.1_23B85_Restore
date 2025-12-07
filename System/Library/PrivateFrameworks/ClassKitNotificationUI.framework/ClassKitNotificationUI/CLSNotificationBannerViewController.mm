@@ -7,6 +7,7 @@
 - (void)addBannerView:(id)view;
 - (void)addConstraintsForBannerView;
 - (void)handleWindowPan:(id)pan;
+- (void)hideBannerQuickly:(BOOL)quickly;
 - (void)showCurrentBanner;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -17,45 +18,45 @@
 {
   y = inside.y;
   x = inside.x;
-  v31 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v6 = objc_msgSend_view(self, a2, event, 0);
-  v9 = objc_msgSend_subviews(v6, v7, v8);
+  v40 = *MEMORY[0x277D85DE8];
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v8 = objc_msgSend_view(self, a2, event, v4, v5, 0);
+  v13 = objc_msgSend_subviews(v8, v9, v10, v11, v12);
 
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
-  if (v11)
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v35, v39, 16);
+  if (v15)
   {
-    v12 = *v27;
+    v16 = *v36;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v12)
+        if (*v36 != v16)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v13);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v35 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = objc_msgSend_layer(v14, v15, v16);
-          v20 = objc_msgSend_presentationLayer(v17, v18, v19);
-          v23 = objc_msgSend_hitTest_(v20, v21, v22, x, y);
+          v23 = objc_msgSend_layer(v18, v19, v20, v21, v22);
+          v28 = objc_msgSend_presentationLayer(v23, v24, v25, v26, v27);
+          v33 = objc_msgSend_hitTest_(v28, v29, v30, v31, v32, x, y);
 
-          if (v23)
+          if (v33)
           {
-            LOBYTE(v11) = 1;
+            LOBYTE(v15) = 1;
             goto LABEL_12;
           }
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v15, &v26, v30, 16);
-      if (v11)
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v19, &v35, v39, 16);
+      if (v15)
       {
         continue;
       }
@@ -66,22 +67,21 @@
 
 LABEL_12:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v15;
 }
 
 - (void)handleWindowPan:(id)pan
 {
   panCopy = pan;
-  if (objc_msgSend_bannerVisible(self, v4, v5))
+  if (objc_msgSend_bannerVisible(self, v4, v5, v6, v7))
   {
-    v8 = objc_msgSend_view(self, v6, v7);
-    objc_msgSend_translationInView_(panCopy, v9, v8);
-    v11 = v10;
+    v12 = objc_msgSend_view(self, v8, v9, v10, v11);
+    objc_msgSend_translationInView_(panCopy, v13, v12, v14, v15);
+    v17 = v16;
 
-    if (v11 < 0.0)
+    if (v17 < 0.0)
     {
-      objc_msgSend_hideBannerQuickly_(self, v12, 1);
+      objc_msgSend_hideBannerQuickly_(self, v18, 1, v19, v20);
     }
   }
 }
@@ -89,117 +89,161 @@ LABEL_12:
 - (void)addBannerView:(id)view
 {
   viewCopy = view;
-  v6 = objc_msgSend_bannerView(self, v4, v5);
+  v8 = objc_msgSend_bannerView(self, v4, v5, v6, v7);
 
-  if (v6)
+  if (v8)
   {
-    objc_msgSend_setBannerYPositionConstraint_(self, v7, 0);
-    objc_msgSend_setBannerWidthConstraint_(self, v8, 0);
-    v11 = objc_msgSend_bannerView(self, v9, v10);
-    objc_msgSend_removeFromSuperview(v11, v12, v13);
+    objc_msgSend_setBannerYPositionConstraint_(self, v9, 0, v10, v11);
+    objc_msgSend_setBannerWidthConstraint_(self, v12, 0, v13, v14);
+    v19 = objc_msgSend_bannerView(self, v15, v16, v17, v18);
+    objc_msgSend_removeFromSuperview(v19, v20, v21, v22, v23);
 
-    objc_msgSend_setBannerView_(self, v14, 0);
+    objc_msgSend_setBannerView_(self, v24, 0, v25, v26);
   }
 
-  objc_msgSend_setBannerView_(self, v7, viewCopy);
-  v17 = objc_msgSend_view(self, v15, v16);
-  v20 = objc_msgSend_bannerView(self, v18, v19);
-  objc_msgSend_addSubview_(v17, v21, v20);
+  objc_msgSend_setBannerView_(self, v9, viewCopy, v10, v11);
+  v31 = objc_msgSend_view(self, v27, v28, v29, v30);
+  v36 = objc_msgSend_bannerView(self, v32, v33, v34, v35);
+  objc_msgSend_addSubview_(v31, v37, v36, v38, v39);
 
-  objc_msgSend_addConstraintsForBannerView(self, v22, v23);
+  objc_msgSend_addConstraintsForBannerView(self, v40, v41, v42, v43);
 }
 
 - (void)showCurrentBanner
 {
-  v4 = objc_msgSend_bannerView(self, a2, v2);
-  v7 = objc_msgSend_view(self, v5, v6);
-  v10 = objc_msgSend_subviews(v7, v8, v9);
-  v12 = objc_msgSend_containsObject_(v10, v11, v4);
+  v6 = objc_msgSend_bannerView(self, a2, v2, v3, v4);
+  v11 = objc_msgSend_view(self, v7, v8, v9, v10);
+  v16 = objc_msgSend_subviews(v11, v12, v13, v14, v15);
+  v20 = objc_msgSend_containsObject_(v16, v17, v6, v18, v19);
 
-  if ((v12 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
-    v15 = objc_msgSend_view(self, v13, v14);
-    objc_msgSend_addSubview_(v15, v16, v4);
+    v25 = objc_msgSend_view(self, v21, v22, v23, v24);
+    objc_msgSend_addSubview_(v25, v26, v6, v27, v28);
   }
 
-  objc_msgSend_setBannerAnimating_(self, v13, 1);
-  objc_msgSend_setBannerVisible_(self, v17, 1);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = sub_24351EFAC;
-  v31[3] = &unk_278DBEF68;
-  v31[4] = self;
-  v32 = v4;
-  v18 = v4;
-  v19 = MEMORY[0x245D38F90](v31);
-  v22 = objc_msgSend_view(self, v20, v21);
-  objc_msgSend_layoutIfNeeded(v22, v23, v24);
+  objc_msgSend_setBannerAnimating_(self, v21, 1, v23, v24);
+  objc_msgSend_setBannerVisible_(self, v29, 1, v30, v31);
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = sub_24351EFAC;
+  v49[3] = &unk_278DBEF68;
+  v49[4] = self;
+  v50 = v6;
+  v32 = v6;
+  v33 = MEMORY[0x245D38F90](v49);
+  v38 = objc_msgSend_view(self, v34, v35, v36, v37);
+  objc_msgSend_layoutIfNeeded(v38, v39, v40, v41, v42);
+
+  v43 = MEMORY[0x277D75D18];
+  v47 = v33;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = sub_24351F0AC;
+  v48[3] = &unk_278DBEF40;
+  v48[4] = self;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = sub_24351F0F4;
+  v46[3] = &unk_278DBEF90;
+  v44 = v33;
+  objc_msgSend_animateWithDuration_delay_options_animations_completion_(v43, v45, 38, v48, v46, 0.6, 0.0);
+}
+
+- (void)hideBannerQuickly:(BOOL)quickly
+{
+  quicklyCopy = quickly;
+  v7 = objc_msgSend_bannerView(self, a2, quickly, v3, v4);
+  objc_msgSend_setBannerAnimating_(self, v8, 1, v9, v10);
+  objc_msgSend_setBannerVisible_(self, v11, 0, v12, v13);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_24351F2C4;
+  v34[3] = &unk_278DBEF68;
+  v34[4] = self;
+  v14 = v7;
+  v35 = v14;
+  v15 = MEMORY[0x245D38F90](v34);
+  v20 = objc_msgSend_view(self, v16, v17, v18, v19);
+  objc_msgSend_layoutIfNeeded(v20, v21, v22, v23, v24);
 
   v25 = MEMORY[0x277D75D18];
-  v29 = v19;
+  if (quicklyCopy)
+  {
+    v26 = 0.1;
+  }
+
+  else
+  {
+    v26 = 0.3;
+  }
+
+  v31 = v15;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_24351F3C8;
+  v32[3] = &unk_278DBEF68;
+  v32[4] = self;
+  v33 = v14;
   v30[0] = MEMORY[0x277D85DD0];
   v30[1] = 3221225472;
-  v30[2] = sub_24351F0AC;
-  v30[3] = &unk_278DBEF40;
-  v30[4] = self;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_24351F0F4;
-  v28[3] = &unk_278DBEF90;
-  v26 = v19;
-  objc_msgSend_animateWithDuration_delay_options_animations_completion_(v25, v27, 38, v30, v28, 0.6, 0.0);
+  v30[2] = sub_24351F458;
+  v30[3] = &unk_278DBEF90;
+  v27 = v15;
+  v28 = v14;
+  objc_msgSend_animateWithDuration_delay_options_animations_completion_(v25, v29, 38, v32, v30, v26, 0.0);
 }
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  v4 = objc_msgSend_sharedApplication(MEMORY[0x277D75128], a2, v2);
-  v7 = sub_24351D11C(v4, v5, v6);
-  v10 = objc_msgSend_view(self, v8, v9);
-  v13 = objc_msgSend_window(v10, v11, v12);
-  v16 = v13;
-  if (v7 == v13)
+  v6 = objc_msgSend_sharedApplication(MEMORY[0x277D75128], a2, v2, v3, v4);
+  v11 = sub_24351D11C(v6, v7, v8, v9, v10);
+  v16 = objc_msgSend_view(self, v12, v13, v14, v15);
+  v21 = objc_msgSend_window(v16, v17, v18, v19, v20);
+  v26 = v21;
+  if (v11 == v21)
   {
   }
 
   else
   {
-    v17 = objc_msgSend_rootViewController(v7, v14, v15);
+    v27 = objc_msgSend_rootViewController(v11, v22, v23, v24, v25);
 
-    if (v17)
+    if (v27)
     {
-      v20 = objc_msgSend_rootViewController(v7, v18, v19);
-      v23 = objc_msgSend_supportedInterfaceOrientations(v20, v21, v22);
+      v32 = objc_msgSend_rootViewController(v11, v28, v29, v30, v31);
+      v37 = objc_msgSend_supportedInterfaceOrientations(v32, v33, v34, v35, v36);
 
-      if (v23)
+      if (v37)
       {
         goto LABEL_12;
       }
     }
   }
 
-  v24 = objc_msgSend_supportedInterfaceOrientationsForWindow_(v4, v18, v7);
-  if (v24)
+  v38 = objc_msgSend_supportedInterfaceOrientationsForWindow_(v6, v28, v11, v30, v31);
+  if (v38)
   {
-    v23 = v24;
+    v37 = v38;
   }
 
   else
   {
-    v27 = objc_msgSend_traitCollection(self, v25, v26);
-    if (objc_msgSend_userInterfaceIdiom(v27, v28, v29))
+    v43 = objc_msgSend_traitCollection(self, v39, v40, v41, v42);
+    if (objc_msgSend_userInterfaceIdiom(v43, v44, v45, v46, v47))
     {
-      v23 = 30;
+      v37 = 30;
     }
 
     else
     {
-      v23 = 26;
+      v37 = 26;
     }
   }
 
 LABEL_12:
 
-  return v23;
+  return v37;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -207,22 +251,22 @@ LABEL_12:
   height = size.height;
   width = size.width;
   coordinatorCopy = coordinator;
-  v16.receiver = self;
-  v16.super_class = CLSNotificationBannerViewController;
-  [(CLSNotificationBannerViewController *)&v16 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
-  v10 = objc_msgSend_bannerView(self, v8, v9);
-  v13 = objc_msgSend_superview(v10, v11, v12);
+  v21.receiver = self;
+  v21.super_class = CLSNotificationBannerViewController;
+  [(CLSNotificationBannerViewController *)&v21 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
+  v12 = objc_msgSend_bannerView(self, v8, v9, v10, v11);
+  v17 = objc_msgSend_superview(v12, v13, v14, v15, v16);
 
-  if (v13)
+  if (v17)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_24351F66C;
-    v15[3] = &unk_278DBEFB8;
-    v15[4] = self;
-    *&v15[5] = width;
-    *&v15[6] = height;
-    objc_msgSend_animateAlongsideTransition_completion_(coordinatorCopy, v14, v15, 0);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_24351F66C;
+    v20[3] = &unk_278DBEFB8;
+    v20[4] = self;
+    *&v20[5] = width;
+    *&v20[6] = height;
+    objc_msgSend_animateAlongsideTransition_completion_(coordinatorCopy, v18, v20, 0, v19);
   }
 }
 
@@ -236,13 +280,13 @@ LABEL_12:
 
   if (byte_27ED78310 == 1)
   {
-    v6 = objc_msgSend_bannerView(self, a2, v3);
-    objc_msgSend_preferredWidthPad(v6, v7, v8);
-    v10 = v9;
+    v8 = objc_msgSend_bannerView(self, a2, v3, v4, v5);
+    objc_msgSend_preferredWidthPad(v8, v9, v10, v11, v12);
+    v14 = v13;
 
-    if (width >= v10)
+    if (width >= v14)
     {
-      return v10;
+      return v14;
     }
   }
 
@@ -251,14 +295,14 @@ LABEL_12:
 
 - (void)addConstraintsForBannerView
 {
-  v79[1] = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_view(self, a2, v2);
-  objc_msgSend_bounds(v4, v5, v6);
-  v8 = v7;
-  v10 = v9;
+  v129[1] = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend_view(self, a2, v2, v3, v4);
+  objc_msgSend_bounds(v6, v7, v8, v9, v10);
+  v12 = v11;
+  v14 = v13;
 
-  v13 = objc_msgSend_bannerView(self, v11, v12);
-  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v13, v14, 0);
+  v19 = objc_msgSend_bannerView(self, v15, v16, v17, v18);
+  objc_msgSend_setTranslatesAutoresizingMaskIntoConstraints_(v19, v20, 0, v21, v22);
 
   if (qword_27ED78360 != -1)
   {
@@ -267,43 +311,43 @@ LABEL_12:
 
   if (byte_27ED78310 == 1)
   {
-    objc_msgSend_bannerWidthForViewSize_(self, v15, v16, v8, v10);
-    v18 = v17;
-    v19 = MEMORY[0x277CCAAD0];
-    v22 = objc_msgSend_bannerView(self, v20, v21);
-    v24 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v19, v23, v22, 7, 0, 0, 0, 1.0, v18);
-    objc_msgSend_setBannerWidthConstraint_(self, v25, v24);
+    objc_msgSend_bannerWidthForViewSize_(self, v23, v24, v25, v26, v12, v14);
+    v28 = v27;
+    v29 = MEMORY[0x277CCAAD0];
+    v34 = objc_msgSend_bannerView(self, v30, v31, v32, v33);
+    v36 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v29, v35, v34, 7, 0, 0, 0, 1.0, v28);
+    objc_msgSend_setBannerWidthConstraint_(self, v37, v36, v38, v39);
 
-    v28 = objc_msgSend_bannerView(self, v26, v27);
-    v31 = objc_msgSend_bannerWidthConstraint(self, v29, v30);
-    objc_msgSend_addConstraint_(v28, v32, v31);
+    v44 = objc_msgSend_bannerView(self, v40, v41, v42, v43);
+    v49 = objc_msgSend_bannerWidthConstraint(self, v45, v46, v47, v48);
+    objc_msgSend_addConstraint_(v44, v50, v49, v51, v52);
   }
 
   else
   {
-    v28 = objc_msgSend_view(self, v15, v16);
-    v33 = MEMORY[0x277CCAAD0];
-    v31 = objc_msgSend_bannerView(self, v34, v35);
-    v38 = objc_msgSend_view(self, v36, v37);
-    v40 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v33, v39, v31, 7, 0, v38, 7, 1.0, 0.0);
-    objc_msgSend_addConstraint_(v28, v41, v40);
+    v44 = objc_msgSend_view(self, v23, v24, v25, v26);
+    v53 = MEMORY[0x277CCAAD0];
+    v49 = objc_msgSend_bannerView(self, v54, v55, v56, v57);
+    v62 = objc_msgSend_view(self, v58, v59, v60, v61);
+    v64 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v53, v63, v49, 7, 0, v62, 7, 1.0, 0.0);
+    objc_msgSend_addConstraint_(v44, v65, v64, v66, v67);
   }
 
-  v44 = objc_msgSend_view(self, v42, v43);
-  v45 = MEMORY[0x277CCAAD0];
-  v48 = objc_msgSend_bannerView(self, v46, v47);
-  v51 = objc_msgSend_view(self, v49, v50);
-  v53 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v45, v52, v48, 9, 0, v51, 9, 1.0, 0.0);
-  objc_msgSend_addConstraint_(v44, v54, v53);
+  v72 = objc_msgSend_view(self, v68, v69, v70, v71);
+  v73 = MEMORY[0x277CCAAD0];
+  v78 = objc_msgSend_bannerView(self, v74, v75, v76, v77);
+  v83 = objc_msgSend_view(self, v79, v80, v81, v82);
+  v85 = objc_msgSend_constraintWithItem_attribute_relatedBy_toItem_attribute_multiplier_constant_(v73, v84, v78, 9, 0, v83, 9, 1.0, 0.0);
+  objc_msgSend_addConstraint_(v72, v86, v85, v87, v88);
 
-  v57 = objc_msgSend_bannerView(self, v55, v56);
-  objc_msgSend_setAlpha_(v57, v58, v59, 0.0);
+  v93 = objc_msgSend_bannerView(self, v89, v90, v91, v92);
+  objc_msgSend_setAlpha_(v93, v94, v95, v96, v97, 0.0);
 
-  v60 = MEMORY[0x277CCAAD0];
-  v63 = objc_msgSend_bannerView(self, v61, v62);
-  v66 = objc_msgSend_topAnchor(v63, v64, v65);
-  v69 = objc_msgSend_view(self, v67, v68);
-  v73 = objc_msgSend_topAnchor(v69, v70, v71);
+  v98 = MEMORY[0x277CCAAD0];
+  v103 = objc_msgSend_bannerView(self, v99, v100, v101, v102);
+  v108 = objc_msgSend_topAnchor(v103, v104, v105, v106, v107);
+  v113 = objc_msgSend_view(self, v109, v110, v111, v112);
+  v121 = objc_msgSend_topAnchor(v113, v114, v115, v116, v117);
   if (qword_27ED78360 != -1)
   {
     dispatch_once(&qword_27ED78360, &unk_28563EF98);
@@ -311,114 +355,112 @@ LABEL_12:
 
   if (byte_27ED78310)
   {
-    objc_msgSend_constraintEqualToAnchor_constant_(v66, v72, v73, 12.0);
+    objc_msgSend_constraintEqualToAnchor_constant_(v108, v118, v121, v119, v120, 12.0);
   }
 
   else
   {
-    objc_msgSend_constraintEqualToAnchor_constant_(v66, v72, v73, 15.0);
+    objc_msgSend_constraintEqualToAnchor_constant_(v108, v118, v121, v119, v120, 15.0);
   }
-  v74 = ;
-  v79[0] = v74;
-  v76 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v75, v79, 1);
-  objc_msgSend_activateConstraints_(v60, v77, v76);
-
-  v78 = *MEMORY[0x277D85DE8];
+  v122 = ;
+  v129[0] = v122;
+  v125 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v123, v129, 1, v124);
+  objc_msgSend_activateConstraints_(v98, v126, v125, v127, v128);
 }
 
 - (CGPoint)_hiddenBannerPosition:(CGSize)position
 {
-  v4 = objc_msgSend_view(self, a2, v3, position.width, position.height);
-  objc_msgSend_bounds(v4, v5, v6);
-  v8 = v7;
-  v10 = v9;
+  v6 = objc_msgSend_view(self, a2, v3, v4, v5, position.width, position.height);
+  objc_msgSend_bounds(v6, v7, v8, v9, v10);
   v12 = v11;
   v14 = v13;
+  v16 = v15;
+  v18 = v17;
 
-  v21.origin.x = v8;
-  v21.origin.y = v10;
-  v21.size.width = v12;
-  v21.size.height = v14;
-  MidX = CGRectGetMidX(v21);
-  v22.origin.x = v8;
-  v22.origin.y = v10;
-  v22.size.width = v12;
-  v22.size.height = v14;
-  MinY = CGRectGetMinY(v22);
+  v25.origin.x = v12;
+  v25.origin.y = v14;
+  v25.size.width = v16;
+  v25.size.height = v18;
+  MidX = CGRectGetMidX(v25);
+  v26.origin.x = v12;
+  v26.origin.y = v14;
+  v26.size.width = v16;
+  v26.size.height = v18;
+  MinY = CGRectGetMinY(v26);
   if (qword_27ED78360 != -1)
   {
     dispatch_once(&qword_27ED78360, &unk_28563EF98);
   }
 
-  v17 = 32.0;
+  v21 = 32.0;
   if (byte_27ED78310)
   {
-    v17 = 33.0;
+    v21 = 33.0;
   }
 
-  v18 = MinY - floorf(v17);
-  v19 = MidX;
-  result.y = v18;
-  result.x = v19;
+  v22 = MinY - floorf(v21);
+  v23 = MidX;
+  result.y = v22;
+  result.x = v23;
   return result;
 }
 
 - (CGPoint)_visibleBannerCenterPosition:(CGSize)position
 {
-  v4 = objc_msgSend_view(self, a2, v3, position.width, position.height);
-  objc_msgSend_bounds(v4, v5, v6);
-  v8 = v7;
-  v10 = v9;
+  v6 = objc_msgSend_view(self, a2, v3, v4, v5, position.width, position.height);
+  objc_msgSend_bounds(v6, v7, v8, v9, v10);
   v12 = v11;
   v14 = v13;
+  v16 = v15;
+  v18 = v17;
 
-  v17 = objc_msgSend_windowScene(qword_27ED78318, v15, v16);
-  v20 = objc_msgSend_statusBarManager(v17, v18, v19);
-  objc_msgSend_statusBarFrame(v20, v21, v22);
-  v24 = v23;
-  v26 = v25;
+  v23 = objc_msgSend_windowScene(qword_27ED78318, v19, v20, v21, v22);
+  v28 = objc_msgSend_statusBarManager(v23, v24, v25, v26, v27);
+  objc_msgSend_statusBarFrame(v28, v29, v30, v31, v32);
+  v34 = v33;
+  v36 = v35;
 
-  v35.origin.x = v8;
-  v35.origin.y = v10;
-  v35.size.width = v12;
-  v35.size.height = v14;
-  MidX = CGRectGetMidX(v35);
-  v36.origin.x = v8;
-  v36.origin.y = v10;
-  v36.size.width = v12;
-  v36.size.height = v14;
-  MinY = CGRectGetMinY(v36);
+  v45.origin.x = v12;
+  v45.origin.y = v14;
+  v45.size.width = v16;
+  v45.size.height = v18;
+  MidX = CGRectGetMidX(v45);
+  v46.origin.x = v12;
+  v46.origin.y = v14;
+  v46.size.width = v16;
+  v46.size.height = v18;
+  MinY = CGRectGetMinY(v46);
   if (qword_27ED78360 != -1)
   {
     dispatch_once(&qword_27ED78360, &unk_28563EF98);
   }
 
-  v29 = 32.0;
+  v39 = 32.0;
   if (byte_27ED78310)
   {
-    v29 = 33.0;
+    v39 = 33.0;
   }
 
-  v30 = floorf(v29);
+  v40 = floorf(v39);
   if (byte_27ED78310)
   {
-    v30 = v30 + 16.0;
+    v40 = v40 + 16.0;
   }
 
-  if (v24 >= v26)
+  if (v34 >= v36)
   {
-    v31 = v26;
+    v41 = v36;
   }
 
   else
   {
-    v31 = v24;
+    v41 = v34;
   }
 
-  v32 = v31 + MinY + v30;
-  v33 = MidX;
-  result.y = v32;
-  result.x = v33;
+  v42 = v41 + MinY + v40;
+  v43 = MidX;
+  result.y = v42;
+  result.x = v43;
   return result;
 }
 

@@ -1,5 +1,7 @@
 @interface WBUSheetController
++ (id)alertControllerForAlert:(id)alert automaticallyDismiss:(BOOL)dismiss withCompletionHandler:(id)handler;
 - (WBUSheetController)initWithDelegate:(id)delegate;
+- (void)_alertDidDismissWithAction:(int)action;
 - (void)hideSheet;
 - (void)showSheetForAlert:(id)alert;
 @end
@@ -87,6 +89,45 @@ uint64_t __31__WBUSheetController_hideSheet__block_invoke(uint64_t a1)
   v2 = [v1[2] hideAction];
 
   return [v1 _alertDidDismissWithAction:v2];
+}
+
+- (void)_alertDidDismissWithAction:(int)action
+{
+  v3 = *&action;
+  v10 = self->_alert;
+  alertController = self->_alertController;
+  self->_alertController = 0;
+
+  alert = self->_alert;
+  self->_alert = 0;
+
+  actionHandler = [(WebUIAlert *)v10 actionHandler];
+
+  if (actionHandler)
+  {
+    actionHandler2 = [(WebUIAlert *)v10 actionHandler];
+    (actionHandler2)[2](actionHandler2, v10, v3);
+  }
+
+  [self->_delegate sheetController:self performAction:v3 forAlert:v10];
+  [self->_delegate sheetControllerDidHideSheet:self];
+  if ([(NSMutableArray *)self->_alertInvocationQueue count])
+  {
+    v9 = [(NSMutableArray *)self->_alertInvocationQueue objectAtIndex:0];
+    [v9 invoke];
+
+    [(NSMutableArray *)self->_alertInvocationQueue removeObjectAtIndex:0];
+  }
+}
+
++ (id)alertControllerForAlert:(id)alert automaticallyDismiss:(BOOL)dismiss withCompletionHandler:(id)handler
+{
+  dismissCopy = dismiss;
+  handlerCopy = handler;
+  alertCopy = alert;
+  v9 = [[WBUSheetAlertController alloc] initWithAlert:alertCopy automaticallyDismiss:dismissCopy completionHandler:handlerCopy];
+
+  return v9;
 }
 
 @end

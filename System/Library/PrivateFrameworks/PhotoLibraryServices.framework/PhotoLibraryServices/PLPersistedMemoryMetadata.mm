@@ -637,7 +637,7 @@ LABEL_27:
 
   userFeedbacks = [selfCopy24 userFeedbacks];
 
-  v103 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(userFeedbacks, "count")}];
+  v103 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(userFeedbacks)];
   v131 = 0u;
   v132 = 0u;
   v133 = 0u;
@@ -685,7 +685,7 @@ LABEL_27:
     while (v106);
   }
 
-  if ([v103 count])
+  if (objc_msgSend_count(v103))
   {
     [v128 encodeObject:v103 forKey:@"userFeedbacks"];
   }
@@ -1001,7 +1001,7 @@ LABEL_27:
     }
   }
 
-  v22 = v19 == [v8 count];
+  v22 = v19 == objc_msgSend_count(v8);
 
   return v22;
 }
@@ -1037,14 +1037,14 @@ LABEL_27:
   {
     keyAsset = [memoryCopy keyAsset];
     v20 = keyAsset;
-    if (!keyAsset || ([keyAsset uuid], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isEqualToString:", keyAssetUUID), v21, (v22 & 1) == 0))
+    if (!keyAsset || ([keyAsset uuid], v21 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v21), v21, (isEqualToString & 1) == 0))
     {
       v36[0] = keyAssetUUID;
       v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
       photoLibrary = [memoryCopy photoLibrary];
       v25 = [PLManagedAsset assetsWithUUIDs:v23 options:changesCopy inLibrary:photoLibrary];
 
-      if ([v25 count])
+      if (objc_msgSend_count(v25))
       {
         v26 = PLMigrationGetLog();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
@@ -1090,7 +1090,7 @@ LABEL_27:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v17 = [v14 count];
+      v17 = objc_msgSend_count(v14);
       uuid = [memoryCopy uuid];
       *buf = 67109634;
       *v67 = v17;
@@ -1126,7 +1126,7 @@ LABEL_27:
     photoLibrary = [memoryCopy photoLibrary];
     v25 = [PLManagedAsset assetsWithUUIDs:array options:changesCopy inLibrary:photoLibrary];
 
-    v26 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v25, "count")}];
+    v26 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v25)];
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
@@ -1185,7 +1185,7 @@ LABEL_27:
       while (v28);
     }
 
-    v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v26, "count")}];
+    v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v26)];
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
@@ -1206,14 +1206,14 @@ LABEL_27:
           }
 
           v44 = *(*(&v56 + 1) + 8 * j);
-          v45 = [v38 count];
+          v45 = objc_msgSend_count(v38);
           v46 = [v26 objectForKey:v44];
           if (v46)
           {
             [v38 addObject:v46];
           }
 
-          if ([v38 count] == v45)
+          if (objc_msgSend_count(v38) == v45)
           {
             v47 = PLMigrationGetLog();
             if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
@@ -1236,8 +1236,8 @@ LABEL_27:
     nameCopy = v53;
     v49 = [v55 mutableOrderedSetValueForKey:v53];
     [v49 addObjectsFromArray:v38];
-    v50 = [v16 count];
-    v19 = v50 == [v39 count];
+    v50 = objc_msgSend_count(v16);
+    v19 = v50 == objc_msgSend_count(v39);
 
     dsCopy = v54;
     v14 = v52;
@@ -1263,7 +1263,7 @@ LABEL_27:
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v18 = [v14 count];
+      v18 = objc_msgSend_count(v14);
       uuid = [memoryCopy uuid];
       v29 = 67109634;
       *v30 = v18;
@@ -1297,8 +1297,8 @@ LABEL_27:
 
     v26 = [memoryCopy mutableSetValueForKey:nameCopy];
     [v26 addObjectsFromArray:v17];
-    v27 = [v17 count];
-    v20 = v27 == [dsCopy count];
+    v27 = objc_msgSend_count(v17);
+    v20 = v27 == objc_msgSend_count(dsCopy);
   }
 
   return v20;
@@ -1489,9 +1489,9 @@ LABEL_27:
 + (BOOL)isValidPath:(id)path
 {
   pathExtension = [path pathExtension];
-  v4 = [pathExtension isEqualToString:PLMemoryMetadataExtension];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

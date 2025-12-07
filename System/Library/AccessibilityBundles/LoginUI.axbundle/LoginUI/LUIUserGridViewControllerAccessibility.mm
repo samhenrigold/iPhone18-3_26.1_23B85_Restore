@@ -34,7 +34,7 @@
   return accessibilityPerformEscape;
 }
 
-uint64_t __68__LUIUserGridViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__68__LUIUserGridViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) vibrantButtonPressed:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;

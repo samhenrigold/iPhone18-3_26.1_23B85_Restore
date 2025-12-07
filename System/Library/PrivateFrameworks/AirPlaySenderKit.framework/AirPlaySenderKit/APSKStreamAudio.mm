@@ -4,6 +4,7 @@
 - (BOOL)useVideoLatency;
 - (id)enqueueAudioDataBlock;
 - (int)enqueueAudioData:(id)data;
+- (int)enqueueAudioDataWithTimestamps:(id)timestamps forHostTime:(id *)time forSampleTime:(unint64_t)sampleTime forDiscontinuity:(BOOL)discontinuity;
 - (void)setAudioSender:(id)sender;
 - (void)setUseVideoLatency:(BOOL)latency;
 @end
@@ -15,9 +16,9 @@
   delegateCopy = delegate;
   queueCopy = queue;
   optionsCopy = options;
-  v29.receiver = self;
-  v29.super_class = APSKStreamAudio;
-  v13 = [(APSKStreamAudio *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = APSKStreamAudio;
+  v13 = [(APSKStreamAudio *)&v30 init];
   v14 = v13;
   if (v13)
   {
@@ -51,26 +52,27 @@
           {
             if (FigCFWeakReferenceHolderCreateWithReferencedObject())
             {
-              v26 = v14[13];
-              if (APSRealTimeSignalCreate())
+              v26 = APSRealTimeSignalCreate();
+              if (v26)
               {
-                [APSKStreamAudio initWithAudioDescription:delegate:delegateQueue:options:];
+                [APSKStreamAudio initWithAudioDescription:v26 delegate:? delegateQueue:? options:?];
               }
 
               else
               {
-                if (!APSRingBufferCreate())
+                v27 = APSRingBufferCreate();
+                if (!v27)
                 {
                   *(v14 + 30) = 0;
                   if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
                   {
-                    LogPrintF();
+                    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKStreamAudio initWithAudioDescription:delegate:delegateQueue:options:]", 33554482, "[%{ptr}] audio stream initialized for [%{asbd}]", v14, description);
                   }
 
                   goto LABEL_17;
                 }
 
-                [APSKStreamAudio initWithAudioDescription:delegate:delegateQueue:options:];
+                [APSKStreamAudio initWithAudioDescription:v27 delegate:? delegateQueue:? options:?];
               }
             }
 
@@ -103,15 +105,15 @@
       [APSKStreamAudio initWithAudioDescription:delegate:delegateQueue:options:];
     }
 
-    v27 = 0;
+    v28 = 0;
     goto LABEL_18;
   }
 
 LABEL_17:
-  v27 = v14;
+  v28 = v14;
 LABEL_18:
 
-  return v27;
+  return v28;
 }
 
 - (int)enqueueAudioData:(id)data
@@ -160,10 +162,7 @@ LABEL_18:
 
 uint64_t __36__APSKStreamAudio_enqueueAudioData___block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 80));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -210,12 +209,56 @@ void __36__APSKStreamAudio_enqueueAudioData___block_invoke_3(uint64_t a1)
   [WeakRetained audioStreamDidFail:*(a1 + 32) withError:*(a1 + 40)];
 }
 
+- (int)enqueueAudioDataWithTimestamps:(id)timestamps forHostTime:(id *)time forSampleTime:(unint64_t)sampleTime forDiscontinuity:(BOOL)discontinuity
+{
+  discontinuityCopy = discontinuity;
+  timestampsCopy = timestamps;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
+  queue = self->_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __93__APSKStreamAudio_enqueueAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke;
+  block[3] = &unk_278C65940;
+  block[4] = self;
+  block[5] = &v21;
+  dispatch_sync(queue, block);
+  v12 = v22[5];
+  if (v12)
+  {
+    v18 = *&time->var0;
+    var3 = time->var3;
+    v13 = [v12 sendAudioDataWithTimestamps:timestampsCopy forHostTime:&v18 forSampleTime:sampleTime forDiscontinuity:discontinuityCopy];
+    if (v13)
+    {
+      v14 = self->_queue;
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __93__APSKStreamAudio_enqueueAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke_2;
+      v16[3] = &unk_278C659B8;
+      v16[4] = self;
+      v17 = v13;
+      dispatch_sync(v14, v16);
+    }
+  }
+
+  else
+  {
+    v13 = -6709;
+  }
+
+  _Block_object_dispose(&v21, 8);
+
+  return v13;
+}
+
 uint64_t __93__APSKStreamAudio_enqueueAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 80));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -428,48 +471,30 @@ void __34__APSKStreamAudio_setAudioSender___block_invoke_3(uint64_t a1)
 
 uint64_t __40__APSKStreamAudio_enqueueAudioDataBlock__block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, CMTime *a4, uint64_t a5, char a6)
 {
-  v18 = 0;
-  v15 = *a4;
-  v16 = CMClockConvertHostTimeToSystemUnits(&v15);
-  v17 = a5;
-  LODWORD(v18) = a3;
-  BYTE4(v18) = a6;
-  v10 = *(*(a1 + 32) + 96);
+  v14 = 0;
+  v11 = *a4;
+  v12 = CMClockConvertHostTimeToSystemUnits(&v11);
+  v13 = a5;
+  LODWORD(v14) = a3;
+  BYTE4(v14) = a6;
   if (a3 + 24 > APSRingBufferGetBytesFree())
   {
     return 4294960557;
   }
 
-  v11 = *(*(a1 + 32) + 96);
   result = APSRingBufferEnqueueBytes();
   if (!result)
   {
-    v13 = *(*(a1 + 32) + 96);
     result = APSRingBufferEnqueueBytes();
     if (!result)
     {
       atomic_fetch_add((*(a1 + 32) + 120), 1u);
-      v14 = *(*(a1 + 32) + 112);
       APSRealTimeSignalRaise();
       return 0;
     }
   }
 
   return result;
-}
-
-uint64_t __36__APSKStreamAudio_enqueueAudioData___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = *(a2 + 40);
-  return LogPrintF();
-}
-
-uint64_t __93__APSKStreamAudio_enqueueAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = *(a2 + 40);
-  return LogPrintF();
 }
 
 @end

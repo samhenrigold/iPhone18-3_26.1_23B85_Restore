@@ -112,7 +112,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   bluetoothTransportBridgingIdentifier = self->_bluetoothTransportBridgingIdentifier;
   if (bluetoothTransportBridgingIdentifier)
@@ -150,31 +150,28 @@
     xpc_dictionary_set_string(v13, "aSi", uTF8String);
   }
 
-  descriptor = self->_descriptor;
   CUXPCEncodeObject();
   displayName = self->_displayName;
-  v17 = v13;
+  v16 = v13;
   uTF8String2 = [(NSString *)displayName UTF8String];
   if (uTF8String2)
   {
-    xpc_dictionary_set_string(v17, "dNm", uTF8String2);
+    xpc_dictionary_set_string(v16, "dNm", uTF8String2);
   }
 
   SSID = self->_SSID;
-  v20 = v17;
+  v19 = v16;
   uTF8String3 = [(NSString *)SSID UTF8String];
   if (uTF8String3)
   {
-    xpc_dictionary_set_string(v20, "wsd", uTF8String3);
+    xpc_dictionary_set_string(v19, "wsd", uTF8String3);
   }
 
   state = self->_state;
   if (state)
   {
-    xpc_dictionary_set_int64(v20, "aSt", state);
+    xpc_dictionary_set_int64(v19, "aSt", state);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (ASAccessory)initWithXPCObject:(id)object error:(id *)error
@@ -192,34 +189,34 @@
       CUXPCDecodeObject();
       CUXPCDecodeNSString();
       CUXPCDecodeNSString();
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeSInt64RangedEx() == 6)
       {
-        v7->_state = v17;
+        v7->_state = v10;
       }
 
-      v14 = v7;
+      v8 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [ASAccessory initWithXPCObject:error error:&v17];
-    v14 = v17;
+    [ASAccessory initWithXPCObject:error error:&v10];
+    v8 = v10;
   }
 
-  return v14;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -455,89 +452,131 @@ LABEL_50:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v39 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v38 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v38, &v39, "%@", v5);
+    v6 = v38;
   }
 
   identifier = self->_identifier;
   if (identifier)
   {
-    v21 = identifier;
-    CUAppendF();
-    v6 = v4;
+    v37 = v6;
+    v8 = identifier;
+    CUAppendF(&v37, &v39, "ID %@", v8);
+    v9 = v37;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   displayName = self->_displayName;
   if (displayName)
   {
-    v22 = displayName;
-    CUAppendF();
-    v8 = v4;
+    v36 = v6;
+    v11 = displayName;
+    CUAppendF(&v36, &v39, "name '%@'", v11);
+    v12 = v36;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier)
   {
-    v23 = bluetoothIdentifier;
-    CUAppendF();
-    v10 = v4;
+    v35 = v6;
+    v14 = bluetoothIdentifier;
+    CUAppendF(&v35, &v39, "btID %@", v14);
+    v15 = v35;
 
-    v4 = v10;
+    v6 = v15;
   }
 
   bluetoothTransportBridgingIdentifier = self->_bluetoothTransportBridgingIdentifier;
   if (bluetoothTransportBridgingIdentifier)
   {
-    v24 = bluetoothTransportBridgingIdentifier;
-    CUAppendF();
-    v12 = v4;
+    v34 = v6;
+    v17 = bluetoothTransportBridgingIdentifier;
+    CUAppendF(&v34, &v39, "btBdgID %@", v17);
+    v18 = v34;
 
-    v4 = v12;
+    v6 = v18;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v25 = SSID;
-    CUAppendF();
-    v14 = v4;
+    v33 = v6;
+    v20 = SSID;
+    CUAppendF(&v33, &v39, "SSID %@", v20);
+    v21 = v33;
 
-    v4 = v14;
+    v6 = v21;
   }
 
-  self->_state;
-  CUAppendF();
-  v15 = v4;
+  v32 = v6;
+  state = self->_state;
+  if (state)
+  {
+    if (state == 10)
+    {
+      v23 = @"AwaitingAuthorization";
+    }
+
+    else if (state == 20)
+    {
+      v23 = @"Authorized";
+    }
+
+    else
+    {
+      v23 = @"?";
+    }
+  }
+
+  else
+  {
+    v23 = @"Unauthorized";
+  }
+
+  CUAppendF(&v32, &v39, "state %@", v23);
+  v24 = v32;
 
   descriptor = self->_descriptor;
   if (descriptor)
   {
+    v31 = v24;
     v26 = descriptor;
-    CUAppendF();
-    v17 = v15;
+    CUAppendF(&v31, &v39, "descriptor %@", v26);
+    v27 = v31;
 
-    v15 = v17;
+    v24 = v27;
   }
 
-  v18 = &stru_28499D698;
-  if (v15)
+  v28 = &stru_28499D698;
+  if (v24)
   {
-    v18 = v15;
+    v28 = v24;
   }
 
-  v19 = v18;
+  v29 = v28;
 
-  return v19;
+  return v29;
 }
 
 - (ASAccessory)initWithDADevice:(id)device bundleID:(id)d
@@ -692,8 +731,8 @@ LABEL_50:
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
   v2 = objc_opt_class();
-  v9 = ASErrorF(1, "%@ init failed", v3, v4, v5, v6, v7, v8, v2);
-  [a1 failWithError:v9];
+  v3 = ASErrorF(1, "%@ init failed", v2);
+  [a1 failWithError:v3];
 }
 
 - (void)initWithXPCObject:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
@@ -701,7 +740,7 @@ LABEL_50:
   if (a1)
   {
     v4 = [objc_opt_class() description];
-    *a1 = ASErrorF(-6756, "%@ init failed", v5, v6, v7, v8, v9, v10, v4);
+    *a1 = ASErrorF(-6756, "%@ init failed", v4);
   }
 
   *a2 = 0;

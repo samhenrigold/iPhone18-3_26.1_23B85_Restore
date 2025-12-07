@@ -10,9 +10,9 @@
 
 + (BOOL)isLightColor:(CGColor *)color
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = CGColorGetComponents(color);
-  v25 = xmmword_1AC881C80;
+  v24 = xmmword_1AC881C80;
   NumberOfComponents = CGColorGetNumberOfComponents(color);
   v6 = 0uLL;
   if (NumberOfComponents > 2)
@@ -34,7 +34,7 @@
 
     v6 = *v4;
     *&v8 = v4[2];
-    v25 = v8;
+    v24 = v8;
     goto LABEL_12;
   }
 
@@ -49,22 +49,22 @@
     *(&v7 + 1) = v4[1];
 LABEL_9:
     *&v7 = *v4;
-    v25 = v7;
+    v24 = v7;
     v6 = vdupq_lane_s64(*v4, 0);
   }
 
 LABEL_12:
-  v26 = v6;
+  v25 = v6;
   v9 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
   ColorSpace = CGColorGetColorSpace(color);
   v11 = ColorSpace;
   data = 0;
   if (!ColorSpace || !v9 || !CFEqual(ColorSpace, v9))
   {
-    *components = v26;
-    v31 = v25;
+    *components = v25;
+    v30 = v24;
     v14 = CGColorCreate(v11, components);
-    *&v25 = 0;
+    *&v24 = 0;
     if (v14)
     {
       v15 = CGBitmapContextCreate(&data, 1uLL, 1uLL, 8uLL, 4uLL, v9, 0x4002u);
@@ -72,24 +72,24 @@ LABEL_12:
       if (v15)
       {
         CGContextSetFillColorWithColor(v15, v14);
-        v33.origin.x = 0.0;
-        v33.origin.y = 0.0;
-        v33.size.width = 1.0;
-        v33.size.height = 1.0;
-        CGContextFillRect(v16, v33);
+        v32.origin.x = 0.0;
+        v32.origin.y = 0.0;
+        v32.size.width = 1.0;
+        v32.size.height = 1.0;
+        CGContextFillRect(v16, v32);
         LOBYTE(v17) = BYTE1(data);
         *&v18 = v17 / 255.0;
-        v27 = v18;
+        v26 = v18;
         LOBYTE(v18) = BYTE2(data);
         *&v19 = v18 / 255.0;
-        v24 = v19;
+        v23 = v19;
         LOBYTE(v19) = HIBYTE(data);
-        *&v25 = v19 / 255.0;
+        *&v24 = v19 / 255.0;
 LABEL_21:
         CGColorRelease(v14);
         CGContextRelease(v16);
-        v12.n128_u64[0] = v27;
-        v13 = v24;
+        v12.i64[0] = v26;
+        v13 = v23;
         goto LABEL_22;
       }
     }
@@ -99,21 +99,19 @@ LABEL_21:
       v16 = 0;
     }
 
-    v24 = 0;
-    v27 = 0;
+    v23 = 0;
+    v26 = 0;
     goto LABEL_21;
   }
 
-  v13 = v26.u64[1];
-  v12.n128_u64[0] = v26.i64[0];
+  v13 = v25.u64[1];
+  v12.i64[0] = v25.i64[0];
 LABEL_22:
-  v12.n128_u64[1] = v13;
-  v28 = v12;
+  v12.i64[1] = v13;
+  v27 = v12;
   CGColorSpaceRelease(v9);
-  ITColor::GetLuminance(v20, v28, *&v25);
-  result = v21 >= 0.180000007;
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  ITColor::GetLuminance(v20, v27, *&v24);
+  return v21 >= 0.180000007;
 }
 
 - (CGSize)preferredImageSize

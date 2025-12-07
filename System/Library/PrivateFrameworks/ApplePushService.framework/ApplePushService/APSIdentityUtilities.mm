@@ -95,7 +95,7 @@ LABEL_17:
 
 - (BOOL)albertIdentitySupported
 {
-  if ([APSBAAClientIdentityProvider supportsFetchingVMHostCerts]_0())
+  if ([APSBAAClientIdentityProvider supportsFetchingVMHostCerts]_0(self, a2))
   {
     return ![(APSIdentityUtilities *)self deviceIdentitySupported];
   }
@@ -108,38 +108,38 @@ LABEL_17:
 
 - (BOOL)baaPushIdentityEnabled
 {
-  deviceIdentitySupported = [(APSIdentityUtilities *)self deviceIdentitySupported];
-  if (deviceIdentitySupported)
+  LODWORD(v2) = [(APSIdentityUtilities *)self deviceIdentitySupported];
+  if (v2)
   {
-    deviceIdentitySupported = _os_feature_enabled_impl();
-    if (deviceIdentitySupported)
+    v2 = _os_feature_enabled_impl();
+    if (v2)
     {
-      if ([APSBAAClientIdentityProvider supportsFetchingVMHostCerts]_0())
+      if ([APSBAAClientIdentityProvider supportsFetchingVMHostCerts]_0(v2, v3))
       {
         goto LABEL_4;
       }
 
-      deviceIdentitySupported = _os_feature_enabled_impl();
-      if (!deviceIdentitySupported)
+      LODWORD(v2) = _os_feature_enabled_impl();
+      if (!v2)
       {
-        return deviceIdentitySupported;
+        return v2;
       }
 
       if (sub_10000712C())
       {
 LABEL_4:
-        LOBYTE(deviceIdentitySupported) = 1;
+        LOBYTE(v2) = 1;
       }
 
       else
       {
 
-        LOBYTE(deviceIdentitySupported) = _os_feature_enabled_impl();
+        LOBYTE(v2) = _os_feature_enabled_impl();
       }
     }
   }
 
-  return deviceIdentitySupported;
+  return v2;
 }
 
 - (NSNumber)forcedProviderDefault

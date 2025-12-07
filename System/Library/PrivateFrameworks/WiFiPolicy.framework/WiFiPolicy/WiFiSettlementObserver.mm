@@ -158,18 +158,8 @@ LABEL_20:
 
 - (void)_updateSettlementStatus:(int64_t)status confidence:(unint64_t)confidence
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  if (self->_status == status)
-  {
-    p_confidence = &self->_confidence;
-    confidence = self->_confidence;
-    if (confidence == confidence)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  else
+  v13[1] = *MEMORY[0x277D85DE8];
+  if (self->_status != status)
   {
     NSLog(&cfstr_SSettlementSta.isa, a2, "[WiFiSettlementObserver _updateSettlementStatus:confidence:]", self->_status, status);
     self->_status = status;
@@ -190,56 +180,60 @@ LABEL_20:
     {
       goto LABEL_9;
     }
+
+    goto LABEL_8;
   }
 
-  NSLog(&cfstr_SSettlementCon.isa, a2, "[WiFiSettlementObserver _updateSettlementStatus:confidence:]", confidence, confidence);
-  *p_confidence = confidence;
+  p_confidence = &self->_confidence;
+  confidence = self->_confidence;
+  if (confidence != confidence)
+  {
+LABEL_8:
+    NSLog(&cfstr_SSettlementCon.isa, a2, "[WiFiSettlementObserver _updateSettlementStatus:confidence:]", confidence, confidence);
+    *p_confidence = confidence;
 LABEL_9:
-  v13 = @"confidence";
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_confidence];
-  v14[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"confidence";
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_confidence];
+    v13[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
-  [(WiFiSettlementObserver *)self _callSettlementCallbackWithStatus:self->_status userInfo:v11];
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
+    [(WiFiSettlementObserver *)self _callSettlementCallbackWithStatus:self->_status userInfo:v11];
+  }
 }
 
 - (void)_callSettlementCallbackWithStatus:(int64_t)status userInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   infoCopy = info;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   callbacks = [(WiFiSettlementObserver *)self callbacks];
-  v7 = [callbacks countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [callbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(callbacks);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [callbacks countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [callbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSettlement

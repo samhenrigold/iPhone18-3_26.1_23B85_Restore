@@ -34,7 +34,7 @@
   if (options)
   {
     type metadata accessor for OptionsKey(0);
-    sub_1008B3D7C(&qword_100AF7160, type metadata accessor for OptionsKey);
+    sub_1008B3D7C(&qword_100AF7160, type metadata accessor for OptionsKey, &unk_10093F7C8);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }

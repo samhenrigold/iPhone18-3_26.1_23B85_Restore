@@ -16,124 +16,124 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphSliceOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphSliceOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm");
   v12 = nameCopy;
-  v48 = 260;
-  v47[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v47);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x16Bu, 0);
+  v46 = 260;
+  v45[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v45);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x16Bu, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v46 = v18;
-    if (v18)
+    *(&__dst.__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(&__dst, uTF8String, v18);
+      memmove(&__dst, uTF8String, v19);
     }
 
-    v20 = &__dst + v19;
+    v21 = &__dst + v20;
   }
 
   else
   {
-    v46 = 9;
-    v44 = 101;
-    __dst = *"mps.slice";
-    v20 = v45;
+    *(&__dst.__r_.__value_.__s + 23) = 9;
+    __dst.__r_.__value_.__s.__data_[8] = 101;
+    __dst.__r_.__value_.__r.__words[0] = *"mps.slice";
+    v21 = &__dst.__r_.__value_.__s.__data_[9];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v14, &v40);
-  v21 = v40.__r_.__value_.__r.__words[0];
-  if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v41, v14, v15);
+  v22 = v41.__r_.__value_.__r.__words[0];
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v40;
+    v22 = &v41;
   }
 
-  v22 = 1;
-  HIBYTE(v48) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  v23 = 1;
+  HIBYTE(v46) = 1;
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v47[0] = v21;
-    v22 = 3;
+    v45[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v48) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v47);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v46) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v45);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v40.__r_.__value_.__l.__data_);
-    if ((v46 & 0x80000000) == 0)
+    operator delete(v41.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v46 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v36 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v25 = *values;
+  v26 = *values;
   if (*(values + 1) == *values)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v37 = v24;
-  Context = mlir::Attribute::getContext(&v37);
-  v27 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::SliceOp,void>::id, Context);
-  if ((v28 & 1) == 0)
+  v38 = v25;
+  Context = mlir::Attribute::getContext(&v38);
+  v28 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::SliceOp,void>::id, Context);
+  if ((v29 & 1) == 0)
   {
-    v42 = 1283;
-    v40.__r_.__value_.__r.__words[2] = "mps.slice";
-    v41 = 9;
-    v39 = 259;
-    llvm::operator+(&v40, &v38, &__dst);
+    v43 = 1283;
+    v41.__r_.__value_.__r.__words[2] = "mps.slice";
+    v42 = 9;
+    v40 = 259;
+    llvm::operator+(&v41, &v39, &__dst);
     llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v47, v24, v27);
-  mlir::mps::SliceOp::build(builder, v47, *v25, self->_dimensionIndex, self->_start, self->_length);
-  v29 = mlir::OpBuilder::create(builder, v47);
-  v30 = *(*(v29 + 48) + 16);
-  mlir::OperationState::~OperationState(v47);
-  if (v30 == &mlir::detail::TypeIDResolver<mlir::mps::SliceOp,void>::id)
+  mlir::OperationState::OperationState(v45, v25, v28);
+  mlir::mps::SliceOp::build(builder, v45, *v26, self->_dimensionIndex, self->_start, self->_length);
+  v30 = mlir::OpBuilder::create(builder, v45);
+  v31 = *(*(v30 + 6) + 16);
+  mlir::OperationState::~OperationState(v45);
+  if (v31 == &mlir::detail::TypeIDResolver<mlir::mps::SliceOp,void>::id)
   {
-    v31 = v29;
+    v32 = v30;
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
-  v34 = v31 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v34);
+  v35 = v32 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v35);
 
   return DefiningOp;
 }

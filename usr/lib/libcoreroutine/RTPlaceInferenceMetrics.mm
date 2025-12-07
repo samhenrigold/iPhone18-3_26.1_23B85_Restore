@@ -480,7 +480,7 @@ uint64_t __59__RTPlaceInferenceMetrics_entropyOfConflictFromTopResults___block_i
   return v8;
 }
 
-long double __59__RTPlaceInferenceMetrics_entropyOfConflictFromTopResults___block_invoke_3(uint64_t a1, uint64_t a2)
+double __59__RTPlaceInferenceMetrics_entropyOfConflictFromTopResults___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) countForObject:a2] / *(*(*(a1 + 40) + 8) + 24);
   v4 = log2(v3);

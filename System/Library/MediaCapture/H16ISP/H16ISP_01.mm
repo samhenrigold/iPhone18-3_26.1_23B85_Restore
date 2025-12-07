@@ -296,60 +296,60 @@ uint64_t H16ISP::H16ISPDevice::SetFESCropRect(H16ISP::H16ISPDevice *a1, int a2, 
   return H16ISP::H16ISPDevice::ISP_SendCommand(a1, v11, 0x1Cu, 0, 0xFFFFFFFF);
 }
 
-uint64_t CopyOpticalCenter(uint64_t a1, uint64_t a2)
+uint64_t CopyOpticalCenter(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v17 = *MEMORY[0x277D85DE8];
-  if (H16ISP::H16ISPDevice::isSensorType(*(v2 + 24), *(v4 + 156), 1718186595))
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v16 = *MEMORY[0x277D85DE8];
+  if (H16ISP::H16ISPDevice::isSensorType(*(v1 + 24), *(v3 + 156), 1718186595))
   {
-    if (!getPCECalib(*(v3 + 24), v13))
+    if (!getPCECalib(*(v2 + 24)))
     {
       DictionaryRepresentation = 0;
-      v10 = 4294954516;
+      v9 = 4294954516;
       goto LABEL_11;
     }
 
-    v8 = vdivq_f64(v16, vdupq_lane_s64(v15, 0));
+    v7 = vdivq_f64(v15, vdupq_lane_s64(v14, 0));
   }
 
   else
   {
-    if (H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v5 + 156), 0, v13))
+    if (H16ISP::H16ISPDevice::GetDistortionData(*(v2 + 24), *(v4 + 156), 0, v12))
     {
       DictionaryRepresentation = 0;
-      v10 = 4294954514;
+      v9 = 4294954514;
       goto LABEL_11;
     }
 
-    v8 = vcvtq_f64_f32(v14);
+    v7 = vcvtq_f64_f32(v13);
   }
 
-  y = v8.y;
-  DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v8);
+  y = v7.y;
+  DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v7);
   if (DictionaryRepresentation)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = 4294954510;
+    v9 = 4294954510;
   }
 
 LABEL_11:
-  *v7 = DictionaryRepresentation;
-  return v10;
+  *v6 = DictionaryRepresentation;
+  return v9;
 }
 
-uint64_t CopyNarrowerCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
+uint64_t CopyNarrowerCalibratedOpticalCenter(uint64_t a1)
 {
-  MEMORY[0x28223BE20](a1, a2);
-  v3 = v2;
-  v9 = *MEMORY[0x277D85DE8];
-  if (H16ISP::H16ISPDevice::GetDistortionData(*(v4 + 24), *(v5 + 156), 1, v8))
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v8 = *MEMORY[0x277D85DE8];
+  if (H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v4 + 156), 1, v7))
   {
     DictionaryRepresentation = 0;
     result = 4294954513;
@@ -357,9 +357,9 @@ uint64_t CopyNarrowerCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
 
   else
   {
-    v10.x = v8[548];
-    v10.y = v8[549];
-    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v10);
+    v9.x = v7[548];
+    v9.y = v7[549];
+    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v9);
     if (DictionaryRepresentation)
     {
       result = 0;
@@ -371,7 +371,7 @@ uint64_t CopyNarrowerCalibratedOpticalCenter(uint64_t a1, uint64_t a2)
     }
   }
 
-  *v3 = DictionaryRepresentation;
+  *v2 = DictionaryRepresentation;
   return result;
 }
 
@@ -625,7 +625,7 @@ uint64_t SetDepthEngineConfiguration(const void *a1, int *a2, uint64_t a3, uint6
           v36 = 0;
         }
 
-        v6[332] = v36;
+        *(v6 + 332) = v36;
         v41 = *MEMORY[0x277CF4328];
         if (CFDictionaryContainsKey(a1, *MEMORY[0x277CF4328]))
         {
@@ -638,7 +638,7 @@ uint64_t SetDepthEngineConfiguration(const void *a1, int *a2, uint64_t a3, uint6
           v43 = 0;
         }
 
-        v6[352] = v43;
+        *(v6 + 352) = v43;
         if (*(v18 + 104 * a2[39] + 8) == 1718186595)
         {
           Preset = H16ISP::DepthFrontConfigurations::getPreset(HIDWORD(v76), v76, v22);
@@ -758,7 +758,7 @@ uint64_t SetDepthEngineConfiguration(const void *a1, int *a2, uint64_t a3, uint6
             }
           }
 
-          if (v6[332] == 1 && a2[1105] && (a2[1108] > 0 || a2[1109] != 0x7FFFFFFF || a2[1111] != 0x7FFFFFFF))
+          if (*(v6 + 332) == 1 && a2[1105] && (a2[1108] > 0 || a2[1109] != 0x7FFFFFFF || a2[1111] != 0x7FFFFFFF))
           {
             v67 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
             if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -822,7 +822,7 @@ LABEL_28:
     {
       if (!v21)
       {
-        if (v6[160])
+        if (v6[40])
         {
           H16ISP::ProjectorManager::setProjectorType(*(a2 + 565), 0);
         }
@@ -1147,7 +1147,7 @@ uint64_t CopySensorRawOutputBufferPoolRequirements(uint64_t a1, __CFDictionary *
   return result;
 }
 
-uint64_t H16ISP::getCVPixelFormat(H16ISP *this, int a2, int a3)
+uint64_t H16ISP::getCVPixelFormat(H16ISP *this, int a2, uint64_t a3)
 {
   v3 = 1651925816;
   if ((this - 1) >= 3)
@@ -1160,7 +1160,7 @@ uint64_t H16ISP::getCVPixelFormat(H16ISP *this, int a2, int a3)
       }
 
       v3 = 1651847472;
-      fprintf(*MEMORY[0x277D85DF8], "%s: Unsupported companding mode: %d");
+      fprintf(*MEMORY[0x277D85DF8], "%s: Unsupported companding mode: %d", a3);
       return v3;
     }
 
@@ -1178,7 +1178,7 @@ uint64_t H16ISP::getCVPixelFormat(H16ISP *this, int a2, int a3)
 
 LABEL_20:
       v3 = 1651847472;
-      fprintf(*MEMORY[0x277D85DF8], "%s: Invalid pixel format for shared buffer pool, compandingMode:%d, format:%d packType:%d ");
+      fprintf(*MEMORY[0x277D85DF8], "%s: Invalid pixel format for shared buffer pool, compandingMode:%d, format:%d packType:%d ", a3);
       return v3;
     }
 
@@ -2222,8 +2222,11 @@ uint64_t SetNRSharpeningConfiguration(const void *a1, uint64_t a2, uint64_t a3, 
   return ApplyNoiseReductionConfiguration(a4, a2, 0, 0, 0, a1);
 }
 
-uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int a4, int a5, CFDictionaryRef theDict)
+uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, CFDictionaryRef theDict)
 {
+  v7 = a5;
+  v8 = a4;
+  v9 = a3;
   v12 = 0x80;
   valuePtr = 128;
   if (theDict)
@@ -2246,7 +2249,7 @@ uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int 
   }
 
   v14 = (a2 + 156);
-  if (H16ISP::H16ISPDevice::SetRNFStrength(*(a1 + 24), *(a2 + 156), a3, v12))
+  if (H16ISP::H16ISPDevice::SetRNFStrength(*(a1 + 24), *(a2 + 156), v9, v12))
   {
     v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2280,7 +2283,7 @@ uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int 
       }
     }
 
-    if (H16ISP::H16ISPDevice::SetSharpness(*(a1 + 24), *v14, a4, v16))
+    if (H16ISP::H16ISPDevice::SetSharpness(*(a1 + 24), *v14, v8, v16))
     {
       v18 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2314,7 +2317,7 @@ uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int 
         }
       }
 
-      if (H16ISP::H16ISPDevice::SetLCEStrength(*(a1 + 24), *v14, a5, v19))
+      if (H16ISP::H16ISPDevice::SetLCEStrength(*(a1 + 24), *v14, v7, v19))
       {
         v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2485,7 +2488,7 @@ uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int 
           v30 = 2;
         }
 
-        if (H16ISP::H16ISPDevice::EnableMBNR(*(a1 + 24), *v14, a3, v30, v29))
+        if (H16ISP::H16ISPDevice::EnableMBNR(*(a1 + 24), *v14, v9, v30, v29))
         {
           v31 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
           if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2502,7 +2505,7 @@ uint64_t ApplyNoiseReductionConfiguration(uint64_t a1, uint64_t a2, int a3, int 
 
         else
         {
-          result = H16ISP::H16ISPDevice::SetMBNRConfiguration(*(a1 + 24), *v14, a3, 5u, &v54, &v58, &v56);
+          result = H16ISP::H16ISPDevice::SetMBNRConfiguration(*(a1 + 24), *v14, v9, 5u, &v54, &v58, &v56);
           if (!result)
           {
             return result;
@@ -2816,8 +2819,9 @@ uint64_t SetMetadataSectionEnabled(uint64_t a1, uint64_t a2, int *a3, const __CF
   return result;
 }
 
-uint64_t H16ISP::H16ISPDevice::EnableMetadataSection(H16ISP::H16ISPDevice *this, unsigned int a2, __int16 a3, __int16 a4)
+uint64_t H16ISP::H16ISPDevice::EnableMetadataSection(H16ISP::H16ISPDevice *this, uint64_t a2, __int16 a3, __int16 a4)
 {
+  v4 = a2;
   v5 = 3758097112;
   if (*(this + 4))
   {
@@ -2830,13 +2834,13 @@ uint64_t H16ISP::H16ISPDevice::EnableMetadataSection(H16ISP::H16ISPDevice *this,
     {
       bzero(v10, 0x14uLL);
       v11 = 294;
-      v12 = a2;
+      v12 = v4;
       v14 = a4;
       v13 = a3;
       v5 = H16ISP::H16ISPDevice::ISP_SendCommand(this, v10, 0x14u, 0, 0xFFFFFFFF);
       if (!v5)
       {
-        *(*(this + 5) + 432 * a2 + 136) = v15;
+        *(*(this + 5) + 432 * v4 + 136) = v15;
       }
     }
   }
@@ -3818,7 +3822,7 @@ uint64_t SetDeferAdditionOfAttachments(const void *a1, uint64_t a2)
 
 uint64_t H16ISP::H16ISPDevice::SetCameraConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, int a10, int a11, uint64_t a12, uint64_t a13)
 {
-  v13 = MEMORY[0x28223BE20](a1, a2);
+  v13 = MEMORY[0x28223BE20](a1);
   v21 = v14;
   v40 = *MEMORY[0x277D85DE8];
   v22 = 3758097090;
@@ -4905,7 +4909,7 @@ uint64_t CopyVideoOutputConfigurations(uint64_t a1, __CFDictionary **a2, uint64_
   }
 
   v309 = a2;
-  v12 = a3 + 724;
+  v12 = (a3 + 724);
   v13 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v14 = MEMORY[0x277CF65C8];
   v310 = v8;
@@ -5024,7 +5028,7 @@ uint64_t CopyVideoOutputConfigurations(uint64_t a1, __CFDictionary **a2, uint64_
       CFDictionarySetValue(v15, *MEMORY[0x277CF65D0], v39);
       CFRelease(v39);
       v8 = v310;
-      v12 = a3 + 724;
+      v12 = (a3 + 724);
       v14 = MEMORY[0x277CF65C8];
     }
 
@@ -5296,8 +5300,8 @@ LABEL_68:
     v99 = CFNumberCreate(0, kCFNumberSInt32Type, (a3 + 1320));
     CFDictionarySetValue(v97, *MEMORY[0x277CF65C0], v99);
     CFRelease(v99);
-    v100 = (v12 + 600);
-    v101 = CFNumberCreate(0, kCFNumberSInt32Type, (v12 + 600));
+    v100 = v12 + 75;
+    v101 = CFNumberCreate(0, kCFNumberSInt32Type, v12 + 75);
     CFDictionarySetValue(v97, *MEMORY[0x277CF65F8], v101);
     CFRelease(v101);
     v102 = CFNumberCreate(0, kCFNumberSInt32Type, (a3 + 1328));
@@ -5412,7 +5416,7 @@ LABEL_68:
     v123 = CFNumberCreate(0, kCFNumberSInt32Type, &v313);
     CFDictionarySetValue(v97, *MEMORY[0x277CF6560], v123);
     CFRelease(v123);
-    v12 = a3 + 724;
+    v12 = (a3 + 724);
     v14 = MEMORY[0x277CF65C8];
     if (*(v9 + 673) == 1)
     {
@@ -5476,7 +5480,7 @@ LABEL_68:
       v133 = CFNumberCreate(0, kCFNumberFloat32Type, (a3 + 1384));
       CFDictionarySetValue(v97, *MEMORY[0x277CF65D0], v133);
       CFRelease(v133);
-      v12 = a3 + 724;
+      v12 = (a3 + 724);
       v14 = MEMORY[0x277CF65C8];
     }
 
@@ -6703,10 +6707,11 @@ uint64_t H16ISP::DepthRearConfigurations::getPreset(H16ISP::DepthRearConfigurati
   return result;
 }
 
-float H16ISP::H16ISPDevice::GetGDCMaxStrength(H16ISP::H16ISPDevice *a1, int a2, uint64_t a3, unsigned __int16 *a4, float *a5, float result)
+float H16ISP::H16ISPDevice::GetGDCMaxStrength(H16ISP::H16ISPDevice *a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4, float *a5, float result)
 {
   if (a3 && a4 && a5)
   {
+    v10 = a2;
     bzero(v14, 0x54uLL);
     v15 = 2630;
     v11 = *a4;
@@ -6731,7 +6736,7 @@ float H16ISP::H16ISPDevice::GetGDCMaxStrength(H16ISP::H16ISPDevice *a1, int a2, 
     v21 = v12;
     v22 = *(a3 + 20);
     v23 = *(a3 + 4);
-    if (!H16ISP::H16ISPDevice::ISP_GetGDCBesOutputValidRect(a1, a2, a3, a4, &v24, 1.0) && !H16ISP::H16ISPDevice::ISP_SendCommand(a1, v14, 0x54u, 0, 0xFFFFFFFF))
+    if (!H16ISP::H16ISPDevice::ISP_GetGDCBesOutputValidRect(a1, v10, a3, a4, &v24, 1.0) && !H16ISP::H16ISPDevice::ISP_SendCommand(a1, v14, 0x54u, 0, 0xFFFFFFFF))
     {
       result = v25;
       *a5 = v25;

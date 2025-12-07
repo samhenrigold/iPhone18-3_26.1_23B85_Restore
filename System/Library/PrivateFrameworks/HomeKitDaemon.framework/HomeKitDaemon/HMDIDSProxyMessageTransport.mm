@@ -17,7 +17,7 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   messageCopy = message;
@@ -34,9 +34,9 @@
 LABEL_6:
 
 LABEL_7:
-    v23.receiver = self;
-    v23.super_class = HMDIDSProxyMessageTransport;
-    [(HMDIDSMessageTransport *)&v23 service:serviceCopy account:accountCopy incomingMessage:messageCopy fromID:dCopy context:contextCopy];
+    v22.receiver = self;
+    v22.super_class = HMDIDSProxyMessageTransport;
+    [(HMDIDSMessageTransport *)&v22 service:serviceCopy account:accountCopy incomingMessage:messageCopy fromID:dCopy context:contextCopy];
     goto LABEL_8;
   }
 
@@ -47,22 +47,20 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  v20 = objc_autoreleasePoolPush();
-  v21 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v19 = objc_autoreleasePoolPush();
+  v20 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v22 = HMFGetLogIdentifier();
+    v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v22;
-    v26 = 2112;
-    v27 = v18;
-    _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Dropping incoming message from unsupported device: %@", buf, 0x16u);
+    v24 = v21;
+    v25 = 2112;
+    v26 = v18;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Dropping incoming message from unsupported device: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v20);
+  objc_autoreleasePoolPop(v19);
 LABEL_8:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sendMessage:(id)message fromHandle:(id)handle destination:(id)destination priority:(int64_t)priority timeout:(double)timeout options:(unint64_t)options queueOneID:(id)d error:(id *)self0
@@ -91,7 +89,7 @@ LABEL_8:
 
 - (BOOL)canSendMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   destination = [messageCopy destination];
   objc_opt_class();
@@ -125,11 +123,11 @@ LABEL_15:
     {
       v19 = HMFGetLogIdentifier();
       device2 = [v7 device];
-      v23 = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = device2;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message, the device, %@, is not currently connected", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = device2;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message, the device, %@, is not currently connected", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -148,24 +146,23 @@ LABEL_15:
     {
       v15 = HMFGetLogIdentifier();
       device4 = [v7 device];
-      v23 = 138543618;
-      v24 = v15;
-      v25 = 2112;
-      v26 = device4;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message, the device, %@, is not supported", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v15;
+      v24 = 2112;
+      v25 = device4;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message, the device, %@, is not supported", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
 
 LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (id)watchDeviceForDevice:(id)device
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   companionManager = [(HMDIDSProxyMessageTransport *)self companionManager];
 
@@ -175,28 +172,28 @@ LABEL_16:
 
     if (watchManager)
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       watchManager2 = [(HMDIDSProxyMessageTransport *)self watchManager];
       watches = [watchManager2 watches];
 
-      v13 = [watches countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [watches countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v22;
+        v15 = *v21;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v22 != v15)
+            if (*v21 != v15)
             {
               objc_enumerationMutation(watches);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * i);
+            v17 = *(*(&v20 + 1) + 8 * i);
             if ([v17 isRelatedToDevice:deviceCopy])
             {
               companion2 = v17;
@@ -204,7 +201,7 @@ LABEL_16:
             }
           }
 
-          v14 = [watches countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v14 = [watches countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v14)
           {
             continue;
@@ -235,7 +232,6 @@ LABEL_16:
   v18 = companion2;
 
 LABEL_17:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -258,7 +254,7 @@ LABEL_17:
 
 - (id)remoteMessageFromMessage:(id)message
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [objc_opt_class() remoteMessageFromMessage:messageCopy secure:-[HMDIDSProxyMessageTransport isSecure](self accountRegistry:{"isSecure"), 0}];
   destination = [messageCopy destination];
@@ -288,13 +284,13 @@ LABEL_17:
       {
         v13 = HMFGetLogIdentifier();
         device2 = [v8 device];
-        v20 = 138543874;
-        v21 = v13;
-        v22 = 2112;
-        v23 = device2;
-        v24 = 2112;
-        v25 = v10;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Replacing device destination, %@, with device: %@", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = v13;
+        v21 = 2112;
+        v22 = device2;
+        v23 = 2112;
+        v24 = v10;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Replacing device destination, %@, with device: %@", &v19, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -305,8 +301,6 @@ LABEL_17:
       [v5 setDestination:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -359,10 +353,9 @@ LABEL_6:
 
 void __42__HMDIDSProxyMessageTransport_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_260913;
-  logCategory__hmf_once_v3_260913 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_260913;
+  logCategory__hmf_once_v3_260913 = v0;
 }
 
 + (BOOL)transportSupportsDevice:(id)device

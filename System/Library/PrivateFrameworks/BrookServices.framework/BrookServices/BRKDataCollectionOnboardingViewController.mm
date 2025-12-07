@@ -138,7 +138,7 @@
 
 - (void)openSettings
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=Privacy&path=PROBLEM_REPORTING"];
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   v4 = [defaultWorkspace openSensitiveURL:v2 withOptions:0];
@@ -152,12 +152,10 @@
       v6 = @"successfully";
     }
 
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "Opened privacy settings %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "Opened privacy settings %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tappedLearnMore

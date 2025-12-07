@@ -1,5 +1,6 @@
 @interface MSServerEvaluationStatus
 + (Class)managedClass;
+- (MSServerEvaluationStatus)initWithArpStatus:(BOOL)status positionIndex:(int64_t)index rapStatus:(BOOL)rapStatus reliabilityStatus:(BOOL)reliabilityStatus;
 - (MSServerEvaluationStatus)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (int64_t)positionIndex;
 - (void)setArpStatus:(BOOL)status;
@@ -10,6 +11,23 @@
 @end
 
 @implementation MSServerEvaluationStatus
+
+- (MSServerEvaluationStatus)initWithArpStatus:(BOOL)status positionIndex:(int64_t)index rapStatus:(BOOL)rapStatus reliabilityStatus:(BOOL)reliabilityStatus
+{
+  reliabilityStatusCopy = reliabilityStatus;
+  rapStatusCopy = rapStatus;
+  statusCopy = status;
+  if (qword_1EDB0F2A0 != -1)
+  {
+    selfCopy = self;
+    swift_once();
+    self = selfCopy;
+  }
+
+  v10 = qword_1EDB0F2A8;
+
+  return [(MSServerEvaluationStatus *)self initWithStore:v10 arpStatus:statusCopy positionIndex:index rapStatus:rapStatusCopy reliabilityStatus:reliabilityStatusCopy];
+}
 
 + (Class)managedClass
 {

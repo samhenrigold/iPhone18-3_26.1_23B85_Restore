@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"deviceOrientation";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"deviceOrientation";
   deviceOrientation = [(ICASOrientationData *)self deviceOrientation];
   if (deviceOrientation)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = deviceOrientation2;
-  v12[1] = @"interfaceOrientation";
-  v13[0] = deviceOrientation2;
+  v11[1] = @"interfaceOrientation";
+  v12[0] = deviceOrientation2;
   interfaceOrientation = [(ICASOrientationData *)self interfaceOrientation];
   if (interfaceOrientation)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = interfaceOrientation2;
-  v13[1] = interfaceOrientation2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = interfaceOrientation2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

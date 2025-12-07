@@ -817,7 +817,7 @@ LABEL_26:
 
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEBUG))
     {
-      sub_100014988(p_fDebounceTimer);
+      sub_100014988();
     }
 
     dispatch_source_cancel(*p_fDebounceTimer);
@@ -1525,22 +1525,7 @@ LABEL_6:
 {
   requestCopy = request;
   v5 = requestCopy;
-  if (!requestCopy)
-  {
-    goto LABEL_42;
-  }
-
-  filteredQueue = [requestCopy filteredQueue];
-  if (!filteredQueue)
-  {
-    goto LABEL_42;
-  }
-
-  v7 = filteredQueue;
-  filteredQueue2 = [v5 filteredQueue];
-  v9 = [filteredQueue2 count];
-
-  if (v9)
+  if (requestCopy && ([requestCopy filteredQueue], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(v5, "filteredQueue"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v7, v9))
   {
     if (qword_100029E70 != -1)
     {
@@ -1551,15 +1536,15 @@ LABEL_6:
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      filteredQueue3 = [v5 filteredQueue];
-      v13 = [filteredQueue3 count];
-      filteredQueue4 = [v5 filteredQueue];
+      filteredQueue = [v5 filteredQueue];
+      v13 = [filteredQueue count];
+      filteredQueue2 = [v5 filteredQueue];
       *buf = 136446979;
       v60 = "[CLEEDMediaService copyAndCreateServiceItemsForRequest:]";
       v61 = 2050;
       v62 = v13;
       v63 = 2113;
-      v64 = filteredQueue4;
+      v64 = filteredQueue2;
       v65 = 2113;
       v66 = v5;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, mediaListCount:%{public}lu, mediaList:%{private}@, mediaRequest:%{private}@", buf, 0x2Au);
@@ -1567,8 +1552,8 @@ LABEL_6:
 
     v15 = objc_autoreleasePoolPush();
     v16 = [NSArray alloc];
-    filteredQueue5 = [v5 filteredQueue];
-    allObjects = [filteredQueue5 allObjects];
+    filteredQueue3 = [v5 filteredQueue];
+    allObjects = [filteredQueue3 allObjects];
     v19 = [v16 initWithArray:allObjects];
 
     v20 = [v19 count];
@@ -1588,8 +1573,8 @@ LABEL_6:
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    filteredQueue6 = [v5 filteredQueue];
-    v24 = [filteredQueue6 countByEnumeratingWithState:&v51 objects:v58 count:16];
+    filteredQueue4 = [v5 filteredQueue];
+    v24 = [filteredQueue4 countByEnumeratingWithState:&v51 objects:v58 count:16];
     v26 = &selRef_createDirectoryAtPath_withIntermediateDirectories_attributes_error_;
     if (v24)
     {
@@ -1604,7 +1589,7 @@ LABEL_6:
         {
           if (*v52 != v28)
           {
-            objc_enumerationMutation(filteredQueue6);
+            objc_enumerationMutation(filteredQueue4);
           }
 
           v30 = *(*(&v51 + 1) + 8 * v29);
@@ -1689,7 +1674,7 @@ LABEL_31:
         }
 
         while (v27 != v29);
-        v40 = [filteredQueue6 countByEnumeratingWithState:&v51 objects:v58 count:16];
+        v40 = [filteredQueue4 countByEnumeratingWithState:&v51 objects:v58 count:16];
         v27 = v40;
       }
 
@@ -1706,8 +1691,8 @@ LABEL_31:
     {
       v42 = v41;
       v43 = [v50 count];
-      filteredQueue7 = [v5 filteredQueue];
-      v45 = [filteredQueue7 count];
+      filteredQueue5 = [v5 filteredQueue];
+      v45 = [filteredQueue5 count];
       *buf = 136446722;
       v60 = "[CLEEDMediaService copyAndCreateServiceItemsForRequest:]";
       v61 = 2050;
@@ -1717,8 +1702,8 @@ LABEL_31:
       _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, FilteredServiceItemsCount:%{public}lu, mediaListCount:%{public}lu", buf, 0x20u);
     }
 
-    filteredQueue8 = [v5 filteredQueue];
-    [filteredQueue8 removeAllObjects];
+    filteredQueue6 = [v5 filteredQueue];
+    [filteredQueue6 removeAllObjects];
 
     if ([v50 count])
     {
@@ -1728,7 +1713,6 @@ LABEL_31:
 
   else
   {
-LABEL_42:
     if (qword_100029E70 != -1)
     {
       sub_100013344();
@@ -2182,21 +2166,21 @@ LABEL_37:
     v9 = [(NSMutableArray *)self->fDelayedServiceItemsList count];
     v10 = [(NSMutableArray *)self->fCompletedServiceItemsList count];
     *buf = 136448002;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
-    v39 = 2082;
-    v40 = v5;
-    v41 = 2050;
-    v42 = v6;
-    v43 = 2050;
-    v44 = v7;
-    v45 = 2050;
-    v46 = v8;
-    v47 = 2050;
-    v48 = v9;
-    v49 = 2050;
-    v50 = v10;
-    v51 = 2050;
-    v52 = vcvtd_n_f64_s64([(CLEEDMediaService *)self totalBytesUploadedDuringCall], 0x14uLL);
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v42 = 2082;
+    v43 = v5;
+    v44 = 2050;
+    v45 = v6;
+    v46 = 2050;
+    v47 = v7;
+    v48 = 2050;
+    v49 = v8;
+    v50 = 2050;
+    v51 = v9;
+    v52 = 2050;
+    v53 = v10;
+    v54 = 2050;
+    v55 = vcvtd_n_f64_s64([(CLEEDMediaService *)self totalBytesUploadedDuringCall], 0x14uLL);
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Abort?:%{public}s, numInFlight:%{public}lu, numPendingUpload:%{public}lu, numPendingEncrypt:%{public}lu, numDelayed:%{public}lu, numCompleted:%{public}lu, totalBytesUploadedInCall:%{public}.2lf MB", buf, 0x52u);
   }
 
@@ -2211,7 +2195,7 @@ LABEL_37:
     if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
+      v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Abort Requested by user, returning", buf, 0xCu);
     }
 
@@ -2234,9 +2218,9 @@ LABEL_37:
 
     v14 = self->fCurrentMitigation;
     *buf = 136446466;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
-    v39 = 2114;
-    v40 = v14;
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v42 = 2114;
+    v43 = v14;
     v15 = "#EED2EMS,%{public}s, Abort due to upload Mitigations:%{public}@, returning";
 LABEL_24:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v15, buf, 0x16u);
@@ -2260,9 +2244,9 @@ LABEL_25:
 
     v16 = self->fCurrentMitigation;
     *buf = 136446466;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
-    v39 = 2114;
-    v40 = v16;
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v42 = 2114;
+    v43 = v16;
     v15 = "#EED2EMS,%{public}s, Delay due to upload Mitigations:%{public}@, returning";
     goto LABEL_24;
   }
@@ -2280,29 +2264,29 @@ LABEL_25:
     {
       if ([(CLEEDMediaService *)self checkIfUploadQuotaReached:firstObject])
       {
-        v34 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v35 = 0u;
-        v32 = 0u;
-        v33 = 0u;
+        v36 = 0u;
         v19 = self->fPendingServiceItemsForUploadList;
-        v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v33;
+          v22 = *v36;
           do
           {
             for (i = 0; i != v21; i = i + 1)
             {
-              if (*v33 != v22)
+              if (*v36 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              [(CLEEDMediaService *)self handleDelayForMediaServiceItem:*(*(&v32 + 1) + 8 * i)];
+              [(CLEEDMediaService *)self handleDelayForMediaServiceItem:*(*(&v35 + 1) + 8 * i)];
             }
 
-            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
           }
 
           while (v21);
@@ -2318,7 +2302,7 @@ LABEL_25:
         if (os_log_type_enabled(qword_100029E68, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
+          v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, uploadQuotaExceeded, All Uploads delayed", buf, 0xCu);
         }
 
@@ -2353,18 +2337,18 @@ LABEL_25:
     }
 
     *buf = 136446210;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
     v27 = "#EED2EMS,%{public}s, waiting for items to complete encryption.";
     v28 = v26;
     goto LABEL_51;
   }
 
   v29 = [(NSMutableArray *)self->fInFlightServiceItemsList count];
-  firstObject = sub_1000012D8();
-  v30 = os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT);
+  firstObject = sub_1000012D8(v29, v30, v31, v32);
+  v33 = os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT);
   if (v29)
   {
-    if (!v30)
+    if (!v33)
     {
 LABEL_52:
 
@@ -2372,7 +2356,7 @@ LABEL_52:
     }
 
     *buf = 136446210;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
     v27 = "#EED2EMS,%{public}s, waiting for in-flight items to complete upload.";
     v28 = firstObject;
 LABEL_51:
@@ -2380,10 +2364,10 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  if (v30)
+  if (v33)
   {
     *buf = 136446210;
-    v38 = "[CLEEDMediaService processNextInFlightServiceItem]";
+    v41 = "[CLEEDMediaService processNextInFlightServiceItem]";
     _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_DEFAULT, "#EED2EMS,%{public}s, Input list is empty, preparing for service teardown.", buf, 0xCu);
   }
 

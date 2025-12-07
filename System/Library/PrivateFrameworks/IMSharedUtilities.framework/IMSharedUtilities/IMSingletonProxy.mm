@@ -161,7 +161,7 @@ LABEL_12:
     v11 = IMLogHandleForCategory("IMSingletonLog");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_1A88C5094(overrideClass);
+      sub_1A88C5094(overrideClass, self);
     }
   }
 }

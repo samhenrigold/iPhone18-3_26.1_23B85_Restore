@@ -69,7 +69,7 @@
   return self->_isStreaming;
 }
 
-uint64_t __35__AVFigAssetInspector__isStreaming__block_invoke(uint64_t a1)
+void *__35__AVFigAssetInspector__isStreaming__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _tollFreeBridgedObjectForProperty:*MEMORY[0x1E6971180]];
   result = [v2 isEqualToString:*MEMORY[0x1E6971508]];
@@ -801,7 +801,7 @@ LABEL_16:
   return v5 == 1;
 }
 
-uint64_t __59__AVFigAssetInspector_makePropertyListForProxyWithOptions___block_invoke()
+void *__59__AVFigAssetInspector_makePropertyListForProxyWithOptions___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{@"creationDate", @"identifier", @"make", @"model", @"software", @"location", 0}];
   _MergedGlobals = result;
@@ -828,7 +828,7 @@ uint64_t __59__AVFigAssetInspector_makePropertyListForProxyWithOptions___block_i
   return self->_displayCriteria;
 }
 
-uint64_t __47__AVFigAssetInspector_preferredDisplayCriteria__block_invoke(uint64_t a1)
+AVDisplayCriteria *__47__AVFigAssetInspector_preferredDisplayCriteria__block_invoke(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
   valuePtr = 0;

@@ -1,1894 +1,429 @@
-uint64_t static UnifiedLibrary.Library.databaseResourceIdentifier(legacyViewName:)(uint64_t a1, uint64_t a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
-  if (one-time initialization token for lockedLibraries != -1)
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSaySSGGMd, &_ss18_DictionaryStorageCySSSaySSGGMR);
+  v34 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (!*(v5 + 16))
   {
-LABEL_10:
-    swift_once();
-  }
+LABEL_31:
 
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 72))(a1, a2);
-    v6 = v9;
-    if (v12)
-    {
-      v13 = v11;
-
-      return v13;
-    }
-  }
-
-  return 0;
-}
-
-id thunk for @escaping @callee_guaranteed (@guaranteed String) -> (@owned String?)(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = v4;
-
-  v6 = v2(v3, v5);
-  v8 = v7;
-
-  if (v8)
-  {
-    v9 = MEMORY[0x1865F6160](v6, v8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9;
-}
-
-uint64_t static UnifiedLibrary.Library.streamIdentifier(legacyStreamName:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_10:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 88))(a1, a2);
-    v6 = v9;
-    if (v12)
-    {
-      v13 = v11;
-
-      return v13;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t static UnifiedLibrary.Library.streamIdentifier(uuidString:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_10:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 96))(a1, a2);
-    v6 = v9;
-    if (v12)
-    {
-      v13 = v11;
-
-      return v13;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t static UnifiedLibrary.set(libraries:)(uint64_t a1)
-{
-  if (one-time initialization token for initializedLibrary != -1)
-  {
-    OUTLINED_FUNCTION_13_0();
-  }
-
-  return static UnifiedLibrary.Library.set(libraries:)(a1);
-}
-
-uint64_t static UnifiedLibrary.Library.set(libraries:)(uint64_t a1)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-    a1 = swift_once();
-  }
-
-  v1 = static UnifiedLibrary.Library.lockedLibraries;
-  MEMORY[0x1EEE9AC00](a1);
-
-  os_unfair_lock_lock(v1 + 6);
-  partial apply for closure #1 in static UnifiedLibrary.Library.set(libraries:)(v1 + 2);
-  os_unfair_lock_unlock(v1 + 6);
-}
-
-uint64_t static UnifiedLibrary.set(streamsBaseOverride:)(uint64_t a1)
-{
-  if (one-time initialization token for initializedLibrary != -1)
-  {
-    OUTLINED_FUNCTION_13_0();
-  }
-
-  outlined init with copy of Aggregation(a1, v5);
-  v2 = swift_allocObject();
-  outlined init with take of Aggregation(v5, v2 + 16);
-  static UnifiedLibrary.Library.bmLibraryStreamBasesFunc.setter(partial apply for closure #1 in static UnifiedLibrary.set(streamsBaseOverride:));
-  outlined init with copy of Aggregation(a1, v5);
-  v3 = swift_allocObject();
-  outlined init with take of Aggregation(v5, v3 + 16);
-  return static UnifiedLibrary.Library.bmLibraryStreamBaseFunc.setter(partial apply for closure #2 in static UnifiedLibrary.set(streamsBaseOverride:));
-}
-
-id closure #2 in static UnifiedLibrary.set(streamsBaseOverride:)(uint64_t a1, void *a2)
-{
-  v2 = a2[3];
-  v3 = __swift_project_boxed_opaque_existential_1(a2, v2);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v25 = *(AssociatedTypeWitness - 8);
-  v5 = *(v25 + 64);
-  v6 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = &v24 - v7;
-  v9 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  (*(v11 + 16))(&v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v3, v2);
-  dispatch thunk of Sequence.makeIterator()();
-  swift_getAssociatedConformanceWitness();
-  while (1)
-  {
-    dispatch thunk of IteratorProtocol.next()();
-    v12 = v26;
-    if (!v26)
-    {
-      (*(v25 + 8))(v8, AssociatedTypeWitness);
-      v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v12 = v21;
-      lazy protocol witness table accessor for type UnifiedLibrary.Error and conformance UnifiedLibrary.Error();
-      swift_allocError();
-      *v22 = v20;
-      v22[1] = v12;
-      swift_willThrow();
-      return v12;
-    }
-
-    v13 = [v26 identifier];
-    v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = v15;
-    if (v14 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v16 == v17)
-    {
-      break;
-    }
-
-    v19 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v19)
-    {
-      goto LABEL_11;
-    }
-  }
-
-LABEL_11:
-  (*(v25 + 8))(v8, AssociatedTypeWitness);
-  return v12;
-}
-
-uint64_t one-time initialization function for lockedBMLibraryStreamBasesFunc()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCyST_pSo12BMStreamBaseC7ElementSTRts_XPycSgSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCyST_pSo12BMStreamBaseC7ElementSTRts_XPycSgSo16os_unfair_lock_sVGMR);
-  result = swift_allocObject();
-  *(result + 16) = 0;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  static UnifiedLibrary.Library.lockedBMLibraryStreamBasesFunc = result;
-  return result;
-}
-
-uint64_t one-time initialization function for lockedBMLibraryStreamBaseFunc()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCySo12BMStreamBaseCSo0C10IdentifieraKcSgSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCySo12BMStreamBaseCSo0C10IdentifieraKcSgSo16os_unfair_lock_sVGMR);
-  result = swift_allocObject();
-  *(result + 16) = 0;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  static UnifiedLibrary.Library.lockedBMLibraryStreamBaseFunc = result;
-  return result;
-}
-
-uint64_t static UnifiedLibrary.Library.bmLibraryStreamBasesFunc.setter(uint64_t a1)
-{
-  v1 = a1;
-  if (one-time initialization token for lockedBMLibraryStreamBasesFunc != -1)
-  {
-    a1 = swift_once();
-  }
-
-  v2 = static UnifiedLibrary.Library.lockedBMLibraryStreamBasesFunc;
-  MEMORY[0x1EEE9AC00](a1);
-
-  os_unfair_lock_lock(v2 + 8);
-  partial apply for closure #1 in static UnifiedLibrary.Library.bmLibraryStreamBasesFunc.setter(v2 + 2);
-  os_unfair_lock_unlock(v2 + 8);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v1);
-}
-
-uint64_t closure #1 in static UnifiedLibrary.Library.bmLibraryStreamBasesFunc.setter(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *a1;
-  if (v6)
-  {
-    v7 = a1[1];
-    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v6);
-  }
-
-  if (a2)
-  {
-    v8 = a3;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  *a1 = a2;
-  a1[1] = v8;
-  return _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(a2);
-}
-
-void *thunk for @escaping @callee_guaranteed (@in_guaranteed BMStreamIdentifier) -> (@out BMStreamBase, @error @owned Error)(uint64_t a1, void *(*a2)(uint64_t *__return_ptr, uint64_t *))
-{
-  v5 = a1;
-  result = a2(&v4, &v5);
-  if (!v2)
-  {
-    return v4;
-  }
-
-  return result;
-}
-
-uint64_t static UnifiedLibrary.Library.bmLibraryStreamBaseFunc.setter(uint64_t a1)
-{
-  v1 = a1;
-  if (one-time initialization token for lockedBMLibraryStreamBaseFunc != -1)
-  {
-    a1 = swift_once();
-  }
-
-  v2 = static UnifiedLibrary.Library.lockedBMLibraryStreamBaseFunc;
-  MEMORY[0x1EEE9AC00](a1);
-
-  os_unfair_lock_lock(v2 + 8);
-  partial apply for closure #1 in static UnifiedLibrary.Library.bmLibraryStreamBaseFunc.setter(v2 + 2);
-  os_unfair_lock_unlock(v2 + 8);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v1);
-}
-
-_BYTE *storeEnumTagSinglePayload for UnifiedLibrary(_BYTE *result, int a2, int a3)
-{
-  if ((a3 + 1) >= 0x10000)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) < 0x100)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2)
-  {
-    switch(v5)
-    {
-      case 1:
-        *result = a2;
-        break;
-      case 2:
-        *result = a2;
-        break;
-      case 3:
-        goto LABEL_19;
-      case 4:
-        *result = a2;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        *result = 0;
-        break;
-      case 2:
-        *result = 0;
-        break;
-      case 3:
-LABEL_19:
-        __break(1u);
-        break;
-      case 4:
-        *result = 0;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in static UnifiedLibrary.Library.bmLibraryStreamBaseFunc.setter(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *a1;
-  if (v6)
-  {
-    v7 = a1[1];
-    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v6);
-  }
-
-  if (a2)
-  {
-    v8 = swift_allocObject();
-    *(v8 + 16) = a2;
-    *(v8 + 24) = a3;
-    v9 = thunk for @escaping @callee_guaranteed (@guaranteed BMStreamIdentifier) -> (@owned BMStreamBase, @error @owned Error)partial apply;
-  }
-
-  else
-  {
-    v9 = 0;
-    v8 = 0;
-  }
-
-  *a1 = v9;
-  a1[1] = v8;
-  return _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(a2);
-}
-
-uint64_t closure #1 in static UnifiedLibrary.Library.set(libraries:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *a1;
-
-  *a1 = a2;
-}
-
-uint64_t static UnifiedLibrary.Library.sqlViewToBiomeStreamMapping.getter()
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_8:
-    OUTLINED_FUNCTION_42_0();
-  }
-
-  v0 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v0 + 6);
-  v1 = *&v0[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v0 + 6);
-
-  v2 = 0;
-  v3 = *(v1 + 16);
-  v4 = v1 + 40;
-  v5 = MEMORY[0x1E69E7CC8];
-  while (v3 != v2)
-  {
-    if (v2 >= *(v1 + 16))
-    {
-      __break(1u);
-      goto LABEL_8;
-    }
-
-    ++v2;
-    v6 = *(v4 - 8);
-    v7 = (*(*v4 + 24))();
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = v5;
-    specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v7, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, isUniquelyReferenced_nonNull_native, &v10);
-    v5 = v10;
-    v4 += 16;
-  }
-
-  return v5;
-}
-
-uint64_t static UnifiedLibrary.Library.orderedDataflows.getter()
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-    goto LABEL_22;
-  }
-
-  while (1)
-  {
-    v0 = static UnifiedLibrary.Library.lockedLibraries;
-
-    os_unfair_lock_lock(v0 + 6);
-    v1 = *&v0[4]._os_unfair_lock_opaque;
-
-    os_unfair_lock_unlock(v0 + 6);
-
-    v2 = *(v1 + 16);
-    if (!v2)
-    {
-      break;
-    }
-
-    v3 = v1 + 40;
-    v4 = MEMORY[0x1E69E7CC0];
-    while (1)
-    {
-      v5 = *(v3 - 8);
-      v6 = (*(*v3 + 56))();
-      v7 = *(v6 + 16);
-      v8 = *(v4 + 16);
-      if (__OFADD__(v8, v7))
-      {
-        break;
-      }
-
-      v9 = v6;
-      if (!swift_isUniquelyReferenced_nonNull_native() || v8 + v7 > *(v4 + 24) >> 1)
-      {
-        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v4 = v10;
-      }
-
-      if (*(v9 + 16))
-      {
-        if ((*(v4 + 24) >> 1) - *(v4 + 16) < v7)
-        {
-          goto LABEL_20;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v7)
-        {
-          v11 = *(v4 + 16);
-          v12 = __OFADD__(v11, v7);
-          v13 = v11 + v7;
-          if (v12)
-          {
-            goto LABEL_21;
-          }
-
-          *(v4 + 16) = v13;
-        }
-      }
-
-      else
-      {
-
-        if (v7)
-        {
-          goto LABEL_19;
-        }
-      }
-
-      v3 += 16;
-      if (!--v2)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    __break(1u);
-LABEL_21:
-    __break(1u);
-LABEL_22:
-    OUTLINED_FUNCTION_42_0();
-  }
-
-  v4 = MEMORY[0x1E69E7CC0];
-LABEL_17:
-
-  return v4;
-}
-
-void *static UnifiedLibrary.Library.lookupDataflow(name:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_11:
-    swift_once();
-  }
-
-  v6 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v6 + 6);
-  v7 = *&v6[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v6 + 6);
-
-  v8 = 0;
-  v9 = *(v7 + 16);
-  for (i = v7 + 40; ; i += 16)
-  {
-    if (v9 == v8)
-    {
-
-      _s12BiomeStreams8DataflowVSgWOi0_(__dst);
-      v12 = __dst;
-      return memcpy(a3, v12, 0x80uLL);
-    }
-
-    if (v8 >= *(v7 + 16))
-    {
-      __break(1u);
-      goto LABEL_11;
-    }
-
-    v11 = *(i - 8);
-    (*(*i + 64))(v14, a1, a2);
-    memcpy(__dst, v14, sizeof(__dst));
-    if (_s12BiomeStreams8DataflowVSgWOg(__dst) != 1)
-    {
-      break;
-    }
-
-    ++v8;
-  }
-
-  v12 = v14;
-  return memcpy(a3, v12, 0x80uLL);
-}
-
-uint64_t static UnifiedLibrary.Library.streamBase(for:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_17:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_17;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 48))(a1, a2);
-    v6 = v9;
-    if (v11)
-    {
-      v12 = v11;
-
-      return v12;
-    }
-  }
-
-  if (one-time initialization token for lockedBMLibraryStreamBaseFunc != -1)
-  {
-    swift_once();
-  }
-
-  v13 = static UnifiedLibrary.Library.lockedBMLibraryStreamBaseFunc;
-
-  os_unfair_lock_lock(v13 + 8);
-  v15 = *(v13 + 2);
-  v14 = *(v13 + 3);
-  if (v15)
-  {
-    v16 = swift_allocObject();
-    *(v16 + 16) = v15;
-    *(v16 + 24) = v14;
-    v17 = swift_allocObject();
-    *(v17 + 16) = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed BMStreamIdentifier) -> (@out BMStreamBase, @error @owned Error);
-    *(v17 + 24) = v16;
-    v14 = swift_allocObject();
-    *(v14 + 16) = partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed BMStreamIdentifier) -> (@out BMStreamBase, @error @owned Error);
-    *(v14 + 24) = v16;
-
-    v18 = partial apply for thunk for @escaping @callee_guaranteed (@guaranteed BMStreamIdentifier) -> (@owned BMStreamBase, @error @owned Error);
-    v19 = thunk for @escaping @callee_guaranteed (@guaranteed BMStreamIdentifier) -> (@owned BMStreamBase, @error @owned Error)partial apply;
-  }
-
-  else
-  {
-    v19 = 0;
-    v18 = 0;
-    v20 = *(v13 + 3);
-  }
-
-  *(v13 + 2) = v19;
-  *(v13 + 3) = v14;
-  os_unfair_lock_unlock(v13 + 8);
-
-  if (!v15)
-  {
-    return 0;
-  }
-
-  v21 = MEMORY[0x1865F6160](a1, a2);
-  v24 = v21;
-  v18(&v23, &v24);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v18);
-
-  return v23;
-}
-
-uint64_t static UnifiedLibrary.Library.streamBases.getter@<X0>(void *a1@<X8>)
-{
-  v30 = a1;
-  v38 = MEMORY[0x1E69E7CD0];
-  v37 = MEMORY[0x1E69E7CC0];
-  if (one-time initialization token for lockedBMLibraryStreamBasesFunc != -1)
-  {
-    goto LABEL_27;
-  }
-
-  while (1)
-  {
-    v1 = static UnifiedLibrary.Library.lockedBMLibraryStreamBasesFunc;
-
-    os_unfair_lock_lock(v1 + 8);
-    v2 = *&v1[4]._os_unfair_lock_opaque;
-    _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(v2);
-    os_unfair_lock_unlock(v1 + 8);
-
-    if (v2)
-    {
-      v2(v32, v3);
-      v4 = v33;
-      v5 = __swift_project_boxed_opaque_existential_1(v32, v33);
-      v6 = *(*(v4 - 8) + 64);
-      MEMORY[0x1EEE9AC00](v5);
-      (*(v8 + 16))(&v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-      AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      __swift_allocate_boxed_opaque_existential_0(v34);
-      dispatch thunk of Sequence.makeIterator()();
-      __swift_destroy_boxed_opaque_existential_1Tm(v32);
-      v9 = MEMORY[0x1E69E7CC0];
-      while (1)
-      {
-        __swift_mutable_project_boxed_opaque_existential_1(v34, AssociatedTypeWitness);
-        dispatch thunk of IteratorProtocol.next()();
-        v10 = v32[0];
-        if (!v32[0])
-        {
-          break;
-        }
-
-        v11 = specialized Set._Variant.insert(_:)(v32, [v32[0] identifier]);
-
-        if (v11)
-        {
-          v12 = v10;
-          MEMORY[0x1865F6350]();
-          if (*((v37 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v37 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-          {
-            specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-          }
-
-          specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-
-          v9 = v37;
-        }
-
-        else
-        {
-        }
-      }
-
-      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v2);
-      __swift_destroy_boxed_opaque_existential_1Tm(v34);
-    }
-
-    else
-    {
-      v9 = MEMORY[0x1E69E7CC0];
-    }
-
-    v31 = v9;
-    if (one-time initialization token for lockedLibraries != -1)
-    {
-      swift_once();
-    }
-
-    v13 = static UnifiedLibrary.Library.lockedLibraries;
-
-    os_unfair_lock_lock(v13 + 6);
-    v14 = *&v13[4]._os_unfair_lock_opaque;
-
-    os_unfair_lock_unlock(v13 + 6);
-
-    v15 = *(v14 + 16);
-    if (!v15)
-    {
-      break;
-    }
-
-    v16 = 0;
-    while (v16 < *(v14 + 16))
-    {
-      v17 = (v14 + 32 + 16 * v16);
-      v18 = *v17;
-      (*(v17[1] + 40))(v32);
-      v19 = v33;
-      v20 = __swift_project_boxed_opaque_existential_1(v32, v33);
-      v21 = *(*(v19 - 8) + 64);
-      MEMORY[0x1EEE9AC00](v20);
-      (*(v23 + 16))(&v30 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-      AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      __swift_allocate_boxed_opaque_existential_0(v34);
-      dispatch thunk of Sequence.makeIterator()();
-      __swift_destroy_boxed_opaque_existential_1Tm(v32);
-      while (1)
-      {
-        __swift_mutable_project_boxed_opaque_existential_1(v34, AssociatedTypeWitness);
-        dispatch thunk of IteratorProtocol.next()();
-        v24 = v32[0];
-        if (!v32[0])
-        {
-          break;
-        }
-
-        v25 = specialized Set._Variant.insert(_:)(v32, [v32[0] identifier]);
-
-        if (v25)
-        {
-          v26 = v24;
-          MEMORY[0x1865F6350]();
-          if (*((v37 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v37 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-          {
-            specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-          }
-
-          specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-
-          v31 = v37;
-        }
-
-        else
-        {
-        }
-      }
-
-      ++v16;
-      __swift_destroy_boxed_opaque_existential_1Tm(v34);
-      if (v16 == v15)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    __break(1u);
-LABEL_27:
-    swift_once();
-  }
-
-LABEL_25:
-
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo12BMStreamBaseCGMd, &_sSaySo12BMStreamBaseCGMR);
-  v28 = v30;
-  v30[3] = v27;
-  result = lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [BMStreamBase] and conformance [A], &_sSaySo12BMStreamBaseCGMd, &_sSaySo12BMStreamBaseCGMR);
-  v28[4] = result;
-  *v28 = v31;
-  return result;
-}
-
-uint64_t static UnifiedLibrary.Library.view(legacyViewName:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_10:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 80))(a1, a2);
-    v6 = v9;
-    if (v11)
-    {
-      v12 = v11;
-
-      return v12;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t static UnifiedLibrary.Library.view(for:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_10:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 32))(a1, a2);
-    v6 = v9;
-    if (v11)
-    {
-      v12 = v11;
-
-      return v12;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t static UnifiedLibrary.Library.dataArtifacts.getter@<X0>(void *a1@<X8>)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-    swift_once();
-  }
-
-  v2 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v2 + 6);
-  v3 = *&v2[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v2 + 6);
-
-  a1[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12LazySequenceVys07FlattenB0Vys0a3MapB0VySay12BiomeStreams11LibraryBase_pXpGSayAG0G8ArtifactO04DataI0_pXpGGGGMd, &_ss12LazySequenceVys07FlattenB0Vys0a3MapB0VySay12BiomeStreams11LibraryBase_pXpGSayAG0G8ArtifactO04DataI0_pXpGGGGMR);
-  result = lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type LazySequence<FlattenSequence<LazyMapSequence<[LibraryBase.Type], [LibraryArtifact.DataArtifact.Type]>>> and conformance LazySequence<A>, &_ss12LazySequenceVys07FlattenB0Vys0a3MapB0VySay12BiomeStreams11LibraryBase_pXpGSayAG0G8ArtifactO04DataI0_pXpGGGGMd, &_ss12LazySequenceVys07FlattenB0Vys0a3MapB0VySay12BiomeStreams11LibraryBase_pXpGSayAG0G8ArtifactO04DataI0_pXpGGGGMR);
-  a1[4] = result;
-  *a1 = v3;
-  a1[1] = closure #1 in static UnifiedLibrary.Library.dataArtifacts.getter;
-  a1[2] = 0;
-  return result;
-}
-
-uint64_t closure #1 in static UnifiedLibrary.Library.dataArtifacts.getter@<X0>(void *a1@<X0>, void *a2@<X8>)
-{
-  (*(a1[1] + 104))(v33, *a1);
-  v3 = v34;
-  v4 = __swift_project_boxed_opaque_existential_1(v33, v34);
-  v5 = dispatch thunk of Sequence.underestimatedCount.getter();
-  v32 = MEMORY[0x1E69E7CC0];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5 & ~(v5 >> 63), 0);
-  v6 = v32;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v29 = &v26;
-  v28 = *(AssociatedTypeWitness - 8);
-  v8 = *(v28 + 64);
-  v9 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v26 - v10;
-  v12 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  (*(v14 + 16))(&v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v4, v3);
-  result = dispatch thunk of Sequence.makeIterator()();
-  if (v5 < 0)
-  {
-    __break(1u);
-LABEL_16:
-    __break(1u);
+LABEL_32:
+    *v3 = v7;
     return result;
   }
 
-  if (v5)
+  v33 = v5;
+  v8 = 0;
+  v9 = (v5 + 64);
+  v10 = 1 << *(v5 + 32);
+  if (v10 < 64)
   {
-    v27 = a2;
-    swift_getAssociatedConformanceWitness();
-    while (1)
-    {
-      result = dispatch thunk of IteratorProtocol.next()();
-      v16 = v30;
-      if (!v30)
-      {
-        goto LABEL_16;
-      }
-
-      v17 = v31;
-      v32 = v6;
-      v19 = *(v6 + 16);
-      v18 = *(v6 + 24);
-      if (v19 >= v18 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v18 > 1, v19 + 1, 1);
-        v6 = v32;
-      }
-
-      *(v6 + 16) = v19 + 1;
-      v20 = v6 + 16 * v19;
-      *(v20 + 32) = v16;
-      *(v20 + 40) = v17;
-      if (!--v5)
-      {
-        a2 = v27;
-        goto LABEL_10;
-      }
-    }
-  }
-
-  swift_getAssociatedConformanceWitness();
-LABEL_10:
-  while (1)
-  {
-    dispatch thunk of IteratorProtocol.next()();
-    v21 = v30;
-    if (!v30)
-    {
-      break;
-    }
-
-    v22 = v31;
-    v32 = v6;
-    v24 = *(v6 + 16);
-    v23 = *(v6 + 24);
-    if (v24 >= v23 >> 1)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v23 > 1, v24 + 1, 1);
-      v6 = v32;
-    }
-
-    *(v6 + 16) = v24 + 1;
-    v25 = v6 + 16 * v24;
-    *(v25 + 32) = v21;
-    *(v25 + 40) = v22;
-  }
-
-  (*(v28 + 8))(v11, AssociatedTypeWitness);
-  *a2 = v6;
-  return __swift_destroy_boxed_opaque_existential_1Tm(v33);
-}
-
-uint64_t static UnifiedLibrary.Library.dataArtifact(for:)(uint64_t a1, uint64_t a2)
-{
-  if (one-time initialization token for lockedLibraries != -1)
-  {
-LABEL_10:
-    swift_once();
-  }
-
-  v4 = static UnifiedLibrary.Library.lockedLibraries;
-
-  os_unfair_lock_lock(v4 + 6);
-  v5 = *&v4[4]._os_unfair_lock_opaque;
-
-  os_unfair_lock_unlock(v4 + 6);
-
-  v6 = v5 + 40;
-  v7 = -*(v5 + 16);
-  v8 = -1;
-  while (v7 + v8 != -1)
-  {
-    if (++v8 >= *(v5 + 16))
-    {
-      __break(1u);
-      goto LABEL_10;
-    }
-
-    v9 = v6 + 16;
-    v10 = *(v6 - 8);
-    v11 = (*(*v6 + 112))(a1, a2);
-    v6 = v9;
-    if (v11)
-    {
-      v12 = v11;
-
-      return v12;
-    }
-  }
-
-  return 0;
-}
-
-unint64_t UnifiedLibrary.Error.description.getter(uint64_t a1, uint64_t a2)
-{
-  _StringGuts.grow(_:)(38);
-
-  MEMORY[0x1865F6280](a1, a2);
-  return 0xD000000000000024;
-}
-
-uint64_t specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5)
-{
-  v47 = a5;
-  specialized LazyMapSequence.makeIterator()(a1, a2, a3, v46);
-  v6 = v46[1];
-  v7 = v46[3];
-  v8 = v46[4];
-  v39 = v46[5];
-  v40 = v46[0];
-  v9 = (v46[2] + 64) >> 6;
-
-  v38 = v6;
-  if (v8)
-  {
-    while (1)
-    {
-      v41 = a4;
-      v10 = v7;
-LABEL_8:
-      v12 = __clz(__rbit64(v8)) | (v10 << 6);
-      v13 = (*(v40 + 48) + 16 * v12);
-      v14 = v13[1];
-      v15 = *(*(v40 + 56) + 8 * v12);
-      v45[0] = *v13;
-      v45[1] = v14;
-      v45[2] = v15;
-
-      v39(&v42, v45);
-
-      v16 = v42;
-      v17 = v43;
-      v18 = v44;
-      v19 = *v47;
-      v21 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v43);
-      v22 = *(v19 + 16);
-      v23 = (v20 & 1) == 0;
-      v24 = v22 + v23;
-      if (__OFADD__(v22, v23))
-      {
-        break;
-      }
-
-      v25 = v20;
-      if (*(v19 + 24) >= v24)
-      {
-        if ((v41 & 1) == 0)
-        {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySSSaySSGGMd, &_ss17_NativeDictionaryVySSSaySSGGMR);
-          _NativeDictionary.copy()();
-        }
-      }
-
-      else
-      {
-        v26 = v47;
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v24, v41 & 1);
-        v27 = *v26;
-        v28 = specialized __RawDictionaryStorage.find<A>(_:)(v16, v17);
-        if ((v25 & 1) != (v29 & 1))
-        {
-          goto LABEL_24;
-        }
-
-        v21 = v28;
-      }
-
-      v8 &= v8 - 1;
-      v30 = *v47;
-      if (v25)
-      {
-
-        v31 = v30[7];
-        v32 = *(v31 + 8 * v21);
-        *(v31 + 8 * v21) = v18;
-      }
-
-      else
-      {
-        v30[(v21 >> 6) + 8] |= 1 << v21;
-        v33 = (v30[6] + 16 * v21);
-        *v33 = v16;
-        v33[1] = v17;
-        *(v30[7] + 8 * v21) = v18;
-        v34 = v30[2];
-        v35 = __OFADD__(v34, 1);
-        v36 = v34 + 1;
-        if (v35)
-        {
-          goto LABEL_23;
-        }
-
-        v30[2] = v36;
-      }
-
-      a4 = 1;
-      v7 = v10;
-      v6 = v38;
-      if (!v8)
-      {
-        goto LABEL_3;
-      }
-    }
+    v11 = ~(-1 << v10);
   }
 
   else
   {
-LABEL_3:
-    v11 = v7;
+    v11 = -1;
+  }
+
+  v12 = v11 & *(v5 + 64);
+  v13 = (v10 + 63) >> 6;
+  v14 = result + 64;
+  if (!v12)
+  {
+LABEL_7:
+    v16 = v8;
     while (1)
     {
-      v10 = v11 + 1;
-      if (__OFADD__(v11, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v9)
-      {
-        outlined consume of [String : [String]].Iterator._Variant();
-      }
-
-      v8 = *(v6 + 8 * v10);
-      ++v11;
-      if (v8)
-      {
-        v41 = a4;
-        goto LABEL_8;
-      }
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-LABEL_23:
-  __break(1u);
-LABEL_24:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
-void specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v50 = type metadata accessor for SQLDataType();
-  v6 = OUTLINED_FUNCTION_2_1(v50);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  OUTLINED_FUNCTION_9();
-  v49 = v11;
-  v12 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v13 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-  v47 = a2;
-  v14 = static _DictionaryStorage.resize(original:capacity:move:)();
-  v15 = v14;
-  if (!*(v12 + 16))
-  {
-LABEL_35:
-
-LABEL_36:
-    *v3 = v15;
-    return;
-  }
-
-  v16 = 0;
-  v17 = (v12 + 64);
-  v18 = 1 << *(v12 + 32);
-  if (v18 < 64)
-  {
-    v19 = ~(-1 << v18);
-  }
-
-  else
-  {
-    v19 = -1;
-  }
-
-  v20 = v19 & *(v12 + 64);
-  v21 = (v18 + 63) >> 6;
-  v44 = (v8 + 16);
-  v45 = v12;
-  v46 = v8;
-  v48 = (v8 + 32);
-  v22 = v14 + 64;
-  if (!v20)
-  {
-LABEL_9:
-    v24 = v16;
-    while (1)
-    {
-      v16 = v24 + 1;
-      if (__OFADD__(v24, 1))
+      v8 = v16 + 1;
+      if (__OFADD__(v16, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_34;
       }
 
-      if (v16 >= v21)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v25 = v17[v16];
-      ++v24;
-      if (v25)
+      v17 = v9[v8];
+      ++v16;
+      if (v17)
       {
-        v23 = __clz(__rbit64(v25));
-        v20 = (v25 - 1) & v25;
-        goto LABEL_14;
+        v15 = __clz(__rbit64(v17));
+        v12 = (v17 - 1) & v17;
+        goto LABEL_12;
       }
     }
 
-    if ((v47 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
       v3 = v2;
-      goto LABEL_36;
+      goto LABEL_32;
     }
 
-    v41 = 1 << *(v12 + 32);
+    v32 = 1 << *(v5 + 32);
     v3 = v2;
-    if (v41 >= 64)
+    if (v32 >= 64)
     {
-      v42 = OUTLINED_FUNCTION_48_0();
-      specialized UnsafeMutablePointer.assign(repeating:count:)(v42, v43, v17);
+      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v32 + 63) >> 6, v9);
     }
 
     else
     {
-      *v17 = -1 << v41;
-    }
-
-    *(v12 + 16) = 0;
-    goto LABEL_35;
-  }
-
-  while (1)
-  {
-    v23 = __clz(__rbit64(v20));
-    v20 &= v20 - 1;
-LABEL_14:
-    v26 = v23 | (v16 << 6);
-    v27 = *(v12 + 56);
-    v28 = (*(v12 + 48) + 16 * v26);
-    v30 = *v28;
-    v29 = v28[1];
-    v31 = *(v46 + 72);
-    v32 = v27 + v31 * v26;
-    if (v47)
-    {
-      (*v48)(v49, v32, v50);
-    }
-
-    else
-    {
-      (*v44)(v49, v32, v50);
-    }
-
-    v33 = *(v15 + 40);
-    Hasher.init(_seed:)();
-    String.hash(into:)();
-    v34 = Hasher._finalize()() & ~(-1 << *(v15 + 32));
-    if (((-1 << v34) & ~*(v22 + 8 * (v34 >> 6))) == 0)
-    {
-      break;
-    }
-
-    OUTLINED_FUNCTION_22_3();
-LABEL_27:
-    *(v22 + ((v35 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v35;
-    v40 = (*(v15 + 48) + 16 * v35);
-    *v40 = v30;
-    v40[1] = v29;
-    (*v48)(*(v15 + 56) + v31 * v35, v49, v50);
-    ++*(v15 + 16);
-    v12 = v45;
-    if (!v20)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  OUTLINED_FUNCTION_21_2();
-  while (1)
-  {
-    OUTLINED_FUNCTION_89_1();
-    if (v39)
-    {
-      if (v37)
-      {
-        break;
-      }
-    }
-
-    if (v36 == v38)
-    {
-      v36 = 0;
-    }
-
-    if (*(v22 + 8 * v36) != -1)
-    {
-      OUTLINED_FUNCTION_20_4();
-      goto LABEL_27;
-    }
-  }
-
-LABEL_38:
-  __break(1u);
-}
-
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSaySSGGMd, &_ss18_DictionaryStorageCySSSaySSGGMR);
-  v38 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
-  if (!*(v5 + 16))
-  {
-LABEL_33:
-
-LABEL_34:
-    *v3 = v8;
-    return result;
-  }
-
-  v36 = v3;
-  v37 = v5;
-  v9 = 0;
-  v10 = (v5 + 64);
-  v11 = 1 << *(v5 + 32);
-  if (v11 < 64)
-  {
-    v12 = ~(-1 << v11);
-  }
-
-  else
-  {
-    v12 = -1;
-  }
-
-  v13 = v12 & *(v5 + 64);
-  v14 = (v11 + 63) >> 6;
-  v15 = result + 64;
-  if (!v13)
-  {
-LABEL_9:
-    v17 = v9;
-    while (1)
-    {
-      v9 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v18 = v10[v9];
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v13 = (v18 - 1) & v18;
-        goto LABEL_14;
-      }
-    }
-
-    if ((v38 & 1) == 0)
-    {
-
-      v3 = v36;
-      goto LABEL_34;
-    }
-
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
-    {
-      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v35 + 63) >> 6, v10);
-    }
-
-    else
-    {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
-    goto LABEL_33;
+    goto LABEL_31;
   }
 
   while (1)
   {
-    v16 = __clz(__rbit64(v13));
-    v13 &= v13 - 1;
-LABEL_14:
-    v19 = v16 | (v9 << 6);
-    v20 = (*(v5 + 48) + 16 * v19);
-    v21 = *v20;
-    v22 = v20[1];
-    v23 = *(*(v5 + 56) + 8 * v19);
-    if ((v38 & 1) == 0)
+    v15 = __clz(__rbit64(v12));
+    v12 &= v12 - 1;
+LABEL_12:
+    v18 = v15 | (v8 << 6);
+    v19 = (*(v5 + 48) + 16 * v18);
+    v20 = *v19;
+    v21 = v19[1];
+    v22 = *(*(v5 + 56) + 8 * v18);
+    if ((v34 & 1) == 0)
     {
-      v24 = v20[1];
     }
 
-    v25 = *(v8 + 40);
     Hasher.init(_seed:)();
     String.hash(into:)();
     result = Hasher._finalize()();
-    v26 = -1 << *(v8 + 32);
-    v27 = result & ~v26;
-    v28 = v27 >> 6;
-    if (((-1 << v27) & ~*(v15 + 8 * (v27 >> 6))) == 0)
+    v23 = -1 << *(v7 + 32);
+    v24 = result & ~v23;
+    v25 = v24 >> 6;
+    if (((-1 << v24) & ~*(v14 + 8 * (v24 >> 6))) == 0)
     {
       break;
     }
 
-    v29 = __clz(__rbit64((-1 << v27) & ~*(v15 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
-LABEL_25:
-    *(v15 + ((v29 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v29;
-    v34 = (*(v8 + 48) + 16 * v29);
-    *v34 = v21;
-    v34[1] = v22;
-    *(*(v8 + 56) + 8 * v29) = v23;
-    ++*(v8 + 16);
-    v5 = v37;
-    if (!v13)
+    v26 = __clz(__rbit64((-1 << v24) & ~*(v14 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
+LABEL_23:
+    *(v14 + ((v26 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v26;
+    v31 = (*(v7 + 48) + 16 * v26);
+    *v31 = v20;
+    v31[1] = v21;
+    *(*(v7 + 56) + 8 * v26) = v22;
+    ++*(v7 + 16);
+    v5 = v33;
+    if (!v12)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
   }
 
-  v30 = 0;
-  v31 = (63 - v26) >> 6;
-  while (++v28 != v31 || (v30 & 1) == 0)
+  v27 = 0;
+  v28 = (63 - v23) >> 6;
+  while (++v25 != v28 || (v27 & 1) == 0)
   {
-    v32 = v28 == v31;
-    if (v28 == v31)
+    v29 = v25 == v28;
+    if (v25 == v28)
     {
-      v28 = 0;
+      v25 = 0;
     }
 
-    v30 |= v32;
-    v33 = *(v15 + 8 * v28);
-    if (v33 != -1)
+    v27 |= v29;
+    v30 = *(v14 + 8 * v25);
+    if (v30 != -1)
     {
-      v29 = __clz(__rbit64(~v33)) + (v28 << 6);
-      goto LABEL_25;
+      v26 = __clz(__rbit64(~v30)) + (v25 << 6);
+      goto LABEL_23;
     }
   }
 
-LABEL_36:
+LABEL_34:
   __break(1u);
   return result;
 }
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v34 & 1) == 0)
+    {
+
+      v3 = v2;
+      goto LABEL_33;
+    }
+
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
+    {
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v32;
+    }
+
+    *(v5 + 16) = 0;
+  }
+
+LABEL_33:
+  *v3 = v7;
+  return result;
+}
+
+{
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMR);
+  v37 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v35 = v2;
+    v36 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
+    {
+      v18 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v21 = v18 | (v8 << 6);
+      v22 = (*(v5 + 48) + 16 * v21);
+      v23 = v22[1];
+      v24 = (*(v5 + 56) + 24 * v21);
+      v25 = v24[1];
+      v38 = *v24;
+      v39 = *v22;
+      v26 = v24[2];
+      if ((v37 & 1) == 0)
+      {
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v27 = -1 << *(v7 + 32);
+      v28 = result & ~v27;
+      v29 = v28 >> 6;
+      if (((-1 << v28) & ~*(v14 + 8 * (v28 >> 6))) == 0)
+      {
+        v30 = 0;
+        v31 = (63 - v27) >> 6;
+        while (++v29 != v31 || (v30 & 1) == 0)
+        {
+          v32 = v29 == v31;
+          if (v29 == v31)
+          {
+            v29 = 0;
+          }
+
+          v30 |= v32;
+          v33 = *(v14 + 8 * v29);
+          if (v33 != -1)
+          {
+            v15 = __clz(__rbit64(~v33)) + (v29 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_35:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v28) & ~*(v14 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v39;
+      v16[1] = v23;
+      v17 = (*(v7 + 56) + 24 * v15);
+      *v17 = v38;
+      v17[1] = v25;
+      v17[2] = v26;
+      ++*(v7 + 16);
+      v5 = v36;
+    }
+
+    v19 = v8;
+    while (1)
+    {
+      v8 = v19 + 1;
+      if (__OFADD__(v19, 1))
+      {
+        __break(1u);
+        goto LABEL_35;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v20 = v9[v8];
       ++v19;
       if (v20)
       {
         v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v12 = (v20 - 1) & v20;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v35;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v34 = 1 << *(v5 + 32);
+    v3 = v35;
+    if (v34 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v34;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMR);
-  v39 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v37 = v3;
-    v38 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v19 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v22 = v19 | (v9 << 6);
-      v23 = (*(v5 + 48) + 16 * v22);
-      v24 = v23[1];
-      v25 = (*(v5 + 56) + 24 * v22);
-      v26 = v25[1];
-      v40 = *v25;
-      v41 = *v23;
-      v27 = v25[2];
-      if ((v39 & 1) == 0)
-      {
-      }
-
-      v28 = *(v8 + 40);
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v29 = -1 << *(v8 + 32);
-      v30 = result & ~v29;
-      v31 = v30 >> 6;
-      if (((-1 << v30) & ~*(v15 + 8 * (v30 >> 6))) == 0)
-      {
-        v32 = 0;
-        v33 = (63 - v29) >> 6;
-        while (++v31 != v33 || (v32 & 1) == 0)
-        {
-          v34 = v31 == v33;
-          if (v31 == v33)
-          {
-            v31 = 0;
-          }
-
-          v32 |= v34;
-          v35 = *(v15 + 8 * v31);
-          if (v35 != -1)
-          {
-            v16 = __clz(__rbit64(~v35)) + (v31 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v30) & ~*(v15 + 8 * (v30 >> 6)))) | v30 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v41;
-      v17[1] = v24;
-      v18 = (*(v8 + 56) + 24 * v16);
-      *v18 = v40;
-      v18[1] = v26;
-      v18[2] = v27;
-      ++*(v8 + 16);
-      v5 = v38;
-    }
-
-    v20 = v9;
-    while (1)
-    {
-      v9 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v21 = v10[v9];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v13 = (v21 - 1) & v21;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v39 & 1) == 0)
-    {
-
-      v3 = v37;
-      goto LABEL_35;
-    }
-
-    v36 = 1 << *(v5 + 32);
-    v3 = v37;
-    if (v36 >= 64)
-    {
-      bzero(v10, ((v36 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v36;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -1909,9 +444,7 @@ uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed B
 }
 
 {
-  v5 = *(v2 + 16);
-  v6 = *(v2 + 24);
-  result = v5(*a1);
+  result = (*(v2 + 16))(*a1);
   if (!v3)
   {
     *a2 = result;
@@ -1990,226 +523,217 @@ unint64_t lazy protocol witness table accessor for type UUID and conformance UUI
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_55_0()
-{
-  result = v0;
-  v3 = *(v1 - 240);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_108_0()
 {
-  v2 = *(v0 - 224);
 
   return Date.ISO8601Format(_:)();
 }
 
 uint64_t outlined init with take of (key: String, value: SQLDataType)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v6 = OUTLINED_FUNCTION_106(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_12(v6);
-  (*(v7 + 32))(v4, v5);
+  OUTLINED_FUNCTION_106(a1, a2, a3, a4);
+  OUTLINED_FUNCTION_12();
+  (*(v6 + 32))(v4, v5);
   return v4;
 }
 
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v123 = a1;
-  v139 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-  v130 = *(v139 - 8);
-  v6 = *(v130 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v139);
-  v127 = &v119 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v138 = &v119 - v10;
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v13 = MEMORY[0x1EEE9AC00](v12);
-  v136 = (&v119 - v14);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v135 = (&v119 - v16);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v121 = (&v119 - v18);
-  MEMORY[0x1EEE9AC00](v17);
-  v120 = (&v119 - v21);
-  v142 = MEMORY[0x1E69E7CC0];
-  v132 = a3;
-  v22 = a3[1];
-  if (v22 >= 1)
+  v129 = a1;
+  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+  v136 = *(v145 - 8);
+  v7 = MEMORY[0x1EEE9AC00](v145, v6);
+  v133 = &v125 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v7, v9);
+  v144 = &v125 - v11;
+  v13 = MEMORY[0x1EEE9AC00](v10, v12);
+  v15 = MEMORY[0x1EEE9AC00](v13, v14);
+  v17 = MEMORY[0x1EEE9AC00](v15, v16);
+  v142 = (&v125 - v18);
+  v20 = MEMORY[0x1EEE9AC00](v17, v19);
+  v141 = (&v125 - v21);
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v127 = (&v125 - v24);
+  MEMORY[0x1EEE9AC00](v23, v25);
+  v126 = (&v125 - v28);
+  v148 = MEMORY[0x1E69E7CC0];
+  v138 = a3;
+  v29 = a3[1];
+  if (v29 >= 1)
   {
-    v140 = v20;
-    v141 = v19;
-    v23 = 0;
-    v24 = MEMORY[0x1E69E7CC0];
-    v25 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
-    v122 = a4;
+    v146 = v27;
+    v147 = v26;
+    v30 = 0;
+    v31 = MEMORY[0x1E69E7CC0];
+    v32 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
+    v128 = a4;
     while (1)
     {
-      v26 = v23;
-      v27 = v23 + 1;
-      v124 = v23;
-      if (v23 + 1 < v22)
+      v33 = v30;
+      v34 = v30 + 1;
+      v130 = v30;
+      if (v30 + 1 < v29)
       {
-        v28 = *v132;
-        v29 = *(v130 + 72);
-        v30 = v23 + 1;
-        v31 = v120;
-        outlined init with copy of (key: String, value: SQLDataType)(*v132 + v29 * v27, v120, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v25);
-        v133 = v29;
-        v32 = v28 + v29 * v26;
-        v33 = v121;
-        outlined init with copy of (key: String, value: SQLDataType)(v32, v121, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v25);
-        v34 = *v31 == *v33 && v31[1] == v33[1];
-        v119 = v24;
-        if (v34)
+        v35 = *v138;
+        v36 = *(v136 + 72);
+        v37 = v30 + 1;
+        v38 = v126;
+        outlined init with copy of (key: String, value: SQLDataType)(*v138 + v36 * v34, v126, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v32);
+        v139 = v36;
+        v39 = v35 + v36 * v33;
+        v40 = v127;
+        outlined init with copy of (key: String, value: SQLDataType)(v39, v127, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v32);
+        v41 = *v38 == *v40 && v38[1] == v40[1];
+        v125 = v31;
+        if (v41)
         {
-          LODWORD(v131) = 0;
+          LODWORD(v137) = 0;
         }
 
         else
         {
-          LODWORD(v131) = _stringCompareWithSmolCheck(_:_:expecting:)();
+          LODWORD(v137) = _stringCompareWithSmolCheck(_:_:expecting:)();
         }
 
-        outlined destroy of UUID?(v121, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v25);
-        outlined destroy of UUID?(v120, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v25);
-        v35 = v26 + 2;
-        v36 = v133 * (v26 + 2);
-        v37 = v28 + v36;
-        v38 = v30;
-        v39 = v133 * v30;
-        v40 = v28 + v133 * v30;
-        v129 = v22;
+        outlined destroy of UUID?(v127, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v32);
+        outlined destroy of UUID?(v126, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v32);
+        v42 = v33 + 2;
+        v43 = v139 * (v33 + 2);
+        v44 = v35 + v43;
+        v45 = v37;
+        v46 = v139 * v37;
+        v47 = v35 + v139 * v37;
+        v135 = v29;
         do
         {
-          v41 = v35;
-          v42 = v38;
-          v43 = v39;
-          v44 = v36;
-          if (v35 >= v22)
+          v48 = v42;
+          v49 = v45;
+          v50 = v46;
+          v51 = v43;
+          if (v42 >= v29)
           {
             break;
           }
 
-          v137 = v35;
-          v45 = v25;
-          v46 = v135;
-          outlined init with copy of (key: String, value: SQLDataType)(v37, v135, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v45);
-          v47 = v136;
-          outlined init with copy of (key: String, value: SQLDataType)(v40, v136, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v45);
-          v48 = *v46 == *v47 && v46[1] == v47[1];
-          v49 = v48 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
-          outlined destroy of UUID?(v136, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-          v25 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
-          outlined destroy of UUID?(v135, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-          v41 = v137;
-          v35 = v137 + 1;
-          v37 += v133;
-          v40 += v133;
-          v38 = v42 + 1;
-          v39 = v43 + v133;
-          v36 = v44 + v133;
-          v22 = v129;
+          v143 = v42;
+          v52 = v32;
+          v53 = v141;
+          outlined init with copy of (key: String, value: SQLDataType)(v44, v141, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v52);
+          v54 = v142;
+          outlined init with copy of (key: String, value: SQLDataType)(v47, v142, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v52);
+          v55 = *v53 == *v54 && v53[1] == v54[1];
+          v56 = v55 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+          outlined destroy of UUID?(v142, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+          v32 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
+          outlined destroy of UUID?(v141, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+          v48 = v143;
+          v42 = v143 + 1;
+          v44 += v139;
+          v47 += v139;
+          v45 = v49 + 1;
+          v46 = v50 + v139;
+          v43 = v51 + v139;
+          v29 = v135;
         }
 
-        while (((v131 ^ v49) & 1) == 0);
-        v24 = v119;
-        if (v131)
+        while (((v137 ^ v56) & 1) == 0);
+        v31 = v125;
+        if (v137)
         {
-          if (v41 < v124)
+          if (v48 < v130)
           {
             goto LABEL_135;
           }
 
-          if (v124 >= v41)
+          if (v130 >= v48)
           {
-            v27 = v41;
-            a4 = v122;
-            v26 = v124;
+            v34 = v48;
+            a4 = v128;
+            v33 = v130;
             goto LABEL_39;
           }
 
-          v50 = v119;
-          v51 = v124 * v133;
-          v52 = v124;
+          v57 = v125;
+          v58 = v130 * v139;
+          v59 = v130;
           do
           {
-            if (v52 != v42)
+            if (v59 != v49)
             {
-              v53 = *v132;
-              if (!*v132)
+              v60 = *v138;
+              if (!*v138)
               {
                 goto LABEL_140;
               }
 
-              outlined init with take of (key: String, value: SQLDataType)(v53 + v51, v127, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-              v54 = v51 < v43 || v53 + v51 >= (v53 + v44);
-              if (v54)
+              outlined init with take of (key: String, value: SQLDataType)(v60 + v58, v133, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+              v61 = v58 < v50 || v60 + v58 >= (v60 + v51);
+              if (v61)
               {
                 swift_arrayInitWithTakeFrontToBack();
               }
 
-              else if (v51 != v43)
+              else if (v58 != v50)
               {
                 swift_arrayInitWithTakeBackToFront();
               }
 
-              outlined init with take of (key: String, value: SQLDataType)(v127, v53 + v43, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+              outlined init with take of (key: String, value: SQLDataType)(v133, v60 + v50, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
             }
 
-            ++v52;
-            v43 -= v133;
-            v44 -= v133;
-            v51 += v133;
-            v55 = v52 < v42--;
+            ++v59;
+            v50 -= v139;
+            v51 -= v139;
+            v58 += v139;
+            v62 = v59 < v49--;
           }
 
-          while (v55);
-          v27 = v41;
-          a4 = v122;
-          v24 = v50;
-          v25 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
+          while (v62);
+          v34 = v48;
+          a4 = v128;
+          v31 = v57;
+          v32 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
         }
 
         else
         {
-          v27 = v41;
-          a4 = v122;
+          v34 = v48;
+          a4 = v128;
         }
 
-        v26 = v124;
+        v33 = v130;
       }
 
 LABEL_39:
-      v56 = v132[1];
-      v133 = v27;
-      if (v27 < v56)
+      v63 = v138[1];
+      v139 = v34;
+      if (v34 < v63)
       {
-        v90 = __OFSUB__(v27, v26);
-        v57 = v27 - v26;
-        if (v90)
+        v97 = __OFSUB__(v34, v33);
+        v64 = v34 - v33;
+        if (v97)
         {
           goto LABEL_134;
         }
 
-        if (v57 < a4)
+        if (v64 < a4)
         {
-          if (__OFADD__(v26, a4))
+          if (__OFADD__(v33, a4))
           {
             goto LABEL_136;
           }
 
-          if (v26 + a4 >= v56)
+          if (v33 + a4 >= v63)
           {
-            v58 = v56;
+            v65 = v63;
           }
 
           else
           {
-            v58 = v26 + a4;
+            v65 = v33 + a4;
           }
 
-          if (v58 < v26)
+          if (v65 < v33)
           {
 LABEL_137:
             __break(1u);
@@ -2226,164 +750,163 @@ LABEL_142:
             return;
           }
 
-          if (v133 != v58)
+          if (v139 != v65)
           {
-            v119 = v24;
-            v59 = *(v130 + 72);
-            v60 = *v132 + v59 * (v133 - 1);
-            v61 = -v59;
-            v62 = v26 - v133;
-            v137 = *v132;
-            v125 = v59;
-            v126 = v58;
-            v63 = v137 + v133 * v59;
+            v125 = v31;
+            v66 = *(v136 + 72);
+            v67 = *v138 + v66 * (v139 - 1);
+            v68 = -v66;
+            v69 = v33 - v139;
+            v143 = *v138;
+            v131 = v66;
+            v132 = v65;
+            v70 = v143 + v139 * v66;
             do
             {
-              v128 = v63;
-              v129 = v62;
-              v131 = v60;
-              v64 = v60;
+              v134 = v70;
+              v135 = v69;
+              v137 = v67;
+              v71 = v67;
               while (1)
               {
-                v65 = v140;
-                outlined init with copy of (key: String, value: SQLDataType)(v63, v140, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v25);
-                v66 = v25;
-                v67 = v141;
-                outlined init with copy of (key: String, value: SQLDataType)(v64, v141, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-                if (*v65 == *v67 && v65[1] == v67[1])
+                v72 = v146;
+                outlined init with copy of (key: String, value: SQLDataType)(v70, v146, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v32);
+                v73 = v32;
+                v74 = v147;
+                outlined init with copy of (key: String, value: SQLDataType)(v71, v147, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+                if (*v72 == *v74 && v72[1] == v74[1])
                 {
                   break;
                 }
 
-                v69 = _stringCompareWithSmolCheck(_:_:expecting:)();
-                outlined destroy of UUID?(v67, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-                outlined destroy of UUID?(v65, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-                v25 = v66;
-                if ((v69 & 1) == 0)
+                v76 = _stringCompareWithSmolCheck(_:_:expecting:)();
+                outlined destroy of UUID?(v74, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+                outlined destroy of UUID?(v72, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+                v32 = v73;
+                if ((v76 & 1) == 0)
                 {
                   goto LABEL_60;
                 }
 
-                if (!v137)
+                if (!v143)
                 {
                   goto LABEL_138;
                 }
 
-                v70 = v138;
-                outlined init with take of (key: String, value: SQLDataType)(v63, v138, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
+                v77 = v144;
+                outlined init with take of (key: String, value: SQLDataType)(v70, v144, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
                 swift_arrayInitWithTakeFrontToBack();
-                outlined init with take of (key: String, value: SQLDataType)(v70, v64, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-                v64 += v61;
-                v63 += v61;
-                v54 = __CFADD__(v62++, 1);
-                if (v54)
+                outlined init with take of (key: String, value: SQLDataType)(v77, v71, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+                v71 += v68;
+                v70 += v68;
+                v61 = __CFADD__(v69++, 1);
+                if (v61)
                 {
                   goto LABEL_60;
                 }
               }
 
-              outlined destroy of UUID?(v67, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-              outlined destroy of UUID?(v65, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v66);
-              v25 = v66;
+              outlined destroy of UUID?(v74, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+              outlined destroy of UUID?(v72, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, v73);
+              v32 = v73;
 LABEL_60:
-              v60 = v131 + v125;
-              v62 = v129 - 1;
-              v63 = v128 + v125;
-              ++v133;
+              v67 = v137 + v131;
+              v69 = v135 - 1;
+              v70 = v134 + v131;
+              ++v139;
             }
 
-            while (v133 != v126);
-            v133 = v126;
-            v24 = v119;
-            v26 = v124;
+            while (v139 != v132);
+            v139 = v132;
+            v31 = v125;
+            v33 = v130;
           }
         }
       }
 
-      if (v133 < v26)
+      if (v139 < v33)
       {
         goto LABEL_133;
       }
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v116 = v24[2];
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v24 = v117;
+        v31 = v123;
       }
 
-      v71 = v24[2];
-      v72 = v71 + 1;
-      if (v71 >= v24[3] >> 1)
+      v78 = v31[2];
+      v79 = v78 + 1;
+      if (v78 >= v31[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v24 = v118;
+        v31 = v124;
       }
 
-      v24[2] = v72;
-      v73 = v24 + 4;
-      v74 = &v24[2 * v71 + 4];
-      v75 = v133;
-      *v74 = v124;
-      v74[1] = v75;
-      v76 = *v123;
-      if (!*v123)
+      v31[2] = v79;
+      v80 = v31 + 4;
+      v81 = &v31[2 * v78 + 4];
+      v82 = v139;
+      *v81 = v130;
+      v81[1] = v82;
+      v83 = *v129;
+      if (!*v129)
       {
         goto LABEL_141;
       }
 
-      if (v71)
+      if (v78)
       {
         while (1)
         {
-          v77 = v72 - 1;
-          v78 = &v73[2 * v72 - 2];
-          v79 = &v24[2 * v72];
-          if (v72 >= 4)
+          v84 = v79 - 1;
+          v85 = &v80[2 * v79 - 2];
+          v86 = &v31[2 * v79];
+          if (v79 >= 4)
           {
             break;
           }
 
-          if (v72 == 3)
+          if (v79 == 3)
           {
-            v80 = v24[4];
-            v81 = v24[5];
-            v90 = __OFSUB__(v81, v80);
-            v82 = v81 - v80;
-            v83 = v90;
+            v87 = v31[4];
+            v88 = v31[5];
+            v97 = __OFSUB__(v88, v87);
+            v89 = v88 - v87;
+            v90 = v97;
 LABEL_82:
-            if (v83)
+            if (v90)
             {
               goto LABEL_123;
             }
 
-            v95 = *v79;
-            v94 = v79[1];
-            v96 = __OFSUB__(v94, v95);
-            v97 = v94 - v95;
-            v98 = v96;
-            if (v96)
+            v102 = *v86;
+            v101 = v86[1];
+            v103 = __OFSUB__(v101, v102);
+            v104 = v101 - v102;
+            v105 = v103;
+            if (v103)
             {
               goto LABEL_126;
             }
 
-            v99 = v78[1];
-            v100 = v99 - *v78;
-            if (__OFSUB__(v99, *v78))
+            v106 = v85[1];
+            v107 = v106 - *v85;
+            if (__OFSUB__(v106, *v85))
             {
               goto LABEL_129;
             }
 
-            if (__OFADD__(v97, v100))
+            if (__OFADD__(v104, v107))
             {
               goto LABEL_131;
             }
 
-            if (v97 + v100 >= v82)
+            if (v104 + v107 >= v89)
             {
-              if (v82 < v100)
+              if (v89 < v107)
               {
-                v77 = v72 - 2;
+                v84 = v79 - 2;
               }
 
               goto LABEL_104;
@@ -2392,38 +915,38 @@ LABEL_82:
             goto LABEL_97;
           }
 
-          if (v72 < 2)
+          if (v79 < 2)
           {
             goto LABEL_125;
           }
 
-          v102 = *v79;
-          v101 = v79[1];
-          v90 = __OFSUB__(v101, v102);
-          v97 = v101 - v102;
-          v98 = v90;
+          v109 = *v86;
+          v108 = v86[1];
+          v97 = __OFSUB__(v108, v109);
+          v104 = v108 - v109;
+          v105 = v97;
 LABEL_97:
-          if (v98)
+          if (v105)
           {
             goto LABEL_128;
           }
 
-          v104 = *v78;
-          v103 = v78[1];
-          v90 = __OFSUB__(v103, v104);
-          v105 = v103 - v104;
-          if (v90)
+          v111 = *v85;
+          v110 = v85[1];
+          v97 = __OFSUB__(v110, v111);
+          v112 = v110 - v111;
+          if (v97)
           {
             goto LABEL_130;
           }
 
-          if (v105 < v97)
+          if (v112 < v104)
           {
             goto LABEL_111;
           }
 
 LABEL_104:
-          if (v77 - 1 >= v72)
+          if (v84 - 1 >= v79)
           {
             __break(1u);
 LABEL_118:
@@ -2467,103 +990,103 @@ LABEL_136:
             goto LABEL_137;
           }
 
-          if (!*v132)
+          if (!*v138)
           {
             goto LABEL_139;
           }
 
-          v109 = &v73[2 * v77 - 2];
-          v110 = *v109;
-          v111 = &v73[2 * v77];
-          v112 = *(v111 + 1);
-          v113 = v134;
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v132 + *(v130 + 72) * *v109, *v132 + *(v130 + 72) * *v111, *v132 + *(v130 + 72) * v112, v76);
-          v134 = v113;
-          if (v113)
+          v116 = &v80[2 * v84 - 2];
+          v117 = *v116;
+          v118 = &v80[2 * v84];
+          v119 = *(v118 + 1);
+          v120 = v140;
+          specialized _merge<A>(low:mid:high:buffer:by:)(*v138 + *(v136 + 72) * *v116, *v138 + *(v136 + 72) * *v118, *v138 + *(v136 + 72) * v119, v83);
+          v140 = v120;
+          if (v120)
           {
-            v142 = v24;
+            v148 = v31;
             goto LABEL_116;
           }
 
-          if (v112 < v110)
+          if (v119 < v117)
           {
             goto LABEL_118;
           }
 
-          v114 = v24;
-          v115 = v24[2];
-          if (v77 > v115)
+          v121 = v31;
+          v122 = v31[2];
+          if (v84 > v122)
           {
             goto LABEL_119;
           }
 
-          *v109 = v110;
-          v109[1] = v112;
-          if (v77 >= v115)
+          *v116 = v117;
+          v116[1] = v119;
+          if (v84 >= v122)
           {
             goto LABEL_120;
           }
 
-          v72 = v115 - 1;
-          specialized UnsafeMutablePointer.moveInitialize(from:count:)(v111 + 16, v115 - 1 - v77, &v73[2 * v77]);
-          v114[2] = v115 - 1;
-          v55 = v115 > 2;
-          v24 = v114;
-          v25 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
-          if (!v55)
+          v79 = v122 - 1;
+          specialized UnsafeMutablePointer.moveInitialize(from:count:)(v118 + 16, v122 - 1 - v84, &v80[2 * v84]);
+          v121[2] = v122 - 1;
+          v62 = v122 > 2;
+          v31 = v121;
+          v32 = &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR;
+          if (!v62)
           {
             goto LABEL_111;
           }
         }
 
-        v84 = &v73[2 * v72];
-        v85 = *(v84 - 8);
-        v86 = *(v84 - 7);
-        v90 = __OFSUB__(v86, v85);
-        v87 = v86 - v85;
-        if (v90)
+        v91 = &v80[2 * v79];
+        v92 = *(v91 - 8);
+        v93 = *(v91 - 7);
+        v97 = __OFSUB__(v93, v92);
+        v94 = v93 - v92;
+        if (v97)
         {
           goto LABEL_121;
         }
 
-        v89 = *(v84 - 6);
-        v88 = *(v84 - 5);
-        v90 = __OFSUB__(v88, v89);
-        v82 = v88 - v89;
-        v83 = v90;
-        if (v90)
+        v96 = *(v91 - 6);
+        v95 = *(v91 - 5);
+        v97 = __OFSUB__(v95, v96);
+        v89 = v95 - v96;
+        v90 = v97;
+        if (v97)
         {
           goto LABEL_122;
         }
 
-        v91 = v79[1];
-        v92 = v91 - *v79;
-        if (__OFSUB__(v91, *v79))
+        v98 = v86[1];
+        v99 = v98 - *v86;
+        if (__OFSUB__(v98, *v86))
         {
           goto LABEL_124;
         }
 
-        v90 = __OFADD__(v82, v92);
-        v93 = v82 + v92;
-        if (v90)
+        v97 = __OFADD__(v89, v99);
+        v100 = v89 + v99;
+        if (v97)
         {
           goto LABEL_127;
         }
 
-        if (v93 >= v87)
+        if (v100 >= v94)
         {
-          v107 = *v78;
-          v106 = v78[1];
-          v90 = __OFSUB__(v106, v107);
-          v108 = v106 - v107;
-          if (v90)
+          v114 = *v85;
+          v113 = v85[1];
+          v97 = __OFSUB__(v113, v114);
+          v115 = v113 - v114;
+          if (v97)
           {
             goto LABEL_132;
           }
 
-          if (v82 < v108)
+          if (v89 < v115)
           {
-            v77 = v72 - 2;
+            v84 = v79 - 2;
           }
 
           goto LABEL_104;
@@ -2573,42 +1096,41 @@ LABEL_136:
       }
 
 LABEL_111:
-      v23 = v133;
-      v22 = v132[1];
-      a4 = v122;
-      if (v133 >= v22)
+      v30 = v139;
+      v29 = v138[1];
+      a4 = v128;
+      if (v139 >= v29)
       {
-        v142 = v24;
+        v148 = v31;
         break;
       }
     }
   }
 
-  if (!*v123)
+  if (!*v129)
   {
     goto LABEL_142;
   }
 
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v142, *v123, v132);
+  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v148, *v129, v138);
 LABEL_116:
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint64_t *a1, uint64_t a2, uint64_t *a3)
+uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  v73 = a3;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-  v72 = *(v89 - 8);
-  v5 = *(v72 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v89);
-  v84 = (&v70 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v83 = (&v70 - v9);
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v12 = (&v70 - v11);
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = (&v70 - v13);
-  v74 = a1;
-  v15 = *a1;
+  v76 = a3;
+  v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+  v75 = *(v92 - 8);
+  v6 = MEMORY[0x1EEE9AC00](v92, v5);
+  v87 = (&v73 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = MEMORY[0x1EEE9AC00](v6, v8);
+  v86 = (&v73 - v10);
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v14 = (&v73 - v13);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v17 = (&v73 - v16);
+  v77 = a1;
+  v18 = *a1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if ((result & 1) == 0)
   {
@@ -2616,26 +1138,26 @@ uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint
   }
 
 LABEL_2:
-  *v74 = v15;
-  v82 = a2;
-  v86 = v14;
-  v87 = v12;
+  *v77 = v18;
+  v85 = a2;
+  v89 = v17;
+  v90 = v14;
   while (1)
   {
-    v17 = *(v15 + 16);
-    if (v17 < 2)
+    v20 = *(v18 + 16);
+    if (v20 < 2)
     {
       return 1;
     }
 
-    v18 = *v73;
-    if (!*v73)
+    v21 = *v76;
+    if (!*v76)
     {
       break;
     }
 
-    v19 = *(v72 + 72);
-    if (!v19)
+    v22 = *(v75 + 72);
+    if (!v22)
     {
       __break(1u);
 LABEL_84:
@@ -2647,302 +1169,301 @@ LABEL_86:
 LABEL_87:
       __break(1u);
 LABEL_88:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v15);
-      v15 = result;
+      result = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
+      v18 = result;
       goto LABEL_2;
     }
 
-    v20 = v15 + 16 * (v17 - 1);
-    v21 = *(v20 + 32);
-    v80 = *(v15 + 16 * v17);
-    v22 = v19 * v80;
-    v23 = v19 * v21;
-    v24 = v19 * v21 - v19 * v80;
-    v25 = v19 == -1 && v24 == 0x8000000000000000;
-    if (v25)
+    v23 = v18 + 16 * (v20 - 1);
+    v24 = *(v23 + 32);
+    v83 = *(v18 + 16 * v20);
+    v25 = v22 * v83;
+    v26 = v22 * v24;
+    v27 = v22 * v24 - v22 * v83;
+    v28 = v22 == -1 && v27 == 0x8000000000000000;
+    if (v28)
     {
       goto LABEL_86;
     }
 
-    v79 = *(v20 + 40);
-    v26 = v19 * v79 - v23;
-    if (v19 == -1 && v26 == 0x8000000000000000)
+    v82 = *(v23 + 40);
+    v29 = v22 * v82 - v26;
+    if (v22 == -1 && v29 == 0x8000000000000000)
     {
       goto LABEL_87;
     }
 
-    v75 = v17 - 2;
-    v76 = v17 - 1;
-    v77 = v17;
-    v78 = v15;
-    v90 = v18 + v22;
-    v28 = v18 + v23;
-    v29 = (v18 + v19 * v79);
-    v30 = a2;
-    v31 = v24 / v19;
-    v93 = v18 + v22;
-    v92 = v30;
-    v32 = v26 / v19;
-    v33 = v19;
-    if (v24 / v19 < v26 / v19)
+    v78 = v20 - 2;
+    v79 = v20 - 1;
+    v80 = v20;
+    v81 = v18;
+    v93 = v21 + v25;
+    v31 = v21 + v26;
+    v32 = (v21 + v22 * v82);
+    v33 = a2;
+    v34 = v27 / v22;
+    v96 = v21 + v25;
+    v95 = v33;
+    v35 = v29 / v22;
+    v36 = v22;
+    if (v27 / v22 < v29 / v22)
     {
-      specialized UnsafeMutablePointer.moveInitialize(from:count:)();
-      v34 = v90;
-      v88 = v30 + v31 * v33;
-      v91 = v88;
-      v35 = v18 + v33 + v33 * v80;
-      v36 = v30;
-      v12 = v87;
-      v37 = v33;
-      v85 = v29;
+      specialized UnsafeMutablePointer.moveInitialize(from:count:)(v93, v27 / v22, v33);
+      v37 = v93;
+      v91 = v33 + v34 * v36;
+      v94 = v91;
+      v38 = v21 + v36 + v36 * v83;
+      v39 = v33;
+      v14 = v90;
+      v40 = v36;
+      v88 = v32;
       while (1)
       {
-        if (v36 >= v88 || v28 >= v29)
+        if (v39 >= v91 || v31 >= v32)
         {
-          a2 = v82;
+          a2 = v85;
           goto LABEL_77;
         }
 
-        v90 = v35;
-        v39 = v37;
-        v40 = v34;
-        v41 = v28;
-        outlined init with copy of (key: String, value: SQLDataType)(v28, v14, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        outlined init with copy of (key: String, value: SQLDataType)(v36, v12, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        if (*v14 == *v12 && v14[1] == v12[1])
+        v93 = v38;
+        v42 = v40;
+        v43 = v37;
+        v44 = v31;
+        outlined init with copy of (key: String, value: SQLDataType)(v31, v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        outlined init with copy of (key: String, value: SQLDataType)(v39, v14, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        if (*v17 == *v14 && v17[1] == v14[1])
         {
           break;
         }
 
-        v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        outlined destroy of UUID?(v12, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        v46 = _stringCompareWithSmolCheck(_:_:expecting:)();
         outlined destroy of UUID?(v14, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        if ((v43 & 1) == 0)
+        outlined destroy of UUID?(v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        if ((v46 & 1) == 0)
         {
           goto LABEL_32;
         }
 
-        v44 = v41;
-        v28 = v41 + v39;
-        if (v40 < v41 || v40 >= v28)
+        v47 = v44;
+        v31 = v44 + v42;
+        if (v43 < v44 || v43 >= v31)
         {
           swift_arrayInitWithTakeFrontToBack();
-          v37 = v39;
-          v46 = v40;
-          v14 = v86;
+          v40 = v42;
+          v49 = v43;
+          v17 = v89;
           goto LABEL_41;
         }
 
-        v46 = v40;
-        v29 = v85;
-        v14 = v86;
-        if (v40 == v44)
+        v49 = v43;
+        v32 = v88;
+        v17 = v89;
+        if (v43 == v47)
         {
-          v37 = v39;
+          v40 = v42;
         }
 
         else
         {
           swift_arrayInitWithTakeBackToFront();
-          v37 = v39;
-          v46 = v40;
+          v40 = v42;
+          v49 = v43;
         }
 
 LABEL_42:
-        v34 = v46 + v37;
-        v93 = v90;
-        v35 = v90 + v37;
-        v12 = v87;
+        v37 = v49 + v40;
+        v96 = v93;
+        v38 = v93 + v40;
+        v14 = v90;
       }
 
-      outlined destroy of UUID?(v12, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
       outlined destroy of UUID?(v14, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      outlined destroy of UUID?(v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
 LABEL_32:
-      if (v40 < v36 || v40 >= v36 + v39)
+      if (v43 < v39 || v43 >= v39 + v42)
       {
         swift_arrayInitWithTakeFrontToBack();
-        v37 = v39;
-        v46 = v40;
-        v14 = v86;
+        v40 = v42;
+        v49 = v43;
+        v17 = v89;
       }
 
       else
       {
-        v37 = v39;
-        v46 = v40;
-        v14 = v86;
-        if (v40 != v36)
+        v40 = v42;
+        v49 = v43;
+        v17 = v89;
+        if (v43 != v39)
         {
           swift_arrayInitWithTakeBackToFront();
-          v37 = v39;
-          v46 = v40;
+          v40 = v42;
+          v49 = v43;
         }
       }
 
-      v92 = v36 + v39;
-      v36 += v39;
-      v28 = v41;
+      v95 = v39 + v42;
+      v39 += v42;
+      v31 = v44;
 LABEL_41:
-      v29 = v85;
+      v32 = v88;
       goto LABEL_42;
     }
 
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)();
-    v48 = (v30 + v32 * v33);
-    v49 = -v33;
-    v50 = v48;
-    v88 = -v33;
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v21 + v26, v29 / v22, v33);
+    v51 = (v33 + v35 * v36);
+    v52 = -v36;
+    v53 = v51;
+    v91 = -v36;
 LABEL_47:
-    v51 = v28 + v49;
-    v12 = v29;
-    v71 = v50;
-    v52 = v50;
-    v85 = v51;
+    v54 = v31 + v52;
+    v14 = v32;
+    v74 = v53;
+    v55 = v53;
+    v88 = v54;
     while (1)
     {
-      a2 = v82;
-      if (v48 <= v82)
+      a2 = v85;
+      if (v51 <= v85)
       {
-        v93 = v28;
-        v91 = v52;
+        v96 = v31;
+        v94 = v55;
         goto LABEL_76;
       }
 
-      if (v90 >= v28)
+      if (v93 >= v31)
       {
         break;
       }
 
-      v81 = v52;
-      v53 = v28;
-      v54 = v88;
-      v55 = v48 + v88;
-      v56 = v83;
-      outlined init with copy of (key: String, value: SQLDataType)(v48 + v88, v83, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      v57 = v51;
-      v58 = v84;
-      outlined init with copy of (key: String, value: SQLDataType)(v57, v84, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      if (*v56 == *v58 && v56[1] == v58[1])
+      v84 = v55;
+      v56 = v31;
+      v57 = v91;
+      v58 = v51 + v91;
+      v59 = v86;
+      outlined init with copy of (key: String, value: SQLDataType)(v51 + v91, v86, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      v60 = v54;
+      v61 = v87;
+      outlined init with copy of (key: String, value: SQLDataType)(v60, v87, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      if (*v59 == *v61 && v59[1] == v61[1])
       {
-        v60 = 0;
+        v63 = 0;
       }
 
       else
       {
-        v60 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v63 = _stringCompareWithSmolCheck(_:_:expecting:)();
       }
 
-      v29 = (v12 + v54);
-      outlined destroy of UUID?(v84, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      outlined destroy of UUID?(v83, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      v28 = v53;
-      if (v60)
+      v32 = (v14 + v57);
+      outlined destroy of UUID?(v87, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      outlined destroy of UUID?(v86, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      v31 = v56;
+      if (v63)
       {
-        if (v12 < v53 || v29 >= v53)
+        if (v14 < v56 || v32 >= v56)
         {
-          v28 = v85;
+          v31 = v88;
           swift_arrayInitWithTakeFrontToBack();
-          v50 = v81;
-          v49 = v88;
+          v53 = v84;
+          v52 = v91;
         }
 
         else
         {
-          v50 = v81;
-          v25 = v12 == v53;
-          v63 = v85;
-          v28 = v85;
-          v49 = v88;
-          if (!v25)
+          v53 = v84;
+          v28 = v14 == v56;
+          v66 = v88;
+          v31 = v88;
+          v52 = v91;
+          if (!v28)
           {
-            v64 = v81;
+            v67 = v84;
             swift_arrayInitWithTakeBackToFront();
-            v28 = v63;
-            v50 = v64;
+            v31 = v66;
+            v53 = v67;
           }
         }
 
         goto LABEL_47;
       }
 
-      if (v12 < v48 || v29 >= v48)
+      if (v14 < v51 || v32 >= v51)
       {
         swift_arrayInitWithTakeFrontToBack();
-        v12 = v29;
-        v48 = v55;
-        v52 = v55;
-        v51 = v85;
+        v14 = v32;
+        v51 = v58;
+        v55 = v58;
+        v54 = v88;
       }
 
       else
       {
-        v52 = v55;
-        v25 = v48 == v12;
-        v12 = v29;
-        v48 = v55;
-        v51 = v85;
-        if (!v25)
+        v55 = v58;
+        v28 = v51 == v14;
+        v14 = v32;
+        v51 = v58;
+        v54 = v88;
+        if (!v28)
         {
           swift_arrayInitWithTakeBackToFront();
-          v12 = v29;
-          v48 = v55;
-          v52 = v55;
+          v14 = v32;
+          v51 = v58;
+          v55 = v58;
         }
       }
     }
 
-    v93 = v28;
-    v91 = v71;
+    v96 = v31;
+    v94 = v74;
 LABEL_76:
-    v14 = v86;
+    v17 = v89;
 LABEL_77:
-    specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v93, &v92, &v91);
-    v65 = v79;
-    v15 = v80;
-    v66 = v78;
-    if (v79 < v80)
+    specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v96, &v95, &v94);
+    v68 = v82;
+    v18 = v83;
+    v69 = v81;
+    if (v82 < v83)
     {
       goto LABEL_84;
     }
 
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v66 = specialized _ArrayBuffer._consumeAndCreateNew()(v66);
+      v69 = specialized _ArrayBuffer._consumeAndCreateNew()(v69);
     }
 
-    v67 = v76;
-    if (v75 >= *(v66 + 2))
+    v70 = v79;
+    if (v78 >= *(v69 + 2))
     {
       goto LABEL_85;
     }
 
-    v68 = &v66[16 * v77];
-    *v68 = v15;
-    v68[1] = v65;
-    v69 = v74;
-    *v74 = v66;
-    result = specialized Array.remove(at:)(v67);
-    v15 = *v69;
+    v71 = &v69[16 * v80];
+    *v71 = v18;
+    v71[1] = v68;
+    v72 = v77;
+    *v77 = v69;
+    result = specialized Array.remove(at:)(v70);
+    v18 = *v72;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-  v8 = *(*(v66 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v66);
-  v65 = &v57 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v64 = (&v57 - v12);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = (&v57 - v14);
-  result = MEMORY[0x1EEE9AC00](v13);
-  v18 = (&v57 - v17);
-  v20 = *(v19 + 72);
-  if (!v20)
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+  v9 = MEMORY[0x1EEE9AC00](v69, v8);
+  v68 = &v60 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v67 = (&v60 - v13);
+  v15 = MEMORY[0x1EEE9AC00](v12, v14);
+  v17 = (&v60 - v16);
+  result = MEMORY[0x1EEE9AC00](v15, v18);
+  v21 = (&v60 - v20);
+  v23 = *(v22 + 72);
+  if (!v23)
   {
     __break(1u);
 LABEL_72:
@@ -2952,80 +1473,80 @@ LABEL_73:
     return result;
   }
 
-  v21 = a2 - a1;
-  v22 = a2 - a1 == 0x8000000000000000 && v20 == -1;
-  if (v22)
+  v24 = a2 - a1;
+  v25 = a2 - a1 == 0x8000000000000000 && v23 == -1;
+  if (v25)
   {
     goto LABEL_72;
   }
 
-  v23 = a2;
-  v24 = a3 - a2;
-  if (a3 - a2 == 0x8000000000000000 && v20 == -1)
+  v26 = a2;
+  v27 = a3 - a2;
+  if (a3 - a2 == 0x8000000000000000 && v23 == -1)
   {
     goto LABEL_73;
   }
 
-  v26 = v21 / v20;
-  v69 = a1;
-  v68 = a4;
-  v27 = v24 / v20;
-  if (v21 / v20 < v24 / v20)
+  v29 = v24 / v23;
+  v72 = a1;
+  v71 = a4;
+  v30 = v27 / v23;
+  if (v24 / v23 < v27 / v23)
   {
-    v28 = v23;
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)();
-    v29 = v28;
-    v65 = a4 + v26 * v20;
-    v67 = v65;
-    v63 = a3;
+    v31 = v26;
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a1, v24 / v23, a4);
+    v32 = v31;
+    v68 = a4 + v29 * v23;
+    v70 = v68;
+    v66 = a3;
     while (1)
     {
-      if (a4 >= v65 || v29 >= a3)
+      if (a4 >= v68 || v32 >= a3)
       {
         goto LABEL_70;
       }
 
-      v31 = v29;
-      outlined init with copy of (key: String, value: SQLDataType)(v29, v18, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      outlined init with copy of (key: String, value: SQLDataType)(a4, v15, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-      if (*v18 == *v15 && v18[1] == v15[1])
+      v34 = v32;
+      outlined init with copy of (key: String, value: SQLDataType)(v32, v21, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      outlined init with copy of (key: String, value: SQLDataType)(a4, v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+      if (*v21 == *v17 && v21[1] == v17[1])
       {
-        outlined destroy of UUID?(v15, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        outlined destroy of UUID?(v18, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        outlined destroy of UUID?(v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        outlined destroy of UUID?(v21, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
       }
 
       else
       {
-        v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        outlined destroy of UUID?(v15, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        outlined destroy of UUID?(v18, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        if (v33)
+        v36 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        outlined destroy of UUID?(v17, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        outlined destroy of UUID?(v21, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        if (v36)
         {
-          v34 = v31;
-          v35 = v31 + v20;
-          if (a1 < v31 || a1 >= v35)
+          v37 = v34;
+          v38 = v34 + v23;
+          if (a1 < v34 || a1 >= v38)
           {
             swift_arrayInitWithTakeFrontToBack();
-            v29 = v31 + v20;
-            a3 = v63;
+            v32 = v34 + v23;
+            a3 = v66;
           }
 
           else
           {
-            a3 = v63;
-            if (a1 != v34)
+            a3 = v66;
+            if (a1 != v37)
             {
               swift_arrayInitWithTakeBackToFront();
             }
 
-            v29 = v35;
+            v32 = v38;
           }
 
           goto LABEL_37;
         }
       }
 
-      if (a1 < a4 || a1 >= a4 + v20)
+      if (a1 < a4 || a1 >= a4 + v23)
       {
         swift_arrayInitWithTakeFrontToBack();
       }
@@ -3035,133 +1556,133 @@ LABEL_73:
         swift_arrayInitWithTakeBackToFront();
       }
 
-      v68 = a4 + v20;
-      a4 += v20;
-      v29 = v31;
-      a3 = v63;
+      v71 = a4 + v23;
+      a4 += v23;
+      v32 = v34;
+      a3 = v66;
 LABEL_37:
-      a1 += v20;
-      v69 = a1;
+      a1 += v23;
+      v72 = a1;
     }
   }
 
-  v38 = v23;
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)();
-  v39 = v38;
-  v40 = a4 + v27 * v20;
-  v41 = -v20;
-  v42 = v40;
-  v62 = -v20;
-  v59 = a4;
+  v41 = v26;
+  specialized UnsafeMutablePointer.moveInitialize(from:count:)(v26, v27 / v23, a4);
+  v42 = v41;
+  v43 = a4 + v30 * v23;
+  v44 = -v23;
+  v45 = v43;
+  v65 = -v23;
+  v62 = a4;
 LABEL_42:
-  v43 = v39 + v41;
-  v44 = a3;
-  v45 = v42;
-  v63 = v39;
-  v60 = v42;
-  v61 = v43;
+  v46 = v42 + v44;
+  v47 = a3;
+  v48 = v45;
+  v66 = v42;
+  v63 = v45;
+  v64 = v46;
   while (1)
   {
-    if (v40 <= a4)
+    if (v43 <= a4)
     {
-      v69 = v39;
-      v67 = v45;
+      v72 = v42;
+      v70 = v48;
       goto LABEL_70;
     }
 
-    if (v39 <= a1)
+    if (v42 <= a1)
     {
       break;
     }
 
-    v58 = v45;
-    v46 = v62;
-    v47 = v40 + v62;
-    v48 = v64;
-    outlined init with copy of (key: String, value: SQLDataType)(v40 + v62, v64, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    v49 = v43;
-    v50 = v65;
-    outlined init with copy of (key: String, value: SQLDataType)(v49, v65, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    if (*v48 == *v50 && v48[1] == v50[1])
+    v61 = v48;
+    v49 = v65;
+    v50 = v43 + v65;
+    v51 = v67;
+    outlined init with copy of (key: String, value: SQLDataType)(v43 + v65, v67, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    v52 = v46;
+    v53 = v68;
+    outlined init with copy of (key: String, value: SQLDataType)(v52, v68, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    if (*v51 == *v53 && v51[1] == v53[1])
     {
-      v52 = 0;
+      v55 = 0;
     }
 
     else
     {
-      v52 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v55 = _stringCompareWithSmolCheck(_:_:expecting:)();
     }
 
-    a3 = v44 + v46;
-    outlined destroy of UUID?(v65, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    outlined destroy of UUID?(v64, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    if (v52)
+    a3 = v47 + v49;
+    outlined destroy of UUID?(v68, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    outlined destroy of UUID?(v67, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    if (v55)
     {
-      v54 = v44 < v63 || a3 >= v63;
-      a4 = v59;
-      if (v54)
+      v57 = v47 < v66 || a3 >= v66;
+      a4 = v62;
+      if (v57)
       {
-        v55 = v61;
+        v58 = v64;
         swift_arrayInitWithTakeFrontToBack();
-        v39 = v55;
         v42 = v58;
-        v41 = v62;
+        v45 = v61;
+        v44 = v65;
       }
 
       else
       {
-        v42 = v58;
-        v56 = v61;
-        v41 = v62;
-        v39 = v61;
-        if (v44 != v63)
+        v45 = v61;
+        v59 = v64;
+        v44 = v65;
+        v42 = v64;
+        if (v47 != v66)
         {
-          v42 = v58;
+          v45 = v61;
           swift_arrayInitWithTakeBackToFront();
-          v39 = v56;
+          v42 = v59;
         }
       }
 
       goto LABEL_42;
     }
 
-    v53 = v44 < v40 || a3 >= v40;
-    a4 = v59;
-    if (v53)
+    v56 = v47 < v43 || a3 >= v43;
+    a4 = v62;
+    if (v56)
     {
       swift_arrayInitWithTakeFrontToBack();
-      v44 = a3;
-      v40 = v47;
-      v45 = v47;
-      v39 = v63;
-      v42 = v60;
-      v43 = v61;
+      v47 = a3;
+      v43 = v50;
+      v48 = v50;
+      v42 = v66;
+      v45 = v63;
+      v46 = v64;
     }
 
     else
     {
-      v45 = v47;
-      v22 = v40 == v44;
-      v44 = a3;
-      v40 = v47;
-      v39 = v63;
-      v42 = v60;
-      v43 = v61;
-      if (!v22)
+      v48 = v50;
+      v25 = v43 == v47;
+      v47 = a3;
+      v43 = v50;
+      v42 = v66;
+      v45 = v63;
+      v46 = v64;
+      if (!v25)
       {
         swift_arrayInitWithTakeBackToFront();
-        v39 = v63;
-        v44 = a3;
-        v40 = v47;
-        v45 = v47;
+        v42 = v66;
+        v47 = a3;
+        v43 = v50;
+        v48 = v50;
       }
     }
   }
 
-  v69 = v39;
-  v67 = v42;
+  v72 = v42;
+  v70 = v45;
 LABEL_70:
-  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v69, &v68, &v67);
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v72, &v71, &v70);
   return 1;
 }
 
@@ -3239,11 +1760,11 @@ id Streams.StoreStream.init(_:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-id Streams.StoreStream.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+id Streams.StoreStream.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a4@<X8>)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13BMStoreStreamCMd, &_sSo13BMStoreStreamCMR);
   result = BMStoreStream.__allocating_init(restrictedStreamIdentifier:)(a1, a2);
-  *a3 = result;
+  *a4 = result;
   return result;
 }
 
@@ -3306,17 +1827,16 @@ uint64_t Streams.StoreStream.prune(predicate:)(uint64_t a1, uint64_t a2, uint64_
 
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed BMStoreEvent<A>?, @unowned UnsafeMutablePointer<ObjCBool>) -> (@unowned Bool)(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = a2;
-  LOBYTE(a3) = v6(a2, a3);
+  v5 = *(a1 + 32);
+  v6 = a2;
+  LOBYTE(a3) = v5(a2, a3);
 
   return a3 & 1;
 }
 
 id @nonobjc BMStoreStream.init(privateStreamIdentifier:storeConfig:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = MEMORY[0x1865F6160]();
+  v5 = MEMORY[0x1865F6160](a1);
 
   v6 = [v3 initWithPrivateStreamIdentifier:v5 storeConfig:a3];
 
@@ -3325,7 +1845,7 @@ id @nonobjc BMStoreStream.init(privateStreamIdentifier:storeConfig:)(uint64_t a1
 
 id @nonobjc BMStoreStream.init(privateStreamIdentifier:storeConfig:eventDataClass:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v7 = MEMORY[0x1865F6160]();
+  v7 = MEMORY[0x1865F6160](a1);
 
   if (a4)
   {
@@ -3342,14 +1862,7 @@ id @nonobjc BMStoreStream.init(privateStreamIdentifier:storeConfig:eventDataClas
   return v9;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@guaranteed BMStoreEvent<A>?, @unowned UnsafeMutablePointer<ObjCBool>) -> (@unowned Bool)()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return v1() & 1;
-}
-
-uint64_t instantiation function for generic protocol witness table for Streams.StoreStream<A>(uint64_t a1)
+uint64_t instantiation function for generic protocol witness table for Streams.StoreStream<A>(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
@@ -3363,7 +1876,7 @@ uint64_t instantiation function for generic protocol witness table for Streams.S
   return result;
 }
 
-uint64_t type metadata instantiation function for Streams.StoreStream()
+uint64_t type metadata instantiation function for Streams.StoreStream(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3380,7 +1893,7 @@ id BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.init(iterator:)(uint6
   (*(v5 + 16))(&v1[v3], a1, v4);
   __swift_storeEnumTagSinglePayload(&v1[v3], 0, 1, v4);
   v8.receiver = v1;
-  v8.super_class = type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator();
+  v8.super_class = type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator(0);
   v6 = objc_msgSendSuper2(&v8, sel_init);
   (*(v5 + 8))(a1, v4);
   return v6;
@@ -3389,15 +1902,14 @@ id BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.init(iterator:)(uint6
 uint64_t BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.nextObject()@<X0>(uint64_t a1@<X8>)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17PoirotSchematizer8AnyValueOSgMd, _s17PoirotSchematizer8AnyValueOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2 - 8);
+  MEMORY[0x1EEE9AC00](v2 - 8, v3);
   v5 = &v13[-v4];
   v6 = BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.iterator.modify();
   v8 = v7;
   v9 = type metadata accessor for Schematizer.RepeatableFieldIterator();
   if (__swift_getEnumTagSinglePayload(v8, 1, v9))
   {
-    v6(v13, 0);
+    (v6)(v13, 0);
     v10 = type metadata accessor for AnyValue();
     __swift_storeEnumTagSinglePayload(v5, 1, 1, v10);
   }
@@ -3405,7 +1917,7 @@ uint64_t BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.nextObject()@<X
   else
   {
     Schematizer.RepeatableFieldIterator.next()();
-    v6(v13, 0);
+    (v6)(v13, 0);
   }
 
   type metadata accessor for BMPoirotSchematizerShim();
@@ -3416,41 +1928,39 @@ uint64_t BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.nextObject()@<X
 id BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator();
+  v2.super_class = type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
 id static BMPoirotSchematizerShim.searchValues(in:withFieldNumber:typeRawValue:error:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v31 = a5;
-  v6 = type metadata accessor for Schematizer.RepeatableFieldIterator();
-  v7 = OUTLINED_FUNCTION_2_1(v6);
-  v29 = v8;
-  v30 = v7;
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v7);
-  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v29 - v14;
-  v16 = type metadata accessor for TypeSchema();
-  v17 = OUTLINED_FUNCTION_2_1(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x1EEE9AC00](v17);
+  v28 = a5;
+  type metadata accessor for Schematizer.RepeatableFieldIterator();
+  OUTLINED_FUNCTION_2_1();
+  v26 = v7;
+  v27 = v6;
+  v9 = MEMORY[0x1EEE9AC00](v6, v8);
+  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9, v12);
+  v14 = &v26 - v13;
+  type metadata accessor for TypeSchema();
+  OUTLINED_FUNCTION_2_1();
+  MEMORY[0x1EEE9AC00](v15, v16);
   OUTLINED_FUNCTION_13();
-  static BMPoirotSchematizerShim.bmTypeToPoirotType(type:)(a4, v21 - v20);
+  static BMPoirotSchematizerShim.bmTypeToPoirotType(type:)(a4, v18 - v17);
   static Schematizer.makeRepeatableFieldIterator(in:withFieldNumber:type:)();
-  v23 = v29;
-  v22 = v30;
-  (*(v29 + 16))(v13, v15, v30);
-  v24 = objc_allocWithZone(type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator());
-  v25 = BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.init(iterator:)(v13);
-  (*(v23 + 8))(v15, v22);
-  v26 = OUTLINED_FUNCTION_1_22();
-  v27(v26);
-  return v25;
+  v20 = v26;
+  v19 = v27;
+  (*(v26 + 16))(v11, v14, v27);
+  v21 = objc_allocWithZone(type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator(0));
+  v22 = BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator.init(iterator:)(v11);
+  (*(v20 + 8))(v14, v19);
+  v23 = OUTLINED_FUNCTION_1_22();
+  v24(v23);
+  return v22;
 }
 
-uint64_t type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator()
+uint64_t type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator;
   if (!type metadata singleton initialization cache for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator)
@@ -3461,35 +1971,34 @@ uint64_t type metadata accessor for BMPoirotSchematizerShim.BMPoirotRepeatedFiel
   return result;
 }
 
-uint64_t static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)(uint64_t a1, uint64_t a2)
+void *static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for TypeSchema();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = v18 - v10;
+  v7 = MEMORY[0x1EEE9AC00](v4, v6);
+  v9 = v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v10);
+  v12 = v19 - v11;
   switch(a1)
   {
     case 0:
       return a1;
     case 1:
-      (*(v5 + 104))(v18 - v10, *MEMORY[0x1E69C4EE0], v4);
-      v12 = MEMORY[0x1865F5D20](a2, v11);
-      (*(v5 + 8))(v11, v4);
-      v13 = closure #1 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:);
-      if ((v12 & 1) == 0)
+      (*(v5 + 104))(v19 - v11, *MEMORY[0x1E69C4EE0], v4);
+      v13 = MEMORY[0x1865F5D20](a2, v12);
+      (*(v5 + 8))(v12, v4);
+      v14 = closure #1 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:);
+      if ((v13 & 1) == 0)
       {
         goto LABEL_14;
       }
 
-      return v13;
+      return v14;
     case 2:
-      (*(v5 + 104))(v18 - v10, *MEMORY[0x1E69C4EE0], v4);
-      v15 = MEMORY[0x1865F5D20](a2, v11);
-      (*(v5 + 8))(v11, v4);
-      if ((v15 & 1) == 0)
+      (*(v5 + 104))(v19 - v11, *MEMORY[0x1E69C4EE0], v4);
+      v16 = MEMORY[0x1865F5D20](a2, v12);
+      (*(v5 + 8))(v12, v4);
+      if ((v16 & 1) == 0)
       {
         goto LABEL_14;
       }
@@ -3497,14 +2006,14 @@ uint64_t static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poir
       return 0;
     case 3:
       (*(v5 + 16))(v9, a2, v4);
-      v16 = (*(v5 + 88))(v9, v4);
-      v13 = closure #2 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:);
-      if (v16 == *MEMORY[0x1E69C4EE8])
+      v17 = (*(v5 + 88))(v9, v4);
+      v14 = closure #2 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:);
+      if (v17 == *MEMORY[0x1E69C4EE8])
       {
-        return v13;
+        return v14;
       }
 
-      if (v16 == *MEMORY[0x1E69C4ED8])
+      if (v17 == *MEMORY[0x1E69C4ED8])
       {
         return 0;
       }
@@ -3514,21 +2023,21 @@ LABEL_14:
       __break(1u);
       return result;
     case 4:
-      (*(v5 + 104))(v18 - v10, *MEMORY[0x1E69C4EE8], v4);
-      v14 = MEMORY[0x1865F5D20](a2, v11);
-      (*(v5 + 8))(v11, v4);
-      if ((v14 & 1) == 0)
+      (*(v5 + 104))(v19 - v11, *MEMORY[0x1E69C4EE8], v4);
+      v15 = MEMORY[0x1865F5D20](a2, v12);
+      (*(v5 + 8))(v12, v4);
+      if ((v15 & 1) == 0)
       {
         goto LABEL_14;
       }
 
       return 0;
     default:
-      v18[2] = 0;
-      v18[3] = 0xE000000000000000;
+      v19[2] = 0;
+      v19[3] = 0xE000000000000000;
       _StringGuts.grow(_:)(25);
       MEMORY[0x1865F6280](0xD000000000000017, 0x8000000184DDC450);
-      v18[1] = a1;
+      v19[1] = a1;
       type metadata accessor for BMConvertedType();
       _print_unlocked<A, B>(_:_:)();
       goto LABEL_14;
@@ -3538,8 +2047,7 @@ LABEL_14:
 uint64_t closure #1 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)@<X0>(uint64_t a1@<X0>, double *a2@<X8>)
 {
   v4 = type metadata accessor for AnyValue();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v4, v5);
   v7 = (v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   outlined init with copy of AnyValue(a1, v7);
   if (swift_getEnumCaseMultiPayload() == 5)
@@ -3566,25 +2074,20 @@ uint64_t closure #1 in static BMPoirotSchematizerShim.convertedTypeCallback(conv
 
 uint64_t closure #2 in static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v31 - v6;
+  MEMORY[0x1EEE9AC00](v4 - 8, v5);
+  v7 = &v28 - v6;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8, v10);
+  v12 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = type metadata accessor for AnyValue();
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = (&v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v13, v14);
+  v16 = &v28 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of AnyValue(a1, v16);
   if (swift_getEnumCaseMultiPayload() == 8)
   {
-    v17 = *v16;
-    v18 = v16[1];
     UUID.init(uuidString:)();
 
     if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
@@ -3595,46 +2098,45 @@ uint64_t closure #2 in static BMPoirotSchematizerShim.convertedTypeCallback(conv
         swift_once();
       }
 
-      v19 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v19, static Logging.SQL);
-      v20 = Logger.logObject.getter();
-      v21 = static os_log_type_t.fault.getter();
-      if (os_log_type_enabled(v20, v21))
+      v17 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v17, static Logging.SQL);
+      v18 = Logger.logObject.getter();
+      v19 = static os_log_type_t.fault.getter();
+      if (os_log_type_enabled(v18, v19))
       {
-        v22 = swift_slowAlloc();
-        *v22 = 0;
-        _os_log_impl(&dword_1848EE000, v20, v21, "Could not convert uuid string in BiomeSQL to UUID. Replacing with nil", v22, 2u);
-        MEMORY[0x1865F7B70](v22, -1, -1);
+        v20 = swift_slowAlloc();
+        *v20 = 0;
+        _os_log_impl(&dword_1848EE000, v18, v19, "Could not convert uuid string in BiomeSQL to UUID. Replacing with nil", v20, 2u);
+        MEMORY[0x1865F7B70](v20, -1, -1);
       }
 
-      v23 = a2;
-      v24 = 1;
+      v21 = a2;
+      v22 = 1;
     }
 
     else
     {
       (*(v9 + 32))(v12, v7, v8);
-      v32 = UUID.uuid.getter();
-      v33 = v25;
-      v26 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSW_Tt0g5(&v32, &v34);
-      v28 = v27;
+      v29 = UUID.uuid.getter();
+      v30 = v23;
+      v24 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSW_Tt0g5(&v29, &v31);
+      v26 = v25;
       (*(v9 + 8))(v12, v8);
-      *a2 = v26;
-      a2[1] = v28;
+      *a2 = v24;
+      a2[1] = v26;
       swift_storeEnumTagMultiPayload();
-      v23 = a2;
-      v24 = 0;
+      v21 = a2;
+      v22 = 0;
     }
 
-    result = __swift_storeEnumTagSinglePayload(v23, v24, 1, v13);
-    v30 = *MEMORY[0x1E69E9840];
+    return __swift_storeEnumTagSinglePayload(v21, v22, 1, v13);
   }
 
   else
   {
     outlined destroy of AnyValue(v16);
-    v32 = 0;
-    v33 = 0xE000000000000000;
+    v29 = 0;
+    v30 = 0xE000000000000000;
     _StringGuts.grow(_:)(38);
     MEMORY[0x1865F6280](0xD000000000000024, 0x8000000184DDC590);
     _print_unlocked<A, B>(_:_:)();
@@ -3683,29 +2185,29 @@ uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSW_Tt0g5(uint64_t a
 uint64_t static BMPoirotSchematizerShim.setSQLiteValue(in:withFieldNumber:typeRawValue:convertedTypeRawValue:sqliteContext:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(id, char *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v10 = type metadata accessor for TypeSchema();
-  v11 = OUTLINED_FUNCTION_2_1(v10);
-  v13 = v12;
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v11);
+  OUTLINED_FUNCTION_2_1();
+  v12 = v11;
+  MEMORY[0x1EEE9AC00](v13, v14);
   OUTLINED_FUNCTION_13();
-  v18 = v17 - v16;
-  v19 = [a1 bytes];
-  v20 = [a1 length];
-  if (v19)
+  v17 = v16 - v15;
+  v18 = [a1 bytes];
+  v19 = [a1 length];
+  if (v18)
   {
-    v21 = &v20[v19];
+    v20 = &v19[v18];
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
-  static BMPoirotSchematizerShim.bmTypeToPoirotType(type:)(a3, v18);
-  v22 = static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)(a4, v18);
-  a6(v19, v21, a2, v18, v22, v23, a5);
-  (*(v13 + 8))(v18, v10);
-  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v22);
+  static BMPoirotSchematizerShim.bmTypeToPoirotType(type:)(a3, v17);
+  v21 = static BMPoirotSchematizerShim.convertedTypeCallback(convertedType:poirotType:)(a4, v17);
+  v23 = v22;
+  a6(v18, v20, a2, v17, v21, v22, a5);
+  (*(v12 + 8))(v17, v10);
+  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(v21, v23);
 }
 
 id BMPoirotSchematizerShim.__allocating_init()()
@@ -3729,25 +2231,24 @@ id BMPoirotSchematizerShim.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-void type metadata completion function for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator()
+void type metadata completion function for BMPoirotSchematizerShim.BMPoirotRepeatedFieldEnumerator(uint64_t a1)
 {
-  type metadata accessor for Schematizer.RepeatableFieldIterator?();
+  type metadata accessor for Schematizer.RepeatableFieldIterator?(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata accessor for Schematizer.RepeatableFieldIterator?()
+void type metadata accessor for Schematizer.RepeatableFieldIterator?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Schematizer.RepeatableFieldIterator?)
   {
     type metadata accessor for Schematizer.RepeatableFieldIterator();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Schematizer.RepeatableFieldIterator?);
+      atomic_store(v1, &lazy cache variable for type metadata for Schematizer.RepeatableFieldIterator?);
     }
   }
 }
@@ -3765,359 +2266,333 @@ unint64_t type metadata accessor for NSError()
   return result;
 }
 
-uint64_t specialized == infix<A>(_:_:)()
-{
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v5 & 1;
-}
-
-uint64_t static BMDatabaseInitializer.initializeSQLDatabase(identifier:)(uint64_t a1, unint64_t a2)
+uint64_t static BMDatabaseInitializer.initializeSQLDatabase(identifier:)(char *a1, unint64_t a2)
 {
   __dst[16] = *MEMORY[0x1E69E9840];
-  v4 = type metadata accessor for URL.DirectoryHint();
-  v5 = OUTLINED_FUNCTION_2_1(v4);
-  v118 = v6;
-  v119 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v10 = &v104 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v104 - v13;
-  v15 = type metadata accessor for URL();
-  v16 = OUTLINED_FUNCTION_2_1(v15);
-  v18 = v17;
-  v20 = *(v19 + 64);
-  v21 = MEMORY[0x1EEE9AC00](v16);
-  v23 = &v104 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v25 = &v104 - v24;
+  type metadata accessor for URL.DirectoryHint();
+  OUTLINED_FUNCTION_2_1();
+  v112 = v5;
+  v113 = v4;
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v8 = &v98 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8, v10);
+  v12 = &v98 - v11;
+  v13 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_2_1();
+  v15 = v14;
+  v18 = MEMORY[0x1EEE9AC00](v16, v17);
+  v20 = &v98 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18, v21);
+  v23 = &v98 - v22;
   if (one-time initialization token for initializedLibrary != -1)
   {
-LABEL_45:
-    OUTLINED_FUNCTION_13_0();
+LABEL_44:
+    OUTLINED_FUNCTION_13_0(&one-time initialization token for initializedLibrary);
   }
 
-  v26 = static UnifiedLibrary.Library.lookupDatabaseResource(identifier:)(a1, a2);
-  if (!v26)
+  v24 = static UnifiedLibrary.Library.lookupDatabaseResource(identifier:)(a1, a2);
+  if (!v24)
   {
     if (one-time initialization token for compute != -1)
     {
-      OUTLINED_FUNCTION_4_10();
+      OUTLINED_FUNCTION_4_10(&one-time initialization token for compute);
     }
 
-    v67 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v67, static Logging.compute);
+    v62 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v62, static Logging.compute);
 
-    v68 = Logger.logObject.getter();
-    v69 = static os_log_type_t.error.getter();
+    v63 = Logger.logObject.getter();
+    v64 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v68, v69))
+    if (os_log_type_enabled(v63, v64))
     {
-      v70 = swift_slowAlloc();
-      v71 = swift_slowAlloc();
-      __dst[0] = v71;
-      *v70 = 136315138;
-      *(v70 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, __dst);
-      OUTLINED_FUNCTION_39_2(&dword_1848EE000, v72, v73, "Error initializing database: could not find %s in IntelligencePlatformLibrary");
-      __swift_destroy_boxed_opaque_existential_1Tm(v71);
+      v65 = swift_slowAlloc();
+      v66 = swift_slowAlloc();
+      __dst[0] = v66;
+      *v65 = 136315138;
+      *(v65 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, __dst);
+      OUTLINED_FUNCTION_39_2(&dword_1848EE000, v67, v68, "Error initializing database: could not find %s in IntelligencePlatformLibrary");
+      __swift_destroy_boxed_opaque_existential_1Tm(v66);
       OUTLINED_FUNCTION_33_3();
       OUTLINED_FUNCTION_33_3();
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
-  v28 = v26;
-  v114 = v10;
-  v115 = v25;
-  v110 = v27;
-  v111 = v18;
+  v26 = v24;
+  v108 = v8;
+  v109 = v23;
+  v104 = v25;
+  v105 = v15;
   type metadata accessor for BMResourceSpecifier();
 
-  v120 = a1;
-  v29 = BMResourceSpecifier.__allocating_init(type:name:)(3, a1, a2);
-  v30 = [objc_opt_self() sharedInstance];
+  v114 = a1;
+  v27 = BMResourceSpecifier.__allocating_init(type:name:)(3, a1, a2);
+  v28 = [objc_opt_self() sharedInstance];
   __dst[0] = 0;
-  v31 = [v30 openContainerForResource:v29 mode:3 error:__dst];
+  v29 = [v28 openContainerForResource:v27 mode:3 error:__dst];
 
-  v32 = __dst[0];
-  v116 = v29;
-  v117 = v31;
-  if (v31)
+  v30 = __dst[0];
+  v110 = v27;
+  v111 = v29;
+  if (!v29)
   {
-    v107 = v28;
-    v33 = objc_opt_self();
-    v34 = v32;
-    v35 = v31;
-    v36 = [v33 pathForResource:v29 inContainer:v35];
-    v109 = v35;
-
-    if (v36)
-    {
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v113 = v23;
-
-      __swift_storeEnumTagSinglePayload(v14, 1, 1, v15);
-      LODWORD(v117) = *MEMORY[0x1E6968F70];
-      v108 = v15;
-      v38 = v118;
-      v37 = v119;
-      v15 = (v118 + 104);
-      v112 = *(v118 + 13);
-      v39 = v114;
-      v112(v114);
-      v23 = v113;
-      URL.init(filePath:directoryHint:relativeTo:)();
-      __dst[0] = 0x336574696C71732ELL;
-      __dst[1] = 0xE800000000000000;
-      v121 = v120;
-      v122 = a2;
-
-      v121 = String.init<A>(_:)();
-      v122 = v40;
-      String.append<A>(contentsOf:)();
-      __dst[0] = v121;
-      __dst[1] = v122;
-      (v112)(v39, v117, v37);
-      v41 = v108;
-      lazy protocol witness table accessor for type String and conformance String();
-      v42 = v115;
-      URL.appending<A>(path:directoryHint:)();
-      (*(v38 + 1))(v39, v37);
-
-      v43 = [objc_opt_self() defaultManager];
-      v44 = URL.path.getter();
-      v45 = MEMORY[0x1865F6160](v44);
-
-      v46 = [v43 fileExistsAtPath_];
-
-      if (v46)
-      {
-LABEL_41:
-
-        v102 = *(v111 + 8);
-        v102(v23, v41);
-        v102(v42, v41);
-        result = 1;
-        goto LABEL_22;
-      }
-
-      a2 = v110;
-      v47 = *(v110 + 8);
-      v48 = *(v47 + 8);
-      v10 = *MEMORY[0x1E698E960];
-      a1 = v107;
-      v49 = v48(v107, v47);
-      v51 = v50;
-      v52 = type metadata accessor for SQLDatabaseHandle();
-      v53 = *(v52 + 48);
-      v54 = *(v52 + 52);
-      swift_allocObject();
-      v55 = SQLDatabaseHandle.init(identifier:useCase:readOnly:)(v49, v51, v10, 0);
-      v112 = 0;
-      v105 = v55;
-      v88 = (*(a2 + 48))(a1, a2);
-      v110 = *(v88 + 16);
-      if (!v110)
-      {
-LABEL_40:
-
-        v41 = v108;
-        v42 = v115;
-        goto LABEL_41;
-      }
-
-      v89 = 0;
-      v106 = v88;
-      v107 = v88 + 32;
-      while (2)
-      {
-        if (v89 < *(v88 + 16))
-        {
-          v90 = (v107 + 16 * v89);
-          v18 = *v90;
-          v25 = v90[1];
-          v114 = v89 + 1;
-          v91 = static UnifiedLibrary.Library.orderedDataflows.getter();
-          v14 = 0;
-          v92 = *(v91 + 16);
-          v119 = v25;
-          v120 = v92;
-          v118 = v25 + 16;
-          v93 = 32;
-          while (1)
-          {
-            if (v120 == v14)
-            {
-
-              v23 = v113;
-              goto LABEL_39;
-            }
-
-            if (v14 >= *(v91 + 16))
-            {
-              __break(1u);
-              goto LABEL_45;
-            }
-
-            a2 = v91;
-            v15 = v93;
-            memcpy(__dst, (v91 + v93), 0x80uLL);
-            v25 = __dst[13];
-            v117 = __dst[12];
-            v94 = __dst[0];
-            a1 = __dst[1];
-            v23 = v119;
-            v95 = *(v119 + 2);
-            outlined init with copy of Dataflow(__dst, &v121);
-            v96 = v95(v18, v23);
-            v10 = v97;
-            if (v94 == v96 && a1 == v97)
-            {
-              break;
-            }
-
-            v99 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-            if (v99)
-            {
-              goto LABEL_37;
-            }
-
-            outlined destroy of Dataflow(__dst);
-            v93 = v15 + 128;
-            ++v14;
-            v91 = a2;
-          }
-
-LABEL_37:
-
-          v10 = v25;
-
-          outlined destroy of Dataflow(__dst);
-          v121 = v105;
-          v100._countAndFlagsBits = v117;
-          v100._object = v25;
-          SQLDatabase.execute(statement:)(v100);
-          v112 = v101;
-          v23 = v113;
-          if (v101)
-          {
-
-            v103 = OUTLINED_FUNCTION_29_4();
-            v121(v103);
-            (v121)(v115, v101);
-
-            if (one-time initialization token for compute != -1)
-            {
-              OUTLINED_FUNCTION_4_10();
-            }
-
-            v56 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v56, static Logging.compute);
-            v57 = v112;
-            v58 = v112;
-            v59 = Logger.logObject.getter();
-            v60 = static os_log_type_t.error.getter();
-
-            if (os_log_type_enabled(v59, v60))
-            {
-              v61 = swift_slowAlloc();
-              v62 = swift_slowAlloc();
-              __dst[0] = v62;
-              *v61 = 136315138;
-              v63 = v112;
-              swift_getErrorValue();
-              v64 = Error.localizedDescription.getter();
-              v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v64, v65, __dst);
-
-              *(v61 + 4) = v66;
-              _os_log_impl(&dword_1848EE000, v59, v60, "Error initializing database: %s", v61, 0xCu);
-              __swift_destroy_boxed_opaque_existential_1Tm(v62);
-              OUTLINED_FUNCTION_33_3();
-              OUTLINED_FUNCTION_33_3();
-            }
-
-            else
-            {
-            }
-
-            goto LABEL_21;
-          }
-
-LABEL_39:
-          v89 = v114;
-          v88 = v106;
-          if (v114 != v110)
-          {
-            continue;
-          }
-
-          goto LABEL_40;
-        }
-
-        break;
-      }
-
-      __break(1u);
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    v74 = __dst[0];
-    v75 = _convertNSErrorToError(_:)();
+    v69 = __dst[0];
+    v70 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
+LABEL_17:
+    if (one-time initialization token for compute == -1)
+    {
+LABEL_18:
+      v71 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v71, static Logging.compute);
+
+      v72 = Logger.logObject.getter();
+      v73 = static os_log_type_t.error.getter();
+
+      v74 = os_log_type_enabled(v72, v73);
+      v75 = v114;
+      v76 = v111;
+      if (v74)
+      {
+        v77 = swift_slowAlloc();
+        v78 = swift_slowAlloc();
+        __dst[0] = v78;
+        *v77 = 136315138;
+        *(v77 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, a2, __dst);
+        OUTLINED_FUNCTION_39_2(&dword_1848EE000, v79, v80, "Error initializing database: could not find determine database directory path for %s");
+        __swift_destroy_boxed_opaque_existential_1Tm(v78);
+        OUTLINED_FUNCTION_33_3();
+        OUTLINED_FUNCTION_33_3();
+      }
+
+      return 0;
+    }
+
+LABEL_46:
+    OUTLINED_FUNCTION_4_10(&one-time initialization token for compute);
+    goto LABEL_18;
   }
 
-  if (one-time initialization token for compute != -1)
+  v101 = v26;
+  v31 = objc_opt_self();
+  v32 = v30;
+  v33 = v29;
+  v34 = [v31 pathForResource:v27 inContainer:v33];
+  v103 = v33;
+
+  if (!v34)
   {
-LABEL_47:
-    OUTLINED_FUNCTION_4_10();
+    goto LABEL_17;
   }
 
-  v76 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v76, static Logging.compute);
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v107 = v20;
 
-  v77 = Logger.logObject.getter();
-  v78 = static os_log_type_t.error.getter();
+  __swift_storeEnumTagSinglePayload(v12, 1, 1, v13);
+  LODWORD(v111) = *MEMORY[0x1E6968F70];
+  v102 = v13;
+  v36 = v112;
+  v35 = v113;
+  v13 = (v112 + 104);
+  v106 = *(v112 + 13);
+  v37 = v108;
+  v106(v108);
+  v20 = v107;
+  URL.init(filePath:directoryHint:relativeTo:)();
+  __dst[0] = 0x336574696C71732ELL;
+  __dst[1] = 0xE800000000000000;
+  v115 = v114;
+  v116 = a2;
 
-  v79 = os_log_type_enabled(v77, v78);
-  v80 = v120;
-  v81 = v117;
-  if (v79)
+  v115 = String.init<A>(_:)();
+  v116 = v38;
+  String.append<A>(contentsOf:)();
+  __dst[0] = v115;
+  __dst[1] = v116;
+  (v106)(v37, v111, v35);
+  v39 = v102;
+  lazy protocol witness table accessor for type String and conformance String();
+  v40 = v109;
+  URL.appending<A>(path:directoryHint:)();
+  (*(v36 + 1))(v37, v35);
+
+  v41 = [objc_opt_self() defaultManager];
+  v42 = URL.path.getter();
+  v43 = MEMORY[0x1865F6160](v42);
+
+  v44 = [v41 fileExistsAtPath_];
+
+  if ((v44 & 1) == 0)
   {
-    v82 = swift_slowAlloc();
-    v83 = swift_slowAlloc();
-    __dst[0] = v83;
-    *v82 = 136315138;
-    *(v82 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v80, a2, __dst);
-    OUTLINED_FUNCTION_39_2(&dword_1848EE000, v84, v85, "Error initializing database: could not find determine database directory path for %s");
-    __swift_destroy_boxed_opaque_existential_1Tm(v83);
-    OUTLINED_FUNCTION_33_3();
-    OUTLINED_FUNCTION_33_3();
+    a2 = v104;
+    v45 = *(v104 + 8);
+    v46 = *(v45 + 8);
+    v8 = *MEMORY[0x1E698E960];
+    a1 = v101;
+    v47 = v46(v101, v45);
+    v49 = v48;
+    type metadata accessor for SQLDatabaseHandle(0);
+    swift_allocObject();
+    v50 = SQLDatabaseHandle.init(identifier:useCase:readOnly:)(v47, v49, v8, 0);
+    v106 = 0;
+    v99 = v50;
+    v82 = (*(a2 + 48))(a1, a2);
+    v104 = *(v82 + 16);
+    if (!v104)
+    {
+LABEL_39:
+
+      v39 = v102;
+      v40 = v109;
+      goto LABEL_40;
+    }
+
+    v83 = 0;
+    v100 = v82;
+    v101 = (v82 + 32);
+    while (2)
+    {
+      if (v83 < *(v82 + 16))
+      {
+        v84 = &v101[16 * v83];
+        v15 = *v84;
+        v23 = *(v84 + 1);
+        v108 = v83 + 1;
+        v85 = static UnifiedLibrary.Library.orderedDataflows.getter();
+        v12 = 0;
+        v86 = *(v85 + 16);
+        v113 = v23;
+        v114 = v86;
+        v112 = v23 + 16;
+        v87 = 32;
+        while (1)
+        {
+          if (v114 == v12)
+          {
+
+            v20 = v107;
+            goto LABEL_38;
+          }
+
+          if (v12 >= *(v85 + 16))
+          {
+            __break(1u);
+            goto LABEL_44;
+          }
+
+          a2 = v85;
+          v13 = v87;
+          memcpy(__dst, (v85 + v87), 0x80uLL);
+          v23 = __dst[13];
+          v111 = __dst[12];
+          v88 = __dst[0];
+          a1 = __dst[1];
+          v20 = v113;
+          v89 = *(v113 + 2);
+          outlined init with copy of Dataflow(__dst, &v115);
+          v90 = v89(v15, v20);
+          v8 = v91;
+          if (v88 == v90 && a1 == v91)
+          {
+            break;
+          }
+
+          v93 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+          if (v93)
+          {
+            goto LABEL_36;
+          }
+
+          outlined destroy of Dataflow(__dst);
+          v87 = v13 + 128;
+          ++v12;
+          v85 = a2;
+        }
+
+LABEL_36:
+
+        v8 = v23;
+
+        outlined destroy of Dataflow(__dst);
+        v115 = v99;
+        v94._countAndFlagsBits = v111;
+        v94._object = v23;
+        SQLDatabase.execute(statement:)(v94);
+        v106 = v95;
+        v20 = v107;
+        if (v95)
+        {
+
+          v97 = OUTLINED_FUNCTION_29_4();
+          v115(v97);
+          (v115)(v109, v95);
+
+          if (one-time initialization token for compute != -1)
+          {
+            OUTLINED_FUNCTION_4_10(&one-time initialization token for compute);
+          }
+
+          v51 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v51, static Logging.compute);
+          v52 = v106;
+          v53 = v106;
+          v54 = Logger.logObject.getter();
+          v55 = static os_log_type_t.error.getter();
+
+          if (os_log_type_enabled(v54, v55))
+          {
+            v56 = swift_slowAlloc();
+            v57 = swift_slowAlloc();
+            __dst[0] = v57;
+            *v56 = 136315138;
+            v58 = v106;
+            swift_getErrorValue();
+            v59 = Error.localizedDescription.getter();
+            v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v60, __dst);
+
+            *(v56 + 4) = v61;
+            _os_log_impl(&dword_1848EE000, v54, v55, "Error initializing database: %s", v56, 0xCu);
+            __swift_destroy_boxed_opaque_existential_1Tm(v57);
+            OUTLINED_FUNCTION_33_3();
+            OUTLINED_FUNCTION_33_3();
+          }
+
+          else
+          {
+          }
+
+          return 0;
+        }
+
+LABEL_38:
+        v83 = v108;
+        v82 = v100;
+        if (v108 != v104)
+        {
+          continue;
+        }
+
+        goto LABEL_39;
+      }
+
+      break;
+    }
+
+    __break(1u);
+    goto LABEL_46;
   }
 
-LABEL_21:
-  result = 0;
-LABEL_22:
-  v87 = *MEMORY[0x1E69E9840];
-  return result;
+LABEL_40:
+
+  v96 = *(v105 + 8);
+  v96(v20, v39);
+  v96(v40, v39);
+  return 1;
 }
 
 Swift::Int one-time initialization function for streamsSubscribedByNonLibraryViews()
@@ -4173,48 +2648,47 @@ Swift::Int one-time initialization function for streamsSubscribedByNonLibraryVie
     v6 = *v4;
     v5 = v4[1];
     ++v2;
-    v7 = *(v1 + 40);
     Hasher.init(_seed:)();
 
     String.hash(into:)();
     result = Hasher._finalize()();
-    v9 = ~(-1 << *(v1 + 32));
+    v8 = ~(-1 << *(v1 + 32));
     while (1)
     {
-      v10 = result & v9;
-      v11 = (result & v9) >> 6;
-      v12 = *(v3 + 8 * v11);
-      v13 = 1 << (result & v9);
-      if ((v13 & v12) == 0)
+      v9 = result & v8;
+      v10 = (result & v8) >> 6;
+      v11 = *(v3 + 8 * v10);
+      v12 = 1 << (result & v8);
+      if ((v12 & v11) == 0)
       {
         break;
       }
 
-      v14 = (*(v1 + 48) + 16 * v10);
-      v15 = *v14 == v6 && v14[1] == v5;
-      if (v15 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      v13 = (*(v1 + 48) + 16 * v9);
+      v14 = *v13 == v6 && v13[1] == v5;
+      if (v14 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
       {
 
         goto LABEL_13;
       }
 
-      result = v10 + 1;
+      result = v9 + 1;
     }
 
-    *(v3 + 8 * v11) = v13 | v12;
-    v16 = (*(v1 + 48) + 16 * v10);
-    *v16 = v6;
-    v16[1] = v5;
-    v17 = *(v1 + 16);
-    v18 = __OFADD__(v17, 1);
-    v19 = v17 + 1;
-    if (v18)
+    *(v3 + 8 * v10) = v12 | v11;
+    v15 = (*(v1 + 48) + 16 * v9);
+    *v15 = v6;
+    v15[1] = v5;
+    v16 = *(v1 + 16);
+    v17 = __OFADD__(v16, 1);
+    v18 = v16 + 1;
+    if (v17)
     {
       __break(1u);
       return result;
     }
 
-    *(v1 + 16) = v19;
+    *(v1 + 16) = v18;
 LABEL_13:
     if (v2 != 19)
     {
@@ -4235,7 +2709,7 @@ uint64_t static BMDatabaseInitializer.viewSubscribedStreams()()
   if (one-time initialization token for initializedLibrary != -1)
   {
 LABEL_35:
-    OUTLINED_FUNCTION_13_0();
+    OUTLINED_FUNCTION_13_0(&one-time initialization token for initializedLibrary);
   }
 
   v0 = static UnifiedLibrary.Library.sqlViewToBiomeStreamMapping.getter();
@@ -4294,82 +2768,79 @@ LABEL_34:
       }
 
 LABEL_10:
-      v10 = (v7 << 9) | (8 * __clz(__rbit64(v5)));
-      v11 = *(*(v1 + 56) + v10);
-      v12 = *(v11 + 16);
-      v13 = v8[2];
-      if (__OFADD__(v13, v12))
+      v10 = *(*(v1 + 56) + ((v7 << 9) | (8 * __clz(__rbit64(v5)))));
+      v11 = *(v10 + 16);
+      v12 = v8[2];
+      if (__OFADD__(v12, v11))
       {
         goto LABEL_32;
       }
 
-      v14 = *(*(v1 + 56) + v10);
-
-      if (!swift_isUniquelyReferenced_nonNull_native() || v13 + v12 > v8[3] >> 1)
+      if (!swift_isUniquelyReferenced_nonNull_native() || v12 + v11 > v8[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v8 = v15;
+        v8 = v13;
       }
 
       v5 &= v5 - 1;
-      if (!*(v11 + 16))
+      if (!*(v10 + 16))
       {
         break;
       }
 
-      if ((v8[3] >> 1) - v8[2] < v12)
+      if ((v8[3] >> 1) - v8[2] < v11)
       {
         goto LABEL_33;
       }
 
       swift_arrayInitWithCopy();
 
-      if (v12)
+      if (v11)
       {
-        v16 = v8[2];
-        v17 = __OFADD__(v16, v12);
-        v18 = v16 + v12;
-        if (v17)
+        v14 = v8[2];
+        v15 = __OFADD__(v14, v11);
+        v16 = v14 + v11;
+        if (v15)
         {
           goto LABEL_34;
         }
 
-        v8[2] = v18;
+        v8[2] = v16;
       }
     }
   }
 
-  while (!v12);
+  while (!v11);
   __break(1u);
 LABEL_21:
 
-  v19 = 0;
-  v28 = MEMORY[0x1865F6400](v8[2], MEMORY[0x1E69E6158], MEMORY[0x1E69E6168]);
-  v20 = v8[2];
-  v21 = v8 + 5;
-  while (v20 != v19)
+  v17 = 0;
+  v26 = MEMORY[0x1865F6400](v8[2], MEMORY[0x1E69E6158], MEMORY[0x1E69E6168]);
+  v18 = v8[2];
+  v19 = v8 + 5;
+  while (v18 != v17)
   {
-    if (v19 >= v8[2])
+    if (v17 >= v8[2])
     {
       goto LABEL_31;
     }
 
-    ++v19;
-    v23 = *(v21 - 1);
-    v22 = *v21;
+    ++v17;
+    v21 = *(v19 - 1);
+    v20 = *v19;
 
-    specialized Set._Variant.insert(_:)(&v27, v23, v22);
+    specialized Set._Variant.insert(_:)(v25, v21, v20);
 
-    v21 += 2;
+    v19 += 2;
   }
 
-  v24 = v28;
+  v22 = v26;
   if (one-time initialization token for streamsSubscribedByNonLibraryViews != -1)
   {
     swift_once();
   }
 
-  return specialized Set.union<A>(_:)(v25, v24);
+  return specialized Set.union<A>(_:)(v23, v22);
 }
 
 uint64_t specialized Set.union<A>(_:)(uint64_t result, uint64_t a2)
@@ -4396,7 +2867,7 @@ LABEL_9:
     v12 = *v11;
     v13 = v11[1];
 
-    specialized Set._Variant.insert(_:)(&v14, v12, v13);
+    specialized Set._Variant.insert(_:)(v14, v12, v13);
   }
 
   while (1)
@@ -4447,14 +2918,14 @@ id BMDatabaseInitializer.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-Swift::Int specialized _SwiftNewtypeWrapper<>._rawHashValue(seed:)()
+Swift::Int specialized _SwiftNewtypeWrapper<>._rawHashValue(seed:)(uint64_t a1, uint64_t a2)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return v0;
+  return v2;
 }
 
 uint64_t specialized UnsafeMutablePointer.assign(repeating:count:)(uint64_t result, uint64_t a2, uint64_t a3)
@@ -4498,97 +2969,92 @@ uint64_t specialized UnsafeMutablePointer.assign(repeating:count:)(uint64_t resu
 BOOL specialized Set._Variant.insert(_:)(void *a1, void *a2)
 {
   v4 = *v2;
-  v5 = *(*v2 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v5 = Hasher._finalize()();
 
-  v7 = ~(-1 << *(v4 + 32));
+  v6 = ~(-1 << *(v4 + 32));
   while (1)
   {
-    v8 = v6 & v7;
-    v9 = (1 << (v6 & v7)) & *(v4 + 56 + (((v6 & v7) >> 3) & 0xFFFFFFFFFFFFFF8));
-    if (!v9)
+    v7 = v5 & v6;
+    v8 = (1 << (v5 & v6)) & *(v4 + 56 + (((v5 & v6) >> 3) & 0xFFFFFFFFFFFFFF8));
+    if (!v8)
     {
-      v17 = *v23;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v25 = *v23;
-      v19 = a2;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(v19, v8, isUniquelyReferenced_nonNull_native);
-      *v23 = v25;
-      *a1 = v19;
-      return v9 == 0;
+      v22 = *v20;
+      v16 = a2;
+      specialized _NativeSet.insertNew(_:at:isUnique:)(v16, v7, isUniquelyReferenced_nonNull_native);
+      *v20 = v22;
+      *a1 = v16;
+      return v8 == 0;
     }
 
-    v10 = *(*(v4 + 48) + 8 * v8);
-    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = v12;
-    if (v11 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v13 == v14)
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
+    if (v9 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v11 == v12)
     {
 
       goto LABEL_12;
     }
 
-    v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v16)
+    if (v14)
     {
       break;
     }
 
-    v6 = v8 + 1;
+    v5 = v7 + 1;
   }
 
 LABEL_12:
-  v20 = *(*(v4 + 48) + 8 * v8);
-  *a1 = v20;
-  v21 = v20;
-  return v9 == 0;
+  v17 = *(*(v4 + 48) + 8 * v7);
+  *a1 = v17;
+  v18 = v17;
+  return v8 == 0;
 }
 
 BOOL specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swift::Int a3)
 {
   v7 = *v3;
-  v8 = *(*v3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v9 = Hasher._finalize()();
-  v10 = ~(-1 << *(v7 + 32));
+  v8 = Hasher._finalize()();
+  v9 = ~(-1 << *(v7 + 32));
   while (1)
   {
-    v11 = v9 & v10;
-    v12 = (1 << (v9 & v10)) & *(v7 + 56 + (((v9 & v10) >> 3) & 0xFFFFFFFFFFFFFF8));
-    if (!v12)
+    v10 = v8 & v9;
+    v11 = (1 << (v8 & v9)) & *(v7 + 56 + (((v8 & v9) >> 3) & 0xFFFFFFFFFFFFFF8));
+    if (!v11)
     {
       break;
     }
 
-    v13 = (*(v7 + 48) + 16 * v11);
-    v14 = *v13 == a2 && v13[1] == a3;
-    if (v14 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v12 = (*(v7 + 48) + 16 * v10);
+    v13 = *v12 == a2 && v12[1] == a3;
+    if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
-      v15 = (*(v7 + 48) + 16 * v11);
-      v16 = v15[1];
-      *a1 = *v15;
-      a1[1] = v16;
+      v14 = (*(v7 + 48) + 16 * v10);
+      v15 = v14[1];
+      *a1 = *v14;
+      a1[1] = v15;
 
-      return v12 == 0;
+      return v11 == 0;
     }
 
-    v9 = v11 + 1;
+    v8 = v10 + 1;
   }
 
-  v17 = *v3;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v20 = *v3;
+  v18 = *v3;
 
-  specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, v11, isUniquelyReferenced_nonNull_native);
-  *v3 = v20;
+  specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, v10, isUniquelyReferenced_nonNull_native);
+  *v3 = v18;
   *a1 = a2;
   a1[1] = a3;
-  return v12 == 0;
+  return v11 == 0;
 }
 
 uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t result, unint64_t a2, char a3)
@@ -4611,7 +3077,7 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t result, unint
     v10 = v14;
     if (*(v7 + 16))
     {
-      v87 = v7;
+      v83 = v7;
       v15 = 0;
       v16 = (v7 + 56);
       v17 = 1 << *(v7 + 32);
@@ -4635,26 +3101,25 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t result, unint
           v22 = __clz(__rbit64(v19));
           v19 &= v19 - 1;
 LABEL_18:
-          v25 = *(v10 + 40);
-          v89 = *(*(v7 + 48) + 8 * (v22 | (v15 << 6)));
+          v85 = *(*(v7 + 48) + 8 * (v22 | (v15 << 6)));
           static String._unconditionallyBridgeFromObjectiveC(_:)();
           Hasher.init(_seed:)();
           String.hash(into:)();
-          v26 = Hasher._finalize()();
+          v25 = Hasher._finalize()();
 
-          v27 = -1 << *(v10 + 32);
-          v28 = v26 & ~v27;
-          v29 = v28 >> 6;
-          if (((-1 << v28) & ~*(v21 + 8 * (v28 >> 6))) == 0)
+          v26 = -1 << *(v10 + 32);
+          v27 = v25 & ~v26;
+          v28 = v27 >> 6;
+          if (((-1 << v27) & ~*(v21 + 8 * (v27 >> 6))) == 0)
           {
             break;
           }
 
-          v30 = __clz(__rbit64((-1 << v28) & ~*(v21 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
-          v7 = v87;
+          v29 = __clz(__rbit64((-1 << v27) & ~*(v21 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
+          v7 = v83;
 LABEL_27:
-          *(v21 + ((v30 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v30;
-          *(*(v10 + 48) + 8 * v30) = v89;
+          *(v21 + ((v29 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v29;
+          *(*(v10 + 48) + 8 * v29) = v85;
           ++*(v10 + 16);
           if (!v19)
           {
@@ -4662,22 +3127,22 @@ LABEL_27:
           }
         }
 
-        v31 = 0;
-        v32 = (63 - v27) >> 6;
-        v7 = v87;
-        while (++v29 != v32 || (v31 & 1) == 0)
+        v30 = 0;
+        v31 = (63 - v26) >> 6;
+        v7 = v83;
+        while (++v28 != v31 || (v30 & 1) == 0)
         {
-          v33 = v29 == v32;
-          if (v29 == v32)
+          v32 = v28 == v31;
+          if (v28 == v31)
           {
-            v29 = 0;
+            v28 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v21 + 8 * v29);
-          if (v34 != -1)
+          v30 |= v32;
+          v33 = *(v21 + 8 * v28);
+          if (v33 != -1)
           {
-            v30 = __clz(__rbit64(~v34)) + (v29 << 6);
+            v29 = __clz(__rbit64(~v33)) + (v28 << 6);
             goto LABEL_27;
           }
         }
@@ -4715,15 +3180,15 @@ LABEL_13:
         }
       }
 
-      v51 = 1 << *(v7 + 32);
-      if (v51 >= 64)
+      v50 = 1 << *(v7 + 32);
+      if (v50 >= 64)
       {
-        specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v51 + 63) >> 6, v16);
+        specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v50 + 63) >> 6, v16);
       }
 
       else
       {
-        *v16 = -1 << v51;
+        *v16 = -1 << v50;
       }
 
       *(v7 + 16) = 0;
@@ -4735,79 +3200,78 @@ LABEL_13:
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo18BMStreamIdentifieraGMd, &_ss11_SetStorageCySo18BMStreamIdentifieraGMR);
   if (v9 <= v8)
   {
-    v52 = static _SetStorage.resize(original:capacity:move:)();
-    v10 = v52;
+    v51 = static _SetStorage.resize(original:capacity:move:)();
+    v10 = v51;
     if (*(v7 + 16))
     {
-      v88 = v7;
-      v53 = 0;
-      v56 = *(v7 + 56);
-      v55 = v7 + 56;
-      v54 = v56;
-      v57 = 1 << *(v55 - 24);
-      if (v57 < 64)
+      v84 = v7;
+      v52 = 0;
+      v55 = *(v7 + 56);
+      v54 = v7 + 56;
+      v53 = v55;
+      v56 = 1 << *(v54 - 24);
+      if (v56 < 64)
       {
-        v58 = ~(-1 << v57);
+        v57 = ~(-1 << v56);
       }
 
       else
       {
-        v58 = -1;
+        v57 = -1;
       }
 
-      v59 = v58 & v54;
-      v60 = (v57 + 63) >> 6;
-      v61 = v52 + 56;
-      if (v59)
+      v58 = v57 & v53;
+      v59 = (v56 + 63) >> 6;
+      v60 = v51 + 56;
+      if (v58)
       {
         while (1)
         {
-          v62 = __clz(__rbit64(v59));
-          v90 = (v59 - 1) & v59;
+          v61 = __clz(__rbit64(v58));
+          v86 = (v58 - 1) & v58;
 LABEL_61:
-          v65 = *(*(v88 + 48) + 8 * (v62 | (v53 << 6)));
-          v66 = *(v10 + 40);
+          v64 = *(*(v84 + 48) + 8 * (v61 | (v52 << 6)));
           static String._unconditionallyBridgeFromObjectiveC(_:)();
           Hasher.init(_seed:)();
-          v67 = v65;
+          v65 = v64;
           String.hash(into:)();
-          v68 = Hasher._finalize()();
+          v66 = Hasher._finalize()();
 
-          v69 = -1 << *(v10 + 32);
-          v70 = v68 & ~v69;
-          v71 = v70 >> 6;
-          if (((-1 << v70) & ~*(v61 + 8 * (v70 >> 6))) == 0)
+          v67 = -1 << *(v10 + 32);
+          v68 = v66 & ~v67;
+          v69 = v68 >> 6;
+          if (((-1 << v68) & ~*(v60 + 8 * (v68 >> 6))) == 0)
           {
             break;
           }
 
-          v72 = __clz(__rbit64((-1 << v70) & ~*(v61 + 8 * (v70 >> 6)))) | v70 & 0x7FFFFFFFFFFFFFC0;
+          v70 = __clz(__rbit64((-1 << v68) & ~*(v60 + 8 * (v68 >> 6)))) | v68 & 0x7FFFFFFFFFFFFFC0;
 LABEL_70:
-          *(v61 + ((v72 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v72;
-          *(*(v10 + 48) + 8 * v72) = v67;
+          *(v60 + ((v70 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v70;
+          *(*(v10 + 48) + 8 * v70) = v65;
           ++*(v10 + 16);
-          v59 = v90;
-          if (!v90)
+          v58 = v86;
+          if (!v86)
           {
             goto LABEL_56;
           }
         }
 
-        v73 = 0;
-        v74 = (63 - v69) >> 6;
-        while (++v71 != v74 || (v73 & 1) == 0)
+        v71 = 0;
+        v72 = (63 - v67) >> 6;
+        while (++v69 != v72 || (v71 & 1) == 0)
         {
-          v75 = v71 == v74;
-          if (v71 == v74)
+          v73 = v69 == v72;
+          if (v69 == v72)
           {
-            v71 = 0;
+            v69 = 0;
           }
 
-          v73 |= v75;
-          v76 = *(v61 + 8 * v71);
-          if (v76 != -1)
+          v71 |= v73;
+          v74 = *(v60 + 8 * v69);
+          if (v74 != -1)
           {
-            v72 = __clz(__rbit64(~v76)) + (v71 << 6);
+            v70 = __clz(__rbit64(~v74)) + (v69 << 6);
             goto LABEL_70;
           }
         }
@@ -4816,26 +3280,26 @@ LABEL_70:
       }
 
 LABEL_56:
-      v63 = v53;
+      v62 = v52;
       while (1)
       {
-        v53 = v63 + 1;
-        if (__OFADD__(v63, 1))
+        v52 = v62 + 1;
+        if (__OFADD__(v62, 1))
         {
           break;
         }
 
-        if (v53 >= v60)
+        if (v52 >= v59)
         {
           goto LABEL_75;
         }
 
-        v64 = *(v55 + 8 * v53);
-        ++v63;
-        if (v64)
+        v63 = *(v54 + 8 * v52);
+        ++v62;
+        if (v63)
         {
-          v62 = __clz(__rbit64(v64));
-          v90 = (v64 - 1) & v64;
+          v61 = __clz(__rbit64(v63));
+          v86 = (v63 - 1) & v63;
           goto LABEL_61;
         }
       }
@@ -4850,100 +3314,98 @@ LABEL_87:
 LABEL_75:
 
     *v4 = v10;
-    v77 = *(v10 + 40);
     static String._unconditionallyBridgeFromObjectiveC(_:)();
     Hasher.init(_seed:)();
     String.hash(into:)();
-    v78 = Hasher._finalize()();
+    v75 = Hasher._finalize()();
 
-    v79 = ~(-1 << *(v10 + 32));
+    v76 = ~(-1 << *(v10 + 32));
     while (1)
     {
-      a2 = v78 & v79;
-      if (((*(v10 + 56 + (((v78 & v79) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v78 & v79)) & 1) == 0)
+      a2 = v75 & v76;
+      if (((*(v10 + 56 + (((v75 & v76) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v75 & v76)) & 1) == 0)
       {
         goto LABEL_4;
       }
 
       type metadata accessor for BMStreamIdentifier();
-      v80 = *(*(v10 + 48) + 8 * a2);
-      v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v83 = v82;
-      if (v81 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v83 == v84)
+      v77 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v79 = v78;
+      if (v77 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v79 == v80)
       {
         goto LABEL_89;
       }
 
-      v86 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v82 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v86)
+      if (v82)
       {
         goto LABEL_90;
       }
 
-      v78 = a2 + 1;
+      v75 = a2 + 1;
     }
   }
 
-  v35 = static _SetStorage.copy(original:)();
-  v10 = v35;
+  v34 = static _SetStorage.copy(original:)();
+  v10 = v34;
   if (*(v7 + 16))
   {
-    v36 = (v35 + 56);
-    v37 = ((1 << *(v10 + 32)) + 63) >> 6;
-    if (v10 != v7 || v36 >= v7 + 56 + 8 * v37)
+    v35 = (v34 + 56);
+    v36 = ((1 << *(v10 + 32)) + 63) >> 6;
+    if (v10 != v7 || v35 >= v7 + 56 + 8 * v36)
     {
-      memmove(v36, (v7 + 56), 8 * v37);
+      memmove(v35, (v7 + 56), 8 * v36);
     }
 
-    v39 = 0;
+    v38 = 0;
     *(v10 + 16) = *(v7 + 16);
-    v40 = 1 << *(v7 + 32);
-    v41 = *(v7 + 56);
-    v42 = -1;
-    if (v40 < 64)
+    v39 = 1 << *(v7 + 32);
+    v40 = *(v7 + 56);
+    v41 = -1;
+    if (v39 < 64)
     {
-      v42 = ~(-1 << v40);
+      v41 = ~(-1 << v39);
     }
 
-    v43 = v42 & v41;
-    v44 = (v40 + 63) >> 6;
-    if ((v42 & v41) != 0)
+    v42 = v41 & v40;
+    v43 = (v39 + 63) >> 6;
+    if ((v41 & v40) != 0)
     {
       do
       {
-        v45 = __clz(__rbit64(v43));
-        v43 &= v43 - 1;
+        v44 = __clz(__rbit64(v42));
+        v42 &= v42 - 1;
 LABEL_46:
-        v48 = v45 | (v39 << 6);
-        v49 = *(*(v7 + 48) + 8 * v48);
-        *(*(v10 + 48) + 8 * v48) = v49;
-        v50 = v49;
+        v47 = v44 | (v38 << 6);
+        v48 = *(*(v7 + 48) + 8 * v47);
+        *(*(v10 + 48) + 8 * v47) = v48;
+        v49 = v48;
       }
 
-      while (v43);
+      while (v42);
     }
 
-    v46 = v39;
+    v45 = v38;
     while (1)
     {
-      v39 = v46 + 1;
-      if (__OFADD__(v46, 1))
+      v38 = v45 + 1;
+      if (__OFADD__(v45, 1))
       {
         goto LABEL_85;
       }
 
-      if (v39 >= v44)
+      if (v38 >= v43)
       {
         break;
       }
 
-      v47 = *(v7 + 56 + 8 * v39);
-      ++v46;
-      if (v47)
+      v46 = *(v7 + 56 + 8 * v38);
+      ++v45;
+      if (v46)
       {
-        v45 = __clz(__rbit64(v47));
-        v43 = (v47 - 1) & v47;
+        v44 = __clz(__rbit64(v46));
+        v42 = (v46 - 1) & v46;
         goto LABEL_46;
       }
     }
@@ -4992,10 +3454,10 @@ Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, S
     v12 = v17;
     if (*(v9 + 16))
     {
-      v95 = v4;
+      v92 = v4;
       v18 = v9;
       v19 = 0;
-      v97 = v18;
+      v94 = v18;
       v22 = *(v18 + 56);
       v21 = (v18 + 56);
       v20 = v22;
@@ -5020,27 +3482,26 @@ Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, S
           v28 = __clz(__rbit64(v25));
           v25 &= v25 - 1;
 LABEL_18:
-          v31 = (*(v97 + 48) + 16 * (v28 | (v19 << 6)));
+          v31 = (*(v94 + 48) + 16 * (v28 | (v19 << 6)));
           v32 = *v31;
           v33 = v31[1];
-          v34 = *(v12 + 40);
           Hasher.init(_seed:)();
           String.hash(into:)();
-          v35 = Hasher._finalize()();
-          v36 = -1 << *(v12 + 32);
-          v37 = v35 & ~v36;
-          v38 = v37 >> 6;
-          if (((-1 << v37) & ~*(v27 + 8 * (v37 >> 6))) == 0)
+          v34 = Hasher._finalize()();
+          v35 = -1 << *(v12 + 32);
+          v36 = v34 & ~v35;
+          v37 = v36 >> 6;
+          if (((-1 << v36) & ~*(v27 + 8 * (v36 >> 6))) == 0)
           {
             break;
           }
 
-          v39 = __clz(__rbit64((-1 << v37) & ~*(v27 + 8 * (v37 >> 6)))) | v37 & 0x7FFFFFFFFFFFFFC0;
+          v38 = __clz(__rbit64((-1 << v36) & ~*(v27 + 8 * (v36 >> 6)))) | v36 & 0x7FFFFFFFFFFFFFC0;
 LABEL_27:
-          *(v27 + ((v39 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v39;
-          v44 = (*(v12 + 48) + 16 * v39);
-          *v44 = v32;
-          v44[1] = v33;
+          *(v27 + ((v38 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v38;
+          v43 = (*(v12 + 48) + 16 * v38);
+          *v43 = v32;
+          v43[1] = v33;
           ++*(v12 + 16);
           if (!v25)
           {
@@ -5048,21 +3509,21 @@ LABEL_27:
           }
         }
 
-        v40 = 0;
-        v41 = (63 - v36) >> 6;
-        while (++v38 != v41 || (v40 & 1) == 0)
+        v39 = 0;
+        v40 = (63 - v35) >> 6;
+        while (++v37 != v40 || (v39 & 1) == 0)
         {
-          v42 = v38 == v41;
-          if (v38 == v41)
+          v41 = v37 == v40;
+          if (v37 == v40)
           {
-            v38 = 0;
+            v37 = 0;
           }
 
-          v40 |= v42;
-          v43 = *(v27 + 8 * v38);
-          if (v43 != -1)
+          v39 |= v41;
+          v42 = *(v27 + 8 * v37);
+          if (v42 != -1)
           {
-            v39 = __clz(__rbit64(~v43)) + (v38 << 6);
+            v38 = __clz(__rbit64(~v42)) + (v37 << 6);
             goto LABEL_27;
           }
         }
@@ -5100,19 +3561,19 @@ LABEL_13:
         }
       }
 
-      v62 = 1 << *(v97 + 32);
-      if (v62 >= 64)
+      v61 = 1 << *(v94 + 32);
+      if (v61 >= 64)
       {
-        specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v62 + 63) >> 6, v21);
+        specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v61 + 63) >> 6, v21);
       }
 
       else
       {
-        *v21 = -1 << v62;
+        *v21 = -1 << v61;
       }
 
-      v5 = v95;
-      *(v97 + 16) = 0;
+      v5 = v92;
+      *(v94 + 16) = 0;
     }
 
     goto LABEL_76;
@@ -5121,82 +3582,81 @@ LABEL_13:
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
   if (v11 <= v10)
   {
-    v63 = static _SetStorage.resize(original:capacity:move:)();
-    v12 = v63;
+    v62 = static _SetStorage.resize(original:capacity:move:)();
+    v12 = v62;
     if (*(v9 + 16))
     {
-      v96 = v4;
-      v64 = v9;
-      v65 = 0;
-      v98 = v64;
-      v68 = *(v64 + 56);
-      v67 = v64 + 56;
-      v66 = v68;
-      v69 = 1 << *(v67 - 24);
-      if (v69 < 64)
+      v93 = v4;
+      v63 = v9;
+      v64 = 0;
+      v95 = v63;
+      v67 = *(v63 + 56);
+      v66 = v63 + 56;
+      v65 = v67;
+      v68 = 1 << *(v66 - 24);
+      if (v68 < 64)
       {
-        v70 = ~(-1 << v69);
+        v69 = ~(-1 << v68);
       }
 
       else
       {
-        v70 = -1;
+        v69 = -1;
       }
 
-      v71 = v70 & v66;
-      v72 = (v69 + 63) >> 6;
-      v73 = v63 + 56;
-      if ((v70 & v66) != 0)
+      v70 = v69 & v65;
+      v71 = (v68 + 63) >> 6;
+      v72 = v62 + 56;
+      if ((v69 & v65) != 0)
       {
         while (1)
         {
-          v74 = __clz(__rbit64(v71));
-          v71 &= v71 - 1;
+          v73 = __clz(__rbit64(v70));
+          v70 &= v70 - 1;
 LABEL_61:
-          v77 = (*(v98 + 48) + 16 * (v74 | (v65 << 6)));
-          v78 = *v77;
-          v79 = v77[1];
-          v80 = *(v12 + 40);
+          v76 = (*(v95 + 48) + 16 * (v73 | (v64 << 6)));
+          v77 = *v76;
+          v78 = v76[1];
           Hasher.init(_seed:)();
 
           String.hash(into:)();
-          v81 = Hasher._finalize()();
-          v82 = -1 << *(v12 + 32);
-          v83 = v81 & ~v82;
-          v84 = v83 >> 6;
-          if (((-1 << v83) & ~*(v73 + 8 * (v83 >> 6))) == 0)
+          v79 = Hasher._finalize()();
+          v80 = -1 << *(v12 + 32);
+          v81 = v79 & ~v80;
+          v82 = v81 >> 6;
+          if (((-1 << v81) & ~*(v72 + 8 * (v81 >> 6))) == 0)
           {
             break;
           }
 
-          v85 = __clz(__rbit64((-1 << v83) & ~*(v73 + 8 * (v83 >> 6)))) | v83 & 0x7FFFFFFFFFFFFFC0;
+          v83 = __clz(__rbit64((-1 << v81) & ~*(v72 + 8 * (v81 >> 6)))) | v81 & 0x7FFFFFFFFFFFFFC0;
 LABEL_70:
-          *(v73 + ((v85 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v85;
-          v90 = (*(v12 + 48) + 16 * v85);
-          *v90 = v78;
-          v90[1] = v79;
+          *(v72 + ((v83 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v83;
+          v88 = (*(v12 + 48) + 16 * v83);
+          *v88 = v77;
+          v88[1] = v78;
           ++*(v12 + 16);
-          if (!v71)
+          if (!v70)
           {
             goto LABEL_56;
           }
         }
 
-        v86 = 0;
-        v87 = (63 - v82) >> 6;
-        while (++v84 != v87 || (v86 & 1) == 0)
+        v84 = 0;
+        v85 = (63 - v80) >> 6;
+        while (++v82 != v85 || (v84 & 1) == 0)
         {
-          v88 = v84 == v87;
-          if (v84 == v87)
+          v86 = v82 == v85;
+          if (v82 == v85)
           {
-            v84 = 0;
+            v82 = 0;
           }
 
-          v86 |= v88;
-          v89 = *(v73 + 8 * v84);
-          if (v89 != -1)
+          v84 |= v86;
+          v87 = *(v72 + 8 * v82);
+          if (v87 != -1)
           {
-            v85 = __clz(__rbit64(~v89)) + (v84 << 6);
+            v83 = __clz(__rbit64(~v87)) + (v82 << 6);
             goto LABEL_70;
           }
         }
@@ -5205,28 +3665,28 @@ LABEL_70:
       }
 
 LABEL_56:
-      v75 = v65;
+      v74 = v64;
       while (1)
       {
-        v65 = v75 + 1;
-        if (__OFADD__(v75, 1))
+        v64 = v74 + 1;
+        if (__OFADD__(v74, 1))
         {
           break;
         }
 
-        if (v65 >= v72)
+        if (v64 >= v71)
         {
 
-          v5 = v96;
+          v5 = v93;
           goto LABEL_78;
         }
 
-        v76 = *(v67 + 8 * v65);
-        ++v75;
-        if (v76)
+        v75 = *(v66 + 8 * v64);
+        ++v74;
+        if (v75)
         {
-          v74 = __clz(__rbit64(v76));
-          v71 = (v76 - 1) & v76;
+          v73 = __clz(__rbit64(v75));
+          v70 = (v75 - 1) & v75;
           goto LABEL_61;
         }
       }
@@ -5242,22 +3702,21 @@ LABEL_76:
 
 LABEL_78:
     *v5 = v12;
-    v91 = *(v12 + 40);
     Hasher.init(_seed:)();
     String.hash(into:)();
     result = Hasher._finalize()();
-    v92 = ~(-1 << *(v12 + 32));
+    v89 = ~(-1 << *(v12 + 32));
     while (1)
     {
-      a3 = result & v92;
-      if (((*(v12 + 56 + (((result & v92) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v92)) & 1) == 0)
+      a3 = result & v89;
+      if (((*(v12 + 56 + (((result & v89) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v89)) & 1) == 0)
       {
         goto LABEL_4;
       }
 
-      v93 = (*(v12 + 48) + 16 * a3);
-      v94 = *v93 == v8 && v93[1] == a2;
-      if (v94 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      v90 = (*(v12 + 48) + 16 * a3);
+      v91 = *v90 == v8 && v90[1] == a2;
+      if (v91 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
       {
         goto LABEL_92;
       }
@@ -5266,67 +3725,67 @@ LABEL_78:
     }
   }
 
-  v45 = static _SetStorage.copy(original:)();
-  v12 = v45;
+  v44 = static _SetStorage.copy(original:)();
+  v12 = v44;
   if (*(v9 + 16))
   {
-    v46 = (v45 + 56);
-    v47 = ((1 << *(v12 + 32)) + 63) >> 6;
-    if (v12 != v9 || v46 >= v9 + 56 + 8 * v47)
+    v45 = (v44 + 56);
+    v46 = ((1 << *(v12 + 32)) + 63) >> 6;
+    if (v12 != v9 || v45 >= v9 + 56 + 8 * v46)
     {
-      memmove(v46, (v9 + 56), 8 * v47);
+      memmove(v45, (v9 + 56), 8 * v46);
     }
 
-    v49 = 0;
+    v48 = 0;
     *(v12 + 16) = *(v9 + 16);
-    v50 = 1 << *(v9 + 32);
-    v51 = *(v9 + 56);
-    v52 = -1;
-    if (v50 < 64)
+    v49 = 1 << *(v9 + 32);
+    v50 = *(v9 + 56);
+    v51 = -1;
+    if (v49 < 64)
     {
-      v52 = ~(-1 << v50);
+      v51 = ~(-1 << v49);
     }
 
-    v53 = v52 & v51;
-    v54 = (v50 + 63) >> 6;
-    if ((v52 & v51) != 0)
+    v52 = v51 & v50;
+    v53 = (v49 + 63) >> 6;
+    if ((v51 & v50) != 0)
     {
       do
       {
-        v55 = __clz(__rbit64(v53));
-        v53 &= v53 - 1;
+        v54 = __clz(__rbit64(v52));
+        v52 &= v52 - 1;
 LABEL_46:
-        v58 = v55 | (v49 << 6);
-        v59 = (*(v9 + 48) + 16 * v58);
-        v60 = v59[1];
-        v61 = (*(v12 + 48) + 16 * v58);
-        *v61 = *v59;
-        v61[1] = v60;
+        v57 = v54 | (v48 << 6);
+        v58 = (*(v9 + 48) + 16 * v57);
+        v59 = v58[1];
+        v60 = (*(v12 + 48) + 16 * v57);
+        *v60 = *v58;
+        v60[1] = v59;
       }
 
-      while (v53);
+      while (v52);
     }
 
-    v56 = v49;
+    v55 = v48;
     while (1)
     {
-      v49 = v56 + 1;
-      if (__OFADD__(v56, 1))
+      v48 = v55 + 1;
+      if (__OFADD__(v55, 1))
       {
         goto LABEL_88;
       }
 
-      if (v49 >= v54)
+      if (v48 >= v53)
       {
         break;
       }
 
-      v57 = *(v9 + 56 + 8 * v49);
-      ++v56;
-      if (v57)
+      v56 = *(v9 + 56 + 8 * v48);
+      ++v55;
+      if (v56)
       {
-        v55 = __clz(__rbit64(v57));
-        v53 = (v57 - 1) & v57;
+        v54 = __clz(__rbit64(v56));
+        v52 = (v56 - 1) & v56;
         goto LABEL_46;
       }
     }
@@ -5355,7 +3814,7 @@ LABEL_92:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SQLRawDataType and conformance SQLRawDataType(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SQLRawDataType and conformance SQLRawDataType(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5441,459 +3900,433 @@ uint64_t static QueryPlannerMetadata.clearMetadata(materializedViewName:database
   return swift_willThrow();
 }
 
-unint64_t MetadataSQLError.description.getter()
+uint64_t MetadataSQLError.description.getter()
 {
   v0 = type metadata accessor for AggregationFunction.AggregationType();
-  v1 = OUTLINED_FUNCTION_2_1(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_2_1();
+  v2 = v1;
+  MEMORY[0x1EEE9AC00](v3, v4);
   OUTLINED_FUNCTION_13();
-  v8 = v7 - v6;
-  v9 = type metadata accessor for MetadataSQLError(0);
-  v10 = OUTLINED_FUNCTION_12(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v10);
+  v7 = v6 - v5;
+  type metadata accessor for MetadataSQLError(0);
+  OUTLINED_FUNCTION_12();
+  MEMORY[0x1EEE9AC00](v8, v9);
   OUTLINED_FUNCTION_13();
-  v15 = (v14 - v13);
-  v16 = OUTLINED_FUNCTION_132_0();
-  _s12BiomeStreams13StorableValueOWOcTm_0(v16, v17);
+  v12 = v11 - v10;
+  v13 = OUTLINED_FUNCTION_132_0();
+  _s12BiomeStreams13StorableValueOWOcTm_0(v13, v14);
   OUTLINED_FUNCTION_29_5();
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v51 = *v15;
-      v52 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(93);
       OUTLINED_FUNCTION_55_1();
       OUTLINED_FUNCTION_61_1();
-      MEMORY[0x1865F6280](v53 - 7, v54 | 0x8000000000000000);
+      MEMORY[0x1865F6280](v36 - 7, v37 | 0x8000000000000000);
       OUTLINED_FUNCTION_36_2();
-      v55 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1865F6280](v55);
+      v38 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1865F6280](v38);
 
       OUTLINED_FUNCTION_72_2();
-      v22 = 0xD000000000000030;
+      v17 = 0xD000000000000030;
       goto LABEL_12;
     case 2u:
-      v35 = *v15;
-      v36 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(115);
       OUTLINED_FUNCTION_55_1();
       MEMORY[0x1865F6280](0xD000000000000030, 0x8000000184DDCCB0);
       OUTLINED_FUNCTION_36_2();
-      v37 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1865F6280](v37);
+      v26 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1865F6280](v26);
 
-      v21 = "s in the query (";
-      v22 = 0xD00000000000003FLL;
+      v16 = "s in the query (";
+      v17 = 0xD00000000000003FLL;
       goto LABEL_8;
     case 3u:
-      v39 = *v15;
-      v40 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(43);
 
       OUTLINED_FUNCTION_45_2();
-      v75 = v41 - 22;
-      v42 = OUTLINED_FUNCTION_36_2();
-      MEMORY[0x1865F6280](v42);
+      v55 = v28 - 22;
+      v29 = OUTLINED_FUNCTION_36_2();
+      MEMORY[0x1865F6280](v29);
 
-      v30 = 0x6F6E207361772022;
-      v43 = 0xEF646E756F662074;
+      v23 = 0x6F6E207361772022;
+      v30 = 0xEF646E756F662074;
       goto LABEL_15;
     case 4u:
-      v26 = *v15;
-      v27 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(100);
       OUTLINED_FUNCTION_55_1();
       MEMORY[0x1865F6280](0xD000000000000021, 0x8000000184DDCC10);
-      v28 = OUTLINED_FUNCTION_36_2();
-      MEMORY[0x1865F6280](v28);
+      v21 = OUTLINED_FUNCTION_36_2();
+      MEMORY[0x1865F6280](v21);
 
-      v29 = "metadata field (";
-      v30 = 0xD000000000000041;
+      v22 = "metadata field (";
+      v23 = 0xD000000000000041;
       goto LABEL_14;
     case 5u:
-      v57 = *v15;
-      v58 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(81);
       OUTLINED_FUNCTION_55_1();
       MEMORY[0x1865F6280](0xD000000000000013, 0x8000000184DDCBB0);
-      v59 = OUTLINED_FUNCTION_36_2();
-      MEMORY[0x1865F6280](v59);
+      v40 = OUTLINED_FUNCTION_36_2();
+      MEMORY[0x1865F6280](v40);
 
-      v29 = "The record field (";
-      v30 = 0xD00000000000003CLL;
+      v22 = "The record field (";
+      v23 = 0xD00000000000003CLL;
 LABEL_14:
-      v43 = v29 | 0x8000000000000000;
+      v30 = v22 | 0x8000000000000000;
 LABEL_15:
-      MEMORY[0x1865F6280](v30, v43);
-      return v75;
+      MEMORY[0x1865F6280](v23, v30);
+      return v55;
     case 6u:
-      (*(v3 + 32))(v8, v15, v0);
+      (*(v2 + 32))(v7, v12, v0);
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(37);
       OUTLINED_FUNCTION_55_1();
       OUTLINED_FUNCTION_61_1();
-      MEMORY[0x1865F6280](v60 - 13, v61 | 0x8000000000000000);
+      MEMORY[0x1865F6280](v41 - 13, v42 | 0x8000000000000000);
       _print_unlocked<A, B>(_:_:)();
-      v25 = v75;
-      (*(v3 + 8))(v8, v0);
-      return v25;
+      v20 = v55;
+      (*(v2 + 8))(v7, v0);
+      return v20;
     case 7u:
-      v44 = *v15;
-      v45 = v15[1];
-      v46 = *(v15 + 16);
+      v31 = *(v12 + 16);
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(27);
       OUTLINED_FUNCTION_61_1();
-      MEMORY[0x1865F6280](v47 - 23, v48 | 0x8000000000000000);
+      MEMORY[0x1865F6280](v32 - 23, v33 | 0x8000000000000000);
       _print_unlocked<A, B>(_:_:)();
-      v49 = OUTLINED_FUNCTION_36_2();
-      outlined consume of DatabaseValue(v49, v50, v46);
-      return v75;
+      v34 = OUTLINED_FUNCTION_36_2();
+      outlined consume of DatabaseValue(v34, v35, v31);
+      return v55;
     case 8u:
-      v67 = *v15;
-      v66 = v15[1];
+      v47 = *v12;
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(94);
       OUTLINED_FUNCTION_55_1();
       MEMORY[0x1865F6280](0xD000000000000045, 0x8000000184DDCAF0);
-      v68 = MEMORY[0x1865F6370](v67, MEMORY[0x1E69E6158]);
-      v70 = v69;
+      v48 = MEMORY[0x1865F6370](v47, MEMORY[0x1E69E6158]);
+      v50 = v49;
 
-      MEMORY[0x1865F6280](v68, v70);
+      MEMORY[0x1865F6280](v48, v50);
 
       MEMORY[0x1865F6280](0xD000000000000015, 0x8000000184DDCB40);
-      v65 = OUTLINED_FUNCTION_35_3();
+      v46 = OUTLINED_FUNCTION_35_3();
       goto LABEL_19;
     case 9u:
-      v31 = *v15;
-      v32 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(25);
 
       OUTLINED_FUNCTION_45_2();
-      v75 = v33 - 25;
-      v34 = OUTLINED_FUNCTION_36_2();
-      MEMORY[0x1865F6280](v34);
+      v55 = v24 - 25;
+      v25 = OUTLINED_FUNCTION_36_2();
+      MEMORY[0x1865F6280](v25);
       goto LABEL_20;
     case 0xAu:
-      v62 = *v15;
+      v43 = *v12;
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(39);
 
       OUTLINED_FUNCTION_45_2();
-      v75 = v63 - 11;
-      v64 = type metadata accessor for StorableValue(0);
-      v65 = v62;
+      v55 = v44 - 11;
+      v45 = type metadata accessor for StorableValue(0);
+      v46 = v43;
 LABEL_19:
-      v71 = MEMORY[0x1865F6370](v65, v64);
-      v73 = v72;
+      v51 = MEMORY[0x1865F6370](v46, v45);
+      v53 = v52;
 
-      MEMORY[0x1865F6280](v71, v73);
+      MEMORY[0x1865F6280](v51, v53);
       goto LABEL_20;
     case 0xBu:
       OUTLINED_FUNCTION_61_1();
-      return v24 | v23;
+      return v19 | v18;
     case 0xCu:
       return 0xD000000000000040;
     default:
-      v18 = *v15;
-      v19 = v15[1];
       OUTLINED_FUNCTION_10_7();
       _StringGuts.grow(_:)(92);
       OUTLINED_FUNCTION_55_1();
       MEMORY[0x1865F6280](0xD00000000000002ALL, 0x8000000184DDCDA0);
       OUTLINED_FUNCTION_36_2();
-      v20 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1865F6280](v20);
+      v15 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1865F6280](v15);
 
-      v21 = "oup by keys in the query (";
-      v22 = 0xD00000000000002ELL;
+      v16 = "oup by keys in the query (";
+      v17 = 0xD00000000000002ELL;
 LABEL_8:
-      v38 = v21 | 0x8000000000000000;
+      v27 = v16 | 0x8000000000000000;
 LABEL_12:
-      MEMORY[0x1865F6280](v22, v38);
+      MEMORY[0x1865F6280](v17, v27);
       OUTLINED_FUNCTION_36_2();
-      v56 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x1865F6280](v56);
+      v39 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1865F6280](v39);
 LABEL_20:
 
-      return v75;
+      return v55;
   }
 }
 
-uint64_t _s12BiomeStreams30KeyedQueryPlannerMetadataCachePAAE06updateF3SQL20materializedViewName13groupBySchema07payloadO0SS3sql_SayAA13StorableValueOGAK3key_0S0Qz5valuet_tKc17argumentsFromItemtSS_SaySS06columnL0_0A9SQLParser11SQLDataTypeO8dataTypetG07PayloadO0QztKFZA2kL_AnOt_tKcfU2_AA0c19FirstMatchingRecordG0V_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *_s12BiomeStreams30KeyedQueryPlannerMetadataCachePAAE06updateF3SQL20materializedViewName13groupBySchema07payloadO0SS3sql_SayAA13StorableValueOGAK3key_0S0Qz5valuet_tKc17argumentsFromItemtSS_SaySS06columnL0_0A9SQLParser11SQLDataTypeO8dataTypetG07PayloadO0QztKFZA2kL_AnOt_tKcfU2_AA0c19FirstMatchingRecordG0V_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v181 = a6;
-  v188 = a5;
-  v193 = a3;
-  v207 = type metadata accessor for SQLDataType();
-  Description = v207[-1].Description;
-  v9 = *(Description + 8);
-  MEMORY[0x1EEE9AC00](v207);
-  v185 = &v180 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v189 = a6;
+  v196 = a5;
+  v201 = a3;
+  v215 = type metadata accessor for SQLDataType();
+  Description = v215[-1].Description;
+  MEMORY[0x1EEE9AC00](v215, v9);
+  v193 = &v188 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x1EEE9AC00](v11 - 8);
-  v189 = &v180 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v192 = (&v180 - v15);
-  v16 = type metadata accessor for StorableValue(0);
-  v206 = *(v16 - 8);
-  v17 = *(v206 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v16);
-  v182 = &v180 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v183 = &v180 - v21;
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v191 = &v180 - v23;
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v187 = &v180 - v25;
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v190 = &v180 - v27;
-  MEMORY[0x1EEE9AC00](v26);
-  *&v210 = &v180 - v28;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x1EEE9AC00](v29 - 8);
-  v186 = &v180 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v34 = &v180 - v33;
-  v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
-  v195 = *(v202 - 8);
-  v35 = *(v195 + 64);
-  v36 = MEMORY[0x1EEE9AC00](v202);
-  v201 = &v180 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v211 = &v180 - v38;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMR);
-  v40 = *(*(v39 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v39);
-  v194 = (&v180 - v41);
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMR);
-  v43 = *(*(v42 - 8) + 64);
-  v44 = MEMORY[0x1EEE9AC00](v42 - 8);
-  v46 = &v180 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v44);
-  v48 = (&v180 - v47);
-  v205 = v16;
-  v49 = Dictionary.init(dictionaryLiteral:)();
-  v203 = a1;
-  v50 = *(a1 + 16);
-  v196 = a4;
-  v51 = *(a4 + 16);
-  v52 = v50;
-  if (v50 != v51)
+  v13 = MEMORY[0x1EEE9AC00](v11 - 8, v12);
+  v197 = &v188 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v15);
+  v200 = (&v188 - v16);
+  v17 = type metadata accessor for StorableValue(0);
+  v214 = *(v17 - 8);
+  v19 = MEMORY[0x1EEE9AC00](v17, v18);
+  v190 = &v188 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = MEMORY[0x1EEE9AC00](v19, v21);
+  v191 = &v188 - v23;
+  v25 = MEMORY[0x1EEE9AC00](v22, v24);
+  v199 = &v188 - v26;
+  v28 = MEMORY[0x1EEE9AC00](v25, v27);
+  v195 = &v188 - v29;
+  v31 = MEMORY[0x1EEE9AC00](v28, v30);
+  v198 = &v188 - v32;
+  MEMORY[0x1EEE9AC00](v31, v33);
+  *&v218 = &v188 - v34;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
+  v37 = MEMORY[0x1EEE9AC00](v35 - 8, v36);
+  v194 = &v188 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v37, v39);
+  v41 = &v188 - v40;
+  v210 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
+  v203 = *(v210 - 8);
+  v43 = MEMORY[0x1EEE9AC00](v210, v42);
+  v209 = &v188 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v43, v45);
+  v219 = &v188 - v46;
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMR);
+  MEMORY[0x1EEE9AC00](v47, v48);
+  v202 = (&v188 - v49);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMR);
+  v52 = MEMORY[0x1EEE9AC00](v50 - 8, v51);
+  v54 = &v188 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v52, v55);
+  v57 = (&v188 - v56);
+  v213 = v17;
+  v58 = Dictionary.init(dictionaryLiteral:)();
+  v211 = a1;
+  v59 = *(a1 + 16);
+  v204 = a4;
+  v60 = *(a4 + 16);
+  v61 = v59;
+  if (v59 != v60)
   {
 
     type metadata accessor for MetadataSQLError(0);
-    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError);
+    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError, &protocol conformance descriptor for MetadataSQLError);
     swift_allocError();
-    *v89 = v51;
-    v89[1] = v52;
+    *v98 = v60;
+    v98[1] = v61;
 LABEL_46:
     swift_storeEnumTagMultiPayload();
     return swift_willThrow();
   }
 
-  v53 = 0;
-  v184 = Description;
-  v204 = (Description + 32);
-  v209 = v50;
-  v199 = v39;
-  v200 = v34;
-  v197 = v48;
-  v198 = v46;
+  v62 = 0;
+  v192 = Description;
+  v212 = (Description + 32);
+  v217 = v59;
+  v207 = v47;
+  v208 = v41;
+  v205 = v57;
+  v206 = v54;
   while (1)
   {
-    v212 = v49;
-    if (v53 == v52)
+    v220 = v58;
+    if (v62 == v61)
     {
-      v54 = 1;
-      v55 = v52;
+      v63 = 1;
+      v64 = v61;
     }
 
     else
     {
-      if (v53 >= v52)
+      if (v62 >= v61)
       {
         goto LABEL_76;
       }
 
-      v55 = (v53 + 1);
-      if (__OFADD__(v53, 1))
+      v64 = (v62 + 1);
+      if (__OFADD__(v62, 1))
       {
         goto LABEL_77;
       }
 
-      v56 = v194;
-      v57 = v196 + ((*(v195 + 80) + 32) & ~*(v195 + 80)) + *(v195 + 72) * v53;
-      v58 = *(v39 + 48);
-      *v194 = v53;
-      outlined init with copy of Date?(v57, v56 + v58, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
-      outlined init with take of UUID?(v56, v46, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMR);
-      v54 = 0;
+      v65 = v202;
+      v66 = v204 + ((*(v203 + 80) + 32) & ~*(v203 + 80)) + *(v203 + 72) * v62;
+      v67 = *(v47 + 48);
+      *v202 = v62;
+      outlined init with copy of Date?(v66, v65 + v67, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
+      outlined init with take of UUID?(v65, v54, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtMR);
+      v63 = 0;
     }
 
-    __swift_storeEnumTagSinglePayload(v46, v54, 1, v39);
-    outlined init with take of UUID?(v46, v48, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMR);
-    if (__swift_getEnumTagSinglePayload(v48, 1, v39) == 1)
+    __swift_storeEnumTagSinglePayload(v54, v63, 1, v47);
+    outlined init with take of UUID?(v54, v57, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMd, &_sSi6offset_SS10columnName_14BiomeSQLParser11SQLDataTypeO04dataG0t7elementtSgMR);
+    if (__swift_getEnumTagSinglePayload(v57, 1, v47) == 1)
     {
       break;
     }
 
-    v208 = v55;
-    v59 = *v48;
-    v60 = (v48 + *(v39 + 48));
-    v61 = *v60;
-    v62 = v60[1];
-    v64 = v201;
-    v63 = v202;
-    v65 = *(v202 + 48);
-    v66 = *v204;
-    v67 = v207;
-    (*v204)(&v201[v65], v60 + v65, v207);
-    v68 = *(v63 + 48);
-    v69 = v211;
-    *v211 = v61;
-    *(v69 + 8) = v62;
-    v66((v69 + v68), &v64[v65], v67);
-    if (v59 >= v209)
+    v216 = v64;
+    v68 = *v57;
+    v69 = (v57 + *(v47 + 48));
+    v70 = *v69;
+    v71 = v69[1];
+    v73 = v209;
+    v72 = v210;
+    v74 = *(v210 + 48);
+    v75 = *v212;
+    v76 = v215;
+    (*v212)(&v209[v74], v69 + v74, v215);
+    v77 = *(v72 + 48);
+    v78 = v219;
+    *v219 = v70;
+    *(v78 + 8) = v71;
+    v75((v78 + v77), &v73[v74], v76);
+    if (v68 >= v217)
     {
       goto LABEL_74;
     }
 
-    v70 = *(v206 + 72);
-    _s12BiomeStreams13StorableValueOWOcTm_0(v203 + ((*(v206 + 80) + 32) & ~*(v206 + 80)) + v70 * v59, v210);
-    v71 = v212;
+    v79 = *(v214 + 72);
+    _s12BiomeStreams13StorableValueOWOcTm_0(v211 + ((*(v214 + 80) + 32) & ~*(v214 + 80)) + v79 * v68, v218);
+    v80 = v220;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v213 = v71;
-    v73 = v61;
-    v74 = specialized __RawDictionaryStorage.find<A>(_:)(v61, v62);
-    v76 = v71[2];
-    v77 = (v75 & 1) == 0;
-    v78 = v76 + v77;
-    if (__OFADD__(v76, v77))
+    v221 = v80;
+    v82 = v70;
+    v83 = specialized __RawDictionaryStorage.find<A>(_:)(v70, v71);
+    v85 = v80[2];
+    v86 = (v84 & 1) == 0;
+    v87 = v85 + v86;
+    if (__OFADD__(v85, v86))
     {
       goto LABEL_75;
     }
 
-    v79 = v74;
-    v80 = v75;
+    v88 = v83;
+    v89 = v84;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySS12BiomeStreams13StorableValueOGMd, &_ss17_NativeDictionaryVySS12BiomeStreams13StorableValueOGMR);
-    if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v78))
+    if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v87))
     {
-      v81 = specialized __RawDictionaryStorage.find<A>(_:)(v73, v62);
-      if ((v80 & 1) != (v82 & 1))
+      v90 = specialized __RawDictionaryStorage.find<A>(_:)(v82, v71);
+      if ((v89 & 1) != (v91 & 1))
       {
         goto LABEL_86;
       }
 
-      v79 = v81;
+      v88 = v90;
     }
 
-    v49 = v213;
-    if (v80)
+    v58 = v221;
+    if (v89)
     {
-      v83 = v79 * v70;
-      v84 = v200;
-      _s12BiomeStreams13StorableValueOWObTm_1(v213[7] + v83, v200);
-      _s12BiomeStreams13StorableValueOWObTm_1(v210, v49[7] + v83);
-      __swift_storeEnumTagSinglePayload(v84, 0, 1, v205);
+      v92 = v88 * v79;
+      v93 = v208;
+      _s12BiomeStreams13StorableValueOWObTm_1(v221[7] + v92, v208);
+      _s12BiomeStreams13StorableValueOWObTm_1(v218, v58[7] + v92);
+      __swift_storeEnumTagSinglePayload(v93, 0, 1, v213);
     }
 
     else
     {
-      v213[(v79 >> 6) + 8] |= 1 << v79;
-      v85 = (v49[6] + 16 * v79);
-      *v85 = v73;
-      v85[1] = v62;
-      _s12BiomeStreams13StorableValueOWObTm_1(v210, v49[7] + v79 * v70);
-      v86 = v49[2];
-      v87 = __OFADD__(v86, 1);
-      v88 = v86 + 1;
-      if (v87)
+      v221[(v88 >> 6) + 8] |= 1 << v88;
+      v94 = (v58[6] + 16 * v88);
+      *v94 = v82;
+      v94[1] = v71;
+      _s12BiomeStreams13StorableValueOWObTm_1(v218, v58[7] + v88 * v79);
+      v95 = v58[2];
+      v96 = __OFADD__(v95, 1);
+      v97 = v95 + 1;
+      if (v96)
       {
         goto LABEL_78;
       }
 
-      v49[2] = v88;
-      v84 = v200;
-      __swift_storeEnumTagSinglePayload(v200, 1, 1, v205);
+      v58[2] = v97;
+      v93 = v208;
+      __swift_storeEnumTagSinglePayload(v208, 1, 1, v213);
     }
 
-    outlined destroy of (columnName: String, dataType: SQLDataType)(v84, &_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
-    outlined destroy of (columnName: String, dataType: SQLDataType)(v211, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
-    v53 = v208;
-    v52 = v209;
-    v46 = v198;
-    v39 = v199;
-    v48 = v197;
+    outlined destroy of (columnName: String, dataType: SQLDataType)(v93, &_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
+    outlined destroy of (columnName: String, dataType: SQLDataType)(v219, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMd, &_sSS10columnName_14BiomeSQLParser11SQLDataTypeO04dataF0tMR);
+    v62 = v216;
+    v61 = v217;
+    v54 = v206;
+    v47 = v207;
+    v57 = v205;
   }
 
-  v90 = v193;
-  v91 = v188;
-  if (*(v193 + 16) != *(v188 + 16))
+  v99 = v201;
+  v100 = v196;
+  if (*(v201 + 16) != *(v196 + 16))
   {
 
     type metadata accessor for MetadataSQLError(0);
-    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError);
+    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError, &protocol conformance descriptor for MetadataSQLError);
     swift_allocError();
-    v146 = *(v90 + 16);
-    *v147 = v91[2];
-    v147[1] = v146;
+    v155 = *(v99 + 16);
+    *v156 = v100[2];
+    v156[1] = v155;
     goto LABEL_46;
   }
 
-  v92 = v188 + 64;
-  v93 = 1 << *(v188 + 32);
-  v94 = -1;
-  if (v93 < 64)
+  v101 = v196 + 64;
+  v102 = 1 << *(v196 + 32);
+  v103 = -1;
+  if (v102 < 64)
   {
-    v94 = ~(-1 << v93);
+    v103 = ~(-1 << v102);
   }
 
-  v95 = v94 & *(v188 + 64);
-  v96 = (v93 + 63) >> 6;
-  v200 = v184 + 16;
-  v208 = (v184 + 8);
+  v104 = v103 & *(v196 + 64);
+  v105 = (v102 + 63) >> 6;
+  v208 = v192 + 16;
+  v216 = (v192 + 8);
 
-  v97 = 0;
-  v98 = v192;
-  v99 = v189;
-  v201 = v96;
-  v202 = (v91 + 8);
-  if (!v95)
+  v106 = 0;
+  v107 = v200;
+  v108 = v197;
+  v209 = v105;
+  v210 = (v100 + 8);
+  if (!v104)
   {
 LABEL_25:
     while (1)
     {
-      v100 = v97 + 1;
-      if (__OFADD__(v97, 1))
+      v109 = v106 + 1;
+      if (__OFADD__(v106, 1))
       {
         break;
       }
 
-      if (v100 >= v96)
+      if (v109 >= v105)
       {
-        v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-        __swift_storeEnumTagSinglePayload(v99, 1, 1, v145);
-        v95 = 0;
+        v154 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+        __swift_storeEnumTagSinglePayload(v108, 1, 1, v154);
+        v104 = 0;
         goto LABEL_30;
       }
 
-      v95 = *(v92 + 8 * v100);
-      ++v97;
-      if (v95)
+      v104 = *(v101 + 8 * v109);
+      ++v106;
+      if (v104)
       {
-        v97 = v100;
+        v106 = v109;
         goto LABEL_29;
       }
     }
@@ -5931,280 +4364,279 @@ LABEL_86:
 
   while (1)
   {
-    v100 = v97;
+    v109 = v106;
 LABEL_29:
-    v101 = __clz(__rbit64(v95));
-    v95 &= v95 - 1;
-    v102 = v101 | (v100 << 6);
-    v103 = v91[7];
-    v104 = (v91[6] + 16 * v102);
-    v106 = *v104;
-    v105 = v104[1];
-    v107 = v184;
-    v108 = v185;
-    v109 = v207;
-    (*(v184 + 2))(v185, v103 + *(v184 + 9) * v102, v207);
-    v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    v111 = *(v110 + 48);
-    v112 = v189;
-    *v189 = v106;
-    *(v112 + 1) = v105;
-    v99 = v112;
-    v107[4](&v112[v111], v108, v109);
-    __swift_storeEnumTagSinglePayload(v99, 0, 1, v110);
+    v110 = __clz(__rbit64(v104));
+    v104 &= v104 - 1;
+    v111 = v110 | (v109 << 6);
+    v112 = v100[7];
+    v113 = (v100[6] + 16 * v111);
+    v115 = *v113;
+    v114 = v113[1];
+    v116 = v192;
+    v117 = v193;
+    v118 = v215;
+    (*(v192 + 2))(v193, v112 + *(v192 + 9) * v111, v215);
+    v119 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    v120 = *(v119 + 48);
+    v121 = v197;
+    *v197 = v115;
+    *(v121 + 1) = v114;
+    v108 = v121;
+    v116[4](&v121[v120], v117, v118);
+    __swift_storeEnumTagSinglePayload(v108, 0, 1, v119);
 
-    v90 = v193;
-    v98 = v192;
+    v99 = v201;
+    v107 = v200;
 LABEL_30:
-    outlined init with take of UUID?(v99, v98, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMR);
-    v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
-    if (__swift_getEnumTagSinglePayload(v98, 1, v113) == 1)
+    outlined init with take of UUID?(v108, v107, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetSgMR);
+    v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMd, &_sSS3key_14BiomeSQLParser11SQLDataTypeO5valuetMR);
+    if (__swift_getEnumTagSinglePayload(v107, 1, v122) == 1)
     {
       break;
     }
 
-    v115 = *v98;
-    v114 = v98[1];
-    v116 = *(v113 + 48);
-    if (!*(v90 + 16) || (v117 = specialized __RawDictionaryStorage.find<A>(_:)(*v98, v98[1]), (v118 & 1) == 0))
+    v124 = *v107;
+    v123 = v107[1];
+    v125 = *(v122 + 48);
+    if (!*(v99 + 16) || (v126 = specialized __RawDictionaryStorage.find<A>(_:)(*v107, v107[1]), (v127 & 1) == 0))
     {
 
       type metadata accessor for MetadataSQLError(0);
-      lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError);
+      lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError, &protocol conformance descriptor for MetadataSQLError);
       swift_allocError();
-      *v149 = v115;
-      v149[1] = v114;
+      *v158 = v124;
+      v158[1] = v123;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
 
-      return (*v208)(v192 + v116, v207);
+      return (*v216)(v200 + v125, v215);
     }
 
-    *&v210 = v116;
-    v119 = *(v90 + 56);
-    v211 = *(v206 + 72);
-    v120 = v187;
-    _s12BiomeStreams13StorableValueOWOcTm_0(v119 + v211 * v117, v187);
-    v121 = v120;
-    v122 = v190;
-    _s12BiomeStreams13StorableValueOWObTm_1(v121, v190);
-    _s12BiomeStreams13StorableValueOWOcTm_0(v122, v191);
-    v123 = v212;
-    v124 = swift_isUniquelyReferenced_nonNull_native();
-    v213 = v123;
-    v125 = v115;
-    v126 = v115;
-    v127 = v114;
-    v128 = specialized __RawDictionaryStorage.find<A>(_:)(v126, v114);
-    v130 = v123[2];
-    v131 = (v129 & 1) == 0;
-    v132 = v130 + v131;
-    if (__OFADD__(v130, v131))
+    *&v218 = v125;
+    v128 = *(v99 + 56);
+    v219 = *(v214 + 72);
+    v129 = v195;
+    _s12BiomeStreams13StorableValueOWOcTm_0(v128 + v219 * v126, v195);
+    v130 = v129;
+    v131 = v198;
+    _s12BiomeStreams13StorableValueOWObTm_1(v130, v198);
+    _s12BiomeStreams13StorableValueOWOcTm_0(v131, v199);
+    v132 = v220;
+    v133 = swift_isUniquelyReferenced_nonNull_native();
+    v221 = v132;
+    v134 = v124;
+    v135 = v124;
+    v136 = v123;
+    v137 = specialized __RawDictionaryStorage.find<A>(_:)(v135, v123);
+    v139 = v132[2];
+    v140 = (v138 & 1) == 0;
+    v141 = v139 + v140;
+    if (__OFADD__(v139, v140))
     {
       goto LABEL_79;
     }
 
-    v133 = v128;
-    v134 = v129;
+    v142 = v137;
+    v143 = v138;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySS12BiomeStreams13StorableValueOGMd, &_ss17_NativeDictionaryVySS12BiomeStreams13StorableValueOGMR);
-    if (_NativeDictionary.ensureUnique(isUnique:capacity:)(v124, v132))
+    if (_NativeDictionary.ensureUnique(isUnique:capacity:)(v133, v141))
     {
-      v135 = specialized __RawDictionaryStorage.find<A>(_:)(v125, v127);
-      v90 = v193;
-      if ((v134 & 1) != (v136 & 1))
+      v144 = specialized __RawDictionaryStorage.find<A>(_:)(v134, v136);
+      v99 = v201;
+      if ((v143 & 1) != (v145 & 1))
       {
         goto LABEL_86;
       }
 
-      v133 = v135;
+      v142 = v144;
     }
 
     else
     {
-      v90 = v193;
+      v99 = v201;
     }
 
-    v212 = v213;
-    if (v134)
+    v220 = v221;
+    if (v143)
     {
-      v137 = v212;
-      v138 = v133 * v211;
-      v139 = v212[7] + v133 * v211;
-      v140 = v186;
-      _s12BiomeStreams13StorableValueOWObTm_1(v139, v186);
-      _s12BiomeStreams13StorableValueOWObTm_1(v191, v137[7] + v138);
-      __swift_storeEnumTagSinglePayload(v140, 0, 1, v205);
+      v146 = v220;
+      v147 = v142 * v219;
+      v148 = v220[7] + v142 * v219;
+      v149 = v194;
+      _s12BiomeStreams13StorableValueOWObTm_1(v148, v194);
+      _s12BiomeStreams13StorableValueOWObTm_1(v199, v146[7] + v147);
+      __swift_storeEnumTagSinglePayload(v149, 0, 1, v213);
     }
 
     else
     {
-      v141 = v212;
-      v212[(v133 >> 6) + 8] |= 1 << v133;
-      v142 = (v141[6] + 16 * v133);
-      *v142 = v125;
-      v142[1] = v127;
-      _s12BiomeStreams13StorableValueOWObTm_1(v191, v141[7] + v133 * v211);
-      v143 = v141[2];
-      v87 = __OFADD__(v143, 1);
-      v144 = v143 + 1;
-      if (v87)
+      v150 = v220;
+      v220[(v142 >> 6) + 8] |= 1 << v142;
+      v151 = (v150[6] + 16 * v142);
+      *v151 = v134;
+      v151[1] = v136;
+      _s12BiomeStreams13StorableValueOWObTm_1(v199, v150[7] + v142 * v219);
+      v152 = v150[2];
+      v96 = __OFADD__(v152, 1);
+      v153 = v152 + 1;
+      if (v96)
       {
         goto LABEL_80;
       }
 
-      v212[2] = v144;
-      v140 = v186;
-      __swift_storeEnumTagSinglePayload(v186, 1, 1, v205);
+      v220[2] = v153;
+      v149 = v194;
+      __swift_storeEnumTagSinglePayload(v194, 1, 1, v213);
     }
 
-    outlined destroy of (columnName: String, dataType: SQLDataType)(v140, &_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
+    outlined destroy of (columnName: String, dataType: SQLDataType)(v149, &_s12BiomeStreams13StorableValueOSgMd, &_s12BiomeStreams13StorableValueOSgMR);
     _s12BiomeStreams13StorableValueOWOhTm_1();
-    v98 = v192;
-    (*v208)(v192 + v210, v207);
-    v91 = v188;
-    v99 = v189;
-    v96 = v201;
-    v92 = v202;
-    if (!v95)
+    v107 = v200;
+    (*v216)(v200 + v218, v215);
+    v100 = v196;
+    v108 = v197;
+    v105 = v209;
+    v101 = v210;
+    if (!v104)
     {
       goto LABEL_25;
     }
   }
 
-  v150 = *(v181 + 16);
-  v151 = v212 + 8;
-  v152 = (v181 + 40);
-  v153 = MEMORY[0x1E69E7CC0];
-  if (v150)
+  v159 = *(v189 + 16);
+  v160 = v220 + 8;
+  v161 = (v189 + 40);
+  v162 = MEMORY[0x1E69E7CC0];
+  if (v159)
   {
     while (1)
     {
-      v155 = *(v152 - 1);
-      v154 = *v152;
-      v156 = v212[2];
+      v164 = *(v161 - 1);
+      v163 = *v161;
+      v165 = v220[2];
 
-      if (!v156)
+      if (!v165)
       {
         break;
       }
 
-      v157 = specialized __RawDictionaryStorage.find<A>(_:)(v155, v154);
-      if ((v158 & 1) == 0)
+      v166 = specialized __RawDictionaryStorage.find<A>(_:)(v164, v163);
+      if ((v167 & 1) == 0)
       {
         break;
       }
 
-      v159 = v157;
+      v168 = v166;
 
-      if (v159 < 0 || v159 >= 1 << *(v212 + 32))
+      if (v168 < 0 || v168 >= 1 << *(v220 + 32))
       {
         goto LABEL_81;
       }
 
-      if (((*(v151 + ((v159 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v159) & 1) == 0)
+      if (((*(v160 + ((v168 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v168) & 1) == 0)
       {
         goto LABEL_82;
       }
 
-      v160 = *(v206 + 72);
-      _s12BiomeStreams13StorableValueOWOcTm_0(v212[7] + v160 * v159, v183);
+      v169 = *(v214 + 72);
+      _s12BiomeStreams13StorableValueOWOcTm_0(v220[7] + v169 * v168, v191);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v162 = v153[2];
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v153 = v163;
+        v162 = v171;
       }
 
-      v161 = v153[2];
-      if (v161 >= v153[3] >> 1)
+      v170 = v162[2];
+      if (v170 >= v162[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v153 = v164;
+        v162 = v172;
       }
 
-      v153[2] = v161 + 1;
-      _s12BiomeStreams13StorableValueOWObTm_1(v183, v153 + ((*(v206 + 80) + 32) & ~*(v206 + 80)) + v161 * v160);
-      v152 += 2;
-      if (!--v150)
+      v162[2] = v170 + 1;
+      _s12BiomeStreams13StorableValueOWObTm_1(v191, v162 + ((*(v214 + 80) + 32) & ~*(v214 + 80)) + v170 * v169);
+      v161 += 2;
+      if (!--v159)
       {
         goto LABEL_61;
       }
     }
 
     type metadata accessor for MetadataSQLError(0);
-    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError);
+    lazy protocol witness table accessor for type StorableValue and conformance StorableValue(&lazy protocol witness table cache variable for type MetadataSQLError and conformance MetadataSQLError, type metadata accessor for MetadataSQLError, &protocol conformance descriptor for MetadataSQLError);
     swift_allocError();
-    *v165 = v155;
-    v165[1] = v154;
+    *v173 = v164;
+    v173[1] = v163;
     goto LABEL_46;
   }
 
 LABEL_61:
 
-  v213 = v153;
-  v166 = v209;
-  if (v209)
+  v221 = v162;
+  v174 = v217;
+  if (v217)
   {
-    v167 = *(v206 + 80);
-    v168 = (v167 + 32) & ~v167;
-    v169 = v203 + v168;
-    v170 = *(v206 + 72);
-    v211 = v168 + 2 * v170;
-    v212 = v167;
-    v171 = MEMORY[0x1E69E7CC0];
-    v210 = xmmword_184D29A90;
+    v175 = *(v214 + 80);
+    v176 = (v175 + 32) & ~v175;
+    v177 = v211 + v176;
+    v178 = *(v214 + 72);
+    v219 = v176 + 2 * v178;
+    v220 = v175;
+    v179 = MEMORY[0x1E69E7CC0];
+    v218 = xmmword_184D29A90;
     while (1)
     {
-      v172 = v182;
-      _s12BiomeStreams13StorableValueOWOcTm_0(v169, v182);
+      v180 = v190;
+      _s12BiomeStreams13StorableValueOWOcTm_0(v177, v190);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12BiomeStreams13StorableValueOGMd, &_ss23_ContiguousArrayStorageCy12BiomeStreams13StorableValueOGMR);
-      v173 = swift_allocObject();
-      *(v173 + 16) = v210;
-      v174 = v173 + v168;
-      _s12BiomeStreams13StorableValueOWOcTm_0(v172, v173 + v168);
-      _s12BiomeStreams13StorableValueOWObTm_1(v172, v174 + v170);
-      v175 = *(v171 + 16);
-      if (__OFADD__(v175, 2))
+      v181 = swift_allocObject();
+      *(v181 + 16) = v218;
+      v182 = v181 + v176;
+      _s12BiomeStreams13StorableValueOWOcTm_0(v180, v181 + v176);
+      _s12BiomeStreams13StorableValueOWObTm_1(v180, v182 + v178);
+      v183 = *(v179 + 16);
+      if (__OFADD__(v183, 2))
       {
         goto LABEL_83;
       }
 
-      if (!swift_isUniquelyReferenced_nonNull_native() || (v176 = *(v171 + 24) >> 1, v176 < v175 + 2))
+      if (!swift_isUniquelyReferenced_nonNull_native() || (v184 = *(v179 + 24) >> 1, v184 < v183 + 2))
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v171 = v177;
-        v176 = *(v177 + 24) >> 1;
+        v179 = v185;
+        v184 = *(v185 + 24) >> 1;
       }
 
-      if (v176 - *(v171 + 16) < 2)
+      if (v184 - *(v179 + 16) < 2)
       {
         goto LABEL_84;
       }
 
       swift_arrayInitWithCopy();
 
-      v178 = *(v171 + 16);
-      v87 = __OFADD__(v178, 2);
-      v179 = v178 + 2;
-      if (v87)
+      v186 = *(v179 + 16);
+      v96 = __OFADD__(v186, 2);
+      v187 = v186 + 2;
+      if (v96)
       {
         goto LABEL_85;
       }
 
-      *(v171 + 16) = v179;
-      v169 += v170;
-      v166 = (v166 - 1);
-      if (!v166)
+      *(v179 + 16) = v187;
+      v177 += v178;
+      v174 = (v174 - 1);
+      if (!v174)
       {
         goto LABEL_72;
       }
     }
   }
 
-  v171 = MEMORY[0x1E69E7CC0];
+  v179 = MEMORY[0x1E69E7CC0];
 LABEL_72:
-  specialized Array.append<A>(contentsOf:)(v171);
-  return v213;
+  specialized Array.append<A>(contentsOf:)(v179);
+  return v221;
 }
 
 uint64_t closure #1 in KeyedAggregationMetadataCache.init(materializedView:database:cacheSize:)()
@@ -6213,36 +4645,32 @@ uint64_t closure #1 in KeyedAggregationMetadataCache.init(materializedView:datab
   v2 = v1;
   if (v0 == SQLExpression.sql.getter() && v2 == v3)
   {
-    v5 = 0;
+    v8 = 0;
   }
 
   else
   {
-    OUTLINED_FUNCTION_20();
-    v5 = OUTLINED_FUNCTION_85();
+    v5 = OUTLINED_FUNCTION_20();
+    v8 = OUTLINED_FUNCTION_85(v5, v6, v7);
   }
 
-  return v5 & 1;
+  return v8 & 1;
 }
 
-uint64_t type metadata completion function for QueryPlannerMetadata()
+uint64_t type metadata completion function for QueryPlannerMetadata(uint64_t a1)
 {
   result = type metadata accessor for MaterializedView();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5 = *(result - 8) + 64;
     result = type metadata accessor for BookmarkCache(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v6 = *(result - 8) + 64;
       result = type metadata accessor for KeyedAggregationMetadataCache(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
-        v7 = *(result - 8) + 64;
         result = type metadata accessor for KeyedFirstMatchingRecordCache(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
-          v8 = *(result - 8) + 64;
           return swift_updateClassMetadata2();
         }
       }
@@ -6252,31 +4680,31 @@ uint64_t type metadata completion function for QueryPlannerMetadata()
   return result;
 }
 
-void type metadata completion function for KeyedFirstMatchingRecordCache()
+void type metadata completion function for KeyedFirstMatchingRecordCache(uint64_t a1)
 {
   type metadata accessor for MaterializedView();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Set<[StorableValue]>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Set<[StorableValue]>(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for [[StorableValue] : (value: ChangeRecord, event: CacheEvent)](319, &lazy cache variable for type metadata for [[StorableValue] : (value: ChangeRecord, event: CacheEvent)], &_s12BiomeStreams12ChangeRecordV5value_AA10CacheEventO5eventtMd, &_s12BiomeStreams12ChangeRecordV5value_AA10CacheEventO5eventtMR, MEMORY[0x1E69E5E28]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for [[StorableValue] : (value: ChangeRecord, event: CacheEvent)](319, &lazy cache variable for type metadata for OrderedDictionary<[StorableValue], ChangeRecord?>, &_s12BiomeStreams12ChangeRecordVSgMd, &_s12BiomeStreams12ChangeRecordVSgMR, type metadata accessor for OrderedDictionary);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for SQLExpressionEvaluator();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for [SQLExpression]?, &_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR, MEMORY[0x1E69E6720]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for [String : SQLDataType]();
-              if (v6 <= 0x3F)
+              type metadata accessor for [String : SQLDataType](319);
+              if (v7 <= 0x3F)
               {
                 type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for (sql: String, argumentsFromKey: ())?, &_sSS3sql_yyc16argumentsFromKeytMd, &_sSS3sql_yyc16argumentsFromKeytMR, MEMORY[0x1E69E6720]);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   swift_cvw_initStructMetadataWithLayoutString();
                 }
@@ -6289,16 +4717,16 @@ void type metadata completion function for KeyedFirstMatchingRecordCache()
   }
 }
 
-void type metadata accessor for Set<[StorableValue]>()
+void type metadata accessor for Set<[StorableValue]>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Set<[StorableValue]>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay12BiomeStreams13StorableValueOGMd, &_sSay12BiomeStreams13StorableValueOGMR);
     lazy protocol witness table accessor for type [StorableValue] and conformance <A> [A]();
-    v0 = type metadata accessor for Set();
-    if (!v1)
+    v1 = type metadata accessor for Set();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Set<[StorableValue]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Set<[StorableValue]>);
     }
   }
 }
@@ -6402,63 +4830,61 @@ LABEL_18:
 uint64_t __swift_get_extra_inhabitant_indexTm_0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_97_2();
-  v5 = type metadata accessor for MaterializedView();
-  OUTLINED_FUNCTION_83(v5);
-  if (*(v6 + 84) != a2)
+  type metadata accessor for MaterializedView();
+  OUTLINED_FUNCTION_83();
+  if (*(v5 + 84) != a2)
   {
     return OUTLINED_FUNCTION_99_2(*(a3 + 20));
   }
 
-  v7 = OUTLINED_FUNCTION_105_2();
+  v6 = OUTLINED_FUNCTION_105_2();
 
-  return __swift_getEnumTagSinglePayload(v7, a2, v8);
+  return __swift_getEnumTagSinglePayload(v6, a2, v7);
 }
 
-uint64_t __swift_store_extra_inhabitant_indexTm_0(uint64_t a1, int a2, int a3, uint64_t a4)
+void __swift_store_extra_inhabitant_indexTm_0(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_84();
-  v8 = type metadata accessor for MaterializedView();
-  result = OUTLINED_FUNCTION_83(v8);
-  if (*(v10 + 84) == a3)
+  type metadata accessor for MaterializedView();
+  OUTLINED_FUNCTION_83();
+  if (*(v8 + 84) == a3)
   {
-    v11 = OUTLINED_FUNCTION_110_1();
+    v9 = OUTLINED_FUNCTION_110_1();
 
-    return __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
+    __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
   }
 
   else
   {
     *(v4 + *(a4 + 20)) = (a2 - 1);
   }
-
-  return result;
 }
 
-void type metadata completion function for KeyedAggregationMetadataCache()
+void type metadata completion function for KeyedAggregationMetadataCache(uint64_t a1)
 {
   type metadata accessor for MaterializedView();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Set<[StorableValue]>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Set<[StorableValue]>(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for [[StorableValue] : (value: ChangeRecord, event: CacheEvent)](319, &lazy cache variable for type metadata for [[StorableValue] : (value: [[String : StorableValue]], event: CacheEvent)], &_sSaySDySS12BiomeStreams13StorableValueOGG5value_AA10CacheEventO5eventtMd, &_sSaySDySS12BiomeStreams13StorableValueOGG5value_AA10CacheEventO5eventtMR, MEMORY[0x1E69E5E28]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for [[StorableValue] : (value: ChangeRecord, event: CacheEvent)](319, &lazy cache variable for type metadata for OrderedDictionary<[StorableValue], [[String : StorableValue]]?>, &_sSaySDySS12BiomeStreams13StorableValueOGGSgMd, &_sSaySDySS12BiomeStreams13StorableValueOGGSgMR, type metadata accessor for OrderedDictionary);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for SQLExpressionEvaluator();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for [SQLExpression]?, &_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR, MEMORY[0x1E69E6720]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for [[(metadataKey: String, columnName: String, dataType: SQLDataType)]], &_sSaySS11metadataKey_SS10columnName14BiomeSQLParser11SQLDataTypeO04dataH0tGMd, &_sSaySS11metadataKey_SS10columnName14BiomeSQLParser11SQLDataTypeO04dataH0tGMR, MEMORY[0x1E69E62F8]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for (sql: String, argumentsFromKey: ())?, &_sSS3sql_yyc16argumentsFromKeytMd, &_sSS3sql_yyc16argumentsFromKeytMR, MEMORY[0x1E69E6720]);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   swift_cvw_initStructMetadataWithLayoutString();
                 }
@@ -6487,16 +4913,16 @@ void type metadata accessor for [[StorableValue] : (value: ChangeRecord, event: 
   }
 }
 
-void type metadata completion function for BookmarkCache()
+void type metadata completion function for BookmarkCache(uint64_t a1)
 {
   type metadata accessor for MaterializedView();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for [SQLExpression]?(319, &lazy cache variable for type metadata for BMBookmark?, &_sSo10BMBookmark_pMd, &_sSo10BMBookmark_pMR, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for SQLExpressionEvaluator();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -6533,190 +4959,186 @@ void QueryPlannerMetadata.description.getter()
 {
   OUTLINED_FUNCTION_204();
   v1 = v0;
-  v2 = type metadata accessor for StorableValue(0);
-  v3 = OUTLINED_FUNCTION_2_1(v2);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
+  type metadata accessor for StorableValue(0);
+  OUTLINED_FUNCTION_2_1();
+  MEMORY[0x1EEE9AC00](v2, v3);
   OUTLINED_FUNCTION_13();
-  v8 = v7 - v6;
+  v6 = v5 - v4;
   OUTLINED_FUNCTION_10_7();
   _StringGuts.grow(_:)(139);
   OUTLINED_FUNCTION_55_1();
   MEMORY[0x1865F6280](0xD000000000000031, 0x8000000184DDC970);
-  v9 = MaterializedView.name.getter();
-  MEMORY[0x1865F6280](v9);
+  v7 = MaterializedView.name.getter();
+  MEMORY[0x1865F6280](v7);
 
   OUTLINED_FUNCTION_72_2();
   MEMORY[0x1865F6280](0xD000000000000022);
-  v185 = v0;
-  v186 = v0 + OBJC_IVAR____TtC12BiomeStreams20QueryPlannerMetadata_keyedAggregationMetadata;
-  v10 = *(v186 + *(type metadata accessor for KeyedAggregationMetadataCache(0) + 28));
-  v11 = *(v10 + 16);
-  v12 = MEMORY[0x1E69E7CC0];
-  if (v11)
+  v173 = v0;
+  v174 = v0 + OBJC_IVAR____TtC12BiomeStreams20QueryPlannerMetadata_keyedAggregationMetadata;
+  v8 = *(v174 + *(type metadata accessor for KeyedAggregationMetadataCache(0) + 28));
+  v9 = *(v8 + 16);
+  v10 = MEMORY[0x1E69E7CC0];
+  if (v9)
   {
-    v222 = MEMORY[0x1E69E7CC0];
+    v210 = MEMORY[0x1E69E7CC0];
 
     OUTLINED_FUNCTION_122_0();
     OUTLINED_FUNCTION_114();
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v13, v14, v15);
-    v215 = v222;
-    v16 = 0;
-    v17 = v10 + 64;
-    v187 = v11;
-    v191 = v10;
-    v195 = v10 + 64;
-    if ((specialized Dictionary.startIndex.getter(v10) & 0x8000000000000000) == 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11, v12, v13);
+    v203 = v210;
+    v14 = 0;
+    v15 = v8 + 64;
+    v175 = v9;
+    v179 = v8;
+    v183 = v8 + 64;
+    if ((specialized Dictionary.startIndex.getter(v8) & 0x8000000000000000) == 0)
     {
       do
       {
-        v18 = *(v10 + 32);
         OUTLINED_FUNCTION_119();
-        if (v22 == v23)
+        if (v19 == v20)
         {
           break;
         }
 
-        v24 = v21 << v19;
-        if ((*(v17 + 8 * (v19 >> 6)) & v24) == 0)
+        v21 = v18 << v16;
+        if ((*(v15 + 8 * (v16 >> 6)) & v21) == 0)
         {
           goto LABEL_126;
         }
 
-        if (*(v10 + 36) != v20)
+        if (*(v8 + 36) != v17)
         {
           goto LABEL_127;
         }
 
-        v207 = v24;
-        v209 = v19 >> 6;
-        v203 = v16;
-        v211 = v19;
-        v1 = *(*(v10 + 48) + 8 * v19);
+        v195 = v21;
+        v197 = v16 >> 6;
+        v191 = v14;
+        v199 = v16;
+        v1 = *(*(v8 + 48) + 8 * v16);
         OUTLINED_FUNCTION_118_0();
-        v25 = *(v1 + 16);
-        if (v25)
+        v22 = *(v1 + 16);
+        if (v22)
         {
-          v219 = v12;
+          v207 = v10;
 
           OUTLINED_FUNCTION_151_0();
-          v26 = v12;
+          v23 = v10;
           OUTLINED_FUNCTION_12_6();
-          v198 = v1;
-          v28 = v1 + v27;
-          v30 = *(v29 + 72);
+          v186 = v1;
+          v25 = v1 + v24;
+          v27 = *(v26 + 72);
           do
           {
             OUTLINED_FUNCTION_2_12();
-            _s12BiomeStreams13StorableValueOWOcTm_0(v28, v8);
+            _s12BiomeStreams13StorableValueOWOcTm_0(v25, v6);
             OUTLINED_FUNCTION_101_2();
             _print_unlocked<A, B>(_:_:)();
-            v32 = v217;
-            v31 = v218;
+            v29 = v205;
+            v28 = v206;
             OUTLINED_FUNCTION_0_24();
             _s12BiomeStreams13StorableValueOWOhTm_1();
-            v219 = v26;
-            v34 = *(v26 + 16);
-            v33 = *(v26 + 24);
-            if (v34 >= v33 >> 1)
+            v207 = v23;
+            v31 = *(v23 + 16);
+            v30 = *(v23 + 24);
+            if (v31 >= v30 >> 1)
             {
-              v36 = OUTLINED_FUNCTION_4_9(v33);
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v36, v34 + 1, 1);
-              v26 = v219;
+              v33 = OUTLINED_FUNCTION_4_9(v30);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v33, v31 + 1, 1);
+              v23 = v207;
             }
 
-            *(v26 + 16) = v34 + 1;
-            v35 = v26 + 16 * v34;
-            *(v35 + 32) = v32;
-            *(v35 + 40) = v31;
-            v28 += v30;
-            --v25;
+            *(v23 + 16) = v31 + 1;
+            v32 = v23 + 16 * v31;
+            *(v32 + 32) = v29;
+            *(v32 + 40) = v28;
+            v25 += v27;
+            --v22;
           }
 
-          while (v25);
-          v11 = v187;
-          v10 = v191;
-          v12 = MEMORY[0x1E69E7CC0];
-          v1 = v198;
+          while (v22);
+          v9 = v175;
+          v8 = v179;
+          v10 = MEMORY[0x1E69E7CC0];
+          v1 = v186;
         }
 
         else
         {
 
-          v26 = v12;
+          v23 = v10;
         }
 
-        v37 = MEMORY[0x1865F6370](v26, MEMORY[0x1E69E6158]);
-        v39 = v38;
+        v34 = MEMORY[0x1865F6370](v23, MEMORY[0x1E69E6158]);
+        v36 = v35;
 
-        MEMORY[0x1865F6280](v37, v39);
+        MEMORY[0x1865F6280](v34, v36);
 
         MEMORY[0x1865F6280](93, 0xE100000000000000);
 
         OUTLINED_FUNCTION_65_2();
-        if (v41)
+        if (v38)
         {
-          v51 = OUTLINED_FUNCTION_4_9(v40);
-          OUTLINED_FUNCTION_154_0(v51);
+          v47 = OUTLINED_FUNCTION_4_9(v37);
+          OUTLINED_FUNCTION_154_0(v47);
         }
 
         OUTLINED_FUNCTION_115_0();
-        v43 = 1 << v42;
-        if (v211 >= 1 << v42)
+        v40 = 1 << v39;
+        if (v199 >= 1 << v39)
         {
           goto LABEL_128;
         }
 
-        v17 = v195;
-        if ((*(v195 + 8 * v209) & v207) == 0)
+        v15 = v183;
+        if ((*(v183 + 8 * v197) & v195) == 0)
         {
           goto LABEL_129;
         }
 
         OUTLINED_FUNCTION_130_0();
-        if (!v44)
+        if (!v41)
         {
           goto LABEL_130;
         }
 
         OUTLINED_FUNCTION_39_3();
-        if (v44)
+        if (v41)
         {
           OUTLINED_FUNCTION_38_2();
-          v45 = v203;
-          while (v49 < v48)
+          v42 = v191;
+          while (v46 < v45)
           {
             OUTLINED_FUNCTION_79_2();
             if (v1)
             {
-              OUTLINED_FUNCTION_152_0(v46, v47);
+              OUTLINED_FUNCTION_152_0(v43, v44);
               OUTLINED_FUNCTION_78_2();
               goto LABEL_27;
             }
           }
 
-          OUTLINED_FUNCTION_152_0(v46, v47);
+          OUTLINED_FUNCTION_152_0(v43, v44);
         }
 
         else
         {
           OUTLINED_FUNCTION_17_4();
-          v45 = v203;
+          v42 = v191;
         }
 
 LABEL_27:
-        v16 = v45 + 1;
-        if (v16 == v11)
+        v14 = v42 + 1;
+        if (v14 == v9)
         {
 
-          v52 = v215;
+          v48 = v203;
           goto LABEL_32;
         }
-
-        v50 = *(v10 + 36);
       }
 
-      while ((v43 & 0x8000000000000000) == 0);
+      while ((v40 & 0x8000000000000000) == 0);
     }
 
     __break(1u);
@@ -6733,187 +5155,182 @@ LABEL_130:
     goto LABEL_131;
   }
 
-  v52 = MEMORY[0x1E69E7CC0];
+  v48 = MEMORY[0x1E69E7CC0];
 LABEL_32:
-  MEMORY[0x1865F6370](v52, MEMORY[0x1E69E6158]);
+  MEMORY[0x1865F6370](v48, MEMORY[0x1E69E6158]);
   OUTLINED_FUNCTION_112_1();
 
-  v53 = OUTLINED_FUNCTION_64_2();
-  MEMORY[0x1865F6280](v53);
+  v49 = OUTLINED_FUNCTION_64_2();
+  MEMORY[0x1865F6280](v49);
 
   MEMORY[0x1865F6280](1528838688, 0xE400000000000000);
   OUTLINED_FUNCTION_139_0();
-  v56 = *(v54 + v55);
-  v57 = *(v56 + 16);
-  v58 = MEMORY[0x1E69E7CC0];
-  if (v57)
+  v52 = *(v50 + v51);
+  v53 = *(v52 + 16);
+  v54 = MEMORY[0x1E69E7CC0];
+  if (v53)
   {
-    v217 = MEMORY[0x1E69E7CC0];
+    v205 = MEMORY[0x1E69E7CC0];
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57, 0);
-    v59 = v217;
-    v60 = 0;
-    v188 = v56;
-    v192 = v57;
-    if ((specialized Dictionary.startIndex.getter(v56) & 0x8000000000000000) == 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v53, 0);
+    v55 = v205;
+    v56 = 0;
+    v176 = v52;
+    v180 = v53;
+    if ((specialized Dictionary.startIndex.getter(v52) & 0x8000000000000000) == 0)
     {
       do
       {
-        v61 = *(v56 + 32);
         OUTLINED_FUNCTION_119();
-        if (v22 == v23)
+        if (v19 == v20)
         {
           break;
         }
 
-        v63 = OUTLINED_FUNCTION_91_2(v62);
-        if (v44)
+        OUTLINED_FUNCTION_91_2();
+        if (v41)
         {
           goto LABEL_132;
         }
 
-        if (*(v56 + 36) != v64)
+        if (*(v52 + 36) != v58)
         {
           goto LABEL_133;
         }
 
-        v199 = v65;
-        v201 = v60;
-        v204 = v64;
-        v212 = v59;
-        v66 = *(*(v56 + 56) + 16 * v63);
+        v187 = v59;
+        v189 = v56;
+        v192 = v58;
+        v200 = v55;
+        v60 = *(*(v52 + 56) + 16 * v57);
         OUTLINED_FUNCTION_146_0();
-        v67 = *(v66 + 16);
-        if (v67)
+        v61 = *(v60 + 16);
+        if (v61)
         {
-          v222 = v58;
+          v210 = v54;
 
-          v68 = OUTLINED_FUNCTION_122_0();
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v68, v67, 0);
-          v58 = v222;
-          v69 = (v66 + 32);
+          v62 = OUTLINED_FUNCTION_122_0();
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v62, v61, 0);
+          v54 = v210;
+          v63 = v60 + 32;
           do
           {
-            v70 = *v69;
 
-            v71 = Dictionary.description.getter();
-            v73 = v72;
+            v64 = Dictionary.description.getter();
+            v66 = v65;
 
-            v222 = v58;
-            v75 = *(v58 + 16);
-            v74 = *(v58 + 24);
-            if (v75 >= v74 >> 1)
+            v210 = v54;
+            v68 = *(v54 + 16);
+            v67 = *(v54 + 24);
+            if (v68 >= v67 >> 1)
             {
-              v77 = OUTLINED_FUNCTION_4_9(v74);
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v77, v75 + 1, 1);
-              v58 = v222;
+              v70 = OUTLINED_FUNCTION_4_9(v67);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v70, v68 + 1, 1);
+              v54 = v210;
             }
 
-            *(v58 + 16) = v75 + 1;
-            v76 = v58 + 16 * v75;
-            *(v76 + 32) = v71;
-            *(v76 + 40) = v73;
-            ++v69;
-            --v67;
+            *(v54 + 16) = v68 + 1;
+            v69 = v54 + 16 * v68;
+            *(v69 + 32) = v64;
+            *(v69 + 40) = v66;
+            v63 += 8;
+            --v61;
           }
 
-          while (v67);
-          v56 = v188;
+          while (v61);
+          v52 = v176;
         }
 
         else
         {
         }
 
-        v222 = v58;
+        v210 = v54;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-        lazy protocol witness table accessor for type [String] and conformance [A]();
-        v78 = OUTLINED_FUNCTION_107_2();
-        v80 = v79;
+        v71 = lazy protocol witness table accessor for type [String] and conformance [A]();
+        v72 = OUTLINED_FUNCTION_107_2(v71);
+        v74 = v73;
 
-        v81 = &v220;
-        MEMORY[0x1865F6280](v78, v80);
+        v75 = &v208;
+        MEMORY[0x1865F6280](v72, v74);
 
         MEMORY[0x1865F6280](32032, 0xE200000000000000);
 
-        v82 = v220;
-        v83 = v221;
-        v59 = v212;
-        v217 = v212;
-        v1 = *(v212 + 16);
-        v84 = *(v212 + 24);
-        if (v1 >= v84 >> 1)
+        v76 = v208;
+        v77 = v209;
+        v55 = v200;
+        v205 = v200;
+        v1 = *(v200 + 16);
+        v78 = *(v200 + 24);
+        if (v1 >= v78 >> 1)
         {
-          v95 = OUTLINED_FUNCTION_4_9(v84);
-          v81 = &v217;
-          OUTLINED_FUNCTION_154_0(v95);
-          v59 = v217;
+          v87 = OUTLINED_FUNCTION_4_9(v78);
+          v75 = &v205;
+          OUTLINED_FUNCTION_154_0(v87);
+          v55 = v205;
         }
 
-        *(v59 + 16) = v1 + 1;
-        v85 = v59 + 16 * v1;
-        *(v85 + 32) = v82;
-        *(v85 + 40) = v83;
-        v86 = *(v56 + 32);
+        *(v55 + 16) = v1 + 1;
+        v79 = v55 + 16 * v1;
+        *(v79 + 32) = v76;
+        *(v79 + 40) = v77;
         OUTLINED_FUNCTION_120();
-        if (v22 == v23)
+        if (v19 == v20)
         {
           goto LABEL_134;
         }
 
         OUTLINED_FUNCTION_135_0();
-        if (v44)
+        if (v41)
         {
           goto LABEL_135;
         }
 
-        if (*(v56 + 36) != v204)
+        if (*(v52 + 36) != v192)
         {
           goto LABEL_136;
         }
 
         OUTLINED_FUNCTION_39_3();
-        if (v44)
+        if (v41)
         {
           OUTLINED_FUNCTION_38_2();
-          v58 = MEMORY[0x1E69E7CC0];
-          v87 = v192;
-          v88 = v201;
-          v93 = v199;
-          while (v92 < v91)
+          v54 = MEMORY[0x1E69E7CC0];
+          v80 = v180;
+          v81 = v189;
+          v86 = v187;
+          while (v85 < v84)
           {
             OUTLINED_FUNCTION_79_2();
             if (v1)
             {
-              outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v89, v90, v93 & 1);
+              outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v82, v83, v86 & 1);
               OUTLINED_FUNCTION_78_2();
               goto LABEL_58;
             }
           }
 
-          outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v89, v90, v93 & 1);
+          outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v82, v83, v86 & 1);
         }
 
         else
         {
           OUTLINED_FUNCTION_17_4();
-          v58 = MEMORY[0x1E69E7CC0];
-          v87 = v192;
-          v88 = v201;
+          v54 = MEMORY[0x1E69E7CC0];
+          v80 = v180;
+          v81 = v189;
         }
 
 LABEL_58:
-        v60 = v88 + 1;
-        if (v60 == v87)
+        v56 = v81 + 1;
+        if (v56 == v80)
         {
 
           goto LABEL_63;
         }
-
-        v94 = *(v56 + 36);
       }
 
-      while ((v81 & 0x8000000000000000) == 0);
+      while ((v75 & 0x8000000000000000) == 0);
     }
 
 LABEL_131:
@@ -6931,173 +5348,173 @@ LABEL_136:
     goto LABEL_137;
   }
 
-  v59 = MEMORY[0x1E69E7CC0];
+  v55 = MEMORY[0x1E69E7CC0];
 LABEL_63:
-  MEMORY[0x1865F6370](v59, MEMORY[0x1E69E6158]);
+  MEMORY[0x1865F6370](v55, MEMORY[0x1E69E6158]);
   OUTLINED_FUNCTION_112_1();
 
-  v96 = OUTLINED_FUNCTION_64_2();
-  MEMORY[0x1865F6280](v96);
+  v88 = OUTLINED_FUNCTION_64_2();
+  MEMORY[0x1865F6280](v88);
 
   MEMORY[0x1865F6280](0xD000000000000023, 0x8000000184DDC9E0);
-  v97 = v185 + OBJC_IVAR____TtC12BiomeStreams20QueryPlannerMetadata_keyedFirstMatchingRecord;
-  v98 = *(v97 + *(type metadata accessor for KeyedFirstMatchingRecordCache(0) + 28));
-  v99 = *(v98 + 16);
-  v100 = MEMORY[0x1E69E7CC0];
-  if (v99)
+  v89 = v173 + OBJC_IVAR____TtC12BiomeStreams20QueryPlannerMetadata_keyedFirstMatchingRecord;
+  v90 = *(v89 + *(type metadata accessor for KeyedFirstMatchingRecordCache(0) + 28));
+  v91 = *(v90 + 16);
+  v92 = MEMORY[0x1E69E7CC0];
+  if (v91)
   {
-    v222 = MEMORY[0x1E69E7CC0];
+    v210 = MEMORY[0x1E69E7CC0];
 
     OUTLINED_FUNCTION_122_0();
     OUTLINED_FUNCTION_114();
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v101, v102, v103);
-    v216 = v222;
-    v104 = specialized Dictionary.startIndex.getter(v98);
-    v106 = 0;
-    v107 = v98 + 64;
-    v189 = v99;
-    v193 = v98;
-    v196 = v98 + 64;
-    if ((v104 & 0x8000000000000000) == 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v93, v94, v95);
+    v204 = v210;
+    v96 = specialized Dictionary.startIndex.getter(v90);
+    v98 = 0;
+    v99 = v90 + 64;
+    v177 = v91;
+    v181 = v90;
+    v184 = v90 + 64;
+    if ((v96 & 0x8000000000000000) == 0)
     {
-      while (v104 < 1 << *(v98 + 32))
+      while (v96 < 1 << *(v90 + 32))
       {
-        if ((*(v107 + 8 * (v104 >> 6)) & (1 << v104)) == 0)
+        if ((*(v99 + 8 * (v96 >> 6)) & (1 << v96)) == 0)
         {
           goto LABEL_138;
         }
 
-        if (*(v98 + 36) != v105)
+        if (*(v90 + 36) != v97)
         {
           goto LABEL_139;
         }
 
-        v208 = 1 << v104;
-        v210 = v104 >> 6;
-        v205 = v106;
-        v213 = v104;
-        v108 = *(*(v98 + 48) + 8 * v104);
+        v196 = 1 << v96;
+        v198 = v96 >> 6;
+        v193 = v98;
+        v201 = v96;
+        v100 = *(*(v90 + 48) + 8 * v96);
         OUTLINED_FUNCTION_118_0();
-        v109 = *(v108 + 16);
-        if (v109)
+        v101 = *(v100 + 16);
+        if (v101)
         {
-          v219 = v100;
+          v207 = v92;
 
           OUTLINED_FUNCTION_151_0();
-          v110 = v219;
+          v102 = v207;
           OUTLINED_FUNCTION_12_6();
-          v112 = v108 + v111;
-          v114 = *(v113 + 72);
+          v104 = v100 + v103;
+          v106 = *(v105 + 72);
           do
           {
             OUTLINED_FUNCTION_2_12();
-            _s12BiomeStreams13StorableValueOWOcTm_0(v112, v8);
+            _s12BiomeStreams13StorableValueOWOcTm_0(v104, v6);
             OUTLINED_FUNCTION_101_2();
             _print_unlocked<A, B>(_:_:)();
-            v115 = v217;
-            v116 = v218;
+            v107 = v205;
+            v108 = v206;
             OUTLINED_FUNCTION_0_24();
             _s12BiomeStreams13StorableValueOWOhTm_1();
-            v219 = v110;
-            v118 = *(v110 + 16);
-            v117 = *(v110 + 24);
-            v1 = v118 + 1;
-            if (v118 >= v117 >> 1)
+            v207 = v102;
+            v110 = *(v102 + 16);
+            v109 = *(v102 + 24);
+            v1 = v110 + 1;
+            if (v110 >= v109 >> 1)
             {
-              v120 = OUTLINED_FUNCTION_4_9(v117);
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v120, v118 + 1, 1);
-              v110 = v219;
+              v112 = OUTLINED_FUNCTION_4_9(v109);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v112, v110 + 1, 1);
+              v102 = v207;
             }
 
-            *(v110 + 16) = v1;
-            v119 = v110 + 16 * v118;
-            *(v119 + 32) = v115;
-            *(v119 + 40) = v116;
-            v112 += v114;
-            --v109;
+            *(v102 + 16) = v1;
+            v111 = v102 + 16 * v110;
+            *(v111 + 32) = v107;
+            *(v111 + 40) = v108;
+            v104 += v106;
+            --v101;
           }
 
-          while (v109);
-          v99 = v189;
-          v98 = v193;
-          v100 = MEMORY[0x1E69E7CC0];
+          while (v101);
+          v91 = v177;
+          v90 = v181;
+          v92 = MEMORY[0x1E69E7CC0];
         }
 
         else
         {
 
-          v110 = v100;
+          v102 = v92;
         }
 
-        MEMORY[0x1865F6370](v110, MEMORY[0x1E69E6158]);
+        MEMORY[0x1865F6370](v102, MEMORY[0x1E69E6158]);
         OUTLINED_FUNCTION_112_1();
 
-        v121 = OUTLINED_FUNCTION_64_2();
-        MEMORY[0x1865F6280](v121);
+        v113 = OUTLINED_FUNCTION_64_2();
+        MEMORY[0x1865F6280](v113);
 
         MEMORY[0x1865F6280](93, 0xE100000000000000);
 
         OUTLINED_FUNCTION_65_2();
-        if (v41)
+        if (v38)
         {
-          v131 = OUTLINED_FUNCTION_4_9(v122);
-          OUTLINED_FUNCTION_154_0(v131);
+          v123 = OUTLINED_FUNCTION_4_9(v114);
+          OUTLINED_FUNCTION_154_0(v123);
         }
 
         OUTLINED_FUNCTION_115_0();
-        v124 = 1 << v123;
-        if (v213 >= 1 << v123)
+        v116 = 1 << v115;
+        if (v201 >= 1 << v115)
         {
           goto LABEL_140;
         }
 
-        v107 = v196;
-        if ((*(v196 + 8 * v210) & v208) == 0)
+        v99 = v184;
+        if ((*(v184 + 8 * v198) & v196) == 0)
         {
           goto LABEL_141;
         }
 
         OUTLINED_FUNCTION_130_0();
-        if (!v44)
+        if (!v41)
         {
           goto LABEL_142;
         }
 
-        if ((v127 & (-2 << (v125 & 0x3F))) != 0)
+        if ((v119 & (-2 << (v117 & 0x3F))) != 0)
         {
           OUTLINED_FUNCTION_17_4();
         }
 
         else
         {
-          v129 = (v124 + 63) >> 6;
-          v130 = v128 + 1;
-          while (v130 < v129)
+          v121 = (v116 + 63) >> 6;
+          v122 = v120 + 1;
+          while (v122 < v121)
           {
             OUTLINED_FUNCTION_79_2();
             if (v1)
             {
-              OUTLINED_FUNCTION_152_0(v125, v126);
+              OUTLINED_FUNCTION_152_0(v117, v118);
               OUTLINED_FUNCTION_78_2();
               goto LABEL_88;
             }
           }
 
-          OUTLINED_FUNCTION_152_0(v125, v126);
+          OUTLINED_FUNCTION_152_0(v117, v118);
         }
 
 LABEL_88:
-        v106 = v205 + 1;
-        if (v205 + 1 == v99)
+        v98 = v193 + 1;
+        if (v193 + 1 == v91)
         {
 
-          v132 = v216;
+          v124 = v204;
           goto LABEL_93;
         }
 
-        v105 = *(v98 + 36);
-        v104 = v124;
-        if (v124 < 0)
+        v97 = *(v90 + 36);
+        v96 = v116;
+        if (v116 < 0)
         {
           break;
         }
@@ -7119,193 +5536,188 @@ LABEL_142:
     goto LABEL_143;
   }
 
-  v132 = MEMORY[0x1E69E7CC0];
+  v124 = MEMORY[0x1E69E7CC0];
 LABEL_93:
-  v133 = MEMORY[0x1865F6370](v132, MEMORY[0x1E69E6158]);
-  v135 = v134;
+  v125 = MEMORY[0x1865F6370](v124, MEMORY[0x1E69E6158]);
+  v127 = v126;
 
-  MEMORY[0x1865F6280](v133, v135);
+  MEMORY[0x1865F6280](v125, v127);
 
   MEMORY[0x1865F6280](1528838688, 0xE400000000000000);
   OUTLINED_FUNCTION_139_0();
-  v138 = *(v136 + v137);
-  v139 = *(v138 + 16);
-  v140 = MEMORY[0x1E69E7CC0];
-  if (v139)
+  v130 = *(v128 + v129);
+  v131 = *(v130 + 16);
+  v132 = MEMORY[0x1E69E7CC0];
+  if (v131)
   {
-    v217 = MEMORY[0x1E69E7CC0];
+    v205 = MEMORY[0x1E69E7CC0];
 
-    v141 = OUTLINED_FUNCTION_41_2();
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v141, v142, v143);
-    v144 = v217;
-    v145 = 0;
-    v190 = v138 + 72;
-    v194 = v138;
-    v197 = v139;
-    if ((specialized Dictionary.startIndex.getter(v138) & 0x8000000000000000) == 0)
+    v133 = OUTLINED_FUNCTION_41_2();
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v133, v134, v135);
+    v136 = v205;
+    v137 = 0;
+    v178 = v130 + 72;
+    v182 = v130;
+    v185 = v131;
+    if ((specialized Dictionary.startIndex.getter(v130) & 0x8000000000000000) == 0)
     {
       do
       {
-        v146 = *(v138 + 32);
         OUTLINED_FUNCTION_119();
-        if (v22 == v23)
+        if (v19 == v20)
         {
           break;
         }
 
-        v148 = OUTLINED_FUNCTION_91_2(v147);
-        if (v44)
+        OUTLINED_FUNCTION_91_2();
+        if (v41)
         {
           goto LABEL_144;
         }
 
-        if (*(v138 + 36) != v149)
+        if (*(v130 + 36) != v139)
         {
           goto LABEL_145;
         }
 
-        v200 = v150;
-        v202 = v145;
-        v206 = v149;
-        v214 = v144;
-        v151 = *(*(v138 + 56) + 16 * v148);
+        v188 = v140;
+        v190 = v137;
+        v194 = v139;
+        v202 = v136;
+        v141 = *(*(v130 + 56) + 16 * v138);
         OUTLINED_FUNCTION_146_0();
-        v152 = *(v151 + 16);
-        if (v152)
+        v142 = *(v141 + 16);
+        if (v142)
         {
-          v222 = v140;
+          v210 = v132;
 
-          v153 = OUTLINED_FUNCTION_122_0();
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v153, v152, 0);
-          v140 = v222;
-          v154 = (v151 + 32);
+          v143 = OUTLINED_FUNCTION_122_0();
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v143, v142, 0);
+          v132 = v210;
+          v144 = v141 + 32;
           do
           {
-            v155 = *v154;
 
-            v156 = Dictionary.description.getter();
-            v158 = v157;
+            v145 = Dictionary.description.getter();
+            v147 = v146;
 
-            v222 = v140;
-            v160 = *(v140 + 16);
-            v159 = *(v140 + 24);
-            if (v160 >= v159 >> 1)
+            v210 = v132;
+            v149 = *(v132 + 16);
+            v148 = *(v132 + 24);
+            if (v149 >= v148 >> 1)
             {
-              v162 = OUTLINED_FUNCTION_4_9(v159);
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v162, v160 + 1, 1);
-              v140 = v222;
+              v151 = OUTLINED_FUNCTION_4_9(v148);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v151, v149 + 1, 1);
+              v132 = v210;
             }
 
-            *(v140 + 16) = v160 + 1;
-            v161 = v140 + 16 * v160;
-            *(v161 + 32) = v156;
-            *(v161 + 40) = v158;
-            ++v154;
-            --v152;
+            *(v132 + 16) = v149 + 1;
+            v150 = v132 + 16 * v149;
+            *(v150 + 32) = v145;
+            *(v150 + 40) = v147;
+            v144 += 8;
+            --v142;
           }
 
-          while (v152);
-          v138 = v194;
+          while (v142);
+          v130 = v182;
         }
 
         else
         {
         }
 
-        v222 = v140;
+        v210 = v132;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-        lazy protocol witness table accessor for type [String] and conformance [A]();
-        OUTLINED_FUNCTION_107_2();
+        v152 = lazy protocol witness table accessor for type [String] and conformance [A]();
+        OUTLINED_FUNCTION_107_2(v152);
         OUTLINED_FUNCTION_112_1();
 
-        v163 = &v220;
-        v164 = OUTLINED_FUNCTION_64_2();
-        MEMORY[0x1865F6280](v164);
+        v153 = &v208;
+        v154 = OUTLINED_FUNCTION_64_2();
+        MEMORY[0x1865F6280](v154);
 
         MEMORY[0x1865F6280](32032, 0xE200000000000000);
 
-        v165 = v220;
-        v166 = v221;
-        v144 = v214;
-        v217 = v214;
-        v168 = *(v214 + 16);
-        v167 = *(v214 + 24);
-        v169 = v168 + 1;
-        if (v168 >= v167 >> 1)
+        v155 = v208;
+        v156 = v209;
+        v136 = v202;
+        v205 = v202;
+        v158 = *(v202 + 16);
+        v157 = *(v202 + 24);
+        v159 = v158 + 1;
+        if (v158 >= v157 >> 1)
         {
-          v183 = OUTLINED_FUNCTION_4_9(v167);
-          v163 = &v217;
-          OUTLINED_FUNCTION_154_0(v183);
-          v144 = v217;
+          v171 = OUTLINED_FUNCTION_4_9(v157);
+          v153 = &v205;
+          OUTLINED_FUNCTION_154_0(v171);
+          v136 = v205;
         }
 
-        *(v144 + 16) = v169;
-        v170 = v144 + 16 * v168;
-        *(v170 + 32) = v165;
-        *(v170 + 40) = v166;
-        v171 = *(v138 + 32);
+        *(v136 + 16) = v159;
+        v160 = v136 + 16 * v158;
+        *(v160 + 32) = v155;
+        *(v160 + 40) = v156;
         OUTLINED_FUNCTION_120();
-        if (v22 == v23)
+        if (v19 == v20)
         {
           goto LABEL_146;
         }
 
         OUTLINED_FUNCTION_135_0();
-        if (v44)
+        if (v41)
         {
           goto LABEL_147;
         }
 
-        if (*(v138 + 36) != v206)
+        if (*(v130 + 36) != v194)
         {
           goto LABEL_148;
         }
 
         OUTLINED_FUNCTION_39_3();
-        if (v44)
+        if (v41)
         {
           OUTLINED_FUNCTION_38_2();
-          v179 = (v190 + 8 * v178);
-          v140 = MEMORY[0x1E69E7CC0];
-          v172 = v197;
-          v173 = v202;
-          while (v177 < v176)
+          v168 = (v178 + 8 * v167);
+          v132 = MEMORY[0x1E69E7CC0];
+          v161 = v185;
+          v162 = v190;
+          while (v166 < v165)
           {
-            v181 = *v179++;
-            v180 = v181;
-            v169 += 64;
-            ++v177;
-            if (v181)
+            v170 = *v168++;
+            v169 = v170;
+            v159 += 64;
+            ++v166;
+            if (v170)
             {
-              outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v174, v175, v200 & 1);
-              v163 = __clz(__rbit64(v180)) + v169;
+              outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v163, v164, v188 & 1);
+              v153 = __clz(__rbit64(v169)) + v159;
               goto LABEL_119;
             }
           }
 
-          outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v174, v175, v200 & 1);
+          outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v163, v164, v188 & 1);
         }
 
         else
         {
           OUTLINED_FUNCTION_17_4();
-          v140 = MEMORY[0x1E69E7CC0];
-          v172 = v197;
-          v173 = v202;
+          v132 = MEMORY[0x1E69E7CC0];
+          v161 = v185;
+          v162 = v190;
         }
 
 LABEL_119:
-        v145 = v173 + 1;
-        if (v145 == v172)
+        v137 = v162 + 1;
+        if (v137 == v161)
         {
 
           goto LABEL_124;
         }
-
-        v182 = *(v138 + 36);
       }
 
-      while ((v163 & 0x8000000000000000) == 0);
+      while ((v153 & 0x8000000000000000) == 0);
     }
 
 LABEL_143:
@@ -7323,12 +5735,12 @@ LABEL_148:
     return;
   }
 
-  v144 = MEMORY[0x1E69E7CC0];
+  v136 = MEMORY[0x1E69E7CC0];
 LABEL_124:
-  MEMORY[0x1865F6370](v144, MEMORY[0x1E69E6158]);
+  MEMORY[0x1865F6370](v136, MEMORY[0x1E69E6158]);
 
-  v184 = OUTLINED_FUNCTION_36_2();
-  MEMORY[0x1865F6280](v184);
+  v172 = OUTLINED_FUNCTION_36_2();
+  MEMORY[0x1865F6280](v172);
 
   MEMORY[0x1865F6280](2892381, 0xE300000000000000);
   OUTLINED_FUNCTION_169();
@@ -7341,234 +5753,234 @@ void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(u
   a20 = v24;
   v26 = v25;
   v28 = v27;
-  v159 = v29;
+  v165 = v29;
   v30 = type metadata accessor for SQLExpression();
-  v31 = OUTLINED_FUNCTION_2_1(v30);
-  v33 = *(v32 + 64);
-  MEMORY[0x1EEE9AC00](v31);
+  OUTLINED_FUNCTION_2_1();
+  MEMORY[0x1EEE9AC00](v31, v32);
   OUTLINED_FUNCTION_9_0();
-  v163 = v34;
+  v169 = v33;
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v35);
+  MEMORY[0x1EEE9AC00](v34, v35);
   OUTLINED_FUNCTION_30();
-  v182 = v36;
+  v188 = v36;
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v37);
+  MEMORY[0x1EEE9AC00](v37, v38);
   OUTLINED_FUNCTION_62();
-  MEMORY[0x1EEE9AC00](v38);
+  MEMORY[0x1EEE9AC00](v39, v40);
   OUTLINED_FUNCTION_148_0();
-  MEMORY[0x1EEE9AC00](v39);
+  MEMORY[0x1EEE9AC00](v41, v42);
   OUTLINED_FUNCTION_30();
-  v175 = v40;
+  v181 = v43;
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v41);
+  MEMORY[0x1EEE9AC00](v44, v45);
   OUTLINED_FUNCTION_30();
-  v174 = v42;
+  v180 = v46;
   OUTLINED_FUNCTION_27();
-  MEMORY[0x1EEE9AC00](v43);
+  MEMORY[0x1EEE9AC00](v47, v48);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_6();
-  MEMORY[0x1EEE9AC00](v44);
+  MEMORY[0x1EEE9AC00](v49, v50);
   OUTLINED_FUNCTION_24_4();
   a10 = MEMORY[0x1E69E7CC0];
-  v173 = v28;
-  v52 = v28[1];
-  if (v52 >= 1)
+  v179 = v28;
+  v58 = v28[1];
+  if (v58 >= 1)
   {
-    v53 = 0;
-    v188 = (v50 + 8);
-    v167 = v50;
-    v187 = (v50 + 32);
-    v176 = MEMORY[0x1E69E7CC0];
-    v177 = v30;
-    v160 = v26;
-    v168 = v21;
-    v186 = v51;
-    v157 = v22;
+    v59 = 0;
+    v194 = (v56 + 8);
+    v173 = v56;
+    v193 = (v56 + 32);
+    v182 = MEMORY[0x1E69E7CC0];
+    v183 = v30;
+    v166 = v26;
+    v174 = v21;
+    v192 = v57;
+    v163 = v22;
     do
     {
-      v54 = v53;
-      v55 = v53 + 1;
-      if (v53 + 1 < v52)
+      v60 = v59;
+      v61 = v59 + 1;
+      if (v59 + 1 < v58)
       {
-        v183 = v52;
-        v56 = *v173;
-        v57 = v30;
-        v58 = *(v167 + 72);
-        v169 = v53 + 1;
-        v59 = *v173 + v58 * (v53 + 1);
-        v60 = *(v167 + 16);
-        v61 = OUTLINED_FUNCTION_131_0();
-        v62 = v54;
-        v60(v61);
-        v166 = v60;
-        (v60)(v156, v56 + v58 * v54, v57);
+        v189 = v58;
+        v62 = *v179;
+        v63 = v30;
+        v64 = *(v173 + 72);
+        v175 = v59 + 1;
+        v65 = *v179 + v64 * (v59 + 1);
+        v66 = *(v173 + 16);
+        v67 = OUTLINED_FUNCTION_131_0();
+        v68 = v60;
+        v66(v67);
+        v172 = v66;
+        (v66)(v162, v62 + v64 * v60, v63);
         OUTLINED_FUNCTION_20();
-        v180 = closure #1 in KeyedAggregationMetadataCache.init(materializedView:database:cacheSize:)();
+        v186 = closure #1 in KeyedAggregationMetadataCache.init(materializedView:database:cacheSize:)();
         if (v20)
         {
-          v153 = *v188;
-          v154 = OUTLINED_FUNCTION_132_0();
-          v153(v154);
-          (v153)(v22, v57);
+          v159 = *v194;
+          v160 = OUTLINED_FUNCTION_132_0();
+          v159(v160);
+          (v159)(v22, v63);
           goto LABEL_119;
         }
 
-        v63 = *v188;
-        v64 = OUTLINED_FUNCTION_132_0();
-        v63(v64);
-        v165 = v63;
-        (v63)(v22, v57);
-        v158 = v54;
-        v65 = v54 + 2;
-        v178 = v58;
-        v66 = v56 + v58 * (v54 + 2);
-        v55 = v169;
-        v67 = v183;
+        v69 = *v194;
+        v70 = OUTLINED_FUNCTION_132_0();
+        v69(v70);
+        v171 = v69;
+        (v69)(v22, v63);
+        v164 = v60;
+        v71 = v60 + 2;
+        v184 = v64;
+        v72 = v62 + v64 * (v60 + 2);
+        v61 = v175;
+        v73 = v189;
         while (1)
         {
-          v68 = v65;
-          if (v55 + 1 >= v67)
+          v74 = v71;
+          if (v61 + 1 >= v73)
           {
             break;
           }
 
-          v166(v174, v66, v177);
-          v69 = OUTLINED_FUNCTION_131_0();
-          (v166)(v69);
-          v70 = SQLExpression.sql.getter();
-          v72 = v71;
-          if (v70 == SQLExpression.sql.getter() && v72 == v73)
+          v172(v180, v72, v183);
+          v75 = OUTLINED_FUNCTION_131_0();
+          (v172)(v75);
+          v76 = SQLExpression.sql.getter();
+          v78 = v77;
+          v79 = SQLExpression.sql.getter();
+          if (v76 == v79 && v78 == v80)
           {
-            v75 = 0;
+            v82 = 0;
           }
 
           else
           {
-            v75 = OUTLINED_FUNCTION_85();
+            v82 = OUTLINED_FUNCTION_85(v76, v78, v79);
           }
 
-          (v63)(v175, v177);
-          (v63)(v174, v177);
-          v66 += v178;
-          v59 += v178;
-          ++v55;
-          v65 = v68 + 1;
-          v67 = v183;
-          if ((v180 ^ v75))
+          (v69)(v181, v183);
+          (v69)(v180, v183);
+          v72 += v184;
+          v65 += v184;
+          ++v61;
+          v71 = v74 + 1;
+          v73 = v189;
+          if ((v186 ^ v82))
           {
             goto LABEL_16;
           }
         }
 
-        v55 = v67;
+        v61 = v73;
 LABEL_16:
-        if (v180)
+        if (v186)
         {
-          v76 = v62;
-          v26 = v160;
-          if (v55 < v62)
+          v83 = v68;
+          v26 = v166;
+          if (v61 < v68)
           {
             goto LABEL_141;
           }
 
-          if (v62 >= v55)
+          if (v68 >= v61)
           {
-            v30 = v177;
-            v21 = v168;
-            v54 = v158;
+            v30 = v183;
+            v21 = v174;
+            v60 = v164;
             goto LABEL_39;
           }
 
-          if (v67 >= v68)
+          if (v73 >= v74)
           {
-            v77 = v68;
+            v84 = v74;
           }
 
           else
           {
-            v77 = v67;
+            v84 = v73;
           }
 
-          v78 = v55;
-          v79 = v178 * (v77 - 1);
-          v80 = v178 * v77;
-          v81 = v62 * v178;
-          v170 = v78;
+          v85 = v61;
+          v86 = v184 * (v84 - 1);
+          v87 = v184 * v84;
+          v88 = v68 * v184;
+          v176 = v85;
           do
           {
-            if (v76 != --v78)
+            if (v83 != --v85)
             {
-              v82 = *v173;
-              if (!*v173)
+              v89 = *v179;
+              if (!*v179)
               {
                 goto LABEL_144;
               }
 
-              v184 = *v187;
-              (*v187)(v163, v82 + v81, v177);
-              v83 = v81 < v79 || v82 + v81 >= (v82 + v80);
-              if (v83)
+              v190 = *v193;
+              (*v193)(v169, v89 + v88, v183);
+              v90 = v88 < v86 || v89 + v88 >= (v89 + v87);
+              if (v90)
               {
                 OUTLINED_FUNCTION_143_0();
                 swift_arrayInitWithTakeFrontToBack();
               }
 
-              else if (v81 != v79)
+              else if (v88 != v86)
               {
                 OUTLINED_FUNCTION_143_0();
                 swift_arrayInitWithTakeBackToFront();
               }
 
-              v184(v82 + v79, v163, v177);
-              v26 = v160;
+              v190(v89 + v86, v169, v183);
+              v26 = v166;
             }
 
-            ++v76;
-            v79 -= v178;
-            v80 -= v178;
-            v81 += v178;
+            ++v83;
+            v86 -= v184;
+            v87 -= v184;
+            v88 += v184;
           }
 
-          while (v76 < v78);
-          v30 = v177;
-          v21 = v168;
-          v55 = v170;
+          while (v83 < v85);
+          v30 = v183;
+          v21 = v174;
+          v61 = v176;
         }
 
         else
         {
-          v30 = v177;
-          v26 = v160;
-          v21 = v168;
+          v30 = v183;
+          v26 = v166;
+          v21 = v174;
         }
 
-        v54 = v158;
+        v60 = v164;
       }
 
 LABEL_39:
-      v84 = v173[1];
-      if (v55 < v84)
+      v91 = v179[1];
+      if (v61 < v91)
       {
-        if (__OFSUB__(v55, v54))
+        if (__OFSUB__(v61, v60))
         {
           goto LABEL_138;
         }
 
-        if (v55 - v54 < v26)
+        if (v61 - v60 < v26)
         {
-          v85 = v54 + v26;
-          if (__OFADD__(v54, v26))
+          v92 = v60 + v26;
+          if (__OFADD__(v60, v26))
           {
             goto LABEL_139;
           }
 
-          if (v85 >= v84)
+          if (v92 >= v91)
           {
-            v85 = v173[1];
+            v92 = v179[1];
           }
 
-          if (v85 < v54)
+          if (v92 < v60)
           {
 LABEL_140:
             __break(1u);
@@ -7587,183 +5999,182 @@ LABEL_146:
             return;
           }
 
-          if (v55 != v85)
+          if (v61 != v92)
           {
-            v86 = *(v167 + 72);
-            v185 = *(v167 + 16);
-            v87 = *v173 + v86 * (v55 - 1);
-            v179 = -v86;
-            v158 = v54;
-            v88 = v54 - v55;
-            v181 = *v173;
-            v161 = v86;
-            v89 = *v173 + v55 * v86;
-            v162 = v85;
+            v93 = *(v173 + 72);
+            v191 = *(v173 + 16);
+            v94 = *v179 + v93 * (v61 - 1);
+            v185 = -v93;
+            v164 = v60;
+            v95 = v60 - v61;
+            v187 = *v179;
+            v167 = v93;
+            v96 = *v179 + v61 * v93;
+            v168 = v92;
             do
             {
-              v171 = v55;
-              v164 = v89;
-              v165 = v88;
-              v166 = v87;
+              v177 = v61;
+              v170 = v96;
+              v171 = v95;
+              v172 = v94;
               while (1)
               {
-                v185(v186, v89, v30);
-                v185(v21, v87, v30);
-                v90 = v30;
-                v91 = SQLExpression.sql.getter();
-                v92 = v21;
-                v94 = v93;
-                if (v91 == SQLExpression.sql.getter() && v94 == v95)
+                v191(v192, v96, v30);
+                v191(v21, v94, v30);
+                v97 = v30;
+                v98 = SQLExpression.sql.getter();
+                v99 = v21;
+                v101 = v100;
+                if (v98 == SQLExpression.sql.getter() && v101 == v102)
                 {
 
-                  v102 = *v188;
-                  v103 = OUTLINED_FUNCTION_29_5();
-                  v102(v103);
-                  v104 = OUTLINED_FUNCTION_77();
-                  v102(v104);
-                  v30 = v90;
-                  v21 = v92;
+                  v109 = *v194;
+                  v110 = OUTLINED_FUNCTION_29_5();
+                  v109(v110);
+                  v111 = OUTLINED_FUNCTION_77();
+                  v109(v111);
+                  v30 = v97;
+                  v21 = v99;
                   goto LABEL_60;
                 }
 
-                v97 = _stringCompareWithSmolCheck(_:_:expecting:)();
+                v104 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-                v98 = *v188;
-                v99 = OUTLINED_FUNCTION_29_5();
-                v98(v99);
-                v100 = OUTLINED_FUNCTION_77();
-                v98(v100);
-                if ((v97 & 1) == 0)
+                v105 = *v194;
+                v106 = OUTLINED_FUNCTION_29_5();
+                v105(v106);
+                v107 = OUTLINED_FUNCTION_77();
+                v105(v107);
+                if ((v104 & 1) == 0)
                 {
                   break;
                 }
 
-                if (!v181)
+                if (!v187)
                 {
                   goto LABEL_142;
                 }
 
-                v21 = v92;
-                v101 = *v187;
-                v30 = v90;
-                (*v187)(v182, v89, v90);
+                v21 = v99;
+                v108 = *v193;
+                v30 = v97;
+                (*v193)(v188, v96, v97);
                 OUTLINED_FUNCTION_69_1();
                 swift_arrayInitWithTakeFrontToBack();
-                v101(v87, v182, v90);
-                v87 += v179;
-                v89 += v179;
-                v83 = __CFADD__(v88++, 1);
-                if (v83)
+                v108(v94, v188, v97);
+                v94 += v185;
+                v96 += v185;
+                v90 = __CFADD__(v95++, 1);
+                if (v90)
                 {
                   goto LABEL_60;
                 }
               }
 
-              v21 = v92;
-              v30 = v90;
+              v21 = v99;
+              v30 = v97;
 LABEL_60:
-              v55 = v171 + 1;
-              v87 = v166 + v161;
-              v88 = v165 - 1;
-              v89 = v164 + v161;
+              v61 = v177 + 1;
+              v94 = v172 + v167;
+              v95 = v171 - 1;
+              v96 = v170 + v167;
             }
 
-            while (v171 + 1 != v162);
-            v55 = v162;
+            while (v177 + 1 != v168);
+            v61 = v168;
           }
         }
       }
 
-      v105 = v176;
-      if (v55 < v54)
+      v112 = v182;
+      if (v61 < v60)
       {
         goto LABEL_137;
       }
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v150 = v176[2];
         OUTLINED_FUNCTION_42_1();
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v105 = v151;
+        v112 = v157;
       }
 
-      v106 = v105[2];
-      v176 = v105;
-      v107 = v106 + 1;
-      if (v106 >= v105[3] >> 1)
+      v113 = v112[2];
+      v182 = v112;
+      v114 = v113 + 1;
+      if (v113 >= v112[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v176 = v152;
+        v182 = v158;
       }
 
-      v176[2] = v107;
-      v108 = v176 + 4;
-      v109 = &v176[2 * v106 + 4];
-      *v109 = v54;
-      v109[1] = v55;
-      v172 = v55;
-      a10 = v176;
-      v110 = *v159;
-      if (!*v159)
+      v182[2] = v114;
+      v115 = v182 + 4;
+      v116 = &v182[2 * v113 + 4];
+      *v116 = v60;
+      v116[1] = v61;
+      v178 = v61;
+      a10 = v182;
+      v117 = *v165;
+      if (!*v165)
       {
         goto LABEL_145;
       }
 
-      if (v106)
+      if (v113)
       {
-        v111 = v176;
+        v118 = v182;
         while (1)
         {
-          v112 = v107 - 1;
-          v113 = &v108[2 * v107 - 2];
-          v114 = &v111[2 * v107];
-          v21 = v168;
-          if (v107 >= 4)
+          v119 = v114 - 1;
+          v120 = &v115[2 * v114 - 2];
+          v121 = &v118[2 * v114];
+          v21 = v174;
+          if (v114 >= 4)
           {
             break;
           }
 
-          if (v107 == 3)
+          if (v114 == 3)
           {
-            v115 = v176[4];
-            v116 = v176[5];
-            v125 = __OFSUB__(v116, v115);
-            v117 = v116 - v115;
-            v118 = v125;
+            v122 = v182[4];
+            v123 = v182[5];
+            v132 = __OFSUB__(v123, v122);
+            v124 = v123 - v122;
+            v125 = v132;
 LABEL_83:
-            if (v118)
+            if (v125)
             {
               goto LABEL_127;
             }
 
-            v130 = *v114;
-            v129 = v114[1];
-            v131 = __OFSUB__(v129, v130);
-            v132 = v129 - v130;
-            v133 = v131;
-            if (v131)
+            v137 = *v121;
+            v136 = v121[1];
+            v138 = __OFSUB__(v136, v137);
+            v139 = v136 - v137;
+            v140 = v138;
+            if (v138)
             {
               goto LABEL_130;
             }
 
-            v134 = v113[1];
-            v135 = v134 - *v113;
-            if (__OFSUB__(v134, *v113))
+            v141 = v120[1];
+            v142 = v141 - *v120;
+            if (__OFSUB__(v141, *v120))
             {
               goto LABEL_133;
             }
 
-            if (__OFADD__(v132, v135))
+            if (__OFADD__(v139, v142))
             {
               goto LABEL_135;
             }
 
-            if (v132 + v135 >= v117)
+            if (v139 + v142 >= v124)
             {
-              if (v117 < v135)
+              if (v124 < v142)
               {
-                v112 = v107 - 2;
+                v119 = v114 - 2;
               }
 
               goto LABEL_105;
@@ -7772,39 +6183,39 @@ LABEL_83:
             goto LABEL_98;
           }
 
-          if (v107 < 2)
+          if (v114 < 2)
           {
             goto LABEL_129;
           }
 
-          v137 = *v114;
-          v136 = v114[1];
-          v125 = __OFSUB__(v136, v137);
-          v132 = v136 - v137;
-          v133 = v125;
+          v144 = *v121;
+          v143 = v121[1];
+          v132 = __OFSUB__(v143, v144);
+          v139 = v143 - v144;
+          v140 = v132;
 LABEL_98:
-          if (v133)
+          if (v140)
           {
             goto LABEL_132;
           }
 
-          v139 = *v113;
-          v138 = v113[1];
-          v125 = __OFSUB__(v138, v139);
-          v140 = v138 - v139;
-          if (v125)
+          v146 = *v120;
+          v145 = v120[1];
+          v132 = __OFSUB__(v145, v146);
+          v147 = v145 - v146;
+          if (v132)
           {
             goto LABEL_134;
           }
 
-          if (v140 < v132)
+          if (v147 < v139)
           {
-            a10 = v176;
+            a10 = v182;
             goto LABEL_114;
           }
 
 LABEL_105:
-          if (v112 - 1 >= v107)
+          if (v119 - 1 >= v114)
           {
             __break(1u);
 LABEL_122:
@@ -7846,101 +6257,101 @@ LABEL_139:
             goto LABEL_140;
           }
 
-          if (!*v173)
+          if (!*v179)
           {
             goto LABEL_143;
           }
 
-          v144 = &v108[2 * v112 - 2];
-          v145 = *v144;
-          v146 = &v108[2 * v112];
-          v147 = *(v146 + 1);
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v173 + *(v167 + 72) * *v144, *v173 + *(v167 + 72) * *v146, *v173 + *(v167 + 72) * v147, v110, v46, v47, v48, v49, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166);
+          v151 = &v115[2 * v119 - 2];
+          v152 = *v151;
+          v153 = &v115[2 * v119];
+          v154 = *(v153 + 1);
+          specialized _merge<A>(low:mid:high:buffer:by:)(*v179 + *(v173 + 72) * *v151, *v179 + *(v173 + 72) * *v153, *v179 + *(v173 + 72) * v154, v117, v52, v53, v54, v55, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172);
           if (v20)
           {
-            a10 = v176;
+            a10 = v182;
             goto LABEL_119;
           }
 
-          if (v147 < v145)
+          if (v154 < v152)
           {
             goto LABEL_122;
           }
 
-          v148 = v176[2];
-          if (v112 > v148)
+          v155 = v182[2];
+          if (v119 > v155)
           {
             goto LABEL_123;
           }
 
-          *v144 = v145;
-          v144[1] = v147;
-          if (v112 >= v148)
+          *v151 = v152;
+          v151[1] = v154;
+          if (v119 >= v155)
           {
             goto LABEL_124;
           }
 
-          v107 = v148 - 1;
-          specialized UnsafeMutablePointer.moveInitialize(from:count:)(v146 + 16, v148 - 1 - v112, &v108[2 * v112]);
-          v111 = v176;
-          v176[2] = v148 - 1;
-          v149 = v148 > 2;
-          v30 = v177;
-          if (!v149)
+          v114 = v155 - 1;
+          specialized UnsafeMutablePointer.moveInitialize(from:count:)(v153 + 16, v155 - 1 - v119, &v115[2 * v119]);
+          v118 = v182;
+          v182[2] = v155 - 1;
+          v156 = v155 > 2;
+          v30 = v183;
+          if (!v156)
           {
-            a10 = v176;
+            a10 = v182;
             goto LABEL_113;
           }
         }
 
-        v119 = &v108[2 * v107];
-        v120 = *(v119 - 8);
-        v121 = *(v119 - 7);
-        v125 = __OFSUB__(v121, v120);
-        v122 = v121 - v120;
-        if (v125)
+        v126 = &v115[2 * v114];
+        v127 = *(v126 - 8);
+        v128 = *(v126 - 7);
+        v132 = __OFSUB__(v128, v127);
+        v129 = v128 - v127;
+        if (v132)
         {
           goto LABEL_125;
         }
 
-        v124 = *(v119 - 6);
-        v123 = *(v119 - 5);
-        v125 = __OFSUB__(v123, v124);
-        v117 = v123 - v124;
-        v118 = v125;
-        if (v125)
+        v131 = *(v126 - 6);
+        v130 = *(v126 - 5);
+        v132 = __OFSUB__(v130, v131);
+        v124 = v130 - v131;
+        v125 = v132;
+        if (v132)
         {
           goto LABEL_126;
         }
 
-        v126 = v114[1];
-        v127 = v126 - *v114;
-        if (__OFSUB__(v126, *v114))
+        v133 = v121[1];
+        v134 = v133 - *v121;
+        if (__OFSUB__(v133, *v121))
         {
           goto LABEL_128;
         }
 
-        v125 = __OFADD__(v117, v127);
-        v128 = v117 + v127;
-        if (v125)
+        v132 = __OFADD__(v124, v134);
+        v135 = v124 + v134;
+        if (v132)
         {
           goto LABEL_131;
         }
 
-        if (v128 >= v122)
+        if (v135 >= v129)
         {
-          v142 = *v113;
-          v141 = v113[1];
-          v125 = __OFSUB__(v141, v142);
-          v143 = v141 - v142;
-          if (v125)
+          v149 = *v120;
+          v148 = v120[1];
+          v132 = __OFSUB__(v148, v149);
+          v150 = v148 - v149;
+          if (v132)
           {
             goto LABEL_136;
           }
 
-          if (v117 < v143)
+          if (v124 < v150)
           {
-            v112 = v107 - 2;
+            v119 = v114 - 2;
           }
 
           goto LABEL_105;
@@ -7950,25 +6361,285 @@ LABEL_139:
       }
 
 LABEL_113:
-      v21 = v168;
+      v21 = v174;
 LABEL_114:
-      v53 = v172;
-      v52 = v173[1];
-      v26 = v160;
-      v22 = v157;
+      v59 = v178;
+      v58 = v179[1];
+      v26 = v166;
+      v22 = v163;
     }
 
-    while (v172 < v52);
+    while (v178 < v58);
   }
 
-  if (!*v159)
+  if (!*v165)
   {
     goto LABEL_146;
   }
 
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&a10, *v159, v173, v45, v46, v47, v48, v49, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166);
+  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&a10, *v165, v179, v51, v52, v53, v54, v55, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172);
 LABEL_119:
 
+  OUTLINED_FUNCTION_65();
+}
+
+void specialized _merge<A>(low:mid:high:buffer:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  OUTLINED_FUNCTION_64();
+  a19 = v21;
+  a20 = v22;
+  v97 = v20;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
+  v31 = type metadata accessor for SQLExpression();
+  v33 = MEMORY[0x1EEE9AC00](v31, v32);
+  v103 = &v95 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = MEMORY[0x1EEE9AC00](v33, v35);
+  v102 = &v95 - v37;
+  v39 = MEMORY[0x1EEE9AC00](v36, v38);
+  v41 = &v95 - v40;
+  MEMORY[0x1EEE9AC00](v39, v42);
+  v46 = *(v45 + 72);
+  if (!v46)
+  {
+    __break(1u);
+LABEL_72:
+    __break(1u);
+LABEL_73:
+    __break(1u);
+    return;
+  }
+
+  v47 = v28 - v30 == 0x8000000000000000 && v46 == -1;
+  if (v47)
+  {
+    goto LABEL_72;
+  }
+
+  v48 = v26 - v28;
+  if (v26 - v28 == 0x8000000000000000 && v46 == -1)
+  {
+    goto LABEL_73;
+  }
+
+  v50 = (v28 - v30) / v46;
+  a10 = v30;
+  v108 = v24;
+  v104 = (v43 + 8);
+  v105 = (v43 + 16);
+  v51 = v48 / v46;
+  if (v50 < v48 / v46)
+  {
+    v100 = &v95 - v44;
+    v102 = v41;
+    v52 = OUTLINED_FUNCTION_132_0();
+    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v52, v53, v24);
+    v103 = (v24 + v50 * v46);
+    v107 = v103;
+    v54 = v24;
+    v99 = v31;
+    v101 = v26;
+    while (1)
+    {
+      if (v54 >= v103 || v28 >= v26)
+      {
+        goto LABEL_70;
+      }
+
+      v56 = *v105;
+      v57 = v28;
+      (*v105)(v100, v28, v31);
+      v106 = v54;
+      v58 = v102;
+      v56();
+      v59 = SQLExpression.sql.getter();
+      v61 = v60;
+      v62 = SQLExpression.sql.getter();
+      if (v59 == v62 && v61 == v63)
+      {
+
+        v71 = *v104;
+        (*v104)(v58, v31);
+        v72 = OUTLINED_FUNCTION_70();
+        v68 = (v71)(v72);
+      }
+
+      else
+      {
+        v65 = OUTLINED_FUNCTION_85(v59, v61, v62);
+
+        v66 = *v104;
+        (*v104)(v58, v31);
+        v67 = OUTLINED_FUNCTION_70();
+        v68 = (v66)(v67);
+        if (v65)
+        {
+          v69 = v57;
+          v28 = v57 + v46;
+          if (v30 < v57 || v30 >= v28)
+          {
+            OUTLINED_FUNCTION_149_0(v68, v57);
+            v26 = v101;
+          }
+
+          else
+          {
+            v26 = v101;
+            v31 = v99;
+            if (v30 != v69)
+            {
+              OUTLINED_FUNCTION_67_2();
+              swift_arrayInitWithTakeBackToFront();
+            }
+          }
+
+          v54 = v106;
+          goto LABEL_40;
+        }
+      }
+
+      v54 = v106 + v46;
+      v73 = v30 < v106 || v30 >= v54;
+      v28 = v57;
+      if (v73)
+      {
+        OUTLINED_FUNCTION_149_0(v68, v106);
+        v26 = v101;
+      }
+
+      else
+      {
+        v26 = v101;
+        v31 = v99;
+        if (v30 != v106)
+        {
+          OUTLINED_FUNCTION_67_2();
+          swift_arrayInitWithTakeBackToFront();
+        }
+      }
+
+      v108 = v54;
+LABEL_40:
+      v30 += v46;
+      a10 = v30;
+    }
+  }
+
+  specialized UnsafeMutablePointer.moveInitialize(from:count:)(v28, v48 / v46, v24);
+  v106 = v24;
+  v74 = v24 + v51 * v46;
+  v75 = -v46;
+  v76 = v74;
+  v100 = -v46;
+LABEL_42:
+  v101 = v28;
+  v99 = (v28 + v75);
+  v77 = v26;
+  v96 = v76;
+  while (1)
+  {
+    if (v74 <= v106)
+    {
+      a10 = v101;
+      v107 = v76;
+      goto LABEL_70;
+    }
+
+    if (v101 <= v30)
+    {
+      break;
+    }
+
+    v98 = v76;
+    v78 = v74 + v75;
+    v79 = *v105;
+    v80 = OUTLINED_FUNCTION_69_1();
+    (v79)(v80);
+    (v79)(v103, v99, v31);
+    v81 = SQLExpression.sql.getter();
+    v83 = v82;
+    if (v81 == SQLExpression.sql.getter() && v83 == v84)
+    {
+      v88 = 0;
+    }
+
+    else
+    {
+      v86 = OUTLINED_FUNCTION_105_2();
+      v88 = OUTLINED_FUNCTION_85(v86, v83, v87);
+    }
+
+    v89 = (v77 + v100);
+    v90 = *v104;
+    (*v104)(v103, v31);
+    v90(v102, v31);
+    if (v88)
+    {
+      v92 = v77 < v101 || v89 >= v101;
+      v26 = v89;
+      if (v92)
+      {
+        v28 = v99;
+        OUTLINED_FUNCTION_67_2();
+        swift_arrayInitWithTakeFrontToBack();
+        v76 = v98;
+        v75 = v100;
+      }
+
+      else
+      {
+        v94 = v98;
+        v93 = v99;
+        v76 = v98;
+        v47 = v77 == v101;
+        v28 = v99;
+        v75 = v100;
+        if (!v47)
+        {
+          OUTLINED_FUNCTION_67_2();
+          swift_arrayInitWithTakeBackToFront();
+          v28 = v93;
+          v76 = v94;
+        }
+      }
+
+      goto LABEL_42;
+    }
+
+    if (v77 < v74 || v89 >= v74)
+    {
+      OUTLINED_FUNCTION_67_2();
+      swift_arrayInitWithTakeFrontToBack();
+      v77 = v89;
+      v74 = v78;
+      v76 = v78;
+      v75 = v100;
+    }
+
+    else
+    {
+      v76 = v78;
+      v47 = v74 == v77;
+      v77 = v89;
+      v74 = v78;
+      v75 = v100;
+      if (!v47)
+      {
+        OUTLINED_FUNCTION_67_2();
+        swift_arrayInitWithTakeBackToFront();
+        v77 = v89;
+        v74 = v78;
+        v76 = v78;
+      }
+    }
+  }
+
+  a10 = v101;
+  v107 = v96;
+LABEL_70:
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&a10, &v108, &v107);
   OUTLINED_FUNCTION_65();
 }
 
@@ -7989,9 +6660,7 @@ LABEL_7:
 
   if (*(a4 + 36) == a2)
   {
-    result = _HashTable.occupiedBucket(after:)();
-    v5 = *(a4 + 36);
-    return result;
+    return _HashTable.occupiedBucket(after:)();
   }
 
 LABEL_8:
@@ -7999,19 +6668,19 @@ LABEL_8:
   return result;
 }
 
-void type metadata completion function for MetadataSQLError()
+void type metadata completion function for MetadataSQLError(uint64_t a1)
 {
   type metadata accessor for (Int, Int)();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for AggregationFunction.AggregationType();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for ([String], [String])();
-      if (v2 <= 0x3F)
+      type metadata accessor for ([String], [String])(319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for [StorableValue]();
-        if (v3 <= 0x3F)
+        type metadata accessor for [StorableValue](319);
+        if (v4 <= 0x3F)
         {
           swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
         }
@@ -8032,28 +6701,28 @@ void type metadata accessor for (Int, Int)()
   }
 }
 
-void type metadata accessor for ([String], [String])()
+void type metadata accessor for ([String], [String])(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ([String], [String]))
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for ([String], [String]));
     }
   }
 }
 
-void type metadata accessor for [StorableValue]()
+void type metadata accessor for [StorableValue](uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [StorableValue])
   {
     type metadata accessor for StorableValue(255);
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [StorableValue]);
+      atomic_store(v1, &lazy cache variable for type metadata for [StorableValue]);
     }
   }
 }
@@ -8086,24 +6755,8 @@ id OUTLINED_FUNCTION_108_1()
   return BMSQLDatabaseError(v0, v1, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_125_0()
+uint64_t OUTLINED_FUNCTION_149_0(uint64_t a1, uint64_t a2)
 {
-  v3 = *(v0 + 16);
-  result = v1;
-  v5 = *(v2 - 128);
-  return result;
-}
-
-void OUTLINED_FUNCTION_130_0()
-{
-  *(v2 - 160) = v0;
-  v3 = *(v1 + 36);
-  v4 = *(v2 - 192);
-}
-
-uint64_t OUTLINED_FUNCTION_149_0()
-{
-  v2 = *(v0 - 160);
 
   return swift_arrayInitWithTakeFrontToBack();
 }
@@ -8116,12 +6769,11 @@ void OUTLINED_FUNCTION_151_0()
 
 uint64_t OUTLINED_FUNCTION_153()
 {
-  v2 = *(v0 - 368);
 
   return _s12BiomeStreams13StorableValueOWOhTm_1();
 }
 
-void OUTLINED_FUNCTION_154_0(char a1)
+void OUTLINED_FUNCTION_154_0(uint64_t a1)
 {
 
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(a1, v1, 1);
@@ -8554,10 +7206,8 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Pg
   return result;
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance PgQuery_OverridingKind()
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance PgQuery_OverridingKind(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
@@ -8570,10 +7220,8 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance PgQuery_Token(
   return MEMORY[0x1EEE15710](a1, a2, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PgQuery_OverridingKind()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PgQuery_OverridingKind(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
@@ -8583,7 +7231,7 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance PgQuery
 {
   v6 = *a2;
   v7 = *(a2 + 8);
-  v8 = a5(*a1, *(a1 + 8));
+  v8 = (a5)(*a1, *(a1 + 8), a3, a4);
   return v8 == a5(v6, v7);
 }
 
@@ -19573,10 +18221,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v21 = swift_allocObject();
-  *(v21 + 16) = xmmword_184D2AA80;
-  v4 = v21 + v3 + v1[14];
-  *(v21 + v3) = 1;
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_184D2AA80;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 1;
   *v4 = "xpr";
   *(v4 + 8) = 3;
   *(v4 + 16) = 2;
@@ -19584,47 +18232,46 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v21 + v3 + v2 + v1[14];
-  *(v21 + v3 + v2) = 2;
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 2;
   *v8 = "opno";
   *(v8 + 8) = 4;
   *(v8 + 16) = 2;
   v7();
-  v9 = (v21 + v3 + 2 * v2);
+  v9 = (v20 + v3 + 2 * v2);
   v10 = v9 + v1[14];
   *v9 = 3;
   *v10 = "opfuncid";
   *(v10 + 1) = 8;
   v10[16] = 2;
   v7();
-  v11 = (v21 + v3 + 3 * v2);
+  v11 = (v20 + v3 + 3 * v2);
   v12 = v11 + v1[14];
   *v11 = 4;
   *v12 = "use_or";
   *(v12 + 1) = 6;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v7();
-  v14 = (v21 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "inputcollid";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "inputcollid";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v7();
-  v16 = (v21 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "args";
-  *(v17 + 1) = 4;
-  v17[16] = 2;
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "args";
+  *(v16 + 1) = 4;
+  v16[16] = 2;
   v7();
-  v18 = (v21 + v3 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "location";
-  *(v19 + 1) = 8;
-  v19[16] = 2;
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "location";
+  *(v18 + 1) = 8;
+  v18[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -19680,10 +18327,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v21 = swift_allocObject();
-  *(v21 + 16) = xmmword_184D2AA80;
-  v4 = v21 + v3 + v1[14];
-  *(v21 + v3) = 1;
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_184D2AA80;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 1;
   *v4 = "xpr";
   *(v4 + 8) = 3;
   *(v4 + 16) = 2;
@@ -19691,47 +18338,46 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v21 + v3 + v2 + v1[14];
-  *(v21 + v3 + v2) = 2;
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 2;
   *v8 = "sub_link_type";
   *(v8 + 8) = 13;
   *(v8 + 16) = 2;
-  v9 = *MEMORY[0x1E69AADE8];
   v7();
-  v10 = (v21 + v3 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "sub_link_id";
-  *(v11 + 1) = 11;
-  v11[16] = 2;
+  v9 = (v20 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "sub_link_id";
+  *(v10 + 1) = 11;
+  v10[16] = 2;
   v7();
-  v12 = (v21 + v3 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "testexpr";
-  *(v13 + 1) = 8;
-  v13[16] = 2;
+  v11 = (v20 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "testexpr";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
   v7();
-  v14 = (v21 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "oper_name";
-  *(v15 + 1) = 9;
-  v15[16] = 2;
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "oper_name";
+  *(v14 + 1) = 9;
+  v14[16] = 2;
   v7();
-  v16 = (v21 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "subselect";
-  *(v17 + 1) = 9;
-  v17[16] = 2;
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "subselect";
+  *(v16 + 1) = 9;
+  v16[16] = 2;
   v7();
-  v18 = (v21 + v3 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "location";
-  *(v19 + 1) = 8;
-  v19[16] = 2;
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "location";
+  *(v18 + 1) = 8;
+  v18[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -19744,11 +18390,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v40 = swift_allocObject();
-  *(v40 + 16) = xmmword_184D2AA40;
-  v4 = v40 + v3;
-  v5 = v40 + v3 + v1[14];
-  *(v40 + v3) = 1;
+  v39 = swift_allocObject();
+  *(v39 + 16) = xmmword_184D2AA40;
+  v4 = v39 + v3;
+  v5 = v39 + v3 + v1[14];
+  *(v39 + v3) = 1;
   *v5 = "xpr";
   *(v5 + 8) = 3;
   *(v5 + 16) = 2;
@@ -19761,110 +18407,109 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "sub_link_type";
   *(v9 + 8) = 13;
   *(v9 + 16) = 2;
-  v10 = *MEMORY[0x1E69AADE8];
   v8();
-  v11 = (v4 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "testexpr";
-  *(v12 + 1) = 8;
-  v12[16] = 2;
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "testexpr";
+  *(v11 + 1) = 8;
+  v11[16] = 2;
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "param_ids";
-  *(v14 + 1) = 9;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "param_ids";
+  *(v13 + 1) = 9;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "plan_id";
-  *(v16 + 1) = 7;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "plan_id";
+  *(v15 + 1) = 7;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "plan_name";
-  *(v18 + 1) = 9;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "plan_name";
+  *(v17 + 1) = 9;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "first_col_type";
-  *(v20 + 1) = 14;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "first_col_type";
+  *(v19 + 1) = 14;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "first_col_typmod";
-  *(v22 + 1) = 16;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "first_col_typmod";
+  *(v21 + 1) = 16;
+  v21[16] = 2;
   v8();
-  v23 = v4 + 8 * v2 + v1[14];
+  v22 = v4 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
-  *v23 = "first_col_collation";
-  *(v23 + 8) = 19;
-  *(v23 + 16) = 2;
+  *v22 = "first_col_collation";
+  *(v22 + 8) = 19;
+  *(v22 + 16) = 2;
   v8();
-  v24 = (v4 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "use_hash_table";
-  *(v25 + 1) = 14;
-  v25[16] = 2;
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "use_hash_table";
+  *(v24 + 1) = 14;
+  v24[16] = 2;
   v8();
-  v26 = (v4 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "unknown_eq_false";
-  *(v27 + 1) = 16;
-  v27[16] = 2;
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "unknown_eq_false";
+  *(v26 + 1) = 16;
+  v26[16] = 2;
   v8();
-  v28 = (v4 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "parallel_safe";
-  *(v29 + 1) = 13;
-  v29[16] = 2;
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "parallel_safe";
+  *(v28 + 1) = 13;
+  v28[16] = 2;
   v8();
-  v30 = (v4 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "set_param";
-  *(v31 + 1) = 9;
-  v31[16] = 2;
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "set_param";
+  *(v30 + 1) = 9;
+  v30[16] = 2;
   v8();
-  v32 = (v4 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "par_param";
-  *(v33 + 1) = 9;
-  v33[16] = 2;
+  v31 = (v4 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "par_param";
+  *(v32 + 1) = 9;
+  v32[16] = 2;
   v8();
-  v34 = (v4 + 14 * v2);
-  v35 = v34 + v1[14];
-  *v34 = 15;
-  *v35 = "args";
-  *(v35 + 1) = 4;
-  v35[16] = 2;
+  v33 = (v4 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "args";
+  *(v34 + 1) = 4;
+  v34[16] = 2;
   v8();
-  v36 = (v4 + 15 * v2);
-  v37 = v36 + v1[14];
-  *v36 = 16;
-  *v37 = "startup_cost";
-  *(v37 + 1) = 12;
-  v37[16] = 2;
+  v35 = (v4 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "startup_cost";
+  *(v36 + 1) = 12;
+  v36[16] = 2;
   v8();
-  v38 = v4 + 16 * v2 + v1[14];
+  v37 = v4 + 16 * v2 + v1[14];
   *(v4 + 16 * v2) = 17;
-  *v38 = "per_call_cost";
-  *(v38 + 8) = 13;
-  *(v38 + 16) = 2;
+  *v37 = "per_call_cost";
+  *(v37 + 8) = 13;
+  *(v37 + 16) = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -20274,14 +18919,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "coll_oid";
   *(v12 + 1) = 8;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "location";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "location";
+  *(v14 + 1) = 8;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -20417,21 +19061,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "type_id";
   *(v10 + 8) = 7;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "type_mod";
-  *(v13 + 1) = 8;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "type_mod";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "collation";
-  *(v15 + 1) = 9;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "collation";
+  *(v14 + 1) = 9;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21093,7 +19736,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "type_id";
   *(v11 + 8) = 7;
   *(v11 + 16) = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21220,10 +19862,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v23 = swift_allocObject();
-  *(v23 + 16) = xmmword_184D2AAD0;
-  v4 = v23 + v3 + v1[14];
-  *(v23 + v3) = 1;
+  v22 = swift_allocObject();
+  *(v22 + 16) = xmmword_184D2AAD0;
+  v4 = v22 + v3 + v1[14];
+  *(v22 + v3) = 1;
   *v4 = "jointype";
   *(v4 + 8) = 8;
   *(v4 + 16) = 2;
@@ -21231,54 +19873,53 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v23 + v3 + v2 + v1[14];
-  *(v23 + v3 + v2) = 2;
+  v8 = v22 + v3 + v2 + v1[14];
+  *(v22 + v3 + v2) = 2;
   *v8 = "is_natural";
   *(v8 + 8) = 10;
   *(v8 + 16) = 2;
-  v9 = *MEMORY[0x1E69AADE8];
   v7();
-  v10 = (v23 + v3 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "larg";
-  *(v11 + 1) = 4;
-  v11[16] = 2;
+  v9 = (v22 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "larg";
+  *(v10 + 1) = 4;
+  v10[16] = 2;
   v7();
-  v12 = (v23 + v3 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "rarg";
-  *(v13 + 1) = 4;
-  v13[16] = 2;
+  v11 = (v22 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "rarg";
+  *(v12 + 1) = 4;
+  v12[16] = 2;
   v7();
-  v14 = (v23 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "using_clause";
-  *(v15 + 1) = 12;
-  v15[16] = 2;
+  v13 = (v22 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "using_clause";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
   v7();
-  v16 = (v23 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "quals";
-  *(v17 + 1) = 5;
-  v17[16] = 2;
+  v15 = (v22 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "quals";
+  *(v16 + 1) = 5;
+  v16[16] = 2;
   v7();
-  v18 = (v23 + v3 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "alias";
-  *(v19 + 1) = 5;
-  v19[16] = 2;
+  v17 = (v22 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "alias";
+  *(v18 + 1) = 5;
+  v18[16] = 2;
   v7();
-  v20 = (v23 + v3 + 7 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 8;
-  *v21 = "rtindex";
-  *(v21 + 1) = 7;
-  v21[16] = 2;
+  v19 = (v22 + v3 + 7 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 8;
+  *v20 = "rtindex";
+  *(v20 + 1) = 7;
+  v20[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21320,11 +19961,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "action";
   *(v5 + 8) = 6;
   *(v5 + 16) = 2;
@@ -21337,49 +19978,48 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "arbiter_elems";
   *(v9 + 8) = 13;
   *(v9 + 16) = 2;
-  v10 = *MEMORY[0x1E69AADE8];
   v8();
-  v11 = (v4 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "arbiter_where";
-  *(v12 + 1) = 13;
-  v12[16] = 2;
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "arbiter_where";
+  *(v11 + 1) = 13;
+  v11[16] = 2;
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "constraint";
-  *(v14 + 1) = 10;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "constraint";
+  *(v13 + 1) = 10;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "on_conflict_set";
-  *(v16 + 1) = 15;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "on_conflict_set";
+  *(v15 + 1) = 15;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "on_conflict_where";
-  *(v18 + 1) = 17;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "on_conflict_where";
+  *(v17 + 1) = 17;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "excl_rel_index";
-  *(v20 + 1) = 14;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "excl_rel_index";
+  *(v19 + 1) = 14;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "excl_rel_tlist";
-  *(v22 + 1) = 14;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "excl_rel_tlist";
+  *(v21 + 1) = 14;
+  v21[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21392,11 +20032,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "rel";
   *(v5 + 8) = 3;
   *(v5 + 16) = 2;
@@ -21409,49 +20049,48 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "col_names";
   *(v9 + 8) = 9;
   *(v9 + 16) = 2;
-  v10 = *MEMORY[0x1E69AADE8];
   v8();
-  v11 = (v4 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "access_method";
-  *(v12 + 1) = 13;
-  v12[16] = 2;
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "access_method";
+  *(v11 + 1) = 13;
+  v11[16] = 2;
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "options";
-  *(v14 + 1) = 7;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "options";
+  *(v13 + 1) = 7;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "on_commit";
-  *(v16 + 1) = 9;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "on_commit";
+  *(v15 + 1) = 9;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "table_space_name";
-  *(v18 + 1) = 16;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "table_space_name";
+  *(v17 + 1) = 16;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "view_query";
-  *(v20 + 1) = 10;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "view_query";
+  *(v19 + 1) = 10;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "skip_data";
-  *(v22 + 1) = 9;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "skip_data";
+  *(v21 + 1) = 9;
+  v21[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21499,11 +20138,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v78 = swift_allocObject();
-  *(v78 + 16) = xmmword_184D2AB20;
-  v4 = v78 + v3;
-  v5 = v78 + v3 + v1[14];
-  *(v78 + v3) = 1;
+  v77 = swift_allocObject();
+  *(v77 + 16) = xmmword_184D2AB20;
+  v4 = v77 + v3;
+  v5 = v77 + v3 + v1[14];
+  *(v77 + v3) = 1;
   *v5 = "command_type";
   *(v5 + 8) = 12;
   *(v5 + 16) = 2;
@@ -21511,48 +20150,48 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v78 + v3 + v2 + v1[14];
+  v9 = v77 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "query_source";
   *(v9 + 8) = 12;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v78 + v3 + 2 * v2);
+  v10 = (v77 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "can_set_tag";
   *(v11 + 1) = 11;
   v11[16] = 2;
   v8();
-  v12 = (v78 + v3 + 3 * v2);
+  v12 = (v77 + v3 + 3 * v2);
   v13 = v12 + v1[14];
   *v12 = 4;
   *v13 = "utility_stmt";
   *(v13 + 1) = 12;
   v13[16] = 2;
   v8();
-  v14 = (v78 + v3 + 4 * v2);
+  v14 = (v77 + v3 + 4 * v2);
   v15 = v14 + v1[14];
   *v14 = 5;
   *v15 = "result_relation";
   *(v15 + 1) = 15;
   v15[16] = 2;
   v8();
-  v16 = (v78 + v3 + 5 * v2);
+  v16 = (v77 + v3 + 5 * v2);
   v17 = v16 + v1[14];
   *v16 = 6;
   *v17 = "has_aggs";
   *(v17 + 1) = 8;
   v17[16] = 2;
   v8();
-  v18 = (v78 + v3 + 6 * v2);
+  v18 = (v77 + v3 + 6 * v2);
   v19 = v18 + v1[14];
   *v18 = 7;
   *v19 = "has_window_funcs";
   *(v19 + 1) = 16;
   v19[16] = 2;
   v8();
-  v20 = (v78 + v3 + 7 * v2);
+  v20 = (v77 + v3 + 7 * v2);
   v21 = v20 + v1[14];
   *v20 = 8;
   *v21 = "has_target_srfs";
@@ -21561,205 +20200,203 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *(v21 + 3) = "hasTargetSRFs";
   *(v21 + 4) = 13;
   v21[40] = 2;
-  v22 = *MEMORY[0x1E69AADD8];
   v8();
-  v23 = v78 + v3 + 8 * v2 + v1[14];
+  v22 = v77 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
-  *v23 = "has_sub_links";
-  *(v23 + 8) = 13;
-  *(v23 + 16) = 2;
+  *v22 = "has_sub_links";
+  *(v22 + 8) = 13;
+  *(v22 + 16) = 2;
   v8();
-  v24 = (v78 + v3 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "has_distinct_on";
-  *(v25 + 1) = 15;
-  v25[16] = 2;
+  v23 = (v77 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "has_distinct_on";
+  *(v24 + 1) = 15;
+  v24[16] = 2;
   v8();
-  v26 = (v78 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "has_recursive";
-  *(v27 + 1) = 13;
-  v27[16] = 2;
+  v25 = (v77 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "has_recursive";
+  *(v26 + 1) = 13;
+  v26[16] = 2;
   v8();
-  v28 = v1[14];
-  v29 = (v78 + v3 + 11 * v2);
-  *v29 = 12;
-  v30 = v29 + v28;
-  *v30 = "has_modifying_cte";
-  *(v30 + 1) = 17;
-  v30[16] = 2;
-  *(v30 + 3) = "hasModifyingCTE";
-  *(v30 + 4) = 15;
-  v30[40] = 2;
+  v27 = v1[14];
+  v28 = (v77 + v3 + 11 * v2);
+  *v28 = 12;
+  v29 = v28 + v27;
+  *v29 = "has_modifying_cte";
+  *(v29 + 1) = 17;
+  v29[16] = 2;
+  *(v29 + 3) = "hasModifyingCTE";
+  *(v29 + 4) = 15;
+  v29[40] = 2;
   v8();
-  v31 = (v78 + v3 + 12 * v2);
-  v32 = v31 + v1[14];
-  *v31 = 13;
-  *v32 = "has_for_update";
-  *(v32 + 1) = 14;
-  v32[16] = 2;
+  v30 = (v77 + v3 + 12 * v2);
+  v31 = v30 + v1[14];
+  *v30 = 13;
+  *v31 = "has_for_update";
+  *(v31 + 1) = 14;
+  v31[16] = 2;
   v8();
-  v33 = (v78 + v3 + 13 * v2);
-  v34 = v33 + v1[14];
-  *v33 = 14;
-  *v34 = "has_row_security";
-  *(v34 + 1) = 16;
-  v34[16] = 2;
+  v32 = (v77 + v3 + 13 * v2);
+  v33 = v32 + v1[14];
+  *v32 = 14;
+  *v33 = "has_row_security";
+  *(v33 + 1) = 16;
+  v33[16] = 2;
   v8();
-  v35 = (v78 + v3 + 14 * v2);
-  v36 = v35 + v1[14];
-  *v35 = 15;
-  *v36 = "cte_list";
-  *(v36 + 1) = 8;
-  v36[16] = 2;
+  v34 = (v77 + v3 + 14 * v2);
+  v35 = v34 + v1[14];
+  *v34 = 15;
+  *v35 = "cte_list";
+  *(v35 + 1) = 8;
+  v35[16] = 2;
   v8();
-  v37 = (v78 + v3 + 15 * v2);
-  v38 = v37 + v1[14];
-  *v37 = 16;
-  *v38 = "rtable";
-  *(v38 + 1) = 6;
-  v38[16] = 2;
-  LODWORD(v22) = *MEMORY[0x1E69AADC8];
+  v36 = (v77 + v3 + 15 * v2);
+  v37 = v36 + v1[14];
+  *v36 = 16;
+  *v37 = "rtable";
+  *(v37 + 1) = 6;
+  v37[16] = 2;
   v8();
-  v39 = v78 + v3 + 16 * v2 + v1[14];
+  v38 = v77 + v3 + 16 * v2 + v1[14];
   *(v4 + 16 * v2) = 17;
-  *v39 = "jointree";
-  *(v39 + 8) = 8;
-  *(v39 + 16) = 2;
+  *v38 = "jointree";
+  *(v38 + 8) = 8;
+  *(v38 + 16) = 2;
   v8();
-  v40 = (v78 + v3 + 17 * v2);
-  v41 = v40 + v1[14];
-  *v40 = 18;
-  *v41 = "target_list";
-  *(v41 + 1) = 11;
-  v41[16] = 2;
+  v39 = (v77 + v3 + 17 * v2);
+  v40 = v39 + v1[14];
+  *v39 = 18;
+  *v40 = "target_list";
+  *(v40 + 1) = 11;
+  v40[16] = 2;
   v8();
-  v42 = (v78 + v3 + 18 * v2);
-  v43 = v42 + v1[14];
-  *v42 = 19;
-  *v43 = "override";
-  *(v43 + 1) = 8;
-  v43[16] = 2;
+  v41 = (v77 + v3 + 18 * v2);
+  v42 = v41 + v1[14];
+  *v41 = 19;
+  *v42 = "override";
+  *(v42 + 1) = 8;
+  v42[16] = 2;
   v8();
-  v44 = (v78 + v3 + 19 * v2);
-  v45 = v44 + v1[14];
-  *v44 = 20;
-  *v45 = "on_conflict";
-  *(v45 + 1) = 11;
-  v45[16] = 2;
+  v43 = (v77 + v3 + 19 * v2);
+  v44 = v43 + v1[14];
+  *v43 = 20;
+  *v44 = "on_conflict";
+  *(v44 + 1) = 11;
+  v44[16] = 2;
   v8();
-  v46 = (v78 + v3 + 20 * v2);
-  v47 = v46 + v1[14];
-  *v46 = 21;
-  *v47 = "returning_list";
-  *(v47 + 1) = 14;
-  v47[16] = 2;
+  v45 = (v77 + v3 + 20 * v2);
+  v46 = v45 + v1[14];
+  *v45 = 21;
+  *v46 = "returning_list";
+  *(v46 + 1) = 14;
+  v46[16] = 2;
   v8();
-  v48 = (v78 + v3 + 21 * v2);
-  v49 = v48 + v1[14];
-  *v48 = 22;
-  *v49 = "group_clause";
-  *(v49 + 1) = 12;
-  v49[16] = 2;
+  v47 = (v77 + v3 + 21 * v2);
+  v48 = v47 + v1[14];
+  *v47 = 22;
+  *v48 = "group_clause";
+  *(v48 + 1) = 12;
+  v48[16] = 2;
   v8();
-  v50 = (v78 + v3 + 22 * v2);
-  v51 = v50 + v1[14];
-  *v50 = 23;
-  *v51 = "grouping_sets";
-  *(v51 + 1) = 13;
-  v51[16] = 2;
+  v49 = (v77 + v3 + 22 * v2);
+  v50 = v49 + v1[14];
+  *v49 = 23;
+  *v50 = "grouping_sets";
+  *(v50 + 1) = 13;
+  v50[16] = 2;
   v8();
-  v52 = (v78 + v3 + 23 * v2);
-  v53 = v52 + v1[14];
-  *v52 = 24;
-  *v53 = "having_qual";
-  *(v53 + 1) = 11;
-  v53[16] = 2;
+  v51 = (v77 + v3 + 23 * v2);
+  v52 = v51 + v1[14];
+  *v51 = 24;
+  *v52 = "having_qual";
+  *(v52 + 1) = 11;
+  v52[16] = 2;
   v8();
-  v54 = (v78 + v3 + 24 * v2);
-  v55 = v54 + v1[14];
-  *v54 = 25;
-  *v55 = "window_clause";
-  *(v55 + 1) = 13;
-  v55[16] = 2;
+  v53 = (v77 + v3 + 24 * v2);
+  v54 = v53 + v1[14];
+  *v53 = 25;
+  *v54 = "window_clause";
+  *(v54 + 1) = 13;
+  v54[16] = 2;
   v8();
-  v56 = (v78 + v3 + 25 * v2);
-  v57 = v56 + v1[14];
-  *v56 = 26;
-  *v57 = "distinct_clause";
-  *(v57 + 1) = 15;
-  v57[16] = 2;
+  v55 = (v77 + v3 + 25 * v2);
+  v56 = v55 + v1[14];
+  *v55 = 26;
+  *v56 = "distinct_clause";
+  *(v56 + 1) = 15;
+  v56[16] = 2;
   v8();
-  v58 = (v78 + v3 + 26 * v2);
-  v59 = v58 + v1[14];
-  *v58 = 27;
-  *v59 = "sort_clause";
-  *(v59 + 1) = 11;
-  v59[16] = 2;
+  v57 = (v77 + v3 + 26 * v2);
+  v58 = v57 + v1[14];
+  *v57 = 27;
+  *v58 = "sort_clause";
+  *(v58 + 1) = 11;
+  v58[16] = 2;
   v8();
-  v60 = (v78 + v3 + 27 * v2);
-  v61 = v60 + v1[14];
-  *v60 = 28;
-  *v61 = "limit_offset";
-  *(v61 + 1) = 12;
-  v61[16] = 2;
+  v59 = (v77 + v3 + 27 * v2);
+  v60 = v59 + v1[14];
+  *v59 = 28;
+  *v60 = "limit_offset";
+  *(v60 + 1) = 12;
+  v60[16] = 2;
   v8();
-  v62 = (v78 + v3 + 28 * v2);
-  v63 = v62 + v1[14];
-  *v62 = 29;
-  *v63 = "limit_count";
-  *(v63 + 1) = 11;
-  v63[16] = 2;
+  v61 = (v77 + v3 + 28 * v2);
+  v62 = v61 + v1[14];
+  *v61 = 29;
+  *v62 = "limit_count";
+  *(v62 + 1) = 11;
+  v62[16] = 2;
   v8();
-  v64 = (v78 + v3 + 29 * v2);
-  v65 = v64 + v1[14];
-  *v64 = 30;
-  *v65 = "limit_option";
-  *(v65 + 1) = 12;
-  v65[16] = 2;
+  v63 = (v77 + v3 + 29 * v2);
+  v64 = v63 + v1[14];
+  *v63 = 30;
+  *v64 = "limit_option";
+  *(v64 + 1) = 12;
+  v64[16] = 2;
   v8();
-  v66 = (v78 + v3 + 30 * v2);
-  v67 = v66 + v1[14];
-  *v66 = 31;
-  *v67 = "row_marks";
-  *(v67 + 1) = 9;
-  v67[16] = 2;
+  v65 = (v77 + v3 + 30 * v2);
+  v66 = v65 + v1[14];
+  *v65 = 31;
+  *v66 = "row_marks";
+  *(v66 + 1) = 9;
+  v66[16] = 2;
   v8();
-  v68 = (v78 + v3 + 31 * v2);
-  v69 = v68 + v1[14];
-  *v68 = 32;
-  *v69 = "set_operations";
-  *(v69 + 1) = 14;
-  v69[16] = 2;
+  v67 = (v77 + v3 + 31 * v2);
+  v68 = v67 + v1[14];
+  *v67 = 32;
+  *v68 = "set_operations";
+  *(v68 + 1) = 14;
+  v68[16] = 2;
   v8();
-  v70 = v78 + v3 + 32 * v2 + v1[14];
+  v69 = v77 + v3 + 32 * v2 + v1[14];
   *(v4 + 32 * v2) = 33;
-  *v70 = "constraint_deps";
-  *(v70 + 8) = 15;
-  *(v70 + 16) = 2;
+  *v69 = "constraint_deps";
+  *(v69 + 8) = 15;
+  *(v69 + 16) = 2;
   v8();
-  v71 = (v78 + v3 + 33 * v2);
-  v72 = v71 + v1[14];
-  *v71 = 34;
-  *v72 = "with_check_options";
-  *(v72 + 1) = 18;
-  v72[16] = 2;
+  v70 = (v77 + v3 + 33 * v2);
+  v71 = v70 + v1[14];
+  *v70 = 34;
+  *v71 = "with_check_options";
+  *(v71 + 1) = 18;
+  v71[16] = 2;
   v8();
-  v73 = (v78 + v3 + 34 * v2);
-  v74 = v73 + v1[14];
-  *v73 = 35;
-  *v74 = "stmt_location";
-  *(v74 + 1) = 13;
-  v74[16] = 2;
+  v72 = (v77 + v3 + 34 * v2);
+  v73 = v72 + v1[14];
+  *v72 = 35;
+  *v73 = "stmt_location";
+  *(v73 + 1) = 13;
+  v73[16] = 2;
   v8();
-  v75 = (v78 + v3 + 35 * v2);
-  v76 = v75 + v1[14];
-  *v75 = 36;
-  *v76 = "stmt_len";
-  *(v76 + 1) = 8;
-  v76[16] = 2;
+  v74 = (v77 + v3 + 35 * v2);
+  v75 = v74 + v1[14];
+  *v74 = 36;
+  *v75 = "stmt_len";
+  *(v75 + 1) = 8;
+  v75[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21772,11 +20409,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v22 = swift_allocObject();
-  *(v22 + 16) = xmmword_184D2AA80;
-  v4 = v22 + v3;
-  v5 = v22 + v3 + v1[14];
-  *(v22 + v3) = 1;
+  v21 = swift_allocObject();
+  *(v21 + 16) = xmmword_184D2AA80;
+  v4 = v21 + v3;
+  v5 = v21 + v3 + v1[14];
+  *(v21 + v3) = 1;
   *v5 = "relation";
   *(v5 + 8) = 8;
   *(v5 + 16) = 2;
@@ -21796,35 +20433,34 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "select_stmt";
   *(v11 + 1) = 11;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "on_conflict_clause";
-  *(v14 + 1) = 18;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "on_conflict_clause";
+  *(v13 + 1) = 18;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "returning_list";
-  *(v16 + 1) = 14;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "returning_list";
+  *(v15 + 1) = 14;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "with_clause";
-  *(v18 + 1) = 11;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "with_clause";
+  *(v17 + 1) = 11;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "override";
-  *(v20 + 1) = 8;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "override";
+  *(v19 + 1) = 8;
+  v19[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21837,11 +20473,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = xmmword_184D2AA30;
-  v4 = v17 + v3;
-  v5 = v17 + v3 + v1[14];
-  *(v17 + v3) = 1;
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_184D2AA30;
+  v4 = v16 + v3;
+  v5 = v16 + v3 + v1[14];
+  *(v16 + v3) = 1;
   *v5 = "relation";
   *(v5 + 8) = 8;
   *(v5 + 16) = 2;
@@ -21854,27 +20490,26 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "using_clause";
   *(v9 + 8) = 12;
   *(v9 + 16) = 2;
-  v10 = *MEMORY[0x1E69AADE8];
   v8();
-  v11 = (v4 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "where_clause";
-  *(v12 + 1) = 12;
-  v12[16] = 2;
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "where_clause";
+  *(v11 + 1) = 12;
+  v11[16] = 2;
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "returning_list";
-  *(v14 + 1) = 14;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "returning_list";
+  *(v13 + 1) = 14;
+  v13[16] = 2;
   v8();
-  v15 = v4 + 4 * v2 + v1[14];
+  v14 = v4 + 4 * v2 + v1[14];
   *(v4 + 4 * v2) = 5;
-  *v15 = "with_clause";
-  *(v15 + 8) = 11;
-  *(v15 + 16) = 2;
+  *v14 = "with_clause";
+  *(v14 + 8) = 11;
+  *(v14 + 16) = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21904,35 +20539,34 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "target_list";
   *(v10 + 8) = 11;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "where_clause";
-  *(v13 + 1) = 12;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "where_clause";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "from_clause";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "from_clause";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "returning_list";
-  *(v17 + 1) = 14;
-  v17[16] = 2;
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "returning_list";
+  *(v16 + 1) = 14;
+  v16[16] = 2;
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "with_clause";
-  *(v19 + 1) = 11;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "with_clause";
+  *(v18 + 1) = 11;
+  v18[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -21945,11 +20579,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v44 = swift_allocObject();
-  *(v44 + 16) = xmmword_184D2A670;
-  v4 = v44 + v3;
-  v5 = v44 + v3 + v1[14];
-  *(v44 + v3) = 1;
+  v43 = swift_allocObject();
+  *(v43 + 16) = xmmword_184D2A670;
+  v4 = v43 + v3;
+  v5 = v43 + v3 + v1[14];
+  *(v43 + v3) = 1;
   *v5 = "distinct_clause";
   *(v5 + 8) = 15;
   *(v5 + 16) = 2;
@@ -21957,129 +20591,128 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v44 + v3 + v2 + v1[14];
+  v9 = v43 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "into_clause";
   *(v9 + 8) = 11;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v44 + v3 + 2 * v2);
+  v10 = (v43 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "target_list";
   *(v11 + 1) = 11;
   v11[16] = 2;
   v8();
-  v12 = (v44 + v3 + 3 * v2);
+  v12 = (v43 + v3 + 3 * v2);
   v13 = v12 + v1[14];
   *v12 = 4;
   *v13 = "from_clause";
   *(v13 + 1) = 11;
   v13[16] = 2;
   v8();
-  v14 = (v44 + v3 + 4 * v2);
+  v14 = (v43 + v3 + 4 * v2);
   v15 = v14 + v1[14];
   *v14 = 5;
   *v15 = "where_clause";
   *(v15 + 1) = 12;
   v15[16] = 2;
   v8();
-  v16 = (v44 + v3 + 5 * v2);
+  v16 = (v43 + v3 + 5 * v2);
   v17 = v16 + v1[14];
   *v16 = 6;
   *v17 = "group_clause";
   *(v17 + 1) = 12;
   v17[16] = 2;
   v8();
-  v18 = (v44 + v3 + 6 * v2);
+  v18 = (v43 + v3 + 6 * v2);
   v19 = v18 + v1[14];
   *v18 = 7;
   *v19 = "having_clause";
   *(v19 + 1) = 13;
   v19[16] = 2;
   v8();
-  v20 = (v44 + v3 + 7 * v2);
+  v20 = (v43 + v3 + 7 * v2);
   v21 = v20 + v1[14];
   *v20 = 8;
   *v21 = "window_clause";
   *(v21 + 1) = 13;
   v21[16] = 2;
   v8();
-  v22 = v44 + v3 + 8 * v2 + v1[14];
+  v22 = v43 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
   *v22 = "values_lists";
   *(v22 + 8) = 12;
   *(v22 + 16) = 2;
   v8();
-  v23 = (v44 + v3 + 9 * v2);
+  v23 = (v43 + v3 + 9 * v2);
   v24 = v23 + v1[14];
   *v23 = 10;
   *v24 = "sort_clause";
   *(v24 + 1) = 11;
   v24[16] = 2;
   v8();
-  v25 = (v44 + v3 + 10 * v2);
+  v25 = (v43 + v3 + 10 * v2);
   v26 = v25 + v1[14];
   *v25 = 11;
   *v26 = "limit_offset";
   *(v26 + 1) = 12;
   v26[16] = 2;
   v8();
-  v27 = (v44 + v3 + 11 * v2);
+  v27 = (v43 + v3 + 11 * v2);
   v28 = v27 + v1[14];
   *v27 = 12;
   *v28 = "limit_count";
   *(v28 + 1) = 11;
   v28[16] = 2;
   v8();
-  v29 = (v44 + v3 + 12 * v2);
+  v29 = (v43 + v3 + 12 * v2);
   v30 = v29 + v1[14];
   *v29 = 13;
   *v30 = "limit_option";
   *(v30 + 1) = 12;
   v30[16] = 2;
   v8();
-  v31 = (v44 + v3 + 13 * v2);
+  v31 = (v43 + v3 + 13 * v2);
   v32 = v31 + v1[14];
   *v31 = 14;
   *v32 = "locking_clause";
   *(v32 + 1) = 14;
   v32[16] = 2;
   v8();
-  v33 = (v44 + v3 + 14 * v2);
+  v33 = (v43 + v3 + 14 * v2);
   v34 = v33 + v1[14];
   *v33 = 15;
   *v34 = "with_clause";
   *(v34 + 1) = 11;
   v34[16] = 2;
   v8();
-  v35 = (v44 + v3 + 15 * v2);
+  v35 = (v43 + v3 + 15 * v2);
   v36 = v35 + v1[14];
   *v35 = 16;
   *v36 = "op";
   *(v36 + 1) = 2;
   v36[16] = 2;
-  v37 = *MEMORY[0x1E69AADC8];
   v8();
-  v38 = v44 + v3 + 16 * v2 + v1[14];
+  v37 = v43 + v3 + 16 * v2 + v1[14];
   *(v4 + 16 * v2) = 17;
-  *v38 = "all";
-  *(v38 + 8) = 3;
-  *(v38 + 16) = 2;
+  *v37 = "all";
+  *(v37 + 8) = 3;
+  *(v37 + 16) = 2;
   v8();
-  v39 = (v44 + v3 + 17 * v2);
-  v40 = v39 + v1[14];
-  *v39 = 18;
-  *v40 = "larg";
-  *(v40 + 1) = 4;
-  v40[16] = 2;
+  v38 = (v43 + v3 + 17 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 18;
+  *v39 = "larg";
+  *(v39 + 1) = 4;
+  v39[16] = 2;
   v8();
-  v41 = (v44 + v3 + 18 * v2);
-  v42 = v41 + v1[14];
-  *v41 = 19;
-  *v42 = "rarg";
-  *(v42 + 1) = 4;
-  v42[16] = 2;
+  v40 = (v43 + v3 + 18 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 19;
+  *v41 = "rarg";
+  *(v41 + 1) = 4;
+  v41[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22199,10 +20832,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_184D2AA20;
-  v4 = v19 + v3 + v1[14];
-  *(v19 + v3) = 1;
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_184D2AA20;
+  v4 = v18 + v3 + v1[14];
+  *(v18 + v3) = 1;
   *v4 = "subtype";
   *(v4 + 8) = 7;
   *(v4 + 16) = 2;
@@ -22210,40 +20843,39 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v19 + v3 + v2 + v1[14];
-  *(v19 + v3 + v2) = 2;
+  v8 = v18 + v3 + v2 + v1[14];
+  *(v18 + v3 + v2) = 2;
   *v8 = "type_name";
   *(v8 + 8) = 9;
   *(v8 + 16) = 2;
-  v9 = *MEMORY[0x1E69AADE8];
   v7();
-  v10 = (v19 + v3 + 2 * v2);
-  v11 = v10 + v1[14];
-  *v10 = 3;
-  *v11 = "name";
-  *(v11 + 1) = 4;
-  v11[16] = 2;
+  v9 = (v18 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "name";
+  *(v10 + 1) = 4;
+  v10[16] = 2;
   v7();
-  v12 = (v19 + v3 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "def";
-  *(v13 + 1) = 3;
-  v13[16] = 2;
+  v11 = (v18 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "def";
+  *(v12 + 1) = 3;
+  v12[16] = 2;
   v7();
-  v14 = (v19 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "behavior";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
+  v13 = (v18 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "behavior";
+  *(v14 + 1) = 8;
+  v14[16] = 2;
   v7();
-  v16 = (v19 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "missing_ok";
-  *(v17 + 1) = 10;
-  v17[16] = 2;
+  v15 = (v18 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "missing_ok";
+  *(v16 + 1) = 10;
+  v16[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22256,11 +20888,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "op";
   *(v5 + 8) = 2;
   *(v5 + 16) = 2;
@@ -22294,28 +20926,27 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v15 = "col_types";
   *(v15 + 1) = 9;
   v15[16] = 2;
-  v16 = *MEMORY[0x1E69AADE8];
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "col_typmods";
-  *(v18 + 1) = 11;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "col_typmods";
+  *(v17 + 1) = 11;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "col_collations";
-  *(v20 + 1) = 14;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "col_collations";
+  *(v19 + 1) = 14;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "group_clauses";
-  *(v22 + 1) = 13;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "group_clauses";
+  *(v21 + 1) = 13;
+  v21[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22518,11 +21149,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "relation";
   *(v5 + 8) = 8;
   *(v5 + 16) = 2;
@@ -22577,7 +21208,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v21 = "where_clause";
   *(v21 + 1) = 12;
   v21[16] = 2;
-  v22 = *MEMORY[0x1E69AADE8];
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22607,7 +21237,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "table_elts";
   *(v9 + 8) = 10;
   *(v9 + 16) = 2;
-  LODWORD(v5) = *MEMORY[0x1E69AADE8];
   v8();
   v10 = (v30 + v3 + 2 * v2);
   v11 = v10 + v1[14];
@@ -22769,27 +21398,26 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "remove_type";
   *(v10 + 8) = 11;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "behavior";
-  *(v13 + 1) = 8;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "behavior";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "missing_ok";
-  *(v15 + 1) = 10;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "missing_ok";
+  *(v14 + 1) = 10;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "concurrent";
-  *(v16 + 8) = 10;
-  *(v16 + 16) = 2;
+  *v15 = "concurrent";
+  *(v15 + 8) = 10;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22889,21 +21517,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "how_many";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "portalname";
-  *(v13 + 1) = 10;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "portalname";
+  *(v12 + 1) = 10;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "ismove";
-  *(v15 + 1) = 6;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "ismove";
+  *(v14 + 1) = 6;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -22916,11 +21543,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v52 = swift_allocObject();
-  *(v52 + 16) = xmmword_184D2AB40;
-  v4 = v52 + v3;
-  v5 = v52 + v3 + v1[14];
-  *(v52 + v3) = 1;
+  v51 = swift_allocObject();
+  *(v51 + 16) = xmmword_184D2AB40;
+  v4 = v51 + v3;
+  v5 = v51 + v3 + v1[14];
+  *(v51 + v3) = 1;
   *v5 = "idxname";
   *(v5 + 8) = 7;
   *(v5 + 16) = 2;
@@ -22928,157 +21555,156 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v52 + v3 + v2 + v1[14];
+  v9 = v51 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "relation";
   *(v9 + 8) = 8;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v52 + v3 + 2 * v2);
+  v10 = (v51 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "access_method";
   *(v11 + 1) = 13;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v8();
-  v13 = (v52 + v3 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "table_space";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
+  v12 = (v51 + v3 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "table_space";
+  *(v13 + 1) = 11;
+  v13[16] = 2;
   v8();
-  v15 = (v52 + v3 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "index_params";
-  *(v16 + 1) = 12;
-  v16[16] = 2;
+  v14 = (v51 + v3 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "index_params";
+  *(v15 + 1) = 12;
+  v15[16] = 2;
   v8();
-  v17 = (v52 + v3 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "index_including_params";
-  *(v18 + 1) = 22;
-  v18[16] = 2;
+  v16 = (v51 + v3 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "index_including_params";
+  *(v17 + 1) = 22;
+  v17[16] = 2;
   v8();
-  v19 = (v52 + v3 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "options";
-  *(v20 + 1) = 7;
-  v20[16] = 2;
+  v18 = (v51 + v3 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "options";
+  *(v19 + 1) = 7;
+  v19[16] = 2;
   v8();
-  v21 = (v52 + v3 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "where_clause";
-  *(v22 + 1) = 12;
-  v22[16] = 2;
+  v20 = (v51 + v3 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "where_clause";
+  *(v21 + 1) = 12;
+  v21[16] = 2;
   v8();
-  v23 = v52 + v3 + 8 * v2 + v1[14];
+  v22 = v51 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
-  *v23 = "exclude_op_names";
-  *(v23 + 8) = 16;
-  *(v23 + 16) = 2;
+  *v22 = "exclude_op_names";
+  *(v22 + 8) = 16;
+  *(v22 + 16) = 2;
   v8();
-  v24 = (v52 + v3 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "idxcomment";
-  *(v25 + 1) = 10;
-  v25[16] = 2;
+  v23 = (v51 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "idxcomment";
+  *(v24 + 1) = 10;
+  v24[16] = 2;
   v8();
-  v26 = (v52 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "index_oid";
-  *(v27 + 1) = 9;
-  v27[16] = 2;
+  v25 = (v51 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "index_oid";
+  *(v26 + 1) = 9;
+  v26[16] = 2;
   v8();
-  v28 = (v52 + v3 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "old_node";
-  *(v29 + 1) = 8;
-  v29[16] = 2;
+  v27 = (v51 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "old_node";
+  *(v28 + 1) = 8;
+  v28[16] = 2;
   v8();
-  v30 = (v52 + v3 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "old_create_subid";
-  *(v31 + 1) = 16;
-  v31[16] = 2;
+  v29 = (v51 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "old_create_subid";
+  *(v30 + 1) = 16;
+  v30[16] = 2;
   v8();
-  v32 = (v52 + v3 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "old_first_relfilenode_subid";
-  *(v33 + 1) = 27;
-  v33[16] = 2;
+  v31 = (v51 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "old_first_relfilenode_subid";
+  *(v32 + 1) = 27;
+  v32[16] = 2;
   v8();
-  v34 = (v52 + v3 + 14 * v2);
-  v35 = v34 + v1[14];
-  *v34 = 15;
-  *v35 = "unique";
-  *(v35 + 1) = 6;
-  v35[16] = 2;
+  v33 = (v51 + v3 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "unique";
+  *(v34 + 1) = 6;
+  v34[16] = 2;
   v8();
-  v36 = (v52 + v3 + 15 * v2);
-  v37 = v36 + v1[14];
-  *v36 = 16;
-  *v37 = "primary";
-  *(v37 + 1) = 7;
-  v37[16] = 2;
+  v35 = (v51 + v3 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "primary";
+  *(v36 + 1) = 7;
+  v36[16] = 2;
   v8();
-  v38 = v52 + v3 + 16 * v2 + v1[14];
+  v37 = v51 + v3 + 16 * v2 + v1[14];
   *(v4 + 16 * v2) = 17;
-  *v38 = "isconstraint";
-  *(v38 + 8) = 12;
-  *(v38 + 16) = 2;
+  *v37 = "isconstraint";
+  *(v37 + 8) = 12;
+  *(v37 + 16) = 2;
   v8();
-  v39 = (v52 + v3 + 17 * v2);
-  v40 = v39 + v1[14];
-  *v39 = 18;
-  *v40 = "deferrable";
-  *(v40 + 1) = 10;
-  v40[16] = 2;
+  v38 = (v51 + v3 + 17 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 18;
+  *v39 = "deferrable";
+  *(v39 + 1) = 10;
+  v39[16] = 2;
   v8();
-  v41 = (v52 + v3 + 18 * v2);
-  v42 = v41 + v1[14];
-  *v41 = 19;
-  *v42 = "initdeferred";
-  *(v42 + 1) = 12;
-  v42[16] = 2;
+  v40 = (v51 + v3 + 18 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 19;
+  *v41 = "initdeferred";
+  *(v41 + 1) = 12;
+  v41[16] = 2;
   v8();
-  v43 = (v52 + v3 + 19 * v2);
-  v44 = v43 + v1[14];
-  *v43 = 20;
-  *v44 = "transformed";
-  *(v44 + 1) = 11;
-  v44[16] = 2;
+  v42 = (v51 + v3 + 19 * v2);
+  v43 = v42 + v1[14];
+  *v42 = 20;
+  *v43 = "transformed";
+  *(v43 + 1) = 11;
+  v43[16] = 2;
   v8();
-  v45 = (v52 + v3 + 20 * v2);
-  v46 = v45 + v1[14];
-  *v45 = 21;
-  *v46 = "concurrent";
-  *(v46 + 1) = 10;
-  v46[16] = 2;
+  v44 = (v51 + v3 + 20 * v2);
+  v45 = v44 + v1[14];
+  *v44 = 21;
+  *v45 = "concurrent";
+  *(v45 + 1) = 10;
+  v45[16] = 2;
   v8();
-  v47 = (v52 + v3 + 21 * v2);
-  v48 = v47 + v1[14];
-  *v47 = 22;
-  *v48 = "if_not_exists";
-  *(v48 + 1) = 13;
-  v48[16] = 2;
+  v46 = (v51 + v3 + 21 * v2);
+  v47 = v46 + v1[14];
+  *v46 = 22;
+  *v47 = "if_not_exists";
+  *(v47 + 1) = 13;
+  v47[16] = 2;
   v8();
-  v49 = (v52 + v3 + 22 * v2);
-  v50 = v49 + v1[14];
-  *v49 = 23;
-  *v50 = "reset_default_tblspc";
-  *(v50 + 1) = 20;
-  v50[16] = 2;
+  v48 = (v51 + v3 + 22 * v2);
+  v49 = v48 + v1[14];
+  *v48 = 23;
+  *v49 = "reset_default_tblspc";
+  *(v49 + 1) = 20;
+  v49[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23129,14 +21755,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v16 = "return_type";
   *(v16 + 1) = 11;
   v16[16] = 2;
-  v17 = *MEMORY[0x1E69AADE8];
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "options";
-  *(v19 + 1) = 7;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "options";
+  *(v18 + 1) = 7;
+  v18[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23184,11 +21809,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "rename_type";
   *(v5 + 8) = 11;
   *(v5 + 16) = 2;
@@ -23208,42 +21833,41 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "relation";
   *(v11 + 1) = 8;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADC8];
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "object";
-  *(v14 + 1) = 6;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "object";
+  *(v13 + 1) = 6;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "subname";
-  *(v16 + 1) = 7;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "subname";
+  *(v15 + 1) = 7;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "newname";
-  *(v18 + 1) = 7;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "newname";
+  *(v17 + 1) = 7;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "behavior";
-  *(v20 + 1) = 8;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "behavior";
+  *(v19 + 1) = 8;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "missing_ok";
-  *(v22 + 1) = 10;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "missing_ok";
+  *(v21 + 1) = 10;
+  v21[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23256,10 +21880,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v21 = swift_allocObject();
-  *(v21 + 16) = xmmword_184D2AA80;
-  v4 = v21 + v3 + v1[14];
-  *(v21 + v3) = 1;
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_184D2AA80;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 1;
   *v4 = "relation";
   *(v4 + 8) = 8;
   *(v4 + 16) = 2;
@@ -23267,47 +21891,46 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v21 + v3 + v2 + v1[14];
-  *(v21 + v3 + v2) = 2;
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 2;
   *v8 = "rulename";
   *(v8 + 8) = 8;
   *(v8 + 16) = 2;
   v7();
-  v9 = (v21 + v3 + 2 * v2);
+  v9 = (v20 + v3 + 2 * v2);
   v10 = v9 + v1[14];
   *v9 = 3;
   *v10 = "where_clause";
   *(v10 + 1) = 12;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v7();
-  v12 = (v21 + v3 + 3 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 4;
-  *v13 = "event";
-  *(v13 + 1) = 5;
-  v13[16] = 2;
+  v11 = (v20 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "event";
+  *(v12 + 1) = 5;
+  v12[16] = 2;
   v7();
-  v14 = (v21 + v3 + 4 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 5;
-  *v15 = "instead";
-  *(v15 + 1) = 7;
-  v15[16] = 2;
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "instead";
+  *(v14 + 1) = 7;
+  v14[16] = 2;
   v7();
-  v16 = (v21 + v3 + 5 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 6;
-  *v17 = "actions";
-  *(v17 + 1) = 7;
-  v17[16] = 2;
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "actions";
+  *(v16 + 1) = 7;
+  v16[16] = 2;
   v7();
-  v18 = (v21 + v3 + 6 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 7;
-  *v19 = "replace";
-  *(v19 + 1) = 7;
-  v19[16] = 2;
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "replace";
+  *(v18 + 1) = 7;
+  v18[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23398,10 +22021,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_184D2AA20;
-  v4 = v19 + v3 + v1[14];
-  *(v19 + v3) = 1;
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_184D2AA20;
+  v4 = v18 + v3 + v1[14];
+  *(v18 + v3) = 1;
   *v4 = "view";
   *(v4 + 8) = 4;
   *(v4 + 16) = 2;
@@ -23409,40 +22032,39 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v19 + v3 + v2 + v1[14];
-  *(v19 + v3 + v2) = 2;
+  v8 = v18 + v3 + v2 + v1[14];
+  *(v18 + v3 + v2) = 2;
   *v8 = "aliases";
   *(v8 + 8) = 7;
   *(v8 + 16) = 2;
   v7();
-  v9 = (v19 + v3 + 2 * v2);
+  v9 = (v18 + v3 + 2 * v2);
   v10 = v9 + v1[14];
   *v9 = 3;
   *v10 = "query";
   *(v10 + 1) = 5;
   v10[16] = 2;
   v7();
-  v11 = (v19 + v3 + 3 * v2);
+  v11 = (v18 + v3 + 3 * v2);
   v12 = v11 + v1[14];
   *v11 = 4;
   *v12 = "replace";
   *(v12 + 1) = 7;
   v12[16] = 2;
   v7();
-  v13 = (v19 + v3 + 4 * v2);
+  v13 = (v18 + v3 + 4 * v2);
   v14 = v13 + v1[14];
   *v13 = 5;
   *v14 = "options";
   *(v14 + 1) = 7;
   v14[16] = 2;
   v7();
-  v15 = (v19 + v3 + 5 * v2);
+  v15 = (v18 + v3 + 5 * v2);
   v16 = v15 + v1[14];
   *v15 = 6;
   *v16 = "with_check_option";
   *(v16 + 1) = 17;
   v16[16] = 2;
-  v17 = *MEMORY[0x1E69AADE8];
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23472,21 +22094,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "type_name";
   *(v10 + 8) = 9;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "coll_clause";
-  *(v13 + 1) = 11;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "coll_clause";
+  *(v12 + 1) = 11;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "constraints";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "constraints";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23700,20 +22321,19 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "owner_id";
   *(v12 + 1) = 8;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "for_identity";
-  *(v15 + 1) = 12;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "for_identity";
+  *(v14 + 1) = 12;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "if_not_exists";
-  *(v16 + 8) = 13;
-  *(v16 + 16) = 2;
+  *v15 = "if_not_exists";
+  *(v15 + 8) = 13;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -23812,11 +22432,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v35 = swift_allocObject();
-  *(v35 + 16) = xmmword_184D2AB50;
-  v4 = v35 + v3;
-  v5 = v35 + v3 + v1[14];
-  *(v35 + v3) = 1;
+  v34 = swift_allocObject();
+  *(v34 + 16) = xmmword_184D2AB50;
+  v4 = v34 + v3;
+  v5 = v34 + v3 + v1[14];
+  *(v34 + v3) = 1;
   *v5 = "trigname";
   *(v5 + 8) = 8;
   *(v5 + 16) = 2;
@@ -23824,95 +22444,94 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v35 + v3 + v2 + v1[14];
+  v9 = v34 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "relation";
   *(v9 + 8) = 8;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v35 + v3 + 2 * v2);
+  v10 = (v34 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "funcname";
   *(v11 + 1) = 8;
   v11[16] = 2;
   v8();
-  v12 = (v35 + v3 + 3 * v2);
+  v12 = (v34 + v3 + 3 * v2);
   v13 = v12 + v1[14];
   *v12 = 4;
   *v13 = "args";
   *(v13 + 1) = 4;
   v13[16] = 2;
   v8();
-  v14 = (v35 + v3 + 4 * v2);
+  v14 = (v34 + v3 + 4 * v2);
   v15 = v14 + v1[14];
   *v14 = 5;
   *v15 = "row";
   *(v15 + 1) = 3;
   v15[16] = 2;
   v8();
-  v16 = (v35 + v3 + 5 * v2);
+  v16 = (v34 + v3 + 5 * v2);
   v17 = v16 + v1[14];
   *v16 = 6;
   *v17 = "timing";
   *(v17 + 1) = 6;
   v17[16] = 2;
   v8();
-  v18 = (v35 + v3 + 6 * v2);
+  v18 = (v34 + v3 + 6 * v2);
   v19 = v18 + v1[14];
   *v18 = 7;
   *v19 = "events";
   *(v19 + 1) = 6;
   v19[16] = 2;
   v8();
-  v20 = (v35 + v3 + 7 * v2);
+  v20 = (v34 + v3 + 7 * v2);
   v21 = v20 + v1[14];
   *v20 = 8;
   *v21 = "columns";
   *(v21 + 1) = 7;
   v21[16] = 2;
   v8();
-  v22 = v35 + v3 + 8 * v2 + v1[14];
+  v22 = v34 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
   *v22 = "when_clause";
   *(v22 + 8) = 11;
   *(v22 + 16) = 2;
-  v23 = *MEMORY[0x1E69AADE8];
   v8();
-  v24 = (v35 + v3 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "isconstraint";
-  *(v25 + 1) = 12;
-  v25[16] = 2;
+  v23 = (v34 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "isconstraint";
+  *(v24 + 1) = 12;
+  v24[16] = 2;
   v8();
-  v26 = (v35 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "transition_rels";
-  *(v27 + 1) = 15;
-  v27[16] = 2;
+  v25 = (v34 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "transition_rels";
+  *(v26 + 1) = 15;
+  v26[16] = 2;
   v8();
-  v28 = (v35 + v3 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "deferrable";
-  *(v29 + 1) = 10;
-  v29[16] = 2;
+  v27 = (v34 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "deferrable";
+  *(v28 + 1) = 10;
+  v28[16] = 2;
   v8();
-  v30 = (v35 + v3 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "initdeferred";
-  *(v31 + 1) = 12;
-  v31[16] = 2;
+  v29 = (v34 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "initdeferred";
+  *(v30 + 1) = 12;
+  v30[16] = 2;
   v8();
-  v32 = (v35 + v3 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "constrrel";
-  *(v33 + 1) = 9;
-  v33[16] = 2;
+  v31 = (v34 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "constrrel";
+  *(v32 + 1) = 9;
+  v32[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24218,14 +22837,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "schema_elts";
   *(v12 + 1) = 11;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "if_not_exists";
-  *(v15 + 1) = 13;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "if_not_exists";
+  *(v14 + 1) = 13;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24474,7 +23092,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v18 = "is_default";
   *(v18 + 1) = 10;
   v18[16] = 2;
-  v19 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24540,14 +23157,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "is_drop";
   *(v12 + 1) = 7;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "items";
-  *(v15 + 1) = 5;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "items";
+  *(v14 + 1) = 5;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24748,27 +23364,26 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "relation";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "object";
-  *(v13 + 1) = 6;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "object";
+  *(v12 + 1) = 6;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "extname";
-  *(v15 + 1) = 7;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "extname";
+  *(v14 + 1) = 7;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "remove";
-  *(v16 + 8) = 6;
-  *(v16 + 16) = 2;
+  *v15 = "remove";
+  *(v15 + 8) = 6;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24798,27 +23413,26 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "relation";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "object";
-  *(v13 + 1) = 6;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "object";
+  *(v12 + 1) = 6;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "newschema";
-  *(v15 + 1) = 9;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "newschema";
+  *(v14 + 1) = 9;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "missing_ok";
-  *(v16 + 8) = 10;
-  *(v16 + 16) = 2;
+  *v15 = "missing_ok";
+  *(v15 + 8) = 10;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -24848,21 +23462,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "relation";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "object";
-  *(v13 + 1) = 6;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "object";
+  *(v12 + 1) = 6;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "newowner";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "newowner";
+  *(v14 + 1) = 8;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -25445,7 +24058,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "is_reset";
   *(v11 + 8) = 8;
   *(v11 + 16) = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -25570,13 +24182,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "servername";
   *(v10 + 1) = 10;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "options";
-  *(v12 + 8) = 7;
-  *(v12 + 16) = 2;
+  *v11 = "options";
+  *(v11 + 8) = 7;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -25842,13 +24453,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "skip_data";
   *(v10 + 1) = 9;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "relation";
-  *(v12 + 8) = 8;
-  *(v12 + 16) = 2;
+  *v11 = "relation";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -26166,7 +24776,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v15 = "table_action";
   *(v15 + 8) = 12;
   *(v15 + 16) = 2;
-  v16 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -26835,13 +25444,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "type_name";
   *(v10 + 1) = 9;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "location";
-  *(v12 + 8) = 8;
-  *(v12 + 16) = 2;
+  *v11 = "location";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -26920,13 +25528,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v14 = "use_op";
   *(v14 + 1) = 6;
   v14[16] = 2;
-  v15 = *MEMORY[0x1E69AADE8];
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "location";
-  *(v16 + 8) = 8;
-  *(v16 + 16) = 2;
+  *v15 = "location";
+  *(v15 + 8) = 8;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -26939,11 +25546,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "name";
   *(v5 + 8) = 4;
   *(v5 + 16) = 2;
@@ -26963,42 +25570,41 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "partition_clause";
   *(v11 + 1) = 16;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "order_clause";
-  *(v14 + 1) = 12;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "order_clause";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "frame_options";
-  *(v16 + 1) = 13;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "frame_options";
+  *(v15 + 1) = 13;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "start_offset";
-  *(v18 + 1) = 12;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "start_offset";
+  *(v17 + 1) = 12;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "end_offset";
-  *(v20 + 1) = 10;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "end_offset";
+  *(v19 + 1) = 10;
+  v19[16] = 2;
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "location";
-  *(v22 + 1) = 8;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "location";
+  *(v21 + 1) = 8;
+  v21[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -27216,11 +25822,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v22 = swift_allocObject();
-  *(v22 + 16) = xmmword_184D2AA80;
-  v4 = v22 + v3;
-  v5 = v22 + v3 + v1[14];
-  *(v22 + v3) = 1;
+  v21 = swift_allocObject();
+  *(v21 + 16) = xmmword_184D2AA80;
+  v4 = v21 + v3;
+  v5 = v21 + v3 + v1[14];
+  *(v21 + v3) = 1;
   *v5 = "colname";
   *(v5 + 8) = 7;
   *(v5 + 16) = 2;
@@ -27233,42 +25839,41 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "type_name";
   *(v9 + 8) = 9;
   *(v9 + 16) = 2;
-  v10 = *MEMORY[0x1E69AADE8];
   v8();
-  v11 = (v4 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "for_ordinality";
-  *(v12 + 1) = 14;
-  v12[16] = 2;
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "for_ordinality";
+  *(v11 + 1) = 14;
+  v11[16] = 2;
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "is_not_null";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "is_not_null";
+  *(v13 + 1) = 11;
+  v13[16] = 2;
   v8();
-  v15 = (v4 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "colexpr";
-  *(v16 + 1) = 7;
-  v16[16] = 2;
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "colexpr";
+  *(v15 + 1) = 7;
+  v15[16] = 2;
   v8();
-  v17 = (v4 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "coldefexpr";
-  *(v18 + 1) = 10;
-  v18[16] = 2;
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "coldefexpr";
+  *(v17 + 1) = 10;
+  v17[16] = 2;
   v8();
-  v19 = (v4 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "location";
-  *(v20 + 1) = 8;
-  v20[16] = 2;
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "location";
+  *(v19 + 1) = 8;
+  v19[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -27281,11 +25886,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_184D2AAD0;
-  v4 = v24 + v3;
-  v5 = v24 + v3 + v1[14];
-  *(v24 + v3) = 1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_184D2AAD0;
+  v4 = v23 + v3;
+  v5 = v23 + v3 + v1[14];
+  *(v23 + v3) = 1;
   *v5 = "names";
   *(v5 + 8) = 5;
   *(v5 + 16) = 2;
@@ -27298,7 +25903,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "type_oid";
   *(v9 + 8) = 8;
   *(v9 + 16) = 2;
-  v23 = *MEMORY[0x1E69AADE8];
   v8();
   v10 = (v4 + 2 * v2);
   v11 = v10 + v1[14];
@@ -27353,11 +25957,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v40 = swift_allocObject();
-  *(v40 + 16) = xmmword_184D2AA40;
-  v4 = v40 + v3;
-  v5 = v40 + v3 + v1[14];
-  *(v40 + v3) = 1;
+  v39 = swift_allocObject();
+  *(v39 + 16) = xmmword_184D2AA40;
+  v4 = v39 + v3;
+  v5 = v39 + v3 + v1[14];
+  *(v39 + v3) = 1;
   *v5 = "colname";
   *(v5 + 8) = 7;
   *(v5 + 16) = 2;
@@ -27370,7 +25974,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v9 = "type_name";
   *(v9 + 8) = 9;
   *(v9 + 16) = 2;
-  v39 = *MEMORY[0x1E69AADE8];
   v8();
   v10 = (v4 + 2 * v2);
   v11 = v10 + v1[14];
@@ -27815,11 +26418,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v77 = swift_allocObject();
-  *(v77 + 16) = xmmword_184D2AB20;
-  v4 = v77 + v3;
-  v5 = v77 + v3 + v1[14];
-  *(v77 + v3) = 1;
+  v76 = swift_allocObject();
+  *(v76 + 16) = xmmword_184D2AB20;
+  v4 = v76 + v3;
+  v5 = v76 + v3 + v1[14];
+  *(v76 + v3) = 1;
   *v5 = "rtekind";
   *(v5 + 8) = 7;
   *(v5 + 16) = 2;
@@ -27827,247 +26430,246 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v77 + v3 + v2 + v1[14];
+  v9 = v76 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "relid";
   *(v9 + 8) = 5;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v77 + v3 + 2 * v2);
+  v10 = (v76 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "relkind";
   *(v11 + 1) = 7;
   v11[16] = 2;
   v8();
-  v12 = (v77 + v3 + 3 * v2);
+  v12 = (v76 + v3 + 3 * v2);
   v13 = v12 + v1[14];
   *v12 = 4;
   *v13 = "rellockmode";
   *(v13 + 1) = 11;
   v13[16] = 2;
   v8();
-  v14 = (v77 + v3 + 4 * v2);
+  v14 = (v76 + v3 + 4 * v2);
   v15 = v14 + v1[14];
   *v14 = 5;
   *v15 = "tablesample";
   *(v15 + 1) = 11;
   v15[16] = 2;
   v8();
-  v16 = (v77 + v3 + 5 * v2);
+  v16 = (v76 + v3 + 5 * v2);
   v17 = v16 + v1[14];
   *v16 = 6;
   *v17 = "subquery";
   *(v17 + 1) = 8;
   v17[16] = 2;
   v8();
-  v18 = (v77 + v3 + 6 * v2);
+  v18 = (v76 + v3 + 6 * v2);
   v19 = v18 + v1[14];
   *v18 = 7;
   *v19 = "security_barrier";
   *(v19 + 1) = 16;
   v19[16] = 2;
   v8();
-  v20 = (v77 + v3 + 7 * v2);
+  v20 = (v76 + v3 + 7 * v2);
   v21 = v20 + v1[14];
   *v20 = 8;
   *v21 = "jointype";
   *(v21 + 1) = 8;
   v21[16] = 2;
   v8();
-  v22 = v77 + v3 + 8 * v2 + v1[14];
+  v22 = v76 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
   *v22 = "joinmergedcols";
   *(v22 + 8) = 14;
   *(v22 + 16) = 2;
   v8();
-  v23 = (v77 + v3 + 9 * v2);
+  v23 = (v76 + v3 + 9 * v2);
   v24 = v23 + v1[14];
   *v23 = 10;
   *v24 = "joinaliasvars";
   *(v24 + 1) = 13;
   v24[16] = 2;
   v8();
-  v25 = (v77 + v3 + 10 * v2);
+  v25 = (v76 + v3 + 10 * v2);
   v26 = v25 + v1[14];
   *v25 = 11;
   *v26 = "joinleftcols";
   *(v26 + 1) = 12;
   v26[16] = 2;
   v8();
-  v27 = (v77 + v3 + 11 * v2);
+  v27 = (v76 + v3 + 11 * v2);
   v28 = v27 + v1[14];
   *v27 = 12;
   *v28 = "joinrightcols";
   *(v28 + 1) = 13;
   v28[16] = 2;
   v8();
-  v29 = (v77 + v3 + 12 * v2);
+  v29 = (v76 + v3 + 12 * v2);
   v30 = v29 + v1[14];
   *v29 = 13;
   *v30 = "functions";
   *(v30 + 1) = 9;
   v30[16] = 2;
   v8();
-  v31 = (v77 + v3 + 13 * v2);
+  v31 = (v76 + v3 + 13 * v2);
   v32 = v31 + v1[14];
   *v31 = 14;
   *v32 = "funcordinality";
   *(v32 + 1) = 14;
   v32[16] = 2;
   v8();
-  v33 = (v77 + v3 + 14 * v2);
+  v33 = (v76 + v3 + 14 * v2);
   v34 = v33 + v1[14];
   *v33 = 15;
   *v34 = "tablefunc";
   *(v34 + 1) = 9;
   v34[16] = 2;
   v8();
-  v35 = (v77 + v3 + 15 * v2);
+  v35 = (v76 + v3 + 15 * v2);
   v36 = v35 + v1[14];
   *v35 = 16;
   *v36 = "values_lists";
   *(v36 + 1) = 12;
   v36[16] = 2;
   v8();
-  v37 = v77 + v3 + 16 * v2 + v1[14];
+  v37 = v76 + v3 + 16 * v2 + v1[14];
   *(v4 + 16 * v2) = 17;
   *v37 = "ctename";
   *(v37 + 8) = 7;
   *(v37 + 16) = 2;
   v8();
-  v38 = (v77 + v3 + 17 * v2);
+  v38 = (v76 + v3 + 17 * v2);
   v39 = v38 + v1[14];
   *v38 = 18;
   *v39 = "ctelevelsup";
   *(v39 + 1) = 11;
   v39[16] = 2;
   v8();
-  v40 = (v77 + v3 + 18 * v2);
+  v40 = (v76 + v3 + 18 * v2);
   v41 = v40 + v1[14];
   *v40 = 19;
   *v41 = "self_reference";
   *(v41 + 1) = 14;
   v41[16] = 2;
   v8();
-  v42 = (v77 + v3 + 19 * v2);
+  v42 = (v76 + v3 + 19 * v2);
   v43 = v42 + v1[14];
   *v42 = 20;
   *v43 = "coltypes";
   *(v43 + 1) = 8;
   v43[16] = 2;
   v8();
-  v44 = (v77 + v3 + 20 * v2);
+  v44 = (v76 + v3 + 20 * v2);
   v45 = v44 + v1[14];
   *v44 = 21;
   *v45 = "coltypmods";
   *(v45 + 1) = 10;
   v45[16] = 2;
   v8();
-  v46 = (v77 + v3 + 21 * v2);
+  v46 = (v76 + v3 + 21 * v2);
   v47 = v46 + v1[14];
   *v46 = 22;
   *v47 = "colcollations";
   *(v47 + 1) = 13;
   v47[16] = 2;
   v8();
-  v48 = (v77 + v3 + 22 * v2);
+  v48 = (v76 + v3 + 22 * v2);
   v49 = v48 + v1[14];
   *v48 = 23;
   *v49 = "enrname";
   *(v49 + 1) = 7;
   v49[16] = 2;
   v8();
-  v50 = (v77 + v3 + 23 * v2);
+  v50 = (v76 + v3 + 23 * v2);
   v51 = v50 + v1[14];
   *v50 = 24;
   *v51 = "enrtuples";
   *(v51 + 1) = 9;
   v51[16] = 2;
   v8();
-  v52 = (v77 + v3 + 24 * v2);
+  v52 = (v76 + v3 + 24 * v2);
   v53 = v52 + v1[14];
   *v52 = 25;
   *v53 = "alias";
   *(v53 + 1) = 5;
   v53[16] = 2;
   v8();
-  v54 = (v77 + v3 + 25 * v2);
+  v54 = (v76 + v3 + 25 * v2);
   v55 = v54 + v1[14];
   *v54 = 26;
   *v55 = "eref";
   *(v55 + 1) = 4;
   v55[16] = 2;
   v8();
-  v56 = (v77 + v3 + 26 * v2);
+  v56 = (v76 + v3 + 26 * v2);
   v57 = v56 + v1[14];
   *v56 = 27;
   *v57 = "lateral";
   *(v57 + 1) = 7;
   v57[16] = 2;
   v8();
-  v58 = (v77 + v3 + 27 * v2);
+  v58 = (v76 + v3 + 27 * v2);
   v59 = v58 + v1[14];
   *v58 = 28;
   *v59 = "inh";
   *(v59 + 1) = 3;
   v59[16] = 2;
   v8();
-  v60 = (v77 + v3 + 28 * v2);
+  v60 = (v76 + v3 + 28 * v2);
   v61 = v60 + v1[14];
   *v60 = 29;
   *v61 = "in_from_cl";
   *(v61 + 1) = 10;
   v61[16] = 2;
-  v62 = *MEMORY[0x1E69AADE8];
   v8();
-  v63 = (v77 + v3 + 29 * v2);
-  v64 = v63 + v1[14];
-  *v63 = 30;
-  *v64 = "required_perms";
-  *(v64 + 1) = 14;
-  v64[16] = 2;
+  v62 = (v76 + v3 + 29 * v2);
+  v63 = v62 + v1[14];
+  *v62 = 30;
+  *v63 = "required_perms";
+  *(v63 + 1) = 14;
+  v63[16] = 2;
   v8();
-  v65 = (v77 + v3 + 30 * v2);
-  v66 = v65 + v1[14];
-  *v65 = 31;
-  *v66 = "check_as_user";
-  *(v66 + 1) = 13;
-  v66[16] = 2;
+  v64 = (v76 + v3 + 30 * v2);
+  v65 = v64 + v1[14];
+  *v64 = 31;
+  *v65 = "check_as_user";
+  *(v65 + 1) = 13;
+  v65[16] = 2;
   v8();
-  v67 = (v77 + v3 + 31 * v2);
-  v68 = v67 + v1[14];
-  *v67 = 32;
-  *v68 = "selected_cols";
-  *(v68 + 1) = 13;
-  v68[16] = 2;
+  v66 = (v76 + v3 + 31 * v2);
+  v67 = v66 + v1[14];
+  *v66 = 32;
+  *v67 = "selected_cols";
+  *(v67 + 1) = 13;
+  v67[16] = 2;
   v8();
-  v69 = v77 + v3 + 32 * v2 + v1[14];
+  v68 = v76 + v3 + 32 * v2 + v1[14];
   *(v4 + 32 * v2) = 33;
-  *v69 = "inserted_cols";
-  *(v69 + 8) = 13;
-  *(v69 + 16) = 2;
+  *v68 = "inserted_cols";
+  *(v68 + 8) = 13;
+  *(v68 + 16) = 2;
   v8();
-  v70 = (v77 + v3 + 33 * v2);
-  v71 = v70 + v1[14];
-  *v70 = 34;
-  *v71 = "updated_cols";
-  *(v71 + 1) = 12;
-  v71[16] = 2;
+  v69 = (v76 + v3 + 33 * v2);
+  v70 = v69 + v1[14];
+  *v69 = 34;
+  *v70 = "updated_cols";
+  *(v70 + 1) = 12;
+  v70[16] = 2;
   v8();
-  v72 = (v77 + v3 + 34 * v2);
-  v73 = v72 + v1[14];
-  *v72 = 35;
-  *v73 = "extra_updated_cols";
-  *(v73 + 1) = 18;
-  v73[16] = 2;
+  v71 = (v76 + v3 + 34 * v2);
+  v72 = v71 + v1[14];
+  *v71 = 35;
+  *v72 = "extra_updated_cols";
+  *(v72 + 1) = 18;
+  v72[16] = 2;
   v8();
-  v74 = (v77 + v3 + 35 * v2);
-  v75 = v74 + v1[14];
-  *v74 = 36;
-  *v75 = "security_quals";
-  *(v75 + 1) = 14;
-  v75[16] = 2;
+  v73 = (v76 + v3 + 35 * v2);
+  v74 = v73 + v1[14];
+  *v73 = 36;
+  *v74 = "security_quals";
+  *(v74 + 1) = 14;
+  v74[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28244,27 +26846,26 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "eqop";
   *(v10 + 8) = 4;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "sortop";
-  *(v13 + 1) = 6;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "sortop";
+  *(v12 + 1) = 6;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "nulls_first";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "nulls_first";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "hashable";
-  *(v16 + 8) = 8;
-  *(v16 + 16) = 2;
+  *v15 = "hashable";
+  *(v15 + 8) = 8;
+  *(v15 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28312,11 +26913,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v35 = swift_allocObject();
-  *(v35 + 16) = xmmword_184D2AB50;
-  v4 = v35 + v3;
-  v5 = v35 + v3 + v1[14];
-  *(v35 + v3) = 1;
+  v34 = swift_allocObject();
+  *(v34 + 16) = xmmword_184D2AB50;
+  v4 = v34 + v3;
+  v5 = v34 + v3 + v1[14];
+  *(v34 + v3) = 1;
   *v5 = "name";
   *(v5 + 8) = 4;
   *(v5 + 16) = 2;
@@ -28324,95 +26925,94 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v7 = type metadata accessor for _NameMap.NameDescription();
   v8 = *(*(v7 - 8) + 104);
   (v8)(v5, v6, v7);
-  v9 = v35 + v3 + v2 + v1[14];
+  v9 = v34 + v3 + v2 + v1[14];
   *(v4 + v2) = 2;
   *v9 = "refname";
   *(v9 + 8) = 7;
   *(v9 + 16) = 2;
   v8();
-  v10 = (v35 + v3 + 2 * v2);
+  v10 = (v34 + v3 + 2 * v2);
   v11 = v10 + v1[14];
   *v10 = 3;
   *v11 = "partition_clause";
   *(v11 + 1) = 16;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v8();
-  v13 = (v35 + v3 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "order_clause";
-  *(v14 + 1) = 12;
-  v14[16] = 2;
+  v12 = (v34 + v3 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "order_clause";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
   v8();
-  v15 = (v35 + v3 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 5;
-  *v16 = "frame_options";
-  *(v16 + 1) = 13;
-  v16[16] = 2;
+  v14 = (v34 + v3 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "frame_options";
+  *(v15 + 1) = 13;
+  v15[16] = 2;
   v8();
-  v17 = (v35 + v3 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 6;
-  *v18 = "start_offset";
-  *(v18 + 1) = 12;
-  v18[16] = 2;
+  v16 = (v34 + v3 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "start_offset";
+  *(v17 + 1) = 12;
+  v17[16] = 2;
   v8();
-  v19 = (v35 + v3 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 7;
-  *v20 = "end_offset";
-  *(v20 + 1) = 10;
-  v20[16] = 2;
+  v18 = (v34 + v3 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "end_offset";
+  *(v19 + 1) = 10;
+  v19[16] = 2;
   v8();
-  v21 = (v35 + v3 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "start_in_range_func";
-  *(v22 + 1) = 19;
-  v22[16] = 2;
+  v20 = (v34 + v3 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "start_in_range_func";
+  *(v21 + 1) = 19;
+  v21[16] = 2;
   v8();
-  v23 = v35 + v3 + 8 * v2 + v1[14];
+  v22 = v34 + v3 + 8 * v2 + v1[14];
   *(v4 + 8 * v2) = 9;
-  *v23 = "end_in_range_func";
-  *(v23 + 8) = 17;
-  *(v23 + 16) = 2;
+  *v22 = "end_in_range_func";
+  *(v22 + 8) = 17;
+  *(v22 + 16) = 2;
   v8();
-  v24 = (v35 + v3 + 9 * v2);
-  v25 = v24 + v1[14];
-  *v24 = 10;
-  *v25 = "in_range_coll";
-  *(v25 + 1) = 13;
-  v25[16] = 2;
+  v23 = (v34 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "in_range_coll";
+  *(v24 + 1) = 13;
+  v24[16] = 2;
   v8();
-  v26 = (v35 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "in_range_asc";
-  *(v27 + 1) = 12;
-  v27[16] = 2;
+  v25 = (v34 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "in_range_asc";
+  *(v26 + 1) = 12;
+  v26[16] = 2;
   v8();
-  v28 = (v35 + v3 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "in_range_nulls_first";
-  *(v29 + 1) = 20;
-  v29[16] = 2;
+  v27 = (v34 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "in_range_nulls_first";
+  *(v28 + 1) = 20;
+  v28[16] = 2;
   v8();
-  v30 = (v35 + v3 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "winref";
-  *(v31 + 1) = 6;
-  v31[16] = 2;
+  v29 = (v34 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "winref";
+  *(v30 + 1) = 6;
+  v30[16] = 2;
   v8();
-  v32 = (v35 + v3 + 13 * v2);
-  v33 = v32 + v1[14];
-  *v32 = 14;
-  *v33 = "copied_order";
-  *(v33 + 1) = 12;
-  v33[16] = 2;
+  v31 = (v34 + v3 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "copied_order";
+  *(v32 + 1) = 12;
+  v32[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28569,7 +27169,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "relation_oid";
   *(v11 + 8) = 12;
   *(v11 + 16) = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28599,21 +27198,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "arg_type";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "mode";
-  *(v13 + 1) = 4;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "mode";
+  *(v12 + 1) = 4;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "defexpr";
-  *(v15 + 1) = 7;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "defexpr";
+  *(v14 + 1) = 7;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28643,13 +27241,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "strength";
   *(v10 + 1) = 8;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "wait_policy";
-  *(v12 + 8) = 11;
-  *(v12 + 16) = 2;
+  *v11 = "wait_policy";
+  *(v11 + 8) = 11;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28686,14 +27283,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "wait_policy";
   *(v12 + 1) = 11;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "pushed_down";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "pushed_down";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28730,14 +27326,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "type_name";
   *(v12 + 1) = 9;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADE8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "location";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "location";
+  *(v14 + 1) = 8;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28809,14 +27404,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "conname";
   *(v12 + 1) = 7;
   v12[16] = 2;
-  v13 = *MEMORY[0x1E69AADC8];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "location";
-  *(v15 + 1) = 8;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "location";
+  *(v14 + 1) = 8;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -28829,11 +27423,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = xmmword_184D2AA30;
-  v4 = v17 + v3;
-  v5 = v17 + v3 + v1[14];
-  *(v17 + v3) = 1;
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_184D2AA30;
+  v4 = v16 + v3;
+  v5 = v16 + v3 + v1[14];
+  *(v16 + v3) = 1;
   *v5 = "action";
   *(v5 + 8) = 6;
   *(v5 + 16) = 2;
@@ -28853,20 +27447,19 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v11 = "target_list";
   *(v11 + 1) = 11;
   v11[16] = 2;
-  v12 = *MEMORY[0x1E69AADE8];
   v8();
-  v13 = (v4 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "where_clause";
-  *(v14 + 1) = 12;
-  v14[16] = 2;
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "where_clause";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
   v8();
-  v15 = v4 + 4 * v2 + v1[14];
+  v14 = v4 + 4 * v2 + v1[14];
   *(v4 + 4 * v2) = 5;
-  *v15 = "location";
-  *(v15 + 8) = 8;
-  *(v15 + 16) = 2;
+  *v14 = "location";
+  *(v14 + 8) = 8;
+  *(v14 + 16) = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -29022,13 +27615,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "is_new";
   *(v10 + 1) = 6;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "is_table";
-  *(v12 + 8) = 8;
-  *(v12 + 16) = 2;
+  *v11 = "is_table";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -29107,13 +27699,12 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "part_params";
   *(v10 + 1) = 11;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "location";
-  *(v12 + 8) = 8;
-  *(v12 + 16) = 2;
+  *v11 = "location";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -29312,21 +27903,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "lang_oid";
   *(v10 + 8) = 8;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "lang_is_trusted";
-  *(v13 + 1) = 15;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "lang_is_trusted";
+  *(v12 + 1) = 15;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "atomic";
-  *(v15 + 1) = 6;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "atomic";
+  *(v14 + 1) = 6;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -29370,7 +27960,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v14 = "keyword_kind";
   *(v14 + 1) = 12;
   v14[16] = 2;
-  v15 = *MEMORY[0x1E69AADE8];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }

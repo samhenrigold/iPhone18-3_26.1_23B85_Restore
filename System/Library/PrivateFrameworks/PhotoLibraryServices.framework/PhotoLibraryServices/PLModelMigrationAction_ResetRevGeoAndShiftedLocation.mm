@@ -6,20 +6,20 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v72[2] = *MEMORY[0x1E69E9840];
+  v73[2] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AE18];
   contextCopy = context;
   v8 = [v6 predicateWithFormat:@"%K != nil", @"shiftedLocationData"];
-  v71[0] = @"reverseLocationDataIsValid";
-  v71[1] = @"shiftedLocationIsValid";
-  v72[0] = MEMORY[0x1E695E110];
-  v72[1] = MEMORY[0x1E695E110];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:2];
+  v72[0] = @"reverseLocationDataIsValid";
+  v72[1] = @"shiftedLocationIsValid";
+  v73[0] = MEMORY[0x1E695E110];
+  v73[1] = MEMORY[0x1E695E110];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
   v10 = +[PLAdditionalAssetAttributes entityName];
-  v35 = 0;
-  v11 = [PLModelMigrator executeBatchUpdateWithEntityName:v10 predicate:v8 propertiesToUpdate:v9 managedObjectContext:contextCopy error:&v35];
+  v36 = 0;
+  v11 = [PLModelMigrator executeBatchUpdateWithEntityName:v10 predicate:v8 propertiesToUpdate:v9 managedObjectContext:contextCopy error:&v36];
 
-  v12 = v35;
+  v12 = v36;
   if (v11)
   {
     v13 = PLMigrationGetLog();
@@ -31,156 +31,172 @@
 
       if (logger)
       {
-        v69 = 0u;
         v70 = 0u;
-        v67 = 0u;
+        v71 = 0u;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
+        v43 = 0u;
         memset(buf, 0, sizeof(buf));
         v16 = PLMigrationGetLog();
-        os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-        LOWORD(v36) = 0;
-        LODWORD(v34) = 2;
-        v17 = _os_log_send_and_compose_impl();
-
-        v18 = [(PLModelMigrationActionCore *)self logger:&v36];
-        [v18 logWithMessage:v17 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1105, 0}];
-
-        if (v17 != buf)
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          free(v17);
+          v17 = 3;
         }
-      }
 
-      else
-      {
-        v28 = PLMigrationGetLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        else
         {
-          *buf = 0;
-          _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_DEFAULT, "Reset rev geo and shifted location state on assets with non-nil shifted locations", buf, 2u);
+          v17 = 2;
         }
-      }
-    }
 
-    v29 = 1;
-  }
+        LOWORD(v37) = 0;
+        v18 = _os_log_send_and_compose_impl(v17, 0, buf, 512, &dword_19BF1F000, v16, 0, "Reset rev geo and shifted location state on assets with non-nil shifted locations", &v37, 2);
 
-  else
-  {
-    if (error)
-    {
-      v19 = v12;
-      *error = v12;
-    }
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v18 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1105, 0}];
 
-    v20 = PLMigrationGetLog();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-
-    if (v21)
-    {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-
-      if (logger2)
-      {
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        memset(buf, 0, sizeof(buf));
-        v23 = PLMigrationGetLog();
-        os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
-        v36 = 138543618;
-        v37 = v25;
-        v38 = 2114;
-        v39 = v12;
-        LODWORD(v34) = 22;
-        v26 = _os_log_send_and_compose_impl();
-
-        v27 = [(PLModelMigrationActionCore *)self logger:&v36];
-        [v27 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1109, 16}];
-
-        if (v26 != buf)
+        if (v18 != buf)
         {
-          free(v26);
+          free(v18);
         }
       }
 
       else
       {
         v30 = PLMigrationGetLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = objc_opt_class();
-          v32 = NSStringFromClass(v31);
-          *buf = 138543618;
-          *&buf[4] = v32;
-          *&buf[12] = 2114;
-          *&buf[14] = v12;
-          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "Failed to reset geo and shifted location state on assets with non-nil shifted locations for %{public}@. Error: %{public}@", buf, 0x16u);
+          *buf = 0;
+          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_DEFAULT, "Reset rev geo and shifted location state on assets with non-nil shifted locations", buf, 2u);
         }
       }
     }
 
-    v29 = 3;
+    v31 = 1;
+  }
+
+  else
+  {
+    if (error)
+    {
+      v20 = v12;
+      *error = v12;
+    }
+
+    v21 = PLMigrationGetLog();
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+
+    if (v22)
+    {
+      logger3 = [(PLModelMigrationActionCore *)self logger];
+
+      if (logger3)
+      {
+        v70 = 0u;
+        v71 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        memset(buf, 0, sizeof(buf));
+        v24 = PLMigrationGetLog();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          v25 = 3;
+        }
+
+        else
+        {
+          v25 = 2;
+        }
+
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
+        v37 = 138543618;
+        v38 = v27;
+        v39 = 2114;
+        v40 = v12;
+        v28 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v24, 16, "Failed to reset geo and shifted location state on assets with non-nil shifted locations for %{public}@. Error: %{public}@", &v37, 22);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1109, 16}];
+
+        if (v28 != buf)
+        {
+          free(v28);
+        }
+      }
+
+      else
+      {
+        v32 = PLMigrationGetLog();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        {
+          v33 = objc_opt_class();
+          v34 = NSStringFromClass(v33);
+          *buf = 138543618;
+          *&buf[4] = v34;
+          *&buf[12] = 2114;
+          *&buf[14] = v12;
+          _os_log_impl(&dword_19BF1F000, v32, OS_LOG_TYPE_ERROR, "Failed to reset geo and shifted location state on assets with non-nil shifted locations for %{public}@. Error: %{public}@", buf, 0x16u);
+        }
+      }
+    }
+
+    v31 = 3;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
 
-  return v29;
+  return v31;
 }
 
 @end

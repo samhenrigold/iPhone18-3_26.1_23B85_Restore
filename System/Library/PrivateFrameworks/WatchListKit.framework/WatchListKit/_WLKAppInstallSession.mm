@@ -149,7 +149,7 @@
 
 - (void)_doPurchaseWithAppAdamID:(id)d offerBuyParams:(id)params
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dCopy = d;
   paramsCopy = params;
   NSLog(&cfstr_CallingPurchas.isa, dCopy, paramsCopy);
@@ -184,8 +184,8 @@
       query = paramsCopy;
       if (forceDSIDlessInstall)
       {
-        v38 = v11;
-        v39 = v8;
+        v37 = v11;
+        v38 = v8;
         selfCopy = self;
         NSLog(&cfstr_InstallableFor.isa, dCopy);
         v19 = objc_alloc_init(MEMORY[0x277CCACE0]);
@@ -193,28 +193,28 @@
         queryItems = [v19 queryItems];
         v21 = [queryItems mutableCopy];
 
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
         v45 = 0u;
-        v37 = v19;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v36 = v19;
         queryItems2 = [v19 queryItems];
-        v23 = [queryItems2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v23 = [queryItems2 countByEnumeratingWithState:&v43 objects:v47 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v45;
-          v36 = v21;
+          v25 = *v44;
+          v35 = v21;
           while (2)
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v45 != v25)
+              if (*v44 != v25)
               {
                 objc_enumerationMutation(queryItems2);
               }
 
-              v27 = *(*(&v44 + 1) + 8 * i);
+              v27 = *(*(&v43 + 1) + 8 * i);
               name = [v27 name];
               v29 = [name isEqualToString:@"appExtVrsId"];
 
@@ -224,15 +224,15 @@
                 value = [v27 value];
                 v33 = [v31 queryItemWithName:@"externalVersionId" value:value];
 
-                v21 = v36;
-                [v36 addObject:v33];
+                v21 = v35;
+                [v35 addObject:v33];
 
                 goto LABEL_20;
               }
             }
 
-            v24 = [queryItems2 countByEnumeratingWithState:&v44 objects:v48 count:16];
-            v21 = v36;
+            v24 = [queryItems2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+            v21 = v35;
             if (v24)
             {
               continue;
@@ -244,14 +244,14 @@
 
 LABEL_20:
 
-        [v37 setQueryItems:v21];
-        query = [v37 query];
+        [v36 setQueryItems:v21];
+        query = [v36 query];
 
-        v8 = v39;
-        [v39 setIsDSIDLess:1];
+        v8 = v38;
+        [v38 setIsDSIDLess:1];
 
         self = selfCopy;
-        v11 = v38;
+        v11 = v37;
       }
     }
 
@@ -264,13 +264,13 @@ LABEL_20:
     [v8 setBuyParameters:query];
     NSLog(&cfstr_StartingRedown.isa, dCopy, v8);
     mEMORY[0x277CEC428] = [MEMORY[0x277CEC428] sharedManager];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block_invoke;
-    v41[3] = &unk_279E5FCA8;
-    v42 = dCopy;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block_invoke;
+    v40[3] = &unk_279E5FCA8;
+    v41 = dCopy;
     selfCopy2 = self;
-    [mEMORY[0x277CEC428] processPurchase:v8 withResponseHandler:v41];
+    [mEMORY[0x277CEC428] processPurchase:v8 withResponseHandler:v40];
   }
 
   else
@@ -281,34 +281,32 @@ LABEL_20:
 
     query = paramsCopy;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_matchingAppProxyFromProxies:(id)proxies forInstallable:(id)installable
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   proxiesCopy = proxies;
   installableCopy = installable;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = proxiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         appBundleIDs = [installableCopy appBundleIDs];
         bundleIdentifier = [v11 bundleIdentifier];
         v14 = [appBundleIDs containsObject:bundleIdentifier];
@@ -320,7 +318,7 @@ LABEL_20:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -331,8 +329,6 @@ LABEL_20:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

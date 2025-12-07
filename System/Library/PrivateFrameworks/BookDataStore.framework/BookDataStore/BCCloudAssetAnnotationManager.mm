@@ -21,9 +21,9 @@
 {
   sourceCopy = source;
   controllerCopy = controller;
-  v34.receiver = self;
-  v34.super_class = BCCloudAssetAnnotationManager;
-  v9 = [(BCCloudAssetAnnotationManager *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = BCCloudAssetAnnotationManager;
+  v9 = [(BCCloudAssetAnnotationManager *)&v35 init];
   v10 = v9;
   if (v9)
   {
@@ -57,16 +57,16 @@
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v29 = v10->_ckAssetStoreDirectory;
-    v33 = 0;
-    [defaultManager createDirectoryAtURL:v29 withIntermediateDirectories:1 attributes:0 error:&v33];
-    v30 = v33;
+    v34 = 0;
+    [defaultManager createDirectoryAtURL:v29 withIntermediateDirectories:1 attributes:0 error:&v34];
+    v30 = v34;
 
     if (v30)
     {
-      v31 = BDSCloudKitLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = BDSCloudKitLog(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        sub_1E4704AFC(&v10->_ckAssetStoreDirectory, v30, v31);
+        sub_1E4704AFC(&v10->_ckAssetStoreDirectory, v30, v32);
       }
     }
   }
@@ -91,18 +91,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BDSCloudKitDevelopmentLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
       v17 = 138412290;
-      v18 = v8;
-      _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetAnnotationManager #enableCloudSync setEnableCloudSync %@\\"", &v17, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetAnnotationManager #enableCloudSync setEnableCloudSync %@\", &v17, 0xCu);
     }
   }
 
@@ -131,8 +131,6 @@
       [transactionManager removeObserver:entityName recordType:@"assetAnnotations"];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
@@ -144,12 +142,12 @@
 
 - (void)assetWithID:(id)d updatedAnnotations:(id)annotations completion:(id)completion
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   dCopy = d;
   annotationsCopy = annotations;
   completionCopy = completion;
   v9 = objc_opt_new();
-  v57 = dCopy;
+  v56 = dCopy;
   [v9 setAssetID:dCopy];
   v10 = +[BDSAppVersion appVersion];
   [v9 setAppVersion:v10];
@@ -157,30 +155,30 @@
   lastObject = [annotationsCopy lastObject];
   v12 = BUProtocolCast();
 
-  v54 = v12;
+  v53 = v12;
   assetVersion = [v12 assetVersion];
   [v9 setAssetVersion:?];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v13 = annotationsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v59;
+    v16 = *v58;
     do
     {
       v17 = 0;
       do
       {
-        if (*v59 != v16)
+        if (*v58 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v58 + 1) + 8 * v17);
+        v18 = *(*(&v57 + 1) + 8 * v17);
         v19 = objc_opt_new();
         annotationCreatorIdentifier = [v18 annotationCreatorIdentifier];
         [v19 setCreatorIdentifier:annotationCreatorIdentifier];
@@ -287,13 +285,13 @@
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
     while (v15);
   }
 
-  v47 = [[BCMutableAssetAnnotations alloc] initWithAssetID:v57];
+  v47 = [[BCMutableAssetAnnotations alloc] initWithAssetID:v56];
   [(BCMutableAssetAnnotations *)v47 setAssetVersion:assetVersion];
   v48 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   [v9 writeTo:v48];
@@ -301,10 +299,8 @@
   [(BCMutableAssetAnnotations *)v47 setBookAnnotations:immutableData];
 
   dataManager = [(BCCloudAssetAnnotationManager *)self dataManager];
-  v51 = [MEMORY[0x1E696AE18] predicateWithFormat:@"assetID = %@", v57];
+  v51 = [MEMORY[0x1E696AE18] predicateWithFormat:@"assetID = %@", v56];
   [dataManager setCloudData:v47 predicate:v51 completion:completionCopy];
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fileURLForCachingCKAssetWithAssetID:(id)d
@@ -313,18 +309,19 @@
   v5 = [dCopy dataUsingEncoding:4];
   bu_md5 = [v5 bu_md5];
 
-  if (![bu_md5 length] || (-[BCCloudAssetAnnotationManager ckAssetStoreDirectory](self, "ckAssetStoreDirectory"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "URLByAppendingPathComponent:", bu_md5), v8 = objc_claimAutoreleasedReturnValue(), v7, !v8))
+  v7 = [bu_md5 length];
+  if (!v7 || (-[BCCloudAssetAnnotationManager ckAssetStoreDirectory](self, "ckAssetStoreDirectory"), v8 = objc_claimAutoreleasedReturnValue(), [v8 URLByAppendingPathComponent:bu_md5], v9 = objc_claimAutoreleasedReturnValue(), v8, !v9))
   {
-    v9 = BDSCloudKitLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BDSCloudKitLog(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1E4704B88(self, dCopy, v9);
+      sub_1E4704B88(self, dCopy, v10);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)syncManager:(id)manager startSyncToCKWithCompletion:(id)completion
@@ -373,35 +370,35 @@
 
 - (void)syncManager:(id)manager updateSyncGenerationFromCloudData:(id)data completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dataCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = dataCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         assetID = [v15 assetID];
         [v9 setObject:v15 forKey:assetID];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
@@ -412,8 +409,6 @@
   allKeys = [v9 allKeys];
   v20 = [v18 predicateWithFormat:@"assetID IN %@", allKeys];
   [dataManager updateSyncGenerationFromCloudData:v9 predicate:v20 propertyIDKey:@"assetID" completion:completionCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncManager:(id)manager resolveConflictsForRecords:(id)records completion:(id)completion

@@ -98,7 +98,7 @@
 - (void)setActiveLayoutMode:(int64_t)mode
 {
   selfCopy = self;
-  sub_1002321E8(mode);
+  sub_1002321E8(mode, v4);
 }
 
 - (void)setPreferredLayoutMode:(int64_t)mode

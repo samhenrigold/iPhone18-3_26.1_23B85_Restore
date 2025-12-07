@@ -1,5 +1,6 @@
 @interface TIContextChangeEvent
 - (TIContextChangeEvent)initWithCoder:(id)coder;
+- (TIContextChangeEvent)initWithTIKeyboardState:(id)state andActionType:(int)type;
 - (_NSRange)inWordRange;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -76,6 +77,23 @@
   }
 
   return v5;
+}
+
+- (TIContextChangeEvent)initWithTIKeyboardState:(id)state andActionType:(int)type
+{
+  v4 = *&type;
+  v8.receiver = self;
+  v8.super_class = TIContextChangeEvent;
+  v5 = [(TIUserAction *)&v8 initWithTIKeyboardState:state];
+  v6 = v5;
+  if (v5)
+  {
+    [(TIUserAction *)v5 setActionType:v4];
+    v6->_inWordRange = xmmword_22CC889D0;
+    v6->_selectionLocation = -1;
+  }
+
+  return v6;
 }
 
 @end

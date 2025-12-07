@@ -47,7 +47,7 @@
 
 - (id)requestBody
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v3, v4))
@@ -55,8 +55,8 @@
     seconds = self->_seconds;
     *buf = 134218240;
     selfCopy2 = self;
-    v29 = 1024;
-    v30 = seconds;
+    v28 = 1024;
+    v29 = seconds;
     _os_log_impl(&dword_24A0AC000, v3, v4, "Ping Task %p - hbi is %d", buf, 0x12u);
   }
 
@@ -88,25 +88,25 @@
 
     [v10 openTag:9];
     allObjects = [(NSSet *)self->_folders allObjects];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v12 = [allObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [allObjects countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
+          v16 = *(*(&v21 + 1) + 8 * i);
           [v10 openTag:10];
           serverID = [v16 serverID];
           [v10 appendTag:11 withStringContent:serverID];
@@ -117,7 +117,7 @@
           [v10 closeTag:10];
         }
 
-        v13 = [allObjects countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [allObjects countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -128,8 +128,6 @@
     [v10 closeTag:5];
     data = [v10 data];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -144,7 +142,7 @@
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -278,20 +276,19 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)requestCancelTaskWithReason:(int)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v10[0] = 67109120;
-    v10[1] = reason;
-    _os_log_impl(&dword_24A0AC000, v5, v6, "Tearing down ping task because someone more important wants the task manager, reason is %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = reason;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "Tearing down ping task because someone more important wants the task manager, reason is %d", v9, 8u);
   }
 
   if (reason == 1)
@@ -306,13 +303,11 @@ LABEL_31:
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:v7 userInfo:0];
   [(ASPingTask *)self finishWithError:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (v5 == -1)
@@ -353,8 +348,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy2 = objc_opt_class();
-        v36 = 2112;
-        v37 = errorCopy;
+        v35 = 2112;
+        v36 = errorCopy;
         v10 = selfCopy2;
         _os_log_impl(&dword_24A0AC000, status2, v9, "%@ failed: %@", buf, 0x16u);
       }
@@ -380,8 +375,8 @@ LABEL_31:
       status = [v11 status];
       *buf = 134218240;
       selfCopy2 = self;
-      v36 = 1024;
-      LODWORD(v37) = [status intValue];
+      v35 = 1024;
+      LODWORD(v36) = [status intValue];
       _os_log_impl(&dword_24A0AC000, v22, v23, "Ping task %p response has status of %d", buf, 0x12u);
     }
 
@@ -427,19 +422,18 @@ LABEL_22:
     CFNotificationCenterPostNotification(v28, *MEMORY[0x277D03F08], 0, 0, 1u);
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __30__ASPingTask_finishWithError___block_invoke;
-  v30[3] = &unk_278FC7D70;
-  v30[4] = self;
-  v33 = v6;
-  v31 = errorCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __30__ASPingTask_finishWithError___block_invoke;
+  v29[3] = &unk_278FC7D70;
+  v29[4] = self;
+  v32 = v6;
+  v30 = errorCopy;
   v11 = v11;
-  v32 = v11;
-  [(ASTask *)self finishWithError:v31 afterDelegateCallout:v30];
+  v31 = v11;
+  [(ASTask *)self finishWithError:v30 afterDelegateCallout:v29];
 
 LABEL_25:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __30__ASPingTask_finishWithError___block_invoke(uint64_t a1)

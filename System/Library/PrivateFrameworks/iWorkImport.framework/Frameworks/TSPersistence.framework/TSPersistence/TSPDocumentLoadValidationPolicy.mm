@@ -1,4 +1,5 @@
 @interface TSPDocumentLoadValidationPolicy
++ (TSPDocumentLoadValidationPolicy)loadValidationPolicyWithTiming:(int64_t)timing validateModel:(BOOL)model validateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption;
 - (TSPDocumentLoadValidationPolicy)initWithTiming:(int64_t)timing validateModel:(BOOL)model validateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption;
 - (id)description;
 @end
@@ -34,6 +35,18 @@
     v14->_validateDataDigest = digest;
     v14->_scanForOSLikeCorruption = corruption;
   }
+
+  return v14;
+}
+
++ (TSPDocumentLoadValidationPolicy)loadValidationPolicyWithTiming:(int64_t)timing validateModel:(BOOL)model validateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption
+{
+  corruptionCopy = corruption;
+  digestCopy = digest;
+  cCopy = c;
+  modelCopy = model;
+  v12 = [self alloc];
+  v14 = objc_msgSend_initWithTiming_validateModel_validateDataCRC_validateDataDigest_scanForOSLikeCorruption_(v12, v13, timing, modelCopy, cCopy, digestCopy, corruptionCopy);
 
   return v14;
 }

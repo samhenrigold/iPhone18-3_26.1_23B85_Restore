@@ -22,14 +22,16 @@
 
 uint64_t __39__WFAppShortcutColorFetcher_colorCache__block_invoke()
 {
-  colorCache_colorCache = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v1 = colorCache_colorCache;
+  colorCache_colorCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)extractColorsForIconDictionary:(id)dictionary alternateIconDictionary:(id)iconDictionary bundle:(id)bundle colorDefaults:(id)defaults
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   iconDictionaryCopy = iconDictionary;
   bundleCopy = bundle;
@@ -177,57 +179,57 @@ LABEL_31:
           goto LABEL_43;
         }
 
-        v37 = [v24 objectAtIndexedSubscript:0];
-        if (v37)
+        v36 = [v24 objectAtIndexedSubscript:0];
+        if (v36)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v38 = v37;
+            v37 = v36;
           }
 
           else
           {
-            v38 = 0;
+            v37 = 0;
           }
         }
 
         else
         {
-          v38 = 0;
+          v37 = 0;
         }
 
-        v25 = v38;
+        v25 = v37;
 
-        v39 = [v24 objectAtIndexedSubscript:1];
-        if (v39)
+        v38 = [v24 objectAtIndexedSubscript:1];
+        if (v38)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v40 = v39;
+            v39 = v38;
           }
 
           else
           {
-            v40 = 0;
+            v39 = 0;
           }
         }
 
         else
         {
-          v40 = 0;
+          v39 = 0;
         }
 
-        v41 = v40;
+        v40 = v39;
 
-        if (v25 && v41)
+        if (v25 && v40)
         {
-          v44 = [WFColor colorNamed:v25 inBundle:bundleCopy];
-          v42 = [WFColor colorNamed:v41 inBundle:bundleCopy];
-          v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v44, v42, 0}];
+          v43 = [WFColor colorNamed:v25 inBundle:bundleCopy];
+          v41 = [WFColor colorNamed:v40 inBundle:bundleCopy];
+          v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v43, v41, 0}];
 
-          v16 = v43;
+          v16 = v42;
         }
       }
 
@@ -251,26 +253,26 @@ LABEL_42:
 LABEL_43:
 
 LABEL_44:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v28 = v16;
-  v29 = [v28 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v46;
+    v31 = *v45;
     while (2)
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v46 != v31)
+        if (*v45 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        [*(*(&v45 + 1) + 8 * i) alpha];
+        [*(*(&v44 + 1) + 8 * i) alpha];
         if (v33 == 0.0)
         {
 
@@ -279,7 +281,7 @@ LABEL_44:
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v30)
       {
         continue;
@@ -291,8 +293,6 @@ LABEL_44:
 
   v34 = v28;
 LABEL_54:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
@@ -338,7 +338,7 @@ LABEL_12:
 
 - (id)finishWithComplementingColors:(id)colors tintColor:(id)color bundleIdentifier:(id)identifier error:(id *)error
 {
-  v28[6] = *MEMORY[0x1E69E9840];
+  v27[6] = *MEMORY[0x1E69E9840];
   colorsCopy = colors;
   colorCopy = color;
   identifierCopy = identifier;
@@ -362,25 +362,25 @@ LABEL_12:
     }
   }
 
-  v27[0] = @"com.apple.camera";
+  v26[0] = @"com.apple.camera";
   v18 = [WFColor colorWithRGBAValue:757935871];
-  v28[0] = v18;
-  v27[1] = @"com.apple.mobilephone";
+  v27[0] = v18;
+  v26[1] = @"com.apple.mobilephone";
   v19 = [WFColor colorWithSystemColor:3];
-  v28[1] = v19;
-  v27[2] = @"com.apple.facetime";
+  v27[1] = v19;
+  v26[2] = @"com.apple.facetime";
   v20 = [WFColor colorWithSystemColor:3];
-  v28[2] = v20;
-  v27[3] = @"com.apple.VoiceMemos";
+  v27[2] = v20;
+  v26[3] = @"com.apple.VoiceMemos";
   v21 = [WFColor colorWithRGBAValue:3947773439];
-  v28[3] = v21;
-  v27[4] = @"com.apple.mobiletimer";
+  v27[3] = v21;
+  v26[4] = @"com.apple.mobiletimer";
   v22 = [WFColor colorWithRGBAValue:4288613119];
-  v28[4] = v22;
-  v27[5] = @"com.apple.DocumentsApp";
+  v27[4] = v22;
+  v26[5] = @"com.apple.DocumentsApp";
   v23 = [WFColor colorWithSystemColor:4];
-  v28[5] = v23;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:6];
+  v27[5] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:6];
 
   colorCopy = [v24 objectForKeyedSubscript:identifierCopy];
 
@@ -411,14 +411,12 @@ LABEL_3:
     v14 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)colorsForBundleIdentifier:(id)identifier error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = +[WFAppShortcutColorFetcher colorCache];
   v8 = [v7 objectForKey:identifierCopy];
@@ -450,12 +448,12 @@ LABEL_3:
             v18 = [v16 objectForKeyedSubscript:@"CFBundleAlternateIcons"];
             if (v18)
             {
-              v33 = v18;
+              v32 = v18;
               objc_opt_class();
-              v19 = v33;
+              v19 = v32;
               if (objc_opt_isKindOfClass())
               {
-                v20 = v33;
+                v20 = v32;
               }
 
               else
@@ -470,23 +468,23 @@ LABEL_3:
               v19 = 0;
             }
 
-            v31 = v20;
+            v30 = v20;
 
             alternateIconName = [v11 alternateIconName];
 
-            v32 = v17;
-            v34 = 0;
-            if (alternateIconName && v31)
+            v31 = v17;
+            v33 = 0;
+            if (alternateIconName && v30)
             {
               alternateIconName2 = [v11 alternateIconName];
-              v34 = [v31 objectForKeyedSubscript:alternateIconName2];
+              v33 = [v30 objectForKeyedSubscript:alternateIconName2];
             }
 
             v25 = colorDefaults();
-            v30 = [v25 objectForKeyedSubscript:identifierCopy];
+            v29 = [v25 objectForKeyedSubscript:identifierCopy];
 
-            v26 = [(WFAppShortcutColorFetcher *)self extractColorsForIconDictionary:v17 alternateIconDictionary:v34 bundle:v14 colorDefaults:v30];
-            v27 = [(WFAppShortcutColorFetcher *)self extractTintColorForIconDictionary:v32 alternateIconDictionary:v34 bundle:v14];
+            v26 = [(WFAppShortcutColorFetcher *)self extractColorsForIconDictionary:v17 alternateIconDictionary:v33 bundle:v14 colorDefaults:v29];
+            v27 = [(WFAppShortcutColorFetcher *)self extractTintColorForIconDictionary:v31 alternateIconDictionary:v33 bundle:v14];
             v9 = [(WFAppShortcutColorFetcher *)self finishWithComplementingColors:v26 tintColor:v27 bundleIdentifier:identifierCopy error:error];
           }
 
@@ -510,9 +508,9 @@ LABEL_3:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v36 = "[WFAppShortcutColorFetcher colorsForBundleIdentifier:error:]";
-          v37 = 2112;
-          v38 = identifierCopy;
+          v35 = "[WFAppShortcutColorFetcher colorsForBundleIdentifier:error:]";
+          v36 = 2112;
+          v37 = identifierCopy;
           _os_log_impl(&dword_1B1DE3000, v22, OS_LOG_TYPE_DEFAULT, "%s Unable to grab bundle for %@, returning defaults if available", buf, 0x16u);
         }
 
@@ -526,17 +524,15 @@ LABEL_3:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v36 = "[WFAppShortcutColorFetcher colorsForBundleIdentifier:error:]";
-        v37 = 2112;
-        v38 = identifierCopy;
+        v35 = "[WFAppShortcutColorFetcher colorsForBundleIdentifier:error:]";
+        v36 = 2112;
+        v37 = identifierCopy;
         _os_log_impl(&dword_1B1DE3000, v21, OS_LOG_TYPE_DEFAULT, "%s Unable to grab record for %@, returning defaults if available", buf, 0x16u);
       }
 
       v9 = [(WFAppShortcutColorFetcher *)self finishWithComplementingColors:0 tintColor:0 bundleIdentifier:identifierCopy error:error];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

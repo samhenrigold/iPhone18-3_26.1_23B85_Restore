@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100069E98();
+  sub_100069E98(selfCopy, v2);
 }
 
 - (void)addActionWithTitle:(id)title image:(id)image actionHandler:(id)handler
@@ -55,30 +55,30 @@
   v10 = v9;
   v11 = swift_allocObject();
   *(v11 + 16) = v7;
-  v12 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant24FBAActionSheetController_actionSheetController);
-  if (v12)
+  v13 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant24FBAActionSheetController_actionSheetController);
+  if (v13)
   {
-    v13 = v11;
-    v14 = type metadata accessor for FBAActionControllerAction();
-    v15 = objc_allocWithZone(v14);
-    v16 = OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image;
-    *&v15[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image] = 0;
-    v15[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_destructive] = 0;
-    v17 = &v15[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title];
-    *v17 = v8;
-    v17[1] = v10;
-    *&v15[v16] = image;
-    v18 = &v15[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler];
-    *v18 = sub_10006C004;
-    v18[1] = v13;
-    v23.receiver = v15;
-    v23.super_class = v14;
+    v14 = v11;
+    v15 = type metadata accessor for FBAActionControllerAction(v11, v12);
+    v16 = objc_allocWithZone(v15);
+    v17 = OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image;
+    *&v16[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_image] = 0;
+    v16[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_destructive] = 0;
+    v18 = &v16[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_title];
+    *v18 = v8;
+    v18[1] = v10;
+    *&v16[v17] = image;
+    v19 = &v16[OBJC_IVAR____TtC18Feedback_Assistant25FBAActionControllerAction_actionHandler];
+    *v19 = sub_10006C004;
+    v19[1] = v14;
+    v24.receiver = v16;
+    v24.super_class = v15;
     imageCopy = image;
     selfCopy = self;
-    v21 = v12;
+    v22 = v13;
 
-    v22 = [(FBAActionSheetController *)&v23 init];
-    sub_10006ADBC(v22);
+    v23 = [(FBAActionSheetController *)&v24 init];
+    sub_10006ADBC(v23);
   }
 
   else
@@ -108,7 +108,7 @@
 {
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant24FBAActionSheetController_actionSheetController) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBAActionSheetController();
+  v7.super_class = type metadata accessor for FBAActionSheetController(self, a2);
   return [(FBAActionSheetController *)&v7 initWithNavigationBarClass:class toolbarClass:toolbarClass];
 }
 
@@ -116,7 +116,7 @@
 {
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant24FBAActionSheetController_actionSheetController) = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FBAActionSheetController();
+  v5.super_class = type metadata accessor for FBAActionSheetController(self, a2);
   return [(FBAActionSheetController *)&v5 initWithRootViewController:controller];
 }
 
@@ -137,18 +137,18 @@
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for FBAActionSheetController();
-  v9 = [(FBAActionSheetController *)&v11 initWithNibName:v7 bundle:bundle];
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for FBAActionSheetController(bundleCopy2, v9);
+  v10 = [(FBAActionSheetController *)&v12 initWithNibName:v7 bundle:bundle];
 
-  return v9;
+  return v10;
 }
 
 - (_TtC18Feedback_Assistant24FBAActionSheetController)initWithCoder:(id)coder
 {
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant24FBAActionSheetController_actionSheetController) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBAActionSheetController();
+  v7.super_class = type metadata accessor for FBAActionSheetController(self, a2);
   coderCopy = coder;
   v5 = [(FBAActionSheetController *)&v7 initWithCoder:coderCopy];
 

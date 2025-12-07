@@ -28,7 +28,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 duration];
+    objc_msgSend_duration(v7);
     Seconds = CMTimeGetSeconds(&time);
     *(*&buf[8] + 24) = Seconds;
   }

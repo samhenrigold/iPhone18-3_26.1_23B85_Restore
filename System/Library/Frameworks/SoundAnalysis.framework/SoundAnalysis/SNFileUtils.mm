@@ -12,7 +12,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C9A914F8();
   swift_getObjCClassMetadata();
-  sub_1C9A459C0();
+  sub_1C9A459C0(v7);
   (*(v5 + 8))(v7, v4);
   return 1;
 }

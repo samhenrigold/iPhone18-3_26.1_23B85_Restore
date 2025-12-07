@@ -71,103 +71,24 @@
 
 - (void)fetchProcessExitInfo
 {
-  v32 = 0;
-  v3 = mach_absolute_time();
+  mach_absolute_time();
   [(NSString *)self->_launchServiceMonitorID UTF8String];
-  launchServiceMaxRecordCount_low = LODWORD(self->_launchServiceMaxRecordCount);
-  v5 = _launch_service_stats_copy_impl();
-  v6 = mach_absolute_time();
-  if (v5)
+  v3 = _launch_service_stats_copy_impl();
+  v4 = mach_absolute_time();
+  if (v3)
   {
-    v7 = sub_10000A9AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = sub_10000A9AC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = strerror(v5);
-      sub_100018560(v8, buf, v5, v7);
+      v6 = strerror(v3);
+      sub_100018560(v6, buf, v3, v5);
     }
   }
 
   else
   {
-    v9 = v6;
     [(NSMutableArray *)self->_processExitRecords removeAllObjects];
-    v7 = objc_alloc_init(NSMutableDictionary);
-    if (v32)
-    {
-      v10 = 0;
-      v11 = 0;
-      v31 = v9 - v3;
-      do
-      {
-        v12 = [NSString stringWithCString:xpc_array_get_string(0 encoding:*v10), 1];
-        v13 = [(ProcessExitFetcher *)self processNameToDisplayForBundleID:v12];
-        v14 = sub_100017B08(*(v10 + 1));
-        v15 = sub_100017B08(*(v10 + 3));
-        v16 = [HTProcessLaunchExitRecord alloc];
-        LOWORD(v30) = *(v10 + 49);
-        v17 = [(HTProcessLaunchExitRecord *)v16 initWithInfo:v13 pid:v10[5] spawnTimestamp:v14 exitTimestamp:v15 exitReasonCode:*(v10 + 29) exitReasonNamespace:*(v10 + 28) jetsam_priority:v30];
-        v18 = sub_10000A9AC();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-        {
-          v26 = sub_100017A6C(v31);
-          exitReasonCode = [(HTProcessLaunchExitRecord *)v17 exitReasonCode];
-          exitReasonNamespace = [(HTProcessLaunchExitRecord *)v17 exitReasonNamespace];
-          *buf = 138413058;
-          v34 = v13;
-          v35 = 2048;
-          v36 = v26;
-          v37 = 2048;
-          v38 = exitReasonCode;
-          v39 = 1024;
-          v40 = exitReasonNamespace;
-          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, " Process %@ exited - Fetch duration is : %f MS, reasonCode:%llu, exitReasonNamespce:%i", buf, 0x26u);
-        }
-
-        v19 = [v7 objectForKey:v13];
-        v20 = v19 == 0;
-
-        if (v20)
-        {
-          [v7 setObject:&off_100035D68 forKeyedSubscript:v13];
-        }
-
-        else
-        {
-          v21 = [v7 objectForKeyedSubscript:v13];
-          v22 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v21 integerValue] + 1);
-          [v7 setObject:v22 forKeyedSubscript:v13];
-        }
-
-        v23 = +[ProcessExitScreener sharedInstance];
-        v24 = [v23 isProcessExitRecordAllowed:v17];
-
-        if (v24)
-        {
-          v25 = sub_10000A9AC();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-          {
-            *buf = 138412290;
-            v34 = v13;
-            _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "Adding process exit with process name %@", buf, 0xCu);
-          }
-
-          [(NSMutableArray *)self->_processExitRecords addObject:v17];
-        }
-
-        ++v11;
-        v10 = (v10 + 59);
-      }
-
-      while (v11 < v32);
-      if (v32)
-      {
-        v29 = sub_10000A9AC();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
-        {
-          sub_100019F3C();
-        }
-      }
-    }
+    v5 = objc_alloc_init(NSMutableDictionary);
   }
 }
 
@@ -231,9 +152,8 @@
     handler[9] = v2;
     handler[10] = v3;
     [(NSString *)self->_launchServiceMonitorID UTF8String];
-    launchServiceMaxRecordCount_low = LODWORD(self->_launchServiceMaxRecordCount);
-    launch_service_stats_enable();
-    v6 = sub_10000A9AC();
+    v5 = launch_service_stats_enable();
+    v6 = sub_10000A9AC(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_100019FB0();
@@ -252,8 +172,8 @@
     handler[3] = &unk_100030668;
     handler[4] = self;
     dispatch_source_set_event_handler(v10, handler);
-    v11 = sub_10000A9AC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_10000A9AC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_10001A03C();
     }
@@ -266,7 +186,7 @@
 {
   if (self->_fetchTimer)
   {
-    v3 = sub_10000A9AC();
+    v3 = sub_10000A9AC(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       sub_10001A07C();

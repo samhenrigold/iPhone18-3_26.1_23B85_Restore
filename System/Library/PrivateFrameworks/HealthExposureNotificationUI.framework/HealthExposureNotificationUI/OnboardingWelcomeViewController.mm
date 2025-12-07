@@ -6,9 +6,49 @@
 - (void)didTapSecondaryButton;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation OnboardingWelcomeViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(OnboardingWelcomeViewController *)&v7 viewWillAppear:appearCopy];
+  navigationController = [v4 navigationController];
+  if (navigationController)
+  {
+    v6 = navigationController;
+    [navigationController setNavigationBarHidden:1 animated:appearCopy];
+  }
+
+  sub_2516FB810();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(OnboardingWelcomeViewController *)&v5 viewDidAppear:appearCopy];
+  OnboardingWelcomeViewController.updateForScrollOffsetChange()();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(OnboardingWelcomeViewController *)&v5 viewDidDisappear:disappearCopy];
+  sub_2516FBCEC();
+}
 
 - (void)traitCollectionDidChange:(id)change
 {

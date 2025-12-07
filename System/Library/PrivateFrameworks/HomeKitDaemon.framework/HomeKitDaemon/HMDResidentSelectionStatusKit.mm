@@ -32,23 +32,23 @@
 
 - (void)_parseResidentStatus:(id)status
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = [MEMORY[0x277CBEB58] set];
   v6 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __54__HMDResidentSelectionStatusKit__parseResidentStatus___block_invoke;
-  v27 = &unk_278678108;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __54__HMDResidentSelectionStatusKit__parseResidentStatus___block_invoke;
+  v26 = &unk_278678108;
   selfCopy = self;
   v8 = dictionary;
-  v29 = v8;
+  v28 = v8;
   v9 = v5;
-  v30 = v9;
+  v29 = v9;
   v10 = v6;
-  v31 = v10;
-  [statusCopy hmf_enumerateWithAutoreleasePoolUsingBlock:&v24];
+  v30 = v10;
+  [statusCopy hmf_enumerateWithAutoreleasePoolUsingBlock:&v23];
   v11 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v13 = HMFGetOSLogHandle();
@@ -56,14 +56,14 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v33 = v14;
-    v34 = 2112;
-    v35 = v9;
+    v32 = v14;
+    v33 = 2112;
+    v34 = v9;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Wired residents are: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v15 = [v9 copy];
+  v15 = objc_msgSend_copy(v9, v23, v24, v25, v26, selfCopy);
   [(HMDResidentSelectionStatusKit *)selfCopy2 setWiredResidents:v15];
 
   v16 = objc_autoreleasePoolPush();
@@ -74,25 +74,23 @@
     v19 = HMFGetLogIdentifier();
     shortDescription = [v10 shortDescription];
     *buf = 138543618;
-    v33 = v19;
-    v34 = 2112;
-    v35 = shortDescription;
+    v32 = v19;
+    v33 = 2112;
+    v34 = shortDescription;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Residents with reachable accessories are: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v21 = [v10 copy];
+  v21 = objc_msgSend_copy(v10);
   [(HMDResidentSelectionStatusKit *)v17 setResidentsWithReachableAccessories:v21];
 
-  v22 = [v8 copy];
+  v22 = objc_msgSend_copy(v8);
   [(HMDResidentSelectionStatusKit *)v17 setResidentIDSIdentifierToLocationMap:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDResidentSelectionStatusKit__parseResidentStatus___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) context];
   v5 = [v3 idsIdentifier];
@@ -124,22 +122,20 @@ void __54__HMDResidentSelectionStatusKit__parseResidentStatus___block_invoke(uin
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Found status from an unknown resident on StatusKit: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Found status from an unknown resident on StatusKit: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)selectionInfoWithLatestTimestampIn:(id)in
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   inCopy = in;
   allObjects = [inCopy allObjects];
   v6 = [allObjects sortedArrayUsingComparator:&__block_literal_global_3_106315];
@@ -150,17 +146,15 @@ void __54__HMDResidentSelectionStatusKit__parseResidentStatus___block_invoke(uin
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = firstObject;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Latest selection info on StatusKit is from status: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2112;
+    v17 = firstObject;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Latest selection info on StatusKit is from status: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   selectionInfo = [firstObject selectionInfo];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return selectionInfo;
 }
@@ -242,7 +236,7 @@ uint64_t __74__HMDResidentSelectionStatusKit_comparatorForPreferredResidentsList
 
 - (HMDResidentDevice)elector
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sortedResidentStatuses = [(HMDResidentSelectionStatusKit *)self sortedResidentStatuses];
   firstObject = [sortedResidentStatuses firstObject];
 
@@ -259,29 +253,28 @@ uint64_t __74__HMDResidentSelectionStatusKit_comparatorForPreferredResidentsList
   {
     v13 = HMFGetLogIdentifier();
     shortDescription = [v9 shortDescription];
-    v17 = 138543618;
-    v18 = v13;
-    v19 = 2112;
-    v20 = shortDescription;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Elector is: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v13;
+    v18 = 2112;
+    v19 = shortDescription;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Elector is: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)residentStatusWithValidPreferredResidentsListIn:(id)in
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   inCopy = in;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __81__HMDResidentSelectionStatusKit_residentStatusWithValidPreferredResidentsListIn___block_invoke;
-  v12[3] = &unk_2786780C0;
-  v12[4] = self;
-  v5 = [inCopy na_firstObjectPassingTest:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __81__HMDResidentSelectionStatusKit_residentStatusWithValidPreferredResidentsListIn___block_invoke;
+  v11[3] = &unk_2786780C0;
+  v11[4] = self;
+  v5 = [inCopy na_firstObjectPassingTest:v11];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
   v8 = HMFGetOSLogHandle();
@@ -289,21 +282,20 @@ uint64_t __74__HMDResidentSelectionStatusKit_comparatorForPreferredResidentsList
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v5;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Preferred source for residents list: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 BOOL __81__HMDResidentSelectionStatusKit_residentStatusWithValidPreferredResidentsListIn___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 preferredResidentsList];
   v5 = [v4 residentIDSIdentifiers];
@@ -317,17 +309,16 @@ BOOL __81__HMDResidentSelectionStatusKit_residentStatusWithValidPreferredResiden
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Preferred residents list is missing in: %@. Moving to next one.", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Preferred residents list is missing in: %@. Moving to next one.", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6 != 0;
 }
 
@@ -388,10 +379,9 @@ BOOL __81__HMDResidentSelectionStatusKit_residentStatusWithValidPreferredResiden
 
 void __44__HMDResidentSelectionStatusKit_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_106334;
-  logCategory__hmf_once_v8_106334 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_106334;
+  logCategory__hmf_once_v8_106334 = v0;
 }
 
 @end

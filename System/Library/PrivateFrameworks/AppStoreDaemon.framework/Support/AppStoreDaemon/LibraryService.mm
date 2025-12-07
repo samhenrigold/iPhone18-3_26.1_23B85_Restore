@@ -35,19 +35,19 @@
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v4;
 
-    v6 = sub_1003649C8();
+    v6 = sub_1003649C8(ProgressCache);
     v25[0] = v6;
-    v7 = sub_1002F09C8();
+    v7 = sub_1002F09C8(LaunchServicesCatalog);
     v25[1] = v7;
     v8 = [NSArray arrayWithObjects:v25 count:2];
     libraryCatalogs = v2->_libraryCatalogs;
     v2->_libraryCatalogs = v8;
 
-    v10 = sub_1002F09C8();
+    v10 = sub_1002F09C8(LaunchServicesCatalog);
     libraryOpen = v2->_libraryOpen;
     v2->_libraryOpen = v10;
 
-    v12 = sub_1001E3AB0();
+    v12 = sub_1001E3AB0(LaunchServicesProgress);
     libraryProgress = v2->_libraryProgress;
     v2->_libraryProgress = v12;
 
@@ -59,7 +59,7 @@
     pairedDeviceCatalogs = v2->_pairedDeviceCatalogs;
     v2->_pairedDeviceCatalogs = v16;
 
-    v18 = sub_100394290();
+    v18 = sub_100394290(DevicePairingMonitor);
     sub_1003948DC(v18, v2);
 
     v19 = objc_opt_new();
@@ -456,12 +456,12 @@
 - (void)updateInstallProgressForApplication:(id)application progress:(double)progress installPhase:(int64_t)phase
 {
   applicationCopy = application;
-  v8 = sub_1002B0154();
+  v8 = sub_1002B0154(XDCDeviceManager);
   v9 = sub_1002B0280(v8);
 
   if (v9 && phase != -1 && applicationCopy && (v9[18] & 1) == 0)
   {
-    v10 = sub_1003649C8();
+    v10 = sub_1003649C8(ProgressCache);
     v11 = sub_10036605C(v10, applicationCopy);
 
     if (v11)
@@ -478,7 +478,7 @@
       }
 
       v13 = v12 + progress * 0.33;
-      v14 = sub_1003649C8();
+      v14 = sub_1003649C8(ProgressCache);
       sub_10036695C(v14, applicationCopy, v13);
 
       v15 = ASDLogHandleForCategory();
@@ -495,20 +495,20 @@
 - (void)updateInstallStateForApplication:(id)application installState:(int64_t)state
 {
   applicationCopy = application;
-  v6 = sub_1002B0154();
+  v6 = sub_1002B0154(XDCDeviceManager);
   v7 = sub_1002B0280(v6);
 
   if (applicationCopy && v7 && (*(v7 + 18) & 1) == 0)
   {
     if (state == 5)
     {
-      v18 = sub_100394290();
+      v18 = sub_100394290(DevicePairingMonitor);
       v22 = applicationCopy;
       v19 = [NSArray arrayWithObjects:&v22 count:1];
       pairingID = [*(v7 + 8) pairingID];
       sub_100394990(v18, v19, pairingID);
 
-      v21 = sub_1003649C8();
+      v21 = sub_1003649C8(ProgressCache);
       sub_100365318(v21, applicationCopy);
 
       v9 = ASDLogHandleForCategory();
@@ -524,12 +524,12 @@
 
     if (state == 2)
     {
-      v8 = sub_1003649C8();
+      v8 = sub_1003649C8(ProgressCache);
       v9 = sub_100365E5C(v8, applicationCopy);
 
       if (v9)
       {
-        v10 = sub_1003649C8();
+        v10 = sub_1003649C8(ProgressCache);
         sub_100366260(v10, applicationCopy, @"Companion app installed");
 
         v25 = v9;
@@ -540,7 +540,7 @@
         v14 = sub_100003984();
         sub_1003B8178(v14, v13);
 
-        v15 = sub_1003649C8();
+        v15 = sub_1003649C8(ProgressCache);
         bundleID = [v9 bundleID];
         sub_10036689C(v15, bundleID);
       }

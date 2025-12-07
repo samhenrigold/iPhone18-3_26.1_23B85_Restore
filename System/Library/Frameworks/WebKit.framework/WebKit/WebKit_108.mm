@@ -38,7 +38,7 @@ uint64_t WebKit::RemoteRenderPassEncoder::setScissorRect(WebKit::RemoteRenderPas
   return result;
 }
 
-uint64_t WebKit::RemoteRenderPassEncoder::setBlendConstant(uint64_t a1, uint64_t a2)
+uint64_t WebKit::RemoteRenderPassEncoder::setBlendConstant(uint64_t a1, unint64_t a2)
 {
   v3 = *(*(a1 + 24) + 8);
   if (v3)
@@ -176,156 +176,157 @@ uint64_t WebKit::RemoteRenderPassEncoder::endOcclusionQuery(WebKit::RemoteRender
   return result;
 }
 
-_DWORD *WebKit::RemoteRenderPassEncoder::executeBundles(uint64_t a1, uint64_t a2)
+_DWORD *WebKit::RemoteRenderPassEncoder::executeBundles(uint64_t a1, unint64_t a2)
 {
-  v26 = 0;
   v27 = 0;
+  v28 = 0;
   v3 = *(a2 + 12);
   if (!v3)
   {
     goto LABEL_23;
   }
 
-  if (v3 >> 29)
+  v4 = (v3 >> 29);
+  if (v4)
   {
     __break(0xC471u);
 LABEL_42:
     JUMPOUT(0x19DB80D8CLL);
   }
 
-  LODWORD(v27) = *(a2 + 12);
-  v26 = WTF::fastMalloc((8 * v3));
-  v5 = *(a2 + 12);
-  if (!v5)
+  LODWORD(v28) = *(a2 + 12);
+  v27 = WTF::fastMalloc(v4, (8 * v3));
+  v6 = *(a2 + 12);
+  if (!v6)
   {
 LABEL_23:
-    v22 = *(a1 + 16);
-    ++v22[4];
-    result = (*(*v22 + 160))(v22, &v26);
-    if (v22[4] == 1)
+    v23 = *(a1 + 16);
+    ++v23[4];
+    result = (*(*v23 + 160))(v23, &v27);
+    if (v23[4] == 1)
     {
-      result = (*(*v22 + 8))(v22);
+      result = (*(*v23 + 8))(v23);
     }
 
     else
     {
-      --v22[4];
+      --v23[4];
     }
 
     goto LABEL_25;
   }
 
-  v6 = *a2;
-  v7 = 8 * v5;
+  v7 = *a2;
+  v8 = 8 * v6;
   while (1)
   {
-    v8 = *(*(a1 + 24) + 8);
-    if (!v8)
+    v9 = *(*(a1 + 24) + 8);
+    if (!v9)
     {
       __break(0xC471u);
       goto LABEL_42;
     }
 
-    v9 = *v6;
-    v10 = (v8 + 16);
-    ++*(v8 + 16);
-    WebKit::WebGPU::ObjectHeap::convertRenderBundleFromBacking(v8, v9, &v25);
-    result = WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v10, v11);
-    v14 = v25;
-    if (!v25)
+    v10 = *v7;
+    v11 = (v9 + 16);
+    ++*(v9 + 16);
+    WebKit::WebGPU::ObjectHeap::convertRenderBundleFromBacking(v9, v10, &v26);
+    result = WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v11, v12);
+    v15 = v26;
+    if (!v26)
     {
       goto LABEL_25;
     }
 
-    v15 = *(v25 + 1);
-    if (!v15)
+    v16 = *(v26 + 1);
+    if (!v16)
     {
       break;
     }
 
-    v16 = HIDWORD(v27);
-    if (HIDWORD(v27) == v27)
+    v17 = HIDWORD(v28);
+    if (HIDWORD(v28) == v28)
     {
-      v17 = HIDWORD(v27) + (HIDWORD(v27) >> 1);
-      if (v17 <= HIDWORD(v27) + 1)
+      v18 = HIDWORD(v28) + (HIDWORD(v28) >> 1);
+      if (v18 <= HIDWORD(v28) + 1)
       {
-        v17 = HIDWORD(v27) + 1;
+        v18 = HIDWORD(v28) + 1;
       }
 
-      if (v17 >> 29)
+      if (v18 >> 29)
       {
         __break(0xC471u);
         JUMPOUT(0x19DB80D94);
       }
 
-      v18 = v26;
-      if (v17 <= 0x10)
+      v19 = v27;
+      if (v18 <= 0x10)
       {
-        v19 = 16;
+        v20 = 16;
       }
 
       else
       {
-        v19 = v17;
+        v20 = v18;
       }
 
-      v20 = WTF::fastMalloc((8 * v19));
-      LODWORD(v27) = v19;
-      v26 = v20;
-      memcpy(v20, v18, 8 * v16);
-      if (v18)
+      v21 = WTF::fastMalloc(v18, (8 * v20));
+      LODWORD(v28) = v20;
+      v27 = v21;
+      memcpy(v21, v19, 8 * v17);
+      if (v19)
       {
-        if (v20 == v18)
+        if (v21 == v19)
         {
-          v20 = 0;
-          v26 = 0;
-          LODWORD(v27) = 0;
+          v21 = 0;
+          v27 = 0;
+          LODWORD(v28) = 0;
         }
 
-        WTF::fastFree(v18, v13);
+        WTF::fastFree(v19, v14);
       }
     }
 
     else
     {
-      v20 = v26;
+      v21 = v27;
     }
 
-    v21 = *(v15 + 16) + 1;
-    *(v20 + v16) = v15;
-    *(v15 + 16) = v21;
-    HIDWORD(v27) = v16 + 1;
-    v25 = 0;
-    if (atomic_fetch_add(v14, 0xFFFFFFFF) == 1)
+    v22 = *(v16 + 16) + 1;
+    *(v21 + v17) = v16;
+    *(v16 + 16) = v22;
+    HIDWORD(v28) = v17 + 1;
+    v26 = 0;
+    if (atomic_fetch_add(v15, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v14);
-      WTF::fastFree(v14, v13);
+      atomic_store(1u, v15);
+      WTF::fastFree(v15, v14);
     }
 
-    ++v6;
-    v7 -= 8;
-    if (!v7)
+    ++v7;
+    v8 -= 8;
+    if (!v8)
     {
       goto LABEL_23;
     }
   }
 
-  v25 = 0;
-  if (atomic_fetch_add(v14, 0xFFFFFFFF) == 1)
+  v26 = 0;
+  if (atomic_fetch_add(v15, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v14);
-    result = WTF::fastFree(v14, v13);
+    atomic_store(1u, v15);
+    result = WTF::fastFree(v15, v14);
   }
 
 LABEL_25:
-  v23 = v26;
-  if (HIDWORD(v27))
+  v24 = v27;
+  if (HIDWORD(v28))
   {
-    v24 = 8 * HIDWORD(v27);
+    v25 = 8 * HIDWORD(v28);
     do
     {
-      result = *v23;
-      *v23 = 0;
+      result = *v24;
+      *v24 = 0;
       if (result)
       {
         if (result[4] == 1)
@@ -339,19 +340,19 @@ LABEL_25:
         }
       }
 
-      v23 = (v23 + 8);
-      v24 -= 8;
+      v24 = (v24 + 8);
+      v25 -= 8;
     }
 
-    while (v24);
-    v23 = v26;
+    while (v25);
+    v24 = v27;
   }
 
-  if (v23)
+  if (v24)
   {
-    v26 = 0;
-    LODWORD(v27) = 0;
-    return WTF::fastFree(v23, v13);
+    v27 = 0;
+    LODWORD(v28) = 0;
+    return WTF::fastFree(v24, v14);
   }
 
   return result;
@@ -414,7 +415,7 @@ uint64_t WebCore::WebGPU::RenderPassEncoder::setLabel(void *a1, WTF::StringImpl 
   return v6(a1, v5);
 }
 
-uint64_t WebKit::RemoteRenderPipeline::RemoteRenderPipeline(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+uint64_t WebKit::RemoteRenderPipeline::RemoteRenderPipeline(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10FBAE8;
@@ -459,7 +460,7 @@ void WebKit::RemoteRenderPipeline::~RemoteRenderPipeline(WebKit::RemoteRenderPip
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -476,7 +477,7 @@ void WebKit::RemoteRenderPipeline::~RemoteRenderPipeline(WebKit::RemoteRenderPip
   {
     if (v6[4] == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
 
     else
@@ -508,11 +509,11 @@ void *WebKit::RemoteRenderPipeline::stopListeningForIPC(WebKit::RemoteRenderPipe
   return result;
 }
 
-_DWORD *WebKit::RemoteRenderPipeline::getBindGroupLayout(void *a1, uint64_t a2, void *a3)
+_DWORD *WebKit::RemoteRenderPipeline::getBindGroupLayout(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1[2];
   ++v5[4];
-  (*(*v5 + 16))(&v16, v5);
+  (*(*v5 + 16))(&v16, v5, a2);
   if (v5[4] == 1)
   {
     (*(*v5 + 8))(v5);
@@ -548,9 +549,9 @@ _DWORD *WebKit::RemoteRenderPipeline::getBindGroupLayout(void *a1, uint64_t a2, 
   }
 
   WebKit::WebGPU::ObjectHeap::addObject(v7, a3, v11);
-  if (atomic_fetch_add((v11 + 8), 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v11 + 2, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, (v11 + 8));
+    atomic_store(1u, v11 + 2);
     (*(*v11 + 8))(v11);
   }
 
@@ -610,7 +611,7 @@ uint64_t WebCore::WebGPU::RenderPipeline::setLabel(void *a1, WTF::StringImpl *a2
   return v6(a1, v5);
 }
 
-uint64_t WebKit::RemoteSampler::RemoteSampler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+uint64_t WebKit::RemoteSampler::RemoteSampler(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10FBB10;
@@ -655,7 +656,7 @@ void WebKit::RemoteSampler::~RemoteSampler(WebKit::RemoteSampler *this, void *a2
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -672,7 +673,7 @@ void WebKit::RemoteSampler::~RemoteSampler(WebKit::RemoteSampler *this, void *a2
   {
     if (v6[4] == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
 
     else
@@ -741,7 +742,7 @@ uint64_t WebCore::WebGPU::Sampler::setLabel(void *a1, WTF::StringImpl *a2)
   return v6(a1, v5);
 }
 
-uint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -753,24 +754,25 @@ uint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vect
     return v2;
   }
 
-  if (!(v3 >> 29))
+  v4 = (v3 >> 29);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((8 * v3));
+    v6 = WTF::fastMalloc(v4, (8 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 12);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 12);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = 8 * v6;
+      v8 = *a2;
+      v9 = 8 * v7;
       do
       {
-        v9 = *v7++;
-        *v5++ = v9;
-        v8 -= 8;
+        v10 = *v8++;
+        *v6++ = v10;
+        v9 -= 8;
       }
 
-      while (v8);
+      while (v9);
     }
 
     return v2;
@@ -850,7 +852,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::RemoteQueue::onSubmittedWorkDone(W
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -922,7 +924,7 @@ void sub_19DB826D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Block_release(0);
@@ -1004,6 +1006,13 @@ void API::TargetedElementRequest::~TargetedElementRequest(API::TargetedElementRe
   JUMPOUT(0x19EB14CF0);
 }
 
+void sub_19DB82FF4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WTF::StringImpl *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  WTF::Vector<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
+  _Unwind_Resume(a1);
+}
+
 uint64_t WTF::dynamic_objc_cast<_WKTextInputContext>(uint64_t result)
 {
   if (result)
@@ -1024,9 +1033,9 @@ uint64_t WTF::dynamic_objc_cast<_WKTextInputContext>(uint64_t result)
   return result;
 }
 
-void sub_19DB837F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19DB837F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1120,7 +1129,7 @@ void sub_19DB83E60(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebKit::RemoteShaderModule::RemoteShaderModule(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+uint64_t WebKit::RemoteShaderModule::RemoteShaderModule(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10FBBD8;
@@ -1165,7 +1174,7 @@ void WebKit::RemoteShaderModule::~RemoteShaderModule(WebKit::RemoteShaderModule 
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -1182,7 +1191,7 @@ void WebKit::RemoteShaderModule::~RemoteShaderModule(WebKit::RemoteShaderModule 
   {
     if (v6[4] == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
 
     else
@@ -1270,16 +1279,17 @@ void *WebKit::RemoteShaderModule::stopListeningForIPC(WebKit::RemoteShaderModule
 uint64_t WebKit::RemoteShaderModule::compilationInfo(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 16);
-  ++v2[4];
-  v3 = *a2;
+  v3 = (v2[4] + 1);
+  v2[4] = v3;
+  v4 = *a2;
   *a2 = 0;
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F10FBDC0;
-  v4[1] = v3;
-  v6 = v4;
-  (*(*v2 + 16))(v2, &v6);
-  result = v6;
-  v6 = 0;
+  v5 = WTF::fastMalloc(v3, 0x10);
+  *v5 = &unk_1F10FBDC0;
+  v5[1] = v4;
+  v7 = v5;
+  (*(*v2 + 16))(v2, &v7);
+  result = v7;
+  v7 = 0;
   if (result)
   {
     result = (*(*result + 8))(result);
@@ -1331,7 +1341,7 @@ uint64_t WebCore::WebGPU::ShaderModule::setLabel(void *a1, WTF::StringImpl *a2)
   return v6(a1, v5);
 }
 
-uint64_t WebKit::RemoteTexture::RemoteTexture(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
+uint64_t WebKit::RemoteTexture::RemoteTexture(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t **a6, uint64_t a7)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10FBC00;
@@ -1346,7 +1356,7 @@ uint64_t WebKit::RemoteTexture::RemoteTexture(uint64_t a1, uint64_t a2, uint64_t
   *(a1 + 32) = v14;
   *(a1 + 40) = a7;
   *(a1 + 48) = a2;
-  v15 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16));
+  v15 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16), v14);
   *(a1 + 56) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v15);
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((a3 + 16), a3);
   v16 = *(a3 + 16);
@@ -1386,7 +1396,7 @@ void WebKit::RemoteTexture::~RemoteTexture(WebKit::RemoteTexture *this, void *a2
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v5 + 2);
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
   }
 
   v6 = *(this + 3);
@@ -1403,7 +1413,7 @@ void WebKit::RemoteTexture::~RemoteTexture(WebKit::RemoteTexture *this, void *a2
   {
     if (v7[4] == 1)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v7 + 8))(v7, a2);
     }
 
     else
@@ -1435,7 +1445,7 @@ void *WebKit::RemoteTexture::stopListeningForIPC(WebKit::RemoteTexture *this)
   return result;
 }
 
-WTF::StringImpl *WebKit::RemoteTexture::createView(void *a1, uint64_t a2, void *a3)
+WTF::StringImpl *WebKit::RemoteTexture::createView(void *a1, uint64_t a2, uint64_t a3)
 {
   v57 = *MEMORY[0x1E69E9840];
   LOBYTE(v40) = 0;
@@ -1447,8 +1457,8 @@ WTF::StringImpl *WebKit::RemoteTexture::createView(void *a1, uint64_t a2, void *
     JUMPOUT(0x19DB84DF8);
   }
 
-  v6 = (v3 + 16);
-  ++*(v3 + 16);
+  v6 = v3 + 4;
+  ++v3[4];
   if (*(a2 + 40) == 1)
   {
     v7 = *a2;
@@ -1550,8 +1560,8 @@ WTF::StringImpl *WebKit::RemoteTexture::createView(void *a1, uint64_t a2, void *
       *NonCompact = &unk_1F10FBC28;
       ++v21[4];
       *(NonCompact + 16) = v21;
-      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v3 + 8), v3);
-      v26 = *(v3 + 8);
+      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v3 + 2, v3);
+      v26 = *(v3 + 1);
       atomic_fetch_add(v26, 1u);
       *(v25 + 24) = v26;
       *(v25 + 32) = v22;
@@ -1590,7 +1600,7 @@ WTF::StringImpl *WebKit::RemoteTexture::createView(void *a1, uint64_t a2, void *
       v51 = 0;
       v52 = v25;
       v53 = 23;
-      _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_((v3 + 24), &v54, &v52, buf);
+      _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_(v3 + 6, &v54, &v52, buf);
       if (v53 != 255)
       {
         _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v55, &v52);
@@ -1649,11 +1659,11 @@ LABEL_52:
       *buf = 0;
       if (v38)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v38 + 16));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v38 + 16), v29);
       }
 
       *(v35 + 94) = 1;
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v35);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v35, v29);
     }
   }
 
@@ -1808,7 +1818,7 @@ void WebKit::RemoteTextureView::~RemoteTextureView(WebKit::RemoteTextureView *th
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -1825,7 +1835,7 @@ void WebKit::RemoteTextureView::~RemoteTextureView(WebKit::RemoteTextureView *th
   {
     if (v6[4] == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
 
     else
@@ -1894,7 +1904,7 @@ uint64_t WebCore::WebGPU::TextureView::setLabel(void *a1, WTF::StringImpl *a2)
   return v6(a1, v5);
 }
 
-uint64_t WebKit::RemoteXRBinding::RemoteXRBinding(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
+uint64_t WebKit::RemoteXRBinding::RemoteXRBinding(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, uint64_t **a6, uint64_t a7)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10FBC50;
@@ -1908,7 +1918,7 @@ uint64_t WebKit::RemoteXRBinding::RemoteXRBinding(uint64_t a1, uint64_t a2, uint
   *a6 = 0;
   *(a1 + 32) = v14;
   *(a1 + 40) = a2;
-  v15 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16));
+  v15 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16), v14);
   *(a1 + 48) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v15);
   *(a1 + 56) = a7;
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((a5 + 16), a5);
@@ -1949,7 +1959,7 @@ void WebKit::RemoteXRBinding::~RemoteXRBinding(WebKit::RemoteXRBinding *this, vo
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v5 + 2);
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
   }
 
   v6 = *(this + 3);
@@ -1966,7 +1976,7 @@ void WebKit::RemoteXRBinding::~RemoteXRBinding(WebKit::RemoteXRBinding *this, vo
   {
     if (v7[4] == 1)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v7 + 8))(v7, a2);
     }
 
     else
@@ -2003,7 +2013,7 @@ uint64_t WebKit::RemoteXRBinding::destruct(WebKit::RemoteXRBinding *this)
   return result;
 }
 
-_DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int16 a3, char a4, void *a5, double a6)
+_DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int16 a3, char a4, uint64_t a5, double a6)
 {
   v22 = a2;
   v23 = a3;
@@ -2026,7 +2036,7 @@ _DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int1
   if (v21)
   {
     v12 = *(a1[3] + 8);
-    if (!v12 || (++*(v12 + 16), v13 = a1[4], atomic_fetch_add((v13 + 8), 1u), (v14 = *(a1[8] + 8)) == 0))
+    if (!v12 || (++v12[4], v13 = a1[4], atomic_fetch_add((v13 + 8), 1u), (v14 = *(a1[8] + 8)) == 0))
     {
       __break(0xC471u);
       JUMPOUT(0x19DB85A1CLL);
@@ -2048,8 +2058,8 @@ _DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int1
     *NonCompact = &unk_1F10FBC78;
     ++v11[4];
     *(NonCompact + 16) = v11;
-    WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v12 + 8), v12);
-    v17 = *(v12 + 8);
+    WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v12 + 2, v12);
+    v17 = *(v12 + 1);
     atomic_fetch_add(v17, 1u);
     *(v16 + 24) = v17;
     *(v16 + 32) = v13;
@@ -2078,7 +2088,7 @@ _DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int1
     v26 = 0;
     v27 = v16;
     v28 = 26;
-    _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_((v12 + 24), &v30, &v27, v29);
+    _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_(v12 + 6, &v30, &v27, v29);
     if (v28 != 255)
     {
       _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v31, &v27);
@@ -2092,7 +2102,7 @@ _DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int1
       (*(*v16 + 8))(v16);
     }
 
-    WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref((v12 + 16), v20);
+    WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v12 + 4, v20);
     result = v21;
     v21 = 0;
     if (result)
@@ -2112,7 +2122,7 @@ _DWORD *WebKit::RemoteXRBinding::createProjectionLayer(void *a1, char a2, __int1
   return result;
 }
 
-_DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3)
+_DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1[3] + 8);
   if (!v3)
@@ -2121,20 +2131,20 @@ _DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3
     goto LABEL_38;
   }
 
-  ++*(v3 + 16);
-  WebKit::WebGPU::ObjectHeap::convertXRProjectionLayerFromBacking(v3, a2, &v24);
-  v7 = v24;
-  if (!v24)
+  ++v3[4];
+  WebKit::WebGPU::ObjectHeap::convertXRProjectionLayerFromBacking(v3, a2, &v25);
+  v7 = v25;
+  if (!v25)
   {
-    return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref((v3 + 16), v6);
+    return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v3 + 4, v6);
   }
 
-  v6 = *(v24 + 1);
+  v6 = *(v25 + 1);
   if (v6)
   {
     v8 = a1[2];
     ++v8[4];
-    (*(*v8 + 32))(&v23, v8);
+    (*(*v8 + 32))(&v24, v8);
     if (v8[4] == 1)
     {
       (*(*v8 + 8))(v8);
@@ -2145,8 +2155,8 @@ _DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3
       --v8[4];
     }
 
-    v9 = v23;
-    if (!v23)
+    v9 = v24;
+    if (!v24)
     {
       goto LABEL_26;
     }
@@ -2154,15 +2164,15 @@ _DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3
     v10 = a1[6];
     if (v10)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(v10, a1[5], v28);
-      v11 = v28[0];
-      v9 = v23;
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(v10, a1[5], v29);
+      v11 = v29[0];
+      v9 = v24;
     }
 
     else
     {
       v11 = 0;
-      v28[0] = 0;
+      v29[0] = 0;
     }
 
     v12 = a1[4];
@@ -2186,13 +2196,13 @@ _DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3
       *NonCompact = &unk_1F10FBCA0;
       ++v9[4];
       *(NonCompact + 16) = v9;
-      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v3 + 8), v3);
-      v16 = *(v3 + 8);
+      WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v3 + 2, v3);
+      v16 = *(v3 + 1);
       atomic_fetch_add(v16, 1u);
       *(v15 + 24) = v16;
       *(v15 + 32) = v12;
       *(v15 + 40) = v11;
-      v17 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((v11 + 16));
+      v17 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((v11 + 16), v16);
       *(v15 + 48) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v17);
       *(v15 + 56) = a3;
       WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v13 + 16), v13);
@@ -2214,53 +2224,53 @@ _DWORD *WebKit::RemoteXRBinding::getViewSubImage(void *a1, uint64_t a2, void *a3
         (*(*v13 + 8))(v13);
       }
 
-      v20 = v28[0];
-      v28[0] = 0;
-      if (v20)
+      v21 = v29[0];
+      v29[0] = 0;
+      if (v21)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v20 + 16));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v21 + 16), v20);
       }
 
-      v29 = a3;
+      v30 = a3;
       atomic_fetch_add((v15 + 8), 1u);
-      v25 = 0;
-      v26 = v15;
-      v27 = 25;
-      _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_((v3 + 24), &v29, &v26, v28);
-      if (v27 != 255)
+      v26 = 0;
+      v27 = v15;
+      v28 = 25;
+      _ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_(v3 + 6, &v30, &v27, v29);
+      if (v28 != 255)
       {
-        _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v30, &v26);
+        _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v31, &v27);
       }
 
-      v27 = -1;
-      IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteXRSubImage,WTF::RefPtr<WebKit::RemoteXRSubImage,WTF::RawPtrTraits<WebKit::RemoteXRSubImage>,WTF::DefaultRefDerefTraits<WebKit::RemoteXRSubImage>>>::~ScopedActiveMessageReceiveQueue(&v25);
+      v28 = -1;
+      IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteXRSubImage,WTF::RefPtr<WebKit::RemoteXRSubImage,WTF::RawPtrTraits<WebKit::RemoteXRSubImage>,WTF::DefaultRefDerefTraits<WebKit::RemoteXRSubImage>>>::~ScopedActiveMessageReceiveQueue(&v26);
       if (atomic_fetch_add((v15 + 8), 0xFFFFFFFF) == 1)
       {
         atomic_store(1u, (v15 + 8));
         (*(*v15 + 8))(v15);
       }
 
-      v21 = v23;
-      v23 = 0;
-      if (v21)
+      v22 = v24;
+      v24 = 0;
+      if (v22)
       {
-        if (v21[4] == 1)
+        if (v22[4] == 1)
         {
-          (*(*v21 + 8))(v21);
+          (*(*v22 + 8))(v22);
         }
 
         else
         {
-          --v21[4];
+          --v22[4];
         }
       }
 
 LABEL_26:
-      v7 = v24;
-      v24 = 0;
+      v7 = v25;
+      v25 = 0;
       if (!v7)
       {
-        return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref((v3 + 16), v6);
+        return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v3 + 4, v6);
       }
 
       goto LABEL_29;
@@ -2271,7 +2281,7 @@ LABEL_38:
     JUMPOUT(0x19DB85E20);
   }
 
-  v24 = 0;
+  v25 = 0;
 LABEL_29:
   if (atomic_fetch_add(v7, 0xFFFFFFFF) == 1)
   {
@@ -2279,7 +2289,7 @@ LABEL_29:
     WTF::fastFree(v7, v6);
   }
 
-  return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref((v3 + 16), v6);
+  return WTF::RefCounted<WebKit::WebGPU::ObjectHeap>::deref(v3 + 4, v6);
 }
 
 uint64_t WebKit::WebGPU::ObjectHeap::convertXRProjectionLayerFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
@@ -2364,7 +2374,7 @@ void WebKit::RemoteXRProjectionLayer::~RemoteXRProjectionLayer(WebKit::RemoteXRP
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 3);
@@ -2381,7 +2391,7 @@ void WebKit::RemoteXRProjectionLayer::~RemoteXRProjectionLayer(WebKit::RemoteXRP
   {
     if (v6[4] == 1)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
 
     else
@@ -2455,7 +2465,7 @@ void WebKit::RemoteXRSubImage::~RemoteXRSubImage(WebKit::RemoteXRSubImage *this,
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v5 + 2);
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
   }
 
   v6 = *(this + 3);
@@ -2472,7 +2482,7 @@ void WebKit::RemoteXRSubImage::~RemoteXRSubImage(WebKit::RemoteXRSubImage *this,
   {
     if (v7[4] == 1)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v7 + 8))(v7, a2);
     }
 
     else
@@ -2488,7 +2498,7 @@ void WebKit::RemoteXRSubImage::~RemoteXRSubImage(WebKit::RemoteXRSubImage *this,
   bmalloc::api::tzoneFree(v2, v3);
 }
 
-_DWORD *WebKit::RemoteXRSubImage::getColorTexture(void *a1, void *a2)
+_DWORD *WebKit::RemoteXRSubImage::getColorTexture(void *a1, uint64_t a2)
 {
   v4 = a1[2];
   ++v4[4];
@@ -2563,9 +2573,9 @@ LABEL_6:
     }
 
     WebKit::WebGPU::ObjectHeap::addObject(v9, a2, v13);
-    if (atomic_fetch_add((v13 + 8), 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, (v13 + 8));
+      atomic_store(1u, v13 + 2);
       (*(*v13 + 8))(v13);
     }
 
@@ -2576,7 +2586,7 @@ LABEL_6:
   v17 = 0;
   if (v8)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16), v7);
   }
 
   result = v18;
@@ -2589,10 +2599,10 @@ LABEL_6:
   return result;
 }
 
-WebKit::RemoteTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 22;
@@ -2606,7 +2616,7 @@ WebKit::RemoteTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void 
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteTexture,WTF::RefPtr<WebKit::RemoteTexture,WTF::RawPtrTraits<WebKit::RemoteTexture>,WTF::DefaultRefDerefTraits<WebKit::RemoteTexture>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-_DWORD *WebKit::RemoteXRSubImage::getDepthTexture(void *a1, void *a2)
+_DWORD *WebKit::RemoteXRSubImage::getDepthTexture(void *a1, uint64_t a2)
 {
   v4 = a1[2];
   ++v4[4];
@@ -2681,9 +2691,9 @@ LABEL_6:
     }
 
     WebKit::WebGPU::ObjectHeap::addObject(v9, a2, v13);
-    if (atomic_fetch_add((v13 + 8), 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, (v13 + 8));
+      atomic_store(1u, v13 + 2);
       (*(*v13 + 8))(v13);
     }
 
@@ -2694,7 +2704,7 @@ LABEL_6:
   v17 = 0;
   if (v8)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16), v7);
   }
 
   result = v18;
@@ -2764,10 +2774,10 @@ void WebKit::WebGPU::ObjectHeap::~ObjectHeap(WebKit::WebGPU::ObjectHeap *this, v
   bmalloc::api::tzoneFree(v2, v3);
 }
 
-WebKit::RemoteAdapter **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteAdapter **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 1;
@@ -2781,7 +2791,7 @@ WebKit::RemoteAdapter **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void 
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteAdapter,WTF::RefPtr<WebKit::RemoteAdapter,WTF::RawPtrTraits<WebKit::RemoteAdapter>,WTF::DefaultRefDerefTraits<WebKit::RemoteAdapter>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-char *_ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_@<X0>(char *result@<X0>, void **a2@<X1>, void **a3@<X2>, uint64_t a4@<X8>)
+unsigned int *_ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEEN5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISD_NS_12RawPtrTraitsISD_EENS_21DefaultRefDerefTraitsISD_EEEEEENSC_INS2_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSC_INS2_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSC_INS2_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSC_INS2_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSC_INS2_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSC_INS2_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSC_INS2_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSC_INS2_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSC_INS2_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSC_INS2_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSC_INS2_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSC_INS2_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSC_INS2_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSC_INS2_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSC_INS2_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSC_INS2_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSC_INS2_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSC_INS2_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSC_INS2_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSC_INS2_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSC_INS2_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSC_INS2_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSC_INS2_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSC_INS2_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSC_INS2_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSC_INS2_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEENS_11DefaultHashIS6_EENS_10HashTraitsIS6_EENS4A_IS47_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE3addIS47_EENS_18HashTableAddResultINS_17HashTableIteratorINS_9HashTableIS6_NS_12KeyValuePairIS6_S47_EENS_24KeyValuePairKeyExtractorIS4M_EES49_NS4G_18KeyValuePairTraitsES4B_S4F_EES6_S4M_S4O_S49_S4P_S4B_EEEERKS6_OT_@<X0>(unsigned int *result@<X0>, uint64_t *a2@<X1>, unsigned int **a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = *a2;
   if (*a2 == -1 || !v5)
@@ -2842,7 +2852,7 @@ char *_ZN3WTF7HashMapINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTyp
   }
 
   *v15 = v5;
-  v19 = v15 + 1;
+  v19 = (v15 + 2);
   LOBYTE(v31) = 0;
   v32 = -1;
   v20 = *(a3 + 8);
@@ -2870,7 +2880,7 @@ LABEL_17:
 
   else if (v20 == 255)
   {
-    result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+    result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
     v22 = -1;
 LABEL_22:
     *(v15 + 16) = v22;
@@ -2887,9 +2897,9 @@ LABEL_22:
 
       if (v21 != 1)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_209:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 1;
         goto LABEL_22;
@@ -2915,9 +2925,9 @@ LABEL_209:
 
       if (v21 != 2)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_201:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 2;
         goto LABEL_22;
@@ -2943,9 +2953,9 @@ LABEL_201:
 
       if (v21 != 3)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_205:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 3;
         goto LABEL_22;
@@ -2971,9 +2981,9 @@ LABEL_205:
 
       if (v21 != 4)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_191:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 4;
         goto LABEL_22;
@@ -2999,9 +3009,9 @@ LABEL_191:
 
       if (v21 != 5)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_215:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 5;
         goto LABEL_22;
@@ -3027,9 +3037,9 @@ LABEL_215:
 
       if (v21 != 6)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_221:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 6;
         goto LABEL_22;
@@ -3055,9 +3065,9 @@ LABEL_221:
 
       if (v21 != 7)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_207:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 7;
         goto LABEL_22;
@@ -3083,9 +3093,9 @@ LABEL_207:
 
       if (v21 != 8)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_227:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 8;
         goto LABEL_22;
@@ -3111,9 +3121,9 @@ LABEL_227:
 
       if (v21 != 9)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_195:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 9;
         goto LABEL_22;
@@ -3139,9 +3149,9 @@ LABEL_195:
 
       if (v21 != 10)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_225:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 10;
         goto LABEL_22;
@@ -3167,9 +3177,9 @@ LABEL_225:
 
       if (v21 != 11)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_189:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 11;
         goto LABEL_22;
@@ -3195,9 +3205,9 @@ LABEL_189:
 
       if (v21 != 12)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_193:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 12;
         goto LABEL_22;
@@ -3223,9 +3233,9 @@ LABEL_193:
 
       if (v21 != 13)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_219:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 13;
         goto LABEL_22;
@@ -3251,9 +3261,9 @@ LABEL_219:
 
       if (v21 != 14)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_187:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 14;
         goto LABEL_22;
@@ -3279,9 +3289,9 @@ LABEL_187:
 
       if (v21 != 15)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_203:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 15;
         goto LABEL_22;
@@ -3307,9 +3317,9 @@ LABEL_203:
 
       if (v21 != 16)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_185:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 16;
         goto LABEL_22;
@@ -3335,9 +3345,9 @@ LABEL_185:
 
       if (v21 != 17)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_211:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 17;
         goto LABEL_22;
@@ -3363,9 +3373,9 @@ LABEL_211:
 
       if (v21 != 18)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_223:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 18;
         goto LABEL_22;
@@ -3391,9 +3401,9 @@ LABEL_223:
 
       if (v21 != 19)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_231:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 19;
         goto LABEL_22;
@@ -3419,9 +3429,9 @@ LABEL_231:
 
       if (v21 != 20)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_213:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 20;
         goto LABEL_22;
@@ -3447,9 +3457,9 @@ LABEL_213:
 
       if (v21 != 21)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_217:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 21;
         goto LABEL_22;
@@ -3475,9 +3485,9 @@ LABEL_217:
 
       if (v21 != 22)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_229:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 22;
         goto LABEL_22;
@@ -3503,9 +3513,9 @@ LABEL_229:
 
       if (v21 != 23)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_233:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 23;
         goto LABEL_22;
@@ -3531,9 +3541,9 @@ LABEL_233:
 
       if (v21 != 24)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_199:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 24;
         goto LABEL_22;
@@ -3559,9 +3569,9 @@ LABEL_199:
 
       if (v21 != 25)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_197:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 25;
         goto LABEL_22;
@@ -3587,9 +3597,9 @@ LABEL_197:
 
       if (v21 != 26)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_235:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 26;
         goto LABEL_22;
@@ -3615,9 +3625,9 @@ LABEL_235:
 
       if (v21 != 27)
       {
-        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+        result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
 LABEL_183:
-        v15[1] = v31;
+        *(v15 + 1) = v31;
         v31 = 0;
         v22 = 27;
         goto LABEL_22;
@@ -3655,7 +3665,7 @@ LABEL_181:
       {
         if (v21 != 255)
         {
-          result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 1));
+          result = _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v33, (v15 + 2));
         }
 
         *(v15 + 16) = 0;
@@ -3718,10 +3728,10 @@ LABEL_40:
   return result;
 }
 
-WebKit::RemoteBindGroup **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteBindGroup **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 2;
@@ -3735,10 +3745,10 @@ WebKit::RemoteBindGroup **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, voi
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteBindGroup,WTF::RefPtr<WebKit::RemoteBindGroup,WTF::RawPtrTraits<WebKit::RemoteBindGroup>,WTF::DefaultRefDerefTraits<WebKit::RemoteBindGroup>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteBindGroupLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteBindGroupLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 3;
@@ -3752,10 +3762,10 @@ WebKit::RemoteBindGroupLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteBindGroupLayout,WTF::RefPtr<WebKit::RemoteBindGroupLayout,WTF::RawPtrTraits<WebKit::RemoteBindGroupLayout>,WTF::DefaultRefDerefTraits<WebKit::RemoteBindGroupLayout>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 4;
@@ -3769,10 +3779,10 @@ WebKit::RemoteBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteBuffer,WTF::RefPtr<WebKit::RemoteBuffer,WTF::RawPtrTraits<WebKit::RemoteBuffer>,WTF::DefaultRefDerefTraits<WebKit::RemoteBuffer>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteCommandBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteCommandBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 5;
@@ -3786,10 +3796,10 @@ WebKit::RemoteCommandBuffer **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1,
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteCommandBuffer,WTF::RefPtr<WebKit::RemoteCommandBuffer,WTF::RawPtrTraits<WebKit::RemoteCommandBuffer>,WTF::DefaultRefDerefTraits<WebKit::RemoteCommandBuffer>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteCommandEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteCommandEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 6;
@@ -3803,10 +3813,10 @@ WebKit::RemoteCommandEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteCommandEncoder,WTF::RefPtr<WebKit::RemoteCommandEncoder,WTF::RawPtrTraits<WebKit::RemoteCommandEncoder>,WTF::DefaultRefDerefTraits<WebKit::RemoteCommandEncoder>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteCompositorIntegration **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteCompositorIntegration **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 7;
@@ -3820,10 +3830,10 @@ WebKit::RemoteCompositorIntegration **WebKit::WebGPU::ObjectHeap::addObject(uint
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteCompositorIntegration,WTF::RefPtr<WebKit::RemoteCompositorIntegration,WTF::RawPtrTraits<WebKit::RemoteCompositorIntegration>,WTF::DefaultRefDerefTraits<WebKit::RemoteCompositorIntegration>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteComputePassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteComputePassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 8;
@@ -3837,10 +3847,10 @@ WebKit::RemoteComputePassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteComputePassEncoder,WTF::RefPtr<WebKit::RemoteComputePassEncoder,WTF::RawPtrTraits<WebKit::RemoteComputePassEncoder>,WTF::DefaultRefDerefTraits<WebKit::RemoteComputePassEncoder>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteComputePipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteComputePipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 9;
@@ -3854,10 +3864,10 @@ WebKit::RemoteComputePipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteComputePipeline,WTF::RefPtr<WebKit::RemoteComputePipeline,WTF::RawPtrTraits<WebKit::RemoteComputePipeline>,WTF::DefaultRefDerefTraits<WebKit::RemoteComputePipeline>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-unsigned int **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+unsigned int **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 10;
@@ -3871,10 +3881,10 @@ unsigned int **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atom
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteDevice,WTF::RefPtr<WebKit::RemoteDevice,WTF::RawPtrTraits<WebKit::RemoteDevice>,WTF::DefaultRefDerefTraits<WebKit::RemoteDevice>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteExternalTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteExternalTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 11;
@@ -3888,10 +3898,10 @@ WebKit::RemoteExternalTexture **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteExternalTexture,WTF::RefPtr<WebKit::RemoteExternalTexture,WTF::RawPtrTraits<WebKit::RemoteExternalTexture>,WTF::DefaultRefDerefTraits<WebKit::RemoteExternalTexture>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemotePipelineLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemotePipelineLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 12;
@@ -3905,10 +3915,10 @@ WebKit::RemotePipelineLayout **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemotePipelineLayout,WTF::RefPtr<WebKit::RemotePipelineLayout,WTF::RawPtrTraits<WebKit::RemotePipelineLayout>,WTF::DefaultRefDerefTraits<WebKit::RemotePipelineLayout>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemotePresentationContext **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemotePresentationContext **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 13;
@@ -3922,10 +3932,10 @@ WebKit::RemotePresentationContext **WebKit::WebGPU::ObjectHeap::addObject(uint64
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemotePresentationContext,WTF::RefPtr<WebKit::RemotePresentationContext,WTF::RawPtrTraits<WebKit::RemotePresentationContext>,WTF::DefaultRefDerefTraits<WebKit::RemotePresentationContext>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteQuerySet **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteQuerySet **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 14;
@@ -3939,10 +3949,10 @@ WebKit::RemoteQuerySet **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteQuerySet,WTF::RefPtr<WebKit::RemoteQuerySet,WTF::RawPtrTraits<WebKit::RemoteQuerySet>,WTF::DefaultRefDerefTraits<WebKit::RemoteQuerySet>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteQueue **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteQueue **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 15;
@@ -3956,10 +3966,10 @@ WebKit::RemoteQueue **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteQueue,WTF::RefPtr<WebKit::RemoteQueue,WTF::RawPtrTraits<WebKit::RemoteQueue>,WTF::DefaultRefDerefTraits<WebKit::RemoteQueue>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteRenderBundleEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteRenderBundleEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 16;
@@ -3973,10 +3983,10 @@ WebKit::RemoteRenderBundleEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteRenderBundleEncoder,WTF::RefPtr<WebKit::RemoteRenderBundleEncoder,WTF::RawPtrTraits<WebKit::RemoteRenderBundleEncoder>,WTF::DefaultRefDerefTraits<WebKit::RemoteRenderBundleEncoder>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteRenderBundle **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteRenderBundle **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 17;
@@ -3990,10 +4000,10 @@ WebKit::RemoteRenderBundle **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, 
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteRenderBundle,WTF::RefPtr<WebKit::RemoteRenderBundle,WTF::RawPtrTraits<WebKit::RemoteRenderBundle>,WTF::DefaultRefDerefTraits<WebKit::RemoteRenderBundle>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteRenderPassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteRenderPassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 18;
@@ -4007,10 +4017,10 @@ WebKit::RemoteRenderPassEncoder **WebKit::WebGPU::ObjectHeap::addObject(uint64_t
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteRenderPassEncoder,WTF::RefPtr<WebKit::RemoteRenderPassEncoder,WTF::RawPtrTraits<WebKit::RemoteRenderPassEncoder>,WTF::DefaultRefDerefTraits<WebKit::RemoteRenderPassEncoder>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteRenderPipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteRenderPipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 19;
@@ -4024,10 +4034,10 @@ WebKit::RemoteRenderPipeline **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteRenderPipeline,WTF::RefPtr<WebKit::RemoteRenderPipeline,WTF::RawPtrTraits<WebKit::RemoteRenderPipeline>,WTF::DefaultRefDerefTraits<WebKit::RemoteRenderPipeline>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteSampler **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteSampler **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 20;
@@ -4041,10 +4051,10 @@ WebKit::RemoteSampler **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void 
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteSampler,WTF::RefPtr<WebKit::RemoteSampler,WTF::RawPtrTraits<WebKit::RemoteSampler>,WTF::DefaultRefDerefTraits<WebKit::RemoteSampler>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteShaderModule **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteShaderModule **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 21;
@@ -4058,10 +4068,10 @@ WebKit::RemoteShaderModule **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, 
   return IPC::ScopedActiveMessageReceiveQueue<WebKit::RemoteShaderModule,WTF::RefPtr<WebKit::RemoteShaderModule,WTF::RawPtrTraits<WebKit::RemoteShaderModule>,WTF::DefaultRefDerefTraits<WebKit::RemoteShaderModule>>>::~ScopedActiveMessageReceiveQueue(&v4);
 }
 
-WebKit::RemoteXRBinding **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, void *a2, atomic_uint *a3)
+WebKit::RemoteXRBinding **WebKit::WebGPU::ObjectHeap::addObject(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = a2;
-  atomic_fetch_add(a3 + 2, 1u);
+  atomic_fetch_add((a3 + 8), 1u);
   v4 = 0;
   v5 = a3;
   v6 = 24;
@@ -4126,17 +4136,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertBindGroupFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertBindGroupFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 2 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 2 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4155,17 +4165,17 @@ char *WebKit::WebGPU::ObjectHeap::convertBindGroupFromBacking@<X0>(uint64_t a1@<
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertBindGroupLayoutFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertBindGroupLayoutFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 3 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 3 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4184,17 +4194,17 @@ char *WebKit::WebGPU::ObjectHeap::convertBindGroupLayoutFromBacking@<X0>(uint64_
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertBufferFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertBufferFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 4 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 4 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4213,17 +4223,17 @@ char *WebKit::WebGPU::ObjectHeap::convertBufferFromBacking@<X0>(uint64_t a1@<X0>
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertCommandBufferFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertCommandBufferFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 5 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 5 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4395,17 +4405,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertComputePipelineFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertComputePipelineFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 9 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 9 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4424,17 +4434,17 @@ char *WebKit::WebGPU::ObjectHeap::convertComputePipelineFromBacking@<X0>(uint64_
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertDeviceFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertDeviceFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 10 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 10 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4453,7 +4463,7 @@ char *WebKit::WebGPU::ObjectHeap::convertDeviceFromBacking@<X0>(uint64_t a1@<X0>
   return result;
 }
 
-uint64_t *WebKit::WebGPU::ObjectHeap::convertExternalTextureFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *WebKit::WebGPU::ObjectHeap::convertExternalTextureFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
 {
   v7 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v7);
@@ -4465,7 +4475,7 @@ uint64_t *WebKit::WebGPU::ObjectHeap::convertExternalTextureFromBacking@<X0>(uin
 
   if (v6 != result && *(result + 16) == 11)
   {
-    return WTF::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture,WTF::NoTaggingTraits<WebCore::WebGPU::ExternalTexture>>::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture>(a3, *(result[1] + 16));
+    return WTF::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture,WTF::NoTaggingTraits<WebCore::WebGPU::ExternalTexture>>::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture>(a3, *(result[1] + 16), result[1]);
   }
 
   *a3 = 0;
@@ -4473,17 +4483,17 @@ uint64_t *WebKit::WebGPU::ObjectHeap::convertExternalTextureFromBacking@<X0>(uin
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertPipelineLayoutFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertPipelineLayoutFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 12 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 12 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4553,17 +4563,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertQuerySetFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertQuerySetFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 14 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 14 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4684,17 +4694,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertRenderBundleFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertRenderBundleFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 17 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 17 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4764,17 +4774,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertRenderPipelineFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertRenderPipelineFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 19 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 19 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4844,17 +4854,17 @@ LABEL_11:
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertShaderModuleFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertShaderModuleFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 21 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 21 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4873,17 +4883,17 @@ char *WebKit::WebGPU::ObjectHeap::convertShaderModuleFromBacking@<X0>(uint64_t a
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertTextureFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertTextureFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 22 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 22 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -4902,17 +4912,17 @@ char *WebKit::WebGPU::ObjectHeap::convertTextureFromBacking@<X0>(uint64_t a1@<X0
   return result;
 }
 
-char *WebKit::WebGPU::ObjectHeap::convertTextureViewFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
+unsigned int *WebKit::WebGPU::ObjectHeap::convertTextureViewFromBacking@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X8>)
 {
   v10 = a2;
   result = _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E4findINS_22IdentityHashTranslatorIS4M_S4D_EELS4J_1ES6_EENS_17HashTableIteratorIS4N_S6_S49_S4B_S4D_S4M_S4G_EERKT1_((a1 + 24), &v10);
   v6 = *(a1 + 24);
   if (v6)
   {
-    v6 += 24 * *(v6 - 1);
+    v6 += 6 * *(v6 - 1);
   }
 
-  if (v6 != result && result[16] == 23 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
+  if (v6 != result && *(result + 16) == 23 && (v7 = *(result + 1), (v8 = *(v7 + 16)) != 0))
   {
     result = WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v8 + 8), *(v7 + 16));
     v9 = *(v8 + 8);
@@ -5550,7 +5560,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::RemoteShaderModule::compilationInf
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5560,53 +5570,54 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::RemoteShaderModule::compilationInf
 {
   v2 = result;
   v3 = *a2;
-  v17 = 0;
   v18 = 0;
+  v19 = 0;
   v4 = *(v3 + 20);
   if (!v4)
   {
 LABEL_9:
-    v15 = *(v2 + 8);
+    v16 = *(v2 + 8);
     *(v2 + 8) = 0;
-    (*(*v15 + 16))(v15, &v17);
-    (*(*v15 + 8))(v15);
-    return WTF::Vector<WebCore::TextRecognitionWordData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v17, v16);
+    (*(*v16 + 16))(v16, &v18);
+    (*(*v16 + 8))(v16);
+    return WTF::Vector<WebCore::TextRecognitionWordData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v17);
   }
 
   if (v4 < 0x5555556)
   {
-    v5 = 48 * v4;
-    v6 = WTF::fastMalloc((48 * v4));
-    LODWORD(v18) = v5 / 0x30;
-    v17 = v6;
+    v5 = (3 * v4);
+    v6 = 16 * v5;
+    v7 = WTF::fastMalloc(v5, (16 * v5));
+    LODWORD(v19) = v6 / 0x30;
+    v18 = v7;
     if (*(v3 + 20))
     {
-      v7 = 0;
-      v8 = (v6 + 16);
+      v8 = 0;
+      v9 = v7 + 2;
       do
       {
-        v9 = *(v3 + 8);
-        v10 = *(v9 + 8 * v7);
-        v11 = *(v10 + 8);
-        if (v11)
+        v10 = *(v3 + 8);
+        v11 = *(v10 + 8 * v8);
+        v12 = *(v11 + 8);
+        if (v12)
         {
-          atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
-          v10 = *(v9 + 8 * v7);
+          atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+          v11 = *(v10 + 8 * v8);
         }
 
-        v12 = *(v10 + 16);
-        *(v8 - 2) = v11;
-        v13 = *(v10 + 24);
-        v14 = *(v10 + 40);
-        *(v8 - 8) = v12;
-        *v8 = v13;
-        v8[1] = v14;
-        v8 += 3;
-        ++v7;
+        v13 = *(v11 + 16);
+        *(v9 - 2) = v12;
+        v14 = *(v11 + 24);
+        v15 = *(v11 + 40);
+        *(v9 - 8) = v13;
+        *v9 = v14;
+        v9[1] = v15;
+        v9 += 3;
+        ++v8;
       }
 
-      while (v7 < *(v3 + 20));
-      HIDWORD(v18) = v7;
+      while (v8 < *(v3 + 20));
+      HIDWORD(v19) = v8;
     }
 
     goto LABEL_9;
@@ -5657,7 +5668,7 @@ uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifi
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -5668,8 +5679,9 @@ uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifi
   return _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E6rehashEjPS49_(a1, v5, a2);
 }
 
-uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E6rehashEjPS49_(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifierTypeENS_38ObjectIdentifierThreadSafeAccessTraitsIyEEyEENS_12KeyValuePairIS6_N5mpark7variantIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueINS2_13RemoteAdapterENS_6RefPtrISE_NS_12RawPtrTraitsISE_EENS_21DefaultRefDerefTraitsISE_EEEEEENSD_INS2_15RemoteBindGroupENSF_ISM_NSG_ISM_EENSI_ISM_EEEEEENSD_INS2_21RemoteBindGroupLayoutENSF_ISR_NSG_ISR_EENSI_ISR_EEEEEENSD_INS2_12RemoteBufferENSF_ISW_NSG_ISW_EENSI_ISW_EEEEEENSD_INS2_19RemoteCommandBufferENSF_IS11_NSG_IS11_EENSI_IS11_EEEEEENSD_INS2_20RemoteCommandEncoderENSF_IS16_NSG_IS16_EENSI_IS16_EEEEEENSD_INS2_27RemoteCompositorIntegrationENSF_IS1B_NSG_IS1B_EENSI_IS1B_EEEEEENSD_INS2_24RemoteComputePassEncoderENSF_IS1G_NSG_IS1G_EENSI_IS1G_EEEEEENSD_INS2_21RemoteComputePipelineENSF_IS1L_NSG_IS1L_EENSI_IS1L_EEEEEENSD_INS2_12RemoteDeviceENSF_IS1Q_NSG_IS1Q_EENSI_IS1Q_EEEEEENSD_INS2_21RemoteExternalTextureENSF_IS1V_NSG_IS1V_EENSI_IS1V_EEEEEENSD_INS2_20RemotePipelineLayoutENSF_IS20_NSG_IS20_EENSI_IS20_EEEEEENSD_INS2_25RemotePresentationContextENSF_IS25_NSG_IS25_EENSI_IS25_EEEEEENSD_INS2_14RemoteQuerySetENSF_IS2A_NSG_IS2A_EENSI_IS2A_EEEEEENSD_INS2_11RemoteQueueENSF_IS2F_NSG_IS2F_EENSI_IS2F_EEEEEENSD_INS2_25RemoteRenderBundleEncoderENSF_IS2K_NSG_IS2K_EENSI_IS2K_EEEEEENSD_INS2_18RemoteRenderBundleENSF_IS2P_NSG_IS2P_EENSI_IS2P_EEEEEENSD_INS2_23RemoteRenderPassEncoderENSF_IS2U_NSG_IS2U_EENSI_IS2U_EEEEEENSD_INS2_20RemoteRenderPipelineENSF_IS2Z_NSG_IS2Z_EENSI_IS2Z_EEEEEENSD_INS2_13RemoteSamplerENSF_IS34_NSG_IS34_EENSI_IS34_EEEEEENSD_INS2_18RemoteShaderModuleENSF_IS39_NSG_IS39_EENSI_IS39_EEEEEENSD_INS2_13RemoteTextureENSF_IS3E_NSG_IS3E_EENSI_IS3E_EEEEEENSD_INS2_17RemoteTextureViewENSF_IS3J_NSG_IS3J_EENSI_IS3J_EEEEEENSD_INS2_15RemoteXRBindingENSF_IS3O_NSG_IS3O_EENSI_IS3O_EEEEEENSD_INS2_16RemoteXRSubImageENSF_IS3T_NSG_IS3T_EENSI_IS3T_EEEEEENSD_INS2_23RemoteXRProjectionLayerENSF_IS3Y_NSG_IS3Y_EENSI_IS3Y_EEEEEENSD_INS2_12RemoteXRViewENSF_IS43_NSG_IS43_EENSI_IS43_EEEEEEEEEEENS_24KeyValuePairKeyExtractorIS49_EENS_11DefaultHashIS6_EENS_7HashMapIS6_S48_S4D_NS_10HashTraitsIS6_EENS4F_IS48_EENS_15HashTableTraitsELNS_17ShouldValidateKeyE1ENS_10FastMallocEE18KeyValuePairTraitsES4G_S4K_E6rehashEjPS49_(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v3 = a2;
   v5 = *a1;
   if (*a1)
   {
@@ -5683,11 +5695,11 @@ uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifi
     v7 = 0;
   }
 
-  v8 = WTF::fastMalloc((24 * a2 + 16));
-  if (a2)
+  v8 = WTF::fastMalloc((24 * a2), (24 * a2 + 16));
+  if (v3)
   {
-    v10 = a2;
-    v11 = v8 + 8;
+    v10 = v3;
+    v11 = v8 + 4;
     do
     {
       *(v11 - 2) = 0;
@@ -5699,18 +5711,18 @@ uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifi
     while (v10);
   }
 
-  *a1 = (v8 + 4);
-  v8[2] = a2 - 1;
-  v8[3] = a2;
+  *a1 = (v8 + 2);
+  *(v8 + 2) = v3 - 1;
+  *(v8 + 3) = v3;
   *v8 = 0;
-  v8[1] = v7;
+  *(v8 + 1) = v7;
   if (v6)
   {
     v12 = 0;
     v13 = 0;
     while (1)
     {
-      v14 = (v5 + 24 * v12);
+      v14 = v5 + 24 * v12;
       v15 = *v14;
       if (*v14 != -1)
       {
@@ -5753,8 +5765,8 @@ uint64_t _ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentifi
           {
             if (v24 != 255)
             {
-              *(v23 + 8) = v14[1];
-              v14[1] = 0;
+              *(v23 + 8) = *(v14 + 8);
+              *(v14 + 8) = 0;
               goto LABEL_24;
             }
           }
@@ -5765,7 +5777,7 @@ LABEL_24:
             *(v23 + 16) = v24;
             if (*(v14 + 16) != 255)
             {
-              _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v29, (v14 + 1));
+              _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v29, v14 + 8);
             }
           }
 
@@ -5780,7 +5792,7 @@ LABEL_24:
 
         if (*(v14 + 16) != 255)
         {
-          _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v27, (v14 + 1));
+          _ZN5mpark6detail10visitation3alt9visit_altINS0_4dtorEJRNS0_10destructorINS0_6traitsIJNSt3__19monostateEN3IPC31ScopedActiveMessageReceiveQueueIN6WebKit13RemoteAdapterEN3WTF6RefPtrISC_NSD_12RawPtrTraitsISC_EENSD_21DefaultRefDerefTraitsISC_EEEEEENSA_INSB_15RemoteBindGroupENSE_ISL_NSF_ISL_EENSH_ISL_EEEEEENSA_INSB_21RemoteBindGroupLayoutENSE_ISQ_NSF_ISQ_EENSH_ISQ_EEEEEENSA_INSB_12RemoteBufferENSE_ISV_NSF_ISV_EENSH_ISV_EEEEEENSA_INSB_19RemoteCommandBufferENSE_IS10_NSF_IS10_EENSH_IS10_EEEEEENSA_INSB_20RemoteCommandEncoderENSE_IS15_NSF_IS15_EENSH_IS15_EEEEEENSA_INSB_27RemoteCompositorIntegrationENSE_IS1A_NSF_IS1A_EENSH_IS1A_EEEEEENSA_INSB_24RemoteComputePassEncoderENSE_IS1F_NSF_IS1F_EENSH_IS1F_EEEEEENSA_INSB_21RemoteComputePipelineENSE_IS1K_NSF_IS1K_EENSH_IS1K_EEEEEENSA_INSB_12RemoteDeviceENSE_IS1P_NSF_IS1P_EENSH_IS1P_EEEEEENSA_INSB_21RemoteExternalTextureENSE_IS1U_NSF_IS1U_EENSH_IS1U_EEEEEENSA_INSB_20RemotePipelineLayoutENSE_IS1Z_NSF_IS1Z_EENSH_IS1Z_EEEEEENSA_INSB_25RemotePresentationContextENSE_IS24_NSF_IS24_EENSH_IS24_EEEEEENSA_INSB_14RemoteQuerySetENSE_IS29_NSF_IS29_EENSH_IS29_EEEEEENSA_INSB_11RemoteQueueENSE_IS2E_NSF_IS2E_EENSH_IS2E_EEEEEENSA_INSB_25RemoteRenderBundleEncoderENSE_IS2J_NSF_IS2J_EENSH_IS2J_EEEEEENSA_INSB_18RemoteRenderBundleENSE_IS2O_NSF_IS2O_EENSH_IS2O_EEEEEENSA_INSB_23RemoteRenderPassEncoderENSE_IS2T_NSF_IS2T_EENSH_IS2T_EEEEEENSA_INSB_20RemoteRenderPipelineENSE_IS2Y_NSF_IS2Y_EENSH_IS2Y_EEEEEENSA_INSB_13RemoteSamplerENSE_IS33_NSF_IS33_EENSH_IS33_EEEEEENSA_INSB_18RemoteShaderModuleENSE_IS38_NSF_IS38_EENSH_IS38_EEEEEENSA_INSB_13RemoteTextureENSE_IS3D_NSF_IS3D_EENSH_IS3D_EEEEEENSA_INSB_17RemoteTextureViewENSE_IS3I_NSF_IS3I_EENSH_IS3I_EEEEEENSA_INSB_15RemoteXRBindingENSE_IS3N_NSF_IS3N_EENSH_IS3N_EEEEEENSA_INSB_16RemoteXRSubImageENSE_IS3S_NSF_IS3S_EENSH_IS3S_EEEEEENSA_INSB_23RemoteXRProjectionLayerENSE_IS3X_NSF_IS3X_EENSH_IS3X_EEEEEENSA_INSB_12RemoteXRViewENSE_IS42_NSF_IS42_EENSH_IS42_EEEEEEEEELNS0_5TraitE1EEEEEEDcOT_DpOT0_(&v27, v14 + 8);
         }
 
         *(v14 + 16) = -1;
@@ -6807,21 +6819,21 @@ uint64_t *_ZN3WTF9HashTableINS_23ObjectIdentifierGenericIN6WebKit20WebGPUIdentif
   return result;
 }
 
-void *WTF::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture,WTF::NoTaggingTraits<WebCore::WebGPU::ExternalTexture>>::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture>(void *a1, uint64_t a2)
+unint64_t *WTF::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture,WTF::NoTaggingTraits<WebCore::WebGPU::ExternalTexture>>::ThreadSafeWeakPtr<WebCore::WebGPU::ExternalTexture>@<X0>(unint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   *a1 = a2;
   if (a2)
   {
-    v3 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock((a2 + 8));
-    v4 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v3);
+    v4 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::controlBlock((a2 + 8), a3);
+    v5 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v4);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  a1[1] = v4;
+  a1[1] = v5;
   return a1;
 }
 
@@ -6845,21 +6857,21 @@ void sub_19DB8C95C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB8CA80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DB8CA80(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DB8CC08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_19DB8CC08(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7007,12 +7019,12 @@ LABEL_9:
   return (v15)(a1, a2, a3, a4, a5, v16, v17);
 }
 
-WebKit::RemoteAudioHardwareListenerProxy *WebKit::RemoteAudioHardwareListenerProxy::RemoteAudioHardwareListenerProxy(WebKit::RemoteAudioHardwareListenerProxy *a1, uint64_t a2, void *a3)
+WebKit::RemoteAudioHardwareListenerProxy *WebKit::RemoteAudioHardwareListenerProxy::RemoteAudioHardwareListenerProxy@<X0>(WebKit::RemoteAudioHardwareListenerProxy *a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   *a1 = &unk_1F10FBE38;
   *(a1 + 1) = a2;
-  v5 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16));
-  *(a1 + 2) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v5);
+  v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16), a4);
+  *(a1 + 2) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v6);
   *(a1 + 3) = *a3;
   WebCore::AudioHardwareListener::create();
   WebKit::RemoteAudioHardwareListenerProxy::audioOutputDeviceChanged(a1);
@@ -7024,18 +7036,18 @@ atomic_uchar *WebKit::RemoteAudioHardwareListenerProxy::audioOutputDeviceChanged
   result = *(this + 2);
   if (result)
   {
-    result = WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(result, *(this + 1), &v7);
-    if (v7)
+    result = WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(result, *(this + 1), &v8);
+    if (v8)
     {
-      v3 = *(v7 + 56);
+      v3 = *(v8 + 56);
       v4 = *(this + 3);
-      *v6 = *(*(this + 4) + 24);
-      result = IPC::Connection::send<Messages::RemoteAudioHardwareListener::AudioOutputDeviceChanged>(v3, v6, v4, 0, 0);
-      v5 = v7;
-      v7 = 0;
-      if (v5)
+      v7 = *(*(this + 4) + 24);
+      result = IPC::Connection::send<Messages::RemoteAudioHardwareListener::AudioOutputDeviceChanged>(v3, &v7, v4, 0, 0);
+      v6 = v8;
+      v8 = 0;
+      if (v6)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v5 + 16));
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v6 + 16), v5);
       }
     }
   }
@@ -7049,7 +7061,7 @@ void WebKit::RemoteAudioHardwareListenerProxy::~RemoteAudioHardwareListenerProxy
   *(this + 4) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -7099,7 +7111,7 @@ atomic_uchar *WebKit::RemoteAudioHardwareListenerProxy::audioHardwareDidBecomeAc
       v11 = 0;
       if (v8)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16));
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16), v7);
       }
     }
   }
@@ -7140,7 +7152,7 @@ atomic_uchar *WebKit::RemoteAudioHardwareListenerProxy::audioHardwareDidBecomeIn
       v11 = 0;
       if (v8)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16));
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16), v7);
       }
     }
   }
@@ -7154,7 +7166,7 @@ WebKit::RemoteAudioSessionProxy *WebKit::RemoteAudioSessionProxy::RemoteAudioSes
   *this = &unk_1F10FBE70;
   *(this + 1) = 0;
   *(this + 3) = a2;
-  v3 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock(a2 + 2);
+  v3 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock(a2 + 2, 1);
   *(this + 4) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v3);
   *(this + 9) = 0;
   *(this + 10) = 0;
@@ -7202,12 +7214,12 @@ void WebKit::RemoteAudioSessionProxy::~RemoteAudioSessionProxy(WebKit::RemoteAud
   bmalloc::api::tzoneFree(v2, v3);
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::configuration@<X0>(atomic_uint **this@<X0>, uint64_t a2@<X8>)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::configuration@<X0>(float *__return_ptr a1@<X8>, atomic_uint **this@<X0>)
 {
   v4 = WebKit::RemoteAudioSessionProxy::audioSessionManager(this);
   ++*(v4 + 4);
   v5 = WebCore::AudioSession::sharedSession(v4);
-  v6 = (v5 + 1);
+  v6 = v5 + 1;
   while (1)
   {
     v7 = *v6;
@@ -7236,28 +7248,28 @@ LABEL_6:
     --*(v4 + 4);
   }
 
-  (*(*v5 + 8))(v5);
-  *(a2 + 8) = (*(*v5 + 9))(v5);
-  *(a2 + 16) = (*(*v5 + 10))(v5);
-  *(a2 + 24) = (*(*v5 + 11))(v5);
-  *(a2 + 32) = (*(*v5 + 12))(v5);
-  *(a2 + 40) = (*(*v5 + 13))(v5);
-  *(a2 + 48) = (*(*v5 + 15))(v5);
-  *(a2 + 56) = (*(*v5 + 20))(v5);
-  *(a2 + 57) = *(this + 64);
+  (*(*v5 + 64))(v5);
+  a1[2] = (*(*v5 + 72))(v5);
+  *(a1 + 2) = (*(*v5 + 80))(v5);
+  *(a1 + 3) = (*(*v5 + 88))(v5);
+  *(a1 + 4) = (*(*v5 + 96))(v5);
+  *(a1 + 5) = (*(*v5 + 104))(v5);
+  *(a1 + 6) = (*(*v5 + 120))(v5);
+  *(a1 + 56) = (*(*v5 + 160))(v5);
+  *(a1 + 57) = *(this + 64);
   v10 = this[6];
   if (v10)
   {
     atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
   }
 
-  *(a2 + 64) = v10;
-  *(a2 + 72) = *(this + 43);
+  *(a1 + 8) = v10;
+  *(a1 + 72) = *(this + 43);
 
   return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v5 + 1, v9);
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::setCategory(atomic_uchar **result, int a2, int a3, int a4)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::setCategory(atomic_ullong *result, int a2, int a3, int a4)
 {
   if (*(result + 40) != a2 || *(result + 41) != a3 || *(result + 42) != a4 || *(result + 66) == 1)
   {
@@ -7284,7 +7296,7 @@ atomic_uchar **WebKit::RemoteAudioSessionProxy::setCategory(atomic_uchar **resul
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxyManager::updateCategory(WebKit::RemoteAudioSessionProxyManager *this)
+atomic_ullong *WebKit::RemoteAudioSessionProxyManager::updateCategory(WebKit::RemoteAudioSessionProxyManager *this)
 {
   v103 = 0;
   v104 = 0;
@@ -7863,13 +7875,13 @@ LABEL_91:
     v73 = 0;
   }
 
-  WebKit::RemoteAudioSessionProxyManager::protectedSession(v6, &v100);
+  WebKit::RemoteAudioSessionProxyManager::protectedSession(&v100, v6);
   result = (*(*v100 + 32))(v100, v58, v64, v73);
   v79 = v100;
   v100 = 0;
   if (v79)
   {
-    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v79 + 8), v78);
+    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v79 + 1, v78);
   }
 
   if (v68)
@@ -7890,7 +7902,7 @@ LABEL_91:
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::setPreferredBufferSize(WebKit::RemoteAudioSessionProxy *this, uint64_t a2)
+WTF **WebKit::RemoteAudioSessionProxy::setPreferredBufferSize(WebKit::RemoteAudioSessionProxy *this, uint64_t a2)
 {
   *(this + 7) = a2;
   v2 = WebKit::RemoteAudioSessionProxy::audioSessionManager(this);
@@ -7911,7 +7923,7 @@ atomic_uchar **WebKit::RemoteAudioSessionProxy::setPreferredBufferSize(WebKit::R
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxyManager::updatePreferredBufferSizeForProcess(WebKit::RemoteAudioSessionProxyManager *this)
+WTF **WebKit::RemoteAudioSessionProxyManager::updatePreferredBufferSizeForProcess(WebKit::RemoteAudioSessionProxyManager *this)
 {
   v2 = this + 48;
   WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(&v21, this + 6);
@@ -7977,13 +7989,13 @@ atomic_uchar **WebKit::RemoteAudioSessionProxyManager::updatePreferredBufferSize
     while (v22 != v8);
     if (v9 != -1)
     {
-      WebKit::RemoteAudioSessionProxyManager::protectedSession(result, &v21);
+      WebKit::RemoteAudioSessionProxyManager::protectedSession(&v21, result);
       result = (*(*v21 + 112))(v21, v9);
       v15 = v21;
       v21 = 0;
       if (v15)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v15 + 8), v14);
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v15 + 1, v14);
       }
     }
   }
@@ -8000,13 +8012,13 @@ uint64_t WebKit::RemoteAudioSessionProxy::tryToSetActive(uint64_t a1, int a2, ui
     v7 = *(a1 + 32);
     if (v7)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(v7, *(a1 + 24), v70);
-      v48 = v70[0];
-      if (v70[0])
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(v7, *(a1 + 24), v74);
+      v50 = v74[0];
+      if (v74[0])
       {
-        if ((*(v70[0] + 349) & 8) != 0)
+        if ((*(v74[0] + 349) & 8) != 0)
         {
-          v70[0] = 0;
+          v74[0] = 0;
         }
 
         else
@@ -8015,10 +8027,10 @@ uint64_t WebKit::RemoteAudioSessionProxy::tryToSetActive(uint64_t a1, int a2, ui
             WebKit::GPUProcess::GPUProcess(&WebKit::GPUProcess::singleton(void)::gpuProcess);
           }
 
-          v49 = *(qword_1EB01DB88 + 344);
-          if (v49)
+          v51 = *(qword_1EB01DB88 + 344);
+          if (v51)
           {
-            pid = xpc_connection_get_pid(v49);
+            pid = xpc_connection_get_pid(v51);
           }
 
           else
@@ -8026,48 +8038,48 @@ uint64_t WebKit::RemoteAudioSessionProxy::tryToSetActive(uint64_t a1, int a2, ui
             pid = 0;
           }
 
-          v51 = v70[0];
-          v52 = *(v70[0] + 26);
-          if (v52 && *(v52 - 3))
+          v53 = v74[0];
+          v54 = *(v74[0] + 26);
+          if (v54 && *(v54 - 3))
           {
-            v53 = *(v52 - 1);
-            if (v53)
+            v55 = *(v54 - 1);
+            if (v55)
             {
-              v54 = &v52[5 * v53];
-              v55 = 40 * v53;
-              while ((*v52 + 1) <= 1)
+              v56 = &v54[5 * v55];
+              v57 = 40 * v55;
+              while ((*v54 + 1) <= 1)
               {
-                v52 += 5;
-                v55 -= 40;
-                if (!v55)
+                v54 += 5;
+                v57 -= 40;
+                if (!v57)
                 {
-                  v52 = v54;
+                  v54 = v56;
                   break;
                 }
               }
             }
 
-            v51 = WebKit::GPUConnectionToWebProcess::presentingApplicationPID(v70[0], *v52);
-            pid = v51;
+            v53 = WebKit::GPUConnectionToWebProcess::presentingApplicationPID(v74[0], *v54);
+            pid = v53;
           }
 
-          v56 = WebCore::MediaSessionHelper::sharedHelper(v51);
-          (*(*v56 + 24))(v56, pid);
-          v48 = v70[0];
-          v70[0] = 0;
-          if (!v48)
+          v58 = WebCore::MediaSessionHelper::sharedHelper(v53);
+          (*(*v58 + 24))(v58, pid);
+          v50 = v74[0];
+          v74[0] = 0;
+          if (!v50)
           {
             goto LABEL_3;
           }
         }
 
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v48 + 2);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v50 + 2, v49);
       }
     }
 
 LABEL_3:
     v8 = (v6 + 48);
-    WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v70, v6 + 6);
+    WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v74, v6 + 6);
     v9 = *(v6 + 6);
     if (v9)
     {
@@ -8081,14 +8093,14 @@ LABEL_3:
       v10 = 0;
     }
 
-    v65 = (v6 + 48);
-    v66 = v11;
-    v67 = v11;
-    v68 = v11;
-    v69 = v9 + 8 * v10;
-    v15 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v65);
-    v16 = v70[1];
-    v17 = v66;
+    v69 = (v6 + 48);
+    v70 = v11;
+    v71 = v11;
+    v72 = v11;
+    v73 = v9 + 8 * v10;
+    v15 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v69);
+    v16 = v74[1];
+    v17 = v70;
     while (v16 != v17)
     {
       v18 = *(*v16 + 8);
@@ -8108,48 +8120,48 @@ LABEL_3:
 
         if (*(a1 + 40) != 1)
         {
-          WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v70, v6 + 6);
-          v45 = *v8;
+          WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v74, v6 + 6);
+          v46 = *v8;
           if (*v8)
           {
-            v46 = *(v45 - 4);
-            v47 = (v45 + 8 * v46);
+            v47 = *(v46 - 4);
+            v48 = (v46 + 8 * v47);
           }
 
           else
           {
+            v48 = 0;
             v47 = 0;
-            v46 = 0;
           }
 
-          v65 = (v6 + 48);
-          v66 = v47;
-          v67 = v47;
-          v68 = v47;
-          v69 = v45 + 8 * v46;
-          v18 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v65);
-          v57 = v70[1];
-          v58 = v66;
-          while (v57 != v58)
+          v69 = (v6 + 48);
+          v70 = v48;
+          v71 = v48;
+          v72 = v48;
+          v73 = v46 + 8 * v47;
+          v18 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v69);
+          v59 = v74[1];
+          v60 = v70;
+          while (v59 != v60)
           {
-            v59 = *(*v57 + 8);
-            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(v59 + 32), *(v59 + 24), &v73);
-            v60 = v73;
-            v61 = v73[11];
-            v73 = 0;
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v60 + 2);
-            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(a1 + 32), *(a1 + 24), &v73);
-            v62 = v73;
-            v63 = v73[11];
-            v73 = 0;
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v62 + 2);
-            if (v61 != v63 && *(v59 + 64) == 1 && *(v59 + 40) != 1)
+            v61 = *(*v59 + 8);
+            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(v61 + 32), *(v61 + 24), &v77);
+            v62 = v77;
+            v63 = v77[11];
+            v77 = 0;
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v62 + 2, v64);
+            WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(a1 + 32), *(a1 + 24), &v77);
+            v65 = v77;
+            v66 = v77[11];
+            v77 = 0;
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref(v65 + 2, v67);
+            if (v63 != v66 && *(v61 + 64) == 1 && *(v61 + 40) != 1)
             {
-              WebKit::RemoteAudioSessionProxy::beginInterruption(v59);
+              WebKit::RemoteAudioSessionProxy::beginInterruption(v61);
             }
 
-            v18 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v70);
-            v57 = v70[1];
+            v18 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v74);
+            v59 = v74[1];
           }
         }
 
@@ -8166,15 +8178,15 @@ LABEL_3:
         (*(*v18 + 24))(v18);
       }
 
-      v15 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v70);
-      v16 = v70[1];
+      v15 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v74);
+      v16 = v74[1];
     }
 
-    WebKit::RemoteAudioSessionProxyManager::protectedSession(v15, v70);
-    v18 = WebCore::AudioSession::tryToSetActive(v70[0]);
+    WebKit::RemoteAudioSessionProxyManager::protectedSession(v74, v15);
+    v18 = WebCore::AudioSession::tryToSetActive(v74[0]);
     v21 = v18;
-    v22 = v70[0];
-    v70[0] = 0;
+    v22 = v74[0];
+    v74[0] = 0;
     if (v22)
     {
       v18 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v22 + 1, v20);
@@ -8190,7 +8202,7 @@ LABEL_3:
     goto LABEL_38;
   }
 
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v70, v6 + 6);
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(v74, v6 + 6);
   v12 = *(v6 + 6);
   if (v12)
   {
@@ -8204,14 +8216,14 @@ LABEL_3:
     v13 = 0;
   }
 
-  v65 = (v6 + 48);
-  v66 = v14;
-  v67 = v14;
-  v68 = v14;
-  v69 = v12 + 8 * v13;
-  v25 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v65);
-  v26 = v70[1];
-  v27 = v66;
+  v69 = (v6 + 48);
+  v70 = v14;
+  v71 = v14;
+  v72 = v14;
+  v73 = v12 + 8 * v13;
+  v25 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(&v69);
+  v26 = v74[1];
+  v27 = v70;
   while (v26 != v27)
   {
     v18 = *(*v26 + 8);
@@ -8242,15 +8254,15 @@ LABEL_3:
       (*(*v18 + 24))(v18);
     }
 
-    v25 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v70);
-    v26 = v70[1];
+    v25 = WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::operator++(v74);
+    v26 = v74[1];
   }
 
-  WebKit::RemoteAudioSessionProxyManager::protectedSession(v25, v70);
-  v18 = WebCore::AudioSession::tryToSetActive(v70[0]);
+  WebKit::RemoteAudioSessionProxyManager::protectedSession(v74, v25);
+  v18 = WebCore::AudioSession::tryToSetActive(v74[0]);
   v24 = v18;
-  v30 = v70[0];
-  v70[0] = 0;
+  v30 = v74[0];
+  v74[0] = 0;
   if (v30)
   {
     v18 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v30 + 1, v29);
@@ -8283,78 +8295,78 @@ LABEL_41:
     WebKit::RemoteAudioSessionProxy::configurationChanged(a1);
   }
 
-  v65 = 0;
-  v66 = 0;
-  v74 = 0;
-  v33 = WTF::fastMalloc(0x18);
-  *v33 = &unk_1F10FC158;
-  *(v33 + 1) = &v74;
-  *(v33 + 2) = &v65;
-  v70[0] = v33;
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(v6 + 12, v70);
-  (*(*v33 + 8))(v33);
-  v34 = *(*(v6 + 5) + 8);
-  if (v34)
+  v69 = 0;
+  v70 = 0;
+  v78 = 0;
+  v34 = WTF::fastMalloc(v33, 0x18);
+  *v34 = &unk_1F10FC158;
+  v34[1] = &v78;
+  v34[2] = &v69;
+  v74[0] = v34;
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(v6 + 12, v74);
+  (*(*v34 + 8))(v34);
+  v35 = *(*(v6 + 5) + 8);
+  if (v35)
   {
-    WebKit::AuxiliaryProcess::protectedParentProcessConnection(v34, &v73);
-    IPC::Connection::getAuditToken(v73, v70);
-    v36 = v73;
-    v73 = 0;
-    if (v36)
+    WebKit::AuxiliaryProcess::protectedParentProcessConnection(&v77, v35);
+    IPC::Connection::getAuditToken(v74, v77);
+    v37 = v77;
+    v77 = 0;
+    if (v37)
     {
-      v36 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v36);
+      v37 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v37, v36);
     }
 
-    if (v72 == 1 && v74 == 1)
+    if (v76 == 1 && v78 == 1)
     {
-      v37 = HIDWORD(v66);
-      if (HIDWORD(v66) == v66)
+      v38 = HIDWORD(v70);
+      if (HIDWORD(v70) == v70)
       {
-        v36 = WTF::Vector<audit_token_t,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v65, HIDWORD(v66) + 1, v70);
-        v37 = HIDWORD(v66);
-        v38 = (v65 + 32 * HIDWORD(v66));
-        v39 = *(v36 + 16);
-        *v38 = *v36;
-        v38[1] = v39;
+        v37 = WTF::Vector<audit_token_t,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v69, HIDWORD(v70) + 1, v74);
+        v38 = HIDWORD(v70);
+        v39 = (v69 + 32 * HIDWORD(v70));
+        v40 = *(v37 + 16);
+        *v39 = *v37;
+        v39[1] = v40;
       }
 
       else
       {
-        v40 = (v65 + 32 * HIDWORD(v66));
-        v41 = v71;
-        *v40 = *v70;
-        v40[1] = v41;
+        v41 = (v69 + 32 * HIDWORD(v70));
+        v42 = v75;
+        *v41 = *v74;
+        v41[1] = v42;
       }
 
-      HIDWORD(v66) = v37 + 1;
+      HIDWORD(v70) = v38 + 1;
     }
 
-    if (HIDWORD(v66))
+    if (HIDWORD(v70))
     {
-      WebKit::RemoteAudioSessionProxyManager::protectedSession(v36, v70);
-      (*(*v70[0] + 256))(v70[0], &v65);
-      v42 = v70[0];
-      v70[0] = 0;
-      if (v42)
+      WebKit::RemoteAudioSessionProxyManager::protectedSession(v74, v37);
+      (*(*v74[0] + 256))(v74[0], &v69);
+      v43 = v74[0];
+      v74[0] = 0;
+      if (v43)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v42 + 1, v35);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v43 + 1, v36);
       }
     }
 
-    v43 = v65;
-    if (v65)
+    v44 = v69;
+    if (v69)
     {
-      v65 = 0;
-      LODWORD(v66) = 0;
-      WTF::fastFree(v43, v35);
+      v69 = 0;
+      LODWORD(v70) = 0;
+      WTF::fastFree(v44, v36);
     }
 
     result = WebKit::RemoteAudioSessionProxyManager::updateSpatialExperience(v6);
     if (*(v6 + 4) == 1)
     {
-      v64 = *(*v6 + 8);
+      v68 = *(*v6 + 8);
 
-      return v64(v6);
+      return v68(v6);
     }
 
     else
@@ -8374,23 +8386,23 @@ LABEL_41:
 
 WebKit::RemoteAudioSessionProxyManager *WebKit::RemoteAudioSessionProxy::audioSessionManager(WebKit::RemoteAudioSessionProxy *this)
 {
-  WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(this + 4), *(this + 3), &v5);
-  v2 = WebKit::GPUProcess::audioSessionManager(*(v5 + 80), v1);
-  v3 = v5;
-  v5 = 0;
-  if (v3)
+  WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(*(this + 4), *(this + 3), &v6);
+  v3 = WebKit::GPUProcess::audioSessionManager(*(v6 + 80), v1);
+  v4 = v6;
+  v6 = 0;
+  if (v4)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v3 + 16));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v4 + 16), v2);
   }
 
-  return v2;
+  return v3;
 }
 
-WTF::StringImpl *WebKit::RemoteAudioSessionProxy::configurationChanged(WebKit::RemoteAudioSessionProxy *this)
+WTF::StringImpl *WebKit::RemoteAudioSessionProxy::configurationChanged(atomic_uint **this)
 {
-  WebKit::RemoteAudioSessionProxy::protectedConnection(&v13, *(this + 3), *(this + 4));
+  WebKit::RemoteAudioSessionProxy::protectedConnection(&v13, this[3], this[4]);
   v2 = v13;
-  WebKit::RemoteAudioSessionProxy::configuration(this, v11);
+  WebKit::RemoteAudioSessionProxy::configuration(v11, this);
   v4 = IPC::Encoder::operator new(0x238, v3);
   *v4 = 950;
   *(v4 + 68) = 0;
@@ -8434,7 +8446,7 @@ WTF::StringImpl *WebKit::RemoteAudioSessionProxy::configurationChanged(WebKit::R
     return result;
   }
 
-  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2);
+  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v2, v5);
 }
 
 WTF::StringImpl *WebKit::RemoteAudioSessionProxyManager::updateSpatialExperience(WebKit::RemoteAudioSessionProxyManager *this)
@@ -8562,18 +8574,18 @@ LABEL_28:
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::setIsPlayingToBluetoothOverride(WebKit::RemoteAudioSessionProxy *a1, unsigned __int16 *a2)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::setIsPlayingToBluetoothOverride(WebKit::RemoteAudioSessionProxy *a1, unsigned __int16 *a2)
 {
   *(a1 + 66) = 1;
   v3 = WebKit::RemoteAudioSessionProxy::audioSessionManager(a1);
   ++*(v3 + 4);
-  WebKit::RemoteAudioSessionProxyManager::protectedSession(v3, &v7);
+  WebKit::RemoteAudioSessionProxyManager::protectedSession(&v7, v3);
   result = (*(*v7 + 152))(v7, *a2);
   v6 = v7;
   v7 = 0;
   if (v6)
   {
-    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v6 + 8), v5);
+    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v6 + 1, v5);
   }
 
   if (*(v3 + 4) == 1)
@@ -8585,60 +8597,60 @@ atomic_uchar **WebKit::RemoteAudioSessionProxy::setIsPlayingToBluetoothOverride(
   return result;
 }
 
-uint64_t WebKit::RemoteAudioSessionProxyManager::protectedSession@<X0>(WebKit::RemoteAudioSessionProxyManager *this@<X0>, uint64_t *a2@<X8>)
+uint64_t *WebKit::RemoteAudioSessionProxyManager::protectedSession@<X0>(uint64_t **__return_ptr a1@<X8>, WebKit::RemoteAudioSessionProxyManager *this@<X0>)
 {
   result = WebCore::AudioSession::sharedSession(this);
   v4 = result;
   while (1)
   {
-    v5 = *(result + 8);
+    v5 = result[1];
     if ((v5 & 1) == 0)
     {
       break;
     }
 
-    v6 = *(result + 8);
-    atomic_compare_exchange_strong_explicit((result + 8), &v6, v5 + 2, memory_order_relaxed, memory_order_relaxed);
+    v6 = result[1];
+    atomic_compare_exchange_strong_explicit(result + 1, &v6, v5 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v6 == v5)
     {
       goto LABEL_6;
     }
   }
 
-  result = WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(result + 8));
+  result = WTF::ThreadSafeWeakPtrControlBlock::strongRef(result[1]);
 LABEL_6:
-  *a2 = v4;
+  *a1 = v4;
   return result;
 }
 
 atomic_uchar *WebKit::RemoteAudioSessionProxy::protectedConnection(WebKit::RemoteAudioSessionProxy *this, uint64_t a2, atomic_uchar *a3)
 {
-  result = WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(a3, a2, &v9);
-  v5 = *(v9 + 56);
+  result = WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::GPUConnectionToWebProcess>(a3, a2, &v10);
+  v6 = *(v10 + 56);
   while (1)
   {
-    v6 = *v5;
-    if ((*v5 & 1) == 0)
+    v7 = *v6;
+    if ((*v6 & 1) == 0)
     {
       break;
     }
 
-    v7 = *v5;
-    atomic_compare_exchange_strong_explicit(v5, &v7, v6 + 2, memory_order_relaxed, memory_order_relaxed);
-    if (v7 == v6)
+    v8 = *v6;
+    atomic_compare_exchange_strong_explicit(v6, &v8, v7 + 2, memory_order_relaxed, memory_order_relaxed);
+    if (v8 == v7)
     {
       goto LABEL_6;
     }
   }
 
-  result = WTF::ThreadSafeWeakPtrControlBlock::strongRef(*v5);
+  result = WTF::ThreadSafeWeakPtrControlBlock::strongRef(*v6);
 LABEL_6:
-  *this = v5;
-  v8 = v9;
-  v9 = 0;
-  if (v8)
+  *this = v6;
+  v9 = v10;
+  v10 = 0;
+  if (v9)
   {
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v8 + 16));
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v9 + 16), v5);
   }
 
   return result;
@@ -8677,10 +8689,10 @@ IPC::Encoder *WebKit::RemoteAudioSessionProxy::beginInterruption(WebKit::RemoteA
     return result;
   }
 
-  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v1);
+  return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v1, v4);
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::beginInterruptionRemote(WebKit::RemoteAudioSessionProxy *this)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::beginInterruptionRemote(WebKit::RemoteAudioSessionProxy *this)
 {
   v1 = WebKit::RemoteAudioSessionProxy::audioSessionManager(this);
   ++*(v1 + 4);
@@ -8700,10 +8712,10 @@ atomic_uchar **WebKit::RemoteAudioSessionProxy::beginInterruptionRemote(WebKit::
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxyManager::beginInterruptionRemote(WebKit::RemoteAudioSessionProxyManager *this)
+atomic_ullong *WebKit::RemoteAudioSessionProxyManager::beginInterruptionRemote(WebKit::RemoteAudioSessionProxyManager *this)
 {
   v2 = WebCore::AudioSession::sharedSession(this);
-  v3 = (v2 + 1);
+  v3 = v2 + 1;
   while (1)
   {
     v4 = *v3;
@@ -8722,14 +8734,14 @@ atomic_uchar **WebKit::RemoteAudioSessionProxyManager::beginInterruptionRemote(W
 
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(*v3);
 LABEL_6:
-  (*(*v2 + 28))(v2, this);
-  (*(*v2 + 22))(v2);
-  (*(*v2 + 27))(v2, this);
+  (*(*v2 + 224))(v2, this);
+  (*(*v2 + 176))(v2);
+  (*(*v2 + 216))(v2, this);
 
   return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v2 + 1, v6);
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::endInterruptionRemote(WebKit::RemoteAudioSessionProxy *a1, uint64_t a2)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::endInterruptionRemote(WebKit::RemoteAudioSessionProxy *a1, uint64_t a2)
 {
   v3 = WebKit::RemoteAudioSessionProxy::audioSessionManager(a1);
   ++*(v3 + 4);
@@ -8749,10 +8761,10 @@ atomic_uchar **WebKit::RemoteAudioSessionProxy::endInterruptionRemote(WebKit::Re
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxyManager::endInterruptionRemote(WebCore::AudioSession *a1, uint64_t a2)
+atomic_ullong *WebKit::RemoteAudioSessionProxyManager::endInterruptionRemote(WebCore::AudioSession *a1, uint64_t a2)
 {
   v4 = WebCore::AudioSession::sharedSession(a1);
-  v5 = (v4 + 1);
+  v5 = v4 + 1;
   while (1)
   {
     v6 = *v5;
@@ -8771,9 +8783,9 @@ atomic_uchar **WebKit::RemoteAudioSessionProxyManager::endInterruptionRemote(Web
 
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(*v5);
 LABEL_6:
-  (*(*v4 + 28))(v4, a1);
-  (*(*v4 + 23))(v4, a2);
-  (*(*v4 + 27))(v4, a1);
+  (*(*v4 + 224))(v4, a1);
+  (*(*v4 + 184))(v4, a2);
+  (*(*v4 + 216))(v4, a1);
 
   return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v4 + 1, v8);
 }
@@ -8820,29 +8832,29 @@ WTF::StringImpl *WebKit::RemoteAudioSessionProxy::setSoundStageSize(WebKit::Remo
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::triggerBeginInterruptionForTesting(WebKit::RemoteAudioSessionProxy *this)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::triggerBeginInterruptionForTesting(WebKit::RemoteAudioSessionProxy *this)
 {
-  WebKit::RemoteAudioSessionProxyManager::protectedSession(this, &v4);
+  WebKit::RemoteAudioSessionProxyManager::protectedSession(&v4, this);
   result = (*(*v4 + 192))(v4);
   v3 = v4;
   v4 = 0;
   if (v3)
   {
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v3 + 8), v2);
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v3 + 1, v2);
   }
 
   return result;
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxy::triggerEndInterruptionForTesting(WebKit::RemoteAudioSessionProxy *this)
+atomic_ullong *WebKit::RemoteAudioSessionProxy::triggerEndInterruptionForTesting(WebKit::RemoteAudioSessionProxy *this)
 {
-  WebKit::RemoteAudioSessionProxyManager::protectedSession(this, &v4);
+  WebKit::RemoteAudioSessionProxyManager::protectedSession(&v4, this);
   result = (*(*v4 + 200))(v4);
   v3 = v4;
   v4 = 0;
   if (v3)
   {
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v3 + 8), v2);
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v3 + 1, v2);
   }
 
   return result;
@@ -8988,13 +9000,13 @@ void non-virtual thunk toWebKit::RemoteAudioSessionProxyManager::~RemoteAudioSes
   bmalloc::api::tzoneFree(v1, v2);
 }
 
-atomic_uchar **WebKit::RemoteAudioSessionProxyManager::addProxy(WebKit::RemoteAudioSessionProxyManager *a1, unsigned int *a2, uint64_t a3)
+atomic_ullong *WebKit::RemoteAudioSessionProxyManager::addProxy(WebKit::RemoteAudioSessionProxyManager *a1, unsigned int *a2, uint64_t a3)
 {
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::RemoteAudioSessionProxy>(a1 + 48, a2, v9);
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::RemoteAudioSessionProxy>(a1 + 6, a2, v9);
   result = WebKit::RemoteAudioSessionProxyManager::updateCategory(a1);
   if (*(a3 + 32) == 1)
   {
-    result = WebKit::RemoteAudioSessionProxyManager::protectedSession(result, &v10);
+    result = WebKit::RemoteAudioSessionProxyManager::protectedSession(&v10, result);
     if (*(a3 + 32))
     {
       v6 = *(a3 + 16);
@@ -9005,7 +9017,7 @@ atomic_uchar **WebKit::RemoteAudioSessionProxyManager::addProxy(WebKit::RemoteAu
       v10 = 0;
       if (v8)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref((v8 + 8), v7);
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::AudioSession,(WTF::DestructionThread)0>::deref(v8 + 1, v7);
       }
     }
 
@@ -9018,11 +9030,11 @@ atomic_uchar **WebKit::RemoteAudioSessionProxyManager::addProxy(WebKit::RemoteAu
   return result;
 }
 
-unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::RemoteAudioSessionProxy>@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
+unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::RemoteAudioSessionProxy>@<X0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(a1 + 12);
-  v7 = *(a1 + 8) + 1;
-  *(a1 + 8) = v7;
+  v6 = *(a1 + 3);
+  v7 = *(a1 + 2) + 1;
+  *(a1 + 2) = v7;
   if (v7 > v6)
   {
     v8 = *a1;
@@ -9037,7 +9049,7 @@ LABEL_15:
         {
           WTF::HashTable<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>,WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::HashTraits<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::HashTraits<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::FastMalloc>::shrinkToBestSize(a1);
           v8 = *a1;
-          *(a1 + 8) = 0;
+          *(a1 + 2) = 0;
           if (!v8)
           {
             goto LABEL_22;
@@ -9046,7 +9058,7 @@ LABEL_15:
 
         else
         {
-          *(a1 + 8) = 0;
+          *(a1 + 2) = 0;
         }
 
         LODWORD(v8) = *(v8 - 12);
@@ -9059,7 +9071,7 @@ LABEL_15:
 LABEL_22:
         v17 = 2 * v8;
 LABEL_24:
-        *(a1 + 12) = v17;
+        *(a1 + 3) = v17;
         goto LABEL_25;
       }
 
@@ -9102,7 +9114,7 @@ LABEL_24:
     }
 
     LODWORD(v8) = 0;
-    *(a1 + 8) = 0;
+    *(a1 + 2) = 0;
     goto LABEL_22;
   }
 
@@ -9126,7 +9138,7 @@ LABEL_25:
   return result;
 }
 
-void *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(void *a1, void **a2)
+void *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::begin(uint64_t **a1, uint64_t *a2)
 {
   v4 = WTF::HashTable<WTF::String,WTF::String,WTF::IdentityExtractor,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::begin(a2);
   *a1 = a2;
@@ -9135,8 +9147,8 @@ void *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(
   v6 = *a2;
   if (*a2)
   {
-    v7 = *(v6 - 1);
-    v8 = &v6[v7];
+    v7 = *(v6 - 4);
+    v8 = (v6 + 8 * v7);
   }
 
   else
@@ -9146,12 +9158,12 @@ void *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(
   }
 
   a1[3] = v8;
-  a1[4] = &v6[v7];
+  a1[4] = (v6 + 8 * v7);
 
   return WTF::WeakHashSet<WebKit::RemoteLayerBackingStore,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::WeakHashSetConstIterator::skipEmptyBuckets(a1);
 }
 
-unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(unsigned int *result, uint64_t a2)
+unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(unsigned int *result, unint64_t a2)
 {
   v3 = result;
   if (*result && (v4 = *(*result - 12), v4))
@@ -9162,7 +9174,7 @@ unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakP
       return result;
     }
 
-    v5 = WTF::fastMalloc((8 * v4));
+    v5 = WTF::fastMalloc(v4, (8 * v4));
   }
 
   else
@@ -9175,7 +9187,7 @@ unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakP
   v8 = v6;
   if (*v3)
   {
-    v9 = *v3 + 8 * *(*v3 - 4);
+    v9 = (*v3 + 8 * *(*v3 - 4));
   }
 
   else
@@ -9206,7 +9218,7 @@ unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakP
         v14 = 0;
       }
 
-      *(v5 + v10) = v14;
+      v5[v10] = v14;
       do
       {
         v7 += 2;
@@ -9257,10 +9269,10 @@ unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakP
           }
         }
 
-        v15 = (v15 + 8);
+        ++v15;
       }
 
-      while (v15 != (v5 + 8 * v10));
+      while (v15 != &v5[v10]);
       v26 = 8 * v12;
       v27 = v5;
       do
@@ -9290,47 +9302,48 @@ unsigned int *WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakP
   return result;
 }
 
-uint64_t WebKit::RemoteAudioSessionProxyManager::beginAudioSessionInterruption(WebKit::RemoteAudioSessionProxyManager *this)
+uint64_t WebKit::RemoteAudioSessionProxyManager::beginAudioSessionInterruption@<X0>(WebKit::RemoteAudioSessionProxyManager *this@<X0>, uint64_t *a3@<X8>)
 {
-  v2 = WTF::fastMalloc(0x10);
-  *v2 = &unk_1F10FC180;
-  v5 = v2;
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 12, &v5);
-  v3 = *(*v2 + 8);
-
-  return v3(v2);
-}
-
-uint64_t WebKit::RemoteAudioSessionProxyManager::endAudioSessionInterruption(uint64_t a1, char a2)
-{
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F10FC1A8;
-  v4[8] = a2;
+  v4 = WTF::fastMalloc(a3, 0x10);
+  *v4 = &unk_1F10FC180;
   v7 = v4;
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach((a1 + 48), &v7);
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 12, &v7);
   v5 = *(*v4 + 8);
 
   return v5(v4);
 }
 
-uint64_t WebKit::RemoteAudioSessionProxyManager::configurationDidChange(WebKit::RemoteAudioSessionProxyManager *this, const WebCore::AudioSession *a2)
+uint64_t WebKit::RemoteAudioSessionProxyManager::endAudioSessionInterruption@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::fastMalloc(0x10);
-  *v3 = &unk_1F10FC1D0;
-  v6 = v3;
-  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 12, &v6);
-  v4 = *(*v3 + 8);
+  v3 = a2;
+  v5 = WTF::fastMalloc(a3, 0x10);
+  *v5 = &unk_1F10FC1A8;
+  *(v5 + 8) = v3;
+  v8 = v5;
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach((a1 + 48), &v8);
+  v6 = *(*v5 + 8);
 
-  return v4(v3);
+  return v6(v5);
 }
 
-uint64_t WebKit::RemoteAudioTrackProxy::RemoteAudioTrackProxy(uint64_t a1, uint64_t a2, atomic_ullong *a3, uint64_t a4)
+uint64_t WebKit::RemoteAudioSessionProxyManager::configurationDidChange@<X0>(WebKit::RemoteAudioSessionProxyManager *this@<X0>, uint64_t *a3@<X8>)
+{
+  v4 = WTF::fastMalloc(a3, 0x10);
+  *v4 = &unk_1F10FC1D0;
+  v7 = v4;
+  WTF::WeakHashSet<WebKit::RemoteAudioSessionProxy,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 12, &v7);
+  v5 = *(*v4 + 8);
+
+  return v5(v4);
+}
+
+uint64_t WebKit::RemoteAudioTrackProxy::RemoteAudioTrackProxy(uint64_t a1, unint64_t a2, atomic_ullong *a3, uint64_t a4)
 {
   *(a1 + 16) = 1;
   *a1 = &unk_1F10FBF40;
   *(a1 + 8) = 0;
   *(a1 + 24) = a2;
-  v8 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16));
+  v8 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock((a2 + 16), 1);
   *(a1 + 32) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v8);
   while (1)
   {
@@ -9355,59 +9368,59 @@ LABEL_6:
   *(a1 + 56) = a4;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  v11 = WTF::fastMalloc(0x10);
-  *v11 = &unk_1F10FC1F8;
-  v25 = v11;
+  v12 = WTF::fastMalloc(v11, 0x10);
+  *v12 = &unk_1F10FC1F8;
+  v26 = v12;
   *(a1 + 72) = WebCore::TrackPrivateBase::addClient();
-  v12 = v25;
-  v25 = 0;
-  if (v12)
+  v13 = v26;
+  v26 = 0;
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
-  v13 = *(a2 + 56);
-  WebKit::RemoteAudioTrackProxy::configuration(&v25, a1);
-  v14 = *(a1 + 56);
-  v16 = IPC::Encoder::operator new(0x238, v15);
-  *v16 = 331;
-  *(v16 + 2) = 0;
-  *(v16 + 3) = 0;
-  *(v16 + 1) = v14;
-  *(v16 + 68) = 0;
-  *(v16 + 70) = 0;
-  *(v16 + 69) = 0;
-  IPC::Encoder::encodeHeader(v16);
-  v29 = v16;
-  IPC::ArgumentCoder<WebKit::AudioTrackPrivateRemoteConfiguration,void>::encode(v16, &v25);
-  IPC::Connection::sendMessageImpl(v13, &v29, 0, 0);
-  v18 = v29;
+  v14 = *(a2 + 56);
+  WebKit::RemoteAudioTrackProxy::configuration(&v26, a1);
+  v15 = *(a1 + 56);
+  v17 = IPC::Encoder::operator new(0x238, v16);
+  *v17 = 331;
+  *(v17 + 2) = 0;
+  *(v17 + 3) = 0;
+  *(v17 + 1) = v15;
+  *(v17 + 68) = 0;
+  *(v17 + 70) = 0;
+  *(v17 + 69) = 0;
+  IPC::Encoder::encodeHeader(v17);
+  v30 = v17;
+  IPC::ArgumentCoder<WebKit::AudioTrackPrivateRemoteConfiguration,void>::encode(v17, &v26);
+  IPC::Connection::sendMessageImpl(v14, &v30, 0, 0);
+  v19 = v30;
+  v30 = 0;
+  if (v19)
+  {
+    IPC::Encoder::~Encoder(v19, v18);
+    bmalloc::api::tzoneFree(v24, v25);
+  }
+
+  v20 = v29;
   v29 = 0;
-  if (v18)
-  {
-    IPC::Encoder::~Encoder(v18, v17);
-    bmalloc::api::tzoneFree(v23, v24);
-  }
-
-  v19 = v28;
-  v28 = 0;
-  if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v19, v17);
-  }
-
-  v20 = v27;
-  v27 = 0;
   if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v20, v17);
+    WTF::StringImpl::destroy(v20, v18);
   }
 
-  v21 = v26;
-  v26 = 0;
+  v21 = v28;
+  v28 = 0;
   if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v21, v17);
+    WTF::StringImpl::destroy(v21, v18);
+  }
+
+  v22 = v27;
+  v27 = 0;
+  if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v22, v18);
   }
 
   return a1;
@@ -9554,7 +9567,7 @@ atomic_uchar *WebKit::RemoteAudioTrackProxy::configurationChanged(WebKit::Remote
       v20 = 0;
       if (v13)
       {
-        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v13 + 16));
+        return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::deref((v13 + 16), v9);
       }
     }
   }
@@ -9580,7 +9593,7 @@ WebKit::RemoteCDMFactoryProxy *WebKit::RemoteCDMFactoryProxy::RemoteCDMFactoryPr
   *(this + 1) = 0;
   *(this + 3) = &unk_1F10FBFE8;
   *(this + 4) = a2;
-  v3 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock(a2 + 2);
+  v3 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUConnectionToWebProcess,(WTF::DestructionThread)1>::controlBlock(a2 + 2, this + 3);
   *(this + 5) = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v3);
   *(this + 3) = 0u;
   *(this + 4) = 0u;
@@ -9601,7 +9614,7 @@ void WebKit::RemoteCDMFactoryProxy::~RemoteCDMFactoryProxy(WebKit::RemoteCDMFact
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   v5 = *(this + 8);
@@ -9705,7 +9718,7 @@ uint64_t WebKit::RemoteCDMFactoryProxy::createCDM(uint64_t a1, WebKit *this, uin
   v10 = *(a1 + 48);
   if (!v10)
   {
-    WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand((a1 + 48));
+    WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand((a1 + 48), 0);
     v10 = *(a1 + 48);
   }
 
@@ -9807,7 +9820,7 @@ LABEL_15:
   if (3 * v31 <= 4 * v30)
   {
 LABEL_28:
-    WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand((a1 + 48));
+    WTF::HashTable<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>,WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::RefPtr<WebKit::RemoteCDMProxy,WTF::RawPtrTraits<WebKit::RemoteCDMProxy>,WTF::DefaultRefDerefTraits<WebKit::RemoteCDMProxy>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebKit::RemoteCDMIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::expand((a1 + 48), v16);
   }
 
 LABEL_29:

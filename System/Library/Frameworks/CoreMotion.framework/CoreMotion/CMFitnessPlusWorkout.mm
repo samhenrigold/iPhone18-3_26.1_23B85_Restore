@@ -33,10 +33,10 @@
 
 - (CMFitnessPlusWorkout)initWithSessionId:(id)id type:(int64_t)type catalogWorkoutId:(id)workoutId mediaType:(int64_t)mediaType error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = CMFitnessPlusWorkout;
-  v12 = [(CMWorkout *)&v18 initWithSessionId:id type:type];
+  v19[1] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = CMFitnessPlusWorkout;
+  v12 = [(CMWorkout *)&v17 initWithSessionId:id type:type];
   if (v12)
   {
     if (workoutId && objc_msgSend_length(workoutId, v10, v11) <= 0x3F)
@@ -50,9 +50,9 @@
       if (error)
       {
         v13 = MEMORY[0x1E696ABC0];
-        v19 = *MEMORY[0x1E696A578];
-        v20[0] = @"catalogWorkoutId string too long";
-        v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, v20, &v19, 1);
+        v18 = *MEMORY[0x1E696A578];
+        v19[0] = @"catalogWorkoutId string too long";
+        v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, v19, &v18, 1);
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v13, v15, @"CMErrorDomain", 107, v14);
       }
     }
@@ -60,7 +60,6 @@
     v12->fMediaType = mediaType;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

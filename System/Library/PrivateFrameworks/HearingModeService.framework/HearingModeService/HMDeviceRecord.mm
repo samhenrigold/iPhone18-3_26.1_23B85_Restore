@@ -1,6 +1,7 @@
 @interface HMDeviceRecord
 + (char)getHMMultiStateFromPMEState:(unsigned __int8)state;
 + (char)multiStateForAAFeatureCapability:(unsigned __int8)capability;
+- (BOOL)setOcclusionResult:(int)result forFeatureID:(int)d;
 - (BOOL)updateWithAADevice:(id)device;
 - (BOOL)updateWithCloudRecordInfo:(id)info;
 - (BOOL)updateWithHearingAidConfigData:(id)data;
@@ -9,8 +10,10 @@
 - (HMDeviceRecord)init;
 - (HMDeviceRecord)initWithCoder:(id)coder;
 - (id)descriptionWithLevel:(int)level;
+- (int)getOcclusionResultForFeatureID:(int)d;
 - (void)_deriveMediaAssistStateIfNeeded;
 - (void)encodeWithCoder:(id)coder;
+- (void)getSafetyInformation:(unsigned int)information;
 - (void)invokePendingOcclusionCompletionsWithError:(id)error;
 @end
 
@@ -568,371 +571,881 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v68 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v169 = 0;
+  v5 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v169, "%@", v5);
+  v6 = v169;
 
-  v6 = self->_amplification;
-  if (v6)
+  v7 = self->_amplification;
+  v8 = v7;
+  if (v7)
   {
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v168 = v6;
+    NSAppendPrintF_safe(&v168, ", Amp %@", v7);
+    v9 = v168;
 
-    v5 = v7;
+    v6 = v9;
   }
 
-  v8 = self->_audiogramEnrolledTimestamp;
-  if (v8)
-  {
-    NSAppendPrintF_safe();
-    v9 = v5;
-
-    v5 = v9;
-  }
-
-  v10 = self->_balance;
+  v10 = self->_audiogramEnrolledTimestamp;
+  v11 = v10;
   if (v10)
   {
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v167 = v6;
+    NSAppendPrintF_safe(&v167, ", AG EnrolledTime '%@'", v10);
+    v12 = v167;
 
-    v5 = v11;
+    v6 = v12;
   }
 
-  v12 = self->_beamFormer;
-  if (v12)
+  v13 = self->_balance;
+  v14 = v13;
+  if (v13)
   {
-    NSAppendPrintF_safe();
-    v13 = v5;
+    v166 = v6;
+    NSAppendPrintF_safe(&v166, ", Bal %@", v13);
+    v15 = v166;
 
-    v5 = v13;
+    v6 = v15;
   }
 
-  v14 = self->_bluetoothAddress;
-  if (v14)
-  {
-    NSAppendPrintF_safe();
-    v15 = v5;
-
-    v5 = v15;
-  }
-
-  v16 = self->_bluetoothUUID;
+  v16 = self->_beamFormer;
+  v17 = v16;
   if (v16)
   {
-    NSAppendPrintF_safe();
-    v17 = v5;
+    v165 = v6;
+    NSAppendPrintF_safe(&v165, ", BmFm %@", v16);
+    v18 = v165;
 
-    v5 = v17;
+    v6 = v18;
   }
 
+  v19 = self->_bluetoothAddress;
+  v20 = v19;
+  if (v19)
+  {
+    v164 = v6;
+    NSAppendPrintF_safe(&v164, ", Bt Addr %@", v19);
+    v21 = v164;
+
+    v6 = v21;
+  }
+
+  v22 = self->_bluetoothUUID;
+  v23 = v22;
+  if (v22)
+  {
+    v163 = v6;
+    NSAppendPrintF_safe(&v163, ", Bt UUID %@", v22);
+    v24 = v163;
+
+    v6 = v24;
+  }
+
+  hearingAidEnabled = self->_hearingAidEnabled;
   if (self->_hearingAidEnabled)
   {
-    self->_hearingAidEnabled;
-    NSAppendPrintF_safe();
-    v18 = v5;
+    if (hearingAidEnabled == 1)
+    {
+      v26 = "Yes";
+    }
 
-    v5 = v18;
+    else
+    {
+      v26 = "?";
+    }
+
+    if (hearingAidEnabled == 2)
+    {
+      v27 = "No";
+    }
+
+    else
+    {
+      v27 = v26;
+    }
+
+    v162 = v6;
+    NSAppendPrintF_safe(&v162, ", Hr Aid En %s", v27);
+    v28 = v162;
+
+    v6 = v28;
   }
 
+  hearingAidV2Capability = self->_hearingAidV2Capability;
   if (self->_hearingAidV2Capability)
   {
-    self->_hearingAidV2Capability;
-    NSAppendPrintF_safe();
-    v19 = v5;
+    if (hearingAidV2Capability == 1)
+    {
+      v30 = "Yes";
+    }
 
-    v5 = v19;
+    else
+    {
+      v30 = "?";
+    }
+
+    if (hearingAidV2Capability == 2)
+    {
+      v31 = "No";
+    }
+
+    else
+    {
+      v31 = v30;
+    }
+
+    v161 = v6;
+    NSAppendPrintF_safe(&v161, ", Hr Aidv2 Cp %s", v31);
+    v32 = v161;
+
+    v6 = v32;
   }
 
   hearingAidV2RegionStatus = self->_hearingAidV2RegionStatus;
   if (self->_hearingAidV2RegionStatus)
   {
-    if (hearingAidV2RegionStatus <= 3)
+    v160 = v6;
+    if (hearingAidV2RegionStatus > 3)
     {
-      v21 = off_2796EE8D8[hearingAidV2RegionStatus - 1];
+      v34 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v22 = v5;
+    else
+    {
+      v34 = off_2796EE8D8[hearingAidV2RegionStatus - 1];
+    }
 
-    v5 = v22;
+    NSAppendPrintF_safe(&v160, ", Hr Aidv2 Reg St %s", v34);
+    v35 = v160;
+
+    v6 = v35;
   }
 
+  hearingAssistCapability = self->_hearingAssistCapability;
   if (self->_hearingAssistCapability)
   {
-    self->_hearingAssistCapability;
-    NSAppendPrintF_safe();
-    v23 = v5;
+    if (hearingAssistCapability == 1)
+    {
+      v37 = "Yes";
+    }
 
-    v5 = v23;
+    else
+    {
+      v37 = "?";
+    }
+
+    if (hearingAssistCapability == 2)
+    {
+      v38 = "No";
+    }
+
+    else
+    {
+      v38 = v37;
+    }
+
+    v159 = v6;
+    NSAppendPrintF_safe(&v159, ", HA Cp %s", v38);
+    v39 = v159;
+
+    v6 = v39;
   }
 
+  hearingAssistEnabled = self->_hearingAssistEnabled;
   if (self->_hearingAssistEnabled)
   {
-    self->_hearingAssistEnabled;
-    NSAppendPrintF_safe();
-    v24 = v5;
+    if (hearingAssistEnabled == 1)
+    {
+      v41 = "Yes";
+    }
 
-    v5 = v24;
+    else
+    {
+      v41 = "?";
+    }
+
+    if (hearingAssistEnabled == 2)
+    {
+      v42 = "No";
+    }
+
+    else
+    {
+      v42 = v41;
+    }
+
+    v158 = v6;
+    NSAppendPrintF_safe(&v158, ", HA En %s", v42);
+    v43 = v158;
+
+    v6 = v43;
   }
 
+  hearingAssistEnrolled = self->_hearingAssistEnrolled;
   if (self->_hearingAssistEnrolled)
   {
-    self->_hearingAssistEnrolled;
-    NSAppendPrintF_safe();
-    v25 = v5;
+    if (hearingAssistEnrolled == 1)
+    {
+      v45 = "Yes";
+    }
 
-    v5 = v25;
+    else
+    {
+      v45 = "?";
+    }
+
+    if (hearingAssistEnrolled == 2)
+    {
+      v46 = "No";
+    }
+
+    else
+    {
+      v46 = v45;
+    }
+
+    v157 = v6;
+    NSAppendPrintF_safe(&v157, ", HA Er %s", v46);
+    v47 = v157;
+
+    v6 = v47;
   }
 
   hearingAssistRegionStatus = self->_hearingAssistRegionStatus;
   if (self->_hearingAssistRegionStatus)
   {
-    if (hearingAssistRegionStatus <= 3)
+    v156 = v6;
+    if (hearingAssistRegionStatus > 3)
     {
-      v27 = off_2796EE8D8[hearingAssistRegionStatus - 1];
+      v49 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v28 = v5;
+    else
+    {
+      v49 = off_2796EE8D8[hearingAssistRegionStatus - 1];
+    }
 
-    v5 = v28;
+    NSAppendPrintF_safe(&v156, ", HA Reg St %s", v49);
+    v50 = v156;
+
+    v6 = v50;
   }
 
+  hearingProtectionCapability = self->_hearingProtectionCapability;
   if (self->_hearingProtectionCapability)
   {
-    self->_hearingProtectionCapability;
-    NSAppendPrintF_safe();
-    v29 = v5;
+    if (hearingProtectionCapability == 1)
+    {
+      v52 = "Yes";
+    }
 
-    v5 = v29;
+    else
+    {
+      v52 = "?";
+    }
+
+    if (hearingProtectionCapability == 2)
+    {
+      v53 = "No";
+    }
+
+    else
+    {
+      v53 = v52;
+    }
+
+    v155 = v6;
+    NSAppendPrintF_safe(&v155, ", HP Cap %s", v53);
+    v54 = v155;
+
+    v6 = v54;
   }
 
+  hearingProtectionEnabled = self->_hearingProtectionEnabled;
   if (self->_hearingProtectionEnabled)
   {
-    self->_hearingProtectionEnabled;
-    NSAppendPrintF_safe();
-    v30 = v5;
+    if (hearingProtectionEnabled == 1)
+    {
+      v56 = "Yes";
+    }
 
-    v5 = v30;
+    else
+    {
+      v56 = "?";
+    }
+
+    if (hearingProtectionEnabled == 2)
+    {
+      v57 = "No";
+    }
+
+    else
+    {
+      v57 = v56;
+    }
+
+    v154 = v6;
+    NSAppendPrintF_safe(&v154, ", HP En %s", v57);
+    v58 = v154;
+
+    v6 = v58;
   }
 
   hearingProtectionOcclusionResult = self->_hearingProtectionOcclusionResult;
   if (hearingProtectionOcclusionResult)
   {
-    if (hearingProtectionOcclusionResult <= 7)
+    v153 = v6;
+    if (hearingProtectionOcclusionResult > 7)
     {
-      v32 = off_2796EE8A0[hearingProtectionOcclusionResult - 1];
+      v60 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v33 = v5;
+    else
+    {
+      v60 = off_2796EE8A0[hearingProtectionOcclusionResult - 1];
+    }
 
-    v5 = v33;
+    NSAppendPrintF_safe(&v153, ", HP Occlusion %s", v60);
+    v61 = v153;
+
+    v6 = v61;
   }
 
+  hearingProtectionPPECapability = self->_hearingProtectionPPECapability;
   if (self->_hearingProtectionPPECapability)
   {
-    self->_hearingProtectionPPECapability;
-    NSAppendPrintF_safe();
-    v34 = v5;
+    if (hearingProtectionPPECapability == 1)
+    {
+      v63 = "Yes";
+    }
 
-    v5 = v34;
+    else
+    {
+      v63 = "?";
+    }
+
+    if (hearingProtectionPPECapability == 2)
+    {
+      v64 = "No";
+    }
+
+    else
+    {
+      v64 = v63;
+    }
+
+    v152 = v6;
+    NSAppendPrintF_safe(&v152, ", HP PPE Cp %s", v64);
+    v65 = v152;
+
+    v6 = v65;
   }
 
-  v35 = self->_hearingProtectionPPECapLevel;
-  if (v35)
+  v66 = self->_hearingProtectionPPECapLevel;
+  v67 = v66;
+  if (v66)
   {
-    NSAppendPrintF_safe();
-    v36 = v5;
+    v151 = v6;
+    NSAppendPrintF_safe(&v151, ", HP PPE CapLvl %@", v66);
+    v68 = v151;
 
-    v5 = v36;
+    v6 = v68;
   }
 
+  hearingProtectionPPEEnabled = self->_hearingProtectionPPEEnabled;
   if (self->_hearingProtectionPPEEnabled)
   {
-    self->_hearingProtectionPPEEnabled;
-    NSAppendPrintF_safe();
-    v37 = v5;
+    if (hearingProtectionPPEEnabled == 1)
+    {
+      v70 = "Yes";
+    }
 
-    v5 = v37;
+    else
+    {
+      v70 = "?";
+    }
+
+    if (hearingProtectionPPEEnabled == 2)
+    {
+      v71 = "No";
+    }
+
+    else
+    {
+      v71 = v70;
+    }
+
+    v150 = v6;
+    NSAppendPrintF_safe(&v150, ", HP PPE En %s", v71);
+    v72 = v150;
+
+    v6 = v72;
   }
 
   hearingProtectionPPERegionStatus = self->_hearingProtectionPPERegionStatus;
   if (self->_hearingProtectionPPERegionStatus)
   {
-    if (hearingProtectionPPERegionStatus <= 3)
+    v149 = v6;
+    if (hearingProtectionPPERegionStatus > 3)
     {
-      v39 = off_2796EE8D8[hearingProtectionPPERegionStatus - 1];
+      v74 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v40 = v5;
+    else
+    {
+      v74 = off_2796EE8D8[hearingProtectionPPERegionStatus - 1];
+    }
 
-    v5 = v40;
+    NSAppendPrintF_safe(&v149, ", HP PPE Reg St %s", v74);
+    v75 = v149;
+
+    v6 = v75;
   }
 
   hearingProtectionRegionStatus = self->_hearingProtectionRegionStatus;
   if (self->_hearingProtectionRegionStatus)
   {
-    if (hearingProtectionRegionStatus <= 3)
+    v148 = v6;
+    if (hearingProtectionRegionStatus > 3)
     {
-      v42 = off_2796EE8D8[hearingProtectionRegionStatus - 1];
+      v77 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v43 = v5;
+    else
+    {
+      v77 = off_2796EE8D8[hearingProtectionRegionStatus - 1];
+    }
 
-    v5 = v43;
+    NSAppendPrintF_safe(&v148, ", HP Reg St %s", v77);
+    v78 = v148;
+
+    v6 = v78;
   }
 
+  hearingTestCapability = self->_hearingTestCapability;
   if (self->_hearingTestCapability)
   {
-    self->_hearingTestCapability;
-    NSAppendPrintF_safe();
-    v44 = v5;
+    if (hearingTestCapability == 1)
+    {
+      v80 = "Yes";
+    }
 
-    v5 = v44;
+    else
+    {
+      v80 = "?";
+    }
+
+    if (hearingTestCapability == 2)
+    {
+      v81 = "No";
+    }
+
+    else
+    {
+      v81 = v80;
+    }
+
+    v147 = v6;
+    NSAppendPrintF_safe(&v147, ", HT Cap %s", v81);
+    v82 = v147;
+
+    v6 = v82;
   }
 
   hearingTestOcclusionResult = self->_hearingTestOcclusionResult;
   if (hearingTestOcclusionResult)
   {
-    if (hearingTestOcclusionResult <= 7)
+    v146 = v6;
+    if (hearingTestOcclusionResult > 7)
     {
-      v46 = off_2796EE8A0[hearingTestOcclusionResult - 1];
+      v84 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v47 = v5;
+    else
+    {
+      v84 = off_2796EE8A0[hearingTestOcclusionResult - 1];
+    }
 
-    v5 = v47;
+    NSAppendPrintF_safe(&v146, ", HT Occlusion %s", v84);
+    v85 = v146;
+
+    v6 = v85;
   }
 
   hearingTestRegionStatus = self->_hearingTestRegionStatus;
   if (self->_hearingTestRegionStatus)
   {
-    if (hearingTestRegionStatus <= 3)
+    v145 = v6;
+    if (hearingTestRegionStatus > 3)
     {
-      v49 = off_2796EE8D8[hearingTestRegionStatus - 1];
+      v87 = "?";
     }
 
-    NSAppendPrintF_safe();
-    v50 = v5;
+    else
+    {
+      v87 = off_2796EE8D8[hearingTestRegionStatus - 1];
+    }
 
-    v5 = v50;
+    NSAppendPrintF_safe(&v145, ", HT Reg St %s", v87);
+    v88 = v145;
+
+    v6 = v88;
   }
 
+  hideOffModeCapability = self->_hideOffModeCapability;
   if (self->_hideOffModeCapability)
   {
-    self->_hideOffModeCapability;
-    NSAppendPrintF_safe();
-    v51 = v5;
+    if (hideOffModeCapability == 1)
+    {
+      v90 = "Yes";
+    }
 
-    v5 = v51;
+    else
+    {
+      v90 = "?";
+    }
+
+    if (hideOffModeCapability == 2)
+    {
+      v91 = "No";
+    }
+
+    else
+    {
+      v91 = v90;
+    }
+
+    v144 = v6;
+    NSAppendPrintF_safe(&v144, ", LsMd Off Cap %s", v91);
+    v92 = v144;
+
+    v6 = v92;
   }
 
+  listeningModeOffAllowed = self->_listeningModeOffAllowed;
   if (self->_listeningModeOffAllowed)
   {
-    self->_listeningModeOffAllowed;
-    NSAppendPrintF_safe();
-    v52 = v5;
+    if (listeningModeOffAllowed == 1)
+    {
+      v94 = "Yes";
+    }
 
-    v5 = v52;
+    else
+    {
+      v94 = "?";
+    }
+
+    if (listeningModeOffAllowed == 2)
+    {
+      v95 = "No";
+    }
+
+    else
+    {
+      v95 = v94;
+    }
+
+    v143 = v6;
+    NSAppendPrintF_safe(&v143, ", LsMd Off %s", v95);
+    v96 = v143;
+
+    v6 = v96;
   }
 
+  mediaAssistEnabled = self->_mediaAssistEnabled;
   if (self->_mediaAssistEnabled)
   {
-    self->_mediaAssistEnabled;
-    NSAppendPrintF_safe();
-    v53 = v5;
+    if (mediaAssistEnabled == 1)
+    {
+      v98 = "Yes";
+    }
 
-    v5 = v53;
+    else
+    {
+      v98 = "?";
+    }
+
+    if (mediaAssistEnabled == 2)
+    {
+      v99 = "No";
+    }
+
+    else
+    {
+      v99 = v98;
+    }
+
+    v142 = v6;
+    NSAppendPrintF_safe(&v142, ", MA En %s", v99);
+    v100 = v142;
+
+    v6 = v100;
   }
 
-  v54 = self->_noiseSuppression;
-  if (v54)
+  v101 = self->_noiseSuppression;
+  v102 = v101;
+  if (v101)
   {
-    NSAppendPrintF_safe();
-    v55 = v5;
+    v141 = v6;
+    NSAppendPrintF_safe(&v141, ", Noise Sup %@", v101);
+    v103 = v141;
 
-    v5 = v55;
+    v6 = v103;
   }
 
+  pmeMediaEnabled = self->_pmeMediaEnabled;
   if (self->_pmeMediaEnabled)
   {
-    self->_pmeMediaEnabled;
-    NSAppendPrintF_safe();
-    v56 = v5;
+    if (pmeMediaEnabled == 1)
+    {
+      v105 = "Yes";
+    }
 
-    v5 = v56;
+    else
+    {
+      v105 = "?";
+    }
+
+    if (pmeMediaEnabled == 2)
+    {
+      v106 = "No";
+    }
+
+    else
+    {
+      v106 = v105;
+    }
+
+    v140 = v6;
+    NSAppendPrintF_safe(&v140, ", PME Md En %s", v106);
+    v107 = v140;
+
+    v6 = v107;
   }
 
+  pmeVoiceEnabled = self->_pmeVoiceEnabled;
   if (self->_pmeVoiceEnabled)
   {
-    self->_pmeVoiceEnabled;
-    NSAppendPrintF_safe();
-    v57 = v5;
+    if (pmeVoiceEnabled == 1)
+    {
+      v109 = "Yes";
+    }
 
-    v5 = v57;
+    else
+    {
+      v109 = "?";
+    }
+
+    if (pmeVoiceEnabled == 2)
+    {
+      v110 = "No";
+    }
+
+    else
+    {
+      v110 = v109;
+    }
+
+    v139 = v6;
+    NSAppendPrintF_safe(&v139, ", PME Vc En %s", v110);
+    v111 = v139;
+
+    v6 = v111;
   }
 
+  pmeVoiceEnrolled = self->_pmeVoiceEnrolled;
   if (self->_pmeVoiceEnrolled)
   {
-    self->_pmeVoiceEnrolled;
-    NSAppendPrintF_safe();
-    v58 = v5;
+    if (pmeVoiceEnrolled == 1)
+    {
+      v113 = "Yes";
+    }
 
-    v5 = v58;
+    else
+    {
+      v113 = "?";
+    }
+
+    if (pmeVoiceEnrolled == 2)
+    {
+      v114 = "No";
+    }
+
+    else
+    {
+      v114 = v113;
+    }
+
+    v138 = v6;
+    NSAppendPrintF_safe(&v138, ", PME Vc Er %s", v114);
+    v115 = v138;
+
+    v6 = v115;
   }
 
+  swipeGainEnabled = self->_swipeGainEnabled;
   if (self->_swipeGainEnabled)
   {
-    self->_swipeGainEnabled;
-    NSAppendPrintF_safe();
-    v59 = v5;
+    if (swipeGainEnabled == 1)
+    {
+      v117 = "Yes";
+    }
 
-    v5 = v59;
+    else
+    {
+      v117 = "?";
+    }
+
+    if (swipeGainEnabled == 2)
+    {
+      v118 = "No";
+    }
+
+    else
+    {
+      v118 = v117;
+    }
+
+    v137 = v6;
+    NSAppendPrintF_safe(&v137, ", Swp Gn En %s", v118);
+    v119 = v137;
+
+    v6 = v119;
   }
 
-  v60 = self->_tone;
-  if (v60)
+  v120 = self->_tone;
+  v121 = v120;
+  if (v120)
   {
-    NSAppendPrintF_safe();
-    v61 = v5;
+    v136 = v6;
+    NSAppendPrintF_safe(&v136, ", Tone %@", v120);
+    v122 = v136;
 
-    v5 = v61;
+    v6 = v122;
   }
 
-  v62 = self->_ownVoiceLevelGain;
-  if (v62)
+  v123 = self->_ownVoiceLevelGain;
+  v124 = v123;
+  if (v123)
   {
-    NSAppendPrintF_safe();
-    v63 = v5;
+    v135 = v6;
+    NSAppendPrintF_safe(&v135, ", Own Vc LG %@", v123);
+    v125 = v135;
 
-    v5 = v63;
+    v6 = v125;
   }
 
+  earTipFitTestCapability = self->_earTipFitTestCapability;
   if (self->_earTipFitTestCapability)
   {
-    self->_earTipFitTestCapability;
-    NSAppendPrintF_safe();
-    v64 = v5;
+    if (earTipFitTestCapability == 1)
+    {
+      v127 = "Yes";
+    }
 
-    v5 = v64;
+    else
+    {
+      v127 = "?";
+    }
+
+    if (earTipFitTestCapability == 2)
+    {
+      v128 = "No";
+    }
+
+    else
+    {
+      v128 = v127;
+    }
+
+    v134 = v6;
+    NSAppendPrintF_safe(&v134, ", Ear Tip Fit Cap %s", v128);
+    v129 = v134;
+
+    v6 = v129;
   }
 
   if (level < 21)
   {
-    NSAppendPrintF_safe();
-    v65 = v5;
+    v133 = v6;
+    NSAppendPrintF_safe(&v133, "\n");
+    v130 = v133;
 
-    v5 = v65;
+    v6 = v130;
   }
 
-  v66 = v5;
+  v131 = v6;
 
-  return v5;
+  return v6;
+}
+
+- (int)getOcclusionResultForFeatureID:(int)d
+{
+  if (d == 2)
+  {
+    return self->_hearingProtectionOcclusionResult;
+  }
+
+  if (d == 3)
+  {
+    return self->_hearingTestOcclusionResult;
+  }
+
+  if (gLogCategory_HMDeviceRecord > 90)
+  {
+    return 0;
+  }
+
+  if (gLogCategory_HMDeviceRecord != -1 || (result = _LogCategory_Initialize()) != 0)
+  {
+    [HMDeviceRecord getOcclusionResultForFeatureID:];
+    return 0;
+  }
+
+  return result;
+}
+
+- (BOOL)setOcclusionResult:(int)result forFeatureID:(int)d
+{
+  if (d == 2)
+  {
+    if (self->_hearingProtectionOcclusionResult != result)
+    {
+      self->_hearingProtectionOcclusionResult = result;
+      goto LABEL_7;
+    }
+
+LABEL_12:
+    LOBYTE(v4) = 0;
+    return v4;
+  }
+
+  if (d == 3)
+  {
+    if (self->_hearingTestOcclusionResult != result)
+    {
+      self->_hearingTestOcclusionResult = result;
+LABEL_7:
+      LOBYTE(v4) = 1;
+      return v4;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (gLogCategory_HMDeviceRecord > 90)
+  {
+    goto LABEL_12;
+  }
+
+  if (gLogCategory_HMDeviceRecord != -1 || (v4 = _LogCategory_Initialize()) != 0)
+  {
+    [HMDeviceRecord setOcclusionResult:forFeatureID:];
+    goto LABEL_12;
+  }
+
+  return v4;
 }
 
 - (void)invokePendingOcclusionCompletionsWithError:(id)error
@@ -954,29 +1467,29 @@
 
 void __61__HMDeviceRecord_invokePendingOcclusionCompletionsWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [*(a1 + 32) getOcclusionResultForFeatureID:{objc_msgSend(v5, "unsignedIntValue")}];
         if (gLogCategory_HMDeviceRecord <= 30 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
         {
@@ -988,14 +1501,12 @@ void __61__HMDeviceRecord_invokePendingOcclusionCompletionsWithError___block_inv
       }
 
       while (v8 != v10);
-      v13 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v13 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v8 = v13;
     }
 
     while (v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateWithAADevice:(id)device
@@ -1644,6 +2155,18 @@ LABEL_47:
   return v9;
 }
 
+- (void)getSafetyInformation:(unsigned int)information
+{
+  if (information && !self->_safetyInformation)
+  {
+    v4 = *&information;
+    v5 = objc_alloc_init(HMInfo);
+    [(HMInfo *)v5 setConstantsWith:v4];
+    safetyInformation = self->_safetyInformation;
+    self->_safetyInformation = v5;
+  }
+}
+
 - (void)_deriveMediaAssistStateIfNeeded
 {
   hearingAssistEnabled = self->_hearingAssistEnabled;
@@ -1689,300 +2212,279 @@ LABEL_47:
       mediaAssistEnabled = self->_mediaAssistEnabled;
     }
 
-    bluetoothUUID = self->_bluetoothUUID;
-    if (mediaAssistEnabled <= 2)
+    if (mediaAssistEnabled > 2)
     {
-      v6 = off_2796EE930[mediaAssistEnabled];
+      v5 = "?";
     }
 
-    LogPrintF();
+    else
+    {
+      v5 = off_2796EE930[mediaAssistEnabled];
+    }
+
+    LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord _deriveMediaAssistStateIfNeeded]", 30, "HMDeviceRecord identifier %@, mediaAssistEnabled changed %s --> %s", self->_bluetoothUUID, "Unknown", v5);
   }
 }
 
 - (BOOL)updateWithHearingAidConfigData:(id)data
 {
   dataCopy = data;
-  if (!_os_feature_enabled_impl())
+  if (_os_feature_enabled_impl())
   {
-    goto LABEL_81;
-  }
-
-  if (!dataCopy)
-  {
-    if (gLogCategory_HMDeviceRecord > 90 || gLogCategory_HMDeviceRecord == -1 && !_LogCategory_Initialize())
+    if (dataCopy)
     {
-      goto LABEL_81;
-    }
-
-    bluetoothUUID = self->_bluetoothUUID;
-LABEL_14:
-    LogPrintF();
-    goto LABEL_81;
-  }
-
-  memset(v136, 0, 100);
-  v135 = 0;
-  memset(v134, 0, sizeof(v134));
-  [dataCopy getBytes:v136 length:100];
-  *&v6 = LOBYTE(v136[0]);
-  version = self->_version;
-  v8 = LOBYTE(v136[0]) != version;
-  if (LOBYTE(v136[0]) != version)
-  {
-    self->_version = v136[0];
-  }
-
-  if (BYTE1(v136[0]) == 2)
-  {
-    v10 = *(&v136[2] + 3);
-    v9 = *&v136[3];
-    v11 = fmax(fmin(*(&v136[2] + 1), 1.5), -1.5);
-    v12 = fmax(fmin(*(&v136[5] + 1), 1.5), -1.5);
-    v13 = fmaxf(fminf(*(&v136[5] + 2), 1.0), -1.0);
-    *(&v129 + 1) = v11;
-    v14 = v12 - v11;
-    v15 = v12 + ((v12 - v11) * -0.5);
-    if (gLogCategory_HMDeviceRecord > 10)
-    {
-      goto LABEL_18;
-    }
-
-    if (gLogCategory_HMDeviceRecord == -1)
-    {
-      if (!_LogCategory_Initialize())
+      memset(v149, 0, 100);
+      v148 = 0;
+      memset(v147, 0, sizeof(v147));
+      [dataCopy getBytes:v149 length:100];
+      *&v6 = LOBYTE(v149[0]);
+      version = self->_version;
+      v8 = LOBYTE(v149[0]) != version;
+      if (LOBYTE(v149[0]) != version)
       {
-LABEL_18:
-        v16 = (v14 + 1.0) * 0.5;
-        *&v17 = OUTLINED_FUNCTION_7();
-        v19 = [v18 numberWithFloat:v17];
-        amplification = self->_amplification;
-        v21 = v19;
-        v22 = amplification;
-        OUTLINED_FUNCTION_3_0();
-        if (v23)
+        self->_version = v149[0];
+      }
+
+      if (BYTE1(v149[0]) == 2)
+      {
+        v10 = *(&v149[2] + 3);
+        v9 = *&v149[3];
+        v11 = fmax(fmin(*(&v149[2] + 1), 1.5), -1.5);
+        v12 = fmax(fmin(*(&v149[5] + 1), 1.5), -1.5);
+        v13 = fmaxf(fminf(*(&v149[5] + 2), 1.0), -1.0);
+        *(&v142 + 1) = v11;
+        v14 = v12 - v11;
+        v15 = v12 + ((v12 - v11) * -0.5);
+        if (gLogCategory_HMDeviceRecord > 10)
         {
+          goto LABEL_18;
         }
 
-        else
+        if (gLogCategory_HMDeviceRecord == -1)
         {
-          OUTLINED_FUNCTION_2_0();
-          if ((v24 ^ (amplification == 0)))
+          if (!_LogCategory_Initialize())
           {
-            v25 = OUTLINED_FUNCTION_4();
-
-            if (v25)
+LABEL_18:
+            v16 = (v14 + 1.0) * 0.5;
+            *&v17 = OUTLINED_FUNCTION_7();
+            v19 = [v18 numberWithFloat:v17];
+            amplification = self->_amplification;
+            v21 = v19;
+            v22 = amplification;
+            OUTLINED_FUNCTION_3_0();
+            if (v23)
             {
-LABEL_26:
-              *&v26 = v16;
-              v30 = [MEMORY[0x277CCABB0] numberWithFloat:{v26, v111}];
-              balance = self->_balance;
-              v32 = v30;
-              v33 = balance;
-              OUTLINED_FUNCTION_3_0();
-              if (v23)
-              {
-              }
+            }
 
-              else
+            else
+            {
+              OUTLINED_FUNCTION_2_0();
+              if ((v24 ^ (amplification == 0)))
               {
-                OUTLINED_FUNCTION_2_0();
-                if ((v34 ^ (balance == 0)))
+                v25 = OUTLINED_FUNCTION_4();
+
+                if (v25)
                 {
-                  v35 = OUTLINED_FUNCTION_4();
-
-                  if (v35)
+LABEL_26:
+                  *&v26 = v16;
+                  v30 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+                  balance = self->_balance;
+                  v32 = v30;
+                  v33 = balance;
+                  OUTLINED_FUNCTION_3_0();
+                  if (v23)
                   {
-LABEL_34:
-                    *&v38 = OUTLINED_FUNCTION_7();
-                    v40 = [v39 numberWithFloat:v38];
-                    tone = self->_tone;
-                    v42 = v40;
-                    v43 = tone;
-                    OUTLINED_FUNCTION_3_0();
-                    if (v23)
-                    {
-                    }
+                  }
 
-                    else
+                  else
+                  {
+                    OUTLINED_FUNCTION_2_0();
+                    if ((v34 ^ (balance == 0)))
                     {
-                      OUTLINED_FUNCTION_2_0();
-                      if ((v44 ^ (tone == 0)))
+                      v35 = OUTLINED_FUNCTION_4();
+
+                      if (v35)
                       {
-                        v45 = OUTLINED_FUNCTION_4();
-
-                        if (v45)
+LABEL_34:
+                        *&v38 = OUTLINED_FUNCTION_7();
+                        v40 = [v39 numberWithFloat:v38];
+                        tone = self->_tone;
+                        v42 = v40;
+                        v43 = tone;
+                        OUTLINED_FUNCTION_3_0();
+                        if (v23)
                         {
-LABEL_42:
-                          *&v46 = v10;
-                          v50 = [MEMORY[0x277CCABB0] numberWithFloat:v46];
-                          beamFormer = self->_beamFormer;
-                          v52 = v50;
-                          v53 = beamFormer;
-                          OUTLINED_FUNCTION_3_0();
-                          if (v23)
-                          {
-                          }
+                        }
 
-                          else
+                        else
+                        {
+                          OUTLINED_FUNCTION_2_0();
+                          if ((v44 ^ (tone == 0)))
                           {
-                            OUTLINED_FUNCTION_2_0();
-                            if ((v54 ^ (beamFormer == 0)))
+                            v45 = OUTLINED_FUNCTION_4();
+
+                            if (v45)
                             {
-                              v55 = OUTLINED_FUNCTION_4();
-
-                              if (v55)
+LABEL_42:
+                              *&v46 = v10;
+                              v50 = [MEMORY[0x277CCABB0] numberWithFloat:v46];
+                              beamFormer = self->_beamFormer;
+                              v52 = v50;
+                              v53 = beamFormer;
+                              OUTLINED_FUNCTION_3_0();
+                              if (v23)
                               {
-LABEL_50:
-                                *&v58 = OUTLINED_FUNCTION_6();
-                                v60 = [v59 numberWithFloat:v58];
-                                noiseSuppression = self->_noiseSuppression;
-                                v62 = v60;
-                                v63 = noiseSuppression;
-                                OUTLINED_FUNCTION_3_0();
-                                if (v23)
-                                {
-                                }
+                              }
 
-                                else
+                              else
+                              {
+                                OUTLINED_FUNCTION_2_0();
+                                if ((v54 ^ (beamFormer == 0)))
                                 {
-                                  OUTLINED_FUNCTION_2_0();
-                                  if ((v64 ^ (noiseSuppression == 0)))
+                                  v55 = OUTLINED_FUNCTION_4();
+
+                                  if (v55)
                                   {
-                                    v65 = OUTLINED_FUNCTION_4();
-
-                                    if (v65)
+LABEL_50:
+                                    *&v58 = OUTLINED_FUNCTION_6();
+                                    v60 = [v59 numberWithFloat:v58];
+                                    noiseSuppression = self->_noiseSuppression;
+                                    v62 = v60;
+                                    v63 = noiseSuppression;
+                                    OUTLINED_FUNCTION_3_0();
+                                    if (v23)
                                     {
-LABEL_58:
-                                      v133[0] = *(v136 + 4);
-                                      v133[1] = *(&v136[1] + 4);
-                                      v133[2] = *(&v136[2] + 4);
-                                      v130 = *(&v136[3] + 4);
-                                      v131 = *(&v136[4] + 4);
-                                      v132 = *(&v136[5] + 4);
-                                      v69 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v133 length:32];
-                                      earLossDataLeft = self->_earLossDataLeft;
-                                      v71 = v69;
-                                      v72 = earLossDataLeft;
-                                      v73 = v72;
-                                      if (v71 == v72)
-                                      {
+                                    }
 
-                                        earLossArrayLeft = v71;
-                                      }
-
-                                      else
+                                    else
+                                    {
+                                      OUTLINED_FUNCTION_2_0();
+                                      if ((v64 ^ (noiseSuppression == 0)))
                                       {
-                                        OUTLINED_FUNCTION_2_0();
-                                        if ((v74 ^ (v73 == 0)))
+                                        v65 = OUTLINED_FUNCTION_4();
+
+                                        if (v65)
                                         {
-                                          v75 = [(NSArray *)v71 isEqual:v73];
-
-                                          if (v75)
+LABEL_58:
+                                          v146[0] = *(v149 + 4);
+                                          v146[1] = *(&v149[1] + 4);
+                                          v146[2] = *(&v149[2] + 4);
+                                          v143 = *(&v149[3] + 4);
+                                          v144 = *(&v149[4] + 4);
+                                          v145 = *(&v149[5] + 4);
+                                          v69 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v146 length:32];
+                                          earLossDataLeft = self->_earLossDataLeft;
+                                          v71 = v69;
+                                          v72 = earLossDataLeft;
+                                          v73 = v72;
+                                          if (v71 == v72)
                                           {
-LABEL_66:
-                                            v78 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v130 length:32];
-                                            earLossDataRight = self->_earLossDataRight;
-                                            v80 = v78;
-                                            v81 = earLossDataRight;
-                                            v82 = v81;
-                                            if (v80 == v81)
-                                            {
 
-                                              earLossArrayRight = v80;
-                                            }
+                                            earLossArrayLeft = v71;
+                                          }
 
-                                            else
+                                          else
+                                          {
+                                            OUTLINED_FUNCTION_2_0();
+                                            if ((v74 ^ (v73 == 0)))
                                             {
-                                              if ((v80 != 0) != (v81 == 0))
+                                              v75 = [(NSArray *)v71 isEqual:v73];
+
+                                              if (v75)
                                               {
-                                                v83 = [(NSArray *)v80 isEqual:v81];
-
-                                                if (v83)
+LABEL_66:
+                                                v78 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v143 length:32];
+                                                earLossDataRight = self->_earLossDataRight;
+                                                v80 = v78;
+                                                v81 = earLossDataRight;
+                                                v82 = v81;
+                                                if (v80 == v81)
                                                 {
+
+                                                  earLossArrayRight = v80;
+                                                }
+
+                                                else
+                                                {
+                                                  if ((v80 != 0) != (v81 == 0))
+                                                  {
+                                                    v83 = [(NSArray *)v80 isEqual:v81];
+
+                                                    if (v83)
+                                                    {
 LABEL_74:
-                                                  if (self->_version < 2u)
-                                                  {
-                                                    goto LABEL_78;
-                                                  }
-
-                                                  [dataCopy getBytes:v134 length:104];
-                                                  *&v94 = OUTLINED_FUNCTION_6();
-                                                  v96 = [v95 numberWithFloat:v94];
-                                                  ownVoiceLevelGain = self->_ownVoiceLevelGain;
-                                                  v98 = v96;
-                                                  v99 = ownVoiceLevelGain;
-                                                  v100 = v99;
-                                                  if (v98 == v99)
-                                                  {
-
-                                                    if (v8)
-                                                    {
-                                                      goto LABEL_86;
-                                                    }
-
-                                                    goto LABEL_83;
-                                                  }
-
-                                                  if ((v98 != 0) != (v99 == 0))
-                                                  {
-                                                    v101 = [(NSNumber *)v98 isEqual:v99];
-
-                                                    if (v101)
-                                                    {
-LABEL_78:
-                                                      if (v8)
+                                                      if (self->_version < 2u)
                                                       {
-LABEL_86:
-                                                        if (self->_version < 2u)
-                                                        {
-                                                          if (gLogCategory_HMDeviceRecord <= 30)
-                                                          {
-                                                            if (gLogCategory_HMDeviceRecord == -1)
-                                                            {
-                                                              if (!_LogCategory_Initialize())
-                                                              {
-                                                                goto LABEL_97;
-                                                              }
-
-                                                              v110 = self->_version;
-                                                            }
-
-                                                            OUTLINED_FUNCTION_0_1(v84, v85, v86, v87, v88, v89, v90, v91, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v126, v128, v129, *&v130, *(&v130 + 1), *&v131, *(&v131 + 1), *&v132, *(&v132 + 1), *v133);
-                                                            v125 = self->_noiseSuppression;
-LABEL_93:
-                                                            LogPrintF();
-                                                          }
-                                                        }
-
-                                                        else if (gLogCategory_HMDeviceRecord <= 30)
-                                                        {
-                                                          if (gLogCategory_HMDeviceRecord == -1)
-                                                          {
-                                                            if (!_LogCategory_Initialize())
-                                                            {
-                                                              goto LABEL_97;
-                                                            }
-
-                                                            v107 = self->_version;
-                                                          }
-
-                                                          OUTLINED_FUNCTION_0_1(v84, v85, v86, v87, v88, v89, v90, v91, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v126, v128, v129, *&v130, *(&v130 + 1), *&v131, *(&v131 + 1), *&v132, *(&v132 + 1), *v133);
-                                                          v124 = self->_noiseSuppression;
-                                                          v127 = self->_ownVoiceLevelGain;
-                                                          goto LABEL_93;
-                                                        }
-
-LABEL_97:
-                                                        v102 = 1;
-                                                        goto LABEL_98;
+                                                        goto LABEL_78;
                                                       }
 
-LABEL_83:
-                                                      v102 = 0;
-LABEL_98:
-                                                      objc_storeStrong(&self->_configDataHearingAid, data);
+                                                      [dataCopy getBytes:v147 length:104];
+                                                      *&v94 = OUTLINED_FUNCTION_6();
+                                                      v96 = [v95 numberWithFloat:v94];
+                                                      ownVoiceLevelGain = self->_ownVoiceLevelGain;
+                                                      v98 = v96;
+                                                      v99 = ownVoiceLevelGain;
+                                                      v100 = v99;
+                                                      if (v98 == v99)
+                                                      {
 
-                                                      goto LABEL_99;
+                                                        if (!v8)
+                                                        {
+                                                          goto LABEL_83;
+                                                        }
+                                                      }
+
+                                                      else
+                                                      {
+                                                        if ((v98 != 0) != (v99 == 0))
+                                                        {
+                                                          v101 = [(NSNumber *)v98 isEqual:v99];
+
+                                                          if (v101)
+                                                          {
+LABEL_78:
+                                                            if (v8)
+                                                            {
+                                                              goto LABEL_86;
+                                                            }
+
+LABEL_83:
+                                                            v102 = 0;
+LABEL_97:
+                                                            objc_storeStrong(&self->_configDataHearingAid, data);
+
+                                                            goto LABEL_98;
+                                                          }
+                                                        }
+
+                                                        else
+                                                        {
+                                                        }
+
+                                                        *&v103 = OUTLINED_FUNCTION_6();
+                                                        v105 = [v104 numberWithFloat:v103];
+                                                        v106 = self->_ownVoiceLevelGain;
+                                                        self->_ownVoiceLevelGain = v105;
+                                                      }
+
+LABEL_86:
+                                                      if (self->_version < 2u)
+                                                      {
+                                                        if (gLogCategory_HMDeviceRecord <= 30 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+                                                        {
+                                                          v117 = OUTLINED_FUNCTION_0_1(v84, v85, v86, v87, v88, v89, v90, v91, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v141, v142, *&v143, *(&v143 + 1), *&v144, *(&v144 + 1), *&v145, *(&v145 + 1), *v146);
+                                                          LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord updateWithHearingAidConfigData:]", 30, "HMDeviceRecord UUID %@, settings received: version: %d, LEFT ear loss_01_dBHL: %lf, RIGHT ear loss_01_dBHL: %lf, leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf", v119, v118, *&v117, v124, v125, v126, v120, v121, v122, v123, self->_noiseSuppression, v140);
+                                                        }
+                                                      }
+
+                                                      else if (gLogCategory_HMDeviceRecord <= 30 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+                                                      {
+                                                        v107 = OUTLINED_FUNCTION_0_1(v84, v85, v86, v87, v88, v89, v90, v91, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v141, v142, *&v143, *(&v143 + 1), *&v144, *(&v144 + 1), *&v145, *(&v145 + 1), *v146);
+                                                        LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord updateWithHearingAidConfigData:]", 30, "HMDeviceRecord UUID %@, settings received: version: %d, LEFT ear loss_01_dBHL: %lf, RIGHT ear loss_01_dBHL: %lf, leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf, ownVoiceLevelGain: %lf", v109, v108, *&v107, v114, v115, v116, v110, v111, v112, v113, self->_noiseSuppression, self->_ownVoiceLevelGain);
+                                                      }
+
+                                                      v102 = 1;
+                                                      goto LABEL_97;
                                                     }
                                                   }
 
@@ -1990,153 +2492,135 @@ LABEL_98:
                                                   {
                                                   }
 
-                                                  *&v103 = OUTLINED_FUNCTION_6();
-                                                  v105 = [v104 numberWithFloat:v103];
-                                                  v106 = self->_ownVoiceLevelGain;
-                                                  self->_ownVoiceLevelGain = v105;
-
-                                                  goto LABEL_86;
+                                                  objc_storeStrong(&self->_earLossDataRight, v78);
+                                                  v93 = HMEarLossDataToArray(self->_earLossDataRight);
+                                                  earLossArrayRight = self->_earLossArrayRight;
+                                                  self->_earLossArrayRight = v93;
+                                                  v8 = 1;
                                                 }
-                                              }
 
-                                              else
-                                              {
+                                                goto LABEL_74;
                                               }
-
-                                              objc_storeStrong(&self->_earLossDataRight, v78);
-                                              v93 = HMEarLossDataToArray(self->_earLossDataRight);
-                                              earLossArrayRight = self->_earLossArrayRight;
-                                              self->_earLossArrayRight = v93;
-                                              v8 = 1;
                                             }
 
-                                            goto LABEL_74;
+                                            else
+                                            {
+                                            }
+
+                                            objc_storeStrong(&self->_earLossDataLeft, v69);
+                                            v77 = HMEarLossDataToArray(self->_earLossDataLeft);
+                                            earLossArrayLeft = self->_earLossArrayLeft;
+                                            self->_earLossArrayLeft = v77;
+                                            v8 = 1;
                                           }
-                                        }
 
-                                        else
-                                        {
+                                          goto LABEL_66;
                                         }
-
-                                        objc_storeStrong(&self->_earLossDataLeft, v69);
-                                        v77 = HMEarLossDataToArray(self->_earLossDataLeft);
-                                        earLossArrayLeft = self->_earLossArrayLeft;
-                                        self->_earLossArrayLeft = v77;
-                                        v8 = 1;
                                       }
 
-                                      goto LABEL_66;
+                                      else
+                                      {
+                                      }
+
+                                      *&v66 = OUTLINED_FUNCTION_6();
+                                      v68 = [v67 numberWithFloat:v66];
+                                      v62 = self->_noiseSuppression;
+                                      self->_noiseSuppression = v68;
+                                      v8 = 1;
                                     }
-                                  }
 
-                                  else
-                                  {
+                                    goto LABEL_58;
                                   }
-
-                                  *&v66 = OUTLINED_FUNCTION_6();
-                                  v68 = [v67 numberWithFloat:v66];
-                                  v62 = self->_noiseSuppression;
-                                  self->_noiseSuppression = v68;
-                                  v8 = 1;
                                 }
 
-                                goto LABEL_58;
+                                else
+                                {
+                                }
+
+                                *&v56 = v10;
+                                v57 = [MEMORY[0x277CCABB0] numberWithFloat:v56];
+                                v52 = self->_beamFormer;
+                                self->_beamFormer = v57;
+                                v8 = 1;
                               }
-                            }
 
-                            else
-                            {
+                              goto LABEL_50;
                             }
-
-                            *&v56 = v10;
-                            v57 = [MEMORY[0x277CCABB0] numberWithFloat:v56];
-                            v52 = self->_beamFormer;
-                            self->_beamFormer = v57;
-                            v8 = 1;
                           }
 
-                          goto LABEL_50;
+                          else
+                          {
+                          }
+
+                          *&v47 = OUTLINED_FUNCTION_7();
+                          v49 = [v48 numberWithFloat:v47];
+                          v42 = self->_tone;
+                          self->_tone = v49;
+                          v8 = 1;
                         }
-                      }
 
-                      else
-                      {
+                        goto LABEL_42;
                       }
-
-                      *&v47 = OUTLINED_FUNCTION_7();
-                      v49 = [v48 numberWithFloat:v47];
-                      v42 = self->_tone;
-                      self->_tone = v49;
-                      v8 = 1;
                     }
 
-                    goto LABEL_42;
+                    else
+                    {
+                    }
+
+                    *&v36 = v16;
+                    v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
+                    v32 = self->_balance;
+                    self->_balance = v37;
+                    v8 = 1;
                   }
-                }
 
-                else
-                {
+                  goto LABEL_34;
                 }
-
-                *&v36 = v16;
-                v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-                v32 = self->_balance;
-                self->_balance = v37;
-                v8 = 1;
               }
 
-              goto LABEL_34;
+              else
+              {
+              }
+
+              *&v27 = OUTLINED_FUNCTION_7();
+              v29 = [v28 numberWithFloat:v27];
+              v21 = self->_amplification;
+              self->_amplification = v29;
+              v8 = 1;
             }
+
+            goto LABEL_26;
           }
 
-          else
-          {
-          }
-
-          *&v27 = OUTLINED_FUNCTION_7();
-          v29 = [v28 numberWithFloat:v27];
-          v21 = self->_amplification;
-          self->_amplification = v29;
-          v8 = 1;
+          *&v6 = self->_version;
         }
 
-        goto LABEL_26;
+        v135 = v10;
+        v136 = v9;
+        v133 = v15;
+        v134 = v14;
+        v131 = v12;
+        v132 = v13;
+        v130 = *(&v142 + 1);
+        v129 = v6;
+        LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord updateWithHearingAidConfigData:]", 10, "HMDeviceRecord UUID %@, received raw settings: version: %d, leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf", self->_bluetoothUUID);
+        goto LABEL_18;
       }
 
-      *&v6 = self->_version;
-    }
-
-    v120 = v10;
-    v121 = v9;
-    v118 = v15;
-    v119 = v14;
-    v116 = v12;
-    v117 = v13;
-    v115 = *(&v129 + 1);
-    v111 = self->_bluetoothUUID;
-    v114 = v6;
-    LogPrintF();
-    goto LABEL_18;
-  }
-
-  if (gLogCategory_HMDeviceRecord <= 90)
-  {
-    if (gLogCategory_HMDeviceRecord == -1)
-    {
-      if (!_LogCategory_Initialize())
+      if (gLogCategory_HMDeviceRecord <= 90 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_81;
+        LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord updateWithHearingAidConfigData:]", 90, "## Unknown settings data received with identifier: %d. Version updated ? %d (value = %d)");
       }
-
-      v109 = self->_version;
     }
 
-    goto LABEL_14;
+    else if (gLogCategory_HMDeviceRecord <= 90 && (gLogCategory_HMDeviceRecord != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord updateWithHearingAidConfigData:]", 90, "## HMDeviceRecord identifier %@, invalid config data received", self->_bluetoothUUID);
+    }
   }
 
-LABEL_81:
   v102 = 0;
-LABEL_99:
+LABEL_98:
 
   return v102;
 }
@@ -2174,15 +2658,19 @@ LABEL_99:
 
 void __61__HMDeviceRecord_invokePendingOcclusionCompletionsWithError___block_invoke_cold_1(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v5 = MEMORY[0x2530950A0]();
-  v6 = *(*a2 + 96);
-  if (a3 <= 7)
+  v5 = MEMORY[0x2530950A0](a1);
+  v6 = v5;
+  if (a3 > 7)
+  {
+    v7 = "?";
+  }
+
+  else
   {
     v7 = off_2796EE8F0[a3];
   }
 
-  v8 = *(*a2 + 96);
-  LogPrintF();
+  LogPrintF(&gLogCategory_HMDeviceRecord, "[HMDeviceRecord invokePendingOcclusionCompletionsWithError:]_block_invoke", 30, "Invoking cached occlusion result handler %@ for device identifier %@ with result: %s", v5, *(*a2 + 96), v7);
 }
 
 @end

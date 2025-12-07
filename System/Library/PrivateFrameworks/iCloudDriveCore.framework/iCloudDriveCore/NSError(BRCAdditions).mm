@@ -49,13 +49,13 @@
 - (uint64_t)brc_isCloudKitPCSChainingError;
 - (uint64_t)brc_isCloudKitParentValidationKeyMismatchErrorWithFieldName:()BRCAdditions;
 - (uint64_t)brc_isCloudKitShouldBeUsingEnhancedDrivePrivacyWithFieldName:()BRCAdditions;
-- (uint64_t)brc_isCloudKitUnknownItemError;
 - (uint64_t)brc_isEverRetriable;
 - (uint64_t)brc_isRetriable;
 - (uint64_t)brc_isSaltingError;
 - (uint64_t)brc_isUserInitiatedRetriable;
 - (uint64_t)brc_shouldRetryBubbleLater;
 - (uint64_t)brc_shouldRetryLater;
+- (void)brc_isCloudKitUnknownItemError;
 - (void)brc_logUnderlineErrorsChain;
 @end
 
@@ -94,7 +94,7 @@
 
 - (double)br_suggestedRetryTimeInterval
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   userInfo = [self userInfo];
   v3 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBF68]];
   [v3 doubleValue];
@@ -102,30 +102,30 @@
 
   if ([self _brc_isCloudKitErrorCode:2])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     userInfo2 = [self userInfo];
     v7 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
     objectEnumerator = [v7 objectEnumerator];
 
-    v9 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          [*(*(&v16 + 1) + 8 * v12) br_suggestedRetryTimeInterval];
+          [*(*(&v15 + 1) + 8 * v12) br_suggestedRetryTimeInterval];
           if (v13 > v5)
           {
             v5 = v13;
@@ -135,14 +135,13 @@
         }
 
         while (v10 != v12);
-        v10 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -227,7 +226,7 @@
 
 - (uint64_t)brc_checkErrorsFromCloudKit:()BRCAdditions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((v4)[2](v4, self))
   {
@@ -247,27 +246,27 @@ LABEL_2:
         userInfo = [self userInfo];
         v9 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
         v18 = 0u;
+        v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         objectEnumerator = [v9 objectEnumerator];
-        v11 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v18;
+          v13 = *v17;
           while (2)
           {
             v14 = 0;
             do
             {
-              if (*v18 != v13)
+              if (*v17 != v13)
               {
                 objc_enumerationMutation(objectEnumerator);
               }
 
-              if (v4[2](v4, *(*(&v17 + 1) + 8 * v14)))
+              if (v4[2](v4, *(*(&v16 + 1) + 8 * v14)))
               {
 
                 goto LABEL_2;
@@ -277,7 +276,7 @@ LABEL_2:
             }
 
             while (v12 != v14);
-            v12 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+            v12 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
             if (v12)
             {
               continue;
@@ -296,7 +295,6 @@ LABEL_2:
     v5 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -443,17 +441,7 @@ LABEL_11:
   domain = [self domain];
   v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
-  if (!v6)
-  {
-    goto LABEL_8;
-  }
-
-  userInfo = [self userInfo];
-  v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
-
-  selfCopy = [v8 objectForKeyedSubscript:v4];
-
-  if (!selfCopy)
+  if (!v6 || ([self userInfo], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", *MEMORY[0x277CBBFB0]), v8 = objc_claimAutoreleasedReturnValue(), v7, objc_msgSend(v8, "objectForKeyedSubscript:", v4), selfCopy = objc_claimAutoreleasedReturnValue(), v8, !selfCopy))
   {
 LABEL_8:
     selfCopy = self;
@@ -474,57 +462,53 @@ LABEL_8:
 
 - (uint64_t)brc_isCloudKitErrorNoNetwork
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([self br_isCKErrorCode:3])
+  v15 = *MEMORY[0x277D85DE8];
+  if (![self br_isCKErrorCode:3])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    underlyingErrors = [self underlyingErrors];
-    v3 = [underlyingErrors countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v3)
+    return 0;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  underlyingErrors = [self underlyingErrors];
+  v3 = [underlyingErrors countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
+  {
+    v4 = *v11;
+    while (2)
     {
-      v4 = *v12;
-      while (2)
+      for (i = 0; i != v3; ++i)
       {
-        for (i = 0; i != v3; ++i)
+        if (*v11 != v4)
         {
-          if (*v12 != v4)
-          {
-            objc_enumerationMutation(underlyingErrors);
-          }
-
-          v6 = *(*(&v11 + 1) + 8 * i);
-          if ([v6 br_isNSURLErrorCode:-1009])
-          {
-            userInfo = [v6 userInfo];
-            v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA770]];
-            v3 = v8 == 0;
-
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(underlyingErrors);
         }
 
-        v3 = [underlyingErrors countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v3)
+        v6 = *(*(&v10 + 1) + 8 * i);
+        if ([v6 br_isNSURLErrorCode:-1009])
         {
-          continue;
-        }
+          userInfo = [v6 userInfo];
+          v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA770]];
+          v3 = v8 == 0;
 
-        break;
+          goto LABEL_13;
+        }
       }
+
+      v3 = [underlyingErrors countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v3)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
 LABEL_13:
-  }
 
-  else
-  {
-    v3 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -567,7 +551,7 @@ LABEL_13:
 
 - (uint64_t)brc_isCloudKitHasUnsaltedChildrenWithUnsaltedRecord:()BRCAdditions zoneID:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [self _brc_isCloudKitPluginErrorCode:10];
   if (v7)
@@ -575,38 +559,38 @@ LABEL_13:
     _brc_cloudKitPluginErrorPayload = [self _brc_cloudKitPluginErrorPayload];
     if (a3)
     {
-      v21 = _brc_cloudKitPluginErrorPayload;
+      v20 = _brc_cloudKitPluginErrorPayload;
       v9 = [[BRCExtensionErrorPayload alloc] initWithData:_brc_cloudKitPluginErrorPayload];
       v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v20 = v9;
+      v19 = v9;
       recordIds = [(BRCExtensionErrorPayload *)v9 recordIds];
-      v12 = [recordIds countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [recordIds countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v23;
+        v14 = *v22;
         do
         {
           v15 = 0;
           do
           {
-            if (*v23 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(recordIds);
             }
 
-            v16 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:*(*(&v22 + 1) + 8 * v15) zoneID:v6];
+            v16 = [objc_alloc(MEMORY[0x277CBC5D0]) initWithRecordName:*(*(&v21 + 1) + 8 * v15) zoneID:v6];
             [v10 addObject:v16];
 
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [recordIds countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v13 = [recordIds countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v13);
@@ -615,11 +599,10 @@ LABEL_13:
       v17 = v10;
       *a3 = v10;
 
-      _brc_cloudKitPluginErrorPayload = v21;
+      _brc_cloudKitPluginErrorPayload = v20;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -650,7 +633,7 @@ LABEL_13:
   return [self _brc_isCloudKitPluginErrorCode:13];
 }
 
-- (uint64_t)brc_isCloudKitUnknownItemError
+- (void)brc_isCloudKitUnknownItemError
 {
   result = [self _brc_isCloudKitErrorCode:11];
   if (result)
@@ -1503,7 +1486,7 @@ LABEL_64:
 
 - (uint64_t)brc_isCloudKitErrorSafeToSyncUpWithoutSyncDown
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if ([self brc_isXPCConnectionError])
   {
     v2 = brc_bread_crumbs();
@@ -1524,44 +1507,40 @@ LABEL_5:
     [NSError(BRCAdditions) _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
 LABEL_6:
 
-    _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2 = 0;
-LABEL_7:
-    v7 = *MEMORY[0x277D85DE8];
-    return _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2;
+    return 0;
   }
 
   domain = [self domain];
-  v10 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
+  v9 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
 
-  if (v10)
+  if (v9)
   {
     _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2 = 1;
     switch([self code])
     {
       case 1:
         userInfo = [self userInfo];
-        v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
-        _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown = [v12 _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
+        v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+        _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown = [v11 _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
 
-        v14 = *MEMORY[0x277D85DE8];
         return _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown;
       case 2:
-        v33 = 0u;
-        v34 = 0u;
+        v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         userInfo2 = [self userInfo];
-        v19 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
-        objectEnumerator = [v19 objectEnumerator];
+        v16 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
+        objectEnumerator = [v16 objectEnumerator];
 
-        v21 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v35 count:16];
-        if (!v21)
+        v18 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+        if (!v18)
         {
           goto LABEL_50;
         }
 
-        v22 = v21;
-        v23 = *v32;
+        v19 = v18;
+        v20 = *v29;
         break;
       case 3:
         v4 = brc_bread_crumbs();
@@ -1610,7 +1589,7 @@ LABEL_7:
       case 33:
       case 34:
       case 35:
-        goto LABEL_7;
+        return _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2;
       case 8:
         v4 = brc_bread_crumbs();
         v5 = brc_default_log();
@@ -1656,9 +1635,9 @@ LABEL_7:
           goto LABEL_69;
         }
 
-        v26 = brc_bread_crumbs();
-        v27 = brc_default_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v23 = brc_bread_crumbs();
+        v24 = brc_default_log();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           [NSError(BRCAdditions) _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
         }
@@ -1693,9 +1672,9 @@ LABEL_69:
           goto LABEL_82;
         }
 
-        v26 = brc_bread_crumbs();
-        v27 = brc_default_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v23 = brc_bread_crumbs();
+        v24 = brc_default_log();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           [NSError(BRCAdditions) _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
         }
@@ -1739,14 +1718,14 @@ LABEL_69:
         goto LABEL_6;
       case 22:
         userInfo5 = [self userInfo];
-        v30 = [userInfo5 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+        v27 = [userInfo5 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
 
-        if (v30)
+        if (v27)
         {
-          _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2 = [v30 _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
+          _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2 = [v27 _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
         }
 
-        goto LABEL_7;
+        return _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2;
       case 23:
         v4 = brc_bread_crumbs();
         v5 = brc_default_log();
@@ -1816,18 +1795,18 @@ LABEL_63:
 
     while (2)
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v32 != v23)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        if (([*(*(&v31 + 1) + 8 * i) brc_isCloudKitErrorSafeToSyncUpWithoutSyncDown] & 1) == 0)
+        if (([*(*(&v28 + 1) + 8 * i) brc_isCloudKitErrorSafeToSyncUpWithoutSyncDown] & 1) == 0)
         {
-          v26 = brc_bread_crumbs();
-          v27 = brc_default_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v23 = brc_bread_crumbs();
+          v24 = brc_default_log();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             [NSError(BRCAdditions) _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
           }
@@ -1839,8 +1818,8 @@ LABEL_81:
         }
       }
 
-      v22 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v22)
+      v19 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v19)
       {
         continue;
       }
@@ -1852,13 +1831,13 @@ LABEL_50:
     _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2 = 1;
 LABEL_82:
 
-    goto LABEL_7;
+    return _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown2;
   }
 
   domain2 = [self domain];
-  v16 = [domain2 isEqualToString:*MEMORY[0x277CBC120]];
+  v14 = [domain2 isEqualToString:*MEMORY[0x277CBC120]];
 
-  if (!v16)
+  if (!v14)
   {
     v4 = brc_bread_crumbs();
     v5 = brc_default_log();
@@ -1869,8 +1848,6 @@ LABEL_82:
 
     goto LABEL_5;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return [self _brc_isCloudKitInternalErrorSafeToSyncUpWithoutSyncDown];
 }
@@ -1986,7 +1963,7 @@ LABEL_12:
 
 + (id)brc_errorWithDomain:()BRCAdditions code:underlyingError:
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = a3;
   userInfo = [v7 userInfo];
@@ -1994,35 +1971,32 @@ LABEL_12:
   v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA450]];
 
   v12 = MEMORY[0x277CCA9B8];
-  v13 = *MEMORY[0x277CCA7E8];
   if (v11)
   {
-    v22[0] = *MEMORY[0x277CCA7E8];
-    v22[1] = v10;
-    v23[0] = v7;
-    v23[1] = v11;
-    v14 = MEMORY[0x277CBEAC0];
-    v15 = v23;
-    v16 = v22;
-    v17 = 2;
+    v20[0] = *MEMORY[0x277CCA7E8];
+    v20[1] = v10;
+    v21[0] = v7;
+    v21[1] = v11;
+    v13 = MEMORY[0x277CBEAC0];
+    v14 = v21;
+    v15 = v20;
+    v16 = 2;
   }
 
   else
   {
-    v24 = *MEMORY[0x277CCA7E8];
-    v25[0] = v7;
-    v14 = MEMORY[0x277CBEAC0];
-    v15 = v25;
-    v16 = &v24;
-    v17 = 1;
+    v22 = *MEMORY[0x277CCA7E8];
+    v23[0] = v7;
+    v13 = MEMORY[0x277CBEAC0];
+    v14 = v23;
+    v15 = &v22;
+    v16 = 1;
   }
 
-  v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
-  v19 = [v12 errorWithDomain:v8 code:a4 userInfo:v18];
+  v17 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:v16];
+  v18 = [v12 errorWithDomain:v8 code:a4 userInfo:v17];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (id)brc_wrappedError
@@ -2267,7 +2241,7 @@ LABEL_6:
 
 - (void)brc_logUnderlineErrorsChain
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -2282,7 +2256,7 @@ LABEL_6:
     v7 = *MEMORY[0x277CCA7E8];
     v8 = *MEMORY[0x277CBC130];
     *&v6 = 138413058;
-    v18 = v6;
+    v17 = v6;
     while (1)
     {
       userInfo = [selfCopy userInfo];
@@ -2312,20 +2286,18 @@ LABEL_6:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         userInfo3 = [selfCopy userInfo];
-        *buf = v18;
-        v20 = v5;
-        v21 = 2112;
-        v22 = selfCopy;
-        v23 = 2112;
-        v24 = userInfo3;
-        v25 = 2112;
-        v26 = v14;
+        *buf = v17;
+        v19 = v5;
+        v20 = 2112;
+        v21 = selfCopy;
+        v22 = 2112;
+        v23 = userInfo3;
+        v24 = 2112;
+        v25 = v14;
         _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] %@┗>: %@ userInfo: %@%@", buf, 0x2Au);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)brc_isPostponeUploadError
@@ -2378,7 +2350,7 @@ LABEL_6:
 
 - (id)_getErrorsChainWithErrorsCount:()BRCAdditions
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   ++*a3;
   domain = [self domain];
@@ -2410,32 +2382,32 @@ LABEL_6:
   if (v18)
   {
     v19 = objc_opt_new();
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     userInfo4 = [self userInfo];
     v21 = [userInfo4 objectForKeyedSubscript:v16];
 
-    v22 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v30;
+      v24 = *v29;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [*(*(&v29 + 1) + 8 * i) _getErrorsChainWithErrorsCount:a3];
+          v26 = [*(*(&v28 + 1) + 8 * i) _getErrorsChainWithErrorsCount:a3];
           [v19 addObject:v26];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v23);
@@ -2447,14 +2419,12 @@ LABEL_6:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)brc_getErrorsChainJSONStringWithErrorsCount:()BRCAdditions error:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     [NSError(BRCAdditions) brc_getErrorsChainJSONStringWithErrorsCount:error:];
@@ -2462,9 +2432,9 @@ LABEL_6:
 
   *a3 = 0;
   v7 = [self _getErrorsChainWithErrorsCount:a3];
-  v16 = 0;
-  v8 = [MEMORY[0x277CCAAA0] jsonStringFromDictionary:v7 options:0 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [MEMORY[0x277CCAAA0] jsonStringFromDictionary:v7 options:0 error:&v15];
+  v9 = v15;
   if (v9)
   {
     v10 = brc_bread_crumbs();
@@ -2472,11 +2442,11 @@ LABEL_6:
     if (os_log_type_enabled(v11, 0x90u))
     {
       *buf = 138412802;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v10;
       _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] failed to convert dictionary to json.\n%@\n%@%@", buf, 0x20u);
     }
 
@@ -2498,14 +2468,12 @@ LABEL_6:
     v13 = v8;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)brc_obfuscate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   userInfo = [self userInfo];
   v4 = *MEMORY[0x277CCA7E8];
@@ -2522,30 +2490,30 @@ LABEL_6:
   }
 
   v7 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   userInfo2 = [self userInfo];
-  v23 = *MEMORY[0x277CCA578];
+  v22 = *MEMORY[0x277CCA578];
   v9 = [userInfo2 objectForKeyedSubscript:?];
 
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
         v14 = v5;
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v5 = *(*(&v24 + 1) + 8 * i);
+        v5 = *(*(&v23 + 1) + 8 * i);
 
         if (v5)
         {
@@ -2558,7 +2526,7 @@ LABEL_6:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
@@ -2566,7 +2534,7 @@ LABEL_6:
 
   if ([v7 count])
   {
-    [v2 setObject:v7 forKeyedSubscript:v23];
+    [v2 setObject:v7 forKeyedSubscript:v22];
   }
 
   v16 = MEMORY[0x277CCA9B8];
@@ -2583,8 +2551,6 @@ LABEL_6:
   }
 
   v20 = [v16 errorWithDomain:domain code:code userInfo:v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

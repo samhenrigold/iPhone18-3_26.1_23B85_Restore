@@ -30,24 +30,22 @@
 
 void __53__HMDAccessoryNetworkProtectionGroupModel_properties__block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = @"manufacturer";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = @"manufacturer";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[0] = v0;
-  v7[1] = @"categoryIdentifier";
+  v7[0] = v0;
+  v6[1] = @"categoryIdentifier";
   v1 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v8[1] = v1;
-  v7[2] = @"category";
+  v7[1] = v1;
+  v6[2] = @"category";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[2] = v2;
-  v7[3] = @"targetProtectionMode";
+  v7[2] = v2;
+  v6[3] = @"targetProtectionMode";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = properties__properties_201291;
   properties__properties_201291 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)modelIDForHome:(id)home manufacturer:(id)manufacturer category:(id)category
@@ -86,30 +84,28 @@ void __53__HMDAccessoryNetworkProtectionGroupModel_properties__block_invoke()
 
 - (id)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDBackingStoreModelObject *)self uuid];
   v4 = [v3 initWithName:@"uuid" value:uuid];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   bsoDataVersion = [(HMDBackingStoreModelObject *)self bsoDataVersion];
   v7 = [v5 initWithName:@"version" value:bsoDataVersion];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   manufacturer = [(HMDAccessoryNetworkProtectionGroupModel *)self manufacturer];
   v10 = [v8 initWithName:@"manufacturer" value:manufacturer];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   category = [(HMDAccessoryNetworkProtectionGroupModel *)self category];
   v13 = [v11 initWithName:@"category" value:category];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   targetProtectionMode = [(HMDAccessoryNetworkProtectionGroupModel *)self targetProtectionMode];
   v16 = [v14 initWithName:@"targetProtectionMode" value:targetProtectionMode];
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   return v17;
 }

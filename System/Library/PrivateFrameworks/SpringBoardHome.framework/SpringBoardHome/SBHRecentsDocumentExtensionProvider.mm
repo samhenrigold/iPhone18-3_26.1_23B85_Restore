@@ -107,7 +107,7 @@
 
     else
     {
-      v16 = SBLogRecentsDocumentExtension();
+      v16 = SBLogRecentsDocumentExtension(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [SBHRecentsDocumentExtensionProvider recentsDocumentViewControllerForBundleIdentifier:];
@@ -162,47 +162,48 @@
   v7 = *MEMORY[0x1E696A2E0];
   [v5 setObject:_preferredExtensionIdentifier forKeyedSubscript:*MEMORY[0x1E696A2E0]];
 
-  v21 = 0;
-  v8 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5 error:&v21];
-  v9 = v21;
-  if ([v8 count])
-  {
-    v10 = v9 == 0;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
+  v23 = 0;
+  v8 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5 error:&v23];
+  v9 = v23;
+  v10 = [v8 count];
   if (v10)
   {
-    v13 = 0;
+    v11 = v9 == 0;
   }
 
   else
   {
-    v11 = SBLogRecentsDocumentExtension();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = 0;
+  }
+
+  if (v11)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v12 = SBLogRecentsDocumentExtension(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SBHRecentsDocumentExtensionProvider _loadExtensionWithCompletion:];
     }
 
     [v5 removeObjectForKey:v7];
-    v20 = v9;
-    v12 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5 error:&v20];
-    v13 = v20;
+    v22 = v9;
+    v13 = [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:v5 error:&v22];
+    v14 = v22;
 
-    v8 = v12;
+    v8 = v13;
   }
 
   firstObject = [v8 firstObject];
   [(SBHRecentsDocumentExtensionProvider *)self setExtension:firstObject];
 
-  if (v13)
+  if (v14)
   {
-    v15 = SBLogRecentsDocumentExtension();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = SBLogRecentsDocumentExtension(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SBHRecentsDocumentExtensionProvider _loadExtensionWithCompletion:];
     }
@@ -211,19 +212,19 @@
   if (completionCopy)
   {
     extension = [(SBHRecentsDocumentExtensionProvider *)self extension];
-    v17 = extension;
-    if (v13)
+    v19 = extension;
+    if (v14)
     {
-      v18 = 1;
+      v20 = 1;
     }
 
     else
     {
-      v18 = extension == 0;
+      v20 = extension == 0;
     }
 
-    v19 = !v18;
-    completionCopy[2](completionCopy, v19);
+    v21 = !v20;
+    completionCopy[2](completionCopy, v21);
   }
 }
 
@@ -284,7 +285,7 @@
 
     else
     {
-      v14 = SBLogRecentsDocumentExtension();
+      v14 = SBLogRecentsDocumentExtension(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SBHRecentsDocumentExtensionProvider recentsDocumentViewControllerForBundleIdentifier:];
@@ -329,7 +330,7 @@ void __82__SBHRecentsDocumentExtensionProvider__loadRemoteViewControllerWithConf
   v9 = WeakRetained;
   if (v7)
   {
-    v10 = SBLogRecentsDocumentExtension();
+    v10 = SBLogRecentsDocumentExtension(WeakRetained);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __82__SBHRecentsDocumentExtensionProvider__loadRemoteViewControllerWithConfiguration___block_invoke_cold_1();
@@ -354,7 +355,7 @@ void __82__SBHRecentsDocumentExtensionProvider__loadRemoteViewControllerWithConf
 void __82__SBHRecentsDocumentExtensionProvider__loadRemoteViewControllerWithConfiguration___block_invoke_18(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogRecentsDocumentExtension();
+  v3 = SBLogRecentsDocumentExtension(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __82__SBHRecentsDocumentExtensionProvider__loadRemoteViewControllerWithConfiguration___block_invoke_18_cold_1();

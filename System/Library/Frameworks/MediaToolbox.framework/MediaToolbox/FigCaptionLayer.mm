@@ -42,7 +42,7 @@
       goto LABEL_16;
     }
 
-    v3->_priv->renderer = FigCFCaptionRendererCreate();
+    v3->_priv->renderer = FigCFCaptionRendererCreate(*MEMORY[0x1E695E480]);
     v3->_priv->captionElementLayers = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
     v3->_priv->options = objc_alloc_init(MEMORY[0x1E695DF90]);
     v3->_priv->separated = 0;
@@ -236,7 +236,7 @@ LABEL_16:
   }
 
   [MEMORY[0x1E6979518] setValue:*MEMORY[0x1E695E4D0] forKey:*MEMORY[0x1E697A020]];
-  FigCFCaptionRendererResetCaptions();
+  FigCFCaptionRendererResetCaptions(self->_priv->renderer);
   v3 = [(NSMutableArray *)self->_priv->captionElementLayers count];
   if (v3)
   {
@@ -284,7 +284,7 @@ LABEL_16:
     bottom = priv->captionsAvoidanceMargins.bottom;
     v35[2] = priv->captionsAvoidanceMargins.top;
     v35[3] = bottom;
-    FigCFCaptionRendererGetCaptionElementWindowProperties(v4, v6, v8, v10, x, y, renderer, v35, v13, 10, &v37, v40, v39, v38, &v36);
+    FigCFCaptionRendererGetCaptionElementWindowProperties(renderer, v35, v13, 10, &v37, v40, v39, v38, v4, v6, v8, v10, x, y, &v36);
   }
 
   [MEMORY[0x1E6979518] begin];
@@ -380,8 +380,8 @@ LABEL_16:
 
 - (void)drawLayer:(id)layer inContext:(CGContext *)context
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v20 = 0;
   FigSimpleMutexLock();
   [MEMORY[0x1E6979518] begin];
   if (!pthread_main_np())
@@ -416,7 +416,7 @@ LABEL_16:
   v17 = v16;
   v19 = v18;
   [layer position];
-  FigCFCaptionRendererDrawCaptionElementInContextForRectOrientation(v13, v15, v17, v19, renderer, v7, context, [layer contentsAreFlipped], &v22);
+  FigCFCaptionRendererDrawCaptionElementInContextForRectOrientation(renderer, v7, context, [layer contentsAreFlipped], &v20, v13, v15, v17, v19);
   [MEMORY[0x1E6979518] commit];
   FigSimpleMutexUnlock();
 }

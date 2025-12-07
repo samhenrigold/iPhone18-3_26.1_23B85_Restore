@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000110DC();
+  sub_1000110DC(selfCopy);
 }
 
 - (_TtC22GuestUserHandoverSetup15VideoPlayerView)initWithCoder:(id)coder

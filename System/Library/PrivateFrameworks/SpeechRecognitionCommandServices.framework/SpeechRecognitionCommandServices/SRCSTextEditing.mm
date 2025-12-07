@@ -6,13 +6,18 @@
 - (_NSRange)_findRangeForEnumerationType:(int64_t)type atRelativeIncrement:(int64_t)increment fromPosition:(id)position options:(unint64_t)options;
 - (_NSRange)_rangeOfWordBasedSearchString:(id)string inString:(id)inString withRange:(_NSRange)range forwardSearchDirection:(BOOL)direction;
 - (_NSRange)rangeOfStrings:(id)strings referenceRange:(_NSRange)range ambiguityResolution:(id)resolution substringSearchGranularity:(int)granularity foundStringRef:(id *)ref;
+- (id)_actOnStrings:(id)strings range:(id)range ambiguityResolution:(id)resolution substringSearchGranularity:(int)granularity alwaysCallActionOnClosestMatch:(BOOL)match options:(id)options provider:(id)provider actionBlock:(id)self0;
 - (id)_capitalizedStringFromString:(id)string;
 - (id)_localizedPunctuationStringForIdentifier:(id)identifier;
 - (id)_prunedStringsFromCandidateStrings:(id)strings;
 - (id)_stringBySurroundingString:(id)string withPrefixString:(id)prefixString suffixString:(id)suffixString;
 - (id)_strippedPhraseStringsFromStrings:(id)strings;
 - (id)actOnRange:(id)range options:(id)options actionBlock:(id)block;
+- (id)actOnStrings:(id)strings ambiguityResolution:(id)resolution substringSearchGranularity:(int)granularity alwaysCallActionOnClosestMatch:(BOOL)match options:(id)options actionBlock:(id)block;
+- (id)markerRangeForEnumerationType:(int64_t)type desiredBlock:(int)block count:(unint64_t)count options:(int)options;
+- (id)markerRangeForEnumerationType:(int64_t)type markerRange:(id)range desiredBlock:(int)block count:(unint64_t)count options:(int)options;
 - (id)markerRangeForLineInDesiredBlock:(int)block markerRange:(id)range count:(unint64_t)count options:(int)options;
+- (id)orderedPhraseMatchesFromStrings:(id)strings forwardDirection:(BOOL)direction referenceLocation:(int64_t)location substringSearchGranularity:(int)granularity;
 - (id)visiblePhraseMatchesFromStrings:(id)strings substringSearchGranularity:(int)granularity;
 - (int64_t)_indexOfFirstPhraseMatchResultPairBeforeInsertion:(BOOL)insertion fromArray:(id)array;
 - (unint64_t)characterLengthOfTextMarkerRange:(id)range;
@@ -496,9 +501,25 @@
   }
 }
 
+- (id)_actOnStrings:(id)strings range:(id)range ambiguityResolution:(id)resolution substringSearchGranularity:(int)granularity alwaysCallActionOnClosestMatch:(BOOL)match options:(id)options provider:(id)provider actionBlock:(id)self0
+{
+  if (range)
+  {
+    [provider actOnRange:range options:options actionBlock:{block, *&granularity, match}];
+  }
+
+  else
+  {
+    [provider actOnStrings:strings ambiguityResolution:resolution substringSearchGranularity:*&granularity alwaysCallActionOnClosestMatch:match options:options actionBlock:block];
+  }
+  v10 = ;
+
+  return v10;
+}
+
 - (void)selectFromPhraseVariants:(id)variants insertionString:(id)string range:(id)range recognizedParameters:(id)parameters commandIdentifer:(id)identifer
 {
-  v107[2] = *MEMORY[0x277D85DE8];
+  v106[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   rangeCopy = range;
   parametersCopy = parameters;
@@ -518,10 +539,10 @@
   }
 
   v22 = stringCopy;
-  v50 = provider2;
+  v49 = provider2;
   if ([identiferCopy isEqualToString:@"Text.SelectPrevious"])
   {
-    v46 = identiferCopy;
+    v45 = identiferCopy;
     if ([provider2 isNextPreviousResolverSpokenCommandEmojiBased])
     {
       searchGranularity = 1;
@@ -549,27 +570,27 @@
       v26 = v16;
     }
 
-    v103[0] = MEMORY[0x277D85DD0];
-    v103[1] = 3221225472;
-    v103[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke;
-    v103[3] = &unk_279CF52C0;
-    v104 = v50;
+    v102[0] = MEMORY[0x277D85DD0];
+    v102[1] = 3221225472;
+    v102[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke;
+    v102[3] = &unk_279CF52C0;
+    v103 = v49;
     rangeCopy = v25;
-    firstObject = [(SRCSTextEditing *)self _actOnStrings:v26 range:v25 ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestBeforeSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v23 provider:v104 actionBlock:v103];
+    firstObject = [(SRCSTextEditing *)self _actOnStrings:v26 range:v25 ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestBeforeSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v23 provider:v103 actionBlock:v102];
     if (v27)
     {
     }
 
-    v35 = v104;
+    v35 = v103;
     parametersCopy = v24;
-    identiferCopy = v46;
+    identiferCopy = v45;
     v21 = v23;
     goto LABEL_29;
   }
 
   if ([identiferCopy isEqualToString:@"Text.SelectNext"])
   {
-    v47 = identiferCopy;
+    v46 = identiferCopy;
     if ([provider2 isNextPreviousResolverSpokenCommandEmojiBased])
     {
       searchGranularity = 1;
@@ -592,25 +613,25 @@
         v32 = [provider2 emojisMatchingTextInStrings:v16];
         v33 = 1;
 LABEL_26:
-        v101[0] = MEMORY[0x277D85DD0];
-        v101[1] = 3221225472;
-        v101[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_2;
-        v101[3] = &unk_279CF52C0;
-        v102 = v50;
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_2;
+        v100[3] = &unk_279CF52C0;
+        v101 = v49;
         rangeCopy = v31;
-        firstObject = [(SRCSTextEditing *)self _actOnStrings:v32 range:v31 ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v28 provider:v102 actionBlock:v101];
+        firstObject = [(SRCSTextEditing *)self _actOnStrings:v32 range:v31 ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v28 provider:v101 actionBlock:v100];
         if (v33)
         {
         }
 
-        v35 = v102;
+        v35 = v101;
         parametersCopy = v29;
-        identiferCopy = v47;
+        identiferCopy = v46;
         v21 = v28;
         v22 = v30;
 LABEL_29:
 
-        provider2 = v50;
+        provider2 = v49;
         if (firstObject)
         {
           goto LABEL_32;
@@ -636,49 +657,49 @@ LABEL_29:
     if ([identiferCopy isEqualToString:@"Text.InsertAfterPhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D338];
-      v93[0] = MEMORY[0x277D85DD0];
-      v93[1] = 3221225472;
-      v93[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_5;
-      v93[3] = &unk_279CF5360;
-      v94 = provider2;
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_5;
+      v92[3] = &unk_279CF5360;
+      v93 = provider2;
       selfCopy = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v94 actionBlock:v93];
-      v35 = v94;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v93 actionBlock:v92];
+      v35 = v93;
       goto LABEL_29;
     }
 
-    v41 = v21;
+    v40 = v21;
     if ([identiferCopy isEqualToString:@"Text.InsertPhraseAfterPhrase"])
     {
       [provider2 registerInsertedStringCategoryIdentifer:kSRCSCommandParameterDictation2[0]];
       [v21 addEntriesFromDictionary:&unk_287C0D360];
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_7;
-      v89[3] = &unk_279CF5388;
-      v90 = provider2;
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_7;
+      v88[3] = &unk_279CF5388;
+      v89 = provider2;
       selfCopy2 = self;
-      v92 = stringCopy;
-      v42 = stringCopy;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v90 actionBlock:v89];
+      v91 = stringCopy;
+      v41 = stringCopy;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v89 actionBlock:v88];
 
-      v35 = v90;
+      v35 = v89;
 LABEL_37:
-      v22 = v42;
+      v22 = v41;
       goto LABEL_29;
     }
 
     if ([identiferCopy isEqualToString:@"Text.InsertBeforePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D388];
-      v86[0] = MEMORY[0x277D85DD0];
-      v86[1] = 3221225472;
-      v86[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_9;
-      v86[3] = &unk_279CF5360;
-      v87 = provider2;
+      v85[0] = MEMORY[0x277D85DD0];
+      v85[1] = 3221225472;
+      v85[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_9;
+      v85[3] = &unk_279CF5360;
+      v86 = provider2;
       selfCopy3 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v87 actionBlock:v86];
-      v35 = v87;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v86 actionBlock:v85];
+      v35 = v86;
 LABEL_40:
       v22 = stringCopy;
       goto LABEL_29;
@@ -688,128 +709,128 @@ LABEL_40:
     {
       [provider2 registerInsertedStringCategoryIdentifer:kSRCSCommandParameterDictation2[0]];
       [v21 addEntriesFromDictionary:&unk_287C0D3B0];
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_11;
-      v82[3] = &unk_279CF5388;
-      v83 = provider2;
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_11;
+      v81[3] = &unk_279CF5388;
+      v82 = provider2;
       selfCopy4 = self;
-      v85 = stringCopy;
-      v42 = stringCopy;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v83 actionBlock:v82];
+      v84 = stringCopy;
+      v41 = stringCopy;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v82 actionBlock:v81];
 
-      v35 = v83;
+      v35 = v82;
       goto LABEL_37;
     }
 
     if ([identiferCopy isEqualToString:@"Text.DeletePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D3D8];
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_13;
-      v80[3] = &unk_279CF52C0;
-      v81 = provider2;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v81 actionBlock:v80];
-      v35 = v81;
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_13;
+      v79[3] = &unk_279CF52C0;
+      v80 = provider2;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v80 actionBlock:v79];
+      v35 = v80;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.CapitalizePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D400];
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_15;
-      v77[3] = &unk_279CF5360;
-      v78 = provider2;
+      v76[0] = MEMORY[0x277D85DD0];
+      v76[1] = 3221225472;
+      v76[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_15;
+      v76[3] = &unk_279CF5360;
+      v77 = provider2;
       selfCopy5 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v78 actionBlock:v77];
-      v35 = v78;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v77 actionBlock:v76];
+      v35 = v77;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.LowercasePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D428];
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 3221225472;
-      v74[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_17;
-      v74[3] = &unk_279CF5360;
-      v75 = provider2;
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = 3221225472;
+      v73[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_17;
+      v73[3] = &unk_279CF5360;
+      v74 = provider2;
       selfCopy6 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v75 actionBlock:v74];
-      v35 = v75;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v74 actionBlock:v73];
+      v35 = v74;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.UppercasePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D450];
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_19;
-      v71[3] = &unk_279CF5360;
-      v72 = provider2;
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_19;
+      v70[3] = &unk_279CF5360;
+      v71 = provider2;
       selfCopy7 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v72 actionBlock:v71];
-      v35 = v72;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v71 actionBlock:v70];
+      v35 = v71;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.FormatItalicPhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D478];
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_21;
-      v68[3] = &unk_279CF5360;
-      v69 = provider2;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_21;
+      v67[3] = &unk_279CF5360;
+      v68 = provider2;
       selfCopy8 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v69 actionBlock:v68];
-      v35 = v69;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v68 actionBlock:v67];
+      v35 = v68;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.CorrectPhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D4A0];
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_23;
-      v65[3] = &unk_279CF5360;
-      v66 = provider2;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_23;
+      v64[3] = &unk_279CF5360;
+      v65 = provider2;
       selfCopy9 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v66 actionBlock:v65];
-      v35 = v66;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v65 actionBlock:v64];
+      v35 = v65;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.FormatBoldPhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D4C8];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_25;
-      v62[3] = &unk_279CF5360;
-      v63 = provider2;
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_25;
+      v61[3] = &unk_279CF5360;
+      v62 = provider2;
       selfCopy10 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v63 actionBlock:v62];
-      v35 = v63;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v62 actionBlock:v61];
+      v35 = v62;
       goto LABEL_40;
     }
 
     if ([identiferCopy isEqualToString:@"Text.FormatUnderlinePhrase"])
     {
       [v21 addEntriesFromDictionary:&unk_287C0D4F0];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_27;
-      v59[3] = &unk_279CF5360;
-      v60 = provider2;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_27;
+      v58[3] = &unk_279CF5360;
+      v59 = provider2;
       selfCopy11 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v60 actionBlock:v59];
-      v35 = v60;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v59 actionBlock:v58];
+      v35 = v59;
       v22 = stringCopy;
       goto LABEL_29;
     }
@@ -817,19 +838,19 @@ LABEL_40:
     if (([identiferCopy isEqualToString:@"Text.PutDoubleQuotesAroundPhrase"] & 1) != 0 || (objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutDoubleCurlyQuotesAroundPhrase") & 1) != 0 || (objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutSingleQuotesAroundPhrase") & 1) != 0 || (objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutSingleCurlyQuotesAroundPhrase") & 1) != 0 || (objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutParenthesesAroundPhrase") & 1) != 0 || (objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutSquareBracketsAroundPhrase") & 1) != 0 || objc_msgSend(identiferCopy, "isEqualToString:", @"Text.PutCurlyBracesAroundPhrase"))
     {
       [v21 addEntriesFromDictionary:&unk_287C0D518];
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_29;
-      v55[3] = &unk_279CF5388;
-      v56 = provider2;
-      v57 = identiferCopy;
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_29;
+      v54[3] = &unk_279CF5388;
+      v55 = provider2;
+      v56 = identiferCopy;
       selfCopy12 = self;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v56 actionBlock:v55];
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:0 options:v21 provider:v55 actionBlock:v54];
 
-      v35 = v56;
-      v43 = stringCopy;
+      v35 = v55;
+      v42 = stringCopy;
 LABEL_67:
-      v22 = v43;
+      v22 = v42;
       goto LABEL_29;
     }
 
@@ -848,46 +869,46 @@ LABEL_67:
       if (![v35 count])
       {
         firstObject = 0;
-        v43 = stringCopy;
+        v42 = stringCopy;
         goto LABEL_67;
       }
 
       [v21 addEntriesFromDictionary:&unk_287C0D540];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_31;
-      v53[3] = &unk_279CF52C0;
-      v54 = provider2;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v35 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:1 alwaysCallActionOnClosestMatch:1 options:v21 provider:v54 actionBlock:v53];
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_31;
+      v52[3] = &unk_279CF52C0;
+      v53 = provider2;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v35 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:1 alwaysCallActionOnClosestMatch:1 options:v21 provider:v53 actionBlock:v52];
     }
 
     else
     {
       if ([v16 count])
       {
-        v44 = [v16 objectAtIndex:0];
-        v45 = [v44 isEqualToString:@"\n\n"];
+        v43 = [v16 objectAtIndex:0];
+        v44 = [v43 isEqualToString:@"\n\n"];
 
-        if (v45)
+        if (v44)
         {
           [(SRCSTextEditing *)self selectNextParagraphWithCount:1];
           firstObject = @"\n\n";
-          provider2 = v50;
-          v21 = v41;
+          provider2 = v49;
+          v21 = v40;
           v22 = stringCopy;
           goto LABEL_32;
         }
       }
 
-      v21 = v41;
-      [v41 addEntriesFromDictionary:&unk_287C0D568];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_32;
-      v51[3] = &unk_279CF52C0;
-      v52 = v50;
-      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:1 options:v41 provider:v52 actionBlock:v51];
-      v35 = v52;
+      v21 = v40;
+      [v40 addEntriesFromDictionary:&unk_287C0D568];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_32;
+      v50[3] = &unk_279CF52C0;
+      v51 = v49;
+      firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:searchGranularity alwaysCallActionOnClosestMatch:1 options:v40 provider:v51 actionBlock:v50];
+      v35 = v51;
     }
 
     v22 = stringCopy;
@@ -896,27 +917,27 @@ LABEL_67:
 
   if (stringCopy)
   {
-    v106[0] = @"ActionIdentifier";
-    v106[1] = @"ReplacementString";
-    v107[0] = @"AXSelectTextActivityFindAndSelect";
-    v107[1] = stringCopy;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v107 forKeys:v106 count:2];
-    v48 = searchGranularity;
+    v105[0] = @"ActionIdentifier";
+    v105[1] = @"ReplacementString";
+    v106[0] = @"AXSelectTextActivityFindAndSelect";
+    v106[1] = stringCopy;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:2];
+    v47 = searchGranularity;
     v37 = v36 = v21;
     [v36 addEntriesFromDictionary:v37];
 
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_3;
-    v96[3] = &unk_279CF5310;
-    v97 = stringCopy;
-    v98 = provider2;
-    v99 = parametersCopy;
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_3;
+    v95[3] = &unk_279CF5310;
+    v96 = stringCopy;
+    v97 = provider2;
+    v98 = parametersCopy;
     selfCopy13 = self;
     v21 = v36;
-    firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:v48 alwaysCallActionOnClosestMatch:0 options:v36 provider:v98 actionBlock:v96];
+    firstObject = [(SRCSTextEditing *)self _actOnStrings:v16 range:rangeCopy ambiguityResolution:@"AXSelectTextAmbiguityResolutionClosestToSelection" substringSearchGranularity:v47 alwaysCallActionOnClosestMatch:0 options:v36 provider:v97 actionBlock:v95];
 
-    v35 = v97;
+    v35 = v96;
     goto LABEL_29;
   }
 
@@ -926,16 +947,14 @@ LABEL_30:
   if (firstObject)
   {
     firstObject2 = [v16 firstObject];
-    v105 = firstObject2;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
+    v104 = firstObject2;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
     [provider2 handleErrorIdentifier:@"ErrorMessage.TextNotFound" withObjects:v39];
 
     firstObject = 0;
   }
 
 LABEL_32:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -952,19 +971,18 @@ void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_
 
     if (v9)
     {
-      v10 = *(a1 + 40);
       if (objc_opt_respondsToSelector())
       {
-        v11 = [*(a1 + 40) swiftCodeToInsertAtMarker:v5 recognizedParameters:*(a1 + 48)];
-        if (!v11)
+        v10 = [*(a1 + 40) swiftCodeToInsertAtMarker:v5 recognizedParameters:*(a1 + 48)];
+        if (!v10)
         {
 LABEL_16:
 
           goto LABEL_17;
         }
 
-        v12 = v7;
-        v7 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:v11];
+        v11 = v7;
+        v7 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:v10];
 LABEL_15:
 
         goto LABEL_16;
@@ -973,49 +991,38 @@ LABEL_15:
 
     else
     {
-      v13 = [*(a1 + 48) objectForKey:@"SRCSClientDictationRecognizerModeIsSpelling"];
-      v14 = [v13 BOOLValue];
+      v12 = [*(a1 + 48) objectForKey:@"SRCSClientDictationRecognizerModeIsSpelling"];
+      v13 = [v12 BOOLValue];
 
-      if ((v14 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
+        v14 = [*(a1 + 40) localeForTextOperations];
+        v10 = [v6 lowercaseStringWithLocale:v14];
+
         v15 = [*(a1 + 40) localeForTextOperations];
-        v11 = [v6 lowercaseStringWithLocale:v15];
+        v11 = [v6 uppercaseStringWithLocale:v15];
 
-        v16 = [*(a1 + 40) localeForTextOperations];
-        v12 = [v6 uppercaseStringWithLocale:v16];
-
-        if (([v12 isEqualToString:v11] & 1) == 0)
+        if (([v11 isEqualToString:v10] & 1) == 0)
         {
-          if ([*(a1 + 32) length] < 2)
+          if ([*(a1 + 32) length] < 2 || (v16 = *(a1 + 32), objc_msgSend(*(a1 + 40), "localeForTextOperations"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "uppercaseStringWithLocale:", v17), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", *(a1 + 32)), v18, v17, (v19 & 1) == 0))
           {
-            goto LABEL_11;
-          }
+            v20 = [v6 substringToIndex:1];
+            v21 = [v11 substringToIndex:1];
+            v22 = [v20 isEqualToString:v21];
 
-          v17 = *(a1 + 32);
-          v18 = [*(a1 + 40) localeForTextOperations];
-          v19 = [v17 uppercaseStringWithLocale:v18];
-          v20 = [v19 isEqualToString:*(a1 + 32)];
-
-          if ((v20 & 1) == 0)
-          {
-LABEL_11:
-            v21 = [v6 substringToIndex:1];
-            v22 = [v12 substringToIndex:1];
-            v23 = [v21 isEqualToString:v22];
-
-            v24 = [v7 substringToIndex:1];
-            v25 = [*(a1 + 40) localeForTextOperations];
-            if (v23)
+            v23 = [v7 substringToIndex:1];
+            v24 = [*(a1 + 40) localeForTextOperations];
+            if (v22)
             {
-              [v24 uppercaseStringWithLocale:v25];
+              [v23 uppercaseStringWithLocale:v24];
             }
 
             else
             {
-              [v24 lowercaseStringWithLocale:v25];
+              [v23 lowercaseStringWithLocale:v24];
             }
-            v26 = ;
-            [v7 replaceCharactersInRange:0 withString:{1, v26}];
+            v25 = ;
+            [v7 replaceCharactersInRange:0 withString:{1, v25}];
           }
         }
 
@@ -1028,10 +1035,10 @@ LABEL_17:
     block[1] = 3221225472;
     block[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_4;
     block[3] = &unk_279CF52E8;
-    v29 = *(a1 + 40);
-    v30 = v7;
-    v31 = *(a1 + 56);
-    v27 = v7;
+    v28 = *(a1 + 40);
+    v29 = v7;
+    v30 = *(a1 + 56);
+    v26 = v7;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 }
@@ -1090,20 +1097,19 @@ void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_8(uint64_t a1)
 {
   [*(a1 + 32) moveToEndOfSelection];
-  v2 = *(a1 + 40);
   if ((objc_opt_respondsToSelector() & 1) != 0 && ![*(a1 + 40) shouldInsertInterWordSpaces])
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v3 = *(a1 + 40);
+    v4 = *(a1 + 48);
 
-    [v4 insertString:v5];
+    [v3 insertString:v4];
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@" %@", *(a1 + 48)];
-    [v3 insertString:v6];
+    v2 = *(a1 + 40);
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@" %@", *(a1 + 48)];
+    [v2 insertString:v5];
   }
 }
 
@@ -1152,20 +1158,19 @@ void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_range_recognizedParameters_commandIdentifer___block_invoke_12(uint64_t a1)
 {
   [*(a1 + 32) moveToStartOfSelection];
-  v2 = *(a1 + 40);
   if ((objc_opt_respondsToSelector() & 1) != 0 && ![*(a1 + 40) shouldInsertInterWordSpaces])
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v3 = *(a1 + 40);
+    v4 = *(a1 + 48);
 
-    [v4 insertString:v5];
+    [v3 insertString:v4];
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ ", *(a1 + 48)];
-    [v3 insertString:v6];
+    v2 = *(a1 + 40);
+    v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ ", *(a1 + 48)];
+    [v2 insertString:v5];
   }
 }
 
@@ -1389,31 +1394,31 @@ void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_
 
 - (id)_prunedStringsFromCandidateStrings:(id)strings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = stringsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [SRCSTextEditing wordsFromString:v11, v15];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [SRCSTextEditing wordsFromString:v11, v14];
         if (![array2 count] || +[SRCSTextEditing doesArrayOfWords:containArrayOfArrayWords:](SRCSTextEditing, "doesArrayOfWords:containArrayOfArrayWords:", v12, array2) == 0x7FFFFFFFFFFFFFFFLL)
         {
           [array2 addObject:v12];
@@ -1421,13 +1426,11 @@ void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_insertionString_
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1505,20 +1508,20 @@ LABEL_13:
 
 - (void)selectFromPhraseVariants:(id)variants throughPhraseVariants:(id)phraseVariants recognizedParameters:(id)parameters commandIdentifer:(id)identifer
 {
-  v184 = *MEMORY[0x277D85DE8];
+  v183 = *MEMORY[0x277D85DE8];
   variantsCopy = variants;
   phraseVariantsCopy = phraseVariants;
   parametersCopy = parameters;
   identiferCopy = identifer;
   provider = [(SRCSTextEditing *)self provider];
   searchGranularity = [provider searchGranularity];
-  v119 = provider;
+  v118 = provider;
   selectionTextMarkerRange = [provider selectionTextMarkerRange];
   nsRange = [selectionTextMarkerRange nsRange];
   v18 = v17;
 
-  v120 = identiferCopy;
-  v121 = parametersCopy;
+  v119 = identiferCopy;
+  v120 = parametersCopy;
   if ([identiferCopy isEqualToString:@"Text.SelectPrevious"])
   {
     v19 = @"AXSelectTextAmbiguityResolutionClosestBeforeSelection";
@@ -1535,124 +1538,124 @@ LABEL_13:
     }
   }
 
-  v117 = v19;
+  v116 = v19;
   v21 = [(SRCSTextEditing *)self _strippedPhraseStringsFromStrings:variantsCopy];
   v22 = [(SRCSTextEditing *)self orderedPhraseMatchesFromStrings:v21 forwardDirection:0 referenceLocation:nsRange substringSearchGranularity:searchGranularity];
-  v125 = v21;
+  v124 = v21;
   v23 = [(SRCSTextEditing *)self orderedPhraseMatchesFromStrings:v21 forwardDirection:1 referenceLocation:nsRange substringSearchGranularity:searchGranularity];
+  v174 = 0u;
   v175 = 0u;
   v176 = 0u;
   v177 = 0u;
-  v178 = 0u;
   v24 = v22;
-  v25 = [v24 countByEnumeratingWithState:&v175 objects:v183 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v174 objects:v182 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v176;
+    v27 = *v175;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v176 != v27)
+        if (*v175 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        [*(*(&v175 + 1) + 8 * i) setUserInfo:&unk_287C0D590];
+        [*(*(&v174 + 1) + 8 * i) setUserInfo:&unk_287C0D590];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v175 objects:v183 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v174 objects:v182 count:16];
     }
 
     while (v26);
   }
 
-  v173 = 0u;
-  v174 = 0u;
-  v171 = 0u;
   v172 = 0u;
+  v173 = 0u;
+  v170 = 0u;
+  v171 = 0u;
   v29 = v23;
-  v30 = [v29 countByEnumeratingWithState:&v171 objects:v182 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v170 objects:v181 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v172;
+    v32 = *v171;
     do
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v172 != v32)
+        if (*v171 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        [*(*(&v171 + 1) + 8 * j) setUserInfo:&unk_287C0D5B8];
+        [*(*(&v170 + 1) + 8 * j) setUserInfo:&unk_287C0D5B8];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v171 objects:v182 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v170 objects:v181 count:16];
     }
 
     while (v31);
   }
 
-  v122 = variantsCopy;
+  v121 = variantsCopy;
 
   v34 = [(SRCSTextEditing *)self _strippedPhraseStringsFromStrings:phraseVariantsCopy];
   v35 = [(SRCSTextEditing *)self orderedPhraseMatchesFromStrings:v34 forwardDirection:0 referenceLocation:nsRange substringSearchGranularity:searchGranularity];
-  v127 = v34;
+  v126 = v34;
   v36 = [(SRCSTextEditing *)self orderedPhraseMatchesFromStrings:v34 forwardDirection:1 referenceLocation:nsRange substringSearchGranularity:searchGranularity];
+  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
   v37 = v35;
-  v38 = [v37 countByEnumeratingWithState:&v167 objects:v181 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v166 objects:v180 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v168;
+    v40 = *v167;
     do
     {
       for (k = 0; k != v39; ++k)
       {
-        if (*v168 != v40)
+        if (*v167 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        [*(*(&v167 + 1) + 8 * k) setUserInfo:&unk_287C0D5E0];
+        [*(*(&v166 + 1) + 8 * k) setUserInfo:&unk_287C0D5E0];
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v167 objects:v181 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v166 objects:v180 count:16];
     }
 
     while (v39);
   }
 
-  v165 = 0u;
-  v166 = 0u;
-  v163 = 0u;
   v164 = 0u;
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   v42 = v36;
-  v43 = [v42 countByEnumeratingWithState:&v163 objects:v180 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v162 objects:v179 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v164;
+    v45 = *v163;
     do
     {
       for (m = 0; m != v44; ++m)
       {
-        if (*v164 != v45)
+        if (*v163 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        [*(*(&v163 + 1) + 8 * m) setUserInfo:&unk_287C0D608];
+        [*(*(&v162 + 1) + 8 * m) setUserInfo:&unk_287C0D608];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v163 objects:v180 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v162 objects:v179 count:16];
     }
 
     while (v44);
@@ -1667,7 +1670,7 @@ LABEL_13:
   }
 
   v48 = objc_opt_new();
-  v49 = v125;
+  v49 = v124;
   if ([v29 count] && objc_msgSend(v42, "count"))
   {
     [v48 addObjectsFromArray:v29];
@@ -1675,60 +1678,60 @@ LABEL_13:
     [v48 sortUsingComparator:&__block_literal_global_263];
   }
 
-  v124 = v48;
-  v50 = v127;
-  v123 = v47;
-  if (![(__CFString *)v117 isEqualToString:@"AXSelectTextAmbiguityResolutionClosestBeforeSelection"])
+  v123 = v48;
+  v50 = v126;
+  v122 = v47;
+  if (![(__CFString *)v116 isEqualToString:@"AXSelectTextAmbiguityResolutionClosestBeforeSelection"])
   {
-    if ([(__CFString *)v117 isEqualToString:@"AXSelectTextAmbiguityResolutionClosestAfterSelection"])
+    if ([(__CFString *)v116 isEqualToString:@"AXSelectTextAmbiguityResolutionClosestAfterSelection"])
     {
-      v66 = [(SRCSTextEditing *)self _indexOfFirstPhraseMatchResultPairBeforeInsertion:0 fromArray:v124];
+      v66 = [(SRCSTextEditing *)self _indexOfFirstPhraseMatchResultPairBeforeInsertion:0 fromArray:v123];
       if (v66 != 0x7FFFFFFFFFFFFFFFLL)
       {
         v67 = v66;
-        v68 = [v124 objectAtIndex:v66];
-        v69 = [v124 objectAtIndex:v67 + 1];
+        v68 = [v123 objectAtIndex:v66];
+        v69 = [v123 objectAtIndex:v67 + 1];
         markerRange = [v69 markerRange];
         nsRange2 = [markerRange nsRange];
         v73 = v72;
 
         location = [v68 location];
         v75 = nsRange2 + v73 - [v68 location];
-        v149[0] = MEMORY[0x277D85DD0];
-        v149[1] = 3221225472;
-        v149[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_4;
-        v149[3] = &unk_279CF5420;
-        v150 = v119;
-        v62 = v121;
-        v151 = v121;
-        v152 = v68;
-        v153 = v69;
-        v154 = location;
-        v61 = v119;
-        v49 = v125;
-        v155 = v75;
+        v148[0] = MEMORY[0x277D85DD0];
+        v148[1] = 3221225472;
+        v148[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_4;
+        v148[3] = &unk_279CF5420;
+        v149 = v118;
+        v62 = v120;
+        v150 = v120;
+        v151 = v68;
+        v152 = v69;
+        v153 = location;
+        v61 = v118;
+        v49 = v124;
+        v154 = v75;
         firstObject2 = v69;
         firstObject = v68;
-        dispatch_async(MEMORY[0x277D85CD0], v149);
+        dispatch_async(MEMORY[0x277D85CD0], v148);
 
-        v65 = v150;
+        v65 = v149;
         goto LABEL_71;
       }
 
 LABEL_70:
       firstObject = [v49 firstObject];
-      v179[0] = firstObject;
+      v178[0] = firstObject;
       firstObject2 = [v50 firstObject];
-      v179[1] = firstObject2;
-      v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
-      v61 = v119;
-      [v119 handleErrorIdentifier:@"ErrorMessage.TextThroughTextNotFound" withObjects:v65];
-      v62 = v121;
+      v178[1] = firstObject2;
+      v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
+      v61 = v118;
+      [v118 handleErrorIdentifier:@"ErrorMessage.TextThroughTextNotFound" withObjects:v65];
+      v62 = v120;
       goto LABEL_71;
     }
 
     v76 = [(SRCSTextEditing *)self _indexOfFirstPhraseMatchResultPairBeforeInsertion:1 fromArray:v47];
-    v118 = v76;
+    v117 = v76;
     if (v76 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v77 = -1;
@@ -1740,7 +1743,7 @@ LABEL_70:
       v77 = nsRange - [v78 location];
     }
 
-    v79 = [(SRCSTextEditing *)self _indexOfFirstPhraseMatchResultPairBeforeInsertion:0 fromArray:v124];
+    v79 = [(SRCSTextEditing *)self _indexOfFirstPhraseMatchResultPairBeforeInsertion:0 fromArray:v123];
     if (v79 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v80 = -1;
@@ -1748,11 +1751,11 @@ LABEL_70:
 
     else
     {
-      v81 = [v124 objectAtIndex:v79];
+      v81 = [v123 objectAtIndex:v79];
       v80 = [v81 location] - nsRange;
     }
 
-    v50 = v127;
+    v50 = v126;
     v82 = v77;
     if ([v24 count] && objc_msgSend(v42, "count"))
     {
@@ -1764,15 +1767,15 @@ LABEL_70:
         firstObject4 = [v42 firstObject];
         userInfo2 = [firstObject4 userInfo];
         v84 = [userInfo2 objectForKey:@"Context"];
-        v113 = [v84 isEqualToString:@"Suffix"];
+        v112 = [v84 isEqualToString:@"Suffix"];
 
-        v50 = v127;
-        if (v113)
+        v50 = v126;
+        if (v112)
         {
           firstObject5 = [v24 firstObject];
           v86 = nsRange - [firstObject5 location];
 
-          v50 = v127;
+          v50 = v126;
           if ((v86 & 0x8000000000000000) == 0 && (v82 == -1 || v86 < v82 || v80 == -1 || v86 < v80))
           {
             firstObject6 = [v24 firstObject];
@@ -1783,23 +1786,23 @@ LABEL_70:
 
             location2 = [firstObject6 location];
             v94 = nsRange3 + v92 - [firstObject6 location];
-            v142[0] = MEMORY[0x277D85DD0];
-            v142[1] = 3221225472;
-            v142[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_5;
-            v142[3] = &unk_279CF5420;
-            v143 = v119;
-            v62 = v121;
-            v144 = v121;
-            v145 = firstObject6;
-            v146 = firstObject7;
-            v147 = location2;
-            v61 = v119;
-            v148 = v94;
+            v141[0] = MEMORY[0x277D85DD0];
+            v141[1] = 3221225472;
+            v141[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_5;
+            v141[3] = &unk_279CF5420;
+            v142 = v118;
+            v62 = v120;
+            v143 = v120;
+            v144 = firstObject6;
+            v145 = firstObject7;
+            v146 = location2;
+            v61 = v118;
+            v147 = v94;
             firstObject2 = firstObject7;
             firstObject = firstObject6;
-            dispatch_async(MEMORY[0x277D85CD0], v142);
+            dispatch_async(MEMORY[0x277D85CD0], v141);
 
-            v65 = v143;
+            v65 = v142;
             goto LABEL_67;
           }
         }
@@ -1812,68 +1815,68 @@ LABEL_70:
 
     if (v82 < 0 || v80 != -1 && (v80 < 0 || v82 >= v80))
     {
-      v49 = v125;
+      v49 = v124;
       if ((v80 & 0x8000000000000000) == 0)
       {
-        v103 = [v124 objectAtIndex:v79];
-        v104 = [v124 objectAtIndex:v79 + 1];
+        v103 = [v123 objectAtIndex:v79];
+        v104 = [v123 objectAtIndex:v79 + 1];
         markerRange3 = [v104 markerRange];
         nsRange4 = [markerRange3 nsRange];
         v108 = v107;
 
         location3 = [v103 location];
         v110 = nsRange4 + v108 - [v103 location];
-        v128[0] = MEMORY[0x277D85DD0];
-        v128[1] = 3221225472;
-        v128[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_7;
-        v128[3] = &unk_279CF5420;
-        v129 = v119;
-        v62 = v121;
-        v130 = v121;
-        v131 = v103;
-        v132 = v104;
-        v133 = location3;
-        v61 = v119;
-        v49 = v125;
-        v134 = v110;
+        v127[0] = MEMORY[0x277D85DD0];
+        v127[1] = 3221225472;
+        v127[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_7;
+        v127[3] = &unk_279CF5420;
+        v128 = v118;
+        v62 = v120;
+        v129 = v120;
+        v130 = v103;
+        v131 = v104;
+        v132 = location3;
+        v61 = v118;
+        v49 = v124;
+        v133 = v110;
         firstObject2 = v104;
         firstObject = v103;
-        dispatch_async(MEMORY[0x277D85CD0], v128);
+        dispatch_async(MEMORY[0x277D85CD0], v127);
 
-        v65 = v129;
+        v65 = v128;
         goto LABEL_71;
       }
 
       goto LABEL_70;
     }
 
-    v95 = [v123 objectAtIndex:v118];
-    v96 = [v123 objectAtIndex:v118 + 1];
+    v95 = [v122 objectAtIndex:v117];
+    v96 = [v122 objectAtIndex:v117 + 1];
     markerRange4 = [v95 markerRange];
     nsRange5 = [markerRange4 nsRange];
     v100 = v99;
 
     location4 = [v96 location];
     v102 = nsRange5 + v100 - [v96 location];
-    v135[0] = MEMORY[0x277D85DD0];
-    v135[1] = 3221225472;
-    v135[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_6;
-    v135[3] = &unk_279CF5420;
-    v136 = v119;
-    v62 = v121;
-    v137 = v121;
-    v138 = v96;
-    v139 = v95;
-    v140 = location4;
-    v61 = v119;
-    v141 = v102;
+    v134[0] = MEMORY[0x277D85DD0];
+    v134[1] = 3221225472;
+    v134[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_6;
+    v134[3] = &unk_279CF5420;
+    v135 = v118;
+    v62 = v120;
+    v136 = v120;
+    v137 = v96;
+    v138 = v95;
+    v139 = location4;
+    v61 = v118;
+    v140 = v102;
     firstObject2 = v95;
     firstObject = v96;
-    dispatch_async(MEMORY[0x277D85CD0], v135);
+    dispatch_async(MEMORY[0x277D85CD0], v134);
 
-    v65 = v136;
+    v65 = v135;
 LABEL_67:
-    v49 = v125;
+    v49 = v124;
     goto LABEL_71;
   }
 
@@ -1896,23 +1899,21 @@ LABEL_67:
   block[1] = 3221225472;
   block[2] = __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_3;
   block[3] = &unk_279CF5420;
-  v61 = v119;
-  v157 = v119;
-  v62 = v121;
-  v158 = v121;
-  v159 = v54;
-  v160 = v53;
-  v161 = location5;
-  v162 = v60;
-  v49 = v125;
+  v61 = v118;
+  v156 = v118;
+  v62 = v120;
+  v157 = v120;
+  v158 = v54;
+  v159 = v53;
+  v160 = location5;
+  v161 = v60;
+  v49 = v124;
   firstObject2 = v53;
   firstObject = v54;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  v65 = v157;
+  v65 = v156;
 LABEL_71:
-
-  v111 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1935,172 +1936,157 @@ BOOL __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVar
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_3(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v11[2] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) matchedString];
-    if ([v5 length])
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) matchedString];
+    if ([v4 length])
     {
-      v12[0] = kSRCSCommandParameterDictation[0];
-      v6 = [*(a1 + 48) matchedString];
-      v13[0] = v6;
-      v12[1] = kSRCSCommandParameterDictation2[0];
-      v7 = [*(a1 + 56) matchedString];
-      v13[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:v8];
+      v10[0] = kSRCSCommandParameterDictation[0];
+      v5 = [*(a1 + 48) matchedString];
+      v11[0] = v5;
+      v10[1] = kSRCSCommandParameterDictation2[0];
+      v6 = [*(a1 + 56) matchedString];
+      v11[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:v7];
     }
 
     else
     {
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:0];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:0];
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [objc_msgSend(v9 "textMarkerRangeClass")];
-  [v9 setSelectionToTextMarkerRange:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = [objc_msgSend(v8 "textMarkerRangeClass")];
+  [v8 setSelectionToTextMarkerRange:v9];
 }
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_4(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v11[2] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) matchedString];
-    if ([v5 length])
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) matchedString];
+    if ([v4 length])
     {
-      v12[0] = kSRCSCommandParameterDictation[0];
-      v6 = [*(a1 + 48) matchedString];
-      v13[0] = v6;
-      v12[1] = kSRCSCommandParameterDictation2[0];
-      v7 = [*(a1 + 56) matchedString];
-      v13[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:v8];
+      v10[0] = kSRCSCommandParameterDictation[0];
+      v5 = [*(a1 + 48) matchedString];
+      v11[0] = v5;
+      v10[1] = kSRCSCommandParameterDictation2[0];
+      v6 = [*(a1 + 56) matchedString];
+      v11[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:v7];
     }
 
     else
     {
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:0];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:0];
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [objc_msgSend(v9 "textMarkerRangeClass")];
-  [v9 setSelectionToTextMarkerRange:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = [objc_msgSend(v8 "textMarkerRangeClass")];
+  [v8 setSelectionToTextMarkerRange:v9];
 }
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_5(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v11[2] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) matchedString];
-    if ([v5 length])
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) matchedString];
+    if ([v4 length])
     {
-      v12[0] = kSRCSCommandParameterDictation[0];
-      v6 = [*(a1 + 48) matchedString];
-      v13[0] = v6;
-      v12[1] = kSRCSCommandParameterDictation2[0];
-      v7 = [*(a1 + 56) matchedString];
-      v13[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:v8];
+      v10[0] = kSRCSCommandParameterDictation[0];
+      v5 = [*(a1 + 48) matchedString];
+      v11[0] = v5;
+      v10[1] = kSRCSCommandParameterDictation2[0];
+      v6 = [*(a1 + 56) matchedString];
+      v11[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:v7];
     }
 
     else
     {
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:0];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:0];
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [objc_msgSend(v9 "textMarkerRangeClass")];
-  [v9 setSelectionToTextMarkerRange:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = [objc_msgSend(v8 "textMarkerRangeClass")];
+  [v8 setSelectionToTextMarkerRange:v9];
 }
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_6(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v11[2] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) matchedString];
-    if ([v5 length])
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) matchedString];
+    if ([v4 length])
     {
-      v12[0] = kSRCSCommandParameterDictation[0];
-      v6 = [*(a1 + 48) matchedString];
-      v13[0] = v6;
-      v12[1] = kSRCSCommandParameterDictation2[0];
-      v7 = [*(a1 + 56) matchedString];
-      v13[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:v8];
+      v10[0] = kSRCSCommandParameterDictation[0];
+      v5 = [*(a1 + 48) matchedString];
+      v11[0] = v5;
+      v10[1] = kSRCSCommandParameterDictation2[0];
+      v6 = [*(a1 + 56) matchedString];
+      v11[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:v7];
     }
 
     else
     {
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:0];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:0];
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [objc_msgSend(v9 "textMarkerRangeClass")];
-  [v9 setSelectionToTextMarkerRange:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = [objc_msgSend(v8 "textMarkerRangeClass")];
+  [v8 setSelectionToTextMarkerRange:v9];
 }
 
 void __115__SRCSTextEditing_Selection__selectFromPhraseVariants_throughPhraseVariants_recognizedParameters_commandIdentifer___block_invoke_7(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v11[2] = *MEMORY[0x277D85DE8];
   if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 48) matchedString];
-    if ([v5 length])
+    v2 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v4 = [*(a1 + 48) matchedString];
+    if ([v4 length])
     {
-      v12[0] = kSRCSCommandParameterDictation[0];
-      v6 = [*(a1 + 48) matchedString];
-      v13[0] = v6;
-      v12[1] = kSRCSCommandParameterDictation2[0];
-      v7 = [*(a1 + 56) matchedString];
-      v13[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:v8];
+      v10[0] = kSRCSCommandParameterDictation[0];
+      v5 = [*(a1 + 48) matchedString];
+      v11[0] = v5;
+      v10[1] = kSRCSCommandParameterDictation2[0];
+      v6 = [*(a1 + 56) matchedString];
+      v11[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:v7];
     }
 
     else
     {
-      [v3 handleSearchResultsWithRecognizedCommandParameters:v4 variantOverrides:0];
+      [v2 handleSearchResultsWithRecognizedCommandParameters:v3 variantOverrides:0];
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [objc_msgSend(v9 "textMarkerRangeClass")];
-  [v9 setSelectionToTextMarkerRange:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = [objc_msgSend(v8 "textMarkerRangeClass")];
+  [v8 setSelectionToTextMarkerRange:v9];
 }
 
 - (void)selectFromRange:(id)range insertionString:(id)string commandIdentifier:(id)identifier recognizedParamaters:(id)paramaters
@@ -2330,33 +2316,32 @@ LABEL_23:
 
 uint64_t __83__SRCSTextEditing_Selection__surroundSelectionWithPunctuationForCommandIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) targetApplicationBundleIdentifier], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "hasPrefix:", @"com.microsoft."), v3, v4))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) targetApplicationBundleIdentifier], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "hasPrefix:", @"com.microsoft."), v2, v3))
   {
-    v5 = *(a1 + 32);
-    v6 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Opening"];
-    [v5 insertString:v6];
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Opening"];
+    [v4 insertString:v5];
 
     [*(a1 + 32) insertString:*(a1 + 48)];
-    v7 = *(a1 + 32);
-    v8 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Closing"];
-    [v7 insertString:v8];
+    v6 = *(a1 + 32);
+    v7 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Closing"];
+    [v6 insertString:v7];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v8 = [v10 _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Opening"];
-    v12 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Closing"];
-    v13 = [v10 _stringBySurroundingString:v11 withPrefixString:v8 suffixString:v12];
-    [v9 insertString:v13];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v7 = [v9 _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Opening"];
+    v11 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightDoubleQuote.Closing"];
+    v12 = [v9 _stringBySurroundingString:v10 withPrefixString:v7 suffixString:v11];
+    [v8 insertString:v12];
   }
 
-  v14 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  return [v14 setExecuting:0];
+  return [v13 setExecuting:0];
 }
 
 uint64_t __83__SRCSTextEditing_Selection__surroundSelectionWithPunctuationForCommandIdentifier___block_invoke_2(uint64_t a1)
@@ -2376,33 +2361,32 @@ uint64_t __83__SRCSTextEditing_Selection__surroundSelectionWithPunctuationForCom
 
 uint64_t __83__SRCSTextEditing_Selection__surroundSelectionWithPunctuationForCommandIdentifier___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) targetApplicationBundleIdentifier], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "hasPrefix:", @"com.microsoft."), v3, v4))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && ([*(a1 + 32) targetApplicationBundleIdentifier], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "hasPrefix:", @"com.microsoft."), v2, v3))
   {
-    v5 = *(a1 + 32);
-    v6 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Opening"];
-    [v5 insertString:v6];
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Opening"];
+    [v4 insertString:v5];
 
     [*(a1 + 32) insertString:*(a1 + 48)];
-    v7 = *(a1 + 32);
-    v8 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Closing"];
-    [v7 insertString:v8];
+    v6 = *(a1 + 32);
+    v7 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Closing"];
+    [v6 insertString:v7];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v8 = [v10 _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Opening"];
-    v12 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Closing"];
-    v13 = [v10 _stringBySurroundingString:v11 withPrefixString:v8 suffixString:v12];
-    [v9 insertString:v13];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v7 = [v9 _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Opening"];
+    v11 = [*(a1 + 40) _localizedPunctuationStringForIdentifier:@"SurroundInPunctuation.StraightSingleQuote.Closing"];
+    v12 = [v9 _stringBySurroundingString:v10 withPrefixString:v7 suffixString:v11];
+    [v8 insertString:v12];
   }
 
-  v14 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  return [v14 setExecuting:0];
+  return [v13 setExecuting:0];
 }
 
 uint64_t __83__SRCSTextEditing_Selection__surroundSelectionWithPunctuationForCommandIdentifier___block_invoke_4(uint64_t a1)
@@ -2793,35 +2777,35 @@ uint64_t __46__SRCSTextEditing_Selection__correctSelection__block_invoke(uint64_
 
 - (id)_strippedPhraseStringsFromStrings:(id)strings
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   array = [MEMORY[0x277CBEB18] array];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = stringsCopy;
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v9 = [&unk_287C0D630 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v9 = [&unk_287C0D630 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (!v9)
         {
           goto LABEL_17;
@@ -2829,24 +2813,24 @@ uint64_t __46__SRCSTextEditing_Selection__correctSelection__block_invoke(uint64_
 
         v10 = v9;
         v11 = 0;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (j = 0; j != v10; ++j)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(&unk_287C0D630);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * j);
+            v14 = *(*(&v21 + 1) + 8 * j);
             if ([v8 hasPrefix:v14])
             {
               v11 = [v14 length];
             }
           }
 
-          v10 = [&unk_287C0D630 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v10 = [&unk_287C0D630 countByEnumeratingWithState:&v21 objects:v29 count:16];
         }
 
         while (v10);
@@ -2865,13 +2849,11 @@ LABEL_17:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -3728,7 +3710,7 @@ LABEL_7:
 {
   length = range.length;
   location = range.location;
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   resolutionCopy = resolution;
   if (![stringsCopy count])
@@ -3764,7 +3746,7 @@ LABEL_7:
   index = [lastPositionTextMarker index];
 
   selfCopy = self;
-  v76 = v15;
+  v75 = v15;
   if (index >> 5 > 0xC34)
   {
     v17 += v15 >> 1;
@@ -3797,7 +3779,7 @@ LABEL_7:
     stringsCopy = v25;
     self = selfCopy;
 
-    v15 = v76;
+    v15 = v75;
   }
 
   nsRange = [v28 nsRange];
@@ -3812,42 +3794,42 @@ LABEL_79:
     goto LABEL_83;
   }
 
-  v61 = v28;
-  v62 = stringsCopy;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
+  v60 = v28;
+  v61 = stringsCopy;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   obj = stringsCopy;
-  v77 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
-  if (!v77)
+  v76 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
+  if (!v76)
   {
-    v72 = 0x7FFFFFFFFFFFFFFFLL;
+    v71 = 0x7FFFFFFFFFFFFFFFLL;
     v35 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_81;
   }
 
-  v73 = v17 - nsRange;
-  v75 = *v79;
-  v64 = v17 - nsRange + v15;
-  v65 = v17 + (v15 >> 1);
+  v72 = v17 - nsRange;
+  v74 = *v78;
+  v63 = v17 - nsRange + v15;
+  v64 = v17 + (v15 >> 1);
+  v69 = 0x7FFFFFFFFFFFFFFFLL;
   v70 = 0x7FFFFFFFFFFFFFFFLL;
-  v71 = 0x7FFFFFFFFFFFFFFFLL;
   v33 = 0x7FFFFFFFFFFFFFFFLL;
-  v66 = 0x7FFFFFFFFFFFFFFFLL;
+  v65 = 0x7FFFFFFFFFFFFFFFLL;
   v34 = 0x7FFFFFFFFFFFFFFFLL;
-  v72 = 0x7FFFFFFFFFFFFFFFLL;
+  v71 = 0x7FFFFFFFFFFFFFFFLL;
   v35 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    for (i = 0; i != v77; ++i)
+    for (i = 0; i != v76; ++i)
     {
-      if (*v79 != v75)
+      if (*v78 != v74)
       {
         objc_enumerationMutation(obj);
       }
 
-      v37 = *(*(&v78 + 1) + 8 * i);
+      v37 = *(*(&v77 + 1) + 8 * i);
       v38 = [v37 length];
       if (v15 || (v39 = v38, ![resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestToSelection"]))
       {
@@ -3857,9 +3839,9 @@ LABEL_79:
 
       else
       {
-        if (v73 >= v39)
+        if (v72 >= v39)
         {
-          v40 = v73 - v39;
+          v40 = v72 - v39;
         }
 
         else
@@ -3901,33 +3883,33 @@ LABEL_79:
       {
         if (granularity)
         {
-          v44 = [v32 rangeOfString:v37 options:5 range:{0, v73}];
+          v44 = [v32 rangeOfString:v37 options:5 range:{0, v72}];
         }
 
         else
         {
-          v44 = [(SRCSTextEditing *)selfCopy _rangeOfWordBasedSearchString:v37 inString:v32 withRange:0 forwardSearchDirection:v73, 0];
+          v44 = [(SRCSTextEditing *)selfCopy _rangeOfWordBasedSearchString:v37 inString:v32 withRange:0 forwardSearchDirection:v72, 0];
         }
 
         v34 = v44;
-        v70 = v45;
+        v69 = v45;
       }
 
       if (([resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestToSelection"] & 1) != 0 || objc_msgSend(resolutionCopy, "isEqualToString:", @"AXSelectTextAmbiguityResolutionClosestAfterSelection"))
       {
         v46 = [v32 length];
         [v32 length];
-        if (v64 <= v46)
+        if (v63 <= v46)
         {
-          v47 = v64;
+          v47 = v63;
         }
 
         else
         {
-          v47 = v73;
+          v47 = v72;
         }
 
-        v66 = v47;
+        v65 = v47;
         if (granularity)
         {
           v48 = [v32 rangeOfString:v37 options:1 range:?];
@@ -3939,7 +3921,7 @@ LABEL_79:
         }
 
         v42 = v48;
-        v71 = v49;
+        v70 = v49;
       }
 
       if (![resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestToSelection"])
@@ -3947,14 +3929,14 @@ LABEL_79:
         if ([resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestBeforeSelection"])
         {
           v33 = v42;
-          v43 = v70;
+          v43 = v69;
           v42 = v34;
           v50 = v34;
         }
 
         else
         {
-          v43 = v71;
+          v43 = v70;
           v33 = v42;
           v50 = v34;
           if (![resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestAfterSelection"])
@@ -3973,7 +3955,7 @@ LABEL_51:
       }
 
       v50 = 0x7FFFFFFFFFFFFFFFLL;
-      v43 = v71;
+      v43 = v70;
       v33 = v42;
       if (v34 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -3982,17 +3964,17 @@ LABEL_51:
 
       if (v42 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v66 - (v34 + v70) >= (v42 - v66))
-        {
-          v43 = v71;
-        }
-
-        else
+        if (v65 - (v34 + v69) >= (v42 - v65))
         {
           v43 = v70;
         }
 
-        if (v66 - (v34 + v70) < (v42 - v66))
+        else
+        {
+          v43 = v69;
+        }
+
+        if (v65 - (v34 + v69) < (v42 - v65))
         {
           v42 = v34;
         }
@@ -4005,17 +3987,17 @@ LABEL_63:
       v50 = v34;
       v33 = 0x7FFFFFFFFFFFFFFFLL;
       v42 = v34;
-      v43 = v70;
+      v43 = v69;
 LABEL_64:
       if (v35 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v54 = v42 - v65 + (v43 >> 1);
+        v54 = v42 - v64 + (v43 >> 1);
         if (v54 < 0)
         {
           v54 = -v54;
         }
 
-        v55 = v35 - v65 + (v72 >> 1);
+        v55 = v35 - v64 + (v71 >> 1);
         if (v55 < 0)
         {
           v55 = -v55;
@@ -4036,38 +4018,37 @@ LABEL_74:
       }
 
       v34 = v50;
-      v72 = v43;
+      v71 = v43;
       v35 = v42;
 LABEL_75:
-      v15 = v76;
+      v15 = v75;
     }
 
-    v77 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
+    v76 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
   }
 
-  while (v77);
+  while (v76);
 LABEL_81:
 
   if (v35 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    stringsCopy = v62;
-    v56 = v72;
+    stringsCopy = v61;
+    v56 = v71;
 LABEL_83:
     v57 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    stringsCopy = v62;
+    stringsCopy = v61;
     v57 = v35 + nsRange;
-    v56 = v72;
+    v56 = v71;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
-  v59 = v57;
-  v60 = v56;
-  result.length = v60;
-  result.location = v59;
+  v58 = v57;
+  v59 = v56;
+  result.length = v59;
+  result.location = v58;
   return result;
 }
 
@@ -4083,30 +4064,346 @@ LABEL_83:
   return v10;
 }
 
+- (id)actOnStrings:(id)strings ambiguityResolution:(id)resolution substringSearchGranularity:(int)granularity alwaysCallActionOnClosestMatch:(BOOL)match options:(id)options actionBlock:(id)block
+{
+  matchCopy = match;
+  v11 = *&granularity;
+  v123[1] = *MEMORY[0x277D85DE8];
+  stringsCopy = strings;
+  resolutionCopy = resolution;
+  optionsCopy = options;
+  blockCopy = block;
+  if (![resolutionCopy isEqualToString:@"AXSelectTextAmbiguityResolutionClosestToSelection"] || (-[SRCSTextEditing provider](self, "provider"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isTextDisambiguationSupported"), v18, !v19))
+  {
+    provider = [(SRCSTextEditing *)self provider];
+    selectionTextMarkerRange = [provider selectionTextMarkerRange];
+    nsRange = [selectionTextMarkerRange nsRange];
+    v109 = 0;
+    v34 = [(SRCSTextEditing *)self rangeOfStrings:stringsCopy referenceRange:nsRange ambiguityResolution:v33 substringSearchGranularity:resolutionCopy foundStringRef:v11, &v109];
+    v36 = v35;
+    v24 = v109;
+
+    if (v34 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      goto LABEL_23;
+    }
+
+    provider2 = [(SRCSTextEditing *)self provider];
+    v38 = objc_opt_respondsToSelector();
+
+    if (v38)
+    {
+      v108 = resolutionCopy;
+      v39 = blockCopy;
+      v40 = stringsCopy;
+      provider3 = [(SRCSTextEditing *)self provider];
+      v42 = optionsCopy;
+      v43 = [optionsCopy objectForKey:@"RecognizedParameters"];
+      if ([v24 length])
+      {
+        v112 = kSRCSCommandParameterDictation[0];
+        v113 = v24;
+        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+        [provider3 handleSearchResultsWithRecognizedCommandParameters:v43 variantOverrides:v44];
+      }
+
+      else
+      {
+        [provider3 handleSearchResultsWithRecognizedCommandParameters:v43 variantOverrides:0];
+      }
+
+      optionsCopy = v42;
+      stringsCopy = v40;
+      blockCopy = v39;
+      resolutionCopy = v108;
+    }
+
+    provider4 = [(SRCSTextEditing *)self provider];
+    markerRange = [objc_msgSend(provider4 "textMarkerRangeClass")];
+    blockCopy[2](blockCopy, markerRange, v24);
+    goto LABEL_21;
+  }
+
+  v107 = optionsCopy;
+  provider4 = [(SRCSTextEditing *)self visiblePhraseMatchesFromStrings:stringsCopy substringSearchGranularity:v11];
+  if ([provider4 count])
+  {
+    if ([provider4 count] == 1)
+    {
+      firstObject = [provider4 firstObject];
+      markerRange = [firstObject markerRange];
+
+      provider5 = [(SRCSTextEditing *)self provider];
+      v24 = [provider5 stringForTextMarkerRange:markerRange];
+
+      provider6 = [(SRCSTextEditing *)self provider];
+      v26 = objc_opt_respondsToSelector();
+
+      if (v26)
+      {
+        provider7 = [(SRCSTextEditing *)self provider];
+        v28 = [v107 objectForKey:@"RecognizedParameters"];
+        if ([v24 length])
+        {
+          v120 = kSRCSCommandParameterDictation[0];
+          v121 = v24;
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
+          [provider7 handleSearchResultsWithRecognizedCommandParameters:v28 variantOverrides:v29];
+        }
+
+        else
+        {
+          [provider7 handleSearchResultsWithRecognizedCommandParameters:v28 variantOverrides:0];
+        }
+      }
+
+      blockCopy[2](blockCopy, markerRange, v24);
+      optionsCopy = v107;
+LABEL_21:
+
+      goto LABEL_22;
+    }
+
+    v105 = matchCopy;
+    provider8 = [(SRCSTextEditing *)self provider];
+    firstObject2 = [provider4 firstObject];
+    markerRange2 = [firstObject2 markerRange];
+    v24 = [provider8 stringForTextMarkerRange:markerRange2];
+
+    provider9 = [(SRCSTextEditing *)self provider];
+    selectionTextMarkerRange2 = [provider9 selectionTextMarkerRange];
+    nsRange2 = [selectionTextMarkerRange2 nsRange];
+    v110 = 0;
+    v59 = [(SRCSTextEditing *)self rangeOfStrings:stringsCopy referenceRange:nsRange2 ambiguityResolution:v58 substringSearchGranularity:resolutionCopy foundStringRef:v11, &v110];
+    v103 = provider4;
+    v61 = v60;
+    markerRange = v110;
+
+    provider10 = [(SRCSTextEditing *)self provider];
+    v100 = v61;
+    LODWORD(selectionTextMarkerRange2) = [provider10 isVisibleTextRange:{v59, v61}];
+
+    if (selectionTextMarkerRange2)
+    {
+      v98 = v59;
+      provider11 = [(SRCSTextEditing *)self provider];
+      v64 = objc_opt_respondsToSelector();
+
+      optionsCopy = v107;
+      provider4 = v103;
+      if (v64)
+      {
+        provider12 = [(SRCSTextEditing *)self provider];
+        v66 = [v107 objectForKey:@"RecognizedParameters"];
+        if ([v24 length])
+        {
+          v118 = kSRCSCommandParameterDictation[0];
+          v119 = markerRange;
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
+          v97 = provider12;
+          v68 = v67 = v66;
+          [v97 handleSearchResultsWithRecognizedCommandParameters:v67 variantOverrides:v68];
+
+          v66 = v67;
+          provider12 = v97;
+        }
+
+        else
+        {
+          [provider12 handleSearchResultsWithRecognizedCommandParameters:v66 variantOverrides:0];
+        }
+      }
+
+      if (v105)
+      {
+        provider13 = [(SRCSTextEditing *)self provider];
+        v91 = [objc_msgSend(provider13 "textMarkerRangeClass")];
+        blockCopy[2](blockCopy, v91, markerRange);
+      }
+
+      if (![markerRange length])
+      {
+        goto LABEL_59;
+      }
+
+      firstObject4 = v24;
+      v24 = markerRange;
+    }
+
+    else
+    {
+      provider4 = v103;
+      firstObject3 = [v103 firstObject];
+      markerRange3 = [firstObject3 markerRange];
+      nsRange3 = [markerRange3 nsRange];
+
+      provider14 = [(SRCSTextEditing *)self provider];
+      if (v59 <= nsRange3)
+      {
+        v85 = objc_opt_respondsToSelector();
+
+        optionsCopy = v107;
+        if (v85)
+        {
+          provider15 = [(SRCSTextEditing *)self provider];
+          v87 = [v107 objectForKey:@"RecognizedParameters"];
+          if ([v24 length])
+          {
+            v116 = kSRCSCommandParameterDictation[0];
+            v117 = v24;
+            v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+            [provider15 handleSearchResultsWithRecognizedCommandParameters:v87 variantOverrides:v88];
+          }
+
+          else
+          {
+            [provider15 handleSearchResultsWithRecognizedCommandParameters:v87 variantOverrides:0];
+          }
+
+          optionsCopy = v107;
+        }
+
+        if (!v105)
+        {
+          goto LABEL_59;
+        }
+
+        firstObject4 = [v103 firstObject];
+        markerRange4 = [firstObject4 markerRange];
+        blockCopy[2](blockCopy, markerRange4, v24);
+      }
+
+      else
+      {
+        lastObject = [v103 lastObject];
+        markerRange5 = [lastObject markerRange];
+        v102 = [provider14 stringForTextMarkerRange:markerRange5];
+
+        provider16 = [(SRCSTextEditing *)self provider];
+        v82 = objc_opt_respondsToSelector();
+
+        optionsCopy = v107;
+        if (v82)
+        {
+          provider17 = [(SRCSTextEditing *)self provider];
+          v83 = [v107 objectForKey:@"RecognizedParameters"];
+          if ([v102 length])
+          {
+            v114 = kSRCSCommandParameterDictation[0];
+            v115 = v102;
+            v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+            [provider17 handleSearchResultsWithRecognizedCommandParameters:v83 variantOverrides:v84];
+          }
+
+          else
+          {
+            [provider17 handleSearchResultsWithRecognizedCommandParameters:v83 variantOverrides:0];
+          }
+        }
+
+        if (!v105)
+        {
+          v24 = v102;
+          goto LABEL_59;
+        }
+
+        firstObject4 = [v103 lastObject];
+        markerRange4 = [firstObject4 markerRange];
+        v24 = v102;
+        blockCopy[2](blockCopy, markerRange4, v102);
+      }
+    }
+
+LABEL_59:
+    provider18 = [(SRCSTextEditing *)self provider];
+    v95 = objc_opt_respondsToSelector();
+
+    if (v95)
+    {
+      provider19 = [(SRCSTextEditing *)self provider];
+      [provider19 handleTextDisambiguationWithPhraseMatchResults:provider4 actionBlock:blockCopy];
+    }
+
+    goto LABEL_21;
+  }
+
+  provider20 = [(SRCSTextEditing *)self provider];
+  selectionTextMarkerRange3 = [provider20 selectionTextMarkerRange];
+  nsRange4 = [selectionTextMarkerRange3 nsRange];
+  v111 = 0;
+  v49 = [(SRCSTextEditing *)self rangeOfStrings:stringsCopy referenceRange:nsRange4 ambiguityResolution:v48 substringSearchGranularity:resolutionCopy foundStringRef:v11, &v111];
+  v51 = v50;
+  v24 = v111;
+
+  if (v49 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v106 = v51;
+    provider21 = [(SRCSTextEditing *)self provider];
+    v71 = objc_opt_respondsToSelector();
+
+    optionsCopy = v107;
+    if (v71)
+    {
+      provider22 = [(SRCSTextEditing *)self provider];
+      v73 = [v107 objectForKey:@"RecognizedParameters"];
+      if ([v24 length])
+      {
+        v122 = kSRCSCommandParameterDictation[0];
+        v123[0] = v24;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:&v122 count:1];
+        v104 = v73;
+        v75 = v74 = provider22;
+        [v74 handleSearchResultsWithRecognizedCommandParameters:v104 variantOverrides:v75];
+
+        provider22 = v74;
+        v73 = v104;
+      }
+
+      else
+      {
+        [provider22 handleSearchResultsWithRecognizedCommandParameters:v73 variantOverrides:0];
+      }
+    }
+
+    markerRange = [(SRCSTextEditing *)self provider];
+    v89 = [objc_msgSend(markerRange "textMarkerRangeClass")];
+    blockCopy[2](blockCopy, v89, v24);
+
+    goto LABEL_21;
+  }
+
+  optionsCopy = v107;
+LABEL_22:
+
+LABEL_23:
+
+  return v24;
+}
+
 - (id)visiblePhraseMatchesFromStrings:(id)strings substringSearchGranularity:(int)granularity
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
-  v35 = objc_opt_new();
+  v34 = objc_opt_new();
   provider = [(SRCSTextEditing *)self provider];
   lastPositionTextMarker = [provider lastPositionTextMarker];
   [lastPositionTextMarker index];
 
   selfCopy = self;
-  v34 = stringsCopy;
+  v33 = stringsCopy;
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:stringsCopy];
-  v36 = selfCopy;
+  v35 = selfCopy;
   if ([v9 count])
   {
     v10 = 0;
     do
     {
       v11 = [v9 objectAtIndex:v10];
-      v44[0] = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
-      v42 = 0;
-      v13 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v12 referenceRange:0 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v42];
-      v40 = v42;
+      v43[0] = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+      v41 = 0;
+      v13 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v12 referenceRange:0 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v41];
+      v39 = v41;
 
       if (v13 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -4115,11 +4412,11 @@ LABEL_83:
 
       else
       {
-        v37 = v11;
+        v36 = v11;
         lowercaseString = [v11 lowercaseString];
         v15 = [SRCSTextEditing wordsFromString:lowercaseString];
 
-        v38 = v10 + 1;
+        v37 = v10 + 1;
         if (v10 + 1 < [v9 count])
         {
           v16 = v10 + 1;
@@ -4127,8 +4424,8 @@ LABEL_83:
           {
             v17 = [v9 objectAtIndex:v16];
             v18 = [SRCSTextEditing wordsFromString:v17];
-            v43 = v18;
-            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+            v42 = v18;
+            v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
             v20 = [SRCSTextEditing doesArrayOfWords:v15 containArrayOfArrayWords:v19];
 
             if (v20 == 0x7FFFFFFFFFFFFFFFLL)
@@ -4145,19 +4442,19 @@ LABEL_83:
           while (v16 < [v9 count]);
         }
 
-        selfCopy = v36;
-        v11 = v37;
-        v10 = v38;
+        selfCopy = v35;
+        v11 = v36;
+        v10 = v37;
       }
     }
 
     while (v10 < [v9 count]);
   }
 
-  v41 = 0;
-  v21 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v9 referenceRange:0 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v41];
+  v40 = 0;
+  v21 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v9 referenceRange:0 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v40];
   v23 = v22;
-  for (i = v41; v21 != 0x7FFFFFFFFFFFFFFFLL; i = v41)
+  for (i = v40; v21 != 0x7FFFFFFFFFFFFFFFLL; i = v40)
   {
     provider2 = [(SRCSTextEditing *)selfCopy provider];
     v26 = [provider2 isVisibleTextRange:{v21, v23}];
@@ -4168,19 +4465,80 @@ LABEL_83:
       provider3 = [(SRCSTextEditing *)selfCopy provider];
       v29 = [objc_msgSend(provider3 "textMarkerRangeClass")];
       v30 = [(SRCSPhraseMatchResult *)v27 initWithMarkerRange:v29 matchedString:i userInfo:0];
-      [v35 addObject:v30];
+      [v34 addObject:v30];
 
-      selfCopy = v36;
+      selfCopy = v35;
     }
 
-    v41 = 0;
-    v21 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v9 referenceRange:v21 + v23 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v41];
+    v40 = 0;
+    v21 = [(SRCSTextEditing *)selfCopy rangeOfStrings:v9 referenceRange:v21 + v23 ambiguityResolution:0 substringSearchGranularity:@"AXSelectTextAmbiguityResolutionClosestAfterSelection" foundStringRef:granularity, &v40];
     v23 = v31;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
+  return v34;
+}
 
-  return v35;
+- (id)orderedPhraseMatchesFromStrings:(id)strings forwardDirection:(BOOL)direction referenceLocation:(int64_t)location substringSearchGranularity:(int)granularity
+{
+  v6 = *&granularity;
+  directionCopy = direction;
+  stringsCopy = strings;
+  v11 = objc_opt_new();
+  if (directionCopy)
+  {
+    v12 = @"AXSelectTextAmbiguityResolutionClosestAfterSelection";
+  }
+
+  else
+  {
+    v12 = @"AXSelectTextAmbiguityResolutionClosestBeforeSelection";
+  }
+
+  v30 = 0;
+  v13 = [(SRCSTextEditing *)self rangeOfStrings:stringsCopy referenceRange:location ambiguityResolution:0 substringSearchGranularity:v12 foundStringRef:v6, &v30];
+  v15 = v14;
+  v16 = v30;
+  v29 = v11;
+  if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v28 = v6;
+    do
+    {
+      v17 = [SRCSPhraseMatchResult alloc];
+      provider = [(SRCSTextEditing *)self provider];
+      [objc_msgSend(provider "textMarkerRangeClass")];
+      selfCopy = self;
+      v20 = v12;
+      v21 = stringsCopy;
+      v23 = v22 = directionCopy;
+      v24 = [(SRCSPhraseMatchResult *)v17 initWithMarkerRange:v23 matchedString:v16 userInfo:0];
+      [v29 addObject:v24];
+
+      directionCopy = v22;
+      stringsCopy = v21;
+      v12 = v20;
+      self = selfCopy;
+
+      if (directionCopy)
+      {
+        v25 = v15;
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      v30 = 0;
+      v13 = [(SRCSTextEditing *)selfCopy rangeOfStrings:stringsCopy referenceRange:v25 + v13 ambiguityResolution:0 substringSearchGranularity:v12 foundStringRef:v28, &v30];
+      v15 = v26;
+      v16 = v30;
+    }
+
+    while (v13 != 0x7FFFFFFFFFFFFFFFLL);
+  }
+
+  return v29;
 }
 
 - (_NSRange)_rangeOfWordBasedSearchString:(id)string inString:(id)inString withRange:(_NSRange)range forwardSearchDirection:(BOOL)direction
@@ -4254,12 +4612,7 @@ LABEL_83:
     v36[4] = &v41;
     v36[5] = &v37;
     [inStringCopy enumerateSubstringsInRange:v21 options:v24 - v21 usingBlock:{3, v36, v31, v32}];
-    if (*(v42 + 24) != 1)
-    {
-      goto LABEL_19;
-    }
-
-    if (v38[3])
+    if (*(v42 + 24) == 1 && (v38[3] & 1) != 0)
     {
       v25 = 0;
       v31 = v17;
@@ -4268,7 +4621,6 @@ LABEL_83:
 
     else
     {
-LABEL_19:
       v26 = v22 - v23;
       if (v22 < v23)
       {
@@ -4406,35 +4758,35 @@ LABEL_15:
 
 + (int64_t)doesArrayOfWords:(id)words containArrayOfArrayWords:(id)arrayWords
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   wordsCopy = words;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = arrayWords;
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v32;
+    v9 = *v31;
     v10 = 0x7FFFFFFFFFFFFFFFLL;
-    v26 = *v32;
+    v25 = *v31;
     do
     {
       v11 = 0;
-      v25 = v8;
-      v28 = v7;
+      v24 = v8;
+      v27 = v7;
       do
       {
         v12 = v10;
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v11);
+        v13 = *(*(&v30 + 1) + 8 * v11);
         v14 = [wordsCopy count];
         v15 = [v13 count];
         v16 = v14 - v15;
@@ -4449,9 +4801,9 @@ LABEL_15:
           v10 = v8;
           if (v15 >= 1)
           {
-            v27 = v12;
+            v26 = v12;
             v18 = 0;
-            v30 = v16 + 1;
+            v29 = v16 + 1;
             do
             {
               v19 = 0;
@@ -4476,11 +4828,11 @@ LABEL_15:
               ++v18;
             }
 
-            while (v18 != v30);
-            v10 = v27;
+            while (v18 != v29);
+            v10 = v26;
 LABEL_16:
-            v9 = v26;
-            v7 = v28;
+            v9 = v25;
+            v7 = v27;
           }
         }
 
@@ -4489,8 +4841,8 @@ LABEL_16:
       }
 
       while (v11 != v7);
-      v8 = v25 + v7;
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v8 = v24 + v7;
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v7);
@@ -4501,8 +4853,99 @@ LABEL_16:
     v10 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (id)markerRangeForEnumerationType:(int64_t)type desiredBlock:(int)block count:(unint64_t)count options:(int)options
+{
+  v6 = *&options;
+  v8 = *&block;
+  provider = [(SRCSTextEditing *)self provider];
+  selectionTextMarkerRange = [provider selectionTextMarkerRange];
+  v13 = [(SRCSTextEditing *)self markerRangeForEnumerationType:type markerRange:selectionTextMarkerRange desiredBlock:v8 count:count options:v6];
+
+  return v13;
+}
+
+- (id)markerRangeForEnumerationType:(int64_t)type markerRange:(id)range desiredBlock:(int)block count:(unint64_t)count options:(int)options
+{
+  v7 = *&options;
+  v9 = *&block;
+  rangeCopy = range;
+  v13 = rangeCopy;
+  if (type)
+  {
+    if (v9)
+    {
+      if (v9 != 2)
+      {
+        if (v9 == 1)
+        {
+          v14 = v7;
+          if ((v7 & 8) != 0)
+          {
+            endMarker = [rangeCopy endMarker];
+            provider = [(SRCSTextEditing *)self provider];
+            textMarkerRangeClass = [provider textMarkerRangeClass];
+            selfCopy2 = self;
+            typeCopy2 = type;
+            v20 = -1;
+          }
+
+          else
+          {
+            endMarker = [rangeCopy startMarker];
+            provider = [(SRCSTextEditing *)self provider];
+            textMarkerRangeClass = [provider textMarkerRangeClass];
+            selfCopy2 = self;
+            typeCopy2 = type;
+            v20 = 0;
+          }
+
+          v31 = [(SRCSTextEditing *)selfCopy2 _findRangeForEnumerationType:typeCopy2 atRelativeIncrement:v20 fromPosition:endMarker options:v14];
+          v21 = [textMarkerRangeClass markerRangeWithNSRange:{v31, v32}];
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        goto LABEL_14;
+      }
+
+      startMarker = [rangeCopy startMarker];
+      provider2 = [(SRCSTextEditing *)self provider];
+      textMarkerRangeClass2 = [provider2 textMarkerRangeClass];
+      countCopy = -count;
+      v26 = v7;
+      selfCopy4 = self;
+      typeCopy4 = type;
+    }
+
+    else
+    {
+      startMarker = [rangeCopy endMarker];
+      provider2 = [(SRCSTextEditing *)self provider];
+      textMarkerRangeClass2 = [provider2 textMarkerRangeClass];
+      v26 = v7;
+      selfCopy4 = self;
+      typeCopy4 = type;
+      countCopy = count;
+    }
+
+    v29 = [(SRCSTextEditing *)selfCopy4 _findRangeForEnumerationType:typeCopy4 atRelativeIncrement:countCopy fromPosition:startMarker options:v26];
+    v21 = [textMarkerRangeClass2 markerRangeWithNSRange:{v29, v30}];
+  }
+
+  else
+  {
+    v21 = [(SRCSTextEditing *)self markerRangeForLineInDesiredBlock:v9 markerRange:rangeCopy count:count options:v7];
+  }
+
+LABEL_14:
+
+  return v21;
 }
 
 - (id)markerRangeForLineInDesiredBlock:(int)block markerRange:(id)range count:(unint64_t)count options:(int)options

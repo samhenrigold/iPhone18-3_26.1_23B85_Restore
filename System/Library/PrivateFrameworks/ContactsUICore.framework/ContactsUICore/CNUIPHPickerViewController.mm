@@ -15,7 +15,7 @@
   v5 = [(CNUIPHPickerViewController *)&v28 init];
   if (v5)
   {
-    v6 = objc_alloc(getPHPickerViewControllerClass[0]());
+    v6 = objc_alloc(getPHPickerViewControllerClass());
     [configurationCopy wrappedConfiguration];
     v7 = v27 = configurationCopy;
     v8 = [v6 initWithConfiguration:v7];

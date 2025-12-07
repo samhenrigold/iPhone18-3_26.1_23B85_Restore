@@ -10,6 +10,7 @@
 + (void)initialize;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isInitialized;
+- (BOOL)parseUnknownField:(id)field extensionRegistry:(id)registry tag:(unsigned int)tag;
 - (TransparencyGPBMessage)init;
 - (TransparencyGPBMessage)initWithCodedInputStream:(id)stream extensionRegistry:(id)registry error:(id *)error;
 - (TransparencyGPBMessage)initWithCoder:(id)coder;
@@ -22,6 +23,7 @@
 - (unint64_t)hash;
 - (unint64_t)serializedSize;
 - (void)addExtension:(id)extension value:(id)value;
+- (void)addUnknownMapEntry:(int)entry value:(id)value;
 - (void)clearExtension:(id)extension;
 - (void)copyFieldsInto:(id)into zone:(_NSZone *)zone descriptor:(id)descriptor;
 - (void)dealloc;
@@ -1539,6 +1541,58 @@ LABEL_135:
   }
 }
 
+- (BOOL)parseUnknownField:(id)field extensionRegistry:(id)registry tag:(unsigned int)tag
+{
+  v5 = *&tag;
+  v9 = sub_1000F1CDC(tag);
+  v10 = sub_1000F1CE4(v5);
+  descriptor = [(TransparencyGPBMessage *)self descriptor];
+  v12 = [registry extensionForDescriptor:descriptor fieldNumber:v10];
+  if (v12)
+  {
+    v13 = v12;
+    if ([v12 wireType] == v9)
+    {
+      isPackable = [v13 isPackable];
+LABEL_4:
+      sub_1000E5ED0(v13, isPackable, field, registry, self);
+LABEL_8:
+      LOBYTE(v15) = 1;
+      return v15;
+    }
+
+    if ([v13 isRepeated] && *(v13[1] + 44) - 13 >= 4 && objc_msgSend(v13, "alternateWireType") == v9)
+    {
+      isPackable = [v13 isPackable] ^ 1;
+      goto LABEL_4;
+    }
+  }
+
+  else if ([descriptor isWireFormat] && sub_1000F1CD4(1, 3) == v5)
+  {
+    [(TransparencyGPBMessage *)self parseMessageSet:field extensionRegistry:registry];
+    goto LABEL_8;
+  }
+
+  v15 = [TransparencyGPBUnknownFieldSet isFieldTag:v5];
+  if (v15)
+  {
+    v16 = sub_1000E6094(self);
+
+    LOBYTE(v15) = [v16 mergeFieldFrom:v5 input:field];
+  }
+
+  return v15;
+}
+
+- (void)addUnknownMapEntry:(int)entry value:(id)value
+{
+  v5 = *&entry;
+  v6 = sub_1000E6094(self);
+
+  [v6 addUnknownMapEntry:v5 value:value];
+}
+
 - (void)mergeFromCodedInputStream:(id)stream extensionRegistry:(id)registry
 {
   v6 = *([(TransparencyGPBMessage *)self descriptor]+ 1);
@@ -1626,7 +1680,7 @@ LABEL_23:
               v20 = sub_1000BCF1C(stream + 1);
               goto LABEL_43;
             case 8:
-              v19 = sub_1000BCE90(stream + 8);
+              v19 = sub_1000BCE90();
               goto LABEL_36;
             case 9:
               v20 = sub_1000BCFAC(stream + 1);
@@ -1644,7 +1698,7 @@ LABEL_46:
               sub_1000EF114(self, v12, v18);
               break;
             case 0xC:
-              v19 = sub_1000BCE90(stream + 8);
+              v19 = sub_1000BCE90();
 LABEL_36:
               sub_1000EF498(self, v12, v19);
               break;
@@ -2202,30 +2256,30 @@ LABEL_43:
 {
   descriptor = [objc_opt_class() descriptor];
   messageStorage = self->messageStorage_;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = *(descriptor + 8);
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = *(v9 + 8);
         if ((*(v10 + 28) & 0xF02) != 0)
         {
-          v11 = [sub_1000EE6CC(self *(*(&v20 + 1) + 8 * i))];
+          v11 = [sub_1000EE6CC(self *(*(&v19 + 1) + 8 * i))];
           if (v11)
           {
             descriptor = v11 + 361 * descriptor + 19 * *(*(v9 + 8) + 16);
@@ -2251,16 +2305,16 @@ LABEL_43:
                 if (v13 == 11)
                 {
 LABEL_32:
-                  v17 = *(messageStorage + v14);
+                  v16 = *(messageStorage + v14);
                 }
 
                 else
                 {
 LABEL_28:
-                  v17 = *(messageStorage + v14);
+                  v16 = *(messageStorage + v14);
                 }
 
-                descriptor = v17 + 19 * descriptor;
+                descriptor = v16 + 19 * descriptor;
                 continue;
               }
 
@@ -2286,7 +2340,6 @@ LABEL_28:
               if (v13 - 15 < 2)
               {
                 descriptor = *(v12 + 16) + 19 * descriptor;
-                v15 = *(messageStorage + v14);
                 descriptor2 = [objc_opt_class() descriptor];
 LABEL_30:
                 descriptor = descriptor2 + 19 * descriptor;
@@ -2333,7 +2386,7 @@ LABEL_30:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -2794,513 +2847,457 @@ LABEL_85:
   descriptor = [self descriptor];
   if (!descriptor)
   {
-    v58.receiver = selfCopy;
-    v58.super_class = &OBJC_METACLASS___TransparencyGPBMessage;
-    return objc_msgSendSuper2(&v58, "resolveInstanceMethod:", method);
+    v44.receiver = selfCopy;
+    v44.super_class = &OBJC_METACLASS___TransparencyGPBMessage;
+    return objc_msgSendSuper2(&v44, "resolveInstanceMethod:", method);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v43 = descriptor;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v29 = descriptor;
   v6 = *(descriptor + 1);
-  v7 = [v6 countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (!v7)
   {
-LABEL_90:
-    v45.receiver = selfCopy;
-    v45.super_class = &OBJC_METACLASS___TransparencyGPBMessage;
-    return objc_msgSendSuper2(&v45, "resolveInstanceMethod:", method);
+LABEL_74:
+    v31.receiver = selfCopy;
+    v31.super_class = &OBJC_METACLASS___TransparencyGPBMessage;
+    return objc_msgSendSuper2(&v31, "resolveInstanceMethod:", method);
   }
 
   v8 = v7;
-  v9 = *v55;
-  v44 = selfCopy;
+  v9 = *v41;
+  v30 = selfCopy;
 LABEL_4:
   v10 = 0;
   while (1)
   {
-    if (*v55 != v9)
+    if (*v41 != v9)
     {
       objc_enumerationMutation(v6);
     }
 
-    v11 = *(*(&v54 + 1) + 8 * v10);
-    v12 = v11[1];
-    v13 = v11[3];
+    v11 = *(*(&v40 + 1) + 8 * v10);
+    v12 = *(v11 + 8);
+    v13 = *(v11 + 24);
     if ((v12[3].i16[2] & 0xF02) == 0)
     {
       break;
-    }
-
-    if (v13)
-    {
-      v14 = v11[3];
     }
 
     if (v13 == method)
     {
       if ([v11 fieldType] == 1)
       {
-        v30 = v49;
-        v49[0] = _NSConcreteStackBlock;
-        v49[1] = 3221225472;
-        v31 = sub_1000E9FF0;
+        v16 = v35;
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v17 = sub_1000E9FF0;
       }
 
       else
       {
-        v30 = v48;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v31 = sub_1000EA08C;
+        v16 = v34;
+        v34[0] = _NSConcreteStackBlock;
+        v34[1] = 3221225472;
+        v17 = sub_1000EA08C;
       }
 
-      selfCopy = v44;
-      v30[2] = v31;
-      v30[3] = &unk_100137930;
-      v30[4] = v11;
-      v32 = imp_implementationWithBlock(v30);
-      v33 = "getArray";
-      if (!v32)
+      selfCopy = v30;
+      v16[2] = v17;
+      v16[3] = &unk_100137930;
+      v16[4] = v11;
+      v18 = imp_implementationWithBlock(v16);
+      v19 = "getArray";
+      if (!v18)
       {
-        goto LABEL_90;
+        goto LABEL_74;
       }
 
-      goto LABEL_52;
+      goto LABEL_36;
     }
 
-    v15 = v11[4];
-    if (v15)
-    {
-      v16 = v11[4];
-    }
-
-    if (v15 == method)
+    if (*(v11 + 32) == method)
     {
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000EA14C;
       block[3] = &unk_100137950;
       block[4] = v11;
-      v32 = imp_implementationWithBlock(block);
-      v33 = "setArray:";
-      goto LABEL_51;
+      v18 = imp_implementationWithBlock(block);
+      v19 = "setArray:";
+      goto LABEL_35;
     }
 
-    v17 = v11[5];
-    if (v17)
+    if (*(v11 + 40) == method)
     {
-      v18 = v11[5];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1000EA15C;
+      v32[3] = &unk_100137970;
+      v32[4] = v11;
+      v18 = imp_implementationWithBlock(v32);
+      v19 = "getArrayCount";
+      goto LABEL_35;
     }
 
-    if (v17 == method)
-    {
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_1000EA15C;
-      v46[3] = &unk_100137970;
-      v46[4] = v11;
-      v32 = imp_implementationWithBlock(v46);
-      v33 = "getArrayCount";
-      goto LABEL_51;
-    }
-
-LABEL_34:
+LABEL_18:
     if (v8 == ++v10)
     {
-      v8 = [v6 countByEnumeratingWithState:&v54 objects:v64 count:16];
-      selfCopy = v44;
+      v8 = [v6 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      selfCopy = v30;
       if (v8)
       {
         goto LABEL_4;
       }
 
-      goto LABEL_90;
+      goto LABEL_74;
     }
-  }
-
-  if (v13)
-  {
-    v19 = v11[3];
   }
 
   if (v13 != method)
   {
-    v20 = v11[4];
-    if (v20)
+    if (*(v11 + 32) == method)
     {
-      v21 = v11[4];
-    }
-
-    if (v20 == method)
-    {
-      selfCopy = v44;
+      selfCopy = v30;
       switch(v12[3].i8[6])
       {
         case 0:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setBool_;
-          v35 = &unk_1001378F0;
-          v36 = sub_1000EB0E8;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setBool_;
+          v21 = &unk_1001378F0;
+          v22 = sub_1000EB0E8;
+          goto LABEL_73;
         case 1:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setFixed32_;
-          v35 = &unk_100137A50;
-          v36 = sub_1000EB0F8;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setFixed32_;
+          v21 = &unk_100137A50;
+          v22 = sub_1000EB0F8;
+          goto LABEL_73;
         case 2:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setSFixed32_;
-          v35 = &unk_100137A70;
-          v36 = sub_1000EB108;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setSFixed32_;
+          v21 = &unk_100137A70;
+          v22 = sub_1000EB108;
+          goto LABEL_73;
         case 3:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setFloat_;
-          v35 = &unk_100137A90;
-          v36 = sub_1000EB118;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setFloat_;
+          v21 = &unk_100137A90;
+          v22 = sub_1000EB118;
+          goto LABEL_73;
         case 4:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setFixed64_;
-          v35 = &unk_100137AB0;
-          v36 = sub_1000EB128;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setFixed64_;
+          v21 = &unk_100137AB0;
+          v22 = sub_1000EB128;
+          goto LABEL_73;
         case 5:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setSFixed64_;
-          v35 = &unk_100137AD0;
-          v36 = sub_1000EB138;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setSFixed64_;
+          v21 = &unk_100137AD0;
+          v22 = sub_1000EB138;
+          goto LABEL_73;
         case 6:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setDouble_;
-          v35 = &unk_100137AF0;
-          v36 = sub_1000EB148;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setDouble_;
+          v21 = &unk_100137AF0;
+          v22 = sub_1000EB148;
+          goto LABEL_73;
         case 7:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setInt32_;
-          v35 = &unk_100137A70;
-          v36 = sub_1000EB158;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setInt32_;
+          v21 = &unk_100137A70;
+          v22 = sub_1000EB158;
+          goto LABEL_73;
         case 8:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setInt64_;
-          v35 = &unk_100137AD0;
-          v36 = sub_1000EB168;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setInt64_;
+          v21 = &unk_100137AD0;
+          v22 = sub_1000EB168;
+          goto LABEL_73;
         case 9:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setSInt32_;
-          v35 = &unk_100137A70;
-          v36 = sub_1000EB178;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setSInt32_;
+          v21 = &unk_100137A70;
+          v22 = sub_1000EB178;
+          goto LABEL_73;
         case 0xA:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setSInt64_;
-          v35 = &unk_100137AD0;
-          v36 = sub_1000EB188;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setSInt64_;
+          v21 = &unk_100137AD0;
+          v22 = sub_1000EB188;
+          goto LABEL_73;
         case 0xB:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setUInt32_;
-          v35 = &unk_100137A50;
-          v36 = sub_1000EB198;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setUInt32_;
+          v21 = &unk_100137A50;
+          v22 = sub_1000EB198;
+          goto LABEL_73;
         case 0xC:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setUInt64_;
-          v35 = &unk_100137AB0;
-          v36 = sub_1000EB1A8;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setUInt64_;
+          v21 = &unk_100137AB0;
+          v22 = sub_1000EB1A8;
+          goto LABEL_73;
         case 0xD:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setBytes_;
-          v35 = &unk_100137950;
-          v36 = sub_1000EB1B8;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setBytes_;
+          v21 = &unk_100137950;
+          v22 = sub_1000EB1B8;
+          goto LABEL_73;
         case 0xE:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setString_;
-          v35 = &unk_100137950;
-          v36 = sub_1000EB200;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setString_;
+          v21 = &unk_100137950;
+          v22 = sub_1000EB200;
+          goto LABEL_73;
         case 0xF:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setMessage_;
-          v35 = &unk_100137950;
-          v36 = sub_1000EB248;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setMessage_;
+          v21 = &unk_100137950;
+          v22 = sub_1000EB248;
+          goto LABEL_73;
         case 0x10:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setGroup_;
-          v35 = &unk_100137950;
-          v36 = sub_1000EB258;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setGroup_;
+          v21 = &unk_100137950;
+          v22 = sub_1000EB258;
+          goto LABEL_73;
         case 0x11:
-          v59 = _NSConcreteStackBlock;
-          v60 = 3221225472;
-          v34 = &selRef_setEnum_;
-          v35 = &unk_100137A70;
-          v36 = sub_1000EB268;
-          goto LABEL_89;
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v20 = &selRef_setEnum_;
+          v21 = &unk_100137A70;
+          v22 = sub_1000EB268;
+          goto LABEL_73;
         default:
-          goto LABEL_54;
+          goto LABEL_38;
       }
     }
 
-    v22 = v11[5];
-    if (v22)
+    if (*(v11 + 40) == method)
     {
-      v23 = v11[5];
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v23 = v12[2];
+      v39[2] = sub_1000E9EF8;
+      v39[3] = &unk_1001378D0;
+      v39[4] = vrev64_s32(v23);
+      v18 = imp_implementationWithBlock(v39);
+      v19 = "getBool";
+      goto LABEL_35;
     }
 
-    if (v22 == method)
+    if (*(v11 + 48) == method)
     {
-      v53[0] = _NSConcreteStackBlock;
-      v53[1] = 3221225472;
-      v37 = v12[2];
-      v53[2] = sub_1000E9EF8;
-      v53[3] = &unk_1001378D0;
-      v53[4] = vrev64_s32(v37);
-      v32 = imp_implementationWithBlock(v53);
-      v33 = "getBool";
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_1000E9F08;
+      v38[3] = &unk_1001378F0;
+      v38[4] = v11;
+      v18 = imp_implementationWithBlock(v38);
+      v19 = "setBool:";
+      goto LABEL_35;
     }
 
-    else
+    v14 = *(v11 + 16);
+    if (v14 && *(v14 + 24) == method)
     {
-      v24 = v11[6];
-      if (v24)
+      v24 = v12[2].i32[1];
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_1000E9FE0;
+      v36[3] = &unk_100137910;
+      v37 = v24;
+      v18 = imp_implementationWithBlock(v36);
+      v19 = "getEnum";
+LABEL_35:
+      selfCopy = v30;
+      if (!v18)
       {
-        v25 = v11[6];
+        goto LABEL_74;
       }
 
-      if (v24 == method)
-      {
-        v52[0] = _NSConcreteStackBlock;
-        v52[1] = 3221225472;
-        v52[2] = sub_1000E9F08;
-        v52[3] = &unk_1001378F0;
-        v52[4] = v11;
-        v32 = imp_implementationWithBlock(v52);
-        v33 = "setBool:";
-      }
-
-      else
-      {
-        v26 = v11[2];
-        if (!v26)
-        {
-          goto LABEL_34;
-        }
-
-        v27 = *(v26 + 24);
-        if (v27)
-        {
-          v28 = *(v26 + 24);
-        }
-
-        if (v27 != method)
-        {
-          goto LABEL_34;
-        }
-
-        v38 = v12[2].i32[1];
-        v50[0] = _NSConcreteStackBlock;
-        v50[1] = 3221225472;
-        v50[2] = sub_1000E9FE0;
-        v50[3] = &unk_100137910;
-        v51 = v38;
-        v32 = imp_implementationWithBlock(v50);
-        v33 = "getEnum";
-      }
+      goto LABEL_36;
     }
 
-LABEL_51:
-    selfCopy = v44;
-    if (!v32)
-    {
-      goto LABEL_90;
-    }
-
-    goto LABEL_52;
+    goto LABEL_18;
   }
 
-  selfCopy = v44;
+  selfCopy = v30;
   switch(v12[3].i8[6])
   {
     case 0:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getBool;
-      v35 = &unk_100137990;
-      v36 = sub_1000EAFC8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getBool;
+      v21 = &unk_100137990;
+      v22 = sub_1000EAFC8;
       break;
     case 1:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getFixed32;
-      v35 = &unk_1001379B0;
-      v36 = sub_1000EAFD8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getFixed32;
+      v21 = &unk_1001379B0;
+      v22 = sub_1000EAFD8;
       break;
     case 2:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getSFixed32;
-      v35 = &unk_1001379D0;
-      v36 = sub_1000EAFE8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getSFixed32;
+      v21 = &unk_1001379D0;
+      v22 = sub_1000EAFE8;
       break;
     case 3:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getFloat;
-      v35 = &unk_1001379F0;
-      v36 = sub_1000EAFF8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getFloat;
+      v21 = &unk_1001379F0;
+      v22 = sub_1000EAFF8;
       break;
     case 4:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getFixed64;
-      v35 = &unk_100137970;
-      v36 = sub_1000EB008;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getFixed64;
+      v21 = &unk_100137970;
+      v22 = sub_1000EB008;
       break;
     case 5:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getSFixed64;
-      v35 = &unk_100137A10;
-      v36 = sub_1000EB018;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getSFixed64;
+      v21 = &unk_100137A10;
+      v22 = sub_1000EB018;
       break;
     case 6:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getDouble;
-      v35 = &unk_100137A30;
-      v36 = sub_1000EB028;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getDouble;
+      v21 = &unk_100137A30;
+      v22 = sub_1000EB028;
       break;
     case 7:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getInt32;
-      v35 = &unk_1001379D0;
-      v36 = sub_1000EB038;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getInt32;
+      v21 = &unk_1001379D0;
+      v22 = sub_1000EB038;
       break;
     case 8:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getInt64;
-      v35 = &unk_100137A10;
-      v36 = sub_1000EB048;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getInt64;
+      v21 = &unk_100137A10;
+      v22 = sub_1000EB048;
       break;
     case 9:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getSInt32;
-      v35 = &unk_1001379D0;
-      v36 = sub_1000EB058;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getSInt32;
+      v21 = &unk_1001379D0;
+      v22 = sub_1000EB058;
       break;
     case 0xA:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getSInt64;
-      v35 = &unk_100137A10;
-      v36 = sub_1000EB068;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getSInt64;
+      v21 = &unk_100137A10;
+      v22 = sub_1000EB068;
       break;
     case 0xB:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getUInt32;
-      v35 = &unk_1001379B0;
-      v36 = sub_1000EB078;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getUInt32;
+      v21 = &unk_1001379B0;
+      v22 = sub_1000EB078;
       break;
     case 0xC:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getUInt64;
-      v35 = &unk_100137970;
-      v36 = sub_1000EB088;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getUInt64;
+      v21 = &unk_100137970;
+      v22 = sub_1000EB088;
       break;
     case 0xD:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getBytes;
-      v35 = &unk_100137930;
-      v36 = sub_1000EB098;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getBytes;
+      v21 = &unk_100137930;
+      v22 = sub_1000EB098;
       break;
     case 0xE:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getString;
-      v35 = &unk_100137930;
-      v36 = sub_1000EB0A8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getString;
+      v21 = &unk_100137930;
+      v22 = sub_1000EB0A8;
       break;
     case 0xF:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getMessage;
-      v35 = &unk_100137930;
-      v36 = sub_1000EB0B8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getMessage;
+      v21 = &unk_100137930;
+      v22 = sub_1000EB0B8;
       break;
     case 0x10:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getGroup;
-      v35 = &unk_100137930;
-      v36 = sub_1000EB0C8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getGroup;
+      v21 = &unk_100137930;
+      v22 = sub_1000EB0C8;
       break;
     case 0x11:
-      v59 = _NSConcreteStackBlock;
-      v60 = 3221225472;
-      v34 = &selRef_getEnum;
-      v35 = &unk_1001379D0;
-      v36 = sub_1000EB0D8;
+      v45 = _NSConcreteStackBlock;
+      v46 = 3221225472;
+      v20 = &selRef_getEnum;
+      v21 = &unk_1001379D0;
+      v22 = sub_1000EB0D8;
       break;
     default:
-LABEL_54:
-      v32 = 0;
-      v33 = 0;
-      goto LABEL_51;
+LABEL_38:
+      v18 = 0;
+      v19 = 0;
+      goto LABEL_35;
   }
 
-LABEL_89:
-  v61 = v36;
-  v62 = v35;
-  v63 = v11;
-  v32 = imp_implementationWithBlock(&v59);
-  v33 = *v34;
-  if (!v32)
+LABEL_73:
+  v47 = v22;
+  v48 = v21;
+  v49 = v11;
+  v18 = imp_implementationWithBlock(&v45);
+  v19 = *v20;
+  if (!v18)
   {
-    goto LABEL_90;
+    goto LABEL_74;
   }
 
-LABEL_52:
-  v39 = 1;
-  v40 = sub_1000EF984(v33, 1);
-  messageClass = [v43 messageClass];
-  if (class_addMethod(messageClass, method, v32, v40))
+LABEL_36:
+  v25 = 1;
+  v26 = sub_1000EF984(v19, 1);
+  messageClass = [v29 messageClass];
+  if (class_addMethod(messageClass, method, v18, v26))
   {
-    return v39;
+    return v25;
   }
 
   return sub_1000F0CA4(messageClass, method);

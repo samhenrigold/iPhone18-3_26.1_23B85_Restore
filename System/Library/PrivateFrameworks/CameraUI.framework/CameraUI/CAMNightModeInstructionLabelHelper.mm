@@ -14,7 +14,7 @@
 
 + (id)localizedTextWithSeconds:(int64_t)seconds
 {
-  _s8CameraUI31NightModeInstructionLabelHelperC13localizedText7secondsSSSi_tFZ_0();
+  _s8CameraUI31NightModeInstructionLabelHelperC13localizedText7secondsSSSi_tFZ_0(seconds);
   v3 = sub_1A3A31810();
 
   return v3;

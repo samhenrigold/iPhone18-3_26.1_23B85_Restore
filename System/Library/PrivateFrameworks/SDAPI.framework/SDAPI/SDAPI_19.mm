@@ -1,3 +1,658 @@
+uint64_t FstSearchLeaf::getBestScoreThisFrame(FstSearchLeaf *this)
+{
+  v1 = *(this + 70);
+  if (v1 >= 20000)
+  {
+    return 20000;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+void FstSearchBackoff::~FstSearchBackoff(FstSearchBackoff *this)
+{
+  *this = &unk_2875274B8;
+  v2 = this + 160;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 304);
+  DgnIArray<Utterance *>::~DgnIArray(this + 288);
+  DgnIArray<Utterance *>::~DgnIArray(this + 272);
+  DgnIArray<Utterance *>::~DgnIArray(this + 256);
+  DgnIArray<Utterance *>::~DgnIArray(this + 240);
+  DgnIArray<Utterance *>::~DgnIArray(this + 208);
+  DgnIArray<Utterance *>::~DgnIArray(this + 192);
+  DgnIArray<Utterance *>::~DgnIArray(this + 176);
+  DgnIArray<Utterance *>::~DgnIArray(v2);
+
+  SearchItf::~SearchItf(this);
+}
+
+{
+  *this = &unk_2875274B8;
+  v2 = this + 160;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 304);
+  DgnIArray<Utterance *>::~DgnIArray(this + 288);
+  DgnIArray<Utterance *>::~DgnIArray(this + 272);
+  DgnIArray<Utterance *>::~DgnIArray(this + 256);
+  DgnIArray<Utterance *>::~DgnIArray(this + 240);
+  DgnIArray<Utterance *>::~DgnIArray(this + 208);
+  DgnIArray<Utterance *>::~DgnIArray(this + 192);
+  DgnIArray<Utterance *>::~DgnIArray(this + 176);
+  DgnIArray<Utterance *>::~DgnIArray(v2);
+  SearchItf::~SearchItf(this);
+
+  JUMPOUT(0x26672B1B0);
+}
+
+uint64_t FstSearchBackoff::getBestScoreThisFrame(FstSearchBackoff *this)
+{
+  v1 = *(this + 58);
+  if (v1 >= 20000)
+  {
+    return 20000;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+void FstSearch::~FstSearch(FstSearch *this)
+{
+  *this = &unk_287523008;
+  v2 = this + 160;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 304);
+  DgnIArray<Utterance *>::~DgnIArray(this + 288);
+  DgnIArray<Utterance *>::~DgnIArray(this + 272);
+  DgnIArray<Utterance *>::~DgnIArray(this + 256);
+  DgnIArray<Utterance *>::~DgnIArray(this + 240);
+  DgnIArray<Utterance *>::~DgnIArray(this + 208);
+  DgnIArray<Utterance *>::~DgnIArray(this + 192);
+  DgnIArray<Utterance *>::~DgnIArray(this + 176);
+  DgnIArray<Utterance *>::~DgnIArray(v2);
+
+  SearchItf::~SearchItf(this);
+}
+
+{
+  *this = &unk_287523008;
+  v2 = this + 160;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(this + 304);
+  DgnIArray<Utterance *>::~DgnIArray(this + 288);
+  DgnIArray<Utterance *>::~DgnIArray(this + 272);
+  DgnIArray<Utterance *>::~DgnIArray(this + 256);
+  DgnIArray<Utterance *>::~DgnIArray(this + 240);
+  DgnIArray<Utterance *>::~DgnIArray(this + 208);
+  DgnIArray<Utterance *>::~DgnIArray(this + 192);
+  DgnIArray<Utterance *>::~DgnIArray(this + 176);
+  DgnIArray<Utterance *>::~DgnIArray(v2);
+  SearchItf::~SearchItf(this);
+
+  JUMPOUT(0x26672B1B0);
+}
+
+uint64_t FstSearch::getBestScoreThisFrame(FstSearch *this)
+{
+  v1 = *(this + 58);
+  if (v1 >= 20000)
+  {
+    return 20000;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+__n128 WordLatticeLC::WordLatticeLC(uint64_t a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6)
+{
+  *(a1 + 8) = 0xBFF0000000000000;
+  *(a1 + 16) = a3;
+  *(a1 + 20) = a4;
+  *(a1 + 24) = a5;
+  *(a1 + 28) = *a6;
+  *(a1 + 44) = *(a6 + 16);
+  *(a1 + 52) = *(a6 + 24);
+  *(a1 + 56) = xmmword_26287F8A0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = -1;
+  *a1 = &unk_2875281A8;
+  *(a1 + 88) = *a2;
+  *(a1 + 92) = *(a2 + 4);
+  *(a1 + 94) = *(a2 + 6);
+  result = *(a2 + 8);
+  *(a1 + 96) = result;
+  return result;
+}
+
+uint64_t *DgnArray<FstSearchLateLatticeHashBackoffTrace>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a2;
+  if (a3)
+  {
+    v3 = minAddAllocWithExtra(a2, *(a1 + 12));
+  }
+
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12) + v3;
+  v8 = 0;
+  result = realloc_array(*a1, &v8, 36 * v6, 36 * v5, 36 * v5, 1);
+  *(a1 + 12) = result / 0x24;
+  *a1 = v8;
+  return result;
+}
+
+uint64_t HashProbeKEV<unsigned long long,DgnArray<LinkSegment>,WordLattice>::HashProbeKEV(uint64_t a1, const char *a2, int a3)
+{
+  HashProbeBase::HashProbeBase(a1, a2);
+  *(v5 + 16) = 0;
+  *(v5 + 24) = 0;
+  v6 = RoundUpToPowerOf2(a3, (v5 + 8));
+  *a1 = 0;
+  *(a1 + 4) = v6;
+  HashProbeKEV<unsigned long long,DgnArray<LinkSegment>,WordLattice>::initBuckets(a1);
+  *(a1 + 32) = 0;
+  return a1;
+}
+
+void sub_26266B300(_Unwind_Exception *a1)
+{
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v1);
+  MrecInitModule_sdpres_sdapi();
+  _Unwind_Resume(a1);
+}
+
+unsigned int *HashProbeKEV<unsigned long long,DgnArray<LinkSegment>,WordLattice>::initBuckets(unsigned int *result)
+{
+  v1 = result;
+  v2 = result[1];
+  v3 = result[7];
+  if (v2 <= v3)
+  {
+    result[6] = v2;
+    if (!v2)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    DgnPrimArray<unsigned long long>::reallocElts((result + 4), v2 - v3, 0);
+    v1[6] = v2;
+  }
+
+  v4 = *(v1 + 2);
+
+  return memset(v4, 255, 8 * v2);
+}
+
+uint64_t *DgnArray<WordLatticeLC>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a2;
+  if (a3)
+  {
+    v3 = minAddAllocWithExtra(a2, *(a1 + 12));
+  }
+
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12) + v3;
+  v8 = 0;
+  result = realloc_array(*a1, &v8, 112 * v6, 112 * v5, 112 * v5, 1);
+  *(a1 + 12) = ((result >> 4) * 0x2492492492492493uLL) >> 64;
+  *a1 = v8;
+  return result;
+}
+
+uint64_t *DgnArray<FstSearchLatticeHashBackoffTraceToken>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a2;
+  if (a3)
+  {
+    v3 = minAddAllocWithExtra(a2, *(a1 + 12));
+  }
+
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12) + v3;
+  v8 = 0;
+  result = realloc_array(*a1, &v8, 20 * v6, 20 * v5, 20 * v5, 1);
+  *(a1 + 12) = result / 0x14;
+  *a1 = v8;
+  return result;
+}
+
+uint64_t *DgnArray<FstSearchLatticeHashBackoffActiveToken>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a2;
+  if (a3)
+  {
+    v3 = minAddAllocWithExtra(a2, *(a1 + 12));
+  }
+
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12) + v3;
+  v8 = 0;
+  result = realloc_array(*a1, &v8, 28 * v6, 28 * v5, 28 * v5, 1);
+  *(a1 + 12) = result / 0x1C;
+  *a1 = v8;
+  return result;
+}
+
+uint64_t *DgnArray<FstSearchLeafLatticeDurationBackoffActiveToken>::reallocElts(uint64_t a1, uint64_t a2, int a3)
+{
+  v3 = a2;
+  if (a3)
+  {
+    v3 = minAddAllocWithExtra(a2, *(a1 + 12));
+  }
+
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12) + v3;
+  v8 = 0;
+  result = realloc_array(*a1, &v8, 40 * v6, 40 * v5, 40 * v5, 1);
+  *(a1 + 12) = result / 0x28;
+  *a1 = v8;
+  return result;
+}
+
+void MrecInitLibrary_mrecutil(void)
+{
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_ddump_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_dmatrix_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_dsmset_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_dthread_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_filespec_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_generr_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_hashbase_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_memchunk_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_osfile_mrecutil();
+  MrecInitModule_param_mrecutil();
+  MrecInitModule_paramset_mrecutil();
+  MrecInitModule_paramspec_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_timer_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_util_mrecutil();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+
+  MrecInitModule_dcuda_mrecutil();
+}
+
+void MrecInitLibrary_recogctl(void)
+{
+  MrecInitModule_adaptctl_recogctl();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_model_recogctl();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_psholder_recogctl();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_recogctl_recogctl();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_recoggrm_recogctl();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+
+  MrecInitModule_sdpres_sdapi();
+}
+
+void MrecInitLibrarySet_throughRecogctl(void)
+{
+  MrecInitLibrarySet_throughPrefilt();
+  MrecInitLibrarySet_throughChannel();
+  MrecInitLibrarySet_throughFst();
+
+  MrecInitLibrary_recogctl();
+}
+
+void MrecInitLibrarySet_throughNeuralN(void)
+{
+  MrecInitLibrarySet_throughFrame();
+
+  MrecInitModule_neuraln_neuraln();
+}
+
+uint64_t verifyLexiconHandle(unint64_t a1, char *a2)
+{
+  Registry = TRegisterable<TLexicon>::getRegistry();
+  v5 = TBaseRegistry<TTokenizer *>::find(Registry, a1);
+  if (*(Registry + 16) == v5)
+  {
+    conditionalAssert(a2, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 33);
+    exception = __cxa_allocate_exception(0x28uLL);
+    v8 = a2;
+    v9 = exception;
+    std::string::basic_string[abi:ne200100]<0>(&v12, v8);
+    *v9 = byte_287529580;
+    v10 = (v9 + 1);
+    if (SHIBYTE(v13) < 0)
+    {
+      std::string::__init_copy_ctor_external(v10, v12, *(&v12 + 1));
+    }
+
+    else
+    {
+      v11 = v12;
+      v9[3] = v13;
+      *&v10->__r_.__value_.__l.__data_ = v11;
+    }
+
+    *v9 = &unk_2875282E0;
+    v9[4] = 3;
+  }
+
+  return *v5;
+}
+
+void sub_26266B8A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    if ((v16 & 1) == 0)
+    {
+LABEL_6:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v16)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v15);
+  goto LABEL_6;
+}
+
+void TPLexicon_Open(uint64_t a1, uint64_t a2, void *a3)
+{
+  TReentrancyHandler::TReentrancyHandler(&v12, "TPLexicon_Open");
+  TLocaleHandler::TLocaleHandler(&v11);
+  MrecInitModule_sdpres_sdapi();
+  if (g_bInitialized)
+  {
+    verifyHandleArgument<SDhVoc_fake **>(a2, 0, "Bad input voc handle");
+    verifyPointerArgument<TPLexiconHandle_fake **>(a3, 0, "Bad output lexicon handle pointer");
+    verifyPointerArgument<TPDataSpec>(a1, 0, "Bad input static data spec");
+    makeDataManager(a1, 1uLL);
+    operator new();
+  }
+
+  conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 57);
+  exception = __cxa_allocate_exception(0x28uLL);
+  std::string::basic_string[abi:ne200100]<0>(&v9, "Not initialized");
+  *exception = byte_287529580;
+  v7 = (exception + 1);
+  if (SHIBYTE(v10) < 0)
+  {
+    std::string::__init_copy_ctor_external(v7, v9, *(&v9 + 1));
+  }
+
+  else
+  {
+    v8 = v9;
+    exception[3] = v10;
+    *&v7->__r_.__value_.__l.__data_ = v8;
+  }
+
+  *exception = &unk_2875282E0;
+  exception[4] = 4;
+}
+
+void sub_26266BB5C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  __cxa_end_catch();
+  MrecInitModule_sdpres_sdapi();
+  TLocaleHandler::~TLocaleHandler(va);
+  TReentrancyHandler::ms_bIn = 0;
+  switch(a2)
+  {
+    case 7:
+      v14 = __cxa_begin_catch(a1);
+      v15 = v14 + 8;
+      if (v14[31] < 0)
+      {
+        v15 = *v15;
+      }
+
+      handleException(v15, "TPLexicon_Open", *(v14 + 4));
+      break;
+    case 6:
+      v16 = __cxa_begin_catch(a1);
+      v17 = v16 + 8;
+      if (v16[31] < 0)
+      {
+        v17 = *v17;
+      }
+
+      handleException(v17, "TPLexicon_Open", 6);
+      break;
+    case 5:
+      v18 = __cxa_begin_catch(a1);
+      v19 = v18 + 8;
+      if (v18[31] < 0)
+      {
+        v19 = *v19;
+      }
+
+LABEL_12:
+      handleException(v19, "TPLexicon_Open", 2);
+      break;
+    case 4:
+      v20 = __cxa_begin_catch(a1);
+      v21 = v20 + 8;
+      if (v20[31] < 0)
+      {
+        v21 = *v21;
+      }
+
+      handleException(v21, "TPLexicon_Open", 11);
+      break;
+    case 3:
+      v22 = __cxa_begin_catch(a1);
+      v19 = v22 + 8;
+      if (v22[31] < 0)
+      {
+        v19 = *v19;
+      }
+
+      goto LABEL_12;
+    case 2:
+      v23 = __cxa_begin_catch(a1);
+      v24 = (*(*v23 + 16))(v23);
+      handleException(v24, "TPLexicon_Open", 1);
+      break;
+    case 1:
+      v25 = __cxa_begin_catch(a1);
+      v26 = (*(*v25 + 16))(v25);
+      handleException(v26, "TPLexicon_Open", 2);
+      break;
+    default:
+      JUMPOUT(0x26266BD90);
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x26266B9D4);
+}
+
+uint64_t verifyHandleArgument<SDhVoc_fake **>(uint64_t result, char a2, char *a3)
+{
+  if (result != -1)
+  {
+    a2 = 1;
+  }
+
+  if (!result || (a2 & 1) == 0)
+  {
+    conditionalAssert(a3, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/api.h", 339);
+    exception = __cxa_allocate_exception(0x28uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v8, a3);
+    *exception = byte_287529580;
+    v6 = (exception + 1);
+    if (SHIBYTE(v9) < 0)
+    {
+      std::string::__init_copy_ctor_external(v6, v8, *(&v8 + 1));
+    }
+
+    else
+    {
+      v7 = v8;
+      exception[3] = v9;
+      *&v6->__r_.__value_.__l.__data_ = v7;
+    }
+
+    *exception = &unk_2875282E0;
+    exception[4] = 3;
+  }
+
+  return result;
+}
+
+void sub_26266BE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    if ((v16 & 1) == 0)
+    {
+LABEL_6:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v16)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v15);
+  goto LABEL_6;
+}
+
+uint64_t verifyPointerArgument<TPLexiconHandle_fake **>(uint64_t result, char a2, char *a3)
+{
+  if (!result && (a2 & 1) == 0)
+  {
+    conditionalAssert(a3, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/api.h", 279);
+    exception = __cxa_allocate_exception(0x28uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v7, a3);
+    *exception = byte_287529580;
+    v5 = (exception + 1);
+    if (SHIBYTE(v8) < 0)
+    {
+      std::string::__init_copy_ctor_external(v5, v7, *(&v7 + 1));
+    }
+
+    else
+    {
+      v6 = v7;
+      exception[3] = v8;
+      *&v5->__r_.__value_.__l.__data_ = v6;
+    }
+
+    *exception = &unk_2875282E0;
+    exception[4] = 3;
+  }
+
+  return result;
+}
+
+void sub_26266BFCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    if ((v16 & 1) == 0)
+    {
+LABEL_6:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v16)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v15);
+  goto LABEL_6;
+}
+
+uint64_t verifyPointerArgument<TPDataSpec>(uint64_t result, char a2, char *a3)
+{
+  if (!result && (a2 & 1) == 0)
+  {
+    conditionalAssert(a3, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/api.h", 288);
+    exception = __cxa_allocate_exception(0x28uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v7, a3);
+    *exception = byte_287529580;
+    v5 = (exception + 1);
+    if (SHIBYTE(v8) < 0)
+    {
+      std::string::__init_copy_ctor_external(v5, v7, *(&v7 + 1));
+    }
+
+    else
+    {
+      v6 = v7;
+      exception[3] = v8;
+      *&v5->__r_.__value_.__l.__data_ = v6;
+    }
+
+    *exception = &unk_2875282E0;
+    exception[4] = 3;
+  }
+
+  return result;
+}
+
 void sub_26266C0FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
@@ -21,61 +676,61 @@ LABEL_6:
 
 uint64_t TPLexicon_Close(unint64_t a1)
 {
-  TReentrancyHandler::TReentrancyHandler(&v18, "TPLexicon_Close");
-  TLocaleHandler::TLocaleHandler(&v16);
+  TReentrancyHandler::TReentrancyHandler(&v14, "TPLexicon_Close");
+  TLocaleHandler::TLocaleHandler(&v12);
   MrecInitModule_sdpres_sdapi();
   if ((g_bInitialized & 1) == 0)
   {
-    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 86, v2, v3);
+    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 86);
     exception = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v14, "Not initialized");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Not initialized");
     *exception = byte_287529580;
-    v9 = (exception + 1);
-    if (SHIBYTE(v15) < 0)
+    v5 = (exception + 1);
+    if (SHIBYTE(v11) < 0)
     {
-      std::string::__init_copy_ctor_external(v9, v14, *(&v14 + 1));
+      std::string::__init_copy_ctor_external(v5, v10, *(&v10 + 1));
     }
 
     else
     {
-      v12 = v14;
-      exception[3] = v15;
-      *&v9->__r_.__value_.__l.__data_ = v12;
+      v8 = v10;
+      exception[3] = v11;
+      *&v5->__r_.__value_.__l.__data_ = v8;
     }
 
     *exception = &unk_2875282E0;
     exception[4] = 4;
   }
 
-  v4 = verifyLexiconHandle(a1, "Bad input lexicon handle");
-  if (v4[90])
+  v2 = verifyLexiconHandle(a1, "Bad input lexicon handle");
+  if (v2[90])
   {
-    conditionalAssert("Lexicon is referenced", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 89, v5, v6);
-    v10 = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v14, "Lexicon is referenced");
-    *v10 = byte_287529580;
-    v11 = (v10 + 1);
-    if (SHIBYTE(v15) < 0)
+    conditionalAssert("Lexicon is referenced", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 89);
+    v6 = __cxa_allocate_exception(0x28uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Lexicon is referenced");
+    *v6 = byte_287529580;
+    v7 = (v6 + 1);
+    if (SHIBYTE(v11) < 0)
     {
-      std::string::__init_copy_ctor_external(v11, v14, *(&v14 + 1));
+      std::string::__init_copy_ctor_external(v7, v10, *(&v10 + 1));
     }
 
     else
     {
-      v13 = v14;
-      v10[3] = v15;
-      *&v11->__r_.__value_.__l.__data_ = v13;
+      v9 = v10;
+      v6[3] = v11;
+      *&v7->__r_.__value_.__l.__data_ = v9;
     }
 
-    *v10 = &unk_2875282E0;
-    v10[4] = 7;
+    *v6 = &unk_2875282E0;
+    v6[4] = 7;
   }
 
-  (*(*v4 + 8))(v4);
+  (*(*v2 + 8))(v2);
   MrecInitModule_sdpres_sdapi();
-  if ((v17 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    uselocale(v16);
+    uselocale(v12);
   }
 
   TReentrancyHandler::ms_bIn = 0;
@@ -102,6 +757,16 @@ LABEL_6:
     switch(a2)
     {
       case 7:
+        v24 = __cxa_begin_catch(a1);
+        v25 = v24 + 8;
+        if (v24[31] < 0)
+        {
+          v25 = *v25;
+        }
+
+        handleException(v25, "TPLexicon_Close", *(v24 + 4));
+        break;
+      case 6:
         v26 = __cxa_begin_catch(a1);
         v27 = v26 + 8;
         if (v26[31] < 0)
@@ -109,9 +774,20 @@ LABEL_6:
           v27 = *v27;
         }
 
-        handleException(v27, "TPLexicon_Close", *(v26 + 4), v24, v25);
+        handleException(v27, "TPLexicon_Close", 6);
         break;
-      case 6:
+      case 5:
+        v28 = __cxa_begin_catch(a1);
+        v29 = v28 + 8;
+        if (v28[31] < 0)
+        {
+          v29 = *v29;
+        }
+
+LABEL_17:
+        handleException(v29, "TPLexicon_Close", 2);
+        break;
+      case 4:
         v30 = __cxa_begin_catch(a1);
         v31 = v30 + 8;
         if (v30[31] < 0)
@@ -119,42 +795,21 @@ LABEL_6:
           v31 = *v31;
         }
 
-        handleException(v31, "TPLexicon_Close", 6, v28, v29);
-        break;
-      case 5:
-        v34 = __cxa_begin_catch(a1);
-        v35 = v34 + 8;
-        if (v34[31] < 0)
-        {
-          v35 = *v35;
-        }
-
-LABEL_17:
-        handleException(v35, "TPLexicon_Close", 2, v32, v33);
-        break;
-      case 4:
-        v38 = __cxa_begin_catch(a1);
-        v39 = v38 + 8;
-        if (v38[31] < 0)
-        {
-          v39 = *v39;
-        }
-
-        handleException(v39, "TPLexicon_Close", 11, v36, v37);
+        handleException(v31, "TPLexicon_Close", 11);
         break;
       case 3:
-        v40 = __cxa_begin_catch(a1);
-        v35 = v40 + 8;
-        if (v40[31] < 0)
+        v32 = __cxa_begin_catch(a1);
+        v29 = v32 + 8;
+        if (v32[31] < 0)
         {
-          v35 = *v35;
+          v29 = *v29;
         }
 
         goto LABEL_17;
       case 2:
-        v41 = __cxa_begin_catch(a1);
-        v42 = (*(*v41 + 16))(v41);
-        handleException(v42, "TPLexicon_Close", 1, v43, v44);
+        v33 = __cxa_begin_catch(a1);
+        v34 = (*(*v33 + 16))(v33);
+        handleException(v34, "TPLexicon_Close", 1);
         break;
       default:
         if (a2 != 1)
@@ -162,9 +817,9 @@ LABEL_17:
           _Unwind_Resume(a1);
         }
 
-        v45 = __cxa_begin_catch(a1);
-        v46 = (*(*v45 + 16))(v45);
-        handleException(v46, "TPLexicon_Close", 2, v47, v48);
+        v35 = __cxa_begin_catch(a1);
+        v36 = (*(*v35 + 16))(v35);
+        handleException(v36, "TPLexicon_Close", 2);
         break;
     }
 
@@ -178,46 +833,46 @@ LABEL_17:
 
 uint64_t TPLexicon_GetInfo(unint64_t a1, uint64_t a2)
 {
-  TReentrancyHandler::TReentrancyHandler(&v21, "TPLexicon_GetInfo");
-  TLocaleHandler::TLocaleHandler(&v19);
+  TReentrancyHandler::TReentrancyHandler(&v17, "TPLexicon_GetInfo");
+  TLocaleHandler::TLocaleHandler(&v15);
   MrecInitModule_sdpres_sdapi();
   if ((g_bInitialized & 1) == 0)
   {
-    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 134, v4, v5);
+    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 134);
     exception = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v17, "Not initialized");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "Not initialized");
     *exception = byte_287529580;
-    v15 = (exception + 1);
-    if (SHIBYTE(v18) < 0)
+    v11 = (exception + 1);
+    if (SHIBYTE(v14) < 0)
     {
-      std::string::__init_copy_ctor_external(v15, v17, *(&v17 + 1));
+      std::string::__init_copy_ctor_external(v11, v13, *(&v13 + 1));
     }
 
     else
     {
-      v16 = v17;
-      exception[3] = v18;
-      *&v15->__r_.__value_.__l.__data_ = v16;
+      v12 = v13;
+      exception[3] = v14;
+      *&v11->__r_.__value_.__l.__data_ = v12;
     }
 
     *exception = &unk_2875282E0;
     exception[4] = 4;
   }
 
-  v6 = verifyLexiconHandle(a1, "Bad input lexicon handle");
-  verifyPointerArgument<TPLexiconInfo>(a2, 0, "Bad output lexicon info pointer", v7, v8);
-  *(a2 + 8) = *(v6 + 104);
-  v9 = *(v6 + 336);
-  ActiveConfigHandle = TParam::getActiveConfigHandle((v9 + 144));
-  ValidConfig = TParam::getValidConfig((v9 + 144), ActiveConfigHandle);
-  v12 = *(v6 + 360);
-  *(a2 + 16) = *(v9 + 4 * ValidConfig + 304);
-  *(a2 + 20) = v12;
-  *a2 = *(*(v6 + 336) + 8);
+  v4 = verifyLexiconHandle(a1, "Bad input lexicon handle");
+  verifyPointerArgument<TPLexiconInfo>(a2, 0, "Bad output lexicon info pointer");
+  *(a2 + 8) = *(v4 + 104);
+  v5 = *(v4 + 336);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v5 + 144));
+  ValidConfig = TParam::getValidConfig((v5 + 144), ActiveConfigHandle);
+  v8 = *(v4 + 360);
+  *(a2 + 16) = *(v5 + 4 * ValidConfig + 304);
+  *(a2 + 20) = v8;
+  *a2 = *(*(v4 + 336) + 8);
   MrecInitModule_sdpres_sdapi();
-  if ((v20 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    uselocale(v19);
+    uselocale(v15);
   }
 
   TReentrancyHandler::ms_bIn = 0;
@@ -244,6 +899,16 @@ LABEL_6:
     switch(a2)
     {
       case 7:
+        v24 = __cxa_begin_catch(a1);
+        v25 = v24 + 8;
+        if (v24[31] < 0)
+        {
+          v25 = *v25;
+        }
+
+        handleException(v25, "TPLexicon_GetInfo", *(v24 + 4));
+        break;
+      case 6:
         v26 = __cxa_begin_catch(a1);
         v27 = v26 + 8;
         if (v26[31] < 0)
@@ -251,9 +916,20 @@ LABEL_6:
           v27 = *v27;
         }
 
-        handleException(v27, "TPLexicon_GetInfo", *(v26 + 4), v24, v25);
+        handleException(v27, "TPLexicon_GetInfo", 6);
         break;
-      case 6:
+      case 5:
+        v28 = __cxa_begin_catch(a1);
+        v29 = v28 + 8;
+        if (v28[31] < 0)
+        {
+          v29 = *v29;
+        }
+
+LABEL_17:
+        handleException(v29, "TPLexicon_GetInfo", 2);
+        break;
+      case 4:
         v30 = __cxa_begin_catch(a1);
         v31 = v30 + 8;
         if (v30[31] < 0)
@@ -261,42 +937,21 @@ LABEL_6:
           v31 = *v31;
         }
 
-        handleException(v31, "TPLexicon_GetInfo", 6, v28, v29);
-        break;
-      case 5:
-        v34 = __cxa_begin_catch(a1);
-        v35 = v34 + 8;
-        if (v34[31] < 0)
-        {
-          v35 = *v35;
-        }
-
-LABEL_17:
-        handleException(v35, "TPLexicon_GetInfo", 2, v32, v33);
-        break;
-      case 4:
-        v38 = __cxa_begin_catch(a1);
-        v39 = v38 + 8;
-        if (v38[31] < 0)
-        {
-          v39 = *v39;
-        }
-
-        handleException(v39, "TPLexicon_GetInfo", 11, v36, v37);
+        handleException(v31, "TPLexicon_GetInfo", 11);
         break;
       case 3:
-        v40 = __cxa_begin_catch(a1);
-        v35 = v40 + 8;
-        if (v40[31] < 0)
+        v32 = __cxa_begin_catch(a1);
+        v29 = v32 + 8;
+        if (v32[31] < 0)
         {
-          v35 = *v35;
+          v29 = *v29;
         }
 
         goto LABEL_17;
       case 2:
-        v41 = __cxa_begin_catch(a1);
-        v42 = (*(*v41 + 16))(v41);
-        handleException(v42, "TPLexicon_GetInfo", 1, v43, v44);
+        v33 = __cxa_begin_catch(a1);
+        v34 = (*(*v33 + 16))(v33);
+        handleException(v34, "TPLexicon_GetInfo", 1);
         break;
       default:
         if (a2 != 1)
@@ -304,9 +959,9 @@ LABEL_17:
           _Unwind_Resume(a1);
         }
 
-        v45 = __cxa_begin_catch(a1);
-        v46 = (*(*v45 + 16))(v45);
-        handleException(v46, "TPLexicon_GetInfo", 2, v47, v48);
+        v35 = __cxa_begin_catch(a1);
+        v36 = (*(*v35 + 16))(v35);
+        handleException(v36, "TPLexicon_GetInfo", 2);
         break;
     }
 
@@ -318,25 +973,25 @@ LABEL_17:
   goto LABEL_6;
 }
 
-uint64_t verifyPointerArgument<TPLexiconInfo>(uint64_t result, char a2, char *a3, uint64_t a4, uint64_t a5)
+uint64_t verifyPointerArgument<TPLexiconInfo>(uint64_t result, char a2, char *a3)
 {
   if (!result && (a2 & 1) == 0)
   {
-    conditionalAssert(a3, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/api.h", 279, a4, a5);
+    conditionalAssert(a3, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/api.h", 279);
     exception = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v9, a3);
+    std::string::basic_string[abi:ne200100]<0>(&v7, a3);
     *exception = byte_287529580;
-    v7 = (exception + 1);
-    if (SHIBYTE(v10) < 0)
+    v5 = (exception + 1);
+    if (SHIBYTE(v8) < 0)
     {
-      std::string::__init_copy_ctor_external(v7, v9, *(&v9 + 1));
+      std::string::__init_copy_ctor_external(v5, v7, *(&v7 + 1));
     }
 
     else
     {
-      v8 = v9;
-      exception[3] = v10;
-      *&v7->__r_.__value_.__l.__data_ = v8;
+      v6 = v7;
+      exception[3] = v8;
+      *&v5->__r_.__value_.__l.__data_ = v6;
     }
 
     *exception = &unk_2875282E0;
@@ -367,165 +1022,165 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t TPLexicon_GetHeadClone(unint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned int a4, _DWORD *a5)
+uint64_t TPLexicon_GetHeadClone(unint64_t a1, unsigned __int8 *a2, uint64_t a3, int a4, _DWORD *a5)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  TReentrancyHandler::TReentrancyHandler(&v41, "TPLexicon_GetHeadClone");
-  TLocaleHandler::TLocaleHandler(&v39);
+  v38 = *MEMORY[0x277D85DE8];
+  TReentrancyHandler::TReentrancyHandler(&v33, "TPLexicon_GetHeadClone");
+  TLocaleHandler::TLocaleHandler(&v31);
   MrecInitModule_sdpres_sdapi();
   if ((g_bInitialized & 1) == 0)
   {
-    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 314, v10, v11);
+    conditionalAssert("Not initialized", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 314);
     exception = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(v36, "Not initialized");
+    std::string::basic_string[abi:ne200100]<0>(v28, "Not initialized");
     *exception = byte_287529580;
-    v26 = (exception + 1);
-    if ((v36[23] & 0x80000000) != 0)
+    v18 = (exception + 1);
+    if ((v28[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v26, *v36, *&v36[8]);
+      std::string::__init_copy_ctor_external(v18, *v28, *&v28[8]);
     }
 
     else
     {
-      v31 = *v36;
-      exception[3] = *&v36[16];
-      *&v26->__r_.__value_.__l.__data_ = v31;
+      v23 = *v28;
+      exception[3] = *&v28[16];
+      *&v18->__r_.__value_.__l.__data_ = v23;
     }
 
     *exception = &unk_2875282E0;
     exception[4] = 4;
   }
 
-  v12 = verifyLexiconHandle(a1, "Bad input lexicon handle");
-  verifyStringArgument(a2, 0, 0, "Bad input word name pointer", v13);
-  *v36 = v37;
-  *&v36[8] = xmmword_26286B6F0;
-  v38 = 1;
-  if (TLocaleInfo::multiByteToUnicode((v12 + 30), a2, v36))
+  v10 = verifyLexiconHandle(a1, "Bad input lexicon handle");
+  verifyStringArgument(a2, 0, 0, "Bad input word name pointer");
+  *v28 = v29;
+  *&v28[8] = xmmword_26286B6F0;
+  v30 = 1;
+  if (TLocaleInfo::multiByteToUnicode((v10 + 30), a2, v28))
   {
-    conditionalAssert("Bad input wordname", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 320, v14, v15);
-    v27 = __cxa_allocate_exception(0x28uLL);
+    conditionalAssert("Bad input wordname", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 320);
+    v19 = __cxa_allocate_exception(0x28uLL);
     std::string::basic_string[abi:ne200100]<0>(&__s, "Bad input wordname");
-    *v27 = byte_287529580;
-    v28 = (v27 + 1);
-    if (SHIBYTE(v43) < 0)
-    {
-      std::string::__init_copy_ctor_external(v28, __s, *(&__s + 1));
-    }
-
-    else
-    {
-      v32 = __s;
-      v27[3] = v43;
-      *&v28->__r_.__value_.__l.__data_ = v32;
-    }
-
-    *v27 = &unk_2875282E0;
-    v27[4] = 3;
-  }
-
-  verifyPointerArgument<char,unsigned int>(a3, a4, 1, "Bad output head clone buffer", v15);
-  *&__s = a3;
-  *(&__s + 1) = a4;
-  v43 = 0;
-  v45 = 0;
-  if (*&v36[16] >= *&v36[8])
-  {
-    if (v38)
-    {
-      LODWORD(v34) = 0;
-      TBuffer<wchar_t>::insert(v36, *&v36[16], &v34, 1uLL);
-      v16 = *v36;
-      --*&v36[16];
-    }
-
-    else
-    {
-      v16 = *v36;
-      if (*&v36[8])
-      {
-        *(*v36 + 4 * *&v36[8] - 4) = 0;
-      }
-    }
-  }
-
-  else
-  {
-    v16 = *v36;
-    *(*v36 + 4 * *&v36[16]) = 0;
-  }
-
-  if (TLexicon::checkName(v12, v16, 0, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    conditionalAssert("Bad wordname format", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 326, v17, v18);
-    v29 = __cxa_allocate_exception(0x28uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v34, "Bad wordname format");
-    *v29 = byte_287529580;
-    v30 = (v29 + 1);
+    *v19 = byte_287529580;
+    v20 = (v19 + 1);
     if (SHIBYTE(v35) < 0)
     {
-      std::string::__init_copy_ctor_external(v30, v34, *(&v34 + 1));
+      std::string::__init_copy_ctor_external(v20, __s, *(&__s + 1));
     }
 
     else
     {
-      v33 = v34;
-      v29[3] = v35;
-      *&v30->__r_.__value_.__l.__data_ = v33;
+      v24 = __s;
+      v19[3] = v35;
+      *&v20->__r_.__value_.__l.__data_ = v24;
     }
 
-    *v29 = &unk_2875282E0;
-    v29[4] = 3;
+    *v19 = &unk_2875282E0;
+    v19[4] = 3;
   }
 
-  if (*&v36[16] >= *&v36[8])
+  verifyPointerArgument<char,unsigned int>(a3, a4, 1, "Bad output head clone buffer");
+  *&__s = a3;
+  *(&__s + 1) = a4;
+  v35 = 0;
+  v37 = 0;
+  if (*&v28[16] >= *&v28[8])
   {
-    if (v38)
+    if (v30)
     {
-      LODWORD(v34) = 0;
-      TBuffer<wchar_t>::insert(v36, *&v36[16], &v34, 1uLL);
-      v19 = *v36;
-      --*&v36[16];
+      LODWORD(v26) = 0;
+      TBuffer<wchar_t>::insert(v28, *&v28[16], &v26, 1uLL);
+      v11 = *v28;
+      --*&v28[16];
     }
 
     else
     {
-      v19 = *v36;
-      if (*&v36[8])
+      v11 = *v28;
+      if (*&v28[8])
       {
-        *(*v36 + 4 * *&v36[8] - 4) = 0;
+        *(*v28 + 4 * *&v28[8] - 4) = 0;
       }
     }
   }
 
   else
   {
-    v19 = *v36;
-    *(*v36 + 4 * *&v36[16]) = 0;
+    v11 = *v28;
+    *(*v28 + 4 * *&v28[16]) = 0;
   }
 
-  HeadClone = TLexicon::findHeadClone(v12, v19);
-  if (HeadClone)
+  if (TLexicon::checkName(v10, v11, 0, 0xFFFFFFFFFFFFFFFFLL))
   {
-    TLocaleInfo::unicodeToMultiByte((v12 + 30), *HeadClone, &__s);
+    conditionalAssert("Bad wordname format", "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/dll/tplexicon.cpp", 326);
+    v21 = __cxa_allocate_exception(0x28uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v26, "Bad wordname format");
+    *v21 = byte_287529580;
+    v22 = (v21 + 1);
+    if (SHIBYTE(v27) < 0)
+    {
+      std::string::__init_copy_ctor_external(v22, v26, *(&v26 + 1));
+    }
+
+    else
+    {
+      v25 = v26;
+      v21[3] = v27;
+      *&v22->__r_.__value_.__l.__data_ = v25;
+    }
+
+    *v21 = &unk_2875282E0;
+    v21[4] = 3;
+  }
+
+  if (*&v28[16] >= *&v28[8])
+  {
+    if (v30)
+    {
+      LODWORD(v26) = 0;
+      TBuffer<wchar_t>::insert(v28, *&v28[16], &v26, 1uLL);
+      v12 = *v28;
+      --*&v28[16];
+    }
+
+    else
+    {
+      v12 = *v28;
+      if (*&v28[8])
+      {
+        *(*v28 + 4 * *&v28[8] - 4) = 0;
+      }
+    }
   }
 
   else
   {
-    v21 = 0;
-    v43 = 0;
+    v12 = *v28;
+    *(*v28 + 4 * *&v28[16]) = 0;
+  }
+
+  HeadClone = TLexicon::findHeadClone(v10, v12);
+  if (HeadClone)
+  {
+    TLocaleInfo::unicodeToMultiByte((v10 + 30), *HeadClone, &__s);
+  }
+
+  else
+  {
+    v14 = 0;
+    v35 = 0;
       ;
     }
 
-    TBuffer<char>::insert(&__s, 0, a2, v21 - 1);
+    TBuffer<char>::insert(&__s, 0, a2, v14 - 1);
   }
 
-  if (v43 >= *(&__s + 1))
+  if (v35 >= *(&__s + 1))
   {
-    if (v45)
+    if (v37)
     {
-      LOBYTE(v34) = 0;
-      TBuffer<char>::insert(&__s, v43--, &v34, 1uLL);
+      LOBYTE(v26) = 0;
+      TBuffer<char>::insert(&__s, v35--, &v26, 1uLL);
     }
 
     else if (*(&__s + 1))
@@ -536,32 +1191,31 @@ uint64_t TPLexicon_GetHeadClone(unint64_t a1, unsigned __int8 *a2, uint64_t a3, 
 
   else
   {
-    *(__s + v43) = 0;
+    v35[__s] = 0;
   }
 
   if (a5)
   {
-    *a5 = v43 + 1;
+    *a5 = v35 + 1;
   }
 
-  if (v45 == 1 && __s != &v44 && __s)
+  if (v37 == 1 && __s != &v36 && __s)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  if (v38 == 1 && *v36 != v37 && *v36)
+  if (v30 == 1 && *v28 != v29 && *v28)
   {
     MEMORY[0x26672B1B0]();
   }
 
   MrecInitModule_sdpres_sdapi();
-  if ((v40 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
-    uselocale(v39);
+    uselocale(v31);
   }
 
   TReentrancyHandler::ms_bIn = 0;
-  v23 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -580,7 +1234,7 @@ LABEL_7:
         {
           if (v20)
           {
-            MEMORY[0x26672B1B0](v20, 0x1000C4077774924);
+            MEMORY[0x26672B1B0](v20, 0x1000C4077774924, a3, a4, a5, a6, a7, a8);
           }
         }
       }
@@ -596,6 +1250,17 @@ LABEL_7:
       switch(a2)
       {
         case 7:
+          v21 = __cxa_begin_catch(a1);
+          v22 = v21 + 8;
+          if (v21[31] < 0)
+          {
+            v22 = *v22;
+          }
+
+          handleException(v22, "TPLexicon_GetHeadClone", *(v21 + 4));
+          __cxa_end_catch();
+          break;
+        case 6:
           v23 = __cxa_begin_catch(a1);
           v24 = v23 + 8;
           if (v23[31] < 0)
@@ -603,10 +1268,22 @@ LABEL_7:
             v24 = *v24;
           }
 
-          handleException(v24, "TPLexicon_GetHeadClone", *(v23 + 4), v21, v22);
+          handleException(v24, "TPLexicon_GetHeadClone", 6);
           __cxa_end_catch();
           break;
-        case 6:
+        case 5:
+          v25 = __cxa_begin_catch(a1);
+          v26 = v25 + 8;
+          if (v25[31] < 0)
+          {
+            v26 = *v26;
+          }
+
+LABEL_26:
+          handleException(v26, "TPLexicon_GetHeadClone", 2);
+          __cxa_end_catch();
+          break;
+        case 4:
           v27 = __cxa_begin_catch(a1);
           v28 = v27 + 8;
           if (v27[31] < 0)
@@ -614,45 +1291,22 @@ LABEL_7:
             v28 = *v28;
           }
 
-          handleException(v28, "TPLexicon_GetHeadClone", 6, v25, v26);
-          __cxa_end_catch();
-          break;
-        case 5:
-          v31 = __cxa_begin_catch(a1);
-          v32 = v31 + 8;
-          if (v31[31] < 0)
-          {
-            v32 = *v32;
-          }
-
-LABEL_26:
-          handleException(v32, "TPLexicon_GetHeadClone", 2, v29, v30);
-          __cxa_end_catch();
-          break;
-        case 4:
-          v35 = __cxa_begin_catch(a1);
-          v36 = v35 + 8;
-          if (v35[31] < 0)
-          {
-            v36 = *v36;
-          }
-
-          handleException(v36, "TPLexicon_GetHeadClone", 11, v33, v34);
+          handleException(v28, "TPLexicon_GetHeadClone", 11);
           __cxa_end_catch();
           break;
         case 3:
-          v37 = __cxa_begin_catch(a1);
-          v32 = v37 + 8;
-          if (v37[31] < 0)
+          v29 = __cxa_begin_catch(a1);
+          v26 = v29 + 8;
+          if (v29[31] < 0)
           {
-            v32 = *v32;
+            v26 = *v26;
           }
 
           goto LABEL_26;
         case 2:
-          v38 = __cxa_begin_catch(a1);
-          v39 = (*(*v38 + 16))(v38);
-          handleException(v39, "TPLexicon_GetHeadClone", 1, v40, v41);
+          v30 = __cxa_begin_catch(a1);
+          v31 = (*(*v30 + 16))(v30);
+          handleException(v31, "TPLexicon_GetHeadClone", 1);
           __cxa_end_catch();
           break;
         default:
@@ -661,9 +1315,9 @@ LABEL_26:
             _Unwind_Resume(a1);
           }
 
-          v42 = __cxa_begin_catch(a1);
-          v43 = (*(*v42 + 16))(v42);
-          handleException(v43, "TPLexicon_GetHeadClone", 2, v44, v45);
+          v32 = __cxa_begin_catch(a1);
+          v33 = (*(*v32 + 16))(v32);
+          handleException(v33, "TPLexicon_GetHeadClone", 2);
           __cxa_end_catch();
           break;
       }
@@ -753,28 +1407,28 @@ void DgnException::DgnException(DgnException *this, int CurrentThreadId, char *a
   }
 
   *(this + 18) = CurrentThreadId;
-  DgnString::preAllocate(this + 8, 96);
+  DgnString::preAllocate(this + 1, 96);
   DgnString::operator=((this + 8), a3);
   *(this + 6) = a4;
   DgnString::operator=(v14, a5);
   *(this + 12) = a6;
-  DgnString::preAllocate(this + 56, 512);
+  DgnString::preAllocate(this + 7, 512);
   DgnString::operator=((this + 56), a7);
 }
 
 void sub_26266D6EC(_Unwind_Exception *a1)
 {
   DgnString::~DgnString(v2);
-  DgnString::~DgnString((v1 + 8));
+  DgnString::~DgnString(v1 + 8);
   _Unwind_Resume(a1);
 }
 
 void DgnException::~DgnException(DgnException *this)
 {
   *this = &unk_287528CC0;
-  v2 = (this + 8);
-  DgnString::~DgnString((this + 56));
-  DgnString::~DgnString((this + 32));
+  v2 = this + 8;
+  DgnString::~DgnString(this + 56);
+  DgnString::~DgnString(this + 32);
   DgnString::~DgnString(v2);
 }
 
@@ -791,7 +1445,7 @@ void DgnFileIOException::~DgnFileIOException(DgnFileIOException *this)
   JUMPOUT(0x26672B1B0);
 }
 
-void EncryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double EncryptBuffer(_BYTE *result, unsigned int a2, uint64_t a3)
 {
   if (a3)
   {
@@ -799,15 +1453,15 @@ void EncryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, ui
     {
       if (a2)
       {
-        v9 = a2;
+        v4 = a2;
         do
         {
-          *a1 = sEncryptPerm256Table[*a1];
-          ++a1;
-          --v9;
+          *result = sEncryptPerm256Table[*result];
+          ++result;
+          --v4;
         }
 
-        while (v9);
+        while (v4);
       }
     }
 
@@ -815,25 +1469,27 @@ void EncryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, ui
     {
       if (a2)
       {
-        v8 = a2;
+        v3 = a2;
         do
         {
-          *a1++ ^= 0x80u;
-          --v8;
+          *result++ ^= 0x80u;
+          --v3;
         }
 
-        while (v8);
+        while (v3);
       }
     }
 
     else
     {
-      errThrowInternal(1, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/encrypt.cpp", 60, "dfutil/encrypt", 1, &errStr_dfutil_encrypt_E_BADENCRYPTION, a7, a8, a3);
+      return errThrowInternal(1, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/encrypt.cpp", 60, "dfutil/encrypt", 1, "%d", a3);
     }
   }
+
+  return v5;
 }
 
-void DecryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double DecryptBuffer(_BYTE *result, unsigned int a2, int a3)
 {
   if (a3)
   {
@@ -841,15 +1497,15 @@ void DecryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, ui
     {
       if (a2)
       {
-        v9 = a2;
+        v4 = a2;
         do
         {
-          *a1 = sDecryptPerm256Table[*a1];
-          ++a1;
-          --v9;
+          *result = sDecryptPerm256Table[*result];
+          ++result;
+          --v4;
         }
 
-        while (v9);
+        while (v4);
       }
     }
 
@@ -857,22 +1513,24 @@ void DecryptBuffer(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4, ui
     {
       if (a2)
       {
-        v8 = a2;
+        v3 = a2;
         do
         {
-          *a1++ ^= 0x80u;
-          --v8;
+          *result++ ^= 0x80u;
+          --v3;
         }
 
-        while (v8);
+        while (v3);
       }
     }
 
     else
     {
-      errThrowInternal(1, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/encrypt.cpp", 87, "dfutil/encrypt", 1, &errStr_dfutil_encrypt_E_BADENCRYPTION, a7, a8, a3);
+      return errThrowInternal(1, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/dfutil/encrypt.cpp", 87, "dfutil/encrypt", 1, "%d", a3);
     }
   }
+
+  return v5;
 }
 
 void MrecInitModule_active_kernel(void)
@@ -892,12 +1550,11 @@ void MrecInitModule_active_kernel(void)
 uint64_t ActiveWordCoartN::unpackEndFromCallBack(ActiveWordCoartN *this)
 {
   ActiveWordCoartBase::getEndPics(this, 0xFFFF, *(this + 2) + 302992);
-  v2 = *(this + 2);
-  v3 = (*(**(this + 1) + 256))();
-  (*(**(this + 1) + 120))(*(this + 1), *(this + 9), v3);
-  v4 = *(**(this + 1) + 176);
+  v2 = (*(**(this + 1) + 256))();
+  (*(**(this + 1) + 120))(*(this + 1), *(this + 9), v2);
+  v3 = *(**(this + 1) + 176);
 
-  return v4();
+  return v3();
 }
 
 uint64_t ActiveWordCoartN::unpackMidFromCallBack(ActiveWordCoartN *this)
@@ -935,7 +1592,7 @@ void ActiveWordMgr::newActiveWordSilence(ActiveWordMgr *a1, uint64_t a2)
   ActiveWordSilence::ActiveWordSilence(v5, a1, v3);
 }
 
-void ActiveWordMgr::newActiveWord(uint64_t a1, unsigned int *a2, int a3, int a4, int a5)
+void ActiveWordMgr::newActiveWord(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = a1 + 299008;
   v11 = *a2;
@@ -1055,141 +1712,140 @@ void ActiveWordMgr::printSize(ActiveWordMgr *this, uint64_t a2, uint64_t a3, uni
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 224, &v52);
-  if (v53)
+  getShipObjectSizeDescription(&v33, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 224);
+  if (v34)
   {
-    v16 = v52;
+    v13 = v33;
   }
 
   else
   {
-    v16 = &byte_262899963;
+    v13 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v52);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v33);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
   if (this)
   {
-    v51 = 0;
-    v52 = 0;
-    v21 = (a3 + 1);
-    v50 = 0;
-    NetMgr::printSize(this, 0xFFFFFFFFLL, v21, &v52, &v51, &v50);
-    *a4 += v52;
-    *a5 += v51;
-    *a6 += v50;
+    v32 = 0;
+    v33 = 0;
+    v15 = (a3 + 1);
+    v31 = 0;
+    NetMgr::printSize(this, 0xFFFFFFFFLL, v15, &v33, &v32, &v31);
+    *a4 += v33;
+    *a5 += v32;
+    *a6 += v31;
   }
 
   else
   {
-    v21 = (a3 + 1);
+    v15 = (a3 + 1);
   }
 
-  v22 = 16;
+  v16 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v22 = 12;
+    v16 = 12;
   }
 
-  v23 = *(this + 75750);
-  v24 = 12 * v23;
-  if (v23 <= 0)
+  v17 = *(this + 75750);
+  v18 = 12 * v17;
+  if (v17 <= 0)
   {
-    v24 = 0;
+    v18 = 0;
   }
 
-  v25 = v24 + v22;
-  v26 = v24 + v22 + 12 * (*(this + 75751) - v23);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 226, &v52);
-  if (v53)
+  v19 = v18 + v16;
+  v20 = v18 + v16 + 12 * (*(this + 75751) - v17);
+  getShipObjectSizeDescription(&v33, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 226);
+  if (v34)
   {
-    v31 = v52;
+    v22 = v33;
   }
 
   else
   {
-    v31 = &byte_262899963;
+    v22 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v28, v29, v30, v21, &byte_262899963, (34 - a3), (34 - a3), v31, v26, v25, 0);
-  DgnString::~DgnString(&v52);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v15, &byte_262899963, (34 - a3), (34 - a3), v22, v20, v19, 0);
+  DgnString::~DgnString(&v33);
+  *a4 += v20;
+  *a5 += v19;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v23 = 4;
+  }
+
+  else
+  {
+    v23 = 8;
+  }
+
+  getShipObjectSizeDescription(&v33, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 227);
+  if (v34)
+  {
+    v25 = v33;
+  }
+
+  else
+  {
+    v25 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v15, &byte_262899963, (34 - a3), (34 - a3), v25, v23, v23, 0);
+  DgnString::~DgnString(&v33);
+  *a4 += v23;
+  *a5 += v23;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v33, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 228);
+  if (v34)
+  {
+    v28 = v33;
+  }
+
+  else
+  {
+    v28 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v15, &byte_262899963, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v33);
   *a4 += v26;
-  *a5 += v25;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  *a5 += v26;
+  getShipObjectSizeDescription(&v33, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 229);
+  if (v34)
   {
-    v32 = 4;
+    v30 = v33;
   }
 
   else
   {
-    v32 = 8;
+    v30 = &byte_262899963;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 227, &v52);
-  if (v53)
-  {
-    v37 = v52;
-  }
-
-  else
-  {
-    v37 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v34, v35, v36, v21, &byte_262899963, (34 - a3), (34 - a3), v37, v32, v32, 0);
-  DgnString::~DgnString(&v52);
-  *a4 += v32;
-  *a5 += v32;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v38 = 4;
-  }
-
-  else
-  {
-    v38 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 228, &v52);
-  if (v53)
-  {
-    v43 = v52;
-  }
-
-  else
-  {
-    v43 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v40, v41, v42, v21, &byte_262899963, (34 - a3), (34 - a3), v43, v38, v38, 0);
-  DgnString::~DgnString(&v52);
-  *a4 += v38;
-  *a5 += v38;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 229, &v52);
-  if (v53)
-  {
-    v48 = v52;
-  }
-
-  else
-  {
-    v48 = &byte_262899963;
-  }
-
-  v49 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v45, v46, v47, a3, &byte_262899963, (35 - a3), (35 - a3), v48, *a4, *a5, *a6);
-  DgnString::~DgnString(&v52);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, a3, &byte_262899963, (35 - a3), (35 - a3), v30, *a4, *a5, *a6);
+  DgnString::~DgnString(&v33);
 }
 
-void sub_26266E2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26266E2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1218,7 +1874,7 @@ void ActiveWord::ActiveWord(ActiveWord *this, ActiveWordMgr *a2, HmmNet *a3)
     if (*(v6 + 68) & 0xFFFFFFFD) == 0 && (*(v6 + 64))
     {
       *(this + 8) = Constraint::getMaxEndTime(v6, a3 + 4);
-      *(this + 36) = Constraint::getSuccessorRecursivePrefilteringAllowed(v6, a3 + 4, v7, v8, v9, v10, v11, v12);
+      *(this + 36) = Constraint::getSuccessorRecursivePrefilteringAllowed(v6, a3 + 4);
       return;
     }
 
@@ -1285,7 +1941,6 @@ uint64_t ActiveWord::sizeObject(uint64_t a1, uint64_t a2)
 
   else
   {
-    v5 = a2;
     v7 = *(a1 + 8);
     if (v7)
     {
@@ -1296,7 +1951,7 @@ uint64_t ActiveWord::sizeObject(uint64_t a1, uint64_t a2)
         v9 = 4;
       }
 
-      if (v5 == 3)
+      if (a2 == 3)
       {
         v3 = 0;
       }
@@ -1316,7 +1971,7 @@ uint64_t ActiveWord::sizeObject(uint64_t a1, uint64_t a2)
     v10 = *(a1 + 24);
     if (v10)
     {
-      v3 += sizeObject(v10, v5);
+      v3 += sizeObject(v10, a2);
     }
   }
 
@@ -1383,11 +2038,11 @@ void ActiveWordNoCoart::ActiveWordNoCoart(ActiveWordNoCoart *this, ActiveWordMgr
   DgnIArray<Utterance *>::~DgnIArray(&v10);
 }
 
-void sub_26266E824(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26266E824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnIArray<Utterance *>::~DgnIArray(va);
-  ActiveWord::~ActiveWord(v2);
+  ActiveWord::~ActiveWord(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1653,11 +2308,10 @@ void ActiveWordCoart1::~ActiveWordCoart1(ActiveWordCoart1 *this)
 uint64_t ActiveWordCoart1::addInPort(ActiveWordCoart1 *this, int a2)
 {
   ActiveWordCoartBase::getEndPics(this, a2, *(this + 2) + 302992);
-  v3 = *(this + 2);
-  v4 = (*(**(this + 1) + 256))();
-  v5 = HmmNet::newInPort(*(this + 1));
-  (*(**(this + 1) + 160))(*(this + 1), v5, v4);
-  return v5;
+  v3 = (*(**(this + 1) + 256))();
+  v4 = HmmNet::newInPort(*(this + 1));
+  (*(**(this + 1) + 160))(*(this + 1), v4, v3);
+  return v4;
 }
 
 uint64_t HmmNet::newInPort(HmmNet *this)
@@ -1710,16 +2364,16 @@ uint64_t ActiveWordCoartN::unpackMid(ActiveWordCoartN *this)
     v7 = (*(*v4 + 40))(v4);
   }
 
-  Voc::getPics(v6, v5, 1, v3, v3 + 2, v7, &v10);
+  Voc::getPics(v6, v5, 1u, v3, v3 + 2, v7, &v10);
   (*(**(this + 1) + 208))(*(this + 1), v10, v11, &v12, this + 72, 2);
   v8 = v12;
   DgnIArray<Utterance *>::~DgnIArray(&v10);
   return v8;
 }
 
-void sub_26266F080(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26266F080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnIArray<Utterance *>::~DgnIArray(va);
   _Unwind_Resume(a1);
 }
@@ -1776,7 +2430,6 @@ void ActiveWordCoartN::ActiveWordCoartN(ActiveWordCoartN *this, ActiveWordMgr *a
       *(v12 + 20) = -65536;
       *(this + 8) = v12;
       (*(**(this + 1) + 120))(*(this + 1));
-      v13 = *(this + 9);
     }
 
     (*(**(this + 1) + 120))(*(this + 1));
@@ -1893,7 +2546,7 @@ uint64_t Active::Active(uint64_t a1, int a2, int *a3, uint64_t a4, uint64_t a5)
   *(a1 + 8) = 0;
   *(a1 + 4) = 0;
   v8 = *a3;
-  NetMgr::NetMgr(a1 + 16);
+  NetMgr::NetMgr(a1 + 16, a2, a4, &v8);
   *(a1 + 302992) = a5;
   *(a1 + 303008) = 0;
   *(a1 + 303016) = 0;
@@ -1917,10 +2570,29 @@ void Active::printSize(Active *this, uint64_t a2, uint64_t a3, unint64_t *a4, un
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 898, &v101);
-  if (v102)
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 898);
+  if (v71)
   {
-    v16 = v101;
+    v13 = v70;
+  }
+
+  else
+  {
+    v13 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &byte_262899963, a3, &byte_262899963, v13);
+  DgnString::~DgnString(&v70);
+  if (a2 != -1)
+  {
+    xlprintf("%d ", v14, a2);
+  }
+
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &byte_262899963);
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 899);
+  if (v71)
+  {
+    v16 = v70;
   }
 
   else
@@ -1928,128 +2600,176 @@ void Active::printSize(Active *this, uint64_t a2, uint64_t a3, unint64_t *a4, un
     v16 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &byte_262899963, a3, &byte_262899963, v16);
-  DgnString::~DgnString(&v101);
-  if (a2 != -1)
-  {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
-  }
-
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &byte_262899963);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 899, &v101);
-  if (v102)
-  {
-    v25 = v101;
-  }
-
-  else
-  {
-    v25 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v25, 4, 4, 0);
-  v95 = a3;
-  DgnString::~DgnString(&v101);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v16, 4, 4, 0);
+  v64 = a3;
+  DgnString::~DgnString(&v70);
   *a4 += 4;
   *a5 += 4;
-  v100 = 0;
-  v101 = 0;
-  v99 = 0;
-  ActiveWordMgr::printSize((this + 16), 0xFFFFFFFFLL, (a3 + 1), &v101, &v100, &v99);
-  *a4 += v101;
-  *a5 += v100;
-  v96 = a6;
-  *a6 += v99;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 902, &v101);
-  if (v102)
+  v69 = 0;
+  v70 = 0;
+  v68 = 0;
+  ActiveWordMgr::printSize((this + 16), 0xFFFFFFFFLL, (a3 + 1), &v70, &v69, &v68);
+  *a4 += v70;
+  *a5 += v69;
+  v65 = a6;
+  *a6 += v68;
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 902);
+  if (v71)
   {
-    v30 = v101;
+    v18 = v70;
   }
 
   else
   {
-    v30 = &byte_262899963;
+    v18 = &byte_262899963;
   }
 
-  v97 = (34 - a3);
-  v98 = (a3 + 1);
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, v27, v28, v29, v98, &byte_262899963, v97, v97, v30, 1, 1, 0);
-  v31 = (this + 303104);
-  DgnString::~DgnString(&v101);
+  v66 = (34 - a3);
+  v67 = (a3 + 1);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, v67, &byte_262899963, v66, v66, v18, 1, 1, 0);
+  v19 = (this + 303104);
+  DgnString::~DgnString(&v70);
   ++*a4;
   ++*a5;
-  v32 = this;
-  v33 = sizeObject(this + 303048);
+  v20 = this;
+  v21 = sizeObject(this + 303048, 0);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v34 = 8;
+    v22 = 8;
   }
 
   else
   {
-    v34 = 12;
+    v22 = 12;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v35 = 2;
+    v23 = 2;
   }
 
   else
   {
-    v35 = 3;
+    v23 = 3;
   }
 
-  v36 = *(this + 75778) << v35;
+  v24 = *(this + 75778) << v23;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v25 = 8;
+  }
+
+  else
+  {
+    v25 = 16;
+  }
+
+  v26 = v21 + v25 + v22 + v24 + 13;
+  v27 = sizeObject(this + 303048, 1);
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v28 = 8;
+  }
+
+  else
+  {
+    v28 = 12;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v29 = 2;
+  }
+
+  else
+  {
+    v29 = 3;
+  }
+
+  v30 = *(this + 75778) << v29;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v31 = 8;
+  }
+
+  else
+  {
+    v31 = 16;
+  }
+
+  v32 = v27 + v31 + v28 + v30 + 13;
+  v33 = sizeObject(this + 303048, 3);
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 903);
+  if (v71)
+  {
+    v35 = v70;
+  }
+
+  else
+  {
+    v35 = &byte_262899963;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v67, &byte_262899963, v66, v66, v35, v26, v32, v33);
+  DgnString::~DgnString(&v70);
+  *a4 += v26;
+  *a5 += v32;
+  *v65 += v33;
+  v36 = sizeObject(v20 + 303160, 0);
+  v37 = 12;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v37 = 8;
+    v38 = 2;
   }
 
   else
   {
-    v37 = 16;
+    v38 = 3;
   }
 
-  v38 = v33 + v37 + v34 + v36 + 13;
-  v39 = sizeObject(this + 303048);
+  v39 = v19[30] << v38;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v40 = 4;
+  }
+
+  else
   {
     v40 = 8;
   }
 
-  else
-  {
-    v40 = 12;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v41 = 2;
-  }
-
-  else
-  {
-    v41 = 3;
-  }
-
-  v42 = *(this + 75778) << v41;
+  v41 = v36 + v40 + v37 + v39 + 13;
+  v42 = sizeObject(v20 + 303160, 1);
+  v43 = 12;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v43 = 8;
+    v44 = 2;
   }
 
   else
   {
-    v43 = 16;
+    v44 = 3;
   }
 
-  v44 = v39 + v43 + v40 + v42 + 13;
-  v45 = sizeObject(this + 303048);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 903, &v101);
-  if (v102)
+  v45 = v19[30] << v44;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v50 = v101;
+    v46 = 4;
+  }
+
+  else
+  {
+    v46 = 8;
+  }
+
+  v47 = v42 + v46 + v43 + v45 + 13;
+  v48 = sizeObject(v20 + 303160, 3);
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 904);
+  if (v71)
+  {
+    v50 = v70;
   }
 
   else
@@ -2057,152 +2777,84 @@ void Active::printSize(Active *this, uint64_t a2, uint64_t a3, unint64_t *a4, un
     v50 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v47, v48, v49, v98, &byte_262899963, v97, v97, v50, v38, v44, v45);
-  DgnString::~DgnString(&v101);
-  *a4 += v38;
-  *a5 += v44;
-  *v96 += v45;
-  v51 = sizeObject(v32 + 303160);
-  v52 = 12;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v49, v67, &byte_262899963, v66, v66, v50, v41, v47, v48);
+  DgnString::~DgnString(&v70);
+  *a4 += v41;
+  *a5 += v47;
+  *v65 += v48;
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 906);
+  if (v71)
   {
-    v52 = 8;
-    v53 = 2;
+    v52 = v70;
   }
 
   else
   {
-    v53 = 3;
+    v52 = &byte_262899963;
   }
 
-  v54 = v31[30] << v53;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v55 = 4;
-  }
-
-  else
-  {
-    v55 = 8;
-  }
-
-  v56 = v51 + v55 + v52 + v54 + 13;
-  v57 = sizeObject(v32 + 303160);
-  v58 = 12;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v58 = 8;
-    v59 = 2;
-  }
-
-  else
-  {
-    v59 = 3;
-  }
-
-  v60 = v31[30] << v59;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v61 = 4;
-  }
-
-  else
-  {
-    v61 = 8;
-  }
-
-  v62 = v57 + v61 + v58 + v60 + 13;
-  v63 = sizeObject(v32 + 303160);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 904, &v101);
-  if (v102)
-  {
-    v68 = v101;
-  }
-
-  else
-  {
-    v68 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v65, v66, v67, v98, &byte_262899963, v97, v97, v68, v56, v62, v63);
-  DgnString::~DgnString(&v101);
-  *a4 += v56;
-  *a5 += v62;
-  *v96 += v63;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 906, &v101);
-  if (v102)
-  {
-    v73 = v101;
-  }
-
-  else
-  {
-    v73 = &byte_262899963;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v69, v70, v71, v72, v98, &byte_262899963, v97, v97, v73, 4, 4, 0);
-  DgnString::~DgnString(&v101);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v67, &byte_262899963, v66, v66, v52, 4, 4, 0);
+  DgnString::~DgnString(&v70);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 908, &v101);
-  if (v102)
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 908);
+  if (v71)
   {
-    v78 = v101;
+    v54 = v70;
   }
 
   else
   {
-    v78 = &byte_262899963;
+    v54 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v74, v75, v76, v77, v98, &byte_262899963, v97, v97, v78, 4, 4, 0);
-  DgnString::~DgnString(&v101);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v67, &byte_262899963, v66, v66, v54, 4, 4, 0);
+  DgnString::~DgnString(&v70);
   *a4 += 4;
   *a5 += 4;
-  v79 = 16;
+  v55 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v79 = 12;
+    v55 = 12;
   }
 
-  v80 = 2;
+  v56 = 2;
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v80 = 3;
+    v56 = 3;
   }
 
-  v81 = v31[36];
-  v82 = ((v31[37] - v81 + v81) << v80) + v79;
-  v83 = (v81 << v80) + v79;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 910, &v101);
-  if (v102)
+  v57 = v19[36];
+  v58 = ((v19[37] - v57 + v57) << v56) + v55;
+  v59 = (v57 << v56) + v55;
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 910);
+  if (v71)
   {
-    v88 = v101;
+    v61 = v70;
   }
 
   else
   {
-    v88 = &byte_262899963;
+    v61 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v85, v86, v87, v98, &byte_262899963, v97, v97, v88, v82, v83, 0);
-  DgnString::~DgnString(&v101);
-  *a4 += v82;
-  *a5 += v83;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 911, &v101);
-  if (v102)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v67, &byte_262899963, v66, v66, v61, v58, v59, 0);
+  DgnString::~DgnString(&v70);
+  *a4 += v58;
+  *a5 += v59;
+  getShipObjectSizeDescription(&v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/active.cpp", 911);
+  if (v71)
   {
-    v93 = v101;
+    v63 = v70;
   }
 
   else
   {
-    v93 = &byte_262899963;
+    v63 = &byte_262899963;
   }
 
-  v94 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v89, v90, v91, v92, v95, &byte_262899963, (35 - v95), (35 - v95), v93, *a4, *a5, *v96);
-  DgnString::~DgnString(&v101);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v64, &byte_262899963, (35 - v64), (35 - v64), v63, *a4, *a5, *v65);
+  DgnString::~DgnString(&v70);
 }
 
 void (***Active::removeActiveWord(Active *this, ActiveWord *a2, unsigned int a3))(void)
@@ -2233,14 +2885,14 @@ uint64_t *Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::remove(uint64_t a1, uint64_t 
 
 Active *Active::prune(Active *this)
 {
-  v1 = (this + 303104);
+  v1 = this + 303104;
   v2 = *(this + 75812);
   if (v2 >= 1)
   {
     v3 = this;
     do
     {
-      v4 = v1[17][v2 - 1];
+      v4 = *(*(v1 + 17) + 8 * v2 - 8);
       v5 = *(v4 + 1);
       if (!*(v5 + 104) && (*(v5 + 112) & 1) == 0)
       {
@@ -2286,7 +2938,7 @@ uint64_t Active::pruneTimeConstrained(Active *this, int a2)
   return v6 & 1;
 }
 
-uint64_t Active::newActiveWordNonAcoustic(uint64_t a1, uint64_t a2)
+ActiveWordNonAcoustic *Active::newActiveWordNonAcoustic(uint64_t a1, int *a2)
 {
   ActiveWordMgr::newActiveWordNonAcoustic((a1 + 16), a2);
   v5 = v4;
@@ -2294,7 +2946,7 @@ uint64_t Active::newActiveWordNonAcoustic(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void *Active::addActiveWord(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *Active::addActiveWord(uint64_t a1, int *a2, uint64_t a3)
 {
   v6 = a1 + 303104;
   v10 = a3;
@@ -2320,7 +2972,7 @@ void *Active::addActiveWord(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t Active::newActiveWordSilence(uint64_t a1, uint64_t a2)
+ActiveWordSilence *Active::newActiveWordSilence(uint64_t a1, int *a2)
 {
   ActiveWordMgr::newActiveWordSilence((a1 + 16), a2);
   v5 = v4;
@@ -2328,7 +2980,7 @@ uint64_t Active::newActiveWordSilence(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-uint64_t Active::newActiveWord(uint64_t a1, unsigned int *a2, int a3, int a4, int a5)
+ActiveWordCoartBase *Active::newActiveWord(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   ActiveWordMgr::newActiveWord(a1 + 16, a2, a3, a4, a5);
   v8 = v7;
@@ -2336,7 +2988,7 @@ uint64_t Active::newActiveWord(uint64_t a1, unsigned int *a2, int a3, int a4, in
   return v8;
 }
 
-uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::add(uint64_t a1, uint64_t a2, void *a3)
+uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::add(uint64_t a1, int *a2, void *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -2370,8 +3022,8 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::add(uint64_t a1, uint64_t a2, 
   v14 = *a2;
   *(v12 + 8) = 0;
   *(v12 + 12) = v14;
-  *(v12 + 16) = *(a2 + 4);
-  *(v12 + 20) = *(a2 + 8);
+  *(v12 + 16) = a2[1];
+  *(v12 + 20) = *(a2 + 2);
   *(v12 + 40) = *a3;
   *(v12 + 8) = v8;
   ++*(a1 + 8);
@@ -2400,7 +3052,7 @@ uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::add(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::add(uint64_t a1, uint64_t a2)
+uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::add(uint64_t a1, int *a2)
 {
   v4 = *(a1 + 12);
   if (*(a1 + 8) >= v4 >> 1)
@@ -2434,8 +3086,8 @@ uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::add(uint64_t a1, uint64_t a2)
   v12 = *a2;
   *(v10 + 8) = 0;
   *(v10 + 12) = v12;
-  *(v10 + 16) = *(a2 + 4);
-  *(v10 + 20) = *(a2 + 8);
+  *(v10 + 16) = a2[1];
+  *(v10 + 20) = *(a2 + 2);
   *(v10 + 8) = v6;
   ++*(a1 + 8);
   if (*(a1 + 20))
@@ -2504,7 +3156,7 @@ uint64_t Active::scoreActiveWords(uint64_t this, uint64_t a2, int a3, int a4, in
   return this;
 }
 
-BOOL Active::thresholdActiveWords(Active *this, int a2, __int16 a3, __int16 a4)
+BOOL Active::thresholdActiveWords(Active *this, uint64_t a2, __int16 a3, __int16 a4)
 {
   v4 = this + 303104;
   v5 = *(this + 75812);
@@ -2644,9 +3296,9 @@ uint64_t Active::estimateActivePelsThisFrame(Active *this, BitArray *a2)
   return result;
 }
 
-uint64_t HmmNet::thresholdNet(HmmNet *this, int a2, __int16 a3)
+uint64_t HmmNet::thresholdNet(HmmNet *this, uint64_t a2, __int16 a3)
 {
-  result = (*(*this + 304))(this);
+  result = (*(*this + 304))(this, a2);
   if (*(this + 54) > a3)
   {
     *(this + 54) = 20000;
@@ -2734,6 +3386,19 @@ void Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::~Hash(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
+{
+  *a1 = &unk_287524090;
+  if (*(a1 + 8))
+  {
+    Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::removeAll(a1);
+  }
+
+  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
+  DgnPool::~DgnPool((a1 + 24));
+
+  MrecInitModule_sdpres_sdapi();
+}
+
 uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::HashKEV(uint64_t a1, const char *a2, int a3)
 {
   HashBase::HashBase(a1, a2);
@@ -2785,21 +3450,6 @@ void HashKEV<CWIDAC,CWIDAC,CWIDAC>::~HashKEV(uint64_t a1)
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::~Hash(uint64_t a1)
-{
-  *a1 = &unk_287524090;
-  if (*(a1 + 8))
-  {
-    Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::removeAll(a1);
-  }
-
-  DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
-  DgnPool::~DgnPool((a1 + 24));
-
-  return MrecInitModule_sdpres_sdapi();
-}
-
-uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::~HashKEV(uint64_t a1)
 {
   *a1 = &unk_287523AC8;
   if (*(a1 + 8))
@@ -2810,10 +3460,10 @@ uint64_t HashKEV<CWIDAC,CWIDAC,CWIDAC>::~HashKEV(uint64_t a1)
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::removeBucket(uint64_t result, char **a2)
+uint64_t Hash<CWIDAC,CWIDAC,CWIDAC,ActiveWord *>::removeBucket(uint64_t result, char ***a2)
 {
   v2 = result;
   v3 = *a2;
@@ -2874,21 +3524,21 @@ void MrecInitModule_user_user(void)
   }
 }
 
-void User::~User(User *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void User::~User(User *this)
 {
   if (*(this + 51))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 243, "user/user", 2, &errStr_user_user_E_HAS_ADAPTER, a7, a8, *(this + 92));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 243, "user/user", 2, "%u", *(this + 92));
   }
 
   if (*(this + 52))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 244, "user/user", 6, &errStr_user_user_E_HAS_PREFILTERER, a7, a8, *(this + 92));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 244, "user/user", 6, "%u", *(this + 92));
   }
 
   if (*(this + 53))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 245, "user/user", 39, &errStr_user_user_E_HAS_TRANSDUCER, a7, a8, *(this + 92));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 245, "user/user", 39, "%u", *(this + 92));
   }
 
   DgnDelete<EnvMgr>(*this);
@@ -2904,10 +3554,10 @@ void User::~User(User *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   DgnDelete<Lookahead>(*(this + 18));
   DgnDelete<AdaptStatsHistory>(*(this + 22));
   DgnDelete<NeuralNet>(*(this + 46));
-  v9 = *(this + 24);
-  if (v9)
+  v2 = *(this + 24);
+  if (v2)
   {
-    DgnSharedMemSet::unrefDSMEx(v9, *(this + 50));
+    DgnSharedMemSet::unrefDSMEx(v2, *(this + 50));
   }
 
   DgnArray<BandwidthTransform>::releaseAll(this + 352);
@@ -2932,12 +3582,12 @@ MulTable *DgnDelete<MulTable>(MulTable *result)
   return result;
 }
 
-uint64_t DgnDelete<Imelda>(uint64_t result)
+void *DgnDelete<Imelda>(void *result)
 {
   if (result)
   {
     v1 = result;
-    LinearTransform::~LinearTransform((result + 8));
+    LinearTransform::~LinearTransform((result + 1));
 
     return MemChunkFree(v1, 0);
   }
@@ -2957,7 +3607,7 @@ VarClassMgr *DgnDelete<VarClassMgr>(VarClassMgr *result)
   return result;
 }
 
-FmpeMgr *DgnDelete<FmpeMgr>(FmpeMgr *result)
+PelMgr **DgnDelete<FmpeMgr>(PelMgr **result)
 {
   if (result)
   {
@@ -2969,12 +3619,12 @@ FmpeMgr *DgnDelete<FmpeMgr>(FmpeMgr *result)
   return result;
 }
 
-uint64_t DgnDelete<OnlineConstrainedTransAccMgr>(uint64_t result)
+void *DgnDelete<OnlineConstrainedTransAccMgr>(void *result)
 {
   if (result)
   {
     v1 = result;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(result + 32);
+    DgnPrimArray<unsigned int>::~DgnPrimArray((result + 4));
     DgnPrimArray<unsigned int>::~DgnPrimArray((v1 + 2));
 
     return MemChunkFree(v1, 0);
@@ -3072,95 +3722,206 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 273, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 273);
+  if (v120)
   {
-    v16 = v213;
+    v13 = v119;
   }
 
   else
   {
-    v16 = &unk_26287FEB9;
+    v13 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287FEB9, a3, &unk_26287FEB9, v16);
-  DgnString::~DgnString(&v213);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287FEB9, a3, &unk_26287FEB9, v13);
+  DgnString::~DgnString(&v119);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287FEB9);
-  v21 = *this;
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287FEB9);
+  v15 = *this;
   if (*this)
   {
-    v212 = 0;
-    v213 = 0;
-    v22 = (a3 + 1);
-    v211 = 0;
-    EnvMgr::printSize(v21, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v16 = (a3 + 1);
+    v117 = 0;
+    EnvMgr::printSize(v15, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   else
   {
-    v22 = (a3 + 1);
+    v16 = (a3 + 1);
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v23 = 4;
+    v17 = 4;
   }
 
   else
   {
-    v23 = 8;
+    v17 = 8;
   }
 
-  v24 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 274, &v213);
-  if (v214)
+  v18 = (34 - a3);
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 274);
+  if (v120)
   {
-    v29 = v213;
+    v20 = v119;
   }
 
   else
   {
-    v29 = &unk_26287FEB9;
+    v20 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v26, v27, v28, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v29, v23, v23, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v23;
-  *a5 += v23;
-  v30 = *(this + 1);
-  if (v30)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v20, v17, v17, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v17;
+  *a5 += v17;
+  v21 = *(this + 1);
+  if (v21)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    MulTable::printSize(v30, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    MulTable::printSize(v21, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v31 = 4;
+    v22 = 4;
   }
 
   else
   {
-    v31 = 8;
+    v22 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 276, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 276);
+  if (v120)
   {
-    v36 = v213;
+    v24 = v119;
+  }
+
+  else
+  {
+    v24 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v24, v22, v22, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v22;
+  *a5 += v22;
+  v25 = *(this + 2);
+  if (v25)
+  {
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    Imelda::printSize(v25, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 277);
+  if (v120)
+  {
+    v28 = v119;
+  }
+
+  else
+  {
+    v28 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v26;
+  *a5 += v26;
+  v29 = *(this + 3);
+  if (v29)
+  {
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    VarClassMgr::printSize(v29, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v30 = 4;
+  }
+
+  else
+  {
+    v30 = 8;
+  }
+
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 279);
+  if (v120)
+  {
+    v32 = v119;
+  }
+
+  else
+  {
+    v32 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v32, v30, v30, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v30;
+  *a5 += v30;
+  v33 = *(this + 4);
+  if (v33)
+  {
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    FmpeMgr::printSize(v33, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v34 = 4;
+  }
+
+  else
+  {
+    v34 = 8;
+  }
+
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 280);
+  if (v120)
+  {
+    v36 = v119;
   }
 
   else
@@ -3168,20 +3929,20 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
     v36 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v36, v31, v31, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v31;
-  *a5 += v31;
-  v37 = *(this + 2);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v36, v34, v34, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v34;
+  *a5 += v34;
+  v37 = *(this + 5);
   if (v37)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    Imelda::printSize(v37, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    OnlineConstrainedTransAccMgr::printSize(v37, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
@@ -3194,144 +3955,233 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
     v38 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 277, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 282);
+  if (v120)
   {
-    v43 = v213;
+    v40 = v119;
   }
 
   else
   {
-    v43 = &unk_26287FEB9;
+    v40 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v40, v41, v42, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v43, v38, v38, 0);
-  DgnString::~DgnString(&v213);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v40, v38, v38, 0);
+  DgnString::~DgnString(&v119);
   *a4 += v38;
   *a5 += v38;
-  v44 = *(this + 3);
-  if (v44)
+  v41 = *(this + 6);
+  if (v41)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    VarClassMgr::printSize(v44, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    PicMgr::printSize(v41, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v45 = 4;
+    v42 = 4;
   }
 
   else
   {
-    v45 = 8;
+    v42 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 279, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 283);
+  if (v120)
   {
-    v50 = v213;
+    v44 = v119;
   }
 
   else
   {
-    v50 = &unk_26287FEB9;
+    v44 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v47, v48, v49, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v50, v45, v45, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v45;
-  *a5 += v45;
-  v51 = *(this + 4);
-  if (v51)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v44, v42, v42, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v42;
+  *a5 += v42;
+  v45 = *(this + 7);
+  if (v45)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    FmpeMgr::printSize(v51, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    PelMgr::printSize(v45, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v52 = 4;
+    v46 = 4;
   }
 
   else
   {
-    v52 = 8;
+    v46 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 280, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 284);
+  if (v120)
   {
-    v57 = v213;
+    v48 = v119;
   }
 
   else
   {
-    v57 = &unk_26287FEB9;
+    v48 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v57, v52, v52, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v52;
-  *a5 += v52;
-  v58 = *(this + 5);
-  if (v58)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v47, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v48, v46, v46, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v46;
+  *a5 += v46;
+  v49 = *(this + 8);
+  if (v49)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    OnlineConstrainedTransAccMgr::printSize(v58, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    GenoneClassTree::printSize(v49, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v59 = 4;
+    v50 = 4;
   }
 
   else
   {
-    v59 = 8;
+    v50 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 282, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 285);
+  if (v120)
   {
-    v64 = v213;
+    v52 = v119;
   }
 
   else
   {
-    v64 = &unk_26287FEB9;
+    v52 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v64, v59, v59, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v59;
-  *a5 += v59;
-  v65 = *(this + 6);
-  if (v65)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v52, v50, v50, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v50;
+  *a5 += v50;
+  v53 = *(this + 9);
+  if (v53)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    PicMgr::printSize(v65, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    SigProcDescriptor::printSize(v53, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
   }
 
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v54 = 4;
+  }
+
+  else
+  {
+    v54 = 8;
+  }
+
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 287);
+  if (v120)
+  {
+    v56 = v119;
+  }
+
+  else
+  {
+    v56 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v56, v54, v54, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v54;
+  *a5 += v54;
+  v118 = 0;
+  v119 = 0;
+  v117 = 0;
+  PhnMgr::printSize((this + 80), 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+  *a4 += v119;
+  *a5 += v118;
+  *a6 += v117;
+  v57 = *(this + 18);
+  if (v57)
+  {
+    v118 = 0;
+    v119 = 0;
+    v117 = 0;
+    Lookahead::printSize(v57, 0xFFFFFFFFLL, v16, &v119, &v118, &v117);
+    *a4 += v119;
+    *a5 += v118;
+    *a6 += v117;
+  }
+
+  v116 = a3;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v58 = 4;
+  }
+
+  else
+  {
+    v58 = 8;
+  }
+
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 290);
+  if (v120)
+  {
+    v60 = v119;
+  }
+
+  else
+  {
+    v60 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v59, v16, &unk_26287FEB9, (34 - a3), (34 - a3), v60, v58, v58, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v58;
+  *a5 += v58;
+  v61 = sizeObject(this + 152, 0);
+  v62 = sizeObject(this + 152, 1);
+  v63 = sizeObject(this + 152, 3);
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 292);
+  if (v120)
+  {
+    v65 = v119;
+  }
+
+  else
+  {
+    v65 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v16, &unk_26287FEB9, v18, v18, v65, v61, v62, v63);
+  DgnString::~DgnString(&v119);
+  *a4 += v61;
+  *a5 += v62;
+  *a6 += v63;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v66 = 4;
@@ -3342,84 +4192,156 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
     v66 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 283, &v213);
-  if (v214)
+  if (*(this + 22))
   {
-    v71 = v213;
+    v67 = sizeObject() + v66;
+    if (gShadowDiagnosticShowIdealizedObjectSizes)
+    {
+      v66 = 4;
+    }
+
+    else
+    {
+      v66 = 8;
+    }
+
+    if (*(this + 22) && (v66 += sizeObject(), *(this + 22)))
+    {
+      v68 = sizeObject();
+    }
+
+    else
+    {
+      v68 = 0;
+    }
   }
 
   else
   {
-    v71 = &unk_26287FEB9;
+    v68 = 0;
+    v67 = v66;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v67, v68, v69, v70, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v71, v66, v66, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v66;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 294);
+  if (v120)
+  {
+    v70 = v119;
+  }
+
+  else
+  {
+    v70 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v69, v16, &unk_26287FEB9, v18, v18, v70, v67, v66, v68);
+  DgnString::~DgnString(&v119);
+  *a4 += v67;
   *a5 += v66;
-  v72 = *(this + 7);
-  if (v72)
+  *a6 += v68;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 295);
+  if (v120)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    PelMgr::printSize(v72, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v72 = v119;
   }
 
+  else
+  {
+    v72 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, v16, &unk_26287FEB9, v18, v18, v72, 2, 2, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 297);
+  if (v120)
+  {
+    v74 = v119;
+  }
+
+  else
+  {
+    v74 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v73, v16, &unk_26287FEB9, v18, v18, v74, 1, 1, 0);
+  DgnString::~DgnString(&v119);
+  ++*a4;
+  ++*a5;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v73 = 4;
+    v75 = 4;
   }
 
   else
   {
-    v73 = 8;
+    v75 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 284, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 298);
+  if (v120)
   {
-    v78 = v213;
-  }
-
-  else
-  {
-    v78 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v74, v75, v76, v77, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v78, v73, v73, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v73;
-  *a5 += v73;
-  v79 = *(this + 8);
-  if (v79)
-  {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    GenoneClassTree::printSize(v79, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v80 = 4;
+    v77 = v119;
   }
 
   else
   {
-    v80 = 8;
+    v77 = &unk_26287FEB9;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 285, &v213);
-  if (v214)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v16, &unk_26287FEB9, v18, v18, v77, v75, v75, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += v75;
+  *a5 += v75;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 299);
+  if (v120)
   {
-    v85 = v213;
+    v79 = v119;
+  }
+
+  else
+  {
+    v79 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v16, &unk_26287FEB9, v18, v18, v79, 4, 4, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 300);
+  if (v120)
+  {
+    v81 = v119;
+  }
+
+  else
+  {
+    v81 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v16, &unk_26287FEB9, v18, v18, v81, 4, 4, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 302);
+  if (v120)
+  {
+    v83 = v119;
+  }
+
+  else
+  {
+    v83 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v82, v16, &unk_26287FEB9, v18, v18, v83, 4, 4, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 304);
+  if (v120)
+  {
+    v85 = v119;
   }
 
   else
@@ -3427,81 +4349,77 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
     v85 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v81, v82, v83, v84, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v85, v80, v80, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v80;
-  *a5 += v80;
-  v86 = *(this + 9);
-  if (v86)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v16, &unk_26287FEB9, v18, v18, v85, 4, 4, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 306);
+  if (v120)
   {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    SigProcDescriptor::printSize(v86, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
+    v87 = v119;
   }
 
+  else
+  {
+    v87 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v16, &unk_26287FEB9, v18, v18, v87, 4, 4, 0);
+  DgnString::~DgnString(&v119);
+  *a4 += 4;
+  *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v87 = 4;
+    v88 = 12;
   }
 
   else
   {
-    v87 = 8;
+    v88 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 287, &v213);
-  if (v214)
+  v89 = *(this + 58);
+  v90 = *(this + 59);
+  if (v90 >= v89)
   {
-    v92 = v213;
-  }
+    v91 = 0;
+    if (v89 > 0)
+    {
+      v88 += 4 * (v89 - 1) + 4;
+    }
 
-  else
-  {
-    v92 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v89, v90, v91, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v92, v87, v87, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v87;
-  *a5 += v87;
-  v212 = 0;
-  v213 = 0;
-  v211 = 0;
-  PhnMgr::printSize((this + 80), 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-  *a4 += v213;
-  *a5 += v212;
-  *a6 += v211;
-  v93 = *(this + 18);
-  if (v93)
-  {
-    v212 = 0;
-    v213 = 0;
-    v211 = 0;
-    Lookahead::printSize(v93, 0xFFFFFFFFLL, v22, &v213, &v212, &v211);
-    *a4 += v213;
-    *a5 += v212;
-    *a6 += v211;
-  }
-
-  v210 = a3;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v94 = 4;
+    v92 = v88 + 4 * (v90 - v89);
   }
 
   else
   {
-    v94 = 8;
+    v91 = 4 * v89;
+    v92 = v88;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 290, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 308);
+  if (v120)
   {
-    v99 = v213;
+    v94 = v119;
+  }
+
+  else
+  {
+    v94 = &unk_26287FEB9;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v16, &unk_26287FEB9, v18, v18, v94, v92, v88, v91);
+  DgnString::~DgnString(&v119);
+  *a4 += v92;
+  *a5 += v88;
+  *a6 += v91;
+  v95 = sizeObject(this + 240, 0);
+  v96 = sizeObject(this + 240, 1);
+  v97 = sizeObject(this + 240, 3);
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 310);
+  if (v120)
+  {
+    v99 = v119;
   }
 
   else
@@ -3509,368 +4427,97 @@ void User::printSize(User *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint6
     v99 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v96, v97, v98, v22, &unk_26287FEB9, (34 - a3), (34 - a3), v99, v94, v94, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v94;
-  *a5 += v94;
-  v100 = sizeObject(this + 152, 0);
-  v101 = sizeObject(this + 152, 1);
-  v102 = sizeObject(this + 152, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 292, &v213);
-  if (v214)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v98, v16, &unk_26287FEB9, v18, v18, v99, v95, v96, v97);
+  DgnString::~DgnString(&v119);
+  *a4 += v95;
+  *a5 += v96;
+  *a6 += v97;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 312);
+  if (v120)
   {
-    v107 = v213;
+    v101 = v119;
   }
 
   else
   {
-    v107 = &unk_26287FEB9;
+    v101 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v103, v104, v105, v106, v22, &unk_26287FEB9, v24, v24, v107, v100, v101, v102);
-  DgnString::~DgnString(&v213);
-  *a4 += v100;
-  *a5 += v101;
-  *a6 += v102;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v108 = 4;
-  }
-
-  else
-  {
-    v108 = 8;
-  }
-
-  v109 = *(this + 22);
-  if (v109)
-  {
-    v110 = sizeObject(v109, 0) + v108;
-    v111 = *(this + 22);
-    if (gShadowDiagnosticShowIdealizedObjectSizes)
-    {
-      v108 = 4;
-    }
-
-    else
-    {
-      v108 = 8;
-    }
-
-    if (v111 && (v108 += sizeObject(v111, 1), (v112 = *(this + 22)) != 0))
-    {
-      v113 = sizeObject(v112, 3);
-    }
-
-    else
-    {
-      v113 = 0;
-    }
-  }
-
-  else
-  {
-    v113 = 0;
-    v110 = v108;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 294, &v213);
-  if (v214)
-  {
-    v118 = v213;
-  }
-
-  else
-  {
-    v118 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v114, v115, v116, v117, v22, &unk_26287FEB9, v24, v24, v118, v110, v108, v113);
-  DgnString::~DgnString(&v213);
-  *a4 += v110;
-  *a5 += v108;
-  *a6 += v113;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 295, &v213);
-  if (v214)
-  {
-    v123 = v213;
-  }
-
-  else
-  {
-    v123 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v119, v120, v121, v122, v22, &unk_26287FEB9, v24, v24, v123, 2, 2, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 297, &v213);
-  if (v214)
-  {
-    v128 = v213;
-  }
-
-  else
-  {
-    v128 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v124, v125, v126, v127, v22, &unk_26287FEB9, v24, v24, v128, 1, 1, 0);
-  DgnString::~DgnString(&v213);
-  ++*a4;
-  ++*a5;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v129 = 4;
-  }
-
-  else
-  {
-    v129 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 298, &v213);
-  if (v214)
-  {
-    v134 = v213;
-  }
-
-  else
-  {
-    v134 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v130, v131, v132, v133, v22, &unk_26287FEB9, v24, v24, v134, v129, v129, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += v129;
-  *a5 += v129;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 299, &v213);
-  if (v214)
-  {
-    v139 = v213;
-  }
-
-  else
-  {
-    v139 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v135, v136, v137, v138, v22, &unk_26287FEB9, v24, v24, v139, 4, 4, 0);
-  DgnString::~DgnString(&v213);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v16, &unk_26287FEB9, v18, v18, v101, 4, 4, 0);
+  DgnString::~DgnString(&v119);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 300, &v213);
-  if (v214)
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 314);
+  if (v120)
   {
-    v144 = v213;
+    v103 = v119;
   }
 
   else
   {
-    v144 = &unk_26287FEB9;
+    v103 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v140, v141, v142, v143, v22, &unk_26287FEB9, v24, v24, v144, 4, 4, 0);
-  DgnString::~DgnString(&v213);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v102, v16, &unk_26287FEB9, v18, v18, v103, 4, 4, 0);
+  DgnString::~DgnString(&v119);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 302, &v213);
-  if (v214)
+  v104 = sizeObject<SigProcDescriptor>(this + 336, 0);
+  v105 = sizeObject<SigProcDescriptor>(this + 336, 1);
+  v106 = sizeObject<SigProcDescriptor>(this + 336, 3);
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 316);
+  if (v120)
   {
-    v149 = v213;
+    v108 = v119;
   }
 
   else
   {
-    v149 = &unk_26287FEB9;
+    v108 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v145, v146, v147, v148, v22, &unk_26287FEB9, v24, v24, v149, 4, 4, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 304, &v213);
-  if (v214)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v16, &unk_26287FEB9, v18, v18, v108, v104, v105, v106);
+  DgnString::~DgnString(&v119);
+  *a4 += v104;
+  *a5 += v105;
+  *a6 += v106;
+  v109 = sizeObject<BandwidthTransform>(this + 352, 0);
+  v110 = sizeObject<BandwidthTransform>(this + 352, 1);
+  v111 = sizeObject<BandwidthTransform>(this + 352, 3);
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 318);
+  if (v120)
   {
-    v154 = v213;
+    v113 = v119;
   }
 
   else
   {
-    v154 = &unk_26287FEB9;
+    v113 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v150, v151, v152, v153, v22, &unk_26287FEB9, v24, v24, v154, 4, 4, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 306, &v213);
-  if (v214)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v112, v16, &unk_26287FEB9, v18, v18, v113, v109, v110, v111);
+  DgnString::~DgnString(&v119);
+  *a4 += v109;
+  *a5 += v110;
+  *a6 += v111;
+  getShipObjectSizeDescription(&v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 319);
+  if (v120)
   {
-    v159 = v213;
+    v115 = v119;
   }
 
   else
   {
-    v159 = &unk_26287FEB9;
+    v115 = &unk_26287FEB9;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v155, v156, v157, v158, v22, &unk_26287FEB9, v24, v24, v159, 4, 4, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v160 = 12;
-  }
-
-  else
-  {
-    v160 = 16;
-  }
-
-  v161 = *(this + 58);
-  v162 = *(this + 59);
-  if (v162 >= v161)
-  {
-    v163 = 0;
-    if (v161 > 0)
-    {
-      v160 += 4 * (v161 - 1) + 4;
-    }
-
-    v164 = v160 + 4 * (v162 - v161);
-  }
-
-  else
-  {
-    v163 = 4 * v161;
-    v164 = v160;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 308, &v213);
-  if (v214)
-  {
-    v169 = v213;
-  }
-
-  else
-  {
-    v169 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v165, v166, v167, v168, v22, &unk_26287FEB9, v24, v24, v169, v164, v160, v163);
-  DgnString::~DgnString(&v213);
-  *a4 += v164;
-  *a5 += v160;
-  *a6 += v163;
-  v170 = sizeObject(this + 240, 0);
-  v171 = sizeObject(this + 240, 1);
-  v172 = sizeObject(this + 240, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 310, &v213);
-  if (v214)
-  {
-    v177 = v213;
-  }
-
-  else
-  {
-    v177 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v173, v174, v175, v176, v22, &unk_26287FEB9, v24, v24, v177, v170, v171, v172);
-  DgnString::~DgnString(&v213);
-  *a4 += v170;
-  *a5 += v171;
-  *a6 += v172;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 312, &v213);
-  if (v214)
-  {
-    v182 = v213;
-  }
-
-  else
-  {
-    v182 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v178, v179, v180, v181, v22, &unk_26287FEB9, v24, v24, v182, 4, 4, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 314, &v213);
-  if (v214)
-  {
-    v187 = v213;
-  }
-
-  else
-  {
-    v187 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v183, v184, v185, v186, v22, &unk_26287FEB9, v24, v24, v187, 4, 4, 0);
-  DgnString::~DgnString(&v213);
-  *a4 += 4;
-  *a5 += 4;
-  v188 = sizeObject<SigProcDescriptor>(this + 336, 0);
-  v189 = sizeObject<SigProcDescriptor>(this + 336, 1);
-  v190 = sizeObject<SigProcDescriptor>(this + 336, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 316, &v213);
-  if (v214)
-  {
-    v195 = v213;
-  }
-
-  else
-  {
-    v195 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v191, v192, v193, v194, v22, &unk_26287FEB9, v24, v24, v195, v188, v189, v190);
-  DgnString::~DgnString(&v213);
-  *a4 += v188;
-  *a5 += v189;
-  *a6 += v190;
-  v196 = sizeObject<BandwidthTransform>(this + 352, 0);
-  v197 = sizeObject<BandwidthTransform>(this + 352, 1);
-  v198 = sizeObject<BandwidthTransform>(this + 352, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 318, &v213);
-  if (v214)
-  {
-    v203 = v213;
-  }
-
-  else
-  {
-    v203 = &unk_26287FEB9;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v199, v200, v201, v202, v22, &unk_26287FEB9, v24, v24, v203, v196, v197, v198);
-  DgnString::~DgnString(&v213);
-  *a4 += v196;
-  *a5 += v197;
-  *a6 += v198;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 319, &v213);
-  if (v214)
-  {
-    v208 = v213;
-  }
-
-  else
-  {
-    v208 = &unk_26287FEB9;
-  }
-
-  v209 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v204, v205, v206, v207, v210, &unk_26287FEB9, (35 - v210), (35 - v210), v208, *a4, *a5, *a6);
-  DgnString::~DgnString(&v213);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v114, v116, &unk_26287FEB9, (35 - v116), (35 - v116), v115, *a4, *a5, *a6);
+  DgnString::~DgnString(&v119);
 }
 
-void sub_2626724E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2626724E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -3925,9 +4572,9 @@ uint64_t sizeObject<SigProcDescriptor>(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_262672654(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262672654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SigProcDescriptor::~SigProcDescriptor(va);
   _Unwind_Resume(a1);
 }
@@ -3984,10 +4631,10 @@ uint64_t sizeObject<BandwidthTransform>(uint64_t a1, int a2)
 
 void User::saveUser(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, uint64_t a5, ProgressCallbackHandler *a6)
 {
-  v37 = 0u;
-  v38 = 0u;
-  SnapTime::recordTime(&v37, 1, 1, 1, 1);
-  LoadSaveTracker::LoadSaveTracker(&v36);
+  v31 = 0u;
+  v32 = 0u;
+  SnapTime::recordTime(&v31, 1, 1, 1, 1);
+  LoadSaveTracker::LoadSaveTracker(&v30);
   DFileProgressInfo::attachProgressHandler((a1 + 240), a6, v12);
   if (a4)
   {
@@ -4004,107 +4651,107 @@ void User::saveUser(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, uint64_t a5, P
     v13 = 0;
   }
 
-  DFileOwner::DFileOwner(v35);
+  DFileOwner::DFileOwner(v29);
   *a3 = 1;
-  v14 = DFile::openDFile(a2, 1, 3, v35);
+  v14 = DFile::openDFile(a2, 1, 3, v29);
   *a3 = 2;
   (*(*v14 + 96))(v14, a1 + 240);
   DFileProgressInfo::resetReportedInfo((a1 + 240));
-  DFileChecksums::DFileChecksums(v34);
-  AdaptStatsHistory::saveASB(*(a1 + 176), v14, v34, v13 & 1, a5);
-  EnvMgr::saveEnvMgr(*a1, v14, v34, v13 & 1, a5);
-  PhnMgr::savePhnMgr((a1 + 80), v14, v34, v13 & 1, a5);
-  MulTable::saveMulTable(*(a1 + 8), v14, v34, v13 & 1, a5);
+  DFileChecksums::DFileChecksums(v28);
+  AdaptStatsHistory::saveASB(*(a1 + 176), v14, v28, v13 & 1, a5);
+  EnvMgr::saveEnvMgr(*a1, v14, v28, v13 & 1, a5);
+  PhnMgr::savePhnMgr((a1 + 80), v14, v28, v13 & 1, a5);
+  MulTable::saveMulTable(*(a1 + 8), v14, v28, v13 & 1, a5);
   v15 = *(a1 + 144);
   if (v15)
   {
-    Lookahead::saveLookahead(v15, v14, v34, v13 & 1, a5);
+    Lookahead::saveLookahead(v15, v14, v28, v13 & 1, a5);
   }
 
-  SigProcDescriptor::saveSigProcDescriptor(*(a1 + 72), v14, v34, v13 & 1, a5);
+  SigProcDescriptor::saveSigProcDescriptor(*(a1 + 72), v14, v28, v13 & 1, a5);
   if (*(a1 + 360))
   {
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
     do
     {
-      v32.i32[0] = 2;
-      v32.i32[1] = v24;
-      DFile::pushCurrentSubDirComponent(v14, &v32, v16, v17, v18, v19, v20, v21);
-      SigProcDescriptor::saveSigProcDescriptor((*(a1 + 336) + v23), v14, v34, v13 & 1, a5);
-      BandwidthTransform::saveBandwidthTransform((*(a1 + 352) + v22), v14, v34, v13 & 1, a5);
+      v26.i32[0] = 2;
+      v26.i32[1] = v18;
+      DFile::pushCurrentSubDirComponent(v14, &v26);
+      SigProcDescriptor::saveSigProcDescriptor((*(a1 + 336) + v17), v14, v28, v13 & 1, a5);
+      BandwidthTransform::saveBandwidthTransform((*(a1 + 352) + v16), v14, v28, v13 & 1, a5);
       DFile::popCurrentSubDirComponent(v14);
-      ++v24;
-      v23 += 344;
-      v22 += 80;
+      ++v18;
+      v17 += 344;
+      v16 += 80;
     }
 
-    while (v24 < *(a1 + 360));
+    while (v18 < *(a1 + 360));
   }
 
-  v25 = *(a1 + 368);
-  if (v25)
+  v19 = *(a1 + 368);
+  if (v19)
   {
-    NeuralNet::saveNeuralNet(v25, v14, v34, v13 & 1, a5);
+    NeuralNet::saveNeuralNet(v19, v14, v28, v13 & 1, a5);
   }
 
-  v26 = *(a1 + 16);
-  if (v26)
+  v20 = *(a1 + 16);
+  if (v20)
   {
-    Imelda::saveImelda(v26, v14, v34, v13 & 1, a5);
+    Imelda::saveImelda(v20, v14, v28, v13 & 1, a5);
   }
 
-  v27 = *(a1 + 32);
-  if (v27)
+  v21 = *(a1 + 32);
+  if (v21)
   {
-    FmpeMgr::saveFmpeModel(v27, v14, v34, v13 & 1, a5, v19, v20, v21);
+    FmpeMgr::saveFmpeModel(v21, v14, v28, v13 & 1, a5);
   }
 
-  v28 = *(a1 + 40);
-  if (v28)
+  v22 = *(a1 + 40);
+  if (v22)
   {
-    OnlineConstrainedTransAccMgr::saveOnlineConstrainedTransAcc(v28, v14, v34, v13 & 1, a5);
+    OnlineConstrainedTransAccMgr::saveOnlineConstrainedTransAcc(v22, v14, v28, v13 & 1, a5);
   }
 
-  v29 = *(a1 + 24);
-  if (v29)
+  v23 = *(a1 + 24);
+  if (v23)
   {
-    VarClassMgr::saveVarClassMgr(v29, v14, v34, v13 & 1, a5);
+    VarClassMgr::saveVarClassMgr(v23, v14, v28, v13 & 1, a5);
   }
 
-  PelMgr::savePelMgr(*(a1 + 56), v14, v34, v13 & 1, a5);
-  PicMgr::savePicMgr(*(a1 + 48), v14, v34, v13 & 1, a5);
-  GenoneClassTree::saveGenoneClassTree(*(a1 + 64), v14, v34, v13 & 1, a5);
+  PelMgr::savePelMgr(*(a1 + 56), v14, v28, v13 & 1, a5);
+  PicMgr::savePicMgr(*(a1 + 48), v14, v28, v13 & 1, a5);
+  GenoneClassTree::saveGenoneClassTree(*(a1 + 64), v14, v28, v13 & 1, a5);
   if ((v13 & 1) == 0)
   {
     if (*(a1 + 232))
     {
-      User::saveChecksums(a1, v14, v34, a5);
+      User::saveChecksums(a1, v14, v28, a5);
     }
 
-    v30 = OpenAndWriteMrecHeader(v14, 0x63u, 0, "MRUCH!? ", 19, 2);
-    v32.i32[0] = 0;
-    writeObject(v30, v34, &v32);
-    writeObjectChecksum(v30, v32.i32);
-    DgnDelete<DgnStream>(v30);
+    v24 = OpenAndWriteMrecHeader(v14, 0x63u, 0, "MRUCH!? ", 19, 2);
+    v26.i32[0] = 0;
+    writeObject(v24, v28, &v26);
+    writeObjectChecksum(v24, v26.i32);
+    DgnDelete<DgnStream>(v24);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  SnapTime::recordTime(&v32, 1, 1, 1, 1);
-  v32 = vsubq_s64(v32, v37);
-  v33 = vsubq_s64(v33, v38);
-  FileHistory::addEntryWithElapsedTime((a1 + 152), " saveUser time: ", &v32);
+  v26 = 0u;
+  v27 = 0u;
+  SnapTime::recordTime(&v26, 1, 1, 1, 1);
+  v26 = vsubq_s64(v26, v31);
+  v27 = vsubq_s64(v27, v32);
+  FileHistory::addEntryWithElapsedTime((a1 + 152), " saveUser time: ", &v26);
   FileHistory::saveFileHistory((a1 + 152), v14, v13 & 1);
-  DFileOwner::setRemoveFileOnDestruction(v35, 0);
+  DFileOwner::setRemoveFileOnDestruction(v29, 0);
   *a3 = 0;
-  DFileChecksums::~DFileChecksums(v34);
-  DFileOwner::~DFileOwner(v35, v31);
-  LoadSaveTracker::~LoadSaveTracker(&v36);
+  DFileChecksums::~DFileChecksums(v28);
+  DFileOwner::~DFileOwner(v29, v25);
+  LoadSaveTracker::~LoadSaveTracker(&v30);
 }
 
-void sub_262672B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_262672B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   DFileChecksums::~DFileChecksums(&a13);
   DFileOwner::~DFileOwner(&a16, v22);
@@ -4112,7 +4759,7 @@ void sub_262672B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void (***User::saveChecksums(User *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***User::saveChecksums(User *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x12u, a4, "MRCXM!? ", 15, 3);
   v10 = 0;
@@ -4120,11 +4767,11 @@ void (***User::saveChecksums(User *this, DFile *a2, DFileChecksums *a3, int a4))
   writeObject<unsigned int>(v7, this + 224, &v10);
   writeObjectChecksum(v7, &v10);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x12u, v10);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 18, v10);
   return DgnDelete<DgnStream>(v7);
 }
 
-uint64_t *User::newPelScorer(User *this, int a2, double a3, BOOL a4, double a5, char *a6, char *a7, int a8, int a9)
+OnDemandPelScorer *User::newPelScorer(User *this, int a2, double a3, BOOL a4, double a5, char *a6, char *a7, int a8, int a9)
 {
   v27 = 0;
   v28 = 0;
@@ -4189,27 +4836,27 @@ uint64_t *User::newPelScorer(User *this, int a2, double a3, BOOL a4, double a5, 
   return v23;
 }
 
-void sub_262672E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_262672E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
 }
 
-void User::decrementAdapterCount(User *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void User::decrementAdapterCount(uint64_t this)
 {
-  v9 = *(this + 51);
-  if (!v9)
+  v2 = *(this + 204);
+  if (!v2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 1488, "user/user", 3, &errStr_user_user_E_NO_ADAPTER, a7, a8, *(this + 92));
-    v9 = *(this + 51);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/user.cpp", 1488, "user/user", 3, "%u", *(this + 184));
+    v2 = *(this + 204);
   }
 
-  *(this + 51) = v9 - 1;
+  *(this + 204) = v2 - 1;
 }
 
 void *DgnArray<SigProcDescriptor>::releaseAll(uint64_t a1)
@@ -4345,7 +4992,7 @@ void TAllocator::TAllocator(TAllocator *this, uint64_t a2)
   *(this + 2) = 0;
 }
 
-uint64_t TAllocator::allocate(TAllocator *this, uint64_t a2)
+void *TAllocator::allocate(TAllocator *this, uint64_t a2)
 {
   v3 = (a2 + 3) & 0xFFFFFFFFFFFFFFFCLL;
   v5 = this + 16;
@@ -4370,7 +5017,7 @@ uint64_t TAllocator::allocate(TAllocator *this, uint64_t a2)
   return result;
 }
 
-uint64_t StartupConfidenceParamSpecMgr(void)
+unint64_t StartupConfidenceParamSpecMgr(void)
 {
   v69 = MemChunkAlloc(0x30uLL, 0);
   BoolParamSpec::BoolParamSpec(v69, "ConfidenceEnableWordLevel", &byte_262899963, &byte_262899963, &sConfidenceEnableWordLevelBoolHistory);
@@ -4605,7 +5252,7 @@ _DWORD *ConfidenceParamSet::ConfidenceParamSet(_DWORD *a1, const char *a2, int a
   a1[8] = a5;
   a1[9] = 0;
   *a1 = &unk_287526980;
-  ConfidenceParamSet::setDefaults(a1, v9, v10, v11, v12, v13, v14, v15);
+  ConfidenceParamSet::setDefaults(a1);
   return a1;
 }
 
@@ -4665,87 +5312,87 @@ uint64_t ConfidenceParamSet::ConfidenceParamSet(uint64_t a1, uint64_t a2, char *
   return a1;
 }
 
-void ConfidenceParamSet::setDefaults(ConfidenceParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ConfidenceParamSet::setDefaults(ConfidenceParamSet *this)
 {
-  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 1, 0, 0, a5, a6, a7, a8);
-  *(this + 41) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 2, 0, 0, v9, v10, v11, v12);
-  *(this + 42) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 3, 0, 0, v13, v14, v15, v16);
-  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 4, 0, 0, v17, v18, v19, v20);
-  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 5, 0, 0, v21, v22, v23, v24);
-  *(this + 8) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 6, 0, 0, v25, v26, v27, v28);
-  *(this + 9) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 7, 0, 0, v29, v30, v31, v32);
-  *(this + 10) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 8, 0, 0, v33, v34, v35, v36);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 9, 0, 0, v37, v38, v39, v40);
-  *(this + 12) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 10, 0, 0, v41, v42, v43, v44);
-  *(this + 13) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 11, 0, 0, v45, v46, v47, v48);
-  *(this + 14) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 12, 0, 0, v49, v50, v51, v52);
-  *(this + 15) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 13, 0, 0, v53, v54, v55, v56);
-  *(this + 16) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 14, 0, 0, v57, v58, v59, v60);
-  *(this + 17) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 15, 0, 0, v61, v62, v63, v64);
-  *(this + 18) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 16, 0, 0, v65, v66, v67, v68);
-  *(this + 19) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 17, 0, 0, v69, v70, v71, v72);
-  *(this + 20) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 18, 0, 0, v73, v74, v75, v76);
-  *(this + 21) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 19, 0, 0, v77, v78, v79, v80);
-  *(this + 22) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 20, 0, 0, v81, v82, v83, v84);
-  *(this + 23) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 21, 0, 0, v85, v86, v87, v88);
-  *(this + 24) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 22, 0, 0, v89, v90, v91, v92);
-  *(this + 25) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 23, 0, 0, v93, v94, v95, v96);
-  *(this + 26) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 24, 0, 0, v97, v98, v99, v100);
-  *(this + 27) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 25, 0, 0, v101, v102, v103, v104);
-  *(this + 28) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 26, 0, 0, v105, v106, v107, v108);
-  *(this + 29) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 27, 0, 0, v109, v110, v111, v112);
-  *(this + 30) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 28, 0, 0, v113, v114, v115, v116);
-  *(this + 31) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 29, 0, 0, v117, v118, v119, v120);
-  *(this + 32) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 30, 0, 0, v121, v122, v123, v124);
-  *(this + 33) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 31, 0, 0, v125, v126, v127, v128);
-  *(this + 34) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 32, 0, 0, v129, v130, v131, v132);
-  *(this + 35) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 33, 0, 0, v133, v134, v135, v136);
-  *(this + 36) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 34, 0, 0, v137, v138, v139, v140);
-  *(this + 37) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 35, 0, 0, v141, v142, v143, v144);
-  *(this + 38) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 36, 0, 0, v145, v146, v147, v148);
-  *(this + 39) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 37, 0, 0, v149, v150, v151, v152);
-  *(this + 40) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 38, 0, 0, v153, v154, v155, v156);
-  *(this + 41) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 39, 0, 0, v157, v158, v159, v160);
-  *(this + 42) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 40, 0, 0, v161, v162, v163, v164);
-  *(this + 43) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 41, 0, 0, v165, v166, v167, v168);
-  *(this + 44) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 42, 0, 0, v169, v170, v171, v172);
-  *(this + 45) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 43, 0, 0, v173, v174, v175, v176);
-  *(this + 46) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 44, 0, 0, v177, v178, v179, v180);
-  *(this + 47) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 45, 0, 0, v181, v182, v183, v184);
-  *(this + 48) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 46, 0, 0, v185, v186, v187, v188);
-  *(this + 49) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 47, 0, 0, v189, v190, v191, v192);
-  *(this + 50) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 48, 0, 0, v193, v194, v195, v196);
-  *(this + 51) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 49, 0, 0, v197, v198, v199, v200);
-  *(this + 52) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 50, 0, 0, v201, v202, v203, v204);
-  *(this + 53) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 51, 0, 0, v205, v206, v207, v208);
-  *(this + 54) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 52, 0, 0, v209, v210, v211, v212);
-  *(this + 55) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 53, 0, 0, v213, v214, v215, v216);
-  *(this + 56) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 54, 0, 0, v217, v218, v219, v220);
-  *(this + 57) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 55, 0, 0, v221, v222, v223, v224);
-  *(this + 58) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 56, 0, 0, v225, v226, v227, v228);
-  *(this + 59) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 57, 0, 0, v229, v230, v231, v232);
-  *(this + 60) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 58, 0, 0, v233, v234, v235, v236);
-  *(this + 61) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 59, 0, 0, v237, v238, v239, v240);
-  *(this + 62) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 60, 0, 0, v241, v242, v243, v244);
-  *(this + 63) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 61, 0, 0, v245, v246, v247, v248);
-  *(this + 64) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 62, 0, 0, v249, v250, v251, v252);
-  *(this + 65) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 63, 0, 0, v253, v254, v255, v256);
-  *(this + 66) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 64, 0, 0, v257, v258, v259, v260);
-  *(this + 67) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 65, 0, 0, v261, v262, v263, v264);
-  *(this + 68) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 66, 0, 0, v265, v266, v267, v268);
-  *(this + 69) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 67, 0, 0, v269, v270, v271, v272);
-  *(this + 70) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 68, 0, 0, v273, v274, v275, v276);
-  *(this + 71) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 69, 0, 0, v277, v278, v279, v280);
-  *(this + 72) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 70, 0, 0, v281, v282, v283, v284);
-  *(this + 73) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 71, 0, 0, v285, v286, v287, v288);
-  *(this + 74) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 72, 0, 0, v289, v290, v291, v292);
-  *(this + 75) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 73, 0, 0, v293, v294, v295, v296);
+  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 1, 0, 0);
+  *(this + 41) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 2, 0, 0);
+  *(this + 42) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F80, 3, 0, 0);
+  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 4, 0, 0);
+  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 5, 0, 0);
+  *(this + 8) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 6, 0, 0);
+  *(this + 9) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 7, 0, 0);
+  *(this + 10) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 8, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 9, 0, 0);
+  *(this + 12) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 10, 0, 0);
+  *(this + 13) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 11, 0, 0);
+  *(this + 14) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 12, 0, 0);
+  *(this + 15) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 13, 0, 0);
+  *(this + 16) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 14, 0, 0);
+  *(this + 17) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 15, 0, 0);
+  *(this + 18) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 16, 0, 0);
+  *(this + 19) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 17, 0, 0);
+  *(this + 20) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 18, 0, 0);
+  *(this + 21) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 19, 0, 0);
+  *(this + 22) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 20, 0, 0);
+  *(this + 23) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 21, 0, 0);
+  *(this + 24) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 22, 0, 0);
+  *(this + 25) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 23, 0, 0);
+  *(this + 26) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 24, 0, 0);
+  *(this + 27) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 25, 0, 0);
+  *(this + 28) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 26, 0, 0);
+  *(this + 29) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 27, 0, 0);
+  *(this + 30) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 28, 0, 0);
+  *(this + 31) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 29, 0, 0);
+  *(this + 32) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 30, 0, 0);
+  *(this + 33) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 31, 0, 0);
+  *(this + 34) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 32, 0, 0);
+  *(this + 35) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 33, 0, 0);
+  *(this + 36) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 34, 0, 0);
+  *(this + 37) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 35, 0, 0);
+  *(this + 38) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 36, 0, 0);
+  *(this + 39) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 37, 0, 0);
+  *(this + 40) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 38, 0, 0);
+  *(this + 41) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 39, 0, 0);
+  *(this + 42) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 40, 0, 0);
+  *(this + 43) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 41, 0, 0);
+  *(this + 44) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 42, 0, 0);
+  *(this + 45) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 43, 0, 0);
+  *(this + 46) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 44, 0, 0);
+  *(this + 47) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 45, 0, 0);
+  *(this + 48) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 46, 0, 0);
+  *(this + 49) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 47, 0, 0);
+  *(this + 50) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 48, 0, 0);
+  *(this + 51) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 49, 0, 0);
+  *(this + 52) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 50, 0, 0);
+  *(this + 53) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 51, 0, 0);
+  *(this + 54) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 52, 0, 0);
+  *(this + 55) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 53, 0, 0);
+  *(this + 56) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 54, 0, 0);
+  *(this + 57) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 55, 0, 0);
+  *(this + 58) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 56, 0, 0);
+  *(this + 59) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 57, 0, 0);
+  *(this + 60) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 58, 0, 0);
+  *(this + 61) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 59, 0, 0);
+  *(this + 62) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 60, 0, 0);
+  *(this + 63) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 61, 0, 0);
+  *(this + 64) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 62, 0, 0);
+  *(this + 65) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 63, 0, 0);
+  *(this + 66) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 64, 0, 0);
+  *(this + 67) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 65, 0, 0);
+  *(this + 68) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 66, 0, 0);
+  *(this + 69) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 67, 0, 0);
+  *(this + 70) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 68, 0, 0);
+  *(this + 71) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 69, 0, 0);
+  *(this + 72) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 70, 0, 0);
+  *(this + 73) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 71, 0, 0);
+  *(this + 74) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 72, 0, 0);
+  *(this + 75) = ParamSpecMgr::ParamGetDefault_double(qword_281051F80, 73, 0, 0);
 }
 
 uint64_t ConfidenceParamSet::sizeObject(uint64_t a1, int a2)
 {
   v3 = a2 != 3;
-  v4 = sizeObject(a1 + 8);
+  v4 = sizeObject(a1 + 8, a2);
   v5 = 560;
   if (a2 == 3)
   {
@@ -4763,15 +5410,15 @@ uint64_t ConfidenceParamSet::sizeObject(uint64_t a1, int a2)
   }
 }
 
-uint64_t ConfidenceParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConfidenceParamSet::getBoolParameter(_BYTE *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
       if (a3 == 1)
       {
-        v11 = qword_281051F80;
-        v12 = 1;
+        v6 = qword_281051F80;
+        v7 = 1;
         goto LABEL_89;
       }
 
@@ -4780,13 +5427,13 @@ uint64_t ConfidenceParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, ui
         goto LABEL_60;
       }
 
-      v8 = a1[40];
-      return v8 & 1;
+      v3 = a1[40];
+      return v3 & 1;
     case 2:
       if (a3 == 1)
       {
-        v11 = qword_281051F80;
-        v12 = 2;
+        v6 = qword_281051F80;
+        v7 = 2;
         goto LABEL_89;
       }
 
@@ -4795,16 +5442,15 @@ uint64_t ConfidenceParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, ui
         goto LABEL_60;
       }
 
-      v8 = a1[41];
-      return v8 & 1;
+      v3 = a1[41];
+      return v3 & 1;
     case 3:
       if (a3 == 1)
       {
-        v11 = qword_281051F80;
-        v12 = 3;
+        v6 = qword_281051F80;
+        v7 = 3;
 LABEL_89:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v11, v12, a3, a4, a5, a6, a7, a8);
-        v14 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v6, v7);
       }
 
       else
@@ -4812,555 +5458,555 @@ LABEL_89:
         if (a3)
         {
 LABEL_60:
-          throwWrongQueryMode(a3, "BOOL", a3, a4, a5, a6, a7, a8);
+          throwWrongQueryMode(a3, "BOOL");
           break;
         }
 
-        v8 = a1[42];
+        v3 = a1[42];
       }
 
-      return v8 & 1;
+      return v3 & 1;
     case 4:
-      v9 = 4;
+      v4 = 4;
       goto LABEL_83;
     case 5:
-      v9 = 5;
+      v4 = 5;
       goto LABEL_83;
     case 6:
-      v9 = 6;
+      v4 = 6;
       goto LABEL_83;
     case 7:
-      v9 = 7;
+      v4 = 7;
       goto LABEL_83;
     case 8:
-      v9 = 8;
+      v4 = 8;
       goto LABEL_83;
     case 9:
-      v9 = 9;
+      v4 = 9;
       goto LABEL_83;
     case 10:
-      v9 = 10;
+      v4 = 10;
       goto LABEL_83;
     case 11:
-      v9 = 11;
+      v4 = 11;
       goto LABEL_83;
     case 12:
-      v9 = 12;
+      v4 = 12;
       goto LABEL_83;
     case 13:
-      v9 = 13;
+      v4 = 13;
       goto LABEL_83;
     case 14:
-      v9 = 14;
+      v4 = 14;
       goto LABEL_83;
     case 15:
-      v9 = 15;
+      v4 = 15;
       goto LABEL_83;
     case 16:
-      v9 = 16;
+      v4 = 16;
       goto LABEL_83;
     case 17:
-      v9 = 17;
+      v4 = 17;
       goto LABEL_83;
     case 18:
-      v9 = 18;
+      v4 = 18;
       goto LABEL_83;
     case 19:
-      v9 = 19;
+      v4 = 19;
       goto LABEL_83;
     case 20:
-      v9 = 20;
+      v4 = 20;
       goto LABEL_83;
     case 21:
-      v9 = 21;
+      v4 = 21;
       goto LABEL_83;
     case 22:
-      v9 = 22;
+      v4 = 22;
       goto LABEL_83;
     case 23:
-      v9 = 23;
+      v4 = 23;
       goto LABEL_83;
     case 24:
-      v9 = 24;
+      v4 = 24;
       goto LABEL_83;
     case 25:
-      v9 = 25;
+      v4 = 25;
       goto LABEL_83;
     case 26:
-      v9 = 26;
+      v4 = 26;
       goto LABEL_83;
     case 27:
-      v9 = 27;
+      v4 = 27;
       goto LABEL_83;
     case 28:
-      v9 = 28;
+      v4 = 28;
       goto LABEL_83;
     case 29:
-      v9 = 29;
+      v4 = 29;
       goto LABEL_83;
     case 30:
-      v9 = 30;
+      v4 = 30;
       goto LABEL_83;
     case 31:
-      v9 = 31;
+      v4 = 31;
       goto LABEL_83;
     case 32:
-      v9 = 32;
+      v4 = 32;
       goto LABEL_83;
     case 33:
-      v9 = 33;
+      v4 = 33;
       goto LABEL_83;
     case 34:
-      v9 = 34;
+      v4 = 34;
       goto LABEL_83;
     case 35:
-      v9 = 35;
+      v4 = 35;
       goto LABEL_83;
     case 36:
-      v9 = 36;
+      v4 = 36;
       goto LABEL_83;
     case 37:
-      v9 = 37;
+      v4 = 37;
       goto LABEL_83;
     case 38:
-      v9 = 38;
+      v4 = 38;
       goto LABEL_83;
     case 39:
-      v9 = 39;
+      v4 = 39;
       goto LABEL_83;
     case 40:
-      v9 = 40;
+      v4 = 40;
       goto LABEL_83;
     case 41:
-      v9 = 41;
+      v4 = 41;
       goto LABEL_83;
     case 42:
-      v9 = 42;
+      v4 = 42;
       goto LABEL_83;
     case 43:
-      v9 = 43;
+      v4 = 43;
       goto LABEL_83;
     case 44:
-      v9 = 44;
+      v4 = 44;
       goto LABEL_83;
     case 45:
-      v9 = 45;
+      v4 = 45;
       goto LABEL_83;
     case 46:
-      v9 = 46;
+      v4 = 46;
       goto LABEL_83;
     case 47:
-      v9 = 47;
+      v4 = 47;
       goto LABEL_83;
     case 48:
-      v9 = 48;
+      v4 = 48;
       goto LABEL_83;
     case 49:
-      v9 = 49;
+      v4 = 49;
       goto LABEL_83;
     case 50:
-      v9 = 50;
+      v4 = 50;
       goto LABEL_83;
     case 51:
-      v9 = 51;
+      v4 = 51;
       goto LABEL_83;
     case 52:
-      v9 = 52;
+      v4 = 52;
       goto LABEL_83;
     case 53:
-      v9 = 53;
+      v4 = 53;
       goto LABEL_83;
     case 54:
-      v9 = 54;
+      v4 = 54;
       goto LABEL_83;
     case 55:
-      v9 = 55;
+      v4 = 55;
       goto LABEL_83;
     case 56:
-      v9 = 56;
+      v4 = 56;
       goto LABEL_83;
     case 57:
-      v9 = 57;
+      v4 = 57;
       goto LABEL_83;
     case 58:
-      v9 = 58;
+      v4 = 58;
       goto LABEL_83;
     case 59:
-      v9 = 59;
+      v4 = 59;
       goto LABEL_83;
     case 60:
-      v9 = 60;
+      v4 = 60;
       goto LABEL_83;
     case 61:
-      v9 = 61;
+      v4 = 61;
       goto LABEL_83;
     case 62:
-      v9 = 62;
+      v4 = 62;
       goto LABEL_83;
     case 63:
-      v9 = 63;
+      v4 = 63;
       goto LABEL_83;
     case 64:
-      v9 = 64;
+      v4 = 64;
       goto LABEL_83;
     case 65:
-      v9 = 65;
+      v4 = 65;
       goto LABEL_83;
     case 66:
-      v9 = 66;
+      v4 = 66;
       goto LABEL_83;
     case 67:
-      v9 = 67;
+      v4 = 67;
       goto LABEL_83;
     case 68:
-      v9 = 68;
+      v4 = 68;
       goto LABEL_83;
     case 69:
-      v9 = 69;
+      v4 = 69;
       goto LABEL_83;
     case 70:
-      v9 = 70;
+      v4 = 70;
       goto LABEL_83;
     case 71:
-      v9 = 71;
+      v4 = 71;
       goto LABEL_83;
     case 72:
-      v9 = 72;
+      v4 = 72;
       goto LABEL_83;
     case 73:
-      v9 = 73;
+      v4 = 73;
 LABEL_83:
-      throwWrongTypeForParamId(v9, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, "double", "BOOL");
       break;
     default:
-      throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       break;
   }
 
-  v8 = 0;
-  return v8 & 1;
+  v3 = 0;
+  return v3 & 1;
 }
 
-uint64_t ConfidenceParamSet::getIntParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConfidenceParamSet::getIntParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v2 = "BOOL";
+      v3 = 1;
       goto LABEL_76;
     case 2:
-      v8 = "BOOL";
-      v9 = 2;
+      v2 = "BOOL";
+      v3 = 2;
       goto LABEL_76;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v2 = "BOOL";
+      v3 = 3;
       goto LABEL_76;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v2 = "double";
+      v3 = 4;
       goto LABEL_76;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v2 = "double";
+      v3 = 5;
       goto LABEL_76;
     case 6:
-      v8 = "double";
-      v9 = 6;
+      v2 = "double";
+      v3 = 6;
       goto LABEL_76;
     case 7:
-      v8 = "double";
-      v9 = 7;
+      v2 = "double";
+      v3 = 7;
       goto LABEL_76;
     case 8:
-      v8 = "double";
-      v9 = 8;
+      v2 = "double";
+      v3 = 8;
       goto LABEL_76;
     case 9:
-      v8 = "double";
-      v9 = 9;
+      v2 = "double";
+      v3 = 9;
       goto LABEL_76;
     case 10:
-      v8 = "double";
-      v9 = 10;
+      v2 = "double";
+      v3 = 10;
       goto LABEL_76;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v2 = "double";
+      v3 = 11;
       goto LABEL_76;
     case 12:
-      v8 = "double";
-      v9 = 12;
+      v2 = "double";
+      v3 = 12;
       goto LABEL_76;
     case 13:
-      v8 = "double";
-      v9 = 13;
+      v2 = "double";
+      v3 = 13;
       goto LABEL_76;
     case 14:
-      v8 = "double";
-      v9 = 14;
+      v2 = "double";
+      v3 = 14;
       goto LABEL_76;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v2 = "double";
+      v3 = 15;
       goto LABEL_76;
     case 16:
-      v8 = "double";
-      v9 = 16;
+      v2 = "double";
+      v3 = 16;
       goto LABEL_76;
     case 17:
-      v8 = "double";
-      v9 = 17;
+      v2 = "double";
+      v3 = 17;
       goto LABEL_76;
     case 18:
-      v8 = "double";
-      v9 = 18;
+      v2 = "double";
+      v3 = 18;
       goto LABEL_76;
     case 19:
-      v8 = "double";
-      v9 = 19;
+      v2 = "double";
+      v3 = 19;
       goto LABEL_76;
     case 20:
-      v8 = "double";
-      v9 = 20;
+      v2 = "double";
+      v3 = 20;
       goto LABEL_76;
     case 21:
-      v8 = "double";
-      v9 = 21;
+      v2 = "double";
+      v3 = 21;
       goto LABEL_76;
     case 22:
-      v8 = "double";
-      v9 = 22;
+      v2 = "double";
+      v3 = 22;
       goto LABEL_76;
     case 23:
-      v8 = "double";
-      v9 = 23;
+      v2 = "double";
+      v3 = 23;
       goto LABEL_76;
     case 24:
-      v8 = "double";
-      v9 = 24;
+      v2 = "double";
+      v3 = 24;
       goto LABEL_76;
     case 25:
-      v8 = "double";
-      v9 = 25;
+      v2 = "double";
+      v3 = 25;
       goto LABEL_76;
     case 26:
-      v8 = "double";
-      v9 = 26;
+      v2 = "double";
+      v3 = 26;
       goto LABEL_76;
     case 27:
-      v8 = "double";
-      v9 = 27;
+      v2 = "double";
+      v3 = 27;
       goto LABEL_76;
     case 28:
-      v8 = "double";
-      v9 = 28;
+      v2 = "double";
+      v3 = 28;
       goto LABEL_76;
     case 29:
-      v8 = "double";
-      v9 = 29;
+      v2 = "double";
+      v3 = 29;
       goto LABEL_76;
     case 30:
-      v8 = "double";
-      v9 = 30;
+      v2 = "double";
+      v3 = 30;
       goto LABEL_76;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v2 = "double";
+      v3 = 31;
       goto LABEL_76;
     case 32:
-      v8 = "double";
-      v9 = 32;
+      v2 = "double";
+      v3 = 32;
       goto LABEL_76;
     case 33:
-      v8 = "double";
-      v9 = 33;
+      v2 = "double";
+      v3 = 33;
       goto LABEL_76;
     case 34:
-      v8 = "double";
-      v9 = 34;
+      v2 = "double";
+      v3 = 34;
       goto LABEL_76;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v2 = "double";
+      v3 = 35;
       goto LABEL_76;
     case 36:
-      v8 = "double";
-      v9 = 36;
+      v2 = "double";
+      v3 = 36;
       goto LABEL_76;
     case 37:
-      v8 = "double";
-      v9 = 37;
+      v2 = "double";
+      v3 = 37;
       goto LABEL_76;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v2 = "double";
+      v3 = 38;
       goto LABEL_76;
     case 39:
-      v8 = "double";
-      v9 = 39;
+      v2 = "double";
+      v3 = 39;
       goto LABEL_76;
     case 40:
-      v8 = "double";
-      v9 = 40;
+      v2 = "double";
+      v3 = 40;
       goto LABEL_76;
     case 41:
-      v8 = "double";
-      v9 = 41;
+      v2 = "double";
+      v3 = 41;
       goto LABEL_76;
     case 42:
-      v8 = "double";
-      v9 = 42;
+      v2 = "double";
+      v3 = 42;
       goto LABEL_76;
     case 43:
-      v8 = "double";
-      v9 = 43;
+      v2 = "double";
+      v3 = 43;
       goto LABEL_76;
     case 44:
-      v8 = "double";
-      v9 = 44;
+      v2 = "double";
+      v3 = 44;
       goto LABEL_76;
     case 45:
-      v8 = "double";
-      v9 = 45;
+      v2 = "double";
+      v3 = 45;
       goto LABEL_76;
     case 46:
-      v8 = "double";
-      v9 = 46;
+      v2 = "double";
+      v3 = 46;
       goto LABEL_76;
     case 47:
-      v8 = "double";
-      v9 = 47;
+      v2 = "double";
+      v3 = 47;
       goto LABEL_76;
     case 48:
-      v8 = "double";
-      v9 = 48;
+      v2 = "double";
+      v3 = 48;
       goto LABEL_76;
     case 49:
-      v8 = "double";
-      v9 = 49;
+      v2 = "double";
+      v3 = 49;
       goto LABEL_76;
     case 50:
-      v8 = "double";
-      v9 = 50;
+      v2 = "double";
+      v3 = 50;
       goto LABEL_76;
     case 51:
-      v8 = "double";
-      v9 = 51;
+      v2 = "double";
+      v3 = 51;
       goto LABEL_76;
     case 52:
-      v8 = "double";
-      v9 = 52;
+      v2 = "double";
+      v3 = 52;
       goto LABEL_76;
     case 53:
-      v8 = "double";
-      v9 = 53;
+      v2 = "double";
+      v3 = 53;
       goto LABEL_76;
     case 54:
-      v8 = "double";
-      v9 = 54;
+      v2 = "double";
+      v3 = 54;
       goto LABEL_76;
     case 55:
-      v8 = "double";
-      v9 = 55;
+      v2 = "double";
+      v3 = 55;
       goto LABEL_76;
     case 56:
-      v8 = "double";
-      v9 = 56;
+      v2 = "double";
+      v3 = 56;
       goto LABEL_76;
     case 57:
-      v8 = "double";
-      v9 = 57;
+      v2 = "double";
+      v3 = 57;
       goto LABEL_76;
     case 58:
-      v8 = "double";
-      v9 = 58;
+      v2 = "double";
+      v3 = 58;
       goto LABEL_76;
     case 59:
-      v8 = "double";
-      v9 = 59;
+      v2 = "double";
+      v3 = 59;
       goto LABEL_76;
     case 60:
-      v8 = "double";
-      v9 = 60;
+      v2 = "double";
+      v3 = 60;
       goto LABEL_76;
     case 61:
-      v8 = "double";
-      v9 = 61;
+      v2 = "double";
+      v3 = 61;
       goto LABEL_76;
     case 62:
-      v8 = "double";
-      v9 = 62;
+      v2 = "double";
+      v3 = 62;
       goto LABEL_76;
     case 63:
-      v8 = "double";
-      v9 = 63;
+      v2 = "double";
+      v3 = 63;
       goto LABEL_76;
     case 64:
-      v8 = "double";
-      v9 = 64;
+      v2 = "double";
+      v3 = 64;
       goto LABEL_76;
     case 65:
-      v8 = "double";
-      v9 = 65;
+      v2 = "double";
+      v3 = 65;
       goto LABEL_76;
     case 66:
-      v8 = "double";
-      v9 = 66;
+      v2 = "double";
+      v3 = 66;
       goto LABEL_76;
     case 67:
-      v8 = "double";
-      v9 = 67;
+      v2 = "double";
+      v3 = 67;
       goto LABEL_76;
     case 68:
-      v8 = "double";
-      v9 = 68;
+      v2 = "double";
+      v3 = 68;
       goto LABEL_76;
     case 69:
-      v8 = "double";
-      v9 = 69;
+      v2 = "double";
+      v3 = 69;
       goto LABEL_76;
     case 70:
-      v8 = "double";
-      v9 = 70;
+      v2 = "double";
+      v3 = 70;
       goto LABEL_76;
     case 71:
-      v8 = "double";
-      v9 = 71;
+      v2 = "double";
+      v3 = 71;
       goto LABEL_76;
     case 72:
-      v8 = "double";
-      v9 = 72;
+      v2 = "double";
+      v3 = 72;
       goto LABEL_76;
     case 73:
-      v8 = "double";
-      v9 = 73;
+      v2 = "double";
+      v3 = 73;
 LABEL_76:
-      throwWrongTypeForParamId(v9, v8, "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "int");
       break;
     default:
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       break;
   }
 
   return 0;
 }
 
-double ConfidenceParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ConfidenceParamSet::getDoubleParameter(double *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = 1;
+      v3 = 1;
       goto LABEL_145;
     case 2:
-      v8 = 2;
+      v3 = 2;
       goto LABEL_145;
     case 3:
-      v8 = 3;
+      v3 = 3;
 LABEL_145:
-      throwWrongTypeForParamId(v8, "BOOL", "double", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, "BOOL", "double");
       return 0.0;
     case 4:
       if (a3 <= 1)
@@ -5375,15 +6021,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 4;
+        v4 = qword_281051F80;
+        v5 = 4;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 4;
+        v11 = qword_281051F80;
+        v12 = 4;
         goto LABEL_641;
       }
 
@@ -5392,8 +6038,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 4;
+      v8 = qword_281051F80;
+      v9 = 4;
       goto LABEL_498;
     case 5:
       if (a3 <= 1)
@@ -5408,15 +6054,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 5;
+        v4 = qword_281051F80;
+        v5 = 5;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 5;
+        v11 = qword_281051F80;
+        v12 = 5;
         goto LABEL_641;
       }
 
@@ -5425,8 +6071,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 5;
+      v8 = qword_281051F80;
+      v9 = 5;
       goto LABEL_498;
     case 6:
       if (a3 <= 1)
@@ -5441,15 +6087,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 6;
+        v4 = qword_281051F80;
+        v5 = 6;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 6;
+        v11 = qword_281051F80;
+        v12 = 6;
         goto LABEL_641;
       }
 
@@ -5458,8 +6104,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 6;
+      v8 = qword_281051F80;
+      v9 = 6;
       goto LABEL_498;
     case 7:
       if (a3 <= 1)
@@ -5474,15 +6120,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 7;
+        v4 = qword_281051F80;
+        v5 = 7;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 7;
+        v11 = qword_281051F80;
+        v12 = 7;
         goto LABEL_641;
       }
 
@@ -5491,8 +6137,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 7;
+      v8 = qword_281051F80;
+      v9 = 7;
       goto LABEL_498;
     case 8:
       if (a3 <= 1)
@@ -5507,15 +6153,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 8;
+        v4 = qword_281051F80;
+        v5 = 8;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 8;
+        v11 = qword_281051F80;
+        v12 = 8;
         goto LABEL_641;
       }
 
@@ -5524,8 +6170,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 8;
+      v8 = qword_281051F80;
+      v9 = 8;
       goto LABEL_498;
     case 9:
       if (a3 <= 1)
@@ -5540,15 +6186,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 9;
+        v4 = qword_281051F80;
+        v5 = 9;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 9;
+        v11 = qword_281051F80;
+        v12 = 9;
         goto LABEL_641;
       }
 
@@ -5557,8 +6203,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 9;
+      v8 = qword_281051F80;
+      v9 = 9;
       goto LABEL_498;
     case 10:
       if (a3 <= 1)
@@ -5573,15 +6219,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 10;
+        v4 = qword_281051F80;
+        v5 = 10;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 10;
+        v11 = qword_281051F80;
+        v12 = 10;
         goto LABEL_641;
       }
 
@@ -5590,8 +6236,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 10;
+      v8 = qword_281051F80;
+      v9 = 10;
       goto LABEL_498;
     case 11:
       if (a3 <= 1)
@@ -5606,15 +6252,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 11;
+        v4 = qword_281051F80;
+        v5 = 11;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 11;
+        v11 = qword_281051F80;
+        v12 = 11;
         goto LABEL_641;
       }
 
@@ -5623,8 +6269,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 11;
+      v8 = qword_281051F80;
+      v9 = 11;
       goto LABEL_498;
     case 12:
       if (a3 <= 1)
@@ -5639,15 +6285,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 12;
+        v4 = qword_281051F80;
+        v5 = 12;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 12;
+        v11 = qword_281051F80;
+        v12 = 12;
         goto LABEL_641;
       }
 
@@ -5656,8 +6302,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 12;
+      v8 = qword_281051F80;
+      v9 = 12;
       goto LABEL_498;
     case 13:
       if (a3 <= 1)
@@ -5672,15 +6318,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 13;
+        v4 = qword_281051F80;
+        v5 = 13;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 13;
+        v11 = qword_281051F80;
+        v12 = 13;
         goto LABEL_641;
       }
 
@@ -5689,8 +6335,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 13;
+      v8 = qword_281051F80;
+      v9 = 13;
       goto LABEL_498;
     case 14:
       if (a3 <= 1)
@@ -5705,15 +6351,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 14;
+        v4 = qword_281051F80;
+        v5 = 14;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 14;
+        v11 = qword_281051F80;
+        v12 = 14;
         goto LABEL_641;
       }
 
@@ -5722,8 +6368,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 14;
+      v8 = qword_281051F80;
+      v9 = 14;
       goto LABEL_498;
     case 15:
       if (a3 <= 1)
@@ -5738,15 +6384,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 15;
+        v4 = qword_281051F80;
+        v5 = 15;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 15;
+        v11 = qword_281051F80;
+        v12 = 15;
         goto LABEL_641;
       }
 
@@ -5755,8 +6401,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 15;
+      v8 = qword_281051F80;
+      v9 = 15;
       goto LABEL_498;
     case 16:
       if (a3 <= 1)
@@ -5771,15 +6417,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 16;
+        v4 = qword_281051F80;
+        v5 = 16;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 16;
+        v11 = qword_281051F80;
+        v12 = 16;
         goto LABEL_641;
       }
 
@@ -5788,8 +6434,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 16;
+      v8 = qword_281051F80;
+      v9 = 16;
       goto LABEL_498;
     case 17:
       if (a3 <= 1)
@@ -5804,15 +6450,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 17;
+        v4 = qword_281051F80;
+        v5 = 17;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 17;
+        v11 = qword_281051F80;
+        v12 = 17;
         goto LABEL_641;
       }
 
@@ -5821,8 +6467,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 17;
+      v8 = qword_281051F80;
+      v9 = 17;
       goto LABEL_498;
     case 18:
       if (a3 <= 1)
@@ -5837,15 +6483,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 18;
+        v4 = qword_281051F80;
+        v5 = 18;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 18;
+        v11 = qword_281051F80;
+        v12 = 18;
         goto LABEL_641;
       }
 
@@ -5854,8 +6500,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 18;
+      v8 = qword_281051F80;
+      v9 = 18;
       goto LABEL_498;
     case 19:
       if (a3 <= 1)
@@ -5870,15 +6516,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 19;
+        v4 = qword_281051F80;
+        v5 = 19;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 19;
+        v11 = qword_281051F80;
+        v12 = 19;
         goto LABEL_641;
       }
 
@@ -5887,8 +6533,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 19;
+      v8 = qword_281051F80;
+      v9 = 19;
       goto LABEL_498;
     case 20:
       if (a3 <= 1)
@@ -5903,15 +6549,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 20;
+        v4 = qword_281051F80;
+        v5 = 20;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 20;
+        v11 = qword_281051F80;
+        v12 = 20;
         goto LABEL_641;
       }
 
@@ -5920,8 +6566,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 20;
+      v8 = qword_281051F80;
+      v9 = 20;
       goto LABEL_498;
     case 21:
       if (a3 <= 1)
@@ -5936,15 +6582,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 21;
+        v4 = qword_281051F80;
+        v5 = 21;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 21;
+        v11 = qword_281051F80;
+        v12 = 21;
         goto LABEL_641;
       }
 
@@ -5953,8 +6599,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 21;
+      v8 = qword_281051F80;
+      v9 = 21;
       goto LABEL_498;
     case 22:
       if (a3 <= 1)
@@ -5969,15 +6615,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 22;
+        v4 = qword_281051F80;
+        v5 = 22;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 22;
+        v11 = qword_281051F80;
+        v12 = 22;
         goto LABEL_641;
       }
 
@@ -5986,8 +6632,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 22;
+      v8 = qword_281051F80;
+      v9 = 22;
       goto LABEL_498;
     case 23:
       if (a3 <= 1)
@@ -6002,15 +6648,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 23;
+        v4 = qword_281051F80;
+        v5 = 23;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 23;
+        v11 = qword_281051F80;
+        v12 = 23;
         goto LABEL_641;
       }
 
@@ -6019,8 +6665,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 23;
+      v8 = qword_281051F80;
+      v9 = 23;
       goto LABEL_498;
     case 24:
       if (a3 <= 1)
@@ -6035,15 +6681,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 24;
+        v4 = qword_281051F80;
+        v5 = 24;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 24;
+        v11 = qword_281051F80;
+        v12 = 24;
         goto LABEL_641;
       }
 
@@ -6052,8 +6698,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 24;
+      v8 = qword_281051F80;
+      v9 = 24;
       goto LABEL_498;
     case 25:
       if (a3 <= 1)
@@ -6068,15 +6714,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 25;
+        v4 = qword_281051F80;
+        v5 = 25;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 25;
+        v11 = qword_281051F80;
+        v12 = 25;
         goto LABEL_641;
       }
 
@@ -6085,8 +6731,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 25;
+      v8 = qword_281051F80;
+      v9 = 25;
       goto LABEL_498;
     case 26:
       if (a3 <= 1)
@@ -6101,15 +6747,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 26;
+        v4 = qword_281051F80;
+        v5 = 26;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 26;
+        v11 = qword_281051F80;
+        v12 = 26;
         goto LABEL_641;
       }
 
@@ -6118,8 +6764,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 26;
+      v8 = qword_281051F80;
+      v9 = 26;
       goto LABEL_498;
     case 27:
       if (a3 <= 1)
@@ -6134,15 +6780,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 27;
+        v4 = qword_281051F80;
+        v5 = 27;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 27;
+        v11 = qword_281051F80;
+        v12 = 27;
         goto LABEL_641;
       }
 
@@ -6151,8 +6797,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 27;
+      v8 = qword_281051F80;
+      v9 = 27;
       goto LABEL_498;
     case 28:
       if (a3 <= 1)
@@ -6167,15 +6813,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 28;
+        v4 = qword_281051F80;
+        v5 = 28;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 28;
+        v11 = qword_281051F80;
+        v12 = 28;
         goto LABEL_641;
       }
 
@@ -6184,8 +6830,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 28;
+      v8 = qword_281051F80;
+      v9 = 28;
       goto LABEL_498;
     case 29:
       if (a3 <= 1)
@@ -6200,15 +6846,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 29;
+        v4 = qword_281051F80;
+        v5 = 29;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 29;
+        v11 = qword_281051F80;
+        v12 = 29;
         goto LABEL_641;
       }
 
@@ -6217,8 +6863,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 29;
+      v8 = qword_281051F80;
+      v9 = 29;
       goto LABEL_498;
     case 30:
       if (a3 <= 1)
@@ -6233,15 +6879,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 30;
+        v4 = qword_281051F80;
+        v5 = 30;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 30;
+        v11 = qword_281051F80;
+        v12 = 30;
         goto LABEL_641;
       }
 
@@ -6250,8 +6896,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 30;
+      v8 = qword_281051F80;
+      v9 = 30;
       goto LABEL_498;
     case 31:
       if (a3 <= 1)
@@ -6266,15 +6912,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 31;
+        v4 = qword_281051F80;
+        v5 = 31;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 31;
+        v11 = qword_281051F80;
+        v12 = 31;
         goto LABEL_641;
       }
 
@@ -6283,8 +6929,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 31;
+      v8 = qword_281051F80;
+      v9 = 31;
       goto LABEL_498;
     case 32:
       if (a3 <= 1)
@@ -6299,15 +6945,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 32;
+        v4 = qword_281051F80;
+        v5 = 32;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 32;
+        v11 = qword_281051F80;
+        v12 = 32;
         goto LABEL_641;
       }
 
@@ -6316,8 +6962,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 32;
+      v8 = qword_281051F80;
+      v9 = 32;
       goto LABEL_498;
     case 33:
       if (a3 <= 1)
@@ -6332,15 +6978,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 33;
+        v4 = qword_281051F80;
+        v5 = 33;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 33;
+        v11 = qword_281051F80;
+        v12 = 33;
         goto LABEL_641;
       }
 
@@ -6349,8 +6995,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 33;
+      v8 = qword_281051F80;
+      v9 = 33;
       goto LABEL_498;
     case 34:
       if (a3 <= 1)
@@ -6365,15 +7011,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 34;
+        v4 = qword_281051F80;
+        v5 = 34;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 34;
+        v11 = qword_281051F80;
+        v12 = 34;
         goto LABEL_641;
       }
 
@@ -6382,8 +7028,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 34;
+      v8 = qword_281051F80;
+      v9 = 34;
       goto LABEL_498;
     case 35:
       if (a3 <= 1)
@@ -6398,15 +7044,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 35;
+        v4 = qword_281051F80;
+        v5 = 35;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 35;
+        v11 = qword_281051F80;
+        v12 = 35;
         goto LABEL_641;
       }
 
@@ -6415,8 +7061,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 35;
+      v8 = qword_281051F80;
+      v9 = 35;
       goto LABEL_498;
     case 36:
       if (a3 <= 1)
@@ -6431,15 +7077,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 36;
+        v4 = qword_281051F80;
+        v5 = 36;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 36;
+        v11 = qword_281051F80;
+        v12 = 36;
         goto LABEL_641;
       }
 
@@ -6448,8 +7094,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 36;
+      v8 = qword_281051F80;
+      v9 = 36;
       goto LABEL_498;
     case 37:
       if (a3 <= 1)
@@ -6464,15 +7110,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 37;
+        v4 = qword_281051F80;
+        v5 = 37;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 37;
+        v11 = qword_281051F80;
+        v12 = 37;
         goto LABEL_641;
       }
 
@@ -6481,8 +7127,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 37;
+      v8 = qword_281051F80;
+      v9 = 37;
       goto LABEL_498;
     case 38:
       if (a3 <= 1)
@@ -6497,15 +7143,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 38;
+        v4 = qword_281051F80;
+        v5 = 38;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 38;
+        v11 = qword_281051F80;
+        v12 = 38;
         goto LABEL_641;
       }
 
@@ -6514,8 +7160,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 38;
+      v8 = qword_281051F80;
+      v9 = 38;
       goto LABEL_498;
     case 39:
       if (a3 <= 1)
@@ -6530,15 +7176,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 39;
+        v4 = qword_281051F80;
+        v5 = 39;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 39;
+        v11 = qword_281051F80;
+        v12 = 39;
         goto LABEL_641;
       }
 
@@ -6547,8 +7193,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 39;
+      v8 = qword_281051F80;
+      v9 = 39;
       goto LABEL_498;
     case 40:
       if (a3 <= 1)
@@ -6563,15 +7209,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 40;
+        v4 = qword_281051F80;
+        v5 = 40;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 40;
+        v11 = qword_281051F80;
+        v12 = 40;
         goto LABEL_641;
       }
 
@@ -6580,8 +7226,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 40;
+      v8 = qword_281051F80;
+      v9 = 40;
       goto LABEL_498;
     case 41:
       if (a3 <= 1)
@@ -6596,15 +7242,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 41;
+        v4 = qword_281051F80;
+        v5 = 41;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 41;
+        v11 = qword_281051F80;
+        v12 = 41;
         goto LABEL_641;
       }
 
@@ -6613,8 +7259,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 41;
+      v8 = qword_281051F80;
+      v9 = 41;
       goto LABEL_498;
     case 42:
       if (a3 <= 1)
@@ -6629,15 +7275,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 42;
+        v4 = qword_281051F80;
+        v5 = 42;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 42;
+        v11 = qword_281051F80;
+        v12 = 42;
         goto LABEL_641;
       }
 
@@ -6646,8 +7292,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 42;
+      v8 = qword_281051F80;
+      v9 = 42;
       goto LABEL_498;
     case 43:
       if (a3 <= 1)
@@ -6662,15 +7308,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 43;
+        v4 = qword_281051F80;
+        v5 = 43;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 43;
+        v11 = qword_281051F80;
+        v12 = 43;
         goto LABEL_641;
       }
 
@@ -6679,8 +7325,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 43;
+      v8 = qword_281051F80;
+      v9 = 43;
       goto LABEL_498;
     case 44:
       if (a3 <= 1)
@@ -6695,15 +7341,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 44;
+        v4 = qword_281051F80;
+        v5 = 44;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 44;
+        v11 = qword_281051F80;
+        v12 = 44;
         goto LABEL_641;
       }
 
@@ -6712,8 +7358,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 44;
+      v8 = qword_281051F80;
+      v9 = 44;
       goto LABEL_498;
     case 45:
       if (a3 <= 1)
@@ -6728,15 +7374,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 45;
+        v4 = qword_281051F80;
+        v5 = 45;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 45;
+        v11 = qword_281051F80;
+        v12 = 45;
         goto LABEL_641;
       }
 
@@ -6745,8 +7391,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 45;
+      v8 = qword_281051F80;
+      v9 = 45;
       goto LABEL_498;
     case 46:
       if (a3 <= 1)
@@ -6761,15 +7407,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 46;
+        v4 = qword_281051F80;
+        v5 = 46;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 46;
+        v11 = qword_281051F80;
+        v12 = 46;
         goto LABEL_641;
       }
 
@@ -6778,8 +7424,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 46;
+      v8 = qword_281051F80;
+      v9 = 46;
       goto LABEL_498;
     case 47:
       if (a3 <= 1)
@@ -6794,15 +7440,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 47;
+        v4 = qword_281051F80;
+        v5 = 47;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 47;
+        v11 = qword_281051F80;
+        v12 = 47;
         goto LABEL_641;
       }
 
@@ -6811,8 +7457,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 47;
+      v8 = qword_281051F80;
+      v9 = 47;
       goto LABEL_498;
     case 48:
       if (a3 <= 1)
@@ -6827,15 +7473,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 48;
+        v4 = qword_281051F80;
+        v5 = 48;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 48;
+        v11 = qword_281051F80;
+        v12 = 48;
         goto LABEL_641;
       }
 
@@ -6844,8 +7490,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 48;
+      v8 = qword_281051F80;
+      v9 = 48;
       goto LABEL_498;
     case 49:
       if (a3 <= 1)
@@ -6860,15 +7506,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 49;
+        v4 = qword_281051F80;
+        v5 = 49;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 49;
+        v11 = qword_281051F80;
+        v12 = 49;
         goto LABEL_641;
       }
 
@@ -6877,8 +7523,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 49;
+      v8 = qword_281051F80;
+      v9 = 49;
       goto LABEL_498;
     case 50:
       if (a3 <= 1)
@@ -6893,15 +7539,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 50;
+        v4 = qword_281051F80;
+        v5 = 50;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 50;
+        v11 = qword_281051F80;
+        v12 = 50;
         goto LABEL_641;
       }
 
@@ -6910,8 +7556,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 50;
+      v8 = qword_281051F80;
+      v9 = 50;
       goto LABEL_498;
     case 51:
       if (a3 <= 1)
@@ -6926,15 +7572,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 51;
+        v4 = qword_281051F80;
+        v5 = 51;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 51;
+        v11 = qword_281051F80;
+        v12 = 51;
         goto LABEL_641;
       }
 
@@ -6943,8 +7589,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 51;
+      v8 = qword_281051F80;
+      v9 = 51;
       goto LABEL_498;
     case 52:
       if (a3 <= 1)
@@ -6959,15 +7605,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 52;
+        v4 = qword_281051F80;
+        v5 = 52;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 52;
+        v11 = qword_281051F80;
+        v12 = 52;
         goto LABEL_641;
       }
 
@@ -6976,8 +7622,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 52;
+      v8 = qword_281051F80;
+      v9 = 52;
       goto LABEL_498;
     case 53:
       if (a3 <= 1)
@@ -6992,15 +7638,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 53;
+        v4 = qword_281051F80;
+        v5 = 53;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 53;
+        v11 = qword_281051F80;
+        v12 = 53;
         goto LABEL_641;
       }
 
@@ -7009,8 +7655,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 53;
+      v8 = qword_281051F80;
+      v9 = 53;
       goto LABEL_498;
     case 54:
       if (a3 <= 1)
@@ -7025,15 +7671,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 54;
+        v4 = qword_281051F80;
+        v5 = 54;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 54;
+        v11 = qword_281051F80;
+        v12 = 54;
         goto LABEL_641;
       }
 
@@ -7042,8 +7688,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 54;
+      v8 = qword_281051F80;
+      v9 = 54;
       goto LABEL_498;
     case 55:
       if (a3 <= 1)
@@ -7058,15 +7704,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 55;
+        v4 = qword_281051F80;
+        v5 = 55;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 55;
+        v11 = qword_281051F80;
+        v12 = 55;
         goto LABEL_641;
       }
 
@@ -7075,8 +7721,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 55;
+      v8 = qword_281051F80;
+      v9 = 55;
       goto LABEL_498;
     case 56:
       if (a3 <= 1)
@@ -7091,15 +7737,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 56;
+        v4 = qword_281051F80;
+        v5 = 56;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 56;
+        v11 = qword_281051F80;
+        v12 = 56;
         goto LABEL_641;
       }
 
@@ -7108,8 +7754,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 56;
+      v8 = qword_281051F80;
+      v9 = 56;
       goto LABEL_498;
     case 57:
       if (a3 <= 1)
@@ -7124,15 +7770,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 57;
+        v4 = qword_281051F80;
+        v5 = 57;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 57;
+        v11 = qword_281051F80;
+        v12 = 57;
         goto LABEL_641;
       }
 
@@ -7141,8 +7787,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 57;
+      v8 = qword_281051F80;
+      v9 = 57;
       goto LABEL_498;
     case 58:
       if (a3 <= 1)
@@ -7157,15 +7803,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 58;
+        v4 = qword_281051F80;
+        v5 = 58;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 58;
+        v11 = qword_281051F80;
+        v12 = 58;
         goto LABEL_641;
       }
 
@@ -7174,8 +7820,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 58;
+      v8 = qword_281051F80;
+      v9 = 58;
       goto LABEL_498;
     case 59:
       if (a3 <= 1)
@@ -7190,15 +7836,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 59;
+        v4 = qword_281051F80;
+        v5 = 59;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 59;
+        v11 = qword_281051F80;
+        v12 = 59;
         goto LABEL_641;
       }
 
@@ -7207,8 +7853,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 59;
+      v8 = qword_281051F80;
+      v9 = 59;
       goto LABEL_498;
     case 60:
       if (a3 <= 1)
@@ -7223,15 +7869,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 60;
+        v4 = qword_281051F80;
+        v5 = 60;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 60;
+        v11 = qword_281051F80;
+        v12 = 60;
         goto LABEL_641;
       }
 
@@ -7240,8 +7886,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 60;
+      v8 = qword_281051F80;
+      v9 = 60;
       goto LABEL_498;
     case 61:
       if (a3 <= 1)
@@ -7256,15 +7902,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 61;
+        v4 = qword_281051F80;
+        v5 = 61;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 61;
+        v11 = qword_281051F80;
+        v12 = 61;
         goto LABEL_641;
       }
 
@@ -7273,8 +7919,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 61;
+      v8 = qword_281051F80;
+      v9 = 61;
       goto LABEL_498;
     case 62:
       if (a3 <= 1)
@@ -7289,15 +7935,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 62;
+        v4 = qword_281051F80;
+        v5 = 62;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 62;
+        v11 = qword_281051F80;
+        v12 = 62;
         goto LABEL_641;
       }
 
@@ -7306,8 +7952,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 62;
+      v8 = qword_281051F80;
+      v9 = 62;
       goto LABEL_498;
     case 63:
       if (a3 <= 1)
@@ -7322,15 +7968,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 63;
+        v4 = qword_281051F80;
+        v5 = 63;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 63;
+        v11 = qword_281051F80;
+        v12 = 63;
         goto LABEL_641;
       }
 
@@ -7339,8 +7985,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 63;
+      v8 = qword_281051F80;
+      v9 = 63;
       goto LABEL_498;
     case 64:
       if (a3 <= 1)
@@ -7355,15 +8001,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 64;
+        v4 = qword_281051F80;
+        v5 = 64;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 64;
+        v11 = qword_281051F80;
+        v12 = 64;
         goto LABEL_641;
       }
 
@@ -7372,8 +8018,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 64;
+      v8 = qword_281051F80;
+      v9 = 64;
       goto LABEL_498;
     case 65:
       if (a3 <= 1)
@@ -7388,15 +8034,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 65;
+        v4 = qword_281051F80;
+        v5 = 65;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 65;
+        v11 = qword_281051F80;
+        v12 = 65;
         goto LABEL_641;
       }
 
@@ -7405,8 +8051,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 65;
+      v8 = qword_281051F80;
+      v9 = 65;
       goto LABEL_498;
     case 66:
       if (a3 <= 1)
@@ -7421,15 +8067,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 66;
+        v4 = qword_281051F80;
+        v5 = 66;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 66;
+        v11 = qword_281051F80;
+        v12 = 66;
         goto LABEL_641;
       }
 
@@ -7438,8 +8084,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 66;
+      v8 = qword_281051F80;
+      v9 = 66;
       goto LABEL_498;
     case 67:
       if (a3 <= 1)
@@ -7454,15 +8100,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 67;
+        v4 = qword_281051F80;
+        v5 = 67;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 67;
+        v11 = qword_281051F80;
+        v12 = 67;
         goto LABEL_641;
       }
 
@@ -7471,8 +8117,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 67;
+      v8 = qword_281051F80;
+      v9 = 67;
       goto LABEL_498;
     case 68:
       if (a3 <= 1)
@@ -7487,15 +8133,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 68;
+        v4 = qword_281051F80;
+        v5 = 68;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 68;
+        v11 = qword_281051F80;
+        v12 = 68;
         goto LABEL_641;
       }
 
@@ -7504,8 +8150,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 68;
+      v8 = qword_281051F80;
+      v9 = 68;
       goto LABEL_498;
     case 69:
       if (a3 <= 1)
@@ -7520,15 +8166,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 69;
+        v4 = qword_281051F80;
+        v5 = 69;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 69;
+        v11 = qword_281051F80;
+        v12 = 69;
         goto LABEL_641;
       }
 
@@ -7537,8 +8183,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 69;
+      v8 = qword_281051F80;
+      v9 = 69;
       goto LABEL_498;
     case 70:
       if (a3 <= 1)
@@ -7553,15 +8199,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 70;
+        v4 = qword_281051F80;
+        v5 = 70;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 70;
+        v11 = qword_281051F80;
+        v12 = 70;
         goto LABEL_641;
       }
 
@@ -7570,8 +8216,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 70;
+      v8 = qword_281051F80;
+      v9 = 70;
       goto LABEL_498;
     case 71:
       if (a3 <= 1)
@@ -7586,15 +8232,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 71;
+        v4 = qword_281051F80;
+        v5 = 71;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 71;
+        v11 = qword_281051F80;
+        v12 = 71;
         goto LABEL_641;
       }
 
@@ -7603,8 +8249,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 71;
+      v8 = qword_281051F80;
+      v9 = 71;
       goto LABEL_498;
     case 72:
       if (a3 <= 1)
@@ -7619,15 +8265,15 @@ LABEL_145:
           goto LABEL_499;
         }
 
-        v9 = qword_281051F80;
-        v10 = 72;
+        v4 = qword_281051F80;
+        v5 = 72;
         goto LABEL_287;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 72;
+        v11 = qword_281051F80;
+        v12 = 72;
         goto LABEL_641;
       }
 
@@ -7636,8 +8282,8 @@ LABEL_145:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 72;
+      v8 = qword_281051F80;
+      v9 = 72;
       goto LABEL_498;
     case 73:
       if (a3 <= 1)
@@ -7649,25 +8295,23 @@ LABEL_145:
 
         if (a3 == 1)
         {
-          v9 = qword_281051F80;
-          v10 = 73;
+          v4 = qword_281051F80;
+          v5 = 73;
 LABEL_287:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v9, v10, a3, a4, a5, a6, a7, a8);
-          v12 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v4, v5);
         }
 
 LABEL_499:
-        throwWrongQueryMode(a3, "double", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "double");
         return 0.0;
       }
 
       if (a3 == 2)
       {
-        v18 = qword_281051F80;
-        v19 = 73;
+        v11 = qword_281051F80;
+        v12 = 73;
 LABEL_641:
-        v20 = ParamSpecMgr::getParamByParamId(v18, v19, a3, a4, a5, a6, a7, a8);
-        v21 = **v20;
+        v13 = ParamSpecMgr::getParamByParamId(v11, v12);
       }
 
       if (a3 != 3)
@@ -7675,659 +8319,657 @@ LABEL_641:
         goto LABEL_499;
       }
 
-      v14 = qword_281051F80;
-      v15 = 73;
+      v8 = qword_281051F80;
+      v9 = 73;
 LABEL_498:
-      v16 = ParamSpecMgr::getParamByParamId(v14, v15, a3, a4, a5, a6, a7, a8);
-      v17 = **v16;
+      v10 = ParamSpecMgr::getParamByParamId(v8, v9);
     default:
-      throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "double");
       return 0.0;
   }
 }
 
-uint64_t ConfidenceParamSet::getStringParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConfidenceParamSet::getStringParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v2 = "BOOL";
+      v3 = 1;
       goto LABEL_76;
     case 2:
-      v8 = "BOOL";
-      v9 = 2;
+      v2 = "BOOL";
+      v3 = 2;
       goto LABEL_76;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v2 = "BOOL";
+      v3 = 3;
       goto LABEL_76;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v2 = "double";
+      v3 = 4;
       goto LABEL_76;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v2 = "double";
+      v3 = 5;
       goto LABEL_76;
     case 6:
-      v8 = "double";
-      v9 = 6;
+      v2 = "double";
+      v3 = 6;
       goto LABEL_76;
     case 7:
-      v8 = "double";
-      v9 = 7;
+      v2 = "double";
+      v3 = 7;
       goto LABEL_76;
     case 8:
-      v8 = "double";
-      v9 = 8;
+      v2 = "double";
+      v3 = 8;
       goto LABEL_76;
     case 9:
-      v8 = "double";
-      v9 = 9;
+      v2 = "double";
+      v3 = 9;
       goto LABEL_76;
     case 10:
-      v8 = "double";
-      v9 = 10;
+      v2 = "double";
+      v3 = 10;
       goto LABEL_76;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v2 = "double";
+      v3 = 11;
       goto LABEL_76;
     case 12:
-      v8 = "double";
-      v9 = 12;
+      v2 = "double";
+      v3 = 12;
       goto LABEL_76;
     case 13:
-      v8 = "double";
-      v9 = 13;
+      v2 = "double";
+      v3 = 13;
       goto LABEL_76;
     case 14:
-      v8 = "double";
-      v9 = 14;
+      v2 = "double";
+      v3 = 14;
       goto LABEL_76;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v2 = "double";
+      v3 = 15;
       goto LABEL_76;
     case 16:
-      v8 = "double";
-      v9 = 16;
+      v2 = "double";
+      v3 = 16;
       goto LABEL_76;
     case 17:
-      v8 = "double";
-      v9 = 17;
+      v2 = "double";
+      v3 = 17;
       goto LABEL_76;
     case 18:
-      v8 = "double";
-      v9 = 18;
+      v2 = "double";
+      v3 = 18;
       goto LABEL_76;
     case 19:
-      v8 = "double";
-      v9 = 19;
+      v2 = "double";
+      v3 = 19;
       goto LABEL_76;
     case 20:
-      v8 = "double";
-      v9 = 20;
+      v2 = "double";
+      v3 = 20;
       goto LABEL_76;
     case 21:
-      v8 = "double";
-      v9 = 21;
+      v2 = "double";
+      v3 = 21;
       goto LABEL_76;
     case 22:
-      v8 = "double";
-      v9 = 22;
+      v2 = "double";
+      v3 = 22;
       goto LABEL_76;
     case 23:
-      v8 = "double";
-      v9 = 23;
+      v2 = "double";
+      v3 = 23;
       goto LABEL_76;
     case 24:
-      v8 = "double";
-      v9 = 24;
+      v2 = "double";
+      v3 = 24;
       goto LABEL_76;
     case 25:
-      v8 = "double";
-      v9 = 25;
+      v2 = "double";
+      v3 = 25;
       goto LABEL_76;
     case 26:
-      v8 = "double";
-      v9 = 26;
+      v2 = "double";
+      v3 = 26;
       goto LABEL_76;
     case 27:
-      v8 = "double";
-      v9 = 27;
+      v2 = "double";
+      v3 = 27;
       goto LABEL_76;
     case 28:
-      v8 = "double";
-      v9 = 28;
+      v2 = "double";
+      v3 = 28;
       goto LABEL_76;
     case 29:
-      v8 = "double";
-      v9 = 29;
+      v2 = "double";
+      v3 = 29;
       goto LABEL_76;
     case 30:
-      v8 = "double";
-      v9 = 30;
+      v2 = "double";
+      v3 = 30;
       goto LABEL_76;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v2 = "double";
+      v3 = 31;
       goto LABEL_76;
     case 32:
-      v8 = "double";
-      v9 = 32;
+      v2 = "double";
+      v3 = 32;
       goto LABEL_76;
     case 33:
-      v8 = "double";
-      v9 = 33;
+      v2 = "double";
+      v3 = 33;
       goto LABEL_76;
     case 34:
-      v8 = "double";
-      v9 = 34;
+      v2 = "double";
+      v3 = 34;
       goto LABEL_76;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v2 = "double";
+      v3 = 35;
       goto LABEL_76;
     case 36:
-      v8 = "double";
-      v9 = 36;
+      v2 = "double";
+      v3 = 36;
       goto LABEL_76;
     case 37:
-      v8 = "double";
-      v9 = 37;
+      v2 = "double";
+      v3 = 37;
       goto LABEL_76;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v2 = "double";
+      v3 = 38;
       goto LABEL_76;
     case 39:
-      v8 = "double";
-      v9 = 39;
+      v2 = "double";
+      v3 = 39;
       goto LABEL_76;
     case 40:
-      v8 = "double";
-      v9 = 40;
+      v2 = "double";
+      v3 = 40;
       goto LABEL_76;
     case 41:
-      v8 = "double";
-      v9 = 41;
+      v2 = "double";
+      v3 = 41;
       goto LABEL_76;
     case 42:
-      v8 = "double";
-      v9 = 42;
+      v2 = "double";
+      v3 = 42;
       goto LABEL_76;
     case 43:
-      v8 = "double";
-      v9 = 43;
+      v2 = "double";
+      v3 = 43;
       goto LABEL_76;
     case 44:
-      v8 = "double";
-      v9 = 44;
+      v2 = "double";
+      v3 = 44;
       goto LABEL_76;
     case 45:
-      v8 = "double";
-      v9 = 45;
+      v2 = "double";
+      v3 = 45;
       goto LABEL_76;
     case 46:
-      v8 = "double";
-      v9 = 46;
+      v2 = "double";
+      v3 = 46;
       goto LABEL_76;
     case 47:
-      v8 = "double";
-      v9 = 47;
+      v2 = "double";
+      v3 = 47;
       goto LABEL_76;
     case 48:
-      v8 = "double";
-      v9 = 48;
+      v2 = "double";
+      v3 = 48;
       goto LABEL_76;
     case 49:
-      v8 = "double";
-      v9 = 49;
+      v2 = "double";
+      v3 = 49;
       goto LABEL_76;
     case 50:
-      v8 = "double";
-      v9 = 50;
+      v2 = "double";
+      v3 = 50;
       goto LABEL_76;
     case 51:
-      v8 = "double";
-      v9 = 51;
+      v2 = "double";
+      v3 = 51;
       goto LABEL_76;
     case 52:
-      v8 = "double";
-      v9 = 52;
+      v2 = "double";
+      v3 = 52;
       goto LABEL_76;
     case 53:
-      v8 = "double";
-      v9 = 53;
+      v2 = "double";
+      v3 = 53;
       goto LABEL_76;
     case 54:
-      v8 = "double";
-      v9 = 54;
+      v2 = "double";
+      v3 = 54;
       goto LABEL_76;
     case 55:
-      v8 = "double";
-      v9 = 55;
+      v2 = "double";
+      v3 = 55;
       goto LABEL_76;
     case 56:
-      v8 = "double";
-      v9 = 56;
+      v2 = "double";
+      v3 = 56;
       goto LABEL_76;
     case 57:
-      v8 = "double";
-      v9 = 57;
+      v2 = "double";
+      v3 = 57;
       goto LABEL_76;
     case 58:
-      v8 = "double";
-      v9 = 58;
+      v2 = "double";
+      v3 = 58;
       goto LABEL_76;
     case 59:
-      v8 = "double";
-      v9 = 59;
+      v2 = "double";
+      v3 = 59;
       goto LABEL_76;
     case 60:
-      v8 = "double";
-      v9 = 60;
+      v2 = "double";
+      v3 = 60;
       goto LABEL_76;
     case 61:
-      v8 = "double";
-      v9 = 61;
+      v2 = "double";
+      v3 = 61;
       goto LABEL_76;
     case 62:
-      v8 = "double";
-      v9 = 62;
+      v2 = "double";
+      v3 = 62;
       goto LABEL_76;
     case 63:
-      v8 = "double";
-      v9 = 63;
+      v2 = "double";
+      v3 = 63;
       goto LABEL_76;
     case 64:
-      v8 = "double";
-      v9 = 64;
+      v2 = "double";
+      v3 = 64;
       goto LABEL_76;
     case 65:
-      v8 = "double";
-      v9 = 65;
+      v2 = "double";
+      v3 = 65;
       goto LABEL_76;
     case 66:
-      v8 = "double";
-      v9 = 66;
+      v2 = "double";
+      v3 = 66;
       goto LABEL_76;
     case 67:
-      v8 = "double";
-      v9 = 67;
+      v2 = "double";
+      v3 = 67;
       goto LABEL_76;
     case 68:
-      v8 = "double";
-      v9 = 68;
+      v2 = "double";
+      v3 = 68;
       goto LABEL_76;
     case 69:
-      v8 = "double";
-      v9 = 69;
+      v2 = "double";
+      v3 = 69;
       goto LABEL_76;
     case 70:
-      v8 = "double";
-      v9 = 70;
+      v2 = "double";
+      v3 = 70;
       goto LABEL_76;
     case 71:
-      v8 = "double";
-      v9 = 71;
+      v2 = "double";
+      v3 = 71;
       goto LABEL_76;
     case 72:
-      v8 = "double";
-      v9 = 72;
+      v2 = "double";
+      v3 = 72;
       goto LABEL_76;
     case 73:
-      v8 = "double";
-      v9 = 73;
+      v2 = "double";
+      v3 = 73;
 LABEL_76:
-      throwWrongTypeForParamId(v9, v8, "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "string");
       break;
     default:
-      throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "string");
       break;
   }
 
   return 0;
 }
 
-uint64_t ConfidenceParamSet::getEnumParameter(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ConfidenceParamSet::getEnumParameter(int a1, int a2)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v2 = "BOOL";
+      v3 = 1;
       goto LABEL_77;
     case 2:
-      v8 = "BOOL";
-      v9 = 2;
+      v2 = "BOOL";
+      v3 = 2;
       goto LABEL_77;
     case 3:
-      v8 = "BOOL";
-      v9 = 3;
+      v2 = "BOOL";
+      v3 = 3;
       goto LABEL_77;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v2 = "double";
+      v3 = 4;
       goto LABEL_77;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v2 = "double";
+      v3 = 5;
       goto LABEL_77;
     case 6:
-      v8 = "double";
-      v9 = 6;
+      v2 = "double";
+      v3 = 6;
       goto LABEL_77;
     case 7:
-      v8 = "double";
-      v9 = 7;
+      v2 = "double";
+      v3 = 7;
       goto LABEL_77;
     case 8:
-      v8 = "double";
-      v9 = 8;
+      v2 = "double";
+      v3 = 8;
       goto LABEL_77;
     case 9:
-      v8 = "double";
-      v9 = 9;
+      v2 = "double";
+      v3 = 9;
       goto LABEL_77;
     case 10:
-      v8 = "double";
-      v9 = 10;
+      v2 = "double";
+      v3 = 10;
       goto LABEL_77;
     case 11:
-      v8 = "double";
-      v9 = 11;
+      v2 = "double";
+      v3 = 11;
       goto LABEL_77;
     case 12:
-      v8 = "double";
-      v9 = 12;
+      v2 = "double";
+      v3 = 12;
       goto LABEL_77;
     case 13:
-      v8 = "double";
-      v9 = 13;
+      v2 = "double";
+      v3 = 13;
       goto LABEL_77;
     case 14:
-      v8 = "double";
-      v9 = 14;
+      v2 = "double";
+      v3 = 14;
       goto LABEL_77;
     case 15:
-      v8 = "double";
-      v9 = 15;
+      v2 = "double";
+      v3 = 15;
       goto LABEL_77;
     case 16:
-      v8 = "double";
-      v9 = 16;
+      v2 = "double";
+      v3 = 16;
       goto LABEL_77;
     case 17:
-      v8 = "double";
-      v9 = 17;
+      v2 = "double";
+      v3 = 17;
       goto LABEL_77;
     case 18:
-      v8 = "double";
-      v9 = 18;
+      v2 = "double";
+      v3 = 18;
       goto LABEL_77;
     case 19:
-      v8 = "double";
-      v9 = 19;
+      v2 = "double";
+      v3 = 19;
       goto LABEL_77;
     case 20:
-      v8 = "double";
-      v9 = 20;
+      v2 = "double";
+      v3 = 20;
       goto LABEL_77;
     case 21:
-      v8 = "double";
-      v9 = 21;
+      v2 = "double";
+      v3 = 21;
       goto LABEL_77;
     case 22:
-      v8 = "double";
-      v9 = 22;
+      v2 = "double";
+      v3 = 22;
       goto LABEL_77;
     case 23:
-      v8 = "double";
-      v9 = 23;
+      v2 = "double";
+      v3 = 23;
       goto LABEL_77;
     case 24:
-      v8 = "double";
-      v9 = 24;
+      v2 = "double";
+      v3 = 24;
       goto LABEL_77;
     case 25:
-      v8 = "double";
-      v9 = 25;
+      v2 = "double";
+      v3 = 25;
       goto LABEL_77;
     case 26:
-      v8 = "double";
-      v9 = 26;
+      v2 = "double";
+      v3 = 26;
       goto LABEL_77;
     case 27:
-      v8 = "double";
-      v9 = 27;
+      v2 = "double";
+      v3 = 27;
       goto LABEL_77;
     case 28:
-      v8 = "double";
-      v9 = 28;
+      v2 = "double";
+      v3 = 28;
       goto LABEL_77;
     case 29:
-      v8 = "double";
-      v9 = 29;
+      v2 = "double";
+      v3 = 29;
       goto LABEL_77;
     case 30:
-      v8 = "double";
-      v9 = 30;
+      v2 = "double";
+      v3 = 30;
       goto LABEL_77;
     case 31:
-      v8 = "double";
-      v9 = 31;
+      v2 = "double";
+      v3 = 31;
       goto LABEL_77;
     case 32:
-      v8 = "double";
-      v9 = 32;
+      v2 = "double";
+      v3 = 32;
       goto LABEL_77;
     case 33:
-      v8 = "double";
-      v9 = 33;
+      v2 = "double";
+      v3 = 33;
       goto LABEL_77;
     case 34:
-      v8 = "double";
-      v9 = 34;
+      v2 = "double";
+      v3 = 34;
       goto LABEL_77;
     case 35:
-      v8 = "double";
-      v9 = 35;
+      v2 = "double";
+      v3 = 35;
       goto LABEL_77;
     case 36:
-      v8 = "double";
-      v9 = 36;
+      v2 = "double";
+      v3 = 36;
       goto LABEL_77;
     case 37:
-      v8 = "double";
-      v9 = 37;
+      v2 = "double";
+      v3 = 37;
       goto LABEL_77;
     case 38:
-      v8 = "double";
-      v9 = 38;
+      v2 = "double";
+      v3 = 38;
       goto LABEL_77;
     case 39:
-      v8 = "double";
-      v9 = 39;
+      v2 = "double";
+      v3 = 39;
       goto LABEL_77;
     case 40:
-      v8 = "double";
-      v9 = 40;
+      v2 = "double";
+      v3 = 40;
       goto LABEL_77;
     case 41:
-      v8 = "double";
-      v9 = 41;
+      v2 = "double";
+      v3 = 41;
       goto LABEL_77;
     case 42:
-      v8 = "double";
-      v9 = 42;
+      v2 = "double";
+      v3 = 42;
       goto LABEL_77;
     case 43:
-      v8 = "double";
-      v9 = 43;
+      v2 = "double";
+      v3 = 43;
       goto LABEL_77;
     case 44:
-      v8 = "double";
-      v9 = 44;
+      v2 = "double";
+      v3 = 44;
       goto LABEL_77;
     case 45:
-      v8 = "double";
-      v9 = 45;
+      v2 = "double";
+      v3 = 45;
       goto LABEL_77;
     case 46:
-      v8 = "double";
-      v9 = 46;
+      v2 = "double";
+      v3 = 46;
       goto LABEL_77;
     case 47:
-      v8 = "double";
-      v9 = 47;
+      v2 = "double";
+      v3 = 47;
       goto LABEL_77;
     case 48:
-      v8 = "double";
-      v9 = 48;
+      v2 = "double";
+      v3 = 48;
       goto LABEL_77;
     case 49:
-      v8 = "double";
-      v9 = 49;
+      v2 = "double";
+      v3 = 49;
       goto LABEL_77;
     case 50:
-      v8 = "double";
-      v9 = 50;
+      v2 = "double";
+      v3 = 50;
       goto LABEL_77;
     case 51:
-      v8 = "double";
-      v9 = 51;
+      v2 = "double";
+      v3 = 51;
       goto LABEL_77;
     case 52:
-      v8 = "double";
-      v9 = 52;
+      v2 = "double";
+      v3 = 52;
       goto LABEL_77;
     case 53:
-      v8 = "double";
-      v9 = 53;
+      v2 = "double";
+      v3 = 53;
       goto LABEL_77;
     case 54:
-      v8 = "double";
-      v9 = 54;
+      v2 = "double";
+      v3 = 54;
       goto LABEL_77;
     case 55:
-      v8 = "double";
-      v9 = 55;
+      v2 = "double";
+      v3 = 55;
       goto LABEL_77;
     case 56:
-      v8 = "double";
-      v9 = 56;
+      v2 = "double";
+      v3 = 56;
       goto LABEL_77;
     case 57:
-      v8 = "double";
-      v9 = 57;
+      v2 = "double";
+      v3 = 57;
       goto LABEL_77;
     case 58:
-      v8 = "double";
-      v9 = 58;
+      v2 = "double";
+      v3 = 58;
       goto LABEL_77;
     case 59:
-      v8 = "double";
-      v9 = 59;
+      v2 = "double";
+      v3 = 59;
       goto LABEL_77;
     case 60:
-      v8 = "double";
-      v9 = 60;
+      v2 = "double";
+      v3 = 60;
       goto LABEL_77;
     case 61:
-      v8 = "double";
-      v9 = 61;
+      v2 = "double";
+      v3 = 61;
       goto LABEL_77;
     case 62:
-      v8 = "double";
-      v9 = 62;
+      v2 = "double";
+      v3 = 62;
       goto LABEL_77;
     case 63:
-      v8 = "double";
-      v9 = 63;
+      v2 = "double";
+      v3 = 63;
       goto LABEL_77;
     case 64:
-      v8 = "double";
-      v9 = 64;
+      v2 = "double";
+      v3 = 64;
       goto LABEL_77;
     case 65:
-      v8 = "double";
-      v9 = 65;
+      v2 = "double";
+      v3 = 65;
       goto LABEL_77;
     case 66:
-      v8 = "double";
-      v9 = 66;
+      v2 = "double";
+      v3 = 66;
       goto LABEL_77;
     case 67:
-      v8 = "double";
-      v9 = 67;
+      v2 = "double";
+      v3 = 67;
       goto LABEL_77;
     case 68:
-      v8 = "double";
-      v9 = 68;
+      v2 = "double";
+      v3 = 68;
       goto LABEL_77;
     case 69:
-      v8 = "double";
-      v9 = 69;
+      v2 = "double";
+      v3 = 69;
       goto LABEL_77;
     case 70:
-      v8 = "double";
-      v9 = 70;
+      v2 = "double";
+      v3 = 70;
       goto LABEL_77;
     case 71:
-      v8 = "double";
-      v9 = 71;
+      v2 = "double";
+      v3 = 71;
       goto LABEL_77;
     case 72:
-      v8 = "double";
-      v9 = 72;
+      v2 = "double";
+      v3 = 72;
       goto LABEL_77;
     case 73:
-      v8 = "double";
-      v9 = 73;
+      v2 = "double";
+      v3 = 73;
 LABEL_77:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v3, v2, "BOOL");
       break;
     default:
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       break;
   }
 
   return 0;
 }
 
-void ConfidenceParamSet::setBoolParameter(ConfidenceParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ConfidenceParamSet::setBoolParameter(uint64_t this, int a2, char a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v9 = "ConfidenceEnableWordLevel";
+        v4 = "ConfidenceEnableWordLevel";
         goto LABEL_8;
       }
 
       *(this + 40) = a3;
       return;
     case 2:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v9 = "ConfidenceEnableUttLevel";
+        v4 = "ConfidenceEnableUttLevel";
         goto LABEL_8;
       }
 
       *(this + 41) = a3;
       return;
     case 3:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v9 = "ConfidenceEnableForAllNBest";
+        v4 = "ConfidenceEnableForAllNBest";
 LABEL_8:
 
-        throwParamSetSetFailed(v9, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwParamSetSetFailed(v4, "BOOL");
       }
 
       else
@@ -8337,1729 +8979,1657 @@ LABEL_8:
 
       return;
     case 4:
-      throwWrongTypeForParamId(4, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(4, "double", "BOOL");
       goto LABEL_12;
     case 5:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_13;
     case 6:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_14;
     case 7:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_15;
     case 8:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_16;
     case 9:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_17;
     case 10:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_18;
     case 11:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_19;
     case 12:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_20;
     case 13:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_21;
     case 14:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_22;
     case 15:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_23;
     case 16:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_24;
     case 17:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_25;
     case 18:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_26;
     case 19:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_27;
     case 20:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_28;
     case 21:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_29;
     case 22:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_30;
     case 23:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_31;
     case 24:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_32;
     case 25:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_33;
     case 26:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_34;
     case 27:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_35;
     case 28:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_36;
     case 29:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_37;
     case 30:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_38;
     case 31:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_39;
     case 32:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_40;
     case 33:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_41;
     case 34:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_42;
     case 35:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_43;
     case 36:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_44;
     case 37:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_45;
     case 38:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_46;
     case 39:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_47;
     case 40:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_48;
     case 41:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_49;
     case 42:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_50;
     case 43:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_51;
     case 44:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_52;
     case 45:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_53;
     case 46:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_54;
     case 47:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_55;
     case 48:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_56;
     case 49:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_57;
     case 50:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_58;
     case 51:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_59;
     case 52:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_60;
     case 53:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_61;
     case 54:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_62;
     case 55:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_63;
     case 56:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_64;
     case 57:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_65;
     case 58:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_66;
     case 59:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_67;
     case 60:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_68;
     case 61:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_69;
     case 62:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_70;
     case 63:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_71;
     case 64:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_72;
     case 65:
 LABEL_72:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_73;
     case 66:
 LABEL_73:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_74;
     case 67:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_75;
     case 68:
 LABEL_75:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_76;
     case 69:
 LABEL_76:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_77;
     case 70:
 LABEL_77:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_78;
     case 71:
 LABEL_78:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_79;
     case 72:
 LABEL_79:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_80;
     case 73:
 LABEL_80:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "BOOL", a3, a4, a5, a6, a7, a8);
+  throwWrongParamIdValue(a2, "BOOL");
 }
 
-void ConfidenceParamSet::setIntParameter(ConfidenceParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ConfidenceParamSet::setIntParameter(ConfidenceParamSet *this, int a2)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "int");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_17;
     case 16:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_18;
     case 17:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_19;
     case 18:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_20;
     case 19:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_21;
     case 20:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_22;
     case 21:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_23;
     case 22:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_24;
     case 23:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_25;
     case 24:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_26;
     case 25:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_27;
     case 26:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_28;
     case 27:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_29;
     case 28:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_30;
     case 29:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_31;
     case 30:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_32;
     case 31:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_33;
     case 32:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_34;
     case 33:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_35;
     case 34:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_36;
     case 35:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_37;
     case 36:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_38;
     case 37:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_39;
     case 38:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_40;
     case 39:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_41;
     case 40:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_42;
     case 41:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_43;
     case 42:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_44;
     case 43:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_45;
     case 44:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_46;
     case 45:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_47;
     case 46:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_48;
     case 47:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_49;
     case 48:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_50;
     case 49:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_51;
     case 50:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_52;
     case 51:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_53;
     case 52:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_54;
     case 53:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_55;
     case 54:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_56;
     case 55:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_57;
     case 56:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_58;
     case 57:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_59;
     case 58:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_60;
     case 59:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_61;
     case 60:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_62;
     case 61:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_63;
     case 62:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_64;
     case 63:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_65;
     case 64:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_66;
     case 65:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_67;
     case 66:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_68;
     case 67:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_69;
     case 68:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_70;
     case 69:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_71;
     case 70:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_72;
     case 71:
 LABEL_72:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_73;
     case 72:
 LABEL_73:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_74;
     case 73:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "int", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "int");
 }
 
-void ConfidenceParamSet::setDoubleParameter(ConfidenceParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void ConfidenceParamSet::setDoubleParameter(ConfidenceParamSet *this, int a2, double a3)
 {
-  v9 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "BOOL", "double");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F80, 4, a4, a5, a6, a7, a8, a9);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F80, 4);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0, v13, v14, v15, v16, v17);
+      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttNBestHighThresh";
+        v7 = "ConfidenceUttNBestHighThresh";
         goto LABEL_289;
       }
 
       *(this + 6) = a3;
       return;
     case 5:
-      v187 = ParamSpecMgr::getParamByParamId(qword_281051F80, 5, a4, a5, a6, a7, a8, a9);
-      if (v187)
+      v31 = ParamSpecMgr::getParamByParamId(qword_281051F80, 5);
+      if (v31)
       {
-        v193 = **v187;
       }
 
-      DoubleParamSpec::validateValue(v187, a3, 0, 0, v188, v189, v190, v191, v192);
+      DoubleParamSpec::validateValue(v31, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttNBestLowThresh";
+        v7 = "ConfidenceUttNBestLowThresh";
         goto LABEL_289;
       }
 
       *(this + 7) = a3;
       return;
     case 6:
-      v299 = ParamSpecMgr::getParamByParamId(qword_281051F80, 6, a4, a5, a6, a7, a8, a9);
-      if (v299)
+      v47 = ParamSpecMgr::getParamByParamId(qword_281051F80, 6);
+      if (v47)
       {
-        v305 = **v299;
       }
 
-      DoubleParamSpec::validateValue(v299, a3, 0, 0, v300, v301, v302, v303, v304);
+      DoubleParamSpec::validateValue(v47, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbAverageActiveNodeCountFactor";
+        v7 = "ConfidenceUttProbAverageActiveNodeCountFactor";
         goto LABEL_289;
       }
 
       *(this + 8) = a3;
       return;
     case 7:
-      v334 = ParamSpecMgr::getParamByParamId(qword_281051F80, 7, a4, a5, a6, a7, a8, a9);
-      if (v334)
+      v52 = ParamSpecMgr::getParamByParamId(qword_281051F80, 7);
+      if (v52)
       {
-        v340 = **v334;
       }
 
-      DoubleParamSpec::validateValue(v334, a3, 0, 0, v335, v336, v337, v338, v339);
+      DoubleParamSpec::validateValue(v52, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbAverageDurationFactor";
+        v7 = "ConfidenceUttProbAverageDurationFactor";
         goto LABEL_289;
       }
 
       *(this + 9) = a3;
       return;
     case 8:
-      v257 = ParamSpecMgr::getParamByParamId(qword_281051F80, 8, a4, a5, a6, a7, a8, a9);
-      if (v257)
+      v41 = ParamSpecMgr::getParamByParamId(qword_281051F80, 8);
+      if (v41)
       {
-        v263 = **v257;
       }
 
-      DoubleParamSpec::validateValue(v257, a3, 0, 0, v258, v259, v260, v261, v262);
+      DoubleParamSpec::validateValue(v41, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbAverageLMScoreFactor";
+        v7 = "ConfidenceUttProbAverageLMScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 10) = a3;
       return;
     case 9:
-      v355 = ParamSpecMgr::getParamByParamId(qword_281051F80, 9, a4, a5, a6, a7, a8, a9);
-      if (v355)
+      v55 = ParamSpecMgr::getParamByParamId(qword_281051F80, 9);
+      if (v55)
       {
-        v361 = **v355;
       }
 
-      DoubleParamSpec::validateValue(v355, a3, 0, 0, v356, v357, v358, v359, v360);
+      DoubleParamSpec::validateValue(v55, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbConstantTerm";
+        v7 = "ConfidenceUttProbConstantTerm";
         goto LABEL_289;
       }
 
       *(this + 11) = a3;
       return;
     case 10:
-      v222 = ParamSpecMgr::getParamByParamId(qword_281051F80, 10, a4, a5, a6, a7, a8, a9);
-      if (v222)
+      v36 = ParamSpecMgr::getParamByParamId(qword_281051F80, 10);
+      if (v36)
       {
-        v228 = **v222;
       }
 
-      DoubleParamSpec::validateValue(v222, a3, 0, 0, v223, v224, v225, v226, v227);
+      DoubleParamSpec::validateValue(v36, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbLogWordCountFactor";
+        v7 = "ConfidenceUttProbLogWordCountFactor";
         goto LABEL_289;
       }
 
       *(this + 12) = a3;
       return;
     case 11:
-      v348 = ParamSpecMgr::getParamByParamId(qword_281051F80, 11, a4, a5, a6, a7, a8, a9);
-      if (v348)
+      v54 = ParamSpecMgr::getParamByParamId(qword_281051F80, 11);
+      if (v54)
       {
-        v354 = **v348;
       }
 
-      DoubleParamSpec::validateValue(v348, a3, 0, 0, v349, v350, v351, v352, v353);
+      DoubleParamSpec::validateValue(v54, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbMaxWordsEndingFactor";
+        v7 = "ConfidenceUttProbMaxWordsEndingFactor";
         goto LABEL_289;
       }
 
       *(this + 13) = a3;
       return;
     case 12:
-      v173 = ParamSpecMgr::getParamByParamId(qword_281051F80, 12, a4, a5, a6, a7, a8, a9);
-      if (v173)
+      v29 = ParamSpecMgr::getParamByParamId(qword_281051F80, 12);
+      if (v29)
       {
-        v179 = **v173;
       }
 
-      DoubleParamSpec::validateValue(v173, a3, 0, 0, v174, v175, v176, v177, v178);
+      DoubleParamSpec::validateValue(v29, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbNBestHighCountFactor";
+        v7 = "ConfidenceUttProbNBestHighCountFactor";
         goto LABEL_289;
       }
 
       *(this + 14) = a3;
       return;
     case 13:
-      v215 = ParamSpecMgr::getParamByParamId(qword_281051F80, 13, a4, a5, a6, a7, a8, a9);
-      if (v215)
+      v35 = ParamSpecMgr::getParamByParamId(qword_281051F80, 13);
+      if (v35)
       {
-        v221 = **v215;
       }
 
-      DoubleParamSpec::validateValue(v215, a3, 0, 0, v216, v217, v218, v219, v220);
+      DoubleParamSpec::validateValue(v35, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbNBestLowCountFactor";
+        v7 = "ConfidenceUttProbNBestLowCountFactor";
         goto LABEL_289;
       }
 
       *(this + 15) = a3;
       return;
     case 14:
-      v327 = ParamSpecMgr::getParamByParamId(qword_281051F80, 14, a4, a5, a6, a7, a8, a9);
-      if (v327)
+      v51 = ParamSpecMgr::getParamByParamId(qword_281051F80, 14);
+      if (v51)
       {
-        v333 = **v327;
       }
 
-      DoubleParamSpec::validateValue(v327, a3, 0, 0, v328, v329, v330, v331, v332);
+      DoubleParamSpec::validateValue(v51, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbNBestMaxFactor";
+        v7 = "ConfidenceUttProbNBestMaxFactor";
         goto LABEL_289;
       }
 
       *(this + 16) = a3;
       return;
     case 15:
-      v145 = ParamSpecMgr::getParamByParamId(qword_281051F80, 15, a4, a5, a6, a7, a8, a9);
-      if (v145)
+      v25 = ParamSpecMgr::getParamByParamId(qword_281051F80, 15);
+      if (v25)
       {
-        v151 = **v145;
       }
 
-      DoubleParamSpec::validateValue(v145, a3, 0, 0, v146, v147, v148, v149, v150);
+      DoubleParamSpec::validateValue(v25, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbNBestMinFactor";
+        v7 = "ConfidenceUttProbNBestMinFactor";
         goto LABEL_289;
       }
 
       *(this + 17) = a3;
       return;
     case 16:
-      v243 = ParamSpecMgr::getParamByParamId(qword_281051F80, 16, a4, a5, a6, a7, a8, a9);
-      if (v243)
+      v39 = ParamSpecMgr::getParamByParamId(qword_281051F80, 16);
+      if (v39)
       {
-        v249 = **v243;
       }
 
-      DoubleParamSpec::validateValue(v243, a3, 0, 0, v244, v245, v246, v247, v248);
+      DoubleParamSpec::validateValue(v39, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbNBestWordAverageFactor";
+        v7 = "ConfidenceUttProbNBestWordAverageFactor";
         goto LABEL_289;
       }
 
       *(this + 18) = a3;
       return;
     case 17:
-      v124 = ParamSpecMgr::getParamByParamId(qword_281051F80, 17, a4, a5, a6, a7, a8, a9);
-      if (v124)
+      v22 = ParamSpecMgr::getParamByParamId(qword_281051F80, 17);
+      if (v22)
       {
-        v130 = **v124;
       }
 
-      DoubleParamSpec::validateValue(v124, a3, 0, 0, v125, v126, v127, v128, v129);
+      DoubleParamSpec::validateValue(v22, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbTotalLMScoreFactor";
+        v7 = "ConfidenceUttProbTotalLMScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 19) = a3;
       return;
     case 18:
-      v271 = ParamSpecMgr::getParamByParamId(qword_281051F80, 18, a4, a5, a6, a7, a8, a9);
-      if (v271)
+      v43 = ParamSpecMgr::getParamByParamId(qword_281051F80, 18);
+      if (v43)
       {
-        v277 = **v271;
       }
 
-      DoubleParamSpec::validateValue(v271, a3, 0, 0, v272, v273, v274, v275, v276);
+      DoubleParamSpec::validateValue(v43, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceUttProbUttAverageAMinusBScoreFactor";
+        v7 = "ConfidenceUttProbUttAverageAMinusBScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 20) = a3;
       return;
     case 19:
-      v341 = ParamSpecMgr::getParamByParamId(qword_281051F80, 19, a4, a5, a6, a7, a8, a9);
-      if (v341)
+      v53 = ParamSpecMgr::getParamByParamId(qword_281051F80, 19);
+      if (v53)
       {
-        v347 = **v341;
       }
 
-      DoubleParamSpec::validateValue(v341, a3, 0, 0, v342, v343, v344, v345, v346);
+      DoubleParamSpec::validateValue(v53, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAcousticScoreFactor";
+        v7 = "ConfidenceWordProbAcousticScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 21) = a3;
       return;
     case 20:
-      v397 = ParamSpecMgr::getParamByParamId(qword_281051F80, 20, a4, a5, a6, a7, a8, a9);
-      if (v397)
+      v61 = ParamSpecMgr::getParamByParamId(qword_281051F80, 20);
+      if (v61)
       {
-        v403 = **v397;
       }
 
-      DoubleParamSpec::validateValue(v397, a3, 0, 0, v398, v399, v400, v401, v402);
+      DoubleParamSpec::validateValue(v61, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAcousticScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbAcousticScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 22) = a3;
       return;
     case 21:
-      v285 = ParamSpecMgr::getParamByParamId(qword_281051F80, 21, a4, a5, a6, a7, a8, a9);
-      if (v285)
+      v45 = ParamSpecMgr::getParamByParamId(qword_281051F80, 21);
+      if (v45)
       {
-        v291 = **v285;
       }
 
-      DoubleParamSpec::validateValue(v285, a3, 0, 0, v286, v287, v288, v289, v290);
+      DoubleParamSpec::validateValue(v45, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAcousticScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbAcousticScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 23) = a3;
       return;
     case 22:
-      v320 = ParamSpecMgr::getParamByParamId(qword_281051F80, 22, a4, a5, a6, a7, a8, a9);
-      if (v320)
+      v50 = ParamSpecMgr::getParamByParamId(qword_281051F80, 22);
+      if (v50)
       {
-        v326 = **v320;
       }
 
-      DoubleParamSpec::validateValue(v320, a3, 0, 0, v321, v322, v323, v324, v325);
+      DoubleParamSpec::validateValue(v50, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAcousticScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbAcousticScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 24) = a3;
       return;
     case 23:
-      v383 = ParamSpecMgr::getParamByParamId(qword_281051F80, 23, a4, a5, a6, a7, a8, a9);
-      if (v383)
+      v59 = ParamSpecMgr::getParamByParamId(qword_281051F80, 23);
+      if (v59)
       {
-        v389 = **v383;
       }
 
-      DoubleParamSpec::validateValue(v383, a3, 0, 0, v384, v385, v386, v387, v388);
+      DoubleParamSpec::validateValue(v59, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAcousticScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbAcousticScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 25) = a3;
       return;
     case 24:
-      v425 = ParamSpecMgr::getParamByParamId(qword_281051F80, 24, a4, a5, a6, a7, a8, a9);
-      if (v425)
+      v65 = ParamSpecMgr::getParamByParamId(qword_281051F80, 24);
+      if (v65)
       {
-        v431 = **v425;
       }
 
-      DoubleParamSpec::validateValue(v425, a3, 0, 0, v426, v427, v428, v429, v430);
+      DoubleParamSpec::validateValue(v65, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAMinusBScoreFactor";
+        v7 = "ConfidenceWordProbAverageAMinusBScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 26) = a3;
       return;
     case 25:
-      v236 = ParamSpecMgr::getParamByParamId(qword_281051F80, 25, a4, a5, a6, a7, a8, a9);
-      if (v236)
+      v38 = ParamSpecMgr::getParamByParamId(qword_281051F80, 25);
+      if (v38)
       {
-        v242 = **v236;
       }
 
-      DoubleParamSpec::validateValue(v236, a3, 0, 0, v237, v238, v239, v240, v241);
+      DoubleParamSpec::validateValue(v38, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAMinusBScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbAverageAMinusBScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 27) = a3;
       return;
     case 26:
-      v229 = ParamSpecMgr::getParamByParamId(qword_281051F80, 26, a4, a5, a6, a7, a8, a9);
-      if (v229)
+      v37 = ParamSpecMgr::getParamByParamId(qword_281051F80, 26);
+      if (v37)
       {
-        v235 = **v229;
       }
 
-      DoubleParamSpec::validateValue(v229, a3, 0, 0, v230, v231, v232, v233, v234);
+      DoubleParamSpec::validateValue(v37, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAMinusBScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbAverageAMinusBScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 28) = a3;
       return;
     case 27:
-      v453 = ParamSpecMgr::getParamByParamId(qword_281051F80, 27, a4, a5, a6, a7, a8, a9);
-      if (v453)
+      v69 = ParamSpecMgr::getParamByParamId(qword_281051F80, 27);
+      if (v69)
       {
-        v459 = **v453;
       }
 
-      DoubleParamSpec::validateValue(v453, a3, 0, 0, v454, v455, v456, v457, v458);
+      DoubleParamSpec::validateValue(v69, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAMinusBScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbAverageAMinusBScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 29) = a3;
       return;
     case 28:
-      v110 = ParamSpecMgr::getParamByParamId(qword_281051F80, 28, a4, a5, a6, a7, a8, a9);
-      if (v110)
+      v20 = ParamSpecMgr::getParamByParamId(qword_281051F80, 28);
+      if (v20)
       {
-        v116 = **v110;
       }
 
-      DoubleParamSpec::validateValue(v110, a3, 0, 0, v111, v112, v113, v114, v115);
+      DoubleParamSpec::validateValue(v20, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAMinusBScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbAverageAMinusBScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 30) = a3;
       return;
     case 29:
-      v432 = ParamSpecMgr::getParamByParamId(qword_281051F80, 29, a4, a5, a6, a7, a8, a9);
-      if (v432)
+      v66 = ParamSpecMgr::getParamByParamId(qword_281051F80, 29);
+      if (v66)
       {
-        v438 = **v432;
       }
 
-      DoubleParamSpec::validateValue(v432, a3, 0, 0, v433, v434, v435, v436, v437);
+      DoubleParamSpec::validateValue(v66, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAcousticScoreFactor";
+        v7 = "ConfidenceWordProbAverageAcousticScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 31) = a3;
       return;
     case 30:
-      v439 = ParamSpecMgr::getParamByParamId(qword_281051F80, 30, a4, a5, a6, a7, a8, a9);
-      if (v439)
+      v67 = ParamSpecMgr::getParamByParamId(qword_281051F80, 30);
+      if (v67)
       {
-        v445 = **v439;
       }
 
-      DoubleParamSpec::validateValue(v439, a3, 0, 0, v440, v441, v442, v443, v444);
+      DoubleParamSpec::validateValue(v67, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAcousticScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbAverageAcousticScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 32) = a3;
       return;
     case 31:
-      v362 = ParamSpecMgr::getParamByParamId(qword_281051F80, 31, a4, a5, a6, a7, a8, a9);
-      if (v362)
+      v56 = ParamSpecMgr::getParamByParamId(qword_281051F80, 31);
+      if (v56)
       {
-        v368 = **v362;
       }
 
-      DoubleParamSpec::validateValue(v362, a3, 0, 0, v363, v364, v365, v366, v367);
+      DoubleParamSpec::validateValue(v56, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAcousticScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbAverageAcousticScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 33) = a3;
       return;
     case 32:
-      v264 = ParamSpecMgr::getParamByParamId(qword_281051F80, 32, a4, a5, a6, a7, a8, a9);
-      if (v264)
+      v42 = ParamSpecMgr::getParamByParamId(qword_281051F80, 32);
+      if (v42)
       {
-        v270 = **v264;
       }
 
-      DoubleParamSpec::validateValue(v264, a3, 0, 0, v265, v266, v267, v268, v269);
+      DoubleParamSpec::validateValue(v42, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAcousticScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbAverageAcousticScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 34) = a3;
       return;
     case 33:
-      v369 = ParamSpecMgr::getParamByParamId(qword_281051F80, 33, a4, a5, a6, a7, a8, a9);
-      if (v369)
+      v57 = ParamSpecMgr::getParamByParamId(qword_281051F80, 33);
+      if (v57)
       {
-        v375 = **v369;
       }
 
-      DoubleParamSpec::validateValue(v369, a3, 0, 0, v370, v371, v372, v373, v374);
+      DoubleParamSpec::validateValue(v57, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageAcousticScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbAverageAcousticScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 35) = a3;
       return;
     case 34:
-      v152 = ParamSpecMgr::getParamByParamId(qword_281051F80, 34, a4, a5, a6, a7, a8, a9);
-      if (v152)
+      v26 = ParamSpecMgr::getParamByParamId(qword_281051F80, 34);
+      if (v26)
       {
-        v158 = **v152;
       }
 
-      DoubleParamSpec::validateValue(v152, a3, 0, 0, v153, v154, v155, v156, v157);
+      DoubleParamSpec::validateValue(v26, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageActiveNodeCountFactor";
+        v7 = "ConfidenceWordProbAverageActiveNodeCountFactor";
         goto LABEL_289;
       }
 
       *(this + 36) = a3;
       return;
     case 35:
-      v117 = ParamSpecMgr::getParamByParamId(qword_281051F80, 35, a4, a5, a6, a7, a8, a9);
-      if (v117)
+      v21 = ParamSpecMgr::getParamByParamId(qword_281051F80, 35);
+      if (v21)
       {
-        v123 = **v117;
       }
 
-      DoubleParamSpec::validateValue(v117, a3, 0, 0, v118, v119, v120, v121, v122);
+      DoubleParamSpec::validateValue(v21, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageActiveNodeCountLCntx1Factor";
+        v7 = "ConfidenceWordProbAverageActiveNodeCountLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 37) = a3;
       return;
     case 36:
-      v89 = ParamSpecMgr::getParamByParamId(qword_281051F80, 36, a4, a5, a6, a7, a8, a9);
-      if (v89)
+      v17 = ParamSpecMgr::getParamByParamId(qword_281051F80, 36);
+      if (v17)
       {
-        v95 = **v89;
       }
 
-      DoubleParamSpec::validateValue(v89, a3, 0, 0, v90, v91, v92, v93, v94);
+      DoubleParamSpec::validateValue(v17, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageActiveNodeCountLCntx2Factor";
+        v7 = "ConfidenceWordProbAverageActiveNodeCountLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 38) = a3;
       return;
     case 37:
-      v96 = ParamSpecMgr::getParamByParamId(qword_281051F80, 37, a4, a5, a6, a7, a8, a9);
-      if (v96)
+      v18 = ParamSpecMgr::getParamByParamId(qword_281051F80, 37);
+      if (v18)
       {
-        v102 = **v96;
       }
 
-      DoubleParamSpec::validateValue(v96, a3, 0, 0, v97, v98, v99, v100, v101);
+      DoubleParamSpec::validateValue(v18, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageActiveNodeCountRCntx1Factor";
+        v7 = "ConfidenceWordProbAverageActiveNodeCountRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 39) = a3;
       return;
     case 38:
-      v61 = ParamSpecMgr::getParamByParamId(qword_281051F80, 38, a4, a5, a6, a7, a8, a9);
-      if (v61)
+      v13 = ParamSpecMgr::getParamByParamId(qword_281051F80, 38);
+      if (v13)
       {
-        v67 = **v61;
       }
 
-      DoubleParamSpec::validateValue(v61, a3, 0, 0, v62, v63, v64, v65, v66);
+      DoubleParamSpec::validateValue(v13, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageActiveNodeCountRCntx2Factor";
+        v7 = "ConfidenceWordProbAverageActiveNodeCountRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 40) = a3;
       return;
     case 39:
-      v446 = ParamSpecMgr::getParamByParamId(qword_281051F80, 39, a4, a5, a6, a7, a8, a9);
-      if (v446)
+      v68 = ParamSpecMgr::getParamByParamId(qword_281051F80, 39);
+      if (v68)
       {
-        v452 = **v446;
       }
 
-      DoubleParamSpec::validateValue(v446, a3, 0, 0, v447, v448, v449, v450, v451);
+      DoubleParamSpec::validateValue(v68, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageBestScoreFactor";
+        v7 = "ConfidenceWordProbAverageBestScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 41) = a3;
       return;
     case 40:
-      v390 = ParamSpecMgr::getParamByParamId(qword_281051F80, 40, a4, a5, a6, a7, a8, a9);
-      if (v390)
+      v60 = ParamSpecMgr::getParamByParamId(qword_281051F80, 40);
+      if (v60)
       {
-        v396 = **v390;
       }
 
-      DoubleParamSpec::validateValue(v390, a3, 0, 0, v391, v392, v393, v394, v395);
+      DoubleParamSpec::validateValue(v60, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageBestScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbAverageBestScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 42) = a3;
       return;
     case 41:
-      v194 = ParamSpecMgr::getParamByParamId(qword_281051F80, 41, a4, a5, a6, a7, a8, a9);
-      if (v194)
+      v32 = ParamSpecMgr::getParamByParamId(qword_281051F80, 41);
+      if (v32)
       {
-        v200 = **v194;
       }
 
-      DoubleParamSpec::validateValue(v194, a3, 0, 0, v195, v196, v197, v198, v199);
+      DoubleParamSpec::validateValue(v32, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageBestScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbAverageBestScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 43) = a3;
       return;
     case 42:
-      v278 = ParamSpecMgr::getParamByParamId(qword_281051F80, 42, a4, a5, a6, a7, a8, a9);
-      if (v278)
+      v44 = ParamSpecMgr::getParamByParamId(qword_281051F80, 42);
+      if (v44)
       {
-        v284 = **v278;
       }
 
-      DoubleParamSpec::validateValue(v278, a3, 0, 0, v279, v280, v281, v282, v283);
+      DoubleParamSpec::validateValue(v44, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageBestScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbAverageBestScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 44) = a3;
       return;
     case 43:
-      v411 = ParamSpecMgr::getParamByParamId(qword_281051F80, 43, a4, a5, a6, a7, a8, a9);
-      if (v411)
+      v63 = ParamSpecMgr::getParamByParamId(qword_281051F80, 43);
+      if (v63)
       {
-        v417 = **v411;
       }
 
-      DoubleParamSpec::validateValue(v411, a3, 0, 0, v412, v413, v414, v415, v416);
+      DoubleParamSpec::validateValue(v63, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbAverageBestScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbAverageBestScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 45) = a3;
       return;
     case 44:
-      v40 = ParamSpecMgr::getParamByParamId(qword_281051F80, 44, a4, a5, a6, a7, a8, a9);
-      if (v40)
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051F80, 44);
+      if (v10)
       {
-        v46 = **v40;
       }
 
-      DoubleParamSpec::validateValue(v40, a3, 0, 0, v41, v42, v43, v44, v45);
+      DoubleParamSpec::validateValue(v10, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbConstantTerm";
+        v7 = "ConfidenceWordProbConstantTerm";
         goto LABEL_289;
       }
 
       *(this + 46) = a3;
       return;
     case 45:
-      v138 = ParamSpecMgr::getParamByParamId(qword_281051F80, 45, a4, a5, a6, a7, a8, a9);
-      if (v138)
+      v24 = ParamSpecMgr::getParamByParamId(qword_281051F80, 45);
+      if (v24)
       {
-        v144 = **v138;
       }
 
-      DoubleParamSpec::validateValue(v138, a3, 0, 0, v139, v140, v141, v142, v143);
+      DoubleParamSpec::validateValue(v24, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbDurationFactor";
+        v7 = "ConfidenceWordProbDurationFactor";
         goto LABEL_289;
       }
 
       *(this + 47) = a3;
       return;
     case 46:
-      v376 = ParamSpecMgr::getParamByParamId(qword_281051F80, 46, a4, a5, a6, a7, a8, a9);
-      if (v376)
+      v58 = ParamSpecMgr::getParamByParamId(qword_281051F80, 46);
+      if (v58)
       {
-        v382 = **v376;
       }
 
-      DoubleParamSpec::validateValue(v376, a3, 0, 0, v377, v378, v379, v380, v381);
+      DoubleParamSpec::validateValue(v58, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbDurationLCntx1Factor";
+        v7 = "ConfidenceWordProbDurationLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 48) = a3;
       return;
     case 47:
-      v488 = ParamSpecMgr::getParamByParamId(qword_281051F80, 47, a4, a5, a6, a7, a8, a9);
-      if (v488)
+      v74 = ParamSpecMgr::getParamByParamId(qword_281051F80, 47);
+      if (v74)
       {
-        v494 = **v488;
       }
 
-      DoubleParamSpec::validateValue(v488, a3, 0, 0, v489, v490, v491, v492, v493);
+      DoubleParamSpec::validateValue(v74, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbDurationLCntx2Factor";
+        v7 = "ConfidenceWordProbDurationLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 49) = a3;
       return;
     case 48:
-      v75 = ParamSpecMgr::getParamByParamId(qword_281051F80, 48, a4, a5, a6, a7, a8, a9);
-      if (v75)
+      v15 = ParamSpecMgr::getParamByParamId(qword_281051F80, 48);
+      if (v15)
       {
-        v81 = **v75;
       }
 
-      DoubleParamSpec::validateValue(v75, a3, 0, 0, v76, v77, v78, v79, v80);
+      DoubleParamSpec::validateValue(v15, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbDurationRCntx1Factor";
+        v7 = "ConfidenceWordProbDurationRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 50) = a3;
       return;
     case 49:
-      v159 = ParamSpecMgr::getParamByParamId(qword_281051F80, 49, a4, a5, a6, a7, a8, a9);
-      if (v159)
+      v27 = ParamSpecMgr::getParamByParamId(qword_281051F80, 49);
+      if (v27)
       {
-        v165 = **v159;
       }
 
-      DoubleParamSpec::validateValue(v159, a3, 0, 0, v160, v161, v162, v163, v164);
+      DoubleParamSpec::validateValue(v27, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbDurationRCntx2Factor";
+        v7 = "ConfidenceWordProbDurationRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 51) = a3;
       return;
     case 50:
-      v180 = ParamSpecMgr::getParamByParamId(qword_281051F80, 50, a4, a5, a6, a7, a8, a9);
-      if (v180)
+      v30 = ParamSpecMgr::getParamByParamId(qword_281051F80, 50);
+      if (v30)
       {
-        v186 = **v180;
       }
 
-      DoubleParamSpec::validateValue(v180, a3, 0, 0, v181, v182, v183, v184, v185);
+      DoubleParamSpec::validateValue(v30, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLMScoreFactor";
+        v7 = "ConfidenceWordProbLMScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 52) = a3;
       return;
     case 51:
-      v33 = ParamSpecMgr::getParamByParamId(qword_281051F80, 51, a4, a5, a6, a7, a8, a9);
-      if (v33)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F80, 51);
+      if (v9)
       {
-        v39 = **v33;
       }
 
-      DoubleParamSpec::validateValue(v33, a3, 0, 0, v34, v35, v36, v37, v38);
+      DoubleParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLMScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbLMScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 53) = a3;
       return;
     case 52:
-      v495 = ParamSpecMgr::getParamByParamId(qword_281051F80, 52, a4, a5, a6, a7, a8, a9);
-      if (v495)
+      v75 = ParamSpecMgr::getParamByParamId(qword_281051F80, 52);
+      if (v75)
       {
-        v501 = **v495;
       }
 
-      DoubleParamSpec::validateValue(v495, a3, 0, 0, v496, v497, v498, v499, v500);
+      DoubleParamSpec::validateValue(v75, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLMScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbLMScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 54) = a3;
       return;
     case 53:
-      v481 = ParamSpecMgr::getParamByParamId(qword_281051F80, 53, a4, a5, a6, a7, a8, a9);
-      if (v481)
+      v73 = ParamSpecMgr::getParamByParamId(qword_281051F80, 53);
+      if (v73)
       {
-        v487 = **v481;
       }
 
-      DoubleParamSpec::validateValue(v481, a3, 0, 0, v482, v483, v484, v485, v486);
+      DoubleParamSpec::validateValue(v73, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLMScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbLMScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 55) = a3;
       return;
     case 54:
-      v68 = ParamSpecMgr::getParamByParamId(qword_281051F80, 54, a4, a5, a6, a7, a8, a9);
-      if (v68)
+      v14 = ParamSpecMgr::getParamByParamId(qword_281051F80, 54);
+      if (v14)
       {
-        v74 = **v68;
       }
 
-      DoubleParamSpec::validateValue(v68, a3, 0, 0, v69, v70, v71, v72, v73);
+      DoubleParamSpec::validateValue(v14, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLMScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbLMScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 56) = a3;
       return;
     case 55:
-      v460 = ParamSpecMgr::getParamByParamId(qword_281051F80, 55, a4, a5, a6, a7, a8, a9);
-      if (v460)
+      v70 = ParamSpecMgr::getParamByParamId(qword_281051F80, 55);
+      if (v70)
       {
-        v466 = **v460;
       }
 
-      DoubleParamSpec::validateValue(v460, a3, 0, 0, v461, v462, v463, v464, v465);
+      DoubleParamSpec::validateValue(v70, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLeftContextIndicator1Factor";
+        v7 = "ConfidenceWordProbLeftContextIndicator1Factor";
         goto LABEL_289;
       }
 
       *(this + 57) = a3;
       return;
     case 56:
-      v474 = ParamSpecMgr::getParamByParamId(qword_281051F80, 56, a4, a5, a6, a7, a8, a9);
-      if (v474)
+      v72 = ParamSpecMgr::getParamByParamId(qword_281051F80, 56);
+      if (v72)
       {
-        v480 = **v474;
       }
 
-      DoubleParamSpec::validateValue(v474, a3, 0, 0, v475, v476, v477, v478, v479);
+      DoubleParamSpec::validateValue(v72, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLeftContextIndicator2Factor";
+        v7 = "ConfidenceWordProbLeftContextIndicator2Factor";
         goto LABEL_289;
       }
 
       *(this + 58) = a3;
       return;
     case 57:
-      v82 = ParamSpecMgr::getParamByParamId(qword_281051F80, 57, a4, a5, a6, a7, a8, a9);
-      if (v82)
+      v16 = ParamSpecMgr::getParamByParamId(qword_281051F80, 57);
+      if (v16)
       {
-        v88 = **v82;
       }
 
-      DoubleParamSpec::validateValue(v82, a3, 0, 0, v83, v84, v85, v86, v87);
+      DoubleParamSpec::validateValue(v16, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLogWordCountFactor";
+        v7 = "ConfidenceWordProbLogWordCountFactor";
         goto LABEL_289;
       }
 
       *(this + 59) = a3;
       return;
     case 58:
-      v404 = ParamSpecMgr::getParamByParamId(qword_281051F80, 58, a4, a5, a6, a7, a8, a9);
-      if (v404)
+      v62 = ParamSpecMgr::getParamByParamId(qword_281051F80, 58);
+      if (v62)
       {
-        v410 = **v404;
       }
 
-      DoubleParamSpec::validateValue(v404, a3, 0, 0, v405, v406, v407, v408, v409);
+      DoubleParamSpec::validateValue(v62, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLogWordCountLCntx1Factor";
+        v7 = "ConfidenceWordProbLogWordCountLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 60) = a3;
       return;
     case 59:
-      v166 = ParamSpecMgr::getParamByParamId(qword_281051F80, 59, a4, a5, a6, a7, a8, a9);
-      if (v166)
+      v28 = ParamSpecMgr::getParamByParamId(qword_281051F80, 59);
+      if (v28)
       {
-        v172 = **v166;
       }
 
-      DoubleParamSpec::validateValue(v166, a3, 0, 0, v167, v168, v169, v170, v171);
+      DoubleParamSpec::validateValue(v28, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLogWordCountLCntx2Factor";
+        v7 = "ConfidenceWordProbLogWordCountLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 61) = a3;
       return;
     case 60:
-      v418 = ParamSpecMgr::getParamByParamId(qword_281051F80, 60, a4, a5, a6, a7, a8, a9);
-      if (v418)
+      v64 = ParamSpecMgr::getParamByParamId(qword_281051F80, 60);
+      if (v64)
       {
-        v424 = **v418;
       }
 
-      DoubleParamSpec::validateValue(v418, a3, 0, 0, v419, v420, v421, v422, v423);
+      DoubleParamSpec::validateValue(v64, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLogWordCountRCntx1Factor";
+        v7 = "ConfidenceWordProbLogWordCountRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 62) = a3;
       return;
     case 61:
-      v201 = ParamSpecMgr::getParamByParamId(qword_281051F80, 61, a4, a5, a6, a7, a8, a9);
-      if (v201)
+      v33 = ParamSpecMgr::getParamByParamId(qword_281051F80, 61);
+      if (v33)
       {
-        v207 = **v201;
       }
 
-      DoubleParamSpec::validateValue(v201, a3, 0, 0, v202, v203, v204, v205, v206);
+      DoubleParamSpec::validateValue(v33, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbLogWordCountRCntx2Factor";
+        v7 = "ConfidenceWordProbLogWordCountRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 63) = a3;
       return;
     case 62:
-      v292 = ParamSpecMgr::getParamByParamId(qword_281051F80, 62, a4, a5, a6, a7, a8, a9);
-      if (v292)
+      v46 = ParamSpecMgr::getParamByParamId(qword_281051F80, 62);
+      if (v46)
       {
-        v298 = **v292;
       }
 
-      DoubleParamSpec::validateValue(v292, a3, 0, 0, v293, v294, v295, v296, v297);
+      DoubleParamSpec::validateValue(v46, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbNBestScoreFactor";
+        v7 = "ConfidenceWordProbNBestScoreFactor";
         goto LABEL_289;
       }
 
       *(this + 64) = a3;
       return;
     case 63:
-      v313 = ParamSpecMgr::getParamByParamId(qword_281051F80, 63, a4, a5, a6, a7, a8, a9);
-      if (v313)
+      v49 = ParamSpecMgr::getParamByParamId(qword_281051F80, 63);
+      if (v49)
       {
-        v319 = **v313;
       }
 
-      DoubleParamSpec::validateValue(v313, a3, 0, 0, v314, v315, v316, v317, v318);
+      DoubleParamSpec::validateValue(v49, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbNBestScoreLCntx1Factor";
+        v7 = "ConfidenceWordProbNBestScoreLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 65) = a3;
       return;
     case 64:
-      v250 = ParamSpecMgr::getParamByParamId(qword_281051F80, 64, a4, a5, a6, a7, a8, a9);
-      if (v250)
+      v40 = ParamSpecMgr::getParamByParamId(qword_281051F80, 64);
+      if (v40)
       {
-        v256 = **v250;
       }
 
-      DoubleParamSpec::validateValue(v250, a3, 0, 0, v251, v252, v253, v254, v255);
+      DoubleParamSpec::validateValue(v40, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbNBestScoreLCntx2Factor";
+        v7 = "ConfidenceWordProbNBestScoreLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 66) = a3;
       return;
     case 65:
-      v208 = ParamSpecMgr::getParamByParamId(qword_281051F80, 65, a4, a5, a6, a7, a8, a9);
-      if (v208)
+      v34 = ParamSpecMgr::getParamByParamId(qword_281051F80, 65);
+      if (v34)
       {
-        v214 = **v208;
       }
 
-      DoubleParamSpec::validateValue(v208, a3, 0, 0, v209, v210, v211, v212, v213);
+      DoubleParamSpec::validateValue(v34, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbNBestScoreRCntx1Factor";
+        v7 = "ConfidenceWordProbNBestScoreRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 67) = a3;
       return;
     case 66:
-      v306 = ParamSpecMgr::getParamByParamId(qword_281051F80, 66, a4, a5, a6, a7, a8, a9);
-      if (v306)
+      v48 = ParamSpecMgr::getParamByParamId(qword_281051F80, 66);
+      if (v48)
       {
-        v312 = **v306;
       }
 
-      DoubleParamSpec::validateValue(v306, a3, 0, 0, v307, v308, v309, v310, v311);
+      DoubleParamSpec::validateValue(v48, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbNBestScoreRCntx2Factor";
+        v7 = "ConfidenceWordProbNBestScoreRCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 68) = a3;
       return;
     case 67:
-      v47 = ParamSpecMgr::getParamByParamId(qword_281051F80, 67, a4, a5, a6, a7, a8, a9);
-      if (v47)
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051F80, 67);
+      if (v11)
       {
-        v53 = **v47;
       }
 
-      DoubleParamSpec::validateValue(v47, a3, 0, 0, v48, v49, v50, v51, v52);
+      DoubleParamSpec::validateValue(v11, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbRightContextIndicator1Factor";
+        v7 = "ConfidenceWordProbRightContextIndicator1Factor";
         goto LABEL_289;
       }
 
       *(this + 69) = a3;
       return;
     case 68:
-      v131 = ParamSpecMgr::getParamByParamId(qword_281051F80, 68, a4, a5, a6, a7, a8, a9);
-      if (v131)
+      v23 = ParamSpecMgr::getParamByParamId(qword_281051F80, 68);
+      if (v23)
       {
-        v137 = **v131;
       }
 
-      DoubleParamSpec::validateValue(v131, a3, 0, 0, v132, v133, v134, v135, v136);
+      DoubleParamSpec::validateValue(v23, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbRightContextIndicator2Factor";
+        v7 = "ConfidenceWordProbRightContextIndicator2Factor";
         goto LABEL_289;
       }
 
       *(this + 70) = a3;
       return;
     case 69:
-      v502 = ParamSpecMgr::getParamByParamId(qword_281051F80, 69, a4, a5, a6, a7, a8, a9);
-      if (v502)
+      v76 = ParamSpecMgr::getParamByParamId(qword_281051F80, 69);
+      if (v76)
       {
-        v508 = **v502;
       }
 
-      DoubleParamSpec::validateValue(v502, a3, 0, 0, v503, v504, v505, v506, v507);
+      DoubleParamSpec::validateValue(v76, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbWordsEndingCountFactor";
+        v7 = "ConfidenceWordProbWordsEndingCountFactor";
         goto LABEL_289;
       }
 
       *(this + 71) = a3;
       return;
     case 70:
-      v103 = ParamSpecMgr::getParamByParamId(qword_281051F80, 70, a4, a5, a6, a7, a8, a9);
-      if (v103)
+      v19 = ParamSpecMgr::getParamByParamId(qword_281051F80, 70);
+      if (v19)
       {
-        v109 = **v103;
       }
 
-      DoubleParamSpec::validateValue(v103, a3, 0, 0, v104, v105, v106, v107, v108);
+      DoubleParamSpec::validateValue(v19, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbWordsEndingCountLCntx1Factor";
+        v7 = "ConfidenceWordProbWordsEndingCountLCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 72) = a3;
       return;
     case 71:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051F80, 71, a4, a5, a6, a7, a8, a9);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F80, 71);
+      if (v8)
       {
-        v32 = **v26;
       }
 
-      DoubleParamSpec::validateValue(v26, a3, 0, 0, v27, v28, v29, v30, v31);
+      DoubleParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbWordsEndingCountLCntx2Factor";
+        v7 = "ConfidenceWordProbWordsEndingCountLCntx2Factor";
         goto LABEL_289;
       }
 
       *(this + 73) = a3;
       return;
     case 72:
-      v54 = ParamSpecMgr::getParamByParamId(qword_281051F80, 72, a4, a5, a6, a7, a8, a9);
-      if (v54)
+      v12 = ParamSpecMgr::getParamByParamId(qword_281051F80, 72);
+      if (v12)
       {
-        v60 = **v54;
       }
 
-      DoubleParamSpec::validateValue(v54, a3, 0, 0, v55, v56, v57, v58, v59);
+      DoubleParamSpec::validateValue(v12, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbWordsEndingCountRCntx1Factor";
+        v7 = "ConfidenceWordProbWordsEndingCountRCntx1Factor";
         goto LABEL_289;
       }
 
       *(this + 74) = a3;
       break;
     case 73:
-      v467 = ParamSpecMgr::getParamByParamId(qword_281051F80, 73, a4, a5, a6, a7, a8, a9);
-      if (v467)
+      v71 = ParamSpecMgr::getParamByParamId(qword_281051F80, 73);
+      if (v71)
       {
-        v473 = **v467;
       }
 
-      DoubleParamSpec::validateValue(v467, a3, 0, 0, v468, v469, v470, v471, v472);
+      DoubleParamSpec::validateValue(v71, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "ConfidenceWordProbWordsEndingCountRCntx2Factor";
+        v7 = "ConfidenceWordProbWordsEndingCountRCntx2Factor";
 LABEL_289:
 
-        throwParamSetSetFailed(v25, "double", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "double");
       }
 
       else
@@ -10070,7 +10640,7 @@ LABEL_289:
       break;
     default:
 
-      throwWrongParamIdValue(a2, "double", a4, a5, a6, a7, a8, a9);
+      throwWrongParamIdValue(a2, "double");
       return;
   }
 }

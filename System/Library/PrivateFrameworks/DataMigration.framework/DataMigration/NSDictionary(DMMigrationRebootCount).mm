@@ -8,18 +8,16 @@
 
 + (id)dm_migrationRebootCountPrefWithRebootCount:()DMMigrationRebootCount buildVersion:
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v6 = a4;
   dm_migrationRebootCountPref_buildVersionKey = [self dm_migrationRebootCountPref_buildVersionKey];
-  v13[0] = dm_migrationRebootCountPref_buildVersionKey;
-  v14[0] = v6;
+  v12[0] = dm_migrationRebootCountPref_buildVersionKey;
+  v13[0] = v6;
   dm_migrationRebootCountPref_rebootCountKey = [self dm_migrationRebootCountPref_rebootCountKey];
-  v13[1] = dm_migrationRebootCountPref_rebootCountKey;
+  v12[1] = dm_migrationRebootCountPref_rebootCountKey;
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }

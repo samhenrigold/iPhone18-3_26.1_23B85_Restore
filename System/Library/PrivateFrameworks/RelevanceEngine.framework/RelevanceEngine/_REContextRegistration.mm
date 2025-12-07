@@ -37,7 +37,7 @@
 
 - (void)registerWithContext
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_context)
   {
     os_unfair_lock_lock(&REContextRegistrationLock);
@@ -46,88 +46,86 @@
       self->_registered = 1;
       objc_initWeak(&location, self);
       query = self->_query;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __45___REContextRegistration_registerWithContext__block_invoke;
-      v15[3] = &unk_2785F9A90;
-      objc_copyWeak(&v16, &location);
-      v4 = [(REDuetContextQuery *)query createRegistrationsWithCallback:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __45___REContextRegistration_registerWithContext__block_invoke;
+      v14[3] = &unk_2785F9A90;
+      objc_copyWeak(&v15, &location);
+      v4 = [(REDuetContextQuery *)query createRegistrationsWithCallback:v14];
       registrations = self->_registrations;
       self->_registrations = v4;
 
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
       v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
       v6 = self->_registrations;
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v17 count:16];
       if (v7)
       {
-        v8 = *v12;
+        v8 = *v11;
         do
         {
           v9 = 0;
           do
           {
-            if (*v12 != v8)
+            if (*v11 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            [(_CDUserContext *)self->_context registerCallback:*(*(&v11 + 1) + 8 * v9++), v11];
+            [(_CDUserContext *)self->_context registerCallback:*(*(&v10 + 1) + 8 * v9++), v10];
           }
 
           while (v7 != v9);
-          v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
+          v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v17 count:16];
         }
 
         while (v7);
       }
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(&location);
     }
 
     os_unfair_lock_unlock(&REContextRegistrationLock);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterWithContext
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_context)
   {
     os_unfair_lock_lock(&REContextRegistrationLock);
     if (self->_registered)
     {
       self->_registered = 0;
+      v9 = 0u;
       v10 = 0u;
       v11 = 0u;
       v12 = 0u;
-      v13 = 0u;
       v3 = self->_registrations;
-      v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v11;
+        v6 = *v10;
         do
         {
           v7 = 0;
           do
           {
-            if (*v11 != v6)
+            if (*v10 != v6)
             {
               objc_enumerationMutation(v3);
             }
 
-            [(_CDUserContext *)self->_context deregisterCallback:*(*(&v10 + 1) + 8 * v7++), v10];
+            [(_CDUserContext *)self->_context deregisterCallback:*(*(&v9 + 1) + 8 * v7++), v9];
           }
 
           while (v5 != v7);
-          v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+          v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         }
 
         while (v5);
@@ -139,8 +137,6 @@
 
     os_unfair_lock_unlock(&REContextRegistrationLock);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateQueryWithRegistration:(BOOL)registration
@@ -151,8 +147,6 @@
     if (self->_context)
     {
       v5 = [(REDuetContextQuery *)self->_query valueFromUserContext:?];
-      query = self->_query;
-      v7 = v5;
       (*(self->_callback + 2))();
       if (registrationCopy)
       {

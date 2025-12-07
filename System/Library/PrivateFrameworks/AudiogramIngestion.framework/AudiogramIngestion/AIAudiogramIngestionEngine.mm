@@ -2555,7 +2555,7 @@ void __63__AIAudiogramIngestionEngine__removeDuplicateSetsFromTextSets___block_i
   }
 }
 
-uint64_t __63__AIAudiogramIngestionEngine__removeDuplicateSetsFromTextSets___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__63__AIAudiogramIngestionEngine__removeDuplicateSetsFromTextSets___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if ((result & 1) == 0)
@@ -2869,48 +2869,48 @@ void __50__AIAudiogramIngestionEngine_audiogramFromImages___block_invoke_245(uin
 
 - (id)_audiogramFromSymbols:(id)symbols onAudiogramMap:(id)map
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   symbolsCopy = symbols;
   mapCopy = map;
   v8 = [symbolsCopy count];
   v9 = 0;
   if (mapCopy && v8)
   {
-    v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
     hertzUnit = [getHKUnitClass_1() hertzUnit];
     decibelHearingLevelUnit = [getHKUnitClass_1() decibelHearingLevelUnit];
     v12 = objc_opt_new();
-    v39 = symbolsCopy;
+    v42 = symbolsCopy;
     v13 = objc_opt_new();
     v14 = objc_opt_new();
     v15 = objc_opt_new();
     v16 = objc_opt_new();
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke;
-    v45[3] = &unk_278CEC7F8;
-    v45[4] = self;
-    v46 = mapCopy;
-    v37 = v15;
-    v47 = v37;
-    v38 = decibelHearingLevelUnit;
-    v48 = v38;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke;
+    v48[3] = &unk_278CEC7F8;
+    v48[4] = self;
+    v49 = mapCopy;
+    v40 = v15;
+    v50 = v40;
+    v41 = decibelHearingLevelUnit;
+    v51 = v41;
     v17 = v13;
-    symbolsCopy = v39;
+    symbolsCopy = v42;
     v18 = v17;
-    v49 = v17;
+    v52 = v17;
     v19 = v12;
-    v50 = v19;
-    v36 = v16;
-    v51 = v36;
+    v53 = v19;
+    v39 = v16;
+    v54 = v39;
     v20 = v14;
-    v52 = v20;
-    [v39 enumerateObjectsUsingBlock:v45];
+    v55 = v20;
+    [v42 enumerateObjectsUsingBlock:v48];
     v21 = AXLogAudiogram();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v55 = v18;
+      v58 = v18;
       _os_log_impl(&dword_24179B000, v21, OS_LOG_TYPE_INFO, "Unsorted results (left): %@", buf, 0xCu);
     }
 
@@ -2918,45 +2918,45 @@ void __50__AIAudiogramIngestionEngine_audiogramFromImages___block_invoke_245(uin
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v55 = v20;
+      v58 = v20;
       _os_log_impl(&dword_24179B000, v22, OS_LOG_TYPE_INFO, "Unsorted results (right): %@", buf, 0xCu);
     }
 
     v23 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:&stru_28535F0B0 ascending:1];
-    v53 = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+    v56 = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
     [v19 sortUsingDescriptors:v24];
 
     v25 = AXLogAudiogram();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v55 = v19;
+      v58 = v19;
       _os_log_impl(&dword_24179B000, v25, OS_LOG_TYPE_INFO, "Sorted frequencies: %@", buf, 0xCu);
     }
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_253;
-    v40[3] = &unk_278CEC820;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_253;
+    v43[3] = &unk_278CEC820;
     v26 = v18;
-    v41 = v26;
+    v44 = v26;
     v27 = v20;
-    v42 = v27;
+    v45 = v27;
     v28 = hertzUnit;
-    v43 = v28;
-    v29 = v35;
-    v44 = v29;
-    [v19 enumerateObjectsUsingBlock:v40];
+    v46 = v28;
+    v29 = v38;
+    v47 = v29;
+    [v19 enumerateObjectsUsingBlock:v43];
     if ([v29 count])
     {
       HKAudiogramSampleClass = getHKAudiogramSampleClass();
       date = [MEMORY[0x277CBEAA8] date];
       date2 = [MEMORY[0x277CBEAA8] date];
-      v33 = metadataForHKAudiogramSample();
-      v9 = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v29 startDate:date endDate:date2 metadata:v33];
+      v36 = metadataForHKAudiogramSample(date2, v33, v34, v35);
+      v9 = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v29 startDate:date endDate:date2 metadata:v36];
 
-      symbolsCopy = v39;
+      symbolsCopy = v42;
     }
 
     else
@@ -3164,7 +3164,7 @@ void __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___blo
   v10 = AXLogAudiogram();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_250_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
+    __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_250_cold_1(v10, v11, v12, v13, v14, v15, v16, v17, v8);
   }
 
   *a4 = 1;
@@ -3203,7 +3203,7 @@ void __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___blo
 
 - (id)_combineAudiograms:(id)audiograms
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   audiogramsCopy = audiograms;
   v4 = [audiogramsCopy count];
   v5 = AXLogAudiogram();
@@ -3224,48 +3224,48 @@ void __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___blo
     if (v6)
     {
       *buf = 67109120;
-      v35 = v4;
+      v38 = v4;
       _os_log_impl(&dword_24179B000, v5, OS_LOG_TYPE_INFO, "%i audiograms to combine", buf, 8u);
     }
 
     v8 = objc_opt_new();
     v9 = objc_opt_new();
     v10 = objc_opt_new();
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __49__AIAudiogramIngestionEngine__combineAudiograms___block_invoke;
-    v29[3] = &unk_278CEC870;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __49__AIAudiogramIngestionEngine__combineAudiograms___block_invoke;
+    v32[3] = &unk_278CEC870;
     v11 = v8;
-    v30 = v11;
+    v33 = v11;
     v12 = v9;
-    v31 = v12;
+    v34 = v12;
     v13 = v10;
-    v32 = v13;
-    [audiogramsCopy enumerateObjectsUsingBlock:v29];
+    v35 = v13;
+    [audiogramsCopy enumerateObjectsUsingBlock:v32];
     v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:&stru_28535F0B0 ascending:1];
-    v33 = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v36 = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     [v11 sortUsingDescriptors:v15];
 
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __49__AIAudiogramIngestionEngine__combineAudiograms___block_invoke_259;
-    v25[3] = &unk_278CEC898;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __49__AIAudiogramIngestionEngine__combineAudiograms___block_invoke_259;
+    v28[3] = &unk_278CEC898;
     v17 = v12;
-    v26 = v17;
+    v29 = v17;
     v18 = v13;
-    v27 = v18;
+    v30 = v18;
     v19 = v16;
-    v28 = v19;
-    [v11 enumerateObjectsUsingBlock:v25];
+    v31 = v19;
+    [v11 enumerateObjectsUsingBlock:v28];
     if ([v19 count])
     {
       HKAudiogramSampleClass = getHKAudiogramSampleClass();
       date = [MEMORY[0x277CBEAA8] date];
       date2 = [MEMORY[0x277CBEAA8] date];
-      v23 = metadataForHKAudiogramSample();
-      firstObject = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v19 startDate:date endDate:date2 metadata:v23];
+      v26 = metadataForHKAudiogramSample(date2, v23, v24, v25);
+      firstObject = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v19 startDate:date endDate:date2 metadata:v26];
     }
 
     else
@@ -4038,10 +4038,10 @@ void __87__AIAudiogramIngestionEngine__audiogramPointsFromSymbolsV2_inGraphRect_
 
 - (id)_audiogramFromAudiogramPoints:(id)points
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB18];
   pointsCopy = points;
-  v37 = objc_alloc_init(v4);
+  v40 = objc_alloc_init(v4);
   hertzUnit = [getHKUnitClass_1() hertzUnit];
   decibelHearingLevelUnit = [getHKUnitClass_1() decibelHearingLevelUnit];
   v7 = objc_opt_new();
@@ -4051,34 +4051,34 @@ void __87__AIAudiogramIngestionEngine__audiogramPointsFromSymbolsV2_inGraphRect_
   v11 = objc_opt_new();
   v12 = objc_opt_new();
   v13 = objc_opt_new();
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __60__AIAudiogramIngestionEngine__audiogramFromAudiogramPoints___block_invoke;
-  v46[3] = &unk_278CEC960;
-  v46[4] = self;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __60__AIAudiogramIngestionEngine__audiogramFromAudiogramPoints___block_invoke;
+  v49[3] = &unk_278CEC960;
+  v49[4] = self;
   v14 = v10;
-  v47 = v14;
-  v36 = decibelHearingLevelUnit;
-  v48 = v36;
+  v50 = v14;
+  v39 = decibelHearingLevelUnit;
+  v51 = v39;
   v15 = v8;
-  v49 = v15;
+  v52 = v15;
   v16 = v7;
-  v50 = v16;
+  v53 = v16;
   v17 = v12;
-  v51 = v17;
+  v54 = v17;
   v18 = v11;
-  v52 = v18;
+  v55 = v18;
   v19 = v9;
-  v53 = v19;
+  v56 = v19;
   v20 = v13;
-  v54 = v20;
-  [pointsCopy enumerateObjectsUsingBlock:v46];
+  v57 = v20;
+  [pointsCopy enumerateObjectsUsingBlock:v49];
 
   v21 = AXLogAudiogram();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v57 = v15;
+    v60 = v15;
     _os_log_impl(&dword_24179B000, v21, OS_LOG_TYPE_INFO, "Unsorted results (left): %@", buf, 0xCu);
   }
 
@@ -4086,40 +4086,40 @@ void __87__AIAudiogramIngestionEngine__audiogramPointsFromSymbolsV2_inGraphRect_
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v57 = v19;
+    v60 = v19;
     _os_log_impl(&dword_24179B000, v22, OS_LOG_TYPE_INFO, "Unsorted results (right): %@", buf, 0xCu);
   }
 
   v23 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:&stru_28535F0B0 ascending:1];
-  v55 = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v58 = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
   [v16 sortUsingDescriptors:v24];
 
   v25 = AXLogAudiogram();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v57 = v16;
+    v60 = v16;
     _os_log_impl(&dword_24179B000, v25, OS_LOG_TYPE_INFO, "Sorted frequencies: %@", buf, 0xCu);
   }
 
   if ([v16 containsObject:&unk_285365668])
   {
-    v26 = v37;
+    v26 = v40;
     if ([v16 containsObject:&unk_285365680] && objc_msgSend(v16, "containsObject:", &unk_285365698) && objc_msgSend(v16, "containsObject:", &unk_2853656B0))
     {
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __60__AIAudiogramIngestionEngine__audiogramFromAudiogramPoints___block_invoke_279;
-      v39[3] = &unk_278CEC988;
-      v40 = v15;
-      v41 = v19;
-      v42 = hertzUnit;
-      v43 = v17;
-      v44 = v20;
-      v27 = v37;
-      v45 = v27;
-      [v16 enumerateObjectsUsingBlock:v39];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __60__AIAudiogramIngestionEngine__audiogramFromAudiogramPoints___block_invoke_279;
+      v42[3] = &unk_278CEC988;
+      v43 = v15;
+      v44 = v19;
+      v45 = hertzUnit;
+      v46 = v17;
+      v47 = v20;
+      v27 = v40;
+      v48 = v27;
+      [v16 enumerateObjectsUsingBlock:v42];
       if ([v27 count])
       {
         v28 = AXLogAudiogram();
@@ -4127,36 +4127,36 @@ void __87__AIAudiogramIngestionEngine__audiogramPointsFromSymbolsV2_inGraphRect_
         {
           v29 = [v27 count];
           *buf = 134217984;
-          v57 = v29;
+          v60 = v29;
           _os_log_impl(&dword_24179B000, v28, OS_LOG_TYPE_DEFAULT, "Writing %lu points to new audiogram sample", buf, 0xCu);
         }
 
         HKAudiogramSampleClass = getHKAudiogramSampleClass();
         date = [MEMORY[0x277CBEAA8] date];
         date2 = [MEMORY[0x277CBEAA8] date];
-        v30 = metadataForHKAudiogramSample();
-        v31 = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v27 startDate:date endDate:date2 metadata:v30];
+        v33 = metadataForHKAudiogramSample(date2, v30, v31, v32);
+        v34 = [HKAudiogramSampleClass audiogramSampleWithSensitivityPoints:v27 startDate:date endDate:date2 metadata:v33];
       }
 
       else
       {
-        v31 = 0;
+        v34 = 0;
       }
     }
 
     else
     {
-      v31 = 0;
+      v34 = 0;
     }
   }
 
   else
   {
-    v31 = 0;
-    v26 = v37;
+    v34 = 0;
+    v26 = v40;
   }
 
-  return v31;
+  return v34;
 }
 
 void __60__AIAudiogramIngestionEngine__audiogramFromAudiogramPoints___block_invoke(uint64_t a1, void *a2)
@@ -5109,7 +5109,7 @@ LABEL_22:
     v30 = AXLogAudiogram();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      [(AIAudiogramIngestionEngine *)v30 _isValidObject:v31 toObject:v32 withValueDifference:v33 stepDistance:v34 forAxis:v35, v36, v37];
+      [(AIAudiogramIngestionEngine *)v30 _isValidObject:v31 toObject:v32 withValueDifference:v33 stepDistance:v34 forAxis:v35, v36, v37, v29];
     }
 
     v38 = v29 > 0.5;
@@ -5135,7 +5135,7 @@ LABEL_22:
     v47 = AXLogAudiogram();
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
-      [(AIAudiogramIngestionEngine *)v47 _isValidObject:v48 toObject:v49 withValueDifference:v50 stepDistance:v51 forAxis:v52, v53, v54];
+      [(AIAudiogramIngestionEngine *)v47 _isValidObject:v48 toObject:v49 withValueDifference:v50 stepDistance:v51 forAxis:v52, v53, v54, v29];
     }
 
     v38 = v29 > 0.1;
@@ -5298,6 +5298,14 @@ void __50__AIAudiogramIngestionEngine_audiogramFromImages___block_invoke_244_col
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+double __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_250_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9)
+{
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = a9;
+  OUTLINED_FUNCTION_2(&dword_24179B000, a1, a3, "Confidence %f too low", a5, a6, a7, a8, v10, DWORD2(v10));
+  return result;
+}
+
 void __67__AIAudiogramIngestionEngine__audiogramFromSymbols_onAudiogramMap___block_invoke_253_cold_1()
 {
   OUTLINED_FUNCTION_1_0();
@@ -5324,6 +5332,27 @@ void __56__AIAudiogramIngestionEngine_audiogramPointsFromImages___block_invoke_2
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+- (void)_sortAndRemoveInvalidAxisValues:(uint64_t)a3 forAxis:(uint64_t)a4 error:(uint64_t)a5 .cold.4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_2(&dword_24179B000, a2, a3, "Filtered value differences: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_isValidObject:(uint64_t)a3 toObject:(uint64_t)a4 withValueDifference:(uint64_t)a5 stepDistance:(uint64_t)a6 forAxis:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_2(&dword_24179B000, a1, a3, "Steps per X distance: %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+- (void)_isValidObject:(uint64_t)a3 toObject:(uint64_t)a4 withValueDifference:(uint64_t)a5 stepDistance:(uint64_t)a6 forAxis:(uint64_t)a7 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_2(&dword_24179B000, a1, a3, "Steps per Y distance: %f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 - (void)_propertyOrientationFromOrientation:.cold.1()

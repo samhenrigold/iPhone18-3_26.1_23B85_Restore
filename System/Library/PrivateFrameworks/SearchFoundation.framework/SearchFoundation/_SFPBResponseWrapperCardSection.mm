@@ -16,7 +16,7 @@
 
 - (_SFPBResponseWrapperCardSection)initWithFacade:(id)facade
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBResponseWrapperCardSection *)self init];
   if (v5)
@@ -60,33 +60,33 @@
       v17 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     pattern_models2 = [facadeCopy pattern_models];
-    v19 = [pattern_models2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v19 = [pattern_models2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(pattern_models2);
           }
 
-          v23 = [[_SFPBPatternModel alloc] initWithFacade:*(*(&v27 + 1) + 8 * i)];
+          v23 = [[_SFPBPatternModel alloc] initWithFacade:*(*(&v26 + 1) + 8 * i)];
           if (v23)
           {
             [v17 addObject:v23];
           }
         }
 
-        v20 = [pattern_models2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v20 = [pattern_models2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v20);
@@ -96,17 +96,16 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBResponseWrapperCardSection)initWithDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v29.receiver = self;
-  v29.super_class = _SFPBResponseWrapperCardSection;
-  v5 = [(_SFPBResponseWrapperCardSection *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = _SFPBResponseWrapperCardSection;
+  v5 = [(_SFPBResponseWrapperCardSection *)&v28 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"catModel"];
@@ -137,28 +136,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v23 = v10;
-      v24 = v6;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v22 = v10;
+      v23 = v6;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v26;
+        v16 = *v25;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v26 != v16)
+            if (*v25 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v25 + 1) + 8 * i);
+            v18 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -167,20 +166,19 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v15);
       }
 
-      v6 = v24;
-      v10 = v23;
+      v6 = v23;
+      v10 = v22;
     }
 
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -220,7 +218,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_catModel)
   {
@@ -257,26 +255,26 @@
   if ([(NSArray *)self->_pattern_models count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = self->_pattern_models;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array addObject:dictionaryRepresentation3];
@@ -289,7 +287,7 @@
           }
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -313,8 +311,6 @@
       [dictionary setObject:null4 forKeyedSubscript:@"visualCATOutput"];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -448,7 +444,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   catModel = [(_SFPBResponseWrapperCardSection *)self catModel];
   if (catModel)
@@ -469,38 +465,35 @@ LABEL_23:
   }
 
   pattern_models = [(_SFPBResponseWrapperCardSection *)self pattern_models];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = [pattern_models countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [pattern_models countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(pattern_models);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [pattern_models countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [pattern_models countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPattern_models:(id)pattern_models
@@ -523,18 +516,14 @@ LABEL_23:
 
 - (void)setPattern_models:(id)pattern_models
 {
-  v4 = [pattern_models copy];
-  pattern_models = self->_pattern_models;
-  self->_pattern_models = v4;
+  self->_pattern_models = [pattern_models copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setVisualCATOutput:(id)output
 {
-  v4 = [output copy];
-  visualCATOutput = self->_visualCATOutput;
-  self->_visualCATOutput = v4;
+  self->_visualCATOutput = [output copy];
 
   MEMORY[0x1EEE66BB8]();
 }

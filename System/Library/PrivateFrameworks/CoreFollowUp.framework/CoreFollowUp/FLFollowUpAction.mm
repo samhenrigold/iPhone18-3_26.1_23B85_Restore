@@ -6,7 +6,6 @@
 - (FLFollowUpAction)initWithLabel:(id)label url:(id)url;
 - (NSData)_userInfoData;
 - (id)description;
-- (void)_userInfoData;
 - (void)encodeWithCoder:(id)coder;
 - (void)setDestructive:(BOOL)destructive;
 - (void)set_userInfoData:(id)data;
@@ -147,14 +146,14 @@
   {
     v4 = MEMORY[0x277CCAC58];
     userInfo2 = [(FLFollowUpAction *)self userInfo];
-    v9 = 0;
-    userInfo = [v4 dataWithPropertyList:userInfo2 format:200 options:0 error:&v9];
-    v6 = v9;
+    v10 = 0;
+    userInfo = [v4 dataWithPropertyList:userInfo2 format:200 options:0 error:&v10];
+    v6 = v10;
 
     if (!userInfo)
     {
-      v7 = _FLLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _FLLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpAction _userInfoData];
       }
@@ -168,17 +167,17 @@
 {
   if (data)
   {
-    v8 = 0;
-    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v8];
-    v5 = v8;
+    v9 = 0;
+    v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:&v9];
+    v5 = v9;
     [(FLFollowUpAction *)self setUserInfo:v4];
 
     userInfo = [(FLFollowUpAction *)self userInfo];
 
     if (!userInfo)
     {
-      v7 = _FLLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _FLLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [FLFollowUpAction set_userInfoData:];
       }
@@ -188,18 +187,18 @@
 
 - (BOOL)_loadActionURL
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [(FLFollowUpAction *)self url];
 
   if (v3)
   {
-    v4 = _FLLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _FLLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [(FLFollowUpAction *)self url];
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to handle URL: %@", &v11, 0xCu);
+      v6 = [(FLFollowUpAction *)self url];
+      v12 = 138412290;
+      v13 = v6;
+      _os_log_impl(&dword_22E696000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to handle URL: %@", &v12, 0xCu);
     }
 
     defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
@@ -212,24 +211,20 @@
 
   if (!launchActionURL)
   {
-    result = 0;
-    goto LABEL_7;
+    return 0;
   }
 
-  defaultWorkspace = _FLLogSystem();
+  defaultWorkspace = _FLLogSystem(v11);
   if (os_log_type_enabled(defaultWorkspace, OS_LOG_TYPE_DEFAULT))
   {
     launchActionURL2 = [(FLFollowUpAction *)self launchActionURL];
-    v11 = 138412290;
-    v12 = launchActionURL2;
-    _os_log_impl(&dword_22E696000, defaultWorkspace, OS_LOG_TYPE_DEFAULT, "Attempting to handle launch URL: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = launchActionURL2;
+    _os_log_impl(&dword_22E696000, defaultWorkspace, OS_LOG_TYPE_DEFAULT, "Attempting to handle launch URL: %@", &v12, 0xCu);
 LABEL_5:
   }
 
-  result = 1;
-LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (id)description
@@ -239,22 +234,6 @@ LABEL_7:
   v5 = [v3 stringWithFormat:@"<%@: %p - label: %@, url: %@, macURL: %@, userInfo: %@>", v4, self, self->_label, self->_url, self->_launchActionURL, self->_userInfo];
 
   return v5;
-}
-
-- (void)_userInfoData
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22E696000, v0, v1, "%@: Failed to serialize userInfo for item %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)set_userInfoData:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_22E696000, v0, v1, "%@: Failed to deserialize userInfo for item %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

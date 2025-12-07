@@ -83,8 +83,6 @@ LABEL_11:
     p_range->location = [v6 lineRangeForRange:?];
     self->_range.length = v12;
     [(DDOperation *)self setNeedContinuation:1];
-    v13 = p_range->location;
-    v14 = self->_range.length;
     goto LABEL_12;
   }
 
@@ -184,7 +182,7 @@ uint64_t __63__DDTextKitOperation__addResultToAttributes_inStorage_editing___blo
 
 - (_NSRange)_addResultsToAttributesInStorage:(id)storage
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   scannerResults = [(DDOperation *)self scannerResults];
 
@@ -214,17 +212,17 @@ LABEL_3:
   context = [(DDOperation *)self context];
   v10 = [context objectForKey:@"ReferenceDate"];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = results;
-  v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v11 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v11)
   {
     v12 = v11;
     selfCopy = self;
-    v13 = *v38;
+    v13 = *v37;
     if (scannerResults)
     {
       range1 = 0;
@@ -233,12 +231,12 @@ LABEL_3:
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v37 + 1) + 8 * i);
+          v17 = *(*(&v36 + 1) + 8 * i);
           coreResult = [v17 coreResult];
           if (v17)
           {
@@ -257,9 +255,9 @@ LABEL_3:
 
                 else
                 {
-                  v43.location = location;
-                  v43.length = range1;
-                  v16 = NSUnionRange(v43, v21);
+                  v42.location = location;
+                  v42.length = range1;
+                  v16 = NSUnionRange(v42, v21);
                   location = v16.location;
                   range1 = v16.length;
                 }
@@ -268,7 +266,7 @@ LABEL_3:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v12);
@@ -276,50 +274,50 @@ LABEL_3:
 
     else
     {
-      v33 = storageCopy;
+      v32 = storageCopy;
       range1 = 0;
       location = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v38 != v13)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v37 + 1) + 8 * j);
-          v29 = [MEMORY[0x277D04218] resultFromCoreResult:v28];
-          if (v29)
+          v27 = *(*(&v36 + 1) + 8 * j);
+          v28 = [MEMORY[0x277D04218] resultFromCoreResult:v27];
+          if (v28)
           {
-            if ((v7)[2](v7, v28, v10, defaultTimeZone))
+            if ((v7)[2](v7, v27, v10, defaultTimeZone))
             {
-              0x7FFFFFFFFFFFFFFFLL2 = [(DDTextKitOperation *)selfCopy _addResultToAttributes:v29 inStorage:v33 editing:location != 0x7FFFFFFFFFFFFFFFLL];
+              0x7FFFFFFFFFFFFFFFLL2 = [(DDTextKitOperation *)selfCopy _addResultToAttributes:v28 inStorage:v32 editing:location != 0x7FFFFFFFFFFFFFFFLL];
               if (0x7FFFFFFFFFFFFFFFLL2 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v32.location = 0x7FFFFFFFFFFFFFFFLL2;
-                v32.length = v31;
+                v31.location = 0x7FFFFFFFFFFFFFFFLL2;
+                v31.length = v30;
                 if (location == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  range1 = v31;
+                  range1 = v30;
                   location = 0x7FFFFFFFFFFFFFFFLL2;
                 }
 
                 else
                 {
-                  v44.location = location;
-                  v44.length = range1;
-                  v27 = NSUnionRange(v44, v32);
-                  location = v27.location;
-                  range1 = v27.length;
+                  v43.location = location;
+                  v43.length = range1;
+                  v26 = NSUnionRange(v43, v31);
+                  location = v26.location;
+                  range1 = v26.length;
                 }
               }
             }
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-        storageCopy = v33;
+        v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        storageCopy = v32;
       }
 
       while (v12);
@@ -335,11 +333,10 @@ LABEL_3:
   v22 = range1;
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
-  v24 = location;
-  v25 = v22;
-  result.length = v25;
-  result.location = v24;
+  v23 = location;
+  v24 = v22;
+  result.length = v24;
+  result.location = v23;
   return result;
 }
 
@@ -450,25 +447,22 @@ void __57__DDTextKitOperation_dispatchContainerModificationBlock___block_invoke(
 
 - (void)_createScanQueryForBackend
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "operation %p", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "operation %p", &v1, 0xCu);
 }
 
 - (void)newOperationForContinuation
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v9.location = [self range];
-  v2 = NSStringFromRange(v9);
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v8.location = [self range];
+  v2 = NSStringFromRange(v8);
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Creating continuation %@. The new range is %@", &v4, 0x16u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = v2;
+  _os_log_debug_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Creating continuation %@. The new range is %@", &v3, 0x16u);
 }
 
 @end

@@ -81,15 +81,14 @@
 
 void __45__INImageServiceConnection_serviceIdentifier__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = MEMORY[0x1E696AEC0];
-  v8 = [MEMORY[0x1E696AAE8] bundleForClass:v2];
-  v4 = [v8 bundleIdentifier];
-  v5 = NSStringFromClass(v2);
-  v6 = [v3 stringWithFormat:@"%@.%@", v4, v5];
-  v7 = serviceIdentifier_sServiceIdentifier;
-  serviceIdentifier_sServiceIdentifier = v6;
+  v1 = objc_opt_class();
+  v2 = MEMORY[0x1E696AEC0];
+  v7 = [MEMORY[0x1E696AAE8] bundleForClass:v1];
+  v3 = [v7 bundleIdentifier];
+  v4 = NSStringFromClass(v1);
+  v5 = [v2 stringWithFormat:@"%@.%@", v3, v4];
+  v6 = serviceIdentifier_sServiceIdentifier;
+  serviceIdentifier_sServiceIdentifier = v5;
 }
 
 - (unint64_t)servicePriority
@@ -149,19 +148,19 @@ void __45__INImageServiceConnection_serviceIdentifier__block_invoke(uint64_t a1)
 
 - (void)storeUserContext:(id)context forBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   identifierCopy = identifier;
   v8 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "[INImageServiceConnection storeUserContext:forBundleIdentifier:]";
-    v14 = 2112;
-    v15 = contextCopy;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Storing UserContext:%@ for bundle:%@ over XPC in intents_helper", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[INImageServiceConnection storeUserContext:forBundleIdentifier:]";
+    v13 = 2112;
+    v14 = contextCopy;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Storing UserContext:%@ for bundle:%@ over XPC in intents_helper", &v11, 0x20u);
   }
 
   v9 = [(INImageServiceConnection *)self serviceProxyWithErrorHandler:&__block_literal_global_78];
@@ -170,55 +169,49 @@ void __45__INImageServiceConnection_serviceIdentifier__block_invoke(uint64_t a1)
   {
     [v9 storeUserContext:contextCopy forBundleIdentifier:identifierCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __65__INImageServiceConnection_storeUserContext_forBundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[INImageServiceConnection storeUserContext:forBundleIdentifier:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Error storing UserContext - %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[INImageServiceConnection storeUserContext:forBundleIdentifier:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Error storing UserContext - %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)purgeImageWithIdentifier:(id)identifier completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v18 = "[INImageServiceConnection purgeImageWithIdentifier:completion:]";
-    v19 = 2112;
-    v20 = identifierCopy;
+    v17 = "[INImageServiceConnection purgeImageWithIdentifier:completion:]";
+    v18 = 2112;
+    v19 = identifierCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Purging image with identifier %@ over XPC in intents_helper", buf, 0x16u);
   }
 
   v9 = [(INImageServiceConnection *)self serviceProxyWithErrorHandler:completionCopy];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__INImageServiceConnection_purgeImageWithIdentifier_completion___block_invoke;
-  v13[3] = &unk_1E7282858;
-  v14 = identifierCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64__INImageServiceConnection_purgeImageWithIdentifier_completion___block_invoke;
+  v12[3] = &unk_1E7282858;
+  v13 = identifierCopy;
   selfCopy = self;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v10 = completionCopy;
   v11 = identifierCopy;
-  [v9 purgeImageWithIdentifier:v11 completion:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v9 purgeImageWithIdentifier:v11 completion:v12];
 }
 
 uint64_t __64__INImageServiceConnection_purgeImageWithIdentifier_completion___block_invoke(uint64_t a1, void *a2)
@@ -245,7 +238,7 @@ uint64_t __64__INImageServiceConnection_purgeImageWithIdentifier_completion___bl
 
 - (void)retrieveImageWithIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   if (completionCopy)
@@ -254,9 +247,9 @@ uint64_t __64__INImageServiceConnection_purgeImageWithIdentifier_completion___bl
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v21 = "[INImageServiceConnection retrieveImageWithIdentifier:completion:]";
-      v22 = 2112;
-      v23 = identifierCopy;
+      v20 = "[INImageServiceConnection retrieveImageWithIdentifier:completion:]";
+      v21 = 2112;
+      v22 = identifierCopy;
       _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s Retrieving image with identifier %@ over XPC in intents_helper", buf, 0x16u);
     }
 
@@ -269,11 +262,11 @@ uint64_t __64__INImageServiceConnection_purgeImageWithIdentifier_completion___bl
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v21 = "[INImageServiceConnection retrieveImageWithIdentifier:completion:]";
-        v22 = 2112;
-        v23 = v10;
-        v24 = 2112;
-        v25 = identifierCopy;
+        v20 = "[INImageServiceConnection retrieveImageWithIdentifier:completion:]";
+        v21 = 2112;
+        v22 = v10;
+        v23 = 2112;
+        v24 = identifierCopy;
         _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Found image %@ in the local cache with identifier %@, returning it", buf, 0x20u);
       }
 
@@ -282,25 +275,23 @@ uint64_t __64__INImageServiceConnection_purgeImageWithIdentifier_completion___bl
 
     else
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___block_invoke;
-      v18[3] = &unk_1E7282710;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___block_invoke;
+      v17[3] = &unk_1E7282710;
       v12 = completionCopy;
-      v19 = v12;
-      v13 = [(INImageServiceConnection *)self serviceProxyWithErrorHandler:v18];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___block_invoke_2;
-      v15[3] = &unk_1E72835A8;
-      v15[4] = self;
-      v16 = identifierCopy;
-      v17 = v12;
-      [v13 retrieveImageWithIdentifier:v16 completion:v15];
+      v18 = v12;
+      v13 = [(INImageServiceConnection *)self serviceProxyWithErrorHandler:v17];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___block_invoke_2;
+      v14[3] = &unk_1E72835A8;
+      v14[4] = self;
+      v15 = identifierCopy;
+      v16 = v12;
+      [v13 retrieveImageWithIdentifier:v15 completion:v14];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -323,7 +314,7 @@ void __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___blo
 - (id)storeImage:(id)image scaled:(BOOL)scaled qualityOfService:(unsigned int)service storeType:(unint64_t)type error:(id *)error
 {
   scaledCopy = scaled;
-  v66 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   v10 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -345,44 +336,44 @@ void __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___blo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v63 = __Block_byref_object_copy__68261;
-  v64 = __Block_byref_object_dispose__68262;
-  v65 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__68261;
-  v54 = __Block_byref_object_dispose__68262;
-  v55 = 0;
+  v60 = __Block_byref_object_copy__68261;
+  v61 = __Block_byref_object_dispose__68262;
+  v62 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__68261;
+  v51 = __Block_byref_object_dispose__68262;
+  v52 = 0;
   mapTableRepresentation = [_localStorageCache mapTableRepresentation];
   keyEnumerator = [mapTableRepresentation keyEnumerator];
   allObjects = [keyEnumerator allObjects];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke;
-  v45[3] = &unk_1E7282808;
-  v48 = buf;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke;
+  v42[3] = &unk_1E7282808;
+  v45 = buf;
   v15 = _localStorageCache;
-  v46 = v15;
+  v43 = v15;
   v16 = imageCopy;
-  v47 = v16;
-  v49 = &v50;
-  [allObjects enumerateObjectsUsingBlock:v45];
+  v44 = v16;
+  v46 = &v47;
+  [allObjects enumerateObjectsUsingBlock:v42];
 
-  v17 = v51[5];
+  v17 = v48[5];
   if (v17)
   {
     v18 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      *v56 = 136315650;
-      v57 = "[INImageServiceConnection storeImage:scaled:qualityOfService:storeType:error:]";
-      v58 = 2112;
-      v59 = v16;
-      v60 = 2112;
-      v61 = v17;
-      _os_log_impl(&dword_18E991000, v18, OS_LOG_TYPE_INFO, "%s Found image %@ in the local cache with identifier %@, returning w/ optimistic success", v56, 0x20u);
-      v19 = v51[5];
+      *v53 = 136315650;
+      v54 = "[INImageServiceConnection storeImage:scaled:qualityOfService:storeType:error:]";
+      v55 = 2112;
+      v56 = v16;
+      v57 = 2112;
+      v58 = v17;
+      _os_log_impl(&dword_18E991000, v18, OS_LOG_TYPE_INFO, "%s Found image %@ in the local cache with identifier %@, returning w/ optimistic success", v53, 0x20u);
+      v19 = v48[5];
     }
 
     else
@@ -393,7 +384,7 @@ void __67__INImageServiceConnection_retrieveImageWithIdentifier_completion___blo
     mapTableRepresentation = v19;
   }
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v47, 8);
   _Block_object_dispose(buf, 8);
 
   if (!v17)
@@ -417,32 +408,30 @@ LABEL_11:
             path2 = [v21 path];
             v26 = path2;
             [path2 fileSystemRepresentation];
-            v27 = *MEMORY[0x1E69E9BA8];
-            v28 = *MEMORY[0x1E69E9BE0];
-            v29 = sandbox_extension_issue_file();
+            v27 = sandbox_extension_issue_file();
 
-            if (v29)
+            if (v27)
             {
-              v30 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v29 length:strlen(v29) + 1];
-              [imageCopy _setSandboxExtensionData:v30];
+              v28 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v27 length:strlen(v27) + 1];
+              [imageCopy _setSandboxExtensionData:v28];
             }
 
             else
             {
-              v31 = INSiriLogContextIntents;
+              v29 = INSiriLogContextIntents;
               if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
               {
-                v36 = v31;
+                v33 = v29;
                 path3 = [v21 path];
-                v38 = __error();
-                v39 = strerror(*v38);
+                v35 = __error();
+                v36 = strerror(*v35);
                 *buf = 136315650;
                 *&buf[4] = "[INImageServiceConnection storeImage:scaled:qualityOfService:storeType:error:]";
                 *&buf[12] = 2112;
                 *&buf[14] = path3;
                 *&buf[22] = 2080;
-                v63 = v39;
-                _os_log_error_impl(&dword_18E991000, v36, OS_LOG_TYPE_ERROR, "%s Couldn't issue sandbox extension for '%@': %s", buf, 0x20u);
+                v60 = v36;
+                _os_log_error_impl(&dword_18E991000, v33, OS_LOG_TYPE_ERROR, "%s Couldn't issue sandbox extension for '%@': %s", buf, 0x20u);
               }
             }
           }
@@ -453,30 +442,30 @@ LABEL_11:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v63 = __Block_byref_object_copy__68261;
-    v64 = __Block_byref_object_dispose__68262;
-    v65 = 0;
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x3032000000;
-    v53 = __Block_byref_object_copy__68261;
-    v54 = __Block_byref_object_dispose__68262;
-    v55 = 0;
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke_75;
-    v44[3] = &unk_1E7282698;
-    v44[4] = &v50;
-    v32 = [(INImageServiceConnection *)self synchronousServiceProxyWithErrorHandler:v44];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke_2;
-    v43[3] = &unk_1E7282830;
-    v43[4] = buf;
-    v43[5] = &v50;
-    [v32 storeImage:imageCopy scaled:scaledCopy qualityOfService:service storeType:type completion:v43];
+    v60 = __Block_byref_object_copy__68261;
+    v61 = __Block_byref_object_dispose__68262;
+    v62 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = __Block_byref_object_copy__68261;
+    v51 = __Block_byref_object_dispose__68262;
+    v52 = 0;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke_75;
+    v41[3] = &unk_1E7282698;
+    v41[4] = &v47;
+    v30 = [(INImageServiceConnection *)self synchronousServiceProxyWithErrorHandler:v41];
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType_error___block_invoke_2;
+    v40[3] = &unk_1E7282830;
+    v40[4] = buf;
+    v40[5] = &v47;
+    [v30 storeImage:imageCopy scaled:scaledCopy qualityOfService:service storeType:type completion:v40];
 
-    if (*(*&buf[8] + 40) && !v51[5])
+    if (*(*&buf[8] + 40) && !v48[5])
     {
       _localStorageCache2 = [(INImageServiceConnection *)self _localStorageCache];
       [_localStorageCache2 setObject:imageCopy forKey:*(*&buf[8] + 40)];
@@ -484,16 +473,14 @@ LABEL_11:
 
     if (error)
     {
-      *error = v51[5];
+      *error = v48[5];
     }
 
     mapTableRepresentation = *(*&buf[8] + 40);
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v47, 8);
 
     _Block_object_dispose(buf, 8);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return mapTableRepresentation;
 }
@@ -557,19 +544,17 @@ void __79__INImageServiceConnection_storeImage_scaled_qualityOfService_storeType
 
 void __77__INImageServiceConnection_fetchShareExtensionIntentForExtensionContextUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[INImageServiceConnection fetchShareExtensionIntentForExtensionContextUUID:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Error in XPC connection when fetching selected share extension suggestion intent, %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[INImageServiceConnection fetchShareExtensionIntentForExtensionContextUUID:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_18E991000, v3, OS_LOG_TYPE_ERROR, "%s Error in XPC connection when fetching selected share extension suggestion intent, %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)securityScopedURLsForBundleIdentifiers:(id)identifiers error:(id *)error
@@ -863,32 +848,32 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
 
 - (id)schemaURLsForBundleIdentifiers:(id)identifiers
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v17 = identifiersCopy;
-    v18 = objc_opt_new();
+    v16 = identifiersCopy;
+    v17 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     obj = identifiersCopy;
-    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v21;
+      v6 = *v20;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v21 != v6)
+          if (*v20 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v20 + 1) + 8 * i);
+          v8 = *(*(&v19 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           v10 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v8 allowPlaceholder:0 error:0];
           if (([v10 appProtectionHidden] & 1) == 0)
@@ -909,56 +894,54 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
 
             if ([v14 count])
             {
-              [v18 setObject:v14 forKey:v8];
+              [v17 setObject:v14 forKey:v8];
             }
           }
 
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v5);
     }
 
-    identifiersCopy = v17;
+    identifiersCopy = v16;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 - (id)_availableBundleIdentifiers
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v3 = [MEMORY[0x1E69635F8] enumeratorWithOptions:0];
-  v4 = [v3 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v31;
+    v6 = *v30;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         bundleIdentifier = [v8 bundleIdentifier];
         [v2 addObject:bundleIdentifier];
@@ -966,33 +949,33 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v5);
   }
 
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v25 = [objc_alloc(MEMORY[0x1E6963668]) initWithIdentifier:@"com.apple.intents-service" error:0];
+  v24 = [objc_alloc(MEMORY[0x1E6963668]) initWithIdentifier:@"com.apple.intents-service" error:0];
   v11 = [MEMORY[0x1E69635D0] enumeratorWithExtensionPointRecord:? options:?];
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * j);
+        v16 = *(*(&v25 + 1) + 8 * j);
         v17 = objc_autoreleasePoolPush();
         containingBundleRecord = [v16 containingBundleRecord];
         bundleIdentifier2 = [containingBundleRecord bundleIdentifier];
@@ -1007,7 +990,7 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v13);
@@ -1018,8 +1001,6 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
   {
     [v2 addObjectsFromArray:allBundleIdentifiers];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -1074,22 +1055,22 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
 
 - (id)serviceProxyWithErrorHandler:(id)handler
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = self->_connection;
   processIdentifier = [(NSXPCConnection *)self->_connection processIdentifier];
   serviceName = [(NSXPCConnection *)v5 serviceName];
   connection = self->_connection;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __57__INImageServiceConnection_serviceProxyWithErrorHandler___block_invoke;
-  v19[3] = &unk_1E72826E8;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __57__INImageServiceConnection_serviceProxyWithErrorHandler___block_invoke;
+  v18[3] = &unk_1E72826E8;
   v9 = v5;
-  v20 = v9;
-  v22 = processIdentifier;
+  v19 = v9;
+  v21 = processIdentifier;
   v10 = handlerCopy;
-  v21 = v10;
-  v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v19];
+  v20 = v10;
+  v11 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v18];
   if ([v11 conformsToProtocol:&unk_1F0361998])
   {
     v12 = v11;
@@ -1101,10 +1082,10 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
     if (v10 && v11)
     {
       v13 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A278];
+      v22 = *MEMORY[0x1E696A278];
       v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to get a valid service proxy for service %@", serviceName];
-      v24[0] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v23[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v16 = [v13 errorWithDomain:@"IntentsErrorDomain" code:6000 userInfo:v15];
       (*(v10 + 2))(v10, v16);
 
@@ -1112,29 +1093,27 @@ void __77__INImageServiceConnection_imageServiceSchemaURLsForBundleIdentifiers_e
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 void __57__INImageServiceConnection_serviceProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 48);
-    v9 = 136315906;
-    v10 = "[INImageServiceConnection serviceProxyWithErrorHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v7;
-    v13 = 1024;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error (from connection %@; pid: %d) when using image service: %@", &v9, 0x26u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 48);
+    v8 = 136315906;
+    v9 = "[INImageServiceConnection serviceProxyWithErrorHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error (from connection %@; pid: %d) when using image service: %@", &v8, 0x26u);
   }
 
   v5 = *(a1 + 40);
@@ -1142,8 +1121,6 @@ void __57__INImageServiceConnection_serviceProxyWithErrorHandler___block_invoke(
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)synchronousServiceProxyWithErrorHandler:(id)handler
@@ -1168,34 +1145,32 @@ void __57__INImageServiceConnection_serviceProxyWithErrorHandler___block_invoke(
 
 void __68__INImageServiceConnection_synchronousServiceProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v8 = 136315906;
-    v9 = "[INImageServiceConnection synchronousServiceProxyWithErrorHandler:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    v12 = 1024;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error (from connection %@; pid: %d) when using image service: %@", &v8, 0x26u);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v7 = 136315906;
+    v8 = "[INImageServiceConnection synchronousServiceProxyWithErrorHandler:]_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    v11 = 1024;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_error_impl(&dword_18E991000, v4, OS_LOG_TYPE_ERROR, "%s Error (from connection %@; pid: %d) when using image service: %@", &v7, 0x26u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)loadDataImageFromImage:(id)image scaledSize:(id)size error:(id *)error
 {
   var1 = size.var1;
   var0 = size.var0;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   v10 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -1209,49 +1184,48 @@ void __68__INImageServiceConnection_synchronousServiceProxyWithErrorHandler___bl
     *&buf[12] = 2112;
     *&buf[14] = imageCopy;
     *&buf[22] = 2112;
-    v29 = v13;
-    LOWORD(v30) = 2112;
-    *(&v30 + 2) = v14;
+    v28 = v13;
+    LOWORD(v29) = 2112;
+    *(&v29 + 2) = v14;
     _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Loading image %@ over XPC in intents_helper (scaledWidth = %@, scaledHeight = %@)", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v29 = __Block_byref_object_copy__68261;
-  *&v30 = __Block_byref_object_dispose__68262;
-  *(&v30 + 1) = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__68261;
-  v26 = __Block_byref_object_dispose__68262;
-  v27 = 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __68__INImageServiceConnection_loadDataImageFromImage_scaledSize_error___block_invoke;
-  v21[3] = &unk_1E7282698;
-  v21[4] = &v22;
-  v15 = [(INImageServiceConnection *)self synchronousServiceProxyWithErrorHandler:v21];
-  v16 = objc_alloc_init(INPortableImageLoader);
+  v28 = __Block_byref_object_copy__68261;
+  *&v29 = __Block_byref_object_dispose__68262;
+  *(&v29 + 1) = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__68261;
+  v25 = __Block_byref_object_dispose__68262;
+  v26 = 0;
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __68__INImageServiceConnection_loadDataImageFromImage_scaledSize_error___block_invoke_2;
-  v20[3] = &unk_1E72826C0;
-  v20[4] = buf;
-  v20[5] = &v22;
-  [v15 loadDataImageForImage:imageCopy scaledWidth:v16 scaledHeight:v20 usingPortableImageLoader:var0 completion:var1];
+  v20[2] = __68__INImageServiceConnection_loadDataImageFromImage_scaledSize_error___block_invoke;
+  v20[3] = &unk_1E7282698;
+  v20[4] = &v21;
+  v15 = [(INImageServiceConnection *)self synchronousServiceProxyWithErrorHandler:v20];
+  v16 = objc_alloc_init(INPortableImageLoader);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __68__INImageServiceConnection_loadDataImageFromImage_scaledSize_error___block_invoke_2;
+  v19[3] = &unk_1E72826C0;
+  v19[4] = buf;
+  v19[5] = &v21;
+  [v15 loadDataImageForImage:imageCopy scaledWidth:v16 scaledHeight:v19 usingPortableImageLoader:var0 completion:var1];
 
   if (error)
   {
-    *error = v23[5];
+    *error = v22[5];
   }
 
   v17 = *(*&buf[8] + 40);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
 
   _Block_object_dispose(buf, 8);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1280,40 +1254,36 @@ void __68__INImageServiceConnection_loadDataImageFromImage_scaledSize_error___bl
 
 void __32__INImageServiceConnection_init__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = 136315650;
-    v6 = "[INImageServiceConnection init]_block_invoke";
-    v7 = 2112;
-    v8 = INHelperServiceName;
-    v9 = 1024;
-    v10 = v4;
-    _os_log_error_impl(&dword_18E991000, v2, OS_LOG_TYPE_ERROR, "%s INImageServiceConnection to %@ interrupted; pid: %d", &v5, 0x1Cu);
+    v3 = *(a1 + 32);
+    v4 = 136315650;
+    v5 = "[INImageServiceConnection init]_block_invoke";
+    v6 = 2112;
+    v7 = INHelperServiceName;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_error_impl(&dword_18E991000, v2, OS_LOG_TYPE_ERROR, "%s INImageServiceConnection to %@ interrupted; pid: %d", &v4, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __32__INImageServiceConnection_init__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 136315650;
-    v6 = "[INImageServiceConnection init]_block_invoke";
-    v7 = 2112;
-    v8 = INHelperServiceName;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_18E991000, v2, OS_LOG_TYPE_INFO, "%s INImageServiceConnection to %@ invalidated; pid: %d", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "[INImageServiceConnection init]_block_invoke";
+    v6 = 2112;
+    v7 = INHelperServiceName;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_18E991000, v2, OS_LOG_TYPE_INFO, "%s INImageServiceConnection to %@ invalidated; pid: %d", &v4, 0x1Cu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__INImageServiceConnection_sharedConnection__block_invoke()

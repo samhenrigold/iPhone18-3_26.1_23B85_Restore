@@ -27,7 +27,7 @@
   selfCopy = self;
   AUAAudioDevice.requestConfigurationChangeWithTrace(function:file:line:_:)(0xD00000000000001ELL, 0x800000010012AED0, 0xD00000000000001BLL, 0x800000010012AEF0, 822, v7, v6);
 
-  sub_10001ED94(v7);
+  sub_10001ED94(v7, v6);
 }
 
 - (BOOL)changeSamplingRate:(double)rate

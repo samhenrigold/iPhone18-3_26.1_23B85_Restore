@@ -64,7 +64,7 @@
   {
     if (self->_index == *(equal + 3))
     {
-      return [(NSString *)self->_elementKind isEqualToString:*(equal + 2)];
+      return objc_msgSend_isEqualToString_(self->_elementKind, a2, *(equal + 2));
     }
 
     return 0;

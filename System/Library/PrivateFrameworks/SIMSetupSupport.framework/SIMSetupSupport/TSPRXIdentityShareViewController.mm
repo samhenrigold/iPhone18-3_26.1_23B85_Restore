@@ -13,7 +13,9 @@
 - (void)_unregisterLockState;
 - (void)_updateCurrentAction:(id)action;
 - (void)dealloc;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TSPRXIdentityShareViewController
@@ -42,9 +44,9 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Stop NFC in dealloc @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController dealloc]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Stop NFC in dealloc @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_updateCurrentAction:(id)action
@@ -74,10 +76,10 @@
 
 - (void)viewDidLoad
 {
-  v94[8] = *MEMORY[0x277D85DE8];
-  v93.receiver = self;
-  v93.super_class = TSPRXIdentityShareViewController;
-  [(TSPRXIdentityShareViewController *)&v93 viewDidLoad];
+  v93[8] = *MEMORY[0x277D85DE8];
+  v92.receiver = self;
+  v92.super_class = TSPRXIdentityShareViewController;
+  [(TSPRXIdentityShareViewController *)&v92 viewDidLoad];
   [(TSPRXIdentityShareViewController *)self _registerLockState];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(TSPRXIdentityShareViewController *)self view];
@@ -154,48 +156,48 @@
   v27 = MEMORY[0x277D432F0];
   v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v29 = [v28 localizedStringForKey:@"CANCEL" value:&stru_28753DF48 table:@"Localizable"];
-  v90[0] = MEMORY[0x277D85DD0];
-  v90[1] = 3221225472;
-  v90[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke;
-  v90[3] = &unk_279B448A0;
-  objc_copyWeak(&v91, &location);
-  v30 = [v27 actionWithTitle:v29 style:0 handler:v90];
+  v89[0] = MEMORY[0x277D85DD0];
+  v89[1] = 3221225472;
+  v89[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke;
+  v89[3] = &unk_279B448A0;
+  objc_copyWeak(&v90, &location);
+  v30 = [v27 actionWithTitle:v29 style:0 handler:v89];
   cancelAction = self->_cancelAction;
   self->_cancelAction = v30;
 
   v32 = MEMORY[0x277D432F0];
   v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v34 = [v33 localizedStringForKey:@"PRXCARD_IN_STORE_ESIM_FAIL_BUTTON" value:&stru_28753DF48 table:@"Localizable"];
-  v88[0] = MEMORY[0x277D85DD0];
-  v88[1] = 3221225472;
-  v88[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_2;
-  v88[3] = &unk_279B448A0;
-  objc_copyWeak(&v89, &location);
-  v35 = [v32 actionWithTitle:v34 style:0 handler:v88];
+  v87[0] = MEMORY[0x277D85DD0];
+  v87[1] = 3221225472;
+  v87[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_2;
+  v87[3] = &unk_279B448A0;
+  objc_copyWeak(&v88, &location);
+  v35 = [v32 actionWithTitle:v34 style:0 handler:v87];
   retryAction = self->_retryAction;
   self->_retryAction = v35;
 
   v37 = MEMORY[0x277D432F0];
   v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v39 = [v38 localizedStringForKey:@"DEVICE_UNLOCK_TO_CONTINUE" value:&stru_28753DF48 table:@"Localizable"];
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_3;
-  v86[3] = &unk_279B448A0;
-  objc_copyWeak(&v87, &location);
-  v40 = [v37 actionWithTitle:v39 style:0 handler:v86];
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_3;
+  v85[3] = &unk_279B448A0;
+  objc_copyWeak(&v86, &location);
+  v40 = [v37 actionWithTitle:v39 style:0 handler:v85];
   unlockAction = self->_unlockAction;
   self->_unlockAction = v40;
 
   v42 = MEMORY[0x277D432F0];
   v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v44 = [v43 localizedStringForKey:@"DONE" value:&stru_28753DF48 table:@"Localizable"];
-  v84[0] = MEMORY[0x277D85DD0];
-  v84[1] = 3221225472;
-  v84[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_4;
-  v84[3] = &unk_279B448A0;
-  objc_copyWeak(&v85, &location);
-  v45 = [v42 actionWithTitle:v44 style:0 handler:v84];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_4;
+  v83[3] = &unk_279B448A0;
+  objc_copyWeak(&v84, &location);
+  v45 = [v42 actionWithTitle:v44 style:0 handler:v83];
   continueAction = self->_continueAction;
   self->_continueAction = v45;
 
@@ -210,58 +212,57 @@
     [(TSPRXIdentityShareViewController *)self _startNFCIdentityShare];
   }
 
-  v58 = MEMORY[0x277CCAAD0];
+  v57 = MEMORY[0x277CCAAD0];
   heightAnchor = [(PKGlyphView *)self->_nfcAnimationView heightAnchor];
-  v82 = [heightAnchor constraintEqualToConstant:116.0];
-  v94[0] = v82;
+  v81 = [heightAnchor constraintEqualToConstant:116.0];
+  v93[0] = v81;
   widthAnchor = [(PKGlyphView *)self->_nfcAnimationView widthAnchor];
-  v80 = [widthAnchor constraintEqualToConstant:116.0];
-  v94[1] = v80;
+  v79 = [widthAnchor constraintEqualToConstant:116.0];
+  v93[1] = v79;
   centerXAnchor = [(PKGlyphView *)self->_nfcAnimationView centerXAnchor];
   contentView2 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide = [contentView2 mainContentGuide];
   centerXAnchor2 = [mainContentGuide centerXAnchor];
-  v75 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v94[2] = v75;
+  v74 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v93[2] = v74;
   centerYAnchor = [(PKGlyphView *)self->_nfcAnimationView centerYAnchor];
   contentView3 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide2 = [contentView3 mainContentGuide];
   centerYAnchor2 = [mainContentGuide2 centerYAnchor];
-  v70 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v94[3] = v70;
+  v69 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v93[3] = v69;
   leadingAnchor = [(PKGlyphView *)self->_nfcAnimationView leadingAnchor];
   contentView4 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide3 = [contentView4 mainContentGuide];
   leadingAnchor2 = [mainContentGuide3 leadingAnchor];
-  v65 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
-  v94[4] = v65;
+  v64 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
+  v93[4] = v64;
   trailingAnchor = [(PKGlyphView *)self->_nfcAnimationView trailingAnchor];
   contentView5 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide4 = [contentView5 mainContentGuide];
   trailingAnchor2 = [mainContentGuide4 trailingAnchor];
-  v60 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-  v94[5] = v60;
+  v59 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
+  v93[5] = v59;
   topAnchor = [(PKGlyphView *)self->_nfcAnimationView topAnchor];
   contentView6 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide5 = [contentView6 mainContentGuide];
   topAnchor2 = [mainContentGuide5 topAnchor];
   v50 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v94[6] = v50;
+  v93[6] = v50;
   bottomAnchor = [(PKGlyphView *)self->_nfcAnimationView bottomAnchor];
   contentView7 = [(TSPRXIdentityShareViewController *)self contentView];
   mainContentGuide6 = [contentView7 mainContentGuide];
   bottomAnchor2 = [mainContentGuide6 bottomAnchor];
   v55 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v94[7] = v55;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:8];
-  [v58 activateConstraints:v56];
+  v93[7] = v55;
+  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:8];
+  [v57 activateConstraints:v56];
 
-  objc_destroyWeak(&v85);
-  objc_destroyWeak(&v87);
-  objc_destroyWeak(&v89);
-  objc_destroyWeak(&v91);
+  objc_destroyWeak(&v84);
+  objc_destroyWeak(&v86);
+  objc_destroyWeak(&v88);
+  objc_destroyWeak(&v90);
   objc_destroyWeak(&location);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -286,6 +287,27 @@ void __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_4(uint64_t
 {
   v1 = objc_loadWeakRetained((a1 + 32));
   [v1 _maybeFlowCompleted:{objc_msgSend(v1, "NFCTransferStatus")}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = TSPRXIdentityShareViewController;
+  [(TSPRXIdentityShareViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v12.receiver = self;
+  v12.super_class = TSPRXIdentityShareViewController;
+  [(TSPRXIdentityShareViewController *)&v12 viewWillDisappear:disappear];
+  v4 = _TSLogDomain([(TSPRXIdentityShareViewController *)self _unregisterLockState]);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [(TSPRXIdentityShareViewController *)v4 viewWillDisappear:v5, v6, v7, v8, v9, v10, v11];
+  }
+
+  [(TSPRXIdentityShareViewController *)self _stopNFCIdentityShare];
 }
 
 - (void)_reloadScreen
@@ -353,9 +375,9 @@ void __47__TSPRXIdentityShareViewController_viewDidLoad__block_invoke_4(uint64_t
 
 - (void)_startNFCIdentityShare
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Start NFC @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController _startNFCIdentityShare]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Start NFC @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58__TSPRXIdentityShareViewController__startNFCIdentityShare__block_invoke(uint64_t a1, uint64_t a2)
@@ -375,61 +397,60 @@ void __58__TSPRXIdentityShareViewController__startNFCIdentityShare__block_invoke
 
 - (void)_stopNFCIdentityShare
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Stop NFC @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController _stopNFCIdentityShare]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] Stop NFC @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_unlockScreen
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] requesting unlock @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController _unlockScreen]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] requesting unlock @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __49__TSPRXIdentityShareViewController__unlockScreen__block_invoke(uint64_t a1, int a2)
 {
-  if (a2 || !+[TSUtilities isDeviceLocked])
+  if (a2 || (v3 = +[TSUtilities isDeviceLocked], !v3))
   {
     if (!+[TSUtilities isDeviceLocked])
     {
       WeakRetained = objc_loadWeakRetained((a1 + 32));
       [WeakRetained _unregisterLockState];
 
-      v12 = objc_loadWeakRetained((a1 + 32));
-      [v12 _reloadScreen];
+      v13 = objc_loadWeakRetained((a1 + 32));
+      [v13 _reloadScreen];
     }
   }
 
   else
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = _TSLogDomain(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __49__TSPRXIdentityShareViewController__unlockScreen__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      __49__TSPRXIdentityShareViewController__unlockScreen__block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 }
 
 - (void)_registerLockState
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSPRXIdentityShareViewController _registerLockState]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]unable to register @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSPRXIdentityShareViewController _registerLockState]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]unable to register @%s", &v1, 0xCu);
 }
 
-void __54__TSPRXIdentityShareViewController__registerLockState__block_invoke(uint64_t a1)
+void __54__TSPRXIdentityShareViewController__registerLockState__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _TSLogDomain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _TSLogDomain(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __54__TSPRXIdentityShareViewController__registerLockState__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __54__TSPRXIdentityShareViewController__registerLockState__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = objc_loadWeakRetained((a1 + 32));
-  [v10 _maybeFlowCompleted:{objc_msgSend(v10, "NFCTransferStatus")}];
+  v11 = objc_loadWeakRetained((a1 + 32));
+  [v11 _maybeFlowCompleted:{objc_msgSend(v11, "NFCTransferStatus")}];
 }
 
 - (void)_unregisterLockState
@@ -444,7 +465,7 @@ void __54__TSPRXIdentityShareViewController__registerLockState__block_invoke(uin
 
 - (void)_maybeFlowCompleted:(unint64_t)completed
 {
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(TSPRXIdentityShareViewController *)completed _maybeFlowCompleted:v5];
@@ -472,36 +493,35 @@ void __54__TSPRXIdentityShareViewController__registerLockState__block_invoke(uin
 
 - (void)viewWillDisappear:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] Stop NFC in viewWillDisappear @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController viewWillDisappear:]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] Stop NFC in viewWillDisappear @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __49__TSPRXIdentityShareViewController__unlockScreen__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] unlock canceled @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController _unlockScreen]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] unlock canceled @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__TSPRXIdentityShareViewController__registerLockState__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] Stop NFC in device lock handler @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSPRXIdentityShareViewController _registerLockState]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] Stop NFC in device lock handler @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_maybeFlowCompleted:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
-  v4 = "[TSPRXIdentityShareViewController _maybeFlowCompleted:]";
-  v5 = 2048;
-  v6 = a1;
-  v7 = 2080;
-  v8 = "[TSPRXIdentityShareViewController _maybeFlowCompleted:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] %s with completionType:%ld @%s", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
+  v3 = "[TSPRXIdentityShareViewController _maybeFlowCompleted:]";
+  v4 = 2048;
+  v5 = a1;
+  v6 = 2080;
+  v7 = "[TSPRXIdentityShareViewController _maybeFlowCompleted:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] %s with completionType:%ld @%s", &v2, 0x20u);
 }
 
 @end

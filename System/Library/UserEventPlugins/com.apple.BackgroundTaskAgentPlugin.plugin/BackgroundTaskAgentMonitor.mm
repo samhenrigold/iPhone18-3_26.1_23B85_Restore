@@ -76,22 +76,7 @@
     v8->_primaryLinkIsCellular = 0;
     v8->_networkStabilizationTimer = 0;
     v8->_pendingNetworkUpdate = 0;
-    if (![(BackgroundTaskAgentMonitor *)v8 initNetworkLinkQualityMonitoring])
-    {
-      goto LABEL_8;
-    }
-
-    v9->_isScreenBlanked = 0;
-    v9->_numScreenBlankedJobs = 0;
-    v9->_lastScreenBlankedTime = -1.0;
-    handler[0] = _NSConcreteStackBlock;
-    handler[1] = 3221225472;
-    v16 = sub_40A8;
-    v17 = &unk_C558;
-    v18 = v9;
-    notify_register_dispatch("com.apple.springboard.hasBlankedScreen", &v9->_screenBlankedToken, v9->_queue, handler);
-    v16(handler, v9->_screenBlankedToken);
-    if ([(BackgroundTaskAgentMonitor *)v9 initPowerSourceMonitoring])
+    if ([(BackgroundTaskAgentMonitor *)v8 initNetworkLinkQualityMonitoring]&& (v9->_isScreenBlanked = 0, v9->_numScreenBlankedJobs = 0, v9->_lastScreenBlankedTime = -1.0, handler[0] = _NSConcreteStackBlock, handler[1] = 3221225472, v16 = sub_40A8, v17 = &unk_C558, v18 = v9, notify_register_dispatch("com.apple.springboard.hasBlankedScreen", &v9->_screenBlankedToken, v9->_queue, handler), v16(handler, v9->_screenBlankedToken), [(BackgroundTaskAgentMonitor *)v9 initPowerSourceMonitoring]))
     {
       v9->_numAdjustTimeJobs = 0;
       Current = CFAbsoluteTimeGetCurrent();
@@ -115,7 +100,6 @@
 
     else
     {
-LABEL_8:
 
       return 0;
     }
@@ -201,7 +185,7 @@ LABEL_8:
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_6A80(self);
+    sub_6A80();
   }
 }
 
@@ -393,7 +377,7 @@ LABEL_30:
           CFNumberGetValue(v31, kCFNumberIntType, &valuePtr);
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
           {
-            sub_6E6C(&valuePtr);
+            sub_6E6C();
           }
 
           v33 = valuePtr;
@@ -705,7 +689,7 @@ LABEL_9:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_73EC(&v6);
+      sub_73EC();
     }
 
     LODWORD(v3) = v6;

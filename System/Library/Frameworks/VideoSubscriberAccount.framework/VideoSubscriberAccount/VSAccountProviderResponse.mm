@@ -12,43 +12,45 @@
 
 - (VSAccountProviderResponse)init
 {
-  v5.receiver = self;
-  v5.super_class = VSAccountProviderResponse;
-  v2 = [(VSAccountProviderResponse *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = VSAccountProviderResponse;
+  v2 = [(VSAccountProviderResponse *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = VSAccountProviderResponseValueType();
-    VSValueTypeInit(v3, v2);
+    v4 = VSAccountProviderResponseValueType(v2);
+    VSValueTypeInit(v4, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (VSAccountProviderResponse)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = VSAccountProviderResponse;
-  v5 = [(VSAccountProviderResponse *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VSAccountProviderResponse;
+  v5 = [(VSAccountProviderResponse *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSAccountProviderResponseValueType();
-    VSValueTypeInitWithCoder(v6, v5, coderCopy);
+    v7 = VSAccountProviderResponseValueType(v5);
+    VSValueTypeInitWithCoder(v7, v6, coderCopy);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = VSAccountProviderResponseValueType();
+  v5 = VSAccountProviderResponseValueType(coderCopy);
   VSValueTypeEncodeWithCoder(v5, self, coderCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = VSAccountProviderResponseValueType();
+  v5 = VSAccountProviderResponseValueType(self);
   v6 = VSValueTypeCopyWithZone(v5, self, zone);
 
   return v6;
@@ -56,7 +58,7 @@
 
 - (unint64_t)hash
 {
-  v3 = VSAccountProviderResponseValueType();
+  v3 = VSAccountProviderResponseValueType(self);
   v4 = VSValueTypeHash(v3, self);
 
   return v4;
@@ -65,7 +67,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = VSAccountProviderResponseValueType();
+  v5 = VSAccountProviderResponseValueType(equalCopy);
   LOBYTE(self) = VSValueTypeIsEqual(v5, self, equalCopy);
 
   return self;
@@ -73,7 +75,7 @@
 
 - (id)description
 {
-  v3 = VSAccountProviderResponseValueType();
+  v3 = VSAccountProviderResponseValueType(self);
   v4 = VSValueTypeDescription(v3, self);
 
   return v4;

@@ -87,43 +87,43 @@ LABEL_7:
 
 - (void)_updateTitleOfTab:(id)tab withContext:(id)context completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   tabCopy = tab;
   handlerCopy = handler;
   contextCopy = context;
   randomItemTitle = [contextCopy randomItemTitle];
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(randomItemTitle, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     uniqueIdentifier = [tabCopy uniqueIdentifier];
     title = [tabCopy title];
     *buf = 138543874;
-    v28 = uniqueIdentifier;
-    v29 = 2114;
-    v30 = title;
-    v31 = 2114;
-    v32 = randomItemTitle;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Changing title of tab (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
+    v29 = uniqueIdentifier;
+    v30 = 2114;
+    v31 = title;
+    v32 = 2114;
+    v33 = randomItemTitle;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Changing title of tab (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
   }
 
   topLevelItem = [contextCopy topLevelItem];
   testTarget = [contextCopy testTarget];
 
   uniqueIdentifier2 = [tabCopy uniqueIdentifier];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __79__WBSCyclerModifyTabOperation__updateTitleOfTab_withContext_completionHandler___block_invoke;
-  v22[3] = &unk_1E7FC5038;
-  v23 = topLevelItem;
-  v24 = tabCopy;
-  v25 = randomItemTitle;
-  v26 = handlerCopy;
-  v18 = randomItemTitle;
-  v19 = tabCopy;
-  v20 = topLevelItem;
-  v21 = handlerCopy;
-  [testTarget setTitle:v18 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __79__WBSCyclerModifyTabOperation__updateTitleOfTab_withContext_completionHandler___block_invoke;
+  v23[3] = &unk_1E7FC5038;
+  v24 = topLevelItem;
+  v25 = tabCopy;
+  v26 = randomItemTitle;
+  v27 = handlerCopy;
+  v19 = randomItemTitle;
+  v20 = tabCopy;
+  v21 = topLevelItem;
+  v22 = handlerCopy;
+  [testTarget setTitle:v19 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v23];
 }
 
 void __79__WBSCyclerModifyTabOperation__updateTitleOfTab_withContext_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -148,43 +148,43 @@ void __79__WBSCyclerModifyTabOperation__updateTitleOfTab_withContext_completionH
 
 - (void)_updateURLOfTab:(id)tab withContext:(id)context completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   tabCopy = tab;
   handlerCopy = handler;
   contextCopy = context;
   v10 = +[WBSCyclerRandomnessUtilities randomURL];
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = v11;
+    v13 = v12;
     uniqueIdentifier = [tabCopy uniqueIdentifier];
-    v14 = [tabCopy url];
+    v15 = [tabCopy url];
     *buf = 138543874;
-    v28 = uniqueIdentifier;
-    v29 = 2114;
-    v30 = v14;
-    v31 = 2114;
-    v32 = v10;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Changing URL of tab (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
+    v29 = uniqueIdentifier;
+    v30 = 2114;
+    v31 = v15;
+    v32 = 2114;
+    v33 = v10;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Changing URL of tab (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
   }
 
   topLevelItem = [contextCopy topLevelItem];
   testTarget = [contextCopy testTarget];
 
   uniqueIdentifier2 = [tabCopy uniqueIdentifier];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __77__WBSCyclerModifyTabOperation__updateURLOfTab_withContext_completionHandler___block_invoke;
-  v22[3] = &unk_1E7FC5038;
-  v23 = topLevelItem;
-  v24 = tabCopy;
-  v25 = v10;
-  v26 = handlerCopy;
-  v18 = v10;
-  v19 = tabCopy;
-  v20 = topLevelItem;
-  v21 = handlerCopy;
-  [testTarget setURL:v18 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v22];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __77__WBSCyclerModifyTabOperation__updateURLOfTab_withContext_completionHandler___block_invoke;
+  v23[3] = &unk_1E7FC5038;
+  v24 = topLevelItem;
+  v25 = tabCopy;
+  v26 = v10;
+  v27 = handlerCopy;
+  v19 = v10;
+  v20 = tabCopy;
+  v21 = topLevelItem;
+  v22 = handlerCopy;
+  [testTarget setURL:v19 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v23];
 }
 
 void __77__WBSCyclerModifyTabOperation__updateURLOfTab_withContext_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -209,7 +209,7 @@ void __77__WBSCyclerModifyTabOperation__updateURLOfTab_withContext_completionHan
 
 - (void)_modifyRandomTabGroupWithContext:(id)context completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   tabGroupsParent = [contextCopy tabGroupsParent];
@@ -217,35 +217,35 @@ void __77__WBSCyclerModifyTabOperation__updateURLOfTab_withContext_completionHan
   if (randomTabGroupDescendant)
   {
     randomItemTitle = [contextCopy randomItemTitle];
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXCycler(randomItemTitle, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = v10;
+      v12 = v11;
       uniqueIdentifier = [randomTabGroupDescendant uniqueIdentifier];
       title = [randomTabGroupDescendant title];
       *buf = 138543874;
-      v26 = uniqueIdentifier;
-      v27 = 2114;
-      v28 = title;
-      v29 = 2114;
-      v30 = randomItemTitle;
-      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Changing title of tab group (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
+      v27 = uniqueIdentifier;
+      v28 = 2114;
+      v29 = title;
+      v30 = 2114;
+      v31 = randomItemTitle;
+      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Changing title of tab group (identifier: %{public}@) from %{public}@ to %{public}@", buf, 0x20u);
     }
 
     topLevelItem = [contextCopy topLevelItem];
     testTarget = [contextCopy testTarget];
     uniqueIdentifier2 = [randomTabGroupDescendant uniqueIdentifier];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __82__WBSCyclerModifyTabOperation__modifyRandomTabGroupWithContext_completionHandler___block_invoke;
-    v20[3] = &unk_1E7FC5038;
-    v24 = handlerCopy;
-    v21 = topLevelItem;
-    v22 = randomTabGroupDescendant;
-    v23 = randomItemTitle;
-    v17 = randomItemTitle;
-    v18 = topLevelItem;
-    [testTarget setTitle:v17 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v20];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __82__WBSCyclerModifyTabOperation__modifyRandomTabGroupWithContext_completionHandler___block_invoke;
+    v21[3] = &unk_1E7FC5038;
+    v25 = handlerCopy;
+    v22 = topLevelItem;
+    v23 = randomTabGroupDescendant;
+    v24 = randomItemTitle;
+    v18 = randomItemTitle;
+    v19 = topLevelItem;
+    [testTarget setTitle:v18 forBookmarkWithIdentifier:uniqueIdentifier2 reply:v21];
   }
 
   else

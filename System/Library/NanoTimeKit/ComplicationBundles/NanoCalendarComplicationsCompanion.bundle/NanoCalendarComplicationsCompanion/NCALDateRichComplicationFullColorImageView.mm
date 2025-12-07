@@ -139,12 +139,12 @@ LABEL_5:
 
 - (void)layoutSubviews
 {
-  v36.receiver = self;
-  v36.super_class = NCALDateRichComplicationFullColorImageView;
-  [(NCALDateRichComplicationFullColorImageView *)&v36 layoutSubviews];
-  v35 = 0;
-  v34 = 0u;
-  memset(v33, 0, sizeof(v33));
+  v34.receiver = self;
+  v34.super_class = NCALDateRichComplicationFullColorImageView;
+  [(NCALDateRichComplicationFullColorImageView *)&v34 layoutSubviews];
+  v33 = 0;
+  v32 = 0u;
+  memset(v31, 0, sizeof(v31));
   [(NCALDateRichComplicationFullColorImageView *)self bounds:sub_6CE4(self->_device];
   v4 = v3;
   v6 = v5;
@@ -152,48 +152,46 @@ LABEL_5:
   v10 = v9;
   [(CLKUIColoringLabel *)self->_weekdayLabel sizeToFit];
   [(CLKUIColoringLabel *)self->_weekdayLabel frame];
-  device = self->_device;
   CLKRectCenteredXInRectForDevice();
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v18 = *&v34;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v17 = *&v32;
   [(CLKUIColoringLabel *)self->_weekdayLabel _lastLineBaseline];
-  [(CLKUIColoringLabel *)self->_weekdayLabel setFrame:v13, v18 - v19, v15, v17];
+  [(CLKUIColoringLabel *)self->_weekdayLabel setFrame:v12, v17 - v18, v14, v16];
   [(CLKUIColoringLabel *)self->_dayLabel sizeToFit];
   [(CLKUIColoringLabel *)self->_dayLabel frame];
-  v20 = self->_device;
   CLKRectCenteredXInRectForDevice();
+  v20 = v19;
   v22 = v21;
   v24 = v23;
-  v26 = v25;
-  v27 = v18 + *(&v34 + 1);
+  v25 = v17 + *(&v32 + 1);
   [(CLKUIColoringLabel *)self->_dayLabel _lastLineBaseline];
-  [(CLKUIColoringLabel *)self->_dayLabel setFrame:v22, v27 - v28, v24, v26];
-  v37.origin.x = v4;
-  v37.origin.y = v6;
-  v37.size.width = v8;
-  v37.size.height = v10;
-  Width = CGRectGetWidth(v37);
-  v38.origin.x = v4;
-  v38.origin.y = v6;
-  v38.size.width = v8;
-  v38.size.height = v10;
-  Height = CGRectGetHeight(v38);
+  [(CLKUIColoringLabel *)self->_dayLabel setFrame:v20, v25 - v26, v22, v24];
+  v35.origin.x = v4;
+  v35.origin.y = v6;
+  v35.size.width = v8;
+  v35.size.height = v10;
+  Width = CGRectGetWidth(v35);
+  v36.origin.x = v4;
+  v36.origin.y = v6;
+  v36.size.width = v8;
+  v36.size.height = v10;
+  Height = CGRectGetHeight(v36);
   if (Width < Height)
   {
     Height = Width;
   }
 
-  v31 = Height * 0.5;
+  v29 = Height * 0.5;
   layer = [(NCALDateRichComplicationFullColorImageView *)self layer];
-  [layer setCornerRadius:v31];
+  [layer setCornerRadius:v29];
 }
 
 - (void)_timeChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = ncs_log_complication();
+  v5 = ncs_log_complication(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     name = [changedCopy name];
@@ -290,8 +288,6 @@ LABEL_5:
 - (void)setOverrideDate:(id)date
 {
   dateCopy = date;
-  overrideDate = self->_overrideDate;
-  v7 = dateCopy;
   if ((NTKEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_overrideDate, date);

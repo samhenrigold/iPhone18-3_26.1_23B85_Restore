@@ -9,7 +9,7 @@
 
 - (SPSearchQuery)initWithSearchQueryContext:(id)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   searchString = [contextCopy searchString];
   v7 = SPLogForSPLogCategoryQuery();
@@ -27,13 +27,13 @@
   if (os_log_type_enabled(v7, v9))
   {
     *buf = 138412290;
-    v26 = searchString;
+    v25 = searchString;
     _os_log_impl(&dword_1C81BF000, v8, v9, "Started search on %@", buf, 0xCu);
   }
 
-  v24.receiver = self;
-  v24.super_class = SPSearchQuery;
-  v10 = [(SPSearchQuery *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SPSearchQuery;
+  v10 = [(SPSearchQuery *)&v23 init];
   v11 = v10;
   if (v10)
   {
@@ -75,7 +75,6 @@
     v11->_currentTime = v21;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

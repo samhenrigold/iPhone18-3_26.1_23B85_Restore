@@ -51,14 +51,14 @@
 
 - (void)launchMyAccountInWebView:(id)view
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [view propertyForKey:@"MY_ACCOUNT_URL"];
   getLogger = [(PSUIMyAccountSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v4;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Launch my account in web view pressed: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v4;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Launch my account in web view pressed: %@", &v12, 0xCu);
   }
 
   v6 = [[PSUICarrierSpaceMyAccountWebViewController alloc] initWithURLString:v4];
@@ -75,13 +75,11 @@
     v11 = objc_loadWeakRetained(&self->_hostController);
     [v11 presentViewController:self->_navCon animated:1 completion:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launchMyAccountInSafari:(id)safari
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEBC0];
   v5 = [safari propertyForKey:@"MY_ACCOUNT_URL"];
   v6 = [v4 URLWithString:v5];
@@ -89,16 +87,14 @@
   getLogger = [(PSUIMyAccountSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Launch my account in safari pressed: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Launch my account in safari pressed: %@", &v10, 0xCu);
   }
 
   v8 = *MEMORY[0x277D76620];
   v9 = objc_opt_new();
   [v8 openURL:v6 options:v9 completionHandler:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PSListController)hostController

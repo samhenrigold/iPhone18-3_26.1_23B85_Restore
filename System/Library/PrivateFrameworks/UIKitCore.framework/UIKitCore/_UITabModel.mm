@@ -246,9 +246,9 @@
   {
     if (v10 && v9)
     {
-      v12 = [(UITab *)v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (v12)
+      if (isEqual)
       {
         goto LABEL_18;
       }
@@ -613,9 +613,9 @@ LABEL_9:
 
       v10 = *(*(&v16 + 1) + 8 * i);
       identifier = [v10 identifier];
-      v12 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         v13 = v10;
       }
@@ -651,7 +651,7 @@ LABEL_14:
 - (void)setPersistenceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (![(NSString *)self->_persistenceIdentifier isEqualToString:identifierCopy])
+  if ((objc_msgSend_isEqualToString_(self->_persistenceIdentifier) & 1) == 0)
   {
     v5 = [identifierCopy copy];
     persistenceIdentifier = self->_persistenceIdentifier;

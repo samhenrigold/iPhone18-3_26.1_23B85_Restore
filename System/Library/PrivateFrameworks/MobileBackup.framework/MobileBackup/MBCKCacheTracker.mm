@@ -239,19 +239,18 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = v7;
+    v40 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Removing the cache db at %@", buf, 0xCu);
-    v31 = v7;
-    _MBLog();
+    _MBLog(@"Df", "Removing the cache db at %@", v7);
   }
 
   [(MBCKCacheTracker *)self _invalidateConnections];
   v9 = +[NSFileManager defaultManager];
   if ([v9 fileExistsAtPath:v7])
   {
-    v38 = 0;
-    v10 = [v9 removeItemAtPath:v7 error:&v38];
-    v11 = v38;
+    v37 = 0;
+    v10 = [v9 removeItemAtPath:v7 error:&v37];
+    v11 = v37;
     v12 = v11;
     if ((v10 & 1) == 0)
     {
@@ -261,11 +260,11 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v41 = v7;
-          v42 = 2112;
-          v43 = v12;
+          v40 = v7;
+          v41 = 2112;
+          v42 = v12;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to delete %@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to delete %@: %@", v7, v12);
         }
 
         v16 = v12;
@@ -282,32 +281,32 @@
   }
 
   MBSQLiteJournalSuffixes();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v18 = v37 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v18 = v36 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v19)
   {
     v20 = v19;
     errorCopy = error;
-    v21 = *v35;
+    v21 = *v34;
     while (2)
     {
       for (i = 0; i != v20; i = i + 1)
       {
-        if (*v35 != v21)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [v7 stringByAppendingString:{*(*(&v34 + 1) + 8 * i), v31}];
+        v23 = [v7 stringByAppendingString:*(*(&v33 + 1) + 8 * i)];
 
         if ([v9 fileExistsAtPath:v23])
         {
-          v33 = 0;
-          v24 = [v9 removeItemAtPath:v23 error:&v33];
-          v25 = v33;
+          v32 = 0;
+          v24 = [v9 removeItemAtPath:v23 error:&v32];
+          v25 = v32;
           v12 = v25;
           if ((v24 & 1) == 0)
           {
@@ -317,11 +316,11 @@
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v41 = v23;
-                v42 = 2112;
-                v43 = v12;
+                v40 = v23;
+                v41 = 2112;
+                v42 = v12;
                 _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to delete %@: %@", buf, 0x16u);
-                _MBLog();
+                _MBLog(@"E ", "Failed to delete %@: %@", v23, v12);
               }
 
               v29 = v12;
@@ -339,7 +338,7 @@
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v20)
       {
         continue;
@@ -377,13 +376,11 @@ LABEL_31:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v30 = v7;
-    v31 = 2112;
-    v32 = v5;
+    v31 = v7;
+    v32 = 2112;
+    v33 = v5;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "The database at %@ is corrupted and will be removed: %@", buf, 0x16u);
-    v24 = v7;
-    v25 = v5;
-    _MBLog();
+    _MBLog(@"E ", "The database at %@ is corrupted and will be removed: %@", v7, v5);
   }
 
   [(MBCKCacheTracker *)self _invalidateConnections];
@@ -403,97 +400,87 @@ LABEL_31:
     }
 
     v12 = v11;
-    v28 = 0;
-    v13 = [MBSQLiteFileHandle copySQLiteFileAtPath:v7 toPath:v11 error:&v28];
-    v14 = v28;
+    v29 = 0;
+    v13 = [MBSQLiteFileHandle copySQLiteFileAtPath:v7 toPath:v11 error:&v29];
+    v14 = v29;
     if ((v13 & 1) == 0)
     {
       v15 = MBGetDefaultLog();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v30 = v7;
-        v31 = 2112;
-        v32 = v14;
+        v31 = v7;
+        v32 = 2112;
+        v33 = v14;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to copy the SQLite file at %@: %@", buf, 0x16u);
-        v24 = v7;
-        v25 = v14;
-        _MBLog();
+        _MBLog(@"E ", "Failed to copy the SQLite file at %@: %@", v7, v14);
       }
     }
   }
 
-  v27 = 0;
-  v16 = [(MBCKCacheTracker *)self _removeDatabaseAtPath:v7 error:&v27, v24, v25];
-  v17 = v27;
+  v28 = 0;
+  v16 = [(MBCKCacheTracker *)self _removeDatabaseAtPath:v7 error:&v28];
+  v17 = v28;
   if ((v16 & 1) == 0)
   {
     v20 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-LABEL_22:
-
-      goto LABEL_23;
+      *buf = 138412546;
+      v31 = v7;
+      v32 = 2112;
+      v33 = v17;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to delete the database at %@: %@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to delete the database at %@: %@", v7, v17);
     }
 
-    *buf = 138412546;
-    v30 = v7;
-    v31 = 2112;
-    v32 = v17;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to delete the database at %@: %@", buf, 0x16u);
-LABEL_21:
-    _MBLog();
-    goto LABEL_22;
-  }
-
-  if (!MBIsInternalInstall())
-  {
-    goto LABEL_23;
-  }
-
-  domain = [v5 domain];
-  v19 = [domain isEqualToString:PQLSqliteErrorDomain];
-
-  if (!v19)
-  {
-    v20 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_22;
-    }
-
-    *buf = 138412290;
-    v30 = v5;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Removed cache database: %@", buf, 0xCu);
     goto LABEL_21;
   }
 
-  if ([v5 code] != 13)
+  if (MBIsInternalInstall())
   {
-    v20 = MBGetDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
-    {
-      code = [v5 code];
-      extendedSqliteCode = [v5 extendedSqliteCode];
-      v23 = [v5 description];
-      *buf = 134218498;
-      v30 = code;
-      v31 = 2048;
-      v32 = extendedSqliteCode;
-      v33 = 2112;
-      v34 = v23;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Removed cache database, code:%ld, extendedCode:%ld, description:%@", buf, 0x20u);
+    domain = [v5 domain];
+    v19 = [domain isEqualToString:PQLSqliteErrorDomain];
 
-      [v5 code];
-      [v5 extendedSqliteCode];
-      v26 = [v5 description];
-      _MBLog();
+    if (!v19)
+    {
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138412290;
+        v31 = v5;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Removed cache database: %@", buf, 0xCu);
+        _MBLog(@"F ", "Removed cache database: %@", v5, v27);
+      }
+
+      goto LABEL_21;
     }
 
-    goto LABEL_22;
-  }
+    if ([v5 code] != 13)
+    {
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      {
+        code = [v5 code];
+        extendedSqliteCode = [v5 extendedSqliteCode];
+        v23 = [v5 description];
+        *buf = 134218498;
+        v31 = code;
+        v32 = 2048;
+        v33 = extendedSqliteCode;
+        v34 = 2112;
+        v35 = v23;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "Removed cache database, code:%ld, extendedCode:%ld, description:%@", buf, 0x20u);
 
-LABEL_23:
+        code2 = [v5 code];
+        extendedSqliteCode2 = [v5 extendedSqliteCode];
+        v26 = [v5 description];
+        _MBLog(@"F ", "Removed cache database, code:%ld, extendedCode:%ld, description:%@", code2, extendedSqliteCode2, v26);
+      }
+
+LABEL_21:
+    }
+  }
 }
 
 - (BOOL)_resetDatabaseForAccount:(id)account error:(id *)error
@@ -517,10 +504,9 @@ LABEL_23:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = v9;
+    v23 = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Resetting the cache db at %{public}@", buf, 0xCu);
-    v21 = v9;
-    _MBLog();
+    _MBLog(@"Df", "Resetting the cache db at %{public}@", v9);
   }
 
   persona = [v7 persona];
@@ -543,27 +529,25 @@ LABEL_23:
     }
 
     v15 = v14;
-    v23 = 0;
-    v16 = [MBSQLiteFileHandle copySQLiteFileAtPath:v9 toPath:v14 error:&v23];
-    v17 = v23;
+    v21 = 0;
+    v16 = [MBSQLiteFileHandle copySQLiteFileAtPath:v9 toPath:v14 error:&v21];
+    v17 = v21;
     if ((v16 & 1) == 0)
     {
       v18 = MBGetDefaultLog();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v25 = v9;
-        v26 = 2114;
-        v27 = v17;
+        v23 = v9;
+        v24 = 2114;
+        v25 = v17;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to copy the SQLite file at %{public}@: %{public}@", buf, 0x16u);
-        v21 = v9;
-        v22 = v17;
-        _MBLog();
+        _MBLog(@"E ", "Failed to copy the SQLite file at %{public}@: %{public}@", v9, v17);
       }
     }
   }
 
-  v19 = [(MBCKCacheTracker *)self _removeDatabaseAtPath:v9 error:error, v21, v22];
+  v19 = [(MBCKCacheTracker *)self _removeDatabaseAtPath:v9 error:error];
 
   return v19;
 }

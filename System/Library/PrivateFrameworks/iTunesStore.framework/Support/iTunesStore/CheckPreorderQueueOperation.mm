@@ -56,91 +56,100 @@
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v4 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    v31 = 138412290;
-    v32 = objc_opt_class();
-    LODWORD(v29) = 12;
-    v27 = &v31;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v34 = 138412290;
+    v35 = objc_opt_class();
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking preorder queue", &v34, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [NSString stringWithCString:v7 encoding:4, &v31, v29];
-      free(v8);
-      v27 = v9;
+      v9 = v8;
+      v10 = [NSString stringWithCString:v8 encoding:4];
+      free(v9);
+      v30 = v10;
       SSFileLog();
     }
   }
 
-  v30 = 0;
-  v10 = [(CheckPreorderQueueOperation *)self runSubOperation:_newURLOperation returningError:&v30, v27];
-  if (v10)
+  v33 = 0;
+  v11 = [(CheckPreorderQueueOperation *)self runSubOperation:_newURLOperation returningError:&v33, v30];
+  if (v11)
   {
-    v11 = [objc_msgSend(_newURLOperation "dataProvider")];
+    v12 = [objc_msgSend(_newURLOperation "dataProvider")];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [v11 objectForKey:@"pre-order-queue-count"];
+      v13 = [v12 objectForKey:@"pre-order-queue-count"];
       if (objc_opt_respondsToSelector())
       {
-        v13 = +[SSLogConfig sharedDaemonConfig];
-        if (!v13)
+        v14 = +[SSLogConfig sharedDaemonConfig];
+        if (!v14)
         {
-          v13 = +[SSLogConfig sharedConfig];
+          v14 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v13 shouldLog];
-        if ([v13 shouldLogToDisk])
+        shouldLog2 = [v14 shouldLog];
+        if ([v14 shouldLogToDisk])
         {
-          v15 = shouldLog2 | 2;
+          LODWORD(v16) = shouldLog2 | 2;
         }
 
         else
         {
-          v15 = shouldLog2;
+          LODWORD(v16) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject2 = [v14 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v15 &= 2u;
+          v16 = v16;
         }
 
-        if (v15)
+        else
         {
-          v16 = objc_opt_class();
-          v31 = 138412546;
-          v32 = v16;
-          v33 = 2112;
-          v34 = v12;
-          LODWORD(v29) = 22;
-          v28 = &v31;
-          v17 = _os_log_send_and_compose_impl();
-          if (v17)
+          v16 &= 2u;
+        }
+
+        if (v16)
+        {
+          v18 = objc_opt_class();
+          v34 = 138412546;
+          v35 = v18;
+          v36 = 2112;
+          v37 = v13;
+          LODWORD(v32) = 22;
+          v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Found %@ preorders in the queue", &v34, v32);
+          if (v19)
           {
-            v18 = v17;
-            v19 = [NSString stringWithCString:v17 encoding:4, &v31, v29];
-            free(v18);
-            v28 = v19;
+            v20 = v19;
+            v21 = [NSString stringWithCString:v19 encoding:4];
+            free(v20);
+            v31 = v21;
             SSFileLog();
           }
         }
 
         [(CheckPreorderQueueOperation *)self lock];
-        self->_numberOfPreorders = [v12 intValue];
+        self->_numberOfPreorders = [v13 intValue];
         [(CheckPreorderQueueOperation *)self unlock];
       }
     }
@@ -148,51 +157,56 @@
 
   else
   {
-    v20 = +[SSLogConfig sharedDaemonConfig];
-    if (!v20)
+    v22 = +[SSLogConfig sharedDaemonConfig];
+    if (!v22)
     {
-      v20 = +[SSLogConfig sharedConfig];
+      v22 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v20 shouldLog];
-    if ([v20 shouldLogToDisk])
+    shouldLog3 = [v22 shouldLog];
+    if ([v22 shouldLogToDisk])
     {
-      v22 = shouldLog3 | 2;
+      LODWORD(v24) = shouldLog3 | 2;
     }
 
     else
     {
-      v22 = shouldLog3;
+      LODWORD(v24) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v22 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v22 &= 2u;
+      v24 = v24;
     }
 
-    if (v22)
+    else
     {
-      v23 = objc_opt_class();
-      v31 = 138412546;
-      v32 = v23;
-      v33 = 2112;
-      v34 = v30;
-      LODWORD(v29) = 22;
-      v28 = &v31;
-      v24 = _os_log_send_and_compose_impl();
-      if (v24)
+      v24 &= 2u;
+    }
+
+    if (v24)
+    {
+      v26 = objc_opt_class();
+      v34 = 138412546;
+      v35 = v26;
+      v36 = 2112;
+      v37 = v33;
+      LODWORD(v32) = 22;
+      v27 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not check preorder queue: %@", &v34, v32);
+      if (v27)
       {
-        v25 = v24;
-        v26 = [NSString stringWithCString:v24 encoding:4, &v31, v29];
-        free(v25);
-        v28 = v26;
+        v28 = v27;
+        v29 = [NSString stringWithCString:v27 encoding:4];
+        free(v28);
+        v31 = v29;
         SSFileLog();
       }
     }
   }
 
-  [(CheckPreorderQueueOperation *)self setError:v30, v28];
-  [(CheckPreorderQueueOperation *)self setSuccess:v10];
+  [(CheckPreorderQueueOperation *)self setError:v33, v31];
+  [(CheckPreorderQueueOperation *)self setSuccess:v11];
 }
 
 - (id)_newURLOperation

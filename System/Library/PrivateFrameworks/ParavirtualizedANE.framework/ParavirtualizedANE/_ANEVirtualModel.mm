@@ -61,69 +61,59 @@
 
 - (void)addCachedReference
 {
-  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v6 = NSStringFromSelector(a2);
   model = [a3 model];
   modelURL = [model modelURL];
   [a3 refcount];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25DF54000, v9, v10, "%@: ANEVirtualModel addCachedReference model url %@ refcount %lld", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25DF54000, v9, v10, "%@: ANEVirtualModel addCachedReference model url %@ refcount %lld", v11, v12, v13, v14);
 }
 
 - (BOOL)removeCachedReference
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   model = [(_ANEVirtualModel *)self model];
 
-  if (model)
+  if (!model)
   {
-    [(_ANEVirtualModel *)self setRefcount:[(_ANEVirtualModel *)self refcount]- 1];
-    refcount = [(_ANEVirtualModel *)self refcount];
-    v6 = refcount < 1;
-    v7 = gLogger;
-    if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
-    {
-      v8 = refcount < 1;
-      v9 = v7;
-      v10 = NSStringFromSelector(a2);
-      model2 = [(_ANEVirtualModel *)self model];
-      modelURL = [model2 modelURL];
-      v15 = 138413058;
-      v16 = v10;
-      v17 = 2112;
-      v18 = modelURL;
-      v19 = 2048;
-      refcount2 = [(_ANEVirtualModel *)self refcount];
-      v21 = 1024;
-      v22 = v8;
-      _os_log_debug_impl(&dword_25DF54000, v9, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualModel removeCachedReference model url %@ refcount %lld canBeRemoved %d", &v15, 0x26u);
-    }
+    return 1;
   }
 
-  else
+  [(_ANEVirtualModel *)self setRefcount:[(_ANEVirtualModel *)self refcount]- 1];
+  refcount = [(_ANEVirtualModel *)self refcount];
+  v6 = refcount < 1;
+  v7 = gLogger;
+  if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 1;
+    v8 = refcount < 1;
+    v9 = v7;
+    v10 = NSStringFromSelector(a2);
+    model2 = [(_ANEVirtualModel *)self model];
+    modelURL = [model2 modelURL];
+    v14 = 138413058;
+    v15 = v10;
+    v16 = 2112;
+    v17 = modelURL;
+    v18 = 2048;
+    refcount2 = [(_ANEVirtualModel *)self refcount];
+    v20 = 1024;
+    v21 = v8;
+    _os_log_debug_impl(&dword_25DF54000, v9, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualModel removeCachedReference model url %@ refcount %lld canBeRemoved %d", &v14, 0x26u);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)initWithModel:(void *)a1 tmpModelFilesPath:(const char *)a2 tmpWeightFilesPath:(void *)a3 .cold.1(void *a1, const char *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromSelector(a2);
   v7 = [a3 model];
   v8 = [v7 modelURL];
   [a3 refcount];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25DF54000, v9, v10, "%@: ANEVirtualModel initWithModel model url %@ refcount %lld", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25DF54000, v9, v10, "%@: ANEVirtualModel initWithModel model url %@ refcount %lld", v11, v12, v13, v14);
 }
 
 @end

@@ -27,7 +27,7 @@
           v6 = PFUIGetLog();
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
-            *v8 = 0;
+            v8[0] = 0;
             _os_log_impl(&dword_1B3F73000, v6, OS_LOG_TYPE_DEFAULT, "Currently only supporting NSShadowAttributeName spanning the whole string", v8, 2u);
           }
 

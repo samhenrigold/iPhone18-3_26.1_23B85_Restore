@@ -30,12 +30,12 @@
   persistentUserInfo = [(HDIDSOutgoingRequest *)self persistentUserInfo];
   v4 = [HDCodableNanoSyncMessage messageFromPersistentUserInfo:persistentUserInfo];
 
-  LODWORD(persistentUserInfo) = [(HDIDSOutgoingRequest *)self messageID];
+  messageID = [(HDIDSOutgoingRequest *)self messageID];
   idsIdentifier = [(HDIDSOutgoingRequest *)self idsIdentifier];
   nanoSyncDescription = [v4 nanoSyncDescription];
-  v7 = FormattedMessageDescription(persistentUserInfo, 0, 1, idsIdentifier, nanoSyncDescription);
+  v8 = FormattedMessageDescription(messageID, 0, 1, idsIdentifier, nanoSyncDescription);
 
-  return v7;
+  return v8;
 }
 
 + (id)activationRequestWithRestore:(id)restore syncStore:(id)store profile:(id)profile

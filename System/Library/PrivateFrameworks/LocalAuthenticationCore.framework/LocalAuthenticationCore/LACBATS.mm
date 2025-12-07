@@ -20,9 +20,11 @@
 
 uint64_t __25__LACBATS_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_4 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_4;
+  sharedInstance_sharedInstance_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (LACBATS)init

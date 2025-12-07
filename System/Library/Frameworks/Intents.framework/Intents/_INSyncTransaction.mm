@@ -14,7 +14,7 @@
 
 - (void)_beginTransaction
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (self->_deleteExistingVocabulary)
   {
     [(_INSyncTransaction *)self _deleteInvalidSavedData];
@@ -25,7 +25,7 @@ LABEL_17:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "[_INSyncTransaction _beginTransaction]";
+      v21 = "[_INSyncTransaction _beginTransaction]";
       _os_log_impl(&dword_18E991000, v15, OS_LOG_TYPE_INFO, "%s No sent vocabulary at all, forcing a sync up once.", buf, 0xCu);
     }
 
@@ -44,18 +44,18 @@ LABEL_17:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v22 = "[_INSyncTransaction _beginTransaction]";
-    v23 = 2112;
-    v24 = v5;
+    v21 = "[_INSyncTransaction _beginTransaction]";
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s staging at %@", buf, 0x16u);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:v5];
   v9 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_pathToLatestVocabularyDocument];
-  v20 = 0;
-  v10 = [defaultManager replaceItemAtURL:v8 withItemAtURL:v9 backupItemName:0 options:0 resultingItemURL:0 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [defaultManager replaceItemAtURL:v8 withItemAtURL:v9 backupItemName:0 options:0 resultingItemURL:0 error:&v19];
+  v11 = v19;
 
   if ((v10 & 1) == 0)
   {
@@ -66,7 +66,7 @@ LABEL_17:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v22 = "[_INSyncTransaction _beginTransaction]";
+        v21 = "[_INSyncTransaction _beginTransaction]";
         _os_log_impl(&dword_18E991000, v13, OS_LOG_TYPE_INFO, "%s No latest vocabulary file", buf, 0xCu);
       }
     }
@@ -74,9 +74,9 @@ LABEL_17:
     else if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[_INSyncTransaction _beginTransaction]";
-      v23 = 2114;
-      v24 = v11;
+      v21 = "[_INSyncTransaction _beginTransaction]";
+      v22 = 2114;
+      v23 = v11;
       _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Error reading latest vocabulary file: %{public}@", buf, 0x16u);
     }
   }
@@ -110,8 +110,6 @@ LABEL_20:
 
   sent = self->_sent;
   self->_sent = _emptySentDocument;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isMissingLatestFileError:(id)error
@@ -149,7 +147,7 @@ LABEL_7:
 
 - (void)_deleteInvalidSavedData
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
@@ -157,13 +155,13 @@ LABEL_7:
     storeManager = self->_storeManager;
     v6 = v3;
     appBundleID = [(_INVocabularyStoreManager *)storeManager appBundleID];
-    v12 = 136315650;
-    v13 = "[_INSyncTransaction _deleteInvalidSavedData]";
-    v14 = 2112;
-    v15 = syncSlot;
-    v16 = 2112;
-    v17 = appBundleID;
-    _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Removing all vocabulary of type %@ for %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[_INSyncTransaction _deleteInvalidSavedData]";
+    v13 = 2112;
+    v14 = syncSlot;
+    v15 = 2112;
+    v16 = appBundleID;
+    _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Removing all vocabulary of type %@ for %@", &v11, 0x20u);
   }
 
   v8 = [(_INVocabularyStoreManager *)self->_storeManager deleteIntentSlot:self->_syncSlot];
@@ -172,18 +170,16 @@ LABEL_7:
     v9 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v11 = self->_syncSlot;
-      v12 = 136315650;
-      v13 = "[_INSyncTransaction _deleteInvalidSavedData]";
-      v14 = 2114;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v8;
-      _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Error cleaning up %{public}@ %{public}@", &v12, 0x20u);
+      v10 = self->_syncSlot;
+      v11 = 136315650;
+      v12 = "[_INSyncTransaction _deleteInvalidSavedData]";
+      v13 = 2114;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v8;
+      _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Error cleaning up %{public}@ %{public}@", &v11, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_emptySentDocument
@@ -214,7 +210,7 @@ LABEL_7:
 
 - (void)endTransactionWithFinalAnchor:(id)anchor
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   anchorCopy = anchor;
   [(_INVocabularyGenerationDocument *)self->_latest setThisGeneration:anchorCopy];
   [(_INVocabularyGenerationDocument *)self->_latest setResetOnNextSync:0];
@@ -230,13 +226,13 @@ LABEL_7:
     v7 = MEMORY[0x1E696AD98];
     v8 = v6;
     v9 = [v7 numberWithBool:vocabularyUpdatesEnabled];
-    v13 = 136315650;
-    v14 = "[_INSyncTransaction endTransactionWithFinalAnchor:]";
-    v15 = 2112;
-    v16 = anchorCopy;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s finalAnchor = '%@' cleaning up=%@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[_INSyncTransaction endTransactionWithFinalAnchor:]";
+    v14 = 2112;
+    v15 = anchorCopy;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s finalAnchor = '%@' cleaning up=%@", &v12, 0x20u);
   }
 
   if (vocabularyUpdatesEnabled)
@@ -249,13 +245,11 @@ LABEL_7:
 
   sent = self->_sent;
   self->_sent = 0;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveAndCleanup
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   vocabularyItems = [(_INVocabularyGenerationDocument *)self->_latest vocabularyItems];
   v4 = [vocabularyItems count];
 
@@ -267,13 +261,13 @@ LABEL_7:
     {
       latest = self->_latest;
       pathToSentVocabularyDocument = self->_pathToSentVocabularyDocument;
-      v22 = 136315650;
-      v23 = "[_INSyncTransaction _saveAndCleanup]";
-      v24 = 2112;
-      v25 = latest;
-      v26 = 2112;
-      v27 = pathToSentVocabularyDocument;
-      _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s Saving latest vocab %@ to %@", &v22, 0x20u);
+      v21 = 136315650;
+      v22 = "[_INSyncTransaction _saveAndCleanup]";
+      v23 = 2112;
+      v24 = latest;
+      v25 = 2112;
+      v26 = pathToSentVocabularyDocument;
+      _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s Saving latest vocab %@ to %@", &v21, 0x20u);
     }
 
     v9 = [(_INVocabularyGenerationDocument *)self->_latest writeToFile:self->_pathToSentVocabularyDocument createIntermediateDirectories:0];
@@ -283,13 +277,13 @@ LABEL_7:
       v11 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v22 = 136315394;
-        v23 = "[_INSyncTransaction _saveAndCleanup]";
-        v24 = 2114;
-        v25 = v10;
+        v21 = 136315394;
+        v22 = "[_INSyncTransaction _saveAndCleanup]";
+        v23 = 2114;
+        v24 = v10;
         v12 = "%s Error writing sent file %{public}@";
 LABEL_19:
-        _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, v12, &v22, 0x16u);
+        _os_log_error_impl(&dword_18E991000, v11, OS_LOG_TYPE_ERROR, v12, &v21, 0x16u);
         goto LABEL_17;
       }
 
@@ -305,13 +299,13 @@ LABEL_19:
       storeManager = self->_storeManager;
       v15 = v5;
       appBundleID = [(_INVocabularyStoreManager *)storeManager appBundleID];
-      v22 = 136315650;
-      v23 = "[_INSyncTransaction _saveAndCleanup]";
-      v24 = 2112;
-      v25 = syncSlot;
-      v26 = 2112;
-      v27 = appBundleID;
-      _os_log_impl(&dword_18E991000, v15, OS_LOG_TYPE_INFO, "%s Removing the sent file, because it is now empty %@ %@", &v22, 0x20u);
+      v21 = 136315650;
+      v22 = "[_INSyncTransaction _saveAndCleanup]";
+      v23 = 2112;
+      v24 = syncSlot;
+      v25 = 2112;
+      v26 = appBundleID;
+      _os_log_impl(&dword_18E991000, v15, OS_LOG_TYPE_INFO, "%s Removing the sent file, because it is now empty %@ %@", &v21, 0x20u);
     }
 
     v17 = [(_INVocabularyStoreManager *)self->_storeManager deleteVocabularyStoreItemAt:self->_pathToSentVocabularyDocument];
@@ -320,11 +314,11 @@ LABEL_19:
       v18 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v22 = 136315394;
-        v23 = "[_INSyncTransaction _saveAndCleanup]";
-        v24 = 2114;
-        v25 = v17;
-        _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Error removing empty sent vocab file %{public}@", &v22, 0x16u);
+        v21 = 136315394;
+        v22 = "[_INSyncTransaction _saveAndCleanup]";
+        v23 = 2114;
+        v24 = v17;
+        _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Error removing empty sent vocab file %{public}@", &v21, 0x16u);
       }
     }
   }
@@ -333,11 +327,11 @@ LABEL_19:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     pathToStagedVocabularyDocument = self->_pathToStagedVocabularyDocument;
-    v22 = 136315394;
-    v23 = "[_INSyncTransaction _saveAndCleanup]";
-    v24 = 2112;
-    v25 = pathToStagedVocabularyDocument;
-    _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s Removing staged vocabulary at %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[_INSyncTransaction _saveAndCleanup]";
+    v23 = 2112;
+    v24 = pathToStagedVocabularyDocument;
+    _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s Removing staged vocabulary at %@", &v21, 0x16u);
   }
 
   v10 = [(_INVocabularyStoreManager *)self->_storeManager deleteVocabularyStoreItemAt:self->_pathToStagedVocabularyDocument];
@@ -346,28 +340,26 @@ LABEL_19:
     v11 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315394;
-      v23 = "[_INSyncTransaction _saveAndCleanup]";
-      v24 = 2114;
-      v25 = v10;
+      v21 = 136315394;
+      v22 = "[_INSyncTransaction _saveAndCleanup]";
+      v23 = 2114;
+      v24 = v10;
       v12 = "%s Error cleaning up user vocabulary %{public}@";
       goto LABEL_19;
     }
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithVocabularyManager:(id)manager syncSlot:(id)slot deleteExistingVocabulary:(BOOL)vocabulary
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   slotCopy = slot;
-  v37.receiver = self;
-  v37.super_class = _INSyncTransaction;
-  v11 = [(_INSyncTransaction *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = _INSyncTransaction;
+  v11 = [(_INSyncTransaction *)&v36 init];
   if (!v11)
   {
     goto LABEL_17;
@@ -401,9 +393,9 @@ LABEL_17:
       v21 = v19;
       appBundleID2 = [(_INVocabularyStoreManager *)storeManager appBundleID];
       *buf = 136315394;
-      v39 = "[_INSyncTransaction _initWithVocabularyManager:syncSlot:deleteExistingVocabulary:]";
-      v40 = 2112;
-      v41 = appBundleID2;
+      v38 = "[_INSyncTransaction _initWithVocabularyManager:syncSlot:deleteExistingVocabulary:]";
+      v39 = 2112;
+      v40 = appBundleID2;
       _os_log_impl(&dword_18E991000, v21, OS_LOG_TYPE_INFO, "%s Vocabulary updates disabled for %@", buf, 0x16u);
     }
   }
@@ -413,25 +405,25 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v35 = 0;
-  v36 = 0;
   v34 = 0;
-  v23 = [(_INVocabularyStoreManager *)v11->_storeManager getPathToLatestVocabulary:&v36 pathDuringReading:&v35 sentVocabulary:&v34 forIntentSlot:v11->_syncSlot];
-  v24 = v36;
-  v25 = v36;
-  v26 = v35;
-  v27 = v35;
-  v28 = v34;
-  v29 = v34;
+  v35 = 0;
+  v33 = 0;
+  v23 = [(_INVocabularyStoreManager *)v11->_storeManager getPathToLatestVocabulary:&v35 pathDuringReading:&v34 sentVocabulary:&v33 forIntentSlot:v11->_syncSlot];
+  v24 = v35;
+  v25 = v35;
+  v26 = v34;
+  v27 = v34;
+  v28 = v33;
+  v29 = v33;
   if (v23)
   {
     v30 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v39 = "[_INSyncTransaction _initWithVocabularyManager:syncSlot:deleteExistingVocabulary:]";
-      v40 = 2114;
-      v41 = v23;
+      v38 = "[_INSyncTransaction _initWithVocabularyManager:syncSlot:deleteExistingVocabulary:]";
+      v39 = 2114;
+      v40 = v23;
       _os_log_error_impl(&dword_18E991000, v30, OS_LOG_TYPE_ERROR, "%s Error accessing intent-slot directory %{public}@", buf, 0x16u);
     }
   }
@@ -454,52 +446,51 @@ LABEL_17:
     v31 = v11;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 + (id)beginTransactionForBundleID:(id)d bundlePath:(id)path syncSlot:(id)slot
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dCopy = d;
   pathCopy = path;
   slotCopy = slot;
   v11 = [_INVocabularyStoreManager managerForBundleID:dCopy bundlePath:pathCopy];
   if (v11)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 1;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v32 = 1;
     v12 = dispatch_group_create();
     dispatch_group_enter(v12);
-    v22 = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __70___INSyncTransaction_beginTransactionForBundleID_bundlePath_syncSlot___block_invoke;
-    v25 = &unk_1E7280710;
-    v29 = &v30;
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __70___INSyncTransaction_beginTransactionForBundleID_bundlePath_syncSlot___block_invoke;
+    v24 = &unk_1E7280710;
+    v28 = &v29;
     v13 = dCopy;
-    v26 = v13;
+    v25 = v13;
     v14 = slotCopy;
-    v27 = v14;
+    v26 = v14;
     v15 = v12;
-    v28 = v15;
-    [v11 checkIfSyncSlot:v14 isAllowedWithCompletion:&v22];
+    v27 = v15;
+    [v11 checkIfSyncSlot:v14 isAllowedWithCompletion:&v21];
     dispatch_group_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
-    v16 = *(v31 + 24);
+    v16 = *(v30 + 24);
     if ((v16 & 1) == 0)
     {
       v17 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v35 = "+[_INSyncTransaction beginTransactionForBundleID:bundlePath:syncSlot:]";
-        v36 = 2114;
-        v37 = v14;
-        v38 = 2114;
-        v39 = v13;
-        v40 = 2114;
-        v41 = pathCopy;
+        v34 = "+[_INSyncTransaction beginTransactionForBundleID:bundlePath:syncSlot:]";
+        v35 = 2114;
+        v36 = v14;
+        v37 = 2114;
+        v38 = v13;
+        v39 = 2114;
+        v40 = pathCopy;
         _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Sync slot %{public}@ is not valid for %{public}@ at %{public}@", buf, 0x2Au);
       }
 
@@ -507,18 +498,16 @@ LABEL_17:
     }
 
     v18 = [self alloc];
-    v19 = [v18 _initWithVocabularyManager:v11 syncSlot:v14 deleteExistingVocabulary:{v16 ^ 1u, v22, v23, v24, v25}];
+    v19 = [v18 _initWithVocabularyManager:v11 syncSlot:v14 deleteExistingVocabulary:{v16 ^ 1u, v21, v22, v23, v24}];
     [v19 _beginTransaction];
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   else
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

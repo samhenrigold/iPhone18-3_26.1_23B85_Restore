@@ -242,311 +242,311 @@
   v13 = [(NSMutableArray *)v10 count];
   [(EKDayAllDayView *)v9 bounds];
   scroller = v9->_scroller;
-  v115 = v13 + 1;
-  v117 = (v13 + 1) >> 1;
-  if (v117 > v9->_maxVisibleRows)
+  v119 = v13 + 1;
+  v121 = (v13 + 1) >> 1;
+  if (v121 > v9->_maxVisibleRows)
   {
     v17 = v15;
     if (scroller)
     {
-      [(UIScrollView *)scroller frame];
-      v19 = v18;
-      v21 = v20;
-      v22 = v17 - self->_occurrenceInset;
-      v23 = 0.0;
-      if (CalInterfaceIsLeftToRight())
+      frame = [(UIScrollView *)scroller frame];
+      v20 = v19;
+      v22 = v21;
+      v23 = v17 - self->_occurrenceInset;
+      v24 = 0.0;
+      if (CalInterfaceIsLeftToRight(frame, v25))
       {
-        v23 = self->_occurrenceInset;
+        v24 = self->_occurrenceInset;
       }
 
-      [(UIScrollView *)v9->_scroller setFrame:v23, v19, v22, v21, v115];
+      [(UIScrollView *)v9->_scroller setFrame:v24, v20, v23, v22, v119];
     }
 
     else
     {
       [(EKDayAllDayView *)v9 _allDayAreaHeightForEventCount:v13];
-      v26 = v25;
-      v27 = objc_alloc(MEMORY[0x1E69DCEF8]);
-      IsLeftToRight = CalInterfaceIsLeftToRight();
-      v29 = 0.0;
+      v28 = v27;
+      v29 = objc_alloc(MEMORY[0x1E69DCEF8]);
+      IsLeftToRight = CalInterfaceIsLeftToRight(v29, v30);
+      v32 = 0.0;
       if (IsLeftToRight)
       {
-        v29 = self->_occurrenceInset;
+        v32 = self->_occurrenceInset;
       }
 
-      v30 = [v27 initWithFrame:{v29, 0.0, v17 - self->_occurrenceInset, v26, v115}];
-      v31 = v9->_scroller;
-      v9->_scroller = v30;
+      v33 = [v29 initWithFrame:{v32, 0.0, v17 - self->_occurrenceInset, v28, v119}];
+      v34 = v9->_scroller;
+      v9->_scroller = v33;
 
       if ((CalSolariumEnabled() & 1) == 0)
       {
-        v32 = v9->_scroller;
+        v35 = v9->_scroller;
         backgroundColor = [(EKDayAllDayView *)v9 backgroundColor];
-        [(UIScrollView *)v32 setBackgroundColor:backgroundColor];
+        [(UIScrollView *)v35 setBackgroundColor:backgroundColor];
       }
     }
 
     [(EKDayAllDayView *)v9 addSubview:v9->_scroller];
-    v123 = v9->_scroller;
+    v127 = v9->_scroller;
     occurrenceInset = 0.0;
-    v24 = v9;
+    v26 = v9;
     goto LABEL_17;
   }
 
   if (scroller)
   {
     [(UIScrollView *)scroller removeFromSuperview];
-    v24 = v9->_scroller;
+    v26 = v9->_scroller;
     v9->_scroller = 0;
-    v123 = v9;
+    v127 = v9;
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v123 = v9;
+  v127 = v9;
 LABEL_18:
-  v34 = v5;
-  *&v14 = v34;
-  v125 = [MEMORY[0x1E696AD98] numberWithFloat:{v14, v115}];
-  v35 = objc_opt_new();
+  v37 = v5;
+  *&v14 = v37;
+  v129 = [MEMORY[0x1E696AD98] numberWithFloat:{v14, v119}];
+  v38 = objc_opt_new();
   CalRoundToScreenScale(v12 * 0.5);
-  v37 = v36;
+  v40 = v39;
   _selectedCopyView = [(EKDayAllDayView *)v9 _selectedCopyView];
-  v39 = _selectedCopyView;
+  v42 = _selectedCopyView;
   if (v13)
   {
-    v121 = _selectedCopyView;
-    v40 = 0;
-    v120 = v37 + -3.5;
+    v125 = _selectedCopyView;
+    v43 = 0;
+    v124 = v40 + -3.5;
     do
     {
-      v41 = [(NSMutableArray *)v11 objectAtIndex:v40];
-      currentImageState = [v41 currentImageState];
+      v44 = [(NSMutableArray *)v11 objectAtIndex:v43];
+      currentImageState = [v44 currentImageState];
       requiresLanguageAwarePadding = [currentImageState requiresLanguageAwarePadding];
 
       if (requiresLanguageAwarePadding)
       {
-        v45 = MEMORY[0x1E696AD98];
-        [(EKDayAllDayView *)v9 _languageAwareAllDayEventHeight:v41];
-        *&v46 = v46;
-        v47 = [v45 numberWithFloat:v46];
+        v48 = MEMORY[0x1E696AD98];
+        [(EKDayAllDayView *)v9 _languageAwareAllDayEventHeight:v44];
+        *&v49 = v49;
+        v50 = [v48 numberWithFloat:v49];
 
-        [v35 addObject:v47];
-        if (v40)
+        [v38 addObject:v50];
+        if (v43)
         {
-          [v35 replaceObjectAtIndex:v40 - 1 withObject:v47];
+          [v38 replaceObjectAtIndex:v43 - 1 withObject:v50];
         }
 
-        v125 = v47;
+        v129 = v50;
       }
 
       else
       {
-        if (v40)
+        if (v43)
         {
-          v49 = v125;
+          v52 = v129;
         }
 
         else
         {
-          *&v44 = v34;
-          v48 = [MEMORY[0x1E696AD98] numberWithFloat:v44];
+          *&v47 = v37;
+          v51 = [MEMORY[0x1E696AD98] numberWithFloat:v47];
 
-          v49 = v48;
+          v52 = v51;
         }
 
-        v125 = v49;
-        [v35 addObject:?];
+        v129 = v52;
+        [v38 addObject:?];
       }
 
-      ++v40;
+      ++v43;
     }
 
-    while (v13 != v40);
-    v122 = v35;
-    v124 = 0;
-    v50 = 0;
-    v51 = occurrenceInset + 5.5;
-    v118 = v12 + -7.5;
-    v119 = *(MEMORY[0x1E695F058] + 16);
-    v52 = 4.0;
+    while (v13 != v43);
+    v126 = v38;
+    v128 = 0;
+    v53 = 0;
+    v54 = occurrenceInset + 5.5;
+    v122 = v12 + -7.5;
+    v123 = *(MEMORY[0x1E695F058] + 16);
+    v55 = 4.0;
     while (1)
     {
-      v53 = v11;
-      v54 = [(NSMutableArray *)v11 objectAtIndex:v50];
-      superview = [v54 superview];
+      v56 = v11;
+      v57 = [(NSMutableArray *)v11 objectAtIndex:v53];
+      superview = [v57 superview];
 
-      if (superview != v123)
+      if (superview != v127)
       {
-        [(UIScrollView *)v123 addSubview:v54];
+        [(UIScrollView *)v127 addSubview:v57];
       }
 
-      v56 = v13 == 1;
+      v59 = v13 == 1;
       forceSingleColumnLayout = [(EKDayAllDayView *)v9 forceSingleColumnLayout];
-      v58 = forceSingleColumnLayout;
-      if (v50)
+      v62 = forceSingleColumnLayout;
+      if (v53)
       {
-        v56 = 0;
-        v59 = forceSingleColumnLayout;
+        v59 = 0;
+        v63 = forceSingleColumnLayout;
       }
 
       else
       {
-        v59 = 1;
+        v63 = 1;
       }
 
-      if (CalInterfaceIsLeftToRight())
+      if (CalInterfaceIsLeftToRight(forceSingleColumnLayout, v61))
       {
-        v60 = v120;
-        if ((v50 & 1) == 0)
+        v64 = v124;
+        if ((v53 & 1) == 0)
         {
-          v60 = 0.0;
+          v64 = 0.0;
         }
 
-        v61 = v51 + v60;
+        v65 = v54 + v64;
         if ([(EKDayAllDayView *)v9 forceSingleColumnLayout])
         {
-          v62 = v51;
+          v66 = v54;
         }
 
         else
         {
-          v62 = v61;
+          v66 = v65;
         }
       }
 
       else
       {
         forceSingleColumnLayout2 = [(EKDayAllDayView *)v9 forceSingleColumnLayout];
-        if (v50)
+        if (v53)
         {
-          v64 = forceSingleColumnLayout2;
+          v68 = forceSingleColumnLayout2;
         }
 
         else
         {
-          v64 = 1;
+          v68 = 1;
         }
 
-        if (v64)
+        if (v68)
         {
-          v62 = 2.0;
+          v66 = 2.0;
         }
 
         else
         {
-          v62 = v120 + 2.0;
+          v66 = v124 + 2.0;
         }
       }
 
-      v65 = [v122 objectAtIndex:v50];
-      [v65 floatValue];
-      v67 = v66;
+      v69 = [v126 objectAtIndex:v53];
+      [v69 floatValue];
+      v71 = v70;
 
-      v68 = 0.0;
+      v72 = 0.0;
       if (EKUICurrentWidthSizeClassIsRegularInViewHierarchy(v9))
       {
-        v68 = CalFloorToScreenScale(-0.5);
+        v72 = CalFloorToScreenScale(-0.5);
       }
 
-      v69 = v67;
-      v70 = v120 + -1.0;
-      if ((((v50 & 1) == 0) ^ v56) & ~v58)
+      v73 = v71;
+      v74 = v124 + -1.0;
+      if ((((v53 & 1) == 0) ^ v59) & ~v62)
       {
         goto LABEL_54;
       }
 
-      if (v59)
+      if (v63)
       {
         break;
       }
 
       IsRegularInViewHierarchy = EKUICurrentWidthSizeClassIsRegularInViewHierarchy(v9);
-      v73 = 0.0;
+      v77 = 0.0;
       if (IsRegularInViewHierarchy)
       {
-        v73 = 1.0;
+        v77 = 1.0;
       }
 
-      v62 = v62 + v73;
-      v70 = v120 + -1.0 + v68;
+      v66 = v66 + v77;
+      v74 = v124 + -1.0 + v72;
 LABEL_60:
-      v71 = v52 + v69 + 2.0;
+      v75 = v55 + v73 + 2.0;
 LABEL_61:
-      [v54 setFrame:{v62, v52, v70, v69}];
+      [v57 setFrame:{v66, v55, v74, v73}];
       WeakRetained = objc_loadWeakRetained(&v9->_delegate);
       if (objc_opt_respondsToSelector())
       {
-        v75 = objc_loadWeakRetained(&v9->_delegate);
-        if ([v75 allDayViewContentShouldDrawSynchronously:v9])
+        v79 = objc_loadWeakRetained(&v9->_delegate);
+        if ([v79 allDayViewContentShouldDrawSynchronously:v9])
         {
-          v76 = 16;
+          v80 = 16;
         }
 
         else
         {
-          v76 = 0;
+          v80 = 0;
         }
       }
 
       else
       {
-        v76 = 0;
+        v80 = 0;
       }
 
-      [v54 requestContentIfNeeded:v76 completion:0];
-      if (!v50)
+      [v57 requestContentIfNeeded:v80 completion:0];
+      if (!v53)
       {
         [(UILabel *)v9->_allDay frame];
-        v78 = v77;
-        v80 = v79;
         v82 = v81;
-        v83 = v9->_scroller;
-        if (v83)
+        v84 = v83;
+        v86 = v85;
+        v87 = v9->_scroller;
+        if (v87)
         {
-          [(UIScrollView *)v83 frame];
+          [(UIScrollView *)v87 frame];
         }
 
         else
         {
-          v84 = 0.0;
+          v88 = 0.0;
         }
 
-        CalRoundToScreenScale(v52 + (v69 - v82) * 0.5 + v84 + 0.5);
-        [(UILabel *)v9->_allDay setFrame:v78, v85, v80, v82];
+        CalRoundToScreenScale(v55 + (v73 - v86) * 0.5 + v88 + 0.5);
+        [(UILabel *)v9->_allDay setFrame:v82, v89, v84, v86];
         [(EKDayAllDayView *)v9 reAdjustAllDayLabelLayout];
       }
 
-      occurrence = [v54 occurrence];
-      v87 = [occurrence isEqual:v9->_dimmedOccurrence];
-
-      if (v87)
-      {
-        v88 = [(EKDayAllDayView *)v9 occurrenceViewForEvent:v9->_dimmedOccurrence];
-        [v88 setDimmed:1];
-      }
-
-      occurrence2 = [v54 occurrence];
-      occurrence3 = [v121 occurrence];
-      v91 = [occurrence2 isEqual:occurrence3];
+      occurrence = [v57 occurrence];
+      v91 = [occurrence isEqual:v9->_dimmedOccurrence];
 
       if (v91)
       {
-        v92 = v54;
-
-        v124 = v92;
+        v92 = [(EKDayAllDayView *)v9 occurrenceViewForEvent:v9->_dimmedOccurrence];
+        [v92 setDimmed:1];
       }
 
-      ++v50;
-      v52 = v71;
+      occurrence2 = [v57 occurrence];
+      occurrence3 = [v125 occurrence];
+      v95 = [occurrence2 isEqual:occurrence3];
+
+      if (v95)
+      {
+        v96 = v57;
+
+        v128 = v96;
+      }
+
+      ++v53;
+      v55 = v75;
       --v13;
-      v11 = v53;
+      v11 = v56;
       if (!v13)
       {
-        v39 = v121;
-        v35 = v122;
-        if (!v121)
+        v42 = v125;
+        v38 = v126;
+        if (!v125)
         {
           goto LABEL_85;
         }
@@ -555,20 +555,20 @@ LABEL_61:
       }
     }
 
-    if (v58 | v56)
+    if (v62 | v59)
     {
-      v70 = v118;
+      v74 = v122;
     }
 
     else
     {
-      v70 = v119;
+      v74 = v123;
     }
 
 LABEL_54:
-    if ((v50 & 1) == 0)
+    if ((v53 & 1) == 0)
     {
-      v71 = v52;
+      v75 = v55;
       if (![(EKDayAllDayView *)v9 forceSingleColumnLayout])
       {
         goto LABEL_61;
@@ -578,85 +578,85 @@ LABEL_54:
     goto LABEL_60;
   }
 
-  v124 = 0;
+  v128 = 0;
   if (!_selectedCopyView)
   {
     goto LABEL_85;
   }
 
 LABEL_80:
-  superview2 = [v39 superview];
+  superview2 = [v42 superview];
 
-  if (superview2 == v123)
+  if (superview2 == v127)
   {
-    [(UIScrollView *)v123 bringSubviewToFront:v39];
+    [(UIScrollView *)v127 bringSubviewToFront:v42];
   }
 
   else
   {
-    [(UIScrollView *)v123 addSubview:v39];
+    [(UIScrollView *)v127 addSubview:v42];
   }
 
-  if (v124)
+  if (v128)
   {
-    [v124 frame];
-    [v39 setFrame:?];
+    [v128 frame];
+    [v42 setFrame:?];
   }
 
 LABEL_85:
-  v94 = v9->_scroller;
-  if (v94)
+  v98 = v9->_scroller;
+  if (v98)
   {
-    [(UIScrollView *)v94 bounds];
-    v96 = v95;
-    v97 = 0.0;
-    if (v116 >= 2)
+    [(UIScrollView *)v98 bounds];
+    v100 = v99;
+    v101 = 0.0;
+    if (v120 >= 2)
     {
-      v98 = 0;
-      v99 = v117;
+      v102 = 0;
+      v103 = v121;
       do
       {
-        v100 = [v35 objectAtIndex:v98];
-        [v100 floatValue];
-        v97 = v97 + v101;
+        v104 = [v38 objectAtIndex:v102];
+        [v104 floatValue];
+        v101 = v101 + v105;
 
-        v98 += 2;
-        --v99;
+        v102 += 2;
+        --v103;
       }
 
-      while (v99);
+      while (v103);
     }
 
-    [(UIScrollView *)v9->_scroller setContentSize:v96, v97 + (v117 - 1) * 2.0 + 4.0 + 4.0];
+    [(UIScrollView *)v9->_scroller setContentSize:v100, v101 + (v121 - 1) * 2.0 + 4.0 + 4.0];
   }
 
-  v102 = objc_loadWeakRetained(&v9->_delegate);
-  v103 = objc_opt_respondsToSelector();
+  v106 = objc_loadWeakRetained(&v9->_delegate);
+  v107 = objc_opt_respondsToSelector();
 
-  if (v103)
+  if (v107)
   {
-    v104 = objc_loadWeakRetained(&v9->_delegate);
-    [v104 allDayViewDidLayoutSubviews:v9];
+    v108 = objc_loadWeakRetained(&v9->_delegate);
+    [v108 allDayViewDidLayoutSubviews:v9];
   }
 
-  v105 = EKUISeparatorLineThickness();
+  v109 = EKUISeparatorLineThickness();
   dividerLineSuperview = v9->_dividerLineSuperview;
   if (dividerLineSuperview)
   {
-    contentView = [(EKUIVisualEffectView *)dividerLineSuperview contentView];
+    v111 = objc_msgSend_contentView(dividerLineSuperview);
   }
 
   else
   {
-    contentView = v9;
+    v111 = v9;
   }
 
-  v108 = contentView;
+  v112 = v111;
   superview3 = [(UIView *)v9->_dividerLineViewTop superview];
 
   if (!superview3)
   {
-    [(EKDayAllDayView *)v108 addSubview:v9->_dividerLineViewTop];
+    [(EKDayAllDayView *)v112 addSubview:v9->_dividerLineViewTop];
     [(UIView *)v9->_dividerLineViewTop setAutoresizingMask:34];
     dividerLineViewTop = v9->_dividerLineViewTop;
     [(EKDayAllDayView *)v9 frame];
@@ -667,23 +667,23 @@ LABEL_85:
 
   if (!superview4)
   {
-    [(EKDayAllDayView *)v108 addSubview:v9->_dividerLineViewBottom];
+    [(EKDayAllDayView *)v112 addSubview:v9->_dividerLineViewBottom];
     [(UIView *)v9->_dividerLineViewBottom setAutoresizingMask:10];
     dividerLineViewBottom = v9->_dividerLineViewBottom;
     [(EKDayAllDayView *)v9 bounds];
-    v113 = CGRectGetMaxY(v127) - v105;
+    v117 = CGRectGetMaxY(v131) - v109;
     [(EKDayAllDayView *)v9 frame];
-    [(UIView *)dividerLineViewBottom setFrame:0.0, v113];
+    [(UIView *)dividerLineViewBottom setFrame:0.0, v117];
   }
 
-  v114 = v9->_dividerLineSuperview;
-  if (!v114)
+  v118 = v9->_dividerLineSuperview;
+  if (!v118)
   {
     [(EKDayAllDayView *)v9 bringSubviewToFront:v9->_dividerLineViewTop];
-    v114 = v9->_dividerLineViewBottom;
+    v118 = v9->_dividerLineViewBottom;
   }
 
-  [(EKDayAllDayView *)v9 bringSubviewToFront:v114];
+  [(EKDayAllDayView *)v9 bringSubviewToFront:v118];
 }
 
 - (int64_t)_sizeClass
@@ -1136,45 +1136,45 @@ LABEL_11:
 - (void)setOccurrenceInset:(double)inset labelInset:(double)labelInset
 {
   self->_occurrenceInset = inset;
-  [(UILabel *)self->_allDay frame];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  if (CalInterfaceIsLeftToRight())
+  frame = [(UILabel *)self->_allDay frame];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  if (CalInterfaceIsLeftToRight(frame, v13))
   {
-    v12 = labelInset - v9 + -1.0;
-    if (v12 < 0.0)
+    v14 = labelInset - v10 + -1.0;
+    if (v14 < 0.0)
     {
-      v9 = v9 + v12;
-      v12 = 0.0;
+      v10 = v10 + v14;
+      v14 = 0.0;
     }
   }
 
   else
   {
     [(EKDayAllDayView *)self bounds];
-    v12 = CGRectGetWidth(v17) - labelInset + 1.0;
-    v18.origin.x = v12;
-    v18.origin.y = v7;
-    v18.size.width = v9;
-    v18.size.height = v11;
-    MaxX = CGRectGetMaxX(v18);
+    v14 = CGRectGetWidth(v19) - labelInset + 1.0;
+    v20.origin.x = v14;
+    v20.origin.y = v8;
+    v20.size.width = v10;
+    v20.size.height = v12;
+    MaxX = CGRectGetMaxX(v20);
     [(EKDayAllDayView *)self bounds];
-    if (MaxX > CGRectGetMaxX(v19))
+    if (MaxX > CGRectGetMaxX(v21))
     {
-      v20.origin.x = v12;
-      v20.origin.y = v7;
-      v20.size.width = v9;
-      v20.size.height = v11;
-      v14 = CGRectGetMaxX(v20);
+      v22.origin.x = v14;
+      v22.origin.y = v8;
+      v22.size.width = v10;
+      v22.size.height = v12;
+      v16 = CGRectGetMaxX(v22);
       [(EKDayAllDayView *)self bounds];
-      v9 = v9 - (v14 - CGRectGetMaxX(v21));
+      v10 = v10 - (v16 - CGRectGetMaxX(v23));
     }
   }
 
   allDay = self->_allDay;
 
-  [(UILabel *)allDay setFrame:v12, v7, v9, v11];
+  [(UILabel *)allDay setFrame:v14, v8, v10, v12];
 }
 
 - (void)lockUseOfSmallTextToState:(BOOL)state

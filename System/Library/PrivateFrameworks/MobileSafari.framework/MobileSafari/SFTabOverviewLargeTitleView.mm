@@ -65,7 +65,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_18B9A1C2C(editingCopy);
+  sub_18B9A1C2C(editingCopy, v5);
 }
 
 @end

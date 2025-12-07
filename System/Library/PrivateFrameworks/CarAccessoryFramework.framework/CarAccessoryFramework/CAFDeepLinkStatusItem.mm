@@ -4,6 +4,7 @@
 - (CAFStringCharacteristic)contentURLActionCharacteristic;
 - (NSString)contentURLAction;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -101,6 +102,35 @@
   stringValue = [contentURLActionCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000036000066"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  contentURLActionCharacteristic = [(CAFDeepLinkStatusItem *)self contentURLActionCharacteristic];
+  uniqueIdentifier2 = [contentURLActionCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    contentURLAction = [(CAFDeepLinkStatusItem *)self contentURLAction];
+    [characteristicType deepLinkStatusItemService:self didUpdateContentURLAction:contentURLAction];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFDeepLinkStatusItem;
+  [(CAFAutomakerStatusItem *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForContentURLAction

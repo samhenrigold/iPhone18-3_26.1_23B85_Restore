@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)documentSourceAsString:(int)string;
+- (id)harvestSourceAsString:(int)string;
 - (int)StringAsDocumentSource:(id)source;
 - (int)StringAsHarvestSource:(id)source;
 - (int)documentSource;
@@ -183,7 +185,6 @@ LABEL_6:
       goto LABEL_34;
     }
 
-    v6 = *(equalCopy + 17);
     if (self->_highPriority)
     {
       if ((*(equalCopy + 17) & 1) == 0)
@@ -210,7 +211,6 @@ LABEL_6:
       goto LABEL_34;
     }
 
-    v7 = *(equalCopy + 18);
     if (self->_receivedOnBattery)
     {
       if ((*(equalCopy + 18) & 1) == 0)
@@ -247,7 +247,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v8 = *(equalCopy + 16);
   if (self->_harvestedOnBattery)
   {
     if ((*(equalCopy + 16) & 1) == 0)
@@ -421,7 +420,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    documentSource = self->_documentSource;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -441,7 +439,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  highPriority = self->_highPriority;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -456,7 +453,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  receivedOnBattery = self->_receivedOnBattery;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -471,12 +467,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  harvestedOnBattery = self->_harvestedOnBattery;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    harvestSource = self->_harvestSource;
     PBDataWriterWriteInt32Field();
   }
 
@@ -639,6 +633,21 @@ LABEL_18:
   return v4;
 }
 
+- (id)harvestSourceAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894BEE0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasHarvestSource:(BOOL)source
 {
   if (source)
@@ -758,6 +767,21 @@ LABEL_18:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)documentSourceAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894BEA0[string];
   }
 
   return v4;

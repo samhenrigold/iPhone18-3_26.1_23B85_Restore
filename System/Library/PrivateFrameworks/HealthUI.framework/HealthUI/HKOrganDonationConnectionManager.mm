@@ -1459,14 +1459,18 @@ void __75__HKOrganDonationConnectionManager_refreshOrganDonationFeatureAvailabil
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5_0() description];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Error deserializing json data for response at URL: %{public}@, error: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Error deserializing json data for response at URL: %{public}@, error: %{public}@", v5, v6, v7, v8);
 }
 
 void __75__HKOrganDonationConnectionManager_refreshOrganDonationFeatureAvailability__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_6();
-  v1 = [v0 description];
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "Error downloading the od availability manifest from cdn: %{public}@, response: %{public}@", v4, v5, v6, v7, 2u);
+  v2 = [v1 description];
+  *v9 = 138543618;
+  *&v9[4] = v2;
+  *&v9[12] = 2114;
+  *&v9[14] = v0;
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Error downloading the od availability manifest from cdn: %{public}@, response: %{public}@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void __86__HKOrganDonationConnectionManager__genericJSONDataTaskWithRequest_completionHandler___block_invoke_cold_1()
@@ -1476,15 +1480,25 @@ void __86__HKOrganDonationConnectionManager__genericJSONDataTaskWithRequest_comp
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_5_0() description];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Error finishing data task with URL: %{public}@, error: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Error finishing data task with URL: %{public}@, error: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_handleServerErrorWithResponse:(void *)a1 originRequest:payload:completion:.cold.1(void *a1)
 {
   [a1 URL];
   objc_claimAutoreleasedReturnValue();
-  [OUTLINED_FUNCTION_5_0() statusCode];
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "Http error with URL: %{public}@, status code: %li", v4, v5, v6, v7, 2u);
+  *v8 = 138543618;
+  *&v8[4] = v1;
+  *&v8[12] = 2048;
+  *&v8[14] = [OUTLINED_FUNCTION_5_0() statusCode];
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "Http error with URL: %{public}@, status code: %li", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
+}
+
++ (void)organDonationSignificantDate:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_4_0(&dword_1C3942000, a2, a3, "Error loading token creation date with error (%i)", a5, a6, a7, a8, v8);
 }
 
 @end

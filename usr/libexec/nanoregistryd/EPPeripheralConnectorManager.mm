@@ -25,30 +25,31 @@
   {
     keyExistsAndHasValidFormat = 0;
     objc_storeStrong(&v7->_uuid, uuid);
-    v8 = CFPreferencesGetAppIntegerValue(@"connectPersistenceTimerDurationMilliseconds", @"com.apple.NanoRegistry", &keyExistsAndHasValidFormat) / 1000.0;
+    AppIntegerValue = CFPreferencesGetAppIntegerValue(@"connectPersistenceTimerDurationMilliseconds", @"com.apple.NanoRegistry", &keyExistsAndHasValidFormat);
+    v9 = AppIntegerValue / 1000.0;
     if (!keyExistsAndHasValidFormat)
     {
-      v8 = 1.0;
+      v9 = 1.0;
     }
 
-    v7->_connectPersistenceTimerDuration = v8;
-    v9 = sub_1000A98C0();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v7->_connectPersistenceTimerDuration = v9;
+    v10 = sub_1000A98C0(AppIntegerValue);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [(NSUUID *)v7->_uuid UUIDString];
         connectPersistenceTimerDuration = v7->_connectPersistenceTimerDuration;
         *buf = 134218498;
-        v17 = v7;
-        v18 = 2112;
-        v19 = uUIDString;
-        v20 = 2048;
-        v21 = connectPersistenceTimerDuration;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Managing BT peripheral %@ connect persistence timer %1.2f", buf, 0x20u);
+        v19 = v7;
+        v20 = 2112;
+        v21 = uUIDString;
+        v22 = 2048;
+        v23 = connectPersistenceTimerDuration;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Managing BT peripheral %@ connect persistence timer %1.2f", buf, 0x20u);
       }
     }
   }
@@ -89,64 +90,64 @@
 - (void)setConnectPersistenceTimer
 {
   forceDisconnect = self->_forceDisconnect;
-  v4 = sub_1000A98C0();
+  v4 = sub_1000A98C0(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (forceDisconnect)
   {
     if (v5)
     {
-      v6 = sub_1000A98C0();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A98C0(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         selfCopy2 = self;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: No more demand for connection. _forceDisconnect set. Skipping setting timer.", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: No more demand for connection. _forceDisconnect set. Skipping setting timer.", buf, 0xCu);
       }
     }
 
     [(EPPeripheralConnectorManager *)self clearConnectPersistenceTimer];
-    v7 = +[EPFactory queue];
+    v8 = +[EPFactory queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100097DB0;
     block[3] = &unk_100175660;
     block[4] = self;
-    dispatch_async(v7, block);
+    dispatch_async(v8, block);
   }
 
   else
   {
     if (v5)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000A98C0(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         connectPersistenceTimerDuration = self->_connectPersistenceTimerDuration;
         *buf = 134218240;
         selfCopy2 = self;
-        v19 = 2048;
-        v20 = connectPersistenceTimerDuration;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: No more demand for connection. Starting connection persistence timer %1.0f seconds.", buf, 0x16u);
+        v20 = 2048;
+        v21 = connectPersistenceTimerDuration;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: No more demand for connection. Starting connection persistence timer %1.0f seconds.", buf, 0x16u);
       }
     }
 
     [(EPPeripheralConnectorManager *)self clearConnectPersistenceTimer];
-    v10 = +[EPFactory queue];
-    v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v10);
+    v11 = +[EPFactory queue];
+    v12 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v11);
 
-    v12 = dispatch_time(0, (self->_connectPersistenceTimerDuration * 1000000000.0));
-    dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100097DB8;
-    v15[3] = &unk_100175660;
-    v15[4] = self;
-    dispatch_source_set_event_handler(v11, v15);
-    dispatch_resume(v11);
+    v13 = dispatch_time(0, (self->_connectPersistenceTimerDuration * 1000000000.0));
+    dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100097DB8;
+    v16[3] = &unk_100175660;
+    v16[4] = self;
+    dispatch_source_set_event_handler(v12, v16);
+    dispatch_resume(v12);
     connectPersistenceTimer = self->_connectPersistenceTimer;
-    self->_connectPersistenceTimer = v11;
-    v14 = v11;
+    self->_connectPersistenceTimer = v12;
+    v15 = v12;
   }
 }
 
@@ -154,17 +155,17 @@
 {
   if (self->_connectPersistenceTimer)
   {
-    v3 = sub_1000A98C0();
+    v3 = sub_1000A98C0(self);
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
     if (v4)
     {
-      v5 = sub_1000A98C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_1000A98C0(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 134217984;
+        v8 = 134217984;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Clearing persistence timer!", &v7, 0xCu);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Clearing persistence timer!", &v8, 0xCu);
       }
     }
 
@@ -190,44 +191,44 @@
 - (void)update
 {
   v3 = [objc_opt_class() stringForEPPeripheralConnectorState:self->_state];
-  v4 = sub_1000A98C0();
+  v4 = sub_1000A98C0(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = sub_1000A98C0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000A98C0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       captivePeripheral = self->_captivePeripheral;
-      v8 = [EPCentralManagerManager stringForCBPeripheralState:[(CBPeripheral *)captivePeripheral state]];
+      v9 = [EPCentralManagerManager stringForCBPeripheralState:[(CBPeripheral *)captivePeripheral state]];
       needsResource = [(EPResourceManager *)self needsResource];
       connectPersistenceTimer = self->_connectPersistenceTimer;
-      v11 = "NO";
+      v12 = "NO";
       *buf = 134219266;
       selfCopy4 = self;
       if (needsResource)
       {
-        v11 = "YES";
+        v12 = "YES";
       }
 
-      v63 = 2112;
-      v64 = v3;
-      v12 = connectPersistenceTimer == 0;
-      v65 = 2048;
-      v13 = "NOT SET";
-      v66 = captivePeripheral;
-      if (!v12)
+      v68 = 2112;
+      v69 = v3;
+      v13 = connectPersistenceTimer == 0;
+      v70 = 2048;
+      v14 = "NOT SET";
+      v71 = captivePeripheral;
+      if (!v13)
       {
-        v13 = "RUNNING";
+        v14 = "RUNNING";
       }
 
-      v67 = 2112;
-      v68 = v8;
-      v69 = 2080;
-      v70 = v11;
-      v71 = 2080;
-      v72 = v13;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: state machine state: %@ peripheral[%p] CBPeripheralState: %@ connectionNeeded: %s connectionTimer: %s", buf, 0x3Eu);
+      v72 = 2112;
+      v73 = v9;
+      v74 = 2080;
+      v75 = v12;
+      v76 = 2080;
+      v77 = v14;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: state machine state: %@ peripheral[%p] CBPeripheralState: %@ connectionNeeded: %s connectionTimer: %s", buf, 0x3Eu);
     }
   }
 
@@ -240,46 +241,46 @@
       if (![(EPPeripheralConnectorManager *)self needsResourceWithExpiry]|| [(EPResource *)self->_central availability]!= 1 || [(CBPeripheral *)self->_captivePeripheral state]== CBPeripheralStateDisconnected)
       {
         self->_state = 0;
-        v31 = +[EPFactory queue];
-        v16 = v31;
-        v57[0] = _NSConcreteStackBlock;
-        v57[1] = 3221225472;
-        v57[2] = sub_100098994;
-        v57[3] = &unk_100175660;
-        v57[4] = self;
-        v32 = v57;
+        v33 = +[EPFactory queue];
+        v17 = v33;
+        v62[0] = _NSConcreteStackBlock;
+        v62[1] = 3221225472;
+        v62[2] = sub_100098994;
+        v62[3] = &unk_100175660;
+        v62[4] = self;
+        v34 = v62;
         goto LABEL_41;
       }
 
       if ([(CBPeripheral *)self->_captivePeripheral state]== 2)
       {
-        v33 = sub_1000A98C0();
-        v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+        v35 = sub_1000A98C0(2);
+        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
 
-        if (v34)
+        if (v36)
         {
-          v35 = sub_1000A98C0();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v38 = sub_1000A98C0(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             identifier = [(CBPeripheral *)self->_captivePeripheral identifier];
             uUIDString = [identifier UUIDString];
             *buf = 134218242;
             selfCopy4 = self;
-            v63 = 2112;
-            v64 = uUIDString;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: peripheral %@ has become connected", buf, 0x16u);
+            v68 = 2112;
+            v69 = uUIDString;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: peripheral %@ has become connected", buf, 0x16u);
           }
         }
 
         self->_state = 3;
-        v31 = +[EPFactory queue];
-        v16 = v31;
-        v56[0] = _NSConcreteStackBlock;
-        v56[1] = 3221225472;
-        v56[2] = sub_10009899C;
-        v56[3] = &unk_100175660;
-        v56[4] = self;
-        v32 = v56;
+        v33 = +[EPFactory queue];
+        v17 = v33;
+        v61[0] = _NSConcreteStackBlock;
+        v61[1] = 3221225472;
+        v61[2] = sub_10009899C;
+        v61[3] = &unk_100175660;
+        v61[4] = self;
+        v34 = v61;
         goto LABEL_41;
       }
     }
@@ -289,47 +290,48 @@
       if (![(EPPeripheralConnectorManager *)self needsResourceWithExpiry]|| [(EPResource *)self->_central availability]!= 1)
       {
         self->_state = 0;
-        v31 = +[EPFactory queue];
-        v16 = v31;
+        v33 = +[EPFactory queue];
+        v17 = v33;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1000989A4;
         block[3] = &unk_100175660;
         block[4] = self;
-        v32 = block;
+        v34 = block;
         goto LABEL_41;
       }
 
-      if ([(CBPeripheral *)self->_captivePeripheral state]!= 2)
+      state = [(CBPeripheral *)self->_captivePeripheral state];
+      if (state != CBPeripheralStateConnected)
       {
-        v42 = sub_1000A98C0();
-        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+        v45 = sub_1000A98C0(state);
+        v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
 
-        if (v43)
+        if (v46)
         {
-          v44 = sub_1000A98C0();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v48 = sub_1000A98C0(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             identifier2 = [(CBPeripheral *)self->_captivePeripheral identifier];
             uUIDString2 = [identifier2 UUIDString];
             *buf = 134218242;
             selfCopy4 = self;
-            v63 = 2112;
-            v64 = uUIDString2;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: peripheral %@ has become disconnected", buf, 0x16u);
+            v68 = 2112;
+            v69 = uUIDString2;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: peripheral %@ has become disconnected", buf, 0x16u);
           }
         }
 
         [(EPResourceManager *)self setAvailability:0 withError:0];
         self->_state = 0;
-        v31 = +[EPFactory queue];
-        v16 = v31;
-        v54[0] = _NSConcreteStackBlock;
-        v54[1] = 3221225472;
-        v54[2] = sub_1000989AC;
-        v54[3] = &unk_100175660;
-        v54[4] = self;
-        v32 = v54;
+        v33 = +[EPFactory queue];
+        v17 = v33;
+        v59[0] = _NSConcreteStackBlock;
+        v59[1] = 3221225472;
+        v59[2] = sub_1000989AC;
+        v59[3] = &unk_100175660;
+        v59[4] = self;
+        v34 = v59;
         goto LABEL_41;
       }
 
@@ -345,12 +347,12 @@
       if ([(EPResource *)self->_central availability]== 1 && [(EPPeripheralConnectorManager *)self needsResourceWithExpiry])
       {
         devices = [(EPDiscoverer *)self->_discoverer devices];
-        v16 = [devices objectForKeyedSubscript:self->_uuid];
+        v17 = [devices objectForKeyedSubscript:self->_uuid];
 
-        if (v16)
+        if (v17)
         {
-          peer = [v16 peer];
-          v18 = self->_captivePeripheral;
+          peer = [v17 peer];
+          v19 = self->_captivePeripheral;
           self->_captivePeripheral = peer;
 
           discoverer = self->_discoverer;
@@ -359,21 +361,21 @@
 
         if (self->_captivePeripheral && [(EPResource *)self->_central availability]== 1)
         {
-          v47 = sub_1000A98C0();
-          v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
+          v51 = sub_1000A98C0(1);
+          v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
 
-          if (v48)
+          if (v52)
           {
-            v49 = sub_1000A98C0();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+            v54 = sub_1000A98C0(v53);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
             {
               identifier3 = [(CBPeripheral *)self->_captivePeripheral identifier];
               uUIDString3 = [identifier3 UUIDString];
               *buf = 134218242;
               selfCopy4 = self;
-              v63 = 2112;
-              v64 = uUIDString3;
-              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Calling CoreBluetooth CBCentralManager connectPeripheral:options: %@", buf, 0x16u);
+              v68 = 2112;
+              v69 = uUIDString3;
+              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Calling CoreBluetooth CBCentralManager connectPeripheral:options: %@", buf, 0x16u);
             }
           }
 
@@ -381,29 +383,29 @@
           [manager connectPeripheral:self->_captivePeripheral options:0];
 
           self->_state = 2;
-          v52 = +[EPFactory queue];
-          v58[0] = _NSConcreteStackBlock;
-          v58[1] = 3221225472;
-          v58[2] = sub_10009898C;
-          v58[3] = &unk_100175660;
-          v58[4] = self;
-          dispatch_async(v52, v58);
+          v57 = +[EPFactory queue];
+          v63[0] = _NSConcreteStackBlock;
+          v63[1] = 3221225472;
+          v63[2] = sub_10009898C;
+          v63[3] = &unk_100175660;
+          v63[4] = self;
+          dispatch_async(v57, v63);
         }
 
         goto LABEL_42;
       }
 
       self->_state = 0;
-      v31 = +[EPFactory queue];
-      v16 = v31;
-      v59[0] = _NSConcreteStackBlock;
-      v59[1] = 3221225472;
-      v59[2] = sub_100098984;
-      v59[3] = &unk_100175660;
-      v59[4] = self;
-      v32 = v59;
+      v33 = +[EPFactory queue];
+      v17 = v33;
+      v64[0] = _NSConcreteStackBlock;
+      v64[1] = 3221225472;
+      v64[2] = sub_100098984;
+      v64[3] = &unk_100175660;
+      v64[4] = self;
+      v34 = v64;
 LABEL_41:
-      dispatch_async(v31, v32);
+      dispatch_async(v33, v34);
 LABEL_42:
     }
   }
@@ -411,7 +413,7 @@ LABEL_42:
   else
   {
     needsResourceWithExpiry = [(EPPeripheralConnectorManager *)self needsResourceWithExpiry];
-    v21 = self->_captivePeripheral;
+    v23 = self->_captivePeripheral;
     if (needsResourceWithExpiry)
     {
       self->_captivePeripheral = 0;
@@ -419,23 +421,23 @@ LABEL_42:
       objc_storeStrong(&self->me, self);
       if (!self->_discoverer)
       {
-        v22 = +[EPFactory sharedFactory];
-        [v22 setDiscovererShouldScanForProximity:0];
+        v24 = +[EPFactory sharedFactory];
+        [v24 setDiscovererShouldScanForProximity:0];
 
-        v23 = +[EPFactory sharedFactory];
-        v24 = [v23 newDiscovererWithDelegate:self];
-        v25 = self->_discoverer;
-        self->_discoverer = v24;
+        v25 = +[EPFactory sharedFactory];
+        v26 = [v25 newDiscovererWithDelegate:self];
+        v27 = self->_discoverer;
+        self->_discoverer = v26;
       }
 
       central = self->_central;
       if (!central)
       {
-        v27 = +[EPFactory sharedFactory];
-        agentManager = [v27 agentManager];
-        v29 = [agentManager newCentralManagerWithDelegate:self];
-        v30 = self->_central;
-        self->_central = v29;
+        v29 = +[EPFactory sharedFactory];
+        agentManager = [v29 agentManager];
+        v31 = [agentManager newCentralManagerWithDelegate:self];
+        v32 = self->_central;
+        self->_central = v31;
 
         central = self->_central;
       }
@@ -443,33 +445,33 @@ LABEL_42:
       if ([(EPResource *)central availability]== 1)
       {
         self->_state = 1;
-        v31 = +[EPFactory queue];
-        v16 = v31;
-        v60[0] = _NSConcreteStackBlock;
-        v60[1] = 3221225472;
-        v60[2] = sub_10009897C;
-        v60[3] = &unk_100175660;
-        v60[4] = self;
-        v32 = v60;
+        v33 = +[EPFactory queue];
+        v17 = v33;
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_10009897C;
+        v65[3] = &unk_100175660;
+        v65[4] = self;
+        v34 = v65;
         goto LABEL_41;
       }
     }
 
     else
     {
-      if ([(CBPeripheral *)v21 state]== 2 || [(CBPeripheral *)self->_captivePeripheral state]== 1)
+      if ([(CBPeripheral *)v23 state]== 2 || [(CBPeripheral *)self->_captivePeripheral state]== 1)
       {
         [(EPPeripheralConnectorManager *)self cancelPeripheralConnection:self->_captivePeripheral];
       }
 
       [(EPResourceManager *)self setAvailability:0 withError:0];
-      v38 = self->_central;
+      v41 = self->_central;
       self->_central = 0;
 
-      v39 = self->_discoverer;
+      v42 = self->_discoverer;
       self->_discoverer = 0;
 
-      v40 = self->_captivePeripheral;
+      v43 = self->_captivePeripheral;
       self->_captivePeripheral = 0;
 
       me = self->me;
@@ -485,37 +487,37 @@ LABEL_42:
   connectionCopy = connection;
   if ([(EPResource *)self->_central availability]== 1)
   {
-    v5 = sub_1000A98C0();
+    v5 = sub_1000A98C0(1);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = sub_1000A98C0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000A98C0(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         if (self->_forceDisconnect)
         {
-          v8 = @"YES";
+          v9 = @"YES";
         }
 
         else
         {
-          v8 = @"NO";
+          v9 = @"NO";
         }
 
         *buf = 134218242;
         selfCopy = self;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Calling CoreBluetooth CBCentralManager cancelPeripheralConnection:force:%@", buf, 0x16u);
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Calling CoreBluetooth CBCentralManager cancelPeripheralConnection:force:%@", buf, 0x16u);
       }
     }
 
     manager = [(EPCentralManager *)self->_central manager];
     cBCancelPeripheralConnectionOptionForce = [NSNumber numberWithBool:self->_forceDisconnect, CBCancelPeripheralConnectionOptionForce];
-    v13 = cBCancelPeripheralConnectionOptionForce;
-    v11 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    [manager cancelPeripheralConnection:connectionCopy options:v11];
+    v14 = cBCancelPeripheralConnectionOptionForce;
+    v12 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    [manager cancelPeripheralConnection:connectionCopy options:v12];
   }
 
   self->_forceDisconnect = 0;
@@ -528,20 +530,20 @@ LABEL_42:
 
   if (v6)
   {
-    v7 = sub_1000A98C0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_1000A98C0(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = sub_1000A98C0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000A98C0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [(NSUUID *)self->_uuid UUIDString];
-        v11 = 134218242;
+        v13 = 134218242;
         selfCopy = self;
-        v13 = 2112;
-        v14 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didConnectPeripheral: for peripheral %@", &v11, 0x16u);
+        v15 = 2112;
+        v16 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didConnectPeripheral: for peripheral %@", &v13, 0x16u);
       }
     }
 
@@ -556,20 +558,20 @@ LABEL_42:
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_1000A98C0(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [(NSUUID *)self->_uuid UUIDString];
-        v12 = 134218242;
+        v14 = 134218242;
         selfCopy = self;
-        v14 = 2112;
-        v15 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didDisconnectPeripheral: for peripheral %@", &v12, 0x16u);
+        v16 = 2112;
+        v17 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didDisconnectPeripheral: for peripheral %@", &v14, 0x16u);
       }
     }
 
@@ -584,20 +586,20 @@ LABEL_42:
 
   if (v6)
   {
-    v7 = sub_1000A98C0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_1000A98C0(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = sub_1000A98C0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1000A98C0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [(NSUUID *)self->_uuid UUIDString];
-        v11 = 134218242;
+        v13 = 134218242;
         selfCopy = self;
-        v13 = 2112;
-        v14 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didUpdatePeripheralConnectionState: for peripheral %@", &v11, 0x16u);
+        v15 = 2112;
+        v16 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: received centralManager:didUpdatePeripheralConnectionState: for peripheral %@", &v13, 0x16u);
       }
     }
 

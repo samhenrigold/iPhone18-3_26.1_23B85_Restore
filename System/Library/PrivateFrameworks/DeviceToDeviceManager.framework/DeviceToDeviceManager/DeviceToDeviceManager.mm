@@ -651,7 +651,7 @@ uint64_t D2DRetain(uint64_t a1, unsigned int a2)
 {
   if (a2 <= 3 && (v2 = plugins[a2]) != 0 && (v3 = *(v2 + 64)) != 0)
   {
-    return v3();
+    return v3(a1);
   }
 
   else
@@ -664,7 +664,7 @@ uint64_t D2DRelease(uint64_t a1, unsigned int a2)
 {
   if (a2 <= 3 && (v2 = plugins[a2]) != 0 && (v3 = *(v2 + 72)) != 0)
   {
-    return v3();
+    return v3(a1);
   }
 
   else

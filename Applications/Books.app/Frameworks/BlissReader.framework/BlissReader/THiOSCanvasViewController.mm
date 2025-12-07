@@ -393,22 +393,22 @@ LABEL_3:
   [builder removeMenuForIdentifier:UIMenuServices];
   [builder replaceChildrenOfMenuForIdentifier:UIMenuStandardEdit fromChildrenBlock:&stru_45DE10];
   y = CGPointZero.y;
-  v29 = 0u;
-  v30 = 0u;
-  v28 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
   view = [objc_msgSend(-[THiOSCanvasViewController view](self view];
-  v7 = [view countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v7 = [view countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v40;
     v10 = *&y;
     x = CGPointZero.x;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(view);
         }
@@ -439,7 +439,7 @@ LABEL_3:
         }
       }
 
-      v8 = [view countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v8 = [view countByEnumeratingWithState:&v39 objects:v45 count:16];
       v17 = *&v10;
       v16 = x;
     }
@@ -464,19 +464,24 @@ LABEL_21:
 
   else
   {
-    v32 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle() localizedStringForKey:@"Copy" value:&stru_471858 table:0], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.on.doc"), "copy:", @"C", 0x80000, 0);
-    [builder insertSiblingMenu:+[UIMenu menuWithTitle:image:identifier:options:children:](UIMenu afterMenuForIdentifier:{"menuWithTitle:image:identifier:options:children:", &stru_471858, 0, @"com.apple.iBooks.EditMenuGroup", 17, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v32, 1)), UIMenuStandardEdit}];
-    v24 = [_TtC8BookCore23BECustomViewMenuElement createHighlightMenuElementFor:4 annotationUUID:0 delegate:self];
-    v25 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle() localizedStringForKey:@"Add Note" value:&stru_471858 table:0], +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"note.text"), "addNote:", @"N", 0x80000, 0);
-    v31[0] = v24;
-    v31[1] = v25;
-    [builder insertSiblingMenu:+[UIMenu menuWithTitle:image:identifier:options:children:](UIMenu afterMenuForIdentifier:{"menuWithTitle:image:identifier:options:children:", &stru_471858, 0, @"com.apple.iBooks.AnnotationMenuGroup", 17, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v31, 2)), @"com.apple.iBooks.EditMenuGroup"}];
-    v26 = +[NSMutableArray array];
-    [v26 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Look Up", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"magnifyingglass.circle", "showDictionary:", 0)}];
-    [v26 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Translate", &stru_471858, 0), +[UIImage _systemImageNamed:](UIImage, "_systemImageNamed:", @"translate", "translateSelection:", 0)}];
-    [v26 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Search", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"doc.text.magnifyingglass", "searchSelection:", 0)}];
-    [v26 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Share", &stru_471858, 0), +[UIImage systemImageNamed:](UIImage, "systemImageNamed:", @"square.and.arrow.up", "shareSelection:", 0)}];
-    v21 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.OtherMenuGroup" options:17 children:v26];
+    v24 = [UIImage systemImageNamed:@"doc.on.doc"];
+    v44 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle(v24 v25)], v24, "copy:", @"C", 0x80000, 0);
+    [builder insertSiblingMenu:+[UIMenu menuWithTitle:image:identifier:options:children:](UIMenu afterMenuForIdentifier:{"menuWithTitle:image:identifier:options:children:", &stru_471858, 0, @"com.apple.iBooks.EditMenuGroup", 17, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v44, 1)), UIMenuStandardEdit}];
+    v26 = [_TtC8BookCore23BECustomViewMenuElement createHighlightMenuElementFor:4 annotationUUID:0 delegate:self];
+    v27 = [UIImage systemImageNamed:@"note.text"];
+    v29 = +[UIKeyCommand commandWithTitle:image:action:input:modifierFlags:propertyList:](UIKeyCommand, "commandWithTitle:image:action:input:modifierFlags:propertyList:", [THBundle(v27 v28)], v27, "addNote:", @"N", 0x80000, 0);
+    v43[0] = v26;
+    v43[1] = v29;
+    [builder insertSiblingMenu:+[UIMenu menuWithTitle:image:identifier:options:children:](UIMenu afterMenuForIdentifier:{"menuWithTitle:image:identifier:options:children:", &stru_471858, 0, @"com.apple.iBooks.AnnotationMenuGroup", 17, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v43, 2)), @"com.apple.iBooks.EditMenuGroup"}];
+    v30 = +[NSMutableArray array];
+    v31 = [UIImage systemImageNamed:@"magnifyingglass.circle"];
+    v33 = [v30 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(v31, v32), "localizedStringForKey:value:table:", @"Look Up", &stru_471858, 0), v31, "showDictionary:", 0)}];
+    [v30 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(v33, v34), "localizedStringForKey:value:table:", @"Translate", &stru_471858, 0), +[UIImage _systemImageNamed:](UIImage, "_systemImageNamed:", @"translate", "translateSelection:", 0)}];
+    v35 = [UIImage systemImageNamed:@"doc.text.magnifyingglass"];
+    [v30 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(v35, v36), "localizedStringForKey:value:table:", @"Search", &stru_471858, 0), v35, "searchSelection:", 0)}];
+    v37 = [UIImage systemImageNamed:@"square.and.arrow.up"];
+    [v30 addObject:{+[UICommand commandWithTitle:image:action:propertyList:](UICommand, "commandWithTitle:image:action:propertyList:", objc_msgSend(THBundle(v37, v38), "localizedStringForKey:value:table:", @"Share", &stru_471858, 0), v37, "shareSelection:", 0)}];
+    v21 = [UIMenu menuWithTitle:&stru_471858 image:0 identifier:@"com.apple.iBooks.OtherMenuGroup" options:17 children:v30];
     builderCopy2 = builder;
     v23 = @"com.apple.iBooks.AnnotationMenuGroup";
   }
@@ -665,11 +670,11 @@ LABEL_21:
   [toolbar addSubview:v12];
   heightAnchor = [v12 heightAnchor];
   [+[UIScreen mainScreen](UIScreen scale];
-  v23[0] = [heightAnchor constraintEqualToConstant:1.0 / v14];
-  v23[1] = [objc_msgSend(v12 "leadingAnchor")];
-  v23[2] = [objc_msgSend(v12 "trailingAnchor")];
-  v23[3] = [objc_msgSend(v12 "topAnchor")];
-  [NSLayoutConstraint activateConstraints:[NSArray arrayWithObjects:v23 count:4]];
+  v27[0] = [heightAnchor constraintEqualToConstant:1.0 / v14];
+  v27[1] = [objc_msgSend(v12 "leadingAnchor")];
+  v27[2] = [objc_msgSend(v12 "trailingAnchor")];
+  v27[3] = [objc_msgSend(v12 "topAnchor")];
+  [NSLayoutConstraint activateConstraints:[NSArray arrayWithObjects:v27 count:4]];
   identifier = [themePage identifier];
   if ([identifier isEqualToString:kIMThemeIdentifierBlissClassicTheme])
   {
@@ -685,18 +690,20 @@ LABEL_21:
   v16 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"doneButtonPressed:"];
   [objc_msgSend(view "navigationItem")];
 
-  v17 = [[UIBarButtonItem alloc] initWithTitle:objc_msgSend(THBundle() style:"localizedStringForKey:value:table:" target:@"Glossary Index" action:{&stru_471858, 0), 0, view, "showGlossaryIndex"}];
-  v18 = [[UIBarButtonItem alloc] initWithTitle:objc_msgSend(THBundle() style:"localizedStringForKey:value:table:" target:@"Look Up" action:{&stru_471858, 0), 0, view, "showDictionaryEntry"}];
-  v19 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:5 target:0 action:0];
-  v20 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
+  v17 = [UIBarButtonItem alloc];
+  v19 = [v17 initWithTitle:objc_msgSend(THBundle(v17 style:v18) target:"localizedStringForKey:value:table:" action:{@"Glossary Index", &stru_471858, 0), 0, view, "showGlossaryIndex"}];
+  v20 = [UIBarButtonItem alloc];
+  v22 = [v20 initWithTitle:objc_msgSend(THBundle(v20 style:v21) target:"localizedStringForKey:value:table:" action:{@"Look Up", &stru_471858, 0), 0, view, "showDictionaryEntry"}];
+  v23 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:5 target:0 action:0];
+  v24 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
   +[THGlossaryPopoverViewController toolbarButtonHInset];
-  [v20 setWidth:?];
-  v22[0] = v20;
-  v22[1] = v17;
-  v22[2] = v19;
-  v22[3] = v18;
-  v22[4] = v20;
-  [view setToolbarItems:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v22, 5)}];
+  [v24 setWidth:?];
+  v26[0] = v24;
+  v26[1] = v19;
+  v26[2] = v23;
+  v26[3] = v22;
+  v26[4] = v24;
+  [view setToolbarItems:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v26, 5)}];
 
   return v6;
 }
@@ -994,10 +1001,10 @@ LABEL_21:
 {
   if (result == 3)
   {
-    v6 = [THBundle() localizedStringForKey:@"Error" value:&stru_471858 table:0];
-    v7 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v6, [THBundle() localizedStringForKey:@"Failed to send email" value:&stru_471858 table:0], 1);
-    -[UIAlertController addAction:](v7, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle() localizedStringForKey:@"OK" value:&stru_471858 table:0], 1, 0));
-    [(THiOSCanvasViewController *)self presentViewController:v7 animated:1 completion:0];
+    v6 = [THBundle(self a2)];
+    v8 = +[UIAlertController alertControllerWithTitle:message:preferredStyle:](UIAlertController, "alertControllerWithTitle:message:preferredStyle:", v6, [THBundle(v6 v7)], 1);
+    -[UIAlertController addAction:](v8, "addAction:", +[UIAlertAction actionWithTitle:style:handler:](UIAlertAction, "actionWithTitle:style:handler:", [THBundle(v8 v9)], 1, 0));
+    [(THiOSCanvasViewController *)self presentViewController:v8 animated:1 completion:0];
   }
 
   [(THiOSCanvasViewController *)self dismissViewControllerAnimated:1 completion:0];

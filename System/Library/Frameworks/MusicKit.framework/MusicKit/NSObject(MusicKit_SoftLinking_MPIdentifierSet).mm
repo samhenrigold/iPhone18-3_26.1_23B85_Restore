@@ -41,28 +41,28 @@
 
 - (MusicKit_SoftLinking_CatalogID)musicKit_catalogID
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   _musicKit_self_identifierSet = [self _musicKit_self_identifierSet];
   modelKind = [_musicKit_self_identifierSet modelKind];
   identityKind = [modelKind identityKind];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v4 = getMPModelRadioStationKindClass_softClass;
-  v39 = getMPModelRadioStationKindClass_softClass;
+  v38 = getMPModelRadioStationKindClass_softClass;
   if (!getMPModelRadioStationKindClass_softClass)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getMPModelRadioStationKindClass_block_invoke;
-    v43 = &unk_278229610;
-    v44 = &v36;
-    __getMPModelRadioStationKindClass_block_invoke(&v40);
-    v4 = v37[3];
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getMPModelRadioStationKindClass_block_invoke;
+    v42 = &unk_278229610;
+    v43 = &v35;
+    __getMPModelRadioStationKindClass_block_invoke(&v39);
+    v4 = v36[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   identityKind2 = [v4 identityKind];
   v7 = [identityKind isEqual:identityKind2];
 
@@ -75,24 +75,24 @@
     goto LABEL_32;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v11 = getMPModelPlaylistKindClass_softClass;
-  v39 = getMPModelPlaylistKindClass_softClass;
+  v38 = getMPModelPlaylistKindClass_softClass;
   if (!getMPModelPlaylistKindClass_softClass)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getMPModelPlaylistKindClass_block_invoke;
-    v43 = &unk_278229610;
-    v44 = &v36;
-    __getMPModelPlaylistKindClass_block_invoke(&v40);
-    v11 = v37[3];
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getMPModelPlaylistKindClass_block_invoke;
+    v42 = &unk_278229610;
+    v43 = &v35;
+    __getMPModelPlaylistKindClass_block_invoke(&v39);
+    v11 = v36[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   identityKind3 = [v11 identityKind];
   v14 = [identityKind isEqual:identityKind3];
 
@@ -105,24 +105,24 @@
     goto LABEL_32;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v16 = getMPModelSocialPersonKindClass_softClass;
-  v39 = getMPModelSocialPersonKindClass_softClass;
+  v38 = getMPModelSocialPersonKindClass_softClass;
   if (!getMPModelSocialPersonKindClass_softClass)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getMPModelSocialPersonKindClass_block_invoke;
-    v43 = &unk_278229610;
-    v44 = &v36;
-    __getMPModelSocialPersonKindClass_block_invoke(&v40);
-    v16 = v37[3];
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getMPModelSocialPersonKindClass_block_invoke;
+    v42 = &unk_278229610;
+    v43 = &v35;
+    __getMPModelSocialPersonKindClass_block_invoke(&v39);
+    v16 = v36[3];
   }
 
   v17 = v16;
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   identityKind4 = [v16 identityKind];
   v19 = [identityKind isEqual:identityKind4];
 
@@ -135,24 +135,24 @@
     goto LABEL_32;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2050000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2050000000;
   v21 = getMPModelForYouRecommendationGroupKindClass_softClass;
-  v39 = getMPModelForYouRecommendationGroupKindClass_softClass;
+  v38 = getMPModelForYouRecommendationGroupKindClass_softClass;
   if (!getMPModelForYouRecommendationGroupKindClass_softClass)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getMPModelForYouRecommendationGroupKindClass_block_invoke;
-    v43 = &unk_278229610;
-    v44 = &v36;
-    __getMPModelForYouRecommendationGroupKindClass_block_invoke(&v40);
-    v21 = v37[3];
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getMPModelForYouRecommendationGroupKindClass_block_invoke;
+    v42 = &unk_278229610;
+    v43 = &v35;
+    __getMPModelForYouRecommendationGroupKindClass_block_invoke(&v39);
+    v21 = v36[3];
   }
 
   v22 = v21;
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
   identityKind5 = [v21 identityKind];
   v24 = [identityKind isEqual:identityKind5];
 
@@ -186,7 +186,7 @@
     v10 = 1;
 LABEL_23:
 
-    v28 = &v42 + 7;
+    v28 = &v41 + 7;
     quot = subscriptionAdamID;
     do
     {
@@ -216,7 +216,7 @@ LABEL_23:
       ++v28;
     }
 
-    stationStringID = CFStringCreateWithBytes(0, v28, &v43 - v28, 0x8000100u, 0);
+    stationStringID = CFStringCreateWithBytes(0, v28, &v42 - v28, 0x8000100u, 0);
     goto LABEL_32;
   }
 
@@ -256,8 +256,6 @@ LABEL_32:
   {
     v32 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -426,51 +424,8 @@ LABEL_32:
   stationStringID = [radio stationStringID];
   v4 = [stationStringID length];
 
-  if (v4)
+  if (v4 || ([_musicKit_self_identifierSet universalStore], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "globalPlaylistID"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, v5, v7) || (objc_msgSend(_musicKit_self_identifierSet, "universalStore"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "socialProfileID"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length"), v9, v8, v10) || (objc_msgSend(_musicKit_self_identifierSet, "universalStore"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "subscriptionAdamID"), v11, v12) || (objc_msgSend(_musicKit_self_identifierSet, "universalStore"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "adamID"), v13, v14) || (objc_msgSend(_musicKit_self_identifierSet, "universalStore"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "assetAdamID"), v15, v16) || (objc_msgSend(_musicKit_self_identifierSet, "universalStore"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "universalCloudLibraryID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "length"), v18, v17, v19))
   {
-    goto LABEL_8;
-  }
-
-  universalStore = [_musicKit_self_identifierSet universalStore];
-  globalPlaylistID = [universalStore globalPlaylistID];
-  v7 = [globalPlaylistID length];
-
-  if (v7)
-  {
-    goto LABEL_8;
-  }
-
-  universalStore2 = [_musicKit_self_identifierSet universalStore];
-  socialProfileID = [universalStore2 socialProfileID];
-  v10 = [socialProfileID length];
-
-  if (v10)
-  {
-    goto LABEL_8;
-  }
-
-  universalStore3 = [_musicKit_self_identifierSet universalStore];
-  subscriptionAdamID = [universalStore3 subscriptionAdamID];
-
-  if (subscriptionAdamID)
-  {
-    goto LABEL_8;
-  }
-
-  universalStore4 = [_musicKit_self_identifierSet universalStore];
-  adamID = [universalStore4 adamID];
-
-  if (adamID)
-  {
-    goto LABEL_8;
-  }
-
-  universalStore5 = [_musicKit_self_identifierSet universalStore];
-  assetAdamID = [universalStore5 assetAdamID];
-
-  if (assetAdamID || ([_musicKit_self_identifierSet universalStore], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "universalCloudLibraryID"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "length"), v18, v17, v19))
-  {
-LABEL_8:
     v20 = 1;
   }
 

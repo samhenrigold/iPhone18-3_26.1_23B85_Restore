@@ -591,7 +591,7 @@ LABEL_37:
     if (timeout)
     {
       timeout2 = [optionsCopy timeout];
-      [timeout2 doubleValue];
+      objc_msgSend_doubleValue(timeout2);
       v22 = [NSDate dateWithTimeIntervalSinceNow:?];
 
       [v19 setExpirationDate:v22];

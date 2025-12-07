@@ -9,7 +9,7 @@
 {
   if (!*a2)
   {
-    v6 = a5(0, a3, MEMORY[0x1E69E7DE0]);
+    v6 = (a5)(0, a3, MEMORY[0x1E69E7DE0], a4);
     if (!v7)
     {
       atomic_store(v6, a2);

@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA0DD864();
+  sub_1BA0DD864(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
@@ -30,8 +30,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1BA0DDEE0(appear);
+  sub_1BA0DDEE0(appearCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -118,14 +119,14 @@
 {
   v6 = sub_1BA4A1998();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1918();
   viewCopy = view;
   selfCopy = self;
-  OnboardingTableViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
+  OnboardingTableViewController.tableView(_:didSelectRowAt:)(viewCopy, v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 @end

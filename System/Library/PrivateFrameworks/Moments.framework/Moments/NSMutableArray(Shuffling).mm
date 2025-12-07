@@ -1,11 +1,11 @@
 @interface NSMutableArray(Shuffling)
-- (uint64_t)shuffleWithSeed:()Shuffling;
-- (unint64_t)shuffle;
+- (char)shuffle;
+- (void)shuffleWithSeed:()Shuffling;
 @end
 
 @implementation NSMutableArray(Shuffling)
 
-- (unint64_t)shuffle
+- (char)shuffle
 {
   result = [self count];
   v3 = result - 2;
@@ -26,7 +26,7 @@
   return result;
 }
 
-- (uint64_t)shuffleWithSeed:()Shuffling
+- (void)shuffleWithSeed:()Shuffling
 {
   result = [self count];
   v6 = result;

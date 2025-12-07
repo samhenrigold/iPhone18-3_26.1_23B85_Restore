@@ -310,7 +310,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKVerifiableClinicalRecordPickerViewController shareButtonTapped:];
+      [HKVerifiableClinicalRecordPickerViewController shareButtonTapped:?];
     }
   }
 
@@ -328,7 +328,7 @@
     v6 = HKLogAuthorization();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [HKVerifiableClinicalRecordPickerViewController cancelButtonTapped:];
+      [HKVerifiableClinicalRecordPickerViewController cancelButtonTapped:?];
     }
   }
 
@@ -348,7 +348,7 @@
     v7 = HKLogAuthorization();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [HKVerifiableClinicalRecordPickerViewController _finishWithError:];
+      [HKVerifiableClinicalRecordPickerViewController _finishWithError:?];
     }
   }
 
@@ -718,7 +718,7 @@ LABEL_12:
       v16 = HKLogAuthorization();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        [HKVerifiableClinicalRecordPickerViewController showDetailsButtonTappedAtIndexPath:];
+        [HKVerifiableClinicalRecordPickerViewController showDetailsButtonTappedAtIndexPath:?];
       }
     }
 
@@ -754,36 +754,36 @@ LABEL_13:
   return WeakRetained;
 }
 
-- (void)shareButtonTapped:.cold.1()
+- (void)shareButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)cancelButtonTapped:.cold.1()
+- (void)cancelButtonTapped:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)_finishWithError:.cold.1()
+- (void)_finishWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)showDetailsButtonTappedAtIndexPath:.cold.1()
+- (void)showDetailsButtonTappedAtIndexPath:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)showDetailsButtonTappedAtIndexPath:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)

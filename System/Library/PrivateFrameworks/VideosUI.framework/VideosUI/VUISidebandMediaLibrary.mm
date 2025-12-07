@@ -458,7 +458,7 @@ void __51__VUISidebandMediaLibrary__deleteOrphanedDownloads__block_invoke(uint64
     v4 = [v3 contentsOfDirectoryAtPath:v2 error:&v49];
     v5 = v49;
 
-    v6 = &unk_1EE28A000;
+    v6 = &qword_1EE28A000;
     if (v5 && os_log_type_enabled(sLogObject_2, OS_LOG_TYPE_ERROR))
     {
       __51__VUISidebandMediaLibrary__deleteOrphanedDownloads__block_invoke_cold_1();
@@ -492,7 +492,7 @@ void __51__VUISidebandMediaLibrary__deleteOrphanedDownloads__block_invoke(uint64
           {
             v35 = v10;
             v12 = [v2 stringByAppendingPathComponent:v11];
-            v13 = *(v6 + 294);
+            v13 = v6[294];
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
@@ -510,7 +510,7 @@ void __51__VUISidebandMediaLibrary__deleteOrphanedDownloads__block_invoke(uint64
 
               if (v16)
               {
-                v17 = *(v6 + 294);
+                v17 = v6[294];
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
@@ -579,7 +579,7 @@ void __51__VUISidebandMediaLibrary__deleteOrphanedDownloads__block_invoke(uint64
 
               v9 = v30;
               v2 = v31;
-              v6 = &unk_1EE28A000;
+              v6 = &qword_1EE28A000;
               v5 = v34;
               v8 = v32;
             }
@@ -860,13 +860,13 @@ void __43__VUISidebandMediaLibrary_initWithManager___block_invoke_64(uint64_t a1
 
 void __43__VUISidebandMediaLibrary_initWithManager___block_invoke_2(uint64_t a1)
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__1;
-  v21 = __Block_byref_object_dispose__1;
-  v22 = 0;
-  v2 = VUISignpostLogObject();
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__1;
+  v22 = __Block_byref_object_dispose__1;
+  v23 = 0;
+  v2 = VUISignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -874,38 +874,38 @@ void __43__VUISidebandMediaLibrary_initWithManager___block_invoke_2(uint64_t a1)
   }
 
   v3 = [*(a1 + 32) serialQueue];
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __43__VUISidebandMediaLibrary_initWithManager___block_invoke_65;
-  v13 = &unk_1E872DB58;
-  v14 = *(a1 + 32);
-  v15 = &v17;
-  dispatch_sync(v3, &v10);
+  v11 = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __43__VUISidebandMediaLibrary_initWithManager___block_invoke_65;
+  v14 = &unk_1E872DB58;
+  v15 = *(a1 + 32);
+  v16 = &v18;
+  dispatch_sync(v3, &v11);
 
-  v4 = VUISignpostLogObject();
-  if (os_signpost_enabled(v4))
+  v5 = VUISignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.SidebandMediaLibrary.Init.ObjectContext", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Launch.SidebandMediaLibrary.Init.ObjectContext", "", buf, 2u);
   }
 
-  v5 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v5 addObserver:*(a1 + 32) selector:sel__mainQueueManagedObjectContextDidSave_ name:*MEMORY[0x1E695D350] object:v18[5]];
-
   v6 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v6 addObserver:*(a1 + 40) selector:sel__activeAccountDidChange_ name:*MEMORY[0x1E69D4A40] object:0];
+  [v6 addObserver:*(a1 + 32) selector:sel__mainQueueManagedObjectContextDidSave_ name:*MEMORY[0x1E695D350] object:v19[5]];
+
+  v7 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v7 addObserver:*(a1 + 40) selector:sel__activeAccountDidChange_ name:*MEMORY[0x1E69D4A40] object:0];
 
   [*(a1 + 32) _postContentsDidChangeNotification];
-  v7 = +[VUIOfflineKeyRenewalManager sharedInstance];
-  [v7 updateKeyRenewalAndExpiration];
+  v8 = +[VUIOfflineKeyRenewalManager sharedInstance];
+  [v8 updateKeyRenewalAndExpiration];
 
-  v8 = +[VUISecureInvalidationManager sharedInstance];
-  [v8 invalidateKeysForDeletedVideos];
+  v9 = +[VUISecureInvalidationManager sharedInstance];
+  [v9 invalidateKeysForDeletedVideos];
 
-  v9 = +[VUIDownloadManager sharedInstance];
-  [v9 initializeDownloadManager];
+  v10 = +[VUIDownloadManager sharedInstance];
+  [v10 initializeDownloadManager];
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 void __43__VUISidebandMediaLibrary_initWithManager___block_invoke_65(uint64_t a1)
@@ -2690,65 +2690,65 @@ uint64_t __66__VUISidebandMediaLibrary_enqueueFetchRequests_completionHandler___
 
 void __66__VUISidebandMediaLibrary_enqueueFetchRequests_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v154 = *MEMORY[0x1E69E9840];
+  v157 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v143 = 0u;
-  v144 = 0u;
-  v145 = 0u;
   v146 = 0u;
-  v98 = a1;
+  v147 = 0u;
+  v148 = 0u;
+  v149 = 0u;
+  v101 = a1;
   obj = *(a1 + 32);
-  v94 = [obj countByEnumeratingWithState:&v143 objects:v153 count:16];
-  if (v94)
+  v97 = [obj countByEnumeratingWithState:&v146 objects:v156 count:16];
+  if (v97)
   {
-    v93 = *v144;
+    v96 = *v147;
     v3 = 0x1E8728000uLL;
-    v109 = WeakRetained;
+    v112 = WeakRetained;
     do
     {
       v4 = 0;
       do
       {
-        if (*v144 != v93)
+        if (*v147 != v96)
         {
           objc_enumerationMutation(obj);
         }
 
-        v97 = v4;
-        v5 = *(*(&v143 + 1) + 8 * v4);
-        v113 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v100 = v4;
+        v5 = *(*(&v146 + 1) + 8 * v4);
+        v116 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v6 = [v5 range];
-        v95 = v7;
-        v96 = v6;
-        v139 = 0u;
-        v140 = 0u;
-        v141 = 0u;
+        v98 = v7;
+        v99 = v6;
         v142 = 0u;
-        v115 = v5;
-        v99 = [v5 mediaEntityTypes];
-        v8 = v98;
-        v101 = [v99 countByEnumeratingWithState:&v139 objects:v152 count:16];
-        if (v101)
+        v143 = 0u;
+        v144 = 0u;
+        v145 = 0u;
+        v118 = v5;
+        v102 = [v5 mediaEntityTypes];
+        v8 = v101;
+        v104 = [v102 countByEnumeratingWithState:&v142 objects:v155 count:16];
+        if (v104)
         {
-          v100 = *v140;
+          v103 = *v143;
           do
           {
             v9 = 0;
             do
             {
-              if (*v140 != v100)
+              if (*v143 != v103)
               {
-                objc_enumerationMutation(v99);
+                objc_enumerationMutation(v102);
               }
 
-              v10 = *(*(&v139 + 1) + 8 * v9);
+              v10 = *(*(&v142 + 1) + 8 * v9);
               v11 = [*(v3 + 1048) movie];
               v12 = v11;
               if (v10 == v11)
               {
 
 LABEL_37:
-                v105 = v9;
+                v108 = v9;
                 v34 = [*(v3 + 1048) movie];
                 v35 = @"TVEpisode";
                 if (v10 == v34)
@@ -2758,48 +2758,48 @@ LABEL_37:
 
                 v36 = v35;
 
-                v103 = v36;
+                v106 = v36;
                 v37 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:v36];
                 v38 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == NIL OR %K IN %@", @"entitlementType", @"entitlementType", &unk_1F5E5E838];
                 [v37 setPredicate:v38];
                 v39 = v8;
-                v106 = v37;
+                v109 = v37;
                 v40 = [*(*(*(v8 + 56) + 8) + 40) executeFetchRequest:v37 error:0];
-                v135 = 0u;
-                v136 = 0u;
-                v137 = 0u;
                 v138 = 0u;
-                v41 = [v40 countByEnumeratingWithState:&v135 objects:v151 count:16];
+                v139 = 0u;
+                v140 = 0u;
+                v141 = 0u;
+                v41 = [v40 countByEnumeratingWithState:&v138 objects:v154 count:16];
                 if (v41)
                 {
                   v42 = v41;
-                  v43 = *v136;
+                  v43 = *v139;
                   do
                   {
                     for (i = 0; i != v42; ++i)
                     {
-                      if (*v136 != v43)
+                      if (*v139 != v43)
                       {
                         objc_enumerationMutation(v40);
                       }
 
-                      v45 = *(*(&v135 + 1) + 8 * i);
+                      v45 = *(*(&v138 + 1) + 8 * i);
                       v46 = [VUISidebandMediaItem alloc];
-                      v47 = [v115 properties];
+                      v47 = [v118 properties];
                       v48 = [(VUISidebandMediaItem *)v46 initWithMediaLibrary:WeakRetained videoManagedObject:v45 requestedProperties:v47];
 
-                      [v113 addObject:v48];
+                      [v116 addObject:v48];
                     }
 
-                    v42 = [v40 countByEnumeratingWithState:&v135 objects:v151 count:16];
+                    v42 = [v40 countByEnumeratingWithState:&v138 objects:v154 count:16];
                   }
 
                   while (v42);
                 }
 
                 v3 = 0x1E8728000;
-                v16 = v103;
-                v9 = v105;
+                v16 = v106;
+                v9 = v108;
                 v8 = v39;
                 goto LABEL_47;
               }
@@ -2817,47 +2817,47 @@ LABEL_37:
               {
                 v16 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"TVSeries"];
                 v49 = [*(*(*(v8 + 56) + 8) + 40) executeFetchRequest:v16 error:0];
-                v131 = 0u;
-                v132 = 0u;
-                v133 = 0u;
                 v134 = 0u;
-                v106 = v49;
-                v111 = [v49 countByEnumeratingWithState:&v131 objects:v150 count:16];
-                if (v111)
+                v135 = 0u;
+                v136 = 0u;
+                v137 = 0u;
+                v109 = v49;
+                v114 = [v49 countByEnumeratingWithState:&v134 objects:v153 count:16];
+                if (v114)
                 {
-                  v102 = v16;
-                  v104 = v9;
-                  v108 = *v132;
+                  v105 = v16;
+                  v107 = v9;
+                  v111 = *v135;
                   do
                   {
-                    for (j = 0; j != v111; ++j)
+                    for (j = 0; j != v114; ++j)
                     {
-                      if (*v132 != v108)
+                      if (*v135 != v111)
                       {
-                        objc_enumerationMutation(v106);
+                        objc_enumerationMutation(v109);
                       }
 
-                      v51 = *(*(&v131 + 1) + 8 * j);
-                      v127 = 0u;
-                      v128 = 0u;
-                      v129 = 0u;
+                      v51 = *(*(&v134 + 1) + 8 * j);
                       v130 = 0u;
+                      v131 = 0u;
+                      v132 = 0u;
+                      v133 = 0u;
                       v52 = [v51 episodes];
-                      v53 = [v52 countByEnumeratingWithState:&v127 objects:v149 count:16];
+                      v53 = [v52 countByEnumeratingWithState:&v130 objects:v152 count:16];
                       if (v53)
                       {
                         v54 = v53;
-                        v55 = *v128;
+                        v55 = *v131;
                         while (2)
                         {
                           for (k = 0; k != v54; ++k)
                           {
-                            if (*v128 != v55)
+                            if (*v131 != v55)
                             {
                               objc_enumerationMutation(v52);
                             }
 
-                            v57 = *(*(&v127 + 1) + 8 * k);
+                            v57 = *(*(&v130 + 1) + 8 * k);
                             v58 = [v57 entitlementType];
                             if (!v58)
                             {
@@ -2871,10 +2871,10 @@ LABEL_37:
 
 LABEL_67:
                               v63 = [VUISidebandSeriesMediaCollection alloc];
-                              v64 = [v115 properties];
-                              v65 = [(VUISidebandSeriesMediaCollection *)v63 initWithMediaLibrary:v109 seriesManagedObject:v51 requestedProperties:v64];
+                              v64 = [v118 properties];
+                              v65 = [(VUISidebandSeriesMediaCollection *)v63 initWithMediaLibrary:v112 seriesManagedObject:v51 requestedProperties:v64];
 
-                              [v113 addObject:v65];
+                              [v116 addObject:v65];
                               goto LABEL_68;
                             }
 
@@ -2887,7 +2887,7 @@ LABEL_67:
                             }
                           }
 
-                          v54 = [v52 countByEnumeratingWithState:&v127 objects:v149 count:16];
+                          v54 = [v52 countByEnumeratingWithState:&v130 objects:v152 count:16];
                           if (v54)
                           {
                             continue;
@@ -2900,10 +2900,10 @@ LABEL_67:
 LABEL_68:
                     }
 
-                    v111 = [v106 countByEnumeratingWithState:&v131 objects:v150 count:16];
+                    v114 = [v109 countByEnumeratingWithState:&v134 objects:v153 count:16];
                   }
 
-                  while (v111);
+                  while (v114);
                   goto LABEL_70;
                 }
               }
@@ -2919,47 +2919,47 @@ LABEL_68:
 
                 v16 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"TVSeason"];
                 v17 = [*(*(*(v8 + 56) + 8) + 40) executeFetchRequest:v16 error:0];
-                v123 = 0u;
-                v124 = 0u;
-                v125 = 0u;
                 v126 = 0u;
-                v106 = v17;
-                v110 = [v17 countByEnumeratingWithState:&v123 objects:v148 count:16];
-                if (v110)
+                v127 = 0u;
+                v128 = 0u;
+                v129 = 0u;
+                v109 = v17;
+                v113 = [v17 countByEnumeratingWithState:&v126 objects:v151 count:16];
+                if (v113)
                 {
-                  v102 = v16;
-                  v104 = v9;
-                  v107 = *v124;
+                  v105 = v16;
+                  v107 = v9;
+                  v110 = *v127;
                   do
                   {
-                    for (m = 0; m != v110; ++m)
+                    for (m = 0; m != v113; ++m)
                     {
-                      if (*v124 != v107)
+                      if (*v127 != v110)
                       {
-                        objc_enumerationMutation(v106);
+                        objc_enumerationMutation(v109);
                       }
 
-                      v19 = *(*(&v123 + 1) + 8 * m);
-                      v119 = 0u;
-                      v120 = 0u;
-                      v121 = 0u;
+                      v19 = *(*(&v126 + 1) + 8 * m);
                       v122 = 0u;
+                      v123 = 0u;
+                      v124 = 0u;
+                      v125 = 0u;
                       v20 = [v19 episodes];
-                      v21 = [v20 countByEnumeratingWithState:&v119 objects:v147 count:16];
+                      v21 = [v20 countByEnumeratingWithState:&v122 objects:v150 count:16];
                       if (v21)
                       {
                         v22 = v21;
-                        v23 = *v120;
+                        v23 = *v123;
                         while (2)
                         {
                           for (n = 0; n != v22; ++n)
                           {
-                            if (*v120 != v23)
+                            if (*v123 != v23)
                             {
                               objc_enumerationMutation(v20);
                             }
 
-                            v25 = *(*(&v119 + 1) + 8 * n);
+                            v25 = *(*(&v122 + 1) + 8 * n);
                             v26 = [v25 entitlementType];
                             if (!v26)
                             {
@@ -2973,10 +2973,10 @@ LABEL_68:
 
 LABEL_32:
                               v31 = [VUISidebandSeasonMediaCollection alloc];
-                              v32 = [v115 properties];
-                              v33 = [(VUISidebandSeasonMediaCollection *)v31 initWithMediaLibrary:v109 seasonManagedObject:v19 requestedProperties:v32];
+                              v32 = [v118 properties];
+                              v33 = [(VUISidebandSeasonMediaCollection *)v31 initWithMediaLibrary:v112 seasonManagedObject:v19 requestedProperties:v32];
 
-                              [v113 addObject:v33];
+                              [v116 addObject:v33];
                               goto LABEL_33;
                             }
 
@@ -2989,7 +2989,7 @@ LABEL_32:
                             }
                           }
 
-                          v22 = [v20 countByEnumeratingWithState:&v119 objects:v147 count:16];
+                          v22 = [v20 countByEnumeratingWithState:&v122 objects:v150 count:16];
                           if (v22)
                           {
                             continue;
@@ -3002,16 +3002,16 @@ LABEL_32:
 LABEL_33:
                     }
 
-                    v110 = [v106 countByEnumeratingWithState:&v123 objects:v148 count:16];
+                    v113 = [v109 countByEnumeratingWithState:&v126 objects:v151 count:16];
                   }
 
-                  while (v110);
+                  while (v113);
 LABEL_70:
-                  WeakRetained = v109;
-                  v8 = v98;
+                  WeakRetained = v112;
+                  v8 = v101;
                   v3 = 0x1E8728000;
-                  v16 = v102;
-                  v9 = v104;
+                  v16 = v105;
+                  v9 = v107;
                 }
               }
 
@@ -3021,27 +3021,27 @@ LABEL_48:
               ++v9;
             }
 
-            while (v9 != v101);
-            v66 = [v99 countByEnumeratingWithState:&v139 objects:v152 count:16];
-            v101 = v66;
+            while (v9 != v104);
+            v66 = [v102 countByEnumeratingWithState:&v142 objects:v155 count:16];
+            v104 = v66;
           }
 
           while (v66);
         }
 
-        v67 = v113;
-        v68 = [v115 predicate];
+        v67 = v116;
+        v68 = [v118 predicate];
 
         v69 = v67;
         if (v68)
         {
-          v70 = [v115 predicate];
+          v70 = [v118 predicate];
           v69 = [v67 filteredArrayUsingPredicate:v70];
         }
 
-        v72 = v95;
-        v71 = v96;
-        if (v96 == 0x7FFFFFFFFFFFFFFFLL || v95 == 0)
+        v72 = v98;
+        v71 = v99;
+        if (v99 == 0x7FFFFFFFFFFFFFFFLL || v98 == 0)
         {
           v74 = v69;
         }
@@ -3050,7 +3050,7 @@ LABEL_48:
         {
           v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v74 = v75;
-          if (v96 < v96 + v95)
+          if (v99 < v99 + v98)
           {
             do
             {
@@ -3071,105 +3071,111 @@ LABEL_48:
         }
 
         v77 = v74;
-        v78 = VUISidebandMediaItemKind();
-        if ([v115 _isItemsFetch])
+        v78 = VUISidebandMediaItemKind(v77);
+        v79 = [v118 _isItemsFetch];
+        if (v79)
         {
-          v79 = VUISidebandMediaItemKind();
-        }
-
-        else if ([v115 _isShowsFetch])
-        {
-          v79 = VUISidebandSeriesMediaCollectionKind();
+          v80 = VUISidebandMediaItemKind(v79);
         }
 
         else
         {
-          if (![v115 _isSeasonsFetch])
+          v81 = [v118 _isShowsFetch];
+          if (v81)
           {
-            goto LABEL_91;
-          }
-
-          v79 = VUISidebandSeasonMediaCollectionKind();
-        }
-
-        v80 = v79;
-
-        v78 = v80;
-LABEL_91:
-        v81 = [v115 _manualSortDescriptorsWithMediaEntityKind:v78 propertiesRequiredForSort:0];
-        v82 = v77;
-        if (v81)
-        {
-          v82 = [v77 sortedArrayUsingDescriptors:v81];
-        }
-
-        v83 = [v115 _sortIndexPropertyKeyWithMediaEntityKind:v78];
-        if (v83)
-        {
-          v84 = [VUIMediaLibraryUtilities sortIndexesForMediaEntities:v82 sortIndexPropertyKey:v83];
-        }
-
-        else
-        {
-          v84 = 0;
-        }
-
-        v114 = v81;
-        v85 = [v115 groupingKeyPath];
-        if (v85)
-        {
-          v112 = v77;
-          v86 = v67;
-          v87 = [v115 groupingSortComparator];
-          v88 = [VUIMediaLibraryUtilities groupingForMediaEntities:v82 groupingKeyPath:v85 groupingSortComparator:v87 performDefaultSort:1 sortIndexPropertyKey:v83];
-
-          if ([v115 _shouldGenerateGroupingSortIndexes])
-          {
-            v89 = [VUIMediaLibraryUtilities sortIndexesForGrouping:v88];
+            v80 = VUISidebandSeriesMediaCollectionKind(v81);
           }
 
           else
           {
-            v89 = 0;
-          }
+            v82 = [v118 _isSeasonsFetch];
+            if (!v82)
+            {
+              goto LABEL_91;
+            }
 
-          v67 = v86;
-          v77 = v112;
+            v80 = VUISidebandSeasonMediaCollectionKind(v82);
+          }
+        }
+
+        v83 = v80;
+
+        v78 = v83;
+LABEL_91:
+        v84 = [v118 _manualSortDescriptorsWithMediaEntityKind:v78 propertiesRequiredForSort:0];
+        v85 = v77;
+        if (v84)
+        {
+          v85 = [v77 sortedArrayUsingDescriptors:v84];
+        }
+
+        v86 = [v118 _sortIndexPropertyKeyWithMediaEntityKind:v78];
+        if (v86)
+        {
+          v87 = [VUIMediaLibraryUtilities sortIndexesForMediaEntities:v85 sortIndexPropertyKey:v86];
         }
 
         else
         {
-          v88 = 0;
-          v89 = 0;
+          v87 = 0;
         }
 
-        v90 = objc_alloc_init(VUIMediaEntityFetchResponse);
-        [(VUIMediaEntityFetchResponse *)v90 setMediaEntities:v82];
-        [(VUIMediaEntityFetchResponse *)v90 setSortIndexes:v84];
-        [(VUIMediaEntityFetchResponse *)v90 setGrouping:v88];
-        [(VUIMediaEntityFetchResponse *)v90 setGroupingSortIndexes:v89];
-        [*(v98 + 40) addObject:v90];
+        v117 = v84;
+        v88 = [v118 groupingKeyPath];
+        if (v88)
+        {
+          v115 = v77;
+          v89 = v67;
+          v90 = [v118 groupingSortComparator];
+          v91 = [VUIMediaLibraryUtilities groupingForMediaEntities:v85 groupingKeyPath:v88 groupingSortComparator:v90 performDefaultSort:1 sortIndexPropertyKey:v86];
 
-        v4 = v97 + 1;
-        WeakRetained = v109;
+          if ([v118 _shouldGenerateGroupingSortIndexes])
+          {
+            v92 = [VUIMediaLibraryUtilities sortIndexesForGrouping:v91];
+          }
+
+          else
+          {
+            v92 = 0;
+          }
+
+          v67 = v89;
+          v77 = v115;
+        }
+
+        else
+        {
+          v91 = 0;
+          v92 = 0;
+        }
+
+        v93 = objc_alloc_init(VUIMediaEntityFetchResponse);
+        [(VUIMediaEntityFetchResponse *)v93 setMediaEntities:v85];
+        [(VUIMediaEntityFetchResponse *)v93 setSortIndexes:v87];
+        [(VUIMediaEntityFetchResponse *)v93 setGrouping:v91];
+        [(VUIMediaEntityFetchResponse *)v93 setGroupingSortIndexes:v92];
+        [*(v101 + 40) addObject:v93];
+
+        v4 = v100 + 1;
+        WeakRetained = v112;
         v3 = 0x1E8728000;
       }
 
-      while (v97 + 1 != v94);
-      v94 = [obj countByEnumeratingWithState:&v143 objects:v153 count:16];
+      while (v100 + 1 != v97);
+      v97 = [obj countByEnumeratingWithState:&v146 objects:v156 count:16];
     }
 
-    while (v94);
+    while (v97);
   }
 
-  v91 = [WeakRetained manager];
-  v116[0] = MEMORY[0x1E69E9820];
-  v116[1] = 3221225472;
-  v116[2] = __66__VUISidebandMediaLibrary_enqueueFetchRequests_completionHandler___block_invoke_4;
-  v116[3] = &unk_1E872DC10;
-  v118 = *(v98 + 48);
-  v117 = *(v98 + 40);
-  [v91 _enqueueCompletionQueueBlock:v116];
+  v94 = [WeakRetained manager];
+  v119[0] = MEMORY[0x1E69E9820];
+  v119[1] = 3221225472;
+  v119[2] = __66__VUISidebandMediaLibrary_enqueueFetchRequests_completionHandler___block_invoke_4;
+  v119[3] = &unk_1E872DC10;
+  v121 = *(v101 + 48);
+  v120 = *(v101 + 40);
+  [v94 _enqueueCompletionQueueBlock:v119];
 }
 
 uint64_t __66__VUISidebandMediaLibrary_enqueueFetchRequests_completionHandler___block_invoke_4(uint64_t a1)
@@ -3558,7 +3564,7 @@ void __72__VUISidebandMediaLibrary__countForFetchRequest_usingMainThreadContext_
   *(v3 + 40) = v2;
 }
 
-uint64_t __72__VUISidebandMediaLibrary__countForFetchRequest_usingMainThreadContext___block_invoke_3(void *a1)
+void *__72__VUISidebandMediaLibrary__countForFetchRequest_usingMainThreadContext___block_invoke_3(void *a1)
 {
   result = [*(*(a1[5] + 8) + 40) countForFetchRequest:a1[4] error:0];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

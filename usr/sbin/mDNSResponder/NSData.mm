@@ -18,7 +18,16 @@
     {
       v9 = 0;
       memset(v8, 0, sizeof(v8));
-      mDNS_snprintf(v8);
+      if (LODWORD(v6[0]) == 4)
+      {
+        mDNS_snprintf(v8, 40, "%.4a");
+      }
+
+      else
+      {
+        mDNS_snprintf(v8, 40, "%.16a");
+      }
+
       v3 = [NSString stringWithFormat:@"%s", v8];
     }
   }

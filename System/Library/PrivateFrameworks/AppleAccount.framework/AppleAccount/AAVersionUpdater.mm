@@ -52,16 +52,16 @@
 
 - (void)_performVersionUpdate:(unint64_t)update
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v6 = _AALogSystem();
+  v23 = *MEMORY[0x1E69E9840];
+  v6 = _AALogSystem(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     currentVersion = self->_currentVersion;
     *buf = 136315650;
-    v17 = "[AAVersionUpdater _performVersionUpdate:]";
-    v18 = 2048;
-    v19 = currentVersion;
-    v20 = 2048;
+    v16 = "[AAVersionUpdater _performVersionUpdate:]";
+    v17 = 2048;
+    v18 = currentVersion;
+    v19 = 2048;
     updateCopy2 = update;
     _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "%s Performing data migration from version %lu to : %lu", buf, 0x20u);
   }
@@ -78,24 +78,21 @@
   v11 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v10];
   [v11 setSelector:v9];
   [v11 invokeWithTarget:self];
-  v15 = 0;
-  [v11 getReturnValue:&v15];
-  v12 = _AALogSystem();
+  v14 = 0;
+  v12 = _AALogSystem([v11 getReturnValue:&v14]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = self->_currentVersion;
     *buf = 136315906;
-    v17 = "[AAVersionUpdater _performVersionUpdate:]";
-    v18 = 2048;
-    v19 = v13;
-    v20 = 2048;
+    v16 = "[AAVersionUpdater _performVersionUpdate:]";
+    v17 = 2048;
+    v18 = v13;
+    v19 = 2048;
     updateCopy2 = update;
-    v22 = 2048;
-    v23 = v15;
+    v21 = 2048;
+    v22 = v14;
     _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "%s Performed update of version %lu to %lu with success %lu", buf, 0x2Au);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)needsUpdate

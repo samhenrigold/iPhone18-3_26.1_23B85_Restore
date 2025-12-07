@@ -107,7 +107,7 @@
 
 - (void)lineCardViewController:(id)controller openURL:(id)l
 {
-  v7 = sub_1000CE6B8(&unk_101909B00);
+  v7 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v7 - 8);
   v9 = &v14 - v8;
   if (l)
@@ -245,7 +245,7 @@
 
   if (v3)
   {
-    sub_1000CE6B8(&unk_10190B260);
+    sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

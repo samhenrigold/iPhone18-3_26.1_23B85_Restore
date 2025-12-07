@@ -68,60 +68,60 @@
   }
 
   motionActivityManager = self->_motionActivityManager;
-  v8 = objc_msgSend_mainQueue(MEMORY[0x277CCABD8], v5, v6, v7);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_23BD59DE4;
-  v10[3] = &unk_278B94A30;
-  objc_copyWeak(&v11, &location);
-  objc_msgSend_startActivityUpdatesToQueue_withHandler_(motionActivityManager, v9, v8, v10);
+  v7 = objc_msgSend_mainQueue(MEMORY[0x277CCABD8], v5, v6);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_23BD59DE4;
+  v9[3] = &unk_278B94A30;
+  objc_copyWeak(&v10, &location);
+  objc_msgSend_startActivityUpdatesToQueue_withHandler_(motionActivityManager, v8, v7, v9);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 
 - (void)_updateMotionActivity:(id)activity
 {
   activityCopy = activity;
-  isMoving = objc_msgSend_nc_isMoving(activityCopy, v5, v6, v7);
-  v12 = objc_msgSend_nc_motionType(activityCopy, v9, v10, v11);
-  v19 = objc_msgSend_now(MEMORY[0x277CBEAA8], v13, v14, v15);
+  isMoving = objc_msgSend_nc_isMoving(activityCopy, v5, v6);
+  v10 = objc_msgSend_nc_motionType(activityCopy, v8, v9);
+  v15 = objc_msgSend_now(MEMORY[0x277CBEAA8], v11, v12);
   if (isMoving)
   {
-    objc_msgSend_eventWithType_timestamp_stationary_(NCMotionEvent, v16, v12, v19, 0);
-    v25 = LABEL_7:;
-    objc_msgSend__housekeepingWith_(self, v26, v25, v27);
+    objc_msgSend_eventWithType_timestamp_stationary_(NCMotionEvent, v13, v10, v15, 0);
+    v20 = LABEL_7:;
+    objc_msgSend__housekeepingWith_(self, v21, v20);
 
     goto LABEL_8;
   }
 
-  if (objc_msgSend_stationary(activityCopy, v16, v17, v18))
+  if (objc_msgSend_stationary(activityCopy, v13, v14))
   {
-    v23 = NCLogForCategory(1uLL);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v18 = NCLogForCategory(1uLL);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_23BD26000, v23, OS_LOG_TYPE_DEFAULT, "Device is stationary and user is not walking/running/cycling/in automotive.", v33, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_23BD26000, v18, OS_LOG_TYPE_DEFAULT, "Device is stationary and user is not walking/running/cycling/in automotive.", v26, 2u);
     }
 
-    objc_msgSend_eventWithType_timestamp_stationary_(NCMotionEvent, v24, 0, v19, 1);
+    objc_msgSend_eventWithType_timestamp_stationary_(NCMotionEvent, v19, 0, v15, 1);
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isStepCountingAvailable(MEMORY[0x277CC1D18], v20, v21, v22))
+  if (objc_msgSend_isStepCountingAvailable(MEMORY[0x277CC1D18], v16, v17))
   {
-    objc_msgSend__updateStatusFromPedometer(self, v28, v29, v30);
+    objc_msgSend__updateStatusFromPedometer(self, v22, v23);
   }
 
   else
   {
-    v31 = NCLogForCategory(1uLL);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v24 = NCLogForCategory(1uLL);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      sub_23BD678F8(v31);
+      sub_23BD678F8(v24);
     }
 
-    objc_msgSend__updateMotionType_isDeviceStationary_(self, v32, 1, 0);
+    objc_msgSend__updateMotionType_isDeviceStationary_(self, v25, 1, 0);
   }
 
 LABEL_8:
@@ -129,63 +129,63 @@ LABEL_8:
 
 - (void)_updateStatusFromPedometer
 {
-  v5 = objc_msgSend_now(MEMORY[0x277CBEAA8], a2, v2, v3);
-  v9 = objc_msgSend_dateByAddingTimeInterval_(v5, v6, v7, v8, -90.0);
+  v4 = objc_msgSend_now(MEMORY[0x277CBEAA8], a2, v2);
+  v7 = objc_msgSend_dateByAddingTimeInterval_(v4, v5, v6, -90.0);
   pedometer = self->_pedometer;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_23BD5A088;
-  v12[3] = &unk_278B94A80;
-  v12[4] = self;
-  objc_msgSend_queryPedometerDataFromDate_toDate_withHandler_(pedometer, v11, v9, v5, v12);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_23BD5A088;
+  v10[3] = &unk_278B94A80;
+  v10[4] = self;
+  objc_msgSend_queryPedometerDataFromDate_toDate_withHandler_(pedometer, v9, v7, v4, v10);
 }
 
 - (void)_housekeepingWith:(id)with
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   withCopy = with;
-  v8 = objc_msgSend_timestamp(withCopy, v5, v6, v7);
-  v12 = objc_msgSend_array(MEMORY[0x277CBEB18], v9, v10, v11);
-  v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v16 = objc_msgSend_reverseObjectEnumerator(self->_motionEventQueue, v13, v14, v15, 0);
-  v20 = objc_msgSend_allObjects(v16, v17, v18, v19);
+  v7 = objc_msgSend_timestamp(withCopy, v5, v6);
+  v10 = objc_msgSend_array(MEMORY[0x277CBEB18], v8, v9);
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v13 = objc_msgSend_reverseObjectEnumerator(self->_motionEventQueue, v11, v12, 0);
+  v16 = objc_msgSend_allObjects(v13, v14, v15);
 
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v65, v69, 16);
-  if (v22)
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v50, v54, 16);
+  if (v18)
   {
-    v26 = v22;
-    v27 = *v66;
+    v21 = v18;
+    v22 = *v51;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v66 != v27)
+        if (*v51 != v22)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v16);
         }
 
-        v29 = *(*(&v65 + 1) + 8 * i);
-        v30 = objc_msgSend_timestamp(v29, v23, v24, v25);
-        objc_msgSend_timeIntervalSinceDate_(v8, v31, v30, v32);
-        v34 = v33;
+        v24 = *(*(&v50 + 1) + 8 * i);
+        v25 = objc_msgSend_timestamp(v24, v19, v20);
+        objc_msgSend_timeIntervalSinceDate_(v7, v26, v25);
+        v28 = v27;
 
-        if (v34 >= 20.0)
+        if (v28 >= 20.0)
         {
-          v38 = objc_msgSend_dateByAddingTimeInterval_(v8, v35, v36, v37, -20.0);
-          objc_msgSend_setTimestamp_(v29, v39, v38, v40);
+          v31 = objc_msgSend_dateByAddingTimeInterval_(v7, v29, v30, -20.0);
+          objc_msgSend_setTimestamp_(v24, v32, v31);
 
-          objc_msgSend_addObject_(v12, v41, v29, v42);
+          objc_msgSend_addObject_(v10, v33, v24);
           goto LABEL_11;
         }
 
-        objc_msgSend_addObject_(v12, v35, v29, v37);
+        objc_msgSend_addObject_(v10, v29, v24);
       }
 
-      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v65, v69, 16);
-      if (v26)
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v50, v54, 16);
+      if (v21)
       {
         continue;
       }
@@ -196,79 +196,79 @@ LABEL_8:
 
 LABEL_11:
 
-  v46 = objc_msgSend_reverseObjectEnumerator(v12, v43, v44, v45);
-  v50 = objc_msgSend_allObjects(v46, v47, v48, v49);
-  v54 = objc_msgSend_mutableCopy(v50, v51, v52, v53);
+  v36 = objc_msgSend_reverseObjectEnumerator(v10, v34, v35);
+  v39 = objc_msgSend_allObjects(v36, v37, v38);
+  v42 = objc_msgSend_mutableCopy(v39, v40, v41);
 
-  objc_msgSend_addObject_(v54, v55, withCopy, v56);
-  v60 = objc_msgSend_copy(v54, v57, v58, v59);
+  objc_msgSend_addObject_(v42, v43, withCopy);
+  v46 = objc_msgSend_copy(v42, v44, v45);
   motionEventQueue = self->_motionEventQueue;
-  self->_motionEventQueue = v60;
+  self->_motionEventQueue = v46;
 
-  objc_msgSend__computeStatus(self, v62, v63, v64);
+  objc_msgSend__computeStatus(self, v48, v49);
 }
 
 - (void)_computeStatus
 {
-  v8 = objc_msgSend_count(self->_motionEventQueue, a2, v2, v3);
+  v6 = objc_msgSend_count(self->_motionEventQueue, a2, v2);
   motionEventQueue = self->_motionEventQueue;
-  if (v8 == 1)
+  if (v6 == 1)
   {
-    v53 = objc_msgSend_objectAtIndexedSubscript_(motionEventQueue, v5, 0, v7);
-    v13 = objc_msgSend_motionType(v53, v10, v11, v12);
-    isStationary = objc_msgSend_isStationary(v53, v14, v15, v16);
-    objc_msgSend__updateMotionType_isDeviceStationary_(self, v18, v13, isStationary);
+    v41 = objc_msgSend_objectAtIndexedSubscript_(motionEventQueue, v4, 0);
+    v10 = objc_msgSend_motionType(v41, v8, v9);
+    isStationary = objc_msgSend_isStationary(v41, v11, v12);
+    objc_msgSend__updateMotionType_isDeviceStationary_(self, v14, v10, isStationary);
 
     return;
   }
 
-  if (objc_msgSend_count(motionEventQueue, v5, v6, v7) == 1)
+  if (objc_msgSend_count(motionEventQueue, v4, v5) == 1)
   {
-    v21 = 0;
+    v16 = 0;
 LABEL_14:
     selfCopy2 = self;
-    v51 = v21;
-    v52 = 0;
+    v39 = v16;
+    v40 = 0;
     goto LABEL_15;
   }
 
-  v21 = 0;
-  v22 = 0;
-  v23 = 0.0;
-  v24 = 0.0;
+  v16 = 0;
+  v17 = 0;
+  v18 = 0.0;
+  v19 = 0.0;
   do
   {
-    v25 = objc_msgSend_objectAtIndexedSubscript_(self->_motionEventQueue, v19, v22, v20);
-    v29 = objc_msgSend_timestamp(v25, v26, v27, v28);
-    v32 = objc_msgSend_objectAtIndexedSubscript_(self->_motionEventQueue, v30, ++v22, v31);
-    v36 = objc_msgSend_timestamp(v32, v33, v34, v35);
+    v20 = objc_msgSend_objectAtIndexedSubscript_(self->_motionEventQueue, v15, v17);
+    v23 = objc_msgSend_timestamp(v20, v21, v22);
+    v25 = objc_msgSend_objectAtIndexedSubscript_(self->_motionEventQueue, v24, ++v17);
+    v28 = objc_msgSend_timestamp(v25, v26, v27);
 
-    objc_msgSend_timeIntervalSinceDate_(v36, v37, v29, v38);
-    v40 = v39;
-    if (objc_msgSend_isStationary(v25, v41, v42, v43))
+    objc_msgSend_timeIntervalSinceDate_(v28, v29, v23);
+    v31 = v30;
+    if (objc_msgSend_isStationary(v20, v32, v33))
     {
-      v24 = v24 + v40;
+      v19 = v19 + v31;
     }
 
     else
     {
-      v23 = v23 + v40;
-      v21 = objc_msgSend_motionType(v25, v44, v45, v46);
+      v18 = v18 + v31;
+      v16 = objc_msgSend_motionType(v20, v34, v35);
     }
   }
 
-  while (v22 < objc_msgSend_count(self->_motionEventQueue, v47, v48, v49) - 1);
-  if (v24 <= v23)
+  while (v17 < objc_msgSend_count(self->_motionEventQueue, v36, v37) - 1);
+  if (v19 <= v18)
   {
     goto LABEL_14;
   }
 
   selfCopy2 = self;
-  v51 = 0;
-  v52 = 1;
+  v39 = 0;
+  v40 = 1;
 LABEL_15:
 
-  objc_msgSend__updateMotionType_isDeviceStationary_(selfCopy2, v19, v51, v52);
+  objc_msgSend__updateMotionType_isDeviceStationary_(selfCopy2, v15, v39, v40);
 }
 
 - (void)_updateMotionType:(int64_t)type isDeviceStationary:(BOOL)stationary

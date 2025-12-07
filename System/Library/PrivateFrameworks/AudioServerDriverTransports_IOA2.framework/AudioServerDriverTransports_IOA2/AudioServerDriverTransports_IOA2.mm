@@ -1,9 +1,9 @@
-void sub_2416BB16C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416BB16C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTIOA2BlockControl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -14,11 +14,11 @@ void sub_2416BB2CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2416BB53C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BB53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  std::mutex::unlock((v3 + v5));
+  std::mutex::unlock((v4 + v6));
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
 
   _Unwind_Resume(a1);
@@ -41,11 +41,11 @@ void applesauce::CF::DictionaryRef::~DictionaryRef(const void **this)
   }
 }
 
-void sub_2416BB99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416BB99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
-  std::mutex::unlock((v4 + v5));
+  std::mutex::unlock((v7 + v8));
   _Unwind_Resume(a1);
 }
 
@@ -60,18 +60,18 @@ const void **applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(const 
   return a1;
 }
 
-ASDT::IOA2UserClient *ASDT::IOA2UserClient::IOA2UserClient(io_object_t *this)
+io_object_t *ASDT::IOA2UserClient::IOA2UserClient(io_object_t *this, unsigned int a2, unsigned int a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = ASDT::IOUserClient::IOUserClient(this);
-  *v2 = &unk_285354FA8;
-  if ((ASDT::IOUserClient::ConformsTo(v2, "IOAudio2Device") & 1) == 0)
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = ASDT::IOUserClient::IOUserClient(this);
+  *v4 = &unk_285354FA8;
+  if ((ASDT::IOUserClient::ConformsTo(v4, "IOAudio2Device") & 1) == 0)
   {
-    v3 = this[2];
-    memset(v7, 0, sizeof(v7));
-    IOObjectGetClass(v3, v7);
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = this[2];
+    memset(v10, 0, sizeof(v10));
+    Class = IOObjectGetClass(v5, v10);
+    v8 = ASDTIOA2LogType(Class, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::IOA2UserClient();
     }
@@ -79,7 +79,6 @@ ASDT::IOA2UserClient *ASDT::IOA2UserClient::IOA2UserClient(io_object_t *this)
     (*(*this + 16))(this);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -96,11 +95,11 @@ void *ASDT::IOA2UserClient::IOA2UserClient(ASDT::IOA2UserClient *this, const app
   return result;
 }
 
-void ASDT::IOA2UserClient::CopyDeviceUID(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyDeviceUID(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"device UID", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"device UID", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
@@ -108,20 +107,20 @@ void ASDT::IOA2UserClient::CopyDeviceUID(ASDT::IOA2UserClient *this@<X0>, const 
 }
 
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"device UID", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a2, v4);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"device UID", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a3, v5);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BBEF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BBEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::StringRef::~StringRef(v2);
+  applesauce::CF::StringRef::~StringRef(v3);
   _Unwind_Resume(a1);
 }
 
@@ -146,16 +145,16 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(ASDT::IOUse
   return v5;
 }
 
-void sub_2416BBF78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BBF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-CFTypeID applesauce::CF::make_StringRef@<X0>(CFStringRef format@<X0>, CFStringRef *a2@<X8>, ...)
+uint64_t *applesauce::CF::make_StringRef@<X0>(CFStringRef *__return_ptr a1@<X8>, CFStringRef format@<X0>, const __CFString *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   v4 = CFStringCreateWithFormatAndArguments(0, 0, format, va);
   if (!v4)
   {
@@ -163,7 +162,7 @@ CFTypeID applesauce::CF::make_StringRef@<X0>(CFStringRef format@<X0>, CFStringRe
     applesauce::CF::construct_error(exception);
   }
 
-  *a2 = v4;
+  *a1 = v4;
   v5 = CFGetTypeID(v4);
   result = CFStringGetTypeID();
   if (v5 != result)
@@ -192,55 +191,55 @@ void applesauce::CF::StringRef::~StringRef(const void **this)
   }
 }
 
-void ASDT::IOA2UserClient::CopyDeviceName(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyDeviceName(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"device name", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"device name", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BC130(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::StringRef::~StringRef(v2);
+  applesauce::CF::StringRef::~StringRef(v3);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyDeviceManufacturer(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyDeviceManufacturer(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"device manufacturer", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"device manufacturer", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BC1B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::StringRef::~StringRef(v2);
+  applesauce::CF::StringRef::~StringRef(v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetTransportType(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::GetTransportType(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"transport type", &cf);
-  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"transport type", a2);
+  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<unsigned int>(ASDT::IOUserClient *a1, const applesauce::CF::StringRef *a2, const applesauce::CF::TypeRef *a3)
@@ -264,27 +263,27 @@ uint64_t ASDT::IOUserClient::CopyProperty<unsigned int>(ASDT::IOUserClient *a1, 
   return v5;
 }
 
-void sub_2416BC2B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetClockDomain(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::GetClockDomain(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"clock domain", &cf);
-  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"clock domain", a2);
+  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t ASDT::IOA2UserClient::GetLatency(ASDT::IOA2UserClient *this, int a2)
+uint64_t ASDT::IOA2UserClient::GetLatency(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
   v7 = 0;
   if (a2)
@@ -297,7 +296,7 @@ uint64_t ASDT::IOA2UserClient::GetLatency(ASDT::IOA2UserClient *this, int a2)
     v3 = @"output latency";
   }
 
-  applesauce::CF::make_StringRef(v3, &cf);
+  applesauce::CF::make_StringRef(&cf, v3, a2);
   ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v7);
   v4 = v7;
   if (cf)
@@ -308,20 +307,20 @@ uint64_t ASDT::IOA2UserClient::GetLatency(ASDT::IOA2UserClient *this, int a2)
   return v4;
 }
 
-uint64_t ASDT::IOA2UserClient::GetRingBufferSize(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::GetRingBufferSize(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"io buffer frame size", &cf);
-  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"io buffer frame size", a2);
+  ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t ASDT::IOA2UserClient::GetSafetyOffset(ASDT::IOA2UserClient *this, int a2)
+uint64_t ASDT::IOA2UserClient::GetSafetyOffset(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
   v7 = 0;
   if (a2)
@@ -334,7 +333,7 @@ uint64_t ASDT::IOA2UserClient::GetSafetyOffset(ASDT::IOA2UserClient *this, int a
     v3 = @"output safety offset";
   }
 
-  applesauce::CF::make_StringRef(v3, &cf);
+  applesauce::CF::make_StringRef(&cf, v3, a2);
   ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v7);
   v4 = v7;
   if (cf)
@@ -345,17 +344,17 @@ uint64_t ASDT::IOA2UserClient::GetSafetyOffset(ASDT::IOA2UserClient *this, int a
   return v4;
 }
 
-uint64_t ASDT::IOA2UserClient::SupportsPreWarming(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::SupportsPreWarming(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"supports prewarming", &cf);
-  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"supports prewarming", a2);
+  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, const applesauce::CF::StringRef *a2, const applesauce::CF::TypeRef *a3)
@@ -379,24 +378,24 @@ uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, const ap
   return v5;
 }
 
-void sub_2416BC594(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetNominalSampleRate(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::GetNominalSampleRate(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"sample rate", &cf);
-  ASDT::IOUserClient::CopyProperty<long long>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"sample rate", a2);
+  ASDT::IOUserClient::CopyProperty<long long>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return ASDT::IOAudio2::Helpers::Float64FromFixed64(v4);
+  return ASDT::IOAudio2::Helpers::Float64FromFixed64(v5);
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<long long>(ASDT::IOUserClient *a1, const applesauce::CF::StringRef *a2, const applesauce::CF::TypeRef *a3)
@@ -420,43 +419,44 @@ uint64_t ASDT::IOUserClient::CopyProperty<long long>(ASDT::IOUserClient *a1, con
   return v5;
 }
 
-void sub_2416BC684(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
 BOOL ASDT::IOA2UserClient::SetNominalSampleRate(ASDT::IOA2UserClient *this, double a2)
 {
-  v6 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a2);
-  v3 = ASDT::IOUserClient::CallMethod(this, 4, 0, 0, &v6, 8, 0, 0, 0, 0, 1);
+  v8 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a2);
+  v3 = ASDT::IOUserClient::CallMethod(this, 4, 0, 0, &v8, 8, 0, 0, 0, 0, 1);
+  v5 = v3;
   if (v3)
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOA2LogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::SetNominalSampleRate(this);
+      ASDT::IOA2UserClient::SetNominalSampleRate();
     }
   }
 
-  return v3 == 0;
+  return v5 == 0;
 }
 
-uint64_t ASDT::IOA2UserClient::IsRunning(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::IsRunning(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"is running", &cf);
-  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"is running", a2);
+  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
-void ASDT::IOA2UserClient::CopyDefaultChannelLayout(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, const applesauce::CF::TypeRef *a3@<X8>)
+void ASDT::IOA2UserClient::CopyDefaultChannelLayout(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
   if (a2)
   {
@@ -468,7 +468,7 @@ void ASDT::IOA2UserClient::CopyDefaultChannelLayout(ASDT::IOA2UserClient *this@<
     v5 = @"output channel layout";
   }
 
-  applesauce::CF::make_StringRef(v5, &cf);
+  applesauce::CF::make_StringRef(&cf, v5, a2);
   *a3 = 0;
   ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a3);
   if (cf)
@@ -505,9 +505,9 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(ASDT::IOUser
   return v5;
 }
 
-void sub_2416BC8A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BC8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -529,7 +529,7 @@ void applesauce::CF::ArrayRef::~ArrayRef(const void **this)
   }
 }
 
-void ASDT::IOA2UserClient::CopyDefaultChannelLayoutData(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, CFDataRef *a3@<X8>)
+void ASDT::IOA2UserClient::CopyDefaultChannelLayoutData(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, CFDataRef *a3@<X8>)
 {
   ASDT::IOA2UserClient::CopyDefaultChannelLayout(this, a2, &theArray);
   if (theArray)
@@ -547,7 +547,7 @@ void ASDT::IOA2UserClient::CopyDefaultChannelLayoutData(ASDT::IOA2UserClient *th
     }
 
     LOBYTE(cf) = 0;
-    std::vector<char>::vector[abi:ne200100](&__p, 20 * v6 + 12);
+    std::vector<char>::vector[abi:ne200100](&__p, 20 * v6 + 12, &cf);
     v7 = __p;
     *__p = 0;
     v7[2] = v5;
@@ -579,7 +579,7 @@ void ASDT::IOA2UserClient::CopyDefaultChannelLayoutData(ASDT::IOA2UserClient *th
           __cxa_throw(v18, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::at_or<applesauce::CF::NumberRef>(theArray, v10, &v24, &cf);
+        applesauce::CF::at_or<applesauce::CF::NumberRef>(&v24, &cf, theArray, v10);
         if (!cf)
         {
           v17 = __cxa_allocate_exception(0x10uLL);
@@ -696,7 +696,7 @@ void applesauce::CF::NumberRef::~NumberRef(const void **this)
   }
 }
 
-uint64_t ASDT::IOA2UserClient::WantsDoIOTrapCall(ASDT::IOA2UserClient *this, int a2)
+uint64_t ASDT::IOA2UserClient::WantsDoIOTrapCall(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
   if (a2)
   {
@@ -708,7 +708,7 @@ uint64_t ASDT::IOA2UserClient::WantsDoIOTrapCall(ASDT::IOA2UserClient *this, int
     v3 = @"wants output trap";
   }
 
-  applesauce::CF::make_StringRef(v3, &cf);
+  applesauce::CF::make_StringRef(&cf, v3, a2);
   v6 = 0;
   ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v6);
   v4 = v6;
@@ -720,47 +720,47 @@ uint64_t ASDT::IOA2UserClient::WantsDoIOTrapCall(ASDT::IOA2UserClient *this, int
   return v4;
 }
 
-void sub_2416BCE80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BCE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetHogModeOwner(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::GetHogModeOwner(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v7 = -1;
-  applesauce::CF::make_StringRef(@"exclusive access owner", cf);
-  v2 = ASDT::IOUserClient::CopyProperty<int>(this, cf, &v7);
+  v8 = -1;
+  applesauce::CF::make_StringRef(cf, @"exclusive access owner", a2);
+  v3 = ASDT::IOUserClient::CopyProperty<int>(this, cf, &v8);
   if (cf[0])
   {
     CFRelease(cf[0]);
   }
 
-  if (v2)
+  if (v3)
   {
-    caulk::platform::process_name(v7);
-    if (v6 < 0)
+    caulk::platform::process_name(cf, v8);
+    if (v7 < 0)
     {
-      v4 = cf[1];
+      v5 = cf[1];
       operator delete(cf[0]);
-      if (v4)
+      if (v5)
       {
-        return v7;
+        return v8;
       }
 
       goto LABEL_6;
     }
 
-    if (!v6)
+    if (!v7)
     {
 LABEL_6:
-      v7 = -1;
-      ASDT::IOA2UserClient::SetHogModeOwner(this);
+      v8 = -1;
+      ASDT::IOA2UserClient::SetHogModeOwner(this, 0xFFFFFFFFLL);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<int>(ASDT::IOUserClient *a1, const applesauce::CF::StringRef *a2, const applesauce::CF::TypeRef *a3)
@@ -784,48 +784,48 @@ uint64_t ASDT::IOUserClient::CopyProperty<int>(ASDT::IOUserClient *a1, const app
   return v5;
 }
 
-void sub_2416BCFB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BCFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::SetHogModeOwner(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::SetHogModeOwner(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  applesauce::CF::make_StringRef(@"exclusive access owner", &cf);
-  v2 = ASDT::IOUserClient::SetProperty(this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"exclusive access owner", a2);
+  v3 = ASDT::IOUserClient::SetProperty(this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v2;
+  return v3;
 }
 
-void sub_2416BD030(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyHeadsetInfo(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyHeadsetInfo(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"headset info", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"headset info", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BD0A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::DictionaryRef::~DictionaryRef(v2);
+  applesauce::CF::DictionaryRef::~DictionaryRef(v3);
   _Unwind_Resume(a1);
 }
 
@@ -850,83 +850,82 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(ASDT::I
   return v5;
 }
 
-void sub_2416BD12C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyCustomPropertyInfo(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyCustomPropertyInfo(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"custom property info", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"custom property info", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BD1A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::ArrayRef::~ArrayRef(v2);
+  applesauce::CF::ArrayRef::~ArrayRef(v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::SupportsClientDescription(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::SupportsClientDescription(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"supports client description", &cf);
-  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"supports client description", a2);
+  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
 BOOL ASDT::IOA2UserClient::SetClientDescription(ASDT::IOA2UserClient *this, unint64_t a2, double a3)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v8[0] = a2;
-  v8[1] = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a3);
-  v4 = ASDT::IOUserClient::CallMethod(this, 12, v8, 2, 0, 0, 0, 0, 0, 0, 1);
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = a2;
+  v9[1] = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a3);
+  v4 = ASDT::IOUserClient::CallMethod(this, 12, v9, 2, 0, 0, 0, 0, 0, 0, 1);
+  v6 = v4;
   if (v4)
   {
-    v5 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::SetClientDescription(this);
+      ASDT::IOA2UserClient::SetClientDescription();
     }
   }
 
-  result = v4 == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
-uint64_t ASDT::IOA2UserClient::SupportsInputStreamInjection(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::SupportsInputStreamInjection(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v4 = 0;
-  applesauce::CF::make_StringRef(@"input stream injection", &cf);
-  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v4);
+  v5 = 0;
+  applesauce::CF::make_StringRef(&cf, @"input stream injection", a2);
+  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v5);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v5;
 }
 
-void sub_2416BD3D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::StringRef::~StringRef(v2);
+  applesauce::CF::StringRef::~StringRef(v3);
   _Unwind_Resume(a1);
 }
 
@@ -951,24 +950,24 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(ASDT::IOUse
   return v6;
 }
 
-void sub_2416BD460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::IsPrivate(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::IsPrivate(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  v5 = 0;
-  applesauce::CF::make_StringRef(@"is private", &cf);
-  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v5, v2);
+  v6 = 0;
+  applesauce::CF::make_StringRef(&cf, @"is private", a2);
+  ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v6, v3);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, uint64_t a2, const applesauce::CF::TypeRef *a3, applesauce::CF::TypeRef *a4)
@@ -992,14 +991,14 @@ uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, uint64_t
   return v6;
 }
 
-void sub_2416BD54C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyStreamList(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, const applesauce::CF::TypeRef *a3@<X8>)
+void ASDT::IOA2UserClient::CopyStreamList(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
   *a3 = 0;
   if (a2)
@@ -1012,7 +1011,7 @@ void ASDT::IOA2UserClient::CopyStreamList(ASDT::IOA2UserClient *this@<X0>, int a
     v5 = @"output streams";
   }
 
-  applesauce::CF::make_StringRef(v5, &cf);
+  applesauce::CF::make_StringRef(&cf, v5, a2);
   ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a3);
   if (cf)
   {
@@ -1020,15 +1019,15 @@ void ASDT::IOA2UserClient::CopyStreamList(ASDT::IOA2UserClient *this@<X0>, int a
   }
 }
 
-void sub_2416BD5D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::ArrayRef::~ArrayRef(v2);
+  applesauce::CF::ArrayRef::~ArrayRef(v3);
   _Unwind_Resume(a1);
 }
 
-CFIndex ASDT::IOA2UserClient::GetNumberStreams(ASDT::IOA2UserClient *this, int a2)
+CFIndex ASDT::IOA2UserClient::GetNumberStreams(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
   ASDT::IOA2UserClient::CopyStreamList(this, a2, &theArray);
   if (!theArray)
@@ -1045,7 +1044,7 @@ CFIndex ASDT::IOA2UserClient::GetNumberStreams(ASDT::IOA2UserClient *this, int a
   return Count;
 }
 
-void ASDT::IOA2UserClient::CopyStreamDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, unsigned int a3@<W2>, void *a4@<X8>)
+void ASDT::IOA2UserClient::CopyStreamDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, unsigned int a3@<W2>, void *a4@<X8>)
 {
   v11 = 0;
   ASDT::IOA2UserClient::CopyStreamList(this, a2, &v10);
@@ -1091,9 +1090,9 @@ LABEL_11:
   }
 }
 
-void sub_2416BD704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416BD704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -1117,7 +1116,7 @@ void ASDT::IOA2UserClient::CopyStreamDictionaryByID(ASDT::IOA2UserClient *this@<
   v10 = 0;
   v9 = 0;
   ASDT::IOA2UserClient::CopyStreamList(this, 1, &v7);
-  CopyStreamDictionaryByIDFromList(&v7, &v9, a2, &cf);
+  CopyStreamDictionaryByIDFromList(&cf, &v7, &v9, a2);
   v6 = cf;
   v10 = cf;
   cf = 0;
@@ -1134,7 +1133,7 @@ void ASDT::IOA2UserClient::CopyStreamDictionaryByID(ASDT::IOA2UserClient *this@<
   else
   {
     ASDT::IOA2UserClient::CopyStreamList(this, 0, &cf);
-    CopyStreamDictionaryByIDFromList(&cf, &v9, a2, a3);
+    CopyStreamDictionaryByIDFromList(a3, &cf, &v9, a2);
     if (cf)
     {
       CFRelease(cf);
@@ -1142,43 +1141,43 @@ void ASDT::IOA2UserClient::CopyStreamDictionaryByID(ASDT::IOA2UserClient *this@<
   }
 }
 
-void sub_2416BD80C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BD80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
+  v6 = va_arg(va1, void);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
 }
 
-void CopyStreamDictionaryByIDFromList(CFArrayRef *a1@<X0>, unsigned int *a2@<X2>, int a3@<W1>, const __CFDictionary **a4@<X8>)
+void CopyStreamDictionaryByIDFromList(const __CFDictionary **__return_ptr a1@<X8>, CFArrayRef *a2@<X0>, unsigned int *a3@<X2>, int a4@<W1>)
 {
-  v27 = 0;
-  *a2 = -1;
-  v6 = *a1;
+  v28 = 0;
+  *a3 = -1;
+  v6 = *a2;
   if (v6)
   {
-    v24 = v6;
-    v25 = 0;
+    v25 = v6;
+    v26 = 0;
     v9 = 0;
     Count = CFArrayGetCount(v6);
     while (1)
     {
-      v10 = *a1;
-      v11 = *a1 ? CFArrayGetCount(*a1) : 0;
-      if (!v24 || v25 == Count)
+      v10 = *a2;
+      v11 = *a2 ? CFArrayGetCount(*a2) : 0;
+      if (!v25 || v26 == Count)
       {
         break;
       }
 
-      if (v24 == v10 && v25 == v11)
+      if (v25 == v10 && v26 == v11)
       {
         break;
       }
 
-      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v24, &cf);
+      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v25, &cf);
       v15 = 0;
       if (cf)
       {
@@ -1196,103 +1195,103 @@ void CopyStreamDictionaryByIDFromList(CFArrayRef *a1@<X0>, unsigned int *a2@<X2>
 
       if (v15)
       {
-        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v24, v25, &cf);
-        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, a4);
+        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v25, v26, &cf);
+        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, a1);
         if (cf)
         {
           CFRelease(cf);
         }
 
-        if (!*a4)
+        if (!*a1)
         {
           exception = __cxa_allocate_exception(0x10uLL);
           MEMORY[0x245CED520](exception, "Could not construct");
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"stream ID", &v21);
-        applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,applesauce::CF::StringRef>(*a4, &v21, &cf);
-        if (v21)
+        applesauce::CF::make_StringRef(&v22, @"stream ID", v16);
+        applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,applesauce::CF::StringRef>(&cf, *a1, &v22);
+        if (v22)
         {
-          CFRelease(v21);
+          CFRelease(v22);
         }
 
-        if (v23)
+        if (v24)
         {
           if (!cf)
           {
-            v20 = __cxa_allocate_exception(0x10uLL);
-            MEMORY[0x245CED520](v20, "Could not construct");
-            __cxa_throw(v20, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            v21 = __cxa_allocate_exception(0x10uLL);
+            MEMORY[0x245CED520](v21, "Could not construct");
+            __cxa_throw(v21, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          v16 = applesauce::CF::convert_as<unsigned int,0>(cf);
-          v17 = 0;
+          v17 = applesauce::CF::convert_as<unsigned int,0>(cf);
           v18 = 0;
-          if ((v16 & 0x100000000) != 0 && v16 == a3)
+          v19 = 0;
+          if ((v17 & 0x100000000) != 0 && v17 == a4)
           {
-            *a2 = v9;
-            v17 = 1;
+            *a3 = v9;
             v18 = 1;
+            v19 = 1;
           }
         }
 
         else
         {
-          v18 = 0;
-          v17 = 4;
+          v19 = 0;
+          v18 = 4;
         }
 
-        if (v23 == 1 && cf)
+        if (v24 == 1 && cf)
         {
           CFRelease(cf);
         }
 
-        if ((v18 & 1) == 0)
+        if ((v19 & 1) == 0)
         {
-          if (*a4)
+          if (*a1)
           {
-            CFRelease(*a4);
+            CFRelease(*a1);
           }
         }
 
-        if ((v17 | 4) != 4)
+        if ((v18 | 4) != 4)
         {
           return;
         }
       }
 
-      ++v25;
+      ++v26;
       ++v9;
     }
   }
 
-  *a4 = 0;
+  *a1 = 0;
 }
 
-void sub_2416BDA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416BDA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   std::optional<applesauce::CF::NumberRef>::~optional(va);
-  applesauce::CF::DictionaryRef::~DictionaryRef(v3);
+  applesauce::CF::DictionaryRef::~DictionaryRef(v5);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetStreamInfo_ID(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+uint64_t ASDT::IOA2UserClient::GetStreamInfo_ID(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"stream ID", &cf);
+  applesauce::CF::make_StringRef(&cf, @"stream ID", a2);
   v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -1304,18 +1303,18 @@ uint64_t ASDT::IOA2UserClient::GetStreamInfo_ID(const __CFDictionary **this, con
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v5;
   return 1;
 }
 
 void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *this@<X0>, CFDictionaryRef *a2@<X8>)
 {
-  v20[0] = 0;
-  v20[1] = 0;
-  v19 = v20;
-  v5 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, *this);
-  applesauce::CF::make_StringRef(@"sample rate", &v18);
-  valuePtr = v5;
+  v27[0] = 0;
+  v27[1] = 0;
+  v26 = v27;
+  v4 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, *this);
+  applesauce::CF::make_StringRef(&v25, @"sample rate", v5);
+  valuePtr = v4;
   cf = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
   if (!cf)
   {
@@ -1324,56 +1323,31 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &v18);
-  CFRelease(cf);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &v25, &v25, &cf);
+  if (cf)
   {
-    CFRelease(v18);
+    CFRelease(cf);
   }
 
-  applesauce::CF::make_StringRef(@"format ID", &valuePtr, cf);
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  applesauce::CF::make_StringRef(&valuePtr, @"format ID", v6, cf);
   LODWORD(cf) = *(this + 2);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v10 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v10, "Could not construct");
-    __cxa_throw(v10, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v17 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v17, "Could not construct");
+    __cxa_throw(v17, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
-  }
-
-  if (valuePtr)
-  {
-    CFRelease(valuePtr);
-  }
-
-  v7 = *(this + 2);
-  v6 = *(this + 3);
-  applesauce::CF::make_StringRef(@"format flags", &valuePtr);
-  v8 = v6 | 0x40;
-  if (v7 != 1819304813)
-  {
-    v8 = v6;
-  }
-
-  LODWORD(cf) = v8;
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
-  {
-    v11 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v11, "Could not construct");
-    __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
-  {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1381,20 +1355,49 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  applesauce::CF::make_StringRef(@"bytes per packet", &valuePtr);
+  v9 = *(this + 2);
+  v8 = *(this + 3);
+  applesauce::CF::make_StringRef(&valuePtr, @"format flags", v7);
+  v10 = v8 | 0x40;
+  if (v9 != 1819304813)
+  {
+    v10 = v8;
+  }
+
+  LODWORD(cf) = v10;
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
+  {
+    v18 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v18, "Could not construct");
+    __cxa_throw(v18, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  if (valuePtr)
+  {
+    CFRelease(valuePtr);
+  }
+
+  applesauce::CF::make_StringRef(&valuePtr, @"bytes per packet", v11);
   LODWORD(cf) = *(this + 4);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v12 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v12, "Could not construct");
-    __cxa_throw(v12, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v19 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v19, "Could not construct");
+    __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1402,20 +1405,20 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  applesauce::CF::make_StringRef(@"frames per packet", &valuePtr);
+  applesauce::CF::make_StringRef(&valuePtr, @"frames per packet", v12);
   LODWORD(cf) = *(this + 5);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v13 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v13, "Could not construct");
-    __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v20 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v20, "Could not construct");
+    __cxa_throw(v20, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1423,20 +1426,20 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  applesauce::CF::make_StringRef(@"bytes per frame", &valuePtr);
+  applesauce::CF::make_StringRef(&valuePtr, @"bytes per frame", v13);
   LODWORD(cf) = *(this + 6);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v14 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v14, "Could not construct");
-    __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v21 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v21, "Could not construct");
+    __cxa_throw(v21, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1444,20 +1447,20 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  applesauce::CF::make_StringRef(@"channels per frame", &valuePtr);
+  applesauce::CF::make_StringRef(&valuePtr, @"channels per frame", v14);
   LODWORD(cf) = *(this + 7);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v15 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v15, "Could not construct");
-    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v22 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v22, "Could not construct");
+    __cxa_throw(v22, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1465,20 +1468,20 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  applesauce::CF::make_StringRef(@"bits per channel", &valuePtr);
+  applesauce::CF::make_StringRef(&valuePtr, @"bits per channel", v15);
   LODWORD(cf) = *(this + 8);
-  v18 = CFNumberCreate(0, kCFNumberIntType, &cf);
-  if (!v18)
+  v25 = CFNumberCreate(0, kCFNumberIntType, &cf);
+  if (!v25)
   {
-    v16 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CED520](v16, "Could not construct");
-    __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v23 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CED520](v23, "Could not construct");
+    __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v19, &valuePtr);
-  if (v18)
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(&v26, &valuePtr, &valuePtr, &v25);
+  if (v25)
   {
-    CFRelease(v18);
+    CFRelease(v25);
   }
 
   if (valuePtr)
@@ -1486,43 +1489,43 @@ void ASDT::IOA2UserClient::ConstructDictionaryFromASBD(ASDT::IOA2UserClient *thi
     CFRelease(valuePtr);
   }
 
-  *a2 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v19);
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v19, v20[0]);
+  *a2 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v26);
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v26, v27[0]);
 }
 
-void sub_2416BE0D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BE0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void);
-  v7 = va_arg(va2, void *);
-  v8 = va_arg(va2, void);
+  v6 = va_arg(va2, void);
+  v8 = va_arg(va2, void *);
+  v9 = va_arg(va2, void);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   applesauce::CF::StringRef::~StringRef(va2);
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(va1, v7);
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(va1, v8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::ConstructASBDFromDictionary(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, AudioStreamBasicDescription *a3)
+uint64_t ASDT::IOA2UserClient::ConstructASBDFromDictionary(const __CFDictionary **this, __CFString *a2, AudioStreamBasicDescription *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  *(a2 + 4) = 0;
-  *a2 = 0u;
-  *(a2 + 1) = 0u;
+  a2[1].isa = 0;
+  *&a2->isa = 0u;
+  *&a2->data = 0u;
   if (!*this)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"sample rate", &cf);
+  applesauce::CF::make_StringRef(&cf, @"sample rate", a2);
   v5 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(*this, &cf);
   v7 = v6;
   if (cf)
@@ -1536,11 +1539,11 @@ uint64_t ASDT::IOA2UserClient::ConstructASBDFromDictionary(const __CFDictionary 
   }
 
   ASDT::IOAudio2::Helpers::Float64FromFixed64(v5);
-  *a2 = v8;
+  a2->isa = v8;
   return FillBasicFormatInfoFromDict(this, a2);
 }
 
-uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, AudioStreamBasicDescription *a2)
+uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, const __CFString *a2)
 {
   if (!*a1)
   {
@@ -1548,26 +1551,7 @@ uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, AudioStreamBasic
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"format ID", &cf);
-  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if ((v4 & 0x100000000) == 0)
-  {
-    return 0;
-  }
-
-  a2->mFormatID = v4;
-  if (!*a1)
-  {
-    v14 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v14);
-  }
-
-  applesauce::CF::make_StringRef(@"format flags", &cf);
+  applesauce::CF::make_StringRef(&cf, @"format ID", a2);
   v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
   if (cf)
   {
@@ -1579,33 +1563,14 @@ uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, AudioStreamBasic
     return 0;
   }
 
-  a2->mFormatFlags = v5;
+  LODWORD(a2->info) = v5;
   if (!*a1)
   {
-    v15 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v15);
+    v20 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v20);
   }
 
-  applesauce::CF::make_StringRef(@"bytes per packet", &cf);
-  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if ((v6 & 0x100000000) == 0)
-  {
-    return 0;
-  }
-
-  a2->mBytesPerPacket = v6;
-  if (!*a1)
-  {
-    v16 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v16);
-  }
-
-  applesauce::CF::make_StringRef(@"frames per packet", &cf);
+  applesauce::CF::make_StringRef(&cf, @"format flags", v4);
   v7 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
   if (cf)
   {
@@ -1617,33 +1582,14 @@ uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, AudioStreamBasic
     return 0;
   }
 
-  a2->mFramesPerPacket = v7;
+  HIDWORD(a2->info) = v7;
   if (!*a1)
   {
-    v17 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v17);
+    v21 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v21);
   }
 
-  applesauce::CF::make_StringRef(@"bytes per frame", &cf);
-  v8 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if ((v8 & 0x100000000) == 0)
-  {
-    return 0;
-  }
-
-  a2->mBytesPerFrame = v8;
-  if (!*a1)
-  {
-    v18 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v18);
-  }
-
-  applesauce::CF::make_StringRef(@"channels per frame", &cf);
+  applesauce::CF::make_StringRef(&cf, @"bytes per packet", v6);
   v9 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
   if (cf)
   {
@@ -1655,44 +1601,101 @@ uint64_t FillBasicFormatInfoFromDict(const __CFDictionary **a1, AudioStreamBasic
     return 0;
   }
 
-  a2->mChannelsPerFrame = v9;
-  applesauce::CF::DictionaryRef_proxy::DictionaryRef_proxy(&cf, a1);
-  v10 = cf;
-  applesauce::CF::make_StringRef(@"bits per channel", &cf);
-  v11 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v10, &cf);
-  applesauce::CF::StringRef::~StringRef(&cf);
+  LODWORD(a2->data) = v9;
+  if (!*a1)
+  {
+    v22 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v22);
+  }
+
+  applesauce::CF::make_StringRef(&cf, @"frames per packet", v8);
+  v11 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
   if ((v11 & 0x100000000) == 0)
   {
     return 0;
   }
 
-  a2->mBitsPerChannel = v11;
-  if (a2->mFormatID == 1819304813)
+  HIDWORD(a2->data) = v11;
+  if (!*a1)
   {
-    a2->mFormatFlags &= ~0x40u;
+    v23 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v23);
+  }
+
+  applesauce::CF::make_StringRef(&cf, @"bytes per frame", v10);
+  v13 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if ((v13 & 0x100000000) == 0)
+  {
+    return 0;
+  }
+
+  LODWORD(a2->length) = v13;
+  if (!*a1)
+  {
+    v24 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v24);
+  }
+
+  applesauce::CF::make_StringRef(&cf, @"channels per frame", v12);
+  v14 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a1, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if ((v14 & 0x100000000) == 0)
+  {
+    return 0;
+  }
+
+  HIDWORD(a2->length) = v14;
+  applesauce::CF::DictionaryRef_proxy::DictionaryRef_proxy(&cf, a1);
+  v15 = cf;
+  applesauce::CF::make_StringRef(&cf, @"bits per channel", v16);
+  v17 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v15, &cf);
+  applesauce::CF::StringRef::~StringRef(&cf);
+  if ((v17 & 0x100000000) == 0)
+  {
+    return 0;
+  }
+
+  LODWORD(a2[1].isa) = v17;
+  if (LODWORD(a2->info) == 1819304813)
+  {
+    HIDWORD(a2->info) &= ~0x40u;
   }
 
   return 1;
 }
 
-uint64_t ASDT::IOA2UserClient::ConstructASRDFromDictionary(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, AudioStreamRangedDescription *a3)
+uint64_t ASDT::IOA2UserClient::ConstructASRDFromDictionary(const __CFDictionary **this, __CFString *a2, AudioStreamRangedDescription *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  *(a2 + 6) = 0;
-  *(a2 + 1) = 0u;
-  *(a2 + 2) = 0u;
-  *a2 = 0u;
+  a2[1].data = 0;
+  *&a2->data = 0u;
+  *&a2[1].isa = 0u;
+  *&a2->isa = 0u;
   if (!*this)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"min sample rate", &cf);
+  applesauce::CF::make_StringRef(&cf, @"min sample rate", a2);
   v5 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(*this, &cf);
   v7 = v6;
   if (cf)
@@ -1706,48 +1709,47 @@ uint64_t ASDT::IOA2UserClient::ConstructASRDFromDictionary(const __CFDictionary 
   }
 
   ASDT::IOAudio2::Helpers::Float64FromFixed64(v5);
-  *(a2 + 5) = v8;
+  a2[1].info = v9;
   if (!*this)
   {
-    v17 = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(v17);
+    v18 = __cxa_allocate_exception(0x10uLL);
+    applesauce::CF::construct_error(v18);
   }
 
-  applesauce::CF::make_StringRef(@"max sample rate", &cf);
-  v9 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(*this, &cf);
-  v11 = v10;
+  applesauce::CF::make_StringRef(&cf, @"max sample rate", v8);
+  v10 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(*this, &cf);
+  v12 = v11;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     return 0;
   }
 
-  ASDT::IOAudio2::Helpers::Float64FromFixed64(v9);
-  *(a2 + 6) = v12;
-  v13 = *(a2 + 5) == v12;
-  v14 = 0;
-  if (v13)
+  ASDT::IOAudio2::Helpers::Float64FromFixed64(v10);
+  a2[1].data = v13;
+  v14 = *&a2[1].info == *&v13;
+  info = 0;
+  if (v14)
   {
-    v14 = *(a2 + 5);
+    info = a2[1].info;
   }
 
-  *a2 = v14;
+  a2->isa = info;
   return FillBasicFormatInfoFromDict(this, a2);
 }
 
 uint64_t ASDT::IOA2UserClient::BestMatchForFormat(CFArrayRef *this, const applesauce::CF::ArrayRef *a2, AudioStreamRangedDescription *a3, AudioStreamBasicDescription *a4)
 {
   v6 = *&a3->mFormat.mBytesPerPacket;
-  v30[0] = *&a3->mFormat.mSampleRate;
-  v30[1] = v6;
-  v31 = *&a3->mFormat.mBitsPerChannel;
-  v29 = 0;
-  *&v30[0] = 0;
-  *&v6 = *a2;
+  v32[0] = *&a3->mFormat.mSampleRate;
+  v32[1] = v6;
+  v33 = *&a3->mFormat.mBitsPerChannel;
+  v31 = 0;
+  *&v32[0] = 0;
   if (a3->mFormat.mSampleRate == 0.0)
   {
     mSampleRate = *a2;
@@ -1759,30 +1761,30 @@ uint64_t ASDT::IOA2UserClient::BestMatchForFormat(CFArrayRef *this, const apples
   }
 
   Count = *this;
-  v26 = Count;
-  v27 = 0;
+  v28 = Count;
+  v29 = 0;
   if (Count)
   {
     Count = CFArrayGetCount(Count);
   }
 
   v9 = 0;
-  v28 = Count;
+  v30 = Count;
   while (1)
   {
     v10 = *this;
     v11 = *this ? CFArrayGetCount(*this) : 0;
-    if (!v26 || v27 == v28)
+    if (!v28 || v29 == v30)
     {
       break;
     }
 
-    if (v26 == v10 && v27 == v11)
+    if (v28 == v10 && v29 == v11)
     {
       break;
     }
 
-    applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v26, &cf);
+    applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v28, &cf);
     v15 = 0;
     if (*&cf.mSampleRate)
     {
@@ -1800,42 +1802,42 @@ uint64_t ASDT::IOA2UserClient::BestMatchForFormat(CFArrayRef *this, const apples
 
     if (v15)
     {
-      applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v26, v27, &cf);
-      applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &v25);
+      applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v28, v29, &cf);
+      applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &v27);
       if (*&cf.mSampleRate)
       {
         CFRelease(*&cf.mSampleRate);
       }
 
-      if (ASDT::IOA2UserClient::ConstructASRDFromDictionary(&v25, &cf, v16))
+      if (ASDT::IOA2UserClient::ConstructASRDFromDictionary(&v27, &cf, v16))
       {
-        if (!v29)
+        if (!v31)
         {
-          v29 = v25;
-          if (v25)
+          v31 = v27;
+          if (v27)
           {
-            CFRetain(v25);
+            CFRetain(v27);
           }
         }
 
-        if (CA::StreamDescription::IsEquivalent(v30, &cf, 1u) && v24[0] <= mSampleRate && v24[1] >= mSampleRate)
+        if (CA::StreamDescription::IsEquivalent(v32, &cf, 1u, v17, v18) && v26[0] <= mSampleRate && v26[1] >= mSampleRate)
         {
-          v17 = *&cf.mBytesPerPacket;
+          v19 = *&cf.mBytesPerPacket;
           *&a3->mFormat.mSampleRate = *&cf.mSampleRate;
-          *&a3->mFormat.mBytesPerPacket = v17;
+          *&a3->mFormat.mBytesPerPacket = v19;
           *&a3->mFormat.mBitsPerChannel = *&cf.mBitsPerChannel;
           a3->mFormat.mSampleRate = mSampleRate;
           v9 = 1;
         }
       }
 
-      if (v25)
+      if (v27)
       {
-        CFRelease(v25);
+        CFRelease(v27);
       }
     }
 
-    v27 = (v27 + 1);
+    v29 = (v29 + 1);
   }
 
   if (v9)
@@ -1843,39 +1845,39 @@ uint64_t ASDT::IOA2UserClient::BestMatchForFormat(CFArrayRef *this, const apples
     goto LABEL_41;
   }
 
-  if (ASDT::IOA2UserClient::ConstructASRDFromDictionary(&v29, &cf, a3))
+  if (ASDT::IOA2UserClient::ConstructASRDFromDictionary(&v31, &cf, a3))
   {
-    v19 = *&cf.mBytesPerPacket;
+    v21 = *&cf.mBytesPerPacket;
     *&a3->mFormat.mSampleRate = *&cf.mSampleRate;
-    *&a3->mFormat.mBytesPerPacket = v19;
+    *&a3->mFormat.mBytesPerPacket = v21;
     *&a3->mFormat.mBitsPerChannel = *&cf.mBitsPerChannel;
-    ASDT::ValueRange::PickCommonSampleRate(v24, v18);
-    a3->mFormat.mSampleRate = v20;
+    ASDT::ValueRange::PickCommonSampleRate(v26, v20);
+    a3->mFormat.mSampleRate = v22;
 LABEL_41:
-    v21 = 1;
+    v23 = 1;
     goto LABEL_43;
   }
 
-  v21 = 0;
+  v23 = 0;
 LABEL_43:
-  if (v29)
+  if (v31)
   {
-    CFRelease(v29);
+    CFRelease(v31);
   }
 
-  return v21;
+  return v23;
 }
 
-void sub_2416BE974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2416BE974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(uint64_t a1@<X0>, void *a2@<X8>)
+void applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(const __CFArray **a1@<X0>, void *a2@<X8>)
 {
-  applesauce::CF::details::at_to<applesauce::CF::TypeRef>(*a1, *(a1 + 8), &cf);
+  applesauce::CF::details::at_to<applesauce::CF::TypeRef>(*a1, a1[1], &cf);
   applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::iterator_proxy::iterator_proxy(a2, &cf);
   if (cf)
   {
@@ -1939,59 +1941,59 @@ void applesauce::CF::TypeRef::~TypeRef(const void **this)
   }
 }
 
-BOOL CA::StreamDescription::IsEquivalent(CA::Implementation *a1, AudioStreamBasicDescription *a2, unsigned int a3)
+BOOL CA::StreamDescription::IsEquivalent(CA::Implementation *a1, AudioStreamBasicDescription *a2, unsigned int a3, uint64_t a4, BOOL a5)
 {
-  v4 = *a1;
+  v6 = *a1;
   if (a3)
   {
-    if (v4 == 0.0 || (a2->mSampleRate != 0.0 ? (v7 = v4 == a2->mSampleRate) : (v7 = 1), v7))
+    if (v6 == 0.0 || (a2->mSampleRate != 0.0 ? (v9 = v6 == a2->mSampleRate) : (v9 = 1), v9))
     {
-      v8 = *(a1 + 2);
-      if (!v8 || (mFormatID = a2->mFormatID) == 0 || v8 == mFormatID)
+      v10 = *(a1 + 2);
+      if (!v10 || (mFormatID = a2->mFormatID) == 0 || v10 == mFormatID)
       {
-        v10 = *(a1 + 4);
-        if (!v10 || (mBytesPerPacket = a2->mBytesPerPacket) == 0 || v10 == mBytesPerPacket)
+        v12 = *(a1 + 4);
+        if (!v12 || (mBytesPerPacket = a2->mBytesPerPacket) == 0 || v12 == mBytesPerPacket)
         {
-          v12 = *(a1 + 5);
-          if (!v12 || (mFramesPerPacket = a2->mFramesPerPacket) == 0 || v12 == mFramesPerPacket)
+          v14 = *(a1 + 5);
+          if (!v14 || (mFramesPerPacket = a2->mFramesPerPacket) == 0 || v14 == mFramesPerPacket)
           {
-            v14 = *(a1 + 6);
-            if (!v14 || (mBytesPerFrame = a2->mBytesPerFrame) == 0 || v14 == mBytesPerFrame)
+            v16 = *(a1 + 6);
+            if (!v16 || (mBytesPerFrame = a2->mBytesPerFrame) == 0 || v16 == mBytesPerFrame)
             {
-              v16 = *(a1 + 7);
-              if (!v16 || (mChannelsPerFrame = a2->mChannelsPerFrame) == 0 || v16 == mChannelsPerFrame)
+              v18 = *(a1 + 7);
+              if (!v18 || (mChannelsPerFrame = a2->mChannelsPerFrame) == 0 || v18 == mChannelsPerFrame)
               {
-                v18 = *(a1 + 8);
-                if (!v18 || (mBitsPerChannel = a2->mBitsPerChannel) == 0 || v18 == mBitsPerChannel)
+                v20 = *(a1 + 8);
+                if (!v20 || (mBitsPerChannel = a2->mBitsPerChannel) == 0 || v20 == mBitsPerChannel)
                 {
-                  v20 = 1;
-                  if (v8)
+                  v22 = 1;
+                  if (v10)
                   {
                     if (a2->mFormatID)
                     {
-                      v21 = *(a1 + 3);
-                      if (v21)
+                      v23 = *(a1 + 3);
+                      if (v23)
                       {
                         mFormatFlags = a2->mFormatFlags;
                         if (mFormatFlags)
                         {
-                          if (v8 == 1819304813)
+                          if (v10 == 1819304813)
                           {
-                            v23 = ((a3 >> 1) & 1);
-                            RegularizedFormatFlags = CA::Implementation::GetRegularizedFormatFlags(a1, v23);
-                            return RegularizedFormatFlags == CA::Implementation::GetRegularizedFormatFlags(a2, v23);
+                            v25 = ((a3 >> 1) & 1);
+                            RegularizedFormatFlags = CA::Implementation::GetRegularizedFormatFlags(a1, v25);
+                            return RegularizedFormatFlags == CA::Implementation::GetRegularizedFormatFlags(a2, v25);
                           }
 
                           else
                           {
-                            return v21 == mFormatFlags;
+                            return v23 == mFormatFlags;
                           }
                         }
                       }
                     }
                   }
 
-                  return v20;
+                  return v22;
                 }
               }
             }
@@ -2003,34 +2005,35 @@ BOOL CA::StreamDescription::IsEquivalent(CA::Implementation *a1, AudioStreamBasi
     return 0;
   }
 
-  if (v4 != a2->mSampleRate || *(a1 + 2) != a2->mFormatID || *(a1 + 4) != a2->mBytesPerPacket || *(a1 + 5) != a2->mFramesPerPacket || *(a1 + 7) != a2->mChannelsPerFrame || *(a1 + 8) != a2->mBitsPerChannel)
+  if (v6 != a2->mSampleRate || *(a1 + 2) != a2->mFormatID || *(a1 + 4) != a2->mBytesPerPacket || *(a1 + 5) != a2->mFramesPerPacket || *(a1 + 7) != a2->mChannelsPerFrame || *(a1 + 8) != a2->mBitsPerChannel)
   {
     return 0;
   }
 
-  v5 = ((a3 >> 1) & 1);
+  v7 = ((a3 >> 1) & 1);
 
-  return CA::Implementation::EquivalentFormatFlags(a1, a2, v5, 0);
+  return CA::Implementation::EquivalentFormatFlags(a1, a2, v7, 0);
 }
 
-uint64_t ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, AudioStreamBasicDescription *a3)
+uint64_t ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat(const __CFDictionary **this, __CFString *a2, AudioStreamBasicDescription *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"current format", &cf);
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(*this, &cf, &v11);
+  applesauce::CF::make_StringRef(&cf, @"current format", a2);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(*this, &cf, &v15);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v12 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    v7 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = ASDTIOA2LogType(v7, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat();
     }
@@ -2038,92 +2041,94 @@ uint64_t ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat(const __CFDictionary 
     goto LABEL_12;
   }
 
-  if ((ASDT::IOA2UserClient::ConstructASBDFromDictionary(&v11, a2, v5) & 1) == 0)
+  v8 = ASDT::IOA2UserClient::ConstructASBDFromDictionary(&v15, a2, v6);
+  if ((v8 & 1) == 0)
   {
-    v8 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = ASDTIOA2LogType(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat();
     }
 
 LABEL_12:
-    v6 = 0;
+    v10 = 0;
     goto LABEL_13;
   }
 
-  v6 = 1;
+  v10 = 1;
 LABEL_13:
-  if (v12 == 1 && v11)
+  if (v16 == 1 && v15)
   {
-    CFRelease(v11);
+    CFRelease(v15);
   }
 
-  return v6;
+  return v10;
 }
 
-void sub_2416BEE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416BEE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::optional<applesauce::CF::DictionaryRef>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyStreamInfo_AvailableFormats(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopyStreamInfo_AvailableFormats(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
-  v10 = 0;
+  v12 = 0;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"available formats", &cf);
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v8);
+    applesauce::CF::make_StringRef(&cf, @"available formats", a2);
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v10);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v9)
+    if (v11)
     {
-      v5 = v8;
-      if (v8)
+      v7 = v10;
+      if (v10)
       {
-        CFRetain(v8);
+        CFRetain(v10);
       }
 
-      *a2 = v5;
+      *a3 = v7;
     }
 
     else
     {
-      v6 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOA2LogType(v6, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOA2UserClient::CopyStreamInfo_AvailableFormats();
       }
 
-      *a2 = 0;
-      v10 = 0;
+      *a3 = 0;
+      v12 = 0;
     }
 
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 }
 
-void sub_2416BEF24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BEF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::ArrayRef>::~optional(va);
   applesauce::CF::ArrayRef::~ArrayRef(va1);
   _Unwind_Resume(a1);
@@ -2143,24 +2148,25 @@ uint64_t std::optional<applesauce::CF::ArrayRef>::~optional(uint64_t a1)
   return a1;
 }
 
-const __CFDictionary *ASDT::IOA2UserClient::GetStreamInfo_StartingChannel(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+const __CFDictionary *ASDT::IOA2UserClient::GetStreamInfo_StartingChannel(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"starting channel", &cf);
-  v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"starting channel", a2);
+  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v5 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v3 & 0x100000000) == 0)
+  if ((v4 & 0x100000000) == 0)
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOA2LogType(v5, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetStreamInfo_StartingChannel();
     }
@@ -2168,17 +2174,17 @@ const __CFDictionary *ASDT::IOA2UserClient::GetStreamInfo_StartingChannel(const 
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t ASDT::IOA2UserClient::GetStreamInfo_TerminalType(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetStreamInfo_TerminalType(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"terminal type", &cf);
+  applesauce::CF::make_StringRef(&cf, @"terminal type", a2);
   v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -2196,23 +2202,23 @@ uint64_t ASDT::IOA2UserClient::GetStreamInfo_TerminalType(const __CFDictionary *
   }
 }
 
-uint64_t ASDT::IOA2UserClient::GetStreamInfo_UsesIsolatedIO(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetStreamInfo_UsesIsolatedIO(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"uses isolated IO", &cf);
-  v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"uses isolated IO", a2);
+  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v3 & 0x100000000) != 0)
+  if ((v4 & 0x100000000) != 0)
   {
-    return v3 != 0;
+    return v4 != 0;
   }
 
   if (!*this)
@@ -2221,45 +2227,45 @@ uint64_t ASDT::IOA2UserClient::GetStreamInfo_UsesIsolatedIO(const __CFDictionary
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"uses isolated IO", &cf);
-  v4 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"uses isolated IO", v3);
+  v5 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return *&v4 & ((v4 & 0x100) >> 8);
+  return *&v5 & ((v5 & 0x100) >> 8);
 }
 
-void ASDT::IOA2UserClient::MapIOBufferForStream(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void ASDT::IOA2UserClient::MapIOBufferForStream(ASDT::IOA2UserClient *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  ASDT::IOA2UserClient::CopyStreamDictionaryByID(this, a2, &v8);
-  if (v8)
+  ASDT::IOA2UserClient::CopyStreamDictionaryByID(this, a2, &v12);
+  if (v12)
   {
-    applesauce::CF::make_StringRef(@"buffer mapping options", &cf);
-    applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v8, &cf);
+    applesauce::CF::make_StringRef(&cf, @"buffer mapping options", v6);
+    applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v12, &cf);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    ASDT::IOUserClient::MapMemory(this);
+    v7 = ASDT::IOUserClient::MapMemory(this);
     if (!*(a3 + 104))
     {
-      v5 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v9 = ASDTIOA2LogType(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOA2UserClient::MapIOBufferForStream(this);
+        ASDT::IOA2UserClient::MapIOBufferForStream();
       }
     }
   }
 
   else
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = ASDTIOA2LogType(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapIOBufferForStream(this);
+      ASDT::IOA2UserClient::MapIOBufferForStream();
     }
 
     *(a3 + 104) = 0u;
@@ -2275,66 +2281,65 @@ void ASDT::IOA2UserClient::MapIOBufferForStream(ASDT::IOA2UserClient *this@<X0>,
     *(a3 + 112) = 0;
   }
 
-  if (v8)
+  if (v12)
   {
-    CFRelease(v8);
+    CFRelease(v12);
   }
 }
 
 BOOL ASDT::IOA2UserClient::SetStreamActive(ASDT::IOA2UserClient *this, unsigned int a2, unsigned int a3)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v17[0] = a2;
-  v17[1] = a3;
-  v6 = ASDT::IOUserClient::CallMethod(this, 6, v17, 2, 0, 0, 0, 0, 0, 0, 1);
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[0] = a2;
+  v18[1] = a3;
+  v6 = ASDT::IOUserClient::CallMethod(this, 6, v18, 2, 0, 0, 0, 0, 0, 0, 1);
+  v8 = v6;
   if (v6)
   {
-    v7 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = ASDTIOA2LogType(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = (this + 16);
+      v11 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v10 = *v10;
+        v11 = *v11;
       }
 
       *buf = 136315650;
-      v12 = v10;
-      v13 = 1024;
-      v14 = a2;
-      v15 = 1024;
-      v16 = a3;
-      _os_log_error_impl(&dword_2416BA000, v7, OS_LOG_TYPE_ERROR, "%s: SetStreamActive(%u, %hhu)", buf, 0x18u);
+      v13 = v11;
+      v14 = 1024;
+      v15 = a2;
+      v16 = 1024;
+      v17 = a3;
+      _os_log_error_impl(&dword_2416BA000, v9, OS_LOG_TYPE_ERROR, "%s: SetStreamActive(%u, %hhu)", buf, 0x18u);
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
-void ASDT::IOA2UserClient::CopyControlList(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyControlList(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"controls", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"controls", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416BF48C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BF48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::ArrayRef::~ArrayRef(v2);
+  applesauce::CF::ArrayRef::~ArrayRef(v3);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyControlDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::ArrayRef *a2@<X1>, void *a3@<X8>)
+void ASDT::IOA2UserClient::CopyControlDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
-  ASDT::IOA2UserClient::CopyControlList(this, &cf);
+  ASDT::IOA2UserClient::CopyControlList(this, a2, &cf);
   ASDT::IOA2UserClient::CopyControlDictionaryByIndex(&cf, a2, a3);
   if (cf)
   {
@@ -2342,9 +2347,9 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByIndex(ASDT::IOA2UserClient *th
   }
 }
 
-void sub_2416BF504(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416BF504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
@@ -2399,17 +2404,17 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByIndex(const __CFArray **this@<
   }
 }
 
-void sub_2416BF60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416BF60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopyControlDictionaryByID(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::ArrayRef *a2@<X1>, const __CFDictionary **a3@<X8>)
+void ASDT::IOA2UserClient::CopyControlDictionaryByID(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const __CFDictionary **a3@<X8>)
 {
   v6 = 0;
-  ASDT::IOA2UserClient::CopyControlList(this, &cf);
+  ASDT::IOA2UserClient::CopyControlList(this, a2, &cf);
   ASDT::IOA2UserClient::CopyControlDictionaryByID(&cf, a2, &v6, a3);
   if (cf)
   {
@@ -2421,36 +2426,36 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByID(CFArrayRef *this@<X0>, cons
 {
   v23 = 0;
   *a3 = 0x7FFFFFFF;
-  v7 = *this;
-  if (v7)
+  v6 = *this;
+  if (v6)
   {
-    v9 = a2;
-    v20 = v7;
+    v8 = a2;
+    v20 = v6;
     v21 = 0;
-    v10 = 0;
-    Count = CFArrayGetCount(v7);
+    v9 = 0;
+    Count = CFArrayGetCount(v6);
     while (1)
     {
-      v11 = *this;
-      v12 = *this ? CFArrayGetCount(*this) : 0;
+      v10 = *this;
+      v11 = *this ? CFArrayGetCount(*this) : 0;
       if (!v20 || v21 == Count)
       {
         break;
       }
 
-      if (v20 == v11 && v21 == v12)
+      if (v20 == v10 && v21 == v11)
       {
         break;
       }
 
       applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v20, &cf);
-      v16 = 0;
+      v15 = 0;
       if (cf)
       {
-        v15 = CFGetTypeID(cf);
-        if (v15 == CFDictionaryGetTypeID())
+        v14 = CFGetTypeID(cf);
+        if (v14 == CFDictionaryGetTypeID())
         {
-          v16 = 1;
+          v15 = 1;
         }
       }
 
@@ -2459,7 +2464,7 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByID(CFArrayRef *this@<X0>, cons
         CFRelease(cf);
       }
 
-      if (v16)
+      if (v15)
       {
         applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v20, v21, &cf);
         applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, a4);
@@ -2475,16 +2480,16 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByID(CFArrayRef *this@<X0>, cons
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"control ID", &cf);
+        applesauce::CF::make_StringRef(&cf, @"control ID", v16);
         v17 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a4, &cf);
         if (cf)
         {
           CFRelease(cf);
         }
 
-        if ((v17 & 0x100000000) != 0 && v17 == v9)
+        if ((v17 & 0x100000000) != 0 && v17 == v8)
         {
-          *a3 = v10;
+          *a3 = v9;
           return;
         }
 
@@ -2495,17 +2500,17 @@ void ASDT::IOA2UserClient::CopyControlDictionaryByID(CFArrayRef *this@<X0>, cons
       }
 
       ++v21;
-      ++v10;
+      ++v9;
     }
   }
 
   *a4 = 0;
 }
 
-void sub_2416BF864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2416BF864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  applesauce::CF::DictionaryRef::~DictionaryRef(v6);
+  va_start(va, a11);
+  applesauce::CF::DictionaryRef::~DictionaryRef(v11);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -2522,24 +2527,25 @@ BOOL ASDT::IOA2UserClient::GetControlDictionaryIndexByID(CFArrayRef *this, const
   return v4 != 0;
 }
 
-const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_BaseClass(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_BaseClass(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"base class", &cf);
-  v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"base class", a2);
+  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v5 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v3 & 0x100000000) == 0)
+  if ((v4 & 0x100000000) == 0)
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOA2LogType(v5, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetControlInfo_BaseClass();
     }
@@ -2547,27 +2553,28 @@ const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_BaseClass(const __CFD
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
-const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_Class(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_Class(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"class", &cf);
-  v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"class", a2);
+  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v5 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v3 & 0x100000000) == 0)
+  if ((v4 & 0x100000000) == 0)
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOA2LogType(v5, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetControlInfo_Class();
     }
@@ -2575,15 +2582,15 @@ const __CFDictionary *ASDT::IOA2UserClient::GetControlInfo_Class(const __CFDicti
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t ASDT::IOA2UserClient::GetControlInfo_Scope(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetControlInfo_Scope(const __CFDictionary **this, const __CFString *a2)
 {
   v2 = 1735159650;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"scope", &cf);
+    applesauce::CF::make_StringRef(&cf, @"scope", a2);
     v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
     if (cf)
     {
@@ -2604,14 +2611,14 @@ uint64_t ASDT::IOA2UserClient::GetControlInfo_Scope(const __CFDictionary **this,
   return v2;
 }
 
-uint64_t ASDT::IOA2UserClient::GetControlInfo_Element(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetControlInfo_Element(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"element", &cf);
+  applesauce::CF::make_StringRef(&cf, @"element", a2);
   v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -2629,23 +2636,23 @@ uint64_t ASDT::IOA2UserClient::GetControlInfo_Element(const __CFDictionary **thi
   }
 }
 
-uint64_t ASDT::IOA2UserClient::GetControlInfo_IsReadOnly(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetControlInfo_IsReadOnly(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"read only", &cf);
-  v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"read only", a2);
+  v4 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v3 & 0x100000000) != 0)
+  if ((v4 & 0x100000000) != 0)
   {
-    return v3 != 0;
+    return v4 != 0;
   }
 
   if (!*this)
@@ -2654,24 +2661,24 @@ uint64_t ASDT::IOA2UserClient::GetControlInfo_IsReadOnly(const __CFDictionary **
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"read only", &cf);
-  v4 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"read only", v3);
+  v5 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return *&v4 & ((v4 & 0x100) >> 8);
+  return *&v5 & ((v5 & 0x100) >> 8);
 }
 
-uint64_t ASDT::IOA2UserClient::GetControlInfo_Variant(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetControlInfo_Variant(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"variant", &cf);
+  applesauce::CF::make_StringRef(&cf, @"variant", a2);
   v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -2689,16 +2696,16 @@ uint64_t ASDT::IOA2UserClient::GetControlInfo_Variant(const __CFDictionary **thi
   }
 }
 
-void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
   v10 = 0;
   if (!*this)
   {
-    *a2 = 0;
+    *a3 = 0;
     return;
   }
 
-  applesauce::CF::make_StringRef(@"name", &cf);
+  applesauce::CF::make_StringRef(&cf, @"name", a2);
   applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,applesauce::CF::StringRef>(*this, &cf, &v8);
   if (cf)
   {
@@ -2707,7 +2714,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>
 
   if ((v9 & 1) == 0)
   {
-    *a2 = 0;
+    *a3 = 0;
     v10 = 0;
     return;
   }
@@ -2717,7 +2724,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>
   {
     CFRetain(v8);
     v6 = v9;
-    *a2 = v5;
+    *a3 = v5;
     if ((v6 & 1) == 0)
     {
       return;
@@ -2726,7 +2733,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 
   if (v8)
@@ -2735,28 +2742,28 @@ void ASDT::IOA2UserClient::CopyControlInfo_Name(const __CFDictionary **this@<X0>
   }
 }
 
-void sub_2416BFD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416BFD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetControlInfo_Value(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+uint64_t ASDT::IOA2UserClient::GetControlInfo_Value(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
     if (!*this)
     {
@@ -2764,35 +2771,35 @@ uint64_t ASDT::IOA2UserClient::GetControlInfo_Value(const __CFDictionary **this,
       applesauce::CF::construct_error(exception);
     }
 
-    applesauce::CF::make_StringRef(@"value", &cf);
-    v6 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
+    applesauce::CF::make_StringRef(&cf, @"value", v5);
+    v7 = applesauce::CF::details::find_at_key_or_optional<BOOL,applesauce::CF::StringRef>(*this, &cf);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if ((v6 & 0x100) == 0)
+    if ((v7 & 0x100) == 0)
     {
       return 0;
     }
 
-    LODWORD(v5) = v6;
+    LODWORD(v6) = v7;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
   v10 = 0;
   if (!*this)
   {
-    *a2 = 0;
+    *a3 = 0;
     return;
   }
 
-  applesauce::CF::make_StringRef(@"property selectors", &cf);
+  applesauce::CF::make_StringRef(&cf, @"property selectors", a2);
   applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v8);
   if (cf)
   {
@@ -2801,7 +2808,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionar
 
   if ((v9 & 1) == 0)
   {
-    *a2 = 0;
+    *a3 = 0;
     v10 = 0;
     return;
   }
@@ -2811,7 +2818,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionar
   {
     CFRetain(v8);
     v6 = v9;
-    *a2 = v5;
+    *a3 = v5;
     if ((v6 & 1) == 0)
     {
       return;
@@ -2820,7 +2827,7 @@ void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionar
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 
   if (v8)
@@ -2829,31 +2836,32 @@ void ASDT::IOA2UserClient::CopyControlInfo_PropertySelectors(const __CFDictionar
   }
 }
 
-void sub_2416BFF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416BFF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
 
-BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MinimumValue(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MinimumValue(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"minimum value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"minimum value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -2863,28 +2871,29 @@ BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MinimumValue(const __CFDictionar
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MaximumValue(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MaximumValue(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"maximum value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"maximum value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -2894,79 +2903,80 @@ BOOL ASDT::IOA2UserClient::GetSliderControlInfo_MaximumValue(const __CFDictionar
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-void ASDT::IOA2UserClient::CopyLevelControlInfo_RangeMap(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopyLevelControlInfo_RangeMap(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
-  v10 = 0;
+  v12 = 0;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"range map", &cf);
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v8);
+    applesauce::CF::make_StringRef(&cf, @"range map", a2);
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v10);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v9)
+    if (v11)
     {
-      v5 = v8;
-      if (v8)
+      v7 = v10;
+      if (v10)
       {
-        CFRetain(v8);
+        CFRetain(v10);
       }
 
-      *a2 = v5;
+      *a3 = v7;
     }
 
     else
     {
-      v6 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOA2LogType(v6, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOA2UserClient::CopyLevelControlInfo_RangeMap();
       }
 
-      *a2 = 0;
-      v10 = 0;
+      *a3 = 0;
+      v12 = 0;
     }
 
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 }
 
-void sub_2416C0124(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C0124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::ArrayRef>::~optional(va);
   applesauce::CF::ArrayRef::~ArrayRef(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetLevelControlInfo_TransferFunction(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2)
+uint64_t ASDT::IOA2UserClient::GetLevelControlInfo_TransferFunction(const __CFDictionary **this, const __CFString *a2)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"transfer function", &cf);
+  applesauce::CF::make_StringRef(&cf, @"transfer function", a2);
   v3 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -2987,30 +2997,30 @@ uint64_t ASDT::IOA2UserClient::GetLevelControlInfo_TransferFunction(const __CFDi
 BOOL ASDT::IOA2UserClient::SetupVolumeCurve(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, ASDT::VolumeCurve *a3)
 {
   ASDT::VolumeCurve::ResetRange(a2);
-  v27 = this;
-  ASDT::IOA2UserClient::CopyLevelControlInfo_RangeMap(this, &theArray);
-  v5 = theArray;
+  v31 = this;
+  ASDT::IOA2UserClient::CopyLevelControlInfo_RangeMap(this, v5, &theArray);
+  v6 = theArray;
   if (theArray)
   {
-    v30 = theArray;
-    v31 = 0;
+    v34 = theArray;
+    v35 = 0;
     Count = CFArrayGetCount(theArray);
     while (1)
     {
-      CFArrayGetCount(v5);
-      if (Count <= v31)
+      CFArrayGetCount(v6);
+      if (Count <= v35)
       {
         break;
       }
 
-      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v30, &cf);
-      v8 = 0;
+      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v34, &cf);
+      v9 = 0;
       if (cf)
       {
-        v7 = CFGetTypeID(cf);
-        if (v7 == CFDictionaryGetTypeID())
+        v8 = CFGetTypeID(cf);
+        if (v8 == CFDictionaryGetTypeID())
         {
-          v8 = 1;
+          v9 = 1;
         }
       }
 
@@ -3019,13 +3029,13 @@ BOOL ASDT::IOA2UserClient::SetupVolumeCurve(const __CFDictionary **this, const a
         CFRelease(cf);
       }
 
-      if (v8)
+      if (v9)
       {
-        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v30, v31, &v28);
-        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&v28, &cf);
-        if (v28)
+        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v34, v35, &v32);
+        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&v32, &cf);
+        if (v32)
         {
-          CFRelease(v28);
+          CFRelease(v32);
         }
 
         if (!cf)
@@ -3035,255 +3045,258 @@ BOOL ASDT::IOA2UserClient::SetupVolumeCurve(const __CFDictionary **this, const a
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"start int value", &v28);
-        applesauce::CF::details::find_at_key_or_optional<int,applesauce::CF::StringRef>(cf, &v28);
-        if (v28)
+        applesauce::CF::make_StringRef(&v32, @"start int value", v10);
+        applesauce::CF::details::find_at_key_or_optional<int,applesauce::CF::StringRef>(cf, &v32);
+        if (v32)
         {
-          CFRelease(v28);
+          CFRelease(v32);
         }
 
         if (!cf)
         {
-          v26 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x245CED520](v26, "Could not construct");
-          __cxa_throw(v26, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v30 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x245CED520](v30, "Could not construct");
+          __cxa_throw(v30, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"start db value", &v28);
-        v9 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(cf, &v28);
-        if (v10)
+        applesauce::CF::make_StringRef(&v32, @"start db value", v11);
+        v12 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(cf, &v32);
+        if (v13)
         {
-          v11 = v9;
+          v14 = v12;
         }
 
         else
         {
-          v11 = 0;
+          v14 = 0;
         }
 
-        if (v28)
+        if (v32)
         {
-          CFRelease(v28);
+          CFRelease(v32);
         }
 
         if (!cf)
         {
-          v23 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x245CED520](v23, "Could not construct");
-          __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v27 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x245CED520](v27, "Could not construct");
+          __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"integer steps", &v28);
-        v12 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(cf, &v28);
-        if ((v12 & 0x100000000) != 0)
+        applesauce::CF::make_StringRef(&v32, @"integer steps", v13);
+        v15 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(cf, &v32);
+        if ((v15 & 0x100000000) != 0)
         {
-          v13 = v12;
+          v17 = v15;
         }
 
         else
         {
-          v13 = 0;
+          v17 = 0;
         }
 
-        if (v28)
+        if (v32)
         {
-          CFRelease(v28);
+          CFRelease(v32);
         }
 
         if (!cf)
         {
-          v24 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x245CED520](v24, "Could not construct");
-          __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v28 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x245CED520](v28, "Could not construct");
+          __cxa_throw(v28, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"db per step", &v28);
-        v14 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(cf, &v28);
-        if (v15)
+        applesauce::CF::make_StringRef(&v32, @"db per step", v16);
+        v18 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(cf, &v32);
+        if (v19)
         {
-          v16 = v14;
+          v20 = v18;
         }
 
         else
         {
-          v16 = 0;
+          v20 = 0;
         }
 
-        if (v28)
+        if (v32)
         {
-          CFRelease(v28);
+          CFRelease(v32);
         }
 
-        ASDT::IOAudio2::Helpers::Float64FromFixed64(v11);
-        v18 = v17;
-        ASDT::IOAudio2::Helpers::Float64FromFixed64(v16);
-        v19 = v18;
-        v21 = v18 + v13 * v20;
-        ASDT::VolumeCurve::AddRange(a2, v19, v21);
+        ASDT::IOAudio2::Helpers::Float64FromFixed64(v14);
+        v22 = v21;
+        ASDT::IOAudio2::Helpers::Float64FromFixed64(v20);
+        v23 = v22;
+        v25 = v22 + v17 * v24;
+        ASDT::VolumeCurve::AddRange(a2, v23, v25);
         if (cf)
         {
           CFRelease(cf);
         }
       }
 
-      ++v31;
+      ++v35;
     }
 
-    ASDT::IOA2UserClient::GetLevelControlInfo_TransferFunction(v27, v6);
+    ASDT::IOA2UserClient::GetLevelControlInfo_TransferFunction(v31, v7);
     ASDT::VolumeCurve::SetTransferFunction(a2);
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  return v5 != 0;
+  return v6 != 0;
 }
 
-void sub_2416C051C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2416C051C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopySelectorControlInfo_MultiSelectorValue(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopySelectorControlInfo_MultiSelectorValue(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
-  v10 = 0;
+  v12 = 0;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"value", &cf);
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v8);
+    applesauce::CF::make_StringRef(&cf, @"value", a2);
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v10);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v9)
+    if (v11)
     {
-      v5 = v8;
-      if (v8)
+      v7 = v10;
+      if (v10)
       {
-        CFRetain(v8);
+        CFRetain(v10);
       }
 
-      *a2 = v5;
+      *a3 = v7;
     }
 
     else
     {
-      v6 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOA2LogType(v6, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOA2UserClient::CopySelectorControlInfo_MultiSelectorValue();
       }
 
-      *a2 = 0;
-      v10 = 0;
+      *a3 = 0;
+      v12 = 0;
     }
 
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 }
 
-void sub_2416C0694(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C0694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::ArrayRef>::~optional(va);
   applesauce::CF::ArrayRef::~ArrayRef(va1);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::CopySelectorControlInfo_SelectorMap(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopySelectorControlInfo_SelectorMap(const __CFDictionary **this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
-  v10 = 0;
+  v12 = 0;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"selectors", &cf);
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v8);
+    applesauce::CF::make_StringRef(&cf, @"selectors", a2);
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(*this, &cf, &v10);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v9)
+    if (v11)
     {
-      v5 = v8;
-      if (v8)
+      v7 = v10;
+      if (v10)
       {
-        CFRetain(v8);
+        CFRetain(v10);
       }
 
-      *a2 = v5;
+      *a3 = v7;
     }
 
     else
     {
-      v6 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOA2LogType(v6, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOA2UserClient::CopySelectorControlInfo_SelectorMap();
       }
 
-      *a2 = 0;
-      v10 = 0;
+      *a3 = 0;
+      v12 = 0;
     }
 
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 }
 
-void sub_2416C0790(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C0790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::ArrayRef>::~optional(va);
   applesauce::CF::ArrayRef::~ArrayRef(va1);
   _Unwind_Resume(a1);
 }
 
-BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftValue(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftValue(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"left value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"left value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -3293,28 +3306,29 @@ BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftValue(const __CFDictionar
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_CenterValue(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_CenterValue(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"center value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"center value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -3324,28 +3338,29 @@ BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_CenterValue(const __CFDiction
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightValue(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightValue(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"right value", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"right value", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -3355,28 +3370,29 @@ BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightValue(const __CFDictiona
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftChannel(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftChannel(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"left channel", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"left channel", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -3386,28 +3402,29 @@ BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_LeftChannel(const __CFDiction
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightChannel(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightChannel(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"right channel", &cf);
-  v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  applesauce::CF::make_StringRef(&cf, @"right channel", a2);
+  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
+  v7 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v5 & 0x100000000) == 0)
+  if ((v6 & 0x100000000) == 0)
   {
-    v6 = ASDTIOA2LogType();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = ASDTIOA2LogType(v7, v5);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -3417,134 +3434,136 @@ BOOL ASDT::IOA2UserClient::GetStereoPanControlInfo_RightChannel(const __CFDictio
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v6;
   return 1;
 }
 
-void ASDT::IOA2UserClient::CopyBlockControlInfo_Descriptor(const __CFDictionary **this@<X0>, void *a2@<X8>)
+void ASDT::IOA2UserClient::CopyBlockControlInfo_Descriptor(uint64_t *__return_ptr a1@<X8>, const __CFDictionary **this@<X0>, const __CFString *a3@<X1>)
 {
-  v10 = 0;
+  v12 = 0;
   if (*this)
   {
-    applesauce::CF::make_StringRef(@"descriptor", &cf);
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(*this, &cf, &v8);
+    applesauce::CF::make_StringRef(&cf, @"descriptor", a3);
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,applesauce::CF::StringRef>(*this, &cf, &v10);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v9)
+    if (v11)
     {
-      v5 = v8;
-      if (v8)
+      v7 = v10;
+      if (v10)
       {
-        CFRetain(v8);
+        CFRetain(v10);
       }
 
-      *a2 = v5;
+      *a1 = v7;
     }
 
     else
     {
-      v6 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOA2LogType(v6, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOA2UserClient::CopyBlockControlInfo_Descriptor();
       }
 
-      *a2 = 0;
-      v10 = 0;
+      *a1 = 0;
+      v12 = 0;
     }
 
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
-void sub_2416C0B70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C0B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   std::optional<applesauce::CF::DictionaryRef>::~optional(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::MapBlockControlBuffer(ASDT::IOA2UserClient *this@<X0>, const __CFDictionary **a2@<X1>, uint64_t a3@<X8>)
+void ASDT::IOA2UserClient::MapBlockControlBuffer(uint64_t *__return_ptr a1@<X8>, ASDT::IOA2UserClient *this@<X0>, const __CFString *a3@<X1>)
 {
-  if (!*a2)
+  if (!a3->isa)
   {
-    v8 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ASDTIOA2LogType(this, a3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapBlockControlBuffer(this);
+      ASDT::IOA2UserClient::MapBlockControlBuffer();
     }
 
     goto LABEL_9;
   }
 
-  applesauce::CF::make_StringRef(@"control ID", &cf);
-  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a2, &cf);
+  applesauce::CF::make_StringRef(&cf, @"control ID", a3);
+  v7 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(a3->isa, &cf);
+  v8 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v6 & 0x100000000) == 0)
+  if ((v7 & 0x100000000) == 0)
   {
-    v7 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = ASDTIOA2LogType(v8, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapBlockControlBuffer(this);
+      ASDT::IOA2UserClient::MapBlockControlBuffer();
     }
 
 LABEL_9:
-    *(a3 + 104) = 0u;
-    *(a3 + 88) = 0u;
-    *(a3 + 72) = 0u;
-    *(a3 + 56) = 0u;
-    *(a3 + 40) = 0u;
-    *(a3 + 24) = 0u;
-    *(a3 + 8) = 0u;
-    *a3 = MEMORY[0x277CEFBA8] + 16;
-    ASDT::IOConnect::IOConnect((a3 + 8));
-    *(a3 + 104) = 0;
-    *(a3 + 112) = 0;
+    *(a1 + 13) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 9) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 1) = 0u;
+    *a1 = MEMORY[0x277CEFBA8] + 16;
+    ASDT::IOConnect::IOConnect((a1 + 1));
+    a1[13] = 0;
+    *(a1 + 28) = 0;
     return;
   }
 
-  if (!*a2)
+  if (!a3->isa)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     applesauce::CF::construct_error(exception);
   }
 
-  applesauce::CF::make_StringRef(@"mapping options", &cf);
-  applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a2, &cf);
+  applesauce::CF::make_StringRef(&cf, @"mapping options", v6);
+  applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(a3->isa, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  ASDT::IOUserClient::MapMemory(this);
-  if (!*(a3 + 104))
+  v11 = ASDT::IOUserClient::MapMemory(this);
+  if (!a1[13])
   {
-    v9 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ASDTIOA2LogType(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapBlockControlBuffer(this);
+      ASDT::IOA2UserClient::MapBlockControlBuffer();
     }
   }
 }
@@ -3555,43 +3574,42 @@ BOOL ASDT::IOA2UserClient::MoveBlockControlData(ASDT::IOA2UserClient *this, unsi
   v9[0] = a2;
   v9[1] = a3;
   v9[2] = a4;
-  v5 = ASDT::IOUserClient::CallMethod(this, 9, v9, 3, 0, 0, 0, 0, 0, 0, 1);
-  if (v5)
+  v4 = ASDT::IOUserClient::CallMethod(this, 9, v9, 3, 0, 0, 0, 0, 0, 0, 1);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MoveBlockControlData(this);
+      ASDT::IOA2UserClient::MoveBlockControlData();
     }
   }
 
-  result = v5 == 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
-void ASDT::IOA2UserClient::CopyDataExchangeBlockList(ASDT::IOA2UserClient *this@<X0>, const applesauce::CF::TypeRef *a2@<X8>)
+void ASDT::IOA2UserClient::CopyDataExchangeBlockList(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const applesauce::CF::TypeRef *a3@<X8>)
 {
-  *a2 = 0;
-  applesauce::CF::make_StringRef(@"data exchange blocks", &cf);
-  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a2);
+  *a3 = 0;
+  applesauce::CF::make_StringRef(&cf, @"data exchange blocks", a2);
+  ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(this, &cf, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 }
 
-void sub_2416C0EB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C0EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
-  applesauce::CF::ArrayRef::~ArrayRef(v2);
+  applesauce::CF::ArrayRef::~ArrayRef(v3);
   _Unwind_Resume(a1);
 }
 
-CFIndex ASDT::IOA2UserClient::GetNumberDataExchangeBlocks(ASDT::IOA2UserClient *this)
+CFIndex ASDT::IOA2UserClient::GetNumberDataExchangeBlocks(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, &theArray);
+  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, a2, &theArray);
   if (!theArray)
   {
     return 0;
@@ -3606,11 +3624,12 @@ CFIndex ASDT::IOA2UserClient::GetNumberDataExchangeBlocks(ASDT::IOA2UserClient *
   return Count;
 }
 
-void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByIndex(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, void *a3@<X8>)
 {
+  v3 = a2;
   v11 = 0;
-  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, &theArray);
-  if (!theArray || CFArrayGetCount(theArray) <= a2)
+  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, a2, &theArray);
+  if (!theArray || CFArrayGetCount(theArray) <= v3)
   {
     goto LABEL_8;
   }
@@ -3622,7 +3641,7 @@ void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByIndex(ASDT::IOA2User
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(theArray, a2, &cf);
+  applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(theArray, v3, &cf);
   if (v9)
   {
     v5 = cf;
@@ -3662,24 +3681,24 @@ LABEL_9:
   }
 }
 
-void sub_2416C1024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416C1024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   applesauce::CF::ArrayRef::~ArrayRef(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::GetDataExchangeBlockID(const __CFDictionary **this, const applesauce::CF::DictionaryRef *a2, unsigned int *a3)
+uint64_t ASDT::IOA2UserClient::GetDataExchangeBlockID(const __CFDictionary **this, __CFString *a2, unsigned int *a3)
 {
   if (!*this)
   {
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"block ID", &cf);
+  applesauce::CF::make_StringRef(&cf, @"block ID", a2);
   v5 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*this, &cf);
   if (cf)
   {
@@ -3691,34 +3710,35 @@ uint64_t ASDT::IOA2UserClient::GetDataExchangeBlockID(const __CFDictionary **thi
     return 0;
   }
 
-  *a2 = v5;
+  LODWORD(a2->isa) = v5;
   return 1;
 }
 
-void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, const __CFDictionary **a3@<X8>)
+void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, const __CFDictionary **a3@<X8>)
 {
-  v18 = 0;
-  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, &theArray);
+  v3 = a2;
+  v19 = 0;
+  ASDT::IOA2UserClient::CopyDataExchangeBlockList(this, a2, &theArray);
   if (theArray)
   {
-    v14 = theArray;
-    v15 = 0;
+    v15 = theArray;
+    v16 = 0;
     Count = CFArrayGetCount(theArray);
     while (1)
     {
       v5 = theArray;
       v6 = theArray ? CFArrayGetCount(theArray) : 0;
-      if (!v14 || v15 == Count)
+      if (!v15 || v16 == Count)
       {
         break;
       }
 
-      if (v14 == v5 && v15 == v6)
+      if (v15 == v5 && v16 == v6)
       {
         break;
       }
 
-      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v14, &cf);
+      applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::operator->(&v15, &cf);
       v10 = 0;
       if (cf)
       {
@@ -3736,7 +3756,7 @@ void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(ASDT::IOA2UserCli
 
       if (v10)
       {
-        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v14, v15, &cf);
+        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(v15, v16, &cf);
         applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, a3);
         if (cf)
         {
@@ -3750,14 +3770,14 @@ void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(ASDT::IOA2UserCli
           __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        applesauce::CF::make_StringRef(@"block ID", &cf);
-        v11 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a3, &cf);
+        applesauce::CF::make_StringRef(&cf, @"block ID", v11);
+        v12 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*a3, &cf);
         if (cf)
         {
           CFRelease(cf);
         }
 
-        if ((v11 & 0x100000000) != 0 && v11 == a2)
+        if ((v12 & 0x100000000) != 0 && v12 == v3)
         {
           goto LABEL_32;
         }
@@ -3768,11 +3788,11 @@ void ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(ASDT::IOA2UserCli
         }
       }
 
-      ++v15;
+      ++v16;
     }
 
     *a3 = 0;
-    v18 = 0;
+    v19 = 0;
 LABEL_32:
     if (theArray)
     {
@@ -3786,42 +3806,42 @@ LABEL_32:
   }
 }
 
-void sub_2416C128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2416C128C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(ASDT::IOA2UserClient *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(ASDT::IOA2UserClient *this@<X0>, const __CFString *a2@<X1>, uint64_t a3@<X8>)
 {
-  ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(this, a2, &v8);
-  if (v8)
+  ASDT::IOA2UserClient::CopyDataExchangeBlockDictionaryByID(this, a2, &v12);
+  if (v12)
   {
-    applesauce::CF::make_StringRef(@"buffer mapping options", &cf);
-    applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v8, &cf);
+    applesauce::CF::make_StringRef(&cf, @"buffer mapping options", v6);
+    applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v12, &cf);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    ASDT::IOUserClient::MapMemory(this);
+    v7 = ASDT::IOUserClient::MapMemory(this);
     if (!*(a3 + 104))
     {
-      v5 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v9 = ASDTIOA2LogType(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(this);
+        ASDT::IOA2UserClient::MapDataExchangeBlockBuffer();
       }
     }
   }
 
   else
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = ASDTIOA2LogType(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(this);
+      ASDT::IOA2UserClient::MapDataExchangeBlockBuffer();
     }
 
     *(a3 + 104) = 0u;
@@ -3837,404 +3857,402 @@ void ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(ASDT::IOA2UserClient *this
     *(a3 + 112) = 0;
   }
 
-  if (v8)
+  if (v12)
   {
-    CFRelease(v8);
+    CFRelease(v12);
   }
 }
 
-BOOL ASDT::IOA2UserClient::MoveDataExchangeBlockData(ASDT::IOA2UserClient *this, unsigned int a2, unsigned int a3, unsigned int a4)
+BOOL ASDT::IOA2UserClient::MoveDataExchangeBlockData(ASDT::IOA2UserClient *this, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   v9[3] = *MEMORY[0x277D85DE8];
   v9[0] = a2;
   v9[1] = a4;
   v9[2] = a3;
-  v5 = ASDT::IOUserClient::CallMethod(this, 7, v9, 3, 0, 0, 0, 0, 0, 0, 1);
-  if (v5)
+  v4 = ASDT::IOUserClient::CallMethod(this, 7, v9, 3, 0, 0, 0, 0, 0, 0, 1);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MoveDataExchangeBlockData(this);
+      ASDT::IOA2UserClient::MoveDataExchangeBlockData();
     }
   }
 
-  result = v5 == 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::StartIO(ASDT::IOA2UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOA2LogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::StartIO(this);
+      ASDT::IOA2UserClient::StartIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::StartIOWithFlags(ASDT::IOA2UserClient *this, unint64_t a2, unint64_t *a3)
 {
-  v9 = 0;
-  v10 = a2;
-  v8 = 1;
-  v5 = ASDT::IOUserClient::CallMethod(this, 10, &v10, 1, 0, 0, &v9, &v8, 0, 0, 0);
-  if (v5)
+  v10 = 0;
+  v11 = a2;
+  v9 = 1;
+  v4 = ASDT::IOUserClient::CallMethod(this, 10, &v11, 1, 0, 0, &v10, &v9, 0, 0, 0);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::StartIOWithFlags(this);
+      ASDT::IOA2UserClient::StartIOWithFlags();
     }
   }
 
   else
   {
-    *a3 = v9;
+    *a3 = v10;
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::StopIO(ASDT::IOA2UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOA2LogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::StopIO(this);
+      ASDT::IOA2UserClient::StopIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::StopIOWithFlags(ASDT::IOA2UserClient *this, unint64_t a2, unint64_t *a3)
 {
-  v9 = 0;
-  v10 = a2;
-  v8 = 1;
-  v5 = ASDT::IOUserClient::CallMethod(this, 11, &v10, 1, 0, 0, &v9, &v8, 0, 0, 0);
-  if (v5)
+  v10 = 0;
+  v11 = a2;
+  v9 = 1;
+  v4 = ASDT::IOUserClient::CallMethod(this, 11, &v11, 1, 0, 0, &v10, &v9, 0, 0, 0);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::StopIOWithFlags(this);
+      ASDT::IOA2UserClient::StopIOWithFlags();
     }
   }
 
   else
   {
-    *a3 = v9;
+    *a3 = v10;
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
-BOOL ASDT::IOA2UserClient::DoIO(ASDT::IOA2UserClient *this, int a2, int a3, uint64_t a4, uint64_t a5)
+BOOL ASDT::IOA2UserClient::DoIO(ASDT::IOA2UserClient *this, unsigned int a2, unsigned int a3, unint64_t a4, unint64_t a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v10 = ASDT::IOUserClient::CallTrap6(this);
+  v12 = v10;
   if (v10)
   {
-    v11 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ASDTIOA2LogType(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = (this + 16);
+      v15 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v14 = *v14;
+        v15 = *v15;
       }
 
-      v15 = 136316162;
-      v16 = v14;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 1024;
-      v20 = a3;
-      v21 = 2048;
-      v22 = a4;
-      v23 = 2048;
-      v24 = a5;
-      _os_log_error_impl(&dword_2416BA000, v11, OS_LOG_TYPE_ERROR, "%s: DoIO(%hhu, %u, %llu, %llu) failed", &v15, 0x2Cu);
+      v16 = 136316162;
+      v17 = v15;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 1024;
+      v21 = a3;
+      v22 = 2048;
+      v23 = a4;
+      v24 = 2048;
+      v25 = a5;
+      _os_log_error_impl(&dword_2416BA000, v13, OS_LOG_TYPE_ERROR, "%s: DoIO(%hhu, %u, %llu, %llu) failed", &v16, 0x2Cu);
     }
   }
 
-  result = v10 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v12 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::SetupForIsolatedIO(ASDT::IOA2UserClient *this, unsigned int a2, unint64_t a3, unsigned int a4)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
-  v21[0] = a2;
-  v21[1] = a3;
-  v21[2] = a4;
-  v8 = ASDT::IOUserClient::CallMethod(this, 13, v21, 3, 0, 0, 0, 0, 0, 0, 0);
+  v22[3] = *MEMORY[0x277D85DE8];
+  v22[0] = a2;
+  v22[1] = a3;
+  v22[2] = a4;
+  v8 = ASDT::IOUserClient::CallMethod(this, 13, v22, 3, 0, 0, 0, 0, 0, 0, 0);
+  v10 = v8;
   if (v8)
   {
-    v9 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTIOA2LogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = (this + 16);
+      v13 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v12 = *v12;
+        v13 = *v13;
       }
 
       *buf = 136315906;
-      v14 = v12;
-      v15 = 1024;
-      v16 = a2;
-      v17 = 2048;
-      v18 = a3;
-      v19 = 1024;
-      v20 = a4;
-      _os_log_error_impl(&dword_2416BA000, v9, OS_LOG_TYPE_ERROR, "%s: SetupForIsolatedIO(%u, %llu, %u) failed", buf, 0x22u);
+      v15 = v13;
+      v16 = 1024;
+      v17 = a2;
+      v18 = 2048;
+      v19 = a3;
+      v20 = 1024;
+      v21 = a4;
+      _os_log_error_impl(&dword_2416BA000, v11, OS_LOG_TYPE_ERROR, "%s: SetupForIsolatedIO(%u, %llu, %u) failed", buf, 0x22u);
     }
   }
 
-  result = v8 == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::TeardownForIsolatedIO(ASDT::IOA2UserClient *this, unsigned int a2, unint64_t a3)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v17[0] = a2;
-  v17[1] = a3;
-  v6 = ASDT::IOUserClient::CallMethod(this, 14, v17, 2, 0, 0, 0, 0, 0, 0, 0);
+  v18[2] = *MEMORY[0x277D85DE8];
+  v18[0] = a2;
+  v18[1] = a3;
+  v6 = ASDT::IOUserClient::CallMethod(this, 14, v18, 2, 0, 0, 0, 0, 0, 0, 0);
+  v8 = v6;
   if (v6)
   {
-    v7 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = ASDTIOA2LogType(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = (this + 16);
+      v11 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v10 = *v10;
+        v11 = *v11;
       }
 
       *buf = 136315650;
-      v12 = v10;
-      v13 = 1024;
-      v14 = a2;
-      v15 = 2048;
-      v16 = a3;
-      _os_log_error_impl(&dword_2416BA000, v7, OS_LOG_TYPE_ERROR, "%s: TeardownForIsolatedIO(%u, %llu) failed", buf, 0x1Cu);
+      v13 = v11;
+      v14 = 1024;
+      v15 = a2;
+      v16 = 2048;
+      v17 = a3;
+      _os_log_error_impl(&dword_2416BA000, v9, OS_LOG_TYPE_ERROR, "%s: TeardownForIsolatedIO(%u, %llu) failed", buf, 0x1Cu);
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
-BOOL ASDT::IOA2UserClient::DoIsolatedIO(ASDT::IOA2UserClient *this, int a2, uint64_t a3, unsigned int a4, int a5, uint64_t a6, uint64_t a7)
+BOOL ASDT::IOA2UserClient::DoIsolatedIO(ASDT::IOA2UserClient *this, unsigned int a2, unint64_t a3, unsigned int a4, unsigned int a5, unint64_t a6, unint64_t a7)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v14 = ASDT::IOUserClient::CallTrap6(this);
+  v16 = v14;
   if (v14)
   {
-    v15 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = ASDTIOA2LogType(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v18 = (this + 16);
+      v19 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v18 = *v18;
+        v19 = *v19;
       }
 
-      v19 = HIBYTE(a4);
-      v27 = 136318722;
-      v28 = v18;
-      v29 = 1024;
+      v20 = HIBYTE(a4);
+      v28 = 136318722;
+      v29 = v19;
+      v30 = 1024;
       if ((a4 - 0x20000000) >> 24 >= 0x5F)
-      {
-        v19 = 32;
-      }
-
-      v30 = a2;
-      v20 = BYTE2(a4);
-      v31 = 2048;
-      v32 = a3;
-      if (BYTE2(a4) - 32 >= 0x5F)
       {
         v20 = 32;
       }
 
-      v33 = 1024;
-      v34 = v19;
-      if (BYTE1(a4) - 32 >= 0x5F)
+      v31 = a2;
+      v21 = BYTE2(a4);
+      v32 = 2048;
+      v33 = a3;
+      if (BYTE2(a4) - 32 >= 0x5F)
       {
         v21 = 32;
       }
 
-      else
-      {
-        v21 = BYTE1(a4);
-      }
-
-      v35 = 1024;
-      v36 = v20;
-      if (a4 - 32 >= 0x5F)
+      v34 = 1024;
+      v35 = v20;
+      if (BYTE1(a4) - 32 >= 0x5F)
       {
         v22 = 32;
       }
 
       else
       {
-        v22 = a4;
+        v22 = BYTE1(a4);
       }
 
-      v37 = 1024;
-      v38 = v21;
-      if ((v14 - 0x20000000) >> 24 >= 0x5F)
+      v36 = 1024;
+      v37 = v21;
+      if (a4 - 32 >= 0x5F)
       {
         v23 = 32;
       }
 
       else
       {
-        v23 = HIBYTE(v14);
+        v23 = a4;
       }
 
-      v39 = 1024;
-      v24 = BYTE2(v14);
-      v40 = v22;
-      if (BYTE2(v14) - 32 >= 0x5F)
+      v38 = 1024;
+      v39 = v22;
+      if ((v16 - 0x20000000) >> 24 >= 0x5F)
       {
         v24 = 32;
       }
 
-      v41 = 1024;
-      v25 = BYTE1(v14);
-      v42 = a5;
-      if (BYTE1(v14) - 32 >= 0x5F)
+      else
+      {
+        v24 = HIBYTE(v16);
+      }
+
+      v40 = 1024;
+      v25 = BYTE2(v16);
+      v41 = v23;
+      if (BYTE2(v16) - 32 >= 0x5F)
       {
         v25 = 32;
       }
 
-      v43 = 2048;
-      v44 = a6;
-      if (v14 - 32 >= 0x5F)
+      v42 = 1024;
+      v26 = BYTE1(v16);
+      v43 = a5;
+      if (BYTE1(v16) - 32 >= 0x5F)
       {
         v26 = 32;
       }
 
-      else
+      v44 = 2048;
+      v45 = a6;
+      if (v16 - 32 >= 0x5F)
       {
-        v26 = v14;
+        v27 = 32;
       }
 
-      v45 = 2048;
-      v46 = a7;
-      v47 = 1024;
-      v48 = v14;
-      v49 = 1024;
-      v50 = v23;
-      v51 = 1024;
-      v52 = v24;
-      v53 = 1024;
-      v54 = v25;
-      v55 = 1024;
-      v56 = v26;
-      _os_log_error_impl(&dword_2416BA000, v15, OS_LOG_TYPE_ERROR, "%s: DoIsolatedIO(%u, %llu, %c%c%c%c, %u, %llu, %llu) failed: %x (%c%c%c%c)", &v27, 0x6Cu);
+      else
+      {
+        v27 = v16;
+      }
+
+      v46 = 2048;
+      v47 = a7;
+      v48 = 1024;
+      v49 = v16;
+      v50 = 1024;
+      v51 = v24;
+      v52 = 1024;
+      v53 = v25;
+      v54 = 1024;
+      v55 = v26;
+      v56 = 1024;
+      v57 = v27;
+      _os_log_error_impl(&dword_2416BA000, v17, OS_LOG_TYPE_ERROR, "%s: DoIsolatedIO(%u, %llu, %c%c%c%c, %u, %llu, %llu) failed: %x (%c%c%c%c)", &v28, 0x6Cu);
     }
   }
 
-  result = v14 == 0;
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return v16 == 0;
 }
 
-BOOL ASDT::IOA2UserClient::SetStreamCurrentFormat(ASDT::IOA2UserClient *this, unsigned int a2, const AudioStreamBasicDescription *a3)
+BOOL ASDT::IOA2UserClient::SetStreamCurrentFormat(ASDT::IOA2UserClient *this, uint64_t a2, const AudioStreamBasicDescription *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v10 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a3->mSampleRate);
-  v11 = *&a3->mFormatID;
-  v12 = *&a3->mBytesPerFrame;
+  v4 = a2;
+  v15[1] = *MEMORY[0x277D85DE8];
+  v11 = ASDT::IOAudio2::Helpers::Fixed64FromFloat64(this, a3->mSampleRate);
+  v12 = *&a3->mFormatID;
+  v13 = *&a3->mBytesPerFrame;
   mBitsPerChannel = a3->mBitsPerChannel;
-  v14[0] = a2;
-  v6 = ASDT::IOUserClient::CallMethod(this, 5, v14, 1, &v10, 40, 0, 0, 0, 0, 1);
+  v15[0] = v4;
+  v6 = ASDT::IOUserClient::CallMethod(this, 5, v15, 1, &v11, 40, 0, 0, 0, 0, 1);
+  v8 = v6;
   if (v6)
   {
-    v7 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = ASDTIOA2LogType(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::SetStreamCurrentFormat(this);
+      ASDT::IOA2UserClient::SetStreamCurrentFormat();
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 0;
 }
 
 BOOL ASDT::IOA2UserClient::SetControlValue(ASDT::IOA2UserClient *this, unsigned int a2, unsigned int *a3)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v6 = *a3;
-  v21[0] = a2;
-  v21[1] = v6;
-  v20 = 0;
-  v13 = 1;
-  v7 = ASDT::IOUserClient::CallMethod(this, 2, v21, 2, 0, 0, &v20, &v13, 0, 0, 1);
+  v22[0] = a2;
+  v22[1] = v6;
+  v21 = 0;
+  v14 = 1;
+  v7 = ASDT::IOUserClient::CallMethod(this, 2, v22, 2, 0, 0, &v21, &v14, 0, 0, 1);
+  v9 = v7;
   if (v7)
   {
-    v8 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = ASDTIOA2LogType(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v9 = (this + 16);
+      v11 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v9 = *v9;
+        v11 = *v11;
       }
 
-      v10 = *a3;
+      v12 = *a3;
       *buf = 136315650;
-      v15 = v9;
-      v16 = 1024;
-      v17 = a2;
-      v18 = 1024;
-      v19 = v10;
-      _os_log_error_impl(&dword_2416BA000, v8, OS_LOG_TYPE_ERROR, "%s: SetControlValue(%u, %u): got an error when telling the hardware to change a control value", buf, 0x18u);
+      v16 = v11;
+      v17 = 1024;
+      v18 = a2;
+      v19 = 1024;
+      v20 = v12;
+      _os_log_error_impl(&dword_2416BA000, v10, OS_LOG_TYPE_ERROR, "%s: SetControlValue(%u, %u): got an error when telling the hardware to change a control value", buf, 0x18u);
     }
   }
 
   else
   {
-    *a3 = v20;
+    *a3 = v21;
   }
 
-  result = v7 == 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 == 0;
 }
 
-BOOL ASDT::IOA2UserClient::SetMultiControlValue(ASDT::IOA2UserClient *this, unsigned int a2, const unsigned int *a3, int a4, unsigned int *a5, unsigned int *a6)
+BOOL ASDT::IOA2UserClient::SetMultiControlValue(ASDT::IOA2UserClient *this, uint64_t a2, const unsigned int *a3, int a4, unsigned int *a5, unsigned int *a6)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v9 = (a4 + 1);
   MEMORY[0x28223BE20]();
-  v11 = v21 - v10;
-  *(v21 - v10) = v12;
-  memcpy(v21 - v10 + 4, v14, 4 * v13);
+  v11 = v22 - v10;
+  *(v22 - v10) = v12;
+  memcpy(v22 - v10 + 4, v14, 4 * v13);
   if (a6)
   {
     v15 = 4 * *a6;
-    v16 = v21;
+    v16 = v22;
   }
 
   else
@@ -4243,44 +4261,43 @@ BOOL ASDT::IOA2UserClient::SetMultiControlValue(ASDT::IOA2UserClient *this, unsi
     v15 = 0;
   }
 
-  v21[0] = v15;
+  v22[0] = v15;
   v17 = ASDT::IOUserClient::CallMethod(this, 8, 0, 0, v11, 4 * v9, 0, 0, a5, v16, 1);
+  v19 = v17;
   if (v17)
   {
-    v18 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = ASDTIOA2LogType(v17, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::SetMultiControlValue(this);
+      ASDT::IOA2UserClient::SetMultiControlValue();
     }
   }
 
   else if (a6)
   {
-    *a6 = v21[0] >> 2;
+    *a6 = v22[0] >> 2;
   }
 
-  result = v17 == 0;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v19 == 0;
 }
 
-uint64_t ASDT::IOA2UserClient::UpdateControlInfo(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t ASDT::IOA2UserClient::UpdateControlInfo(uint64_t a1, unsigned int a2, CFTypeRef *a3, uint64_t a4)
 {
-  v3 = *a3;
+  v4 = *a3;
   if (*a3)
   {
     CFRetain(*a3);
-    CFRetain(v3);
+    CFRetain(v4);
   }
 
-  v4 = ASDT::IOUserClient::ArraySetValueAtIndex();
-  if (v3)
+  v5 = ASDT::IOUserClient::ArraySetValueAtIndex();
+  if (v4)
   {
-    CFRelease(v3);
-    CFRelease(v3);
+    CFRelease(v4);
+    CFRelease(v4);
   }
 
-  return v4;
+  return v5;
 }
 
 void sub_2416C2184(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
@@ -4290,19 +4307,19 @@ void sub_2416C2184(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::ReplaceControlInfo(ASDT::IOUserClient *a1, const applesauce::CF::ArrayRef *a2, uint64_t a3, CFTypeRef *a4)
+uint64_t ASDT::IOA2UserClient::ReplaceControlInfo(ASDT::IOUserClient *a1, const applesauce::CF::ArrayRef *a2, unsigned int a3, CFTypeRef *a4, uint64_t a5)
 {
-  v7 = *a4;
+  v9 = *a4;
   if (*a4)
   {
     CFRetain(*a4);
   }
 
-  v12 = v7;
-  updated = ASDT::IOA2UserClient::UpdateControlInfo(a2, a3, &v12);
-  if (v7)
+  v15 = v9;
+  updated = ASDT::IOA2UserClient::UpdateControlInfo(a2, a3, &v15, a5);
+  if (v9)
   {
-    CFRelease(v7);
+    CFRelease(v9);
   }
 
   if ((updated & 1) == 0)
@@ -4310,29 +4327,29 @@ uint64_t ASDT::IOA2UserClient::ReplaceControlInfo(ASDT::IOUserClient *a1, const 
     return 0;
   }
 
-  applesauce::CF::make_StringRef(@"controls", &cf);
-  v9 = ASDT::IOUserClient::ReplaceProperty(a1, &cf, a2);
+  applesauce::CF::make_StringRef(&cf, @"controls", v10);
+  v12 = ASDT::IOUserClient::ReplaceProperty(a1, &cf, a2);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v9;
+  return v12;
 }
 
-uint64_t ASDT::IOA2UserClient::UpdateControlValue(uint64_t a1, const void **a2)
+uint64_t ASDT::IOA2UserClient::UpdateControlValue(uint64_t a1, const __CFString *a2)
 {
-  applesauce::CF::make_StringRef(@"value", &v6);
-  v3 = *a2;
-  if (v3)
+  applesauce::CF::make_StringRef(&v6, @"value", a2);
+  isa = a2->isa;
+  if (isa)
   {
-    CFRetain(v3);
+    CFRetain(isa);
   }
 
   v4 = ASDT::IOUserClient::DictionarySetValueForKey();
-  if (v3)
+  if (isa)
   {
-    CFRelease(v3);
+    CFRelease(isa);
   }
 
   if (v6)
@@ -4350,7 +4367,7 @@ void sub_2416C2318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOUserClient *a1, const applesauce::CF::ArrayRef *a2, uint64_t a3, const void **a4, CFTypeRef *a5)
+uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOUserClient *a1, const applesauce::CF::ArrayRef *a2, unsigned int a3, const void **a4, CFTypeRef *a5)
 {
   v9 = *a5;
   if (*a5)
@@ -4358,7 +4375,7 @@ uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOUserClient *a1, const
     CFRetain(*a5);
   }
 
-  v15 = v9;
+  v15.isa = v9;
   updated = ASDT::IOA2UserClient::UpdateControlValue(a4, &v15);
   if (v9)
   {
@@ -4377,7 +4394,7 @@ uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOUserClient *a1, const
   }
 
   v14 = v11;
-  v12 = ASDT::IOA2UserClient::ReplaceControlInfo(a1, a2, a3, &v14);
+  v12 = ASDT::IOA2UserClient::ReplaceControlInfo(a1, a2, a3, &v14, 0);
   if (v11)
   {
     CFRelease(v11);
@@ -4386,12 +4403,12 @@ uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOUserClient *a1, const
   return v12;
 }
 
-uint64_t ASDT::IOA2UserClient::GetUpdatedControlValue(const __CFDictionary **a1, const applesauce::CF::DictionaryRef *a2, const void **a3, _BYTE *a4)
+uint64_t ASDT::IOA2UserClient::GetUpdatedControlValue(const __CFDictionary **a1, const __CFString *a2, CFNumberRef *a3, _BYTE *a4)
 {
   v6 = a2;
   ControlInfo_BaseClass = ASDT::IOA2UserClient::GetControlInfo_BaseClass(a1, a2);
-  v17 = 0;
-  result = ASDT::IOA2UserClient::GetControlInfo_Value(a1, &v17, v9);
+  LODWORD(v18.isa) = 0;
+  result = ASDT::IOA2UserClient::GetControlInfo_Value(a1, &v18, v9);
   if (!result)
   {
     return result;
@@ -4405,7 +4422,7 @@ uint64_t ASDT::IOA2UserClient::GetUpdatedControlValue(const __CFDictionary **a1,
       goto LABEL_9;
     }
 
-    v11 = 1936483188;
+    v12 = 1936483188;
   }
 
   else
@@ -4418,7 +4435,7 @@ uint64_t ASDT::IOA2UserClient::GetUpdatedControlValue(const __CFDictionary **a1,
     if (ControlInfo_BaseClass == 1953458028)
     {
       result = 1;
-      if ((v6 != 0) != (v17 == 0))
+      if ((v6 != 0) != (LODWORD(v18.isa) == 0))
       {
         return result;
       }
@@ -4427,44 +4444,44 @@ uint64_t ASDT::IOA2UserClient::GetUpdatedControlValue(const __CFDictionary **a1,
       goto LABEL_10;
     }
 
-    v11 = 1936744814;
+    v12 = 1936744814;
   }
 
-  if (ControlInfo_BaseClass == v11)
+  if (ControlInfo_BaseClass == v12)
   {
 LABEL_9:
     result = 1;
-    if (v17 == v6)
+    if (LODWORD(v18.isa) == v6)
     {
       return result;
     }
 
 LABEL_10:
     *a4 = 1;
-    valuePtr = v6;
-    v12 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    if (!v12)
+    HIDWORD(v18.isa) = v6;
+    v13 = CFNumberCreate(0, kCFNumberIntType, &v18.isa + 4);
+    if (!v13)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x245CED520](exception, "Could not construct");
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v13 = v12;
-    CFRetain(v12);
-    v14 = *a3;
-    *a3 = v13;
-    if (v14)
+    v14 = v13;
+    CFRetain(v13);
+    v15 = *a3;
+    *a3 = v14;
+    if (v15)
     {
-      CFRelease(v14);
+      CFRelease(v15);
     }
 
-    CFRelease(v13);
+    CFRelease(v14);
     return 1;
   }
 
-  v15 = ASDTIOA2LogType();
-  result = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+  v16 = ASDTIOA2LogType(result, v11);
+  result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
   if (result)
   {
     ASDT::IOA2UserClient::GetUpdatedControlValue();
@@ -4474,35 +4491,35 @@ LABEL_10:
   return result;
 }
 
-uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOA2UserClient *this, const applesauce::CF::ArrayRef *a2, const applesauce::CF::DictionaryRef *a3)
+uint64_t ASDT::IOA2UserClient::ReplaceControlValue(ASDT::IOA2UserClient *this, const __CFString *a2, const __CFString *a3)
 {
-  ASDT::IOA2UserClient::CopyControlList(this, &v18);
-  v17 = -1;
-  ASDT::IOA2UserClient::CopyControlDictionaryByID(&v18, a2, &v17, &cf);
-  v6 = cf;
+  ASDT::IOA2UserClient::CopyControlList(this, a2, &v20);
+  v19 = -1;
+  ASDT::IOA2UserClient::CopyControlDictionaryByID(&v20, a2, &v19, &cf);
+  v8 = cf;
   if (!cf)
   {
-    v10 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = ASDTIOA2LogType(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::ReplaceControlValue(this);
+      ASDT::IOA2UserClient::ReplaceControlValue();
     }
 
     UpdatedControlValue = 0;
     goto LABEL_14;
   }
 
-  v15 = 0;
-  v14 = 0;
+  v17 = 0;
+  v16 = 0;
   CFRetain(cf);
-  v13 = v6;
-  UpdatedControlValue = ASDT::IOA2UserClient::GetUpdatedControlValue(&v13, a3, &v15, &v14);
-  CFRelease(v6);
+  v15 = v8;
+  UpdatedControlValue = ASDT::IOA2UserClient::GetUpdatedControlValue(&v15, a3, &v17, &v16);
+  CFRelease(v8);
   if ((UpdatedControlValue & 1) == 0)
   {
-    v8 = v15;
+    v10 = v17;
 LABEL_12:
-    if (!v8)
+    if (!v10)
     {
       goto LABEL_14;
     }
@@ -4510,25 +4527,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v8 = v15;
-  if (v14 != 1)
+  v10 = v17;
+  if (v16 != 1)
   {
     goto LABEL_12;
   }
 
-  v9 = v17;
-  if (v15)
+  v11 = v19;
+  if (v17)
   {
-    CFRetain(v15);
+    CFRetain(v17);
   }
 
-  v12 = v8;
-  UpdatedControlValue = ASDT::IOA2UserClient::ReplaceControlValue(this, &v18, v9, &cf, &v12);
-  if (v8)
+  v14 = v10;
+  UpdatedControlValue = ASDT::IOA2UserClient::ReplaceControlValue(this, &v20, v11, &cf, &v14);
+  if (v10)
   {
-    CFRelease(v8);
+    CFRelease(v10);
 LABEL_13:
-    CFRelease(v8);
+    CFRelease(v10);
   }
 
 LABEL_14:
@@ -4537,36 +4554,36 @@ LABEL_14:
     CFRelease(cf);
   }
 
-  if (v18)
+  if (v20)
   {
-    CFRelease(v18);
+    CFRelease(v20);
   }
 
   return UpdatedControlValue;
 }
 
-void sub_2416C2750(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C2750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, const void *);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, const void *);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, const void *);
+  v9 = va_arg(va2, const void *);
   applesauce::CF::TypeRef::~TypeRef(va);
   applesauce::CF::TypeRef::~TypeRef(va1);
   applesauce::CF::DictionaryRef::~DictionaryRef(va2);
-  applesauce::CF::ArrayRef::~ArrayRef((v2 - 40));
+  applesauce::CF::ArrayRef::~ArrayRef((v3 - 40));
   _Unwind_Resume(a1);
 }
 
-BOOL ASDT::IOA2UserClient::GetUpdatedMultiControlValue(const __CFDictionary **a1, uint64_t a2, unsigned int a3, const void **a4, _BYTE *a5)
+BOOL ASDT::IOA2UserClient::GetUpdatedMultiControlValue(const __CFDictionary **a1, __CFString *a2, unsigned int a3, CFArrayRef *a4, _BYTE *a5)
 {
   if (a2 || !a3)
   {
-    ASDT::IOA2UserClient::CopySelectorControlInfo_MultiSelectorValue(a1, &v27);
+    ASDT::IOA2UserClient::CopySelectorControlInfo_MultiSelectorValue(a1, a2, &v27);
     v11 = v27;
     v10 = v27 != 0;
     if (v27)
@@ -4574,7 +4591,7 @@ BOOL ASDT::IOA2UserClient::GetUpdatedMultiControlValue(const __CFDictionary **a1
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v24, a2, a2 + 4 * a3, a3);
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v24, a2, a2 + a3, a3);
       v21 = 0;
       v22 = 0;
       v23 = 0;
@@ -4647,7 +4664,7 @@ BOOL ASDT::IOA2UserClient::GetUpdatedMultiControlValue(const __CFDictionary **a1
 
   else
   {
-    v9 = ASDTIOA2LogType();
+    v9 = ASDTIOA2LogType(a1, 0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOA2UserClient::GetUpdatedMultiControlValue();
@@ -4680,35 +4697,35 @@ void sub_2416C297C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::ReplaceMultiControlValue(ASDT::IOA2UserClient *this, const applesauce::CF::ArrayRef *a2, const unsigned int *a3, unsigned int a4)
+uint64_t ASDT::IOA2UserClient::ReplaceMultiControlValue(ASDT::IOA2UserClient *this, const __CFString *a2, __CFString *a3, unsigned int a4)
 {
-  ASDT::IOA2UserClient::CopyControlList(this, &v20);
-  v19 = -1;
-  ASDT::IOA2UserClient::CopyControlDictionaryByID(&v20, a2, &v19, &cf);
-  v8 = cf;
+  ASDT::IOA2UserClient::CopyControlList(this, a2, &v22);
+  v21 = -1;
+  ASDT::IOA2UserClient::CopyControlDictionaryByID(&v22, a2, &v21, &cf);
+  v10 = cf;
   if (!cf)
   {
-    v12 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = ASDTIOA2LogType(v8, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::ReplaceMultiControlValue(this);
+      ASDT::IOA2UserClient::ReplaceMultiControlValue();
     }
 
     UpdatedMultiControlValue = 0;
     goto LABEL_14;
   }
 
-  v17 = 0;
-  v16 = 0;
+  v19 = 0;
+  v18 = 0;
   CFRetain(cf);
-  v15 = v8;
-  UpdatedMultiControlValue = ASDT::IOA2UserClient::GetUpdatedMultiControlValue(&v15, a3, a4, &v17, &v16);
-  CFRelease(v8);
+  v17 = v10;
+  UpdatedMultiControlValue = ASDT::IOA2UserClient::GetUpdatedMultiControlValue(&v17, a3, a4, &v19, &v18);
+  CFRelease(v10);
   if ((UpdatedMultiControlValue & 1) == 0)
   {
-    v10 = v17;
+    v12 = v19;
 LABEL_12:
-    if (!v10)
+    if (!v12)
     {
       goto LABEL_14;
     }
@@ -4716,25 +4733,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v10 = v17;
-  if (v16 != 1)
+  v12 = v19;
+  if (v18 != 1)
   {
     goto LABEL_12;
   }
 
-  v11 = v19;
-  if (v17)
+  v13 = v21;
+  if (v19)
   {
-    CFRetain(v17);
+    CFRetain(v19);
   }
 
-  v14 = v10;
-  UpdatedMultiControlValue = ASDT::IOA2UserClient::ReplaceControlValue(this, &v20, v11, &cf, &v14);
-  if (v10)
+  v16 = v12;
+  UpdatedMultiControlValue = ASDT::IOA2UserClient::ReplaceControlValue(this, &v22, v13, &cf, &v16);
+  if (v12)
   {
-    CFRelease(v10);
+    CFRelease(v12);
 LABEL_13:
-    CFRelease(v10);
+    CFRelease(v12);
   }
 
 LABEL_14:
@@ -4743,28 +4760,28 @@ LABEL_14:
     CFRelease(cf);
   }
 
-  if (v20)
+  if (v22)
   {
-    CFRelease(v20);
+    CFRelease(v22);
   }
 
   return UpdatedMultiControlValue;
 }
 
-void sub_2416C2B48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C2B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v9 = va_arg(va3, const void *);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, const void *);
+  v12 = va_arg(va3, void);
   applesauce::CF::TypeRef::~TypeRef(va);
   applesauce::CF::TypeRef::~TypeRef(va1);
   applesauce::CF::DictionaryRef::~DictionaryRef(va2);
@@ -4772,24 +4789,25 @@ void sub_2416C2B48(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::RefreshControlList(ASDT::IOA2UserClient *this)
+uint64_t ASDT::IOA2UserClient::RefreshControlList(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  applesauce::CF::make_StringRef(@"controls", &v7);
+  applesauce::CF::make_StringRef(&v10, @"controls", a2);
   cf = 0;
-  if (ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(*(this + 2), &v7, &cf, v2))
+  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(*(this + 2), &v10, &cf, v3);
+  if (v4)
   {
-    v3 = ASDT::IOUserClient::ReplaceProperty(this, &v7, &cf);
+    v6 = ASDT::IOUserClient::ReplaceProperty(this, &v10, &cf);
   }
 
   else
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOA2LogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::RefreshControlList(this);
+      ASDT::IOA2UserClient::RefreshControlList();
     }
 
-    v3 = 0;
+    v6 = 0;
   }
 
   if (cf)
@@ -4797,12 +4815,12 @@ uint64_t ASDT::IOA2UserClient::RefreshControlList(ASDT::IOA2UserClient *this)
     CFRelease(cf);
   }
 
-  if (v7)
+  if (v10)
   {
-    CFRelease(v7);
+    CFRelease(v10);
   }
 
-  return v3;
+  return v6;
 }
 
 void sub_2416C2C54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
@@ -4833,46 +4851,47 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(ASDT::IOUser
   return v6;
 }
 
-void sub_2416C2CE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C2CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOA2UserClient::RefreshControlInfo(ASDT::IOA2UserClient *this, const applesauce::CF::ArrayRef *a2)
+uint64_t ASDT::IOA2UserClient::RefreshControlInfo(ASDT::IOA2UserClient *this, const __CFString *a2)
 {
-  applesauce::CF::make_StringRef(@"controls", &v17);
-  v16 = 0;
-  if (ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(*(this + 2), &v17, &v16, v4))
+  applesauce::CF::make_StringRef(&v20, @"controls", a2);
+  v19 = 0;
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::ArrayRef>(*(this + 2), &v20, &v19, v4);
+  if (v5)
   {
-    v15 = -1;
-    ASDT::IOA2UserClient::CopyControlDictionaryByID(&v16, a2, &v15, &cf);
-    v13 = -1;
-    ASDT::IOA2UserClient::CopyControlList(this, &v12);
-    ASDT::IOA2UserClient::CopyControlDictionaryByID(&v12, a2, &v13, &v11);
-    v5 = v13;
-    v6 = cf;
+    v18 = -1;
+    ASDT::IOA2UserClient::CopyControlDictionaryByID(&v19, a2, &v18, &cf);
+    v16 = -1;
+    ASDT::IOA2UserClient::CopyControlList(this, v7, &v15);
+    ASDT::IOA2UserClient::CopyControlDictionaryByID(&v15, a2, &v16, &v14);
+    v8 = v16;
+    v9 = cf;
     if (cf)
     {
       CFRetain(cf);
     }
 
-    v10 = v6;
-    v7 = ASDT::IOA2UserClient::ReplaceControlInfo(this, &v12, v5, &v10);
-    if (v6)
+    v13 = v9;
+    v10 = ASDT::IOA2UserClient::ReplaceControlInfo(this, &v15, v8, &v13, 1);
+    if (v9)
     {
-      CFRelease(v6);
+      CFRelease(v9);
     }
 
-    if (v11)
+    if (v14)
     {
-      CFRelease(v11);
+      CFRelease(v14);
     }
 
-    if (v12)
+    if (v15)
     {
-      CFRelease(v12);
+      CFRelease(v15);
     }
 
     if (cf)
@@ -4883,26 +4902,26 @@ uint64_t ASDT::IOA2UserClient::RefreshControlInfo(ASDT::IOA2UserClient *this, co
 
   else
   {
-    v8 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = ASDTIOA2LogType(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::RefreshControlInfo(this);
+      ASDT::IOA2UserClient::RefreshControlInfo();
     }
 
-    v7 = 0;
+    v10 = 0;
   }
 
-  if (v16)
+  if (v19)
   {
-    CFRelease(v16);
+    CFRelease(v19);
   }
 
-  if (v17)
+  if (v20)
   {
-    CFRelease(v17);
+    CFRelease(v20);
   }
 
-  return v7;
+  return v10;
 }
 
 void sub_2416C2E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, const void *a11, uint64_t a12, const void *a13, uint64_t a14, const void *a15)
@@ -4918,30 +4937,31 @@ void sub_2416C2E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL ASDT::IOA2UserClient::PerformConfigChange(ASDT::IOA2UserClient *this, const IOAudio2Notification *a2)
 {
-  v3 = ASDT::IOUserClient::CallMethod(this, 3, 0, 0, a2, 32, 0, 0, 0, 0, 0);
-  if (v3)
+  v2 = ASDT::IOUserClient::CallMethod(this, 3, 0, 0, a2, 32, 0, 0, 0, 0, 0);
+  v4 = v2;
+  if (v2)
   {
-    v4 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOA2LogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::PerformConfigChange(this);
+      ASDT::IOA2UserClient::PerformConfigChange();
     }
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
 void ASDT::IOA2UserClient::MapEngineStatus(ASDT::IOA2UserClient *this@<X0>, uint64_t a2@<X8>)
 {
-  ASDT::IOUserClient::MapMemory(this);
+  v3 = ASDT::IOUserClient::MapMemory(this);
   if (*(a2 + 104))
   {
     if (*(a2 + 112) <= 0x27u)
     {
-      v4 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = ASDTIOA2LogType(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOA2UserClient::MapEngineStatus(this);
+        ASDT::IOA2UserClient::MapEngineStatus();
       }
 
       ASDT::IOMemoryMap::Release(a2);
@@ -4950,10 +4970,10 @@ void ASDT::IOA2UserClient::MapEngineStatus(ASDT::IOA2UserClient *this@<X0>, uint
 
   else
   {
-    v5 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOA2LogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOA2UserClient::MapEngineStatus(this);
+      ASDT::IOA2UserClient::MapEngineStatus();
     }
   }
 }
@@ -4976,29 +4996,17 @@ const void **applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(const void
   return a1;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2416C30E0(_Unwind_Exception *exception_object)
@@ -5013,7 +5021,7 @@ void sub_2416C30E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5066,9 +5074,9 @@ const void **applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(const void *
   return a1;
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,applesauce::CF::StringRef>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, _BYTE *a3@<X8>)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,applesauce::CF::StringRef>(_BYTE *a1@<X8>, const __CFDictionary *a2@<X0>, const void **a3@<X1>)
 {
-  v4 = applesauce::CF::details::at_key<applesauce::CF::StringRef>(a1, a2);
+  v4 = applesauce::CF::details::at_key<applesauce::CF::StringRef>(a2, a3);
   if (!v4)
   {
     goto LABEL_5;
@@ -5082,14 +5090,14 @@ void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,
     CFRelease(v5);
 LABEL_5:
     v7 = 0;
-    *a3 = 0;
+    *a1 = 0;
     goto LABEL_6;
   }
 
-  *a3 = v5;
+  *a1 = v5;
   v7 = 1;
 LABEL_6:
-  a3[8] = v7;
+  a1[8] = v7;
 }
 
 const __CFDictionary *applesauce::CF::details::at_key<applesauce::CF::StringRef>(const __CFDictionary *result, const void **a2)
@@ -5426,7 +5434,7 @@ LABEL_16:
   }
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5448,7 +5456,7 @@ void sub_2416C38F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -5468,7 +5476,7 @@ void std::allocator<unsigned int>::allocate_at_least[abi:ne200100](uint64_t a1, 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5490,17 +5498,17 @@ void sub_2416C39F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2416C3A6C(_Unwind_Exception *exception_object)
@@ -5528,13 +5536,13 @@ CFTypeRef applesauce::CF::details::at_to<applesauce::CF::TypeRef>@<X0>(const __C
   return result;
 }
 
-void applesauce::CF::at_or<applesauce::CF::NumberRef>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::NumberRef>(void *a1@<X2>, void *a2@<X8>, const __CFArray *a3@<X0>, unint64_t a4@<X1>)
 {
-  applesauce::CF::details::at_as<applesauce::CF::NumberRef>(a1, a2, &cf);
+  applesauce::CF::details::at_as<applesauce::CF::NumberRef>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -5543,7 +5551,7 @@ void applesauce::CF::at_or<applesauce::CF::NumberRef>(const __CFArray *a1@<X0>, 
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -5552,7 +5560,7 @@ void applesauce::CF::at_or<applesauce::CF::NumberRef>(const __CFArray *a1@<X0>, 
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -5690,18 +5698,18 @@ void std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::Typ
   }
 }
 
-const __CFString *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(uint64_t a1, CFTypeRef *a2)
+uint64_t std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef,applesauce::CF::NumberRef>(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<applesauce::CF::StringRef>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<applesauce::CF::StringRef>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<applesauce::CF::StringRef>(uint64_t a1, const __CFString ***a2, CFTypeRef *a3)
+uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<applesauce::CF::StringRef>(uint64_t a1, const __CFString ***a2, CFTypeRef *a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -5747,7 +5755,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5832,12 +5840,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5851,22 +5859,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5900,13 +5908,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6010,21 +6018,19 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::St
   return CFDictionaryRef;
 }
 
-void sub_2416C4390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_2416C4390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::TypeRefPair>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<applesauce::CF::TypeRefPair>::allocate_at_least[abi:ne200100](result, a2);
     }
 
@@ -6034,14 +6040,14 @@ void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t 
   return result;
 }
 
-void sub_2416C4464(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C4464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
+CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(char **a1)
 {
   v2 = (a1[1] - *a1) >> 4;
   __p = 0;
@@ -6059,7 +6065,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
     do
     {
       v5 = *v3;
-      if (!*v3 || !v3[1])
+      if (!*v3 || !*(v3 + 1))
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x245CED520](exception, "Could not construct");
@@ -6118,7 +6124,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v31 = v7;
-      v14 = v3[1];
+      v14 = *(v3 + 1);
       v15 = v28;
       if (v28 >= v29)
       {
@@ -6171,7 +6177,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v28 = v16;
-      v3 += 2;
+      v3 += 16;
     }
 
     while (v3 != v4);
@@ -6258,7 +6264,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ap
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(a1, v5);
-      v5 += 16;
+      v5 += 2;
     }
   }
 
@@ -6386,9 +6392,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<appl
   return v14;
 }
 
-void sub_2416C4AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416C4AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6412,20 +6418,17 @@ CFTypeRef std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::co
   return result;
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::allocator<void const*>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<void const*>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<void const*>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -6460,7 +6463,7 @@ void std::vector<applesauce::CF::TypeRefPair>::__base_destruct_at_end[abi:ne2001
   *(a1 + 8) = a2;
 }
 
-const __CFBoolean *applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(const __CFDictionary *a1, const void **a2)
+const __CFDictionary *applesauce::CF::details::find_at_key_or_optional<unsigned long long,applesauce::CF::StringRef>(const __CFDictionary *a1, const void **a2)
 {
   result = applesauce::CF::details::at_key<applesauce::CF::StringRef>(a1, a2);
   if (result)
@@ -6918,7 +6921,7 @@ const __CFDictionary *applesauce::CF::details::find_at_key_or_optional<int,apple
   return result;
 }
 
-uint64_t applesauce::CF::convert_as<int,0>(const __CFNumber *a1)
+uint64_t applesauce::CF::convert_as<int,0>(const __CFBoolean *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -7161,7 +7164,7 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<unsigned int>(int **a1)
   return v9;
 }
 
-void sub_2416C59D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
+void sub_2416C59D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13)
 {
   a13 = &a10;
   std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](&a13);
@@ -7174,8 +7177,6 @@ void *std::vector<applesauce::CF::NumberRef>::reserve(void *result, unint64_t a2
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<applesauce::CF::NumberRef>::allocate_at_least[abi:ne200100](result, a2);
     }
 
@@ -7185,9 +7186,9 @@ void *std::vector<applesauce::CF::NumberRef>::reserve(void *result, unint64_t a2
   return result;
 }
 
-void sub_2416C5A94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C5A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::NumberRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7229,15 +7230,15 @@ void sub_2416C5B24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -7251,18 +7252,18 @@ void std::vector<applesauce::CF::NumberRef>::__swap_out_circular_buffer(uint64_t
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -7330,17 +7331,17 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<void const*>(uint64_t a1)
   return result;
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2416C5E40(_Unwind_Exception *exception_object)
@@ -7355,7 +7356,7 @@ void sub_2416C5E40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7365,7 +7366,7 @@ void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<char>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7390,13 +7391,6 @@ void std::vector<applesauce::CF::NumberRef>::__destroy_vector::operator()[abi:ne
   }
 }
 
-uint64_t OUTLINED_FUNCTION_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 39);
-  return result;
-}
-
 void sub_2416C6074(_Unwind_Exception *a1)
 {
   v5 = v4;
@@ -7404,12 +7398,12 @@ void sub_2416C6074(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2416C6188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416C6188(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTIOA2Stream;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7420,18 +7414,18 @@ void sub_2416C6B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::DictionaryRef::from_ns_noexcept(applesauce::CF::DictionaryRef *this@<X0>, applesauce::CF::DictionaryRef **a2@<X8>)
+void applesauce::CF::DictionaryRef::from_ns_noexcept(applesauce::CF::DictionaryRef **__return_ptr a1@<X8>, applesauce::CF::DictionaryRef *this@<X0>)
 {
-  v4 = this;
-  if (v4)
+  v3 = this;
+  if (v3)
   {
-    cf = v4;
-    CFRetain(v4);
-    *a2 = cf;
-    v5 = CFGetTypeID(cf);
-    v6 = v5 == CFDictionaryGetTypeID();
-    v4 = cf;
-    if (!v6)
+    cf = v3;
+    CFRetain(v3);
+    *a1 = cf;
+    v4 = CFGetTypeID(cf);
+    v5 = v4 == CFDictionaryGetTypeID();
+    v3 = cf;
+    if (!v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x245CED520](exception, "Could not construct");
@@ -7441,7 +7435,7 @@ void applesauce::CF::DictionaryRef::from_ns_noexcept(applesauce::CF::DictionaryR
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
@@ -7452,9 +7446,9 @@ void sub_2416C6D24(void *a1)
   __clang_call_terminate(a1);
 }
 
-void sub_2416C6ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2416C6ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
@@ -7468,9 +7462,9 @@ void sub_2416C7414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2416C8FD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416C8FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
 
   _Unwind_Resume(a1);
@@ -7526,33 +7520,33 @@ void sub_2416CAEE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2416CB758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2416CB758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2416CC08C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416CC08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, const void *);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
 
   std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2416CCBE4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_2416CCBE4(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va2, a8);
-  va_start(va1, a8);
-  va_start(va, a8);
-  v13 = va_arg(va1, const void *);
+  va_start(va2, a15);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v20 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v15 = va_arg(va2, const void *);
+  v22 = va_arg(va2, const void *);
 
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   applesauce::CF::TypeRef::~TypeRef(va1);
@@ -7571,9 +7565,9 @@ void sub_2416CD8A4(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2416CDD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2416CDD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -7660,17 +7654,17 @@ void std::unique_lock<std::shared_mutex>::unlock[abi:ne200100](uint64_t a1)
   }
 }
 
-void sub_2416CE02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2416CE02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2416CE450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2416CE450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -7706,19 +7700,19 @@ void sub_2416CF864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::StringRef::from_ns_noexcept(applesauce::CF::StringRef *this@<X0>, applesauce::CF::StringRef **a2@<X8>)
+void applesauce::CF::StringRef::from_ns_noexcept(applesauce::CF::StringRef **__return_ptr a1@<X8>, applesauce::CF::StringRef *this@<X0>)
 {
-  v4 = this;
-  if (!v4 || (cf = v4, CFRetain(v4), v5 = CFGetTypeID(cf), v6 = v5 == CFStringGetTypeID(), v4 = cf, v6))
+  v3 = this;
+  if (!v3 || (cf = v3, CFRetain(v3), v4 = CFGetTypeID(cf), v5 = v4 == CFStringGetTypeID(), v3 = cf, v5))
   {
-    *a2 = v4;
+    *a1 = v3;
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
     CFRelease(cf);
-    v4 = cf;
+    v3 = cf;
   }
 }
 
@@ -7729,10 +7723,11 @@ void sub_2416CF99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2416CFA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_2416CFA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   applesauce::CF::StringRef::~StringRef(&a9);
-  applesauce::CF::DataRef::~DataRef(&a10);
+  applesauce::CF::DataRef::~DataRef(va);
 
   _Unwind_Resume(a1);
 }
@@ -7758,9 +7753,9 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::DataRef>(ASDT::IOUserC
   return v5;
 }
 
-void sub_2416CFAE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416CFAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -7780,9 +7775,9 @@ void std::unique_lock<std::mutex>::unlock[abi:ne200100](uint64_t a1)
   }
 }
 
-void sub_2416D0494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416D0494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7907,9 +7902,9 @@ void sub_2416D2798(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2416D2A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2416D2A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
 
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
@@ -7923,12 +7918,12 @@ void sub_2416D30CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2416D3904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416D3904(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTIOA2SelectorControl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7959,6 +7954,19 @@ void sub_2416D4FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_2416D5F54(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -7971,7 +7979,7 @@ void sub_2416D5F54(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ASDTIOA2LogType()
+uint64_t ASDTIOA2LogType(uint64_t a1, uint64_t a2)
 {
   if (ASDTIOA2LogType_onceToken != -1)
   {
@@ -7992,7 +8000,7 @@ os_log_t __ASDTIOA2LogType_block_invoke()
   return result;
 }
 
-uint64_t getValueAndRangeFromControlDict(NSDictionary *a1, const applesauce::CF::DictionaryRef *a2, _ASDSliderRange *a3)
+uint64_t getValueAndRangeFromControlDict(NSDictionary *a1, __CFString *a2, __CFString *a3)
 {
   v5 = a1;
   v6 = v5;
@@ -8015,35 +8023,38 @@ uint64_t getValueAndRangeFromControlDict(NSDictionary *a1, const applesauce::CF:
   }
 
   ControlInfo_Value = ASDT::IOA2UserClient::GetControlInfo_Value(&cf, a2, v9);
+  v13 = ControlInfo_Value;
   if ((ControlInfo_Value & 1) == 0)
   {
-    v12 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      getValueAndRangeFromControlDict();
-    }
-  }
-
-  if (!ASDT::IOA2UserClient::GetSliderControlInfo_MaximumValue(&cf, &a3->mMaximum, v10))
-  {
-    v14 = ASDTIOA2LogType();
+    v14 = ASDTIOA2LogType(ControlInfo_Value, v11);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       getValueAndRangeFromControlDict();
     }
-
-    ControlInfo_Value = 0;
   }
 
-  if (!ASDT::IOA2UserClient::GetSliderControlInfo_MinimumValue(&cf, a3, v13))
+  SliderControlInfo_MaximumValue = ASDT::IOA2UserClient::GetSliderControlInfo_MaximumValue(&cf, (&a3->isa + 4), v12);
+  if (!SliderControlInfo_MaximumValue)
   {
-    v15 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = ASDTIOA2LogType(SliderControlInfo_MaximumValue, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       getValueAndRangeFromControlDict();
     }
 
-    ControlInfo_Value = 0;
+    v13 = 0;
+  }
+
+  SliderControlInfo_MinimumValue = ASDT::IOA2UserClient::GetSliderControlInfo_MinimumValue(&cf, a3, v17);
+  if (!SliderControlInfo_MinimumValue)
+  {
+    v21 = ASDTIOA2LogType(SliderControlInfo_MinimumValue, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      getValueAndRangeFromControlDict();
+    }
+
+    v13 = 0;
   }
 
   if (cf)
@@ -8051,7 +8062,7 @@ uint64_t getValueAndRangeFromControlDict(NSDictionary *a1, const applesauce::CF:
     CFRelease(cf);
   }
 
-  return ControlInfo_Value;
+  return v13;
 }
 
 void sub_2416D62A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
@@ -8061,12 +8072,12 @@ void sub_2416D62A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-void sub_2416D6340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416D6340(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTIOA2SliderControl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8077,10 +8088,11 @@ void sub_2416D648C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_2416D6E50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
@@ -8090,12 +8102,12 @@ void sub_2416D6E50(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-void sub_2416D710C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416D710C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTIOA2LevelControl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8117,40 +8129,20 @@ void std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_valu
   }
 }
 
-void ASDT::IOA2UserClient::IOA2UserClient()
+void ASDT::IOA2UserClient::SetNominalSampleRate()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ASDT::IOA2UserClient::SetNominalSampleRate(uint64_t a1)
+void ASDT::IOA2UserClient::SetClientDescription()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IOA2UserClient::SetClientDescription(uint64_t a1)
-{
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void ASDT::IOA2UserClient::GetStreamInfo_CurrentFormat()
@@ -8180,31 +8172,19 @@ void ASDT::IOA2UserClient::GetStreamInfo_StartingChannel()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASDT::IOA2UserClient::MapIOBufferForStream(uint64_t a1)
+void ASDT::IOA2UserClient::MapIOBufferForStream()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void ASDT::IOA2UserClient::GetControlInfo_BaseClass()
@@ -8298,207 +8278,113 @@ void ASDT::IOA2UserClient::CopyBlockControlInfo_Descriptor()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASDT::IOA2UserClient::MapBlockControlBuffer(uint64_t a1)
+void ASDT::IOA2UserClient::MapBlockControlBuffer()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::MoveBlockControlData(uint64_t a1)
+void ASDT::IOA2UserClient::MoveBlockControlData()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::MapDataExchangeBlockBuffer(uint64_t a1)
+void ASDT::IOA2UserClient::MapDataExchangeBlockBuffer()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::MoveDataExchangeBlockData(uint64_t a1)
+void ASDT::IOA2UserClient::MoveDataExchangeBlockData()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void ASDT::IOA2UserClient::StartIO(uint64_t a1)
+void ASDT::IOA2UserClient::StartIO()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::StartIOWithFlags(uint64_t a1)
+void ASDT::IOA2UserClient::StartIOWithFlags()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v3 < 0)
-  {
-    v4 = *v2;
-  }
-
-  v5 = *v1;
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void ASDT::IOA2UserClient::StopIO(uint64_t a1)
+void ASDT::IOA2UserClient::StopIO()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::StopIOWithFlags(uint64_t a1)
+void ASDT::IOA2UserClient::StopIOWithFlags()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v3 < 0)
-  {
-    v4 = *v2;
-  }
-
-  v5 = *v1;
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void ASDT::IOA2UserClient::SetStreamCurrentFormat(uint64_t a1)
+void ASDT::IOA2UserClient::SetStreamCurrentFormat()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void ASDT::IOA2UserClient::SetMultiControlValue(uint64_t a1)
+void ASDT::IOA2UserClient::SetMultiControlValue()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void ASDT::IOA2UserClient::GetUpdatedControlValue()
+void ASDT::IOA2UserClient::ReplaceControlValue()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IOA2UserClient::ReplaceControlValue(uint64_t a1)
-{
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void ASDT::IOA2UserClient::GetUpdatedMultiControlValue()
@@ -8508,96 +8394,63 @@ void ASDT::IOA2UserClient::GetUpdatedMultiControlValue()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASDT::IOA2UserClient::ReplaceMultiControlValue(uint64_t a1)
+void ASDT::IOA2UserClient::ReplaceMultiControlValue()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void ASDT::IOA2UserClient::RefreshControlList(uint64_t a1)
+void ASDT::IOA2UserClient::RefreshControlList()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::RefreshControlInfo(uint64_t a1)
+void ASDT::IOA2UserClient::RefreshControlInfo()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::PerformConfigChange(uint64_t a1)
+void ASDT::IOA2UserClient::PerformConfigChange()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOA2UserClient::MapEngineStatus(uint64_t a1)
+void ASDT::IOA2UserClient::MapEngineStatus()
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void getValueAndRangeFromControlDict()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing value from control dict: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing value from control dict: %@", v2, v3, v4, v5, v6);
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing range max from control dict: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing range max from control dict: %@", v2, v3, v4, v5, v6);
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing range min from control dict: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2416BA000, v0, v1, "%s: Missing range min from control dict: %@", v2, v3, v4, v5, v6);
 }
 
 void operator delete(void *__p)

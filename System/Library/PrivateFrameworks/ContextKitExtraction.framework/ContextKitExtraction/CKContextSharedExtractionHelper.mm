@@ -40,36 +40,36 @@
 
 + (BOOL)textBlockLooksLikeAListWithText:(id)text
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   textCopy = text;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v4 = [&unk_1F305C7C0 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v4 = [&unk_1F305C7C0 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(&unk_1F305C7C0);
         }
 
-        v8 = [textCopy componentsSeparatedByString:*(*(&v23 + 1) + 8 * i)];
+        v8 = [textCopy componentsSeparatedByString:*(*(&v22 + 1) + 8 * i)];
         if (([v8 count] - 1) >= 6)
         {
           v9 = v8;
+          v18 = 0u;
           v19 = 0u;
           v20 = 0u;
           v21 = 0u;
-          v22 = 0u;
           v10 = v9;
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (!v11)
           {
 
@@ -80,23 +80,23 @@ LABEL_23:
 
           v12 = v11;
           v13 = 0;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v10);
               }
 
-              if ([*(*(&v19 + 1) + 8 * j) length] > 0x54)
+              if ([*(*(&v18 + 1) + 8 * j) length] > 0x54)
               {
                 ++v13;
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v12);
@@ -108,7 +108,7 @@ LABEL_23:
         }
       }
 
-      v5 = [&unk_1F305C7C0 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [&unk_1F305C7C0 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v5)
       {
         continue;
@@ -121,63 +121,42 @@ LABEL_23:
   v16 = 0;
 LABEL_24:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (void)descendantsRelevantForContentExtractionFromView:(id)view intoArray:(id)array
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   arrayCopy = array;
   if ([self _isRelevantForExtractionWithView:viewCopy])
   {
     [arrayCopy addObject:viewCopy];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     subviews = [viewCopy subviews];
     reverseObjectEnumerator = [subviews reverseObjectEnumerator];
 
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         v13 = 0;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * v13);
-          if (![viewCopy clipsToBounds])
+          v14 = *(*(&v27 + 1) + 8 * v13);
+          if (![viewCopy clipsToBounds] || (objc_msgSend(viewCopy, "bounds"), v16 = v15, v18 = v17, v20 = v19, v22 = v21, objc_msgSend(v14, "frame"), v34.origin.x = v23, v34.origin.y = v24, v34.size.width = v25, v34.size.height = v26, v33.origin.x = v16, v33.origin.y = v18, v33.size.width = v20, v33.size.height = v22, CGRectIntersectsRect(v33, v34)))
           {
-            goto LABEL_9;
-          }
-
-          [viewCopy bounds];
-          v16 = v15;
-          v18 = v17;
-          v20 = v19;
-          v22 = v21;
-          [v14 frame];
-          v35.origin.x = v23;
-          v35.origin.y = v24;
-          v35.size.width = v25;
-          v35.size.height = v26;
-          v34.origin.x = v16;
-          v34.origin.y = v18;
-          v34.size.width = v20;
-          v34.size.height = v22;
-          if (CGRectIntersectsRect(v34, v35))
-          {
-LABEL_9:
             [self descendantsRelevantForContentExtractionFromView:v14 intoArray:arrayCopy];
           }
 
@@ -185,44 +164,42 @@ LABEL_9:
         }
 
         while (v11 != v13);
-        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 + (id)bestContentStringForWebViewUIElements:(id)elements andTitle:(id)title
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
   titleCopy = title;
   if ([elementsCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = elementsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           [v13 density];
           if (v14 > 43.0)
           {
@@ -231,7 +208,7 @@ LABEL_9:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -257,33 +234,14 @@ LABEL_9:
     v16 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (BOOL)_isRelevantForExtractionWithView:(id)view
 {
   viewCopy = view;
-  if ([viewCopy isHidden])
+  if (([viewCopy isHidden] & 1) != 0 || (objc_msgSend(viewCopy, "alpha"), v4 < 0.05) || (objc_msgSend(viewCopy, "frame"), x = v13.origin.x, y = v13.origin.y, width = v13.size.width, height = v13.size.height, CGRectGetWidth(v13) < 30.0) || (v14.origin.x = x, v14.origin.y = y, v14.size.width = width, v14.size.height = height, CGRectGetHeight(v14) < 17.0))
   {
-    goto LABEL_5;
-  }
-
-  [viewCopy alpha];
-  if (v4 < 0.05)
-  {
-    goto LABEL_5;
-  }
-
-  [viewCopy frame];
-  x = v13.origin.x;
-  y = v13.origin.y;
-  width = v13.size.width;
-  height = v13.size.height;
-  if (CGRectGetWidth(v13) < 30.0 || (v14.origin.x = x, v14.origin.y = y, v14.size.width = width, v14.size.height = height, CGRectGetHeight(v14) < 17.0))
-  {
-LABEL_5:
     LOBYTE(v9) = 0;
   }
 

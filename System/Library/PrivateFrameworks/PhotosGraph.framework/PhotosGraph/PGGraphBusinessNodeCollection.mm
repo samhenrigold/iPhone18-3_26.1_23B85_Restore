@@ -59,40 +59,36 @@ void __46__PGGraphBusinessNodeCollection_businessNames__block_invoke(uint64_t a1
 
 + (id)restaurantBusinessNodesInGraph:(id)graph
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
-  v12[0] = @"Restaurant";
-  v12[1] = @"Nightlife";
+  v11[0] = @"Restaurant";
+  v11[1] = @"Nightlife";
   v4 = MEMORY[0x277CBEA60];
   graphCopy = graph;
-  v6 = [v4 arrayWithObjects:v12 count:2];
+  v6 = [v4 arrayWithObjects:v11 count:2];
   v7 = [v3 setWithArray:v6];
 
   v8 = [PGGraphBusinessCategoryNodeCollection businessCategoryNodesForCategories:v7 inGraph:graphCopy];
 
   businessNodes = [v8 businessNodes];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return businessNodes;
 }
 
 + (id)businessNodesWithCIDINames:(id)names inGraph:(id)graph
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   namesCopy = names;
   v8 = +[PGGraphBusinessNode filter];
-  v15 = @"name";
+  v14 = @"name";
   v9 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:8 value:namesCopy];
 
-  v16[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v11 = [v8 filterBySettingProperties:v10];
 
   v12 = [self nodesMatchingFilter:v11 inGraph:graphCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

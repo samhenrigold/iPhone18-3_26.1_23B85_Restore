@@ -78,11 +78,10 @@ void __38__BLSBacklightSceneUpdate_description__block_invoke(uint64_t a1)
 
 - (void)sceneContentsAnimationDidComplete
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_21FE25000, a2, OS_LOG_TYPE_ERROR, "sceneContentsAnimationDidComplete should only be called once for update:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FE25000, a2, OS_LOG_TYPE_ERROR, "sceneContentsAnimationDidComplete should only be called once for update:%@", &v2, 0xCu);
 }
 
 - (BOOL)areSceneContentsUpdated
@@ -95,10 +94,9 @@ void __38__BLSBacklightSceneUpdate_description__block_invoke(uint64_t a1)
 
 - (void)sceneContentsDidUpdate
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_21FE25000, v0, OS_LOG_TYPE_ERROR, "%p sceneContentsDidUpdate should only be called once for update:%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FE25000, v0, OS_LOG_TYPE_ERROR, "%p sceneContentsDidUpdate should only be called once for update:%@", v1, 0x16u);
 }
 
 - (id)initForEnvironment:(id)environment visualState:(id)state previousVisualState:(id)visualState frameSpecifier:(id)specifier animated:(BOOL)animated triggerEvent:(id)event touchTargetable:(BOOL)targetable isUpdateToDateSpecifier:(BOOL)self0 sceneContentsUpdated:(id)self1 performBacklightRamp:(id)self2 sceneContentsAnimationComplete:(id)self3
@@ -289,8 +287,8 @@ uint64_t __50__BLSBacklightSceneUpdate_setReplacedSceneUpdate___block_invoke_3(u
   os_unfair_lock_unlock(&self->_lock);
   if (lock_didStartBacklightRamp)
   {
-    v8 = bls_scenes_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = bls_scenes_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BLSBacklightSceneUpdate performBacklightRampWithDuration:];
     }
@@ -300,11 +298,11 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v8 = bls_scenes_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  v9 = bls_scenes_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (!v6)
   {
-    if (v9)
+    if (v10)
     {
       [BLSBacklightSceneUpdate performBacklightRampWithDuration:];
     }
@@ -312,7 +310,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if (v9)
+  if (v10)
   {
     [BLSBacklightSceneUpdate performBacklightRampWithDuration:];
   }
@@ -338,28 +336,23 @@ LABEL_11:
 
 - (void)performBacklightRampWithDuration:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBacklightRampWithDuration:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBacklightRampWithDuration:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(&dword_21FE25000, v0, OS_LOG_TYPE_ERROR, "%p performBacklightRampWithDuration should only be called once for update:%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FE25000, v0, OS_LOG_TYPE_ERROR, "%p performBacklightRampWithDuration should only be called once for update:%@", v1, 0x16u);
 }
 
 @end

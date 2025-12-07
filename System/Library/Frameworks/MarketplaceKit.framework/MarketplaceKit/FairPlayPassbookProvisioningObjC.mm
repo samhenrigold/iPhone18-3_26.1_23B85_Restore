@@ -8,34 +8,33 @@
 + (void)getProvisioningInfoWithAuditToken:(id *)token nonce:(NSData *)nonce completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECB20AB8, &qword_1D967D5E0);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v21 - v11;
-  v21 = *token->var0;
-  v13 = *&token->var0[4];
-  v14 = *&token->var0[6];
-  v15 = _Block_copy(handler);
-  v16 = swift_allocObject();
-  *(v16 + 16) = v21;
-  *(v16 + 32) = v13;
-  *(v16 + 40) = v14;
-  *(v16 + 48) = nonce;
-  *(v16 + 56) = v15;
-  *(v16 + 64) = self;
-  v17 = sub_1D966EAE8();
-  (*(*(v17 - 8) + 56))(v12, 1, 1, v17);
+  v11 = &v20 - v10;
+  v20 = *token->var0;
+  v12 = *&token->var0[4];
+  v13 = *&token->var0[6];
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  *(v15 + 16) = v20;
+  *(v15 + 32) = v12;
+  *(v15 + 40) = v13;
+  *(v15 + 48) = nonce;
+  *(v15 + 56) = v14;
+  *(v15 + 64) = self;
+  v16 = sub_1D966EAE8();
+  (*(*(v16 - 8) + 56))(v11, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_1D967A9E0;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_1D967A9E0;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_1D967A9F0;
-  v19[5] = v18;
+  v18[4] = &unk_1D967A9F0;
+  v18[5] = v17;
   nonceCopy = nonce;
-  sub_1D963F1A4(0, 0, v12, &unk_1D967AA00, v19);
+  sub_1D963F1A4(0, 0, v11, &unk_1D967AA00, v18);
 }
 
 - (FairPlayPassbookProvisioningObjC)init

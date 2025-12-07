@@ -1,12 +1,42 @@
 @interface IMDaemonChatModifyReadStateRequestHandler
 - (void)markHasHadSuccessfulQueryForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services;
 - (void)markPlayedExpressiveSendForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services message:(id)message;
+- (void)markReadForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services messages:(id)messages clientUnreadCount:(int64_t)count setUnreadCountToZero:(BOOL)zero;
 - (void)markSavedForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services message:(id)message;
 - (void)markSavedForMessageGUID:(id)d;
 - (void)sendNotifyRecipientCommandForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services message:(id)message;
 @end
 
 @implementation IMDaemonChatModifyReadStateRequestHandler
+
+- (void)markReadForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services messages:(id)messages clientUnreadCount:(int64_t)count setUnreadCountToZero:(BOOL)zero
+{
+  zeroCopy = zero;
+  styleCopy = style;
+  dsCopy = ds;
+  servicesCopy = services;
+  messagesCopy = messages;
+  if (IMOSLoggingEnabled())
+  {
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v17 = +[IMDClientRequestContext currentContext];
+      listenerID = [v17 listenerID];
+      v19 = 138413058;
+      v20 = listenerID;
+      v21 = 2112;
+      v22 = dsCopy;
+      v23 = 2112;
+      v24 = servicesCopy;
+      v25 = 2048;
+      countCopy = count;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Request from %@ to mark messages as read with IDs: %@  services: %@ clientUnreadCount: %lu", &v19, 0x2Au);
+    }
+  }
+
+  sub_100020560(dsCopy, styleCopy, servicesCopy, messagesCopy, count, zeroCopy);
+}
 
 - (void)markPlayedExpressiveSendForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services message:(id)message
 {

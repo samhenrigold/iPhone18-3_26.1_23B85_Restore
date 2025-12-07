@@ -2,6 +2,7 @@
 + (id)_xpcActivityCriteriaWithRunDelay:(double)delay allowAnyNetworkingAndBatteryUsage:(BOOL)usage;
 - (TRIHotfixRolloutTargetingScheduler)initWithTaskQueue:(id)queue;
 - (void)_scheduleTaskQueueActivityWithDelay:(double)delay allowingAnyNetworkingAndBatteryUsage:(BOOL)usage;
+- (void)scheduleHotfixForDeployment:(id)deployment allowingAnyNetworkingAndBatteryUsage:(BOOL)usage runDelay:(double)delay;
 @end
 
 @implementation TRIHotfixRolloutTargetingScheduler
@@ -25,6 +26,46 @@
   }
 
   return v8;
+}
+
+- (void)scheduleHotfixForDeployment:(id)deployment allowingAnyNetworkingAndBatteryUsage:(BOOL)usage runDelay:(double)delay
+{
+  usageCopy = usage;
+  v22 = *MEMORY[0x277D85DE8];
+  deploymentCopy = deployment;
+  if (!deploymentCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIHotfixRolloutTargetingScheduler.m" lineNumber:42 description:{@"Invalid parameter not satisfying: %@", @"deployment"}];
+  }
+
+  if (delay >= 0.0)
+  {
+    v11 = [objc_alloc(MEMORY[0x277D736A0]) initWithAllowsCellular:usageCopy discretionaryBehavior:0];
+    v12 = [TRITaskAttributionInternalInsecure taskAttributionFirstPartyWithNetworkOptions:v11];
+    v13 = [TRIRolloutTargetingTask taskWithRolloutDeployment:deploymentCopy includeDependencies:1 taskAttribution:v12 triggerEvent:1];
+    v14 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:delay];
+    [v13 setStartTime:v14];
+
+    queue = [(TRIHotfixRolloutTargetingScheduler *)self queue];
+    v16 = [TRITaskQueuingOptions optionsWithDuplicateTaskResolution:0];
+    [queue addTask:v13 options:v16];
+
+    [(TRIHotfixRolloutTargetingScheduler *)self _scheduleTaskQueueActivityWithDelay:usageCopy allowingAnyNetworkingAndBatteryUsage:delay];
+  }
+
+  else
+  {
+    v10 = TRILogCategory_Server();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 134218242;
+      delayCopy = delay;
+      v20 = 2114;
+      v21 = deploymentCopy;
+      _os_log_fault_impl(&dword_26F567000, v10, OS_LOG_TYPE_FAULT, "Received negative run delay %f for hotfix deployment of %{public}@", buf, 0x16u);
+    }
+  }
 }
 
 - (void)_scheduleTaskQueueActivityWithDelay:(double)delay allowingAnyNetworkingAndBatteryUsage:(BOOL)usage

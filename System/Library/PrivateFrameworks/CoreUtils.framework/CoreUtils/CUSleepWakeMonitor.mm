@@ -175,7 +175,7 @@ LABEL_51:
   {
     ucat = self->_ucat;
 LABEL_53:
-    LogPrintF(ucat, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 0x1Eu, "Event: %s\n", v8, v9, v10, v11, v12);
+    LogPrintF(ucat, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 30, "Event: %s\n", v8, v9, v10, v11, v12);
   }
 
 LABEL_55:
@@ -255,7 +255,7 @@ LABEL_76:
             v31 = self->_ucat;
           }
 
-          LogPrintF(v31, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 0x5Au, "### Ack failed (%s): %#m\n", v27, v28, v29, v30, v12);
+          LogPrintF(v31, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 90, "### Ack failed (%s): %#m\n", v27, v28, v29, v30, v12);
         }
       }
     }
@@ -300,7 +300,7 @@ LABEL_77:
             v23 = self->_ucat;
           }
 
-          LogPrintF(v23, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 0x5Au, "### Ack failed (%s): %#m\n", v19, v20, v21, v22, v12);
+          LogPrintF(v23, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]", 90, "### Ack failed (%s): %#m\n", v19, v20, v21, v22, v12);
         }
       }
     }
@@ -488,7 +488,7 @@ LABEL_52:
       v13 = *(*(v10 + 32) + 40);
     }
 
-    LogPrintF(v13, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 0x1Eu, "Event: %s async ack\n", a5, a6, a7, a8, v12);
+    LogPrintF(v13, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 30, "Event: %s async ack\n", a5, a6, a7, a8, v12);
   }
 
 LABEL_56:
@@ -500,14 +500,14 @@ LABEL_56:
     {
       if (*result != -1)
       {
-        return LogPrintF(result, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 0x5Au, "### Ack failed (%s): %#m\n", v14, v15, v16, v17, v12);
+        return LogPrintF(result, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 90, "### Ack failed (%s): %#m\n", v14, v15, v16, v17, v12);
       }
 
       result = _LogCategory_Initialize(result, 0x5Au);
       if (result)
       {
         result = *(*(v10 + 32) + 40);
-        return LogPrintF(result, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 0x5Au, "### Ack failed (%s): %#m\n", v14, v15, v16, v17, v12);
+        return LogPrintF(result, "[CUSleepWakeMonitor _sleepWakeHandlerForService:type:arg:]_block_invoke_2", 90, "### Ack failed (%s): %#m\n", v14, v15, v16, v17, v12);
       }
     }
   }
@@ -525,7 +525,7 @@ LABEL_56:
       if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF(ucat, "[CUSleepWakeMonitor _ensureStopped]", 0x1Eu, "Monitoring stop\n", v2, v3, v4, v5, v10);
+        LogPrintF(ucat, "[CUSleepWakeMonitor _ensureStopped]", 30, "Monitoring stop\n", v2, v3, v4, v5, v10);
         goto LABEL_6;
       }
 
@@ -567,7 +567,7 @@ LABEL_6:
     if (ucat->var0 != -1)
     {
 LABEL_5:
-      LogPrintF(ucat, "[CUSleepWakeMonitor _ensureStarted]", 0x1Eu, "Monitoring start\n", v2, v3, v4, v5, v20);
+      LogPrintF(ucat, "[CUSleepWakeMonitor _ensureStarted]", 30, "Monitoring start\n", v2, v3, v4, v5, v20);
       goto LABEL_7;
     }
 
@@ -624,7 +624,7 @@ LABEL_7:
       v16 = self->_ucat;
     }
 
-    LogPrintF(v16, "[CUSleepWakeMonitor _ensureStarted]", 0x5Au, "### Monitoring start failed (%s)\n", v9, v10, v11, v12, v15);
+    LogPrintF(v16, "[CUSleepWakeMonitor _ensureStarted]", 90, "### Monitoring start failed (%s)\n", v9, v10, v11, v12, v15);
   }
 
 LABEL_20:
@@ -679,7 +679,7 @@ LABEL_20:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUSleepWakeMonitor _invalidated]", 0x1Eu, "Invalidated\n", v6, v7, v8, v9, v12);
+      LogPrintF(ucat, "[CUSleepWakeMonitor _invalidated]", 30, "Invalidated\n", v6, v7, v8, v9, v12);
     }
   }
 }
@@ -705,7 +705,7 @@ LABEL_20:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUSleepWakeMonitor _invalidate]", 0x1Eu, "Invalidating\n", v2, v3, v4, v5, v6);
+    LogPrintF(ucat, "[CUSleepWakeMonitor _invalidate]", 30, "Invalidating\n", v2, v3, v4, v5, v6);
   }
 
 LABEL_6:
@@ -749,7 +749,7 @@ uint64_t __45__CUSleepWakeMonitor_activateWithCompletion___block_invoke(uint64_t
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUSleepWakeMonitor activateWithCompletion:]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CUSleepWakeMonitor activateWithCompletion:]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

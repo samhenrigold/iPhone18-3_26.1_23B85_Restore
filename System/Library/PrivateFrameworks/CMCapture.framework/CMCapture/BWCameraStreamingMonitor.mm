@@ -2,13 +2,13 @@
 + (id)sharedCameraStreamingMonitor;
 + (void)initialize;
 - (BWCameraStreamingMonitor)initWithMediaStatusDomainPublisher:(id)publisher msnReportingEnabled:(BOOL)enabled systemStatusReportingEnabled:(BOOL)reportingEnabled privacyAccountingAccessLogger:(id)logger;
-- (uint64_t)_getClientInfoForTCCIdentity:(uint64_t)identity clientPID:(int)d sessionIsPrewarming:;
-- (uint64_t)_handleClientDeath:(uint64_t)result;
-- (uint64_t)_informSystemStatusWithIsStreaming:(__int128 *)streaming clientAuditToken:(uint64_t)token mediaEnvironment:;
+- (_BYTE)_handleClientDeath:(_BYTE *)result;
+- (double)_informSystemStatusWithIsStreaming:(__int128 *)streaming clientAuditToken:(uint64_t)token mediaEnvironment:;
+- (double)_updateActiveClientSessionsForSessionID:(uint64_t)d clientSession:(_OWORD *)session clientAuditToken:(uint64_t)token tccIdentity:(uint64_t)identity mediaEnvironment:;
 - (uint64_t)_updateCameraStreamingMonitorInfoWithStreaming:(char)streaming cameraAccessGranted:(uint64_t)granted clientAuditToken:(uint64_t)token tccIdentity:(int)identity updateStreamingStatus:(int)status updateAccessStatus:;
+- (void)_getClientInfoForTCCIdentity:(uint64_t)identity clientPID:(int)d sessionIsPrewarming:;
 - (void)_informMediaSafetyNetWithIsStreaming:(uint64_t)streaming clientAuditToken:(int)token;
 - (void)_informPrivacyAccountingWithIsStreaming:(uint64_t)streaming clientInfo:(__int128 *)info clientAuditToken:(uint64_t)token tccIdentity:;
-- (void)_updateActiveClientSessionsForSessionID:(uint64_t)d clientSession:(_OWORD *)session clientAuditToken:(uint64_t)token tccIdentity:(uint64_t)identity mediaEnvironment:;
 - (void)_updateClientInfoFromSetStreaming:(_OWORD *)streaming clientAuditToken:(uint64_t)token tccIdentity:;
 - (void)_updateMicrophoneInterferenceMitigationRequirementIfNeededWithIsStreaming:(uint64_t)streaming deviceType:(unsigned int)type maxFrameRate:(float)rate streamUniqueID:(uint64_t)d clientAuditToken:(void *)token;
 - (void)_updateSpeakerInterferenceMitigationRequirementIfNeededWithIsStreaming:(uint64_t)streaming deviceType:(unsigned int)type streamUniqueID:(int)d clientAuditToken:(void *)token;
@@ -109,13 +109,13 @@ void __97__BWCameraStreamingMonitor__informSystemStatusWithIsStreaming_clientAud
 {
   if (!*(a1 + 32))
   {
-    v11 = [objc_msgSend(*(a1 + 40) "extensionPointIdentifier")];
+    isEqualToString = objc_msgSend_isEqualToString_([*(a1 + 40) extensionPointIdentifier]);
     v12 = *(a1 + 64);
     v54 = *(a1 + 48);
     v55 = v12;
-    if (!FigCaptureAuditTokenIsValid(&v54) || (v11 & 1) != 0)
+    if (!FigCaptureAuditTokenIsValid(&v54) || (isEqualToString & 1) != 0)
     {
-      if (v11)
+      if (isEqualToString)
       {
         v28 = objc_alloc(getSTExecutableIdentityClass());
         v29 = *(a1 + 64);
@@ -211,9 +211,9 @@ LABEL_4:
     }
 
     v9 = *(*(&v50 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "endowmentNamespace")])
+    if (objc_msgSend_isEqualToString_([v9 endowmentNamespace]))
     {
-      if ([objc_msgSend(v9 "environment")])
+      if (objc_msgSend_isEqualToString_([v9 environment]))
       {
         v10 = [v9 endowment];
         objc_opt_class();
@@ -390,7 +390,7 @@ void __165__BWCameraStreamingMonitor__updateCameraStreamingMonitorInfoWithStream
 
 BWCameraStreamingMonitor *__56__BWCameraStreamingMonitor_sharedCameraStreamingMonitor__block_invoke()
 {
-  result = SystemStatusLibraryCore();
+  result = SystemStatusLibraryCore(0);
   if (result && (result = getSTActivityAttributionClass()) != 0)
   {
     result = getSTMediaStatusDomainPublisherClass();
@@ -433,18 +433,18 @@ BWCameraStreamingMonitor *__56__BWCameraStreamingMonitor_sharedCameraStreamingMo
   return result;
 }
 
-- (uint64_t)_handleClientDeath:(uint64_t)result
+- (_BYTE)_handleClientDeath:(_BYTE *)result
 {
   if (!result)
   {
     return result;
   }
 
-  if (!OUTLINED_FUNCTION_30_12())
+  if (!OUTLINED_FUNCTION_30_12(result))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v11);
   }
 
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(a2, "pid")}];
@@ -465,7 +465,7 @@ BWCameraStreamingMonitor *__56__BWCameraStreamingMonitor_sharedCameraStreamingMo
     {
       v6 = v8;
       v5 = v4;
-      if (*(result + 8))
+      if (result[8])
       {
         return result;
       }
@@ -487,26 +487,20 @@ BWCameraStreamingMonitor *__56__BWCameraStreamingMonitor_sharedCameraStreamingMo
   }
 
   result = [*v6 objectForKeyedSubscript:v5];
-  if (!result || (*(result + 8) & 1) == 0)
+  if (!result || (result[8] & 1) == 0)
   {
 LABEL_16:
-    v11 = *v6;
+    v12 = *v6;
 
-    return [v11 removeObjectForKey:v5];
+    return [v12 removeObjectForKey:v5];
   }
 
   return result;
 }
 
-- (uint64_t)_informSystemStatusWithIsStreaming:(__int128 *)streaming clientAuditToken:(uint64_t)token mediaEnvironment:
+- (double)_informSystemStatusWithIsStreaming:(__int128 *)streaming clientAuditToken:(uint64_t)token mediaEnvironment:
 {
-  if (!result)
-  {
-    return result;
-  }
-
-  v4 = result;
-  if (*(result + 33) != 1)
+  if (!self || *(self + 33) != 1)
   {
     return result;
   }
@@ -515,7 +509,7 @@ LABEL_16:
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v21);
   }
 
   if (*MEMORY[0x1E695FF58] == 1)
@@ -528,23 +522,23 @@ LABEL_16:
     if (dword_1ED8443D0)
     {
       OUTLINED_FUNCTION_18_27();
-      v14 = OUTLINED_FUNCTION_14_36();
-      if (os_log_type_enabled(v14, v36))
+      v14 = OUTLINED_FUNCTION_14_36(qword_1ED8443C8);
+      if (os_log_type_enabled(v14, v38))
       {
-        v15 = v37;
+        v15 = v39;
       }
 
       else
       {
-        v15 = v37 & 0xFFFFFFFE;
+        v15 = v39 & 0xFFFFFFFE;
       }
 
       if (v15)
       {
-        v30 = 136315138;
-        v31 = "[BWCameraStreamingMonitor _informSystemStatusWithIsStreaming:clientAuditToken:mediaEnvironment:]";
-        LODWORD(v21) = 12;
-        v20 = &v30;
+        v32 = 136315138;
+        v33 = "[BWCameraStreamingMonitor _informSystemStatusWithIsStreaming:clientAuditToken:mediaEnvironment:]";
+        LODWORD(v23) = 12;
+        v22 = &v32;
         OUTLINED_FUNCTION_13();
         _os_log_send_and_compose_impl();
       }
@@ -553,46 +547,48 @@ LABEL_16:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v19 = *(v4 + 16);
+    v19 = *(self + 16);
     v18 = &__block_literal_global_56;
-    return [v19 updateVolatileDataWithBlock:{v18, v20, v21, v22, v23, v24, v25, tokenCopy, v27, v28, v29}];
+    goto LABEL_24;
   }
 
   v8 = streaming[1];
-  v34 = *streaming;
-  v35 = v8;
-  if (!FigCaptureAuditTokenIsValid(&v34))
+  v36 = *streaming;
+  v37 = v8;
+  if (!FigCaptureAuditTokenIsValid(&v36))
   {
     v10 = 0;
     goto LABEL_21;
   }
 
   v9 = streaming[1];
-  v34 = *streaming;
-  v35 = v9;
-  v10 = [FigCaptureProcessHandle handleForAuditToken:&v34 error:0];
+  v36 = *streaming;
+  v37 = v9;
+  v10 = [FigCaptureProcessHandle handleForAuditToken:&v36 error:0];
   if (v10)
   {
 LABEL_21:
-    v16 = *(v4 + 16);
-    v22 = MEMORY[0x1E69E9820];
-    v23 = 3221225472;
-    v24 = __97__BWCameraStreamingMonitor__informSystemStatusWithIsStreaming_clientAuditToken_mediaEnvironment___block_invoke;
-    v25 = &unk_1E799B7B8;
+    v16 = *(self + 16);
+    v24 = MEMORY[0x1E69E9820];
+    v25 = 3221225472;
+    v26 = __97__BWCameraStreamingMonitor__informSystemStatusWithIsStreaming_clientAuditToken_mediaEnvironment___block_invoke;
+    v27 = &unk_1E799B7B8;
     tokenCopy = token;
-    v27 = v10;
+    v29 = v10;
     v17 = streaming[1];
-    v28 = *streaming;
-    v29 = v17;
-    v18 = &v22;
+    v30 = *streaming;
+    v31 = v17;
+    v18 = &v24;
     v19 = v16;
-    return [v19 updateVolatileDataWithBlock:{v18, v20, v21, v22, v23, v24, v25, tokenCopy, v27, v28, v29}];
+LABEL_24:
+    [v19 updateVolatileDataWithBlock:{v18, v22, v23, v24, v25, v26, v27, tokenCopy, v29, v30, v31}];
+    return result;
   }
 
   OUTLINED_FUNCTION_18_27();
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v12 = v37;
-  if (!os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v36))
+  v12 = v39;
+  if (!os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v38))
   {
     v12 &= ~1u;
   }
@@ -600,17 +596,18 @@ LABEL_21:
   if (v12)
   {
     v13 = streaming[1];
-    v34 = *streaming;
-    v35 = v13;
-    v30 = 136315394;
-    v31 = "[BWCameraStreamingMonitor _informSystemStatusWithIsStreaming:clientAuditToken:mediaEnvironment:]";
-    v32 = 1024;
-    PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v34);
+    v36 = *streaming;
+    v37 = v13;
+    v32 = 136315394;
+    v33 = "[BWCameraStreamingMonitor _informSystemStatusWithIsStreaming:clientAuditToken:mediaEnvironment:]";
+    v34 = 1024;
+    PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v36);
     OUTLINED_FUNCTION_13();
     _os_log_send_and_compose_impl();
   }
 
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
 - (void)_informMediaSafetyNetWithIsStreaming:(uint64_t)streaming clientAuditToken:(int)token
@@ -621,7 +618,7 @@ LABEL_21:
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v25);
     }
 
     OUTLINED_FUNCTION_4_79();
@@ -644,23 +641,23 @@ LABEL_21:
       if (dword_1ED8443D0)
       {
         OUTLINED_FUNCTION_18_27();
-        v10 = OUTLINED_FUNCTION_14_36();
-        v11 = os_log_type_enabled(v10, v15);
+        v10 = OUTLINED_FUNCTION_14_36(qword_1ED8443C8);
+        v11 = os_log_type_enabled(v10, v26);
         if (OUTLINED_FUNCTION_12(v11))
         {
           OUTLINED_FUNCTION_6_72();
           OUTLINED_FUNCTION_5();
           OUTLINED_FUNCTION_2_102();
-          OUTLINED_FUNCTION_141();
+          OUTLINED_FUNCTION_141(v12, v13, v14, v15, v16);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v17, v18, v19, v20, v21);
       }
 
       MSNMonitorSetCameraState();
       OUTLINED_FUNCTION_4_79();
-      if (FigCaptureClientIsRunningInXCTest(v12))
+      if (FigCaptureClientIsRunningInXCTest(v22))
       {
         MSNMonitorSetXCTestExceptionState();
         if (!v9)
@@ -672,7 +669,7 @@ LABEL_21:
       }
 
       OUTLINED_FUNCTION_4_79();
-      if (FigCaptureClientIsNonStandard(v13) && (OUTLINED_FUNCTION_4_79(), !FigCaptureClientIsAVConferenced(v14)))
+      if (FigCaptureClientIsNonStandard(v23) && (OUTLINED_FUNCTION_4_79(), !FigCaptureClientIsAVConferenced(v24)))
       {
         CFStringGetCStringPtr(v9, 0x600u);
       }
@@ -697,15 +694,15 @@ LABEL_23:
       if (dword_1ED8443D0)
       {
         OUTLINED_FUNCTION_18_27();
-        v7 = OUTLINED_FUNCTION_14_36();
-        if (os_log_type_enabled(v7, v15))
+        v7 = OUTLINED_FUNCTION_14_36(qword_1ED8443C8);
+        if (os_log_type_enabled(v7, v26))
         {
-          v8 = v16;
+          v8 = v27;
         }
 
         else
         {
-          v8 = v16 & 0xFFFFFFFE;
+          v8 = v27 & 0xFFFFFFFE;
         }
 
         if (v8)
@@ -731,9 +728,9 @@ LABEL_23:
   if (self)
   {
     v11 = info[1];
-    v40 = *info;
-    v41 = v11;
-    FigCaptureGetPIDFromAuditToken(&v40);
+    v60 = *info;
+    v61 = v11;
+    FigCaptureGetPIDFromAuditToken(&v60);
     if (a2)
     {
       if (!streaming)
@@ -751,8 +748,8 @@ LABEL_23:
       v14 = *(streaming + 16);
       if (v14)
       {
-        [v14 auditToken];
-        if (FigCaptureClientIsRunningInMediaserverd(&v40))
+        objc_msgSend_auditToken(v14);
+        if (FigCaptureClientIsRunningInMediaserverd(&v60))
         {
           goto LABEL_26;
         }
@@ -761,9 +758,9 @@ LABEL_23:
       else
       {
 LABEL_13:
-        v40 = 0u;
-        v41 = 0u;
-        if (FigCaptureClientIsRunningInMediaserverd(&v40))
+        v60 = 0u;
+        v61 = 0u;
+        if (FigCaptureClientIsRunningInMediaserverd(&v60))
         {
           goto LABEL_26;
         }
@@ -777,39 +774,39 @@ LABEL_13:
       v17 = *(streaming + 16);
       if (v17)
       {
-        [v17 auditToken];
+        objc_msgSend_auditToken(v17);
         goto LABEL_25;
       }
 
 LABEL_24:
-      v40 = 0u;
-      v41 = 0u;
+      v60 = 0u;
+      v61 = 0u;
 LABEL_25:
-      if (!FigCaptureClientIsAVConferenced(&v40))
+      if (!FigCaptureClientIsAVConferenced(&v60))
       {
         if (!token)
         {
-          v32 = info[1];
-          v40 = *info;
-          v41 = v32;
-          if (!FigCaptureAuditTokenIsValid(&v40))
+          v42 = info[1];
+          v60 = *info;
+          v61 = v42;
+          if (!FigCaptureAuditTokenIsValid(&v60))
           {
             PATCCAccessClass = getPATCCAccessClass();
-            v28 = [PATCCAccessClass accessWithAccessor:objc_msgSend(objc_alloc(getPAApplicationClass()) forService:{"initWithBundleID:", 0x1F216ED50), *MEMORY[0x1E69D5520]}];
+            v38 = [PATCCAccessClass accessWithAccessor:objc_msgSend(objc_alloc(getPAApplicationClass()) forService:{"initWithBundleID:", 0x1F216ED50), *MEMORY[0x1E69D5520]}];
             if (dword_1ED8443D0)
             {
-              v36 = OUTLINED_FUNCTION_7_63();
-              if (OUTLINED_FUNCTION_8_4(v36))
+              v51 = OUTLINED_FUNCTION_7_63();
+              if (OUTLINED_FUNCTION_8_4(v51))
               {
-                v37 = v5;
+                v52 = v5;
               }
 
               else
               {
-                v37 = v5 & 0xFFFFFFFE;
+                v52 = v5 & 0xFFFFFFFE;
               }
 
-              if (v37)
+              if (v52)
               {
                 OUTLINED_FUNCTION_78();
                 OUTLINED_FUNCTION_5();
@@ -827,43 +824,43 @@ LABEL_25:
           if (dword_1ED8443D0)
           {
             OUTLINED_FUNCTION_112();
-            v33 = OUTLINED_FUNCTION_77();
-            v34 = OUTLINED_FUNCTION_15_1(v33);
-            if (OUTLINED_FUNCTION_12(v34))
+            v43 = OUTLINED_FUNCTION_77(qword_1ED8443C8);
+            v44 = OUTLINED_FUNCTION_15_1(v43);
+            if (OUTLINED_FUNCTION_12(v44))
             {
               OUTLINED_FUNCTION_6_72();
               OUTLINED_FUNCTION_5();
               OUTLINED_FUNCTION_2_102();
-              OUTLINED_FUNCTION_141();
+              OUTLINED_FUNCTION_141(v45, v46, v47, v48, v49);
             }
 
             OUTLINED_FUNCTION_2_4();
-            OUTLINED_FUNCTION_39_0();
+            OUTLINED_FUNCTION_39_0(v53, v54, v55, v56, v57);
           }
 
-          v38 = getPATCCAccessClass();
-          if (streaming && (v39 = *(streaming + 16)) != 0)
+          v58 = getPATCCAccessClass();
+          if (streaming && (v59 = *(streaming + 16)) != 0)
           {
-            [v39 auditToken];
+            objc_msgSend_auditToken(v59);
           }
 
           else
           {
-            v40 = 0u;
-            v41 = 0u;
+            v60 = 0u;
+            v61 = 0u;
           }
 
-          v27 = [v38 accessWithAuditToken:&v40 forService:*MEMORY[0x1E69D5520]];
+          v37 = [v58 accessWithAuditToken:&v60 forService:*MEMORY[0x1E69D5520]];
 LABEL_32:
-          v28 = v27;
+          v38 = v37;
 LABEL_33:
-          v29 = [*(self + 56) beginIntervalForAccess:v28];
+          v39 = [*(self + 56) beginIntervalForAccess:v38];
           if (!streaming)
           {
             return;
           }
 
-          v22 = v29;
+          v22 = v39;
           streamingCopy2 = streaming;
           goto LABEL_35;
         }
@@ -872,18 +869,18 @@ LABEL_33:
         [OUTLINED_FUNCTION_8() stringWithUTF8String:?];
         if (dword_1ED8443D0)
         {
-          v30 = OUTLINED_FUNCTION_7_63();
-          if (OUTLINED_FUNCTION_8_4(v30))
+          v40 = OUTLINED_FUNCTION_7_63();
+          if (OUTLINED_FUNCTION_8_4(v40))
           {
-            v31 = v5;
+            v41 = v5;
           }
 
           else
           {
-            v31 = v5 & 0xFFFFFFFE;
+            v41 = v5 & 0xFFFFFFFE;
           }
 
-          if (v31)
+          if (v41)
           {
             OUTLINED_FUNCTION_78();
             OUTLINED_FUNCTION_5();
@@ -895,10 +892,10 @@ LABEL_33:
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v25 = getPATCCAccessClass();
-        v26 = [objc_alloc(getPAApplicationClass()) initWithTCCIdentity:token];
+        v35 = getPATCCAccessClass();
+        v36 = [objc_alloc(getPAApplicationClass()) initWithTCCIdentity:token];
 LABEL_31:
-        v27 = [v25 accessWithAccessor:v26 forService:*MEMORY[0x1E69D5520]];
+        v37 = [v35 accessWithAccessor:v36 forService:*MEMORY[0x1E69D5520]];
         goto LABEL_32;
       }
 
@@ -906,22 +903,22 @@ LABEL_26:
       if (dword_1ED8443D0)
       {
         OUTLINED_FUNCTION_112();
-        v23 = OUTLINED_FUNCTION_77();
+        v23 = OUTLINED_FUNCTION_77(qword_1ED8443C8);
         v24 = OUTLINED_FUNCTION_15_1(v23);
         if (OUTLINED_FUNCTION_12(v24))
         {
           OUTLINED_FUNCTION_6_72();
           OUTLINED_FUNCTION_5();
           OUTLINED_FUNCTION_2_102();
-          OUTLINED_FUNCTION_141();
+          OUTLINED_FUNCTION_141(v25, v26, v27, v28, v29);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v30, v31, v32, v33, v34);
       }
 
-      v25 = getPATCCAccessClass();
-      v26 = [getPAApplicationClass() applicationWithType:0 identifier:0x1F2185490];
+      v35 = getPATCCAccessClass();
+      v36 = [getPAApplicationClass() applicationWithType:0 identifier:0x1F2185490];
       goto LABEL_31;
     }
 
@@ -931,8 +928,8 @@ LABEL_26:
       if (dword_1ED8443D0)
       {
         OUTLINED_FUNCTION_112();
-        v15 = OUTLINED_FUNCTION_77();
-        v16 = os_log_type_enabled(v15, v42);
+        v15 = OUTLINED_FUNCTION_77(qword_1ED8443C8);
+        v16 = os_log_type_enabled(v15, v62);
         if (OUTLINED_FUNCTION_5_24(v16))
         {
           OUTLINED_FUNCTION_78();
@@ -950,8 +947,8 @@ LABEL_20:
     else if (dword_1ED8443D0)
     {
       OUTLINED_FUNCTION_112();
-      v18 = OUTLINED_FUNCTION_77();
-      v19 = os_log_type_enabled(v18, v42);
+      v18 = OUTLINED_FUNCTION_77(qword_1ED8443C8);
+      v19 = os_log_type_enabled(v18, v62);
       if (OUTLINED_FUNCTION_5_24(v19))
       {
         OUTLINED_FUNCTION_6_72();
@@ -991,15 +988,15 @@ LABEL_35:
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v25);
   }
 
-  v28 = 0;
+  v29 = 0;
   OUTLINED_FUNCTION_20_23();
   PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(v13);
   OUTLINED_FUNCTION_20_23();
   PIDVersionFromAuditToken = FigCaptureGetPIDVersionFromAuditToken(v15);
-  v17 = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E69C75E0] error:{"identifierWithPid:", PIDFromAuditToken), &v28}];
+  v17 = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E69C75E0] error:{"identifierWithPid:", PIDFromAuditToken), &v29}];
   if (token)
   {
     v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_identifier()];
@@ -1019,12 +1016,12 @@ LABEL_35:
         v20 = 0;
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __165__BWCameraStreamingMonitor__updateCameraStreamingMonitorInfoWithStreaming_cameraAccessGranted_clientAuditToken_tccIdentity_updateStreamingStatus_updateAccessStatus___block_invoke;
-      v26[3] = &unk_1E799B800;
-      v26[4] = v12;
-      v21 = v26;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __165__BWCameraStreamingMonitor__updateCameraStreamingMonitorInfoWithStreaming_cameraAccessGranted_clientAuditToken_tccIdentity_updateStreamingStatus_updateAccessStatus___block_invoke;
+      v27[3] = &unk_1E799B800;
+      v27[4] = v12;
+      v21 = v27;
       goto LABEL_25;
     }
 
@@ -1046,12 +1043,12 @@ LABEL_35:
       v20 = 0;
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __165__BWCameraStreamingMonitor__updateCameraStreamingMonitorInfoWithStreaming_cameraAccessGranted_clientAuditToken_tccIdentity_updateStreamingStatus_updateAccessStatus___block_invoke_3;
-    v25[3] = &unk_1E799B800;
-    v25[4] = v12;
-    v21 = v25;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __165__BWCameraStreamingMonitor__updateCameraStreamingMonitorInfoWithStreaming_cameraAccessGranted_clientAuditToken_tccIdentity_updateStreamingStatus_updateAccessStatus___block_invoke_3;
+    v26[3] = &unk_1E799B800;
+    v26[4] = v12;
+    v21 = v26;
 LABEL_25:
     result = [v20 monitorForDeath:v21];
     if (!identity)
@@ -1089,15 +1086,15 @@ LABEL_16:
   v24 = v19[2];
   if (v24)
   {
-    [v24 auditToken];
+    objc_msgSend_auditToken(v24);
   }
 
   else
   {
-    memset(v27, 0, sizeof(v27));
+    memset(v28, 0, sizeof(v28));
   }
 
-  result = FigCaptureGetPIDVersionFromAuditToken(v27);
+  result = FigCaptureGetPIDVersionFromAuditToken(v28);
   if (PIDVersionFromAuditToken == result)
   {
 LABEL_15:
@@ -1116,17 +1113,17 @@ LABEL_15:
 {
   if (self)
   {
-    if (!OUTLINED_FUNCTION_30_12())
+    if (!OUTLINED_FUNCTION_30_12(self))
     {
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_2_5();
-      FigDebugAssert3();
+      FigDebugAssert3(v19);
     }
 
     v8 = streaming[1];
-    v19[0] = *streaming;
-    v19[1] = v8;
-    PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(v19);
+    v20[0] = *streaming;
+    v20[1] = v8;
+    PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(v20);
     if (token)
     {
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_identifier()];
@@ -1189,10 +1186,10 @@ LABEL_20:
   {
     if (FigCaptureSpeakerInterferenceMitigationIsSupported())
     {
-      v7 = [token isEqualToString:@"com.apple.avfoundation.avcapturedevice.built-in_video:1"];
+      isEqualToString = objc_msgSend_isEqualToString_(token);
       if ((d - 21) <= 0xFFFFFFFB)
       {
-        if (v7)
+        if (isEqualToString)
         {
 
           FigCaptureSpeakerSetInterferenceMitigationIsRequired(type, 0);
@@ -1204,7 +1201,7 @@ LABEL_20:
 
 - (void)_updateMicrophoneInterferenceMitigationRequirementIfNeededWithIsStreaming:(uint64_t)streaming deviceType:(unsigned int)type maxFrameRate:(float)rate streamUniqueID:(uint64_t)d clientAuditToken:(void *)token
 {
-  if (streaming && FigCaptureMicrophoneInterferenceMitigationIsSupported() && [token isEqualToString:@"com.apple.avfoundation.avcapturedevice.built-in_video:0"])
+  if (streaming && FigCaptureMicrophoneInterferenceMitigationIsSupported() && objc_msgSend_isEqualToString_(token))
   {
     if (rate >= 120.0)
     {
@@ -1220,18 +1217,18 @@ LABEL_20:
   }
 }
 
-- (uint64_t)_getClientInfoForTCCIdentity:(uint64_t)identity clientPID:(int)d sessionIsPrewarming:
+- (void)_getClientInfoForTCCIdentity:(uint64_t)identity clientPID:(int)d sessionIsPrewarming:
 {
   if (!result)
   {
     return result;
   }
 
-  if (!OUTLINED_FUNCTION_30_12())
+  if (!OUTLINED_FUNCTION_30_12(result))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v10);
     if (a2)
     {
       goto LABEL_4;
@@ -1263,70 +1260,70 @@ LABEL_9:
   return [v9 objectForKeyedSubscript:v8];
 }
 
-- (void)_updateActiveClientSessionsForSessionID:(uint64_t)d clientSession:(_OWORD *)session clientAuditToken:(uint64_t)token tccIdentity:(uint64_t)identity mediaEnvironment:
+- (double)_updateActiveClientSessionsForSessionID:(uint64_t)d clientSession:(_OWORD *)session clientAuditToken:(uint64_t)token tccIdentity:(uint64_t)identity mediaEnvironment:
 {
   if (!self)
   {
-    return;
+    return result;
   }
 
-  if (!OUTLINED_FUNCTION_30_12())
+  if (!OUTLINED_FUNCTION_30_12(self))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v41);
   }
 
   v10 = session[1];
-  v50[0] = *session;
-  v50[1] = v10;
-  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(v50);
+  v52[0] = *session;
+  v52[1] = v10;
+  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(v52);
   if (dword_1ED8443D0)
   {
-    v52 = 0;
-    v51 = OS_LOG_TYPE_DEFAULT;
-    v11 = OUTLINED_FUNCTION_29_16();
-    v12 = v52;
-    if (os_log_type_enabled(v11, v51))
+    v54 = 0;
+    v53 = OS_LOG_TYPE_DEFAULT;
+    v12 = OUTLINED_FUNCTION_29_16();
+    v13 = v54;
+    if (os_log_type_enabled(v12, v53))
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v14 = v13 & 0xFFFFFFFE;
     }
 
-    if (v13)
+    if (v14)
     {
       if (d)
       {
-        v14 = *(d + 28);
-        v15 = *(d + 29);
-        v16 = *(d + 8);
-        if (v16)
+        v15 = *(d + 28);
+        v16 = *(d + 29);
+        v17 = *(d + 8);
+        if (v17)
         {
-          LODWORD(v16) = *(v16 + 9);
+          LODWORD(v17) = *(v17 + 9);
         }
       }
 
       else
       {
-        v14 = 0;
         v15 = 0;
-        LODWORD(v16) = 0;
+        v16 = 0;
+        LODWORD(v17) = 0;
       }
 
-      v44 = 136315906;
-      v45 = "[BWCameraStreamingMonitor _updateActiveClientSessionsForSessionID:clientSession:clientAuditToken:tccIdentity:mediaEnvironment:]";
-      v46 = 1024;
-      *v47 = v14;
-      *&v47[4] = 1024;
-      *&v47[6] = v15;
+      v46 = 136315906;
+      v47 = "[BWCameraStreamingMonitor _updateActiveClientSessionsForSessionID:clientSession:clientAuditToken:tccIdentity:mediaEnvironment:]";
       v48 = 1024;
-      v49 = v16;
-      LODWORD(v41) = 30;
-      v40 = &v44;
+      *v49 = v15;
+      *&v49[4] = 1024;
+      *&v49[6] = v16;
+      v50 = 1024;
+      v51 = v17;
+      LODWORD(v43) = 30;
+      v42 = &v46;
       OUTLINED_FUNCTION_13();
       _os_log_send_and_compose_impl();
     }
@@ -1350,29 +1347,29 @@ LABEL_24:
       goto LABEL_26;
     }
 
-    v24 = OUTLINED_FUNCTION_5_73();
-    [(BWCameraStreamingMonitor *)v24 _informSystemStatusWithIsStreaming:v25 clientAuditToken:identity mediaEnvironment:?];
-    v26 = OUTLINED_FUNCTION_22_22();
-    [(BWCameraStreamingMonitor *)v26 _informPrivacyAccountingWithIsStreaming:v27 clientInfo:v28 clientAuditToken:token tccIdentity:?];
-    v29 = OUTLINED_FUNCTION_5_73();
-    [BWCameraStreamingMonitor _informMediaSafetyNetWithIsStreaming:v29 clientAuditToken:0];
+    v25 = OUTLINED_FUNCTION_5_73();
+    [(BWCameraStreamingMonitor *)v25 _informSystemStatusWithIsStreaming:v26 clientAuditToken:identity mediaEnvironment:?];
+    v27 = OUTLINED_FUNCTION_22_22();
+    [(BWCameraStreamingMonitor *)v27 _informPrivacyAccountingWithIsStreaming:v28 clientInfo:v29 clientAuditToken:token tccIdentity:?];
+    v30 = OUTLINED_FUNCTION_5_73();
+    [BWCameraStreamingMonitor _informMediaSafetyNetWithIsStreaming:v30 clientAuditToken:0];
     if (token)
     {
       tcc_identity_get_identifier();
-      v30 = [OUTLINED_FUNCTION_7() stringWithUTF8String:?];
-      if (![*(v6 + 48) objectForKeyedSubscript:v30])
+      v31 = [OUTLINED_FUNCTION_7() stringWithUTF8String:?];
+      if (![*(v6 + 48) objectForKeyedSubscript:v31])
       {
         goto LABEL_26;
       }
 
       OUTLINED_FUNCTION_26_20();
-      if (!v31)
+      if (!v32)
       {
         goto LABEL_26;
       }
 
-      v32 = *(v6 + 48);
-      v33 = v30;
+      v33 = *(v6 + 48);
+      v34 = v31;
     }
 
     else
@@ -1384,16 +1381,16 @@ LABEL_24:
       }
 
       OUTLINED_FUNCTION_26_20();
-      if (!v31)
+      if (!v32)
       {
         goto LABEL_26;
       }
 
       [MEMORY[0x1E696AD98] numberWithInt:PIDFromAuditToken];
-      v32 = OUTLINED_FUNCTION_7();
+      v33 = OUTLINED_FUNCTION_7();
     }
 
-    [v32 removeObjectForKey:{v33, v40, v41}];
+    [v33 removeObjectForKey:{v34, v42, v43}];
 LABEL_26:
 
     goto LABEL_27;
@@ -1401,20 +1398,20 @@ LABEL_26:
 
   if (*(d + 29) == 1)
   {
-    v17 = *(d + 8);
-    if (v17)
+    v18 = *(d + 8);
+    if (v18)
     {
-      if (*(v17 + 9) == 1)
+      if (*(v18 + 9) == 1)
       {
         if (![OUTLINED_FUNCTION_23_21() containsObject:?])
         {
           [OUTLINED_FUNCTION_23_21() addObject:?];
-          v34 = OUTLINED_FUNCTION_5_73();
-          [(BWCameraStreamingMonitor *)v34 _informSystemStatusWithIsStreaming:v35 clientAuditToken:identity mediaEnvironment:?];
-          v36 = OUTLINED_FUNCTION_22_22();
-          [(BWCameraStreamingMonitor *)v36 _informPrivacyAccountingWithIsStreaming:v37 clientInfo:v38 clientAuditToken:token tccIdentity:?];
-          v39 = OUTLINED_FUNCTION_5_73();
-          [BWCameraStreamingMonitor _informMediaSafetyNetWithIsStreaming:v39 clientAuditToken:1];
+          v35 = OUTLINED_FUNCTION_5_73();
+          [(BWCameraStreamingMonitor *)v35 _informSystemStatusWithIsStreaming:v36 clientAuditToken:identity mediaEnvironment:?];
+          v37 = OUTLINED_FUNCTION_22_22();
+          [(BWCameraStreamingMonitor *)v37 _informPrivacyAccountingWithIsStreaming:v38 clientInfo:v39 clientAuditToken:token tccIdentity:?];
+          v40 = OUTLINED_FUNCTION_5_73();
+          [BWCameraStreamingMonitor _informMediaSafetyNetWithIsStreaming:v40 clientAuditToken:1];
           goto LABEL_27;
         }
 
@@ -1431,8 +1428,8 @@ LABEL_26:
     goto LABEL_24;
   }
 
-  v18 = *(d + 8);
-  if (!v18 || (*(v18 + 9) & 1) == 0)
+  v19 = *(d + 8);
+  if (!v19 || (*(v19 + 9) & 1) == 0)
   {
     goto LABEL_24;
   }
@@ -1440,27 +1437,27 @@ LABEL_26:
 LABEL_27:
   if (dword_1ED8443D0)
   {
-    v52 = 0;
-    v51 = OS_LOG_TYPE_DEFAULT;
-    v20 = OUTLINED_FUNCTION_29_16();
-    v21 = v52;
-    if (os_log_type_enabled(v20, v51))
+    v54 = 0;
+    v53 = OS_LOG_TYPE_DEFAULT;
+    v21 = OUTLINED_FUNCTION_29_16();
+    v22 = v54;
+    if (os_log_type_enabled(v21, v53))
     {
-      v22 = v21;
+      v23 = v22;
     }
 
     else
     {
-      v22 = v21 & 0xFFFFFFFE;
+      v23 = v22 & 0xFFFFFFFE;
     }
 
-    if (v22)
+    if (v23)
     {
-      v23 = [*(v6 + 72) componentsJoinedByString:{@", "}];
-      v44 = 136315394;
-      v45 = "[BWCameraStreamingMonitor _updateActiveClientSessionsForSessionID:clientSession:clientAuditToken:tccIdentity:mediaEnvironment:]";
-      v46 = 2112;
-      *v47 = v23;
+      v24 = [*(v6 + 72) componentsJoinedByString:{@", "}];
+      v46 = 136315394;
+      v47 = "[BWCameraStreamingMonitor _updateActiveClientSessionsForSessionID:clientSession:clientAuditToken:tccIdentity:mediaEnvironment:]";
+      v48 = 2112;
+      *v49 = v24;
       OUTLINED_FUNCTION_13();
       _os_log_send_and_compose_impl();
     }
@@ -1468,14 +1465,16 @@ LABEL_27:
     OUTLINED_FUNCTION_2_4();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
+
+  return result;
 }
 
 uint64_t __144__BWCameraStreamingMonitor_setStreaming_deviceType_maxFrameRate_streamUniqueID_clientAuditToken_tccIdentity_mediaEnvironment_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 80);
-  v34 = *(a1 + 64);
-  v35 = v2;
-  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v34);
+  v45 = *(a1 + 64);
+  v46 = v2;
+  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v45);
   [MEMORY[0x1E696AD98] numberWithInt:PIDFromAuditToken];
   v4 = [OUTLINED_FUNCTION_8() objectForKeyedSubscript:?];
   if (dword_1ED8443D0)
@@ -1484,23 +1483,25 @@ uint64_t __144__BWCameraStreamingMonitor_setStreaming_deviceType_maxFrameRate_st
     v6 = OUTLINED_FUNCTION_15_1(v5);
     if (OUTLINED_FUNCTION_12(v6))
     {
-      *v33 = 136315906;
-      *&v33[4] = "[BWCameraStreamingMonitor setStreaming:deviceType:maxFrameRate:streamUniqueID:clientAuditToken:tccIdentity:mediaEnvironment:completionHandler:]_block_invoke";
-      *&v33[12] = 1024;
-      *&v33[14] = *(a1 + 104);
-      *&v33[18] = 2112;
-      *&v33[20] = *(a1 + 40);
+      *v43 = 136315906;
+      *&v43[4] = "[BWCameraStreamingMonitor setStreaming:deviceType:maxFrameRate:streamUniqueID:clientAuditToken:tccIdentity:mediaEnvironment:completionHandler:]_block_invoke";
+      *&v43[12] = 1024;
+      *&v43[14] = *(a1 + 104);
+      *&v43[18] = 2112;
+      *&v43[20] = *(a1 + 40);
+      *&v43[28] = 1024;
+      *&v43[30] = PIDFromAuditToken;
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_13();
-      OUTLINED_FUNCTION_141();
+      OUTLINED_FUNCTION_141(v7, v8, v9, v10, v11);
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_39_0();
+    OUTLINED_FUNCTION_39_0(v12, v13, v14, v15, v16);
   }
 
   [BWCameraStreamingMonitor _updateSpeakerInterferenceMitigationRequirementIfNeededWithIsStreaming:*(a1 + 104) deviceType:*(a1 + 96) streamUniqueID:*(a1 + 40) clientAuditToken:?];
-  [BWCameraStreamingMonitor _updateMicrophoneInterferenceMitigationRequirementIfNeededWithIsStreaming:*(a1 + 104) deviceType:*(a1 + 100) maxFrameRate:v7 streamUniqueID:*(a1 + 40) clientAuditToken:?];
+  [BWCameraStreamingMonitor _updateMicrophoneInterferenceMitigationRequirementIfNeededWithIsStreaming:*(a1 + 104) deviceType:*(a1 + 100) maxFrameRate:v17 streamUniqueID:*(a1 + 40) clientAuditToken:?];
   if (*(a1 + 104) == 1)
   {
     if (!v4)
@@ -1509,24 +1510,24 @@ uint64_t __144__BWCameraStreamingMonitor_setStreaming_deviceType_maxFrameRate_st
       [*(*(a1 + 32) + 8) setObject:v4 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", PIDFromAuditToken)}];
     }
 
-    v13 = [MEMORY[0x1E695DFD8] setWithSet:v4];
+    v23 = [MEMORY[0x1E695DFD8] setWithSet:v4];
     [v4 addObject:*(a1 + 40)];
-    if (![v13 count] && objc_msgSend(v4, "count"))
+    if (![v23 count] && objc_msgSend(v4, "count"))
     {
-      v19 = *(a1 + 32);
-      v20 = *(a1 + 104);
-      v21 = *(a1 + 48);
-      v22 = *(a1 + 80);
-      v34 = *(a1 + 64);
-      v35 = v22;
-      OUTLINED_FUNCTION_27_16(v19, v20, v14, v15, v21, v16, v17, v18, v31, v32, *v33, *&v33[8], *&v33[16]);
+      v29 = *(a1 + 32);
+      v30 = *(a1 + 104);
+      v31 = *(a1 + 48);
+      v32 = *(a1 + 80);
+      v45 = *(a1 + 64);
+      v46 = v32;
+      OUTLINED_FUNCTION_27_16(v29, v30, v24, v25, v31, v26, v27, v28, v41, v42, *v43, *&v43[8], *&v43[16], *&v43[24], *&v43[32], v44);
 LABEL_19:
-      v28 = *(a1 + 32);
-      v29 = *(a1 + 48);
-      v30 = *(a1 + 80);
-      v34 = *(a1 + 64);
-      v35 = v30;
-      [(BWCameraStreamingMonitor *)v28 _updateClientInfoFromSetStreaming:&v34 clientAuditToken:v29 tccIdentity:?];
+      v38 = *(a1 + 32);
+      v39 = *(a1 + 48);
+      v40 = *(a1 + 80);
+      v45 = *(a1 + 64);
+      v46 = v40;
+      [(BWCameraStreamingMonitor *)v38 _updateClientInfoFromSetStreaming:&v45 clientAuditToken:v39 tccIdentity:?];
     }
   }
 
@@ -1542,20 +1543,20 @@ LABEL_19:
 
       [MEMORY[0x1E696AD98] numberWithInt:PIDFromAuditToken];
       [OUTLINED_FUNCTION_8() removeObjectForKey:?];
-      v24 = *(a1 + 104);
+      v34 = *(a1 + 104);
     }
 
     else
     {
-      v24 = 0;
+      v34 = 0;
     }
 
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 48);
-    v27 = *(a1 + 80);
-    v34 = *(a1 + 64);
-    v35 = v27;
-    OUTLINED_FUNCTION_27_16(v25, v24 & 1, v8, v9, v26, v10, v11, v12, v31, v32, *v33, *&v33[8], *&v33[16]);
+    v35 = *(a1 + 32);
+    v36 = *(a1 + 48);
+    v37 = *(a1 + 80);
+    v45 = *(a1 + 64);
+    v46 = v37;
+    OUTLINED_FUNCTION_27_16(v35, v34 & 1, v18, v19, v36, v20, v21, v22, v41, v42, *v43, *&v43[8], *&v43[16], *&v43[24], *&v43[32], v44);
     if (![*(*(a1 + 32) + 8) count])
     {
       goto LABEL_19;
@@ -1575,23 +1576,23 @@ LABEL_13:
 uint64_t __119__BWCameraStreamingMonitor_setCameraAccess_deviceType_clientAuditToken_tccIdentity_mediaEnvironment_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 80);
-  v39 = *(a1 + 64);
-  v40 = v2;
-  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v39);
+  v40 = *(a1 + 64);
+  v41 = v2;
+  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v40);
   if (dword_1ED8443D0)
   {
     OUTLINED_FUNCTION_18_27();
-    v4 = OUTLINED_FUNCTION_14_36();
-    v5 = os_log_type_enabled(v4, v41);
+    v4 = OUTLINED_FUNCTION_14_36(qword_1ED8443C8);
+    v5 = os_log_type_enabled(v4, v42);
     if (OUTLINED_FUNCTION_5_24(v5))
     {
       v6 = *(a1 + 96);
-      v33 = 136315650;
-      v34 = "[BWCameraStreamingMonitor setCameraAccess:deviceType:clientAuditToken:tccIdentity:mediaEnvironment:completionHandler:]_block_invoke";
-      v35 = 1024;
-      v36 = v6;
-      v37 = 1024;
-      v38 = PIDFromAuditToken;
+      v34 = 136315650;
+      v35 = "[BWCameraStreamingMonitor setCameraAccess:deviceType:clientAuditToken:tccIdentity:mediaEnvironment:completionHandler:]_block_invoke";
+      v36 = 1024;
+      v37 = v6;
+      v38 = 1024;
+      v39 = PIDFromAuditToken;
       OUTLINED_FUNCTION_13();
       _os_log_send_and_compose_impl();
     }
@@ -1604,72 +1605,72 @@ uint64_t __119__BWCameraStreamingMonitor_setCameraAccess_deviceType_clientAuditT
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
   v10 = *(a1 + 80);
-  v39 = *(a1 + 64);
-  v40 = v10;
-  [(BWCameraStreamingMonitor *)v8 _updateCameraStreamingMonitorInfoWithStreaming:v7 cameraAccessGranted:&v39 clientAuditToken:v9 tccIdentity:0 updateStreamingStatus:1 updateAccessStatus:?];
+  v40 = *(a1 + 64);
+  v41 = v10;
+  [(BWCameraStreamingMonitor *)v8 _updateCameraStreamingMonitorInfoWithStreaming:v7 cameraAccessGranted:&v40 clientAuditToken:v9 tccIdentity:0 updateStreamingStatus:1 updateAccessStatus:?];
   if (*(a1 + 96) == 1)
   {
     v13 = *(a1 + 32);
     v14 = *(a1 + 40);
     v15 = *(a1 + 80);
-    v39 = *(a1 + 64);
-    v40 = v15;
-    [(BWCameraStreamingMonitor *)v13 _updateClientInfoFromSetStreaming:&v39 clientAuditToken:v14 tccIdentity:?];
-    v29 = 0u;
+    v40 = *(a1 + 64);
+    v41 = v15;
+    [(BWCameraStreamingMonitor *)v13 _updateClientInfoFromSetStreaming:&v40 clientAuditToken:v14 tccIdentity:?];
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
     v16 = [*(*(a1 + 32) + 64) allValues];
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v28 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v29 count:16];
     if (v17)
     {
-      v18 = v17;
-      v19 = *v30;
+      v19 = v17;
+      v20 = *v31;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v30 != v19)
+          if (*v31 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * v20);
-          if (v21)
+          v22 = *(*(&v30 + 1) + 8 * v21);
+          if (v22)
           {
-            if (*(v21 + 24) != PIDFromAuditToken)
+            if (*(v22 + 24) != PIDFromAuditToken)
             {
               goto LABEL_16;
             }
 
-            v22 = *(v21 + 16);
+            v23 = *(v22 + 16);
             goto LABEL_19;
           }
 
           if (!PIDFromAuditToken)
           {
-            v22 = 0;
+            v23 = 0;
 LABEL_19:
-            v23 = *(a1 + 32);
-            v24 = *(a1 + 40);
-            v25 = *(a1 + 48);
-            v26 = *(a1 + 80);
-            v39 = *(a1 + 64);
-            v40 = v26;
-            [(BWCameraStreamingMonitor *)v23 _updateActiveClientSessionsForSessionID:v22 clientSession:v21 clientAuditToken:&v39 tccIdentity:v24 mediaEnvironment:v25];
+            v24 = *(a1 + 32);
+            v25 = *(a1 + 40);
+            v26 = *(a1 + 48);
+            v27 = *(a1 + 80);
+            v40 = *(a1 + 64);
+            v41 = v27;
+            v18 = [(BWCameraStreamingMonitor *)v24 _updateActiveClientSessionsForSessionID:v23 clientSession:v22 clientAuditToken:&v40 tccIdentity:v25 mediaEnvironment:v26];
           }
 
 LABEL_16:
-          ++v20;
+          ++v21;
         }
 
-        while (v18 != v20);
-        v27 = [v16 countByEnumeratingWithState:&v29 objects:v28 count:16];
-        v18 = v27;
+        while (v19 != v21);
+        v28 = [v16 countByEnumeratingWithState:&v30 objects:v29 count:{16, v18}];
+        v19 = v28;
       }
 
-      while (v27);
+      while (v28);
     }
   }
 
@@ -1685,9 +1686,9 @@ LABEL_16:
 uint64_t __168__BWCameraStreamingMonitor_setSessionStateForSessionID_running_containsVideoSource_clientAuditToken_tccIdentity_mediaEnvironment_sessionIsPrewarming_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 88);
-  v16 = *(a1 + 72);
-  v17 = v2;
-  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v16);
+  v22 = *(a1 + 72);
+  v23 = v2;
+  PIDFromAuditToken = FigCaptureGetPIDFromAuditToken(&v22);
   v4 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:*(a1 + 40)];
   if (v4)
   {
@@ -1711,9 +1712,9 @@ uint64_t __168__BWCameraStreamingMonitor_setSessionStateForSessionID_running_con
   if (dword_1ED8443D0)
   {
     OUTLINED_FUNCTION_18_27();
-    v7 = OUTLINED_FUNCTION_14_36();
-    v8 = v19;
-    if (os_log_type_enabled(v7, v18))
+    v7 = OUTLINED_FUNCTION_14_36(qword_1ED8443C8);
+    v8 = v25;
+    if (os_log_type_enabled(v7, v24))
     {
       v9 = v8;
     }
@@ -1733,20 +1734,20 @@ uint64_t __168__BWCameraStreamingMonitor_setSessionStateForSessionID_running_con
     }
 
     OUTLINED_FUNCTION_2_4();
-    OUTLINED_FUNCTION_39_0();
+    OUTLINED_FUNCTION_39_0(v10, v11, v12, v13, v14);
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 88);
-  v16 = *(a1 + 72);
-  v17 = v14;
-  [(BWCameraStreamingMonitor *)v10 _updateActiveClientSessionsForSessionID:v11 clientSession:v6 clientAuditToken:&v16 tccIdentity:v12 mediaEnvironment:v13];
+  v15 = *(a1 + 32);
+  v16 = *(a1 + 40);
+  v17 = *(a1 + 48);
+  v18 = *(a1 + 56);
+  v19 = *(a1 + 88);
+  v22 = *(a1 + 72);
+  v23 = v19;
+  v20 = [(BWCameraStreamingMonitor *)v15 _updateActiveClientSessionsForSessionID:v16 clientSession:v6 clientAuditToken:&v22 tccIdentity:v17 mediaEnvironment:v18];
   if ((*(a1 + 105) & 1) == 0)
   {
-    [*(*(a1 + 32) + 64) setObject:0 forKeyedSubscript:*(a1 + 40)];
+    [*(*(a1 + 32) + 64) setObject:0 forKeyedSubscript:{*(a1 + 40), v20}];
   }
 
 LABEL_14:

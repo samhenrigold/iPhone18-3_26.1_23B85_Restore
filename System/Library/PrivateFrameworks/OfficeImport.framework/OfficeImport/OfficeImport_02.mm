@@ -1,4 +1,4 @@
-uint64_t documentPropertiesWrite(uint64_t a1)
+uint64_t documentPropertiesWrite(uint64_t *a1)
 {
   v14 = *MEMORY[0x277D85DE8];
   v12 = 0;
@@ -19,7 +19,7 @@ uint64_t documentPropertiesWrite(uint64_t a1)
   if (*TOC)
   {
     v12 = *TOC;
-    result = propertySetWrite(TOC[3], SSRW_FMTID_SummaryInformation, &v12);
+    result = propertySetWrite(TOC[3], &SSRW_FMTID_SummaryInformation, &v12);
     if (result)
     {
       return result;
@@ -334,11 +334,11 @@ uint64_t tocDestroy(uint64_t **a1)
   return 0;
 }
 
-void SsrwOOStorage::~SsrwOOStorage(SsrwOOStorage *this)
+void SsrwOOStorage::~SsrwOOStorage(SsrwOOStorage *this, uint64_t a2)
 {
   if (this->var0)
   {
-    closeStorage(this);
+    closeStorage(this, a2);
     this->var0 = 0;
   }
 }
@@ -455,7 +455,7 @@ void sub_25D2CB4C0(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void WrdBinaryReader::start(WrdBinaryReader *this, unsigned __int8 *a2)
+void WrdBinaryReader::start(WrdBinaryReader *this, unsigned __int8 *a2, unsigned int a3)
 {
   (*(*this + 24))(this);
   if (a2)
@@ -572,7 +572,7 @@ void WrdBinaryReader::finish(WrdBinaryReader *this)
 
 void WrdParser::WrdParser(WrdParser *this)
 {
-  v2 = TSURectWithOriginAndSize(this);
+  TSURectWithOriginAndSize();
   OcParser::OcParser(v2);
   *v3 = &unk_286ED6438;
   *(v3 + 8) = 0;
@@ -623,15 +623,15 @@ void WrdFileInformationBlockHeader::WrdFileInformationBlockHeader(WrdFileInforma
   *(this + 19) &= 0xFE00u;
 }
 
-void WrdParser::openInBuf(WrdParser *this, unsigned __int8 *a2, unsigned int a3)
+void WrdParser::openInBuf(const void **this, unsigned __int8 *a2, uint64_t a3)
 {
   if (a2)
   {
     WrdParser::createFactories(this);
-    *(this + 37) = a2;
+    this[37] = a2;
     *(this + 76) = a3;
-    *(this + 2) = 0;
-    SsrwOORootStorage::openInBuf((this + 24), this + 37, a3);
+    this[2] = 0;
+    SsrwOORootStorage::openInBuf(this + 3, this + 37, a3);
 
     WrdParser::initStreamsAndFibBase(this);
   }
@@ -691,14 +691,14 @@ void SsrwOOStorage::openStream(SsrwOOStorage *this, const char *__s)
   SsrwOOStorage::openStream(this, this->var1);
 }
 
-size_t SsrwOOStorage::getChildrenInfo(SsrwOOStorage *this, SsrwOOStgInfo **a2, int *a3)
+void SsrwOOStorage::getChildrenInfo(SsrwOOStorage *this, SsrwOOStgInfo **a2, int *a3)
 {
   v11 = 0;
   v10 = 0;
-  result = getChildrenInfo(this->var0, &v10, &v11);
-  if (result)
+  ChildrenInfo = getChildrenInfo(this->var0, &v10, &v11);
+  if (ChildrenInfo)
   {
-    v8 = result;
+    v8 = ChildrenInfo;
     exception = __cxa_allocate_exception(4uLL);
     *exception = v8;
   }
@@ -706,12 +706,11 @@ size_t SsrwOOStorage::getChildrenInfo(SsrwOOStorage *this, SsrwOOStgInfo **a2, i
   v6 = v11;
   if (v11 >= 1 && v10 != 0)
   {
-    operator new[](184 * v11 + 16);
+    operator new[](184 * v11 + 16, 0x1020C80285AA8CALL);
   }
 
   *a2 = 0;
   *a3 = v6;
-  return result;
 }
 
 void sub_25D2CC234(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **a9, int a10, unsigned int a11)
@@ -925,7 +924,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t WrdBinaryReader::readEncryptionInfo(uint64_t a1, uint64_t a2, _DWORD *a3, int *a4)
+uint64_t WrdBinaryReader::readEncryptionInfo(uint64_t a1, void *a2, int *a3, int *a4)
 {
   v4 = *(a1 + 32);
   if (!v4 || !*(v4 + 128))
@@ -988,7 +987,7 @@ void WrdFileInformationBlock::setCountOfShorts(WrdFileInformationBlock *this, un
   }
 
   *(this + 6) = 0;
-  operator new[](2 * a2);
+  operator new[](2 * a2, 0x1000C80BDFB0063);
 }
 
 uint64_t WrdFileInformationBlock::setValueFromShortArray(uint64_t this, unsigned int a2, __int16 a3)
@@ -1015,7 +1014,7 @@ void WrdFileInformationBlock::setCountOfLongs(WrdFileInformationBlock *this, uns
   }
 
   *(this + 8) = 0;
-  operator new[](4 * a2);
+  operator new[](4 * a2, 0x1000C8052888210);
 }
 
 uint64_t WrdFileInformationBlock::setValueFromLongArray(uint64_t this, unsigned int a2, int a3)
@@ -1043,7 +1042,7 @@ void WrdFileInformationBlock::setCountOfFCLCBs(WrdFileInformationBlock *this, un
   }
 
   *(this + 10) = 0;
-  operator new[](8 * a2);
+  operator new[](8 * a2, 0x1000C8000313F17);
 }
 
 uint64_t WrdFileInformationBlock::getFCLCB(WrdFileInformationBlock *this, unsigned int a2)
@@ -1159,7 +1158,7 @@ void WrdPieceTable::setCPCount(WrdPieceTable *this, unsigned int a2)
   }
 
   *(this + 1) = 0;
-  operator new[](4 * a2);
+  operator new[](4 * a2, 0x1000C8052888210);
 }
 
 uint64_t WrdFileInformationBlock::getNumberOfCharInText(uint64_t a1, __int16 a2)
@@ -1243,11 +1242,12 @@ void WrdParser::parse(WrdParser *a1, uint64_t a2, unsigned __int16 a3)
   }
 }
 
-void WrdBinTable::setNumberOfBTEs(WrdBinTable *this, unsigned int a2)
+void WrdBinTable::setNumberOfBTEs(WrdBinTable *this, uint64_t a2)
 {
+  v2 = a2;
   std::vector<unsigned int,ChAllocator<unsigned int>>::resize(this + 2, a2 + 1);
-  std::vector<unsigned int,ChAllocator<unsigned int>>::resize(this + 5, a2);
-  *(this + 2) = a2;
+  std::vector<unsigned int,ChAllocator<unsigned int>>::resize(this + 5, v2);
+  *(this + 2) = v2;
 }
 
 void WrdFormattedDiskPage::WrdFormattedDiskPage(WrdFormattedDiskPage *this)
@@ -1259,14 +1259,12 @@ void WrdFormattedDiskPage::WrdFormattedDiskPage(WrdFormattedDiskPage *this)
   *(this + 4) = 0;
 }
 
-uint64_t WrdFormattedDiskPage::init(uint64_t this)
+void WrdFormattedDiskPage::init(WrdFormattedDiskPage *this)
 {
-  if (!*(this + 16))
+  if (!*(this + 2))
   {
-    operator new[](512);
+    operator new[](512, 0x1000C8077774924);
   }
-
-  return this;
 }
 
 void WrdSectionDescriptorTable::WrdSectionDescriptorTable(WrdSectionDescriptorTable *this)
@@ -1278,7 +1276,7 @@ void WrdSectionDescriptorTable::WrdSectionDescriptorTable(WrdSectionDescriptorTa
   *(this + 7) = 0;
 }
 
-uint64_t WrdParser::parse(WrdParser *this, WrdSectionDescriptorTable *a2)
+WrdSectionDescriptor *WrdParser::parse(WrdParser *this, WrdSectionDescriptorTable *a2)
 {
   started = WrdParser::startFCLCB(this, 6u);
   if (started >> 34)
@@ -1315,13 +1313,13 @@ uint64_t WrdParser::parse(WrdParser *this, WrdSectionDescriptorTable *a2)
   return result;
 }
 
-uint64_t WrdSectionDescriptorTable::setNumberOfSections(WrdSectionDescriptorTable *this, unsigned int a2)
+WrdSectionDescriptor *WrdSectionDescriptorTable::setNumberOfSections(WrdSectionDescriptorTable *this, unsigned int a2)
 {
   result = WrdSectionDescriptorTable::cleanup(this);
   *(this + 4) = a2;
   if (a2)
   {
-    operator new[](4 * a2);
+    operator new[](4 * a2, 0x1000C8052888210);
   }
 
   return result;
@@ -1748,7 +1746,7 @@ void *WrdBookmarkTable::clear(void *this)
   return this;
 }
 
-uint64_t WrdParser::parse(WrdParser *a1, WrdNoteReferencePositionTable *a2, int a3)
+uint64_t WrdParser::parse(WrdParser *a1, WrdNoteReferencePositionTable *a2, uint64_t a3)
 {
   NoteReferencePositionFCLCBIndex = WrdFileInformationBlock::getNoteReferencePositionFCLCBIndex(a3);
   started = WrdParser::startFCLCB(a1, NoteReferencePositionFCLCBIndex);
@@ -1805,7 +1803,7 @@ uint64_t WrdNoteReferencePositionTable::setNumberOfNoteReferences(WrdNoteReferen
   *(this + 16) = a2;
   if (a2)
   {
-    operator new[](4 * a2);
+    operator new[](4 * a2, 0x1000C8052888210);
   }
 
   return result;
@@ -2020,7 +2018,7 @@ void *WrdAnnotationDateTimeTable::clear(void *this)
   return this;
 }
 
-uint64_t WrdParser::parse(WrdParser *this, WrdAnnotationReferenceDescriptorTable *a2)
+WrdAnnotationReferenceDescriptor *WrdParser::parse(WrdParser *this, WrdAnnotationReferenceDescriptorTable *a2)
 {
   started = WrdParser::startFCLCB(this, 4u);
   if (started >> 34)
@@ -2052,13 +2050,13 @@ uint64_t WrdParser::parse(WrdParser *this, WrdAnnotationReferenceDescriptorTable
   return result;
 }
 
-uint64_t WrdAnnotationReferenceDescriptorTable::setNumberOfAnnotationReferences(WrdAnnotationReferenceDescriptorTable *this, unsigned int a2)
+WrdAnnotationReferenceDescriptor *WrdAnnotationReferenceDescriptorTable::setNumberOfAnnotationReferences(WrdAnnotationReferenceDescriptorTable *this, unsigned int a2)
 {
   result = WrdAnnotationReferenceDescriptorTable::cleanup(this);
   *(this + 8) = a2;
   if (a2)
   {
-    operator new[](40 * a2 + 16);
+    operator new[](40 * a2 + 16, 0x1091C8016F80D2CLL);
   }
 
   return result;
@@ -2160,13 +2158,13 @@ unint64_t WrdBinaryReader::read(WrdBinaryReader *this, WrdStringTypedTable *a2)
   return WrdParser::parse(v3, v4, 0x24u);
 }
 
-unint64_t WrdParser::parse(WrdParser *a1, uint64_t a2, unsigned __int16 a3)
+unint64_t WrdParser::parse(WrdParser *a1, WrdStringTable *a2, unsigned __int16 a3)
 {
   result = WrdParser::startFCLCB(a1, a3);
   if (HIDWORD(result))
   {
     v5 = (*(**(a1 + 16) + 80))(*(a1 + 16));
-    operator new[]((2 * (v5 + 1)));
+    operator new[]((2 * (v5 + 1)), 0x1000C80BDFB0063);
   }
 
   return result;
@@ -2253,7 +2251,7 @@ void WrdBookmarkTable::WrdBookmarkTable(WrdBookmarkTable *this)
 
 void sub_25D2D32D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  (*(*v12 + 8))(v12);
+  (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   if (a11)
   {
     (*(*a11 + 8))(a11);
@@ -2279,98 +2277,92 @@ uint64_t WrdBookmarkFirstDescriptorTable::WrdBookmarkFirstDescriptorTable(uint64
   return result;
 }
 
-uint64_t WrdParser::parse(uint64_t a1, unsigned __int16 *a2, int a3)
+void WrdParser::parse(uint64_t a1, WrdStringWithDataTable *a2, int a3)
 {
   if (!(WrdParser::startFCLCB(a1, a3) >> 32) || *(a1 + 178) == 71 && a3 == 32 && *(a1 + 160) == 1031 && (*(a1 + 198) & 0x100) == 0)
   {
 
-    return WrdStringWithDataTable::setNumberOfStrings(a2, 0);
+    WrdStringWithDataTable::setNumberOfStrings(a2, 0);
   }
 
   else
   {
-    v7 = (*(**(a1 + 128) + 80))(*(a1 + 128));
-    v8 = v7;
-    v9 = v7;
-    if (v7 == 0xFFFF)
+    v6 = (*(**(a1 + 128) + 80))(*(a1 + 128));
+    v7 = v6;
+    v8 = v6;
+    if (v6 == 0xFFFF)
     {
-      v9 = (*(**(a1 + 128) + 80))(*(a1 + 128), v7);
+      v8 = (*(**(a1 + 128) + 80))(*(a1 + 128), v6);
     }
 
-    WrdStringWithDataTable::setNumberOfStrings(a2, v9);
-    result = (*(**(a1 + 128) + 80))(*(a1 + 128));
-    a2[5] = result;
-    if (a2[4])
+    WrdStringWithDataTable::setNumberOfStrings(a2, v8);
+    *(a2 + 5) = (*(**(a1 + 128) + 80))(*(a1 + 128));
+    if (*(a2 + 4))
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        StringDataReference = WrdStringWithDataTable::getStringDataReference(a2, v10);
-        v12 = (*(**(a1 + 128) + 80))(*(a1 + 128));
-        CsString::reserve((StringDataReference + 8), v12);
-        CsString::setCount((StringDataReference + 8), v12);
-        v13 = *(StringDataReference + 16);
-        if (!v13)
+        StringDataReference = WrdStringWithDataTable::getStringDataReference(a2, v9);
+        v11 = (*(**(a1 + 128) + 80))(*(a1 + 128));
+        CsString::reserve((StringDataReference + 8), v11);
+        CsString::setCount((StringDataReference + 8), v11);
+        v12 = *(StringDataReference + 16);
+        if (!v12)
         {
           exception = __cxa_allocate_exception(4uLL);
           *exception = 2001;
         }
 
-        if (v12)
+        if (v11)
         {
-          v14 = v12;
-          v15 = *(StringDataReference + 16);
+          v13 = v11;
+          v14 = *(StringDataReference + 16);
           do
           {
-            v16 = **(a1 + 128);
-            if (v8 == 0xFFFF)
+            v15 = **(a1 + 128);
+            if (v7 == 0xFFFF)
             {
-              v17 = (*(v16 + 80))();
+              v16 = (*(v15 + 80))();
             }
 
             else
             {
-              v17 = (*(v16 + 64))();
+              v16 = (*(v15 + 64))();
             }
 
-            *v15++ = v17;
-            --v14;
+            *v14++ = v16;
+            --v13;
           }
 
-          while (v14);
+          while (v13);
         }
 
-        if (v8 != 0xFFFF)
+        if (v7 != 0xFFFF)
         {
-          ChConvertANSICharactersToUnicode(v13, v12);
+          ChConvertANSICharactersToUnicode(v12, v11);
         }
 
-        result = a2[5];
-        if (a2[5])
+        if (*(a2 + 5))
         {
-          operator new[](result);
+          operator new[](*(a2 + 5), 0x1000C8077774924);
         }
 
-        ++v10;
+        ++v9;
       }
 
-      while (a2[4] > v10);
+      while (*(a2 + 4) > v9);
     }
   }
-
-  return result;
 }
 
-uint64_t WrdStringWithDataTable::setNumberOfStrings(WrdStringWithDataTable *this, unsigned int a2)
+void WrdStringWithDataTable::setNumberOfStrings(WrdStringWithDataTable *this, unsigned int a2)
 {
-  result = WrdStringWithDataTable::cleanup(this);
+  WrdStringWithDataTable::cleanup(this);
   *(this + 4) = a2;
   if (a2)
   {
-    operator new[](48 * a2 + 16);
+    operator new[](48 * a2 + 16, 0x1091C8072689AA3);
   }
-
-  return result;
 }
 
 void sub_25D2D381C(_Unwind_Exception *exception_object)
@@ -2470,7 +2462,7 @@ uint64_t WrdParser::parse(WrdParser *this, WrdBookmarkFirstDescriptorTable *a2)
   return result;
 }
 
-uint64_t WrdBookmarkFirstDescriptorTable::setNumberOfBookmarks(WrdBookmarkFirstDescriptorTable *this, unsigned int a2)
+WrdBookmarkFirstDescriptor *WrdBookmarkFirstDescriptorTable::setNumberOfBookmarks(WrdBookmarkFirstDescriptorTable *this, unsigned int a2)
 {
   result = *(this + 2);
   if (result)
@@ -2482,7 +2474,7 @@ uint64_t WrdBookmarkFirstDescriptorTable::setNumberOfBookmarks(WrdBookmarkFirstD
   *(this + 4) = a2;
   if (a2)
   {
-    operator new[](6 * a2);
+    operator new[](6 * a2, 0x1000C80274DC3F3);
   }
 
   return result;
@@ -2584,7 +2576,7 @@ uint64_t WrdBookmark::setExtraDataLength(WrdBookmark *this, unsigned int a2)
   *(this + 20) = a2;
   if (a2)
   {
-    operator new[](a2);
+    operator new[](a2, 0x1000C8077774924);
   }
 
   return result;
@@ -2721,7 +2713,7 @@ uint64_t WrdFileInformationBlock::getFieldPositionFCLCBIndex(int a1)
   }
 }
 
-WrdFieldDescriptor *WrdParser::parse(WrdParser *a1, uint64_t a2, int a3)
+WrdFieldDescriptor *WrdParser::parse(WrdParser *a1, WrdFieldDescriptor *a2, int a3)
 {
   FieldPositionFCLCBIndex = WrdFileInformationBlock::getFieldPositionFCLCBIndex(a3);
   started = WrdParser::startFCLCB(a1, FieldPositionFCLCBIndex);
@@ -2736,7 +2728,7 @@ WrdFieldDescriptor *WrdParser::parse(WrdParser *a1, uint64_t a2, int a3)
       v10 = 0;
       do
       {
-        result = WrdParser::parse(a1, (*(a2 + 16) + v10));
+        result = WrdParser::parse(a1, (*(a2 + 2) + v10));
         v10 += 24;
       }
 
@@ -2753,20 +2745,20 @@ WrdFieldDescriptor *WrdParser::parse(WrdParser *a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t WrdFieldDescriptorTable::setNumberOfFieldDescriptors(uint64_t this, unsigned int a2)
+WrdFieldDescriptor *WrdFieldDescriptorTable::setNumberOfFieldDescriptors(WrdFieldDescriptor *this, unsigned int a2)
 {
   v3 = this;
-  v4 = *(this + 16);
+  v4 = *(this + 2);
   if (v4)
   {
     this = MEMORY[0x25F896FE0](v4 - 16, 0x1081C807FDEFFD3);
   }
 
-  *(v3 + 16) = 0;
-  *(v3 + 8) = a2;
+  *(v3 + 2) = 0;
+  *(v3 + 4) = a2;
   if (a2)
   {
-    operator new[](24 * a2 + 16);
+    operator new[](24 * a2 + 16, 0x1081C807FDEFFD3);
   }
 
   return this;
@@ -2926,7 +2918,7 @@ uint64_t WrdFileInformationBlock::getTextBoxStoryFCLCBIndex(int a1)
   }
 }
 
-uint64_t WrdParser::parse(WrdParser *a1, WrdTextBoxStoryTable *a2, int a3)
+WrdTextBoxStory *WrdParser::parse(WrdParser *a1, WrdTextBoxStoryTable *a2, int a3)
 {
   TextBoxStoryFCLCBIndex = WrdFileInformationBlock::getTextBoxStoryFCLCBIndex(a3);
   started = WrdParser::startFCLCB(a1, TextBoxStoryFCLCBIndex);
@@ -2958,7 +2950,7 @@ uint64_t WrdParser::parse(WrdParser *a1, WrdTextBoxStoryTable *a2, int a3)
   return result;
 }
 
-uint64_t WrdTextBoxStoryTable::setNumberOfTextBoxStories(WrdTextBoxStoryTable *this, unsigned int a2)
+WrdTextBoxStory *WrdTextBoxStoryTable::setNumberOfTextBoxStories(WrdTextBoxStoryTable *this, unsigned int a2)
 {
   result = *(this + 2);
   if (result)
@@ -2970,7 +2962,7 @@ uint64_t WrdTextBoxStoryTable::setNumberOfTextBoxStories(WrdTextBoxStoryTable *t
   *(this + 4) = a2;
   if (a2)
   {
-    operator new[](20 * a2);
+    operator new[](20 * a2, 0x1000C80C46099A0);
   }
 
   return result;
@@ -3012,7 +3004,7 @@ void WrdFileShapeAddressTable::WrdFileShapeAddressTable(WrdFileShapeAddressTable
   *(this + 2) = 0;
 }
 
-void WrdBinaryReader::read(WrdBinaryReader *this, WrdFileShapeAddressTable *a2)
+void WrdBinaryReader::read(WrdParser **this, WrdFileShapeAddressTable *a2)
 {
   if ((*(a2 + 2) | 2) == 2)
   {
@@ -3143,12 +3135,12 @@ WrdFontFamilyName *WrdFontFamilyName::init(WrdFontFamilyName *this)
 {
   if (!this->var4)
   {
-    operator new[](10);
+    operator new[](10, 0x1000C8077774924);
   }
 
   if (!this->var5)
   {
-    operator new[](24);
+    operator new[](24, 0x1000C8077774924);
   }
 
   return this;
@@ -3384,29 +3376,29 @@ double WrdDocumentProperties::simpleDefaults(WrdDocumentProperties *this)
   return result;
 }
 
-unint64_t WrdParser::parse(WrdParser *this, WrdDocumentProperties *a2)
+unint64_t WrdParser::parse(SsrwOOStream **this, WrdDocumentProperties *a2)
 {
   started = WrdParser::startFCLCB(this, 0x1Fu);
   v5 = started;
   v6 = HIDWORD(started);
   WrdDocumentProperties::setDefaultBasedOnVersion(a2, *(this + 38), *(this + 186) >> 7);
-  v7 = (*(**(this + 16) + 72))(*(this + 16));
+  v7 = (*(this[16]->var0 + 9))(this[16]);
   *(a2 + 148) = *(a2 + 148) & 0xFFFFFFFFFFFFFFF8 | v7 & 1 | v7 & 2 | v7 & 4;
   a2->var8 = (v7 >> 5) & 3;
-  v8 = (*(**(this + 16) + 72))(*(this + 16));
+  v8 = (*(this[16]->var0 + 9))(this[16]);
   a2->var9 = v8 & 3;
   a2->var33 = v8 >> 2;
-  v9 = (*(**(this + 16) + 72))(*(this + 16));
+  v9 = (*(this[16]->var0 + 9))(this[16]);
   *(a2 + 156) = *(a2 + 156) & 0xFFFFFFFE1FFFFFFFLL | ((v9 & 1) << 29) | (((v9 >> 1) & 1) << 30) | (((v9 >> 8) & 1) << 31) | (((v9 >> 9) & 1) << 32);
   *(a2 + 148) = *(a2 + 148) & 0xFFFFFFFFFFFFFE07 | (v9 >> 7) & 0x1F8;
-  v10 = (*(**(this + 16) + 72))(*(this + 16));
+  v10 = (*(this[16]->var0 + 9))(this[16]);
   *(a2 + 148) = (*(a2 + 148) & 0xFFFFFFFFFF8001FFLL | (v10 << 9) & 0x200 | (v10 << 9) & 0xC00 | (v10 << 9) & 0x7000 | (v10 << 8) & 0x8000 | ((v10 >> 14) << 21) & 0xFFFFFFFFFFBFFFFFLL | (((v10 >> 8) & 1) << 16) | (((v10 >> 9) & 1) << 17) | (((v10 >> 10) & 1) << 18) | (((v10 >> 11) & 1) << 19) | (((v10 >> 12) & 1) << 20)) + (((v10 >> 15) & 1) << 22);
   if (*(this + 92) < 0x67u)
   {
     goto LABEL_6;
   }
 
-  v11 = (*(**(this + 16) + 72))(*(this + 16));
+  v11 = (*(this[16]->var0 + 9))(this[16]);
   if (*(this + 38) <= 7)
   {
     v12 = vdup_n_s32(v11);
@@ -3438,41 +3430,41 @@ LABEL_6:
 
   else
   {
-    a2->var30 = (*(**(this + 16) + 80))(*(this + 16));
-    (*(**(this + 16) + 80))(*(this + 16));
-    a2->var31 = (*(**(this + 16) + 80))(*(this + 16));
-    a2->var32 = (*(**(this + 16) + 80))(*(this + 16));
-    (*(**(this + 16) + 80))(*(this + 16));
-    WrdBaseParser::parseStream(this, a2->var5, *(this + 16));
-    WrdBaseParser::parseStream(this, a2->var6, *(this + 16));
-    WrdBaseParser::parseStream(this, a2->var7, *(this + 16));
-    a2->var169 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var156 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var157 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var158 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var170 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var159 = (*(**(this + 16) + 96))(*(this + 16));
-    v22 = (*(**(this + 16) + 72))(*(this + 16));
+    a2->var30 = (*(this[16]->var0 + 10))(this[16]);
+    (*(this[16]->var0 + 10))(this[16]);
+    a2->var31 = (*(this[16]->var0 + 10))(this[16]);
+    a2->var32 = (*(this[16]->var0 + 10))(this[16]);
+    (*(this[16]->var0 + 10))(this[16]);
+    WrdBaseParser::parseStream(this, a2->var5, this[16]);
+    WrdBaseParser::parseStream(this, a2->var6, this[16]);
+    WrdBaseParser::parseStream(this, a2->var7, this[16]);
+    a2->var169 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var156 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var157 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var158 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var170 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var159 = (*(this[16]->var0 + 12))(this[16]);
+    v22 = (*(this[16]->var0 + 9))(this[16]);
     a2->var10 = v22 & 3;
     a2->var1 = v22 >> 2;
-    v23 = (*(**(this + 16) + 72))(*(this + 16));
+    v23 = (*(this[16]->var0 + 9))(this[16]);
     a2->var11 = v23 & 3;
     *&a2->var12 = vand_s8(vshl_u32(vdup_n_s32(v23), 0xFFFFFFFAFFFFFFFELL), 0xF0000000FLL);
     *(a2 + 148) = *(a2 + 148) & 0xFFFFFFFFF87FFFFFLL | (((v23 >> 10) & 1) << 23) | (((v23 >> 11) & 1) << 24) | (((v23 >> 12) & 1) << 25) | v23 & 0x4000000;
-    a2->var160 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var161 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var162 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var171 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var163 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var164 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var23 = (*(**(this + 16) + 96))(*(this + 16));
-    v24 = (*(**(this + 16) + 72))(*(this + 16));
+    a2->var160 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var161 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var162 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var171 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var163 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var164 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var23 = (*(this[16]->var0 + 12))(this[16]);
+    v24 = (*(this[16]->var0 + 9))(this[16]);
     a2->var26 = (v24 >> 3) & 0x1FF;
     a2->var14 = v24 & 7;
     a2->var15 = (v24 >> 12) & 3;
     *(a2 + 148) = *(a2 + 148) & 0xFFFFFFFF7FFFFFFFLL | (((v24 & 0x4000) != 0) << 31);
     a2->var17 = (v24 >> 15) & 1;
-    v25 = (*(**(this + 16) + 104))(*(this + 16));
+    v25 = (*(this[16]->var0 + 13))(this[16]);
   }
 
   v26 = *(this + 38);
@@ -3887,45 +3879,45 @@ LABEL_137:
   }
 
 LABEL_41:
-  if ((*(**(this + 16) + 40))(*(this + 16)) - v5 < v6)
+  if ((*(this[16]->var0 + 5))(this[16]) - v5 < v6)
   {
-    a2->var16 = (*(**(this + 16) + 72))(*(this + 16));
+    a2->var16 = (*(this[16]->var0 + 9))(this[16]);
     WrdParser::parse(this, a2->var2);
     WrdParser::parse(this, a2->var3);
-    v27 = (*(**(this + 16) + 72))(*(this + 16));
+    v27 = (*(this[16]->var0 + 9))(this[16]);
     a2->var18 = (v27 >> 1) & 0xF;
     *(a2 + 156) = ((v27 >> 14 << 25) | (((v27 >> 13) & 1) << 24)) & 0xFBFFFFFF | *(a2 + 156) & 0xFFFFFFF9F80FFFFFLL | (((v27 >> 5) & 1) << 33) | (((v27 >> 6) & 1) << 34) | (((v27 >> 7) & 1) << 20) & 0xFFFFFFFFFBFFFFFFLL | (((v27 >> 9) & 1) << 21) & 0xFFFFFFFFFBFFFFFFLL | (((v27 >> 11) & 1) << 22) & 0xFFFFFFFFFBFFFFFFLL | (((v27 >> 12) & 1) << 23) & 0xFFFFFFFFFBFFFFFFLL | v27 & 0x4000000;
-    v28 = (*(**(this + 16) + 72))(*(this + 16));
+    v28 = (*(this[16]->var0 + 9))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFFFFFFFFE7FFFFFFLL | ((v28 & 1) << 27) | (((v28 >> 1) & 1) << 28);
     WrdParser::parse(this, a2->var4);
-    a2->var165 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var166 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var22 = (*(**(this + 16) + 96))(*(this + 16));
-    v29 = (*(**(this + 16) + 96))(*(this + 16));
+    a2->var165 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var166 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var22 = (*(this[16]->var0 + 12))(this[16]);
+    v29 = (*(this[16]->var0 + 12))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFFFFFFE7FFFFFFFFLL | ((v29 & 1) << 35) | (((v29 >> 1) & 1) << 36);
-    (*(**(this + 16) + 16))(*(this + 16), 30, 1);
-    (*(**(this + 16) + 16))(*(this + 16), 8, 1);
-    a2->var167 = (*(**(this + 16) + 96))(*(this + 16));
-    a2->var168 = (*(**(this + 16) + 96))(*(this + 16));
-    (*(**(this + 16) + 16))(*(this + 16), 4, 1);
-    a2->var12 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var13 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var24 = (*(**(this + 16) + 72))(*(this + 16));
-    a2->var25 = (*(**(this + 16) + 72))(*(this + 16));
+    (*(this[16]->var0 + 2))(this[16], 30, 1);
+    (*(this[16]->var0 + 2))(this[16], 8, 1);
+    a2->var167 = (*(this[16]->var0 + 12))(this[16]);
+    a2->var168 = (*(this[16]->var0 + 12))(this[16]);
+    (*(this[16]->var0 + 2))(this[16], 4, 1);
+    a2->var12 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var13 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var24 = (*(this[16]->var0 + 9))(this[16]);
+    a2->var25 = (*(this[16]->var0 + 9))(this[16]);
   }
 
-  if ((*(**(this + 16) + 40))(*(this + 16)) - v5 < v6)
+  if ((*(this[16]->var0 + 5))(this[16]) - v5 < v6)
   {
-    (*(**(this + 16) + 16))(*(this + 16), 2, 1);
-    a2->var27 = (*(**(this + 16) + 80))(*(this + 16));
-    v30 = (*(**(this + 16) + 80))(*(this + 16));
+    (*(this[16]->var0 + 2))(this[16], 2, 1);
+    a2->var27 = (*(this[16]->var0 + 10))(this[16]);
+    v30 = (*(this[16]->var0 + 10))(this[16]);
     *(a2 + 148) = ((((v30 >> 9) & 1) << 32) | (((v30 >> 10) & 1) << 33) | *(a2 + 148) & 0xFFFFFFF887FFFFFFLL | ((v30 & 1) << 27) | (((v30 >> 1) & 1) << 28) | (((v30 >> 2) & 1) << 29) | (((v30 >> 3) & 1) << 30)) + (((v30 >> 11) & 1) << 34);
     a2->var174 = v30 >> 12;
-    v31 = (*(**(this + 16) + 80))(*(this + 16));
+    v31 = (*(this[16]->var0 + 10))(this[16]);
     v32 = *(a2 + 148) & 0xFFFFFE07FFFFFFFFLL | ((v31 & 1) << 35) | (((v31 >> 1) & 1) << 36);
     a2->var29 = (v31 >> 2) & 0x3FF;
     *(a2 + 148) = v32 | (((v31 >> 12) & 1) << 37) | (((v31 >> 13) & 1) << 38) | (v31 << 25) & 0x8000000000 | ((v31 >> 15) << 40);
-    v33 = (*(**(this + 16) + 104))(*(this + 16));
+    v33 = (*(this[16]->var0 + 13))(this[16]);
     if (v33)
     {
       *(a2 + 148) |= 0x20000000000uLL;
@@ -4322,7 +4314,7 @@ LABEL_75:
 LABEL_170:
       *(a2 + 156) |= 0x100uLL;
 LABEL_76:
-      v34 = (*(**(this + 16) + 104))(*(this + 16));
+      v34 = (*(this[16]->var0 + 13))(this[16]);
       if (v34)
       {
         *(a2 + 156) |= 0x200uLL;
@@ -4506,8 +4498,8 @@ LABEL_91:
         if ((v34 & 0x8000) == 0)
         {
 LABEL_93:
-          (*(**(this + 16) + 16))(*(this + 16), 24, 1);
-          v35 = (*(**(this + 16) + 104))(*(this + 16));
+          (*(this[16]->var0 + 2))(this[16], 24, 1);
+          v35 = (*(this[16]->var0 + 13))(this[16]);
           a2->var28 = v35;
           *(a2 + 156) = *(a2 + 156) & 0xFFBFBFFFFFFFFFFFLL | ((HIWORD(v35) & 1) << 46) | (((v35 >> 23) & 1) << 54);
           goto LABEL_94;
@@ -4539,30 +4531,30 @@ LABEL_169:
   }
 
 LABEL_94:
-  if ((*(**(this + 16) + 40))(*(this + 16)) - v5 < v6)
+  if ((*(this[16]->var0 + 5))(this[16]) - v5 < v6)
   {
-    (*(**(this + 16) + 16))(*(this + 16), 4, 1);
-    v36 = (*(**(this + 16) + 64))(*(this + 16));
+    (*(this[16]->var0 + 2))(this[16], 4, 1);
+    v36 = (*(this[16]->var0 + 8))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFFCFFFFFFFFFFFFFLL | (((v36 >> 6) & 1) << 52) | ((v36 >> 7) << 53);
-    v37 = (*(**(this + 16) + 64))(*(this + 16));
+    v37 = (*(this[16]->var0 + 8))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFFFFFE1FFFFFFFFFLL | (((v37 >> 4) & 1) << 37) & 0xFFFFFF7FFFFFFFFFLL | (((v37 >> 5) & 1) << 38) & 0xFFFFFF7FFFFFFFFFLL | (((v37 >> 6) & 1) << 39) | ((v37 >> 7) << 40);
-    (*(**(this + 16) + 16))(*(this + 16), 4, 1);
-    a2->var20 = (*(**(this + 16) + 64))(*(this + 16));
-    v38 = (*(**(this + 16) + 64))(*(this + 16));
+    (*(this[16]->var0 + 2))(this[16], 4, 1);
+    a2->var20 = (*(this[16]->var0 + 8))(this[16]);
+    v38 = (*(this[16]->var0 + 8))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFFFFC1FFFFFFFFFFLL | ((v38 & 1) << 43) | (((v38 >> 1) & 1) << 44) | (((v38 >> 2) & 1) << 45) | (((v38 >> 4) & 1) << 42) | (((v38 >> 5) & 1) << 41);
-    a2->var19 = (*(**(this + 16) + 80))(*(this + 16));
-    (*(**(this + 16) + 16))(*(this + 16), 36, 1);
+    a2->var19 = (*(this[16]->var0 + 10))(this[16]);
+    (*(this[16]->var0 + 2))(this[16], 36, 1);
   }
 
-  result = (*(**(this + 16) + 40))(*(this + 16));
+  result = (*(this[16]->var0 + 5))(this[16]);
   if (result - v5 < v6)
   {
-    v40 = (*(**(this + 16) + 64))(*(this + 16));
+    v40 = (*(this[16]->var0 + 8))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFE7FFFFFFFFFFFFFLL | (((v40 >> 1) & 1) << 55) | (((v40 >> 2) & 1) << 56);
-    (*(**(this + 16) + 64))(*(this + 16));
-    (*(**(this + 16) + 64))(*(this + 16));
-    (*(**(this + 16) + 64))(*(this + 16));
-    result = (*(**(this + 16) + 64))(*(this + 16));
+    (*(this[16]->var0 + 8))(this[16]);
+    (*(this[16]->var0 + 8))(this[16]);
+    (*(this[16]->var0 + 8))(this[16]);
+    result = (*(this[16]->var0 + 8))(this[16]);
     *(a2 + 156) = *(a2 + 156) & 0xFDFFFFFFFFFFFFFFLL | (((result & 8) != 0) << 57);
     a2->var21 = result >> 4;
   }
@@ -4577,7 +4569,7 @@ LABEL_94:
     result = WrdParser::startFCLCB(this, 0xB5u) >> 32;
     if (result)
     {
-      operator new[](result);
+      operator new[](result, 0x1000C8077774924);
     }
 
     if (*(this + 116) >= 0xB6u)
@@ -4585,7 +4577,7 @@ LABEL_94:
       result = WrdParser::startFCLCB(this, 0xB6u) >> 32;
       if (result)
       {
-        operator new[](result);
+        operator new[](result, 0x1000C8077774924);
       }
     }
   }
@@ -5049,19 +5041,17 @@ void WrdNumberRevisionMarkData::WrdNumberRevisionMarkData(WrdNumberRevisionMarkD
   *(this + 5) = 0;
 }
 
-void *WrdNumberRevisionMarkData::init(void *this)
+void WrdNumberRevisionMarkData::init(WrdNumberRevisionMarkData *this)
 {
-  if (!this[4])
+  if (!*(this + 4))
   {
     operator new();
   }
 
-  if (!this[6] && !this[7] && !this[5])
+  if (!*(this + 6) && !*(this + 7) && !*(this + 5))
   {
-    operator new[](36);
+    operator new[](36, 0x1000C8052888210);
   }
-
-  return this;
 }
 
 uint64_t WrdParagraphProperties::reset(WrdParagraphProperties *this)
@@ -5200,19 +5190,19 @@ uint64_t WrdParagraphProperties::init(WrdParagraphProperties *this)
 
   if (!*(this + 25))
   {
-    operator new[](128);
+    operator new[](128, 0x1000C80BDFB0063);
   }
 
   result = *(this + 26);
   if (!result)
   {
-    operator new[](128);
+    operator new[](128, 0x1000C80BDFB0063);
   }
 
   v6 = *(this + 27);
   if (!v6)
   {
-    operator new[](128);
+    operator new[](128, 0x1000C80BDFB0063);
   }
 
   v7 = 0;
@@ -5462,9 +5452,9 @@ void WrdStyleSheet::WrdStyleSheet(WrdStyleSheet *this, WrdStyle *a2)
   *(this + 180) = 0;
 }
 
-WrdStyleSheet *WrdBinaryReader::read(WrdBinaryReader *this, WrdStyleSheet *a2)
+WrdStyleSheet *WrdBinaryReader::read(WrdParser **this, WrdStyleSheet *a2)
 {
-  v2 = *(this + 25);
+  v2 = this[25];
   if (v2)
   {
     return WrdStyleSheet::operator=(a2, v2);
@@ -5472,7 +5462,7 @@ WrdStyleSheet *WrdBinaryReader::read(WrdBinaryReader *this, WrdStyleSheet *a2)
 
   else
   {
-    return WrdParser::parse(*(this + 4), a2);
+    return WrdParser::parse(this[4], a2);
   }
 }
 
@@ -5536,8 +5526,9 @@ uint64_t WrdParser::parse(WrdParser *this, WrdStyleSheet *a2)
   return result;
 }
 
-void WrdStyleSheet::setNumberOfStyles(WrdStyleSheet *this, unsigned int a2)
+void WrdStyleSheet::setNumberOfStyles(WrdStyleSheet *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = (this + 24);
   v5 = *(this + 4) - *(this + 3);
   if ((v5 & 0x7FFFFFFF8) != 0)
@@ -5560,8 +5551,8 @@ void WrdStyleSheet::setNumberOfStyles(WrdStyleSheet *this, unsigned int a2)
     while (v7 != v6);
   }
 
-  std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::resize(v4, a2);
-  if (a2)
+  std::vector<WrdStyle *,ChAllocator<WrdStyle *>>::resize(v4, v2);
+  if (v2)
   {
     v10 = 0;
     do
@@ -5570,9 +5561,9 @@ void WrdStyleSheet::setNumberOfStyles(WrdStyleSheet *this, unsigned int a2)
       v10 += 8;
     }
 
-    while (8 * a2 != v10);
+    while (8 * v2 != v10);
     v11 = 0;
-    v12 = 8 * a2;
+    v12 = 8 * v2;
     do
     {
       *(*(this + 3) + v11) = (*(**(this + 2) + 16))(*(this + 2));
@@ -5664,7 +5655,7 @@ void WrdParagraphProperties::clone(WrdParagraphProperties *this)
 
 void sub_25D2DB4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
-  MEMORY[0x25F897000](v24, 0x10B1C40EF2C5ADDLL);
+  MEMORY[0x25F897000](v24, 0x10B1C40EF2C5ADDLL, a3, a4, a5, a6, a7, a8);
   if (v23)
   {
     (*(*v23 + 8))(v23);
@@ -6485,7 +6476,7 @@ LABEL_7:
     v15 = (*(*v11[5] + 24))(v11[5]);
     v35 = v4;
     v36 = &v35;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v35)[5] = v15;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 80, &v35, &std::piecewise_construct, &v36)[5] = v15;
 LABEL_17:
     v16 = *v6;
     if (!*v6)
@@ -6541,7 +6532,7 @@ LABEL_22:
     v22 = (*(*v19[5] + 24))(v19[5]);
     v35 = v4;
     v36 = &v35;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v35)[5] = v22;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v35, &std::piecewise_construct, &v36)[5] = v22;
 LABEL_32:
     v23 = *v7;
     if (!*v7)
@@ -6599,7 +6590,7 @@ LABEL_49:
     v29 = (*(*v26[5] + 24))(v26[5]);
     v35 = v4;
     v36 = &v35;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v35)[5] = v29;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v35, &std::piecewise_construct, &v36)[5] = v29;
 LABEL_47:
     ++v4;
   }
@@ -6655,7 +6646,7 @@ LABEL_6:
 
     v21 = v2;
     v22 = &v21;
-    v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 80, &v21)[5];
+    v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 80, &v21, &std::piecewise_construct, &v22)[5];
     if (v8)
     {
       (*(*v8 + 8))(v8);
@@ -6663,7 +6654,7 @@ LABEL_6:
 
     v21 = v2;
     v22 = &v21;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 80, &v21)[5] = 0;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 80, &v21, &std::piecewise_construct, &v22)[5] = 0;
 LABEL_11:
     for (i = *v4; i; i = *i)
     {
@@ -6674,7 +6665,7 @@ LABEL_11:
         {
           v21 = v2;
           v22 = &v21;
-          v11 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 104, &v21)[5];
+          v11 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 104, &v21, &std::piecewise_construct, &v22)[5];
           if (v11)
           {
             (*(*v11 + 8))(v11);
@@ -6682,7 +6673,7 @@ LABEL_11:
 
           v21 = v2;
           v22 = &v21;
-          std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 104, &v21)[5] = 0;
+          std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 104, &v21, &std::piecewise_construct, &v22)[5] = 0;
           break;
         }
 
@@ -6722,7 +6713,7 @@ LABEL_24:
 
     v21 = v2;
     v22 = &v21;
-    v14 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 128, &v21)[5];
+    v14 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 128, &v21, &std::piecewise_construct, &v22)[5];
     if (v14)
     {
       (*(*v14 + 8))(v14);
@@ -6730,7 +6721,7 @@ LABEL_24:
 
     v21 = v2;
     v22 = &v21;
-    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 128, &v21)[5] = 0;
+    std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 128, &v21, &std::piecewise_construct, &v22)[5] = 0;
 LABEL_29:
     ++v2;
   }
@@ -7295,7 +7286,7 @@ uint64_t WrdParser::parse(WrdParser *this, WrdStyle *a2, unsigned int a3)
     v13 = v8 - v12;
     if (v13 < 0xFFFFFFFE)
     {
-      operator new[](v13 + 2);
+      operator new[](v13 + 2, 0x1000C8077774924);
     }
 
 LABEL_11:
@@ -7307,7 +7298,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t WrdParser::parseUPX(WrdParser *this, WrdStyle *a2, unsigned __int16 *a3, unsigned __int16 *a4, int a5, unsigned __int16 *a6)
+uint64_t WrdParser::parseUPX(WrdParser *this, WrdStyle *a2, char *a3, char *a4, int a5, unsigned __int16 *a6)
 {
   if (!a3 || a3 >= a4 || a4 - a3 <= 1)
   {
@@ -7323,7 +7314,7 @@ uint64_t WrdParser::parseUPX(WrdParser *this, WrdStyle *a2, unsigned __int16 *a3
       goto LABEL_8;
     }
 
-    if (a4 - (a3 + 1) > 1)
+    if (a4 - (a3 + 2) > 1)
     {
       ResolvedParaPropsReference = WrdStyle::getResolvedParaPropsReference(a2);
       UInt16 = CsLeReadUInt16(a3 + 1);
@@ -7410,9 +7401,9 @@ LABEL_12:
   return result;
 }
 
-WrdBaseParser *WrdChpParser::applySprm(WrdBaseParser *result, WrdStyle *this, uint64_t a3, unsigned __int16 *a4, unsigned __int16 *a5, _WORD *a6)
+WrdBaseParser *WrdChpParser::applySprm(WrdBaseParser *result, WrdStyle *this, uint64_t a3, unsigned __int16 *a4, unsigned __int8 *a5, _WORD *a6, uint64_t a7)
 {
-  v11 = result;
+  v12 = result;
   if (*(a3 + 8) == 51845)
   {
     if (*(this + 38) == 3)
@@ -7438,10 +7429,10 @@ WrdBaseParser *WrdChpParser::applySprm(WrdBaseParser *result, WrdStyle *this, ui
   else
   {
     ResolvedCharProps = WrdStyle::getResolvedCharProps(this);
-    WrdChpParser::applySprm(v11, ResolvedCharProps, 0, a3, a4, a5, a6);
-    v14 = WrdStyle::getResolvedCharProps(this);
+    WrdChpParser::applySprm(v12, ResolvedCharProps, 0, a3, a4, a5, a6);
+    v15 = WrdStyle::getResolvedCharProps(this);
 
-    return WrdCharacterProperties::clearAllRevisionAttributes(v14);
+    return WrdCharacterProperties::clearAllRevisionAttributes(v15);
   }
 
   return result;
@@ -7458,14 +7449,14 @@ uint64_t WrdStyle::getResolvedCharProps(WrdStyle *this)
   return *(this + v1);
 }
 
-void WrdChpParser::applySprm(WrdBaseParser *a1, uint64_t a2, WrdCharacterProperties *a3, uint64_t a4, unsigned __int8 *a5, unsigned __int16 *a6, _WORD *a7)
+void WrdChpParser::applySprm(WrdBaseParser *a1, uint64_t a2, WrdCharacterProperties *a3, uint64_t a4, unsigned __int8 *a5, unsigned __int8 *a6, _WORD *a7)
 {
   if (*a4 != 2)
   {
     exception = __cxa_allocate_exception(4uLL);
-    v117 = 2002;
+    v119 = 2002;
 LABEL_533:
-    *exception = v117;
+    *exception = v119;
   }
 
   if (!a5)
@@ -7473,9 +7464,10 @@ LABEL_533:
     goto LABEL_531;
   }
 
-  *a7 = WrdProperty::getSizeOfSPRMParameter(a4);
-  v13 = *(a4 + 8);
-  if (v13 > 0x484D)
+  SizeOfSPRMParameter = WrdProperty::getSizeOfSPRMParameter(a4);
+  *a7 = SizeOfSPRMParameter;
+  v15 = *(a4 + 8);
+  if (v15 > 0x484D)
   {
     if (*(a4 + 8) > 0x6864u)
     {
@@ -7485,7 +7477,7 @@ LABEL_533:
         {
           if (*(a4 + 8) <= 0x6886u)
           {
-            if (v13 == 26725)
+            if (v15 == 26725)
             {
               BorderReference = WrdCharacterProperties::getBorderReference(a2);
 
@@ -7494,14 +7486,14 @@ LABEL_533:
 
             else
             {
-              if (v13 == 26736)
+              if (v15 == 26736)
               {
                 ColorReference = WrdCharacterProperties::getColorReference(a2);
               }
 
               else
               {
-                if (v13 != 26743)
+                if (v15 != 26743)
                 {
                   return;
                 }
@@ -7515,7 +7507,7 @@ LABEL_533:
             return;
           }
 
-          if (v13 == 26759)
+          if (v15 == 26759)
           {
             if (a6 <= a5 || (a6 - a5) <= 3)
             {
@@ -7528,9 +7520,9 @@ LABEL_533:
             return;
           }
 
-          if (v13 != 27139)
+          if (v15 != 27139)
           {
-            if (v13 != 27145)
+            if (v15 != 27145)
             {
               return;
             }
@@ -7542,9 +7534,9 @@ LABEL_533:
 
             UInt16 = CsLeReadUInt16(a5);
             WrdCharacterProperties::setFontIndexForSymbol(a2, UInt16);
-            v37 = CsLeReadUInt16(a5 + 1);
+            v39 = CsLeReadUInt16(a5 + 1);
 
-            WrdCharacterProperties::setSymbolCharacter(a2, v37);
+            WrdCharacterProperties::setSymbolCharacter(a2, v39);
             return;
           }
 
@@ -7553,23 +7545,23 @@ LABEL_533:
             goto LABEL_531;
           }
 
-          v107 = CsLeReadSInt32(a5);
-          WrdCharacterProperties::setOffsetToPictureData(a2, v107);
-          WrdCharacterProperties::setOffsetToFormFieldData(a2, v107);
-          WrdCharacterProperties::setObjectIDForOLE2(a2, v107);
-          WrdCharacterProperties::setOffsetToOLEObjectData(a2, v107);
-          v71 = a2;
-          v70 = 1;
+          v109 = CsLeReadSInt32(a5);
+          WrdCharacterProperties::setOffsetToPictureData(a2, v109);
+          WrdCharacterProperties::setOffsetToFormFieldData(a2, v109);
+          WrdCharacterProperties::setObjectIDForOLE2(a2, v109);
+          WrdCharacterProperties::setOffsetToOLEObjectData(a2, v109);
+          v73 = a2;
+          v72 = 1;
           goto LABEL_480;
         }
 
         if (*(a4 + 8) <= 0xCA30u)
         {
-          switch(v13)
+          switch(v15)
           {
             case 0x6A12u:
-              v25 = "Unimplemented sprm code 0x6A12\n";
-              v26 = 911;
+              v27 = "Unimplemented sprm code 0x6A12\n";
+              v28 = 911;
               break;
             case 0x8840u:
               if (a6 <= a5 || (a6 - a5) <= 1)
@@ -7577,13 +7569,13 @@ LABEL_533:
                 goto LABEL_531;
               }
 
-              v102 = CsLeReadUInt16(a5);
+              v104 = CsLeReadUInt16(a5);
 
-              WrdCharacterProperties::setSpaceAfterEachChar(a2, v102);
+              WrdCharacterProperties::setSpaceAfterEachChar(a2, v104);
               return;
             case 0xCA13u:
-              v25 = "Unimplemented sprm code 0xCA13 relating to threading authors\n";
-              v26 = 923;
+              v27 = "Unimplemented sprm code 0xCA13 relating to threading authors\n";
+              v28 = 923;
               break;
             default:
               return;
@@ -7592,7 +7584,7 @@ LABEL_533:
           goto LABEL_524;
         }
 
-        if (v13 == 51761)
+        if (v15 == 51761)
         {
           if (*(a4 + 13) < 7u)
           {
@@ -7604,31 +7596,31 @@ LABEL_533:
             goto LABEL_531;
           }
 
-          v77 = (a5 + 2);
-          v78 = CsLeReadUInt16(v77);
-          v79 = CsLeReadUInt16(v77);
-          v80 = *(a2 + 332);
-          if (v80 <= v78 || v80 > v79)
+          v79 = (a5 + 2);
+          v80 = CsLeReadUInt16(v79);
+          v81 = CsLeReadUInt16(v79);
+          v82 = *(a2 + 332);
+          if (v82 <= v80 || v82 > v81)
           {
             return;
           }
 
-          v81 = &v77[v80 - v78];
-          if (a6 <= v81 || (a6 - v81) <= 1)
+          v83 = &v79[v82 - v80];
+          if (a6 <= v83 || (a6 - v83) <= 1)
           {
             goto LABEL_531;
           }
 
-          v82 = CsLeReadUInt16(v81);
-          WrdCharacterProperties::setStyleIndex(a2, v82);
-          v25 = "Need to apply CHPXs in rgstd entries.";
-          v26 = 274;
+          v84 = CsLeReadUInt16(v83);
+          WrdCharacterProperties::setStyleIndex(a2, v84);
+          v27 = "Need to apply CHPXs in rgstd entries.";
+          v28 = 274;
           goto LABEL_524;
         }
 
-        if (v13 != 51783)
+        if (v15 != 51783)
         {
-          if (v13 != 51785)
+          if (v15 != 51785)
           {
             return;
           }
@@ -7643,40 +7635,40 @@ LABEL_533:
 
 LABEL_254:
 
-        WrdChpParser::applyCMajoritySPRM(a1, a2, a3, a5, a6);
+        WrdChpParser::applyCMajoritySPRM(a1, a2, a3, a5, a6, SizeOfSPRMParameter);
       }
 
       if (*(a4 + 8) > 0xCA75u)
       {
         if (*(a4 + 8) <= 0xCA88u)
         {
-          if (v13 == 51830)
+          if (v15 == 51830)
           {
             if (a6 <= a5 || (a6 - a5) <= 7)
             {
               goto LABEL_531;
             }
 
-            v66 = CsLeReadSInt32(a5);
-            WrdCharacterProperties::setFitTextWidth(a2, v66);
-            v67 = CsLeReadSInt32(a5 + 1);
+            v68 = CsLeReadSInt32(a5);
+            WrdCharacterProperties::setFitTextWidth(a2, v68);
+            v69 = CsLeReadSInt32(a5 + 1);
 
-            WrdCharacterProperties::setFitTextID(a2, v67);
+            WrdCharacterProperties::setFitTextID(a2, v69);
             return;
           }
 
-          if (v13 != 51832)
+          if (v15 != 51832)
           {
-            if (v13 == 51836)
+            if (v15 == 51836)
             {
-              v118 = 255;
-              v119 = 255;
-              WrdBaseParser::parseBuffer(a1, &v119, a5, a6);
-              WrdBaseParser::parseBuffer(a1, &v118, a5 + 4, a6);
-              if (*(a2 + 30) == v119.var0 && *(a2 + 32) == v119.var1 && *(a2 + 34) == v119.var2 && *(a2 + 36) == v119.var3)
+              v120 = 255;
+              v121 = 255;
+              WrdBaseParser::parseBuffer(a1, &v121, a5, a6);
+              WrdBaseParser::parseBuffer(a1, &v120, a5 + 4, a6);
+              if (*(a2 + 30) == v121.var0 && *(a2 + 32) == v121.var1 && *(a2 + 34) == v121.var2 && *(a2 + 36) == v121.var3)
               {
-                v28 = WrdCharacterProperties::getColorReference(a2);
-                *v28 = v118;
+                v30 = WrdCharacterProperties::getColorReference(a2);
+                *v30 = v120;
               }
             }
 
@@ -7688,11 +7680,11 @@ LABEL_254:
             goto LABEL_531;
           }
 
-          v103 = a5[1];
-          v104 = (a5 + 2);
-          if (v103 == 1)
+          v105 = a5[1];
+          v106 = (a5 + 2);
+          if (v105 == 1)
           {
-            if (a6 <= v104 || (a6 - v104) <= 2)
+            if (a6 <= v106 || &a6[-v106] <= 2)
             {
               goto LABEL_531;
             }
@@ -7700,42 +7692,42 @@ LABEL_254:
             WrdCharacterProperties::setTatenakayoko(a2, 1);
             WrdCharacterProperties::setFitTextFE(a2, a5[2] == 16);
             WrdCharacterProperties::setTatenakayokoNewLineState(a2, a5[3]);
-            v114 = a5[4];
+            v116 = a5[4];
 
-            WrdCharacterProperties::setTatenakayokoID(a2, v114);
+            WrdCharacterProperties::setTatenakayokoID(a2, v116);
             return;
           }
 
-          if (v103 == 2)
+          if (v105 == 2)
           {
-            if (v104 >= a6)
+            if (v106 >= a6)
             {
               goto LABEL_531;
             }
 
             WrdCharacterProperties::setWarichu(a2, 1);
-            v105 = *v104;
+            v107 = *v106;
 
-            WrdCharacterProperties::setWarichuBracket(a2, v105);
+            WrdCharacterProperties::setWarichuBracket(a2, v107);
             return;
           }
 
-          v25 = "Unknown type in SPRM 0xCA78 relating to Far East layout";
-          v26 = 872;
+          v27 = "Unknown type in SPRM 0xCA78 relating to Far East layout";
+          v28 = 872;
           goto LABEL_524;
         }
 
-        if (v13 != 51849)
+        if (v15 != 51849)
         {
-          if (v13 == 59912)
+          if (v15 == 59912)
           {
-            v25 = "Unimplemented sprm code 0xEA08\n";
-            v26 = 198;
+            v27 = "Unimplemented sprm code 0xEA08\n";
+            v28 = 198;
           }
 
           else
           {
-            if (v13 != 59967)
+            if (v15 != 59967)
             {
               return;
             }
@@ -7760,8 +7752,8 @@ LABEL_254:
               ChLogFunction("Incomplete implementation of 0xEA3F CHP SPRM!", 1, 4, "/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/compatibility/Word/Binary/Reader/WrdChpParser.cpp", 426);
             }
 
-            v25 = "Incomplete implementation of 0xEA3F CHP SPRM!";
-            v26 = 430;
+            v27 = "Incomplete implementation of 0xEA3F CHP SPRM!";
+            v28 = 430;
           }
 
           goto LABEL_524;
@@ -7773,18 +7765,18 @@ LABEL_254:
         }
 
         WrdCharacterProperties::setRevisionProperties(a2, *a5);
-        v84 = CsLeReadUInt16((a5 + 1));
-        WrdCharacterProperties::setIndexToAuthorIDOfRevisionProperties(a2, v84);
+        v86 = CsLeReadUInt16((a5 + 1));
+        WrdCharacterProperties::setIndexToAuthorIDOfRevisionProperties(a2, v86);
         RevisionPropertiesDateTimeReference = WrdCharacterProperties::getRevisionPropertiesDateTimeReference(a2);
-        v56 = a1;
-        v57 = a5 + 3;
+        v58 = a1;
+        v59 = a5 + 3;
       }
 
       else
       {
         if (*(a4 + 8) > 0xCA61u)
         {
-          switch(v13)
+          switch(v15)
           {
             case 0xCA62u:
               if (a5 >= a6)
@@ -7795,21 +7787,21 @@ LABEL_254:
               if (*a5)
               {
                 WrdCharacterProperties::setRevisionListNumber(a2, 1);
-                if (a6 <= (a5 + 1) || (a6 - (a5 + 1)) <= 0x25)
+                if (a6 <= a5 + 1 || (a6 - (a5 + 1)) <= 0x25)
                 {
                   goto LABEL_531;
                 }
 
-                v72 = CsLeReadUInt16((a5 + 1));
-                WrdCharacterProperties::setIndexToAuthorIDOfRevisionListNumber(a2, v72);
+                v74 = CsLeReadUInt16((a5 + 1));
+                WrdCharacterProperties::setIndexToAuthorIDOfRevisionListNumber(a2, v74);
                 RevisionListNumberDateTimeReference = WrdCharacterProperties::getRevisionListNumberDateTimeReference(a2);
                 WrdBaseParser::parseBuffer(a1, RevisionListNumberDateTimeReference, a5 + 3, a6);
-                v74 = *(a2 + 56);
-                if (v74)
+                v76 = *(a2 + 56);
+                if (v76)
                 {
                   for (i = 0; i != 32; ++i)
                   {
-                    *(v74 + 2 * i) = a5[i + 7];
+                    *(v76 + 2 * i) = a5[i + 7];
                   }
                 }
               }
@@ -7827,16 +7819,16 @@ LABEL_254:
               WrdBaseParser::parseBuffer(a1, ShadingReference, a5, a6);
               break;
             case 0xCA72u:
-              v39 = WrdCharacterProperties::getBorderReference(a2);
+              v41 = WrdCharacterProperties::getBorderReference(a2);
 
-              WrdBaseParser::parseBuffer(a1, v39, a5, a6);
+              WrdBaseParser::parseBuffer(a1, v41, a5, a6);
               break;
           }
 
           return;
         }
 
-        if (v13 == 51786)
+        if (v15 == 51786)
         {
           if (a6 <= a5 || (a6 - a5) <= 1)
           {
@@ -7845,33 +7837,33 @@ LABEL_254:
 
           SInt16 = CsLeReadSInt16(a5);
           WrdCharacterProperties::setFontSize(a2, SInt16);
-          v63 = *(a2 + 312);
-          if (v63 > 7)
+          v65 = *(a2 + 312);
+          if (v65 > 7)
           {
-            if (v63 < 0x7FFF)
+            if (v65 < 0x7FFF)
             {
               return;
             }
 
-            v54 = a2;
-            LOWORD(v41) = 32766;
+            v56 = a2;
+            LOWORD(v43) = 32766;
           }
 
           else
           {
-            v54 = a2;
-            LOWORD(v41) = 8;
+            v56 = a2;
+            LOWORD(v43) = 8;
           }
 
           goto LABEL_294;
         }
 
-        if (v13 == 51788)
+        if (v15 == 51788)
         {
           goto LABEL_254;
         }
 
-        if (v13 != 51799)
+        if (v15 != 51799)
         {
           return;
         }
@@ -7881,7 +7873,7 @@ LABEL_254:
           goto LABEL_531;
         }
 
-        v20 = *a5;
+        v22 = *a5;
         if (!*a5)
         {
           goto LABEL_265;
@@ -7892,26 +7884,26 @@ LABEL_254:
           goto LABEL_531;
         }
 
-        v21 = 0;
-        while (a5[v21] == 255)
+        v23 = 0;
+        while (a5[v23] == 255)
         {
-          if (++v21 == 7)
+          if (++v23 == 7)
           {
             return;
           }
         }
 
-        WrdCharacterProperties::setRevisionProperties(a2, v20);
-        v115 = CsLeReadUInt16((a5 + 1));
-        WrdCharacterProperties::setIndexToAuthorIDOfRevisionProperties(a2, v115);
+        WrdCharacterProperties::setRevisionProperties(a2, v22);
+        v117 = CsLeReadUInt16((a5 + 1));
+        WrdCharacterProperties::setIndexToAuthorIDOfRevisionProperties(a2, v117);
         RevisionPropertiesDateTimeReference = WrdCharacterProperties::getRevisionPropertiesDateTimeReference(a2);
-        v57 = a5 + 3;
-        v56 = a1;
+        v59 = a5 + 3;
+        v58 = a1;
       }
 
 LABEL_528:
 
-      WrdBaseParser::parseBuffer(v56, RevisionPropertiesDateTimeReference, v57, a6);
+      WrdBaseParser::parseBuffer(v58, RevisionPropertiesDateTimeReference, v59, a6);
       return;
     }
 
@@ -7921,9 +7913,9 @@ LABEL_528:
       {
         if (*(a4 + 8) > 0x4A4Cu)
         {
-          if (v13 != 19021)
+          if (v15 != 19021)
           {
-            if (v13 == 19023)
+            if (v15 == 19023)
             {
               if (a6 <= a5 || (a6 - a5) <= 1)
               {
@@ -7932,18 +7924,18 @@ LABEL_528:
 
               if (a3)
               {
-                v95 = CsLeReadUInt16(a5);
-                WrdCharacterProperties::setFontIndexForASCIIText(a3, v95);
+                v97 = CsLeReadUInt16(a5);
+                WrdCharacterProperties::setFontIndexForASCIIText(a3, v97);
               }
 
-              v96 = CsLeReadUInt16(a5);
+              v98 = CsLeReadUInt16(a5);
 
-              WrdCharacterProperties::setFontIndexForASCIIText(a2, v96);
+              WrdCharacterProperties::setFontIndexForASCIIText(a2, v98);
             }
 
             else
             {
-              if (v13 != 19024)
+              if (v15 != 19024)
               {
                 return;
               }
@@ -7953,9 +7945,9 @@ LABEL_528:
                 goto LABEL_531;
               }
 
-              v33 = CsLeReadUInt16(a5);
+              v35 = CsLeReadUInt16(a5);
 
-              WrdCharacterProperties::setFontIndexForFarEastAsianText(a2, v33);
+              WrdCharacterProperties::setFontIndexForFarEastAsianText(a2, v35);
             }
 
             return;
@@ -7966,39 +7958,39 @@ LABEL_528:
             goto LABEL_531;
           }
 
-          v53 = CsLeReadSInt16(a5);
+          v55 = CsLeReadSInt16(a5);
           ChLogFunction("Do not understand how percentage number is stored yet for CHP SPRM 0x4A4D which applies to font size", 1, 4, "/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/compatibility/Word/Binary/Reader/WrdChpParser.cpp", 528);
-          v41 = (v53 / 100.0);
+          v43 = (v55 / 100.0);
           goto LABEL_293;
         }
 
-        if (v13 == 18568)
+        if (v15 == 18568)
         {
           if (a6 <= a5 || (a6 - a5) <= 1)
           {
             goto LABEL_531;
           }
 
-          v50 = CsLeReadUInt16(a5) != 0;
+          v52 = CsLeReadUInt16(a5) != 0;
 
-          WrdCharacterProperties::setListCharacterPictureBullet(a2, v50);
+          WrdCharacterProperties::setListCharacterPictureBullet(a2, v52);
           return;
         }
 
-        if (v13 == 18992)
+        if (v15 == 18992)
         {
           if (a6 <= a5 || (a6 - a5) <= 1)
           {
             goto LABEL_531;
           }
 
-          v93 = CsLeReadUInt16(a5);
+          v95 = CsLeReadUInt16(a5);
 
-          WrdCharacterProperties::setStyleIndex(a2, v93);
+          WrdCharacterProperties::setStyleIndex(a2, v95);
           return;
         }
 
-        if (v13 != 19011)
+        if (v15 != 19011)
         {
           return;
         }
@@ -8010,23 +8002,23 @@ LABEL_528:
 
         if (a3)
         {
-          v18 = CsLeReadUInt16(a5);
-          WrdCharacterProperties::setFontSize(a3, v18);
+          v20 = CsLeReadUInt16(a5);
+          WrdCharacterProperties::setFontSize(a3, v20);
         }
 
 LABEL_203:
-        LOWORD(v41) = CsLeReadUInt16(a5);
+        LOWORD(v43) = CsLeReadUInt16(a5);
 LABEL_293:
-        v54 = a2;
+        v56 = a2;
 LABEL_294:
 
-        WrdCharacterProperties::setFontSize(v54, v41);
+        WrdCharacterProperties::setFontSize(v56, v43);
         return;
       }
 
       if (*(a4 + 8) <= 0x6804u)
       {
-        switch(v13)
+        switch(v15)
         {
           case 0x4A51u:
             if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8036,13 +8028,13 @@ LABEL_294:
 
             if (a3)
             {
-              v51 = CsLeReadUInt16(a5);
-              WrdCharacterProperties::setFontIndexForOtherText(a3, v51);
+              v53 = CsLeReadUInt16(a5);
+              WrdCharacterProperties::setFontIndexForOtherText(a3, v53);
             }
 
-            v52 = CsLeReadUInt16(a5);
+            v54 = CsLeReadUInt16(a5);
 
-            WrdCharacterProperties::setFontIndexForOtherText(a2, v52);
+            WrdCharacterProperties::setFontIndexForOtherText(a2, v54);
             break;
           case 0x4A5Eu:
             if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8050,9 +8042,9 @@ LABEL_294:
               goto LABEL_531;
             }
 
-            v94 = CsLeReadUInt16(a5);
+            v96 = CsLeReadUInt16(a5);
 
-            WrdCharacterProperties::setFontIndexForBiText(a2, v94);
+            WrdCharacterProperties::setFontIndexForBiText(a2, v96);
             break;
           case 0x4A61u:
             if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8060,9 +8052,9 @@ LABEL_294:
               goto LABEL_531;
             }
 
-            v23 = CsLeReadUInt16(a5);
+            v25 = CsLeReadUInt16(a5);
 
-            WrdCharacterProperties::setFontSizeForBiText(a2, v23);
+            WrdCharacterProperties::setFontSizeForBiText(a2, v25);
             break;
           default:
             return;
@@ -8071,7 +8063,7 @@ LABEL_294:
         return;
       }
 
-      switch(v13)
+      switch(v15)
       {
         case 0x6805u:
           RevisionEditReference = WrdCharacterProperties::getRevisionEditReference(a2);
@@ -8082,18 +8074,18 @@ LABEL_294:
             goto LABEL_531;
           }
 
-          v97 = *a1;
-          v98 = CsLeReadSInt32(a5);
-          if (v97 < 10)
+          v99 = *a1;
+          v100 = CsLeReadSInt32(a5);
+          if (v99 < 10)
           {
 
-            WrdCharacterProperties::setOffsetToOLE1Object(a2, v98);
+            WrdCharacterProperties::setOffsetToOLE1Object(a2, v100);
           }
 
           else
           {
 
-            WrdCharacterProperties::setOffsetToOLEObjectData(a2, v98);
+            WrdCharacterProperties::setOffsetToOLEObjectData(a2, v100);
           }
 
           return;
@@ -8105,8 +8097,8 @@ LABEL_294:
       }
 
       RevisionPropertiesDateTimeReference = RevisionEditReference;
-      v56 = a1;
-      v57 = a5;
+      v58 = a1;
+      v59 = a5;
       goto LABEL_528;
     }
 
@@ -8114,7 +8106,7 @@ LABEL_294:
     {
       if (*(a4 + 8) <= 0x485Eu)
       {
-        if (v13 == 18510)
+        if (v15 == 18510)
         {
           if (a6 <= a5 || (a6 - a5) <= 1)
           {
@@ -8122,14 +8114,14 @@ LABEL_294:
           }
 
           WrdCharacterProperties::setHyphenationRule(a2, *a5);
-          v89 = a5[1];
+          v91 = a5[1];
 
-          WrdCharacterProperties::setHyphenationChangeCharacter(a2, v89);
+          WrdCharacterProperties::setHyphenationChangeCharacter(a2, v91);
         }
 
         else
         {
-          if (v13 != 18514)
+          if (v15 != 18514)
           {
             return;
           }
@@ -8139,15 +8131,15 @@ LABEL_294:
             goto LABEL_531;
           }
 
-          v44 = CsLeReadUInt16(a5);
+          v46 = CsLeReadUInt16(a5);
 
-          WrdCharacterProperties::setCharacterScale(a2, v44);
+          WrdCharacterProperties::setCharacterScale(a2, v46);
         }
       }
 
       else
       {
-        switch(v13)
+        switch(v15)
         {
           case 0x485Fu:
             if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8155,9 +8147,9 @@ LABEL_294:
               goto LABEL_531;
             }
 
-            v47 = CsLeReadUInt16(a5);
+            v49 = CsLeReadUInt16(a5);
 
-            WrdCharacterProperties::setLanguageIDForBiText(a2, v47);
+            WrdCharacterProperties::setLanguageIDForBiText(a2, v49);
             break;
           case 0x4863u:
             if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8165,18 +8157,18 @@ LABEL_294:
               goto LABEL_531;
             }
 
-            v87 = CsLeReadUInt16(a5);
-            if (v87 != 0xFFFF)
+            v89 = CsLeReadUInt16(a5);
+            if (v89 != 0xFFFF)
             {
 
-              WrdCharacterProperties::setIndexToAuthorIDOfRevisionDelete(a2, v87);
+              WrdCharacterProperties::setIndexToAuthorIDOfRevisionDelete(a2, v89);
             }
 
             break;
           case 0x4866u:
-            v30 = WrdCharacterProperties::getShadingReference(a2);
+            v32 = WrdCharacterProperties::getShadingReference(a2);
 
-            WrdBaseParser::parseSHD80(a1, v30, a5, a6);
+            WrdBaseParser::parseSHD80(a1, v32, a5, a6);
             break;
         }
       }
@@ -8186,33 +8178,33 @@ LABEL_294:
 
     if (*(a4 + 8) <= 0x486Du)
     {
-      if (v13 == 18535)
+      if (v15 == 18535)
       {
         if (a6 <= a5 || (a6 - a5) <= 1)
         {
           goto LABEL_531;
         }
 
-        v48 = CsLeReadUInt16(a5);
+        v50 = CsLeReadUInt16(a5);
 
-        WrdCharacterProperties::setIndexToStringsForReasonsOfDeletion(a2, v48);
+        WrdCharacterProperties::setIndexToStringsForReasonsOfDeletion(a2, v50);
         return;
       }
 
-      if (v13 == 18539)
+      if (v15 == 18539)
       {
         if (a6 <= a5 || (a6 - a5) <= 1)
         {
           goto LABEL_531;
         }
 
-        v91 = CsLeReadUInt16(a5);
+        v93 = CsLeReadUInt16(a5);
 
-        WrdCharacterProperties::setCodePageForPreUnicodeFiles(a2, v91);
+        WrdCharacterProperties::setCodePageForPreUnicodeFiles(a2, v93);
         return;
       }
 
-      if (v13 != 18541)
+      if (v15 != 18541)
       {
         return;
       }
@@ -8220,9 +8212,9 @@ LABEL_294:
       goto LABEL_249;
     }
 
-    if (v13 != 18542)
+    if (v15 != 18542)
     {
-      if (v13 == 18547)
+      if (v15 == 18547)
       {
 LABEL_249:
         if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8230,13 +8222,13 @@ LABEL_249:
           goto LABEL_531;
         }
 
-        v46 = CsLeReadUInt16(a5);
+        v48 = CsLeReadUInt16(a5);
 
-        WrdCharacterProperties::setLanguageIDForDefaultText(a2, v46);
+        WrdCharacterProperties::setLanguageIDForDefaultText(a2, v48);
         return;
       }
 
-      if (v13 != 18548)
+      if (v15 != 18548)
       {
         return;
       }
@@ -8247,9 +8239,9 @@ LABEL_249:
       goto LABEL_531;
     }
 
-    v32 = CsLeReadUInt16(a5);
+    v34 = CsLeReadUInt16(a5);
 
-    WrdCharacterProperties::setLanguageIDForFarEastAsianText(a2, v32);
+    WrdCharacterProperties::setLanguageIDForFarEastAsianText(a2, v34);
     return;
   }
 
@@ -8261,21 +8253,21 @@ LABEL_249:
       {
         if (*(a4 + 8) <= 0x2878u)
         {
-          if (v13 == 10329)
+          if (v15 == 10329)
           {
             if (a5 >= a6)
             {
               goto LABEL_531;
             }
 
-            v113 = *a5;
+            v115 = *a5;
 
-            WrdCharacterProperties::setTextAnimation(a2, v113);
+            WrdCharacterProperties::setTextAnimation(a2, v115);
           }
 
           else
           {
-            if (v13 != 10351)
+            if (v15 != 10351)
             {
               return;
             }
@@ -8285,15 +8277,15 @@ LABEL_249:
               goto LABEL_531;
             }
 
-            v45 = *a5;
+            v47 = *a5;
 
-            WrdCharacterProperties::setCharacterTypeIDHint(a2, v45);
+            WrdCharacterProperties::setCharacterTypeIDHint(a2, v47);
           }
 
           return;
         }
 
-        switch(v13)
+        switch(v15)
         {
           case 0x2879u:
             if (a5 >= a6)
@@ -8301,17 +8293,17 @@ LABEL_249:
               goto LABEL_531;
             }
 
-            v88 = *a5;
+            v90 = *a5;
 
-            WrdCharacterProperties::setLineBreak(a2, v88);
+            WrdCharacterProperties::setLineBreak(a2, v90);
             return;
           case 0x287Du:
-            v25 = "Unimplemented sprm code 0x287D\n";
-            v26 = 841;
+            v27 = "Unimplemented sprm code 0x287D\n";
+            v28 = 841;
             break;
           case 0x287Eu:
-            v25 = "Unimplemented sprm code 0x287E\n";
-            v26 = 878;
+            v27 = "Unimplemented sprm code 0x287E\n";
+            v28 = 878;
             break;
           default:
             return;
@@ -8322,7 +8314,7 @@ LABEL_249:
 
       if (*(a4 + 8) > 0x2A32u)
       {
-        switch(v13)
+        switch(v15)
         {
           case 0x2A33u:
             if (a5 >= a6)
@@ -8330,9 +8322,9 @@ LABEL_249:
               goto LABEL_531;
             }
 
-            v85 = *a5 == 1;
+            v87 = *a5 == 1;
 
-            WrdCharacterProperties::setUseParagraphStylesProperties(a2, v85);
+            WrdCharacterProperties::setUseParagraphStylesProperties(a2, v87);
             break;
           case 0x2A34u:
             if (a5 >= a6)
@@ -8340,9 +8332,9 @@ LABEL_249:
               goto LABEL_531;
             }
 
-            v112 = *a5;
+            v114 = *a5;
 
-            WrdCharacterProperties::setEmphasisMark(a2, v112);
+            WrdCharacterProperties::setEmphasisMark(a2, v114);
             break;
           case 0x2A3Eu:
             if (a5 >= a6)
@@ -8355,9 +8347,9 @@ LABEL_249:
               WrdCharacterProperties::setUnderline(a3, *a5);
             }
 
-            v43 = *a5;
+            v45 = *a5;
 
-            WrdCharacterProperties::setUnderline(a2, v43);
+            WrdCharacterProperties::setUnderline(a2, v45);
             break;
           default:
             return;
@@ -8366,14 +8358,14 @@ LABEL_249:
         return;
       }
 
-      if (v13 - 10367 < 2)
+      if (v15 - 10367 < 2)
       {
-        v25 = "Unimplemented sprm code 0x287F or 0x2880\n";
-        v26 = 930;
+        v27 = "Unimplemented sprm code 0x287F or 0x2880\n";
+        v28 = 930;
         goto LABEL_524;
       }
 
-      if (v13 == 10764)
+      if (v15 == 10764)
       {
         if (a5 >= a6)
         {
@@ -8381,13 +8373,13 @@ LABEL_249:
         }
 
         WrdCharacterProperties::setHighlightColor97(a2, *a5);
-        v58 = *(a2 + 156) != 0;
+        v60 = *(a2 + 156) != 0;
 
-        WrdCharacterProperties::setHighlighted(a2, v58);
+        WrdCharacterProperties::setHighlighted(a2, v60);
         return;
       }
 
-      if (v13 != 10802)
+      if (v15 != 10802)
       {
         return;
       }
@@ -8401,8 +8393,8 @@ LABEL_249:
       WrdCharacterProperties::setCaps(a2, 0);
       WrdCharacterProperties::setHidden(a2, 0);
       WrdCharacterProperties::setUnderline(a2, 0);
-      v16 = a2;
-      v17 = 0;
+      v18 = a2;
+      v19 = 0;
       goto LABEL_395;
     }
 
@@ -8410,23 +8402,23 @@ LABEL_249:
     {
       if (*(a4 + 8) > 0x2A45u)
       {
-        if (v13 != 10822)
+        if (v15 != 10822)
         {
-          if (v13 == 10824)
+          if (v15 == 10824)
           {
             if (a5 >= a6)
             {
               goto LABEL_531;
             }
 
-            v86 = *a5;
+            v88 = *a5;
 
-            WrdCharacterProperties::setSuperSubscript(a2, v86);
+            WrdCharacterProperties::setSuperSubscript(a2, v88);
           }
 
           else
           {
-            if (v13 != 10835)
+            if (v15 != 10835)
             {
               return;
             }
@@ -8436,28 +8428,28 @@ LABEL_249:
               goto LABEL_531;
             }
 
-            v29 = *a5 == 1;
+            v31 = *a5 == 1;
 
-            WrdCharacterProperties::setDoubleStrikethrough(a2, v29);
+            WrdCharacterProperties::setDoubleStrikethrough(a2, v31);
           }
 
           return;
         }
 
-        v25 = "Unimplemented sprm code 0x2A46\n";
-        v26 = 478;
+        v27 = "Unimplemented sprm code 0x2A46\n";
+        v28 = 478;
         goto LABEL_524;
       }
 
-      if (v13 != 10818)
+      if (v15 != 10818)
       {
-        if (v13 != 10820)
+        if (v15 != 10820)
         {
           return;
         }
 
-        v25 = "Unimplemented sprm code 0x2A44\n";
-        v26 = 466;
+        v27 = "Unimplemented sprm code 0x2A44\n";
+        v28 = 466;
         goto LABEL_524;
       }
 
@@ -8471,17 +8463,17 @@ LABEL_249:
         WrdCharacterProperties::setColor97(a3, *a5);
       }
 
-      v17 = *a5;
-      v16 = a2;
+      v19 = *a5;
+      v18 = a2;
 LABEL_395:
 
-      WrdCharacterProperties::setColor97(v16, v17);
+      WrdCharacterProperties::setColor97(v18, v19);
       return;
     }
 
     if (*(a4 + 8) > 0x4806u)
     {
-      switch(v13)
+      switch(v15)
       {
         case 0x4807u:
           if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8489,9 +8481,9 @@ LABEL_395:
             goto LABEL_531;
           }
 
-          v49 = CsLeReadUInt16(a5);
+          v51 = CsLeReadUInt16(a5);
 
-          WrdCharacterProperties::setIndexToStringsForReasons(a2, v49);
+          WrdCharacterProperties::setIndexToStringsForReasons(a2, v51);
           break;
         case 0x4845u:
           if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8499,9 +8491,9 @@ LABEL_395:
             goto LABEL_531;
           }
 
-          v92 = CsLeReadSInt16(a5);
+          v94 = CsLeReadSInt16(a5);
 
-          WrdCharacterProperties::setCharacterPosition(a2, v92);
+          WrdCharacterProperties::setCharacterPosition(a2, v94);
           break;
         case 0x484Bu:
           if (a6 <= a5 || (a6 - a5) <= 1)
@@ -8509,9 +8501,9 @@ LABEL_395:
             goto LABEL_531;
           }
 
-          v31 = CsLeReadUInt16(a5);
+          v33 = CsLeReadUInt16(a5);
 
-          WrdCharacterProperties::setKerning(a2, v31);
+          WrdCharacterProperties::setKerning(a2, v33);
           break;
         default:
           return;
@@ -8520,23 +8512,23 @@ LABEL_395:
       return;
     }
 
-    if (v13 != 10883)
+    if (v15 != 10883)
     {
-      if (v13 == 10896)
+      if (v15 == 10896)
       {
         if (a5 >= a6)
         {
           goto LABEL_531;
         }
 
-        v90 = *a5;
+        v92 = *a5;
 
-        WrdCharacterProperties::setXmlTag(a2, v90);
+        WrdCharacterProperties::setXmlTag(a2, v92);
       }
 
       else
       {
-        if (v13 != 18436)
+        if (v15 != 18436)
         {
           return;
         }
@@ -8546,9 +8538,9 @@ LABEL_395:
           goto LABEL_531;
         }
 
-        v22 = CsLeReadUInt16(a5);
+        v24 = CsLeReadUInt16(a5);
 
-        WrdCharacterProperties::setIndexToAuthorIDOfRevisionEdit(a2, v22);
+        WrdCharacterProperties::setIndexToAuthorIDOfRevisionEdit(a2, v24);
       }
 
       return;
@@ -8559,10 +8551,10 @@ LABEL_395:
       goto LABEL_531;
     }
 
-    v20 = *a5;
+    v22 = *a5;
 LABEL_265:
 
-    WrdCharacterProperties::setRevisionProperties(a2, v20);
+    WrdCharacterProperties::setRevisionProperties(a2, v22);
     return;
   }
 
@@ -8572,7 +8564,7 @@ LABEL_265:
     {
       if (*(a4 + 8) <= 0x854u)
       {
-        switch(v13)
+        switch(v15)
         {
           case 0x83Bu:
             if (a5 >= a6)
@@ -8583,9 +8575,9 @@ LABEL_265:
             WrdCharacterProperties::setCaps(a2, *a5);
             if (a3)
             {
-              v61 = WrdCharacterProperties::resolveToAbsolute(a3->var28, *(a2 + 188));
+              v63 = WrdCharacterProperties::resolveToAbsolute(a3->var28, *(a2 + 188));
 
-              WrdCharacterProperties::setCaps(a3, v61);
+              WrdCharacterProperties::setCaps(a3, v63);
             }
 
             break;
@@ -8597,15 +8589,15 @@ LABEL_265:
 
             if (*a5 == 255)
             {
-              v100 = 1;
+              v102 = 1;
             }
 
             else
             {
-              v100 = *a5;
+              v102 = *a5;
             }
 
-            WrdCharacterProperties::setHidden(a2, v100);
+            WrdCharacterProperties::setHidden(a2, v102);
             break;
           case 0x854u:
             if (a5 >= a6)
@@ -8613,9 +8605,9 @@ LABEL_265:
               goto LABEL_531;
             }
 
-            v19 = *a5;
+            v21 = *a5;
 
-            WrdCharacterProperties::setEngraved(a2, v19);
+            WrdCharacterProperties::setEngraved(a2, v21);
             break;
           default:
             return;
@@ -8624,23 +8616,23 @@ LABEL_265:
         return;
       }
 
-      if (v13 != 2133)
+      if (v15 != 2133)
       {
-        if (v13 == 2134)
+        if (v15 == 2134)
         {
           if (a5 >= a6)
           {
             goto LABEL_531;
           }
 
-          v108 = *a5 == 1;
+          v110 = *a5 == 1;
 
-          WrdCharacterProperties::setEmbeddedObject(a2, v108);
+          WrdCharacterProperties::setEmbeddedObject(a2, v110);
         }
 
         else
         {
-          if (v13 != 2136)
+          if (v15 != 2136)
           {
             return;
           }
@@ -8650,9 +8642,9 @@ LABEL_265:
             goto LABEL_531;
           }
 
-          v38 = *a5;
+          v40 = *a5;
 
-          WrdCharacterProperties::setEmbossed(a2, v38);
+          WrdCharacterProperties::setEmbossed(a2, v40);
         }
 
         return;
@@ -8663,17 +8655,17 @@ LABEL_265:
         goto LABEL_531;
       }
 
-      v70 = *a5 == 1;
-      v71 = a2;
+      v72 = *a5 == 1;
+      v73 = a2;
 LABEL_480:
 
-      WrdCharacterProperties::setSpecialCharacter(v71, v70);
+      WrdCharacterProperties::setSpecialCharacter(v73, v72);
       return;
     }
 
     if (*(a4 + 8) > 0x85Cu)
     {
-      switch(v13)
+      switch(v15)
       {
         case 0x85Du:
           if (a5 >= a6)
@@ -8681,9 +8673,9 @@ LABEL_480:
             goto LABEL_531;
           }
 
-          v83 = *a5;
+          v85 = *a5;
 
-          WrdCharacterProperties::setItalicBi(a2, v83);
+          WrdCharacterProperties::setItalicBi(a2, v85);
           break;
         case 0x868u:
           if (a5 >= a6)
@@ -8691,9 +8683,9 @@ LABEL_480:
             goto LABEL_531;
           }
 
-          v111 = *a5;
+          v113 = *a5;
 
-          WrdCharacterProperties::setUsePageSetupLinePitch(a2, v111);
+          WrdCharacterProperties::setUsePageSetupLinePitch(a2, v113);
           break;
         case 0x875u:
           if (a5 >= a6)
@@ -8701,9 +8693,9 @@ LABEL_480:
             goto LABEL_531;
           }
 
-          v42 = *a5 == 1;
+          v44 = *a5 == 1;
 
-          WrdCharacterProperties::setNoProof(a2, v42);
+          WrdCharacterProperties::setNoProof(a2, v44);
           break;
         default:
           return;
@@ -8712,37 +8704,37 @@ LABEL_480:
       return;
     }
 
-    if (v13 == 2138)
+    if (v15 == 2138)
     {
       if (a5 >= a6)
       {
         goto LABEL_531;
       }
 
-      v65 = *a5;
+      v67 = *a5;
 
-      WrdCharacterProperties::setRightToLeft(a2, v65);
+      WrdCharacterProperties::setRightToLeft(a2, v67);
       return;
     }
 
-    if (v13 != 2139)
+    if (v15 != 2139)
     {
       if (a5 >= a6)
       {
         goto LABEL_531;
       }
 
-      v27 = *a5;
+      v29 = *a5;
 
-      WrdCharacterProperties::setBoldBi(a2, v27);
+      WrdCharacterProperties::setBoldBi(a2, v29);
       return;
     }
 
-    v25 = "Unimplemented sprm code 0x085B\n";
-    v26 = 668;
+    v27 = "Unimplemented sprm code 0x085B\n";
+    v28 = 668;
 LABEL_524:
 
-    ChLogFunction(v25, 1, 4, "/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/compatibility/Word/Binary/Reader/WrdChpParser.cpp", v26);
+    ChLogFunction(v27, 1, 4, "/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/compatibility/Word/Binary/Reader/WrdChpParser.cpp", v28);
     return;
   }
 
@@ -8750,7 +8742,7 @@ LABEL_524:
   {
     if (*(a4 + 8) > 0x837u)
     {
-      if (v13 == 2104)
+      if (v15 == 2104)
       {
         if (a5 >= a6)
         {
@@ -8760,13 +8752,13 @@ LABEL_524:
         WrdCharacterProperties::setOutline(a2, *a5);
         if (a3)
         {
-          v76 = WrdCharacterProperties::resolveToAbsolute(a3->var25, *(a2 + 176));
+          v78 = WrdCharacterProperties::resolveToAbsolute(a3->var25, *(a2 + 176));
 
-          WrdCharacterProperties::setOutline(a3, v76);
+          WrdCharacterProperties::setOutline(a3, v78);
         }
       }
 
-      else if (v13 == 2105)
+      else if (v15 == 2105)
       {
         if (a5 >= a6)
         {
@@ -8776,9 +8768,9 @@ LABEL_524:
         WrdCharacterProperties::setShadow(a2, *a5);
         if (a3)
         {
-          v110 = WrdCharacterProperties::resolveToAbsolute(a3->var30, *(a2 + 196));
+          v112 = WrdCharacterProperties::resolveToAbsolute(a3->var30, *(a2 + 196));
 
-          WrdCharacterProperties::setShadow(a3, v110);
+          WrdCharacterProperties::setShadow(a3, v112);
         }
       }
 
@@ -8792,14 +8784,14 @@ LABEL_524:
         WrdCharacterProperties::setSmallCaps(a2, *a5);
         if (a3)
         {
-          v40 = WrdCharacterProperties::resolveToAbsolute(a3->var27, *(a2 + 184));
+          v42 = WrdCharacterProperties::resolveToAbsolute(a3->var27, *(a2 + 184));
 
-          WrdCharacterProperties::setSmallCaps(a3, v40);
+          WrdCharacterProperties::setSmallCaps(a3, v42);
         }
       }
     }
 
-    else if (v13 == 2101)
+    else if (v15 == 2101)
     {
       if (a5 >= a6)
       {
@@ -8809,13 +8801,13 @@ LABEL_524:
       WrdCharacterProperties::setBold(a2, *a5);
       if (a3)
       {
-        v64 = WrdCharacterProperties::resolveToAbsolute(a3->var23, *(a2 + 168));
+        v66 = WrdCharacterProperties::resolveToAbsolute(a3->var23, *(a2 + 168));
 
-        WrdCharacterProperties::setBold(a3, v64);
+        WrdCharacterProperties::setBold(a3, v66);
       }
     }
 
-    else if (v13 == 2102)
+    else if (v15 == 2102)
     {
       if (a5 >= a6)
       {
@@ -8825,9 +8817,9 @@ LABEL_524:
       WrdCharacterProperties::setItalic(a2, *a5);
       if (a3)
       {
-        v101 = WrdCharacterProperties::resolveToAbsolute(a3->var24, *(a2 + 172));
+        v103 = WrdCharacterProperties::resolveToAbsolute(a3->var24, *(a2 + 172));
 
-        WrdCharacterProperties::setItalic(a3, v101);
+        WrdCharacterProperties::setItalic(a3, v103);
       }
     }
 
@@ -8841,16 +8833,16 @@ LABEL_524:
       WrdCharacterProperties::setStrikethrough(a2, *a5);
       if (a3)
       {
-        v24 = WrdCharacterProperties::resolveToAbsolute(a3->var26, *(a2 + 180));
+        v26 = WrdCharacterProperties::resolveToAbsolute(a3->var26, *(a2 + 180));
 
-        WrdCharacterProperties::setStrikethrough(a3, v24);
+        WrdCharacterProperties::setStrikethrough(a3, v26);
       }
     }
   }
 
   else if (*(a4 + 8) > 0x805u)
   {
-    switch(v13)
+    switch(v15)
     {
       case 0x806u:
         if (a5 >= a6)
@@ -8858,9 +8850,9 @@ LABEL_524:
           goto LABEL_531;
         }
 
-        v68 = *a5 == 1;
+        v70 = *a5 == 1;
 
-        WrdCharacterProperties::setData(a2, v68);
+        WrdCharacterProperties::setData(a2, v70);
         break;
       case 0x80Au:
         if (a5 >= a6)
@@ -8868,9 +8860,9 @@ LABEL_524:
           goto LABEL_531;
         }
 
-        v106 = *a5 == 1;
+        v108 = *a5 == 1;
 
-        WrdCharacterProperties::setOle2(a2, v106);
+        WrdCharacterProperties::setOle2(a2, v108);
         break;
       case 0x811u:
         if (a5 >= a6)
@@ -8878,9 +8870,9 @@ LABEL_524:
           goto LABEL_531;
         }
 
-        v35 = *a5 == 1;
+        v37 = *a5 == 1;
 
-        WrdCharacterProperties::setHiddenInWebView(a2, v35);
+        WrdCharacterProperties::setHiddenInWebView(a2, v37);
         break;
       default:
         return;
@@ -8889,20 +8881,20 @@ LABEL_524:
 
   else
   {
-    if (v13 != 2048)
+    if (v15 != 2048)
     {
-      if (v13 != 2049)
+      if (v15 != 2049)
       {
-        if (v13 != 2050)
+        if (v15 != 2050)
         {
           return;
         }
 
         if (a5 < a6)
         {
-          v14 = *a5;
+          v16 = *a5;
 
-          WrdCharacterProperties::setFieldVanish(a2, v14);
+          WrdCharacterProperties::setFieldVanish(a2, v16);
           return;
         }
 
@@ -8911,15 +8903,15 @@ LABEL_524:
 
       if (a5 < a6)
       {
-        v99 = *a5;
+        v101 = *a5;
 
-        WrdCharacterProperties::setRevisionMark(a2, v99);
+        WrdCharacterProperties::setRevisionMark(a2, v101);
         return;
       }
 
 LABEL_531:
       exception = __cxa_allocate_exception(4uLL);
-      v117 = 1004;
+      v119 = 1004;
       goto LABEL_533;
     }
 
@@ -8928,9 +8920,9 @@ LABEL_531:
       goto LABEL_531;
     }
 
-    v59 = *a5;
+    v61 = *a5;
 
-    WrdCharacterProperties::setRevisionMarkDelete(a2, v59);
+    WrdCharacterProperties::setRevisionMarkDelete(a2, v61);
   }
 }
 
@@ -9010,7 +9002,7 @@ uint64_t WrdCharacterProperties::setLanguageIDForFarEastAsianText(uint64_t resul
   return result;
 }
 
-WrdBaseParser *WrdPapParser::applySprm(WrdBaseParser *result, WrdStyle *this, uint64_t a3, unsigned __int16 *a4, unsigned __int16 *a5, _WORD *a6, uint64_t a7)
+WrdBaseParser *WrdPapParser::applySprm(WrdBaseParser *result, WrdStyle *this, uint64_t a3, unsigned __int16 *a4, unsigned __int8 *a5, _WORD *a6, uint64_t a7)
 {
   v12 = result;
   if (*(a3 + 8) == 50790)
@@ -9074,7 +9066,7 @@ void sub_25D2E1FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void WrdPapParser::applySprm(WrdBaseParser *a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, unsigned __int16 *a5, _WORD *a6, _DWORD *a7)
+void WrdPapParser::applySprm(WrdBaseParser *a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5, _WORD *a6, _DWORD *a7)
 {
   *a7 = -1;
   if (*a3 != 1)
@@ -9935,7 +9927,7 @@ LABEL_331:
     {
 LABEL_193:
       WrdParagraphProperties::setRevisionMark(a2, *a4 == 1);
-      if (a5 > (a4 + 1) && (a5 - (a4 + 1)) > 3)
+      if (a5 > a4 + 1 && (a5 - (a4 + 1)) > 3)
       {
         v42 = CsLeReadUInt16((a4 + 1));
         WrdParagraphProperties::setAuthorIDForRevision(a2, v42);

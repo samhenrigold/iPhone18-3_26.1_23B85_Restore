@@ -705,7 +705,7 @@ void __66__EMFEmojiPreferences_valueForKeyInLocalCachedDefaultsThreadsafe___bloc
       string = [v17 string];
       std::string::basic_string[abi:ne200100]<0>(__p, [string UTF8String]);
 
-      std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::string&,long &>(v32, __p);
+      std::__hash_table<std::__hash_value_type<std::string,unsigned long>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned long>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned long>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned long>>>::__emplace_unique_key_args<std::string,std::string&,long &>(v32, __p, __p, &v31);
       if (v30 < 0)
       {
         operator delete(__p[0]);
@@ -1113,116 +1113,116 @@ void __56__EMFEmojiPreferences__pruneOldestEmojiUsageFromHistory__block_invoke(u
   dispatch_sync(v3, block);
 }
 
-void __45__EMFEmojiPreferences__cleanUpOldFlagsCaches__block_invoke()
+void __45__EMFEmojiPreferences__cleanUpOldFlagsCaches__block_invoke(uint64_t a1)
 {
-  v38[3] = *MEMORY[0x1E69E9840];
-  v0 = objc_alloc(MEMORY[0x1E695E000]);
-  v1 = [objc_opt_class() defaultsDomain];
-  v2 = [v0 initWithSuiteName:v1];
+  v39[3] = *MEMORY[0x1E69E9840];
+  v1 = objc_alloc(MEMORY[0x1E695E000]);
+  v2 = [objc_opt_class() defaultsDomain];
+  v3 = [v1 initWithSuiteName:v2];
 
-  v3 = [v2 dictionaryRepresentation];
-  v4 = [v3 allKeys];
-  v5 = [v4 mutableCopy];
+  v4 = [v3 dictionaryRepresentation];
+  v5 = [v4 allKeys];
+  v6 = [v5 mutableCopy];
 
-  v38[0] = @"EMFDefaultsKey";
-  v38[1] = @"DidMigrateToEMF";
-  v38[2] = @"com.apple.stickerkit.onboarding.shown";
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
-  v33 = 0u;
+  v39[0] = @"EMFDefaultsKey";
+  v39[1] = @"DidMigrateToEMF";
+  v39[2] = @"com.apple.stickerkit.onboarding.shown";
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
   v34 = 0u;
-  v31 = 0u;
-  v6 = v32 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v31 objects:v37 count:16];
-  if (v7)
+  v35 = 0u;
+  v32 = 0u;
+  v7 = v33 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v8)
   {
-    v8 = *v32;
+    v9 = *v33;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v32 != v8)
+        if (*v33 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        [v5 removeObject:*(*(&v31 + 1) + 8 * v9++)];
+        [v6 removeObject:*(*(&v32 + 1) + 8 * v10++)];
       }
 
-      while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v31 objects:v37 count:16];
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
-  if (v11)
+  v29 = 0u;
+  v11 = v6;
+  v12 = [v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  if (v12)
   {
-    v12 = *v28;
+    v13 = *v29;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v28 != v12)
+        if (*v29 != v13)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        [v2 removeObjectForKey:*(*(&v27 + 1) + 8 * v13++)];
+        [v3 removeObjectForKey:*(*(&v28 + 1) + 8 * v14++)];
       }
 
-      while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  [v2 synchronize];
-  v14 = objc_alloc(MEMORY[0x1E695E000]);
-  v15 = [objc_opt_class() _cacheDomain];
-  v16 = [v14 initWithSuiteName:v15];
+  [v3 synchronize];
+  v15 = objc_alloc(MEMORY[0x1E695E000]);
+  v16 = [objc_opt_class() _cacheDomain];
+  v17 = [v15 initWithSuiteName:v16];
 
-  v17 = [v16 dictionaryRepresentation];
-  v18 = [v17 allKeys];
+  v18 = [v17 dictionaryRepresentation];
+  v19 = [v18 allKeys];
 
-  v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v23 objects:v35 count:16];
-  if (v20)
+  v25 = 0u;
+  v20 = v19;
+  v21 = [v20 countByEnumeratingWithState:&v24 objects:v36 count:16];
+  if (v21)
   {
-    v21 = *v24;
+    v22 = *v25;
     do
     {
-      v22 = 0;
+      v23 = 0;
       do
       {
-        if (*v24 != v21)
+        if (*v25 != v22)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        [v16 removeObjectForKey:{*(*(&v23 + 1) + 8 * v22++), v23}];
+        [v17 removeObjectForKey:{*(*(&v24 + 1) + 8 * v23++), v24}];
       }
 
-      while (v20 != v22);
-      v20 = [v19 countByEnumeratingWithState:&v23 objects:v35 count:16];
+      while (v21 != v23);
+      v21 = [v20 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 
-  [v16 synchronize];
+  [v17 synchronize];
 }
 
 - (void)migrateInRecentEmoji:(id)emoji usages:(id)usages typingNames:(id)names
@@ -1751,7 +1751,7 @@ uint64_t __43__EMFEmojiPreferences_scoreForEmojiString___block_invoke(void *a1)
 
     else
     {
-      v9 = emf_logging_get_default_log();
+      v9 = emf_logging_get_default_log(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [EMFEmojiPreferences signalEngagementToUnifiedRecencyServiceForEmoji:v9];
@@ -1761,7 +1761,7 @@ uint64_t __43__EMFEmojiPreferences_scoreForEmojiString___block_invoke(void *a1)
 
   else
   {
-    v7 = emf_logging_get_default_log();
+    v7 = emf_logging_get_default_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [EMFEmojiPreferences signalEngagementToUnifiedRecencyServiceForEmoji:v7];
@@ -1771,27 +1771,28 @@ uint64_t __43__EMFEmojiPreferences_scoreForEmojiString___block_invoke(void *a1)
 
 void __71__EMFEmojiPreferences_signalEngagementToUnifiedRecencyServiceForEmoji___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = emf_logging_get_default_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = [v3 localizedDescription];
-      __71__EMFEmojiPreferences_signalEngagementToUnifiedRecencyServiceForEmoji___block_invoke_cold_1(v5, &v7, v4);
+      v6 = [v4 localizedDescription];
+      __71__EMFEmojiPreferences_signalEngagementToUnifiedRecencyServiceForEmoji___block_invoke_cold_1(v6, &v8, v5);
     }
   }
 
   else
   {
-    v4 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = emf_logging_get_default_log(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = [*(a1 + 32) string];
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&dword_1AF04E000, v4, OS_LOG_TYPE_INFO, "EMFEmojiPreferencesService donated engagement to unified recency service: '%@'.", &v7, 0xCu);
+      v7 = [*(a1 + 32) string];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1AF04E000, v5, OS_LOG_TYPE_INFO, "EMFEmojiPreferencesService donated engagement to unified recency service: '%@'.", &v8, 0xCu);
     }
   }
 }
@@ -2436,7 +2437,7 @@ uint64_t __42__EMFEmojiPreferences_typingNameForEmoji___block_invoke(void *a1)
 {
   emojiCopy = emoji;
   v5 = MEMORY[0x1E696AEC0];
-  v6 = EMFGetDeviceBuildVersion();
+  v6 = EMFGetDeviceBuildVersion(emojiCopy);
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   v8 = [currentLocale objectForKey:*MEMORY[0x1E695D970]];
   v9 = [v5 stringWithFormat:@"%@_%@", v6, v8];

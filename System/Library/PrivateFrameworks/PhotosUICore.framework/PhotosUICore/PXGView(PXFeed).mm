@@ -13,11 +13,11 @@
   touchAction = [v6 touchAction];
   if (touchAction)
   {
-    layout = [v6 layout];
-    v9 = layout;
-    if (layout)
+    v8 = objc_msgSend_layout(v6);
+    v9 = v8;
+    if (v8)
     {
-      rootLayout = layout;
+      rootLayout = v8;
     }
 
     else
@@ -77,7 +77,7 @@
 
   else
   {
-    [self hitTestResultAtPoint:?];
+    [self hitTestResultAtPoint:{a2, a3}];
   }
   v5 = ;
   objc_opt_class();

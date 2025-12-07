@@ -20,7 +20,7 @@
 
 - (BOOL)processPeerPayload:(id)payload
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -36,21 +36,21 @@
     }
 
     *buf = 134217984;
-    v30 = method;
+    v28 = method;
     _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "Compute KE %zu result", buf, 0xCu);
   }
 
   if (!payloadCopy)
   {
-    v20 = ne_log_obj();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v18 = ne_log_obj();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v30 = "[NEIKEv2KeyExchangeHandlerMODP processPeerPayload:]";
-      _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, "%s called with null peerPayload", buf, 0xCu);
+      v28 = "[NEIKEv2KeyExchangeHandlerMODP processPeerPayload:]";
+      _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "%s called with null peerPayload", buf, 0xCu);
     }
 
-    goto LABEL_32;
+    goto LABEL_30;
   }
 
   v6 = [payloadCopy length];
@@ -62,238 +62,228 @@
       goto LABEL_5;
     }
 
-    goto LABEL_30;
+    goto LABEL_28;
   }
 
   if (v6 != self->_primeLength)
   {
-LABEL_30:
-    v23 = ne_log_obj();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+LABEL_28:
+    v21 = ne_log_obj();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       if (self)
       {
-        v24 = self->super._method;
-        v25 = [payloadCopy length];
+        v22 = self->super._method;
+        v23 = [payloadCopy length];
         primeLength = self->_primeLength;
       }
 
       else
       {
-        v25 = [payloadCopy length];
-        v24 = 0;
+        v23 = [payloadCopy length];
+        v22 = 0;
         primeLength = 0;
       }
 
       *buf = 134218496;
-      v30 = v24;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v23;
       v31 = 2048;
-      v32 = v25;
-      v33 = 2048;
-      v34 = primeLength;
-      _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "Peer KE %zu key length (%zu) is not equal to prime length (%zu)", buf, 0x20u);
+      v32 = primeLength;
+      _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "Peer KE %zu key length (%zu) is not equal to prime length (%zu)", buf, 0x20u);
     }
 
-LABEL_32:
-    v14 = 0;
-    goto LABEL_12;
+LABEL_30:
+    v13 = 0;
+    goto LABEL_10;
   }
 
 LABEL_5:
-  v8 = &v27 - ((2 * v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v25 - ((2 * v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v8, 2 * v6);
-  v28 = v7;
-  if (self)
-  {
-    context = self->_context;
-  }
-
+  v26 = v7;
   [payloadCopy bytes];
   [payloadCopy length];
-  v10 = SecDHComputeKey();
-  if (v10)
+  v9 = SecDHComputeKey();
+  if (v9)
   {
-    v21 = v10;
-    v13 = ne_log_obj();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = v9;
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       if (self)
       {
-        v22 = self->super._method;
+        v20 = self->super._method;
       }
 
       else
       {
-        v22 = 0;
+        v20 = 0;
       }
 
       *buf = 134218240;
-      v30 = v22;
-      v31 = 1024;
-      LODWORD(v32) = v21;
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Failed to compute KE %zu value: %d", buf, 0x12u);
+      v28 = v20;
+      v29 = 1024;
+      LODWORD(v30) = v19;
+      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Failed to compute KE %zu value: %d", buf, 0x12u);
     }
 
-    v14 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = v28;
+    v10 = v26;
     objc_opt_self();
-    v12 = SecCFAllocatorZeroize();
-    v13 = CFDataCreate(v12, &v8[v11], v7);
-    memset_s(&v8[v7], v7, 0, v28);
-    v14 = v13 != 0;
-    if (v13)
+    v11 = SecCFAllocatorZeroize();
+    v12 = CFDataCreate(v11, &v8[v10], v7);
+    memset_s(&v8[v7], v7, 0, v26);
+    v13 = v12 != 0;
+    if (v12)
     {
-      [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v13];
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v12];
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         if (self)
         {
-          v19 = self->super._method;
+          v17 = self->super._method;
         }
 
         else
         {
-          v19 = 0;
+          v17 = 0;
         }
 
         *buf = 134217984;
-        v30 = v19;
-        _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "Computed KE %zu result", buf, 0xCu);
+        v28 = v17;
+        _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "Computed KE %zu result", buf, 0xCu);
       }
     }
 
     else
     {
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        v30 = v7;
-        _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%zu] failed", buf, 0xCu);
+        v28 = v7;
+        _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "[NESensitiveData sensitiveDataWithBytes:length:%zu] failed", buf, 0xCu);
       }
     }
   }
 
-LABEL_12:
-  v16 = *MEMORY[0x1E69E9840];
-  return v14;
+LABEL_10:
+  return v13;
 }
 
 - (void)initWithMODPMethod:(void *)method
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!method)
   {
-    v13 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   methodCopy = method;
   v4 = a2 - 1;
   if ((a2 - 1) >= 0x12 || ((0x3E013u >> v4) & 1) == 0)
   {
-    v14 = ne_log_obj();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v13 = ne_log_obj();
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
 LABEL_14:
 
-      v13 = 0;
+      v12 = 0;
       goto LABEL_15;
     }
 
     *buf = 134217984;
-    v24 = a2;
-    v17 = "Unsupported KE method %zu";
-    v18 = v14;
-    v19 = 12;
+    v22 = a2;
+    v15 = "Unsupported KE method %zu";
+    v16 = v13;
+    v17 = 12;
 LABEL_18:
-    _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, v17, buf, v19);
+    _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v15, buf, v17);
     goto LABEL_14;
   }
 
   v5 = qword_1BAA4F698[v4];
-  v6 = *(&off_1E7F08100 + v4);
-  v7 = ne_log_obj();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v6 = ne_log_obj();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v24 = a2;
-    _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "Generate KE %zu key", buf, 0xCu);
+    v22 = a2;
+    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "Generate KE %zu key", buf, 0xCu);
   }
 
-  v8 = SecDHCreate();
-  if (v8)
+  v7 = SecDHCreate();
+  if (v7)
   {
-    v20 = v8;
-    v14 = ne_log_obj();
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v18 = v7;
+    v13 = ne_log_obj();
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_14;
     }
 
     *buf = 134218240;
-    v24 = a2;
-    v25 = 1024;
-    v26 = v20;
-    v17 = "Failed to create KE %zu context: %d";
-    v18 = v14;
-    v19 = 18;
+    v22 = a2;
+    v23 = 1024;
+    v24 = v18;
+    v15 = "Failed to create KE %zu context: %d";
+    v16 = v13;
+    v17 = 18;
     goto LABEL_18;
   }
 
-  v9 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v5];
-  [v9 mutableBytes];
-  v10 = SecDHGenerateKeypair();
-  if (v10)
+  v8 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:v5];
+  [v8 mutableBytes];
+  v9 = SecDHGenerateKeypair();
+  if (v9)
   {
-    v21 = v10;
-    v22 = ne_log_obj();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v19 = v9;
+    v20 = ne_log_obj();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 134218240;
-      v24 = a2;
-      v25 = 1024;
-      v26 = v21;
-      _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "Failed to generate KE %zu key pair: %d", buf, 0x12u);
+      v22 = a2;
+      v23 = 1024;
+      v24 = v19;
+      _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, "Failed to generate KE %zu key pair: %d", buf, 0x12u);
     }
 
     SecDHDestroy();
     goto LABEL_25;
   }
 
-  v11 = ne_log_obj();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v10 = ne_log_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v24 = a2;
-    _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "Generated KE %zu key", buf, 0xCu);
+    v22 = a2;
+    _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Generated KE %zu key", buf, 0xCu);
   }
 
-  v12 = [(NEIKEv2KeyExchangeHandler *)methodCopy initWithMethod:a2 keyExchangeData:v9];
-  if (!v12)
+  v11 = [(NEIKEv2KeyExchangeHandler *)methodCopy initWithMethod:a2 keyExchangeData:v8];
+  if (!v11)
   {
     SecDHDestroy();
     methodCopy = 0;
 LABEL_25:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_12;
   }
 
-  v12[4] = v5;
-  v12[5] = 0;
-  methodCopy = v12;
-  v13 = methodCopy;
+  v11[4] = v5;
+  v11[5] = 0;
+  methodCopy = v11;
+  v12 = methodCopy;
 LABEL_12:
 
 LABEL_15:
-LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v12;
 }
 
 @end

@@ -29,7 +29,7 @@
       [(PXTilingCoordinateSpaceConverter *)self _transformOfCoordinateSpace:parentSpace relativeToCoordinateSpace:v10];
       if (coordinateSpaceCopy)
       {
-        [coordinateSpaceCopy transform];
+        objc_msgSend_transform(coordinateSpaceCopy);
       }
 
       else
@@ -60,7 +60,7 @@ LABEL_13:
       [(PXTilingCoordinateSpaceConverter *)self _transformOfCoordinateSpace:coordinateSpaceCopy relativeToCoordinateSpace:parentSpace2];
       if (v10)
       {
-        [v10 transform];
+        objc_msgSend_transform(v10);
       }
 
       else
@@ -145,7 +145,7 @@ LABEL_14:
   if (identifier != spaceIdentifier)
   {
     memset(&v13[1], 0, sizeof(CGAffineTransform));
-    [PXTilingCoordinateSpaceConverter _transformOfCoordinateSpaceIdentifier:"_transformOfCoordinateSpaceIdentifier:relativeToCoordinateSpaceIdentifier:" relativeToCoordinateSpaceIdentifier:?];
+    objc_msgSend__transformOfCoordinateSpaceIdentifier_relativeToCoordinateSpaceIdentifier_(self, a2);
     v13[0] = v13[1];
     v14.origin.x = x;
     v14.origin.y = y;
@@ -176,7 +176,7 @@ LABEL_14:
   {
     x = result.x;
     v9 = result;
-    [PXTilingCoordinateSpaceConverter _transformOfCoordinateSpaceIdentifier:"_transformOfCoordinateSpaceIdentifier:relativeToCoordinateSpaceIdentifier:" relativeToCoordinateSpaceIdentifier:?];
+    objc_msgSend__transformOfCoordinateSpaceIdentifier_relativeToCoordinateSpaceIdentifier_(self, a2);
     result = vaddq_f64(0, vmlaq_n_f64(vmulq_laneq_f64(0, v9, 1), 0, x));
   }
 

@@ -205,9 +205,9 @@ LABEL_21:
       {
         v37 = [CCToolKitToolQueryAnyPredicate alloc];
         v38 = CCPBReaderReadDataNoCopy();
-        v50 = 0;
-        v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v50];
-        v9 = v50;
+        v48 = 0;
+        v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v48];
+        v9 = v48;
         predicate = self->_predicate;
         self->_predicate = v39;
       }
@@ -319,7 +319,6 @@ LABEL_48:
 
         v41 = objc_opt_class();
         v38 = NSStringFromClass(v41);
-        v42 = *&v5[*v8];
         v9 = CCSkipFieldErrorForMessage();
       }
 
@@ -339,23 +338,22 @@ LABEL_54:
   if (!*&v5[*v8])
   {
     v9 = 0;
-    v47 = 1;
+    v45 = 1;
     goto LABEL_58;
   }
 
 LABEL_55:
-  v43 = objc_opt_class();
-  v44 = NSStringFromClass(v43);
-  v45 = *&v5[*v8];
-  v46 = CCInvalidBufferErrorForMessage();
+  v42 = objc_opt_class();
+  v43 = NSStringFromClass(v42);
+  v44 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v9 = 0;
 LABEL_56:
-  v47 = 0;
+  v45 = 0;
 LABEL_58:
 
-  return v47;
+  return v45;
 }
 
 - (CCToolKitToolQuery)initWithPredicate:(id)predicate sort:(unsigned int)sort limit:(id)limit error:(id *)error

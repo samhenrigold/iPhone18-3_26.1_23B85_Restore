@@ -117,20 +117,19 @@ LABEL_9:
 
 BOOL __78__SearchUICardSectionCollectionViewCellAccessibility__axAccessibilityElements__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
+  v2 = a2;
   if (objc_opt_isKindOfClass())
   {
-    v5 = [v3 accessibilityTraits];
-    v6 = v5 != *MEMORY[0x29EDC7F88];
+    v3 = [v2 accessibilityTraits];
+    v4 = v3 != *MEMORY[0x29EDC7F88];
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isAccessibilityElement
@@ -298,46 +297,44 @@ uint64_t __89__SearchUICardSectionCollectionViewCellAccessibility__accessibility
 
 - (id)accessibilityCustomActions
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   [(SearchUICardSectionCollectionViewCellAccessibility *)self _axCircleButtonViews];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  obj = v19 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  obj = v18 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = objc_alloc(MEMORY[0x29EDC78E0]);
         v10 = [v8 safeValueForKey:@"buttonTitle"];
-        v15[0] = MEMORY[0x29EDCA5F8];
-        v15[1] = 3221225472;
-        v15[2] = __80__SearchUICardSectionCollectionViewCellAccessibility_accessibilityCustomActions__block_invoke;
-        v15[3] = &unk_29F2F5040;
-        v15[4] = v8;
-        v11 = [v9 initWithName:v10 actionHandler:v15];
+        v14[0] = MEMORY[0x29EDCA5F8];
+        v14[1] = 3221225472;
+        v14[2] = __80__SearchUICardSectionCollectionViewCellAccessibility_accessibilityCustomActions__block_invoke;
+        v14[3] = &unk_29F2F5040;
+        v14[4] = v8;
+        v11 = [v9 initWithName:v10 actionHandler:v14];
         [array addObject:v11];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return array;
 }

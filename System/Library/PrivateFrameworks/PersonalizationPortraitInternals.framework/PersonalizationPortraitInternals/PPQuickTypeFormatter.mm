@@ -93,7 +93,7 @@
 
 void __47__PPQuickTypeFormatter__localizedStringForKey___block_invoke(void *a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:a1[4]];
   v5 = [MEMORY[0x277CBEB68] null];
@@ -110,8 +110,8 @@ void __47__PPQuickTypeFormatter__localizedStringForKey___block_invoke(void *a1, 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v32 = [MEMORY[0x277CCA890] currentHandler];
-      [v32 handleFailureInMethod:a1[7] object:a1[5] file:@"PPQuickTypeFormatter.m" lineNumber:729 description:{@"Invalid parameter not satisfying: %@", @"[result isKindOfClass:[NSString class]]"}];
+      v31 = [MEMORY[0x277CCA890] currentHandler];
+      [v31 handleFailureInMethod:a1[7] object:a1[5] file:@"PPQuickTypeFormatter.m" lineNumber:729 description:{@"Invalid parameter not satisfying: %@", @"[result isKindOfClass:[NSString class]]"}];
     }
 
     objc_storeStrong((*(a1[6] + 8) + 40), v4);
@@ -133,34 +133,34 @@ void __47__PPQuickTypeFormatter__localizedStringForKey___block_invoke(void *a1, 
       v14 = a1[5];
       v16 = *(v14 + 24);
       v15 = *(v14 + 32);
-      v39[0] = v16;
-      v39[1] = v15;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+      v38[0] = v16;
+      v38[1] = v15;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
       v18 = [v12 preferredLocalizationsFromArray:v13 forPreferences:v17];
 
       if ([v18 count])
       {
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v19 = v18;
-        v20 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v20)
         {
           v21 = v20;
-          v33 = v18;
-          v22 = *v35;
+          v32 = v18;
+          v22 = *v34;
           while (2)
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v35 != v22)
+              if (*v34 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v34 + 1) + 8 * i);
+              v24 = *(*(&v33 + 1) + 8 * i);
               v25 = objc_autoreleasePoolPush();
               v26 = [v11 localizedStringForKey:a1[4] value:0 table:0 localization:v24];
               v27 = v26;
@@ -174,7 +174,7 @@ void __47__PPQuickTypeFormatter__localizedStringForKey___block_invoke(void *a1, 
               objc_autoreleasePoolPop(v25);
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
             if (v21)
             {
               continue;
@@ -185,7 +185,7 @@ void __47__PPQuickTypeFormatter__localizedStringForKey___block_invoke(void *a1, 
 
           v27 = v4;
 LABEL_24:
-          v18 = v33;
+          v18 = v32;
         }
 
         else
@@ -207,7 +207,7 @@ LABEL_24:
         {
           v29 = *(a1[5] + 24);
           *buf = 138412290;
-          v41 = v29;
+          v40 = v29;
           _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEFAULT, "Could not determine localizations for %@", buf, 0xCu);
         }
       }
@@ -219,13 +219,11 @@ LABEL_24:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v41 = @"com.apple.proactive.PersonalizationPortraitInternals";
+        v40 = @"com.apple.proactive.PersonalizationPortraitInternals";
         _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "Could not load bundle for %@", buf, 0xCu);
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)timeLeftLabel
@@ -406,7 +404,7 @@ LABEL_24:
 
 - (id)itemLabelForBundleId:(void *)id typeLabel:(void *)label
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = @"com.apple.Maps";
   labelCopy = label;
   if (id)
@@ -425,9 +423,9 @@ LABEL_24:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v21 = @"com.apple.Maps";
-        v22 = 2112;
-        v23 = labelCopy;
+        v20 = @"com.apple.Maps";
+        v21 = 2112;
+        v22 = labelCopy;
         _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "Formatter failed to get label pattern for bundle: %@ label: %@", buf, 0x16u);
       }
 
@@ -441,8 +439,6 @@ LABEL_24:
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -665,20 +661,20 @@ LABEL_24:
 
 - (id)localizedAppNameForBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(NSCache *)self->_appNameCache objectForKey:identifierCopy];
   if (!v5)
   {
-    v12 = 0;
-    v6 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v12];
-    v7 = v12;
+    v11 = 0;
+    v6 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v11];
+    v7 = v11;
     if (v6)
     {
       fallbackLanguage = self->_fallbackLanguage;
-      v13[0] = self->_desiredLanguage;
-      v13[1] = fallbackLanguage;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+      v12[0] = self->_desiredLanguage;
+      v12[1] = fallbackLanguage;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
       v5 = [v6 localizedNameWithPreferredLocalizations:v9];
 
       if (v5)
@@ -693,17 +689,15 @@ LABEL_24:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v15 = identifierCopy;
-        v16 = 2112;
-        v17 = v7;
+        v14 = identifierCopy;
+        v15 = 2112;
+        v16 = v7;
         _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPQuickTypeFormatter: Failed to get application record for %@: %@", buf, 0x16u);
       }
 
       v5 = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -749,18 +743,16 @@ LABEL_24:
 
 id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_2(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA8D8];
   v3 = [formattedStringsForLabels__cnBundle localizations];
   v4 = *(a1 + 32);
   v6 = *(v4 + 24);
   v5 = *(v4 + 32);
-  v11[0] = v6;
-  v11[1] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = v6;
+  v10[1] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 preferredLocalizationsFromArray:v3 forPreferences:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -782,32 +774,32 @@ void __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_3(uint6
   *(v7 + 40) = v6;
 }
 
-id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_t a1, void *a2)
+__CFString *__50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([(__CFString *)v3 hasPrefix:@"_$!<"]&& ([(__CFString *)v3 hasSuffix:@">!$_"]& 1) != 0)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = *(a1 + 32);
-    v4 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v4 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v25;
+      v6 = *v24;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v25 != v6)
+          if (*v24 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v24 + 1) + 8 * i);
+          v8 = *(*(&v23 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           v10 = [MEMORY[0x277D42648] tupleWithFirst:v8 second:v3];
           v11 = [*(a1 + 40) objectForKeyedSubscript:v10];
@@ -846,16 +838,16 @@ id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_
 
           if (v11 != v17)
           {
-            v22 = pp_quicktype_log_handle();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            v21 = pp_quicktype_log_handle();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v29 = @"cache miss";
-              v30 = 2112;
-              v31 = v3;
-              v32 = 2112;
-              v33 = v11;
-              _os_log_debug_impl(&dword_23224A000, v22, OS_LOG_TYPE_DEBUG, "(%@) localized label: %@ -> %@", buf, 0x20u);
+              v28 = @"cache miss";
+              v29 = 2112;
+              v30 = v3;
+              v31 = 2112;
+              v32 = v11;
+              _os_log_debug_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEBUG, "(%@) localized label: %@ -> %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v9);
@@ -865,7 +857,7 @@ id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v5 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
         if (v5)
         {
           continue;
@@ -879,7 +871,7 @@ id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v29 = v3;
+      v28 = v3;
       _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "no localized label available for %{private}@ -- must be either a custom label, or localizations not available", buf, 0xCu);
     }
 
@@ -893,8 +885,6 @@ id __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke_4(uint64_
 
   v11 = v19;
 LABEL_26:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -919,30 +909,28 @@ void __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke()
 
 - (id)formattedStringForLabel:(id)label
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v4 = MEMORY[0x277CBEA60];
   labelCopy2 = label;
   v6 = [v4 arrayWithObjects:&labelCopy count:1];
 
-  v7 = [(PPQuickTypeFormatter *)self formattedStringsForLabels:v6, labelCopy, v12];
+  v7 = [(PPQuickTypeFormatter *)self formattedStringsForLabels:v6, labelCopy, v11];
   firstObject = [v7 firstObject];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 - (id)formattedEventTime:(id)time
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   v5 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = timeCopy;
-    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "formatting event time: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = timeCopy;
+    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "formatting event time: %@", &v11, 0xCu);
   }
 
   v6 = PPNextMidnight();
@@ -960,21 +948,19 @@ void __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke()
   v8 = ;
   v9 = [v8 stringFromDate:timeCopy];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)formattedBirthday:(id)birthday
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   birthdayCopy = birthday;
   v5 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v39 = 138412290;
-    v40 = birthdayCopy;
-    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "formatting birthday: %@", &v39, 0xCu);
+    v38 = 138412290;
+    v39 = birthdayCopy;
+    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "formatting birthday: %@", &v38, 0xCu);
   }
 
   calendar = [birthdayCopy calendar];
@@ -986,8 +972,8 @@ void __50__PPQuickTypeFormatter_formattedStringsForLabels___block_invoke()
     v9 = pp_quicktype_log_handle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v39) = 0;
-      _os_log_debug_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEBUG, "using gregorian formatter", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_log_debug_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEBUG, "using gregorian formatter", &v38, 2u);
     }
 
     makeBirthdayFormatter = [(PPQuickTypeFormatter *)self makeBirthdayFormatter];
@@ -1009,8 +995,8 @@ LABEL_7:
     {
       if (v17)
       {
-        LOWORD(v39) = 0;
-        _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "using yearless chinese formatter", &v39, 2u);
+        LOWORD(v38) = 0;
+        _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "using yearless chinese formatter", &v38, 2u);
       }
 
       makeBirthdayFormatter = [(PPQuickTypeFormatter *)self makeYearlessChineseBirthdayFormatter];
@@ -1020,8 +1006,8 @@ LABEL_7:
     {
       if (v17)
       {
-        LOWORD(v39) = 0;
-        _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "using chinese formatter", &v39, 2u);
+        LOWORD(v38) = 0;
+        _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "using chinese formatter", &v38, 2u);
       }
 
       makeBirthdayFormatter = [(PPQuickTypeFormatter *)self makeChineseBirthdayFormatter];
@@ -1033,8 +1019,8 @@ LABEL_7:
   v18 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v39) = 0;
-    _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "configuring a new formatter", &v39, 2u);
+    LOWORD(v38) = 0;
+    _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "configuring a new formatter", &v38, 2u);
   }
 
   v11 = objc_opt_new();
@@ -1106,8 +1092,6 @@ LABEL_16:
   {
     v36 = 0;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -1352,10 +1336,10 @@ LABEL_16:
 
 + (id)formatterWithQuery:(id)query
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   objc_opt_self();
-  v25[0] = @"locale";
+  v24[0] = @"locale";
   localeIdentifier = [queryCopy localeIdentifier];
 
   localeIdentifier2 = localeIdentifier;
@@ -1365,8 +1349,8 @@ LABEL_16:
     localeIdentifier2 = [currentLocale localeIdentifier];
   }
 
-  v19 = localeIdentifier2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:v25 count:1];
+  v18 = localeIdentifier2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:v24 count:1];
   if (!localeIdentifier)
   {
   }
@@ -1377,28 +1361,26 @@ LABEL_16:
   }
 
   v8 = formatterWithQuery___pasExprOnceResult;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__12954;
-  v23 = __Block_byref_object_dispose__12955;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__12954;
+  v22 = __Block_byref_object_dispose__12955;
+  v23 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __43__PPQuickTypeFormatter_formatterWithQuery___block_invoke_40;
   aBlock[3] = &unk_278974EA0;
   v9 = v7;
-  v16 = v9;
+  v15 = v9;
   v10 = queryCopy;
-  v17 = v10;
-  v18 = &v19;
+  v16 = v10;
+  v17 = &v18;
   v11 = _Block_copy(aBlock);
 
   [v8 runWithLockAcquired:v11];
-  v12 = v20[5];
-  _Block_object_dispose(&v19, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
   return v12;
 }
@@ -1427,15 +1409,15 @@ void __43__PPQuickTypeFormatter_formatterWithQuery___block_invoke_40(uint64_t a1
 
 PPQuickTypeFormatter *__43__PPQuickTypeFormatter_formatterWithQuery___block_invoke_2(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v2 = [PPQuickTypeFormatter alloc];
   v3 = *(a1 + 32);
   v4 = v3;
   if (v2)
   {
-    v46.receiver = v2;
-    v46.super_class = PPQuickTypeFormatter;
-    v5 = objc_msgSendSuper2(&v46, sel_init);
+    v45.receiver = v2;
+    v45.super_class = PPQuickTypeFormatter;
+    v5 = objc_msgSendSuper2(&v45, sel_init);
     v2 = v5;
     if (v5)
     {
@@ -1489,20 +1471,20 @@ PPQuickTypeFormatter *__43__PPQuickTypeFormatter_formatterWithQuery___block_invo
       localizedStringsCache = v2->_localizedStringsCache;
       v2->_localizedStringsCache = v25;
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v27 = [&unk_2847855E0 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v27 = [&unk_2847855E0 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v43;
+        v29 = *v42;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v43 != v29)
+            if (*v42 != v29)
             {
               objc_enumerationMutation(&unk_2847855E0);
             }
@@ -1510,7 +1492,7 @@ PPQuickTypeFormatter *__43__PPQuickTypeFormatter_formatterWithQuery___block_invo
             v31 = [(PPQuickTypeFormatter *)v2 _localizedStringForKey:?];
           }
 
-          v28 = [&unk_2847855E0 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v28 = [&unk_2847855E0 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v28);
@@ -1521,23 +1503,21 @@ PPQuickTypeFormatter *__43__PPQuickTypeFormatter_formatterWithQuery___block_invo
       v2->_cachedContactsLabeledValuesLprojs = v32;
 
       v34 = *MEMORY[0x277CBD940];
-      v47[0] = *MEMORY[0x277CBD8E0];
-      v47[1] = v34;
+      v46[0] = *MEMORY[0x277CBD8E0];
+      v46[1] = v34;
       v35 = *MEMORY[0x277CBD900];
-      v47[2] = *MEMORY[0x277CBD908];
-      v47[3] = v35;
+      v46[2] = *MEMORY[0x277CBD908];
+      v46[3] = v35;
       v36 = *MEMORY[0x277CBD920];
-      v47[4] = *MEMORY[0x277CBD8F8];
-      v47[5] = v36;
+      v46[4] = *MEMORY[0x277CBD8F8];
+      v46[5] = v36;
       v37 = *MEMORY[0x277CBD8E8];
-      v47[6] = *MEMORY[0x277CBD918];
-      v47[7] = v37;
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:8];
+      v46[6] = *MEMORY[0x277CBD918];
+      v46[7] = v37;
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:8];
       v39 = [(PPQuickTypeFormatter *)v2 formattedStringsForLabels:v38];
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

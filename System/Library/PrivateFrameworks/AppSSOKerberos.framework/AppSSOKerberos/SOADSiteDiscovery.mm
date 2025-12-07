@@ -1,6 +1,7 @@
 @interface SOADSiteDiscovery
 - (SOADSiteDiscovery)initWithRealm:(id)realm;
 - (void)discoverADInfoUsingSourceAppBundleIdentifier:(id)identifier auditTokenData:(id)data requireTLSForLDAP:(BOOL)p withCompletion:(id)completion;
+- (void)performLDAPPingUsingSite:(id)site bundleIdentifier:(id)identifier auditTokenData:(id)data requireTLSForLDAP:(BOOL)p inBackground:(BOOL)background completion:(id)completion;
 - (void)performNetworkConnectionUsingService:(id)service orHost:(id)host port:(unsigned __int16)port inBackground:(BOOL)background completion:(id)completion;
 @end
 
@@ -37,7 +38,7 @@
   identifierCopy = identifier;
   dataCopy = data;
   completionCopy = completion;
-  v13 = SO_LOG_SOADSiteDiscovery();
+  v13 = SO_LOG_SOADSiteDiscovery(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [SOADSiteDiscovery discoverADInfoUsingSourceAppBundleIdentifier:? auditTokenData:? requireTLSForLDAP:? withCompletion:?];
@@ -74,7 +75,7 @@ void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_audit
 {
   v32 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = SO_LOG_SOADSiteDiscovery();
+  v3 = SO_LOG_SOADSiteDiscovery(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_1();
@@ -134,29 +135,26 @@ void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_audit
   v16 = [*(a1 + 32) queue];
   [v16 waitUntilAllOperationsAreFinished];
 
-  v17 = SO_LOG_SOADSiteDiscovery();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = SO_LOG_SOADSiteDiscovery(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_2();
   }
 
-  v18 = SO_LOG_SOADSiteDiscovery();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = SO_LOG_SOADSiteDiscovery(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_3(a1);
+    __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_3();
   }
 
-  v19 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
   objc_destroyWeak(&location);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_7(uint64_t a1, int a2, void *a3)
 {
   v6 = a3;
-  v7 = SO_LOG_SOADSiteDiscovery();
+  v7 = SO_LOG_SOADSiteDiscovery(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_7_cold_1(v6, a1);
@@ -171,16 +169,69 @@ void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_audit
   }
 }
 
+- (void)performLDAPPingUsingSite:(id)site bundleIdentifier:(id)identifier auditTokenData:(id)data requireTLSForLDAP:(BOOL)p inBackground:(BOOL)background completion:(id)completion
+{
+  backgroundCopy = background;
+  pCopy = p;
+  siteCopy = site;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  v16 = SO_LOG_SOADSiteDiscovery(identifierCopy);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [SOADSiteDiscovery performLDAPPingUsingSite:? bundleIdentifier:? auditTokenData:? requireTLSForLDAP:? inBackground:? completion:?];
+  }
+
+  v17 = MEMORY[0x277CCACA8];
+  realm = [(SOADSiteDiscovery *)self realm];
+  v19 = realm;
+  if (siteCopy)
+  {
+    [v17 stringWithFormat:@"_ldap._tcp.%@._sites.%@", siteCopy, realm];
+  }
+
+  else
+  {
+    [v17 stringWithFormat:@"_ldap._tcp.%@", realm, v31];
+  }
+  v20 = ;
+
+  v22 = SO_LOG_SOADSiteDiscovery(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    [SOADSiteDiscovery performLDAPPingUsingSite:bundleIdentifier:auditTokenData:requireTLSForLDAP:inBackground:completion:];
+  }
+
+  v23 = objc_opt_new();
+  v24 = MEMORY[0x277CCACA8];
+  realm2 = [(SOADSiteDiscovery *)self realm];
+  v26 = [v24 stringWithFormat:@"(&(DnsDomain=%@)(NtVer=\\06\\00\\00\\00))", realm2];
+
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke;
+  v32[3] = &unk_278C92FA0;
+  v33 = v20;
+  v34 = v23;
+  v35 = v26;
+  v36 = completionCopy;
+  v27 = completionCopy;
+  v28 = v26;
+  v29 = v23;
+  v30 = v20;
+  [v29 connectToLDAPService:v30 requireTLSForLDAP:pCopy bundleIdentifier:identifierCopy inBackground:backgroundCopy completion:v32];
+}
+
 void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = SO_LOG_SOADSiteDiscovery();
+  v6 = SO_LOG_SOADSiteDiscovery(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (a2)
   {
     if (v7)
     {
-      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_2(a1);
+      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_2();
     }
 
     v8 = *(a1 + 40);
@@ -199,7 +250,7 @@ void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTok
   {
     if (v7)
     {
-      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_1(a1);
+      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -211,24 +262,24 @@ void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTok
 {
   v7 = a3;
   v8 = a4;
-  [*(a1 + 32) disconnect];
+  v9 = [*(a1 + 32) disconnect];
   if (a2)
   {
-    v9 = [v8 objectForKeyedSubscript:@"netlogon"];
-    v10 = [v9 firstObject];
-    v11 = [v10 base64EncodedStringWithOptions:32];
-    v12 = SO_LOG_SOADSiteDiscovery();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v10 = [v8 objectForKeyedSubscript:@"netlogon"];
+    v11 = [v10 firstObject];
+    v12 = [v11 base64EncodedStringWithOptions:32];
+    v13 = SO_LOG_SOADSiteDiscovery(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_2();
     }
 
-    v13 = [SONetLogonParser parseNetLoginUsingData:v10];
-    v14 = [MEMORY[0x277CCABB0] numberWithShort:8];
-    v15 = [v13 objectForKeyedSubscript:v14];
+    v14 = [SONetLogonParser parseNetLoginUsingData:v11];
+    v15 = [MEMORY[0x277CCABB0] numberWithShort:8];
+    v16 = [v14 objectForKeyedSubscript:v15];
 
-    v16 = SO_LOG_SOADSiteDiscovery();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = SO_LOG_SOADSiteDiscovery(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_3();
     }
@@ -238,10 +289,10 @@ void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTok
 
   else
   {
-    v17 = SO_LOG_SOADSiteDiscovery();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = SO_LOG_SOADSiteDiscovery(v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_1(a1);
+      __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -314,38 +365,39 @@ void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTok
   }
 }
 
-void __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke(void *a1, unsigned int a2, void *a3)
+void __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  v6 = SO_LOG_SOADSiteDiscovery();
+  v6 = SO_LOG_SOADSiteDiscovery(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke_cold_1();
   }
 
-  if (a2 <= 1 || a2 == 3)
+  if (v3 <= 1 || v3 == 3)
   {
 LABEL_4:
     *(*(a1[5] + 8) + 24) = 1;
     nw_connection_cancel(*(*(a1[6] + 8) + 40));
-    v7 = *(a1[6] + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
+    v8 = *(a1[6] + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = 0;
 
 LABEL_5:
     (*(a1[4] + 16))();
     goto LABEL_6;
   }
 
-  if (a2 != 5)
+  if (v3 != 5)
   {
-    if (a2 != 4)
+    if (v3 != 4)
     {
       goto LABEL_6;
     }
 
-    v9 = SO_LOG_SOADSiteDiscovery();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SO_LOG_SOADSiteDiscovery(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke_cold_3();
     }
@@ -353,20 +405,20 @@ LABEL_5:
     goto LABEL_4;
   }
 
-  v10 = *(a1[6] + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = 0;
+  v11 = *(a1[6] + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = 0;
 
-  v12 = SO_LOG_SOADSiteDiscovery();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = SO_LOG_SOADSiteDiscovery(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke_cold_2();
   }
 
-  v13 = *(a1[5] + 8);
-  if ((*(v13 + 24) & 1) == 0)
+  v15 = *(a1[5] + 8);
+  if ((*(v15 + 24) & 1) == 0)
   {
-    *(v13 + 24) = 1;
+    *(v15 + 24) = 1;
     goto LABEL_5;
   }
 
@@ -375,124 +427,74 @@ LABEL_6:
 
 - (void)discoverADInfoUsingSourceAppBundleIdentifier:(void *)a1 auditTokenData:requireTLSForLDAP:withCompletion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 realm];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_3(uint64_t a1)
+void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*(a1 + 56) + 8) + 40);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __114__SOADSiteDiscovery_discoverADInfoUsingSourceAppBundleIdentifier_auditTokenData_requireTLSForLDAP_withCompletion___block_invoke_7_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [*(a2 + 32) host];
+  v7 = [*(a2 + 32) host];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performLDAPPingUsingSite:(void *)a1 bundleIdentifier:auditTokenData:requireTLSForLDAP:inBackground:completion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 realm];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performLDAPPingUsingSite:bundleIdentifier:auditTokenData:requireTLSForLDAP:inBackground:completion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_1(uint64_t a1)
+void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_24006C000, v2, v3, "error with ldap connection for service: %@, %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_24006C000, v2, v3, "error with netlogon ping for service: %{public}@, %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __120__SOADSiteDiscovery_performLDAPPingUsingSite_bundleIdentifier_auditTokenData_requireTLSForLDAP_inBackground_completion___block_invoke_23_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __94__SOADSiteDiscovery_performNetworkConnectionUsingService_orHost_port_inBackground_completion___block_invoke_cold_3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "tcp error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "tcp error: %@", v1, 0xCu);
 }
 
 @end

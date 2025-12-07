@@ -3,6 +3,7 @@
 - (ATXHistogramData)initWithCategoricalHistogram:(id)histogram;
 - (ATXHistogramData)initWithCoder:(id)coder;
 - (ATXHistogramData)initWithTimeHistogram:(id)histogram;
+- (float)entropyWhereA:(unsigned __int16)a b:(unsigned __int16)b;
 - (float)lookupSmoothedWithBucketCount:(unsigned __int16)count distanceScale:(float)scale a:(unsigned __int16)a b:(unsigned __int16)b;
 - (float)lookupUnsmoothedA:(unsigned __int16)a b:(unsigned __int16)b;
 - (id).cxx_construct;
@@ -112,7 +113,7 @@
   else
   {
     _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, 0);
-    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, 0);
+    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), 0);
     pthread_mutex_unlock((ptr + 8));
   }
 }
@@ -137,7 +138,7 @@
       if (v10)
       {
         v11 = 0;
-        while (*(v9[4] + 4 * v11) != (bCopy | (aCopy << 16)))
+        while (*&v9[4][4 * v11] != (bCopy | (aCopy << 16)))
         {
           if (v10 == ++v11)
           {
@@ -145,7 +146,7 @@
           }
         }
 
-        *(*v9 + 4 * v11) = fmaxf(*(*v9 + 4 * v11) + add, 0.0);
+        *&(*v9)[4 * v11] = fmaxf(*&(*v9)[4 * v11] + add, 0.0);
       }
 
       else
@@ -155,11 +156,11 @@ LABEL_7:
         {
           v12 = v9[3];
           _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, v12 + 1);
-          *(*v9 + 4 * v12) = fmaxf(add, 0.0);
+          *&(*v9)[4 * v12] = fmaxf(add, 0.0);
           v13 = *ptr;
           v14 = *(*ptr + 56);
-          _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, v14 + 1);
-          *(*(v13 + 32) + 4 * v14) = bCopy | (aCopy << 16);
+          _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), (v14 + 1));
+          *&v13[4][4 * v14] = bCopy | (aCopy << 16);
         }
       }
 
@@ -306,6 +307,19 @@ LABEL_7:
   return result;
 }
 
+- (float)entropyWhereA:(unsigned __int16)a b:(unsigned __int16)b
+{
+  bCopy = b;
+  aCopy = a;
+  ptr = self->_guardedData.__ptr_;
+  v10 = ptr;
+  pthread_mutex_lock((ptr + 8));
+  entropy(&v10, aCopy, bCopy);
+  v8 = v7;
+  pthread_mutex_unlock((ptr + 8));
+  return v8;
+}
+
 - (void)enumerate:(id)enumerate
 {
   enumerateCopy = enumerate;
@@ -429,12 +443,12 @@ uint64_t __34__ATXHistogramData_countWhereA_b___block_invoke_2(uint64_t result, 
 
     else
     {
-      v8 = v7[3];
+      v8 = *(v7 + 24);
       if (v8)
       {
         v9 = 0;
         v10 = 0;
-        v11 = v7[4];
+        v11 = *(v7 + 32);
         do
         {
           v12 = *(v11 + 4 * v9);
@@ -451,7 +465,7 @@ uint64_t __34__ATXHistogramData_countWhereA_b___block_invoke_2(uint64_t result, 
 
         while (v8 != v9);
         _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(v7, v10);
-        _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, v10);
+        _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), v10);
       }
 
       pthread_mutex_unlock((ptr + 8));
@@ -545,9 +559,10 @@ uint64_t __34__ATXHistogramData_countWhereA_b___block_invoke_2(uint64_t result, 
 
   v9 = v8;
   _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, v8);
-  _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 4), v9);
+  _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 4, v9);
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"scores"];
   v11 = [v10 length];
+  v12 = v11;
   if (v11 == 4 * v9)
   {
     if (v10)
@@ -555,71 +570,72 @@ uint64_t __34__ATXHistogramData_countWhereA_b___block_invoke_2(uint64_t result, 
       memcpy(**ptr, [v10 bytes], objc_msgSend(v10, "length"));
     }
 
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"abs"];
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"abs"];
 
-    if ([v12 length] == v11)
+    v14 = [v13 length];
+    if (v14 == v12)
     {
-      if (v12)
-      {
-        memcpy((*ptr)[4], [v12 bytes], objc_msgSend(v12, "length"));
-      }
-
-      v13 = (*ptr)[3];
       if (v13)
       {
-        v14 = **ptr;
-        v15 = 1;
+        memcpy((*ptr)[4], [v13 bytes], objc_msgSend(v13, "length"));
+      }
+
+      v15 = (*ptr)[3];
+      if (v15)
+      {
+        v16 = **ptr;
+        v17 = 1;
         do
         {
-          if ((*v14 & 0x7FFFFFFFu) >= 0x7F800000)
+          if ((*v16 & 0x7FFFFFFFu) >= 0x7F800000)
           {
-            *v14 = 0;
+            *v16 = 0;
           }
 
-          ++v14;
+          ++v16;
         }
 
-        while (v13 > v15++);
+        while (v15 > v17++);
       }
 
 LABEL_15:
-      v17 = 1;
+      v19 = 1;
       goto LABEL_22;
     }
 
-    v18 = __atxlog_handle_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_default(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXHistogramData initWithCoder:];
     }
 
-    v10 = v12;
+    v10 = v13;
   }
 
   else
   {
-    v18 = __atxlog_handle_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXHistogramData initWithCoder:];
     }
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_22:
   pthread_mutex_unlock((ptr + 1));
   objc_autoreleasePoolPop(v6);
-  if ((v17 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    v19 = 0;
+    v21 = 0;
     goto LABEL_25;
   }
 
 LABEL_23:
-  v19 = v5;
+  v21 = v5;
 LABEL_25:
 
-  return v19;
+  return v21;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -701,8 +717,8 @@ LABEL_25:
   v5 = aCopy;
   if (!aCopy)
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXHistogramData applyPermutationToA:];
     }
@@ -713,60 +729,51 @@ LABEL_25:
   bytes = [aCopy bytes];
   v7 = [v5 length];
   ptr = self->_guardedData.__ptr_;
-  pthread_mutex_lock((ptr + 8));
-  v9 = *ptr;
+  v9 = pthread_mutex_lock((ptr + 8));
+  v10 = *ptr;
   if ((*(*ptr + 64) & 1) == 0)
   {
-    if (*(v9 + 56))
+    if (*(v10 + 56))
     {
-      v10 = 0;
-      v11 = 1;
+      v11 = 0;
+      v12 = 1;
       do
       {
-        v12 = *(v9 + 32);
-        v13 = *(v12 + 4 * v10) >> 16;
-        if (HIWORD(*(v12 + 4 * v10)) >= (v7 >> 1))
+        v13 = *(v10 + 32);
+        v14 = *(v13 + 4 * v11) >> 16;
+        if (HIWORD(*(v13 + 4 * v11)) >= (v7 >> 1))
         {
-          v14 = __atxlog_handle_default();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = __atxlog_handle_default(v9);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109376;
-            v19 = v13;
+            v19 = v14;
             v20 = 1024;
             v21 = (v7 >> 1);
-            _os_log_error_impl(&dword_2263AA000, v14, OS_LOG_TYPE_ERROR, "%u not found in permutation of length %u", buf, 0xEu);
+            _os_log_error_impl(&dword_2263AA000, v15, OS_LOG_TYPE_ERROR, "%u not found in permutation of length %u", buf, 0xEu);
           }
 
-          v9 = *ptr;
+          v10 = *ptr;
         }
 
         else
         {
-          *(v12 + 4 * v10) = *(v12 + 4 * v10) | (*(bytes + 2 * v13) << 16);
+          *(v13 + 4 * v11) = *(v13 + 4 * v11) | (*(bytes + 2 * v14) << 16);
         }
 
-        v10 = v11;
+        v11 = v12;
       }
 
-      while (*(v9 + 56) > v11++);
+      while (*(v10 + 56) > v12++);
     }
 
     pthread_mutex_unlock((ptr + 8));
 LABEL_15:
 
-    v17 = *MEMORY[0x277D85DE8];
     return;
   }
 
   __break(1u);
-}
-
-- (void)applyPermutationToA:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

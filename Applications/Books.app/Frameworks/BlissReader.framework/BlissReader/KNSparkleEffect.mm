@@ -12,7 +12,7 @@
 {
   if (!self->_isSetup)
   {
-    v3 = [KNBundle() pathForResource:@"KNBuildSparkle" ofType:@"png"];
+    v3 = [KNBundle(self) pathForResource:@"KNBuildSparkle" ofType:@"png"];
     metalContext = self->_metalContext;
     if (metalContext)
     {

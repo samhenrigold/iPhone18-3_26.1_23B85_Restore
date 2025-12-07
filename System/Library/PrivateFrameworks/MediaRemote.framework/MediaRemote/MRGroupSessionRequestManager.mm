@@ -137,14 +137,14 @@ void __45__MRGroupSessionRequestManager_sharedManager__block_invoke()
 
 - (void)updateGroupSessionInfo:(id)info
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = infoCopy;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating group session info: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = infoCopy;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating group session info: %@", &v7, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -152,19 +152,18 @@ void __45__MRGroupSessionRequestManager_sharedManager__block_invoke()
   self->_groupSessionInfo = infoCopy;
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLocalIdentity:(id)identity
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   v5 = _MRLogForCategory(0xCuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = identityCopy;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating local identity: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = identityCopy;
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating local identity: %@", &v7, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -173,12 +172,11 @@ void __45__MRGroupSessionRequestManager_sharedManager__block_invoke()
 
   self->_hasPopulatedIdentity = 1;
   os_unfair_lock_unlock(&self->_lock);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateGroupSessionEligibility:(id)eligibility
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   eligibilityCopy = eligibility;
   os_unfair_lock_lock(&self->_lock);
   eligibilityStatus = self->_eligibilityStatus;
@@ -201,13 +199,12 @@ void __45__MRGroupSessionRequestManager_sharedManager__block_invoke()
     v10 = _MRLogForCategory(0xCuLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating group session eligibility: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRGroupSessionRequestManager] Updating group session eligibility: %@", &v12, 0xCu);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9 ^ 1;
 }
 

@@ -1938,7 +1938,7 @@ LABEL_8:
     return;
   }
 
-  v5 = HIDWORD(gLogObjects);
+  v5 = gLogObjects;
   v6 = gNumLogObjects;
   if (gLogObjects)
   {
@@ -1954,10 +1954,11 @@ LABEL_8:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v21[2] = v5;
-      v22 = 1024;
-      v23 = v6;
-      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v8, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v9, v10, v11, v12, 0);
+      *v21 = 134218240;
+      *&v21[4] = v5;
+      *&v21[12] = 1024;
+      *&v21[14] = v6;
+      OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v8, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v9, v10, v11, v12, *v21, *&v21[16]);
     }
 
     v14 = &_os_log_default;
@@ -1971,7 +1972,7 @@ LABEL_8:
 
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v21[0]) = 0;
+    *v21 = 0;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Adding iAP2 identification info...", v21, 2u);
   }
 
@@ -2000,7 +2001,7 @@ LABEL_8:
     self->_eaAccessoryCapabilities |= 0x4000uLL;
   }
 
-  isIdentifiedForIncomingMessageID = iap2_identification_isIdentifiedForIncomingMessageID(info, 59907);
+  isIdentifiedForIncomingMessageID = iap2_identification_isIdentifiedForIncomingMessageID(info, 0xEA03u);
   eaAccessoryCapabilities = self->_eaAccessoryCapabilities;
   if (isIdentifiedForIncomingMessageID)
   {

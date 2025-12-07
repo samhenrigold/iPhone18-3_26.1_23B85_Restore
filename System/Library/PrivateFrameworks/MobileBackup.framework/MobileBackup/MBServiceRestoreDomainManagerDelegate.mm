@@ -36,19 +36,17 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v34 = nameCopy;
-      v35 = 2112;
-      v36 = stringByDeletingLastPathComponent;
+      v32 = nameCopy;
+      v33 = 2112;
+      v34 = stringByDeletingLastPathComponent;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "=cloud-domain-delegate= Creating placeholder domain for %@ (%@)", buf, 0x16u);
-      v31 = nameCopy;
-      v32 = stringByDeletingLastPathComponent;
-      _MBLog();
+      _MBLog(@"I ", "=cloud-domain-delegate= Creating placeholder domain for %@ (%@)", nameCopy, stringByDeletingLastPathComponent);
     }
 
     v17 = [MBDomain appPlaceholderDomainWithIdentifier:dCopy volumeMountPoint:volumeMountPoint rootPath:stringByDeletingLastPathComponent];
 LABEL_9:
     domain = v17;
-    v19 = [NSSet set:v31];
+    v19 = +[NSSet set];
     [domain setRelativePathsToBackupAndRestore:v19];
 
     v20 = [NSSet setWithObject:&stru_1003C3430];
@@ -65,11 +63,11 @@ LABEL_19:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v34 = nameCopy;
-      v35 = 2112;
-      v36 = skippedFileRecordsPlistPath;
+      v32 = nameCopy;
+      v33 = 2112;
+      v34 = skippedFileRecordsPlistPath;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "=cloud-domain-delegate= Creating system container domain for %@ at %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=cloud-domain-delegate= Creating system container domain for %@ at %@", nameCopy, skippedFileRecordsPlistPath);
     }
 
     systemContainersVolumeMountPoint = [v11 systemContainersVolumeMountPoint];
@@ -92,11 +90,11 @@ LABEL_18:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v34 = nameCopy;
-      v35 = 2112;
-      v36 = skippedFileRecordsPlistPath;
+      v32 = nameCopy;
+      v33 = 2112;
+      v34 = skippedFileRecordsPlistPath;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "=cloud-domain-delegate= Creating system shared container domain for %@ at %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=cloud-domain-delegate= Creating system shared container domain for %@ at %@", nameCopy, skippedFileRecordsPlistPath);
     }
 
     systemContainersVolumeMountPoint = [v11 systemContainersVolumeMountPoint];
@@ -111,7 +109,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "=cloud-domain-delegate= Creating skipped files domain", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=cloud-domain-delegate= Creating skipped files domain");
     }
 
     skippedFileRecordsPlistPath = [v11 skippedFileRecordsPlistPath];
@@ -130,9 +128,9 @@ LABEL_18:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v34 = nameCopy;
+      v32 = nameCopy;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "=cloud-domain-delegate= Creating uninstalled container domain for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=cloud-domain-delegate= Creating uninstalled container domain for %@", nameCopy);
     }
 
     stringByDeletingLastPathComponent = [MBContainer uninstalledContainerWithDomainName:nameCopy volumeMountPoint:volumeMountPoint];

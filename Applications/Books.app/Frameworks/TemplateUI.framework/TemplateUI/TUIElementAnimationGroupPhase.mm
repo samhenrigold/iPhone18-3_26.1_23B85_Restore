@@ -46,7 +46,7 @@
     v10 = objc_alloc_init(TUIAnimationGroupPhase);
     [objectCopy delay];
     [(TUIAnimationGroupPhase *)v10 setDelay:?];
-    [objectCopy duration];
+    objc_msgSend_duration(objectCopy);
     [(TUIAnimationGroupPhase *)v10 setDuration:?];
     -[TUIAnimationGroupPhase setOptions:](v10, "setOptions:", -[TUIAnimationGroupPhase options](v10, "options") | [objectCopy options]);
     [(TUIAnimationGroupPhase *)v10 setAnimations:v9];

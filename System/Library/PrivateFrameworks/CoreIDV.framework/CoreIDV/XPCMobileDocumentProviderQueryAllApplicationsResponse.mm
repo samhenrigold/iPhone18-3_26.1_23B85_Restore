@@ -9,7 +9,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_21CD15418(coderCopy, &OBJC_IVAR____TtC7CoreIDV53XPCMobileDocumentProviderQueryAllApplicationsResponse_value, sub_21CD1724C);
+  sub_21CD15418(coderCopy, &OBJC_IVAR____TtC7CoreIDV53XPCMobileDocumentProviderQueryAllApplicationsResponse_value, sub_21CD1724C, &type metadata for MobileDocumentProviderQueryAllApplicationsResponse);
 }
 
 - (_TtC7CoreIDV53XPCMobileDocumentProviderQueryAllApplicationsResponse)init

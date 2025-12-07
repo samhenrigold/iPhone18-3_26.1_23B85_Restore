@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -26,6 +27,21 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279866348[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -116,7 +132,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -156,30 +172,30 @@
   if ([(NSMutableArray *)self->_contactStorages count])
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_contactStorages, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v11 = self->_contactStorages;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation2 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation2];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -207,18 +223,15 @@
     [dictionary setObject:dictionaryRepresentation3 forKey:@"Unknown Fields"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -237,41 +250,39 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = self->_contactStorages;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_contactStorages;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v15;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    hidden = self->_hidden;
     PBDataWriterWriteBOOLField();
   }
 
@@ -280,9 +291,7 @@
     PBDataWriterWriteStringField();
   }
 
-  [(PBUnknownFields *)self->_unknownFields writeTo:toCopy, v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(PBUnknownFields *)self->_unknownFields writeTo:toCopy, v10];
 }
 
 - (void)copyTo:(id)to
@@ -341,7 +350,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -362,34 +371,34 @@
   v12 = *(v6 + 40);
   *(v6 + 40) = v11;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = self->_contactStorages;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       v17 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v23 + 1) + 8 * v17) copyWithZone:{zone, v23}];
+        v18 = [*(*(&v22 + 1) + 8 * v17) copyWithZone:{zone, v22}];
         [v6 addContactStorage:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
@@ -401,12 +410,11 @@
     *(v6 + 64) |= 2u;
   }
 
-  v19 = [(NSString *)self->_originatingAddressString copyWithZone:zone, v23];
+  v19 = [(NSString *)self->_originatingAddressString copyWithZone:zone, v22];
   v20 = *(v6 + 48);
   *(v6 + 48) = v19;
 
   objc_storeStrong((v6 + 8), self->_unknownFields);
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -418,7 +426,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_type != *(equalCopy + 14))
@@ -465,7 +472,6 @@
     }
   }
 
-  v10 = *(equalCopy + 64);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 64) & 2) == 0)
@@ -474,7 +480,7 @@
     }
 
 LABEL_20:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_21;
   }
 
@@ -483,7 +489,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v14 = *(equalCopy + 60);
   if (self->_hidden)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -501,17 +506,17 @@ LABEL_17:
   originatingAddressString = self->_originatingAddressString;
   if (originatingAddressString | *(equalCopy + 6))
   {
-    v12 = [(NSString *)originatingAddressString isEqual:?];
+    v10 = [(NSString *)originatingAddressString isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_21:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -545,7 +550,7 @@ LABEL_21:
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[16])
@@ -579,29 +584,29 @@ LABEL_21:
     [(MSPPinnedPlaceStorage *)self setMapItemStorage:?];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(v5 + 2);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(MSPPinnedPlaceStorage *)self addContactStorage:*(*(&v14 + 1) + 8 * i), v14];
+        [(MSPPinnedPlaceStorage *)self addContactStorage:*(*(&v13 + 1) + 8 * i), v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
@@ -617,8 +622,6 @@ LABEL_21:
   {
     [(MSPPinnedPlaceStorage *)self setOriginatingAddressString:?];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -12,7 +12,7 @@
 
 - (NLModelImplLC)initWithModelData:(id)data configuration:(id)configuration labelMap:(id)map vocabularyMap:(id)vocabularyMap documentFrequencyMap:(id)frequencyMap customEmbeddingData:(id)embeddingData trainingInfo:(id)info error:(id *)self0
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   configurationCopy = configuration;
   mapCopy = map;
@@ -22,7 +22,7 @@
   CRFSuiteMaxEntModelFromData = createCRFSuiteMaxEntModelFromData(dataCopy);
   v23 = unsignedIntegerForKey(infoCopy, 0x1F10C67C0, 0);
 
-  if (CRFSuiteMaxEntModelFromData && (v38.receiver = self, v38.super_class = NLModelImplLC, v24 = [(NLModelImplLC *)&v38 init], (self = v24) != 0))
+  if (CRFSuiteMaxEntModelFromData && (v37.receiver = self, v37.super_class = NLModelImplLC, v24 = [(NLModelImplLC *)&v37 init], (self = v24) != 0))
   {
     v24->_maxEntModel = CRFSuiteMaxEntModelFromData;
     v25 = [configurationCopy copy];
@@ -52,29 +52,28 @@
     if (error)
     {
       v34 = MEMORY[0x1E696ABC0];
-      v39 = *MEMORY[0x1E696A578];
-      v40[0] = @"Failed to load model file, invalid MaxEnt model data";
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+      v38 = *MEMORY[0x1E696A578];
+      v39[0] = @"Failed to load model file, invalid MaxEnt model data";
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
       *error = [v34 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v35];
     }
 
     selfCopy = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NLModelImplLC)initWithModelTrainer:(id)trainer error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   trainerCopy = trainer;
   configuration = [trainerCopy configuration];
   dataSet = [trainerCopy dataSet];
-  v22[0] = xmmword_19D4E9090;
-  v22[1] = vdupq_n_s64(0x400uLL);
-  v22[2] = xmmword_19D4E90A0;
-  v7 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:v22 modelTrainer:trainerCopy];
+  v21[0] = xmmword_19D4E9090;
+  v21[1] = vdupq_n_s64(0x400uLL);
+  v21[2] = xmmword_19D4E90A0;
+  v7 = [NLDataSet dataSetWithDataSet:dataSet constraintParameters:v21 modelTrainer:trainerCopy];
   inverseLabelMap = [v7 inverseLabelMap];
   vocabularyMap = [v7 vocabularyMap];
   documentFrequencyMap = [v7 documentFrequencyMap];
@@ -87,13 +86,12 @@
   current = [MEMORY[0x1E696AEC0] stringWithFormat:@"Finished MaxEnt training in %.2f seconds", CFAbsoluteTimeGetCurrent() - Current];
   [trainerCopy logMessage:current];
 
-  v23 = 0x1F10C67C0;
+  v22 = 0x1F10C67C0;
   v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:numberOfTrainingInstances];
-  v24[0] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v23[0] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v18 = [(NLModelImplLC *)self initWithModelData:v14 configuration:configuration labelMap:inverseLabelMap vocabularyMap:vocabularyMap documentFrequencyMap:documentFrequencyMap customEmbeddingData:0 trainingInfo:v17 error:0];
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

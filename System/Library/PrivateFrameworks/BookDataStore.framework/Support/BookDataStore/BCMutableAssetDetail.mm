@@ -17,7 +17,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0298();
@@ -121,7 +121,7 @@ LABEL_7:
 
     else
     {
-      v41 = sub_100002660();
+      v41 = sub_100002660(0);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         sub_1001C011C();
@@ -139,7 +139,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v8 = sub_100002660();
+    v8 = sub_100002660(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001C02CC();
@@ -277,7 +277,7 @@ LABEL_7:
   {
     if (readingProgressHighWaterMark > mark)
     {
-      v6 = sub_100002660();
+      v6 = sub_100002660(self);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         assetID = [(BCMutableAssetDetail *)self assetID];

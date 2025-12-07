@@ -245,29 +245,29 @@ uint64_t __62__EDBatchingMessageQueryIterator__processMessages_forceFlush___bloc
 
 - (id)_deduplicateMessages:(id)messages
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v3 = objc_opt_new();
-  v21 = objc_opt_new();
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v20 = objc_opt_new();
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = messagesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = MEMORY[0x1E696AD98];
         second = [v8 second];
         objectID = [second objectID];
@@ -279,7 +279,7 @@ uint64_t __62__EDBatchingMessageQueryIterator__processMessages_forceFlush___bloc
           v14 = objc_alloc_init(_EDCombinedMessageInfo);
           [v3 setObject:v14 forKeyedSubscript:v12];
           v13 = v14;
-          [v21 addObject:v14];
+          [v20 addObject:v14];
         }
 
         second2 = [v8 second];
@@ -287,15 +287,13 @@ uint64_t __62__EDBatchingMessageQueryIterator__processMessages_forceFlush___bloc
         [v13 addMessage:second2 withDatabaseID:{objc_msgSend(first, "longLongValue")}];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
-  v17 = [v21 ef_compactMap:&__block_literal_global_77];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = [v20 ef_compactMap:&__block_literal_global_77];
 
   return v17;
 }

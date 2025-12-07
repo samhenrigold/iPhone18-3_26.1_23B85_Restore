@@ -31,30 +31,29 @@
 {
   v6 = sub_251210D7C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251210D5C();
   selfCopy = self;
-  v12 = sub_2511FB21C();
-  if (!v12)
+  v11 = sub_2511FB21C();
+  if (!v11)
   {
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
     return 0;
   }
 
-  v13 = v12;
+  v12 = v11;
   result = sub_2511FB3D8();
-  if (v15)
+  if (v14)
   {
-    v16 = sub_25121176C();
+    v15 = sub_25121176C();
 
-    v17 = NSSelectorFromString(v16);
+    v16 = NSSelectorFromString(v15);
 
-    [v13 performSelector:v17 withObject:selfCopy];
-    (*(v7 + 8))(v10, v6);
-    v18 = v13;
+    [v12 performSelector:v16 withObject:selfCopy];
+    (*(v7 + 8))(v9, v6);
+    v17 = v12;
     return 0;
   }
 

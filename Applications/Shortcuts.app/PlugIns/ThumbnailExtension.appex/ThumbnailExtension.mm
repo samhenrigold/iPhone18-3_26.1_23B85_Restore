@@ -1,29 +1,29 @@
 void sub_100001360(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(*(sub_100001DB8() - 8) + 64);
+  sub_100001DB8();
   __chkstk_darwin();
-  v8 = aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = [a1 fileURL];
+  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = [a1 fileURL];
   sub_100001DA8();
 
-  v10 = objc_allocWithZone(WFShortcutExtractor);
-  v12 = sub_100001890(v8, 1, 1, 0, 0, v11);
-  v13 = swift_allocObject();
-  v13[2] = a2;
-  v13[3] = a3;
-  v13[4] = a1;
+  v9 = objc_allocWithZone(WFShortcutExtractor);
+  v11 = sub_100001890(v7, 1, 1, 0, 0, v10);
+  v12 = swift_allocObject();
+  v12[2] = a2;
+  v12[3] = a3;
+  v12[4] = a1;
   aBlock[4] = sub_1000019EC;
-  aBlock[5] = v13;
+  aBlock[5] = v12;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100001604;
   aBlock[3] = &unk_100004260;
-  v14 = _Block_copy(aBlock);
+  v13 = _Block_copy(aBlock);
 
-  v15 = a1;
+  v14 = a1;
 
-  [v12 extractShortcutWithCompletion:v14];
-  _Block_release(v14);
+  [v11 extractShortcutWithCompletion:v13];
+  _Block_release(v13);
 }
 
 id sub_1000014FC(uint64_t a1, uint64_t a2, double a3, double a4)
@@ -44,21 +44,19 @@ id sub_1000014FC(uint64_t a1, uint64_t a2, double a3, double a4)
 uint64_t sub_1000015C4(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  LOBYTE(v1) = v1(v3);
+  LOBYTE(v1) = v1(v2);
 
   return v1 & 1;
 }
 
 void sub_100001604(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v8 = a2;
-  v7 = a3;
-  v6(a2, a3);
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
 }
 
 void sub_100001730(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -98,87 +96,84 @@ uint64_t sub_100001850()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-id sub_100001890@<X0>(uint64_t a1@<X0>, char a2@<W1>, char a3@<W2>, uint64_t a4@<X4>, uint64_t a5@<X6>, NSURL *a6@<X8>)
+id sub_100001890@<X0>(uint64_t a1@<X0>, char a2@<W1>, char a3@<W2>, uint64_t a5@<X4>, uint64_t a7@<X6>, NSURL *x8_0@<X8>)
 {
-  v7 = v6;
-  sub_100001D98(a6);
-  v14 = v13;
-  if (!a4)
+  v9 = v8;
+  sub_100001D98(x8_0);
+  v16 = v15;
+  if (!a5)
   {
-    v15 = 0;
-    if (a5)
+    v17 = 0;
+    if (a7)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_6;
   }
 
-  v15 = sub_100001DC8();
+  v17 = sub_100001DC8();
 
-  if (!a5)
+  if (!a7)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v16 = sub_100001DC8();
+  v18 = sub_100001DC8();
 
 LABEL_6:
-  v17 = [v7 initWithURL:v14 allowsOldFormatFile:a2 & 1 skipsMaliciousScanning:a3 & 1 suggestedName:v15 sourceApplication:v16];
+  v19 = [v9 initWithURL:v16 allowsOldFormatFile:a2 & 1 skipsMaliciousScanning:a3 & 1 suggestedName:v17 sourceApplication:v18];
 
-  v18 = sub_100001DB8();
-  (*(*(v18 - 8) + 8))(a1, v18);
-  return v17;
+  v20 = sub_100001DB8();
+  (*(*(v20 - 8) + 8))(a1, v20);
+  return v19;
 }
 
 uint64_t sub_1000019AC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 void sub_1000019EC(void *a1)
 {
-  v3 = v1[2];
-  v2 = v1[3];
+  v2 = *(v1 + 16);
   if (a1)
   {
-    v4 = v1[4];
-    v17 = a1;
-    [v4 maximumSize];
-    v6 = v5;
-    [v4 maximumSize];
-    if (v7 < v6)
+    v3 = *(v1 + 32);
+    v15 = a1;
+    [v3 maximumSize];
+    v5 = v4;
+    [v3 maximumSize];
+    if (v6 < v5)
     {
-      v6 = v7;
+      v5 = v6;
     }
 
-    [v4 scale];
-    v9 = v8;
-    v10 = [v17 record];
-    v11 = [v10 icon];
+    [v3 scale];
+    v8 = v7;
+    v9 = [v15 record];
+    v10 = [v9 icon];
 
     sub_100001B9C();
-    v12 = swift_allocObject();
-    *(v12 + 16) = v9;
-    *(v12 + 24) = v11;
-    *(v12 + 32) = v6;
-    *(v12 + 40) = v6;
-    v13 = v11;
-    v14 = sub_1000014FC(sub_100001C18, v12, v6, v6);
-    [v14 setIconFlavor:0];
-    v15 = v14;
-    (v3)(v14, 0);
+    v11 = swift_allocObject();
+    *(v11 + 16) = v8;
+    *(v11 + 24) = v10;
+    *(v11 + 32) = v5;
+    *(v11 + 40) = v5;
+    v12 = v10;
+    v13 = sub_1000014FC(sub_100001C18, v11, v5, v5);
+    [v13 setIconFlavor:0];
+    v14 = v13;
+    (v2)(v13, 0);
   }
 
   else
   {
-    v16 = v1[3];
-    v3();
+    v2();
   }
 }
 

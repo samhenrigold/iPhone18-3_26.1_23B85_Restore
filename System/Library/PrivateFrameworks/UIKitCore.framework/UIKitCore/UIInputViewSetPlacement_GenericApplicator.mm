@@ -351,7 +351,7 @@ LABEL_7:
   v13 = v12;
   if (v12)
   {
-    [v12 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v12);
   }
 
   else

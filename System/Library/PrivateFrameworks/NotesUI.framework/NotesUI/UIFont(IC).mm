@@ -163,23 +163,23 @@
 
 + (id)ic_preferredFontForDateTextWithZoomFactor:()IC
 {
-  v2 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-  v3 = MEMORY[0x1E69DB878];
-  [v2 pointSize];
-  v5 = [v3 systemFontOfSize:round(v4 * 0.882352941 * self)];
-  ic_fontWithSingleLineA = [v5 ic_fontWithSingleLineA];
+  v3 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+  v4 = MEMORY[0x1E69DB878];
+  [v3 pointSize];
+  v6 = [v4 systemFontOfSize:round(v5 * 0.882352941 * a2)];
+  ic_fontWithSingleLineA = [v6 ic_fontWithSingleLineA];
 
   return ic_fontWithSingleLineA;
 }
 
 + (id)ic_preferredFontForCompatibilityBannerText
 {
-  v0 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-  v1 = MEMORY[0x1E69DB878];
-  [v0 pointSize];
-  v3 = [v1 systemFontOfSize:round(v2 * 0.882352941)];
+  v1 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+  v2 = MEMORY[0x1E69DB878];
+  [v1 pointSize];
+  v4 = [v2 systemFontOfSize:round(v3 * 0.882352941)];
 
-  return v3;
+  return v4;
 }
 
 + (id)ic_preferredFontForStyle:()IC withFontWeight:maxContentSizeCategory:
@@ -203,7 +203,7 @@
 
 + (id)ic_preferredFontForStyle:()IC symbolicTraits:
 {
-  v5 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:?];
+  v5 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:a3];
   v6 = [v5 ic_fontByAddingSymbolicTraits:a4];
 
   return v6;
@@ -219,26 +219,26 @@
 
 + (id)ic_listViewTitleFont
 {
-  v0 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDD40]];
-  ic_fontWithSingleLineA = [v0 ic_fontWithSingleLineA];
+  v1 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDD40]];
+  ic_fontWithSingleLineA = [v1 ic_fontWithSingleLineA];
 
   return ic_fontWithSingleLineA;
 }
 
 + (id)ic_listViewDetailFont
 {
-  v0 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDD78]];
-  ic_fontWithSingleLineA = [v0 ic_fontWithSingleLineA];
+  v1 = [objc_opt_class() preferredFontForTextStyle:*MEMORY[0x1E69DDD78]];
+  ic_fontWithSingleLineA = [v1 ic_fontWithSingleLineA];
 
   return ic_fontWithSingleLineA;
 }
 
 + (id)ic_attachmentBrowserTitleFont
 {
-  v0 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDDC8] addingSymbolicTraits:2 options:0];
-  v1 = [objc_opt_class() fontWithDescriptor:v0 size:0.0];
+  v1 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDDC8] addingSymbolicTraits:2 options:0];
+  v2 = [objc_opt_class() fontWithDescriptor:v1 size:0.0];
 
-  return v1;
+  return v2;
 }
 
 + (id)ic_attachmentBrowserSeeAllButtonFont
@@ -262,24 +262,24 @@
 
 + (id)ic_gridViewNoteTitleFont
 {
-  v0 = [objc_opt_class() systemFontOfSize:15.0];
-  ic_fontWithSingleLineA = [v0 ic_fontWithSingleLineA];
+  v1 = [objc_opt_class() systemFontOfSize:15.0];
+  ic_fontWithSingleLineA = [v1 ic_fontWithSingleLineA];
 
   defaultMetrics = [MEMORY[0x1E69DCA40] defaultMetrics];
-  v3 = [defaultMetrics scaledFontForFont:ic_fontWithSingleLineA];
+  v4 = [defaultMetrics scaledFontForFont:ic_fontWithSingleLineA];
 
-  return v3;
+  return v4;
 }
 
 + (id)ic_gridViewNoteSubtitleFont
 {
-  v0 = [objc_opt_class() systemFontOfSize:12.0];
-  ic_fontWithSingleLineA = [v0 ic_fontWithSingleLineA];
+  v1 = [objc_opt_class() systemFontOfSize:12.0];
+  ic_fontWithSingleLineA = [v1 ic_fontWithSingleLineA];
 
   defaultMetrics = [MEMORY[0x1E69DCA40] defaultMetrics];
-  v3 = [defaultMetrics scaledFontForFont:ic_fontWithSingleLineA];
+  v4 = [defaultMetrics scaledFontForFont:ic_fontWithSingleLineA];
 
-  return v3;
+  return v4;
 }
 
 + (id)ic_groupInsetHeaderFont

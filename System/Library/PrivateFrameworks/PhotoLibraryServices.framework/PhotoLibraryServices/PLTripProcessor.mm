@@ -146,7 +146,7 @@
   v78 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   itemCopy = item;
-  if (![locationsCopy count])
+  if (!objc_msgSend_count(locationsCopy))
   {
     goto LABEL_8;
   }
@@ -205,7 +205,7 @@ LABEL_8:
     v23 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v17 + 5184000.0];
     v24 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v22 endDate:v23];
     v25 = [self _filterFrequentLocations:locationsCopy forDateInterval:v24];
-    if (![v25 count])
+    if (!objc_msgSend_count(v25))
     {
       v26 = locationsCopy;
 
@@ -236,7 +236,7 @@ LABEL_8:
       v30 = objc_alloc_init(MEMORY[0x1E695DFA8]);
       v31 = [v29 objectAtIndexedSubscript:0];
       sortedMoments = [v31 sortedMoments];
-      v33 = [sortedMoments count];
+      v33 = objc_msgSend_count(sortedMoments);
 
       v69 = 0u;
       v70 = 0u;
@@ -260,7 +260,7 @@ LABEL_8:
 
             v40 = *(*(&v67 + 1) + 8 * i);
             sortedMoments2 = [v40 sortedMoments];
-            v42 = [sortedMoments2 count];
+            v42 = objc_msgSend_count(sortedMoments2);
 
             if (v37 * 0.8 >= v42)
             {
@@ -304,8 +304,8 @@ LABEL_8:
       v24 = v56;
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
-        v45 = [v30 count];
-        v46 = [v62 count];
+        v45 = objc_msgSend_count(v30);
+        v46 = objc_msgSend_count(v62);
         *buf = 134218240;
         *&buf[4] = v45;
         *&buf[12] = 2048;
@@ -378,10 +378,10 @@ BOOL __68__PLTripProcessor__minimumDistanceBetweenFrequentLocations_andItem___bl
 {
   v4 = a3;
   v5 = [a2 sortedMoments];
-  v6 = [v5 count];
+  v6 = objc_msgSend_count(v5);
   v7 = [v4 sortedMoments];
 
-  v8 = v6 < [v7 count];
+  v8 = v6 < objc_msgSend_count(v7);
   return v8;
 }
 
@@ -501,7 +501,7 @@ LABEL_11:
   v11 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_69536];
   v12 = [momentsCopy filteredArrayUsingPredicate:v11];
 
-  if ([v12 count] < 2 || (objc_msgSend(v12, "firstObject"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "lastObject"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_timeIntervalBetweenItem:andItem:", v13, v14), v16 = v15, v14, v13, v16 < 28800.0) || objc_msgSend(self, "_numberOfAssetsInItems:", v12) < 8)
+  if (objc_msgSend_count(v12) < 2 || ([v12 firstObject], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "lastObject"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_timeIntervalBetweenItem:andItem:", v13, v14), v16 = v15, v14, v13, v16 < 28800.0) || objc_msgSend(self, "_numberOfAssetsInItems:", v12) < 8)
   {
     v17 = 0;
     goto LABEL_5;
@@ -611,7 +611,7 @@ LABEL_5:
 
         v8 = *(*(&v15 + 1) + 8 * v7);
         array = [MEMORY[0x1E695DF70] array];
-        if (([v8 count] - 3) <= 0xFFFFFFFFFFFFFFFDLL)
+        if ((objc_msgSend_count(v8) - 3) <= 0xFFFFFFFFFFFFFFFDLL)
         {
           v10 = 1;
           do
@@ -625,7 +625,7 @@ LABEL_5:
             }
           }
 
-          while (v10 < [v8 count] - 1);
+          while (v10 < objc_msgSend_count(v8) - 1);
         }
 
         [v8 removeObjectsInArray:array];
@@ -1040,25 +1040,25 @@ LABEL_54:
 
 + (id)processTripsWithItems:(id)items frequentLocations:(id)locations lastHomeVisitDate:(id)date progressBlock:(id)block
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   locationsCopy = locations;
   dateCopy = date;
   blockCopy = block;
-  if (![locationsCopy count] || !objc_msgSend(itemsCopy, "count"))
+  if (!objc_msgSend_count(locationsCopy) || !objc_msgSend_count(itemsCopy))
   {
     v69 = MEMORY[0x1E695E0F0];
     goto LABEL_93;
   }
 
-  v89 = dateCopy;
+  v91 = dateCopy;
   v13 = PLMomentGenerationGetLog();
   v14 = os_signpost_id_generate(v13);
   info = 0;
   mach_timebase_info(&info);
   v15 = v13;
   v16 = v15;
-  v84 = v14 - 1;
+  v86 = v14 - 1;
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
@@ -1066,37 +1066,37 @@ LABEL_54:
   }
 
   spid = v14;
-  v87 = v16;
-  v88 = itemsCopy;
+  v89 = v16;
+  v90 = itemsCopy;
 
-  v83 = mach_absolute_time();
-  v85 = blockCopy;
-  v92 = _Block_copy(blockCopy);
+  v85 = mach_absolute_time();
+  v87 = blockCopy;
+  v94 = _Block_copy(blockCopy);
   distantPast = [MEMORY[0x1E695DF00] distantPast];
   v18 = objc_opt_new();
-  v113 = 0u;
-  v114 = 0u;
   v115 = 0u;
   v116 = 0u;
-  v86 = locationsCopy;
+  v117 = 0u;
+  v118 = 0u;
+  v88 = locationsCopy;
   v19 = locationsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v113 objects:v126 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v115 objects:v128 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v114;
+    v22 = *v116;
     do
     {
       v23 = 0;
       v24 = distantPast;
       do
       {
-        if (*v114 != v22)
+        if (*v116 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v25 = *(*(&v113 + 1) + 8 * v23);
+        v25 = *(*(&v115 + 1) + 8 * v23);
         sortedMoments = [v25 sortedMoments];
         [v18 addObjectsFromArray:sortedMoments];
 
@@ -1109,65 +1109,65 @@ LABEL_54:
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v113 objects:v126 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v115 objects:v128 count:16];
     }
 
     while (v21);
   }
 
-  if (!v89 || [v89 compare:distantPast] == -1)
+  if (!v91 || [v91 compare:distantPast] == -1)
   {
     v29 = distantPast;
 
-    v89 = v29;
+    v91 = v29;
   }
 
-  v30 = v92;
+  v30 = v94;
   v31 = +[PLMediaMiningUtilities sortDescriptorsForSortingItemsByTime];
-  v32 = [v88 sortedArrayUsingDescriptors:v31];
+  v32 = [v90 sortedArrayUsingDescriptors:v31];
 
   lastObject = [v32 lastObject];
   v33 = objc_opt_new();
-  v91 = objc_opt_new();
-  v34 = [v32 count];
-  v109 = 0u;
-  v110 = 0u;
+  v93 = objc_opt_new();
+  v34 = objc_msgSend_count(v32);
   v111 = 0u;
   v112 = 0u;
+  v113 = 0u;
+  v114 = 0u;
   v35 = v32;
-  v95 = v35;
-  v102 = [v35 countByEnumeratingWithState:&v109 objects:v125 count:16];
-  if (!v102)
+  v97 = v35;
+  v104 = [v35 countByEnumeratingWithState:&v111 objects:v127 count:16];
+  if (!v104)
   {
-    v103 = 0;
+    v105 = 0;
     goto LABEL_86;
   }
 
-  v103 = 0;
+  v105 = 0;
   v36 = 1.0 / v34;
-  v101 = *v110;
+  v103 = *v112;
   v37 = 0.0;
   while (2)
   {
     v38 = 0;
     do
     {
-      if (*v110 != v101)
+      if (*v112 != v103)
       {
         objc_enumerationMutation(v35);
       }
 
-      v39 = *(*(&v109 + 1) + 8 * v38);
+      v39 = *(*(&v111 + 1) + 8 * v38);
       if (v30)
       {
-        v108 = 0;
-        (v30)[2](v30, &v108, v37);
-        if (v108)
+        v110 = 0;
+        (v30)[2](v30, &v110, v37);
+        if (v110)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            LODWORD(v119) = 93;
+            LODWORD(v121) = 93;
             _os_log_impl(&dword_19BF1F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Cancelled at line %d", buf, 8u);
           }
 
@@ -1181,9 +1181,9 @@ LABEL_54:
       if (([v39 pl_originatorState] & 8) == 0)
       {
         [v39 pl_coordinate];
-        latitude = v129.latitude;
-        longitude = v129.longitude;
-        if (!CLLocationCoordinate2DIsValid(v129))
+        latitude = v131.latitude;
+        longitude = v131.longitude;
+        if (!CLLocationCoordinate2DIsValid(v131))
         {
           goto LABEL_29;
         }
@@ -1201,49 +1201,49 @@ LABEL_54:
           if (latitude != 40.0 || longitude != -100.0)
           {
             v63 = pl_locationType;
-            [self _timeIntervalBetweenItem:v60 andItem:v103];
+            [self _timeIntervalBetweenItem:v60 andItem:v105];
             v46 = v64;
             v65 = v60;
 
             if (v63 == 10)
             {
-              v99 = 1;
-              v103 = v65;
+              v101 = 1;
+              v105 = v65;
               v44 = v60;
               v47 = 0;
-              v35 = v95;
-              v30 = v92;
+              v35 = v97;
+              v30 = v94;
             }
 
             else
             {
-              v30 = v92;
+              v30 = v94;
               if ([v18 containsObject:v65])
               {
-                v103 = v65;
-                v100 = 0;
-                v99 = 1;
+                v105 = v65;
+                v102 = 0;
+                v101 = 1;
                 v44 = v60;
                 v47 = 1;
-                v35 = v95;
+                v35 = v97;
                 goto LABEL_35;
               }
 
               [self _minimumDistanceBetweenFrequentLocations:v19 andItem:v65];
-              v99 = 1;
-              v103 = v65;
+              v101 = 1;
+              v105 = v65;
               v44 = v60;
               v47 = v67 < 70000.0;
-              v35 = v95;
+              v35 = v97;
             }
 
 LABEL_32:
-            v100 = 0;
+            v102 = 0;
             if (!v47 && v46 <= 518400.0)
             {
               [v33 addObject:v44];
               v47 = 0;
-              v100 = 1;
+              v102 = 1;
             }
 
 LABEL_35:
@@ -1268,21 +1268,21 @@ LABEL_35:
             if (!v48)
             {
 LABEL_40:
-              v97 = v47;
+              v99 = v47;
+              v108 = 0u;
+              v109 = 0u;
               v106 = 0u;
               v107 = 0u;
-              v104 = 0u;
-              v105 = 0u;
-              v98 = v33;
+              v100 = v33;
               reverseObjectEnumerator = [v33 reverseObjectEnumerator];
-              v50 = [reverseObjectEnumerator countByEnumeratingWithState:&v104 objects:v124 count:16];
+              v50 = [reverseObjectEnumerator countByEnumeratingWithState:&v106 objects:v126 count:16];
               if (v50)
               {
                 v51 = v50;
-                v93 = v44;
-                v94 = v40;
+                v95 = v44;
+                v96 = v40;
                 v52 = 0;
-                v53 = *v105;
+                v53 = *v107;
                 do
                 {
                   v54 = 0;
@@ -1290,15 +1290,15 @@ LABEL_40:
                   v52 += v51;
                   do
                   {
-                    if (*v105 != v53)
+                    if (*v107 != v53)
                     {
                       objc_enumerationMutation(reverseObjectEnumerator);
                     }
 
-                    [*(*(&v104 + 1) + 8 * v54) pl_coordinate];
-                    v56 = v130.latitude;
-                    v57 = v130.longitude;
-                    if (CLLocationCoordinate2DIsValid(v130))
+                    [*(*(&v106 + 1) + 8 * v54) pl_coordinate];
+                    v56 = v132.latitude;
+                    v57 = v132.longitude;
+                    if (CLLocationCoordinate2DIsValid(v132))
                     {
                       v58 = v56 != 0.0;
                       if (v57 != 0.0)
@@ -1318,19 +1318,19 @@ LABEL_40:
                   }
 
                   while (v51 != v54);
-                  v51 = [reverseObjectEnumerator countByEnumeratingWithState:&v104 objects:v124 count:16];
+                  v51 = [reverseObjectEnumerator countByEnumeratingWithState:&v106 objects:v126 count:16];
                 }
 
                 while (v51);
 LABEL_60:
 
-                v30 = v92;
-                v44 = v93;
-                v33 = v98;
-                v40 = v94;
+                v30 = v94;
+                v44 = v95;
+                v33 = v100;
+                v40 = v96;
                 if (v52)
                 {
-                  [v98 removeObjectsInRange:{objc_msgSend(v98, "count") - v52, v52}];
+                  [v100 removeObjectsInRange:{objc_msgSend_count(v100) - v52, v52}];
                 }
               }
 
@@ -1338,32 +1338,32 @@ LABEL_60:
               {
               }
 
-              if ([v33 count])
+              if (objc_msgSend_count(v33))
               {
-                [v91 addObject:v33];
+                [v93 addObject:v33];
                 v66 = objc_opt_new();
 
                 v33 = v66;
               }
 
-              v35 = v95;
+              v35 = v97;
 
-              if ((v97 | v100 | v99 ^ 1))
+              if ((v99 | v102 | v101 ^ 1))
               {
-                v103 = 0;
+                v105 = 0;
               }
 
               else
               {
                 [v33 addObject:v44];
-                v103 = v44;
+                v105 = v44;
               }
 
               goto LABEL_74;
             }
 
 LABEL_57:
-            if (((v100 | v48) & 1) != 0 && v44 != lastObject)
+            if (((v102 | v48) & 1) != 0 && v44 != lastObject)
             {
               goto LABEL_74;
             }
@@ -1379,15 +1379,15 @@ LABEL_29:
           [v39 pl_locationType];
         }
 
-        if (![v33 count])
+        if (!objc_msgSend_count(v33))
         {
           goto LABEL_74;
         }
 
         v44 = v60;
-        [self _timeIntervalBetweenItem:v60 andItem:v103];
+        [self _timeIntervalBetweenItem:v60 andItem:v105];
         v46 = v45;
-        v99 = 0;
+        v101 = 0;
         v47 = 0;
         goto LABEL_32;
       }
@@ -1398,9 +1398,9 @@ LABEL_74:
       ++v38;
     }
 
-    while (v38 != v102);
-    v68 = [v35 countByEnumeratingWithState:&v109 objects:v125 count:16];
-    v102 = v68;
+    while (v38 != v104);
+    v68 = [v35 countByEnumeratingWithState:&v111 objects:v127 count:16];
+    v104 = v68;
     if (v68)
     {
       continue;
@@ -1411,52 +1411,54 @@ LABEL_74:
 
 LABEL_86:
 
-  v69 = [self _generateTripFromTripsMoments:v91 withLastHomeVisitDate:v89 andLastItem:lastObject];
+  v69 = [self _generateTripFromTripsMoments:v93 withLastHomeVisitDate:v91 andLastItem:lastObject];
   v71 = mach_absolute_time();
   numer = info.numer;
   denom = info.denom;
-  v74 = v87;
+  v74 = v89;
   v75 = v74;
-  if (v84 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
+  if (v86 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
   {
     v76 = v33;
-    v77 = [v88 count];
-    v78 = [v69 count];
+    v77 = objc_msgSend_count(v90);
+    v78 = objc_msgSend_count(v69);
     *buf = 134218240;
-    v119 = v77;
+    v121 = v77;
     v33 = v76;
-    v35 = v95;
-    v120 = 2048;
-    v121 = v78;
+    v35 = v97;
+    v122 = 2048;
+    v123 = v78;
     _os_signpost_emit_with_name_impl(&dword_19BF1F000, v75, OS_SIGNPOST_INTERVAL_END, spid, "TripsProcessing", "[HighlightsGeneration] Trips Processing for %lu moments, %lu trips", buf, 0x16u);
   }
 
   v70 = v75;
   if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
   {
-    v79 = (((v71 - v83) * numer) / denom) / 1000000.0;
-    v35 = v95;
-    v80 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[HighlightsGeneration] Trips Processing for %lu moments, %lu trips", objc_msgSend(v88, "count"), objc_msgSend(v69, "count")];
+    v79 = (((v71 - v85) * numer) / denom) / 1000000.0;
+    v80 = MEMORY[0x1E696AEC0];
+    v83 = objc_msgSend_count(v90);
+    v35 = v97;
+    v81 = [v80 stringWithFormat:@"[HighlightsGeneration] Trips Processing for %lu moments, %lu trips", v83, objc_msgSend_count(v69)];
     *buf = 136315650;
-    v119 = "TripsProcessing";
-    v120 = 2112;
-    v121 = v80;
-    itemsCopy = v88;
-    v30 = v92;
-    v122 = 2048;
-    v123 = v79;
+    v121 = "TripsProcessing";
+    v122 = 2112;
+    v123 = v81;
+    itemsCopy = v90;
+    v30 = v94;
+    v124 = 2048;
+    v125 = v79;
     _os_log_impl(&dword_19BF1F000, v70, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
   else
   {
 LABEL_91:
-    itemsCopy = v88;
+    itemsCopy = v90;
   }
 
-  blockCopy = v85;
-  locationsCopy = v86;
-  dateCopy = v89;
+  blockCopy = v87;
+  locationsCopy = v88;
+  dateCopy = v91;
 LABEL_93:
 
   return v69;

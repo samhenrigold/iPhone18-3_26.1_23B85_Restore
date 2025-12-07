@@ -44,7 +44,7 @@
 
   colorCopy = color;
   v12 = sub_265A66994(v7, v9, colorCopy, v6, v10);
-  sub_265A56D6C(v6);
+  sub_265A56D6C(v6, v10);
 
   return v12;
 }

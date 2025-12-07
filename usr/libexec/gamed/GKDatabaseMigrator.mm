@@ -7,7 +7,7 @@
 
 - (GKDatabaseMigrator)initWithOldDatabaseURL:(id)l newDatabaseURL:(id)rL persistentStoreCoordinator:(id)coordinator options:(id)options
 {
-  v9 = sub_1001A6C04(&qword_1003B5800);
+  v9 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   v10 = __chkstk_darwin(v9 - 8);
   v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);

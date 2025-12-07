@@ -64,7 +64,7 @@
 - (void)sceneDidActivate:(id)activate
 {
   activateCopy = activate;
-  v5 = sub_100012608();
+  v5 = sub_100012608(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100012CD4(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -80,7 +80,7 @@
 - (void)sceneDidDeactivate:(id)deactivate withContext:(id)context
 {
   deactivateCopy = deactivate;
-  v6 = sub_100012608();
+  v6 = sub_100012608(deactivateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100012D4C(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -96,7 +96,7 @@
 - (void)workspace:(id)workspace didAddScene:(id)scene
 {
   sceneCopy = scene;
-  v6 = sub_100012608();
+  v6 = sub_100012608(sceneCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100012DC4(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -108,7 +108,7 @@
 - (void)workspace:(id)workspace willRemoveScene:(id)scene
 {
   sceneCopy = scene;
-  v5 = sub_100012608();
+  v5 = sub_100012608(sceneCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100012E3C(v5, v6, v7, v8, v9, v10, v11, v12);

@@ -147,32 +147,32 @@ void __52__TPSURLSessionTask_initWithSessionTask_identifier___block_invoke(uint6
 
 void __42__TPSURLSessionTask_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) sessionTaskDelegates];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) URLSessionSessionTask:*(a1 + 32) didCompleteWithError:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6++) URLSessionSessionTask:*(a1 + 32) didCompleteWithError:*(a1 + 40)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -180,8 +180,6 @@ void __42__TPSURLSessionTask_didCompleteWithError___block_invoke(uint64_t a1)
 
   v7 = [*(a1 + 32) sessionTaskDelegates];
   [v7 removeAllObjects];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerDelegate:(id)delegate

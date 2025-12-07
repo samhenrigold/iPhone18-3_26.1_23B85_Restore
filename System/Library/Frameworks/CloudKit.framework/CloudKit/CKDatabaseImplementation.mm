@@ -95,16 +95,16 @@
 - (void)_addOperation:(id)operation wrappingDatabase:(id)database convenienceConfiguration:(id)configuration isConvenience:(BOOL)convenience
 {
   convenienceCopy = convenience;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   databaseCopy = database;
   configurationCopy = configuration;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v31 = [CKException alloc];
-    v33 = objc_msgSend_initWithCode_format_(v31, v32, 12, @"Only CKDatabaseOperations must be submitted to a CKDatabase");
-    objc_exception_throw(v33);
+    v30 = [CKException alloc];
+    v32 = objc_msgSend_initWithCode_format_(v30, v31, 12, @"Only CKDatabaseOperations must be submitted to a CKDatabase");
+    objc_exception_throw(v32);
   }
 
   objc_msgSend_databaseScope(self, v13, v14);
@@ -127,11 +127,11 @@
     v23 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v27 = v23;
-      v30 = objc_msgSend_operationID(operationCopy, v28, v29);
-      v34 = 138412290;
-      v35 = v30;
-      _os_log_error_impl(&dword_1883EA000, v27, OS_LOG_TYPE_ERROR, "No container found while enqueuing CKDatabase convenience operation %@", &v34, 0xCu);
+      v26 = v23;
+      v29 = objc_msgSend_operationID(operationCopy, v27, v28);
+      v33 = 138412290;
+      v34 = v29;
+      _os_log_error_impl(&dword_1883EA000, v26, OS_LOG_TYPE_ERROR, "No container found while enqueuing CKDatabase convenience operation %@", &v33, 0xCu);
     }
 
 LABEL_9:
@@ -143,8 +143,6 @@ LABEL_9:
 
   objc_msgSend__addPreparedConvenienceOperation_(v19, v20, operationCopy);
 LABEL_10:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)countAssetCacheItems
@@ -367,7 +365,7 @@ LABEL_10:
 
 - (id)CKStatusReportArray
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = MEMORY[0x1E696AEC0];
   v7 = objc_msgSend_operationQueue(self, v5, v6);
@@ -383,32 +381,32 @@ LABEL_10:
   if (v25)
   {
     objc_msgSend_addObject_(v3, v26, @"\nOperations: {");
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v29 = objc_msgSend_operationQueue(self, v27, v28);
     v32 = objc_msgSend_operations(v29, v30, v31);
 
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v44, v48, 16);
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v43, v47, 16);
     if (v34)
     {
       v36 = v34;
-      v37 = *v45;
+      v37 = *v44;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v45 != v37)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(v32);
           }
 
-          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v35, @"\t%@", *(*(&v44 + 1) + 8 * i));
+          v39 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v35, @"\t%@", *(*(&v43 + 1) + 8 * i));
           objc_msgSend_addObject_(v3, v40, v39);
         }
 
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v44, v48, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v43, v47, 16);
       }
 
       while (v36);
@@ -416,8 +414,6 @@ LABEL_10:
 
     objc_msgSend_addObject_(v3, v41, @"}");
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -434,125 +430,119 @@ LABEL_10:
 
 - (void)fetchRecordWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("recordID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("recordID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKFetchRecordsOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordIDs_(v17, v20, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_18854F194;
-  v37[3] = &unk_1E70BD110;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_18854F194;
+  v36[3] = &unk_1E70BD110;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = dCopy;
-  objc_msgSend_setFetchRecordsCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setFetchRecordsCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveRecord:(id)record wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("record", recordCopy, 0, 0, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("record", recordCopy, 0, 0, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifyRecordsOperation alloc];
-  v41[0] = recordCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = recordCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordsToSave_recordIDsToDelete_(v17, v20, v19, 0);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_18854F558;
-  v37[3] = &unk_1E70BD098;
-  v38 = recordCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_18854F558;
+  v36[3] = &unk_1E70BD098;
+  v37 = recordCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = recordCopy;
-  objc_msgSend_setModifyRecordsCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifyRecordsCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRecordWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("recordID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("recordID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifyRecordsOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordsToSave_recordIDsToDelete_(v17, v20, 0, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_18854F90C;
-  v37[3] = &unk_1E70BD098;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_18854F90C;
+  v36[3] = &unk_1E70BD098;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = dCopy;
-  objc_msgSend_setModifyRecordsCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifyRecordsCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performQuery:(id)query inZoneWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
@@ -618,311 +608,298 @@ LABEL_10:
 
 - (void)fetchRecordZoneWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("zoneID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("zoneID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKFetchRecordZonesOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordZoneIDs_(v17, v20, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_188550124;
-  v37[3] = &unk_1E70BD110;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_188550124;
+  v36[3] = &unk_1E70BD110;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = dCopy;
   v23 = handlerCopy;
-  objc_msgSend_setFetchRecordZonesCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setFetchRecordZonesCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveRecordZone:(id)zone wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   zoneCopy = zone;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("zone", zoneCopy, 0, 0, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("zone", zoneCopy, 0, 0, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifyRecordZonesOperation alloc];
-  v41[0] = zoneCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = zoneCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordZonesToSave_recordZoneIDsToDelete_(v17, v20, v19, 0);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1885503F8;
-  v37[3] = &unk_1E70BD138;
-  v38 = zoneCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_1885503F8;
+  v36[3] = &unk_1E70BD138;
+  v37 = zoneCopy;
+  v38 = handlerCopy;
   v22 = zoneCopy;
   v23 = handlerCopy;
-  objc_msgSend_setModifyRecordZonesCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifyRecordZonesCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRecordZoneWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("zoneID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("zoneID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifyRecordZonesOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithRecordZonesToSave_recordZoneIDsToDelete_(v17, v20, 0, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1885506CC;
-  v37[3] = &unk_1E70BD138;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_1885506CC;
+  v36[3] = &unk_1E70BD138;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = dCopy;
   v23 = handlerCopy;
-  objc_msgSend_setModifyRecordZonesCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifyRecordZonesCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveSubscription:(id)subscription wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("subscription", subscriptionCopy, 0, 0, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("subscription", subscriptionCopy, 0, 0, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifySubscriptionsOperation alloc];
-  v41[0] = subscriptionCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = subscriptionCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithSubscriptionsToSave_subscriptionIDsToDelete_(v17, v20, v19, 0);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_18855098C;
-  v37[3] = &unk_1E70BD098;
-  v38 = subscriptionCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_18855098C;
+  v36[3] = &unk_1E70BD098;
+  v37 = subscriptionCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = subscriptionCopy;
-  objc_msgSend_setModifySubscriptionsCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifySubscriptionsCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkSupportedDeviceCapabilitiesInZone:(id)zone desiredCapabilities:(id)capabilities options:(id)options wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v64[1] = *MEMORY[0x1E69E9840];
+  v63[1] = *MEMORY[0x1E69E9840];
   zoneCopy = zone;
   capabilitiesCopy = capabilities;
   optionsCopy = options;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v63 = 0;
-  v20 = _CKCheckArgument("zone", zoneCopy, 0, 0, 0, &v63);
-  v21 = v63;
+  v62 = 0;
+  v20 = _CKCheckArgument("zone", zoneCopy, 0, 0, 0, &v62);
+  v21 = v62;
   v22 = v21;
   if ((v20 & 1) == 0)
   {
-    v43 = [CKException alloc];
-    v46 = objc_msgSend_code(v22, v44, v45);
-    v49 = objc_msgSend_localizedDescription(v22, v47, v48);
-    v51 = objc_msgSend_initWithCode_format_(v43, v50, v46, @"%@", v49);
-    v52 = v51;
+    v42 = [CKException alloc];
+    v45 = objc_msgSend_code(v22, v43, v44);
+    v48 = objc_msgSend_localizedDescription(v22, v46, v47);
+    v50 = objc_msgSend_initWithCode_format_(v42, v49, v45, @"%@", v48);
+    v51 = v50;
 
-    objc_exception_throw(v51);
+    objc_exception_throw(v50);
   }
 
   v23 = [CKCheckSupportedDeviceCapabilitiesOperation alloc];
   v26 = objc_msgSend_zoneID(zoneCopy, v24, v25);
-  v64[0] = v26;
-  v28 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v64, 1);
+  v63[0] = v26;
+  v28 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v63, 1);
   v30 = objc_msgSend_initWithDesiredCapabilities_zoneIDs_options_(v23, v29, capabilitiesCopy, v28, optionsCopy);
 
   v33 = objc_msgSend_resolvedConfiguration(v30, v31, v32);
   objc_msgSend_setRequestOriginator_(v33, v34, 4);
 
-  v61[0] = 0;
-  v61[1] = v61;
-  v61[2] = 0x2020000000;
-  v62 = handlerCopy != 0;
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = sub_188550E50;
-  v58[3] = &unk_1E70BD160;
-  v60 = v61;
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x2020000000;
+  v61 = handlerCopy != 0;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = sub_188550E50;
+  v57[3] = &unk_1E70BD160;
+  v59 = v60;
   v35 = handlerCopy;
-  v59 = v35;
-  objc_msgSend_setPerResultBlock_(v30, v36, v58);
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = sub_188551058;
-  v53[3] = &unk_1E70BD188;
-  v57 = v61;
+  v58 = v35;
+  objc_msgSend_setPerResultBlock_(v30, v36, v57);
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = sub_188551058;
+  v52[3] = &unk_1E70BD188;
+  v56 = v60;
   v37 = zoneCopy;
-  v54 = v37;
+  v53 = v37;
   v38 = capabilitiesCopy;
-  v55 = v38;
+  v54 = v38;
   v39 = v35;
-  v56 = v39;
-  objc_msgSend_setCheckSupportedDeviceCapabilitiesCompletionBlock_(v30, v40, v53);
+  v55 = v39;
+  objc_msgSend_setCheckSupportedDeviceCapabilitiesCompletionBlock_(v30, v40, v52);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v41, v30, databaseCopy, configurationCopy);
 
-  _Block_object_dispose(v61, 8);
-  v42 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v60, 8);
 }
 
 - (void)deleteSubscriptionWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("subscriptionID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("subscriptionID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKModifySubscriptionsOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithSubscriptionsToSave_subscriptionIDsToDelete_(v17, v20, 0, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1885513FC;
-  v37[3] = &unk_1E70BD098;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_1885513FC;
+  v36[3] = &unk_1E70BD098;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = dCopy;
-  objc_msgSend_setModifySubscriptionsCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setModifySubscriptionsCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchSubscriptionWithID:(id)d wrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   databaseCopy = database;
   configurationCopy = configuration;
   handlerCopy = handler;
-  v40 = 0;
-  v14 = _CKCheckArgument("subscriptionID", dCopy, 0, 1, 0, &v40);
-  v15 = v40;
+  v39 = 0;
+  v14 = _CKCheckArgument("subscriptionID", dCopy, 0, 1, 0, &v39);
+  v15 = v39;
   v16 = v15;
   if ((v14 & 1) == 0)
   {
-    v27 = [CKException alloc];
-    v30 = objc_msgSend_code(v16, v28, v29);
-    v33 = objc_msgSend_localizedDescription(v16, v31, v32);
-    v35 = objc_msgSend_initWithCode_format_(v27, v34, v30, @"%@", v33);
-    v36 = v35;
+    v26 = [CKException alloc];
+    v29 = objc_msgSend_code(v16, v27, v28);
+    v32 = objc_msgSend_localizedDescription(v16, v30, v31);
+    v34 = objc_msgSend_initWithCode_format_(v26, v33, v29, @"%@", v32);
+    v35 = v34;
 
-    objc_exception_throw(v35);
+    objc_exception_throw(v34);
   }
 
   v17 = [CKFetchSubscriptionsOperation alloc];
-  v41[0] = dCopy;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v41, 1);
+  v40[0] = dCopy;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v40, 1);
   v21 = objc_msgSend_initWithSubscriptionIDs_(v17, v20, v19);
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_188551778;
-  v37[3] = &unk_1E70BD110;
-  v38 = dCopy;
-  v39 = handlerCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_188551778;
+  v36[3] = &unk_1E70BD110;
+  v37 = dCopy;
+  v38 = handlerCopy;
   v22 = handlerCopy;
   v23 = dCopy;
-  objc_msgSend_setFetchSubscriptionCompletionBlock_(v21, v24, v37);
+  objc_msgSend_setFetchSubscriptionCompletionBlock_(v21, v24, v36);
   objc_msgSend__scheduleConvenienceOperation_wrappingDatabase_convenienceConfiguration_(self, v25, v21, databaseCopy, configurationCopy);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllSubscriptionsWithWrappingDatabase:(id)database convenienceConfiguration:(id)configuration completionHandler:(id)handler

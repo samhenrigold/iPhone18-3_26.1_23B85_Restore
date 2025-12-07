@@ -1,6 +1,7 @@
 @interface TVPReportingSession
 + (void)initialize;
 - (TVPReportingSession)initWithMediaItem:(id)item;
+- (void)_sendEvent:(id)event withCategory:(unsigned __int16)category type:(unsigned __int16)type values:(id)values;
 - (void)reportDownloadFinishedWithResult:(int64_t)result error:(id)error;
 @end
 
@@ -23,11 +24,11 @@ uint64_t __33__TVPReportingSession_initialize__block_invoke()
 
 - (TVPReportingSession)initWithMediaItem:(id)item
 {
-  v38[6] = *MEMORY[0x277D85DE8];
+  v37[6] = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v36.receiver = self;
-  v36.super_class = TVPReportingSession;
-  v6 = [(TVPReportingSession *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = TVPReportingSession;
+  v6 = [(TVPReportingSession *)&v35 init];
   v7 = v6;
   if (v6)
   {
@@ -48,22 +49,22 @@ uint64_t __33__TVPReportingSession_initialize__block_invoke()
       }
 
       v11 = *MEMORY[0x277D44040];
-      v37[0] = *MEMORY[0x277D44030];
-      v37[1] = v11;
-      v38[0] = &unk_287E59630;
-      v38[1] = &unk_287E59648;
-      v37[2] = *MEMORY[0x277D44080];
+      v36[0] = *MEMORY[0x277D44030];
+      v36[1] = v11;
+      v37[0] = &unk_287E59630;
+      v37[1] = &unk_287E59648;
+      v36[2] = *MEMORY[0x277D44080];
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:arc4random()];
       v13 = *MEMORY[0x277D44010];
-      v38[2] = v12;
-      v38[3] = MEMORY[0x277CBEC28];
+      v37[2] = v12;
+      v37[3] = MEMORY[0x277CBEC28];
       v14 = *MEMORY[0x277D44050];
-      v37[3] = v13;
-      v37[4] = v14;
-      v37[5] = *MEMORY[0x277D44028];
-      v38[4] = MEMORY[0x277CBEC38];
-      v38[5] = v10;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:6];
+      v36[3] = v13;
+      v36[4] = v14;
+      v36[5] = *MEMORY[0x277D44028];
+      v37[4] = MEMORY[0x277CBEC38];
+      v37[5] = v10;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:6];
       v16 = [v15 mutableCopy];
 
       v17 = [itemCopy mediaItemMetadataForProperty:@"TVPMediaItemMetadataServiceIdentifier"];
@@ -77,7 +78,7 @@ uint64_t __33__TVPReportingSession_initialize__block_invoke()
 
       if ([v17 length])
       {
-        v35 = v16;
+        v34 = v16;
         v20 = v10;
         v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
         mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
@@ -107,8 +108,8 @@ uint64_t __33__TVPReportingSession_initialize__block_invoke()
           [v21 addEntriesFromDictionary:v18];
         }
 
-        v16 = v35;
-        v29 = [objc_alloc(MEMORY[0x277D43FE0]) initWithSessionInfo:v35 userInfo:v21 frameworksToCheck:0];
+        v16 = v34;
+        v29 = [objc_alloc(MEMORY[0x277D43FE0]) initWithSessionInfo:v34 userInfo:v21 frameworksToCheck:0];
         reporter = v7->_reporter;
         v7->_reporter = v29;
 
@@ -135,28 +136,25 @@ uint64_t __33__TVPReportingSession_initialize__block_invoke()
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __41__TVPReportingSession_initWithMediaItem___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sLogObject;
   if (os_log_type_enabled(sLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "RTCReporting backends: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "RTCReporting backends: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDownloadFinishedWithResult:(int64_t)result error:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (result == 1)
   {
@@ -183,11 +181,11 @@ void __41__TVPReportingSession_initWithMediaItem___block_invoke(uint64_t a1, voi
   v11 = v10;
   if (v10)
   {
-    v24 = v8;
+    v23 = v8;
     selfCopy = self;
     v12 = 0;
-    v27 = *MEMORY[0x277CCA7E8];
-    v25 = v10;
+    v26 = *MEMORY[0x277CCA7E8];
+    v24 = v10;
     do
     {
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"errorDomain%d", v12];
@@ -201,7 +199,7 @@ void __41__TVPReportingSession_initWithMediaItem___block_invoke(uint64_t a1, voi
 
       [v9 setObject:v16 forKey:v14];
       userInfo = [v11 userInfo];
-      v18 = [userInfo objectForKey:v27];
+      v18 = [userInfo objectForKey:v26];
 
       if (!v18)
       {
@@ -215,9 +213,9 @@ void __41__TVPReportingSession_initWithMediaItem___block_invoke(uint64_t a1, voi
 
     while (!v19);
 
-    v11 = v25;
+    v11 = v24;
     self = selfCopy;
-    v8 = v24;
+    v8 = v23;
   }
 
   mediaItem = [(TVPReportingSession *)self mediaItem];
@@ -232,24 +230,87 @@ void __41__TVPReportingSession_initWithMediaItem___block_invoke(uint64_t a1, voi
   if (os_log_type_enabled(sLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v9;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
     _os_log_impl(&dword_26CEDD000, v22, OS_LOG_TYPE_DEFAULT, "Sending download result %d with payload: %@", buf, 0x12u);
   }
 
   [(TVPReportingSession *)self _sendEvent:@"downloadResult" withCategory:12345 type:v8 values:v9];
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (void)_sendEvent:(id)event withCategory:(unsigned __int16)category type:(unsigned __int16)type values:(id)values
+{
+  typeCopy = type;
+  categoryCopy = category;
+  v27 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  valuesCopy = values;
+  reporter = [(TVPReportingSession *)self reporter];
+
+  if (reporter)
+  {
+    if (!valuesCopy)
+    {
+      valuesCopy = MEMORY[0x277CBEC10];
+    }
+
+    v13 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:valuesCopy];
+    v14 = v13;
+    if (eventCopy)
+    {
+      [v13 setObject:eventCopy forKey:@"event"];
+    }
+
+    v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:categoryCopy];
+    [v15 setObject:v16 forKey:*MEMORY[0x277D43FF0]];
+
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:typeCopy];
+    [v15 setObject:v17 forKey:*MEMORY[0x277D44008]];
+
+    [v15 setObject:&unk_287E59660 forKey:*MEMORY[0x277D43FF8]];
+    if (v14)
+    {
+      [v15 setObject:v14 forKey:*MEMORY[0x277D44000]];
+    }
+
+    reporter2 = [(TVPReportingSession *)self reporter];
+    v19 = [reporter2 sendMessageWithDictionary:v15 error:0];
+
+    v20 = sLogObject;
+    if (os_log_type_enabled(sLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = @"unsuccessful";
+      if (v19)
+      {
+        v21 = @"successful";
+      }
+
+      v23 = 138412546;
+      v24 = eventCopy;
+      v25 = 2112;
+      v26 = v21;
+      _os_log_impl(&dword_26CEDD000, v20, OS_LOG_TYPE_DEFAULT, "RTC Sending %@ payload was %@", &v23, 0x16u);
+    }
+  }
+
+  else
+  {
+    v22 = sLogObject;
+    if (os_log_type_enabled(sLogObject, OS_LOG_TYPE_ERROR))
+    {
+      [TVPReportingSession _sendEvent:eventCopy withCategory:v22 type:? values:?];
+    }
+  }
 }
 
 - (void)_sendEvent:(uint64_t)a1 withCategory:(NSObject *)a2 type:values:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "**** RTC is not configured. Not sending metrics for event %@. ****", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "**** RTC is not configured. Not sending metrics for event %@. ****", &v2, 0xCu);
 }
 
 @end

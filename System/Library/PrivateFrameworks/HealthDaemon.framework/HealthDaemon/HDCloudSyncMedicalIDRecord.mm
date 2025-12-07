@@ -104,14 +104,14 @@ LABEL_10:
 
 - (void)setMedicalIDData:(id)data
 {
-  v4 = [data copy];
+  v4 = objc_msgSend_copy(data, a2);
   [(HDCloudSyncCodableMedicalID *)self->_underlyingCodableMedicalIDMessage setMedicalIDData:v4];
 }
 
 - (NSArray)medicalIDLogs
 {
   medicalIDLogs = [(HDCloudSyncCodableMedicalID *)self->_underlyingCodableMedicalIDMessage medicalIDLogs];
-  v3 = [medicalIDLogs copy];
+  v3 = objc_msgSend_copy(medicalIDLogs);
 
   return v3;
 }
@@ -126,7 +126,7 @@ LABEL_10:
   [v7 timeIntervalSinceReferenceDate];
   [(HDCloudSyncCodableLog *)v6 setTimeStamp:?];
 
-  v8 = [eventCopy copy];
+  v8 = objc_msgSend_copy(eventCopy);
   [(HDCloudSyncCodableLog *)v6 setEvent:v8];
 
   if (medicalIDLogs)

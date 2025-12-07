@@ -98,7 +98,7 @@
 
 - (void)addEvent:(__IOHIDEvent *)event
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   TimeStamp = IOHIDEventGetTimeStamp();
   eventModelTimeDifferenceMin = self->_eventModelTimeDifferenceMin;
   eventModelTimeDifferenceMax = self->_eventModelTimeDifferenceMax;
@@ -115,35 +115,35 @@
   }
 
   nextEventReceiveDeadlineTimeDifference = self->_nextEventReceiveDeadlineTimeDifference;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
   if (self->_profile->var6 && v12 == 0)
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke;
-    v38[3] = &unk_1E7120090;
-    v38[4] = self;
-    v38[5] = &v43;
-    v38[6] = &v39;
-    _UIEventHIDEnumerateChildren(event, 1, v38);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke;
+    v39[3] = &unk_1E7120090;
+    v39[4] = self;
+    v39[5] = &v44;
+    v39[6] = &v40;
+    _UIEventHIDEnumerateChildren(event, 1, v39);
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke_2;
-  v37[3] = &unk_1E71200B8;
-  v37[4] = self;
-  v37[5] = event;
-  _UIEventHIDEnumerateChildren(event, 11, v37);
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __39___UIUpdateHIDDigitizerInput_addEvent___block_invoke_2;
+  v38[3] = &unk_1E71200B8;
+  v38[4] = self;
+  v38[5] = event;
+  _UIEventHIDEnumerateChildren(event, 11, v38);
   v16 = [(NSMutableSet *)self->_touches count];
-  v17 = v40[3];
+  v17 = v41[3];
   v18 = v17 == 0;
   self->_nextEventExpected = v16 != 0;
   if (!v16)
@@ -158,9 +158,10 @@
 
   self->_nextEventExpected = v18;
   events = self->_events;
-  if (*(v44 + 24) == 1)
+  if (*(v45 + 24) == 1)
   {
-    if (![(NSMutableArray *)events count])
+    v20 = [(NSMutableArray *)events count];
+    if (!v20)
     {
       self->_input._state.mode = self->_nextEventExpected;
     }
@@ -170,78 +171,78 @@
   {
     if (![(NSMutableArray *)events count])
     {
-      v20 = eventModelTimeDifferenceMin + TimeStamp;
+      v21 = eventModelTimeDifferenceMin + TimeStamp;
       if (v12)
       {
-        v20 = 0x8000000000000000;
+        v21 = 0x8000000000000000;
       }
 
-      self->_input._state.earliestModelTime = v20;
+      self->_input._state.earliestModelTime = v21;
       self->_input._state.mode = 2;
     }
 
-    [(NSMutableArray *)self->_events addObject:event];
+    v20 = [(NSMutableArray *)self->_events addObject:event];
   }
 
-  if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck())
+  if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(v20))
   {
     CategoryCachedImpl = __UILogGetCategoryCachedImpl("EventBus", &addEvent____s_category_0);
-    v22 = *(CategoryCachedImpl + 8);
-    v23 = os_signpost_id_make_with_pointer(*(CategoryCachedImpl + 8), self);
-    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v23 = *(CategoryCachedImpl + 8);
+    v24 = os_signpost_id_make_with_pointer(*(CategoryCachedImpl + 8), self);
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v24 = v23;
-      if (os_signpost_enabled(v22))
+      v25 = v24;
+      if (os_signpost_enabled(v23))
       {
-        v36 = nextEventExpected;
-        v35 = v40[3] != 0;
-        v33 = self->_nextEventExpected;
-        v34 = *(v44 + 24);
-        v25 = _UIMediaDurationForMachDuration(nextEventReceiveDeadlineTimeDifference);
-        v26 = _UIMediaDurationForMachDuration(self->_nextEventReceiveDeadlineTimeDifference);
-        v32 = [(NSMutableArray *)self->_events count];
-        v27 = [(NSMutableSet *)self->_touches count];
+        v37 = nextEventExpected;
+        v36 = v41[3] != 0;
+        v34 = self->_nextEventExpected;
+        v35 = *(v45 + 24);
+        v26 = _UIMediaDurationForMachDuration(nextEventReceiveDeadlineTimeDifference);
+        v27 = _UIMediaDurationForMachDuration(self->_nextEventReceiveDeadlineTimeDifference);
+        v33 = [(NSMutableArray *)self->_events count];
+        v28 = [(NSMutableSet *)self->_touches count];
         mode = self->_input._state.mode;
         mach_absolute_time();
-        memset(v47, 0, sizeof(v47));
+        memset(v48, 0, sizeof(v48));
         UCTimeToSeconds();
-        v30 = v29;
+        v31 = v30;
         UCTimeToSeconds();
-        __snprintf_chk(v47, 0x30uLL, 0, 0x30uLL, "%.06f(%+.06f)s", v30, v30 - v31);
+        __snprintf_chk(v48, 0x30uLL, 0, 0x30uLL, "%.06f(%+.06f)s", v31, v31 - v32);
         *buf = 67112194;
-        v49 = (EventFlags >> 5) & 1;
-        v50 = 1024;
-        v51 = v36;
-        v52 = 1024;
-        v53 = v33;
-        v54 = 1024;
-        v55 = (options & 0x200) >> 9;
-        v56 = 1024;
-        v57 = v12 >> 6;
-        v58 = 1024;
-        v59 = v35;
-        v60 = 1024;
-        v61 = v34;
-        v62 = 2048;
-        v63 = v25;
-        v64 = 2048;
-        v65 = v26;
-        v66 = 1024;
-        v67 = v32;
-        v68 = 1024;
-        v69 = v27;
-        v70 = 1024;
-        v71 = mode;
-        v72 = 2080;
-        v73 = v47;
-        _os_signpost_emit_with_name_impl(&dword_188A29000, v22, OS_SIGNPOST_EVENT, v24, "EventAdded", "interpolated=%u, expected=%u, nextExpected=%u, multiplexedMore=%u, synthetic=%u, nextInfo=%u, onlyInfo=%u, deadline=%.06f, nextDeadline=%.06f, events=%u, touches=%u, mode=%u, event=%s", buf, 0x5Cu);
+        v50 = (EventFlags >> 5) & 1;
+        v51 = 1024;
+        v52 = v37;
+        v53 = 1024;
+        v54 = v34;
+        v55 = 1024;
+        v56 = (options & 0x200) >> 9;
+        v57 = 1024;
+        v58 = v12 >> 6;
+        v59 = 1024;
+        v60 = v36;
+        v61 = 1024;
+        v62 = v35;
+        v63 = 2048;
+        v64 = v26;
+        v65 = 2048;
+        v66 = v27;
+        v67 = 1024;
+        v68 = v33;
+        v69 = 1024;
+        v70 = v28;
+        v71 = 1024;
+        v72 = mode;
+        v73 = 2080;
+        v74 = v48;
+        _os_signpost_emit_with_name_impl(&dword_188A29000, v23, OS_SIGNPOST_EVENT, v25, "EventAdded", "interpolated=%u, expected=%u, nextExpected=%u, multiplexedMore=%u, synthetic=%u, nextInfo=%u, onlyInfo=%u, deadline=%.06f, nextDeadline=%.06f, events=%u, touches=%u, mode=%u, event=%s", buf, 0x5Cu);
       }
     }
   }
 
   _UIUpdateInputSetInputChanged(self->_input._set, &self->_input);
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 }
 
 - (void)removeEvent:(__IOHIDEvent *)event

@@ -214,7 +214,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -234,12 +233,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  validatedAttachment = self->_validatedAttachment;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    attachmentSize = self->_attachmentSize;
     PBDataWriterWriteUint32Field();
   }
 
@@ -251,7 +248,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    operationalErrorCode = self->_operationalErrorCode;
     PBDataWriterWriteUint32Field();
   }
 
@@ -260,8 +256,8 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x40) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) == 0)
   {
     if ((*&self->_has & 8) == 0)
     {
@@ -269,7 +265,6 @@ LABEL_5:
     }
 
 LABEL_19:
-    linkQuality = self->_linkQuality;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -279,22 +274,20 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  validationErrorCode = self->_validationErrorCode;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
     goto LABEL_19;
   }
 
 LABEL_13:
-  if ((v7 & 4) == 0)
+  if ((v5 & 4) == 0)
   {
     return;
   }
 
 LABEL_20:
-  connectionType = self->_connectionType;
 
   PBDataWriterWriteUint32Field();
 }
@@ -475,7 +468,6 @@ LABEL_10:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 56);
     if (has)
     {
       if ((*(equal + 56) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -529,7 +521,6 @@ LABEL_42:
       has = self->_has;
     }
 
-    v9 = *(equal + 56);
     if ((has & 0x10) != 0)
     {
       if ((*(equal + 56) & 0x10) == 0 || self->_operationalErrorCode != *(equal + 7))

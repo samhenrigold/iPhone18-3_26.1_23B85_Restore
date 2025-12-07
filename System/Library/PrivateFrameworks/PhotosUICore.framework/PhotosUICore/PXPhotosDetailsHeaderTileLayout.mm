@@ -68,9 +68,9 @@
   *&retstr->index[1] = 0u;
   *&retstr->index[3] = 0u;
   *&retstr->length = 0u;
-  v4 = [(PXPhotosDetailsHeaderTileLayout *)self style]== 1;
+  [(PXPhotosDetailsHeaderTileLayout *)self style];
 
-  return [(PXPhotosDetailsHeaderTileLayout *)self tileIdentifierForTileKind:v4];
+  return objc_msgSend_tileIdentifierForTileKind_(self);
 }
 
 - (PXTileIdentifier)tileIdentifierForTileKind:(SEL)kind
@@ -482,7 +482,7 @@ void __79__PXPhotosDetailsHeaderTileLayout_enumerateTilesInRect_withOptions_usin
   v10 = 0u;
   v11 = 0u;
   v9 = 0u;
-  [(PXPhotosDetailsHeaderTileLayout *)self tileIdentifierForTileKind:1];
+  objc_msgSend_tileIdentifierForTileKind_(self, a2, 1);
   v7[2] = v11;
   v7[3] = v12;
   v7[4] = v13;

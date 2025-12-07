@@ -60,7 +60,7 @@ uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_3(uint64_t a1, uint64_t 
 
 uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x22AAC6C80](a2, 0);
   v7 = MEMORY[0x22AAC6C90](a2, 1);
   v8 = MEMORY[0x22AAC6C90](a2, 2);
@@ -83,22 +83,22 @@ uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_5(uint64_t a1, uint64_t 
     v7 = v12;
 LABEL_4:
     v14 = [*(a1 + 32) protectedDatabase];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = ___HDUpdateClinicalRecordEntities_block_invoke_892;
-    v22[3] = &unk_278613528;
-    v22[4] = *(a1 + 40);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = ___HDUpdateClinicalRecordEntities_block_invoke_892;
+    v21[3] = &unk_278613528;
+    v21[4] = *(a1 + 40);
     v7 = v7;
-    v23 = v7;
+    v22 = v7;
     v8 = v8;
-    v24 = v8;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = ___HDUpdateClinicalRecordEntities_block_invoke_2_893;
-    v19[3] = &unk_2786140C0;
-    v20 = *(a1 + 32);
-    v21 = v6;
-    v15 = [v14 executeSQL:@"SELECT ROWID FROM original_fhir_resources WHERE                          account_id = ? AND type = ? AND id = ?" error:a3 bindingHandler:v22 enumerationHandler:v19];
+    v23 = v8;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = ___HDUpdateClinicalRecordEntities_block_invoke_2_893;
+    v18[3] = &unk_2786140C0;
+    v19 = *(a1 + 32);
+    v20 = v6;
+    v15 = [v14 executeSQL:@"SELECT ROWID FROM original_fhir_resources WHERE                          account_id = ? AND type = ? AND id = ?" error:a3 bindingHandler:v21 enumerationHandler:v18];
 
     goto LABEL_8;
   }
@@ -108,24 +108,20 @@ LABEL_4:
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v26 = v8;
+    v25 = v8;
     _os_log_fault_impl(&dword_228986000, v16, OS_LOG_TYPE_FAULT, "UpdateClinicalRecordEntities: HKFHIRIdentifer malformed in migration attempt: %{public}@", buf, 0xCu);
   }
 
   v15 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_892(void *a1)
+uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_892(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v3 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v4 = a1[6];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -146,11 +142,9 @@ uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_2_893(uint64_t a1, uint6
   return v8;
 }
 
-uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_3_897(uint64_t a1)
+uint64_t ___HDUpdateClinicalRecordEntities_block_invoke_3_897(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

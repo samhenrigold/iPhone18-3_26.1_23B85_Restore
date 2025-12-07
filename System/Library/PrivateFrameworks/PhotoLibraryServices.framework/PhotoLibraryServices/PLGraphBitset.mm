@@ -74,18 +74,18 @@
   return self;
 }
 
-uint64_t __34__PLGraphBitset_intersectsBitset___block_invoke(uint64_t result, int a2, unint64_t a3, _BYTE *a4)
+id *__34__PLGraphBitset_intersectsBitset___block_invoke(id *result, int a2, unint64_t a3, _BYTE *a4)
 {
-  if (*(result + 48) > a3)
+  if (result[6] > a3)
   {
     v6 = result;
-    result = [*(result + 32) _pageAtIndex:?];
+    result = [result[4] _pageAtIndex:?];
     if ((result & a2) == 0)
     {
       return result;
     }
 
-    *(*(*(v6 + 40) + 8) + 24) = 1;
+    *(*(v6[5] + 1) + 24) = 1;
   }
 
   *a4 = 1;
@@ -286,19 +286,21 @@ LABEL_5:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLGraphBitset.m" lineNumber:345 description:{@"Invalid parameter not satisfying: %@", @"indexSet"}];
   }
 
-  v11.receiver = self;
-  v11.super_class = PLGraphBitset;
-  v6 = [(PLGraphBitset *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = PLGraphBitset;
+  v6 = [(PLGraphBitset *)&v13 init];
   if (v6)
   {
-    v6->_bitVector = CFBitVectorCreateMutable(*MEMORY[0x1E695E480], [setCopy count]);
+    v7 = *MEMORY[0x1E695E480];
+    v8 = objc_msgSend_count(setCopy);
+    v6->_bitVector = CFBitVectorCreateMutable(v7, v8);
     v6->_isMutable = 1;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __34__PLGraphBitset_initWithIndexSet___block_invoke;
-    v9[3] = &unk_1E7576338;
-    v10 = v6;
-    [setCopy enumerateIndexesUsingBlock:v9];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __34__PLGraphBitset_initWithIndexSet___block_invoke;
+    v11[3] = &unk_1E7576338;
+    v12 = v6;
+    [setCopy enumerateIndexesUsingBlock:v11];
   }
 
   return v6;
@@ -386,7 +388,7 @@ LABEL_3:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLGraphBitset.m" lineNumber:81 description:{@"Invalid parameter not satisfying: %@", @"handler"}];
   }
 
-  v6 = [(PLGraphBitset *)self count];
+  v6 = objc_msgSend_count(self);
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __35__PLGraphBitset__enumerateIndexes___block_invoke;
@@ -747,7 +749,7 @@ LABEL_3:
   }
 }
 
-uint64_t __41__PLGraphBitset__rleEncodeData_intoData___block_invoke(uint64_t a1)
+void *__41__PLGraphBitset__rleEncodeData_intoData___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 48) + 8) + 24);
   result = [*(a1 + 32) appendBytes:*(*(a1 + 56) + 8) + 24 length:1];

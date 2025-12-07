@@ -295,7 +295,7 @@ void __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehav
 
     if (!v6)
     {
-      __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehaviorSettings___block_invoke_cold_1(a1);
+      __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehaviorSettings___block_invoke_cold_1(a1, v4);
     }
   }
 
@@ -359,15 +359,16 @@ void __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehav
   if (providerCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
       [(SBSABasePreferencesProvider *)a2 setChildProvider:providerCopy];
     }
 
-    v7 = SBLogSystemAperturePreferencesStackMutation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SBLogSystemAperturePreferencesStackMutation(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(SBSABasePreferencesProvider *)providerCopy setChildProvider:v7];
+      [(SBSABasePreferencesProvider *)providerCopy setChildProvider:v8];
     }
 
     selfCopy = self;
@@ -375,56 +376,56 @@ void __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehav
     childProvider = selfCopy->_childProvider;
     if (childProvider != providerCopy)
     {
-      v10 = objc_opt_class();
-      v11 = childProvider;
-      if (v10)
+      v11 = objc_opt_class();
+      v12 = childProvider;
+      if (v11)
       {
         if (objc_opt_isKindOfClass())
         {
-          v12 = v11;
+          v13 = v12;
         }
 
         else
         {
-          v12 = 0;
+          v13 = 0;
         }
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
-      v13 = v12;
+      v14 = v13;
 
       objc_storeStrong(&selfCopy->_childProvider, provider);
-      v14 = objc_opt_class();
-      v15 = providerCopy;
-      if (v14)
+      v15 = objc_opt_class();
+      v16 = providerCopy;
+      if (v15)
       {
         if (objc_opt_isKindOfClass())
         {
-          v16 = v15;
+          v17 = v16;
         }
 
         else
         {
-          v16 = 0;
+          v17 = 0;
         }
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      v17 = v16;
+      v18 = v17;
 
-      objc_storeWeak(v17 + 2, selfCopy);
-      objc_storeStrong(v17 + 3, v12);
-      if (v13)
+      objc_storeWeak(v18 + 2, selfCopy);
+      objc_storeStrong(v18 + 3, v13);
+      if (v14)
       {
-        objc_storeWeak(v13 + 2, v17);
+        objc_storeWeak(v14 + 2, v18);
       }
     }
 
@@ -529,15 +530,15 @@ LABEL_5:
   return preferences;
 }
 
-void __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehaviorSettings___block_invoke_cold_1(uint64_t a1)
+void __84__SBSABasePreferencesProvider_newAnimatedTransitionDescriptionWithBehaviorSettings___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v3 = *(a1 + 40);
-  v2 = *(a1 + 48);
-  v4 = NSClassFromString(&cfstr_Sbsaanimatedtr.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v3 object:v2 file:@"SBSABasePreferencesProvider.m" lineNumber:78 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v4 = *(a1 + 40);
+  v3 = *(a1 + 48);
+  v5 = NSClassFromString(&cfstr_Sbsaanimatedtr.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v4 object:v3 file:@"SBSABasePreferencesProvider.m" lineNumber:78 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
 - (void)setChildProvider:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3)

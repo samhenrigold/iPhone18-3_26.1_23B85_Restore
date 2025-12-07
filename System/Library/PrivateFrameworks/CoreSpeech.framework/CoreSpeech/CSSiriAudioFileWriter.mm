@@ -47,7 +47,7 @@ uint64_t __31__CSSiriAudioFileWriter_cancel__block_invoke(uint64_t a1)
 
 void __45__CSSiriAudioFileWriter_flushWithCompletion___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[3];
   if (v3)
@@ -72,21 +72,21 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    v15 = *MEMORY[0x277CEF0E8];
+    v14 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v17 = v15;
-      v18 = __error();
-      v19 = strerror(*v18);
-      v20 = 136315394;
-      v21 = "[CSSiriAudioFileWriter flushWithCompletion:]_block_invoke";
-      v22 = 2082;
-      v23 = v19;
-      _os_log_error_impl(&dword_222E4D000, v17, OS_LOG_TYPE_ERROR, "%s Failed opening fd for flushed audio file %{public}s", &v20, 0x16u);
+      v16 = v14;
+      v17 = __error();
+      v18 = strerror(*v17);
+      v19 = 136315394;
+      v20 = "[CSSiriAudioFileWriter flushWithCompletion:]_block_invoke";
+      v21 = 2082;
+      v22 = v18;
+      _os_log_error_impl(&dword_222E4D000, v16, OS_LOG_TYPE_ERROR, "%s Failed opening fd for flushed audio file %{public}s", &v19, 0x16u);
     }
 
-    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v9 = [v16 initWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
+    v15 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v9 = [v15 initWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
   }
 
   else
@@ -94,18 +94,18 @@ LABEL_5:
     v10 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315138;
-      v21 = "[CSSiriAudioFileWriter flushWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s No file url on flush", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[CSSiriAudioFileWriter flushWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s No file url on flush", &v19, 0xCu);
       v2 = *(a1 + 32);
     }
 
     v11 = v2[12];
     if (v11)
     {
-      v24 = *MEMORY[0x277CCA7E8];
-      v25[0] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x277CCA7E8];
+      v24[0] = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     }
 
     else
@@ -123,8 +123,6 @@ LABEL_12:
   {
     (*(v13 + 16))(v13, *(*(a1 + 32) + 88), *(*(a1 + 32) + 24), v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendAudioData:(id)data
@@ -143,7 +141,7 @@ LABEL_12:
 
 void __41__CSSiriAudioFileWriter_appendAudioData___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 40))
   {
     v2 = [*(a1 + 40) length];
@@ -162,12 +160,12 @@ void __41__CSSiriAudioFileWriter_appendAudioData___block_invoke(uint64_t a1)
       v9 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "[CSSiriAudioFileWriter appendAudioData:]_block_invoke";
-        v18 = 1026;
-        v19 = v8;
+        v15 = 136315394;
+        v16 = "[CSSiriAudioFileWriter appendAudioData:]_block_invoke";
+        v17 = 1026;
+        v18 = v8;
         v10 = "%s Failed writing audio file %{public}d";
-        p_ioData = &v16;
+        p_ioData = &v15;
         v12 = v9;
         v13 = 18;
 LABEL_8:
@@ -190,26 +188,24 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithAudioStreamBasicDescription:(const AudioStreamBasicDescription *)description
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = *&description->mBytesPerPacket;
-  v13 = *&description->mSampleRate;
-  v14 = v5;
-  v15 = *&description->mBitsPerChannel;
+  v12 = *&description->mSampleRate;
+  v13 = v5;
+  v14 = *&description->mBitsPerChannel;
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]";
-    v18 = 1040;
-    v19 = 4;
-    v20 = 2080;
-    v21 = &v13 + 8;
+    v16 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]";
+    v17 = 1040;
+    v18 = 4;
+    v19 = 2080;
+    v20 = &v12 + 8;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Configuring with asbd %.4s", buf, 0x1Cu);
   }
 
@@ -220,21 +216,20 @@ LABEL_8:
   block[3] = &unk_2784C3A68;
   block[4] = self;
   block[5] = a2;
+  v9 = v12;
   v10 = v13;
   v11 = v14;
-  v12 = v15;
   dispatch_async(queue, block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__CSSiriAudioFileWriter_configureWithAudioStreamBasicDescription___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 40))
   {
-    v32 = [MEMORY[0x277CCA890] currentHandler];
-    [v32 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"CSSiriAudioFileWriter.m" lineNumber:213 description:@"AudioFile Already configured"];
+    v31 = [MEMORY[0x277CCA890] currentHandler];
+    [v31 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"CSSiriAudioFileWriter.m" lineNumber:213 description:@"AudioFile Already configured"];
 
     v2 = *(a1 + 32);
   }
@@ -263,73 +258,73 @@ uint64_t __66__CSSiriAudioFileWriter_configureWithAudioStreamBasicDescription___
   {
     v9 = *(*(a1 + 32) + 24);
     *buf = 136315394;
-    v37 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
-    v38 = 2112;
-    *v39 = v9;
+    v36 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
+    v37 = 2112;
+    *v38 = v9;
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Creating audio file at URL %@", buf, 0x16u);
   }
 
   v10 = *(a1 + 32);
   v11 = *(v10 + 16);
-  memset(&v33.mFormatID, 0, 32);
+  memset(&v32.mFormatID, 0, 32);
   v12 = *(v10 + 76);
-  v33.mChannelsPerFrame = v12;
+  v32.mChannelsPerFrame = v12;
   if (!v12)
   {
     v13 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "_AudioStreamBasicDescriptionForAFAudioFileType";
-      v38 = 2048;
-      *v39 = 0;
+      v36 = "_AudioStreamBasicDescriptionForAFAudioFileType";
+      v37 = 2048;
+      *v38 = 0;
       _os_log_error_impl(&dword_222E4D000, v13, OS_LOG_TYPE_ERROR, "%s inASBD->mChannelsPerFrame = %lu", buf, 0x16u);
     }
 
     v12 = 1;
-    v33.mChannelsPerFrame = 1;
+    v32.mChannelsPerFrame = 1;
   }
 
-  v33.mSampleRate = *(v10 + 48);
+  v32.mSampleRate = *(v10 + 48);
   switch(v11)
   {
     case 3:
-      v33.mSampleRate = 24000.0;
-      v33.mFormatID = 1869641075;
-      v33.mFramesPerPacket = 480;
-      v33.mChannelsPerFrame = 1;
+      v32.mSampleRate = 24000.0;
+      v32.mFormatID = 1869641075;
+      v32.mFramesPerPacket = 480;
+      v32.mChannelsPerFrame = 1;
       break;
     case 2:
-      *&v33.mFormatID = 0xC6C70636DLL;
-      v33.mBitsPerChannel = 16;
-      v33.mFramesPerPacket = 1;
-      v33.mBytesPerFrame = 2 * v12;
-      v33.mBytesPerPacket = 2 * v12;
+      *&v32.mFormatID = 0xC6C70636DLL;
+      v32.mBitsPerChannel = 16;
+      v32.mFramesPerPacket = 1;
+      v32.mBytesPerFrame = 2 * v12;
+      v32.mBytesPerPacket = 2 * v12;
       break;
     case 1:
-      v33.mSampleRate = 0.0;
-      v33.mFormatID = 1935764850;
+      v32.mSampleRate = 0.0;
+      v32.mFormatID = 1935764850;
       break;
     default:
       goto LABEL_21;
   }
 
   ioPropertyDataSize = 40;
-  Property = AudioFormatGetProperty(0x666D7469u, 0, 0, &ioPropertyDataSize, &v33);
+  Property = AudioFormatGetProperty(0x666D7469u, 0, 0, &ioPropertyDataSize, &v32);
   if (Property)
   {
     v14 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v37 = "_AudioStreamBasicDescriptionForAFAudioFileType";
-      v38 = 1042;
-      *v39 = 4;
-      *&v39[4] = 2082;
-      *&v39[6] = &v33.mFormatID;
-      v40 = 1042;
-      v41 = 4;
-      v42 = 2082;
+      v36 = "_AudioStreamBasicDescriptionForAFAudioFileType";
+      v37 = 1042;
+      *v38 = 4;
+      *&v38[4] = 2082;
+      *&v38[6] = &v32.mFormatID;
+      v39 = 1042;
+      v40 = 4;
+      v41 = 2082;
       p_Property = &Property;
       _os_log_error_impl(&dword_222E4D000, v14, OS_LOG_TYPE_ERROR, "%s Error getting format info for type %{public}.4s %{public}.4s", buf, 0x2Cu);
     }
@@ -358,20 +353,20 @@ LABEL_21:
     v18 = 1;
   }
 
-  v19 = ExtAudioFileCreateWithURL(*(v15 + 24), v17, &v33, 0, v18, (v15 + 40));
+  v19 = ExtAudioFileCreateWithURL(*(v15 + 24), v17, &v32, 0, v18, (v15 + 40));
   if (v19)
   {
     v20 = v19;
     v21 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
-      v31 = *(*(a1 + 32) + 24);
+      v30 = *(*(a1 + 32) + 24);
       *buf = 136315650;
-      v37 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
-      v38 = 2114;
-      *v39 = v31;
-      *&v39[8] = 1026;
-      *&v39[10] = v20;
+      v36 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
+      v37 = 2114;
+      *v38 = v30;
+      *&v38[8] = 1026;
+      *&v38[10] = v20;
       _os_log_error_impl(&dword_222E4D000, v21, OS_LOG_TYPE_ERROR, "%s Failed creating audio file at url %{public}@ %{public}d", buf, 0x1Cu);
     }
 
@@ -379,7 +374,7 @@ LABEL_21:
     if (!*(v22 + 96) && *(v22 + 88))
     {
       v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v24 = [v23 initWithDomain:@"CSSiriAudioFileWriterExtAudioFileErrorDomain" code:v20 userInfo:{0, *&v33.mSampleRate, *&v33.mFormatID, *&v33.mBytesPerFrame}];
+      v24 = [v23 initWithDomain:@"CSSiriAudioFileWriterExtAudioFileErrorDomain" code:v20 userInfo:{0, *&v32.mSampleRate, *&v32.mFormatID, *&v32.mBytesPerFrame}];
       v25 = *(a1 + 32);
       v26 = *(v25 + 96);
       *(v25 + 96) = v24;
@@ -391,7 +386,7 @@ LABEL_21:
     result = ExtAudioFileSetProperty(*(*(a1 + 32) + 40), 0x63666D74u, 0x28u, (*(a1 + 32) + 48));
     if (!result)
     {
-      goto LABEL_38;
+      return result;
     }
 
     v28 = result;
@@ -399,9 +394,9 @@ LABEL_21:
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
-      v38 = 1026;
-      *v39 = v28;
+      v36 = "[CSSiriAudioFileWriter configureWithAudioStreamBasicDescription:]_block_invoke";
+      v37 = 1026;
+      *v38 = v28;
       _os_log_error_impl(&dword_222E4D000, v29, OS_LOG_TYPE_ERROR, "%s Error setting input format %{public}d", buf, 0x12u);
     }
   }
@@ -410,24 +405,22 @@ LABEL_21:
   if (*(result + 40))
   {
     [result _close];
-    result = [*(a1 + 32) _delete];
+    return [*(a1 + 32) _delete];
   }
 
-LABEL_38:
-  v30 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_delete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_url)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     url = self->_url;
-    v10 = 0;
-    v5 = [defaultManager removeItemAtURL:url error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [defaultManager removeItemAtURL:url error:&v9];
+    v6 = v9;
 
     if ((v5 & 1) == 0)
     {
@@ -435,9 +428,9 @@ LABEL_38:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v12 = "[CSSiriAudioFileWriter _delete]";
-        v13 = 2114;
-        v14 = v6;
+        v11 = "[CSSiriAudioFileWriter _delete]";
+        v12 = 2114;
+        v13 = v6;
         _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s Error removing item at URL %{public}@", buf, 0x16u);
       }
     }
@@ -445,13 +438,11 @@ LABEL_38:
     v8 = self->_url;
     self->_url = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_close
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   audioFile = self->_audioFile;
   if (audioFile)
   {
@@ -462,18 +453,16 @@ LABEL_38:
       v6 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
-        v8 = 136315394;
-        v9 = "[CSSiriAudioFileWriter _close]";
-        v10 = 1026;
-        v11 = v5;
-        _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Failure disposing audio file %{public}d", &v8, 0x12u);
+        v7 = 136315394;
+        v8 = "[CSSiriAudioFileWriter _close]";
+        v9 = 1026;
+        v10 = v5;
+        _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Failure disposing audio file %{public}d", &v7, 0x12u);
       }
     }
 
     self->_audioFile = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -522,25 +511,25 @@ LABEL_38:
 
 void __76__CSSiriAudioFileWriter__initWithType_pathGenerator_xorFileHandle_priority___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 16) = *(a1 + 56);
   v3 = *(a1 + 40);
   if (v3)
   {
-    if (fcntl([v3 fileDescriptor], 50, v20) == -1)
+    if (fcntl([v3 fileDescriptor], 50, v19) == -1)
     {
       v9 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v19 = "[CSSiriAudioFileWriter _initWithType:pathGenerator:xorFileHandle:priority:]_block_invoke";
+        v18 = "[CSSiriAudioFileWriter _initWithType:pathGenerator:xorFileHandle:priority:]_block_invoke";
         _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s Error getting file path from provided file handle; will create our own path and handle", buf, 0xCu);
       }
     }
 
     else
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+      v4 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
       v5 = *(a1 + 32);
       v6 = *(v5 + 32);
       *(v5 + 32) = v4;
@@ -599,14 +588,12 @@ LABEL_19:
   }
 
 LABEL_17:
-  v16 = @"path";
-  v17 = v10;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v15 = @"path";
+  v16 = v10;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
 LABEL_20:
   v14 = [MEMORY[0x277CEF158] sharedAnalytics];
   [v14 logEventWithType:238 context:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_generateTemporaryFileURL

@@ -26,7 +26,6 @@
 
 uint64_t __38__PPLPeopleAppLauncher_sharedLauncher__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedLauncher___sharedLauncher = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -73,22 +72,11 @@ uint64_t __38__PPLPeopleAppLauncher_sharedLauncher__block_invoke(uint64_t a1)
 
 void __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke(uint64_t a1)
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) peopleAppProcessHandle];
-  if (!v2)
+  if (!v2 || (v3 = v2, [*(a1 + 32) peopleAppProcessHandle], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "currentState"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isRunning"), v5, v4, v3, (v6 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 32) peopleAppProcessHandle];
-  v5 = [v4 currentState];
-  v6 = [v5 isRunning];
-
-  if ((v6 & 1) == 0)
-  {
-LABEL_3:
-    v7 = PPLPeopleViewServiceLog();
+    v7 = PPLPeopleViewServiceLog(v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -101,23 +89,23 @@ LABEL_3:
     if (*(a1 + 40) == 1)
     {
       v10 = [MEMORY[0x277D46DF0] grantWithUserInteractivity];
-      v34[0] = v10;
+      v33[0] = v10;
       v11 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:0];
-      v34[1] = v11;
+      v33[1] = v11;
       v12 = [MEMORY[0x277D46EA8] grantWithForegroundPriority];
-      v34[2] = v12;
-      v13 = v34;
+      v33[2] = v12;
+      v13 = v33;
     }
 
     else
     {
       v10 = [MEMORY[0x277D46DF0] grantUserInitiated];
-      v33[0] = v10;
+      v32[0] = v10;
       v11 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:0];
-      v33[1] = v11;
+      v32[1] = v11;
       v12 = [MEMORY[0x277D46EA8] grantWithBackgroundPriority];
-      v33[2] = v12;
-      v13 = v33;
+      v32[2] = v12;
+      v13 = v32;
     }
 
     v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
@@ -127,14 +115,14 @@ LABEL_3:
     v16 = v15;
     if (v15)
     {
-      v30 = 0;
-      v31 = 0;
       v29 = 0;
-      v17 = [v15 execute:&v31 assertion:&v30 error:&v29];
-      v18 = v31;
-      v19 = v30;
-      v20 = v29;
-      v21 = PPLPeopleViewServiceLog();
+      v30 = 0;
+      v28 = 0;
+      v17 = [v15 execute:&v30 assertion:&v29 error:&v28];
+      v18 = v30;
+      v19 = v29;
+      v20 = v28;
+      v21 = PPLPeopleViewServiceLog(v20);
       v22 = v21;
       if (v17)
       {
@@ -163,25 +151,23 @@ LABEL_3:
 
       v25 = dispatch_time(0, 1000000000);
       v26 = [*(a1 + 32) queue];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke_12;
-      v28[3] = &unk_279A0DCA8;
-      v28[4] = *(a1 + 32);
-      dispatch_after(v25, v26, v28);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke_12;
+      v27[3] = &unk_279A0DCA8;
+      v27[4] = *(a1 + 32);
+      dispatch_after(v25, v26, v27);
     }
 
     else
     {
-      v19 = PPLPeopleViewServiceLog();
+      v19 = PPLPeopleViewServiceLog(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke_cold_2(v19);
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke_12(uint64_t a1)
@@ -203,11 +189,10 @@ uint64_t __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriorit
 
 void __70__PPLPeopleAppLauncher_launchPeopleAppIfNeededWithForegroundPriority___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E21C000, a2, OS_LOG_TYPE_ERROR, "Failed to launch with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E21C000, a2, OS_LOG_TYPE_ERROR, "Failed to launch with error: %@", &v2, 0xCu);
 }
 
 @end

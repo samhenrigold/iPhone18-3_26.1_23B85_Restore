@@ -165,8 +165,7 @@
 id __83__MPVoicemailTableViewController_initWithNavigationController_voicemailController___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setNeedsReloadData:1];
-  [*(a1 + 32) reloadDataIfNeeded];
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog([*(a1 + 32) reloadDataIfNeeded]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -457,7 +456,7 @@ id __83__MPVoicemailTableViewController_initWithNavigationController_voicemailCo
 
   else
   {
-    v5 = PHDefaultLog();
+    v5 = PHDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -481,7 +480,7 @@ id __83__MPVoicemailTableViewController_initWithNavigationController_voicemailCo
 
   else
   {
-    v6 = PHDefaultLog();
+    v6 = PHDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -585,22 +584,23 @@ void __49__MPVoicemailTableViewController_viewWillAppear___block_invoke(uint64_t
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MPVoicemailTableviewController - handling account manager updates %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MPVoicemailTableviewController - handling account manager updates %@", &v9, 0xCu);
     }
 
-    v6 = +[MPVoicemailAccountManagerUpdate transcribingStatus];
-    v7 = [v3 contains:v6];
+    v7 = +[MPVoicemailAccountManagerUpdate transcribingStatus];
+    v8 = [v3 contains:v7];
 
-    if (v7)
+    if (v8)
     {
-      [WeakRetained handleVoicemailTranscriptionStatusChanged];
+      [v5 handleVoicemailTranscriptionStatusChanged];
     }
   }
 }
@@ -657,30 +657,31 @@ void __45__MPVoicemailTableViewController_viewDidLoad__block_invoke(uint64_t a1,
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MPVoicemailTableViewcontroller - handling account manager updates %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MPVoicemailTableViewcontroller - handling account manager updates %@", &v11, 0xCu);
     }
 
-    v6 = +[MPVoicemailAccountManagerUpdate onlineStatus];
-    v7 = [v3 contains:v6];
+    v7 = +[MPVoicemailAccountManagerUpdate onlineStatus];
+    v8 = [v3 contains:v7];
 
-    if (v7)
+    if (v8)
     {
-      [WeakRetained handleVoicemailOnlineStatusChanged];
+      [v5 handleVoicemailOnlineStatusChanged];
     }
 
-    v8 = +[MPVoicemailAccountManagerUpdate accounts];
-    v9 = [v3 contains:v8];
+    v9 = +[MPVoicemailAccountManagerUpdate accounts];
+    v10 = [v3 contains:v9];
 
-    if (v9)
+    if (v10)
     {
-      [WeakRetained handleVoicemailManagerAccountsDidChange];
+      [v5 handleVoicemailManagerAccountsDidChange];
     }
   }
 }
@@ -795,7 +796,7 @@ id __69__MPVoicemailTableViewController_checkTranscriptionModelAvailability__blo
   {
     if (*(a1 + 48))
     {
-      v4 = PHDefaultLog();
+      v4 = PHDefaultLog(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __69__MPVoicemailTableViewController_checkTranscriptionModelAvailability__block_invoke_2_cold_1((a1 + 48), v4);
@@ -974,13 +975,13 @@ LABEL_7:
 
   if (v7)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       messagePlaybackQueue2 = [(MPVoicemailTableViewController *)self messagePlaybackQueue];
-      v12 = 138412290;
-      v13 = messagePlaybackQueue2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Message already exists in queue: %@ not adding it", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = messagePlaybackQueue2;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Message already exists in queue: %@ not adding it", &v13, 0xCu);
     }
   }
 
@@ -998,13 +999,13 @@ LABEL_7:
   accountManager = [voicemailController accountManager];
   transcriptionProgress = [accountManager transcriptionProgress];
 
-  if (!transcriptionProgress || ([transcriptionProgress isFinished] & 1) != 0 || (-[MPVoicemailTableViewController progressView](self, "progressView"), v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
+  if (!transcriptionProgress || (v6 = [transcriptionProgress isFinished], (v6 & 1) != 0) || (-[MPVoicemailTableViewController progressView](self, "progressView"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Hiding progress view", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Hiding progress view", v10, 2u);
     }
 
     [(MPVoicemailTableViewController *)self hideProgressView];
@@ -1012,11 +1013,11 @@ LABEL_7:
 
   else
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Showing progress view", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Showing progress view", buf, 2u);
     }
 
     [(MPVoicemailTableViewController *)self showProgressView];
@@ -1072,7 +1073,7 @@ LABEL_7:
 
 id __75__MPVoicemailTableViewController_handleVoicemailTranscriptionStatusChanged__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1094,7 +1095,7 @@ id __75__MPVoicemailTableViewController_handleVoicemailTranscriptionStatusChange
 
 id __68__MPVoicemailTableViewController_handleVoicemailOnlineStatusChanged__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1116,7 +1117,7 @@ id __68__MPVoicemailTableViewController_handleVoicemailOnlineStatusChanged__bloc
 
 id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1136,7 +1137,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 - (void)handlePHAudioDeviceControllerAudioRoutesChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -1162,7 +1163,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 - (void)handlePHAudioDeviceControllerPickedRouteChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -1185,7 +1186,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 - (void)handlePHDeviceCellularRadioEnabledDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -1214,7 +1215,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 - (void)handleUIApplicationDidEnterBackgroundNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [notificationCopy name];
@@ -1245,7 +1246,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 - (void)handleUIContentSizeCategoryDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1281,7 +1282,7 @@ id __91__MPVoicemailTableViewController_handleMPVoicemailControllerMessagesDidCh
 
 id __73__MPVoicemailTableViewController_handleVoicemailManagerAccountsDidChange__block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -1302,7 +1303,7 @@ id __73__MPVoicemailTableViewController_handleVoicemailManagerAccountsDidChange_
 
 void __78__MPVoicemailTableViewController_handleMPRTTTranscriptionDidLoadNotification___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1350,14 +1351,15 @@ void __78__MPVoicemailTableViewController_handleMPRTTTranscriptionDidLoadNotific
 
 - (BOOL)tableViewCanPerformReloadData:(id)data
 {
-  if ([(MPVoicemailTableViewController *)self isEditing])
+  isEditing = [(MPVoicemailTableViewController *)self isEditing];
+  if (isEditing)
   {
-    tableView = PHDefaultLog();
+    tableView = PHDefaultLog(isEditing);
     if (os_log_type_enabled(tableView, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = objc_opt_class();
-      v5 = v13;
+      v14 = objc_opt_class();
+      v6 = v14;
       _os_log_impl(&_mh_execute_header, tableView, OS_LOG_TYPE_DEFAULT, "%@ cannot reload data because we are editing.", buf, 0xCu);
     }
 
@@ -1365,19 +1367,19 @@ void __78__MPVoicemailTableViewController_handleMPRTTTranscriptionDidLoadNotific
   }
 
   tableView = [(MPVoicemailTableViewController *)self tableView];
-  v11.receiver = self;
-  v11.super_class = MPVoicemailTableViewController;
-  if (![(PHTableViewController *)&v11 tableViewCanPerformReloadData:tableView])
+  v12.receiver = self;
+  v12.super_class = MPVoicemailTableViewController;
+  if (![(PHTableViewController *)&v12 tableViewCanPerformReloadData:tableView])
   {
 LABEL_7:
-    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 0;
     goto LABEL_13;
   }
 
-  v6 = objc_opt_new();
-  if ([v6 fullScreenVoicemailDetailsEnabled])
+  v7 = objc_opt_new();
+  if ([v7 fullScreenVoicemailDetailsEnabled])
   {
-    LOBYTE(v7) = 1;
+    LOBYTE(v8) = 1;
   }
 
   else
@@ -1385,65 +1387,66 @@ LABEL_7:
     detailIndexPath = [(MPVoicemailTableViewController *)self detailIndexPath];
     if (detailIndexPath)
     {
-      LOBYTE(v7) = 0;
+      LOBYTE(v8) = 0;
     }
 
     else
     {
       playerController = [(MPVoicemailTableViewController *)self playerController];
-      v7 = [playerController isPlaying] ^ 1;
+      v8 = [playerController isPlaying] ^ 1;
     }
   }
 
 LABEL_13:
-  return v7;
+  return v8;
 }
 
 - (void)reloadDataIfNeeded
 {
   if ([(PHTableViewController *)self needsReloadData]&& ([(MPVoicemailTableViewController *)self isViewLoaded]& 1) != 0 || [(MPVoicemailTableViewController *)self isSearchViewController])
   {
-    if (![(PHTableViewController *)self isReloadingData])
+    isReloadingData = [(PHTableViewController *)self isReloadingData];
+    if ((isReloadingData & 1) == 0)
     {
-      v3 = PHDefaultLog();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = PHDefaultLog(isReloadingData);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = objc_opt_class();
-        v4 = v13;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ We are already loading data, will keep needs reload data to reload once done.", buf, 0xCu);
+        v15 = objc_opt_class();
+        v5 = v15;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ We are already loading data, will keep needs reload data to reload once done.", buf, 0xCu);
       }
     }
 
     tableView = [(MPVoicemailTableViewController *)self tableView];
-    v6 = [(MPVoicemailTableViewController *)self tableViewCanPerformReloadData:tableView];
+    v7 = [(MPVoicemailTableViewController *)self tableViewCanPerformReloadData:tableView];
 
-    if (v6)
+    if (v7)
     {
       objc_initWeak(buf, self);
       [(PHTableViewController *)self setReloadingData:1];
       [(PHTableViewController *)self setNeedsReloadData:0];
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = __52__MPVoicemailTableViewController_reloadDataIfNeeded__block_invoke;
-      v10[3] = &unk_100285CF0;
-      objc_copyWeak(&v11, buf);
-      v10[4] = self;
-      [(MPVoicemailTableViewController *)self _fetchCurrentVoicemailsWithCompletion:v10];
-      objc_destroyWeak(&v11);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = __52__MPVoicemailTableViewController_reloadDataIfNeeded__block_invoke;
+      v12[3] = &unk_100285CF0;
+      objc_copyWeak(&v13, buf);
+      v12[4] = self;
+      [(MPVoicemailTableViewController *)self _fetchCurrentVoicemailsWithCompletion:v12];
+      objc_destroyWeak(&v13);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = PHDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = objc_opt_class();
+        v10 = objc_opt_class();
         *buf = 138412290;
-        v13 = v8;
-        v9 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Failing to reload data because tableViewCanPerformReloadData returned false.", buf, 0xCu);
+        v15 = v10;
+        v11 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ Failing to reload data because tableViewCanPerformReloadData returned false.", buf, 0xCu);
       }
     }
   }
@@ -1498,32 +1501,32 @@ void __52__MPVoicemailTableViewController_reloadDataIfNeeded__block_invoke_3(id 
 
     if (v5)
     {
-      v6 = a1[4];
-      v7 = [v3 voicemailMessageViewModelCache];
-      [v7 removeAllObjects];
+      v7 = a1[4];
+      v8 = [v3 voicemailMessageViewModelCache];
+      [v8 removeAllObjects];
 
-      [a1[5] willShowVoicemails:v6];
-      v8 = [a1[6] mutableCopy];
-      [v3 setVoicemails:v8];
+      [a1[5] willShowVoicemails:v7];
+      v9 = [a1[6] mutableCopy];
+      [v3 setVoicemails:v9];
 
-      [v3 setAllVoicemails:v6];
+      v10 = [v3 setAllVoicemails:v7];
       if ((*(a1[5] + 57) & 1) == 0)
       {
-        v9 = [v3 tableView];
-        [v9 reloadData];
+        v11 = [v3 tableView];
+        [v11 reloadData];
       }
 
-      v10 = PHDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = PHDefaultLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
-        v12 = v11;
-        v13 = [v3 voicemails];
-        v22 = 138412546;
-        v23 = v11;
-        v24 = 2048;
-        v25 = [v13 count];
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ completed updating voicemail list. current voicemails count: %ld", &v22, 0x16u);
+        v13 = objc_opt_class();
+        v14 = v13;
+        v15 = [v3 voicemails];
+        v25 = 138412546;
+        v26 = v13;
+        v27 = 2048;
+        v28 = [v15 count];
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ completed updating voicemail list. current voicemails count: %ld", &v25, 0x16u);
       }
 
       if (([v3 needsReloadData] & 1) == 0)
@@ -1532,24 +1535,25 @@ void __52__MPVoicemailTableViewController_reloadDataIfNeeded__block_invoke_3(id 
       }
 
       [v3 popViewControllerIfNeeded];
-      v14 = a1[5];
-      v15 = v14[14];
-      if (v15)
+      v16 = a1[5];
+      v17 = v16[14];
+      if (v17)
       {
-        v16 = [v3 voicemails];
-        [v15 tableViewController:v14 didChangeVoicemails:v16];
+        v18 = [v3 voicemails];
+        [v17 tableViewController:v16 didChangeVoicemails:v18];
       }
 
-      if ([v3 needsReloadData])
+      v19 = [v3 needsReloadData];
+      if (v19)
       {
-        v17 = PHDefaultLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = PHDefaultLog(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = objc_opt_class();
-          v22 = 138412290;
-          v23 = v18;
-          v19 = v18;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@ reloading data again because needsReloadData is set.", &v22, 0xCu);
+          v21 = objc_opt_class();
+          v25 = 138412290;
+          v26 = v21;
+          v22 = v21;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ reloading data again because needsReloadData is set.", &v25, 0xCu);
         }
 
         [v3 reloadDataIfNeeded];
@@ -1563,13 +1567,13 @@ void __52__MPVoicemailTableViewController_reloadDataIfNeeded__block_invoke_3(id 
 
     else
     {
-      v20 = PHDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = PHDefaultLog(v6);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412290;
-        v23 = objc_opt_class();
-        v21 = v23;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ fetched data but failed to reload because tableViewCanPerformReloadData returned false.", &v22, 0xCu);
+        v25 = 138412290;
+        v26 = objc_opt_class();
+        v24 = v26;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%@ fetched data but failed to reload because tableViewCanPerformReloadData returned false.", &v25, 0xCu);
       }
 
       [v3 setNeedsReloadData:1];
@@ -1749,9 +1753,9 @@ id __56__MPVoicemailTableViewController_indexPathForMessageID___block_invoke(uin
 {
   voicemails = [(MPVoicemailTableViewController *)self voicemails];
   v5 = voicemails;
-  if (index < 0 || [voicemails count] <= index)
+  if (index < 0 || (voicemails = [voicemails count], voicemails <= index))
   {
-    v7 = PHDefaultLog();
+    v7 = PHDefaultLog(voicemails);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [NSNumber numberWithInteger:index];
@@ -1846,14 +1850,14 @@ id __56__MPVoicemailTableViewController_indexPathForMessageID___block_invoke(uin
   pathCopy = path;
   detailIndexPath = [(MPVoicemailTableViewController *)self detailIndexPath];
 
-  v7 = PHDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = PHDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = pathCopy;
-    v11 = 1024;
-    v12 = detailIndexPath == 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "shouldHighlightRowAtIndexPath: %@ highlighted: %d", &v9, 0x12u);
+    v10 = 138412546;
+    v11 = pathCopy;
+    v12 = 1024;
+    v13 = detailIndexPath == 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "shouldHighlightRowAtIndexPath: %@ highlighted: %d", &v10, 0x12u);
   }
 
   return detailIndexPath == 0;
@@ -1863,7 +1867,7 @@ id __56__MPVoicemailTableViewController_indexPathForMessageID___block_invoke(uin
 {
   viewCopy = view;
   pathCopy = path;
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -1890,7 +1894,7 @@ id __56__MPVoicemailTableViewController_indexPathForMessageID___block_invoke(uin
 - (void)tableView:(id)view prefetchRowsAtIndexPaths:(id)paths
 {
   pathsCopy = paths;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(pathsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -2204,7 +2208,7 @@ LABEL_8:
   animatedCopy = animated;
   viewCopy = view;
   pathCopy = path;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -2331,13 +2335,13 @@ id __76__MPVoicemailTableViewController_tableView_collapseRowAtIndexPath_animate
   animatedCopy = animated;
   viewCopy = view;
   pathCopy = path;
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v72 = pathCopy;
-    v73 = 1024;
-    v74 = animatedCopy;
+    v75 = pathCopy;
+    v76 = 1024;
+    v77 = animatedCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Expanding rowAtIndexPath: %@ animated: %d", buf, 0x12u);
   }
 
@@ -2350,10 +2354,10 @@ id __76__MPVoicemailTableViewController_tableView_collapseRowAtIndexPath_animate
 
     if (v13 <= v14)
     {
-      v15 = PHDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = PHDefaultLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [MPVoicemailTableViewController tableView:pathCopy expandRowAtIndexPath:v15 animated:?];
+        [MPVoicemailTableViewController tableView:pathCopy expandRowAtIndexPath:v16 animated:?];
       }
     }
 
@@ -2373,14 +2377,14 @@ id __76__MPVoicemailTableViewController_tableView_collapseRowAtIndexPath_animate
 
     if ((isKindOfClass & 1) == 0)
     {
-      v18 = [(MPVoicemailTableViewController *)self messageAtIndex:[pathCopy row]];
+      v19 = [(MPVoicemailTableViewController *)self messageAtIndex:[pathCopy row]];
       featureFlags2 = [(MPVoicemailTableViewController *)self featureFlags];
       callHistorySearchEnabled = [featureFlags2 callHistorySearchEnabled];
 
-      if (callHistorySearchEnabled && !v18)
+      if (callHistorySearchEnabled && !v19)
       {
-        v21 = PHDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = PHDefaultLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [MPVoicemailTableViewController tableView:pathCopy expandRowAtIndexPath:? animated:?];
         }
@@ -2388,12 +2392,12 @@ id __76__MPVoicemailTableViewController_tableView_collapseRowAtIndexPath_animate
         goto LABEL_46;
       }
 
-      v46 = [PHVoicemailMessageDetailViewController alloc];
+      v49 = [PHVoicemailMessageDetailViewController alloc];
       phoneNavigationController = [(MPVoicemailTableViewController *)self phoneNavigationController];
       voicemailController = [(MPVoicemailTableViewController *)self voicemailController];
-      v21 = [(PHVoicemailMessageDetailViewController *)v46 initWithMessage:v18 navigationController:phoneNavigationController voicemailController:voicemailController];
+      v23 = [(PHVoicemailMessageDetailViewController *)v49 initWithMessage:v19 navigationController:phoneNavigationController voicemailController:voicemailController];
 
-      [v21 setDelegate:self];
+      [v23 setDelegate:self];
       featureFlags3 = [(MPVoicemailTableViewController *)self featureFlags];
       LODWORD(phoneNavigationController) = [featureFlags3 callExperiencePhoneAppEnabled];
 
@@ -2401,8 +2405,8 @@ id __76__MPVoicemailTableViewController_tableView_collapseRowAtIndexPath_animate
       {
         hostingNavigationController = [(MPVoicemailTableViewController *)self hostingNavigationController];
 LABEL_45:
-        v54 = hostingNavigationController;
-        [hostingNavigationController pushViewController:v21 animated:1];
+        v57 = hostingNavigationController;
+        [hostingNavigationController pushViewController:v23 animated:1];
 
 LABEL_46:
         goto LABEL_47;
@@ -2411,8 +2415,8 @@ LABEL_46:
       featureFlags4 = [(MPVoicemailTableViewController *)self featureFlags];
       if ([featureFlags4 voicemailSearchEnabled])
       {
-        v52 = +[CAUILayoutManager shared];
-        if ([v52 current] == 1)
+        v55 = +[CAUILayoutManager shared];
+        if ([v55 current] == 1)
         {
 
 LABEL_44:
@@ -2444,120 +2448,124 @@ LABEL_44:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = +[NSNotificationCenter defaultCenter];
-    [v22 addObserver:self selector:"handlePHAudioDeviceControllerAudioRoutesChangedNotification:" name:@"PHAudioDeviceControllerAudioRoutesChangedNotification" object:0];
+    v24 = +[NSNotificationCenter defaultCenter];
+    [v24 addObserver:self selector:"handlePHAudioDeviceControllerAudioRoutesChangedNotification:" name:@"PHAudioDeviceControllerAudioRoutesChangedNotification" object:0];
 
-    v23 = +[NSNotificationCenter defaultCenter];
-    [v23 addObserver:self selector:"handlePHAudioDeviceControllerPickedRouteChangedNotification:" name:@"PHAudioDeviceControllerPickedRouteChangedNotification" object:0];
+    v25 = +[NSNotificationCenter defaultCenter];
+    [v25 addObserver:self selector:"handlePHAudioDeviceControllerPickedRouteChangedNotification:" name:@"PHAudioDeviceControllerPickedRouteChangedNotification" object:0];
 
     [viewCopy setUserInteractionEnabled:0];
     [(MPVoicemailTableViewController *)self setDetailIndexPath:pathCopy];
-    v56 = v11;
-    v58 = v11;
-    v24 = [(MPVoicemailTableViewController *)self messageAtIndex:[pathCopy row]];
-    v25 = PHDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v59 = v11;
+    v61 = v11;
+    v26 = [(MPVoicemailTableViewController *)self messageAtIndex:[pathCopy row]];
+    v27 = PHDefaultLog(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      identifier = [v24 identifier];
-      isTranscriptionAvailable = [v24 isTranscriptionAvailable];
+      identifier = [v26 identifier];
+      isTranscriptionAvailable = [v26 isTranscriptionAvailable];
       *buf = 138412546;
-      v72 = identifier;
-      v73 = 1024;
-      v74 = isTranscriptionAvailable;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Expanding voicemail %@ with transcription %d.", buf, 0x12u);
+      v75 = identifier;
+      v76 = 1024;
+      v77 = isTranscriptionAvailable;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Expanding voicemail %@ with transcription %d.", buf, 0x12u);
     }
 
-    item = [v58 item];
-    v55 = v24;
-    [(MPVoicemailTableViewController *)self updateScreenTimeRestrictedViewForMessage:v24 withViewModel:item];
+    item = [v61 item];
+    v58 = v26;
+    [(MPVoicemailTableViewController *)self updateScreenTimeRestrictedViewForMessage:v26 withViewModel:item];
 
-    [v58 setExpanded:1 animated:animatedCopy];
-    v29 = +[UIColor clearColor];
-    [(MPVoicemailTableViewController *)self configureCellWithSeparatorColor:v29 atIndexPath:pathCopy];
+    [v61 setExpanded:1 animated:animatedCopy];
+    v31 = +[UIColor clearColor];
+    [(MPVoicemailTableViewController *)self configureCellWithSeparatorColor:v31 atIndexPath:pathCopy];
 
     [(MPVoicemailTableViewController *)self configureAudioButtonForRowAtIndexPath:pathCopy];
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = __74__MPVoicemailTableViewController_tableView_expandRowAtIndexPath_animated___block_invoke;
+    v69[3] = &unk_1002853E8;
+    v60 = viewCopy;
+    v70 = viewCopy;
+    selfCopy = self;
+    v32 = pathCopy;
+    v72 = v32;
     v66[0] = _NSConcreteStackBlock;
     v66[1] = 3221225472;
-    v66[2] = __74__MPVoicemailTableViewController_tableView_expandRowAtIndexPath_animated___block_invoke;
-    v66[3] = &unk_1002853E8;
-    v57 = viewCopy;
-    v67 = viewCopy;
-    selfCopy = self;
-    v30 = pathCopy;
-    v69 = v30;
-    v63[0] = _NSConcreteStackBlock;
-    v63[1] = 3221225472;
-    v63[2] = __74__MPVoicemailTableViewController_tableView_expandRowAtIndexPath_animated___block_invoke_2;
-    v63[3] = &unk_100285C58;
-    v31 = v67;
-    v64 = v31;
+    v66[2] = __74__MPVoicemailTableViewController_tableView_expandRowAtIndexPath_animated___block_invoke_2;
+    v66[3] = &unk_100285C58;
+    v33 = v70;
+    v67 = v33;
     selfCopy2 = self;
-    [v31 performBatchUpdates:v66 completion:v63];
-    [v31 scrollToRowAtIndexPath:v30 atScrollPosition:0 animated:animatedCopy];
-    v61 = 0u;
+    [v33 performBatchUpdates:v69 completion:v66];
+    [v33 scrollToRowAtIndexPath:v32 atScrollPosition:0 animated:animatedCopy];
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
+    v63 = 0u;
     tableView2 = [(MPVoicemailTableViewController *)self tableView];
     visibleCells = [tableView2 visibleCells];
 
-    v34 = [visibleCells countByEnumeratingWithState:&v59 objects:v70 count:16];
-    if (v34)
+    v36 = [visibleCells countByEnumeratingWithState:&v62 objects:v73 count:16];
+    if (v36)
     {
-      v35 = v34;
-      v36 = *v60;
+      v37 = v36;
+      v38 = *v63;
       do
       {
-        for (i = 0; i != v35; i = i + 1)
+        for (i = 0; i != v37; i = i + 1)
         {
-          if (*v60 != v36)
+          if (*v63 != v38)
           {
             objc_enumerationMutation(visibleCells);
           }
 
-          v38 = *(*(&v59 + 1) + 8 * i);
+          v40 = *(*(&v62 + 1) + 8 * i);
           tableView3 = [(MPVoicemailTableViewController *)self tableView];
-          v40 = [tableView3 indexPathForCell:v38];
+          v42 = [tableView3 indexPathForCell:v40];
 
-          v41 = v38;
-          if ([v40 isEqual:v30])
+          v43 = v40;
+          if ([v42 isEqual:v32])
           {
-            [v41 setForegroundColor:0];
+            [v43 setForegroundColor:0];
           }
 
           else
           {
             dimmedColor = [(MPVoicemailTableViewController *)self dimmedColor];
-            [v41 setForegroundColor:dimmedColor];
+            [v43 setForegroundColor:dimmedColor];
           }
         }
 
-        v35 = [visibleCells countByEnumeratingWithState:&v59 objects:v70 count:16];
+        v37 = [visibleCells countByEnumeratingWithState:&v62 objects:v73 count:16];
       }
 
-      while (v35);
+      while (v37);
     }
 
     voicemailController2 = [(MPVoicemailTableViewController *)self voicemailController];
-    v21 = v55;
-    v44 = [voicemailController2 isRestrictedMessage:v55];
+    v23 = v58;
+    v46 = [voicemailController2 isRestrictedMessage:v58];
 
-    viewCopy = v57;
-    v18 = v58;
-    if (v55 && (([v55 isRead]| v44) & 1) == 0)
+    viewCopy = v60;
+    v19 = v61;
+    if (v58)
     {
-      v45 = PHDefaultLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      isRead = [v58 isRead];
+      if (((isRead | v46) & 1) == 0)
       {
-        *buf = 138412290;
-        v72 = v55;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Found voicemail that needs playback: %@", buf, 0xCu);
-      }
+        v48 = PHDefaultLog(isRead);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v75 = v58;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Found voicemail that needs playback: %@", buf, 0xCu);
+        }
 
-      [(MPVoicemailTableViewController *)self voicemailMessageTableViewCell:v58 didRequestPlayState:1];
+        [(MPVoicemailTableViewController *)self voicemailMessageTableViewCell:v61 didRequestPlayState:1];
+      }
     }
 
-    v11 = v56;
+    v11 = v59;
     goto LABEL_46;
   }
 
@@ -2728,28 +2736,29 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v17 = objc_alloc_init(MPVoicemailConnectionUnavailableView);
-  [(MPVoicemailConnectionUnavailableView *)v17 setAutoresizingMask:18];
-  v18 = +[PHDevice currentDevice];
-  -[MPVoicemailConnectionUnavailableView setButtonHidden:](v17, "setButtonHidden:", [v18 isCellularRadioEnabled] ^ 1);
+  v18 = objc_alloc_init(MPVoicemailConnectionUnavailableView);
+  [(MPVoicemailConnectionUnavailableView *)v18 setAutoresizingMask:18];
+  v19 = +[PHDevice currentDevice];
+  -[MPVoicemailConnectionUnavailableView setButtonHidden:](v18, "setButtonHidden:", [v19 isCellularRadioEnabled] ^ 1);
 
-  button = [(MPVoicemailConnectionUnavailableView *)v17 button];
+  button = [(MPVoicemailConnectionUnavailableView *)v18 button];
   [button addTarget:self action:"handleDialVoiceMail:" forControlEvents:64];
 
-  [(MPVoicemailTableViewController *)self setConnectionUnavailableView:v17];
+  [(MPVoicemailTableViewController *)self setConnectionUnavailableView:v18];
   connectionUnavailableView = [(MPVoicemailTableViewController *)self connectionUnavailableView];
 
-  v9 = [(MPVoicemailTableViewController *)self conformsToProtocol:&OBJC_PROTOCOL___MPVoicemailListViewTipsHelper];
+  v21 = [(MPVoicemailTableViewController *)self conformsToProtocol:&OBJC_PROTOCOL___MPVoicemailListViewTipsHelper];
+  v9 = v21;
   if (connectionUnavailableView)
   {
-    v12 = PHDefaultLog();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PHDefaultLog(v21);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
     LOWORD(buf[0]) = 0;
-    v13 = "Voicemail showing ConnectionUnavailable in tableHeaderView";
+    v14 = "Voicemail showing ConnectionUnavailable in tableHeaderView";
     goto LABEL_13;
   }
 
@@ -2759,13 +2768,13 @@ LABEL_7:
     accountProvisioningViewController = [(MPVoicemailTableViewController *)self accountProvisioningViewController];
     connectionUnavailableView = [accountProvisioningViewController view];
 
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PHDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      v13 = "Voicemail showing accountProvisioning in tableHeaderView";
+      v14 = "Voicemail showing accountProvisioning in tableHeaderView";
 LABEL_13:
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
       goto LABEL_14;
     }
 
@@ -2775,23 +2784,23 @@ LABEL_13:
   if ([(MPVoicemailTableViewController *)self isTranscriptionUnavailable])
   {
     connectionUnavailableView = [(MPVoicemailTableViewController *)self transcriptionUnavailableView];
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PHDefaultLog(connectionUnavailableView);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      v13 = "Voicemail showing transcriptionUnavailableView in tableHeaderView";
+      v14 = "Voicemail showing transcriptionUnavailableView in tableHeaderView";
       goto LABEL_13;
     }
 
 LABEL_14:
 
-    v14 = 1;
+    v15 = 1;
     goto LABEL_15;
   }
 
   if (v9 && ([(MPVoicemailTableViewController *)self showTipView]& 1) != 0)
   {
-    v14 = 0;
+    v15 = 0;
     connectionUnavailableView = 0;
     v9 = 1;
   }
@@ -2799,23 +2808,23 @@ LABEL_14:
   else
   {
     [tableView setTableHeaderView:0];
-    v14 = 0;
+    v15 = 0;
     connectionUnavailableView = 0;
   }
 
 LABEL_15:
   objc_initWeak(buf, self);
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_195;
-  v24[3] = &unk_100285D68;
-  objc_copyWeak(&v25, buf);
-  v26 = v14;
-  v15 = objc_retainBlock(v24);
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_195;
+  v26[3] = &unk_100285D68;
+  objc_copyWeak(&v27, buf);
+  v28 = v15;
+  v16 = objc_retainBlock(v26);
   if (!connectionUnavailableView)
   {
 LABEL_19:
-    (v15[2])(v15);
+    (v16[2])(v16);
     goto LABEL_20;
   }
 
@@ -2826,19 +2835,19 @@ LABEL_19:
   }
 
   selfCopy = self;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_2;
-  v20[3] = &unk_100285D90;
-  objc_copyWeak(&v23, buf);
-  v21 = connectionUnavailableView;
-  v22 = v15;
-  [(MPVoicemailTableViewController *)selfCopy hideTipViewWithCompletionHandler:v20];
-
-  objc_destroyWeak(&v23);
-LABEL_20:
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_2;
+  v22[3] = &unk_100285D90;
+  objc_copyWeak(&v25, buf);
+  v23 = connectionUnavailableView;
+  v24 = v16;
+  [(MPVoicemailTableViewController *)selfCopy hideTipViewWithCompletionHandler:v22];
 
   objc_destroyWeak(&v25);
+LABEL_20:
+
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
 }
 
@@ -2896,7 +2905,7 @@ void __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_2(ui
   v13 = [voicemailController localizedTitleForMessage:voicemailCopy];
   [(MPVoicemailMessageViewModel *)v7 setLocalizedTitle:v13];
 
-  [voicemailCopy duration];
+  objc_msgSend_duration(voicemailCopy);
   v15 = PHVoicemailFormatTime(v14);
   [(MPVoicemailMessageViewModel *)v7 setLocalizedDuration:v15];
 
@@ -2907,7 +2916,7 @@ void __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_2(ui
   -[MPVoicemailMessageViewModel setIsRead:](v7, "setIsRead:", [voicemailCopy isRead]);
   -[MPVoicemailMessageViewModel setIsDeleted:](v7, "setIsDeleted:", [voicemailCopy folder] == 2);
   isTranscriptionAvailable = [voicemailCopy isTranscriptionAvailable];
-  v19 = PHDefaultLog();
+  v19 = PHDefaultLog(isTranscriptionAvailable);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [voicemailCopy identifier];
@@ -2920,7 +2929,7 @@ void __53__MPVoicemailTableViewController_loadTableHeaderView__block_invoke_2(ui
 
   [(MPVoicemailMessageViewModel *)v7 setShowsTranscriptionView:isTranscriptionAvailable];
   [(MPVoicemailMessageViewModel *)v7 setShowsPlayerControls:1];
-  [voicemailCopy duration];
+  objc_msgSend_duration(voicemailCopy);
   [(MPVoicemailMessageViewModel *)v7 setDuration:?];
   if (PHDeviceSupportsDualSim())
   {
@@ -3081,7 +3090,7 @@ LABEL_9:
       [v8 removeObserver:self name:@"PHAudioDeviceControllerPickedRouteChangedNotification" object:0];
 
       v9 = v6;
-      v10 = PHDefaultLog();
+      v10 = PHDefaultLog(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         detailIndexPath3 = [(MPVoicemailTableViewController *)self detailIndexPath];
@@ -3418,26 +3427,26 @@ id __100__MPVoicemailTableViewController_voicemailMessageTableViewCell_moveButto
 
 - (void)voicemailMessageTableViewCell:(id)cell rttButtonTappedForRowWithIndexPath:(id)path
 {
-  v13 = -[MPVoicemailTableViewController messageAtIndex:](self, "messageAtIndex:", [path row]);
-  transcript = [v13 transcript];
+  v14 = -[MPVoicemailTableViewController messageAtIndex:](self, "messageAtIndex:", [path row]);
+  transcript = [v14 transcript];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  v7 = v13;
+  v7 = v14;
   if (isKindOfClass)
   {
-    transcript2 = [v13 transcript];
+    transcript2 = [v14 transcript];
     conversation = [transcript2 conversation];
 
-    v10 = RTTUIConversationViewControllerClass();
-    if (v10 && conversation)
+    v11 = RTTUIConversationViewControllerClass(v10);
+    if (v11 && conversation)
     {
-      v11 = [v10 viewControllerForConversation:conversation];
+      v12 = [v11 viewControllerForConversation:conversation];
       navigationController = [(MPVoicemailTableViewController *)self navigationController];
-      [navigationController pushViewController:v11 animated:1];
+      [navigationController pushViewController:v12 animated:1];
     }
 
-    v7 = v13;
+    v7 = v14;
   }
 }
 
@@ -3460,7 +3469,7 @@ id __100__MPVoicemailTableViewController_voicemailMessageTableViewCell_moveButto
   {
     v9 = currentExpandedVoicemailMessageCell;
     playerController = [(MPVoicemailTableViewController *)self playerController];
-    [playerController currentTime];
+    objc_msgSend_currentTime(playerController);
     v7 = v6;
     playerControlsView = [v9 playerControlsView];
     [playerControlsView setElapsedTime:v7];
@@ -3565,7 +3574,7 @@ id __93__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReceive
 
   else
   {
-    v2 = PHDefaultLog();
+    v2 = PHDefaultLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __93__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReceiveTranscriptFeedback___block_invoke_2_cold_1(v2);
@@ -3581,11 +3590,11 @@ id __93__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReceive
 
   if (audioPlaybackRequestBlock)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Cancelling playback request block", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Cancelling playback request block", v7, 2u);
     }
 
     audioPlaybackRequestBlock2 = [(MPVoicemailTableViewController *)self audioPlaybackRequestBlock];
@@ -3598,7 +3607,7 @@ id __93__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReceive
 - (void)voicemailMessageTableViewCell:(id)cell didRequestPlayState:(int64_t)state
 {
   cellCopy = cell;
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(cellCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -3663,21 +3672,22 @@ id __93__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReceive
 void __84__MPVoicemailTableViewController_voicemailMessageTableViewCell_didRequestPlayState___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = PHDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Executing playback block for URL: %@", &v6, 0xCu);
+      v5 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Executing playback block for URL: %@", &v7, 0xCu);
     }
 
-    v5 = [WeakRetained playerController];
-    [v5 playURL:*(a1 + 32)];
+    v6 = [v3 playerController];
+    [v6 playURL:*(a1 + 32)];
 
-    [WeakRetained setAudioPlaybackRequestBlock:0];
+    [v3 setAudioPlaybackRequestBlock:0];
   }
 }
 
@@ -3713,12 +3723,12 @@ void __84__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReque
       v8 = [v2 audioPlaybackRequestBlock];
       dispatch_after(v7, &_dispatch_main_q, v8);
 
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134217984;
-        v11 = v5;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Scheduled playback request block with delay %lu", &v10, 0xCu);
+        v11 = 134217984;
+        v12 = v5;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Scheduled playback request block with delay %lu", &v11, 0xCu);
       }
     }
   }
@@ -3727,110 +3737,115 @@ void __84__MPVoicemailTableViewController_voicemailMessageTableViewCell_didReque
 - (void)playMessage:(id)message
 {
   messageCopy = message;
-  if ([(MPVoicemailTableViewController *)self isViewLoaded]&& [(MPVoicemailTableViewController *)self visible])
+  isViewLoaded = [(MPVoicemailTableViewController *)self isViewLoaded];
+  if (isViewLoaded)
   {
-    identifier = [messageCopy identifier];
-    v6 = [(MPVoicemailTableViewController *)self indexPathForMessageID:identifier];
-
-    voicemailController = [(MPVoicemailTableViewController *)self voicemailController];
-    v8 = [voicemailController isRestrictedMessage:messageCopy];
-
-    if (v6)
+    isViewLoaded = [(MPVoicemailTableViewController *)self visible];
+    if (isViewLoaded)
     {
-      if (!messageCopy || v8 & 1 | (([messageCopy isDataAvailable] & 1) == 0))
+      identifier = [messageCopy identifier];
+      v7 = [(MPVoicemailTableViewController *)self indexPathForMessageID:identifier];
+
+      voicemailController = [(MPVoicemailTableViewController *)self voicemailController];
+      v9 = [voicemailController isRestrictedMessage:messageCopy];
+
+      if (v7)
       {
-        v9 = PHDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (!messageCopy || (v10 = [messageCopy isDataAvailable], v9 & 1 | ((v10 & 1) == 0)))
         {
-          v27 = 138412546;
-          v28 = messageCopy;
-          v29 = 1024;
-          v30 = v8;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Asked to play voicemail %@ but will not as wither the voicemail is nil, data is not available, the message is restricted (%d) or it can't be found in the table", &v27, 0x12u);
-        }
-
-        goto LABEL_24;
-      }
-
-      voicemails = [(MPVoicemailTableViewController *)self voicemails];
-      v13 = [voicemails containsObject:messageCopy];
-
-      if (v13)
-      {
-        view = [(MPVoicemailTableViewController *)self view];
-        [view setUserInteractionEnabled:0];
-
-        detailIndexPath = [(MPVoicemailTableViewController *)self detailIndexPath];
-        if (detailIndexPath && (v16 = detailIndexPath, -[MPVoicemailTableViewController detailIndexPath](self, "detailIndexPath"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v6 isEqual:v17], v17, v16, (v18 & 1) == 0))
-        {
-          tableView = [(MPVoicemailTableViewController *)self tableView];
-          detailIndexPath2 = [(MPVoicemailTableViewController *)self detailIndexPath];
-          [(MPVoicemailTableViewController *)self tableView:tableView collapseRowAtIndexPath:detailIndexPath2 animated:0];
-        }
-
-        else
-        {
-          detailIndexPath3 = [(MPVoicemailTableViewController *)self detailIndexPath];
-
-          if (detailIndexPath3)
+          v11 = PHDefaultLog(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-LABEL_28:
-            tableView2 = [(MPVoicemailTableViewController *)self tableView];
-            v25 = [tableView2 cellForRowAtIndexPath:v6];
-
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              [(MPVoicemailTableViewController *)self voicemailMessageTableViewCell:v25 didRequestPlayState:1];
-            }
-
-            view2 = [(MPVoicemailTableViewController *)self view];
-            [view2 setUserInteractionEnabled:1];
-
-            goto LABEL_24;
+            v30 = 138412546;
+            v31 = messageCopy;
+            v32 = 1024;
+            v33 = v9;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Asked to play voicemail %@ but will not as wither the voicemail is nil, data is not available, the message is restricted (%d) or it can't be found in the table", &v30, 0x12u);
           }
+
+          goto LABEL_24;
         }
 
-        tableView3 = [(MPVoicemailTableViewController *)self tableView];
-        [(MPVoicemailTableViewController *)self tableView:tableView3 expandRowAtIndexPath:v6 animated:0];
+        voicemails = [(MPVoicemailTableViewController *)self voicemails];
+        v15 = [voicemails containsObject:messageCopy];
 
-        goto LABEL_28;
+        if (v15)
+        {
+          view = [(MPVoicemailTableViewController *)self view];
+          [view setUserInteractionEnabled:0];
+
+          detailIndexPath = [(MPVoicemailTableViewController *)self detailIndexPath];
+          if (detailIndexPath && (v19 = detailIndexPath, -[MPVoicemailTableViewController detailIndexPath](self, "detailIndexPath"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v7 isEqual:v20], v20, v19, (v21 & 1) == 0))
+          {
+            tableView = [(MPVoicemailTableViewController *)self tableView];
+            detailIndexPath2 = [(MPVoicemailTableViewController *)self detailIndexPath];
+            [(MPVoicemailTableViewController *)self tableView:tableView collapseRowAtIndexPath:detailIndexPath2 animated:0];
+          }
+
+          else
+          {
+            detailIndexPath3 = [(MPVoicemailTableViewController *)self detailIndexPath];
+
+            if (detailIndexPath3)
+            {
+LABEL_28:
+              tableView2 = [(MPVoicemailTableViewController *)self tableView];
+              v28 = [tableView2 cellForRowAtIndexPath:v7];
+
+              objc_opt_class();
+              if (objc_opt_isKindOfClass())
+              {
+                [(MPVoicemailTableViewController *)self voicemailMessageTableViewCell:v28 didRequestPlayState:1];
+              }
+
+              view2 = [(MPVoicemailTableViewController *)self view];
+              [view2 setUserInteractionEnabled:1];
+
+              goto LABEL_24;
+            }
+          }
+
+          tableView3 = [(MPVoicemailTableViewController *)self tableView];
+          [(MPVoicemailTableViewController *)self tableView:tableView3 expandRowAtIndexPath:v7 animated:0];
+
+          goto LABEL_28;
+        }
+
+        v23 = PHDefaultLog(v16);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = 138412290;
+          v31 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since we did not find it in voicemail list %@", &v30, 0xCu);
+        }
       }
 
-      v20 = PHDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      else
       {
-        v27 = 138412290;
-        v28 = messageCopy;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since we did not find it in voicemail list %@", &v27, 0xCu);
-      }
-    }
+        v13 = PHDefaultLog(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = 138412290;
+          v31 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since we did not find it in voicemail list %@", &v30, 0xCu);
+        }
 
-    else
-    {
-      v11 = PHDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        v27 = 138412290;
-        v28 = messageCopy;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since we did not find it in voicemail list %@", &v27, 0xCu);
+        [(MPVoicemailTableViewController *)self setPlayMessageOnReloadData:1];
       }
 
-      [(MPVoicemailTableViewController *)self setPlayMessageOnReloadData:1];
-    }
-
-    [(MPVoicemailTableViewController *)self addMessageToPlaybackQueue:messageCopy];
+      [(MPVoicemailTableViewController *)self addMessageToPlaybackQueue:messageCopy];
 LABEL_24:
 
-    goto LABEL_25;
+      goto LABEL_25;
+    }
   }
 
-  v10 = PHDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = PHDefaultLog(isViewLoaded);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = messageCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since view is not loaded %@", &v27, 0xCu);
+    v30 = 138412290;
+    v31 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Adding message to playback queue since view is not loaded %@", &v30, 0xCu);
   }
 
   [(MPVoicemailTableViewController *)self addMessageToPlaybackQueue:messageCopy];
@@ -3908,34 +3923,35 @@ LABEL_16:
 - (BOOL)playMessageFromPlaybackQueue
 {
   messageToPlayFromPlaybackQueue = [(MPVoicemailTableViewController *)self messageToPlayFromPlaybackQueue];
+  v4 = messageToPlayFromPlaybackQueue;
   if (messageToPlayFromPlaybackQueue)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(messageToPlayFromPlaybackQueue);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       messagePlaybackQueue = [(MPVoicemailTableViewController *)self messagePlaybackQueue];
-      v9 = 138412546;
-      v10 = messageToPlayFromPlaybackQueue;
-      v11 = 2112;
-      v12 = messagePlaybackQueue;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Found a message: %@ from the playback queue: %@ that needs to be played", &v9, 0x16u);
+      v10 = 138412546;
+      v11 = v4;
+      v12 = 2112;
+      v13 = messagePlaybackQueue;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found a message: %@ from the playback queue: %@ that needs to be played", &v10, 0x16u);
     }
 
     messagePlaybackQueue2 = [(MPVoicemailTableViewController *)self messagePlaybackQueue];
-    identifier = [messageToPlayFromPlaybackQueue identifier];
+    identifier = [v4 identifier];
     [messagePlaybackQueue2 removeObject:identifier];
 
-    [(MPVoicemailTableViewController *)self playMessage:messageToPlayFromPlaybackQueue];
+    [(MPVoicemailTableViewController *)self playMessage:v4];
   }
 
-  return messageToPlayFromPlaybackQueue != 0;
+  return v4 != 0;
 }
 
 - (void)exportVoicemailDataForVoicemail:(id)voicemail sourceView:(id)view
 {
   voicemailCopy = voicemail;
   viewCopy = view;
-  v8 = PHDefaultLog();
+  v8 = PHDefaultLog(viewCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -3988,7 +4004,7 @@ void __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_source
   v2 = [*(a1 + 32) status];
   if (v2 < 3)
   {
-    v5 = PHDefaultLog();
+    v5 = PHDefaultLog(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -4090,7 +4106,7 @@ void __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_source
 
 void __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_sourceView___block_invoke_246(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_sourceView___block_invoke_246_cold_1(a1);
@@ -4116,7 +4132,7 @@ void __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_source
   actionsCopy = actions;
   blockCopy = block;
   v11 = [(MPVoicemailTableViewController *)self messagesAtIndexPaths:pathsCopy];
-  v12 = PHDefaultLog();
+  v12 = PHDefaultLog(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -4289,7 +4305,7 @@ id __124__MPVoicemailTableViewController_voicemailMessageDetailViewController_de
 
 - (void)stopObservingPreferences
 {
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSMutableArray);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for NSMutableArray, NSMutableArray_ptr);
   selfCopy = self;
   v3 = NSArray.init(arrayLiteral:)();
   [(MPVoicemailTableViewController *)selfCopy setObservations:v3];
@@ -4332,7 +4348,7 @@ id __124__MPVoicemailTableViewController_voicemailMessageDetailViewController_de
 
 - (void)getAppActionRecommendationsWithVoicemailId:(NSUUID *)id completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -4359,7 +4375,7 @@ id __124__MPVoicemailTableViewController_voicemailMessageDetailViewController_de
 
 - (void)processAppActionRecommendationWithVoicemailId:(NSUUID *)id recommendation:(NSString *)recommendation buttonType:(unint64_t)type completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -4402,10 +4418,19 @@ void __69__MPVoicemailTableViewController_checkTranscriptionModelAvailability__b
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Attempt to scroll table view to out-of-bound row at index: %@", &v2, 0xCu);
 }
 
+- (void)tableView:(void *)a1 expandRowAtIndexPath:animated:.cold.2(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 row];
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v1, v2, "Not expanding row as unable to find message at row: %ld", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void __77__MPVoicemailTableViewController_exportVoicemailDataForVoicemail_sourceView___block_invoke_246_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) error];
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Voicemail Export: Error exporting voicemail. Error was: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v2, v3, "Voicemail Export: Error exporting voicemail. Error was: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

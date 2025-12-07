@@ -21,14 +21,15 @@
 
 - (id)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
-    clientHandle = PUILogCommon();
+    clientHandle = PUILogCommon(isMainThread);
     if (os_log_type_enabled(clientHandle, OS_LOG_TYPE_ERROR))
     {
-      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:];
+      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:self];
     }
 
     goto LABEL_7;
@@ -36,14 +37,14 @@
 
   if (PFCurrentDeviceClass() == 2)
   {
-    clientHandle = PUILogCommon();
+    clientHandle = PUILogCommon(2);
     if (os_log_type_enabled(clientHandle, OS_LOG_TYPE_ERROR))
     {
-      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:];
+      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:self];
     }
 
 LABEL_7:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
@@ -56,64 +57,64 @@ LABEL_7:
 
   if (clientHandle && stringRepresentation && stringRepresentation2)
   {
-    v11 = [MEMORY[0x1E698E3A0] tokenForString:stringRepresentation2];
-    v12 = objc_opt_new();
+    v13 = [MEMORY[0x1E698E3A0] tokenForString:stringRepresentation2];
+    v14 = objc_opt_new();
     keyboardFocusEnvironment = [MEMORY[0x1E698E398] keyboardFocusEnvironment];
-    [v12 setEnvironment:keyboardFocusEnvironment];
+    [v14 setEnvironment:keyboardFocusEnvironment];
 
-    v14 = v12;
-    v29 = v11;
-    [v12 setToken:v11];
-    v15 = objc_opt_new();
+    v16 = v14;
+    v32 = v13;
+    [v14 setToken:v13];
+    v17 = objc_opt_new();
     processHandle = [clientHandle processHandle];
-    v17 = [processHandle pid];
+    v19 = [processHandle pid];
 
-    [v15 setPid:v17];
-    v18 = [MEMORY[0x1E698E3A0] tokenForString:stringRepresentation];
-    [v15 setToken:v18];
+    [v17 setPid:v19];
+    v20 = [MEMORY[0x1E698E3A0] tokenForString:stringRepresentation];
+    [v17 setToken:v20];
 
-    v19 = PUILogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = PUILogCommon(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138544386;
-      v31 = v21;
-      v32 = 2050;
+      v34 = v24;
+      v35 = 2050;
       selfCopy = self;
-      v34 = 2114;
-      v35 = stringRepresentation2;
-      v36 = 2114;
-      v37 = stringRepresentation;
-      v38 = 1026;
-      v39 = v17;
-      _os_log_impl(&dword_1A8C85000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@-%{public}p: host scene %{public}@ deferring keyboard events to client %{public}@ with PID: %{public}d", buf, 0x30u);
+      v37 = 2114;
+      v38 = stringRepresentation2;
+      v39 = 2114;
+      v40 = stringRepresentation;
+      v41 = 1026;
+      v42 = v19;
+      _os_log_impl(&dword_1A8C85000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@-%{public}p: host scene %{public}@ deferring keyboard events to client %{public}@ with PID: %{public}d", buf, 0x30u);
     }
 
     mEMORY[0x1E698E3B0] = [MEMORY[0x1E698E3B0] sharedInstance];
-    v23 = MEMORY[0x1E696AEC0];
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
-    v26 = [v23 stringWithFormat:@"%@-%p deferring to hosted scene", v25, self];
-    v6 = [mEMORY[0x1E698E3B0] deferEventsMatchingPredicate:v14 toTarget:v15 withReason:v26];
+    v26 = MEMORY[0x1E696AEC0];
+    v27 = objc_opt_class();
+    v28 = NSStringFromClass(v27);
+    v29 = [v26 stringWithFormat:@"%@-%p deferring to hosted scene", v28, self];
+    v7 = [mEMORY[0x1E698E3B0] deferEventsMatchingPredicate:v16 toTarget:v17 withReason:v29];
 
-    v27 = v29;
+    v30 = v32;
   }
 
   else
   {
-    v27 = PUILogCommon();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v30 = PUILogCommon(v12);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:];
+      [FBSScene(PosterUIFoundation) pui_forwardKeyboardFocusToClientScene:self];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
 LABEL_18:
 
-  return v6;
+  return v7;
 }
 
 - (uint64_t)pui_sceneIsReadyToSnapshot:()PosterUIFoundation
@@ -152,28 +153,28 @@ LABEL_8:
   return v10;
 }
 
-- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.1()
+- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.2()
+- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
-- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.3()
+- (void)pui_forwardKeyboardFocusToClientScene:()PosterUIFoundation .cold.3(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

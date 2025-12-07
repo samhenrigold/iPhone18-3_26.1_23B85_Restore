@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1B3748C30();
+  sub_1B3748C30(selfCopy);
 }
 
 - (int64_t)hitTestTransparentView:(id)view hitTestBehaviorForView:(id)forView

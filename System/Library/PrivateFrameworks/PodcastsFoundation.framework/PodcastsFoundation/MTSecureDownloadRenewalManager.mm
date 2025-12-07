@@ -37,7 +37,7 @@
 
   selfCopy = self;
   sub_1D8F15808(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 - (void)requestSecureDeletionOf:(int64_t)of completionHandler:(id)handler
@@ -57,7 +57,7 @@
 
   selfCopy = self;
   sub_1D8F15FFC(of, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)requestSecureDeletionOfStoreTrackIds:(id)ids completionHandler:(id)handler
@@ -78,7 +78,7 @@
 
   selfCopy = self;
   sub_1D8F16720(v6, v5, v7);
-  sub_1D8D15664(v5);
+  sub_1D8D15664(v5, v7);
 }
 
 - (void)updateDRMKeysForDownloads
@@ -105,7 +105,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1D8F1EC28(v5, v6);
-  sub_1D8D15664(v5);
+  sub_1D8D15664(v5, v6);
   swift_unknownObjectRelease();
 }
 

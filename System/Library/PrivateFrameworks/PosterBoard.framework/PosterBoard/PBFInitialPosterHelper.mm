@@ -8,7 +8,7 @@
 
 + (id)initialPosterConfigurationsWithModelCoordinatorProvider:(id)provider role:(id)role
 {
-  v78[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   roleCopy = role;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -16,11 +16,11 @@
   aBlock[2] = __87__PBFInitialPosterHelper_initialPosterConfigurationsWithModelCoordinatorProvider_role___block_invoke;
   aBlock[3] = &unk_2782C9468;
   v7 = providerCopy;
-  v65 = v7;
+  v69 = v7;
   v8 = roleCopy;
-  v66 = v8;
-  v55 = _Block_copy(aBlock);
-  v9 = PBFLogPosterContents();
+  v70 = v8;
+  v59 = _Block_copy(aBlock);
+  v9 = PBFLogPosterContents(v59);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -29,140 +29,141 @@
 
   if (![v8 isEqual:*MEMORY[0x277D3EEF0]])
   {
-    v21 = *MEMORY[0x277D3EE98];
-    if (![v8 isEqual:*MEMORY[0x277D3EE98]])
+    v22 = *MEMORY[0x277D3EE98];
+    v23 = [v8 isEqual:*MEMORY[0x277D3EE98]];
+    if (!v23)
     {
-      v15 = 0;
-      v19 = 0;
-      v20 = MEMORY[0x277CBEC10];
+      v16 = 0;
+      v20 = 0;
+      v21 = MEMORY[0x277CBEC10];
       goto LABEL_53;
     }
 
-    v22 = PBFLogPosterContents();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = PBFLogPosterContents(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No configuration path yet... let's see what our defaults are.", buf, 2u);
+      _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No configuration path yet... let's see what our defaults are.", buf, 2u);
     }
 
     mEMORY[0x277D3EF28] = [MEMORY[0x277D3EF28] sharedHostConfigurationManager];
-    v24 = [mEMORY[0x277D3EF28] hostConfigurationForRole:v21];
+    v26 = [mEMORY[0x277D3EF28] hostConfigurationForRole:v22];
 
-    if (v24)
+    if (v26)
     {
-      entries = [v24 entries];
+      entries = [v26 entries];
     }
 
     else
     {
-      v31 = PBFLogPosterContents();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = PBFLogPosterContents(v27);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v31, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No host-provided default posters for ambient role. Using hardwired defaults.", buf, 2u);
+        _os_log_impl(&dword_21B526000, v34, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No host-provided default posters for ambient role. Using hardwired defaults.", buf, 2u);
       }
 
-      v32 = [objc_alloc(MEMORY[0x277D3E958]) initWithExtensionID:@"com.apple.ambient.AmbientUI.InfographPoster" descriptorID:@"InfographPoster"];
-      v74 = v32;
-      entries = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
+      v35 = [objc_alloc(MEMORY[0x277D3E958]) initWithExtensionID:@"com.apple.ambient.AmbientUI.InfographPoster" descriptorID:@"InfographPoster"];
+      v78 = v35;
+      entries = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
     }
 
-    v49 = v24;
-    v50 = v7;
-    v52 = v8;
-    v51 = objc_opt_new();
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v29 = entries;
-    v33 = [v29 countByEnumeratingWithState:&v57 objects:v73 count:16];
-    if (v33)
+    v53 = v26;
+    v54 = v7;
+    v56 = v8;
+    v55 = objc_opt_new();
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v32 = entries;
+    v36 = [v32 countByEnumeratingWithState:&v61 objects:v77 count:16];
+    if (v36)
     {
-      v34 = v33;
-      v15 = 0;
-      v35 = *v58;
-      obj = v29;
+      v37 = v36;
+      v16 = 0;
+      v38 = *v62;
+      obj = v32;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v37; ++i)
         {
-          v37 = v15;
-          if (*v58 != v35)
+          v40 = v16;
+          if (*v62 != v38)
           {
             objc_enumerationMutation(obj);
           }
 
-          v38 = *(*(&v57 + 1) + 8 * i);
-          extensionID = [v38 extensionID];
-          descriptorID = [v38 descriptorID];
-          v56 = 0;
-          v15 = v55[2](v55, extensionID, descriptorID, &v56);
-          v41 = v56;
+          v41 = *(*(&v61 + 1) + 8 * i);
+          extensionID = [v41 extensionID];
+          descriptorID = [v41 descriptorID];
+          v60 = 0;
+          v16 = v59[2](v59, extensionID, descriptorID, &v60);
+          v44 = v60;
 
-          v42 = PBFLogPosterContents();
-          v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
-          if (v41)
+          v46 = PBFLogPosterContents(v45);
+          v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
+          if (v44)
           {
-            if (v43)
+            if (v47)
             {
-              extensionID2 = [v38 extensionID];
-              descriptorID2 = [v38 descriptorID];
+              extensionID2 = [v41 extensionID];
+              descriptorID2 = [v41 descriptorID];
               *buf = 138412802;
-              v68 = extensionID2;
-              v69 = 2112;
-              v70 = descriptorID2;
-              v71 = 2112;
-              v72 = v41;
-              _os_log_impl(&dword_21B526000, v42, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Failed setting up extension %@, descriptor: %@, error: %@", buf, 0x20u);
+              v72 = extensionID2;
+              v73 = 2112;
+              v74 = descriptorID2;
+              v75 = 2112;
+              v76 = v44;
+              _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Failed setting up extension %@, descriptor: %@, error: %@", buf, 0x20u);
             }
           }
 
           else
           {
-            if (v43)
+            if (v47)
             {
-              extensionID3 = [v38 extensionID];
-              descriptorID3 = [v38 descriptorID];
+              extensionID3 = [v41 extensionID];
+              descriptorID3 = [v41 descriptorID];
               *buf = 138412546;
-              v68 = extensionID3;
-              v69 = 2112;
-              v70 = descriptorID3;
-              _os_log_impl(&dword_21B526000, v42, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Generated poster for extension %@, descriptor: %@", buf, 0x16u);
+              v72 = extensionID3;
+              v73 = 2112;
+              v74 = descriptorID3;
+              _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Generated poster for extension %@, descriptor: %@", buf, 0x16u);
             }
 
-            v42 = [self incomingPosterConfigurationForRole:v52 templatePath:v15 userInfo:0];
-            [v51 addObject:v42];
+            v46 = [self incomingPosterConfigurationForRole:v56 templatePath:v16 userInfo:0];
+            [v55 addObject:v46];
           }
         }
 
-        v29 = obj;
-        v34 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
+        v32 = obj;
+        v37 = [obj countByEnumeratingWithState:&v61 objects:v77 count:16];
       }
 
-      while (v34);
+      while (v37);
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    if ([v51 count])
+    if ([v55 count])
     {
-      v19 = v51;
+      v20 = v55;
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v27 = v49;
-    v7 = v50;
-    v8 = v52;
+    v30 = v53;
+    v7 = v54;
+    v8 = v56;
 
-    v20 = MEMORY[0x277CBEC10];
+    v21 = MEMORY[0x277CBEC10];
     goto LABEL_52;
   }
 
@@ -171,42 +172,42 @@
 
   if (!shouldInstallHeroPosterAsDefaultLockScreenWallpaper)
   {
-    v19 = 0;
-    v20 = MEMORY[0x277CBEC10];
+    v20 = 0;
+    v21 = MEMORY[0x277CBEC10];
 LABEL_22:
-    v26 = PBFLogPosterContents();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v29 = PBFLogPosterContents(v12);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v26, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No configuration path yet... let's setup a legacy poster.", buf, 2u);
+      _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No configuration path yet... let's setup a legacy poster.", buf, 2u);
     }
 
-    v61 = 0;
-    v15 = v55[2](v55, @"com.apple.PaperBoard.LegacyPoster", @"LegacyPoster", &v61);
-    v27 = v61;
-    v28 = PBFLogPosterContents();
-    v29 = v28;
-    if (v27)
+    v65 = 0;
+    v16 = v59[2](v59, @"com.apple.PaperBoard.LegacyPoster", @"LegacyPoster", &v65);
+    v30 = v65;
+    v31 = PBFLogPosterContents(v30);
+    v32 = v31;
+    if (v30)
     {
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:v27 role:v29];
+        [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:v30 role:v32];
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v29, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Generated legacy poster successfully.", buf, 2u);
+        _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Generated legacy poster successfully.", buf, 2u);
       }
 
-      v29 = [self incomingPosterConfigurationForRole:v8 templatePath:v15 userInfo:v20];
-      v75 = v29;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
+      v32 = [self incomingPosterConfigurationForRole:v8 templatePath:v16 userInfo:v21];
+      v79 = v32;
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
 
-      v19 = v30;
+      v20 = v33;
     }
 
 LABEL_52:
@@ -214,58 +215,58 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v63 = 0;
-  v12 = defaultLockScreenWallpaperExtensionIdentifier(&v63);
-  v13 = v63;
-  v14 = PBFLogPosterContents();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v67 = 0;
+  v13 = defaultLockScreenWallpaperExtensionIdentifier(&v67);
+  v14 = v67;
+  v15 = PBFLogPosterContents(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v68 = v12;
-    _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No wallpaper set before, and a valid wallpaper identifier is set: %{public}@", buf, 0xCu);
+    v72 = v13;
+    _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) No wallpaper set before, and a valid wallpaper identifier is set: %{public}@", buf, 0xCu);
   }
 
-  v62 = 0;
-  v15 = v55[2](v55, v12, v13, &v62);
-  v16 = v62;
-  v17 = PBFLogPosterContents();
-  v18 = v17;
-  if (v16)
+  v66 = 0;
+  v16 = v59[2](v59, v13, v14, &v66);
+  v17 = v66;
+  v18 = PBFLogPosterContents(v17);
+  v19 = v18;
+  if (v17)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:v16 role:v18];
+      [PBFInitialPosterHelper initialPosterConfigurationsWithModelCoordinatorProvider:v17 role:v19];
     }
 
-    v19 = 0;
-    v20 = MEMORY[0x277CBEC10];
+    v20 = 0;
+    v21 = MEMORY[0x277CBEC10];
   }
 
   else
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v68 = v13;
-      _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Hero Poster default wallpaper was setup: %{public}@", buf, 0xCu);
+      v72 = v14;
+      _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "(PBFInitialPosterHelper) Hero Poster default wallpaper was setup: %{public}@", buf, 0xCu);
     }
 
-    v77 = @"wallpaperRepresentingIdentifier";
-    v78[0] = v13;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:&v77 count:1];
-    v18 = [self incomingPosterConfigurationForRole:v8 templatePath:v15 userInfo:v20];
-    v76 = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
+    v81 = @"wallpaperRepresentingIdentifier";
+    v82[0] = v14;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v19 = [self incomingPosterConfigurationForRole:v8 templatePath:v16 userInfo:v21];
+    v80 = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
   }
 
-  if (!v15)
+  if (!v16)
   {
     goto LABEL_22;
   }
 
 LABEL_53:
 
-  return v19;
+  return v20;
 }
 
 id __87__PBFInitialPosterHelper_initialPosterConfigurationsWithModelCoordinatorProvider_role___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)

@@ -11,22 +11,21 @@
 {
   v4 = type metadata accessor for String.Encoding();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (string && (static String._unconditionallyBridgeFromObjectiveC(_:)(), static String.Encoding.utf8.getter(), v9 = String.data(using:allowLossyConversion:)(), v11 = v10, , (*(v5 + 8))(v8, v4), v11 >> 60 != 15))
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (string && (static String._unconditionallyBridgeFromObjectiveC(_:)(), static String.Encoding.utf8.getter(), v8 = String.data(using:allowLossyConversion:)(), v10 = v9, , (*(v5 + 8))(v7, v4), v10 >> 60 != 15))
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    outlined consume of Data?(v9, v11);
-    v12 = isa;
+    outlined consume of Data?(v8, v10);
+    v11 = isa;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (id)signProcess:(id)process tag:(id)tag error:(id *)error

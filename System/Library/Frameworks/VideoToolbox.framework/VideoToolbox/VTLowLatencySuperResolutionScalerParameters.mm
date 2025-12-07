@@ -7,7 +7,7 @@
 
 - (VTLowLatencySuperResolutionScalerParameters)initWithSourceFrame:(id)frame destinationFrame:(id)destinationFrame
 {
-  if ((loadVCPFrameworkOnce() & 1) == 0)
+  if ((loadVCPFrameworkOnce(self, a2) & 1) == 0)
   {
     NSLog(&cfstr_ProcessorNotSu.isa);
     return 0;

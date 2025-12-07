@@ -8,7 +8,7 @@
 
 + (void)preheat
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECA675E0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECA675E0, &qword_1D8B23B60);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v7 - v3;
   v5 = sub_1D8B15EA0();
@@ -21,7 +21,7 @@
 
 - (void)processRequest:(VICVisualIntelligenceAnalysisRequest *)request completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECA675E0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECA675E0, &qword_1D8B23B60);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

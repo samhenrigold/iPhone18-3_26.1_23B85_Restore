@@ -47,9 +47,9 @@
   v6 = [(NSMutableArray *)self->_unknownConditions _pl_map:&__block_literal_global_40];
   [v3 addObjectsFromArray:v6];
 
-  if ([v3 count] < 2)
+  if (objc_msgSend_count(v3) < 2)
   {
-    if ([v3 count] == 1)
+    if (objc_msgSend_count(v3) == 1)
     {
       v12 = MEMORY[0x1E69BF2C0];
       firstObject = [v3 firstObject];
@@ -66,7 +66,7 @@
   else
   {
     firstObject2 = [v3 firstObject];
-    if ([v3 count] < 2)
+    if (objc_msgSend_count(v3) < 2)
     {
       v11 = firstObject2;
     }
@@ -84,7 +84,7 @@
         firstObject2 = v11;
       }
 
-      while ([v3 count] > v8);
+      while (objc_msgSend_count(v3) > v8);
     }
   }
 
@@ -98,7 +98,7 @@
   v8.receiver = self;
   v8.super_class = PLLibraryScopeRule;
   v5 = [(PLLibraryScopeRule *)&v8 description];
-  v6 = [v4 stringWithFormat:@"%@ - Containing %lu conditions", v5, objc_msgSend(allConditions, "count")];
+  v6 = [v4 stringWithFormat:@"%@ - Containing %lu conditions", v5, objc_msgSend_count(allConditions)];
 
   return v6;
 }
@@ -313,7 +313,7 @@ LABEL_18:
   firstObject = [rulesCopy firstObject];
   query = [firstObject query];
 
-  if ([rulesCopy count] < 2)
+  if (objc_msgSend_count(rulesCopy) < 2)
   {
     v10 = query;
   }
@@ -332,7 +332,7 @@ LABEL_18:
       query = v10;
     }
 
-    while ([rulesCopy count] > v6);
+    while (objc_msgSend_count(rulesCopy) > v6);
   }
 
   return v10;
@@ -381,7 +381,7 @@ LABEL_18:
   }
 
   singleQueries = [queryCopy singleQueries];
-  v14 = [singleQueries count];
+  v14 = objc_msgSend_count(singleQueries);
 
   if (v14)
   {

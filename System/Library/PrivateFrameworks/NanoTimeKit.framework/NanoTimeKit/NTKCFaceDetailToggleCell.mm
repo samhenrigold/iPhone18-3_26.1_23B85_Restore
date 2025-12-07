@@ -54,9 +54,9 @@
 
 - (void)layoutSubviews
 {
-  v50.receiver = self;
-  v50.super_class = NTKCFaceDetailToggleCell;
-  [(NTKCDetailTableViewCell *)&v50 layoutSubviews];
+  v52.receiver = self;
+  v52.super_class = NTKCFaceDetailToggleCell;
+  [(NTKCDetailTableViewCell *)&v52 layoutSubviews];
   contentView = [(NTKCFaceDetailToggleCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -64,93 +64,93 @@
   v9 = v8;
   rect = v10;
 
-  v11 = NTKCScreenEdgeMargin();
+  v13 = NTKCScreenEdgeMargin(v11, v12);
   IsRTL = CLKLayoutIsRTL();
   [(UISwitch *)self->_toggle frame];
-  v15 = v14;
   v17 = v16;
   v19 = v18;
-  v47 = v5;
-  v48 = v11;
+  v21 = v20;
+  v49 = v5;
+  v50 = v13;
   if (!IsRTL)
   {
-    v20 = v13;
-    v51.origin.x = v5;
-    v51.origin.y = v7;
-    v51.size.width = v9;
-    v51.size.height = rect;
-    CGRectGetWidth(v51);
-    v52.origin.x = v20;
-    v52.origin.y = v15;
-    v52.size.width = v17;
-    v52.size.height = v19;
-    CGRectGetWidth(v52);
-  }
-
-  UIRectCenteredYInRectScale();
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  [(UISwitch *)self->_toggle setFrame:0];
-  v29 = v9;
-  v46 = v7;
-  if (IsRTL)
-  {
+    v22 = v15;
     v53.origin.x = v5;
     v53.origin.y = v7;
     v53.size.width = v9;
-    v30 = rect;
     v53.size.height = rect;
-    Width = CGRectGetWidth(v53);
+    CGRectGetWidth(v53);
     v54.origin.x = v22;
-    v54.origin.y = v24;
-    v54.size.width = v26;
-    v54.size.height = v28;
-    MinX = Width - CGRectGetMaxX(v54);
+    v54.origin.y = v17;
+    v54.size.width = v19;
+    v54.size.height = v21;
+    CGRectGetWidth(v54);
+  }
+
+  UIRectCenteredYInRectScale();
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
+  [(UISwitch *)self->_toggle setFrame:0];
+  v31 = v9;
+  v48 = v7;
+  if (IsRTL)
+  {
+    v55.origin.x = v5;
+    v55.origin.y = v7;
+    v55.size.width = v9;
+    v32 = rect;
+    v55.size.height = rect;
+    Width = CGRectGetWidth(v55);
+    v56.origin.x = v24;
+    v56.origin.y = v26;
+    v56.size.width = v28;
+    v56.size.height = v30;
+    MinX = Width - CGRectGetMaxX(v56);
   }
 
   else
   {
-    v55.origin.x = v22;
-    v55.origin.y = v24;
-    v55.size.width = v26;
-    v55.size.height = v28;
-    MinX = CGRectGetMinX(v55);
-    v30 = rect;
+    v57.origin.x = v24;
+    v57.origin.y = v26;
+    v57.size.width = v28;
+    v57.size.height = v30;
+    MinX = CGRectGetMinX(v57);
+    v32 = rect;
   }
 
-  v33 = v48;
-  v34 = MinX + -16.0 - v48;
+  v35 = v50;
+  v36 = MinX + -16.0 - v50;
   textLabel = [(NTKCFaceDetailToggleCell *)self textLabel];
   [textLabel frame];
-  v37 = v36;
   v39 = v38;
   v41 = v40;
   v43 = v42;
+  v45 = v44;
 
-  v56.origin.x = v37;
-  v56.origin.y = v39;
-  v56.size.width = v41;
-  v56.size.height = v43;
-  if (CGRectGetWidth(v56) > v34)
+  v58.origin.x = v39;
+  v58.origin.y = v41;
+  v58.size.width = v43;
+  v58.size.height = v45;
+  if (CGRectGetWidth(v58) > v36)
   {
     if (IsRTL)
     {
-      v57.origin.y = v46;
-      v57.origin.x = v47;
-      v57.size.width = v29;
-      v57.size.height = v30;
-      v44 = CGRectGetWidth(v57);
-      v58.origin.x = v37;
-      v58.origin.y = v39;
-      v58.size.width = v34;
-      v58.size.height = v43;
-      v33 = v44 - CGRectGetWidth(v58) - v48;
+      v59.origin.y = v48;
+      v59.origin.x = v49;
+      v59.size.width = v31;
+      v59.size.height = v32;
+      v46 = CGRectGetWidth(v59);
+      v60.origin.x = v39;
+      v60.origin.y = v41;
+      v60.size.width = v36;
+      v60.size.height = v45;
+      v35 = v46 - CGRectGetWidth(v60) - v50;
     }
 
     textLabel2 = [(NTKCFaceDetailToggleCell *)self textLabel];
-    [textLabel2 setFrame:{v33, v39, v34, v43}];
+    [textLabel2 setFrame:{v35, v41, v36, v45}];
   }
 }
 

@@ -719,12 +719,12 @@ LABEL_9:
 LABEL_10:
 }
 
-uint64_t __106__RTPeopleDiscoveryContactRecord_closeProximityEvents_bundleEndDate_contactRecords_ongoingProximityEvent___block_invoke(uint64_t a1)
+uint64_t __106__RTPeopleDiscoveryContactRecord_closeProximityEvents_bundleEndDate_contactRecords_ongoingProximityEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = *(a1 + 40);
+  v3 = objc_opt_class();
+  v4 = *(a1 + 40);
 
-  return [v2 computeEventMetrics:v3];
+  return [v3 computeEventMetrics:v4];
 }
 
 id __106__RTPeopleDiscoveryContactRecord_closeProximityEvents_bundleEndDate_contactRecords_ongoingProximityEvent___block_invoke_2(uint64_t a1)

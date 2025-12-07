@@ -101,7 +101,7 @@ uint64_t __28__SecItemRateLimit_instance__block_invoke()
 
 void __39__SecItemRateLimit_shouldCountAPICalls__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (os_variant_allows_internal_security_policies())
   {
     if (gSecurityd)
@@ -109,70 +109,124 @@ void __39__SecItemRateLimit_shouldCountAPICalls__block_invoke()
       v0 = secLogObjForScope("secitemratelimit");
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v6) = 0;
+        LOWORD(v14) = 0;
         v1 = "gSecurityd non-nil, disabling SIRL for testing";
 LABEL_7:
-        _os_log_impl(&dword_1887D2000, v0, OS_LOG_TYPE_DEFAULT, v1, &v6, 2u);
+        _os_log_impl(&dword_1887D2000, v0, OS_LOG_TYPE_DEFAULT, v1, &v14, 2u);
+        goto LABEL_8;
+      }
+
+      goto LABEL_8;
+    }
+
+    if ((_os_feature_enabled_impl() & 1) == 0)
+    {
+      v0 = secLogObjForScope("secitemratelimit");
+      if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_8;
+      }
+
+      LOWORD(v14) = 0;
+      v1 = "SIRL disabled via feature flag";
+      goto LABEL_7;
+    }
+
+    v2 = SecTaskCreateFromSelf(0);
+    v0 = [MEMORY[0x1E695DF70] arrayWithArray:&unk_1EFAAC658];
+    if (!v2)
+    {
+      v11 = secLogObjForScope("SecError");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "secitemratelimit: unable to get task from self, disabling SIRL", &v14, 2u);
+      }
+
+      goto LABEL_8;
+    }
+
+    v14 = 0;
+    v3 = csops_task(v2, 0, &v14, 4);
+    v4 = v14;
+    if (v3)
+    {
+      v4 = 0;
+    }
+
+    if ((v4 & 0xC000001) == 0x4000001 || (v4 & 0x1C000000) == 0x14000000)
+    {
+      v5 = SecTaskCopyIdentifier(v2, 11, 0);
+      if (v5)
+      {
+        v6 = v5;
+        [v0 addObjectsFromArray:&unk_1EFAAC670];
+        v7 = [v0 containsObject:v6];
+        v8 = secLogObjForScope("secitemratelimit");
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+        if (v7)
+        {
+          if (v9)
+          {
+            v14 = 138412290;
+            v15 = v6;
+            _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "%@ exempt from SIRL", &v14, 0xCu);
+          }
+        }
+
+        else
+        {
+          if (v9)
+          {
+            v14 = 138412290;
+            v15 = v6;
+            _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "valid/debugged platform binary %@ on internal release, enabling SIRL", &v14, 0xCu);
+          }
+
+          shouldCountAPICalls_shouldCount = 1;
+        }
+
+        CFRelease(v2);
+        v10 = v6;
+        goto LABEL_26;
+      }
+
+      v12 = secLogObjForScope("SecError");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v14) = 0;
+        v13 = "secitemratelimit: unable to get signing identifier, disabling SIRL";
+        goto LABEL_34;
       }
     }
 
     else
     {
-      if ((_os_feature_enabled_impl() & 1) == 0)
+      v12 = secLogObjForScope("secitemratelimit");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v0 = secLogObjForScope("secitemratelimit");
-        if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_8;
-        }
-
-        LOWORD(v6) = 0;
-        v1 = "SIRL disabled via feature flag";
-        goto LABEL_7;
-      }
-
-      v3 = SecTaskCreateFromSelf(0);
-      v0 = [MEMORY[0x1E695DF70] arrayWithArray:&unk_1EFAAC658];
-      if (v3)
-      {
-        v6 = 0;
-        csops_task(v3);
-        v5 = secLogObjForScope("secitemratelimit");
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-        {
-          LOWORD(v6) = 0;
-          _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Not valid/debugged platform binary, disabling SIRL", &v6, 2u);
-        }
-
-        CFRelease(v3);
-      }
-
-      else
-      {
-        v4 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-        {
-          LOWORD(v6) = 0;
-          _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "secitemratelimit: unable to get task from self, disabling SIRL", &v6, 2u);
-        }
+        LOWORD(v14) = 0;
+        v13 = "Not valid/debugged platform binary, disabling SIRL";
+LABEL_34:
+        _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, v13, &v14, 2u);
       }
     }
+
+    v10 = v2;
+LABEL_26:
+    CFRelease(v10);
+    goto LABEL_8;
   }
 
-  else
+  v0 = secLogObjForScope("secitemratelimit");
+  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v0 = secLogObjForScope("secitemratelimit");
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v6) = 0;
-      v1 = "Not internal release, disabling SIRL";
-      goto LABEL_7;
-    }
+    LOWORD(v14) = 0;
+    v1 = "Not internal release, disabling SIRL";
+    goto LABEL_7;
   }
 
 LABEL_8:
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)consumeTokenFromBucket:(BOOL)bucket
@@ -264,7 +318,7 @@ void __43__SecItemRateLimit_consumeTokenFromBucket___block_invoke(uint64_t a1)
 - (void)forceEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   self->_forceEnabled = enabled;
   v5 = secLogObjForScope("secitemratelimit");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -279,14 +333,12 @@ void __43__SecItemRateLimit_consumeTokenFromBucket___block_invoke(uint64_t a1)
       v6 = "Not f";
     }
 
-    v8 = 136315394;
-    v9 = v6;
-    v10 = 1024;
+    v7 = 136315394;
+    v8 = v6;
+    v9 = 1024;
     isEnabled = [(SecItemRateLimit *)self isEnabled];
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "%sorcing SIRL to be enabled (effective: %i)", &v8, 0x12u);
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "%sorcing SIRL to be enabled (effective: %i)", &v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)resetStaticRateLimit

@@ -28,6 +28,7 @@
 - (void)downloadWillStart;
 - (void)encodeWithCoder:(id)coder;
 - (void)fetchAndSaveWRMMetrics;
+- (void)logFrameworkUsage:(int)usage;
 - (void)pingDidFinishWithError:(id)error;
 - (void)pingDidFinishWithResults:(id)results;
 - (void)pingWillStartPinging;
@@ -100,11 +101,11 @@
 
 - (NPTPerformanceTest)initWithConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v30.receiver = self;
-  v30.super_class = NPTPerformanceTest;
-  v5 = [(NPTPerformanceTest *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = NPTPerformanceTest;
+  v5 = [(NPTPerformanceTest *)&v29 init];
   if (v5)
   {
     v6 = nw_activity_create();
@@ -158,12 +159,11 @@
     {
       v27 = [configurationCopy description];
       *buf = 138412290;
-      v32 = v27;
+      v31 = v27;
       _os_log_impl(&dword_233421000, v26, OS_LOG_TYPE_DEFAULT, "Configuration settings: %@", buf, 0xCu);
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -208,7 +208,7 @@
 
 - (NSDictionary)metadata
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   cachedMetadata = [(NPTMetadataCollector *)self->collector cachedMetadata];
   if (cachedMetadata)
   {
@@ -266,27 +266,27 @@
         _additionalMetadata2 = [(NPTPerformanceTest *)self _additionalMetadata];
         [v23 addEntriesFromDictionary:_additionalMetadata2];
 
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         _additionalMetadata3 = [(NPTPerformanceTest *)self _additionalMetadata];
-        v26 = [_additionalMetadata3 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v26 = [_additionalMetadata3 countByEnumeratingWithState:&v40 objects:v44 count:16];
         if (v26)
         {
           v27 = v26;
-          v28 = *v42;
+          v28 = *v41;
           do
           {
             v29 = 0;
             do
             {
-              if (*v42 != v28)
+              if (*v41 != v28)
               {
                 objc_enumerationMutation(_additionalMetadata3);
               }
 
-              v30 = *(*(&v41 + 1) + 8 * v29);
+              v30 = *(*(&v40 + 1) + 8 * v29);
               v31 = [(NSMutableDictionary *)self->restoredMetadata objectForKeyedSubscript:@"metadata"];
               v32 = [v31 objectForKey:v30];
 
@@ -302,7 +302,7 @@
             }
 
             while (v27 != v29);
-            v27 = [_additionalMetadata3 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v27 = [_additionalMetadata3 countByEnumeratingWithState:&v40 objects:v44 count:16];
           }
 
           while (v27);
@@ -319,7 +319,6 @@
   }
 
   v38 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v15];
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -341,7 +340,7 @@
 
 - (void)startDownloadWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(NPTPerformanceTest *)self activateActivity];
   [(NPTPerformanceTest *)self logFrameworkUsage:1];
@@ -373,9 +372,9 @@
       v13 = 1;
     }
 
-    v16[0] = 67109120;
-    v16[1] = downloadSize;
-    _os_log_impl(&dword_233421000, v11, OS_LOG_TYPE_DEFAULT, "Will test download speed by downloading %u megabytes from Apple CDN Server", v16, 8u);
+    v15[0] = 67109120;
+    v15[1] = downloadSize;
+    _os_log_impl(&dword_233421000, v11, OS_LOG_TYPE_DEFAULT, "Will test download speed by downloading %u megabytes from Apple CDN Server", v15, 8u);
     if (v13)
     {
     }
@@ -386,12 +385,11 @@
   }
 
   [(NPTDownload *)self->download startDownloadWithCompletion:completionCopy];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUploadWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(NPTPerformanceTest *)self activateActivity];
   [(NPTPerformanceTest *)self logFrameworkUsage:2];
@@ -423,9 +421,9 @@
       v13 = 1;
     }
 
-    v16[0] = 67109120;
-    v16[1] = uploadSize;
-    _os_log_impl(&dword_233421000, v11, OS_LOG_TYPE_DEFAULT, "Will test upload speed by uploading %u megabytes to Apple CDN Server", v16, 8u);
+    v15[0] = 67109120;
+    v15[1] = uploadSize;
+    _os_log_impl(&dword_233421000, v11, OS_LOG_TYPE_DEFAULT, "Will test upload speed by uploading %u megabytes to Apple CDN Server", v15, 8u);
     if (v13)
     {
     }
@@ -436,12 +434,11 @@
   }
 
   [(NPTUpload *)self->upload startUploadWithCompletion:completionCopy];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTestWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = +[NPTLogger network];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -449,7 +446,7 @@
     configuration = [(NPTPerformanceTest *)self configuration];
     uuid = [configuration uuid];
     *buf = 138412290;
-    v18 = uuid;
+    v17 = uuid;
     _os_log_impl(&dword_233421000, v5, OS_LOG_TYPE_DEFAULT, "Performance test %@ will start", buf, 0xCu);
   }
 
@@ -457,21 +454,19 @@
   objc_initWeak(buf, self);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   WeakRetained = objc_loadWeakRetained(buf);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__NPTPerformanceTest_startTestWithCompletion___block_invoke;
-  v13[3] = &unk_2789D3FE8;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__NPTPerformanceTest_startTestWithCompletion___block_invoke;
+  v12[3] = &unk_2789D3FE8;
   v10 = v8;
-  v14 = v10;
-  objc_copyWeak(&v16, buf);
+  v13 = v10;
+  objc_copyWeak(&v15, buf);
   v11 = completionCopy;
-  v15 = v11;
-  [WeakRetained startPingWithCompletion:v13];
+  v14 = v11;
+  [WeakRetained startPingWithCompletion:v12];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NPTPerformanceTest_startTestWithCompletion___block_invoke(id *a1, void *a2, void *a3)
@@ -520,7 +515,7 @@ void __46__NPTPerformanceTest_startTestWithCompletion___block_invoke_2(id *a1, v
 
 void __46__NPTPerformanceTest_startTestWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -557,17 +552,15 @@ void __46__NPTPerformanceTest_startTestWithCompletion___block_invoke_3(uint64_t 
     v11 = objc_loadWeakRetained((a1 + 48));
     v12 = [v11 configuration];
     v13 = [v12 uuid];
-    v18 = 138412290;
-    v19 = v13;
-    _os_log_impl(&dword_233421000, v10, OS_LOG_TYPE_DEFAULT, "Performance test %@ has finished", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v13;
+    _os_log_impl(&dword_233421000, v10, OS_LOG_TYPE_DEFAULT, "Performance test %@ has finished", &v17, 0xCu);
   }
 
   v14 = *(a1 + 40);
   v15 = objc_loadWeakRetained((a1 + 48));
   v16 = [v15 results];
   (*(v14 + 16))(v14, v16, v7);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)save
@@ -639,14 +632,13 @@ LABEL_10:
 {
   if (self->performanceTestActivity && (nw_activity_is_activated() & 1) == 0)
   {
-    v3 = +[NPTLogger network];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v2 = +[NPTLogger network];
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_233421000, v3, OS_LOG_TYPE_DEFAULT, "Activating performanceTestActivity", v5, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_233421000, v2, OS_LOG_TYPE_DEFAULT, "Activating performanceTestActivity", v3, 2u);
     }
 
-    performanceTestActivity = self->performanceTestActivity;
     nw_activity_activate();
   }
 }
@@ -658,13 +650,12 @@ LABEL_10:
     v4 = +[NPTLogger network];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_233421000, v4, OS_LOG_TYPE_DEFAULT, "Completing performanceTestActivity", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_233421000, v4, OS_LOG_TYPE_DEFAULT, "Completing performanceTestActivity", v6, 2u);
     }
 
-    performanceTestActivity = self->performanceTestActivity;
     nw_activity_complete_with_reason();
-    v6 = self->performanceTestActivity;
+    performanceTestActivity = self->performanceTestActivity;
     self->performanceTestActivity = 0;
   }
 }
@@ -704,49 +695,47 @@ LABEL_10:
 
 - (id)getFlattenedMetadataDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [dictionaryCopy objectForKeyedSubscript:@"device_states"];
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [dictionaryCopy objectForKeyedSubscript:@"device_states"];
         v11 = [v10 objectForKeyedSubscript:v9];
         v12 = [v11 objectForKeyedSubscript:@"initial_state"];
         [v4 addEntriesFromDictionary:v12];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)getFlattenedDictionary
 {
-  v168 = *MEMORY[0x277D85DE8];
+  v167 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   cachedMetadata = [(NPTMetadataCollector *)self->collector cachedMetadata];
   if (cachedMetadata)
@@ -760,7 +749,7 @@ LABEL_10:
     metadata = [(NPTPerformanceTest *)self dictionary];
     [metadata valueForKey:@"metadata"];
   }
-  v145 = ;
+  v144 = ;
 
   selfCopy = self;
   dictionary = [(NPTPerformanceTest *)self dictionary];
@@ -769,32 +758,32 @@ LABEL_10:
   v8 = [v7 valueForKey:@"download_results"];
   v9 = [v7 valueForKey:@"upload_results"];
   v10 = [v7 valueForKey:@"ping_results"];
-  v141 = v7;
-  v142 = [v7 valueForKey:@"network_quality_results"];
+  v140 = v7;
+  v141 = [v7 valueForKey:@"network_quality_results"];
   v11 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.wifiqa.NPTKit"];
   infoDictionary = [v11 infoDictionary];
-  v144 = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+  v143 = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
 
-  v162 = 0u;
-  v163 = 0u;
-  v160 = 0u;
   v161 = 0u;
+  v162 = 0u;
+  v159 = 0u;
+  v160 = 0u;
   v13 = v8;
-  v14 = [v13 countByEnumeratingWithState:&v160 objects:v167 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v159 objects:v166 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v161;
+    v16 = *v160;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v161 != v16)
+        if (*v160 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v160 + 1) + 8 * i);
+        v18 = *(*(&v159 + 1) + 8 * i);
         v19 = [v13 valueForKey:v18];
         if (v19)
         {
@@ -803,32 +792,32 @@ LABEL_10:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v160 objects:v167 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v159 objects:v166 count:16];
     }
 
     while (v15);
   }
 
-  v158 = 0u;
-  v159 = 0u;
-  v156 = 0u;
   v157 = 0u;
+  v158 = 0u;
+  v155 = 0u;
+  v156 = 0u;
   v21 = v9;
-  v22 = [v21 countByEnumeratingWithState:&v156 objects:v166 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v155 objects:v165 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v157;
+    v24 = *v156;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v157 != v24)
+        if (*v156 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v156 + 1) + 8 * j);
+        v26 = *(*(&v155 + 1) + 8 * j);
         v27 = [v21 valueForKey:v26];
         if (v27)
         {
@@ -837,33 +826,33 @@ LABEL_10:
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v156 objects:v166 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v155 objects:v165 count:16];
     }
 
     while (v23);
   }
 
-  v154 = 0u;
-  v155 = 0u;
-  v152 = 0u;
   v153 = 0u;
+  v154 = 0u;
+  v151 = 0u;
+  v152 = 0u;
   v29 = v10;
-  v30 = [v29 countByEnumeratingWithState:&v152 objects:v165 count:16];
-  v147 = v29;
+  v30 = [v29 countByEnumeratingWithState:&v151 objects:v164 count:16];
+  v146 = v29;
   if (v30)
   {
     v31 = v30;
-    v32 = *v153;
+    v32 = *v152;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v153 != v32)
+        if (*v152 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v152 + 1) + 8 * k);
+        v34 = *(*(&v151 + 1) + 8 * k);
         if (([v34 isEqual:@"pings"] & 1) == 0)
         {
           v35 = [v29 valueForKey:v34];
@@ -873,18 +862,18 @@ LABEL_10:
             [v3 setObject:v35 forKey:v36];
           }
 
-          v29 = v147;
+          v29 = v146;
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v152 objects:v165 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v151 objects:v164 count:16];
     }
 
     while (v31);
   }
 
-  v37 = v142;
-  if (![v142 count])
+  v37 = v141;
+  if (![v141 count])
   {
     configuration = [(NPTPerformanceTest *)selfCopy configuration];
     legacyMode = [configuration legacyMode];
@@ -987,26 +976,26 @@ LABEL_10:
     }
   }
 
-  v150 = 0u;
-  v151 = 0u;
-  v148 = 0u;
   v149 = 0u;
+  v150 = 0u;
+  v147 = 0u;
+  v148 = 0u;
   v73 = v37;
-  v74 = [v73 countByEnumeratingWithState:&v148 objects:v164 count:16];
+  v74 = [v73 countByEnumeratingWithState:&v147 objects:v163 count:16];
   if (v74)
   {
     v75 = v74;
-    v76 = *v149;
+    v76 = *v148;
     do
     {
       for (m = 0; m != v75; ++m)
       {
-        if (*v149 != v76)
+        if (*v148 != v76)
         {
           objc_enumerationMutation(v73);
         }
 
-        v78 = *(*(&v148 + 1) + 8 * m);
+        v78 = *(*(&v147 + 1) + 8 * m);
         v79 = [v73 valueForKey:v78];
         if (v79)
         {
@@ -1015,13 +1004,13 @@ LABEL_10:
         }
       }
 
-      v75 = [v73 countByEnumeratingWithState:&v148 objects:v164 count:16];
+      v75 = [v73 countByEnumeratingWithState:&v147 objects:v163 count:16];
     }
 
     while (v75);
   }
 
-  [v3 addEntriesFromDictionary:v145];
+  [v3 addEntriesFromDictionary:v144];
   p_isa = &selfCopy->super.isa;
   [v3 setValue:selfCopy->uuid forKey:@"npt_uuid"];
   v82 = MEMORY[0x277CCABB0];
@@ -1029,7 +1018,7 @@ LABEL_10:
   v84 = [v82 numberWithBool:{objc_msgSend(configuration2, "interfaceType") == 1}];
   [v3 setValue:v84 forKey:@"use_wifi_was_specified"];
 
-  [v3 setValue:v144 forKey:@"nptkit_framework_version"];
+  [v3 setValue:v143 forKey:@"nptkit_framework_version"];
   configuration3 = [(NPTPerformanceTest *)selfCopy configuration];
   clientName = [configuration3 clientName];
   [v3 setValue:clientName forKey:@"calling_client"];
@@ -1043,7 +1032,7 @@ LABEL_10:
   results = [(NPTPerformanceTest *)selfCopy results];
   downloadResults = [results downloadResults];
   isCellular = [downloadResults isCellular];
-  v143 = v90;
+  v142 = v90;
   if ([isCellular BOOLValue])
   {
   }
@@ -1055,12 +1044,12 @@ LABEL_10:
     isCellular2 = [uploadResults isCellular];
     bOOLValue = [isCellular2 BOOLValue];
 
-    v90 = v143;
+    v90 = v142;
     p_isa = &selfCopy->super.isa;
 
     if ((bOOLValue & 1) == 0)
     {
-      [v143 addObject:@"cellular_cellid"];
+      [v142 addObject:@"cellular_cellid"];
     }
   }
 
@@ -1070,8 +1059,8 @@ LABEL_10:
     v102 = 0;
     v103 = 0;
 LABEL_73:
-    v138 = 0;
-    v140 = 0;
+    v137 = 0;
+    v139 = 0;
     goto LABEL_74;
   }
 
@@ -1088,29 +1077,29 @@ LABEL_73:
     v103 = 0;
   }
 
-  v134 = [p_isa[7] objectForKeyedSubscript:@"beforeUploadSnapshot"];
-  if (!v134)
+  v133 = [p_isa[7] objectForKeyedSubscript:@"beforeUploadSnapshot"];
+  if (!v133)
   {
     goto LABEL_73;
   }
 
-  v135 = v134;
-  v136 = [p_isa[7] objectForKeyedSubscript:@"afterUploadSnapshot"];
+  v134 = v133;
+  v135 = [p_isa[7] objectForKeyedSubscript:@"afterUploadSnapshot"];
 
-  if (!v136)
+  if (!v135)
   {
     goto LABEL_73;
   }
 
-  v140 = [p_isa[7] valueForKey:@"beforeUploadSnapshot"];
-  v138 = [p_isa[7] valueForKey:@"afterUploadSnapshot"];
+  v139 = [p_isa[7] valueForKey:@"beforeUploadSnapshot"];
+  v137 = [p_isa[7] valueForKey:@"afterUploadSnapshot"];
 LABEL_74:
   cachedMetadata2 = [(NPTMetadataCollector *)selfCopy->collector cachedMetadata];
   v105 = [cachedMetadata2 objectForKeyedSubscript:@"device_states"];
   v106 = [v105 objectForKeyedSubscript:@"cellular"];
   v107 = [NPTCellularCollector calculateMaxCellularTPutEstimates:v106];
 
-  v137 = v107;
+  v136 = v107;
   v108 = [v107 objectForKeyedSubscript:@"cellular_max_download_estimate"];
   [v3 setObject:v108 forKeyedSubscript:@"download_max_cellular_estimate"];
 
@@ -1147,34 +1136,34 @@ LABEL_74:
   v119 = [v103 objectForKeyedSubscript:@"cellular_download_estimate"];
   [v3 setObject:v119 forKeyedSubscript:@"download_end_cellular_estimate"];
 
-  v120 = [v140 objectForKeyedSubscript:@"cellular_radio_access_technology"];
+  v120 = [v139 objectForKeyedSubscript:@"cellular_radio_access_technology"];
   [v3 setObject:v120 forKeyedSubscript:@"upload_start_rat"];
 
-  v121 = [v138 objectForKeyedSubscript:@"cellular_radio_access_technology"];
+  v121 = [v137 objectForKeyedSubscript:@"cellular_radio_access_technology"];
   [v3 setObject:v121 forKeyedSubscript:@"upload_end_rat"];
 
-  v122 = [v140 objectForKeyedSubscript:@"network_primary_ipv4_interface_name"];
+  v122 = [v139 objectForKeyedSubscript:@"network_primary_ipv4_interface_name"];
   [v3 setObject:v122 forKeyedSubscript:@"upload_start_primary_ipv4_interface"];
 
-  v123 = [v138 objectForKeyedSubscript:@"network_primary_ipv4_interface_name"];
+  v123 = [v137 objectForKeyedSubscript:@"network_primary_ipv4_interface_name"];
   [v3 setObject:v123 forKeyedSubscript:@"upload_end_primary_ipv4_interface"];
 
-  v124 = [v140 objectForKeyedSubscript:@"cellular_data_bearer_technology"];
+  v124 = [v139 objectForKeyedSubscript:@"cellular_data_bearer_technology"];
   [v3 setObject:v124 forKeyedSubscript:@"upload_start_data_bearer_technology"];
 
-  v125 = [v138 objectForKeyedSubscript:@"cellular_data_bearer_technology"];
+  v125 = [v137 objectForKeyedSubscript:@"cellular_data_bearer_technology"];
   [v3 setObject:v125 forKeyedSubscript:@"upload_end_data_bearer_technology"];
 
-  v126 = [v140 objectForKeyedSubscript:@"cellular_radio_frequency"];
+  v126 = [v139 objectForKeyedSubscript:@"cellular_radio_frequency"];
   [v3 setObject:v126 forKeyedSubscript:@"upload_start_radio_frequency"];
 
-  v127 = [v138 objectForKeyedSubscript:@"cellular_radio_frequency"];
+  v127 = [v137 objectForKeyedSubscript:@"cellular_radio_frequency"];
   [v3 setObject:v127 forKeyedSubscript:@"upload_end_radio_frequency"];
 
-  v128 = [v140 objectForKeyedSubscript:@"cellular_upload_estimate"];
+  v128 = [v139 objectForKeyedSubscript:@"cellular_upload_estimate"];
   [v3 setObject:v128 forKeyedSubscript:@"upload_start_cellular_estimate"];
 
-  v129 = [v138 objectForKeyedSubscript:@"cellular_upload_estimate"];
+  v129 = [v137 objectForKeyedSubscript:@"cellular_upload_estimate"];
   [v3 setObject:v129 forKeyedSubscript:@"upload_end_cellular_estimate"];
 
   timestampMaskedString = [(NPTPerformanceTest *)selfCopy timestampMaskedString];
@@ -1182,38 +1171,36 @@ LABEL_74:
 
   v131 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v3];
 
-  v132 = *MEMORY[0x277D85DE8];
-
   return v131;
 }
 
 - (id)getTransformedDataForCoreAnalytics
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   getDataForCoreAnalytics = [(NPTPerformanceTest *)self getDataForCoreAnalytics];
   v3 = [getDataForCoreAnalytics mutableCopy];
-  v26 = [MEMORY[0x277CBEB98] setWithArray:&unk_2848CF498];
+  v25 = [MEMORY[0x277CBEB98] setWithArray:&unk_2848CF498];
   v4 = [MEMORY[0x277CBEB98] setWithArray:&unk_2848CF4B0];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = getDataForCoreAnalytics;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = [v5 objectForKeyedSubscript:v10];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -1230,7 +1217,7 @@ LABEL_74:
             [v3 setObject:v16 forKeyedSubscript:v10];
           }
 
-          if (([v10 containsString:@"_time"] & 1) != 0 || objc_msgSend(v26, "containsObject:", v10))
+          if (([v10 containsString:@"_time"] & 1) != 0 || objc_msgSend(v25, "containsObject:", v10))
           {
             v17 = [v5 objectForKeyedSubscript:v10];
             [v17 doubleValue];
@@ -1249,15 +1236,13 @@ LABEL_74:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
 
   v23 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v3];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1303,17 +1288,17 @@ LABEL_74:
 
 - (void)fetchAndSaveWRMMetrics
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = +[NPTMetadataCollector fetchWRMMetrics];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = objc_alloc_init(MEMORY[0x277CBEA60]);
-  v15[0] = @"initial_state";
-  v15[1] = @"events";
-  v16[0] = v3;
-  v16[1] = v5;
-  v15[2] = @"errors";
-  v16[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v14[0] = @"initial_state";
+  v14[1] = @"events";
+  v15[0] = v3;
+  v15[1] = v5;
+  v14[2] = @"errors";
+  v15[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   [v4 setObject:v6 forKeyedSubscript:@"wrm"];
 
   snapshots = self->snapshots;
@@ -1332,8 +1317,29 @@ LABEL_74:
     results = [(NPTPerformanceTest *)self results];
     [results setMetadata:restoredMetadata];
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)logFrameworkUsage:(int)usage
+{
+  v3 = *&usage;
+  v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  [v5 setObject:v6 forKeyedSubscript:@"feature"];
+
+  configuration = [(NPTPerformanceTest *)self configuration];
+
+  if (configuration)
+  {
+    configuration2 = [(NPTPerformanceTest *)self configuration];
+    asDictionary = [configuration2 asDictionary];
+    [v5 addEntriesFromDictionary:asDictionary];
+  }
+
+  if ([v5 count])
+  {
+    v10 = v5;
+    AnalyticsSendEventLazy();
+  }
 }
 
 - (void)pingDidFinishWithResults:(id)results
@@ -1627,19 +1633,17 @@ LABEL_74:
 
 - (id)collectorsWithoutCDNDebug
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [NPTMetadataCollector alloc];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
-  v13 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:7];
-  v4 = [(NPTMetadataCollector *)v2 initWithCollectorTypes:v3, v7, v8, v9, v10, v11, v12];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [(NPTMetadataCollector *)v2 initWithCollectorTypes:v3, v6, v7, v8, v9, v10, v11];
 
   return v4;
 }

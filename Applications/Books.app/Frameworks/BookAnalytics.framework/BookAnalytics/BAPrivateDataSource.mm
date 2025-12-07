@@ -86,61 +86,62 @@
 {
   v2 = BAPrivateAllKeys();
   v3 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v2 count]);
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v18;
+    v8 = *v19;
     *&v6 = 138412546;
-    v16 = v6;
+    v17 = v6;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v18 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        if ([v10 isEqualToString:{@"userPrivateSeed", v16, v17}] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"contentPrivateSeed"))
+        v10 = *(*(&v18 + 1) + 8 * i);
+        if ([v10 isEqualToString:{@"userPrivateSeed", v17, v18}] & 1) != 0 || (objc_msgSend(v10, "isEqualToString:", @"contentPrivateSeed"))
         {
-          uUIDString = BAGenerateSeed();
+          v11 = BAGenerateSeed();
+          uUIDString = v11;
         }
 
         else
         {
-          v12 = +[NSUUID UUID];
-          uUIDString = [v12 UUIDString];
+          v13 = +[NSUUID UUID];
+          uUIDString = [v13 UUIDString];
         }
 
-        v13 = BALog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v14 = BALog(v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          *buf = v16;
-          v22 = v10;
-          v23 = 2112;
-          v24 = uUIDString;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "generatePrivateData: key: %@ value: %@", buf, 0x16u);
+          *buf = v17;
+          v23 = v10;
+          v24 = 2112;
+          v25 = uUIDString;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "generatePrivateData: key: %@ value: %@", buf, 0x16u);
         }
 
         [v3 setObject:uUIDString forKeyedSubscript:v10];
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v14 = [v3 copy];
+  v15 = [v3 copy];
 
-  return v14;
+  return v15;
 }
 
 - (void)syncPrivateData:(id)data toCloudWithCompletion:(id)completion

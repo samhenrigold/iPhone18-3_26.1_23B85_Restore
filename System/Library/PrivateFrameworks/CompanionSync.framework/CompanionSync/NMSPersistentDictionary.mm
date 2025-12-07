@@ -217,7 +217,7 @@ LABEL_15:
 - (void)_openDBForceRecreate:(BOOL)recreate
 {
   recreateCopy = recreate;
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   p_path = &self->_path;
   v6 = self->_path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -227,17 +227,17 @@ LABEL_15:
   {
     stringByDeletingLastPathComponent = [(NSString *)v6 stringByDeletingLastPathComponent];
     v14 = *MEMORY[0x1E696A328];
-    v28[0] = *MEMORY[0x1E696A360];
-    v28[1] = v14;
-    v29[0] = @"mobile";
-    v29[1] = @"mobile";
-    v28[2] = *MEMORY[0x1E696A370];
-    v29[2] = &unk_1F5AE26C8;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
+    v27[0] = *MEMORY[0x1E696A360];
+    v27[1] = v14;
+    v28[0] = @"mobile";
+    v28[1] = @"mobile";
+    v27[2] = *MEMORY[0x1E696A370];
+    v28[2] = &unk_1F5AE26C8;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v27 = 0;
-    v17 = [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v15 error:&v27];
-    v18 = v27;
+    v26 = 0;
+    v17 = [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v15 error:&v26];
+    v18 = v26;
 
     if ((v17 & 1) == 0)
     {
@@ -270,9 +270,9 @@ LABEL_15:
     }
 
     defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-    v26 = 0;
-    v11 = [defaultManager3 removeItemAtPath:v6 error:&v26];
-    stringByDeletingLastPathComponent = v26;
+    v25 = 0;
+    v11 = [defaultManager3 removeItemAtPath:v6 error:&v25];
+    stringByDeletingLastPathComponent = v25;
 
     if ((v11 & 1) == 0)
     {
@@ -363,8 +363,6 @@ LABEL_38:
   }
 
 LABEL_39:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_ensureDBSchema
@@ -881,52 +879,43 @@ uint64_t __63__NMSPersistentDictionary_enumerateObjectsSortedByEnqueueDate___blo
 
 - (void)initWithSharedDBForService:objectClass:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Failed to get shared DB for service %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Failed to get shared DB for service %{public}@", v1, 0xCu);
 }
 
 - (void)_openDBForceRecreate:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = _SYObfuscate(a2);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Error creating parent directory: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Error creating parent directory: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_openDBForceRecreate:(void *)a1 .cold.6(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = _SYObfuscate(a2);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Error removing existing DB: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_2(&dword_1DF835000, v5, v6, "Error removing existing DB: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_openDBForceRecreate:(os_log_t)log .cold.8(uint64_t *a1, int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Could not open database (%@): %{companionsync:sqlite3err}d", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DF835000, log, OS_LOG_TYPE_ERROR, "Could not open database (%@): %{companionsync:sqlite3err}d", &v4, 0x12u);
 }
 
 - (void)_openDBForceRecreate:.cold.10()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Database %@ open has failed after second try.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Database %@ open has failed after second try.", v1, 0xCu);
 }
 
 @end

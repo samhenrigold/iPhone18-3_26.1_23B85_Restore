@@ -426,7 +426,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if (*&has)
@@ -699,29 +699,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_backlightBuckets count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_backlightBuckets, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     backlightBuckets = self->_backlightBuckets;
-    v7 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(backlightBuckets);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -766,7 +766,7 @@ LABEL_61:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_residencyPercentage60Hz), @"residencyPercentage60Hz"}];
     if ((*&self->_has & 0x100000) == 0)
     {
-      goto LABEL_37;
+      return dictionary;
     }
 
     goto LABEL_36;
@@ -787,18 +787,15 @@ LABEL_36:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_residencyPercentage30Hz), @"residencyPercentage30Hz"}];
   }
 
-LABEL_37:
-  v12 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x4000) == 0)
@@ -818,7 +815,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dispOnCount = self->_dispOnCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -833,7 +829,6 @@ LABEL_4:
   }
 
 LABEL_38:
-  unpluggedDisplayOnDuration = self->_unpluggedDisplayOnDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -848,7 +843,6 @@ LABEL_5:
   }
 
 LABEL_39:
-  pluggedDisplayOnDuration = self->_pluggedDisplayOnDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -863,7 +857,6 @@ LABEL_6:
   }
 
 LABEL_40:
-  mieDuration = self->_mieDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -878,7 +871,6 @@ LABEL_7:
   }
 
 LABEL_41:
-  mieCount = self->_mieCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -893,7 +885,6 @@ LABEL_8:
   }
 
 LABEL_42:
-  displayIdlePercentage = self->_displayIdlePercentage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -908,7 +899,6 @@ LABEL_9:
   }
 
 LABEL_43:
-  alsAutoBrightnessCurveE1 = self->_alsAutoBrightnessCurveE1;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -923,7 +913,6 @@ LABEL_10:
   }
 
 LABEL_44:
-  alsAutoBrightnessCurveL1 = self->_alsAutoBrightnessCurveL1;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -938,7 +927,6 @@ LABEL_11:
   }
 
 LABEL_45:
-  alsAutoBrightnessCurveE2 = self->_alsAutoBrightnessCurveE2;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -953,7 +941,6 @@ LABEL_12:
   }
 
 LABEL_46:
-  alsAutoBrightnessCurveL2 = self->_alsAutoBrightnessCurveL2;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -968,7 +955,6 @@ LABEL_13:
   }
 
 LABEL_47:
-  alsAutoBrightnessCurveE0A = self->_alsAutoBrightnessCurveE0A;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -983,7 +969,6 @@ LABEL_14:
   }
 
 LABEL_48:
-  alsAutoBrightnessCurveL0A = self->_alsAutoBrightnessCurveL0A;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -998,7 +983,6 @@ LABEL_15:
   }
 
 LABEL_49:
-  alsAutoBrightnessCurveE0B = self->_alsAutoBrightnessCurveE0B;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1013,7 +997,6 @@ LABEL_16:
   }
 
 LABEL_50:
-  alsAutoBrightnessCurveL0B = self->_alsAutoBrightnessCurveL0B;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1028,7 +1011,6 @@ LABEL_17:
   }
 
 LABEL_51:
-  alsAutoBrightnessCurveEdynth = self->_alsAutoBrightnessCurveEdynth;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1043,7 +1025,6 @@ LABEL_18:
   }
 
 LABEL_52:
-  alsAutoBrightnessSlider = self->_alsAutoBrightnessSlider;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1058,7 +1039,6 @@ LABEL_19:
   }
 
 LABEL_53:
-  alsAutoBrightnessLux = self->_alsAutoBrightnessLux;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1073,55 +1053,51 @@ LABEL_20:
   }
 
 LABEL_54:
-  alsAutoBrightnessChangeCount = self->_alsAutoBrightnessChangeCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_21:
-    alsBrightnessEnableCnt = self->_alsBrightnessEnableCnt;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_22:
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   backlightBuckets = self->_backlightBuckets;
-  v7 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v39;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v9)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(backlightBuckets);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v7 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v12 = self->_has;
-  if ((*&v12 & 0x800000) != 0)
+  v10 = self->_has;
+  if ((*&v10 & 0x800000) != 0)
   {
-    totalDisplayPower = self->_totalDisplayPower;
     PBDataWriterWriteUint32Field();
-    v12 = self->_has;
-    if ((*&v12 & 0x400000) == 0)
+    v10 = self->_has;
+    if ((*&v10 & 0x400000) == 0)
     {
 LABEL_31:
-      if ((*&v12 & 0x10000) == 0)
+      if ((*&v10 & 0x10000) == 0)
       {
         goto LABEL_32;
       }
@@ -1130,52 +1106,47 @@ LABEL_31:
     }
   }
 
-  else if ((*&v12 & 0x400000) == 0)
+  else if ((*&v10 & 0x400000) == 0)
   {
     goto LABEL_31;
   }
 
-  totalBacklightPower = self->_totalBacklightPower;
   PBDataWriterWriteUint32Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x10000) == 0)
+  v10 = self->_has;
+  if ((*&v10 & 0x10000) == 0)
   {
 LABEL_32:
-    if ((*&v12 & 0x200000) == 0)
+    if ((*&v10 & 0x200000) == 0)
     {
       goto LABEL_33;
     }
 
-LABEL_59:
-    residencyPercentage60Hz = self->_residencyPercentage60Hz;
-    PBDataWriterWriteUint32Field();
-    if ((*&self->_has & 0x100000) == 0)
+    goto LABEL_59;
+  }
+
+LABEL_58:
+  PBDataWriterWriteUint32Field();
+  v10 = self->_has;
+  if ((*&v10 & 0x200000) == 0)
+  {
+LABEL_33:
+    if ((*&v10 & 0x100000) == 0)
     {
-      goto LABEL_35;
+      return;
     }
 
     goto LABEL_34;
   }
 
-LABEL_58:
-  frameRateResidencyPercentage = self->_frameRateResidencyPercentage;
+LABEL_59:
   PBDataWriterWriteUint32Field();
-  v12 = self->_has;
-  if ((*&v12 & 0x200000) != 0)
+  if ((*&self->_has & 0x100000) == 0)
   {
-    goto LABEL_59;
+    return;
   }
 
-LABEL_33:
-  if ((*&v12 & 0x100000) != 0)
-  {
 LABEL_34:
-    residencyPercentage30Hz = self->_residencyPercentage30Hz;
-    PBDataWriterWriteUint32Field();
-  }
-
-LABEL_35:
-  v14 = *MEMORY[0x29EDCA608];
+  PBDataWriterWriteUint32Field();
 }
 
 - (void)copyTo:(id)to
@@ -1549,7 +1520,7 @@ LABEL_31:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1840,30 +1811,30 @@ LABEL_21:
   }
 
 LABEL_22:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   backlightBuckets = self->_backlightBuckets;
-  v9 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(backlightBuckets);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
         [v6 addBacklightBucket:v13];
       }
 
-      v10 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [(NSMutableArray *)backlightBuckets countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -1908,7 +1879,7 @@ LABEL_59:
     v6[31] |= 0x200000u;
     if ((*&self->_has & 0x100000) == 0)
     {
-      goto LABEL_35;
+      return v6;
     }
 
     goto LABEL_34;
@@ -1931,8 +1902,6 @@ LABEL_34:
     v6[31] |= 0x100000u;
   }
 
-LABEL_35:
-  v15 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -2632,7 +2601,7 @@ LABEL_47:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v5 = *(from + 31);
   if (v5)
   {
@@ -2921,29 +2890,29 @@ LABEL_21:
   }
 
 LABEL_22:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(from + 9);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDPowerDisplayBacklightMetrics *)self addBacklightBucket:*(*(&v13 + 1) + 8 * i)];
+        [(AWDPowerDisplayBacklightMetrics *)self addBacklightBucket:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -2983,36 +2952,35 @@ LABEL_32:
       goto LABEL_33;
     }
 
-LABEL_59:
-    self->_residencyPercentage60Hz = *(from + 27);
-    *&self->_has |= 0x200000u;
-    if ((*(from + 31) & 0x100000) == 0)
-    {
-      goto LABEL_35;
-    }
-
-    goto LABEL_34;
+    goto LABEL_59;
   }
 
 LABEL_58:
   self->_frameRateResidencyPercentage = *(from + 22);
   *&self->_has |= 0x10000u;
   v11 = *(from + 31);
-  if ((v11 & 0x200000) != 0)
+  if ((v11 & 0x200000) == 0)
   {
-    goto LABEL_59;
-  }
-
 LABEL_33:
-  if ((v11 & 0x100000) != 0)
-  {
-LABEL_34:
-    self->_residencyPercentage30Hz = *(from + 26);
-    *&self->_has |= 0x100000u;
+    if ((v11 & 0x100000) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_34;
   }
 
-LABEL_35:
-  v12 = *MEMORY[0x29EDCA608];
+LABEL_59:
+  self->_residencyPercentage60Hz = *(from + 27);
+  *&self->_has |= 0x200000u;
+  if ((*(from + 31) & 0x100000) == 0)
+  {
+    return;
+  }
+
+LABEL_34:
+  self->_residencyPercentage30Hz = *(from + 26);
+  *&self->_has |= 0x100000u;
 }
 
 @end

@@ -38,7 +38,7 @@ uint64_t ___LinearGaugeLayoutConstants_block_invoke(uint64_t a1, void *a2)
 
 void ___LinearGaugeLayoutConstants_block_invoke_3(uint64_t a1, void *a2)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBBAF8];
   v3 = a2;
   v4 = [v2 metricsWithDevice:v3 identitySizeClass:2];
@@ -51,15 +51,13 @@ void ___LinearGaugeLayoutConstants_block_invoke_3(uint64_t a1, void *a2)
   [v3 screenScale];
   v10 = v9;
 
-  v14[0] = &unk_286D01F58;
-  v14[1] = &unk_286D01F88;
-  v15[0] = &unk_286D01F70;
-  v15[1] = &unk_286D01F70;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = &unk_286D01F58;
+  v13[1] = &unk_286D01F88;
+  v14[0] = &unk_286D01F70;
+  v14[1] = &unk_286D01F70;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   [v4 constantValue:v11 withOverrides:3.0 / v10];
   _LinearGaugeLayoutConstants_constants_2 = v12;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

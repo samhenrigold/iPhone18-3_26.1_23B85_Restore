@@ -229,7 +229,7 @@ LABEL_14:
 LABEL_15:
 }
 
-uint64_t __67__WFGlyphPicker_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+int64_t __67__WFGlyphPicker_collectionView_willDisplayCell_forItemAtIndexPath___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 32);
   v6 = a3;

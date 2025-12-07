@@ -248,9 +248,9 @@ LABEL_62:
 
         v12 = [v5 style];
         v13 = [v12 columnType];
-        v14 = [v13 isEqualToString:@"buttons"];
+        isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-        if (!v14)
+        if (!isEqualToString)
         {
           goto LABEL_62;
         }

@@ -18,8 +18,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_10003A0FC(highlighted, &selRef_setHighlighted_);
+  sub_10003A0FC(highlightedCopy, &selRef_setHighlighted_);
 }
 
 - (BOOL)isSelected
@@ -32,8 +33,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_10003A0FC(selected, &selRef_setSelected_);
+  sub_10003A0FC(selectedCopy, &selRef_setSelected_);
 }
 
 - (CGRect)imageRectForContentRect:(CGRect)rect

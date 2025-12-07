@@ -109,7 +109,7 @@ void __92__ACHTemplateSourceScheduler_initWithClient_assertionClient_templateSto
 
 void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) conformsToProtocol:&unk_28355FB80];
   v4 = ACHLogDefault();
@@ -120,7 +120,7 @@ void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint
     {
       v6 = [*v2 identifier];
       *buf = 138543362;
-      v19 = v6;
+      v18 = v6;
       _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template Source scheduler adding template source with identifier %{public}@", buf, 0xCu);
     }
 
@@ -136,15 +136,15 @@ void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint
       {
         v10 = [*v2 identifier];
         *buf = 138543362;
-        v19 = v10;
+        v18 = v10;
         _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template Source scheduler running new template source with identifier %{public}@", buf, 0xCu);
       }
 
       v11 = *(a1 + 40);
       v12 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 32)];
-      v17 = 0;
-      [v11 _queue_runTemplateSources:v12 requiringRunnableForDate:1 error:&v17];
-      v5 = v17;
+      v16 = 0;
+      [v11 _queue_runTemplateSources:v12 requiringRunnableForDate:1 error:&v16];
+      v5 = v16;
 
       if (v5)
       {
@@ -153,9 +153,9 @@ void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint
         {
           v14 = [*v2 identifier];
           *buf = 138412546;
-          v19 = v14;
-          v20 = 2112;
-          v21 = v5;
+          v18 = v14;
+          v19 = 2112;
+          v20 = v5;
           _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Unable to run template source with identifier: %@; %@", buf, 0x16u);
         }
       }
@@ -165,17 +165,15 @@ void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint
     {
       v15 = [*v2 identifier];
       *buf = 138543362;
-      v19 = v15;
+      v18 = v15;
       _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template Source scheduler not running new template source with identifier %{public}@ because initial run is not complete", buf, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke_cold_1(v2);
+    __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke_cold_1();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterTemplateSource:(id)source
@@ -194,7 +192,7 @@ void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke(uint
 
 void __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) conformsToProtocol:&unk_28355FB80];
   v4 = [v2[1] templateSources];
@@ -210,79 +208,75 @@ void __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke(ui
     v6 = 1;
   }
 
-  if (!v6)
+  if (v6)
+  {
+    if (v3)
+    {
+      if (v5)
+      {
+        return;
+      }
+
+      v7 = ACHLogDefault();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_2();
+      }
+    }
+
+    else
+    {
+      v7 = ACHLogDefault();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_1();
+      }
+    }
+  }
+
+  else
   {
     v8 = ACHLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*v2 identifier];
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Template Source scheduler removing template source with identifier %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_221DDC000, v8, OS_LOG_TYPE_DEFAULT, "Template Source scheduler removing template source with identifier %{public}@", &v11, 0xCu);
     }
 
     v7 = [*(a1 + 40) templateSources];
     [v7 removeObject:*(a1 + 32)];
-LABEL_15:
-
-    goto LABEL_16;
   }
-
-  if ((v3 & 1) == 0)
-  {
-    v7 = ACHLogDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_1(v2);
-    }
-
-    goto LABEL_15;
-  }
-
-  if ((v5 & 1) == 0)
-  {
-    v7 = ACHLogDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_2(v2);
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runImmediatelyForTemplateSource:(id)source
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = ACHLogDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [sourceCopy identifier];
     *buf = 138543362;
-    v13 = identifier;
+    v12 = identifier;
     _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Template Source scheduler immediate run requested for source: %{public}@", buf, 0xCu);
   }
 
   serialQueue = [(ACHTemplateSourceScheduler *)self serialQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_invoke;
-  v10[3] = &unk_278490898;
-  v10[4] = self;
-  v11 = sourceCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_invoke;
+  v9[3] = &unk_278490898;
+  v9[4] = self;
+  v10 = sourceCopy;
   v8 = sourceCopy;
-  dispatch_async(serialQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(serialQueue, v9);
 }
 
 void __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) templateSources];
   v3 = [v2 containsObject:*(a1 + 40)];
 
@@ -292,9 +286,9 @@ void __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_in
     {
       v4 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
       v5 = *(a1 + 32);
-      v10 = 0;
-      [v5 _queue_runTemplateSources:v4 requiringRunnableForDate:0 error:&v10];
-      v6 = v10;
+      v9 = 0;
+      [v5 _queue_runTemplateSources:v4 requiringRunnableForDate:0 error:&v9];
+      v6 = v9;
       if (v6)
       {
         v7 = ACHLogTemplates();
@@ -302,9 +296,9 @@ void __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_in
         {
           v8 = [*(a1 + 40) identifier];
           *buf = 138412546;
-          v12 = v8;
-          v13 = 2112;
-          v14 = v6;
+          v11 = v8;
+          v12 = 2112;
+          v13 = v6;
           _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Unable to run template source with identifier %@; %@", buf, 0x16u);
         }
       }
@@ -329,8 +323,6 @@ void __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_in
       __62__ACHTemplateSourceScheduler_runImmediatelyForTemplateSource___block_invoke_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isProtectedDataAvailable
@@ -482,12 +474,12 @@ LABEL_9:
 
 void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 templateSources];
-  v8 = 0;
-  v4 = [v2 _queue_runTemplateSources:v3 requiringRunnableForDate:1 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v2 _queue_runTemplateSources:v3 requiringRunnableForDate:1 error:&v7];
+  v5 = v7;
 
   if (v4)
   {
@@ -500,17 +492,15 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_221DDC000, v6, OS_LOG_TYPE_DEFAULT, "Error running template sources: %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_runTemplateSources:(id)sources requiringRunnableForDate:(BOOL)date error:(id *)error
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   selfCopy = self;
   serialQueue = [(ACHTemplateSourceScheduler *)self serialQueue];
@@ -524,69 +514,69 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
   }
 
   v10 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v61 = [v10 initWithSuiteName:*MEMORY[0x277CE8C00]];
-  v11 = [v61 BOOLForKey:*MEMORY[0x277CE8AC0]];
-  v12 = [v61 BOOLForKey:*MEMORY[0x277CE8AB8]];
+  v60 = [v10 initWithSuiteName:*MEMORY[0x277CE8C00]];
+  v11 = [v60 BOOLForKey:*MEMORY[0x277CE8AC0]];
+  v12 = [v60 BOOLForKey:*MEMORY[0x277CE8AB8]];
   _currentDate = [(ACHTemplateSourceScheduler *)selfCopy _currentDate];
   v13 = sourcesCopy;
-  v60 = v13;
+  v59 = v13;
   if (!(v11 & 1 | !date | v12 & 1))
   {
     gregorianCalendar = [(ACHTemplateSourceScheduler *)selfCopy gregorianCalendar];
-    v15 = [(ACHTemplateSourceScheduler *)selfCopy _runnableSourcesInSources:v60 forDate:_currentDate calendar:gregorianCalendar];
+    v15 = [(ACHTemplateSourceScheduler *)selfCopy _runnableSourcesInSources:v59 forDate:_currentDate calendar:gregorianCalendar];
 
     v13 = v15;
   }
 
-  v59 = v13;
+  v58 = v13;
   if ([v13 count])
   {
     assertionClient = [(ACHTemplateSourceScheduler *)selfCopy assertionClient];
-    v100 = 0;
-    v58 = [assertionClient acquireDatabaseAssertionWithIdentifier:@"ACHTemplateSourceScheduler" duration:&v100 error:20.0];
-    v56 = v100;
-
-    v98[0] = 0;
-    v98[1] = v98;
-    v98[2] = 0x2810000000;
-    v98[3] = &unk_221E74077;
     v99 = 0;
+    v57 = [assertionClient acquireDatabaseAssertionWithIdentifier:@"ACHTemplateSourceScheduler" duration:&v99 error:20.0];
+    v55 = v99;
+
+    v97[0] = 0;
+    v97[1] = v97;
+    v97[2] = 0x2810000000;
+    v97[3] = &unk_221E74077;
+    v98 = 0;
     *buf = 0;
-    v93 = buf;
-    v94 = 0x3032000000;
-    v95 = __Block_byref_object_copy__30;
-    v96 = __Block_byref_object_dispose__30;
-    v97 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x3032000000;
-    v89 = __Block_byref_object_copy__30;
-    v90 = __Block_byref_object_dispose__30;
-    v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v80 = 0;
-    v81 = &v80;
-    v82 = 0x3032000000;
-    v83 = __Block_byref_object_copy__30;
-    v84 = __Block_byref_object_dispose__30;
-    v85 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v92 = buf;
+    v93 = 0x3032000000;
+    v94 = __Block_byref_object_copy__30;
+    v95 = __Block_byref_object_dispose__30;
+    v96 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v85 = 0;
+    v86 = &v85;
+    v87 = 0x3032000000;
+    v88 = __Block_byref_object_copy__30;
+    v89 = __Block_byref_object_dispose__30;
+    v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v79 = 0;
+    v80 = &v79;
+    v81 = 0x3032000000;
+    v82 = __Block_byref_object_copy__30;
+    v83 = __Block_byref_object_dispose__30;
+    v84 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v17 = ACHLogDefault();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v106 = 138412290;
-      v107 = v59;
-      _os_log_impl(&dword_221DDC000, v17, OS_LOG_TYPE_DEFAULT, "Running template sourcing for these sources: %@", v106, 0xCu);
+      *v105 = 138412290;
+      v106 = v58;
+      _os_log_impl(&dword_221DDC000, v17, OS_LOG_TYPE_DEFAULT, "Running template sourcing for these sources: %@", v105, 0xCu);
     }
 
     group = dispatch_group_create();
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
-    obj = v59;
-    v18 = [obj countByEnumeratingWithState:&v76 objects:v105 count:16];
+    obj = v58;
+    v18 = [obj countByEnumeratingWithState:&v75 objects:v104 count:16];
     if (v18)
     {
-      v19 = *v77;
+      v19 = *v76;
       v20 = MEMORY[0x277CBEC10];
       do
       {
@@ -594,30 +584,30 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
         v22 = v20;
         do
         {
-          if (*v77 != v19)
+          if (*v76 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v76 + 1) + 8 * v21);
+          v23 = *(*(&v75 + 1) + 8 * v21);
           aBlock[0] = MEMORY[0x277D85DD0];
           aBlock[1] = 3221225472;
           aBlock[2] = __87__ACHTemplateSourceScheduler__queue_runTemplateSources_requiringRunnableForDate_error___block_invoke;
           aBlock[3] = &unk_278492DE8;
-          v72 = v98;
+          v71 = v97;
           aBlock[4] = v23;
-          v73 = buf;
-          v74 = &v80;
-          v75 = &v86;
+          v72 = buf;
+          v73 = &v79;
+          v74 = &v85;
           v24 = group;
-          v71 = v24;
+          v70 = v24;
           v25 = _Block_copy(aBlock);
           dispatch_group_enter(v24);
           [v23 templatesForDate:_currentDate completion:v25];
           identifier = [v23 identifier];
-          v103 = identifier;
-          v104 = _currentDate;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+          v102 = identifier;
+          v103 = _currentDate;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
           v20 = [v22 hk_dictionaryByAddingEntriesFromDictionary:v27];
 
           ++v21;
@@ -625,7 +615,7 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
         }
 
         while (v18 != v21);
-        v18 = [obj countByEnumeratingWithState:&v76 objects:v105 count:16];
+        v18 = [obj countByEnumeratingWithState:&v75 objects:v104 count:16];
       }
 
       while (v18);
@@ -646,9 +636,9 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
       }
 
       v31 = MEMORY[0x277CCA9B8];
-      v101 = *MEMORY[0x277CCA450];
-      v102 = @"Waited for dispatch group and reached timeout. Source scheduling appears to have failed.";
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+      v100 = *MEMORY[0x277CCA450];
+      v101 = @"Waited for dispatch group and reached timeout. Source scheduling appears to have failed.";
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
       v33 = [v31 errorWithDomain:@"com.apple.ActivityAchievements" code:-1 userInfo:v32];
 
       v34 = v33;
@@ -668,22 +658,22 @@ void __52__ACHTemplateSourceScheduler__runAllTemplateSources__block_invoke(uint6
       }
 
       assertionClient2 = [(ACHTemplateSourceScheduler *)selfCopy assertionClient];
-      v69 = v56;
-      [assertionClient2 invalidateAssertionWithToken:v58 error:&v69];
-      v38 = v69;
+      v68 = v55;
+      [assertionClient2 invalidateAssertionWithToken:v57 error:&v68];
+      v38 = v68;
 
       v28 = 0;
       goto LABEL_41;
     }
 
     assertionClient3 = [(ACHTemplateSourceScheduler *)selfCopy assertionClient];
-    v68 = v56;
-    [assertionClient3 invalidateAssertionWithToken:v58 error:&v68];
-    v38 = v68;
+    v67 = v55;
+    [assertionClient3 invalidateAssertionWithToken:v57 error:&v67];
+    v38 = v67;
 
-    if ([*(v93 + 5) count])
+    if ([*(v92 + 5) count])
     {
-      firstObject = [*(v93 + 5) firstObject];
+      firstObject = [*(v92 + 5) firstObject];
       assertionClient2 = firstObject;
       if (firstObject)
       {
@@ -697,11 +687,11 @@ LABEL_40:
           v35 = assertionClient2;
 LABEL_41:
 
-          _Block_object_dispose(&v80, 8);
-          _Block_object_dispose(&v86, 8);
+          _Block_object_dispose(&v79, 8);
+          _Block_object_dispose(&v85, 8);
 
           _Block_object_dispose(buf, 8);
-          _Block_object_dispose(v98, 8);
+          _Block_object_dispose(v97, 8);
 
           goto LABEL_42;
         }
@@ -713,18 +703,18 @@ LABEL_41:
     else
     {
       templateStore = [(ACHTemplateSourceScheduler *)selfCopy templateStore];
-      v43 = v81[5];
-      v67 = 0;
-      [templateStore removeTemplates:v43 error:&v67];
-      v35 = v67;
+      v43 = v80[5];
+      v66 = 0;
+      [templateStore removeTemplates:v43 error:&v66];
+      v35 = v66;
 
       if (!v35)
       {
         templateStore2 = [(ACHTemplateSourceScheduler *)selfCopy templateStore];
-        v47 = v87[5];
-        v66 = 0;
-        [templateStore2 addTemplates:v47 error:&v66];
-        assertionClient2 = v66;
+        v47 = v86[5];
+        v65 = 0;
+        [templateStore2 addTemplates:v47 error:&v65];
+        assertionClient2 = v65;
 
         v28 = assertionClient2 == 0;
         if (assertionClient2)
@@ -746,16 +736,16 @@ LABEL_41:
         else
         {
           lastRunDateByTemplateSourceIdentifier = [(ACHTemplateSourceScheduler *)selfCopy lastRunDateByTemplateSourceIdentifier];
-          v54 = [lastRunDateByTemplateSourceIdentifier hk_dictionaryByAddingEntriesFromDictionary:v20];
-          [(ACHTemplateSourceScheduler *)selfCopy setLastRunDateByTemplateSourceIdentifier:v54];
+          v53 = [lastRunDateByTemplateSourceIdentifier hk_dictionaryByAddingEntriesFromDictionary:v20];
+          [(ACHTemplateSourceScheduler *)selfCopy setLastRunDateByTemplateSourceIdentifier:v53];
 
           v49 = ACHLogTemplates();
           if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             lastRunDateByTemplateSourceIdentifier2 = [(ACHTemplateSourceScheduler *)selfCopy lastRunDateByTemplateSourceIdentifier];
-            *v106 = 138543362;
-            v107 = lastRunDateByTemplateSourceIdentifier2;
-            _os_log_impl(&dword_221DDC000, v49, OS_LOG_TYPE_DEFAULT, "Updated last run dates for template sources to: %{public}@", v106, 0xCu);
+            *v105 = 138543362;
+            v106 = lastRunDateByTemplateSourceIdentifier2;
+            _os_log_impl(&dword_221DDC000, v49, OS_LOG_TYPE_DEFAULT, "Updated last run dates for template sources to: %{public}@", v105, 0xCu);
           }
         }
 
@@ -780,172 +770,168 @@ LABEL_41:
   v28 = 1;
 LABEL_42:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 void __87__ACHTemplateSourceScheduler__queue_runTemplateSources_requiringRunnableForDate_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = *(*(a1 + 48) + 8);
   os_unfair_lock_lock_with_options();
   if (v9)
   {
     [*(*(*(a1 + 56) + 8) + 40) addObject:v9];
   }
 
-  v44 = v9;
+  v42 = v9;
   if (v8)
   {
-    v45 = v7;
-    v11 = ACHLogTemplates();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v43 = v7;
+    v10 = ACHLogTemplates();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [*(a1 + 32) identifier];
+      v11 = [*(a1 + 32) identifier];
       *buf = 138543618;
-      v63 = v12;
-      v64 = 2048;
-      v65 = [v8 count];
-      _os_log_impl(&dword_221DDC000, v11, OS_LOG_TYPE_DEFAULT, "Source %{public}@ returned %lu templates, removing from template store:", buf, 0x16u);
+      v61 = v11;
+      v62 = 2048;
+      v63 = [v8 count];
+      _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "Source %{public}@ returned %lu templates, removing from template store:", buf, 0x16u);
     }
 
-    v57 = 0u;
-    v58 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v13 = v8;
-    v14 = [v13 countByEnumeratingWithState:&v55 objects:v61 count:16];
-    if (v14)
+    v53 = 0u;
+    v54 = 0u;
+    v12 = v8;
+    v13 = [v12 countByEnumeratingWithState:&v53 objects:v59 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v56;
+      v14 = v13;
+      v15 = *v54;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v56 != v16)
+          if (*v54 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v55 + 1) + 8 * i);
-          v19 = ACHLogTemplates();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v17 = *(*(&v53 + 1) + 8 * i);
+          v18 = ACHLogTemplates();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v18 uniqueName];
+            v19 = [v17 uniqueName];
             *buf = 134218242;
-            v63 = v18;
-            v64 = 2114;
-            v65 = v20;
-            _os_log_impl(&dword_221DDC000, v19, OS_LOG_TYPE_DEFAULT, "%p: %{public}@", buf, 0x16u);
+            v61 = v17;
+            v62 = 2114;
+            v63 = v19;
+            _os_log_impl(&dword_221DDC000, v18, OS_LOG_TYPE_DEFAULT, "%p: %{public}@", buf, 0x16u);
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v53 objects:v59 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
-    v21 = *(*(*(a1 + 64) + 8) + 40);
-    v22 = [v13 allObjects];
-    [v21 addObjectsFromArray:v22];
+    v20 = *(*(*(a1 + 64) + 8) + 40);
+    v21 = [v12 allObjects];
+    [v20 addObjectsFromArray:v21];
 
-    v7 = v45;
+    v7 = v43;
   }
 
-  v46 = v8;
-  v53 = 0u;
-  v54 = 0u;
+  v44 = v8;
   v51 = 0u;
   v52 = 0u;
-  v23 = v7;
-  v24 = [v23 countByEnumeratingWithState:&v51 objects:v60 count:16];
-  if (v24)
-  {
-    v25 = v24;
-    v26 = *v52;
-    do
-    {
-      for (j = 0; j != v25; ++j)
-      {
-        if (*v52 != v26)
-        {
-          objc_enumerationMutation(v23);
-        }
-
-        v28 = *(*(&v51 + 1) + 8 * j);
-        v29 = [*(a1 + 32) identifier];
-        [v28 setSourceName:v29];
-      }
-
-      v25 = [v23 countByEnumeratingWithState:&v51 objects:v60 count:16];
-    }
-
-    while (v25);
-  }
-
-  v30 = ACHLogTemplates();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-  {
-    v31 = [*(a1 + 32) identifier];
-    v32 = [v23 count];
-    *buf = 138543618;
-    v63 = v31;
-    v64 = 2048;
-    v65 = v32;
-    _os_log_impl(&dword_221DDC000, v30, OS_LOG_TYPE_DEFAULT, "Source %{public}@ returned %lu templates, writing to template store:", buf, 0x16u);
-  }
-
   v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v33 = v23;
-  v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
-  if (v34)
+  v22 = v7;
+  v23 = [v22 countByEnumeratingWithState:&v49 objects:v58 count:16];
+  if (v23)
   {
-    v35 = v34;
-    v36 = *v48;
+    v24 = v23;
+    v25 = *v50;
     do
     {
-      for (k = 0; k != v35; ++k)
+      for (j = 0; j != v24; ++j)
       {
-        if (*v48 != v36)
+        if (*v50 != v25)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v22);
         }
 
-        v38 = *(*(&v47 + 1) + 8 * k);
-        v39 = ACHLogTemplates();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v27 = *(*(&v49 + 1) + 8 * j);
+        v28 = [*(a1 + 32) identifier];
+        [v27 setSourceName:v28];
+      }
+
+      v24 = [v22 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    }
+
+    while (v24);
+  }
+
+  v29 = ACHLogTemplates();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  {
+    v30 = [*(a1 + 32) identifier];
+    v31 = [v22 count];
+    *buf = 138543618;
+    v61 = v30;
+    v62 = 2048;
+    v63 = v31;
+    _os_log_impl(&dword_221DDC000, v29, OS_LOG_TYPE_DEFAULT, "Source %{public}@ returned %lu templates, writing to template store:", buf, 0x16u);
+  }
+
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v32 = v22;
+  v33 = [v32 countByEnumeratingWithState:&v45 objects:v57 count:16];
+  if (v33)
+  {
+    v34 = v33;
+    v35 = *v46;
+    do
+    {
+      for (k = 0; k != v34; ++k)
+      {
+        if (*v46 != v35)
         {
-          v40 = [v38 uniqueName];
+          objc_enumerationMutation(v32);
+        }
+
+        v37 = *(*(&v45 + 1) + 8 * k);
+        v38 = ACHLogTemplates();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        {
+          v39 = [v37 uniqueName];
           *buf = 134218242;
-          v63 = v38;
-          v64 = 2114;
-          v65 = v40;
-          _os_log_impl(&dword_221DDC000, v39, OS_LOG_TYPE_DEFAULT, "%p: %{public}@", buf, 0x16u);
+          v61 = v37;
+          v62 = 2114;
+          v63 = v39;
+          _os_log_impl(&dword_221DDC000, v38, OS_LOG_TYPE_DEFAULT, "%p: %{public}@", buf, 0x16u);
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
 
-  v41 = *(*(*(a1 + 72) + 8) + 40);
-  v42 = [v33 allObjects];
-  [v41 addObjectsFromArray:v42];
+  v40 = *(*(*(a1 + 72) + 8) + 40);
+  v41 = [v32 allObjects];
+  [v40 addObjectsFromArray:v41];
 
   os_unfair_lock_unlock((*(*(a1 + 48) + 8) + 32));
   dispatch_group_leave(*(a1 + 40));
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)achievementStoreDidFinishInitialFetch:(id)fetch
@@ -1039,33 +1025,6 @@ void __57__ACHTemplateSourceScheduler__runSynchronouslyWithError___block_invoke(
   obj = *(v4 + 40);
   [v2 _queue_runTemplateSources:v3 requiringRunnableForDate:1 error:&obj];
   objc_storeStrong((v4 + 40), obj);
-}
-
-void __53__ACHTemplateSourceScheduler_registerTemplateSource___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__ACHTemplateSourceScheduler_deregisterTemplateSource___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

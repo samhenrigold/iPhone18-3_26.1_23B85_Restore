@@ -103,7 +103,7 @@ void __50__NEPathEventObserver_initWithQueue_eventHandler___block_invoke_3(uint6
 
 - (void)handleEvent:(void *)event forPID:(void *)d UUID:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dCopy = d;
   if (!self)
@@ -119,7 +119,7 @@ void __50__NEPathEventObserver_initWithQueue_eventHandler___block_invoke_3(uint6
       if (MEMORY[0x1BFAFC5E0](dCopy) == MEMORY[0x1E69E9F20])
       {
         bytes = xpc_uuid_get_bytes(dCopy);
-        v37 = 0;
+        v36 = 0;
         memset(out, 0, sizeof(out));
         if (proc_pidinfo(value, 17, 1uLL, out, 56) == 56)
         {
@@ -131,13 +131,13 @@ void __50__NEPathEventObserver_initWithQueue_eventHandler___block_invoke_3(uint6
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               v16 = off_1E7F098A8[a2 - 1];
-              v29 = 138412802;
-              v30 = v16;
-              v31 = 1024;
-              v32 = value;
-              v33 = 2080;
-              v34 = buf;
-              _os_log_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_INFO, "NEPathEvent %@ PID %u does not match UUID %s, is delegating traffic", &v29, 0x1Cu);
+              v28 = 138412802;
+              v29 = v16;
+              v30 = 1024;
+              v31 = value;
+              v32 = 2080;
+              v33 = buf;
+              _os_log_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_INFO, "NEPathEvent %@ PID %u does not match UUID %s, is delegating traffic", &v28, 0x1Cu);
             }
 
             goto LABEL_5;
@@ -190,9 +190,9 @@ LABEL_5:
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v28 = off_1E7F098A8[a2 - 1];
+      v27 = off_1E7F098A8[a2 - 1];
       *buf = 138412546;
-      *&buf[4] = v28;
+      *&buf[4] = v27;
       *&buf[12] = 2080;
       *&buf[14] = out;
       _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "NEPathEvent %@ failed to find bundle ID for UUID %s", buf, 0x16u);
@@ -224,8 +224,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 @end

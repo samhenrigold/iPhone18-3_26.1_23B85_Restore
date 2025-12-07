@@ -2,12 +2,14 @@
 - (void)mark:(id)mark;
 - (void)mark:(id)mark date:(id)date;
 - (void)mark:(id)mark time:(int64_t)time;
+- (void)setConnectionReused:(BOOL)reused;
 - (void)setDnsServersIPAddresses:(id)addresses;
 - (void)setEdgeNodeCacheStatus:(id)status;
 - (void)setRedirectCount:(unint64_t)count;
 - (void)setRequestUrl:(id)url;
 - (void)setResolvedIPAddress:(id)address;
 - (void)setStatusCode:(unint64_t)code;
+- (void)setXpSamplingForced:(BOOL)forced;
 - (void)setXpSamplingPercentageUsers:(double)users;
 - (void)setXpSessionDuration:(unint64_t)duration;
 @end
@@ -28,6 +30,13 @@
   urlCopy = url;
   measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
   [measurementSpecificData setObject:urlCopy forKeyedSubscript:@"requestUrl"];
+}
+
+- (void)setConnectionReused:(BOOL)reused
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:reused];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"connectionReused"];
 }
 
 - (void)setDnsServersIPAddresses:(id)addresses
@@ -70,6 +79,13 @@
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:duration];
   measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
   [measurementSpecificData setObject:v5 forKeyedSubscript:@"xpSessionDuration"];
+}
+
+- (void)setXpSamplingForced:(BOOL)forced
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:forced];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"xpSamplingForced"];
 }
 
 - (void)setXpSamplingPercentageUsers:(double)users

@@ -99,18 +99,18 @@
 
 - (void)postComponentStatus:(unint64_t)status
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = handleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     componentName = [(MRBaseComponentHandler *)self componentName];
     currentConnection = [MEMORY[0x277CCAE80] currentConnection];
     *buf = 138412802;
-    v22 = componentName;
-    v23 = 2048;
+    v21 = componentName;
+    v22 = 2048;
     statusCopy = status;
-    v25 = 2112;
-    v26 = currentConnection;
+    v24 = 2112;
+    v25 = currentConnection;
     _os_log_impl(&dword_247875000, v5, OS_LOG_TYPE_DEFAULT, "postComponentStatus name:%@ status:%llu connection:%@", buf, 0x20u);
   }
 
@@ -125,7 +125,7 @@
     {
       componentName2 = [(MRBaseComponentHandler *)self componentName];
       *buf = 138412290;
-      v22 = componentName2;
+      v21 = componentName2;
       _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "[%@]Processing componentStatus", buf, 0xCu);
     }
 
@@ -163,7 +163,7 @@ LABEL_14:
   {
     componentName3 = [(MRBaseComponentHandler *)self componentName];
     *buf = 138412290;
-    v22 = componentName3;
+    v21 = componentName3;
     _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "[%@]Ignoring componentStatus for pending repair case", buf, 0xCu);
   }
 
@@ -172,7 +172,6 @@ LABEL_14:
   [componentEventQueue removeObjectForKey:componentStatusKey2];
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

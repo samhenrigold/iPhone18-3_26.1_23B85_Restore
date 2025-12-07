@@ -75,144 +75,7 @@
       identifier = v5->_identifier;
       v7 = self->_identifier;
       v8 = identifier;
-      if (v7 | v8)
-      {
-        v9 = v8;
-        v10 = [v7 isEqual:v8];
-
-        if (!v10)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      dateOfUpdate = v5->_dateOfUpdate;
-      v12 = self->_dateOfUpdate;
-      v13 = dateOfUpdate;
-      if (v12 | v13)
-      {
-        v14 = v13;
-        v15 = [v12 isEqual:v13];
-
-        if (!v15)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      if (self->_origin != v5->_origin)
-      {
-        goto LABEL_28;
-      }
-
-      batteryPercentage = v5->_batteryPercentage;
-      v17 = self->_batteryPercentage;
-      v18 = batteryPercentage;
-      if (v17 | v18)
-      {
-        v19 = v18;
-        v20 = [v17 isEqual:v18];
-
-        if (!v20)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      currentEVRange = v5->_currentEVRange;
-      v22 = self->_currentEVRange;
-      v23 = currentEVRange;
-      if (v22 | v23)
-      {
-        v24 = v23;
-        v25 = [v22 isEqual:v23];
-
-        if (!v25)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      maxEVRange = v5->_maxEVRange;
-      v27 = self->_maxEVRange;
-      v28 = maxEVRange;
-      if (v27 | v28)
-      {
-        v29 = v28;
-        v30 = [v27 isEqual:v28];
-
-        if (!v30)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      minBatteryCapacity = v5->_minBatteryCapacity;
-      v32 = self->_minBatteryCapacity;
-      v33 = minBatteryCapacity;
-      if (v32 | v33)
-      {
-        v34 = v33;
-        v35 = [v32 isEqual:v33];
-
-        if (!v35)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      currentBatteryCapacity = v5->_currentBatteryCapacity;
-      v37 = self->_currentBatteryCapacity;
-      v38 = currentBatteryCapacity;
-      if (v37 | v38)
-      {
-        v39 = v38;
-        v40 = [v37 isEqual:v38];
-
-        if (!v40)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      maxBatteryCapacity = v5->_maxBatteryCapacity;
-      v42 = self->_maxBatteryCapacity;
-      v43 = maxBatteryCapacity;
-      if (v42 | v43)
-      {
-        v44 = v43;
-        v45 = [v42 isEqual:v43];
-
-        if (!v45)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      consumptionArguments = v5->_consumptionArguments;
-      v47 = self->_consumptionArguments;
-      v48 = consumptionArguments;
-      if (v47 | v48)
-      {
-        v49 = v48;
-        v50 = [v47 isEqual:v48];
-
-        if (!v50)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      if (((chargingArguments = v5->_chargingArguments, v52 = self->_chargingArguments, v53 = chargingArguments, !(v52 | v53)) || (v54 = v53, v55 = [v52 isEqual:v53], v54, v52, v55)) && self->_isCharging == v5->_isCharging)
-      {
-        v56 = self->_activeConnector == v5->_activeConnector;
-      }
-
-      else
-      {
-LABEL_28:
-        v56 = 0;
-      }
+      v56 = (!(v7 | v8) || (v9 = v8, v10 = [v7 isEqual:v8], v9, v7, v10)) && ((dateOfUpdate = v5->_dateOfUpdate, v12 = self->_dateOfUpdate, v13 = dateOfUpdate, !(v12 | v13)) || (v14 = v13, v15 = objc_msgSend(v12, "isEqual:", v13), v14, v12, v15)) && self->_origin == v5->_origin && ((batteryPercentage = v5->_batteryPercentage, v17 = self->_batteryPercentage, v18 = batteryPercentage, !(v17 | v18)) || (v19 = v18, v20 = objc_msgSend(v17, "isEqual:", v18), v19, v17, v20)) && ((currentEVRange = v5->_currentEVRange, v22 = self->_currentEVRange, v23 = currentEVRange, !(v22 | v23)) || (v24 = v23, v25 = objc_msgSend(v22, "isEqual:", v23), v24, v22, v25)) && ((maxEVRange = v5->_maxEVRange, v27 = self->_maxEVRange, v28 = maxEVRange, !(v27 | v28)) || (v29 = v28, v30 = objc_msgSend(v27, "isEqual:", v28), v29, v27, v30)) && ((minBatteryCapacity = v5->_minBatteryCapacity, v32 = self->_minBatteryCapacity, v33 = minBatteryCapacity, !(v32 | v33)) || (v34 = v33, v35 = objc_msgSend(v32, "isEqual:", v33), v34, v32, v35)) && ((currentBatteryCapacity = v5->_currentBatteryCapacity, v37 = self->_currentBatteryCapacity, v38 = currentBatteryCapacity, !(v37 | v38)) || (v39 = v38, v40 = objc_msgSend(v37, "isEqual:", v38), v39, v37, v40)) && ((maxBatteryCapacity = v5->_maxBatteryCapacity, v42 = self->_maxBatteryCapacity, v43 = maxBatteryCapacity, !(v42 | v43)) || (v44 = v43, v45 = objc_msgSend(v42, "isEqual:", v43), v44, v42, v45)) && ((consumptionArguments = v5->_consumptionArguments, v47 = self->_consumptionArguments, v48 = consumptionArguments, !(v47 | v48)) || (v49 = v48, v50 = objc_msgSend(v47, "isEqual:", v48), v49, v47, v50)) && ((chargingArguments = v5->_chargingArguments, v52 = self->_chargingArguments, v53 = chargingArguments, !(v52 | v53)) || (v54 = v53, v55 = objc_msgSend(v52, "isEqual:", v53), v54, v52, v55)) && self->_isCharging == v5->_isCharging && self->_activeConnector == v5->_activeConnector;
     }
 
     else
@@ -227,9 +90,8 @@ LABEL_28:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [VGVehicleState allocWithZone:zone];
-  v5 = *&self->_minBatteryCapacity;
-  LOBYTE(v7) = self->_isCharging;
-  return [(VGVehicleState *)v4 initWithIdentifier:self->_identifier dateOfUpdate:self->_dateOfUpdate origin:self->_origin batteryPercentage:self->_batteryPercentage currentEVRange:self->_currentEVRange maxEVRange:self->_maxEVRange minBatteryCapacity:self->_minBatteryCapacity currentBatteryCapacity:self->_currentBatteryCapacity maxBatteryCapacity:self->_maxBatteryCapacity consumptionArguments:self->_consumptionArguments chargingArguments:self->_chargingArguments isCharging:v7 activeConnector:self->_activeConnector];
+  LOBYTE(v6) = self->_isCharging;
+  return [(VGVehicleState *)v4 initWithIdentifier:self->_identifier dateOfUpdate:self->_dateOfUpdate origin:self->_origin batteryPercentage:self->_batteryPercentage currentEVRange:self->_currentEVRange maxEVRange:self->_maxEVRange minBatteryCapacity:self->_minBatteryCapacity currentBatteryCapacity:self->_currentBatteryCapacity maxBatteryCapacity:self->_maxBatteryCapacity consumptionArguments:self->_consumptionArguments chargingArguments:self->_chargingArguments isCharging:v6 activeConnector:self->_activeConnector];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -316,7 +178,7 @@ LABEL_28:
 
 - (id)_storage
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(VGVehicleStateStorage);
   v4 = [(NSString *)self->_identifier copy];
   [(VGVehicleStateStorage *)v3 setIdentifier:v4];
@@ -329,13 +191,13 @@ LABEL_28:
     v6 = VGGetAssertLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v37 = 136315650;
-      v38 = "VGVehicleStateStorage_Origin VGVehicleStateStorage_OriginFromVGVehicleStateOrigin(VGVehicleStateOrigin)";
-      v39 = 2080;
-      v40 = "VGVehicleState.m";
-      v41 = 1024;
-      v42 = 201;
-      _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v37, 0x1Cu);
+      v36 = 136315650;
+      v37 = "VGVehicleStateStorage_Origin VGVehicleStateStorage_OriginFromVGVehicleStateOrigin(VGVehicleStateOrigin)";
+      v38 = 2080;
+      v39 = "VGVehicleState.m";
+      v40 = 1024;
+      v41 = 201;
+      _os_log_impl(&dword_270EC1000, v6, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v36, 0x1Cu);
     }
 
     if (_vg_isInternalInstall())
@@ -344,18 +206,18 @@ LABEL_28:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-        v37 = 138412290;
-        v38 = callStackSymbols;
-        _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "%@", &v37, 0xCu);
+        v36 = 138412290;
+        v37 = callStackSymbols;
+        _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "%@", &v36, 0xCu);
       }
     }
 
     v9 = VGGetPersistingLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = @"Unknown";
-      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_ERROR, "Failed to persist origin from vgOrigin: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = @"Unknown";
+      _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_ERROR, "Failed to persist origin from vgOrigin: %@", &v36, 0xCu);
     }
 
     origin = 0;
@@ -488,13 +350,13 @@ LABEL_45:
     v30 = VGGetAssertLog();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v37 = 136315650;
-      v38 = "VGVehicleStateStorage_ConnectorType VGVehicleStateStorage_ConnectorTypeFromVGChargingConnectorTypeOptions(VGChargingConnectorTypeOptions)";
-      v39 = 2080;
-      v40 = "VGVehicleState.m";
-      v41 = 1024;
-      v42 = 168;
-      _os_log_impl(&dword_270EC1000, v30, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v37, 0x1Cu);
+      v36 = 136315650;
+      v37 = "VGVehicleStateStorage_ConnectorType VGVehicleStateStorage_ConnectorTypeFromVGChargingConnectorTypeOptions(VGChargingConnectorTypeOptions)";
+      v38 = 2080;
+      v39 = "VGVehicleState.m";
+      v40 = 1024;
+      v41 = 168;
+      _os_log_impl(&dword_270EC1000, v30, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v36, 0x1Cu);
     }
 
     if (_vg_isInternalInstall())
@@ -503,9 +365,9 @@ LABEL_45:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         callStackSymbols2 = [MEMORY[0x277CCACC8] callStackSymbols];
-        v37 = 138412290;
-        v38 = callStackSymbols2;
-        _os_log_impl(&dword_270EC1000, v31, OS_LOG_TYPE_ERROR, "%@", &v37, 0xCu);
+        v36 = 138412290;
+        v37 = callStackSymbols2;
+        _os_log_impl(&dword_270EC1000, v31, OS_LOG_TYPE_ERROR, "%@", &v36, 0xCu);
       }
     }
 
@@ -513,23 +375,22 @@ LABEL_45:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       v34 = NSStringFromVGChargingConnectorTypeOptions(activeConnector);
-      v37 = 138412290;
-      v38 = v34;
-      _os_log_impl(&dword_270EC1000, v33, OS_LOG_TYPE_ERROR, "Failed to persist a single connector type from vgConnectorType: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = v34;
+      _os_log_impl(&dword_270EC1000, v33, OS_LOG_TYPE_ERROR, "Failed to persist a single connector type from vgConnectorType: %@", &v36, 0xCu);
     }
   }
 
   v29 = 0;
 LABEL_55:
   [(VGVehicleStateStorage *)v3 setActiveConnector:v29];
-  v35 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (BOOL)isSignificantlyDifferentFromVehicleState:(id)state
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   GEOConfigGetDouble();
   v6 = v5;
@@ -564,12 +425,12 @@ LABEL_7:
     }
 
     [(NSMeasurement *)self->_maxBatteryCapacity doubleValue];
-    v31 = v30;
+    v30 = v29;
     maxBatteryCapacity = [stateCopy maxBatteryCapacity];
     [maxBatteryCapacity doubleValue];
-    v34 = vabdd_f64(v31, v33);
+    v33 = vabdd_f64(v30, v32);
 
-    if (v34 > v15)
+    if (v33 > v15)
     {
 LABEL_8:
       v11 = VGGetPersistingLog();
@@ -578,15 +439,15 @@ LABEL_8:
         currentBatteryCapacity = self->_currentBatteryCapacity;
         maxBatteryCapacity = self->_maxBatteryCapacity;
         minBatteryCapacity = self->_minBatteryCapacity;
-        v59 = 138413058;
-        v60 = minBatteryCapacity;
-        v61 = 2112;
-        v62 = maxBatteryCapacity;
-        v63 = 2112;
-        v64 = currentBatteryCapacity;
-        v65 = 2112;
-        v66 = stateCopy;
-        _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. Battery state has changed. _min: %@, _max: %@, _current: %@. new: %@", &v59, 0x2Au);
+        v58 = 138413058;
+        v59 = minBatteryCapacity;
+        v60 = 2112;
+        v61 = maxBatteryCapacity;
+        v62 = 2112;
+        v63 = currentBatteryCapacity;
+        v64 = 2112;
+        v65 = stateCopy;
+        _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. Battery state has changed. _min: %@, _max: %@, _current: %@. new: %@", &v58, 0x2Au);
       }
 
       goto LABEL_10;
@@ -594,9 +455,9 @@ LABEL_8:
 
     consumptionArguments = self->_consumptionArguments;
     consumptionArguments = [stateCopy consumptionArguments];
+    v36 = consumptionArguments;
     v37 = consumptionArguments;
-    v38 = consumptionArguments;
-    if (v37 | v38 && (v39 = [v37 isEqual:v38], v38, v37, (v39 & 1) == 0))
+    if (v36 | v37 && (v38 = [v36 isEqual:v37], v37, v36, (v38 & 1) == 0))
     {
     }
 
@@ -604,77 +465,77 @@ LABEL_8:
     {
       chargingArguments = self->_chargingArguments;
       chargingArguments = [stateCopy chargingArguments];
+      v41 = chargingArguments;
       v42 = chargingArguments;
-      v43 = chargingArguments;
-      if (!(v42 | v43))
+      if (!(v41 | v42))
       {
 
         goto LABEL_36;
       }
 
-      v44 = v43;
-      v45 = [v42 isEqual:v43];
+      v43 = v42;
+      v44 = [v41 isEqual:v42];
 
-      if (v45)
+      if (v44)
       {
         goto LABEL_36;
       }
     }
 
-    v46 = VGDictionaryFromVGVehicleArguments(self->_chargingArguments);
+    v45 = VGDictionaryFromVGVehicleArguments(self->_chargingArguments);
     chargingArguments2 = [stateCopy chargingArguments];
-    v48 = VGDictionaryFromVGVehicleArguments(chargingArguments2);
-    if (v46 | v48)
+    v47 = VGDictionaryFromVGVehicleArguments(chargingArguments2);
+    if (v45 | v47)
     {
-      v49 = [v46 isEqual:v48] ^ 1;
+      v48 = [v45 isEqual:v47] ^ 1;
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
-    v50 = VGDictionaryFromVGVehicleArguments(self->_consumptionArguments);
+    v49 = VGDictionaryFromVGVehicleArguments(self->_consumptionArguments);
     consumptionArguments2 = [stateCopy consumptionArguments];
-    v52 = VGDictionaryFromVGVehicleArguments(consumptionArguments2);
-    if (v50 | v52)
+    v51 = VGDictionaryFromVGVehicleArguments(consumptionArguments2);
+    if (v49 | v51)
     {
-      v53 = [v50 isEqual:v52] ^ 1;
+      v52 = [v49 isEqual:v51] ^ 1;
     }
 
     else
     {
-      v53 = 0;
+      v52 = 0;
     }
 
-    if ((v53 | v49))
+    if ((v52 | v48))
     {
-      v54 = VGGetPersistingLog();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      v53 = VGGetPersistingLog();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
       {
-        v55 = @"NO";
-        if (v49)
-        {
-          v56 = @"YES";
-        }
-
-        else
-        {
-          v56 = @"NO";
-        }
-
-        if (v53)
+        v54 = @"NO";
+        if (v48)
         {
           v55 = @"YES";
         }
 
-        v59 = 138412546;
-        v60 = v56;
-        v61 = 2112;
-        v62 = v55;
+        else
+        {
+          v55 = @"NO";
+        }
+
+        if (v52)
+        {
+          v54 = @"YES";
+        }
+
+        v58 = 138412546;
+        v59 = v55;
+        v60 = 2112;
+        v61 = v54;
+        v56 = v54;
         v57 = v55;
-        v58 = v56;
-        _os_log_impl(&dword_270EC1000, v54, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. chargingArgumentsAreDifferent: %@, consumptionArgumentsAreDifferent: %@", &v59, 0x16u);
+        _os_log_impl(&dword_270EC1000, v53, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. chargingArgumentsAreDifferent: %@, consumptionArgumentsAreDifferent: %@", &v58, 0x16u);
       }
 
       goto LABEL_11;
@@ -690,11 +551,11 @@ LABEL_36:
   {
     v12 = self->_dateOfUpdate;
     dateOfUpdate2 = [stateCopy dateOfUpdate];
-    v59 = 138412546;
-    v60 = v12;
-    v61 = 2112;
-    v62 = dateOfUpdate2;
-    _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. Date of last update: %@, date of new update: %@", &v59, 0x16u);
+    v58 = 138412546;
+    v59 = v12;
+    v60 = 2112;
+    v61 = dateOfUpdate2;
+    _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_INFO, "isSignificantlyDifferentFromVehicleState: -> YES. Date of last update: %@, date of new update: %@", &v58, 0x16u);
   }
 
 LABEL_10:
@@ -703,7 +564,6 @@ LABEL_11:
   v27 = 1;
 LABEL_12:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -753,16 +613,16 @@ LABEL_12:
 
 + (id)_vehicleStateFromStorage:(id)storage
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   if (storageCopy)
   {
-    v61 = [VGVehicleState alloc];
+    v60 = [VGVehicleState alloc];
     identifier = [storageCopy identifier];
     v5 = [identifier copy];
     v6 = MEMORY[0x277CBEAA8];
     [storageCopy dateOfUpdate];
-    v68 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
+    v67 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
     origin = [storageCopy origin];
     v8 = origin;
     if (origin >= 3)
@@ -771,11 +631,11 @@ LABEL_12:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v70 = "VGVehicleStateOrigin VGVehicleStateOriginFromVGVehicleStateStorage_Origin(VGVehicleStateStorage_Origin)";
-        v71 = 2080;
-        v72 = "VGVehicleState.m";
-        v73 = 1024;
-        v74 = 184;
+        v69 = "VGVehicleStateOrigin VGVehicleStateOriginFromVGVehicleStateStorage_Origin(VGVehicleStateStorage_Origin)";
+        v70 = 2080;
+        v71 = "VGVehicleState.m";
+        v72 = 1024;
+        v73 = 184;
         _os_log_impl(&dword_270EC1000, v10, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
       }
 
@@ -786,7 +646,7 @@ LABEL_12:
         {
           callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
           *buf = 138412290;
-          v70 = callStackSymbols;
+          v69 = callStackSymbols;
           _os_log_impl(&dword_270EC1000, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
       }
@@ -796,16 +656,16 @@ LABEL_12:
       {
         v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v8];
         *buf = 138412290;
-        v70 = v14;
+        v69 = v14;
         _os_log_impl(&dword_270EC1000, v13, OS_LOG_TYPE_ERROR, "Failed to load origin from protoOrigin: %@", buf, 0xCu);
       }
 
-      v58 = 0;
+      v57 = 0;
     }
 
     else
     {
-      v58 = origin;
+      v57 = origin;
     }
 
     hasBatteryPercentage = [storageCopy hasBatteryPercentage];
@@ -813,12 +673,12 @@ LABEL_12:
     {
       v15 = MEMORY[0x277CCABB0];
       [storageCopy batteryPercentage];
-      v67 = [v15 numberWithDouble:?];
+      v66 = [v15 numberWithDouble:?];
     }
 
     else
     {
-      v67 = 0;
+      v66 = 0;
     }
 
     hasCurrentEVRange = [storageCopy hasCurrentEVRange];
@@ -828,12 +688,12 @@ LABEL_12:
       [storageCopy currentEVRange];
       v18 = v17;
       kilometers = [MEMORY[0x277CCAE20] kilometers];
-      v66 = [v16 initWithDoubleValue:v18 unit:?];
+      v65 = [v16 initWithDoubleValue:v18 unit:?];
     }
 
     else
     {
-      v66 = 0;
+      v65 = 0;
     }
 
     hasMaxEVRange = [storageCopy hasMaxEVRange];
@@ -843,12 +703,12 @@ LABEL_12:
       [storageCopy maxEVRange];
       v21 = v20;
       kilometers2 = [MEMORY[0x277CCAE20] kilometers];
-      v65 = [v19 initWithDoubleValue:v21 unit:?];
+      v64 = [v19 initWithDoubleValue:v21 unit:?];
     }
 
     else
     {
-      v65 = 0;
+      v64 = 0;
     }
 
     hasMinBatteryCapacity = [storageCopy hasMinBatteryCapacity];
@@ -858,12 +718,12 @@ LABEL_12:
       [storageCopy minBatteryCapacity];
       v24 = v23;
       kilowattHours = [MEMORY[0x277CCADF8] kilowattHours];
-      v64 = [v22 initWithDoubleValue:v24 unit:?];
+      v63 = [v22 initWithDoubleValue:v24 unit:?];
     }
 
     else
     {
-      v64 = 0;
+      v63 = 0;
     }
 
     hasCurrentBatteryCapacity = [storageCopy hasCurrentBatteryCapacity];
@@ -873,16 +733,16 @@ LABEL_12:
       [storageCopy currentBatteryCapacity];
       v27 = v26;
       kilowattHours2 = [MEMORY[0x277CCADF8] kilowattHours];
-      v63 = [v25 initWithDoubleValue:v27 unit:?];
+      v62 = [v25 initWithDoubleValue:v27 unit:?];
     }
 
     else
     {
-      v63 = 0;
+      v62 = 0;
     }
 
     hasMaxBatteryCapacity = [storageCopy hasMaxBatteryCapacity];
-    v62 = v5;
+    v61 = v5;
     if (hasMaxBatteryCapacity)
     {
       v29 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -906,16 +766,16 @@ LABEL_12:
     v39 = activeConnector;
     if (activeConnector >= 0xA)
     {
-      v54 = identifier;
+      v53 = identifier;
       v41 = VGGetAssertLog();
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v70 = "VGChargingConnectorTypeOptions VGChargingConnectorTypeOptionsFromVGVehicleStateStorage_ConnectorType(VGVehicleStateStorage_ConnectorType)";
-        v71 = 2080;
-        v72 = "VGVehicleState.m";
-        v73 = 1024;
-        v74 = 138;
+        v69 = "VGChargingConnectorTypeOptions VGChargingConnectorTypeOptionsFromVGVehicleStateStorage_ConnectorType(VGVehicleStateStorage_ConnectorType)";
+        v70 = 2080;
+        v71 = "VGVehicleState.m";
+        v72 = 1024;
+        v73 = 138;
         _os_log_impl(&dword_270EC1000, v41, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", buf, 0x1Cu);
       }
 
@@ -926,7 +786,7 @@ LABEL_12:
         {
           callStackSymbols2 = [MEMORY[0x277CCACC8] callStackSymbols];
           *buf = 138412290;
-          v70 = callStackSymbols2;
+          v69 = callStackSymbols2;
           _os_log_impl(&dword_270EC1000, v42, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
       }
@@ -936,12 +796,12 @@ LABEL_12:
       {
         v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v39];
         *buf = 138412290;
-        v70 = v44;
+        v69 = v44;
         _os_log_impl(&dword_270EC1000, v43, OS_LOG_TYPE_ERROR, "Failed to load a single connector type from protoConnectorType: %@", buf, 0xCu);
       }
 
       v40 = 0;
-      identifier = v54;
+      identifier = v53;
     }
 
     else
@@ -949,8 +809,8 @@ LABEL_12:
       v40 = qword_270EF24B8[activeConnector];
     }
 
-    LOBYTE(v47) = isCharging;
-    v9 = [(VGVehicleState *)v61 initWithIdentifier:v62 dateOfUpdate:v68 origin:v58 batteryPercentage:v67 currentEVRange:v66 maxEVRange:v65 minBatteryCapacity:v64 currentBatteryCapacity:v63 maxBatteryCapacity:v32 consumptionArguments:v34 chargingArguments:v36 isCharging:v47 activeConnector:v40];
+    LOBYTE(v46) = isCharging;
+    v9 = [(VGVehicleState *)v60 initWithIdentifier:v61 dateOfUpdate:v67 origin:v57 batteryPercentage:v66 currentEVRange:v65 maxEVRange:v64 minBatteryCapacity:v63 currentBatteryCapacity:v62 maxBatteryCapacity:v32 consumptionArguments:v34 chargingArguments:v36 isCharging:v46 activeConnector:v40];
 
     if (hasMaxBatteryCapacity)
     {
@@ -981,8 +841,6 @@ LABEL_12:
   {
     v9 = 0;
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

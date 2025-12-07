@@ -11,9 +11,9 @@
     +[_CDLogging(CDUserContext) mdcsChannel];
   }
 
-  v1 = mdcsChannel_mdcsChannel;
+  v2 = mdcsChannel_mdcsChannel;
 
-  return v1;
+  return v2;
 }
 
 @end

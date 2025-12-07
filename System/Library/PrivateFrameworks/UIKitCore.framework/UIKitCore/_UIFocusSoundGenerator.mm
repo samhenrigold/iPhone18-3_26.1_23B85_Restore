@@ -49,7 +49,7 @@
   }
 
   v8 = v7;
-  if (([v8 isEqualToString:0x1EFB4F1D0] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v8) & 1) == 0)
   {
     v9 = contextCopy;
     [v9 _focusVelocity];
@@ -88,7 +88,7 @@
       v22 = 0.0;
     }
 
-    if ([v8 isEqualToString:0x1EFB4F1F0])
+    if (objc_msgSend_isEqualToString_(v8))
     {
       nextFocusedItem2 = [v9 nextFocusedItem];
       v28 = _UIFocusedSoundForItem(nextFocusedItem2);

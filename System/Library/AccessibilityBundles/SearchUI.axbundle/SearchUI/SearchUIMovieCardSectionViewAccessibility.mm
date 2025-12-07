@@ -22,126 +22,123 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v31 = *MEMORY[0x29EDCA608];
-  v29.receiver = self;
-  v29.super_class = SearchUIMovieCardSectionViewAccessibility;
-  [(SearchUIMovieCardSectionViewAccessibility *)&v29 _accessibilityLoadAccessibilityInformation];
-  v23 = objc_alloc_init(MEMORY[0x29EDBA078]);
-  [v23 setNumberStyle:3];
-  v28 = 0;
+  v29 = *MEMORY[0x29EDCA608];
+  v27.receiver = self;
+  v27.super_class = SearchUIMovieCardSectionViewAccessibility;
+  [(SearchUIMovieCardSectionViewAccessibility *)&v27 _accessibilityLoadAccessibilityInformation];
+  v21 = objc_alloc_init(MEMORY[0x29EDBA078]);
+  [v21 setNumberStyle:3];
+  v26 = 0;
   objc_opt_class();
   v2 = __UIAccessibilityCastAsClass();
-  v22 = v2;
+  v20 = v2;
   subviews = [v2 subviews];
   firstObject = [subviews firstObject];
 
-  v26 = 0u;
-  v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v21 = firstObject;
+  v22 = 0u;
+  v23 = 0u;
+  v19 = firstObject;
   subviews2 = [firstObject subviews];
-  v6 = [subviews2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [subviews2 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(subviews2);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v28 = 0;
+        v26 = 0;
         objc_opt_class();
-        v11 = __UIAccessibilityCastAsClass();
-        if (v28 == 1)
+        v10 = __UIAccessibilityCastAsClass();
+        if (v26 == 1)
         {
           abort();
         }
 
-        v12 = v11;
-        if (v11)
+        v11 = v10;
+        if (v10)
         {
-          text = [v11 text];
-          v14 = [v23 numberFromString:text];
-          v15 = v14;
-          if (v14)
+          text = [v10 text];
+          v13 = [v21 numberFromString:text];
+          v14 = v13;
+          if (v13)
           {
-            [v14 floatValue];
-            if (v16 >= 0.6)
+            [v13 floatValue];
+            if (v15 >= 0.6)
             {
-              v17 = @"movie.rotten.tomatoes.fresh";
+              v16 = @"movie.rotten.tomatoes.fresh";
             }
 
             else
             {
-              v17 = @"movie.rotten.tomatoes.rotten";
+              v16 = @"movie.rotten.tomatoes.rotten";
             }
 
-            v18 = accessibilityLocalizedString(v17);
-            v19 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@, %@", text, v18];
-            [v12 setAccessibilityLabel:v19];
+            v17 = accessibilityLocalizedString(v16);
+            v18 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@, %@", text, v17];
+            [v11 setAccessibilityLabel:v18];
           }
         }
       }
 
-      v7 = [subviews2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [subviews2 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 - (id)accessibilityLabel
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v3 = [(SearchUIMovieCardSectionViewAccessibility *)self _accessibilityFindSubviewDescendant:&__block_literal_global_11];
-  v37.receiver = self;
-  v37.super_class = SearchUIMovieCardSectionViewAccessibility;
-  accessibilityLabel = [(SearchUIMovieCardSectionViewAccessibility *)&v37 accessibilityLabel];
+  v36.receiver = self;
+  v36.super_class = SearchUIMovieCardSectionViewAccessibility;
+  accessibilityLabel = [(SearchUIMovieCardSectionViewAccessibility *)&v36 accessibilityLabel];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v23 = v3;
+  v22 = v3;
   obj = [v3 safeValueForKey:@"contents"];
-  v26 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v25)
   {
-    v25 = *v34;
+    v24 = *v33;
     do
     {
       v5 = 0;
       v6 = accessibilityLabel;
       do
       {
-        v28 = v6;
-        if (*v34 != v25)
+        v27 = v6;
+        if (*v33 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v33 + 1) + 8 * v5);
-        v8 = [v7 safeValueForKey:{@"title", v18, v20, v22}];
-        v27 = [v8 safeStringForKey:@"text"];
+        v7 = *(*(&v32 + 1) + 8 * v5);
+        v8 = [v7 safeValueForKey:{@"title", v17, v19, v21}];
+        v26 = [v8 safeStringForKey:@"text"];
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v9 = [v7 safeValueForKey:@"details"];
-        v10 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v30;
+          v12 = *v29;
           v13 = &stru_2A22CFF00;
           do
           {
@@ -149,13 +146,13 @@
             v15 = v13;
             do
             {
-              if (*v30 != v12)
+              if (*v29 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v19 = [*(*(&v29 + 1) + 8 * v14) safeStringForKey:{@"text", v19, v21}];
-              v21 = @"__AXStringForVariablesSentinel";
+              v18 = [*(*(&v28 + 1) + 8 * v14) safeStringForKey:{@"text", v18, v20}];
+              v20 = @"__AXStringForVariablesSentinel";
               v13 = __UIAXStringForVariables();
 
               ++v14;
@@ -163,7 +160,7 @@
             }
 
             while (v11 != v14);
-            v11 = [v9 countByEnumeratingWithState:&v29 objects:v38 count:{16, v19, @"__AXStringForVariablesSentinel"}];
+            v11 = [v9 countByEnumeratingWithState:&v28 objects:v37 count:{16, v18, @"__AXStringForVariablesSentinel"}];
           }
 
           while (v11);
@@ -174,23 +171,21 @@
           v13 = &stru_2A22CFF00;
         }
 
-        v20 = v13;
-        v22 = @"__AXStringForVariablesSentinel";
-        v18 = v27;
+        v19 = v13;
+        v21 = @"__AXStringForVariablesSentinel";
+        v17 = v26;
         accessibilityLabel = __UIAXStringForVariables();
 
         ++v5;
         v6 = accessibilityLabel;
       }
 
-      while (v5 != v26);
-      v26 = [obj countByEnumeratingWithState:&v33 objects:v39 count:{16, v27, v13, @"__AXStringForVariablesSentinel"}];
+      while (v5 != v25);
+      v25 = [obj countByEnumeratingWithState:&v32 objects:v38 count:{16, v26, v13, @"__AXStringForVariablesSentinel"}];
     }
 
-    while (v26);
+    while (v25);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

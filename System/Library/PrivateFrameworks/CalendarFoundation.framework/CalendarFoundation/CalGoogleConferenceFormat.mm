@@ -8,7 +8,7 @@
 
 - (id)deserializeConferences:(id)conferences
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   conferencesCopy = conferences;
   array = [MEMORY[0x1E695DF70] array];
   if ([conferencesCopy length])
@@ -17,28 +17,28 @@
     _delimiterRegex = [objc_opt_class() _delimiterRegex];
     v6 = [_delimiterRegex matchesInString:conferencesCopy options:0 range:{0, objc_msgSend(conferencesCopy, "length")}];
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     obj = v6;
-    v7 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v7 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v39;
+      v9 = *v38;
       do
       {
         v10 = 0;
-        v35 = v8;
+        v34 = v8;
         do
         {
-          if (*v39 != v9)
+          if (*v38 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v38 + 1) + 8 * v10);
+          v11 = *(*(&v37 + 1) + 8 * v10);
           if ([v11 numberOfRanges] == 2)
           {
             v12 = [v11 rangeAtIndex:1];
@@ -71,7 +71,7 @@
 
               conferencesCopy = v18;
               v9 = v17;
-              v8 = v35;
+              v8 = v34;
             }
 
             else
@@ -89,14 +89,12 @@
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v8 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v8);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return array;
 }

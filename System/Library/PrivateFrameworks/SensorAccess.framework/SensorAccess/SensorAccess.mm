@@ -41,9 +41,8 @@ unint64_t type metadata accessor for SensorAccessDuration()
   return result;
 }
 
-uint64_t sub_2655E5478()
+uint64_t sub_2655E5478(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
   sub_2655E649C();
   sub_2655E63DC();
   return sub_2655E64AC();
@@ -56,9 +55,8 @@ uint64_t sub_2655E54DC(uint64_t a1, uint64_t a2)
   return MEMORY[0x28211C010](a1, a2, v4);
 }
 
-uint64_t sub_2655E5528()
+uint64_t sub_2655E5528(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
   sub_2655E649C();
   sub_2655E63DC();
   return sub_2655E64AC();
@@ -156,11 +154,11 @@ id sub_2655E5818()
 
 id sub_2655E59D8()
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   swift_getObjectType();
-  v32 = 0;
-  v33 = 0;
   v31 = 0;
+  v32 = 0;
+  v30 = 0;
   v2 = [objc_allocWithZone(SensorAccessDuration) init];
   if (![swift_getObjCClassFromMetadata() secureIndicatorPolicyEnforced])
   {
@@ -176,7 +174,7 @@ LABEL_7:
     swift_willThrow();
 LABEL_8:
 
-    goto LABEL_9;
+    return v2;
   }
 
   v3 = exclaves_indicator_min_on_time();
@@ -201,65 +199,63 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  v30 = 0;
-  mach_timebase_info(&v30);
-  v14 = mach_continuous_time();
-  v15 = sub_2655E642C();
-  v16 = OBJC_IVAR___SensorAccessIndicator_logger;
-  v17 = *(v0 + OBJC_IVAR___SensorAccessIndicator_logger);
-  if (os_log_type_enabled(v17, v15))
+  v29 = 0;
+  mach_timebase_info(&v29);
+  v13 = mach_continuous_time();
+  v14 = sub_2655E642C();
+  v15 = OBJC_IVAR___SensorAccessIndicator_logger;
+  v16 = *(v0 + OBJC_IVAR___SensorAccessIndicator_logger);
+  if (os_log_type_enabled(v16, v14))
   {
-    v18 = v17;
-    v19 = swift_slowAlloc();
-    *v19 = 134218752;
-    *(v19 + 4) = v14;
-    *(v19 + 12) = 2048;
+    v17 = v16;
+    v18 = swift_slowAlloc();
+    *v18 = 134218752;
+    *(v18 + 4) = v13;
+    *(v18 + 12) = 2048;
     swift_beginAccess();
-    *(v19 + 14) = v33;
-    *(v19 + 22) = 2048;
+    *(v18 + 14) = v32;
+    *(v18 + 22) = 2048;
     swift_beginAccess();
-    *(v19 + 24) = v32;
-    *(v19 + 32) = 2048;
+    *(v18 + 24) = v31;
+    *(v18 + 32) = 2048;
     swift_beginAccess();
-    *(v19 + 34) = v31;
-    _os_log_impl(&dword_2655E4000, v18, v15, "Evaluating remaining time with curr_time %llu cil %llu mil %llu fid %llu", v19, 0x2Au);
-    MEMORY[0x266759860](v19, -1, -1);
+    *(v18 + 34) = v30;
+    _os_log_impl(&dword_2655E4000, v17, v14, "Evaluating remaining time with curr_time %llu cil %llu mil %llu fid %llu", v18, 0x2Au);
+    MEMORY[0x266759860](v18, -1, -1);
   }
 
-  v20 = v30;
+  v19 = v29;
   swift_beginAccess();
-  v21 = sub_2655E62D8(v20, v33, v14);
+  v20 = sub_2655E62D8(v19, v32, v13);
   if (v1)
   {
     goto LABEL_8;
   }
 
   [v2 setRemainingCameraDurationNanoSeconds_];
-  v22 = v30;
+  v21 = v29;
   swift_beginAccess();
   [v2 setRemainingMicrophoneDurationNanoSeconds_];
-  v23 = v30;
+  v22 = v29;
   swift_beginAccess();
   [v2 setRemainingFaceIDDurationNanoSeconds_];
-  v24 = sub_2655E642C();
-  v25 = *(v0 + v16);
-  if (os_log_type_enabled(v25, v24))
+  v23 = sub_2655E642C();
+  v24 = *(v0 + v15);
+  if (os_log_type_enabled(v24, v23))
   {
-    v26 = v25;
+    v25 = v24;
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    *v27 = 138412290;
-    *(v27 + 4) = v2;
-    *v28 = v2;
-    v29 = v2;
-    _os_log_impl(&dword_2655E4000, v26, v24, "Remaining duration %@ from SensorAccess", v27, 0xCu);
-    sub_2655E6158(v28);
-    MEMORY[0x266759860](v28, -1, -1);
+    *v26 = 138412290;
+    *(v26 + 4) = v2;
+    *v27 = v2;
+    v28 = v2;
+    _os_log_impl(&dword_2655E4000, v25, v23, "Remaining duration %@ from SensorAccess", v26, 0xCu);
+    sub_2655E6158(v27);
     MEMORY[0x266759860](v27, -1, -1);
+    MEMORY[0x266759860](v26, -1, -1);
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -357,7 +353,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -365,12 +360,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t sub_2655E6208(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_2655E6208(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -391,7 +385,7 @@ unint64_t sub_2655E6250()
   return result;
 }
 
-uint64_t sub_2655E62D8(unint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t sub_2655E62D8(unint64_t a1, unint64_t a2, unint64_t a3)
 {
   result = 0;
   if (a2)

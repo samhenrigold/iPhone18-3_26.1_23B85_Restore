@@ -72,7 +72,7 @@
 
 void __67__PBFComplicationSnapshotterOperation_initWithRequest_snapshotter___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0 && (objc_msgSend(v3, "isFinished") & 1) == 0)
@@ -82,29 +82,29 @@ void __67__PBFComplicationSnapshotterOperation_initWithRequest_snapshotter___blo
     {
       v5 = [*v4 error];
 
-      v6 = PBFLogComplicationSnapshotter();
-      v7 = v6;
+      v7 = PBFLogComplicationSnapshotter(v6);
+      v8 = v7;
       if (v5)
       {
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          __67__PBFComplicationSnapshotterOperation_initWithRequest_snapshotter___block_invoke_cold_1((a1 + 32), (a1 + 56), v7);
+          __67__PBFComplicationSnapshotterOperation_initWithRequest_snapshotter___block_invoke_cold_1((a1 + 32), (a1 + 56), v8);
         }
 
         goto LABEL_16;
       }
 
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *v4;
-        v9 = objc_loadWeakRetained((a1 + 56));
+        v9 = *v4;
+        v10 = objc_loadWeakRetained((a1 + 56));
         *buf = 138543618;
-        v17 = v8;
-        v18 = 2114;
-        v19 = v9;
-        v10 = "ComplicationSnapshotterOperation finished %{public}@/%{public}@";
+        v18 = v9;
+        v19 = 2114;
+        v20 = v10;
+        v11 = "ComplicationSnapshotterOperation finished %{public}@/%{public}@";
 LABEL_15:
-        _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
+        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, v11, buf, 0x16u);
 
         goto LABEL_16;
       }
@@ -113,20 +113,20 @@ LABEL_15:
     }
 
     [v3 _snapshotterDidStart];
-    v11 = *(a1 + 40);
-    v12 = dispatch_time(0, (60.0 * 1000000000.0));
-    if (!dispatch_group_wait(v11, v12))
+    v12 = *(a1 + 40);
+    v13 = dispatch_time(0, (60.0 * 1000000000.0));
+    if (!dispatch_group_wait(v12, v13))
     {
-      v7 = PBFLogComplicationSnapshotter();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PBFLogComplicationSnapshotter(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *v4;
-        v9 = objc_loadWeakRetained((a1 + 56));
+        v16 = *v4;
+        v10 = objc_loadWeakRetained((a1 + 56));
         *buf = 138543618;
-        v17 = v15;
-        v18 = 2114;
-        v19 = v9;
-        v10 = "ComplicationSnapshotterOperation finished successfully %{public}@/%{public}@";
+        v18 = v16;
+        v19 = 2114;
+        v20 = v10;
+        v11 = "ComplicationSnapshotterOperation finished successfully %{public}@/%{public}@";
         goto LABEL_15;
       }
 
@@ -135,9 +135,9 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v13 = *(a1 + 32);
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"ComplicationSnapshotter timed out waiting for request: %@", *(a1 + 48)];
-    [v13 cancelWithReason:v14];
+    v14 = *(a1 + 32);
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"ComplicationSnapshotter timed out waiting for request: %@", *(a1 + 48)];
+    [v14 cancelWithReason:v15];
   }
 
 LABEL_17:
@@ -194,7 +194,7 @@ LABEL_17:
 {
   if (self->_lock_snapshotterDidStart)
   {
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStart];
@@ -203,7 +203,7 @@ LABEL_17:
 
   else if (self->_lock_snapshotterDidStop)
   {
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStart];
@@ -220,7 +220,7 @@ LABEL_17:
       return;
     }
 
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStart];
@@ -240,7 +240,7 @@ LABEL_17:
 {
   if (!self->_lock_snapshotterDidStart)
   {
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStop];
@@ -251,7 +251,7 @@ LABEL_17:
 
   if (self->_lock_snapshotterDidStop)
   {
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStart];
@@ -265,7 +265,7 @@ LABEL_13:
   lock_group = self->_lock_group;
   if (!lock_group)
   {
-    v3 = PBFLogComplicationSnapshotter();
+    v3 = PBFLogComplicationSnapshotter(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PBFComplicationSnapshotterOperation _lock_snapshotterDidStart];
@@ -282,7 +282,7 @@ LABEL_13:
 
 - (void)initWithRequest:(char *)a1 snapshotter:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotRequestClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -290,7 +290,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotRequestClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -301,7 +301,7 @@ LABEL_13:
 
 - (void)initWithRequest:(char *)a1 snapshotter:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotterClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -309,7 +309,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFComplicationSnapshotterClass]", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -320,7 +320,7 @@ LABEL_13:
 
 - (void)initWithRequest:(char *)a1 snapshotter:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -328,7 +328,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -339,7 +339,7 @@ LABEL_13:
 
 - (void)initWithRequest:(char *)a1 snapshotter:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -347,7 +347,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;

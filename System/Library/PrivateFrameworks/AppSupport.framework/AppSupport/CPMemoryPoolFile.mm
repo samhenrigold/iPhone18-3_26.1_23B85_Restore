@@ -9,10 +9,10 @@
 
 - (CPMemoryPoolFile)initWithLabel:(const char *)label slotCount:(unint64_t)count slotLength:(unint64_t)length
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = CPMemoryPoolFile;
-  v8 = [(CPMemoryPoolFile *)&v24 init];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = CPMemoryPoolFile;
+  v8 = [(CPMemoryPoolFile *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -82,12 +82,11 @@
       if (v20 == -1)
       {
 
-        v9 = 0;
+        return 0;
       }
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

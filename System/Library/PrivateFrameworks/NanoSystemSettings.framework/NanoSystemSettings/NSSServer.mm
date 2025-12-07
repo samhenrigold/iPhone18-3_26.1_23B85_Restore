@@ -3,12 +3,14 @@
 + (id)getActivePairedDeviceIDFromNanoRegistry;
 + (void)associateProtobufHandlers:(id)handlers;
 + (void)setLaunchNotification:(id)notification enabled:(BOOL)enabled;
++ (void)tellRadiosPrefsToEnableAirplaneMode:(BOOL)mode;
 - (BOOL)activeDeviceIsAltAccount;
 - (BOOL)isDefaultPairedDeviceNearby;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)messageIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (BOOL)mirroringAirplaneMode;
 - (BOOL)scheduleTimerForIdentifier:(id)identifier requests:(id)requests timeout:(double)timeout timeoutHandler:(id)handler timers:(id)timers utilityName:(id)name;
+- (BOOL)shouldSendAPMMessageToOppositeDevice:(BOOL)device;
 - (IDSService)idsFileTransferService;
 - (IDSService)idsService;
 - (NSSServer)init;
@@ -16,7 +18,10 @@
 - (id)initTestInstance;
 - (id)linkFileForViewing:(id)viewing metadata:(id)metadata withError:(id *)error;
 - (id)sendLogFileAtUrl:(id)url toDevice:(id)device withOptions:(id)options;
+- (id)sendMessage:(id)message identifier:(id *)identifier sendTimeout:(double)timeout wantsAcknowledgement:(BOOL)acknowledgement queueOneIdentifier:(id)oneIdentifier overBluetoothOnly:(BOOL)only;
 - (id)sendProtobuf:(id)protobuf options:(id)options identifier:(id *)identifier;
+- (id)sendRequest:(id)request expectsResponse:(BOOL)response replyBlock:(id)block replyDictionary:(id)dictionary sendTimeout:(double)timeout wantsAcknowledgement:(BOOL)acknowledgement bypassDuet:(BOOL)duet;
+- (id)sendResponse:(id)response forRequest:(id)request identifier:(id *)identifier bypassDuet:(BOOL)duet;
 - (id)systemBuildVersion;
 - (void)_resetIfTheActivePairedDeviceChanges;
 - (void)askRemoteDeviceToPasscodeLockWithCompletionHandler:(id)handler;
@@ -24,8 +29,10 @@
 - (void)cancelTimerForIdentifier:(id)identifier timers:(id)timers utilityName:(id)name;
 - (void)connectionHandlerLostConnection:(id)connection;
 - (void)dealloc;
+- (void)displayAirplaneModeMirroringUserEducationAlertIfNeeded:(BOOL)needed;
 - (void)earlyIvarInitialzation;
 - (void)enableAirplaneMode:(BOOL)mode completionHandler:(id)handler;
+- (void)failedToMirrorAirplaneMode:(BOOL)mode;
 - (void)handleAirplaneModeMsg:(id)msg;
 - (void)handleMemoryPressureEvent;
 - (void)handleNotifyRemoteDeviceOfUsageAfterSetupRequestMsg:(id)msg;
@@ -34,6 +41,7 @@
 - (void)notifyRemoteDeviceOfUsageAfterSetup:(id)setup;
 - (void)resetIfTheActivePairedDeviceChanges;
 - (void)sendFileTransfer:(id)transfer progress:(unint64_t)progress;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account identifier:(id)identifier sentBytes:(int64_t)bytes totalBytes:(int64_t)totalBytes;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
@@ -109,9 +117,7 @@
   v4 = +[NSNotificationCenter defaultCenter];
   [v4 addObserver:self selector:"resetIfTheActivePairedDeviceChanges" name:NRPairedDeviceRegistryDeviceDidBecomeInactive object:0];
 
-  getActivePairedDeviceIDFromNanoRegistry = [objc_opt_class() getActivePairedDeviceIDFromNanoRegistry];
-  activeDeviceID = self->_activeDeviceID;
-  self->_activeDeviceID = getActivePairedDeviceIDFromNanoRegistry;
+  self->_activeDeviceID = [objc_opt_class() getActivePairedDeviceIDFromNanoRegistry];
 
   _objc_release_x1();
 }
@@ -228,9 +234,7 @@
   airplaneModeDeliveryTimers = self->_airplaneModeDeliveryTimers;
   self->_airplaneModeDeliveryTimers = v11;
 
-  v13 = objc_opt_new();
-  logTranferIdentifiers = self->_logTranferIdentifiers;
-  self->_logTranferIdentifiers = v13;
+  self->_logTranferIdentifiers = objc_opt_new();
 
   _objc_release_x1();
 }
@@ -531,6 +535,78 @@ LABEL_33:
   firstObject = [v4 firstObject];
 
   return firstObject;
+}
+
+- (id)sendMessage:(id)message identifier:(id *)identifier sendTimeout:(double)timeout wantsAcknowledgement:(BOOL)acknowledgement queueOneIdentifier:(id)oneIdentifier overBluetoothOnly:(BOOL)only
+{
+  onlyCopy = only;
+  acknowledgementCopy = acknowledgement;
+  v22[0] = IDSSendMessageOptionTimeoutKey;
+  oneIdentifierCopy = oneIdentifier;
+  messageCopy = message;
+  v16 = [NSNumber numberWithDouble:timeout];
+  v23[0] = v16;
+  v22[1] = IDSSendMessageOptionWantsClientAcknowledgementKey;
+  v17 = [NSNumber numberWithBool:acknowledgementCopy];
+  v23[1] = v17;
+  v23[2] = oneIdentifierCopy;
+  v22[2] = IDSSendMessageOptionQueueOneIdentifierKey;
+  v22[3] = IDSSendMessageOptionRequireBluetoothKey;
+  v18 = [NSNumber numberWithBool:onlyCopy];
+  v23[3] = v18;
+  v19 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:4];
+
+  v20 = [(NSSServer *)self sendProtobuf:messageCopy options:v19 identifier:identifier];
+
+  return v20;
+}
+
+- (id)sendRequest:(id)request expectsResponse:(BOOL)response replyBlock:(id)block replyDictionary:(id)dictionary sendTimeout:(double)timeout wantsAcknowledgement:(BOOL)acknowledgement bypassDuet:(BOOL)duet
+{
+  duetCopy = duet;
+  acknowledgementCopy = acknowledgement;
+  blockCopy = block;
+  dictionaryCopy = dictionary;
+  v27[0] = &__kCFBooleanTrue;
+  v26[0] = IDSSendMessageOptionExpectsPeerResponseKey;
+  v26[1] = IDSSendMessageOptionTimeoutKey;
+  requestCopy = request;
+  v18 = [NSNumber numberWithDouble:timeout];
+  v27[1] = v18;
+  v26[2] = IDSSendMessageOptionWantsClientAcknowledgementKey;
+  v19 = [NSNumber numberWithBool:acknowledgementCopy];
+  v27[2] = v19;
+  v26[3] = IDSSendMessageOptionBypassDuetKey;
+  v20 = [NSNumber numberWithBool:duetCopy];
+  v27[3] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v25 = 0;
+  v22 = [(NSSServer *)self sendProtobuf:requestCopy options:v21 identifier:&v25];
+
+  v23 = v25;
+  if (dictionaryCopy && blockCopy && !v22 && v23)
+  {
+    [dictionaryCopy setObject:blockCopy forKey:v23];
+  }
+
+  return v22;
+}
+
+- (id)sendResponse:(id)response forRequest:(id)request identifier:(id *)identifier bypassDuet:(BOOL)duet
+{
+  duetCopy = duet;
+  v16[0] = IDSSendMessageOptionPeerResponseIdentifierKey;
+  v16[1] = IDSSendMessageOptionBypassDuetKey;
+  v17[0] = request;
+  requestCopy = request;
+  responseCopy = response;
+  v12 = [NSNumber numberWithBool:duetCopy];
+  v17[1] = v12;
+  v13 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+
+  v14 = [(NSSServer *)self sendProtobuf:responseCopy options:v13 identifier:identifier];
+
+  return v14;
 }
 
 - (id)sendProtobuf:(id)protobuf options:(id)options identifier:(id *)identifier
@@ -1220,7 +1296,7 @@ LABEL_9:
       v19 = vcvtas_u32_f32((bytes / totalBytes) * 100.0);
     }
 
-    [(NSSServer *)self sendFileTransfer:v17 progress:v19, *v20];
+    [(NSSServer *)self sendFileTransfer:v17 progress:v19, *v20, *&v20[8]];
   }
 
   else
@@ -1267,6 +1343,32 @@ LABEL_9:
 
   incomingResponseIdentifier2 = [contextCopy incomingResponseIdentifier];
   [(NSSServer *)self handleIncomingDiagnosticLogFile:v18 withContext:incomingResponseIdentifier2];
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  serviceCopy = service;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v16 = NSSLogForType();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 138413314;
+    v18 = serviceCopy;
+    v19 = 2112;
+    v20 = accountCopy;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v23 = 1024;
+    v24 = successCopy;
+    v25 = 2112;
+    v26 = errorCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "service: (%@), account: (%@), identifier: (%@), success: (%d), error: (%@)", &v17, 0x30u);
+  }
+
+  [(NSSServer *)self messageIdentifier:identifierCopy didSendWithSuccess:successCopy error:errorCopy];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context
@@ -1565,6 +1667,24 @@ LABEL_12:
   return v5 & 1;
 }
 
+- (BOOL)shouldSendAPMMessageToOppositeDevice:(BOOL)device
+{
+  deviceCopy = device;
+  if (![(NSSServer *)self mirroringAirplaneMode])
+  {
+    return 0;
+  }
+
+  isDefaultPairedDeviceNearby = [(NSSServer *)self isDefaultPairedDeviceNearby];
+  if ([(NSSServer *)self activeDeviceIsAltAccount])
+  {
+    return 0;
+  }
+
+  [(NSSServer *)self displayAirplaneModeMirroringUserEducationAlertIfNeeded:deviceCopy];
+  return isDefaultPairedDeviceNearby;
+}
+
 - (void)handleAirplaneModeMsg:(id)msg
 {
   msgCopy = msg;
@@ -1657,6 +1777,57 @@ LABEL_12:
   }
 
   return result;
+}
+
+- (void)failedToMirrorAirplaneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  [NSSManager displayAlertFailedRemoteAirplaneMode:?];
+  v4 = objc_opt_class();
+
+  [v4 tellRadiosPrefsToEnableAirplaneMode:modeCopy];
+}
+
++ (void)tellRadiosPrefsToEnableAirplaneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v4 = NSSLogForType();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = modeCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Effectively enable/disable (%d) Airplane Mode", v6, 8u);
+  }
+
+  v5 = objc_opt_new();
+  [v5 setAirplaneModeWithoutMirroring:modeCopy];
+}
+
+- (void)displayAirplaneModeMirroringUserEducationAlertIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  keyExistsAndHasValidFormat = 0;
+  CFPreferencesAppSynchronize(@"com.apple.nanosystemsettings");
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AirplaneModeEducation", @"com.apple.nanosystemsettings", &keyExistsAndHasValidFormat);
+  if (keyExistsAndHasValidFormat)
+  {
+    v5 = AppBooleanValue == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    [NSSManager displayAirplaneModeMirroringUserEducationAlert:neededCopy];
+    CFPreferencesSetAppValue(@"AirplaneModeEducation", kCFBooleanTrue, @"com.apple.nanosystemsettings");
+    CFPreferencesAppSynchronize(@"com.apple.nanosystemsettings");
+    v6 = objc_opt_new();
+    v7 = [NSSet setWithObject:@"AirplaneModeEducation"];
+    [v6 synchronizeUserDefaultsDomain:@"com.apple.nanosystemsettings" keys:v7];
+  }
 }
 
 - (void)sendFileTransfer:(id)transfer progress:(unint64_t)progress

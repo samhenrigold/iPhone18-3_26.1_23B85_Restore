@@ -325,7 +325,7 @@ void __55__FBSOpenApplicationService_canOpenApplication_reason___block_invoke(ui
     actions = [v17 actions];
     0xFFFF = [MEMORY[0x1E696AEC0] stringWithFormat:@"%#04x", arc4random() % 0xFFFF];
     v23 = [actions count];
-    v24 = FBLogCommon();
+    v24 = FBLogCommon(v23);
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
     if (v23)
     {
@@ -421,7 +421,7 @@ void __82__FBSOpenApplicationService__openApplication_withOptions_clientHandle_c
 
 void __82__FBSOpenApplicationService__openApplication_withOptions_clientHandle_completion___block_invoke_71(void *a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -433,94 +433,103 @@ void __82__FBSOpenApplicationService__openApplication_withOptions_clientHandle_c
     if (v9)
     {
       v10 = v7;
+      v11 = v10;
       goto LABEL_19;
     }
 
     if ([v7 isBSServiceConnectionError])
     {
-      v14 = [off_1E76BCA28 currentContext];
-      v15 = [v14 remoteProcess];
+      v15 = [off_1E76BCA28 currentContext];
+      v16 = [v15 remoteProcess];
 
-      if (v15)
+      if (v16)
       {
-        v16 = MEMORY[0x1E696AEC0];
-        v17 = FBSProcessPrettyDescription(v15);
-        v18 = [v16 stringWithFormat:@"The system shell (%@) probably crashed.", v17];
+        v17 = MEMORY[0x1E696AEC0];
+        v18 = FBSProcessPrettyDescription(v16);
+        v19 = [v17 stringWithFormat:@"The system shell (%@) probably crashed.", v18];
       }
 
       else
       {
-        v18 = @"The system shell probably crashed.";
+        v19 = @"The system shell probably crashed.";
       }
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    v10 = (*(a1[7] + 16))();
+    v11 = (*(a1[7] + 16))();
 
-    if (v10)
+    if (v11)
     {
 LABEL_19:
-      v11 = FBLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = FBLogCommon(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __82__FBSOpenApplicationService__openApplication_withOptions_clientHandle_completion___block_invoke_71_cold_1(a1, v10, v11);
+        __82__FBSOpenApplicationService__openApplication_withOptions_clientHandle_completion___block_invoke_71_cold_1(a1, v11, v12);
       }
 
       goto LABEL_21;
     }
   }
 
-  else if ([(__CFString *)v5 pid]>= 1 && ([(__CFString *)v5 isValid]& 1) == 0)
+  else
   {
-    v10 = (*(a1[7] + 16))();
-    if (v10)
+    v10 = [(__CFString *)v5 pid];
+    if (v10 >= 1)
     {
-      goto LABEL_19;
+      v10 = [(__CFString *)v5 isValid];
+      if ((v10 & 1) == 0)
+      {
+        v10 = (*(a1[7] + 16))();
+        v11 = v10;
+        if (v10)
+        {
+          goto LABEL_19;
+        }
+      }
     }
   }
 
-  v11 = FBLogCommon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = FBLogCommon(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = a1[4];
-    v13 = @"(process was not provided)";
+    v13 = a1[4];
+    v14 = @"(process was not provided)";
     if (v5)
     {
-      v13 = v5;
+      v14 = v5;
     }
 
     *buf = 138543618;
-    v21 = v12;
-    v22 = 2114;
-    v23 = v13;
-    _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "[FBSSystemService][%{public}@] Request successful: %{public}@", buf, 0x16u);
+    v22 = v13;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "[FBSSystemService][%{public}@] Request successful: %{public}@", buf, 0x16u);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_21:
 
-  v19 = a1[8];
-  if (v19)
+  v20 = a1[8];
+  if (v20)
   {
-    (*(v19 + 16))(v19, v5, v10);
+    (*(v20 + 16))(v20, v5, v11);
   }
 }
 
 - (void)_initWithEndpoint:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -532,17 +541,16 @@ LABEL_21:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"service of endpoint is incorrect"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v7 = @"FBSOpenApplicationService.m";
-    v8 = 1024;
-    v9 = 38;
-    v10 = v5;
-    v11 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, 0x3Au);
+    v9 = @"FBSOpenApplicationService.m";
+    v10 = 1024;
+    v11 = 38;
+    v12 = v7;
+    v13 = v2;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
   [v2 UTF8String];
@@ -551,15 +559,14 @@ LABEL_21:
 
 - (void)_initWithEndpoint:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -571,17 +578,16 @@ LABEL_21:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"what part about LaunchServices-only did you not understand?"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v7 = @"FBSOpenApplicationService.m";
-    v8 = 1024;
-    v9 = 91;
-    v10 = v5;
-    v11 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, 0x3Au);
+    v9 = @"FBSOpenApplicationService.m";
+    v10 = 1024;
+    v11 = 91;
+    v12 = v7;
+    v13 = v2;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
   [v2 UTF8String];
@@ -590,15 +596,14 @@ LABEL_21:
 
 - (void)openApplication:(char *)a1 withOptions:clientHandle:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSProcessHandleClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSProcessHandleClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -607,15 +612,14 @@ LABEL_21:
 
 - (void)openApplication:(char *)a1 withOptions:clientHandle:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -624,15 +628,14 @@ LABEL_21:
 
 - (void)_openApplication:(char *)a1 withOptions:clientHandle:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSProcessHandleClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSProcessHandleClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -641,15 +644,14 @@ LABEL_21:
 
 - (void)_openApplication:(char *)a1 withOptions:clientHandle:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -658,15 +660,14 @@ LABEL_21:
 
 - (void)_openApplication:(char *)a1 withOptions:clientHandle:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSOpenApplicationOptionsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSOpenApplicationOptionsClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

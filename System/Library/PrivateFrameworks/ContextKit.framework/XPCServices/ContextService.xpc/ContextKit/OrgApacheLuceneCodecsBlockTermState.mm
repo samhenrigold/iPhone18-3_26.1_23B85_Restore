@@ -1,6 +1,5 @@
 @interface OrgApacheLuceneCodecsBlockTermState
 - (OrgApacheLuceneCodecsBlockTermState)init;
-- (id)description;
 - (void)copyFromWithOrgApacheLuceneIndexTermState:(id)state;
 @end
 
@@ -8,7 +7,7 @@
 
 - (OrgApacheLuceneCodecsBlockTermState)init
 {
-  OrgApacheLuceneIndexOrdTermState_init(self, a2);
+  OrgApacheLuceneIndexOrdTermState_init();
   self->isRealTerm_ = 1;
   return self;
 }
@@ -29,16 +28,6 @@
   self->termBlockOrd_ = *(state + 8);
   self->blockFilePointer_ = *(state + 5);
   self->isRealTerm_ = *(state + 48);
-}
-
-- (id)description
-{
-  isRealTerm = self->isRealTerm_;
-  blockFilePointer = self->blockFilePointer_;
-  termBlockOrd = self->termBlockOrd_;
-  totalTermFreq = self->totalTermFreq_;
-  docFreq = self->docFreq_;
-  return JreStrcat("$I$J$I$J$Z", a2, v2, v3, v4, v5, v6, v7, @"docFreq=");
 }
 
 @end

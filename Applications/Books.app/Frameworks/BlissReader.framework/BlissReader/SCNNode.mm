@@ -20,7 +20,7 @@
     presentationNode = [(SCNNode *)self presentationNode];
     if (presentationNode)
     {
-      [(SCNNode *)presentationNode transform];
+      objc_msgSend_transform(presentationNode);
     }
 
     else

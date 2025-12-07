@@ -41,11 +41,14 @@
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForHourChangeWithSecondsUntilChange:(double)change;
+- (void)_prepareForStatusChange:(BOOL)change;
+- (void)_scrubToDate:(id)date animated:(BOOL)animated;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateAreAllComplicationsOffState;
 - (void)_updateComplicationAndHourNodePlacementsWithToHour:(int64_t)hour duration:(double)duration;
 - (void)_updateComplicationPositionWithAnimationProgress:(double)progress;
 - (void)dealloc;
+- (void)endScrubbingAnimated:(BOOL)animated;
 - (void)layoutSubviews;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 @end
@@ -191,6 +194,15 @@
   self->_utilitySlot = [(NTKNumeralsAnalogFaceView *)self _complicationPlacementForCurrentHour];
   [(NTKNumeralsAnalogFaceView *)self _updateAreAllComplicationsOffState];
   [(NTKUtilityComplicationFactory *)self->_complicationFactory configureComplicationLayout:v11 forSlot:self->_utilitySlot withBounds:v4, v6, v8, v10];
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  hourViewsManager = self->_hourViewsManager;
+  v5 = [(NTKNumeralsAnalogFaceView *)self dataMode]== &dword_0 + 1;
+
+  [(NTKNumeralsHourViewsManager *)hourViewsManager setAdjustsForStatusIndicator:changeCopy animated:v5];
 }
 
 - (void)_configureComplicationFactory:(id)factory
@@ -835,6 +847,22 @@
   v6.super_class = NTKNumeralsAnalogFaceView;
   [(NTKNumeralsAnalogFaceView *)&v6 setOverrideDate:date duration:?];
   [(NTKNumeralsAnalogFaceView *)self _updateComplicationAndHourNodePlacementsWithToHour:[(NTKNumeralsAnalogFaceView *)self _currentHour] duration:duration];
+}
+
+- (void)_scrubToDate:(id)date animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = NTKNumeralsAnalogFaceView;
+  [(NTKNumeralsAnalogFaceView *)&v5 _scrubToDate:date animated:animated];
+  [(NTKNumeralsAnalogFaceView *)self _updateComplicationAndHourNodePlacementsWithToHour:[(NTKNumeralsAnalogFaceView *)self _currentHour] duration:0.0];
+}
+
+- (void)endScrubbingAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKNumeralsAnalogFaceView;
+  [(NTKNumeralsAnalogFaceView *)&v4 endScrubbingAnimated:animated];
+  [(NTKNumeralsAnalogFaceView *)self _updateComplicationAndHourNodePlacementsWithToHour:[(NTKNumeralsAnalogFaceView *)self _currentHour] duration:0.5];
 }
 
 - (void)_applyDataMode

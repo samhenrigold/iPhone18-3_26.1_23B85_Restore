@@ -141,10 +141,10 @@ LABEL_10:
 - (id)getBinaryValuesWithNSString:(id)string
 {
   v5 = new_JavaUtilArrayList_init();
-  v16 = 0u;
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   fields = self->fields_;
   if (!fields)
   {
@@ -153,27 +153,27 @@ LABEL_15:
   }
 
   v7 = v5;
-  v8 = [(JavaUtilList *)fields countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(JavaUtilList *)fields countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v17 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(fields);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (!v12)
         {
           goto LABEL_15;
         }
 
-        name = [*(*(&v16 + 1) + 8 * i) name];
+        name = [*(*(&v18 + 1) + 8 * i) name];
         if (!name)
         {
           goto LABEL_15;
@@ -189,13 +189,14 @@ LABEL_15:
         }
       }
 
-      v9 = [(JavaUtilList *)fields countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(JavaUtilList *)fields countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
 
-  return [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[(JavaUtilArrayList *)v7 size] type:OrgApacheLuceneUtilBytesRef_class_()]];
+  v15 = [(JavaUtilArrayList *)v7 size];
+  return [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v15 type:OrgApacheLuceneUtilBytesRef_class_(v15, v16)]];
 }
 
 - (id)getBinaryValueWithNSString:(id)string
@@ -318,10 +319,10 @@ LABEL_14:
 - (id)getFieldsWithNSString:(id)string
 {
   v5 = new_JavaUtilArrayList_init();
-  v15 = 0u;
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   fields = self->fields_;
   if (!fields)
   {
@@ -330,27 +331,27 @@ LABEL_14:
   }
 
   v7 = v5;
-  v8 = [(JavaUtilList *)fields countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(JavaUtilList *)fields countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v16 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(fields);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if (!v12)
         {
           goto LABEL_14;
         }
 
-        name = [*(*(&v15 + 1) + 8 * i) name];
+        name = [*(*(&v17 + 1) + 8 * i) name];
         if (!name)
         {
           goto LABEL_14;
@@ -362,13 +363,14 @@ LABEL_14:
         }
       }
 
-      v9 = [(JavaUtilList *)fields countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(JavaUtilList *)fields countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
-  return [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[(JavaUtilArrayList *)v7 size] type:OrgApacheLuceneIndexIndexableField_class_()]];
+  v14 = [(JavaUtilArrayList *)v7 size];
+  return [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v14 type:OrgApacheLuceneIndexIndexableField_class_(v14, v15)]];
 }
 
 - (id)getValuesWithNSString:(id)string

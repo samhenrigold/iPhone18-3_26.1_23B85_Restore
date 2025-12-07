@@ -1,5 +1,6 @@
 @interface WebBookmarksImportCount
 - (WebBookmarksImportCount)initWithExportMetadataDataType:(id)type;
+- (void)addVisitWithURLString:(id)string visitTime:(double)time title:(id)title loadSuccessful:(BOOL)successful httpGet:(BOOL)get redirectSourceURLString:(id)lString redirectSourceVisitTime:(double)visitTime redirectDestinationURLString:(id)self0 redirectDestinationVisitTime:(double)self1 visitCount:(unint64_t)self2;
 - (void)beginAddingFolder:(id)folder identifier:(id)identifier;
 - (void)enableExtensionWithComposedIdentifier:(id)identifier adamIdentifier:(id)adamIdentifier alternatePlatformAppBundleIdentifier:(id)bundleIdentifier alternatePlatformExtensionBundleIdentifier:(id)extensionBundleIdentifier;
 - (void)finishWithCompletionHandler:(id)handler;
@@ -33,6 +34,19 @@
   }
 
   return v7;
+}
+
+- (void)addVisitWithURLString:(id)string visitTime:(double)time title:(id)title loadSuccessful:(BOOL)successful httpGet:(BOOL)get redirectSourceURLString:(id)lString redirectSourceVisitTime:(double)visitTime redirectDestinationURLString:(id)self0 redirectDestinationVisitTime:(double)self1 visitCount:(unint64_t)self2
+{
+  destinationVisitTime = [NSURL URLWithString:string, title, successful, get, lString, rLString, time, visitTime, destinationVisitTime];
+  safari_highLevelDomain = [destinationVisitTime safari_highLevelDomain];
+
+  v14 = safari_highLevelDomain;
+  if (safari_highLevelDomain)
+  {
+    [(NSMutableSet *)self->_uniqueHighLevelDomains addObject:safari_highLevelDomain];
+    v14 = safari_highLevelDomain;
+  }
 }
 
 - (void)enableExtensionWithComposedIdentifier:(id)identifier adamIdentifier:(id)adamIdentifier alternatePlatformAppBundleIdentifier:(id)bundleIdentifier alternatePlatformExtensionBundleIdentifier:(id)extensionBundleIdentifier

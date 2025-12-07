@@ -103,40 +103,39 @@ void __100__SBUICoronaAnimationController__configurePropertyAnimatorIfNecessaryF
 
 - (void)coronaDidChange:(int64_t)change
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [(SBUICoronaAnimationController *)self _configurePropertyAnimatorIfNecessaryForChangeToUserInterfaceStyle:change];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_participants;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) coronaAnimationController:self willAnimateCoronaTransitionWithAnimator:{self->_propertyAnimator, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) coronaAnimationController:self willAnimateCoronaTransitionWithAnimator:{self->_propertyAnimator, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(UIViewPropertyAnimator *)self->_propertyAnimator startAnimation];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

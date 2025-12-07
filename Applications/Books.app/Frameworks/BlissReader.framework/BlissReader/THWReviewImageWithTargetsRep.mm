@@ -837,7 +837,7 @@ LABEL_7:
     return v12;
   }
 
-  [animation duration];
+  objc_msgSend_duration(animation);
 
   return [v14 calloutPathAnimationWithduration:?];
 }

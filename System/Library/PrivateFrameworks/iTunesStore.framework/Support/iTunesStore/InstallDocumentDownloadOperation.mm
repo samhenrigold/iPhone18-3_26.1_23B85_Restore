@@ -169,15 +169,13 @@ LABEL_24:
         v149 = v78;
         v150 = 2112;
         v151 = v124;
-        LODWORD(v115) = 32;
-        v111 = &v146;
-        v86 = _os_log_send_and_compose_impl();
+        v86 = _os_log_send_and_compose_impl(v84, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Using document path: %@ with container relative path: %@", &v146, 32);
 
         if (v86)
         {
-          v115 = [NSString stringWithCString:v86 encoding:4, &v146, v115];
+          v87 = [NSString stringWithCString:v86 encoding:4];
           free(v86);
-          v111 = v115;
+          v111 = v87;
           SSFileLog();
         }
       }
@@ -226,15 +224,13 @@ LABEL_24:
         v149 = v78;
         v150 = 2112;
         v151 = _sharedContainerPath3;
-        LODWORD(v115) = 32;
-        v111 = &v146;
-        v94 = _os_log_send_and_compose_impl();
+        v94 = _os_log_send_and_compose_impl(v91, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Warning: Reverting to default behavior due to the shared documentsPath: %@ not matching the shared container path: %@", &v146, 32);
 
         if (v94)
         {
-          v1152 = [NSString stringWithCString:v94 encoding:4, &v146, v115];
+          v95 = [NSString stringWithCString:v94 encoding:4];
           free(v94);
-          v111 = v1152;
+          v111 = v95;
           SSFileLog();
         }
       }
@@ -327,8 +323,7 @@ LABEL_50:
       v150 = 2112;
       v151 = v25;
       LODWORD(v115) = 32;
-      v112 = &v146;
-      v33 = _os_log_send_and_compose_impl();
+      v33 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Moved file URL: %@ to downloads directory: %@", &v146, v115);
 
       mediaAsset = v128;
       if (!v33)
@@ -340,7 +335,7 @@ LABEL_49:
         goto LABEL_50;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v33 encoding:4, &v146, v115];
+      oSLogObject3 = [NSString stringWithCString:v33 encoding:4];
       free(v33);
       v112 = oSLogObject3;
       SSFileLog();
@@ -391,15 +386,14 @@ LABEL_51:
       v150 = 2112;
       v151 = localPath;
       LODWORD(v115) = 32;
-      v113 = &v146;
-      v49 = _os_log_send_and_compose_impl();
+      v49 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Unzip document for download: %lld, at path: %@", &v146, v115);
 
       if (!v49)
       {
         goto LABEL_66;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v49 encoding:4, &v146, v115];
+      oSLogObject4 = [NSString stringWithCString:v49 encoding:4];
       free(v49);
       v113 = oSLogObject4;
       SSFileLog();
@@ -608,8 +602,7 @@ LABEL_82:
     v148 = 2112;
     v149 = v130;
     LODWORD(v115) = 22;
-    v113 = &v146;
-    v68 = _os_log_send_and_compose_impl();
+    v68 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Error: file exists at document path: %@", &v146, v115);
 
     v69 = v54;
     if (!v68)
@@ -618,7 +611,7 @@ LABEL_82:
     }
 
 LABEL_108:
-    oSLogObject5 = [NSString stringWithCString:v68 encoding:4, &v146, v115];
+    oSLogObject5 = [NSString stringWithCString:v68 encoding:4];
     free(v68);
     v113 = oSLogObject5;
     SSFileLog();
@@ -667,8 +660,7 @@ LABEL_145:
   v150 = 2112;
   v151 = v69;
   LODWORD(v115) = 32;
-  v113 = &v146;
-  v68 = _os_log_send_and_compose_impl();
+  v68 = _os_log_send_and_compose_impl(v72, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Created document path: %@ error: %@", &v146, v115);
 
   if (v68)
   {
@@ -721,15 +713,14 @@ LABEL_147:
     v154 = 1024;
     v155 = v1132;
     LODWORD(v115) = 48;
-    v113 = &v146;
-    v103 = _os_log_send_and_compose_impl();
+    v103 = _os_log_send_and_compose_impl(v100, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Moved staged download: %lld from source: %@ to document path: %@ result: %d", &v146, v115);
 
     if (!v103)
     {
       goto LABEL_158;
     }
 
-    oSLogObject6 = [NSString stringWithCString:v103 encoding:4, &v146, v115];
+    oSLogObject6 = [NSString stringWithCString:v103 encoding:4];
     free(v103);
     v113 = oSLogObject6;
     SSFileLog();
@@ -783,12 +774,11 @@ LABEL_160:
   v150 = 2112;
   v151 = v132;
   LODWORD(v115) = 32;
-  v114 = &v146;
-  v110 = _os_log_send_and_compose_impl();
+  v110 = _os_log_send_and_compose_impl(v107, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Installed document for download: %lld at path: %@", &v146, v115);
 
   if (v110)
   {
-    oSLogObject7 = [NSString stringWithCString:v110 encoding:4, &v146, v115];
+    oSLogObject7 = [NSString stringWithCString:v110 encoding:4];
     free(v110);
     v114 = oSLogObject7;
     SSFileLog();
@@ -811,14 +801,14 @@ LABEL_176:
   {
     v10 = @"systemgroup.com.apple.media.books.managed";
     v11 = @"mdmd";
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   if (self->_isSharedODRDownload)
   {
     v10 = @"systemgroup.com.apple.ondemandresources";
     v11 = @"com.apple.ondemandd";
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v12 = +[SSLogConfig sharedDaemonConfig];
@@ -830,44 +820,47 @@ LABEL_176:
   shouldLog = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = shouldLog | 2;
+    LODWORD(v14) = shouldLog | 2;
   }
 
   else
   {
-    v14 = shouldLog;
+    LODWORD(v14) = shouldLog;
   }
 
   oSLogObject = [v12 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v37 = 138412290;
   v38 = objc_opt_class();
   v16 = v38;
-  LODWORD(v36) = 12;
-  v35 = &v37;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Failed to stage for asset could not determine client.", &v37, 12);
 
   if (v17)
   {
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v37, v36];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v35 = oSLogObject;
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
   v11 = 0;
   v10 = 0;
-LABEL_17:
+LABEL_18:
   [(__CFString *)v10 UTF8String];
   [pathCopy UTF8String];
   [toPathCopy UTF8String];
@@ -884,16 +877,21 @@ LABEL_17:
     shouldLog2 = [v20 shouldLog];
     if ([v20 shouldLogToDisk])
     {
-      v30 = shouldLog2 | 2;
+      LODWORD(v30) = shouldLog2 | 2;
     }
 
     else
     {
-      v30 = shouldLog2;
+      LODWORD(v30) = shouldLog2;
     }
 
     oSLogObject2 = [v20 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v30 = v30;
+    }
+
+    else
     {
       v30 &= 2u;
     }
@@ -909,26 +907,26 @@ LABEL_17:
       v42 = 1;
       v33 = v32;
       LODWORD(v36) = 32;
-      v34 = _os_log_send_and_compose_impl();
+      v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Failed to stage for client: %@ path: %llu", &v37, v36);
 
       if (!v34)
       {
-        goto LABEL_43;
+        goto LABEL_46;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v34 encoding:4, &v37, v36];
+      oSLogObject2 = [NSString stringWithCString:v34 encoding:4];
       free(v34);
       SSFileLog();
     }
 
-LABEL_43:
+LABEL_46:
     v27 = SSError();
     if (!error)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
   if (!v19)
@@ -939,16 +937,21 @@ LABEL_43:
   shouldLog3 = [v20 shouldLog];
   if ([v20 shouldLogToDisk])
   {
-    v22 = shouldLog3 | 2;
+    LODWORD(v22) = shouldLog3 | 2;
   }
 
   else
   {
-    v22 = shouldLog3;
+    LODWORD(v22) = shouldLog3;
   }
 
   oSLogObject3 = [v20 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v22 = v22;
+  }
+
+  else
   {
     v22 &= 2u;
   }
@@ -964,29 +967,29 @@ LABEL_43:
     v42 = v11;
     v25 = v24;
     LODWORD(v36) = 32;
-    v26 = _os_log_send_and_compose_impl();
+    v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Successfully staged path: %s for client: %@", &v37, v36);
 
     if (!v26)
     {
-      goto LABEL_29;
+      goto LABEL_31;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v26 encoding:4, &v37, v36];
+    oSLogObject3 = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     SSFileLog();
   }
 
-LABEL_29:
+LABEL_31:
   free(v18);
   v27 = 0;
   if (error)
   {
-LABEL_30:
+LABEL_32:
     v27 = v27;
     *error = v27;
   }
 
-LABEL_31:
+LABEL_33:
 
   return v18 != 0;
 }
@@ -999,10 +1002,10 @@ LABEL_31:
     _sharedContainerPath = [(InstallDocumentDownloadOperation *)self _sharedContainerPath];
     pathComponents = [_sharedContainerPath pathComponents];
 
-    v24[0] = @"Caches";
-    v24[1] = @"Staging";
-    v24[2] = pathCopy;
-    v7 = [NSArray arrayWithObjects:v24 count:3];
+    v26[0] = @"Caches";
+    v26[1] = @"Staging";
+    v26[2] = pathCopy;
+    v7 = [NSArray arrayWithObjects:v26 count:3];
     v8 = [pathComponents arrayByAddingObjectsFromArray:v7];
     v9 = [NSString pathWithComponents:v8];
     v10 = +[SSLogConfig sharedDaemonConfig];
@@ -1014,43 +1017,47 @@ LABEL_31:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      *v23 = 138412546;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2112;
-      *&v23[14] = v9;
-      v14 = *&v23[4];
-      LODWORD(v22) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v22 = 138412546;
+      v23 = objc_opt_class();
+      v24 = 2112;
+      v25 = v9;
+      v14 = v23;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] Staging path set to: %@", &v22, 22);
 
       if (!v15)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, v23, v22, *v23, *&v23[16]];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   pathComponents = +[SSLogConfig sharedDaemonConfig];
@@ -1062,43 +1069,47 @@ LABEL_13:
   shouldLog2 = [pathComponents shouldLog];
   if ([pathComponents shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v17) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v17) = shouldLog2;
   }
 
   oSLogObject2 = [pathComponents OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v17 = v17;
+  }
+
+  else
   {
     v17 &= 2u;
   }
 
   if (!v17)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
-  *v23 = 138412546;
-  *&v23[4] = objc_opt_class();
-  *&v23[12] = 2112;
-  *&v23[14] = pathCopy;
-  v19 = *&v23[4];
-  LODWORD(v22) = 22;
-  v20 = _os_log_send_and_compose_impl();
+  v22 = 138412546;
+  v23 = objc_opt_class();
+  v24 = 2112;
+  v25 = pathCopy;
+  v19 = v23;
+  v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@] Error: Unable to get staging path for relative path: %@", &v22, 22);
 
   if (v20)
   {
-    oSLogObject2 = [NSString stringWithCString:v20 encoding:4, v23, v22, *v23, *&v23[8]];
+    oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
     free(v20);
     SSFileLog();
-LABEL_24:
+LABEL_26:
   }
 
   v9 = 0;
-LABEL_26:
+LABEL_28:
 
   return v9;
 }
@@ -1162,10 +1173,9 @@ LABEL_5:
 
     if (v9)
     {
-      v20 = 136315138;
-      v21 = v3;
-      LODWORD(v19) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v19 = 136315138;
+      v20 = v3;
+      v10 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "Using system group container path is: %s", &v19);
 
       if (!v10)
       {
@@ -1178,7 +1188,7 @@ LABEL_14:
         goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v10 encoding:4, &v20, v19];
+      oSLogObject = [NSString stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
@@ -1218,14 +1228,13 @@ LABEL_14:
     goto LABEL_26;
   }
 
-  v20 = 134217984;
-  v21 = 1;
-  LODWORD(v19) = 12;
-  v17 = _os_log_send_and_compose_impl();
+  v19 = 134217984;
+  v20 = 1;
+  v17 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "Error getting system group container: %llu", &v19);
 
   if (v17)
   {
-    oSLogObject2 = [NSString stringWithCString:v17 encoding:4, &v20, v19];
+    oSLogObject2 = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
 LABEL_26:

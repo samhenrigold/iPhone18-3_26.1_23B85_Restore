@@ -447,7 +447,7 @@ void __68__PKApplyTermsAndConditionsViewController_termsAccepted_completion___bl
   }
 }
 
-uint64_t __68__PKApplyTermsAndConditionsViewController_termsAccepted_completion___block_invoke_3(uint64_t a1, char a2)
+void *__68__PKApplyTermsAndConditionsViewController_termsAccepted_completion___block_invoke_3(uint64_t a1, char a2)
 {
   v4 = *(a1 + 40);
   if (v4)

@@ -58,7 +58,7 @@
 {
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_6(&dword_243550000, v2, v3, "entered %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&dword_243550000, v2, v3, "entered %{public}@", v4, v5, v6, v7);
 }
 
 - (int64_t)zoneTrackerState
@@ -79,7 +79,7 @@
 
 - (void)unregisterAllZoneChanges
 {
-  v4 = _CRKLogBluetooth_0();
+  v4 = _CRKLogBluetooth_0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
@@ -92,14 +92,14 @@
 - (void)unregisterForZoneChanges:(id)changes
 {
   changesCopy = changes;
-  v6 = _CRKLogBluetooth_0();
+  v6 = _CRKLogBluetooth_0(changesCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v7 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CRKLogBluetooth_0(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner unregisterForZoneChanges:];
   }
@@ -111,14 +111,14 @@
 - (void)registerForZoneChangesMatching:(id)matching
 {
   matchingCopy = matching;
-  v6 = _CRKLogBluetooth_0();
+  v6 = _CRKLogBluetooth_0(matchingCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v7 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CRKLogBluetooth_0(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner unregisterForZoneChanges:];
   }
@@ -129,7 +129,7 @@
 
 - (void)unregisterAllDeviceChanges
 {
-  v4 = _CRKLogBluetooth_0();
+  v4 = _CRKLogBluetooth_0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
@@ -143,20 +143,20 @@
 {
   matchingCopy = matching;
   optionsCopy = options;
-  v9 = _CRKLogBluetooth_0();
+  v9 = _CRKLogBluetooth_0(optionsCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v10 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _CRKLogBluetooth_0(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner registerForDevicesMatching:options:];
   }
 
-  v11 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = _CRKLogBluetooth_0(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner registerForDevicesMatching:options:];
   }
@@ -168,14 +168,14 @@
 - (void)zoneTrackerDidUpdateState:(id)state
 {
   stateCopy = state;
-  v6 = _CRKLogBluetooth_0();
+  v6 = _CRKLogBluetooth_0(stateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v7 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CRKLogBluetooth_0(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner zoneTrackerDidUpdateState:stateCopy];
   }
@@ -188,14 +188,14 @@
 {
   zoneCopy = zone;
   trackerCopy = tracker;
-  v9 = _CRKLogBluetooth_0();
+  v9 = _CRKLogBluetooth_0(trackerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v10 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _CRKLogBluetooth_0(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner zoneTracker:enteredZone:];
   }
@@ -208,14 +208,14 @@
 {
   zoneCopy = zone;
   trackerCopy = tracker;
-  v9 = _CRKLogBluetooth_0();
+  v9 = _CRKLogBluetooth_0(trackerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v10 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _CRKLogBluetooth_0(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner zoneTracker:enteredZone:];
   }
@@ -229,7 +229,7 @@
   errorCopy = error;
   zonesCopy = zones;
   trackerCopy = tracker;
-  v12 = _CRKLogBluetooth_0();
+  v12 = _CRKLogBluetooth_0(trackerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
@@ -242,14 +242,14 @@
 - (void)deviceScannerDidUpdateState:(id)state
 {
   stateCopy = state;
-  v6 = _CRKLogBluetooth_0();
+  v6 = _CRKLogBluetooth_0(stateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v7 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CRKLogBluetooth_0(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner zoneTrackerDidUpdateState:stateCopy];
   }
@@ -262,14 +262,14 @@
 {
   devicesCopy = devices;
   scannerCopy = scanner;
-  v9 = _CRKLogBluetooth_0();
+  v9 = _CRKLogBluetooth_0(scannerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v10 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _CRKLogBluetooth_0(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner registerForDevicesMatching:options:];
   }
@@ -283,14 +283,14 @@
   deviceCopy = device;
   dataCopy = data;
   scannerCopy = scanner;
-  v12 = _CRKLogBluetooth_0();
+  v12 = _CRKLogBluetooth_0(scannerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
   }
 
-  v13 = _CRKLogBluetooth_0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _CRKLogBluetooth_0(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [CRKWiProxTrackerScanner scanner:foundDevice:withData:];
   }
@@ -304,7 +304,7 @@
   errorCopy = error;
   devicesCopy = devices;
   scannerCopy = scanner;
-  v12 = _CRKLogBluetooth_0();
+  v12 = _CRKLogBluetooth_0(scannerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [(CRKWiProxTrackerScanner *)a2 invalidate];
@@ -325,7 +325,7 @@
 {
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(a1, "state")}];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_6(&dword_243550000, v2, v3, "state: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&dword_243550000, v2, v3, "state: %{public}@", v4, v5, v6, v7);
 }
 
 @end

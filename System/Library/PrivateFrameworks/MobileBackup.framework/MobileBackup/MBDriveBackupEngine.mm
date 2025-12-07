@@ -2,6 +2,7 @@
 + (MBDriveBackupEngine)backupEngineWithSettingsContext:(id)context debugContext:(id)debugContext;
 - (BOOL)_isModifiedWithFileDescriptor:(int)descriptor reason:(id *)reason;
 - (BOOL)_shouldRetry;
+- (BOOL)_uploadStatusToDriveWithSnapshotState:(int)state error:(id *)error;
 - (BOOL)cancel;
 - (BOOL)fileScanner:(id)scanner isFileAddedOrModified:(id)modified;
 - (BOOL)fileScanner:(id)scanner shouldExcludeFile:(id)file;
@@ -17,9 +18,11 @@
 - (id)_deviceSnapshotDir;
 - (id)_deviceSnapshotManifestDatabasePath;
 - (id)_deviceSnapshotPropertiesPath;
+- (id)_fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error;
 - (id)_findPathsRemovedFromBackup;
 - (id)_moveBatchWithPaths:(id)paths;
 - (id)_moveInBatchesWithOperationType:(int)type;
+- (id)_moveWithOperationType:(int)type;
 - (id)_openBackupManifestForResume;
 - (id)_preconditions;
 - (id)_preflight;
@@ -32,7 +35,9 @@
 - (id)_prepareSnapshot;
 - (id)_removeBatchWithPaths:(id)paths;
 - (id)_removeDeviceSnapshot;
+- (id)_removeInBatchesWithOperationType:(int)type;
 - (id)_removeOldBackup;
+- (id)_removeWithOperationType:(int)type;
 - (id)_resume;
 - (id)_resumeAfterFailureMoving;
 - (id)_resumeAfterFailureRemoving;
@@ -55,6 +60,7 @@
 - (id)backupAfterPreflight;
 - (id)cleanup;
 - (id)endWithError:(id)error;
+- (id)fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error;
 - (id)fileScanner:(id)scanner didFindFile:(id)file;
 - (id)preflight;
 - (id)promptUser;
@@ -225,7 +231,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting backup", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting backup");
   }
 
   settingsContext = [(MBDriveBackupEngine *)self settingsContext];
@@ -238,8 +244,7 @@
     *buf = 138412290;
     v20 = *&debugContext;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "DebugContext: %@", buf, 0xCu);
-    v18 = self->super._debugContext;
-    _MBLog();
+    _MBLog(@"I ", "DebugContext: %@", self->super._debugContext);
   }
 
   v10 = MBGetDefaultLog();
@@ -247,31 +252,31 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Starting preflight", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting preflight");
   }
 
-  [(MBDriveBackupEngine *)self _preflight];
-  v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  _preflight = [(MBDriveBackupEngine *)self _preflight];
   +[NSDate timeIntervalSinceReferenceDate];
   v13 = v12;
   v14 = MBGetDefaultLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
+    v15 = v13 - v5;
     *buf = 134217984;
-    v20 = v13 - v5;
+    v20 = v15;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Finished preflight in %0.3fs", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Finished preflight in %0.3fs", v15);
   }
 
-  if (v11 != 0.0)
+  if (_preflight)
   {
-    v15 = MBGetDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to preflight: %@", buf, 0xCu);
-      _MBLog();
+      v20 = *&_preflight;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to preflight: %@", buf, 0xCu);
+      _MBLog(@"E ", "Failed to preflight: %@", _preflight);
     }
 
     _cleanup = [(MBDriveBackupEngine *)self _cleanup];
@@ -279,14 +284,13 @@
 
   objc_autoreleasePoolPop(v3);
 
-  return *&v11;
+  return _preflight;
 }
 
 - (id)backupAfterPreflight
 {
   v3 = objc_autoreleasePoolPush();
-  [(MBDriveBackupEngine *)self _backupAfterPreflight];
-  v4 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  _backupAfterPreflight = [(MBDriveBackupEngine *)self _backupAfterPreflight];
   +[NSDate timeIntervalSinceReferenceDate];
   v6 = v5;
   [(MBDriveBackupEngine *)self startTime];
@@ -294,21 +298,22 @@
   v9 = MBGetDefaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
+    v10 = v6 - v8;
     *buf = 134217984;
-    v14 = v6 - v8;
+    v15 = v10;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Finished backup in %0.3fs", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Finished backup in %0.3fs", v10);
   }
 
-  if (v4 != 0.0)
+  if (_backupAfterPreflight)
   {
-    v10 = MBGetDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MBGetDefaultLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v4;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to backup: %@", buf, 0xCu);
-      _MBLog();
+      v15 = *&_backupAfterPreflight;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to backup: %@", buf, 0xCu);
+      _MBLog(@"E ", "Failed to backup: %@", _backupAfterPreflight);
     }
 
     _cleanup = [(MBDriveBackupEngine *)self _cleanup];
@@ -316,7 +321,7 @@
 
   objc_autoreleasePoolPop(v3);
 
-  return *&v4;
+  return _backupAfterPreflight;
 }
 
 - (id)cleanup
@@ -331,7 +336,7 @@
       *buf = 138412290;
       v8 = _cleanup;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to cleanup: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to cleanup: %@", _cleanup);
     }
   }
 
@@ -352,7 +357,7 @@
       *&buf[12] = 1024;
       *&buf[14] = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@:%d", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"Df", "%{public}@:%d", @"EnableLocalBackupPrompt", 0);
     }
 
     v6 = 0;
@@ -398,7 +403,7 @@
         *v22 = 134217984;
         v23 = 30;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Timed out waiting %lld minutes for passcode", v22, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Timed out waiting %lld minutes for passcode", 30);
       }
 
       [v9 invalidate];
@@ -467,10 +472,10 @@ LABEL_3:
   objectEnumerator = [plugins objectEnumerator];
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3221225472;
-  v14 = sub_100137B50;
-  v15 = &unk_1003BF940;
+  v13 = sub_100137B50;
+  v14 = &unk_1003BF940;
   selfCopy = self;
-  v17 = "startingBackupWithEngine:";
+  v16 = "startingBackupWithEngine:";
   v4 = MBNotifyPluginsBlock(self, objectEnumerator, "startingBackupWithEngine:", &buf);
 
   if (!v4)
@@ -490,8 +495,7 @@ LABEL_3:
             LODWORD(buf) = 138412290;
             *(&buf + 4) = v10;
             _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Existing backup is corrupt, forcing a full backup: %@", &buf, 0xCu);
-            v12 = v10;
-            _MBLog();
+            _MBLog(@"E ", "Existing backup is corrupt, forcing a full backup: %@", v10);
           }
 
           self->_fullBackup = 1;
@@ -626,7 +630,7 @@ LABEL_9:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Initializing app manager", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Initializing app manager");
     }
 
     v7 = [MBAppManager alloc];
@@ -638,9 +642,9 @@ LABEL_9:
 
     v12 = self->super._appManager;
     persona = [(MBEngine *)self persona];
-    v40 = 0;
-    LOBYTE(mobileInstallation) = [(MBAppManager *)v12 loadAppsWithPersona:persona safeHarbors:1 error:&v40];
-    password2 = v40;
+    v39 = 0;
+    LOBYTE(mobileInstallation) = [(MBAppManager *)v12 loadAppsWithPersona:persona safeHarbors:1 error:&v39];
+    password2 = v39;
 
     if (mobileInstallation)
     {
@@ -649,7 +653,7 @@ LABEL_9:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Removing old safe harbors", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Removing old safe harbors");
       }
 
       v16 = self->super._appManager;
@@ -676,9 +680,9 @@ LABEL_9:
 
       else
       {
-        v39 = password2;
-        v23 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v39];
-        v24 = v39;
+        v38 = password2;
+        v23 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v38];
+        v24 = v38;
 
         [(MBDriveBackupEngine *)self setPassword:v23];
         password = [(MBDriveBackupEngine *)self password];
@@ -691,9 +695,9 @@ LABEL_9:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v42 = v24;
+              v41 = v24;
               _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Error fetching backup password: %@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"E ", "Error fetching backup password: %@", v24);
             }
 
             v22 = v24;
@@ -735,7 +739,7 @@ LABEL_9:
         }
 
         *buf = 138412290;
-        v42 = v31;
+        v41 = v31;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Encryption is %@", buf, 0xCu);
         if ([(MBEngine *)self encrypted])
         {
@@ -747,8 +751,7 @@ LABEL_9:
           v32 = @"disabled";
         }
 
-        v38 = v32;
-        _MBLog();
+        _MBLog(@"Df", "Encryption is %@", v32);
       }
 
       [(MBDebugContext *)self->super._debugContext setBool:[(MBEngine *)self encrypted] forName:@"IsEncrypted"];
@@ -826,22 +829,22 @@ LABEL_43:
       v20 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Backup error - %@", buf, 0xCu);
 
-      v17 = [MBError descriptionForError:v8];
-      _MBLog();
+      v11 = [MBError descriptionForError:v8];
+      _MBLog(@"E ", "Backup error - %@", v11);
     }
 
     errorCopy = v8;
   }
 
-  v11 = [MBEngine stringForEngineType:[(MBDriveBackupEngine *)self engineType]];
-  v12 = [MBEngine stringForEngineMode:[(MBDriveBackupEngine *)self engineMode]];
-  v13 = [NSString stringWithFormat:@"%@.%@.%@", @"com.apple.MobileBackup", v11, v12];
+  v12 = [MBEngine stringForEngineType:[(MBDriveBackupEngine *)self engineType]];
+  v13 = [MBEngine stringForEngineMode:[(MBDriveBackupEngine *)self engineMode]];
+  v14 = [NSString stringWithFormat:@"%@.%@.%@", @"com.apple.MobileBackup", v12, v13];
 
-  [MBTelemetry submitEngineCompletedEventName:v13 engineStarted:errorCopy engineError:self->_startTime];
+  [MBTelemetry submitEngineCompletedEventName:v14 engineStarted:errorCopy engineError:self->_startTime];
   settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
   [settingsContext2 setEncryptionManager:0];
 
-  v15 = errorCopy;
+  v16 = errorCopy;
   return errorCopy;
 }
 
@@ -875,7 +878,7 @@ LABEL_43:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Removing snapshot on device", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Removing snapshot on device");
   }
 
   v4 = +[NSFileManager defaultManager];
@@ -938,12 +941,12 @@ LABEL_14:
 
     absolutePath2 = [fileCopy absolutePath];
     fileID2 = [fileCopy fileID];
-    _MBLog();
+    _MBLog(@"Df", "File modified while being uploaded (%@): %@ (%@)", reasonCopy, absolutePath2, fileID2);
   }
 
   snapshotManifestDB = self->_snapshotManifestDB;
   fileID3 = [fileCopy fileID];
-  v14 = [(MBManifestDB *)snapshotManifestDB setFlags:16 mask:-9 forFileID:fileID3];
+  v15 = [(MBManifestDB *)snapshotManifestDB setFlags:16 mask:-9 forFileID:fileID3];
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -971,9 +974,9 @@ LABEL_14:
   }
 
   v8 = +[MBManagedPolicy sharedPolicy];
-  v32 = 0;
-  v9 = [v8 checkIfDriveBackupIsAllowed:&v32];
-  v10 = v32;
+  v31 = 0;
+  v9 = [v8 checkIfDriveBackupIsAllowed:&v31];
+  v10 = v31;
 
   if ((v9 & 1) == 0)
   {
@@ -1000,9 +1003,9 @@ LABEL_7:
     manager = objc_alloc_init(MBManager);
   }
 
-  v31 = 0;
-  v15 = [manager restoreStateWithError:&v31];
-  v16 = v31;
+  v30 = 0;
+  v15 = [manager restoreStateWithError:&v30];
+  v16 = v30;
   if (v15)
   {
     state = [v15 state];
@@ -1013,16 +1016,15 @@ LABEL_7:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v34) = v18;
+        LODWORD(v33) = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "iTunes Backup is unavailable while an iCloud Restore is in progress (%d)", buf, 8u);
-        v30 = v18;
-        _MBLog();
+        _MBLog(@"E ", "iTunes Backup is unavailable while an iCloud Restore is in progress (%d)", v18);
       }
 
       v20 = @"iTunes Backup is unavailable while an iCloud Restore is in progress";
       v21 = 25;
 LABEL_25:
-      v12 = [MBError errorWithCode:v21 format:v20, v30];
+      v12 = [MBError errorWithCode:v21 format:v20];
       goto LABEL_26;
     }
   }
@@ -1037,10 +1039,9 @@ LABEL_25:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v34 = v16;
+        v33 = v16;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to fetch iCloud Restore state: %{public}@", buf, 0xCu);
-        v30 = v16;
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch iCloud Restore state: %{public}@", v16);
       }
 
       v20 = @"Failed to determine iCloud Restore state";
@@ -1052,7 +1053,7 @@ LABEL_25:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "No iCloud account", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "No iCloud account");
     }
   }
 
@@ -1072,15 +1073,15 @@ LABEL_27:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Starting to retrieve previous backup status", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Starting to retrieve previous backup status");
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
   v6 = v5;
   backupHelper = self->_backupHelper;
-  v55 = 0;
-  v8 = [(MBBackupHelper *)backupHelper readStatusWithError:&v55];
-  v9 = v55;
+  v57 = 0;
+  v8 = [(MBBackupHelper *)backupHelper readStatusWithError:&v57];
+  v9 = v57;
   status = self->_status;
   self->_status = v8;
 
@@ -1097,9 +1098,9 @@ LABEL_27:
     backupStateName = [(MBStatus *)self->_status backupStateName];
     [(MBDebugContext *)debugContext setValue:backupStateName forName:@"BackupState"];
 
-    v22 = self->super._debugContext;
+    v23 = self->super._debugContext;
     snapshotStateName = [(MBStatus *)self->_status snapshotStateName];
-    [(MBDebugContext *)v22 setValue:snapshotStateName forName:@"SnapshotState"];
+    [(MBDebugContext *)v23 setValue:snapshotStateName forName:@"SnapshotState"];
 
     [(MBDebugContext *)self->super._debugContext setInt:[(MBStatus *)self->_status isFullBackup] forName:@"StatusIsFullBackup"];
     uuid = [(MBStatus *)self->_status uuid];
@@ -1109,17 +1110,17 @@ LABEL_27:
     self->_fullBackup = [(MBStatus *)self->_status isFullBackup];
     if (![(MBStatus *)self->_status isFinished])
     {
-      v26 = MBGetDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = MBGetDefaultLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         [(MBStatus *)self->_status snapshotStateName];
-        v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412290;
-        v57 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Resuming after failure during '%@' phase", buf, 0xCu);
+        v59 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Resuming after failure during '%@' phase", buf, 0xCu);
 
         snapshotStateName2 = [(MBStatus *)self->_status snapshotStateName];
-        _MBLog();
+        _MBLog(@"Df", "Resuming after failure during '%@' phase", snapshotStateName2);
       }
     }
 
@@ -1152,31 +1153,31 @@ LABEL_27:
       _resumeAfterFailureUploading = ;
     }
 
-    v33 = _resumeAfterFailureUploading;
+    v36 = _resumeAfterFailureUploading;
 
-    if (v33)
+    if (v36)
     {
-      if ([MBError isError:v33 withCode:203])
+      if ([MBError isError:v36 withCode:203])
       {
-        v34 = MBGetDefaultLog();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        v37 = MBGetDefaultLog();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
-          [MBError descriptionForError:v33];
-          v35 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          [MBError descriptionForError:v36];
+          v38 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
           *buf = 138412290;
-          v57 = v35;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+          v59 = v38;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
 
-          v53 = [MBError descriptionForError:v33];
-          _MBLog();
+          v39 = [MBError descriptionForError:v36];
+          _MBLog(@"I ", "%@", v39);
         }
 
-        v36 = MBGetDefaultLog();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v40 = MBGetDefaultLog();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Performing full backup to replace unsupported format", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Performing full backup to replace unsupported format", buf, 2u);
+          _MBLog(@"Df", "Performing full backup to replace unsupported format");
         }
 
         [(MBDebugContext *)self->super._debugContext setFlag:@"ManifestVersionUnsupported"];
@@ -1185,19 +1186,19 @@ LABEL_27:
 
       else
       {
-        if (![MBError isError:v33 withCode:207])
+        if (![MBError isError:v36 withCode:207])
         {
-          v32 = v33;
-          v9 = v32;
+          v35 = v36;
+          v9 = v35;
           goto LABEL_72;
         }
 
-        v37 = MBGetDefaultLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v41 = MBGetDefaultLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Password has changed. Performing full backup encrypted with new password.", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Password has changed. Performing full backup encrypted with new password.", buf, 2u);
+          _MBLog(@"Df", "Password has changed. Performing full backup encrypted with new password.");
         }
 
         self->_fullBackup = 1;
@@ -1208,12 +1209,12 @@ LABEL_27:
     snapshotManifestDB = self->_snapshotManifestDB;
     if (snapshotManifestDB && [(MBManifestDB *)snapshotManifestDB domainRedirects]|| (backupManifestDB = self->_backupManifestDB) != 0 && [(MBManifestDB *)backupManifestDB domainRedirects])
     {
-      v41 = MBGetDefaultLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v45 = MBGetDefaultLog();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Performing full backup because of domain redirects", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Performing full backup because of domain redirects", buf, 2u);
+        _MBLog(@"Df", "Performing full backup because of domain redirects");
       }
 
       self->_fullBackup = 1;
@@ -1232,7 +1233,7 @@ LABEL_27:
       if (!hasCorruptSQLiteDBs)
       {
 LABEL_61:
-        if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterResumingSuccessfully", v54])
+        if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterResumingSuccessfully"])
         {
           abort();
         }
@@ -1242,14 +1243,13 @@ LABEL_61:
       }
     }
 
-    v45 = MBGetDefaultLog();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v49 = MBGetDefaultLog();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
     {
       *buf = 136380675;
-      v57 = COERCE_DOUBLE("9365479");
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "This backup has corrupt SQLite databases. Forcing a full backup to work around %{private}s", buf, 0xCu);
-      v54 = "9365479";
-      _MBLog();
+      v59 = COERCE_DOUBLE("9365479");
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "This backup has corrupt SQLite databases. Forcing a full backup to work around %{private}s", buf, 0xCu);
+      _MBLog(@"I ", "This backup has corrupt SQLite databases. Forcing a full backup to work around %{private}s", "9365479");
     }
 
     self->_fullBackup = 1;
@@ -1267,10 +1267,10 @@ LABEL_61:
       {
         [(MBStatus *)self->_status version];
         *buf = 134217984;
-        v57 = v16;
+        v59 = v16;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Status: version=%0.1f", buf, 0xCu);
         [(MBStatus *)self->_status version];
-        _MBLog();
+        _MBLog(@"I ", "Status: version=%0.1f", v17);
       }
 
       [(MBDebugContext *)self->super._debugContext setFlag:@"OldStatusFound"];
@@ -1283,50 +1283,50 @@ LABEL_10:
   {
     if ([MBError isError:v9 withCode:203])
     {
-      v29 = MBGetDefaultLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v31 = MBGetDefaultLog();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         [MBError descriptionForError:v9];
-        v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v32 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412290;
-        v57 = v30;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+        v59 = v32;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
 
-        snapshotStateName2 = [MBError descriptionForError:v9];
-        _MBLog();
+        v33 = [MBError descriptionForError:v9];
+        _MBLog(@"I ", "%@", v33);
       }
 
-      v31 = MBGetDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = MBGetDefaultLog();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Performing full backup to replace unsupported format", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Performing full backup to replace unsupported format", buf, 2u);
+        _MBLog(@"Df", "Performing full backup to replace unsupported format");
       }
 
-      v18 = self->super._debugContext;
-      v19 = @"StatusVersionUnsupported";
+      v19 = self->super._debugContext;
+      v20 = @"StatusVersionUnsupported";
       goto LABEL_26;
     }
 
-    v32 = [MBBackupHelper driveReadError:v9 description:@"Error reading status"];
+    v35 = [MBBackupHelper driveReadError:v9 description:@"Error reading status"];
 LABEL_72:
-    v50 = v32;
+    v55 = v35;
     goto LABEL_68;
   }
 
-  v17 = MBGetDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = MBGetDefaultLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "No status exists", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "No status exists", buf, 2u);
+    _MBLog(@"I ", "No status exists");
   }
 
-  v18 = self->super._debugContext;
-  v19 = @"StatusNotFound";
+  v19 = self->super._debugContext;
+  v20 = @"StatusNotFound";
 LABEL_26:
-  [(MBDebugContext *)v18 setFlag:v19, snapshotStateName2];
+  [(MBDebugContext *)v19 setFlag:v20];
 
   v9 = 0;
 LABEL_27:
@@ -1334,28 +1334,28 @@ LABEL_27:
 LABEL_63:
   if (!self->_uuid)
   {
-    v46 = MBRandomUUID();
-    v47 = self->_uuid;
-    self->_uuid = v46;
+    v50 = MBRandomUUID();
+    v51 = self->_uuid;
+    self->_uuid = v50;
   }
 
-  v48 = MBGetDefaultLog();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+  v52 = MBGetDefaultLog();
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
   {
     +[NSDate timeIntervalSinceReferenceDate];
     *buf = 134217984;
-    v57 = v49 - v6;
-    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Retrieved previous backup status in %0.3f s", buf, 0xCu);
+    v59 = v53 - v6;
+    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Retrieved previous backup status in %0.3f s", buf, 0xCu);
     +[NSDate timeIntervalSinceReferenceDate];
-    _MBLog();
+    _MBLog(@"I ", "Retrieved previous backup status in %0.3f s", v54 - v6);
   }
 
-  v50 = 0;
+  v55 = 0;
 LABEL_68:
 
   objc_autoreleasePoolPop(v3);
 
-  return v50;
+  return v55;
 }
 
 - (id)_openBackupManifestForResume
@@ -1435,7 +1435,7 @@ LABEL_15:
         *buf = 138412290;
         v21 = v7;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to setup manifest encryption: %@", v7);
       }
 
       [(MBManifestDB *)self->_backupManifestDB closeWithError:0];
@@ -1462,7 +1462,7 @@ LABEL_22:
   {
     removeFilesNotAlreadyUploaded = _openBackupManifestForResume;
     v5 = removeFilesNotAlreadyUploaded;
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   v6 = +[NSFileManager defaultManager];
@@ -1475,17 +1475,17 @@ LABEL_22:
     _deviceSnapshotManifestDatabasePath2 = [(MBDriveBackupEngine *)self _deviceSnapshotManifestDatabasePath];
     v11 = [(MBManifestDB *)v9 initWithPath:_deviceSnapshotManifestDatabasePath2 domainManager:self->super._domainManager];
 
-    v82 = 0;
-    LOBYTE(_deviceSnapshotManifestDatabasePath2) = [(MBManifestDB *)v11 openWithError:&v82];
-    removeFilesNotAlreadyUploaded = v82;
+    v81 = 0;
+    LOBYTE(_deviceSnapshotManifestDatabasePath2) = [(MBManifestDB *)v11 openWithError:&v81];
+    removeFilesNotAlreadyUploaded = v81;
     if (_deviceSnapshotManifestDatabasePath2)
     {
       if ([(MBEngine *)self encrypted])
       {
         password = [(MBDriveBackupEngine *)self password];
-        v81 = removeFilesNotAlreadyUploaded;
-        v13 = [(MBManifestDB *)v11 setupEncryptionWithPassword:password withError:&v81];
-        v14 = v81;
+        v80 = removeFilesNotAlreadyUploaded;
+        v13 = [(MBManifestDB *)v11 setupEncryptionWithPassword:password withError:&v80];
+        v14 = v80;
 
         if ((v13 & 1) == 0)
         {
@@ -1493,32 +1493,32 @@ LABEL_22:
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v84 = v14;
+            v83 = v14;
             _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "Failed to setup manifest encryption: %@", v14);
           }
 
           [(MBManifestDB *)v11 closeWithError:0];
           v37 = v14;
           removeFilesNotAlreadyUploaded = v37;
-LABEL_43:
+LABEL_42:
           v5 = v37;
-          goto LABEL_26;
+          goto LABEL_25;
         }
 
         removeFilesNotAlreadyUploaded = v14;
       }
 
       v15 = removeFilesNotAlreadyUploaded;
-      v80 = removeFilesNotAlreadyUploaded;
-      v16 = [(MBManifestDB *)v11 checkWithError:&v80];
-      removeFilesNotAlreadyUploaded = v80;
+      v79 = removeFilesNotAlreadyUploaded;
+      v16 = [(MBManifestDB *)v11 checkWithError:&v79];
+      removeFilesNotAlreadyUploaded = v79;
 
       if (v16)
       {
-        v79 = removeFilesNotAlreadyUploaded;
-        v17 = [(MBManifestDB *)v11 closeWithError:&v79];
-        v18 = v79;
+        v78 = removeFilesNotAlreadyUploaded;
+        v17 = [(MBManifestDB *)v11 closeWithError:&v78];
+        v18 = v78;
 
         if ((v17 & 1) == 0)
         {
@@ -1526,14 +1526,14 @@ LABEL_43:
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v84 = v18;
+            v83 = v18;
             _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Failed to close existing snapshot manifest database: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "Failed to close existing snapshot manifest database: %@", v18);
           }
 
           v5 = 0;
           removeFilesNotAlreadyUploaded = v18;
-          goto LABEL_26;
+          goto LABEL_25;
         }
 
         v19 = MBGetDefaultLog();
@@ -1541,22 +1541,22 @@ LABEL_43:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Reading snapshot properties from device", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Reading snapshot properties from device");
         }
 
         _deviceSnapshotPropertiesPath = [(MBDriveBackupEngine *)self _deviceSnapshotPropertiesPath];
-        v78 = v18;
-        v11 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath error:&v78];
-        v21 = v78;
+        v77 = v18;
+        v11 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath error:&v77];
+        v21 = v77;
 
         if (v11)
         {
           v22 = MBTemporaryPath();
           _deviceSnapshotManifestDatabasePath3 = [(MBDriveBackupEngine *)self _deviceSnapshotManifestDatabasePath];
-          v77 = v21;
+          v76 = v21;
           v24 = v22;
-          v25 = [v6 moveItemAtPath:_deviceSnapshotManifestDatabasePath3 toPath:v22 error:&v77];
-          removeFilesNotAlreadyUploaded = v77;
+          v25 = [v6 moveItemAtPath:_deviceSnapshotManifestDatabasePath3 toPath:v22 error:&v76];
+          removeFilesNotAlreadyUploaded = v76;
 
           v26 = MBGetDefaultLog();
           v27 = v26;
@@ -1565,28 +1565,27 @@ LABEL_43:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v84 = removeFilesNotAlreadyUploaded;
+              v83 = removeFilesNotAlreadyUploaded;
               _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to move existing snapshot manifest DB after upload failure: %@", buf, 0xCu);
-              v69 = removeFilesNotAlreadyUploaded;
-              _MBLog();
+              _MBLog(@"E ", "Failed to move existing snapshot manifest DB after upload failure: %@", removeFilesNotAlreadyUploaded);
             }
 
             v41 = @"Failed to move snapshot manifest database";
-            goto LABEL_47;
+            goto LABEL_46;
           }
 
           if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Removing snapshot on device", buf, 2u);
-            _MBLog();
+            _MBLog(@"I ", "Removing snapshot on device");
           }
 
           v28 = +[NSFileManager defaultManager];
           _deviceSnapshotDir = [(MBDriveBackupEngine *)self _deviceSnapshotDir];
-          v76 = removeFilesNotAlreadyUploaded;
-          v30 = [v28 removeItemAtPath:_deviceSnapshotDir error:&v76];
-          v31 = v76;
+          v75 = removeFilesNotAlreadyUploaded;
+          v30 = [v28 removeItemAtPath:_deviceSnapshotDir error:&v75];
+          v31 = v75;
 
           if (v30)
           {
@@ -1598,17 +1597,17 @@ LABEL_17:
 LABEL_18:
               v33 = _setupSnapshotDirectory;
               removeFilesNotAlreadyUploaded = v33;
-LABEL_48:
+LABEL_47:
               v5 = v33;
-LABEL_57:
+LABEL_56:
 
-              goto LABEL_26;
+              goto LABEL_25;
             }
 
             _deviceSnapshotManifestDatabasePath4 = [(MBDriveBackupEngine *)self _deviceSnapshotManifestDatabasePath];
-            v75 = 0;
-            v46 = [v6 moveItemAtPath:v24 toPath:_deviceSnapshotManifestDatabasePath4 error:&v75];
-            removeFilesNotAlreadyUploaded = v75;
+            v74 = 0;
+            v46 = [v6 moveItemAtPath:v24 toPath:_deviceSnapshotManifestDatabasePath4 error:&v74];
+            removeFilesNotAlreadyUploaded = v74;
 
             if (v46)
             {
@@ -1619,9 +1618,9 @@ LABEL_57:
               self->_snapshotManifestDB = v49;
 
               v51 = self->_snapshotManifestDB;
-              v74 = removeFilesNotAlreadyUploaded;
-              LOBYTE(_deviceSnapshotManifestDatabasePath5) = [(MBManifestDB *)v51 openWithError:&v74];
-              v31 = v74;
+              v73 = removeFilesNotAlreadyUploaded;
+              LOBYTE(_deviceSnapshotManifestDatabasePath5) = [(MBManifestDB *)v51 openWithError:&v73];
+              v31 = v73;
 
               if ((_deviceSnapshotManifestDatabasePath5 & 1) == 0)
               {
@@ -1629,22 +1628,22 @@ LABEL_57:
                 if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v84 = v31;
+                  v83 = v31;
                   _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Failed to open snapshot manifest database: %@", buf, 0xCu);
-                  _MBLog();
+                  _MBLog(@"E ", "Failed to open snapshot manifest database: %@", v31);
                 }
 
                 v64 = [MBError errorWithCode:102 error:v31 format:@"Failed to open resume snapshot manifest database"];
-                goto LABEL_74;
+                goto LABEL_73;
               }
 
               if ([(MBEngine *)self encrypted])
               {
                 v52 = self->_snapshotManifestDB;
                 password2 = [(MBDriveBackupEngine *)self password];
-                v73 = v31;
-                v54 = [(MBManifestDB *)v52 setupEncryptionWithPassword:password2 withError:&v73];
-                _setupSnapshotDirectory = v73;
+                v72 = v31;
+                v54 = [(MBManifestDB *)v52 setupEncryptionWithPassword:password2 withError:&v72];
+                _setupSnapshotDirectory = v72;
 
                 if ((v54 & 1) == 0)
                 {
@@ -1652,9 +1651,9 @@ LABEL_57:
                   if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v84 = _setupSnapshotDirectory;
+                    v83 = _setupSnapshotDirectory;
                     _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-                    _MBLog();
+                    _MBLog(@"E ", "Failed to setup manifest encryption: %@", _setupSnapshotDirectory);
                   }
 
                   goto LABEL_18;
@@ -1668,37 +1667,37 @@ LABEL_57:
               {
                 *buf = 0;
                 _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Determining which files were already uploaded to the backup", buf, 2u);
-                _MBLog();
+                _MBLog(@"I ", "Determining which files were already uploaded to the backup");
               }
 
               settingsContext = [(MBDriveBackupEngine *)self settingsContext];
               drive = [settingsContext drive];
               settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
               driveSnapshotDir = [settingsContext2 driveSnapshotDir];
-              v72[0] = _NSConcreteStackBlock;
-              v72[1] = 3221225472;
-              v72[2] = sub_1002201C4;
-              v72[3] = &unk_1003C2030;
-              v72[4] = self;
-              v70 = [drive enumerateContentsOfDirectoryAtPath:driveSnapshotDir options:0 foundItem:v72];
+              v71[0] = _NSConcreteStackBlock;
+              v71[1] = 3221225472;
+              v71[2] = sub_1002201C4;
+              v71[3] = &unk_1003C2030;
+              v71[4] = self;
+              v69 = [drive enumerateContentsOfDirectoryAtPath:driveSnapshotDir options:0 foundItem:v71];
 
               settingsContext3 = [(MBDriveBackupEngine *)self settingsContext];
               drive2 = [settingsContext3 drive];
               settingsContext4 = [(MBDriveBackupEngine *)self settingsContext];
               driveBackupDir = [settingsContext4 driveBackupDir];
-              v71[0] = _NSConcreteStackBlock;
-              v71[1] = 3221225472;
-              v71[2] = sub_100220360;
-              v71[3] = &unk_1003C2030;
-              v71[4] = self;
-              v31 = [drive2 enumerateContentsOfDirectoryAtPath:driveBackupDir options:0 foundItem:v71];
+              v70[0] = _NSConcreteStackBlock;
+              v70[1] = 3221225472;
+              v70[2] = sub_100220360;
+              v70[3] = &unk_1003C2030;
+              v70[4] = self;
+              v31 = [drive2 enumerateContentsOfDirectoryAtPath:driveBackupDir options:0 foundItem:v70];
 
               if (v31 && [MBError isError:v31 withCode:4])
               {
                 v64 = [MBBackupHelper driveReadError:v31 description:@"Error getting contents of snapshot"];
-LABEL_74:
+LABEL_73:
                 v5 = v64;
-                goto LABEL_56;
+                goto LABEL_55;
               }
 
               removeFilesNotAlreadyUploaded = [(MBManifestDB *)self->_snapshotManifestDB removeFilesNotAlreadyUploaded];
@@ -1706,17 +1705,16 @@ LABEL_74:
               if (!removeFilesNotAlreadyUploaded)
               {
                 v5 = 0;
-                goto LABEL_57;
+                goto LABEL_56;
               }
 
               v67 = MBGetDefaultLog();
               if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v84 = removeFilesNotAlreadyUploaded;
+                v83 = removeFilesNotAlreadyUploaded;
                 _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "Failed to remove already uploaded files from snapshot manifest database: %@", buf, 0xCu);
-                v69 = removeFilesNotAlreadyUploaded;
-                _MBLog();
+                _MBLog(@"E ", "Failed to remove already uploaded files from snapshot manifest database: %@", removeFilesNotAlreadyUploaded);
               }
 
               v41 = @"Failed to remove already uploaded files from snapshot manifest database";
@@ -1728,18 +1726,17 @@ LABEL_74:
               if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v84 = removeFilesNotAlreadyUploaded;
+                v83 = removeFilesNotAlreadyUploaded;
                 _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "Failed to move existing snapshot manifest DB back in place after upload failure: %@", buf, 0xCu);
-                v69 = removeFilesNotAlreadyUploaded;
-                _MBLog();
+                _MBLog(@"E ", "Failed to move existing snapshot manifest DB back in place after upload failure: %@", removeFilesNotAlreadyUploaded);
               }
 
               v41 = @"Failed to move snapshot manifest database back";
             }
 
-LABEL_47:
-            v33 = [MBError errorWithCode:102 error:removeFilesNotAlreadyUploaded format:v41, v69];
-            goto LABEL_48;
+LABEL_46:
+            v33 = [MBError errorWithCode:102 error:removeFilesNotAlreadyUploaded format:v41];
+            goto LABEL_47;
           }
 
           domain = [v31 domain];
@@ -1762,9 +1759,9 @@ LABEL_47:
           _deviceSnapshotDir2 = [(MBDriveBackupEngine *)self _deviceSnapshotDir];
           v5 = [MBError errorWithCode:102 error:v31 path:_deviceSnapshotDir2 format:@"Error removing snapshot dir"];
 
-LABEL_56:
+LABEL_55:
           removeFilesNotAlreadyUploaded = v31;
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
         if (([MBError isError:v21 withCode:4]& 1) != 0 || [MBError codeForNSError:v21]== 4)
@@ -1774,7 +1771,7 @@ LABEL_56:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Snapshot properties not found", buf, 2u);
-            _MBLog();
+            _MBLog(@"I ", "Snapshot properties not found");
           }
 
           v40 = v21;
@@ -1787,16 +1784,16 @@ LABEL_56:
           if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v84 = v21;
+            v83 = v21;
             _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Error reading snapshot properties from device: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "Error reading snapshot properties from device: %@", v21);
           }
         }
 
         v37 = v21;
         removeFilesNotAlreadyUploaded = v37;
         v11 = 0;
-        goto LABEL_43;
+        goto LABEL_42;
       }
 
       [(MBManifestDB *)v11 closeWithError:0];
@@ -1804,9 +1801,9 @@ LABEL_56:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v84 = removeFilesNotAlreadyUploaded;
+        v83 = removeFilesNotAlreadyUploaded;
         _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Existing snapshot manifest database failed check: %@", buf, 0xCu);
-        goto LABEL_24;
+        _MBLog(@"Df", "Existing snapshot manifest database failed check: %@", removeFilesNotAlreadyUploaded);
       }
     }
 
@@ -1816,24 +1813,23 @@ LABEL_56:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v84 = removeFilesNotAlreadyUploaded;
+        v83 = removeFilesNotAlreadyUploaded;
         _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Failed to open existing snapshot manifest database: %@", buf, 0xCu);
-LABEL_24:
-        _MBLog();
+        _MBLog(@"Df", "Failed to open existing snapshot manifest database: %@", removeFilesNotAlreadyUploaded);
       }
     }
 
     v5 = 0;
-LABEL_26:
+LABEL_25:
 
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
   removeFilesNotAlreadyUploaded = 0;
   v5 = 0;
-LABEL_27:
+LABEL_26:
 
-LABEL_28:
+LABEL_27:
 
   return v5;
 }
@@ -1853,7 +1849,7 @@ LABEL_28:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Determining which files which weren't already moved from the snapshot during the last backup", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Determining which files which weren't already moved from the snapshot during the last backup");
   }
 
   *buf = 0;
@@ -1906,25 +1902,15 @@ LABEL_14:
   _setupOperationJournal = [(MBDriveBackupEngine *)self _setupOperationJournal];
   if (!_setupOperationJournal)
   {
-    if (!self->_backupManifestDB)
+    if (self->_backupManifestDB || ([(MBDriveBackupEngine *)self _openBackupManifestForResume], (_setupOperationJournal = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      _setupOperationJournal = [(MBDriveBackupEngine *)self _openBackupManifestForResume];
-      if (_setupOperationJournal)
+      _setupOperationJournal = [MBDriveBackupEngine _addBackupPathsNotInManifestDB:"_addBackupPathsNotInManifestDB:operationType:" operationType:?];
+      if (!_setupOperationJournal)
       {
-        goto LABEL_6;
+        _setupOperationJournal = [(MBDriveBackupEngine *)self _resumeAfterSuccess];
       }
-
-      backupManifestDB = self->_backupManifestDB;
-    }
-
-    _setupOperationJournal = [MBDriveBackupEngine _addBackupPathsNotInManifestDB:"_addBackupPathsNotInManifestDB:operationType:" operationType:?];
-    if (!_setupOperationJournal)
-    {
-      _setupOperationJournal = [(MBDriveBackupEngine *)self _resumeAfterSuccess];
     }
   }
-
-LABEL_6:
 
   return _setupOperationJournal;
 }
@@ -1948,7 +1934,7 @@ LABEL_6:
   {
     LOWORD(buf) = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Starting to scan", &buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Starting to scan");
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
@@ -1976,10 +1962,10 @@ LABEL_6:
   objectEnumerator = [plugins objectEnumerator];
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3221225472;
-  v29 = sub_100137B50;
-  v30 = &unk_1003BF940;
+  v30 = sub_100137B50;
+  v31 = &unk_1003BF940;
   selfCopy = self;
-  v32 = "preparingBackupWithEngine:";
+  v33 = "preparingBackupWithEngine:";
   v15 = MBNotifyPluginsBlock(self, objectEnumerator, "preparingBackupWithEngine:", &buf);
 
   if (v15)
@@ -2052,7 +2038,7 @@ LABEL_7:
     *(&buf + 4) = v27 - v6;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Scanned in %0.3f s", &buf, 0xCu);
     +[NSDate timeIntervalSinceReferenceDate];
-    _MBLog();
+    _MBLog(@"Df", "Scanned in %0.3f s", v28 - v6);
   }
 
   v10 = 0;
@@ -2096,17 +2082,17 @@ LABEL_8:
     self->_maximumModificationTime = v12;
     do
     {
-      v18[0].tv_sec = 0;
-      *&v18[0].tv_usec = 0;
-      gettimeofday(v18, 0);
-      v13 = 1000000 - v18[0].tv_usec;
+      v17[0].tv_sec = 0;
+      *&v17[0].tv_usec = 0;
+      gettimeofday(v17, 0);
+      v13 = 1000000 - v17[0].tv_usec;
       v14 = MBGetDefaultLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Rolling system clock forward %d us\n", buf, 8u);
-        _MBLog();
+        _MBLog(@"Df", "Rolling system clock forward %d us\n", v13);
       }
 
       usleep(v13);
@@ -2119,69 +2105,67 @@ LABEL_8:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     maximumModificationTime = self->_maximumModificationTime;
-    LODWORD(v18[0].tv_sec) = 134218240;
-    *(&v18[0].tv_sec + 4) = v3;
-    *(&v18[0].tv_usec + 2) = 2048;
-    *(&v18[0].tv_usec + 6) = maximumModificationTime;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "currentTime:%ld, maximumModificationTime:%ld", v18, 0x16u);
-    v17 = self->_maximumModificationTime;
-    _MBLog();
+    LODWORD(v17[0].tv_sec) = 134218240;
+    *(&v17[0].tv_sec + 4) = v3;
+    *(&v17[0].tv_usec + 2) = 2048;
+    *(&v17[0].tv_usec + 6) = maximumModificationTime;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "currentTime:%ld, maximumModificationTime:%ld", v17, 0x16u);
+    _MBLog(@"Df", "currentTime:%ld, maximumModificationTime:%ld", v3, self->_maximumModificationTime);
   }
 }
 
 - (id)_snapshotFilesystem
 {
   [(MBDriveBackupEngine *)self mountedSnapshotTracker];
+  v61 = 0u;
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v52 = v66 = 0u;
-  mountedSnapshots = [v52 mountedSnapshots];
-  v4 = [mountedSnapshots countByEnumeratingWithState:&v63 objects:v74 count:16];
+  v50 = v64 = 0u;
+  mountedSnapshots = [v50 mountedSnapshots];
+  v4 = [mountedSnapshots countByEnumeratingWithState:&v61 objects:v72 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v64;
+    v6 = *v62;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v64 != v6)
+        if (*v62 != v6)
         {
           objc_enumerationMutation(mountedSnapshots);
         }
 
-        v8 = *(*(&v63 + 1) + 8 * i);
+        v8 = *(*(&v61 + 1) + 8 * i);
         v9 = MBGetDefaultLog();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          [v8 snapshotName];
-          v10 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          snapshotName = [v8 snapshotName];
           volumeMountPoint = [v8 volumeMountPoint];
           [v8 snapshotMountPoint];
           v13 = v12 = mountedSnapshots;
           *buf = 138412802;
-          v69 = v10;
+          v67 = *&snapshotName;
+          v68 = 2112;
+          v69 = volumeMountPoint;
           v70 = 2112;
-          v71 = volumeMountPoint;
-          v72 = 2112;
-          v73 = v13;
+          v71 = v13;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Found existing snapshot %@ for volume %@ mounted at %@", buf, 0x20u);
 
-          snapshotName = [v8 snapshotName];
+          snapshotName2 = [v8 snapshotName];
           volumeMountPoint2 = [v8 volumeMountPoint];
           snapshotMountPoint = [v8 snapshotMountPoint];
-          _MBLog();
+          _MBLog(@"Df", "Found existing snapshot %@ for volume %@ mounted at %@", snapshotName2, volumeMountPoint2, snapshotMountPoint);
 
           mountedSnapshots = v12;
         }
       }
 
-      v5 = [mountedSnapshots countByEnumeratingWithState:&v63 objects:v74 count:16];
+      v5 = [mountedSnapshots countByEnumeratingWithState:&v61 objects:v72 count:16];
     }
 
     while (v5);
-    v16 = 0;
+    v17 = 0;
   }
 
   else
@@ -2189,116 +2173,112 @@ LABEL_8:
 
     if ([(MBEngine *)self isDeviceTransferEngine])
     {
-      v17 = @"D2D";
+      v18 = @"D2D";
       MBD2DSnapshotMountPoints();
     }
 
     else
     {
-      v17 = @"Finder";
+      v18 = @"Finder";
       MBFinderSnapshotMountPoints();
     }
     mountedSnapshots = ;
     persona = [(MBEngine *)self persona];
     volumesToBackUp = [persona volumesToBackUp];
 
-    MBSnapshotName(@"com.apple.mobilebackup", v17);
-    v20 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v21 = MBSnapshotName(@"com.apple.mobilebackup", v18);
     p_superclass = MBCKDomainStatistics.superclass;
-    v61[4] = self;
-    v62 = 0;
-    v61[0] = _NSConcreteStackBlock;
-    v61[1] = 3221225472;
-    v61[2] = sub_100221630;
-    v61[3] = &unk_1003BC8B8;
-    LOBYTE(persona) = [MBFileSystemManager unmount:mountedSnapshots timeout:&v62 error:v61 cancelationHandler:60.0];
-    v22 = v62;
-    v23 = v22;
+    v59[4] = self;
+    v60 = 0;
+    v59[0] = _NSConcreteStackBlock;
+    v59[1] = 3221225472;
+    v59[2] = sub_100221630;
+    v59[3] = &unk_1003BC8B8;
+    LOBYTE(persona) = [MBFileSystemManager unmount:mountedSnapshots timeout:&v60 error:v59 cancelationHandler:60.0];
+    v23 = v60;
+    v24 = v23;
     if (persona)
     {
-      v60 = 0;
-      v24 = [MBFileSystemManager deleteAllSnapshotsAcrossVolumes:volumesToBackUp withPrefix:@"com.apple.mobilebackup" error:&v60];
-      v25 = v60;
-      v26 = v25;
-      if (v24)
+      v58 = 0;
+      v25 = [MBFileSystemManager deleteAllSnapshotsAcrossVolumes:volumesToBackUp withPrefix:@"com.apple.mobilebackup" error:&v58];
+      v26 = v58;
+      v27 = v26;
+      if (v25)
       {
-        v48 = v25;
-        v53 = mountedSnapshots;
+        v46 = v26;
+        v51 = mountedSnapshots;
         +[NSDate timeIntervalSinceReferenceDate];
-        v28 = v27;
+        v29 = v28;
+        v54 = 0u;
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
-        v59 = 0u;
-        v49 = volumesToBackUp;
+        v47 = volumesToBackUp;
         obj = volumesToBackUp;
-        v29 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
-        if (v29)
+        v30 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+        if (v30)
         {
-          v30 = v29;
-          v51 = *v57;
-          v16 = v23;
-          v47 = v23;
+          v31 = v30;
+          v49 = *v55;
+          v17 = v24;
+          v45 = v24;
           while (2)
           {
-            for (j = 0; j != v30; j = j + 1)
+            for (j = 0; j != v31; j = j + 1)
             {
-              if (*v57 != v51)
+              if (*v55 != v49)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v32 = *(*(&v56 + 1) + 8 * j);
-              v54[4] = self;
-              v55 = 0;
-              v54[0] = _NSConcreteStackBlock;
-              v54[1] = 3221225472;
-              v54[2] = sub_100221638;
-              v54[3] = &unk_1003BC8B8;
-              v33 = [p_superclass + 489 createAndMountSnapshotForVolume:v32 name:*&v20 atFirstAvailableMountPoint:v53 error:&v55 cancelationHandler:{v54, *&v43, v44, v45}];
-              v34 = v55;
-              v35 = v34;
-              if (v33)
+              v33 = *(*(&v54 + 1) + 8 * j);
+              v52[4] = self;
+              v53 = 0;
+              v52[0] = _NSConcreteStackBlock;
+              v52[1] = 3221225472;
+              v52[2] = sub_100221638;
+              v52[3] = &unk_1003BC8B8;
+              v34 = [p_superclass + 489 createAndMountSnapshotForVolume:v33 name:v21 atFirstAvailableMountPoint:v51 error:&v53 cancelationHandler:v52];
+              v35 = v53;
+              v36 = v35;
+              if (v34)
               {
-                v36 = p_superclass;
-                v37 = MBGetDefaultLog();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                v37 = p_superclass;
+                v38 = MBGetDefaultLog();
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543874;
-                  v69 = v20;
-                  v70 = 2112;
-                  v71 = v32;
-                  v72 = 2114;
-                  v73 = v33;
-                  _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Snapshot %{public}@ for %@ was mounted successfully at %{public}@", buf, 0x20u);
-                  v44 = v32;
-                  v45 = v33;
-                  v43 = v20;
-                  _MBLog();
+                  v67 = *&v21;
+                  v68 = 2112;
+                  v69 = v33;
+                  v70 = 2114;
+                  v71 = v34;
+                  _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Snapshot %{public}@ for %@ was mounted successfully at %{public}@", buf, 0x20u);
+                  _MBLog(@"Df", "Snapshot %{public}@ for %@ was mounted successfully at %{public}@", v21, v33, v34);
                 }
 
-                [v52 trackSnapshotForVolume:v32 snapshotName:*&v20 mountPoint:v33];
-                p_superclass = v36;
+                [v50 trackSnapshotForVolume:v33 snapshotName:v21 mountPoint:v34];
+                p_superclass = v37;
               }
 
               else
               {
-                v16 = v34;
+                v17 = v35;
               }
 
-              if (!v33)
+              if (!v34)
               {
 
-                mountedSnapshots = v53;
-                volumesToBackUp = v49;
-                v23 = v47;
+                mountedSnapshots = v51;
+                volumesToBackUp = v47;
+                v24 = v45;
                 goto LABEL_35;
               }
             }
 
-            v30 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
-            v23 = v47;
-            if (v30)
+            v31 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+            v24 = v45;
+            if (v31)
             {
               continue;
             }
@@ -2307,40 +2287,41 @@ LABEL_8:
           }
         }
 
-        v38 = v23;
+        v39 = v24;
 
         +[NSDate timeIntervalSinceReferenceDate];
-        v40 = v39;
-        v41 = MBGetDefaultLog();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v41 = v40;
+        v42 = MBGetDefaultLog();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
+          v43 = v41 - v29;
           *buf = 134217984;
-          v69 = v40 - v28;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Filesystem snapshots created and mounted in %.3fs", buf, 0xCu);
-          _MBLog();
+          v67 = v43;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Filesystem snapshots created and mounted in %.3fs", buf, 0xCu);
+          _MBLog(@"Df", "Filesystem snapshots created and mounted in %.3fs", v43);
         }
 
-        v16 = 0;
-        mountedSnapshots = v53;
-        volumesToBackUp = v49;
-        v23 = v38;
+        v17 = 0;
+        mountedSnapshots = v51;
+        volumesToBackUp = v47;
+        v24 = v39;
 LABEL_35:
-        v26 = v48;
+        v27 = v46;
       }
 
       else
       {
-        v16 = v25;
+        v17 = v26;
       }
     }
 
     else
     {
-      v16 = v22;
+      v17 = v23;
     }
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)_removeFilesystemSnapshot
@@ -2350,26 +2331,26 @@ LABEL_35:
 
   if ([mountedSnapshots count])
   {
-    v23 = 0u;
-    v24 = 0u;
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = mountedSnapshots;
-    v4 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v4 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v22 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           volumeMountPoint = [v8 volumeMountPoint];
           snapshotMountPoint = [v8 snapshotMountPoint];
           snapshotName = [v8 snapshotName];
@@ -2377,39 +2358,34 @@ LABEL_35:
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v26 = snapshotName;
-            v27 = 2112;
-            v28 = snapshotMountPoint;
+            v23 = snapshotName;
+            v24 = 2112;
+            v25 = snapshotMountPoint;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unmounting APFS snapshot %@ from %@ and removing it", buf, 0x16u);
-            v16 = snapshotName;
-            v17 = snapshotMountPoint;
-            _MBLog();
+            _MBLog(@"Df", "Unmounting APFS snapshot %@ from %@ and removing it", snapshotName, snapshotMountPoint);
           }
 
-          v20 = 0;
-          v13 = [MBFileSystemManager unmountAndDeleteSnapshotForVolume:volumeMountPoint name:snapshotName mountPoint:snapshotMountPoint error:&v20];
-          v14 = v20;
+          v17 = 0;
+          v13 = [MBFileSystemManager unmountAndDeleteSnapshotForVolume:volumeMountPoint name:snapshotName mountPoint:snapshotMountPoint error:&v17];
+          v14 = v17;
           if ((v13 & 1) == 0 && ([MBError isError:v14 withCode:4]& 1) == 0)
           {
             v15 = MBGetDefaultLog();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v26 = snapshotName;
-              v27 = 2112;
-              v28 = snapshotMountPoint;
-              v29 = 2112;
-              v30 = v14;
+              v23 = snapshotName;
+              v24 = 2112;
+              v25 = snapshotMountPoint;
+              v26 = 2112;
+              v27 = v14;
               _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to unmount or delete the APFS snapshot %@ at %@: %@", buf, 0x20u);
-              v17 = snapshotMountPoint;
-              v18 = v14;
-              v16 = snapshotName;
-              _MBLog();
+              _MBLog(@"E ", "Failed to unmount or delete the APFS snapshot %@ at %@: %@", snapshotName, snapshotMountPoint, v14);
             }
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v5 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
       }
 
       while (v5);
@@ -2428,7 +2404,7 @@ LABEL_35:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Operation journal already initialized", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Operation journal already initialized");
     }
 
     v6 = 0;
@@ -2441,7 +2417,7 @@ LABEL_5:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Creating snapshot directory on device", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Creating snapshot directory on device");
   }
 
   v8 = +[NSFileManager defaultManager];
@@ -2462,7 +2438,7 @@ LABEL_5:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Initializing operation journal", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Initializing operation journal");
     }
 
     v13 = [[MBBackupOperationJournal alloc] initWithBatchSize:self->_batchSize];
@@ -2495,7 +2471,7 @@ LABEL_15:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Creating snapshot directory on device", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Creating snapshot directory on device");
   }
 
   v4 = +[NSFileManager defaultManager];
@@ -2536,7 +2512,7 @@ LABEL_15:
     *buf = 138543362;
     v26 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "requiredProductVersion:%{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "requiredProductVersion:%{public}@", v6);
   }
 
   snapshotManifestDB = self->_snapshotManifestDB;
@@ -2548,7 +2524,7 @@ LABEL_15:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Manifest database already initialized", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Manifest database already initialized");
     }
 
     v4 = 0;
@@ -2560,7 +2536,7 @@ LABEL_15:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Initializing snapshot manifest database", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Initializing snapshot manifest database");
     }
 
     _deviceSnapshotDir = [(MBDriveBackupEngine *)self _deviceSnapshotDir];
@@ -2595,7 +2571,7 @@ LABEL_15:
         v27 = 2112;
         v28 = v4;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to open snapshot manifest database at %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to open snapshot manifest database at %@: %@", v9, v4);
       }
 
       v5 = [MBError errorWithCode:102 error:v4 format:@"Error initializing manifest database"];
@@ -2655,7 +2631,7 @@ LABEL_18:
     }
 
     *buf = 138412290;
-    v58 = v8;
+    v57 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Existing backup is %@", buf, 0xCu);
 
     properties2 = [(MBManifestDB *)v5 properties];
@@ -2669,8 +2645,7 @@ LABEL_18:
       v10 = @"unencrypted";
     }
 
-    v51 = v10;
-    _MBLog();
+    _MBLog(@"I ", "Existing backup is %@", v10);
   }
 
 LABEL_13:
@@ -2688,9 +2663,9 @@ LABEL_13:
   if ([(MBEngine *)self encrypted])
   {
     password2 = [(MBDriveBackupEngine *)self password];
-    v56 = 0;
-    v13 = [(MBManifestDB *)v5 setupEncryptionWithPassword:password2 withError:&v56];
-    v14 = v56;
+    v55 = 0;
+    v13 = [(MBManifestDB *)v5 setupEncryptionWithPassword:password2 withError:&v55];
+    v14 = v55;
 
     if ((v13 & 1) == 0)
     {
@@ -2698,9 +2673,9 @@ LABEL_13:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v14;
+        v57 = v14;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to setup manifest encryption: %@", v14);
       }
 
       v16 = v14;
@@ -2726,7 +2701,7 @@ LABEL_13:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Keybag already initialized", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Keybag already initialized");
       }
 
       goto LABEL_41;
@@ -2737,13 +2712,13 @@ LABEL_13:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Performing full backup, creating keybag", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Performing full backup, creating keybag");
     }
 
     password3 = [(MBDriveBackupEngine *)self password];
-    v53 = v14;
-    v42 = [MBKeyBag keybagWithPassword:password3 error:&v53];
-    v17 = v53;
+    v52 = v14;
+    v42 = [MBKeyBag keybagWithPassword:password3 error:&v52];
+    v17 = v52;
 
     settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
     [settingsContext2 setKeybag:v42];
@@ -2773,7 +2748,7 @@ LABEL_13:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Decoding and unlocking keybag from manifest", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Decoding and unlocking keybag from manifest");
     }
 
     properties4 = [(MBManifestDB *)v5 properties];
@@ -2787,9 +2762,9 @@ LABEL_13:
     }
 
     password4 = [(MBDriveBackupEngine *)self password];
-    v55 = v14;
-    v27 = [MBKeyBag unlockedKeyBagWithData:properties3 password:password4 error:&v55];
-    v17 = v55;
+    v54 = v14;
+    v27 = [MBKeyBag unlockedKeyBagWithData:properties3 password:password4 error:&v54];
+    v17 = v54;
 
     settingsContext3 = [(MBDriveBackupEngine *)self settingsContext];
     [settingsContext3 setKeybag:v27];
@@ -2808,7 +2783,7 @@ LABEL_13:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Password in keychain doesn't match keybag", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Password in keychain doesn't match keybag");
       }
     }
 
@@ -2828,9 +2803,9 @@ LABEL_41:
 
     settingsContext5 = [(MBDriveBackupEngine *)self settingsContext];
     keybag3 = [settingsContext5 keybag];
-    v52 = v14;
-    properties3 = [keybag3 dataWithError:&v52];
-    v17 = v52;
+    v51 = v14;
+    properties3 = [keybag3 dataWithError:&v51];
+    v17 = v51;
 
     if (!v17)
     {
@@ -2855,13 +2830,13 @@ LABEL_45:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Creating keybag", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Creating keybag");
   }
 
   password5 = [(MBDriveBackupEngine *)self password];
-  v54 = v14;
-  v46 = [MBKeyBag keybagWithPassword:password5 error:&v54];
-  v17 = v54;
+  v53 = v14;
+  v46 = [MBKeyBag keybagWithPassword:password5 error:&v53];
+  v17 = v53;
 
   settingsContext6 = [(MBDriveBackupEngine *)self settingsContext];
   [settingsContext6 setKeybag:v46];
@@ -2873,7 +2848,7 @@ LABEL_45:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Performing a full backup", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Performing a full backup");
     }
 
     v14 = 0;
@@ -2943,7 +2918,7 @@ LABEL_55:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Skipping scanning the PlaceholderDomain", buf, 2u);
-            _MBLog();
+            _MBLog(@"Df", "Skipping scanning the PlaceholderDomain");
           }
         }
 
@@ -2954,7 +2929,7 @@ LABEL_55:
           {
             modifiedDomains = v18;
 
-            v23 = modifiedDomains;
+            v24 = modifiedDomains;
             goto LABEL_20;
           }
         }
@@ -2979,16 +2954,16 @@ LABEL_55:
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Finished scanning all domains - %@", buf, 0xCu);
 
     loggableStats2 = [(MBFileScanner *)v7 loggableStats];
-    _MBLog();
+    _MBLog(@"Df", "Finished scanning all domains - %@", loggableStats2);
   }
 
   modifiedDomains = self->_modifiedDomains;
   modifiedDomains = [(MBFileScanner *)v7 modifiedDomains];
   [(NSMutableSet *)modifiedDomains unionSet:modifiedDomains];
-  v23 = 0;
+  v24 = 0;
 LABEL_20:
 
-  return v23;
+  return v24;
 }
 
 - (BOOL)fileScanner:(id)scanner isFileAddedOrModified:(id)modified
@@ -3077,8 +3052,8 @@ LABEL_48:
 
   if (!v15)
   {
-    v31 = MBGetDefaultLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v32 = MBGetDefaultLog();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       typeString = [fileCopy typeString];
       absolutePath = [fileCopy absolutePath];
@@ -3089,12 +3064,12 @@ LABEL_48:
       v70 = absolutePath;
       v71 = 2112;
       v72 = fileID6;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Added %@: %@ (%@)", buf, 0x20u);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Added %@: %@ (%@)", buf, 0x20u);
 
       typeString2 = [fileCopy typeString];
       absolutePath2 = [fileCopy absolutePath];
       fileID7 = [fileCopy fileID];
-      _MBLog();
+      _MBLog(@"Db", "Added %@: %@ (%@)", typeString2, absolutePath2, fileID7);
     }
 
     if ([fileCopy isRegularFile])
@@ -3116,8 +3091,8 @@ LABEL_48:
         goto LABEL_43;
       }
 
-      v43 = MBGetDefaultLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v46 = MBGetDefaultLog();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         absolutePath3 = [fileCopy absolutePath];
         fileID8 = [fileCopy fileID];
@@ -3125,11 +3100,11 @@ LABEL_48:
         v68 = absolutePath3;
         v69 = 2112;
         v70 = fileID8;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Removed while getting metadata: %@ (%@)", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Removed while getting metadata: %@ (%@)", buf, 0x16u);
 
         absolutePath4 = [fileCopy absolutePath];
         fileID9 = [fileCopy fileID];
-        _MBLog();
+        _MBLog(@"Df", "Removed while getting metadata: %@ (%@)", absolutePath4, fileID9);
       }
 
       modifiedDomains = self->_modifiedDomains;
@@ -3162,7 +3137,7 @@ LABEL_14:
 
         absolutePath6 = [fileCopy absolutePath];
         fileID11 = [fileCopy fileID];
-        _MBLog();
+        _MBLog(@"I ", "Unmodified and already uploaded to snapshot: %@ (%@)", absolutePath6, fileID11);
       }
 
       [(MBDriveBackupEngine *)self _addFileToMove:v15];
@@ -3186,7 +3161,7 @@ LABEL_14:
         typeString4 = [fileCopy typeString];
         absolutePath8 = [fileCopy absolutePath];
         fileID13 = [fileCopy fileID];
-        _MBLog();
+        _MBLog(@"Db", "Unmodified %@: %@ (%@)", typeString4, absolutePath8, fileID13);
       }
 
       [(MBDriveBackupEngine *)self _addFileToLeaveAlone:v15 flags:0];
@@ -3195,8 +3170,8 @@ LABEL_14:
     goto LABEL_41;
   }
 
-  v37 = MBGetDefaultLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  v39 = MBGetDefaultLog();
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
     typeString5 = [fileCopy typeString];
     absolutePath9 = [fileCopy absolutePath];
@@ -3207,12 +3182,12 @@ LABEL_14:
     v70 = absolutePath9;
     v71 = 2112;
     v72 = fileID14;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Modified %@: %@ (%@)", buf, 0x20u);
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Modified %@: %@ (%@)", buf, 0x20u);
 
     typeString6 = [fileCopy typeString];
     absolutePath10 = [fileCopy absolutePath];
     fileID15 = [fileCopy fileID];
-    _MBLog();
+    _MBLog(@"I ", "Modified %@: %@ (%@)", typeString6, absolutePath10, fileID15);
   }
 
   if ([fileCopy isRegularFile])
@@ -3232,8 +3207,8 @@ LABEL_41:
 
   if ([MBError isError:v24 withCode:4])
   {
-    v54 = MBGetDefaultLog();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v59 = MBGetDefaultLog();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
       absolutePath11 = [fileCopy absolutePath];
       fileID16 = [fileCopy fileID];
@@ -3241,16 +3216,16 @@ LABEL_41:
       v68 = absolutePath11;
       v69 = 2112;
       v70 = fileID16;
-      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Removed while getting metadata: %@ (%@)", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Removed while getting metadata: %@ (%@)", buf, 0x16u);
 
       absolutePath12 = [fileCopy absolutePath];
       fileID17 = [fileCopy fileID];
-      _MBLog();
+      _MBLog(@"Df", "Removed while getting metadata: %@ (%@)", absolutePath12, fileID17);
     }
 
-    v58 = self->_modifiedDomains;
+    v64 = self->_modifiedDomains;
     domain2 = [fileCopy domain];
-    [(NSMutableSet *)v58 addObject:domain2];
+    [(NSMutableSet *)v64 addObject:domain2];
 
     goto LABEL_41;
   }
@@ -3266,25 +3241,9 @@ LABEL_43:
 - (BOOL)fileScanner:(id)scanner shouldExcludeFile:(id)file
 {
   fileCopy = file;
-  if ([(MBEngine *)self isDeviceTransferEngine])
+  if (-[MBEngine isDeviceTransferEngine](self, "isDeviceTransferEngine") || -[MBEngine encrypted](self, "encrypted") || ([fileCopy domain], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "relativePathsToOnlyBackupEncrypted"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(fileCopy, "relativePath"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "containsObject:", v8), v8, v7, v6, !v9))
   {
-    goto LABEL_7;
-  }
-
-  if ([(MBEngine *)self encrypted])
-  {
-    goto LABEL_7;
-  }
-
-  domain = [fileCopy domain];
-  relativePathsToOnlyBackupEncrypted = [domain relativePathsToOnlyBackupEncrypted];
-  relativePath = [fileCopy relativePath];
-  v9 = [relativePathsToOnlyBackupEncrypted containsObject:relativePath];
-
-  if (!v9)
-  {
-LABEL_7:
-    v12 = 0;
+    v13 = 0;
   }
 
   else
@@ -3298,13 +3257,13 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "File excluded in unencrypted drive backups: %@", buf, 0xCu);
 
       absolutePath2 = [fileCopy absolutePath];
-      _MBLog();
+      _MBLog(@"Df", "File excluded in unencrypted drive backups: %@", absolutePath2);
     }
 
-    v12 = 1;
+    v13 = 1;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)_addFileToUploadAndMove:(id)move flags:(unint64_t)flags
@@ -3389,13 +3348,13 @@ LABEL_7:
   fileCopy = file;
   if ([fileCopy isRegularFile])
   {
-    v20 = +[NSAssertionHandler currentHandler];
-    [v20 handleFailureInMethod:a2 object:self file:@"MBDriveBackupEngine.m" lineNumber:1396 description:@"Metadata should be added to files after upload"];
+    v21 = +[NSAssertionHandler currentHandler];
+    [v21 handleFailureInMethod:a2 object:self file:@"MBDriveBackupEngine.m" lineNumber:1396 description:@"Metadata should be added to files after upload"];
   }
 
-  v24 = 0;
-  v6 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [fileCopy absolutePathFSR], &v24);
-  v7 = v24;
+  v22 = 0;
+  v6 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [fileCopy absolutePathFSR], &v22);
+  v7 = v22;
   [fileCopy setExtendedAttributes:v6];
 
   extendedAttributes = [fileCopy extendedAttributes];
@@ -3412,17 +3371,15 @@ LABEL_7:
       {
         absolutePath = [fileCopy absolutePath];
         *buf = 134218498;
-        v26 = v10;
-        v27 = 1024;
-        v28 = 2048;
-        v29 = 2112;
-        v30 = absolutePath;
+        v24 = v10;
+        v25 = 1024;
+        v26 = 2048;
+        v27 = 2112;
+        v28 = absolutePath;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Extended attributes size greater than supported (%{bytes}lu > %{bytes}d): %@", buf, 0x1Cu);
 
-        [fileCopy absolutePath];
-        v23 = v22 = 2048;
-        v21 = v10;
-        _MBLog();
+        absolutePath2 = [fileCopy absolutePath];
+        _MBLog(@"Df", "Extended attributes size greater than supported (%{bytes}lu > %{bytes}d): %@", v10, 2048, absolutePath2);
       }
 
       [fileCopy setExtendedAttributes:&__NSDictionary0__struct];
@@ -3461,21 +3418,21 @@ LABEL_7:
 
   else
   {
-    v15 = [MBError isError:v7 withCode:4];
-    absolutePath2 = [fileCopy absolutePath];
-    if (v15)
+    v16 = [MBError isError:v7 withCode:4];
+    absolutePath3 = [fileCopy absolutePath];
+    if (v16)
     {
-      v17 = @"File removed while getting extended attributes";
-      v18 = 4;
+      v18 = @"File removed while getting extended attributes";
+      v19 = 4;
     }
 
     else
     {
-      v17 = @"Error reading extended attributes";
-      v18 = 101;
+      v18 = @"Error reading extended attributes";
+      v19 = 101;
     }
 
-    backupSymbolicLinkTarget = [MBError errorWithCode:v18 error:v7 path:absolutePath2 format:v17];
+    backupSymbolicLinkTarget = [MBError errorWithCode:v19 error:v7 path:absolutePath3 format:v18];
   }
 
   return backupSymbolicLinkTarget;
@@ -3496,7 +3453,7 @@ LABEL_9:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Searching old manifest for removed regular files", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Searching old manifest for removed regular files");
   }
 
   *buf = 0;
@@ -3545,7 +3502,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Committing operation journal", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Committing operation journal");
   }
 
   [(MBBackupOperationJournal *)self->_operationJournal commit];
@@ -3554,10 +3511,9 @@ LABEL_10:
   {
     v5 = [(MBBackupOperationJournal *)self->_operationJournal size];
     *buf = 134217984;
-    v30 = v5;
+    v29 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Operation journal size: %{bytes}llu", buf, 0xCu);
-    v25 = [(MBBackupOperationJournal *)self->_operationJournal size];
-    _MBLog();
+    _MBLog(@"I ", "Operation journal size: %{bytes}llu", [(MBBackupOperationJournal *)self->_operationJournal size]);
   }
 
   if (![(MBEngine *)self encrypted])
@@ -3571,15 +3527,15 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Fetching manifest encryption key", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Fetching manifest encryption key");
   }
 
   snapshotManifestDB = self->_snapshotManifestDB;
   settingsContext = [(MBDriveBackupEngine *)self settingsContext];
   keybag = [settingsContext keybag];
-  v28 = 0;
-  v10 = [(MBManifestDB *)snapshotManifestDB getEncryptedFileHandleWithKeybag:keybag error:&v28];
-  v11 = v28;
+  v27 = 0;
+  v10 = [(MBManifestDB *)snapshotManifestDB getEncryptedFileHandleWithKeybag:keybag error:&v27];
+  v11 = v27;
 
   if (!v10)
   {
@@ -3588,19 +3544,19 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Couldn't get an encrypted file handle for the manifest DB, and therefore couldn't write out its wrapped key", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Couldn't get an encrypted file handle for the manifest DB, and therefore couldn't write out its wrapped key");
     }
 
     v20 = @"Error getting manifest encryption key";
     v21 = 101;
 LABEL_20:
-    v19 = [MBError errorWithCode:v21 error:v11 format:v20, v25];
+    v19 = [MBError errorWithCode:v21 error:v11 format:v20];
     goto LABEL_21;
   }
 
-  v27 = v11;
-  v12 = [v10 encryptionKeyWithError:&v27];
-  v13 = v27;
+  v26 = v11;
+  v12 = [v10 encryptionKeyWithError:&v26];
+  v13 = v26;
 
   if (v12)
   {
@@ -3613,14 +3569,14 @@ LABEL_12:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Saving snapshot properties", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Saving snapshot properties");
     }
 
     properties2 = [(MBManifestDB *)self->_snapshotManifestDB properties];
     _deviceSnapshotPropertiesPath = [(MBDriveBackupEngine *)self _deviceSnapshotPropertiesPath];
-    v26 = v13;
-    v18 = [properties2 writeToFile:_deviceSnapshotPropertiesPath error:&v26];
-    v11 = v26;
+    v25 = v13;
+    v18 = [properties2 writeToFile:_deviceSnapshotPropertiesPath error:&v25];
+    v11 = v25;
 
     if (v18)
     {
@@ -3638,7 +3594,7 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Couldn't get the wrapped key for the manifest DB", buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "Couldn't get the wrapped key for the manifest DB");
   }
 
   v19 = [MBError errorWithCode:101 error:v13 format:@"Error getting manifest encryption key"];
@@ -3657,7 +3613,7 @@ LABEL_21:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting to prepare for preflight", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Starting to prepare for preflight");
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
@@ -3676,10 +3632,11 @@ LABEL_21:
     v8 = MBGetDefaultLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
+      v13 = v12 - v6;
       *buf = 134217984;
-      v14 = v12 - v6;
+      v15 = v13;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Prepared for preflight in %0.3fs", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Prepared for preflight in %0.3fs", v13);
     }
 
     v9 = 0;
@@ -3698,7 +3655,7 @@ LABEL_21:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Starting to prepare for backup", buf, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Starting to prepare for backup");
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
@@ -3722,10 +3679,11 @@ LABEL_21:
     v8 = MBGetDefaultLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
+      v13 = v12 - v6;
       *buf = 134217984;
-      v14 = v12 - v6;
+      v15 = v13;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Prepared for backup in %0.3fs", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Prepared for backup in %0.3fs", v13);
     }
 
     v9 = 0;
@@ -3743,7 +3701,7 @@ LABEL_21:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Calculating expected duration", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Calculating expected duration");
   }
 
   if ([(MBStatus *)self->_status isMoving]&& !self->_retryCount)
@@ -3915,10 +3873,10 @@ LABEL_21:
   {
     [(MBProgress *)self->_progress total];
     *buf = 134217984;
-    v71 = v68;
+    v72 = v68;
     _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "Expected duration: %0.3f s", buf, 0xCu);
     [(MBProgress *)self->_progress total];
-    _MBLog();
+    _MBLog(@"I ", "Expected duration: %0.3f s", v69);
   }
 
   return 0;
@@ -3939,7 +3897,7 @@ LABEL_21:
     v32 = 2048;
     v33 = v3;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "uploadSize:%llu(%llu), uploadFileCount:%llu", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"Df", "uploadSize:%llu(%llu), uploadFileCount:%llu", v4, v5, v3);
   }
 
   [(MBDriveBackupEngine *)self setUploadFileCount:v3];
@@ -3970,7 +3928,7 @@ LABEL_21:
           v30 = 2048;
           v31 = v27;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Free disk space on drive: %llu (%{bytes}llu)", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"Df", "Free disk space on drive: %llu (%{bytes}llu)", v27, v27);
         }
 
         v13 = (v11 - v27);
@@ -3993,7 +3951,7 @@ LABEL_21:
           *buf = 134217984;
           v29 = v13;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Need extra space on host: %lld. Requesting host to purge now", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Need extra space on host: %lld. Requesting host to purge now", v13);
         }
 
         v24 = v9;
@@ -4013,7 +3971,7 @@ LABEL_21:
           *buf = 134217984;
           v29 = v25;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Successfully purged on host: %llu", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Successfully purged on host: %llu", v25);
         }
 
         drive = self->_drive;
@@ -4033,7 +3991,7 @@ LABEL_21:
         *buf = 138412290;
         v29 = v16;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to purge disk space of drive: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to purge disk space of drive: %@", v16);
       }
 
 LABEL_25:
@@ -4047,7 +4005,7 @@ LABEL_25:
         v32 = 1024;
         LODWORD(v33) = 0x8000000;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Insufficient free disk space on drive to backup (%llu < %llu + %d)", buf, 0x1Cu);
-        _MBLog();
+        _MBLog(@"E ", "Insufficient free disk space on drive to backup (%llu < %llu + %d)", v27, v4, 0x8000000);
       }
 
       v7 = [MBError errorWithCode:105 format:@"Insufficient free disk space on drive to back up"];
@@ -4063,7 +4021,7 @@ LABEL_17:
         *buf = 138412290;
         v29 = v9;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to get the free space of drive: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to get the free space of drive: %@", v9);
       }
 
       v7 = 0;
@@ -4119,16 +4077,16 @@ LABEL_28:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Renaming existing backup %@ to %@", buf, 0x16u);
 
       movedBackupName2 = [(MBDriveBackupEngine *)self movedBackupName];
-      _MBLog();
+      _MBLog(@"I ", "Renaming existing backup %@ to %@", targetIdentifier, movedBackupName2);
     }
 
     drive = self->_drive;
     movedBackupName3 = [(MBDriveBackupEngine *)self movedBackupName];
     v20 = 0;
-    v17 = [(MBDrive *)drive moveItemAtPath:targetIdentifier toPath:movedBackupName3 options:0 error:&v20];
-    v18 = v20;
+    v18 = [(MBDrive *)drive moveItemAtPath:targetIdentifier toPath:movedBackupName3 options:0 error:&v20];
+    v19 = v20;
 
-    if (v17)
+    if (v18)
     {
       [(MBDriveBackupEngine *)self setMovedOldBackup:1];
       v5 = 0;
@@ -4136,7 +4094,7 @@ LABEL_28:
 
     else
     {
-      v5 = v18;
+      v5 = v19;
     }
   }
 
@@ -4155,7 +4113,7 @@ LABEL_28:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Creating backup directory", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Creating backup directory");
   }
 
   drive = self->_drive;
@@ -4181,7 +4139,7 @@ LABEL_28:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Creating backup sub-directories", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Creating backup sub-directories");
   }
 
   v56 = 0u;
@@ -4254,7 +4212,7 @@ LABEL_21:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Creating snapshot directory", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Creating snapshot directory");
     }
 
     v23 = self->_drive;
@@ -4272,7 +4230,7 @@ LABEL_27:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Creating snapshot sub-directories", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Creating snapshot sub-directories");
       }
 
       v50 = 0u;
@@ -4345,7 +4303,7 @@ LABEL_43:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Setting status to uploading", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Setting status to uploading");
         }
 
         v46 = 0;
@@ -4393,13 +4351,11 @@ LABEL_52:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v63 = v4;
-    v64 = 2048;
-    v65 = v5;
+    v62 = v4;
+    v63 = 2048;
+    v64 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting to upload %lu files of size %{bytes}llu", buf, 0x16u);
-    v45 = v4;
-    v46 = v5;
-    _MBLog();
+    _MBLog(@"Df", "Starting to upload %lu files of size %{bytes}llu", v4, v5);
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
@@ -4415,7 +4371,7 @@ LABEL_52:
   {
     _uploadInBatches = [MBError errorWithCode:1 format:@"Simulated error after uploading"];
 LABEL_19:
-    v15 = _uploadInBatches;
+    v16 = _uploadInBatches;
     goto LABEL_20;
   }
 
@@ -4430,12 +4386,12 @@ LABEL_19:
     goto LABEL_9;
   }
 
-  v16 = MBGetDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = MBGetDefaultLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Removing ephemeral files added and deleted during retries", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Removing ephemeral files added and deleted during retries", buf, 2u);
+    _MBLog(@"I ", "Removing ephemeral files added and deleted during retries");
   }
 
   _uploadInBatches = [(MBManifestDB *)self->_snapshotManifestDB removeEphemeralRetriedFiles];
@@ -4444,12 +4400,12 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v17 = MBGetDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = MBGetDefaultLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Preparing to close snapshot manifest database", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Preparing to close snapshot manifest database", buf, 2u);
+    _MBLog(@"I ", "Preparing to close snapshot manifest database");
   }
 
   _uploadInBatches = [(MBManifestDB *)self->_snapshotManifestDB unsetAlreadyUploadedFlags];
@@ -4458,138 +4414,139 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v19 = MBGetDefaultLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v20 = MBGetDefaultLog();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Closing and checkpointing snapshot manifest database", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Closing and checkpointing snapshot manifest database", buf, 2u);
+    _MBLog(@"I ", "Closing and checkpointing snapshot manifest database");
   }
 
   snapshotManifestDB = self->_snapshotManifestDB;
-  v61 = 0;
-  v21 = [(MBManifestDB *)snapshotManifestDB closeWithError:&v61];
-  v15 = v61;
-  if (v21)
+  v60 = 0;
+  v22 = [(MBManifestDB *)snapshotManifestDB closeWithError:&v60];
+  v16 = v60;
+  if (v22)
   {
-    v22 = MBGetDefaultLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v23 = MBGetDefaultLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Uploading properties to snapshot", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Uploading properties to snapshot", buf, 2u);
+      _MBLog(@"I ", "Uploading properties to snapshot");
     }
 
     drive = self->_drive;
     _deviceSnapshotPropertiesPath = [(MBDriveBackupEngine *)self _deviceSnapshotPropertiesPath];
     settingsContext = [(MBDriveBackupEngine *)self settingsContext];
     driveSnapshotPropertiesPath = [settingsContext driveSnapshotPropertiesPath];
-    v60 = v15;
-    v50 = [(MBDrive *)drive uploadFileAtPath:_deviceSnapshotPropertiesPath toPath:driveSnapshotPropertiesPath options:0 error:&v60];
-    v53 = v60;
+    v59 = v16;
+    v49 = [(MBDrive *)drive uploadFileAtPath:_deviceSnapshotPropertiesPath toPath:driveSnapshotPropertiesPath options:0 error:&v59];
+    v52 = v59;
 
-    if ((v50 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
-      v15 = [MBBackupHelper driveWriteError:v53 description:@"Error uploading properties to snapshot"];
+      v16 = [MBBackupHelper driveWriteError:v52 description:@"Error uploading properties to snapshot"];
 
       goto LABEL_20;
     }
 
     _deviceSnapshotPropertiesPath2 = [(MBDriveBackupEngine *)self _deviceSnapshotPropertiesPath];
-    v59 = v53;
-    v27 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath2 error:&v59];
-    v11 = v59;
+    v58 = v52;
+    v28 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath2 error:&v58];
+    v11 = v58;
 
-    v28 = v27;
-    if (v27)
+    v29 = v28;
+    if (v28)
     {
-      v29 = self->_snapshotManifestDB;
-      v58 = v11;
-      v30 = [(MBManifestDB *)v29 openWithError:&v58];
-      v31 = v58;
+      v30 = self->_snapshotManifestDB;
+      v57 = v11;
+      v31 = [(MBManifestDB *)v30 openWithError:&v57];
+      v32 = v57;
 
-      if ((v30 & 1) == 0)
+      if ((v31 & 1) == 0)
       {
-        v40 = self->_snapshotManifestDB;
+        v41 = self->_snapshotManifestDB;
         self->_snapshotManifestDB = 0;
 
-        v41 = [MBError errorWithCode:101 format:@"Error opening snapshot manifest database from device"];
+        v42 = [MBError errorWithCode:101 format:@"Error opening snapshot manifest database from device"];
 LABEL_49:
-        v15 = v41;
+        v16 = v42;
         goto LABEL_50;
       }
 
-      v54 = v28;
-      v32 = MBGetDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v53 = v29;
+      v33 = MBGetDefaultLog();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Uploading manifest database to snapshot", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Uploading manifest database to snapshot", buf, 2u);
+        _MBLog(@"I ", "Uploading manifest database to snapshot");
       }
 
-      v48 = self->_snapshotManifestDB;
+      v47 = self->_snapshotManifestDB;
       settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
       driveSnapshotManifestDatabasePath = [settingsContext2 driveSnapshotManifestDatabasePath];
-      v49 = self->_drive;
+      v48 = self->_drive;
       settingsContext3 = [(MBDriveBackupEngine *)self settingsContext];
       keybag = [settingsContext3 keybag];
-      v57 = v31;
-      LOBYTE(v49) = [(MBManifestDB *)v48 uploadToPath:driveSnapshotManifestDatabasePath withDrive:v49 keybag:keybag error:&v57];
-      v35 = v57;
+      v56 = v32;
+      LOBYTE(v48) = [(MBManifestDB *)v47 uploadToPath:driveSnapshotManifestDatabasePath withDrive:v48 keybag:keybag error:&v56];
+      v36 = v56;
 
-      if ((v49 & 1) == 0)
+      if ((v48 & 1) == 0)
       {
-        v15 = [MBBackupHelper driveWriteError:v35 description:@"Error uploading database to snapshot"];
-        v31 = v35;
-        v28 = v54;
+        v16 = [MBBackupHelper driveWriteError:v36 description:@"Error uploading database to snapshot"];
+        v32 = v36;
+        v29 = v53;
 LABEL_50:
 
         goto LABEL_20;
       }
 
-      v36 = v35;
+      v37 = v36;
       if (![(MBEngine *)self encrypted])
       {
-        v28 = v54;
-        v39 = v36;
+        v29 = v53;
+        v40 = v37;
 LABEL_41:
-        v42 = MBGetDefaultLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+        v43 = MBGetDefaultLog();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "Setting status to moving", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Setting status to moving", buf, 2u);
+          _MBLog(@"I ", "Setting status to moving");
         }
 
-        v55 = v39;
-        v43 = [(MBDriveBackupEngine *)self _uploadStatusToDriveWithSnapshotState:1 error:&v55];
-        v11 = v55;
+        v54 = v40;
+        v44 = [(MBDriveBackupEngine *)self _uploadStatusToDriveWithSnapshotState:1 error:&v54];
+        v11 = v54;
 
-        if (v43)
+        if (v44)
         {
 
 LABEL_9:
-          if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterUploadingSuccessfully", v45, v46])
+          if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterUploadingSuccessfully"])
           {
             +[NSDate timeIntervalSinceReferenceDate];
             v13 = v12;
             v14 = MBGetDefaultLog();
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
+              v15 = v13 - v8;
               *buf = 134218752;
-              v63 = v4;
-              v64 = 2048;
-              v65 = v5;
-              v66 = 2048;
-              v67 = v13 - v8;
-              v68 = 2048;
-              v69 = (v5 / (v13 - v8));
+              v62 = v4;
+              v63 = 2048;
+              v64 = v5;
+              v65 = 2048;
+              v66 = v15;
+              v67 = 2048;
+              v68 = (v5 / v15);
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Uploaded %lu files of %{bytes}llu in %0.3f s at %{bytes}llu/s", buf, 0x2Au);
-              _MBLog();
+              _MBLog(@"Df", "Uploaded %lu files of %{bytes}llu in %0.3f s at %{bytes}llu/s", v4, v5, *&v15, (v5 / v15));
             }
 
-            v15 = 0;
+            v16 = 0;
             goto LABEL_20;
           }
 
@@ -4600,40 +4557,40 @@ LABEL_51:
         goto LABEL_48;
       }
 
-      v37 = self->_snapshotManifestDB;
+      v38 = self->_snapshotManifestDB;
       password = [(MBDriveBackupEngine *)self password];
-      v56 = v35;
-      LOBYTE(v37) = [(MBManifestDB *)v37 setupEncryptionWithPassword:password withError:&v56];
-      v11 = v56;
+      v55 = v36;
+      LOBYTE(v38) = [(MBManifestDB *)v38 setupEncryptionWithPassword:password withError:&v55];
+      v11 = v55;
 
-      if (v37)
+      if (v38)
       {
-        v39 = v11;
-        v28 = v54;
+        v40 = v11;
+        v29 = v53;
         goto LABEL_41;
       }
 
-      v44 = MBGetDefaultLog();
-      v28 = v54;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = MBGetDefaultLog();
+      v29 = v53;
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v63 = v11;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-        _MBLog();
+        v62 = v11;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to setup manifest encryption: %@", v11);
       }
     }
 
 LABEL_48:
-    v41 = v11;
-    v31 = v41;
+    v42 = v11;
+    v32 = v42;
     goto LABEL_49;
   }
 
 LABEL_20:
   objc_autoreleasePoolPop(v3);
 
-  return v15;
+  return v16;
 }
 
 - (id)_uploadInBatches
@@ -4648,8 +4605,8 @@ LABEL_20:
     __assert_rtn("[MBDriveBackupEngine _uploadInBatches]", "MBDriveBackupEngine.m", 1875, "_concurrentUploadBatchCount");
   }
 
-  v76 = self->_drive;
-  if (!v76)
+  v64 = self->_drive;
+  if (!v64)
   {
     __assert_rtn("[MBDriveBackupEngine _uploadInBatches]", "MBDriveBackupEngine.m", 1877, "drive");
   }
@@ -4661,23 +4618,20 @@ LABEL_20:
     batchSize = self->_batchSize;
     concurrentUploadBatchCount = self->_concurrentUploadBatchCount;
     *buf = 138543874;
-    *v129 = v3;
-    *&v129[8] = 2048;
-    *&v129[10] = batchSize;
-    *&v129[18] = 2048;
-    *&v129[20] = concurrentUploadBatchCount;
+    *v117 = v3;
+    *&v117[8] = 2048;
+    *&v117[10] = batchSize;
+    *&v117[18] = 2048;
+    *&v117[20] = concurrentUploadBatchCount;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu", buf, 0x20u);
     v6 = objc_opt_class();
-    v64 = self->_batchSize;
-    v67 = self->_concurrentUploadBatchCount;
-    v63 = v6;
-    _MBLog();
+    _MBLog(@"Df", "%{public}@, uploadBatchSize:%lu, concurrentUploadBatchCount:%lu", v6, self->_batchSize, self->_concurrentUploadBatchCount);
   }
 
-  v78 = dispatch_semaphore_create(self->_concurrentUploadBatchCount + (self->_concurrentUploadBatchCount >> 1));
+  v66 = dispatch_semaphore_create(self->_concurrentUploadBatchCount + (self->_concurrentUploadBatchCount >> 1));
   isDeviceTransferEngine = [(MBEngine *)self isDeviceTransferEngine];
-  v83 = self->_batchSize;
-  if (!v83)
+  v71 = self->_batchSize;
+  if (!v71)
   {
     __assert_rtn("[MBDriveBackupEngine _uploadInBatches]", "MBDriveBackupEngine.m", 1886, "batchSize");
   }
@@ -4690,43 +4644,43 @@ LABEL_20:
     __assert_rtn("[MBDriveBackupEngine _uploadInBatches]", "MBDriveBackupEngine.m", 1888, "driveSnapshotDir");
   }
 
-  v121 = 0;
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x3032000000;
-  v125 = sub_100224078;
-  v126 = sub_100224088;
-  v127 = 0;
-  v118 = 0;
-  v119 = &v118;
-  v120 = 0x2020000000;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x2020000000;
-  v117 = 0;
+  v109 = 0;
   v110 = 0;
   v111 = &v110;
-  v112 = 0x2020000000;
-  v113 = -1;
+  v112 = 0x3032000000;
+  v113 = sub_100224078;
+  v114 = sub_100224088;
+  v115 = 0;
   v106 = 0;
   v107 = &v106;
   v108 = 0x2020000000;
-  v109 = 0;
-  v138 = @"FileHandleFactory";
+  v102 = 0;
+  v103 = &v102;
+  v104 = 0x2020000000;
+  v105 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = -1;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 0;
+  v126 = @"FileHandleFactory";
   selfCopy = self;
-  v79 = [NSDictionary dictionaryWithObjects:&selfCopy forKeys:&v138 count:1];
+  v67 = [NSDictionary dictionaryWithObjects:&selfCopy forKeys:&v126 count:1];
   group = dispatch_group_create();
-  v85 = [(MBBackupOperationJournal *)self->_operationJournal operationEnumeratorWithDomainManager:self->super._domainManager];
+  v73 = [(MBBackupOperationJournal *)self->_operationJournal operationEnumeratorWithDomainManager:self->super._domainManager];
   v8 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-  v84 = 0;
-  v86 = 0;
-  v82 = 0;
-  v88 = 0;
-  v90 = 0;
+  v72 = 0;
+  v74 = 0;
+  v70 = 0;
+  v76 = 0;
+  v78 = 0;
   do
   {
     context = objc_autoreleasePoolPush();
-    nextObject = [v85 nextObject];
+    nextObject = [v73 nextObject];
     selfCopy3 = self;
     v11 = nextObject;
     if (nextObject)
@@ -4763,14 +4717,14 @@ LABEL_20:
         [v47 handleFailureInMethod:a2 object:self file:@"MBDriveBackupEngine.m" lineNumber:1917 description:@"No path for upload operation"];
       }
 
-      if (!v90)
+      if (!v78)
       {
-        v90 = [[NSMutableDictionary alloc] initWithCapacity:v83];
+        v78 = [[NSMutableDictionary alloc] initWithCapacity:v71];
       }
 
-      if (!v88)
+      if (!v76)
       {
-        v88 = [[NSMutableDictionary alloc] initWithCapacity:v83];
+        v76 = [[NSMutableDictionary alloc] initWithCapacity:v71];
       }
 
       path2 = [v11 path];
@@ -4780,7 +4734,7 @@ LABEL_20:
       v21 = [driveSnapshotDir stringByAppendingPathComponent:filenameWithPrefix];
       if (isDeviceTransferEngine)
       {
-        [v90 objectForKeyedSubscript:path2];
+        [v78 objectForKeyedSubscript:path2];
         if (objc_claimAutoreleasedReturnValue())
         {
           __assert_rtn("[MBDriveBackupEngine _uploadInBatches]", "MBDriveBackupEngine.m", 1925, "!isDeviceTransfer || paths[fromPath] == nil");
@@ -4788,21 +4742,21 @@ LABEL_20:
       }
 
       v22 = [v11 size];
-      [v90 setObject:v21 forKeyedSubscript:path2];
+      [v78 setObject:v21 forKeyedSubscript:path2];
       v23 = path2;
       v24 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [path2 fileSystemRepresentation]);
-      [v88 setObject:v11 forKeyedSubscript:v24];
+      [v76 setObject:v11 forKeyedSubscript:v24];
 
       selfCopy3 = self;
-      v86 += v22;
+      v74 += v22;
     }
 
-    else if ([v90 count])
+    else if ([v78 count])
     {
       goto LABEL_26;
     }
 
-    if ([v90 count] != v83)
+    if ([v78 count] != v71)
     {
 LABEL_28:
       LOBYTE(isCanceled) = 0;
@@ -4816,26 +4770,26 @@ LABEL_26:
     if (isCanceled)
     {
       v27 = [MBError errorWithCode:202 format:@"File upload cancelled"];
-      v28 = v123[5];
-      v123[5] = v27;
+      v28 = v111[5];
+      v111[5] = v27;
 
       objc_sync_exit(p_isa);
     }
 
     else
     {
-      [p_isa[22] addEntriesFromDictionary:v88];
+      [p_isa[22] addEntriesFromDictionary:v76];
       objc_sync_exit(p_isa);
 
       v29 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-      v30 = [[MBDriveUploadBatch alloc] initWithPaths:v90 size:v86 last:v11 == 0];
-      v31 = v84;
-      if (!v84)
+      v30 = [[MBDriveUploadBatch alloc] initWithPaths:v78 size:v74 last:v11 == 0];
+      v31 = v72;
+      if (!v72)
       {
         v31 = v29;
       }
 
-      v84 = v31;
+      v72 = v31;
       add_explicit = atomic_fetch_add_explicit(dword_100421B00, 1u, memory_order_relaxed);
       v33 = MBGetDefaultLog();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
@@ -4848,57 +4802,52 @@ LABEL_26:
           paths = [(MBDriveUploadBatch *)v30 paths];
           v38 = [paths count];
           *buf = 67110144;
-          *v129 = index;
-          *&v129[4] = 2048;
-          *&v129[6] = v38;
-          *&v129[14] = 2048;
-          *&v129[16] = v86;
-          *&v129[24] = 2048;
-          *&v129[26] = v34;
-          v130 = 1024;
-          LODWORD(v131) = add_explicit;
+          *v117 = index;
+          *&v117[4] = 2048;
+          *&v117[6] = v38;
+          *&v117[14] = 2048;
+          *&v117[16] = v74;
+          *&v117[24] = 2048;
+          *&v117[26] = v34;
+          v118 = 1024;
+          LODWORD(v119) = add_explicit;
           _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Fetched batch i:%u, c:%lu, s:%llu, t:%.3f, o:%u", buf, 0x2Cu);
         }
 
         index2 = [(MBDriveUploadBatch *)v30 index];
         paths2 = [(MBDriveUploadBatch *)v30 paths];
-        v71 = add_explicit;
-        v70 = v34;
-        v64 = [paths2 count];
-        v67 = v86;
-        v63 = index2;
-        _MBLog();
+        _MBLog(@"I ", "Fetched batch i:%u, c:%lu, s:%llu, t:%.3f, o:%u", index2, [paths2 count], v74, v34, add_explicit);
       }
 
       dispatch_group_enter(group);
-      v93[0] = _NSConcreteStackBlock;
-      v93[1] = 3221225472;
-      v93[2] = sub_10022763C;
-      v93[3] = &unk_1003C2080;
-      v41 = v78;
-      v94 = v41;
-      v104 = v29;
-      v105 = v84;
+      v81[0] = _NSConcreteStackBlock;
+      v81[1] = 3221225472;
+      v81[2] = sub_10022763C;
+      v81[3] = &unk_1003C2080;
+      v41 = v66;
+      v82 = v41;
+      v92 = v29;
+      v93 = v72;
       v42 = v30;
-      v95 = v42;
-      v96 = p_isa;
-      v99 = &v122;
-      v43 = v88;
-      v97 = v43;
-      v100 = &v118;
-      v101 = &v114;
-      v102 = &v110;
-      v103 = &v106;
-      v98 = group;
-      [p_isa _uploadBatch:v42 options:v79 completion:v93];
+      v83 = v42;
+      v84 = p_isa;
+      v87 = &v110;
+      v43 = v76;
+      v85 = v43;
+      v88 = &v106;
+      v89 = &v102;
+      v90 = &v98;
+      v91 = &v94;
+      v86 = group;
+      [p_isa _uploadBatch:v42 options:v67 completion:v81];
 
       dispatch_semaphore_wait(v41, 0xFFFFFFFFFFFFFFFFLL);
       v8 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
 
-      v86 = 0;
-      v88 = 0;
-      v90 = 0;
-      ++v82;
+      v74 = 0;
+      v76 = 0;
+      v78 = 0;
+      v70 = (v70 + 1);
       p_isa = &v42->super.isa;
     }
 
@@ -4913,25 +4862,25 @@ LABEL_37:
 
   while ((v44 & 1) != 0);
   dispatch_group_enter(group);
-  v91[0] = _NSConcreteStackBlock;
-  v91[1] = 3221225472;
-  v91[2] = sub_100227A2C;
-  v91[3] = &unk_1003BC010;
+  v79[0] = _NSConcreteStackBlock;
+  v79[1] = 3221225472;
+  v79[2] = sub_100227A2C;
+  v79[3] = &unk_1003BC010;
   v48 = group;
-  v92 = v48;
-  [(MBDrive *)v76 finishBatchUploadsWithOptions:v79 completion:v91];
+  v80 = v48;
+  [(MBDrive *)v64 finishBatchUploadsWithOptions:v67 completion:v79];
   MBGroupWaitForever();
-  v49 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - v84) / 1000000000.0;
+  v49 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - v72) / 1000000000.0;
   v50 = -1.0;
   if (v49 > 0.0)
   {
-    v50 = v119[3] / v49 / 1000000.0;
+    v50 = v107[3] / v49 / 1000000.0;
   }
 
-  v51 = v115[3];
+  v51 = v103[3];
   if (v51)
   {
-    v52 = v119[3] / v51;
+    v52 = v107[3] / v51;
   }
 
   else
@@ -4939,37 +4888,33 @@ LABEL_37:
     v52 = 0;
   }
 
-  if (v123[5])
+  if (v111[5])
   {
     v53 = MBGetDefaultLog();
     if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      v54 = v111[3];
-      v55 = v107[3];
-      v56 = v119[3];
-      v57 = v123[5];
+      v54 = v99[3];
+      v55 = v95[3];
+      v56 = v107[3];
+      v57 = v111[5];
       *buf = 67110914;
-      *v129 = v82;
-      *&v129[4] = 2048;
-      *&v129[6] = v54;
-      *&v129[14] = 2048;
-      *&v129[16] = v55;
-      *&v129[24] = 2048;
-      *&v129[26] = v52;
-      v130 = 2048;
-      v131 = v56;
-      v132 = 2048;
-      v133 = v49;
-      v134 = 2048;
-      v135 = v50;
-      v136 = 2112;
-      v137 = v57;
+      *v117 = v70;
+      *&v117[4] = 2048;
+      *&v117[6] = v54;
+      *&v117[14] = 2048;
+      *&v117[16] = v55;
+      *&v117[24] = 2048;
+      *&v117[26] = v52;
+      v118 = 2048;
+      v119 = v56;
+      v120 = 2048;
+      v121 = v49;
+      v122 = 2048;
+      v123 = v50;
+      v124 = 2112;
+      v125 = v57;
       _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Failed to upload after %u batches, s:{%llu,%llu,%llu,%llu}, t:%.3f, r:%.3f - %@", buf, 0x4Eu);
-      v74 = v123[5];
-      v72 = v119[3];
-      v65 = v111[3];
-      v68 = v107[3];
-      _MBLog();
+      _MBLog(@"E ", "Failed to upload after %u batches, s:{%llu,%llu,%llu,%llu}, t:%.3f, r:%.3f - %@", v70, v99[3], v95[3], v52, v107[3], *&v49, *&v50, v111[5]);
     }
   }
 
@@ -4978,37 +4923,34 @@ LABEL_37:
     v53 = MBGetDefaultLog();
     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = v111[3];
-      v59 = v107[3];
-      v60 = v119[3];
+      v58 = v99[3];
+      v59 = v95[3];
+      v60 = v107[3];
       *buf = 67110656;
-      *v129 = v82;
-      *&v129[4] = 2048;
-      *&v129[6] = v58;
-      *&v129[14] = 2048;
-      *&v129[16] = v59;
-      *&v129[24] = 2048;
-      *&v129[26] = v52;
-      v130 = 2048;
-      v131 = v60;
-      v132 = 2048;
-      v133 = v49;
-      v134 = 2048;
-      v135 = v50;
+      *v117 = v70;
+      *&v117[4] = 2048;
+      *&v117[6] = v58;
+      *&v117[14] = 2048;
+      *&v117[16] = v59;
+      *&v117[24] = 2048;
+      *&v117[26] = v52;
+      v118 = 2048;
+      v119 = v60;
+      v120 = 2048;
+      v121 = v49;
+      v122 = 2048;
+      v123 = v50;
       _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Finished uploading %u batches, s:{%llu,%llu,%llu,%llu}, t:%.3f, r:%.3f", buf, 0x44u);
-      v73 = v119[3];
-      v66 = v111[3];
-      v69 = v107[3];
-      _MBLog();
+      _MBLog(@"Df", "Finished uploading %u batches, s:{%llu,%llu,%llu,%llu}, t:%.3f, r:%.3f", v70, v99[3], v95[3], v52, v107[3], v49, v50);
     }
   }
 
-  v61 = v123[5];
+  v61 = v111[5];
+  _Block_object_dispose(&v94, 8);
+  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v102, 8);
   _Block_object_dispose(&v106, 8);
   _Block_object_dispose(&v110, 8);
-  _Block_object_dispose(&v114, 8);
-  _Block_object_dispose(&v118, 8);
-  _Block_object_dispose(&v122, 8);
 
   return v61;
 }
@@ -5049,6 +4991,143 @@ LABEL_37:
   v16 = v12;
   v17 = v19;
   [(MBDrive *)v14 uploadBatch:batchCopy options:optionsCopy completion:v18];
+}
+
+- (id)_moveWithOperationType:(int)type
+{
+  v3 = *&type;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(MBBackupOperationJournal *)self->_operationJournal countForType:v3];
+  v7 = MBGetDefaultLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134217984;
+    v37 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Starting to move %lu items", buf, 0xCu);
+    _MBLog(@"I ", "Starting to move %lu items", v6);
+  }
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  v9 = v8;
+  if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateErrorBeforeMoving"])
+  {
+    v10 = [MBError errorWithCode:1 format:@"Simulated error before moving"];
+    goto LABEL_6;
+  }
+
+  v10 = [(MBDriveBackupEngine *)self _moveInBatchesWithOperationType:v3];
+  if (!v10)
+  {
+    if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterMoving"])
+    {
+      v12 = MBGetDefaultLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Moving properties", buf, 2u);
+        _MBLog(@"I ", "Moving properties");
+      }
+
+      drive = self->_drive;
+      settingsContext = [(MBDriveBackupEngine *)self settingsContext];
+      driveSnapshotPropertiesPath = [settingsContext driveSnapshotPropertiesPath];
+      settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
+      driveBackupPropertiesPath = [settingsContext2 driveBackupPropertiesPath];
+      v35 = 0;
+      v18 = [(MBDrive *)drive moveItemAtPath:driveSnapshotPropertiesPath toPath:driveBackupPropertiesPath options:0 error:&v35];
+      v19 = v35;
+
+      if ((v18 & 1) == 0)
+      {
+        if (![MBError isError:v19 withCode:4])
+        {
+          v10 = [MBBackupHelper driveWriteError:v19 description:@"Error moving properties from snapshot"];
+
+          goto LABEL_6;
+        }
+
+        v19 = 0;
+      }
+
+      if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterMovingProperties"])
+      {
+        v20 = MBGetDefaultLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Moving manifest database", buf, 2u);
+          _MBLog(@"I ", "Moving manifest database");
+        }
+
+        v21 = self->_drive;
+        settingsContext3 = [(MBDriveBackupEngine *)self settingsContext];
+        driveSnapshotManifestDatabasePath = [settingsContext3 driveSnapshotManifestDatabasePath];
+        settingsContext4 = [(MBDriveBackupEngine *)self settingsContext];
+        driveBackupManifestDatabasePath = [settingsContext4 driveBackupManifestDatabasePath];
+        v34 = v19;
+        v26 = [(MBDrive *)v21 moveItemAtPath:driveSnapshotManifestDatabasePath toPath:driveBackupManifestDatabasePath options:0 error:&v34];
+        v27 = v34;
+
+        if ((v26 & 1) == 0)
+        {
+          if (![MBError isError:v27 withCode:4])
+          {
+            v10 = [MBBackupHelper driveWriteError:v27 description:@"Error moving database from snapshot"];
+
+            goto LABEL_6;
+          }
+
+          v27 = 0;
+        }
+
+        if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterMovingManifest"])
+        {
+          v28 = MBGetDefaultLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Setting status to removing", buf, 2u);
+            _MBLog(@"I ", "Setting status to removing");
+          }
+
+          v33 = v27;
+          v29 = [(MBDriveBackupEngine *)self _uploadStatusToDriveWithSnapshotState:2 error:&v33];
+          v10 = v33;
+
+          if (!v29)
+          {
+            goto LABEL_6;
+          }
+
+          if (![(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterMovingState"])
+          {
+            v30 = MBGetDefaultLog();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            {
+              +[NSDate timeIntervalSinceReferenceDate];
+              *buf = 134218240;
+              v37 = v6;
+              v38 = 2048;
+              v39 = v31 - v9;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Moved %lu files in %0.3f s", buf, 0x16u);
+              +[NSDate timeIntervalSinceReferenceDate];
+              _MBLog(@"Df", "Moved %lu files in %0.3f s", v6, v32 - v9);
+            }
+
+            v10 = 0;
+            goto LABEL_6;
+          }
+        }
+      }
+    }
+
+    abort();
+  }
+
+LABEL_6:
+  objc_autoreleasePoolPop(v5);
+
+  return v10;
 }
 
 - (id)_moveInBatchesWithOperationType:(int)type
@@ -5169,8 +5248,7 @@ LABEL_19:
     *buf = 134217984;
     v33 = [pathsCopy count];
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Moving batch of %lu items", buf, 0xCu);
-    [pathsCopy count];
-    _MBLog();
+    _MBLog(@"I ", "Moving batch of %lu items", [pathsCopy count]);
   }
 
   drive = self->_drive;
@@ -5219,8 +5297,8 @@ LABEL_19:
             _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Error moving %@ to %@: %@", buf, 0x20u);
 
             v21 = [pathsCopy objectForKeyedSubscript:v17];
-            v23 = [v12 objectForKeyedSubscript:v17];
-            _MBLog();
+            v22 = [v12 objectForKeyedSubscript:v17];
+            _MBLog(@"E ", "Error moving %@ to %@: %@", v17, v21, v22);
           }
         }
 
@@ -5238,6 +5316,255 @@ LABEL_19:
   return v11;
 }
 
+- (id)_removeWithOperationType:(int)type
+{
+  v3 = *&type;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(MBBackupOperationJournal *)self->_operationJournal countForType:v3];
+  v7 = MBGetDefaultLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134217984;
+    v37 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Starting to remove %lu items", buf, 0xCu);
+    _MBLog(@"I ", "Starting to remove %lu items", v6);
+  }
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  v9 = v8;
+  if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashBeforeRemoving"])
+  {
+    goto LABEL_36;
+  }
+
+  v10 = [(MBDriveBackupEngine *)self _removeInBatchesWithOperationType:v3];
+  if (v10)
+  {
+    v11 = v10;
+LABEL_6:
+    v12 = v11;
+LABEL_7:
+    v13 = v11;
+    goto LABEL_8;
+  }
+
+  if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterRemoving"])
+  {
+LABEL_36:
+    abort();
+  }
+
+  v15 = MBGetDefaultLog();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Removing snapshot directory", buf, 2u);
+    _MBLog(@"I ", "Removing snapshot directory");
+  }
+
+  drive = self->_drive;
+  settingsContext = [(MBDriveBackupEngine *)self settingsContext];
+  driveSnapshotDir = [settingsContext driveSnapshotDir];
+  v35 = 0;
+  v19 = [(MBDrive *)drive removeItemAtPath:driveSnapshotDir options:0 error:&v35];
+  v12 = v35;
+
+  if (v19)
+  {
+    v20 = v12;
+  }
+
+  else
+  {
+    if (![MBError isError:v12 withCode:4])
+    {
+      v32 = @"Error removing snapshot directory";
+LABEL_35:
+      v11 = [MBBackupHelper driveWriteError:v12 description:v32];
+      goto LABEL_7;
+    }
+
+    v20 = 0;
+  }
+
+  if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterRemovingSnapshot"])
+  {
+    goto LABEL_36;
+  }
+
+  v21 = MBGetDefaultLog();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Removing old database index if it exists", buf, 2u);
+    _MBLog(@"I ", "Removing old database index if it exists");
+  }
+
+  v22 = self->_drive;
+  settingsContext2 = [(MBDriveBackupEngine *)self settingsContext];
+  driveBackupDatabaseIndexPath = [settingsContext2 driveBackupDatabaseIndexPath];
+  v34 = v20;
+  v25 = [(MBDrive *)v22 removeItemAtPath:driveBackupDatabaseIndexPath options:0 error:&v34];
+  v12 = v34;
+
+  if (v25)
+  {
+    v26 = v12;
+    goto LABEL_25;
+  }
+
+  if (![MBError isError:v12 withCode:4])
+  {
+    v32 = @"Error removing old database index";
+    goto LABEL_35;
+  }
+
+  v26 = 0;
+LABEL_25:
+  v27 = MBGetDefaultLog();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Setting status to finished", buf, 2u);
+    _MBLog(@"I ", "Setting status to finished");
+  }
+
+  v33 = v26;
+  v28 = [(MBDriveBackupEngine *)self _uploadStatusToDriveWithSnapshotState:3 error:&v33];
+  v12 = v33;
+
+  if ((v28 & 1) == 0)
+  {
+    v11 = v12;
+    goto LABEL_6;
+  }
+
+  if ([(MBDebugContext *)self->super._debugContext isFlagSet:@"SimulateCrashAfterRemovingUploadingState"])
+  {
+    goto LABEL_36;
+  }
+
+  v29 = MBGetDefaultLog();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  {
+    +[NSDate timeIntervalSinceReferenceDate];
+    *buf = 134218240;
+    v37 = v6;
+    v38 = 2048;
+    v39 = v30 - v9;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Removed %lu items in %0.3f s", buf, 0x16u);
+    +[NSDate timeIntervalSinceReferenceDate];
+    _MBLog(@"Df", "Removed %lu items in %0.3f s", v6, v31 - v9);
+  }
+
+  v13 = 0;
+LABEL_8:
+
+  objc_autoreleasePoolPop(v5);
+
+  return v13;
+}
+
+- (id)_removeInBatchesWithOperationType:(int)type
+{
+  v3 = *&type;
+  v5 = [NSMutableArray arrayWithCapacity:0];
+  v6 = [(MBBackupOperationJournal *)self->_operationJournal operationEnumeratorWithDomainManager:self->super._domainManager];
+  v7 = objc_autoreleasePoolPush();
+  nextObject = [v6 nextObject];
+  if (nextObject)
+  {
+    nextObject2 = nextObject;
+    v25 = v5;
+    do
+    {
+      if ([nextObject2 type] != v3)
+      {
+        goto LABEL_10;
+      }
+
+      fileID = [nextObject2 fileID];
+
+      if (fileID)
+      {
+        settingsContext = [(MBDriveBackupEngine *)self settingsContext];
+        driveBackupDir = [settingsContext driveBackupDir];
+        [nextObject2 fileID];
+        selfCopy = self;
+        v15 = v14 = v3;
+        [v15 filenameWithPrefix];
+        v17 = v16 = v6;
+        path = [driveBackupDir stringByAppendingPathComponent:v17];
+
+        v6 = v16;
+        v3 = v14;
+        self = selfCopy;
+        v5 = v25;
+
+        if (!path)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      else
+      {
+        path = [nextObject2 path];
+        if (!path)
+        {
+LABEL_13:
+          +[NSAssertionHandler currentHandler];
+          v21 = v20 = v6;
+          [v21 handleFailureInMethod:a2 object:self file:@"MBDriveBackupEngine.m" lineNumber:2270 description:@"No file ID or path for remove operation"];
+
+          v6 = v20;
+        }
+      }
+
+      [v5 addObject:path];
+      if ([v5 count] == self->_batchSize)
+      {
+        v19 = [(MBDriveBackupEngine *)self _removeBatchWithPaths:v5];
+        if (v19)
+        {
+          v22 = v19;
+
+          objc_autoreleasePoolPop(v7);
+          goto LABEL_19;
+        }
+
+        [v5 removeAllObjects];
+      }
+
+LABEL_10:
+      objc_autoreleasePoolPop(v7);
+      v7 = objc_autoreleasePoolPush();
+      nextObject2 = [v6 nextObject];
+    }
+
+    while (nextObject2);
+  }
+
+  objc_autoreleasePoolPop(v7);
+  if ([v5 count])
+  {
+    v22 = [(MBDriveBackupEngine *)self _removeBatchWithPaths:v5];
+    if (!v22)
+    {
+      [v5 removeAllObjects];
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+LABEL_19:
+
+  return v22;
+}
+
 - (id)_removeBatchWithPaths:(id)paths
 {
   pathsCopy = paths;
@@ -5245,18 +5572,17 @@ LABEL_19:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v33 = [pathsCopy count];
+    v31 = [pathsCopy count];
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Removing batch of %lu items", buf, 0xCu);
-    v21 = [pathsCopy count];
-    _MBLog();
+    _MBLog(@"I ", "Removing batch of %lu items", [pathsCopy count]);
   }
 
   drive = self->_drive;
-  v30 = 0;
-  v31 = 0;
-  v7 = [(MBDrive *)drive removeItemsAtPaths:pathsCopy options:0 results:&v31 error:&v30];
-  v8 = v31;
-  v9 = v30;
+  v28 = 0;
+  v29 = 0;
+  v7 = [(MBDrive *)drive removeItemsAtPaths:pathsCopy options:0 results:&v29 error:&v28];
+  v8 = v29;
+  v9 = v28;
   if (v7)
   {
     goto LABEL_4;
@@ -5264,12 +5590,12 @@ LABEL_19:
 
   if ([MBError isError:v9 withCode:2])
   {
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v36 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
     if (!v12)
     {
 
@@ -5279,60 +5605,58 @@ LABEL_4:
     }
 
     v13 = v12;
-    v23 = v9;
-    v24 = v8;
-    v25 = pathsCopy;
+    v21 = v9;
+    v22 = v8;
+    v23 = pathsCopy;
     v14 = 0;
-    v15 = *v27;
+    v15 = *v25;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v27 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
-        v18 = [v11 objectForKeyedSubscript:{v17, v21, v22}];
+        v17 = *(*(&v24 + 1) + 8 * i);
+        v18 = [v11 objectForKeyedSubscript:v17];
         if (([MBError isError:v18 withCode:4]& 1) == 0)
         {
           v19 = MBGetDefaultLog();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v33 = v17;
-            v34 = 2112;
-            v35 = v18;
+            v31 = v17;
+            v32 = 2112;
+            v33 = v18;
             _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Error removing %@: %@", buf, 0x16u);
-            v21 = v17;
-            v22 = v18;
-            _MBLog();
+            _MBLog(@"E ", "Error removing %@: %@", v17, v18);
           }
 
           v14 = 1;
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v13);
 
-    pathsCopy = v25;
+    pathsCopy = v23;
     if (v14)
     {
-      v9 = v23;
-      v10 = [MBBackupHelper driveWriteError:v23 description:@"Error removing files"];
+      v9 = v21;
+      v10 = [MBBackupHelper driveWriteError:v21 description:@"Error removing files"];
     }
 
     else
     {
       v10 = 0;
-      v9 = v23;
+      v9 = v21;
     }
 
-    v8 = v24;
+    v8 = v22;
   }
 
   else
@@ -5352,7 +5676,7 @@ LABEL_23:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Removing device snapshot directory", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Removing device snapshot directory");
   }
 
   snapshotManifestDB = self->_snapshotManifestDB;
@@ -5413,23 +5737,23 @@ LABEL_10:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Removing old backup %@", buf, 0xCu);
 
     movedBackupName2 = [(MBDriveBackupEngine *)self movedBackupName];
-    _MBLog();
+    _MBLog(@"I ", "Removing old backup %@", movedBackupName2);
   }
 
   drive = self->_drive;
   movedBackupName3 = [(MBDriveBackupEngine *)self movedBackupName];
   v10 = 0;
   LODWORD(drive) = [(MBDrive *)drive removeItemAtPath:movedBackupName3 options:0 error:&v10];
-  v7 = v10;
+  v8 = v10;
 
   if (drive)
   {
 
 LABEL_6:
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_verifyBackupReloadingManifest:(BOOL)manifest
@@ -5456,7 +5780,7 @@ LABEL_6:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Verifying backup contents", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Verifying backup contents");
     }
 
     if (manifestCopy)
@@ -5495,7 +5819,7 @@ LABEL_13:
             *buf = 138412290;
             v56 = v20;
             _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"E ", "Failed to setup manifest encryption: %@", v20);
           }
 
           v33 = v20;
@@ -5555,7 +5879,7 @@ LABEL_35:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Getting contents of backup directory", buf, 2u);
-            _MBLog();
+            _MBLog(@"I ", "Getting contents of backup directory");
           }
 
           settingsContext = [(MBDriveBackupEngine *)self settingsContext];
@@ -5585,7 +5909,7 @@ LABEL_35:
                 {
                   *buf = 0;
                   _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Manifest references files that are not in the backup", buf, 2u);
-                  _MBLog();
+                  _MBLog(@"E ", "Manifest references files that are not in the backup");
                 }
 
                 v13 = [MBError errorWithCode:205 format:@"Manifest references files not in backup"];
@@ -5613,7 +5937,7 @@ LABEL_35:
                 *buf = 138412290;
                 v56 = v46;
                 _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Finished verifying backup: %@", buf, 0xCu);
-                _MBLog();
+                _MBLog(@"Df", "Finished verifying backup: %@", v46);
               }
             }
           }
@@ -5658,7 +5982,7 @@ LABEL_7:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Skipping verification of old format backup", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Skipping verification of old format backup");
   }
 
   v13 = 0;
@@ -5690,67 +6014,65 @@ LABEL_53:
     allObjects = [(NSMutableSet *)self->_modifiedDomains allObjects];
     v7 = [allObjects componentsJoinedByString:{@", "}];
     *buf = 134218498;
-    v74 = retryCount;
-    v75 = 1024;
-    v76 = 1;
-    v77 = 2112;
-    v78 = v7;
+    v70 = retryCount;
+    v71 = 1024;
+    v72 = 1;
+    v73 = 2112;
+    v74 = v7;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Retrying backup (attempt %lu of %d, modified domains: {%@})", buf, 0x1Cu);
 
     v8 = self->_retryCount;
     allObjects2 = [(NSMutableSet *)self->_modifiedDomains allObjects];
-    [allObjects2 componentsJoinedByString:{@", "}];
-    v65 = v63 = 1;
-    v61 = v8;
-    _MBLog();
+    v10 = [allObjects2 componentsJoinedByString:{@", "}];
+    _MBLog(@"Df", "Retrying backup (attempt %lu of %d, modified domains: {%@})", v8, 1, v10);
   }
 
   [(MBProgress *)self->_progress current];
   [(MBProgress *)self->_progress setTotal:?];
-  v10 = [[MBDriveScript alloc] initWithProgress:self->_progress];
+  v11 = [[MBDriveScript alloc] initWithProgress:self->_progress];
   driveScript = self->_driveScript;
-  self->_driveScript = v10;
+  self->_driveScript = v11;
 
-  v12 = [MBProgressDrive alloc];
-  v13 = self->_driveScript;
+  v13 = [MBProgressDrive alloc];
+  v14 = self->_driveScript;
   settingsContext = [(MBDriveBackupEngine *)self settingsContext];
   drive = [settingsContext drive];
-  v16 = [(MBProgressDrive *)v12 initWithScript:v13 delegate:drive];
+  v17 = [(MBProgressDrive *)v13 initWithScript:v14 delegate:drive];
   drive = self->_drive;
-  self->_drive = v16;
+  self->_drive = v17;
 
   snapshotManifestDB = self->_snapshotManifestDB;
   if (!snapshotManifestDB)
   {
     _deviceSnapshotPropertiesPath = [(MBDriveBackupEngine *)self _deviceSnapshotPropertiesPath];
-    v72 = 0;
-    v45 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath error:&v72];
-    v46 = v72;
+    v68 = 0;
+    v46 = [MBProperties propertiesWithFile:_deviceSnapshotPropertiesPath error:&v68];
+    v47 = v68;
 
-    if (v45)
+    if (v46)
     {
-      v47 = [MBManifestDB alloc];
+      v48 = [MBManifestDB alloc];
       _deviceSnapshotManifestDatabasePath = [(MBDriveBackupEngine *)self _deviceSnapshotManifestDatabasePath];
-      v49 = [(MBManifestDB *)v47 initWithPath:_deviceSnapshotManifestDatabasePath properties:v45 domainManager:self->super._domainManager];
-      v50 = self->_snapshotManifestDB;
-      self->_snapshotManifestDB = v49;
-
+      v50 = [(MBManifestDB *)v48 initWithPath:_deviceSnapshotManifestDatabasePath properties:v46 domainManager:self->super._domainManager];
       v51 = self->_snapshotManifestDB;
-      v71 = v46;
-      LOBYTE(v47) = [(MBManifestDB *)v51 openWithError:&v71];
-      v19 = v71;
+      self->_snapshotManifestDB = v50;
 
-      if ((v47 & 1) == 0)
+      v52 = self->_snapshotManifestDB;
+      v67 = v47;
+      LOBYTE(v48) = [(MBManifestDB *)v52 openWithError:&v67];
+      v20 = v67;
+
+      if ((v48 & 1) == 0)
       {
-        v57 = self->_snapshotManifestDB;
+        v58 = self->_snapshotManifestDB;
         self->_snapshotManifestDB = 0;
 
-        v58 = [MBError errorWithCode:101 format:@"Error opening snapshot manifest database from device"];
-LABEL_51:
-        persona = v58;
+        v59 = [MBError errorWithCode:101 format:@"Error opening snapshot manifest database from device"];
+LABEL_50:
+        persona = v59;
 
         objc_autoreleasePoolPop(v3);
-        goto LABEL_52;
+        goto LABEL_51;
       }
 
       if (![(MBEngine *)self encrypted])
@@ -5761,77 +6083,73 @@ LABEL_32:
         goto LABEL_5;
       }
 
-      v52 = self->_snapshotManifestDB;
+      v53 = self->_snapshotManifestDB;
       password = [(MBDriveBackupEngine *)self password];
-      v70 = v19;
-      v54 = [(MBManifestDB *)v52 setupEncryptionWithPassword:password withError:&v70];
-      v46 = v70;
+      v66 = v20;
+      v55 = [(MBManifestDB *)v53 setupEncryptionWithPassword:password withError:&v66];
+      v47 = v66;
 
-      if (v54)
+      if (v55)
       {
-        v19 = v46;
+        v20 = v47;
         goto LABEL_32;
       }
 
-      v56 = MBGetDefaultLog();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      v57 = MBGetDefaultLog();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v74 = v46;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
-        goto LABEL_49;
+        v70 = v47;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "Failed to setup manifest encryption: %@", buf, 0xCu);
+        _MBLog(@"E ", "Failed to setup manifest encryption: %@", v47);
       }
+    }
+
+    else if (([MBError isError:v47 withCode:4]& 1) != 0 || [MBError codeForNSError:v47]== 4)
+    {
+      v56 = MBGetDefaultLog();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "Snapshot properties not found", buf, 2u);
+        _MBLog(@"I ", "Snapshot properties not found");
+      }
+
+      v57 = v47;
+      v47 = 0;
     }
 
     else
     {
-      if (([MBError isError:v46 withCode:4]& 1) != 0 || [MBError codeForNSError:v46]== 4)
-      {
-        v55 = MBGetDefaultLog();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Snapshot properties not found", buf, 2u);
-          _MBLog();
-        }
-
-        v56 = v46;
-        v46 = 0;
-        goto LABEL_50;
-      }
-
-      v56 = MBGetDefaultLog();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      v57 = MBGetDefaultLog();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v74 = v46;
-        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Error reading snapshot properties from device: %@", buf, 0xCu);
-LABEL_49:
-        _MBLog();
+        v70 = v47;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Error reading snapshot properties from device: %@", buf, 0xCu);
+        _MBLog(@"Df", "Error reading snapshot properties from device: %@", v47);
       }
     }
 
-LABEL_50:
-
-    v58 = v46;
-    v19 = v58;
-    goto LABEL_51;
+    v59 = v47;
+    v20 = v59;
+    goto LABEL_50;
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_5:
-  v66 = v3;
-  v20 = [(MBManifestDB *)snapshotManifestDB properties:v61];
-  [v20 removeAllContainers];
+  v62 = v3;
+  properties = [(MBManifestDB *)snapshotManifestDB properties];
+  [properties removeAllContainers];
 
-  properties = [(MBManifestDB *)self->_snapshotManifestDB properties];
+  properties2 = [(MBManifestDB *)self->_snapshotManifestDB properties];
   allContainers = [(MBAppManager *)self->super._appManager allContainers];
-  [properties addContainersFromArray:allContainers];
+  [properties2 addContainersFromArray:allContainers];
 
   obj = [MBBackupOperationJournal backupOperationJournalWithBatchSize:self->_batchSize];
-  v23 = [(MBBackupOperationJournal *)self->_operationJournal operationEnumeratorWithDomainManager:self->super._domainManager];
-  v24 = objc_autoreleasePoolPush();
-  nextObject = [v23 nextObject];
+  v24 = [(MBBackupOperationJournal *)self->_operationJournal operationEnumeratorWithDomainManager:self->super._domainManager];
+  v25 = objc_autoreleasePoolPush();
+  nextObject = [v24 nextObject];
   if (nextObject)
   {
     nextObject2 = nextObject;
@@ -5849,19 +6167,19 @@ LABEL_5:
         goto LABEL_22;
       }
 
-      v29 = self->_snapshotManifestDB;
-      v69 = v19;
-      v30 = [(MBManifestDB *)v29 flagsForFileID:fileID error:&v69];
-      v31 = v69;
+      v30 = self->_snapshotManifestDB;
+      v65 = v20;
+      v31 = [(MBManifestDB *)v30 flagsForFileID:fileID error:&v65];
+      v32 = v65;
 
-      if (v31)
+      if (v32)
       {
-        v42 = v31;
+        v43 = v32;
 
-        objc_autoreleasePoolPop(v24);
-        v40 = 0;
-        persona = v42;
-        v43 = v66;
+        objc_autoreleasePoolPop(v25);
+        v41 = 0;
+        persona = v43;
+        v44 = v62;
         goto LABEL_41;
       }
 
@@ -5876,85 +6194,83 @@ LABEL_5:
       }
 
 LABEL_21:
-      v19 = 0;
+      v20 = 0;
 LABEL_22:
 
-      objc_autoreleasePoolPop(v24);
-      v24 = objc_autoreleasePoolPush();
-      nextObject2 = [v23 nextObject];
+      objc_autoreleasePoolPop(v25);
+      v25 = objc_autoreleasePoolPush();
+      nextObject2 = [v24 nextObject];
       if (!nextObject2)
       {
         goto LABEL_23;
       }
     }
 
-    v19 = 0;
+    v20 = 0;
     if ([nextObject2 type] != 3 || !fileID)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    if ((v30 & 0x10) == 0)
+    if ((v31 & 0x10) == 0)
     {
-      v32 = MBGetDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v33 = MBGetDefaultLog();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
         type = [nextObject2 type];
         *buf = 138412546;
-        v74 = fileID;
-        v75 = 1024;
-        v76 = type;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Already uploaded: %@ (operation: %d)", buf, 0x12u);
-        v62 = fileID;
-        type2 = [nextObject2 type];
-        _MBLog();
+        v70 = fileID;
+        v71 = 1024;
+        v72 = type;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "Already uploaded: %@ (operation: %d)", buf, 0x12u);
+        _MBLog(@"Db", "Already uploaded: %@ (operation: %d)", fileID, [nextObject2 type]);
       }
 
-      v34 = [(MBManifestDB *)self->_snapshotManifestDB setFlags:200 mask:-17 forFileID:fileID];
+      v35 = [(MBManifestDB *)self->_snapshotManifestDB setFlags:200 mask:-17 forFileID:fileID];
     }
 
     goto LABEL_21;
   }
 
 LABEL_23:
-  objc_autoreleasePoolPop(v24);
+  objc_autoreleasePoolPop(v25);
   [(MBBackupOperationJournal *)self->_operationJournal close];
   objc_storeStrong(&self->_operationJournal, obj);
   objc_storeStrong(&self->_domainsToScan, self->_modifiedDomains);
-  v35 = objc_alloc_init(NSMutableSet);
+  v36 = objc_alloc_init(NSMutableSet);
   modifiedDomains = self->_modifiedDomains;
-  self->_modifiedDomains = v35;
+  self->_modifiedDomains = v36;
 
-  v37 = MBGetDefaultLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  v38 = MBGetDefaultLog();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Refreshing installed apps", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "Refreshing installed apps", buf, 2u);
+    _MBLog(@"I ", "Refreshing installed apps");
   }
 
   appManager = self->super._appManager;
   persona = [(MBEngine *)self persona];
-  v68 = v19;
-  v40 = 1;
-  v41 = [(MBAppManager *)appManager loadAppsWithPersona:persona safeHarbors:1 error:&v68];
-  v42 = v68;
+  v64 = v20;
+  v41 = 1;
+  v42 = [(MBAppManager *)appManager loadAppsWithPersona:persona safeHarbors:1 error:&v64];
+  v43 = v64;
 
-  v43 = v66;
-  if ((v41 & 1) == 0)
+  v44 = v62;
+  if ((v42 & 1) == 0)
   {
-    persona = [MBError errorWithCode:1 error:v42 format:@"Error loading apps"];
-    v40 = 0;
+    persona = [MBError errorWithCode:1 error:v43 format:@"Error loading apps"];
+    v41 = 0;
   }
 
 LABEL_41:
 
-  objc_autoreleasePoolPop(v43);
-  if (v40)
+  objc_autoreleasePoolPop(v44);
+  if (v41)
   {
-    v59 = [(MBDebugContext *)self->super._debugContext intForName:@"SimulateCrashAfterRetrying"];
-    if (v59 >= 1 && self->_retryCount >= v59)
+    v60 = [(MBDebugContext *)self->super._debugContext intForName:@"SimulateCrashAfterRetrying"];
+    if (v60 >= 1 && self->_retryCount >= v60)
     {
       abort();
     }
@@ -5962,7 +6278,7 @@ LABEL_41:
     persona = 0;
   }
 
-LABEL_52:
+LABEL_51:
 
   return persona;
 }
@@ -5996,6 +6312,26 @@ LABEL_52:
   v3 = [_deviceSnapshotDir stringByAppendingPathComponent:@"Manifest.db"];
 
   return v3;
+}
+
+- (id)_fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error
+{
+  modeCopy = mode;
+  v8 = *&flags;
+  pathCopy = path;
+  if ([(MBEngine *)self encrypted])
+  {
+    settingsContext = [(MBDriveBackupEngine *)self settingsContext];
+    keybag = [settingsContext keybag];
+    v13 = [MBEncryptedFileHandle encryptedFileHandleForBackupWithPath:pathCopy keybag:keybag error:error];
+  }
+
+  else
+  {
+    v13 = [MBBasicFileHandle basicFileHandleWithPath:pathCopy flags:v8 mode:modeCopy error:error];
+  }
+
+  return v13;
 }
 
 - (id)_compactSQLiteDatabaseAtPath:(id)path file:(id)file error:(id *)error
@@ -6059,6 +6395,270 @@ LABEL_10:
   return v17;
 }
 
+- (id)fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error
+{
+  modeCopy = mode;
+  v7 = *&flags;
+  pathCopy = path;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  uploadOperationsByPath = selfCopy->_uploadOperationsByPath;
+  v13 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [pathCopy fileSystemRepresentation]);
+  v14 = [(NSMutableDictionary *)uploadOperationsByPath objectForKeyedSubscript:v13];
+
+  objc_sync_exit(selfCopy);
+  if (!v14)
+  {
+    v49 = +[NSAssertionHandler currentHandler];
+    [v49 handleFailureInMethod:a2 object:selfCopy file:@"MBDriveBackupEngine.m" lineNumber:2652 description:{@"No operation found for path: %@", pathCopy}];
+  }
+
+  domain = [v14 domain];
+  volumeMountPoint = [domain volumeMountPoint];
+  mountedSnapshotTracker = [(MBDriveBackupEngine *)selfCopy mountedSnapshotTracker];
+  v17 = [mountedSnapshotTracker snapshotMountPointForVolumeMountPoint:volumeMountPoint];
+
+  if (!v17)
+  {
+    __assert_rtn("[MBDriveBackupEngine fileHandleWithPath:flags:mode:error:]", "MBDriveBackupEngine.m", 2659, "snapshotMountPoint");
+  }
+
+  v18 = [pathCopy hasPrefix:v17];
+  rootPath = [domain rootPath];
+  v20 = rootPath;
+  if (v18)
+  {
+    v21 = MBSnapshotPathFromLivePath(rootPath, v17, volumeMountPoint);
+
+    v22 = [pathCopy substringFromIndex:{objc_msgSend(v21, "length") + 1}];
+    v23 = [MBFile fileWithDomain:domain snapshotPath:v17 relativePath:v22];
+  }
+
+  else
+  {
+    v21 = [pathCopy substringFromIndex:{objc_msgSend(rootPath, "length") + 1}];
+
+    v23 = [MBFile fileWithDomain:domain snapshotPath:0 relativePath:v21];
+  }
+
+  if (!v23)
+  {
+    __assert_rtn("[MBDriveBackupEngine fileHandleWithPath:flags:mode:error:]", "MBDriveBackupEngine.m", 2670, "file");
+  }
+
+  v24 = [(MBDriveBackupEngine *)selfCopy _fileHandleWithPath:pathCopy flags:v7 mode:modeCopy error:error];
+  if (!v24)
+  {
+    v30 = 0;
+    goto LABEL_20;
+  }
+
+  if (-[MBDriveBackupEngine isFinalRetry](selfCopy, "isFinalRetry") || ([v24 path], v25 = objc_claimAutoreleasedReturnValue(), v26 = IsDatalessFaultWithPath(v25), v25, (v26 & 1) != 0))
+  {
+    v27 = 0;
+    goto LABEL_12;
+  }
+
+  v57 = 0;
+  v56 = 0;
+  v32 = [MBSQLiteFileHandle isSQLiteFileHandle:v24 result:&v57 error:&v56];
+  v33 = v56;
+  v27 = v33;
+  if (!v32)
+  {
+    if (error)
+    {
+      v40 = v33;
+      *error = v27;
+    }
+
+    [v24 closeWithError:0];
+    goto LABEL_36;
+  }
+
+  if ((v57 & 1) == 0)
+  {
+    goto LABEL_12;
+  }
+
+  v55 = v33;
+  v51 = [(MBDriveBackupEngine *)selfCopy _compactSQLiteDatabaseAtPath:pathCopy file:v23 error:&v55];
+  v50 = v55;
+
+  if (!v51)
+  {
+    v41 = MBGetDefaultLog();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      absolutePath = [v23 absolutePath];
+      fileID = [v23 fileID];
+      *buf = 138412802;
+      *&buf[4] = absolutePath;
+      *&buf[12] = 2112;
+      *&buf[14] = fileID;
+      *&buf[22] = 2112;
+      v59 = v50;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Failed to compact/copy SQLite database at %@ (%@): %@", buf, 0x20u);
+
+      absolutePath2 = [v23 absolutePath];
+      fileID2 = [v23 fileID];
+      _MBLog(@"E ", "Failed to compact/copy SQLite database at %@ (%@): %@", absolutePath2, fileID2, v50);
+    }
+
+    [(MBDriveBackupEngine *)selfCopy fileModifiedWhileUploadingFile:v23 reason:@"Couldn't compact SQLite file"];
+    if (error)
+    {
+      *error = [MBError errorWithCode:9 path:pathCopy format:@"Couldn't compact SQLite file"];
+    }
+
+    [v24 closeWithError:0];
+    v27 = v50;
+    goto LABEL_36;
+  }
+
+  settingsContext = [(MBDriveBackupEngine *)selfCopy settingsContext];
+  plugins = [settingsContext plugins];
+  objectEnumerator = [plugins objectEnumerator];
+
+  *buf = _NSConcreteStackBlock;
+  *&buf[8] = 3221225472;
+  *&buf[16] = sub_100137B5C;
+  v59 = &unk_1003BF968;
+  v60 = pathCopy;
+  v61 = v51;
+  v62 = "backingUpSQLiteFileCopyAtPath:temporaryPath:";
+  v37 = MBNotifyPluginsBlock(selfCopy, objectEnumerator, "backingUpSQLiteFileCopyAtPath:temporaryPath:", buf);
+
+  if (v37)
+  {
+    [v24 closeWithError:0];
+    v38 = +[NSFileManager defaultManager];
+    [v38 removeItemAtPath:v51 error:0];
+
+    if (error)
+    {
+      v39 = v37;
+      *error = v37;
+    }
+
+    v27 = v37;
+    goto LABEL_36;
+  }
+
+  v46 = [(MBDriveBackupEngine *)selfCopy _fileHandleWithPath:v51 flags:256 mode:0 error:error];
+  if (!v46)
+  {
+    [v24 closeWithError:0];
+    v48 = +[NSFileManager defaultManager];
+    [v48 removeItemAtPath:v51 error:0];
+
+    v27 = v51;
+LABEL_36:
+
+    v30 = 0;
+    goto LABEL_19;
+  }
+
+  [(MBDebugContext *)selfCopy->super._debugContext setFlag:@"CopiedSQLiteFile"];
+  v47 = [MBSQLiteFileHandle SQLiteFileHandleWithOriginalFileHandle:v24 copiedFileHandle:v46];
+
+  v27 = 0;
+  v30 = 0;
+  v24 = v47;
+  if (v47)
+  {
+LABEL_12:
+    if ([(MBEngine *)selfCopy encrypted])
+    {
+      v54 = v27;
+      v28 = [v24 encryptionKeyWithError:&v54];
+      v29 = v54;
+
+      if (!v28)
+      {
+        if (error)
+        {
+          *error = [MBError errorWithCode:100 error:v29 format:@"Error getting encryption key for file: %@", pathCopy];
+        }
+
+        [v24 closeWithError:0];
+
+        v30 = 0;
+        goto LABEL_18;
+      }
+
+      [v23 setEncryptionKey:v28];
+    }
+
+    else
+    {
+      v29 = v27;
+    }
+
+    v30 = [[MBBackupFileHandle alloc] initWithEngine:selfCopy fileHandle:v24 file:v23];
+
+LABEL_18:
+    v24 = v29;
+LABEL_19:
+  }
+
+LABEL_20:
+
+  return v30;
+}
+
+- (BOOL)_uploadStatusToDriveWithSnapshotState:(int)state error:(id *)error
+{
+  v5 = *&state;
+  backupState = [(MBStatus *)self->_status backupState];
+  if (!v5 || backupState == 2)
+  {
+    backupState2 = [(MBStatus *)self->_status backupState];
+  }
+
+  else
+  {
+    backupState2 = 2;
+  }
+
+  fullBackup = self->_fullBackup;
+  v10 = +[MBStatus status];
+  [v10 setUuid:self->_uuid];
+  [v10 setBackupState:backupState2];
+  [v10 setSnapshotState:v5];
+  v11 = +[NSDate date];
+  [v10 setDate:v11];
+
+  [v10 setFullBackup:(v5 != 3) & fullBackup];
+  v12 = MBGetDefaultLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v21 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Writing status to drive: %@", buf, 0xCu);
+    _MBLog(@"I ", "Writing status to drive: %@", v10);
+  }
+
+  drive = self->_drive;
+  settingsContext = [(MBDriveBackupEngine *)self settingsContext];
+  driveBackupStatusPath = [settingsContext driveBackupStatusPath];
+  v16 = [v10 writeToDrive:drive path:driveBackupStatusPath error:error];
+
+  if (v16)
+  {
+    debugContext = self->super._debugContext;
+    v18 = [MBStatus stringWithSnapshotState:v5];
+    [(MBDebugContext *)debugContext setValue:v18 forName:@"LastStatusWrittenName"];
+  }
+
+  else if (error)
+  {
+    *error = [MBBackupHelper driveWriteError:*error description:@"Error writing status"];
+  }
+
+  return v16;
+}
+
 - (BOOL)isModifiedSince:(int64_t)since reason:(id *)reason
 {
   maximumModificationTime = self->_maximumModificationTime;
@@ -6105,8 +6705,8 @@ LABEL_10:
     *buf = 67109120;
     v12 = v7;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error stat'ing file descriptor: %{errno}d", buf, 8u);
-    v9 = *__error();
-    _MBLog();
+    v8 = __error();
+    _MBLog(@"E ", "Error stat'ing file descriptor: %{errno}d", *v8);
   }
 
   return 0;
@@ -6126,7 +6726,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Searching backup contents for removed regular files", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Searching backup contents for removed regular files");
   }
 
   settingsContext = [(MBDriveBackupEngine *)self settingsContext];

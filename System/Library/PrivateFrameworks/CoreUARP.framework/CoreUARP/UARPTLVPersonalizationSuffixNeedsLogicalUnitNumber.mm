@@ -70,15 +70,13 @@
 
 + (id)metaDataTableEntry
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Personalization Suffix Needs Logical Unit Number";
-  v6[0] = @"Name";
-  v6[1] = @"Value";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Personalization Suffix Needs Logical Unit Number";
+  v5[0] = @"Name";
+  v5[1] = @"Value";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{+[UARPTLVPersonalizationSuffixNeedsLogicalUnitNumber tlvType](UARPTLVPersonalizationSuffixNeedsLogicalUnitNumber, "tlvType")}];
-  v7[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

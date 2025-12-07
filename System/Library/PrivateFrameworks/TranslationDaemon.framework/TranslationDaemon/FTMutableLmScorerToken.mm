@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)ngram_used;
 - (void)setLog10_score:(double)log10_score;
+- (void)setNgram_used:(int)ngram_used;
 - (void)setToken_str:(id)token_str;
 @end
 
@@ -61,6 +62,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setNgram_used:(int)ngram_used
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&ngram_used];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

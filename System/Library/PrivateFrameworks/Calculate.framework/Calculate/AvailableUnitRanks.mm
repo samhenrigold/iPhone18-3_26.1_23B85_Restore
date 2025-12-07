@@ -2,6 +2,7 @@
 + (AvailableUnitRanks)shared;
 - (AvailableUnitRanks)init;
 - (AvailableUnitRanks)ranksWithLocales:(id)locales cachedOnly:(BOOL)only;
+- (id)conversionVerbsWithLocale:(id)locale from:(BOOL)from;
 - (id)conversionVerbsWithLocalization:(id)localization from:(BOOL)from;
 - (id)ranks;
 @end
@@ -51,6 +52,15 @@ uint64_t __28__AvailableUnitRanks_shared__block_invoke()
   return v2;
 }
 
+- (id)conversionVerbsWithLocale:(id)locale from:(BOOL)from
+{
+  fromCopy = from;
+  v6 = [Localize localizationForLocale:locale];
+  v7 = [(AvailableUnitRanks *)self conversionVerbsWithLocalization:v6 from:fromCopy];
+
+  return v7;
+}
+
 - (id)conversionVerbsWithLocalization:(id)localization from:(BOOL)from
 {
   fromCopy = from;
@@ -91,13 +101,13 @@ uint64_t __28__AvailableUnitRanks_shared__block_invoke()
 - (AvailableUnitRanks)ranksWithLocales:(id)locales cachedOnly:(BOOL)only
 {
   onlyCopy = only;
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   localesCopy = locales;
   if (![localesCopy count])
   {
     v7 = +[Localize systemLocale];
-    v44[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+    v43[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
 
     localesCopy = v8;
   }
@@ -125,62 +135,62 @@ uint64_t __28__AvailableUnitRanks_shared__block_invoke()
     aBlock[3] = &unk_1E815CAA0;
     aBlock[4] = self;
     v15 = v13;
-    v41 = v15;
+    v40 = v15;
     v16 = v14;
-    v42 = v16;
+    v41 = v16;
     v17 = _Block_copy(aBlock);
     if (ranksWithLocales_cachedOnly__onceToken != -1)
     {
       dispatch_once(&ranksWithLocales_cachedOnly__onceToken, &__block_literal_global_26);
     }
 
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_3;
-    v38[3] = &unk_1E815CAC8;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_3;
+    v37[3] = &unk_1E815CAC8;
     v18 = v17;
-    v39 = v18;
-    v19 = _Block_copy(v38);
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x2020000000;
-    v37 = 0;
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_4;
-    v32[3] = &unk_1E815CAF0;
-    v32[4] = self;
+    v38 = v18;
+    v19 = _Block_copy(v37);
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x2020000000;
+    v36 = 0;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_4;
+    v31[3] = &unk_1E815CAF0;
+    v31[4] = self;
     v20 = v19;
-    v34 = v20;
-    v35 = v36;
+    v33 = v20;
+    v34 = v35;
     v21 = v15;
-    v33 = v21;
-    [Localize enumerateLocales:localesCopy withBlock:v32];
+    v32 = v21;
+    [Localize enumerateLocales:localesCopy withBlock:v31];
     [CalculateTokenizer addSymbols:v21];
     [CalculateTokenizer addLocalizedSymbols:v21 locales:localesCopy];
     [CalculateTokenizer addUnits:v21 builtIn:0];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v22 = v16;
-    v23 = [v22 countByEnumeratingWithState:&v28 objects:v43 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v27 objects:v42 count:16];
     if (v23)
     {
-      v24 = *v29;
+      v24 = *v28;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v29 != v24)
+          if (*v28 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          [*(*(&v28 + 1) + 8 * i) sort];
+          [*(*(&v27 + 1) + 8 * i) sort];
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v28 objects:v43 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v27 objects:v42 count:16];
       }
 
       while (v23);
@@ -190,7 +200,7 @@ uint64_t __28__AvailableUnitRanks_shared__block_invoke()
     [(NSLock *)self->_lock unlock];
     v12 = v21;
 
-    _Block_object_dispose(v36, 8);
+    _Block_object_dispose(v35, 8);
   }
 
   else
@@ -198,8 +208,6 @@ uint64_t __28__AvailableUnitRanks_shared__block_invoke()
     [(NSLock *)self->_lock unlock];
     v12 = v10;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -250,33 +258,33 @@ LABEL_10:
 
 void __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a5;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v31;
+    v14 = *v30;
     v15 = (a4 + 1);
     v16 = v15;
     v17 = (v15 + 1.1);
-    v29 = *MEMORY[0x1E695DA48];
+    v28 = *MEMORY[0x1E695DA48];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v19 = *(*(&v30 + 1) + 8 * i);
+        v19 = *(*(&v29 + 1) + 8 * i);
         v20 = *(a1 + 32);
         v21 = v13 / [v9 count] + v16;
         (*(v20 + 16))(v20, v19, a3, v10, v21);
@@ -286,7 +294,7 @@ void __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_3(uint6
 
         if (v24)
         {
-          v25 = [v23 stringByApplyingTransform:v29 reverse:0];
+          v25 = [v23 stringByApplyingTransform:v28 reverse:0];
 
           if (([v25 isEqualToString:v23] & 1) == 0)
           {
@@ -313,53 +321,51 @@ void __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_3(uint6
         ++v13;
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v12);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v43 = a2;
+  v59 = *MEMORY[0x1E69E9840];
+  v41 = a2;
   v5 = a3;
   v6 = CalculateLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v60 = v5;
+    v58 = v5;
     _os_log_impl(&dword_1C1E73000, v6, OS_LOG_TYPE_DEFAULT, "Calculate: loading localization %{public}@", buf, 0xCu);
   }
 
   context = objc_autoreleasePoolPush();
-  v41 = v5;
+  v39 = v5;
   v7 = [Localize localizedStringsForTable:@"LocalizableUnits" localization:v5];
+  v50 = 0u;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
   v8 = [*(a1 + 32) unitsInfo];
   v9 = [v8 unitNames];
 
-  v10 = [v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v50 objects:v56 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v53;
+    v12 = *v51;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v53 != v12)
+        if (*v51 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v52 + 1) + 8 * i);
+        v14 = *(*(&v50 + 1) + 8 * i);
         v15 = [*(a1 + 32) unitsInfo];
         v16 = [v15 objectForKeyedSubscript:v14];
         [v16 unitID];
@@ -371,107 +377,104 @@ void __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_4(uint6
           v19 = [CalculateTokenizer prepareString:v17];
 
           v20 = [v19 componentsSeparatedByString:@"|"];
-          v21 = *(*(*(a1 + 56) + 8) + 24);
           (*(*(a1 + 48) + 16))();
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v50 objects:v56 count:16];
     }
 
     while (v11);
   }
 
-  v22 = [v7 objectForKeyedSubscript:@"ConfusableUnits"];
-  if (v22)
+  v21 = [v7 objectForKeyedSubscript:@"ConfusableUnits"];
+  if (v21)
   {
-    v39 = v22;
-    [v22 componentsSeparatedByString:@"|"];
+    v37 = v21;
+    [v21 componentsSeparatedByString:@"|"];
+    v46 = 0u;
+    v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    obj = v51 = 0u;
-    v23 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
-    if (v23)
+    obj = v49 = 0u;
+    v22 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+    if (v22)
     {
-      v24 = v23;
-      v25 = *v49;
+      v23 = v22;
+      v24 = *v47;
       do
       {
-        for (j = 0; j != v24; ++j)
+        for (j = 0; j != v23; ++j)
         {
-          if (*v49 != v25)
+          if (*v47 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = [(Trie *)*(a1 + 40) objectForKeyedSubscript:?];
-          v28 = v27;
-          if (v27)
+          v26 = [(Trie *)*(a1 + 40) objectForKeyedSubscript:?];
+          v27 = v26;
+          if (v26)
           {
-            v46 = 0u;
-            v47 = 0u;
             v44 = 0u;
             v45 = 0u;
-            v29 = [v27 ranks];
-            v30 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
-            if (v30)
+            v42 = 0u;
+            v43 = 0u;
+            v28 = [v26 ranks];
+            v29 = [v28 countByEnumeratingWithState:&v42 objects:v54 count:16];
+            if (v29)
             {
-              v31 = v30;
-              v32 = *v45;
+              v30 = v29;
+              v31 = *v43;
               do
               {
-                for (k = 0; k != v31; ++k)
+                for (k = 0; k != v30; ++k)
                 {
-                  if (*v45 != v32)
+                  if (*v43 != v31)
                   {
-                    objc_enumerationMutation(v29);
+                    objc_enumerationMutation(v28);
                   }
 
-                  [*(*(&v44 + 1) + 8 * k) setIsConfusable:1];
+                  [*(*(&v42 + 1) + 8 * k) setIsConfusable:1];
                 }
 
-                v31 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
+                v30 = [v28 countByEnumeratingWithState:&v42 objects:v54 count:16];
               }
 
-              while (v31);
+              while (v30);
             }
           }
         }
 
-        v24 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v23 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
-    v22 = v39;
+    v21 = v37;
   }
 
   objc_autoreleasePoolPop(context);
   *(*(*(a1 + 56) + 8) + 24) += 5;
-  v34 = [*(a1 + 32) conversionVerbsWithLocalization:v41 from:0];
-  if (v34)
+  v33 = [*(a1 + 32) conversionVerbsWithLocalization:v39 from:0];
+  if (v33)
   {
-    v35 = v34;
-    v36 = v43;
+    v34 = v33;
+    v35 = v41;
 LABEL_34:
     (*(*(a1 + 48) + 16))();
 
     goto LABEL_35;
   }
 
-  v37 = [*(a1 + 32) conversionVerbsWithLocalization:v41 from:1];
-  v36 = v43;
-  if (v37)
+  v36 = [*(a1 + 32) conversionVerbsWithLocalization:v39 from:1];
+  v35 = v41;
+  if (v36)
   {
-    v35 = v37;
+    v34 = v36;
     goto LABEL_34;
   }
 
 LABEL_35:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__AvailableUnitRanks_ranksWithLocales_cachedOnly___block_invoke_2()

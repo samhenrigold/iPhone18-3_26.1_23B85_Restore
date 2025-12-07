@@ -17,12 +17,10 @@
 
 - (id)sampleTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   audiogramSampleType = [MEMORY[0x277CCD720] audiogramSampleType];
-  v6[0] = audiogramSampleType;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = audiogramSampleType;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

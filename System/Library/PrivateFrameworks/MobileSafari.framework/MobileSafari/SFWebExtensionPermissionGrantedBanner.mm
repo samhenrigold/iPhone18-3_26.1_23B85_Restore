@@ -95,7 +95,7 @@
     displayName = [firstObject displayName];
     [v4 localizedStringWithFormat:v6, displayName, v5, self->_grantedHost];
   }
-  v14 = ;
+  v16 = ;
 
   v9 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   titleLabel = self->_titleLabel;
@@ -105,14 +105,14 @@
   _titleLabelFont = [(SFWebExtensionPermissionGrantedBanner *)self _titleLabelFont];
   [(UILabel *)self->_titleLabel setFont:_titleLabelFont];
 
-  [(UILabel *)self->_titleLabel setText:v14];
-  [(UILabel *)self->_titleLabel setNumberOfLines:0];
-  [(UILabel *)self->_titleLabel setTextAlignment:_SFDeviceIsPad() ^ 1];
+  [(UILabel *)self->_titleLabel setText:v16];
+  v12 = [(UILabel *)self->_titleLabel setNumberOfLines:0];
+  [(UILabel *)self->_titleLabel setTextAlignment:_SFDeviceIsPad(v12, v13) ^ 1];
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
   [(UILabel *)self->_titleLabel setTextColor:secondaryLabelColor];
 
-  LODWORD(v13) = 1144750080;
-  [(UILabel *)self->_titleLabel setContentCompressionResistancePriority:0 forAxis:v13];
+  LODWORD(v15) = 1144750080;
+  [(UILabel *)self->_titleLabel setContentCompressionResistancePriority:0 forAxis:v15];
   [(SFWebExtensionPermissionGrantedBanner *)self addSubview:self->_titleLabel];
 }
 
@@ -176,12 +176,12 @@
 
 - (void)_setUpButtonStackView
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69DCF90]);
   resetExtensionPermissionsButton = self->_resetExtensionPermissionsButton;
-  v9[0] = self->_allowButton;
-  v9[1] = resetExtensionPermissionsButton;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v11[0] = self->_allowButton;
+  v11[1] = resetExtensionPermissionsButton;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v6 = [v3 initWithArrangedSubviews:v5];
   buttonStackView = self->_buttonStackView;
   self->_buttonStackView = v6;
@@ -191,8 +191,8 @@
   [(UIStackView *)self->_buttonStackView setSpacing:8.0];
   [(UIStackView *)self->_buttonStackView setDistribution:2];
   LODWORD(v8) = 1148846080;
-  [(UIStackView *)self->_buttonStackView setContentCompressionResistancePriority:0 forAxis:v8];
-  if ((_SFDeviceIsPad() & 1) == 0)
+  v9 = [(UIStackView *)self->_buttonStackView setContentCompressionResistancePriority:0 forAxis:v8];
+  if ((_SFDeviceIsPad(v9, v10) & 1) == 0)
   {
     [(UIStackView *)self->_buttonStackView setDistribution:1];
   }
@@ -203,7 +203,7 @@
 - (void)_setUpConstraints
 {
   v46[7] = *MEMORY[0x1E69E9840];
-  if (_SFDeviceIsPad())
+  if (_SFDeviceIsPad(self, a2))
   {
     v32 = MEMORY[0x1E696ACD8];
     v45[0] = self->_titleTopConstraint;
@@ -342,15 +342,15 @@
 
 - (void)layoutSubviews
 {
-  v19.receiver = self;
-  v19.super_class = SFWebExtensionPermissionGrantedBanner;
-  [(SFWebExtensionPermissionGrantedBanner *)&v19 layoutSubviews];
+  v21.receiver = self;
+  v21.super_class = SFWebExtensionPermissionGrantedBanner;
+  [(SFWebExtensionPermissionGrantedBanner *)&v21 layoutSubviews];
   [(_SFDimmingButton *)self->_resetExtensionPermissionsButton bounds];
-  v3 = CGRectGetHeight(v20) * 0.482142857;
+  v3 = CGRectGetHeight(v22) * 0.482142857;
   [(_SFDimmingButton *)self->_resetExtensionPermissionsButton _setCornerRadius:v3];
   [(_SFDimmingButton *)self->_allowButton _setCornerRadius:v3];
   [(UILabel *)self->_titleLabel bounds];
-  Height = CGRectGetHeight(v21);
+  Height = CGRectGetHeight(v23);
   v5 = _SFRoundFloatToPixels(Height);
   font = [(UILabel *)self->_titleLabel font];
   [font lineHeight];
@@ -362,18 +362,18 @@
     v9 = 8.0;
   }
 
-  [(NSLayoutConstraint *)self->_titleTopConstraint setConstant:v9];
-  if ((_SFDeviceIsPad() & 1) == 0)
+  v10 = [(NSLayoutConstraint *)self->_titleTopConstraint setConstant:v9];
+  if ((_SFDeviceIsPad(v10, v11) & 1) == 0)
   {
     [(UILabel *)self->_titleLabel frame];
-    v11 = v10;
     v13 = v12;
     v15 = v14;
     v17 = v16;
+    v19 = v18;
     [(UILabel *)self->_titleLabel sizeToFit];
     [(UILabel *)self->_titleLabel frame];
-    [(NSLayoutConstraint *)self->_buttonStackViewWidthConstraint setConstant:v18];
-    [(UILabel *)self->_titleLabel setFrame:v11, v13, v15, v17];
+    [(NSLayoutConstraint *)self->_buttonStackViewWidthConstraint setConstant:v20];
+    [(UILabel *)self->_titleLabel setFrame:v13, v15, v17, v19];
   }
 }
 

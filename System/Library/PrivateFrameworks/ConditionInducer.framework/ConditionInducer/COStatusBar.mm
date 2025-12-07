@@ -151,63 +151,61 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
 
 - (id)doTeardownOnStop
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v21 = v2;
-  v3 = [COConditionSession tearDownAllConditionsWithErrors:&v21];
-  v4 = v21;
+  v20 = v2;
+  v3 = [COConditionSession tearDownAllConditionsWithErrors:&v20];
+  v4 = v20;
 
   if (!v3)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     allKeys = [v4 allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v17 objects:v26 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v16 objects:v25 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v18;
+      v9 = *v17;
       v10 = MEMORY[0x277D86220];
       *&v7 = 138412546;
-      v16 = v7;
+      v15 = v7;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = [v4 objectForKey:{v12, v16}];
+          v12 = *(*(&v16 + 1) + 8 * i);
+          v13 = [v4 objectForKey:{v12, v15}];
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            *buf = v16;
-            v23 = v12;
-            v24 = 2112;
-            v25 = v13;
+            *buf = v15;
+            v22 = v12;
+            v23 = 2112;
+            v24 = v13;
             _os_log_error_impl(&dword_243E0F000, v10, OS_LOG_TYPE_ERROR, "From the status bar, error while tearing down %@: %@", buf, 0x16u);
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v17 objects:v26 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v16 objects:v25 count:16];
       }
 
       while (v8);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (BOOL)showStopConditionAlert
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   conditionClass = [(COStatusBar *)self conditionClass];
   v5 = [v3 stringWithFormat:@"%@ Condition Active", conditionClass];
@@ -218,16 +216,16 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
   v9 = [v6 stringWithFormat:@"%@ is active on this %@. Stop running this condition?", profileDescription, getDeviceType];
 
   v10 = *MEMORY[0x277CBF198];
-  v24[0] = *MEMORY[0x277CBF188];
-  v24[1] = v10;
-  v25[0] = v5;
-  v25[1] = v9;
+  v23[0] = *MEMORY[0x277CBF188];
+  v23[1] = v10;
+  v24[0] = v5;
+  v24[1] = v9;
   v11 = *MEMORY[0x277CBF1E8];
-  v24[2] = *MEMORY[0x277CBF218];
-  v24[3] = v11;
-  v25[2] = @"Cancel";
-  v25[3] = @"Stop";
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v23[2] = *MEMORY[0x277CBF218];
+  v23[3] = v11;
+  v24[2] = @"Cancel";
+  v24[3] = @"Stop";
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
   self->_userNotificationStopCondition = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v12);
   userNotificationStopCondition = [(COStatusBar *)self userNotificationStopCondition];
   if (userNotificationStopCondition)
@@ -301,7 +299,6 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
     [COStatusBar showStopConditionAlert];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return userNotificationStopCondition != 0;
 }
 
@@ -320,17 +317,17 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
 
 - (BOOL)statusBarCoordinator:(id)coordinator receivedTapWithContext:(id)context completionBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   contextCopy = context;
   blockCopy = block;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
+    v12 = 138412546;
     selfCopy = self;
-    v15 = 1024;
+    v14 = 1024;
     didRequestTeardownOnce = [(COStatusBar *)self didRequestTeardownOnce];
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Received a tap on the status bar coordinator! Showing popup... %@, %d", &v13, 0x12u);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Received a tap on the status bar coordinator! Showing popup... %@, %d", &v12, 0x12u);
   }
 
   if ([(COStatusBar *)self didRequestTeardownOnce])
@@ -345,7 +342,6 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
 
   blockCopy[2](blockCopy);
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -360,11 +356,10 @@ void __53__COStatusBar_acquireStatusBarWithCompletionHandler___block_invoke_2(ui
 
 void __81__COStatusBar_initWithConditionClass_profile_teardownBeganCb_teardownCompleteCb___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error registering status bar assertion: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error registering status bar assertion: %@", &v1, 0xCu);
 }
 
 @end

@@ -170,7 +170,7 @@ LABEL_8:
 
 - (void)removeAllSAs
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -179,10 +179,10 @@ LABEL_8:
     _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@ Removing all SAs", buf, 0xCu);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   if (self)
   {
     Property = objc_getProperty(self, v4, 32, 1);
@@ -194,26 +194,26 @@ LABEL_8:
   }
 
   v6 = Property;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v26 + 1) + 8 * v10++) invalidate];
+        [*(*(&v25 + 1) + 8 * v10++) invalidate];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v8);
@@ -222,10 +222,10 @@ LABEL_8:
   if (self)
   {
     [objc_getProperty(self v11];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v13 = objc_getProperty(self, v12, 24, 1);
   }
 
@@ -233,33 +233,33 @@ LABEL_8:
   {
     [0 removeAllObjects];
     v13 = 0;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
   }
 
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v22 + 1) + 8 * v18++) invalidate];
+        [*(*(&v21 + 1) + 8 * v18++) invalidate];
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v16);
@@ -276,7 +276,6 @@ LABEL_8:
   }
 
   [v20 removeAllObjects];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (OS_dispatch_queue)delegateQueue

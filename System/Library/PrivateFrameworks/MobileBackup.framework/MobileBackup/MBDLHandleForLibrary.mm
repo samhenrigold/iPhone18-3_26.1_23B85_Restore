@@ -13,7 +13,7 @@ dispatch_queue_t ___MBDLHandleForLibrary_block_invoke()
 
 void ___MBDLHandleForLibrary_block_invoke_2(uint64_t a1)
 {
-  v26[16] = *MEMORY[0x1E69E9840];
+  v25[16] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [v2 pathExtension];
   v4 = [MEMORY[0x1E696AC08] defaultManager];
@@ -25,25 +25,25 @@ void ___MBDLHandleForLibrary_block_invoke_2(uint64_t a1)
     }
 
     v5 = _MBFrameworkSearchPaths_paths;
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v6 = [_MBFrameworkSearchPaths_paths countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [_MBFrameworkSearchPaths_paths countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(*(&v22 + 1) + 8 * i) stringByAppendingPathComponent:v2];
+          v10 = [*(*(&v21 + 1) + 8 * i) stringByAppendingPathComponent:v2];
           if ([v4 fileExistsAtPath:v10])
           {
             v2 = [v10 stringByAppendingPathComponent:{objc_msgSend(v2, "stringByDeletingPathExtension")}];
@@ -51,7 +51,7 @@ void ___MBDLHandleForLibrary_block_invoke_2(uint64_t a1)
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           continue;
@@ -72,25 +72,25 @@ void ___MBDLHandleForLibrary_block_invoke_2(uint64_t a1)
     }
 
     v11 = _MBLibrarySearchPaths_paths;
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v12 = [_MBLibrarySearchPaths_paths countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [_MBLibrarySearchPaths_paths countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       while (2)
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(*(&v22 + 1) + 8 * j) stringByAppendingPathComponent:v2];
+          v16 = [*(*(&v21 + 1) + 8 * j) stringByAppendingPathComponent:v2];
           if ([v4 fileExistsAtPath:v16])
           {
             v2 = v16;
@@ -98,7 +98,7 @@ void ___MBDLHandleForLibrary_block_invoke_2(uint64_t a1)
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v13)
         {
           continue;
@@ -130,16 +130,15 @@ LABEL_29:
     v20 = *(*(*v18 + 8) + 24);
     if (!v20)
     {
-      ___MBDLHandleForLibrary_block_invoke_2_cold_3(v2, v18, v26);
-      v20 = v26[0];
+      ___MBDLHandleForLibrary_block_invoke_2_cold_3(v2, v18, v25);
+      v20 = v25[0];
     }
   }
 
   CFDictionarySetValue(_MBDLHandleForLibrary_handles, v2, v20);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t ___MBDLHandleForLibrary_block_invoke_2_cold_3(uint64_t a1, uint64_t a2, void *a3)
+void *___MBDLHandleForLibrary_block_invoke_2_cold_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = [MEMORY[0x1E696AAA8] currentHandler];
   result = [v6 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"void *_MBDLHandleForLibrary(NSString *)_block_invoke_2") description:{@"MBWeakLinking.m", 80, @"Unable to open framework at %@: %s", a1, dlerror()}];

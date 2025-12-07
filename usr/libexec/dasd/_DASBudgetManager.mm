@@ -102,18 +102,16 @@
 
 - (void)reinstantiateConfiguredBudgets
 {
-  widgetRefreshBudgetManager = self->_widgetRefreshBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASWidgetRefreshBudgetManager *)self->_widgetRefreshBudgetManager reinstantiateConfiguredBudgets];
   }
 
-  systemBudgetManager = self->_systemBudgetManager;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_systemBudgetManager;
+    systemBudgetManager = self->_systemBudgetManager;
 
-    [(_DASSystemBudgetManager *)v5 reinstantiateConfiguredBudgets];
+    [(_DASSystemBudgetManager *)systemBudgetManager reinstantiateConfiguredBudgets];
   }
 }
 
@@ -197,13 +195,11 @@
 - (void)reportActivityRunningWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  widgetRefreshBudgetManager = self->_widgetRefreshBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASWidgetRefreshBudgetManager *)self->_widgetRefreshBudgetManager reportActivityRunningWithParameters:parametersCopy];
   }
 
-  systemBudgetManager = self->_systemBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASSystemBudgetManager *)self->_systemBudgetManager reportActivityRunningWithParameters:parametersCopy];
@@ -213,13 +209,11 @@
 - (void)reportActivityNoLongerRunningWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  widgetRefreshBudgetManager = self->_widgetRefreshBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASWidgetRefreshBudgetManager *)self->_widgetRefreshBudgetManager reportActivityNoLongerRunningWithParameters:parametersCopy];
   }
 
-  systemBudgetManager = self->_systemBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASSystemBudgetManager *)self->_systemBudgetManager reportActivityNoLongerRunningWithParameters:parametersCopy];
@@ -230,13 +224,11 @@
 {
   activityCopy = activity;
   consumedCopy = consumed;
-  widgetRefreshBudgetManager = self->_widgetRefreshBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASWidgetRefreshBudgetManager *)self->_widgetRefreshBudgetManager reportUpdateForActivity:activityCopy withDataConsumed:consumedCopy];
   }
 
-  systemBudgetManager = self->_systemBudgetManager;
   if (objc_opt_respondsToSelector())
   {
     [(_DASSystemBudgetManager *)self->_systemBudgetManager reportUpdateForActivity:activityCopy withDataConsumed:consumedCopy];

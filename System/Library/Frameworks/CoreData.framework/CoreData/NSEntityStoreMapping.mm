@@ -2,9 +2,9 @@
 - (BOOL)isEqual:(id)equal;
 - (NSEntityStoreMapping)initWithEntity:(id)entity;
 - (id)description;
-- (uint64_t)setPropertyMappings:(uint64_t)result;
 - (void)dealloc;
 - (void)setPrimaryKeys:(uint64_t)keys;
+- (void)setPropertyMappings:(void *)result;
 @end
 
 @implementation NSEntityStoreMapping
@@ -52,17 +52,17 @@
   return v9;
 }
 
-- (uint64_t)setPropertyMappings:(uint64_t)result
+- (void)setPropertyMappings:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 24);
+    v4 = result[3];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 24) = result;
+      v3[3] = result;
     }
   }
 
@@ -111,11 +111,13 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSEntityStoreMapping;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ -> %@", -[NSEntityStoreMapping description](&v6, sel_description), -[NSEntityDescription name](self->_entity, "name")];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSEntityStoreMapping;
+  v5 = [(NSEntityStoreMapping *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSEntityDescription *)self->_entity name]);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

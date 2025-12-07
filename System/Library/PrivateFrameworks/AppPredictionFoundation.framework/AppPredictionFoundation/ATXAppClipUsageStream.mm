@@ -1,4 +1,5 @@
 @interface ATXAppClipUsageStream
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse;
 - (int)_launchReasonFromString:(id)string;
 - (void)enumerateAppClipUsageEventsFromStartDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending block:(id)a8;
 @end
@@ -26,12 +27,13 @@
 void __108__ATXAppClipUsageStream_enumerateAppClipUsageEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __108__ATXAppClipUsageStream_enumerateAppClipUsageEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v3);
+      __108__ATXAppClipUsageStream_enumerateAppClipUsageEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v4);
     }
   }
 }
@@ -99,6 +101,42 @@ LABEL_10:
   return 1;
 }
 
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  endDateCopy = endDate;
+  dateCopy = date;
+  v20 = BiomeLibrary();
+  v19 = [v20 App];
+  clip = [v19 Clip];
+  inFocus = [clip InFocus];
+  if (reverseCopy)
+  {
+    v13 = endDateCopy;
+  }
+
+  else
+  {
+    v13 = dateCopy;
+  }
+
+  if (reverseCopy)
+  {
+    v14 = dateCopy;
+  }
+
+  else
+  {
+    v14 = endDateCopy;
+  }
+
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
+  v17 = [inFocus atx_publisherWithStartDate:v13 endDate:v14 maxEvents:v15 lastN:v16 reversed:reverseCopy];
+
+  return v17;
+}
+
 - (int)_launchReasonFromString:(id)string
 {
   stringCopy = string;
@@ -142,20 +180,24 @@ LABEL_10:
     v4 = 8;
   }
 
-  else if ([stringCopy isEqualToString:@"Other"])
-  {
-    v4 = 9;
-  }
-
   else
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v5 = [stringCopy isEqualToString:@"Other"];
+    if (v5)
     {
-      [(ATXAppClipUsageStream *)stringCopy _launchReasonFromString:v5];
+      v4 = 9;
     }
 
-    v4 = 0;
+    else
+    {
+      v6 = __atxlog_handle_default(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      {
+        [(ATXAppClipUsageStream *)stringCopy _launchReasonFromString:v6];
+      }
+
+      v4 = 0;
+    }
   }
 
   return v4;
@@ -163,24 +205,21 @@ LABEL_10:
 
 void __108__ATXAppClipUsageStream_enumerateAppClipUsageEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXAppClipUsageStream enumerateAppClipUsageEventsFromStartDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest App.Clip.InFocus event from biome %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXAppClipUsageStream enumerateAppClipUsageEventsFromStartDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest App.Clip.InFocus event from biome %@", &v4, 0x16u);
 }
 
 - (void)_launchReasonFromString:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_226368000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown launch reason for BMLibrary.App.Clip.InFocus: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_226368000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown launch reason for BMLibrary.App.Clip.InFocus: %@", &v2, 0xCu);
 }
 
 @end

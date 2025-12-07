@@ -3,7 +3,7 @@
 
 @implementation AXSPointerAutoHideEnabled
 
-uint64_t ___AXSPointerAutoHideEnabled_block_invoke()
+void *___AXSPointerAutoHideEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

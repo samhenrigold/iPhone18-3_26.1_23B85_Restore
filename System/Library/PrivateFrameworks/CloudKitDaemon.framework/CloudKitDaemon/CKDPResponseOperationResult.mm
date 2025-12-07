@@ -173,18 +173,17 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -234,7 +233,6 @@ LABEL_15:
     goto LABEL_9;
   }
 
-  v8 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((equalCopy[3] & 1) == 0 || self->_code != *(equalCopy + 2))
@@ -251,10 +249,10 @@ LABEL_9:
   }
 
   error = self->_error;
-  v10 = equalCopy[2];
-  if (error | v10)
+  v9 = equalCopy[2];
+  if (error | v9)
   {
-    isEqual = objc_msgSend_isEqual_(error, v7, v10);
+    isEqual = objc_msgSend_isEqual_(error, v7, v9);
   }
 
   else

@@ -152,79 +152,74 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v8 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v8;
   }
 
   if (*&self->_has)
   {
-    currentCacheIndex = self->_currentCacheIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v13;
+    toCopy = v8;
   }
 
   if (self->_scores.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_scores.list[v6];
       PBDataWriterWriteInt64Field();
-      toCopy = v13;
-      ++v6;
+      toCopy = v8;
+      ++v5;
     }
 
-    while (v6 < self->_scores.count);
+    while (v5 < self->_scores.count);
   }
 
   if (self->_opponentScores.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_opponentScores.list[v8];
       PBDataWriterWriteInt64Field();
-      toCopy = v13;
-      ++v8;
+      toCopy = v8;
+      ++v6;
     }
 
-    while (v8 < self->_opponentScores.count);
+    while (v6 < self->_opponentScores.count);
   }
 
   if (self->_startDateComponents)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v8;
   }
 
   if (self->_durationDateComponents)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v8;
   }
 
   if (self->_preferredVictoryBadgeStyles.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_preferredVictoryBadgeStyles.list[v10];
       PBDataWriterWriteInt32Field();
-      toCopy = v13;
-      ++v10;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v10 < self->_preferredVictoryBadgeStyles.count);
+    while (v7 < self->_preferredVictoryBadgeStyles.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    maximumNumberOfPointsPerDay = self->_maximumNumberOfPointsPerDay;
     PBDataWriterWriteInt64Field();
-    toCopy = v13;
+    toCopy = v8;
   }
 }
 
@@ -353,7 +348,6 @@
     }
   }
 
-  v6 = *(equalCopy + 120);
   if (*&self->_has)
   {
     if ((*(equalCopy + 120) & 1) == 0 || self->_currentCacheIndex != *(equalCopy + 10))
@@ -365,7 +359,7 @@
   else if (*(equalCopy + 120))
   {
 LABEL_20:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_21;
   }
 
@@ -402,7 +396,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = (*(equalCopy + 120) & 2) == 0;
+  v8 = (*(equalCopy + 120) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 120) & 2) == 0 || self->_maximumNumberOfPointsPerDay != *(equalCopy + 11))
@@ -410,12 +404,12 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_21:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

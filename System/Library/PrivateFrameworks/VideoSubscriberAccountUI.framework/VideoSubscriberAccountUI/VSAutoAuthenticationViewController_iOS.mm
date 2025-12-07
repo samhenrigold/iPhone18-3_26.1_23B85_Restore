@@ -7,8 +7,12 @@
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setViewModel:(id)model;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation VSAutoAuthenticationViewController_iOS
@@ -134,10 +138,10 @@
 
 - (void)viewDidLoad
 {
-  v101 = *MEMORY[0x277D85DE8];
-  v99.receiver = self;
-  v99.super_class = VSAutoAuthenticationViewController_iOS;
-  [(VSAutoAuthenticationViewController_iOS *)&v99 viewDidLoad];
+  v100 = *MEMORY[0x277D85DE8];
+  v98.receiver = self;
+  v98.super_class = VSAutoAuthenticationViewController_iOS;
+  [(VSAutoAuthenticationViewController_iOS *)&v98 viewDidLoad];
   view = [(VSAutoAuthenticationViewController_iOS *)self view];
   v3 = objc_alloc_init(MEMORY[0x277D759D8]);
   [(VSAutoAuthenticationViewController_iOS *)self setScrollView:v3];
@@ -164,7 +168,7 @@
   [v10 setNumberOfLines:0];
   [v10 setTextAlignment:1];
   v12 = VSMainConcurrencyBindingOptions();
-  v90 = v10;
+  v89 = v10;
   [v10 vs_bind:@"font" toObject:fontCenter withKeyPath:@"title2Font" options:v12];
 
   [(VSAutoAuthenticationViewController_iOS *)self setAccountNameLabel:v10];
@@ -175,7 +179,7 @@
   [v13 setNumberOfLines:0];
   [v13 setTextAlignment:1];
   v15 = VSMainConcurrencyBindingOptions();
-  v89 = v13;
+  v88 = v13;
   [v13 vs_bind:@"font" toObject:fontCenter withKeyPath:@"bodyFont" options:v15];
 
   [(VSAutoAuthenticationViewController_iOS *)self setMessageTitleLabel:v13];
@@ -186,7 +190,7 @@
   [v16 setNumberOfLines:0];
   [v16 setTextAlignment:1];
   v18 = VSMainConcurrencyBindingOptions();
-  v88 = v16;
+  v87 = v16;
   [v16 vs_bind:@"font" toObject:fontCenter withKeyPath:@"bodyFont" options:v18];
 
   [(VSAutoAuthenticationViewController_iOS *)self setMessageLabel:v16];
@@ -197,7 +201,7 @@
   [v19 setNumberOfLines:0];
   [v19 setTextAlignment:1];
   v21 = VSMainConcurrencyBindingOptions();
-  v87 = v19;
+  v86 = v19;
   [v19 vs_bind:@"font" toObject:fontCenter withKeyPath:@"footnoteFont" options:v21];
 
   [(VSAutoAuthenticationViewController_iOS *)self setNoticeLabel:v19];
@@ -208,7 +212,7 @@
   [v22 setNumberOfLines:0];
   [v22 setTextAlignment:1];
   v24 = VSMainConcurrencyBindingOptions();
-  v86 = v22;
+  v85 = v22;
   [v22 vs_bind:@"font" toObject:fontCenter withKeyPath:@"footnoteFont" options:v24];
 
   [(VSAutoAuthenticationViewController_iOS *)self setManualSignInTitleLabel:v22];
@@ -219,7 +223,7 @@
   titleLabel = [(VSMultilineButton *)v25 titleLabel];
   [titleLabel setNumberOfLines:0];
 
-  v84 = viewModel;
+  v83 = viewModel;
   v28 = viewModel;
   v29 = v7;
   manualSignInButtonText = [v28 manualSignInButtonText];
@@ -229,7 +233,7 @@
   titleLabel2 = [(VSMultilineButton *)v25 titleLabel];
   [titleLabel2 setTextAlignment:1];
   v32 = VSMainConcurrencyBindingOptions();
-  v82 = titleLabel2;
+  v81 = titleLabel2;
   [titleLabel2 vs_bind:@"font" toObject:fontCenter withKeyPath:@"bodyFont" options:v32];
 
   [(VSAutoAuthenticationViewController_iOS *)self setManualSignInButton:v25];
@@ -243,7 +247,7 @@
   v38 = [vs_frameworkBundle2 localizedStringForKey:@"CREDENTIAL_ENTRY_FOOTER_IOS" value:0 table:0];
   [v36 appendString:v38];
 
-  v80 = v36;
+  v79 = v36;
   [v33 setText:v36];
   [v33 setNumberOfLines:0];
   [v33 setTextAlignment:1];
@@ -271,32 +275,32 @@
   bottomAnchor = [view bottomAnchor];
   bottomAnchor2 = [v3 bottomAnchor];
   v52 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v94 = v40;
+  v93 = v40;
   [v40 addObject:v52];
 
-  v83 = v25;
-  v81 = v33;
-  _NSDictionaryOfVariableBindings(&cfstr_LogoviewFooter.isa, v29, v33, v90, v89, v88, v87, v86, v25, 0);
+  v82 = v25;
+  v80 = v33;
+  _NSDictionaryOfVariableBindings(&cfstr_LogoviewFooter.isa, v29, v33, v89, v88, v87, v86, v85, v25, 0);
+  v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
-  v79 = v98 = 0u;
-  obj = [v79 allValues];
-  v53 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
+  v78 = v97 = 0u;
+  obj = [v78 allValues];
+  v53 = [obj countByEnumeratingWithState:&v94 objects:v99 count:16];
   if (v53)
   {
     v54 = v53;
-    v93 = *v96;
+    v92 = *v95;
     do
     {
       for (i = 0; i != v54; ++i)
       {
-        if (*v96 != v93)
+        if (*v95 != v92)
         {
           objc_enumerationMutation(obj);
         }
 
-        v56 = *(*(&v95 + 1) + 8 * i);
+        v56 = *(*(&v94 + 1) + 8 * i);
         [(VSIdentityProviderLogoView *)v56 setTranslatesAutoresizingMaskIntoConstraints:0];
         [v3 addSubview:v56];
         if (v56 == v29)
@@ -304,12 +308,12 @@
           leftAnchor3 = [(VSIdentityProviderLogoView *)v29 leftAnchor];
           leftAnchor4 = [view leftAnchor];
           v69 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-          [v94 addObject:v69];
+          [v93 addObject:v69];
 
           rightAnchor3 = [(VSIdentityProviderLogoView *)v29 rightAnchor];
           rightAnchor4 = [view rightAnchor];
           trailingAnchor = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-          [v94 addObject:trailingAnchor];
+          [v93 addObject:trailingAnchor];
         }
 
         else
@@ -320,7 +324,7 @@
           v59 = v29;
           v61 = v60 = v3;
           v62 = [leadingAnchor constraintEqualToAnchor:v61 constant:10.0];
-          [v94 addObject:v62];
+          [v93 addObject:v62];
 
           v3 = v60;
           v29 = v59;
@@ -329,41 +333,39 @@
           rightAnchor4 = [v3 readableContentGuide];
           trailingAnchor = [rightAnchor4 trailingAnchor];
           v66 = [rightAnchor3 constraintEqualToAnchor:trailingAnchor constant:-10.0];
-          [v94 addObject:v66];
+          [v93 addObject:v66];
         }
       }
 
-      v54 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
+      v54 = [obj countByEnumeratingWithState:&v94 objects:v99 count:16];
     }
 
     while (v54);
   }
 
-  v78 = v3;
+  v77 = v3;
 
   v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v70 setObject:&unk_2880D2758 forKey:@"logoBottomSpace"];
   [v70 setObject:&unk_2880D2768 forKey:@"accountBottomSpace"];
   [v70 setObject:&unk_2880D2778 forKey:@"titleBottomSpace"];
   [v70 setObject:&unk_2880D2778 forKey:@"messageBottomSpace"];
-  v71 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[logoView]-(logoBottomSpace)-[accountNameLabel]-(accountBottomSpace)-[messageTitleLabel]-(titleBottomSpace)-[messageLabel]-(messageBottomSpace)-[noticeLabel]-[footerLabel]|" options:0 metrics:v70 views:v79];
-  [v94 addObjectsFromArray:v71];
+  v71 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[logoView]-(logoBottomSpace)-[accountNameLabel]-(accountBottomSpace)-[messageTitleLabel]-(titleBottomSpace)-[messageLabel]-(messageBottomSpace)-[noticeLabel]-[footerLabel]|" options:0 metrics:v70 views:v78];
+  [v93 addObjectsFromArray:v71];
 
-  v72 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[noticeLabel]-(>=26)-[manualSignInTitleLabel]-(12)-[manualSignInButton]" options:0 metrics:v70 views:v79];
-  [v94 addObjectsFromArray:v72];
+  v72 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[noticeLabel]-(>=26)-[manualSignInTitleLabel]-(12)-[manualSignInButton]" options:0 metrics:v70 views:v78];
+  [v93 addObjectsFromArray:v72];
 
-  bottomAnchor3 = [(VSMultilineButton *)v83 bottomAnchor];
+  bottomAnchor3 = [(VSMultilineButton *)v82 bottomAnchor];
   bottomAnchor4 = [view bottomAnchor];
   v75 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-16.0];
 
   LODWORD(v76) = 1144733696;
   [v75 setPriority:v76];
-  [v94 addObject:v75];
-  [MEMORY[0x277CCAAD0] activateConstraints:v94];
+  [v93 addObject:v75];
+  [MEMORY[0x277CCAAD0] activateConstraints:v93];
   [view layoutIfNeeded];
   VSAuthenticationViewControllerViewDidLoad(selfCopy);
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLayoutSubviews
@@ -400,6 +402,38 @@
   v31.size.height = v24;
   v30 = CGRectUnion(v29, v31);
   [scrollView setContentInset:{v26, v25, CGRectGetHeight(v30) + 26.0 + 16.0, v27}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSAutoAuthenticationViewController_iOS;
+  [(VSAutoAuthenticationViewController_iOS *)&v4 viewWillAppear:appear];
+  VSAuthenticationViewControllerViewWillAppear(self);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSAutoAuthenticationViewController_iOS;
+  [(VSAutoAuthenticationViewController_iOS *)&v4 viewDidAppear:appear];
+  VSAuthenticationViewControllerViewDidAppear(self);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSAutoAuthenticationViewController_iOS;
+  [(VSAutoAuthenticationViewController_iOS *)&v4 viewWillDisappear:disappear];
+  VSAuthenticationViewControllerViewWillDisappear(self);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSAutoAuthenticationViewController_iOS;
+  [(VSAutoAuthenticationViewController_iOS *)&v4 viewDidDisappear:disappear];
+  VSAuthenticationViewControllerViewDidDisappear(self);
 }
 
 - (VSAuthenticationViewControllerDelegate)delegate

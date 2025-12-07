@@ -9,7 +9,7 @@ void __78___SFReportFeedbackCollectionViewController_initWithBrowserContentContr
   [WeakRetained dismissViewControllerAnimated:1 completion:0];
 }
 
-id __72___SFReportFeedbackCollectionViewController__createCollectionViewLayout__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+id __72___SFReportFeedbackCollectionViewController__createCollectionViewLayout__block_invoke(uint64_t a1, _BYTE *a2, void *a3)
 {
   v5 = *(a1 + 40);
   v6 = a3;

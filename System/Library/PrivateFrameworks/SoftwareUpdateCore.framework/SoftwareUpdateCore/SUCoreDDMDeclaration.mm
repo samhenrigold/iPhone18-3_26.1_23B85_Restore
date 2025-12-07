@@ -19,29 +19,11 @@
 {
   compareCopy = compare;
   enforcedInstallDate = [(SUCoreDDMDeclaration *)self enforcedInstallDate];
-  if (!enforcedInstallDate)
+  if (!enforcedInstallDate || (v6 = enforcedInstallDate, [compareCopy enforcedInstallDate], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, !v7) || (-[SUCoreDDMDeclaration enforcedInstallDate](self, "enforcedInstallDate"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(compareCopy, "enforcedInstallDate"), v9 = objc_claimAutoreleasedReturnValue(), buildVersionString = objc_msgSend(v8, "compare:", v9), v9, v8, !buildVersionString))
   {
-    goto LABEL_14;
-  }
-
-  v6 = enforcedInstallDate;
-  enforcedInstallDate2 = [compareCopy enforcedInstallDate];
-
-  if (!enforcedInstallDate2 || (-[SUCoreDDMDeclaration enforcedInstallDate](self, "enforcedInstallDate"), v8 = objc_claimAutoreleasedReturnValue(), [compareCopy enforcedInstallDate], v9 = objc_claimAutoreleasedReturnValue(), buildVersionString = objc_msgSend(v8, "compare:", v9), v9, v8, !buildVersionString))
-  {
-LABEL_14:
     versionString = [(SUCoreDDMDeclaration *)self versionString];
-    if (!versionString)
+    if (!versionString || (v12 = versionString, [compareCopy versionString], v13 = objc_claimAutoreleasedReturnValue(), v13, v12, !v13) || (-[SUCoreDDMDeclaration versionString](self, "versionString"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(compareCopy, "versionString"), v15 = objc_claimAutoreleasedReturnValue(), buildVersionString = objc_msgSend(v14, "compare:options:", v15, 64), v15, v14, !buildVersionString))
     {
-      goto LABEL_7;
-    }
-
-    v12 = versionString;
-    versionString2 = [compareCopy versionString];
-
-    if (!versionString2 || (-[SUCoreDDMDeclaration versionString](self, "versionString"), v14 = objc_claimAutoreleasedReturnValue(), [compareCopy versionString], v15 = objc_claimAutoreleasedReturnValue(), buildVersionString = objc_msgSend(v14, "compare:options:", v15, 64), v15, v14, !buildVersionString))
-    {
-LABEL_7:
       buildVersionString = [(SUCoreDDMDeclaration *)self buildVersionString];
       if (buildVersionString)
       {
@@ -113,30 +95,29 @@ LABEL_7:
 
 - (SUCoreDDMDeclaration)initWithCoder:(id)coder
 {
-  v12[14] = *MEMORY[0x277D85DE8];
+  v11[14] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v12[7] = objc_opt_class();
-  v12[8] = objc_opt_class();
-  v12[9] = objc_opt_class();
-  v12[10] = objc_opt_class();
-  v12[11] = objc_opt_class();
-  v12[12] = objc_opt_class();
-  v12[13] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:14];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v11[7] = objc_opt_class();
+  v11[8] = objc_opt_class();
+  v11[9] = objc_opt_class();
+  v11[10] = objc_opt_class();
+  v11[11] = objc_opt_class();
+  v11[12] = objc_opt_class();
+  v11[13] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:14];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"ddmDeclaration"];
 
   v9 = [(SUCoreDDMDeclaration *)self initWithDeclarationKeys:v8];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -244,7 +225,7 @@ LABEL_7:
 
 - (BOOL)isValidDeclarationWithReason:(id *)reason
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   declarationKey = [(SUCoreDDMDeclaration *)self declarationKey];
 
   if (!declarationKey)
@@ -362,8 +343,8 @@ LABEL_23:
             enforcedInstallDate2 = [(SUCoreDDMDeclaration *)self enforcedInstallDate];
             v29 = [(SUCoreDDMDeclaration *)self _stringFromDate:enforcedInstallDate2];
             *buf = 136315394;
-            v38 = "[SUCoreDDMDeclaration isValidDeclarationWithReason:]";
-            v39 = 2112;
+            v37 = "[SUCoreDDMDeclaration isValidDeclarationWithReason:]";
+            v38 = 2112;
             selfCopy = v29;
             _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "%s: Past-due declaration: enforced install date is in the past (%@)", buf, 0x16u);
           }
@@ -375,8 +356,8 @@ LABEL_23:
         if (os_log_type_enabled(oslog5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v38 = "[SUCoreDDMDeclaration isValidDeclarationWithReason:]";
-          v39 = 2112;
+          v37 = "[SUCoreDDMDeclaration isValidDeclarationWithReason:]";
+          v38 = 2112;
           selfCopy = self;
           _os_log_impl(&dword_23193C000, oslog5, OS_LOG_TYPE_DEFAULT, "%s: %@ is (likely) good to go!", buf, 0x16u);
         }
@@ -450,7 +431,6 @@ LABEL_9:
 
 LABEL_44:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -535,10 +515,9 @@ LABEL_44:
 
 - (void)isValidDeclarationWithReason:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23193C000, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -39,9 +39,9 @@
   x = endPoint.x;
   v8 = point.y;
   v9 = point.x;
-  sub_21E43F008(0, &qword_27CEC5A10);
+  sub_21E43F008(0, &qword_27CEC5A10, 0x277D75348);
   v10 = sub_21E4DD088();
-  sub_21E43F008(0, &qword_280C14070);
+  sub_21E43F008(0, &qword_280C14070, 0x277CCABB0);
   v11 = sub_21E4DD088();
   return SiriSharedUIGradientView.init(colors:locations:startPoint:endPoint:)(v10, v11, v9, v8, x, y);
 }

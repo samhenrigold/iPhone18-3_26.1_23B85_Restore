@@ -36,7 +36,7 @@
   v8.super_class = HSTSetPropertyEvent;
   if ([(HSTEvent *)&v8 decodeFromMap:?])
   {
-    HSUtil::Decoder::decodeString(map, HSUtil::CoderKey::Literal<(char)107,(char)101,(char)121>::Key, __b);
+    HSUtil::Decoder::decodeString(__b, map, HSUtil::CoderKey::Literal<(char)107,(char)101,(char)121>::Key);
     std::string::assign(&self->key, __b[5]);
     HSUtil::Buffer::~Buffer(__b);
     if (*map)
@@ -110,7 +110,7 @@
   v10 = v5;
   v11 = v5;
   v9 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v9);
+  HSUtil::Decoder::decodeMap(&v9, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -146,30 +146,34 @@
 
 - (void)decodeFromMap:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

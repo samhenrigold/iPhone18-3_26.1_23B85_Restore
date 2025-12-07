@@ -14,9 +14,12 @@
 + (id)icsAttachmentData:(id)data;
 + (id)interactionContactIdentifier:(id)identifier;
 + (id)isForwardedMail:(BOOL)mail;
++ (id)mailAppUsageLevel:(unsigned __int8)level;
 + (id)messageWithMailMessageKey:(id)key;
 + (id)messageWithMessageId:(id)id fromSource:(id)source;
++ (id)messagesAppUsageLevel:(unsigned __int8)level;
 + (id)naturalLanguageEventAttributes:(unint64_t)attributes;
++ (id)participantCount:(unsigned __int8)count;
 + (id)remember:(id)remember;
 + (id)reminderMetadata:(id)metadata;
 + (id)reservationContainerReference:(id)reference;
@@ -26,12 +29,15 @@
 + (id)resolveName:(id)name;
 + (id)schemaOrg:(id)org;
 + (id)tagForLabel:(id)label value:(id)value;
++ (id)testTag:(int)tag;
 + (id)url:(id)url;
++ (id)usedBubblesCount:(unsigned __int8)count;
 + (id)walletOrderData:(id)data;
 + (id)walletOrderDictionary:(id)dictionary;
 + (id)walletPassData:(id)data;
 + (id)walletPassDictionary:(id)dictionary;
 + (void)initialize;
++ (void)rememberLabel:(id)label stored:(BOOL)stored indexed:(BOOL)indexed tracked:(BOOL)tracked;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToEntityTag:(id)tag;
 - (SGEntityTag)initWithLabel:(id)label value:(id)value stored:(BOOL)stored indexed:(BOOL)indexed tracked:(BOOL)tracked;
@@ -72,28 +78,28 @@
 
 - (id)walletPassDictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(SGEntityTag *)self isWalletPassDictionary])
   {
     v3 = objc_autoreleasePoolPush();
     v4 = MEMORY[0x1E696ACB0];
     value = [(SGEntityTag *)self value];
     v6 = [value dataUsingEncoding:4];
-    v14 = 0;
-    v7 = [v4 JSONObjectWithData:v6 options:0 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v4 JSONObjectWithData:v6 options:0 error:&v13];
+    v8 = v13;
 
     if (!v7)
     {
       v9 = sgLogHandle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138412546;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v8;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v8;
         _os_log_error_impl(&dword_1BA729000, v9, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating dict for walletDictionary tag, %@", buf, 0x16u);
       }
 
@@ -107,8 +113,6 @@
   {
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -135,28 +139,28 @@
 
 - (id)walletOrderDictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(SGEntityTag *)self isWalletOrderDictionary])
   {
     v3 = objc_autoreleasePoolPush();
     v4 = MEMORY[0x1E696ACB0];
     value = [(SGEntityTag *)self value];
     v6 = [value dataUsingEncoding:4];
-    v14 = 0;
-    v7 = [v4 JSONObjectWithData:v6 options:0 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v4 JSONObjectWithData:v6 options:0 error:&v13];
+    v8 = v13;
 
     if (v8)
     {
       v9 = sgLogHandle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138412546;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v8;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v8;
         _os_log_error_impl(&dword_1BA729000, v9, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating dict for walletDictionary tag, %@", buf, 0x16u);
       }
 
@@ -170,8 +174,6 @@
   {
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -218,7 +220,7 @@
 
 - (id)reservationContainerReference
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (![(SGEntityTag *)self isReservationContainerReference])
   {
     v6 = 0;
@@ -232,16 +234,16 @@
     v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:value options:0];
     if (v5)
     {
-      v13 = 0;
-      v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v13];
-      v7 = v13;
+      v12 = 0;
+      v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
+      v7 = v12;
       if (v7)
       {
         v8 = sgLogHandle();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v15 = v7;
+          v14 = v7;
           _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "SGEntityTag Error decoding reservation container reference: %@", buf, 0xCu);
         }
       }
@@ -285,14 +287,13 @@ LABEL_19:
 
   objc_autoreleasePoolPop(v3);
 LABEL_20:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)reservationItemReferences
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (![(SGEntityTag *)self isReservationItemReferences])
   {
     v10 = 0;
@@ -311,16 +312,16 @@ LABEL_20:
     objc_autoreleasePoolPop(v6);
     if (v5)
     {
-      v17 = 0;
-      v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v9 fromData:v5 error:&v17];
-      v11 = v17;
+      v16 = 0;
+      v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v9 fromData:v5 error:&v16];
+      v11 = v16;
       if (v11)
       {
         v12 = sgLogHandle();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v19 = v11;
+          v18 = v11;
           _os_log_error_impl(&dword_1BA729000, v12, OS_LOG_TYPE_ERROR, "SGEntityTag Error decoding reservation item references: %@", buf, 0xCu);
         }
       }
@@ -364,7 +365,6 @@ LABEL_19:
 
   objc_autoreleasePoolPop(v3);
 LABEL_20:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -582,7 +582,7 @@ LABEL_9:
 
 + (id)walletPassDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = dictionaryCopy;
   if (!dictionaryCopy || ![dictionaryCopy count])
@@ -597,7 +597,7 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138739971;
-      v21 = v4;
+      v20 = v4;
       _os_log_error_impl(&dword_1BA729000, v10, OS_LOG_TYPE_ERROR, "Cannot serialize pass dictionary: %{sensitive}@", buf, 0xCu);
     }
 
@@ -605,20 +605,20 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v19 = 0;
-  v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v18];
+  v7 = v18;
   if (v7)
   {
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138412546;
-      v21 = v18;
-      v22 = 2112;
-      v23 = v7;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v7;
       _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletPassDictionary, %@", buf, 0x16u);
     }
 
@@ -634,10 +634,10 @@ LABEL_9:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138412290;
-      v21 = v16;
+      v20 = v15;
       _os_log_debug_impl(&dword_1BA729000, v9, OS_LOG_TYPE_DEBUG, "%@: Couldnt create a entity tag from walletPassDictionary", buf, 0xCu);
     }
 
@@ -646,20 +646,18 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v6 encoding:4];
-  v11 = [SGEntityTag tagForLabel:@"WPDD" value:v14];
+  v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v6 encoding:4];
+  v11 = [SGEntityTag tagForLabel:@"WPDD" value:v13];
 
   objc_autoreleasePoolPop(v5);
 LABEL_16:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)walletPassData:(id)data
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
@@ -678,11 +676,11 @@ LABEL_16:
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletPassData", &v13, 0xCu);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletPassData", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -691,22 +689,20 @@ LABEL_16:
   v7 = 0;
 LABEL_8:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)walletOrderDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = dictionaryCopy;
   if (dictionaryCopy && [dictionaryCopy count])
   {
     v5 = objc_autoreleasePoolPush();
-    v14 = 0;
-    v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v13];
+    v7 = v13;
     if (v6)
     {
       v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v6 encoding:4];
@@ -718,12 +714,12 @@ LABEL_8:
       v6 = sgLogHandle();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138412546;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v7;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v7;
         _os_log_error_impl(&dword_1BA729000, v6, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletOrderDictionary, %@", buf, 0x16u);
       }
 
@@ -738,14 +734,12 @@ LABEL_8:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)walletOrderData:(id)data
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
@@ -764,11 +758,11 @@ LABEL_8:
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletOrderData", &v13, 0xCu);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for walletOrderData", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -777,14 +771,12 @@ LABEL_8:
   v7 = 0;
 LABEL_8:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)icsAttachmentData:(id)data
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
@@ -803,11 +795,11 @@ LABEL_8:
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for ics attachment data", &v13, 0xCu);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_error_impl(&dword_1BA729000, v8, OS_LOG_TYPE_ERROR, "%@: Error encountered while creating tag for ics attachment data", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -815,8 +807,6 @@ LABEL_8:
 
   v7 = 0;
 LABEL_8:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -903,6 +893,24 @@ LABEL_8:
   v4 = [SGEntityTag tagForLabel:@"FWDM" value:v3];
 
   return v4;
+}
+
++ (id)testTag:(int)tag
+{
+  v3 = *&tag;
+  v5 = [byLabel objectForKeyedSubscript:@"TEST"];
+
+  if (!v5)
+  {
+    v6 = [[SGEntityTag alloc] initWithLabel:@"TEST" stored:1 indexed:1 tracked:1];
+    v7 = [self remember:v6];
+  }
+
+  v8 = [SGEntityTag alloc];
+  v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%d", v3];
+  v10 = [(SGEntityTag *)v8 initWithLabel:@"TEST" value:v9 stored:1 indexed:1 tracked:1];
+
+  return v10;
 }
 
 + (id)allTags
@@ -1113,10 +1121,42 @@ LABEL_3:
   return v4;
 }
 
++ (id)messagesAppUsageLevel:(unsigned __int8)level
+{
+  level = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%hhu", level];
+  v4 = [SGEntityTag tagForLabel:@"MEUL" value:level];
+
+  return v4;
+}
+
++ (id)mailAppUsageLevel:(unsigned __int8)level
+{
+  level = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%hhu", level];
+  v4 = [SGEntityTag tagForLabel:@"MAUL" value:level];
+
+  return v4;
+}
+
 + (id)calendarAppUsageLevel:(float)level
 {
   level = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%f", level];
   v4 = [SGEntityTag tagForLabel:@"CAUL" value:level];
+
+  return v4;
+}
+
++ (id)usedBubblesCount:(unsigned __int8)count
+{
+  v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%hhu", count];
+  v4 = [SGEntityTag tagForLabel:@"NLBC" value:v3];
+
+  return v4;
+}
+
++ (id)participantCount:(unsigned __int8)count
+{
+  v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%hhu", count];
+  v4 = [SGEntityTag tagForLabel:@"NLPC" value:v3];
 
   return v4;
 }
@@ -1284,7 +1324,7 @@ LABEL_25:
 
 + (id)resolveName:(id)name
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   CStringPtr = CFStringGetCStringPtr(nameCopy, 0x600u);
   if (CStringPtr)
@@ -1334,9 +1374,9 @@ LABEL_12:
     v14 = sgLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v20 = 138412290;
-      v21 = nameCopy;
-      _os_log_fault_impl(&dword_1BA729000, v14, OS_LOG_TYPE_FAULT, "Unable to resolve tag name: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = nameCopy;
+      _os_log_fault_impl(&dword_1BA729000, v14, OS_LOG_TYPE_FAULT, "Unable to resolve tag name: %@", &v19, 0xCu);
     }
 
     if (!_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -1377,9 +1417,9 @@ LABEL_20:
   v17 = sgLogHandle();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
-    v20 = 138412290;
-    v21 = v7;
-    _os_log_fault_impl(&dword_1BA729000, v17, OS_LOG_TYPE_FAULT, "Unable to resolve tag label: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v7;
+    _os_log_fault_impl(&dword_1BA729000, v17, OS_LOG_TYPE_FAULT, "Unable to resolve tag label: %@", &v19, 0xCu);
   }
 
   if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -1392,7 +1432,6 @@ LABEL_30:
 LABEL_26:
 
 LABEL_27:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1693,6 +1732,21 @@ LABEL_27:
 
     [self tombstoneLabel:@"FBU"];
   }
+}
+
++ (void)rememberLabel:(id)label stored:(BOOL)stored indexed:(BOOL)indexed tracked:(BOOL)tracked
+{
+  trackedCopy = tracked;
+  indexedCopy = indexed;
+  storedCopy = stored;
+  labelCopy = label;
+  v11 = objc_opt_new();
+  v11[8] = storedCopy;
+  v11[9] = indexedCopy;
+  v11[10] = trackedCopy;
+  [optionsByLabel setObject:v11 forKeyedSubscript:labelCopy];
+  v10 = [[SGEntityTag alloc] initWithLabel:labelCopy stored:storedCopy indexed:indexedCopy tracked:trackedCopy];
+  [byLabel setObject:v10 forKeyedSubscript:labelCopy];
 }
 
 + (id)remember:(id)remember

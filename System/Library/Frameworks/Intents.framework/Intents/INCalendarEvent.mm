@@ -16,18 +16,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v25[7] = *MEMORY[0x1E69E9840];
+  v24[7] = *MEMORY[0x1E69E9840];
   eventIdentifier = self->_eventIdentifier;
-  v23 = eventIdentifier;
-  v24[0] = @"eventIdentifier";
+  v22 = eventIdentifier;
+  v23[0] = @"eventIdentifier";
   if (!eventIdentifier)
   {
     eventIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = eventIdentifier;
-  v25[0] = eventIdentifier;
-  v24[1] = @"title";
+  v21 = eventIdentifier;
+  v24[0] = eventIdentifier;
+  v23[1] = @"title";
   title = self->_title;
   null = title;
   if (!title)
@@ -35,9 +35,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v25[1] = null;
-  v24[2] = @"dateTimeRange";
+  v20 = null;
+  v24[1] = null;
+  v23[2] = @"dateTimeRange";
   dateTimeRange = self->_dateTimeRange;
   null2 = dateTimeRange;
   if (!dateTimeRange)
@@ -45,9 +45,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v25[2] = null2;
-  v24[3] = @"participants";
+  v19 = null2;
+  v24[2] = null2;
+  v23[3] = @"participants";
   participants = self->_participants;
   null3 = participants;
   if (!participants)
@@ -55,9 +55,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null3;
-  v25[3] = null3;
-  v24[4] = @"location";
+  v18 = null3;
+  v24[3] = null3;
+  v23[4] = @"location";
   location = self->_location;
   null4 = location;
   if (!location)
@@ -65,8 +65,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null4;
-  v24[5] = @"isContactBirthday";
+  v24[4] = null4;
+  v23[5] = @"isContactBirthday";
   isContactBirthday = self->_isContactBirthday;
   null5 = isContactBirthday;
   if (!isContactBirthday)
@@ -74,8 +74,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null5;
-  v24[6] = @"calendarPunchoutURI";
+  v24[5] = null5;
+  v23[6] = @"calendarPunchoutURI";
   calendarPunchoutURI = self->_calendarPunchoutURI;
   null6 = calendarPunchoutURI;
   if (!calendarPunchoutURI)
@@ -83,8 +83,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[6] = null6;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = null6;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
   if (calendarPunchoutURI)
   {
     if (isContactBirthday)
@@ -155,11 +155,9 @@ LABEL_20:
 LABEL_31:
 
 LABEL_21:
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -222,7 +220,7 @@ LABEL_21:
 
 - (INCalendarEvent)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v5 = objc_opt_class();
@@ -236,9 +234,9 @@ LABEL_21:
 
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateTimeRange"];
   v13 = MEMORY[0x1E695DFD8];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"participants"];
 
@@ -250,7 +248,6 @@ LABEL_21:
   v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"calendarPunchoutURI"];
 
   v23 = [(INCalendarEvent *)self initWithEventIdentifier:v7 title:v11 dateTimeRange:v12 participants:v16 location:v17 isContactBirthday:v18 calendarPunchoutURI:v22];
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -402,73 +399,71 @@ LABEL_21:
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   participants = [(INCalendarEvent *)self participants];
-  v6 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [participants countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(participants);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [participants countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   participants = [(INCalendarEvent *)self participants];
-  v5 = [participants countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [participants countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(participants);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [participants countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [participants countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -486,7 +481,6 @@ LABEL_21:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

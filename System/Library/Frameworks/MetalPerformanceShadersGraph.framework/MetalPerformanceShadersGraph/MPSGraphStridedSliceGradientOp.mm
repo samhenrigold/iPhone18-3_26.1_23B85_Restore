@@ -19,7 +19,7 @@
 {
   v47 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphStridedSliceGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphStridedSliceGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm");
   v11 = nameCopy;
   v46 = 260;
   v45[0] = __p;
@@ -38,96 +38,96 @@
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v18 = v16;
+  v19 = v16;
   if (v16 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v44) = v16;
+  *(&__dst.__r_.__value_.__s + 23) = v16;
   if (v16)
   {
     memmove(&__dst, uTF8String, v16);
   }
 
-  *(&__dst + v18) = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v17, &v40);
-  v19 = v40.__r_.__value_.__r.__words[0];
-  if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  __dst.__r_.__value_.__s.__data_[v19] = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v41, v17, v18);
+  v20 = v41.__r_.__value_.__r.__words[0];
+  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &v40;
+    v20 = &v41;
   }
 
-  v20 = 1;
+  v21 = 1;
   HIBYTE(v46) = 1;
-  if (v19->__r_.__value_.__s.__data_[0])
+  if (v20->__r_.__value_.__s.__data_[0])
   {
-    v45[0] = v19;
-    v20 = 3;
+    v45[0] = v20;
+    v21 = 3;
   }
 
-  LOBYTE(v46) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v45);
-  v22 = mlir::NameLoc::get(v21, v13);
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v46) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v45);
+  v23 = mlir::NameLoc::get(v22, v13);
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v40.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v44) & 0x80000000) == 0)
+    operator delete(v41.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
   }
 
-  else if ((SHIBYTE(v44) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_15;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_15:
 
-  if (v36 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v23 = *values;
-  v24 = *(values + 1) - *values;
-  if (!v24 || (v24 >> 3) < 2 || v24 == 16 || v24 == 32 || (v24 >> 3) <= 3)
+  v24 = *values;
+  v25 = *(values + 1) - *values;
+  if (!v25 || (v25 >> 3) < 2 || v25 == 16 || v25 == 32 || (v25 >> 3) <= 3)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v37 = v22;
-  Context = mlir::Attribute::getContext(&v37);
-  v26 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::StridedSliceGradientOp,void>::id, Context);
-  if ((v27 & 1) == 0)
+  v38 = v23;
+  Context = mlir::Attribute::getContext(&v38);
+  v27 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::StridedSliceGradientOp,void>::id, Context);
+  if ((v28 & 1) == 0)
   {
-    v42 = 1283;
-    v40.__r_.__value_.__r.__words[2] = "mps.strided_slice_gradient";
-    v41 = 26;
-    v39 = 259;
-    llvm::operator+(&v40, &v38, &__dst);
+    v43 = 1283;
+    v41.__r_.__value_.__r.__words[2] = "mps.strided_slice_gradient";
+    v42 = 26;
+    v40 = 259;
+    llvm::operator+(&v41, &v39, &__dst);
     llvm::report_fatal_error(&__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v45, v22, v26);
-  mlir::mps::StridedSliceGradientOp::build(builder, v45, *v23, v23[1], v23[2], v23[3], v23[4], self->_begin_mask, self->_end_mask, self->_shrink_axis_mask, self->_end_is_size);
-  v28 = mlir::OpBuilder::create(builder, v45);
-  v29 = *(*(v28 + 48) + 16);
+  mlir::OperationState::OperationState(v45, v23, v27);
+  mlir::mps::StridedSliceGradientOp::build(builder, v45, *v24, v24[1], v24[2], v24[3], v24[4], self->_begin_mask, self->_end_mask, self->_shrink_axis_mask, self->_end_is_size);
+  v29 = mlir::OpBuilder::create(builder, v45);
+  v30 = *(*(v29 + 6) + 16);
   mlir::OperationState::~OperationState(v45);
-  if (v29 == &mlir::detail::TypeIDResolver<mlir::mps::StridedSliceGradientOp,void>::id)
+  if (v30 == &mlir::detail::TypeIDResolver<mlir::mps::StridedSliceGradientOp,void>::id)
   {
-    v30 = v28;
+    v31 = v29;
   }
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
-  v34 = v30 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v34);
+  v35 = v31 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v35);
 
   return DefiningOp;
 }

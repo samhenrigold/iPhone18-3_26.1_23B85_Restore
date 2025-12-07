@@ -8,7 +8,6 @@
 - (void)callback
 {
   v2 = *(&self->super.isa + OBJC_IVAR____TtCV16_PassKit_SwiftUI14IdentityButton11Coordinator_action);
-  v3 = *&self->action[OBJC_IVAR____TtCV16_PassKit_SwiftUI14IdentityButton11Coordinator_action];
   selfCopy = self;
   v2();
 }

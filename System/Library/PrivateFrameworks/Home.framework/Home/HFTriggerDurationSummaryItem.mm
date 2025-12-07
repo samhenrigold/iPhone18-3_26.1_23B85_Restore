@@ -45,8 +45,8 @@ LABEL_6:
 
   v9 = MEMORY[0x277CCABB0];
   triggerBuilder3 = [(HFTriggerDurationSummaryItem *)self triggerBuilder];
-  home = [triggerBuilder3 home];
-  v12 = [v9 numberWithInt:{objc_msgSend(home, "hf_supportsSharedEventAutomation") ^ 1}];
+  v11 = objc_msgSend_home(triggerBuilder3);
+  v12 = [v9 numberWithInt:{objc_msgSend(v11, "hf_supportsSharedEventAutomation") ^ 1}];
   [v4 setObject:v12 forKeyedSubscript:@"isDisabled"];
 
   triggerBuilder4 = [(HFTriggerDurationSummaryItem *)self triggerBuilder];
@@ -56,7 +56,7 @@ LABEL_6:
   if (designatedDurationEventBuilder)
   {
     v16 = MEMORY[0x277CCABB0];
-    [designatedDurationEventBuilder duration];
+    objc_msgSend_duration(designatedDurationEventBuilder);
     v17 = [v16 numberWithDouble:?];
   }
 

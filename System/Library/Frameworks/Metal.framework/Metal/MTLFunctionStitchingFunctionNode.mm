@@ -92,29 +92,29 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   arguments = self->_arguments;
-  v7 = [(NSArray *)arguments countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v7 = [(NSArray *)arguments countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(arguments);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         if (v9)
         {
           [v9 appendString:v5];
@@ -128,7 +128,7 @@
         [v9 appendString:{objc_msgSend(v12, "formattedDescription:", description + 4)}];
       }
 
-      v8 = [(NSArray *)arguments countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v8 = [(NSArray *)arguments countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v8);
@@ -139,28 +139,28 @@
     v9 = 0;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   selfCopy = self;
   controlDependencies = self->_controlDependencies;
-  v14 = [(NSArray *)controlDependencies countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v14 = [(NSArray *)controlDependencies countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(controlDependencies);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * j);
+        v19 = *(*(&v27 + 1) + 8 * j);
         if (v16)
         {
           [v16 appendString:v5];
@@ -174,7 +174,7 @@
         [v16 appendString:{objc_msgSend(v19, "formattedDescription:", description + 4)}];
       }
 
-      v15 = [(NSArray *)controlDependencies countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v15 = [(NSArray *)controlDependencies countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v15);
@@ -186,13 +186,13 @@
   }
 
   v20 = MEMORY[0x1E696AEC0];
-  v27.receiver = selfCopy;
-  v27.super_class = MTLFunctionStitchingFunctionNode;
-  v21 = [(MTLFunctionStitchingFunctionNode *)&v27 description];
-  v36[0] = v5;
-  v36[1] = @"name =";
-  v36[2] = selfCopy->_name;
-  v36[3] = v5;
+  v26.receiver = selfCopy;
+  v26.super_class = MTLFunctionStitchingFunctionNode;
+  v21 = [(MTLFunctionStitchingFunctionNode *)&v26 description];
+  v35[0] = v5;
+  v35[1] = @"name =";
+  v35[2] = selfCopy->_name;
+  v35[3] = v5;
   if (v9)
   {
     v22 = v9;
@@ -203,10 +203,10 @@
     v22 = MEMORY[0x1E695E0F0];
   }
 
-  v36[4] = @"arguments =";
-  v36[5] = v22;
-  v36[6] = v5;
-  v36[7] = @"controlDependencies =";
+  v35[4] = @"arguments =";
+  v35[5] = v22;
+  v35[6] = v5;
+  v35[7] = @"controlDependencies =";
   if (v16)
   {
     v23 = v16;
@@ -217,10 +217,8 @@
     v23 = MEMORY[0x1E695E0F0];
   }
 
-  v36[8] = v23;
-  result = [v20 stringWithFormat:@"%@%@", v21, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v36, 9), "componentsJoinedByString:", @" "];
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  v35[8] = v23;
+  return [v20 stringWithFormat:@"%@%@", v21, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v35, 9), "componentsJoinedByString:", @" "];
 }
 
 @end

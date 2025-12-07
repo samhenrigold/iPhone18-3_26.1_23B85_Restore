@@ -44,8 +44,8 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
 
 - (BOOL)accessibilityScroll:(int64_t)scroll
 {
-  v48 = *MEMORY[0x29EDCA608];
-  LOBYTE(v42[0]) = 0;
+  v47 = *MEMORY[0x29EDCA608];
+  LOBYTE(v41[0]) = 0;
   objc_opt_class();
   v5 = __UIAccessibilityCastAsClass();
   v6 = [(LoggingCardCarouselViewControllerAccessibility *)self collectionViewFrom:v5];
@@ -56,38 +56,38 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
     AX_CGRectGetCenter();
     v9 = v8;
     v11 = v10;
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = [v7 indexPathsForVisibleItems];
-    v12 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v12 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v12)
     {
       v13 = v12;
       selfCopy = self;
-      v39 = v5;
+      v38 = v5;
       v14 = 0;
       v16 = *MEMORY[0x29EDB90B8];
       v15 = *(MEMORY[0x29EDB90B8] + 8);
-      v17 = *v44;
+      v17 = *v43;
       scrollCopy = scroll;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v44 != v17)
+          if (*v43 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v43 + 1) + 8 * i);
+          v19 = *(*(&v42 + 1) + 8 * i);
           v20 = [v7 cellForItemAtIndexPath:v19];
           [v20 bounds];
           [v7 convertRect:v20 fromView:?];
-          v49.x = v9;
-          v49.y = v11;
-          if (CGRectContainsPoint(v50, v49))
+          v48.x = v9;
+          v48.y = v11;
+          if (CGRectContainsPoint(v49, v48))
           {
             if (scroll == 2)
             {
@@ -100,7 +100,7 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
               if (scroll != 1)
               {
 
-                v5 = v39;
+                v5 = v38;
                 goto LABEL_22;
               }
 
@@ -116,7 +116,7 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v13 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v13)
         {
           continue;
@@ -128,7 +128,7 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
       if (!v14)
       {
         v35 = 0;
-        v5 = v39;
+        v5 = v38;
         goto LABEL_24;
       }
 
@@ -139,11 +139,11 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
       [v7 contentOffset];
       [v7 setContentOffset:1 animated:v27];
       [v7 contentOffset];
-      v42[0] = v28;
-      v42[1] = v29;
+      v41[0] = v28;
+      v41[1] = v29;
       if (objc_opt_respondsToSelector())
       {
-        [(LoggingCardCarouselViewControllerAccessibility *)selfCopy scrollViewWillEndDragging:v7 withVelocity:v42 targetContentOffset:v16, v15];
+        [(LoggingCardCarouselViewControllerAccessibility *)selfCopy scrollViewWillEndDragging:v7 withVelocity:v41 targetContentOffset:v16, v15];
       }
 
       v30 = accessibilityLocalizedString(@"card");
@@ -158,7 +158,7 @@ uint64_t __92__LoggingCardCarouselViewControllerAccessibility__accessibilityLoad
       UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], v34);
 
       v35 = 1;
-      v5 = v39;
+      v5 = v38;
     }
 
     else
@@ -177,7 +177,6 @@ LABEL_22:
 
 LABEL_24:
 
-  v36 = *MEMORY[0x29EDCA608];
   return v35;
 }
 

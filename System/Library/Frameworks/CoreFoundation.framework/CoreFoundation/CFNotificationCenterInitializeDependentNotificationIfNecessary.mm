@@ -5,7 +5,7 @@
 
 void ___CFNotificationCenterInitializeDependentNotificationIfNecessary_block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = v1[2];
   if (v2)
@@ -24,8 +24,8 @@ void ___CFNotificationCenterInitializeDependentNotificationIfNecessary_block_inv
       v7 = v1[6] + v4;
       v8 = *v7;
       v9 = *(v7 + 8);
-      v19[0] = *(v7 + 9);
-      *(v19 + 3) = *(v7 + 12);
+      v20[0] = *(v7 + 9);
+      *(v20 + 3) = *(v7 + 12);
       if (v9 > 1)
       {
         if (v9 != 2)
@@ -34,7 +34,7 @@ void ___CFNotificationCenterInitializeDependentNotificationIfNecessary_block_inv
           {
             out_token = 0;
             CStringPtr = CFStringGetCStringPtr(v8, 0x8000100u);
-            if (CStringPtr || (CStringPtr = buffer, CFStringGetCString(v8, buffer, 1024, 0x8000100u)))
+            if (CStringPtr || (CStringPtr = buffer, CString = CFStringGetCString(v8, buffer, 1024, 0x8000100u), CString))
             {
               handler[0] = MEMORY[0x1E69E9820];
               handler[1] = 3221225472;
@@ -42,23 +42,23 @@ void ___CFNotificationCenterInitializeDependentNotificationIfNecessary_block_inv
               handler[3] = &__block_descriptor_56_e8_v12__0i8l;
               handler[4] = v1;
               handler[5] = v8;
-              v16 = 3;
-              v17[0] = v19[0];
-              *(v17 + 3) = *(v19 + 3);
+              v17 = 3;
+              v18[0] = v20[0];
+              *(v18 + 3) = *(v20 + 3);
               notify_register_dispatch(CStringPtr, &out_token, v6, handler);
             }
 
             else
             {
-              v12 = _CFOSLog();
-              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+              v14 = _CFOSLog(CString, v13);
+              if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
-                v13 = *v1;
+                v15 = *v1;
                 *buf = 138543618;
-                v21 = v13;
-                v22 = 2114;
-                v23 = v8;
-                _os_log_error_impl(&dword_1830E6000, v12, OS_LOG_TYPE_ERROR, "Failed to register dependent notification %{public}@ -> %{public}@", buf, 0x16u);
+                v22 = v15;
+                v23 = 2114;
+                v24 = v8;
+                _os_log_error_impl(&dword_1830E6000, v14, OS_LOG_TYPE_ERROR, "Failed to register dependent notification %{public}@ -> %{public}@", buf, 0x16u);
               }
             }
           }
@@ -92,8 +92,6 @@ LABEL_18:
 
     while (v5 < *(v1 + 40));
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

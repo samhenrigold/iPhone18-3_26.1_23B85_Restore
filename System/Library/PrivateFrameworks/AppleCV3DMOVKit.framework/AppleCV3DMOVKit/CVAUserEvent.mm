@@ -142,11 +142,11 @@
 
 - (id)dictionary
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15[0] = @"ev";
+  v17 = *MEMORY[0x277D85DE8];
+  v14[0] = @"ev";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_eventType];
-  v16[0] = v3;
-  v15[1] = @"t";
+  v15[0] = v3;
+  v14[1] = @"t";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
   v5 = v4;
   peerDisplayName = self->_peerDisplayName;
@@ -155,10 +155,10 @@
     peerDisplayName = &stru_28521B010;
   }
 
-  v16[1] = v4;
-  v16[2] = peerDisplayName;
-  v15[2] = @"pd";
-  v15[3] = @"uuid";
+  v15[1] = v4;
+  v15[2] = peerDisplayName;
+  v14[2] = @"pd";
+  v14[3] = @"uuid";
   uuid = self->_uuid;
   if (uuid)
   {
@@ -170,8 +170,8 @@
     uUIDString = @"000000-0000-0000-0000-000000000000";
   }
 
-  v16[3] = uUIDString;
-  v15[4] = @"andt";
+  v15[3] = uUIDString;
+  v14[4] = @"andt";
   anchorData = self->_anchorData;
   v10 = anchorData;
   if (!anchorData)
@@ -185,13 +185,13 @@
     transformCameraToAnchor = MEMORY[0x277CBEBF8];
   }
 
-  v16[4] = v10;
-  v16[5] = transformCameraToAnchor;
-  v15[5] = @"tcta";
-  v15[6] = @"sid";
-  v15[7] = @"mlt";
-  v17 = vbslq_s8(vceqzq_s64(*&self->_sessionID), vdupq_n_s64(&unk_285225230), *&self->_sessionID);
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:8];
+  v15[4] = v10;
+  v15[5] = transformCameraToAnchor;
+  v14[5] = @"tcta";
+  v14[6] = @"sid";
+  v14[7] = @"mlt";
+  v16 = vbslq_s8(vceqzq_s64(*&self->_sessionID), vdupq_n_s64(&unk_285225230), *&self->_sessionID);
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:8];
   if (!anchorData)
   {
   }
@@ -199,8 +199,6 @@
   if (uuid)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

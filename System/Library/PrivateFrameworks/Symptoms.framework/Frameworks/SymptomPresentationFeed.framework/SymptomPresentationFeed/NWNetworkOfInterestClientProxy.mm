@@ -1,6 +1,7 @@
 @interface NWNetworkOfInterestClientProxy
 - (NWNetworkOfInterestClientProxy)initWithDelegate:(id)delegate;
 - (SFClientInterfaceProxy)delegate;
+- (void)haveNOIs:(id)is tornDown:(BOOL)down;
 - (void)updateNOI:(id)i keyPath:(id)path change:(id)change;
 @end
 
@@ -26,6 +27,17 @@
   }
 
   return v6;
+}
+
+- (void)haveNOIs:(id)is tornDown:(BOOL)down
+{
+  if (self->_proxyHaveNOIs)
+  {
+    downCopy = down;
+    isCopy = is;
+    delegate = [(NWNetworkOfInterestClientProxy *)self delegate];
+    [delegate proxyHaveNOIs:isCopy tornDown:downCopy];
+  }
 }
 
 - (void)updateNOI:(id)i keyPath:(id)path change:(id)change

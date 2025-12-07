@@ -429,15 +429,16 @@ LABEL_23:
 
 - (BOOL)optionExistsInDevice:(id)device
 {
-  if (NTKDeviceSupportsFaceColorMappingAndDistinctFaceColorValues())
+  v4 = NTKDeviceSupportsFaceColorMappingAndDistinctFaceColorValues();
+  if (v4)
   {
     return 1;
   }
 
-  v5 = NTKPaletteColorsForGreenfieldColorMapping();
-  v6 = [v5 containsIndex:{-[NTKPaletteColorEditOption paletteColor](self, "paletteColor")}];
+  v6 = NTKPaletteColorsForGreenfieldColorMapping(v4);
+  v7 = [v6 containsIndex:{-[NTKPaletteColorEditOption paletteColor](self, "paletteColor")}];
 
-  return v6 ^ 1;
+  return v7 ^ 1;
 }
 
 @end

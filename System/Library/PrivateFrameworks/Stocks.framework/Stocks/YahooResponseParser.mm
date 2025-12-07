@@ -99,7 +99,7 @@ LABEL_10:
   return v9;
 }
 
-void __72__YahooResponseParser_objectOfClass_withDictionaryKeyPath_inJSONObject___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, _BYTE *a4)
+void __72__YahooResponseParser_objectOfClass_withDictionaryKeyPath_inJSONObject___block_invoke(uint64_t a1, uint64_t a2, char *a3, _BYTE *a4)
 {
   v15 = *MEMORY[0x277D85DE8];
   v7 = [*(*(*(a1 + 40) + 8) + 40) objectForKeyedSubscript:a2];

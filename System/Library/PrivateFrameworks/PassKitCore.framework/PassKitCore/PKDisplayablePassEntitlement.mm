@@ -71,9 +71,9 @@
 
   if (v22 && v23)
   {
-    v25 = [(__CFString *)v22 isEqualToString:v23];
+    isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-    if (!v25)
+    if (!isEqualToString)
     {
       goto LABEL_11;
     }
@@ -149,7 +149,7 @@ LABEL_20:
       goto LABEL_24;
     }
 
-    v33 = [(__CFString *)v30 isEqualToString:v31];
+    v33 = objc_msgSend_isEqualToString_(v30);
 
     if (!v33)
     {

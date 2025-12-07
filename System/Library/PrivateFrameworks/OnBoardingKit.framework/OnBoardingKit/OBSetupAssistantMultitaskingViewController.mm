@@ -5,6 +5,7 @@
 - (double)contentViewsTopPaddingFromBottomOfHeader;
 - (void)addMultitaskingBulletedListItemWithTitle:(id)title description:(id)description symbolName:(id)name;
 - (void)setupBulletedListIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -58,9 +59,18 @@
   [(OBWelcomeController *)self setTemplateType:2];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = OBSetupAssistantMultitaskingViewController;
+  [(OBWelcomeController *)&v5 viewDidAppear:appear];
+  headerView = [(OBWelcomeController *)self headerView];
+  [headerView startSymbolAnimation];
+}
+
 - (void)setupBulletedListIfNeeded
 {
-  v46[4] = *MEMORY[0x1E69E9840];
+  v45[4] = *MEMORY[0x1E69E9840];
   bulletedList = [(OBWelcomeController *)self bulletedList];
 
   if (!bulletedList)
@@ -106,30 +116,28 @@
     bulletedList7 = [(OBWelcomeController *)self bulletedList];
     [bulletedList7 setTrailingConstraint:v27];
 
-    v40 = MEMORY[0x1E696ACD8];
+    v39 = MEMORY[0x1E696ACD8];
     bulletedList8 = [(OBWelcomeController *)self bulletedList];
     leadingConstraint = [bulletedList8 leadingConstraint];
-    v46[0] = leadingConstraint;
+    v45[0] = leadingConstraint;
     bulletedList9 = [(OBWelcomeController *)self bulletedList];
     trailingConstraint = [bulletedList9 trailingConstraint];
-    v46[1] = trailingConstraint;
+    v45[1] = trailingConstraint;
     contentView5 = [(OBWelcomeController *)self contentView];
     topAnchor2 = [contentView5 topAnchor];
     bulletedList10 = [(OBWelcomeController *)self bulletedList];
     topAnchor3 = [bulletedList10 topAnchor];
     v32 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
-    v46[2] = v32;
+    v45[2] = v32;
     contentView6 = [(OBWelcomeController *)self contentView];
     bottomAnchor2 = [contentView6 bottomAnchor];
     bulletedList11 = [(OBWelcomeController *)self bulletedList];
     bottomAnchor3 = [bulletedList11 bottomAnchor];
     v37 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-    v46[3] = v37;
-    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
-    [v40 activateConstraints:v38];
+    v45[3] = v37;
+    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:4];
+    [v39 activateConstraints:v38];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addMultitaskingBulletedListItemWithTitle:(id)title description:(id)description symbolName:(id)name

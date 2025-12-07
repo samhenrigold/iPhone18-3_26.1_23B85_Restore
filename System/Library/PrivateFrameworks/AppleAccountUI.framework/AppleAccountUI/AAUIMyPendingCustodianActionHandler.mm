@@ -31,7 +31,7 @@ void __65__AAUIMyPendingCustodianActionHandler_doPrimaryAction_specifier___block
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(WeakRetained);
   v6 = v5;
   if (WeakRetained)
   {
@@ -122,7 +122,7 @@ void __87__AAUIMyPendingCustodianActionHandler_displayMessagesInvitationFlowWith
 
   else
   {
-    v28 = _AAUILogSystem();
+    v28 = _AAUILogSystem(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       __87__AAUIMyPendingCustodianActionHandler_displayMessagesInvitationFlowWithViewController___block_invoke_cold_1(v28);

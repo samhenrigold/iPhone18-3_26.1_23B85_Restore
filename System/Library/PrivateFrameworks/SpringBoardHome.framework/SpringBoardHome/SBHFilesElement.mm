@@ -7,7 +7,7 @@
 
 - (id)displayName
 {
-  v2 = SBHBundle();
+  v2 = SBHBundle(self);
   v3 = [v2 localizedStringForKey:@"FILES_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   return v3;

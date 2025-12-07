@@ -281,9 +281,9 @@ LABEL_2:
     [v12 setFromValue:valueCopy];
   }
 
-  if (![pathCopy isEqualToString:@"filters.curl.inputTime"])
+  if (!objc_msgSend_isEqualToString_(pathCopy))
   {
-    if ([pathCopy isEqualToString:@"filters.curl.inputRadius"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       v14 = MEMORY[0x1E69793D0];
       v15 = &kUIPageCurlSmoothControlPoints;
@@ -291,7 +291,7 @@ LABEL_2:
 
     else
     {
-      if (![pathCopy isEqualToString:@"filters.curl.inputAngle"])
+      if (!objc_msgSend_isEqualToString_(pathCopy))
       {
         goto LABEL_13;
       }
@@ -402,7 +402,7 @@ LABEL_19:
 {
   stateCopy = state;
   pathCopy = path;
-  if ([pathCopy isEqualToString:@"filters.curl.inputTime"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     if ([stateCopy curlType] <= 2)
     {
@@ -433,7 +433,7 @@ LABEL_19:
     goto LABEL_67;
   }
 
-  if ([pathCopy isEqualToString:@"filters.curl.inputRadius"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     spineLocation = self->_spineLocation;
     if (spineLocation <= 0x20 && ((1 << spineLocation) & 0x100000104) != 0)
@@ -516,7 +516,7 @@ LABEL_19:
     goto LABEL_66;
   }
 
-  if (![pathCopy isEqualToString:@"filters.curl.inputAngle"])
+  if (!objc_msgSend_isEqualToString_(pathCopy))
   {
     goto LABEL_70;
   }
@@ -1591,11 +1591,11 @@ LABEL_77:
 
               v30 = keyPath;
               v31 = _UIPageCurlFilterPropertyNameForAnimationKeyPath(keyPath);
-              v32 = [v30 isEqualToString:@"filters.curl.inputTime"];
+              isEqualToString = objc_msgSend_isEqualToString_(v30);
               angleCopy = time;
-              if ((v32 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
-                if ([v30 isEqualToString:{@"filters.curl.inputRadius", time}])
+                if (objc_msgSend_isEqualToString_(v30, time))
                 {
                   angleCopy = radius;
                 }
@@ -2140,12 +2140,12 @@ LABEL_15:
           v39 = 0.0;
           if ([stateCopy curlType] == 1 || objc_msgSend(stateCopy, "curlType") == 4)
           {
-            if ([v31 isEqualToString:@"filters.curl.inputTime"])
+            if (objc_msgSend_isEqualToString_(v31))
             {
               v32 = &v46;
             }
 
-            else if ([v31 isEqualToString:@"filters.curl.inputRadius"])
+            else if (objc_msgSend_isEqualToString_(v31))
             {
               v32 = &v45;
             }
@@ -2281,10 +2281,10 @@ LABEL_15:
           }
 
           v15 = *(*(&v34 + 1) + 8 * i);
-          v16 = [v15 isEqualToString:{@"filters.curl.inputTime", v30}];
+          isEqualToString = objc_msgSend_isEqualToString_(v15, v30);
           if (completeCopy)
           {
-            if (v16)
+            if (isEqualToString)
             {
               v17 = 0;
               v18 = &v40;
@@ -2292,7 +2292,7 @@ LABEL_15:
 
             else
             {
-              v19 = [v15 isEqualToString:@"filters.curl.inputRadius"];
+              v19 = objc_msgSend_isEqualToString_(v15);
               v17 = 0;
               if (v19)
               {
@@ -2306,7 +2306,7 @@ LABEL_15:
             }
           }
 
-          else if (v16)
+          else if (isEqualToString)
           {
             v18 = 0;
             v17 = &v40;
@@ -2314,7 +2314,7 @@ LABEL_15:
 
           else
           {
-            v20 = [v15 isEqualToString:@"filters.curl.inputRadius"];
+            v20 = objc_msgSend_isEqualToString_(v15);
             v18 = 0;
             if (v20)
             {
@@ -2335,7 +2335,7 @@ LABEL_15:
           v25 = [presentationLayer valueForKeyPath:v15];
           v26 = [(_UIPageCurl *)self _newAnimationForState:v21 withKeyPath:v15 duration:v25 fromValue:v10];
 
-          if ([v15 isEqualToString:@"filters.curl.inputAngle"])
+          if (objc_msgSend_isEqualToString_(v15))
           {
             v27 = [MEMORY[0x1E69793D0] functionWithName:v30];
             [v26 setTimingFunction:v27];

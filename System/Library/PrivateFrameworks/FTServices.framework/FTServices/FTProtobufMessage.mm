@@ -56,10 +56,10 @@
 
 - (id)messageBody
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = FTProtobufMessage;
-  messageBody = [(IDSBaseMessage *)&v16 messageBody];
+  v17 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = FTProtobufMessage;
+  messageBody = [(IDSBaseMessage *)&v15 messageBody];
   v4 = [messageBody mutableCopy];
 
   messageID = [(FTProtobufMessage *)self messageID];
@@ -123,8 +123,6 @@
     sub_195962ED4();
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -144,13 +142,13 @@
 
 - (void)handleResponseHeaders:(id)headers
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = headersCopy;
+    v6 = headersCopy;
     _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Web Tunnel Message Completed With Respone Headers %@", buf, 0xCu);
   }
 
@@ -158,8 +156,6 @@
   {
     _IDSLogV();
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

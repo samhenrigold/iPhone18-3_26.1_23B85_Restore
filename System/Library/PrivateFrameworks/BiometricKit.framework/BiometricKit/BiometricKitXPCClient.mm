@@ -10,27 +10,43 @@
 - (BiometricKitXPCClient)initWithDeviceType:(int64_t)type clientType:(int64_t)clientType;
 - (BiometricKitXPCClientDelegate)delegate;
 - (id)getCalibrationDataInfo;
+- (id)getIdentitiesDatabaseHashForUser:(unsigned int)user;
+- (id)getIdentitiesDatabaseUUIDForUser:(unsigned int)user;
 - (id)getIdentityFromUUID:(id)d;
+- (id)getLogs:(BOOL)logs withDetails:(id *)details;
 - (id)getNodeTopologyForIdentity:(id)identity;
+- (id)getProtectedConfigurationForUser:(unsigned int)user;
 - (id)getSensorInfo;
 - (id)getSystemProtectedConfiguration;
 - (id)identities:(id)identities;
 - (id)pullAlignmentData;
 - (id)pullCalibrationData;
 - (id)pullCaptureBuffer;
+- (id)pullDebugImageData:(BOOL)data rotated:(BOOL)rotated imageWidth:(unsigned int *)width imageHeight:(unsigned int *)height;
 - (id)pullMatchPolicyInfoData;
 - (int)completeEnrollment;
 - (int)connect;
+- (int)diagnostics:(int)diagnostics withOptions:(id)options passed:(BOOL *)passed withDetails:(id *)details;
 - (int)dropUnlockToken;
+- (int)enableBackgroundFdet:(BOOL)fdet;
+- (int)enableMatchAutoRetry:(BOOL)retry;
 - (int)enrollContinue;
+- (int)forceBioLockoutForUser:(unsigned int)user withOptions:(id)options;
+- (int)getBioLockoutState:(int64_t *)state forUser:(unsigned int)user;
+- (int)getBiometryAvailability:(int64_t *)availability forUser:(unsigned int)user;
 - (int)getCountersignedStoreToken:(id *)token;
 - (int)getDeviceHardwareState:(unsigned int *)state;
+- (int)getExpressModeState:(int64_t *)state forUser:(unsigned int)user;
+- (int)getFreeIdentityCount:(unint64_t *)count forUser:(unsigned int)user accessoryGroup:(id)group;
 - (int)getLastMatchEvent:(id *)event;
+- (int)getPeriocularMatchState:(unsigned int)state state:(int64_t *)a4;
 - (int)getPreferencesValue:(id *)value forKey:(id)key;
 - (int)initializeConnection;
 - (int)isPeriocularEnrollmentSupported:(BOOL *)supported;
 - (int)listAccessories:(id *)accessories;
+- (int)pauseFaceDetectTimer:(BOOL)timer;
 - (int)prewarmCamera:(unint64_t)camera;
+- (int)queryIdentityMigrationFailureForUser:(unsigned int)user failed:(BOOL *)failed clear:(BOOL)clear;
 - (int)registerDSID:(unint64_t)d withOptions:(id)options;
 - (int)registerStoreToken:(id)token;
 - (int)resetAppleConnectCounter;
@@ -38,7 +54,10 @@
 - (int)setTemplate:(id)template forIdentity:(id)identity;
 - (int)setUserDSID:(unint64_t)d withOptions:(id)options;
 - (int)startNewMatchAttempt;
+- (int)suspendEnrollment:(BOOL)enrollment;
 - (int64_t)getDeviceState;
+- (int64_t)getFreeIdentityCount:(int)count forUser:(unsigned int)user;
+- (int64_t)getMaxIdentityCount:(int)count;
 - (int64_t)getProvisioningState;
 - (int64_t)getSensorCalibrationStatus;
 - (void)cancel;
@@ -48,6 +67,7 @@
 - (void)detectPresenceWithOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)disconnect;
 - (void)dropUnlockToken;
+- (void)enroll:(int)enroll forUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)enrollContinue;
 - (void)getCalibrationDataInfo;
 - (void)getDeviceState;
@@ -63,13 +83,20 @@
 - (void)isXARTAvailable;
 - (void)logEventOrCode:(unint64_t)code;
 - (void)match:(id)match withOptions:(id)options async:(BOOL)async withReply:(id)reply;
+- (void)notifyAppIsBackground:(BOOL)background;
+- (void)notifyAppIsInactive:(BOOL)inactive;
 - (void)pullAlignmentData;
 - (void)pullCalibrationData;
 - (void)pullCaptureBuffer;
 - (void)pullMatchPolicyInfoData;
+- (void)registerDelegate:(BOOL)delegate;
+- (void)registerDelegateCall:(BOOL)call;
+- (void)removeAllIdentitiesForUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)removeIdentity:(id)identity withOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)removePeriocularTemplatesWithOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)resetAppleConnectCounter;
+- (void)setDebugImages:(BOOL)images;
+- (void)setProtectedConfiguration:(id)configuration forUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)setSystemProtectedConfiguration:(id)configuration withOptions:(id)options async:(BOOL)async withReply:(id)reply;
 - (void)startNewMatchAttempt;
 - (void)timestampEvent:(unint64_t)event absoluteTime:(unint64_t)time;
@@ -181,25 +208,25 @@ LABEL_8:
 
 - (int)connect
 {
-  v29 = 0;
-  v30[0] = &v29;
-  v30[1] = 0x2020000000;
   v31 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
+  v32[0] = &v31;
+  v32[1] = 0x2020000000;
+  v33 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
+  v30 = 0;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  if (isInternalBuild())
+  if (isInternalBuild(v6, v7))
   {
-    v6 = +[BiometricKitXPCClient clientUUID];
-    v7 = v24[5];
-    v24[5] = v6;
+    v8 = +[BiometricKitXPCClient clientUUID];
+    v9 = v26[5];
+    v26[5] = v8;
   }
 
   if (bundleIdentifier)
@@ -207,60 +234,60 @@ LABEL_8:
     [dictionary setObject:bundleIdentifier forKeyedSubscript:@"BKClientBundleIdentifier"];
   }
 
-  v8 = MEMORY[0x1E696AD98];
+  v10 = MEMORY[0x1E696AD98];
   processInfo = [MEMORY[0x1E696AE30] processInfo];
-  v10 = [v8 numberWithInt:{objc_msgSend(processInfo, "processIdentifier")}];
-  [dictionary setObject:v10 forKeyedSubscript:@"BKClientProcessId"];
+  v12 = [v10 numberWithInt:{objc_msgSend(processInfo, "processIdentifier")}];
+  [dictionary setObject:v12 forKeyedSubscript:@"BKClientProcessId"];
 
   processInfo2 = [MEMORY[0x1E696AE30] processInfo];
   processName = [processInfo2 processName];
   [dictionary setObject:processName forKeyedSubscript:@"BKClientProcessName"];
 
-  v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_clientType];
-  [dictionary setObject:v13 forKeyedSubscript:@"BKClientType"];
+  v15 = [MEMORY[0x1E696AD98] numberWithInteger:self->_clientType];
+  [dictionary setObject:v15 forKeyedSubscript:@"BKClientType"];
 
-  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BiometricKitXPCClient connectionId](self, "connectionId")}];
-  [dictionary setObject:v14 forKeyedSubscript:@"BKClientConnectionId"];
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BiometricKitXPCClient connectionId](self, "connectionId")}];
+  [dictionary setObject:v16 forKeyedSubscript:@"BKClientConnectionId"];
 
-  [dictionary setObject:v24[5] forKeyedSubscript:@"BKClientUUID"];
+  [dictionary setObject:v26[5] forKeyedSubscript:@"BKClientUUID"];
   WeakRetained = objc_loadWeakRetained(&self->_connection);
   xpcConnection = [WeakRetained xpcConnection];
 
   if (xpcConnection)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __32__BiometricKitXPCClient_connect__block_invoke;
-    v22[3] = &unk_1E8303DE8;
-    v22[4] = &v29;
-    v17 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v22];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __32__BiometricKitXPCClient_connect__block_invoke;
+    v24[3] = &unk_1E8303DE8;
+    v24[4] = &v31;
+    v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v24];
     clientID = [(BiometricKitXPCClient *)self clientID];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __32__BiometricKitXPCClient_connect__block_invoke_2;
-    v21[3] = &unk_1E8303E10;
-    v21[4] = &v23;
-    v21[5] = &v29;
-    [v17 connect:dictionary client:clientID replyBlock:v21];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __32__BiometricKitXPCClient_connect__block_invoke_2;
+    v23[3] = &unk_1E8303E10;
+    v23[4] = &v25;
+    v23[5] = &v31;
+    [v19 connect:dictionary client:clientID replyBlock:v23];
 
-    v19 = *(v30[0] + 24);
+    v21 = *(v32[0] + 24);
   }
 
   else
   {
-    [(BiometricKitXPCClient *)v30 connect];
-    v19 = 1;
+    [(BiometricKitXPCClient *)v32 connect];
+    v21 = 1;
   }
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
-  return v19;
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
+  return v21;
 }
 
 + (id)clientUUID
 {
-  v21 = *MEMORY[0x1E69E9840];
-  memset(v20, 0, sizeof(v20));
+  v20 = *MEMORY[0x1E69E9840];
+  memset(v19, 0, sizeof(v19));
   v2 = malloc_type_malloc(0x800uLL, 0x80040B8603338uLL);
   if (v2)
   {
@@ -310,7 +337,7 @@ LABEL_8:
 
           else
           {
-            uuid_copy(v20, v9);
+            uuid_copy(v19, v9);
           }
 
           free(v3);
@@ -330,20 +357,18 @@ LABEL_12:
 
   +[BiometricKitXPCClient clientUUID];
 LABEL_13:
-  v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v20];
+  v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v19];
   uUIDString = [v15 UUIDString];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }
 
-void __32__BiometricKitXPCClient_connect__block_invoke_2(uint64_t a1, int a2)
+void __32__BiometricKitXPCClient_connect__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a2 == 266)
   {
-    if (isInternalBuild())
+    if (isInternalBuild(a1, a2))
     {
       if (__osLog)
       {
@@ -358,30 +383,26 @@ void __32__BiometricKitXPCClient_connect__block_invoke_2(uint64_t a1, int a2)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         v4 = *(*(*(a1 + 32) + 8) + 40);
-        v6 = 138412290;
-        v7 = v4;
-        _os_log_impl(&dword_1C82AD000, v3, OS_LOG_TYPE_ERROR, "Please adopt new BiometricKit entitlements (see rdar://105770455 for additional details), client UUID %@\n", &v6, 0xCu);
+        v5 = 138412290;
+        v6 = v4;
+        _os_log_impl(&dword_1C82AD000, v3, OS_LOG_TYPE_ERROR, "Please adopt new BiometricKit entitlements (see rdar://105770455 for additional details), client UUID %@\n", &v5, 0xCu);
       }
     }
 
-    a2 = 0;
+    LODWORD(a2) = 0;
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disconnect
@@ -406,27 +427,28 @@ void __32__BiometricKitXPCClient_connect__block_invoke_2(uint64_t a1, int a2)
 
 - (BiometricKitXPCClient)init
 {
-  if (isTouchIDPlatform())
+  v3 = isTouchIDPlatform();
+  if (v3)
   {
-    v3 = 1;
+    v5 = 1;
   }
 
-  else if (isFaceIDPlatform())
+  else if (isFaceIDPlatform(v3, v4))
   {
-    v3 = 2;
+    v5 = 2;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  return [(BiometricKitXPCClient *)self initWithDeviceType:v3 clientType:1];
+  return [(BiometricKitXPCClient *)self initWithDeviceType:v5 clientType:1];
 }
 
 - (BiometricKitXPCClient)initWithDeviceType:(int64_t)type clientType:(int64_t)clientType
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = [BiometricKitXPCClientConnection connectionWithDeviceType:type];
   if (!v6)
   {
@@ -446,15 +468,15 @@ void __32__BiometricKitXPCClient_connect__block_invoke_2(uint64_t a1, int a2)
     }
 
     *buf = 136316162;
-    v21 = "0";
-    v22 = 2048;
-    v23 = 0;
-    v24 = 2080;
-    v25 = &unk_1C82F52EE;
-    v26 = 2080;
-    v27 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-    v28 = 1024;
-    v29 = 531;
+    v20 = "0";
+    v21 = 2048;
+    v22 = 0;
+    v23 = 2080;
+    v24 = &unk_1C82F52EE;
+    v25 = 2080;
+    v26 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+    v27 = 1024;
+    v28 = 531;
 LABEL_13:
     _os_log_impl(&dword_1C82AD000, v7, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     goto LABEL_26;
@@ -478,21 +500,21 @@ LABEL_13:
     }
 
     *buf = 136316162;
-    v21 = "0";
-    v22 = 2048;
-    v23 = 0;
-    v24 = 2080;
-    v25 = &unk_1C82F52EE;
-    v26 = 2080;
-    v27 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-    v28 = 1024;
-    v29 = 536;
+    v20 = "0";
+    v21 = 2048;
+    v22 = 0;
+    v23 = 2080;
+    v24 = &unk_1C82F52EE;
+    v25 = 2080;
+    v26 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+    v27 = 1024;
+    v28 = 536;
     goto LABEL_13;
   }
 
-  v19.receiver = self;
-  v19.super_class = BiometricKitXPCClient;
-  self = [(BiometricKitXPCClient *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = BiometricKitXPCClient;
+  self = [(BiometricKitXPCClient *)&v18 init];
   if (!self)
   {
     [BiometricKitXPCClient initWithDeviceType:clientType:];
@@ -524,15 +546,15 @@ LABEL_19:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v21 = "0";
-        v22 = 2048;
-        v23 = 0;
-        v24 = 2080;
-        v25 = &unk_1C82F52EE;
-        v26 = 2080;
-        v27 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-        v28 = 1024;
-        v29 = 549;
+        v20 = "0";
+        v21 = 2048;
+        v22 = 0;
+        v23 = 2080;
+        v24 = &unk_1C82F52EE;
+        v25 = 2080;
+        v26 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+        v27 = 1024;
+        v28 = 549;
         _os_log_impl(&dword_1C82AD000, v13, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
       }
 
@@ -552,9 +574,9 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v17 = _clientIDs;
-  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v10];
-  [v17 addObject:v18];
+  v16 = _clientIDs;
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v10];
+  [v16 addObject:v17];
 
   self->_clientID = v10;
   _clientIDIndex = v10 + 1;
@@ -581,15 +603,15 @@ LABEL_19:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v21 = "0";
-    v22 = 2048;
-    v23 = 0;
-    v24 = 2080;
-    v25 = &unk_1C82F52EE;
-    v26 = 2080;
-    v27 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
-    v28 = 1024;
-    v29 = 562;
+    v20 = "0";
+    v21 = 2048;
+    v22 = 0;
+    v23 = 2080;
+    v24 = &unk_1C82F52EE;
+    v25 = 2080;
+    v26 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BiometricKitXPCClient.m";
+    v27 = 1024;
+    v28 = 562;
     goto LABEL_13;
   }
 
@@ -597,13 +619,12 @@ LABEL_26:
   selfCopy = 0;
 LABEL_27:
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)interruptConnection
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__osLog)
   {
     v3 = __osLog;
@@ -629,12 +650,11 @@ LABEL_27:
   block[1] = 3221225472;
   block[2] = __44__BiometricKitXPCClient_interruptConnection__block_invoke;
   block[3] = &unk_1E8303C80;
-  objc_copyWeak(&v8, buf);
+  objc_copyWeak(&v7, buf);
   dispatch_async(v5, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__BiometricKitXPCClient_interruptConnection__block_invoke(uint64_t a1)
@@ -651,11 +671,40 @@ void __44__BiometricKitXPCClient_interruptConnection__block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __32__BiometricKitXPCClient_connect__block_invoke(uint64_t a1, void *a2)
+void *__32__BiometricKitXPCClient_connect__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
+}
+
+- (void)registerDelegateCall:(BOOL)call
+{
+  callCopy = call;
+  WeakRetained = objc_loadWeakRetained(&self->_connection);
+  xpcConnection = [WeakRetained xpcConnection];
+  v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_302];
+  [v6 registerDelegate:callCopy client:-[BiometricKitXPCClient clientID](self replyBlock:{"clientID"), &__block_literal_global_304}];
+}
+
+- (void)registerDelegate:(BOOL)delegate
+{
+  if (self->_connectionInitialized)
+  {
+
+    [(BiometricKitXPCClient *)self registerDelegateCall:delegate];
+  }
+
+  else if (delegate)
+  {
+    v4 = dispatch_get_global_queue(0, 0);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __42__BiometricKitXPCClient_registerDelegate___block_invoke;
+    block[3] = &unk_1E8303E78;
+    block[4] = self;
+    dispatch_async(v4, block);
+  }
 }
 
 void __42__BiometricKitXPCClient_registerDelegate___block_invoke(uint64_t a1)
@@ -664,6 +713,82 @@ void __42__BiometricKitXPCClient_registerDelegate___block_invoke(uint64_t a1)
   [*(a1 + 32) initializeConnection];
 
   objc_autoreleasePoolPop(v2);
+}
+
+- (void)notifyAppIsBackground:(BOOL)background
+{
+  backgroundCopy = background;
+  WeakRetained = objc_loadWeakRetained(&self->_connection);
+  xpcConnection = [WeakRetained xpcConnection];
+  v6 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_306];
+  [v6 notifyAppIsBackground:backgroundCopy client:{-[BiometricKitXPCClient clientID](self, "clientID")}];
+}
+
+- (void)notifyAppIsInactive:(BOOL)inactive
+{
+  inactiveCopy = inactive;
+  WeakRetained = objc_loadWeakRetained(&self->_connection);
+  xpcConnection = [WeakRetained xpcConnection];
+  v6 = [xpcConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_308];
+  [v6 notifyAppIsInactive:inactiveCopy client:{-[BiometricKitXPCClient clientID](self, "clientID")}];
+}
+
+- (void)enroll:(int)enroll forUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply
+{
+  asyncCopy = async;
+  v9 = *&user;
+  v10 = *&enroll;
+  optionsCopy = options;
+  replyCopy = reply;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient enroll:forUser:withOptions:async:withReply:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    if (asyncCopy)
+    {
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __68__BiometricKitXPCClient_enroll_forUser_withOptions_async_withReply___block_invoke;
+      v29[3] = &unk_1E8303EA0;
+      v16 = replyCopy;
+      v30 = v16;
+      v17 = [xpcConnection remoteObjectProxyWithErrorHandler:v29];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __68__BiometricKitXPCClient_enroll_forUser_withOptions_async_withReply___block_invoke_2;
+      v27[3] = &unk_1E8303EC8;
+      v28 = v16;
+      [v17 enroll:v10 user:v9 options:optionsCopy async:1 client:clientID replyBlock:v27];
+
+      v19 = v30;
+    }
+
+    else
+    {
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __68__BiometricKitXPCClient_enroll_forUser_withOptions_async_withReply___block_invoke_3;
+      v25[3] = &unk_1E8303EA0;
+      v20 = replyCopy;
+      v26 = v20;
+      v21 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v25];
+      clientID2 = [(BiometricKitXPCClient *)self clientID];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __68__BiometricKitXPCClient_enroll_forUser_withOptions_async_withReply___block_invoke_4;
+      v23[3] = &unk_1E8303EC8;
+      v24 = v20;
+      [v21 enroll:v10 user:v9 options:optionsCopy async:0 client:clientID2 replyBlock:v23];
+
+      v19 = v26;
+    }
+  }
 }
 
 uint64_t __68__BiometricKitXPCClient_enroll_forUser_withOptions_async_withReply___block_invoke(uint64_t a1, void *a2)
@@ -983,6 +1108,63 @@ uint64_t __68__BiometricKitXPCClient_removeIdentity_withOptions_async_withReply_
   return v4(v2, v3);
 }
 
+- (void)removeAllIdentitiesForUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply
+{
+  asyncCopy = async;
+  v8 = *&user;
+  optionsCopy = options;
+  replyCopy = reply;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient removeAllIdentitiesForUser:withOptions:async:withReply:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    if (asyncCopy)
+    {
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_async_withReply___block_invoke;
+      v27[3] = &unk_1E8303EA0;
+      v14 = replyCopy;
+      v28 = v14;
+      v15 = [xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_async_withReply___block_invoke_2;
+      v25[3] = &unk_1E8303EC8;
+      v26 = v14;
+      [v15 removeAllIdentitiesForUser:v8 options:optionsCopy async:1 client:clientID replyBlock:v25];
+
+      v17 = v28;
+    }
+
+    else
+    {
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_async_withReply___block_invoke_3;
+      v23[3] = &unk_1E8303EA0;
+      v18 = replyCopy;
+      v24 = v18;
+      v19 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v23];
+      clientID2 = [(BiometricKitXPCClient *)self clientID];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_async_withReply___block_invoke_4;
+      v21[3] = &unk_1E8303EC8;
+      v22 = v18;
+      [v19 removeAllIdentitiesForUser:v8 options:optionsCopy async:0 client:clientID2 replyBlock:v21];
+
+      v17 = v24;
+    }
+  }
+}
+
 uint64_t __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_async_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
@@ -1069,6 +1251,69 @@ uint64_t __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_asyn
   return v9;
 }
 
+- (int64_t)getMaxIdentityCount:(int)count
+{
+  v3 = *&count;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getMaxIdentityCount:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_322];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __45__BiometricKitXPCClient_getMaxIdentityCount___block_invoke_2;
+    v11[3] = &unk_1E8303F40;
+    v11[4] = &v12;
+    [v7 getMaxIdentityCount:v3 client:clientID replyBlock:v11];
+  }
+
+  v9 = v13[3];
+  _Block_object_dispose(&v12, 8);
+  return v9;
+}
+
+- (int64_t)getFreeIdentityCount:(int)count forUser:(unsigned int)user
+{
+  v4 = *&user;
+  v5 = *&count;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getFreeIdentityCount:forUser:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v9 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_325];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __54__BiometricKitXPCClient_getFreeIdentityCount_forUser___block_invoke_2;
+    v13[3] = &unk_1E8303F40;
+    v13[4] = &v14;
+    [v9 getFreeIdentityCount:v5 user:v4 client:clientID replyBlock:v13];
+  }
+
+  v11 = v15[3];
+  _Block_object_dispose(&v14, 8);
+  return v11;
+}
+
 - (int)enrollContinue
 {
   v12 = 0;
@@ -1106,7 +1351,7 @@ uint64_t __80__BiometricKitXPCClient_removeAllIdentitiesForUser_withOptions_asyn
   return v8;
 }
 
-uint64_t __39__BiometricKitXPCClient_enrollContinue__block_invoke(uint64_t a1, void *a2)
+void *__39__BiometricKitXPCClient_enrollContinue__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1213,6 +1458,40 @@ uint64_t __39__BiometricKitXPCClient_enrollContinue__block_invoke(uint64_t a1, v
   return v9;
 }
 
+- (id)getProtectedConfigurationForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getProtectedConfigurationForUser:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_334];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__BiometricKitXPCClient_getProtectedConfigurationForUser___block_invoke_2;
+    v11[3] = &unk_1E8303FB8;
+    v11[4] = &v12;
+    [v7 getProtectedConfigurationForUser:v3 client:clientID replyBlock:v11];
+  }
+
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+
+  return v9;
+}
+
 - (id)getSystemProtectedConfiguration
 {
   v10 = 0;
@@ -1244,6 +1523,64 @@ uint64_t __39__BiometricKitXPCClient_enrollContinue__block_invoke(uint64_t a1, v
   _Block_object_dispose(&v10, 8);
 
   return v7;
+}
+
+- (void)setProtectedConfiguration:(id)configuration forUser:(unsigned int)user withOptions:(id)options async:(BOOL)async withReply:(id)reply
+{
+  asyncCopy = async;
+  v10 = *&user;
+  configurationCopy = configuration;
+  optionsCopy = options;
+  replyCopy = reply;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient setProtectedConfiguration:forUser:withOptions:async:withReply:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    if (asyncCopy)
+    {
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __87__BiometricKitXPCClient_setProtectedConfiguration_forUser_withOptions_async_withReply___block_invoke;
+      v30[3] = &unk_1E8303EA0;
+      v17 = replyCopy;
+      v31 = v17;
+      v18 = [xpcConnection remoteObjectProxyWithErrorHandler:v30];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __87__BiometricKitXPCClient_setProtectedConfiguration_forUser_withOptions_async_withReply___block_invoke_2;
+      v28[3] = &unk_1E8303EC8;
+      v29 = v17;
+      [v18 setProtectedConfiguration:configurationCopy user:v10 options:optionsCopy async:1 client:clientID replyBlock:v28];
+
+      v20 = v31;
+    }
+
+    else
+    {
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __87__BiometricKitXPCClient_setProtectedConfiguration_forUser_withOptions_async_withReply___block_invoke_3;
+      v26[3] = &unk_1E8303EA0;
+      v21 = replyCopy;
+      v27 = v21;
+      v22 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v26];
+      clientID2 = [(BiometricKitXPCClient *)self clientID];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __87__BiometricKitXPCClient_setProtectedConfiguration_forUser_withOptions_async_withReply___block_invoke_4;
+      v24[3] = &unk_1E8303EC8;
+      v25 = v21;
+      [v22 setProtectedConfiguration:configurationCopy user:v10 options:optionsCopy async:0 client:clientID2 replyBlock:v24];
+
+      v20 = v27;
+    }
+  }
 }
 
 uint64_t __87__BiometricKitXPCClient_setProtectedConfiguration_forUser_withOptions_async_withReply___block_invoke(uint64_t a1, void *a2)
@@ -1339,7 +1676,54 @@ uint64_t __85__BiometricKitXPCClient_setSystemProtectedConfiguration_withOptions
   return v4(v2, v3);
 }
 
-uint64_t __52__BiometricKitXPCClient_getBioLockoutState_forUser___block_invoke(uint64_t a1, void *a2)
+- (int)getBioLockoutState:(int64_t *)state forUser:(unsigned int)user
+{
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  if (state)
+  {
+    v4 = *&user;
+    initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+    *(v17 + 6) = initializeConnection;
+    if (initializeConnection)
+    {
+      [BiometricKitXPCClient getBioLockoutState:forUser:];
+    }
+
+    else
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_connection);
+      xpcConnection = [WeakRetained xpcConnection];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __52__BiometricKitXPCClient_getBioLockoutState_forUser___block_invoke;
+      v15[3] = &unk_1E8303DE8;
+      v15[4] = &v16;
+      v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __52__BiometricKitXPCClient_getBioLockoutState_forUser___block_invoke_2;
+      v14[3] = &unk_1E8303FE0;
+      v14[4] = &v16;
+      v14[5] = state;
+      [v10 getBioLockoutStateForUser:v4 client:clientID replyBlock:v14];
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCClient getBioLockoutState:forUser:];
+  }
+
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v12;
+}
+
+void *__52__BiometricKitXPCClient_getBioLockoutState_forUser___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1354,7 +1738,54 @@ uint64_t __52__BiometricKitXPCClient_getBioLockoutState_forUser___block_invoke_2
   return result;
 }
 
-uint64_t __53__BiometricKitXPCClient_getExpressModeState_forUser___block_invoke(uint64_t a1, void *a2)
+- (int)getExpressModeState:(int64_t *)state forUser:(unsigned int)user
+{
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  if (state)
+  {
+    v4 = *&user;
+    initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+    *(v17 + 6) = initializeConnection;
+    if (initializeConnection)
+    {
+      [BiometricKitXPCClient getExpressModeState:forUser:];
+    }
+
+    else
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_connection);
+      xpcConnection = [WeakRetained xpcConnection];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __53__BiometricKitXPCClient_getExpressModeState_forUser___block_invoke;
+      v15[3] = &unk_1E8303DE8;
+      v15[4] = &v16;
+      v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __53__BiometricKitXPCClient_getExpressModeState_forUser___block_invoke_2;
+      v14[3] = &unk_1E8303FE0;
+      v14[4] = &v16;
+      v14[5] = state;
+      [v10 getExpressModeStateForUser:v4 client:clientID replyBlock:v14];
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCClient getExpressModeState:forUser:];
+  }
+
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v12;
+}
+
+void *__53__BiometricKitXPCClient_getExpressModeState_forUser___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1436,14 +1867,54 @@ uint64_t __53__BiometricKitXPCClient_getExpressModeState_forUser___block_invoke_
   return v8;
 }
 
-uint64_t __40__BiometricKitXPCClient_dropUnlockToken__block_invoke(uint64_t a1, void *a2)
+void *__40__BiometricKitXPCClient_dropUnlockToken__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __60__BiometricKitXPCClient_forceBioLockoutForUser_withOptions___block_invoke(uint64_t a1, void *a2)
+- (int)forceBioLockoutForUser:(unsigned int)user withOptions:(id)options
+{
+  v4 = *&user;
+  optionsCopy = options;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v17 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient forceBioLockoutForUser:withOptions:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __60__BiometricKitXPCClient_forceBioLockoutForUser_withOptions___block_invoke;
+    v15[3] = &unk_1E8303DE8;
+    v15[4] = &v16;
+    v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __60__BiometricKitXPCClient_forceBioLockoutForUser_withOptions___block_invoke_2;
+    v14[3] = &unk_1E8303F68;
+    v14[4] = &v16;
+    [v10 forceBioLockoutForUser:v4 options:optionsCopy client:clientID replyBlock:v14];
+  }
+
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+
+  return v12;
+}
+
+void *__60__BiometricKitXPCClient_forceBioLockoutForUser_withOptions___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1489,7 +1960,7 @@ uint64_t __60__BiometricKitXPCClient_forceBioLockoutForUser_withOptions___block_
   return v12;
 }
 
-uint64_t __50__BiometricKitXPCClient_registerDSID_withOptions___block_invoke(uint64_t a1, void *a2)
+void *__50__BiometricKitXPCClient_registerDSID_withOptions___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1533,7 +2004,7 @@ uint64_t __50__BiometricKitXPCClient_registerDSID_withOptions___block_invoke(uin
   return v8;
 }
 
-uint64_t __49__BiometricKitXPCClient_resetAppleConnectCounter__block_invoke(uint64_t a1, void *a2)
+void *__49__BiometricKitXPCClient_resetAppleConnectCounter__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1579,7 +2050,7 @@ uint64_t __49__BiometricKitXPCClient_resetAppleConnectCounter__block_invoke(uint
   return v10;
 }
 
-uint64_t __44__BiometricKitXPCClient_registerStoreToken___block_invoke(uint64_t a1, void *a2)
+void *__44__BiometricKitXPCClient_registerStoreToken___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1637,14 +2108,147 @@ uint64_t __44__BiometricKitXPCClient_registerStoreToken___block_invoke(uint64_t 
   return v10;
 }
 
-uint64_t __52__BiometricKitXPCClient_getCountersignedStoreToken___block_invoke(uint64_t a1, void *a2)
+void *__52__BiometricKitXPCClient_getCountersignedStoreToken___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __68__BiometricKitXPCClient_diagnostics_withOptions_passed_withDetails___block_invoke(uint64_t a1, void *a2)
+- (id)getIdentitiesDatabaseUUIDForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getIdentitiesDatabaseUUIDForUser:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_344];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__BiometricKitXPCClient_getIdentitiesDatabaseUUIDForUser___block_invoke_2;
+    v11[3] = &unk_1E8304030;
+    v11[4] = &v12;
+    [v7 getIdentitiesDatabaseUUIDForUser:v3 client:clientID replyBlock:v11];
+  }
+
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+
+  return v9;
+}
+
+- (id)getIdentitiesDatabaseHashForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getIdentitiesDatabaseHashForUser:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v7 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_347];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__BiometricKitXPCClient_getIdentitiesDatabaseHashForUser___block_invoke_2;
+    v11[3] = &unk_1E8303F90;
+    v11[4] = &v12;
+    [v7 getIdentitiesDatabaseHashForUser:v3 client:clientID replyBlock:v11];
+  }
+
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+
+  return v9;
+}
+
+- (int)diagnostics:(int)diagnostics withOptions:(id)options passed:(BOOL *)passed withDetails:(id *)details
+{
+  v8 = *&diagnostics;
+  optionsCopy = options;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v31 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient diagnostics:withOptions:passed:withDetails:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __68__BiometricKitXPCClient_diagnostics_withOptions_passed_withDetails___block_invoke;
+    v19[3] = &unk_1E8303DE8;
+    v19[4] = &v30;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v19];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __68__BiometricKitXPCClient_diagnostics_withOptions_passed_withDetails___block_invoke_2;
+    v18[3] = &unk_1E8304058;
+    v18[4] = &v30;
+    v18[5] = &v26;
+    v18[6] = &v20;
+    [v14 diagnostics:v8 options:optionsCopy client:clientID replyBlock:v18];
+
+    if (passed)
+    {
+      *passed = *(v27 + 24);
+    }
+
+    if (details)
+    {
+      *details = v21[5];
+    }
+  }
+
+  v16 = *(v31 + 6);
+  _Block_object_dispose(&v20, 8);
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
+
+  return v16;
+}
+
+void *__68__BiometricKitXPCClient_diagnostics_withOptions_passed_withDetails___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1713,7 +2317,7 @@ void __68__BiometricKitXPCClient_diagnostics_withOptions_passed_withDetails___bl
   return v12;
 }
 
-uint64_t __49__BiometricKitXPCClient_setUserDSID_withOptions___block_invoke(uint64_t a1, void *a2)
+void *__49__BiometricKitXPCClient_setUserDSID_withOptions___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1882,6 +2486,43 @@ uint64_t __49__BiometricKitXPCClient_setUserDSID_withOptions___block_invoke(uint
   return v7;
 }
 
+- (id)pullDebugImageData:(BOOL)data rotated:(BOOL)rotated imageWidth:(unsigned int *)width imageHeight:(unsigned int *)height
+{
+  rotatedCopy = rotated;
+  dataCopy = data;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient pullDebugImageData:rotated:imageWidth:imageHeight:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v13 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_364];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__BiometricKitXPCClient_pullDebugImageData_rotated_imageWidth_imageHeight___block_invoke_2;
+    v17[3] = &unk_1E8304080;
+    v17[4] = &v18;
+    v17[5] = width;
+    v17[6] = height;
+    [v13 pullDebugImageData:dataCopy rotated:rotatedCopy client:clientID replyBlock:v17];
+  }
+
+  v15 = v19[5];
+  _Block_object_dispose(&v18, 8);
+
+  return v15;
+}
+
 void __75__BiometricKitXPCClient_pullDebugImageData_rotated_imageWidth_imageHeight___block_invoke_2(void *a1, void *a2, int a3, int a4)
 {
   v10 = a2;
@@ -1897,6 +2538,71 @@ void __75__BiometricKitXPCClient_pullDebugImageData_rotated_imageWidth_imageHeig
   {
     *v9 = a4;
   }
+}
+
+- (void)setDebugImages:(BOOL)images
+{
+  imagesCopy = images;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient setDebugImages:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v6 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_367];
+    [v6 setDebugImages:imagesCopy client:-[BiometricKitXPCClient clientID](self replyBlock:{"clientID"), &__block_literal_global_369}];
+  }
+}
+
+- (id)getLogs:(BOOL)logs withDetails:(id *)details
+{
+  logsCopy = logs;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
+  if ([(BiometricKitXPCClient *)self initializeConnection])
+  {
+    [BiometricKitXPCClient getLogs:withDetails:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v9 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_371];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __45__BiometricKitXPCClient_getLogs_withDetails___block_invoke_2;
+    v13[3] = &unk_1E83040A8;
+    v13[4] = &v20;
+    v13[5] = &v14;
+    [v9 getLogs:logsCopy client:clientID replyBlock:v13];
+
+    if (details)
+    {
+      *details = v15[5];
+    }
+  }
+
+  v11 = v21[5];
+  _Block_object_dispose(&v14, 8);
+
+  _Block_object_dispose(&v20, 8);
+
+  return v11;
 }
 
 void __45__BiometricKitXPCClient_getLogs_withDetails___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1976,7 +2682,45 @@ void __45__BiometricKitXPCClient_getLogs_withDetails___block_invoke_2(uint64_t a
   return v7;
 }
 
-uint64_t __46__BiometricKitXPCClient_enableBackgroundFdet___block_invoke(uint64_t a1, void *a2)
+- (int)enableBackgroundFdet:(BOOL)fdet
+{
+  fdetCopy = fdet;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v15 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient enableBackgroundFdet:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __46__BiometricKitXPCClient_enableBackgroundFdet___block_invoke;
+    v13[3] = &unk_1E8303DE8;
+    v13[4] = &v14;
+    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __46__BiometricKitXPCClient_enableBackgroundFdet___block_invoke_2;
+    v12[3] = &unk_1E8303F68;
+    v12[4] = &v14;
+    [v8 enableBackgroundFdet:fdetCopy client:clientID replyBlock:v12];
+  }
+
+  v10 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
+  return v10;
+}
+
+void *__46__BiometricKitXPCClient_enableBackgroundFdet___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2110,14 +2854,53 @@ uint64_t __46__BiometricKitXPCClient_enableBackgroundFdet___block_invoke(uint64_
   return v8;
 }
 
-uint64_t __45__BiometricKitXPCClient_startNewMatchAttempt__block_invoke(uint64_t a1, void *a2)
+void *__45__BiometricKitXPCClient_startNewMatchAttempt__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __57__BiometricKitXPCClient_getBiometryAvailability_forUser___block_invoke(uint64_t a1, void *a2)
+- (int)getBiometryAvailability:(int64_t *)availability forUser:(unsigned int)user
+{
+  v4 = *&user;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v17 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient getBiometryAvailability:forUser:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __57__BiometricKitXPCClient_getBiometryAvailability_forUser___block_invoke;
+    v15[3] = &unk_1E8303DE8;
+    v15[4] = &v16;
+    v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __57__BiometricKitXPCClient_getBiometryAvailability_forUser___block_invoke_2;
+    v14[3] = &unk_1E8303FE0;
+    v14[4] = &v16;
+    v14[5] = availability;
+    [v10 getBiometryAvailabilityForUser:v4 client:clientID replyBlock:v14];
+  }
+
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v12;
+}
+
+void *__57__BiometricKitXPCClient_getBiometryAvailability_forUser___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2173,14 +2956,52 @@ uint64_t __57__BiometricKitXPCClient_getBiometryAvailability_forUser___block_inv
   return v8;
 }
 
-uint64_t __43__BiometricKitXPCClient_completeEnrollment__block_invoke(uint64_t a1, void *a2)
+void *__43__BiometricKitXPCClient_completeEnrollment__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __43__BiometricKitXPCClient_suspendEnrollment___block_invoke(uint64_t a1, void *a2)
+- (int)suspendEnrollment:(BOOL)enrollment
+{
+  enrollmentCopy = enrollment;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v15 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient suspendEnrollment:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __43__BiometricKitXPCClient_suspendEnrollment___block_invoke;
+    v13[3] = &unk_1E8303DE8;
+    v13[4] = &v14;
+    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __43__BiometricKitXPCClient_suspendEnrollment___block_invoke_2;
+    v12[3] = &unk_1E8303F68;
+    v12[4] = &v14;
+    [v8 suspendEnrollment:enrollmentCopy client:clientID replyBlock:v12];
+  }
+
+  v10 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
+  return v10;
+}
+
+void *__43__BiometricKitXPCClient_suspendEnrollment___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2227,7 +3048,7 @@ uint64_t __43__BiometricKitXPCClient_suspendEnrollment___block_invoke(uint64_t a
   return v13;
 }
 
-uint64_t __49__BiometricKitXPCClient_setTemplate_forIdentity___block_invoke(uint64_t a1, void *a2)
+void *__49__BiometricKitXPCClient_setTemplate_forIdentity___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2280,7 +3101,7 @@ uint64_t __49__BiometricKitXPCClient_setTemplate_forIdentity___block_invoke(uint
   return v10;
 }
 
-uint64_t __57__BiometricKitXPCClient_isPeriocularEnrollmentSupported___block_invoke(uint64_t a1, void *a2)
+void *__57__BiometricKitXPCClient_isPeriocularEnrollmentSupported___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2295,7 +3116,54 @@ uint64_t __57__BiometricKitXPCClient_isPeriocularEnrollmentSupported___block_inv
   return result;
 }
 
-uint64_t __55__BiometricKitXPCClient_getPeriocularMatchState_state___block_invoke(uint64_t a1, void *a2)
+- (int)getPeriocularMatchState:(unsigned int)state state:(int64_t *)a4
+{
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  if (a4)
+  {
+    v5 = *&state;
+    initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+    *(v17 + 6) = initializeConnection;
+    if (initializeConnection)
+    {
+      [BiometricKitXPCClient getPeriocularMatchState:state:];
+    }
+
+    else
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_connection);
+      xpcConnection = [WeakRetained xpcConnection];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __55__BiometricKitXPCClient_getPeriocularMatchState_state___block_invoke;
+      v15[3] = &unk_1E8303DE8;
+      v15[4] = &v16;
+      v10 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v15];
+      clientID = [(BiometricKitXPCClient *)self clientID];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __55__BiometricKitXPCClient_getPeriocularMatchState_state___block_invoke_2;
+      v14[3] = &unk_1E8303FE0;
+      v14[4] = &v16;
+      v14[5] = a4;
+      [v10 getPeriocularMatchState:v5 client:clientID replyBlock:v14];
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCClient getPeriocularMatchState:state:];
+  }
+
+  v12 = *(v17 + 6);
+  _Block_object_dispose(&v16, 8);
+  return v12;
+}
+
+void *__55__BiometricKitXPCClient_getPeriocularMatchState_state___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2384,7 +3252,47 @@ uint64_t __78__BiometricKitXPCClient_removePeriocularTemplatesWithOptions_async_
   return v4(v2, v3);
 }
 
-uint64_t __75__BiometricKitXPCClient_queryIdentityMigrationFailureForUser_failed_clear___block_invoke(uint64_t a1, void *a2)
+- (int)queryIdentityMigrationFailureForUser:(unsigned int)user failed:(BOOL *)failed clear:(BOOL)clear
+{
+  clearCopy = clear;
+  v7 = *&user;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v19 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient queryIdentityMigrationFailureForUser:failed:clear:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __75__BiometricKitXPCClient_queryIdentityMigrationFailureForUser_failed_clear___block_invoke;
+    v17[3] = &unk_1E8303DE8;
+    v17[4] = &v18;
+    v12 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __75__BiometricKitXPCClient_queryIdentityMigrationFailureForUser_failed_clear___block_invoke_2;
+    v16[3] = &unk_1E83040F8;
+    v16[4] = &v18;
+    v16[5] = failed;
+    [v12 queryIdentityMigrationFailureForUser:v7 clear:clearCopy client:clientID replyBlock:v16];
+  }
+
+  v14 = *(v19 + 6);
+  _Block_object_dispose(&v18, 8);
+  return v14;
+}
+
+void *__75__BiometricKitXPCClient_queryIdentityMigrationFailureForUser_failed_clear___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2419,14 +3327,90 @@ uint64_t __75__BiometricKitXPCClient_queryIdentityMigrationFailureForUser_failed
   }
 }
 
-uint64_t __46__BiometricKitXPCClient_enableMatchAutoRetry___block_invoke(uint64_t a1, void *a2)
+- (int)enableMatchAutoRetry:(BOOL)retry
+{
+  retryCopy = retry;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v15 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient enableMatchAutoRetry:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __46__BiometricKitXPCClient_enableMatchAutoRetry___block_invoke;
+    v13[3] = &unk_1E8303DE8;
+    v13[4] = &v14;
+    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __46__BiometricKitXPCClient_enableMatchAutoRetry___block_invoke_2;
+    v12[3] = &unk_1E8303F68;
+    v12[4] = &v14;
+    [v8 enableMatchAutoRetry:retryCopy client:clientID replyBlock:v12];
+  }
+
+  v10 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
+  return v10;
+}
+
+void *__46__BiometricKitXPCClient_enableMatchAutoRetry___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __46__BiometricKitXPCClient_pauseFaceDetectTimer___block_invoke(uint64_t a1, void *a2)
+- (int)pauseFaceDetectTimer:(BOOL)timer
+{
+  timerCopy = timer;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v15 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient pauseFaceDetectTimer:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __46__BiometricKitXPCClient_pauseFaceDetectTimer___block_invoke;
+    v13[3] = &unk_1E8303DE8;
+    v13[4] = &v14;
+    v8 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v13];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __46__BiometricKitXPCClient_pauseFaceDetectTimer___block_invoke_2;
+    v12[3] = &unk_1E8303F68;
+    v12[4] = &v14;
+    [v8 pauseFaceDetectTimer:timerCopy client:clientID replyBlock:v12];
+  }
+
+  v10 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
+  return v10;
+}
+
+void *__46__BiometricKitXPCClient_pauseFaceDetectTimer___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2484,7 +3468,7 @@ uint64_t __46__BiometricKitXPCClient_pauseFaceDetectTimer___block_invoke(uint64_
   return v10;
 }
 
-uint64_t __43__BiometricKitXPCClient_getLastMatchEvent___block_invoke(uint64_t a1, void *a2)
+void *__43__BiometricKitXPCClient_getLastMatchEvent___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2550,7 +3534,7 @@ void __43__BiometricKitXPCClient_getLastMatchEvent___block_invoke_2(uint64_t a1,
   return v10;
 }
 
-uint64_t __48__BiometricKitXPCClient_getDeviceHardwareState___block_invoke(uint64_t a1, void *a2)
+void *__48__BiometricKitXPCClient_getDeviceHardwareState___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2620,7 +3604,7 @@ uint64_t __48__BiometricKitXPCClient_getDeviceHardwareState___block_invoke_2(uin
   return v10;
 }
 
-uint64_t __41__BiometricKitXPCClient_listAccessories___block_invoke(uint64_t a1, void *a2)
+void *__41__BiometricKitXPCClient_listAccessories___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2638,7 +3622,58 @@ void __41__BiometricKitXPCClient_listAccessories___block_invoke_2(uint64_t a1, i
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
 }
 
-uint64_t __69__BiometricKitXPCClient_getFreeIdentityCount_forUser_accessoryGroup___block_invoke(uint64_t a1, void *a2)
+- (int)getFreeIdentityCount:(unint64_t *)count forUser:(unsigned int)user accessoryGroup:(id)group
+{
+  v5 = *&user;
+  groupCopy = group;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  initializeConnection = [(BiometricKitXPCClient *)self initializeConnection];
+  *(v23 + 6) = initializeConnection;
+  if (initializeConnection)
+  {
+    [BiometricKitXPCClient getFreeIdentityCount:forUser:accessoryGroup:];
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_connection);
+    xpcConnection = [WeakRetained xpcConnection];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __69__BiometricKitXPCClient_getFreeIdentityCount_forUser_accessoryGroup___block_invoke;
+    v17[3] = &unk_1E8303DE8;
+    v17[4] = &v22;
+    v12 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v17];
+    clientID = [(BiometricKitXPCClient *)self clientID];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __69__BiometricKitXPCClient_getFreeIdentityCount_forUser_accessoryGroup___block_invoke_2;
+    v16[3] = &unk_1E8304198;
+    v16[4] = &v22;
+    v16[5] = &v18;
+    [v12 getFreeIdentityCountForUser:v5 accessoryGroup:groupCopy client:clientID replyBlock:v16];
+
+    if (count)
+    {
+      *count = v19[3];
+    }
+  }
+
+  v14 = *(v23 + 6);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
+
+  return v14;
+}
+
+void *__69__BiometricKitXPCClient_getFreeIdentityCount_forUser_accessoryGroup___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2714,7 +3749,7 @@ uint64_t __69__BiometricKitXPCClient_getFreeIdentityCount_forUser_accessoryGroup
   return v12;
 }
 
-uint64_t __52__BiometricKitXPCClient_getPreferencesValue_forKey___block_invoke(uint64_t a1, void *a2)
+void *__52__BiometricKitXPCClient_getPreferencesValue_forKey___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2761,7 +3796,7 @@ uint64_t __52__BiometricKitXPCClient_getPreferencesValue_forKey___block_invoke(u
   return v13;
 }
 
-uint64_t __52__BiometricKitXPCClient_setPreferencesValue_forKey___block_invoke(uint64_t a1, void *a2)
+void *__52__BiometricKitXPCClient_setPreferencesValue_forKey___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2805,7 +3840,7 @@ uint64_t __52__BiometricKitXPCClient_setPreferencesValue_forKey___block_invoke(u
   return v10;
 }
 
-uint64_t __39__BiometricKitXPCClient_prewarmCamera___block_invoke(uint64_t a1, void *a2)
+void *__39__BiometricKitXPCClient_prewarmCamera___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 code];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2814,1006 +3849,790 @@ uint64_t __39__BiometricKitXPCClient_prewarmCamera___block_invoke(uint64_t a1, v
 
 - (void)initWithDeviceType:clientType:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeConnection
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10, v12);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v5, v6, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v7, v8, v9, v10);
   }
 
   *a3 = a2;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)clientUUID
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connect
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *(*self + 24) = 1;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)enroll:forUser:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)match:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)detectPresenceWithOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)updateIdentity:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)removeIdentity:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)removeAllIdentitiesForUser:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (void)getIdentityFromUUID:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)identities:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getMaxIdentityCount:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getFreeIdentityCount:forUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enrollContinue
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pullAlignmentData
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pullMatchPolicyInfoData
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getNodeTopologyForIdentity:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getProtectedConfigurationForUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSystemProtectedConfiguration
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)setProtectedConfiguration:forUser:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (uint64_t)setSystemProtectedConfiguration:withOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (void)getBioLockoutState:forUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getBioLockoutState:forUser:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_10();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getExpressModeState:forUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getExpressModeState:forUser:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_10();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getProvisioningState
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dropUnlockToken
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceBioLockoutForUser:withOptions:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerDSID:withOptions:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetAppleConnectCounter
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerStoreToken:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getCountersignedStoreToken:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getIdentitiesDatabaseUUIDForUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getIdentitiesDatabaseHashForUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)diagnostics:withOptions:passed:withDetails:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timestampEvent:absoluteTime:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserDSID:withOptions:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSensorCalibrationStatus
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getCalibrationDataInfo
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSensorInfo
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pullCalibrationData
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pullCaptureBuffer
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pullDebugImageData:rotated:imageWidth:imageHeight:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDebugImages:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getLogs:withDetails:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fileRadarWithLogs:withDescription:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isFingerOn
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableBackgroundFdet:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isAriadneSignpostsEnabled
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isXARTAvailable
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getDeviceState
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startNewMatchAttempt
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getBiometryAvailability:forUser:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeEnrollment
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suspendEnrollment:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTemplate:forIdentity:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isPeriocularEnrollmentSupported:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isPeriocularEnrollmentSupported:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_10();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPeriocularMatchState:state:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPeriocularMatchState:state:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_10();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)removePeriocularTemplatesWithOptions:async:withReply:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   v6 = OUTLINED_FUNCTION_4_0();
-  result = v7(v6);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7(v6);
 }
 
 - (void)queryIdentityMigrationFailureForUser:failed:clear:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logEventOrCode:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableMatchAutoRetry:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseFaceDetectTimer:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getLastMatchEvent:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getDeviceHardwareState:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listAccessories:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getFreeIdentityCount:forUser:accessoryGroup:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPreferencesValue:forKey:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPreferencesValue:forKey:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreferencesValue:forKey:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prewarmCamera:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3_0(&dword_1C82AD000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

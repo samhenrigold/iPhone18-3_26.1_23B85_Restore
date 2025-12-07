@@ -34,7 +34,7 @@
     v18 = v13;
     if (v13)
     {
-      v5->_unitType = _PKEnumValueFromString(v13, 0, @"PKFieldUnitType", @"PKFieldUnitTypeNone, PKFieldUnitTypeDefault, PKFieldUnitTypeRides, PKFieldUnitTypeTickets, PKFieldUnitTypeLoyaltyPoints", v14, v15, v16, v17, 0xFFFFFFFF);
+      v5->_unitType = _PKEnumValueFromString(v13, 0, @"PKFieldUnitType", @"PKFieldUnitTypeNone, PKFieldUnitTypeDefault, PKFieldUnitTypeRides, PKFieldUnitTypeTickets, PKFieldUnitTypeLoyaltyPoints", v14, v15, v16, v17, -1);
     }
   }
 

@@ -37,20 +37,20 @@
 
 - (AMSUIWebJSResponse)initWithCoder:(id)coder
 {
-  v17[5] = *MEMORY[0x1E69E9840];
+  v16[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = AMSUIWebJSResponse;
-  v5 = [(AMSUIWebJSResponse *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = AMSUIWebJSResponse;
+  v5 = [(AMSUIWebJSResponse *)&v15 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v17[2] = objc_opt_class();
-    v17[3] = objc_opt_class();
-    v17[4] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:5];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v16[2] = objc_opt_class();
+    v16[3] = objc_opt_class();
+    v16[4] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
     v8 = [v6 setWithArray:v7];
 
     [coderCopy decodeDoubleForKey:@"kCodingKeyDuration"];
@@ -64,7 +64,6 @@
     v5->_originalRequest = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -16,17 +16,18 @@
   v19.receiver = self;
   v19.super_class = SLRemoteTaskManager;
   v10 = [(SLRemoteTaskManager *)&v19 init];
+  v11 = v10;
   if (v10)
   {
-    v11 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = SLFrameworkLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = @"NO";
+      v13 = @"NO";
       *buf = 134218754;
-      v21 = v10;
+      v21 = v11;
       if (synchronousCopy)
       {
-        v12 = @"YES";
+        v13 = @"YES";
       }
 
       v22 = 2112;
@@ -34,24 +35,23 @@
       v24 = 2112;
       v25 = queueCopy;
       v26 = 2112;
-      v27 = v12;
-      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_INFO, "[%p] initWithDelegate: %@ targetSerialQueue: %@ synchronous: %@", buf, 0x2Au);
+      v27 = v13;
+      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_INFO, "[%p] initWithDelegate: %@ targetSerialQueue: %@ synchronous: %@", buf, 0x2Au);
     }
 
-    objc_storeWeak(&v10->_delegate, delegateCopy);
-    v13 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x277D85CD8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v14 = dispatch_queue_attr_make_with_qos_class(v13, QOS_CLASS_USER_INTERACTIVE, 0);
+    objc_storeWeak(&v11->_delegate, delegateCopy);
+    v14 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x277D85CD8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v15 = dispatch_queue_attr_make_with_qos_class(v14, QOS_CLASS_USER_INTERACTIVE, 0);
 
-    v15 = dispatch_queue_create("com.apple.SocialLayer.SLRemoteTaskManager", v14);
-    backgroundConcurrentQueue = v10->_backgroundConcurrentQueue;
-    v10->_backgroundConcurrentQueue = v15;
+    v16 = dispatch_queue_create("com.apple.SocialLayer.SLRemoteTaskManager", v15);
+    backgroundConcurrentQueue = v11->_backgroundConcurrentQueue;
+    v11->_backgroundConcurrentQueue = v16;
 
-    objc_storeStrong(&v10->_targetSerialQueue, queue);
-    v10->_synchronous = synchronousCopy;
+    objc_storeStrong(&v11->_targetSerialQueue, queue);
+    v11->_synchronous = synchronousCopy;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)startTask:(id)task withTimeout:(double)timeout timeoutHandler:(id)handler errorHandler:(id)errorHandler
@@ -86,70 +86,67 @@
 
 void __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke(uint64_t a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__14;
-  v31 = __Block_byref_object_dispose__14;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__14;
-  v25 = __Block_byref_object_dispose__14;
+  v32[1] = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__14;
+  v29 = __Block_byref_object_dispose__14;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__14;
+  v23 = __Block_byref_object_dispose__14;
   v2 = [*(a1 + 32) targetSerialQueue];
   v3 = *(a1 + 64);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_5;
-  v18[3] = &unk_278926290;
-  v20 = &v27;
-  v19 = *(a1 + 40);
-  v26 = [SLGracePeriodTimer timerWithQueue:v2 delay:v18 action:v3];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_5;
+  v16[3] = &unk_278926290;
+  v18 = &v25;
+  v17 = *(a1 + 40);
+  v24 = [SLGracePeriodTimer timerWithQueue:v2 delay:v16 action:v3];
 
   v4 = *(a1 + 32);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_2;
-  v14[3] = &unk_2789277C8;
-  v16 = &v27;
-  v17 = &v21;
-  v15 = *(a1 + 48);
-  v5 = [v4 _serviceWithErrorHandler:v14];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_2;
+  v12[3] = &unk_2789277C8;
+  v14 = &v25;
+  v15 = &v19;
+  v13 = *(a1 + 48);
+  v5 = [v4 _serviceWithErrorHandler:v12];
   if (v5)
   {
-    [v22[5] arm];
-    v6 = v22[5];
-    v7 = (*(*(a1 + 56) + 16))();
-    v8 = v28[5];
-    v28[5] = v7;
+    [v20[5] arm];
+    v6 = (*(*(a1 + 56) + 16))();
+    v7 = v26[5];
+    v26[5] = v6;
 
-    v9 = [*(a1 + 32) targetSerialQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_3;
-    v13[3] = &unk_2789277F0;
-    v13[4] = &v27;
-    v13[5] = &v21;
-    dispatch_async(v9, v13);
+    v8 = [*(a1 + 32) targetSerialQueue];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_3;
+    v11[3] = &unk_2789277F0;
+    v11[4] = &v25;
+    v11[5] = &v19;
+    dispatch_async(v8, v11);
   }
 
   else
   {
-    v10 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA068];
-    v34[0] = @"XPC connection error. We were unable to retrieve a connection to the handshake service in sociallayerd";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-    v9 = [v10 errorWithDomain:@"com.apple.SocialLayer.SLRemoteTaskManager" code:1 userInfo:v11];
+    v9 = MEMORY[0x277CCA9B8];
+    v31 = *MEMORY[0x277CCA068];
+    v32[0] = @"XPC connection error. We were unable to retrieve a connection to the handshake service in sociallayerd";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v8 = [v9 errorWithDomain:@"com.apple.SocialLayer.SLRemoteTaskManager" code:1 userInfo:v10];
 
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
 uint64_t __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_5(uint64_t a1)
@@ -162,24 +159,22 @@ uint64_t __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHan
 
 void __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_2(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   [*(*(a1[5] + 8) + 40) cancel];
   if ([*(*(a1[6] + 8) + 40) isValid])
   {
     [*(*(a1[6] + 8) + 40) suppress];
     v2 = MEMORY[0x277CCA9B8];
-    v6 = *MEMORY[0x277CCA068];
-    v7[0] = @"XPC connection error. sociallayerd may have crashed";
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = *MEMORY[0x277CCA068];
+    v6[0] = @"XPC connection error. sociallayerd may have crashed";
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     v4 = [v2 errorWithDomain:@"com.apple.SocialLayer.SLRemoteTaskManager" code:1 userInfo:v3];
 
     (*(a1[4] + 16))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_3(uint64_t a1)
+void *__73__SLRemoteTaskManager_startTask_withTimeout_timeoutHandler_errorHandler___block_invoke_3(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 40) isCancelled];
   if ((result & 1) == 0)

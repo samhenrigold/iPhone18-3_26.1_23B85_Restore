@@ -31,7 +31,7 @@
 
 - (id)_computeStatisticsFromSamples:(void *)samples sampleFilterBlock:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   samplesCopy = samples;
   if (self)
@@ -55,24 +55,24 @@
 
     [v14 reset];
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sampleFilterBlock___block_invoke;
-    v31[3] = &unk_278614AE0;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sampleFilterBlock___block_invoke;
+    v30[3] = &unk_278614AE0;
     v17 = v16;
-    v32 = v17;
-    [v14 setStatisticsHandler:v31];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sampleFilterBlock___block_invoke_2;
-    v27[3] = &unk_278614B08;
-    v28 = v5;
-    v30 = samplesCopy;
+    v31 = v17;
+    [v14 setStatisticsHandler:v30];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sampleFilterBlock___block_invoke_2;
+    v26[3] = &unk_278614B08;
+    v27 = v5;
+    v29 = samplesCopy;
     v18 = v14;
-    v29 = v18;
-    v26 = 0;
-    LOBYTE(v9) = [v18 performInitialStatisticsTransaction:v27 error:&v26];
-    v19 = v26;
+    v28 = v18;
+    v25 = 0;
+    LOBYTE(v9) = [v18 performInitialStatisticsTransaction:v26 error:&v25];
+    v19 = v25;
     if (v9)
     {
       self = v17;
@@ -84,49 +84,47 @@
       v20 = *MEMORY[0x277CCC320];
       if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
       {
-        v23 = v20;
-        v24 = objc_opt_class();
+        v22 = v20;
+        v23 = objc_opt_class();
         *buf = 138543618;
-        v34 = v24;
-        v35 = 2114;
-        v36 = v19;
-        v25 = v24;
-        _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] Error adding samples to statistics calculator: %{public}@", buf, 0x16u);
+        v33 = v23;
+        v34 = 2114;
+        v35 = v19;
+        v24 = v23;
+        _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Error adding samples to statistics calculator: %{public}@", buf, 0x16u);
       }
 
       self = MEMORY[0x277CBEBF8];
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return self;
 }
 
 uint64_t __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sampleFilterBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v23 = a2;
-  v30 = *MEMORY[0x277D85DE8];
+  v22 = a2;
+  v29 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
+    v5 = *v25;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         v8 = [v7 value];
         if ((*(*(a1 + 48) + 16))())
         {
@@ -141,7 +139,7 @@ uint64_t __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sa
           v17 = [v7 sourceRevision];
           v18 = [v17 source];
           v19 = [v18 _sourceID];
-          LODWORD(v9) = [v9 addSampleValue:objc_msgSend(v19 startTime:"longLongValue") endTime:v23 sourceID:v10 error:{v13, v16}];
+          LODWORD(v9) = [v9 addSampleValue:objc_msgSend(v19 startTime:"longLongValue") endTime:v22 sourceID:v10 error:{v13, v16}];
 
           if (!v9)
           {
@@ -151,7 +149,7 @@ uint64_t __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sa
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v4)
       {
         continue;
@@ -164,7 +162,6 @@ uint64_t __84__HDSleepPeriodSegmentArrayBuilder__computeStatisticsFromSamples_sa
   v20 = 1;
 LABEL_12:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -182,43 +179,43 @@ LABEL_12:
   [v7 addObjectsFromArray:v9];
 
   [v7 sortUsingComparator:&__block_literal_global_308];
-  v10 = [v7 copy];
+  v10 = objc_msgSend_copy(v7);
 
   return v10;
 }
 
 - (id)_sleepPeriodSegmentsFromStatistics:(uint64_t)statistics
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (statistics)
   {
-    v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v4 = [(HDSleepPeriodSegmentArrayBuilder *)statistics _timeIntervalForKey:29.0 defaultValue:?];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     obj = v3;
-    v5 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v5 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v5)
     {
       v6 = v5;
-      v29 = v3;
+      v28 = v3;
       statisticsCopy = statistics;
       v7 = 0;
-      v32 = *v35;
+      v31 = *v34;
       do
       {
         for (i = 0; i != v6; ++i)
         {
           v9 = v7;
-          if (*v35 != v32)
+          if (*v34 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v34 + 1) + 8 * i);
+          v10 = *(*(&v33 + 1) + 8 * i);
           categoryValue = [v10 categoryValue];
           integerValue = [categoryValue integerValue];
 
@@ -236,8 +233,8 @@ LABEL_12:
           v18 = [sources hk_firstObjectPassingTest:&__block_literal_global_317];
 
           v19 = MEMORY[0x277CCD9E0];
-          v38 = v16;
-          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+          v37 = v16;
+          v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
           v7 = [v19 sleepPeriodSegmentWithDateInterval:v16 sampleIntervals:v20 category:integerValue containsAppleSleepTrackingData:v18 != 0];
 
           if (v9)
@@ -250,33 +247,31 @@ LABEL_12:
 
             if ([v9 category] == integerValue && v25 <= v4)
             {
-              [v33 removeLastObject];
+              [v32 removeLastObject];
               v26 = [v9 mergingSleepPeriodSegment:v7];
 
               v7 = v26;
             }
           }
 
-          [v33 addObject:v7];
+          [v32 addObject:v7];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v6);
 
-      v3 = v29;
+      v3 = v28;
     }
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 uint64_t __73__HDSleepPeriodSegmentArrayBuilder_sortedSleepPeriodSegmentsFromSamples___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -294,7 +289,7 @@ uint64_t __73__HDSleepPeriodSegmentArrayBuilder_sortedSleepPeriodSegmentsFromSam
 
 - (double)_timeIntervalForKey:(double)key defaultValue:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v7 = [standardUserDefaults objectForKey:v5];
@@ -305,22 +300,21 @@ uint64_t __73__HDSleepPeriodSegmentArrayBuilder_sortedSleepPeriodSegmentsFromSam
     v8 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEBUG))
     {
-      v12 = v8;
+      v11 = v8;
       [v7 doubleValue];
-      v14 = 138543874;
+      v13 = 138543874;
       selfCopy = self;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2050;
-      v19 = v13;
-      _os_log_debug_impl(&dword_228986000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Found value for key: %{public}@ = %{public}f", &v14, 0x20u);
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2050;
+      v18 = v12;
+      _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "%{public}@: Found value for key: %{public}@ = %{public}f", &v13, 0x20u);
     }
 
     [v7 doubleValue];
     key = v9;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return key;
 }
 

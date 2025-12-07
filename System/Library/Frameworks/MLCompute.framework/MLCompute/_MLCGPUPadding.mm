@@ -1,4 +1,5 @@
 @interface _MLCGPUPadding
++ (id)layerWithDevice:(id)device paddingType:(int)type paddingLeft:(unint64_t)left paddingRight:(unint64_t)right paddingTop:(unint64_t)top paddingBottom:(unint64_t)bottom constantValue:(float)value dataType:(int)self0;
 - (_MLCGPUPadding)initWithDevice:(id)device paddingType:(int)type paddingLeft:(unint64_t)left paddingRight:(unint64_t)right paddingTop:(unint64_t)top paddingBottom:(unint64_t)bottom constantValue:(float)value dataType:(int)self0;
 @end
 
@@ -98,6 +99,18 @@
   }
 
   return v14;
+}
+
++ (id)layerWithDevice:(id)device paddingType:(int)type paddingLeft:(unint64_t)left paddingRight:(unint64_t)right paddingTop:(unint64_t)top paddingBottom:(unint64_t)bottom constantValue:(float)value dataType:(int)self0
+{
+  v15 = *&type;
+  deviceCopy = device;
+  v18 = [self alloc];
+  LODWORD(v22) = dataType;
+  *&v19 = value;
+  v20 = [v18 initWithDevice:deviceCopy paddingType:v15 paddingLeft:left paddingRight:right paddingTop:top paddingBottom:bottom constantValue:v19 dataType:v22];
+
+  return v20;
 }
 
 @end

@@ -1335,7 +1335,7 @@ uint64_t __39__RemoteUITableViewCell_layoutSubviews__block_invoke(uint64_t a1)
 - (void)setupDatePickerCellWithElement:(id)element renderPlaceHolder:(BOOL)holder date:(id)date dateFormatter:(id)formatter
 {
   holderCopy = holder;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9E2F0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9E2F0, &qword_21BA97710);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v19 - v12;
   if (date)

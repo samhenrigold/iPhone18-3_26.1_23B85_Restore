@@ -6,12 +6,11 @@
 
 - (void)emitRootValue:(id)value
 {
-  output = self->_output;
-  v5 = OPACKEncodeObject();
-  if (v5)
+  v4 = OPACKEncodeObject();
+  if (v4)
   {
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v5 userInfo:0];
-    [(HMDStructuredDataFoundationWriter *)self failWithError:v6];
+    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v4 userInfo:0];
+    [(HMDStructuredDataFoundationWriter *)self failWithError:v5];
   }
 }
 

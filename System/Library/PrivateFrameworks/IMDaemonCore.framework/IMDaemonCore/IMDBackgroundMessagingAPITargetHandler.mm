@@ -16,13 +16,13 @@
 
 - (IMDBackgroundMessagingAPITargetHandler)initWithXPCConnection:(id)connection targetQueue:(id)queue delegate:(id)delegate
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   queueCopy = queue;
   delegateCopy = delegate;
-  v74.receiver = self;
-  v74.super_class = IMDBackgroundMessagingAPITargetHandler;
-  v11 = [(IMDBackgroundMessagingAPITargetHandler *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = IMDBackgroundMessagingAPITargetHandler;
+  v11 = [(IMDBackgroundMessagingAPITargetHandler *)&v73 init];
   [(IMDBackgroundMessagingAPITargetHandler *)v11 setDelegate:delegateCopy];
   objc_storeStrong(&v11->_connection, connection);
   objc_storeStrong(&v11->_queue, queue);
@@ -43,30 +43,30 @@
 
   [connectionCopy setExportedObject:v11];
   v11->_clientPid = [connectionCopy processIdentifier];
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = sub_22B5BCFEC;
-  v71[3] = &unk_278702FA0;
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = sub_22B5BCFEC;
+  v70[3] = &unk_278702FA0;
   v19 = v11;
-  v72 = v19;
+  v71 = v19;
   v20 = delegateCopy;
-  v73 = v20;
-  [connectionCopy setInvalidationHandler:v71];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = sub_22B5BD0DC;
-  v68[3] = &unk_278702FA0;
+  v72 = v20;
+  [connectionCopy setInvalidationHandler:v70];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = sub_22B5BD0DC;
+  v67[3] = &unk_278702FA0;
   v21 = v19;
-  v69 = v21;
-  v57 = v20;
-  v70 = v57;
-  [connectionCopy setInterruptionHandler:v68];
+  v68 = v21;
+  v56 = v20;
+  v69 = v56;
+  [connectionCopy setInterruptionHandler:v67];
   [connectionCopy resume];
   v22 = [MEMORY[0x277D47008] targetWithPid:v11->_clientPid];
   v23 = [MEMORY[0x277D46FA0] predicateMatching:v22];
-  v67 = 0;
-  v59 = [MEMORY[0x277D46F48] handleForPredicate:v23 error:&v67];
-  v24 = v67;
+  v66 = 0;
+  v58 = [MEMORY[0x277D46F48] handleForPredicate:v23 error:&v66];
+  v24 = v66;
   if (v24)
   {
     v25 = v24;
@@ -77,7 +77,7 @@
       {
         clientPid = v11->_clientPid;
         *buf = 67109120;
-        v76 = clientPid;
+        v75 = clientPid;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "IMDBackgroundMessagingAPITargetHandler failed to find process handle for %d", buf, 8u);
       }
     }
@@ -85,16 +85,16 @@
 
   else
   {
-    bundle = [v59 bundle];
+    bundle = [v58 bundle];
     identifier = [bundle identifier];
     clientBundleID = v21->_clientBundleID;
     v21->_clientBundleID = identifier;
 
     v31 = objc_alloc(MEMORY[0x277CC1E70]);
     v32 = v21->_clientBundleID;
-    v66 = 0;
-    v33 = [v31 initWithBundleIdentifier:v32 allowPlaceholder:0 error:&v66];
-    v25 = v66;
+    v65 = 0;
+    v33 = [v31 initWithBundleIdentifier:v32 allowPlaceholder:0 error:&v65];
+    v25 = v65;
     localizedShortName = [v33 localizedShortName];
     clientAppName = v21->_clientAppName;
     v21->_clientAppName = localizedShortName;
@@ -128,20 +128,20 @@
   aBlock[2] = sub_22B5BD1C4;
   aBlock[3] = &unk_278705B68;
   v43 = v21;
-  v65 = v43;
+  v64 = v43;
   v44 = _Block_copy(aBlock);
   v45 = MEMORY[0x277D46F80];
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = sub_22B5BD320;
-  v60[3] = &unk_278705B90;
-  v61 = v23;
-  v62 = descriptor;
-  v63 = v44;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = sub_22B5BD320;
+  v59[3] = &unk_278705B90;
+  v60 = v23;
+  v61 = descriptor;
+  v62 = v44;
   v46 = v44;
   v47 = descriptor;
   v48 = v23;
-  v49 = [v45 monitorWithConfiguration:v60];
+  v49 = [v45 monitorWithConfiguration:v59];
   processMonitor = v43->_processMonitor;
   v43->_processMonitor = v49;
 
@@ -149,10 +149,9 @@
   messageRegistry = v43->_messageRegistry;
   v43->_messageRegistry = v51;
 
-  v53 = v63;
+  v53 = v62;
   v54 = v43;
 
-  v55 = *MEMORY[0x277D85DE8];
   return v54;
 }
 
@@ -179,34 +178,33 @@
   v5 = [currentLocale objectForKey:*MEMORY[0x277CBE690]];
   lowercaseString = [v5 lowercaseString];
 
-  v7 = *MEMORY[0x277CBECE8];
-  v8 = CFPhoneNumberCreate();
-  if (v8)
+  v7 = CFPhoneNumberCreate();
+  if (v7)
   {
-    v9 = v8;
+    v8 = v7;
     String = CFPhoneNumberCreateString();
     if (String)
     {
-      v11 = String;
-      CFRelease(v9);
+      v10 = String;
+      CFRelease(v8);
 LABEL_5:
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"+%@", v11];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"+%@", v10];
 
       goto LABEL_7;
     }
 
-    v11 = CFPhoneNumberCreateString();
-    CFRelease(v9);
-    if (v11)
+    v10 = CFPhoneNumberCreateString();
+    CFRelease(v8);
+    if (v10)
     {
       goto LABEL_5;
     }
   }
 
-  v12 = numberCopy;
+  v11 = numberCopy;
 LABEL_7:
 
-  return v12;
+  return v11;
 }
 
 - (void)requestBackgroundMessagingAuthorizationForRecipients:(id)recipients completion:(id)completion
@@ -287,7 +285,7 @@ LABEL_7:
 
 - (void)_sendMessageText:(id)text toHandle:(id)handle onService:(id)service completion:(id)completion
 {
-  v57[3] = *MEMORY[0x277D85DE8];
+  v56[3] = *MEMORY[0x277D85DE8];
   textCopy = text;
   handleCopy = handle;
   serviceCopy = service;
@@ -325,16 +323,16 @@ LABEL_7:
     if (!v23)
     {
       v24 = *MEMORY[0x277D193A8];
-      v56[0] = *MEMORY[0x277D192F8];
-      v56[1] = v24;
-      v57[0] = &unk_283F4E960;
-      v57[1] = handleCopy;
-      v56[2] = *MEMORY[0x277D193C0];
-      v57[2] = handleCopy;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
-      v55 = v48;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-      [v20 didJoinChat:handleCopy style:45 displayName:0 groupID:0 originalGroupID:0 handleInfo:v47 category:0 spamExtensionName:0];
+      v55[0] = *MEMORY[0x277D192F8];
+      v55[1] = v24;
+      v56[0] = &unk_283F4E960;
+      v56[1] = handleCopy;
+      v55[2] = *MEMORY[0x277D193C0];
+      v56[2] = handleCopy;
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+      v54 = v47;
+      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+      [v20 didJoinChat:handleCopy style:45 displayName:0 groupID:0 originalGroupID:0 handleInfo:v46 category:0 spamExtensionName:0];
       v25 = +[IMDChatRegistry sharedInstance];
       account2 = [v20 account];
       v23 = [v25 existingChatWithIdentifier:handleCopy account:account2];
@@ -352,7 +350,7 @@ LABEL_7:
       {
         v29 = v20;
         chatIdentifier = [v23 chatIdentifier];
-        v46 = [v29 _callerIDForChatWithChatIdentifier:chatIdentifier chatStyle:45 foundChat:v23];
+        v45 = [v29 _callerIDForChatWithChatIdentifier:chatIdentifier chatStyle:45 foundChat:v23];
 
         if (IMOSLoggingEnabled())
         {
@@ -361,14 +359,14 @@ LABEL_7:
           {
             guid = [v23 guid];
             *buf = 138412546;
-            v52 = v46;
-            v53 = 2112;
-            v54 = guid;
+            v51 = v45;
+            v52 = 2112;
+            v53 = guid;
             _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Updating lastAddressedHandle %@ for chat %@", buf, 0x16u);
           }
         }
 
-        [v23 updateLastAddressedHandle:v46];
+        [v23 updateLastAddressedHandle:v45];
       }
     }
 
@@ -396,8 +394,6 @@ LABEL_7:
       sub_22B7D49F0(serviceCopy, v23, v39, v40, v41, v42, v43, v44);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSMSSendResult:(id)result sent:(BOOL)sent
@@ -420,7 +416,7 @@ LABEL_7:
       v10 = IMLogHandleForCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_22B7D4A5C(self);
+        sub_22B7D4A5C();
       }
 
       v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MSCriticalMessagingErrorDomain" code:4 userInfo:0];

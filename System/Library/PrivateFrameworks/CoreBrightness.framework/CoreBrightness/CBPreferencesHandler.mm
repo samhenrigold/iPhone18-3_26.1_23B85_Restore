@@ -81,7 +81,6 @@
   }
 
   MEMORY[0x1E69E5920](v17);
-  *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)storePreferenceForUser:(id)user withKey:(id)key andValue:(id)value
@@ -378,29 +377,25 @@ LABEL_8:
   v5 = 0;
   if (CFPreferencesSynchronize(@"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]))
   {
-    v5 = CFPreferencesCopyValue(key, @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+    return CFPreferencesCopyValue(key, @"com.apple.CoreBrightness", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+  }
+
+  if (_COREBRIGHTNESS_LOG_DEFAULT)
+  {
+    inited = _COREBRIGHTNESS_LOG_DEFAULT;
   }
 
   else
   {
-    if (_COREBRIGHTNESS_LOG_DEFAULT)
-    {
-      inited = _COREBRIGHTNESS_LOG_DEFAULT;
-    }
-
-    else
-    {
-      inited = init_default_corebrightness_log();
-    }
-
-    if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
-    {
-      __os_log_helper_16_2_1_8_66(v7, key);
-      _os_log_error_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_ERROR, "failed to synchronise the preferences (%{public}@)", v7, 0xCu);
-    }
+    inited = init_default_corebrightness_log();
   }
 
-  *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
+  {
+    __os_log_helper_16_2_1_8_66(v7, key);
+    _os_log_error_impl(&dword_1DE8E5000, inited, OS_LOG_TYPE_ERROR, "failed to synchronise the preferences (%{public}@)", v7, 0xCu);
+  }
+
   return v5;
 }
 

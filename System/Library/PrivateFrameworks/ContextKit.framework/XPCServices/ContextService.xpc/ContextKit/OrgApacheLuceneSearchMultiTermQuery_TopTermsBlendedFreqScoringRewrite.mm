@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchMultiTermQuery_TopTermsBlendedFreqScoringRewrite
 - (id)buildWithId:(id)id;
 - (id)getTopLevelBuilder;
+- (void)addClauseWithId:(id)id withOrgApacheLuceneIndexTerm:(id)term withInt:(int)int withFloat:(float)float withOrgApacheLuceneIndexTermContext:(id)context;
 @end
 
 @implementation OrgApacheLuceneSearchMultiTermQuery_TopTermsBlendedFreqScoringRewrite
@@ -25,6 +26,16 @@
   }
 
   return [id build];
+}
+
+- (void)addClauseWithId:(id)id withOrgApacheLuceneIndexTerm:(id)term withInt:(int)int withFloat:(float)float withOrgApacheLuceneIndexTermContext:(id)context
+{
+  if (!id)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [id addWithOrgApacheLuceneIndexTerm:term withFloat:context withOrgApacheLuceneIndexTermContext:*&int];
 }
 
 @end

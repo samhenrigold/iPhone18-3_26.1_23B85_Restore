@@ -58,7 +58,7 @@
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "Registered tracing backend with the registry");
     }
 
     self->_tracingBackendRegistered = 1;
@@ -82,7 +82,7 @@
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(0, 2);
+      sub_2393D5320(0, 2, "Unregistered tracing backend with the registry");
     }
 
     self->_tracingBackendRegistered = 0;
@@ -93,69 +93,66 @@
 
 - (void)handleMetricEvent:(MetricEvent *)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (*(&event->var2 + 4) <= 3u)
   {
-    var1 = event->var1;
-    v6 = @"_end";
+    v5 = @"_end";
     if (event->var0 != 1)
     {
-      v6 = @"_begin";
+      v5 = @"_begin";
     }
 
     if (event->var0 == 2)
     {
-      v7 = @"_event";
+      v6 = @"_event";
     }
 
     else
     {
-      v7 = v6;
+      v6 = v5;
     }
 
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", event->var1, v7];
-    v9 = [[MTRMetricData alloc] initWithMetricEvent:event];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", event->var1, v6];
+    v8 = [[MTRMetricData alloc] initWithMetricEvent:event];
     if (event->var0 == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", event->var1, @"_begin"];
-      v11 = [(NSMutableDictionary *)self->_metricsDataCollection objectForKeyedSubscript:v10];
-      if (v11)
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s%@", event->var1, @"_begin"];
+      v10 = [(NSMutableDictionary *)self->_metricsDataCollection objectForKeyedSubscript:v9];
+      if (v10)
       {
-        [(MTRMetricData *)v9 setDurationFromMetricData:v11];
+        [(MTRMetricData *)v8 setDurationFromMetricData:v10];
       }
 
       else
       {
-        v12 = sub_2393D9044(0);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v11 = sub_2393D9044(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          v13 = event->var1;
+          var1 = event->var1;
           *buf = 136315138;
-          v19 = v13;
-          _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "Unable to find Begin event corresponding to Metric Event: %s", buf, 0xCu);
+          v17 = var1;
+          _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "Unable to find Begin event corresponding to Metric Event: %s", buf, 0xCu);
         }
 
         if (sub_2393D5398(1u))
         {
-          v17 = event->var1;
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "Unable to find Begin event corresponding to Metric Event: %s", event->var1);
         }
       }
     }
 
-    v14 = [(NSMutableDictionary *)self->_metricsDataCollection valueForKey:v8, v17];
-    if (!v14 || (v15 = event->var0 == 2, v14, v15))
+    v13 = [(NSMutableDictionary *)self->_metricsDataCollection valueForKey:v7];
+    if (!v13 || (v14 = event->var0 == 2, v13, v14))
     {
-      if (strcmp(event->var1, "core_dcm_commission_stage") || sub_2393ABB14(event) != 40)
+      if (strcmp(event->var1, "core_dcm_commission_stage") || sub_2393ABB14(event, v15) != 40)
       {
-        [(NSMutableDictionary *)self->_metricsDataCollection setValue:v9 forKey:v8];
+        [(NSMutableDictionary *)self->_metricsDataCollection setValue:v8 forKey:v7];
       }
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metricSnapshotForCommissioning:(BOOL)commissioning

@@ -6,15 +6,14 @@
 
 - (MDLScatteringFunction)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4.receiver = self;
-  v4.super_class = MDLScatteringFunction;
-  if ([(MDLScatteringFunction *)&v4 init])
+  v4 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = MDLScatteringFunction;
+  if ([(MDLScatteringFunction *)&v3 init])
   {
     operator new();
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

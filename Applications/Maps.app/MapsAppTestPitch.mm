@@ -202,8 +202,8 @@ LABEL_11:
   [mainMKMapView _setLocationPulseEnabled:0];
 
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];
-  options = [(MapsAppTest *)self options];
-  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
+  v5 = objc_msgSend_options(self);
+  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v5 _mapstest_mapType]);
   [(MapsAppTestPitch *)self endPitch];
   v7 = v6;
   [(MapsAppTestPitch *)self startPitch];
@@ -263,8 +263,8 @@ LABEL_11:
 
       if (v15)
       {
-        options = [(MapsAppTest *)v10 options];
-        v17 = [options objectForKeyedSubscript:@"startPitch"];
+        v16 = objc_msgSend_options(v10);
+        v17 = [v16 objectForKeyedSubscript:@"startPitch"];
         [v17 doubleValue];
         v10->_startPitch = v18;
       }
@@ -274,8 +274,8 @@ LABEL_11:
 
       if (v20)
       {
-        options2 = [(MapsAppTest *)v10 options];
-        v22 = [options2 objectForKeyedSubscript:@"endPitch"];
+        v21 = objc_msgSend_options(v10);
+        v22 = [v21 objectForKeyedSubscript:@"endPitch"];
         [v22 doubleValue];
         v10->_endPitch = v23;
       }

@@ -6,7 +6,7 @@
 
 - (id)fcck_queryFiltersWithTranslator:()FCCKConversion error:
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   if ([self compoundPredicateType] != 1)
   {
@@ -108,8 +108,8 @@ LABEL_55:
             v24 = 2;
 LABEL_48:
             [v23 setType:v24];
-            v33[0] = v23;
-            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+            v32[0] = v23;
+            v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
 LABEL_49:
 
             break;
@@ -146,32 +146,32 @@ LABEL_53:
   }
 
   v7 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   subpredicates2 = [self subpredicates];
-  v9 = [subpredicates2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v9 = [subpredicates2 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v29;
+    v12 = *v28;
     while (2)
     {
       v13 = 0;
       v14 = v11;
       do
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(subpredicates2);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * v13);
-        v27 = v14;
-        v16 = [v15 fcck_queryFiltersWithTranslator:v6 error:&v27];
-        v11 = v27;
+        v15 = *(*(&v27 + 1) + 8 * v13);
+        v26 = v14;
+        v16 = [v15 fcck_queryFiltersWithTranslator:v6 error:&v26];
+        v11 = v26;
 
         [v7 addObjectsFromArray:v16];
         if (a4 && v11)
@@ -188,7 +188,7 @@ LABEL_53:
       }
 
       while (v10 != v13);
-      v10 = [subpredicates2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v10 = [subpredicates2 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v10)
       {
         continue;
@@ -207,7 +207,6 @@ LABEL_53:
 LABEL_18:
 
 LABEL_56:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

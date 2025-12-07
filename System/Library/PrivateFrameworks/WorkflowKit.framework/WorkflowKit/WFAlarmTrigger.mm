@@ -40,11 +40,11 @@
 
 - (WFAlarmTrigger)initWithCoder:(id)coder
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = WFAlarmTrigger;
-  v5 = [(WFTrigger *)&v32 initWithCoder:coderCopy];
+  v31.receiver = self;
+  v31.super_class = WFAlarmTrigger;
+  v5 = [(WFTrigger *)&v31 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"alarmType"];
@@ -53,9 +53,9 @@
     {
       -[WFAlarmTrigger setAlarmType:](v5, "setAlarmType:", [v6 integerValue]);
       v8 = MEMORY[0x1E695DFD8];
-      v36[0] = objc_opt_class();
-      v36[1] = objc_opt_class();
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+      v35[0] = objc_opt_class();
+      v35[1] = objc_opt_class();
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
       v10 = [v8 setWithArray:v9];
       v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"alarmIDs"];
       v12 = v11;
@@ -73,9 +73,9 @@
       [(WFAlarmTrigger *)v5 setAlarmIDs:v14];
 
       v15 = MEMORY[0x1E695DFD8];
-      v35[0] = objc_opt_class();
-      v35[1] = objc_opt_class();
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      v34[0] = objc_opt_class();
+      v34[1] = objc_opt_class();
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
       v17 = [v15 setWithArray:v16];
       v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"cachedAlarmDescriptions"];
       v19 = v18;
@@ -102,7 +102,7 @@
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v34 = "[WFAlarmTrigger initWithCoder:]";
+            v33 = "[WFAlarmTrigger initWithCoder:]";
             _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s alarm type existing, but no alarmIDs", buf, 0xCu);
           }
 
@@ -148,7 +148,6 @@
     v29 = v5;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

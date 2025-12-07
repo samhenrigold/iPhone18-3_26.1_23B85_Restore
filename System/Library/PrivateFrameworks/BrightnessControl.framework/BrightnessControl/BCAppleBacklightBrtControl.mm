@@ -14,7 +14,6 @@
 - (id)copyProperty:(id)property error:(id *)error;
 - (unint64_t)registryID;
 - (void)dealloc;
-- (void)parseAuroraCapabilities;
 - (void)parseColorCapabilities;
 @end
 
@@ -99,7 +98,7 @@ LABEL_10:
 
 uint64_t __58__BCAppleBacklightBrtControl_newMonitorWithHandler_error___block_invoke(uint64_t a1, io_iterator_t iterator)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = IOIteratorNext(iterator);
   if (result)
   {
@@ -115,7 +114,7 @@ uint64_t __58__BCAppleBacklightBrtControl_newMonitorWithHandler_error___block_in
       if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v11 = v5;
+        v10 = v5;
         _os_log_impl(&dword_223D10000, inited, OS_LOG_TYPE_DEFAULT, "BCAppleBacklightBrtControl: got back service %u", buf, 8u);
       }
 
@@ -133,7 +132,6 @@ uint64_t __58__BCAppleBacklightBrtControl_newMonitorWithHandler_error___block_in
     while (result);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -179,10 +177,10 @@ void __58__BCAppleBacklightBrtControl_newMonitorWithHandler_error___block_invoke
 
 - (BCAppleBacklightBrtControl)initWithService:(unsigned int)service
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v114.receiver = self;
-  v114.super_class = BCAppleBacklightBrtControl;
-  v4 = [(BCBrtControl *)&v114 init];
+  v118 = *MEMORY[0x277D85DE8];
+  v113.receiver = self;
+  v113.super_class = BCAppleBacklightBrtControl;
+  v4 = [(BCBrtControl *)&v113 init];
   if (v4)
   {
     context = objc_autoreleasePoolPush();
@@ -274,7 +272,7 @@ LABEL_10:
               [*(v4 + 5) setObject:v23 forKeyedSubscript:@"DCP"];
             }
 
-            v108 = 160;
+            v107 = 160;
             if ((v4[160] & 1) == 0)
             {
               v24 = IORegistryEntrySearchCFProperty(*(v4 + 29), "IOService", @"energy-saving", v5, 3u);
@@ -346,7 +344,7 @@ LABEL_10:
                 v36 = MEMORY[0x277CBEC28];
               }
 
-              [*(v4 + 5) setObject:v36 forKeyedSubscript:{@"NitsToUserBrightnessTableForce", v108}];
+              [*(v4 + 5) setObject:v36 forKeyedSubscript:{@"NitsToUserBrightnessTableForce", v107}];
             }
 
             v37 = IORegistryEntrySearchCFProperty(*(v4 + 29), "IOService", @"backlight-marketing-table", v5, 3u);
@@ -395,7 +393,7 @@ LABEL_10:
               }
             }
 
-            if (![*(v4 + 5) objectForKeyedSubscript:{@"NitsToUserBrightnessTable", v108}])
+            if (![*(v4 + 5) objectForKeyedSubscript:{@"NitsToUserBrightnessTable", v107}])
             {
               v47 = *(v4 + 1);
               if (!v47)
@@ -617,10 +615,10 @@ LABEL_10:
             v70 = IORegistryEntrySearchCFProperty(*(v4 + 29), "IOService", @"EDRPotentialHeadroom", v5, 3u);
             v71 = v70;
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && (v113 = 0, [v70 length] >= 4))
+            if ((objc_opt_isKindOfClass() & 1) != 0 && (v112 = 0, [v70 length] >= 4))
             {
-              [v70 getBytes:&v113 length:4];
-              *&v72 = v113 * 0.000015259;
+              [v70 getBytes:&v112 length:4];
+              *&v72 = v112 * 0.000015259;
               [*(v4 + 5) setObject:objc_msgSend(MEMORY[0x277CCABB0] forKeyedSubscript:{"numberWithFloat:", v72), @"EDRPotentialHeadroom"}];
               v73 = *(v4 + 1);
               if (!v73)
@@ -643,10 +641,10 @@ LABEL_10:
               v75 = IORegistryEntrySearchCFProperty(*(v4 + 29), "IOService", @"EDRReferenceHeadroom", v5, 3u);
               v76 = v75;
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && (v112 = 0, [v75 length] >= 4))
+              if ((objc_opt_isKindOfClass() & 1) != 0 && (v111 = 0, [v75 length] >= 4))
               {
-                [v75 getBytes:&v112 length:8];
-                *&v77 = v112 * 0.000015259;
+                [v75 getBytes:&v111 length:8];
+                *&v77 = v111 * 0.000015259;
                 [*(v4 + 5) setObject:objc_msgSend(MEMORY[0x277CCABB0] forKeyedSubscript:{"numberWithFloat:", v77), @"EDRReferenceHeadroom"}];
                 v78 = *(v4 + 1);
                 if (!v78)
@@ -690,13 +688,13 @@ LABEL_10:
               }
             }
 
-            else if ((v4[v109] & 1) == 0)
+            else if ((v4[v108] & 1) == 0)
             {
               [*(v4 + 5) setObject:&unk_2837437B0 forKeyedSubscript:@"EDRPotentialHeadroom"];
               [*(v4 + 5) setObject:&unk_2837437A0 forKeyedSubscript:@"EDRReferenceHeadroom"];
             }
 
-            if ((v4[v109] & 1) == 0)
+            if ((v4[v108] & 1) == 0)
             {
               [*(v4 + 5) setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"BuiltIn"];
             }
@@ -792,15 +790,15 @@ LABEL_162:
                 *buf = 0;
                 *&buf[8] = buf;
                 *&buf[16] = 0x3052000000;
-                v116 = __Block_byref_object_copy_;
-                v117 = __Block_byref_object_dispose_;
-                v118 = v4;
-                v111[0] = MEMORY[0x277D85DD0];
-                v111[1] = 3221225472;
-                v111[2] = __46__BCAppleBacklightBrtControl_initWithService___block_invoke;
-                v111[3] = &unk_2784F8D78;
-                v111[4] = buf;
-                *(v4 + 22) = _newBlockWrapper(v111);
+                v115 = __Block_byref_object_copy_;
+                v116 = __Block_byref_object_dispose_;
+                v117 = v4;
+                v110[0] = MEMORY[0x277D85DD0];
+                v110[1] = 3221225472;
+                v110[2] = __46__BCAppleBacklightBrtControl_initWithService___block_invoke;
+                v110[3] = &unk_2784F8D78;
+                v110[4] = buf;
+                *(v4 + 22) = _newBlockWrapper(v110);
                 v100 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
                 *(v4 + 23) = v100;
                 IONotificationPortSetDispatchQueue(v100, [v4 queue]);
@@ -870,7 +868,7 @@ LABEL_138:
               v4 = 0;
 LABEL_172:
               objc_autoreleasePoolPop(context);
-              goto LABEL_173;
+              return v4;
             }
 
             logHandle4 = init_default_corebrightness_log();
@@ -913,8 +911,6 @@ LABEL_132:
     goto LABEL_132;
   }
 
-LABEL_173:
-  v106 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -956,7 +952,7 @@ uint64_t __46__BCAppleBacklightBrtControl_initWithService___block_invoke(uint64_
   return result;
 }
 
-uint64_t __46__BCAppleBacklightBrtControl_initWithService___block_invoke_2(uint64_t a1)
+void *__46__BCAppleBacklightBrtControl_initWithService___block_invoke_2(uint64_t a1)
 {
   if ([*(*(*(a1 + 32) + 8) + 40) logHandle])
   {
@@ -1151,7 +1147,7 @@ LABEL_5:
 
 void __44__BCAppleBacklightBrtControl_setNits_error___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if (![*(a1 + 32) _checkIsValid:*(a1 + 48)])
   {
@@ -1159,10 +1155,10 @@ void __44__BCAppleBacklightBrtControl_setNits_error___block_invoke(uint64_t a1)
   }
 
   v4 = *(*(a1 + 32) + 116);
-  v16 = @"brightness-nits";
+  v15 = @"brightness-nits";
   LODWORD(v3) = vcvtd_n_s64_f64(*(a1 + 56), 0x10uLL);
-  v17[0] = [MEMORY[0x277CCABB0] numberWithInt:v3];
-  v5 = IORegistryEntrySetCFProperties(v4, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1]);
+  v16[0] = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v5 = IORegistryEntrySetCFProperties(v4, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1]);
   v6 = [*(a1 + 32) logHandle];
   if (v5)
   {
@@ -1220,16 +1216,15 @@ LABEL_17:
   v11 = 1;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v13 = *(a1 + 56);
-    v14 = 134217984;
-    v15 = v13;
-    _os_log_impl(&dword_223D10000, v10, OS_LOG_TYPE_INFO, "Setting nits to %f", &v14, 0xCu);
+    v12 = *(a1 + 56);
+    v13 = 134217984;
+    v14 = v12;
+    _os_log_impl(&dword_223D10000, v10, OS_LOG_TYPE_INFO, "Setting nits to %f", &v13, 0xCu);
   }
 
 LABEL_15:
   *(*(*(a1 + 40) + 8) + 24) = v11;
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (double)getNitsWithError:(id *)error
@@ -1292,7 +1287,7 @@ void __47__BCAppleBacklightBrtControl_getNitsWithError___block_invoke(uint64_t a
 
 - (BOOL)setProperty:(id)property value:(id)value error:(id *)error
 {
-  if (!_isIOKitCompatible())
+  if (!_isIOKitCompatible(value))
   {
     if (!error)
     {
@@ -1324,8 +1319,8 @@ LABEL_7:
 
 - (id)copyProperty:(id)property error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (_isIOKitCompatible())
+  v18 = *MEMORY[0x277D85DE8];
+  if (_isIOKitCompatible(property))
   {
     CFProperty = IORegistryEntryCreateCFProperty(*(&self->_backlightService + 1), property, *MEMORY[0x277CBECE8], 0);
   }
@@ -1367,96 +1362,95 @@ LABEL_9:
       v10 = 0;
     }
 
-    v13 = 138412802;
+    v12 = 138412802;
     propertyCopy = property;
-    v15 = 2112;
-    v16 = CFProperty;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_223D10000, v9, OS_LOG_TYPE_INFO, "copyProperty(%@) = %@ (error: %@)", &v13, 0x20u);
+    v14 = 2112;
+    v15 = CFProperty;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_223D10000, v9, OS_LOG_TYPE_INFO, "copyProperty(%@) = %@ (error: %@)", &v12, 0x20u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return CFProperty;
 }
 
 - (void)parseColorCapabilities
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v38 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"pre-strobe-dim-period", &v38))
-  {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v38], @"PreStrobeDimPeriod");
-  }
-
+  v38 = *MEMORY[0x277D85DE8];
   v37 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-only-support", &v37))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"pre-strobe-dim-period", &v37))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v37], @"ForcedAmmoliteSupport");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v37], @"PreStrobeDimPeriod");
   }
 
   v36 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"truetone-shift-a", &v36))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-only-support", &v36))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v36], @"HarmonyShiftA");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v36], @"ForcedAmmoliteSupport");
   }
 
   v35 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"truetone-shift-b", &v35))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"truetone-shift-a", &v35))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v35], @"HarmonyShiftB");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v35], @"HarmonyShiftA");
   }
 
   v34 = 0;
-  if (load_int_from_edt(*(&self->_backlightService + 1), @"pab-scaler-index", &v34))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"truetone-shift-b", &v34))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithInt:v34], @"DisplayVendorIndex");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v34], @"HarmonyShiftB");
   }
 
   v33 = 0;
-  AmmoliteKey = createAmmoliteKey("aml-table-factor", v34);
+  if (load_int_from_edt(*(&self->_backlightService + 1), @"pab-scaler-index", &v33))
+  {
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithInt:v33], @"DisplayVendorIndex");
+  }
+
+  v32 = 0;
+  AmmoliteKey = createAmmoliteKey("aml-table-factor", v33);
   if (!AmmoliteKey)
   {
     goto LABEL_16;
   }
 
   v4 = AmmoliteKey;
-  if ((load_uint_from_edt(*(&self->_backlightService + 1), AmmoliteKey, &v33) & 1) == 0)
+  if ((load_uint_from_edt(*(&self->_backlightService + 1), AmmoliteKey, &v32) & 1) == 0)
   {
     CFRelease(v4);
 LABEL_16:
-    v32 = 0;
-    if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-table-factor", &v32))
+    v31 = 0;
+    if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-table-factor", &v31))
     {
-      -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v32], @"AmmlTableFactor");
+      -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v31], @"AmmlTableFactor");
     }
 
     v7 = 0;
-    v32 = 0;
+    v31 = 0;
     v6 = @"aml-abs-lux-thresh";
     goto LABEL_19;
   }
 
-  -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v33], @"AmmlTableFactor");
+  -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v32], @"AmmlTableFactor");
   CFRelease(v4);
-  v32 = 0;
-  v5 = createAmmoliteKey("aml-abs-lux-thresh", v34);
+  v31 = 0;
+  v5 = createAmmoliteKey("aml-abs-lux-thresh", v33);
   if (!v5)
   {
-    v31 = 0;
+    v30 = 0;
     goto LABEL_24;
   }
 
   v6 = v5;
   v7 = 1;
 LABEL_19:
-  if (load_uint_from_edt(*(&self->_backlightService + 1), v6, &v32))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), v6, &v31))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v32 * 0.0000152587891], @"AmmlAbsLux");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v31 * 0.0000152587891], @"AmmlAbsLux");
   }
 
   CFRelease(v6);
-  v31 = 0;
+  v30 = 0;
   if (!v7)
   {
     v8 = @"aml-rel-lux-thresh";
@@ -1464,28 +1458,28 @@ LABEL_19:
   }
 
 LABEL_24:
-  v9 = createAmmoliteKey("aml-rel-lux-thresh", v34);
+  v9 = createAmmoliteKey("aml-rel-lux-thresh", v33);
   if (!v9)
   {
-    v30 = 0;
+    v29 = 0;
     goto LABEL_33;
   }
 
   v8 = v9;
   LOBYTE(v7) = 1;
 LABEL_26:
-  if (load_uint_from_edt(*(&self->_backlightService + 1), v8, &v31))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), v8, &v30))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v31 * 0.0000152587891], @"AmmlRelLux");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v30 * 0.0000152587891], @"AmmlRelLux");
   }
 
   CFRelease(v8);
-  v30 = 0;
+  v29 = 0;
   if (v7)
   {
 LABEL_33:
-    v10 = createAmmoliteKey("aml-period", v34);
-    v13 = load_uint_from_edt(*(&self->_backlightService + 1), v10, &v30);
+    v10 = createAmmoliteKey("aml-period", v33);
+    v13 = load_uint_from_edt(*(&self->_backlightService + 1), v10, &v29);
     if (!v10)
     {
       v12 = 1;
@@ -1505,10 +1499,10 @@ LABEL_33:
   v10 = @"aml-period";
   v11 = 0;
   v12 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-period", &v30))
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"aml-period", &v29))
   {
 LABEL_30:
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v30 * 0.0000152587891], @"AmmlPeriod");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithDouble:v29 * 0.0000152587891], @"AmmlPeriod");
     v12 = v11;
   }
 
@@ -1525,7 +1519,7 @@ LABEL_37:
     {
       if (v12)
       {
-        v16 = createAmmoliteKey("aml-table", v34);
+        v16 = createAmmoliteKey("aml-table", v33);
         if (!v16)
         {
           goto LABEL_46;
@@ -1559,14 +1553,14 @@ LABEL_46:
       MEMORY[0x28223BE20]();
       if (CFDataGetLength(v20) >= 0xC)
       {
-        v40.location = 0;
-        v40.length = 12;
-        CFDataGetBytes(v20, v40, v28);
+        v39.location = 0;
+        v39.length = 12;
+        CFDataGetBytes(v20, v39, v27);
         v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
         for (i = 0; i != 6; ++i)
         {
           v24 = objc_alloc(MEMORY[0x277CCABB0]);
-          LOWORD(v25) = v28[i];
+          LOWORD(v25) = v27[i];
           v26 = v25 / 1000.0;
           *&v26 = v26;
           [v22 setObject:objc_msgSend(v24 atIndexedSubscript:{"initWithFloat:", v26), i}];
@@ -1579,13 +1573,11 @@ LABEL_46:
     CFRelease(v20);
   }
 
-  v29 = 0;
-  if (load_uint_from_edt(*(&self->_backlightService + 1), @"blr-cct-warning", &v29))
+  v28 = 0;
+  if (load_uint_from_edt(*(&self->_backlightService + 1), @"blr-cct-warning", &v28))
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v29], @"BLRCCTWarning");
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->super._capabilities, "setObject:forKeyedSubscript:", [MEMORY[0x277CCABB0] numberWithUnsignedInt:v28], @"BLRCCTWarning");
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parseAuroraCapabilities
@@ -1942,46 +1934,30 @@ LABEL_89:
 
 + (void)newMonitorWithHandler:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithService:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)copyAvailableControls
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BCAppleBacklightBrtControl_setNits_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parseAuroraCapabilities
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

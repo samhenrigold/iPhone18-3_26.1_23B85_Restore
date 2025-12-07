@@ -26,7 +26,10 @@
 - (void)_sepControl:(unsigned int)control value:(id)value request:(id)request completionHandler:(id)handler;
 - (void)_setContextData:(id)data forKey:(int64_t)key contextID:(id)d completionHandler:(id)handler;
 - (void)_setProtectedData:(id)data acl:(id)acl contextID:(id)d completionHandler:(id)handler;
+- (void)_setSecureBootModeForACMVariable:(unsigned int)variable completionHandler:(id)handler;
 - (void)_setStandardSecureBootModeCompletionHandler:(id)handler;
+- (void)_setVariable:(unsigned int)variable value:(id)value request:(id)request completionHandler:(id)handler;
+- (void)_variable:(unsigned int)_variable completionHandler:(id)handler;
 - (void)aclForRequest:(id)request completionHandler:(id)handler;
 - (void)objectForRequest:(id)request completionHandler:(id)handler;
 - (void)processError:(id)error forRequest:(id)request completionHandler:(id)handler;
@@ -53,16 +56,16 @@
 
 - (void)objectForRequest:(id)request completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   v8 = [requestCopy key];
-  v9 = LACLogStorage();
+  v9 = LACLogStorage(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v28 = v8;
-    v29 = 1024;
+    v27 = v8;
+    v28 = 1024;
     identifier = [requestCopy identifier];
     _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "objectForKey:%d rid:%u", buf, 0xEu);
   }
@@ -72,9 +75,9 @@
   aBlock[2] = __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke;
   aBlock[3] = &unk_1E7A98288;
   v10 = requestCopy;
-  v25 = v10;
+  v24 = v10;
   v11 = handlerCopy;
-  v26 = v11;
+  v25 = v11;
   v12 = _Block_copy(aBlock);
   if ([(LACSecureStorage *)self _checkEntitlementForRequest:v10 operation:1 value:0 failureHandler:v12])
   {
@@ -87,19 +90,19 @@
 
     else if (v8 == 21)
     {
-      v16 = +[LACPasscodeHelper sharedInstance];
-      [v16 passcodeSuccessAge];
-      v18 = v17;
+      v15 = +[LACPasscodeHelper sharedInstance];
+      [v15 passcodeSuccessAge];
+      v17 = v16;
 
-      if (v18 <= 0.0)
+      if (v17 <= 0.0)
       {
         (*(v12 + 2))(v12, 0, 0);
       }
 
       else
       {
-        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:(v18 * 1000.0)];
-        (*(v12 + 2))(v12, v19, 0);
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:(v17 * 1000.0)];
+        (*(v12 + 2))(v12, v18, 0);
       }
     }
 
@@ -111,26 +114,24 @@
 
     else
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_3;
-      v21[3] = &unk_1E7A982D8;
-      v21[4] = self;
-      v23 = v8;
-      v22 = v12;
-      [(LACSecureStorage *)self _acmVariableForKey:v8 completionHandler:v21];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_3;
+      v20[3] = &unk_1E7A982D8;
+      v20[4] = self;
+      v22 = v8;
+      v21 = v12;
+      [(LACSecureStorage *)self _acmVariableForKey:v8 completionHandler:v20];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LACLogStorage();
+  v7 = LACLogStorage(v6);
   v8 = v7;
   if (v5)
   {
@@ -151,15 +152,14 @@ void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke(ui
       v11 = v5;
     }
 
-    v13[0] = 67109379;
-    v13[1] = v10;
-    v14 = 2113;
-    v15 = v11;
-    _os_log_impl(&dword_1B0233000, v8, v9, "objectForKey rid:%u returned %{private}@", v13, 0x12u);
+    v12[0] = 67109379;
+    v12[1] = v10;
+    v13 = 2113;
+    v14 = v11;
+    _os_log_impl(&dword_1B0233000, v8, v9, "objectForKey rid:%u returned %{private}@", v12, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_3(void *a1, uint64_t a2)
@@ -209,16 +209,16 @@ void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_2(
 
 - (void)removeObjectForRequest:(id)request completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   v8 = [requestCopy key];
-  v9 = LACLogStorage();
+  v9 = LACLogStorage(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v25 = v8;
-    v26 = 1024;
+    v24 = v8;
+    v25 = 1024;
     identifier = [requestCopy identifier];
     _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "removeObjectForKey:%d rid:%u", buf, 0xEu);
   }
@@ -228,9 +228,9 @@ void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_2(
   aBlock[2] = __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_invoke;
   aBlock[3] = &unk_1E7A98288;
   v10 = requestCopy;
-  v22 = v10;
+  v21 = v10;
   v11 = handlerCopy;
-  v23 = v11;
+  v22 = v11;
   v12 = _Block_copy(aBlock);
   if ([(LACSecureStorage *)self _checkEntitlementForRequest:v10 operation:3 value:0 failureHandler:v12])
   {
@@ -250,14 +250,14 @@ void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_2(
 
       else
       {
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_invoke_11;
-        v18[3] = &unk_1E7A98300;
-        v18[4] = self;
-        v19 = v10;
-        v20 = v12;
-        [(LACSecureStorage *)self _acmVariableForKey:v8 completionHandler:v18];
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_invoke_11;
+        v17[3] = &unk_1E7A98300;
+        v17[4] = self;
+        v18 = v10;
+        v19 = v12;
+        [(LACSecureStorage *)self _acmVariableForKey:v8 completionHandler:v17];
       }
     }
 
@@ -268,16 +268,14 @@ void __55__LACSecureStorage_objectForRequest_completionHandler___block_invoke_2(
       (*(v11 + 2))(v11, 0, v15);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LACLogStorage();
+  v7 = LACLogStorage(v6);
   v8 = v7;
   if (v5)
   {
@@ -298,15 +296,14 @@ void __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_inv
       v11 = v5;
     }
 
-    v13[0] = 67109379;
-    v13[1] = v10;
-    v14 = 2113;
-    v15 = v11;
-    _os_log_impl(&dword_1B0233000, v8, v9, "removeObjectForKey rid:%u returned %{private}@", v13, 0x12u);
+    v12[0] = 67109379;
+    v12[1] = v10;
+    v13 = 2113;
+    v14 = v11;
+    _os_log_impl(&dword_1B0233000, v8, v9, "removeObjectForKey rid:%u returned %{private}@", v12, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__LACSecureStorage_removeObjectForRequest_completionHandler___block_invoke_11(uint64_t a1, uint64_t a2)
@@ -329,69 +326,70 @@ uint64_t __61__LACSecureStorage_removeObjectForRequest_completionHandler___block
   requestCopy = request;
   handlerCopy = handler;
   v11 = [requestCopy key];
-  if (![objc_opt_class() checkKey:v11 supportsOperation:4])
+  v12 = [objc_opt_class() checkKey:v11 supportsOperation:4];
+  if (!v12)
   {
-    v12 = LACLogStorage();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = LACLogStorage(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
       v39 = v11;
       v40 = 1024;
       identifier = [requestCopy identifier];
-      _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "setObject forKey:%d rid:%u", buf, 0xEu);
+      _os_log_impl(&dword_1B0233000, v13, OS_LOG_TYPE_DEFAULT, "setObject forKey:%d rid:%u", buf, 0xEu);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __59__LACSecureStorage_setObject_forRequest_completionHandler___block_invoke;
     aBlock[3] = &unk_1E7A98288;
-    v13 = requestCopy;
-    v36 = v13;
-    v14 = handlerCopy;
-    v37 = v14;
-    v15 = _Block_copy(aBlock);
-    if (![(LACSecureStorage *)self _checkEntitlementForRequest:v13 operation:2 value:objectCopy failureHandler:v15])
+    v14 = requestCopy;
+    v36 = v14;
+    v15 = handlerCopy;
+    v37 = v15;
+    v16 = _Block_copy(aBlock);
+    if (![(LACSecureStorage *)self _checkEntitlementForRequest:v14 operation:2 value:objectCopy failureHandler:v16])
     {
       goto LABEL_25;
     }
 
     if ([objc_opt_class() checkKey:v11 supportsOperation:2])
     {
-      v16 = [objc_opt_class() classForKey:v11];
-      if (![v16 isEqual:objc_opt_class()] || objc_msgSend(objectCopy, "length") == 1)
+      v17 = [objc_opt_class() classForKey:v11];
+      if (![v17 isEqual:objc_opt_class()] || objc_msgSend(objectCopy, "length") == 1)
       {
-        v17 = [objc_opt_class() maxDataLengthForKey:v11];
-        if (v17 && (v18 = [objectCopy length], v18 > objc_msgSend(v17, "unsignedIntegerValue")))
+        v18 = [objc_opt_class() maxDataLengthForKey:v11];
+        if (v18 && (v19 = [objectCopy length], v19 > objc_msgSend(v18, "unsignedIntegerValue")))
         {
-          v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected max %u bytes.", objc_msgSend(v17, "unsignedIntValue")];
-          v20 = [LACStorageError errorWithCode:1 debugDescription:v19];
-          (*(v14 + 2))(v14, 0, v20);
+          v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected max %u bytes.", objc_msgSend(v18, "unsignedIntValue")];
+          v21 = [LACStorageError errorWithCode:1 debugDescription:v20];
+          (*(v15 + 2))(v15, 0, v21);
         }
 
         else
         {
           v30 = [objc_opt_class() minDataLengthForKey:v11];
-          if (v30 && (v23 = [objectCopy length], v23 < objc_msgSend(v17, "unsignedIntegerValue")))
+          if (v30 && (v24 = [objectCopy length], v24 < objc_msgSend(v18, "unsignedIntegerValue")))
           {
-            v19 = v30;
-            v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected min %u bytes.", objc_msgSend(v30, "unsignedIntValue")];
-            v25 = [LACStorageError errorWithCode:1 debugDescription:v24];
-            (*(v14 + 2))(v14, 0, v25);
+            v20 = v30;
+            v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Expected min %u bytes.", objc_msgSend(v30, "unsignedIntValue")];
+            v26 = [LACStorageError errorWithCode:1 debugDescription:v25];
+            (*(v15 + 2))(v15, 0, v26);
           }
 
           else
           {
             if (v11 == 2)
             {
-              v26 = [v13 acl];
-              contextID = [v13 contextID];
-              [(LACSecureStorage *)self _setProtectedData:objectCopy acl:v26 contextID:contextID completionHandler:v15];
+              v27 = [v14 acl];
+              contextID = [v14 contextID];
+              [(LACSecureStorage *)self _setProtectedData:objectCopy acl:v27 contextID:contextID completionHandler:v16];
             }
 
             else if ([objc_opt_class() isKeyAvailableForContextData:v11])
             {
-              contextID2 = [v13 contextID];
-              [(LACSecureStorage *)self _setContextData:objectCopy forKey:v11 contextID:contextID2 completionHandler:v15];
+              contextID2 = [v14 contextID];
+              [(LACSecureStorage *)self _setContextData:objectCopy forKey:v11 contextID:contextID2 completionHandler:v16];
             }
 
             else
@@ -402,27 +400,27 @@ uint64_t __61__LACSecureStorage_removeObjectForRequest_completionHandler___block
               v31[3] = &unk_1E7A98328;
               v31[4] = self;
               v32 = objectCopy;
-              v33 = v13;
-              v34 = v15;
+              v33 = v14;
+              v34 = v16;
               [(LACSecureStorage *)self _acmVariableForKey:v11 completionHandler:v31];
             }
 
-            v19 = v30;
+            v20 = v30;
           }
         }
 
         goto LABEL_25;
       }
 
-      v21 = [LACStorageError errorWithCode:1 debugDescription:@"Expected BOOL in NSNumber."];
-      (*(v14 + 2))(v14, 0, v21);
+      v22 = [LACStorageError errorWithCode:1 debugDescription:@"Expected BOOL in NSNumber."];
+      (*(v15 + 2))(v15, 0, v22);
     }
 
     else
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Operation not supported for key: %d.", v11];
-      v22 = [LACStorageError errorWithCode:3 debugDescription:v21];
-      (*(v14 + 2))(v14, 0, v22);
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Operation not supported for key: %d.", v11];
+      v23 = [LACStorageError errorWithCode:3 debugDescription:v22];
+      (*(v15 + 2))(v15, 0, v23);
     }
 
 LABEL_25:
@@ -431,16 +429,14 @@ LABEL_25:
 
   [(LACSecureStorage *)self _exchangeObject:objectCopy request:requestCopy completionHandler:handlerCopy];
 LABEL_26:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __59__LACSecureStorage_setObject_forRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LACLogStorage();
+  v7 = LACLogStorage(v6);
   v8 = v7;
   if (v6)
   {
@@ -461,15 +457,14 @@ void __59__LACSecureStorage_setObject_forRequest_completionHandler___block_invok
       v11 = v5;
     }
 
-    v13[0] = 67109379;
-    v13[1] = v10;
-    v14 = 2113;
-    v15 = v11;
-    _os_log_impl(&dword_1B0233000, v8, v9, "setObject rid:%u returned %{private}@", v13, 0x12u);
+    v12[0] = 67109379;
+    v12[1] = v10;
+    v13 = 2113;
+    v14 = v11;
+    _os_log_impl(&dword_1B0233000, v8, v9, "setObject rid:%u returned %{private}@", v12, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__LACSecureStorage_setObject_forRequest_completionHandler___block_invoke_21(uint64_t a1, uint64_t a2)
@@ -491,14 +486,15 @@ uint64_t __59__LACSecureStorage_setObject_forRequest_completionHandler___block_i
   requestCopy = request;
   handlerCopy = handler;
   v8 = [requestCopy key];
-  v9 = LACLogStorage();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = v8;
+  v10 = LACLogStorage(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    *&buf[4] = v8;
+    *&buf[4] = v9;
     LOWORD(v33) = 1024;
     *(&v33 + 2) = [requestCopy identifier];
-    _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "aclForKey:%d rid:%u", buf, 0xEu);
+    _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "aclForKey:%d rid:%u", buf, 0xEu);
   }
 
   v28 = 0;
@@ -510,19 +506,19 @@ uint64_t __59__LACSecureStorage_setObject_forRequest_completionHandler___block_i
   aBlock[2] = __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke;
   aBlock[3] = &unk_1E7A98350;
   v27 = &v28;
-  v10 = requestCopy;
-  v25 = v10;
-  v11 = handlerCopy;
-  v26 = v11;
-  v12 = _Block_copy(aBlock);
-  contextID = [v10 contextID];
+  v11 = requestCopy;
+  v25 = v11;
+  v12 = handlerCopy;
+  v26 = v12;
+  v13 = _Block_copy(aBlock);
+  contextID = [v11 contextID];
   v23 = 0;
-  v14 = [(LACSecureStorage *)self _acmContextForUUID:contextID error:&v23];
-  v15 = v23;
-  v29[3] = v14;
+  v15 = [(LACSecureStorage *)self _acmContextForUUID:contextID error:&v23];
+  v16 = v23;
+  v29[3] = v15;
 
-  v16 = v29[3];
-  if (v16)
+  v17 = v29[3];
+  if (v17)
   {
     *buf = 0;
     v33 = buf;
@@ -535,7 +531,7 @@ uint64_t __59__LACSecureStorage_setObject_forRequest_completionHandler___block_i
     v22[2] = __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke_22;
     v22[3] = &unk_1E7A958D0;
     v22[4] = buf;
-    DataProperty = ACMContextGetDataProperty(v16, 7u, 2u, v22);
+    DataProperty = ACMContextGetDataProperty(v17, 7u, 2u, v22);
     if (DataProperty == -7)
     {
       goto LABEL_9;
@@ -544,22 +540,22 @@ uint64_t __59__LACSecureStorage_setObject_forRequest_completionHandler___block_i
     if (DataProperty)
     {
       dataProperty = [MEMORY[0x1E696AEC0] stringWithFormat:@"ACM failed to retrieve the ACL: %d", DataProperty];
-      v20 = [LACStorageError errorWithCode:2 debugDescription:dataProperty];
-      v12[2](v12, 0, v20);
+      v21 = [LACStorageError errorWithCode:2 debugDescription:dataProperty];
+      v13[2](v13, 0, v21);
 
       goto LABEL_11;
     }
 
-    v18 = *(v33 + 5);
-    if (!v18)
+    v19 = *(v33 + 5);
+    if (!v19)
     {
 LABEL_9:
-      v12[2](v12, 0, 0);
+      v13[2](v13, 0, 0);
     }
 
     else
     {
-      v12[2](v12, v18, 0);
+      v13[2](v13, v19, 0);
     }
 
 LABEL_11:
@@ -568,25 +564,24 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v12[2](v12, 0, v15);
+  v13[2](v13, 0, v16);
 LABEL_12:
 
   _Block_object_dispose(&v28, 8);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(*(*(a1 + 48) + 8) + 24);
   if (v7)
   {
-    ACMContextDelete(v7, 0);
+    v7 = ACMContextDelete(v7, 0);
   }
 
-  v8 = LACLogStorage();
+  v8 = LACLogStorage(v7);
   v9 = v8;
   if (v5)
   {
@@ -607,15 +602,14 @@ void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke(uint6
       v12 = v6;
     }
 
-    v14[0] = 67109379;
-    v14[1] = v11;
-    v15 = 2113;
-    v16 = v12;
-    _os_log_impl(&dword_1B0233000, v9, v10, "aclForKey rid:%u returned %{private}@", v14, 0x12u);
+    v13[0] = 67109379;
+    v13[1] = v11;
+    v14 = 2113;
+    v15 = v12;
+    _os_log_impl(&dword_1B0233000, v9, v10, "aclForKey rid:%u returned %{private}@", v13, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke_22(uint64_t a1, void *a2, uint64_t a3)
@@ -635,16 +629,16 @@ void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke_22(ui
 
 - (void)processError:(id)error forRequest:(id)request completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   handlerCopy = handler;
   errorCopy = error;
-  v11 = LACLogStorage();
+  v11 = LACLogStorage(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v28 = [requestCopy key];
-    v29 = 1024;
+    v27 = [requestCopy key];
+    v28 = 1024;
     identifier = [requestCopy identifier];
     _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "processError key:%d rid:%u", buf, 0xEu);
   }
@@ -654,33 +648,33 @@ void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke_22(ui
   aBlock[2] = __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke;
   aBlock[3] = &unk_1E7A98378;
   v12 = requestCopy;
-  v25 = v12;
+  v24 = v12;
   v13 = handlerCopy;
-  v26 = v13;
+  v25 = v13;
   v14 = _Block_copy(aBlock);
   v15 = [LACStorageError error:errorCopy hasCode:5];
 
   if (v15)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke_32;
-    v22[3] = &unk_1E7A97310;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke_32;
+    v21[3] = &unk_1E7A97310;
     v16 = v14;
-    v23 = v16;
-    if ([(LACSecureStorage *)self _checkEntitlementForRequest:v12 operation:2 value:0 failureHandler:v22])
+    v22 = v16;
+    if ([(LACSecureStorage *)self _checkEntitlementForRequest:v12 operation:2 value:0 failureHandler:v21])
     {
       v17 = [v12 key];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke_2;
-      v20[3] = &unk_1E7A983A0;
-      v20[4] = self;
-      v21 = v16;
-      [(LACSecureStorage *)self _acmVariableForKey:v17 completionHandler:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke_2;
+      v19[3] = &unk_1E7A983A0;
+      v19[4] = self;
+      v20 = v16;
+      [(LACSecureStorage *)self _acmVariableForKey:v17 completionHandler:v19];
     }
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
@@ -688,15 +682,13 @@ void __52__LACSecureStorage_aclForRequest_completionHandler___block_invoke_22(ui
     v18 = [LACStorageError errorWithCode:2 debugDescription:@"The error instance does not require reboot"];
     (*(v14 + 2))(v14, v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogStorage();
+  v4 = LACLogStorage(v3);
   v5 = 16 * (v3 != 0);
   if (os_log_type_enabled(v4, v5))
   {
@@ -707,15 +699,14 @@ void __62__LACSecureStorage_processError_forRequest_completionHandler___block_in
       v7 = v3;
     }
 
-    v9[0] = 67109379;
-    v9[1] = v6;
-    v10 = 2113;
-    v11 = v7;
-    _os_log_impl(&dword_1B0233000, v4, v5, "processError rid:%u returned %{private}@", v9, 0x12u);
+    v8[0] = 67109379;
+    v8[1] = v6;
+    v9 = 2113;
+    v10 = v7;
+    _os_log_impl(&dword_1B0233000, v4, v5, "processError rid:%u returned %{private}@", v8, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__LACSecureStorage_processError_forRequest_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -743,16 +734,15 @@ void __62__LACSecureStorage_processError_forRequest_completionHandler___block_in
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = +[LACDeviceLifecycleManager sharedInstance];
-    [v6 rebootDeviceWithReason:@"Device needs to reboot to Preboard to set protected variables" completion:*(a1 + 32)];
+    v5 = +[LACDeviceLifecycleManager sharedInstance];
+    [v5 rebootDeviceWithReason:@"Device needs to reboot to Preboard to set protected variables" completion:*(a1 + 32)];
   }
 }
 
@@ -836,39 +826,17 @@ LABEL_12:
 
 + (Class)classForKey:(int64_t)key
 {
-  v4 = 0x1E696AD98;
-  if (key <= 0x1A)
+  if (key <= 0x1A && (((1 << key) & 0x23E58D2) != 0 || ((1 << key) & 0x4C1800C) != 0 || key == 24) || key == 1001)
   {
-    if (((1 << key) & 0x23E58D2) != 0)
-    {
-      goto LABEL_5;
-    }
-
-    if (((1 << key) & 0x4C1800C) != 0)
-    {
-      v4 = 0x1E695DEF0;
-      goto LABEL_5;
-    }
-
-    if (key == 24)
-    {
-      v4 = 0x1E695DF20;
-      goto LABEL_5;
-    }
+    v4 = objc_opt_class();
   }
 
-  if (key == 1001)
+  else
   {
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 + (id)maxDataLengthForKey:(int64_t)key
@@ -1200,17 +1168,17 @@ LABEL_40:
 
 - (void)_exchangeObject:(id)object request:(id)request completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   requestCopy = request;
   handlerCopy = handler;
   v11 = [requestCopy key];
-  v12 = LACLogStorage();
+  v12 = LACLogStorage(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v27 = v11;
-    v28 = 1024;
+    v26 = v11;
+    v27 = 1024;
     identifier = [requestCopy identifier];
     _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "exchangeData forKey:%d rid:%u", buf, 0xEu);
   }
@@ -1220,23 +1188,23 @@ LABEL_40:
   aBlock[2] = __62__LACSecureStorage__exchangeObject_request_completionHandler___block_invoke;
   aBlock[3] = &unk_1E7A98288;
   v13 = requestCopy;
-  v24 = v13;
+  v23 = v13;
   v14 = handlerCopy;
-  v25 = v14;
+  v24 = v14;
   v15 = _Block_copy(aBlock);
   if ([(LACSecureStorage *)self _checkEntitlementForRequest:v13 operation:4 value:objectCopy failureHandler:v15])
   {
     if ([objectCopy length] < 0x101)
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __62__LACSecureStorage__exchangeObject_request_completionHandler___block_invoke_44;
-      v19[3] = &unk_1E7A98328;
-      v19[4] = self;
-      v20 = objectCopy;
-      v21 = v13;
-      v22 = v15;
-      [(LACSecureStorage *)self _acmSEPControlForKey:v11 completionHandler:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __62__LACSecureStorage__exchangeObject_request_completionHandler___block_invoke_44;
+      v18[3] = &unk_1E7A98328;
+      v18[4] = self;
+      v19 = objectCopy;
+      v20 = v13;
+      v21 = v15;
+      [(LACSecureStorage *)self _acmSEPControlForKey:v11 completionHandler:v18];
     }
 
     else
@@ -1246,16 +1214,14 @@ LABEL_40:
       (*(v14 + 2))(v14, 0, v17);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __62__LACSecureStorage__exchangeObject_request_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LACLogStorage();
+  v7 = LACLogStorage(v6);
   v8 = v7;
   if (v6)
   {
@@ -1276,15 +1242,14 @@ void __62__LACSecureStorage__exchangeObject_request_completionHandler___block_in
       v11 = v5;
     }
 
-    v13[0] = 67109379;
-    v13[1] = v10;
-    v14 = 2113;
-    v15 = v11;
-    _os_log_impl(&dword_1B0233000, v8, v9, "exchangeData rid:%u returned %{private}@", v13, 0x12u);
+    v12[0] = 67109379;
+    v12[1] = v10;
+    v13 = 2113;
+    v14 = v11;
+    _os_log_impl(&dword_1B0233000, v8, v9, "exchangeData rid:%u returned %{private}@", v12, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__LACSecureStorage__exchangeObject_request_completionHandler___block_invoke_44(uint64_t a1, uint64_t a2)
@@ -1489,16 +1454,41 @@ LABEL_5:
   (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E118], 0);
 }
 
+- (void)_setSecureBootModeForACMVariable:(unsigned int)variable completionHandler:(id)handler
+{
+  v4 = *&variable;
+  handlerCopy = handler;
+  if ([(LACSecureStorage *)self _securityBootModeForACMVariable:v4]== -1)
+  {
+    v9 = [LACStorageError errorWithCode:2 debugDescription:@"Unexpected ACM var when reboot is requested"];
+    handlerCopy[2](handlerCopy, 0, v9);
+  }
+
+  else
+  {
+    v6 = AMFIArmSecurityBootMode();
+    if (v6)
+    {
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected AMFI error when setting boot mode, amfiErr: %u", v6];
+      v8 = [LACStorageError errorWithCode:2 debugDescription:v7];
+      handlerCopy[2](handlerCopy, 0, v8);
+    }
+
+    else
+    {
+      handlerCopy[2](handlerCopy, MEMORY[0x1E695E118], 0);
+    }
+  }
+}
+
 - (id)_rebootErrorForRequest:(id)request
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"com.apple.LocalAuthentication.Storage.error.key.RequiredBootMode";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"com.apple.LocalAuthentication.Storage.error.key.RequiredBootMode";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(request, "key")}];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [LACStorageError errorWithCode:5 userInfo:v4 debugDescription:@"Storage requires reboot"];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1551,6 +1541,183 @@ LABEL_12:
   return v12;
 }
 
+- (void)_setVariable:(unsigned int)variable value:(id)value request:(id)request completionHandler:(id)handler
+{
+  v8 = *&variable;
+  v53 = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  requestCopy = request;
+  handlerCopy = handler;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v51 = 0;
+  v52 = 0;
+  v32 = requestCopy;
+  contextID = [requestCopy contextID];
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __65__LACSecureStorage__setVariable_value_request_completionHandler___block_invoke;
+  aBlock[3] = &unk_1E7A983C8;
+  v44 = &v45;
+  v13 = handlerCopy;
+  v43 = v13;
+  v14 = _Block_copy(aBlock);
+  if (!contextID)
+  {
+    goto LABEL_7;
+  }
+
+  v41 = 0;
+  v15 = [(LACSecureStorage *)self _acmContextForUUID:contextID error:&v41];
+  v16 = v41;
+  v46[3] = v15;
+  if (v15)
+  {
+    bag_uuid = aks_get_bag_uuid();
+    if (bag_uuid)
+    {
+      bag_uuid = [MEMORY[0x1E696AEC0] stringWithFormat:@"AKS failed to get the keybag UUID: %x", bag_uuid];
+      _errorNotSupported = [LACStorageError errorWithCode:2 debugDescription:bag_uuid];
+      v14[2](v14, 0, _errorNotSupported);
+LABEL_41:
+
+      goto LABEL_42;
+    }
+
+LABEL_7:
+    v40 = 0;
+    bag_uuid = [(LACSecureStorage *)self _preprocessValue:valueCopy forVariable:v8 error:&v40];
+    v16 = v40;
+    v19 = LACLogStorage(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = @"success";
+      if (v16)
+      {
+        v20 = v16;
+      }
+
+      *buf = 138477827;
+      v50 = v20;
+      _os_log_impl(&dword_1B0233000, v19, OS_LOG_TYPE_DEFAULT, "Preprocessing value completed (%{private}@)", buf, 0xCu);
+    }
+
+    if (v16)
+    {
+      (*(v13 + 2))(v13, 0, v16);
+      goto LABEL_42;
+    }
+
+    v21 = bag_uuid;
+    [bag_uuid bytes];
+    [bag_uuid length];
+    v22 = ACMSetEnvironmentVariableWithAccessPolicy(v8);
+    if (bag_uuid)
+    {
+      v23 = v22 == 0;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if (v23 && v8 == 67)
+    {
+      v25 = 4294967269;
+    }
+
+    else
+    {
+      v25 = v22;
+    }
+
+    options = [requestCopy options];
+    v27 = [MEMORY[0x1E696AD98] numberWithInteger:1];
+    v28 = [options objectForKeyedSubscript:v27];
+    bOOLValue = [v28 BOOLValue];
+
+    if (v25 != -17)
+    {
+      if (!v25)
+      {
+        if ((v8 - 54) <= 0xD && ((1 << (v8 - 54)) & 0x2043) != 0 && (bOOLValue & 1) == 0)
+        {
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __65__LACSecureStorage__setVariable_value_request_completionHandler___block_invoke_73;
+          v38[3] = &unk_1E7A97310;
+          v39 = v14;
+          [(LACSecureStorage *)self _setStandardSecureBootModeCompletionHandler:v38];
+          _errorNotSupported = v39;
+          goto LABEL_41;
+        }
+
+        v14[2](v14, MEMORY[0x1E695E118], 0);
+LABEL_42:
+
+        goto LABEL_43;
+      }
+
+      if (contextID || v25 != -3)
+      {
+        if (v25 == -27)
+        {
+          _errorNotSupported = [(LACSecureStorage *)self _rebootErrorForRequest:v32];
+          if (bOOLValue)
+          {
+            v14[2](v14, 0, _errorNotSupported);
+          }
+
+          else
+          {
+            v35[0] = MEMORY[0x1E69E9820];
+            v35[1] = 3221225472;
+            v35[2] = __65__LACSecureStorage__setVariable_value_request_completionHandler___block_invoke_2;
+            v35[3] = &unk_1E7A983F0;
+            v37 = v14;
+            _errorNotSupported = _errorNotSupported;
+            v36 = _errorNotSupported;
+            [(LACSecureStorage *)self _setSecureBootModeForACMVariable:v8 completionHandler:v35];
+          }
+        }
+
+        else if (v25 == -14)
+        {
+          _errorNotSupported = [(LACSecureStorage *)self _errorNotSupported];
+          v14[2](v14, 0, _errorNotSupported);
+        }
+
+        else
+        {
+          v29 = "remove";
+          if (bag_uuid)
+          {
+            v29 = "store";
+          }
+
+          _errorNotSupported = [MEMORY[0x1E696AEC0] stringWithFormat:@"ACM failed to %s the value: %d", v29, v25];
+          v30 = [LACStorageError errorWithCode:2 debugDescription:_errorNotSupported];
+          v14[2](v14, 0, v30);
+        }
+
+        goto LABEL_41;
+      }
+    }
+
+    _errorNotSupported = [LACStorageError errorWithCode:0 debugDescription:@"Storage policy not satisfied."];
+    v14[2](v14, 0, _errorNotSupported);
+    goto LABEL_41;
+  }
+
+  v14[2](v14, 0, v16);
+LABEL_43:
+
+  _Block_object_dispose(&v45, 8);
+}
+
 void __65__LACSecureStorage__setVariable_value_request_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v7 = a2;
@@ -1569,7 +1736,7 @@ uint64_t __65__LACSecureStorage__setVariable_value_request_completionHandler___b
   v4 = *(a1 + 40);
   if (a3)
   {
-    return (*(v4 + 16))();
+    return (*(v4 + 16))(v4, a2);
   }
 
   else
@@ -1692,6 +1859,58 @@ uint64_t __64__LACSecureStorage__sepControl_value_request_completionHandler___bl
   }
 
   return result;
+}
+
+- (void)_variable:(unsigned int)_variable completionHandler:(id)handler
+{
+  v4 = *&_variable;
+  handlerCopy = handler;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__12;
+  v16 = __Block_byref_object_dispose__12;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __48__LACSecureStorage__variable_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A958D0;
+  v11[4] = &v12;
+  v7 = ACMGetEnvironmentVariable(v4, v11);
+  if (v7 == -14)
+  {
+    _errorNotSupported = [(LACSecureStorage *)self _errorNotSupported];
+    handlerCopy[2](handlerCopy, 0, _errorNotSupported);
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  if (v7 == -7)
+  {
+LABEL_6:
+    handlerCopy[2](handlerCopy, 0, 0);
+    goto LABEL_10;
+  }
+
+  if (v7)
+  {
+    _errorNotSupported = [MEMORY[0x1E696AEC0] stringWithFormat:@"ACM failed to query the value: %d", v7];
+    v10 = [LACStorageError errorWithCode:2 debugDescription:_errorNotSupported];
+    handlerCopy[2](handlerCopy, 0, v10);
+
+    goto LABEL_9;
+  }
+
+  v8 = v13[5];
+  if (!v8)
+  {
+    goto LABEL_6;
+  }
+
+  handlerCopy[2](handlerCopy, v8, 0);
+LABEL_10:
+  _Block_object_dispose(&v12, 8);
 }
 
 uint64_t __48__LACSecureStorage__variable_completionHandler___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
@@ -2029,43 +2248,39 @@ void __67__LACSecureStorage__contextDataForKey_contextID_completionHandler___blo
   v5 = a3;
   if (a2)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3032000000;
-    v15 = __Block_byref_object_copy__12;
-    v16 = __Block_byref_object_dispose__12;
-    v17 = 0;
+    v12[0] = 0;
+    v12[1] = v12;
+    v12[2] = 0x3032000000;
+    v12[3] = __Block_byref_object_copy__12;
+    v12[4] = __Block_byref_object_dispose__12;
+    v13 = 0;
     v6 = *(*(*(a1 + 40) + 8) + 24);
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
     v11[2] = __67__LACSecureStorage__contextDataForKey_contextID_completionHandler___block_invoke_3;
     v11[3] = &unk_1E7A958D0;
-    v11[4] = &v12;
+    v11[4] = v12;
     Data = ACMContextGetData(v6, a2, v11);
-    if (Data != -7)
+    if (Data != -7 && Data)
     {
-      if (Data)
-      {
-        v8 = *(a1 + 32);
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ACM failed to retrieve ACMContextData. acmErr: %d", Data];
-        v10 = [LACStorageError errorWithCode:2 debugDescription:v9];
-        (*(v8 + 16))(v8, 0, v10);
-
-        goto LABEL_9;
-      }
-
-      v13[5];
+      v8 = *(a1 + 32);
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ACM failed to retrieve ACMContextData. acmErr: %d", Data];
+      v10 = [LACStorageError errorWithCode:2 debugDescription:v9];
+      (*(v8 + 16))(v8, 0, v10);
     }
 
-    (*(*(a1 + 32) + 16))();
-LABEL_9:
-    _Block_object_dispose(&v12, 8);
+    else
+    {
+      (*(*(a1 + 32) + 16))();
+    }
 
-    goto LABEL_10;
+    _Block_object_dispose(v12, 8);
   }
 
-  (*(*(a1 + 32) + 16))();
-LABEL_10:
+  else
+  {
+    (*(*(a1 + 32) + 16))();
+  }
 }
 
 void __67__LACSecureStorage__contextDataForKey_contextID_completionHandler___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)

@@ -83,12 +83,12 @@ LABEL_6:
     v15 = 0;
     if (!v10)
     {
-      v11 = [(__CFString *)v8 isEqualToString:@"Source"];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if ((v11 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v12 = v9;
-        if (v12 == @"Destination" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"Destination"], v13, v14))
+        if (v12 == @"Destination" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, v14))
         {
           v15 = 1;
         }

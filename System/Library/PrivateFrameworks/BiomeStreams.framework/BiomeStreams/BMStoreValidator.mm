@@ -131,7 +131,7 @@ void __71__BMStoreValidator_isChronologicallyValidWithPublisher_shouldContinue__
 
 uint64_t __71__BMStoreValidator_isChronologicallyValidWithPublisher_shouldContinue___block_invoke_4(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 timestamp];
   if (v4 < *(*(a1[6] + 8) + 24))
@@ -139,24 +139,24 @@ uint64_t __71__BMStoreValidator_isChronologicallyValidWithPublisher_shouldContin
     v5 = __biome_log_for_category();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v10 = *(a1[4] + 8);
-      v11 = *(*(a1[6] + 8) + 24);
-      v12 = [v3 segmentName];
+      v9 = *(a1[4] + 8);
+      v10 = *(*(a1[6] + 8) + 24);
+      v11 = [v3 segmentName];
       [v3 timestamp];
-      v14 = v13;
-      v15 = *(*(a1[6] + 8) + 24);
+      v13 = v12;
+      v14 = *(*(a1[6] + 8) + 24);
       [v3 timestamp];
-      v17 = 138413314;
-      v18 = v10;
-      v19 = 2048;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2048;
-      v24 = v14;
-      v25 = 2048;
-      v26 = v15 - v16;
-      _os_log_fault_impl(&dword_1848EE000, v5, OS_LOG_TYPE_FAULT, "found unchronological events for stream - %@, last timestamp:%f, current event segment:%@ timestamp:%f diff:%f", &v17, 0x34u);
+      v16 = 138413314;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
+      v22 = 2048;
+      v23 = v13;
+      v24 = 2048;
+      v25 = v14 - v15;
+      _os_log_fault_impl(&dword_1848EE000, v5, OS_LOG_TYPE_FAULT, "found unchronological events for stream - %@, last timestamp:%f, current event segment:%@ timestamp:%f diff:%f", &v16, 0x34u);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -166,7 +166,6 @@ uint64_t __71__BMStoreValidator_isChronologicallyValidWithPublisher_shouldContin
   *(*(a1[6] + 8) + 24) = v6;
   v7 = (*(a1[5] + 16))();
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

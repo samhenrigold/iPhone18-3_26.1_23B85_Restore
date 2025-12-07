@@ -9,7 +9,7 @@
 
 + (Class)calloutViewClass
 {
-  sub_1000122EC(0, &qword_1001BD8E8);
+  sub_1000122EC(0, &qword_1001BD8E8, _MKBalloonCalloutView_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -66,10 +66,11 @@
       v4 = *(v3 + OBJC_IVAR____TtC18SharingViewService17B389MapAnnotation_roleEmoji);
       v5 = *(v3 + OBJC_IVAR____TtC18SharingViewService17B389MapAnnotation_roleEmoji + 8);
 
-      v6 = sub_1000E94A4(v4, v5, 56.0);
+      sub_1000E94A4(v4, v5, 56.0);
+      v7 = v6;
       swift_unknownObjectRelease();
 
-      v7 = v6;
+      v8 = v7;
       goto LABEL_7;
     }
 
@@ -80,10 +81,10 @@
   {
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_7:
 
-  return v7;
+  return v8;
 }
 
 @end

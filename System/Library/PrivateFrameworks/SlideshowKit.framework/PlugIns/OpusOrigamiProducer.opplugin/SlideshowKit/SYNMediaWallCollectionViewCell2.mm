@@ -428,7 +428,7 @@
   v4 = [-[SYNMediaWallCollectionViewCell2 contentView](self "contentView")];
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else

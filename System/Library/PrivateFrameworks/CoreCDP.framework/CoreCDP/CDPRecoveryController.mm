@@ -7,69 +7,69 @@
 
 - (void)performRecovery:(id)recovery
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   recoveryCopy = recovery;
   v5 = _os_activity_create(&dword_1DED99000, "cdp: recovery flow", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPSignpostLogSystem();
-  v7 = _CDPSignpostCreate(v6);
-  v9 = v8;
+  v7 = _CDPSignpostLogSystem(v6);
+  v8 = _CDPSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _CDPSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _CDPSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "NativeAccountRecovery", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "NativeAccountRecovery", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: NativeAccountRecovery  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: NativeAccountRecovery  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__4;
-  v46 = __Block_byref_object_dispose__4;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__4;
+  v49 = __Block_byref_object_dispose__4;
   selfCopy = self;
-  v47 = selfCopy;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __41__CDPRecoveryController_performRecovery___block_invoke;
-  v33[3] = &unk_1E869E348;
-  v36 = v7;
-  v37 = v9;
+  v50 = selfCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __41__CDPRecoveryController_performRecovery___block_invoke;
+  v36[3] = &unk_1E869E348;
+  v39 = v8;
+  v40 = v10;
   p_buf = &buf;
-  v14 = recoveryCopy;
-  v34 = v14;
-  v15 = MEMORY[0x1E12CA380](v33);
+  v17 = recoveryCopy;
+  v37 = v17;
+  v18 = MEMORY[0x1E12CA380](v36);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __41__CDPRecoveryController_performRecovery___block_invoke_2;
-  v31[3] = &unk_1E869D440;
-  v31[4] = selfCopy;
-  v17 = v15;
-  v32 = v17;
-  v18 = [daemonConn daemonWithErrorHandler:v31];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __41__CDPRecoveryController_performRecovery___block_invoke_2;
+  v34[3] = &unk_1E869D440;
+  v34[4] = selfCopy;
+  v20 = v18;
+  v35 = v20;
+  v21 = [daemonConn daemonWithErrorHandler:v34];
 
-  v19 = _CDPLogSystemAnalytics();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _CDPLogSystemAnalytics(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     context = [(CDPController *)selfCopy context];
     telemetryFlowID = [context telemetryFlowID];
-    *v39 = 138412546;
-    v40 = selfCopy;
-    v41 = 2112;
-    v42 = telemetryFlowID;
-    _os_log_debug_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEBUG, "%@: setting context type to be CDPContextTypeAccountRecovery with flowID=%@", v39, 0x16u);
+    *v42 = 138412546;
+    v43 = selfCopy;
+    v44 = 2112;
+    v45 = telemetryFlowID;
+    _os_log_debug_impl(&dword_1DED99000, v23, OS_LOG_TYPE_DEBUG, "%@: setting context type to be CDPContextTypeAccountRecovery with flowID=%@", v42, 0x16u);
   }
 
   context2 = [(CDPController *)selfCopy context];
@@ -78,20 +78,18 @@
   context3 = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
   authProvider = [(CDPController *)selfCopy authProvider];
-  v24 = [CDPAuthProviderProxy proxyWithAuthProvider:authProvider];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __41__CDPRecoveryController_performRecovery___block_invoke_29;
-  v29[3] = &unk_1E869D848;
-  v29[4] = selfCopy;
-  v25 = v17;
-  v30 = v25;
-  [v18 performRecoveryWithContext:context3 uiProvider:uiProviderProxy authProvider:v24 completion:v29];
+  v28 = [CDPAuthProviderProxy proxyWithAuthProvider:authProvider];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __41__CDPRecoveryController_performRecovery___block_invoke_29;
+  v32[3] = &unk_1E869D848;
+  v32[4] = selfCopy;
+  v29 = v20;
+  v33 = v29;
+  [v21 performRecoveryWithContext:context3 uiProvider:uiProviderProxy authProvider:v28 completion:v32];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CDPRecoveryController_performRecovery___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -100,7 +98,7 @@ void __41__CDPRecoveryController_performRecovery___block_invoke(uint64_t a1, voi
   v5 = a2;
   v6 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v8 = _CDPSignpostLogSystem();
+  v8 = _CDPSignpostLogSystem(Nanoseconds);
   v9 = v8;
   v10 = *(a1 + 48);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
@@ -112,21 +110,21 @@ void __41__CDPRecoveryController_performRecovery___block_invoke(uint64_t a1, voi
     _os_signpost_emit_with_name_impl(&dword_1DED99000, v9, OS_SIGNPOST_INTERVAL_END, v10, "NativeAccountRecovery", " result != nil=%{public,signpost.telemetry:number1,name=result != nil}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0xEu);
   }
 
-  v11 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPSignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = *(a1 + 48);
-    v14 = [v6 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = *(a1 + 48);
+    v15 = [v6 code];
     *buf = 134218752;
-    *v25 = v13;
+    *v25 = v14;
     *&v25[8] = 2048;
-    v26 = v12;
+    v26 = v13;
     v27 = 1026;
     v28 = v5 != 0;
     v29 = 1026;
-    v30 = v14;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: NativeAccountRecovery  result != nil=%{public,signpost.telemetry:number1,name=result != nil}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x22u);
+    v30 = v15;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: NativeAccountRecovery  result != nil=%{public,signpost.telemetry:number1,name=result != nil}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x22u);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -134,31 +132,27 @@ void __41__CDPRecoveryController_performRecovery___block_invoke(uint64_t a1, voi
   block[2] = __41__CDPRecoveryController_performRecovery___block_invoke_25;
   block[3] = &unk_1E869E320;
   v19 = *(a1 + 32);
-  v15 = v19;
+  v16 = v19;
   v23 = v19;
   v21 = v5;
   v22 = v6;
-  v16 = v6;
-  v17 = v5;
+  v17 = v6;
+  v18 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __41__CDPRecoveryController_performRecovery___block_invoke_25(void *a1)
+uint64_t __41__CDPRecoveryController_performRecovery___block_invoke_25(uint64_t a1)
 {
-  v2 = *(a1[7] + 8);
+  v2 = *(*(a1 + 56) + 8);
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  result = a1[6];
+  result = *(a1 + 48);
   if (result)
   {
-    v5 = a1[4];
-    v6 = a1[5];
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -168,7 +162,7 @@ void __41__CDPRecoveryController_performRecovery___block_invoke_2(uint64_t a1, v
 {
   v3 = a2;
   v4 = [*(a1 + 32) _sanitizedRecoveryErrorWithError:v3];
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __41__CDPRecoveryController_performRecovery___block_invoke_2_cold_1(v3, v5);
@@ -187,14 +181,14 @@ void __41__CDPRecoveryController_performRecovery___block_invoke_29(uint64_t a1, 
 
 - (id)_sanitizedRecoveryErrorWithError:(id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v4 = errorCopy;
   if (errorCopy && ([errorCopy domain], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", @"CDPStateError"), v5, !v6))
   {
-    v11 = *MEMORY[0x1E696AA08];
-    v12[0] = v4;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11[0] = v4;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = _CDPStateError(-5200, v8);
   }
 
@@ -203,18 +197,15 @@ void __41__CDPRecoveryController_performRecovery___block_invoke_29(uint64_t a1, 
     v7 = v4;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 void __41__CDPRecoveryController_performRecovery___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while recovering data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error while recovering data: %@", &v2, 0xCu);
 }
 
 @end

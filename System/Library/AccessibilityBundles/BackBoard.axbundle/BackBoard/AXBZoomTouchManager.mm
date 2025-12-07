@@ -1,6 +1,7 @@
 @interface AXBZoomTouchManager
 + (Class)getZoomBundlePrincipalClassForcingLoad:(BOOL)load;
 + (void)initializeZoomMonitor;
+- (void)setZoomTouchEnabled:(BOOL)enabled;
 - (void)updateSettings;
 @end
 
@@ -64,6 +65,27 @@ LABEL_7:
 LABEL_9:
 
   return principalClass;
+}
+
+- (void)setZoomTouchEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = [objc_opt_class() getZoomBundlePrincipalClassForcingLoad:enabled];
+  if (enabledCopy)
+  {
+    v5 = sel_enableZoom;
+  }
+
+  else
+  {
+    v5 = sel_disableZoom;
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+
+    [v4 performSelector:v5 withObject:0];
+  }
 }
 
 - (void)updateSettings

@@ -81,8 +81,8 @@
       v31 = 0.0;
     }
 
-    geometry = [traitsCopy geometry];
-    [geometry paddedFrame];
+    v32 = objc_msgSend_geometry(traitsCopy);
+    [v32 paddedFrame];
     v37 = 5.0 - v20;
     v38 = -5.0;
     if (v29 > 1.0)
@@ -94,17 +94,17 @@
     v40 = v35 - (v31 - v20);
     v41 = v37 + v34;
     v42 = v36 - (v37 + v38);
-    geometry2 = [traitsCopy geometry];
-    [geometry2 setPaddedFrame:{v39, v41, v40, v42}];
+    v43 = objc_msgSend_geometry(traitsCopy);
+    [v43 setPaddedFrame:{v39, v41, v40, v42}];
 
-    geometry3 = [traitsCopy geometry];
-    [geometry3 paddedFrame];
+    v44 = objc_msgSend_geometry(traitsCopy);
+    [v44 paddedFrame];
     v46 = v45;
     v48 = v47;
     v50 = v49;
     v52 = v51;
-    geometry4 = [traitsCopy geometry];
-    [geometry4 setDisplayFrame:{v46, v48, v50, v52}];
+    v53 = objc_msgSend_geometry(traitsCopy);
+    [v53 setDisplayFrame:{v46, v48, v50, v52}];
 
     [(UIKBRenderFactory *)self scale];
     if (v54 == 2.0)
@@ -146,23 +146,23 @@
       v60 = -6.0;
     }
 
-    geometry5 = [traitsCopy geometry];
-    [geometry5 paddedFrame];
+    v61 = objc_msgSend_geometry(traitsCopy);
+    [v61 paddedFrame];
     v63 = v62;
     v65 = v64 + 0.0;
     v67 = v66 + 0.0;
     v69 = v68 - v60;
-    geometry6 = [traitsCopy geometry];
-    [geometry6 setPaddedFrame:{v65, v67, v63, v69}];
+    v70 = objc_msgSend_geometry(traitsCopy);
+    [v70 setPaddedFrame:{v65, v67, v63, v69}];
 
-    geometry7 = [traitsCopy geometry];
-    [geometry7 paddedFrame];
+    v71 = objc_msgSend_geometry(traitsCopy);
+    [v71 paddedFrame];
     v73 = v72;
     v75 = v74;
     v77 = v76;
     v79 = v78;
-    geometry8 = [traitsCopy geometry];
-    [geometry8 setDisplayFrame:{v73, v75, v77, v79}];
+    v80 = objc_msgSend_geometry(traitsCopy);
+    [v80 setDisplayFrame:{v73, v75, v77, v79}];
 
     symbolStyle4 = [traitsCopy symbolStyle];
     [symbolStyle4 setUsesSymbolImage:1];
@@ -213,14 +213,14 @@ LABEL_30:
   }
 
 LABEL_32:
-  geometry9 = [traitsCopy geometry];
-  [geometry9 paddedFrame];
+  v90 = objc_msgSend_geometry(traitsCopy);
+  [v90 paddedFrame];
   v92 = v20 + v91;
   v94 = v93 - (v20 + 0.0);
   v96 = v20 + v95;
   v98 = v97 - (v20 + 0.0);
-  geometry10 = [traitsCopy geometry];
-  [geometry10 setPaddedFrame:{v92, v96, v94, v98}];
+  v99 = objc_msgSend_geometry(traitsCopy);
+  [v99 setPaddedFrame:{v92, v96, v94, v98}];
 
   _emojiBorderColor = [(UIKBRenderFactory_Emoji *)self _emojiBorderColor];
   v101 = [UIKBEdgeEffect effectWithColor:_emojiBorderColor edges:v58 inset:-v20 weight:v20];
@@ -235,14 +235,14 @@ LABEL_32:
   v21.super_class = UIKBRenderFactoryEmoji_iPad_Split;
   keyplaneCopy = keyplane;
   v4 = [(UIKBRenderFactory_Emoji *)&v21 backgroundTraitsForKeyplane:keyplaneCopy];
-  geometry = [v4 geometry];
-  [geometry setRoundRectCorners:-1];
+  v5 = objc_msgSend_geometry(v4, v21.receiver, v21.super_class);
+  [v5 setRoundRectCorners:-1];
 
   v6 = MEMORY[0x1E696B098];
   [keyplaneCopy frameForKeylayoutName:@"split-left"];
   v7 = [v6 valueWithCGRect:?];
-  geometry2 = [v4 geometry];
-  [geometry2 setSplitLeftRect:v7];
+  v8 = objc_msgSend_geometry(v4);
+  [v8 setSplitLeftRect:v7];
 
   v9 = MEMORY[0x1E696B098];
   [keyplaneCopy frameForKeylayoutName:@"split-right"];
@@ -252,8 +252,8 @@ LABEL_32:
   v17 = v16;
 
   v18 = [v9 valueWithCGRect:{v11, v13, v15, v17}];
-  geometry3 = [v4 geometry];
-  [geometry3 setSplitRightRect:v18];
+  v19 = objc_msgSend_geometry(v4);
+  [v19 setSplitRightRect:v18];
 
   return v4;
 }
@@ -279,23 +279,23 @@ LABEL_25:
 
   [(UIKBRenderFactory *)self translucentGapWidth];
   v10 = v9;
-  geometry = [v8 geometry];
-  [geometry frame];
+  v11 = objc_msgSend_geometry(v8);
+  [v11 frame];
   v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  geometry2 = [v8 geometry];
-  [geometry2 setDisplayFrame:{v13, v15, v17, v19}];
+  v20 = objc_msgSend_geometry(v8);
+  [v20 setDisplayFrame:{v13, v15, v17, v19}];
 
-  geometry3 = [v8 geometry];
-  [geometry3 frame];
+  v21 = objc_msgSend_geometry(v8);
+  [v21 frame];
   v23 = v22;
   v25 = v24;
   v27 = v26;
   v29 = v28;
-  geometry4 = [v8 geometry];
-  [geometry4 setPaddedFrame:{v23, v25, v27, v29}];
+  v30 = objc_msgSend_geometry(v8);
+  [v30 setPaddedFrame:{v23, v25, v27, v29}];
 
   [(UIKBRenderFactoryEmoji_iPad_Split *)self symbolImageControlKeyFontSize];
   v32 = v31;
@@ -305,8 +305,8 @@ LABEL_25:
     {
       [(UIKBRenderFactory *)self RivenFactor:1.0];
       v34 = v33;
-      geometry5 = [v8 geometry];
-      [geometry5 paddedFrame];
+      v35 = objc_msgSend_geometry(v8);
+      [v35 paddedFrame];
       v40 = 8.0;
       if (v34 > 1.0)
       {
@@ -329,21 +329,21 @@ LABEL_25:
       v44 = v37 + v41;
       v45 = v39 + v42;
       v46 = v36 + -3.0;
-      geometry6 = [v8 geometry];
-      [geometry6 setPaddedFrame:{v46, v44, v43, v45}];
+      v47 = objc_msgSend_geometry(v8);
+      [v47 setPaddedFrame:{v46, v44, v43, v45}];
 
-      geometry7 = [v8 geometry];
-      [geometry7 paddedFrame];
+      v48 = objc_msgSend_geometry(v8);
+      [v48 paddedFrame];
       v50 = v49;
       v52 = v51 + -1.0;
       v54 = v53 + 1.0;
       v56 = v55 + 0.0;
-      geometry8 = [v8 geometry];
-      [geometry8 setDisplayFrame:{v52, v56, v54, v50}];
+      v57 = objc_msgSend_geometry(v8);
+      [v57 setDisplayFrame:{v52, v56, v54, v50}];
 
       _emojiBorderColor = [(UIKBRenderFactory_Emoji *)self _emojiBorderColor];
-      geometry15 = [UIKBEdgeEffect effectWithColor:_emojiBorderColor edges:2 inset:v10 + -1.0 weight:v10];
-      [v8 addRenderEffect:geometry15];
+      v59 = [UIKBEdgeEffect effectWithColor:_emojiBorderColor edges:2 inset:v10 + -1.0 weight:v10];
+      [v8 addRenderEffect:v59];
     }
 
     else
@@ -351,28 +351,28 @@ LABEL_25:
       if ([keyCopy displayType] != 36)
       {
 LABEL_22:
-        geometry9 = [v8 geometry];
-        [geometry9 paddedFrame];
+        v86 = objc_msgSend_geometry(v8);
+        [v86 paddedFrame];
         v88 = v87;
         v90 = v89;
         v92 = v91;
         v94 = v93;
-        geometry10 = [v8 geometry];
-        [geometry10 setFrame:{v88, v90, v92, v94}];
+        v95 = objc_msgSend_geometry(v8);
+        [v95 setFrame:{v88, v90, v92, v94}];
 
         clipCorners = [keyCopy clipCorners];
-        geometry11 = [v8 geometry];
-        [geometry11 setRoundRectCorners:clipCorners];
+        v97 = objc_msgSend_geometry(v8);
+        [v97 setRoundRectCorners:clipCorners];
 
-        geometry12 = [v8 geometry];
-        [geometry12 setRoundRectRadius:10.0];
+        _emojiBorderColor2 = objc_msgSend_geometry(v8);
+        [_emojiBorderColor2 setRoundRectRadius:10.0];
         goto LABEL_23;
       }
 
       [(UIKBRenderFactory *)self RivenFactor:1.0];
       v64 = v63;
-      geometry13 = [v8 geometry];
-      [geometry13 paddedFrame];
+      v65 = objc_msgSend_geometry(v8);
+      [v65 paddedFrame];
       v70 = -5.0;
       if (v64 > 1.0)
       {
@@ -391,26 +391,26 @@ LABEL_22:
       v74 = v68 + v71;
       v75 = v67 + v70;
       v76 = v69 + v72;
-      geometry14 = [v8 geometry];
-      [geometry14 setPaddedFrame:{v73, v75, v74, v76}];
+      v77 = objc_msgSend_geometry(v8);
+      [v77 setPaddedFrame:{v73, v75, v74, v76}];
 
-      _emojiBorderColor = [v8 geometry];
+      _emojiBorderColor = objc_msgSend_geometry(v8);
       [_emojiBorderColor paddedFrame];
       v79 = v78;
       v81 = v80;
       v83 = v82;
       v85 = v84;
-      geometry15 = [v8 geometry];
-      [geometry15 setDisplayFrame:{v79, v81, v83, v85}];
+      v59 = objc_msgSend_geometry(v8);
+      [v59 setDisplayFrame:{v79, v81, v83, v85}];
     }
 
     goto LABEL_22;
   }
 
   name = [keyCopy name];
-  v106 = [name isEqualToString:@"EmojiPopupKey"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v106)
+  if (isEqualToString)
   {
     visualStyling = [keyplaneCopy visualStyling];
     lightweightFactory = [(UIKBRenderFactory *)self lightweightFactory];
@@ -425,29 +425,29 @@ LABEL_22:
     {
       [UIKBRenderFactory factoryForVisualStyle:v110 renderingContext:renderingContext2];
     }
-    geometry12 = ;
+    _emojiBorderColor2 = ;
 
     [(UIKBRenderFactory *)self scale];
-    [geometry12 setScale:?];
-    v168 = [geometry12 traitsForKey:keyCopy onKeyplane:keyplaneCopy];
+    [_emojiBorderColor2 setScale:?];
+    v168 = [_emojiBorderColor2 traitsForKey:keyCopy onKeyplane:keyplaneCopy];
 
-    geometry16 = [v168 geometry];
-    [geometry16 frame];
+    v169 = objc_msgSend_geometry(v168);
+    [v169 frame];
     v171 = v170 + 0.0;
     v173 = v172 + -1.0;
     v175 = v174 + 0.0;
     v177 = v176 + -2.0;
-    geometry17 = [v168 geometry];
-    [geometry17 setPaddedFrame:{v171, v175, v173, v177}];
+    v178 = objc_msgSend_geometry(v168);
+    [v178 setPaddedFrame:{v171, v175, v173, v177}];
 
-    geometry18 = [v168 geometry];
-    [geometry18 frame];
+    v179 = objc_msgSend_geometry(v168);
+    [v179 frame];
     v181 = v180 + -2.0;
     v183 = v182 + 4.0;
     v185 = v184 + -2.0;
     v187 = v186 + 4.0;
-    geometry19 = [v168 geometry];
-    [geometry19 setSymbolFrame:{v181, v185, v183, v187}];
+    v188 = objc_msgSend_geometry(v168);
+    [v188 setSymbolFrame:{v181, v185, v183, v187}];
 
     if (_UIApplicationIsStickerPickerService())
     {
@@ -548,23 +548,23 @@ LABEL_22:
 
   if (([keyCopy state] & 0x10) == 0 && objc_msgSend(keyCopy, "displayType") == 13)
   {
-    geometry20 = [v8 geometry];
-    [geometry20 paddedFrame];
+    v116 = objc_msgSend_geometry(v8);
+    [v116 paddedFrame];
     v118 = v117 + 0.0;
     v120 = v119 - (1.0 - v10);
     v122 = v121 + 5.0;
     v124 = v123 + -5.0;
-    geometry21 = [v8 geometry];
-    [geometry21 setPaddedFrame:{v118, v122, v120, v124}];
+    v125 = objc_msgSend_geometry(v8);
+    [v125 setPaddedFrame:{v118, v122, v120, v124}];
 
-    geometry22 = [v8 geometry];
-    [geometry22 paddedFrame];
+    v126 = objc_msgSend_geometry(v8);
+    [v126 paddedFrame];
     v128 = v127;
     v130 = v129 + 0.0;
     v132 = v131 - v10;
     v134 = v133 - (0.0 - v10);
-    geometry23 = [v8 geometry];
-    [geometry23 setDisplayFrame:{v130, v132, v128, v134}];
+    v135 = objc_msgSend_geometry(v8);
+    [v135 setDisplayFrame:{v130, v132, v128, v134}];
 
     lightKeycapsFontName2 = [(UIKBRenderFactoryEmoji_iPad_Split *)self lightKeycapsFontName];
     [(UIKBRenderFactoryEmoji_iPad_Split *)self emojiInternationalKeySize];
@@ -610,14 +610,14 @@ LABEL_22:
     symbolStyle10 = [v8 symbolStyle];
     [symbolStyle10 setTextOffset:{v154, v157}];
 
-    symbolStyle5 = [v8 geometry];
+    symbolStyle5 = objc_msgSend_geometry(v8);
     [symbolStyle5 paddedFrame];
     v160 = v159;
     v162 = v10 + v161;
     v164 = v163 - (v10 + 0.0);
     v166 = v165 + 0.0;
-    geometry24 = [v8 geometry];
-    [geometry24 setPaddedFrame:{v162, v166, v164, v160}];
+    v167 = objc_msgSend_geometry(v8);
+    [v167 setPaddedFrame:{v162, v166, v164, v160}];
 
     v148 = 2;
     goto LABEL_78;
@@ -683,37 +683,37 @@ LABEL_22:
         v232 = -v10;
       }
 
-      geometry25 = [v8 geometry];
-      [geometry25 paddedFrame];
+      symbolStyle14 = objc_msgSend_geometry(v8);
+      [symbolStyle14 paddedFrame];
       v234 = v233;
       v236 = v235 + 0.0;
       v238 = v232 + v237;
       v240 = v239 - (v232 + 0.0);
-      geometry26 = [v8 geometry];
-      [geometry26 setPaddedFrame:{v236, v238, v234, v240}];
+      symbolStyle15 = objc_msgSend_geometry(v8);
+      [symbolStyle15 setPaddedFrame:{v236, v238, v234, v240}];
     }
 
     else
     {
-      geometry25 = [v8 symbolStyle];
-      [geometry25 textOffset];
-      v218 = v217;
-      geometry26 = [v8 symbolStyle];
-      [geometry26 textOffset];
-      v221 = v220 + 5.0;
       symbolStyle14 = [v8 symbolStyle];
-      [symbolStyle14 setTextOffset:{v218, v221}];
+      [symbolStyle14 textOffset];
+      v218 = v217;
+      symbolStyle15 = [v8 symbolStyle];
+      [symbolStyle15 textOffset];
+      v221 = v220 + 5.0;
+      symbolStyle16 = [v8 symbolStyle];
+      [symbolStyle16 setTextOffset:{v218, v221}];
     }
 
 LABEL_77:
-    symbolStyle5 = [v8 geometry];
+    symbolStyle5 = objc_msgSend_geometry(v8);
     [symbolStyle5 paddedFrame];
     v242 = v10 + v241;
     v244 = v243 - (v10 + 0.0);
     v246 = v10 + v245;
     v248 = v247 - (v10 + 0.0);
-    geometry27 = [v8 geometry];
-    [geometry27 setPaddedFrame:{v242, v246, v244, v248}];
+    v249 = objc_msgSend_geometry(v8);
+    [v249 setPaddedFrame:{v242, v246, v244, v248}];
 
     v148 = 3;
     goto LABEL_78;
@@ -752,23 +752,23 @@ LABEL_77:
       v259 = 0.0;
     }
 
-    geometry28 = [v8 geometry];
-    [geometry28 paddedFrame];
+    v260 = objc_msgSend_geometry(v8);
+    [v260 paddedFrame];
     v262 = v261 + 0.0;
     v264 = v263 - v259;
     v266 = v265 + 0.0;
     v268 = v267 - v257;
-    geometry29 = [v8 geometry];
-    [geometry29 setPaddedFrame:{v262, v266, v264, v268}];
+    v269 = objc_msgSend_geometry(v8);
+    [v269 setPaddedFrame:{v262, v266, v264, v268}];
 
-    symbolStyle5 = [v8 geometry];
+    symbolStyle5 = objc_msgSend_geometry(v8);
     [symbolStyle5 paddedFrame];
     v271 = v270;
     v273 = v272;
     v275 = v274;
     v277 = v276;
-    geometry30 = [v8 geometry];
-    [geometry30 setDisplayFrame:{v271, v273, v275, v277}];
+    v278 = objc_msgSend_geometry(v8);
+    [v278 setDisplayFrame:{v271, v273, v275, v277}];
   }
 
   v148 = 0;
@@ -796,19 +796,19 @@ LABEL_79:
     [v8 setLayeredBackgroundGradient:v253];
   }
 
-  geometry12 = [(UIKBRenderFactory_Emoji *)self _emojiBorderColor];
-  v254 = [UIKBEdgeEffect effectWithColor:geometry12 edges:v148 inset:-v10 weight:v10];
+  _emojiBorderColor2 = [(UIKBRenderFactory_Emoji *)self _emojiBorderColor];
+  v254 = [UIKBEdgeEffect effectWithColor:_emojiBorderColor2 edges:v148 inset:-v10 weight:v10];
   [v8 addRenderEffect:v254];
 
 LABEL_23:
-  symbolStyle15 = [v8 symbolStyle];
-  usesSymbolImage = [symbolStyle15 usesSymbolImage];
+  symbolStyle17 = [v8 symbolStyle];
+  usesSymbolImage = [symbolStyle17 usesSymbolImage];
 
   if (usesSymbolImage)
   {
     v101 = *off_1E70ECD18;
-    symbolStyle16 = [v8 symbolStyle];
-    [symbolStyle16 setFontSizeForSymbolImage:v32];
+    symbolStyle18 = [v8 symbolStyle];
+    [symbolStyle18 setFontSizeForSymbolImage:v32];
 
     renderingContext = [v8 symbolStyle];
     [renderingContext setFontWeightForSymbolImage:v101];

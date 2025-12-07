@@ -33,7 +33,7 @@
 
 - (void)beginDownload
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     v3 = +[DADAgentManager sharedManager];
@@ -53,22 +53,20 @@
       if (os_log_type_enabled(v7, v8))
       {
         accountID2 = [(DADClientDelegate *)self accountID];
-        v11 = 138543362;
-        v12 = accountID2;
-        _os_log_impl(&dword_248524000, v7, v8, "Could not get an account with the ID %{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = accountID2;
+        _os_log_impl(&dword_248524000, v7, v8, "Could not get an account with the ID %{public}@", &v10, 0xCu);
       }
 
       v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
       [(DADClientAttachmentDownloadDelegate *)self finishWithError:v6];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadProgressDownloadedByteCount:(int64_t)count totalByteCount:(int64_t)byteCount
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     client = [(DADClientDelegate *)self client];
@@ -77,36 +75,34 @@
     if (rawConnection)
     {
       v9 = *MEMORY[0x277D03C88];
-      v21[0] = *MEMORY[0x277D03A28];
+      v20[0] = *MEMORY[0x277D03A28];
       v10 = *MEMORY[0x277D03A38];
-      v20[0] = v9;
-      v20[1] = v10;
+      v19[0] = v9;
+      v19[1] = v10;
       attachmentUUID = [(DADClientAttachmentDownloadDelegate *)self attachmentUUID];
-      v21[1] = attachmentUUID;
-      v20[2] = *MEMORY[0x277D03A30];
+      v20[1] = attachmentUUID;
+      v19[2] = *MEMORY[0x277D03A30];
       delegateID = [(DADClientDelegate *)self delegateID];
-      v19 = delegateID;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-      v21[2] = v13;
-      v20[3] = *MEMORY[0x277D03B30];
+      v18 = delegateID;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      v20[2] = v13;
+      v19[3] = *MEMORY[0x277D03B30];
       v14 = [MEMORY[0x277CCABB0] numberWithLongLong:count];
-      v21[3] = v14;
-      v20[4] = *MEMORY[0x277D03E90];
+      v20[3] = v14;
+      v19[4] = *MEMORY[0x277D03E90];
       v15 = [MEMORY[0x277CCABB0] numberWithLongLong:byteCount];
-      v21[4] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:5];
+      v20[4] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
 
       v17 = _CFXPCCreateXPCObjectFromCFObject();
       xpc_connection_send_message(rawConnection, v17);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
   {
@@ -117,7 +113,7 @@
     if (os_log_type_enabled(v5, v7))
     {
       *buf = 138412290;
-      v32 = errorCopy;
+      v31 = errorCopy;
       _os_log_impl(&dword_248524000, v5, v7, "DADAttachmentDownloadDelegate finished with error %@", buf, 0xCu);
     }
 
@@ -139,14 +135,14 @@
 
         else
         {
-          v25 = DALoggingwithCategory();
-          v26 = *(v6 + 3);
-          if (os_log_type_enabled(v25, v26))
+          v24 = DALoggingwithCategory();
+          v25 = *(v6 + 3);
+          if (os_log_type_enabled(v24, v25))
           {
             accountID2 = [(DADClientDelegate *)self accountID];
             *buf = 138543362;
-            v32 = accountID2;
-            _os_log_impl(&dword_248524000, v25, v26, "DADAttachmentDownloadDelegate finished, but could not find an account with the ID %{public}@", buf, 0xCu);
+            v31 = accountID2;
+            _os_log_impl(&dword_248524000, v24, v25, "DADAttachmentDownloadDelegate finished, but could not find an account with the ID %{public}@", buf, 0xCu);
           }
         }
 
@@ -170,21 +166,21 @@ LABEL_12:
     if (rawConnection)
     {
       v14 = *MEMORY[0x277D03C88];
-      v30[0] = *MEMORY[0x277D03A18];
+      v29[0] = *MEMORY[0x277D03A18];
       v15 = *MEMORY[0x277D03A38];
-      v29[0] = v14;
-      v29[1] = v15;
+      v28[0] = v14;
+      v28[1] = v15;
       attachmentUUID = [(DADClientAttachmentDownloadDelegate *)self attachmentUUID];
-      v30[1] = attachmentUUID;
-      v29[2] = *MEMORY[0x277D03A30];
+      v29[1] = attachmentUUID;
+      v28[2] = *MEMORY[0x277D03A30];
       delegateID2 = [(DADClientDelegate *)self delegateID];
-      v28 = delegateID2;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-      v30[2] = v18;
-      v29[3] = *MEMORY[0x277D03B40];
+      v27 = delegateID2;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+      v29[2] = v18;
+      v28[3] = *MEMORY[0x277D03B40];
       v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:errorCopy];
-      v30[3] = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+      v29[3] = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
       v21 = _CFXPCCreateXPCObjectFromCFObject();
       xpc_connection_send_message(rawConnection, v21);
@@ -194,8 +190,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

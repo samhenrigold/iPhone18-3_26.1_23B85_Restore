@@ -245,7 +245,6 @@ LABEL_28:
 
   if (errorDetail)
   {
-    errorDetail = self->_errorDetail;
     PBDataWriterWriteStringField();
   }
 
@@ -275,13 +274,13 @@ LABEL_28:
 
   updatedValue = [(_INPBSetNumericSettingIntentResponse *)self updatedValue];
 
-  v13 = toCopy;
+  v12 = toCopy;
   if (updatedValue)
   {
     updatedValue2 = [(_INPBSetNumericSettingIntentResponse *)self updatedValue];
     PBDataWriterWriteSubmessage();
 
-    v13 = toCopy;
+    v12 = toCopy;
   }
 }
 

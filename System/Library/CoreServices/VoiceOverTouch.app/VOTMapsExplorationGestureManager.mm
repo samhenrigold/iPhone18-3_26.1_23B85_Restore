@@ -85,14 +85,18 @@
     v8 = [(VOTMapsExplorationGestureManager *)self explorationSegmentsForRoadsWithAngles:mapsExplorationCurrentRoadsWithAngles];
     explorationSegments = self->_explorationSegments;
     self->_explorationSegments = v8;
+
+    v11 = mapsExplorationCurrentRoadsWithAngles;
   }
 
   else
   {
-    self->_explorationSegments = objc_opt_new();
+    v10 = objc_opt_new();
+    v11 = self->_explorationSegments;
+    self->_explorationSegments = v10;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v10, v11);
 }
 
 - (void)updateCurrentLocation

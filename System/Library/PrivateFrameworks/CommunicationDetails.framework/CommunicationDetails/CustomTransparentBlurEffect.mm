@@ -34,7 +34,7 @@
   descriptorCopy = descriptor;
   environmentCopy = environment;
   selfCopy = self;
-  CustomTransparentBlurEffect._update(_:for:usage:)(descriptorCopy, environmentCopy, usage);
+  CustomTransparentBlurEffect._update(_:for:usage:)(descriptorCopy, environmentCopy, usage, v11);
 }
 
 - (_TtC20CommunicationDetailsP33_DC4BAC6700B115C68288899ABB1FCF9E27CustomTransparentBlurEffect)init

@@ -1,6 +1,7 @@
 @interface MaxLoadIndexTableSectionVariable
 - (MaxLoadIndexTableSectionVariable)initWithDecisionTreeSection:(id)section;
 - (unint64_t)getMaxLI:(unint64_t)i;
+- (unint64_t)getReleaseMaxLI:(BOOL)i releaseRate:(int)rate;
 @end
 
 @implementation MaxLoadIndexTableSectionVariable
@@ -66,6 +67,13 @@
 
   self->super._maxLI = v3;
   return v3;
+}
+
+- (unint64_t)getReleaseMaxLI:(BOOL)i releaseRate:(int)rate
+{
+  v5.receiver = self;
+  v5.super_class = MaxLoadIndexTableSectionVariable;
+  return [(MaxLoadIndexTableSection *)&v5 getReleaseMaxLI:i releaseRate:*&rate];
 }
 
 @end

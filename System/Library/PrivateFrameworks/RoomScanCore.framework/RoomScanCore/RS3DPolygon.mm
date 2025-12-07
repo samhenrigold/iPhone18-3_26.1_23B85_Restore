@@ -28,15 +28,15 @@
   v15.receiver = v7;
   v15.super_class = RS3DPolygon;
   v11 = [(RS3DPolygon *)&v15 init];
-  v12 = v11;
+  p_isa = &v11->super.isa;
   if (v11)
   {
     v13 = v9 - isa;
-    sub_262232448(v11 + 1, v13 >> 4);
-    memcpy(v12[1], isa, v13);
+    sub_262232448(&v11[1].super.isa, v13 >> 4);
+    memcpy(p_isa[1], isa, v13);
   }
 
-  return v12;
+  return p_isa;
 }
 
 @end

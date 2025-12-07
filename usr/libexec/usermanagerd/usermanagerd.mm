@@ -36,9 +36,9 @@ uint64_t sub_1000011DC(uint64_t a1)
   }
 
   v3 = sub_1000013AC(qword_1000EB608);
-  v13 = 0;
-  v4 = [v3 infoForProcessWithPID:a1 error:&v13];
-  v5 = v13;
+  v14 = 0;
+  v4 = [v3 infoForProcessWithPID:a1 error:&v14];
+  v5 = v14;
 
   if (v4)
   {
@@ -55,6 +55,7 @@ uint64_t sub_1000011DC(uint64_t a1)
     v7 = qword_1000EB308;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
+      v13 = 0;
       v8 = sub_1000011A8(1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
@@ -68,11 +69,11 @@ uint64_t sub_1000011DC(uint64_t a1)
 
       if (v9)
       {
-        v14 = 67109378;
-        v15 = a1;
+        v15[0] = 67109378;
+        v15[1] = a1;
         v16 = 2112;
         v17 = v5;
-        v10 = _os_log_send_and_compose_impl();
+        v10 = _os_log_send_and_compose_impl(v9, &v13, 0, 0, &_mh_execute_header, v7, 0, "Failed to look up persona for pid %u: %@", v15, 18);
         v11 = v10;
         if (v10)
         {
@@ -141,9 +142,9 @@ __CFString *sub_100001458(uint64_t a1, uint64_t a2, uint64_t a3)
   if (v4)
   {
     v5 = sub_1000013AC(qword_1000EB608);
-    v17 = 0;
-    v6 = [v5 infoForPersonaWithID:a3 error:&v17];
-    v7 = v17;
+    v18 = 0;
+    v6 = [v5 infoForPersonaWithID:a3 error:&v18];
+    v7 = v18;
 
     if (v6)
     {
@@ -170,6 +171,7 @@ __CFString *sub_100001458(uint64_t a1, uint64_t a2, uint64_t a3)
       v11 = qword_1000EB328;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
+        v17 = 0;
         v12 = sub_1000011A8(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
@@ -183,11 +185,11 @@ __CFString *sub_100001458(uint64_t a1, uint64_t a2, uint64_t a3)
 
         if (v13)
         {
-          v18 = 67109378;
-          v19 = a3;
+          v19[0] = 67109378;
+          v19[1] = a3;
           v20 = 2112;
           v21 = v7;
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(v13, &v17, 0, 0, &_mh_execute_header, v11, 16, "Failed to look up user UID for current persona %u: failed to retrieve kernel persona: %@", v19, 18);
           v15 = v14;
           if (v14)
           {
@@ -237,9 +239,8 @@ uint64_t sub_1000017A4(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint32_t
   return IOConnectCallMethod(a1, a2, a3, a4, a5, a6, 0, 0, a9, a10);
 }
 
-uint64_t sub_1000017C8()
+uint64_t sub_1000017C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v3 = v1 + *(v0 + 1) - v0;
 
   return ccder_blob_encode_body();
 }
@@ -264,7 +265,7 @@ void *sub_100001884()
   return acm_mem_alloc_typed(0x14uLL, 0x1000040A86A77D5uLL);
 }
 
-uint64_t sub_100001950()
+uint64_t sub_100001950(void x0_0, void x1_0, void x2_0, void x3_0, void x4_0, void a6, void a7, void a8, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return ccder_blob_encode_tl();
@@ -286,155 +287,161 @@ void sub_100001A18()
   *(v1 - 60) = 1;
 }
 
-uint64_t sub_100001AF4(void *a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t sub_100001AF4(void *a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5)
 {
+  v8 = a3;
   v11 = a4;
-  v60 = 0;
+  v62 = 0;
   if (!a5)
   {
-    sub_100089E78();
-LABEL_98:
+    sub_100089E78(v11, v12);
+LABEL_99:
     sub_100089E64();
 LABEL_15:
-    v17 = v6[101];
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = v6[101];
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-LABEL_41:
-      v33 = 2;
-      goto LABEL_45;
+LABEL_42:
+      v34 = 2;
+      goto LABEL_46;
     }
 
-    v65 = 0;
-    v22 = sub_1000011A8(0);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v67 = 0;
+    v23 = sub_1000011A8(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = v22;
+      v24 = v23;
     }
 
     else
     {
-      v23 = v22 & 0xFFFFFFFE;
+      v24 = v23 & 0xFFFFFFFE;
     }
 
-    if (v23)
+    if (v24)
     {
-      goto LABEL_28;
+      *v63 = 138543618;
+      *&v63[4] = a1;
+      *&v63[12] = 2114;
+      *v64 = v5;
+      v25 = _os_log_send_and_compose_impl(v24, &v67, 0, 0, &_mh_execute_header, v18, 16, "Failed to set up voucher for persona %{public}@: no personas found for user %{public}@", v63, 22);
+      goto LABEL_29;
     }
 
-    goto LABEL_39;
+LABEL_40:
+    v28 = 0;
+LABEL_41:
+    free(v28);
+    goto LABEL_42;
   }
 
   v5 = v11;
-  v12 = sub_100056BC8(qword_1000EB2E8, v11);
+  v13 = sub_100056BC8(qword_1000EB2E8, v11);
   v6 = &off_1000EB000;
-  if (!v12)
+  if (!v13)
   {
     if (qword_1000EB330 == -1)
     {
       goto LABEL_15;
     }
 
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
-  v13 = v12;
-  v14 = sub_100056854(qword_1000EB2E8, a1, v12);
-  CFRelease(v13);
-  if (!v14)
+  v14 = v13;
+  v15 = sub_100056854(qword_1000EB2E8, a1, v13);
+  CFRelease(v14);
+  if (!v15)
   {
     if (qword_1000EB330 != -1)
     {
       sub_100089E64();
     }
 
-    v17 = qword_1000EB328;
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = qword_1000EB328;
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_41;
+      goto LABEL_42;
     }
 
-    v65 = 0;
-    v24 = sub_1000011A8(0);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v67 = 0;
+    v26 = sub_1000011A8(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v25 = v24;
+      v27 = v26;
     }
 
     else
     {
-      v25 = v24 & 0xFFFFFFFE;
+      v27 = v26 & 0xFFFFFFFE;
     }
 
-    if (v25)
+    if (v27)
     {
-LABEL_28:
-      *v61 = 138543618;
-      *&v61[4] = a1;
-      *&v61[12] = 2114;
-      *v62 = v5;
-      v26 = _os_log_send_and_compose_impl();
-      v27 = v26;
-      if (v26)
+      *v63 = 138543618;
+      *&v63[4] = a1;
+      *&v63[12] = 2114;
+      *v64 = v5;
+      v25 = _os_log_send_and_compose_impl(v27, &v67, 0, 0, &_mh_execute_header, v18, 16, "Failed to set up voucher for persona %{public}@: persona not found on user %{public}@", v63, 22);
+LABEL_29:
+      v28 = v25;
+      if (v25)
       {
-        sub_100002A8C(v26);
+        sub_100002A8C(v25);
       }
 
-      goto LABEL_40;
+      goto LABEL_41;
     }
 
-LABEL_39:
-    v27 = 0;
-LABEL_40:
-    free(v27);
-    goto LABEL_41;
+    goto LABEL_40;
   }
 
-  v15 = sub_1000023E8(v14, kUMUserPersonaIDKey);
-  v16 = sub_100002454(v14, kUMUserPersonaDisabledKey);
-  CFRelease(v14);
-  if (v16)
+  v16 = sub_1000023E8(v15, kUMUserPersonaIDKey);
+  v17 = sub_100002454(v15, kUMUserPersonaDisabledKey);
+  CFRelease(v15);
+  if (v17)
   {
     if (qword_1000EB330 != -1)
     {
       sub_100089E64();
     }
 
-    v17 = qword_1000EB328;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = qword_1000EB328;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v65 = 0;
-      v18 = sub_1000011A8(0);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v67 = 0;
+      v19 = sub_1000011A8(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = v18;
+        v20 = v19;
       }
 
       else
       {
-        v19 = v18 & 0xFFFFFFFE;
+        v20 = v19 & 0xFFFFFFFE;
       }
 
-      if (v19)
+      if (v20)
       {
-        *v61 = 138543362;
-        *&v61[4] = a1;
-        v20 = _os_log_send_and_compose_impl();
-        v21 = v20;
-        if (v20)
+        *v63 = 138543362;
+        *&v63[4] = a1;
+        v21 = _os_log_send_and_compose_impl(v20, &v67, 0, 0, &_mh_execute_header, v18, 0, "Failed to adopt persona %{public}@: persona is disabled", v63, 12);
+        v22 = v21;
+        if (v21)
         {
-          sub_100002A8C(v20);
+          sub_100002A8C(v21);
         }
       }
 
       else
       {
-        v21 = 0;
+        v22 = 0;
       }
 
-      free(v21);
+      free(v22);
     }
 
-    v33 = 36;
+    v34 = 36;
   }
 
   else
@@ -444,147 +451,148 @@ LABEL_40:
       sub_100089E64();
     }
 
-    v28 = qword_1000EB328;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = qword_1000EB328;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v65 = 0;
-      v29 = sub_1000011A8(0);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v67 = 0;
+      v30 = sub_1000011A8(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = v29;
+        v31 = v30;
       }
 
       else
       {
-        v30 = v29 & 0xFFFFFFFE;
+        v31 = v30 & 0xFFFFFFFE;
       }
 
-      if (v30)
+      if (v31)
       {
-        *v61 = 138543874;
-        *&v61[4] = a1;
-        *&v61[12] = 1024;
-        *v62 = v15;
-        *&v62[4] = 1024;
-        *&v62[6] = a2;
-        v31 = _os_log_send_and_compose_impl();
-        v32 = v31;
-        if (v31)
+        *v63 = 138543874;
+        *&v63[4] = a1;
+        *&v63[12] = 1024;
+        *v64 = v16;
+        *&v64[4] = 1024;
+        *&v64[6] = a2;
+        v32 = _os_log_send_and_compose_impl(v31, &v67, 0, 0, &_mh_execute_header, v29, 0, "Adopting persona %{public}@ (%d) for PID %d", v63, 24);
+        v33 = v32;
+        if (v32)
         {
-          sub_100002A8C(v31);
+          sub_100002A8C(v32);
         }
       }
 
       else
       {
-        v32 = 0;
+        v33 = 0;
       }
 
-      free(v32);
+      free(v33);
     }
 
-    v35 = sub_1000024A8(qword_1000EB608);
-    v59 = 0;
-    v36 = [v35 uniquePIDForPID:a2 error:&v59];
-    v17 = v59;
+    v36 = sub_1000024A8(qword_1000EB608);
+    v61 = 0;
+    v37 = [v36 uniquePIDForPID:a2 error:&v61];
+    v18 = v61;
 
-    if (v36)
+    if (v37)
     {
       if (qword_1000EB330 != -1)
       {
         sub_100089D40();
       }
 
-      v37 = qword_1000EB328;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v38 = qword_1000EB328;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        v65 = 0;
-        v38 = sub_1000011A8(0);
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v67 = 0;
+        v39 = sub_1000011A8(0);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
-          v39 = v38;
+          v40 = v39;
         }
 
         else
         {
-          v39 = v38 & 0xFFFFFFFE;
+          v40 = v39 & 0xFFFFFFFE;
         }
 
-        if (v39)
+        if (v40)
         {
-          *v61 = 67109632;
-          *&v61[4] = v15;
-          *&v61[8] = 1024;
-          *&v61[10] = a3;
-          *v62 = 2048;
-          *&v62[2] = v36;
-          v40 = _os_log_send_and_compose_impl();
-          v41 = v40;
-          if (v40)
+          *v63 = 67109632;
+          *&v63[4] = v16;
+          *&v63[8] = 1024;
+          *&v63[10] = v8;
+          *v64 = 2048;
+          *&v64[2] = v37;
+          v41 = _os_log_send_and_compose_impl(v40, &v67, 0, 0, &_mh_execute_header, v38, 2, "mach_voucher_persona_for_originator(%d, %d, %lld)", v63, 24, v61);
+          v42 = v41;
+          if (v41)
           {
-            sub_100002A8C(v40);
+            sub_100002A8C(v41);
           }
         }
 
         else
         {
-          v41 = 0;
+          v42 = 0;
         }
 
-        free(v41);
+        free(v42);
       }
 
-      v47 = mach_voucher_persona_for_originator();
-      if (v47)
+      v48 = mach_voucher_persona_for_originator();
+      if (v48)
       {
-        v48 = v47;
+        v49 = v48;
         if (qword_1000EB330 != -1)
         {
           sub_100089D40();
         }
 
-        v49 = qword_1000EB328;
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v50 = qword_1000EB328;
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
-          v65 = 0;
-          v50 = sub_1000011A8(0);
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v67 = 0;
+          v51 = sub_1000011A8(0);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
-            v51 = v50;
+            v52 = v51;
           }
 
           else
           {
-            v51 = v50 & 0xFFFFFFFE;
+            v52 = v51 & 0xFFFFFFFE;
           }
 
-          if (v51)
+          if (v52)
           {
-            *v61 = 67109888;
-            *&v61[4] = v15;
-            *&v61[8] = 1024;
-            *&v61[10] = a3;
-            *v62 = 2048;
-            *&v62[2] = v36;
-            v63 = 1024;
-            v64 = v48;
-            v52 = _os_log_send_and_compose_impl();
-            v53 = v52;
-            if (v52)
+            *v63 = 67109888;
+            *&v63[4] = v16;
+            *&v63[8] = 1024;
+            *&v63[10] = v8;
+            *v64 = 2048;
+            *&v64[2] = v37;
+            v65 = 1024;
+            v66 = v49;
+            LODWORD(v60) = 30;
+            v53 = _os_log_send_and_compose_impl(v52, &v67, 0, 0, &_mh_execute_header, v50, 16, "mach_voucher_persona_for_originator(%d, %d, %lld) failed: %{mach.errno}d", v63, v60);
+            v54 = v53;
+            if (v53)
             {
-              sub_100002A8C(v52);
+              sub_100002A8C(v53);
             }
           }
 
           else
           {
-            v53 = 0;
+            v54 = 0;
           }
 
-          free(v53);
+          free(v54);
         }
 
-        v33 = 22;
+        v34 = 22;
       }
 
       else
@@ -594,43 +602,43 @@ LABEL_40:
           sub_100089D40();
         }
 
-        v54 = qword_1000EB328;
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v55 = qword_1000EB328;
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 0;
-          v55 = sub_1000011A8(0);
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+          *v63 = 0;
+          v56 = sub_1000011A8(0);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
-            v56 = v55;
+            v57 = v56;
           }
 
           else
           {
-            v56 = v55 & 0xFFFFFFFE;
+            v57 = v56 & 0xFFFFFFFE;
           }
 
-          if (v56)
+          if (v57)
           {
-            LODWORD(v65) = 67109120;
-            HIDWORD(v65) = v60;
-            v57 = _os_log_send_and_compose_impl();
-            v58 = v57;
-            if (v57)
+            LODWORD(v67) = 67109120;
+            HIDWORD(v67) = v62;
+            v58 = _os_log_send_and_compose_impl(v57, v63, 0, 0, &_mh_execute_header, v55, 0, "mach_voucher_persona_for_originator successful; replacement port is: %d", &v67);
+            v59 = v58;
+            if (v58)
             {
-              sub_100002A8C(v57);
+              sub_100002A8C(v58);
             }
           }
 
           else
           {
-            v58 = 0;
+            v59 = 0;
           }
 
-          free(v58);
+          free(v59);
         }
 
-        v33 = 0;
-        *a5 = v60;
+        v34 = 0;
+        *a5 = v62;
       }
     }
 
@@ -641,50 +649,51 @@ LABEL_40:
         sub_100089D40();
       }
 
-      v42 = qword_1000EB328;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = qword_1000EB328;
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v65 = 0;
-        v43 = sub_1000011A8(0);
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v67 = 0;
+        v44 = sub_1000011A8(0);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v44 = v43;
+          v45 = v44;
         }
 
         else
         {
-          v44 = v43 & 0xFFFFFFFE;
+          v45 = v44 & 0xFFFFFFFE;
         }
 
-        if (v44)
+        if (v45)
         {
-          *v61 = 138543618;
-          *&v61[4] = a1;
-          *&v61[12] = 1024;
-          *v62 = a2;
-          v45 = _os_log_send_and_compose_impl();
-          v46 = v45;
-          if (v45)
+          *v63 = 138543618;
+          *&v63[4] = a1;
+          *&v63[12] = 1024;
+          *v64 = a2;
+          LODWORD(v60) = 18;
+          v46 = _os_log_send_and_compose_impl(v45, &v67, 0, 0, &_mh_execute_header, v43, 16, "Failed to adopt persona %{public}@ for pid %d: failed to get unique pid", v63, v60);
+          v47 = v46;
+          if (v46)
           {
-            sub_100002A8C(v45);
+            sub_100002A8C(v46);
           }
         }
 
         else
         {
-          v46 = 0;
+          v47 = 0;
         }
 
-        free(v46);
+        free(v47);
       }
 
-      v33 = [v17 code];
+      v34 = [v18 code];
     }
   }
 
-LABEL_45:
+LABEL_46:
 
-  return v33;
+  return v34;
 }
 
 uint64_t sub_10000230C(int a1)
@@ -700,7 +709,7 @@ uint64_t sub_10000230C(int a1)
   }
 }
 
-uint64_t sub_100002330()
+uint64_t sub_100002330(uint64_t a1)
 {
 
   return objc_opt_isKindOfClass();
@@ -786,6 +795,7 @@ const void *sub_1000024C0(const __CFDictionary *a1, _DWORD *a2)
     v10 = qword_1000EB308;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
+      *v19 = 0;
       v11 = sub_1000011A8(1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
@@ -799,7 +809,8 @@ const void *sub_1000024C0(const __CFDictionary *a1, _DWORD *a2)
 
       if (v12)
       {
-        v13 = _os_log_send_and_compose_impl();
+        LOWORD(v18[0]) = 0;
+        v13 = _os_log_send_and_compose_impl(v12, v19, 0, 0, &_mh_execute_header, v10, 0, "getUserSessionKeybagData: could not find the requested session", v18, 2);
         v14 = v13;
         if (v13)
         {
@@ -834,6 +845,7 @@ const void *sub_1000024C0(const __CFDictionary *a1, _DWORD *a2)
   v5 = qword_1000EB308;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
+    v18[0] = 0;
     v6 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -847,7 +859,9 @@ const void *sub_1000024C0(const __CFDictionary *a1, _DWORD *a2)
 
     if (v7)
     {
-      v8 = _os_log_send_and_compose_impl();
+      *v19 = 138412290;
+      *&v19[4] = v4;
+      v8 = _os_log_send_and_compose_impl(v7, v18, 0, 0, &_mh_execute_header, v5, 0, "getUserSessionKeybagData: found session %@", v19, 12);
       v9 = v8;
       if (v8)
       {
@@ -897,9 +911,10 @@ CFTypeRef sub_100002700(const __CFDictionary *a1)
     v5 = qword_1000EB308;
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
+    v18 = 0;
     v6 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -913,14 +928,16 @@ CFTypeRef sub_100002700(const __CFDictionary *a1)
 
     if (v7)
     {
-      goto LABEL_46;
+      LOWORD(v17) = 0;
+      v8 = _os_log_send_and_compose_impl(v7, &v18, 0, 0, &_mh_execute_header, v5, 0, "Error: USESSION_SET_UID was set but no UserSessionID was given!", &v17, 2, v17);
+      goto LABEL_47;
     }
 
-LABEL_48:
-    v17 = 0;
 LABEL_49:
-    free(v17);
+    v16 = 0;
 LABEL_50:
+    free(v16);
+LABEL_51:
 
     return 0;
   }
@@ -942,34 +959,38 @@ LABEL_50:
     v5 = qword_1000EB308;
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
-    v9 = sub_1000011A8(1);
+    v18 = 0;
+    v10 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = v9 & 0xFFFFFFFE;
+      v11 = v10 & 0xFFFFFFFE;
     }
 
-    if (!v10)
+    if (!v11)
     {
-      goto LABEL_48;
+      goto LABEL_49;
     }
 
-    goto LABEL_46;
+LABEL_25:
+    LOWORD(v17) = 0;
+    v8 = _os_log_send_and_compose_impl(v11, &v18, 0, 0, &_mh_execute_header, v5, 0, "Error: USESESSION_SET_UUID was set but no UserSessionUUID was given!", &v17, 2, v17);
+    goto LABEL_47;
   }
 
   if (CFDictionaryContainsKey(a1, kUMUserSessionUUIDKey))
   {
-    v8 = sub_100079590(a1, kUMUserSessionUUIDKey);
-    if (v8)
+    v9 = sub_100079590(a1, kUMUserSessionUUIDKey);
+    if (v9)
     {
-      sub_10008A1A8(qword_1000EB2E0, v8);
+      sub_10008A1A8(qword_1000EB2E0, v9);
       return objc_claimAutoreleasedReturnValue();
     }
 
@@ -981,34 +1002,27 @@ LABEL_50:
     v5 = qword_1000EB308;
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
-    v12 = sub_1000011A8(1);
+    v18 = 0;
+    v13 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
+      v11 = v13;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v11 = v13 & 0xFFFFFFFE;
     }
 
-    if (!v13)
+    if (!v11)
     {
-      goto LABEL_48;
+      goto LABEL_49;
     }
 
-LABEL_46:
-    v16 = _os_log_send_and_compose_impl();
-    v17 = v16;
-    if (v16)
-    {
-      sub_100002A8C(v16);
-    }
-
-    goto LABEL_49;
+    goto LABEL_25;
   }
 
   if (!CFDictionaryContainsKey(a1, kUMUserSessionNameKey))
@@ -1016,8 +1030,8 @@ LABEL_46:
     return 0;
   }
 
-  v11 = sub_100079590(a1, kUMUserSessionNameKey);
-  if (!v11)
+  v12 = sub_100079590(a1, kUMUserSessionNameKey);
+  if (!v12)
   {
     if (qword_1000EB310 != -1)
     {
@@ -1027,9 +1041,10 @@ LABEL_46:
     v5 = qword_1000EB308;
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
+    v18 = 0;
     v14 = sub_1000011A8(1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -1041,15 +1056,24 @@ LABEL_46:
       v15 = v14 & 0xFFFFFFFE;
     }
 
-    if (v15)
+    if (!v15)
     {
-      goto LABEL_46;
+      goto LABEL_49;
     }
 
-    goto LABEL_48;
+    LOWORD(v17) = 0;
+    v8 = _os_log_send_and_compose_impl(v15, &v18, 0, 0, &_mh_execute_header, v5, 0, "Error: USESSION_SET_NAME was set but no UserSessionName was given!", &v17, 2, v17);
+LABEL_47:
+    v16 = v8;
+    if (v8)
+    {
+      sub_100002A8C(v8);
+    }
+
+    goto LABEL_50;
   }
 
-  return sub_100018808(v11);
+  return sub_100018808(v12);
 }
 
 void sub_100002A8C(const char *a1)
@@ -1064,7 +1088,7 @@ void sub_100002A8C(const char *a1)
   sub_100095D30(v2, a1);
 }
 
-BOOL sub_100002AFC(_BOOL8 result)
+uint64_t sub_100002AFC(uint64_t result)
 {
   if (result)
   {
@@ -1090,22 +1114,21 @@ id sub_100002BC4()
   return [v1 setObject:v0 forKeyedSubscript:?];
 }
 
-uint64_t sub_100002BE8()
+uint64_t sub_100002BE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, a2, a3, a4, a5, v8, 0, a8);
 }
 
 id sub_100003034(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_1000EB228;
+  qword_1000EB228 = v1;
+
   v3 = qword_1000EB228;
-  qword_1000EB228 = v2;
 
-  v4 = qword_1000EB228;
-
-  return [v4 setSwitchState:0];
+  return [v3 setSwitchState:0];
 }
 
 void sub_1000030C4(id a1)
@@ -1159,10 +1182,16 @@ void sub_1000035C8(uint64_t a1)
       v4 = qword_1000EB268;
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = sub_1000011A8(1);
-        if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v12 = 0;
+        LODWORD(v5) = sub_1000011A8(1);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
-          v5 &= ~1u;
+          v5 = v5;
+        }
+
+        else
+        {
+          v5 = v5 & 0xFFFFFFFE;
         }
 
         if (v5)
@@ -1170,13 +1199,11 @@ void sub_1000035C8(uint64_t a1)
           v6 = *(a1 + 32);
           v7 = v4;
           v8 = [v6 userSwitchTasks];
-          v14 = 138412546;
-          v15 = v8;
-          v16 = 1024;
-          v17 = v2;
-          LODWORD(v13) = 18;
-          v12 = &v14;
-          v9 = _os_log_send_and_compose_impl();
+          v13 = 138412546;
+          v14 = v8;
+          v15 = 1024;
+          v16 = v2;
+          v9 = _os_log_send_and_compose_impl(v5, &v12, 0, 0, &_mh_execute_header, v7, 0, "Removing removeUserSwitch Tasks:%@ as Client Pid:%d is exiting", &v13, 18);
 
           if (v9)
           {
@@ -1251,6 +1278,7 @@ void sub_100003FBC(uint64_t a1)
   v5 = qword_1000EB278;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
+    v21 = 0;
     v6 = sub_1000011A8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -1264,21 +1292,25 @@ void sub_100003FBC(uint64_t a1)
 
     if (v7)
     {
-      v16 = *(a1 + 48);
-      v8 = _os_log_send_and_compose_impl();
-      v9 = v8;
-      if (v8)
+      v8 = *(a1 + 48);
+      LODWORD(v18) = 67109378;
+      HIDWORD(v18) = v8;
+      v19 = 2114;
+      v20 = v4;
+      v9 = _os_log_send_and_compose_impl(v7, &v21, 0, 0, &_mh_execute_header, v5, 0, "UserSwitch Stake Holder Registration for pid:(%d,%{public}@)", &v18, 18);
+      v10 = v9;
+      if (v9)
       {
-        sub_100002A8C(v8);
+        sub_100002A8C(v9);
       }
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    free(v9);
+    free(v10);
   }
 
   if (!v2)
@@ -1288,16 +1320,16 @@ void sub_100003FBC(uint64_t a1)
 
   if ([*(a1 + 32) switchState])
   {
-    v10 = [NSError errorWithDomain:NSPOSIXErrorDomain code:16 userInfo:0];
+    v11 = [NSError errorWithDomain:NSPOSIXErrorDomain code:16 userInfo:0];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v10);
-  if (!v10)
+  (*(*(a1 + 40) + 16))();
+  if (!v11)
   {
     [v2 setStakeholderIsRegistered:1];
     [v2 setSwitchStakeHolderKind:0];
@@ -1306,41 +1338,44 @@ void sub_100003FBC(uint64_t a1)
       sub_100088D28();
     }
 
-    v11 = qword_1000EB268;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = qword_1000EB268;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = sub_1000011A8(1);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v18 = 0;
+      v13 = sub_1000011A8(1);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v12;
+        v14 = v13;
       }
 
       else
       {
-        v13 = v12 & 0xFFFFFFFE;
+        v14 = v13 & 0xFFFFFFFE;
       }
 
-      if (v13)
+      if (v14)
       {
-        v17 = *(a1 + 48);
-        v14 = _os_log_send_and_compose_impl();
-        v15 = v14;
-        if (v14)
+        v15 = *(a1 + 48);
+        LODWORD(v21) = 67109120;
+        HIDWORD(v21) = v15;
+        v16 = _os_log_send_and_compose_impl(v14, &v18, 0, 0, &_mh_execute_header, v12, 0, "UserSwitch Stake Holder registration(pid:%d) - DONE", &v21);
+        v17 = v16;
+        if (v16)
         {
-          sub_100002A8C(v14);
+          sub_100002A8C(v16);
         }
       }
 
       else
       {
-        v15 = 0;
+        v17 = 0;
       }
 
-      free(v15);
+      free(v17);
     }
 
 LABEL_29:
-    v10 = 0;
+    v11 = 0;
   }
 }
 
@@ -1360,7 +1395,7 @@ void sub_100004340(uint64_t a1)
     v5 = qword_1000EB278;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 0;
+      v27 = 0;
       v6 = sub_1000011A8(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -1375,13 +1410,11 @@ void sub_100004340(uint64_t a1)
       if (v7)
       {
         v8 = *(a1 + 48);
-        LODWORD(v26) = 67109378;
-        HIDWORD(v26) = v8;
-        v27 = 2114;
-        v28 = v4;
-        LODWORD(v25) = 18;
-        v24 = &v26;
-        v9 = _os_log_send_and_compose_impl();
+        LODWORD(v24) = 67109378;
+        HIDWORD(v24) = v8;
+        v25 = 2114;
+        v26 = v4;
+        v9 = _os_log_send_and_compose_impl(v7, &v27, 0, 0, &_mh_execute_header, v5, 0, "Critical User Switch Stake Holder registration for pid:(%d,%{public}@)", &v24, 18);
         v10 = v9;
         if (v9)
         {
@@ -1399,7 +1432,7 @@ void sub_100004340(uint64_t a1)
 
     if (![*(a1 + 32) switchState] || dword_1000EB5B8 == 3)
     {
-      [v2 setCriticalStakeHolder:{1, v24, v25}];
+      [v2 setCriticalStakeHolder:1];
       [v2 setSwitchStakeHolderKind:1];
       v17 = 0;
     }
@@ -1414,11 +1447,16 @@ void sub_100004340(uint64_t a1)
       v11 = qword_1000EB268;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 0;
-        v12 = sub_1000011A8(1);
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v24 = 0;
+        LODWORD(v12) = sub_1000011A8(1);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v12 &= ~1u;
+          v12 = v12;
+        }
+
+        else
+        {
+          v12 = v12 & 0xFFFFFFFE;
         }
 
         if (v12)
@@ -1426,9 +1464,9 @@ void sub_100004340(uint64_t a1)
           v13 = *(a1 + 32);
           v14 = v11;
           v15 = [v13 switchState];
-          LODWORD(v29) = 67109120;
-          HIDWORD(v29) = v15;
-          v16 = _os_log_send_and_compose_impl();
+          LODWORD(v27) = 67109120;
+          HIDWORD(v27) = v15;
+          v16 = _os_log_send_and_compose_impl(v12, &v24, 0, 0, &_mh_execute_header, v14, 0, "FAILED TO register Critical User Switch Stake Holder: Switchstate:%d", &v27);
 
           if (v16)
           {
@@ -1459,7 +1497,7 @@ void sub_100004340(uint64_t a1)
       v18 = qword_1000EB268;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 0;
+        v24 = 0;
         v19 = sub_1000011A8(1);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
@@ -1474,9 +1512,9 @@ void sub_100004340(uint64_t a1)
         if (v20)
         {
           v21 = *(a1 + 48);
-          LODWORD(v29) = 67109120;
-          HIDWORD(v29) = v21;
-          v22 = _os_log_send_and_compose_impl();
+          LODWORD(v27) = 67109120;
+          HIDWORD(v27) = v21;
+          v22 = _os_log_send_and_compose_impl(v20, &v24, 0, 0, &_mh_execute_header, v18, 0, "Critical UserSwitch Stake Holder registration(pid:%d)-DONE", &v27);
           v23 = v22;
           if (v22)
           {
@@ -1514,7 +1552,7 @@ void sub_1000047D0(uint64_t a1)
   v5 = qword_1000EB278;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 0;
+    v25 = 0;
     v6 = sub_1000011A8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -1529,13 +1567,11 @@ void sub_1000047D0(uint64_t a1)
     if (v7)
     {
       v8 = *(a1 + 48);
-      LODWORD(v24) = 67109378;
-      HIDWORD(v24) = v8;
-      v25 = 2114;
-      v26 = v4;
-      LODWORD(v23) = 18;
-      v22 = &v24;
-      v9 = _os_log_send_and_compose_impl();
+      LODWORD(v22) = 67109378;
+      HIDWORD(v22) = v8;
+      v23 = 2114;
+      v24 = v4;
+      v9 = _os_log_send_and_compose_impl(v7, &v25, 0, 0, &_mh_execute_header, v5, 0, "BubblePop Stake Holder registration started for pid:(%d,%{public}@)", &v22, 18);
       v10 = v9;
       if (v9)
       {
@@ -1567,7 +1603,7 @@ void sub_1000047D0(uint64_t a1)
     v11 = 1;
   }
 
-  v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v11 userInfo:0, v22, v23];
+  v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v11 userInfo:0];
 LABEL_18:
   (*(*(a1 + 40) + 16))();
   if (!v12)
@@ -1583,7 +1619,7 @@ LABEL_18:
     v13 = qword_1000EB268;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
+      v22 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -1598,9 +1634,9 @@ LABEL_18:
       if (v15)
       {
         v16 = *(a1 + 48);
-        LODWORD(v27) = 67109120;
-        HIDWORD(v27) = v16;
-        v17 = _os_log_send_and_compose_impl();
+        LODWORD(v25) = 67109120;
+        HIDWORD(v25) = v16;
+        v17 = _os_log_send_and_compose_impl(v15, &v22, 0, 0, &_mh_execute_header, v13, 0, "BubblePop Stake Holder registration(pid:%d)", &v25);
         v18 = v17;
         if (v17)
         {
@@ -1650,7 +1686,7 @@ void sub_100004E5C(uint64_t a1)
     v5 = qword_1000EB278;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 0;
+      v36 = 0;
       v6 = sub_1000011A8(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -1666,15 +1702,13 @@ void sub_100004E5C(uint64_t a1)
       {
         v8 = *(a1 + 56);
         v9 = *(a1 + 40);
-        LODWORD(v32) = 67109634;
-        HIDWORD(v32) = v8;
-        v33 = 2114;
-        v34 = v4;
-        v35 = 2114;
-        v36 = v9;
-        LODWORD(v31) = 28;
-        v30 = &v32;
-        v10 = _os_log_send_and_compose_impl();
+        LODWORD(v31) = 67109634;
+        HIDWORD(v31) = v8;
+        v32 = 2114;
+        v33 = v4;
+        v34 = 2114;
+        v35 = v9;
+        v10 = _os_log_send_and_compose_impl(v7, &v36, 0, 0, &_mh_execute_header, v5, 0, "Registering Sync Stake Holder:(%d, %{public}@) machservice is %{public}@", &v31, 28);
         v11 = v10;
         if (v10)
         {
@@ -1703,9 +1737,9 @@ LABEL_15:
       v12 = NSPOSIXErrorDomain;
       v13 = 16;
 LABEL_17:
-      v14 = [NSError errorWithDomain:v12 code:v13 userInfo:0, v30, v31];
+      v14 = [NSError errorWithDomain:v12 code:v13 userInfo:0];
 LABEL_18:
-      (*(*(a1 + 48) + 16))(*(a1 + 48), v14);
+      (*(*(a1 + 48) + 16))();
 
       goto LABEL_19;
     }
@@ -1718,7 +1752,7 @@ LABEL_18:
       {
 
 LABEL_34:
-        [v2 setMachServiceName:{*(a1 + 40), v30, v31}];
+        [v2 setMachServiceName:*(a1 + 40)];
         sub_100033AB0(*(a1 + 40));
         [v2 setStakeholderIsRegistered:1];
         [v2 setSwitchStakeHolderKind:2];
@@ -1730,7 +1764,7 @@ LABEL_34:
         v24 = qword_1000EB268;
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = 0;
+          v31 = 0;
           v25 = sub_1000011A8(1);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
@@ -1745,9 +1779,9 @@ LABEL_34:
           if (v26)
           {
             v27 = *(a1 + 56);
-            LODWORD(v37) = 67109120;
-            HIDWORD(v37) = v27;
-            v28 = _os_log_send_and_compose_impl();
+            LODWORD(v36) = 67109120;
+            HIDWORD(v36) = v27;
+            v28 = _os_log_send_and_compose_impl(v26, &v31, 0, 0, &_mh_execute_header, v24, 0, "Sync Stake Holder registration done(pid:%d)", &v36);
             v29 = v28;
             if (v28)
             {
@@ -1793,7 +1827,7 @@ LABEL_34:
     v18 = qword_1000EB268;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = 0;
+      v31 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -1807,10 +1841,9 @@ LABEL_34:
 
       if (v20)
       {
-        LOWORD(v37) = 0;
-        LODWORD(v31) = 2;
-        v30 = &v37;
-        v21 = _os_log_send_and_compose_impl();
+        LOWORD(v36) = 0;
+        LODWORD(v30) = 2;
+        v21 = _os_log_send_and_compose_impl(v20, &v31, 0, 0, &_mh_execute_header, v18, 0, "Denying registration since user is in Login Session", &v36, v30);
         v22 = v21;
         if (v21)
         {
@@ -1846,7 +1879,7 @@ void sub_100005328(uint64_t a1)
   v5 = qword_1000EB278;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = 0;
+    v39 = 0;
     v6 = sub_1000011A8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -1861,13 +1894,11 @@ void sub_100005328(uint64_t a1)
     if (v7)
     {
       v8 = *(a1 + 48);
-      LODWORD(v37) = 67109378;
-      HIDWORD(v37) = v8;
-      v38 = 2114;
-      v39 = v4;
-      LODWORD(v36) = 18;
-      v35 = &v37;
-      v9 = _os_log_send_and_compose_impl();
+      LODWORD(v36) = 67109378;
+      HIDWORD(v36) = v8;
+      v37 = 2114;
+      v38 = v4;
+      v9 = _os_log_send_and_compose_impl(v7, &v39, 0, 0, &_mh_execute_header, v5, 0, "Unregister Stakeholder (Pid:%d,%{public}@)", &v36, 18);
       v10 = v9;
       if (v9)
       {
@@ -1897,7 +1928,7 @@ void sub_100005328(uint64_t a1)
       v12 = qword_1000EB268;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = 0;
+        v36 = 0;
         v13 = sub_1000011A8(1);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
@@ -1911,10 +1942,9 @@ void sub_100005328(uint64_t a1)
 
         if (v14)
         {
-          LOWORD(v40) = 0;
-          LODWORD(v36) = 2;
-          v35 = &v40;
-          v15 = _os_log_send_and_compose_impl();
+          LOWORD(v39) = 0;
+          LODWORD(v35) = 2;
+          v15 = _os_log_send_and_compose_impl(v14, &v36, 0, 0, &_mh_execute_header, v12, 0, "Unregister Sync Stake holder", &v39, v35);
           v16 = v15;
           if (v15)
           {
@@ -1948,7 +1978,7 @@ void sub_100005328(uint64_t a1)
         v18 = qword_1000EB268;
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = 0;
+          v36 = 0;
           v19 = sub_1000011A8(1);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
@@ -1962,10 +1992,9 @@ void sub_100005328(uint64_t a1)
 
           if (v20)
           {
-            LOWORD(v40) = 0;
-            LODWORD(v36) = 2;
-            v35 = &v40;
-            v21 = _os_log_send_and_compose_impl();
+            LOWORD(v39) = 0;
+            LODWORD(v35) = 2;
+            v21 = _os_log_send_and_compose_impl(v20, &v36, 0, 0, &_mh_execute_header, v18, 0, "Unregister  Switch Stake holder", &v39, v35);
             v22 = v21;
             if (v21)
             {
@@ -2006,7 +2035,7 @@ void sub_100005328(uint64_t a1)
     v24 = qword_1000EB268;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 0;
+      v36 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -2020,8 +2049,9 @@ void sub_100005328(uint64_t a1)
 
       if (v26)
       {
-        LOWORD(v40) = 0;
-        v27 = _os_log_send_and_compose_impl();
+        LOWORD(v39) = 0;
+        LODWORD(v35) = 2;
+        v27 = _os_log_send_and_compose_impl(v26, &v36, 0, 0, &_mh_execute_header, v24, 0, "checking if we need to switch(unregister)-> _checkIfWeShouldSwitchUser..", &v39, v35);
         v28 = v27;
         if (v27)
         {
@@ -2046,7 +2076,7 @@ void sub_100005328(uint64_t a1)
     v29 = qword_1000EB268;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 0;
+      v36 = 0;
       v30 = sub_1000011A8(1);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
@@ -2061,9 +2091,9 @@ void sub_100005328(uint64_t a1)
       if (v31)
       {
         v32 = *(a1 + 48);
-        LODWORD(v40) = 67109120;
-        HIDWORD(v40) = v32;
-        v33 = _os_log_send_and_compose_impl();
+        LODWORD(v39) = 67109120;
+        HIDWORD(v39) = v32;
+        v33 = _os_log_send_and_compose_impl(v31, &v36, 0, 0, &_mh_execute_header, v29, 0, "Unregister Stakeholder(pid:%d)-DONE", &v39);
         v34 = v33;
         if (v33)
         {
@@ -2087,11 +2117,12 @@ void sub_1000058A8(id a1)
   qword_1000EB258 = &off_1000E15B8;
 }
 
-void sub_100005E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_100005E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 152), 8);
-  _Block_object_dispose((v28 - 120), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 152), 8);
+  _Block_object_dispose((v27 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2114,7 +2145,7 @@ void sub_100005EC4(uint64_t a1)
   v4 = qword_1000EB268;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v80 = 0;
+    v77 = 0;
     v5 = sub_1000011A8(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -2128,10 +2159,8 @@ void sub_100005EC4(uint64_t a1)
 
     if (v6)
     {
-      LOWORD(v78[0]) = 0;
-      LODWORD(v72) = 2;
-      v70 = v78;
-      v7 = _os_log_send_and_compose_impl();
+      LOWORD(v75[0]) = 0;
+      v7 = _os_log_send_and_compose_impl(v6, &v77, 0, 0, &_mh_execute_header, v4, 0, "in SwitchtoUser", v75, 2);
       v8 = v7;
       if (v7)
       {
@@ -2165,7 +2194,7 @@ void sub_100005EC4(uint64_t a1)
     v12 = qword_1000EB268;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v80 = 0;
+      v77 = 0;
       v13 = sub_1000011A8(1);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
@@ -2179,10 +2208,9 @@ void sub_100005EC4(uint64_t a1)
 
       if (v14)
       {
-        LOWORD(v78[0]) = 0;
-        LODWORD(v73) = 2;
-        v71 = v78;
-        v15 = _os_log_send_and_compose_impl();
+        LOWORD(v75[0]) = 0;
+        LODWORD(v70) = 2;
+        v15 = _os_log_send_and_compose_impl(v14, &v77, 0, 0, &_mh_execute_header, v12, 0, "Already in SwitchtoUser, ignore current one", v75, v70);
         v16 = v15;
         if (v15)
         {
@@ -2217,24 +2245,27 @@ LABEL_38:
     v25 = qword_1000EB268;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v78[0] = 0;
-      v26 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v75[0] = 0;
+      LODWORD(v26) = sub_1000011A8(1);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v26 &= ~1u;
+        v26 = v26;
+      }
+
+      else
+      {
+        v26 = v26 & 0xFFFFFFFE;
       }
 
       if (v26)
       {
         v27 = v25;
         v28 = sub_10001B570();
-        LODWORD(v80) = 67109376;
-        HIDWORD(v80) = v28;
-        v81 = 1024;
-        v82 = dword_1000EB5B8;
-        LODWORD(v73) = 14;
-        v71 = &v80;
-        v29 = _os_log_send_and_compose_impl();
+        LODWORD(v77) = 67109376;
+        HIDWORD(v77) = v28;
+        v78 = 1024;
+        v79 = dword_1000EB5B8;
+        v29 = _os_log_send_and_compose_impl(v26, v75, 0, 0, &_mh_execute_header, v27, 0, "SwitchUser: foregorundID:%d, sessionType:%d", &v77, 14);
 
         if (v29)
         {
@@ -2268,7 +2299,7 @@ LABEL_38:
           v33 = qword_1000EB268;
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v80 = 0;
+            v77 = 0;
             v34 = sub_1000011A8(1);
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
@@ -2282,10 +2313,9 @@ LABEL_38:
 
             if (v35)
             {
-              LOWORD(v78[0]) = 0;
-              LODWORD(v73) = 2;
-              v71 = v78;
-              v36 = _os_log_send_and_compose_impl();
+              LOWORD(v75[0]) = 0;
+              LODWORD(v70) = 2;
+              v36 = _os_log_send_and_compose_impl(v35, &v77, 0, 0, &_mh_execute_header, v33, 0, "Need to set user preferences", v75, v70);
               v37 = v36;
               if (v36)
               {
@@ -2303,34 +2333,34 @@ LABEL_38:
 
           v41 = objc_opt_new();
           v42 = [*(a1 + 32) _allowlistedPreferencesKeys];
+          v71 = 0u;
+          v72 = 0u;
+          v73 = 0u;
           v74 = 0u;
-          v75 = 0u;
-          v76 = 0u;
-          v77 = 0u;
           v43 = *(a1 + 48);
-          v44 = [v43 countByEnumeratingWithState:&v74 objects:v79 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v71 objects:v76 count:16];
           if (v44)
           {
             v45 = v44;
-            v46 = *v75;
+            v46 = *v72;
             do
             {
               for (i = 0; i != v45; i = i + 1)
               {
-                if (*v75 != v46)
+                if (*v72 != v46)
                 {
                   objc_enumerationMutation(v43);
                 }
 
-                v48 = *(*(&v74 + 1) + 8 * i);
-                if ([v42 containsObject:{v48, v71, v73, v74}])
+                v48 = *(*(&v71 + 1) + 8 * i);
+                if ([v42 containsObject:v48])
                 {
                   v49 = [*(a1 + 48) objectForKeyedSubscript:v48];
                   [v41 setObject:v49 forKeyedSubscript:v48];
                 }
               }
 
-              v45 = [v43 countByEnumeratingWithState:&v74 objects:v79 count:16];
+              v45 = [v43 countByEnumeratingWithState:&v71 objects:v76 count:16];
             }
 
             while (v45);
@@ -2357,7 +2387,7 @@ LABEL_38:
               v55 = qword_1000EB268;
               if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
               {
-                v80 = 0;
+                v77 = 0;
                 v56 = sub_1000011A8(1);
                 if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
                 {
@@ -2371,10 +2401,9 @@ LABEL_38:
 
                 if (v57)
                 {
-                  LOWORD(v78[0]) = 0;
-                  LODWORD(v73) = 2;
-                  v71 = v78;
-                  v58 = _os_log_send_and_compose_impl();
+                  LOWORD(v75[0]) = 0;
+                  LODWORD(v70) = 2;
+                  v58 = _os_log_send_and_compose_impl(v57, &v77, 0, 0, &_mh_execute_header, v55, 0, "Could not get name for user. Not setting preferences.", v75, v70, v71);
                   v59 = v58;
                   if (v58)
                   {
@@ -2403,7 +2432,7 @@ LABEL_38:
             v50 = qword_1000EB268;
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
-              v80 = 0;
+              v77 = 0;
               v51 = sub_1000011A8(1);
               if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
               {
@@ -2417,10 +2446,9 @@ LABEL_38:
 
               if (v52)
               {
-                LOWORD(v78[0]) = 0;
-                LODWORD(v73) = 2;
-                v71 = v78;
-                v53 = _os_log_send_and_compose_impl();
+                LOWORD(v75[0]) = 0;
+                LODWORD(v70) = 2;
+                v53 = _os_log_send_and_compose_impl(v52, &v77, 0, 0, &_mh_execute_header, v50, 0, "None of the preferences were allowed. Not setting preferences.", v75, v70, v71);
                 v54 = v53;
                 if (v53)
                 {
@@ -2438,7 +2466,7 @@ LABEL_38:
           }
         }
 
-        v60 = [NSMutableData dataWithBytes:*(*(*(a1 + 88) + 8) + 24) length:*(a1 + 96), v71, v73];
+        v60 = [NSMutableData dataWithBytes:*(*(*(a1 + 88) + 8) + 24) length:*(a1 + 96)];
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
@@ -2447,7 +2475,7 @@ LABEL_38:
         v61 = v3[77];
         if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
         {
-          v80 = 0;
+          v77 = 0;
           v62 = sub_1000011A8(1);
           if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
@@ -2461,8 +2489,9 @@ LABEL_38:
 
           if (v63)
           {
-            LOWORD(v78[0]) = 0;
-            v64 = _os_log_send_and_compose_impl();
+            LOWORD(v75[0]) = 0;
+            LODWORD(v70) = 2;
+            v64 = _os_log_send_and_compose_impl(v63, &v77, 0, 0, &_mh_execute_header, v61, 0, "Moving Along with SwitchtoUser", v75, v70);
             v65 = v64;
             if (v64)
             {
@@ -2487,7 +2516,7 @@ LABEL_38:
       (*(v32 + 16))(v32, 0);
     }
 
-    goto LABEL_115;
+    goto LABEL_116;
   }
 
   if (qword_1000EB280 != -1)
@@ -2498,7 +2527,7 @@ LABEL_38:
   v17 = qword_1000EB278;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v80 = 0;
+    v77 = 0;
     v18 = sub_1000011A8(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
@@ -2512,8 +2541,9 @@ LABEL_38:
 
     if (v19)
     {
-      LOWORD(v78[0]) = 0;
-      v20 = _os_log_send_and_compose_impl();
+      LOWORD(v75[0]) = 0;
+      LODWORD(v70) = 2;
+      v20 = _os_log_send_and_compose_impl(v19, &v77, 0, 0, &_mh_execute_header, v17, 16, "Failed to switch user: user switch already in progress", v75, v70);
       v21 = v20;
       if (v20)
       {
@@ -2534,7 +2564,7 @@ LABEL_38:
   v40 = *(v39 + 40);
   *(v39 + 40) = v38;
 
-LABEL_115:
+LABEL_116:
   v66 = *(*(*(a1 + 80) + 8) + 24);
   if (v66)
   {
@@ -2566,6 +2596,7 @@ void sub_100006974(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    v29 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -2579,10 +2610,8 @@ void sub_100006974(uint64_t a1)
 
     if (v5)
     {
-      LOWORD(v31[0]) = 0;
-      LODWORD(v30) = 2;
-      v29 = v31;
-      v6 = _os_log_send_and_compose_impl();
+      LOWORD(v30[0]) = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v29, 0, 0, &_mh_execute_header, v3, 0, "in SwitchtoLoginUser", v30, 2);
       v7 = v6;
       if (v6)
       {
@@ -2618,6 +2647,7 @@ void sub_100006974(uint64_t a1)
     v9 = qword_1000EB268;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
+      v29 = 0;
       v10 = sub_1000011A8(1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
@@ -2631,9 +2661,9 @@ void sub_100006974(uint64_t a1)
 
       if (v11)
       {
-        v31[0] = 67109120;
-        v31[1] = dword_1000EB5B8;
-        v12 = _os_log_send_and_compose_impl();
+        v30[0] = 67109120;
+        v30[1] = dword_1000EB5B8;
+        v12 = _os_log_send_and_compose_impl(v11, &v29, 0, 0, &_mh_execute_header, v9, 0, "Already in SwitchtoUser, ignore current one: session type is:%d", v30);
         v13 = v12;
         if (v12)
         {
@@ -2659,16 +2689,15 @@ void sub_100006974(uint64_t a1)
   {
 LABEL_39:
     v20 = sub_10001B570();
-    v21 = *(a1 + 40);
-    v22 = *(v21 + 16);
+    v21 = *(*(a1 + 40) + 16);
     if (v20 == 502)
     {
-      v22(v21, 0);
+      v21();
     }
 
     else
     {
-      v22(v21, v8);
+      v21();
       if (!v8)
       {
         if (qword_1000EB270 != -1)
@@ -2676,37 +2705,39 @@ LABEL_39:
           sub_100088D28();
         }
 
-        v23 = qword_1000EB268;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = qword_1000EB268;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = sub_1000011A8(1);
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v29 = 0;
+          v23 = sub_1000011A8(1);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = v24;
+            v24 = v23;
           }
 
           else
           {
-            v25 = v24 & 0xFFFFFFFE;
+            v24 = v23 & 0xFFFFFFFE;
           }
 
-          if (v25)
+          if (v24)
           {
-            LOWORD(v31[0]) = 0;
-            v26 = _os_log_send_and_compose_impl();
-            v27 = v26;
-            if (v26)
+            LOWORD(v30[0]) = 0;
+            LODWORD(v28) = 2;
+            v25 = _os_log_send_and_compose_impl(v24, &v29, 0, 0, &_mh_execute_header, v22, 0, "Moving Along with SwitchtoUser", v30, v28);
+            v26 = v25;
+            if (v25)
             {
-              sub_100002A8C(v26);
+              sub_100002A8C(v25);
             }
           }
 
           else
           {
-            v27 = 0;
+            v26 = 0;
           }
 
-          free(v27);
+          free(v26);
         }
 
         sub_10002E8EC();
@@ -2725,6 +2756,7 @@ LABEL_39:
   v14 = qword_1000EB278;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
+    v29 = 0;
     v15 = sub_1000011A8(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
@@ -2738,8 +2770,9 @@ LABEL_39:
 
     if (v16)
     {
-      LOWORD(v31[0]) = 0;
-      v17 = _os_log_send_and_compose_impl();
+      LOWORD(v30[0]) = 0;
+      LODWORD(v28) = 2;
+      v17 = _os_log_send_and_compose_impl(v16, &v29, 0, 0, &_mh_execute_header, v14, 16, "Failed to switch user: user switch already in progress", v30, v28);
       v18 = v17;
       if (v17)
       {
@@ -2755,9 +2788,9 @@ LABEL_39:
     free(v18);
   }
 
-  v28 = [NSError errorWithDomain:NSPOSIXErrorDomain code:37 userInfo:0];
+  v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:37 userInfo:0];
 
-  v8 = v28;
+  v8 = v27;
 LABEL_57:
 }
 
@@ -2772,6 +2805,7 @@ void sub_100006EB8(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    v38 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -2786,9 +2820,7 @@ void sub_100006EB8(uint64_t a1)
     if (v5)
     {
       LOWORD(v39) = 0;
-      LODWORD(v38) = 2;
-      v37 = &v39;
-      v6 = _os_log_send_and_compose_impl();
+      v6 = _os_log_send_and_compose_impl(v5, &v38, 0, 0, &_mh_execute_header, v3, 0, "in logoutToLoginSessionWithPID", &v39, 2);
       v7 = v6;
       if (v6)
       {
@@ -2807,7 +2839,7 @@ void sub_100006EB8(uint64_t a1)
   if (![v2 hasEntitlement:@"com.apple.mkb.usersession.loginwindow"])
   {
     v14 = 1;
-    goto LABEL_37;
+    goto LABEL_38;
   }
 
   if (([*(a1 + 32) inLogoutProcess] & 1) != 0 || sub_10001B570() == 502)
@@ -2820,10 +2852,16 @@ void sub_100006EB8(uint64_t a1)
     v8 = qword_1000EB268;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v38 = 0;
+      LODWORD(v9) = sub_1000011A8(1);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 &= ~1u;
+        v9 = v9;
+      }
+
+      else
+      {
+        v9 = v9 & 0xFFFFFFFE;
       }
 
       if (v9)
@@ -2833,9 +2871,7 @@ void sub_100006EB8(uint64_t a1)
         v12 = [v10 inLogoutProcess];
         v39 = 67109120;
         v40 = v12;
-        LODWORD(v38) = 8;
-        v37 = &v39;
-        v13 = _os_log_send_and_compose_impl();
+        v13 = _os_log_send_and_compose_impl(v9, &v38, 0, 0, &_mh_execute_header, v11, 0, "Already in LoginUser or in process of logout/switch, ignore :%d", &v39);
 
         if (v13)
         {
@@ -2852,19 +2888,19 @@ void sub_100006EB8(uint64_t a1)
     }
 
     v14 = 16;
-LABEL_37:
-    v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v14 userInfo:0, v37, v38];
+LABEL_38:
+    v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v14 userInfo:0];
     if (v20)
     {
-      goto LABEL_40;
+      goto LABEL_41;
     }
 
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   if (!sub_10001A8EC())
   {
-LABEL_38:
+LABEL_39:
     if (sub_10001B570() != 502)
     {
       if (qword_1000EB270 != -1)
@@ -2875,6 +2911,7 @@ LABEL_38:
       v22 = qword_1000EB268;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
+        v38 = 0;
         v23 = sub_1000011A8(1);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
@@ -2889,7 +2926,8 @@ LABEL_38:
         if (v24)
         {
           LOWORD(v39) = 0;
-          v25 = _os_log_send_and_compose_impl();
+          LODWORD(v37) = 2;
+          v25 = _os_log_send_and_compose_impl(v24, &v38, 0, 0, &_mh_execute_header, v22, 0, "Logging Out to LogoutSession", &v39, v37);
           v26 = v25;
           if (v25)
           {
@@ -2915,6 +2953,7 @@ LABEL_38:
         v27 = qword_1000EB268;
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
+          v38 = 0;
           v28 = sub_1000011A8(1);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
@@ -2930,7 +2969,7 @@ LABEL_38:
           {
             v39 = 67109120;
             v40 = dword_1000EB5B8;
-            v30 = _os_log_send_and_compose_impl();
+            v30 = _os_log_send_and_compose_impl(v29, &v38, 0, 0, &_mh_execute_header, v27, 0, "LOGOUT SUCCESSFUL and sessionytype is:%d", &v39);
             v31 = v30;
             if (v30)
             {
@@ -2959,6 +2998,7 @@ LABEL_38:
         v32 = qword_1000EB268;
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
+          v38 = 0;
           v33 = sub_1000011A8(1);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
@@ -2974,7 +3014,7 @@ LABEL_38:
           {
             v39 = 67109120;
             v40 = dword_1000EB5B8;
-            v35 = _os_log_send_and_compose_impl();
+            v35 = _os_log_send_and_compose_impl(v34, &v38, 0, 0, &_mh_execute_header, v32, 0, "LOGOUT FAILED and sessionytype is:%d", &v39);
             v36 = v35;
             if (v35)
             {
@@ -2994,15 +3034,15 @@ LABEL_38:
       }
 
       v21 = *(*(a1 + 40) + 16);
-      goto LABEL_78;
+      goto LABEL_79;
     }
 
     v20 = 0;
-LABEL_40:
+LABEL_41:
     v21 = *(*(a1 + 40) + 16);
-LABEL_78:
+LABEL_79:
     v21();
-    goto LABEL_79;
+    goto LABEL_80;
   }
 
   if (qword_1000EB280 != -1)
@@ -3013,6 +3053,7 @@ LABEL_78:
   v15 = qword_1000EB278;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
+    v38 = 0;
     v16 = sub_1000011A8(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
@@ -3027,7 +3068,8 @@ LABEL_78:
     if (v17)
     {
       LOWORD(v39) = 0;
-      v18 = _os_log_send_and_compose_impl();
+      LODWORD(v37) = 2;
+      v18 = _os_log_send_and_compose_impl(v17, &v38, 0, 0, &_mh_execute_header, v15, 16, "Failed to switch user: user switch already in progress", &v39, v37);
       v19 = v18;
       if (v18)
       {
@@ -3044,46 +3086,48 @@ LABEL_78:
   }
 
   v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:37 userInfo:0];
-LABEL_79:
+LABEL_80:
 }
 
-void sub_10000798C(uint64_t a1)
+void sub_10000798C(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v15 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      v14 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v15, 0, 0, &_mh_execute_header, v3, 0, "in loginComplete", &v14, 2);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
   if ([*(a1 + 32) inLogoutProcess])
@@ -3093,36 +3137,39 @@ void sub_10000798C(uint64_t a1)
       sub_100088D28();
     }
 
-    v7 = qword_1000EB268;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = qword_1000EB268;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = sub_1000011A8(1);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v15 = 0;
+      v9 = sub_1000011A8(1);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
+        v10 = v9;
       }
 
       else
       {
-        v9 = v8 & 0xFFFFFFFE;
+        v10 = v9 & 0xFFFFFFFE;
       }
 
-      if (v9)
+      if (v10)
       {
-        v10 = _os_log_send_and_compose_impl();
-        v11 = v10;
-        if (v10)
+        v14 = 0;
+        LODWORD(v13) = 2;
+        v11 = _os_log_send_and_compose_impl(v10, &v15, 0, 0, &_mh_execute_header, v8, 0, "Already in SwitchtoUser, ignore current one", &v14, v13);
+        v12 = v11;
+        if (v11)
         {
-          sub_100002A8C(v10);
+          sub_100002A8C(v11);
         }
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      free(v11);
+      free(v12);
     }
 
     [NSError errorWithDomain:NSPOSIXErrorDomain code:16 userInfo:0];
@@ -3145,7 +3192,7 @@ void sub_100007C28(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v46 = 0;
+    v45 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -3159,10 +3206,8 @@ void sub_100007C28(uint64_t a1)
 
     if (v5)
     {
-      LOWORD(v45) = 0;
-      LODWORD(v44) = 2;
-      v43 = &v45;
-      v6 = _os_log_send_and_compose_impl();
+      LOWORD(v44[0]) = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v45, 0, 0, &_mh_execute_header, v3, 0, "in loginUICheckinForPID", v44, 2);
       v7 = v6;
       if (v6)
       {
@@ -3199,7 +3244,7 @@ void sub_100007C28(uint64_t a1)
           goto LABEL_78;
         }
 
-        v46 = 0;
+        v45 = 0;
         v12 = sub_1000011A8(1);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
@@ -3213,7 +3258,9 @@ void sub_100007C28(uint64_t a1)
 
         if (v13)
         {
-          LOWORD(v45) = 0;
+          LOWORD(v44[0]) = 0;
+          LODWORD(v43) = 2;
+          v14 = _os_log_send_and_compose_impl(v13, &v45, 0, 0, &_mh_execute_header, v11, 0, "Booted in LoginUser  ignore, return SUCCESS", v44, v43, v44[0]);
           goto LABEL_74;
         }
 
@@ -3231,90 +3278,91 @@ LABEL_77:
 
     if ([*(a1 + 32) inLoginSession])
     {
-      v19 = dword_1000EB5BC;
+      v20 = dword_1000EB5BC;
       dword_1000EB5BC = 1;
       if (qword_1000EB270 != -1)
       {
         sub_100088D28();
       }
 
-      v20 = qword_1000EB268;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = qword_1000EB268;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v45 = 0;
-        v21 = sub_1000011A8(1);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v44[0] = 0;
+        v22 = sub_1000011A8(1);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = v21;
+          v23 = v22;
         }
 
         else
         {
-          v22 = v21 & 0xFFFFFFFE;
+          v23 = v22 & 0xFFFFFFFE;
         }
 
-        if (v22)
+        if (v23)
         {
-          LODWORD(v46) = 67109376;
-          HIDWORD(v46) = v19;
-          v47 = 1024;
-          v48 = dword_1000EB5BC;
-          v23 = _os_log_send_and_compose_impl();
-          v24 = v23;
-          if (v23)
+          LODWORD(v45) = 67109376;
+          HIDWORD(v45) = v20;
+          v46 = 1024;
+          v47 = dword_1000EB5BC;
+          v24 = _os_log_send_and_compose_impl(v23, v44, 0, 0, &_mh_execute_header, v21, 0, "In LOGINSESSION CHECKIN PrevState:%d, newState:%d", &v45, 14);
+          v25 = v24;
+          if (v24)
           {
-            sub_100002A8C(v23);
+            sub_100002A8C(v24);
           }
         }
 
         else
         {
-          v24 = 0;
+          v25 = 0;
         }
 
-        free(v24);
+        free(v25);
       }
 
       sub_100018C80();
-      if (v19 == dword_1000EB5BC)
+      if (v20 == dword_1000EB5BC)
       {
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
         }
 
-        v28 = qword_1000EB268;
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = qword_1000EB268;
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v46 = 0;
-          v29 = sub_1000011A8(1);
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v45 = 0;
+          v30 = sub_1000011A8(1);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = v29;
+            v31 = v30;
           }
 
           else
           {
-            v30 = v29 & 0xFFFFFFFE;
+            v31 = v30 & 0xFFFFFFFE;
           }
 
-          if (v30)
+          if (v31)
           {
-            LOWORD(v45) = 0;
-            v31 = _os_log_send_and_compose_impl();
-            v32 = v31;
-            if (v31)
+            LOWORD(v44[0]) = 0;
+            LODWORD(v43) = 2;
+            v32 = _os_log_send_and_compose_impl(v31, &v45, 0, 0, &_mh_execute_header, v29, 0, "Already checked IN, switch to LoginUser as a recovery from LoginUI crash in DirectSwitch scenario", v44, v43);
+            v33 = v32;
+            if (v32)
             {
-              sub_100002A8C(v31);
+              sub_100002A8C(v32);
             }
           }
 
           else
           {
-            v32 = 0;
+            v33 = 0;
           }
 
-          free(v32);
+          free(v33);
         }
 
         v37 = sub_100018084(502);
@@ -3326,7 +3374,7 @@ LABEL_77:
         v38 = qword_1000EB268;
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          v46 = 0;
+          v45 = 0;
           v39 = sub_1000011A8(1);
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
@@ -3340,8 +3388,9 @@ LABEL_77:
 
           if (v40)
           {
-            LOWORD(v45) = 0;
-            v41 = _os_log_send_and_compose_impl();
+            LOWORD(v44[0]) = 0;
+            LODWORD(v43) = 2;
+            v41 = _os_log_send_and_compose_impl(v40, &v45, 0, 0, &_mh_execute_header, v38, 0, "calling USR DIRECTLY", v44, v43);
             v42 = v41;
             if (v41)
             {
@@ -3372,28 +3421,30 @@ LABEL_77:
 LABEL_78:
 
 LABEL_79:
-        v27 = 0;
+        v28 = 0;
         goto LABEL_80;
       }
 
-      v46 = 0;
-      v33 = sub_1000011A8(1);
+      v45 = 0;
+      v34 = sub_1000011A8(1);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = v33;
+        v35 = v34;
       }
 
       else
       {
-        v34 = v33 & 0xFFFFFFFE;
+        v35 = v34 & 0xFFFFFFFE;
       }
 
-      if (!v34)
+      if (!v35)
       {
         goto LABEL_76;
       }
 
-      LOWORD(v45) = 0;
+      LOWORD(v44[0]) = 0;
+      LODWORD(v43) = 2;
+      v14 = _os_log_send_and_compose_impl(v35, &v45, 0, 0, &_mh_execute_header, v11, 0, "First Time CHECKIN, so NO USR", v44, v43, v44[0]);
     }
 
     else
@@ -3409,32 +3460,33 @@ LABEL_79:
         goto LABEL_78;
       }
 
-      v46 = 0;
-      v25 = sub_1000011A8(1);
+      v45 = 0;
+      v26 = sub_1000011A8(1);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = v25;
+        v27 = v26;
       }
 
       else
       {
-        v26 = v25 & 0xFFFFFFFE;
+        v27 = v26 & 0xFFFFFFFE;
       }
 
-      if (!v26)
+      if (!v27)
       {
         goto LABEL_76;
       }
 
-      LOWORD(v45) = 0;
+      LOWORD(v44[0]) = 0;
+      LODWORD(v43) = 2;
+      v14 = _os_log_send_and_compose_impl(v27, &v45, 0, 0, &_mh_execute_header, v11, 0, "Not in LoginUISession as well so ignore, return SUCCESS", v44, v43, v44[0]);
     }
 
 LABEL_74:
-    v35 = _os_log_send_and_compose_impl();
-    v36 = v35;
-    if (v35)
+    v36 = v14;
+    if (v14)
     {
-      sub_100002A8C(v35);
+      sub_100002A8C(v14);
     }
 
     goto LABEL_77;
@@ -3445,41 +3497,42 @@ LABEL_74:
     sub_100088D28();
   }
 
-  v14 = qword_1000EB268;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = qword_1000EB268;
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v46 = 0;
-    v15 = sub_1000011A8(1);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v45 = 0;
+    v16 = sub_1000011A8(1);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     else
     {
-      v16 = v15 & 0xFFFFFFFE;
+      v17 = v16 & 0xFFFFFFFE;
     }
 
-    if (v16)
+    if (v17)
     {
-      LOWORD(v45) = 0;
-      v17 = _os_log_send_and_compose_impl();
-      v18 = v17;
-      if (v17)
+      LOWORD(v44[0]) = 0;
+      LODWORD(v43) = 2;
+      v18 = _os_log_send_and_compose_impl(v17, &v45, 0, 0, &_mh_execute_header, v15, 0, "No entitlement for caller of loginUICheckinForPID", v44, v43);
+      v19 = v18;
+      if (v18)
       {
-        sub_100002A8C(v17);
+        sub_100002A8C(v18);
       }
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    free(v18);
+    free(v19);
   }
 
-  v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+  v28 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
 LABEL_80:
   (*(*(a1 + 40) + 16))();
 }
@@ -3503,7 +3556,7 @@ void sub_1000083C0(uint64_t a1)
   v5 = qword_1000EB278;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 0;
+    v25 = 0;
     v6 = sub_1000011A8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -3518,13 +3571,11 @@ void sub_1000083C0(uint64_t a1)
     if (v7)
     {
       v8 = *(a1 + 48);
-      LODWORD(v24) = 67109378;
-      HIDWORD(v24) = v8;
-      v25 = 2114;
-      v26 = v4;
-      LODWORD(v23) = 18;
-      v22 = &v24;
-      v9 = _os_log_send_and_compose_impl();
+      LODWORD(v22) = 67109378;
+      HIDWORD(v22) = v8;
+      v23 = 2114;
+      v24 = v4;
+      v9 = _os_log_send_and_compose_impl(v7, &v25, 0, 0, &_mh_execute_header, v5, 0, "Terminate sync bubble started for pid:(%d,%{public}@)", &v22, 18);
       v10 = v9;
       if (v9)
       {
@@ -3556,7 +3607,7 @@ void sub_1000083C0(uint64_t a1)
     v11 = 1;
   }
 
-  v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v11 userInfo:0, v22, v23];
+  v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v11 userInfo:0];
 LABEL_18:
   (*(*(a1 + 40) + 16))();
   if (!v12)
@@ -3571,7 +3622,7 @@ LABEL_18:
     v13 = qword_1000EB268;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 0;
+      v22 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -3586,9 +3637,9 @@ LABEL_18:
       if (v15)
       {
         v16 = *(a1 + 48);
-        LODWORD(v27) = 67109120;
-        HIDWORD(v27) = v16;
-        v17 = _os_log_send_and_compose_impl();
+        LODWORD(v25) = 67109120;
+        HIDWORD(v25) = v16;
+        v17 = _os_log_send_and_compose_impl(v15, &v22, 0, 0, &_mh_execute_header, v13, 0, "Terminate sync bubble(pid:%d)", &v25);
         v18 = v17;
         if (v17)
         {
@@ -3636,6 +3687,7 @@ void sub_100008794(uint64_t a1)
   v5 = qword_1000EB278;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
+    v11 = 0;
     v6 = sub_1000011A8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -3649,21 +3701,25 @@ void sub_100008794(uint64_t a1)
 
     if (v7)
     {
-      v10 = *(a1 + 48);
-      v8 = _os_log_send_and_compose_impl();
-      v9 = v8;
-      if (v8)
+      v8 = *(a1 + 48);
+      v12[0] = 67109378;
+      v12[1] = v8;
+      v13 = 2114;
+      v14 = v4;
+      v9 = _os_log_send_and_compose_impl(v7, &v11, 0, 0, &_mh_execute_header, v5, 0, "Resume sync (Pid:%d,%{public}@)", v12, 18);
+      v10 = v9;
+      if (v9)
       {
-        sub_100002A8C(v8);
+        sub_100002A8C(v9);
       }
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    free(v9);
+    free(v10);
   }
 
   if (v2)
@@ -3672,7 +3728,7 @@ void sub_100008794(uint64_t a1)
     sub_10001A30C();
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), 0);
+  (*(*(a1 + 40) + 16))();
 }
 
 void sub_1000089FC(uint64_t a1)
@@ -3687,6 +3743,7 @@ void sub_1000089FC(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    *v15 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -3700,62 +3757,67 @@ void sub_1000089FC(uint64_t a1)
 
     if (v5)
     {
-      v14 = *(a1 + 52);
-      v6 = _os_log_send_and_compose_impl();
-      v7 = v6;
-      if (v6)
+      v6 = *(a1 + 52);
+      LODWORD(v16) = 67109120;
+      HIDWORD(v16) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, v15, 0, 0, &_mh_execute_header, v3, 0, "BUBBLE REQ machservice for uid:%d", &v16);
+      v8 = v7;
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    free(v7);
+    free(v8);
   }
 
-  v8 = sub_1000308D8(*(a1 + 52));
+  v9 = sub_1000308D8(*(a1 + 52));
   if (qword_1000EB270 != -1)
   {
     sub_100088D28();
   }
 
-  v9 = qword_1000EB268;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = qword_1000EB268;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = sub_1000011A8(1);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v16 = 0;
+    v11 = sub_1000011A8(1);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
+      v12 = v11;
     }
 
     else
     {
-      v11 = v10 & 0xFFFFFFFE;
+      v12 = v11 & 0xFFFFFFFE;
     }
 
-    if (v11)
+    if (v12)
     {
-      v12 = _os_log_send_and_compose_impl();
-      v13 = v12;
-      if (v12)
+      *v15 = 138412290;
+      *&v15[4] = v9;
+      v13 = _os_log_send_and_compose_impl(v12, &v16, 0, 0, &_mh_execute_header, v10, 0, "MachServiceList %@", v15, 12);
+      v14 = v13;
+      if (v13)
       {
-        sub_100002A8C(v12);
+        sub_100002A8C(v13);
       }
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    free(v13);
+    free(v14);
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v8);
+  (*(*(a1 + 40) + 16))();
 }
 
 void sub_100008CF0(uint64_t a1)
@@ -3770,6 +3832,7 @@ void sub_100008CF0(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    v9 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -3783,7 +3846,8 @@ void sub_100008CF0(uint64_t a1)
 
     if (v5)
     {
-      v6 = _os_log_send_and_compose_impl();
+      v8 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v9, 0, 0, &_mh_execute_header, v3, 0, "Removing machservice from bubble", &v8, 2);
       v7 = v6;
       if (v6)
       {
@@ -3802,48 +3866,47 @@ void sub_100008CF0(uint64_t a1)
   sub_100034A2C(*(a1 + 52), *(a1 + 40));
 }
 
-void sub_100008E8C(uint64_t a1)
+void sub_100008E8C(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v9 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 48);
+      v6 = *(a1 + 48);
       v10[0] = 67109120;
-      v10[1] = v5;
-      LODWORD(v9) = 8;
-      v8 = v10;
-      v6 = _os_log_send_and_compose_impl();
-      v7 = v6;
-      if (v6)
+      v10[1] = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v9, 0, 0, &_mh_execute_header, v3, 0, "UNLOADING SYNC BUBBLE (BUBBLE StopBubble)FOR uid %d:", v10);
+      v8 = v7;
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    free(v7);
+    free(v8);
   }
 
   sub_10002C904(*(a1 + 48), 1);
@@ -3875,35 +3938,43 @@ void sub_100009C1C(uint64_t a1)
   v2 = qword_1000EB278;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(0);
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v21 = 0;
+    LODWORD(v3) = sub_1000011A8(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      v18 = [v4 logoutTimer];
-      v6 = _os_log_send_and_compose_impl();
+      v6 = [v4 logoutTimer];
+      *v20 = 134217984;
+      *&v20[4] = v6;
+      v7 = _os_log_send_and_compose_impl(v3, &v21, 0, 0, &_mh_execute_header, v5, 0, "Logout timer [switchToUser] (%p) fired", v20);
 
-      if (v6)
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
-  v7 = [*(a1 + 32) logoutTimer];
-  dispatch_source_cancel(v7);
+  v8 = [*(a1 + 32) logoutTimer];
+  dispatch_source_cancel(v8);
 
   [*(a1 + 32) setLogoutTimer:0];
   if ([*(a1 + 32) switchState] == 1 && objc_msgSend(*(a1 + 32), "switchState") != 2)
@@ -3913,36 +3984,38 @@ void sub_100009C1C(uint64_t a1)
       sub_100088D28();
     }
 
-    v13 = qword_1000EB268;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = qword_1000EB268;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = sub_1000011A8(1);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      *v20 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v14;
+        v17 = v16;
       }
 
       else
       {
-        v15 = v14 & 0xFFFFFFFE;
+        v17 = v16 & 0xFFFFFFFE;
       }
 
-      if (v15)
+      if (v17)
       {
-        v16 = _os_log_send_and_compose_impl();
-        v17 = v16;
-        if (v16)
+        LOWORD(v21) = 0;
+        v18 = _os_log_send_and_compose_impl(v17, v20, 0, 0, &_mh_execute_header, v15, 0, "LOGOUT TIMEOUT, forcing _reallySwitchUser", &v21, 2);
+        v19 = v18;
+        if (v18)
         {
-          sub_100002A8C(v16);
+          sub_100002A8C(v18);
         }
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      free(v17);
+      free(v19);
     }
 
     [*(a1 + 32) _reallySwitchUser:0];
@@ -3955,34 +4028,42 @@ void sub_100009C1C(uint64_t a1)
       sub_100088D28();
     }
 
-    v8 = qword_1000EB268;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = qword_1000EB268;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      *v20 = 0;
+      LODWORD(v10) = sub_1000011A8(1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 &= ~1u;
+        v10 = v10;
       }
 
-      if (v9)
+      else
       {
-        v10 = *(a1 + 32);
-        v11 = v8;
-        [v10 switchState];
-        v12 = _os_log_send_and_compose_impl();
+        v10 = v10 & 0xFFFFFFFE;
+      }
 
-        if (v12)
+      if (v10)
+      {
+        v11 = *(a1 + 32);
+        v12 = v9;
+        v13 = [v11 switchState];
+        LODWORD(v21) = 67109120;
+        HIDWORD(v21) = v13;
+        v14 = _os_log_send_and_compose_impl(v10, v20, 0, 0, &_mh_execute_header, v12, 0, "LOGOUT TIMEOUT; Ignoring as already in _reallySwitchUser or not in willSwitchUser to force switch:%d", &v21);
+
+        if (v14)
         {
-          sub_100002A8C(v12);
+          sub_100002A8C(v14);
         }
       }
 
       else
       {
-        v12 = 0;
+        v14 = 0;
       }
 
-      free(v12);
+      free(v14);
     }
   }
 }
@@ -4012,43 +4093,45 @@ void sub_10000A004(uint64_t a1)
   dispatch_async(qword_1000EB610, block);
 }
 
-id sub_10000A084(uint64_t a1)
+id sub_10000A084(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v10 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      v9 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v10, 0, 0, &_mh_execute_header, v3, 0, "switchToUser: willswitch completion handler -> _checkIfWeShouldSwitchUser", &v9, 2);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
   return [*(a1 + 32) _checkIfWeShouldSwitchUser:0];
@@ -4064,35 +4147,43 @@ void sub_10000A8F8(uint64_t a1)
   v2 = qword_1000EB278;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(0);
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v19[0] = 0;
+    LODWORD(v3) = sub_1000011A8(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      v18 = [v4 logoutTimer];
-      v6 = _os_log_send_and_compose_impl();
+      v6 = [v4 logoutTimer];
+      *v20 = 134217984;
+      *&v20[4] = v6;
+      v7 = _os_log_send_and_compose_impl(v3, v19, 0, 0, &_mh_execute_header, v5, 0, "Logout timer [LogoutToUser] (%p) fired", v20);
 
-      if (v6)
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
-  v7 = [*(a1 + 32) logoutTimer];
-  dispatch_source_cancel(v7);
+  v8 = [*(a1 + 32) logoutTimer];
+  dispatch_source_cancel(v8);
 
   [*(a1 + 32) setLogoutTimer:0];
   if ([*(a1 + 32) switchState] == 1)
@@ -4102,36 +4193,38 @@ void sub_10000A8F8(uint64_t a1)
       sub_100088D28();
     }
 
-    v8 = qword_1000EB268;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = qword_1000EB268;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = sub_1000011A8(1);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      *v20 = 0;
+      v10 = sub_1000011A8(1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = v9;
+        v11 = v10;
       }
 
       else
       {
-        v10 = v9 & 0xFFFFFFFE;
+        v11 = v10 & 0xFFFFFFFE;
       }
 
-      if (v10)
+      if (v11)
       {
-        v11 = _os_log_send_and_compose_impl();
-        v12 = v11;
-        if (v11)
+        LOWORD(v19[0]) = 0;
+        v12 = _os_log_send_and_compose_impl(v11, v20, 0, 0, &_mh_execute_header, v9, 0, "LOGOUT TIMEOUT, forcing _reallySwitchUser", v19, 2);
+        v13 = v12;
+        if (v12)
         {
-          sub_100002A8C(v11);
+          sub_100002A8C(v12);
         }
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
-      free(v12);
+      free(v13);
     }
 
     [*(a1 + 32) _reallySwitchUser:1];
@@ -4144,36 +4237,38 @@ void sub_10000A8F8(uint64_t a1)
       sub_100088D28();
     }
 
-    v13 = qword_1000EB268;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = qword_1000EB268;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = sub_1000011A8(1);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      *v20 = 0;
+      v15 = sub_1000011A8(1);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v14;
+        v16 = v15;
       }
 
       else
       {
-        v15 = v14 & 0xFFFFFFFE;
+        v16 = v15 & 0xFFFFFFFE;
       }
 
-      if (v15)
+      if (v16)
       {
-        v16 = _os_log_send_and_compose_impl();
-        v17 = v16;
-        if (v16)
+        LOWORD(v19[0]) = 0;
+        v17 = _os_log_send_and_compose_impl(v16, v20, 0, 0, &_mh_execute_header, v14, 0, "LOGOUT TIMEOUT, ignore already in _reallySwitchUser", v19, 2);
+        v18 = v17;
+        if (v17)
         {
-          sub_100002A8C(v16);
+          sub_100002A8C(v17);
         }
       }
 
       else
       {
-        v17 = 0;
+        v18 = 0;
       }
 
-      free(v17);
+      free(v18);
     }
   }
 }
@@ -4203,51 +4298,53 @@ void sub_10000ACA0(uint64_t a1)
   dispatch_async(qword_1000EB610, block);
 }
 
-id sub_10000AD20(uint64_t a1)
+id sub_10000AD20(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v10 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      v9 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v10, 0, 0, &_mh_execute_header, v3, 0, "switchToUser: willswitch completion handler -> _checkIfWeShouldSwitchUser", &v9, 2);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
   return [*(a1 + 32) _checkIfWeShouldSwitchUser:1];
 }
 
-void sub_10000B188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000B188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4268,6 +4365,7 @@ void sub_10000B1C0(uint64_t a1, void *a2, _BYTE *a3)
     v13 = qword_1000EB278;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
+      v18 = 0;
       v14 = sub_1000011A8(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -4282,11 +4380,17 @@ void sub_10000B1C0(uint64_t a1, void *a2, _BYTE *a3)
       if (v15)
       {
         v16 = v13;
-        [v5 stakeholderIsRegistered];
-        [v5 wasToldWillSwitchUser];
-        [v5 hasUserSwitchTasks];
-        [v5 pid];
-        v17 = _os_log_send_and_compose_impl();
+        v19 = 67110146;
+        v20 = [v5 stakeholderIsRegistered];
+        v21 = 1024;
+        v22 = [v5 wasToldWillSwitchUser];
+        v23 = 1024;
+        v24 = [v5 hasUserSwitchTasks];
+        v25 = 1024;
+        v26 = [v5 pid];
+        v27 = 2114;
+        v28 = v7;
+        v17 = _os_log_send_and_compose_impl(v15, &v18, 0, 0, &_mh_execute_header, v16, 0, "Client(stakeholderIsRegistered:%d) was told will switch:%d, has tasks: %d with pid(%d,%{public}@)", &v19, 36);
 
         if (v17)
         {
@@ -4316,6 +4420,7 @@ void sub_10000B1C0(uint64_t a1, void *a2, _BYTE *a3)
     v8 = qword_1000EB278;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
+      v18 = 0;
       v9 = sub_1000011A8(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
@@ -4330,11 +4435,17 @@ void sub_10000B1C0(uint64_t a1, void *a2, _BYTE *a3)
       if (v10)
       {
         v11 = v8;
-        [v5 stakeholderIsRegistered];
-        [v5 wasToldWillSwitchUser];
-        [v5 hasUserSwitchTasks];
-        [v5 pid];
-        v12 = _os_log_send_and_compose_impl();
+        v19 = 67110146;
+        v20 = [v5 stakeholderIsRegistered];
+        v21 = 1024;
+        v22 = [v5 wasToldWillSwitchUser];
+        v23 = 1024;
+        v24 = [v5 hasUserSwitchTasks];
+        v25 = 1024;
+        v26 = [v5 pid];
+        v27 = 2114;
+        v28 = v7;
+        v12 = _os_log_send_and_compose_impl(v10, &v18, 0, 0, &_mh_execute_header, v11, 0, "!!Client(stakeholderIsRegistered:%d) was told will switch:%d, has tasks: %d with pid(%d,%{public}@)", &v19, 36);
 
         if (v12)
         {
@@ -4372,6 +4483,7 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
       v8 = qword_1000EB268;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
+        v29 = 0;
         v9 = sub_1000011A8(1);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
@@ -4392,9 +4504,7 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
           *v31 = v12;
           *&v31[8] = 2112;
           *&v31[10] = v13;
-          LODWORD(v29) = 22;
-          v28 = &v30;
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(v10, &v29, 0, 0, &_mh_execute_header, v11, 0, "Registering Bubble mach service %@, with tasks %@", &v30, 22);
 
           if (v14)
           {
@@ -4424,10 +4534,16 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
       v15 = qword_1000EB268;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = sub_1000011A8(1);
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v29 = 0;
+        LODWORD(v16) = sub_1000011A8(1);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v16 &= ~1u;
+          v16 = v16;
+        }
+
+        else
+        {
+          v16 = v16 & 0xFFFFFFFE;
         }
 
         if (v16)
@@ -4436,9 +4552,7 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
           v18 = [(RDClient *)v4 machServiceName];
           v30 = 138412290;
           *v31 = v18;
-          LODWORD(v29) = 12;
-          v28 = &v30;
-          v19 = _os_log_send_and_compose_impl();
+          v19 = _os_log_send_and_compose_impl(v16, &v29, 0, 0, &_mh_execute_header, v17, 0, "Unregistering from Bubble mach service %@", &v30, 12);
 
           if (v19)
           {
@@ -4461,7 +4575,7 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
     sub_10002A458();
   }
 
-  if ([(RDClient *)v4 stakeholderIsRegistered:v28]&& [(RDClient *)v4 hasUserSwitchTasks]&& [(RDClient *)v4 wasToldWillSwitchUser])
+  if ([(RDClient *)v4 stakeholderIsRegistered]&& [(RDClient *)v4 hasUserSwitchTasks]&& [(RDClient *)v4 wasToldWillSwitchUser])
   {
     v21 = sub_1000024A8(qword_1000EB608);
     v22 = [v21 pathForPID:-[RDClient pid](v4 error:{"pid"), 0}];
@@ -4474,10 +4588,16 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
     v23 = qword_1000EB278;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = sub_1000011A8(0);
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v29 = 0;
+      LODWORD(v24) = sub_1000011A8(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v24 &= ~1u;
+        v24 = v24;
+      }
+
+      else
+      {
+        v24 = v24 & 0xFFFFFFFE;
       }
 
       if (v24)
@@ -4488,7 +4608,8 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
         *v31 = v26;
         *&v31[4] = 2114;
         *&v31[6] = v22;
-        v27 = _os_log_send_and_compose_impl();
+        LODWORD(v28) = 18;
+        v27 = _os_log_send_and_compose_impl(v24, &v29, 0, 0, &_mh_execute_header, v25, 0, "PENDING BLOCKING SWITCH TASK AT SWITCH(Pid:%d):%{public}@", &v30, v28);
 
         if (v27)
         {
@@ -4508,45 +4629,45 @@ void sub_10000C24C(id a1, RDClient *a2, BOOL *a3)
   }
 }
 
-void sub_10000C678(uint64_t a1)
+void sub_10000C678(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v35[0] = 0;
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    *v39 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      LOWORD(v34) = 0;
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      LOWORD(v38[0]) = 0;
+      v6 = _os_log_send_and_compose_impl(v5, v39, 0, 0, &_mh_execute_header, v3, 0, "In readyToSwitchToLoginSession-CompletionHandler", v38, 2);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
   if (qword_1000EB270 != -1)
@@ -4554,83 +4675,90 @@ void sub_10000C678(uint64_t a1)
     sub_100088D28();
   }
 
-  v7 = qword_1000EB268;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = qword_1000EB268;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v35[0] = 0;
-    v8 = sub_1000011A8(1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    *v39 = 0;
+    v9 = sub_1000011A8(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v8;
+      v10 = v9;
     }
 
     else
     {
-      v9 = v8 & 0xFFFFFFFE;
+      v10 = v9 & 0xFFFFFFFE;
     }
 
-    if (v9)
+    if (v10)
     {
-      LOWORD(v34) = 0;
-      v10 = _os_log_send_and_compose_impl();
-      v11 = v10;
-      if (v10)
+      LOWORD(v38[0]) = 0;
+      LODWORD(v36) = 2;
+      v11 = _os_log_send_and_compose_impl(v10, v39, 0, 0, &_mh_execute_header, v8, 0, "XXXX: Moving the session type from :LOGINSESSION TYPE", v38, v36);
+      v12 = v11;
+      if (v11)
       {
-        sub_100002A8C(v10);
+        sub_100002A8C(v11);
       }
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    free(v11);
+    free(v12);
   }
 
   [*(a1 + 32) setSwitchState:0];
   dword_1000EB5B8 = 1;
   sub_100018C80();
   [*(a1 + 32) _broadcastDeviceLoginSessionStateDidUpdate];
-  v12 = [*(a1 + 32) fastLogoutTimer];
+  v13 = [*(a1 + 32) fastLogoutTimer];
 
-  if (v12)
+  if (v13)
   {
     if (qword_1000EB280 != -1)
     {
       sub_100088D64();
     }
 
-    v13 = qword_1000EB278;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = qword_1000EB278;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
-      v14 = sub_1000011A8(0);
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v38[0] = 0;
+      LODWORD(v15) = sub_1000011A8(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 &= ~1u;
+        v15 = v15;
       }
 
-      if (v14)
+      else
       {
-        v15 = *(a1 + 32);
-        v16 = v13;
-        [v15 fastLogoutTimer];
-        *(v35 + 4) = LODWORD(v35[0]) = 134217984;
-        v17 = _os_log_send_and_compose_impl();
+        v15 = v15 & 0xFFFFFFFE;
+      }
 
-        if (v17)
+      if (v15)
+      {
+        v16 = *(a1 + 32);
+        v17 = v14;
+        v18 = [v16 fastLogoutTimer];
+        *v39 = 134217984;
+        *&v39[4] = v18;
+        v19 = _os_log_send_and_compose_impl(v15, v38, 0, 0, &_mh_execute_header, v17, 0, "Fast logout timer (%p) already running, not starting another one", v39);
+
+        if (v19)
         {
-          sub_100002A8C(v17);
+          sub_100002A8C(v19);
         }
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      free(v17);
+      free(v19);
     }
   }
 
@@ -4641,94 +4769,101 @@ void sub_10000C678(uint64_t a1)
       sub_100088D28();
     }
 
-    v18 = qword_1000EB268;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = qword_1000EB268;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v35[0] = 0;
-      v19 = sub_1000011A8(1);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      *v39 = 0;
+      v21 = sub_1000011A8(1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = v19;
+        v22 = v21;
       }
 
       else
       {
-        v20 = v19 & 0xFFFFFFFE;
+        v22 = v21 & 0xFFFFFFFE;
       }
 
-      if (v20)
+      if (v22)
       {
-        LOWORD(v34) = 0;
-        v21 = _os_log_send_and_compose_impl();
-        v22 = v21;
-        if (v21)
+        LOWORD(v38[0]) = 0;
+        LODWORD(v36) = 2;
+        v23 = _os_log_send_and_compose_impl(v22, v39, 0, 0, &_mh_execute_header, v20, 0, "Returning back without USR, setting 5min Max Duration of LoginSession", v38, v36);
+        v24 = v23;
+        if (v23)
         {
-          sub_100002A8C(v21);
+          sub_100002A8C(v23);
         }
       }
 
       else
       {
-        v22 = 0;
+        v24 = 0;
       }
 
-      free(v22);
+      free(v24);
     }
 
-    v23 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, qword_1000EB610);
-    [*(a1 + 32) setFastLogoutTimer:v23];
+    v25 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, qword_1000EB610);
+    [*(a1 + 32) setFastLogoutTimer:v25];
 
     if (qword_1000EB280 != -1)
     {
       sub_100088D64();
     }
 
-    v24 = qword_1000EB278;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = qword_1000EB278;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 0;
-      v25 = sub_1000011A8(0);
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v38[0] = 0;
+      LODWORD(v27) = sub_1000011A8(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v25 &= ~1u;
+        v27 = v27;
       }
 
-      if (v25)
+      else
       {
-        v26 = *(a1 + 32);
-        v27 = v24;
-        [v26 fastLogoutTimer];
-        *(v35 + 4) = LODWORD(v35[0]) = 134217984;
-        v28 = _os_log_send_and_compose_impl();
+        v27 = v27 & 0xFFFFFFFE;
+      }
 
-        if (v28)
+      if (v27)
+      {
+        v28 = *(a1 + 32);
+        v29 = v26;
+        v30 = [v28 fastLogoutTimer];
+        *v39 = 134217984;
+        *&v39[4] = v30;
+        v31 = _os_log_send_and_compose_impl(v27, v38, 0, 0, &_mh_execute_header, v29, 0, "Returning back without USR, starting 5 minute fast logout timer (%p)", v39);
+
+        if (v31)
         {
-          sub_100002A8C(v28);
+          sub_100002A8C(v31);
         }
       }
 
       else
       {
-        v28 = 0;
+        v31 = 0;
       }
 
-      free(v28);
+      free(v31);
     }
 
-    v29 = [*(a1 + 32) fastLogoutTimer];
-    v30 = dispatch_time(0, 300000000000);
-    dispatch_source_set_timer(v29, v30, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v32 = [*(a1 + 32) fastLogoutTimer];
+    v33 = dispatch_time(0, 300000000000);
+    dispatch_source_set_timer(v32, v33, 0xFFFFFFFFFFFFFFFFLL, 0);
 
-    v31 = [*(a1 + 32) fastLogoutTimer];
+    v34 = [*(a1 + 32) fastLogoutTimer];
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10000CC28;
     handler[3] = &unk_1000DCFF8;
     handler[4] = *(a1 + 32);
-    dispatch_source_set_event_handler(v31, handler);
+    dispatch_source_set_event_handler(v34, handler);
 
-    v32 = [*(a1 + 32) fastLogoutTimer];
-    dispatch_activate(v32);
+    v35 = [*(a1 + 32) fastLogoutTimer];
+    dispatch_activate(v35);
   }
 }
 
@@ -4742,35 +4877,43 @@ void sub_10000CC28(uint64_t a1)
   v2 = qword_1000EB278;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(0);
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v27 = 0;
+    LODWORD(v3) = sub_1000011A8(0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 &= ~1u;
+      v3 = v3;
+    }
+
+    else
+    {
+      v3 = v3 & 0xFFFFFFFE;
     }
 
     if (v3)
     {
       v4 = *(a1 + 32);
       v5 = v2;
-      v22 = [v4 fastLogoutTimer];
-      v6 = _os_log_send_and_compose_impl();
+      v6 = [v4 fastLogoutTimer];
+      *v26 = 134217984;
+      *&v26[4] = v6;
+      v7 = _os_log_send_and_compose_impl(v3, &v27, 0, 0, &_mh_execute_header, v5, 0, "Fast logout timer (%p) fired", v26);
 
-      if (v6)
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
-  v7 = [*(a1 + 32) fastLogoutTimer];
-  dispatch_source_cancel(v7);
+  v8 = [*(a1 + 32) fastLogoutTimer];
+  dispatch_source_cancel(v8);
 
   [*(a1 + 32) setFastLogoutTimer:0];
   if (![*(a1 + 32) switchState])
@@ -4780,36 +4923,38 @@ void sub_10000CC28(uint64_t a1)
       sub_100088D28();
     }
 
-    v13 = qword_1000EB268;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = qword_1000EB268;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = sub_1000011A8(1);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      *v26 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v14;
+        v17 = v16;
       }
 
       else
       {
-        v15 = v14 & 0xFFFFFFFE;
+        v17 = v16 & 0xFFFFFFFE;
       }
 
-      if (v15)
+      if (v17)
       {
-        v16 = _os_log_send_and_compose_impl();
-        v17 = v16;
-        if (v16)
+        LOWORD(v27) = 0;
+        v18 = _os_log_send_and_compose_impl(v17, v26, 0, 0, &_mh_execute_header, v15, 0, "CALLING SWITCH TO LOGINUSER as Logout Session MAX Time Duration expire", &v27, 2);
+        v19 = v18;
+        if (v18)
         {
-          sub_100002A8C(v16);
+          sub_100002A8C(v18);
         }
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      free(v17);
+      free(v19);
     }
 
     if (sub_10002E8EC() == 1)
@@ -4819,44 +4964,15 @@ void sub_10000CC28(uint64_t a1)
         sub_100088D28();
       }
 
-      v8 = qword_1000EB268;
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = qword_1000EB268;
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_51;
+        goto LABEL_54;
       }
 
-      v18 = sub_1000011A8(1);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        v19 = v18;
-      }
-
-      else
-      {
-        v19 = v18 & 0xFFFFFFFE;
-      }
-
-      if (!v19)
-      {
-        goto LABEL_49;
-      }
-    }
-
-    else
-    {
-      if (qword_1000EB270 != -1)
-      {
-        sub_100088D28();
-      }
-
-      v8 = qword_1000EB268;
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_51;
-      }
-
+      *v26 = 0;
       v20 = sub_1000011A8(1);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v21 = v20;
       }
@@ -4868,21 +4984,60 @@ void sub_10000CC28(uint64_t a1)
 
       if (!v21)
       {
-        goto LABEL_49;
+        goto LABEL_52;
       }
+
+      LOWORD(v27) = 0;
+      LODWORD(v25) = 2;
+      v22 = _os_log_send_and_compose_impl(v21, v26, 0, 0, &_mh_execute_header, v9, 0, "Call to switchToUserSessionLoginwindow returns Success", &v27, v25);
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    if (!v12)
+    else
     {
-LABEL_50:
-      free(v12);
-      goto LABEL_51;
+      if (qword_1000EB270 != -1)
+      {
+        sub_100088D28();
+      }
+
+      v9 = qword_1000EB268;
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_54;
+      }
+
+      *v26 = 0;
+      v23 = sub_1000011A8(1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = v23;
+      }
+
+      else
+      {
+        v24 = v23 & 0xFFFFFFFE;
+      }
+
+      if (!v24)
+      {
+        goto LABEL_52;
+      }
+
+      LOWORD(v27) = 0;
+      LODWORD(v25) = 2;
+      v22 = _os_log_send_and_compose_impl(v24, v26, 0, 0, &_mh_execute_header, v9, 0, "Call to switchToUserSessionLoginwindow returns Failure", &v27, v25);
     }
 
-LABEL_48:
-    sub_100002A8C(v12);
-    goto LABEL_50;
+    v14 = v22;
+    if (!v22)
+    {
+LABEL_53:
+      free(v14);
+      goto LABEL_54;
+    }
+
+LABEL_51:
+    sub_100002A8C(v14);
+    goto LABEL_53;
   }
 
   if (qword_1000EB270 != -1)
@@ -4890,88 +5045,98 @@ LABEL_48:
     sub_100088D28();
   }
 
-  v8 = qword_1000EB268;
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = qword_1000EB268;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = sub_1000011A8(1);
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    *v26 = 0;
+    LODWORD(v10) = sub_1000011A8(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 &= ~1u;
+      v10 = v10;
     }
 
-    if (v9)
+    else
     {
-      v10 = *(a1 + 32);
-      v11 = v8;
-      [v10 switchState];
-      v12 = _os_log_send_and_compose_impl();
+      v10 = v10 & 0xFFFFFFFE;
+    }
 
-      if (!v12)
+    if (v10)
+    {
+      v11 = *(a1 + 32);
+      v12 = v9;
+      v13 = [v11 switchState];
+      LODWORD(v27) = 67109120;
+      HIDWORD(v27) = v13;
+      v14 = _os_log_send_and_compose_impl(v10, v26, 0, 0, &_mh_execute_header, v12, 0, "SwitchState in Log Session is set to %d, so no loginUser switch", &v27);
+
+      if (!v14)
       {
-        goto LABEL_50;
+        goto LABEL_53;
       }
 
-      goto LABEL_48;
+      goto LABEL_51;
     }
 
-LABEL_49:
-    v12 = 0;
-    goto LABEL_50;
+LABEL_52:
+    v14 = 0;
+    goto LABEL_53;
   }
 
-LABEL_51:
+LABEL_54:
 }
 
-uint64_t sub_10000D074(uint64_t a1)
+uint64_t sub_10000D074(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v19 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      v18 = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v19, 0, 0, &_mh_execute_header, v3, 0, "In readyToSwitchToUser-CompletionHandler", &v18, 2);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
-  v7 = *(a1 + 32);
-  if (CFDictionaryContainsKey(v7, @"UserSwitchTaskOpqueData"))
+  v8 = *(a1 + 32);
+  if (CFDictionaryContainsKey(v8, @"UserSwitchTaskOpqueData"))
   {
-    Value = CFDictionaryGetValue(v7, @"UserSwitchTaskOpqueData");
-    v9 = CFRetain(Value);
-    CFDictionaryRemoveValue(v7, @"UserSwitchTaskOpqueData");
+    Value = CFDictionaryGetValue(v8, @"UserSwitchTaskOpqueData");
+    v10 = CFRetain(Value);
+    CFDictionaryRemoveValue(v8, @"UserSwitchTaskOpqueData");
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   if (qword_1000EB270 != -1)
@@ -4979,39 +5144,42 @@ uint64_t sub_10000D074(uint64_t a1)
     sub_100088D28();
   }
 
-  v10 = qword_1000EB268;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = qword_1000EB268;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = sub_1000011A8(1);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v19 = 0;
+    v12 = sub_1000011A8(1);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v11;
+      v13 = v12;
     }
 
     else
     {
-      v12 = v11 & 0xFFFFFFFE;
+      v13 = v12 & 0xFFFFFFFE;
     }
 
-    if (v12)
+    if (v13)
     {
-      v13 = _os_log_send_and_compose_impl();
-      v14 = v13;
-      if (v13)
+      v18 = 0;
+      LODWORD(v17) = 2;
+      v14 = _os_log_send_and_compose_impl(v13, &v19, 0, 0, &_mh_execute_header, v11, 0, "calling USR", &v18, v17);
+      v15 = v14;
+      if (v14)
       {
-        sub_100002A8C(v13);
+        sub_100002A8C(v14);
       }
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    free(v14);
+    free(v15);
   }
 
-  return sub_10002E9D8(v7, v9);
+  return sub_10002E9D8(v8, v10);
 }
 
 void sub_10000D35C(uint64_t a1)
@@ -5030,6 +5198,7 @@ void sub_10000D35C(uint64_t a1)
     v5 = qword_1000EB278;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
+      v20 = 0;
       v6 = sub_1000011A8(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -5043,22 +5212,28 @@ void sub_10000D35C(uint64_t a1)
 
       if (v7)
       {
-        v16 = *(a1 + 56);
-        v18 = *(a1 + 40);
-        v8 = _os_log_send_and_compose_impl();
-        v9 = v8;
-        if (v8)
+        v8 = *(a1 + 56);
+        v9 = *(a1 + 40);
+        v21 = 67109634;
+        v22 = v8;
+        v23 = 2114;
+        v24 = v4;
+        v25 = 2114;
+        v26 = v9;
+        v10 = _os_log_send_and_compose_impl(v7, &v20, 0, 0, &_mh_execute_header, v5, 0, "Adding BlockSwitchTask(pid:%d,%{public}@) %{public}@", &v21, 28);
+        v11 = v10;
+        if (v10)
         {
-          sub_100002A8C(v8);
+          sub_100002A8C(v10);
         }
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      free(v9);
+      free(v11);
     }
 
     [v2 addUserSwitchTask:*(a1 + 40)];
@@ -5068,44 +5243,50 @@ void sub_10000D35C(uint64_t a1)
       sub_100088D64();
     }
 
-    v10 = qword_1000EB278;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = qword_1000EB278;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = sub_1000011A8(0);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v20 = 0;
+      v13 = sub_1000011A8(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
+        v14 = v13;
       }
 
       else
       {
-        v12 = v11 & 0xFFFFFFFE;
+        v14 = v13 & 0xFFFFFFFE;
       }
 
-      if (v12)
+      if (v14)
       {
-        v17 = *(a1 + 56);
-        v13 = _os_log_send_and_compose_impl();
-        v14 = v13;
-        if (v13)
+        v15 = *(a1 + 56);
+        v21 = 67109378;
+        v22 = v15;
+        v23 = 2114;
+        v24 = v4;
+        LODWORD(v19) = 18;
+        v16 = _os_log_send_and_compose_impl(v14, &v20, 0, 0, &_mh_execute_header, v12, 0, "Adding BlockSwitchTask(pid:%d,%{public}@) DONE", &v21, v19);
+        v17 = v16;
+        if (v16)
         {
-          sub_100002A8C(v13);
+          sub_100002A8C(v16);
         }
       }
 
       else
       {
-        v14 = 0;
+        v17 = 0;
       }
 
-      free(v14);
+      free(v17);
     }
   }
 
-  v15 = *(a1 + 48);
-  if (v15)
+  v18 = *(a1 + 48);
+  if (v18)
   {
-    (*(v15 + 16))(v15, 0);
+    (*(v18 + 16))(v18, 0);
   }
 }
 
@@ -5125,7 +5306,7 @@ void sub_10000D6D4(uint64_t a1)
     v5 = qword_1000EB278;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 0;
+      v25[0] = 0;
       v6 = sub_1000011A8(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -5141,15 +5322,13 @@ void sub_10000D6D4(uint64_t a1)
       {
         v8 = *(a1 + 56);
         v9 = *(a1 + 40);
-        LODWORD(v27) = 67109634;
-        HIDWORD(v27) = v8;
-        v28 = 2114;
-        v29 = v4;
-        v30 = 2112;
-        v31 = v9;
-        LODWORD(v25) = 28;
-        v24 = &v27;
-        v10 = _os_log_send_and_compose_impl();
+        LODWORD(v26) = 67109634;
+        HIDWORD(v26) = v8;
+        v27 = 2114;
+        v28 = v4;
+        v29 = 2112;
+        v30 = v9;
+        v10 = _os_log_send_and_compose_impl(v7, v25, 0, 0, &_mh_execute_header, v5, 0, "Removing BlockSwitchTask(pid:%d,%{public}@) %@", &v26, 28);
         v11 = v10;
         if (v10)
         {
@@ -5176,7 +5355,7 @@ void sub_10000D6D4(uint64_t a1)
       v12 = qword_1000EB268;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 0;
+        v26 = 0;
         v13 = sub_1000011A8(1);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
@@ -5190,10 +5369,9 @@ void sub_10000D6D4(uint64_t a1)
 
         if (v14)
         {
-          LOWORD(v26) = 0;
-          LODWORD(v25) = 2;
-          v24 = &v26;
-          v15 = _os_log_send_and_compose_impl();
+          LOWORD(v25[0]) = 0;
+          LODWORD(v24) = 2;
+          v15 = _os_log_send_and_compose_impl(v14, &v26, 0, 0, &_mh_execute_header, v12, 0, "remove BlockSwitch Task checking -> _checkIfWeShouldSwitchUser", v25, v24);
           v16 = v15;
           if (v15)
           {
@@ -5209,7 +5387,7 @@ void sub_10000D6D4(uint64_t a1)
         free(v16);
       }
 
-      [*(a1 + 32) _checkIfWeShouldSwitchUser:{dword_1000EB5B8 == 3, v24, v25, v26}];
+      [*(a1 + 32) _checkIfWeShouldSwitchUser:dword_1000EB5B8 == 3];
       if (qword_1000EB280 != -1)
       {
         sub_100088D64();
@@ -5218,7 +5396,7 @@ void sub_10000D6D4(uint64_t a1)
       v17 = qword_1000EB278;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 0;
+        v25[0] = 0;
         v18 = sub_1000011A8(0);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
@@ -5233,11 +5411,12 @@ void sub_10000D6D4(uint64_t a1)
         if (v19)
         {
           v20 = *(a1 + 56);
-          LODWORD(v27) = 67109378;
-          HIDWORD(v27) = v20;
-          v28 = 2114;
-          v29 = v4;
-          v21 = _os_log_send_and_compose_impl();
+          LODWORD(v26) = 67109378;
+          HIDWORD(v26) = v20;
+          v27 = 2114;
+          v28 = v4;
+          LODWORD(v24) = 18;
+          v21 = _os_log_send_and_compose_impl(v19, v25, 0, 0, &_mh_execute_header, v17, 0, "Removed switch task(pid:%d, %{public}@)", &v26, v24);
           v22 = v21;
           if (v21)
           {
@@ -5336,6 +5515,7 @@ void sub_10000DFBC(uint64_t a1)
       v7 = qword_1000EB278;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
+        v24[0] = 0;
         v8 = sub_1000011A8(0);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
@@ -5349,77 +5529,86 @@ void sub_10000DFBC(uint64_t a1)
 
         if (v9)
         {
-          v21 = *(a1 + 56);
-          v22 = *(a1 + 40);
-          v10 = _os_log_send_and_compose_impl();
-          v11 = v10;
-          if (v10)
+          v10 = *(a1 + 56);
+          v11 = *(a1 + 40);
+          LODWORD(v25) = 67109634;
+          HIDWORD(v25) = v10;
+          v26 = 2114;
+          v27 = v6;
+          v28 = 2114;
+          v29 = v11;
+          v12 = _os_log_send_and_compose_impl(v9, v24, 0, 0, &_mh_execute_header, v7, 0, "Adding Sync Task(pid:%d,%{public}@) %{public}@", &v25, 28);
+          v13 = v12;
+          if (v12)
           {
-            sub_100002A8C(v10);
+            sub_100002A8C(v12);
           }
         }
 
         else
         {
-          v11 = 0;
+          v13 = 0;
         }
 
-        free(v11);
+        free(v13);
       }
 
       [v3 addUserSyncTask:*(a1 + 40)];
-      v12 = [v3 userSyncTasks];
-      v13 = [v12 count];
+      v14 = [v3 userSyncTasks];
+      v15 = [v14 count];
 
-      if (v13 == 1)
+      if (v15 == 1)
       {
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
         }
 
-        v14 = qword_1000EB268;
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = qword_1000EB268;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = sub_1000011A8(1);
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v25 = 0;
+          v17 = sub_1000011A8(1);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = v15;
+            v18 = v17;
           }
 
           else
           {
-            v16 = v15 & 0xFFFFFFFE;
+            v18 = v17 & 0xFFFFFFFE;
           }
 
-          if (v16)
+          if (v18)
           {
-            v17 = _os_log_send_and_compose_impl();
-            v18 = v17;
-            if (v17)
+            LOWORD(v24[0]) = 0;
+            LODWORD(v23) = 2;
+            v19 = _os_log_send_and_compose_impl(v18, &v25, 0, 0, &_mh_execute_header, v16, 0, "Adding mach service for bubble due to arrival of first sync tasks", v24, v23);
+            v20 = v19;
+            if (v19)
             {
-              sub_100002A8C(v17);
+              sub_100002A8C(v19);
             }
           }
 
           else
           {
-            v18 = 0;
+            v20 = 0;
           }
 
-          free(v18);
+          free(v20);
         }
 
-        v19 = [v3 machServiceName];
-        sub_100033AB0(v19);
+        v21 = [v3 machServiceName];
+        sub_100033AB0(v21);
       }
     }
   }
 
-  v20 = *(a1 + 48);
-  if (v20)
+  v22 = *(a1 + 48);
+  if (v22)
   {
-    (*(v20 + 16))(v20, 0);
+    (*(v22 + 16))(v22, 0);
   }
 }
 
@@ -5439,6 +5628,7 @@ void sub_10000E364(uint64_t a1)
     v5 = qword_1000EB278;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
+      v22[0] = 0;
       v6 = sub_1000011A8(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -5452,76 +5642,85 @@ void sub_10000E364(uint64_t a1)
 
       if (v7)
       {
-        v19 = *(a1 + 56);
-        v20 = *(a1 + 40);
-        v8 = _os_log_send_and_compose_impl();
-        v9 = v8;
-        if (v8)
+        v8 = *(a1 + 56);
+        v9 = *(a1 + 40);
+        LODWORD(v23) = 67109634;
+        HIDWORD(v23) = v8;
+        v24 = 2114;
+        v25 = v4;
+        v26 = 2114;
+        v27 = v9;
+        v10 = _os_log_send_and_compose_impl(v7, v22, 0, 0, &_mh_execute_header, v5, 0, "Removing Sync Task(pid:%d,%{public}@) %{public}@", &v23, 28);
+        v11 = v10;
+        if (v10)
         {
-          sub_100002A8C(v8);
+          sub_100002A8C(v10);
         }
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      free(v9);
+      free(v11);
     }
 
     [v2 removeUserSyncTask:*(a1 + 40)];
-    v10 = [v2 userSyncTasks];
-    v11 = [v10 count];
+    v12 = [v2 userSyncTasks];
+    v13 = [v12 count];
 
-    if (!v11)
+    if (!v13)
     {
       if (qword_1000EB270 != -1)
       {
         sub_100088D28();
       }
 
-      v12 = qword_1000EB268;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = qword_1000EB268;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = sub_1000011A8(1);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v23 = 0;
+        v15 = sub_1000011A8(1);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = v13;
+          v16 = v15;
         }
 
         else
         {
-          v14 = v13 & 0xFFFFFFFE;
+          v16 = v15 & 0xFFFFFFFE;
         }
 
-        if (v14)
+        if (v16)
         {
-          v15 = _os_log_send_and_compose_impl();
-          v16 = v15;
-          if (v15)
+          LOWORD(v22[0]) = 0;
+          LODWORD(v21) = 2;
+          v17 = _os_log_send_and_compose_impl(v16, &v23, 0, 0, &_mh_execute_header, v14, 0, "Removing mach service for bubble as no pending sync tasks", v22, v21);
+          v18 = v17;
+          if (v17)
           {
-            sub_100002A8C(v15);
+            sub_100002A8C(v17);
           }
         }
 
         else
         {
-          v16 = 0;
+          v18 = 0;
         }
 
-        free(v16);
+        free(v18);
       }
 
-      v17 = [v2 machServiceName];
-      sub_1000344A8(v17);
+      v19 = [v2 machServiceName];
+      sub_1000344A8(v19);
     }
   }
 
-  v18 = *(a1 + 48);
-  if (v18)
+  v20 = *(a1 + 48);
+  if (v20)
   {
-    (*(v18 + 16))(v18, 0);
+    (*(v20 + 16))(v20, 0);
   }
 }
 
@@ -5551,71 +5750,70 @@ uint64_t sub_10000E7D0(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_10000EED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10000EED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10000EF28(uint64_t a1)
+void sub_10000EF28(uint64_t a1, uint64_t a2)
 {
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
   }
 
-  v2 = qword_1000EB268;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = qword_1000EB268;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v100 = 0;
-    v3 = sub_1000011A8(1);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 & 0xFFFFFFFE;
+      v5 = v4 & 0xFFFFFFFE;
     }
 
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 88);
+      v6 = *(a1 + 88);
       LODWORD(v110) = 67109120;
-      HIDWORD(v110) = v5;
-      LODWORD(v96) = 8;
-      v95 = &v110;
-      v6 = _os_log_send_and_compose_impl();
-      v7 = v6;
-      if (v6)
+      HIDWORD(v110) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v100, 0, 0, &_mh_execute_header, v3, 0, "In RDServer: createPersona from pid:%d", &v110);
+      v8 = v7;
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    free(v7);
+    free(v8);
   }
 
-  v8 = [*(a1 + 32) _clientForPID:*(a1 + 88)];
-  v9 = v8;
-  if (v8)
+  v9 = [*(a1 + 32) _clientForPID:*(a1 + 88)];
+  v10 = v9;
+  if (v9)
   {
-    v10 = [v8 hasEntitlement:@"com.apple.usermanagerd.persona.create"];
+    v11 = [v9 hasEntitlement:@"com.apple.usermanagerd.persona.create"];
   }
 
   else
   {
-    v10 = [*(a1 + 32) remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.persona.create"];
+    v11 = [*(a1 + 32) remoteProcessHasBooleanEntitlement:@"com.apple.usermanagerd.persona.create"];
   }
 
-  if (v10)
+  if (v11)
   {
     if (*(a1 + 40))
     {
@@ -5633,31 +5831,31 @@ void sub_10000EF28(uint64_t a1)
         v105 = 0;
         if (*(a1 + 72))
         {
-          v11 = [NSMutableData dataWithBytes:*(*(*(a1 + 64) + 8) + 24) length:?];
+          v12 = [NSMutableData dataWithBytes:*(*(*(a1 + 64) + 8) + 24) length:?];
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
-        v34 = *(*(*(a1 + 56) + 8) + 24);
-        if (v34)
+        v35 = *(*(*(a1 + 56) + 8) + 24);
+        if (v35)
         {
-          v35 = mach_task_self_;
-          v36 = vm_page_size;
+          v36 = mach_task_self_;
+          v37 = vm_page_size;
           if (vm_page_size >= *(a1 + 72))
           {
-            v37 = *(a1 + 72);
+            v38 = *(a1 + 72);
           }
 
           else
           {
-            v37 = vm_page_size;
+            v38 = vm_page_size;
           }
 
-          memset_s(v34, v37, 0, v37);
-          vm_deallocate(v35, v34, v36);
+          memset_s(v35, v38, 0, v38);
+          vm_deallocate(v36, v35, v37);
         }
 
         if (*(a1 + 80) == 1)
@@ -5666,60 +5864,60 @@ void sub_10000EF28(uint64_t a1)
           *&v108[8] = v108;
           *&v108[16] = 0x2020000000;
           v109 = 0;
-          v38 = v11;
-          v39 = ACMContextCreateWithExternalForm([v11 bytes], objc_msgSend(v11, "length"));
-          v40 = v39;
-          if (!v39)
+          v39 = v12;
+          v40 = ACMContextCreateWithExternalForm([v12 bytes], objc_msgSend(v12, "length"));
+          v41 = v40;
+          if (!v40)
           {
             if (qword_1000EB270 != -1)
             {
               sub_100088D28();
             }
 
-            v51 = qword_1000EB268;
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+            v52 = qword_1000EB268;
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
             {
-              v99 = 0;
-              v52 = sub_1000011A8(1);
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+              v99[0] = 0;
+              v53 = sub_1000011A8(1);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
               {
-                v53 = v52;
+                v54 = v53;
               }
 
               else
               {
-                v53 = v52 & 0xFFFFFFFE;
+                v54 = v53 & 0xFFFFFFFE;
               }
 
-              if (v53)
+              if (v54)
               {
                 LOWORD(v106) = 0;
-                v54 = _os_log_send_and_compose_impl();
-                v55 = v54;
-                if (v54)
+                v55 = _os_log_send_and_compose_impl(v54, v99, 0, 0, &_mh_execute_header, v52, 0, "In RDServer: entitlement OK, but failed to import externalized context data", &v106, 2);
+                v56 = v55;
+                if (v55)
                 {
-                  sub_100002A8C(v54);
+                  sub_100002A8C(v55);
                 }
               }
 
               else
               {
-                v55 = 0;
+                v56 = 0;
               }
 
-              free(v55);
+              free(v56);
             }
 
-            v93 = *(a1 + 48);
-            if (v93)
+            v94 = *(a1 + 48);
+            if (v94)
             {
-              v94 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-              (*(v93 + 16))(v93, 0, v94);
+              v95 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+              (*(v94 + 16))(v94, 0, v95);
             }
 
-            if (v11)
+            if (v12)
             {
-              [v11 resetBytesInRange:{0, objc_msgSend(v11, "length")}];
+              [v12 resetBytesInRange:{0, objc_msgSend(v12, "length")}];
             }
 
             goto LABEL_185;
@@ -5732,50 +5930,48 @@ void sub_10000EF28(uint64_t a1)
           v98[4] = v108;
           v98[5] = &v100;
           v98[6] = &v110;
-          ACMContextCredentialGetProperty(v39, 0xDu, 0x2BDu, v98);
-          v41 = ACMContextDelete(v40, 0);
-          if (v41)
+          ACMContextCredentialGetProperty(v40, 13, 701, v98);
+          v42 = ACMContextDelete(v41, 0);
+          if (v42)
           {
             if (qword_1000EB270 != -1)
             {
               sub_100088D28();
             }
 
-            v42 = qword_1000EB268;
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+            v43 = qword_1000EB268;
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
-              v99 = 0;
-              v43 = sub_1000011A8(1);
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v99[0] = 0;
+              v44 = sub_1000011A8(1);
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
               {
-                v44 = v43;
+                v45 = v44;
               }
 
               else
               {
-                v44 = v43 & 0xFFFFFFFE;
+                v45 = v44 & 0xFFFFFFFE;
               }
 
-              if (v44)
+              if (v45)
               {
                 v106 = 67109120;
-                v107 = v41;
-                LODWORD(v96) = 8;
-                v95 = &v106;
-                v45 = _os_log_send_and_compose_impl();
-                v46 = v45;
-                if (v45)
+                v107 = v42;
+                v46 = _os_log_send_and_compose_impl(v45, v99, 0, 0, &_mh_execute_header, v43, 0, "In RDServer: Failed to delete ACM context: %d", &v106);
+                v47 = v46;
+                if (v46)
                 {
-                  sub_100002A8C(v45);
+                  sub_100002A8C(v46);
                 }
               }
 
               else
               {
-                v46 = 0;
+                v47 = 0;
               }
 
-              free(v46);
+              free(v47);
             }
           }
 
@@ -5786,52 +5982,52 @@ void sub_10000EF28(uint64_t a1)
               sub_100088D28();
             }
 
-            v56 = qword_1000EB268;
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+            v57 = qword_1000EB268;
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
             {
-              v99 = 0;
-              v57 = sub_1000011A8(1);
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+              v99[0] = 0;
+              v58 = sub_1000011A8(1);
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
               {
-                v58 = v57;
+                v59 = v58;
               }
 
               else
               {
-                v58 = v57 & 0xFFFFFFFE;
+                v59 = v58 & 0xFFFFFFFE;
               }
 
-              if (v58)
+              if (v59)
               {
-                v59 = *(*&v108[8] + 24);
+                v60 = *(*&v108[8] + 24);
                 v106 = 67109120;
-                v107 = v59;
-                v60 = _os_log_send_and_compose_impl();
-                v61 = v60;
-                if (v60)
+                v107 = v60;
+                v61 = _os_log_send_and_compose_impl(v59, v99, 0, 0, &_mh_execute_header, v57, 0, "In RDServer: entitlement OK, but failed to extract plaintext password from context: %d", &v106);
+                v62 = v61;
+                if (v61)
                 {
-                  sub_100002A8C(v60);
+                  sub_100002A8C(v61);
                 }
               }
 
               else
               {
-                v61 = 0;
+                v62 = 0;
               }
 
-              free(v61);
+              free(v62);
             }
 
-            v90 = *(a1 + 48);
-            if (v90)
+            v91 = *(a1 + 48);
+            if (v91)
             {
-              v91 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-              (*(v90 + 16))(v90, 0, v91);
+              v92 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+              (*(v91 + 16))(v91, 0, v92);
             }
 
-            if (v11)
+            if (v12)
             {
-              [v11 resetBytesInRange:{0, objc_msgSend(v11, "length")}];
+              [v12 resetBytesInRange:{0, objc_msgSend(v12, "length")}];
             }
 
 LABEL_185:
@@ -5848,122 +6044,123 @@ LABEL_186:
 
         v106 = 0;
         v97 = -1;
-        v62 = [*(a1 + 32) asidForClient:v9 withAuid:&v97 withPid:{*(a1 + 88), v95, v96}];
+        v63 = [*(a1 + 32) asidForClient:v10 withAuid:&v97 withPid:*(a1 + 88)];
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
         }
 
-        v63 = qword_1000EB268;
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        v64 = qword_1000EB268;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
-          v99 = 0;
-          v64 = sub_1000011A8(1);
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          v99[0] = 0;
+          v65 = sub_1000011A8(1);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
           {
-            v65 = v64;
+            v66 = v65;
           }
 
           else
           {
-            v65 = v64 & 0xFFFFFFFE;
+            v66 = v65 & 0xFFFFFFFE;
           }
 
-          if (v65)
+          if (v66)
           {
-            v66 = *(a1 + 40);
-            v67 = *(a1 + 88);
+            v67 = *(a1 + 40);
+            v68 = *(a1 + 88);
             *v108 = 138412802;
-            *&v108[4] = v66;
+            *&v108[4] = v67;
             *&v108[12] = 1024;
-            *&v108[14] = v67;
+            *&v108[14] = v68;
             *&v108[18] = 1024;
-            *&v108[20] = v62;
-            v68 = _os_log_send_and_compose_impl();
-            v69 = v68;
-            if (v68)
+            *&v108[20] = v63;
+            v69 = _os_log_send_and_compose_impl(v66, v99, 0, 0, &_mh_execute_header, v64, 0, "In RDServer: entitlement OK, calling createpersonasession with profileInfo:%@ for pid:%d for asid:%d", v108, 24);
+            v70 = v69;
+            if (v69)
             {
-              sub_100002A8C(v68);
+              sub_100002A8C(v69);
             }
           }
 
           else
           {
-            v69 = 0;
+            v70 = 0;
           }
 
-          free(v69);
+          free(v70);
         }
 
-        v70 = sub_100001458(v62, v97, *(a1 + 92));
-        v71 = v11;
+        v71 = sub_100001458(v63, v97, *(a1 + 92));
+        v72 = v12;
         if (*(v111 + 24) == 1)
         {
-          v71 = v101[5];
+          v72 = v101[5];
         }
 
-        v72 = sub_100044AA8(*(a1 + 40), v71, v70, 1, &v106);
+        v73 = sub_100044AA8(*(a1 + 40), v72, v71, 1, &v106);
         if (*(v111 + 24) == 1)
         {
           [v101[5] resetBytesInRange:{0, objc_msgSend(v101[5], "length")}];
         }
 
-        if (v11)
+        if (v12)
         {
-          [v11 resetBytesInRange:{0, objc_msgSend(v11, "length")}];
+          [v12 resetBytesInRange:{0, objc_msgSend(v12, "length")}];
         }
 
-        if (v72 || !v106)
+        if (v73 || !v106)
         {
-          if (v72)
+          if (v73)
           {
             if (qword_1000EB270 != -1)
             {
               sub_100088D28();
             }
 
-            v78 = qword_1000EB268;
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+            v79 = qword_1000EB268;
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
             {
-              v99 = 0;
-              v79 = sub_1000011A8(1);
-              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+              v99[0] = 0;
+              v80 = sub_1000011A8(1);
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
               {
-                v80 = v79;
+                v81 = v80;
               }
 
               else
               {
-                v80 = v79 & 0xFFFFFFFE;
+                v81 = v80 & 0xFFFFFFFE;
               }
 
-              if (v80)
+              if (v81)
               {
                 *v108 = 138412290;
-                *&v108[4] = v72;
-                v81 = _os_log_send_and_compose_impl();
-                v82 = v81;
-                if (v81)
+                *&v108[4] = v73;
+                LODWORD(v96) = 12;
+                v82 = _os_log_send_and_compose_impl(v81, v99, 0, 0, &_mh_execute_header, v79, 0, "Persona Created Successfully:%@", v108, v96);
+                v83 = v82;
+                if (v82)
                 {
-                  sub_100002A8C(v81);
+                  sub_100002A8C(v82);
                 }
               }
 
               else
               {
-                v82 = 0;
+                v83 = 0;
               }
 
-              free(v82);
+              free(v83);
             }
 
-            [*(a1 + 32) _broadcastPersonaUpdates:v70 withAuid:v97];
+            [*(a1 + 32) _broadcastPersonaUpdates:v71 withAuid:v97];
           }
 
-          v92 = *(a1 + 48);
-          if (v92)
+          v93 = *(a1 + 48);
+          if (v93)
           {
-            (*(v92 + 16))(v92, v72, 0);
+            (*(v93 + 16))(v93, v73, 0);
           }
         }
 
@@ -5974,45 +6171,46 @@ LABEL_186:
             sub_100088D28();
           }
 
-          v73 = qword_1000EB268;
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+          v74 = qword_1000EB268;
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
           {
             *v108 = 0;
-            v74 = sub_1000011A8(1);
-            if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+            v75 = sub_1000011A8(1);
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
             {
-              v75 = v74;
+              v76 = v75;
             }
 
             else
             {
-              v75 = v74 & 0xFFFFFFFE;
+              v76 = v75 & 0xFFFFFFFE;
             }
 
-            if (v75)
+            if (v76)
             {
-              LOWORD(v99) = 0;
-              v76 = _os_log_send_and_compose_impl();
-              v77 = v76;
-              if (v76)
+              LOWORD(v99[0]) = 0;
+              LODWORD(v96) = 2;
+              v77 = _os_log_send_and_compose_impl(v76, v108, 0, 0, &_mh_execute_header, v74, 0, "FAILEd to create persona session", v99, v96);
+              v78 = v77;
+              if (v77)
               {
-                sub_100002A8C(v76);
+                sub_100002A8C(v77);
               }
             }
 
             else
             {
-              v77 = 0;
+              v78 = 0;
             }
 
-            free(v77);
+            free(v78);
           }
 
-          v83 = *(a1 + 48);
-          if (v83)
+          v84 = *(a1 + 48);
+          if (v84)
           {
-            v84 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v106 userInfo:0];
-            (*(v83 + 16))(v83, 0, v84);
+            v85 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v106 userInfo:0];
+            (*(v84 + 16))(v84, 0, v85);
           }
 
           if (qword_1000EB270 != -1)
@@ -6020,38 +6218,39 @@ LABEL_186:
             sub_100088D28();
           }
 
-          v85 = qword_1000EB268;
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+          v86 = qword_1000EB268;
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
           {
             *v108 = 0;
-            v86 = sub_1000011A8(1);
-            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+            v87 = sub_1000011A8(1);
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
             {
-              v87 = v86;
+              v88 = v87;
             }
 
             else
             {
-              v87 = v86 & 0xFFFFFFFE;
+              v88 = v87 & 0xFFFFFFFE;
             }
 
-            if (v87)
+            if (v88)
             {
-              LOWORD(v99) = 0;
-              v88 = _os_log_send_and_compose_impl();
-              v89 = v88;
-              if (v88)
+              LOWORD(v99[0]) = 0;
+              LODWORD(v96) = 2;
+              v89 = _os_log_send_and_compose_impl(v88, v108, 0, 0, &_mh_execute_header, v86, 0, "Returning after failing to create persona session", v99, v96);
+              v90 = v89;
+              if (v89)
               {
-                sub_100002A8C(v88);
+                sub_100002A8C(v89);
               }
             }
 
             else
             {
-              v89 = 0;
+              v90 = 0;
             }
 
-            free(v89);
+            free(v90);
           }
         }
 
@@ -6063,65 +6262,65 @@ LABEL_186:
         sub_100088D28();
       }
 
-      v23 = qword_1000EB268;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = qword_1000EB268;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         v100 = 0;
-        v24 = sub_1000011A8(1);
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_1000011A8(1);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = v24;
+          v26 = v25;
         }
 
         else
         {
-          v25 = v24 & 0xFFFFFFFE;
+          v26 = v25 & 0xFFFFFFFE;
         }
 
-        if (v25)
+        if (v26)
         {
           LOWORD(v110) = 0;
-          v26 = _os_log_send_and_compose_impl();
-          v27 = v26;
-          if (v26)
+          v27 = _os_log_send_and_compose_impl(v26, &v100, 0, 0, &_mh_execute_header, v24, 0, "In RDServer: entitlement OK, but invalid passcode data type", &v110, 2);
+          v28 = v27;
+          if (v27)
           {
-            sub_100002A8C(v26);
+            sub_100002A8C(v27);
           }
         }
 
         else
         {
-          v27 = 0;
+          v28 = 0;
         }
 
-        free(v27);
+        free(v28);
       }
 
-      v49 = *(a1 + 48);
-      if (v49)
+      v50 = *(a1 + 48);
+      if (v50)
       {
-        v50 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        (*(v49 + 16))(v49, 0, v50);
+        v51 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+        (*(v50 + 16))(v50, 0, v51);
       }
 
-      v30 = *(*(*(a1 + 56) + 8) + 24);
-      if (v30)
+      v31 = *(*(*(a1 + 56) + 8) + 24);
+      if (v31)
       {
-        v31 = mach_task_self_;
-        v32 = vm_page_size;
+        v32 = mach_task_self_;
+        v33 = vm_page_size;
         if (vm_page_size >= *(a1 + 72))
         {
-          v33 = *(a1 + 72);
+          v34 = *(a1 + 72);
         }
 
         else
         {
-          v33 = vm_page_size;
+          v34 = vm_page_size;
         }
 
 LABEL_89:
-        memset_s(v30, v33, 0, v33);
-        vm_deallocate(v31, v30, v32);
+        memset_s(v31, v34, 0, v34);
+        vm_deallocate(v32, v31, v33);
       }
     }
 
@@ -6132,60 +6331,60 @@ LABEL_89:
         sub_100088D28();
       }
 
-      v18 = qword_1000EB268;
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = qword_1000EB268;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v100 = 0;
-        v19 = sub_1000011A8(1);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_1000011A8(1);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = v19;
+          v21 = v20;
         }
 
         else
         {
-          v20 = v19 & 0xFFFFFFFE;
+          v21 = v20 & 0xFFFFFFFE;
         }
 
-        if (v20)
+        if (v21)
         {
           LOWORD(v110) = 0;
-          v21 = _os_log_send_and_compose_impl();
-          v22 = v21;
-          if (v21)
+          v22 = _os_log_send_and_compose_impl(v21, &v100, 0, 0, &_mh_execute_header, v19, 0, "In RDServer: entitlement OK, but invalid profileInfo", &v110, 2);
+          v23 = v22;
+          if (v22)
           {
-            sub_100002A8C(v21);
+            sub_100002A8C(v22);
           }
         }
 
         else
         {
-          v22 = 0;
+          v23 = 0;
         }
 
-        free(v22);
+        free(v23);
       }
 
-      v47 = *(a1 + 48);
-      if (v47)
+      v48 = *(a1 + 48);
+      if (v48)
       {
-        v48 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-        (*(v47 + 16))(v47, 0, v48);
+        v49 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
+        (*(v48 + 16))(v48, 0, v49);
       }
 
-      v30 = *(*(*(a1 + 56) + 8) + 24);
-      if (v30)
+      v31 = *(*(*(a1 + 56) + 8) + 24);
+      if (v31)
       {
-        v31 = mach_task_self_;
-        v32 = vm_page_size;
+        v32 = mach_task_self_;
+        v33 = vm_page_size;
         if (vm_page_size >= *(a1 + 72))
         {
-          v33 = *(a1 + 72);
+          v34 = *(a1 + 72);
         }
 
         else
         {
-          v33 = vm_page_size;
+          v34 = vm_page_size;
         }
 
         goto LABEL_89;
@@ -6200,62 +6399,62 @@ LABEL_89:
       sub_100088D28();
     }
 
-    v12 = qword_1000EB268;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = qword_1000EB268;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v100 = 0;
-      v13 = sub_1000011A8(1);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_1000011A8(1);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = v13;
+        v15 = v14;
       }
 
       else
       {
-        v14 = v13 & 0xFFFFFFFE;
+        v15 = v14 & 0xFFFFFFFE;
       }
 
-      if (v14)
+      if (v15)
       {
-        v15 = *(a1 + 88);
+        v16 = *(a1 + 88);
         LODWORD(v110) = 67109120;
-        HIDWORD(v110) = v15;
-        v16 = _os_log_send_and_compose_impl();
-        v17 = v16;
-        if (v16)
+        HIDWORD(v110) = v16;
+        v17 = _os_log_send_and_compose_impl(v15, &v100, 0, 0, &_mh_execute_header, v13, 0, "In RDServer: createPersona No entitlement pid:%d", &v110);
+        v18 = v17;
+        if (v17)
         {
-          sub_100002A8C(v16);
+          sub_100002A8C(v17);
         }
       }
 
       else
       {
-        v17 = 0;
+        v18 = 0;
       }
 
-      free(v17);
+      free(v18);
     }
 
-    v28 = *(a1 + 48);
-    if (v28)
+    v29 = *(a1 + 48);
+    if (v29)
     {
-      v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-      (*(v28 + 16))(v28, 0, v29);
+      v30 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
+      (*(v29 + 16))(v29, 0, v30);
     }
 
-    v30 = *(*(*(a1 + 56) + 8) + 24);
-    if (v30)
+    v31 = *(*(*(a1 + 56) + 8) + 24);
+    if (v31)
     {
-      v31 = mach_task_self_;
-      v32 = vm_page_size;
+      v32 = mach_task_self_;
+      v33 = vm_page_size;
       if (vm_page_size >= *(a1 + 72))
       {
-        v33 = *(a1 + 72);
+        v34 = *(a1 + 72);
       }
 
       else
       {
-        v33 = vm_page_size;
+        v34 = vm_page_size;
       }
 
       goto LABEL_89;
@@ -6265,11 +6464,12 @@ LABEL_89:
 LABEL_187:
 }
 
-void sub_10000FE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000FE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose((v29 - 160), 8);
+  _Block_object_dispose((v28 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6290,7 +6490,7 @@ void sub_10000FEE8(void *a1, int a2)
 void sub_100010194(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  v41 = -1;
+  v39 = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -6299,7 +6499,7 @@ void sub_100010194(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = 0;
+    v38 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -6314,11 +6514,9 @@ void sub_100010194(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 56);
-      v42 = 67109120;
-      v43 = v6;
-      LODWORD(v39) = 8;
-      v38 = &v42;
-      v7 = _os_log_send_and_compose_impl();
+      v40 = 67109120;
+      v41 = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v38, 0, 0, &_mh_execute_header, v3, 0, "In RDServer: deletePersona from pid:%d", &v40);
       v8 = v7;
       if (v7)
       {
@@ -6350,7 +6548,7 @@ LABEL_26:
     v18 = qword_1000EB268;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 0;
+      v38 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -6365,11 +6563,9 @@ LABEL_26:
       if (v20)
       {
         v21 = *(a1 + 56);
-        v42 = 67109120;
-        v43 = v21;
-        LODWORD(v39) = 8;
-        v38 = &v42;
-        v22 = _os_log_send_and_compose_impl();
+        v40 = 67109120;
+        v41 = v21;
+        v22 = _os_log_send_and_compose_impl(v20, &v38, 0, 0, &_mh_execute_header, v18, 0, "In RDServer: deletePersona No entitlement pid:%d", &v40);
         v23 = v22;
         if (v22)
         {
@@ -6406,7 +6602,7 @@ LABEL_14:
     v24 = qword_1000EB268;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 0;
+      v38 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -6420,10 +6616,8 @@ LABEL_14:
 
       if (v26)
       {
-        LOWORD(v42) = 0;
-        LODWORD(v39) = 2;
-        v38 = &v42;
-        v27 = _os_log_send_and_compose_impl();
+        LOWORD(v40) = 0;
+        v27 = _os_log_send_and_compose_impl(v26, &v38, 0, 0, &_mh_execute_header, v24, 0, "In RDServer: entitlement OK, but invalid profileInfo", &v40, 2);
         v28 = v27;
         if (v27)
         {
@@ -6442,12 +6636,12 @@ LABEL_14:
     v34 = NSPOSIXErrorDomain;
     v35 = 22;
 LABEL_62:
-    v36 = [NSError errorWithDomain:v34 code:v35 userInfo:0, v38, v39, v40];
+    v36 = [NSError errorWithDomain:v34 code:v35 userInfo:0];
     goto LABEL_67;
   }
 
-  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v41 withPid:*(a1 + 56)];
-  v10 = sub_100001458(v9, v41, *(a1 + 60));
+  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v39 withPid:*(a1 + 56)];
+  v10 = sub_100001458(v9, v39, *(a1 + 60));
   v11 = sub_100044EE0(*(a1 + 40), v10);
   if (v11)
   {
@@ -6460,6 +6654,7 @@ LABEL_62:
     v13 = qword_1000EB268;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
+      v38 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -6473,9 +6668,9 @@ LABEL_62:
 
       if (v15)
       {
-        v42 = 67109120;
-        v43 = v12;
-        v16 = _os_log_send_and_compose_impl();
+        v40 = 67109120;
+        v41 = v12;
+        v16 = _os_log_send_and_compose_impl(v15, &v38, 0, 0, &_mh_execute_header, v13, 0, "FAILEd to delete persona session with error:%d", &v40);
         v17 = v16;
         if (v16)
         {
@@ -6496,7 +6691,7 @@ LABEL_62:
 
   else
   {
-    [*(a1 + 32) _broadcastPersonaUpdates:v10 withAuid:v41];
+    [*(a1 + 32) _broadcastPersonaUpdates:v10 withAuid:v39];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -6505,6 +6700,7 @@ LABEL_62:
     v29 = qword_1000EB268;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
+      v38 = 0;
       v30 = sub_1000011A8(1);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
@@ -6518,8 +6714,8 @@ LABEL_62:
 
       if (v31)
       {
-        LOWORD(v42) = 0;
-        v32 = _os_log_send_and_compose_impl();
+        LOWORD(v40) = 0;
+        v32 = _os_log_send_and_compose_impl(v31, &v38, 0, 0, &_mh_execute_header, v29, 0, "Delete Persona SUCCESS", &v40, 2);
         v33 = v32;
         if (v32)
         {
@@ -6549,7 +6745,7 @@ LABEL_67:
 void sub_100010930(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  v41 = -1;
+  v39 = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -6558,7 +6754,7 @@ void sub_100010930(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = 0;
+    v38 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -6573,11 +6769,9 @@ void sub_100010930(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 56);
-      v42 = 67109120;
-      v43 = v6;
-      LODWORD(v39) = 8;
-      v38 = &v42;
-      v7 = _os_log_send_and_compose_impl();
+      v40 = 67109120;
+      v41 = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v38, 0, 0, &_mh_execute_header, v3, 0, "In RDServer: disablePersona from pid:%d", &v40);
       v8 = v7;
       if (v7)
       {
@@ -6609,7 +6803,7 @@ LABEL_26:
     v18 = qword_1000EB268;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 0;
+      v38 = 0;
       v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
@@ -6624,11 +6818,9 @@ LABEL_26:
       if (v20)
       {
         v21 = *(a1 + 56);
-        v42 = 67109120;
-        v43 = v21;
-        LODWORD(v39) = 8;
-        v38 = &v42;
-        v22 = _os_log_send_and_compose_impl();
+        v40 = 67109120;
+        v41 = v21;
+        v22 = _os_log_send_and_compose_impl(v20, &v38, 0, 0, &_mh_execute_header, v18, 0, "In RDServer: disablePersona No entitlement pid:%d", &v40);
         v23 = v22;
         if (v22)
         {
@@ -6665,7 +6857,7 @@ LABEL_14:
     v24 = qword_1000EB268;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = 0;
+      v38 = 0;
       v25 = sub_1000011A8(1);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -6679,10 +6871,8 @@ LABEL_14:
 
       if (v26)
       {
-        LOWORD(v42) = 0;
-        LODWORD(v39) = 2;
-        v38 = &v42;
-        v27 = _os_log_send_and_compose_impl();
+        LOWORD(v40) = 0;
+        v27 = _os_log_send_and_compose_impl(v26, &v38, 0, 0, &_mh_execute_header, v24, 0, "In RDServer: entitlement OK, but invalid profileInfo", &v40, 2);
         v28 = v27;
         if (v27)
         {
@@ -6701,12 +6891,12 @@ LABEL_14:
     v34 = NSPOSIXErrorDomain;
     v35 = 22;
 LABEL_62:
-    v36 = [NSError errorWithDomain:v34 code:v35 userInfo:0, v38, v39, v40];
+    v36 = [NSError errorWithDomain:v34 code:v35 userInfo:0];
     goto LABEL_67;
   }
 
-  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v41 withPid:*(a1 + 56)];
-  v10 = sub_100001458(v9, v41, *(a1 + 60));
+  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v39 withPid:*(a1 + 56)];
+  v10 = sub_100001458(v9, v39, *(a1 + 60));
   v11 = sub_10004740C(*(a1 + 40), v10);
   if (v11)
   {
@@ -6719,6 +6909,7 @@ LABEL_62:
     v13 = qword_1000EB268;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
+      v38 = 0;
       v14 = sub_1000011A8(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -6732,9 +6923,9 @@ LABEL_62:
 
       if (v15)
       {
-        v42 = 67109120;
-        v43 = v12;
-        v16 = _os_log_send_and_compose_impl();
+        v40 = 67109120;
+        v41 = v12;
+        v16 = _os_log_send_and_compose_impl(v15, &v38, 0, 0, &_mh_execute_header, v13, 0, "FAILEd to disable persona session with error:%d", &v40);
         v17 = v16;
         if (v16)
         {
@@ -6755,7 +6946,7 @@ LABEL_62:
 
   else
   {
-    [*(a1 + 32) _broadcastPersonaUpdates:v10 withAuid:v41];
+    [*(a1 + 32) _broadcastPersonaUpdates:v10 withAuid:v39];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -6764,6 +6955,7 @@ LABEL_62:
     v29 = qword_1000EB268;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
+      v38 = 0;
       v30 = sub_1000011A8(1);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
@@ -6777,8 +6969,8 @@ LABEL_62:
 
       if (v31)
       {
-        LOWORD(v42) = 0;
-        v32 = _os_log_send_and_compose_impl();
+        LOWORD(v40) = 0;
+        v32 = _os_log_send_and_compose_impl(v31, &v38, 0, 0, &_mh_execute_header, v29, 0, "Disable Persona SUCCESS", &v40, 2);
         v33 = v32;
         if (v32)
         {
@@ -6807,8 +6999,8 @@ LABEL_67:
 
 void sub_100010F78(uint64_t a1)
 {
-  v40 = -1;
-  v41 = 0;
+  v39 = -1;
+  v40 = 0;
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 48)];
   if (qword_1000EB290 != -1)
   {
@@ -6818,7 +7010,7 @@ void sub_100010F78(uint64_t a1)
   v3 = qword_1000EB288;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v42 = 0;
+    v41 = 0;
     v4 = sub_1000011A8(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -6833,11 +7025,9 @@ void sub_100010F78(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 48);
-      LODWORD(v49) = 67109120;
-      HIDWORD(v49) = v6;
-      LODWORD(v39) = 8;
-      v38 = &v49;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v48) = 67109120;
+      HIDWORD(v48) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v41, 0, 0, &_mh_execute_header, v3, 2, "Received fetchPersonaListforPid (async, pid: %d)", &v48);
       v8 = v7;
       if (v7)
       {
@@ -6860,7 +7050,7 @@ void sub_100010F78(uint64_t a1)
       if ([v2 hasEntitlement:@"com.apple.usermanagerd.persona.fetch"])
       {
 LABEL_15:
-        v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v40 withPid:{*(a1 + 48), v38, v39}];
+        v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v39 withPid:*(a1 + 48)];
         if (qword_1000EB290 != -1)
         {
           sub_100088DA0();
@@ -6869,7 +7059,7 @@ LABEL_15:
         v10 = qword_1000EB288;
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v49 = 0;
+          v48 = 0;
           v11 = sub_1000011A8(0);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
@@ -6884,11 +7074,11 @@ LABEL_15:
           if (v12)
           {
             v13 = *(a1 + 48);
-            LODWORD(v42) = 67109376;
-            HIDWORD(v42) = v13;
-            v43 = 1024;
-            v44 = v9;
-            v14 = _os_log_send_and_compose_impl();
+            LODWORD(v41) = 67109376;
+            HIDWORD(v41) = v13;
+            v42 = 1024;
+            v43 = v9;
+            v14 = _os_log_send_and_compose_impl(v12, &v48, 0, 0, &_mh_execute_header, v10, 2, "fetchPersonaListforPid (async, pid: %d, asid: %d): entitlement OK", &v41, 14);
             v15 = v14;
             if (v14)
             {
@@ -6904,11 +7094,11 @@ LABEL_15:
           free(v15);
         }
 
-        v28 = sub_100001458(v9, v40, *(a1 + 52));
-        v16 = sub_100002B68(v28, &v41);
+        v28 = sub_100001458(v9, v39, *(a1 + 52));
+        v16 = sub_100002B68(v28, &v40);
         if (v16)
         {
-          (*(*(a1 + 40) + 16))(*(a1 + 40), v16);
+          (*(*(a1 + 40) + 16))();
         }
 
         else
@@ -6921,7 +7111,7 @@ LABEL_15:
           v29 = qword_1000EB288;
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            v49 = 0;
+            v48 = 0;
             v30 = sub_1000011A8(0);
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
@@ -6936,15 +7126,16 @@ LABEL_15:
             if (v31)
             {
               v32 = *(a1 + 48);
-              LODWORD(v42) = 67109890;
-              HIDWORD(v42) = v32;
-              v43 = 1024;
-              v44 = v9;
-              v45 = 2114;
-              v46 = v28;
-              v47 = 1024;
-              v48 = v41;
-              v33 = _os_log_send_and_compose_impl();
+              LODWORD(v41) = 67109890;
+              HIDWORD(v41) = v32;
+              v42 = 1024;
+              v43 = v9;
+              v44 = 2114;
+              v45 = v28;
+              v46 = 1024;
+              v47 = v40;
+              LODWORD(v38) = 30;
+              v33 = _os_log_send_and_compose_impl(v31, &v48, 0, 0, &_mh_execute_header, v29, 0, "fetchPersonaListforPid (async, pid: %d, asid :%d): failed to fetch persona array for session %{public}@: %{darwin.errno}d", &v41, v38);
               v34 = v33;
               if (v33)
               {
@@ -6961,7 +7152,7 @@ LABEL_15:
           }
 
           v36 = *(a1 + 40);
-          v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v41 userInfo:0];
+          v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v40 userInfo:0];
           (*(v36 + 16))(v36, 0, v37);
         }
 
@@ -6982,7 +7173,7 @@ LABEL_15:
     v22 = qword_1000EB288;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v42 = 0;
+      v41 = 0;
       v23 = sub_1000011A8(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
@@ -6997,9 +7188,9 @@ LABEL_15:
       if (v24)
       {
         v25 = *(a1 + 48);
-        LODWORD(v49) = 67109120;
-        HIDWORD(v49) = v25;
-        v26 = _os_log_send_and_compose_impl();
+        LODWORD(v48) = 67109120;
+        HIDWORD(v48) = v25;
+        v26 = _os_log_send_and_compose_impl(v24, &v41, 0, 0, &_mh_execute_header, v22, 16, "fetchPersonaListforPid (async, pid: %d): entitlement failure", &v48);
         v27 = v26;
         if (v26)
         {
@@ -7030,7 +7221,7 @@ LABEL_15:
     v16 = qword_1000EB288;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v42 = 0;
+      v41 = 0;
       v17 = sub_1000011A8(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
@@ -7045,9 +7236,9 @@ LABEL_15:
       if (v18)
       {
         v19 = *(a1 + 48);
-        LODWORD(v49) = 67109120;
-        HIDWORD(v49) = v19;
-        v20 = _os_log_send_and_compose_impl();
+        LODWORD(v48) = 67109120;
+        HIDWORD(v48) = v19;
+        v20 = _os_log_send_and_compose_impl(v18, &v41, 0, 0, &_mh_execute_header, v16, 16, "fetchPersonaListforPid (async, pid: %d): no completion handler", &v48);
         v21 = v20;
         if (v20)
         {
@@ -7069,7 +7260,7 @@ LABEL_65:
 
 void sub_100011600(uint64_t a1)
 {
-  HIDWORD(v39) = 0;
+  HIDWORD(v38) = 0;
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 48)];
   if (qword_1000EB270 != -1)
   {
@@ -7079,7 +7270,7 @@ void sub_100011600(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v40 = 0;
+    v39 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -7094,11 +7285,9 @@ void sub_100011600(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 48);
-      LODWORD(v43) = 67109120;
-      HIDWORD(v43) = v6;
-      LODWORD(v39) = 8;
-      v38 = &v43;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 67109120;
+      HIDWORD(v42) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v39, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: fetchAllUsersPersonaListforPid from pid:%d", &v42);
       v8 = v7;
       if (v7)
       {
@@ -7129,7 +7318,7 @@ LABEL_15:
         v9 = qword_1000EB288;
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v40 = 0;
+          v39 = 0;
           v10 = sub_1000011A8(0);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
@@ -7144,11 +7333,9 @@ LABEL_15:
           if (v11)
           {
             v12 = *(a1 + 48);
-            LODWORD(v43) = 67109120;
-            HIDWORD(v43) = v12;
-            LODWORD(v39) = 8;
-            v38 = &v43;
-            v13 = _os_log_send_and_compose_impl();
+            LODWORD(v42) = 67109120;
+            HIDWORD(v42) = v12;
+            v13 = _os_log_send_and_compose_impl(v11, &v39, 0, 0, &_mh_execute_header, v9, 2, "fetchAllUsersPersonaListforPid (async, pid: %d): entitlement OK", &v42);
             v14 = v13;
             if (v13)
             {
@@ -7164,7 +7351,7 @@ LABEL_15:
           free(v14);
         }
 
-        v27 = sub_100047940(&v39 + 1);
+        v27 = sub_100047940(&v38 + 1);
         if (v27)
         {
           v15 = v27;
@@ -7182,7 +7369,7 @@ LABEL_65:
         v29 = qword_1000EB288;
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = 0;
+          v42 = 0;
           v30 = sub_1000011A8(0);
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
@@ -7197,13 +7384,12 @@ LABEL_65:
           if (v31)
           {
             v32 = *(a1 + 48);
-            LODWORD(v40) = 67109376;
-            HIDWORD(v40) = v32;
-            v41 = 1024;
-            v42 = HIDWORD(v39);
-            LODWORD(v39) = 14;
-            v38 = &v40;
-            v33 = _os_log_send_and_compose_impl();
+            LODWORD(v39) = 67109376;
+            HIDWORD(v39) = v32;
+            v40 = 1024;
+            v41 = HIDWORD(v38);
+            LODWORD(v38) = 14;
+            v33 = _os_log_send_and_compose_impl(v31, &v42, 0, 0, &_mh_execute_header, v29, 0, "fetchAllUsersPersonaListforPid (async, pid: %d) failed to fetch all user persona array: %{darwin.errno}d", &v39, v38);
             v34 = v33;
             if (v33)
             {
@@ -7221,9 +7407,9 @@ LABEL_65:
 
         v35 = *(a1 + 40);
         v36 = NSPOSIXErrorDomain;
-        v37 = SHIDWORD(v39);
+        v37 = SHIDWORD(v38);
 LABEL_64:
-        v15 = [NSError errorWithDomain:v36 code:v37 userInfo:0, v38, v39, v40];
+        v15 = [NSError errorWithDomain:v36 code:v37 userInfo:0];
         v28 = *(v35 + 16);
         goto LABEL_65;
       }
@@ -7242,7 +7428,7 @@ LABEL_64:
     v21 = qword_1000EB288;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v40 = 0;
+      v39 = 0;
       v22 = sub_1000011A8(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
@@ -7257,11 +7443,9 @@ LABEL_64:
       if (v23)
       {
         v24 = *(a1 + 48);
-        LODWORD(v43) = 67109120;
-        HIDWORD(v43) = v24;
-        LODWORD(v39) = 8;
-        v38 = &v43;
-        v25 = _os_log_send_and_compose_impl();
+        LODWORD(v42) = 67109120;
+        HIDWORD(v42) = v24;
+        v25 = _os_log_send_and_compose_impl(v23, &v39, 0, 0, &_mh_execute_header, v21, 16, "fetchAllUsersPersonaListforPid (async, pid: %d): entitlement failure", &v42);
         v26 = v25;
         if (v25)
         {
@@ -7291,7 +7475,7 @@ LABEL_64:
   v15 = qword_1000EB288;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v40 = 0;
+    v39 = 0;
     v16 = sub_1000011A8(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
@@ -7306,9 +7490,9 @@ LABEL_64:
     if (v17)
     {
       v18 = *(a1 + 48);
-      LODWORD(v43) = 67109120;
-      HIDWORD(v43) = v18;
-      v19 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 67109120;
+      HIDWORD(v42) = v18;
+      v19 = _os_log_send_and_compose_impl(v17, &v39, 0, 0, &_mh_execute_header, v15, 16, "fetchAllUsersPersonaListforPid (async, pid: %d): no completion handler", &v42);
       v20 = v19;
       if (v19)
       {
@@ -7338,6 +7522,7 @@ void sub_100011C10(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
+    v22 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -7351,21 +7536,23 @@ void sub_100011C10(uint64_t a1)
 
     if (v5)
     {
-      v20 = *(a1 + 48);
-      v6 = _os_log_send_and_compose_impl();
-      v7 = v6;
-      if (v6)
+      v6 = *(a1 + 48);
+      v23 = 67109120;
+      v24 = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v22, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: fetchAsidMapforPid from pid:%d", &v23);
+      v8 = v7;
+      if (v7)
       {
-        sub_100002A8C(v6);
+        sub_100002A8C(v7);
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    free(v7);
+    free(v8);
   }
 
   if (v2)
@@ -7378,39 +7565,41 @@ LABEL_14:
         sub_100088D28();
       }
 
-      v8 = qword_1000EB268;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = qword_1000EB268;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v9 = sub_1000011A8(1);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v22 = 0;
+        v10 = sub_1000011A8(1);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v10 = v9;
+          v11 = v10;
         }
 
         else
         {
-          v10 = v9 & 0xFFFFFFFE;
+          v11 = v10 & 0xFFFFFFFE;
         }
 
-        if (v10)
+        if (v11)
         {
-          v11 = _os_log_send_and_compose_impl();
-          v12 = v11;
-          if (v11)
+          LOWORD(v23) = 0;
+          v12 = _os_log_send_and_compose_impl(v11, &v22, 0, 0, &_mh_execute_header, v9, 2, "In RDServer: ASID Map not supported on this platform", &v23, 2);
+          v13 = v12;
+          if (v12)
           {
-            sub_100002A8C(v11);
+            sub_100002A8C(v12);
           }
         }
 
         else
         {
-          v12 = 0;
+          v13 = 0;
         }
 
-        free(v12);
+        free(v13);
       }
 
-      v17 = 45;
+      v19 = 45;
       goto LABEL_39;
     }
   }
@@ -7425,55 +7614,58 @@ LABEL_14:
     sub_100088D28();
   }
 
-  v8 = qword_1000EB268;
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = qword_1000EB268;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = sub_1000011A8(1);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v22 = 0;
+    v14 = sub_1000011A8(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
+      v15 = v14;
     }
 
     else
     {
-      v14 = v13 & 0xFFFFFFFE;
+      v15 = v14 & 0xFFFFFFFE;
     }
 
-    if (v14)
+    if (v15)
     {
-      v21 = *(a1 + 48);
-      v15 = _os_log_send_and_compose_impl();
-      v16 = v15;
-      if (v15)
+      v16 = *(a1 + 48);
+      v23 = 67109120;
+      v24 = v16;
+      v17 = _os_log_send_and_compose_impl(v15, &v22, 0, 0, &_mh_execute_header, v9, 0, "In RDServer: fetchAsidMapforPid entitlement failure:%d", &v23);
+      v18 = v17;
+      if (v17)
       {
-        sub_100002A8C(v15);
+        sub_100002A8C(v17);
       }
     }
 
     else
     {
-      v16 = 0;
+      v18 = 0;
     }
 
-    free(v16);
+    free(v18);
   }
 
-  v17 = 1;
+  v19 = 1;
 LABEL_39:
 
-  v18 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v17 userInfo:0];
-  v19 = *(a1 + 40);
-  if (v19)
+  v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v19 userInfo:0];
+  v21 = *(a1 + 40);
+  if (v21)
   {
-    (*(v19 + 16))(v19, 0, v18);
+    (*(v21 + 16))(v21, 0, v20);
   }
 }
 
 void sub_10001205C(uint64_t a1)
 {
-  v47 = 0;
+  v46 = 0;
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  v46 = -1;
+  v45 = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -7482,7 +7674,7 @@ void sub_10001205C(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v48 = 0;
+    *v47 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -7497,11 +7689,9 @@ void sub_10001205C(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 56);
-      LODWORD(v53) = 67109120;
-      HIDWORD(v53) = v6;
-      LODWORD(v45) = 8;
-      v44 = &v53;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v52) = 67109120;
+      HIDWORD(v52) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, v47, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: fetchPersona from pid:%d", &v52);
       v8 = v7;
       if (v7)
       {
@@ -7533,7 +7723,7 @@ LABEL_25:
     v17 = qword_1000EB268;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v48 = 0;
+      *v47 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -7548,11 +7738,9 @@ LABEL_25:
       if (v19)
       {
         v20 = *(a1 + 56);
-        LODWORD(v53) = 67109120;
-        HIDWORD(v53) = v20;
-        LODWORD(v45) = 8;
-        v44 = &v53;
-        v21 = _os_log_send_and_compose_impl();
+        LODWORD(v52) = 67109120;
+        HIDWORD(v52) = v20;
+        v21 = _os_log_send_and_compose_impl(v19, v47, 0, 0, &_mh_execute_header, v17, 0, "In RDServer: fetchPersona entitlement failure:%d", &v52);
         v22 = v21;
         if (v21)
         {
@@ -7589,7 +7777,7 @@ LABEL_14:
     v23 = qword_1000EB268;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      *v48 = 0;
+      *v47 = 0;
       v24 = sub_1000011A8(1);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
@@ -7603,10 +7791,8 @@ LABEL_14:
 
       if (v25)
       {
-        LOWORD(v53) = 0;
-        LODWORD(v45) = 2;
-        v44 = &v53;
-        v26 = _os_log_send_and_compose_impl();
+        LOWORD(v52) = 0;
+        v26 = _os_log_send_and_compose_impl(v25, v47, 0, 0, &_mh_execute_header, v23, 2, "In RDServer: entitlement OK, but invalid profileInfo", &v52, 2);
         v27 = v26;
         if (v26)
         {
@@ -7625,12 +7811,12 @@ LABEL_14:
     v28 = NSPOSIXErrorDomain;
     v29 = 22;
 LABEL_73:
-    v37 = [NSError errorWithDomain:v28 code:v29 userInfo:0, v44, v45];
+    v37 = [NSError errorWithDomain:v28 code:v29 userInfo:0];
     v31 = 0;
     goto LABEL_77;
   }
 
-  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v46 withPid:*(a1 + 56)];
+  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v45 withPid:*(a1 + 56)];
   if (qword_1000EB270 != -1)
   {
     sub_100088D28();
@@ -7639,7 +7825,7 @@ LABEL_73:
   v10 = qword_1000EB268;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v53 = 0;
+    v52 = 0;
     v11 = sub_1000011A8(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
@@ -7655,13 +7841,13 @@ LABEL_73:
     {
       v13 = *(a1 + 40);
       v14 = *(a1 + 56);
-      *v48 = 138412802;
-      *&v48[4] = v13;
-      v49 = 1024;
-      v50 = v14;
-      v51 = 1024;
-      v52 = v9;
-      v15 = _os_log_send_and_compose_impl();
+      *v47 = 138412802;
+      *&v47[4] = v13;
+      v48 = 1024;
+      v49 = v14;
+      v50 = 1024;
+      v51 = v9;
+      v15 = _os_log_send_and_compose_impl(v12, &v52, 0, 0, &_mh_execute_header, v10, 2, "In RDServer: entitlement OK, calling fetchPersonaSession with profileInfo:%@ for pid:%d with asid:%d", v47, 24);
       v16 = v15;
       if (v15)
       {
@@ -7677,8 +7863,8 @@ LABEL_73:
     free(v16);
   }
 
-  v30 = sub_100001458(v9, v46, *(a1 + 60));
-  v31 = sub_100002B94(*(a1 + 40), v30, &v47);
+  v30 = sub_100001458(v9, v45, *(a1 + 60));
+  v31 = sub_100002B94(*(a1 + 40), v30, &v46);
   if (v31)
   {
     if (qword_1000EB270 != -1)
@@ -7689,7 +7875,7 @@ LABEL_73:
     v32 = qword_1000EB268;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      v53 = 0;
+      v52 = 0;
       v33 = sub_1000011A8(1);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
@@ -7703,9 +7889,10 @@ LABEL_73:
 
       if (v34)
       {
-        *v48 = 138412290;
-        *&v48[4] = v31;
-        v35 = _os_log_send_and_compose_impl();
+        *v47 = 138412290;
+        *&v47[4] = v31;
+        LODWORD(v44) = 12;
+        v35 = _os_log_send_and_compose_impl(v34, &v52, 0, 0, &_mh_execute_header, v32, 2, "fetchpersona:%@", v47, v44);
         v36 = v35;
         if (v35)
         {
@@ -7726,7 +7913,7 @@ LABEL_73:
 
   else
   {
-    v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v47 userInfo:0];
+    v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v46 userInfo:0];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -7735,7 +7922,7 @@ LABEL_73:
     v32 = qword_1000EB268;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      v53 = 0;
+      v52 = 0;
       v38 = sub_1000011A8(1);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
@@ -7750,13 +7937,14 @@ LABEL_73:
       if (v39)
       {
         v40 = *(a1 + 56);
-        *v48 = 138412802;
-        *&v48[4] = v37;
-        v49 = 1024;
-        v50 = v40;
-        v51 = 1024;
-        v52 = v9;
-        v41 = _os_log_send_and_compose_impl();
+        *v47 = 138412802;
+        *&v47[4] = v37;
+        v48 = 1024;
+        v49 = v40;
+        v50 = 1024;
+        v51 = v9;
+        LODWORD(v44) = 24;
+        v41 = _os_log_send_and_compose_impl(v39, &v52, 0, 0, &_mh_execute_header, v32, 2, "Fetch persona failed with error:%@, pid:%d, asid:%d", v47, v44);
         v42 = v41;
         if (v41)
         {
@@ -7784,7 +7972,7 @@ LABEL_77:
 void sub_100012938(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 64)];
-  HIDWORD(v44) = -1;
+  HIDWORD(v43) = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -7793,7 +7981,7 @@ void sub_100012938(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v45 = 0;
+    *v44 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -7808,11 +7996,9 @@ void sub_100012938(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 64);
-      LODWORD(v48) = 67109120;
-      HIDWORD(v48) = v6;
-      LODWORD(v44) = 8;
-      v43 = &v48;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v47) = 67109120;
+      HIDWORD(v47) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, v44, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: setSinglePersonaBundlesIdentifiers from pid:%d", &v47);
       v8 = v7;
       if (v7)
       {
@@ -7844,7 +8030,7 @@ LABEL_25:
     v17 = qword_1000EB268;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v45 = 0;
+      *v44 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -7859,11 +8045,9 @@ LABEL_25:
       if (v19)
       {
         v20 = *(a1 + 64);
-        LODWORD(v48) = 67109120;
-        HIDWORD(v48) = v20;
-        LODWORD(v44) = 8;
-        v43 = &v48;
-        v21 = _os_log_send_and_compose_impl();
+        LODWORD(v47) = 67109120;
+        HIDWORD(v47) = v20;
+        v21 = _os_log_send_and_compose_impl(v19, v44, 0, 0, &_mh_execute_header, v17, 0, "Entitlement Failure for pid:%d", &v47);
         v22 = v21;
         if (v21)
         {
@@ -7900,7 +8084,7 @@ LABEL_14:
     v23 = qword_1000EB268;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v45 = 0;
+      *v44 = 0;
       v24 = sub_1000011A8(1);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
@@ -7914,10 +8098,9 @@ LABEL_14:
 
       if (v25)
       {
-        LOWORD(v48) = 0;
-        LODWORD(v44) = 2;
-        v43 = &v48;
-        v26 = _os_log_send_and_compose_impl();
+        LOWORD(v47) = 0;
+        LODWORD(v43) = 2;
+        v26 = _os_log_send_and_compose_impl(v25, v44, 0, 0, &_mh_execute_header, v23, 0, "Entitlement Okay, but invalid profileInfo", &v47, v43);
         v27 = v26;
         if (v26)
         {
@@ -7936,11 +8119,11 @@ LABEL_14:
     v28 = NSPOSIXErrorDomain;
     v29 = 22;
 LABEL_72:
-    v32 = [NSError errorWithDomain:v28 code:v29 userInfo:0, v43, v44, *v45];
+    v32 = [NSError errorWithDomain:v28 code:v29 userInfo:0];
     goto LABEL_77;
   }
 
-  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v44 + 4 withPid:*(a1 + 64)];
+  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v43 + 4 withPid:*(a1 + 64)];
   if (qword_1000EB270 != -1)
   {
     sub_100088D28();
@@ -7949,7 +8132,7 @@ LABEL_72:
   v10 = qword_1000EB268;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v48 = 0;
+    v47 = 0;
     v11 = sub_1000011A8(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
@@ -7965,13 +8148,14 @@ LABEL_72:
     {
       v13 = *(a1 + 64);
       v14 = *(a1 + 48);
-      *v45 = 67109634;
-      *&v45[4] = v13;
-      *&v45[8] = 2112;
-      *&v45[10] = v14;
-      v46 = 1024;
-      v47 = v9;
-      v15 = _os_log_send_and_compose_impl();
+      *v44 = 67109634;
+      *&v44[4] = v13;
+      *&v44[8] = 2112;
+      *&v44[10] = v14;
+      v45 = 1024;
+      v46 = v9;
+      LODWORD(v43) = 24;
+      v15 = _os_log_send_and_compose_impl(v12, &v47, 0, 0, &_mh_execute_header, v10, 2, "Entitlement Okay for pid:%d, setSinglePersonaBundlesIdentifiers bundleIDS list:%@ with asid:%d", v44, v43);
       v16 = v15;
       if (v15)
       {
@@ -7987,7 +8171,7 @@ LABEL_72:
     free(v16);
   }
 
-  v30 = sub_100001458(v9, HIDWORD(v44), *(a1 + 68));
+  v30 = sub_100001458(v9, HIDWORD(v43), *(a1 + 68));
   v31 = sub_1000479A8(*(a1 + 40), *(a1 + 48), v30);
   if (v31)
   {
@@ -8000,7 +8184,7 @@ LABEL_72:
     v33 = qword_1000EB268;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = 0;
+      v47 = 0;
       v34 = sub_1000011A8(1);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
@@ -8014,9 +8198,10 @@ LABEL_72:
 
       if (v35)
       {
-        *v45 = 138412290;
-        *&v45[4] = v32;
-        v36 = _os_log_send_and_compose_impl();
+        *v44 = 138412290;
+        *&v44[4] = v32;
+        LODWORD(v43) = 12;
+        v36 = _os_log_send_and_compose_impl(v35, &v47, 0, 0, &_mh_execute_header, v33, 0, "Update bundle failed with error:%@", v44, v43);
         v37 = v36;
         if (v36)
         {
@@ -8035,7 +8220,7 @@ LABEL_72:
 
   else
   {
-    [*(a1 + 32) _broadcastPersonaUpdates:v30 withAuid:HIDWORD(v44)];
+    [*(a1 + 32) _broadcastPersonaUpdates:v30 withAuid:HIDWORD(v43)];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -8044,7 +8229,7 @@ LABEL_72:
     v33 = qword_1000EB268;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      *v45 = 0;
+      *v44 = 0;
       v38 = sub_1000011A8(1);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
@@ -8058,8 +8243,9 @@ LABEL_72:
 
       if (v39)
       {
-        LOWORD(v48) = 0;
-        v40 = _os_log_send_and_compose_impl();
+        LOWORD(v47) = 0;
+        LODWORD(v43) = 2;
+        v40 = _os_log_send_and_compose_impl(v39, v44, 0, 0, &_mh_execute_header, v33, 2, "Update BundleIDS success", &v47, v43);
         v41 = v40;
         if (v40)
         {
@@ -8089,8 +8275,8 @@ LABEL_77:
 void sub_100013094(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  v46 = -1;
-  v47 = 2;
+  v44 = -1;
+  v45 = 2;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -8099,7 +8285,7 @@ void sub_100013094(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v48 = 0;
+    *v46 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -8114,11 +8300,9 @@ void sub_100013094(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 56);
-      LODWORD(v53) = 67109120;
-      HIDWORD(v53) = v6;
-      LODWORD(v45) = 8;
-      v44 = &v53;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v51) = 67109120;
+      HIDWORD(v51) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, v46, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: fetchBundleIdentifiersForPersona from pid:%d", &v51);
       v8 = v7;
       if (v7)
       {
@@ -8150,7 +8334,7 @@ LABEL_25:
     v17 = qword_1000EB268;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v48 = 0;
+      *v46 = 0;
       v18 = sub_1000011A8(1);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -8165,11 +8349,9 @@ LABEL_25:
       if (v19)
       {
         v20 = *(a1 + 56);
-        LODWORD(v53) = 67109120;
-        HIDWORD(v53) = v20;
-        LODWORD(v45) = 8;
-        v44 = &v53;
-        v21 = _os_log_send_and_compose_impl();
+        LODWORD(v51) = 67109120;
+        HIDWORD(v51) = v20;
+        v21 = _os_log_send_and_compose_impl(v19, v46, 0, 0, &_mh_execute_header, v17, 0, "Entitlement Failure for pid:%d", &v51);
         v22 = v21;
         if (v21)
         {
@@ -8206,7 +8388,7 @@ LABEL_14:
     v23 = qword_1000EB268;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v48 = 0;
+      *v46 = 0;
       v24 = sub_1000011A8(1);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
@@ -8220,10 +8402,8 @@ LABEL_14:
 
       if (v25)
       {
-        LOWORD(v53) = 0;
-        LODWORD(v45) = 2;
-        v44 = &v53;
-        v26 = _os_log_send_and_compose_impl();
+        LOWORD(v51) = 0;
+        v26 = _os_log_send_and_compose_impl(v25, v46, 0, 0, &_mh_execute_header, v23, 0, "In RDServer: entitlement OK, but invalid profileInfo", &v51, 2);
         v27 = v26;
         if (v26)
         {
@@ -8242,12 +8422,12 @@ LABEL_14:
     v28 = NSPOSIXErrorDomain;
     v29 = 22;
 LABEL_73:
-    v38 = [NSError errorWithDomain:v28 code:v29 userInfo:0, v44, v45];
-    v32 = 0;
+    v37 = [NSError errorWithDomain:v28 code:v29 userInfo:0];
+    v31 = 0;
     goto LABEL_77;
   }
 
-  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v46 withPid:*(a1 + 56)];
+  v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v44 withPid:*(a1 + 56)];
   if (qword_1000EB270 != -1)
   {
     sub_100088D28();
@@ -8256,7 +8436,7 @@ LABEL_73:
   v10 = qword_1000EB268;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v53 = 0;
+    v51 = 0;
     v11 = sub_1000011A8(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
@@ -8272,13 +8452,13 @@ LABEL_73:
     {
       v13 = *(a1 + 40);
       v14 = *(a1 + 56);
-      *v48 = 138412802;
-      *&v48[4] = v13;
+      *v46 = 138412802;
+      *&v46[4] = v13;
+      v47 = 1024;
+      v48 = v14;
       v49 = 1024;
-      v50 = v14;
-      v51 = 1024;
-      v52 = v9;
-      v15 = _os_log_send_and_compose_impl();
+      v50 = v9;
+      v15 = _os_log_send_and_compose_impl(v12, &v51, 0, 0, &_mh_execute_header, v10, 2, "In RDServer: entitlement OK, calling fetchBundleIdentifiersForPersona for profileInfo:%@ for pid:%d with asid:%d", v46, 24);
       v16 = v15;
       if (v15)
       {
@@ -8294,111 +8474,112 @@ LABEL_73:
     free(v16);
   }
 
-  v30 = sub_100001458(v9, v46, *(a1 + 60));
-  v31 = *(a1 + 40);
-  v32 = sub_1000480DC();
-  if (v32)
+  v30 = sub_100001458(v9, v44, *(a1 + 60));
+  v31 = sub_1000480DC(*(a1 + 40), v30, &v45);
+  if (v31)
   {
-    v47 = 0;
+    v45 = 0;
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
     }
 
-    v33 = qword_1000EB268;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v32 = qword_1000EB268;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      v53 = 0;
-      v34 = sub_1000011A8(1);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v51 = 0;
+      v33 = sub_1000011A8(1);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v35 = v34;
+        v34 = v33;
       }
 
       else
       {
-        v35 = v34 & 0xFFFFFFFE;
+        v34 = v33 & 0xFFFFFFFE;
       }
 
-      if (v35)
+      if (v34)
       {
-        *v48 = 138412290;
-        *&v48[4] = v32;
-        v36 = _os_log_send_and_compose_impl();
-        v37 = v36;
-        if (v36)
+        *v46 = 138412290;
+        *&v46[4] = v31;
+        LODWORD(v43) = 12;
+        v35 = _os_log_send_and_compose_impl(v34, &v51, 0, 0, &_mh_execute_header, v32, 2, "fetchBundleIdentifiersForPersona Success with array %@", v46, v43);
+        v36 = v35;
+        if (v35)
         {
-          sub_100002A8C(v36);
+          sub_100002A8C(v35);
         }
       }
 
       else
       {
-        v37 = 0;
+        v36 = 0;
       }
 
-      free(v37);
+      free(v36);
     }
 
-    v38 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v38 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v47 userInfo:0];
+    v37 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v45 userInfo:0];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
     }
 
-    v33 = qword_1000EB268;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = qword_1000EB268;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v53 = 0;
-      v39 = sub_1000011A8(1);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v51 = 0;
+      v38 = sub_1000011A8(1);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = v39;
+        v39 = v38;
       }
 
       else
       {
-        v40 = v39 & 0xFFFFFFFE;
+        v39 = v38 & 0xFFFFFFFE;
       }
 
-      if (v40)
+      if (v39)
       {
-        *v48 = 138412290;
-        *&v48[4] = v38;
-        v41 = _os_log_send_and_compose_impl();
-        v42 = v41;
-        if (v41)
+        *v46 = 138412290;
+        *&v46[4] = v37;
+        LODWORD(v43) = 12;
+        v40 = _os_log_send_and_compose_impl(v39, &v51, 0, 0, &_mh_execute_header, v32, 0, "fetchBundleIdentifiersForPersona failed with %@", v46, v43);
+        v41 = v40;
+        if (v40)
         {
-          sub_100002A8C(v41);
+          sub_100002A8C(v40);
         }
       }
 
       else
       {
-        v42 = 0;
+        v41 = 0;
       }
 
-      free(v42);
+      free(v41);
     }
   }
 
 LABEL_77:
-  v43 = *(a1 + 48);
-  if (v43)
+  v42 = *(a1 + 48);
+  if (v42)
   {
-    (*(v43 + 16))(v43, v32, v38);
+    (*(v42 + 16))(v42, v31, v37);
   }
 }
 
 void sub_100013934(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  HIDWORD(v37) = -1;
+  HIDWORD(v36) = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -8407,7 +8588,7 @@ void sub_100013934(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v38 = 0;
+    *v37 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
@@ -8422,11 +8603,9 @@ void sub_100013934(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 56);
-      LODWORD(v41) = 67109120;
-      HIDWORD(v41) = v6;
-      LODWORD(v37) = 8;
-      v36 = &v41;
-      v7 = _os_log_send_and_compose_impl();
+      LODWORD(v40) = 67109120;
+      HIDWORD(v40) = v6;
+      v7 = _os_log_send_and_compose_impl(v5, v37, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: setMultiPersonaBundlesIdentifiers from pid:%d", &v40);
       v8 = v7;
       if (v7)
       {
@@ -8447,7 +8626,7 @@ void sub_100013934(uint64_t a1)
     if ([v2 hasEntitlement:@"com.apple.usermanagerd.persona.setbundle"])
     {
 LABEL_14:
-      v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v37 + 4 withPid:{*(a1 + 56), v36, v37}];
+      v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v36 + 4 withPid:*(a1 + 56)];
       if (qword_1000EB270 != -1)
       {
         sub_100088D28();
@@ -8456,7 +8635,7 @@ LABEL_14:
       v10 = qword_1000EB268;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v41 = 0;
+        v40 = 0;
         v11 = sub_1000011A8(1);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
@@ -8472,13 +8651,14 @@ LABEL_14:
         {
           v13 = *(a1 + 56);
           v14 = *(a1 + 40);
-          *v38 = 67109634;
-          *&v38[4] = v13;
-          *&v38[8] = 2112;
-          *&v38[10] = v14;
-          v39 = 1024;
-          v40 = v9;
-          v15 = _os_log_send_and_compose_impl();
+          *v37 = 67109634;
+          *&v37[4] = v13;
+          *&v37[8] = 2112;
+          *&v37[10] = v14;
+          v38 = 1024;
+          v39 = v9;
+          LODWORD(v36) = 24;
+          v15 = _os_log_send_and_compose_impl(v12, &v40, 0, 0, &_mh_execute_header, v10, 2, "Entitlement Okay for pid:%d, set bundleIDS list:%@ with asid:%d", v37, v36);
           v16 = v15;
           if (v15)
           {
@@ -8494,7 +8674,7 @@ LABEL_14:
         free(v16);
       }
 
-      v23 = sub_100001458(v9, HIDWORD(v37), *(a1 + 60));
+      v23 = sub_100001458(v9, HIDWORD(v36), *(a1 + 60));
       v24 = sub_1000480F4(*(a1 + 40), v23);
       if (v24)
       {
@@ -8507,7 +8687,7 @@ LABEL_14:
         v26 = qword_1000EB268;
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = 0;
+          v40 = 0;
           v27 = sub_1000011A8(1);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
@@ -8521,9 +8701,10 @@ LABEL_14:
 
           if (v28)
           {
-            *v38 = 138412290;
-            *&v38[4] = v25;
-            v29 = _os_log_send_and_compose_impl();
+            *v37 = 138412290;
+            *&v37[4] = v25;
+            LODWORD(v36) = 12;
+            v29 = _os_log_send_and_compose_impl(v28, &v40, 0, 0, &_mh_execute_header, v26, 0, "Update bundle failed with error:%@", v37, v36);
             v30 = v29;
             if (v29)
             {
@@ -8542,7 +8723,7 @@ LABEL_14:
 
       else
       {
-        [*(a1 + 32) _broadcastPersonaUpdates:v23 withAuid:HIDWORD(v37)];
+        [*(a1 + 32) _broadcastPersonaUpdates:v23 withAuid:HIDWORD(v36)];
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
@@ -8551,7 +8732,7 @@ LABEL_14:
         v26 = qword_1000EB268;
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          *v38 = 0;
+          *v37 = 0;
           v31 = sub_1000011A8(1);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
@@ -8565,8 +8746,9 @@ LABEL_14:
 
           if (v32)
           {
-            LOWORD(v41) = 0;
-            v33 = _os_log_send_and_compose_impl();
+            LOWORD(v40) = 0;
+            LODWORD(v36) = 2;
+            v33 = _os_log_send_and_compose_impl(v32, v37, 0, 0, &_mh_execute_header, v26, 2, "Update BundleIDS success", &v40, v36);
             v34 = v33;
             if (v33)
             {
@@ -8602,7 +8784,7 @@ LABEL_14:
   v17 = qword_1000EB268;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v38 = 0;
+    *v37 = 0;
     v18 = sub_1000011A8(1);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
@@ -8617,9 +8799,9 @@ LABEL_14:
     if (v19)
     {
       v20 = *(a1 + 56);
-      LODWORD(v41) = 67109120;
-      HIDWORD(v41) = v20;
-      v21 = _os_log_send_and_compose_impl();
+      LODWORD(v40) = 67109120;
+      HIDWORD(v40) = v20;
+      v21 = _os_log_send_and_compose_impl(v19, v37, 0, 0, &_mh_execute_header, v17, 0, "Entitlement Failure for pid:%d", &v40);
       v22 = v21;
       if (v21)
       {
@@ -8647,6 +8829,7 @@ LABEL_63:
 void sub_100013F90(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 48)];
+  v37 = 2;
   v38 = -1;
   if (qword_1000EB270 != -1)
   {
@@ -8673,9 +8856,7 @@ void sub_100013F90(uint64_t a1)
       v6 = *(a1 + 48);
       LODWORD(v40) = 67109120;
       HIDWORD(v40) = v6;
-      LODWORD(v37) = 8;
-      v36 = &v40;
-      v7 = _os_log_send_and_compose_impl();
+      v7 = _os_log_send_and_compose_impl(v5, v39, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: fetchMultiPersonaBundleIdentifiersforPid from pid:%d", &v40);
       v8 = v7;
       if (v7)
       {
@@ -8696,7 +8877,7 @@ void sub_100013F90(uint64_t a1)
     if ([v2 hasEntitlement:@"com.apple.usermanagerd.persona.fetchbundle"])
     {
 LABEL_14:
-      v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v38 withPid:{*(a1 + 48), v36, v37}];
+      v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v38 withPid:*(a1 + 48)];
       if (qword_1000EB270 != -1)
       {
         sub_100088D28();
@@ -8724,7 +8905,7 @@ LABEL_14:
           *&v39[4] = v13;
           *&v39[8] = 1024;
           *&v39[10] = v9;
-          v14 = _os_log_send_and_compose_impl();
+          v14 = _os_log_send_and_compose_impl(v12, &v40, 0, 0, &_mh_execute_header, v10, 2, "In RDServer: entitlement OK, calling fetchMultiPersonaBundleIDsList for pid:%d with asid:%d", v39, 14);
           v15 = v14;
           if (v14)
           {
@@ -8741,7 +8922,7 @@ LABEL_14:
       }
 
       v22 = sub_100001458(v9, v38, *(a1 + 52));
-      v23 = sub_1000487DC(v22);
+      v23 = sub_1000487DC(v22, &v37);
       if (v23)
       {
         if (qword_1000EB270 != -1)
@@ -8768,7 +8949,8 @@ LABEL_14:
           {
             *v39 = 138412290;
             *&v39[4] = v23;
-            v27 = _os_log_send_and_compose_impl();
+            LODWORD(v36) = 12;
+            v27 = _os_log_send_and_compose_impl(v26, &v40, 0, 0, &_mh_execute_header, v24, 2, "fetchMultiPersonaBundleIDsList Success with array %@", v39, v36);
             v28 = v27;
             if (v27)
             {
@@ -8785,11 +8967,12 @@ LABEL_14:
         }
 
         v29 = 0;
+        v37 = 0;
       }
 
       else
       {
-        v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+        v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v37 userInfo:0];
         if (qword_1000EB270 != -1)
         {
           sub_100088D28();
@@ -8814,7 +8997,8 @@ LABEL_14:
           {
             *v39 = 138412290;
             *&v39[4] = v29;
-            v33 = _os_log_send_and_compose_impl();
+            LODWORD(v36) = 12;
+            v33 = _os_log_send_and_compose_impl(v32, &v40, 0, 0, &_mh_execute_header, v30, 0, "fetchMultiPersonaBundleIDsList failed with %@", v39, v36);
             v34 = v33;
             if (v33)
             {
@@ -8865,7 +9049,7 @@ LABEL_14:
       v19 = *(a1 + 48);
       LODWORD(v40) = 67109120;
       HIDWORD(v40) = v19;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v18, v39, 0, 0, &_mh_execute_header, v16, 0, "Entitlement Failure for pid:%d", &v40);
       v21 = v20;
       if (v20)
       {
@@ -8904,6 +9088,7 @@ void sub_1000147B4(uint64_t a1, void *a2)
     v4 = qword_1000EB268;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
+      v11 = 0;
       v5 = sub_1000011A8(1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
@@ -8917,21 +9102,13 @@ void sub_1000147B4(uint64_t a1, void *a2)
 
       if (v6)
       {
-LABEL_17:
-        v9 = _os_log_send_and_compose_impl();
-        v10 = v9;
-        if (v9)
-        {
-          sub_100002A8C(v9);
-        }
-
-        goto LABEL_20;
+        v12 = 138412290;
+        v13 = v3;
+        v7 = _os_log_send_and_compose_impl(v6, &v11, 0, 0, &_mh_execute_header, v4, 0, "Successfully notified personaObserver:%@", &v12, 12);
+        goto LABEL_18;
       }
 
-LABEL_19:
-      v10 = 0;
-LABEL_20:
-      free(v10);
+      goto LABEL_20;
     }
   }
 
@@ -8945,23 +9122,37 @@ LABEL_20:
     v4 = qword_1000EB268;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = sub_1000011A8(1);
+      v11 = 0;
+      v8 = sub_1000011A8(1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       else
       {
-        v8 = v7 & 0xFFFFFFFE;
+        v9 = v8 & 0xFFFFFFFE;
       }
 
-      if (v8)
+      if (v9)
       {
-        goto LABEL_17;
+        v12 = 138412290;
+        v13 = v3;
+        v7 = _os_log_send_and_compose_impl(v9, &v11, 0, 0, &_mh_execute_header, v4, 0, "Failed to notify persona personaObserver:%@", &v12, 12);
+LABEL_18:
+        v10 = v7;
+        if (v7)
+        {
+          sub_100002A8C(v7);
+        }
+
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+LABEL_20:
+      v10 = 0;
+LABEL_21:
+      free(v10);
     }
   }
 }
@@ -8976,6 +9167,7 @@ void sub_100014D6C(id a1)
   v1 = qword_1000EB268;
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 0;
     v2 = sub_1000011A8(1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
@@ -8989,7 +9181,8 @@ void sub_100014D6C(id a1)
 
     if (v3)
     {
-      v4 = _os_log_send_and_compose_impl();
+      v6 = 0;
+      v4 = _os_log_send_and_compose_impl(v3, &v7, 0, 0, &_mh_execute_header, v1, 0, "interruptionHandler  notifyNextPersonaObserver", &v6, 2);
       v5 = v4;
       if (v4)
       {
@@ -9016,6 +9209,7 @@ void sub_100014E50(id a1)
   v1 = qword_1000EB268;
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 0;
     v2 = sub_1000011A8(1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
@@ -9029,7 +9223,8 @@ void sub_100014E50(id a1)
 
     if (v3)
     {
-      v4 = _os_log_send_and_compose_impl();
+      v6 = 0;
+      v4 = _os_log_send_and_compose_impl(v3, &v7, 0, 0, &_mh_execute_header, v1, 0, "Invalidation notifyNextPersonaObserver", &v6, 2);
       v5 = v4;
       if (v4)
       {
@@ -9056,6 +9251,7 @@ id sub_100014F34(uint64_t a1)
   v2 = qword_1000EB268;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
+    v9 = 0;
     v3 = sub_1000011A8(1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
@@ -9069,21 +9265,23 @@ id sub_100014F34(uint64_t a1)
 
     if (v4)
     {
-      v8 = *(a1 + 32);
-      v5 = _os_log_send_and_compose_impl();
-      v6 = v5;
-      if (v5)
+      v5 = *(a1 + 32);
+      v10 = 138412290;
+      v11 = v5;
+      v6 = _os_log_send_and_compose_impl(v4, &v9, 0, 0, &_mh_execute_header, v2, 0, "personaListDidUpdateCompletionHandler completion handler from machService:%@", &v10, 12);
+      v7 = v6;
+      if (v6)
       {
-        sub_100002A8C(v5);
+        sub_100002A8C(v6);
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    free(v6);
+    free(v7);
   }
 
   return [*(a1 + 40) invalidate];
@@ -9092,7 +9290,7 @@ id sub_100014F34(uint64_t a1)
 void sub_100015118(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 48)];
-  v28 = -1;
+  v29 = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -9101,6 +9299,7 @@ void sub_100015118(uint64_t a1)
   v3 = qword_1000EB268;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
+    v28 = 0;
     v4 = sub_1000011A8(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -9115,9 +9314,9 @@ void sub_100015118(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 48);
-      v29 = 67109120;
-      v30 = v6;
-      v7 = _os_log_send_and_compose_impl();
+      v30 = 67109120;
+      v31 = v6;
+      v7 = _os_log_send_and_compose_impl(v5, &v28, 0, 0, &_mh_execute_header, v3, 0, "In RDServer: registerUserPersonaStakeholderForPID from pid:%d", &v30);
       v8 = v7;
       if (v7)
       {
@@ -9135,7 +9334,7 @@ void sub_100015118(uint64_t a1)
 
   if ([v2 hasEntitlement:@"com.apple.usermanagerd.persona.observer"])
   {
-    v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v28 withPid:*(a1 + 48)];
+    v9 = [*(a1 + 32) asidForClient:v2 withAuid:&v29 withPid:*(a1 + 48)];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -9144,6 +9343,7 @@ void sub_100015118(uint64_t a1)
     v10 = qword_1000EB268;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
+      v28 = 0;
       v11 = sub_1000011A8(1);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
@@ -9157,9 +9357,9 @@ void sub_100015118(uint64_t a1)
 
       if (v12)
       {
-        v29 = 67109120;
-        v30 = v9;
-        v13 = _os_log_send_and_compose_impl();
+        v30 = 67109120;
+        v31 = v9;
+        v13 = _os_log_send_and_compose_impl(v12, &v28, 0, 0, &_mh_execute_header, v10, 0, "Registering PersonaStakeholder for asid:%d", &v30);
         v14 = v13;
         if (v13)
         {
@@ -9184,6 +9384,7 @@ void sub_100015118(uint64_t a1)
     v21 = qword_1000EB268;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
+      v28 = 0;
       v22 = sub_1000011A8(1);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
@@ -9197,8 +9398,8 @@ void sub_100015118(uint64_t a1)
 
       if (v23)
       {
-        LOWORD(v29) = 0;
-        v24 = _os_log_send_and_compose_impl();
+        LOWORD(v30) = 0;
+        v24 = _os_log_send_and_compose_impl(v23, &v28, 0, 0, &_mh_execute_header, v21, 0, "registerUserPersonaStakeholderForPID Success", &v30, 2);
         v25 = v24;
         if (v24)
         {
@@ -9227,6 +9428,7 @@ void sub_100015118(uint64_t a1)
     v15 = qword_1000EB268;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
+      v28 = 0;
       v16 = sub_1000011A8(1);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
@@ -9241,9 +9443,9 @@ void sub_100015118(uint64_t a1)
       if (v17)
       {
         v18 = *(a1 + 48);
-        v29 = 67109120;
-        v30 = v18;
-        v19 = _os_log_send_and_compose_impl();
+        v30 = 67109120;
+        v31 = v18;
+        v19 = _os_log_send_and_compose_impl(v17, &v28, 0, 0, &_mh_execute_header, v15, 0, "Entitlement Failure for pid:%d", &v30);
         v20 = v19;
         if (v19)
         {
@@ -9272,7 +9474,7 @@ void sub_100015118(uint64_t a1)
 void sub_100015640(uint64_t a1)
 {
   v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  v37 = -1;
+  HIDWORD(v37) = -1;
   if (qword_1000EB270 != -1)
   {
     sub_100088D00();
@@ -9301,7 +9503,8 @@ void sub_100015640(uint64_t a1)
       *&v38[4] = v6;
       *&v38[8] = 2112;
       *&v38[10] = v7;
-      v8 = _os_log_send_and_compose_impl();
+      LODWORD(v37) = 18;
+      v8 = _os_log_send_and_compose_impl(v5, &v39, 0, 0, &_mh_execute_header, v3, 2, "In RDServer: registerUserPersonaObserverForPID from pid:%d; machservice:%@", v38, v37);
       v9 = v8;
       if (v8)
       {
@@ -9319,7 +9522,7 @@ void sub_100015640(uint64_t a1)
 
   if ([v2 hasEntitlement:@"com.apple.usermanagerd.persona.observer"])
   {
-    v10 = [*(a1 + 32) asidForClient:v2 withAuid:&v37 withPid:*(a1 + 56)];
+    v10 = [*(a1 + 32) asidForClient:v2 withAuid:&v37 + 4 withPid:*(a1 + 56)];
     if (qword_1000EB270 != -1)
     {
       sub_100088D28();
@@ -9347,7 +9550,8 @@ void sub_100015640(uint64_t a1)
         *&v38[4] = v14;
         *&v38[12] = 1024;
         *&v38[14] = v10;
-        v15 = _os_log_send_and_compose_impl();
+        LODWORD(v37) = 18;
+        v15 = _os_log_send_and_compose_impl(v13, &v39, 0, 0, &_mh_execute_header, v11, 0, "Registering PersonaObserver with machService:%@ with asid:%d", v38, v37);
         v16 = v15;
         if (v15)
         {
@@ -9363,7 +9567,7 @@ void sub_100015640(uint64_t a1)
       free(v16);
     }
 
-    v23 = sub_100001458(v10, v37, *(a1 + 60));
+    v23 = sub_100001458(v10, HIDWORD(v37), *(a1 + 60));
     if (sub_10004A188(*(a1 + 40), v23))
     {
       if (qword_1000EB270 != -1)
@@ -9389,7 +9593,8 @@ void sub_100015640(uint64_t a1)
         if (v26)
         {
           LOWORD(v39) = 0;
-          v27 = _os_log_send_and_compose_impl();
+          LODWORD(v37) = 2;
+          v27 = _os_log_send_and_compose_impl(v26, v38, 0, 0, &_mh_execute_header, v24, 0, "Successful Persona Observer registration of machServiceName", &v39, v37);
           v28 = v27;
           if (v27)
           {
@@ -9435,7 +9640,8 @@ void sub_100015640(uint64_t a1)
           v32 = *(a1 + 40);
           *v38 = 138412290;
           *&v38[4] = v32;
-          v33 = _os_log_send_and_compose_impl();
+          LODWORD(v37) = 12;
+          v33 = _os_log_send_and_compose_impl(v31, &v39, 0, 0, &_mh_execute_header, v29, 0, "Failed to register Persona Observer:%@", v38, v37);
           v34 = v33;
           if (v33)
           {
@@ -9482,7 +9688,7 @@ void sub_100015640(uint64_t a1)
         v20 = *(a1 + 56);
         LODWORD(v39) = 67109120;
         HIDWORD(v39) = v20;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v19, v38, 0, 0, &_mh_execute_header, v17, 0, "Entitlement Failure for pid:%d", &v39);
         v22 = v21;
         if (v21)
         {
@@ -9505,201 +9711,5 @@ void sub_100015640(uint64_t a1)
   if (v36)
   {
     (*(v36 + 16))(v36, v35);
-  }
-}
-
-void sub_100015C78(uint64_t a1)
-{
-  v2 = [*(a1 + 32) _clientForPID:*(a1 + 56)];
-  if (qword_1000EB270 != -1)
-  {
-    sub_100088D00();
-  }
-
-  v3 = qword_1000EB268;
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    v31 = 0;
-    v4 = sub_1000011A8(1);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-      v5 = v4;
-    }
-
-    else
-    {
-      v5 = v4 & 0xFFFFFFFE;
-    }
-
-    if (v5)
-    {
-      v6 = *(a1 + 56);
-      v7 = *(a1 + 40);
-      *v30 = 67109378;
-      *&v30[4] = v6;
-      *&v30[8] = 2112;
-      *&v30[10] = v7;
-      v8 = _os_log_send_and_compose_impl();
-      v9 = v8;
-      if (v8)
-      {
-        sub_100002A8C(v8);
-      }
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    free(v9);
-  }
-
-  if ([v2 hasEntitlement:@"com.apple.mkb.usersession.loginwindow"])
-  {
-    v29 = 0;
-    v10 = sub_100048D4C(*(a1 + 40), &v29);
-    if (v29)
-    {
-      if (qword_1000EB270 != -1)
-      {
-        sub_100088D28();
-      }
-
-      v11 = qword_1000EB268;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *v30 = 0;
-        v12 = sub_1000011A8(1);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-        {
-          v13 = v12;
-        }
-
-        else
-        {
-          v13 = v12 & 0xFFFFFFFE;
-        }
-
-        if (v13)
-        {
-          LODWORD(v31) = 67109120;
-          HIDWORD(v31) = v29;
-          v14 = _os_log_send_and_compose_impl();
-          v15 = v14;
-          if (v14)
-          {
-            sub_100002A8C(v14);
-          }
-        }
-
-        else
-        {
-          v15 = 0;
-        }
-
-        free(v15);
-      }
-
-      v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v29 userInfo:0];
-    }
-
-    else
-    {
-      if (qword_1000EB270 != -1)
-      {
-        sub_100088D28();
-      }
-
-      v22 = qword_1000EB268;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-      {
-        v31 = 0;
-        v23 = sub_1000011A8(1);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-        {
-          v24 = v23;
-        }
-
-        else
-        {
-          v24 = v23 & 0xFFFFFFFE;
-        }
-
-        if (v24)
-        {
-          *v30 = 138412290;
-          *&v30[4] = v10;
-          v25 = _os_log_send_and_compose_impl();
-          v26 = v25;
-          if (v25)
-          {
-            sub_100002A8C(v25);
-          }
-        }
-
-        else
-        {
-          v26 = 0;
-        }
-
-        free(v26);
-      }
-
-      v27 = 0;
-    }
-  }
-
-  else
-  {
-    if (qword_1000EB270 != -1)
-    {
-      sub_100088D28();
-    }
-
-    v16 = qword_1000EB268;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-    {
-      *v30 = 0;
-      v17 = sub_1000011A8(1);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = v17 & 0xFFFFFFFE;
-      }
-
-      if (v18)
-      {
-        v19 = *(a1 + 56);
-        LODWORD(v31) = 67109120;
-        HIDWORD(v31) = v19;
-        v20 = _os_log_send_and_compose_impl();
-        v21 = v20;
-        if (v20)
-        {
-          sub_100002A8C(v20);
-        }
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      free(v21);
-    }
-
-    v27 = [NSError errorWithDomain:NSPOSIXErrorDomain code:1 userInfo:0];
-    v10 = 0;
-  }
-
-  v28 = *(a1 + 48);
-  if (v28)
-  {
-    (*(v28 + 16))(v28, v10, v27);
   }
 }

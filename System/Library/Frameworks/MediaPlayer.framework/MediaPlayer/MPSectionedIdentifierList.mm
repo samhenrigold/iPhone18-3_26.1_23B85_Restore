@@ -107,7 +107,7 @@ id __54__MPSectionedIdentifierList_orderedSectionIdentifiers__block_invoke(uint6
   return v2;
 }
 
-uint64_t __38__MPSectionedIdentifierList_itemCount__block_invoke(uint64_t a1, uint64_t a2)
+void *__38__MPSectionedIdentifierList_itemCount__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _itemCountWithExclusiveAccessToken:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;

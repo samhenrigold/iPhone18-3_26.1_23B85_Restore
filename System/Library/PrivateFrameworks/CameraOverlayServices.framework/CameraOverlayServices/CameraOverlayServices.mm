@@ -78,7 +78,7 @@ void sub_22E68AE28(_Unwind_Exception *a1)
 
 id CAMOverlayErrorForCode(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
   v3 = @"InvalidValueType";
   if (a1 != -12)
@@ -96,12 +96,10 @@ id CAMOverlayErrorForCode(uint64_t a1)
     v3 = @"InvalidIdentifier";
   }
 
-  v8 = *MEMORY[0x277CCA068];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA068];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 errorWithDomain:@"CAMOverlayErrorDomain" code:a1 userInfo:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

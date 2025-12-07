@@ -5,6 +5,7 @@
 - (id)_configurationByDeclarationKeyFromConfigurations:(id)configurations;
 - (void)_beginProcessingWithConfigurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_cleanupDeclarationKeyIfNeeded:(id)needed scope:(int64_t)scope doIt:(BOOL)it completionHandler:(id)handler;
+- (void)_endProcessingWithSuccess:(BOOL)success scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_fetchExistingDeclarationKeyWithConfigurations:(id)configurations storesByIdentifier:(id)identifier scope:(int64_t)scope completionHandler:(id)handler;
 - (void)_installDeclarationKey:(id)key scope:(int64_t)scope configurations:(id)configurations completionHandler:(id)handler;
 - (void)_invalidDeclarationKeys:(id)keys scope:(int64_t)scope configurations:(id)configurations completionHandler:(id)handler;
@@ -626,6 +627,20 @@ void __84__RMConfigurationSingleApplicator__uninstallDeclarationKey_scope_comple
   [v7 _cleanupDeclarationKeyIfNeeded:v8 scope:v9 doIt:v6 completionHandler:a1[6]];
 }
 
+- (void)_endProcessingWithSuccess:(BOOL)success scope:(int64_t)scope completionHandler:(id)handler
+{
+  successCopy = success;
+  handlerCopy = handler;
+  wrappingAdapter = [(RMConfigurationSingleApplicator *)self wrappingAdapter];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __85__RMConfigurationSingleApplicator__endProcessingWithSuccess_scope_completionHandler___block_invoke;
+  v11[3] = &unk_279B05310;
+  v12 = handlerCopy;
+  v10 = handlerCopy;
+  [wrappingAdapter endProcessingConfigurations:successCopy scope:scope completionHandler:v11];
+}
+
 void __85__RMConfigurationSingleApplicator__endProcessingWithSuccess_scope_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -643,71 +658,67 @@ void __85__RMConfigurationSingleApplicator__endProcessingWithSuccess_scope_compl
 
 - (id)_configurationByDeclarationKeyFromConfigurations:(id)configurations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = configurationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         adapter = [(RMConfigurationSingleApplicator *)self adapter];
         v13 = [adapter declarationKeyForConfiguration:v11];
 
         [v5 setObject:v11 forKeyedSubscript:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)_supportedConfigurationType:(id)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   typeCopy = type;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  adapter = [(RMConfigurationSingleApplicator *)self adapter];
-  configurationClasses = [adapter configurationClasses];
+  v5 = [(RMConfigurationSingleApplicator *)self adapter:0];
+  configurationClasses = [v5 configurationClasses];
 
-  v7 = [configurationClasses countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(configurationClasses);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           LOBYTE(v7) = 1;
@@ -715,7 +726,7 @@ void __85__RMConfigurationSingleApplicator__endProcessingWithSuccess_scope_compl
         }
       }
 
-      v7 = [configurationClasses countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -727,35 +738,34 @@ void __85__RMConfigurationSingleApplicator__endProcessingWithSuccess_scope_compl
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_usesKeychain
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   adapter = [(RMConfigurationSingleApplicator *)self adapter];
   configurationClasses = [adapter configurationClasses];
 
-  v4 = [configurationClasses countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(configurationClasses);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) usesKeychainAssets])
+        if ([*(*(&v11 + 1) + 8 * i) usesKeychainAssets])
         {
           configurationSingleApplicator = [MEMORY[0x277D45F58] configurationSingleApplicator];
           if (os_log_type_enabled(configurationSingleApplicator, OS_LOG_TYPE_DEBUG))
@@ -768,7 +778,7 @@ LABEL_11:
         }
       }
 
-      v5 = [configurationClasses countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [configurationClasses countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -787,16 +797,7 @@ LABEL_11:
   v8 = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
-}
-
-void __125__RMConfigurationSingleApplicator__fetchExistingDeclarationKeyWithConfigurations_storesByIdentifier_scope_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Failed to fetch declaration key: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -26,18 +26,15 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  stateMachineOldBacklightState = self->_stateMachineOldBacklightState;
+  v4 = NSStringFromBLSBacklightState();
   v5 = NSStringFromBLSBacklightState();
-  eventPreviousBacklightState = self->_eventPreviousBacklightState;
-  v7 = NSStringFromBLSBacklightState();
-  eventNewBacklightState = self->_eventNewBacklightState;
-  v9 = NSStringFromBLSBacklightState();
-  v10 = objc_alloc(MEMORY[0x277CBEAA8]);
-  v11 = [v10 bls_initWithMachContinuousTime:self->_startedTime];
-  bls_shortLoggingString = [v11 bls_shortLoggingString];
-  v13 = [v3 stringWithFormat:@"event (%@) %@->%@ %@", v5, v7, v9, bls_shortLoggingString];
+  v6 = NSStringFromBLSBacklightState();
+  v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+  v8 = [v7 bls_initWithMachContinuousTime:self->_startedTime];
+  bls_shortLoggingString = [v8 bls_shortLoggingString];
+  v10 = [v3 stringWithFormat:@"event (%@) %@->%@ %@", v4, v5, v6, bls_shortLoggingString];
 
-  return v13;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal

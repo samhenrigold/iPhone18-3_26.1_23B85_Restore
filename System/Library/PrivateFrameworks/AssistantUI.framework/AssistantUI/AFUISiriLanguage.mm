@@ -118,7 +118,7 @@
 
   else
   {
-    v3 = SetupAssistantLibraryCore() != 0;
+    v3 = SetupAssistantLibraryCore(0) != 0;
     self->_setupAssistantHasCompletedInitialRunAvailable = v3;
     self->_setupAssistantHasCompletedInitialRunChecked = 1;
   }

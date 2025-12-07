@@ -41,101 +41,96 @@
   processorCopy = processor;
   blockCopy = block;
   v14 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v10, v11, v12, v13, sceneCopy);
-  v25 = v14;
+  v18 = v14;
   if (byte_280A46430 == 1)
   {
     if (v14)
     {
-      objc_msgSend_infoChartScale(v14, v15, v22, v23, v24);
-      v26 = *&v69;
-      v27 = *(&v69 + 1);
-      v28 = *&v70;
-      v29 = *(&v70 + 1);
+      objc_msgSend_infoChartScale(v14, v15, v16, v17);
+      v19 = *&v50;
+      v20 = *(&v50 + 1);
+      v21 = *&v51;
+      v22 = *(&v51 + 1);
     }
 
     else
     {
-      v69 = 0;
-      v70 = 0;
-      v29 = 0.0;
-      v28 = 0.0;
-      v27 = 0.0;
-      LOBYTE(v26) = 0;
+      v50 = 0;
+      v51 = 0;
+      v22 = 0.0;
+      v21 = 0.0;
+      v20 = 0.0;
+      v19 = 0.0;
     }
 
-    v30 = MEMORY[0x277CCACA8];
-    v63 = v28;
-    v65 = v29;
-    v61 = v27;
-    sub_276152FD4("vec4(%f, %f, %f, %f)", v15, v16, v17, v18, v19, v20, v21, SLOBYTE(v26));
-    if (v72 >= 0)
+    v23 = MEMORY[0x277CCACA8];
+    sub_276152FD4(v52, "vec4(%f, %f, %f, %f)", v19, v20, v21, v22);
+    if (v53 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v30, v31, v32, v33, v34, v71);
+      objc_msgSend_stringWithUTF8String_(v23, v24, v25, v26, v27, v52);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v30, v31, v32, v33, v34, v71[0]);
+      objc_msgSend_stringWithUTF8String_(v23, v24, v25, v26, v27, v52[0]);
     }
-    v35 = ;
-    if (v72 < 0)
+    v28 = ;
+    if (v53 < 0)
     {
-      operator delete(v71[0]);
+      operator delete(v52[0]);
     }
 
-    NSLog(&cfstr_ChartScale.isa, v35, *&v61, *&v63, *&v65);
+    NSLog(&cfstr_ChartScale.isa, v28);
 
     if (byte_280A46430)
     {
-      if (v25)
+      if (v18)
       {
-        objc_msgSend_stageScale(v25, v36, v43, v44, v45);
-        v46 = *&v69;
-        v47 = *(&v69 + 1);
-        v48 = *&v70;
+        objc_msgSend_stageScale(v18, v29, v30, v31);
+        v32 = *&v50;
+        v33 = *(&v50 + 1);
+        v34 = *&v51;
       }
 
       else
       {
-        LODWORD(v70) = 0;
-        v69 = 0;
-        v48 = 0.0;
-        v47 = 0.0;
-        LOBYTE(v46) = 0;
+        LODWORD(v51) = 0;
+        v50 = 0;
+        v34 = 0.0;
+        v33 = 0.0;
+        v32 = 0.0;
       }
 
-      v49 = MEMORY[0x277CCACA8];
-      v62 = v47;
-      v64 = v48;
-      sub_276152FD4("vec3(%f, %f, %f)", v36, v37, v38, v39, v40, v41, v42, SLOBYTE(v46));
-      if (v72 >= 0)
+      v35 = MEMORY[0x277CCACA8];
+      sub_276152FD4(v52, "vec3(%f, %f, %f)", v32, v33, v34);
+      if (v53 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v49, v50, v51, v52, v53, v71);
+        objc_msgSend_stringWithUTF8String_(v35, v36, v37, v38, v39, v52);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v49, v50, v51, v52, v53, v71[0]);
+        objc_msgSend_stringWithUTF8String_(v35, v36, v37, v38, v39, v52[0]);
       }
-      v54 = ;
-      if (v72 < 0)
+      v40 = ;
+      if (v53 < 0)
       {
-        operator delete(v71[0]);
+        operator delete(v52[0]);
       }
 
-      NSLog(&cfstr_StageScale.isa, v54, *&v62, *&v64);
+      NSLog(&cfstr_StageScale.isa, v40);
     }
   }
 
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = sub_2761BDB34;
-  v66[3] = &unk_27A6B67C8;
-  v55 = v25;
-  v67 = v55;
-  v56 = blockCopy;
-  v68 = v56;
-  objc_msgSend_performBlockWithProcessor_block_(TSCH3DRenderProcessorMatrixSession, v57, v58, v59, v60, processorCopy, v66);
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = sub_2761BDB34;
+  v47[3] = &unk_27A6B67C8;
+  v41 = v18;
+  v48 = v41;
+  v42 = blockCopy;
+  v49 = v42;
+  objc_msgSend_performBlockWithProcessor_block_(TSCH3DRenderProcessorMatrixSession, v43, v44, v45, v46, processorCopy, v47);
 }
 
 - (void)render:(id)render

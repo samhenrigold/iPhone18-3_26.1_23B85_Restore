@@ -51,7 +51,6 @@ LABEL_5:
   }
 
 LABEL_43:
-  v5 = *(v3 + 152);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x80000000) == 0)
@@ -150,7 +149,6 @@ LABEL_12:
   }
 
 LABEL_50:
-  v6 = *(v3 + 222);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x10) == 0)
@@ -193,7 +191,6 @@ LABEL_15:
   }
 
 LABEL_53:
-  v7 = *(v3 + 200);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x2000) == 0)
@@ -264,7 +261,6 @@ LABEL_20:
   }
 
 LABEL_58:
-  v8 = *(v3 + 176);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x20000) == 0)
@@ -321,7 +317,6 @@ LABEL_24:
   }
 
 LABEL_62:
-  v9 = *(v3 + 172);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x8000000) == 0)
@@ -364,7 +359,6 @@ LABEL_27:
   }
 
 LABEL_65:
-  v10 = *(v3 + 136);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 1) == 0)
@@ -379,7 +373,6 @@ LABEL_28:
   }
 
 LABEL_66:
-  v11 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x100000000) == 0)
@@ -408,7 +401,6 @@ LABEL_30:
   }
 
 LABEL_68:
-  v12 = *(v3 + 180);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x80000) == 0)
@@ -423,7 +415,6 @@ LABEL_31:
   }
 
 LABEL_69:
-  v13 = *(v3 + 156);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x1000000000) == 0)
@@ -438,7 +429,6 @@ LABEL_32:
   }
 
 LABEL_70:
-  v14 = *(v3 + 221);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x800000000) == 0)
@@ -453,7 +443,6 @@ LABEL_33:
   }
 
 LABEL_71:
-  v15 = *(v3 + 220);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 224);
   if ((v4 & 0x20000000) == 0)
@@ -517,7 +506,6 @@ LABEL_76:
   }
 
 LABEL_75:
-  v16 = *(v3 + 168);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 224);
   if ((v4 & 4) != 0)
@@ -532,9 +520,9 @@ LABEL_38:
   }
 
 LABEL_77:
-  v17 = *(v3 + 212);
+  v5 = *(v3 + 212);
 
-  return PB::Writer::write(a2, v17);
+  return PB::Writer::write(a2, v5);
 }
 
 BOOL CMMsl::CalorieControllerMETsConsumed::operator==(uint64_t a1, uint64_t a2)
@@ -1867,7 +1855,6 @@ uint64_t CMMsl::CalorimetryPauseEvent::formatText(CMMsl::CalorimetryPauseEvent *
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 12))
   {
-    v5 = *(this + 8);
     PB::TextFormatter::format(a2, "pause");
   }
 
@@ -2007,7 +1994,6 @@ uint64_t CMMsl::CalorimetryPauseEvent::writeTo(uint64_t this, PB::Writer *a2)
 {
   if (*(this + 12))
   {
-    v2 = *(this + 8);
     return PB::Writer::write(a2);
   }
 
@@ -2232,7 +2218,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(this + 8);
   PB::TextFormatter::format(a2, "hkType");
   v5 = *(this + 36);
   if ((v5 & 2) == 0)
@@ -2544,7 +2529,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  v5 = *(v3 + 32);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -2713,20 +2697,20 @@ void CMMsl::ClefCalibration::~ClefCalibration(CMMsl::ClefCalibration *this)
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::ClefCalibration::ClefCalibration(uint64_t this, const CMMsl::ClefCalibration *a2)
+CMMsl::ClefCalibration *CMMsl::ClefCalibration::ClefCalibration(CMMsl::ClefCalibration *this, const CMMsl::ClefCalibration *a2)
 {
   *this = &unk_286C1F270;
-  *(this + 8) = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 64) = 0;
   v2 = *(a2 + 64);
   if ((v2 & 2) != 0)
   {
     v4 = *(a2 + 9);
     v3 = 2;
     *(this + 64) = 2;
-    *(this + 36) = v4;
+    *(this + 9) = v4;
     v2 = *(a2 + 64);
     if ((v2 & 8) == 0)
     {
@@ -2743,17 +2727,17 @@ LABEL_5:
     v5 = *(a2 + 11);
     v3 |= 8u;
     *(this + 64) = v3;
-    *(this + 44) = v5;
+    *(this + 11) = v5;
     v2 = *(a2 + 64);
   }
 
 LABEL_6:
   if (v2)
   {
-    v9 = *(a2 + 8);
+    v7 = *(a2 + 8);
     v3 |= 1u;
     *(this + 64) = v3;
-    *(this + 32) = v9;
+    *(this + 8) = v7;
     v2 = *(a2 + 64);
     if ((v2 & 4) == 0)
     {
@@ -2772,10 +2756,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v10 = *(a2 + 10);
+  v8 = *(a2 + 10);
   v3 |= 4u;
   *(this + 64) = v3;
-  *(this + 40) = v10;
+  *(this + 10) = v8;
   v2 = *(a2 + 64);
   if ((v2 & 0x80) == 0)
   {
@@ -2789,10 +2773,10 @@ LABEL_9:
   }
 
 LABEL_18:
-  v11 = *(a2 + 60);
+  v9 = *(a2 + 60);
   v3 |= 0x80u;
   *(this + 64) = v3;
-  *(this + 60) = v11;
+  *(this + 60) = v9;
   v2 = *(a2 + 64);
   if ((v2 & 0x10) == 0)
   {
@@ -2806,10 +2790,10 @@ LABEL_10:
   }
 
 LABEL_19:
-  v12 = *(a2 + 12);
+  v10 = *(a2 + 12);
   v3 |= 0x10u;
   *(this + 64) = v3;
-  *(this + 48) = v12;
+  *(this + 12) = v10;
   v2 = *(a2 + 64);
   if ((v2 & 0x20) == 0)
   {
@@ -2823,30 +2807,28 @@ LABEL_11:
   }
 
 LABEL_20:
-  v13 = *(a2 + 13);
+  v11 = *(a2 + 13);
   v3 |= 0x20u;
   *(this + 64) = v3;
-  *(this + 52) = v13;
+  *(this + 13) = v11;
   if ((*(a2 + 64) & 0x40) != 0)
   {
 LABEL_12:
     v6 = *(a2 + 14);
     *(this + 64) = v3 | 0x40;
-    *(this + 56) = v6;
+    *(this + 14) = v6;
   }
 
 LABEL_13:
-  v7 = *(a2 + 1);
-  if (v7 != *(a2 + 2))
+  if (*(a2 + 1) != *(a2 + 2))
   {
-    v8 = *v7;
     operator new();
   }
 
   return this;
 }
 
-uint64_t CMMsl::ClefCalibration::operator=(uint64_t a1, const CMMsl::ClefCalibration *a2)
+CMMsl *CMMsl::ClefCalibration::operator=(CMMsl *a1, const CMMsl::ClefCalibration *a2)
 {
   if (a1 != a2)
   {
@@ -2957,7 +2939,6 @@ uint64_t CMMsl::ClefCalibration::formatText(CMMsl::ClefCalibration *this, PB::Te
   v5 = *(this + 64);
   if (v5)
   {
-    v12 = *(this + 8);
     PB::TextFormatter::format(a2, "gain");
     v5 = *(this + 64);
     if ((v5 & 2) == 0)
@@ -2977,34 +2958,31 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v13 = *(this + 9);
   PB::TextFormatter::format(a2, "location");
   if ((*(this + 64) & 4) != 0)
   {
 LABEL_4:
-    v6 = *(this + 10);
     PB::TextFormatter::format(a2, "offset");
   }
 
 LABEL_5:
-  v7 = *(this + 1);
-  v8 = *(this + 2);
-  while (v7 != v8)
+  v6 = *(this + 1);
+  v7 = *(this + 2);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2, "point");
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "point");
   }
 
-  v10 = *(this + 64);
-  if ((v10 & 8) != 0)
+  v9 = *(this + 64);
+  if ((v9 & 8) != 0)
   {
-    v14 = *(this + 11);
     PB::TextFormatter::format(a2, "sensor");
-    v10 = *(this + 64);
-    if ((v10 & 0x10) == 0)
+    v9 = *(this + 64);
+    if ((v9 & 0x10) == 0)
     {
 LABEL_9:
-      if ((v10 & 0x20) == 0)
+      if ((v9 & 0x20) == 0)
       {
         goto LABEL_10;
       }
@@ -3018,13 +2996,12 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v15 = *(this + 12);
   PB::TextFormatter::format(a2, "tempCalA");
-  v10 = *(this + 64);
-  if ((v10 & 0x20) == 0)
+  v9 = *(this + 64);
+  if ((v9 & 0x20) == 0)
   {
 LABEL_10:
-    if ((v10 & 0x80) == 0)
+    if ((v9 & 0x80) == 0)
     {
       goto LABEL_11;
     }
@@ -3033,13 +3010,12 @@ LABEL_10:
   }
 
 LABEL_21:
-  v16 = *(this + 13);
   PB::TextFormatter::format(a2, "tempCalB");
-  v10 = *(this + 64);
-  if ((v10 & 0x80) == 0)
+  v9 = *(this + 64);
+  if ((v9 & 0x80) == 0)
   {
 LABEL_11:
-    if ((v10 & 0x40) == 0)
+    if ((v9 & 0x40) == 0)
     {
       goto LABEL_13;
     }
@@ -3048,12 +3024,10 @@ LABEL_11:
   }
 
 LABEL_22:
-  v17 = *(this + 60);
   PB::TextFormatter::format(a2, "tempCalEnabled");
   if ((*(this + 64) & 0x40) != 0)
   {
 LABEL_12:
-    v11 = *(this + 14);
     PB::TextFormatter::format(a2, "tempCalT0");
   }
 
@@ -3818,7 +3792,6 @@ uint64_t CMMsl::ClefCalibration::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 64);
   if ((v4 & 2) != 0)
   {
-    v9 = *(this + 36);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 64);
     if ((v4 & 8) == 0)
@@ -3838,7 +3811,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v10 = *(v3 + 44);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 64);
   if ((v4 & 1) == 0)
@@ -3853,7 +3825,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  v11 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 64);
   if ((v4 & 4) == 0)
@@ -3868,7 +3839,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  v12 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 64);
   if ((v4 & 0x80) == 0)
@@ -3883,7 +3853,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  v13 = *(v3 + 60);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 64);
   if ((v4 & 0x10) == 0)
@@ -3895,7 +3864,6 @@ LABEL_7:
     }
 
 LABEL_20:
-    v15 = *(v3 + 52);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 64) & 0x40) == 0)
     {
@@ -3906,7 +3874,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  v14 = *(v3 + 48);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 64);
   if ((v4 & 0x20) != 0)
@@ -3918,17 +3885,16 @@ LABEL_8:
   if ((v4 & 0x40) != 0)
   {
 LABEL_9:
-    v5 = *(v3 + 56);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_10:
-  v7 = *(v3 + 8);
-  v6 = *(v3 + 16);
-  while (v7 != v6)
+  v6 = *(v3 + 8);
+  v5 = *(v3 + 16);
+  while (v6 != v5)
   {
-    v8 = *v7++;
-    this = PB::Writer::writeSubmessage(a2, v8);
+    v7 = *v6++;
+    this = PB::Writer::writeSubmessage(a2, v7);
   }
 
   return this;
@@ -4365,7 +4331,6 @@ uint64_t CMMsl::ClefCalibrationPoint::formatText(CMMsl::ClefCalibrationPoint *th
   v5 = *(this + 20);
   if (v5)
   {
-    v7 = *(this + 2);
     PB::TextFormatter::format(a2, "base");
     v5 = *(this + 20);
     if ((v5 & 2) == 0)
@@ -4385,12 +4350,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 3);
   PB::TextFormatter::format(a2, "distance");
   if ((*(this + 20) & 4) != 0)
   {
 LABEL_4:
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "peak");
   }
 
@@ -4808,7 +4771,6 @@ uint64_t CMMsl::ClefCalibrationPoint::writeTo(uint64_t this, PB::Writer *a2)
     }
 
 LABEL_6:
-    v6 = *(v3 + 16);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 20) & 2) == 0)
     {
@@ -4818,7 +4780,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v5 = *(this + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 20);
   if ((v4 & 4) != 0)
@@ -4833,7 +4794,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  v7 = *(v3 + 12);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -5398,14 +5358,12 @@ uint64_t CMMsl::ClefTemperature::formatText(CMMsl::ClefTemperature *this, PB::Te
   v5 = *(this + 16);
   if (v5)
   {
-    v6 = *(this + 2);
     PB::TextFormatter::format(a2, "conchaTemp");
     v5 = *(this + 16);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 3);
     PB::TextFormatter::format(a2, "tragusTemp");
   }
 
@@ -5718,14 +5676,12 @@ uint64_t CMMsl::ClefTemperature::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 16);
   if (v4)
   {
-    v5 = *(this + 8);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 16);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 12);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -5912,7 +5868,6 @@ uint64_t CMMsl::CoarseElevationChange::formatText(CMMsl::CoarseElevationChange *
   v5 = *(this + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "elevationAscended");
     v5 = *(this + 20);
   }
@@ -6153,7 +6108,6 @@ uint64_t CMMsl::CoarseElevationChange::writeTo(uint64_t this, PB::Writer *a2)
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -6367,7 +6321,6 @@ uint64_t CMMsl::CompanionStepCountElevation::formatText(CMMsl::CompanionStepCoun
   v5 = *(this + 24);
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "elevationAscended");
     v5 = *(this + 24);
     if ((v5 & 4) == 0)
@@ -6387,7 +6340,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 5);
   PB::TextFormatter::format(a2, "elevationDescended");
   if (*(this + 24))
   {
@@ -6720,7 +6672,6 @@ uint64_t CMMsl::CompanionStepCountElevation::writeTo(uint64_t this, PB::Writer *
     }
 
 LABEL_6:
-    v5 = *(v3 + 16);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 24) & 4) == 0)
     {
@@ -6744,7 +6695,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  v6 = *(v3 + 20);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -7161,7 +7111,7 @@ float CMMsl::Compass::Compass(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::Compass::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::Compass::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7240,7 +7190,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  v6 = *(this + 8);
   PB::TextFormatter::format(a2, "calibrationLevel");
   v5 = *(this + 34);
   if ((v5 & 0x40) == 0)
@@ -7857,7 +7806,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  v5 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 0x1000) == 0)
@@ -7893,9 +7841,9 @@ LABEL_14:
   }
 
 LABEL_29:
-  v6 = *(v3 + 36);
+  v5 = *(v3 + 36);
 
-  return PB::Writer::write(a2, v6);
+  return PB::Writer::write(a2, v5);
 }
 
 BOOL CMMsl::Compass::operator==(uint64_t a1, uint64_t a2)
@@ -8481,7 +8429,6 @@ uint64_t CMMsl::CompassAlignment::formatText(CMMsl::CompassAlignment *this, PB::
   v5 = *(this + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "compassJustAlignedToStableField");
     v5 = *(this + 20);
   }
@@ -8722,7 +8669,6 @@ uint64_t CMMsl::CompassAlignment::writeTo(uint64_t this, PB::Writer *a2)
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -9199,7 +9145,7 @@ float CMMsl::CompassCalibration::CompassCalibration(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::CompassCalibration::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::CompassCalibration::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9217,7 +9163,6 @@ uint64_t CMMsl::CompassCalibration::formatText(CMMsl::CompassCalibration *this, 
   v5 = *(this + 20);
   if ((v5 & 0x10000) != 0)
   {
-    v6 = *(this + 76);
     PB::TextFormatter::format(a2, "apAwake");
     v5 = *(this + 20);
     if ((v5 & 2) == 0)
@@ -9279,7 +9224,6 @@ LABEL_6:
   }
 
 LABEL_27:
-  v7 = *(this + 7);
   PB::TextFormatter::format(a2, "calibrationLevel");
   v5 = *(this + 20);
   if ((v5 & 0x20) == 0)
@@ -9336,7 +9280,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  v8 = *(this + 77);
   PB::TextFormatter::format(a2, "hasConsistency");
   v5 = *(this + 20);
   if ((v5 & 0x100) == 0)
@@ -9856,4 +9799,251 @@ LABEL_17:
   }
 
   return v41 & 1;
+}
+
+uint64_t CMMsl::CompassCalibration::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 80);
+  if (v4)
+  {
+    this = PB::Writer::write(a2, *(this + 8));
+    v4 = *(v3 + 80);
+    if ((v4 & 2) == 0)
+    {
+LABEL_3:
+      if ((v4 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_22;
+    }
+  }
+
+  else if ((v4 & 2) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::write(a2, *(v3 + 16));
+  v4 = *(v3 + 80);
+  if ((v4 & 4) == 0)
+  {
+LABEL_4:
+    if ((v4 & 8) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  this = PB::Writer::write(a2, *(v3 + 20));
+  v4 = *(v3 + 80);
+  if ((v4 & 8) == 0)
+  {
+LABEL_5:
+    if ((v4 & 0x2000) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_23:
+  this = PB::Writer::write(a2, *(v3 + 24));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x2000) == 0)
+  {
+LABEL_6:
+    if ((v4 & 0x4000) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_24:
+  this = PB::Writer::write(a2, *(v3 + 64));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x4000) == 0)
+  {
+LABEL_7:
+    if ((v4 & 0x8000) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_26;
+  }
+
+LABEL_25:
+  this = PB::Writer::write(a2, *(v3 + 68));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x8000) == 0)
+  {
+LABEL_8:
+    if ((v4 & 0x1000) == 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_27;
+  }
+
+LABEL_26:
+  this = PB::Writer::write(a2, *(v3 + 72));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x1000) == 0)
+  {
+LABEL_9:
+    if ((v4 & 0x20) == 0)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_27:
+  this = PB::Writer::write(a2, *(v3 + 60));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x20) == 0)
+  {
+LABEL_10:
+    if ((v4 & 0x40) == 0)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_29;
+  }
+
+LABEL_28:
+  this = PB::Writer::write(a2, *(v3 + 32));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x40) == 0)
+  {
+LABEL_11:
+    if ((v4 & 0x80) == 0)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_30;
+  }
+
+LABEL_29:
+  this = PB::Writer::write(a2, *(v3 + 36));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x80) == 0)
+  {
+LABEL_12:
+    if ((v4 & 0x200) == 0)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_31;
+  }
+
+LABEL_30:
+  this = PB::Writer::write(a2, *(v3 + 40));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x200) == 0)
+  {
+LABEL_13:
+    if ((v4 & 0x400) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_32;
+  }
+
+LABEL_31:
+  this = PB::Writer::write(a2, *(v3 + 48));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x400) == 0)
+  {
+LABEL_14:
+    if ((v4 & 0x800) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_33;
+  }
+
+LABEL_32:
+  this = PB::Writer::write(a2, *(v3 + 52));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x800) == 0)
+  {
+LABEL_15:
+    if ((v4 & 0x10) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_34;
+  }
+
+LABEL_33:
+  this = PB::Writer::write(a2, *(v3 + 56));
+  v4 = *(v3 + 80);
+  if ((v4 & 0x10) == 0)
+  {
+LABEL_16:
+    if ((v4 & 0x20000) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_35;
+  }
+
+LABEL_34:
+  this = PB::Writer::writeVarInt(a2);
+  v4 = *(v3 + 80);
+  if ((v4 & 0x20000) == 0)
+  {
+LABEL_17:
+    if ((v4 & 0x10000) == 0)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_36:
+    this = PB::Writer::write(a2);
+    if ((*(v3 + 80) & 0x100) == 0)
+    {
+      return this;
+    }
+
+    goto LABEL_37;
+  }
+
+LABEL_35:
+  this = PB::Writer::write(a2);
+  v4 = *(v3 + 80);
+  if ((v4 & 0x10000) != 0)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_18:
+  if ((v4 & 0x100) == 0)
+  {
+    return this;
+  }
+
+LABEL_37:
+  v5 = *(v3 + 44);
+
+  return PB::Writer::write(a2, v5);
 }

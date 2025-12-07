@@ -56,7 +56,7 @@ void sub_100002AAC(id *a1)
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   [WeakRetained setupIdleTimer];
   v3 = dispatch_semaphore_create(0);
-  v4 = sub_100003C04();
+  v4 = sub_100003C04(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [a1[4] location];
@@ -67,56 +67,57 @@ void sub_100002AAC(id *a1)
     v10 = v9;
     v11 = [a1[4] priority];
     *buf = 134284033;
-    v33 = v7;
-    v34 = 2049;
-    v35 = v10;
-    v36 = 2048;
-    v37 = v11;
+    v34 = v7;
+    v35 = 2049;
+    v36 = v10;
+    v37 = 2048;
+    v38 = v11;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Processing request for lat: %{private}f long: %{private}f with priority %lu", buf, 0x20u);
   }
 
   v12 = a1[4];
-  v24 = _NSConcreteStackBlock;
-  v25 = 3221225472;
-  v26 = sub_100002D94;
-  v27 = &unk_1000083A0;
+  v25 = _NSConcreteStackBlock;
+  v26 = 3221225472;
+  v27 = sub_100002D94;
+  v28 = &unk_1000083A0;
   v13 = WeakRetained;
-  v28 = v13;
-  v29 = a1[4];
-  v31 = a1[5];
+  v29 = v13;
+  v30 = a1[4];
+  v32 = a1[5];
   v14 = v3;
-  v30 = v14;
-  [v13 shiftedLocationForRequest:v12 withCompletionHandler:&v24];
-  if (dispatch_semaphore_wait(v14, [v13 mapRenderingTimeout]))
+  v31 = v14;
+  [v13 shiftedLocationForRequest:v12 withCompletionHandler:&v25];
+  v15 = dispatch_semaphore_wait(v14, [v13 mapRenderingTimeout]);
+  if (v15)
   {
-    v15 = sub_100003C04();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100003C04(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v13 mapRenderingTimeout];
-      v17 = [a1[4] location];
-      [v17 coordinate];
-      v19 = v18;
-      v20 = [a1[4] location];
-      [v20 coordinate];
+      v17 = [v13 mapRenderingTimeout];
+      v18 = [a1[4] location];
+      [v18 coordinate];
+      v20 = v19;
+      v21 = [a1[4] location];
+      [v21 coordinate];
       *buf = 134218497;
-      v33 = v16;
-      v34 = 2049;
-      v35 = v19;
-      v36 = 2049;
-      v37 = v21;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "mapImageForRequest timeout after %llu seconds for lat: %{private}f long: %{private}f", buf, 0x20u);
+      v34 = v17;
+      v35 = 2049;
+      v36 = v20;
+      v37 = 2049;
+      v38 = v22;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "mapImageForRequest timeout after %llu seconds for lat: %{private}f long: %{private}f", buf, 0x20u);
     }
 
-    v22 = a1[5];
-    v23 = [[NSError alloc] initWithDomain:@"FMFMapXPCService" code:408 userInfo:0];
-    v22[2](v22, 0, v23);
+    v23 = a1[5];
+    v24 = [[NSError alloc] initWithDomain:@"FMFMapXPCService" code:408 userInfo:0];
+    v23[2](v23, 0, v24);
   }
 }
 
 void sub_100002D94(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100003C04();
+  v4 = sub_100003C04(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -146,22 +147,22 @@ void sub_100002EB4(uint64_t a1, void *a2, void *a3)
 
   if (v7)
   {
-    v8 = sub_100003C04();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003C04(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "mapImageForRequest data received for map snapshot", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "mapImageForRequest data received for map snapshot", buf, 2u);
     }
 
-    v9 = [v5 image];
-    v7 = UIImagePNGRepresentation(v9);
+    v10 = [v5 image];
+    v7 = UIImagePNGRepresentation(v10);
   }
 
-  v10 = sub_100003C04();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100003C04(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "mapImageForRequest returning map snapshot", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "mapImageForRequest returning map snapshot", v12, 2u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -180,7 +181,7 @@ void sub_1000037FC(id a1)
 
 void sub_100003990(id a1)
 {
-  v1 = sub_100003C04();
+  v1 = sub_100003C04(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 134217984;
@@ -201,16 +202,16 @@ void start()
   exit(1);
 }
 
-id sub_100003B7C()
+id sub_100003B7C(uint64_t a1)
 {
   if (qword_10000CD18 != -1)
   {
     sub_100003CA0();
   }
 
-  v1 = qword_10000CD20;
+  v2 = qword_10000CD20;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003BC0(id a1)
@@ -220,16 +221,16 @@ void sub_100003BC0(id a1)
   _objc_release_x1();
 }
 
-id sub_100003C04()
+id sub_100003C04(uint64_t a1)
 {
   if (qword_10000CD28 != -1)
   {
     sub_100003CB4();
   }
 
-  v1 = qword_10000CD30;
+  v2 = qword_10000CD30;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003C48(id a1)

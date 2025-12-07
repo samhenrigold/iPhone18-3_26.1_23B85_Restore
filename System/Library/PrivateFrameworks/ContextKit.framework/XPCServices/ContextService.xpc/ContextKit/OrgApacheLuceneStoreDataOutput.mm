@@ -61,7 +61,7 @@
 
 - (void)writeZIntWithInt:(int)int
 {
-  v4 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithInt_(int);
+  v4 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithInt_(*&int, a2);
   v5 = v4;
   if (v4 >= 0x80)
   {
@@ -148,7 +148,7 @@
 
 - (void)writeZLongWithLong:(int64_t)long
 {
-  v4 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(long);
+  v4 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(long, a2);
   v5 = v4;
   if (v4 >= 0x80)
   {

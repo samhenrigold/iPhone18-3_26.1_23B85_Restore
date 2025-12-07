@@ -23,9 +23,9 @@
 
 + (uint64_t)__IS_canProvideResourceLocator
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 instancesRespondToSelector:sel_iconResourceLocator];
+  return [v1 instancesRespondToSelector:sel_iconResourceLocator];
 }
 
 - (id)__IS_iconDataForVariant:()IconServicesAdditions withOptions:

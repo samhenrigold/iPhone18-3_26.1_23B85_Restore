@@ -9,12 +9,12 @@
 - (id)af_aceTemperatureUnit
 {
   v2 = [self objectForKey:*MEMORY[0x1E695D9F0]];
-  v3 = [v2 isEqualToString:*MEMORY[0x1E695D9F8]];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
   v4 = MEMORY[0x1E69C7C28];
   v5 = MEMORY[0x1E69C7C28];
-  if ((v3 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
-    if (![v2 isEqualToString:*MEMORY[0x1E695DA00]])
+    if (!objc_msgSend_isEqualToString_(v2))
     {
 LABEL_5:
       v7 = MEMORY[0x1E69C7C30];
@@ -63,7 +63,7 @@ LABEL_9:
 + (id)af_temperatureUnitForAceTemperatureUnit:()AssistantServices
 {
   v3 = a3;
-  if ([v3 isEqualToString:*MEMORY[0x1E69C7C28]])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695D9F8];
 LABEL_5:
@@ -71,7 +71,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([v3 isEqualToString:*MEMORY[0x1E69C7C30]])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695DA00];
     goto LABEL_5;

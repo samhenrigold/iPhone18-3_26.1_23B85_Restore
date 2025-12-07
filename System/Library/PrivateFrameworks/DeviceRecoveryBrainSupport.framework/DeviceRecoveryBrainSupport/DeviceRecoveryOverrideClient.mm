@@ -80,7 +80,7 @@
 
 void __36__DeviceRecoveryOverrideClient_init__block_invoke(id a1)
 {
-  v1 = DRGetLogHandle();
+  v1 = DRGetLogHandle(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 136446210;
@@ -91,7 +91,7 @@ void __36__DeviceRecoveryOverrideClient_init__block_invoke(id a1)
 
 void __36__DeviceRecoveryOverrideClient_init__block_invoke_19(uint64_t a1)
 {
-  v2 = DRGetLogHandle();
+  v2 = DRGetLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -106,55 +106,55 @@ void __36__DeviceRecoveryOverrideClient_init__block_invoke_19(uint64_t a1)
 - (id)fetchOverride:(id)override
 {
   overrideCopy = override;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__1;
-  v15 = __Block_byref_object_dispose__1;
-  v16 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  v18 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (serviceConnection)
   {
     serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-    v7 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_22];
+    v8 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_22];
 
-    if (v7)
+    if (v8)
     {
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke_24;
-      v10[3] = &unk_2C660;
-      v10[4] = &v11;
-      [v7 fetchOverride:overrideCopy callback:v10];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke_24;
+      v12[3] = &unk_2C660;
+      v12[4] = &v13;
+      [v8 fetchOverride:overrideCopy callback:v12];
       goto LABEL_4;
     }
 
-    DRGetLogHandle();
+    DRGetLogHandle(v9);
     objc_claimAutoreleasedReturnValue();
     [DeviceRecoveryOverrideClient fetchOverride:];
   }
 
   else
   {
-    DRGetLogHandle();
+    DRGetLogHandle(v6);
     objc_claimAutoreleasedReturnValue();
     [DeviceRecoveryOverrideClient fetchOverride:];
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_4:
-  v8 = v12[5];
+  v10 = v14[5];
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v13, 8);
 
-  return v8;
+  return v10;
 }
 
 void __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke_cold_1();
@@ -165,51 +165,51 @@ void __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke(id a1, NSEr
 {
   overrideCopy = override;
   valueCopy = value;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__1;
-  v22 = __Block_byref_object_dispose__1;
-  v23 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__1;
+  v28 = __Block_byref_object_dispose__1;
+  v29 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (!serviceConnection)
   {
-    v13 = DRGetLogHandle();
-    [(DeviceRecoveryOverrideClient *)v13 setOverride:&v25 value:?];
+    v18 = DRGetLogHandle(v9);
+    [(DeviceRecoveryOverrideClient *)v18 setOverride:&v31 value:?];
 LABEL_11:
-    v12 = v24;
-    v10 = v25;
+    v16 = v30;
+    v11 = v31;
 LABEL_12:
 
     goto LABEL_8;
   }
 
   serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-  v10 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_27];
+  v11 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_27];
 
-  if (!v10)
+  if (!v11)
   {
-    v14 = DRGetLogHandle();
-    [(DeviceRecoveryOverrideClient *)v14 setOverride:&v25 value:?];
+    v19 = DRGetLogHandle(v12);
+    [(DeviceRecoveryOverrideClient *)v19 setOverride:&v31 value:?];
     goto LABEL_11;
   }
 
   if (valueCopy)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_30;
-    v16[3] = &unk_2C688;
-    v16[4] = &v18;
-    [v10 setOverride:overrideCopy value:valueCopy callback:v16];
-    if (v19[5])
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_30;
+    v22[3] = &unk_2C688;
+    v22[4] = &v24;
+    v13 = [v11 setOverride:overrideCopy value:valueCopy callback:v22];
+    if (v25[5])
     {
-      v11 = DRGetLogHandle();
-      [DeviceRecoveryOverrideClient setOverride:v11 value:?];
+      v14 = DRGetLogHandle(v13);
+      [DeviceRecoveryOverrideClient setOverride:v14 value:?];
 
-      v12 = DRGetLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = DRGetLogHandle(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [DeviceRecoveryOverrideClient setOverride:value:];
       }
@@ -220,19 +220,19 @@ LABEL_12:
 
   else
   {
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_28;
-    v17[3] = &unk_2C688;
-    v17[4] = &v18;
-    [v10 removeOverride:overrideCopy callback:v17];
-    if (v19[5])
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_28;
+    v23[3] = &unk_2C688;
+    v23[4] = &v24;
+    v17 = [v11 removeOverride:overrideCopy callback:v23];
+    if (v25[5])
     {
-      v15 = DRGetLogHandle();
-      [DeviceRecoveryOverrideClient setOverride:v15 value:?];
+      v20 = DRGetLogHandle(v17);
+      [DeviceRecoveryOverrideClient setOverride:v20 value:?];
 
-      v12 = DRGetLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = DRGetLogHandle(v21);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [DeviceRecoveryOverrideClient setOverride:value:];
       }
@@ -242,13 +242,13 @@ LABEL_12:
   }
 
 LABEL_8:
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 void __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_cold_1();
@@ -449,54 +449,54 @@ void __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke(id a1, 
 
 - (NSDictionary)allOverrides
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__1;
-  v13 = __Block_byref_object_dispose__1;
-  v14 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (serviceConnection)
   {
     serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-    v5 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_33];
+    v6 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_33];
 
-    if (v5)
+    if (v6)
     {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke_34;
-      v8[3] = &unk_2C6B0;
-      v8[4] = &v9;
-      [v5 fetchOverrides:v8];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke_34;
+      v10[3] = &unk_2C6B0;
+      v10[4] = &v11;
+      [v6 fetchOverrides:v10];
       goto LABEL_4;
     }
 
-    DRGetLogHandle();
+    DRGetLogHandle(v7);
     objc_claimAutoreleasedReturnValue();
     [DeviceRecoveryOverrideClient allOverrides];
   }
 
   else
   {
-    DRGetLogHandle();
+    DRGetLogHandle(v4);
     objc_claimAutoreleasedReturnValue();
     [DeviceRecoveryOverrideClient allOverrides];
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_4:
-  v6 = v10[5];
-  _Block_object_dispose(&v9, 8);
+  v8 = v12[5];
+  _Block_object_dispose(&v11, 8);
 
-  return v6;
+  return v8;
 }
 
 void __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke_cold_1();
@@ -505,13 +505,14 @@ void __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke(id a1, NSErro
 
 - (void)removeAllOverrides
 {
-  v0 = DRGetLogHandle();
-  if (OUTLINED_FUNCTION_5_0(v0))
+  v1 = DRGetLogHandle(self);
+  if (OUTLINED_FUNCTION_5_0(v1))
   {
+    v8 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_11_0(&dword_0, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_2();
@@ -520,7 +521,7 @@ void __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke(id a1, NSErro
 void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke_cold_1();
@@ -529,31 +530,31 @@ void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, 
 
 - (void)init
 {
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(self);
   if (OUTLINED_FUNCTION_5_0(v3))
   {
-    v12 = "[DeviceRecoveryOverrideClient init]";
-    v13 = 2082;
-    v14 = "[DeviceRecoveryOverrideClient init]";
-    v15 = 2082;
-    v16 = "self.serviceConnection != nil";
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecovery_Framework/DeviceRecoveryOverrideClient.m";
-    v21 = 1026;
-    v22 = 46;
-    OUTLINED_FUNCTION_11_0(&dword_0, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    *v12 = 136447490;
+    *&v12[4] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[12] = 2082;
+    *&v12[14] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[22] = 2082;
+    *v13 = 2082;
+    *&v13[2] = "";
+    *&v13[10] = 2082;
+    *&v13[12] = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecovery_Framework/DeviceRecoveryOverrideClient.m";
+    *&v13[20] = 1026;
+    *&v13[22] = 46;
+    OUTLINED_FUNCTION_11_0(&dword_0, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, *v12, *&v12[16], "self.serviceConnection != nil", *v13, *&v13[16]);
   }
 
-  v10 = DRGetLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = DRGetLogHandle(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136446466;
-    v12 = "[DeviceRecoveryOverrideClient init]";
-    v13 = 2114;
-    v14 = @"com.apple.DeviceRecoveryOverrideService";
-    _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%{public}s: Couldn't connect to service: %{public}@", &v11, 0x16u);
+    *v12 = 136446466;
+    *&v12[4] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[12] = 2114;
+    *&v12[14] = @"com.apple.DeviceRecoveryOverrideService";
+    _os_log_error_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%{public}s: Couldn't connect to service: %{public}@", v12, 0x16u);
   }
 }
 
@@ -562,10 +563,11 @@ void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, 
   OUTLINED_FUNCTION_13();
   if (OUTLINED_FUNCTION_6_1(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_6_2();
@@ -576,13 +578,21 @@ void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, 
   OUTLINED_FUNCTION_13();
   if (OUTLINED_FUNCTION_6_1(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_6_2();
+}
+
+void __46__DeviceRecoveryOverrideClient_fetchOverride___block_invoke_cold_1()
+{
+  v6 = 136446466;
+  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_5_3(&dword_0, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)setOverride:(NSObject *)a1 value:.cold.1(NSObject *a1)
@@ -622,6 +632,13 @@ void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, 
   }
 }
 
+- (void)setOverride:value:.cold.4()
+{
+  v6 = 136446466;
+  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_5_3(&dword_0, v0, v1, "%{public}s: Error removing override: %{public}@", v2, v3, v4, v5, v6);
+}
+
 - (void)setOverride:(void *)a3 value:.cold.5(NSObject *a1, NSObject **a2, void *a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
@@ -656,18 +673,40 @@ void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke(id a1, 
   *a2 = a1;
 }
 
+void __50__DeviceRecoveryOverrideClient_setOverride_value___block_invoke_cold_1()
+{
+  v6 = 136446466;
+  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_5_3(&dword_0, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
+}
+
 - (void)allOverrides
 {
   OUTLINED_FUNCTION_13();
   if (OUTLINED_FUNCTION_6_1(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_11_0(&dword_0, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_6_2();
+}
+
+void __44__DeviceRecoveryOverrideClient_allOverrides__block_invoke_cold_1()
+{
+  v6 = 136446466;
+  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_5_3(&dword_0, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void __50__DeviceRecoveryOverrideClient_removeAllOverrides__block_invoke_cold_1()
+{
+  v6 = 136446466;
+  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_5_3(&dword_0, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

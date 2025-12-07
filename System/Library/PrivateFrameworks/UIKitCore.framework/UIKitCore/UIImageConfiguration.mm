@@ -123,9 +123,9 @@ void __49__UIImageConfiguration__unspecifiedConfiguration__block_invoke()
 
   if (v6 && v7)
   {
-    v9 = [(UITraitCollection *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -166,9 +166,9 @@ LABEL_10:
 
   if (v7 && v8)
   {
-    v10 = [(NSLocale *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if ((v10 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -226,9 +226,9 @@ LABEL_10:
 
   if (v6 && _systemIconAppearance)
   {
-    v8 = [_systemIconAppearance isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(_systemIconAppearance);
 
-    if (!v8)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -298,15 +298,15 @@ LABEL_10:
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (!_systemIconAppearance || !v8)
         {
           goto LABEL_19;
         }
 
-        v10 = [(UITraitCollection *)_systemIconAppearance isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(_systemIconAppearance);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_21;
         }
@@ -322,15 +322,15 @@ LABEL_10:
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (!_systemIconAppearance || !v12)
         {
           goto LABEL_19;
         }
 
-        v10 = [(UITraitCollection *)_systemIconAppearance isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(_systemIconAppearance);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_21;
         }
@@ -340,21 +340,21 @@ LABEL_10:
       {
         _systemIconAppearance = [(UIImageConfiguration *)self _systemIconAppearance];
         _systemIconAppearance2 = [(UIImageConfiguration *)configurationCopy _systemIconAppearance];
-        LOBYTE(v10) = _deferringTokenEqualToToken(_systemIconAppearance, _systemIconAppearance2);
+        LOBYTE(isEqual) = _deferringTokenEqualToToken(_systemIconAppearance, _systemIconAppearance2);
 LABEL_19:
 
         goto LABEL_21;
       }
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     goto LABEL_21;
   }
 
-  LOBYTE(v10) = 1;
+  LOBYTE(isEqual) = 1;
 LABEL_21:
 
-  return v10;
+  return isEqual;
 }
 
 - (BOOL)_isEquivalentToConfiguration:(id)configuration
@@ -415,9 +415,9 @@ LABEL_21:
           goto LABEL_29;
         }
 
-        v18 = [v15 isEqual:v16];
+        isEqual = objc_msgSend_isEqual_(v15);
 
-        if ((v18 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           goto LABEL_29;
         }
@@ -449,7 +449,7 @@ LABEL_27:
 
     if (v21 && v22)
     {
-      v24 = [v21 isEqual:v22];
+      v24 = objc_msgSend_isEqual_(v21);
 
       if ((v24 & 1) == 0)
       {
@@ -682,9 +682,9 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v11 = [v8 isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(v8);
 
-    if (!v11)
+    if (!isEqual)
     {
       goto LABEL_14;
     }

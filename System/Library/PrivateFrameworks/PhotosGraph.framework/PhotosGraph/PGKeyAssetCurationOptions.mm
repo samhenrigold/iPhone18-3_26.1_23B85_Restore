@@ -10,20 +10,20 @@
 
 - (id)dictionaryRepresentation
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   referenceLocation = self->_referenceLocation;
   if (referenceLocation)
   {
     [(CLLocation *)referenceLocation coordinate];
     v6 = v5;
-    v27[0] = @"latitude";
+    v26[0] = @"latitude";
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-    v27[1] = @"longitude";
-    v28[0] = v7;
+    v26[1] = @"longitude";
+    v27[0] = v7;
     v8 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-    v28[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v27[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
     [v3 setObject:v9 forKeyedSubscript:@"referenceLocation"];
   }
 
@@ -71,8 +71,6 @@
 
   v24 = [MEMORY[0x277CCABB0] numberWithBool:self->_avoidPromotingAutoplayableItemsWhenUsingIconicScore];
   [v3 setObject:v24 forKeyedSubscript:@"avoidPromotingAutoplayableItemsWhenUsingIconicScore"];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

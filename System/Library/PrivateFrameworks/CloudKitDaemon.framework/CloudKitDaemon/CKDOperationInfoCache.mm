@@ -291,7 +291,7 @@
 
 - (void)_lockedArchiveCallback:(id)callback forOperationID:(id)d
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   dCopy = d;
   v10 = objc_msgSend_cacheQueue(self, v8, v9);
@@ -307,25 +307,25 @@
     block[3] = &unk_278546990;
     block[4] = self;
     v16 = dCopy;
-    v36 = v16;
+    v35 = v16;
     v17 = callbackCopy;
-    v37 = v17;
+    v36 = v17;
     dispatch_sync(v15, block);
 
     v19 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], v18, v17, 1, 0);
     v22 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v20, v21, 86400.0);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22515DD40;
-    v29[3] = &unk_278546C80;
-    v30 = v16;
-    v31 = v19;
-    v32 = v14;
-    v33 = v17;
-    v34 = v22;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22515DD40;
+    v28[3] = &unk_278546C80;
+    v29 = v16;
+    v30 = v19;
+    v31 = v14;
+    v32 = v17;
+    v33 = v22;
     v23 = v22;
     v24 = v19;
-    v26 = objc_msgSend_performDatabaseOperation_(self, v25, v29);
+    v26 = objc_msgSend_performDatabaseOperation_(self, v25, v28);
   }
 
   else
@@ -339,12 +339,10 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v39 = dCopy;
+      v38 = dCopy;
       _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, "Couldn't find an operation with ID %{public}@ to set the result", buf, 0xCu);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)archiveCallback:(id)callback forOperationID:(id)d
@@ -380,32 +378,30 @@
 
 - (id)_locked_operationInfoForID:(id)d
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   dCopy = d;
   v7 = objc_msgSend_stringWithFormat_(v4, v6, @"%@ = ?", @"operationID");
-  v17[0] = dCopy;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v17, 1);
+  v16[0] = dCopy;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v16, 1);
 
   v11 = objc_msgSend_selectAllFrom_where_bindings_(self, v10, @"OperationInfo", v7, v9);
 
   v14 = objc_msgSend_firstObject(v11, v12, v13);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)registerCacheEviction
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_deviceContext(self, a2, v2);
   v8 = objc_msgSend_testDeviceReference(v5, v6, v7);
 
   if (v8)
   {
-    v44 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v44, v45, a2, self, @"CKDOperationInfoCache.m", 495, @"Only the default device context may register for operation info cache eviction");
+    v42 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v42, v43, a2, self, @"CKDOperationInfoCache.m", 495, @"Only the default device context may register for operation info cache eviction");
   }
 
   v11 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v9, v10);
@@ -423,12 +419,11 @@
     v28 = objc_msgSend_resources(v23, v26, v27);
     objc_msgSend_setResources_(v23, v29, v28 | 4);
     v32 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v30, v31);
-    v46 = 0;
-    v34 = objc_msgSend_submitTaskRequest_error_(v32, v33, v23, &v46);
-    v35 = v46;
+    v44 = 0;
+    v34 = objc_msgSend_submitTaskRequest_error_(v32, v33, v23, &v44);
+    v35 = v44;
 
     v36 = *MEMORY[0x277CBC878];
-    v37 = *MEMORY[0x277CBC880];
     if (v34)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -436,17 +431,17 @@
         dispatch_once(MEMORY[0x277CBC880], v36);
       }
 
-      v38 = *MEMORY[0x277CBC830];
+      v37 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_12;
       }
 
       *buf = 138412290;
-      v48 = v35;
-      v39 = "Failed to register operation info cache eviction task with error: %@";
-      v40 = v38;
-      v41 = 12;
+      v46 = v35;
+      v38 = "Failed to register operation info cache eviction task with error: %@";
+      v39 = v37;
+      v40 = 12;
     }
 
     else
@@ -456,23 +451,21 @@
         dispatch_once(MEMORY[0x277CBC880], v36);
       }
 
-      v42 = *MEMORY[0x277CBC830];
+      v41 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_12;
       }
 
       *buf = 0;
-      v39 = "Registered operation info cache eviction task";
-      v40 = v42;
-      v41 = 2;
+      v38 = "Registered operation info cache eviction task";
+      v39 = v41;
+      v40 = 2;
     }
 
-    _os_log_error_impl(&dword_22506F000, v40, OS_LOG_TYPE_ERROR, v39, buf, v41);
+    _os_log_error_impl(&dword_22506F000, v39, OS_LOG_TYPE_ERROR, v38, buf, v40);
 LABEL_12:
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -35,7 +35,7 @@
 - (void)willMoveToParentViewController:(id)controller
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for EntryMapViewController();
+  v6.super_class = type metadata accessor for EntryMapViewController(0);
   controllerCopy = controller;
   v5 = v6.receiver;
   [(EntryMapViewController *)&v6 willMoveToParentViewController:controllerCopy];

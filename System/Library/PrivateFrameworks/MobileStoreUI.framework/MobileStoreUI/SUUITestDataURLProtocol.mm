@@ -12,7 +12,7 @@
   v5 = [requestCopy URL];
   scheme = [v5 scheme];
 
-  LOBYTE(v5) = [scheme isEqualToString:@"x-apple-storeui-test-data"];
+  LOBYTE(v5) = objc_msgSend_isEqualToString_(scheme);
   objc_autoreleasePoolPop(v4);
 
   return v5;
@@ -49,31 +49,33 @@ LABEL_5:
     pathExtension = [resourceSpecifier pathExtension];
     if (pathExtension)
     {
-      v17 = pathExtension;
-      v18 = SUUIMobileCoreServicesFramework();
-      v19 = *SUUIWeakLinkedSymbolForString("kUTTagClassFilenameExtension", v18);
-      v20 = SUUIMobileCoreServicesFramework();
-      v21 = SUUIWeakLinkedSymbolForString("UTTypeCreatePreferredIdentifierForTag", v20);
-      if (v21 && (v22 = v21(v19, v17, 0)) != 0)
+      v18 = pathExtension;
+      v19 = SUUIMobileCoreServicesFramework(pathExtension, v17);
+      v20 = SUUIWeakLinkedSymbolForString("kUTTagClassFilenameExtension", v19);
+      v21 = *v20;
+      v23 = SUUIMobileCoreServicesFramework(v20, v22);
+      v24 = SUUIWeakLinkedSymbolForString("UTTypeCreatePreferredIdentifierForTag", v23);
+      if (v24 && (v25 = v24(v21, v18, 0)) != 0)
       {
-        v23 = v22;
-        v24 = SUUIMobileCoreServicesFramework();
-        v25 = *SUUIWeakLinkedSymbolForString("kUTTagClassMIMEType", v24);
-        v26 = SUUIMobileCoreServicesFramework();
-        v27 = SUUIWeakLinkedSymbolForString("UTTypeCopyPreferredTagWithClass", v26);
-        if (v27)
+        v27 = v25;
+        v28 = SUUIMobileCoreServicesFramework(v25, v26);
+        v29 = SUUIWeakLinkedSymbolForString("kUTTagClassMIMEType", v28);
+        v30 = *v29;
+        v32 = SUUIMobileCoreServicesFramework(v29, v31);
+        v33 = SUUIWeakLinkedSymbolForString("UTTypeCopyPreferredTagWithClass", v32);
+        if (v33)
         {
-          v28 = v27(v23, v25);
+          v34 = v33(v27, v30);
         }
 
         else
         {
-          v28 = 0;
+          v34 = 0;
         }
 
-        CFRelease(v23);
-        CFRelease(v17);
-        if (v28)
+        CFRelease(v27);
+        CFRelease(v18);
+        if (v34)
         {
           goto LABEL_12;
         }
@@ -81,15 +83,15 @@ LABEL_5:
 
       else
       {
-        CFRelease(v17);
+        CFRelease(v18);
       }
     }
 
-    v28 = @"text/xml+itml";
+    v34 = @"text/xml+itml";
 LABEL_12:
     client = [(NSURLProtocol *)self client];
-    v30 = [objc_alloc(MEMORY[0x277CBABA8]) initWithURL:v5 MIMEType:v28 expectedContentLength:objc_msgSend(client2 textEncodingName:{"length"), 0}];
-    [client URLProtocol:self didReceiveResponse:v30 cacheStoragePolicy:2];
+    v36 = [objc_alloc(MEMORY[0x277CBABA8]) initWithURL:v5 MIMEType:v34 expectedContentLength:objc_msgSend(client2 textEncodingName:{"length"), 0}];
+    [client URLProtocol:self didReceiveResponse:v36 cacheStoragePolicy:2];
     [client URLProtocol:self didLoadData:client2];
     [client URLProtocolDidFinishLoading:self];
 
@@ -97,8 +99,8 @@ LABEL_12:
   }
 
   client2 = [(NSURLProtocol *)self client];
-  v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SUUIErrorDomain" code:0 userInfo:0];
-  [client2 URLProtocol:self didFailWithError:v28];
+  v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SUUIErrorDomain" code:0 userInfo:0];
+  [client2 URLProtocol:self didFailWithError:v34];
   v9 = v14;
 LABEL_13:
 

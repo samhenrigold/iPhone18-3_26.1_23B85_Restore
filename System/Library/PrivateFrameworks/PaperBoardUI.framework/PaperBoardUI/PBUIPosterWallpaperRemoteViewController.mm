@@ -22,7 +22,6 @@
 - (id)setWallpaperFloatingLayerContainerView:(id)view forReason:(id)reason withAnimationFactory:(id)factory;
 - (id)succinctDescription;
 - (id)suspendWallpaperAnimationForReason:(id)reason;
-- (uint64_t)updateWallpaperAnimationWithRotation:(_OWORD *)rotation;
 - (void)_addStateCaptureHandlers;
 - (void)_fireObserverRespondingToSelector:(SEL)selector variant:(int64_t)variant block:(id)block;
 - (void)_fireObserversWallpaperDidChange;
@@ -50,6 +49,7 @@
 - (void)setExternalDisplayConfiguration:(id)configuration;
 - (void)setWallpaperConfigurationManager:(id)manager;
 - (void)triggerPosterTapEvent:(id)event;
+- (void)updateWallpaperAnimationWithRotation:(_OWORD *)rotation;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
@@ -447,7 +447,7 @@
 - (void)_legibilityUpdatedForVariants:(id)variants notifyObservers:(BOOL)observers
 {
   observersCopy = observers;
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   variantsCopy = variants;
   if ([variantsCopy count])
   {
@@ -471,95 +471,97 @@
     if (([variantsCopy containsObject:&unk_282FD5CB0] & 1) != 0 || (-[PLKLegibilityEnvironmentBuilder variants](self->_legibilityEnvironmentBuilder, "variants"), v10 = objc_claimAutoreleasedReturnValue(), getPLKLegibilityEnvironmentVariantHomeScreen(), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "containsObject:", v11), v11, v10, (v12 & 1) == 0))
     {
       v13 = [(PBUIPosterWallpaperRemoteViewController *)self legibilityEnvironmentContextForVariant:1];
+      v14 = v13;
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    if (!(v9 | v13))
+    if (!(v9 | v14))
     {
       goto LABEL_33;
     }
 
-    v34 = observersCopy;
+    v35 = observersCopy;
     if (v9)
     {
-      v14 = self->_legibilityEnvironmentBuilder;
-      v15 = MEMORY[0x277CBEB98];
-      v16 = getPLKLegibilityEnvironmentVariantDefault();
-      v17 = getPLKLegibilityEnvironmentVariantLockScreen();
-      v18 = [v15 setWithObjects:{v16, v17, 0}];
-      v19 = [(PLKLegibilityEnvironmentBuilder *)v14 updateWithContext:v9 variants:v18];
+      v15 = self->_legibilityEnvironmentBuilder;
+      v16 = MEMORY[0x277CBEB98];
+      v17 = getPLKLegibilityEnvironmentVariantDefault();
+      v18 = getPLKLegibilityEnvironmentVariantLockScreen();
+      v19 = [v16 setWithObjects:{v17, v18, 0}];
+      v20 = [(PLKLegibilityEnvironmentBuilder *)v15 updateWithContext:v9 variants:v19];
 
-      if (v13)
+      if (v14)
       {
 LABEL_14:
-        v20 = [(PLKLegibilityEnvironmentBuilder *)self->_legibilityEnvironmentBuilder updateWithContext:v13];
+        v13 = [(PLKLegibilityEnvironmentBuilder *)self->_legibilityEnvironmentBuilder updateWithContext:v14];
+        v21 = v13;
 LABEL_17:
-        v21 = v34;
-        if (((v19 | v20) & 1) == 0)
+        v22 = v35;
+        if (((v20 | v21) & 1) == 0)
         {
           goto LABEL_29;
         }
 
-        v22 = PBUILogCommon();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = PBUILogCommon(v13);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          v46 = v19;
-          v47 = 1024;
-          v48 = v20;
-          _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Updating legibility environment; home updated? %{BOOL}u lockUpdated? %{BOOL}u", buf, 0xEu);
+          v47 = v20;
+          v48 = 1024;
+          v49 = v21;
+          _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_DEFAULT, "Updating legibility environment; home updated? %{BOOL}u lockUpdated? %{BOOL}u", buf, 0xEu);
         }
 
-        v23 = [(PLKLegibilityEnvironmentBuilder *)self->_legibilityEnvironmentBuilder buildWithError:0];
-        if (v23)
+        v24 = [(PLKLegibilityEnvironmentBuilder *)self->_legibilityEnvironmentBuilder buildWithError:0];
+        if (v24)
         {
           if ((BSEqualObjects() & 1) == 0)
           {
-            objc_storeStrong(&self->_currentLegibilityEnvironment, v23);
-            if (v34)
+            objc_storeStrong(&self->_currentLegibilityEnvironment, v24);
+            if (v35)
             {
-              v43[0] = MEMORY[0x277D85DD0];
-              v43[1] = 3221225472;
-              v43[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke;
-              v43[3] = &unk_278363A68;
-              v24 = v23;
-              v44 = v24;
-              [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilityEnvironmentDidChange_ variant:1 block:v43];
-              v41[0] = MEMORY[0x277D85DD0];
-              v41[1] = 3221225472;
-              v41[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_2;
-              v41[3] = &unk_278363A68;
+              v44[0] = MEMORY[0x277D85DD0];
+              v44[1] = 3221225472;
+              v44[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke;
+              v44[3] = &unk_278363A68;
               v25 = v24;
-              v21 = v34;
-              v42 = v25;
-              [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilityEnvironmentDidChange_ variant:0 block:v41];
+              v45 = v25;
+              [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilityEnvironmentDidChange_ variant:1 block:v44];
+              v42[0] = MEMORY[0x277D85DD0];
+              v42[1] = 3221225472;
+              v42[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_2;
+              v42[3] = &unk_278363A68;
+              v26 = v25;
+              v22 = v35;
+              v43 = v26;
+              [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilityEnvironmentDidChange_ variant:0 block:v42];
             }
           }
         }
 
-        if (v19)
+        if (v20)
         {
           currentLegibilityEnvironment = self->_currentLegibilityEnvironment;
-          v27 = getPLKLegibilityEnvironmentVariantLockScreen();
-          v28 = [(PLKLegibilityEnvironment *)currentLegibilityEnvironment legibilityEnvironmentContextForVariant:v27];
-          legibilitySettings = [v28 legibilitySettings];
+          v28 = getPLKLegibilityEnvironmentVariantLockScreen();
+          v29 = [(PLKLegibilityEnvironment *)currentLegibilityEnvironment legibilityEnvironmentContextForVariant:v28];
+          legibilitySettings = [v29 legibilitySettings];
 
-          if (v21)
+          if (v22)
           {
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_3;
-            v38[3] = &unk_278363AD0;
-            v39 = legibilitySettings;
-            v40 = 0;
-            [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilitySettingsDidChange_forVariant_ variant:0 block:v38];
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_3;
+            v39[3] = &unk_278363AD0;
+            v40 = legibilitySettings;
+            v41 = 0;
+            [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilitySettingsDidChange_forVariant_ variant:0 block:v39];
           }
 
-          if ((v20 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
             goto LABEL_33;
           }
@@ -568,7 +570,7 @@ LABEL_17:
         else
         {
 LABEL_29:
-          if (!v20)
+          if (!v21)
           {
 LABEL_33:
 
@@ -576,20 +578,20 @@ LABEL_33:
           }
         }
 
-        v30 = self->_currentLegibilityEnvironment;
-        v31 = getPLKLegibilityEnvironmentVariantHomeScreen();
-        v32 = [(PLKLegibilityEnvironment *)v30 legibilityEnvironmentContextForVariant:v31];
-        legibilitySettings2 = [v32 legibilitySettings];
+        v31 = self->_currentLegibilityEnvironment;
+        v32 = getPLKLegibilityEnvironmentVariantHomeScreen();
+        v33 = [(PLKLegibilityEnvironment *)v31 legibilityEnvironmentContextForVariant:v32];
+        legibilitySettings2 = [v33 legibilitySettings];
 
-        if (v21)
+        if (v22)
         {
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_4;
-          v35[3] = &unk_278363AD0;
-          v36 = legibilitySettings2;
-          v37 = 1;
-          [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilitySettingsDidChange_forVariant_ variant:1 block:v35];
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __89__PBUIPosterWallpaperRemoteViewController__legibilityUpdatedForVariants_notifyObservers___block_invoke_4;
+          v36[3] = &unk_278363AD0;
+          v37 = legibilitySettings2;
+          v38 = 1;
+          [(PBUIPosterWallpaperRemoteViewController *)self _fireObserverRespondingToSelector:sel_wallpaperLegibilitySettingsDidChange_forVariant_ variant:1 block:v36];
         }
 
         goto LABEL_33;
@@ -598,14 +600,14 @@ LABEL_33:
 
     else
     {
-      v19 = 0;
-      if (v13)
+      v20 = 0;
+      if (v14)
       {
         goto LABEL_14;
       }
     }
 
-    v20 = 0;
+    v21 = 0;
     goto LABEL_17;
   }
 
@@ -614,12 +616,11 @@ LABEL_34:
 
 - (void)wallpaperConfigurationManager:(id)manager didChangeWallpaperConfigurationForVariants:(int64_t)variants
 {
-  variantsCopy = variants;
   v10 = *MEMORY[0x277D85DE8];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = PBUIStringForWallpaperLocations(variantsCopy);
+    v7 = PBUIStringForWallpaperLocations(variants);
     v8 = 138412290;
     v9 = v7;
     _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Legacy wallpaper changed for %@", &v8, 0xCu);
@@ -749,8 +750,7 @@ LABEL_34:
 
   else
   {
-    [(PBUIPosterWallpaperRemoteViewController *)self _fireObserversWallpaperWillChange];
-    v14 = PBUILogCommon();
+    v14 = PBUILogCommon([(PBUIPosterWallpaperRemoteViewController *)self _fireObserversWallpaperWillChange]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = PBUIStringForWallpaperVariant(variant);
@@ -836,7 +836,7 @@ LABEL_34:
   return v17;
 }
 
-- (uint64_t)updateWallpaperAnimationWithRotation:(_OWORD *)rotation
+- (void)updateWallpaperAnimationWithRotation:(_OWORD *)rotation
 {
   v3 = *(self + 1000);
   v4 = rotation[1];
@@ -1468,7 +1468,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setWallpaperStyleTransitionState:(char *)a1 forPriority:forVariant:withAnimationFactory:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"PBUIWallpaperVariantIsValid(variant)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1476,7 +1476,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PBUIWallpaperVariantIsValid(variant)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1486,7 +1486,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setWallpaperStyleTransitionState:(char *)a1 forPriority:forVariant:withAnimationFactory:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"PBUIWallpaperStylePriorityIsValid(priority)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1494,7 +1494,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PBUIWallpaperStylePriorityIsValid(priority)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1504,7 +1504,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)removeWallpaperStyleForPriority:(char *)a1 forVariant:withAnimationFactory:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"PBUIWallpaperVariantIsValid(variant)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1512,7 +1512,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PBUIWallpaperVariantIsValid(variant)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1522,7 +1522,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)removeWallpaperStyleForPriority:(char *)a1 forVariant:withAnimationFactory:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"PBUIWallpaperStylePriorityIsValid(priority)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1530,7 +1530,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PBUIWallpaperStylePriorityIsValid(priority)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1540,7 +1540,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)suspendWallpaperAnimationForReason:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1548,7 +1548,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1558,7 +1558,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)suspendWallpaperAnimationForReason:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1566,7 +1566,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1576,7 +1576,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setWallpaperFloatingLayerContainerView:(char *)a1 forReason:withAnimationFactory:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"containerView != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1584,7 +1584,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"containerView != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1594,7 +1594,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setWallpaperFloatingLayerContainerView:(char *)a1 forReason:withAnimationFactory:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1602,7 +1602,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"reason != ((void*)0)", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1612,7 +1612,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setConfiguration:(char *)a1 withAnimationSettings:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1620,7 +1620,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1630,7 +1630,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)setConfiguration:(char *)a1 withAnimationSettings:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1638,7 +1638,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1648,7 +1648,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)requireWallpaperWithReason:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1656,7 +1656,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1666,7 +1666,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
 
 - (void)requireWallpaperWithReason:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1674,7 +1674,7 @@ __CFString *__67__PBUIPosterWallpaperRemoteViewController__addStateCaptureHandle
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

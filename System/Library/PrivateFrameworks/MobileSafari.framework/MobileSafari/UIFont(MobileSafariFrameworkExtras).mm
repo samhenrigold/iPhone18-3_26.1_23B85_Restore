@@ -55,7 +55,7 @@
 
 + (id)_sf_preferredFontForTextStyle:()MobileSafariFrameworkExtras symbolicTraits:
 {
-  v5 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:?];
+  v5 = [MEMORY[0x1E69DB880] preferredFontDescriptorWithTextStyle:a3];
   v6 = [v5 fontDescriptorWithSymbolicTraits:{objc_msgSend(v5, "symbolicTraits") | a4}];
 
   v7 = [MEMORY[0x1E69DB878] fontWithDescriptor:v6 size:0.0];

@@ -150,61 +150,61 @@ void __55__ACHRemoteTemplateSource_templatesForDate_completion___block_invoke(ui
 
 void __55__ACHRemoteTemplateSource_templatesForDate_completion___block_invoke_2(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v45 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v67 = *MEMORY[0x277D85DE8];
+  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v48 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+  v2 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v57;
+    v4 = *v56;
     v5 = *MEMORY[0x277CE8D70];
     v6 = *MEMORY[0x277CE8D78];
-    v42 = *MEMORY[0x277CE8D88];
-    v41 = *MEMORY[0x277CE8D90];
+    v41 = *MEMORY[0x277CE8D88];
+    v40 = *MEMORY[0x277CE8D90];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v57 != v4)
+        if (*v56 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v56 + 1) + 8 * i);
+        v8 = *(*(&v55 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         v10 = [v8 attributes];
         v11 = [v10 objectForKeyedSubscript:v5];
 
         if ([v11 isEqualToString:v6])
         {
-          [v45 addObject:v8];
-          [*(a1 + 40) _addAssetVersionsByUniqueNameToDictionary:v43 fromAsset:v8];
+          [v44 addObject:v8];
+          [*(a1 + 40) _addAssetVersionsByUniqueNameToDictionary:v42 fromAsset:v8];
           goto LABEL_13;
         }
 
-        if ([v11 isEqualToString:v42])
+        if ([v11 isEqualToString:v41])
         {
           v12 = *(a1 + 40);
-          v13 = v49;
+          v13 = v48;
         }
 
         else
         {
-          if (![v11 isEqualToString:v41])
+          if (![v11 isEqualToString:v40])
           {
             goto LABEL_13;
           }
 
           v12 = *(a1 + 40);
-          v13 = v44;
+          v13 = v43;
         }
 
         [v12 _addURLsByUniqueNameToDictionary:v13 fromAsset:v8];
@@ -213,7 +213,7 @@ LABEL_13:
         objc_autoreleasePoolPop(v9);
       }
 
-      v3 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+      v3 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
     }
 
     while (v3);
@@ -222,43 +222,43 @@ LABEL_13:
   v14 = ACHLogAssets();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v38 = [v45 count];
-    v39 = [v49 count];
-    v40 = [v44 count];
+    v37 = [v44 count];
+    v38 = [v48 count];
+    v39 = [v43 count];
     *buf = 134218496;
-    v62 = v38;
-    v63 = 2048;
-    v64 = v39;
-    v65 = 2048;
-    v66 = v40;
+    v61 = v37;
+    v62 = 2048;
+    v63 = v38;
+    v64 = 2048;
+    v65 = v39;
     _os_log_debug_impl(&dword_221DDC000, v14, OS_LOG_TYPE_DEBUG, "Available assets: %lu template assets, %lu resource assets, %lu sticker assets", buf, 0x20u);
   }
 
-  [*(a1 + 40) setResourceAssetURLsByUniqueName:v49];
-  [*(a1 + 40) setStickerAssetURLsByUniqueName:v44];
-  [*(a1 + 40) setAssetVersionsByUniqueName:v43];
+  [*(a1 + 40) setResourceAssetURLsByUniqueName:v48];
+  [*(a1 + 40) setStickerAssetURLsByUniqueName:v43];
+  [*(a1 + 40) setAssetVersionsByUniqueName:v42];
   obja = [MEMORY[0x277CBEB58] set];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v46 = v45;
-  v15 = [v46 countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v45 = v44;
+  v15 = [v45 countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v53;
+    v17 = *v52;
     do
     {
       v18 = 0;
       do
       {
-        if (*v53 != v17)
+        if (*v52 != v17)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v45);
         }
 
-        v19 = *(*(&v52 + 1) + 8 * v18);
+        v19 = *(*(&v51 + 1) + 8 * v18);
         v20 = objc_autoreleasePoolPush();
         v21 = [*(a1 + 40) buildVersion];
         v22 = RemoteAchievementTemplateFromTemplateAssetAndBuildVersion();
@@ -267,9 +267,9 @@ LABEL_13:
         if (v22)
         {
           v24 = [v23 backCompatAvailabilityKeyWriter];
-          v51 = 0;
-          v25 = [v24 markTemplateAvailable:v22 error:&v51];
-          v26 = v51;
+          v50 = 0;
+          v25 = [v24 markTemplateAvailable:v22 error:&v50];
+          v26 = v50;
 
           if ((v25 & 1) == 0)
           {
@@ -278,17 +278,17 @@ LABEL_13:
             {
               v32 = [v22 uniqueName];
               *buf = 138543618;
-              v62 = v32;
-              v63 = 2114;
-              v64 = v26;
+              v61 = v32;
+              v62 = 2114;
+              v63 = v26;
               _os_log_error_impl(&dword_221DDC000, v27, OS_LOG_TYPE_ERROR, "Error writing backcompat availability key for template %{public}@: %{public}@", buf, 0x16u);
             }
           }
 
           v28 = [*(a1 + 40) remoteTemplateAvailabilityKeyProvider];
-          v50 = 0;
-          v29 = [v28 markTemplateAvailable:v22 error:&v50];
-          v30 = v50;
+          v49 = 0;
+          v29 = [v28 markTemplateAvailable:v22 error:&v49];
+          v30 = v49;
 
           if ((v29 & 1) == 0)
           {
@@ -297,9 +297,9 @@ LABEL_13:
             {
               v33 = [v22 uniqueName];
               *buf = 138543618;
-              v62 = v33;
-              v63 = 2114;
-              v64 = v30;
+              v61 = v33;
+              v62 = 2114;
+              v63 = v30;
               _os_log_error_impl(&dword_221DDC000, v31, OS_LOG_TYPE_ERROR, "Error writing remote template availability key for template %{public}@: %{public}@", buf, 0x16u);
             }
           }
@@ -309,8 +309,8 @@ LABEL_13:
 
         else
         {
-          [v23 _removeURLsByUniqueNameFromDictionary:v49 fromAsset:v19];
-          [*(a1 + 40) _removeURLsByUniqueNameFromDictionary:v44 fromAsset:v19];
+          [v23 _removeURLsByUniqueNameFromDictionary:v48 fromAsset:v19];
+          [*(a1 + 40) _removeURLsByUniqueNameFromDictionary:v43 fromAsset:v19];
         }
 
         objc_autoreleasePoolPop(v20);
@@ -318,7 +318,7 @@ LABEL_13:
       }
 
       while (v16 != v18);
-      v16 = [v46 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v16 = [v45 countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v16);
@@ -330,8 +330,6 @@ LABEL_13:
 
   v36 = [*(a1 + 40) assetSourceDelegate];
   [v36 templateAssetSourceDidUpdateAssets:*(a1 + 40)];
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stickerBundleURLForTemplate:(id)template

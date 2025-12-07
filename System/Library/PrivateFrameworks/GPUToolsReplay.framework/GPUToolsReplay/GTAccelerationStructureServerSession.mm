@@ -28,9 +28,9 @@ void __51__GTAccelerationStructureServerSession_nextSample___block_invoke(uint64
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
-  if (WeakRetained && *(WeakRetained + 7))
+  if (WeakRetained && WeakRetained[7])
   {
-    GTMTLReplayController_debugSubCommandStop(*(*(WeakRetained + 1) + 8), *(WeakRetained + 4), 0);
+    GTMTLReplayController_debugSubCommandStop(*(WeakRetained[1] + 8), *(WeakRetained + 4), 0);
     v4 = [*(*(v3[1] + 8) + 8) defaultCommandQueue];
     v5 = v3[7];
     v6 = v4;
@@ -258,22 +258,21 @@ void __51__GTAccelerationStructureServerSession_nextSample___block_invoke_4(uint
   transportCopy = transport;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  var1 = client->var1;
-  v16 = objc_alloc_init(GTAccelerationStructureServerSession);
-  v17 = v16;
-  if (v16)
+  v15 = objc_alloc_init(GTAccelerationStructureServerSession);
+  v16 = v15;
+  if (v15)
   {
     if (dCopy)
     {
-      v16->requestID = [dCopy unsignedLongValue];
+      v15->requestID = [dCopy unsignedLongValue];
     }
 
-    v17->_clientContext = client;
-    v17->_functionIndex = index;
-    objc_storeStrong(&v17->_transport, transport);
-    v18 = MEMORY[0x253033CF0](handlerCopy);
-    dataHandler = v17->_dataHandler;
-    v17->_dataHandler = v18;
+    v16->_clientContext = client;
+    v16->_functionIndex = index;
+    objc_storeStrong(&v16->_transport, transport);
+    v17 = MEMORY[0x253033CF0](handlerCopy);
+    dataHandler = v16->_dataHandler;
+    v16->_dataHandler = v17;
 
     operator new();
   }
@@ -282,7 +281,6 @@ void __51__GTAccelerationStructureServerSession_nextSample___block_invoke_4(uint
 void __153__GTAccelerationStructureServerSession_sessionWithReplayClient_functionIndex_requestID_transport_dataHandler_accelerationStructureKey_completionHandler___block_invoke(uint64_t a1)
 {
   NSLog(&cfstr_SessionAddcomp.isa);
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) nextSample:0];
   NSLog(&cfstr_SessionAddcomp_0.isa);

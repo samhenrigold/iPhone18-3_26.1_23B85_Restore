@@ -1,6 +1,7 @@
 @interface IMUnavailabilityIndicatorChatItem
 - (id)_initWithHandle:(id)handle displayNotifyAnywayButton:(BOOL)button;
 - (void)_notifyDelegatesOfStateChange;
+- (void)setDisplayNotifyAnywayButton:(BOOL)button;
 @end
 
 @implementation IMUnavailabilityIndicatorChatItem
@@ -8,60 +9,67 @@
 - (id)_initWithHandle:(id)handle displayNotifyAnywayButton:(BOOL)button
 {
   handleCopy = handle;
-  v20.receiver = self;
-  v20.super_class = IMUnavailabilityIndicatorChatItem;
-  v8 = [(IMChatItem *)&v20 _initWithItem:0];
+  v15.receiver = self;
+  v15.super_class = IMUnavailabilityIndicatorChatItem;
+  v8 = [(IMChatItem *)&v15 _initWithItem:0];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(v8 + 8, handle);
     *(v9 + 56) = button;
-    v12 = objc_msgSend_ID(v9[8], v10, v11);
-    v13 = sub_1A83AC604();
+    v10 = [v9[8] ID];
+    v11 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v9, v14, v13);
-    v17 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], v15, v16);
-    v18 = v9[9];
-    v9[9] = v17;
+    [v9 _setGUID:v11];
+    weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+    v13 = v9[9];
+    v9[9] = weakObjectsHashTable;
   }
 
   return v9;
 }
 
+- (void)setDisplayNotifyAnywayButton:(BOOL)button
+{
+  if (self->_displayNotifyAnywayButton != button)
+  {
+    self->_displayNotifyAnywayButton = button;
+    MEMORY[0x1EEE66B58](self, sel__notifyDelegatesOfStateChange);
+  }
+}
+
 - (void)_notifyDelegatesOfStateChange
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v3 = self->_unavailabilityIndicatorChatItemDelegates;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v15, 16);
-  if (v5)
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
   {
-    v7 = v5;
-    v8 = *v12;
+    v5 = v4;
+    v6 = *v9;
     do
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        objc_msgSend_displayNotifyAnywayButtonStateChanged_(*(*(&v11 + 1) + 8 * v9++), v6, self, v11);
+        [*(*(&v8 + 1) + 8 * v7++) displayNotifyAnywayButtonStateChanged:{self, v8}];
       }
 
-      while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v11, v15, 16);
+      while (v5 != v7);
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
-    while (v7);
+    while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

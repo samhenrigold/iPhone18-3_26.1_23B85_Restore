@@ -7,12 +7,11 @@ void __69__INCreateNoteIntent_ACSCardRequesting___buildCardFromRequest_reply___b
 {
   v4 = MEMORY[0x277CD3E50];
   v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = a2;
-  v8 = objc_opt_class();
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"createdNote.contents[%zd]", a3];
-  v9 = [v4 parameterForClass:v8 keyPath:v10];
-  [v5 setObject:v9 forKey:v7];
+  v6 = a2;
+  v7 = objc_opt_class();
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"createdNote.contents[%zd]", a3];
+  v8 = [v4 parameterForClass:v7 keyPath:v9];
+  [v5 setObject:v8 forKey:v6];
 }
 
 @end

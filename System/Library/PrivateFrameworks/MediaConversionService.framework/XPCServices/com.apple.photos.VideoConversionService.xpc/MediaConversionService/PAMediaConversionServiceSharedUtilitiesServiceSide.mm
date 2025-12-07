@@ -10,6 +10,7 @@
 + (id)emptyGenericCompositionWithAdjustmentForOrientation:(int64_t)orientation;
 + (id)exporterImageOptionsForScaleFactor:(double)factor maximumPixelCount:(int64_t)count metadataPolicy:(id)policy shouldApplyOrientationTransform:(BOOL)transform outputFileType:(id)type;
 + (id)exporterVideoOptionsForScaleFactor:(double)factor maximumPixelCount:(int64_t)count;
++ (id)generatePortraitAdjustmentForURL:(id)l contentType:(id)type orientation:(unsigned int)orientation error:(id *)error;
 + (id)imageDataForPhotosAdjustmentsComposition:(id)composition source:(id)source exporterImageOptions:(id)options outOutputSize:(CGSize *)size job:(id)job;
 + (id)loadCompositionFrom:(id)from formatIdentifier:(id)identifier formatVersion:(id)version secondaryDataURL:(id)l error:(id *)error;
 + (id)scalePolicyForScaleFactor:(double)factor maximumPixelCount:(int64_t)count;
@@ -1046,6 +1047,168 @@ LABEL_11:
   [v5 setObject:v8 forKeyedSubscript:@"PAMediaConversionServiceAdjustmentFormatVersionKey"];
 
   return v5;
+}
+
++ (id)generatePortraitAdjustmentForURL:(id)l contentType:(id)type orientation:(unsigned int)orientation error:(id *)error
+{
+  v6 = *&orientation;
+  lCopy = l;
+  typeCopy = type;
+  v55 = +[PISchema registeredPhotosSchemaIdentifier];
+  v8 = [[NUGenericComposition alloc] initWithIdentifier:v55];
+  identifier = [typeCopy identifier];
+  v10 = [PIPhotoEditHelper imageSourceWithURL:lCopy type:identifier useEmbeddedPreview:0];
+  [v8 setObject:v10 forKeyedSubscript:@"source"];
+
+  [v8 setMediaType:1];
+  v11 = [NUGenericAdjustment alloc];
+  v12 = [[NUIdentifier alloc] initWithName:@"Orientation"];
+  v52 = [v11 initWithIdentifier:v12];
+
+  v13 = [NSNumber numberWithUnsignedInt:v6];
+  [v52 setObject:v13 forKeyedSubscript:@"value"];
+
+  [v8 setObject:v52 forKeyedSubscript:@"orientation"];
+  v14 = [[PIPortraitAutoCalculator alloc] initWithComposition:v8];
+  v15 = [[NUPriority alloc] initWithLevel:1];
+  [v14 setPriority:v15];
+
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = sub_100009318;
+  v78 = sub_100009328;
+  v79 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_100009318;
+  v72 = sub_100009328;
+  v73 = 0;
+  v16 = dispatch_group_create();
+  dispatch_group_enter(v16);
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000111FC;
+  v64[3] = &unk_10003D218;
+  v66 = &v68;
+  v67 = &v74;
+  v17 = v16;
+  v65 = v17;
+  [v14 submit:v64];
+  dispatch_group_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
+  v18 = v69[5];
+  v48 = v14;
+  if (v18)
+  {
+    v19 = v18;
+    v20 = [[PICompositionController alloc] initWithComposition:v8];
+    v49 = [v19 objectForKeyedSubscript:PIDepthInfoKey];
+    v50 = [v19 objectForKeyedSubscript:PIPortraitInfoKey];
+    v21 = [v19 objectForKeyedSubscript:PIPortraitStrengthKey];
+    [v21 floatValue];
+    v23 = v22;
+
+    portraitAdjustmentController = [v20 portraitAdjustmentController];
+    portraitInfo = [portraitAdjustmentController portraitInfo];
+    v46 = portraitAdjustmentController;
+    if (portraitInfo)
+    {
+      v26 = 1;
+    }
+
+    else
+    {
+      v26 = v50 == 0;
+    }
+
+    v27 = !v26;
+
+    if (v27)
+    {
+      v28 = PIPortraitAdjustmentKey;
+      v61[0] = _NSConcreteStackBlock;
+      v61[1] = 3221225472;
+      v61[2] = sub_100011278;
+      v61[3] = &unk_10003D240;
+      v62 = v50;
+      v63 = v23;
+      [v20 modifyAdjustmentWithKey:v28 modificationBlock:v61];
+    }
+
+    v29 = [v19 objectForKeyedSubscript:PIDepthApertureKey];
+    [v29 floatValue];
+    v31 = v30;
+
+    v47 = [v19 objectForKeyedSubscript:PIDepthFocusRectKey];
+    depthAdjustmentController = [v20 depthAdjustmentController];
+    depthInfo = [depthAdjustmentController depthInfo];
+    if (depthInfo)
+    {
+      v34 = 1;
+    }
+
+    else
+    {
+      v34 = v49 == 0;
+    }
+
+    v35 = !v34;
+
+    if (v35)
+    {
+      adjustmentConstants = [v20 adjustmentConstants];
+      pIDepthAdjustmentKey = [adjustmentConstants PIDepthAdjustmentKey];
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = sub_1000112E4;
+      v57[3] = &unk_10003D268;
+      v58 = v49;
+      v60 = v31;
+      v59 = v47;
+      [v20 modifyAdjustmentWithKey:pIDepthAdjustmentKey modificationBlock:v57];
+    }
+
+    composition = [v20 composition];
+    v39 = v75;
+    obj = 0;
+    v40 = [PICompositionSerializer adjustmentInformationForComposition:composition error:&obj];
+    objc_storeStrong(v39 + 5, obj);
+
+    if (v40)
+    {
+      v80[0] = @"PAMediaConversionServiceAdjustmentDataKey";
+      v41 = [v40 objectForKeyedSubscript:PIAssetAdjustmentsDataBlobKey];
+      v81[0] = v41;
+      v80[1] = @"PAMediaConversionServiceAdjustmentFormatIdentifierKey";
+      v42 = [v40 objectForKeyedSubscript:PIAssetAdjustmentsFormatIdentifierKey];
+      v81[1] = v42;
+      v80[2] = @"PAMediaConversionServiceAdjustmentFormatVersionKey";
+      v43 = [v40 objectForKeyedSubscript:PIAssetAdjustmentsFormatVersionKey];
+      v81[2] = v43;
+      v44 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:3];
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+  }
+
+  else
+  {
+    v44 = 0;
+  }
+
+  if (error)
+  {
+    *error = v75[5];
+  }
+
+  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v74, 8);
+
+  return v44;
 }
 
 + (id)emptyGenericCompositionWithAdjustmentForOrientation:(int64_t)orientation

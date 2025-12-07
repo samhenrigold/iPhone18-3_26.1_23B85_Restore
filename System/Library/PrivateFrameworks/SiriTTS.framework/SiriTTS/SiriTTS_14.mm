@@ -18,7 +18,7 @@ void sub_1C308FE00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::nnet1::SharedNceComponent::WriteData(_DWORD *a1, void *a2, int a3, int a4)
+void kaldi::nnet1::SharedNceComponent::WriteData(_DWORD *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v8 = a1 + 34;
   (*(*a1 + 168))(a1);
@@ -27,74 +27,58 @@ void kaldi::nnet1::SharedNceComponent::WriteData(_DWORD *a1, void *a2, int a3, i
   kaldi::CuVectorBase<float>::Write(v8, a2, a3, v9, v10);
 }
 
-uint64_t kaldi::nnet1::SharedNceComponent::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::nnet1::SharedNceComponent::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, uint64_t a5, const char *a6)
 {
-  v8 = *(a1 + 424);
-  if (v8 && (v9 = *(v8 + 16), v9 >= 1))
+  v9 = *(a1 + 424);
+  if (v9 && (v10 = *(v9 + 16), v10 >= 1))
   {
-    kaldi::CuSubMatrix<float>::CuSubMatrix(&v14, a3, 0, *(a3 + 20), 0, v9);
-    kaldi::CuMatrixBase<float>::AddVecToRows(&v14, a1 + 312, v10, v11, v12, 1.0, 0.0);
-    kaldi::CuMatrixBase<float>::AddMatMat(&v14, a2, 111, a1 + 168, 0x70);
-    v14 = &unk_1F42BFE90;
-    v15 = 0u;
+    kaldi::CuSubMatrix<float>::CuSubMatrix(&v15, a3, 0, *(a3 + 20), 0, v10);
+    v11.n128_u32[0] = 1.0;
+    kaldi::CuMatrixBase<float>::AddVecToRows(&v15, a1 + 312, v11, 0.0, v12, v13, v14);
+    kaldi::CuMatrixBase<float>::AddMatMat(&v15, a2, 111, a1 + 168, 0x70);
+    v15 = &unk_1F42BFE90;
     v16 = 0u;
-    return kaldi::CuMatrixBase<float>::~CuMatrixBase(&v14);
+    v17 = 0u;
+    kaldi::CuMatrixBase<float>::~CuMatrixBase();
   }
 
   else
   {
-    kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 136, a3, a4, a5, 1.0, 0.0);
+    a4.n128_u32[0] = 1.0;
+    kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 136, a4, 0.0, a3, a5, a6);
 
-    return kaldi::CuMatrixBase<float>::AddMatMat(a3, a2, 111, a1 + 88, 0x70);
+    kaldi::CuMatrixBase<float>::AddMatMat(a3, a2, 111, a1 + 88, 0x70);
   }
-}
-
-void sub_1C3090008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, __int128 a11, __int128 a12)
-{
-  a10 = &unk_1F42BFE90;
-  a11 = 0u;
-  a12 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a10);
-  _Unwind_Resume(a1);
 }
 
 uint64_t kaldi::nnet1::SharedNceComponent::PropagateFnc(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, const char *a5)
 {
   kaldi::CuVectorBase<float>::CopyFromVec(a3, a1 + 136, a3, a4, a5);
 
-  return kaldi::CuVectorBase<float>::AddMatVec(a3, a1 + 88, 111, a2, v8);
+  return kaldi::CuVectorBase<float>::AddMatVec(a3, a1 + 88, 111, a2, v8, 1.0, 1.0);
 }
 
-uint64_t kaldi::nnet1::SharedNceComponent::BackpropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void kaldi::nnet1::SharedNceComponent::BackpropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = *(a1 + 424);
   if (v7 && (v8 = *(v7 + 16), v8 >= 1))
   {
-    kaldi::CuSubMatrix<float>::CuSubMatrix(&v10, a4, 0, *(a4 + 20), 0, v8);
-    kaldi::CuMatrixBase<float>::AddMatMat(a5, &v10, 111, a1 + 168, 0x6F);
-    v10 = &unk_1F42BFE90;
+    kaldi::CuSubMatrix<float>::CuSubMatrix(&v9, a4, 0, *(a4 + 20), 0, v8);
+    kaldi::CuMatrixBase<float>::AddMatMat(a5, &v9, 111, a1 + 168, 0x6F);
+    v9 = &unk_1F42BFE90;
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
-    return kaldi::CuMatrixBase<float>::~CuMatrixBase(&v10);
+    kaldi::CuMatrixBase<float>::~CuMatrixBase();
   }
 
   else
   {
 
-    return kaldi::CuMatrixBase<float>::AddMatMat(a5, a4, 111, a1 + 88, 0x6F);
+    kaldi::CuMatrixBase<float>::AddMatMat(a5, a4, 111, a1 + 88, 0x6F);
   }
 }
 
-void sub_1C3090190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, __int128 a11, __int128 a12)
-{
-  a10 = &unk_1F42BFE90;
-  a11 = 0u;
-  a12 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t kaldi::nnet1::SharedNceComponent::GetUnitOutputFnc(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int16x4_t a5)
+uint64_t kaldi::nnet1::SharedNceComponent::GetUnitOutputFnc(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int16x4_t a5)
 {
   a5.i32[0] = *(*(a1 + 144) + 4 * a3);
   kaldi::CuVectorBase<float>::Set(a4, a5);
@@ -105,11 +89,11 @@ uint64_t kaldi::nnet1::SharedNceComponent::GetUnitOutputFnc(uint64_t a1, uint64_
 
   v10 = *(a1 + 104);
   v11 = *(a1 + 120);
-  v13[1] = *(a1 + 96) + 4 * (*(a1 + 112) * a3);
+  v13[1] = *(a1 + 96) + 4 * *(a1 + 112) * a3;
   v13[0] = &unk_1F42BFF30;
   v13[2] = v10;
   v13[3] = v11;
-  return kaldi::CuVectorBase<float>::AddMatVec(a4, a2, 111, v13, v9);
+  return kaldi::CuVectorBase<float>::AddMatVec(a4, a2, 111, v13, v9, 1.0, 1.0);
 }
 
 float kaldi::nnet1::SharedNceComponent::GetUnitOutputFnc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
@@ -278,25 +262,22 @@ LABEL_52:
   }
 }
 
-void *kaldi::nnet1::SharedNceComponent::WriteConfig(_DWORD *a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void *kaldi::nnet1::SharedNceComponent::WriteConfig(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "<LearnRateCoef>", a4, a5);
-  v8 = a1[102];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v9, v10);
-  v11 = a1[103];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<GradientNormType>", v12, v13);
-  kaldi::nnet1::Component::TypeToMarker(a1[104], &__p);
-  kaldi::WriteToken(a2, a3, &__p, v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 408));
+  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v8, v9);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 412));
+  kaldi::WriteToken(a2, a3, "<GradientNormType>", v10, v11);
+  kaldi::nnet1::Component::TypeToMarker(*(a1 + 416), &__p);
+  kaldi::WriteToken(a2, a3, &__p, v12, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  kaldi::WriteToken(a2, a3, "<MaxGrad>", v16, v17);
-  v18 = a1[105];
-  return kaldi::WriteBasicType<float>(a2, a3);
+  kaldi::WriteToken(a2, a3, "<MaxGrad>", v14, v15);
+  return kaldi::WriteBasicType<float>(a2, a3, *(a1 + 420));
 }
 
 void sub_1C3090878(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -356,35 +337,35 @@ float kaldi::nnet1::SharedNceComponent::SumParams(kaldi::nnet1::SharedNceCompone
 
 uint64_t kaldi::nnet1::SharedNceComponent::PerturbParams(kaldi::nnet1::SharedNceComponent *this, float a2)
 {
-  kaldi::CuMatrix<float>::CuMatrix(v15, *(this + 27), *(this + 26), 1u, 0, 0);
+  kaldi::CuMatrix<float>::CuMatrix(v15, *(this + 27), *(this + 26), 1, 0, 0);
   kaldi::CuMatrixBase<float>::SetRandn(v15);
-  kaldi::CuMatrixBase<float>::AddMat(this + 88, v15, 111, v4, v5, a2, 1.0);
+  kaldi::CuMatrixBase<float>::AddMat(this + 88, v15, 111, a2, 1.0, v4, v5);
   v6 = *(this + 38);
   v14[0] = &unk_1F42BFF70;
   memset(&v14[1], 0, 24);
   kaldi::CuVector<float>::Resize(v14, v6, 1u, v7, v8);
   kaldi::CuVectorBase<float>::SetRandn(v14);
-  *&v9 = a2;
-  kaldi::CuVectorBase<float>::AddVec(this + 136, v14, v10, v11, v12, v9, 1.0);
+  v9.n128_f32[0] = a2;
+  kaldi::CuVectorBase<float>::AddVec(this + 136, v14, v9, 1.0, v10, v11, v12);
   kaldi::CuVector<float>::~CuVector(v14);
   return kaldi::CuMatrix<float>::~CuMatrix(v15);
 }
 
-void sub_1C3090BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C3090BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
-void *kaldi::nnet1::SharedNceComponent::GetGradient(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, const char *a5)
+void *kaldi::nnet1::SharedNceComponent::GetGradient(uint64_t a1, uint64_t a2, uint64_t a3, char **a4, const char *a5)
 {
   kaldi::Vector<float>::Resize(a4, (*(a1 + 232) * *(a1 + 236)), 0, a4, a5);
 
   return kaldi::VectorBase<float>::CopyRowsFromMat(a4, a1 + 216, v7, v8, v9);
 }
 
-uint64_t kaldi::nnet1::SharedNceComponent::AccumGradients(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::nnet1::SharedNceComponent::AccumGradients(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v5 = *(a1 + 424);
   if (!v5)
@@ -410,12 +391,12 @@ uint64_t kaldi::nnet1::SharedNceComponent::AccumGradients(uint64_t a1, uint64_t 
   }
 
   *(a1 + 248) = a4;
-  kaldi::CuMatrix<float>::Resize(a1 + 216, *(a1 + 188), *(a1 + 184), 3u, 0);
-  kaldi::CuSubMatrix<float>::CuSubMatrix(&v45, a3, 0, *(a3 + 20), 0, v6);
-  kaldi::CuMatrixBase<float>::AddMatMat(a1 + 216, &v45, 112, a2, 0x6F);
+  kaldi::CuMatrix<float>::Resize(a1 + 216, *(a1 + 188), *(a1 + 184), 3, 0);
+  kaldi::CuSubMatrix<float>::CuSubMatrix(&v44, a3, 0, *(a3 + 20), 0, v6);
+  kaldi::CuMatrixBase<float>::AddMatMat(a1 + 216, &v44, 112, a2, 0x6F);
   *(a1 + 368) = a4;
   kaldi::CuVector<float>::Resize(a1 + 344, *(a1 + 328), 3u, v12, v13);
-  kaldi::CuVectorBase<float>::AddRowSumMat(a1 + 344, &v45, v14, v15, v16);
+  kaldi::CuVectorBase<float>::AddRowSumMat(a1 + 344, &v44, 1.0, 0.0, v14, v15, v16);
   *(a1 + 120) = a4;
   *(a1 + 160) = a4;
   v17 = *(a1 + 56);
@@ -444,7 +425,7 @@ uint64_t kaldi::nnet1::SharedNceComponent::AccumGradients(uint64_t a1, uint64_t 
     else if (v21 == 2)
     {
       *(a1 + 296) = a4;
-      kaldi::CuMatrix<float>::Resize(a1 + 264, *(a1 + 236), *(a1 + 232), 1u, 0);
+      kaldi::CuMatrix<float>::Resize(a1 + 264, *(a1 + 236), *(a1 + 232), 1, 0);
       kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(a1 + 216, (a1 + 264), v20, v22, v23, v24);
       *(a1 + 400) = a4;
       kaldi::CuVector<float>::Resize(a1 + 376, *(a1 + 360), 1u, v25, v26);
@@ -452,49 +433,39 @@ uint64_t kaldi::nnet1::SharedNceComponent::AccumGradients(uint64_t a1, uint64_t 
     }
   }
 
-  kaldi::CuSubMatrix<float>::CuSubMatrix(&v42, *(a1 + 424), v6);
-  kaldi::CuMatrixBase<float>::AddIndexedRows(a1 + 88, &v42, a1 + 216, v30, v31, -(v17 * *(a1 + 408)));
-  kaldi::CuSubMatrix<float>::CuSubMatrix(&v39, a1 + 136, *(a1 + 12));
+  kaldi::CuSubMatrix<float>::CuSubMatrix(&v41, *(a1 + 424), v6);
+  kaldi::CuMatrixBase<float>::AddIndexedRows(a1 + 88, &v41, a1 + 216, v30, v31, -(v17 * *(a1 + 408)));
+  kaldi::CuSubMatrix<float>::CuSubMatrix(&v38, a1 + 136, *(a1 + 12));
   v32 = *(a1 + 412);
-  kaldi::CuSubMatrix<float>::CuSubMatrix(&v36, a1 + 344, v6);
-  kaldi::CuMatrixBase<float>::AddIndexedRows(&v39, &v42, &v36, v33, v34, v32 * -v17);
-  v36 = &unk_1F42BFE90;
+  kaldi::CuSubMatrix<float>::CuSubMatrix(&v35, a1 + 344, v6);
+  kaldi::CuMatrixBase<float>::AddIndexedRows(&v38, &v41, &v35, v33, v34, v32 * -v17);
+  v35 = &unk_1F42BFE90;
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&v36);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   *(a1 + 424) = 0;
-  v39 = &unk_1F42BFE90;
+  v38 = &unk_1F42BFE90;
+  v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&v39);
-  v42 = &unk_1F42BFE90;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  v41 = &unk_1F42BFE90;
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&v42);
-  v45 = &unk_1F42BFE90;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  v44 = &unk_1F42BFE90;
+  v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  return kaldi::CuMatrixBase<float>::~CuMatrixBase(&v45);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
 }
 
-void sub_1C3090F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, __int128 a10, __int128 a11, void *a12, __int128 a13, __int128 a14, void *a15, __int128 a16, __int128 a17, void *a18)
+void sub_1C3090F94(_Unwind_Exception *a1)
 {
-  a9 = &unk_1F42BFE90;
-  a10 = 0u;
-  a11 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a9);
-  a12 = &unk_1F42BFE90;
-  a13 = 0u;
-  a14 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a12);
-  a15 = &unk_1F42BFE90;
-  a16 = 0u;
-  a17 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a15);
-  a18 = &unk_1F42BFE90;
-  *(v18 + 8) = 0u;
-  *(v18 + 24) = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a18);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  *(v1 + 8) = 0u;
+  *(v1 + 24) = 0u;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   _Unwind_Resume(a1);
 }
 
@@ -528,49 +499,49 @@ uint64_t kaldi::nnet1::WordVecComponent::CountZeroCorr(kaldi::nnet1::WordVecComp
 
 uint64_t kaldi::nnet1::WordVecComponent::Info(kaldi::nnet1::WordVecComponent *this)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  (*(*this + 168))(this, &v8, 0);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "\n WordVec table", 15);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  (*(*this + 168))(this, &v9, 0);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "\n WordVec table", 15);
   kaldi::nnet1::MomentStatistics<float>(this + 96);
-  if ((v7 & 0x80u) == 0)
+  if ((v8 & 0x80u) == 0)
   {
-    v3 = __p;
+    v4 = __p;
   }
 
   else
   {
-    v3 = __p[0];
+    v4 = __p[0];
   }
 
-  if ((v7 & 0x80u) == 0)
+  if ((v8 & 0x80u) == 0)
   {
-    v4 = v7;
+    v5 = v8;
   }
 
   else
   {
-    v4 = __p[1];
+    v5 = __p[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v3, v4);
-  if (v7 < 0)
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v4, v5);
+  if (v8 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::stringbuf::str();
-  v8 = *MEMORY[0x1E69E54E8];
-  *(&v8 + *(v8 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v9 = MEMORY[0x1E69E5548] + 16;
-  if (v11 < 0)
+  v9 = *MEMORY[0x1E69E54E8];
+  *(&v9 + *(v9 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v10 = MEMORY[0x1E69E5548] + 16;
+  if (v12 < 0)
   {
-    operator delete(v10[7].__locale_);
+    operator delete(v11[7].__locale_);
   }
 
-  v9 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v10);
+  v10 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v11);
   std::ostream::~ostream();
-  return MEMORY[0x1C692AD30](&v12);
+  return MEMORY[0x1C692AD30](&v13);
 }
 
 void sub_1C30913BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -584,7 +555,7 @@ void sub_1C30913BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void kaldi::nnet1::WordVecComponent::InitData(unsigned int *a1, uint64_t *a2, kaldi::UniformRandomNumber *a3)
+void kaldi::nnet1::WordVecComponent::InitData(unsigned int *a1, void *a2, kaldi::UniformRandomNumber *a3)
 {
   v67 = 1036831949;
   kaldi::nnet1::Component::TypeToMarker(2, &v66);
@@ -619,7 +590,7 @@ void kaldi::nnet1::WordVecComponent::InitData(unsigned int *a1, uint64_t *a2, ka
 
           v25 = v63[0] == 0x6461724778614D3CLL && LOBYTE(v63[1]) == 62;
 LABEL_91:
-          v21 = (a1 + 61);
+          v21 = a1 + 61;
           if (!v25)
           {
             goto LABEL_155;
@@ -713,7 +684,7 @@ LABEL_114:
 
           v11 = *v63[0] == 0x69536261636F563CLL && *(v63[0] + 3) == 0x3E657A6953626163;
 LABEL_18:
-          v12 = (a1 + 62);
+          v12 = a1 + 62;
           if (!v11)
           {
             goto LABEL_155;
@@ -787,7 +758,7 @@ LABEL_116:
   {
     v26 = *v63[0] == 0x61526E7261654C3CLL && *(v63[0] + 7) == 0x3E66656F43657461;
 LABEL_96:
-    v21 = (a1 + 65);
+    v21 = a1 + 65;
     if (!v26)
     {
       goto LABEL_155;
@@ -806,7 +777,7 @@ LABEL_28:
   v15 = *v13;
   v14 = v13[1];
   v16 = v15 == 0x5372656C6C69463CLL && v14 == 0x3E64496C6F626D79;
-  v12 = (a1 + 63);
+  v12 = a1 + 63;
   if (v16)
   {
 LABEL_105:
@@ -891,7 +862,7 @@ LABEL_127:
   }
 
   kaldi::GaussRandomNumber::GaussRandomNumber(v59, a3);
-  kaldi::CuMatrix<float>::Resize((a1 + 24), a1[62], a1[64], 1u, 0);
+  kaldi::CuMatrix<float>::Resize((a1 + 24), a1[62], a1[64], 1, 0);
   kaldi::Matrix<float>::Matrix(v57, a1[62], a1[64], 0, 0);
   v41 = *v8;
   if (*v8 < 1)
@@ -1005,7 +976,7 @@ void sub_1C3091CAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::nnet1::WordVecComponent::WriteData(uint64_t a1, void *a2, int a3, int a4)
+uint64_t kaldi::nnet1::WordVecComponent::WriteData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a1 + 96;
   (*(*a1 + 168))(a1);
@@ -1032,7 +1003,7 @@ uint64_t kaldi::nnet1::WordVecComponent::ReadData(_DWORD *a1, uint64_t *a2, uint
     kaldi::ReadToken(a2, a3, &v36, v7, v8);
     if (SHIBYTE(v37) < 0)
     {
-      if (*(&v36 + 1) != 11 || (*v36 == 0x69536261636F563CLL ? (v13 = *(v36 + 3) == 0x3E657A6953626163) : (v13 = 0), v14 = (a1 + 62), !v13))
+      if (*(&v36 + 1) != 11 || (*v36 == 0x69536261636F563CLL ? (v13 = *(v36 + 3) == 0x3E657A6953626163) : (v13 = 0), v14 = a1 + 62, !v13))
       {
         if (*(&v36 + 1) == 15)
         {
@@ -1073,7 +1044,7 @@ LABEL_56:
         v24 = *v20;
         v23 = v20[1];
         v25 = v24 == 0x5372656C6C69463CLL && v23 == 0x3E64496C6F626D79;
-        v14 = (a1 + 63);
+        v14 = a1 + 63;
         if (!v25)
         {
           goto LABEL_75;
@@ -1172,7 +1143,7 @@ LABEL_75:
       }
 
       v21 = v36 == 0x69536261636F563CLL && *(&v36 + 3) == 0x3E657A6953626163;
-      v14 = (a1 + 62);
+      v14 = a1 + 62;
       if (!v21)
       {
         goto LABEL_75;
@@ -1209,26 +1180,24 @@ LABEL_68:
   return result;
 }
 
-uint64_t kaldi::nnet1::WordVecComponent::WriteConfig(unsigned int *a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void *kaldi::nnet1::WordVecComponent::WriteConfig(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "<VocabSize>", a4, a5);
-  kaldi::WriteBasicType<int>(a2, a3, a1[62]);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 248));
   kaldi::WriteToken(a2, a3, "<LearnRateCoef>", v8, v9);
-  v10 = a1[65];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<GradientNormType>", v11, v12);
-  kaldi::nnet1::Component::TypeToMarker(a1[60], &__p);
-  kaldi::WriteToken(a2, a3, &__p, v13, v14);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 260));
+  kaldi::WriteToken(a2, a3, "<GradientNormType>", v10, v11);
+  kaldi::nnet1::Component::TypeToMarker(*(a1 + 240), &__p);
+  kaldi::WriteToken(a2, a3, &__p, v12, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  kaldi::WriteToken(a2, a3, "<MaxGrad>", v15, v16);
-  v17 = a1[61];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<FillerSymbolId>", v18, v19);
-  return kaldi::WriteBasicType<int>(a2, a3, a1[63]);
+  kaldi::WriteToken(a2, a3, "<MaxGrad>", v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 244));
+  kaldi::WriteToken(a2, a3, "<FillerSymbolId>", v16, v17);
+  return kaldi::WriteBasicType<int>(a2, a3, *(a1 + 252));
 }
 
 void sub_1C30923CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1241,7 +1210,7 @@ void sub_1C30923CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *kaldi::nnet1::WordVecComponent::GetParams(uint64_t a1, void **a2)
+void *kaldi::nnet1::WordVecComponent::GetParams(uint64_t a1, char **a2)
 {
   v3 = a1 + 96;
   v4 = (*(*a1 + 176))(a1);
@@ -1263,13 +1232,13 @@ void **kaldi::nnet1::WordVecComponent::SetParams(uint64_t a1, uint64_t a2)
 
 uint64_t kaldi::nnet1::WordVecComponent::PerturbParams(kaldi::nnet1::WordVecComponent *this, float a2)
 {
-  kaldi::CuMatrix<float>::CuMatrix(v7, *(this + 29), *(this + 28), 1u, 0, 0);
+  kaldi::CuMatrix<float>::CuMatrix(v7, *(this + 29), *(this + 28), 1, 0, 0);
   kaldi::CuMatrixBase<float>::SetRandn(v7);
-  kaldi::CuMatrixBase<float>::AddMat(this + 96, v7, 111, v4, v5, a2, 1.0);
+  kaldi::CuMatrixBase<float>::AddMat(this + 96, v7, 111, a2, 1.0, v4, v5);
   return kaldi::CuMatrix<float>::~CuMatrix(v7);
 }
 
-void *kaldi::nnet1::WordVecComponent::GetGradient(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, const char *a5)
+void *kaldi::nnet1::WordVecComponent::GetGradient(uint64_t a1, uint64_t a2, uint64_t a3, char **a4, const char *a5)
 {
   kaldi::Vector<float>::Resize(a4, (*(a3 + 16) * *(a3 + 20)), 1, a4, a5);
 
@@ -1322,7 +1291,7 @@ void kaldi::nnet1::WordVecComponent::AccumGradients(uint64_t a1, uint64_t a2, ui
 
       v15 = v10 * v14;
       *(a1 + 224) = a4;
-      kaldi::CuMatrix<float>::Resize(a1 + 192, *(a1 + 164), *(a1 + 160), 1u, 0);
+      kaldi::CuMatrix<float>::Resize(a1 + 192, *(a1 + 164), *(a1 + 160), 1, 0);
       kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(a1 + 144, (a1 + 192), v15, v16, v17, v18);
     }
 
@@ -1350,37 +1319,37 @@ void kaldi::nnet1::WordVecComponent::AccumGradients(uint64_t a1, uint64_t a2, ui
     if (*(a1 + 320) == *(a1 + 312))
     {
       kaldi::CuMatrix<float>::Resize(a1 + 264, *(a1 + 116), *(a1 + 112), 0, 0);
-      kaldi::nnet1::QuantizerResidualAggregator::PushSetup((a1 + 312), a1 + 264);
+      kaldi::nnet1::QuantizerResidualAggregator::PushSetup((a1 + 312), a1 + 264, v20, v21, v22, v23);
     }
 
     *(a1 + 296) = a4;
     kaldi::CuMatrixBase<float>::SetZero(a1 + 264);
-    kaldi::CuMatrixBase<float>::AddIndexedRows(a1 + 264, a2, v11, v20, v21, 1.0);
-    kaldi::nnet1::QuantizerResidualAggregator::Quantize((a1 + 312), *(a1 + 76), v19, v22, v23, v24);
+    kaldi::CuMatrixBase<float>::AddIndexedRows(a1 + 264, a2, v11, v24, v25, 1.0);
+    kaldi::nnet1::QuantizerResidualAggregator::Quantize((a1 + 312), *(a1 + 76), v19, v26, v27, v28);
     *(a1 + 128) = a4;
-    kaldi::CuMatrixBase<float>::AddMat(a1 + 96, a1 + 264, 111, v25, v26, -(v9 * *(a1 + 260)), 1.0);
+    kaldi::CuMatrixBase<float>::AddMat(a1 + 96, a1 + 264, 111, -(v9 * *(a1 + 260)), 1.0, v29, v30);
   }
 
-  v28 = *(a1 + 252);
-  if ((v28 & 0x80000000) == 0)
+  v32 = *(a1 + 252);
+  if ((v32 & 0x80000000) == 0)
   {
-    if (v28 >= *(a1 + 248))
+    if (v32 >= *(a1 + 248))
     {
-      kaldi::KaldiAssertFailure_("AccumGradients", "../engine/common/libquasar/libkaldi/src/nnet/nnet-word-vec-component.h", 0x125, "filler_id_ < voc_size_", v27);
+      kaldi::KaldiAssertFailure_("AccumGradients", "../engine/common/libquasar/libkaldi/src/nnet/nnet-word-vec-component.h", 0x125, "filler_id_ < voc_size_", v31);
     }
 
-    if (*(a1 + 116) <= v28)
+    if (*(a1 + 116) <= v32)
     {
-      kaldi::KaldiAssertFailure_("Row", "../engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.h", 0x22A, "static_cast<UnsignedMatrixIndexT>(i) < static_cast<UnsignedMatrixIndexT>(num_rows_)", v27);
+      kaldi::KaldiAssertFailure_("Row", "../engine/common/libquasar/libkaldi/src/cudamatrix/cu-matrix.h", 0x22A, "static_cast<UnsignedMatrixIndexT>(i) < static_cast<UnsignedMatrixIndexT>(num_rows_)", v31);
     }
 
-    v29 = *(a1 + 112);
-    v30 = *(a1 + 128);
-    v31[1] = *(a1 + 104) + 4 * (*(a1 + 120) * v28);
-    v31[0] = &unk_1F42BFF30;
-    v31[2] = v29;
-    v31[3] = v30;
-    kaldi::CuVectorBase<float>::SetZero(v31);
+    v33 = *(a1 + 112);
+    v34 = *(a1 + 128);
+    v35[1] = *(a1 + 104) + 4 * (*(a1 + 120) * v32);
+    v35[0] = &unk_1F42BFF30;
+    v35[2] = v33;
+    v35[3] = v34;
+    kaldi::CuVectorBase<float>::SetZero(v35);
   }
 }
 
@@ -1403,9 +1372,9 @@ void kaldi::nnet1::WordVecComponent::SetGradientNormalization(uint64_t a1, int a
   }
 }
 
-void sub_1C30929D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C30929D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -1418,26 +1387,17 @@ void sub_1C3092AC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::nnet1::FofeWordVecComponent::PropagateFnc(kaldi::nnet1::FofeWordVecComponent *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void kaldi::nnet1::FofeWordVecComponent::PropagateFnc(kaldi::nnet1::FofeWordVecComponent *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = *(a2 + 20);
   kaldi::nnet1::FofeWordVecComponent::Prepare(a1, v8);
   kaldi::nnet1::WordVecComponent::PropagateFnc(a1, a2, a1 + 440, a4, v9);
-  kaldi::CuSubMatrix<float>::CuSubMatrix(&v11, a1 + 392, 0, 1, (*(a1 + 102) - v8), v8);
-  kaldi::CuMatrixBase<float>::AddMatMat(a3, &v11, 111, a1 + 440, 0x6F);
-  v11 = &unk_1F42BFE90;
+  kaldi::CuSubMatrix<float>::CuSubMatrix(&v10, a1 + 392, 0, 1, (*(a1 + 102) - v8), v8);
+  kaldi::CuMatrixBase<float>::AddMatMat(a3, &v10, 111, a1 + 440, 0x6F);
+  v10 = &unk_1F42BFE90;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  return kaldi::CuMatrixBase<float>::~CuMatrixBase(&v11);
-}
-
-void sub_1C3092BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, __int128 a11, __int128 a12)
-{
-  a10 = &unk_1F42BFE90;
-  a11 = 0u;
-  a12 = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a10);
-  _Unwind_Resume(a1);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
 }
 
 void kaldi::nnet1::FofeWordVecComponent::AccumGradients()
@@ -1450,7 +1410,7 @@ void kaldi::nnet1::FofeWordVecComponent::AccumGradients()
   }
 }
 
-void kaldi::nnet1::AffineTransform::AffineTransform(kaldi::nnet1::AffineTransform *this, int a2, int a3)
+void kaldi::nnet1::AffineTransform::AffineTransform(kaldi::nnet1::AffineTransform *this, uint64_t a2, uint64_t a3)
 {
   *(this + 2) = a2;
   *(this + 3) = a3;
@@ -1969,7 +1929,7 @@ void sub_1C3093C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -2378,7 +2338,6 @@ uint64_t std::istringstream::~istringstream(uint64_t a1, uint64_t *a2)
 
 uint64_t kaldi::nnet1::RelaxedSoftmax::RelaxedSoftmax(uint64_t this, int a2, int a3, float a4)
 {
-  v4 = this;
   *(this + 8) = a2;
   *(this + 12) = a3;
   *(this + 16) = 0;
@@ -2389,11 +2348,10 @@ uint64_t kaldi::nnet1::RelaxedSoftmax::RelaxedSoftmax(uint64_t this, int a2, int
   *(this + 48) = a4;
   if (a4 <= 0.0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v6, "RelaxedSoftmax", "../engine/common/libquasar/libkaldi/src/nnet/nnet-activation.h", 56);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Relaxation factor must be positive; found: ", 43);
-    v5 = *(v4 + 48);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "RelaxedSoftmax", "../engine/common/libquasar/libkaldi/src/nnet/nnet-activation.h", 56);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "Relaxation factor must be positive; found: ", 43);
     std::ostream::operator<<();
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
   }
 
   return this;
@@ -2421,16 +2379,16 @@ kaldi::nnet1::BlockSoftmax *kaldi::nnet1::BlockSoftmax::BlockSoftmax(kaldi::nnet
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C1790;
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 48, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 6, *(a2 + 6), *(a2 + 7), (*(a2 + 7) - *(a2 + 6)) >> 2);
   *(this + 9) = 0;
   *(this + 10) = 0;
   *(this + 11) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 9, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 2);
   return this;
 }
 
@@ -2456,7 +2414,7 @@ void sub_1C3094C34(_Unwind_Exception *exception_object)
 
 void kaldi::ReadIntegerVector<int>(void *a1, int a2, std::vector<int> *a3, uint64_t a4, char *a5, void *a6, void *a7)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
     kaldi::KaldiAssertFailure_("ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 0x109, "v != NULL", a5);
@@ -2472,28 +2430,28 @@ void kaldi::ReadIntegerVector<int>(void *a1, int a2, std::vector<int> *a3, uint6
     v13 = std::istream::peek();
     if (v13 != 4)
     {
-      v23 = v13;
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 274);
-      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "ReadIntegerVector: expected to see type of size ", 48);
-      v25 = MEMORY[0x1C692A980](v24, 4);
-      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ", saw instead ", 14);
-      v27 = MEMORY[0x1C692A960](v26, v23);
-      v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, ", at file position ", 19);
+      v21 = v13;
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v36, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 274);
+      v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "ReadIntegerVector: expected to see type of size ", 48);
+      v23 = MEMORY[0x1C692A980](v22, 4);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ", saw instead ", 14);
+      v25 = MEMORY[0x1C692A960](v24, v21);
+      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ", at file position ", 19);
       std::istream::tellg();
-      MEMORY[0x1C692A9A0](v28, v37);
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v38);
+      MEMORY[0x1C692A9A0](v26, v35);
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v36);
     }
 
     std::istream::get();
-    LODWORD(__sz) = 0;
+    __sz[0] = 0;
     std::istream::read();
     if ((*(a1 + *(*a1 - 24) + 32) & 5) == 0)
     {
-      v14 = __sz;
-      v15 = __sz;
+      v14 = __sz[0];
+      v15 = __sz[0];
       if (a7)
       {
-        *a7 = __sz;
+        *a7 = __sz[0];
       }
 
       if (a4 && (a5 ? (v16 = v14 < 0) : (v16 = 0), !v16 ? (v17 = 0) : (v17 = 1), a6 || v17))
@@ -2501,13 +2459,13 @@ void kaldi::ReadIntegerVector<int>(void *a1, int a2, std::vector<int> *a3, uint6
         if (v17)
         {
           std::istream::tellg();
-          *a5 = a4 + v39;
+          *a5 = a4 + v37;
         }
 
         else if (a6)
         {
           std::istream::tellg();
-          *a6 = a4 + v39;
+          *a6 = a4 + v37;
         }
 
         std::istream::seekg();
@@ -2518,9 +2476,8 @@ void kaldi::ReadIntegerVector<int>(void *a1, int a2, std::vector<int> *a3, uint6
       else
       {
         std::vector<float>::resize(a3, v15);
-        if (__sz >= 1)
+        if (__sz[0] >= 1)
         {
-          begin = a3->__begin_;
           std::istream::read();
         }
       }
@@ -2528,55 +2485,55 @@ void kaldi::ReadIntegerVector<int>(void *a1, int a2, std::vector<int> *a3, uint6
       goto LABEL_38;
     }
 
-LABEL_40:
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 341);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "ReadIntegerVector: read failure at file position ", 49);
+LABEL_39:
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v36, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 341);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "ReadIntegerVector: read failure at file position ", 49);
     std::istream::tellg();
-    MEMORY[0x1C692A9A0](v22, v37);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v38);
+    MEMORY[0x1C692A9A0](v20, v35);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v36);
   }
 
   __p = 0;
-  v34 = 0;
-  v35 = 0;
+  v32 = 0;
+  v33 = 0;
   std::ws[abi:ne200100]<char,std::char_traits<char>>(a1);
   if (std::istream::peek() != 91)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v38, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 311);
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "ReadIntegerVector: expected to see [, saw ", 42);
-    v30 = std::istream::peek();
-    v31 = MEMORY[0x1C692A960](v29, v30);
-    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ", at file position ", 19);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v36, "ReadIntegerVector", "../engine/common/libquasar/libkaldi/src/base/io-funcs-inl.h", 311);
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "ReadIntegerVector: expected to see [, saw ", 42);
+    v28 = std::istream::peek();
+    v29 = MEMORY[0x1C692A960](v27, v28);
+    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ", at file position ", 19);
     std::istream::tellg();
-    MEMORY[0x1C692A9A0](v32, v37);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v38);
+    MEMORY[0x1C692A9A0](v30, v35);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v36);
   }
 
   std::istream::get();
   std::ws[abi:ne200100]<char,std::char_traits<char>>(a1);
   while (1)
   {
-    v19 = std::istream::peek();
-    if (v19 == 93)
+    v18 = std::istream::peek();
+    if (v18 == 93)
     {
       break;
     }
 
-    LODWORD(v38[0]) = 0;
-    v20 = MEMORY[0x1C692A880](a1, v38);
-    std::ws[abi:ne200100]<char,std::char_traits<char>>(v20);
+    LODWORD(v36[0]) = 0;
+    v19 = MEMORY[0x1C692A880](a1, v36);
+    std::ws[abi:ne200100]<char,std::char_traits<char>>(v19);
     if ((*(a1 + *(*a1 - 24) + 32) & 5) != 0)
     {
       goto LABEL_29;
     }
 
-    std::vector<int>::push_back[abi:ne200100](&__p, v38);
+    std::vector<int>::push_back[abi:ne200100](&__p, v36);
   }
 
   std::istream::get();
   if (&__p != a3)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(a3, __p, v34, (v34 - __p) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(a3, __p, v32, (v32 - __p) >> 2);
   }
 
   if (a7)
@@ -2587,22 +2544,20 @@ LABEL_40:
 LABEL_29:
   if (__p)
   {
-    v34 = __p;
+    v32 = __p;
     operator delete(__p);
   }
 
-  if (v19 != 93)
+  if (v18 != 93)
   {
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
 LABEL_38:
   if ((*(a1 + *(*a1 - 24) + 32) & 5) != 0)
   {
-    goto LABEL_40;
+    goto LABEL_39;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C30950DC(void *a1, int a2)
@@ -2698,7 +2653,7 @@ void std::vector<int>::shrink_to_fit(std::vector<int> *this)
   }
 }
 
-uint64_t kaldi::WriteIntegerByteArray<int>(void *a1, int a2, int a3, uint64_t a4, unsigned int *a5)
+void *kaldi::WriteIntegerByteArray<int>(void *a1, int a2, int a3, uint64_t a4, unsigned int *a5)
 {
   if (a2)
   {
@@ -2894,9 +2849,9 @@ LABEL_18:
   return v13;
 }
 
-void sub_1C309574C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C309574C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2910,22 +2865,22 @@ kaldi::nnet1::AddShift *kaldi::nnet1::AddShift::AddShift(kaldi::nnet1::AddShift 
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
   *(this + 71) = *(a2 + 71);
   *(this + 56) = v5;
   *this = &unk_1F42C1668;
-  kaldi::CuVector<float>::CuVector(this + 88, a2 + 88, v6, v7, v8);
+  kaldi::CuVector<float>::CuVector(this + 11, a2 + 88, v6, v7, v8);
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 120, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 15, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 5);
   *(this + 18) = 0;
   *(this + 19) = 0;
   *(this + 20) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 144, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 18, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 5);
   v9 = *(a2 + 21);
   v10 = *(a2 + 44);
   *(this + 23) = 0;
@@ -2933,28 +2888,28 @@ kaldi::nnet1::AddShift *kaldi::nnet1::AddShift::AddShift(kaldi::nnet1::AddShift 
   *(this + 21) = v9;
   *(this + 24) = 0;
   *(this + 25) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 184, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 23, *(a2 + 23), *(a2 + 24), (*(a2 + 24) - *(a2 + 23)) >> 2);
   *(this + 208) = *(a2 + 208);
   return this;
 }
 
-void sub_1C30958CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C30958CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuVector<float>::~CuVector(v2 + 11);
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::CuVector<float>::~CuVector(v3 + 11);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_1C3095A64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3095A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   kaldi::Vector<float>::Destroy(va);
   kaldi::CuVector<float>::~CuVector(va1);
   _Unwind_Resume(a1);
@@ -3015,22 +2970,22 @@ kaldi::nnet1::Rescale *kaldi::nnet1::Rescale::Rescale(kaldi::nnet1::Rescale *thi
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
   *(this + 71) = *(a2 + 71);
   *(this + 56) = v5;
   *this = &unk_1F42C2A40;
-  kaldi::CuVector<float>::CuVector(this + 88, a2 + 88, v6, v7, v8);
+  kaldi::CuVector<float>::CuVector(this + 11, a2 + 88, v6, v7, v8);
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 120, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 15, *(a2 + 15), *(a2 + 16), (*(a2 + 16) - *(a2 + 15)) >> 5);
   *(this + 18) = 0;
   *(this + 19) = 0;
   *(this + 20) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 144, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 18, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 5);
   kaldi::CuMatrix<float>::CuMatrix(this + 168, a2 + 168, 111);
   v9 = *(a2 + 27);
   v10 = *(a2 + 56);
@@ -3039,19 +2994,19 @@ kaldi::nnet1::Rescale *kaldi::nnet1::Rescale::Rescale(kaldi::nnet1::Rescale *thi
   *(this + 27) = v9;
   *(this + 30) = 0;
   *(this + 31) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 232, *(a2 + 29), *(a2 + 30), (*(a2 + 30) - *(a2 + 29)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 29, *(a2 + 29), *(a2 + 30), (*(a2 + 30) - *(a2 + 29)) >> 2);
   *(this + 256) = *(a2 + 256);
   return this;
 }
 
-void sub_1C3095CF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3095CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 168);
+  va_start(va, a3);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 168);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuVector<float>::~CuVector(v2 + 11);
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::CuVector<float>::~CuVector(v3 + 11);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3110,18 +3065,18 @@ kaldi::nnet1::Rbm *kaldi::nnet1::Rbm::Rbm(kaldi::nnet1::Rbm *this, const kaldi::
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C3BC0;
   v5 = *(a2 + 3);
   *(this + 8) = *(a2 + 8);
   *(this + 3) = v5;
   *this = &unk_1F42C25B8;
   kaldi::CuMatrix<float>::CuMatrix(this + 72, a2 + 72, 111);
-  kaldi::CuVector<float>::CuVector(this + 120, a2 + 120, v6, v7, v8);
-  kaldi::CuVector<float>::CuVector(this + 152, a2 + 152, v9, v10, v11);
+  kaldi::CuVector<float>::CuVector(this + 15, a2 + 120, v6, v7, v8);
+  kaldi::CuVector<float>::CuVector(this + 19, a2 + 152, v9, v10, v11);
   kaldi::CuMatrix<float>::CuMatrix(this + 184, a2 + 184, 111);
-  kaldi::CuVector<float>::CuVector(this + 232, a2 + 232, v12, v13, v14);
-  kaldi::CuVector<float>::CuVector(this + 264, a2 + 264, v15, v16, v17);
+  kaldi::CuVector<float>::CuVector(this + 29, a2 + 232, v12, v13, v14);
+  kaldi::CuVector<float>::CuVector(this + 33, a2 + 264, v15, v16, v17);
   *(this + 37) = *(a2 + 37);
   return this;
 }
@@ -3201,7 +3156,7 @@ kaldi::nnet1::Recurrent *kaldi::nnet1::Recurrent::Recurrent(kaldi::nnet1::Recurr
   *(this + 69) = 0;
   *(this + 71) = 0;
   *(this + 70) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 552, *(v4 + 3), *(v4 + 4), (*(v4 + 4) - *(v4 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 69, *(v4 + 3), *(v4 + 4), (*(v4 + 4) - *(v4 + 3)) >> 3);
   *(this + 66) = &unk_1F42C2E78;
   *(this + 72) = &unk_1F42CB198;
   v6 = *(v4 + 56);
@@ -3211,60 +3166,60 @@ kaldi::nnet1::Recurrent *kaldi::nnet1::Recurrent::Recurrent(kaldi::nnet1::Recurr
   *this = &unk_1F42C26A8;
   *(this + 66) = &unk_1F42C28F8;
   kaldi::CuMatrix<float>::CuMatrix(this + 160, a2 + 160, 111);
-  kaldi::CuVector<float>::CuVector(this + 208, a2 + 208, v7, v8, v9);
+  kaldi::CuVector<float>::CuVector(this + 26, a2 + 208, v7, v8, v9);
   *(this + 30) = 0;
   *(this + 31) = 0;
   *(this + 32) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 240, *(a2 + 30), *(a2 + 31), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 31) - *(a2 + 30)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 30, *(a2 + 30), *(a2 + 31), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 31) - *(a2 + 30)) >> 4));
   *(this + 33) = 0;
   *(this + 34) = 0;
   *(this + 35) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 33, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 5);
   *(this + 36) = 0;
   *(this + 37) = 0;
   *(this + 38) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 288, *(a2 + 36), *(a2 + 37), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 37) - *(a2 + 36)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 36, *(a2 + 36), *(a2 + 37), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 37) - *(a2 + 36)) >> 4));
   *(this + 39) = 0;
   *(this + 40) = 0;
   *(this + 41) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 312, *(a2 + 39), *(a2 + 40), (*(a2 + 40) - *(a2 + 39)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 39, *(a2 + 39), *(a2 + 40), (*(a2 + 40) - *(a2 + 39)) >> 5);
   *(this + 42) = 0;
   *(this + 43) = 0;
   *(this + 44) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 336, *(a2 + 42), *(a2 + 43), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 43) - *(a2 + 42)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 42, *(a2 + 42), *(a2 + 43), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 43) - *(a2 + 42)) >> 4));
   *(this + 45) = 0;
   *(this + 46) = 0;
   *(this + 47) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 360, *(a2 + 45), *(a2 + 46), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 46) - *(a2 + 45)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 45, *(a2 + 45), *(a2 + 46), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 46) - *(a2 + 45)) >> 4));
   v10 = *(a2 + 24);
   *(this + 100) = *(a2 + 100);
   *(this + 24) = v10;
   *(this + 52) = 0;
   *(this + 53) = 0;
   *(this + 51) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 408, *(a2 + 51), *(a2 + 52), (*(a2 + 52) - *(a2 + 51)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 51, *(a2 + 51), *(a2 + 52), (*(a2 + 52) - *(a2 + 51)) >> 2);
   kaldi::CuMatrix<float>::CuMatrix(this + 432, a2 + 432, 111);
   *(this + 60) = 0;
   *(this + 61) = 0;
   *(this + 62) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 480, *(a2 + 60), *(a2 + 61), (*(a2 + 61) - *(a2 + 60)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 60, *(a2 + 60), *(a2 + 61), (*(a2 + 61) - *(a2 + 60)) >> 5);
   *(this + 63) = 0;
   *(this + 64) = 0;
   *(this + 65) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 504, *(a2 + 63), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 63)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 63, *(a2 + 63), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 63)) >> 4));
   return this;
 }
 
-void sub_1C30964A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C30964A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuMatrix<float>::~CuMatrix(v3 + 432);
-  v5 = *(v3 + 51);
-  if (v5)
+  kaldi::CuMatrix<float>::~CuMatrix(v4 + 432);
+  v6 = *(v4 + 51);
+  if (v6)
   {
-    *(v3 + 52) = v5;
-    operator delete(v5);
+    *(v4 + 52) = v6;
+    operator delete(v6);
   }
 
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
@@ -3273,10 +3228,10 @@ void sub_1C30964A0(_Unwind_Exception *a1, uint64_t a2, ...)
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuVector<float>::~CuVector(v3 + 26);
-  kaldi::CuMatrix<float>::~CuMatrix(v3 + 160);
-  kaldi::nnet1::RecurrentBaseComponent::~RecurrentBaseComponent(v3, off_1F42C2A18);
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::CuVector<float>::~CuVector(v4 + 26);
+  kaldi::CuMatrix<float>::~CuMatrix(v4 + 160);
+  kaldi::nnet1::RecurrentBaseComponent::~RecurrentBaseComponent(v4, off_1F42C2A18);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3286,7 +3241,7 @@ kaldi::nnet1::RecurrentBaseComponent *kaldi::nnet1::RecurrentBaseComponent::Recu
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 1) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 8, *(a3 + 8), *(a3 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 16) - *(a3 + 8)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 1, *(a3 + 8), *(a3 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 16) - *(a3 + 8)) >> 4));
   *(this + 4) = &unk_1F42CB1B8;
   *(this + 10) = *(a3 + 40);
   v6 = *a2;
@@ -3303,33 +3258,33 @@ kaldi::nnet1::RecurrentBaseComponent *kaldi::nnet1::RecurrentBaseComponent::Recu
   *(this + 12) = v7;
   *(this + 14) = 0;
   *(this + 15) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 104, *(a3 + 104), *(a3 + 112), (*(a3 + 112) - *(a3 + 104)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 13, *(a3 + 104), *(a3 + 112), (*(a3 + 112) - *(a3 + 104)) >> 5);
   *(this + 16) = 0;
   *(this + 17) = 0;
   *(this + 18) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 128, *(a3 + 128), *(a3 + 136), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 136) - *(a3 + 128)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 16, *(a3 + 128), *(a3 + 136), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 136) - *(a3 + 128)) >> 4));
   *(this + 19) = *(a3 + 152);
   return this;
 }
 
-void sub_1C309678C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C309678C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::nnet1::RecurrentNnetTrainOptions::~RecurrentNnetTrainOptions(v3);
-  kaldi::nnet1::HistoricalComponent::~HistoricalComponent(v2);
+  kaldi::nnet1::RecurrentNnetTrainOptions::~RecurrentNnetTrainOptions(v4);
+  kaldi::nnet1::HistoricalComponent::~HistoricalComponent(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_1C3096900(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3096900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   kaldi::Matrix<float>::~Matrix(va);
   kaldi::CuMatrix<float>::~CuMatrix(va1);
   _Unwind_Resume(a1);
@@ -3368,7 +3323,7 @@ void kaldi::nnet1::Recurrent::EnsureTrainingBuffers(kaldi::nnet1::Recurrent *thi
         kaldi::CuMatrix<float>::Resize(*(this + 45) + 48 * v11, v12, *(this + *(*this - 24) + 12), 0, 0);
         if (v13 == 2)
         {
-          kaldi::CuMatrix<float>::Resize(*(this + 36) + 48 * v11, *(this + 45), *(this + 44), 1u, 0);
+          kaldi::CuMatrix<float>::Resize(*(this + 36) + 48 * v11, *(this + 45), *(this + 44), 1, 0);
           kaldi::CuVector<float>::Resize(*(this + 39) + 32 * v11, *(this + 56), 1u, v16, v17);
           if (*(this + 39) == 3)
           {
@@ -3387,7 +3342,7 @@ void kaldi::nnet1::Recurrent::EnsureTrainingBuffers(kaldi::nnet1::Recurrent *thi
 
     if (*(this + 100) > 0.0)
     {
-      kaldi::CuMatrix<float>::Resize(this + 432, *(this + 45), *(this + 44), 1u, 0);
+      kaldi::CuMatrix<float>::Resize(this + 432, *(this + 45), *(this + 44), 1, 0);
     }
 
     *(this + 389) = 1;
@@ -3403,7 +3358,7 @@ kaldi::nnet1::ConvolutionalComponent *kaldi::nnet1::ConvolutionalComponent::Conv
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -3414,56 +3369,56 @@ kaldi::nnet1::ConvolutionalComponent *kaldi::nnet1::ConvolutionalComponent::Conv
   *(this + 24) = *(a2 + 24);
   *(this + 11) = v6;
   kaldi::CuMatrix<float>::CuMatrix(this + 104, a2 + 104, 111);
-  kaldi::CuVector<float>::CuVector(this + 152, a2 + 152, v7, v8, v9);
+  kaldi::CuVector<float>::CuVector(this + 19, a2 + 152, v7, v8, v9);
   v10 = *(a2 + 23);
   *(this + 24) = 0;
   *(this + 23) = v10;
   *(this + 25) = 0;
   *(this + 26) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 192, *(a2 + 24), *(a2 + 25), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 25) - *(a2 + 24)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 24, *(a2 + 24), *(a2 + 25), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 25) - *(a2 + 24)) >> 4));
   *(this + 27) = 0;
   *(this + 28) = 0;
   *(this + 29) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 216, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 27, *(a2 + 27), *(a2 + 28), (*(a2 + 28) - *(a2 + 27)) >> 5);
   *(this + 30) = 0;
   *(this + 31) = 0;
   *(this + 32) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 240, *(a2 + 30), *(a2 + 31), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 31) - *(a2 + 30)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 30, *(a2 + 30), *(a2 + 31), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 31) - *(a2 + 30)) >> 4));
   *(this + 33) = 0;
   *(this + 34) = 0;
   *(this + 35) = 0;
-  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 264, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 5);
+  std::vector<kaldi::CuVector<float>>::__init_with_size[abi:ne200100]<kaldi::CuVector<float>*,kaldi::CuVector<float>*>(this + 33, *(a2 + 33), *(a2 + 34), (*(a2 + 34) - *(a2 + 33)) >> 5);
   v11 = *(a2 + 36);
   *(this + 74) = *(a2 + 74);
   *(this + 36) = v11;
   *(this + 39) = 0;
   *(this + 40) = 0;
   *(this + 38) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 304, *(a2 + 38), *(a2 + 39), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 39) - *(a2 + 38)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 38, *(a2 + 38), *(a2 + 39), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 39) - *(a2 + 38)) >> 4));
   *(this + 41) = 0;
   *(this + 42) = 0;
   *(this + 43) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 328, *(a2 + 41), *(a2 + 42), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 42) - *(a2 + 41)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 41, *(a2 + 41), *(a2 + 42), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 42) - *(a2 + 41)) >> 4));
   *(this + 44) = 0;
   *(this + 45) = 0;
   *(this + 46) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 352, *(a2 + 44), *(a2 + 45), (*(a2 + 45) - *(a2 + 44)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 44, *(a2 + 44), *(a2 + 45), (*(a2 + 45) - *(a2 + 44)) >> 2);
   *(this + 376) = *(a2 + 376);
   return this;
 }
 
-void sub_1C3096D24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3096D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuVector<float>::~CuVector(v2 + 19);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 104);
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::CuVector<float>::~CuVector(v3 + 19);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 104);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3497,7 +3452,7 @@ void kaldi::nnet1::ConvolutionalComponent::EnsureCorrs(kaldi::nnet1::Convolution
         kaldi::CuVector<float>::Resize(*(this + 27) + 32 * v11, *(this + 31), 0, v13, v14);
         if (v12 == 2)
         {
-          kaldi::CuMatrix<float>::Resize(*(this + 30) + 48 * v11, *(this + 31), *(this + 30), 1u, 0);
+          kaldi::CuMatrix<float>::Resize(*(this + 30) + 48 * v11, *(this + 31), *(this + 30), 1, 0);
           kaldi::CuVector<float>::Resize(*(this + 33) + 32 * v11, *(this + 31), 1u, v15, v16);
           if (*(this + 46) == 3)
           {
@@ -3528,7 +3483,7 @@ kaldi::nnet1::MaxPooling2DComponent *kaldi::nnet1::MaxPooling2DComponent::MaxPoo
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C15A8;
   *(this + 3) = *(a2 + 3);
   *(this + 8) = *(a2 + 8);
@@ -3544,7 +3499,7 @@ kaldi::nnet1::Desplice *kaldi::nnet1::Desplice::Desplice(kaldi::nnet1::Desplice 
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C1BB8;
   v5 = *(a2 + 6);
   *(this + 14) = *(a2 + 14);
@@ -3615,127 +3570,123 @@ void kaldi::nnet1::Desplice::Init(kaldi::nnet1::Desplice *this, uint64_t a2, uin
   }
 
   v12 = *(this + 13) * v9;
-  std::vector<int>::vector[abi:ne200100](&v47, v11 * v12);
-  std::vector<int>::vector[abi:ne200100](&v45, *(this + 3) * v12);
+  std::vector<int>::vector[abi:ne200100](&v49, v11 * v12);
+  std::vector<int>::vector[abi:ne200100](&v47, *(this + 3) * v12);
   v13 = *(this + 13) * *(this + 2);
   LODWORD(__p) = -1;
-  std::vector<int>::vector[abi:ne200100](&v43, v13);
-  std::vector<int>::vector[abi:ne200100](&__p, *(this + 13) * *(this + 2));
+  std::vector<int>::vector[abi:ne200100](&v45, v13, &__p);
+  v14 = *(this + 13) * *(this + 2);
+  v42 = -1;
+  std::vector<int>::vector[abi:ne200100](&__p, v14, &v42);
   if (v12 >= 1)
   {
-    v16 = 0;
-    v14 = "n >= 0 && n < output_dim_";
+    v17 = 0;
+    v15 = "n >= 0 && n < output_dim_";
     do
     {
       if (v7 >= 1)
       {
-        v17 = 0;
+        v18 = 0;
         for (i = 0; i != v7; ++i)
         {
           if (v10 >= 1)
           {
-            v19 = 0;
-            v20 = v47;
-            v21 = (v48 - v47) >> 2;
-            v22 = v43;
-            v23 = (v44 - v43) >> 2;
-            v15 = v45;
-            v24 = __p;
-            v25 = v17;
+            v20 = 0;
+            v21 = v49;
+            v22 = (v50 - v49) >> 2;
+            v23 = v45;
+            v24 = (v46 - v45) >> 2;
+            v16 = v47;
+            v25 = __p;
+            v26 = v18;
             while (1)
             {
-              if (v17 < 0 || (v26 = *(this + 3), v25 >= v26))
+              if (v18 < 0 || (v27 = *(this + 3), v26 >= v27))
               {
-                v40 = 137;
+                v41 = 137;
                 goto LABEL_35;
               }
 
-              v27 = v17 + v19 + v16 * v26;
-              if (v21 <= v27)
+              v28 = v18 + v20 + v17 * v27;
+              if (v22 <= v28)
               {
                 break;
               }
 
-              v28 = *(this + 13);
-              if (v28 < 0)
+              v29 = *(this + 13);
+              if (v29 < 0)
               {
-                v40 = 139;
-                v14 = "r >= 0 && r < row_stride_";
+                v41 = 139;
+                v15 = "r >= 0 && r < row_stride_";
                 goto LABEL_35;
               }
 
-              v29 = v16 / v28 + *(this + 12) * v19;
-              v30 = *(this + 14);
-              v31 = v29 + v30 * i;
-              if (v31 < 0 || (v32 = *(this + 2), v31 >= v32))
+              v30 = v17 / v29 + *(this + 12) * v20;
+              v31 = *(this + 14);
+              v32 = v30 + v31 * i;
+              if (v32 < 0 || (v33 = *(this + 2), v32 >= v33))
               {
-                v40 = 140;
-                v14 = "c >= 0 && c < input_dim_";
+                v41 = 140;
+                v15 = "c >= 0 && c < input_dim_";
                 goto LABEL_35;
               }
 
-              if (v29 >= v30)
+              if (v30 >= v31)
               {
-                v40 = 141;
-                v14 = "src_frame < time_length_";
+                v41 = 141;
+                v15 = "src_frame < time_length_";
                 goto LABEL_35;
               }
 
-              v33 = v16 % v28;
-              if (v23 <= v31 + v32 * v33)
+              v34 = v17 % v29;
+              if (v24 <= v32 + v33 * v34)
               {
-                v40 = 142;
-                v14 = "r * input_dim_ + c < backward_r_h.size()";
+                v41 = 142;
+                v15 = "r * input_dim_ + c < backward_r_h.size()";
                 goto LABEL_35;
               }
 
-              v20[v27] = v33;
-              *&v15[4 * v25 + 4 * *(this + 3) * v16] = v31;
-              v22[v31 + *(this + 2) * v33] = v16;
-              v24[v31 + *(this + 2) * v33] = v25;
-              ++v19;
-              ++v25;
-              if (v10 == v19)
+              v21[v28] = v34;
+              *&v16[4 * v26 + 4 * *(this + 3) * v17] = v32;
+              v23[v32 + *(this + 2) * v34] = v17;
+              v25[v32 + *(this + 2) * v34] = v26;
+              ++v20;
+              ++v26;
+              if (v10 == v20)
               {
                 goto LABEL_18;
               }
             }
 
-            v40 = 138;
-            v14 = "m * output_dim_ + n < forward_r_h.size()";
+            v41 = 138;
+            v15 = "m * output_dim_ + n < forward_r_h.size()";
 LABEL_35:
-            kaldi::KaldiAssertFailure_("Init", "../engine/common/libquasar/libkaldi/src/nnet/nnet-convolution-splicer.h", v40, v14, v15);
+            kaldi::KaldiAssertFailure_("Init", "../engine/common/libquasar/libkaldi/src/nnet/nnet-convolution-splicer.h", v41, v15, v16);
           }
 
 LABEL_18:
-          v17 += v10;
+          v18 += v10;
         }
       }
 
-      ++v16;
+      ++v17;
     }
 
-    while (v16 != v12);
+    while (v17 != v12);
   }
 
-  kaldi::CuArray<int>::Resize(this + 64, (v48 - v47) >> 2, 1u, v14, v15);
-  memcpy(*(this + 9), v47, v48 - v47);
-  kaldi::CuArray<int>::Resize(this + 88, (v46 - v45) >> 2, 1u, v34, v35);
-  memcpy(*(this + 12), v45, v46 - v45);
-  kaldi::CuArray<int>::Resize(this + 112, (v44 - v43) >> 2, 1u, v36, v37);
-  memcpy(*(this + 15), v43, v44 - v43);
-  kaldi::CuArray<int>::Resize(this + 136, (v42 - __p) >> 2, 1u, v38, v39);
-  memcpy(*(this + 18), __p, v42 - __p);
+  kaldi::CuArray<int>::Resize(this + 64, (v50 - v49) >> 2, 1u, v15, v16);
+  memcpy(*(this + 9), v49, v50 - v49);
+  kaldi::CuArray<int>::Resize(this + 88, (v48 - v47) >> 2, 1u, v35, v36);
+  memcpy(*(this + 12), v47, v48 - v47);
+  kaldi::CuArray<int>::Resize(this + 112, (v46 - v45) >> 2, 1u, v37, v38);
+  memcpy(*(this + 15), v45, v46 - v45);
+  kaldi::CuArray<int>::Resize(this + 136, (v44 - __p) >> 2, 1u, v39, v40);
+  memcpy(*(this + 18), __p, v44 - __p);
   if (__p)
   {
-    v42 = __p;
+    v44 = __p;
     operator delete(__p);
-  }
-
-  if (v43)
-  {
-    v44 = v43;
-    operator delete(v43);
   }
 
   if (v45)
@@ -3748,6 +3699,12 @@ LABEL_18:
   {
     v48 = v47;
     operator delete(v47);
+  }
+
+  if (v49)
+  {
+    v50 = v49;
+    operator delete(v49);
   }
 }
 
@@ -3780,7 +3737,7 @@ kaldi::nnet1::FramePoolingComponent *kaldi::nnet1::FramePoolingComponent::FrameP
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -3791,37 +3748,37 @@ kaldi::nnet1::FramePoolingComponent *kaldi::nnet1::FramePoolingComponent::FrameP
   *(this + 12) = 0;
   *(this + 13) = 0;
   *(this + 14) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 96, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 12, *(a2 + 12), *(a2 + 13), (*(a2 + 13) - *(a2 + 12)) >> 2);
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(this + 120, *(a2 + 15), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 15)) >> 3));
+  std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(this + 15, *(a2 + 15), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 15)) >> 3));
   *(this + 18) = 0;
   *(this + 19) = 0;
   *(this + 20) = 0;
-  std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(this + 144, *(a2 + 18), *(a2 + 19), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 19) - *(a2 + 18)) >> 3));
+  std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(this + 18, *(a2 + 18), *(a2 + 19), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 19) - *(a2 + 18)) >> 3));
   v6 = *(a2 + 42);
   *(this + 172) = *(a2 + 172);
   *(this + 42) = v6;
   return this;
 }
 
-void sub_1C3097658(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3097658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::Vector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
+  v6 = *v4;
+  if (*v4)
   {
-    *(v2 + 13) = v5;
-    operator delete(v5);
+    *(v3 + 13) = v6;
+    operator delete(v6);
   }
 
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::Vector<float>>::__init_with_size[abi:ne200100]<kaldi::Vector<float>*,kaldi::Vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3838,7 +3795,7 @@ void sub_1C3097700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<kaldi::Vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<kaldi::Vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3901,7 +3858,7 @@ kaldi::nnet1::ParallelComponent *kaldi::nnet1::ParallelComponent::ParallelCompon
   *(this + 30) = 0;
   *(this + 31) = 0;
   *(this + 29) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 232, *(v4 + 3), *(v4 + 4), (*(v4 + 4) - *(v4 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 29, *(v4 + 3), *(v4 + 4), (*(v4 + 4) - *(v4 + 3)) >> 3);
   *(this + 26) = &unk_1F42C2E78;
   *(this + 32) = &unk_1F42CB198;
   v6 = *(v4 + 56);
@@ -3919,7 +3876,7 @@ kaldi::nnet1::ParallelComponent *kaldi::nnet1::ParallelComponent::ParallelCompon
   *(this + 88) = v7;
   *(this + 24) = 0;
   *(this + 25) = 0;
-  std::vector<kaldi::nnet1::Nnet>::__init_with_size[abi:ne200100]<kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(this + 184, *(a2 + 23), *(a2 + 24), 0x51B3BEA3677D46CFLL * ((*(a2 + 24) - *(a2 + 23)) >> 3));
+  std::vector<kaldi::nnet1::Nnet>::__init_with_size[abi:ne200100]<kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(this + 23, *(a2 + 23), *(a2 + 24), 0x51B3BEA3677D46CFLL * ((*(a2 + 24) - *(a2 + 23)) >> 3));
   return this;
 }
 
@@ -3930,7 +3887,7 @@ void sub_1C3097A18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<kaldi::nnet1::Nnet>::__init_with_size[abi:ne200100]<kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::nnet1::Nnet>::__init_with_size[abi:ne200100]<kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(uint64_t *result, kaldi::nnet1::Nnet *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3940,14 +3897,14 @@ uint64_t std::vector<kaldi::nnet1::Nnet>::__init_with_size[abi:ne200100]<kaldi::
   return result;
 }
 
-void sub_1C3097AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1C3097AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
-  std::vector<kaldi::nnet1::Nnet>::__destroy_vector::operator()[abi:ne200100](&a9);
+  std::vector<kaldi::nnet1::Nnet>::__destroy_vector::operator()[abi:ne200100](&a9, a2, a3, a4, a5);
   _Unwind_Resume(a1);
 }
 
-void std::vector<kaldi::nnet1::Nnet>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<kaldi::nnet1::Nnet>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAE4C415C9882BALL)
   {
@@ -3967,7 +3924,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::nnet1::Nnet>>(
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-kaldi::nnet1::Nnet *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<kaldi::nnet1::Nnet>,kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(int a1, kaldi::nnet1::Nnet *a2, kaldi::nnet1::Nnet *a3, kaldi::nnet1::Nnet *this)
+kaldi::nnet1::Nnet *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<kaldi::nnet1::Nnet>,kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*,kaldi::nnet1::Nnet*>(int a1, const kaldi::nnet1::NnetTrainOptions **a2, const kaldi::nnet1::NnetTrainOptions **a3, kaldi::nnet1::Nnet *this)
 {
   if (a2 != a3)
   {
@@ -3976,7 +3933,7 @@ kaldi::nnet1::Nnet *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::
     do
     {
       kaldi::nnet1::Nnet::Nnet(this, v6);
-      v6 = (v6 + 376);
+      v6 += 47;
       this = (this + 376);
       v7 -= 376;
     }
@@ -3987,50 +3944,50 @@ kaldi::nnet1::Nnet *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::
   return this;
 }
 
-void sub_1C3097BD8(_Unwind_Exception *exception_object)
+void sub_1C3097BD8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (v2)
+  if (v6)
   {
-    v4 = (v1 - 376);
+    v8 = (v5 - 376);
     do
     {
-      kaldi::nnet1::Nnet::~Nnet(v4);
-      v4 = (v5 - 376);
-      v2 += 376;
+      kaldi::nnet1::Nnet::~Nnet(v8, a2, a3, a4, a5);
+      v8 = (v9 - 376);
+      v6 += 376;
     }
 
-    while (v2);
+    while (v6);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<kaldi::nnet1::Nnet>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<kaldi::nnet1::Nnet>::__destroy_vector::operator()[abi:ne200100](void ***a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
+  v5 = *a1;
+  v6 = **a1;
+  if (v6)
   {
-    v4 = v1[1];
-    v5 = v2;
-    if (v4 != v2)
+    v8 = v5[1];
+    v9 = v6;
+    if (v8 != v6)
     {
       do
       {
-        kaldi::nnet1::Nnet::~Nnet((v4 - 376));
+        kaldi::nnet1::Nnet::~Nnet((v8 - 376), a2, a3, a4, a5);
       }
 
-      while (v4 != v2);
-      v5 = **a1;
+      while (v8 != v6);
+      v9 = **a1;
     }
 
-    v1[1] = v2;
+    v5[1] = v6;
 
-    operator delete(v5);
+    operator delete(v9);
   }
 }
 
-uint64_t std::vector<kaldi::nnet1::Nnet>::push_back[abi:ne200100](uint64_t a1, const kaldi::nnet1::Nnet *a2)
+uint64_t std::vector<kaldi::nnet1::Nnet>::push_back[abi:ne200100](uint64_t a1, const kaldi::nnet1::NnetTrainOptions **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -4072,7 +4029,7 @@ uint64_t *kaldi::nnet1::ParallelComponent::CheckNetworkDimensions(uint64_t *this
       v15 = kaldi::nnet1::Nnet::OutputDim(v6, v11, v12, v13, v14);
       this = kaldi::nnet1::Nnet::OutputDim(v6, v16, v17, v18, v19);
       v20 = *v5;
-      if (this != *(v5 + 12 + *(*v5 - 24)))
+      if (this != *(v5 + *(*v5 - 24) + 12))
       {
         *(v5 + 177) = 0;
       }
@@ -4090,7 +4047,7 @@ uint64_t *kaldi::nnet1::ParallelComponent::CheckNetworkDimensions(uint64_t *this
   v22 = *(v5 + *(v20 - 24) + 8);
   if (v22 != v8)
   {
-    if (v8 / (0x51B3BEA3677D46CFLL * ((*(v5 + 192) - *(v5 + 184)) >> 3)) != v22)
+    if (v8 / (0x51B3BEA3677D46CFLL * ((v5[24] - v5[23]) >> 3)) != v22)
     {
       kaldi::KaldiErrorMessage::KaldiErrorMessage(v23, "CheckNetworkDimensions", "../engine/common/libquasar/libkaldi/src/nnet/nnet-parallel-component.h", 579);
       std::operator<<[abi:ne200100]<std::char_traits<char>>(v23, "Input dimension of parallel component and input dimensions of nested networks do not match.");
@@ -4111,7 +4068,7 @@ LABEL_16:
   return this;
 }
 
-uint64_t std::vector<kaldi::nnet1::Nnet>::__emplace_back_slow_path<kaldi::nnet1::Nnet const&>(uint64_t a1, const kaldi::nnet1::Nnet *a2)
+uint64_t std::vector<kaldi::nnet1::Nnet>::__emplace_back_slow_path<kaldi::nnet1::Nnet const&>(uint64_t a1, const kaldi::nnet1::NnetTrainOptions **a2)
 {
   v2 = 0x51B3BEA3677D46CFLL * ((*(a1 + 8) - *a1) >> 3);
   v3 = v2 + 1;
@@ -4135,36 +4092,36 @@ uint64_t std::vector<kaldi::nnet1::Nnet>::__emplace_back_slow_path<kaldi::nnet1:
     v6 = v3;
   }
 
-  v16 = a1;
+  v20 = a1;
   if (v6)
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::nnet1::Nnet>>(a1, v6);
   }
 
-  v13 = 0;
-  v14 = 376 * v2;
+  v17 = 0;
+  v18 = 376 * v2;
   kaldi::nnet1::Nnet::Nnet((376 * v2), a2);
-  v15 = (376 * v2 + 376);
+  v19 = (376 * v2 + 376);
   v7 = *(a1 + 8);
   v8 = (376 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<kaldi::nnet1::Nnet>,kaldi::nnet1::Nnet*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
   v10 = *(a1 + 16);
-  v12 = v15;
-  *(a1 + 8) = v15;
-  *&v15 = v9;
-  *(&v15 + 1) = v10;
-  v13 = v9;
-  v14 = v9;
-  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(&v13);
-  return v12;
+  v16 = v19;
+  *(a1 + 8) = v19;
+  *&v19 = v9;
+  *(&v19 + 1) = v10;
+  v17 = v9;
+  v18 = v9;
+  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(&v17, v11, v12, v13, v14);
+  return v16;
 }
 
-void sub_1C3097FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C3097FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a4);
-  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(va);
+  va_start(va, a8);
+  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(va, a2, a3, a4, a5);
   _Unwind_Resume(a1);
 }
 
@@ -4178,7 +4135,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<kaldi:
     do
     {
       kaldi::nnet1::Nnet::Nnet(this, v8);
-      v8 = (v8 + 376);
+      v8 += 47;
       this = (this + 376);
       v7 -= 376;
     }
@@ -4186,37 +4143,37 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<kaldi:
     while (v8 != a3);
     while (v6 != a3)
     {
-      kaldi::nnet1::Nnet::~Nnet(v6);
+      kaldi::nnet1::Nnet::~Nnet(v6, v9, v10, v11, v12);
       v6 = (v6 + 376);
     }
   }
 }
 
-void sub_1C3098090(_Unwind_Exception *exception_object)
+void sub_1C3098090(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  if (v2)
+  if (v6)
   {
-    v4 = (v1 - 376);
+    v8 = (v5 - 376);
     do
     {
-      kaldi::nnet1::Nnet::~Nnet(v4);
-      v4 = (v5 - 376);
-      v2 += 376;
+      kaldi::nnet1::Nnet::~Nnet(v8, a2, a3, a4, a5);
+      v8 = (v9 - 376);
+      v6 += 376;
     }
 
-    while (v2);
+    while (v6);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(uint64_t a1)
+uint64_t std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  v7 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v7; i = *(a1 + 16))
   {
     *(a1 + 16) = i - 376;
-    kaldi::nnet1::Nnet::~Nnet((i - 376));
+    kaldi::nnet1::Nnet::~Nnet((i - 376), a2, a3, a4, a5);
   }
 
   if (*a1)
@@ -4227,34 +4184,34 @@ uint64_t std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void std::vector<kaldi::nnet1::Nnet>::resize(void *a1, unint64_t a2)
+void std::vector<kaldi::nnet1::Nnet>::resize(kaldi::nnet1::Nnet *a1, unint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v3 = a1[1];
-  v4 = 0x51B3BEA3677D46CFLL * ((v3 - *a1) >> 3);
-  v5 = a2 >= v4;
-  v6 = a2 - v4;
-  if (v6 != 0 && v5)
+  v6 = *(a1 + 1);
+  v7 = 0x51B3BEA3677D46CFLL * ((v6 - *a1) >> 3);
+  v8 = a2 >= v7;
+  v9 = a2 - v7;
+  if (v9 != 0 && v8)
   {
 
-    std::vector<kaldi::nnet1::Nnet>::__append(a1, v6);
+    std::vector<kaldi::nnet1::Nnet>::__append(a1, v9);
   }
 
-  else if (!v5)
+  else if (!v8)
   {
-    v7 = *a1 + 376 * a2;
-    while (v3 != v7)
+    v10 = *a1 + 376 * a2;
+    while (v6 != v10)
     {
-      kaldi::nnet1::Nnet::~Nnet((v3 - 376));
+      kaldi::nnet1::Nnet::~Nnet((v6 - 376), a2, a3, a4, a5);
     }
 
-    a1[1] = v7;
+    *(a1 + 1) = v10;
   }
 }
 
-void *std::vector<kaldi::nnet1::Nnet>::__append(void *result, unint64_t a2)
+kaldi::nnet1::Nnet *std::vector<kaldi::nnet1::Nnet>::__append(kaldi::nnet1::Nnet *result, unint64_t a2)
 {
-  v3 = result[1];
-  v2 = result[2];
+  v3 = *(result + 1);
+  v2 = *(result + 2);
   if (0x51B3BEA3677D46CFLL * ((v2 - v3) >> 3) < a2)
   {
     v4 = 0x51B3BEA3677D46CFLL * ((v3 - *result) >> 3);
@@ -4293,18 +4250,18 @@ void *std::vector<kaldi::nnet1::Nnet>::__append(void *result, unint64_t a2)
     kaldi::nnet1::Nnet::Nnet(v3);
   }
 
-  result[1] = v3;
+  *(result + 1) = v3;
   return result;
 }
 
-void sub_1C3098314(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3098314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, ...)
 {
-  va_start(va, a2);
-  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(va);
+  va_start(va, a6);
+  std::__split_buffer<kaldi::nnet1::Nnet>::~__split_buffer(va, a2, a3, a4, a5);
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::nnet1::CompressedWordTransComponent::SetVecTable(kaldi::nnet1::CompressedWordTransComponent *this, const kaldi::CompressedMatrix *a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t kaldi::nnet1::CompressedWordTransComponent::SetVecTable(kaldi::nnet1::CompressedWordTransComponent *this, const void **a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v5 = *a2;
   if (!*a2)
@@ -4320,12 +4277,12 @@ LABEL_19:
     kaldi::KaldiAssertFailure_("SetVecTable", "../engine/common/libquasar/libkaldi/src/nnet/nnet-compressed-word-trans-component.h", 0x58, "src.NumCols() == output_dim_", a5);
   }
 
-  if (*(v5 + 12) != *(this + 3))
+  if (v5[3] != *(this + 3))
   {
     goto LABEL_19;
   }
 
-  v6 = *(v5 + 8);
+  v6 = v5[2];
   v7 = *(this + 2);
   if (v6 % v7)
   {
@@ -4387,7 +4344,7 @@ kaldi::nnet1::SharedNceComponent *kaldi::nnet1::SharedNceComponent::SharedNceCom
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -4395,13 +4352,13 @@ kaldi::nnet1::SharedNceComponent *kaldi::nnet1::SharedNceComponent::SharedNceCom
   *(this + 56) = v5;
   *this = &unk_1F42C2C90;
   kaldi::CuMatrix<float>::CuMatrix(this + 88, a2 + 88, 111);
-  kaldi::CuVector<float>::CuVector(this + 136, a2 + 136, v6, v7, v8);
+  kaldi::CuVector<float>::CuVector(this + 17, a2 + 136, v6, v7, v8);
   kaldi::CuMatrix<float>::CuMatrix(this + 168, a2 + 168, 111);
   kaldi::CuMatrix<float>::CuMatrix(this + 216, a2 + 216, 111);
   kaldi::CuMatrix<float>::CuMatrix(this + 264, a2 + 264, 111);
-  kaldi::CuVector<float>::CuVector(this + 312, a2 + 312, v9, v10, v11);
-  kaldi::CuVector<float>::CuVector(this + 344, a2 + 344, v12, v13, v14);
-  kaldi::CuVector<float>::CuVector(this + 376, a2 + 376, v15, v16, v17);
+  kaldi::CuVector<float>::CuVector(this + 39, a2 + 312, v9, v10, v11);
+  kaldi::CuVector<float>::CuVector(this + 43, a2 + 344, v12, v13, v14);
+  kaldi::CuVector<float>::CuVector(this + 47, a2 + 376, v15, v16, v17);
   v18 = *(a2 + 408);
   *(this + 53) = *(a2 + 53);
   *(this + 408) = v18;
@@ -4430,7 +4387,7 @@ kaldi::nnet1::WordVecComponent *kaldi::nnet1::WordVecComponent::WordVecComponent
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 3) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 3);
   *this = &unk_1F42C2E78;
   *(this + 6) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -4448,32 +4405,32 @@ kaldi::nnet1::WordVecComponent *kaldi::nnet1::WordVecComponent::WordVecComponent
   *(this + 39) = 0;
   *(this + 40) = 0;
   *(this + 41) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 312, *(a2 + 39), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 39)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(this + 39, *(a2 + 39), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 39)) >> 4));
   *(this + 42) = 0;
   *(this + 43) = 0;
   *(this + 44) = 0;
-  std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(this + 336, *(a2 + 42), *(a2 + 43), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 43) - *(a2 + 42)) >> 3));
+  std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(this + 42, *(a2 + 42), *(a2 + 43), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 43) - *(a2 + 42)) >> 3));
   *(this + 45) = 0;
   *(this + 46) = 0;
   *(this + 47) = 0;
-  std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(this + 360, *(a2 + 45), *(a2 + 46), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 46) - *(a2 + 45)) >> 3));
+  std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(this + 45, *(a2 + 45), *(a2 + 46), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 46) - *(a2 + 45)) >> 3));
   return this;
 }
 
-void sub_1C3098874(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C3098874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<kaldi::CuSubMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 264);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 192);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 144);
-  kaldi::CuMatrix<float>::~CuMatrix(v2 + 96);
-  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v2);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 264);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 192);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 144);
+  kaldi::CuMatrix<float>::~CuMatrix(v3 + 96);
+  kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v3);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::CuSubMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuSubMatrix<float>*,kaldi::CuSubMatrix<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4490,7 +4447,7 @@ void sub_1C3098958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<kaldi::CuSubMatrix<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<kaldi::CuSubMatrix<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -4528,7 +4485,7 @@ void kaldi::nnet1::FofeWordVecComponent::Prepare(kaldi::nnet1::FofeWordVecCompon
 {
   if (*(this + 102) < a2)
   {
-    kaldi::CuMatrix<float>::Resize(this + 392, 1, a2, 1u, 0);
+    kaldi::CuMatrix<float>::Resize(this + 392, 1, a2, 1, 0);
     v4 = *(this + 50);
     *(v4 + 4 * a2 - 4) = 1065353216;
     v5 = (a2 - 2);
@@ -4547,7 +4504,7 @@ void kaldi::nnet1::FofeWordVecComponent::Prepare(kaldi::nnet1::FofeWordVecCompon
 
   v7 = *(this + 3);
 
-  kaldi::CuMatrix<float>::Resize(this + 440, a2, v7, 1u, 0);
+  kaldi::CuMatrix<float>::Resize(this + 440, a2, v7, 1, 0);
 }
 
 uint64_t std::stringbuf::basic_stringbuf[abi:ne200100](uint64_t a1, const std::string *a2, int a3)
@@ -4588,15 +4545,15 @@ void sub_1C309A1E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::__map_value_compare<std::string,std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,kaldi::nnet1::Component::ComponentType>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void sub_1C309A558(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4619,7 +4576,7 @@ void sub_1C309A6B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::nnet1::QuantizedAffineTransform<signed char>::QuantizedAffineTransform(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t kaldi::nnet1::QuantizedAffineTransform<signed char>::QuantizedAffineTransform(uint64_t a1, int a2, uint64_t a3)
 {
   *(a1 + 8) = a2;
   *(a1 + 12) = a3;
@@ -4651,7 +4608,7 @@ void sub_1C309A794(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::nnet1::QuantizedAffineTransform<short>::QuantizedAffineTransform(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t kaldi::nnet1::QuantizedAffineTransform<short>::QuantizedAffineTransform(uint64_t a1, int a2, uint64_t a3)
 {
   *(a1 + 8) = a2;
   *(a1 + 12) = a3;
@@ -4773,26 +4730,28 @@ void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::~VectorwiseQuantiz
   JUMPOUT(0x1C692AE10);
 }
 
-void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::WriteData(uint64_t a1, void *a2, int a3)
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::WriteData(uint64_t a1, void *a2, uint64_t a3)
 {
   kaldi::VectorwiseQuantizedMatrix<short>::Write((a1 + 48), a2, a3);
 
   kaldi::CuVectorBase<float>::Write((a1 + 88), a2, a3, v6, v7);
 }
 
-uint64_t *kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
 {
-  kaldi::CuMatrixBase<float>::AddMatMat<short>(a3, a2, 111, (a1 + 48), 0x70, 1.0, 0.0);
+  a4.n128_u32[0] = 1.0;
+  kaldi::CuMatrixBase<float>::AddMatMat<short>(a3, a2, 111, (a1 + 48), 0x70, a4, 0.0);
+  v9.n128_u32[0] = 1.0;
 
-  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v5, v6, v7, 1.0, 1.0);
+  kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v9, 1.0, v6, v7, v8);
 }
 
 void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::GetUnitOutputFnc(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int16x4_t a5)
 {
   a5.i32[0] = *(*(a1 + 96) + 4 * a3);
   kaldi::CuVectorBase<float>::Set(a4, a5);
-  kaldi::VectorwiseQuantizedMatrix<short>::Row(a1 + 48, a3, v11);
-  kaldi::QuantizedVectorBase<short>::AddMatVec(v11, a2 + 8, a4 + 8, 1.0, v9, v10);
+  kaldi::VectorwiseQuantizedMatrix<short>::Row(a1 + 48, a3, &v11);
+  kaldi::QuantizedVectorBase<short>::AddMatVec(&v11, a2 + 8, a4 + 8, 1.0, v9, v10);
 }
 
 float kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::GetUnitOutputFnc(uint64_t a1, uint64_t a2, int a3)
@@ -4852,10 +4811,10 @@ uint64_t kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::VectorwiseQuan
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F42C4618;
-  kaldi::VectorwiseQuantizedMatrix<short>::VectorwiseQuantizedMatrix(a1 + 48, a2 + 48);
-  kaldi::CuVector<float>::CuVector(a1 + 88, a2 + 88, v5, v6, v7);
+  kaldi::VectorwiseQuantizedMatrix<short>::VectorwiseQuantizedMatrix((a1 + 48), (a2 + 48));
+  kaldi::CuVector<float>::CuVector((a1 + 88), a2 + 88, v5, v6, v7);
   return a1;
 }
 
@@ -4956,7 +4915,7 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Con
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F42C2E78;
   *(a1 + 48) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -4990,18 +4949,18 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Con
 void sub_1C309B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
   kaldi::nnet1::QuantizerResidualAggregator::~QuantizerResidualAggregator((v10 + 376));
-  v14 = *(v10 + 352);
-  if (v14)
+  v12 = *(v10 + 352);
+  if (v12)
   {
-    *(v10 + 360) = v14;
-    operator delete(v14);
+    *(v10 + 360) = v12;
+    operator delete(v12);
   }
 
-  v15 = *(v10 + 320);
-  if (v15)
+  v13 = *(v10 + 320);
+  if (v13)
   {
-    *(v10 + 328) = v15;
-    operator delete(v15);
+    *(v10 + 328) = v13;
+    operator delete(v13);
   }
 
   std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -5009,24 +4968,24 @@ void sub_1C309B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  v16 = *(v10 + 192);
+  v14 = *(v10 + 192);
   *(v10 + 192) = 0;
-  if (v16)
+  if (v14)
   {
-    (*(*v16 + 16))(v16);
+    (*(*v14 + 16))(v14);
   }
 
-  v17 = *(v10 + 184);
+  v15 = *(v10 + 184);
   *(v10 + 184) = 0;
-  if (v17)
+  if (v15)
   {
-    (*(*v17 + 24))(v17);
+    (*(*v15 + 24))(v15);
   }
 
   a10 = (v10 + 160);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v12);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v11);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v10);
   _Unwind_Resume(a1);
 }
@@ -5034,13 +4993,10 @@ void sub_1C309B22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AssignMembers<kaldi::CuMatrixBase<float>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   *(a1 + 104) = *(a2 + 104);
-  v7 = *(a2 + 120);
-  *(a1 + 120) = v7;
-  v7.n128_u64[0] = *(a2 + 136);
-  *(a1 + 136) = v7.n128_u64[0];
+  *(a1 + 120) = *(a2 + 120);
+  *(a1 + 136) = *(a2 + 136);
   *(a1 + 144) = *(a2 + 144);
-  v7.n128_u32[0] = *(a2 + 148);
-  *(a1 + 148) = v7.n128_u32[0];
+  *(a1 + 148) = *(a2 + 148);
   if (a1 == a2)
   {
     *(a1 + 344) = 0;
@@ -5058,11 +5014,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AssignM
     operator new();
   }
 
-  v8 = *(a1 + 184);
+  v7 = *(a1 + 184);
   *(a1 + 184) = 0;
-  if (v8)
+  if (v7)
   {
-    (*(*v8 + 24))(v8, v7);
+    (*(*v7 + 24))(v7);
   }
 
   if (*(a2 + 192))
@@ -5070,11 +5026,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AssignM
     operator new();
   }
 
-  v9 = *(a1 + 192);
+  v8 = *(a1 + 192);
   *(a1 + 192) = 0;
-  if (v9)
+  if (v8)
   {
-    (*(*v9 + 16))(v9, v7);
+    (*(*v8 + 16))(v8);
   }
 
   kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::UpdateBNNSFilter(a1, a2, a3, a4, a5);
@@ -5085,70 +5041,68 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AssignM
 
   if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
   {
-    kaldi::KaldiLogMessage::KaldiLogMessage(v11, "AssignMembers", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1465);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "After assign, Convolution filter has padding? ", 46);
-    MEMORY[0x1C692A930](v10, *(*(a1 + 184) + 24) == *(*(a1 + 184) + 16));
-    kaldi::KaldiLogMessage::~KaldiLogMessage(v11);
+    kaldi::KaldiLogMessage::KaldiLogMessage(v10, "AssignMembers", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1465);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "After assign, Convolution filter has padding? ", 46);
+    MEMORY[0x1C692A930](v9, *(*(a1 + 184) + 24) == *(*(a1 + 184) + 16));
+    kaldi::KaldiLogMessage::~KaldiLogMessage(v10);
   }
 }
 
 void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::~Convolutional2DComponent(uint64_t a1)
 {
   *a1 = &unk_1F42C46D8;
-  v2 = a1 + 88;
   *(a1 + 88) = &unk_1F42C4810;
-  v3 = a1 + 96;
   *(a1 + 96) = &unk_1F42C4838;
-  v4 = *(a1 + 152);
-  if (v4)
+  v2 = *(a1 + 152);
+  if (v2)
   {
-    BNNSFilterDestroy(v4);
+    BNNSFilterDestroy(v2);
     *(a1 + 152) = 0;
   }
 
   kaldi::nnet1::QuantizerResidualAggregator::~QuantizerResidualAggregator((a1 + 376));
-  v5 = *(a1 + 352);
+  v3 = *(a1 + 352);
+  if (v3)
+  {
+    *(a1 + 360) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(a1 + 320);
+  if (v4)
+  {
+    *(a1 + 328) = v4;
+    operator delete(v4);
+  }
+
+  v7 = (a1 + 296);
+  std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v7 = (a1 + 272);
+  std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v7 = (a1 + 248);
+  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v7 = (a1 + 224);
+  std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v7 = (a1 + 200);
+  std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v5 = *(a1 + 192);
+  *(a1 + 192) = 0;
   if (v5)
   {
-    *(a1 + 360) = v5;
-    operator delete(v5);
+    (*(*v5 + 16))(v5);
   }
 
-  v6 = *(a1 + 320);
+  v6 = *(a1 + 184);
+  *(a1 + 184) = 0;
   if (v6)
   {
-    *(a1 + 328) = v6;
-    operator delete(v6);
+    (*(*v6 + 24))(v6);
   }
 
-  v9 = (a1 + 296);
-  std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v9 = (a1 + 272);
-  std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v9 = (a1 + 248);
-  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v9 = (a1 + 224);
-  std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v9 = (a1 + 200);
-  std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  v7 = *(a1 + 192);
-  *(a1 + 192) = 0;
-  if (v7)
-  {
-    (*(*v7 + 16))(v7);
-  }
-
-  v8 = *(a1 + 184);
-  *(a1 + 184) = 0;
-  if (v8)
-  {
-    (*(*v8 + 24))(v8);
-  }
-
-  v9 = (a1 + 160);
-  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v9);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v3);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v2);
+  v7 = (a1 + 160);
+  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   kaldi::nnet1::UpdatableComponent::~UpdatableComponent(a1);
 }
 
@@ -5179,7 +5133,7 @@ void non-virtual thunk tokaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixB
   JUMPOUT(0x1C692AE10);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InitData(int *a1, uint64_t *a2, kaldi::UniformRandomNumber *a3)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InitData(int *a1, void *a2, kaldi::UniformRandomNumber *a3)
 {
   v87 = 0x40000000;
   v88 = -1073741824;
@@ -5788,12 +5742,11 @@ void *kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Update
   return result;
 }
 
-void sub_1C309C988(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C309C988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -5801,19 +5754,21 @@ void sub_1C309C988(_Unwind_Exception *a1, uint64_t a2, ...)
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va1);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::ReadData(float *a1, uint64_t *a2, int a3)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::ReadData(float *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   if (kaldi::Peek(a2, a3) != 60)
   {
 LABEL_148:
-    v42 = *(a1 + 26);
-    v41 = *(a1 + 27);
-    if (*(a1 + 2) % (v41 * v42))
+    v43 = *(a1 + 26);
+    v42 = *(a1 + 27);
+    if (*(a1 + 2) % (v42 * v43))
     {
       kaldi::KaldiErrorMessage::KaldiErrorMessage(__p, "ReadData", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 431);
       std::operator<<[abi:ne200100]<std::char_traits<char>>(__p, "input_dim_ % (fmap_x_len_ * fmap_y_len_) == 0");
@@ -5821,8 +5776,8 @@ LABEL_148:
 
     else
     {
-      v43 = (v42 + 2 * *(a1 + 32) - *(a1 + 28)) / *(a1 + 30) + 1;
-      if (!(*(a1 + 3) % (v43 + v43 * ((v41 + 2 * *(a1 + 33) - *(a1 + 29)) / *(a1 + 31)))))
+      v44 = (v43 + 2 * *(a1 + 32) - *(a1 + 28)) / *(a1 + 30) + 1;
+      if (!(*(a1 + 3) % (v44 + v44 * ((v42 + 2 * *(a1 + 33) - *(a1 + 29)) / *(a1 + 31)))))
       {
         kaldi::nnet1::NewMatrix<kaldi::CuMatrixBase<float>>();
       }
@@ -5836,28 +5791,28 @@ LABEL_148:
 
   while (1)
   {
-    memset(v49, 0, 24);
-    kaldi::ReadToken(a2, a3, v49, v6, v7);
-    if (SHIBYTE(v49[2]) < 0)
+    memset(v50, 0, 24);
+    kaldi::ReadToken(a2, v4, v50, v7, v8);
+    if (SHIBYTE(v50[2]) < 0)
     {
-      if (v49[1] != 15 || (*v49[0] == 0x61526E7261654C3CLL ? (v12 = *(v49[0] + 7) == 0x3E66656F43657461) : (v12 = 0), v11 = a1 + 34, !v12))
+      if (v50[1] != 15 || (*v50[0] == 0x61526E7261654C3CLL ? (v13 = *(v50[0] + 7) == 0x3E66656F43657461) : (v13 = 0), v12 = a1 + 34, !v13))
       {
-        if (v49[1] != 19 || (*v49[0] == 0x61654C736169423CLL ? (v13 = *(v49[0] + 1) == 0x6F43657461526E72) : (v13 = 0), v13 ? (v14 = *(v49[0] + 11) == 0x3E66656F43657461) : (v14 = 0), v11 = a1 + 35, !v14))
+        if (v50[1] != 19 || (*v50[0] == 0x61654C736169423CLL ? (v14 = *(v50[0] + 1) == 0x6F43657461526E72) : (v14 = 0), v14 ? (v15 = *(v50[0] + 11) == 0x3E66656F43657461) : (v15 = 0), v12 = a1 + 35, !v15))
         {
-          if (v49[1] != 9)
+          if (v50[1] != 9)
           {
-            if (v49[1] == 18)
+            if (v50[1] == 18)
             {
-              v15 = *v49[0] == 0x6E6569646172473CLL && *(v49[0] + 1) == 0x7079546D726F4E74;
-              if (v15 && *(v49[0] + 8) == 15973)
+              v16 = *v50[0] == 0x6E6569646172473CLL && *(v50[0] + 1) == 0x7079546D726F4E74;
+              if (v16 && *(v50[0] + 8) == 15973)
               {
 LABEL_82:
                 __p[0] = 0;
                 __p[1] = 0;
-                v48 = 0;
-                kaldi::ReadToken(a2, a3, __p, v8, v9);
+                v49 = 0;
+                kaldi::ReadToken(a2, v4, __p, v9, v10);
                 *(a1 + 36) = kaldi::nnet1::Component::MarkerToGradientNormType(__p);
-                if (SHIBYTE(v48) < 0)
+                if (SHIBYTE(v49) < 0)
                 {
                   operator delete(__p[0]);
                 }
@@ -5867,36 +5822,36 @@ LABEL_82:
             }
 
 LABEL_40:
-            if (v49[1] == 10)
+            if (v50[1] == 10)
             {
-              v18 = *v49[0] == 0x654C5870616D463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 26);
-              if (v18)
+              v19 = *v50[0] == 0x654C5870616D463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 26);
+              if (v19)
               {
                 goto LABEL_144;
               }
 
-              v20 = *v49[0] == 0x654C5970616D463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 27);
-              if (v20)
+              v21 = *v50[0] == 0x654C5970616D463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 27);
+              if (v21)
               {
                 goto LABEL_144;
               }
 
-              v28 = *v49[0] == 0x654C58746C69463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 28);
-              if (v28)
+              v29 = *v50[0] == 0x654C58746C69463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 28);
+              if (v29)
               {
                 goto LABEL_144;
               }
 
-              if ((HIBYTE(v49[2]) & 0x80) == 0)
+              if ((HIBYTE(v50[2]) & 0x80) == 0)
               {
-                if (HIBYTE(v49[2]) != 6)
+                if (HIBYTE(v50[2]) != 6)
                 {
-                  if (HIBYTE(v49[2]) != 11)
+                  if (HIBYTE(v50[2]) != 11)
                   {
-                    if (HIBYTE(v49[2]) == 10)
+                    if (HIBYTE(v50[2]) == 10)
                     {
                       goto LABEL_118;
                     }
@@ -5905,17 +5860,17 @@ LABEL_40:
                   }
 
 LABEL_99:
-                  v29 = v49[0] == 0x745358746C69463CLL && *(v49 + 3) == 0x3E7065745358746CLL;
-                  v19 = (a1 + 30);
-                  if (v29)
+                  v30 = v50[0] == 0x745358746C69463CLL && *(v50 + 3) == 0x3E7065745358746CLL;
+                  v20 = (a1 + 30);
+                  if (v30)
                   {
                     goto LABEL_144;
                   }
 
 LABEL_103:
-                  v30 = v49[0] == 0x745359746C69463CLL && *(v49 + 3) == 0x3E7065745359746CLL;
-                  v19 = (a1 + 31);
-                  if (v30)
+                  v31 = v50[0] == 0x745359746C69463CLL && *(v50 + 3) == 0x3E7065745359746CLL;
+                  v20 = (a1 + 31);
+                  if (v31)
                   {
                     goto LABEL_144;
                   }
@@ -5926,28 +5881,28 @@ LABEL_103:
                 goto LABEL_132;
               }
 
-              v31 = *v49[0] == 0x654C59746C69463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 29);
-              if (v31)
+              v32 = *v50[0] == 0x654C59746C69463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 29);
+              if (v32)
               {
                 goto LABEL_144;
               }
             }
 
-            if (v49[1] == 11)
+            if (v50[1] == 11)
             {
-              v34 = *v49[0] == 0x745358746C69463CLL && *(v49[0] + 3) == 0x3E7065745358746CLL;
-              v19 = (a1 + 30);
-              if (v34)
+              v35 = *v50[0] == 0x745358746C69463CLL && *(v50[0] + 3) == 0x3E7065745358746CLL;
+              v20 = (a1 + 30);
+              if (v35)
               {
                 goto LABEL_144;
               }
 
-              if ((HIBYTE(v49[2]) & 0x80) == 0)
+              if ((HIBYTE(v50[2]) & 0x80) == 0)
               {
-                if (HIBYTE(v49[2]) != 6)
+                if (HIBYTE(v50[2]) != 6)
                 {
-                  if (HIBYTE(v49[2]) != 11)
+                  if (HIBYTE(v50[2]) != 11)
                   {
                     goto LABEL_143;
                   }
@@ -5956,13 +5911,13 @@ LABEL_103:
                 }
 
 LABEL_132:
-                v35 = v49;
+                v36 = v50;
 LABEL_139:
-                v37 = *v35;
-                v38 = *(v35 + 2);
-                v39 = v37 == 1684099132 && v38 == 15960;
-                v19 = (a1 + 32);
-                if (!v39)
+                v38 = *v36;
+                v39 = *(v36 + 2);
+                v40 = v38 == 1684099132 && v39 == 15960;
+                v20 = (a1 + 32);
+                if (!v40)
                 {
                   goto LABEL_143;
                 }
@@ -5970,26 +5925,26 @@ LABEL_139:
                 goto LABEL_144;
               }
 
-              v36 = *v49[0] == 0x745359746C69463CLL && *(v49[0] + 3) == 0x3E7065745359746CLL;
-              v19 = (a1 + 31);
-              if (v36)
+              v37 = *v50[0] == 0x745359746C69463CLL && *(v50[0] + 3) == 0x3E7065745359746CLL;
+              v20 = (a1 + 31);
+              if (v37)
               {
                 goto LABEL_144;
               }
             }
 
-            if (v49[1] != 6)
+            if (v50[1] != 6)
             {
               goto LABEL_143;
             }
 
-            v35 = v49[0];
+            v36 = v50[0];
             goto LABEL_139;
           }
 
-          v17 = *v49[0] == 0x6461724778614D3CLL && *(v49[0] + 8) == 62;
-          v11 = a1 + 37;
-          if (!v17)
+          v18 = *v50[0] == 0x6461724778614D3CLL && *(v50[0] + 8) == 62;
+          v12 = a1 + 37;
+          if (!v18)
           {
             goto LABEL_40;
           }
@@ -5997,33 +5952,33 @@ LABEL_139:
       }
     }
 
-    else if (HIBYTE(v49[2]) <= 0xAu)
+    else if (HIBYTE(v50[2]) <= 0xAu)
     {
-      if (HIBYTE(v49[2]) == 6)
+      if (HIBYTE(v50[2]) == 6)
       {
         goto LABEL_132;
       }
 
-      if (HIBYTE(v49[2]) != 9)
+      if (HIBYTE(v50[2]) != 9)
       {
-        if (HIBYTE(v49[2]) == 10)
+        if (HIBYTE(v50[2]) == 10)
         {
-          v21 = v49[0] == 0x654C5870616D463CLL && LOWORD(v49[1]) == 15982;
-          v19 = (a1 + 26);
-          if (!v21)
+          v22 = v50[0] == 0x654C5870616D463CLL && LOWORD(v50[1]) == 15982;
+          v20 = (a1 + 26);
+          if (!v22)
           {
-            v22 = v49[0] == 0x654C5970616D463CLL && LOWORD(v49[1]) == 15982;
-            v19 = (a1 + 27);
-            if (!v22)
+            v23 = v50[0] == 0x654C5970616D463CLL && LOWORD(v50[1]) == 15982;
+            v20 = (a1 + 27);
+            if (!v23)
             {
-              v32 = v49[0] == 0x654C58746C69463CLL && LOWORD(v49[1]) == 15982;
-              v19 = (a1 + 28);
-              if (!v32)
+              v33 = v50[0] == 0x654C58746C69463CLL && LOWORD(v50[1]) == 15982;
+              v20 = (a1 + 28);
+              if (!v33)
               {
 LABEL_118:
-                v33 = v49[0] == 0x654C59746C69463CLL && LOWORD(v49[1]) == 15982;
-                v19 = (a1 + 29);
-                if (!v33)
+                v34 = v50[0] == 0x654C59746C69463CLL && LOWORD(v50[1]) == 15982;
+                v20 = (a1 + 29);
+                if (!v34)
                 {
                   goto LABEL_143;
                 }
@@ -6032,57 +5987,57 @@ LABEL_118:
           }
 
 LABEL_144:
-          kaldi::ReadBasicType<int>(a2, a3, v19);
+          kaldi::ReadBasicType<int>(a2, v4, v20);
           goto LABEL_145;
         }
 
 LABEL_143:
-        v40 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v49, "<PadY>");
-        v19 = (a1 + 33);
-        if (!v40)
+        v41 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v50, "<PadY>");
+        v20 = (a1 + 33);
+        if (!v41)
         {
           kaldi::KaldiErrorMessage::KaldiErrorMessage(__p, "ReadData", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 417);
-          v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "unrecognized config token ", 26);
-          if (SHIBYTE(v49[2]) >= 0)
+          v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "unrecognized config token ", 26);
+          if (SHIBYTE(v50[2]) >= 0)
           {
-            v45 = v49;
+            v46 = v50;
           }
 
           else
           {
-            v45 = v49[0];
+            v46 = v50[0];
           }
 
-          if (SHIBYTE(v49[2]) >= 0)
+          if (SHIBYTE(v50[2]) >= 0)
           {
-            v46 = HIBYTE(v49[2]);
+            v47 = HIBYTE(v50[2]);
           }
 
           else
           {
-            v46 = v49[1];
+            v47 = v50[1];
           }
 
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, v46, v47);
           kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
         }
 
         goto LABEL_144;
       }
 
-      v27 = v49[0] == 0x6461724778614D3CLL && LOBYTE(v49[1]) == 62;
-      v11 = a1 + 37;
-      if (!v27)
+      v28 = v50[0] == 0x6461724778614D3CLL && LOBYTE(v50[1]) == 62;
+      v12 = a1 + 37;
+      if (!v28)
       {
         goto LABEL_143;
       }
     }
 
-    else if (HIBYTE(v49[2]) > 0x11u)
+    else if (HIBYTE(v50[2]) > 0x11u)
     {
-      if (HIBYTE(v49[2]) == 18)
+      if (HIBYTE(v50[2]) == 18)
       {
-        if (v49[0] == 0x6E6569646172473CLL && v49[1] == 0x7079546D726F4E74 && LOWORD(v49[2]) == 15973)
+        if (v50[0] == 0x6E6569646172473CLL && v50[1] == 0x7079546D726F4E74 && LOWORD(v50[2]) == 15973)
         {
           goto LABEL_82;
         }
@@ -6090,15 +6045,15 @@ LABEL_143:
         goto LABEL_143;
       }
 
-      if (HIBYTE(v49[2]) != 19)
+      if (HIBYTE(v50[2]) != 19)
       {
         goto LABEL_143;
       }
 
-      v23 = v49[0] == 0x61654C736169423CLL && v49[1] == 0x6F43657461526E72;
-      v24 = v23 && *(&v49[1] + 3) == 0x3E66656F43657461;
-      v11 = a1 + 35;
-      if (!v24)
+      v24 = v50[0] == 0x61654C736169423CLL && v50[1] == 0x6F43657461526E72;
+      v25 = v24 && *(&v50[1] + 3) == 0x3E66656F43657461;
+      v12 = a1 + 35;
+      if (!v25)
       {
         goto LABEL_143;
       }
@@ -6106,73 +6061,70 @@ LABEL_143:
 
     else
     {
-      if (HIBYTE(v49[2]) == 11)
+      if (HIBYTE(v50[2]) == 11)
       {
         goto LABEL_99;
       }
 
-      if (HIBYTE(v49[2]) != 15)
+      if (HIBYTE(v50[2]) != 15)
       {
         goto LABEL_143;
       }
 
-      v10 = v49[0] == 0x61526E7261654C3CLL && *(v49 + 7) == 0x3E66656F43657461;
-      v11 = a1 + 34;
-      if (!v10)
+      v11 = v50[0] == 0x61526E7261654C3CLL && *(v50 + 7) == 0x3E66656F43657461;
+      v12 = a1 + 34;
+      if (!v11)
       {
         goto LABEL_143;
       }
     }
 
-    kaldi::ReadBasicType<float>(a2, a3, v11);
+    kaldi::ReadBasicType<float>(a2, v4, v12);
 LABEL_145:
-    if (SHIBYTE(v49[2]) < 0)
+    if (SHIBYTE(v50[2]) < 0)
     {
-      operator delete(v49[0]);
+      operator delete(v50[0]);
     }
 
-    if (kaldi::Peek(a2, a3) != 60)
+    if (kaldi::Peek(a2, v4) != 60)
     {
       goto LABEL_148;
     }
   }
 }
 
-uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::WriteConfig(unsigned int *a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void *kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::WriteConfig(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "<LearnRateCoef>", a4, a5);
-  v8 = a1[34];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v9, v10);
-  v11 = a1[35];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<GradientNormType>", v12, v13);
-  kaldi::nnet1::Component::TypeToMarker(a1[36], &__p);
-  kaldi::WriteToken(a2, a3, &__p, v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 136));
+  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v8, v9);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 140));
+  kaldi::WriteToken(a2, a3, "<GradientNormType>", v10, v11);
+  kaldi::nnet1::Component::TypeToMarker(*(a1 + 144), &__p);
+  kaldi::WriteToken(a2, a3, &__p, v12, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  kaldi::WriteToken(a2, a3, "<MaxGrad>", v16, v17);
-  v18 = a1[37];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<FmapXLen>", v19, v20);
-  kaldi::WriteBasicType<int>(a2, a3, a1[26]);
-  kaldi::WriteToken(a2, a3, "<FmapYLen>", v21, v22);
-  kaldi::WriteBasicType<int>(a2, a3, a1[27]);
-  kaldi::WriteToken(a2, a3, "<FiltXLen>", v23, v24);
-  kaldi::WriteBasicType<int>(a2, a3, a1[28]);
-  kaldi::WriteToken(a2, a3, "<FiltYLen>", v25, v26);
-  kaldi::WriteBasicType<int>(a2, a3, a1[29]);
-  kaldi::WriteToken(a2, a3, "<FiltXStep>", v27, v28);
-  kaldi::WriteBasicType<int>(a2, a3, a1[30]);
-  kaldi::WriteToken(a2, a3, "<FiltYStep>", v29, v30);
-  kaldi::WriteBasicType<int>(a2, a3, a1[31]);
-  kaldi::WriteToken(a2, a3, "<PadX>", v31, v32);
-  kaldi::WriteBasicType<int>(a2, a3, a1[32]);
-  kaldi::WriteToken(a2, a3, "<PadY>", v33, v34);
-  return kaldi::WriteBasicType<int>(a2, a3, a1[33]);
+  kaldi::WriteToken(a2, a3, "<MaxGrad>", v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 148));
+  kaldi::WriteToken(a2, a3, "<FmapXLen>", v16, v17);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 104));
+  kaldi::WriteToken(a2, a3, "<FmapYLen>", v18, v19);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 108));
+  kaldi::WriteToken(a2, a3, "<FiltXLen>", v20, v21);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 112));
+  kaldi::WriteToken(a2, a3, "<FiltYLen>", v22, v23);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 116));
+  kaldi::WriteToken(a2, a3, "<FiltXStep>", v24, v25);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 120));
+  kaldi::WriteToken(a2, a3, "<FiltYStep>", v26, v27);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 124));
+  kaldi::WriteToken(a2, a3, "<PadX>", v28, v29);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 128));
+  kaldi::WriteToken(a2, a3, "<PadY>", v30, v31);
+  return kaldi::WriteBasicType<int>(a2, a3, *(a1 + 132));
 }
 
 void sub_1C309D59C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6185,7 +6137,7 @@ void sub_1C309D59C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::WriteData(uint64_t *a1, void *a2, int a3, int a4)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::WriteData(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   (*(*a1 + 168))(a1);
   kaldi::CuMatrixBase<float>::Write(a1[23], a2, a3, a4);
@@ -6245,120 +6197,120 @@ float kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::SumPar
 
 uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::PerturbParams(uint64_t a1, float a2)
 {
-  kaldi::CuMatrix<float>::CuMatrix(v15, *(*(a1 + 184) + 20), *(*(a1 + 184) + 16), 1u, 0, 0);
+  kaldi::CuMatrix<float>::CuMatrix(v15, *(*(a1 + 184) + 20), *(*(a1 + 184) + 16), 1, 0, 0);
   kaldi::CuMatrixBase<float>::SetRandn(v15);
-  kaldi::CuMatrixBase<float>::AddMat(*(a1 + 184), v15, 111, v4, v5, a2, 1.0);
+  kaldi::CuMatrixBase<float>::AddMat(*(a1 + 184), v15, 111, a2, 1.0, v4, v5);
   v6 = *(*(a1 + 192) + 16);
   v14[0] = &unk_1F42BFF70;
   memset(&v14[1], 0, 24);
   kaldi::CuVector<float>::Resize(v14, v6, 1u, v7, v8);
   kaldi::CuVectorBase<float>::SetRandn(v14);
-  *&v9 = a2;
-  kaldi::CuVectorBase<float>::AddVec(*(a1 + 192), v14, v10, v11, v12, v9, 1.0);
+  v9.n128_f32[0] = a2;
+  kaldi::CuVectorBase<float>::AddVec(*(a1 + 192), v14, v9, 1.0, v10, v11, v12);
   kaldi::CuVector<float>::~CuVector(v14);
   return kaldi::CuMatrix<float>::~CuMatrix(v15);
 }
 
-void sub_1C309D980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C309D980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Info(uint64_t a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
-  (*(*a1 + 168))(a1, &v37, 0);
-  v2 = *(a1 + 104);
-  v3 = *(a1 + 108);
-  v4 = *(a1 + 128);
-  v5 = *(a1 + 132);
-  v6 = *(a1 + 112);
-  v7 = *(a1 + 116);
-  v8 = *(a1 + 120);
-  v9 = *(a1 + 124);
-  v10 = *(a1 + 8);
-  v32 = *(a1 + 12);
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, " OutSizeX:", 10);
-  v12 = (v2 + 2 * v4 - v6) / v8 + 1;
-  v13 = MEMORY[0x1C692A960](v11, v12);
-  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " OutSizeY:", 10);
-  v15 = (v3 + 2 * v5 - v7) / v9 + 1;
-  v16 = MEMORY[0x1C692A960](v14, v15);
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " InFmaps:", 9);
-  v18 = MEMORY[0x1C692A960](v17, (v10 / (v3 * v2)));
-  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " OutFmaps:", 10);
-  MEMORY[0x1C692A960](v19, (v32 / (v15 * v12)));
-  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "\n filters: ", 11);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v38);
+  (*(*a1 + 168))(a1, &v38, 0);
+  v3 = *(a1 + 104);
+  v4 = *(a1 + 108);
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 132);
+  v7 = *(a1 + 112);
+  v8 = *(a1 + 116);
+  v9 = *(a1 + 120);
+  v10 = *(a1 + 124);
+  v11 = *(a1 + 8);
+  v33 = *(a1 + 12);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, " OutSizeX:", 10);
+  v13 = (v3 + 2 * v5 - v7) / v9 + 1;
+  v14 = MEMORY[0x1C692A960](v12, v13);
+  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " OutSizeY:", 10);
+  v16 = (v4 + 2 * v6 - v8) / v10 + 1;
+  v17 = MEMORY[0x1C692A960](v15, v16);
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " InFmaps:", 9);
+  v19 = MEMORY[0x1C692A960](v18, (v11 / (v4 * v3)));
+  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " OutFmaps:", 10);
+  MEMORY[0x1C692A960](v20, (v33 / (v16 * v13)));
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "\n filters: ", 11);
   kaldi::nnet1::MomentStatistics<float>(*(a1 + 184));
-  if ((v36 & 0x80u) == 0)
-  {
-    v21 = v35;
-  }
-
-  else
-  {
-    v21 = v35[0];
-  }
-
-  if ((v36 & 0x80u) == 0)
+  if ((v37 & 0x80u) == 0)
   {
     v22 = v36;
   }
 
   else
   {
-    v22 = v35[1];
+    v22 = v36[0];
   }
 
-  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v21, v22);
-  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "\n bias: ", 8);
-  kaldi::nnet1::MomentStatistics<float>(*(a1 + 192), v25, v26, v27, v28);
-  if ((v34 & 0x80u) == 0)
+  if ((v37 & 0x80u) == 0)
   {
-    v29 = __p;
+    v23 = v37;
   }
 
   else
   {
-    v29 = __p[0];
+    v23 = v36[1];
   }
 
-  if ((v34 & 0x80u) == 0)
+  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, v23);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "\n bias: ", 8);
+  kaldi::nnet1::MomentStatistics<float>(*(a1 + 192), v26, v27, v28, v29);
+  if ((v35 & 0x80u) == 0)
   {
-    v30 = v34;
+    v30 = __p;
   }
 
   else
   {
-    v30 = __p[1];
+    v30 = __p[0];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v29, v30);
-  if (v34 < 0)
+  if ((v35 & 0x80u) == 0)
+  {
+    v31 = v35;
+  }
+
+  else
+  {
+    v31 = __p[1];
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v30, v31);
+  if (v35 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v36 < 0)
+  if (v37 < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v36[0]);
   }
 
   std::stringbuf::str();
-  v37 = *MEMORY[0x1E69E54E8];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v38 = MEMORY[0x1E69E5548] + 16;
-  if (v40 < 0)
+  v38 = *MEMORY[0x1E69E54E8];
+  *(&v38 + *(v38 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v39 = MEMORY[0x1E69E5548] + 16;
+  if (v41 < 0)
   {
-    operator delete(v39[7].__locale_);
+    operator delete(v40[7].__locale_);
   }
 
-  v38 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v39);
+  v39 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v40);
   std::ostream::~ostream();
-  return MEMORY[0x1C692AD30](&v41);
+  return MEMORY[0x1C692AD30](&v42);
 }
 
 void sub_1C309DC88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23)
@@ -6415,7 +6367,7 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InfoGra
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  kaldi::nnet1::ToString<float>((a1 + 136));
+  kaldi::nnet1::ToString<float>();
   if ((v38 & 0x80u) == 0)
   {
     v14 = v37;
@@ -6485,7 +6437,7 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InfoGra
   v28->__r_.__value_.__l.__size_ = 0;
   v28->__r_.__value_.__r.__words[2] = 0;
   v28->__r_.__value_.__r.__words[0] = 0;
-  kaldi::nnet1::ToString<float>((a1 + 140));
+  kaldi::nnet1::ToString<float>();
   if ((v34 & 0x80u) == 0)
   {
     v30 = __p;
@@ -6670,11 +6622,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Propaga
   v6 = *(a1 + 108);
   v7 = (v5 + 2 * *(a1 + 128) - *(a1 + 112)) / *(a1 + 120);
   v8 = (v6 + 2 * *(a1 + 132) - *(a1 + 116)) / *(a1 + 124);
-  v63 = (v8 + 1);
-  v60 = (v7 + 1);
-  v9 = v63 * v60;
-  v64 = (*(a1 + 12) / (v63 * v60));
-  if (*(*(a1 + 184) + 20) != v64)
+  v64 = (v8 + 1);
+  v61 = (v7 + 1);
+  v9 = v64 * v61;
+  v65 = (*(a1 + 12) / (v64 * v61));
+  if (*(*(a1 + 184) + 20) != v65)
   {
     kaldi::KaldiAssertFailure_("PropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 0x490, "num_filters == num_output_fmaps", a5);
   }
@@ -6684,21 +6636,21 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Propaga
   v14 = *(a2 + 20);
   v15 = *(a1 + 296);
   v16 = *(a1 + 80);
-  v67 = v63 * v60;
+  v68 = v64 * v61;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 304) - v15) >> 3) < v16)
   {
-    std::vector<std::vector<kaldi::CuMatrix<float>>>::resize(a1 + 296, v16);
-    v9 = v63 * v60;
+    std::vector<std::vector<kaldi::CuMatrix<float>>>::resize((a1 + 296), v16);
+    v9 = v64 * v61;
     v15 = *(a1 + 296);
   }
 
-  v62 = v7;
-  v69 = v10;
+  v63 = v7;
+  v70 = v10;
   v17 = (v15 + 24 * v10);
   if (0xAAAAAAAAAAAAAAABLL * ((v17[1] - *v17) >> 4) < v9)
   {
     std::vector<kaldi::CuMatrix<float>>::resize(v17, v9);
-    v9 = v63 * v60;
+    v9 = v64 * v61;
   }
 
   if (v9 >= 1)
@@ -6711,15 +6663,15 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Propaga
       v18 += 48;
     }
 
-    while (48 * v67 != v18);
+    while (48 * v68 != v18);
   }
 
-  v61 = v8;
-  v66 = (a1 + 160);
+  v62 = v8;
+  v67 = (a1 + 160);
   v20 = *(a1 + 80);
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 168) - *(a1 + 160)) >> 4) < v20)
   {
-    std::vector<kaldi::CuMatrix<float>>::resize(v66, v20);
+    std::vector<kaldi::CuMatrix<float>>::resize(v67, v20);
   }
 
   v21 = *(a1 + 132);
@@ -6728,89 +6680,89 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Propaga
   v24 = *(a1 + 116);
   if (v21 + v23 - v24 >= -v21)
   {
-    v44 = 0;
-    v45 = *(a1 + 128);
-    v46 = *(a1 + 104);
-    v47 = *(a1 + 112);
-    v48 = v13 / (v6 * v5);
-    v68 = a2;
+    v45 = 0;
+    v46 = *(a1 + 128);
+    v47 = *(a1 + 104);
+    v48 = *(a1 + 112);
+    v49 = v13 / (v6 * v5);
+    v69 = a2;
     do
     {
-      v49 = -v45;
-      if (v45 + v46 - v47 >= -v45)
+      v50 = -v46;
+      if (v46 + v47 - v48 >= -v46)
       {
-        v50 = v44;
+        v51 = v45;
         do
         {
-          v70 = v50;
+          v71 = v51;
           __p = 0;
-          v72 = 0uLL;
-          if (v48 >= 1)
+          v73 = 0uLL;
+          if (v49 >= 1)
           {
-            v51 = 0;
-            v52 = v46 * v22;
-            v53 = *(a1 + 116);
-            v54 = v49 + v52;
+            v52 = 0;
+            v53 = v47 * v22;
+            v54 = *(a1 + 116);
+            v55 = v50 + v53;
             do
             {
-              if (v53 >= 1)
+              if (v54 >= 1)
               {
-                for (i = 0; i < v53; ++i)
+                for (i = 0; i < v54; ++i)
                 {
-                  if (v47 >= 1)
+                  if (v48 >= 1)
                   {
-                    v56 = 0;
-                    v57 = i + v22;
+                    v57 = 0;
+                    v58 = i + v22;
                     do
                     {
-                      v58 = *(a1 + 104);
-                      v59 = *(a1 + 108);
-                      v75 = v54 + v56 + v58 * (i + v51 * v59);
-                      if (v57 < 0 || v57 >= v59 || v49 + v56 < 0 || v49 + v56 >= v58)
+                      v59 = *(a1 + 104);
+                      v60 = *(a1 + 108);
+                      v76 = v55 + v57 + v59 * (i + v52 * v60);
+                      if (v58 < 0 || v58 >= v60 || v50 + v57 < 0 || v50 + v57 >= v59)
                       {
-                        v74 = -1;
-                        std::vector<int>::push_back[abi:ne200100](&__p, &v74);
+                        v75 = -1;
+                        std::vector<int>::push_back[abi:ne200100](&__p, &v75);
                       }
 
                       else
                       {
-                        std::vector<int>::push_back[abi:ne200100](&__p, &v75);
+                        std::vector<int>::push_back[abi:ne200100](&__p, &v76);
                       }
 
-                      ++v56;
-                      v47 = *(a1 + 112);
+                      ++v57;
+                      v48 = *(a1 + 112);
                     }
 
-                    while (v56 < v47);
-                    v53 = *(a1 + 116);
+                    while (v57 < v48);
+                    v54 = *(a1 + 116);
                   }
                 }
               }
 
-              ++v51;
+              ++v52;
             }
 
-            while (v51 != v48);
+            while (v52 != v49);
           }
 
-          kaldi::CuMatrixBase<float>::CopyCols(*(*(a1 + 296) + 24 * v69) + 48 * v70, v68, &__p, a4, a5);
+          kaldi::CuMatrixBase<float>::CopyCols(*(*(a1 + 296) + 24 * v70) + 48 * v71, v69, &__p, a4, a5);
           if (__p)
           {
-            *&v72 = __p;
+            *&v73 = __p;
             operator delete(__p);
           }
 
-          v50 = v70 + 1;
-          v49 += *(a1 + 120);
-          v46 = *(a1 + 104);
-          v45 = *(a1 + 128);
-          v47 = *(a1 + 112);
+          v51 = v71 + 1;
+          v50 += *(a1 + 120);
+          v47 = *(a1 + 104);
+          v46 = *(a1 + 128);
+          v48 = *(a1 + 112);
         }
 
-        while (v49 <= v45 + v46 - v47);
+        while (v50 <= v46 + v47 - v48);
         v23 = *(a1 + 108);
         v21 = *(a1 + 132);
-        v44 = v70 + 1;
+        v45 = v71 + 1;
         v24 = *(a1 + 116);
       }
 
@@ -6820,99 +6772,100 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Propaga
     while (v22 <= v21 + v23 - v24);
   }
 
-  kaldi::CuMatrix<float>::Resize(*v66 + 48 * v69, *(a3 + 20), *(a3 + 16), 3u, 0);
-  if (v67 >= 1)
+  kaldi::CuMatrix<float>::Resize(*v67 + 48 * v70, *(a3 + 20), *(a3 + 16), 3, 0);
+  if (v68 >= 1)
   {
     v25 = 0;
     v26 = 0;
     do
     {
-      v27 = *(a1 + 160) + 48 * v69;
-      kaldi::CuSubMatrix<float>::CuSubMatrix(&__p, v27, 0, *(v27 + 20), v26, v64);
-      kaldi::CuMatrixBase<float>::AddVecToRows(&__p, *(a1 + 192), v28, v29, v30, 1.0, 0.0);
-      kaldi::CuMatrixBase<float>::AddMatMat(&__p, *(*(a1 + 296) + 24 * v69) + v25, 111, *(a1 + 184), 0x70);
+      v27 = *(a1 + 160) + 48 * v70;
+      kaldi::CuSubMatrix<float>::CuSubMatrix(&__p, v27, 0, *(v27 + 20), v26, v65);
+      v28.n128_u32[0] = 1.0;
+      kaldi::CuMatrixBase<float>::AddVecToRows(&__p, *(a1 + 192), v28, 0.0, v29, v30, v31);
+      kaldi::CuMatrixBase<float>::AddMatMat(&__p, *(*(a1 + 296) + 24 * v70) + v25, 111, *(a1 + 184), 0x70);
       __p = &unk_1F42BFE90;
-      v72 = 0u;
       v73 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&__p);
-      v26 = (v26 + v64);
+      v74 = 0u;
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
+      v26 = (v26 + v65);
       v25 += 48;
     }
 
-    while (48 * v67 != v25);
+    while (48 * v68 != v25);
   }
 
   std::vector<int>::vector[abi:ne200100](&__p, *(a1 + 12));
-  if (v64 >= 1)
+  if (v65 >= 1)
   {
-    v33 = 0;
-    v34 = vdupq_n_s64(v60 - 1);
-    v35 = vdupq_n_s64(4uLL);
-    v36 = 8;
+    v34 = 0;
+    v35 = vdupq_n_s64(v61 - 1);
+    v36 = vdupq_n_s64(4uLL);
+    v37 = 8;
     do
     {
-      if ((v61 & 0x80000000) == 0)
+      if ((v62 & 0x80000000) == 0)
       {
-        v37 = 0;
-        v38 = __p + v36;
-        v39 = v33;
+        v38 = 0;
+        v39 = __p + v37;
+        v40 = v34;
         do
         {
-          if ((v62 & 0x80000000) == 0)
+          if ((v63 & 0x80000000) == 0)
           {
-            v40 = v38;
-            v31 = (v60 + 3) & 0xFFFFFFFC;
-            LODWORD(v32) = v39;
-            v41 = xmmword_1C378AF00;
-            v42 = xmmword_1C378AEF0;
+            v41 = v39;
+            v32 = (v61 + 3) & 0xFFFFFFFC;
+            LODWORD(v33) = v40;
+            v42 = xmmword_1C378AF00;
+            v43 = xmmword_1C378AEF0;
             do
             {
-              v43 = vmovn_s64(vcgeq_u64(v34, v41));
-              if (vuzp1_s16(v43, *v34.i8).u8[0])
+              v44 = vmovn_s64(vcgeq_u64(v35, v42));
+              if (vuzp1_s16(v44, *v35.i8).u8[0])
               {
-                *(v40 - 2) = v32;
+                *(v41 - 2) = v33;
               }
 
-              if (vuzp1_s16(v43, *&v34).i8[2])
+              if (vuzp1_s16(v44, *&v35).i8[2])
               {
-                *(v40 - 1) = v64 + v32;
+                *(v41 - 1) = v65 + v33;
               }
 
-              if (vuzp1_s16(*&v34, vmovn_s64(vcgeq_u64(v34, *&v42))).i32[1])
+              if (vuzp1_s16(*&v35, vmovn_s64(vcgeq_u64(v35, *&v43))).i32[1])
               {
-                *v40 = 2 * v64 + v32;
-                v40[1] = 3 * v64 + v32;
+                *v41 = 2 * v65 + v33;
+                v41[1] = 3 * v65 + v33;
               }
 
-              v42 = vaddq_s64(v42, v35);
-              v41 = vaddq_s64(v41, v35);
-              v32 = (v32 + 4 * v64);
-              v40 += 4;
-              v31 -= 4;
+              v43 = vaddq_s64(v43, v36);
+              v42 = vaddq_s64(v42, v36);
+              v33 = (v33 + 4 * v65);
+              v41 += 4;
+              v32 -= 4;
             }
 
-            while (v31);
+            while (v32);
           }
 
-          ++v37;
-          v39 += v64 * v60;
-          v38 += 4 * v60;
+          ++v38;
+          v40 += v65 * v61;
+          v39 += 4 * v61;
         }
 
-        while (v37 != v63);
+        while (v38 != v64);
       }
 
-      ++v33;
-      v36 += 4 * v63 * v60;
+      ++v34;
+      v37 += 4 * v64 * v61;
     }
 
-    while (v33 != v64);
+    while (v34 != v65);
   }
 
-  kaldi::CuMatrixBase<float>::CopyCols(a3, *v66 + 48 * v69, &__p, v31, v32);
+  kaldi::CuMatrixBase<float>::CopyCols(a3, *v67 + 48 * v70, &__p, v32, v33);
   if (__p)
   {
-    *&v72 = __p;
+    *&v73 = __p;
     operator delete(__p);
   }
 }
@@ -6937,94 +6890,92 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Backpro
   v11 = (*(a1 + 12) / (v9 * v7));
   if (*(*(a1 + 184) + 20) == v11)
   {
-    v33 = *(a1 + 8);
-    v14 = *(a2 + 20);
-    v15 = a6;
-    kaldi::CuMatrix<float>::Resize(*(a1 + 160) + 48 * a6, *(a4 + 20), *(a4 + 16), 3u, 0);
-    std::vector<int>::vector[abi:ne200100](&v36, *(a1 + 12));
+    v14 = a6;
+    kaldi::CuMatrix<float>::Resize(*(a1 + 160) + 48 * a6, *(a4 + 20), *(a4 + 16), 3, 0);
+    std::vector<int>::vector[abi:ne200100](&v34, *(a1 + 12));
     if (v11 >= 1)
     {
+      v17 = 0;
       v18 = 0;
       v19 = 0;
-      v20 = 0;
-      v21 = vdupq_n_s64(v7 - 1);
-      v22 = 12 * v11;
-      v23 = 8 * v11;
-      v24 = vdupq_n_s64(4uLL);
-      v25 = 4 * v11;
+      v20 = vdupq_n_s64(v7 - 1);
+      v21 = 12 * v11;
+      v22 = 8 * v11;
+      v23 = vdupq_n_s64(4uLL);
+      v24 = 4 * v11;
       do
       {
         if ((v8 & 0x80000000) == 0)
         {
-          v26 = 0;
-          v27 = v36;
-          v28 = v19;
+          v25 = 0;
+          v26 = v34;
+          v27 = v18;
           do
           {
             if ((v6 & 0x80000000) == 0)
             {
-              v16 = 0;
-              v17 = v27;
-              v29 = xmmword_1C378AF00;
-              v30 = xmmword_1C378AEF0;
+              v15 = 0;
+              v16 = v26;
+              v28 = xmmword_1C378AF00;
+              v29 = xmmword_1C378AEF0;
               do
               {
-                v31 = vmovn_s64(vcgeq_u64(v21, v29));
-                if (vuzp1_s16(v31, *v21.i8).u8[0])
+                v30 = vmovn_s64(vcgeq_u64(v20, v28));
+                if (vuzp1_s16(v30, *v20.i8).u8[0])
                 {
-                  *&v17[v18] = v28 + v16;
+                  *&v16[v17] = v27 + v15;
                 }
 
-                if (vuzp1_s16(v31, *&v21).i8[2])
+                if (vuzp1_s16(v30, *&v20).i8[2])
                 {
-                  *&v17[v25] = v28 + v16 + 1;
+                  *&v16[v24] = v27 + v15 + 1;
                 }
 
-                if (vuzp1_s16(*&v21, vmovn_s64(vcgeq_u64(v21, *&v30))).i32[1])
+                if (vuzp1_s16(*&v20, vmovn_s64(vcgeq_u64(v20, *&v29))).i32[1])
                 {
-                  *&v17[v23] = v28 + v16 + 2;
-                  *&v17[v22] = v28 + v16 + 3;
+                  *&v16[v22] = v27 + v15 + 2;
+                  *&v16[v21] = v27 + v15 + 3;
                 }
 
-                v16 += 4;
-                v30 = vaddq_s64(v30, v24);
-                v29 = vaddq_s64(v29, v24);
-                v17 += 16 * v11;
+                v15 += 4;
+                v29 = vaddq_s64(v29, v23);
+                v28 = vaddq_s64(v28, v23);
+                v16 += 16 * v11;
               }
 
-              while (((v6 + 4) & 0xFFFFFFFC) != v16);
+              while (((v6 + 4) & 0xFFFFFFFC) != v15);
             }
 
-            ++v26;
-            v27 += 4 * v11 * v7;
-            v28 += v6 + 1;
+            ++v25;
+            v26 += 4 * v11 * v7;
+            v27 += v6 + 1;
           }
 
-          while (v26 != v9);
+          while (v25 != v9);
         }
 
-        ++v20;
+        ++v19;
+        v21 += 4;
+        v18 += v10;
         v22 += 4;
-        v19 += v10;
-        v23 += 4;
-        v25 += 4;
-        v18 += 4;
+        v24 += 4;
+        v17 += 4;
       }
 
-      while (v20 != v11);
+      while (v19 != v11);
     }
 
-    kaldi::CuMatrixBase<float>::CopyCols(*(a1 + 160) + 48 * v15, a4, &v36, v16, v17);
-    std::vector<kaldi::CuSubMatrix<float>>::vector[abi:ne200100](v35, v10);
-    v32 = *(a1 + 24);
-    if (v15 < (*(a1 + 32) - v32) >> 3)
+    kaldi::CuMatrixBase<float>::CopyCols(*(a1 + 160) + 48 * v14, a4, &v34, v15, v16);
+    std::vector<kaldi::CuSubMatrix<float>>::vector[abi:ne200100](v33, v10);
+    v31 = *(a1 + 24);
+    if (v14 < (*(a1 + 32) - v31) >> 3)
     {
-      kaldi::CuWorkspace::GetChildWorkspace(*(v32 + 8 * v15), -1);
+      kaldi::CuWorkspace::GetChildWorkspace(*(v31 + 8 * v14), -1);
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v34, "BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1348);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "Convolutional2DComponent needs workspace set to perform back-propagation", 72);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v34);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v32, "BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1348);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, "Convolutional2DComponent needs workspace set to perform back-propagation", 72);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v32);
   }
 
   kaldi::KaldiAssertFailure_("BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 0x533, "num_filters == num_output_fmaps", a5);
@@ -7052,17 +7003,17 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Set
   return result;
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::NormalizeGradients(uint64_t a1, int a2, uint64_t a3, uint64_t a4, const char *a5, float a6)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::NormalizeGradients(uint64_t result, int a2, float a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  v7 = a6;
-  v9 = *(a1 + 144);
+  v7 = a3;
+  v9 = *(result + 144);
   if (v9 == 3)
   {
-    if (a6 >= 0.0 && a6 <= 1.0)
+    if (a3 >= 0.0 && a3 <= 1.0)
     {
-      kaldi::nnet1::UpdatableComponent::RmspropGradient(*(*(a1 + 200) + 8 * a2), *(a1 + 248) + 48 * a2, a6);
-      v16 = *(*(a1 + 224) + 8 * a2);
-      v17 = *(a1 + 272) + 32 * a2;
+      kaldi::nnet1::UpdatableComponent::RmspropGradient(*(*(result + 200) + 8 * a2), *(result + 248) + 48 * a2, a3);
+      v16 = *(*(result + 224) + 8 * a2);
+      v17 = *(result + 272) + 32 * a2;
 
       kaldi::nnet1::UpdatableComponent::RmspropGradient(v16, v17, v7, v13, v14, v15);
     }
@@ -7070,32 +7021,32 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Normali
 
   else if (v9 == 2)
   {
-    if (a6 > 0.0)
+    if (a3 > 0.0)
     {
       v11 = a2;
-      if (*(a1 + 84))
+      if (*(result + 84))
       {
-        v7 = *(*(a1 + 320) + 4 * a2) * a6;
+        v7 = *(*(result + 320) + 4 * a2) * a3;
       }
 
-      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(*(*(a1 + 200) + 8 * a2), (*(a1 + 248) + 48 * a2), v7, a3, a4, a5);
-      v21 = *(*(a1 + 224) + 8 * v11);
-      v22 = (*(a1 + 272) + 32 * v11);
+      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(*(*(result + 200) + 8 * a2), (*(result + 248) + 48 * a2), v7, a4, a5, a6);
+      v21 = *(*(result + 224) + 8 * v11);
+      v22 = (*(result + 272) + 32 * v11);
 
       kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v21, v22, v18, v19, v20, v7);
     }
   }
 
-  else if (v9 == 1 && a6 > 0.0)
+  else if (v9 == 1 && a3 > 0.0)
   {
     v10 = a2;
-    if (*(a1 + 84))
+    if (*(result + 84))
     {
-      v7 = *(*(a1 + 320) + 4 * a2) * a6;
+      v7 = *(*(result + 320) + 4 * a2) * a3;
     }
 
-    kaldi::nnet1::UpdatableComponent::ClipGradient(*(*(a1 + 200) + 8 * a2), v7);
-    v23 = *(*(a1 + 224) + 8 * v10);
+    kaldi::nnet1::UpdatableComponent::ClipGradient(*(*(result + 200) + 8 * a2), v7);
+    v23 = *(*(result + 224) + 8 * v10);
 
     kaldi::nnet1::UpdatableComponent::ClipGradient(v23, v7);
   }
@@ -7112,31 +7063,27 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::EnsureC
 {
   if ((*(a1 + 344) & 1) == 0)
   {
-    v2 = *(a1 + 144);
-    v3 = *(a1 + 80);
-    if (v3 > 1)
+    v2 = *(a1 + 80);
+    if (v2 > 1)
     {
-      v4 = (v3 + 1);
+      v3 = (v2 + 1);
     }
 
     else
     {
-      v4 = 1;
+      v3 = 1;
     }
 
-    std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::resize((a1 + 200), v4);
-    std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::resize((a1 + 224), v4);
-    std::vector<kaldi::CuMatrix<float>>::resize((a1 + 248), v4);
-    std::vector<kaldi::CuVector<float>>::resize((a1 + 272), v4, v5, v6, v7);
-    if (v4 >= 1)
+    std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::resize((a1 + 200), v3);
+    std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::resize((a1 + 224), v3);
+    std::vector<kaldi::CuMatrix<float>>::resize((a1 + 248), v3);
+    std::vector<kaldi::CuVector<float>>::resize((a1 + 272), v3, v4, v5, v6);
+    if (v3 >= 1)
     {
-      v8 = *(a1 + 184);
-      v10 = *(v8 + 16);
-      v9 = *(v8 + 20);
       operator new();
     }
 
-    std::vector<float>::resize((a1 + 320), v4);
+    std::vector<float>::resize((a1 + 320), v3);
     *(a1 + 344) = 1;
   }
 }
@@ -7168,11 +7115,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AccumGr
       v14 = *(a1 + 160) + 48 * v8;
       kaldi::CuSubMatrix<float>::CuSubMatrix(&v18, v14, 0, *(v14 + 20), v12, v7);
       kaldi::CuMatrixBase<float>::AddMatMat(*(*(a1 + 200) + 8 * v8), &v18, 112, *(*(a1 + 296) + 24 * v8) + v11, 0x6F);
-      kaldi::CuVectorBase<float>::AddRowSumMat(*(*(a1 + 224) + 8 * v8), &v18, v15, v16, v17);
+      kaldi::CuVectorBase<float>::AddRowSumMat(*(*(a1 + 224) + 8 * v8), &v18, 1.0, 1.0, v15, v16, v17);
       v18 = &unk_1F42BFE90;
       v19 = 0u;
       v20 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v18);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v12 = (v12 + v7);
       v11 += 48;
     }
@@ -7181,12 +7128,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::AccumGr
   }
 }
 
-void sub_1C309F4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+void sub_1C309F4EC(_Unwind_Exception *a1)
 {
-  a10 = &unk_1F42BFE90;
-  *(v10 + 8) = 0u;
-  *(v10 + 24) = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a10);
+  *(v1 + 8) = 0u;
+  *(v1 + 24) = 0u;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   _Unwind_Resume(a1);
 }
 
@@ -7226,16 +7172,16 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::Get
   return kaldi::CuMatrix<float>::~CuMatrix(v24);
 }
 
-void sub_1C309F778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C309F778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   kaldi::CuMatrix<float>::~CuMatrix(va1);
   _Unwind_Resume(a1);
@@ -7312,48 +7258,48 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::CountZe
   *a2 = v16;
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::VectorizeWeightsCorrs(uint64_t a1, uint64_t a2)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::VectorizeWeightsCorrs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (*(a1 + 16) == 1)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 238);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "Weights are already vectorized");
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 238);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, "Weights are already vectorized");
   }
 
   else
   {
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiLogMessage::KaldiLogMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 241);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Performing vectorization of convolutional 2d component", 54);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(v5);
+      kaldi::KaldiLogMessage::KaldiLogMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 241);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Performing vectorization of convolutional 2d component", 54);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(v7);
     }
 
-    v4 = *(*(a1 + 192) + 16) + *(*(a1 + 184) + 16) * *(*(a1 + 184) + 20);
-    if (v4 == (*(*a1 + 176))(a1))
+    v6 = *(*(a1 + 192) + 16) + *(*(a1 + 184) + 16) * *(*(a1 + 184) + 20);
+    if (v6 == (*(*a1 + 176))(a1, a2, a3, a4))
     {
       kaldi::NewCuSubOrMat<float>(*(a1 + 184), a2 != 0);
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 244);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "(nlinparams + bias_->Dim()) == NumParams()");
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 244);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, "(nlinparams + bias_->Dim()) == NumParams()");
   }
 
-  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v7);
 }
 
-uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InitResidualAggregator(uint64_t a1, uint64_t *a2)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::InitResidualAggregator(uint64_t a1, unint64_t *a2)
 {
   kaldi::nnet1::Convolutional2DComponent<kaldi::CuMatrixBase<float>>::EnsureCorrs(a1);
-  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, *(*(a1 + 208) - 8));
-  v4 = *(*(a1 + 232) - 8);
+  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, *(*(a1 + 208) - 8), v4, v5, v6, v7);
+  v12 = *(*(a1 + 232) - 8);
 
-  return kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, v4);
+  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, v12, v8, v9, v10, v11);
 }
 
-void std::vector<std::vector<kaldi::CuMatrix<float>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::vector<kaldi::CuMatrix<float>>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -7373,17 +7319,17 @@ void std::vector<std::vector<kaldi::CuMatrix<float>>>::resize(uint64_t a1, unint
       std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
-kaldi::CuWorkspace **std::unique_ptr<kaldi::CuWorkspace>::~unique_ptr[abi:ne200100](kaldi::CuWorkspace **a1)
+kaldi::CuWorkspace **std::unique_ptr<kaldi::CuWorkspace>::~unique_ptr[abi:ne200100](kaldi::CuWorkspace **a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v2 = *a1;
+  v6 = *a1;
   *a1 = 0;
-  if (v2)
+  if (v6)
   {
-    kaldi::CuWorkspace::~CuWorkspace(v2);
+    kaldi::CuWorkspace::~CuWorkspace(v6, a2, a3, a4, a5);
     MEMORY[0x1C692AE10]();
   }
 
@@ -7443,7 +7389,7 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed ch
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F42C2E78;
   *(a1 + 48) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -7477,18 +7423,18 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed ch
 void sub_1C30A039C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
   kaldi::nnet1::QuantizerResidualAggregator::~QuantizerResidualAggregator((v10 + 376));
-  v14 = *(v10 + 352);
-  if (v14)
+  v12 = *(v10 + 352);
+  if (v12)
   {
-    *(v10 + 360) = v14;
-    operator delete(v14);
+    *(v10 + 360) = v12;
+    operator delete(v12);
   }
 
-  v15 = *(v10 + 320);
-  if (v15)
+  v13 = *(v10 + 320);
+  if (v13)
   {
-    *(v10 + 328) = v15;
-    operator delete(v15);
+    *(v10 + 328) = v13;
+    operator delete(v13);
   }
 
   std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -7496,18 +7442,18 @@ void sub_1C30A039C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  v16 = *(v10 + 192);
+  v14 = *(v10 + 192);
   *(v10 + 192) = 0;
-  if (v16)
+  if (v14)
   {
-    (*(*v16 + 16))(v16);
+    (*(*v14 + 16))(v14);
   }
 
   std::unique_ptr<kaldi::QuantizedMatrix<signed char>>::reset[abi:ne200100]((v10 + 184), 0);
   a10 = (v10 + 160);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v12);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v11);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v10);
   _Unwind_Resume(a1);
 }
@@ -7569,54 +7515,52 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
 void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::~Convolutional2DComponent(uint64_t a1)
 {
   *a1 = &unk_1F42C4860;
-  v2 = a1 + 88;
   *(a1 + 88) = &unk_1F42C4998;
-  v3 = a1 + 96;
   *(a1 + 96) = &unk_1F42C49C0;
-  v4 = *(a1 + 152);
-  if (v4)
+  v2 = *(a1 + 152);
+  if (v2)
   {
-    BNNSFilterDestroy(v4);
+    BNNSFilterDestroy(v2);
     *(a1 + 152) = 0;
   }
 
   kaldi::nnet1::QuantizerResidualAggregator::~QuantizerResidualAggregator((a1 + 376));
-  v5 = *(a1 + 352);
+  v3 = *(a1 + 352);
+  if (v3)
+  {
+    *(a1 + 360) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(a1 + 320);
+  if (v4)
+  {
+    *(a1 + 328) = v4;
+    operator delete(v4);
+  }
+
+  v6 = (a1 + 296);
+  std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v6 = (a1 + 272);
+  std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v6 = (a1 + 248);
+  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v6 = (a1 + 224);
+  std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v6 = (a1 + 200);
+  std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v5 = *(a1 + 192);
+  *(a1 + 192) = 0;
   if (v5)
   {
-    *(a1 + 360) = v5;
-    operator delete(v5);
-  }
-
-  v6 = *(a1 + 320);
-  if (v6)
-  {
-    *(a1 + 328) = v6;
-    operator delete(v6);
-  }
-
-  v8 = (a1 + 296);
-  std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = (a1 + 272);
-  std::vector<kaldi::CuVector<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = (a1 + 248);
-  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = (a1 + 224);
-  std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = (a1 + 200);
-  std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v7 = *(a1 + 192);
-  *(a1 + 192) = 0;
-  if (v7)
-  {
-    (*(*v7 + 16))(v7);
+    (*(*v5 + 16))(v5);
   }
 
   std::unique_ptr<kaldi::QuantizedMatrix<signed char>>::reset[abi:ne200100]((a1 + 184), 0);
-  v8 = (a1 + 160);
-  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v3);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v2);
+  v6 = (a1 + 160);
+  std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   kaldi::nnet1::UpdatableComponent::~UpdatableComponent(a1);
 }
 
@@ -7647,7 +7591,7 @@ void non-virtual thunk tokaldi::nnet1::Convolutional2DComponent<kaldi::Quantized
   JUMPOUT(0x1C692AE10);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::InitData(int *a1, uint64_t *a2, kaldi::UniformRandomNumber *a3)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::InitData(int *a1, void *a2, kaldi::UniformRandomNumber *a3)
 {
   v87 = 0x40000000;
   v88 = -1073741824;
@@ -8208,12 +8152,11 @@ void *kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>
   return result;
 }
 
-void sub_1C30A19EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C30A19EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -8221,19 +8164,21 @@ void sub_1C30A19EC(_Unwind_Exception *a1, uint64_t a2, ...)
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va1);
   kaldi::Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::ReadData(float *a1, uint64_t *a2, int a3)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::ReadData(float *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a3;
   if (kaldi::Peek(a2, a3) != 60)
   {
 LABEL_148:
-    v42 = *(a1 + 26);
-    v41 = *(a1 + 27);
-    if (*(a1 + 2) % (v41 * v42))
+    v43 = *(a1 + 26);
+    v42 = *(a1 + 27);
+    if (*(a1 + 2) % (v42 * v43))
     {
       kaldi::KaldiErrorMessage::KaldiErrorMessage(__p, "ReadData", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 431);
       std::operator<<[abi:ne200100]<std::char_traits<char>>(__p, "input_dim_ % (fmap_x_len_ * fmap_y_len_) == 0");
@@ -8241,8 +8186,8 @@ LABEL_148:
 
     else
     {
-      v43 = (v42 + 2 * *(a1 + 32) - *(a1 + 28)) / *(a1 + 30) + 1;
-      if (!(*(a1 + 3) % (v43 + v43 * ((v41 + 2 * *(a1 + 33) - *(a1 + 29)) / *(a1 + 31)))))
+      v44 = (v43 + 2 * *(a1 + 32) - *(a1 + 28)) / *(a1 + 30) + 1;
+      if (!(*(a1 + 3) % (v44 + v44 * ((v42 + 2 * *(a1 + 33) - *(a1 + 29)) / *(a1 + 31)))))
       {
         operator new();
       }
@@ -8256,28 +8201,28 @@ LABEL_148:
 
   while (1)
   {
-    memset(v49, 0, 24);
-    kaldi::ReadToken(a2, a3, v49, v6, v7);
-    if (SHIBYTE(v49[2]) < 0)
+    memset(v50, 0, 24);
+    kaldi::ReadToken(a2, v4, v50, v7, v8);
+    if (SHIBYTE(v50[2]) < 0)
     {
-      if (v49[1] != 15 || (*v49[0] == 0x61526E7261654C3CLL ? (v12 = *(v49[0] + 7) == 0x3E66656F43657461) : (v12 = 0), v11 = a1 + 34, !v12))
+      if (v50[1] != 15 || (*v50[0] == 0x61526E7261654C3CLL ? (v13 = *(v50[0] + 7) == 0x3E66656F43657461) : (v13 = 0), v12 = a1 + 34, !v13))
       {
-        if (v49[1] != 19 || (*v49[0] == 0x61654C736169423CLL ? (v13 = *(v49[0] + 1) == 0x6F43657461526E72) : (v13 = 0), v13 ? (v14 = *(v49[0] + 11) == 0x3E66656F43657461) : (v14 = 0), v11 = a1 + 35, !v14))
+        if (v50[1] != 19 || (*v50[0] == 0x61654C736169423CLL ? (v14 = *(v50[0] + 1) == 0x6F43657461526E72) : (v14 = 0), v14 ? (v15 = *(v50[0] + 11) == 0x3E66656F43657461) : (v15 = 0), v12 = a1 + 35, !v15))
         {
-          if (v49[1] != 9)
+          if (v50[1] != 9)
           {
-            if (v49[1] == 18)
+            if (v50[1] == 18)
             {
-              v15 = *v49[0] == 0x6E6569646172473CLL && *(v49[0] + 1) == 0x7079546D726F4E74;
-              if (v15 && *(v49[0] + 8) == 15973)
+              v16 = *v50[0] == 0x6E6569646172473CLL && *(v50[0] + 1) == 0x7079546D726F4E74;
+              if (v16 && *(v50[0] + 8) == 15973)
               {
 LABEL_82:
                 __p[0] = 0;
                 __p[1] = 0;
-                v48 = 0;
-                kaldi::ReadToken(a2, a3, __p, v8, v9);
+                v49 = 0;
+                kaldi::ReadToken(a2, v4, __p, v9, v10);
                 *(a1 + 36) = kaldi::nnet1::Component::MarkerToGradientNormType(__p);
-                if (SHIBYTE(v48) < 0)
+                if (SHIBYTE(v49) < 0)
                 {
                   operator delete(__p[0]);
                 }
@@ -8287,36 +8232,36 @@ LABEL_82:
             }
 
 LABEL_40:
-            if (v49[1] == 10)
+            if (v50[1] == 10)
             {
-              v18 = *v49[0] == 0x654C5870616D463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 26);
-              if (v18)
+              v19 = *v50[0] == 0x654C5870616D463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 26);
+              if (v19)
               {
                 goto LABEL_144;
               }
 
-              v20 = *v49[0] == 0x654C5970616D463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 27);
-              if (v20)
+              v21 = *v50[0] == 0x654C5970616D463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 27);
+              if (v21)
               {
                 goto LABEL_144;
               }
 
-              v28 = *v49[0] == 0x654C58746C69463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 28);
-              if (v28)
+              v29 = *v50[0] == 0x654C58746C69463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 28);
+              if (v29)
               {
                 goto LABEL_144;
               }
 
-              if ((HIBYTE(v49[2]) & 0x80) == 0)
+              if ((HIBYTE(v50[2]) & 0x80) == 0)
               {
-                if (HIBYTE(v49[2]) != 6)
+                if (HIBYTE(v50[2]) != 6)
                 {
-                  if (HIBYTE(v49[2]) != 11)
+                  if (HIBYTE(v50[2]) != 11)
                   {
-                    if (HIBYTE(v49[2]) == 10)
+                    if (HIBYTE(v50[2]) == 10)
                     {
                       goto LABEL_118;
                     }
@@ -8325,17 +8270,17 @@ LABEL_40:
                   }
 
 LABEL_99:
-                  v29 = v49[0] == 0x745358746C69463CLL && *(v49 + 3) == 0x3E7065745358746CLL;
-                  v19 = (a1 + 30);
-                  if (v29)
+                  v30 = v50[0] == 0x745358746C69463CLL && *(v50 + 3) == 0x3E7065745358746CLL;
+                  v20 = (a1 + 30);
+                  if (v30)
                   {
                     goto LABEL_144;
                   }
 
 LABEL_103:
-                  v30 = v49[0] == 0x745359746C69463CLL && *(v49 + 3) == 0x3E7065745359746CLL;
-                  v19 = (a1 + 31);
-                  if (v30)
+                  v31 = v50[0] == 0x745359746C69463CLL && *(v50 + 3) == 0x3E7065745359746CLL;
+                  v20 = (a1 + 31);
+                  if (v31)
                   {
                     goto LABEL_144;
                   }
@@ -8346,28 +8291,28 @@ LABEL_103:
                 goto LABEL_132;
               }
 
-              v31 = *v49[0] == 0x654C59746C69463CLL && *(v49[0] + 4) == 15982;
-              v19 = (a1 + 29);
-              if (v31)
+              v32 = *v50[0] == 0x654C59746C69463CLL && *(v50[0] + 4) == 15982;
+              v20 = (a1 + 29);
+              if (v32)
               {
                 goto LABEL_144;
               }
             }
 
-            if (v49[1] == 11)
+            if (v50[1] == 11)
             {
-              v34 = *v49[0] == 0x745358746C69463CLL && *(v49[0] + 3) == 0x3E7065745358746CLL;
-              v19 = (a1 + 30);
-              if (v34)
+              v35 = *v50[0] == 0x745358746C69463CLL && *(v50[0] + 3) == 0x3E7065745358746CLL;
+              v20 = (a1 + 30);
+              if (v35)
               {
                 goto LABEL_144;
               }
 
-              if ((HIBYTE(v49[2]) & 0x80) == 0)
+              if ((HIBYTE(v50[2]) & 0x80) == 0)
               {
-                if (HIBYTE(v49[2]) != 6)
+                if (HIBYTE(v50[2]) != 6)
                 {
-                  if (HIBYTE(v49[2]) != 11)
+                  if (HIBYTE(v50[2]) != 11)
                   {
                     goto LABEL_143;
                   }
@@ -8376,13 +8321,13 @@ LABEL_103:
                 }
 
 LABEL_132:
-                v35 = v49;
+                v36 = v50;
 LABEL_139:
-                v37 = *v35;
-                v38 = *(v35 + 2);
-                v39 = v37 == 1684099132 && v38 == 15960;
-                v19 = (a1 + 32);
-                if (!v39)
+                v38 = *v36;
+                v39 = *(v36 + 2);
+                v40 = v38 == 1684099132 && v39 == 15960;
+                v20 = (a1 + 32);
+                if (!v40)
                 {
                   goto LABEL_143;
                 }
@@ -8390,26 +8335,26 @@ LABEL_139:
                 goto LABEL_144;
               }
 
-              v36 = *v49[0] == 0x745359746C69463CLL && *(v49[0] + 3) == 0x3E7065745359746CLL;
-              v19 = (a1 + 31);
-              if (v36)
+              v37 = *v50[0] == 0x745359746C69463CLL && *(v50[0] + 3) == 0x3E7065745359746CLL;
+              v20 = (a1 + 31);
+              if (v37)
               {
                 goto LABEL_144;
               }
             }
 
-            if (v49[1] != 6)
+            if (v50[1] != 6)
             {
               goto LABEL_143;
             }
 
-            v35 = v49[0];
+            v36 = v50[0];
             goto LABEL_139;
           }
 
-          v17 = *v49[0] == 0x6461724778614D3CLL && *(v49[0] + 8) == 62;
-          v11 = a1 + 37;
-          if (!v17)
+          v18 = *v50[0] == 0x6461724778614D3CLL && *(v50[0] + 8) == 62;
+          v12 = a1 + 37;
+          if (!v18)
           {
             goto LABEL_40;
           }
@@ -8417,33 +8362,33 @@ LABEL_139:
       }
     }
 
-    else if (HIBYTE(v49[2]) <= 0xAu)
+    else if (HIBYTE(v50[2]) <= 0xAu)
     {
-      if (HIBYTE(v49[2]) == 6)
+      if (HIBYTE(v50[2]) == 6)
       {
         goto LABEL_132;
       }
 
-      if (HIBYTE(v49[2]) != 9)
+      if (HIBYTE(v50[2]) != 9)
       {
-        if (HIBYTE(v49[2]) == 10)
+        if (HIBYTE(v50[2]) == 10)
         {
-          v21 = v49[0] == 0x654C5870616D463CLL && LOWORD(v49[1]) == 15982;
-          v19 = (a1 + 26);
-          if (!v21)
+          v22 = v50[0] == 0x654C5870616D463CLL && LOWORD(v50[1]) == 15982;
+          v20 = (a1 + 26);
+          if (!v22)
           {
-            v22 = v49[0] == 0x654C5970616D463CLL && LOWORD(v49[1]) == 15982;
-            v19 = (a1 + 27);
-            if (!v22)
+            v23 = v50[0] == 0x654C5970616D463CLL && LOWORD(v50[1]) == 15982;
+            v20 = (a1 + 27);
+            if (!v23)
             {
-              v32 = v49[0] == 0x654C58746C69463CLL && LOWORD(v49[1]) == 15982;
-              v19 = (a1 + 28);
-              if (!v32)
+              v33 = v50[0] == 0x654C58746C69463CLL && LOWORD(v50[1]) == 15982;
+              v20 = (a1 + 28);
+              if (!v33)
               {
 LABEL_118:
-                v33 = v49[0] == 0x654C59746C69463CLL && LOWORD(v49[1]) == 15982;
-                v19 = (a1 + 29);
-                if (!v33)
+                v34 = v50[0] == 0x654C59746C69463CLL && LOWORD(v50[1]) == 15982;
+                v20 = (a1 + 29);
+                if (!v34)
                 {
                   goto LABEL_143;
                 }
@@ -8452,57 +8397,57 @@ LABEL_118:
           }
 
 LABEL_144:
-          kaldi::ReadBasicType<int>(a2, a3, v19);
+          kaldi::ReadBasicType<int>(a2, v4, v20);
           goto LABEL_145;
         }
 
 LABEL_143:
-        v40 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v49, "<PadY>");
-        v19 = (a1 + 33);
-        if (!v40)
+        v41 = std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v50, "<PadY>");
+        v20 = (a1 + 33);
+        if (!v41)
         {
           kaldi::KaldiErrorMessage::KaldiErrorMessage(__p, "ReadData", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 417);
-          v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "unrecognized config token ", 26);
-          if (SHIBYTE(v49[2]) >= 0)
+          v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "unrecognized config token ", 26);
+          if (SHIBYTE(v50[2]) >= 0)
           {
-            v45 = v49;
+            v46 = v50;
           }
 
           else
           {
-            v45 = v49[0];
+            v46 = v50[0];
           }
 
-          if (SHIBYTE(v49[2]) >= 0)
+          if (SHIBYTE(v50[2]) >= 0)
           {
-            v46 = HIBYTE(v49[2]);
+            v47 = HIBYTE(v50[2]);
           }
 
           else
           {
-            v46 = v49[1];
+            v47 = v50[1];
           }
 
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, v46, v47);
           kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
         }
 
         goto LABEL_144;
       }
 
-      v27 = v49[0] == 0x6461724778614D3CLL && LOBYTE(v49[1]) == 62;
-      v11 = a1 + 37;
-      if (!v27)
+      v28 = v50[0] == 0x6461724778614D3CLL && LOBYTE(v50[1]) == 62;
+      v12 = a1 + 37;
+      if (!v28)
       {
         goto LABEL_143;
       }
     }
 
-    else if (HIBYTE(v49[2]) > 0x11u)
+    else if (HIBYTE(v50[2]) > 0x11u)
     {
-      if (HIBYTE(v49[2]) == 18)
+      if (HIBYTE(v50[2]) == 18)
       {
-        if (v49[0] == 0x6E6569646172473CLL && v49[1] == 0x7079546D726F4E74 && LOWORD(v49[2]) == 15973)
+        if (v50[0] == 0x6E6569646172473CLL && v50[1] == 0x7079546D726F4E74 && LOWORD(v50[2]) == 15973)
         {
           goto LABEL_82;
         }
@@ -8510,15 +8455,15 @@ LABEL_143:
         goto LABEL_143;
       }
 
-      if (HIBYTE(v49[2]) != 19)
+      if (HIBYTE(v50[2]) != 19)
       {
         goto LABEL_143;
       }
 
-      v23 = v49[0] == 0x61654C736169423CLL && v49[1] == 0x6F43657461526E72;
-      v24 = v23 && *(&v49[1] + 3) == 0x3E66656F43657461;
-      v11 = a1 + 35;
-      if (!v24)
+      v24 = v50[0] == 0x61654C736169423CLL && v50[1] == 0x6F43657461526E72;
+      v25 = v24 && *(&v50[1] + 3) == 0x3E66656F43657461;
+      v12 = a1 + 35;
+      if (!v25)
       {
         goto LABEL_143;
       }
@@ -8526,73 +8471,70 @@ LABEL_143:
 
     else
     {
-      if (HIBYTE(v49[2]) == 11)
+      if (HIBYTE(v50[2]) == 11)
       {
         goto LABEL_99;
       }
 
-      if (HIBYTE(v49[2]) != 15)
+      if (HIBYTE(v50[2]) != 15)
       {
         goto LABEL_143;
       }
 
-      v10 = v49[0] == 0x61526E7261654C3CLL && *(v49 + 7) == 0x3E66656F43657461;
-      v11 = a1 + 34;
-      if (!v10)
+      v11 = v50[0] == 0x61526E7261654C3CLL && *(v50 + 7) == 0x3E66656F43657461;
+      v12 = a1 + 34;
+      if (!v11)
       {
         goto LABEL_143;
       }
     }
 
-    kaldi::ReadBasicType<float>(a2, a3, v11);
+    kaldi::ReadBasicType<float>(a2, v4, v12);
 LABEL_145:
-    if (SHIBYTE(v49[2]) < 0)
+    if (SHIBYTE(v50[2]) < 0)
     {
-      operator delete(v49[0]);
+      operator delete(v50[0]);
     }
 
-    if (kaldi::Peek(a2, a3) != 60)
+    if (kaldi::Peek(a2, v4) != 60)
     {
       goto LABEL_148;
     }
   }
 }
 
-uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::WriteConfig(unsigned int *a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void *kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::WriteConfig(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "<LearnRateCoef>", a4, a5);
-  v8 = a1[34];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v9, v10);
-  v11 = a1[35];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<GradientNormType>", v12, v13);
-  kaldi::nnet1::Component::TypeToMarker(a1[36], &__p);
-  kaldi::WriteToken(a2, a3, &__p, v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 136));
+  kaldi::WriteToken(a2, a3, "<BiasLearnRateCoef>", v8, v9);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 140));
+  kaldi::WriteToken(a2, a3, "<GradientNormType>", v10, v11);
+  kaldi::nnet1::Component::TypeToMarker(*(a1 + 144), &__p);
+  kaldi::WriteToken(a2, a3, &__p, v12, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  kaldi::WriteToken(a2, a3, "<MaxGrad>", v16, v17);
-  v18 = a1[37];
-  kaldi::WriteBasicType<float>(a2, a3);
-  kaldi::WriteToken(a2, a3, "<FmapXLen>", v19, v20);
-  kaldi::WriteBasicType<int>(a2, a3, a1[26]);
-  kaldi::WriteToken(a2, a3, "<FmapYLen>", v21, v22);
-  kaldi::WriteBasicType<int>(a2, a3, a1[27]);
-  kaldi::WriteToken(a2, a3, "<FiltXLen>", v23, v24);
-  kaldi::WriteBasicType<int>(a2, a3, a1[28]);
-  kaldi::WriteToken(a2, a3, "<FiltYLen>", v25, v26);
-  kaldi::WriteBasicType<int>(a2, a3, a1[29]);
-  kaldi::WriteToken(a2, a3, "<FiltXStep>", v27, v28);
-  kaldi::WriteBasicType<int>(a2, a3, a1[30]);
-  kaldi::WriteToken(a2, a3, "<FiltYStep>", v29, v30);
-  kaldi::WriteBasicType<int>(a2, a3, a1[31]);
-  kaldi::WriteToken(a2, a3, "<PadX>", v31, v32);
-  kaldi::WriteBasicType<int>(a2, a3, a1[32]);
-  kaldi::WriteToken(a2, a3, "<PadY>", v33, v34);
-  return kaldi::WriteBasicType<int>(a2, a3, a1[33]);
+  kaldi::WriteToken(a2, a3, "<MaxGrad>", v14, v15);
+  kaldi::WriteBasicType<float>(a2, a3, *(a1 + 148));
+  kaldi::WriteToken(a2, a3, "<FmapXLen>", v16, v17);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 104));
+  kaldi::WriteToken(a2, a3, "<FmapYLen>", v18, v19);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 108));
+  kaldi::WriteToken(a2, a3, "<FiltXLen>", v20, v21);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 112));
+  kaldi::WriteToken(a2, a3, "<FiltYLen>", v22, v23);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 116));
+  kaldi::WriteToken(a2, a3, "<FiltXStep>", v24, v25);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 120));
+  kaldi::WriteToken(a2, a3, "<FiltYStep>", v26, v27);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 124));
+  kaldi::WriteToken(a2, a3, "<PadX>", v28, v29);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 128));
+  kaldi::WriteToken(a2, a3, "<PadY>", v30, v31);
+  return kaldi::WriteBasicType<int>(a2, a3, *(a1 + 132));
 }
 
 void sub_1C30A25E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8605,7 +8547,7 @@ void sub_1C30A25E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::WriteData(uint64_t a1, void *a2, int a3, int a4)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::WriteData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   (*(*a1 + 168))(a1);
   kaldi::QuantizedMatrix<signed char>::Write(*(a1 + 184), a2, a3, a4);
@@ -8669,9 +8611,8 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
 {
   v2 = kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184));
   v3 = kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184));
-  kaldi::CuMatrix<float>::CuMatrix(v5, v2, v3, 1u, 0, 0);
-  kaldi::CuMatrixBase<float>::SetRandn(v5);
-  v4 = *(a1 + 184);
+  kaldi::CuMatrix<float>::CuMatrix(v4, v2, v3, 1, 0, 0);
+  kaldi::CuMatrixBase<float>::SetRandn(v4);
   kaldi::QuantizedMatrixBase<signed char>::AddMat();
 }
 
@@ -8682,112 +8623,112 @@ uint64_t sub_1C30A29B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const
   memset(&v13[1], 0, 24);
   kaldi::CuVector<float>::Resize(v13, v7, 1u, a4, a5);
   kaldi::CuVectorBase<float>::SetRandn(v13);
-  LODWORD(v8) = v6;
-  kaldi::CuVectorBase<float>::AddVec(*(v5 + 192), v13, v9, v10, v11, v8, 1.0);
+  v8.n128_u32[0] = v6;
+  kaldi::CuVectorBase<float>::AddVec(*(v5 + 192), v13, v8, 1.0, v9, v10, v11);
   kaldi::CuVector<float>::~CuVector(v13);
   return kaldi::CuMatrix<float>::~CuMatrix(&v14);
 }
 
-void sub_1C30A2A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C30A2A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::Info(uint64_t a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
-  (*(*a1 + 168))(a1, &v37, 0);
-  v2 = *(a1 + 104);
-  v3 = *(a1 + 108);
-  v4 = *(a1 + 128);
-  v5 = *(a1 + 132);
-  v6 = *(a1 + 112);
-  v7 = *(a1 + 116);
-  v8 = *(a1 + 120);
-  v9 = *(a1 + 124);
-  v10 = *(a1 + 8);
-  v32 = *(a1 + 12);
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, " OutSizeX:", 10);
-  v12 = (v2 + 2 * v4 - v6) / v8 + 1;
-  v13 = MEMORY[0x1C692A960](v11, v12);
-  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " OutSizeY:", 10);
-  v15 = (v3 + 2 * v5 - v7) / v9 + 1;
-  v16 = MEMORY[0x1C692A960](v14, v15);
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " InFmaps:", 9);
-  v18 = MEMORY[0x1C692A960](v17, (v10 / (v3 * v2)));
-  v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " OutFmaps:", 10);
-  MEMORY[0x1C692A960](v19, (v32 / (v15 * v12)));
-  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "\n filters: ", 11);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v38);
+  (*(*a1 + 168))(a1, &v38, 0);
+  v3 = *(a1 + 104);
+  v4 = *(a1 + 108);
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 132);
+  v7 = *(a1 + 112);
+  v8 = *(a1 + 116);
+  v9 = *(a1 + 120);
+  v10 = *(a1 + 124);
+  v11 = *(a1 + 8);
+  v33 = *(a1 + 12);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, " OutSizeX:", 10);
+  v13 = (v3 + 2 * v5 - v7) / v9 + 1;
+  v14 = MEMORY[0x1C692A960](v12, v13);
+  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " OutSizeY:", 10);
+  v16 = (v4 + 2 * v6 - v8) / v10 + 1;
+  v17 = MEMORY[0x1C692A960](v15, v16);
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " InFmaps:", 9);
+  v19 = MEMORY[0x1C692A960](v18, (v11 / (v4 * v3)));
+  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " OutFmaps:", 10);
+  MEMORY[0x1C692A960](v20, (v33 / (v16 * v13)));
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "\n filters: ", 11);
   kaldi::nnet1::MomentStatistics<signed char>(*(a1 + 184));
-  if ((v36 & 0x80u) == 0)
-  {
-    v21 = v35;
-  }
-
-  else
-  {
-    v21 = v35[0];
-  }
-
-  if ((v36 & 0x80u) == 0)
+  if ((v37 & 0x80u) == 0)
   {
     v22 = v36;
   }
 
   else
   {
-    v22 = v35[1];
+    v22 = v36[0];
   }
 
-  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v21, v22);
-  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "\n bias: ", 8);
-  kaldi::nnet1::MomentStatistics<float>(*(a1 + 192), v25, v26, v27, v28);
-  if ((v34 & 0x80u) == 0)
+  if ((v37 & 0x80u) == 0)
   {
-    v29 = __p;
+    v23 = v37;
   }
 
   else
   {
-    v29 = __p[0];
+    v23 = v36[1];
   }
 
-  if ((v34 & 0x80u) == 0)
+  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, v23);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "\n bias: ", 8);
+  kaldi::nnet1::MomentStatistics<float>(*(a1 + 192), v26, v27, v28, v29);
+  if ((v35 & 0x80u) == 0)
   {
-    v30 = v34;
+    v30 = __p;
   }
 
   else
   {
-    v30 = __p[1];
+    v30 = __p[0];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v29, v30);
-  if (v34 < 0)
+  if ((v35 & 0x80u) == 0)
+  {
+    v31 = v35;
+  }
+
+  else
+  {
+    v31 = __p[1];
+  }
+
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v30, v31);
+  if (v35 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v36 < 0)
+  if (v37 < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v36[0]);
   }
 
   std::stringbuf::str();
-  v37 = *MEMORY[0x1E69E54E8];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v38 = MEMORY[0x1E69E5548] + 16;
-  if (v40 < 0)
+  v38 = *MEMORY[0x1E69E54E8];
+  *(&v38 + *(v38 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v39 = MEMORY[0x1E69E5548] + 16;
+  if (v41 < 0)
   {
-    operator delete(v39[7].__locale_);
+    operator delete(v40[7].__locale_);
   }
 
-  v38 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v39);
+  v39 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v40);
   std::ostream::~ostream();
-  return MEMORY[0x1C692AD30](&v41);
+  return MEMORY[0x1C692AD30](&v42);
 }
 
 void sub_1C30A2D30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23)
@@ -8844,7 +8785,7 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  kaldi::nnet1::ToString<float>((a1 + 136));
+  kaldi::nnet1::ToString<float>();
   if ((v38 & 0x80u) == 0)
   {
     v14 = v37;
@@ -8914,7 +8855,7 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   v28->__r_.__value_.__l.__size_ = 0;
   v28->__r_.__value_.__r.__words[2] = 0;
   v28->__r_.__value_.__r.__words[0] = 0;
-  kaldi::nnet1::ToString<float>((a1 + 140));
+  kaldi::nnet1::ToString<float>();
   if ((v34 & 0x80u) == 0)
   {
     v30 = __p;
@@ -9099,12 +9040,12 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   v8 = *(a1 + 108);
   v9 = (v7 + 2 * *(a1 + 128) - *(a1 + 112)) / *(a1 + 120);
   v10 = (v8 + 2 * *(a1 + 132) - *(a1 + 116)) / *(a1 + 124);
-  v65 = (v10 + 1);
-  v62 = (v9 + 1);
+  v66 = (v10 + 1);
+  v63 = (v9 + 1);
   v11 = *(a1 + 8);
-  v69 = v65 * v62;
-  v66 = (*(a1 + 12) / (v65 * v62));
-  if (kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184)) != v66)
+  v70 = v66 * v63;
+  v67 = (*(a1 + 12) / (v66 * v63));
+  if (kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184)) != v67)
   {
     kaldi::KaldiAssertFailure_("PropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 0x490, "num_filters == num_output_fmaps", v13);
   }
@@ -9114,20 +9055,20 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   v16 = *(a1 + 80);
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 304) - v15) >> 3) < v16)
   {
-    std::vector<std::vector<kaldi::CuMatrix<float>>>::resize(a1 + 296, v16);
+    std::vector<std::vector<kaldi::CuMatrix<float>>>::resize((a1 + 296), v16);
     v15 = *(a1 + 296);
   }
 
-  v63 = v10;
-  v64 = v9;
-  v71 = a4;
+  v64 = v10;
+  v65 = v9;
+  v72 = a4;
   v17 = (v15 + 24 * a4);
-  if (0xAAAAAAAAAAAAAAABLL * ((v17[1] - *v17) >> 4) < v69)
+  if (0xAAAAAAAAAAAAAAABLL * ((v17[1] - *v17) >> 4) < v70)
   {
-    std::vector<kaldi::CuMatrix<float>>::resize(v17, v69);
+    std::vector<kaldi::CuMatrix<float>>::resize(v17, v70);
   }
 
-  if (v69 >= 1)
+  if (v70 >= 1)
   {
     v18 = 0;
     v19 = 24 * a4;
@@ -9139,14 +9080,14 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
       v18 += 48;
     }
 
-    while (48 * v69 != v18);
+    while (48 * v70 != v18);
   }
 
-  v68 = (a1 + 160);
+  v69 = (a1 + 160);
   v22 = *(a1 + 80);
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 168) - *(a1 + 160)) >> 4) < v22)
   {
-    std::vector<kaldi::CuMatrix<float>>::resize(v68, v22);
+    std::vector<kaldi::CuMatrix<float>>::resize(v69, v22);
   }
 
   v23 = *(a1 + 132);
@@ -9155,89 +9096,89 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   v26 = *(a1 + 116);
   if (v23 + v25 - v26 >= -v23)
   {
-    v46 = 0;
-    v47 = *(a1 + 128);
-    v48 = *(a1 + 104);
-    v49 = *(a1 + 112);
-    v50 = v11 / (v8 * v7);
-    v70 = a2;
+    v47 = 0;
+    v48 = *(a1 + 128);
+    v49 = *(a1 + 104);
+    v50 = *(a1 + 112);
+    v51 = v11 / (v8 * v7);
+    v71 = a2;
     do
     {
-      v51 = -v47;
-      if (v47 + v48 - v49 >= -v47)
+      v52 = -v48;
+      if (v48 + v49 - v50 >= -v48)
       {
-        v52 = v46;
+        v53 = v47;
         do
         {
-          v72 = v52;
+          v73 = v53;
           __p = 0;
-          v74 = 0uLL;
-          if (v50 >= 1)
+          v75 = 0uLL;
+          if (v51 >= 1)
           {
-            v53 = 0;
-            v54 = v48 * v24;
-            v55 = *(a1 + 116);
-            v56 = v51 + v54;
+            v54 = 0;
+            v55 = v49 * v24;
+            v56 = *(a1 + 116);
+            v57 = v52 + v55;
             do
             {
-              if (v55 >= 1)
+              if (v56 >= 1)
               {
-                for (i = 0; i < v55; ++i)
+                for (i = 0; i < v56; ++i)
                 {
-                  if (v49 >= 1)
+                  if (v50 >= 1)
                   {
-                    v58 = 0;
-                    v59 = i + v24;
+                    v59 = 0;
+                    v60 = i + v24;
                     do
                     {
-                      v60 = *(a1 + 104);
-                      v61 = *(a1 + 108);
-                      v77 = v56 + v58 + v60 * (i + v53 * v61);
-                      if (v59 < 0 || v59 >= v61 || v51 + v58 < 0 || v51 + v58 >= v60)
+                      v61 = *(a1 + 104);
+                      v62 = *(a1 + 108);
+                      v78 = v57 + v59 + v61 * (i + v54 * v62);
+                      if (v60 < 0 || v60 >= v62 || v52 + v59 < 0 || v52 + v59 >= v61)
                       {
-                        v76 = -1;
-                        std::vector<int>::push_back[abi:ne200100](&__p, &v76);
+                        v77 = -1;
+                        std::vector<int>::push_back[abi:ne200100](&__p, &v77);
                       }
 
                       else
                       {
-                        std::vector<int>::push_back[abi:ne200100](&__p, &v77);
+                        std::vector<int>::push_back[abi:ne200100](&__p, &v78);
                       }
 
-                      ++v58;
-                      v49 = *(a1 + 112);
+                      ++v59;
+                      v50 = *(a1 + 112);
                     }
 
-                    while (v58 < v49);
-                    v55 = *(a1 + 116);
+                    while (v59 < v50);
+                    v56 = *(a1 + 116);
                   }
                 }
               }
 
-              ++v53;
+              ++v54;
             }
 
-            while (v53 != v50);
+            while (v54 != v51);
           }
 
-          kaldi::CuMatrixBase<float>::CopyCols(*(*(a1 + 296) + 24 * v71) + 48 * v72, v70, &__p, v12, v13);
+          kaldi::CuMatrixBase<float>::CopyCols(*(*(a1 + 296) + 24 * v72) + 48 * v73, v71, &__p, v12, v13);
           if (__p)
           {
-            *&v74 = __p;
+            *&v75 = __p;
             operator delete(__p);
           }
 
-          v52 = v72 + 1;
-          v51 += *(a1 + 120);
-          v48 = *(a1 + 104);
-          v47 = *(a1 + 128);
-          v49 = *(a1 + 112);
+          v53 = v73 + 1;
+          v52 += *(a1 + 120);
+          v49 = *(a1 + 104);
+          v48 = *(a1 + 128);
+          v50 = *(a1 + 112);
         }
 
-        while (v51 <= v47 + v48 - v49);
+        while (v52 <= v48 + v49 - v50);
         v25 = *(a1 + 108);
         v23 = *(a1 + 132);
-        v46 = v72 + 1;
+        v47 = v73 + 1;
         v26 = *(a1 + 116);
       }
 
@@ -9247,99 +9188,100 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
     while (v24 <= v23 + v25 - v26);
   }
 
-  kaldi::CuMatrix<float>::Resize(*v68 + 48 * v71, *(a3 + 20), *(a3 + 16), 3u, 0);
-  if (v69 >= 1)
+  kaldi::CuMatrix<float>::Resize(*v69 + 48 * v72, *(a3 + 20), *(a3 + 16), 3, 0);
+  if (v70 >= 1)
   {
     v27 = 0;
     v28 = 0;
     do
     {
-      v29 = *(a1 + 160) + 48 * v71;
-      kaldi::CuSubMatrix<float>::CuSubMatrix(&__p, v29, 0, *(v29 + 20), v28, v66);
-      kaldi::CuMatrixBase<float>::AddVecToRows(&__p, *(a1 + 192), v30, v31, v32, 1.0, 0.0);
-      kaldi::CuMatrixBase<float>::AddMatMat<signed char>(&__p, *(*(a1 + 296) + 24 * v71) + v27, 111, *(a1 + 184), 0x70, 1.0, 1.0);
+      v29 = *(a1 + 160) + 48 * v72;
+      kaldi::CuSubMatrix<float>::CuSubMatrix(&__p, v29, 0, *(v29 + 20), v28, v67);
+      v30.n128_u32[0] = 1.0;
+      kaldi::CuMatrixBase<float>::AddVecToRows(&__p, *(a1 + 192), v30, 0.0, v31, v32, v33);
+      kaldi::CuMatrixBase<float>::AddMatMat<signed char>(&__p, *(*(a1 + 296) + 24 * v72) + v27, 111, *(a1 + 184), 0x70, 1.0, 1.0);
       __p = &unk_1F42BFE90;
-      v74 = 0u;
       v75 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&__p);
-      v28 = (v28 + v66);
+      v76 = 0u;
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
+      v28 = (v28 + v67);
       v27 += 48;
     }
 
-    while (48 * v69 != v27);
+    while (48 * v70 != v27);
   }
 
   std::vector<int>::vector[abi:ne200100](&__p, *(a1 + 12));
-  if (v66 >= 1)
+  if (v67 >= 1)
   {
-    v35 = 0;
-    v36 = vdupq_n_s64(v62 - 1);
-    v37 = vdupq_n_s64(4uLL);
-    v38 = 8;
+    v36 = 0;
+    v37 = vdupq_n_s64(v63 - 1);
+    v38 = vdupq_n_s64(4uLL);
+    v39 = 8;
     do
     {
-      if ((v63 & 0x80000000) == 0)
+      if ((v64 & 0x80000000) == 0)
       {
-        v39 = 0;
-        v40 = __p + v38;
-        v41 = v35;
+        v40 = 0;
+        v41 = __p + v39;
+        v42 = v36;
         do
         {
-          if ((v64 & 0x80000000) == 0)
+          if ((v65 & 0x80000000) == 0)
           {
-            v42 = v40;
-            v33 = (v62 + 3) & 0xFFFFFFFC;
-            LODWORD(v34) = v41;
-            v43 = xmmword_1C378AF00;
-            v44 = xmmword_1C378AEF0;
+            v43 = v41;
+            v34 = (v63 + 3) & 0xFFFFFFFC;
+            LODWORD(v35) = v42;
+            v44 = xmmword_1C378AF00;
+            v45 = xmmword_1C378AEF0;
             do
             {
-              v45 = vmovn_s64(vcgeq_u64(v36, v43));
-              if (vuzp1_s16(v45, *v36.i8).u8[0])
+              v46 = vmovn_s64(vcgeq_u64(v37, v44));
+              if (vuzp1_s16(v46, *v37.i8).u8[0])
               {
-                *(v42 - 2) = v34;
+                *(v43 - 2) = v35;
               }
 
-              if (vuzp1_s16(v45, *&v36).i8[2])
+              if (vuzp1_s16(v46, *&v37).i8[2])
               {
-                *(v42 - 1) = v66 + v34;
+                *(v43 - 1) = v67 + v35;
               }
 
-              if (vuzp1_s16(*&v36, vmovn_s64(vcgeq_u64(v36, *&v44))).i32[1])
+              if (vuzp1_s16(*&v37, vmovn_s64(vcgeq_u64(v37, *&v45))).i32[1])
               {
-                *v42 = 2 * v66 + v34;
-                v42[1] = 3 * v66 + v34;
+                *v43 = 2 * v67 + v35;
+                v43[1] = 3 * v67 + v35;
               }
 
-              v44 = vaddq_s64(v44, v37);
-              v43 = vaddq_s64(v43, v37);
-              v34 = (v34 + 4 * v66);
-              v42 += 4;
-              v33 -= 4;
+              v45 = vaddq_s64(v45, v38);
+              v44 = vaddq_s64(v44, v38);
+              v35 = (v35 + 4 * v67);
+              v43 += 4;
+              v34 -= 4;
             }
 
-            while (v33);
+            while (v34);
           }
 
-          ++v39;
-          v41 += v66 * v62;
-          v40 += 4 * v62;
+          ++v40;
+          v42 += v67 * v63;
+          v41 += 4 * v63;
         }
 
-        while (v39 != v65);
+        while (v40 != v66);
       }
 
-      ++v35;
-      v38 += 4 * v65 * v62;
+      ++v36;
+      v39 += 4 * v66 * v63;
     }
 
-    while (v35 != v66);
+    while (v36 != v67);
   }
 
-  kaldi::CuMatrixBase<float>::CopyCols(a3, *v68 + 48 * v71, &__p, v33, v34);
+  kaldi::CuMatrixBase<float>::CopyCols(a3, *v69 + 48 * v72, &__p, v34, v35);
   if (__p)
   {
-    *&v74 = __p;
+    *&v75 = __p;
     operator delete(__p);
   }
 }
@@ -9356,104 +9298,102 @@ void sub_1C30A37C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::BackpropagateCpu(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
-  v10 = (*(a1 + 104) + 2 * *(a1 + 128) - *(a1 + 112)) / *(a1 + 120);
-  v11 = (v10 + 1);
-  v12 = (*(a1 + 108) + 2 * *(a1 + 132) - *(a1 + 116)) / *(a1 + 124);
-  v13 = (v12 + 1);
-  v14 = v13 * v11;
-  v35 = *(a1 + 8);
-  v15 = (*(a1 + 12) / (v13 * v11));
-  if (kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184)) == v15)
+  v9 = (*(a1 + 104) + 2 * *(a1 + 128) - *(a1 + 112)) / *(a1 + 120);
+  v10 = (v9 + 1);
+  v11 = (*(a1 + 108) + 2 * *(a1 + 132) - *(a1 + 116)) / *(a1 + 124);
+  v12 = (v11 + 1);
+  v13 = v12 * v10;
+  v14 = (*(a1 + 12) / (v12 * v10));
+  if (kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184)) == v14)
   {
-    v17 = *(a2 + 20);
-    kaldi::CuMatrix<float>::Resize(*(a1 + 160) + 48 * a6, *(a4 + 20), *(a4 + 16), 3u, 0);
-    std::vector<int>::vector[abi:ne200100](&v38, *(a1 + 12));
-    if (v15 >= 1)
+    kaldi::CuMatrix<float>::Resize(*(a1 + 160) + 48 * a6, *(a4 + 20), *(a4 + 16), 3, 0);
+    std::vector<int>::vector[abi:ne200100](&v35, *(a1 + 12));
+    if (v14 >= 1)
     {
+      v18 = 0;
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
-      v22 = 0;
-      v23 = vdupq_n_s64(v11 - 1);
-      v24 = 12 * v15;
-      v25 = 8 * v15;
-      v26 = vdupq_n_s64(4uLL);
-      v27 = 4 * v15;
+      v21 = vdupq_n_s64(v10 - 1);
+      v22 = 12 * v14;
+      v23 = 8 * v14;
+      v24 = vdupq_n_s64(4uLL);
+      v25 = 4 * v14;
       do
       {
-        if ((v12 & 0x80000000) == 0)
+        if ((v11 & 0x80000000) == 0)
         {
-          v28 = 0;
-          v29 = v38;
-          v30 = v21;
+          v26 = 0;
+          v27 = v35;
+          v28 = v19;
           do
           {
-            if ((v10 & 0x80000000) == 0)
+            if ((v9 & 0x80000000) == 0)
             {
-              v18 = 0;
-              v19 = v29;
-              v31 = xmmword_1C378AF00;
-              v32 = xmmword_1C378AEF0;
+              v16 = 0;
+              v17 = v27;
+              v29 = xmmword_1C378AF00;
+              v30 = xmmword_1C378AEF0;
               do
               {
-                v33 = vmovn_s64(vcgeq_u64(v23, v31));
-                if (vuzp1_s16(v33, *v23.i8).u8[0])
+                v31 = vmovn_s64(vcgeq_u64(v21, v29));
+                if (vuzp1_s16(v31, *v21.i8).u8[0])
                 {
-                  *&v19[v20] = v30 + v18;
+                  *&v17[v18] = v28 + v16;
                 }
 
-                if (vuzp1_s16(v33, *&v23).i8[2])
+                if (vuzp1_s16(v31, *&v21).i8[2])
                 {
-                  *&v19[v27] = v30 + v18 + 1;
+                  *&v17[v25] = v28 + v16 + 1;
                 }
 
-                if (vuzp1_s16(*&v23, vmovn_s64(vcgeq_u64(v23, *&v32))).i32[1])
+                if (vuzp1_s16(*&v21, vmovn_s64(vcgeq_u64(v21, *&v30))).i32[1])
                 {
-                  *&v19[v25] = v30 + v18 + 2;
-                  *&v19[v24] = v30 + v18 + 3;
+                  *&v17[v23] = v28 + v16 + 2;
+                  *&v17[v22] = v28 + v16 + 3;
                 }
 
-                v18 += 4;
-                v32 = vaddq_s64(v32, v26);
-                v31 = vaddq_s64(v31, v26);
-                v19 += 16 * v15;
+                v16 += 4;
+                v30 = vaddq_s64(v30, v24);
+                v29 = vaddq_s64(v29, v24);
+                v17 += 16 * v14;
               }
 
-              while (((v10 + 4) & 0xFFFFFFFC) != v18);
+              while (((v9 + 4) & 0xFFFFFFFC) != v16);
             }
 
-            ++v28;
-            v29 += 4 * v15 * v11;
-            v30 += v10 + 1;
+            ++v26;
+            v27 += 4 * v14 * v10;
+            v28 += v9 + 1;
           }
 
-          while (v28 != v13);
+          while (v26 != v12);
         }
 
-        ++v22;
-        v24 += 4;
-        v21 += v14;
+        ++v20;
+        v22 += 4;
+        v19 += v13;
+        v23 += 4;
         v25 += 4;
-        v27 += 4;
-        v20 += 4;
+        v18 += 4;
       }
 
-      while (v22 != v15);
+      while (v20 != v14);
     }
 
-    kaldi::CuMatrixBase<float>::CopyCols(*(a1 + 160) + 48 * a6, a4, &v38, v18, v19);
-    std::vector<kaldi::CuSubMatrix<float>>::vector[abi:ne200100](v37, v14);
-    v34 = *(a1 + 24);
-    if (a6 < ((*(a1 + 32) - v34) >> 3))
+    kaldi::CuMatrixBase<float>::CopyCols(*(a1 + 160) + 48 * a6, a4, &v35, v16, v17);
+    std::vector<kaldi::CuSubMatrix<float>>::vector[abi:ne200100](v34, v13);
+    v32 = *(a1 + 24);
+    if (a6 < ((*(a1 + 32) - v32) >> 3))
     {
-      kaldi::CuWorkspace::GetChildWorkspace(*(v34 + 8 * a6), -1);
+      kaldi::CuWorkspace::GetChildWorkspace(*(v32 + 8 * a6), -1);
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v36, "BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1348);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, "Convolutional2DComponent needs workspace set to perform back-propagation", 72);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v36);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(&v33, "BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1348);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "Convolutional2DComponent needs workspace set to perform back-propagation", 72);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v33);
   }
 
-  kaldi::KaldiAssertFailure_("BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 0x533, "num_filters == num_output_fmaps", v16);
+  kaldi::KaldiAssertFailure_("BackpropagateCpu", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 0x533, "num_filters == num_output_fmaps", v15);
 }
 
 void sub_1C30A3E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void **a20)
@@ -9478,17 +9418,17 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed ch
   return result;
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::NormalizeGradients(uint64_t a1, int a2, uint64_t a3, uint64_t a4, const char *a5, float a6)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::NormalizeGradients(uint64_t result, int a2, float a3, uint64_t a4, uint64_t a5, const char *a6)
 {
-  v7 = a6;
-  v9 = *(a1 + 144);
+  v7 = a3;
+  v9 = *(result + 144);
   if (v9 == 3)
   {
-    if (a6 >= 0.0 && a6 <= 1.0)
+    if (a3 >= 0.0 && a3 <= 1.0)
     {
-      kaldi::nnet1::UpdatableComponent::RmspropGradient(*(*(a1 + 200) + 8 * a2), *(a1 + 248) + 48 * a2, a6);
-      v16 = *(*(a1 + 224) + 8 * a2);
-      v17 = *(a1 + 272) + 32 * a2;
+      kaldi::nnet1::UpdatableComponent::RmspropGradient(*(*(result + 200) + 8 * a2), *(result + 248) + 48 * a2, a3);
+      v16 = *(*(result + 224) + 8 * a2);
+      v17 = *(result + 272) + 32 * a2;
 
       kaldi::nnet1::UpdatableComponent::RmspropGradient(v16, v17, v7, v13, v14, v15);
     }
@@ -9496,72 +9436,72 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
 
   else if (v9 == 2)
   {
-    if (a6 > 0.0)
+    if (a3 > 0.0)
     {
       v11 = a2;
-      if (*(a1 + 84))
+      if (*(result + 84))
       {
-        v7 = *(*(a1 + 320) + 4 * a2) * a6;
+        v7 = *(*(result + 320) + 4 * a2) * a3;
       }
 
-      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(*(*(a1 + 200) + 8 * a2), (*(a1 + 248) + 48 * a2), v7, a3, a4, a5);
-      v21 = *(*(a1 + 224) + 8 * v11);
-      v22 = (*(a1 + 272) + 32 * v11);
+      kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(*(*(result + 200) + 8 * a2), (*(result + 248) + 48 * a2), v7, a4, a5, a6);
+      v21 = *(*(result + 224) + 8 * v11);
+      v22 = (*(result + 272) + 32 * v11);
 
       kaldi::nnet1::UpdatableComponent::LimitL2NormGradient(v21, v22, v18, v19, v20, v7);
     }
   }
 
-  else if (v9 == 1 && a6 > 0.0)
+  else if (v9 == 1 && a3 > 0.0)
   {
     v10 = a2;
-    if (*(a1 + 84))
+    if (*(result + 84))
     {
-      v7 = *(*(a1 + 320) + 4 * a2) * a6;
+      v7 = *(*(result + 320) + 4 * a2) * a3;
     }
 
-    kaldi::nnet1::UpdatableComponent::ClipGradient(*(*(a1 + 200) + 8 * a2), v7);
-    v23 = *(*(a1 + 224) + 8 * v10);
+    kaldi::nnet1::UpdatableComponent::ClipGradient(*(*(result + 200) + 8 * a2), v7);
+    v23 = *(*(result + 224) + 8 * v10);
 
     kaldi::nnet1::UpdatableComponent::ClipGradient(v23, v7);
   }
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::AccumGradients(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::AccumGradients(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::EnsureCorrs(a1);
 
-  kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::AccumGradientsCpu(a1, a2, a3, a4, a5);
+  kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::AccumGradientsCpu(a1, a2, a3, a4, v5);
 }
 
 void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::EnsureCorrs(uint64_t a1)
 {
   if ((*(a1 + 344) & 1) == 0)
   {
-    v2 = *(a1 + 144);
-    v3 = *(a1 + 80);
-    if (v3 > 1)
+    v2 = *(a1 + 80);
+    if (v2 > 1)
     {
-      v4 = (v3 + 1);
+      v3 = (v2 + 1);
     }
 
     else
     {
-      v4 = 1;
+      v3 = 1;
     }
 
-    std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::resize((a1 + 200), v4);
-    std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::resize((a1 + 224), v4);
-    std::vector<kaldi::CuMatrix<float>>::resize((a1 + 248), v4);
-    std::vector<kaldi::CuVector<float>>::resize((a1 + 272), v4, v5, v6, v7);
-    if (v4 >= 1)
+    std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::resize((a1 + 200), v3);
+    std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::resize((a1 + 224), v3);
+    std::vector<kaldi::CuMatrix<float>>::resize((a1 + 248), v3);
+    std::vector<kaldi::CuVector<float>>::resize((a1 + 272), v3, v4, v5, v6);
+    if (v3 >= 1)
     {
       kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184));
       kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184));
       operator new();
     }
 
-    std::vector<float>::resize((a1 + 320), v4);
+    std::vector<float>::resize((a1 + 320), v3);
     *(a1 + 344) = 1;
   }
 }
@@ -9592,11 +9532,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
       v17 = *(a1 + 160) + 48 * a5;
       kaldi::CuSubMatrix<float>::CuSubMatrix(&v21, v17, 0, *(v17 + 20), v15, v11);
       kaldi::CuMatrixBase<float>::AddMatMat(*(*(a1 + 200) + 8 * a5), &v21, 112, *(*(a1 + 296) + 24 * a5) + v14, 0x6F);
-      kaldi::CuVectorBase<float>::AddRowSumMat(*(*(a1 + 224) + 8 * a5), &v21, v18, v19, v20);
+      kaldi::CuVectorBase<float>::AddRowSumMat(*(*(a1 + 224) + 8 * a5), &v21, 1.0, 1.0, v18, v19, v20);
       v21 = &unk_1F42BFE90;
       v22 = 0u;
       v23 = 0u;
-      kaldi::CuMatrixBase<float>::~CuMatrixBase(&v21);
+      kaldi::CuMatrixBase<float>::~CuMatrixBase();
       v15 = (v15 + v11);
       v14 += 48;
     }
@@ -9605,12 +9545,11 @@ void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>
   }
 }
 
-void sub_1C30A45D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+void sub_1C30A45D4(_Unwind_Exception *a1)
 {
-  a10 = &unk_1F42BFE90;
-  *(v10 + 8) = 0u;
-  *(v10 + 24) = 0u;
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(&a10);
+  *(v1 + 8) = 0u;
+  *(v1 + 24) = 0u;
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   _Unwind_Resume(a1);
 }
 
@@ -9658,16 +9597,16 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed ch
   return kaldi::CuMatrix<float>::~CuMatrix(v24);
 }
 
-void sub_1C30A48C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C30A48C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   kaldi::CuMatrix<float>::~CuMatrix(va1);
   _Unwind_Resume(a1);
@@ -9749,45 +9688,44 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed ch
   return result;
 }
 
-void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::VectorizeWeightsCorrs(uint64_t a1)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::VectorizeWeightsCorrs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (*(a1 + 16) == 1)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 238);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "Weights are already vectorized");
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 238);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, "Weights are already vectorized");
   }
 
   else
   {
     if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
     {
-      kaldi::KaldiLogMessage::KaldiLogMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 241);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Performing vectorization of convolutional 2d component", 54);
-      kaldi::KaldiLogMessage::~KaldiLogMessage(v5);
+      kaldi::KaldiLogMessage::KaldiLogMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 241);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Performing vectorization of convolutional 2d component", 54);
+      kaldi::KaldiLogMessage::~KaldiLogMessage(v7);
     }
 
-    v2 = kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184));
-    v3 = *(*(a1 + 192) + 16) + kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184)) * v2;
-    if (v3 == (*(*a1 + 176))(a1))
+    v5 = kaldi::QuantizedMatrixBase<short>::NumRows(*(a1 + 184));
+    v6 = *(*(a1 + 192) + 16) + kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184)) * v5;
+    if (v6 == (*(*a1 + 176))(a1))
     {
-      v4 = *(a1 + 184);
       operator new();
     }
 
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v5, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 244);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "(nlinparams + bias_->Dim()) == NumParams()");
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "VectorizeWeightsCorrs", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 244);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v7, "(nlinparams + bias_->Dim()) == NumParams()");
   }
 
-  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v7);
 }
 
-uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::InitResidualAggregator(uint64_t a1, uint64_t *a2)
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::InitResidualAggregator(uint64_t a1, unint64_t *a2)
 {
   kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<signed char>>::EnsureCorrs(a1);
-  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, *(*(a1 + 208) - 8));
-  v4 = *(*(a1 + 232) - 8);
+  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, *(*(a1 + 208) - 8), v4, v5, v6, v7);
+  v12 = *(*(a1 + 232) - 8);
 
-  return kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, v4);
+  kaldi::nnet1::QuantizerResidualAggregator::PushSetup(a2, v12, v8, v9, v10, v11);
 }
 
 double kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::Convolutional2DComponent(uint64_t a1, int a2, int a3)
@@ -9843,7 +9781,7 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F42C2E78;
   *(a1 + 48) = &unk_1F42CB198;
   v5 = *(a2 + 56);
@@ -9877,18 +9815,18 @@ uint64_t kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::
 void sub_1C30A53F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
   kaldi::nnet1::QuantizerResidualAggregator::~QuantizerResidualAggregator((v10 + 376));
-  v14 = *(v10 + 352);
-  if (v14)
+  v12 = *(v10 + 352);
+  if (v12)
   {
-    *(v10 + 360) = v14;
-    operator delete(v14);
+    *(v10 + 360) = v12;
+    operator delete(v12);
   }
 
-  v15 = *(v10 + 320);
-  if (v15)
+  v13 = *(v10 + 320);
+  if (v13)
   {
-    *(v10 + 328) = v15;
-    operator delete(v15);
+    *(v10 + 328) = v13;
+    operator delete(v13);
   }
 
   std::vector<std::vector<kaldi::CuMatrix<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -9896,18 +9834,72 @@ void sub_1C30A53F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuVectorBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<std::unique_ptr<kaldi::CuMatrixBase<float>>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  v16 = *(v10 + 192);
+  v14 = *(v10 + 192);
   *(v10 + 192) = 0;
-  if (v16)
+  if (v14)
   {
-    (*(*v16 + 16))(v16);
+    (*(*v14 + 16))(v14);
   }
 
   std::unique_ptr<kaldi::QuantizedMatrix<short>>::reset[abi:ne200100]((v10 + 184), 0);
   a10 = (v10 + 160);
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v12);
-  kaldi::CuMatrixBase<float>::~CuMatrixBase(v11);
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
+  kaldi::CuMatrixBase<float>::~CuMatrixBase();
   kaldi::nnet1::UpdatableComponent::~UpdatableComponent(v10);
   _Unwind_Resume(a1);
+}
+
+void kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::AssignMembers<kaldi::QuantizedMatrix<short>>(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 120) = *(a2 + 120);
+  *(a1 + 136) = *(a2 + 136);
+  *(a1 + 144) = *(a2 + 144);
+  *(a1 + 148) = *(a2 + 148);
+  if (a1 == a2)
+  {
+    *(a1 + 344) = 0;
+  }
+
+  else
+  {
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a1 + 320), *(a2 + 320), *(a2 + 328), (*(a2 + 328) - *(a2 + 320)) >> 2);
+    *(a1 + 344) = 0;
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a1 + 352), *(a2 + 352), *(a2 + 360), (*(a2 + 360) - *(a2 + 352)) >> 2);
+  }
+
+  if (*(a2 + 184))
+  {
+    operator new();
+  }
+
+  std::unique_ptr<kaldi::QuantizedMatrix<short>>::reset[abi:ne200100]((a1 + 184), 0);
+  if (*(a2 + 192))
+  {
+    operator new();
+  }
+
+  v4 = *(a1 + 192);
+  *(a1 + 192) = 0;
+  if (v4)
+  {
+    (*(*v4 + 16))(v4);
+  }
+
+  kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::UpdateBNNSFilter(a1);
+  if (*(a2 + 384) != *(a2 + 376))
+  {
+    kaldi::nnet1::Convolutional2DComponent<kaldi::QuantizedMatrix<short>>::InitResidualAggregator(a1, (a1 + 376));
+  }
+
+  if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
+  {
+    kaldi::KaldiLogMessage::KaldiLogMessage(v8, "AssignMembers", "/Library/Caches/com.apple.xbs/Sources/SiriTTS/engine/common/libquasar/libkaldi/src/nnet/nnet-convolutional-2d-component.cc", 1465);
+    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "After assign, Convolution filter has padding? ", 46);
+    v6 = kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184));
+    v7 = v6 == kaldi::QuantizedMatrixBase<short>::NumCols(*(a1 + 184));
+    MEMORY[0x1C692A930](v5, v7);
+    kaldi::KaldiLogMessage::~KaldiLogMessage(v8);
+  }
 }

@@ -43,23 +43,22 @@
 
 - (void)publish:(id)publish stream:(id)stream
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   publishCopy = publish;
   streamCopy = stream;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2114;
-    v13 = publishCopy;
-    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] publishing event: [%{public}@]", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = publishCopy;
+    _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] publishing event: [%{public}@]", &v9, 0x16u);
   }
 
   source = [streamCopy source];
 
   [source sendEvent:publishCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

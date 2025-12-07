@@ -307,7 +307,7 @@ LABEL_15:
   }
 }
 
-uint64_t __49__SBApplicationSceneUpdateTransaction__willBegin__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__49__SBApplicationSceneUpdateTransaction__willBegin__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 40);
   if (v3)

@@ -505,7 +505,7 @@ void __49__HKClinicalAccountStore_supportsClinicalSharing__block_invoke_301(uint
 
 - (void)beginInitialLoginSessionForGateway:(id)gateway completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   gatewayCopy = gateway;
   completionCopy = completion;
   if ([MEMORY[0x277CCDD30] isRunningStoreDemoMode])
@@ -516,8 +516,8 @@ void __49__HKClinicalAccountStore_supportsClinicalSharing__block_invoke_301(uint
     {
       v9 = v8;
       *buf = 138543362;
-      v20 = objc_opt_class();
-      v10 = v20;
+      v19 = objc_opt_class();
+      v10 = v19;
       _os_log_impl(&dword_2519FE000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ running store demo mode, connecting to gateways is not supported", buf, 0xCu);
     }
 
@@ -529,24 +529,22 @@ void __49__HKClinicalAccountStore_supportsClinicalSharing__block_invoke_301(uint
   {
     v12 = [(HKClinicalStore *)self clientQueueObjectHandlerWithCompletion:completionCopy];
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __72__HKClinicalAccountStore_beginInitialLoginSessionForGateway_completion___block_invoke;
-    v16[3] = &unk_2796DCBB8;
-    v17 = gatewayCopy;
-    v18 = v12;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __72__HKClinicalAccountStore_beginInitialLoginSessionForGateway_completion___block_invoke_2;
-    v14[3] = &unk_2796DBFF8;
-    completionCopy = v18;
-    v15 = completionCopy;
-    [(HKClinicalStore *)self fetchServerProxyWithHandler:v16 errorHandler:v14];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __72__HKClinicalAccountStore_beginInitialLoginSessionForGateway_completion___block_invoke;
+    v15[3] = &unk_2796DCBB8;
+    v16 = gatewayCopy;
+    v17 = v12;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __72__HKClinicalAccountStore_beginInitialLoginSessionForGateway_completion___block_invoke_2;
+    v13[3] = &unk_2796DBFF8;
+    completionCopy = v17;
+    v14 = completionCopy;
+    [(HKClinicalStore *)self fetchServerProxyWithHandler:v15 errorHandler:v13];
 
-    v11 = v17;
+    v11 = v16;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HKClinicalAccountStore_beginInitialLoginSessionForGateway_completion___block_invoke(uint64_t a1, void *a2)
@@ -641,13 +639,12 @@ void __67__HKClinicalAccountStore_endLoginSessionWithState_code_completion___blo
   [v4 dispatchAsyncProxyClientQueue:v7];
 }
 
-void __67__HKClinicalAccountStore_endLoginSessionWithState_code_completion___block_invoke_2(void *a1)
+void __67__HKClinicalAccountStore_endLoginSessionWithState_code_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 40) + 16))();
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void __67__HKClinicalAccountStore_endLoginSessionWithState_code_completion___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -925,36 +922,34 @@ void __67__HKClinicalAccountStore_endLoginSessionWithState_code_completion___blo
 
 - (void)clientRemote_accountDidChange:(id)change changeType:(int64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2C0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEBUG))
   {
-    v11 = v7;
+    v10 = v7;
     identifier = [changeCopy identifier];
-    v13 = NSStringFromAccountStateChangeType(type);
+    v12 = NSStringFromAccountStateChangeType(type);
     *buf = 138543874;
     selfCopy = self;
-    v19 = 2114;
-    v20 = identifier;
-    v21 = 2114;
-    v22 = v13;
-    _os_log_debug_impl(&dword_2519FE000, v11, OS_LOG_TYPE_DEBUG, "%{public}@: account with identifier %{public}@ did change state: %{public}@", buf, 0x20u);
+    v18 = 2114;
+    v19 = identifier;
+    v20 = 2114;
+    v21 = v12;
+    _os_log_debug_impl(&dword_2519FE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: account with identifier %{public}@ did change state: %{public}@", buf, 0x20u);
   }
 
   accountStateChangeObservers = self->_accountStateChangeObservers;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __67__HKClinicalAccountStore_clientRemote_accountDidChange_changeType___block_invoke;
-  v14[3] = &unk_2796DCDE8;
-  v14[4] = self;
-  v15 = changeCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __67__HKClinicalAccountStore_clientRemote_accountDidChange_changeType___block_invoke;
+  v13[3] = &unk_2796DCDE8;
+  v13[4] = self;
+  v14 = changeCopy;
   typeCopy = type;
   v9 = changeCopy;
-  [(HKObserverSet *)accountStateChangeObservers notifyObservers:v14];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(HKObserverSet *)accountStateChangeObservers notifyObservers:v13];
 }
 
 - (void)_establishProxyConnectionIfNoObserversArePresent
@@ -1035,63 +1030,20 @@ void __63__HKClinicalAccountStore__executeCheapCallOnPluginServerProxy___block_i
   }
 }
 
-void __67__HKClinicalAccountStore_hasAnyHealthRecordsAccountWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, v0, v1, "Failed to query for any health records account availability with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __77__HKClinicalAccountStore_hasGatewayBackedHealthRecordsAccountWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, v0, v1, "Failed to query for gateway backed account availability with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__HKClinicalAccountStore_deviceConfigurationSupportsHealthRecords___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, v0, v1, "Failed to determine if device configuration supports CHR with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__HKClinicalAccountStore_shouldShowHealthRecordsSectionWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, v0, v1, "Failed to determine if CHR section should be shown with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __49__HKClinicalAccountStore_supportsClinicalSharing__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, v0, v1, "Failed to query for clinical sharing availability with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_executeCheapCallOnPluginServerProxy:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_2519FE000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: making cheap XCP call to establish connection on %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2519FE000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: making cheap XCP call to establish connection on %{public}@", v1, 0x16u);
 }
 
 void __63__HKClinicalAccountStore__executeCheapCallOnPluginServerProxy___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@: error executing a ping: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@: error executing a ping: %{public}@", v3, DWORD2(v3));
 }
 
 @end

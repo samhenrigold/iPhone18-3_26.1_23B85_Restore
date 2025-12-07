@@ -43,7 +43,7 @@
 {
   if (sub_100181AF4())
   {
-    sub_1000CE6B8(&unk_10190B260);
+    sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
     v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

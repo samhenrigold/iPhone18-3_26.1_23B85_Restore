@@ -61,7 +61,7 @@
   modificationDateCache = self->_modificationDateCache;
   self->_modificationDateCache = v6;
 
-  v8 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"User Identifier"];
+  v8 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
   if (v8)
   {
 
@@ -77,7 +77,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v9 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"Logging User Identifier"];
+  v9 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
 
   if (v9)
   {
@@ -117,7 +117,7 @@ LABEL_7:
 
   log = objc_opt_new();
   v187 = objc_opt_new();
-  v184 = sub_10029A9C8();
+  v184 = sub_10029A9C8(v187);
   hasMergedAllRecords = self->_hasMergedAllRecords;
   v176 = changesCopy;
   if (changesCopy)
@@ -315,7 +315,7 @@ LABEL_46:
               v48 = [NSSet setWithArray:v47];
               v31 = [v24 _ad_dataOfClasses:v48];
 
-              v49 = [(NSMutableDictionary *)self->_modificationDateCache objectForKey:recordName];
+              v49 = objc_msgSend_objectForKey_(self->_modificationDateCache);
               if (!((v49 == 0) | v183[0] & 1) && !hasMergedAllRecords && (([recordName isEqualToString:v192]& 1) != 0 || [recordName isEqualToString:v185]))
               {
                 v50 = AFSiriLogContextDaemon;
@@ -335,7 +335,7 @@ LABEL_46:
 
               if (([recordName isEqualToString:@"User Identifier"]& 1) != 0 || [recordName isEqualToString:@"Logging User Identifier"])
               {
-                v188 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:recordName];
+                v188 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
                 if (v49)
                 {
                   modificationDate = [v24 modificationDate];
@@ -485,7 +485,7 @@ LABEL_112:
                 goto LABEL_46;
               }
 
-              v188 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:recordName];
+              v188 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
               if (!v49)
               {
                 v64 = AFSiriLogContextDaemon;
@@ -690,7 +690,7 @@ LABEL_131:
             goto LABEL_135;
           }
 
-          v84 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:recordName2];
+          v84 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
 
           if (v84)
           {
@@ -732,8 +732,8 @@ LABEL_135:
   v87 = v184;
   if (v179)
   {
-    v88 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"User Identifier"];
-    v89 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"Logging User Identifier"];
+    v88 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
+    v89 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
     v90 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
     {
@@ -786,7 +786,7 @@ LABEL_135:
         {
           if (![v97 isEqualToString:@"Logging User Identifier"])
           {
-            v99 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v97];
+            v99 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
             goto LABEL_157;
           }
 
@@ -867,7 +867,7 @@ LABEL_160:
   }
 
   v108 = kAFSessionLanguage;
-  v109 = [v187 objectForKey:kAFSessionLanguage];
+  v109 = objc_msgSend_objectForKey_(v187);
   v196 = v109;
   if (v109)
   {
@@ -915,7 +915,7 @@ LABEL_160:
   v112 = 0;
 LABEL_184:
   v114 = kAFOutputVoice;
-  v115 = [v187 objectForKey:kAFOutputVoice];
+  v115 = objc_msgSend_objectForKey_(v187);
   if (v115)
   {
     if (v112)
@@ -925,7 +925,7 @@ LABEL_184:
 
     else
     {
-      v118 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v108];
+      v118 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
       v116 = sub_1002984B0(v118);
     }
 
@@ -959,7 +959,7 @@ LABEL_184:
     v117 = 0;
   }
 
-  v123 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v108];
+  v123 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
   v189 = v115;
   v186 = v123;
   if (!v123)
@@ -1049,7 +1049,7 @@ LABEL_206:
         }
 
         v138 = *(*(&v209 + 1) + 8 * k);
-        v139 = [v133 objectForKey:v138];
+        v139 = objc_msgSend_objectForKey_(v133);
         v140 = +[NSNull null];
 
         if (v139 == v140)
@@ -1084,7 +1084,7 @@ LABEL_206:
 LABEL_217:
   if (v190)
   {
-    v143 = [v76 objectForKey:kAFSessionLanguage];
+    v143 = objc_msgSend_objectForKey_(v76);
     if (!v143)
     {
       v231 = objc_opt_class();
@@ -1133,17 +1133,17 @@ LABEL_217:
   }
 
   v153 = kAFSessionLanguage;
-  v154 = [v76 objectForKey:kAFSessionLanguage];
+  v154 = objc_msgSend_objectForKey_(v76);
 
   v155 = kAFOutputVoice;
-  v156 = [v76 objectForKey:kAFOutputVoice];
+  v156 = objc_msgSend_objectForKey_(v76);
   v157 = v154 | v156;
 
   if (v157)
   {
-    v158 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v153];
+    v158 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
     v159 = sub_1002984B0(v158);
-    v160 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v155];
+    v160 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
     v161 = sub_100298408(v160, v159);
     if (v161)
     {
@@ -1256,7 +1256,7 @@ LABEL_244:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v33 = "[ADCloudKitKeyValueDataStore synchronizeKeychainPreferencesWithCompletion:]";
+    v34 = "[ADCloudKitKeyValueDataStore synchronizeKeychainPreferencesWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -1265,16 +1265,16 @@ LABEL_244:
   modificationDateCache = self->_modificationDateCache;
   self->_modificationDateCache = v7;
 
-  v9 = sub_10029A9C8();
-  if ([v9 containsObject:@"User Identifier"])
+  v10 = sub_10029A9C8(v9);
+  if ([v10 containsObject:@"User Identifier"])
   {
-    v10 = +[ADPreferences sharedPreferences];
-    sharedUserIdentifier = [v10 sharedUserIdentifier];
+    v11 = +[ADPreferences sharedPreferences];
+    sharedUserIdentifier = [v11 sharedUserIdentifier];
 
-    v12 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"User Identifier"];
-    v13 = [sharedUserIdentifier isEqual:v12];
+    v13 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
+    v14 = [sharedUserIdentifier isEqual:v13];
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       if (sharedUserIdentifier)
       {
@@ -1285,25 +1285,25 @@ LABEL_244:
       else
       {
         [(NSMutableDictionary *)self->_localPreferenceCache removeObjectForKey:@"User Identifier"];
-        v14 = +[NSNull null];
-        [v6 setObject:v14 forKey:@"User Identifier"];
+        v15 = +[NSNull null];
+        [v6 setObject:v15 forKey:@"User Identifier"];
       }
 
-      v15 = self->_modificationDateCache;
-      v16 = +[NSDate date];
-      [(NSMutableDictionary *)v15 setObject:v16 forKey:@"User Identifier"];
+      v16 = self->_modificationDateCache;
+      v17 = +[NSDate date];
+      [(NSMutableDictionary *)v16 setObject:v17 forKey:@"User Identifier"];
     }
   }
 
-  if ([v9 containsObject:@"Logging User Identifier"])
+  if ([v10 containsObject:@"Logging User Identifier"])
   {
-    v17 = +[ADPreferences sharedPreferences];
-    loggingSharedUserIdentifier = [v17 loggingSharedUserIdentifier];
+    v18 = +[ADPreferences sharedPreferences];
+    loggingSharedUserIdentifier = [v18 loggingSharedUserIdentifier];
 
-    v19 = [(NSMutableDictionary *)self->_localKeychainPreferenceCache objectForKey:@"Logging User Identifier"];
-    v20 = [loggingSharedUserIdentifier isEqual:v19];
+    v20 = objc_msgSend_objectForKey_(self->_localKeychainPreferenceCache);
+    v21 = [loggingSharedUserIdentifier isEqual:v20];
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
       if (loggingSharedUserIdentifier)
       {
@@ -1314,13 +1314,13 @@ LABEL_244:
       else
       {
         [(NSMutableDictionary *)self->_localPreferenceCache removeObjectForKey:@"Logging User Identifier"];
-        v21 = +[NSNull null];
-        [v6 setObject:v21 forKey:@"Logging User Identifier"];
+        v22 = +[NSNull null];
+        [v6 setObject:v22 forKey:@"Logging User Identifier"];
       }
 
-      v22 = self->_modificationDateCache;
-      v23 = +[NSDate date];
-      [(NSMutableDictionary *)v22 setObject:v23 forKey:@"Logging User Identifier"];
+      v23 = self->_modificationDateCache;
+      v24 = +[NSDate date];
+      [(NSMutableDictionary *)v23 setObject:v24 forKey:@"Logging User Identifier"];
     }
   }
 
@@ -1329,26 +1329,26 @@ LABEL_244:
     sub_10029A7B0(self->_modificationDateCache, kAFModificationDates);
     AFBackedUpPreferencesSynchronize();
     allKeys = [v6 allKeys];
-    v25 = AFSiriLogContextDaemon;
+    v26 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v33 = "[ADCloudKitKeyValueDataStore synchronizeKeychainPreferencesWithCompletion:]";
-      v34 = 2112;
-      v35 = allKeys;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
+      v34 = "[ADCloudKitKeyValueDataStore synchronizeKeychainPreferencesWithCompletion:]";
+      v35 = 2112;
+      v36 = allKeys;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
     }
 
-    v26 = +[ADCloudKitManager sharedManager];
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_100310828;
-    v28[3] = &unk_10051BA20;
-    v29 = allKeys;
+    v27 = +[ADCloudKitManager sharedManager];
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100310828;
+    v29[3] = &unk_10051BA20;
+    v30 = allKeys;
     selfCopy = self;
-    v31 = v6;
-    v27 = allKeys;
-    [v26 saveKeyValueRecordsWithDictionary:v31 mirror:0 completion:v28];
+    v32 = v6;
+    v28 = allKeys;
+    [v27 saveKeyValueRecordsWithDictionary:v32 mirror:0 completion:v29];
   }
 
   if (completionCopy)
@@ -1364,7 +1364,7 @@ LABEL_244:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+    v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -1374,10 +1374,10 @@ LABEL_244:
   modificationDateCache = self->_modificationDateCache;
   self->_modificationDateCache = v7;
 
-  v99 = +[NSDate date];
-  v100 = objc_opt_new();
+  v98 = +[NSDate date];
+  v99 = objc_opt_new();
   allKeys = [(NSMutableDictionary *)self->_localPreferenceCache allKeys];
-  v97 = allKeys;
+  v96 = allKeys;
   if (allKeys)
   {
     v10 = [NSMutableSet setWithArray:allKeys];
@@ -1388,30 +1388,30 @@ LABEL_244:
     v10 = 0;
   }
 
-  v98 = completionCopy;
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
+  v97 = completionCopy;
   v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
   obj = v6;
-  v11 = [obj countByEnumeratingWithState:&v113 objects:v125 count:16];
+  v11 = [obj countByEnumeratingWithState:&v112 objects:v124 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v114;
+    v13 = *v113;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v114 != v13)
+        if (*v113 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v113 + 1) + 8 * i);
+        v15 = *(*(&v112 + 1) + 8 * i);
         [v10 removeObject:v15];
-        v16 = [obj objectForKey:v15];
-        v17 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v15];
+        v16 = objc_msgSend_objectForKey_(obj);
+        v17 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
         v18 = sub_10029A61C(v16, v17, v15);
 
         if ((v18 & 1) == 0)
@@ -1420,67 +1420,67 @@ LABEL_244:
           if (v16)
           {
             [(NSMutableDictionary *)localPreferenceCache setObject:v16 forKey:v15];
-            [v100 setObject:v16 forKey:v15];
+            [v99 setObject:v16 forKey:v15];
           }
 
           else
           {
             [(NSMutableDictionary *)localPreferenceCache removeObjectForKey:v15];
             v20 = +[NSNull null];
-            [v100 setObject:v20 forKey:v15];
+            [v99 setObject:v20 forKey:v15];
           }
 
-          [(NSMutableDictionary *)self->_modificationDateCache setObject:v99 forKey:v15];
+          [(NSMutableDictionary *)self->_modificationDateCache setObject:v98 forKey:v15];
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v113 objects:v125 count:16];
+      v12 = [obj countByEnumeratingWithState:&v112 objects:v124 count:16];
     }
 
     while (v12);
   }
 
-  v111 = 0u;
-  v112 = 0u;
-  v109 = 0u;
   v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
   v21 = v10;
-  v22 = [v21 countByEnumeratingWithState:&v109 objects:v124 count:16];
-  v23 = v100;
+  v22 = [v21 countByEnumeratingWithState:&v108 objects:v123 count:16];
+  v23 = v99;
   if (v22)
   {
     v24 = v22;
-    v25 = *v110;
+    v25 = *v109;
     do
     {
       for (j = 0; j != v24; j = j + 1)
       {
-        if (*v110 != v25)
+        if (*v109 != v25)
         {
           objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v109 + 1) + 8 * j);
+        v27 = *(*(&v108 + 1) + 8 * j);
         v28 = +[NSNull null];
-        [v100 setObject:v28 forKey:v27];
+        [v99 setObject:v28 forKey:v27];
       }
 
-      v24 = [v21 countByEnumeratingWithState:&v109 objects:v124 count:16];
+      v24 = [v21 countByEnumeratingWithState:&v108 objects:v123 count:16];
     }
 
     while (v24);
   }
 
-  if (![v100 count])
+  if (![v99 count])
   {
     goto LABEL_115;
   }
 
   v29 = kAFSessionLanguage;
-  v30 = [v100 objectForKey:kAFSessionLanguage];
+  v30 = objc_msgSend_objectForKey_(v99);
 
-  v96 = kAFOutputVoice;
-  v31 = [v100 objectForKey:?];
+  v95 = kAFOutputVoice;
+  v31 = objc_msgSend_objectForKey_(v99);
 
   if (self->_hasMergedAllRecords || !(v30 | v31) || (+[ADPreferences sharedPreferences](ADPreferences, "sharedPreferences"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v32 isUsingDefaultLanguageSettings], v32, !v33))
   {
@@ -1488,26 +1488,24 @@ LABEL_244:
     {
       if (v31)
       {
-        v95 = 1;
-        v34 = v96;
+        v94 = 1;
         goto LABEL_46;
       }
 
-      v34 = v96;
-      v35 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v96];
-      if (v35)
+      v34 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
+      if (v34)
       {
-        [v100 setObject:v35 forKey:v96];
+        [v99 setObject:v34 forKey:v95];
       }
 
       else
       {
-        v38 = +[NSNull null];
-        [v100 setObject:v38 forKey:v96];
+        v37 = +[NSNull null];
+        [v99 setObject:v37 forKey:v95];
       }
 
-      v95 = 1;
-      v37 = v96;
+      v94 = 1;
+      v36 = v95;
     }
 
     else
@@ -1517,159 +1515,158 @@ LABEL_244:
         goto LABEL_109;
       }
 
-      v35 = [(NSMutableDictionary *)self->_localPreferenceCache objectForKey:v29];
-      if (v35)
+      v34 = objc_msgSend_objectForKey_(self->_localPreferenceCache);
+      if (v34)
       {
-        [v100 setObject:v35 forKey:v29];
+        [v99 setObject:v34 forKey:v29];
       }
 
       else
       {
-        v36 = +[NSNull null];
-        [v100 setObject:v36 forKey:v29];
+        v35 = +[NSNull null];
+        [v99 setObject:v35 forKey:v29];
       }
 
-      v95 = 0;
-      v37 = v29;
-      v34 = v96;
+      v94 = 0;
+      v36 = v29;
     }
 
-    [(NSMutableDictionary *)self->_modificationDateCache setObject:v99 forKey:v37];
+    [(NSMutableDictionary *)self->_modificationDateCache setObject:v98 forKey:v36];
 
 LABEL_46:
-    v39 = [v100 objectForKey:v29];
-    v40 = sub_1002984B0(v39);
-    v41 = [v100 objectForKey:v34];
-    v42 = sub_100298408(v41, v40);
-    v43 = v42;
-    if (!v42)
+    v38 = objc_msgSend_objectForKey_(v99);
+    v39 = sub_1002984B0(v38);
+    v40 = objc_msgSend_objectForKey_(v99);
+    v41 = sub_100298408(v40, v39);
+    v42 = v41;
+    if (!v41)
     {
-      v52 = AFSiriLogContextDaemon;
+      v51 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v39;
-        v122 = 2112;
-        v123 = v41;
-        _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%s Not synching language (%@) and output voice(%@) due to mismatch", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v38;
+        v121 = 2112;
+        v122 = v40;
+        _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "%s Not synching language (%@) and output voice(%@) due to mismatch", buf, 0x20u);
       }
 
-      v117[0] = v29;
-      v117[1] = v96;
-      v44 = [NSArray arrayWithObjects:v117 count:2];
-      [v100 removeObjectsForKeys:v44];
-      v43 = 0;
+      v116[0] = v29;
+      v116[1] = v95;
+      v43 = [NSArray arrayWithObjects:v116 count:2];
+      [v99 removeObjectsForKeys:v43];
+      v42 = 0;
       goto LABEL_108;
     }
 
-    v93 = v41;
-    v44 = sub_100298580(v42);
-    dictionaryRepresentation = [v44 dictionaryRepresentation];
-    v46 = @"Output Voice v14";
-    v47 = dictionaryRepresentation;
-    [v100 setObject:dictionaryRepresentation forKey:@"Output Voice v14"];
+    v92 = v40;
+    v43 = sub_100298580(v41);
+    dictionaryRepresentation = [v43 dictionaryRepresentation];
+    v45 = @"Output Voice v14";
+    v46 = dictionaryRepresentation;
+    [v99 setObject:dictionaryRepresentation forKey:@"Output Voice v14"];
 
-    if (sub_100298670(v44, v40))
+    if (sub_100298670(v43, v39))
     {
-      if (v95)
+      if (v94)
       {
-        v48 = v43;
-        v49 = sub_1002999C0(v40);
-        v50 = AFSiriLogContextDaemon;
+        v47 = v42;
+        v48 = sub_1002999C0(v39);
+        v49 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-          v120 = 2112;
-          v121 = v40;
-          v122 = 2112;
-          v123 = v49;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "%s Synching default voice for version 1 sync clients (%@) : %@", buf, 0x20u);
+          v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+          v119 = 2112;
+          v120 = v39;
+          v121 = 2112;
+          v122 = v48;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "%s Synching default voice for version 1 sync clients (%@) : %@", buf, 0x20u);
         }
 
-        dictionaryRepresentation2 = [v49 dictionaryRepresentation];
-        [v100 setObject:dictionaryRepresentation2 forKey:v96];
+        dictionaryRepresentation2 = [v48 dictionaryRepresentation];
+        [v99 setObject:dictionaryRepresentation2 forKey:v95];
 
-        v43 = v48;
-        v47 = dictionaryRepresentation;
-        if ((sub_100299798(v44, v40) & 1) == 0)
+        v42 = v47;
+        v46 = dictionaryRepresentation;
+        if ((sub_100299798(v43, v39) & 1) == 0)
         {
           goto LABEL_71;
         }
 
 LABEL_60:
-        v54 = v47;
-        v55 = v39;
-        v56 = sub_1002999C0(v40);
-        v57 = AFSiriLogContextDaemon;
+        v53 = v46;
+        v54 = v38;
+        v55 = sub_1002999C0(v39);
+        v56 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-          v120 = 2112;
-          v121 = v40;
-          v122 = 2112;
-          v123 = v56;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "%s Synching default voice for version 2 sync clients (%@) : %@", buf, 0x20u);
+          v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+          v119 = 2112;
+          v120 = v39;
+          v121 = 2112;
+          v122 = v55;
+          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "%s Synching default voice for version 2 sync clients (%@) : %@", buf, 0x20u);
         }
 
-        dictionaryRepresentation3 = [v56 dictionaryRepresentation];
-        [v100 setObject:dictionaryRepresentation3 forKey:@"Output Voice v2"];
+        dictionaryRepresentation3 = [v55 dictionaryRepresentation];
+        [v99 setObject:dictionaryRepresentation3 forKey:@"Output Voice v2"];
 
-        v39 = v55;
-        v47 = v54;
-        if (sub_100299898(v44, v40))
+        v38 = v54;
+        v46 = v53;
+        if (sub_100299898(v43, v39))
         {
 LABEL_75:
-          v62 = v47;
-          v63 = v39;
-          v64 = sub_1002999C0(v40);
-          v65 = AFSiriLogContextDaemon;
+          v61 = v46;
+          v62 = v38;
+          v63 = sub_1002999C0(v39);
+          v64 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-            v120 = 2112;
-            v121 = v40;
-            v122 = 2112;
-            v123 = v64;
-            _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "%s Synching default voice for version 3 sync clients (%@) : %@", buf, 0x20u);
+            v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+            v119 = 2112;
+            v120 = v39;
+            v121 = 2112;
+            v122 = v63;
+            _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "%s Synching default voice for version 3 sync clients (%@) : %@", buf, 0x20u);
           }
 
-          dictionaryRepresentation4 = [v64 dictionaryRepresentation];
-          [v100 setObject:dictionaryRepresentation4 forKey:@"Output Voice v3"];
+          dictionaryRepresentation4 = [v63 dictionaryRepresentation];
+          [v99 setObject:dictionaryRepresentation4 forKey:@"Output Voice v3"];
 
-          v39 = v63;
-          v47 = v62;
-          if ((sub_1002988D0(v44, v40) & 1) == 0)
+          v38 = v62;
+          v46 = v61;
+          if ((sub_1002988D0(v43, v39) & 1) == 0)
           {
             goto LABEL_94;
           }
 
 LABEL_83:
-          v68 = v47;
-          v69 = v39;
-          v70 = sub_1002999C0(v40);
-          v71 = AFSiriLogContextDaemon;
+          v67 = v46;
+          v68 = v38;
+          v69 = sub_1002999C0(v39);
+          v70 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-            v120 = 2112;
-            v121 = v40;
-            v122 = 2112;
-            v123 = v70;
-            _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "%s Synching default voice for version 4 sync clients (%@) : %@", buf, 0x20u);
+            v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+            v119 = 2112;
+            v120 = v39;
+            v121 = 2112;
+            v122 = v69;
+            _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "%s Synching default voice for version 4 sync clients (%@) : %@", buf, 0x20u);
           }
 
-          dictionaryRepresentation5 = [v70 dictionaryRepresentation];
-          [v100 setObject:dictionaryRepresentation5 forKey:@"Output Voice completionCopy"];
+          dictionaryRepresentation5 = [v69 dictionaryRepresentation];
+          [v99 setObject:dictionaryRepresentation5 forKey:@"Output Voice completionCopy"];
 
-          v39 = v69;
-          v47 = v68;
-          if (sub_100298A54(v44, v40))
+          v38 = v68;
+          v46 = v67;
+          if (sub_100298A54(v43, v39))
           {
             goto LABEL_98;
           }
@@ -1680,36 +1677,36 @@ LABEL_83:
         goto LABEL_79;
       }
 
-      v59 = AFSiriLogContextDaemon;
+      v58 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v40;
-        v122 = 2112;
-        v123 = v44;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "%s Skipping sync of version 1 voice for language (%@) : %@", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v39;
+        v121 = 2112;
+        v122 = v43;
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "%s Skipping sync of version 1 voice for language (%@) : %@", buf, 0x20u);
       }
 
-      [v100 removeObjectForKey:{v96, v93}];
-      if (sub_100299798(v44, v40))
+      [v99 removeObjectForKey:{v95, v92}];
+      if (sub_100299798(v43, v39))
       {
 LABEL_67:
-        v60 = AFSiriLogContextDaemon;
+        v59 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-          v120 = 2112;
-          v121 = v40;
-          v122 = 2112;
-          v123 = v44;
-          _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "%s Skipping sync of version 2 voice for language (%@) : %@", buf, 0x20u);
+          v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+          v119 = 2112;
+          v120 = v39;
+          v121 = 2112;
+          v122 = v43;
+          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "%s Skipping sync of version 2 voice for language (%@) : %@", buf, 0x20u);
         }
 
-        [v100 removeObjectForKey:@"Output Voice v2"];
-        if (sub_100299898(v44, v40))
+        [v99 removeObjectForKey:@"Output Voice v2"];
+        if (sub_100299898(v43, v39))
         {
           goto LABEL_87;
         }
@@ -1720,22 +1717,22 @@ LABEL_67:
 
     else
     {
-      v53 = AFSiriLogContextDaemon;
+      v52 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v40;
-        v122 = 2112;
-        v123 = v44;
-        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "%s Synching voice for version 1 sync clients as well (%@) : %@", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v39;
+        v121 = 2112;
+        v122 = v43;
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "%s Synching voice for version 1 sync clients as well (%@) : %@", buf, 0x20u);
       }
 
-      [v100 setObject:dictionaryRepresentation forKey:{v96, v93}];
-      if (sub_100299798(v44, v40))
+      [v99 setObject:dictionaryRepresentation forKey:{v95, v92}];
+      if (sub_100299798(v43, v39))
       {
-        if (v95)
+        if (v94)
         {
           goto LABEL_60;
         }
@@ -1745,41 +1742,41 @@ LABEL_67:
     }
 
 LABEL_71:
-    v61 = AFSiriLogContextDaemon;
+    v60 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-      v120 = 2112;
-      v121 = v40;
-      v122 = 2112;
-      v123 = v44;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "%s Synching voice for version 2 sync clients as well (%@) : %@", buf, 0x20u);
+      v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+      v119 = 2112;
+      v120 = v39;
+      v121 = 2112;
+      v122 = v43;
+      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "%s Synching voice for version 2 sync clients as well (%@) : %@", buf, 0x20u);
     }
 
-    [v100 setObject:v47 forKey:@"Output Voice v2"];
-    if (sub_100299898(v44, v40))
+    [v99 setObject:v46 forKey:@"Output Voice v2"];
+    if (sub_100299898(v43, v39))
     {
-      if (v95)
+      if (v94)
       {
         goto LABEL_75;
       }
 
 LABEL_87:
-      v73 = AFSiriLogContextDaemon;
+      v72 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v40;
-        v122 = 2112;
-        v123 = v44;
-        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "%s Skipping sync of version 3 voice for language (%@) : %@", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v39;
+        v121 = 2112;
+        v122 = v43;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "%s Skipping sync of version 3 voice for language (%@) : %@", buf, 0x20u);
       }
 
-      [v100 removeObjectForKey:@"Output Voice v3"];
-      if (sub_1002988D0(v44, v40))
+      [v99 removeObjectForKey:@"Output Voice v3"];
+      if (sub_1002988D0(v43, v39))
       {
         goto LABEL_90;
       }
@@ -1788,41 +1785,41 @@ LABEL_87:
     }
 
 LABEL_79:
-    v67 = AFSiriLogContextDaemon;
+    v66 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-      v120 = 2112;
-      v121 = v40;
-      v122 = 2112;
-      v123 = v44;
-      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "%s Synching voice for version 3 sync clients as well (%@) : %@", buf, 0x20u);
+      v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+      v119 = 2112;
+      v120 = v39;
+      v121 = 2112;
+      v122 = v43;
+      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "%s Synching voice for version 3 sync clients as well (%@) : %@", buf, 0x20u);
     }
 
-    [v100 setObject:v47 forKey:@"Output Voice v3"];
-    if (sub_1002988D0(v44, v40))
+    [v99 setObject:v46 forKey:@"Output Voice v3"];
+    if (sub_1002988D0(v43, v39))
     {
-      if (v95)
+      if (v94)
       {
         goto LABEL_83;
       }
 
 LABEL_90:
-      v74 = AFSiriLogContextDaemon;
+      v73 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v40;
-        v122 = 2112;
-        v123 = v44;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "%s Skipping sync of version 4 voice for language (%@) : %@", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v39;
+        v121 = 2112;
+        v122 = v43;
+        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "%s Skipping sync of version 4 voice for language (%@) : %@", buf, 0x20u);
       }
 
-      [v100 removeObjectForKey:@"Output Voice completionCopy"];
-      if (sub_100298A54(v44, v40))
+      [v99 removeObjectForKey:@"Output Voice completionCopy"];
+      if (sub_100298A54(v43, v39))
       {
         goto LABEL_104;
       }
@@ -1831,155 +1828,155 @@ LABEL_90:
     }
 
 LABEL_94:
-    v75 = AFSiriLogContextDaemon;
+    v74 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-      v120 = 2112;
-      v121 = v40;
-      v122 = 2112;
-      v123 = v44;
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_INFO, "%s Synching voice for version 4 sync clients as well (%@) : %@", buf, 0x20u);
+      v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+      v119 = 2112;
+      v120 = v39;
+      v121 = 2112;
+      v122 = v43;
+      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "%s Synching voice for version 4 sync clients as well (%@) : %@", buf, 0x20u);
     }
 
-    [v100 setObject:v47 forKey:@"Output Voice completionCopy"];
-    if (sub_100298A54(v44, v40))
+    [v99 setObject:v46 forKey:@"Output Voice completionCopy"];
+    if (sub_100298A54(v43, v39))
     {
-      if (v95)
+      if (v94)
       {
 LABEL_98:
-        v76 = v47;
-        v77 = v43;
-        v78 = sub_100299AA0(v40);
-        v79 = AFSiriLogContextDaemon;
+        v75 = v46;
+        v76 = v42;
+        v77 = sub_100299AA0(v39);
+        v78 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-          v120 = 2112;
-          v121 = v40;
-          v122 = 2112;
-          v123 = v78;
-          _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_INFO, "%s Synching default voice for version 5 sync clients (%@) : %@", buf, 0x20u);
+          v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+          v119 = 2112;
+          v120 = v39;
+          v121 = 2112;
+          v122 = v77;
+          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, "%s Synching default voice for version 5 sync clients (%@) : %@", buf, 0x20u);
         }
 
-        dictionaryRepresentation6 = [v78 dictionaryRepresentation];
-        [v100 setObject:dictionaryRepresentation6 forKey:@"Output Voice v5"];
+        dictionaryRepresentation6 = [v77 dictionaryRepresentation];
+        [v99 setObject:dictionaryRepresentation6 forKey:@"Output Voice v5"];
 
-        v43 = v77;
-        v47 = v76;
+        v42 = v76;
+        v46 = v75;
 LABEL_107:
 
-        v41 = v94;
+        v40 = v93;
 LABEL_108:
 
         goto LABEL_109;
       }
 
 LABEL_104:
-      v82 = AFSiriLogContextDaemon;
+      v81 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-        v120 = 2112;
-        v121 = v40;
-        v122 = 2112;
-        v123 = v44;
-        _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "%s Skipping sync of version 5 voice for language (%@) : %@", buf, 0x20u);
+        v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+        v119 = 2112;
+        v120 = v39;
+        v121 = 2112;
+        v122 = v43;
+        _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_INFO, "%s Skipping sync of version 5 voice for language (%@) : %@", buf, 0x20u);
       }
 
-      [v100 removeObjectForKey:@"Output Voice v5"];
+      [v99 removeObjectForKey:@"Output Voice v5"];
       goto LABEL_107;
     }
 
 LABEL_101:
-    v81 = AFSiriLogContextDaemon;
+    v80 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-      v120 = 2112;
-      v121 = v40;
-      v122 = 2112;
-      v123 = v44;
-      _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_INFO, "%s Synching voice for version 5 sync clients as well (%@) : %@", buf, 0x20u);
+      v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+      v119 = 2112;
+      v120 = v39;
+      v121 = 2112;
+      v122 = v43;
+      _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_INFO, "%s Synching voice for version 5 sync clients as well (%@) : %@", buf, 0x20u);
     }
 
-    [v100 setObject:v47 forKey:@"Output Voice v5"];
+    [v99 setObject:v46 forKey:@"Output Voice v5"];
     goto LABEL_107;
   }
 
   if (v30)
   {
-    [v100 removeObjectForKey:v29];
+    [v99 removeObjectForKey:v29];
   }
 
   if (v31)
   {
-    [v100 removeObjectForKey:v96];
+    [v99 removeObjectForKey:v95];
   }
 
 LABEL_109:
   sub_10029A7B0(self->_modificationDateCache, kAFModificationDates);
   AFBackedUpPreferencesSynchronize();
-  v23 = v100;
-  if (self->_hasMergedAllRecords && [v100 count])
+  v23 = v99;
+  if (self->_hasMergedAllRecords && [v99 count])
   {
-    allKeys2 = [v100 allKeys];
-    v84 = AFSiriLogContextDaemon;
-    v85 = v98;
+    allKeys2 = [v99 allKeys];
+    v83 = AFSiriLogContextDaemon;
+    v84 = v97;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v119 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
-      v120 = 2112;
-      v121 = allKeys2;
-      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
+      v118 = "[ADCloudKitKeyValueDataStore synchronizeWithCompletion:]";
+      v119 = 2112;
+      v120 = allKeys2;
+      _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%s Saving keys: %@", buf, 0x16u);
     }
 
     isMirroredDataStore = [(ADCloudKitKeyValueDataStore *)self isMirroredDataStore];
-    v87 = +[ADCloudKitManager sharedManager];
+    v86 = +[ADCloudKitManager sharedManager];
     if (isMirroredDataStore)
     {
-      v102[0] = _NSConcreteStackBlock;
-      v102[1] = 3221225472;
-      v102[2] = sub_100311ED8;
-      v102[3] = &unk_10051D600;
+      v101[0] = _NSConcreteStackBlock;
+      v101[1] = 3221225472;
+      v101[2] = sub_100311ED8;
+      v101[3] = &unk_10051D600;
+      v87 = &v102;
+      v102 = allKeys2;
       v88 = &v103;
-      v103 = allKeys2;
-      v89 = &v104;
-      v104 = v98;
-      v90 = allKeys2;
-      [v87 saveKeyValueRecordsWithDictionary:v100 mirror:1 completion:v102];
+      v103 = v97;
+      v89 = allKeys2;
+      [v86 saveKeyValueRecordsWithDictionary:v99 mirror:1 completion:v101];
     }
 
     else
     {
-      v105[0] = _NSConcreteStackBlock;
-      v105[1] = 3221225472;
-      v105[2] = sub_100311CAC;
-      v105[3] = &unk_10051BA48;
-      v88 = v106;
-      v106[0] = allKeys2;
-      v89 = &v108;
-      v108 = v98;
-      v106[1] = self;
-      v91 = v100;
-      v107 = v91;
-      v92 = allKeys2;
-      [v87 saveKeyValueRecordsWithDictionary:v91 mirror:0 completion:v105];
+      v104[0] = _NSConcreteStackBlock;
+      v104[1] = 3221225472;
+      v104[2] = sub_100311CAC;
+      v104[3] = &unk_10051BA48;
+      v87 = v105;
+      v105[0] = allKeys2;
+      v88 = &v107;
+      v107 = v97;
+      v105[1] = self;
+      v90 = v99;
+      v106 = v90;
+      v91 = allKeys2;
+      [v86 saveKeyValueRecordsWithDictionary:v90 mirror:0 completion:v104];
     }
 
     goto LABEL_119;
   }
 
 LABEL_115:
-  v85 = v98;
-  if (v98)
+  v84 = v97;
+  if (v97)
   {
-    v98[2](v98, 1);
+    v97[2](v97, 1);
   }
 
 LABEL_119:

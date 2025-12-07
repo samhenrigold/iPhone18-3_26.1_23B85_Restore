@@ -3,11 +3,11 @@
 
 @implementation NSURL
 
-uint64_t __87__NSURL_TSUAdditions__tsu_performSecurityScopedResourceAccessAsynchronouslyUsingBlock___block_invoke(uint64_t result)
+id *__87__NSURL_TSUAdditions__tsu_performSecurityScopedResourceAccessAsynchronouslyUsingBlock___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;

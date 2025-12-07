@@ -133,7 +133,7 @@
   v2 = sub_100036BE4();
   if (!v2)
   {
-    sub_1000A80EC();
+    sub_1000A80EC(0, v3);
   }
 
   return v2;

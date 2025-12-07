@@ -3,9 +3,12 @@
 - (CacheDeletePurgeOperation)initWithInfo:(id)info services:(id)services volumes:(id)volumes;
 - (id)filterServices:(id)services;
 - (id)purgeSentinel:(BOOL)sentinel outInode:(unint64_t *)inode;
+- (unint64_t)volumeContribution:(id)contribution urgency:(int)urgency isTargetVolume:(BOOL)volume;
 - (void)_startOperation:(id)operation;
+- (void)batchServicesForVolume:(id)volume atUrgency:(int)urgency services:(id)services batchSize:(int)size block:(id)block;
 - (void)cancelOperation;
 - (void)oneShot:(id)shot volume:(id)volume urgency:(int)urgency donation:(unint64_t)donation currentRoundResults:(id)results timeout:(unint64_t)timeout info:(id)info optionalTestInfo:(id)self0;
+- (void)serviceRequest:(id)request volume:(id)volume urgency:(int)urgency donation:(unint64_t)donation info:(id)info optionalTestInfo:(id)testInfo completion:(id)completion;
 - (void)tryFSPurge:(unint64_t)purge atUrgency:(int)urgency onVolume:(id)volume orderedServices:(id)services completion:(id)completion;
 @end
 
@@ -368,6 +371,303 @@ LABEL_28:
   return v9;
 }
 
+- (void)batchServicesForVolume:(id)volume atUrgency:(int)urgency services:(id)services batchSize:(int)size block:(id)block
+{
+  v9 = *&urgency;
+  volumeCopy = volume;
+  servicesCopy = services;
+  blockCopy = block;
+  v12 = +[CDDaemonPurgeableResultCache sharedPurgeableResultsCache];
+  v71 = objc_opt_new();
+  v67 = v12;
+  v13 = volumeCopy;
+  v14 = [v12 recentInfoForVolume:volumeCopy atUrgency:v9];
+  v15 = objc_opt_new();
+  v75 = v14;
+  if ([servicesCopy count])
+  {
+    v68 = v9;
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v65 = servicesCopy;
+    obj = servicesCopy;
+    v16 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+    if (!v16)
+    {
+      goto LABEL_20;
+    }
+
+    v17 = v16;
+    v18 = *v88;
+    while (1)
+    {
+      for (i = 0; i != v17; i = i + 1)
+      {
+        if (*v88 != v18)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v20 = *(*(&v87 + 1) + 8 * i);
+        mountPoint = [v13 mountPoint];
+        v22 = getRootVolume();
+        if ([mountPoint isEqualToString:v22])
+        {
+
+LABEL_10:
+          v25 = [v14 objectForKeyedSubscript:v20];
+
+          if (v25)
+          {
+            v26 = [v14 objectForKeyedSubscript:v20];
+            [v15 setObject:v26 forKeyedSubscript:v20];
+          }
+
+          else
+          {
+            [v15 setObject:&off_100065620 forKeyedSubscript:v20];
+          }
+
+          continue;
+        }
+
+        volumes = [(CacheDeleteOperation *)self volumes];
+        v24 = [volumes count];
+
+        v14 = v75;
+        if (v24 == 1)
+        {
+          goto LABEL_10;
+        }
+
+        v27 = [v75 objectForKeyedSubscript:v20];
+
+        if (v27)
+        {
+          v28 = [v75 objectForKeyedSubscript:v20];
+          v29 = evaluateNumberProperty();
+
+          if (v29 && [v29 intValue])
+          {
+            v30 = [v75 objectForKeyedSubscript:v20];
+            [v15 setObject:v30 forKeyedSubscript:v20];
+          }
+        }
+      }
+
+      v17 = [obj countByEnumeratingWithState:&v87 objects:v97 count:16];
+      if (!v17)
+      {
+LABEL_20:
+
+        LODWORD(v9) = v68;
+        servicesCopy = v65;
+        break;
+      }
+    }
+  }
+
+  v31 = CDGetLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "batchServicesForVolume end", buf, 2u);
+  }
+
+  allKeys = [v15 allKeys];
+  v84[0] = _NSConcreteStackBlock;
+  v84[1] = 3221225472;
+  v84[2] = __87__CacheDeletePurgeOperation_batchServicesForVolume_atUrgency_services_batchSize_block___block_invoke;
+  v84[3] = &unk_100061AF0;
+  v66 = v15;
+  v85 = v66;
+  v73 = servicesCopy;
+  v86 = v73;
+  v33 = [allKeys sortedArrayUsingComparator:v84];
+  v34 = [v33 mutableCopy];
+
+  v35 = CDGetLogHandle();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  {
+    mountPoint2 = [v13 mountPoint];
+    *buf = 67109634;
+    v93 = 240;
+    v94 = 1024;
+    *v95 = v9;
+    *&v95[4] = 2114;
+    *&v95[6] = mountPoint2;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%d sortedPurgeable [urgency: %d, volume: %{public}@]:", buf, 0x18u);
+  }
+
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v37 = v34;
+  v38 = [v37 countByEnumeratingWithState:&v80 objects:v96 count:16];
+  if (v38)
+  {
+    v39 = v38;
+    v40 = *v81;
+    do
+    {
+      for (j = 0; j != v39; j = j + 1)
+      {
+        if (*v81 != v40)
+        {
+          objc_enumerationMutation(v37);
+        }
+
+        v42 = *(*(&v80 + 1) + 8 * j);
+        v43 = CDGetLogHandle();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        {
+          v44 = [v75 objectForKeyedSubscript:v42];
+          *buf = 67109634;
+          v93 = 242;
+          v94 = 2112;
+          *v95 = v42;
+          *&v95[8] = 2112;
+          *&v95[10] = v44;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%d\t%@ : %@", buf, 0x1Cu);
+        }
+      }
+
+      v39 = [v37 countByEnumeratingWithState:&v80 objects:v96 count:16];
+    }
+
+    while (v39);
+  }
+
+  if (![v37 count])
+  {
+    allKeys2 = [v73 allKeys];
+    v46 = [allKeys2 mutableCopy];
+
+    v37 = v46;
+  }
+
+  v47 = v71;
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v48 = v37;
+  v49 = [v48 countByEnumeratingWithState:&v76 objects:v91 count:16];
+  v50 = &off_10004C000;
+  if (v49)
+  {
+    v51 = v49;
+    v52 = *v77;
+    while (2)
+    {
+      for (k = 0; k != v51; k = k + 1)
+      {
+        if (*v77 != v52)
+        {
+          objc_enumerationMutation(v48);
+        }
+
+        v54 = [v73 objectForKeyedSubscript:*(*(&v76 + 1) + 8 * k)];
+        if (v54)
+        {
+          [v47 addObject:v54];
+          if ([v47 count] >= size)
+          {
+            v55 = CDGetLogHandle();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+            {
+              v56 = [v47 count];
+              *buf = 67109376;
+              v93 = 256;
+              v94 = 2048;
+              *v95 = v56;
+              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%d Calling block with %lu batch items", buf, 0x12u);
+            }
+
+            v57 = blockCopy[2](blockCopy, v47);
+            [v47 removeAllObjects];
+            v58 = CDGetLogHandle();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 67109378;
+              v59 = "FALSE";
+              if (v57)
+              {
+                v59 = "TRUE";
+              }
+
+              v93 = 259;
+              v94 = 2080;
+              *v95 = v59;
+              _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%d batch block returned: %s", buf, 0x12u);
+            }
+
+            v47 = v71;
+            if ((v57 & 1) == 0)
+            {
+
+              v60 = 0;
+              goto LABEL_54;
+            }
+          }
+        }
+      }
+
+      v51 = [v48 countByEnumeratingWithState:&v76 objects:v91 count:16];
+      if (v51)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v60 = 1;
+LABEL_54:
+    v50 = &off_10004C000;
+  }
+
+  else
+  {
+    v60 = 1;
+  }
+
+  v61 = CDGetLogHandle();
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+  {
+    v62 = "FALSE";
+    if (v60)
+    {
+      v62 = "TRUE";
+    }
+
+    *buf = *(v50 + 211);
+    v93 = 266;
+    v94 = 2080;
+    *v95 = v62;
+    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%d batch for loop done, proceed: %s", buf, 0x12u);
+  }
+
+  if (v60 && [v47 count])
+  {
+    v63 = CDGetLogHandle();
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    {
+      v64 = [v47 count];
+      *buf = 67109376;
+      v93 = 268;
+      v94 = 2048;
+      *v95 = v64;
+      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%d Calling block with %lu batch items", buf, 0x12u);
+    }
+
+    blockCopy[2](blockCopy, v47);
+  }
+}
+
 uint64_t __87__CacheDeletePurgeOperation_batchServicesForVolume_atUrgency_services_batchSize_block___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
@@ -420,6 +720,29 @@ uint64_t __87__CacheDeletePurgeOperation_batchServicesForVolume_atUrgency_servic
 LABEL_11:
 
   return v14;
+}
+
+- (unint64_t)volumeContribution:(id)contribution urgency:(int)urgency isTargetVolume:(BOOL)volume
+{
+  v6 = *&urgency;
+  contributionCopy = contribution;
+  v8 = +[CDDaemonPurgeableResultCache sharedPurgeableResultsCache];
+  v9 = [v8 recentInfoForVolume:contributionCopy atUrgency:v6];
+
+  v10 = [v9 objectForKeyedSubscript:@"CACHE_DELETE_TOTAL_AVAILABLE"];
+  v11 = evaluateNumberProperty();
+
+  if (volume || ([v9 objectForKeyedSubscript:@"CACHE_DELETE_SHARED_PURGEABLE"], v12 = objc_claimAutoreleasedReturnValue(), evaluateNumberProperty(), v13 = objc_claimAutoreleasedReturnValue(), v12, !v13))
+  {
+    unsignedLongLongValue = [v11 unsignedLongLongValue];
+  }
+
+  else
+  {
+    unsignedLongLongValue = [v13 unsignedLongLongValue];
+  }
+
+  return unsignedLongLongValue;
 }
 
 - (id)filterServices:(id)services
@@ -1448,9 +1771,9 @@ uint64_t __45__CacheDeletePurgeOperation__startOperation___block_invoke_92(uint6
     {
       v6 = [*(a1 + 40) mountPoint];
       *buf = 67109378;
-      *v69 = 598;
-      *&v69[4] = 2112;
-      *&v69[6] = v6;
+      *v65 = 598;
+      *&v65[4] = 2112;
+      *&v65[6] = v6;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%d : Timeout reached for (%@) - stopping purge urgency loop.", buf, 0x12u);
     }
 
@@ -1465,40 +1788,40 @@ LABEL_10:
     return v7 & 1;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = [*(a1 + 32) volumes];
-  v44 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
-  if (v44)
+  v43 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+  if (v43)
   {
-    v43 = *v65;
+    v42 = *v61;
     *&v9 = 138544130;
-    v41 = v9;
+    v40 = v9;
     do
     {
       v10 = 0;
       do
       {
-        if (*v65 != v43)
+        if (*v61 != v42)
         {
           v11 = v10;
           objc_enumerationMutation(obj);
           v10 = v11;
         }
 
-        v45 = v10;
-        v12 = *(*(&v64 + 1) + 8 * v10);
-        v60 = 0;
-        v61 = &v60;
-        v62 = 0x2020000000;
+        v44 = v10;
+        v12 = *(*(&v60 + 1) + 8 * v10);
+        v56 = 0;
+        v57 = &v56;
+        v58 = 0x2020000000;
         v13 = *(a1 + 32);
-        v47 = v12;
+        v46 = v12;
         v14 = [v12 mountPoint];
-        v15 = [v13 volumeContribution:v47 urgency:a2 isTargetVolume:{objc_msgSend(v14, "isEqualToString:", *(a1 + 56))}];
+        v15 = [v13 volumeContribution:v46 urgency:a2 isTargetVolume:{objc_msgSend(v14, "isEqualToString:", *(a1 + 56))}];
 
-        v63 = v15;
+        v59 = v15;
         v16 = [*(a1 + 32) purge_amount_needed];
         if (v16 <= [*(a1 + 40) amountPurged])
         {
@@ -1511,7 +1834,7 @@ LABEL_10:
           v18 = v17 - [*(a1 + 40) amountPurged];
         }
 
-        v19 = v61[3];
+        v19 = v57[3];
         if (v19 >= v18)
         {
           v20 = v18;
@@ -1519,7 +1842,7 @@ LABEL_10:
 
         else
         {
-          v20 = v61[3];
+          v20 = v57[3];
         }
 
         if (v19)
@@ -1527,143 +1850,139 @@ LABEL_10:
           v18 = v20;
         }
 
-        v61[3] = v18;
+        v57[3] = v18;
         v21 = CDGetLogHandle();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          *v69 = v47;
-          *&v69[8] = 1024;
-          *&v69[10] = a2;
+          *v65 = v46;
+          *&v65[8] = 1024;
+          *&v65[10] = a2;
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Purging %{public}@ at urgency = %d", buf, 0x12u);
         }
 
         v22 = CDGetLogHandle();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = [v47 mountPoint];
+          v23 = [v46 mountPoint];
           *buf = 67109634;
-          *v69 = 635;
-          *&v69[4] = 2112;
-          *&v69[6] = v23;
-          *&v69[14] = 1024;
-          *&v69[16] = a2;
+          *v65 = 635;
+          *&v65[4] = 2112;
+          *&v65[6] = v23;
+          *&v65[14] = 1024;
+          *&v65[16] = a2;
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%d calling batchServicesForVolume: %@, atUrgency: %d, with services:", buf, 0x18u);
         }
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
-        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v24 = *(a1 + 64);
-        v25 = [v24 countByEnumeratingWithState:&v56 objects:v72 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v52 objects:v68 count:16];
         if (v25)
         {
-          v26 = *v57;
+          v26 = *v53;
           do
           {
             for (i = 0; i != v25; i = i + 1)
             {
-              if (*v57 != v26)
+              if (*v53 != v26)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v28 = *(*(&v56 + 1) + 8 * i);
+              v28 = *(*(&v52 + 1) + 8 * i);
               v29 = CDGetLogHandle();
               if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109378;
-                *v69 = 637;
-                *&v69[4] = 2112;
-                *&v69[6] = v28;
+                *v65 = 637;
+                *&v65[4] = 2112;
+                *&v65[6] = v28;
                 _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%d\t%@", buf, 0x12u);
               }
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v56 objects:v72 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v52 objects:v68 count:16];
           }
 
           while (v25);
         }
 
-        v52 = 0;
-        v53 = &v52;
-        v54 = 0x2020000000;
-        v55 = 0;
-        v30 = *(a1 + 64);
-        v50 = *(a1 + 72);
-        v31 = *(a1 + 32);
-        v48 = *(a1 + 40);
-        v49 = *(a1 + 32);
-        v51 = *(a1 + 80);
-        [v31 batchServicesForVolume:? atUrgency:? services:? batchSize:? block:?];
-        v32 = [*(a1 + 32) purge_amount_needed];
-        v33 = [*(a1 + 40) amountPurged];
-        v34 = CDGetLogHandle();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v48 = 0;
+        v49 = &v48;
+        v50 = 0x2020000000;
+        v51 = 0;
+        v30 = *(a1 + 32);
+        v47 = *(a1 + 40);
+        [v30 batchServicesForVolume:? atUrgency:? services:? batchSize:? block:?];
+        v31 = [*(a1 + 32) purge_amount_needed];
+        v32 = [*(a1 + 40) amountPurged];
+        v33 = CDGetLogHandle();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = [v47 mountPoint];
-          v36 = *(v53 + 6);
-          *buf = v41;
-          *v69 = v35;
-          *&v69[8] = 1024;
-          *&v69[10] = a2;
-          *&v69[14] = 1024;
-          *&v69[16] = v36;
-          v70 = 2048;
-          v71 = (v32 - v33) & ~((v32 - v33) >> 63);
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[Purge End](Volume %{public}@, Urgency %d) finished after %d Rounds (%llu bytes left)", buf, 0x22u);
+          v34 = [v46 mountPoint];
+          v35 = *(v49 + 6);
+          *buf = v40;
+          *v65 = v34;
+          *&v65[8] = 1024;
+          *&v65[10] = a2;
+          *&v65[14] = 1024;
+          *&v65[16] = v35;
+          v66 = 2048;
+          v67 = (v31 - v32) & ~((v31 - v32) >> 63);
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[Purge End](Volume %{public}@, Urgency %d) finished after %d Rounds (%llu bytes left)", buf, 0x22u);
         }
 
-        v37 = CDGetLogHandle();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v36 = CDGetLogHandle();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = "do not proceed";
+          v37 = "do not proceed";
           if (*(*(*(a1 + 72) + 8) + 24))
           {
-            v38 = "proceed";
+            v37 = "proceed";
           }
 
           *buf = 67109378;
-          *v69 = 874;
-          *&v69[4] = 2080;
-          *&v69[6] = v38;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%d Volume loop: %s", buf, 0x12u);
+          *v65 = 874;
+          *&v65[4] = 2080;
+          *&v65[6] = v37;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%d Volume loop: %s", buf, 0x12u);
         }
 
-        _Block_object_dispose(&v52, 8);
-        _Block_object_dispose(&v60, 8);
-        v10 = v45 + 1;
+        _Block_object_dispose(&v48, 8);
+        _Block_object_dispose(&v56, 8);
+        v10 = v44 + 1;
       }
 
-      while ((v45 + 1) != v44);
-      v44 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+      while ((v44 + 1) != v43);
+      v43 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
-  v39 = CDGetLogHandle();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v38 = CDGetLogHandle();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(*(a1 + 72) + 8) + 24))
     {
-      v40 = "proceed";
+      v39 = "proceed";
     }
 
     else
     {
-      v40 = "do not proceed";
+      v39 = "do not proceed";
     }
 
     *buf = 67109634;
-    *v69 = 878;
-    *&v69[4] = 1024;
-    *&v69[6] = a2;
-    *&v69[10] = 2080;
-    *&v69[12] = v40;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%d Urgency Loop [%d] returning: %s", buf, 0x18u);
+    *v65 = 878;
+    *&v65[4] = 1024;
+    *&v65[6] = a2;
+    *&v65[10] = 2080;
+    *&v65[12] = v39;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%d Urgency Loop [%d] returning: %s", buf, 0x18u);
   }
 
   v7 = *(*(*(a1 + 72) + 8) + 24);
@@ -2735,6 +3054,96 @@ LABEL_11:
   dispatch_semaphore_signal(*(a1 + 72));
 }
 
+- (void)serviceRequest:(id)request volume:(id)volume urgency:(int)urgency donation:(unint64_t)donation info:(id)info optionalTestInfo:(id)testInfo completion:(id)completion
+{
+  v12 = *&urgency;
+  requestCopy = request;
+  volumeCopy = volume;
+  infoCopy = info;
+  testInfoCopy = testInfo;
+  completionCopy = completion;
+  mountPoint = [volumeCopy mountPoint];
+  validate = [volumeCopy validate];
+  v34 = mountPoint;
+  if (requestCopy && validate && mountPoint)
+  {
+    v47[0] = @"CACHE_DELETE_ID";
+    v21 = [requestCopy ID];
+    v48[0] = v21;
+    v47[1] = @"CACHE_DELETE_AMOUNT";
+    [NSNumber numberWithUnsignedLongLong:donation];
+    v22 = v33 = infoCopy;
+    v48[1] = v22;
+    v47[2] = @"CACHE_DELETE_URGENCY";
+    v23 = [NSNumber numberWithInt:v12];
+    v47[3] = @"CACHE_DELETE_VOLUME";
+    v48[2] = v23;
+    v48[3] = mountPoint;
+    v24 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:4];
+
+    if (v33)
+    {
+      v25 = [v33 mutableCopy];
+      [v25 addEntriesFromDictionary:v24];
+    }
+
+    else
+    {
+      v25 = [v24 mutableCopy];
+    }
+
+    if (testInfoCopy)
+    {
+      [v25 setObject:testInfoCopy forKeyedSubscript:@"CACHE_DELETE_TEST_PARAMETERS"];
+    }
+
+    response_queue = [(CacheDeleteOperation *)self response_queue];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_info_optionalTestInfo_completion___block_invoke_2;
+    v36[3] = &unk_100061C78;
+    donationCopy = donation;
+    v44 = v12;
+    v37 = requestCopy;
+    selfCopy = self;
+    v39 = v25;
+    v41 = response_queue;
+    v42 = completionCopy;
+    v40 = volumeCopy;
+    v30 = completionCopy;
+    v31 = response_queue;
+    v28 = v25;
+    dispatch_async(v31, v36);
+
+    infoCopy = v33;
+  }
+
+  else
+  {
+    v26 = CDGetLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      mountPoint2 = [volumeCopy mountPoint];
+      *buf = 138543618;
+      v50 = requestCopy;
+      v51 = 2114;
+      v52 = mountPoint2;
+      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Parameter error: service: %{public}@, volume %{public}@", buf, 0x16u);
+    }
+
+    response_queue2 = [(CacheDeleteOperation *)self response_queue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_info_optionalTestInfo_completion___block_invoke;
+    block[3] = &unk_100060A00;
+    v46 = completionCopy;
+    v24 = completionCopy;
+    dispatch_async(response_queue2, block);
+
+    v28 = v46;
+  }
+}
+
 void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_info_optionalTestInfo_completion___block_invoke_2(uint64_t a1)
 {
   v2 = objc_alloc_init(CDPurgeServiceRequestResult);
@@ -2796,47 +3205,47 @@ void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_inf
     v9 = CDGetLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v21 = [*(a1 + 32) ID];
-      v22 = [*(a1 + 40) mountPoint];
+      v22 = [*(a1 + 32) ID];
+      v23 = [*(a1 + 40) mountPoint];
       *buf = 138543618;
-      v33 = v21;
+      v33 = v22;
       v34 = 2114;
-      v35 = *&v22;
+      v35 = *&v23;
       _os_log_fault_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "Purge callback firing more than once for service %{public}@ on volume: %{public}@", buf, 0x16u);
     }
 
     v10 = [*(a1 + 32) ID];
-    v23 = [*(a1 + 40) mountPoint];
-    _CacheDeleteAbortWithMessage();
+    v11 = [*(a1 + 40) mountPoint];
+    _CacheDeleteAbortWithMessage("Purge callback firing more than once for service %{public}@ on volume: %{public}@", v10, v11);
   }
 
   else
   {
     *(v8 + 24) = 1;
-    v11 = [v3 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+    v12 = [v3 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
     v10 = evaluateNumberProperty();
 
-    v12 = CDGetLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = CDGetLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v6 * (v4 - v5);
-      v14 = [*(a1 + 32) ID];
-      v15 = [v10 unsignedLongLongValue];
-      v16 = [*(a1 + 40) mountPoint];
+      v14 = v6 * (v4 - v5);
+      v15 = [*(a1 + 32) ID];
+      v16 = [v10 unsignedLongLongValue];
+      v17 = [*(a1 + 40) mountPoint];
       *buf = 138544130;
-      v33 = v14;
+      v33 = v15;
       v34 = 2048;
-      v35 = v13 / 1000000000.0;
+      v35 = v14 / 1000000000.0;
       v36 = 2048;
-      v37 = v15;
+      v37 = v16;
       v38 = 2114;
-      v39 = v16;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ took %f seconds, purged %llu bytes on volume: %{public}@", buf, 0x2Au);
+      v39 = v17;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ took %f seconds, purged %llu bytes on volume: %{public}@", buf, 0x2Au);
     }
 
     if (WeakRetained)
     {
-      v17 = *(a1 + 48);
+      v18 = *(a1 + 48);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_info_optionalTestInfo_completion___block_invoke_132;
@@ -2844,14 +3253,14 @@ void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_inf
       v25 = v3;
       v26 = *(a1 + 56);
       v27 = *(a1 + 32);
-      v18 = *(a1 + 40);
+      v19 = *(a1 + 40);
       v31 = *(a1 + 104);
-      v19 = *(a1 + 64);
-      v20 = *(a1 + 72);
-      v28 = v18;
-      v29 = v19;
-      v30 = v20;
-      dispatch_async(v17, block);
+      v20 = *(a1 + 64);
+      v21 = *(a1 + 72);
+      v28 = v19;
+      v29 = v20;
+      v30 = v21;
+      dispatch_async(v18, block);
     }
 
     else
@@ -2863,11 +3272,11 @@ void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_inf
 
 void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_info_optionalTestInfo_completion___block_invoke_132(uint64_t a1)
 {
-  v10 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+  v9 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [v10 unsignedLongLongValue];
+    v2 = [v9 unsignedLongLongValue];
   }
 
   else
@@ -2892,7 +3301,6 @@ void __101__CacheDeletePurgeOperation_serviceRequest_volume_urgency_donation_inf
   v8 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_TEST_FAILURES"];
   [v7 processTestFailures:v8];
 
-  v9 = *(a1 + 40);
   (*(*(a1 + 72) + 16))();
 }
 

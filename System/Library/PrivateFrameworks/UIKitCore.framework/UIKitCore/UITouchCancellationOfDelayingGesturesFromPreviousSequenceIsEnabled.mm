@@ -6,7 +6,7 @@
 void ___UITouchCancellationOfDelayingGesturesFromPreviousSequenceIsEnabled_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  [v0 isEqualToString:@"com.google.ios.youtube"];
+  objc_msgSend_isEqualToString_(v0);
 }
 
 @end

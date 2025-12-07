@@ -58,33 +58,30 @@
 
 - (void)setWiFiSSID:(id)d
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [dCopy dataUsingEncoding:4];
-  v10[0] = @"SSID";
-  v10[1] = @"SSID_STR";
-  v11[0] = v5;
-  v11[1] = dCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v9[0] = @"SSID";
+  v9[1] = @"SSID_STR";
+  v10[0] = v5;
+  v10[1] = dCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   dataDictionary = [(SASProximityInformationDictionaryCoder *)self dataDictionary];
   [dataDictionary setValue:v7 forKey:@"networks"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWiFiPassword:(id)password
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   passwordCopy = password;
   dataDictionary = [(SASProximityInformationDictionaryCoder *)self dataDictionary];
-  v8[0] = passwordCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = passwordCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   [dataDictionary setValue:v6 forKey:@"networkPasswords"];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGrammarInflectionGender:(id)gender

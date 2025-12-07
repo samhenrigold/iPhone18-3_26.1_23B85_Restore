@@ -42,7 +42,7 @@
 
 - (void)_updateRollbackCacheForObjectWithID:(void *)d relationship:(void *)relationship withValuesFrom:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = [self objectForKey:a2];
   if (v6)
   {
@@ -69,8 +69,8 @@
       v11 = v10;
     }
 
-    v12 = v23 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v23[1] = v23;
+    v12 = v22 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22[1] = v22;
     if (v8 > 0x200)
     {
       v12 = NSAllocateScannedUncollectable();
@@ -78,36 +78,36 @@
 
     else
     {
-      bzero(v23 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v10);
+      bzero(v22 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v10);
     }
 
-    v26 = 0u;
-    v27 = 0u;
     v25 = 0u;
+    v26 = 0u;
     v24 = 0u;
-    v13 = [relationship countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v23 = 0u;
+    v13 = [relationship countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         v18 = v15;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(relationship);
           }
 
           v15 = v18 + 1;
-          *&v12[8 * v18++] = [*(*(&v24 + 1) + 8 * v17++) objectID];
+          *&v12[8 * v18++] = [*(*(&v23 + 1) + 8 * v17++) objectID];
         }
 
         while (v14 != v17);
-        v14 = [relationship countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [relationship countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
@@ -128,41 +128,39 @@
       NSZoneFree(0, v12);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_encodeObjectsForSave:(char)save forDelete:
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   [objc_msgSend(MEMORY[0x1E695DF00] "date")];
   v5 = v4;
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   obj = a2;
-  v69 = [a2 countByEnumeratingWithState:&v76 objects:v80 count:16];
-  if (v69)
+  v68 = [a2 countByEnumeratingWithState:&v75 objects:v79 count:16];
+  if (v68)
   {
-    v66 = *v77;
+    v65 = *v76;
     do
     {
-      for (i = 0; i != v69; ++i)
+      for (i = 0; i != v68; ++i)
       {
-        if (*v77 != v66)
+        if (*v76 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v76 + 1) + 8 * i);
+        v7 = *(*(&v75 + 1) + 8 * i);
         objectID = [v7 objectID];
-        v72 = i;
+        v71 = i;
         if ((save & 1) == 0)
         {
           v9 = objectID;
-          v73 = [NSIncrementalStoreNode alloc];
+          v72 = [NSIncrementalStoreNode alloc];
           dictionary = [MEMORY[0x1E695DF90] dictionary];
           entity = [v7 entity];
           v12 = entity;
@@ -218,7 +216,7 @@
             while (v20);
           }
 
-          v25 = -[NSIncrementalStoreNode initWithObjectID:withValues:version:](v73, "initWithObjectID:withValues:version:", v9, dictionary, [v7 _versionReference] + 1);
+          v25 = -[NSIncrementalStoreNode initWithObjectID:withValues:version:](v72, "initWithObjectID:withValues:version:", v9, dictionary, [v7 _versionReference] + 1);
           v26 = [[NSXPCRow alloc] initWithNode:v25];
 
           if (v26)
@@ -228,7 +226,7 @@
 
           [*(self + 40) setObject:v26 forKey:{-[NSXPCRow objectID](v26, "objectID")}];
 
-          i = v72;
+          i = v71;
         }
 
         if (v7)
@@ -237,8 +235,8 @@
           entity2 = [v7 entity];
           objectID3 = [v7 objectID];
           [array2 addObject:objectID3];
-          v74 = -[_NSQueryGenerationToken _generationalComponentForStore:]([objc_msgSend(v7 "managedObjectContext")], *(self + 8));
-          v30 = [(NSXPCStore *)*(self + 8) _cachedRowForObjectWithID:objectID3 generation:v74];
+          v73 = -[_NSQueryGenerationToken _generationalComponentForStore:]([objc_msgSend(v7 "managedObjectContext")], *(self + 8));
+          v30 = [(NSXPCStore *)*(self + 8) _cachedRowForObjectWithID:objectID3 generation:v73];
           _versionReference = [v7 _versionReference];
           [array2 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", _versionReference)}];
           if (entity2)
@@ -251,8 +249,8 @@
             v32 = 0;
           }
 
-          v70 = [objc_msgSend(entity2 "propertiesByName")];
-          v71 = v32;
+          v69 = [objc_msgSend(entity2 "propertiesByName")];
+          v70 = v32;
           v33 = v32[6];
           v34 = v32[7];
           v35 = objc_alloc_init(_NSNoChangeToken);
@@ -260,7 +258,7 @@
           null = [MEMORY[0x1E695DFB0] null];
           if (v33 < v34 + v33)
           {
-            v37 = (v70 + 8 * v33);
+            v37 = (v69 + 8 * v33);
             do
             {
               v38 = *v37;
@@ -294,11 +292,11 @@
             while (v34);
           }
 
-          v44 = v71[12];
-          v45 = v71[13];
+          v44 = v70[12];
+          v45 = v70[13];
           if (v44 < v45 + v44)
           {
-            v46 = (v70 + 8 * v44);
+            v46 = (v69 + 8 * v44);
             do
             {
               v47 = *v46;
@@ -332,11 +330,11 @@
             while (v45);
           }
 
-          v53 = v71[14];
-          v54 = v71[15];
+          v53 = v70[14];
+          v54 = v70[15];
           if (v53 < v54 + v53)
           {
-            v55 = (v70 + 8 * v53);
+            v55 = (v69 + 8 * v53);
             do
             {
               v56 = *v55;
@@ -354,7 +352,7 @@
                 v57 = [MEMORY[0x1E695DFD8] set];
               }
 
-              v59 = [(NSXPCStore *)*(self + 8) _cachedRowForRelationship:v56 onObjectWithID:objectID3 generation:v74];
+              v59 = [(NSXPCStore *)*(self + 8) _cachedRowForRelationship:v56 onObjectWithID:objectID3 generation:v73];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -397,7 +395,7 @@ LABEL_65:
             while (v54);
           }
 
-          i = v72;
+          i = v71;
         }
 
         else
@@ -408,13 +406,12 @@ LABEL_65:
         [array addObject:array2];
       }
 
-      v69 = [obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+      v68 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
     }
 
-    while (v69);
+    while (v68);
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return array;
 }
 

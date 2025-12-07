@@ -37,7 +37,7 @@
 
       else
       {
-        v5 = [MEMORY[0x277CCABB0] numberWithBool:*a4 & 1];
+        v5 = [MEMORY[0x277CCABB0] numberWithBool:{*a4 & 1, self}];
       }
     }
 
@@ -47,12 +47,12 @@
       {
         if (a5 == 3)
         {
-          [MEMORY[0x277CCABB0] numberWithChar:*a4];
+          [MEMORY[0x277CCABB0] numberWithChar:{*a4, self}];
         }
 
         else
         {
-          [MEMORY[0x277CCABB0] numberWithShort:*a4];
+          [MEMORY[0x277CCABB0] numberWithShort:{*a4, self}];
         }
 
         goto LABEL_6;
@@ -67,13 +67,13 @@
     switch(a5)
     {
       case 8:
-        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*a4];
+        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{*a4, self}];
         break;
       case 9:
-        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*a4];
+        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*a4, self}];
         break;
       case 10:
-        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*a4];
+        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{*a4, self}];
         break;
     }
   }
@@ -84,19 +84,19 @@
     {
       if (a5 == 6)
       {
-        [MEMORY[0x277CCABB0] numberWithLongLong:*a4];
+        [MEMORY[0x277CCABB0] numberWithLongLong:{*a4, self}];
       }
 
       else
       {
-        [MEMORY[0x277CCABB0] numberWithUnsignedChar:*a4];
+        [MEMORY[0x277CCABB0] numberWithUnsignedChar:{*a4, self}];
       }
 
       v5 = LABEL_6:;
       goto LABEL_25;
     }
 
-    v5 = [MEMORY[0x277CCABB0] numberWithInt:*a4];
+    v5 = [MEMORY[0x277CCABB0] numberWithInt:{*a4, self}];
   }
 
 LABEL_25:
@@ -106,6 +106,7 @@ LABEL_25:
 
 - (uint64_t)asdtNumberToData:()ASDTNumeric withNumericType:andSize:
 {
+  v5 = a4;
   if (a4 <= 4)
   {
     if (a4 <= 1)
@@ -136,7 +137,7 @@ LABEL_25:
 LABEL_24:
     if (a5 <= 1)
     {
-      v7 = ASDTBaseLogType();
+      v7 = ASDTBaseLogType(self, a2);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [NSNumber(ASDTNumeric) asdtNumberToData:withNumericType:andSize:];
@@ -160,10 +161,10 @@ LABEL_24:
         }
 
 LABEL_41:
-        v7 = ASDTBaseLogType();
+        v7 = ASDTBaseLogType(self, a2);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          [NSNumber(ASDTNumeric) asdtNumberToData:a4 withNumericType:v7 andSize:?];
+          [NSNumber(ASDTNumeric) asdtNumberToData:v5 withNumericType:v7 andSize:?];
         }
 
         goto LABEL_43;
@@ -172,7 +173,7 @@ LABEL_41:
 LABEL_18:
       if (a5 <= 3)
       {
-        v7 = ASDTBaseLogType();
+        v7 = ASDTBaseLogType(self, a2);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [NSNumber(ASDTNumeric) asdtNumberToData:withNumericType:andSize:];
@@ -197,7 +198,7 @@ LABEL_18:
 LABEL_21:
     if (!a5)
     {
-      v7 = ASDTBaseLogType();
+      v7 = ASDTBaseLogType(self, a2);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [NSNumber(ASDTNumeric) asdtNumberToData:withNumericType:andSize:];
@@ -214,7 +215,7 @@ LABEL_43:
 LABEL_13:
   if (a5 <= 7)
   {
-    v7 = ASDTBaseLogType();
+    v7 = ASDTBaseLogType(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [NSNumber(ASDTNumeric) asdtNumberToData:withNumericType:andSize:];
@@ -300,43 +301,38 @@ LABEL_52:
 
 - (void)asdtNumberToData:()ASDTNumeric withNumericType:andSize:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 67109376;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, v6);
 }
 
 - (void)asdtNumberToData:()ASDTNumeric withNumericType:andSize:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 67109376;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, v6);
 }
 
 - (void)asdtNumberToData:()ASDTNumeric withNumericType:andSize:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 67109376;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, v6);
 }
 
 - (void)asdtNumberToData:()ASDTNumeric withNumericType:andSize:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 67109376;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_241659000, v0, v1, "Bad size for %d-bit numeric type: %zu", v2, v3, v4, v5, v6);
 }
 
 - (void)asdtNumberToData:()ASDTNumeric withNumericType:andSize:.cold.5(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "Bad numeric type: %u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "Bad numeric type: %u", v2, 8u);
 }
 
 @end

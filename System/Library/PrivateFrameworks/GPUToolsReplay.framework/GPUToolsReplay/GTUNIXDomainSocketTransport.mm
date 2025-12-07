@@ -78,14 +78,14 @@ _BYTE *__53__GTUNIXDomainSocketTransport__connectServer_future___block_invoke(ui
   return result;
 }
 
-intptr_t __53__GTUNIXDomainSocketTransport__connectServer_future___block_invoke_2(uint64_t a1)
+void *__53__GTUNIXDomainSocketTransport__connectServer_future___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = dispatch_source_testcancel(*(*(a1 + 32) + 264));
   if (!result)
   {
-    v10 = 106;
-    v3 = accept(*(a1 + 48), &v11, &v10);
+    v9 = 106;
+    v3 = accept(*(a1 + 48), &v10, &v9);
     if (v3 == -1)
     {
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
@@ -104,10 +104,9 @@ intptr_t __53__GTUNIXDomainSocketTransport__connectServer_future___block_invoke_
       v6 = (a1 + 40);
     }
 
-    result = [*v6 setResult:v5];
+    return [*v6 setResult:v5];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

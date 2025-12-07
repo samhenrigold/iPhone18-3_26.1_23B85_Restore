@@ -8,7 +8,7 @@
 
 - (WFFaceTimeContextualAction)initWithPerson:(id)person type:(unint64_t)type callTypeSerializedRepresentation:(id)representation personSerializedRepresentation:(id)serializedRepresentation namedQueryInfo:(id)info
 {
-  v61[2] = *MEMORY[0x1E69E9840];
+  v60[2] = *MEMORY[0x1E69E9840];
   personCopy = person;
   representationCopy = representation;
   serializedRepresentationCopy = serializedRepresentation;
@@ -97,8 +97,8 @@ LABEL_4:
     v22 = value;
   }
 
-  v59 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:v17 wfParameterKey:@"WFFaceTimeType" wfSerializedRepresentation:representationCopy];
-  v55 = serializedRepresentationCopy;
+  v58 = [[WFContextualActionParameter alloc] initWithType:@"WFStringContentItem" displayString:v17 wfParameterKey:@"WFFaceTimeType" wfSerializedRepresentation:representationCopy];
+  v54 = serializedRepresentationCopy;
   v28 = [[WFContextualActionParameter alloc] initWithType:@"WFContactContentItem" displayString:v22 wfParameterKey:@"WFFaceTimeContact" wfSerializedRepresentation:serializedRepresentationCopy];
   image = [personCopy image];
   _imageData = [image _imageData];
@@ -108,15 +108,15 @@ LABEL_4:
     v31 = [WFContextualActionIcon alloc];
     image2 = [personCopy image];
     _imageData2 = [image2 _imageData];
-    v51 = [(WFContextualActionIcon *)v31 initWithImageData:_imageData2 scale:1 displayStyle:2.0];
+    v50 = [(WFContextualActionIcon *)v31 initWithImageData:_imageData2 scale:1 displayStyle:2.0];
   }
 
   else
   {
-    v51 = 0;
+    v50 = 0;
   }
 
-  v56 = representationCopy;
+  v55 = representationCopy;
   if (typeCopy == 1)
   {
     v35 = +[WFDevice currentDevice];
@@ -145,21 +145,20 @@ LABEL_24:
   v38 = 0;
 LABEL_26:
   v39 = [@"com.apple.facetime.facetime" stringByAppendingFormat:@":%@", v16];
-  v61[0] = v59;
-  v61[1] = v28;
-  v50 = v28;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
-  v53 = v16;
+  v60[0] = v58;
+  v60[1] = v28;
+  v49 = v28;
+  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+  v52 = v16;
   v41 = MEMORY[0x1E696AEC0];
   v42 = WFLocalizedString(@"%1$@ Call %2$@");
   v43 = [v41 localizedStringWithFormat:v42, v17, v22];
   v44 = WFLocalizedString(@"FaceTime");
-  v60.receiver = self;
-  v60.super_class = WFFaceTimeContextualAction;
-  v58 = [(WFTopHitItemContextualAction *)&v60 initWithItem:personCopy identifier:v39 wfActionIdentifier:@"com.apple.facetime.facetime" associatedAppBundleIdentifier:@"com.apple.facetime" parameters:v40 displayString:v43 title:v44 subtitle:v22 primaryColor:4 icon:v51 accessoryIcon:v38 namedQueryInfo:infoCopy];
+  v59.receiver = self;
+  v59.super_class = WFFaceTimeContextualAction;
+  v57 = [(WFTopHitItemContextualAction *)&v59 initWithItem:personCopy identifier:v39 wfActionIdentifier:@"com.apple.facetime.facetime" associatedAppBundleIdentifier:@"com.apple.facetime" parameters:v40 displayString:v43 title:v44 subtitle:v22 primaryColor:4 icon:v50 accessoryIcon:v38 namedQueryInfo:infoCopy];
 
-  v45 = *MEMORY[0x1E69E9840];
-  return v58;
+  return v57;
 }
 
 - (id)_staticDisplayStringForDecoding

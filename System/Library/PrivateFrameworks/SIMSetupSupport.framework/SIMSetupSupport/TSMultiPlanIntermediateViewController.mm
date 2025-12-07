@@ -8,6 +8,8 @@
 - (void)_prepareCellInformationWithPendingInstallPlans:(id)plans transferPlans:(id)transferPlans carrierSetupPlans:(id)setupPlans isHiddenPlanSelectable:(BOOL)selectable;
 - (void)_skipButtonTapped;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -23,60 +25,61 @@
   filteredPlansForTransferableBucket = [transferPlansCopy filteredPlansForTransferableBucket];
   v21 = [plansCopy count];
   self->_nonMagnoliaCount = [setupPlansCopy count] + v21;
-  if ([filteredPlansForTransferableBucket count] + self->_nonMagnoliaCount)
+  v22 = [filteredPlansForTransferableBucket count];
+  if (v22 + self->_nonMagnoliaCount)
   {
-    v35 = optionCopy && [filteredPlansForQRCodeBucket count] != 0;
+    v36 = optionCopy && [filteredPlansForQRCodeBucket count] != 0;
     optionsCopy = options;
     if ([plansCopy count] || objc_msgSend(setupPlansCopy, "count"))
     {
-      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v22 = [v24 localizedStringForKey:@"SET_UP_CELLULAR" value:&stru_28753DF48 table:@"Localizable"];
-
       v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v26 = v25;
-      v27 = @"MULTI_ALS_DETAIL";
+      v23 = [v25 localizedStringForKey:@"SET_UP_CELLULAR" value:&stru_28753DF48 table:@"Localizable"];
+
+      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v27 = v26;
+      v28 = @"MULTI_ALS_DETAIL";
     }
 
     else
     {
-      v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v22 = [v33 localizedStringForKey:@"MULTI_TRANSFER_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+      v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v23 = [v34 localizedStringForKey:@"MULTI_TRANSFER_TITLE" value:&stru_28753DF48 table:@"Localizable"];
 
-      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v26 = v25;
-      if (v35)
+      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v27 = v26;
+      if (v36)
       {
-        v27 = @"MULTI_ESIM_TRANSFER_QR_CODE_DETAIL";
+        v28 = @"MULTI_ESIM_TRANSFER_QR_CODE_DETAIL";
       }
 
       else
       {
-        v27 = @"MULTI_ESIM_TRANSFER_DETAIL";
+        v28 = @"MULTI_ESIM_TRANSFER_DETAIL";
       }
     }
 
-    v28 = [v25 localizedStringForKey:v27 value:&stru_28753DF48 table:@"Localizable"];
+    v29 = [v26 localizedStringForKey:v28 value:&stru_28753DF48 table:@"Localizable"];
 
-    v36.receiver = self;
-    v36.super_class = TSMultiPlanIntermediateViewController;
-    v29 = [(OBTableWelcomeController *)&v36 initWithTitle:v22 detailText:v28 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
-    self = v29;
-    if (v29)
+    v37.receiver = self;
+    v37.super_class = TSMultiPlanIntermediateViewController;
+    v30 = [(OBTableWelcomeController *)&v37 initWithTitle:v23 detailText:v29 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
+    self = v30;
+    if (v30)
     {
-      v29->_showOtherOptions = optionsCopy;
-      v29->_showQrCodeOption = v35;
-      v29->_isStandaloneProximityFlow = flow;
-      v29->_isShowingFilteredPlans = filteredPlans;
-      [(TSMultiPlanIntermediateViewController *)v29 _prepareCellInformationWithPendingInstallPlans:plansCopy transferPlans:transferPlansCopy carrierSetupPlans:setupPlansCopy isHiddenPlanSelectable:selectable];
+      v30->_showOtherOptions = optionsCopy;
+      v30->_showQrCodeOption = v36;
+      v30->_isStandaloneProximityFlow = flow;
+      v30->_isShowingFilteredPlans = filteredPlans;
+      [(TSMultiPlanIntermediateViewController *)v30 _prepareCellInformationWithPendingInstallPlans:plansCopy transferPlans:transferPlansCopy carrierSetupPlans:setupPlansCopy isHiddenPlanSelectable:selectable];
       selfCopy = self;
     }
 
     else
     {
-      v31 = _TSLogDomain();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = _TSLogDomain(0);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [TSMultiPlanIntermediateViewController initWithPendingInstallPlans:v31 transferPlans:? carrierSetupPlans:? showQRCodeOption:? showOtherOptions:? isShowingFilteredPlans:? isStandaloneProximityFlow:? isHiddenPlanSelectable:?];
+        [TSMultiPlanIntermediateViewController initWithPendingInstallPlans:v32 transferPlans:? carrierSetupPlans:? showQRCodeOption:? showOtherOptions:? isShowingFilteredPlans:? isStandaloneProximityFlow:? isHiddenPlanSelectable:?];
       }
     }
 
@@ -85,10 +88,10 @@
 
   else
   {
-    v22 = _TSLogDomain();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _TSLogDomain(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [TSMultiPlanIntermediateViewController initWithPendingInstallPlans:v22 transferPlans:? carrierSetupPlans:? showQRCodeOption:? showOtherOptions:? isShowingFilteredPlans:? isStandaloneProximityFlow:? isHiddenPlanSelectable:?];
+      [TSMultiPlanIntermediateViewController initWithPendingInstallPlans:v23 transferPlans:? carrierSetupPlans:? showQRCodeOption:? showOtherOptions:? isShowingFilteredPlans:? isStandaloneProximityFlow:? isHiddenPlanSelectable:?];
     }
 
     selfCopy2 = 0;
@@ -176,6 +179,28 @@ LABEL_11:
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSMultiPlanIntermediateViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  self->_isOtherButtonTapped = 0;
+  self->_isTransferListCellTapped = 0;
+  self->_isScanButtonTapped = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TSMultiPlanIntermediateViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappear];
+  if ([(TSMultiPlanIntermediateViewController *)self showSIMSetup])
+  {
+    delegate = [(TSMultiPlanIntermediateViewController *)self delegate];
+    [delegate receivedResponse];
+  }
+}
+
 - (int64_t)numberOfSectionsInTableView:(id)view
 {
   if (self->_showQrCodeOption)
@@ -191,7 +216,7 @@ LABEL_11:
 
 - (void)_prepareCellInformationWithPendingInstallPlans:(id)plans transferPlans:(id)transferPlans carrierSetupPlans:(id)setupPlans isHiddenPlanSelectable:(BOOL)selectable
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   plansCopy = plans;
   transferPlansCopy = transferPlans;
   setupPlansCopy = setupPlans;
@@ -209,7 +234,7 @@ LABEL_11:
   v17 = [v16 arrayByAddingObjectsFromArray:setupPlansCopy];
 
   carrierNames = [v17 carrierNames];
-  v55 = v17;
+  v54 = v17;
   if (![v17 count] && objc_msgSend(v14, "count"))
   {
     carrierNames2 = [v14 carrierNames];
@@ -217,8 +242,8 @@ LABEL_11:
     carrierNames = carrierNames2;
   }
 
-  v56 = v14;
-  v54 = carrierNames;
+  v55 = v14;
+  v53 = carrierNames;
   v20 = [TSUtilities FormattedCarrierListFromSet:carrierNames];
   if ([v20 length])
   {
@@ -238,9 +263,9 @@ LABEL_11:
     self->_installBucketSubtitle = v26;
   }
 
-  v59 = plansCopy;
+  v58 = plansCopy;
   v27 = [plansCopy count];
-  v57 = setupPlansCopy;
+  v56 = setupPlansCopy;
   if (v27 + [setupPlansCopy count])
   {
     v28 = @"MULTI_ALS_TEXT";
@@ -256,29 +281,29 @@ LABEL_11:
   installBucketTitle = self->_installBucketTitle;
   self->_installBucketTitle = v30;
 
-  v58 = transferPlansCopy;
+  v57 = transferPlansCopy;
   filteredPlansForQRCodeBucket = [transferPlansCopy filteredPlansForQRCodeBucket];
   v33 = [MEMORY[0x277CBEB58] set];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v34 = filteredPlansForQRCodeBucket;
-  v35 = [v34 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v61;
+    v37 = *v60;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v61 != v37)
+        if (*v60 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v60 + 1) + 8 * i);
+        v39 = *(*(&v59 + 1) + 8 * i);
         carrierName = [v39 carrierName];
         v41 = [carrierName length];
 
@@ -289,7 +314,7 @@ LABEL_11:
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
     while (v36);
@@ -318,8 +343,6 @@ LABEL_11:
     v49 = self->_qrcodeBucketSubtitle;
     self->_qrcodeBucketSubtitle = v52;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -513,20 +536,18 @@ void __58__TSMultiPlanIntermediateViewController__skipButtonTapped__block_invoke
 
 - (void)initWithPendingInstallPlans:(os_log_t)log transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSMultiPlanIntermediateViewController initWithPendingInstallPlans:transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Self not initialized @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSMultiPlanIntermediateViewController initWithPendingInstallPlans:transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Self not initialized @%s", &v1, 0xCu);
 }
 
 - (void)initWithPendingInstallPlans:(os_log_t)log transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSMultiPlanIntermediateViewController initWithPendingInstallPlans:transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]no installable plans. showing intermediate pane is unexpected @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSMultiPlanIntermediateViewController initWithPendingInstallPlans:transferPlans:carrierSetupPlans:showQRCodeOption:showOtherOptions:isShowingFilteredPlans:isStandaloneProximityFlow:isHiddenPlanSelectable:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]no installable plans. showing intermediate pane is unexpected @%s", &v1, 0xCu);
 }
 
 @end

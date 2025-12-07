@@ -1,859 +1,3 @@
-uint64_t sub_1000A7E5C(void *a1, uint64_t a2, char a3, _OWORD *a4)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  if (NFIsInternalBuild())
-  {
-    v8 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.stockholm"];
-    if ([v8 BOOLForKey:@"skipTCC"])
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        v10 = Logger;
-        Class = object_getClass(a1);
-        isMetaClass = class_isMetaClass(Class);
-        ClassName = object_getClassName(a1);
-        Name = sel_getName("_validateForService:userPrompt:auditToken:");
-        v14 = 45;
-        if (isMetaClass)
-        {
-          v14 = 43;
-        }
-
-        v10(6, "%c[%{public}s %{public}s]:%i Skipping TCC check", v14, ClassName, Name, 91);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v15 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        v16 = object_getClass(a1);
-        if (class_isMetaClass(v16))
-        {
-          v17 = 43;
-        }
-
-        else
-        {
-          v17 = 45;
-        }
-
-        *buf = 67109890;
-        *&buf[4] = v17;
-        *&buf[8] = 2082;
-        *&buf[10] = object_getClassName(a1);
-        *&buf[18] = 2082;
-        *&buf[20] = sel_getName("_validateForService:userPrompt:auditToken:");
-        *&buf[28] = 1024;
-        *&buf[30] = 91;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Skipping TCC check", buf, 0x22u);
-      }
-
-      goto LABEL_14;
-    }
-  }
-
-  if (!sub_1000A7B74())
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v22 = NFLogGetLogger();
-    if (v22)
-    {
-      v23 = v22;
-      v24 = object_getClass(a1);
-      v25 = class_isMetaClass(v24);
-      v26 = object_getClassName(a1);
-      v92 = sel_getName("_validateForService:userPrompt:auditToken:");
-      v27 = 45;
-      if (v25)
-      {
-        v27 = 43;
-      }
-
-      v23(3, "%c[%{public}s %{public}s]:%i Missing library; default to false", v27, v26, v92, 97);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v8 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_64;
-    }
-
-    v28 = object_getClass(a1);
-    if (class_isMetaClass(v28))
-    {
-      v29 = 43;
-    }
-
-    else
-    {
-      v29 = 45;
-    }
-
-    *buf = 67109890;
-    *&buf[4] = v29;
-    *&buf[8] = 2082;
-    *&buf[10] = object_getClassName(a1);
-    *&buf[18] = 2082;
-    *&buf[20] = sel_getName("_validateForService:userPrompt:auditToken:");
-    *&buf[28] = 1024;
-    *&buf[30] = 97;
-    v30 = "%c[%{public}s %{public}s]:%i Missing library; default to false";
-    goto LABEL_29;
-  }
-
-  if (a2)
-  {
-    if (a2 != 1)
-    {
-LABEL_54:
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v55 = NFLogGetLogger();
-      if (v55)
-      {
-        v56 = v55;
-        v57 = object_getClass(a1);
-        v58 = class_isMetaClass(v57);
-        v88 = object_getClassName(a1);
-        v95 = sel_getName("_validateForService:userPrompt:auditToken:");
-        v59 = 45;
-        if (v58)
-        {
-          v59 = 43;
-        }
-
-        v56(3, "%c[%{public}s %{public}s]:%i Unknown input service %d", v59, v88, v95, 103, a2);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v8 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_64;
-      }
-
-      v60 = object_getClass(a1);
-      if (class_isMetaClass(v60))
-      {
-        v61 = 43;
-      }
-
-      else
-      {
-        v61 = 45;
-      }
-
-      *buf = 67110146;
-      *&buf[4] = v61;
-      *&buf[8] = 2082;
-      *&buf[10] = object_getClassName(a1);
-      *&buf[18] = 2082;
-      *&buf[20] = sel_getName("_validateForService:userPrompt:auditToken:");
-      *&buf[28] = 1024;
-      *&buf[30] = 103;
-      v101 = 1024;
-      LODWORD(v102) = a2;
-      v30 = "%c[%{public}s %{public}s]:%i Unknown input service %d";
-      v31 = v8;
-      v32 = 40;
-      goto LABEL_63;
-    }
-
-    sub_10027ED54(v19);
-    v21 = *(v20 + 104);
-  }
-
-  else
-  {
-    sub_10027ED30(v19);
-    v21 = *(v33 + 96);
-  }
-
-  if (!*v21)
-  {
-    goto LABEL_54;
-  }
-
-  v34 = a4[1];
-  *buf = *a4;
-  *&buf[16] = v34;
-  v35 = sub_10027E534(*buf);
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v36 = NFLogGetLogger();
-  if (v36)
-  {
-    v37 = v36;
-    v38 = object_getClass(a1);
-    v39 = class_isMetaClass(v38);
-    v87 = object_getClassName(a1);
-    v93 = sel_getName("_validateForService:userPrompt:auditToken:");
-    v40 = 45;
-    if (v39)
-    {
-      v40 = 43;
-    }
-
-    v37(6, "%c[%{public}s %{public}s]:%i preflightResult=%llu", v40, v87, v93, 108, v35);
-  }
-
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v41 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-  {
-    v42 = object_getClass(a1);
-    if (class_isMetaClass(v42))
-    {
-      v43 = 43;
-    }
-
-    else
-    {
-      v43 = 45;
-    }
-
-    *buf = 67110146;
-    *&buf[4] = v43;
-    *&buf[8] = 2082;
-    *&buf[10] = object_getClassName(a1);
-    *&buf[18] = 2082;
-    *&buf[20] = sel_getName("_validateForService:userPrompt:auditToken:");
-    *&buf[28] = 1024;
-    *&buf[30] = 108;
-    v101 = 2048;
-    v102 = v35;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i preflightResult=%llu", buf, 0x2Cu);
-  }
-
-  if ((v35 - 2) < 2)
-  {
-    return 2;
-  }
-
-  if (v35 != 1)
-  {
-    if (v35)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v68 = NFLogGetLogger();
-      if (v68)
-      {
-        v69 = v68;
-        v70 = object_getClass(a1);
-        v71 = class_isMetaClass(v70);
-        v89 = object_getClassName(a1);
-        v96 = sel_getName("_validateForService:userPrompt:auditToken:");
-        v72 = 45;
-        if (v71)
-        {
-          v72 = 43;
-        }
-
-        v69(4, "%c[%{public}s %{public}s]:%i Unexpected state %llu; default to deny", v72, v89, v96, 128, v35);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v8 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_64;
-      }
-
-      v73 = object_getClass(a1);
-      if (class_isMetaClass(v73))
-      {
-        v74 = 43;
-      }
-
-      else
-      {
-        v74 = 45;
-      }
-
-      v75 = object_getClassName(a1);
-      v76 = sel_getName("_validateForService:userPrompt:auditToken:");
-      *buf = 67110146;
-      *&buf[4] = v74;
-      *&buf[8] = 2082;
-      *&buf[10] = v75;
-      *&buf[18] = 2082;
-      *&buf[20] = v76;
-      *&buf[28] = 1024;
-      *&buf[30] = 128;
-      v101 = 2048;
-      v102 = v35;
-      v30 = "%c[%{public}s %{public}s]:%i Unexpected state %llu; default to deny";
-      v31 = v8;
-      v32 = 44;
-LABEL_63:
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
-LABEL_64:
-      v18 = 1;
-      goto LABEL_65;
-    }
-
-    if (sub_10027E508(v44) != 1)
-    {
-      return 1;
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v45 = NFLogGetLogger();
-    if (v45)
-    {
-      v46 = v45;
-      v47 = object_getClass(a1);
-      v48 = class_isMetaClass(v47);
-      v49 = object_getClassName(a1);
-      v94 = sel_getName("_validateForService:userPrompt:auditToken:");
-      v50 = 45;
-      if (v48)
-      {
-        v50 = 43;
-      }
-
-      v46(4, "%c[%{public}s %{public}s]:%i System restriction is in place", v50, v49, v94, 114);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v8 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_64;
-    }
-
-    v51 = object_getClass(a1);
-    if (class_isMetaClass(v51))
-    {
-      v52 = 43;
-    }
-
-    else
-    {
-      v52 = 45;
-    }
-
-    v53 = object_getClassName(a1);
-    v54 = sel_getName("_validateForService:userPrompt:auditToken:");
-    *buf = 67109890;
-    *&buf[4] = v52;
-    *&buf[8] = 2082;
-    *&buf[10] = v53;
-    *&buf[18] = 2082;
-    *&buf[20] = v54;
-    *&buf[28] = 1024;
-    *&buf[30] = 114;
-    v30 = "%c[%{public}s %{public}s]:%i System restriction is in place";
-LABEL_29:
-    v31 = v8;
-    v32 = 34;
-    goto LABEL_63;
-  }
-
-  if ((a3 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v63 = sub_10027ED0C(v44);
-  v98 = **(v64 + 88);
-  v99 = &__kCFBooleanTrue;
-  v18 = 1;
-  v8 = [NSDictionary dictionaryWithObjects:&v99 forKeys:&v98 count:1, v63];
-  v65 = a4[1];
-  *buf = *a4;
-  *&buf[16] = v65;
-  v66 = sub_10027E534(*buf);
-  if ((v66 - 2) >= 2)
-  {
-    v67 = v66;
-    if (!v66)
-    {
-      goto LABEL_65;
-    }
-
-    if (v66 == 1)
-    {
-      v18 = 0;
-      goto LABEL_65;
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v77 = NFLogGetLogger();
-    if (v77)
-    {
-      v78 = v77;
-      v79 = object_getClass(a1);
-      v80 = class_isMetaClass(v79);
-      v90 = object_getClassName(a1);
-      v97 = sel_getName("_validateForService:userPrompt:auditToken:");
-      v81 = 45;
-      if (v80)
-      {
-        v81 = 43;
-      }
-
-      v78(4, "%c[%{public}s %{public}s]:%i Unexpected state %llu; default to deny", v81, v90, v97, 145, v67);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v82 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
-    {
-      v83 = object_getClass(a1);
-      if (class_isMetaClass(v83))
-      {
-        v84 = 43;
-      }
-
-      else
-      {
-        v84 = 45;
-      }
-
-      v85 = object_getClassName(a1);
-      v86 = sel_getName("_validateForService:userPrompt:auditToken:");
-      *buf = 67110146;
-      *&buf[4] = v84;
-      *&buf[8] = 2082;
-      *&buf[10] = v85;
-      *&buf[18] = 2082;
-      *&buf[20] = v86;
-      *&buf[28] = 1024;
-      *&buf[30] = 145;
-      v101 = 2048;
-      v102 = v67;
-      _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected state %llu; default to deny", buf, 0x2Cu);
-    }
-
-    goto LABEL_64;
-  }
-
-LABEL_14:
-  v18 = 2;
-LABEL_65:
-
-  return v18;
-}
-
-void sub_1000A87F8(uint64_t a1, uint64_t a2, char a3, __int128 *a4, void *a5)
-{
-  v9 = a5;
-  v10 = v9;
-  if (a1)
-  {
-    v11 = *(a1 + 8);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000A88C4;
-    v13[3] = &unk_100317D08;
-    v13[4] = a1;
-    v14 = v9;
-    v15 = a2;
-    v18 = a3;
-    v12 = a4[1];
-    v16 = *a4;
-    v17 = v12;
-    dispatch_async(v11, v13);
-  }
-}
-
-uint64_t sub_1000A88C4(uint64_t a1)
-{
-  v2 = NFSharedSignpostLog();
-  if (os_signpost_enabled(v2))
-  {
-    LOWORD(v10[0]) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "validateWithUserPrompt", &unk_1002E8B7A, v10, 2u);
-  }
-
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 88);
-  v7 = *(a1 + 72);
-  v10[0] = *(a1 + 56);
-  v10[1] = v7;
-  v8 = sub_1000A7E5C(v3, v5, v6, v10);
-  return (*(v4 + 16))(v4, v8);
-}
-
-uint64_t sub_1000A8974(uint64_t result, uint64_t a2, char a3, _OWORD *a4)
-{
-  if (result)
-  {
-    v7 = result;
-    v8 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v8))
-    {
-      LOWORD(v10[0]) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "validateWithUserPrompt", &unk_1002E8B7A, v10, 2u);
-    }
-
-    v9 = a4[1];
-    v10[0] = *a4;
-    v10[1] = v9;
-    return sub_1000A7E5C(v7, a2, a3, v10);
-  }
-
-  return result;
-}
-
-unint64_t sub_1000A8A30(void *a1, uint64_t a2, uint64_t a3, _OWORD *a4)
-{
-  v4 = a1;
-  if (a1)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      v9 = Logger;
-      Class = object_getClass(v4);
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(v4);
-      Name = sel_getName("setState:forService:auditToken:");
-      v13 = 45;
-      if (isMetaClass)
-      {
-        v13 = 43;
-      }
-
-      v9(6, "%c[%{public}s %{public}s]:%i ", v13, ClassName, Name, 166);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v14 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = object_getClass(v4);
-      if (class_isMetaClass(v15))
-      {
-        v16 = 43;
-      }
-
-      else
-      {
-        v16 = 45;
-      }
-
-      *buf = 67109890;
-      *&buf[4] = v16;
-      *&buf[8] = 2082;
-      *&buf[10] = object_getClassName(v4);
-      *&buf[18] = 2082;
-      *&buf[20] = sel_getName("setState:forService:auditToken:");
-      *&buf[28] = 1024;
-      *&buf[30] = 166;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
-    }
-
-    if (!sub_1000A7B74())
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v29 = NFLogGetLogger();
-      if (v29)
-      {
-        v30 = v29;
-        v31 = object_getClass(v4);
-        v32 = class_isMetaClass(v31);
-        v33 = object_getClassName(v4);
-        v82 = sel_getName("setState:forService:auditToken:");
-        v34 = 45;
-        if (v32)
-        {
-          v34 = 43;
-        }
-
-        v30(3, "%c[%{public}s %{public}s]:%i Missing TCC library", v34, v33, v82, 169);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v23 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_56;
-      }
-
-      v35 = object_getClass(v4);
-      if (class_isMetaClass(v35))
-      {
-        v36 = 43;
-      }
-
-      else
-      {
-        v36 = 45;
-      }
-
-      v37 = object_getClassName(v4);
-      v38 = sel_getName("setState:forService:auditToken:");
-      *buf = 67109890;
-      *&buf[4] = v36;
-      *&buf[8] = 2082;
-      *&buf[10] = v37;
-      *&buf[18] = 2082;
-      *&buf[20] = v38;
-      *&buf[28] = 1024;
-      *&buf[30] = 169;
-      v28 = "%c[%{public}s %{public}s]:%i Missing TCC library";
-      v39 = v23;
-      v40 = 34;
-      goto LABEL_55;
-    }
-
-    if (a2 != 1 && a2 != 2)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v18 = NFLogGetLogger();
-      if (v18)
-      {
-        v19 = v18;
-        v20 = object_getClass(v4);
-        v21 = class_isMetaClass(v20);
-        v78 = object_getClassName(v4);
-        v81 = sel_getName("setState:forService:auditToken:");
-        v22 = 45;
-        if (v21)
-        {
-          v22 = 43;
-        }
-
-        v19(3, "%c[%{public}s %{public}s]:%i Cannot set NFTCCState %d", v22, v78, v81, 182, a2);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v23 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_56;
-      }
-
-      v24 = object_getClass(v4);
-      if (class_isMetaClass(v24))
-      {
-        v25 = 43;
-      }
-
-      else
-      {
-        v25 = 45;
-      }
-
-      v26 = object_getClassName(v4);
-      v27 = sel_getName("setState:forService:auditToken:");
-      *buf = 67110146;
-      *&buf[4] = v25;
-      *&buf[8] = 2082;
-      *&buf[10] = v26;
-      *&buf[18] = 2082;
-      *&buf[20] = v27;
-      *&buf[28] = 1024;
-      *&buf[30] = 182;
-      *&buf[34] = 1024;
-      *&buf[36] = a2;
-      v28 = "%c[%{public}s %{public}s]:%i Cannot set NFTCCState %d";
-      goto LABEL_54;
-    }
-
-    if (a3)
-    {
-      if (a3 != 1)
-      {
-LABEL_45:
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v59 = NFLogGetLogger();
-        if (v59)
-        {
-          v60 = v59;
-          v61 = object_getClass(v4);
-          v62 = class_isMetaClass(v61);
-          v79 = object_getClassName(v4);
-          v83 = sel_getName("setState:forService:auditToken:");
-          v63 = 45;
-          if (v62)
-          {
-            v63 = 43;
-          }
-
-          v60(3, "%c[%{public}s %{public}s]:%i Unknown input service %d", v63, v79, v83, 188, a3);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v23 = NFSharedLogGetLogger();
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_56;
-        }
-
-        v64 = object_getClass(v4);
-        if (class_isMetaClass(v64))
-        {
-          v65 = 43;
-        }
-
-        else
-        {
-          v65 = 45;
-        }
-
-        v66 = object_getClassName(v4);
-        v67 = sel_getName("setState:forService:auditToken:");
-        *buf = 67110146;
-        *&buf[4] = v65;
-        *&buf[8] = 2082;
-        *&buf[10] = v66;
-        *&buf[18] = 2082;
-        *&buf[20] = v67;
-        *&buf[28] = 1024;
-        *&buf[30] = 188;
-        *&buf[34] = 1024;
-        *&buf[36] = a3;
-        v28 = "%c[%{public}s %{public}s]:%i Unknown input service %d";
-LABEL_54:
-        v39 = v23;
-        v40 = 40;
-LABEL_55:
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, v28, buf, v40);
-LABEL_56:
-        v4 = 0;
-LABEL_57:
-
-        return v4;
-      }
-
-      sub_10027ED54(v17);
-      v42 = *(v41 + 104);
-    }
-
-    else
-    {
-      sub_10027ED30(v17);
-      v42 = *(v43 + 96);
-    }
-
-    if (*v42)
-    {
-      v44 = a4[1];
-      *buf = *a4;
-      *&buf[16] = v44;
-      v23 = sub_10027E560(*buf);
-      v46 = sub_10027E58C(v45);
-      sub_10027E5B8(v47);
-      *buf = 0;
-      *&buf[8] = buf;
-      *&buf[16] = 0x3032000000;
-      *&buf[24] = sub_100006A5C;
-      *&buf[32] = sub_1000A92F4;
-      v95 = 0;
-      v48 = *(v4 + 16);
-      sub_10027E610(v49);
-      if (*(*&buf[8] + 40))
-      {
-        *v91 = 0;
-        *v92 = v91;
-        *&v92[8] = 0x3032000000;
-        *&v92[16] = sub_100006A5C;
-        *&v92[24] = sub_1000A92F4;
-        v93 = 0;
-        v51 = sub_10027E668(v50);
-        v52 = *(v4 + 16);
-        v53 = *(*&buf[8] + 40);
-        sub_10027E63C(v54);
-        v55 = *(*v92 + 40);
-        v4 = v55 == 0;
-        if (v55)
-        {
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v56 = NFLogGetLogger();
-          if (v56)
-          {
-            v56(3, "%s:%i %{public}@", "[NFTCCChecker setState:forService:auditToken:]", 219, *(*v92 + 40));
-          }
-
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v57 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
-          {
-            v58 = *(*v92 + 40);
-            *v85 = 136446722;
-            v86 = "[NFTCCChecker setState:forService:auditToken:]";
-            v87 = 1024;
-            v88 = 219;
-            v89 = 2114;
-            v90 = v58;
-            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "%{public}s:%i %{public}@", v85, 0x1Cu);
-          }
-        }
-
-        _Block_object_dispose(v91, 8);
-      }
-
-      else
-      {
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v69 = NFLogGetLogger();
-        if (v69)
-        {
-          v70 = v69;
-          v71 = object_getClass(v4);
-          v72 = class_isMetaClass(v71);
-          v73 = object_getClassName(v4);
-          v84 = sel_getName("setState:forService:auditToken:");
-          v74 = 45;
-          if (v72)
-          {
-            v74 = 43;
-          }
-
-          v70(3, "%c[%{public}s %{public}s]:%i Couldn't get TCC identity for credential", v74, v73, v84, 207);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v75 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
-        {
-          v76 = object_getClass(v4);
-          if (class_isMetaClass(v76))
-          {
-            v77 = 43;
-          }
-
-          else
-          {
-            v77 = 45;
-          }
-
-          *v91 = 67109890;
-          *&v91[4] = v77;
-          *v92 = 2082;
-          *&v92[2] = object_getClassName(v4);
-          *&v92[10] = 2082;
-          *&v92[12] = sel_getName("setState:forService:auditToken:");
-          *&v92[20] = 1024;
-          *&v92[22] = 207;
-          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Couldn't get TCC identity for credential", v91, 0x22u);
-        }
-
-        v4 = 0;
-      }
-
-      _Block_object_dispose(buf, 8);
-
-      goto LABEL_57;
-    }
-
-    goto LABEL_45;
-  }
-
-  return v4;
-}
-
 void sub_1000A92FC(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2;
@@ -939,7 +83,7 @@ void sub_1000A9514(uint64_t a1)
   v4 = +[_NFHardwareManager sharedHardwareManager];
   [v4 stop];
 
-  sub_100045B4C(qword_10035D9C0);
+  sub_100045B4C(qword_10035D9C0[0]);
   v5 = +[NFSecureXPCEventPublisherManager sharedManager];
   [v5 invalidate];
 
@@ -1966,7 +1110,7 @@ LABEL_64:
   }
 }
 
-id sub_1000ABE38(void *a1, void *a2)
+NSMutableArray *sub_1000ABE38(void *a1, void *a2)
 {
   v4 = objc_opt_new();
   v5 = v4;
@@ -2196,7 +1340,7 @@ LABEL_19:
   return p_isa;
 }
 
-void *sub_1000AC624(void *a1, void *a2)
+NSMutableArray *sub_1000AC624(NSMutableArray *a1, void *a2)
 {
   v2 = a1;
   if (a1)
@@ -2210,10 +1354,10 @@ void *sub_1000AC624(void *a1, void *a2)
         v6 = [NFTLV TLVWithTag:144 unsignedChar:0];
         [v5 addObject:v6];
 
-        v7 = [NFTLV TLVWithTag:145 value:v2[1]];
+        v7 = [NFTLV TLVWithTag:145 value:v2[1].super.super.isa];
         [v5 addObject:v7];
 
-        if (v2[2])
+        if (v2[2].super.super.isa)
         {
           v8 = [NFTLV TLVWithTag:148 value:?];
           [v5 addObject:v8];
@@ -2330,7 +1474,7 @@ LABEL_28:
   return v2;
 }
 
-id sub_1000ACA34(void *a1, void *a2)
+id sub_1000ACA34(NSMutableArray *a1, void *a2)
 {
   if (a1)
   {
@@ -2466,7 +1610,7 @@ LABEL_28:
   return v7;
 }
 
-id *sub_1000ACE4C(id *a1, void *a2, void *a3, unsigned int a4, void *a5)
+id *sub_1000ACE4C(id *a1, NSMutableArray *a2, void *a3, unsigned int a4, void *a5)
 {
   v9 = a3;
   if (a1)
@@ -3095,7 +2239,7 @@ id *sub_1000ADE64(id *a1, void *a2)
       v44[2] = [v7 DERItem];
       v44[3] = v9;
       v43 = 0;
-      v10 = sub_1000AE24C(v44, 2u, &unk_100296E70, &v43);
+      v10 = sub_1000AE24C(v44, 2, &unk_100296E70, &v43);
       v11 = v43;
       v12 = v11;
       if (v10 || !v11)
@@ -3124,7 +2268,7 @@ id *sub_1000ADE64(id *a1, void *a2)
 
         *&v50[24] = v20;
         *&v50[32] = v22;
-        LODWORD(v13) = sub_1000AE24C(buf, 3u, &unk_100296EA0, &v42);
+        LODWORD(v13) = sub_1000AE24C(buf, 3, &unk_100296EA0, &v42);
 
         v23 = v42;
         v24 = v23;
@@ -3206,7 +2350,7 @@ id *sub_1000ADE64(id *a1, void *a2)
   return a1;
 }
 
-uint64_t sub_1000AE24C(unint64_t a1, unsigned int a2, uint64_t a3, void *a4)
+uint64_t sub_1000AE24C(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v12 = DERLengthOfEncodedSequence(0x2000000000000010, a1, a2, a3);
   v8 = [[NSMutableData alloc] initWithLength:v12];
@@ -4526,9 +3670,9 @@ LABEL_20:
   v18 = v415;
   if (v415)
   {
-    v440 = 0;
+    v440.super.super.isa = 0;
     v91 = sub_1001D99C8(NFECommercePaymentRequestEncoder, v415, 0, &v440);
-    v405 = v440;
+    v405 = v440.super.super.isa;
     if (!v91)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -5871,7 +5015,7 @@ id *sub_1000B2E8C(uint64_t a1, void *a2, void *a3)
   return v8;
 }
 
-id sub_1000B3EA0(void *a1, void *a2, uint64_t a3)
+NSMutableArray *sub_1000B3EA0(void *a1, void *a2, uint64_t a3)
 {
   v4 = a2;
   v167 = a1;
@@ -6892,7 +6036,7 @@ LABEL_34:
   return v13;
 }
 
-uint64_t sub_1000B57E8(id *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1000B57E8(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v6 = a2;
   v7 = v6;
@@ -9480,4 +8624,1019 @@ LABEL_66:
   }
 
   return v30;
+}
+
+void sub_1000B9740(void *a1, int a2, void *a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a3;
+  if (!a1)
+  {
+    goto LABEL_31;
+  }
+
+  v9 = objc_opt_new();
+  v10 = [NSNumber numberWithUnsignedInt:a5];
+  [v9 setObject:v10 forKeyedSubscript:@"status"];
+
+  if (a2 > 4)
+  {
+    switch(a2)
+    {
+      case 5:
+        v11 = &off_100330E70;
+        goto LABEL_25;
+      case 6:
+        v11 = &off_100330E88;
+        goto LABEL_25;
+      case 7:
+        v11 = &off_100330EA0;
+        goto LABEL_25;
+    }
+
+LABEL_13:
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v13 = Logger;
+      Class = object_getClass(a1);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(a1);
+      Name = sel_getName("crs_postCACRSAuthECommerce:request:response:status:");
+      v17 = 45;
+      if (isMetaClass)
+      {
+        v17 = 43;
+      }
+
+      v13(3, "%c[%{public}s %{public}s]:%i Invalid auth type", v17, ClassName, Name, 840);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v18 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = object_getClass(a1);
+      if (class_isMetaClass(v19))
+      {
+        v20 = 43;
+      }
+
+      else
+      {
+        v20 = 45;
+      }
+
+      *buf = 67109890;
+      v36 = v20;
+      v37 = 2082;
+      v38 = object_getClassName(a1);
+      v39 = 2082;
+      v40 = sel_getName("crs_postCACRSAuthECommerce:request:response:status:");
+      v41 = 1024;
+      v42 = 840;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid auth type", buf, 0x22u);
+    }
+
+    goto LABEL_26;
+  }
+
+  if (a2 == 1)
+  {
+    v11 = &off_100330E28;
+    goto LABEL_25;
+  }
+
+  if (a2 == 2)
+  {
+    v11 = &off_100330E40;
+    goto LABEL_25;
+  }
+
+  if (a2 != 3)
+  {
+    goto LABEL_13;
+  }
+
+  v11 = &off_100330E58;
+LABEL_25:
+  [v9 setObject:v11 forKeyedSubscript:@"method"];
+LABEL_26:
+  v21 = [v8 appletIdentifier];
+  v22 = [NSData NF_dataWithHexString:v21];
+  [v9 setObject:v22 forKeyedSubscript:@"aid"];
+
+  v23 = [v8 merchantData];
+  [v9 setObject:v23 forKeyedSubscript:@"merchantID"];
+
+  v24 = [v8 currencyCode];
+  v25 = [NSNumber numberWithInt:sub_1002341F4(NFCurrency, v24)];
+  [v9 setObject:v25 forKeyedSubscript:@"fractionDigits"];
+
+  v26 = [v8 transactionAmount];
+  [v9 setObject:v26 forKeyedSubscript:@"transactionTotal"];
+
+  v27 = [v8 countryCode];
+  v28 = sub_1001D85A8(NFECommercePaymentRequestEncoder, v27);
+
+  if (v28)
+  {
+    v29 = [NSNumber numberWithUnsignedInteger:v28];
+    [v9 setObject:v29 forKeyedSubscript:@"countryCode"];
+  }
+
+  v30 = [v8 currencyCode];
+  v31 = sub_1001DAF88(NFECommercePaymentRequestEncoder, v30);
+
+  if (v31 != -1)
+  {
+    v32 = [NSNumber numberWithInteger:v31];
+    [v9 setObject:v32 forKeyedSubscript:@"currencyCode"];
+  }
+
+  v33 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v8 merchantCapabilities]);
+  [v9 setObject:v33 forKeyedSubscript:@"merchantCapabilities"];
+
+  [NFExceptionsCALogger postAnalyticsCRSAuthECommerceWithParameters:v9];
+LABEL_31:
+}
+
+void sub_1000B9BB0(void *a1)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(a1);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(a1);
+    Name = sel_getName("crs_deauthorize");
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 869);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(a1);
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    *buf = 67109890;
+    v43 = v10;
+    v44 = 2082;
+    v45 = object_getClassName(a1);
+    v46 = 2082;
+    v47 = sel_getName("crs_deauthorize");
+    v48 = 1024;
+    v49 = 869;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  v11 = sub_100158334(a1, 128, 244, 1, 129, 0, 0);
+  v12 = v11;
+  if (!v11)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v29 = NFLogGetLogger();
+    if (v29)
+    {
+      v30 = v29;
+      v31 = object_getClass(a1);
+      v32 = class_isMetaClass(v31);
+      v33 = object_getClassName(a1);
+      v40 = sel_getName("crs_deauthorize");
+      v34 = 45;
+      if (v32)
+      {
+        v34 = 43;
+      }
+
+      v30(3, "%c[%{public}s %{public}s]:%i Command failed", v34, v33, v40, 878);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v20 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_32;
+    }
+
+    v35 = object_getClass(a1);
+    if (class_isMetaClass(v35))
+    {
+      v36 = 43;
+    }
+
+    else
+    {
+      v36 = 45;
+    }
+
+    v37 = object_getClassName(a1);
+    v38 = sel_getName("crs_deauthorize");
+    *buf = 67109890;
+    v43 = v36;
+    v44 = 2082;
+    v45 = v37;
+    v46 = 2082;
+    v47 = v38;
+    v48 = 1024;
+    v49 = 878;
+    v26 = "%c[%{public}s %{public}s]:%i Command failed";
+    v27 = v20;
+    v28 = 34;
+    goto LABEL_31;
+  }
+
+  if ([v11 status] != 36864)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v13 = NFLogGetLogger();
+    if (v13)
+    {
+      v14 = v13;
+      v15 = object_getClass(a1);
+      v16 = class_isMetaClass(v15);
+      v17 = object_getClassName(a1);
+      v18 = sel_getName("crs_deauthorize");
+      v41 = [v12 status];
+      v19 = 45;
+      if (v16)
+      {
+        v19 = 43;
+      }
+
+      v14(3, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v19, v17, v18, 881, v41);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v20 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_32;
+    }
+
+    v21 = object_getClass(a1);
+    if (class_isMetaClass(v21))
+    {
+      v22 = 43;
+    }
+
+    else
+    {
+      v22 = 45;
+    }
+
+    v23 = object_getClassName(a1);
+    v24 = sel_getName("crs_deauthorize");
+    v25 = [v12 status];
+    *buf = 67110146;
+    v43 = v22;
+    v44 = 2082;
+    v45 = v23;
+    v46 = 2082;
+    v47 = v24;
+    v48 = 1024;
+    v49 = 881;
+    v50 = 1024;
+    v51 = v25;
+    v26 = "%c[%{public}s %{public}s]:%i Returned error: 0x%04x";
+    v27 = v20;
+    v28 = 40;
+LABEL_31:
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
+LABEL_32:
+  }
+
+  +[NFExceptionsCALogger postAnalyticsCRSDeAuthWithStatus:](NFExceptionsCALogger, "postAnalyticsCRSDeAuthWithStatus:", [v12 status]);
+  if ([v12 status] == 36864)
+  {
+    sub_10022E700(NFDailyStatisticsCALogger, @"totalDeAuth");
+  }
+}
+
+uint64_t sub_1000BA000(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v7 = a3;
+  v8 = a4;
+  if (a1)
+  {
+    if ([v7 count])
+    {
+      v90 = v7;
+      v9 = v7;
+      v89 = v8;
+      v91 = v8;
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        v11 = Logger;
+        Class = object_getClass(a1);
+        isMetaClass = class_isMetaClass(Class);
+        ClassName = object_getClassName(a1);
+        Name = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+        v16 = [NFApplet aidListForPrinting:v9];
+        v17 = 45;
+        if (isMetaClass)
+        {
+          v17 = 43;
+        }
+
+        v11(6, "%c[%{public}s %{public}s]:%i enable=%d applets=%{public}@", v17, ClassName, Name, 893, a2, v16);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v18 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = object_getClass(a1);
+        if (class_isMetaClass(v19))
+        {
+          v20 = 43;
+        }
+
+        else
+        {
+          v20 = 45;
+        }
+
+        v21 = object_getClassName(a1);
+        v22 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+        v23 = [NFApplet aidListForPrinting:v9];
+        *buf = 67110402;
+        v108 = v20;
+        v109 = 2082;
+        v110 = v21;
+        v111 = 2082;
+        v112 = v22;
+        v113 = 1024;
+        v114 = 893;
+        v115 = 1024;
+        v116 = a2;
+        v117 = 2114;
+        v118 = v23;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i enable=%d applets=%{public}@", buf, 0x32u);
+      }
+
+      v24 = objc_opt_new();
+      v93 = 0u;
+      v94 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v25 = v9;
+      v26 = [v25 countByEnumeratingWithState:&v93 objects:buf count:16];
+      if (v26)
+      {
+        v27 = v26;
+        v28 = *v94;
+        do
+        {
+          for (i = 0; i != v27; i = i + 1)
+          {
+            if (*v94 != v28)
+            {
+              objc_enumerationMutation(v25);
+            }
+
+            v30 = [*(*(&v93 + 1) + 8 * i) identifierAsData];
+            v31 = [NFTLV TLVWithTag:79 value:v30];
+
+            v32 = [v31 asData];
+            [v24 appendData:v32];
+          }
+
+          v27 = [v25 countByEnumeratingWithState:&v93 objects:buf count:16];
+        }
+
+        while (v27);
+      }
+
+      v33 = v91;
+      if (v91)
+      {
+        [v24 appendData:v91];
+      }
+
+      v92 = 0;
+      v34 = sub_100158334(a1, 128, 244, 6, a2, v24, &v92);
+      v35 = v92;
+      if (v34)
+      {
+        if ([v34 status] == 27013)
+        {
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v36 = NFLogGetLogger();
+          if (v36)
+          {
+            v37 = v36;
+            v38 = object_getClass(a1);
+            v39 = class_isMetaClass(v38);
+            v40 = object_getClassName(a1);
+            v41 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+            v87 = [v34 status];
+            v83 = v41;
+            v33 = v91;
+            v42 = 45;
+            if (v39)
+            {
+              v42 = 43;
+            }
+
+            v37(3, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v42, v40, v83, 919, v87);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v43 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          {
+            v44 = object_getClass(a1);
+            if (class_isMetaClass(v44))
+            {
+              v45 = 43;
+            }
+
+            else
+            {
+              v45 = 45;
+            }
+
+            v46 = object_getClassName(a1);
+            v47 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+            v48 = [v34 status];
+            *v97 = 67110146;
+            v98 = v45;
+            v99 = 2082;
+            v100 = v46;
+            v101 = 2082;
+            v102 = v47;
+            v103 = 1024;
+            v104 = 919;
+            v105 = 1024;
+            v106 = v48;
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v97, 0x28u);
+          }
+
+          a1 = 8;
+        }
+
+        else if ([v34 status] == 36864)
+        {
+          a1 = 0;
+        }
+
+        else
+        {
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v69 = NFLogGetLogger();
+          if (v69)
+          {
+            v70 = v69;
+            v71 = object_getClass(a1);
+            v72 = class_isMetaClass(v71);
+            v73 = object_getClassName(a1);
+            v74 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+            v88 = [v34 status];
+            v86 = v74;
+            v33 = v91;
+            v75 = 45;
+            if (v72)
+            {
+              v75 = 43;
+            }
+
+            v70(3, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v75, v73, v86, 924, v88);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v76 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+          {
+            v77 = object_getClass(a1);
+            if (class_isMetaClass(v77))
+            {
+              v78 = 43;
+            }
+
+            else
+            {
+              v78 = 45;
+            }
+
+            v79 = object_getClassName(a1);
+            v80 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+            v81 = [v34 status];
+            *v97 = 67110146;
+            v98 = v78;
+            v99 = 2082;
+            v100 = v79;
+            v101 = 2082;
+            v102 = v80;
+            v103 = 1024;
+            v104 = 924;
+            v105 = 1024;
+            v106 = v81;
+            _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v97, 0x28u);
+          }
+
+          a1 = 6;
+        }
+      }
+
+      else
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v58 = NFLogGetLogger();
+        if (v58)
+        {
+          v59 = v58;
+          v60 = object_getClass(a1);
+          v61 = class_isMetaClass(v60);
+          v62 = object_getClassName(a1);
+          v85 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+          v63 = 45;
+          if (v61)
+          {
+            v63 = 43;
+          }
+
+          v59(3, "%c[%{public}s %{public}s]:%i Command failed", v63, v62, v85, 915);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v64 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        {
+          v65 = object_getClass(a1);
+          if (class_isMetaClass(v65))
+          {
+            v66 = 43;
+          }
+
+          else
+          {
+            v66 = 45;
+          }
+
+          v67 = object_getClassName(a1);
+          v68 = sel_getName("_crs_enableTransientAuth:applets:cryptogram:");
+          *v97 = 67109890;
+          v98 = v66;
+          v99 = 2082;
+          v100 = v67;
+          v101 = 2082;
+          v102 = v68;
+          v103 = 1024;
+          v104 = 915;
+          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Command failed", v97, 0x22u);
+        }
+
+        if ([v35 code])
+        {
+          a1 = [v35 code];
+        }
+
+        else
+        {
+          a1 = 16;
+        }
+      }
+
+      v8 = v89;
+
+      v7 = v90;
+    }
+
+    else
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v49 = NFLogGetLogger();
+      if (v49)
+      {
+        v50 = v49;
+        v51 = object_getClass(a1);
+        v52 = class_isMetaClass(v51);
+        v53 = object_getClassName(a1);
+        v84 = sel_getName("crs_enableTransientAuth:applets:cryptogram:");
+        v54 = 45;
+        if (v52)
+        {
+          v54 = 43;
+        }
+
+        v50(3, "%c[%{public}s %{public}s]:%i Empty AID array", v54, v53, v84, 934);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v55 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      {
+        v56 = object_getClass(a1);
+        if (class_isMetaClass(v56))
+        {
+          v57 = 43;
+        }
+
+        else
+        {
+          v57 = 45;
+        }
+
+        *buf = 67109890;
+        v108 = v57;
+        v109 = 2082;
+        v110 = object_getClassName(a1);
+        v111 = 2082;
+        v112 = sel_getName("crs_enableTransientAuth:applets:cryptogram:");
+        v113 = 1024;
+        v114 = 934;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Empty AID array", buf, 0x22u);
+      }
+
+      a1 = 10;
+    }
+  }
+
+  return a1;
+}
+
+id sub_1000BA8CC(void *a1, void *a2, void *a3)
+{
+  v5 = a2;
+  if (a1)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v7 = Logger;
+      Class = object_getClass(a1);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(a1);
+      Name = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+      v11 = 45;
+      if (isMetaClass)
+      {
+        v11 = 43;
+      }
+
+      v7(6, "%c[%{public}s %{public}s]:%i ", v11, ClassName, Name, 943);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v12 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = object_getClass(a1);
+      if (class_isMetaClass(v13))
+      {
+        v14 = 43;
+      }
+
+      else
+      {
+        v14 = 45;
+      }
+
+      *buf = 67109890;
+      v100 = v14;
+      v101 = 2082;
+      v102 = object_getClassName(a1);
+      v103 = 2082;
+      v104 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+      v105 = 1024;
+      v106 = 943;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v15 = NFLogGetLogger();
+    v16 = v15;
+    if (v5 && a3)
+    {
+      if (v15)
+      {
+        v17 = object_getClass(a1);
+        v18 = class_isMetaClass(v17);
+        v87 = object_getClassName(a1);
+        v89 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+        v19 = 45;
+        if (v18)
+        {
+          v19 = 43;
+        }
+
+        v16(6, "%c[%{public}s %{public}s]:%i Data to sign : %{public}@", v19, v87, v89, 953, v5);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v20 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = object_getClass(a1);
+        if (class_isMetaClass(v21))
+        {
+          v22 = 43;
+        }
+
+        else
+        {
+          v22 = 45;
+        }
+
+        v23 = object_getClassName(a1);
+        v24 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+        *buf = 67110146;
+        v100 = v22;
+        v101 = 2082;
+        v102 = v23;
+        v103 = 2082;
+        v104 = v24;
+        v105 = 1024;
+        v106 = 953;
+        v107 = 2114;
+        v108 = v5;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Data to sign : %{public}@", buf, 0x2Cu);
+      }
+
+      *a3 = 0;
+      v94 = 0;
+      v25 = sub_100158334(a1, 128, 248, 0, 0, v5, &v94);
+      v26 = v94;
+      if (v26 || !v25)
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v61 = NFLogGetLogger();
+        if (v61)
+        {
+          v62 = v61;
+          v63 = object_getClass(a1);
+          v64 = class_isMetaClass(v63);
+          v65 = object_getClassName(a1);
+          v91 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          v66 = 45;
+          if (v64)
+          {
+            v66 = 43;
+          }
+
+          v62(3, "%c[%{public}s %{public}s]:%i Command failed", v66, v65, v91, 963);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v67 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        {
+          v68 = object_getClass(a1);
+          if (class_isMetaClass(v68))
+          {
+            v69 = 43;
+          }
+
+          else
+          {
+            v69 = 45;
+          }
+
+          v70 = object_getClassName(a1);
+          v71 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          *buf = 67109890;
+          v100 = v69;
+          v101 = 2082;
+          v102 = v70;
+          v103 = 2082;
+          v104 = v71;
+          v105 = 1024;
+          v106 = 963;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Command failed", buf, 0x22u);
+        }
+
+        goto LABEL_69;
+      }
+
+      if ([v25 status] == 36864)
+      {
+        v27 = [v25 response];
+        if (v27)
+        {
+          v28 = v27;
+          v29 = [v25 response];
+          v30 = [v29 length];
+
+          if (v30 > 0x50)
+          {
+            [v25 response];
+            *a3 = v26 = 0;
+            goto LABEL_69;
+          }
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v31 = NFLogGetLogger();
+        if (v31)
+        {
+          v32 = v31;
+          v33 = object_getClass(a1);
+          v34 = class_isMetaClass(v33);
+          v35 = object_getClassName(a1);
+          v36 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          v37 = [v25 response];
+          v92 = [v37 length];
+          v38 = 45;
+          if (v34)
+          {
+            v38 = 43;
+          }
+
+          v32(3, "%c[%{public}s %{public}s]:%i Invalid response length : %lu", v38, v35, v36, 972, v92);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v39 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        {
+          v40 = object_getClass(a1);
+          if (class_isMetaClass(v40))
+          {
+            v41 = 43;
+          }
+
+          else
+          {
+            v41 = 45;
+          }
+
+          v42 = object_getClassName(a1);
+          v43 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          v44 = [v25 response];
+          v45 = [v44 length];
+          *buf = 67110146;
+          v100 = v41;
+          v101 = 2082;
+          v102 = v42;
+          v103 = 2082;
+          v104 = v43;
+          v105 = 1024;
+          v106 = 972;
+          v107 = 2048;
+          v108 = v45;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid response length : %lu", buf, 0x2Cu);
+        }
+
+        v46 = [NSError alloc];
+        v47 = [NSString stringWithUTF8String:"nfcd"];
+        v95 = NSLocalizedDescriptionKey;
+        v48 = [NSString stringWithUTF8String:"Command Error"];
+        v96 = v48;
+        v49 = &v96;
+        v50 = &v95;
+      }
+
+      else
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v72 = NFLogGetLogger();
+        if (v72)
+        {
+          v73 = v72;
+          v74 = object_getClass(a1);
+          v75 = class_isMetaClass(v74);
+          v76 = object_getClassName(a1);
+          v77 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          v93 = [v25 status];
+          v78 = 45;
+          if (v75)
+          {
+            v78 = 43;
+          }
+
+          v73(3, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", v78, v76, v77, 967, v93);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v79 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+        {
+          v80 = object_getClass(a1);
+          if (class_isMetaClass(v80))
+          {
+            v81 = 43;
+          }
+
+          else
+          {
+            v81 = 45;
+          }
+
+          v82 = object_getClassName(a1);
+          v83 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+          v84 = [v25 status];
+          *buf = 67110146;
+          v100 = v81;
+          v101 = 2082;
+          v102 = v82;
+          v103 = 2082;
+          v104 = v83;
+          v105 = 1024;
+          v106 = 967;
+          v107 = 1024;
+          LODWORD(v108) = v84;
+          _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Returned error: 0x%04x", buf, 0x28u);
+        }
+
+        v46 = [NSError alloc];
+        v47 = [NSString stringWithUTF8String:"nfcd"];
+        v97 = NSLocalizedDescriptionKey;
+        v48 = [NSString stringWithUTF8String:"Command Error"];
+        v98 = v48;
+        v49 = &v98;
+        v50 = &v97;
+      }
+
+      v85 = [NSDictionary dictionaryWithObjects:v49 forKeys:v50 count:1];
+      v26 = [v46 initWithDomain:v47 code:16 userInfo:v85];
+    }
+
+    else
+    {
+      if (v15)
+      {
+        v51 = object_getClass(a1);
+        v52 = class_isMetaClass(v51);
+        v53 = object_getClassName(a1);
+        v90 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+        v54 = 45;
+        if (v52)
+        {
+          v54 = 43;
+        }
+
+        v16(3, "%c[%{public}s %{public}s]:%i Invalid parameters", v54, v53, v90, 949);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v55 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      {
+        v56 = object_getClass(a1);
+        if (class_isMetaClass(v56))
+        {
+          v57 = 43;
+        }
+
+        else
+        {
+          v57 = 45;
+        }
+
+        v58 = object_getClassName(a1);
+        v59 = sel_getName("crs_authorizedInternalAuthenticate:signedData:");
+        *buf = 67109890;
+        v100 = v57;
+        v101 = 2082;
+        v102 = v58;
+        v103 = 2082;
+        v104 = v59;
+        v105 = 1024;
+        v106 = 949;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid parameters", buf, 0x22u);
+      }
+
+      v60 = [NSError alloc];
+      v25 = [NSString stringWithUTF8String:"nfcd"];
+      v109 = NSLocalizedDescriptionKey;
+      v47 = [NSString stringWithUTF8String:"Invalid Parameter"];
+      v110 = v47;
+      v48 = [NSDictionary dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+      v26 = [v60 initWithDomain:v25 code:10 userInfo:v48];
+    }
+
+LABEL_69:
+    goto LABEL_70;
+  }
+
+  v26 = 0;
+LABEL_70:
+
+  return v26;
 }

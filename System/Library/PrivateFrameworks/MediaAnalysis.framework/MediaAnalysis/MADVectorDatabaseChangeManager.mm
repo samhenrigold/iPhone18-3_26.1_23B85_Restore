@@ -48,7 +48,7 @@
 + (id)sharedManagerForPhotoLibrary:(id)library
 {
   libraryCopy = library;
-  if ((atomic_load_explicit(&qword_1002B8158, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1002B8158, memory_order_acquire) & 1) == 0)
   {
     v8 = libraryCopy;
     sub_100020E08();

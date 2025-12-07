@@ -9,41 +9,41 @@
 {
   v8 = **arguments;
   v9 = *(*arguments + 8);
-  v61 = 0;
-  v11 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v9, v10, context, spec, 1, &v61);
-  v12 = v61;
-  v60 = v12;
-  v14 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v8, v13, context, spec, 0, &v60);
-  v15 = v60;
+  v53 = 0;
+  v11 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v9, v10, context, spec, 1, &v53);
+  v12 = v53;
+  v52 = v12;
+  v14 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v8, v13, context, spec, 0, &v52);
+  v15 = v52;
 
   if (v15)
   {
-    isOutputOfAFunction = objc_msgSend_raiseErrorOrConvert_(context, v16, v15, v18, v19);
+    isOutputOfAFunction = objc_msgSend_raiseErrorOrConvert_(context, v16, v15, v18);
   }
 
   else
   {
-    v59 = 0;
-    v21 = objc_msgSend_evalRef(v14, v16, v17, v18, v19);
-    v26 = objc_msgSend_evalRef(v11, v22, v23, v24, v25);
-    v28 = objc_msgSend_mergeLeftRef_rightRef_outError_(TSCEEvalRef, v27, v21, v26, &v59);
+    v51 = 0;
+    v20 = objc_msgSend_evalRef(v14, v16, v17, v18);
+    v24 = objc_msgSend_evalRef(v11, v21, v22, v23);
+    v26 = objc_msgSend_mergeLeftRef_rightRef_outError_(TSCEEvalRef, v25, v20, v24, &v51);
 
-    if (v59)
+    if (v51)
     {
-      v33 = objc_msgSend_invalidReferenceError(TSCEError, v29, v30, v31, v32);
-      isOutputOfAFunction = objc_msgSend_raiseErrorOrConvert_(context, v34, v33, v35, v36);
+      v30 = objc_msgSend_invalidReferenceError(TSCEError, v27, v28, v29);
+      isOutputOfAFunction = objc_msgSend_raiseErrorOrConvert_(context, v31, v30, v32);
     }
 
     else
     {
-      v37 = objc_msgSend_preserveFlags(v14, v29, v30, v31, v32);
-      v58 = objc_msgSend_preserveFlags(v11, v38, v39, v40, v41) & 0xC | v37 & 3;
-      v42 = [TSCEReferenceValue alloc];
-      v47 = objc_msgSend_containingCell(context, v43, v44, v45, v46);
-      isOutputOfAFunction = objc_msgSend_initWithEvalRef_hostCell_preserveFlags_permitsAccessInsideMergeRegions_isOutputOfAFunction_(v42, v48, v28, v47, &v58, 0, 0);
-      if ((objc_msgSend_isOutputOfAFunction(v14, v49, v50, v51, v52) & 1) != 0 || objc_msgSend_isOutputOfAFunction(v11, v53, v54, v55, v56))
+      v33 = objc_msgSend_preserveFlags(v14, v27, v28, v29);
+      v50 = objc_msgSend_preserveFlags(v11, v34, v35, v36) & 0xC | v33 & 3;
+      v37 = [TSCEReferenceValue alloc];
+      v41 = objc_msgSend_containingCell(context, v38, v39, v40);
+      isOutputOfAFunction = objc_msgSend_initWithEvalRef_hostCell_preserveFlags_permitsAccessInsideMergeRegions_isOutputOfAFunction_(v37, v42, v26, v41, &v50, 0, 0);
+      if ((objc_msgSend_isOutputOfAFunction(v14, v43, v44, v45) & 1) != 0 || objc_msgSend_isOutputOfAFunction(v11, v46, v47, v48))
       {
-        objc_msgSend_setIsOutputOfAFunction_(isOutputOfAFunction, v53, 1, v55, v56);
+        objc_msgSend_setIsOutputOfAFunction_(isOutputOfAFunction, v46, 1, v48);
       }
     }
   }
@@ -55,72 +55,72 @@
 {
   contextCopy = context;
   refCopy = ref;
-  v63 = 0;
-  v11 = objc_msgSend_containingCell(contextCopy, v7, v8, v9, v10);
-  v14 = objc_msgSend_absoluteCellTractRefForHostCell_offTable_(refCopy, v12, v11, &v63, v13);
-  v62 = 0uLL;
-  if (objc_msgSend_hasTableUID(refCopy, v15, v16, v17, v18))
+  v52 = 0;
+  v10 = objc_msgSend_containingCell(contextCopy, v7, v8, v9);
+  v12 = objc_msgSend_absoluteCellTractRefForHostCell_offTable_(refCopy, v11, v10, &v52);
+  v51 = 0uLL;
+  if (objc_msgSend_hasTableUID(refCopy, v13, v14, v15))
   {
-    *&v62 = objc_msgSend_tableUID(refCopy, v19, v20, v21, v22);
-    *(&v62 + 1) = v23;
+    *&v51 = objc_msgSend_tableUID(refCopy, v16, v17, v18);
+    *(&v51 + 1) = v19;
   }
 
   else
   {
-    v62 = *objc_msgSend_containingTable(contextCopy, v19, v20, v21, v22);
+    v51 = *objc_msgSend_containingTable(contextCopy, v16, v17, v18);
   }
 
-  if (v63)
+  if (v52)
   {
     goto LABEL_5;
   }
 
-  v32 = objc_msgSend_calcEngine(contextCopy, v23, v24, v25, v26);
-  v36 = objc_msgSend_tableResolverWrapperForTableUID_(v32, v33, &v62, v34, v35);
+  v26 = objc_msgSend_calcEngine(contextCopy, v19, v20, v21);
+  v29 = objc_msgSend_tableResolverWrapperForTableUID_(v26, v27, &v51, v28);
 
-  if (v36)
+  if (v29)
   {
-    v41 = [TSCEEvalRef alloc];
-    if (v14)
+    v33 = [TSCEEvalRef alloc];
+    if (v12)
     {
-      objc_msgSend_cppCellTractRef(v14, v37, v38, v39, v40);
+      objc_msgSend_cppCellTractRef(v12, v30, v31, v32);
     }
 
     else
     {
-      v61 = 0;
-      v60 = 0u;
-      memset(&v59, 0, sizeof(v59));
-      memset(&v58, 0, sizeof(v58));
+      v50 = 0;
+      v49 = 0u;
+      memset(&v48, 0, sizeof(v48));
+      memset(&v47, 0, sizeof(v47));
     }
 
-    v27 = objc_msgSend_initWithTableResolver_tractRefCore_(v41, v37, v36, &v58, v40);
-    TSUIndexSet::~TSUIndexSet(&v59);
-    TSUIndexSet::~TSUIndexSet(&v58);
-    v45 = [TSCEReferenceValue alloc];
-    v50 = objc_msgSend_containingCell(contextCopy, v46, v47, v48, v49);
-    *&v58 = objc_msgSend_preserveFlags(v14, v51, v52, v53, v54);
-    isOutputOfAFunction = objc_msgSend_initWithEvalRef_hostCell_preserveFlags_permitsAccessInsideMergeRegions_isOutputOfAFunction_(v45, v55, v27, v50, &v58, 0, 0);
+    v22 = objc_msgSend_initWithTableResolver_tractRefCore_(v33, v30, v29, &v47);
+    TSUIndexSet::~TSUIndexSet(&v48);
+    TSUIndexSet::~TSUIndexSet(&v47);
+    v36 = [TSCEReferenceValue alloc];
+    v40 = objc_msgSend_containingCell(contextCopy, v37, v38, v39);
+    *&v47 = objc_msgSend_preserveFlags(v12, v41, v42, v43);
+    isOutputOfAFunction = objc_msgSend_initWithEvalRef_hostCell_preserveFlags_permitsAccessInsideMergeRegions_isOutputOfAFunction_(v36, v44, v22, v40, &v47, 0, 0);
     goto LABEL_13;
   }
 
-  if (v63)
+  if (v52)
   {
 LABEL_5:
-    v27 = objc_msgSend_invalidReferenceError(TSCEError, v23, v24, v25, v26);
-    isOutputOfAFunction = objc_msgSend_errorValue_(TSCEErrorValue, v28, v27, v29, v30);
+    v22 = objc_msgSend_invalidReferenceError(TSCEError, v19, v20, v21);
+    isOutputOfAFunction = objc_msgSend_errorValue_(TSCEErrorValue, v23, v22, v24);
   }
 
   else
   {
-    v27 = objc_msgSend_referenceToNonexistentTableError_(TSCEError, v23, v62, *(&v62 + 1), v26);
-    isOutputOfAFunction = objc_msgSend_errorValue_(TSCEErrorValue, v42, v27, v43, v44);
+    v22 = objc_msgSend_referenceToNonexistentTableError_(TSCEError, v19, v51, *(&v51 + 1));
+    isOutputOfAFunction = objc_msgSend_errorValue_(TSCEErrorValue, v34, v22, v35);
   }
 
 LABEL_13:
-  v56 = isOutputOfAFunction;
+  v45 = isOutputOfAFunction;
 
-  return v56;
+  return v45;
 }
 
 @end

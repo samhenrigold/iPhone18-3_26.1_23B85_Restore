@@ -12,13 +12,17 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(UIView *)&v3 layoutSubviews];
+  v12.receiver = self;
+  v12.super_class = swift_getObjectType();
+  v2 = v12.receiver;
+  [(UIView *)&v12 layoutSubviews];
   [v2 bounds];
-  swift_getKeyPath();
-  sub_188DEDFE8();
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  KeyPath = swift_getKeyPath();
+  sub_188DEDFE8(KeyPath, v4, v6, v8, v10);
 }
 
 + (Class)layerClass
@@ -37,24 +41,24 @@
 
 - (void)_layerCornerRadiusDidChange:(double)change
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   selfCopy = self;
-  sub_18912BB88();
+  sub_18912BB88(KeyPath, change);
 }
 
 - (void)_layerCornerCurveDidChange:(id)change
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   changeCopy = change;
   selfCopy = self;
-  sub_18912BC24(changeCopy);
+  sub_18912BC24(changeCopy, KeyPath);
 }
 
 - (void)_layerMaskedCornersDidChange:(unint64_t)change
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   selfCopy = self;
-  sub_18912BCBC();
+  sub_18912BCBC(change, KeyPath);
 }
 
 - (_TtC5UIKit29_UIIntelligenceNoisyLightView)initWithFrame:(CGRect)frame

@@ -14,12 +14,12 @@
 
 - (TCSIDSIDStatusController)initWithItem:(id)item delegate:(id)delegate timeout:(double)timeout
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   delegateCopy = delegate;
-  v28.receiver = self;
-  v28.super_class = TCSIDSIDStatusController;
-  v11 = [(TCSIDSIDStatusController *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = TCSIDSIDStatusController;
+  v11 = [(TCSIDSIDStatusController *)&v27 init];
   v12 = v11;
   if (v11)
   {
@@ -34,45 +34,44 @@
     v12->_destinations = idsCanonicalDestinations;
 
     v12->_timeout = timeout;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v17 = v12->_destinations;
-    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v18 = [(NSArray *)v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(NSMutableDictionary *)v12->_destinationToStatus setObject:&unk_287F26668 forKeyedSubscript:*(*(&v24 + 1) + 8 * v21++), v24];
+          [(NSMutableDictionary *)v12->_destinationToStatus setObject:&unk_287F26668 forKeyedSubscript:*(*(&v23 + 1) + 8 * v21++), v23];
         }
 
         while (v19 != v21);
-        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v19 = [(NSArray *)v17 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v19);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)execute
 {
-  v21 = *MEMORY[0x277D85DE8];
-  _TCSInitializeLogging();
+  v20 = *MEMORY[0x277D85DE8];
+  _TCSInitializeLogging(self, a2);
   v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
@@ -81,7 +80,7 @@
     v6 = [(NSArray *)destinations componentsJoinedByString:@", "];
     v7 = TCSLogSafeDescription(v6);
     *buf = 138412290;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "IDS status query initiated for destinations: %@", buf, 0xCu);
   }
 
@@ -98,7 +97,7 @@
   handler[1] = 3221225472;
   handler[2] = __35__TCSIDSIDStatusController_execute__block_invoke;
   handler[3] = &unk_279DC1990;
-  objc_copyWeak(&v18, buf);
+  objc_copyWeak(&v17, buf);
   dispatch_source_set_event_handler(v12, handler);
   dispatch_resume(self->_timer);
   v13 = objc_alloc(MEMORY[0x277D186D8]);
@@ -107,9 +106,8 @@
   self->_queryController = v14;
 
   [(IDSBatchIDQueryController *)self->_queryController setDestinations:self->_destinations];
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __35__TCSIDSIDStatusController_execute__block_invoke(uint64_t a1)
@@ -146,7 +144,7 @@ void __35__TCSIDSIDStatusController_execute__block_invoke(uint64_t a1)
   delegate = [(TCSIDSIDStatusController *)self delegate];
   [delegate tinCanIDSIDSStatusControllerTimedOut:self];
 
-  _TCSInitializeLogging();
+  _TCSInitializeLogging(v6, v7);
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
   {
     [TCSIDSIDStatusController _statusQueryTimedOut];
@@ -155,36 +153,34 @@ void __35__TCSIDSIDStatusController_execute__block_invoke(uint64_t a1)
 
 - (NSNumber)status
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   destinationToStatus = [(TCSIDSIDStatusController *)self destinationToStatus];
-  v4 = [destinationToStatus countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [destinationToStatus countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v4)
   {
 
-LABEL_17:
-    result = &unk_287F266B0;
-    goto LABEL_22;
+    return &unk_287F266B0;
   }
 
   v5 = v4;
   v6 = 0;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  v7 = *v18;
+  v7 = *v17;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(destinationToStatus);
       }
 
-      v9 = *(*(&v17 + 1) + 8 * i);
+      v9 = *(*(&v16 + 1) + 8 * i);
       destinationToStatus2 = [(TCSIDSIDStatusController *)self destinationToStatus];
       v11 = [destinationToStatus2 objectForKeyedSubscript:v9];
       integerValue = [v11 integerValue];
@@ -192,43 +188,38 @@ LABEL_17:
       switch(integerValue)
       {
         case 17486201:
-          ++v16;
+          ++v15;
           break;
         case 1:
           ++v6;
           break;
         case 0:
-          ++v15;
+          ++v14;
           break;
       }
     }
 
-    v5 = [destinationToStatus countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [destinationToStatus countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v5);
 
-  if (!v6)
+  if (v6)
   {
-    if (v16)
-    {
-      result = &unk_287F26668;
-      goto LABEL_22;
-    }
-
-    if (v15)
-    {
-      result = &unk_287F26698;
-      goto LABEL_22;
-    }
-
-    goto LABEL_17;
+    return &unk_287F26680;
   }
 
-  result = &unk_287F26680;
-LABEL_22:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  if (v15)
+  {
+    return &unk_287F26668;
+  }
+
+  if (!v14)
+  {
+    return &unk_287F266B0;
+  }
+
+  return &unk_287F26698;
 }
 
 - (NSString)tinCanHandle
@@ -271,16 +262,17 @@ void __40__TCSIDSIDStatusController_tinCanHandle__block_invoke(uint64_t a1, void
 
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   serviceCopy = service;
   errorCopy = error;
   if ([statusCopy count])
   {
-    if ([@"com.apple.private.alloy.tincan.audio" isEqualToString:serviceCopy])
+    v13 = [@"com.apple.private.alloy.tincan.audio" isEqualToString:serviceCopy];
+    if (v13)
     {
-      _TCSInitializeLogging();
-      v12 = TCSLogDefault;
+      _TCSInitializeLogging(v13, v14);
+      v15 = TCSLogDefault;
       if (errorCopy)
       {
         if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
@@ -293,50 +285,50 @@ void __40__TCSIDSIDStatusController_tinCanHandle__block_invoke(uint64_t a1, void
       {
         if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = v12;
-          v14 = [objc_opt_class() stringForDestinationToStatus:statusCopy];
-          v15 = TCSLogSafeDescription(v14);
+          v16 = v15;
+          v17 = [objc_opt_class() stringForDestinationToStatus:statusCopy];
+          v18 = TCSLogSafeDescription(v17);
           *buf = 138412290;
-          v38 = v15;
-          _os_log_impl(&dword_26F110000, v13, OS_LOG_TYPE_DEFAULT, "IDS status query returned status update: %@", buf, 0xCu);
+          v40 = v18;
+          _os_log_impl(&dword_26F110000, v16, OS_LOG_TYPE_DEFAULT, "IDS status query returned status update: %@", buf, 0xCu);
         }
 
         status = [(TCSIDSIDStatusController *)self status];
-        v32 = 0u;
-        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v16 = statusCopy;
-        v17 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v17)
+        v36 = 0u;
+        v37 = 0u;
+        v19 = statusCopy;
+        v20 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        if (v20)
         {
-          v18 = v17;
-          v19 = *v33;
+          v21 = v20;
+          v22 = *v35;
           do
           {
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v21; ++i)
             {
-              if (*v33 != v19)
+              if (*v35 != v22)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v19);
               }
 
-              v21 = *(*(&v32 + 1) + 8 * i);
+              v24 = *(*(&v34 + 1) + 8 * i);
               destinationToStatus = [(TCSIDSIDStatusController *)self destinationToStatus];
-              v23 = [destinationToStatus objectForKeyedSubscript:v21];
+              v26 = [destinationToStatus objectForKeyedSubscript:v24];
 
-              if (v23)
+              if (v26)
               {
-                v24 = [v16 objectForKeyedSubscript:v21];
+                v27 = [v19 objectForKeyedSubscript:v24];
                 destinationToStatus2 = [(TCSIDSIDStatusController *)self destinationToStatus];
-                [destinationToStatus2 setObject:v24 forKeyedSubscript:v21];
+                [destinationToStatus2 setObject:v27 forKeyedSubscript:v24];
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
           }
 
-          while (v18);
+          while (v21);
         }
 
         status2 = [(TCSIDSIDStatusController *)self status];
@@ -351,7 +343,7 @@ void __40__TCSIDSIDStatusController_tinCanHandle__block_invoke(uint64_t a1, void
         if (timer)
         {
           dispatch_source_cancel(timer);
-          v29 = self->_timer;
+          v32 = self->_timer;
           self->_timer = 0;
         }
       }
@@ -359,7 +351,7 @@ void __40__TCSIDSIDStatusController_tinCanHandle__block_invoke(uint64_t a1, void
 
     else
     {
-      _TCSInitializeLogging();
+      _TCSInitializeLogging(v13, v14);
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
       {
         [TCSIDSIDStatusController batchQueryController:updatedDestinationsStatus:onService:error:];
@@ -369,14 +361,12 @@ void __40__TCSIDSIDStatusController_tinCanHandle__block_invoke(uint64_t a1, void
 
   else
   {
-    _TCSInitializeLogging();
+    _TCSInitializeLogging(0, v12);
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
       [TCSIDSIDStatusController batchQueryController:updatedDestinationsStatus:onService:error:];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 + (id)stringForDestinationToStatus:(id)status
@@ -434,22 +424,6 @@ void __57__TCSIDSIDStatusController_stringForDestinationToStatus___block_invoke(
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)batchQueryController:updatedDestinationsStatus:onService:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)batchQueryController:updatedDestinationsStatus:onService:error:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

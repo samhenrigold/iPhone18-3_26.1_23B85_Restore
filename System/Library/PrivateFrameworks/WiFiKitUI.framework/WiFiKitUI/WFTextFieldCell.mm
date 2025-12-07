@@ -17,6 +17,9 @@
 - (void)prepareForReuse;
 - (void)setAccessoryType:(int64_t)type;
 - (void)setEditable:(BOOL)editable;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
+- (void)setHideLabel:(BOOL)label;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)textFieldDidChange:(id)change;
 - (void)textFieldDidEndEditingExit:(id)exit;
 - (void)traitCollectionDidChange:(id)change;
@@ -184,6 +187,13 @@
   [trailingMarginConstraint setConstant:v7];
 }
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = WFTextFieldCell;
+  [(WFTextFieldCell *)&v4 setSelected:selected animated:animated];
+}
+
 - (void)setEditable:(BOOL)editable
 {
   if (self->_editable != editable)
@@ -225,6 +235,17 @@
   return becomeFirstResponder;
 }
 
+- (void)setHideLabel:(BOOL)label
+{
+  labelCopy = label;
+  self->_hideLabel = label;
+  labelWidthConstraint = [(WFTextFieldCell *)self labelWidthConstraint];
+  [labelWidthConstraint setActive:labelCopy ^ 1];
+
+  label = [(WFTextFieldCell *)self label];
+  [label setHidden:labelCopy];
+}
+
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
   if (sel_copy_ == action)
@@ -254,6 +275,23 @@
     generalPasteboard = [MEMORY[0x277D75810] generalPasteboard];
     [generalPasteboard setString:text2];
   }
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  editingCopy = editing;
+  v9.receiver = self;
+  v9.super_class = WFTextFieldCell;
+  [(WFTextFieldCell *)&v9 setEditing:editing animated:animated];
+  stackViewLeadingConstraint = [(WFTextFieldCell *)self stackViewLeadingConstraint];
+  v7 = stackViewLeadingConstraint;
+  v8 = 0.0;
+  if (editingCopy)
+  {
+    v8 = 8.0;
+  }
+
+  [stackViewLeadingConstraint setConstant:v8];
 }
 
 - (void)dealloc

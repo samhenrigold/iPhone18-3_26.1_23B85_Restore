@@ -5,13 +5,13 @@
 + (id)initWithObjects:(id *)objects forKeys:(id *)keys count:(unint64_t)count;
 + (id)initWithSearchStrategy:(id)strategy;
 - (BOOL)isEqualToDictionary:(id)dictionary;
+- (id)_recount;
 - (id)allKeys;
 - (id)allValues;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)keyEnumerator;
 - (id)objectEnumerator;
 - (id)objectForKey:(id)key;
-- (uint64_t)_recount;
 - (unint64_t)_countByEnumeratingWithState:(unint64_t)state objects:(unint64_t)objects count:(char)count forKeys:;
 - (unint64_t)count;
 - (void)_setValues:(id *)values retain:(BOOL)retain;
@@ -34,23 +34,23 @@
   count = self->_count;
   if (count < 0)
   {
-    [(NSKnownKeysDictionary1 *)self _recount];
+    [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
     return self->_count;
   }
 
   return count;
 }
 
-- (uint64_t)_recount
+- (id)_recount
 {
   if (result)
   {
     v1 = result;
-    result = [*(result + 16) length];
+    result = [result[2] length];
     v2 = 0;
     if (result)
     {
-      v3 = (v1 + 24);
+      v3 = v1 + 3;
       do
       {
         if (*v3++)
@@ -58,13 +58,13 @@
           ++v2;
         }
 
-        --result;
+        result = (result - 1);
       }
 
       while (result);
     }
 
-    *(v1 + 12) = v2;
+    *(v1 + 3) = v2;
   }
 
   return result;
@@ -145,7 +145,7 @@
 
 + (id)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"searchMapping"];
   v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"emptyToken"];
   v7 = [coder decodeObjectOfClasses:objc_msgSend(coder forKey:{"allowedClasses"), @"values"}];
@@ -168,7 +168,7 @@
     v13 = v5;
     v12[2] = v13;
     MEMORY[0x1EEE9AC00](v13);
-    v15 = &v24 - v14;
+    v15 = &v23 - v14;
     if (v8 >= 0x201)
     {
       v15 = NSAllocateScannedUncollectable();
@@ -177,18 +177,18 @@
 
     else
     {
-      bzero(&v24 - v14, v11);
+      bzero(&v23 - v14, v11);
       [v7 getObjects:v15 range:{0, v8}];
       if (!v8)
       {
         v16 = 0;
 LABEL_19:
         *(v12 + 3) = v16;
-        goto LABEL_20;
+        return v12;
       }
     }
 
-    v24 = &v24;
+    v23 = &v23;
     v16 = 0;
     v17 = v15;
     v18 = v12;
@@ -197,7 +197,7 @@ LABEL_19:
     do
     {
       v21 = *v17;
-      if (*v17 != v6 && ([*v17 isEqual:{v6, v24, v25}] & 1) == 0)
+      if (*v17 != v6 && ([*v17 isEqual:{v6, v23, v24}] & 1) == 0)
       {
         v19[3] = v21;
         ++v16;
@@ -220,10 +220,7 @@ LABEL_19:
 
   [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4864, &unk_1EF434FE0)}];
 
-  v12 = 0;
-LABEL_20:
-  v22 = *MEMORY[0x1E69E9840];
-  return v12;
+  return 0;
 }
 
 + (id)initWithSearchStrategy:(id)strategy
@@ -290,7 +287,7 @@ LABEL_20:
 + (id)initWithDictionary:(id)dictionary copyItems:(BOOL)items
 {
   itemsCopy = items;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = [dictionary count];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -367,7 +364,7 @@ LABEL_20:
         v17 = v16;
       }
 
-      v18 = v27 - ((8 * v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = v26 - ((8 * v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       v19 = 8 * v16;
       if (v6 >= 0x201)
       {
@@ -378,8 +375,8 @@ LABEL_20:
 
       else
       {
-        bzero(v27 - ((8 * v17 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v16);
-        v20 = v27 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+        bzero(v26 - ((8 * v17 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v16);
+        v20 = v26 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
         bzero(v20, v19);
         [dictionary getObjects:v18 andKeys:v20];
         if (!v6)
@@ -387,11 +384,11 @@ LABEL_20:
           v10 = 0;
 LABEL_34:
           v7[3] = v10;
-          goto LABEL_35;
+          return v7;
         }
       }
 
-      v27[1] = v27;
+      v26[1] = v26;
       v21 = 0;
       v10 = 0;
       do
@@ -428,14 +425,12 @@ LABEL_34:
     }
   }
 
-LABEL_35:
-  v25 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   [coder encodeInt32:1 forKey:@"version"];
   [coder encodeObject:self->_keySearch forKey:@"searchMapping"];
   v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:"__empty_slot_token_4c24_98dc_ac1e_b773__"];
@@ -462,7 +457,7 @@ LABEL_35:
     v9 = v8;
   }
 
-  v10 = v15 - ((8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v14 - ((8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (v6 >= 0x201)
   {
     v10 = NSAllocateScannedUncollectable();
@@ -470,7 +465,7 @@ LABEL_35:
 
   else
   {
-    bzero(v15 - ((8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v8);
+    bzero(v14 - ((8 * v9 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v8);
     if (!v7)
     {
       goto LABEL_15;
@@ -498,8 +493,6 @@ LABEL_15:
   {
     NSZoneFree(0, v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -534,7 +527,7 @@ LABEL_15:
     count = self->_count;
     if (count < 0)
     {
-      [(NSKnownKeysDictionary1 *)self _recount];
+      [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
       count = self->_count;
     }
 
@@ -547,7 +540,7 @@ LABEL_15:
     v10 = self->_count;
     if (v10 < 0)
     {
-      [(NSKnownKeysDictionary1 *)self _recount];
+      [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
       v10 = self->_count;
     }
 
@@ -679,7 +672,7 @@ LABEL_15:
       count = self->_count;
       if (count < 0)
       {
-        [(NSKnownKeysDictionary1 *)self _recount];
+        [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
         count = self->_count;
       }
 
@@ -695,10 +688,8 @@ LABEL_15:
   v7 = _PFRawIndexForKnownKey(&self->_keySearch->super.isa, key);
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E696AA00];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The key '%@' is not defined for this NSKnownKeysDictionary", key];
-    objc_exception_throw([v13 exceptionWithName:v14 reason:v15 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", self, @"NSTargetObjectUserInfoKey", key, @"NSUnknownUserInfoKey", 0)}]);
+    v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696AA00] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{key), objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", self, @"NSTargetObjectUserInfoKey", key, @"NSUnknownUserInfoKey", 0)}];
+    objc_exception_throw(v13);
   }
 
   v8 = v7;
@@ -709,7 +700,7 @@ LABEL_15:
     count = self->_count;
     if (count < 0)
     {
-      [(NSKnownKeysDictionary1 *)self _recount];
+      [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
       count = self->_count;
     }
 
@@ -722,7 +713,7 @@ LABEL_15:
     v12 = self->_count;
     if (v12 < 0)
     {
-      [(NSKnownKeysDictionary1 *)self _recount];
+      [(NSKnownKeysDictionary1 *)&self->super.super.super.super.isa _recount];
       v12 = self->_count;
     }
 
@@ -844,7 +835,7 @@ LABEL_15:
 
 - (void)addEntriesFromDictionary:(id)dictionary
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v5 = [dictionary count];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(dictionary "mapping")])
@@ -887,7 +878,7 @@ LABEL_15:
       v12 = v11;
     }
 
-    v13 = v22 - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = v19 - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0);
     v14 = 8 * v11;
     if (v5 >= 0x201)
     {
@@ -898,13 +889,13 @@ LABEL_15:
 
     else
     {
-      bzero(v22 - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v11);
-      v15 = v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v19 - ((8 * v12 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v11);
+      v15 = v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v15, v14);
       [dictionary getObjects:v13 andKeys:v15];
       if (!v5)
       {
-        goto LABEL_24;
+        return;
       }
     }
 
@@ -913,10 +904,8 @@ LABEL_15:
       v17 = _PFRawIndexForKnownKey(mapping, *&v15[8 * j]);
       if (v17 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v19 = MEMORY[0x1E695DF30];
-        v20 = *MEMORY[0x1E696AA00];
-        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The key '%@' is not defined for this NSKnownKeysDictionary", *&v15[8 * j]];
-        objc_exception_throw([v19 exceptionWithName:v20 reason:v21 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", self, @"NSTargetObjectUserInfoKey", *&v15[8 * j], @"NSUnknownUserInfoKey", 0)}]);
+        v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696AA00] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{*&v15[8 * j]), objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjectsAndKeys:", self, @"NSTargetObjectUserInfoKey", *&v15[8 * j], @"NSUnknownUserInfoKey", 0)}];
+        objc_exception_throw(v18);
       }
 
       [(NSKnownKeysDictionary1 *)self setValue:*&v13[8 * j] atIndex:v17];
@@ -928,9 +917,6 @@ LABEL_15:
       NSZoneFree(0, v15);
     }
   }
-
-LABEL_24:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllObjects

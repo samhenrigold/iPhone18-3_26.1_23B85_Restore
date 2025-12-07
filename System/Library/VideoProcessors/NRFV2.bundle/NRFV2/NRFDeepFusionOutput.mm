@@ -1,5 +1,4 @@
 @interface NRFDeepFusionOutput
-- (__n128)refFrameTransform;
 - (__n128)setRefFrameTransform:(__n128)transform;
 - (void)dealloc;
 @end
@@ -20,14 +19,6 @@
   v3.receiver = self;
   v3.super_class = NRFDeepFusionOutput;
   [(NRFDeepFusionOutput *)&v3 dealloc];
-}
-
-- (__n128)refFrameTransform
-{
-  result = *(self + 176);
-  v2 = *(self + 192);
-  v3 = *(self + 208);
-  return result;
 }
 
 - (__n128)setRefFrameTransform:(__n128)transform

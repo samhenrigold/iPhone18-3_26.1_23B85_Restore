@@ -41,21 +41,20 @@
 
 - (SPDelegatedLocationResult)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lastUploadTimestamp"];
   [(SPDelegatedLocationResult *)self setLastUploadTimestamp:v5];
 
   v6 = MEMORY[0x277CBEB98];
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:3];
-  v8 = [v6 setWithArray:{v7, v12, v13}];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:3];
+  v8 = [v6 setWithArray:{v7, v11, v12}];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"locationsByUuids"];
 
   [(SPDelegatedLocationResult *)self setLocationsByUuids:v9];
-  v10 = *MEMORY[0x277D85DE8];
   return self;
 }
 

@@ -39,7 +39,7 @@ uint64_t __44__BMResourceContainerManager_sharedInstance__block_invoke()
 
 - (id)openContainerForResource:(id)resource mode:(unint64_t)mode error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   v9 = +[BMPersonaUtilities currentPersonaIdentifierLoggingDescription];
   v10 = __biome_log_for_category(6);
@@ -58,13 +58,13 @@ uint64_t __44__BMResourceContainerManager_sharedInstance__block_invoke()
     }
 
     *buf = 138413058;
-    v25 = v11;
-    v26 = 2112;
-    v27 = resourceCopy;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = v13;
+    v24 = v11;
+    v25 = 2112;
+    v26 = resourceCopy;
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = v13;
     _os_log_impl(&dword_1AC15D000, v10, OS_LOG_TYPE_DEFAULT, "%@ received container request for resource: %@ with access mode: %@%@", buf, 0x2Au);
     if (v9)
     {
@@ -79,9 +79,9 @@ uint64_t __44__BMResourceContainerManager_sharedInstance__block_invoke()
     v17 = v16;
     v18 = BMResourceContainerTypeDescription(v14);
     *buf = 138412546;
-    v25 = v16;
-    v26 = 2112;
-    v27 = v18;
+    v24 = v16;
+    v25 = 2112;
+    v26 = v18;
     _os_log_impl(&dword_1AC15D000, v15, OS_LOG_TYPE_DEFAULT, "%@ routing request to %@ container", buf, 0x16u);
   }
 
@@ -102,8 +102,8 @@ LABEL_16:
 
   if (error)
   {
-    v23 = __biome_log_for_category(6);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = __biome_log_for_category(6);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [BMResourceContainerManager openContainerForResource:v14 mode:? error:?];
     }
@@ -118,8 +118,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -139,39 +137,37 @@ LABEL_17:
 - (id)_enforceCurrentPersonaIsUserPersona:(id *)persona
 {
   v15[1] = *MEMORY[0x1E69E9840];
-  v4 = +[BMPersonaUtilities currentPersonaIdentifier];
-  if ([BMPersonaUtilities isUserPersonaIdentifier:v4])
+  v5 = +[BMPersonaUtilities currentPersonaIdentifier];
+  if ([BMPersonaUtilities isUserPersonaIdentifier:v5])
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v6 = MEMORY[0x1E696AEC0];
-    v7 = +[BMPersonaUtilities currentPersonaIdentifierLoggingDescription];
-    v8 = [v6 stringWithFormat:@"Cannot lookup persona-based container with non-user persona: %@", v7];
+    v7 = MEMORY[0x1E696AEC0];
+    v8 = +[BMPersonaUtilities currentPersonaIdentifierLoggingDescription];
+    v9 = [v7 stringWithFormat:@"Cannot lookup persona-based container with non-user persona: %@", v8];
 
-    v9 = __biome_log_for_category(6);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __biome_log_for_category(6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [BMResourceContainerManager _enforceCurrentPersonaIsUserPersona:];
+      [(BMResourceContainerManager *)self _enforceCurrentPersonaIsUserPersona:v9];
     }
 
     if (persona)
     {
-      v10 = MEMORY[0x1E696ABC0];
+      v11 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E696A278];
-      v15[0] = v8;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-      *persona = [v10 errorWithDomain:@"BMAccessErrorDomain" code:10 userInfo:v11];
+      v15[0] = v9;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      *persona = [v11 errorWithDomain:@"BMAccessErrorDomain" code:10 userInfo:v12];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 - (id)descriptorsFromConfigurationForSetResource:(id)resource
@@ -200,21 +196,24 @@ LABEL_17:
 
 - (void)openContainerForResource:(uint64_t)a1 mode:(unsigned __int8)a2 error:.cold.1(uint64_t a1, unsigned __int8 a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v11 = BMResourceContainerTypeDescription(a2);
-  OUTLINED_FUNCTION_0_2(&dword_1AC15D000, v4, v5, "%@ Unexpected route: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = v3;
+  v5 = BMResourceContainerTypeDescription(a2);
+  *v12 = 138412546;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_0_2(&dword_1AC15D000, v6, v7, "%@ Unexpected route: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
-- (void)_enforceCurrentPersonaIsUserPersona:.cold.1()
+- (void)_enforceCurrentPersonaIsUserPersona:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_2(&dword_1AC15D000, v1, v2, "%@ %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  *v10 = 138412546;
+  *&v10[4] = objc_opt_class();
+  *&v10[12] = 2112;
+  *&v10[14] = a2;
+  v3 = *&v10[4];
+  OUTLINED_FUNCTION_0_2(&dword_1AC15D000, v4, v5, "%@ %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

@@ -9,7 +9,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   uTF8String = [(NSString *)self->_accountID UTF8String];
   if (uTF8String)
@@ -21,7 +21,7 @@
   if (bluetoothIdentifier)
   {
     *uuid = 0;
-    v33 = 0;
+    v32 = 0;
     v7 = objectCopy;
     [(NSUUID *)bluetoothIdentifier getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v7, "btID", uuid);
@@ -94,12 +94,11 @@
   {
     xpc_dictionary_set_int64(v28, "idTy", type);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)descriptionWithLevel:(int)level
 {
+  v45 = 0;
   type = self->_type;
   if (type > 7)
   {
@@ -111,12 +110,11 @@
     v6 = off_1E811DF58[type];
   }
 
-  v30 = v6;
-  NSAppendPrintF_safe();
-  v7 = 0;
+  NSAppendPrintF_safe(&v45, "CBDeviceIdentity %s", v6);
+  v7 = v45;
   v8 = self->_identifier;
   v9 = self->_idsDeviceID;
-  if (([(NSString *)v9 isEqual:v8, v30]& 1) != 0)
+  if (([(NSString *)v9 isEqual:v8]& 1) != 0)
   {
     v10 = v8;
     v8 = 0;
@@ -129,8 +127,9 @@
       goto LABEL_9;
     }
 
-    NSAppendPrintF_safe();
-    v11 = v7;
+    v44 = v7;
+    NSAppendPrintF_safe(&v44, ", ID %@", v8);
+    v11 = v44;
     v10 = v7;
     v7 = v11;
   }
@@ -138,8 +137,9 @@
 LABEL_9:
   if (v9)
   {
-    NSAppendPrintF_safe();
-    v12 = v7;
+    v43 = v7;
+    NSAppendPrintF_safe(&v43, ", IDS %@", v9);
+    v12 = v43;
 
     v7 = v12;
   }
@@ -147,74 +147,81 @@ LABEL_9:
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier)
   {
+    v42 = v7;
     v14 = bluetoothIdentifier;
     uUIDString = [(NSUUID *)v14 UUIDString];
-    NSAppendPrintF_safe();
-    v15 = v7;
+    NSAppendPrintF_safe(&v42, ", BT %@", uUIDString);
+    v16 = v42;
 
-    v7 = v15;
+    v7 = v16;
   }
 
   name = self->_name;
   if (name)
   {
-    v32 = name;
-    NSAppendPrintF_safe();
-    v17 = v7;
+    v41 = v7;
+    v18 = name;
+    NSAppendPrintF_safe(&v41, ", Nm '%@'", v18);
+    v19 = v41;
 
-    v7 = v17;
+    v7 = v19;
   }
 
   model = self->_model;
   if (model)
   {
-    v33 = model;
-    NSAppendPrintF_safe();
-    v19 = v7;
+    v40 = v7;
+    v21 = model;
+    NSAppendPrintF_safe(&v40, ", Md '%@'", v21);
+    v22 = v40;
 
-    v7 = v19;
+    v7 = v22;
   }
 
   accountID = self->_accountID;
   if (accountID)
   {
-    v34 = accountID;
-    NSAppendPrintF_safe();
-    v21 = v7;
+    v39 = v7;
+    v24 = accountID;
+    NSAppendPrintF_safe(&v39, ", AcID '%@'", v24);
+    v25 = v39;
 
-    v7 = v21;
+    v7 = v25;
   }
 
   contactID = self->_contactID;
   if (contactID)
   {
-    v35 = contactID;
-    NSAppendPrintF_safe();
-    v23 = v7;
+    v38 = v7;
+    v27 = contactID;
+    NSAppendPrintF_safe(&v38, ", CnID '%@'", v27);
+    v28 = v38;
 
-    v7 = v23;
+    v7 = v28;
   }
 
   irkData = self->_irkData;
   if (irkData)
   {
-    v25 = irkData;
-    v36 = CUPrintNSObjectMasked();
-    NSAppendPrintF_safe();
-    v26 = v7;
+    v37 = v7;
+    v30 = irkData;
+    v31 = CUPrintNSObjectMasked();
+    NSAppendPrintF_safe(&v37, ", IRK %@", v31);
+    v32 = v37;
 
-    v7 = v26;
+    v7 = v32;
   }
 
   if (level <= 20)
   {
-    NSAppendPrintF_safe();
-    v27 = v7;
+    v36 = v7;
+    NSAppendPrintF_safe(&v36, "\n");
+    v33 = v36;
 
-    v7 = v27;
+    v7 = v33;
   }
 
-  v28 = v7;
+  v34 = v7;
 
   return v7;
 }

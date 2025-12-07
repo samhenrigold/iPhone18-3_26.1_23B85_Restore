@@ -401,7 +401,7 @@ void __50__LUILogFilterViewController__updatePredicateText__block_invoke(id *a1)
   }
 }
 
-void __50__LUILogFilterViewController__updatePredicateText__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __50__LUILogFilterViewController__updatePredicateText__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = *(a1 + 56);
   v6 = *(a1 + 32);
@@ -415,7 +415,7 @@ void __50__LUILogFilterViewController__updatePredicateText__block_invoke_2(uint6
 
   v11 = *(a1 + 32);
   v12 = MEMORY[0x277CCACA8];
-  if ([*(a1 + 48) count] - 1 == a3)
+  if (([*(a1 + 48) count] - 1) == a3)
   {
     v13 = &stru_28683EB38;
   }

@@ -40,27 +40,27 @@ void __45__UAFManagedSubscriptions_getConcurrentQueue__block_invoke()
 
 + (id)getExistingSubscription:(id)subscription subscriber:(id)subscriber
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   [UAFAssetSetManager getSubscriptions:subscriber storeManager:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = v17 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:subscriptionCopy];
 
@@ -71,7 +71,7 @@ void __45__UAFManagedSubscriptions_getConcurrentQueue__block_invoke()
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -83,14 +83,12 @@ void __45__UAFManagedSubscriptions_getConcurrentQueue__block_invoke()
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)validateUsageAlias:(id)alias usageAliasValue:(id)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
   valueCopy = value;
   if (valueCopy)
@@ -112,11 +110,11 @@ LABEL_11:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "+[UAFManagedSubscriptions validateUsageAlias:usageAliasValue:]";
-        v24 = 2114;
-        v25 = aliasCopy;
-        v26 = 2114;
-        v27 = valueCopy;
+        v22 = "+[UAFManagedSubscriptions validateUsageAlias:usageAliasValue:]";
+        v23 = 2114;
+        v24 = aliasCopy;
+        v25 = 2114;
+        v26 = valueCopy;
         _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Loading deprecated values to process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
       }
 
@@ -135,9 +133,9 @@ LABEL_11:
 
     if (v15)
     {
-      v20 = aliasCopy;
-      v21 = valueCopy;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = aliasCopy;
+      v20 = valueCopy;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     }
 
     else
@@ -147,11 +145,11 @@ LABEL_9:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "+[UAFManagedSubscriptions validateUsageAlias:usageAliasValue:]";
-        v24 = 2114;
-        v25 = valueCopy;
-        v26 = 2114;
-        v27 = aliasCopy;
+        v22 = "+[UAFManagedSubscriptions validateUsageAlias:usageAliasValue:]";
+        v23 = 2114;
+        v24 = valueCopy;
+        v25 = 2114;
+        v26 = aliasCopy;
         _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s Usage Alias Value %{public}@ for Usage Alias %{public}@ does not exist, treating value as nil", buf, 0x20u);
       }
 
@@ -163,8 +161,6 @@ LABEL_9:
   {
     v16 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -189,7 +185,7 @@ LABEL_9:
 {
   initiatedCopy = initiated;
   holdCopy = hold;
-  v60[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   subscriberCopy = subscriber;
   setsCopy = sets;
@@ -198,7 +194,7 @@ LABEL_9:
   v18 = v17;
   if (setsCopy | aliasesCopy)
   {
-    v40 = initiatedCopy;
+    v39 = initiatedCopy;
     v25 = [[UAFAssetSetSubscription alloc] initWithName:subscriptionCopy assetSets:setsCopy usageAliases:aliasesCopy];
     v26 = [(UAFAssetSetSubscription *)v25 isEqual:v18];
     v27 = UAFGetLogCategory(&UAFLogContextSubscription);
@@ -209,11 +205,11 @@ LABEL_9:
       {
         name = [(UAFAssetSetSubscription *)v25 name];
         *buf = 136315650;
-        v50 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
-        v51 = 2114;
-        v52 = name;
-        v53 = 2114;
-        v54 = subscriberCopy;
+        v49 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
+        v50 = 2114;
+        v51 = name;
+        v52 = 2114;
+        v53 = subscriberCopy;
         _os_log_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_DEFAULT, "%s Not updating subscription %{public}@ for subscriber %{public}@ as it is up to date", buf, 0x20u);
       }
     }
@@ -224,26 +220,26 @@ LABEL_9:
       {
         name2 = [(UAFAssetSetSubscription *)v25 name];
         *buf = 136316162;
-        v50 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
-        v51 = 2114;
-        v52 = name2;
-        v53 = 2114;
-        v54 = subscriberCopy;
-        v55 = 2114;
-        v56 = v25;
-        v57 = 2114;
-        v58 = v18;
+        v49 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
+        v50 = 2114;
+        v51 = name2;
+        v52 = 2114;
+        v53 = subscriberCopy;
+        v54 = 2114;
+        v55 = v25;
+        v56 = 2114;
+        v57 = v18;
         _os_log_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_DEFAULT, "%s Updating subscription %{public}@ for subscriber %{public}@ as it is not up to date: %{public}@ != %{public}@", buf, 0x34u);
       }
 
       v27 = [UAFManagedSubscriptions createHoldSubscription:v18];
-      v48 = v25;
-      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+      v47 = v25;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
       if (v18 && v27)
       {
-        v47[0] = v25;
-        v47[1] = v27;
-        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+        v46[0] = v25;
+        v46[1] = v27;
+        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
 
         v31 = v32;
       }
@@ -251,13 +247,13 @@ LABEL_9:
       v33 = dispatch_group_create();
       dispatch_group_enter(v33);
       v34 = +[UAFAssetSetManager sharedManager];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_362;
-      v41[3] = &unk_1E7FFD5D0;
-      v42 = v33;
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_362;
+      v40[3] = &unk_1E7FFD5D0;
+      v41 = v33;
       v35 = v33;
-      [v34 subscribe:subscriberCopy subscriptions:v31 user:0 userInitiated:v40 queue:0 completion:v41];
+      [v34 subscribe:subscriberCopy subscriptions:v31 user:0 userInitiated:v39 queue:0 completion:v40];
 
       dispatch_group_wait(v35, 0xFFFFFFFFFFFFFFFFLL);
     }
@@ -279,18 +275,18 @@ LABEL_9:
       {
         dispatch_group_enter(v19);
         v21 = +[UAFAssetSetManager sharedManager];
-        v60[0] = v20;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke;
-        v45[3] = &unk_1E7FFD5D0;
+        v59[0] = v20;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke;
+        v44[3] = &unk_1E7FFD5D0;
         v23 = v19;
-        v46 = v23;
-        [v21 subscribe:subscriberCopy subscriptions:v22 user:0 userInitiated:0 queue:0 completion:v45];
+        v45 = v23;
+        [v21 subscribe:subscriberCopy subscriptions:v22 user:0 userInitiated:0 queue:0 completion:v44];
 
         dispatch_group_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-        v24 = v46;
+        v24 = v45;
       }
 
       else
@@ -299,7 +295,7 @@ LABEL_9:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v50 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
+          v49 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]";
           _os_log_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_DEFAULT, "%s Not creating hold subscription, as hold sub unexpectedly nil", buf, 0xCu);
         }
       }
@@ -307,29 +303,28 @@ LABEL_9:
 
     dispatch_group_enter(v19);
     v36 = +[UAFAssetSetManager sharedManager];
-    v59 = subscriptionCopy;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_361;
-    v43[3] = &unk_1E7FFD5D0;
-    v44 = v19;
+    v58 = subscriptionCopy;
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_361;
+    v42[3] = &unk_1E7FFD5D0;
+    v43 = v19;
     v27 = v19;
-    [v36 unsubscribe:subscriberCopy subscriptionNames:v37 user:0 userInitiated:0 queue:0 completion:v43];
+    [v36 unsubscribe:subscriberCopy subscriptionNames:v37 user:0 userInitiated:0 queue:0 completion:v42];
 
     dispatch_group_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
     v25 = 0;
   }
 
 LABEL_21:
-  v38 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   dispatch_group_leave(*(a1 + 32));
   if (v3)
@@ -337,20 +332,18 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
     v4 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at creating hold subscription: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at creating hold subscription: %@", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_361(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   dispatch_group_leave(*(a1 + 32));
   if (v3)
@@ -358,20 +351,18 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
     v4 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at unsubscribing: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at unsubscribing: %@", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usageAliases_useHold_userInitiated___block_invoke_362(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   dispatch_group_leave(*(a1 + 32));
   if (v3)
@@ -379,20 +370,18 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
     v4 = UAFGetLogCategory(&UAFLogContextSubscription);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at subscribing: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[UAFManagedSubscriptions manageSubscription:subscriber:assetSets:usageAliases:useHold:userInitiated:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_error_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_ERROR, "%s Failed at subscribing: %@", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)morphunUsagesForLocale:(id)locale
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   if (localeCopy && ([getMorphunAssetsClass() isLocaleEmbedded:localeCopy] & 1) == 0 && objc_msgSend(getMorphunAssetsClass(), "isLocaleDownloadSupported:", localeCopy))
   {
@@ -400,12 +389,12 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
     if ([v4 hasPrefix:@"com.apple.siri.nl.morphun."])
     {
       v5 = [v4 substringFromIndex:{objc_msgSend(@"com.apple.siri.nl.morphun.", "length")}];
-      v11 = v5;
-      v12 = @"com.apple.siri.understanding";
-      v10 = @"morphun.language";
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-      v13[0] = v6;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v10 = v5;
+      v11 = @"com.apple.siri.understanding";
+      v9 = @"morphun.language";
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+      v12[0] = v6;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     }
 
     else
@@ -418,8 +407,6 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -439,7 +426,7 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
 
 + (void)manageAssistantSubscription:(id)subscription withMode:(unint64_t)mode
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   v6 = [UAFManagedSubscriptions _assistantUsageAliasForMode:mode];
   v7 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:subscriptionCopy];
@@ -450,7 +437,7 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "+[UAFManagedSubscriptions manageAssistantSubscription:withMode:]";
+    v24 = "+[UAFManagedSubscriptions manageAssistantSubscription:withMode:]";
     _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Emitting Siri subscription change AIR event", buf, 0xCu);
   }
 
@@ -459,58 +446,55 @@ void __102__UAFManagedSubscriptions_manageSubscription_subscriber_assetSets_usag
   block[1] = 3221225472;
   block[2] = __64__UAFManagedSubscriptions_manageAssistantSubscription_withMode___block_invoke;
   block[3] = &unk_1E7FFE900;
-  v19 = v10;
-  v20 = subscriptionCopy;
-  v22 = v9;
+  v18 = v10;
+  v19 = subscriptionCopy;
+  v21 = v9;
   modeCopy = mode;
-  v21 = v8;
+  v20 = v8;
   v13 = v9;
   v14 = v8;
   v15 = subscriptionCopy;
   v16 = v10;
   dispatch_async(v12, block);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__UAFManagedSubscriptions_manageAssistantSubscription_withMode___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = getuid();
-  v4 = a1[8];
-  v5 = a1[5];
+  v4 = a1[5];
   if (!a1[6])
   {
     if (a1[7])
     {
-      v7 = v5 == 0;
+      v6 = v4 == 0;
     }
 
     else
     {
-      v7 = 1;
+      v6 = 1;
     }
 
-    if (!v7)
+    if (!v6)
     {
       goto LABEL_3;
     }
 
 LABEL_9:
-    v6 = 1;
+    v5 = 1;
     goto LABEL_10;
   }
 
-  if (!v5)
+  if (!v4)
   {
     goto LABEL_9;
   }
 
 LABEL_3:
-  v6 = a1[4] == 0;
+  v5 = a1[4] == 0;
 LABEL_10:
-  LOBYTE(v9) = v6;
-  return [UAFInstrumentationProvider logSiriSubscription:"logSiriSubscription:subscriber:subscription:userId:locale:mode:unsubscribed:" subscriber:@"language" subscription:@"com.apple.siri.assistant" userId:v2 locale:v3 mode:v9 unsubscribed:?];
+  LOBYTE(v8) = v5;
+  return [UAFInstrumentationProvider logSiriSubscription:"logSiriSubscription:subscriber:subscription:userId:locale:mode:unsubscribed:" subscriber:@"language" subscription:@"com.apple.siri.assistant" userId:v2 locale:v3 mode:v8 unsubscribed:?];
 }
 
 + (void)manageNLSystemLanguageSubscription:(id)subscription
@@ -538,19 +522,19 @@ LABEL_10:
 
 + (void)_stageAssetsUponPlatformAssetSetUpdate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextMAConfig);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "+[UAFManagedSubscriptions _stageAssetsUponPlatformAssetSetUpdate]";
+    v9 = "+[UAFManagedSubscriptions _stageAssetsUponPlatformAssetSetUpdate]";
     _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Staging assets due to receiving MA notification for platform assets", buf, 0xCu);
   }
 
   v3 = +[UAFSubscriptionStoreManager defaultManager];
-  v8 = 0;
-  v4 = [v3 getAllSubscriptions:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v3 getAllSubscriptions:&v7];
+  v5 = v7;
 
   if (v5)
   {
@@ -558,9 +542,9 @@ LABEL_10:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "+[UAFManagedSubscriptions _stageAssetsUponPlatformAssetSetUpdate]";
-      v11 = 2114;
-      v12 = v5;
+      v9 = "+[UAFManagedSubscriptions _stageAssetsUponPlatformAssetSetUpdate]";
+      v10 = 2114;
+      v11 = v5;
       _os_log_error_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_ERROR, "%s Failed to get all subscriptions due to error: %{public}@. Stopping staging", buf, 0x16u);
     }
   }
@@ -570,28 +554,26 @@ LABEL_10:
     v6 = [UAFSubscriptionStoreManager flattenSubscriptions:v4];
     [UAFAutoAssetManager stageAssetsWithNewSubscriptions:v6 oldSubscriptions:0 knownAutoAssetSets:0 usedAutoAssetSets:0 autoAssetSets:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)managePlatformSubscription
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v2 = +[UAFAssetSetManager sharedManager];
   v3 = +[UAFAutoAssetManager getSerialQueue];
   v4 = [v2 observeAssetSet:@"com.apple.siri.uaf.platform" queue:v3 handler:&__block_literal_global_368];
 
-  v23 = @"com.apple.siri.uaf.platform";
-  v24[0] = MEMORY[0x1E695E0F8];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v22 = @"com.apple.siri.uaf.platform";
+  v23[0] = MEMORY[0x1E695E0F8];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v6 = [[UAFAssetSetSubscription alloc] initWithName:@"platform" assetSets:v5 usageAliases:0 expires:0];
-  v17 = 0;
-  v7 = [UAFUser systemUserWithNode:0 error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [UAFUser systemUserWithNode:0 error:&v16];
+  v8 = v16;
   if (v7)
   {
-    v18 = v6;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = v6;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v10 = [UAFAssetSetManager subscribe:@"com.apple.siri.uaf" subscriptions:v9 user:v7 storeManager:0 configurationManager:0 userInitiated:0];
 
     if (v10)
@@ -603,7 +585,7 @@ LABEL_10:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "+[UAFManagedSubscriptions managePlatformSubscription]";
+      v19 = "+[UAFManagedSubscriptions managePlatformSubscription]";
       v12 = "%s Could not create platform asset subscription";
       v13 = v11;
       v14 = 12;
@@ -618,9 +600,9 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "+[UAFManagedSubscriptions managePlatformSubscription]";
-      v21 = 2114;
-      v22 = v8;
+      v19 = "+[UAFManagedSubscriptions managePlatformSubscription]";
+      v20 = 2114;
+      v21 = v8;
       v12 = "%s Could not determine system user, failing to create platform subscription: %{public}@";
       v13 = v11;
       v14 = 22;
@@ -629,7 +611,6 @@ LABEL_11:
   }
 
 LABEL_7:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -659,22 +640,20 @@ uint64_t __64__UAFManagedSubscriptions__deviceSupportsGenerativeModelSystems__bl
 
 + (void)manageSummarizationKitSubscription
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   if (+[UAFManagedSubscriptions _deviceSupportsGenerativeModelSystems])
   {
-    v5 = @"com.apple.summarizationkit";
-    v6[0] = MEMORY[0x1E695E0F8];
-    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = @"com.apple.summarizationkit";
+    v5[0] = MEMORY[0x1E695E0F8];
+    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
     v3 = [UAFManagedSubscriptions manageSubscription:@"configuration" subscriber:@"com.apple.summarizationkit" assetSets:v2 usageAliases:0 useHold:1 userInitiated:1];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)manageGMSSiriLanguageSubscription:(BOOL)subscription language:(id)language mode:(unint64_t)mode
 {
   subscriptionCopy = subscription;
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   v8 = [UAFManagedSubscriptions _assistantUsageAliasForMode:mode];
   if (subscriptionCopy)
@@ -695,14 +674,12 @@ uint64_t __64__UAFManagedSubscriptions__deviceSupportsGenerativeModelSystems__bl
   if (v12)
   {
     v13 = +[UAFConfigurationManager defaultManager];
-    v18[0] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     v15 = [v13 applySubscriptions:v14];
 
     allKeys = [v15 allKeys];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

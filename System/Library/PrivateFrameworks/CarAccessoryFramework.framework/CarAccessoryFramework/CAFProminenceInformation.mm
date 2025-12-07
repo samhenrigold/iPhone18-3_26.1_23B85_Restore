@@ -110,17 +110,17 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v14[5] = *MEMORY[0x277D85DE8];
-  v13[0] = @"color";
+  v13[5] = *MEMORY[0x277D85DE8];
+  v12[0] = @"color";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFProminenceInformation color](self, "color")}];
-  v14[0] = v3;
-  v13[1] = @"prominenceLevel";
+  v13[0] = v3;
+  v12[1] = @"prominenceLevel";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[CAFProminenceInformation prominenceLevel](self, "prominenceLevel")}];
-  v14[1] = v4;
-  v13[2] = @"sortOrder";
+  v13[1] = v4;
+  v12[2] = @"sortOrder";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFProminenceInformation sortOrder](self, "sortOrder")}];
-  v14[2] = v5;
-  v13[3] = @"userVisibleLabel";
+  v13[2] = v5;
+  v12[3] = @"userVisibleLabel";
   userVisibleLabel = [(CAFProminenceInformation *)self userVisibleLabel];
   null = userVisibleLabel;
   if (!userVisibleLabel)
@@ -128,8 +128,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v14[3] = null;
-  v13[4] = @"userVisibleValue";
+  v13[3] = null;
+  v12[4] = @"userVisibleValue";
   userVisibleValue = [(CAFProminenceInformation *)self userVisibleValue];
   null2 = userVisibleValue;
   if (!userVisibleValue)
@@ -137,8 +137,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v14[4] = null2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
+  v13[4] = null2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
   if (!userVisibleValue)
   {
   }
@@ -146,8 +146,6 @@
   if (!userVisibleLabel)
   {
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

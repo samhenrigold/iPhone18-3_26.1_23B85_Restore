@@ -99,7 +99,7 @@ void __52__LAPSPasscodeChangeController_startWithCompletion___block_invoke(uint6
 
 - (void)_notifyCompletionWithPasscode:(id)passcode error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   passcodeCopy = passcode;
   errorCopy = error;
   v8 = self->_handler == 0;
@@ -129,22 +129,20 @@ void __52__LAPSPasscodeChangeController_startWithCompletion___block_invoke(uint6
     self->_handler = 0;
 
     objc_initWeak(buf, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___block_invoke;
-    v14[3] = &unk_278A66180;
-    objc_copyWeak(&v18, buf);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___block_invoke;
+    v13[3] = &unk_278A66180;
+    objc_copyWeak(&v17, buf);
     v9 = v11;
-    v17 = v9;
-    v15 = passcodeCopy;
-    v16 = errorCopy;
-    [(LAPSPasscodeChangeController *)self _presentErrorIfNeed:v16 completion:v14];
+    v16 = v9;
+    v14 = passcodeCopy;
+    v15 = errorCopy;
+    [(LAPSPasscodeChangeController *)self _presentErrorIfNeed:v15 completion:v13];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___block_invoke(id *a1)
@@ -155,23 +153,21 @@ void __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___bl
   {
     if ([WeakRetained[4] dismissUIAfterCompletion])
     {
-      v4 = a1[5];
-      v5 = a1[4];
       (*(a1[6] + 2))();
       [v3[2] deactivateWithCompletion:&__block_literal_global_7];
     }
 
     else
     {
-      v6 = v3[2];
-      v7[0] = MEMORY[0x277D85DD0];
-      v7[1] = 3221225472;
-      v7[2] = __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___block_invoke_3;
-      v7[3] = &unk_278A66158;
-      v10 = a1[6];
-      v8 = a1[4];
-      v9 = a1[5];
-      [v6 deactivateWithCompletion:v7];
+      v4 = v3[2];
+      v5[0] = MEMORY[0x277D85DD0];
+      v5[1] = 3221225472;
+      v5[2] = __68__LAPSPasscodeChangeController__notifyCompletionWithPasscode_error___block_invoke_3;
+      v5[3] = &unk_278A66158;
+      v8 = a1[6];
+      v6 = a1[4];
+      v7 = a1[5];
+      [v4 deactivateWithCompletion:v5];
     }
   }
 }
@@ -446,15 +442,10 @@ void __61__LAPSPasscodeChangeController__fetchOldPasscode_completion___block_inv
 
 void __61__LAPSPasscodeChangeController__fetchOldPasscode_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    if (!v5)
-    {
-      v4 = *(a1 + 32);
-    }
-
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -639,16 +630,16 @@ void __61__LAPSPasscodeChangeController__fetchNewPasscode_completion___block_inv
 
 void __61__LAPSPasscodeChangeController__fetchNewPasscode_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    if (v8)
+    if (v7)
     {
-      v4 = [v8 domain];
+      v4 = [v7 domain];
       if ([v4 isEqualToString:@"com.apple.LocalAuthentication.LAPSErrorDomain"])
       {
-        v5 = [v8 code];
+        v5 = [v7 code];
 
         if (v5 == 5)
         {
@@ -660,15 +651,14 @@ void __61__LAPSPasscodeChangeController__fetchNewPasscode_completion___block_inv
       {
       }
 
-      v7 = *(*(a1 + 40) + 16);
+      v6 = *(*(a1 + 40) + 16);
       goto LABEL_8;
     }
 
 LABEL_5:
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 LABEL_8:
-    v7();
+    v6();
   }
 }
 

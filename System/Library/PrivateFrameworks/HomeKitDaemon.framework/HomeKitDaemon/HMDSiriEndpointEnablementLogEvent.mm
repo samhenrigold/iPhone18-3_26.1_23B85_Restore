@@ -11,42 +11,38 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"numCapableSiriEndpointAccessories";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"numCapableSiriEndpointAccessories";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDSiriEndpointEnablementLogEvent numCapableSiriEndpointAccessories](self, "numCapableSiriEndpointAccessories")}];
-  v8[1] = @"numEnabledSiriEndpointAccessories";
-  v9[0] = v3;
+  v7[1] = @"numEnabledSiriEndpointAccessories";
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDSiriEndpointEnablementLogEvent numEnabledSiriEndpointAccessories](self, "numEnabledSiriEndpointAccessories")}];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 - (id)serializedMetric
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"homeUUID";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"homeUUID";
   homeUUIDString = [(HMMHomeLogEvent *)self homeUUIDString];
-  v10[0] = homeUUIDString;
-  v9[1] = @"numCapableEndpoints";
+  v9[0] = homeUUIDString;
+  v8[1] = @"numCapableEndpoints";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDSiriEndpointEnablementLogEvent numCapableSiriEndpointAccessories](self, "numCapableSiriEndpointAccessories")}];
-  v10[1] = v4;
-  v9[2] = @"numEnabledEndpoints";
+  v9[1] = v4;
+  v8[2] = @"numEnabledEndpoints";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDSiriEndpointEnablementLogEvent numEnabledSiriEndpointAccessories](self, "numEnabledSiriEndpointAccessories")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (HMDSiriEndpointEnablementLogEvent)initWithDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"homeUUID"];
   v6 = [dictionaryCopy objectForKeyedSubscript:@"numCapableEndpoints"];
@@ -66,18 +62,17 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = dictionaryCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not init HMDSiriEndpointEnablementLogEvent with dictionary %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = dictionaryCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not init HMDSiriEndpointEnablementLogEvent with dictionary %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -97,30 +92,30 @@
 
 - (HMDSiriEndpointEnablementLogEvent)initWithConfigurationDataSource:(id)source
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   sourceCopy = source;
   accessories = [sourceCopy accessories];
-  v4 = [accessories countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v23 = 0;
+    v22 = 0;
     v6 = 0;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -147,7 +142,7 @@
             v16 = siriEndpointProfile;
             if (siriEndpointProfile && ([siriEndpointProfile siriTouchToUse] == 1 || objc_msgSend(v16, "siriListening") == 1))
             {
-              ++v23;
+              ++v22;
             }
 
             v6 += hasSiriEndpointService;
@@ -155,7 +150,7 @@
         }
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v5);
@@ -163,14 +158,13 @@
 
   else
   {
-    v23 = 0;
+    v22 = 0;
     v6 = 0;
   }
 
   uuid = [sourceCopy uuid];
-  v18 = [(HMDSiriEndpointEnablementLogEvent *)self initWithHomeUUID:uuid numCapableSiriEndpoints:v6 numEnabledSiriEndpoints:v23];
+  v18 = [(HMDSiriEndpointEnablementLogEvent *)self initWithHomeUUID:uuid numCapableSiriEndpoints:v6 numEnabledSiriEndpoints:v22];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -188,10 +182,9 @@
 
 void __48__HMDSiriEndpointEnablementLogEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_286190;
-  logCategory__hmf_once_v12_286190 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_286190;
+  logCategory__hmf_once_v12_286190 = v0;
 }
 
 @end

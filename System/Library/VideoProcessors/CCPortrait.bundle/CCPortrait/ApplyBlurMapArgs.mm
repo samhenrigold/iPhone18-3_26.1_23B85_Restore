@@ -88,9 +88,9 @@
 - (ApplyBlurMapArgs)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v75.receiver = self;
-  v75.super_class = ApplyBlurMapArgs;
-  v5 = [(ApplyBlurMapArgs *)&v75 init];
+  v78.receiver = self;
+  v78.super_class = ApplyBlurMapArgs;
+  v5 = [(ApplyBlurMapArgs *)&v78 init];
   v6 = v5;
   if (v5)
   {
@@ -101,99 +101,101 @@
 
     if (dictionaryCopy)
     {
-      v60 = v6;
+      v63 = v6;
       v9 = objc_opt_class();
       v12 = objc_msgSend_validKeys(v9, v10, v11);
-      v71 = 0u;
-      v72 = 0u;
-      v73 = 0u;
       v74 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v77 = 0u;
       obj = objc_msgSend_allKeys(dictionaryCopy, v13, v14);
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v71, v70, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v74, v73, 16);
       if (!v16)
       {
         goto LABEL_41;
       }
 
       v18 = v16;
-      v19 = *v72;
-      v61 = *v72;
+      v19 = *v75;
+      v64 = *v75;
       while (1)
       {
         v20 = 0;
-        v62 = v18;
+        v65 = v18;
         do
         {
-          if (*v72 != v19)
+          if (*v75 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v71 + 1) + 8 * v20);
-          if (objc_msgSend_containsObject_(v12, v17, v21))
+          v21 = *(*(&v74 + 1) + 8 * v20);
+          v22 = objc_msgSend_containsObject_(v12, v17, v21);
+          if (v22)
           {
-            v23 = v12;
-            v24 = objc_msgSend_substringToIndex_(v21, v22, 1);
-            v27 = objc_msgSend_capitalizedString(v24, v25, v26);
-            v29 = objc_msgSend_stringByReplacingCharactersInRange_withString_(v21, v28, 0, 1, v27);
+            v24 = v12;
+            v25 = objc_msgSend_substringToIndex_(v21, v23, 1);
+            v28 = objc_msgSend_capitalizedString(v25, v26, v27);
+            v30 = objc_msgSend_stringByReplacingCharactersInRange_withString_(v21, v29, 0, 1, v28);
 
-            v31 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v30, @"set%@:", v29);
-            v32 = NSSelectorFromString(v31);
-            v33 = dictionaryCopy;
-            v35 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v34, v21);
-            if (v35)
+            v32 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v31, @"set%@:", v30);
+            v33 = NSSelectorFromString(v32);
+            v34 = dictionaryCopy;
+            v36 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy, v35, v21);
+            if (v36)
             {
-              v36 = v32 == 0;
+              v37 = v33 == 0;
             }
 
             else
             {
-              v36 = 1;
+              v37 = 1;
             }
 
-            if (v36)
+            if (v37)
             {
               goto LABEL_36;
             }
 
-            if (objc_opt_respondsToSelector())
+            v38 = objc_opt_respondsToSelector();
+            if (v38)
             {
-              v38 = objc_msgSend_methodForSelector_(v60, v37, v32);
-              if (v38)
+              v40 = objc_msgSend_methodForSelector_(v63, v39, v33);
+              if (v40)
               {
-                v39 = v38;
+                v41 = v40;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v40 = v35;
-                  v43 = objc_msgSend_count(v40, v41, v42);
-                  if (v43 == 4)
+                  v42 = v36;
+                  v45 = objc_msgSend_count(v42, v43, v44);
+                  if (v45 == 4)
                   {
-                    objc_msgSend_CGRectValue(v40, v44, v45);
-                    v39(v60, v32);
+                    objc_msgSend_CGRectValue(v42, v46, v47);
+                    v41(v63, v33);
                   }
 
                   else
                   {
-                    if (v43 == 2)
+                    if (v45 == 2)
                     {
-                      objc_msgSend_CGPointValue(v40, v44, v45);
-                      v39(v60, v32);
+                      objc_msgSend_CGPointValue(v42, v46, v47);
+                      v41(v63, v33);
                       goto LABEL_35;
                     }
 
-                    v49 = uni_logger_api();
-                    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+                    v51 = uni_logger_api(v45);
+                    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                     {
-                      v55 = objc_opt_class();
+                      v58 = objc_opt_class();
                       *buf = 136446722;
-                      v65 = "[ApplyBlurMapArgs initWithDictionary:]";
-                      v66 = 2112;
-                      v67 = v21;
-                      v68 = 2112;
-                      v69 = v55;
-                      v56 = v55;
-                      _os_log_error_impl(&dword_295691000, v49, OS_LOG_TYPE_ERROR, "%{public}s Unexpected # of components for %@ on class %@", buf, 0x20u);
+                      v68 = "[ApplyBlurMapArgs initWithDictionary:]";
+                      v69 = 2112;
+                      v70 = v21;
+                      v71 = 2112;
+                      v72 = v58;
+                      v59 = v58;
+                      _os_log_error_impl(&dword_295691000, v51, OS_LOG_TYPE_ERROR, "%{public}s Unexpected # of components for %@ on class %@", buf, 0x20u);
                     }
 
 LABEL_33:
@@ -202,103 +204,104 @@ LABEL_33:
 LABEL_35:
 
 LABEL_36:
-                  dictionaryCopy = v33;
-                  v12 = v23;
-                  v19 = v61;
-                  v18 = v62;
+                  dictionaryCopy = v34;
+                  v12 = v24;
+                  v19 = v64;
+                  v18 = v65;
                   goto LABEL_37;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  objc_msgSend_floatValue(v35, v53, v54);
-                  v39(v60, v32);
+                  objc_msgSend_floatValue(v36, v55, v56);
+                  v41(v63, v33);
                   goto LABEL_36;
                 }
 
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                isKindOfClass = objc_opt_isKindOfClass();
+                if (isKindOfClass)
                 {
-                  (v39)(v60, v32, v35);
+                  (v41)(v63, v33, v36);
                   goto LABEL_36;
                 }
 
-                v40 = uni_logger_api();
-                if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                v42 = uni_logger_api(isKindOfClass);
+                if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_35;
                 }
 
-                v57 = objc_opt_class();
+                v60 = objc_opt_class();
                 *buf = 136446722;
-                v65 = "[ApplyBlurMapArgs initWithDictionary:]";
-                v66 = 2112;
-                v67 = v21;
-                v68 = 2112;
-                v69 = v57;
-                v49 = v57;
-                v50 = v40;
-                v51 = "%{public}s Unexpected type (not NSObject) for %@ on class %@";
+                v68 = "[ApplyBlurMapArgs initWithDictionary:]";
+                v69 = 2112;
+                v70 = v21;
+                v71 = 2112;
+                v72 = v60;
+                v51 = v60;
+                v52 = v42;
+                v53 = "%{public}s Unexpected type (not NSObject) for %@ on class %@";
               }
 
               else
               {
-                v40 = uni_logger_api();
-                if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                v42 = uni_logger_api(0);
+                if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_35;
                 }
 
-                v52 = objc_opt_class();
+                v54 = objc_opt_class();
                 *buf = 136446722;
-                v65 = "[ApplyBlurMapArgs initWithDictionary:]";
-                v66 = 2112;
-                v67 = v31;
-                v68 = 2112;
-                v69 = v52;
-                v49 = v52;
-                v50 = v40;
-                v51 = "%{public}s can't find implementation for %@ in %@ class; results will be unpredictable";
+                v68 = "[ApplyBlurMapArgs initWithDictionary:]";
+                v69 = 2112;
+                v70 = v32;
+                v71 = 2112;
+                v72 = v54;
+                v51 = v54;
+                v52 = v42;
+                v53 = "%{public}s can't find implementation for %@ in %@ class; results will be unpredictable";
               }
             }
 
             else
             {
-              v40 = uni_logger_api();
-              if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v42 = uni_logger_api(v38);
+              if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_35;
               }
 
-              v48 = objc_opt_class();
+              v50 = objc_opt_class();
               *buf = 136446722;
-              v65 = "[ApplyBlurMapArgs initWithDictionary:]";
-              v66 = 2112;
-              v67 = v48;
-              v68 = 2112;
-              v69 = v31;
-              v49 = v48;
-              v50 = v40;
-              v51 = "%{public}s Class %@ does not respond to selector %@; results will be unpredictable";
+              v68 = "[ApplyBlurMapArgs initWithDictionary:]";
+              v69 = 2112;
+              v70 = v50;
+              v71 = 2112;
+              v72 = v32;
+              v51 = v50;
+              v52 = v42;
+              v53 = "%{public}s Class %@ does not respond to selector %@; results will be unpredictable";
             }
 
-            _os_log_error_impl(&dword_295691000, v50, OS_LOG_TYPE_ERROR, v51, buf, 0x20u);
+            _os_log_error_impl(&dword_295691000, v52, OS_LOG_TYPE_ERROR, v53, buf, 0x20u);
             goto LABEL_33;
           }
 
-          v29 = uni_logger_api();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = uni_logger_api(v22);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v46 = objc_opt_class();
+            v48 = objc_opt_class();
             *buf = 136446722;
-            v65 = "[ApplyBlurMapArgs initWithDictionary:]";
-            v66 = 2112;
-            v67 = v46;
-            v68 = 2112;
-            v69 = v21;
-            v47 = v46;
-            _os_log_error_impl(&dword_295691000, v29, OS_LOG_TYPE_ERROR, "%{public}s Invalid key for %@: %@; results will be unpredictable", buf, 0x20u);
+            v68 = "[ApplyBlurMapArgs initWithDictionary:]";
+            v69 = 2112;
+            v70 = v48;
+            v71 = 2112;
+            v72 = v21;
+            v49 = v48;
+            _os_log_error_impl(&dword_295691000, v30, OS_LOG_TYPE_ERROR, "%{public}s Invalid key for %@: %@; results will be unpredictable", buf, 0x20u);
           }
 
 LABEL_37:
@@ -307,13 +310,13 @@ LABEL_37:
         }
 
         while (v18 != v20);
-        v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v71, v70, 16);
-        v18 = v58;
-        if (!v58)
+        v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v74, v73, 16);
+        v18 = v61;
+        if (!v61)
         {
 LABEL_41:
 
-          v6 = v60;
+          v6 = v63;
           break;
         }
       }

@@ -227,9 +227,9 @@ LABEL_23:
         goto LABEL_23;
       }
 
-      v26 = [(__CFString *)v24 isEqualToString:@"pinCode"];
+      isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-      if (v26)
+      if (isEqualToString)
       {
         goto LABEL_18;
       }

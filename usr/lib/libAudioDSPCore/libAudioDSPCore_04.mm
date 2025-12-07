@@ -1,3 +1,80 @@
+void sub_296BE0DB8(_Unwind_Exception *exception_object)
+{
+  v3 = *(v1 - 144);
+  *(v1 - 144) = 0;
+  if (v3)
+  {
+    std::default_delete<MultiRadixRealFFT>::operator()[abi:ne200100](v1 - 144, v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _ZN2IR16FFTSubFilterDataIDF16_E10accumulateERKS1_DF16_(uint64_t a1, uint64_t a2, __n128 a3)
+{
+  if (*a2 == *a1)
+  {
+    if (*(a2 + 8) >= *(a1 + 4))
+    {
+      v5 = *(a1 + 4);
+    }
+
+    else
+    {
+      v5 = *(a2 + 8);
+    }
+
+    if (v5)
+    {
+      v6 = a3.n128_u16[0];
+      v7 = 0;
+      v8 = *(a2 + 64);
+      v9 = 8;
+      do
+      {
+        v10 = *(*(a2 + 40) + v9 - 8);
+        v11 = *(*(a1 + 40) + v9 - 8);
+        v12 = *(v8 + v7);
+        v19 = v6;
+        vDSP_vsma_fp16(v10, 1, &v19, v11, 1, v11, 1, v12);
+        v13 = *(*(a2 + 40) + v9);
+        v14 = *(*(a1 + 40) + v9);
+        v15 = *(*(a2 + 64) + v7);
+        v20 = v6;
+        vDSP_vsma_fp16(v13, 1, &v20, v14, 1, v14, 1, v15);
+        v16 = *(a1 + 64);
+        v8 = *(a2 + 64);
+        v17 = *(v16 + v7);
+        if (v17 <= *(v8 + v7))
+        {
+          v17 = *(v8 + v7);
+        }
+
+        *(v16 + v7) = v17;
+        v9 += 16;
+        v7 += 4;
+      }
+
+      while (4 * v5 != v7);
+    }
+
+    result = 0;
+    if (v5 > *(a1 + 8))
+    {
+      *(a1 + 8) = v5;
+    }
+  }
+
+  else
+  {
+    bzero(*(a1 + 16), *(a1 + 24) - *(a1 + 16));
+    *(a1 + 8) = 0;
+    return 4294967246;
+  }
+
+  return result;
+}
+
 uint64_t _ZN2IR16FFTSubFilterDataIDF16_E9overwriteERKS1_DF16_(unsigned int *a1, uint64_t a2, __n128 a3)
 {
   if (*a2 == *a1)
@@ -95,7 +172,7 @@ uint64_t _ZN2IR16FFTSubFilterDataIDF16_E5scaleEDF16_(unsigned int *a1, __n128 a2
   return 0;
 }
 
-void *std::vector<IR::SplitComplex<float>>::__assign_with_size[abi:ne200100]<IR::SplitComplex<float>*,IR::SplitComplex<float>*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<IR::SplitComplex<float>>::__assign_with_size[abi:ne200100]<IR::SplitComplex<float>*,IR::SplitComplex<float>*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -185,7 +262,7 @@ void std::default_delete<MultiRadixRealFFT>::operator()[abi:ne200100](uint64_t a
   }
 }
 
-void *_ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE18__assign_with_sizeB8ne200100IPDF16_S5_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE18__assign_with_sizeB8ne200100IPDF16_S5_EEvT_T0_l(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -281,7 +358,7 @@ BOOL ChannelLayoutTagIsSupportedHOA(int a1)
   return vabdd_f64(v2, round(v2)) <= 0.000000999999997;
 }
 
-BOOL ChannelLayoutTagIsHOAWithAnyNumberOfChannels(int a1)
+uint64_t ChannelLayoutTagIsHOAWithAnyNumberOfChannels(int a1)
 {
   v1 = (a1 & 0xFFFF0000) == 12517376;
   if ((a1 & 0xFFFF0000) == 0xBE0000)
@@ -320,11 +397,11 @@ uint64_t GetAudioChannelLayoutTagAmbisonicOrder(int a1)
   }
 }
 
-void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
+void GetStringFromAudioChannelLayoutTag(void *__return_ptr a1@<X8>, int a2@<W0>)
 {
-  v2 = a1;
-  v4 = a1 & 0xFFFF0000;
-  if ((a1 & 0xFFFF0000) == 0x930000)
+  v2 = a2;
+  v4 = a2 & 0xFFFF0000;
+  if ((a2 & 0xFFFF0000) == 0x930000)
   {
     std::string::basic_string[abi:ne200100]<0>(&v21, "DiscreteInOrder");
     v14 = std::string::append(&v21, " ", 1uLL);
@@ -358,10 +435,10 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
   else if (v4 == 12517376)
   {
-    v11 = llroundf(sqrtf(a1));
+    v11 = llroundf(sqrtf(a2));
     if (v11)
     {
-      v12 = v11 * v11 == a1;
+      v12 = v11 * v11 == a2;
     }
 
     else
@@ -408,17 +485,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
   {
     if (v4 != 12451840)
     {
-      if (a1 <= 10027011)
+      if (a2 <= 10027011)
       {
-        if (a1 > 8126469)
+        if (a2 > 8126469)
         {
-          if (a1 <= 9043972)
+          if (a2 <= 9043972)
           {
-            if (a1 > 8585218)
+            if (a2 > 8585218)
             {
-              if (a1 <= 8781827)
+              if (a2 <= 8781827)
               {
-                switch(a1)
+                switch(a2)
                 {
                   case 8585219:
                     v13 = "ITU_2_1";
@@ -432,15 +509,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
                 }
               }
 
-              else if (a1 > 8912899)
+              else if (a2 > 8912899)
               {
-                if (a1 == 8912900)
+                if (a2 == 8912900)
                 {
                   v13 = "DVD_10";
                   goto LABEL_20;
                 }
 
-                if (a1 == 8978437)
+                if (a2 == 8978437)
                 {
                   v13 = "DVD_11";
                   goto LABEL_20;
@@ -449,13 +526,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
               else
               {
-                if (a1 == 8781828)
+                if (a2 == 8781828)
                 {
                   v13 = "DVD_5";
                   goto LABEL_20;
                 }
 
-                if (a1 == 8847365)
+                if (a2 == 8847365)
                 {
                   v13 = "DVD_6";
                   goto LABEL_20;
@@ -463,9 +540,9 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
               }
             }
 
-            else if (a1 <= 8323079)
+            else if (a2 <= 8323079)
             {
-              switch(a1)
+              switch(a2)
               {
                 case 8126470:
                   v13 = "MPEG_5_1_D";
@@ -479,15 +556,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
               }
             }
 
-            else if (a1 > 8454151)
+            else if (a2 > 8454151)
             {
-              if (a1 == 8454152)
+              if (a2 == 8454152)
               {
                 v13 = "Emagic_Default_7_1";
                 goto LABEL_20;
               }
 
-              if (a1 == 8519688)
+              if (a2 == 8519688)
               {
                 v13 = "SMPTE_DTV";
                 goto LABEL_20;
@@ -496,13 +573,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
             else
             {
-              if (a1 == 8323080)
+              if (a2 == 8323080)
               {
                 v13 = "MPEG_7_1_B";
                 goto LABEL_20;
               }
 
-              if (a1 == 8388616)
+              if (a2 == 8388616)
               {
                 v13 = "MPEG_7_1_C";
                 goto LABEL_20;
@@ -510,11 +587,11 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 <= 9502735)
+          else if (a2 <= 9502735)
           {
-            if (a1 <= 9240581)
+            if (a2 <= 9240581)
             {
-              switch(a1)
+              switch(a2)
               {
                 case 9043973:
                   v13 = "DVD_18";
@@ -528,15 +605,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
               }
             }
 
-            else if (a1 > 9371654)
+            else if (a2 > 9371654)
             {
-              if (a1 == 9371655)
+              if (a2 == 9371655)
               {
                 v13 = "AAC_7_0";
                 goto LABEL_20;
               }
 
-              if (a1 == 9437192)
+              if (a2 == 9437192)
               {
                 v13 = "AAC_Octagonal";
                 goto LABEL_20;
@@ -545,13 +622,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
             else
             {
-              if (a1 == 9240582)
+              if (a2 == 9240582)
               {
                 v13 = "AAC_6_0";
                 goto LABEL_20;
               }
 
-              if (a1 == 9306119)
+              if (a2 == 9306119)
               {
                 v13 = "AAC_6_1";
                 goto LABEL_20;
@@ -559,17 +636,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 > 9764865)
+          else if (a2 > 9764865)
           {
-            if (a1 > 9895939)
+            if (a2 > 9895939)
             {
-              if (a1 == 9895940)
+              if (a2 == 9895940)
               {
                 v13 = "AC3_3_1";
                 goto LABEL_20;
               }
 
-              if (a1 == 9961476)
+              if (a2 == 9961476)
               {
                 v13 = "AC3_3_0_1";
                 goto LABEL_20;
@@ -578,13 +655,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
             else
             {
-              if (a1 == 9764866)
+              if (a2 == 9764866)
               {
                 v13 = "AC3_1_0_1";
                 goto LABEL_20;
               }
 
-              if (a1 == 9830403)
+              if (a2 == 9830403)
               {
                 v13 = "AC3_3_0";
                 goto LABEL_20;
@@ -592,15 +669,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 >= 9633792)
+          else if (a2 >= 9633792)
           {
-            if (a1 == 9633792)
+            if (a2 == 9633792)
             {
               v13 = "DiscreteInOrder";
               goto LABEL_20;
             }
 
-            if (a1 == 9699335)
+            if (a2 == 9699335)
             {
               v13 = "AudioUnit_7_0_Front";
               goto LABEL_20;
@@ -609,13 +686,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 9502736)
+            if (a2 == 9502736)
             {
               v13 = "TMH_10_2_std";
               goto LABEL_20;
             }
 
-            if (a1 == 9568277)
+            if (a2 == 9568277)
             {
               v13 = "TMH_10_2_full";
               goto LABEL_20;
@@ -623,13 +700,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 <= 7143428)
+        else if (a2 <= 7143428)
         {
-          if (a1 > 6684673)
+          if (a2 > 6684673)
           {
-            if (a1 <= 6881281)
+            if (a2 <= 6881281)
             {
-              switch(a1)
+              switch(a2)
               {
                 case 6684674:
                   v13 = "StereoHeadphones";
@@ -643,15 +720,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
               }
             }
 
-            else if (a1 > 7012355)
+            else if (a2 > 7012355)
             {
-              if (a1 == 7012356)
+              if (a2 == 7012356)
               {
                 v13 = "Ambisonic_B_Format";
                 goto LABEL_20;
               }
 
-              if (a1 == 7077892)
+              if (a2 == 7077892)
               {
                 v13 = "Quadraphonic";
                 goto LABEL_20;
@@ -660,13 +737,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
             else
             {
-              if (a1 == 6881282)
+              if (a2 == 6881282)
               {
                 v13 = "XY";
                 goto LABEL_20;
               }
 
-              if (a1 == 6946818)
+              if (a2 == 6946818)
               {
                 v13 = "Binaural";
                 goto LABEL_20;
@@ -674,30 +751,30 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 < 0)
+          else if (a2 < 0)
           {
-            if (a1 == -268435456)
+            if (a2 == -268435456)
             {
               v13 = "BeginReserved";
               goto LABEL_20;
             }
 
-            if (a1 == -65537)
+            if (a2 == -65537)
             {
               v13 = "EndReserved";
               goto LABEL_20;
             }
           }
 
-          else if (a1 > 6553600)
+          else if (a2 > 6553600)
           {
-            if (a1 == 6553601)
+            if (a2 == 6553601)
             {
               v13 = "Mono";
               goto LABEL_20;
             }
 
-            if (a1 == 6619138)
+            if (a2 == 6619138)
             {
               v13 = "Stereo";
               goto LABEL_20;
@@ -706,13 +783,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (!a1)
+            if (!a2)
             {
               v13 = "UseChannelDescriptions";
               goto LABEL_20;
             }
 
-            if (a1 == 0x10000)
+            if (a2 == 0x10000)
             {
               v13 = "UseChannelBitmap";
               goto LABEL_20;
@@ -720,11 +797,11 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 <= 7602179)
+        else if (a2 <= 7602179)
         {
-          if (a1 <= 7340039)
+          if (a2 <= 7340039)
           {
-            switch(a1)
+            switch(a2)
             {
               case 7143429:
                 v13 = "Pentagonal";
@@ -738,15 +815,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 > 7471106)
+          else if (a2 > 7471106)
           {
-            if (a1 == 7471107)
+            if (a2 == 7471107)
             {
               v13 = "MPEG_3_0_B";
               goto LABEL_20;
             }
 
-            if (a1 == 7536644)
+            if (a2 == 7536644)
             {
               v13 = "MPEG_4_0_A";
               goto LABEL_20;
@@ -755,13 +832,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 7340040)
+            if (a2 == 7340040)
             {
               v13 = "Cube";
               goto LABEL_20;
             }
 
-            if (a1 == 7405571)
+            if (a2 == 7405571)
             {
               v13 = "MPEG_3_0_A";
               goto LABEL_20;
@@ -769,17 +846,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 7864324)
+        else if (a2 > 7864324)
         {
-          if (a1 > 7995397)
+          if (a2 > 7995397)
           {
-            if (a1 == 7995398)
+            if (a2 == 7995398)
             {
               v13 = "MPEG_5_1_B";
               goto LABEL_20;
             }
 
-            if (a1 == 8060934)
+            if (a2 == 8060934)
             {
               v13 = "MPEG_5_1_C";
               goto LABEL_20;
@@ -788,13 +865,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 7864325)
+            if (a2 == 7864325)
             {
               v13 = "MPEG_5_0_D";
               goto LABEL_20;
             }
 
-            if (a1 == 7929862)
+            if (a2 == 7929862)
             {
               v13 = "MPEG_5_1_A";
               goto LABEL_20;
@@ -802,15 +879,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 7733252)
+        else if (a2 > 7733252)
         {
-          if (a1 == 7733253)
+          if (a2 == 7733253)
           {
             v13 = "MPEG_5_0_B";
             goto LABEL_20;
           }
 
-          if (a1 == 7798789)
+          if (a2 == 7798789)
           {
             v13 = "MPEG_5_0_C";
             goto LABEL_20;
@@ -819,13 +896,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
         else
         {
-          if (a1 == 7602180)
+          if (a2 == 7602180)
           {
             v13 = "MPEG_4_0_B";
             goto LABEL_20;
           }
 
-          if (a1 == 7667717)
+          if (a2 == 7667717)
           {
             v13 = "MPEG_5_0_A";
             goto LABEL_20;
@@ -833,15 +910,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
         }
       }
 
-      else if (a1 <= 11927558)
+      else if (a2 <= 11927558)
       {
-        if (a1 <= 10944519)
+        if (a2 <= 10944519)
         {
-          if (a1 > 10485767)
+          if (a2 > 10485767)
           {
-            if (a1 <= 10682375)
+            if (a2 <= 10682375)
             {
-              switch(a1)
+              switch(a2)
               {
                 case 10485768:
                   v13 = "EAC3_7_1_A";
@@ -855,15 +932,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
               }
             }
 
-            else if (a1 > 10813447)
+            else if (a2 > 10813447)
             {
-              if (a1 == 10813448)
+              if (a2 == 10813448)
               {
                 v13 = "EAC3_7_1_F";
                 goto LABEL_20;
               }
 
-              if (a1 == 10878984)
+              if (a2 == 10878984)
               {
                 v13 = "EAC3_7_1_G";
                 goto LABEL_20;
@@ -872,13 +949,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
             else
             {
-              if (a1 == 10682376)
+              if (a2 == 10682376)
               {
                 v13 = "EAC3_7_1_D";
                 goto LABEL_20;
               }
 
-              if (a1 == 10747912)
+              if (a2 == 10747912)
               {
                 v13 = "EAC3_7_1_E";
                 goto LABEL_20;
@@ -886,9 +963,9 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 <= 10223622)
+          else if (a2 <= 10223622)
           {
-            switch(a1)
+            switch(a2)
             {
               case 10027012:
                 v13 = "AC3_2_1_1";
@@ -902,15 +979,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 > 10354694)
+          else if (a2 > 10354694)
           {
-            if (a1 == 10354695)
+            if (a2 == 10354695)
             {
               v13 = "EAC3_6_1_B";
               goto LABEL_20;
             }
 
-            if (a1 == 10420231)
+            if (a2 == 10420231)
             {
               v13 = "EAC3_6_1_C";
               goto LABEL_20;
@@ -919,13 +996,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 10223623)
+            if (a2 == 10223623)
             {
               v13 = "EAC_7_0_A";
               goto LABEL_20;
             }
 
-            if (a1 == 10289159)
+            if (a2 == 10289159)
             {
               v13 = "EAC3_6_1_A";
               goto LABEL_20;
@@ -933,11 +1010,11 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 <= 11403270)
+        else if (a2 <= 11403270)
         {
-          if (a1 <= 11141125)
+          if (a2 <= 11141125)
           {
-            switch(a1)
+            switch(a2)
             {
               case 10944520:
                 v13 = "EAC3_7_1_H";
@@ -951,15 +1028,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 > 11272197)
+          else if (a2 > 11272197)
           {
-            if (a1 == 11272198)
+            if (a2 == 11272198)
             {
               v13 = "DTS_6_0_C";
               goto LABEL_20;
             }
 
-            if (a1 == 11337735)
+            if (a2 == 11337735)
             {
               v13 = "DTS_6_1_A";
               goto LABEL_20;
@@ -968,13 +1045,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 11141126)
+            if (a2 == 11141126)
             {
               v13 = "DTS_6_0_A";
               goto LABEL_20;
             }
 
-            if (a1 == 11206662)
+            if (a2 == 11206662)
             {
               v13 = "DTS_6_0_B";
               goto LABEL_20;
@@ -982,17 +1059,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 11665415)
+        else if (a2 > 11665415)
         {
-          if (a1 > 11796488)
+          if (a2 > 11796488)
           {
-            if (a1 == 11796489)
+            if (a2 == 11796489)
             {
               v13 = "DTS_8_1_A";
               goto LABEL_20;
             }
 
-            if (a1 == 11862025)
+            if (a2 == 11862025)
             {
               v13 = "DTS_8_1_B";
               goto LABEL_20;
@@ -1001,13 +1078,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 11665416)
+            if (a2 == 11665416)
             {
               v13 = "DTS_8_0_A";
               goto LABEL_20;
             }
 
-            if (a1 == 11730952)
+            if (a2 == 11730952)
             {
               v13 = "DTS_8_0_B";
               goto LABEL_20;
@@ -1015,15 +1092,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 11534342)
+        else if (a2 > 11534342)
         {
-          if (a1 == 11534343)
+          if (a2 == 11534343)
           {
             v13 = "DTS_7_0";
             goto LABEL_20;
           }
 
-          if (a1 == 11599880)
+          if (a2 == 11599880)
           {
             v13 = "DTS_7_1";
             goto LABEL_20;
@@ -1032,13 +1109,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
         else
         {
-          if (a1 == 11403271)
+          if (a2 == 11403271)
           {
             v13 = "DTS_6_1_B";
             goto LABEL_20;
           }
 
-          if (a1 == 11468807)
+          if (a2 == 11468807)
           {
             v13 = "DTS_6_1_C";
             goto LABEL_20;
@@ -1046,13 +1123,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
         }
       }
 
-      else if (a1 > 12910595)
+      else if (a2 > 12910595)
       {
-        if (a1 <= 13369367)
+        if (a2 <= 13369367)
         {
-          if (a1 <= 13107206)
+          if (a2 <= 13107206)
           {
-            switch(a1)
+            switch(a2)
             {
               case 12910596:
                 v13 = "Logic_4_0_C";
@@ -1066,15 +1143,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
             }
           }
 
-          else if (a1 > 13238283)
+          else if (a2 > 13238283)
           {
-            if (a1 == 13238284)
+            if (a2 == 13238284)
             {
               v13 = "Logic_Atmos_7_1_4_B";
               goto LABEL_20;
             }
 
-            if (a1 == 13303822)
+            if (a2 == 13303822)
             {
               v13 = "Logic_Atmos_7_1_6";
               goto LABEL_20;
@@ -1083,13 +1160,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 13107207)
+            if (a2 == 13107207)
             {
               v13 = "Logic_6_1_D";
               goto LABEL_20;
             }
 
-            if (a1 == 13172744)
+            if (a2 == 13172744)
             {
               v13 = "Logic_7_1_B";
               goto LABEL_20;
@@ -1097,17 +1174,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 13631499)
+        else if (a2 > 13631499)
         {
-          if (a1 > 13762571)
+          if (a2 > 13762571)
           {
-            if (a1 == 13762572)
+            if (a2 == 13762572)
             {
               v13 = "CICP_19";
               goto LABEL_20;
             }
 
-            if (a1 == 13828110)
+            if (a2 == 13828110)
             {
               v13 = "CICP_20";
               goto LABEL_20;
@@ -1116,13 +1193,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
           else
           {
-            if (a1 == 13631500)
+            if (a2 == 13631500)
             {
               v13 = "CICP_17";
               goto LABEL_20;
             }
 
-            if (a1 == 13697038)
+            if (a2 == 13697038)
             {
               v13 = "CICP_18";
               goto LABEL_20;
@@ -1130,15 +1207,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 13500427)
+        else if (a2 > 13500427)
         {
-          if (a1 == 13500428)
+          if (a2 == 13500428)
           {
             v13 = "CICP_15";
             goto LABEL_20;
           }
 
-          if (a1 == 13565962)
+          if (a2 == 13565962)
           {
             v13 = "CICP_16";
             goto LABEL_20;
@@ -1147,13 +1224,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
         else
         {
-          if (a1 == 13369368)
+          if (a2 == 13369368)
           {
             v13 = "CICP_13";
             goto LABEL_20;
           }
 
-          if (a1 == 13434888)
+          if (a2 == 13434888)
           {
             v13 = "CICP_14";
             goto LABEL_20;
@@ -1161,11 +1238,11 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
         }
       }
 
-      else if (a1 <= 12386311)
+      else if (a2 <= 12386311)
       {
-        if (a1 <= 12124163)
+        if (a2 <= 12124163)
         {
-          switch(a1)
+          switch(a2)
           {
             case 11927559:
               v13 = "DTS_6_1_D";
@@ -1179,15 +1256,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
           }
         }
 
-        else if (a1 > 12255237)
+        else if (a2 > 12255237)
         {
-          if (a1 == 12255238)
+          if (a2 == 12255238)
           {
             v13 = "WAVE_5_1_B";
             goto LABEL_20;
           }
 
-          if (a1 == 12320775)
+          if (a2 == 12320775)
           {
             v13 = "WAVE_6_1";
             goto LABEL_20;
@@ -1196,13 +1273,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
         else
         {
-          if (a1 == 12124164)
+          if (a2 == 12124164)
           {
             v13 = "WAVE_4_0_B";
             goto LABEL_20;
           }
 
-          if (a1 == 12189701)
+          if (a2 == 12189701)
           {
             v13 = "WAVE_5_0_B";
             goto LABEL_20;
@@ -1210,17 +1287,17 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
         }
       }
 
-      else if (a1 > 12648463)
+      else if (a2 > 12648463)
       {
-        if (a1 > 12779529)
+        if (a2 > 12779529)
         {
-          if (a1 == 12779530)
+          if (a2 == 12779530)
           {
             v13 = "Atmos_5_1_4";
             goto LABEL_20;
           }
 
-          if (a1 == 12845066)
+          if (a2 == 12845066)
           {
             v13 = "Atmos_7_1_2";
             goto LABEL_20;
@@ -1229,13 +1306,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
         else
         {
-          if (a1 == 12648464)
+          if (a2 == 12648464)
           {
             v13 = "Atmos_9_1_6";
             goto LABEL_20;
           }
 
-          if (a1 == 12713992)
+          if (a2 == 12713992)
           {
             v13 = "Atmos_5_1_2";
             goto LABEL_20;
@@ -1243,15 +1320,15 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
         }
       }
 
-      else if (a1 >= 12517376)
+      else if (a2 >= 12517376)
       {
-        if (a1 == 12517376)
+        if (a2 == 12517376)
         {
           v13 = "HOA_ACN_N3D";
           goto LABEL_20;
         }
 
-        if (a1 == 12582924)
+        if (a2 == 12582924)
         {
           v13 = "Atmos_7_1_4";
           goto LABEL_20;
@@ -1260,13 +1337,13 @@ void GetStringFromAudioChannelLayoutTag(int a1@<W0>, uint64_t a2@<X8>)
 
       else
       {
-        if (a1 == 12386312)
+        if (a2 == 12386312)
         {
           v13 = "WAVE_7_1";
           goto LABEL_20;
         }
 
-        if (a1 == 12451840)
+        if (a2 == 12451840)
         {
           v13 = "HOA_ACN_SN3D";
           goto LABEL_20;
@@ -1277,14 +1354,14 @@ LABEL_19:
       v13 = "Unknown";
 LABEL_20:
 
-      std::string::basic_string[abi:ne200100]<0>(a2, v13);
+      std::string::basic_string[abi:ne200100]<0>(a1, v13);
       return;
     }
 
-    v5 = llroundf(sqrtf(a1));
+    v5 = llroundf(sqrtf(a2));
     if (v5)
     {
-      v6 = v5 * v5 == a1;
+      v6 = v5 * v5 == a2;
     }
 
     else
@@ -1329,8 +1406,8 @@ LABEL_20:
 
   v18 = std::string::append(&v22, p_p, size);
   v19 = *&v18->__r_.__value_.__l.__data_;
-  *(a2 + 16) = *(&v18->__r_.__value_.__l + 2);
-  *a2 = v19;
+  a1[2] = *(&v18->__r_.__value_.__l + 2);
+  *a1 = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
@@ -1410,7 +1487,7 @@ void sub_296BE29BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void GetChannelLayoutSphericalCoordinates(const AudioChannelLayout *a1@<X0>, void *a2@<X8>, int16x4_t a3@<D0>)
+void GetChannelLayoutSphericalCoordinates(uint64_t *__return_ptr a1@<X8>, const AudioChannelLayout *a2@<X0>, int16x4_t a3@<D0>)
 {
   v45 = 0;
   v46 = 0;
@@ -1421,14 +1498,14 @@ void GetChannelLayoutSphericalCoordinates(const AudioChannelLayout *a1@<X0>, voi
   __p = 0;
   v40 = 0;
   v41 = 0;
-  if (a1->mChannelLayoutTag == 0x10000)
+  if (a2->mChannelLayoutTag == 0x10000)
   {
-    v25 = vcnt_s8(a1->mChannelBitmap);
+    v25 = vcnt_s8(a2->mChannelBitmap);
     v25.i16[0] = vaddlv_u8(v25);
     mChannelLayoutTag = v25.i32[0];
 LABEL_29:
     LOBYTE(inSpecifier) = 0;
-    std::vector<char>::vector[abi:ne200100](&outPropertyData, 32);
+    std::vector<char>::vector[abi:ne200100](&outPropertyData, 32, &inSpecifier);
     begin = outPropertyData.__begin_;
     *outPropertyData.__begin_ = 0;
     *(begin + 2) = 0;
@@ -1463,7 +1540,7 @@ LABEL_29:
 
     *(begin + 2) = mChannelLayoutTag;
     inSpecifier = end - begin;
-    if (a1->mChannelLayoutTag == 0x10000)
+    if (a2->mChannelLayoutTag == 0x10000)
     {
       v31 = 1668116578;
     }
@@ -1473,7 +1550,7 @@ LABEL_29:
       v31 = 1668116588;
     }
 
-    AudioFormatGetProperty(v31, 4u, &a1->mChannelLayoutTag + (a1->mChannelLayoutTag == 0x10000), &inSpecifier, begin);
+    AudioFormatGetProperty(v31, 4u, &a2->mChannelLayoutTag + (a2->mChannelLayoutTag == 0x10000), &inSpecifier, begin);
     v32 = outPropertyData.__begin_;
     v33 = *(outPropertyData.__begin_ + 2);
     if (v33 > (outPropertyData.__end_ - outPropertyData.__begin_ - 12) / 0x14uLL)
@@ -1503,26 +1580,26 @@ LABEL_43:
     goto LABEL_45;
   }
 
-  if (a1->mChannelLayoutTag)
+  if (a2->mChannelLayoutTag)
   {
-    mChannelLayoutTag = a1->mChannelLayoutTag;
+    mChannelLayoutTag = a2->mChannelLayoutTag;
     goto LABEL_29;
   }
 
-  mNumberChannelDescriptions = a1->mNumberChannelDescriptions;
+  mNumberChannelDescriptions = a2->mNumberChannelDescriptions;
   LODWORD(outPropertyData.__begin_) = 0;
   std::vector<float>::resize(&v45, mNumberChannelDescriptions, &outPropertyData, a3);
-  v6 = a1->mNumberChannelDescriptions;
+  v6 = a2->mNumberChannelDescriptions;
   LODWORD(outPropertyData.__begin_) = 0;
   std::vector<float>::resize(&v42, v6, &outPropertyData, v7);
-  v8 = a1->mNumberChannelDescriptions;
+  v8 = a2->mNumberChannelDescriptions;
   LODWORD(outPropertyData.__begin_) = 0;
   std::vector<float>::resize(&__p, v8, &outPropertyData, v9);
-  v10 = a1->mNumberChannelDescriptions;
+  v10 = a2->mNumberChannelDescriptions;
   if (v10)
   {
     v11 = 0;
-    v12 = &a1->mChannelDescriptions[0].mCoordinates[2];
+    v12 = &a2->mChannelDescriptions[0].mCoordinates[2];
     do
     {
       if ((*(v12 - 3) & 3) != 1)
@@ -1539,7 +1616,7 @@ LABEL_43:
             *(__p + v11) = outPropertyData.__end_cap_.__value_;
           }
 
-          v10 = a1->mNumberChannelDescriptions;
+          v10 = a2->mNumberChannelDescriptions;
           goto LABEL_22;
         }
 
@@ -1614,7 +1691,7 @@ LABEL_22:
   }
 
 LABEL_45:
-  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_S6_EEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_S6_EJEJEJRS6_S9_S9_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(a2, &v45, &v42, &__p);
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_S6_EEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_S6_EJEJEJRS6_S9_S9_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(a1, &v45, &v42, &__p);
   if (__p)
   {
     v40 = __p;
@@ -1654,15 +1731,15 @@ void sub_296BE2E14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GetChannelLayoutSphericalCoordinates(AudioChannelLayoutTag a1@<W0>, void *a2@<X8>)
+void GetChannelLayoutSphericalCoordinates(uint64_t *__return_ptr a1@<X8>, AudioChannelLayoutTag a2@<W0>)
 {
   v7 = 0;
-  std::vector<char>::vector[abi:ne200100](__p, 32);
+  std::vector<char>::vector[abi:ne200100](__p, 32, &v7);
   v4 = __p[0];
   *(__p[0] + 1) = 0;
   v4->mNumberChannelDescriptions = 0;
-  v4->mChannelLayoutTag = a1;
-  GetChannelLayoutSphericalCoordinates(v4, a2, v5);
+  v4->mChannelLayoutTag = a2;
+  GetChannelLayoutSphericalCoordinates(a1, v4, v5);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -1680,15 +1757,15 @@ void sub_296BE2EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GetChannelLayoutChannelLabels(AudioChannelLayoutTag a1@<W0>, AudioChannelLabel **a2@<X8>)
+void GetChannelLayoutChannelLabels(uint64_t *__return_ptr a1@<X8>, AudioChannelLayoutTag a2@<W0>)
 {
   v6 = 0;
-  std::vector<char>::vector[abi:ne200100](__p, 32);
+  std::vector<char>::vector[abi:ne200100](__p, 32, &v6);
   v4 = __p[0];
   *(__p[0] + 1) = 0;
   v4->mNumberChannelDescriptions = 0;
-  v4->mChannelLayoutTag = a1;
-  GetChannelLayoutChannelLabels(v4, a2);
+  v4->mChannelLayoutTag = a2;
+  GetChannelLayoutChannelLabels(a1, v4);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -1706,32 +1783,32 @@ void sub_296BE2F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GetChannelLayoutChannelLabels(const AudioChannelLayout *a1@<X0>, AudioChannelLabel **a2@<X8>)
+void GetChannelLayoutChannelLabels(uint64_t *__return_ptr a1@<X8>, const AudioChannelLayout *a2@<X0>)
 {
-  if (a1->mChannelLayoutTag == 0x10000)
+  if (a2->mChannelLayoutTag == 0x10000)
   {
-    v5 = vcnt_s8(a1->mChannelBitmap);
+    v5 = vcnt_s8(a2->mChannelBitmap);
     v5.i16[0] = vaddlv_u8(v5);
     mChannelLayoutTag = v5.i32[0];
   }
 
-  else if (a1->mChannelLayoutTag)
+  else if (a2->mChannelLayoutTag)
   {
-    mChannelLayoutTag = a1->mChannelLayoutTag;
+    mChannelLayoutTag = a2->mChannelLayoutTag;
   }
 
   else
   {
-    mChannelLayoutTag = a1->mNumberChannelDescriptions;
+    mChannelLayoutTag = a2->mNumberChannelDescriptions;
   }
 
   v6 = mChannelLayoutTag;
   LODWORD(v20.__begin_) = -1;
-  std::vector<unsigned int>::vector[abi:ne200100](a2, mChannelLayoutTag);
-  if (a1->mChannelLayoutTag)
+  std::vector<unsigned int>::vector[abi:ne200100](a1, mChannelLayoutTag, &v20);
+  if (a2->mChannelLayoutTag)
   {
     __x[0] = 0;
-    std::vector<char>::vector[abi:ne200100](&v20, 32);
+    std::vector<char>::vector[abi:ne200100](&v20, 32, __x);
     begin = v20.__begin_;
     *v20.__begin_ = 0;
     *(begin + 2) = 0;
@@ -1766,7 +1843,7 @@ void GetChannelLayoutChannelLabels(const AudioChannelLayout *a1@<X0>, AudioChann
 
     *(begin + 2) = mChannelLayoutTag;
     *__x = end - begin;
-    if (a1->mChannelLayoutTag == 0x10000)
+    if (a2->mChannelLayoutTag == 0x10000)
     {
       v14 = 1668116578;
     }
@@ -1776,12 +1853,12 @@ void GetChannelLayoutChannelLabels(const AudioChannelLayout *a1@<X0>, AudioChann
       v14 = 1668116588;
     }
 
-    AudioFormatGetProperty(v14, 4u, &a1->mChannelLayoutTag + (a1->mChannelLayoutTag == 0x10000), __x, begin);
+    AudioFormatGetProperty(v14, 4u, &a2->mChannelLayoutTag + (a2->mChannelLayoutTag == 0x10000), __x, begin);
     v15 = v20.__begin_;
     if (mChannelLayoutTag)
     {
       v16 = v20.__begin_ + 12;
-      v17 = *a2;
+      v17 = *a1;
       do
       {
         v18 = *v16;
@@ -1804,8 +1881,8 @@ void GetChannelLayoutChannelLabels(const AudioChannelLayout *a1@<X0>, AudioChann
 
   else if (mChannelLayoutTag)
   {
-    mChannelDescriptions = a1->mChannelDescriptions;
-    v12 = *a2;
+    mChannelDescriptions = a2->mChannelDescriptions;
+    v12 = *a1;
     do
     {
       mChannelLabel = mChannelDescriptions->mChannelLabel;
@@ -1913,20 +1990,20 @@ void std::vector<char>::__append(std::vector<char> *this, std::vector<char>::siz
   }
 }
 
-void *_ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_S6_EEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_S6_EJEJEJRS6_S9_S9_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t *_ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_S6_EEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_S6_EJEJEJRS6_S9_S9_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 3, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 6), *a4, a4[1], (a4[1] - *a4) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 6, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 2);
   return a1;
 }
 
@@ -2044,16 +2121,16 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-id getPersonalizedIRDataLog(void)
+id getPersonalizedIRDataLog(uint64_t a1)
 {
   if (getPersonalizedIRDataLog(void)::onceToken != -1)
   {
     getPersonalizedIRDataLog();
   }
 
-  v1 = getPersonalizedIRDataLog(void)::gLog;
+  v2 = getPersonalizedIRDataLog(void)::gLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___Z24getPersonalizedIRDataLogv_block_invoke()
@@ -2123,7 +2200,7 @@ void IR::PersonalizedIRData::Implementation::~Implementation(id *this)
 uint64_t IR::PersonalizedIRData::Implementation::UnregisterObservers(IR::PersonalizedIRData::Implementation *this)
 {
   v9 = *MEMORY[0x29EDCA608];
-  v2 = getPersonalizedIRDataLog();
+  v2 = getPersonalizedIRDataLog(this);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = (this + 56);
@@ -2157,39 +2234,39 @@ uint64_t IR::PersonalizedIRData::Implementation::UnregisterObservers(IR::Persona
 
 uint64_t IR::DataCache::clearCFDataCache(IR::DataCache *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   std::recursive_mutex::lock((this + 16));
-  v2 = getPersonalizedIRDataLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = getPersonalizedIRDataLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = (this + 144);
+    v4 = (this + 144);
     if (*(this + 167) < 0)
     {
-      v3 = *v3;
+      v4 = *v4;
     }
 
-    v8 = 136315394;
-    v9 = v3;
-    v10 = 2080;
-    v11 = "clearCFDataCache";
-    _os_log_impl(&dword_296B9D000, v2, OS_LOG_TYPE_DEFAULT, "[%s|%s] Clearing personalized HRTF cache.", &v8, 0x16u);
+    v9 = 136315394;
+    v10 = v4;
+    v11 = 2080;
+    v12 = "clearCFDataCache";
+    _os_log_impl(&dword_296B9D000, v3, OS_LOG_TYPE_DEFAULT, "[%s|%s] Clearing personalized HRTF cache.", &v9, 0x16u);
   }
 
-  v4 = 0;
-  v5 = this + 184;
+  v5 = 0;
+  v6 = this + 184;
   do
   {
-    v6 = *&v5[v4];
-    *&v5[v4] = 0;
-    if (v6)
+    v7 = *&v6[v5];
+    *&v6[v5] = 0;
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
     }
 
-    v4 += 8;
+    v5 += 8;
   }
 
-  while (v4 != 16);
+  while (v5 != 16);
   *(this + 43) = 1;
   *(this + 168) = 0;
   *(this + 22) = 0;
@@ -2209,8 +2286,8 @@ void sub_296BE3B3C(_Unwind_Exception *a1, int a2)
 
 void IR::PersonalizedIRData::Implementation::RegisterObservers(uint64_t a1, uint64_t a2, int a3)
 {
-  v31 = *MEMORY[0x29EDCA608];
-  v6 = getPersonalizedIRDataLog();
+  v35 = *MEMORY[0x29EDCA608];
+  v6 = getPersonalizedIRDataLog(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = (a1 + 56);
@@ -2220,20 +2297,21 @@ void IR::PersonalizedIRData::Implementation::RegisterObservers(uint64_t a1, uint
     }
 
     *buf = 136315394;
-    v24 = v7;
-    v25 = 2080;
-    v26 = "RegisterObservers";
+    v28 = v7;
+    v29 = 2080;
+    v30 = "RegisterObservers";
     _os_log_impl(&dword_296B9D000, v6, OS_LOG_TYPE_DEFAULT, "[%s|%s] Registering observers.", buf, 0x16u);
   }
 
-  std::function<void ()(IR::PersonalizedIRData::DataStatus)>::operator=((a1 + 24), a2);
+  v8 = std::function<void ()(IR::PersonalizedIRData::DataStatus)>::operator=((a1 + 24), a2);
   if (*(a1 + 16))
   {
     inObjectID = 0;
-    if (AudioDSPCoreUtility::GetDeviceOrPortID(&inObjectID, v8) || !inObjectID)
+    DeviceOrPortID = AudioDSPCoreUtility::GetDeviceOrPortID(&inObjectID, v9);
+    if (DeviceOrPortID || !inObjectID)
     {
-      v17 = getPersonalizedIRDataLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = getPersonalizedIRDataLog(DeviceOrPortID);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         IR::PersonalizedIRData::Implementation::RegisterObservers();
       }
@@ -2246,57 +2324,59 @@ void IR::PersonalizedIRData::Implementation::RegisterObservers(uint64_t a1, uint
       IR::PersonalizedIRData::Implementation::UnregisterPersonalizedHRTFAllowedListener(a1);
       *&inAddress.mSelector = *"afrhbolg";
       inAddress.mElement = 0;
-      v9 = AudioObjectAddPropertyListener(inObjectID, &inAddress, IR::PersonalizedIRData::HALListenerCallbackFunction, a1);
-      v10 = getPersonalizedIRDataLog();
-      v11 = v10;
-      if (v9)
+      v11 = AudioObjectAddPropertyListener(inObjectID, &inAddress, IR::PersonalizedIRData::HALListenerCallbackFunction, a1);
+      v12 = v11;
+      v13 = getPersonalizedIRDataLog(v11);
+      v14 = v13;
+      if (v12)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v12 = (a1 + 56);
+          v15 = (a1 + 56);
           if (*(a1 + 79) < 0)
           {
-            v12 = *v12;
+            v15 = *v15;
           }
 
           *buf = 136315906;
-          v24 = v12;
-          v25 = 2080;
-          v26 = "RegisterObservers";
-          v27 = 1024;
-          v28 = inObjectID;
-          v29 = 1024;
-          v30 = v9;
-          _os_log_error_impl(&dword_296B9D000, v11, OS_LOG_TYPE_ERROR, "[%s|%s] Failed to register personalizedHRTFAllowed listener for device ID: %u. Error: %d", buf, 0x22u);
+          v28 = v15;
+          v29 = 2080;
+          v30 = "RegisterObservers";
+          v31 = 1024;
+          v32 = inObjectID;
+          v33 = 1024;
+          v34 = v12;
+          _os_log_error_impl(&dword_296B9D000, v14, OS_LOG_TYPE_ERROR, "[%s|%s] Failed to register personalizedHRTFAllowed listener for device ID: %u. Error: %d", buf, 0x22u);
         }
       }
 
-      else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         IR::PersonalizedIRData::Implementation::RegisterObservers();
       }
     }
 
     *(a1 + 96) = inObjectID;
-    IR::PersonalizedIRData::Implementation::CheckSupport(a1, 1);
+    v8 = IR::PersonalizedIRData::Implementation::CheckSupport(a1, 1);
   }
 
   else
   {
     if (*(a1 + 84) == -1)
     {
-      v13 = *(a1 + 88);
+      v16 = *(a1 + 88);
       handler[0] = MEMORY[0x29EDCA5F8];
       handler[1] = 3221225472;
       handler[2] = ___ZN2IR18PersonalizedIRData14Implementation17RegisterObserversERKNSt3__18functionIFvNS0_10DataStatusEEEEb_block_invoke;
       handler[3] = &__block_descriptor_40_e8_v12__0i8l;
       handler[4] = a1;
-      v14 = notify_register_dispatch("BTCloudServicesSoundProfileChangedNotification", (a1 + 84), v13, handler);
-      v15 = getPersonalizedIRDataLog();
-      v16 = v15;
-      if (v14)
+      v17 = notify_register_dispatch("BTCloudServicesSoundProfileChangedNotification", (a1 + 84), v16, handler);
+      v18 = v17;
+      v19 = getPersonalizedIRDataLog(v17);
+      v20 = v19;
+      if (v18)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           IR::PersonalizedIRData::Implementation::RegisterObservers();
         }
@@ -2306,7 +2386,7 @@ void IR::PersonalizedIRData::Implementation::RegisterObservers(uint64_t a1, uint
 
       else
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           IR::PersonalizedIRData::Implementation::RegisterObservers();
         }
@@ -2326,20 +2406,20 @@ void IR::PersonalizedIRData::Implementation::RegisterObservers(uint64_t a1, uint
 
   if (a3 && *(a1 + 48))
   {
-    v18 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = getPersonalizedIRDataLog(v8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = (a1 + 56);
+      v23 = (a1 + 56);
       if (*(a1 + 79) < 0)
       {
-        v19 = *v19;
+        v23 = *v23;
       }
 
       *buf = 136315394;
-      v24 = v19;
-      v25 = 2080;
-      v26 = "RegisterObservers";
-      _os_log_impl(&dword_296B9D000, v18, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with valid data = true", buf, 0x16u);
+      v28 = v23;
+      v29 = 2080;
+      v30 = "RegisterObservers";
+      _os_log_impl(&dword_296B9D000, v22, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with valid data = true", buf, 0x16u);
     }
 
     std::function<void ()(IR::PersonalizedIRData::DataStatus)>::operator()(a1 + 24, 0);
@@ -2361,7 +2441,7 @@ uint64_t ___ZN2IR18PersonalizedIRData14Implementation17RegisterObserversERKNSt3_
   v1 = *(result + 32);
   if (*(v1 + 48))
   {
-    v2 = getPersonalizedIRDataLog();
+    v2 = getPersonalizedIRDataLog(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = (v1 + 56);
@@ -2397,40 +2477,41 @@ uint64_t std::function<void ()(IR::PersonalizedIRData::DataStatus)>::operator()(
 
 void IR::PersonalizedIRData::Implementation::UnregisterPersonalizedHRTFAllowedListener(IR::PersonalizedIRData::Implementation *this)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = (this + 96);
   v2 = *(this + 24);
   if (v2)
   {
-    v9.mElement = 0;
-    *&v9.mSelector = *"afrhbolg";
-    v4 = AudioObjectRemovePropertyListener(v2, &v9, IR::PersonalizedIRData::HALListenerCallbackFunction, this);
-    v5 = getPersonalizedIRDataLog();
-    v6 = v5;
-    if (v4)
+    v10.mElement = 0;
+    *&v10.mSelector = *"afrhbolg";
+    v4 = AudioObjectRemovePropertyListener(v2, &v10, IR::PersonalizedIRData::HALListenerCallbackFunction, this);
+    v5 = v4;
+    v6 = getPersonalizedIRDataLog(v4);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = (this + 56);
+        v8 = (this + 56);
         if (*(this + 79) < 0)
         {
-          v7 = *v7;
+          v8 = *v8;
         }
 
-        v8 = *v3;
+        v9 = *v3;
         *buf = 136315906;
-        v11 = v7;
-        v12 = 2080;
-        v13 = "UnregisterPersonalizedHRTFAllowedListener";
-        v14 = 1024;
-        v15 = v8;
-        v16 = 1024;
-        v17 = v4;
-        _os_log_impl(&dword_296B9D000, v6, OS_LOG_TYPE_DEFAULT, "[%s|%s] Failed to unregister personalizedHRTFAllowed listener. Device ID: %u. Error: %d", buf, 0x22u);
+        v12 = v8;
+        v13 = 2080;
+        v14 = "UnregisterPersonalizedHRTFAllowedListener";
+        v15 = 1024;
+        v16 = v9;
+        v17 = 1024;
+        v18 = v5;
+        _os_log_impl(&dword_296B9D000, v7, OS_LOG_TYPE_DEFAULT, "[%s|%s] Failed to unregister personalizedHRTFAllowed listener. Device ID: %u. Error: %d", buf, 0x22u);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       IR::PersonalizedIRData::Implementation::UnregisterPersonalizedHRTFAllowedListener();
     }
@@ -2442,7 +2523,7 @@ void IR::PersonalizedIRData::Implementation::UnregisterPersonalizedHRTFAllowedLi
 uint64_t IR::PersonalizedIRData::HALListenerCallbackFunction(IR::PersonalizedIRData *this, unsigned int a2, unsigned int a3, AudioObjectPropertyAddress *a4, void *a5)
 {
   v14 = *MEMORY[0x29EDCA608];
-  v6 = getPersonalizedIRDataLog();
+  v6 = getPersonalizedIRDataLog(this);
   v7 = v6;
   if (a4)
   {
@@ -2478,7 +2559,7 @@ uint64_t IR::PersonalizedIRData::HALListenerCallbackFunction(IR::PersonalizedIRD
 
 uint64_t IR::PersonalizedIRData::Implementation::CheckSupport(IR::PersonalizedIRData::Implementation *this, unsigned int *a2)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   if (a2 && *(this + 81) == 1)
   {
     *(this + 81) = 0;
@@ -2501,24 +2582,25 @@ uint64_t IR::PersonalizedIRData::Implementation::CheckSupport(IR::PersonalizedIR
 
   inObjectID = 0;
   DeviceOrPortID = AudioDSPCoreUtility::GetDeviceOrPortID(&inObjectID, a2);
-  if (DeviceOrPortID || !inObjectID)
+  v4 = DeviceOrPortID;
+  if (DeviceOrPortID || (DeviceOrPortID = inObjectID) == 0)
   {
-    v9 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = getPersonalizedIRDataLog(DeviceOrPortID);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = (this + 56);
+      v12 = (this + 56);
       if (*(this + 79) < 0)
       {
-        v10 = *v10;
+        v12 = *v12;
       }
 
       *buf = 136315650;
-      v21 = v10;
-      v22 = 2080;
-      v23 = "CheckSupport";
-      v24 = 1024;
-      v25 = DeviceOrPortID;
-      _os_log_impl(&dword_296B9D000, v9, OS_LOG_TYPE_DEFAULT, "[%s|%s] Unknown device ID, Error: %d", buf, 0x1Cu);
+      v23 = v12;
+      v24 = 2080;
+      v25 = "CheckSupport";
+      v26 = 1024;
+      v27 = v4;
+      _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "[%s|%s] Unknown device ID, Error: %d", buf, 0x1Cu);
     }
 
     if (*(this + 81) != 1)
@@ -2532,95 +2614,96 @@ uint64_t IR::PersonalizedIRData::Implementation::CheckSupport(IR::PersonalizedIR
     ioDataSize = 4;
     *&inAddress.mSelector = *"afrhbolg";
     inAddress.mElement = 0;
-    if (AudioObjectHasProperty(inObjectID, &inAddress))
+    HasProperty = AudioObjectHasProperty(inObjectID, &inAddress);
+    if (HasProperty)
     {
-      LOBYTE(v4) = *(this + 81);
-      if ((v4 & 1) == 0)
+      LOBYTE(v6) = *(this + 81);
+      if ((v6 & 1) == 0)
       {
         outData = 0;
         PropertyData = AudioObjectGetPropertyData(inObjectID, &inAddress, 0, 0, &ioDataSize, &outData);
         if (!PropertyData)
         {
-          v15 = outData != 0;
+          v17 = outData != 0;
           if (*(this + 81) == 1)
           {
-            atomic_store(v15, this + 80);
+            atomic_store(v17, this + 80);
           }
 
           else
           {
-            *(this + 80) = v15;
+            *(this + 80) = v17;
             *(this + 81) = 1;
           }
 
           goto LABEL_31;
         }
 
-        v6 = PropertyData;
-        v7 = getPersonalizedIRDataLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = PropertyData;
+        v9 = getPersonalizedIRDataLog(PropertyData);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = (this + 56);
+          v10 = (this + 56);
           if (*(this + 79) < 0)
           {
-            v8 = *v8;
+            v10 = *v10;
           }
 
           *buf = 136315906;
-          v21 = v8;
-          v22 = 2080;
-          v23 = "CheckSupport";
-          v24 = 1024;
-          v25 = inObjectID;
+          v23 = v10;
+          v24 = 2080;
+          v25 = "CheckSupport";
           v26 = 1024;
-          v27 = v6;
-          _os_log_impl(&dword_296B9D000, v7, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not read soundProfileAllowed property. Device ID %u. Error: %d", buf, 0x22u);
+          v27 = inObjectID;
+          v28 = 1024;
+          v29 = v8;
+          _os_log_impl(&dword_296B9D000, v9, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not read soundProfileAllowed property. Device ID %u. Error: %d", buf, 0x22u);
         }
 
-        LOBYTE(v4) = *(this + 81);
+        LOBYTE(v6) = *(this + 81);
       }
 
       goto LABEL_30;
     }
 
-    v11 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = getPersonalizedIRDataLog(HasProperty);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = (this + 56);
+      v14 = (this + 56);
       if (*(this + 79) < 0)
       {
-        v12 = *v12;
+        v14 = *v14;
       }
 
       *buf = 136315650;
-      v21 = v12;
-      v22 = 2080;
-      v23 = "CheckSupport";
-      v24 = 1024;
-      v25 = inObjectID;
-      _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "[%s|%s] Unsupported device. Device ID %u.", buf, 0x1Cu);
+      v23 = v14;
+      v24 = 2080;
+      v25 = "CheckSupport";
+      v26 = 1024;
+      v27 = inObjectID;
+      _os_log_impl(&dword_296B9D000, v13, OS_LOG_TYPE_DEFAULT, "[%s|%s] Unsupported device. Device ID %u.", buf, 0x1Cu);
     }
 
-    v4 = *(this + 81);
-    if (v4 != 1)
+    v6 = *(this + 81);
+    if (v6 != 1)
     {
 LABEL_30:
-      if (v4)
+      if (v6)
       {
 LABEL_31:
-        v13 = atomic_load(this + 80);
-        return v13 & 1;
+        v15 = atomic_load(this + 80);
+        return v15 & 1;
       }
 
 LABEL_32:
-      v13 = 0;
-      return v13 & 1;
+      v15 = 0;
+      return v15 & 1;
     }
   }
 
-  v13 = 0;
+  v15 = 0;
   *(this + 81) = 0;
-  return v13 & 1;
+  return v15 & 1;
 }
 
 void IR::PersonalizedIRData::Implementation::UnregisterBTCServicesAndMAObservers(IR::PersonalizedIRData::Implementation *this)
@@ -2628,99 +2711,99 @@ void IR::PersonalizedIRData::Implementation::UnregisterBTCServicesAndMAObservers
   v2 = *(this + 21);
   if (v2 != -1)
   {
-    notify_cancel(v2);
+    v3 = notify_cancel(v2);
     *(this + 21) = -1;
-    v3 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = getPersonalizedIRDataLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       IR::PersonalizedIRData::Implementation::UnregisterBTCServicesAndMAObservers();
     }
   }
 }
 
-void IR::PersonalizedIRData::Implementation::GetCFData(uint64_t a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t a4@<X8>)
+void IR::PersonalizedIRData::Implementation::GetCFData(uint64_t *a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t a5@<X8>)
 {
-  v23[10] = *MEMORY[0x29EDCA608];
-  IR::DataCache::getFromCFDataCache(*a1, a2, &v15);
-  v8 = v15;
-  v9 = getPersonalizedIRDataLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v8 || (a3 & 1) != 0)
+  v25[10] = *MEMORY[0x29EDCA608];
+  IR::DataCache::getFromCFDataCache(*a1, a2, &v17);
+  v9 = v17;
+  v11 = getPersonalizedIRDataLog(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v9 || (a3 & 1) != 0)
   {
-    if (v10)
+    if (v12)
     {
-      v13 = (a1 + 56);
+      v15 = a1 + 7;
+      if (*(a1 + 79) < 0)
+      {
+        v15 = *v15;
+      }
+
+      *buf = 136315906;
+      if (v17)
+      {
+        v16 = "found";
+      }
+
+      else
+      {
+        v16 = "unavailable";
+      }
+
+      *&buf[4] = v15;
+      v19 = 2080;
+      v20 = "GetCFData";
+      v21 = 1024;
+      v22 = a2;
+      v23 = 2080;
+      v24 = v16;
+      _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "[%s|%s] Personalized HRIR type %u is %s in CFData cache.", buf, 0x26u);
+    }
+
+    buf[0] = 0;
+    std::pair<BOOL,applesauce::CF::DataRef>::pair[abi:ne200100]<BOOL,applesauce::CF::DataRef&,0>(a5, buf, &v17);
+  }
+
+  else
+  {
+    if (v12)
+    {
+      v13 = a1 + 7;
       if (*(a1 + 79) < 0)
       {
         v13 = *v13;
       }
 
-      *buf = 136315906;
-      if (v15)
-      {
-        v14 = "found";
-      }
-
-      else
-      {
-        v14 = "unavailable";
-      }
-
-      *&buf[4] = v13;
-      v17 = 2080;
-      v18 = "GetCFData";
-      v19 = 1024;
-      v20 = a2;
-      v21 = 2080;
-      v22 = v14;
-      _os_log_impl(&dword_296B9D000, v9, OS_LOG_TYPE_DEFAULT, "[%s|%s] Personalized HRIR type %u is %s in CFData cache.", buf, 0x26u);
-    }
-
-    buf[0] = 0;
-    std::pair<BOOL,applesauce::CF::DataRef>::pair[abi:ne200100]<BOOL,applesauce::CF::DataRef&,0>(a4, buf, &v15);
-  }
-
-  else
-  {
-    if (v10)
-    {
-      v11 = (a1 + 56);
-      if (*(a1 + 79) < 0)
-      {
-        v11 = *v11;
-      }
-
       *buf = 136315650;
-      *&buf[4] = v11;
-      v17 = 2080;
-      v18 = "GetCFData";
-      v19 = 1024;
-      v20 = a2;
-      _os_log_impl(&dword_296B9D000, v9, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not find Personalized HRTF type %u in local cache, trying to fetch.", buf, 0x1Cu);
+      *&buf[4] = v13;
+      v19 = 2080;
+      v20 = "GetCFData";
+      v21 = 1024;
+      v22 = a2;
+      _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not find Personalized HRTF type %u in local cache, trying to fetch.", buf, 0x1Cu);
     }
 
-    if ((*(a1 + 16) & 1) == 0)
+    if ((a1[2] & 1) == 0)
     {
       operator new();
     }
 
-    v12 = *a1;
-    v23[0] = &unk_2A1DECE40;
-    v23[3] = v23;
-    IR::DataCache::DownloadAndCacheCFData(v12, v23, 0);
-    std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](v23);
+    v14 = *a1;
+    v25[0] = &unk_2A1DECE40;
+    v25[3] = v25;
+    IR::DataCache::DownloadAndCacheCFData(v14, v25, 0);
+    std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](v25);
     IR::DataCache::getFromCFDataCache(*a1, a2, buf);
-    *a4 = 0;
-    *(a4 + 8) = *buf;
+    *a5 = 0;
+    *(a5 + 8) = *buf;
   }
 
-  if (v15)
+  if (v17)
   {
-    CFRelease(v15);
+    CFRelease(v17);
   }
 }
 
-void sub_296BE4CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, const void *a13, std::mutex *a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, const void *a24, uint64_t a25, char a26)
+void sub_296BE4CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, const void *a13, std::mutex *a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
 {
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(&a24);
   operator delete(v27);
@@ -2736,12 +2819,12 @@ void sub_296BE4CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void IR::DataCache::getFromCFDataCache(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   std::recursive_mutex::lock((a1 + 16));
   if (a2 == 2)
   {
-    v6 = *(a1 + 192);
-    if (v6)
+    v7 = *(a1 + 192);
+    if (v7)
     {
       CFRetain(*(a1 + 192));
     }
@@ -2749,8 +2832,8 @@ void IR::DataCache::getFromCFDataCache(uint64_t a1@<X0>, int a2@<W1>, void *a3@<
 
   else if (a2 == 1)
   {
-    v6 = *(a1 + 184);
-    if (v6)
+    v7 = *(a1 + 184);
+    if (v7)
     {
       CFRetain(*(a1 + 184));
     }
@@ -2758,28 +2841,28 @@ void IR::DataCache::getFromCFDataCache(uint64_t a1@<X0>, int a2@<W1>, void *a3@<
 
   else
   {
-    v7 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = getPersonalizedIRDataLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = (a1 + 144);
+      v9 = (a1 + 144);
       if (*(a1 + 167) < 0)
       {
-        v8 = *v8;
+        v9 = *v9;
       }
 
-      v9 = 136315650;
-      v10 = v8;
-      v11 = 2080;
-      v12 = "getFromCFDataCache";
-      v13 = 1024;
-      v14 = a2;
-      _os_log_impl(&dword_296B9D000, v7, OS_LOG_TYPE_DEFAULT, "[%s|%s] Returning null dictionary for personalized HRTF type %u.", &v9, 0x1Cu);
+      v10 = 136315650;
+      v11 = v9;
+      v12 = 2080;
+      v13 = "getFromCFDataCache";
+      v14 = 1024;
+      v15 = a2;
+      _os_log_impl(&dword_296B9D000, v8, OS_LOG_TYPE_DEFAULT, "[%s|%s] Returning null dictionary for personalized HRTF type %u.", &v10, 0x1Cu);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  *a3 = v6;
+  *a3 = v7;
   std::recursive_mutex::unlock((a1 + 16));
 }
 
@@ -2793,24 +2876,24 @@ void sub_296BE4EC8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
+void IR::DataCache::DownloadAndCacheCFData(uint64_t *a1, uint64_t a2, int a3)
 {
-  v57 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     if (*(a1 + 201) == 1)
     {
       v6 = *a1;
-      v5 = *(a1 + 8);
+      v5 = a1[1];
       if (v5)
       {
         atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v7 = getPersonalizedIRDataLog();
+      v7 = getPersonalizedIRDataLog(a1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = (a1 + 144);
+        v8 = a1 + 18;
         if (*(a1 + 167) < 0)
         {
           v8 = *v8;
@@ -2818,8 +2901,8 @@ void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
 
         *buf = 136315394;
         *&buf[4] = v8;
-        v54 = 2080;
-        *v55 = "DownloadAndCacheCFData";
+        v58 = 2080;
+        *v59 = "DownloadAndCacheCFData";
         _os_log_impl(&dword_296B9D000, v7, OS_LOG_TYPE_DEFAULT, "[%s|%s] Searching for enrolled SoundProfile.", buf, 0x16u);
       }
 
@@ -2829,25 +2912,25 @@ void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
       v12 = dispatch_queue_create("com.apple.coreaudio.pHRTF", v11);
       [v10 setDispatchQueue:v12];
 
-      v43[0] = MEMORY[0x29EDCA5F8];
-      v43[1] = 3321888768;
-      v43[2] = ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18PersonalizedIRData12DataValidityEEEEb_block_invoke;
-      v43[3] = &__block_descriptor_96_ea8_40c38_ZTSNSt3__18weak_ptrIN2IR9DataCacheEEE64c66_ZTSKNSt3__18functionIFvN2IR18PersonalizedIRData12DataValidityEEEE_e47_v24__0__SpatialAudioProfileRecord_8__NSError_16l;
-      v43[4] = a1;
-      v43[5] = v6;
-      v44 = v5;
+      v47[0] = MEMORY[0x29EDCA5F8];
+      v47[1] = 3321888768;
+      v47[2] = ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18PersonalizedIRData12DataValidityEEEEb_block_invoke;
+      v47[3] = &__block_descriptor_96_ea8_40c38_ZTSNSt3__18weak_ptrIN2IR9DataCacheEEE64c66_ZTSKNSt3__18functionIFvN2IR18PersonalizedIRData12DataValidityEEEE_e47_v24__0__SpatialAudioProfileRecord_8__NSError_16l;
+      v47[4] = a1;
+      v47[5] = v6;
+      v48 = v5;
       if (v5)
       {
         atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v45 = v9;
-      std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::__value_func[abi:ne200100](v46, a2);
-      [v10 fetchSpatialAudioProfileRecordWithCompletion:v43];
-      std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](v46);
-      if (v44)
+      v49 = v9;
+      std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::__value_func[abi:ne200100](v50, a2);
+      [v10 fetchSpatialAudioProfileRecordWithCompletion:v47];
+      std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](v50);
+      if (v48)
       {
-        std::__shared_weak_count::__release_weak(v44);
+        std::__shared_weak_count::__release_weak(v48);
       }
 
       if (v5)
@@ -2860,42 +2943,44 @@ void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
   }
 
   inAddress = *"ibipbolg";
-  inAddress_8 = 0;
   *buf = &kBTHALPluginBundleID;
   *&buf[8] = 8;
-  *&v55[2] = &inAddress_8 + 4;
-  LODWORD(v56) = 4;
+  *&v59[2] = &inAddress + 12;
+  LODWORD(v60) = 4;
   ioDataSize = 32;
-  if (!AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &ioDataSize, buf))
+  PropertyData = AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &ioDataSize, buf);
+  if (!PropertyData)
   {
-    v39.mElement = 0;
+    v44.mElement = 0;
     outData = 0;
-    *&v39.mSelector = *"frhcbolg";
-    v37 = 8;
-    PropertyData = AudioObjectGetPropertyData(HIDWORD(inAddress_8), &v39, 0, 0, &v37, &outData);
+    *&v44.mSelector = *"frhcbolg";
+    v42 = 8;
+    v16 = AudioObjectGetPropertyData(HIDWORD(inAddress), &v44, 0, 0, &v42, &outData);
+    TypeID = outData;
     cf = outData;
     if (outData)
     {
-      v16 = CFGetTypeID(outData);
-      if (v16 != CFDictionaryGetTypeID())
+      v18 = CFGetTypeID(outData);
+      TypeID = CFDictionaryGetTypeID();
+      if (v18 != TypeID)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x29C25F8D0](exception, "Could not construct");
       }
     }
 
-    if (PropertyData || v37 != 8)
+    if (v16 || v42 != 8)
     {
-      v21 = getPersonalizedIRDataLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v25 = getPersonalizedIRDataLog(TypeID);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        *v47 = 136315650;
-        v48 = "GetEnrolledSoundProfileFromBTHAL";
-        v49 = 1024;
-        v50 = PropertyData;
-        v51 = 1024;
-        v52 = v37;
-        _os_log_impl(&dword_296B9D000, v21, OS_LOG_TYPE_DEFAULT, "%s: Could not pull SoundProfile. Error: %d. Property size: %u", v47, 0x18u);
+        *v51 = 136315650;
+        v52 = "GetEnrolledSoundProfileFromBTHAL";
+        v53 = 1024;
+        v54 = v16;
+        v55 = 1024;
+        v56 = v42;
+        _os_log_impl(&dword_296B9D000, v25, OS_LOG_TYPE_DEFAULT, "%s: Could not pull SoundProfile. Error: %d. Property size: %u", v51, 0x18u);
       }
     }
 
@@ -2904,38 +2989,39 @@ void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
       if (cf)
       {
         applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,char const(&)[32]>(cf, "kBTAudioMsgPropertySoundProfile", &theData);
-        if (v35)
+        if (v40)
         {
           if (!theData)
           {
-            v29 = __cxa_allocate_exception(0x10uLL);
-            MEMORY[0x29C25F8D0](v29, "Could not construct");
+            v34 = __cxa_allocate_exception(0x10uLL);
+            MEMORY[0x29C25F8D0](v34, "Could not construct");
           }
 
           Length = CFDataGetLength(theData);
-          v18 = getPersonalizedIRDataLog();
-          v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-          if (Length)
+          v21 = Length;
+          v22 = getPersonalizedIRDataLog(Length);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+          if (v21)
           {
-            if (v19)
+            if (v23)
             {
-              *v47 = 136315394;
-              v48 = "GetEnrolledSoundProfileFromBTHAL";
-              v49 = 1024;
-              v50 = Length;
-              _os_log_impl(&dword_296B9D000, v18, OS_LOG_TYPE_DEFAULT, "%s: Successfully pulled SoundProfile pack. Data size: %u", v47, 0x12u);
+              *v51 = 136315394;
+              v52 = "GetEnrolledSoundProfileFromBTHAL";
+              v53 = 1024;
+              v54 = v21;
+              _os_log_impl(&dword_296B9D000, v22, OS_LOG_TYPE_DEFAULT, "%s: Successfully pulled SoundProfile pack. Data size: %u", v51, 0x12u);
             }
 
-            v20 = mach_absolute_time();
-            if ((v35 & 1) == 0)
+            v24 = mach_absolute_time();
+            if ((v40 & 1) == 0)
             {
               std::__throw_bad_optional_access[abi:ne200100]();
             }
 
-            v31 = 1;
-            v32 = v20;
-            std::__tuple_leaf<2ul,applesauce::CF::DataRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::DataRef&,0>(&v33, &theData);
-            if (v35 == 1 && theData)
+            v36 = 1;
+            v37 = v24;
+            std::__tuple_leaf<2ul,applesauce::CF::DataRef,false>::__tuple_leaf[abi:ne200100]<applesauce::CF::DataRef&,0>(&v38, &theData);
+            if (v40 == 1 && theData)
             {
               CFRelease(theData);
             }
@@ -2948,49 +3034,49 @@ void IR::DataCache::DownloadAndCacheCFData(uint64_t a1, uint64_t a2, int a3)
             goto LABEL_54;
           }
 
-          if (!v19)
+          if (!v23)
           {
             goto LABEL_47;
           }
 
-          *v47 = 136315138;
-          v48 = "GetEnrolledSoundProfileFromBTHAL";
-          v23 = "%s: Invalid SoundProfile pack: size = 0.";
+          *v51 = 136315138;
+          v52 = "GetEnrolledSoundProfileFromBTHAL";
+          v27 = "%s: Invalid SoundProfile pack: size = 0.";
         }
 
         else
         {
-          v18 = getPersonalizedIRDataLog();
-          if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v22 = getPersonalizedIRDataLog(v19);
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_47;
           }
 
-          *v47 = 136315138;
-          v48 = "GetEnrolledSoundProfileFromBTHAL";
-          v23 = "%s: Invalid SoundProfile pack.";
+          *v51 = 136315138;
+          v52 = "GetEnrolledSoundProfileFromBTHAL";
+          v27 = "%s: Invalid SoundProfile pack.";
         }
 
-        _os_log_impl(&dword_296B9D000, v18, OS_LOG_TYPE_DEFAULT, v23, v47, 0xCu);
+        _os_log_impl(&dword_296B9D000, v22, OS_LOG_TYPE_DEFAULT, v27, v51, 0xCu);
 LABEL_47:
 
-        if (v35 == 1 && theData)
+        if (v40 == 1 && theData)
         {
           CFRelease(theData);
         }
 
-        v14 = 1;
+        v15 = 1;
         goto LABEL_51;
       }
 
-      v22 = getPersonalizedIRDataLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = getPersonalizedIRDataLog(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         IR::DataCache::DownloadAndCacheCFData();
       }
     }
 
-    v14 = 0;
+    v15 = 0;
 LABEL_51:
     if (cf)
     {
@@ -3000,67 +3086,68 @@ LABEL_51:
     goto LABEL_53;
   }
 
-  v13 = getPersonalizedIRDataLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = getPersonalizedIRDataLog(PropertyData);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     IR::DataCache::DownloadAndCacheCFData();
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_53:
-  v31 = v14;
-  v32 = mach_absolute_time();
-  v33 = 0;
+  v36 = v15;
+  v37 = mach_absolute_time();
+  v38 = 0;
 LABEL_54:
-  std::recursive_mutex::lock((a1 + 16));
-  *(a1 + 168) = v31;
-  *(a1 + 176) = v32;
-  *(a1 + 172) = 1;
-  std::recursive_mutex::unlock((a1 + 16));
-  v24 = v33;
-  if (v33)
+  std::recursive_mutex::lock((a1 + 2));
+  *(a1 + 168) = v36;
+  a1[22] = v37;
+  *(a1 + 43) = 1;
+  std::recursive_mutex::unlock((a1 + 2));
+  v29 = v38;
+  if (v38)
   {
-    CFRetain(v33);
-    v30 = v24;
-    IR::DataCache::parseSoundProfileAndAddToCache(a1, &v30);
-    if (v30)
+    CFRetain(v38);
+    v35 = v29;
+    IR::DataCache::parseSoundProfileAndAddToCache(a1, &v35);
+    v28 = v35;
+    if (v35)
     {
-      CFRelease(v30);
+      CFRelease(v35);
     }
   }
 
   if (*(a2 + 24))
   {
-    v25 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v30 = getPersonalizedIRDataLog(v28);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = (a1 + 144);
+      v31 = a1 + 18;
       if (*(a1 + 167) < 0)
       {
-        v26 = *v26;
+        v31 = *v31;
       }
 
-      v27 = "Invalid";
-      if (!*(a1 + 172))
+      v32 = "Invalid";
+      if (!*(a1 + 43))
       {
-        v27 = "Valid";
+        v32 = "Valid";
       }
 
       *buf = 136315650;
-      *&buf[4] = v26;
-      v54 = 2080;
-      *v55 = "DownloadAndCacheCFData";
-      *&v55[8] = 2080;
-      v56 = v27;
-      _os_log_impl(&dword_296B9D000, v25, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with DataValidity = %s.", buf, 0x20u);
+      *&buf[4] = v31;
+      v58 = 2080;
+      *v59 = "DownloadAndCacheCFData";
+      *&v59[8] = 2080;
+      v60 = v32;
+      _os_log_impl(&dword_296B9D000, v30, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with DataValidity = %s.", buf, 0x20u);
     }
 
-    std::function<void ()(IR::PersonalizedIRData::DataValidity)>::operator()(a2, *(a1 + 172));
+    std::function<void ()(IR::PersonalizedIRData::DataValidity)>::operator()(a2, *(a1 + 43));
   }
 
-  if (v33)
+  if (v38)
   {
-    CFRelease(v33);
+    CFRelease(v38);
   }
 }
 
@@ -3076,20 +3163,24 @@ void sub_296BE55C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IR::PersonalizedIRData::PersonalizedIRData(IR::PersonalizedIRData *this)
 {
-  IR::PersonalizedIRData::PersonalizedIRData(this);
+  v1 = 0uLL;
+  v2 = 0;
+  IR::PersonalizedIRData::PersonalizedIRData(this, &v1);
 }
 
 {
-  IR::PersonalizedIRData::PersonalizedIRData(this);
+  v1 = 0uLL;
+  v2 = 0;
+  IR::PersonalizedIRData::PersonalizedIRData(this, &v1);
 }
 
-void IR::PersonalizedIRData::PersonalizedIRData(void *a1)
+void IR::PersonalizedIRData::PersonalizedIRData(void *a1, __int128 *a2)
 {
   *a1 = 0;
-  v1 = [MEMORY[0x29EDB9F48] mainBundle];
-  v2 = [v1 bundleIdentifier];
+  v2 = [MEMORY[0x29EDB9F48] mainBundle];
+  v3 = [v2 bundleIdentifier];
 
-  [v2 isEqualToString:@"com.apple.audiomxd"];
+  [v3 isEqualToString:@"com.apple.audiomxd"];
   operator new();
 }
 
@@ -3101,15 +3192,15 @@ void sub_296BE5798(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void IR::PersonalizedIRData::PersonalizedIRData(IR::PersonalizedIRData *this, const void *a2)
+void IR::PersonalizedIRData::PersonalizedIRData(IR::PersonalizedIRData *this, const char *a2)
 {
-  caulk::make_string("%p", &__p, a2);
-  IR::PersonalizedIRData::PersonalizedIRData(this);
+  caulk::make_string(&__p, "%p", a2, a2);
+  IR::PersonalizedIRData::PersonalizedIRData(this, &__p);
 }
 
 {
-  caulk::make_string("%p", &__p, a2);
-  IR::PersonalizedIRData::PersonalizedIRData(this);
+  caulk::make_string(&__p, "%p", a2, a2);
+  IR::PersonalizedIRData::PersonalizedIRData(this, &__p);
 }
 
 void sub_296BE5878(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3151,9 +3242,9 @@ uint64_t IR::PersonalizedIRData::RebuildCFDataCache(IR::DataCache ***a1, uint64_
   return std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_296BE5A3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BE5A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3310,83 +3401,86 @@ void std::default_delete<IR::DataCache>::operator()[abi:ne200100](uint64_t a1, u
 
 void ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18PersonalizedIRData12DataValidityEEEEb_block_invoke(void *a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   v7 = a1[6];
   if (v7)
   {
     v8 = a1[4];
-    v9 = std::__shared_weak_count::lock(v7);
-    if (v9 && a1[5])
+    v7 = std::__shared_weak_count::lock(v7);
+    v9 = v7;
+    if (v7 && a1[5])
     {
       v10 = std::mutex::try_lock((v8 + 80));
+      v11 = v10;
       if (v10 && *(v8 + 200) != 1)
       {
-        v13 = mach_absolute_time();
+        v14 = mach_absolute_time();
         std::recursive_mutex::lock((v8 + 16));
         *(v8 + 168) = 1;
-        *(v8 + 176) = v13;
+        *(v8 + 176) = v14;
         *(v8 + 172) = 1;
         std::recursive_mutex::unlock((v8 + 16));
         if (!v5 || v6)
         {
-          v22 = getPersonalizedIRDataLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v25 = getPersonalizedIRDataLog(v15);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = (v8 + 144);
+            v28 = (v8 + 144);
             if (*(v8 + 167) < 0)
             {
-              v25 = *v25;
+              v28 = *v28;
             }
 
             *buf = 136315650;
-            *&buf[4] = v25;
-            v34 = 2080;
-            v35 = "DownloadAndCacheCFData_block_invoke";
-            v36 = 2112;
-            v37 = *&v6;
-            _os_log_impl(&dword_296B9D000, v22, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not pull SoundProfile. Error: %@", buf, 0x20u);
+            *&buf[4] = v28;
+            v38 = 2080;
+            v39 = "DownloadAndCacheCFData_block_invoke";
+            v40 = 2112;
+            v41 = *&v6;
+            _os_log_impl(&dword_296B9D000, v25, OS_LOG_TYPE_DEFAULT, "[%s|%s] Could not pull SoundProfile. Error: %@", buf, 0x20u);
           }
         }
 
         else
         {
-          v14 = [v5 profileData];
-          v15 = [v14 length];
-          if (v15)
+          v16 = [v5 profileData];
+          v17 = [v16 length];
+          v18 = v17;
+          if (v17)
           {
-            v16 = a1[7];
-            v17 = getPersonalizedIRDataLog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v19 = a1[7];
+            v20 = getPersonalizedIRDataLog(v17);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v18 = (v13 - v16) * 0.0000000416666667;
-              v19 = v18 * 1000.0;
-              v20 = (v8 + 144);
+              v21 = (v14 - v19) * 0.0000000416666667;
+              v22 = v21 * 1000.0;
+              v23 = (v8 + 144);
               if (*(v8 + 167) < 0)
               {
-                v20 = *v20;
+                v23 = *v23;
               }
 
               *buf = 136315906;
-              *&buf[4] = v20;
-              v34 = 2080;
-              v35 = "DownloadAndCacheCFData_block_invoke";
-              v36 = 2048;
-              v37 = v19;
-              v38 = 1024;
-              v39 = v15;
-              _os_log_impl(&dword_296B9D000, v17, OS_LOG_TYPE_DEFAULT, "[%s|%s] Successfully pulled SoundProfile pack in %.1fms. Size: %u", buf, 0x26u);
+              *&buf[4] = v23;
+              v38 = 2080;
+              v39 = "DownloadAndCacheCFData_block_invoke";
+              v40 = 2048;
+              v41 = v22;
+              v42 = 1024;
+              v43 = v18;
+              _os_log_impl(&dword_296B9D000, v20, OS_LOG_TYPE_DEFAULT, "[%s|%s] Successfully pulled SoundProfile pack in %.1fms. Size: %u", buf, 0x26u);
             }
 
-            v21 = v14;
-            v22 = v21;
-            if (v21)
+            v24 = v16;
+            v25 = v24;
+            if (v24)
             {
-              CFRetain(v21);
-              *buf = v22;
-              v23 = CFGetTypeID(v22);
-              if (v23 != CFDataGetTypeID())
+              CFRetain(v24);
+              *buf = v25;
+              v26 = CFGetTypeID(v25);
+              if (v26 != CFDataGetTypeID())
               {
                 exception = __cxa_allocate_exception(0x10uLL);
                 MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -3398,13 +3492,13 @@ void ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18Personal
               *buf = 0;
             }
 
-            v28 = *buf;
+            v31 = *buf;
             if (*buf)
             {
               CFRetain(*buf);
             }
 
-            cf = v28;
+            cf = v31;
             IR::DataCache::parseSoundProfileAndAddToCache(v8, &cf);
             if (cf)
             {
@@ -3419,52 +3513,52 @@ void ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18Personal
 
           else
           {
-            v26 = getPersonalizedIRDataLog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v29 = getPersonalizedIRDataLog(v17);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = (v8 + 144);
+              v30 = (v8 + 144);
               if (*(v8 + 167) < 0)
               {
-                v27 = *v27;
+                v30 = *v30;
               }
 
               *buf = 136315650;
-              *&buf[4] = v27;
-              v34 = 2080;
-              v35 = "DownloadAndCacheCFData_block_invoke";
-              v36 = 1024;
-              LODWORD(v37) = 0;
-              _os_log_impl(&dword_296B9D000, v26, OS_LOG_TYPE_DEFAULT, "[%s|%s] Invalid SoundProfile pack. Length: %u", buf, 0x1Cu);
+              *&buf[4] = v30;
+              v38 = 2080;
+              v39 = "DownloadAndCacheCFData_block_invoke";
+              v40 = 1024;
+              LODWORD(v41) = 0;
+              _os_log_impl(&dword_296B9D000, v29, OS_LOG_TYPE_DEFAULT, "[%s|%s] Invalid SoundProfile pack. Length: %u", buf, 0x1Cu);
             }
 
-            v22 = v14;
+            v25 = v16;
           }
         }
 
         if (a1[11])
         {
-          v29 = getPersonalizedIRDataLog();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v33 = getPersonalizedIRDataLog(v32);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = (v8 + 144);
+            v34 = (v8 + 144);
             if (*(v8 + 167) < 0)
             {
-              v30 = *v30;
+              v34 = *v34;
             }
 
-            v31 = "Invalid";
+            v35 = "Invalid";
             if (!*(v8 + 172))
             {
-              v31 = "Valid";
+              v35 = "Valid";
             }
 
             *buf = 136315650;
-            *&buf[4] = v30;
-            v34 = 2080;
-            v35 = "DownloadAndCacheCFData_block_invoke";
-            v36 = 2080;
-            v37 = *&v31;
-            _os_log_impl(&dword_296B9D000, v29, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with DataValidity = %s.", buf, 0x20u);
+            *&buf[4] = v34;
+            v38 = 2080;
+            v39 = "DownloadAndCacheCFData_block_invoke";
+            v40 = 2080;
+            v41 = *&v35;
+            _os_log_impl(&dword_296B9D000, v33, OS_LOG_TYPE_DEFAULT, "[%s|%s] Executing callback with DataValidity = %s.", buf, 0x20u);
           }
 
           std::function<void ()(IR::PersonalizedIRData::DataValidity)>::operator()((a1 + 8), *(v8 + 172));
@@ -3473,15 +3567,15 @@ void ___ZN2IR9DataCache22DownloadAndCacheCFDataENSt3__18functionIFvNS_18Personal
 
       else
       {
-        v11 = getPersonalizedIRDataLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = getPersonalizedIRDataLog(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
           *&buf[4] = "DownloadAndCacheCFData_block_invoke";
-          _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "%s: Aborting because DataCache is being destroyed.", buf, 0xCu);
+          _os_log_impl(&dword_296B9D000, v12, OS_LOG_TYPE_DEFAULT, "%s: Aborting because DataCache is being destroyed.", buf, 0xCu);
         }
 
-        if (!v10)
+        if (!v11)
         {
           goto LABEL_50;
         }
@@ -3499,12 +3593,12 @@ LABEL_50:
     v9 = 0;
   }
 
-  v12 = getPersonalizedIRDataLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = getPersonalizedIRDataLog(v7);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     *&buf[4] = "DownloadAndCacheCFData_block_invoke";
-    _os_log_impl(&dword_296B9D000, v12, OS_LOG_TYPE_DEFAULT, "%s: Failed to save personalized HRIR type. The caller no longer exists.", buf, 0xCu);
+    _os_log_impl(&dword_296B9D000, v13, OS_LOG_TYPE_DEFAULT, "%s: Failed to save personalized HRIR type. The caller no longer exists.", buf, 0xCu);
   }
 
   if (v9)
@@ -3528,21 +3622,21 @@ void sub_296BE62BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t IR::DataCache::parseSoundProfileAndAddToCache(uint64_t a1, CFDataRef *a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  applesauce::CF::make_DictionaryRef(a2, &v21);
+  v31 = *MEMORY[0x29EDCA608];
+  applesauce::CF::make_DictionaryRef(&v23, a2);
   v3 = 0;
   v4 = 0;
-  v20 = 0x200000001;
+  v22 = 0x200000001;
   v5 = (a1 + 144);
   do
   {
-    if (!v21)
+    if (!v23)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
     }
 
-    v6 = *(&v20 + v4);
+    v6 = *(&v22 + v4);
     if (v6 == 1)
     {
       v7 = "HRIR_ITDMod";
@@ -3554,58 +3648,59 @@ uint64_t IR::DataCache::parseSoundProfileAndAddToCache(uint64_t a1, CFDataRef *a
     }
 
     *buf = v7;
-    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,char const*>(v21, buf, &cf);
-    if (v19 == 1)
+    applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,char const*>(&cf, v23, buf);
+    if (v21 == 1)
     {
       std::recursive_mutex::lock((a1 + 16));
-      if ((v19 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v8 = cf;
+      v9 = cf;
       if (cf)
       {
         CFRetain(cf);
       }
 
-      v17 = v8;
-      IR::DataCache::addToCFDataCachePrivate(a1, v6, &v17);
-      if (v17)
+      v19 = v9;
+      IR::DataCache::addToCFDataCachePrivate(a1, v6, &v19);
+      v10 = v19;
+      if (v19)
       {
-        CFRelease(v17);
+        CFRelease(v19);
       }
 
-      v9 = getPersonalizedIRDataLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = getPersonalizedIRDataLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = a1 + 144;
+        v12 = a1 + 144;
         if (*(a1 + 167) < 0)
         {
-          v10 = *v5;
+          v12 = *v5;
         }
 
-        if ((v19 & 1) == 0)
+        if ((v21 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
         if (!cf)
         {
-          v16 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x29C25F8D0](v16, "Could not construct");
+          v18 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x29C25F8D0](v18, "Could not construct");
         }
 
         Length = CFDataGetLength(cf);
         *buf = 136315906;
-        *&buf[4] = v10;
-        v23 = 2080;
-        v24 = "parseSoundProfileAndAddToCache";
-        v25 = 1024;
-        v26 = v6;
+        *&buf[4] = v12;
+        v25 = 2080;
+        v26 = "parseSoundProfileAndAddToCache";
         v27 = 1024;
-        v28 = Length;
-        _os_log_impl(&dword_296B9D000, v9, OS_LOG_TYPE_DEFAULT, "[%s|%s] Personalized HRIR type %u was found and stored in local CF cache. Length: %u.", buf, 0x22u);
+        v28 = v6;
+        v29 = 1024;
+        v30 = Length;
+        _os_log_impl(&dword_296B9D000, v11, OS_LOG_TYPE_DEFAULT, "[%s|%s] Personalized HRIR type %u was found and stored in local CF cache. Length: %u.", buf, 0x22u);
       }
 
       std::recursive_mutex::unlock((a1 + 16));
@@ -3613,28 +3708,28 @@ uint64_t IR::DataCache::parseSoundProfileAndAddToCache(uint64_t a1, CFDataRef *a
 
     else
     {
-      v12 = getPersonalizedIRDataLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = getPersonalizedIRDataLog(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v13 = a1 + 144;
+        v15 = a1 + 144;
         if (*(a1 + 167) < 0)
         {
-          v13 = *v5;
+          v15 = *v5;
         }
 
         *buf = 136315650;
-        *&buf[4] = v13;
-        v23 = 2080;
-        v24 = "parseSoundProfileAndAddToCache";
-        v25 = 1024;
-        v26 = v6;
-        _os_log_error_impl(&dword_296B9D000, v12, OS_LOG_TYPE_ERROR, "[%s|%s] Invalid SoundProfile pack, could not find personalized HRIR type %u.", buf, 0x1Cu);
+        *&buf[4] = v15;
+        v25 = 2080;
+        v26 = "parseSoundProfileAndAddToCache";
+        v27 = 1024;
+        v28 = v6;
+        _os_log_error_impl(&dword_296B9D000, v14, OS_LOG_TYPE_ERROR, "[%s|%s] Invalid SoundProfile pack, could not find personalized HRIR type %u.", buf, 0x1Cu);
       }
 
       v3 = 0xFFFFFFFFLL;
     }
 
-    if (v19 == 1 && cf)
+    if (v21 == 1 && cf)
     {
       CFRelease(cf);
     }
@@ -3643,9 +3738,9 @@ uint64_t IR::DataCache::parseSoundProfileAndAddToCache(uint64_t a1, CFDataRef *a
   }
 
   while (v4 != 8);
-  if (v21)
+  if (v23)
   {
-    CFRelease(v21);
+    CFRelease(v23);
   }
 
   if (!v3)
@@ -3753,7 +3848,7 @@ LABEL_6:
 
   else
   {
-    v7 = getPersonalizedIRDataLog();
+    v7 = getPersonalizedIRDataLog(a1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       IR::DataCache::addToCFDataCachePrivate();
@@ -3761,9 +3856,9 @@ LABEL_6:
   }
 }
 
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,char const*>(const __CFDictionary *a1@<X0>, const char **a2@<X1>, _BYTE *a3@<X8>)
+void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,char const*>(_BYTE *a1@<X8>, const __CFDictionary *a2@<X0>, const UInt8 **a3@<X1>)
 {
-  v4 = applesauce::CF::details::at_key<char const*>(a1, a2);
+  v4 = applesauce::CF::details::at_key<char const*>(a2, a3);
   if (!v4)
   {
     goto LABEL_5;
@@ -3777,17 +3872,17 @@ void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,ch
     CFRelease(v5);
 LABEL_5:
     v7 = 0;
-    *a3 = 0;
+    *a1 = 0;
     goto LABEL_6;
   }
 
-  *a3 = v5;
+  *a1 = v5;
   v7 = 1;
 LABEL_6:
-  a3[8] = v7;
+  a1[8] = v7;
 }
 
-const UInt8 *applesauce::CF::details::at_key<char const*>(const __CFDictionary *a1, const char **a2)
+const UInt8 *applesauce::CF::details::at_key<char const*>(const __CFDictionary *a1, const UInt8 **a2)
 {
   Value = *a2;
   v4 = strlen(*a2);
@@ -3840,9 +3935,9 @@ LABEL_9:
   return Value;
 }
 
-void sub_296BE6A84(void *a1, uint64_t a2, ...)
+void sub_296BE6A84(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -3899,9 +3994,9 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[32]>(const __CFDictio
   return Value;
 }
 
-void sub_296BE6C18(void *a1, uint64_t a2, ...)
+void sub_296BE6C18(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
@@ -4172,27 +4267,27 @@ void std::__function::__func<IR::PersonalizedIRData::Implementation::GetCFData(P
 
 void std::__function::__func<IR::PersonalizedIRData::Implementation::GetCFData(PersonalizedHRIRType,BOOL,unsigned int)::$_0,std::allocator<IR::PersonalizedIRData::Implementation::GetCFData(PersonalizedHRIRType,BOOL,unsigned int)::$_0>,void ()(IR::PersonalizedIRData::DataValidity)>::operator()(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 24);
   v3 = *(a1 + 8);
   std::mutex::lock(v3);
-  v4 = *(a1 + 8);
-  if (*(v4 + 112) == 1)
+  v5 = *(a1 + 8);
+  if (*(v5 + 112) == 1)
   {
-    v5 = getPersonalizedIRDataLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = getPersonalizedIRDataLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = (v2 + 56);
+      v7 = (v2 + 56);
       if (*(v2 + 79) < 0)
       {
-        v6 = *v6;
+        v7 = *v7;
       }
 
-      v8 = 136315394;
-      v9 = v6;
-      v10 = 2080;
-      v11 = "operator()";
-      _os_log_impl(&dword_296B9D000, v5, OS_LOG_TYPE_DEFAULT, "[%s|%s] Already timed out.", &v8, 0x16u);
+      v9 = 136315394;
+      v10 = v7;
+      v11 = 2080;
+      v12 = "operator()";
+      _os_log_impl(&dword_296B9D000, v6, OS_LOG_TYPE_DEFAULT, "[%s|%s] Already timed out.", &v9, 0x16u);
     }
 
     std::mutex::unlock(v3);
@@ -4200,11 +4295,11 @@ void std::__function::__func<IR::PersonalizedIRData::Implementation::GetCFData(P
 
   else
   {
-    *(v4 + 113) = 1;
+    *(v5 + 113) = 1;
     std::mutex::unlock(v3);
-    v7 = (*(a1 + 8) + 64);
+    v8 = (*(a1 + 8) + 64);
 
-    std::condition_variable::notify_all(v7);
+    std::condition_variable::notify_all(v8);
   }
 }
 
@@ -4215,8 +4310,9 @@ void OUTLINED_FUNCTION_4_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
 }
 
-uint64_t IR::FFTFilter<float>::Implementation::initialize(uint64_t a1, int a2, int a3, unsigned int a4, int a5, unsigned int a6, int a7, int a8, char a9, char a10)
+uint64_t IR::FFTFilter<float>::Implementation::initialize(uint64_t a1, int a2, int a3, unsigned int a4, uint64_t a5, unsigned int a6, int a7, int a8, char a9, char a10)
 {
+  v13 = a5;
   if (*(a1 + 45) == 1)
   {
     (*(*a1 + 32))(a1);
@@ -4276,7 +4372,7 @@ LABEL_21:
     goto LABEL_46;
   }
 
-  if (a5)
+  if (v13)
   {
     v20 = *(a1 + 8);
     if (v20 <= v19)
@@ -4296,7 +4392,7 @@ LABEL_21:
     }
   }
 
-  if (a5)
+  if (v13)
   {
     *(a1 + 20) = *(a1 + 12);
     if (*(a1 + 28))
@@ -4479,7 +4575,7 @@ LABEL_46:
   return result;
 }
 
-void *std::vector<float *>::assign(void *a1, unint64_t a2, uint64_t *a3)
+void *std::vector<float *>::assign(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -4597,7 +4693,7 @@ void *std::vector<float *>::assign(void *a1, unint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t IR::FFTFilter<float>::Implementation::initializeAndSetFilterKernels(uint64_t a1, void *a2)
+uint64_t IR::FFTFilter<float>::Implementation::initializeAndSetFilterKernels(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7)
 {
   if (a2[1] != *a2)
   {
@@ -4607,7 +4703,7 @@ uint64_t IR::FFTFilter<float>::Implementation::initializeAndSetFilterKernels(uin
   return 4294956418;
 }
 
-uint64_t IR::FFTFilter<float>::Implementation::setFilterKernels(uint64_t a1, void *a2)
+uint64_t IR::FFTFilter<float>::Implementation::setFilterKernels(uint64_t a1, uint64_t *a2)
 {
   if (*(a1 + 45) != 1)
   {
@@ -4789,7 +4885,7 @@ uint64_t IR::FFTFilter<float>::Implementation::getScratchKernels(uint64_t a1)
   return v2;
 }
 
-uint64_t IR::FFTFilter<float>::Implementation::setFilterCoeffs(uint64_t a1, uint64_t a2, int a3)
+uint64_t IR::FFTFilter<float>::Implementation::setFilterCoeffs(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (*(a1 + 45) != 1)
   {
@@ -4799,17 +4895,17 @@ uint64_t IR::FFTFilter<float>::Implementation::setFilterCoeffs(uint64_t a1, uint
   if ((caulk::pooled_semaphore_mutex::try_lock((*(a1 + 144) + 24)) & 1) != 0 || *(a1 + 47) != 1)
   {
 LABEL_8:
-    v5 = *(a1 + 144);
+    v6 = *(a1 + 144);
   }
 
   else
   {
-    v5 = (a1 + 48);
-    v6 = 3;
-    while ((caulk::pooled_semaphore_mutex::try_lock((v5 + 3)) & 1) == 0)
+    v6 = (a1 + 48);
+    v7 = 3;
+    while ((caulk::pooled_semaphore_mutex::try_lock((v6 + 3)) & 1) == 0)
     {
-      v5 += 4;
-      if (!--v6)
+      v6 += 4;
+      if (!--v7)
       {
         caulk::pooled_semaphore_mutex::_lock((*(a1 + 144) + 24));
         goto LABEL_8;
@@ -4817,15 +4913,15 @@ LABEL_8:
     }
   }
 
-  if (a3 && 0xCCCCCCCCCCCCCCCDLL * ((v5[1] - *v5) >> 3))
+  if (a3 && 0xCCCCCCCCCCCCCCCDLL * ((v6[1] - *v6) >> 3))
   {
     IR::FFTFilterKernel<float>::storeCoeffs();
   }
 
-  v7 = 0;
-  *(a1 + 160) = v5;
-  caulk::pooled_semaphore_mutex::_unlock((v5 + 3));
-  return v7;
+  v8 = 0;
+  *(a1 + 160) = v6;
+  caulk::pooled_semaphore_mutex::_unlock((v6 + 3));
+  return v8;
 }
 
 uint64_t IR::FFTFilter<float>::Implementation::process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5419,7 +5515,7 @@ float IR::FFTFilter<float>::Implementation::threePointConv(float a1, uint64_t a2
   v12 = (a5 - 1);
   v22 = a1 * 0.5;
   v21 = 1056964608;
-  MEMORY[0x29C260520](v10, 1, &v22, v10 + 1, 1, &v21, v11 + 1, 1, v12);
+  MEMORY[0x29C260520](v10, 1, &v22, v10 + 4, 1, &v21, v11 + 1, 1, v12);
   v13 = *a3 + 1;
   v14 = *a4;
   *v14 = (v9 * *v13) + (**a3 * 0.5);
@@ -5459,18 +5555,13 @@ void *IR::FFTFilter<float>::FFTFilter(void *result, uint64_t *a2)
   return result;
 }
 
-void IR::FFTFilter<float>::FFTFilter()
+void IR::FFTFilter<float>::FFTFilter(void *a1)
 {
   operator new();
 }
 
 {
   operator new();
-}
-
-{
-    ;
-  }
 }
 
 void sub_296BE9794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
@@ -5644,7 +5735,7 @@ uint64_t IR::FFTFilter<float>::getScratchKernels(uint64_t a1)
   return result;
 }
 
-uint64_t IR::FFTFilter<float>::setFilterKernels(uint64_t a1, void *a2)
+uint64_t IR::FFTFilter<float>::setFilterKernels(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 8);
   if (v2)
@@ -5658,12 +5749,12 @@ uint64_t IR::FFTFilter<float>::setFilterKernels(uint64_t a1, void *a2)
   }
 }
 
-uint64_t IR::FFTFilter<float>::setFilterCoeffs(uint64_t a1, uint64_t a2, int a3)
+uint64_t IR::FFTFilter<float>::setFilterCoeffs(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v3 = *(a1 + 8);
-  if (v3)
+  v4 = *(a1 + 8);
+  if (v4)
   {
-    return IR::FFTFilter<float>::Implementation::setFilterCoeffs(v3, a2, a3);
+    return IR::FFTFilter<float>::Implementation::setFilterCoeffs(v4, a2, a3, a4);
   }
 
   else
@@ -5849,8 +5940,9 @@ void _ZN2IR9FFTFilterIDF16_E14ImplementationD0Ev(uint64_t a1)
   JUMPOUT(0x29C25FC20);
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation10initializeEjjjbjjbbb(uint64_t a1, int a2, int a3, unsigned int a4, int a5, unsigned int a6, int a7, int a8, char a9, char a10)
+uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation10initializeEjjjbjjbbb(uint64_t a1, int a2, int a3, unsigned int a4, uint64_t a5, unsigned int a6, int a7, int a8, char a9, char a10)
 {
+  v13 = a5;
   if (*(a1 + 45) == 1)
   {
     (*(*a1 + 32))(a1);
@@ -5910,7 +6002,7 @@ LABEL_21:
     goto LABEL_46;
   }
 
-  if (a5)
+  if (v13)
   {
     v20 = *(a1 + 8);
     if (v20 <= v19)
@@ -5930,7 +6022,7 @@ LABEL_21:
     }
   }
 
-  if (a5)
+  if (v13)
   {
     *(a1 + 20) = *(a1 + 12);
     if (*(a1 + 28))
@@ -6114,7 +6206,7 @@ LABEL_46:
   return result;
 }
 
-void *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE6resizeEm(void *a1, unint64_t a2)
+unint64_t *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE6resizeEm(unint64_t *a1, unint64_t a2)
 {
   result = a1[1];
   v4 = 0xCCCCCCCCCCCCCCCDLL * ((result - *a1) >> 3);
@@ -6140,7 +6232,7 @@ void *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE6resizeE
   return result;
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation29initializeAndSetFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS3_9allocatorIS6_EEEEjjbbb(uint64_t a1, void *a2)
+uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation29initializeAndSetFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS3_9allocatorIS6_EEEEjjbbb(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, char a7)
 {
   if (a2[1] != *a2)
   {
@@ -6150,7 +6242,7 @@ uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation29initializeAndSetFilterKernelsE
   return 4294956418;
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation16setFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS3_9allocatorIS6_EEEE(uint64_t a1, void *a2)
+uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation16setFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS3_9allocatorIS6_EEEE(uint64_t a1, uint64_t *a2)
 {
   if (*(a1 + 45) != 1)
   {
@@ -6307,7 +6399,7 @@ uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation5resetEv(uint64_t a1)
   return result;
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation15setFilterCoeffsEPKPKDF16_jj(uint64_t a1, uint64_t a2, int a3)
+uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation15setFilterCoeffsEPKPKDF16_jj(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (*(a1 + 45) != 1)
   {
@@ -6317,17 +6409,17 @@ uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation15setFilterCoeffsEPKPKDF16_jj(ui
   if ((caulk::pooled_semaphore_mutex::try_lock((*(a1 + 144) + 24)) & 1) != 0 || *(a1 + 47) != 1)
   {
 LABEL_8:
-    v5 = *(a1 + 144);
+    v6 = *(a1 + 144);
   }
 
   else
   {
-    v5 = (a1 + 48);
-    v6 = 3;
-    while ((caulk::pooled_semaphore_mutex::try_lock((v5 + 3)) & 1) == 0)
+    v6 = (a1 + 48);
+    v7 = 3;
+    while ((caulk::pooled_semaphore_mutex::try_lock((v6 + 3)) & 1) == 0)
     {
-      v5 += 4;
-      if (!--v6)
+      v6 += 4;
+      if (!--v7)
       {
         caulk::pooled_semaphore_mutex::_lock((*(a1 + 144) + 24));
         goto LABEL_8;
@@ -6335,15 +6427,15 @@ LABEL_8:
     }
   }
 
-  if (a3 && 0xCCCCCCCCCCCCCCCDLL * ((v5[1] - *v5) >> 3))
+  if (a3 && 0xCCCCCCCCCCCCCCCDLL * ((v6[1] - *v6) >> 3))
   {
     j___ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixRealFFT();
   }
 
-  v7 = 0;
-  *(a1 + 160) = v5;
-  caulk::pooled_semaphore_mutex::_unlock((v5 + 3));
-  return v7;
+  v8 = 0;
+  *(a1 + 160) = v6;
+  caulk::pooled_semaphore_mutex::_unlock((v6 + 3));
+  return v8;
 }
 
 uint64_t _ZN2IR9FFTFilterIDF16_E14Implementation7processEPKDF16_PKPDF16_jjPNS_21ComplexDataCircBufferE(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -6779,7 +6871,7 @@ double _ZN2IR9FFTFilterIDF16_E14Implementation16forwardTransformEjPKDF16_(uint64
   return vDSP_vsphp(v11.imagp, 1, v4[1], 1, *(a1 + 12));
 }
 
-unint64_t *_ZN2IR9FFTFilterIDF16_E14Implementation16inverseTransformEPDF16_(uint64_t a1, unint64_t a2)
+unint64_t *_ZN2IR9FFTFilterIDF16_E14Implementation16inverseTransformEPDF16_(uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 288);
   v5 = *(a1 + 12);
@@ -6957,7 +7049,7 @@ _DWORD *_ZN2IR9FFTFilterIDF16_E14Implementation19firFilterTimeDomainEPKPDF16_S5_
   return result;
 }
 
-__int16 _ZN2IR9FFTFilterIDF16_E14Implementation14threePointConvER19DSPFP16SplitComplexS4_jDF16_@<H0>(__n128 a1@<Q0>, uint64_t a2@<X0>, __int16 **a3@<X1>, float16x8_t **a4@<X2>, int a5@<W3>)
+__int16 _ZN2IR9FFTFilterIDF16_E14Implementation14threePointConvER19DSPFP16SplitComplexS4_jDF16_@<H0>(__n128 a1@<Q0>, uint64_t a2@<X0>, short float **a3@<X1>, float16x8_t **a4@<X2>, int a5@<W3>)
 {
   v5 = *a1.n128_u16;
   v9 = *a3;
@@ -6966,7 +7058,7 @@ __int16 _ZN2IR9FFTFilterIDF16_E14Implementation14threePointConvER19DSPFP16SplitC
   v12 = (a5 - 1);
   v36 = *&v11;
   v35 = COERCE_UNSIGNED_INT(0.5);
-  vDSP_vsmsma_fp16(v9, 1, &v36, (v9 + 1), 1, &v35, v10->u64 + 2, 1, v12);
+  vDSP_vsmsma_fp16(v9, 1, &v36, (v9 + 1), 1, &v35, &v10->i16[1], 1, v12);
   _H0 = **a3;
   __asm { FCVT            S0, H0 }
 
@@ -6987,16 +7079,16 @@ __int16 _ZN2IR9FFTFilterIDF16_E14Implementation14threePointConvER19DSPFP16SplitC
   v26 = (a5 - 2);
   v39 = v11;
   v38 = COERCE_UNSIGNED_INT(0.5);
-  vDSP_vsmsma_fp16((v24 + 1), 1, &v39, (v24 + 2), 1, &v38, v25->u64 + 4, 1, v26);
+  vDSP_vsmsma_fp16((v24 + 1), 1, &v39, (v24 + 2), 1, &v38, (v25->i64 + 4), 1, v26);
   v27 = a3[1];
   v28 = a4[1];
-  *&v28->i16[1] = *(v27 + 1) * COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(0.5));
+  *&v28->i16[1] = v27[1] * COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(0.5));
   v40 = *&v11;
-  vDSP_vsma_fp16((v27 + 2), 1, &v40, &v28->i16[1], 1, v28->u64 + 2, 1, v26);
+  vDSP_vsma_fp16((v27 + 2), 1, &v40, &v28->i16[1], 1, &v28->i16[1], 1, v26);
   _H0 = *a3[1];
   __asm { FCVT            S0, H0 }
 
-  _H1 = *&(*a3)[v12] * v5;
+  _H1 = (*a3)[v12] * v5;
   __asm { FCVT            S1, H1 }
 
   _S0 = _S1 + (_S0 * 0.5);
@@ -7024,19 +7116,19 @@ void *_ZN2IR9FFTFilterIDF16_EC1ENSt3__110unique_ptrINS1_14ImplementationENS2_14d
   return result;
 }
 
-void sub_296BEBE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_296BEBE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  a10 = (v13 + 48);
+  a10 = v13 + 48;
   _ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE16__destroy_vectorclB8ne200100Ev(&a10);
   if (v12)
   {
-    v15 = (v13 + 16);
+    v15 = v13 + 16;
     v16 = -v12;
     do
     {
       a10 = v15;
       _ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE16__destroy_vectorclB8ne200100Ev(&a10);
-      v15 -= 4;
+      v15 -= 32;
       v16 += 32;
     }
 
@@ -7047,19 +7139,19 @@ void sub_296BEBE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_296BEC010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_296BEC010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  a10 = (v13 + 48);
+  a10 = v13 + 48;
   _ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE16__destroy_vectorclB8ne200100Ev(&a10);
   if (v12)
   {
-    v15 = (v13 + 16);
+    v15 = v13 + 16;
     v16 = -v12;
     do
     {
       a10 = v15;
       _ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE16__destroy_vectorclB8ne200100Ev(&a10);
-      v15 -= 4;
+      v15 -= 32;
       v16 += 32;
     }
 
@@ -7196,7 +7288,7 @@ uint64_t _ZN2IR9FFTFilterIDF16_E17getScratchKernelsEv(uint64_t a1)
   return result;
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E16setFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS2_9allocatorIS5_EEEE(uint64_t a1, void *a2)
+uint64_t _ZN2IR9FFTFilterIDF16_E16setFilterKernelsEPKNSt3__16vectorINS_15FFTFilterKernelIDF16_EENS2_9allocatorIS5_EEEE(uint64_t a1, uint64_t *a2)
 {
   v2 = *(a1 + 8);
   if (v2)
@@ -7210,12 +7302,12 @@ uint64_t _ZN2IR9FFTFilterIDF16_E16setFilterKernelsEPKNSt3__16vectorINS_15FFTFilt
   }
 }
 
-uint64_t _ZN2IR9FFTFilterIDF16_E15setFilterCoeffsEPKPKDF16_jj(uint64_t a1, uint64_t a2, int a3)
+uint64_t _ZN2IR9FFTFilterIDF16_E15setFilterCoeffsEPKPKDF16_jj(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v3 = *(a1 + 8);
-  if (v3)
+  v4 = *(a1 + 8);
+  if (v4)
   {
-    return _ZN2IR9FFTFilterIDF16_E14Implementation15setFilterCoeffsEPKPKDF16_jj(v3, a2, a3);
+    return _ZN2IR9FFTFilterIDF16_E14Implementation15setFilterCoeffsEPKPKDF16_jj(v4, a2, a3, a4);
   }
 
   else
@@ -7337,7 +7429,7 @@ void _ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE16__destr
   }
 }
 
-void *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE8__appendEm(void *result, unint64_t a2)
+unint64_t *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE8__appendEm(unint64_t *result, unint64_t a2)
 {
   v3 = result[1];
   v2 = result[2];
@@ -7382,14 +7474,14 @@ void *_ZNSt3__16vectorIN2IR15FFTFilterKernelIDF16_EENS_9allocatorIS3_EEE8__appen
   return result;
 }
 
-void sub_296BEC694(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BEC694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferIN2IR15FFTFilterKernelIDF16_EERNS_9allocatorIS3_EEED2Ev(va);
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorIN2IR15FFTFilterKernelIDF16_EEEEPS4_EEvRT_T0_S9_S9_(uint64_t a1, uint64_t a2, uint64_t a3)
+void _ZNSt3__134__uninitialized_allocator_relocateB8ne200100INS_9allocatorIN2IR15FFTFilterKernelIDF16_EEEEPS4_EEvRT_T0_S9_S9_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -7443,7 +7535,7 @@ uint64_t IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t result)
   return result;
 }
 
-void IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1)
+void IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *(a1 + 32) = 0;
   *(a1 + 8) = 0;
@@ -7451,15 +7543,6 @@ void IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1)
   *a1 = 0;
   *(a1 + 24) = 0;
   IR::FFTFilterKernel<float>::initialize();
-}
-
-{
-  *(a1 + 32) = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *a1 = 0;
-  *(a1 + 24) = 0;
-  IR::FFTFilterKernel<float>::operator=();
 }
 
 void sub_296BEC820(_Unwind_Exception *a1)
@@ -7559,6 +7642,16 @@ uint64_t IR::FFTFilterKernel<float>::~FFTFilterKernel(uint64_t a1)
   return a1;
 }
 
+void IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  IR::FFTFilterKernel<float>::operator=();
+}
+
 void sub_296BECA10(_Unwind_Exception *a1)
 {
   std::unique_ptr<IR::FFTSubFilterData<float>>::reset[abi:ne200100](v2, 0);
@@ -7607,8 +7700,7 @@ __n128 IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1, __n128 *a2)
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   *(a1 + 24) = a2[1].n128_u32[2];
   v3 = a2[2].n128_u64[0];
@@ -7624,8 +7716,7 @@ __n128 IR::FFTFilterKernel<float>::FFTFilterKernel(uint64_t a1, __n128 *a2)
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   *(a1 + 24) = a2[1].n128_u32[2];
   v3 = a2[2].n128_u64[0];
@@ -7733,25 +7824,6 @@ uint64_t IR::FFTFilterKernel<float>::getNumFFTSubFilters(uint64_t a1)
   }
 }
 
-void IR::FFTFilterKernel<float>::storeCoeffs()
-{
-  IR::FFTFilterKernel<float>::storeCoeffs();
-}
-
-{
-  IR::FFTFilterKernel<float>::storeCoeffs();
-}
-
-{
-    ;
-  }
-}
-
-{
-    ;
-  }
-}
-
 unsigned int *IR::FFTFilterKernel<float>::storeCoeffs(uint64_t *a1, uint64_t a2, unsigned int a3, MultiRadixRealFFT *a4, uint64_t a5, unsigned int a6, float a7)
 {
   if (!a3)
@@ -7852,29 +7924,6 @@ uint64_t IR::FFTFilterKernel<float>::calculateFIRActiveTaps(uint64_t result, uns
   }
 
   return 0;
-}
-
-void IR::FFTFilterKernel<float>::initializeAndStoreCoeffs()
-{
-  IR::FFTFilterKernel<float>::initialize();
-}
-
-{
-  IR::FFTFilterKernel<float>::initialize();
-}
-
-{
-  IR::FFTFilterKernel<float>::initialize();
-}
-
-{
-    ;
-  }
-}
-
-{
-    ;
-  }
 }
 
 uint64_t IR::FFTFilterKernel<float>::accumulate(uint64_t *a1, uint64_t *a2, float a3)
@@ -8070,7 +8119,7 @@ uint64_t _ZN2IR15FFTFilterKernelIDF16_EC1Ev(uint64_t result)
   return result;
 }
 
-void _ZN2IR15FFTFilterKernelIDF16_EC2Ejjb(uint64_t a1)
+void _ZN2IR15FFTFilterKernelIDF16_EC2Ejjb(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *(a1 + 32) = 0;
   *(a1 + 8) = 0;
@@ -8177,7 +8226,7 @@ uint64_t _ZN2IR15FFTFilterKernelIDF16_ED2Ev(uint64_t a1)
   return a1;
 }
 
-void _ZN2IR15FFTFilterKernelIDF16_EC2ERKS1_(uint64_t a1)
+void _ZN2IR15FFTFilterKernelIDF16_EC2ERKS1_(uint64_t a1, uint64_t a2)
 {
   *(a1 + 32) = 0;
   *(a1 + 8) = 0;
@@ -8235,8 +8284,7 @@ __n128 _ZN2IR15FFTFilterKernelIDF16_EC2EOS1_(uint64_t a1, __n128 *a2)
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   *(a1 + 24) = a2[1].n128_u32[2];
   v3 = a2[2].n128_u64[0];
@@ -8253,8 +8301,7 @@ __n128 _ZN2IR15FFTFilterKernelIDF16_EC1EOS1_(uint64_t a1, __n128 *a2)
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   *(a1 + 24) = a2[1].n128_u32[2];
   v3 = a2[2].n128_u64[0];
@@ -8369,7 +8416,7 @@ uint64_t _ZNK2IR15FFTFilterKernelIDF16_E19getNumFFTSubFiltersEv(uint64_t a1)
   }
 }
 
-unsigned int *_ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixRealFFTNS_31FFTFilterOptimizationParametersEDF16_(uint64_t a1, float16x8_t *a2, unsigned int a3, MultiRadixRealFFT *a4, uint64_t a5, unsigned int a6, float a7)
+float16x8_t *_ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixRealFFTNS_31FFTFilterOptimizationParametersEDF16_(float16x8_t **a1, float16x8_t *a2, unsigned int a3, MultiRadixRealFFT *a4, uint64_t a5, unsigned int a6, float a7)
 {
   if (!a3)
   {
@@ -8377,7 +8424,7 @@ unsigned int *_ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixR
   }
 
   v14 = *a1;
-  v15 = (*(a1 + 8) - *a1) >> 1;
+  v15 = (a1[1] - *a1) >> 1;
   if (v15 >= a3)
   {
     v16 = a3;
@@ -8391,7 +8438,7 @@ unsigned int *_ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixR
   v28 = LOWORD(a7);
   vDSP_vsmul_fp16(a2, 1, &v28, v14, 1, v16);
   v18 = *a1;
-  v19 = (*(a1 + 8) - *a1) >> 1;
+  v19 = (a1[1] - *a1) >> 1;
   v20 = v16 + 1;
   v21 = 2 * v16;
   while (v21)
@@ -8408,10 +8455,10 @@ unsigned int *_ZN2IR15FFTFilterKernelIDF16_E11storeCoeffsEPKDF16_jP17MultiRadixR
 
   v20 = 0;
 LABEL_9:
-  *(a1 + 24) = v20;
+  *(a1 + 6) = v20;
   if (v16 == v19)
   {
-    result = *(a1 + 32);
+    result = a1[4];
     if (!result)
     {
       return result;
@@ -8426,8 +8473,8 @@ LABEL_9:
 
   else
   {
-    bzero((v18 + 2 * v16), 2 * (v19 - v16));
-    result = *(a1 + 32);
+    bzero(v18 + 2 * v16, 2 * (v19 - v16));
+    result = a1[4];
     if (!result)
     {
       return result;
@@ -8475,12 +8522,12 @@ uint64_t _ZN2IR15FFTFilterKernelIDF16_E22calculateFIRActiveTapsEPKDF16_j(uint64_
   return 0;
 }
 
-uint64_t _ZN2IR15FFTFilterKernelIDF16_E10accumulateERKS1_DF16_(uint64_t a1, uint64_t a2, __n128 a3)
+uint64_t _ZN2IR15FFTFilterKernelIDF16_E10accumulateERKS1_DF16_(uint64_t *a1, uint64_t *a2, __n128 a3)
 {
   v3 = a3.n128_u32[0];
   v6 = *a1;
-  v7 = (*(a1 + 8) - *a1) >> 1;
-  v8 = *(a2 + 24);
+  v7 = (a1[1] - *a1) >> 1;
+  v8 = *(a2 + 6);
   if (v8 >= v7)
   {
     v9 = v7;
@@ -8498,10 +8545,10 @@ uint64_t _ZN2IR15FFTFilterKernelIDF16_E10accumulateERKS1_DF16_(uint64_t a1, uint
     vDSP_vsma_fp16(v10, 1, &v14, v6, 1, v6, 1, v9);
   }
 
-  result = *(a1 + 32);
+  result = a1[4];
   if (result)
   {
-    v12 = *(a2 + 32);
+    v12 = a2[4];
     if (v12)
     {
       a3.n128_u32[0] = v3;
@@ -8509,30 +8556,30 @@ uint64_t _ZN2IR15FFTFilterKernelIDF16_E10accumulateERKS1_DF16_(uint64_t a1, uint
     }
   }
 
-  v13 = *(a1 + 24);
+  v13 = *(a1 + 6);
   if (v13 <= v9)
   {
     v13 = v9;
   }
 
-  *(a1 + 24) = v13;
+  *(a1 + 6) = v13;
   return result;
 }
 
-unsigned int *_ZN2IR15FFTFilterKernelIDF16_E9overwriteERKS1_DF16_(uint64_t a1, uint64_t a2, __n128 a3)
+float16x8_t *_ZN2IR15FFTFilterKernelIDF16_E9overwriteERKS1_DF16_(float16x8_t **a1, float16x8_t **a2, __n128 a3)
 {
   v3 = a3.n128_u32[0];
   v6 = *a1;
-  v7 = (*(a1 + 8) - *a1) >> 1;
+  v7 = (a1[1] - *a1) >> 1;
   v8 = *a2;
-  if ((*(a2 + 8) - *a2) >> 1 >= v7)
+  if ((a2[1] - *a2) >> 1 >= v7)
   {
     LODWORD(v9) = v7;
   }
 
   else
   {
-    v9 = (*(a2 + 8) - *a2) >> 1;
+    v9 = (a2[1] - *a2) >> 1;
   }
 
   if (v9)
@@ -8541,10 +8588,10 @@ unsigned int *_ZN2IR15FFTFilterKernelIDF16_E9overwriteERKS1_DF16_(uint64_t a1, u
     vDSP_vsmul_fp16(v8, 1, &v12, v6, 1, v9);
   }
 
-  result = *(a1 + 32);
+  result = a1[4];
   if (result)
   {
-    v11 = *(a2 + 32);
+    v11 = a2[4];
     if (v11)
     {
       a3.n128_u32[0] = v3;
@@ -8552,22 +8599,22 @@ unsigned int *_ZN2IR15FFTFilterKernelIDF16_E9overwriteERKS1_DF16_(uint64_t a1, u
     }
   }
 
-  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 6) = *(a2 + 6);
   return result;
 }
 
-unsigned int *_ZN2IR15FFTFilterKernelIDF16_E5scaleEDF16_(uint64_t a1, __n128 a2)
+float16x8_t *_ZN2IR15FFTFilterKernelIDF16_E5scaleEDF16_(float16x8_t **a1, __n128 a2)
 {
   v2 = a2.n128_u32[0];
   v4 = *a1;
-  v6 = *(a1 + 8) - v4;
+  v6 = a1[1] - v4;
   if (v6)
   {
     v8 = a2.n128_u16[0];
     vDSP_vsmul_fp16(v4, 1, &v8, v4, 1, v6 >> 1);
   }
 
-  result = *(a1 + 32);
+  result = a1[4];
   if (result)
   {
     a2.n128_u32[0] = v2;
@@ -8921,7 +8968,7 @@ LABEL_7:
   return *v16.i64;
 }
 
-float16x8_t *vDSP_vsmul_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, unint64_t a4, uint64_t a5, unint64_t a6)
+float16x8_t *vDSP_vsmul_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, float16x8_t *a4, uint64_t a5, unint64_t a6)
 {
   if (a2 != 1 || a5 != 1)
   {
@@ -8944,9 +8991,9 @@ float16x8_t *vDSP_vsmul_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3
 
     v12 = 0;
     v16 = a4 + 2 * a6;
-    v17 = (a3 + 1) > a4 && v16 > a3;
+    v17 = a3 + 1 > a4 && v16 > a3;
     v18 = v17;
-    v19 = v16 > result && result + 2 * a6 > a4;
+    v19 = v16 > result && (result + 2 * a6) > a4;
     if (v19 || v18)
     {
       goto LABEL_12;
@@ -8957,7 +9004,7 @@ float16x8_t *vDSP_vsmul_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3
       v12 = a6 & 0xFFFFFFFFFFFFFFF0;
       v32 = vld1q_dup_s16(a3);
       v33 = result + 1;
-      v34 = (a4 + 16);
+      v34 = a4 + 1;
       v35 = a6 & 0xFFFFFFFFFFFFFFF0;
       do
       {
@@ -8979,7 +9026,7 @@ float16x8_t *vDSP_vsmul_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3
       {
 LABEL_12:
         v13 = a6 - v12;
-        v14 = (a4 + 2 * v12 * a5);
+        v14 = &a4->i16[v12 * a5];
         v15 = &result->i16[v12 * a2];
         do
         {
@@ -9032,7 +9079,7 @@ LABEL_12:
 LABEL_6:
     v7 = a6 - v6;
     v8 = v6;
-    v9 = (a4 + 2 * v6);
+    v9 = &a4->i16[v6];
     v10 = &result->i16[v8];
     do
     {
@@ -9047,8 +9094,8 @@ LABEL_6:
 
   v6 = 0;
   v20 = a4 + 2 * a6;
-  v22 = (a3 + 1) > a4 && v20 > a3;
-  if (v20 > result && result + 2 * a6 > a4)
+  v22 = a3 + 1 > a4 && v20 > a3;
+  if (v20 > result && (result + 2 * a6) > a4)
   {
     goto LABEL_6;
   }
@@ -9061,7 +9108,7 @@ LABEL_6:
   v6 = a6 & 0xFFFFFFFFFFFFFFE0;
   v24 = vld1q_dup_s16(a3);
   v25 = result + 2;
-  v26 = (a4 + 32);
+  v26 = a4 + 2;
   v27 = a6 & 0xFFFFFFFFFFFFFFE0;
   do
   {
@@ -9087,7 +9134,7 @@ LABEL_6:
   return result;
 }
 
-float16x8_t *vDSP_vsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, float16x8_t *a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8)
+float16x8_t *vDSP_vsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, float16x8_t *a4, uint64_t a5, float16x8_t *a6, uint64_t a7, unint64_t a8)
 {
   if (a2 != 1 || a5 != 1 || a7 != 1)
   {
@@ -9110,11 +9157,11 @@ float16x8_t *vDSP_vsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3,
 
     v17 = 0;
     v22 = a6 + 2 * a8;
-    v23 = (a3 + 1) > a6 && v22 > a3;
+    v23 = a3 + 1 > a6 && v22 > a3;
     v24 = v23;
-    v25 = a4 + 2 * a8 > a6 && v22 > a4;
+    v25 = (a4 + 2 * a8) > a6 && v22 > a4;
     v26 = v25;
-    v27 = v22 > result && result + 2 * a8 > a6;
+    v27 = v22 > result && (result + 2 * a8) > a6;
     if (v27 || v24 || v26)
     {
       goto LABEL_13;
@@ -9126,7 +9173,7 @@ float16x8_t *vDSP_vsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3,
       v47 = vld1q_dup_s16(a3);
       v48 = result + 1;
       v49 = a4 + 1;
-      v50 = (a6 + 16);
+      v50 = a6 + 1;
       v51 = a8 & 0xFFFFFFFFFFFFFFF0;
       do
       {
@@ -9149,7 +9196,7 @@ float16x8_t *vDSP_vsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3,
       {
 LABEL_13:
         v18 = a8 - v17;
-        v19 = (a6 + 2 * v17 * a7);
+        v19 = &a6->i16[v17 * a7];
         v20 = &a4->i16[v17 * a5];
         v21 = &result->i16[v17 * a2];
         do
@@ -9207,7 +9254,7 @@ LABEL_13:
 LABEL_7:
     v9 = a8 - v8;
     v10 = v8;
-    v11 = (a6 + 2 * v8);
+    v11 = &a6->i16[v8];
     v12 = &a4->i16[v10];
     v13 = &result->i16[v10];
     do
@@ -9225,9 +9272,9 @@ LABEL_7:
 
   v8 = 0;
   v28 = a6 + 2 * a8;
-  v30 = (a3 + 1) > a6 && v28 > a3;
-  v32 = a4 + 2 * a8 > a6 && v28 > a4;
-  if (v28 > result && result + 2 * a8 > a6)
+  v30 = a3 + 1 > a6 && v28 > a3;
+  v32 = (a4 + 2 * a8) > a6 && v28 > a4;
+  if (v28 > result && (result + 2 * a8) > a6)
   {
     goto LABEL_7;
   }
@@ -9246,7 +9293,7 @@ LABEL_7:
   v34 = vld1q_dup_s16(a3);
   v35 = result + 2;
   v36 = a4 + 2;
-  v37 = (a6 + 32);
+  v37 = a6 + 2;
   v38 = a8 & 0xFFFFFFFFFFFFFFE0;
   do
   {
@@ -9277,7 +9324,7 @@ LABEL_7:
   return result;
 }
 
-float16x8_t *vDSP_vsmsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, float16x8_t *a4, uint64_t a5, const __int16 *a6, unint64_t a7, uint64_t a8, unint64_t a9)
+float16x8_t *vDSP_vsmsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a3, float16x8_t *a4, uint64_t a5, const __int16 *a6, float16x8_t *a7, uint64_t a8, unint64_t a9)
 {
   if (a2 != 1 || a5 != 1 || a8 != 1)
   {
@@ -9300,13 +9347,13 @@ float16x8_t *vDSP_vsmsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a
 
     v18 = 0;
     v23 = a7 + 2 * a9;
-    v24 = (a3 + 1) > a7 && v23 > a3;
+    v24 = a3 + 1 > a7 && v23 > a3;
     v25 = v24;
-    v26 = a4 + 2 * a9 > a7 && v23 > a4;
+    v26 = (a4 + 2 * a9) > a7 && v23 > a4;
     v27 = v26;
-    v28 = (a6 + 1) > a7 && v23 > a6;
+    v28 = a6 + 1 > a7 && v23 > a6;
     v29 = v28;
-    v30 = v23 > result && result + 2 * a9 > a7;
+    v30 = v23 > result && (result + 2 * a9) > a7;
     if (v30 || v25 || v27 || v29)
     {
       goto LABEL_13;
@@ -9319,7 +9366,7 @@ float16x8_t *vDSP_vsmsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a
       v50 = vld1q_dup_s16(a6);
       v51 = result + 1;
       v52 = a4 + 1;
-      v53 = (a7 + 16);
+      v53 = a7 + 1;
       v54 = a9 & 0xFFFFFFFFFFFFFFF0;
       do
       {
@@ -9342,7 +9389,7 @@ float16x8_t *vDSP_vsmsma_fp16(float16x8_t *result, uint64_t a2, const __int16 *a
       {
 LABEL_13:
         v19 = a9 - v18;
-        v20 = (a7 + 2 * v18 * a8);
+        v20 = &a7->i16[v18 * a8];
         v21 = &a4->i16[v18 * a5];
         v22 = &result->i16[v18 * a2];
         do
@@ -9401,7 +9448,7 @@ LABEL_13:
 LABEL_7:
     v10 = a9 - v9;
     v11 = v9;
-    v12 = (a7 + 2 * v9);
+    v12 = &a7->i16[v9];
     v13 = &a4->i16[v11];
     v14 = &result->i16[v11];
     do
@@ -9419,10 +9466,10 @@ LABEL_7:
 
   v9 = 0;
   v31 = a7 + 2 * a9;
-  v33 = (a3 + 1) > a7 && v31 > a3;
-  v35 = a4 + 2 * a9 > a7 && v31 > a4;
-  v37 = (a6 + 1) > a7 && v31 > a6;
-  if (v31 > result && result + 2 * a9 > a7)
+  v33 = a3 + 1 > a7 && v31 > a3;
+  v35 = (a4 + 2 * a9) > a7 && v31 > a4;
+  v37 = a6 + 1 > a7 && v31 > a6;
+  if (v31 > result && (result + 2 * a9) > a7)
   {
     goto LABEL_7;
   }
@@ -9494,7 +9541,7 @@ void vDSP_conv_fp16(short float *a1, uint64_t a2, short float *a3, uint64_t a4, 
         {
           v31 = 0uLL;
           v32 = a8 & 0xFFFFFFFFFFFFFFE0;
-          v33 = (a3 + 16);
+          v33 = a3 + 16;
           v34 = v27;
           v35 = 0uLL;
           v36 = 0uLL;
@@ -9506,11 +9553,11 @@ void vDSP_conv_fp16(short float *a1, uint64_t a2, short float *a3, uint64_t a4, 
             v41 = *v34;
             v40 = v34[1];
             v34 += 4;
-            v43 = v33[-2];
-            v42 = v33[-1];
+            v43 = *(v33 - 2);
+            v42 = *(v33 - 1);
             v45 = *v33;
-            v44 = v33[1];
-            v33 += 4;
+            v44 = *(v33 + 1);
+            v33 += 32;
             v35 = vmlaq_f16(v35, v42, v38);
             v31 = vmlaq_f16(v31, v43, v39);
             v37 = vmlaq_f16(v37, v44, v40);
@@ -9719,7 +9766,7 @@ LABEL_31:
     }
 
     v54 = 0;
-    v55 = (a1 + 8);
+    v55 = a1 + 8;
     v56 = a1;
     while (a8 >= 0x10)
     {
@@ -9765,7 +9812,7 @@ LABEL_55:
       while (v73);
 LABEL_45:
       a5[v54++] = v58;
-      v55 = (v55 + 2);
+      ++v55;
       ++v56;
       if (v54 == a7)
       {
@@ -9784,7 +9831,8 @@ LABEL_52:
     {
       v70 = *v67++;
       v71 = v70;
-      v72 = *v68++;
+      v72 = *v68;
+      v68 += 4;
       v66 = vmla_f16(v66, v72, v71);
       v69 += 4;
     }

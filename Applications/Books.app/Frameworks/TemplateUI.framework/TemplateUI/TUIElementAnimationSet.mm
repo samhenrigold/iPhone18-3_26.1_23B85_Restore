@@ -29,7 +29,7 @@ LABEL_10:
   {
     if (attributesCopy)
     {
-      [attributesCopy transformForAttribute:217 node:var0];
+      objc_msgSend_transformForAttribute_node_(attributesCopy);
     }
 
     else

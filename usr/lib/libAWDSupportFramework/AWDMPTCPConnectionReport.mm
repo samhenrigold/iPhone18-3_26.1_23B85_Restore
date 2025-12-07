@@ -266,7 +266,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if ((*&self->_has & 4) != 0)
   {
@@ -458,29 +458,29 @@ LABEL_21:
   if ([(NSMutableArray *)self->_interfaceReports count])
   {
     v7 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_interfaceReports, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     interfaceReports = self->_interfaceReports;
-    v9 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v9 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(interfaceReports);
           }
 
-          [v7 addObject:{objc_msgSend(*(*(&v25 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v7 addObject:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v10 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v10 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v10);
@@ -492,29 +492,29 @@ LABEL_21:
   if ([(NSMutableArray *)self->_subflowSwitchingReports count])
   {
     v13 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_subflowSwitchingReports, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     subflowSwitchingReports = self->_subflowSwitchingReports;
-    v15 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v15 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(subflowSwitchingReports);
           }
 
-          [v13 addObject:{objc_msgSend(*(*(&v21 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v13 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v16 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v16 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v16);
@@ -523,16 +523,14 @@ LABEL_21:
     [dictionary setObject:v13 forKey:@"subflow_switching_reports"];
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -549,7 +547,6 @@ LABEL_21:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    establishmentSuccess = self->_establishmentSuccess;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -569,7 +566,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  establishmentFailureError = self->_establishmentFailureError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -584,7 +580,6 @@ LABEL_10:
   }
 
 LABEL_38:
-  establishmentTcpFallback = self->_establishmentTcpFallback;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -599,7 +594,6 @@ LABEL_11:
   }
 
 LABEL_39:
-  establishmentCellularFallback = self->_establishmentCellularFallback;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -614,7 +608,6 @@ LABEL_12:
   }
 
 LABEL_40:
-  establishmentTime = self->_establishmentTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -629,7 +622,6 @@ LABEL_13:
   }
 
 LABEL_41:
-  establishmentSynRetransmits = self->_establishmentSynRetransmits;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -644,7 +636,6 @@ LABEL_14:
   }
 
 LABEL_42:
-  establishmentForcedTcpFallback = self->_establishmentForcedTcpFallback;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -659,7 +650,6 @@ LABEL_15:
   }
 
 LABEL_43:
-  postConnectMultiHomed = self->_postConnectMultiHomed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -674,7 +664,6 @@ LABEL_16:
   }
 
 LABEL_44:
-  postConnectSingleHomed = self->_postConnectSingleHomed;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -689,7 +678,6 @@ LABEL_17:
   }
 
 LABEL_45:
-  postConnectSubflowAttemptCount = self->_postConnectSubflowAttemptCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -704,7 +692,6 @@ LABEL_18:
   }
 
 LABEL_46:
-  postConnectSubflowMaxSubflowCount = self->_postConnectSubflowMaxSubflowCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -719,75 +706,69 @@ LABEL_19:
   }
 
 LABEL_47:
-  postConnectSessionLifetime = self->_postConnectSessionLifetime;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_20:
-    subflowSwitchingCount = self->_subflowSwitchingCount;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_21:
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   interfaceReports = self->_interfaceReports;
-  v8 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v8)
+  v6 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v37;
+    v7 = v6;
+    v8 = *v20;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v10)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(interfaceReports);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v7 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   subflowSwitchingReports = self->_subflowSwitchingReports;
-  v14 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v14)
+  v11 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v15 = v14;
-    v16 = *v33;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      for (j = 0; j != v15; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v33 != v16)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(subflowSwitchingReports);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v15 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v12 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v12);
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1022,7 +1003,7 @@ LABEL_21:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 4) != 0)
@@ -1216,65 +1197,64 @@ LABEL_16:
   }
 
 LABEL_17:
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   interfaceReports = self->_interfaceReports;
-  v9 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(interfaceReports);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v25 + 1) + 8 * i) copyWithZone:zone];
         [v6 addInterfaceReports:v13];
       }
 
-      v10 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [(NSMutableArray *)interfaceReports countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   subflowSwitchingReports = self->_subflowSwitchingReports;
-  v15 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(subflowSwitchingReports);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v21 + 1) + 8 * j) copyWithZone:zone];
         [v6 addSubflowSwitchingReports:v19];
       }
 
-      v16 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [(NSMutableArray *)subflowSwitchingReports countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v16);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1312,7 +1292,6 @@ LABEL_17:
             goto LABEL_98;
           }
 
-          v11 = *(equal + 98);
           if (self->_establishmentSuccess)
           {
             if ((*(equal + 98) & 1) == 0)
@@ -1352,7 +1331,6 @@ LABEL_17:
             goto LABEL_98;
           }
 
-          v12 = *(equal + 99);
           if (self->_establishmentTcpFallback)
           {
             if ((*(equal + 99) & 1) == 0)
@@ -1379,7 +1357,6 @@ LABEL_17:
             goto LABEL_98;
           }
 
-          v13 = *(equal + 96);
           if (self->_establishmentCellularFallback)
           {
             if ((*(equal + 96) & 1) == 0)
@@ -1432,7 +1409,6 @@ LABEL_17:
             goto LABEL_98;
           }
 
-          v14 = *(equal + 97);
           if (self->_establishmentForcedTcpFallback)
           {
             if ((*(equal + 97) & 1) == 0)
@@ -1459,7 +1435,6 @@ LABEL_17:
             goto LABEL_98;
           }
 
-          v15 = *(equal + 100);
           if (self->_postConnectMultiHomed)
           {
             if ((*(equal + 100) & 1) == 0)
@@ -1483,7 +1458,6 @@ LABEL_17:
         {
           if ((*(equal + 52) & 0x2000) != 0)
           {
-            v16 = *(equal + 101);
             if (self->_postConnectSingleHomed)
             {
               if ((*(equal + 101) & 1) == 0)
@@ -1821,7 +1795,7 @@ LABEL_36:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if ((*(from + 52) & 4) != 0)
   {
     self->_timestamp = *(from + 3);
@@ -2021,63 +1995,61 @@ LABEL_20:
   }
 
 LABEL_21:
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = *(from + 8);
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDMPTCPConnectionReport *)self addInterfaceReports:*(*(&v21 + 1) + 8 * i)];
+        [(AWDMPTCPConnectionReport *)self addInterfaceReports:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(from + 11);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDMPTCPConnectionReport *)self addSubflowSwitchingReports:*(*(&v17 + 1) + 8 * j)];
+        [(AWDMPTCPConnectionReport *)self addSubflowSwitchingReports:*(*(&v16 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 @end

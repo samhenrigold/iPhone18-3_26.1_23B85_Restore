@@ -977,7 +977,7 @@ LABEL_9:
   }
 }
 
-uint64_t __52__ATDeviceSyncManager_session_willBeginSessionTask___block_invoke(uint64_t a1)
+void *__52__ATDeviceSyncManager_session_willBeginSessionTask___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) pairingSyncCompletionTime];
   if (v3 != 0.0)

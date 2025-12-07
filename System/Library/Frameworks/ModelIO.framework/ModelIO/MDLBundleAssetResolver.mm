@@ -30,8 +30,8 @@
   {
     memset(&__str, 0, sizeof(__str));
     v6 = namedCopy;
-    v8 = objc_msgSend_cStringUsingEncoding_(v6, v7, 4);
-    sub_239E552A0(&__str, v8);
+    v17 = objc_msgSend_cStringUsingEncoding_(v6, v7, 4, v8, v13, v14, v15, v16, v9, v10, v11, v12);
+    sub_239E552A0(&__str, v17);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_str = &__str;
@@ -52,89 +52,89 @@
       size = __str.__r_.__value_.__l.__size_;
     }
 
-    v11 = p_str + size;
+    v20 = p_str + size;
     if (size)
     {
-      v12 = p_str;
-      v13 = (p_str + size);
+      v21 = p_str;
+      v22 = (p_str + size);
       do
       {
-        v14 = v12;
-        v15 = v12;
+        v23 = v21;
+        v24 = v21;
         while (1)
         {
-          v16 = *v15++;
-          if (v16 == 46)
+          v25 = *v24++;
+          if (v25 == 46)
           {
             break;
           }
 
-          v14 = v15;
-          if (v15 == v11)
+          v23 = v24;
+          if (v24 == v20)
           {
-            v14 = v13;
+            v23 = v22;
             goto LABEL_18;
           }
         }
 
-        v12 = (&v14->__r_.__value_.__l.__data_ + 1);
-        v13 = v14;
+        v21 = (&v23->__r_.__value_.__l.__data_ + 1);
+        v22 = v23;
       }
 
-      while (v15 != v11);
+      while (v24 != v20);
     }
 
     else
     {
-      v14 = p_str;
+      v23 = p_str;
     }
 
 LABEL_18:
-    v18 = v14 - p_str;
-    if (v14 == v11)
+    v27 = v23 - p_str;
+    if (v23 == v20)
     {
-      v19 = -1;
+      v28 = -1;
     }
 
     else
     {
-      v19 = v18;
+      v28 = v27;
     }
 
-    memset(&v27, 0, sizeof(v27));
-    std::string::basic_string(&v27, &__str, v19 + 1, size, &v26);
-    std::string::basic_string(&v26, &__str, 0, v19, &v29);
+    memset(&v59, 0, sizeof(v59));
+    std::string::basic_string(&v59, &__str, v28 + 1, size, &v58);
+    std::string::basic_string(&v58, &__str, 0, v28, &v61);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
     }
 
-    __str = v26;
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    __str = v58;
+    if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v20, &__str, 4);
+      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v29, &__str, 4, *&v58.__r_.__value_.__l.__data_, v34, v35, v36, v30, v31, v32, v33);
     }
 
     else
     {
-      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v20, v26.__r_.__value_.__l.__data_, 4);
+      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v29, v58.__r_.__value_.__l.__data_, 4, *&v58.__r_.__value_.__l.__data_, v34, v35, v36, v30, v31, v32, v33);
     }
-    v22 = ;
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v42 = ;
+    if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v21, &v27, 4);
+      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v37, &v59, 4, v43, v44, v45, v46, v38, v39, v40, v41);
     }
 
     else
     {
-      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v21, v27.__r_.__value_.__l.__data_, 4);
+      objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v37, v59.__r_.__value_.__l.__data_, 4, v43, v44, v45, v46, v38, v39, v40, v41);
     }
-    v23 = ;
-    v17 = objc_msgSend_URLForResource_withExtension_(self->_bundle, v24, v22, v23);
+    v47 = ;
+    v26 = objc_msgSend_URLForResource_withExtension_(self->_bundle, v48, v42, v47, v53, v54, v55, v56, v49, v50, v51, v52);
 
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v59.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -145,10 +145,10 @@ LABEL_18:
 
   else
   {
-    v17 = 0;
+    v26 = 0;
   }
 
-  return v17;
+  return v26;
 }
 
 - (BOOL)canResolveAssetNamed:(id)named
@@ -156,16 +156,16 @@ LABEL_18:
   namedCopy = named;
   if (namedCopy && self->_path)
   {
-    v6 = objc_msgSend_resolveAssetNamed_(self, v4, namedCopy);
-    v7 = v6 != 0;
+    v15 = objc_msgSend_resolveAssetNamed_(self, v4, namedCopy, v5, v11, v12, v13, v14, v6, v7, v8, v9);
+    v16 = v15 != 0;
   }
 
   else
   {
-    v7 = 0;
+    v16 = 0;
   }
 
-  return v7;
+  return v16;
 }
 
 @end

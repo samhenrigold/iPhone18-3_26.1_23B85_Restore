@@ -40,7 +40,7 @@
 
 - (void)sampleCounters:(unint64_t)counters callback:(id)callback
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   v7 = self->_currentIORegSamplingInterval + counters;
   self->_currentIORegSamplingInterval = v7;
@@ -56,21 +56,19 @@
   }
 
   currentValue = self->_deviceUtilization.currentValue;
-  v18 = 0;
-  v19 = currentValue;
-  __p = 0;
   v17 = 0;
-  sub_247FF83DC(&__p, &v19, &v20, 1uLL);
+  v18 = currentValue;
+  __p = 0;
+  v16 = 0;
+  sub_247FF83DC(&__p, &v18, &v19, 1uLL);
   v13 = __p;
   v14 = mach_absolute_time();
   (*(callbackCopy + 2))(callbackCopy, v13, 1, v14, 0, 0, 0);
   if (__p)
   {
-    v17 = __p;
+    v16 = __p;
     operator delete(__p);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

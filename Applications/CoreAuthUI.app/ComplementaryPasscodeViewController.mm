@@ -1,10 +1,12 @@
 @interface ComplementaryPasscodeViewController
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithCoder:(id)coder;
+- (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithInternalInfo:(id)info mechanism:(id)mechanism backoffCounter:(id)counter remoteUIHost:(id)host allowsLandscape:(BOOL)landscape;
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithInternalInfo:(id)info parent:(id)parent;
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithRequestID:(id)d endpoint:(id)endpoint;
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithRequestID:(id)d endpoint:(id)endpoint remoteAlertPresentationMode:(int64_t)mode;
 - (void)dismissChildWithCompletionHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -23,6 +25,12 @@
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  selfCopy = self;
+  sub_10005B66C(appear);
+}
+
 - (void)dismissChildWithCompletionHandler:(id)handler
 {
   v4 = _Block_copy(handler);
@@ -30,7 +38,7 @@
   {
     v5 = v4;
     v6 = swift_allocObject();
-    v6[2] = v5;
+    *(v6 + 16) = v5;
     v7 = sub_10002AA4C;
   }
 
@@ -42,7 +50,7 @@
 
   selfCopy = self;
   sub_10005C12C(v7, v6);
-  sub_10002AA04(v7);
+  sub_10002AA04(v7, v6);
 }
 
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithRequestID:(id)d endpoint:(id)endpoint
@@ -57,6 +65,26 @@
   v9.receiver = self;
   v9.super_class = swift_getObjectType();
   return [(TransitionViewController *)&v9 initWithRequestID:d endpoint:endpoint remoteAlertPresentationMode:mode];
+}
+
+- (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithInternalInfo:(id)info mechanism:(id)mechanism backoffCounter:(id)counter remoteUIHost:(id)host allowsLandscape:(BOOL)landscape
+{
+  landscapeCopy = landscape;
+  ObjectType = swift_getObjectType();
+  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  swift_unknownObjectRetain();
+  swift_unknownObjectRetain();
+  swift_unknownObjectRetain();
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  v16.receiver = self;
+  v16.super_class = ObjectType;
+  v14 = [(TransitionViewController *)&v16 initWithInternalInfo:isa mechanism:mechanism backoffCounter:counter remoteUIHost:host allowsLandscape:landscapeCopy];
+
+  swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return v14;
 }
 
 - (_TtC10CoreAuthUI35ComplementaryPasscodeViewController)initWithNibName:(id)name bundle:(id)bundle

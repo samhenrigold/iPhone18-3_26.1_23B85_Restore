@@ -2,6 +2,7 @@
 + (id)supportedMetricKeys;
 - (BOOL)submitMetricsWithError:(id *)error;
 - (MOUserData)initWithEventManager:(id)manager;
+- (MOUserData)initWithLoggingEnabled:(BOOL)enabled;
 - (void)_fetchUserDataWithCompletionHandler:(id)handler;
 - (void)setValues;
 - (void)submitUserDataWithCompletionHandler:(id)handler;
@@ -33,6 +34,119 @@
   }
 
   return v7;
+}
+
+- (MOUserData)initWithLoggingEnabled:(BOOL)enabled
+{
+  v38.receiver = self;
+  v38.super_class = MOUserData;
+  v3 = [(MOMetric *)&v38 initWithLoggingEnabled:enabled];
+  if (v3)
+  {
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    bOOLeanKeys = [objc_opt_class() BOOLeanKeys];
+    v5 = [bOOLeanKeys countByEnumeratingWithState:&v34 objects:v41 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v35;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v35 != v7)
+          {
+            objc_enumerationMutation(bOOLeanKeys);
+          }
+
+          v9 = *(*(&v34 + 1) + 8 * v8);
+          metrics = [(MOMetric *)v3 metrics];
+          [metrics setObject:&__kCFBooleanFalse forKeyedSubscript:v9];
+
+          v8 = v8 + 1;
+        }
+
+        while (v6 != v8);
+        v6 = [bOOLeanKeys countByEnumeratingWithState:&v34 objects:v41 count:16];
+      }
+
+      while (v6);
+    }
+
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    integerKeys = [objc_opt_class() integerKeys];
+    v12 = [integerKeys countByEnumeratingWithState:&v30 objects:v40 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v31;
+      do
+      {
+        v15 = 0;
+        do
+        {
+          if (*v31 != v14)
+          {
+            objc_enumerationMutation(integerKeys);
+          }
+
+          v16 = *(*(&v30 + 1) + 8 * v15);
+          metrics2 = [(MOMetric *)v3 metrics];
+          [metrics2 setObject:&off_100369F10 forKeyedSubscript:v16];
+
+          v15 = v15 + 1;
+        }
+
+        while (v13 != v15);
+        v13 = [integerKeys countByEnumeratingWithState:&v30 objects:v40 count:16];
+      }
+
+      while (v13);
+    }
+
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    bucketedKeys = [objc_opt_class() bucketedKeys];
+    v19 = [bucketedKeys countByEnumeratingWithState:&v26 objects:v39 count:16];
+    if (v19)
+    {
+      v20 = v19;
+      v21 = *v27;
+      do
+      {
+        v22 = 0;
+        do
+        {
+          if (*v27 != v21)
+          {
+            objc_enumerationMutation(bucketedKeys);
+          }
+
+          v23 = *(*(&v26 + 1) + 8 * v22);
+          metrics3 = [(MOMetric *)v3 metrics];
+          [metrics3 setObject:&off_100369F10 forKeyedSubscript:v23];
+
+          v22 = v22 + 1;
+        }
+
+        while (v20 != v22);
+        v20 = [bucketedKeys countByEnumeratingWithState:&v26 objects:v39 count:16];
+      }
+
+      while (v20);
+    }
+  }
+
+  return v3;
 }
 
 + (id)supportedMetricKeys
@@ -169,35 +283,35 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke(uint64_
   }
 
   *buf = 0;
-  v51 = buf;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__20;
-  v54 = __Block_byref_object_dispose__20;
-  v55 = 0;
-  v47 = 0;
-  v48[0] = &v47;
-  v48[1] = 0x3032000000;
-  v48[2] = __Block_byref_object_copy__20;
-  v48[3] = __Block_byref_object_dispose__20;
-  v49 = 0;
+  v55 = buf;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__20;
+  v58 = __Block_byref_object_dispose__20;
+  v59 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__20;
+  v52 = __Block_byref_object_dispose__20;
+  v53 = 0;
   v3 = dispatch_semaphore_create(0);
   v4 = [*(a1 + 32) eventManager];
   v5 = [v4 getHealthKitManager];
 
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_125;
-  v43[3] = &unk_10033A510;
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_125;
+  v44[3] = &unk_10033A510;
   v6 = v3;
-  v44 = v6;
-  v45 = buf;
-  v46 = &v47;
-  [v5 fetchUserBiologicalSexWithHandler:v43];
+  v45 = v6;
+  v46 = buf;
+  v47 = &v48;
+  [v5 fetchUserBiologicalSexWithHandler:v44];
   v7 = [NSString stringWithFormat:@"%@ - [%s] - %d - %s", @"MOSemaphoreWait", "/Library/Caches/com.apple.xbs/Sources/Moments/momentsd/PromptEngine/Analytics/MOUserData.m", 128, "[MOUserData _fetchUserDataWithCompletionHandler:]_block_invoke_2"];
-  v42 = 0;
-  v8 = MOSemaphoreWaitAndFaultIfTimeoutDefaultTimeout_Internal(v6, &v42, v7);
-  v9 = v42;
-  v10 = v42;
+  v43 = 0;
+  v8 = MOSemaphoreWaitAndFaultIfTimeoutDefaultTimeout_Internal(v6, &v43, v7);
+  v9 = v43;
+  v10 = v43;
   if (!v8)
   {
     v11 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
@@ -207,12 +321,12 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke(uint64_
     }
   }
 
-  if (*(v48[0] + 40))
+  if (v49[5])
   {
     v12 = _mo_log_facility_get_os_log(&MOLogFacilityUserData);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_2(v48);
+      __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_2();
     }
   }
 
@@ -224,42 +338,42 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke(uint64_
       __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_3();
     }
 
-    objc_storeStrong((v48[0] + 40), v9);
+    objc_storeStrong(v49 + 5, v9);
   }
 
-  v14 = *(v51 + 5);
+  v14 = *(v55 + 5);
   if (v14)
   {
     v15 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v14 biologicalSex]);
     [*(a1 + 32) setGender:v15];
   }
 
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__20;
+  v41 = __Block_byref_object_dispose__20;
+  v42 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__20;
+  v35 = __Block_byref_object_dispose__20;
   v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__20;
-  v40 = __Block_byref_object_dispose__20;
-  v41 = 0;
-  v33 = 0;
-  v34[0] = &v33;
-  v34[1] = 0x3032000000;
-  v34[2] = __Block_byref_object_copy__20;
-  v34[3] = __Block_byref_object_dispose__20;
-  v35 = 0;
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_136;
-  v29[3] = &unk_10033A538;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_136;
+  v27[3] = &unk_10033A538;
   v16 = dispatch_semaphore_create(0);
-  v30 = v16;
-  v31 = &v36;
-  v32 = &v33;
-  [v5 fetchUserAgeWithHandler:v29];
+  v28 = v16;
+  v29 = &v37;
+  v30 = &v31;
+  [v5 fetchUserAgeWithHandler:v27];
   v17 = [NSString stringWithFormat:@"%@ - [%s] - %d - %s", @"MOSemaphoreWait", "/Library/Caches/com.apple.xbs/Sources/Moments/momentsd/PromptEngine/Analytics/MOUserData.m", 157, "[MOUserData _fetchUserDataWithCompletionHandler:]_block_invoke_2"];
-  v28 = 0;
-  v18 = MOSemaphoreWaitAndFaultIfTimeoutDefaultTimeout_Internal(v16, &v28, v17);
-  v19 = v28;
-  v20 = v28;
+  v26 = 0;
+  v18 = MOSemaphoreWaitAndFaultIfTimeoutDefaultTimeout_Internal(v16, &v26, v17);
+  v19 = v26;
+  v20 = v26;
   if (!v18)
   {
     v21 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
@@ -269,12 +383,12 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke(uint64_
     }
   }
 
-  if (*(v34[0] + 40))
+  if (v32[5])
   {
     v22 = _mo_log_facility_get_os_log(&MOLogFacilityUserData);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_5(v34);
+      __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_5();
     }
   }
 
@@ -286,24 +400,22 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke(uint64_
       __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_6();
     }
 
-    objc_storeStrong((v34[0] + 40), v19);
+    objc_storeStrong(v32 + 5, v19);
   }
 
-  v24 = v37[5];
+  v24 = v38[5];
   if (v24)
   {
     v25 = [v24 copy];
     [*(a1 + 32) setAge:v25];
   }
 
-  v26 = *(v48[0] + 40);
-  v27 = *(v34[0] + 40);
   (*(*(a1 + 40) + 16))();
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v48, 8);
   _Block_object_dispose(buf, 8);
 }
 
@@ -370,20 +482,6 @@ void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_136(uin
   v2 = 1024;
   v3 = 107;
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: completion (in %s:%d)", v1, 0x12u);
-}
-
-void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_2(uint64_t a1)
-{
-  v1 = *(*a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "fetch error occurred during fetching gender from health kit, %@", v4, v5, v6, v7, v8);
-}
-
-void __50__MOUserData__fetchUserDataWithCompletionHandler___block_invoke_cold_5(uint64_t a1)
-{
-  v1 = *(*a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "fetch error occurred during fetching age from health kit, %@", v4, v5, v6, v7, v8);
 }
 
 @end

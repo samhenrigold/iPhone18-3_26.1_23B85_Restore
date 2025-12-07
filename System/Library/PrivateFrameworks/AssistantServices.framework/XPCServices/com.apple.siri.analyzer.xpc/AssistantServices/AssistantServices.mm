@@ -73,7 +73,7 @@ void sub_100001C78(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_100001CB0(signed int a1)
+char *sub_100001CB0(signed int a1)
 {
   if (a1 < 1)
   {
@@ -122,12 +122,12 @@ void sub_100001E2C(uint64_t a1)
   v16 = 0xBFF0000000000000;
   v14 = 0;
   [*(a1 + 32) _pingHost:*(a1 + 40) time:&v16 sentPackets:&v15 droppedPackets:&v14];
-  v2 = [NSNumber numberWithInteger:v15];
+  v2 = objc_msgSend_numberWithInteger_(NSNumber);
   v3 = *(*(a1 + 64) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [NSNumber numberWithInteger:v14];
+  v5 = objc_msgSend_numberWithInteger_(NSNumber);
   v6 = *(*(a1 + 72) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
@@ -240,9 +240,9 @@ void sub_10000232C(uint64_t a1)
   [v1 setObject:v2 forKey:@"Apple URL HEAD time"];
 }
 
-void sub_100002654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100002654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -269,13 +269,13 @@ intptr_t sub_100002674(uint64_t a1, uint64_t a2, uint64_t a3)
   return dispatch_semaphore_signal(v9);
 }
 
-void sub_100002C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100002C00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  _Block_object_dispose((v17 - 176), 8);
+  va_start(va, a24);
+  _Block_object_dispose((v24 - 176), 8);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 240), 8);
-  _Block_object_dispose((v17 - 208), 8);
+  _Block_object_dispose((v24 - 240), 8);
+  _Block_object_dispose((v24 - 208), 8);
   _Unwind_Resume(a1);
 }
 

@@ -1,5 +1,6 @@
 @interface SUManagerCore
 - (BOOL)_isUpdateDownloadable:(id)downloadable downloadOptions:(id)options error:(id *)error;
+- (BOOL)cancelDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets error:(id *)error;
 - (BOOL)isAutoUpdateEnabled;
 - (BOOL)isClearingSpace;
 - (BOOL)isDescriptorAutoDownloadable:(id)downloadable;
@@ -17,6 +18,8 @@
 - (BOOL)isSplatRollbackAllowed:(id *)allowed;
 - (BOOL)isSplatRollbackEnabled;
 - (BOOL)isUpdateDownloaded;
+- (BOOL)killDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets error:(id *)error;
+- (BOOL)killDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets forUpdates:(id)updates error:(id *)error;
 - (BOOL)shouldShowRollbackSuggestionAlert:(id)alert error:(id *)error;
 - (BOOL)splatUpdatesAllowed;
 - (MAAsset)alternateAssetToDownloadFromLastScan;
@@ -74,6 +77,9 @@
 - (void)amendManagedScanOptions:(id)options withResponse:(id)response;
 - (void)assetAudienceChanged:(id)changed;
 - (void)autoSUFailedWithError:(id)error;
+- (void)autoScanAndDownloadIfAvailable:(int)available downloadNow:(BOOL)now withResult:(id)result;
+- (void)autoScanAndDownloadIfAvailable:(int)available withResult:(id)result;
+- (void)autoUpdateFound:(id)found downloadNow:(BOOL)now;
 - (void)badgeSettingsForManualSoftwareUpdate:(id)update;
 - (void)cleanupPreviousDownloadState;
 - (void)clearBadgeAndBanner;
@@ -81,6 +87,7 @@
 - (void)clearUnlockCallbacks;
 - (void)createInstallationKeybag:(id)keybag withResult:(id)result;
 - (void)deviceIsUpToDateForSU:(BOOL)u forSplat:(BOOL)splat;
+- (void)disableReserveSpace:(BOOL)space;
 - (void)dismissAutoUpdateBanner;
 - (void)dismissInsufficientDiskSpaceFollowupForUpdate:(id)update orForce:(BOOL)force;
 - (void)dismissLegacyFollowUps;
@@ -94,6 +101,7 @@
 - (void)installCompleted:(id)completed;
 - (void)installUpdateWithInstallOptions:(id)options withResult:(id)result;
 - (void)isUpdateReadyForInstallationWithOptions:(id)options replyHandler:(id)handler;
+- (void)keybagInterface:(id)interface passcodeLockedStateDidChange:(BOOL)change;
 - (void)loadBrainOnUnlock;
 - (void)loadSavedState;
 - (void)managedInstallRequested;
@@ -136,11 +144,16 @@
 - (void)securityResponseRollbackSuggested:(id)suggested withResult:(id)result;
 - (void)sendUnlockNotifications:(BOOL)notifications;
 - (void)setAlternateLastScannedDescriptor:(id)descriptor;
+- (void)setDownloading:(BOOL)downloading;
+- (void)setForeground:(BOOL)foreground;
 - (void)setInstallPolicy:(id)policy;
+- (void)setIsInstallTonight:(BOOL)tonight;
+- (void)setIsInstallTonightScheduled:(BOOL)scheduled;
 - (void)setLastStashbagPersistedDate:(id)date;
 - (void)setMandatoryUpdateDictionary:(id)dictionary;
 - (void)setPasscodePolicy:(id)policy;
 - (void)setPreferredLastScannedDescriptor:(id)descriptor;
+- (void)setRollbackValue:(id)value forKey:(id)key count:(int)count event:(id)event;
 - (void)showInsufficientDiskSpaceFollowupForUpdate:(id)update;
 - (void)startDownloadWithMetadata:(id)metadata withResult:(id)result;
 - (void)startDownloadWithOptions:(id)options withResult:(id)result;
@@ -150,6 +163,7 @@
 - (void)unscheduleRecommendedUpdateNotification;
 - (void)updateDownloadMetadata:(id)metadata withResult:(id)result;
 - (void)updateDownloadOptions:(id)options withResult:(id)result;
+- (void)updateInstallPolicyAutoUpdateEnabled:(BOOL)enabled;
 - (void)updateInstallPolicyType:(unint64_t)type;
 - (void)updatesDownloadableWithOptions:(id)options alternateDownloadOptions:(id)downloadOptions replyHandler:(id)handler;
 @end
@@ -199,34 +213,43 @@ void __65__SUManagerCore_Analytics__reportCoreAnalyticsOTAAvailableEvent___block
 - (void)reportCoreAnalyticsOTAStartedDownloadingEvent:(id)event
 {
   v4 = [(SUManagerCore *)self _createCoreAnalyticsEventWithCurrentDownloadFor:*MEMORY[0x277D64608] error:event];
+  v5 = v4;
   if (v4)
   {
-    [(SUManagerCore *)self _submitCoreAnalyticsEvent:v4];
+    v6 = v4;
+    v4 = [(SUManagerCore *)self _submitCoreAnalyticsEvent:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)reportCoreAnalyticsOTAAbandonedEvent:(id)event
 {
   v4 = [(SUManagerCore *)self _createCoreAnalyticsEventWithCurrentDownloadFor:*MEMORY[0x277D645D8] error:event];
+  v5 = v4;
   if (v4)
   {
-    [(SUManagerCore *)self _submitCoreAnalyticsEvent:v4];
+    v6 = v4;
+    v4 = [(SUManagerCore *)self _submitCoreAnalyticsEvent:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)reportCoreAnalyticsOTADownloadedEvent
 {
   v3 = [(SUManagerCore *)self _createCoreAnalyticsEventWithCurrentDownloadFor:*MEMORY[0x277D645F0] error:0];
+  v4 = v3;
   if (v3)
   {
-    [(SUManagerCore *)self _submitCoreAnalyticsEvent:v3];
+    v5 = v3;
+    v3 = [(SUManagerCore *)self _submitCoreAnalyticsEvent:v3];
+    v4 = v5;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)_augmentCoreAnalyticsEvent:(id)event withUpdate:(id)update
@@ -385,12 +408,12 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
 
 - (void)reportOTAAvailableEvent:(id)event
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   workQueue = [(SUManagerCore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v20 = *MEMORY[0x277D645A0];
+  v19 = *MEMORY[0x277D645A0];
   scanner = [(SUManagerCore *)self scanner];
   lastScannedDescriptorScanOptions = [scanner lastScannedDescriptorScanOptions];
   clientName = [lastScannedDescriptorScanOptions clientName];
@@ -401,8 +424,8 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     v10 = clientName;
   }
 
-  v21[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v20[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v12 = [v11 mutableCopy];
 
   _preallocatedSpaceMetricInfo = [(SUManagerCore *)self _preallocatedSpaceMetricInfo];
@@ -415,12 +438,11 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   alternateDescriptor = [eventCopy alternateDescriptor];
 
   [(SUManagerCore *)self _reportOTAEvent:v14 withStatus:0 policy:updatePolicy primaryDescriptor:preferredDescriptor alternateDescriptor:alternateDescriptor additionalMetrics:v12 error:0];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportOTAStartedDownloadingEvent:(id)event
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   workQueue = [(SUManagerCore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -433,7 +455,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   v10 = +[SUNetworkMonitor sharedInstance];
   isCurrentNetworkTypeCellular = [v10 isCurrentNetworkTypeCellular];
 
-  v22[0] = *MEMORY[0x277D645A0];
+  v21[0] = *MEMORY[0x277D645A0];
   downloader2 = [(SUManagerCore *)self downloader];
   download2 = [downloader2 download];
   downloadOptions = [download2 downloadOptions];
@@ -445,7 +467,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     v17 = clientName;
   }
 
-  v22[1] = *MEMORY[0x277D645C8];
+  v21[1] = *MEMORY[0x277D645C8];
   v18 = MEMORY[0x277D647B0];
   if (!isCurrentNetworkTypeCellular)
   {
@@ -453,22 +475,21 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   }
 
   v19 = *v18;
-  v23[0] = v17;
-  v23[1] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v22[0] = v17;
+  v22[1] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
   [(SUManagerCore *)self _reportOTAEvent:*MEMORY[0x277D64608] withStatus:0 policy:0 descriptor:v9 additionalMetrics:v20 error:eventCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportOTADownloadedEvent:(id)event
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   workQueue = [(SUManagerCore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v21 = *MEMORY[0x277D645A0];
+  v20 = *MEMORY[0x277D645A0];
   downloader = [(SUManagerCore *)self downloader];
   download = [downloader download];
   downloadOptions = [download downloadOptions];
@@ -480,8 +501,8 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     v11 = clientName;
   }
 
-  v22[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v21[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
   downloader2 = [(SUManagerCore *)self downloader];
   download2 = [downloader2 download];
@@ -492,8 +513,6 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   engine = [(SUManagerCore *)self engine];
   updatePolicy = [engine updatePolicy];
   [(SUManagerCore *)self _reportOTAEvent:v17 withStatus:eventCopy policy:updatePolicy descriptor:v16 additionalMetrics:v12 error:0];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportOTAInstalledEvent
@@ -540,13 +559,13 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
 
 - (void)reportOTAAbandonedEventWithError:(id)error additionalMetrics:(id)metrics
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   errorCopy = error;
   workQueue = [(SUManagerCore *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v22 = *MEMORY[0x277D645A0];
+  v21 = *MEMORY[0x277D645A0];
   downloader = [(SUManagerCore *)self downloader];
   download = [downloader download];
   downloadOptions = [download downloadOptions];
@@ -558,8 +577,8 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     v14 = clientName;
   }
 
-  v23[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v16 = [v15 mutableCopy];
 
   if (metricsCopy)
@@ -573,7 +592,6 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   v20 = [(SUManagerCore *)self coreDescriptorForSUDescriptor:descriptor];
 
   [(SUManagerCore *)self _reportOTAEvent:*MEMORY[0x277D645D8] withStatus:0 policy:0 descriptor:v20 additionalMetrics:v16 error:errorCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportRSRRollbackSuggestedEventWithDescriptor:(id)descriptor rollbackSuggestionInfo:(id)info
@@ -604,7 +622,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
 
 - (void)_reportRollbackEvent:(id)event withInfo:(id)info buildVersion:(id)version
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   infoCopy = info;
   workQueue = [(SUManagerCore *)self workQueue];
@@ -614,7 +632,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   v18 = v10;
   if (v10)
   {
-    v51 = eventCopy;
+    v48 = eventCopy;
     [v10 setSafeObject:eventCopy forKey:*MEMORY[0x277D64738]];
     [v18 setSafeObject:@"SUS-2.0" forKey:*MEMORY[0x277D645B0]];
     [v18 setSafeObject:@"SUS-2.0" forKey:*MEMORY[0x277D64700]];
@@ -629,70 +647,83 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     servingPlmn = [v22 servingPlmn];
     [v18 setSafeObject:servingPlmn forKey:@"ServingPlmn"];
 
-    v24 = -[SUManagerCore rollbackSuggestionReasonFromSUReason:](self, "rollbackSuggestionReasonFromSUReason:", [infoCopy suggestionReason]);
-    v25 = *MEMORY[0x277D646B0];
-    v49 = v24;
+    v46 = -[SUManagerCore rollbackSuggestionReasonFromSUReason:](self, "rollbackSuggestionReasonFromSUReason:", [infoCopy suggestionReason]);
     [v18 setSafeObject:? forKey:?];
-    v57 = 0u;
-    v58 = 0u;
+    v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v50 = infoCopy;
+    v52 = 0u;
+    v53 = 0u;
+    v47 = infoCopy;
     obj = [infoCopy responsibleProcessesInfo];
-    v26 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-    if (v26)
+    v24 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+    if (v24)
     {
-      v27 = v26;
-      LODWORD(v28) = 0;
-      v54 = *v56;
-      v53 = *MEMORY[0x277D646B8];
-      v29 = *MEMORY[0x277D646A8];
-      v30 = *MEMORY[0x277D646A0];
+      v25 = v24;
+      LODWORD(v26) = 0;
+      v51 = *v53;
+      v50 = *MEMORY[0x277D646B8];
+      v27 = *MEMORY[0x277D646A8];
+      v28 = *MEMORY[0x277D646A0];
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v56 != v54)
+          if (*v53 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v55 + 1) + 8 * i);
-          v28 = (v28 + 1);
-          processName = [v32 processName];
-          [(SUManagerCore *)self setRollbackValue:processName forKey:v53 count:v28 event:v18];
+          v30 = *(*(&v52 + 1) + 8 * i);
+          v26 = (v26 + 1);
+          processName = [v30 processName];
+          [(SUManagerCore *)self setRollbackValue:processName forKey:v50 count:v26 event:v18];
 
-          rollbackSuggestionError = [v32 rollbackSuggestionError];
+          rollbackSuggestionError = [v30 rollbackSuggestionError];
           domain = [rollbackSuggestionError domain];
-          [(SUManagerCore *)self setRollbackValue:domain forKey:v29 count:v28 event:v18];
+          [(SUManagerCore *)self setRollbackValue:domain forKey:v27 count:v26 event:v18];
 
-          v36 = MEMORY[0x277CCABB0];
-          rollbackSuggestionError2 = [v32 rollbackSuggestionError];
-          v38 = [v36 numberWithInteger:{objc_msgSend(rollbackSuggestionError2, "code")}];
-          [(SUManagerCore *)self setRollbackValue:v38 forKey:v30 count:v28 event:v18];
+          v34 = MEMORY[0x277CCABB0];
+          rollbackSuggestionError2 = [v30 rollbackSuggestionError];
+          v36 = [v34 numberWithInteger:{objc_msgSend(rollbackSuggestionError2, "code")}];
+          [(SUManagerCore *)self setRollbackValue:v36 forKey:v28 count:v26 event:v18];
         }
 
-        v27 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+        v25 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
       }
 
-      while (v27);
+      while (v25);
     }
 
-    SULogInfo(@"reporting OTA event: %@", v39, v40, v41, v42, v43, v44, v45, v18);
+    SULogInfo(@"reporting OTA event: %@", v37, v38, v39, v40, v41, v42, v43, v18);
     coreReporter = [(SUManagerCore *)self coreReporter];
-    v47 = [MEMORY[0x277CBEBC0] URLWithString:*MEMORY[0x277D64818]];
-    [coreReporter sendEvent:v18 toServerURL:v47];
+    v45 = [MEMORY[0x277CBEBC0] URLWithString:*MEMORY[0x277D64818]];
+    [coreReporter sendEvent:v18 toServerURL:v45];
 
-    infoCopy = v50;
-    eventCopy = v51;
+    infoCopy = v47;
+    eventCopy = v48;
   }
 
   else
   {
     SULogInfo(@"failed to allocate event for %@ event so not reported", v11, v12, v13, v14, v15, v16, v17, eventCopy);
   }
+}
 
-  v48 = *MEMORY[0x277D85DE8];
+- (void)setRollbackValue:(id)value forKey:(id)key count:(int)count event:(id)event
+{
+  v7 = *&count;
+  valueCopy = value;
+  keyCopy = key;
+  eventCopy = event;
+  v11 = keyCopy;
+  v12 = v11;
+  v13 = v11;
+  if (v7 >= 2)
+  {
+    v13 = [v11 stringByAppendingFormat:@"_%d", v7];
+  }
+
+  [eventCopy setSafeObject:valueCopy forKey:v13];
 }
 
 - (id)rollbackSuggestionReasonFromSUReason:(unint64_t)reason
@@ -720,7 +751,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
 
 - (void)reportPostponedEvent:(id)event withStatus:(id)status withAdditionalMetrics:(id)metrics
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   statusCopy = status;
   metricsCopy = metrics;
@@ -739,7 +770,7 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
   {
     v22 = statusCopy;
     v23 = eventCopy;
-    v48 = *MEMORY[0x277D645A0];
+    v47 = *MEMORY[0x277D645A0];
     downloader = [(SUManagerCore *)self downloader];
     download = [downloader download];
     downloadOptions = [download downloadOptions];
@@ -751,14 +782,14 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
       v29 = clientName;
     }
 
-    v49[0] = v29;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
-    v30 = v47 = metricsCopy;
+    v48[0] = v29;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v30 = v46 = metricsCopy;
     v31 = [v30 mutableCopy];
 
-    if (v47)
+    if (v46)
     {
-      [v31 addEntriesFromDictionary:v47];
+      [v31 addEntriesFromDictionary:v46];
     }
 
     lastStashbagPersistedDate = [(SUManagerCore *)self lastStashbagPersistedDate];
@@ -795,10 +826,8 @@ void __52__SUManagerCore_Analytics__donateSuccessToBiomeFor___block_invoke(uint6
     date = [MEMORY[0x277CBEAA8] date];
     [state2 setLastSentOTAPostponedDate:date];
 
-    metricsCopy = v47;
+    metricsCopy = v46;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportOTAEvent:(id)event withStatus:(id)status policy:(id)policy primaryDescriptor:(id)descriptor alternateDescriptor:(id)alternateDescriptor additionalMetrics:(id)metrics error:(id)error
@@ -1122,15 +1151,14 @@ uint64_t __59__SUManagerCore_MDM__amendManagedScanOptions_withResponse___block_i
     if (v16)
     {
       [*(a1 + 40) setAllowSplat:1];
-      SULogInfo(@"MDM initiated scan. Allowing splat scan", v17, v18, v19, v20, v21, v22, v23, v27);
+      SULogInfo(@"MDM initiated scan. Allowing splat scan", v17, v18, v19, v20, v21, v22, v23, v26);
     }
   }
 
   SULogDebug(@"managed scan options after amendment: %@", v7, v8, v9, v10, v11, v12, v13, *(a1 + 40));
-  v24 = *(a1 + 48);
-  v25 = *(*(a1 + 64) + 16);
+  v24 = *(*(a1 + 64) + 16);
 
-  return v25();
+  return v24();
 }
 
 - (unint64_t)softwareUpdatePathRestriction
@@ -2532,6 +2560,14 @@ LABEL_11:
   return isUpdateDownloaded;
 }
 
+- (void)setDownloading:(BOOL)downloading
+{
+  downloadingCopy = downloading;
+  dispatch_assert_queue_V2(self->_workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  [downloader setDownloading:downloadingCopy];
+}
+
 - (BOOL)isForeground
 {
   dispatch_assert_queue_V2(self->_workQueue);
@@ -2539,6 +2575,14 @@ LABEL_11:
   isForeground = [downloader isForeground];
 
   return isForeground;
+}
+
+- (void)setForeground:(BOOL)foreground
+{
+  foregroundCopy = foreground;
+  dispatch_assert_queue_V2(self->_workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  [downloader setForeground:foregroundCopy];
 }
 
 - (BOOL)isClearingSpace
@@ -2577,6 +2621,14 @@ LABEL_11:
   return isInstallTonight;
 }
 
+- (void)setIsInstallTonight:(BOOL)tonight
+{
+  tonightCopy = tonight;
+  dispatch_assert_queue_V2(self->_workQueue);
+  installer = [(SUManagerCore *)self installer];
+  [installer setIsInstallTonight:tonightCopy];
+}
+
 - (BOOL)isInstallTonightScheduled
 {
   dispatch_assert_queue_V2(self->_workQueue);
@@ -2584,6 +2636,14 @@ LABEL_11:
   isInstallTonightScheduled = [installer isInstallTonightScheduled];
 
   return isInstallTonightScheduled;
+}
+
+- (void)setIsInstallTonightScheduled:(BOOL)scheduled
+{
+  scheduledCopy = scheduled;
+  dispatch_assert_queue_V2(self->_workQueue);
+  installer = [(SUManagerCore *)self installer];
+  [installer setIsInstallTonightScheduled:scheduledCopy];
 }
 
 - (MAAsset)preferredAssetToDownloadFromLastScan
@@ -2801,32 +2861,32 @@ void __38__SUManagerCore__notifyEngineOnUnlock__block_invoke(uint64_t a1)
 
 - (void)doUnlockEvents
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
   v3 = self->_unlockCallbacks;
   v4 = [(NSMutableDictionary *)v3 count];
   SULogInfo(@"callback count = %lu", v5, v6, v7, v8, v9, v10, v11, v4);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   allKeys = [(NSMutableDictionary *)v3 allKeys];
-  v13 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v13 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
+    v15 = *v35;
     do
     {
       v16 = 0;
       do
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v17 = [(NSMutableDictionary *)v3 objectForKey:*(*(&v35 + 1) + 8 * v16)];
+        v17 = [(NSMutableDictionary *)v3 objectForKey:*(*(&v34 + 1) + 8 * v16)];
         SULogInfo(@"selector string = %@", v18, v19, v20, v21, v22, v23, v24, v17);
         if (v17)
         {
@@ -2846,13 +2906,11 @@ void __38__SUManagerCore__notifyEngineOnUnlock__block_invoke(uint64_t a1)
       }
 
       while (v14 != v16);
-      v14 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v14);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUnlockCallback:(SEL)callback forKey:(id)key
@@ -3157,6 +3215,46 @@ void __43__SUManagerCore__loadBrainOnUnlockCallback__block_invoke(uint64_t a1)
   [tracker recordScanForUpdates:updatesCopy fromClient:0];
 }
 
+- (void)autoScanAndDownloadIfAvailable:(int)available withResult:(id)result
+{
+  v4 = *&available;
+  workQueue = self->_workQueue;
+  resultCopy = result;
+  dispatch_assert_queue_V2(workQueue);
+  scanner = [(SUManagerCore *)self scanner];
+  [scanner autoScanAndDownloadIfAvailable:v4 withResult:resultCopy];
+
+  tracker = [(SUManagerCore *)self tracker];
+  [tracker recordAutoScanAndDownloadIfAvailable:v4 downloadNow:0 fromClient:0];
+}
+
+- (void)autoScanAndDownloadIfAvailable:(int)available downloadNow:(BOOL)now withResult:(id)result
+{
+  nowCopy = now;
+  v6 = *&available;
+  workQueue = self->_workQueue;
+  resultCopy = result;
+  dispatch_assert_queue_V2(workQueue);
+  scanner = [(SUManagerCore *)self scanner];
+  [scanner autoScanAndDownloadIfAvailable:v6 downloadNow:nowCopy withResult:resultCopy];
+
+  tracker = [(SUManagerCore *)self tracker];
+  [tracker recordAutoScanAndDownloadIfAvailable:v6 downloadNow:nowCopy fromClient:0];
+}
+
+- (void)autoUpdateFound:(id)found downloadNow:(BOOL)now
+{
+  nowCopy = now;
+  workQueue = self->_workQueue;
+  foundCopy = found;
+  dispatch_assert_queue_V2(workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  [downloader autoUpdateFound:foundCopy downloadNow:nowCopy];
+
+  tracker = [(SUManagerCore *)self tracker];
+  [tracker recordScanComplete:foundCopy downloadNow:nowCopy withError:0];
+}
+
 - (id)coreDescriptorForSUDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
@@ -3302,6 +3400,20 @@ LABEL_17:
   }
 
   [v4 cacheDeleteDisableReserveSpace];
+}
+
+- (void)disableReserveSpace:(BOOL)space
+{
+  spaceCopy = space;
+  dispatch_assert_queue_V2(self->_workQueue);
+  v5 = +[SUPreferences sharedInstance];
+  [v5 disableSoftwareUpdateReserve:spaceCopy];
+
+  if (![(SUManagerCore *)self isDownloading]&& ![(SUManagerCore *)self isInstalling])
+  {
+
+    [(SUManagerCore *)self resumeOrDisableReserveSpace];
+  }
 }
 
 - (void)overrideSoftwareUpdateReserve:(id)reserve systemGrowthMarginSize:(id)size
@@ -3645,9 +3757,9 @@ void __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
       v12 = *(a1 + 48);
-      v44 = 0;
-      v13 = [v10 _isUpdateDownloadable:v11 downloadOptions:v12 error:&v44];
-      objc_storeStrong(v8, v44);
+      v41 = 0;
+      v13 = [v10 _isUpdateDownloadable:v11 downloadOptions:v12 error:&v41];
+      objc_storeStrong(v8, v41);
       *(*(*(a1 + 96) + 8) + 24) = v13;
     }
   }
@@ -3657,14 +3769,14 @@ void __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions
     v15 = *(a1 + 32);
     v14 = *(a1 + 40);
     v16 = *(v15 + 120);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_2;
-    v42[3] = &unk_279CAA7C0;
-    v42[4] = v15;
-    v17 = &v43;
-    v43 = v14;
-    v18 = v42;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_2;
+    v39[3] = &unk_279CAA7C0;
+    v39[4] = v15;
+    v17 = &v40;
+    v40 = v14;
+    v18 = v39;
   }
 
   else
@@ -3682,8 +3794,8 @@ void __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions
     block[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_3;
     block[3] = &unk_279CAA7C0;
     block[4] = v20;
-    v17 = &v41;
-    v41 = v19;
+    v17 = &v38;
+    v38 = v19;
     v18 = block;
   }
 
@@ -3692,16 +3804,16 @@ void __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions
 LABEL_9:
   if (*(a1 + 56))
   {
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x2020000000;
-    v39 = 0;
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x3032000000;
-    v36[3] = __Block_byref_object_copy__17;
-    v36[4] = __Block_byref_object_dispose__17;
-    v37 = 0;
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x2020000000;
+    v36 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3032000000;
+    v33[3] = __Block_byref_object_copy__17;
+    v33[4] = __Block_byref_object_dispose__17;
+    v34 = 0;
     v21 = *(a1 + 64);
     if (!v21)
     {
@@ -3723,46 +3835,43 @@ LABEL_9:
     [*(a1 + 72) setEnableAppOffload:v22];
     if ([v21 isAutoDownload])
     {
-      v26 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v26 = [v21 isMASuspensionEnabled];
+      v23 = [v21 isMASuspensionEnabled];
     }
 
-    [*(a1 + 72) setEnableMobileAssetSuspend:v26];
+    [*(a1 + 72) setEnableMobileAssetSuspend:v23];
     [*(a1 + 72) setCacheDeleteUrgency:4];
     [*(a1 + 72) setAppOffloadUrgency:4];
-    v27 = *(a1 + 72);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_4;
-    v29[3] = &unk_279CACE20;
-    v33 = v38;
-    v34 = v36;
-    v29[4] = *(a1 + 32);
-    v30 = *(a1 + 56);
-    v28 = v21;
-    v31 = v28;
-    v32 = *(a1 + 88);
-    v35 = *(a1 + 96);
-    [SUSpace hasSufficientSpaceWithOptions:v27 withCompletion:v29];
+    v24 = *(a1 + 72);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_4;
+    v26[3] = &unk_279CACE20;
+    v30 = v35;
+    v31 = v33;
+    v26[4] = *(a1 + 32);
+    v27 = *(a1 + 56);
+    v25 = v21;
+    v28 = v25;
+    v29 = *(a1 + 88);
+    v32 = *(a1 + 96);
+    [SUSpace hasSufficientSpaceWithOptions:v24 withCompletion:v26];
 
-    _Block_object_dispose(v36, 8);
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(v35, 8);
   }
 
   else
   {
-    v23 = *(*(*(a1 + 96) + 8) + 24);
-    v24 = *(*(*(a1 + 104) + 8) + 40);
-    v25 = *(a1 + 80);
     (*(*(a1 + 88) + 16))();
   }
 }
 
-uint64_t __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_3(uint64_t a1)
+void *__86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isDownloading];
   if ((result & 1) == 0)
@@ -3817,14 +3926,10 @@ void __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions
     block[2] = __86__SUManagerCore_updatesDownloadableWithOptions_alternateDownloadOptions_replyHandler___block_invoke_5;
     block[3] = &unk_279CAA7C0;
     block[4] = v15;
-    v22 = v14;
+    v18 = v14;
     dispatch_async(v16, block);
   }
 
-  v17 = *(*(a1[10] + 8) + 24);
-  v18 = *(*(a1[8] + 8) + 24);
-  v19 = *(*(a1[11] + 8) + 40);
-  v20 = *(*(a1[9] + 8) + 40);
   (*(a1[7] + 16))();
 }
 
@@ -3907,6 +4012,44 @@ LABEL_9:
   [downloader2 deviceIsUpToDate];
 }
 
+- (BOOL)cancelDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets error:(id *)error
+{
+  assetsCopy = assets;
+  requestedCopy = requested;
+  downloadCopy = download;
+  dispatch_assert_queue_V2(self->_workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  LOBYTE(error) = [downloader cancelDownload:downloadCopy userRequested:requestedCopy keepDocAssets:assetsCopy error:error];
+
+  return error;
+}
+
+- (BOOL)killDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets error:(id *)error
+{
+  assetsCopy = assets;
+  requestedCopy = requested;
+  downloadCopy = download;
+  dispatch_assert_queue_V2(self->_workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  LOBYTE(error) = [downloader killDownload:downloadCopy userRequested:requestedCopy keepDocAssets:assetsCopy error:error];
+
+  return error;
+}
+
+- (BOOL)killDownload:(BOOL)download userRequested:(BOOL)requested keepDocAssets:(BOOL)assets forUpdates:(id)updates error:(id *)error
+{
+  assetsCopy = assets;
+  requestedCopy = requested;
+  downloadCopy = download;
+  workQueue = self->_workQueue;
+  updatesCopy = updates;
+  dispatch_assert_queue_V2(workQueue);
+  downloader = [(SUManagerCore *)self downloader];
+  LOBYTE(error) = [downloader killDownload:downloadCopy userRequested:requestedCopy keepDocAssets:assetsCopy forUpdates:updatesCopy error:error];
+
+  return error;
+}
+
 - (id)updateToAutoDownload
 {
   dispatch_assert_queue_V2(self->_workQueue);
@@ -3946,6 +4089,14 @@ LABEL_9:
   [installer updateInstallPolicyType:type];
 }
 
+- (void)updateInstallPolicyAutoUpdateEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_workQueue);
+  installer = [(SUManagerCore *)self installer];
+  [installer updateInstallPolicyAutoUpdateEnabled:enabledCopy];
+}
+
 - (id)newInstallTonightConfig
 {
   isInstallTonight = [(SUManagerCore *)self isInstallTonight];
@@ -3962,8 +4113,8 @@ LABEL_9:
 
 - (id)installTonightConfigDictionary
 {
-  v25[7] = *MEMORY[0x277D85DE8];
-  v24[0] = @"installTonightActive";
+  v24[7] = *MEMORY[0x277D85DE8];
+  v23[0] = @"installTonightActive";
   isInstallTonight = [(SUManagerCore *)self isInstallTonight];
   v4 = *MEMORY[0x277D647B0];
   v5 = *MEMORY[0x277D64728];
@@ -3977,8 +4128,8 @@ LABEL_9:
     v6 = *MEMORY[0x277D64728];
   }
 
-  v25[0] = v6;
-  v24[1] = @"autoUpdateEnabledForDescriptor";
+  v24[0] = v6;
+  v23[1] = @"autoUpdateEnabledForDescriptor";
   download = [(SUManagerCore *)self download];
   descriptor = [download descriptor];
   if ([descriptor autoUpdateEnabled])
@@ -3991,8 +4142,8 @@ LABEL_9:
     v9 = v5;
   }
 
-  v25[1] = v9;
-  v24[2] = @"autoDownload";
+  v24[1] = v9;
+  v23[2] = @"autoDownload";
   download2 = [(SUManagerCore *)self download];
   downloadOptions = [download2 downloadOptions];
   if ([downloadOptions isAutoDownload])
@@ -4005,8 +4156,8 @@ LABEL_9:
     v12 = v5;
   }
 
-  v25[2] = v12;
-  v24[3] = @"autoUpdateToggleEnabled";
+  v24[2] = v12;
+  v23[3] = @"autoUpdateToggleEnabled";
   v13 = +[SUPreferences sharedInstance];
   if ([v13 isAutomaticUpdateV2Enabled])
   {
@@ -4018,8 +4169,8 @@ LABEL_9:
     v14 = v5;
   }
 
-  v25[3] = v14;
-  v24[4] = @"autoDownloadToggleEnabled";
+  v24[3] = v14;
+  v23[4] = @"autoDownloadToggleEnabled";
   v15 = +[SUPreferences sharedInstance];
   if ([v15 isAutomaticDownloadEnabled])
   {
@@ -4031,8 +4182,8 @@ LABEL_9:
     v16 = v5;
   }
 
-  v25[4] = v16;
-  v24[5] = @"autoInstallSystemAndDataFilesToggleEnabled";
+  v24[4] = v16;
+  v23[5] = @"autoInstallSystemAndDataFilesToggleEnabled";
   v17 = +[SUPreferences sharedInstance];
   if ([v17 autoInstallSystemAndDataFiles])
   {
@@ -4044,8 +4195,8 @@ LABEL_9:
     v18 = v5;
   }
 
-  v25[5] = v18;
-  v24[6] = @"autoInstallSecurityResponseToggleEnabled";
+  v24[5] = v18;
+  v23[6] = @"autoInstallSecurityResponseToggleEnabled";
   v19 = +[SUPreferences sharedInstance];
   if ([v19 autoInstallSecurityResponse])
   {
@@ -4057,10 +4208,8 @@ LABEL_9:
     v20 = v5;
   }
 
-  v25[6] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v24[6] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
   return v21;
 }
@@ -4156,7 +4305,7 @@ LABEL_9:
 
 - (void)createInstallationKeybag:(id)keybag withResult:(id)result
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   keybagCopy = keybag;
   resultCopy = result;
   dispatch_assert_queue_V2(self->_workQueue);
@@ -4194,7 +4343,7 @@ LABEL_6:
 
       if (!laContext)
       {
-        SULogInfo(@"No passcode or LAContext provided for keybag. Unable to create installation keybag with null passcode and null LAContext", v20, v21, v22, v23, v24, v25, v26, v51);
+        SULogInfo(@"No passcode or LAContext provided for keybag. Unable to create installation keybag with null passcode and null LAContext", v20, v21, v22, v23, v24, v25, v26, v50);
         if (!resultCopy)
         {
           goto LABEL_34;
@@ -4207,7 +4356,7 @@ LABEL_6:
     keybagType = [keybagCopy keybagType];
     if (!keybagType)
     {
-      SULogInfo(@"createInstallationKeybag - asked to create attended keybag but will create unattended one anyway", v27, v28, v29, v30, v31, v32, v33, v51);
+      SULogInfo(@"createInstallationKeybag - asked to create attended keybag but will create unattended one anyway", v27, v28, v29, v30, v31, v32, v33, v50);
       keybagType = 1;
     }
 
@@ -4231,27 +4380,27 @@ LABEL_6:
     [(SUManagerCore *)self setLastStashbagPersistedDate:0];
     if (keybagType == 1 && v39)
     {
-      v52 = keybagCopy;
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
+      v51 = keybagCopy;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       allObjects = [(NSHashTable *)self->_observers allObjects];
-      v41 = [allObjects countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v41 = [allObjects countByEnumeratingWithState:&v53 objects:v57 count:16];
       if (v41)
       {
         v42 = v41;
-        v43 = *v55;
+        v43 = *v54;
         do
         {
           for (i = 0; i != v42; ++i)
           {
-            if (*v55 != v43)
+            if (*v54 != v43)
             {
               objc_enumerationMutation(allObjects);
             }
 
-            v45 = *(*(&v54 + 1) + 8 * i);
+            v45 = *(*(&v53 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               externWorkQueue = self->_externWorkQueue;
@@ -4264,13 +4413,13 @@ LABEL_6:
             }
           }
 
-          v42 = [allObjects countByEnumeratingWithState:&v54 objects:v58 count:16];
+          v42 = [allObjects countByEnumeratingWithState:&v53 objects:v57 count:16];
         }
 
         while (v42);
       }
 
-      keybagCopy = v52;
+      keybagCopy = v51;
     }
 
     if (v39)
@@ -4289,7 +4438,7 @@ LABEL_29:
     goto LABEL_34;
   }
 
-  SULogInfo(@"No descriptor provided for keybag. Unable to create installation keybag with null descriptor", v11, v12, v13, v14, v15, v16, v17, v51);
+  SULogInfo(@"No descriptor provided for keybag. Unable to create installation keybag with null descriptor", v11, v12, v13, v14, v15, v16, v17, v50);
   if (resultCopy)
   {
     v49 = [SUUtility errorWithCode:82];
@@ -4298,8 +4447,6 @@ LABEL_29:
 
   descriptor = 0;
 LABEL_34:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearKeybagStash
@@ -4323,13 +4470,13 @@ LABEL_34:
 {
   bannerCopy = banner;
   dispatch_assert_queue_V2(self->_workQueue);
-  v5 = SULogBadging();
-  SULogInfoForSubsystem(v5, @"Got request to present AutoUpdateBanner", v6, v7, v8, v9, v10, v11, v51[0]);
+  v6 = SULogBadging(v5);
+  SULogInfoForSubsystem(v6, @"Got request to present AutoUpdateBanner", v7, v8, v9, v10, v11, v12, v53[0]);
 
   download = [(SUManagerCore *)self download];
   if (download)
   {
-    v13 = download;
+    v14 = download;
     download2 = [(SUManagerCore *)self download];
     descriptor = [download2 descriptor];
 
@@ -4339,18 +4486,18 @@ LABEL_34:
       descriptor2 = [download3 descriptor];
 
       followUpController = [(SUManagerCore *)self followUpController];
-      v19 = [followUpController isCurrentlyPresentingFollowUpType:2];
+      v20 = [followUpController isCurrentlyPresentingFollowUpType:2];
 
-      if (v19)
+      if (v20)
       {
-        lastPendingSplatAlertDate2 = SULogBadging();
-        SULogInfoForSubsystem(lastPendingSplatAlertDate2, @"Not presenting banner since it is already being presented", v21, v22, v23, v24, v25, v26, v51[0]);
+        lastPendingSplatAlertDate2 = SULogBadging(v21);
+        SULogInfoForSubsystem(lastPendingSplatAlertDate2, @"Not presenting banner since it is already being presented", v23, v24, v25, v26, v27, v28, v53[0]);
 LABEL_5:
 
         goto LABEL_14;
       }
 
-      if ([descriptor2 isSplatOnly] && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "autoInstallSecurityResponse"), v36, v37))
+      if ([descriptor2 isSplatOnly] && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "autoInstallSecurityResponse"), v38, v39))
       {
         lastPendingSplatAlertDate = [(SUState *)self->_state lastPendingSplatAlertDate];
 
@@ -4358,8 +4505,8 @@ LABEL_5:
         {
           state = self->_state;
           date = [MEMORY[0x277CBEAA8] date];
-          v41 = [date dateByAddingTimeInterval:1.0];
-          [(SUState *)state setLastPendingSplatAlertDate:v41];
+          v43 = [date dateByAddingTimeInterval:1.0];
+          [(SUState *)state setLastPendingSplatAlertDate:v43];
 
           lastPendingSplatAlertDate2 = [(SUState *)self->_state lastPendingSplatAlertDate];
           [(SUManagerCore *)self scheduleSplatFollowUpDate:lastPendingSplatAlertDate2];
@@ -4369,21 +4516,21 @@ LABEL_5:
 
       else
       {
-        v42 = dispatch_time(0, 2000000000);
+        v44 = dispatch_time(0, 2000000000);
         workQueue = self->_workQueue;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __41__SUManagerCore_presentAutoUpdateBanner___block_invoke;
         block[3] = &unk_279CAA7C0;
         block[4] = self;
-        v55 = descriptor2;
-        dispatch_after(v42, workQueue, block);
-        SULogInfo(@"Scheduled immediate follow-up for regular update", v44, v45, v46, v47, v48, v49, v50, v51[0]);
+        v57 = descriptor2;
+        dispatch_after(v44, workQueue, block);
+        SULogInfo(@"Scheduled immediate follow-up for regular update", v46, v47, v48, v49, v50, v51, v52, v53[0]);
       }
 
 LABEL_14:
 
-      v34 = 1;
+      v36 = 1;
       if (!bannerCopy)
       {
         goto LABEL_8;
@@ -4393,21 +4540,21 @@ LABEL_14:
     }
   }
 
-  v27 = SULogBadging();
-  SULogInfoForSubsystem(v27, @"Download/descriptor object is null..Skipping banner", v28, v29, v30, v31, v32, v33, v51[0]);
+  v29 = SULogBadging(download);
+  SULogInfoForSubsystem(v29, @"Download/descriptor object is null..Skipping banner", v30, v31, v32, v33, v34, v35, v53[0]);
 
-  v34 = 0;
+  v36 = 0;
   if (bannerCopy)
   {
 LABEL_7:
     externWorkQueue = self->_externWorkQueue;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __41__SUManagerCore_presentAutoUpdateBanner___block_invoke_2;
-    v51[3] = &unk_279CACE70;
-    v52 = bannerCopy;
-    v53 = v34;
-    dispatch_async(externWorkQueue, v51);
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __41__SUManagerCore_presentAutoUpdateBanner___block_invoke_2;
+    v53[3] = &unk_279CACE70;
+    v54 = bannerCopy;
+    v55 = v36;
+    dispatch_async(externWorkQueue, v53);
   }
 
 LABEL_8:
@@ -4459,25 +4606,16 @@ void __41__SUManagerCore_presentAutoUpdateBanner___block_invoke(uint64_t a1)
   if (lastPendingSplatAlertDate)
   {
     download = [(SUManagerCore *)self download];
-    if (!download)
+    if (download && (v18 = download, -[SUManagerCore download](self, "download"), v19 = objc_claimAutoreleasedReturnValue(), [v19 descriptor], v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v20))
     {
-      goto LABEL_7;
-    }
+      download2 = [(SUManagerCore *)self download];
+      descriptor = [download2 descriptor];
 
-    v18 = download;
-    download2 = [(SUManagerCore *)self download];
-    descriptor = [download2 descriptor];
-
-    if (descriptor)
-    {
-      download3 = [(SUManagerCore *)self download];
-      descriptor2 = [download3 descriptor];
-
-      if ([descriptor2 isSplatOnly] && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "autoInstallSecurityResponse"), v30, v31))
+      if ([descriptor isSplatOnly] && (+[SUPreferences sharedInstance](SUPreferences, "sharedInstance"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "autoInstallSecurityResponse"), v30, v31))
       {
         SULogInfo(@"Posting scheduled splat follow-up notification", v23, v24, v25, v26, v27, v28, v29, v35);
         followUpController = [(SUManagerCore *)self followUpController];
-        [followUpController postFollowUpOfType:2 withUpdate:descriptor2 userInfo:0];
+        [followUpController postFollowUpOfType:2 withUpdate:descriptor userInfo:0];
       }
 
       else
@@ -4494,7 +4632,6 @@ void __41__SUManagerCore_presentAutoUpdateBanner___block_invoke(uint64_t a1)
 
     else
     {
-LABEL_7:
       SULogInfo(@"Clearing lastPendingSplatAlertDate - no current download/descriptor available", v11, v12, v13, v14, v15, v16, v17, v35);
       [(SUState *)self->_state setLastPendingSplatAlertDate:0];
       v33 = +[SUScheduler sharedInstance];
@@ -4530,8 +4667,7 @@ LABEL_7:
   [v4 cancelSplatFollowUpNotification];
 
   [(SUState *)self->_state setLastPendingSplatAlertDate:0];
-  [(SUState *)self->_state save];
-  v5 = SULogBadging();
+  v5 = SULogBadging([(SUState *)self->_state save]);
   SULogInfoForSubsystem(v5, @"Got request to dismiss AutoUpdateBanner", v6, v7, v8, v9, v10, v11, v12);
 
   followUpController = [(SUManagerCore *)self followUpController];
@@ -4541,8 +4677,8 @@ LABEL_7:
 - (void)unbadgeSettingsForManualSoftwareUpdate
 {
   dispatch_assert_queue_V2(self->_workQueue);
-  v3 = SULogBadging();
-  SULogInfoForSubsystem(v3, @"Removing settings badge set by manual update flow(if present)", v4, v5, v6, v7, v8, v9, v10);
+  v4 = SULogBadging(v3);
+  SULogInfoForSubsystem(v4, @"Removing settings badge set by manual update flow(if present)", v5, v6, v7, v8, v9, v10, v11);
 
   followUpController = [(SUManagerCore *)self followUpController];
   [followUpController dismissFollowUpTypes:&unk_287B6F880];
@@ -4551,8 +4687,8 @@ LABEL_7:
 - (void)dismissLegacyFollowUps
 {
   dispatch_assert_queue_V2(self->_workQueue);
-  v3 = SULogBadging();
-  SULogInfoForSubsystem(v3, @"Removing legacy SU follow up (if present)", v4, v5, v6, v7, v8, v9, v10);
+  v4 = SULogBadging(v3);
+  SULogInfoForSubsystem(v4, @"Removing legacy SU follow up (if present)", v5, v6, v7, v8, v9, v10, v11);
 
   followUpController = [(SUManagerCore *)self followUpController];
   [followUpController dismissLegacyFollowUps];
@@ -4563,8 +4699,8 @@ LABEL_7:
   workQueue = self->_workQueue;
   updateCopy = update;
   dispatch_assert_queue_V2(workQueue);
-  v6 = SULogBadging();
-  SULogInfoForSubsystem(v6, @"Badging settings for manual update flow", v7, v8, v9, v10, v11, v12, v13);
+  v7 = SULogBadging(v6);
+  SULogInfoForSubsystem(v7, @"Badging settings for manual update flow", v8, v9, v10, v11, v12, v13, v14);
 
   followUpController = [(SUManagerCore *)self followUpController];
   [followUpController postFollowUpOfType:1 withUpdate:updateCopy userInfo:0];
@@ -4572,7 +4708,7 @@ LABEL_7:
 
 - (NSDictionary)mandatoryUpdateDictionary
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
   v3 = +[SUPreferences sharedInstance];
   mandatorySUFlags = [v3 mandatorySUFlags];
@@ -4585,9 +4721,9 @@ LABEL_7:
     mandatorySUFlags2 = [v7 mandatorySUFlags];
     v9 = [v6 stringWithFormat:@"%d", objc_msgSend(mandatorySUFlags2, "integerValue")];
 
-    v20 = @"SoftwareUpdateConfigurationFlags";
-    v21[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = @"SoftwareUpdateConfigurationFlags";
+    v20[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     SULogInfo(@"Overriding mandatoryUpdateDictionary to %@", v11, v12, v13, v14, v15, v16, v17, v10);
   }
 
@@ -4595,8 +4731,6 @@ LABEL_7:
   {
     v10 = self->_mandatoryUpdateDictionary;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -4844,6 +4978,28 @@ void __38__SUManagerCore_assetAudienceChanged___block_invoke_2(uint64_t a1, void
   }
 }
 
+- (void)keybagInterface:(id)interface passcodeLockedStateDidChange:(BOOL)change
+{
+  v10 = @"NO";
+  if (change)
+  {
+    v10 = @"YES";
+  }
+
+  SULogInfo(@"Device lock status changed: passcodeLocked = %@", a2, interface, change, v4, v5, v6, v7, v10);
+  if (!change)
+  {
+    SULogInfo(@"Device unlocked", v11, v12, v13, v14, v15, v16, v17, v19);
+    workQueue = self->_workQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __62__SUManagerCore_keybagInterface_passcodeLockedStateDidChange___block_invoke;
+    block[3] = &unk_279CAA708;
+    block[4] = self;
+    dispatch_async(workQueue, block);
+  }
+}
+
 - (void)networkMonitorDetectOverrides
 {
   v2 = +[SUNetworkMonitor sharedInstance];
@@ -4923,13 +5079,13 @@ LABEL_7:
   }
 }
 
-uint64_t __57__SUManagerCore_preferences_didChangePreference_toValue___block_invoke(uint64_t result)
+id *__57__SUManagerCore_preferences_didChangePreference_toValue___block_invoke(id *result)
 {
-  if (*(result + 32) == @"SUDisableAutoDownload")
+  if (result[4] == @"SUDisableAutoDownload")
   {
     v2 = result;
-    v3 = [*(result + 40) BOOLValue];
-    v4 = *(v2 + 48);
+    v3 = [result[5] BOOLValue];
+    v4 = v2[6];
 
     return [v4 disableReserveSpace:v3];
   }

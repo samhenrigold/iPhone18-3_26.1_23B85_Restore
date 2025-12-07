@@ -41,21 +41,21 @@
 
 - (id)_fetchEntriesForDomain:(void *)domain key:(uint64_t)key protectionCategory:(char)category latest:(uint64_t)latest error:
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v11 = a2;
   domainCopy = domain;
   if (self)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__108;
-    v39 = __Block_byref_object_dispose__108;
-    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__108;
+    v36 = __Block_byref_object_dispose__108;
+    v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (domainCopy)
     {
-      v41[0] = domainCopy;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+      v38[0] = domainCopy;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
     }
 
     else
@@ -63,52 +63,43 @@
       v13 = 0;
     }
 
-    v14 = off_27860EAB8;
-    if (key)
-    {
-      v14 = off_27860EAD8;
-    }
-
-    v15 = *v14;
-    v16 = objc_opt_class();
+    v14 = objc_opt_class();
     profile = [self profile];
     database = [profile database];
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke;
-    v28 = &unk_278622A28;
-    v32 = v16;
-    v19 = v13;
-    v29 = v19;
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke;
+    v25 = &unk_278622A28;
+    v29 = v14;
+    v17 = v13;
+    v26 = v17;
     categoryCopy = category;
     keyCopy = key;
-    v30 = v11;
-    v31 = &v35;
-    v20 = [v16 performReadTransactionWithHealthDatabase:database error:latest block:&v25];
+    v27 = v11;
+    v28 = &v32;
+    v18 = [v14 performReadTransactionWithHealthDatabase:database error:latest block:&v22];
 
-    if (v20 && [v36[5] count])
+    if (v18 && [v33[5] count])
     {
-      v21 = v36[5];
+      v19 = v33[5];
     }
 
     else
     {
-      v21 = 0;
+      v19 = 0;
     }
 
-    v22 = v21;
+    v20 = v19;
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v20;
 }
 
 - (id)mostRecentEntryForDomain:(id)domain key:(id)key protectionCategory:(int64_t)category error:(id *)error
@@ -155,28 +146,21 @@ LABEL_11:
 {
   identityCopy = identity;
   handlerCopy = handler;
-  v12 = off_27860EAB8;
-  if (category)
-  {
-    v12 = off_27860EAD8;
-  }
-
-  v13 = *v12;
-  v14 = objc_opt_class();
+  v11 = objc_opt_class();
   profile = [(HDDeviceKeyValueStoreManager *)self profile];
   database = [profile database];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __111__HDDeviceKeyValueStoreManager_enumerateAllEntriesForSyncIdentity_protectionCategory_error_enumerationHandler___block_invoke;
-  v21[3] = &unk_278622880;
-  v23 = handlerCopy;
-  v24 = v14;
-  v22 = identityCopy;
-  v17 = handlerCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __111__HDDeviceKeyValueStoreManager_enumerateAllEntriesForSyncIdentity_protectionCategory_error_enumerationHandler___block_invoke;
+  v17[3] = &unk_278622880;
+  v19 = handlerCopy;
+  v20 = v11;
   v18 = identityCopy;
-  v19 = [v14 performReadTransactionWithHealthDatabase:database error:error block:v21];
+  v14 = handlerCopy;
+  v15 = identityCopy;
+  LOBYTE(error) = [v11 performReadTransactionWithHealthDatabase:database error:error block:v17];
 
-  return v19;
+  return error;
 }
 
 - (id)fetchEntryForKey:(id)key domain:(id)domain syncIdentity:(id)identity category:(int64_t)category error:(id *)error
@@ -184,52 +168,45 @@ LABEL_11:
   keyCopy = key;
   domainCopy = domain;
   identityCopy = identity;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__108;
-  v15 = off_27860EAB8;
-  v37 = __Block_byref_object_dispose__108;
-  v38 = 0;
-  if (category)
-  {
-    v15 = off_27860EAD8;
-  }
-
-  v16 = *v15;
-  v17 = objc_opt_class();
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__108;
+  v33 = __Block_byref_object_dispose__108;
+  v34 = 0;
+  v14 = objc_opt_class();
   profile = [(HDDeviceKeyValueStoreManager *)self profile];
   database = [profile database];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __84__HDDeviceKeyValueStoreManager_fetchEntryForKey_domain_syncIdentity_category_error___block_invoke;
-  v27[3] = &unk_2786228A8;
-  v27[4] = self;
-  v20 = identityCopy;
-  v28 = v20;
-  v31 = &v33;
-  v32 = v17;
-  v21 = keyCopy;
-  v29 = v21;
-  v22 = domainCopy;
-  v30 = v22;
-  v23 = [v17 performReadTransactionWithHealthDatabase:database error:error block:v27];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __84__HDDeviceKeyValueStoreManager_fetchEntryForKey_domain_syncIdentity_category_error___block_invoke;
+  v23[3] = &unk_2786228A8;
+  v23[4] = self;
+  v17 = identityCopy;
+  v24 = v17;
+  v27 = &v29;
+  v28 = v14;
+  v18 = keyCopy;
+  v25 = v18;
+  v19 = domainCopy;
+  v26 = v19;
+  LODWORD(error) = [v14 performReadTransactionWithHealthDatabase:database error:error block:v23];
 
-  if (v23)
+  if (error)
   {
-    v24 = v34[5];
+    v20 = v30[5];
   }
 
   else
   {
-    v24 = 0;
+    v20 = 0;
   }
 
-  v25 = v24;
+  v21 = v20;
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v29, 8);
 
-  return v25;
+  return v21;
 }
 
 uint64_t __84__HDDeviceKeyValueStoreManager_fetchEntryForKey_domain_syncIdentity_category_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -490,107 +467,86 @@ BOOL __83__HDDeviceKeyValueStoreManager_setData_forKey_domainName_protectionCate
 
 - (BOOL)insertOrUpdateData:(id)data forKey:(id)key transaction:(id)transaction domainName:(id)name protectionCategory:(int64_t)category deviceContext:(id)context modificationDate:(id)date error:(id *)self0
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   keyCopy = key;
   transactionCopy = transaction;
   nameCopy = name;
   contextCopy = context;
   dateCopy = date;
-  v19 = off_27860EAB8;
   categoryCopy = category;
-  if (category)
-  {
-    v19 = off_27860EAD8;
-  }
-
-  v20 = *v19;
-  v21 = objc_opt_class();
+  v19 = objc_opt_class();
   profile = [(HDDeviceKeyValueStoreManager *)self profile];
   syncIdentityManager = [profile syncIdentityManager];
   syncIdentity = [contextCopy syncIdentity];
-  v25 = [syncIdentityManager concreteIdentityForIdentity:syncIdentity shouldCreate:1 transaction:transactionCopy error:error];
+  v23 = [syncIdentityManager concreteIdentityForIdentity:syncIdentity shouldCreate:1 transaction:transactionCopy error:error];
 
-  if (!v25)
+  if (v23 && (v45 = self, -[HDDeviceKeyValueStoreManager profile](self, "profile"), v24 = objc_claimAutoreleasedReturnValue(), [v24 deviceContextManager], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "insertOrUpdateDeviceContext:transaction:error:", contextCopy, transactionCopy, error), v25, v24, v26))
   {
-    goto LABEL_9;
-  }
+    entity = [v23 entity];
+    v28 = +[HDDeviceContextEntity deviceContextEntityWithSyncIdentity:transaction:error:](HDDeviceContextEntity, "deviceContextEntityWithSyncIdentity:transaction:error:", [entity persistentID], transactionCopy, error);
 
-  selfCopy = self;
-  profile2 = [(HDDeviceKeyValueStoreManager *)self profile];
-  deviceContextManager = [profile2 deviceContextManager];
-  v28 = [deviceContextManager insertOrUpdateDeviceContext:contextCopy transaction:transactionCopy error:error];
-
-  if (v28)
-  {
-    entity = [v25 entity];
-    v30 = +[HDDeviceContextEntity deviceContextEntityWithSyncIdentity:transaction:error:](HDDeviceContextEntity, "deviceContextEntityWithSyncIdentity:transaction:error:", [entity persistentID], transactionCopy, error);
-
-    if (v30)
+    if (v28)
     {
-      v47 = v30;
-      persistentID = [v30 persistentID];
-      entity2 = [v25 entity];
-      v34 = keyCopy;
-      v33 = dataCopy;
-      v35 = [v21 setData:dataCopy forKey:keyCopy domain:nameCopy deviceContextID:persistentID syncEntityIdentity:objc_msgSend(entity2 modificationDate:"persistentID") transaction:dateCopy error:{transactionCopy, error}];
+      v44 = v28;
+      persistentID = [v28 persistentID];
+      entity2 = [v23 entity];
+      v32 = keyCopy;
+      v31 = dataCopy;
+      v33 = [v19 setData:dataCopy forKey:keyCopy domain:nameCopy deviceContextID:persistentID syncEntityIdentity:objc_msgSend(entity2 modificationDate:"persistentID") transaction:dateCopy error:{transactionCopy, error}];
 
-      if (v35 == 1)
+      if (v33 == 1)
       {
-        v36 = [HDDeviceKeyValueStorageEntry alloc];
-        identity = [v25 identity];
-        v38 = [(HDDeviceKeyValueStorageEntry *)v36 initWithDomain:nameCopy key:keyCopy value:dataCopy modificationDate:dateCopy syncIdentity:identity category:categoryCopy];
+        v34 = [HDDeviceKeyValueStorageEntry alloc];
+        identity = [v23 identity];
+        v36 = [(HDDeviceKeyValueStorageEntry *)v34 initWithDomain:nameCopy key:keyCopy value:dataCopy modificationDate:dateCopy syncIdentity:identity category:categoryCopy];
 
-        v39 = [HDDeviceKeyValueStorageGroup alloc];
-        v56[0] = v38;
-        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
-        v41 = [(HDDeviceKeyValueStorageGroup *)v39 initWithDeviceContext:contextCopy storageEntries:v40];
+        v37 = [HDDeviceKeyValueStorageGroup alloc];
+        v53[0] = v36;
+        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+        v39 = [(HDDeviceKeyValueStorageGroup *)v37 initWithDeviceContext:contextCopy storageEntries:v38];
 
-        observers = selfCopy->_observers;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __137__HDDeviceKeyValueStoreManager_insertOrUpdateData_forKey_transaction_domainName_protectionCategory_deviceContext_modificationDate_error___block_invoke;
-        v53[3] = &unk_2786228D0;
-        v54 = v41;
-        v55 = nameCopy;
-        v43 = v41;
-        [(HKObserverSet *)observers notifyObservers:v53];
+        observers = v45->_observers;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __137__HDDeviceKeyValueStoreManager_insertOrUpdateData_forKey_transaction_domainName_protectionCategory_deviceContext_modificationDate_error___block_invoke;
+        v50[3] = &unk_2786228D0;
+        v51 = v39;
+        v52 = nameCopy;
+        v41 = v39;
+        [(HKObserverSet *)observers notifyObservers:v50];
       }
 
-      v44 = v35 != 0;
-      v30 = v47;
+      v42 = v33 != 0;
+      v28 = v44;
     }
 
     else
     {
-      v44 = 0;
-      v34 = keyCopy;
-      v33 = dataCopy;
+      v42 = 0;
+      v32 = keyCopy;
+      v31 = dataCopy;
     }
   }
 
   else
   {
-LABEL_9:
-    v44 = 0;
-    v34 = keyCopy;
-    v33 = dataCopy;
+    v42 = 0;
+    v32 = keyCopy;
+    v31 = dataCopy;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-  return v44;
+  return v42;
 }
 
 void __137__HDDeviceKeyValueStoreManager_insertOrUpdateData_forKey_transaction_domainName_protectionCategory_deviceContext_modificationDate_error___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 32);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v7 count:1];
-  [v4 deviceKeyValueStoreDidUpdateForStorageGroup:v5 domain:{*(a1 + 40), v7, v8}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 arrayWithObjects:&v6 count:1];
+  [v4 deviceKeyValueStoreDidUpdateForStorageGroup:v5 domain:{*(a1 + 40), v6, v7}];
 }
 
 - (BOOL)updateKeyValuePairsForRemoteEntries:(id)entries deviceContexts:(id)contexts error:(id *)error
@@ -776,7 +732,7 @@ void __83__HDDeviceKeyValueStoreManager__deleteRemoteEntries_deviceContextByIden
 
 uint64_t __83__HDDeviceKeyValueStoreManager__deleteRemoteEntries_deviceContextByIdentity_error___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (([*(a1 + 32) containsObject:v5] & 1) == 0)
   {
@@ -786,9 +742,9 @@ uint64_t __83__HDDeviceKeyValueStoreManager__deleteRemoteEntries_deviceContextBy
     v9 = [v5 protectionCategory];
     v10 = [*(a1 + 48) objectForKeyedSubscript:*(a1 + 56)];
     v11 = [v5 modificationDate];
-    v19 = 0;
-    LOBYTE(v9) = [v6 setData:0 forKey:v7 domainName:v8 protectionCategory:v9 deviceContext:v10 modificationDate:v11 error:&v19];
-    v12 = v19;
+    v18 = 0;
+    LOBYTE(v9) = [v6 setData:0 forKey:v7 domainName:v8 protectionCategory:v9 deviceContext:v10 modificationDate:v11 error:&v18];
+    v12 = v18;
 
     if ((v9 & 1) == 0)
     {
@@ -811,33 +767,24 @@ uint64_t __83__HDDeviceKeyValueStoreManager__deleteRemoteEntries_deviceContextBy
       v15 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v18 = *(a1 + 40);
+        v17 = *(a1 + 40);
         *buf = 138543874;
-        v21 = v18;
-        v22 = 2114;
-        v23 = v5;
-        v24 = 2114;
-        v25 = v13;
+        v20 = v17;
+        v21 = 2114;
+        v22 = v5;
+        v23 = 2114;
+        v24 = v13;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Error deleting key value entry (%{public}@) %{public}@", buf, 0x20u);
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
-}
-
-uint64_t __83__HDDeviceKeyValueStoreManager__deleteRemoteEntries_deviceContextByIdentity_error___block_invoke_318(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = (*(*(a1 + 40) + 16))();
-  v4 = *(a1 + 32);
-  return v3 & (*(*(a1 + 40) + 16))();
 }
 
 void __83__HDDeviceKeyValueStoreManager__updateRemoteEntries_deviceContextByIdentity_error___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 syncIdentity];
   v5 = [*(a1 + 32) profile];
@@ -880,9 +827,9 @@ void __83__HDDeviceKeyValueStoreManager__updateRemoteEntries_deviceContextByIden
       v21 = *(a1 + 32);
       v22 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138543618;
-      v32 = v21;
-      v33 = 2114;
-      v34 = v22;
+      v31 = v21;
+      v32 = 2114;
+      v33 = v22;
       v23 = "%{public}@: Error updating local key value entry from remote entry %{public}@";
     }
 
@@ -902,12 +849,12 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v28 = *(a1 + 32);
-      v29 = *(*(*(a1 + 48) + 8) + 40);
+      v27 = *(a1 + 32);
+      v28 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138543618;
-      v32 = v28;
-      v33 = 2114;
-      v34 = v29;
+      v31 = v27;
+      v32 = 2114;
+      v33 = v28;
       v23 = "%{public}@: %{public}@";
     }
 
@@ -916,20 +863,18 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(a1 + 56);
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v25 = 0;
-  v9 = [v6 fetchEntriesForKeys:v7 domain:v8 transaction:v5 error:&v25];
-  v10 = v25;
+  v24 = 0;
+  v9 = [v6 fetchEntriesForKeys:v7 domain:v8 transaction:v5 error:&v24];
+  v10 = v24;
   if (v10)
   {
     if (a3)
@@ -952,24 +897,24 @@ BOOL __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCat
     {
       v13 = [v9 hk_firstSortedObjectWithComparison:&__block_literal_global_327];
       v14 = objc_alloc(MEMORY[0x277CBEB18]);
-      v26[0] = v13;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+      v25[0] = v13;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
       v16 = [v14 initWithArray:v15];
 
       v9 = v16;
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke_3;
-    v21[3] = &unk_278622A00;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke_3;
+    v20[3] = &unk_278622A00;
     v9 = v9;
     v17 = *(a1 + 64);
     v18 = *(a1 + 48);
-    v22 = v9;
-    v23 = v18;
-    v24 = v17;
-    v12 = [HDDeviceContextEntity enumerateDeviceContextWithTransaction:v5 error:a3 enumerationHandler:v21];
+    v21 = v9;
+    v22 = v18;
+    v23 = v17;
+    v12 = [HDDeviceContextEntity enumerateDeviceContextWithTransaction:v5 error:a3 enumerationHandler:v20];
   }
 
   else
@@ -977,7 +922,6 @@ BOOL __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCat
     v12 = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -993,30 +937,30 @@ uint64_t __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectio
 
 uint64_t __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectionCategory_latest_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v23 = a1;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = a1;
+  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         v9 = [v3 syncIdentity];
         v10 = [v8 syncIdentity];
         v11 = [v9 isEqual:v10];
@@ -1029,25 +973,24 @@ uint64_t __91__HDDeviceKeyValueStoreManager__fetchEntriesForDomain_key_protectio
           v15 = [v8 value];
           v16 = [v8 modificationDate];
           v17 = [v8 syncIdentity];
-          v18 = [(HDDeviceKeyValueStorageEntry *)v12 initWithDomain:v13 key:v14 value:v15 modificationDate:v16 syncIdentity:v17 category:*(v23 + 48)];
-          [v24 addObject:v18];
+          v18 = [(HDDeviceKeyValueStorageEntry *)v12 initWithDomain:v13 key:v14 value:v15 modificationDate:v16 syncIdentity:v17 category:*(v22 + 48)];
+          [v23 addObject:v18];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
   }
 
-  if ([v24 count])
+  if ([v23 count])
   {
-    v19 = *(*(*(v23 + 40) + 8) + 40);
-    v20 = [[HDDeviceKeyValueStorageGroup alloc] initWithDeviceContext:v3 storageEntries:v24];
+    v19 = *(*(*(v22 + 40) + 8) + 40);
+    v20 = [[HDDeviceKeyValueStorageGroup alloc] initWithDeviceContext:v3 storageEntries:v23];
     [v19 addObject:v20];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

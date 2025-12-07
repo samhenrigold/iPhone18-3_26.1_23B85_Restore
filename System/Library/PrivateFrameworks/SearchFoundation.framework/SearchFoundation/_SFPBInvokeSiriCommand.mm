@@ -195,9 +195,7 @@ LABEL_8:
 
 - (void)setUtteranceText:(id)text
 {
-  v4 = [text copy];
-  utteranceText = self->_utteranceText;
-  self->_utteranceText = v4;
+  self->_utteranceText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }

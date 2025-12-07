@@ -101,7 +101,7 @@
 
 - (BOOL)isVisibleForDSID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [BCSHashService SHA256TruncatedHashForInputString:dCopy includedBytes:32];
   v6 = [dCopy length];
@@ -112,15 +112,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [dCopy length];
+      v15 = NSStringFromBOOL();
       v16 = NSStringFromBOOL();
-      v17 = NSStringFromBOOL();
-      v18 = 136315650;
-      v19 = "[BCSVisibilityItem isVisibleForDSID:]";
-      v20 = 2114;
-      v21 = *&v16;
-      v22 = 2114;
-      v23 = v17;
-      _os_log_error_impl(&dword_242072000, v8, OS_LOG_TYPE_ERROR, "%s isVisible - DSID length greater than 0:%{public}@ - hashedDSID greater than 0:%{public}@", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "[BCSVisibilityItem isVisibleForDSID:]";
+      v19 = 2114;
+      v20 = *&v15;
+      v21 = 2114;
+      v22 = v16;
+      _os_log_error_impl(&dword_242072000, v8, OS_LOG_TYPE_ERROR, "%s isVisible - DSID length greater than 0:%{public}@ - hashedDSID greater than 0:%{public}@", &v17, 0x20u);
     }
 
     v13 = 0;
@@ -130,9 +130,9 @@
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315138;
-      v19 = "[BCSVisibilityItem isVisibleForDSID:]";
-      _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s isVisible - valid DSID & hashedDSID", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[BCSVisibilityItem isVisibleForDSID:]";
+      _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s isVisible - valid DSID & hashedDSID", &v17, 0xCu);
     }
 
     v9 = v5 % 0xF4240;
@@ -141,17 +141,16 @@
     v12 = ABSLogCommon();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315394;
-      v19 = "[BCSVisibilityItem isVisibleForDSID:]";
-      v20 = 2048;
-      v21 = v11;
-      _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "%s isVisible - visibilityConverted:%f", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[BCSVisibilityItem isVisibleForDSID:]";
+      v19 = 2048;
+      v20 = v11;
+      _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "%s isVisible - visibilityConverted:%f", &v17, 0x16u);
     }
 
     v13 = v11 > v9;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

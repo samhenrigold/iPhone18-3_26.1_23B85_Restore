@@ -1,6 +1,7 @@
 @interface STNetworkDetector
 + (id)sharedInstance;
 - (id)_init;
+- (void)_detectedChangeInFlags:(unsigned int)flags;
 - (void)_startOfflineDetection;
 - (void)_stopOfflineDetection;
 - (void)debouncer:(id)debouncer didDebounce:(id)debounce;
@@ -63,6 +64,24 @@
   {
     SCNetworkReachabilitySetDispatchQueue(reachabilityRef, 0);
     self->_reachabilityRef = 0;
+  }
+}
+
+- (void)_detectedChangeInFlags:(unsigned int)flags
+{
+  v4 = [(STNetworkDetector *)self _isOnlineWithFlags:*&flags];
+  if (v4 != [(STNetworkDetector *)self isOnline])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+    {
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Detected change in network connectivity: isOnline = %d", v6, 8u);
+    }
+
+    [(STNetworkDetector *)self setIsOnline:v4];
+    debouncer = [(STNetworkDetector *)self debouncer];
+    [debouncer bounce:0];
   }
 }
 

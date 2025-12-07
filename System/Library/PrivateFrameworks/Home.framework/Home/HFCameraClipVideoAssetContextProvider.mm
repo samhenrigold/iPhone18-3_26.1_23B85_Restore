@@ -56,7 +56,7 @@ void __56__HFCameraClipVideoAssetContextProvider_defaultProvider__block_invoke_2
 
 - (id)fetchVideoAssetContextForClip:(id)clip clipManager:(id)manager
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   managerCopy = manager;
   delegate = [(HFCameraClipVideoAssetContextProvider *)self delegate];
@@ -79,33 +79,31 @@ void __56__HFCameraClipVideoAssetContextProvider_defaultProvider__block_invoke_2
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy__24;
-    v22 = __Block_byref_object_dispose__24;
-    v23 = 0;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__24;
+    v21 = __Block_byref_object_dispose__24;
+    v22 = 0;
     lock = [(HFCameraClipVideoAssetContextProvider *)self lock];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke;
-    v15[3] = &unk_277E00360;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke;
+    v14[3] = &unk_277E00360;
     p_buf = &buf;
-    v15[4] = self;
-    v16 = clipCopy;
-    v17 = managerCopy;
-    [lock performBlock:v15];
+    v14[4] = self;
+    v15 = clipCopy;
+    v16 = managerCopy;
+    [lock performBlock:v14];
 
     v11 = *(*(&buf + 1) + 40);
     _Block_object_dispose(&buf, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) videoContextFuturesByClipID];
   v3 = [*(a1 + 40) uniqueIdentifier];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -122,7 +120,7 @@ void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_c
     {
       v10 = *(a1 + 40);
       *buf = 138412290;
-      v29 = v10;
+      v28 = v10;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Reusing in-flight video context future for clip %@", buf, 0xCu);
     }
   }
@@ -133,7 +131,7 @@ void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_c
     {
       v11 = *(a1 + 40);
       *buf = 138412290;
-      v29 = v11;
+      v28 = v11;
       _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Initiating video context fetch operation for clip %@", buf, 0xCu);
     }
 
@@ -150,27 +148,25 @@ void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_c
     v18 = [*(a1 + 40) uniqueIdentifier];
     [v17 setObject:v16 forKeyedSubscript:v18];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke_8;
-    v24[3] = &unk_277E00338;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke_8;
+    v23[3] = &unk_277E00338;
     v19 = *(a1 + 40);
     v20 = *(a1 + 56);
     v21 = *(a1 + 32);
-    v25 = v19;
-    v26 = v21;
-    v27 = v20;
-    [v8 setFetchVideoAssetContextCompletionBlock:v24];
+    v24 = v19;
+    v25 = v21;
+    v26 = v20;
+    [v8 setFetchVideoAssetContextCompletionBlock:v23];
     v22 = [*(a1 + 32) operationQueue];
     [v22 addOperation:v8];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_clipManager___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -184,11 +180,11 @@ void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_c
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v17 = 138412546;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Successfully fetched video context %@ for clip %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Successfully fetched video context %@ for clip %@", &v16, 0x16u);
     }
 
     [*(*(*(a1 + 48) + 8) + 40) finishWithResult:v5];
@@ -210,18 +206,16 @@ void __83__HFCameraClipVideoAssetContextProvider_fetchVideoAssetContextForClip_c
     v14 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = 138412546;
-      v18 = v16;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Failed to fetch video context for clip %@: %@", &v17, 0x16u);
+      v15 = *(a1 + 32);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Failed to fetch video context for clip %@: %@", &v16, 0x16u);
     }
 
     [*(*(*(a1 + 48) + 8) + 40) finishWithError:v13];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newFetchVideoAssetContextOperationForClip:(id)clip clipManager:(id)manager

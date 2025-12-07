@@ -1,9 +1,9 @@
 @interface PKAutoRefineController
 - (PKAutoRefineController)init;
-- (uint64_t)isRefinableStroke:(uint64_t)result;
 - (uint64_t)stableSynthesisParametersFromSourceStrokes:(void *)strokes outInk:(void *)ink outReferenceStroke:;
 - (void)clearRefinableStrokes;
 - (void)indexRefinableStroke:(uint64_t)stroke;
+- (void)isRefinableStroke:(void *)result;
 - (void)removeAsRefinableStrokes:(uint64_t)strokes;
 - (void)setIsAutoRefineOn:(int)on force:;
 - (void)setIsAutoRefineOn:(uint64_t)on;
@@ -100,21 +100,21 @@ void __30__PKAutoRefineController_init__block_invoke_2(uint64_t a1)
 
 - (void)setIsAutoRefineOn:(int)on force:
 {
-  if (self)
+  if (result)
   {
     onCopy = on;
     v4 = a2;
-    if (*(self + 25) != a2 || *(self + 24) != on)
+    if (*(result + 25) != a2 || *(result + 24) != on)
     {
-      [(PKAutoRefineController *)self clearRefinableStrokes];
+      [(PKAutoRefineController *)result clearRefinableStrokes];
       if ((onCopy & 1) == 0)
       {
         objc_opt_self();
         v4 = +[PKSettingsDaemon autoRefineEnabled];
       }
 
-      *(self + 25) = v4;
-      *(self + 24) = onCopy;
+      *(result + 25) = v4;
+      *(result + 24) = onCopy;
     }
   }
 }
@@ -186,11 +186,11 @@ void __30__PKAutoRefineController_init__block_invoke_2(uint64_t a1)
   }
 }
 
-- (uint64_t)isRefinableStroke:(uint64_t)result
+- (void)isRefinableStroke:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 8);
+    v2 = result[1];
     _strokeUUID = [a2 _strokeUUID];
     v4 = [v2 containsObject:_strokeUUID];
 

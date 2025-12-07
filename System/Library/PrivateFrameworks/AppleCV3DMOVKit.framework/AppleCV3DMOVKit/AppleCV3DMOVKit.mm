@@ -5,78 +5,70 @@ uint64_t sub_240173174()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_240173218()
+void sub_240173218(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C84F0;
-  qword_27E3C84F0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C84F0;
+  qword_27E3C84F0 = v4;
 }
 
-void sub_2401739D0()
+void sub_2401739D0(uint64_t a1, uint64_t a2)
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_27E3C8500;
-  qword_27E3C8500 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_27E3C8500;
+  qword_27E3C8500 = v4;
 }
 
-void sub_240174384()
+void sub_240174384(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8510;
-  qword_27E3C8510 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8510;
+  qword_27E3C8510 = v4;
 }
 
-void sub_2401759D4()
+void sub_2401759D4(uint64_t a1, uint64_t a2)
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_27E3C8520;
-  qword_27E3C8520 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_27E3C8520;
+  qword_27E3C8520 = v4;
 }
 
 void sub_24017652C(void *a1)
@@ -86,87 +78,78 @@ void sub_24017652C(void *a1)
   JUMPOUT(0x2401764FCLL);
 }
 
-void sub_2401769EC()
+void sub_2401769EC(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8530;
-  qword_27E3C8530 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8530;
+  qword_27E3C8530 = v4;
 }
 
-void sub_24017710C()
+void sub_24017710C(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8540;
-  qword_27E3C8540 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8540;
+  qword_27E3C8540 = v4;
 }
 
-void sub_2401779BC()
+void sub_2401779BC(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8550;
-  qword_27E3C8550 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8550;
+  qword_27E3C8550 = v4;
 }
 
-void sub_24017844C()
+void sub_24017844C(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8560;
-  qword_27E3C8560 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8560;
+  qword_27E3C8560 = v4;
 }
 
-void sub_240178B30()
+void sub_240178B30(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
@@ -175,49 +158,44 @@ void sub_240178B30()
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:9];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10, v11, v12}];
-  v3 = qword_27E3C8570;
-  qword_27E3C8570 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v14 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:9];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11, v12, v13}];
+  v5 = qword_27E3C8570;
+  qword_27E3C8570 = v4;
 }
 
-void sub_240179110()
+void sub_240179110(uint64_t a1, uint64_t a2)
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_27E3C8580;
-  qword_27E3C8580 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_27E3C8580;
+  qword_27E3C8580 = v4;
 }
 
-void sub_24017A8B0()
+void sub_24017A8B0(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8590;
-  qword_27E3C8590 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8590;
+  qword_27E3C8590 = v4;
 }
 
 void sub_24017AEB4(_Unwind_Exception *a1)
@@ -227,89 +205,79 @@ void sub_24017AEB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24017BF24()
+void sub_24017BF24(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_27E3C85A0;
-  qword_27E3C85A0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_27E3C85A0;
+  qword_27E3C85A0 = v4;
 }
 
-void sub_24017DC10()
+void sub_24017DC10(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C85B0;
-  qword_27E3C85B0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C85B0;
+  qword_27E3C85B0 = v4;
 }
 
-void sub_24017E9EC()
+void sub_24017E9EC(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C85C0;
-  qword_27E3C85C0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C85C0;
+  qword_27E3C85C0 = v4;
 }
 
-void sub_24017F2CC()
+void sub_24017F2CC(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = qword_27E3C85D0;
-  qword_27E3C85D0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = qword_27E3C85D0;
+  qword_27E3C85D0 = v4;
 }
 
-void sub_240180518()
+void sub_240180518(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C85E0;
-  qword_27E3C85E0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C85E0;
+  qword_27E3C85E0 = v4;
 }
 
 void sub_240182A44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
@@ -321,17 +289,15 @@ void sub_240182A44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_240182A6C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_24016D000, v4, OS_LOG_TYPE_INFO, "[MIOWriterInterface] A non-fatal warning occurred: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_24016D000, v4, OS_LOG_TYPE_INFO, "[MIOWriterInterface] A non-fatal warning occurred: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240182B20(uint64_t a1, uint64_t a2, void *a3)
@@ -352,13 +318,13 @@ uint64_t sub_240185018(uint64_t a1, void *a2, void *a3)
   memset(&v10[1], 0, sizeof(CMTime));
   if (v4)
   {
-    [v4 timestamp];
+    objc_msgSend_timestamp(v4);
   }
 
   memset(v10, 0, 24);
   if (v5)
   {
-    [v5 timestamp];
+    objc_msgSend_timestamp(v5);
   }
 
   time1 = v10[0];
@@ -513,13 +479,13 @@ uint64_t sub_2401946F4(uint64_t a1, void *a2, void *a3)
   memset(&v10[1], 0, sizeof(CMTime));
   if (v4)
   {
-    [v4 timestamp];
+    objc_msgSend_timestamp(v4);
   }
 
   memset(v10, 0, 24);
   if (v5)
   {
-    [v5 timestamp];
+    objc_msgSend_timestamp(v5);
   }
 
   time1 = v10[0];
@@ -621,164 +587,148 @@ void sub_240198920(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_240198E24()
+void sub_240198E24(uint64_t a1, uint64_t a2)
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_27E3C85F0;
-  qword_27E3C85F0 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_27E3C85F0;
+  qword_27E3C85F0 = v4;
 }
 
 void sub_240199C54()
 {
-  v3[17] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.reality.kind.data.imu800";
-  v3[1] = @"com.apple.reality.kind.data.accelerometer";
-  v3[2] = @"com.apple.reality.kind.data.gyroscope";
-  v3[3] = @"com.apple.reality.kind.data.motion";
-  v3[4] = @"com.apple.reality.kind.data.als";
-  v3[5] = @"com.apple.reality.kind.data.wifi";
-  v3[6] = @"com.apple.reality.kind.data.uwb";
-  v3[7] = @"com.apple.reality.kind.data.ble";
-  v3[8] = @"com.apple.reality.kind.data.compass";
-  v3[9] = @"RawAccelerometer";
-  v3[10] = @"RawGyroscope";
-  v3[11] = @"ALS";
-  v3[12] = @"WiFi";
-  v3[13] = @"Compass";
-  v3[14] = @"Motion";
-  v3[15] = @"com.apple.reality.kind.data.devicemotion";
-  v3[16] = @"Location";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:17];
+  v2[17] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.reality.kind.data.imu800";
+  v2[1] = @"com.apple.reality.kind.data.accelerometer";
+  v2[2] = @"com.apple.reality.kind.data.gyroscope";
+  v2[3] = @"com.apple.reality.kind.data.motion";
+  v2[4] = @"com.apple.reality.kind.data.als";
+  v2[5] = @"com.apple.reality.kind.data.wifi";
+  v2[6] = @"com.apple.reality.kind.data.uwb";
+  v2[7] = @"com.apple.reality.kind.data.ble";
+  v2[8] = @"com.apple.reality.kind.data.compass";
+  v2[9] = @"RawAccelerometer";
+  v2[10] = @"RawGyroscope";
+  v2[11] = @"ALS";
+  v2[12] = @"WiFi";
+  v2[13] = @"Compass";
+  v2[14] = @"Motion";
+  v2[15] = @"com.apple.reality.kind.data.devicemotion";
+  v2[16] = @"Location";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:17];
   v1 = qword_27E3C8600;
   qword_27E3C8600 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id sub_240199E78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.readererror" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MOVReaderInterface]: %@ ⛔️⛔️⛔️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MOVReaderInterface]: %@ ⛔️⛔️⛔️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_240199F58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.readerwarning" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MOVReaderInterface]: %@ ⚠️⚠️⚠️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MOVReaderInterface]: %@ ⚠️⚠️⚠️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_24019A038(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.writererror" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MOVWriterInterface]: %@ ⛔️⛔️⛔️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MOVWriterInterface]: %@ ⛔️⛔️⛔️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_24019A118(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.writerwarning" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MOVWriterInterface]: %@ ⚠️⚠️⚠️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MOVWriterInterface]: %@ ⚠️⚠️⚠️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_24019A1F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.writererror" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MIOWriterInterface]: %@ ⛔️⛔️⛔️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_ERROR, "⛔️⛔️⛔️ ERROR [MIOWriterInterface]: %@ ⛔️⛔️⛔️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_24019A2D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA9B8] appleCV3DMOVKitErrorWithDomain:@"com.apple.AppleCV3DMOVKit.writerwarning" message:a3 code:a4];
   v5 = +[AppleCV3DMOVKitLog defaultLog];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MIOWriterInterface]: %@ ⚠️⚠️⚠️", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24016D000, v5, OS_LOG_TYPE_INFO, "⚠️⚠️⚠️ WARNING [MIOWriterInterface]: %@ ⚠️⚠️⚠️", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id sub_24019A3B8(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
   if (v8)
   {
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   else
@@ -788,66 +738,58 @@ id sub_24019A3B8(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 
   v11 = [MEMORY[0x277CCA9B8] errorWithDomain:v7 code:a5 userInfo:v10];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
-void sub_24019A544()
+void sub_24019A544(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8610;
-  qword_27E3C8610 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8610;
+  qword_27E3C8610 = v4;
 }
 
-void sub_24019ACFC()
+void sub_24019ACFC(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8630;
-  qword_27E3C8630 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8630;
+  qword_27E3C8630 = v4;
 }
 
-void sub_24019B448()
+void sub_24019B448(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = qword_27E3C8640;
-  qword_27E3C8640 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = qword_27E3C8640;
+  qword_27E3C8640 = v4;
 }
 
 void sub_24019BA48(std::string *a1@<X8>)
@@ -867,9 +809,9 @@ void sub_24019BA48(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BAB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -891,9 +833,9 @@ void sub_24019BAC8(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BB34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -915,9 +857,9 @@ void sub_24019BB48(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BBB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -939,9 +881,9 @@ void sub_24019BBC8(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BC34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -963,9 +905,9 @@ void sub_24019BC48(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BCB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -987,9 +929,9 @@ void sub_24019BCC8(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BD34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
@@ -1011,26 +953,26 @@ void sub_24019BD48(std::string *a1@<X8>)
   }
 }
 
-void sub_24019BDB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019BDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }
 
 void sub_24019BDC8(uint64_t a1@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = MGGetStringAnswer();
-  v11 = v2;
-  if (v2 && (v3 = v2, sub_24019C948(v2, &v9), CFRelease(v3), (v10 & 1) != 0))
+  v10 = v2;
+  if (v2 && (v3 = v2, sub_24019C948(v2, &v8), CFRelease(v3), (v9 & 1) != 0))
   {
-    v4 = v9.__r_.__value_.__r.__words[0];
-    v5 = v9.__r_.__value_.__r.__words[1];
-    v6 = v9.__r_.__value_.__s.__data_[10];
-    v11 = *(&v9.__r_.__value_.__r.__words[1] + 3);
-    v12 = *(&v9.__r_.__value_.__r.__words[2] + 3);
-    v7 = HIBYTE(v9.__r_.__value_.__r.__words[2]);
+    v4 = v8.__r_.__value_.__r.__words[0];
+    v5 = v8.__r_.__value_.__r.__words[1];
+    v6 = v8.__r_.__value_.__s.__data_[10];
+    v10 = *(&v8.__r_.__value_.__r.__words[1] + 3);
+    v11 = *(&v8.__r_.__value_.__r.__words[2] + 3);
+    v7 = HIBYTE(v8.__r_.__value_.__r.__words[2]);
   }
 
   else
@@ -1044,11 +986,10 @@ void sub_24019BDC8(uint64_t a1@<X8>)
   *a1 = v4;
   *(a1 + 8) = v5;
   *(a1 + 10) = v6;
-  *(a1 + 11) = v11;
-  *(a1 + 19) = v12;
+  *(a1 + 11) = v10;
+  *(a1 + 19) = v11;
   *(a1 + 23) = v7;
   *(a1 + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24019BEB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -1117,9 +1058,9 @@ void sub_24019C07C(std::string *a1@<X8>)
   }
 }
 
-void sub_24019C0E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24019C0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24019C698(va);
   _Unwind_Resume(a1);
 }

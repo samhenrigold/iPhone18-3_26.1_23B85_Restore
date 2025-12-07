@@ -17,7 +17,7 @@
   v5 = [(HMIHLSPlaylist *)&v10 init];
   if (v5)
   {
-    v6 = [stringCopy componentsSeparatedByString:@"\n"];
+    v6 = [stringCopy componentsSeparatedByString:?];
     v7 = [v6 mutableCopy];
     lines = v5->_lines;
     v5->_lines = v7;
@@ -37,14 +37,14 @@
     lines = v4->_lines;
     v4->_lines = array;
 
-    [(NSMutableArray *)v4->_lines addObject:@"#EXTM3U"];
-    [(NSMutableArray *)v4->_lines addObject:@"#EXT-X-VERSION:7"];
+    [(NSMutableArray *)v4->_lines addObject:?];
+    [(NSMutableArray *)v4->_lines addObject:?];
     v7 = v4->_lines;
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"#EXT-X-TARGETDURATION:%.6f", *&duration];
-    [(NSMutableArray *)v7 addObject:v8];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:*&duration];
+    [(NSMutableArray *)v7 addObject:?];
 
-    [(NSMutableArray *)v4->_lines addObject:@"#EXT-X-PLAYLIST-TYPE:VOD"];
-    [(NSMutableArray *)v4->_lines addObject:@"#EXT-X-INDEPENDENT-SEGMENTS"];
+    [(NSMutableArray *)v4->_lines addObject:?];
+    [(NSMutableArray *)v4->_lines addObject:?];
   }
 
   return v4;
@@ -53,7 +53,7 @@
 - (NSString)playlistString
 {
   lines = [(HMIHLSPlaylist *)self lines];
-  v3 = [lines componentsJoinedByString:@"\n"];
+  v3 = [lines componentsJoinedByString:?];
 
   return v3;
 }
@@ -61,15 +61,15 @@
 - (void)appendEncryptionModeWithPath:(id)path
 {
   lines = self->_lines;
-  path = [MEMORY[0x277CCACA8] stringWithFormat:@"#EXT-X-KEY:METHOD=AES-256-GCM, URI=%@", path];
-  [(NSMutableArray *)lines addObject:path];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:path];
+  [(NSMutableArray *)lines addObject:?];
 }
 
 - (void)appendInitializationSegmentWithPath:(id)path
 {
   lines = self->_lines;
-  path = [MEMORY[0x277CCACA8] stringWithFormat:@"#EXT-X-MAP:URI=%@", path];
-  [(NSMutableArray *)lines addObject:path];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:path];
+  [(NSMutableArray *)lines addObject:?];
 }
 
 - (void)appendSeparableSegmentWithPath:(id)path duration:(double)duration byteRange:(_NSRange)range
@@ -78,19 +78,19 @@
   location = range.location;
   pathCopy = path;
   lines = self->_lines;
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"#EXTINF:%.5f", *&duration];
-  [(NSMutableArray *)lines addObject:v10];
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:*&duration];
+  [(NSMutableArray *)lines addObject:?];
 
   if (length)
   {
     v11 = self->_lines;
-    location = [MEMORY[0x277CCACA8] stringWithFormat:@"#EXT-X-BYTERANGE:%lu@%lu", length, location];
-    [(NSMutableArray *)v11 addObject:location];
+    location = [MEMORY[0x277CCACA8] stringWithFormat:length, location];
+    [(NSMutableArray *)v11 addObject:?];
   }
 
   v13 = self->_lines;
-  pathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", pathCopy];
-  [(NSMutableArray *)v13 addObject:pathCopy];
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:pathCopy];
+  [(NSMutableArray *)v13 addObject:?];
 }
 
 @end

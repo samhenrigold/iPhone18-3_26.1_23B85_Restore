@@ -105,7 +105,7 @@ uint64_t __33__DSDeviceManager_sharedInstance__block_invoke(uint64_t a1)
 
 void __42__DSDeviceManager_refreshRemoteDeviceList__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -114,15 +114,15 @@ void __42__DSDeviceManager_refreshRemoteDeviceList__block_invoke(uint64_t a1, vo
     v10 = DSLog_9;
     if (os_log_type_enabled(DSLog_9, OS_LOG_TYPE_ERROR))
     {
-      v12 = @"Unknown";
+      v11 = @"Unknown";
       if (v7)
       {
-        v12 = v7;
+        v11 = v7;
       }
 
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_error_impl(&dword_248C7E000, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the AK device list with error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_error_impl(&dword_248C7E000, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the AK device list with error: %@", &v12, 0xCu);
     }
   }
 
@@ -132,8 +132,6 @@ void __42__DSDeviceManager_refreshRemoteDeviceList__block_invoke(uint64_t a1, vo
     v9 = [v5 deviceList];
     [v8 _setRemoteDeviceList:v9];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setRemoteDeviceList:(id)list

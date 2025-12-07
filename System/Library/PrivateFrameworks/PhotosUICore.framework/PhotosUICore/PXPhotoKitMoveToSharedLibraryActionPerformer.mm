@@ -127,7 +127,8 @@ void __86__PXPhotoKitMoveToSharedLibraryActionPerformer__performAdditionalUserIn
   assetsCopy = assets;
   if (PXSharedLibraryShouldDisplayMoveToSharedLibraryConfirmation())
   {
-    PXSharedLibraryGetMoveToSharedLibraryConfirmationTitleAndMessage(assetsCopy);
+    v6 = 0;
+    PXSharedLibraryGetMoveToSharedLibraryConfirmationTitleAndMessage(assetsCopy, 0, &v6);
   }
 
   objc_storeStrong(&self->_assetsToProcess, assets);

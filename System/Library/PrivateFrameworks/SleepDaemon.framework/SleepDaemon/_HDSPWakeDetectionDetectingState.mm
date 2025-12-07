@@ -45,7 +45,7 @@
 
 - (void)wakeupEventDetected:(unint64_t)detected date:(id)date
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = HKSPLogForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -54,11 +54,11 @@
     v9 = v8;
     v10 = NSStringFromHDSPWakeDetectorTypes(detected);
     *buf = 138543874;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v10;
-    v27 = 2114;
-    v28 = dateCopy;
+    v23 = v8;
+    v24 = 2114;
+    v25 = v10;
+    v26 = 2114;
+    v27 = dateCopy;
     _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] wakeupEventDetected: %{public}@ - %{public}@", buf, 0x20u);
   }
 
@@ -71,57 +71,53 @@
     {
       v14 = objc_opt_class();
       *buf = 138543362;
-      v24 = v14;
+      v23 = v14;
       v15 = v14;
       _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake detection event found", buf, 0xCu);
     }
 
     stateMachine = [(HKSPStateMachineState *)self stateMachine];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __61___HDSPWakeDetectionDetectingState_wakeupEventDetected_date___block_invoke;
-    v21[3] = &unk_279C7B108;
-    v22 = stateMachine;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __61___HDSPWakeDetectionDetectingState_wakeupEventDetected_date___block_invoke;
+    v20[3] = &unk_279C7B108;
+    v21 = stateMachine;
     v12 = stateMachine;
     v17 = [HDSPWakeDetectionStateMachineContext contextWithType:detected];
-    [v12 perform:v21 withContext:v17];
+    [v12 perform:v20 withContext:v17];
   }
 
   else if (v13)
   {
     v18 = objc_opt_class();
     *buf = 138543362;
-    v24 = v18;
+    v23 = v18;
     v19 = v18;
     _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring wake up event because it's outside of detection window", buf, 0xCu);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)earlyWakeUpWasNotifiedRemotely
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = objc_opt_class();
-    v4 = v12;
+    v11 = objc_opt_class();
+    v4 = v11;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] earlyWakeUpWasNotifiedRemotely", buf, 0xCu);
   }
 
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66___HDSPWakeDetectionDetectingState_earlyWakeUpWasNotifiedRemotely__block_invoke;
-  v9[3] = &unk_279C7B108;
-  v10 = stateMachine;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66___HDSPWakeDetectionDetectingState_earlyWakeUpWasNotifiedRemotely__block_invoke;
+  v8[3] = &unk_279C7B108;
+  v9 = stateMachine;
   v6 = stateMachine;
   v7 = [HDSPWakeDetectionStateMachineContext contextWithType:0];
-  [v6 perform:v9 withContext:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 perform:v8 withContext:v7];
 }
 
 @end

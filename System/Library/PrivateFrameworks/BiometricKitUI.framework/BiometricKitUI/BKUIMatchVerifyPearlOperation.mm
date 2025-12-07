@@ -7,6 +7,7 @@
 - (void)matchOperation:(id)operation failedWithReason:(int64_t)reason;
 - (void)matchOperation:(id)operation matchedWithResult:(id)result;
 - (void)matchOperation:(id)operation providedFeedback:(int64_t)feedback;
+- (void)moveEnrollStateToNeedsPositioning:(int)positioning;
 - (void)operation:(id)operation faceDetectStateChanged:(id)changed;
 - (void)operation:(id)operation stateChanged:(int64_t)changed;
 - (void)retryMatchOperation;
@@ -32,7 +33,7 @@
 
 - (void)retryMatchOperation
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -64,7 +65,7 @@
 
 - (void)startMatchOperationWithDevice:(id)device identity:(id)identity credential:(id)credential withConfiguration:(unint64_t)configuration matchOperationActionBlock:(id)block
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   identityCopy = identity;
   credentialCopy = credential;
@@ -76,75 +77,75 @@
   objc_storeStrong(&self->_credentialSet, credential);
   objc_storeStrong(&self->_identity, identity);
   self->_enrollmentConfiguration = configuration;
-  v18 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = _BKUILoggingFacility(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v51 = deviceCopy;
-    v52 = 2112;
-    v53 = identityCopy;
-    v54 = 2112;
-    v55 = credentialCopy;
-    v56 = 2048;
+    v54 = deviceCopy;
+    v55 = 2112;
+    v56 = identityCopy;
+    v57 = 2112;
+    v58 = credentialCopy;
+    v59 = 2048;
     configurationCopy = configuration;
-    _os_log_impl(&dword_241B0A000, v18, OS_LOG_TYPE_DEFAULT, "startMatchOperationWithDevice: device:%@ identity:%@ credentails::%@ config:%lu", buf, 0x2Au);
+    _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "startMatchOperationWithDevice: device:%@ identity:%@ credentails::%@ config:%lu", buf, 0x2Au);
   }
 
-  v48 = 0;
-  v41 = deviceCopy;
-  v19 = [deviceCopy identitiesWithError:&v48];
-  firstObject = v48;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v51 = 0;
+  v44 = deviceCopy;
+  v20 = [deviceCopy identitiesWithError:&v51];
+  firstObject = v51;
   v47 = 0u;
-  v21 = v19;
-  v22 = [v21 countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v22)
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v22 = v20;
+  v23 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  if (v23)
   {
-    v23 = credentialCopy;
-    v24 = identityCopy;
-    v25 = 0;
-    v26 = *v45;
+    v24 = credentialCopy;
+    v25 = identityCopy;
+    v26 = 0;
+    v27 = *v48;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v45 != v26)
+        if (*v48 != v27)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v22);
         }
 
-        v25 += [*(*(&v44 + 1) + 8 * i) hasPeriocularEnrollment];
+        v26 += [*(*(&v47 + 1) + 8 * i) hasPeriocularEnrollment];
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
-    while (v22);
-    v22 = v25 == 1;
-    identityCopy = v24;
-    credentialCopy = v23;
+    while (v23);
+    v23 = v26 == 1;
+    identityCopy = v25;
+    credentialCopy = v24;
   }
 
   if (firstObject)
   {
-    identity = _BKUILoggingFacility();
+    identity = _BKUILoggingFacility(v29);
     if (os_log_type_enabled(identity, OS_LOG_TYPE_ERROR))
     {
       [BKUIMatchVerifyPearlOperation startMatchOperationWithDevice:firstObject identity:identity credential:? withConfiguration:? matchOperationActionBlock:?];
     }
 
-    v29 = v41;
+    v31 = v44;
     goto LABEL_15;
   }
 
-  v29 = v41;
+  v31 = v44;
   if (configuration == 4)
   {
-    if ((([v21 count] > 1) & v22) == 1)
+    if ((([v22 count] > 1) & v23) == 1)
     {
-      firstObject = [v21 firstObject];
+      firstObject = [v22 firstObject];
       if (([firstObject hasPeriocularEnrollment] & 1) == 0)
       {
         goto LABEL_24;
@@ -154,13 +155,13 @@
     }
   }
 
-  else if (configuration == 3 && (([v21 count] > 1) & v22) == 1)
+  else if (configuration == 3 && (([v22 count] > 1) & v23) == 1)
   {
-    firstObject = [v21 firstObject];
+    firstObject = [v22 firstObject];
     if ([firstObject hasPeriocularEnrollment])
     {
 LABEL_24:
-      lastObject = [v21 lastObject];
+      lastObject = [v22 lastObject];
 LABEL_38:
       identity = self->_identity;
       self->_identity = lastObject;
@@ -170,58 +171,59 @@ LABEL_15:
     }
 
 LABEL_37:
-    lastObject = [v21 firstObject];
+    lastObject = [v22 firstObject];
     goto LABEL_38;
   }
 
 LABEL_16:
-  v43 = 0;
-  v30 = [v29 createMatchOperationWithError:&v43];
-  v31 = v43;
+  v46 = 0;
+  v32 = [v31 createMatchOperationWithError:&v46];
+  v33 = v46;
   matchOperation = self->_matchOperation;
-  self->_matchOperation = v30;
+  self->_matchOperation = v32;
 
-  if (v31)
+  if (v33)
   {
-    v33 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v36 = _BKUILoggingFacility(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = v31;
-      _os_log_impl(&dword_241B0A000, v33, OS_LOG_TYPE_DEFAULT, "_matchOperation createMatchOperation Error:%@", buf, 0xCu);
+      v54 = v33;
+      _os_log_impl(&dword_241B0A000, v36, OS_LOG_TYPE_DEFAULT, "_matchOperation createMatchOperation Error:%@", buf, 0xCu);
     }
   }
 
   else
   {
-    v35 = self->_matchOperation;
-    if (v35)
+    v38 = self->_matchOperation;
+    if (v38)
     {
-      [(BKMatchPearlOperation *)v35 setPreAugmentationCheck:1];
+      [(BKMatchPearlOperation *)v38 setPreAugmentationCheck:1];
       [(BKMatchPearlOperation *)self->_matchOperation setPreAugmentationCheckIdentity:self->_identity];
       [(BKMatchPearlOperation *)self->_matchOperation setPurpose:6];
       [(BKMatchPearlOperation *)self->_matchOperation setCredentialSet:credentialCopy];
       [(BKMatchPearlOperation *)self->_matchOperation setStopOnSuccess:1];
       [(BKMatchPearlOperation *)self->_matchOperation setDelegate:self];
       [(BKMatchPearlOperation *)self->_matchOperation setShouldAutoRetry:1];
-      v35 = self->_matchOperation;
+      v38 = self->_matchOperation;
     }
 
-    v42 = 0;
-    v36 = [(BKMatchPearlOperation *)v35 startWithError:&v42];
-    v31 = v42;
-    if (v36)
+    v45 = 0;
+    v39 = [(BKMatchPearlOperation *)v38 startWithError:&v45];
+    v40 = v45;
+    v33 = v40;
+    if (v39)
     {
       [(BKUIMatchVerifyPearlOperation *)self setFailReason:-314159];
       goto LABEL_34;
     }
 
-    v37 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v41 = _BKUILoggingFacility(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = v31;
-      _os_log_impl(&dword_241B0A000, v37, OS_LOG_TYPE_DEFAULT, "_matchOperation failed to start with Error:%@", buf, 0xCu);
+      v54 = v33;
+      _os_log_impl(&dword_241B0A000, v41, OS_LOG_TYPE_DEFAULT, "_matchOperation failed to start with Error:%@", buf, 0xCu);
     }
 
     [(BKMatchPearlOperation *)self->_matchOperation setDelegate:0];
@@ -237,29 +239,27 @@ LABEL_16:
   }
 
 LABEL_34:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)matchOperation:(id)operation matchedWithResult:(id)result
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   feedback = [resultCopy feedback];
-  v7 = _BKUILoggingFacility();
+  v7 = _BKUILoggingFacility(feedback);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     lastErrorousSubState = self->_lastErrorousSubState;
     substate = self->_substate;
     identity = [resultCopy identity];
     *buf = 138413058;
-    v19 = resultCopy;
-    v20 = 1024;
-    v21 = lastErrorousSubState;
-    v22 = 1024;
-    v23 = substate;
-    v24 = 2112;
-    v25 = identity;
+    v18 = resultCopy;
+    v19 = 1024;
+    v20 = lastErrorousSubState;
+    v21 = 1024;
+    v22 = substate;
+    v23 = 2112;
+    v24 = identity;
     _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "_matchOperation matchedWithResult BKMatchResultInfo:%@ lastSubState:%u converted substate %u identity %@", buf, 0x22u);
   }
 
@@ -285,12 +285,10 @@ LABEL_34:
     block[2] = __66__BKUIMatchVerifyPearlOperation_matchOperation_matchedWithResult___block_invoke;
     block[3] = &unk_278D09DA8;
     block[4] = self;
-    v17 = feedback;
-    v16 = resultCopy;
+    v16 = feedback;
+    v15 = resultCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __66__BKUIMatchVerifyPearlOperation_matchOperation_matchedWithResult___block_invoke(uint64_t a1)
@@ -319,16 +317,16 @@ void __66__BKUIMatchVerifyPearlOperation_matchOperation_matchedWithResult___bloc
 
 - (void)matchOperation:(id)operation failedWithReason:(int64_t)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v6 = _BKUILoggingFacility();
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     lastErrorousSubState = self->_lastErrorousSubState;
-    v11 = 134218240;
+    v10 = 134218240;
     reasonCopy = reason;
-    v13 = 1024;
-    v14 = lastErrorousSubState;
-    _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "_matchOperation failedWithReason with BKMatchFailReason:%li lastSubState:%i", &v11, 0x12u);
+    v12 = 1024;
+    v13 = lastErrorousSubState;
+    _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "_matchOperation failedWithReason with BKMatchFailReason:%li lastSubState:%i", &v10, 0x12u);
   }
 
   [(BKMatchPearlOperation *)self->_matchOperation setDelegate:0];
@@ -340,8 +338,6 @@ void __66__BKUIMatchVerifyPearlOperation_matchOperation_matchedWithResult___bloc
     matchOperationDidMatch2 = [(BKUIMatchVerifyPearlOperation *)self matchOperationDidMatch];
     matchOperationDidMatch2[2](matchOperationDidMatch2, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int)substateForFaceDetectionFeedBack:(int64_t)back
@@ -381,30 +377,40 @@ void __65__BKUIMatchVerifyPearlOperation_matchOperation_providedFeedback___block
     if (!v2)
     {
       v3 = [*(a1 + 32) substateForFaceDetectionFeedBack:*(a1 + 48)];
-      v4 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v4 = v3;
+      v5 = _BKUILoggingFacility(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = *(a1 + 40);
-        v6 = *(a1 + 48);
+        v6 = *(a1 + 40);
+        v7 = *(a1 + 48);
         v8 = 138412802;
-        v9 = v5;
+        v9 = v6;
         v10 = 2048;
-        v11 = v6;
+        v11 = v7;
         v12 = 1024;
-        v13 = v3;
-        _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "matchOperation providedFeedback with operation:%@ lastSubState:%li converted substate %u", &v8, 0x1Cu);
+        v13 = v4;
+        _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "matchOperation providedFeedback with operation:%@ lastSubState:%li converted substate %u", &v8, 0x1Cu);
       }
 
       *(*(a1 + 32) + 12) = *(*(a1 + 32) + 16);
-      *(*(a1 + 32) + 16) = v3;
+      *(*(a1 + 32) + 16) = v4;
       if ([*(a1 + 32) substate])
       {
         [*(a1 + 32) moveEnrollStateToNeedsPositioning:{objc_msgSend(*(a1 + 32), "substate")}];
       }
     }
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)moveEnrollStateToNeedsPositioning:(int)positioning
+{
+  [(BKUIMatchVerifyPearlOperation *)self setCurrentUIDelegateDisplaySubState:*&positioning];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __67__BKUIMatchVerifyPearlOperation_moveEnrollStateToNeedsPositioning___block_invoke;
+  block[3] = &unk_278D09978;
+  block[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 void __67__BKUIMatchVerifyPearlOperation_moveEnrollStateToNeedsPositioning___block_invoke(uint64_t a1)
@@ -482,16 +488,16 @@ void __67__BKUIMatchVerifyPearlOperation_moveEnrollStateToNeedsPositioning___blo
     {
       [(BKUIMatchVerifyPearlOperation *)self moveEnrollStateToNeedsPositioning:0];
       matchOperation = [(BKUIMatchVerifyPearlOperation *)self matchOperation];
-      v10 = 0;
-      [matchOperation startNewMatchAttemptWithError:&v10];
-      v8 = v10;
+      v11 = 0;
+      [matchOperation startNewMatchAttemptWithError:&v11];
+      v8 = v11;
 
       if (v8)
       {
-        v9 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = _BKUILoggingFacility(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          [BKUIMatchVerifyPearlOperation operation:v8 stateChanged:v9];
+          [BKUIMatchVerifyPearlOperation operation:v8 stateChanged:v10];
         }
       }
     }
@@ -523,22 +529,19 @@ void __67__BKUIMatchVerifyPearlOperation_moveEnrollStateToNeedsPositioning___blo
 
 - (void)startMatchOperationWithDevice:(uint64_t)a1 identity:(NSObject *)a2 credential:withConfiguration:matchOperationActionBlock:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "unable to fetch identities for user:%@ matching may be unreliable and users may run in to Face ID not available", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "unable to fetch identities for user:%@ matching may be unreliable and users may run in to Face ID not available", &v2, 0xCu);
 }
 
 - (void)operation:(void *)a1 stateChanged:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "_matchOperation stateChanged == HOLD + !Face ... startNewMatchAttemptWithError errored out :%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "_matchOperation stateChanged == HOLD + !Face ... startNewMatchAttemptWithError errored out :%@", &v4, 0xCu);
 }
 
 @end

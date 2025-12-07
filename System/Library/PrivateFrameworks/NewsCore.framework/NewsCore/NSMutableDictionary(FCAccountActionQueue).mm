@@ -72,19 +72,19 @@
 
 - (void)fc_enqueueTransaction:()FCAccountActionQueue withMaxTransactionCount:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "transaction"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "transaction"];
     *buf = 136315906;
-    v16 = "[NSMutableDictionary(FCAccountActionQueue) fc_enqueueTransaction:withMaxTransactionCount:]";
-    v17 = 2080;
-    v18 = "NSDictionary+FCTodayPrivateDataTransactionQueue.m";
-    v19 = 1024;
-    v20 = 28;
-    v21 = 2114;
-    v22 = v14;
+    v15 = "[NSMutableDictionary(FCAccountActionQueue) fc_enqueueTransaction:withMaxTransactionCount:]";
+    v16 = 2080;
+    v17 = "NSDictionary+FCTodayPrivateDataTransactionQueue.m";
+    v18 = 1024;
+    v19 = 28;
+    v20 = 2114;
+    v21 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -106,7 +106,7 @@
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v16 = a4;
+      v15 = a4;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "transaction queue reached maximum transaction count, will drop oldest transactions, max=%lu", buf, 0xCu);
     }
 
@@ -114,8 +114,6 @@
   }
 
   [self setObject:v11 forKeyedSubscript:@"a"];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fc_dequeueTransactions

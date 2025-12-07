@@ -12,10 +12,11 @@
 
 - (void)updateWhitelists:(unint64_t)whitelists completion:(id)completion
 {
-  v5 = _Block_copy(completion);
-  *(swift_allocObject() + 16) = v5;
+  v6 = _Block_copy(completion);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
   selfCopy = self;
-  sub_100004DC0();
+  sub_100004DC0(whitelists, sub_10000DEE8, v7);
 }
 
 - (void)flush:(id)flush
@@ -40,16 +41,15 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  *(swift_allocObject() + 16) = v11;
+  *(swift_allocObject() + 16) = v10;
   selfCopy = self;
   sub_10012DE08();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)deleteSafariFeedbackEagerly

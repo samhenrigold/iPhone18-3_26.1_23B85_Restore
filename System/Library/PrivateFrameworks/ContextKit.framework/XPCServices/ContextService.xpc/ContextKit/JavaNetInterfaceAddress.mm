@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (JavaNetInterfaceAddress)initWithJavaNetInet4Address:(id)address withJavaNetInet4Address:(id)inet4Address withJavaNetInet4Address:(id)netInet4Address;
 - (JavaNetInterfaceAddress)initWithJavaNetInet6Address:(id)address withShort:(signed __int16)short;
-- (id)description;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
@@ -112,13 +111,6 @@ LABEL_10:
   }
 
   return broadcastAddress + v4 + self->prefixLength_;
-}
-
-- (id)description
-{
-  broadcastAddress = self->broadcastAddress_;
-  prefixLength = self->prefixLength_;
-  return JreStrcat("@CS$@C", a2, v2, v3, v4, v5, v6, v7, self->address_);
 }
 
 - (void)dealloc

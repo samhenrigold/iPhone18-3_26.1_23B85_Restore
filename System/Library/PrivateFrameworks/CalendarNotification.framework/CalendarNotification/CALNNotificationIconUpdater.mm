@@ -48,31 +48,31 @@
 
 - (void)_updateAllIconIdentifiersInStorage:(id)storage
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   notificationRecords = [storage notificationRecords];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = notificationRecords;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v5)
   {
     v7 = v5;
-    v28 = *v30;
+    v27 = *v29;
     *&v6 = 138543618;
-    v25 = v6;
+    v24 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v28)
+        if (*v29 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
         content = [v9 content];
         v11 = [content mutableCopy];
 
@@ -96,10 +96,10 @@
           iconIdentifier2 = [content3 iconIdentifier];
           content4 = [v17 content];
           iconIdentifier3 = [content4 iconIdentifier];
-          *buf = v25;
-          v34 = iconIdentifier2;
-          v35 = 2114;
-          v36 = iconIdentifier3;
+          *buf = v24;
+          v33 = iconIdentifier2;
+          v34 = 2114;
+          v35 = iconIdentifier3;
           _os_log_impl(&dword_242909000, v18, OS_LOG_TYPE_DEFAULT, "IconUpdater: Updating iconIdentifiers in each notification storage entry, oldIdentifier:[%{public}@], newIdentifier:[%{public}@]", buf, 0x16u);
         }
 
@@ -107,13 +107,11 @@
         [notificationManager updateRecord:v17];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v7);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_iconCacheDirectory
@@ -140,15 +138,15 @@
 
 + (void)_cleanupLegacyIconCache
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _iconCacheDirectory = [self _iconCacheDirectory];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if ([defaultManager fileExistsAtPath:_iconCacheDirectory])
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v13 = 0;
-    v5 = [defaultManager2 removeItemAtPath:_iconCacheDirectory error:&v13];
-    v6 = v13;
+    v12 = 0;
+    v5 = [defaultManager2 removeItemAtPath:_iconCacheDirectory error:&v12];
+    v6 = v12;
 
     v7 = +[CALNLogSubsystem calendar];
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
@@ -168,7 +166,7 @@ LABEL_9:
     else if (v8)
     {
       *buf = 138412290;
-      v15 = v6;
+      v14 = v6;
       v9 = "IconUpdater: Failed to delete legacy icon cache directory: %@";
       v10 = v7;
       v11 = 12;
@@ -186,8 +184,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

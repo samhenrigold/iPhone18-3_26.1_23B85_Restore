@@ -121,11 +121,11 @@
 - (id)description
 {
   v6 = MEMORY[0x277CCACA8];
-  objc_msgSend_gpsLocation(self, a2, v2, v3, v4);
-  objc_msgSend_gpsLocation(self, v7, v8, v9, v10);
-  v14 = objc_msgSend_stringWithFormat_(v6, v11, v16, v12, v13, @"lat/lon=[%lf, %lf]");
+  objc_msgSend_gpsLocation(self, v2, v3, v4, a2);
+  objc_msgSend_gpsLocation(self, v7, v8, v9);
+  v13 = objc_msgSend_stringWithFormat_(v6, v10, v15, v11, v12, @"lat/lon=[%lf, %lf]");
 
-  return v14;
+  return v13;
 }
 
 @end

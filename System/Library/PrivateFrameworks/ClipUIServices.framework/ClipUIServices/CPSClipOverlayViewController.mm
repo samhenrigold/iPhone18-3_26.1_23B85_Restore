@@ -191,9 +191,11 @@ void __43__CPSClipOverlayViewController_viewDidLoad__block_invoke(uint64_t a1)
   if (webClipID != dCopy)
   {
     v11 = dCopy;
-    if (![(NSString *)webClipID isEqualToString:dCopy])
+    webClipID = [webClipID isEqualToString:dCopy];
+    dCopy = v11;
+    if ((webClipID & 1) == 0)
     {
-      v6 = [(NSString *)v11 copy];
+      v6 = [v11 copy];
       v7 = self->_webClipID;
       self->_webClipID = v6;
 
@@ -207,32 +209,33 @@ void __43__CPSClipOverlayViewController_viewDidLoad__block_invoke(uint64_t a1)
       v10 = self->_sessionPromise;
       self->_sessionPromise = promise;
 
-      [(CPSClipOverlayViewController *)self _loadClipMetadataUsingPlaceholderWebClipID];
+      webClipID = [(CPSClipOverlayViewController *)self _loadClipMetadataUsingPlaceholderWebClipID];
+      dCopy = v11;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](webClipID, dCopy);
 }
 
 - (void)setDisplayedOverPlaceholder:(BOOL)placeholder forWebClipID:(id)d animated:(BOOL)animated
 {
   animatedCopy = animated;
   placeholderCopy = placeholder;
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = CPS_LOG_CHANNEL_PREFIXClipUIServices(dCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     displayedOverPlaceholder = self->_displayedOverPlaceholder;
-    v11 = 138478595;
-    v12 = dCopy;
-    v13 = 1024;
-    v14 = displayedOverPlaceholder;
-    v15 = 1024;
-    v16 = placeholderCopy;
-    v17 = 1024;
-    v18 = animatedCopy;
-    _os_log_impl(&dword_24374B000, v9, OS_LOG_TYPE_DEFAULT, "Displaying overlay for web clip %{private}@. Was over placeholder (%d), is over placeholder (%d), animated (%d).", &v11, 0x1Eu);
+    v12 = 138478595;
+    v13 = dCopy;
+    v14 = 1024;
+    v15 = displayedOverPlaceholder;
+    v16 = 1024;
+    v17 = placeholderCopy;
+    v18 = 1024;
+    v19 = animatedCopy;
+    _os_log_impl(&dword_24374B000, v10, OS_LOG_TYPE_DEFAULT, "Displaying overlay for web clip %{private}@. Was over placeholder (%d), is over placeholder (%d), animated (%d).", &v12, 0x1Eu);
   }
 
   [(CPSClipOverlayViewController *)self setWebClipID:dCopy];
@@ -269,7 +272,7 @@ void __43__CPSClipOverlayViewController_viewDidLoad__block_invoke(uint64_t a1)
 {
   animatedCopy = animated;
   v23 = *MEMORY[0x277D85DE8];
-  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     sceneActivationState = self->_sceneActivationState;
@@ -339,41 +342,43 @@ LABEL_14:
 
 void __65__CPSClipOverlayViewController_setSceneActivationState_animated___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v9 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = CPS_LOG_CHANNEL_PREFIXClipUIServices(WeakRetained, v8);
+      WeakRetained = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (WeakRetained)
       {
         __65__CPSClipOverlayViewController_setSceneActivationState_animated___block_invoke_cold_1();
       }
     }
 
-    v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = CPS_LOG_CHANNEL_PREFIXClipUIServices(WeakRetained, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134218242;
-      v13 = WeakRetained;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_24374B000, v9, OS_LOG_TYPE_DEFAULT, "CPSClipOverlayViewController (%p): Calling -notifyWebClipActivationWithBundleID on session proxy: %@", &v12, 0x16u);
+      v14 = 134218242;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_24374B000, v11, OS_LOG_TYPE_DEFAULT, "CPSClipOverlayViewController (%p): Calling -notifyWebClipActivationWithBundleID on session proxy: %@", &v14, 0x16u);
     }
 
-    v10 = [WeakRetained webClipID];
-    v11 = [WeakRetained referrerBundleID];
-    [v5 notifyWebClipActivationWithBundleID:v10 referrerBundleID:v11];
+    v12 = [v9 webClipID];
+    v13 = [v9 referrerBundleID];
+    [v5 notifyWebClipActivationWithBundleID:v12 referrerBundleID:v13];
   }
 }
 
 - (void)setClipNeedsUpdateToLatestVersion
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     clipRecord = self->_clipRecord;
@@ -401,76 +406,77 @@ void __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_cold_1(v8, v7);
+      __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_cold_1(v9, v8);
     }
   }
 
   else
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_20;
-    v9[3] = &unk_278DD22B8;
-    objc_copyWeak(&v11, (a1 + 32));
-    v10 = v5;
-    [v10 prewarmClipWithCompletionHandler:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_20;
+    v10[3] = &unk_278DD22B8;
+    objc_copyWeak(&v12, (a1 + 32));
+    v11 = v5;
+    [v11 prewarmClipWithCompletionHandler:v10];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
   }
 }
 
 void __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_20(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices(WeakRetained, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_INFO, "Unable to prewarm clip for updating: %{priate}@", buf, 0xCu);
+        v11 = v3;
+        _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_INFO, "Unable to prewarm clip for updating: %{priate}@", buf, 0xCu);
       }
     }
 
     else
     {
-      v6 = *(a1 + 32);
-      v7[0] = MEMORY[0x277D85DD0];
-      v7[1] = 3221225472;
-      v7[2] = __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_21;
-      v7[3] = &unk_278DD2290;
-      v7[4] = WeakRetained;
-      [v6 installClipWithCompletion:v7];
+      v8 = *(a1 + 32);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_21;
+      v9[3] = &unk_278DD2290;
+      v9[4] = v6;
+      [v8 installClipWithCompletion:v9];
     }
   }
 }
 
 void __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block_invoke_21(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(*(a1 + 32) + 1024);
-    v6 = v4;
-    v7 = [v5 bundleID];
+    v6 = *(*(a1 + 32) + 1024);
+    v7 = v5;
+    v8 = [v6 bundleID];
     *buf = 138412547;
-    v10 = v7;
-    v11 = 2113;
-    v12 = v3;
-    _os_log_impl(&dword_24374B000, v6, OS_LOG_TYPE_DEFAULT, "Performing update to latest verison for clip with bundle ID: %@, error: %{private}@", buf, 0x16u);
+    v11 = v8;
+    v12 = 2113;
+    v13 = v3;
+    _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_DEFAULT, "Performing update to latest verison for clip with bundle ID: %@, error: %{private}@", buf, 0x16u);
   }
 
   if (!v3)
@@ -487,12 +493,23 @@ void __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block
 - (void)setReferrerBundleID:(id)d
 {
   dCopy = d;
-  if ([(NSString *)dCopy length]&& self->_referrerBundleID != dCopy && ![(NSString *)dCopy isEqualToString:@"com.apple.ClipServices.clipserviced"])
+  v5 = [(NSString *)dCopy length];
+  v6 = dCopy;
+  if (v5)
   {
-    objc_storeStrong(&self->_referrerBundleID, d);
+    if (self->_referrerBundleID != dCopy)
+    {
+      v5 = [(NSString *)dCopy isEqualToString:@"com.apple.ClipServices.clipserviced"];
+      v6 = dCopy;
+      if ((v5 & 1) == 0)
+      {
+        objc_storeStrong(&self->_referrerBundleID, d);
+        v6 = dCopy;
+      }
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (void)_loadClipRecordUsingBundleID
@@ -561,8 +578,8 @@ void __60__CPSClipOverlayViewController__loadClipRecordUsingBundleID__block_invo
 
 void __74__CPSClipOverlayViewController__loadClipMetadataUsingPlaceholderWebClipID__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (v4)
+  v5 = a2;
+  if (v5)
   {
     objc_storeStrong((*(a1 + 40) + 1088), a2);
     [*(a1 + 40) _updateBannerLabels];
@@ -572,8 +589,8 @@ void __74__CPSClipOverlayViewController__loadClipMetadataUsingPlaceholderWebClip
 
   else
   {
-    v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __74__CPSClipOverlayViewController__loadClipMetadataUsingPlaceholderWebClipID__block_invoke_cold_1();
     }
@@ -619,7 +636,9 @@ void __74__CPSClipOverlayViewController__loadClipMetadataUsingPlaceholderWebClip
   if (sessionProxy != proxyCopy)
   {
     v8 = proxyCopy;
-    if (([(CPSSessionProxy *)sessionProxy isEqual:proxyCopy]& 1) == 0)
+    sessionProxy = [(CPSSessionProxy *)sessionProxy isEqual:proxyCopy];
+    proxyCopy = v8;
+    if ((sessionProxy & 1) == 0)
     {
       v7 = self->_sessionProxy;
       objc_storeStrong(&self->_sessionProxy, proxy);
@@ -639,10 +658,12 @@ void __74__CPSClipOverlayViewController__loadClipMetadataUsingPlaceholderWebClip
           [(CPSClipOverlayViewController *)self _setBannerHidden:self->_displayedOverPlaceholder animated:1];
         }
       }
+
+      proxyCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](sessionProxy, proxyCopy);
 }
 
 - (void)proxyDidUpdateMetadata:(id)metadata
@@ -707,91 +728,97 @@ void __55__CPSClipOverlayViewController_proxyDidUpdateMetadata___block_invoke(ui
 uint64_t __64__CPSClipOverlayViewController_proxy_didFinishLoadingWithError___block_invoke(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = a1[4];
-    v12 = WeakRetained;
-    if (v4)
-    {
-      v5 = [v4 domain];
-      v6 = [v5 isEqual:*MEMORY[0x277CFA658]];
-
-      if ([a1[4] code] != 17 || (v12[1104] & 1) == 0)
-      {
-        v7 = [MEMORY[0x277CFA680] sharedLogger];
-        v8 = [a1[5] metadata];
-        v9 = [v8 clipBundleID];
-        [v7 recordDidShowErrorWithBundleID:v9 place:@"launchScreen" errorCode:{objc_msgSend(a1[4], "code")}];
-
-        if (v6)
-        {
-          v10 = [a1[4] code] == 17;
-        }
-
-        else
-        {
-          v10 = 0;
-        }
-
-        [v12 _showFailedLoadingStateAndReloadMetadata:v10 animated:v6 ^ 1u];
-      }
-    }
-
-    else
+    v5 = a1[4];
+    v13 = v4;
+    if (!v5)
     {
       LODWORD(v3) = 1.0;
-      [*(WeakRetained + 130) setLoadingProgress:0 completion:v3];
+      WeakRetained = [*(v4 + 130) setLoadingProgress:0 completion:v3];
+LABEL_10:
+      v4 = v13;
+      goto LABEL_11;
+    }
+
+    v6 = [v5 domain];
+    v7 = [v6 isEqual:*MEMORY[0x277CFA658]];
+
+    WeakRetained = [a1[4] code];
+    v4 = v13;
+    if (WeakRetained != 17 || (v13[1104] & 1) == 0)
+    {
+      v8 = [MEMORY[0x277CFA680] sharedLogger];
+      v9 = [a1[5] metadata];
+      v10 = [v9 clipBundleID];
+      [v8 recordDidShowErrorWithBundleID:v10 place:@"launchScreen" errorCode:{objc_msgSend(a1[4], "code")}];
+
+      if (v7)
+      {
+        v11 = [a1[4] code] == 17;
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+
+      WeakRetained = [v13 _showFailedLoadingStateAndReloadMetadata:v11 animated:v7 ^ 1u];
+      goto LABEL_10;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+LABEL_11:
+
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 - (void)proxyRemoteServiceDidCrash:(id)crash
 {
   crashCopy = crash;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(crashCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [CPSClipOverlayViewController proxyRemoteServiceDidCrash:];
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __59__CPSClipOverlayViewController_proxyRemoteServiceDidCrash___block_invoke;
-  v7[3] = &unk_278DD22E0;
-  v8 = crashCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__CPSClipOverlayViewController_proxyRemoteServiceDidCrash___block_invoke;
+  v8[3] = &unk_278DD22E0;
+  v9 = crashCopy;
   selfCopy = self;
-  v6 = crashCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v7 = crashCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __59__CPSClipOverlayViewController_proxyRemoteServiceDidCrash___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) disconnect];
-  v2 = [MEMORY[0x277CFA6B8] isSupported];
-  v3 = *(a1 + 32);
-  if (v2)
+  v3 = [MEMORY[0x277CFA6B8] isSupported];
+  v4 = *(a1 + 32);
+  if (v3)
   {
 
-    [v3 connectToService];
+    [v4 connectToService];
   }
 
-  else if (v3 == *(*(a1 + 40) + 1064))
+  else if (v4 == *(*(a1 + 40) + 1064))
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v4, v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v8 = 134217984;
-      v9 = v5;
-      _os_log_impl(&dword_24374B000, v4, OS_LOG_TYPE_DEFAULT, "CPSClipOverlayViewController (%p): Skip reconnection as app clips are not supported", &v8, 0xCu);
+      v6 = *(a1 + 40);
+      v9 = 134217984;
+      v10 = v6;
+      _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "CPSClipOverlayViewController (%p): Skip reconnection as app clips are not supported", &v9, 0xCu);
     }
 
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 1064);
-    *(v6 + 1064) = 0;
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 1064);
+    *(v7 + 1064) = 0;
   }
 }
 
@@ -830,28 +857,28 @@ void __59__CPSClipOverlayViewController_proxy_didRetrieveHeroImage___block_invok
 {
   superview = [(CPSClipLoadingView *)self->_loadingView superview];
 
-  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (superview)
   {
-    if (v6)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "Requested to present the loading view, but it is already presented.", buf, 2u);
+      _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_DEFAULT, "Requested to present the loading view, but it is already presented.", buf, 2u);
     }
   }
 
   else
   {
-    if (v6)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "Presenting the loading view.", buf, 2u);
+      _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_DEFAULT, "Presenting the loading view.", buf, 2u);
     }
 
-    v7 = objc_alloc_init(CPSClipLoadingView);
+    v9 = objc_alloc_init(CPSClipLoadingView);
     loadingView = self->_loadingView;
-    self->_loadingView = v7;
+    self->_loadingView = v9;
 
     view = [(CPSClipOverlayViewController *)self view];
     [view bounds];
@@ -864,12 +891,12 @@ void __59__CPSClipOverlayViewController_proxy_didRetrieveHeroImage___block_invok
 
     if (self->_usesMockData || self->_showingDemoProgress)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __60__CPSClipOverlayViewController__presentLoadingViewAnimated___block_invoke;
-      v12[3] = &unk_278DD23A8;
-      v12[4] = self;
-      v11 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:1 repeats:v12 block:0.15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __60__CPSClipOverlayViewController__presentLoadingViewAnimated___block_invoke;
+      v14[3] = &unk_278DD23A8;
+      v14[4] = self;
+      v13 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:1 repeats:v14 block:0.15];
     }
   }
 }
@@ -965,18 +992,19 @@ void __82__CPSClipOverlayViewController__showFailedLoadingStateAndReloadMetadata
 
 void __82__CPSClipOverlayViewController__showFailedLoadingStateAndReloadMetadata_animated___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v5 = v4;
-      v6 = [v3 cps_privacyPreservingDescription];
+      v7 = v6;
+      v8 = [v5 cps_privacyPreservingDescription];
       *buf = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_INFO, "Unable to prewarm clip again after attempting to reload: %{public}@", buf, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_INFO, "Unable to prewarm clip again after attempting to reload: %{public}@", buf, 0xCu);
     }
   }
 
@@ -996,30 +1024,30 @@ void __82__CPSClipOverlayViewController__showFailedLoadingStateAndReloadMetadata
 {
   superview = [(CPSClipLoadingView *)self->_loadingView superview];
 
-  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (superview)
   {
-    if (v6)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "Starting to dismiss the loading view.", buf, 2u);
+      _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_DEFAULT, "Starting to dismiss the loading view.", buf, 2u);
     }
 
     [(CPSClipOverlayViewController *)self _updateBanner];
     loadingView = self->_loadingView;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __60__CPSClipOverlayViewController__dismissLoadingViewAnimated___block_invoke;
-    v8[3] = &unk_278DD2268;
-    v8[4] = self;
-    [(CPSClipLoadingView *)loadingView finishLoadingWithCompletion:v8];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __60__CPSClipOverlayViewController__dismissLoadingViewAnimated___block_invoke;
+    v10[3] = &unk_278DD2268;
+    v10[4] = self;
+    [(CPSClipLoadingView *)loadingView finishLoadingWithCompletion:v10];
   }
 
-  else if (v6)
+  else if (v8)
   {
     *buf = 0;
-    _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "Requested to dismiss the loading view, but the loading view is not yet presented.", buf, 2u);
+    _os_log_impl(&dword_24374B000, v7, OS_LOG_TYPE_DEFAULT, "Requested to dismiss the loading view, but the loading view is not yet presented.", buf, 2u);
   }
 }
 
@@ -1030,11 +1058,11 @@ uint64_t __60__CPSClipOverlayViewController__dismissLoadingViewAnimated___block_
   v3 = *(v2 + 1040);
   *(v2 + 1040) = 0;
 
-  v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_24374B000, v4, OS_LOG_TYPE_DEFAULT, "The loading view has been removed from the view hierarcy.", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_24374B000, v6, OS_LOG_TYPE_DEFAULT, "The loading view has been removed from the view hierarcy.", v8, 2u);
   }
 
   return [*(a1 + 32) _setBannerHidden:0 animated:1];
@@ -1152,11 +1180,11 @@ void __58__CPSClipOverlayViewController__setBannerHidden_animated___block_invoke
 {
   v14 = *MEMORY[0x277D85DE8];
   bannerContainer = self->_bannerContainer;
-  if (!bannerContainer || [(CPSBannerContainerView *)bannerContainer isBannerHidden]|| [(CPSBannerContainerView *)self->_bannerContainer isTrackingBannerDismissGesture]|| [(CPSBannerContainerView *)self->_bannerContainer bannerHasAccessibilityFocus])
+  if (!bannerContainer || (bannerContainer = [bannerContainer isBannerHidden], (bannerContainer & 1) != 0) || (bannerContainer = -[CPSBannerContainerView isTrackingBannerDismissGesture](self->_bannerContainer, "isTrackingBannerDismissGesture"), (bannerContainer & 1) != 0) || (bannerContainer = -[CPSBannerContainerView bannerHasAccessibilityFocus](self->_bannerContainer, "bannerHasAccessibilityFocus"), bannerContainer))
   {
     if (self->_automaticBannerDismissTimer)
     {
-      v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+      v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices(bannerContainer, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -1171,7 +1199,7 @@ void __58__CPSClipOverlayViewController__setBannerHidden_animated___block_invoke
 
   else if (!self->_automaticBannerDismissTimer)
   {
-    v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+    v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(bannerContainer, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
@@ -1198,26 +1226,27 @@ void __58__CPSClipOverlayViewController__setBannerHidden_animated___block_invoke
 void __67__CPSClipOverlayViewController__scheduleBannerDismissTimerIfNeeded__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = CPS_LOG_CHANNEL_PREFIXClipUIServices(WeakRetained, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_24374B000, v2, OS_LOG_TYPE_INFO, "Banner dismiss timer fired, hiding banner.", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_24374B000, v4, OS_LOG_TYPE_INFO, "Banner dismiss timer fired, hiding banner.", v6, 2u);
     }
 
-    [WeakRetained[124] invalidate];
-    v3 = WeakRetained[124];
-    WeakRetained[124] = 0;
+    [v3[124] invalidate];
+    v5 = v3[124];
+    v3[124] = 0;
 
-    [WeakRetained _setBannerHidden:1 animated:1];
+    [v3 _setBannerHidden:1 animated:1];
   }
 }
 
 - (void)_updateBanner
 {
-  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1237,10 +1266,10 @@ void __67__CPSClipOverlayViewController__scheduleBannerDismissTimerIfNeeded__blo
   [(CPSAppClipRecord *)v6 getApplicationIconForImageDescriptor:v5 resultHandler:v7];
 }
 
-uint64_t __45__CPSClipOverlayViewController__updateBanner__block_invoke(uint64_t result, uint64_t a2)
+void *__45__CPSClipOverlayViewController__updateBanner__block_invoke(void *result, uint64_t a2)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) == *(v2 + 1024))
+  v2 = result[5];
+  if (result[4] == *(v2 + 1024))
   {
     return [*(v2 + 1008) setIcon:a2];
   }
@@ -1312,35 +1341,35 @@ uint64_t __45__CPSClipOverlayViewController__updateBanner__block_invoke(uint64_t
   v3 = a2;
   bundleID = [v2 bundleID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_24374B000, v5, v6, "No App Store URL recorded for full application with ID %{private}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_24374B000, v5, v6, "No App Store URL recorded for full application with ID %{private}@", v7, v8, v9, v10);
 }
 
 - (CPSClipOverlayViewController)initWithAppClipBundleID:(id)d webClipID:(id)iD
 {
   iDCopy = iD;
   dCopy = d;
-  v8 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = CPS_LOG_CHANNEL_PREFIXClipUIServices(dCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [CPSClipOverlayViewController initWithAppClipBundleID:webClipID:];
   }
 
-  v9 = [(CPSClipOverlayViewController *)self initWithAppClipBundleID:dCopy];
+  v10 = [(CPSClipOverlayViewController *)self initWithAppClipBundleID:dCopy];
 
-  if (v9)
+  if (v10)
   {
-    [(CPSClipOverlayViewController *)v9 setWebClipID:iDCopy];
-    v10 = v9;
+    [(CPSClipOverlayViewController *)v10 setWebClipID:iDCopy];
+    v11 = v10;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)setDisplayedOverPlaceholder:(BOOL)placeholder animated:(BOOL)animated
 {
   animatedCopy = animated;
   placeholderCopy = placeholder;
-  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
+  v7 = CPS_LOG_CHANNEL_PREFIXClipUIServices(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CPSClipOverlayViewController setDisplayedOverPlaceholder:animated:];
@@ -1363,7 +1392,7 @@ void __65__CPSClipOverlayViewController_setClipNeedsUpdateToLatestVersion__block
   v3 = a1;
   v4 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_24374B000, v5, v6, "Not performing update to latest version: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_24374B000, v5, v6, "Not performing update to latest version: %@", v7, v8, v9, v10);
 }
 
 - (void)proxyRemoteServiceDidCrash:.cold.1()

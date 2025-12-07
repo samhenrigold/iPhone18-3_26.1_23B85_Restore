@@ -146,17 +146,16 @@ LABEL_6:
 
 - (int)detectAndTrack
 {
-  prevShouldRunVideoDeghosting = self->_prevShouldRunVideoDeghosting;
   detectionResult = self->_detectionResult;
   self->_detectionResult = 0;
 
   sampleBuffer = self->_sampleBuffer;
   if (sampleBuffer)
   {
-    v6 = CMGetAttachment(sampleBuffer, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-    if (v6)
+    v5 = CMGetAttachment(sampleBuffer, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+    if (v5)
     {
-      if ([(CMIVideoDeghostingV2 *)self _shouldRunVideoDeghosting:v6])
+      if ([(CMIVideoDeghostingV2 *)self _shouldRunVideoDeghosting:v5])
       {
         [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking setInputSampleBuffer:self->_sampleBuffer];
         [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking setGhostInformationLookAheadPointer:&self->_ghostInformationLookAhead];
@@ -168,7 +167,7 @@ LABEL_6:
         process = [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking process];
         if (process)
         {
-          v12 = process;
+          v11 = process;
           sub_281FC();
         }
 
@@ -180,61 +179,61 @@ LABEL_6:
             commandBuffer = [commandQueue commandBuffer];
 
             [commandBuffer setLabel:@"KTRACE_END_MTL"];
-            v17[0] = _NSConcreteStackBlock;
-            v17[1] = 3221225472;
-            v17[2] = sub_1EFB8;
-            v17[3] = &unk_40710;
-            memset(&v17[4], 0, 24);
-            [commandBuffer addCompletedHandler:v17];
+            v16[0] = _NSConcreteStackBlock;
+            v16[1] = 3221225472;
+            v16[2] = sub_1EFB8;
+            v16[3] = &unk_40710;
+            memset(&v16[4], 0, 24);
+            [commandBuffer addCompletedHandler:v16];
             [commandBuffer commit];
           }
 
           detectionResult = [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking detectionResult];
-          v11 = self->_detectionResult;
+          v10 = self->_detectionResult;
           self->_detectionResult = detectionResult;
 
-          v12 = 0;
+          v11 = 0;
         }
 
-        v13 = 1;
+        prevShouldRunVideoDeghosting = 1;
       }
 
       else
       {
-        v13 = self->_prevShouldRunVideoDeghosting;
-        if (v13)
+        prevShouldRunVideoDeghosting = self->_prevShouldRunVideoDeghosting;
+        if (prevShouldRunVideoDeghosting)
         {
           [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking resetState];
-          v14 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{&__kCFBooleanTrue, @"PipeReset", 0}];
-          v15 = self->_detectionResult;
-          self->_detectionResult = v14;
+          v13 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:{&__kCFBooleanTrue, @"PipeReset", 0}];
+          v14 = self->_detectionResult;
+          self->_detectionResult = v13;
 
-          v13 = 0;
+          prevShouldRunVideoDeghosting = 0;
         }
 
-        v12 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
       sub_2827C();
-      v13 = v18;
-      v12 = -12783;
+      prevShouldRunVideoDeghosting = v17;
+      v11 = -12783;
     }
   }
 
   else
   {
     sub_28308();
-    v6 = 0;
-    v13 = v18;
-    v12 = 2;
+    v5 = 0;
+    prevShouldRunVideoDeghosting = v17;
+    v11 = 2;
   }
 
-  self->_prevShouldRunVideoDeghosting = v13;
+  self->_prevShouldRunVideoDeghosting = prevShouldRunVideoDeghosting;
 
-  return v12;
+  return v11;
 }
 
 - (int)repair
@@ -270,13 +269,13 @@ LABEL_6:
 
         if (process)
         {
-          sub_28394();
+          sub_28394(process);
         }
       }
 
       else
       {
-        process = 0;
+        LODWORD(process) = 0;
       }
 
       v6 = 1;
@@ -290,7 +289,7 @@ LABEL_6:
       }
 
       v6 = 0;
-      process = 0;
+      LODWORD(process) = 0;
     }
   }
 
@@ -298,7 +297,7 @@ LABEL_6:
   {
     sub_28414(&self->_prevShouldRunRepair, &v9);
     v6 = v9;
-    process = 2;
+    LODWORD(process) = 2;
   }
 
   self->_prevShouldRunRepair = v6;
@@ -315,20 +314,21 @@ LABEL_6:
   resetState = [(VEVideoDeghostingDetectionAndTrackingV2 *)self->_detectionAndTracking resetState];
   if (resetState)
   {
-    resetState2 = resetState;
+    v6 = resetState;
     sub_284A0();
   }
 
   else
   {
     resetState2 = [(VEVideoDeghostingRepairV2 *)self->_repair resetState];
+    v6 = resetState2;
     if (resetState2)
     {
-      sub_28520();
+      sub_28520(resetState2);
     }
   }
 
-  return resetState2;
+  return v6;
 }
 
 - (int)initGhostInformationLookAheadForSize:(int)size
@@ -499,14 +499,14 @@ LABEL_9:
 
       fig_log_get_emitter();
       sub_4B30();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v9, v10, v11, v12, v13, vars0, vars8);
     }
 
     else
     {
       fig_log_get_emitter();
       sub_4B30();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     return 2;

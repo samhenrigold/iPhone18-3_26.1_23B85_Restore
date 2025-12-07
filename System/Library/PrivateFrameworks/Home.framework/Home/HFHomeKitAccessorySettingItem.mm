@@ -79,7 +79,7 @@
 
 - (HFHomeKitAccessorySettingItem)initWithDefaultSetting:(id)setting sourceItem:(id)item localizedTitle:(id)title settingsController:(id)controller homeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier settingDict:(id)dict usageOptions:(id)self0
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v10 = [(HFHomeKitAccessorySettingItem *)self initWithSetting:setting sourceItem:item localizedTitle:title settingsController:controller homeIdentifier:identifier accessoryIdentifier:accessoryIdentifier settingDict:dict usageOptions:options];
   if (v10)
   {
@@ -87,14 +87,13 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v15 = v10;
+      v14 = v10;
       _os_log_debug_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEBUG, "Initialized Default Accessory Setting Item = [%@]", buf, 0xCu);
     }
 
     v10->_disabled = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -147,7 +146,7 @@
 
 - (BOOL)updateSetting:(id)setting
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   value = [(HMImmutableSetting *)self->_setting value];
   value2 = [settingCopy value];
@@ -171,11 +170,11 @@
   {
     keyPath = [(HMImmutableSetting *)self->_setting keyPath];
     value3 = [settingCopy value];
-    v18 = 138412546;
-    v19 = keyPath;
-    v20 = 2112;
-    v21 = value3;
-    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Updating setting [%@] with new value [%@]", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = keyPath;
+    v19 = 2112;
+    v20 = value3;
+    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Updating setting [%@] with new value [%@]", &v17, 0x16u);
   }
 
   [(HFHomeKitAccessorySettingItem *)self setDisabled:0];
@@ -188,23 +187,22 @@
   v9 = 1;
 LABEL_8:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)updateSettingValue:(id)value
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = HFLogForCategory(0x28uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     settingKeyPath = [(HFHomeKitAccessorySettingItem *)self settingKeyPath];
-    v10 = 138412546;
-    v11 = settingKeyPath;
-    v12 = 2112;
-    v13 = valueCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Updating setting value for keypath [%@] with new value [%@]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = settingKeyPath;
+    v11 = 2112;
+    v12 = valueCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Updating setting value for keypath [%@] with new value [%@]", &v9, 0x16u);
   }
 
   [(HFHomeKitAccessorySettingItem *)self setDisabled:0];
@@ -212,7 +210,6 @@ LABEL_8:
   self->_cachedSettingValue = valueCopy;
 
   v8 = [(HFItem *)self updateWithOptions:MEMORY[0x277CBEC10]];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -260,7 +257,7 @@ LABEL_8:
 
 - (id)updateValue:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   setting = [(HFHomeKitAccessorySettingItem *)self setting];
   v6 = [setting homeKitAccessorySettingValueForRawValue:valueCopy];
@@ -269,11 +266,11 @@ LABEL_8:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     settingKeyPath = [(HFHomeKitAccessorySettingItem *)self settingKeyPath];
-    v16 = 138412546;
-    v17 = settingKeyPath;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Now updating setting keypath [%@] with HMImmutableSettingValue = [%@]", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = settingKeyPath;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Now updating setting keypath [%@] with HMImmutableSettingValue = [%@]", &v15, 0x16u);
   }
 
   settingsController = [(HFHomeKitAccessorySettingItem *)self settingsController];
@@ -282,14 +279,12 @@ LABEL_8:
   settingKeyPath2 = [(HFHomeKitAccessorySettingItem *)self settingKeyPath];
   v13 = [settingsController hf_updateAccessorySettingWithHomeIdentifier:homeIdentifier accessoryIdentifier:accessoryIdentifier keyPath:settingKeyPath2 settingValue:v6];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)_decorateOutcomeWithResultKeys:(id)keys
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   settingKeyPath = [(HFHomeKitAccessorySettingItem *)self settingKeyPath];
   localizedTitle = [(HFHomeKitAccessorySettingItem *)self localizedTitle];
@@ -301,12 +296,12 @@ LABEL_8:
   if (v8)
   {
     sourceItem = [(HFHomeKitAccessorySettingItem *)self sourceItem];
-    home = [sourceItem home];
-    if ([home siriPhraseOptions] == 3)
+    v10 = objc_msgSend_home(sourceItem);
+    if ([v10 siriPhraseOptions] == 3)
     {
       sourceItem2 = [(HFHomeKitAccessorySettingItem *)self sourceItem];
-      home2 = [sourceItem2 home];
-      hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage = [home2 hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage];
+      v12 = objc_msgSend_home(sourceItem2);
+      hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage = [v12 hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage];
 
       if (hf_atLeastOneMediaAccessoryWithSupportingJustSiriLanguage)
       {
@@ -329,8 +324,8 @@ LABEL_8:
     [keysCopy setObject:v15 forKeyedSubscript:@"title"];
 
     sourceItem3 = [(HFHomeKitAccessorySettingItem *)self sourceItem];
-    home3 = [sourceItem3 home];
-    if ([home3 hf_atleastOneMediaAccessoryHasSiriEnabled])
+    v17 = objc_msgSend_home(sourceItem3);
+    if ([v17 hf_atleastOneMediaAccessoryHasSiriEnabled])
     {
       v18 = @"HFSiriSetting_On";
     }
@@ -385,11 +380,11 @@ LABEL_8:
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     setting3 = [(HFHomeKitAccessorySettingItem *)self setting];
-    v45 = 138412546;
-    v46 = setting3;
-    v47 = 2112;
-    v48 = keysCopy;
-    _os_log_debug_impl(&dword_20D9BF000, v33, OS_LOG_TYPE_DEBUG, "Finished configuring setting [%@] with options = [%@]", &v45, 0x16u);
+    v44 = 138412546;
+    v45 = setting3;
+    v46 = 2112;
+    v47 = keysCopy;
+    _os_log_debug_impl(&dword_20D9BF000, v33, OS_LOG_TYPE_DEBUG, "Finished configuring setting [%@] with options = [%@]", &v44, 0x16u);
   }
 
   settingDict2 = [(HFHomeKitAccessorySettingItem *)self settingDict];
@@ -414,8 +409,6 @@ LABEL_8:
   accessoryIdentifier = [(HFHomeKitAccessorySettingItem *)self accessoryIdentifier];
   v42 = [v40 setWithObject:accessoryIdentifier];
   [keysCopy setObject:v42 forKeyedSubscript:@"HFResultSettingParentIdentifiersDependenciesKey"];
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_formattedValueForSetting

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
+- (id)usageAttributedToAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (int)usageAttributedTo;
@@ -61,6 +63,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278989EF8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsNetworkType:(id)type
 {
   typeCopy = type;
@@ -113,6 +130,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)usageAttributedToAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"TRIGGER_DISCONNECT";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasUsageBytes:(BOOL)bytes
@@ -241,7 +273,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -261,7 +292,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkType = self->_networkType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -276,7 +306,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  usageAttributedTo = self->_usageAttributedTo;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -291,12 +320,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  usageBytes = self->_usageBytes;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
 LABEL_6:
-    flowsImpactedCount = self->_flowsImpactedCount;
     PBDataWriterWriteUint64Field();
   }
 

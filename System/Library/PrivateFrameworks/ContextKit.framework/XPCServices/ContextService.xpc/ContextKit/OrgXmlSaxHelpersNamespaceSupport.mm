@@ -6,6 +6,7 @@
 - (id)getPrefixes;
 - (id)getPrefixesWithNSString:(id)string;
 - (id)getURIWithNSString:(id)string;
+- (id)processNameWithNSString:(id)string withNSStringArray:(id)array withBoolean:(BOOL)boolean;
 - (void)dealloc;
 - (void)popContext;
 - (void)pushContext;
@@ -183,6 +184,51 @@ LABEL_7:
   return 1;
 }
 
+- (id)processNameWithNSString:(id)string withNSStringArray:(id)array withBoolean:(BOOL)boolean
+{
+  currentContext = self->currentContext_;
+  if (!currentContext)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = [(OrgXmlSaxHelpersNamespaceSupport_Context *)currentContext processNameWithNSString:string withBoolean:boolean];
+  if (!v7)
+  {
+    return 0;
+  }
+
+  if (!array)
+  {
+LABEL_10:
+    JreThrowNullPointerException();
+  }
+
+  v8 = v7;
+  v9 = v7[2];
+  if (v9 < 1)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v9, 0);
+  }
+
+  IOSObjectArray_Set(array, 0, v8[3]);
+  v10 = *(v8 + 2);
+  if (v10 < 2)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v10, 1);
+  }
+
+  IOSObjectArray_Set(array, 1, v8[4]);
+  v11 = *(v8 + 2);
+  if (v11 <= 2)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v11, 2);
+  }
+
+  IOSObjectArray_Set(array, 2, v8[5]);
+  return array;
+}
+
 - (id)getURIWithNSString:(id)string
 {
   currentContext = self->currentContext_;
@@ -327,11 +373,12 @@ LABEL_8:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = JavaUtilCollections_emptyList();
-    v3 = JavaUtilCollections_enumerationWithJavaUtilCollection_(v2);
-    JreStrongAssign(&qword_100556F60, v3);
+    v5 = JavaUtilCollections_emptyList(v3, v4);
+    v6 = JavaUtilCollections_enumerationWithJavaUtilCollection_(v5);
+    JreStrongAssign(&qword_100556F60, v6);
     atomic_store(1u, OrgXmlSaxHelpersNamespaceSupport__initialized);
   }
 }

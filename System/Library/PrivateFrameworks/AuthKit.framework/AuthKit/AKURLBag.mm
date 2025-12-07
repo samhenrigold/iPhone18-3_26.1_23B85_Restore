@@ -272,7 +272,6 @@ uint64_t __43__AKURLBag__currentBagsUnderLockWithBlock___block_invoke()
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&__sharedMemorySpaceBagProvider, location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)looksLikeiForgotURLKey:(id)key
@@ -754,7 +753,6 @@ void __43__AKURLBag_urlForKey_fromCache_completion___block_invoke(void *a1, void
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __56__AKURLBag_urlConfigurationForKey_fromCache_completion___block_invoke(void *a1, void *a2, void *a3)

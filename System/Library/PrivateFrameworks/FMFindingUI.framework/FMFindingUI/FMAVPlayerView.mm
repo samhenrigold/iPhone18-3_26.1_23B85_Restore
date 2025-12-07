@@ -46,18 +46,16 @@
 {
   if (*(&self->super.super._responderFlags + OBJC_IVAR____TtC11FMFindingUI14FMAVPlayerView_assetName))
   {
-    v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11FMFindingUI14FMAVPlayerView_assetName);
-    v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC11FMFindingUI14FMAVPlayerView_assetName);
 
-    v4 = sub_24A62EBE4();
+    v2 = sub_24A62EBE4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 @end

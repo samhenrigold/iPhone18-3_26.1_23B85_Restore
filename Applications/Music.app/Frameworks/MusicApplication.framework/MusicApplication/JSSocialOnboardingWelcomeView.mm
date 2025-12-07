@@ -19,20 +19,20 @@
 - (NSString)accessibilityLabel
 {
   selfCopy = self;
-  JSSocialOnboardingWelcomeView.accessibilityLabel.getter();
-  v4 = v3;
+  JSSocialOnboardingWelcomeView.accessibilityLabel.getter(v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_AB9260();
+    v6 = sub_AB9260();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setAccessibilityLabel:(id)label

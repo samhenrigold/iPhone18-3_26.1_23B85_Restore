@@ -10,12 +10,12 @@
 
 - (AMSUIWebAppViewModel)initWithJSObject:(id)object context:(id)context
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
-  v33.receiver = self;
-  v33.super_class = AMSUIWebAppViewModel;
-  v8 = [(AMSUIWebAppViewModel *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = AMSUIWebAppViewModel;
+  v8 = [(AMSUIWebAppViewModel *)&v32 init];
   if (v8)
   {
     v9 = [objectCopy objectForKeyedSubscript:@"accessibilityLabel"];
@@ -85,9 +85,9 @@
     if (!v8->_title)
     {
       v22 = v8->_bundleIdentifier;
-      v32 = 0;
-      v23 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v22 allowPlaceholder:1 error:&v32];
-      v24 = v32;
+      v31 = 0;
+      v23 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v22 allowPlaceholder:1 error:&v31];
+      v24 = v31;
       if (v23)
       {
         localizedName = [v23 localizedName];
@@ -109,22 +109,21 @@
           v28 = objc_opt_class();
           logKey = [contextCopy logKey];
           *buf = 138543618;
-          v35 = v28;
-          v36 = 2114;
-          v37 = logKey;
+          v34 = v28;
+          v35 = 2114;
+          v36 = logKey;
           _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to get bundle record", buf, 0x16u);
         }
       }
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)_makeBarButtonItemView
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   if (!_os_feature_enabled_impl() || (v3 = 28.0, (_os_feature_enabled_impl() & 1) == 0))
   {
     v3 = 30.0;
@@ -142,19 +141,19 @@
 
   +[AMSUICommonScreen scale];
   v10 = [(AMSUIWebAppViewModel *)self iconWithSize:v3 scale:v3, v9];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __46__AMSUIWebAppViewModel__makeBarButtonItemView__block_invoke;
-  v28[3] = &unk_1E7F243E8;
-  v11 = v4;
-  v29 = v11;
-  [v10 addSuccessBlock:v28];
   v27[0] = MEMORY[0x1E69E9820];
   v27[1] = 3221225472;
-  v27[2] = __46__AMSUIWebAppViewModel__makeBarButtonItemView__block_invoke_2;
-  v27[3] = &unk_1E7F24410;
-  v27[4] = self;
-  [v10 addErrorBlock:v27];
+  v27[2] = __46__AMSUIWebAppViewModel__makeBarButtonItemView__block_invoke;
+  v27[3] = &unk_1E7F243E8;
+  v11 = v4;
+  v28 = v11;
+  [v10 addSuccessBlock:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __46__AMSUIWebAppViewModel__makeBarButtonItemView__block_invoke_2;
+  v26[3] = &unk_1E7F24410;
+  v26[4] = self;
+  [v10 addErrorBlock:v26];
   v12 = objc_alloc_init(AMSUICommonLabel);
   title = [(AMSUIWebAppViewModel *)self title];
   [(AMSUICommonLabel *)v12 setText:title];
@@ -178,9 +177,9 @@
 
   [(AMSUICommonStackView *)v15 setSpacing:v17];
   [(AMSUICommonStackView *)v15 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v30[0] = v11;
-  v30[1] = v12;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v29[0] = v11;
+  v29[1] = v12;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   [(AMSUICommonStackView *)v15 addArrangedSubviews:v19];
 
   ams_appTint = [MEMORY[0x1E69DC888] ams_appTint];
@@ -199,34 +198,30 @@
   [(AMSUICommonLabel *)v12 setFont:v24];
 
   [(AMSUICommonStackView *)v15 setAxis:0];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 void __46__AMSUIWebAppViewModel__makeBarButtonItemView__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
-  if (!v4)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v7 = v10;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load image %{public}@", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v2;
+    v5 = v7;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load image %{public}@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)iconWithSize:(CGSize)size scale:(double)scale

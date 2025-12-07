@@ -20,39 +20,38 @@
 
 - (void)logOut
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   accounts = [(WFAccountAccessResource *)self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        [WFAccount deleteAccount:*(*(&v9 + 1) + 8 * v7++)];
+        [WFAccount deleteAccount:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(WFResource *)self refreshAvailabilityWithForcedNotification];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsMultipleAccounts
@@ -64,30 +63,30 @@
 
 - (id)username
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   accounts = [(WFAccountAccessResource *)self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        [*(*(&v13 + 1) + 8 * i) refreshWithCompletionHandler:0];
+        [*(*(&v12 + 1) + 8 * i) refreshWithCompletionHandler:0];
       }
 
-      v5 = [accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -96,8 +95,6 @@
   accounts2 = [(WFAccountAccessResource *)self accounts];
   firstObject = [accounts2 firstObject];
   localizedName = [firstObject localizedName];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return localizedName;
 }
@@ -177,35 +174,35 @@ void __78__WFAccountAccessResource_makeAvailableWithRemoteInterface_completionHa
 
 - (unint64_t)status
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   accounts = [(WFAccountAccessResource *)self accounts];
-  v3 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     v6 = 4;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(accounts);
       }
 
-      if ([*(*(&v10 + 1) + 8 * v7) isValid])
+      if ([*(*(&v9 + 1) + 8 * v7) isValid])
       {
         break;
       }
 
       if (v4 == ++v7)
       {
-        v4 = [accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -222,7 +219,6 @@ LABEL_9:
     v6 = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -334,14 +330,13 @@ void __46__WFAccountAccessResource_initWithDefinition___block_invoke(uint64_t a1
 
 + (id)userInterfaceClasses
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CFC6F8];
-  v6[0] = *MEMORY[0x277CFC710];
-  v6[1] = v2;
-  v7[0] = @"WFAccountAccessResourceUserInterface";
-  v7[1] = @"WFAccountAccessResourceUserInterface";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CFC710];
+  v5[1] = v2;
+  v6[0] = @"WFAccountAccessResourceUserInterface";
+  v6[1] = @"WFAccountAccessResourceUserInterface";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

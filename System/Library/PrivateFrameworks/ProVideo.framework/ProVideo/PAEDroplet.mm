@@ -116,13 +116,13 @@
   {
     v10 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735F2C8];
     v11 = v10 && [v10 versionAtCreation] == 0;
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+    objc_msgSend_getPixelTransformForImage_(self);
+    objc_msgSend_getInversePixelTransformForImage_(self);
     __asm { FMOV            V0.2D, #0.5 }
 
     v27[0] = _Q0;
     [v9 getXValue:v27 YValue:v27 + 8 fromParm:1 atFxTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:v27 withImage:input];
+    objc_msgSend_convertRelativeToImageCoordinates_withImage_(self);
     v26[4] = v27[13];
     v26[5] = v27[14];
     v26[6] = v27[15];
@@ -154,7 +154,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         else

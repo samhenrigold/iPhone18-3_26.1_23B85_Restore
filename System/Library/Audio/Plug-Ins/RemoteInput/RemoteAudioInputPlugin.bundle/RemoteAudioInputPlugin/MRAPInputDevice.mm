@@ -106,18 +106,14 @@
 
 - (void)setAudioInputBlock:(id)block
 {
-  v4 = [block copy];
-  audioInputBlock = self->_audioInputBlock;
-  self->_audioInputBlock = v4;
+  self->_audioInputBlock = [block copy];
 
   _objc_release_x1();
 }
 
 - (void)setSupportedFormats:(id)formats
 {
-  v4 = [formats copy];
-  supportedFormats = self->_supportedFormats;
-  self->_supportedFormats = v4;
+  self->_supportedFormats = [formats copy];
 
   _objc_release_x1();
 }

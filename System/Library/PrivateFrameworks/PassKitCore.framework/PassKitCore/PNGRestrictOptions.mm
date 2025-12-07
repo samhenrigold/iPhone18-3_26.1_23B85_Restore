@@ -9,7 +9,7 @@ void ___PNGRestrictOptions_block_invoke()
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
-  if (([v1 isEqualToString:@"com.apple.MessagesBlastDoorService"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"com.apple.MessagesAirlockService") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"com.apple.SubcredentialUIService.SubcredentialInvitationMessagesExtension") & 1) != 0 || objc_msgSend(v1, "isEqualToString:", @"com.apple.CredentialSharingService.ShareableCredentialsMessagesExtension"))
+  if ((objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1) & 1) != 0 || objc_msgSend_isEqualToString_(v1))
   {
     v2 = *MEMORY[0x1E696E118];
     v5[0] = *MEMORY[0x1E696E0E8];

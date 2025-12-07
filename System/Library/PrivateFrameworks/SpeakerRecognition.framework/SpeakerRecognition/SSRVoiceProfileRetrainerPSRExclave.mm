@@ -20,61 +20,59 @@
 - (id)_processSpeakerVector:(id)vector withSize:(unint64_t)size withScorers:(id)scorers processedAudioDurationMs:(unint64_t)ms
 {
   msCopy = ms;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
   scorersCopy = scorers;
   v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(scorersCopy, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v11 = scorersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * i);
+        v16 = *(*(&v26 + 1) + 8 * i);
         [v16 scoreSpeakerVector:vectorCopy withDimensions:size withThresholdType:{0, msCopy}];
         v17 = [MEMORY[0x277CCABB0] numberWithFloat:?];
         profileID = [v16 profileID];
         [v10 setObject:v17 forKeyedSubscript:profileID];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v13);
   }
 
-  v32[0] = v10;
-  v31[0] = @"spIdKnownUserPSRScores";
-  v31[1] = @"spIdAudioProcessedDuration";
+  v31[0] = v10;
+  v30[0] = @"spIdKnownUserPSRScores";
+  v30[1] = @"spIdAudioProcessedDuration";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:msCopy];
-  v32[1] = v19;
-  v31[2] = @"bestVoiceTriggerScore";
+  v31[1] = v19;
+  v30[2] = @"bestVoiceTriggerScore";
   *&v20 = self->_bestTriggerScore;
   v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v32[2] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v31[2] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
   return v22;
 }
 
 - (id)_processAudioFile:(id)file
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v5 = MEMORY[0x277D01970];
   v6 = *MEMORY[0x277D01970];
@@ -88,136 +86,128 @@
   }
 
   self->_bestTriggerScore = -1.0;
-  novDetector = self->_novDetector;
   nd_reset();
   self->_currUttLengthInMs = 0xFFFFFFFFLL;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__1345;
-  v44 = __Block_byref_object_dispose__1346;
-  v45 = 0;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v39[3] = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__1345;
+  v38 = __Block_byref_object_dispose__1346;
+  v39 = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v33[3] = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3810000000;
-  v57 = &unk_225ECB98D;
-  v58 = 0;
-  v59 = 0;
-  v60 = 0;
-  [MEMORY[0x277D01748] lpcmInt16ASBD];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __56__SSRVoiceProfileRetrainerPSRExclave__processAudioFile___block_invoke;
-  v33[3] = &unk_278578A70;
-  v8 = COERCE_DOUBLE(fileCopy);
-  v34 = v8;
+  v51 = &unk_225ECB98D;
+  v52 = 0;
+  v53 = 0;
+  v54 = 0;
+  objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __56__SSRVoiceProfileRetrainerPSRExclave__processAudioFile___block_invoke;
+  v27[3] = &unk_278578A70;
+  v7 = COERCE_DOUBLE(fileCopy);
+  v28 = v7;
   selfCopy = self;
-  v36 = &v40;
-  v37 = v39;
-  v38 = buf;
-  [SSRUtils streamAudioFromFileUrl:*&v8 audioStreamBasicDescriptor:v50 samplesPerStreamChunk:640 audioDataAvailableHandler:v33];
-  v9 = v41[5];
-  if (v9)
+  v30 = &v34;
+  v31 = v33;
+  v32 = buf;
+  [SSRUtils streamAudioFromFileUrl:*&v7 audioStreamBasicDescriptor:v44 samplesPerStreamChunk:640 audioDataAvailableHandler:v27];
+  v8 = v35[5];
+  if (v8)
   {
-    v10 = *v5;
+    v9 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      *v50 = 136315650;
-      v51 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
-      v52 = 2114;
-      v53 = v8;
-      v54 = 2114;
-      v55 = v9;
-      _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s ERR: Failed processing %{public}@ with error %{public}@", v50, 0x20u);
-      v9 = v41[5];
+      *v44 = 136315650;
+      v45 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
+      v46 = 2114;
+      v47 = v7;
+      v48 = 2114;
+      v49 = v8;
+      _os_log_error_impl(&dword_225E12000, v9, OS_LOG_TYPE_ERROR, "%s ERR: Failed processing %{public}@ with error %{public}@", v44, 0x20u);
+      v8 = v35[5];
     }
 
-    v11 = v9;
+    v10 = v8;
   }
 
   else if (self->_currUttLengthInMs > 0xC7)
   {
-    v16 = *&buf[8];
-    v17 = *(*&buf[8] + 48);
-    self->_bestTriggerScore = v17;
-    v18 = *v5;
+    v15 = *(*&buf[8] + 48);
+    self->_bestTriggerScore = v15;
+    v16 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v50 = 136315394;
-      v51 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
-      v52 = 2050;
-      v53 = v17;
-      _os_log_impl(&dword_225E12000, v18, OS_LOG_TYPE_DEFAULT, "%s Found last detection results, trigger score = %{public}f", v50, 0x16u);
-      v16 = *&buf[8];
+      *v44 = 136315394;
+      v45 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
+      v46 = 2050;
+      v47 = v15;
+      _os_log_impl(&dword_225E12000, v16, OS_LOG_TYPE_DEFAULT, "%s Found last detection results, trigger score = %{public}f", v44, 0x16u);
     }
 
-    v19 = self->_novDetector;
-    v20 = *(v16 + 40);
-    v21 = nd_getsupervector();
-    if (v21)
+    v17 = nd_getsupervector();
+    if (v17)
     {
-      v22 = [MEMORY[0x277CBEA90] dataWithBytes:*v21 length:4 * *(v21 + 8)];
+      v18 = [MEMORY[0x277CBEA90] dataWithBytes:*v17 length:4 * *(v17 + 8)];
       speakerVector = self->_speakerVector;
-      self->_speakerVector = v22;
+      self->_speakerVector = v18;
 
-      v24 = [(NSData *)self->_speakerVector length];
-      v11 = 0;
+      v20 = [(NSData *)self->_speakerVector length];
+      v10 = 0;
       currUttLengthInMs = self->_currUttLengthInMs;
-      self->_speakerVectorSize = v24 >> 2;
+      self->_speakerVectorSize = v20 >> 2;
       self->_processedAudioDurationMs = currUttLengthInMs;
     }
 
     else
     {
-      processedAudioDurationMs = self->_processedAudioDurationMs;
-      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"speakerVector is nil! for processedAUdioDurationMs: %lu, _currUttLengthInMs: %lu", processedAudioDurationMs, self->_currUttLengthInMs];
-      v28 = MEMORY[0x277CCA9B8];
-      v46 = *MEMORY[0x277CCA450];
-      v47 = v27;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-      v30 = [v28 errorWithDomain:@"com.apple.speakerrecognition" code:743 userInfo:v29];
+      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"speakerVector is nil! for processedAUdioDurationMs: %lu, _currUttLengthInMs: %lu", self->_processedAudioDurationMs, self->_currUttLengthInMs];
+      v23 = MEMORY[0x277CCA9B8];
+      v40 = *MEMORY[0x277CCA450];
+      v41 = v22;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v25 = [v23 errorWithDomain:@"com.apple.speakerrecognition" code:743 userInfo:v24];
 
-      v11 = v30;
+      v10 = v25;
     }
   }
 
   else
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: Too little audio %dms in %@ - Bailing out", self->_currUttLengthInMs, *&v8];
-    v12 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    v13 = *v5;
+    [MEMORY[0x277CCACA8] stringWithFormat:@"ERR: Too little audio %dms in %@ - Bailing out", self->_currUttLengthInMs, *&v7];
+    v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v12 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      *v50 = 136315394;
-      v51 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
-      v52 = 2114;
-      v53 = v12;
-      _os_log_error_impl(&dword_225E12000, v13, OS_LOG_TYPE_ERROR, "%s %{public}@", v50, 0x16u);
+      *v44 = 136315394;
+      v45 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]";
+      v46 = 2114;
+      v47 = v11;
+      _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s %{public}@", v44, 0x16u);
     }
 
-    v14 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA450];
-    v49 = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v11 = [v14 errorWithDomain:@"com.apple.speakerrecognition" code:751 userInfo:v15];
+    v13 = MEMORY[0x277CCA9B8];
+    v42 = *MEMORY[0x277CCA450];
+    v43 = v11;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v10 = [v13 errorWithDomain:@"com.apple.speakerrecognition" code:751 userInfo:v14];
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(v39, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(&v34, 8);
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 void __56__SSRVoiceProfileRetrainerPSRExclave__processAudioFile___block_invoke(void *a1, uint64_t a2, int a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a4;
   if (v8)
   {
@@ -226,9 +216,9 @@ void __56__SSRVoiceProfileRetrainerPSRExclave__processAudioFile___block_invoke(v
     {
       v10 = a1[4];
       *buf = 136315394;
-      v27 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]_block_invoke";
-      v28 = 2112;
-      v29 = v10;
+      v23 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]_block_invoke";
+      v24 = 2112;
+      v25 = v10;
       _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Failed to read file: %@", buf, 0x16u);
     }
 
@@ -246,39 +236,34 @@ void __56__SSRVoiceProfileRetrainerPSRExclave__processAudioFile___block_invoke(v
       v14 = a1[4];
       v15 = *(a1[5] + 104);
       *buf = 136315650;
-      v27 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]_block_invoke";
-      v28 = 2050;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v14;
+      v23 = "[SSRVoiceProfileRetrainerPSRExclave _processAudioFile:]_block_invoke";
+      v24 = 2050;
+      v25 = v15;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Reached end of file. _currUttLengthInMs: %{public}lu, calling endAudio: %@", buf, 0x20u);
     }
 
-    v16 = *(a1[5] + 8);
     nd_endwavedata();
-    v17 = *(a1[5] + 8);
-    v18 = nd_getresults();
-    if (v18)
+    v16 = nd_getresults();
+    if (v16)
     {
-      v19 = *(a1[8] + 8);
-      v20 = *v18;
-      *(v19 + 48) = *(v18 + 16);
-      *(v19 + 32) = v20;
+      v17 = *(a1[8] + 8);
+      v18 = *v16;
+      *(v17 + 48) = *(v16 + 16);
+      *(v17 + 32) = v18;
     }
   }
 
   else
   {
-    v21 = [MEMORY[0x277CBEA90] dataWithBytes:*(a2 + 16) length:*(a2 + 12)];
-    v22 = [v21 length];
-    [MEMORY[0x277D01748] lpcmInt16ASBD];
-    *(*(a1[7] + 8) + 24) += v22 / v25;
-    v23 = *(a1[5] + 8);
-    [v21 bytes];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:*(a2 + 16) length:*(a2 + 12)];
+    v20 = [v19 length];
+    objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+    *(*(a1[7] + 8) + 24) += v20 / v21;
+    [v19 bytes];
     nd_wavedata();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_logSpeakerConfusion:(id)confusion forProfileArray:(id)array withPrependString:(id)string
@@ -372,78 +357,76 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
 
 - (id)_composeSpeakerConfusionWithScores:(id)scores forProfiles:(id)profiles
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   profilesCopy = profiles;
-  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = scoresCopy;
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v12 = [v10 objectForKeyedSubscript:@"spIdKnownUserPSRScores"];
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v13 = profilesCopy;
-        v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v25;
+          v16 = *v24;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v25 != v16)
+              if (*v24 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = [v12 objectForKeyedSubscript:*(*(&v24 + 1) + 8 * j)];
+              v18 = [v12 objectForKeyedSubscript:*(*(&v23 + 1) + 8 * j)];
               [v11 addObject:v18];
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v15);
         }
 
-        [v23 addObject:v11];
+        [v22 addObject:v11];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (void)_logSpeakerConfusionWithExplicitScores:(id)scores withImplicitScores:(id)implicitScores withPurgeUtterances:(unint64_t)utterances forProfile:(id)profile forConfigVersion:(id)version
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   implicitScoresCopy = implicitScores;
   profileCopy = profile;
@@ -454,18 +437,18 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
     v17 = [scoresCopy objectAtIndexedSubscript:0];
     v18 = [v17 objectForKeyedSubscript:@"spIdKnownUserPSRScores"];
 
-    v57 = v18;
+    v56 = v18;
     allKeys = [v18 allKeys];
     v20 = [allKeys mutableCopy];
 
     if ([v20 containsObject:profileID])
     {
       [v20 removeObject:profileID];
-      v54 = profileID;
+      v53 = profileID;
       [v20 insertObject:profileID atIndex:0];
       v21 = [(SSRVoiceProfileRetrainerPSRExclave *)self _composeSpeakerConfusionWithScores:scoresCopy forProfiles:v20];
       v22 = [(SSRVoiceProfileRetrainerPSRExclave *)self _composeSpeakerConfusionWithScores:implicitScoresCopy forProfiles:v20];
-      v61[0] = @"locale";
+      v60[0] = @"locale";
       locale = [profileCopy locale];
       v24 = locale;
       v25 = @"unknown";
@@ -474,81 +457,81 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
         v25 = versionCopy;
       }
 
-      v62[0] = locale;
-      v62[1] = v25;
-      v61[1] = @"asset";
-      v61[2] = @"explicitUtteranceConfusion";
-      v55 = v22;
-      v56 = v21;
-      v62[2] = v21;
-      v62[3] = v22;
-      v61[3] = @"implicitUtteranceConfusion";
-      v61[4] = @"purgedUtteranceCount";
+      v61[0] = locale;
+      v61[1] = v25;
+      v60[1] = @"asset";
+      v60[2] = @"explicitUtteranceConfusion";
+      v54 = v22;
+      v55 = v21;
+      v61[2] = v21;
+      v61[3] = v22;
+      v60[3] = @"implicitUtteranceConfusion";
+      v60[4] = @"purgedUtteranceCount";
       v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:utterances];
-      v62[4] = v26;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:5];
+      v61[4] = v26;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:5];
 
       v28 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
-        v65 = 2112;
-        v66 = v27;
+        v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+        v64 = 2112;
+        v65 = v27;
         _os_log_impl(&dword_225E12000, v28, OS_LOG_TYPE_DEFAULT, "%s Log %@", buf, 0x16u);
       }
 
-      v53 = v27;
+      v52 = v27;
       mEMORY[0x277D01788] = [MEMORY[0x277D01788] sharedPreferences];
       fileLoggingIsEnabled = [mEMORY[0x277D01788] fileLoggingIsEnabled];
 
-      profileID = v54;
+      profileID = v53;
       if (fileLoggingIsEnabled)
       {
-        v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Explicit Utterance Confusion Matrix for User - %@ is", v54];
-        v50 = [(SSRVoiceProfileRetrainerPSRExclave *)self _logSpeakerConfusion:v56 forProfileArray:v20 withPrependString:v31];
+        v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Explicit Utterance Confusion Matrix for User - %@ is", v53];
+        v49 = [(SSRVoiceProfileRetrainerPSRExclave *)self _logSpeakerConfusion:v55 forProfileArray:v20 withPrependString:v31];
 
-        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Implicit Utterance Confusion Matrix for User - %@ is", v54];
-        v49 = [(SSRVoiceProfileRetrainerPSRExclave *)self _logSpeakerConfusion:v55 forProfileArray:v20 withPrependString:v32];
+        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Implicit Utterance Confusion Matrix for User - %@ is", v53];
+        v48 = [(SSRVoiceProfileRetrainerPSRExclave *)self _logSpeakerConfusion:v54 forProfileArray:v20 withPrependString:v32];
 
-        v59[0] = @"explicitUtteranceConfusion";
-        v59[1] = @"implicitUtteranceConfusion";
-        v60[0] = scoresCopy;
-        v60[1] = implicitScoresCopy;
-        v59[2] = @"purgedUtteranceCount";
+        v58[0] = @"explicitUtteranceConfusion";
+        v58[1] = @"implicitUtteranceConfusion";
+        v59[0] = scoresCopy;
+        v59[1] = implicitScoresCopy;
+        v58[2] = @"purgedUtteranceCount";
         v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:utterances];
-        v60[2] = v33;
-        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
+        v59[2] = v33;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
 
-        v58 = 0;
-        v48 = v34;
-        v52 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v34 options:3 error:&v58];
-        v51 = v58;
-        if (v51)
+        v57 = 0;
+        v47 = v34;
+        v51 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v34 options:3 error:&v57];
+        v50 = v57;
+        if (v50)
         {
           v35 = MEMORY[0x277D01970];
           v36 = *MEMORY[0x277D01970];
           if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
           {
             v37 = v36;
-            localizedDescription = [v51 localizedDescription];
+            localizedDescription = [v50 localizedDescription];
             *buf = 136315394;
-            v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
-            v65 = 2114;
-            v66 = localizedDescription;
+            v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+            v64 = 2114;
+            v65 = localizedDescription;
             _os_log_error_impl(&dword_225E12000, v37, OS_LOG_TYPE_ERROR, "%s ERR: Failed to get json object with error %{public}@", buf, 0x16u);
           }
         }
 
         else
         {
-          v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"CS-VoiceId-UserConfusion-%@.json", v54];
+          v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"CS-VoiceId-UserConfusion-%@.json", v53];
           mEMORY[0x277D01788]2 = [MEMORY[0x277D01788] sharedPreferences];
           voiceTriggerAudioLogDirectory = [mEMORY[0x277D01788]2 voiceTriggerAudioLogDirectory];
           v44 = [voiceTriggerAudioLogDirectory stringByAppendingPathComponent:v41];
 
           v45 = [SSRUtils removeItemAtPath:v44];
-          [v52 writeToFile:v44 atomically:0];
+          [v51 writeToFile:v44 atomically:0];
 
           v35 = MEMORY[0x277D01970];
         }
@@ -557,9 +540,9 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
         if (os_log_type_enabled(*v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
-          v65 = 2114;
-          v66 = v50;
+          v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+          v64 = 2114;
+          v65 = v49;
           _os_log_impl(&dword_225E12000, v46, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
           v46 = *v35;
         }
@@ -567,9 +550,9 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
-          v65 = 2114;
-          v66 = v49;
+          v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+          v64 = 2114;
+          v65 = v48;
           _os_log_impl(&dword_225E12000, v46, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
         }
       }
@@ -581,11 +564,11 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
-        v65 = 2114;
-        v66 = profileID;
-        v67 = 2114;
-        v68 = v20;
+        v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+        v64 = 2114;
+        v65 = profileID;
+        v66 = 2114;
+        v67 = v20;
         _os_log_impl(&dword_225E12000, v40, OS_LOG_TYPE_DEFAULT, "%s profile %{public}@ is not present in %{public}@ - Bailing out", buf, 0x20u);
       }
     }
@@ -597,17 +580,15 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v64 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
+      v63 = "[SSRVoiceProfileRetrainerPSRExclave _logSpeakerConfusionWithExplicitScores:withImplicitScores:withPurgeUtterances:forProfile:forConfigVersion:]";
       _os_log_impl(&dword_225E12000, v39, OS_LOG_TYPE_DEFAULT, "%s explicit scores are nil - Bailing out", buf, 0xCu);
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)purgeConfusionInformationWithPolicy:(id)policy
 {
-  v98[1] = *MEMORY[0x277D85DE8];
+  v97[1] = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   comparativeModels = self->_comparativeModels;
   if (comparativeModels)
@@ -625,16 +606,16 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-        v89 = 2114;
-        *v90 = v8;
+        v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+        v88 = 2114;
+        *v89 = v8;
         _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
       }
 
       v13 = MEMORY[0x277CCA9B8];
-      v97 = @"reason";
-      v98[0] = v8;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:&v97 count:1];
+      v96 = @"reason";
+      v97[0] = v8;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:&v96 count:1];
       v15 = [v13 errorWithDomain:@"com.apple.speakerrecognition" code:754 userInfo:v14];
       goto LABEL_55;
     }
@@ -663,18 +644,18 @@ void __93__SSRVoiceProfileRetrainerPSRExclave__logSpeakerConfusion_forProfileArr
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-      v89 = 2114;
-      *v90 = v14;
+      v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+      v88 = 2114;
+      *v89 = v14;
       _os_log_error_impl(&dword_225E12000, v21, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
     }
 
     v22 = MEMORY[0x277CCA9B8];
-    v95 = @"reason";
-    v96 = v14;
+    v94 = @"reason";
+    v95 = v14;
     v23 = MEMORY[0x277CBEAC0];
-    v24 = &v96;
-    v25 = &v95;
+    v24 = &v95;
+    v25 = &v94;
 LABEL_17:
     v29 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
     v15 = [v22 errorWithDomain:@"com.apple.speakerrecognition" code:754 userInfo:v29];
@@ -691,23 +672,23 @@ LABEL_17:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-      v89 = 2114;
-      *v90 = v14;
+      v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+      v88 = 2114;
+      *v89 = v14;
       _os_log_error_impl(&dword_225E12000, v28, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
     }
 
     v22 = MEMORY[0x277CCA9B8];
-    v93 = @"reason";
-    v94 = v14;
+    v92 = @"reason";
+    v93 = v14;
     v23 = MEMORY[0x277CBEAC0];
-    v24 = &v94;
-    v25 = &v93;
+    v24 = &v93;
+    v25 = &v92;
     goto LABEL_17;
   }
 
-  v78 = v8;
-  v76 = v7;
+  v77 = v8;
+  v75 = v7;
   v30 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
@@ -715,19 +696,19 @@ LABEL_17:
     v32 = v30;
     profileID4 = [(SSRVoiceProfile *)voiceProfile profileID];
     *buf = 136315906;
-    v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-    v89 = 2114;
-    *v90 = profileID4;
-    *&v90[8] = 2050;
-    *&v90[10] = getSATVectorCount;
-    v91 = 2050;
-    v92 = v18;
+    v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+    v88 = 2114;
+    *v89 = profileID4;
+    *&v89[8] = 2050;
+    *&v89[10] = getSATVectorCount;
+    v90 = 2050;
+    v91 = v18;
     _os_log_impl(&dword_225E12000, v32, OS_LOG_TYPE_DEFAULT, "%s Processing Voice Profile %{public}@ with vectorCount %{public}lu and expVectorCount %{public}lu", buf, 0x2Au);
   }
 
-  v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v80 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:getSATVectorCount - v18];
-  v79 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v18];
+  v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v79 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:getSATVectorCount - v18];
+  v78 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v18];
   do
   {
     v34 = getSATVectorCount - 1;
@@ -742,13 +723,13 @@ LABEL_17:
         profileID5 = [(SSRVoiceProfile *)v37 profileID];
         v40 = [v35 length];
         *buf = 136315906;
-        v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-        v89 = 2050;
-        *v90 = getSATVectorCount - 1;
-        *&v90[8] = 2114;
-        *&v90[10] = profileID5;
-        v91 = 2050;
-        v92 = v40 >> 2;
+        v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+        v88 = 2050;
+        *v89 = getSATVectorCount - 1;
+        *&v89[8] = 2114;
+        *&v89[10] = profileID5;
+        v90 = 2050;
+        v91 = v40 >> 2;
         _os_log_impl(&dword_225E12000, v38, OS_LOG_TYPE_DEFAULT, "%s Processing %{public}lu vector from %{public}@ with size %{public}lu", buf, 0x2Au);
       }
 
@@ -763,12 +744,12 @@ LABEL_17:
           v56 = v54;
           profileID6 = [(SSRVoiceProfile *)v55 profileID];
           *buf = 136315650;
-          v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-          v89 = 1026;
-          *v90 = getSATVectorCount - 1;
-          v8 = v78;
-          *&v90[4] = 2114;
-          *&v90[6] = profileID6;
+          v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+          v88 = 1026;
+          *v89 = getSATVectorCount - 1;
+          v8 = v77;
+          *&v89[4] = 2114;
+          *&v89[6] = profileID6;
           _os_log_error_impl(&dword_225E12000, v56, OS_LOG_TYPE_ERROR, "%s Failed to get scores for vectorIdx %{public}u of profile %{public}@", buf, 0x1Cu);
         }
 
@@ -782,9 +763,9 @@ LABEL_17:
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-          v89 = 2114;
-          *v90 = v42;
+          v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+          v88 = 2114;
+          *v89 = v42;
           _os_log_error_impl(&dword_225E12000, v58, OS_LOG_TYPE_ERROR, "%s Failed to allocate mapped scores for %{public}@", buf, 0x16u);
         }
 
@@ -793,7 +774,7 @@ LABEL_17:
 
       if (getSATVectorCount <= v18)
       {
-        v59 = v79;
+        v59 = v78;
       }
 
       else
@@ -801,7 +782,7 @@ LABEL_17:
         if (policyCopy)
         {
           v44 = policyCopy[2](policyCopy, v42);
-          [v80 addObject:v43];
+          [v79 addObject:v43];
           if ((v44 & 1) == 0)
           {
             v45 = *MEMORY[0x277D01970];
@@ -812,23 +793,23 @@ LABEL_17:
               v48 = v45;
               profileID7 = [(SSRVoiceProfile *)v47 profileID];
               *buf = 136315650;
-              v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-              v89 = 1026;
-              *v90 = v46;
-              v8 = v78;
-              *&v90[4] = 2114;
-              *&v90[6] = profileID7;
+              v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+              v88 = 1026;
+              *v89 = v46;
+              v8 = v77;
+              *&v89[4] = 2114;
+              *&v89[6] = profileID7;
               _os_log_impl(&dword_225E12000, v48, OS_LOG_TYPE_DEFAULT, "%s Adding vector %{public}u for deletion from profile %{public}@", buf, 0x1Cu);
             }
 
             v50 = [MEMORY[0x277CCABB0] numberWithInteger:v34];
-            [v77 addObject:v50];
+            [v76 addObject:v50];
           }
 
           goto LABEL_41;
         }
 
-        v59 = v80;
+        v59 = v79;
       }
 
       [v59 addObject:v43];
@@ -844,12 +825,12 @@ LABEL_42:
       v52 = v36;
       profileID8 = [(SSRVoiceProfile *)v51 profileID];
       *buf = 136315650;
-      v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-      v89 = 1024;
-      *v90 = getSATVectorCount - 1;
-      v8 = v78;
-      *&v90[4] = 2114;
-      *&v90[6] = profileID8;
+      v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+      v88 = 1024;
+      *v89 = getSATVectorCount - 1;
+      v8 = v77;
+      *&v89[4] = 2114;
+      *&v89[6] = profileID8;
       _os_log_error_impl(&dword_225E12000, v52, OS_LOG_TYPE_ERROR, "%s Failed to %u vector from profile %{public}@", buf, 0x1Cu);
     }
 
@@ -859,27 +840,27 @@ LABEL_43:
   }
 
   while ((v34 + 1) > 1);
-  v81 = policyCopy;
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
+  v80 = policyCopy;
   v83 = 0u;
-  v14 = v77;
-  v60 = [v14 countByEnumeratingWithState:&v82 objects:v86 count:16];
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v14 = v76;
+  v60 = [v14 countByEnumeratingWithState:&v81 objects:v85 count:16];
   if (v60)
   {
     v61 = v60;
-    v62 = *v83;
+    v62 = *v82;
     do
     {
       for (i = 0; i != v61; ++i)
       {
-        if (*v83 != v62)
+        if (*v82 != v62)
         {
           objc_enumerationMutation(v14);
         }
 
-        v64 = *(*(&v82 + 1) + 8 * i);
+        v64 = *(*(&v81 + 1) + 8 * i);
         v65 = *MEMORY[0x277D01970];
         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
         {
@@ -888,11 +869,11 @@ LABEL_43:
           v68 = v65;
           profileID9 = [(SSRVoiceProfile *)v67 profileID];
           *buf = 136315650;
-          v88 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
-          v89 = 2114;
-          *v90 = v64;
-          *&v90[8] = 2114;
-          *&v90[10] = profileID9;
+          v87 = "[SSRVoiceProfileRetrainerPSRExclave purgeConfusionInformationWithPolicy:]";
+          v88 = 2114;
+          *v89 = v64;
+          *&v89[8] = 2114;
+          *&v89[10] = profileID9;
           _os_log_impl(&dword_225E12000, v68, OS_LOG_TYPE_DEFAULT, "%s Deleting vector %{public}@ from profile %{public}@", buf, 0x20u);
 
           v14 = v66;
@@ -901,7 +882,7 @@ LABEL_43:
         -[SSRSpeakerRecognitionScorer deleteVectorAtIndex:](self->_psrScorer, "deleteVectorAtIndex:", [v64 intValue]);
       }
 
-      v61 = [v14 countByEnumeratingWithState:&v82 objects:v86 count:16];
+      v61 = [v14 countByEnumeratingWithState:&v81 objects:v85 count:16];
     }
 
     while (v61);
@@ -911,24 +892,23 @@ LABEL_43:
   v71 = self->_voiceProfile;
   configVersion = self->_configVersion;
   selfCopy = self;
-  v29 = v80;
-  [(SSRVoiceProfileRetrainerPSRExclave *)selfCopy _logSpeakerConfusionWithExplicitScores:v79 withImplicitScores:v80 withPurgeUtterances:v70 forProfile:v71 forConfigVersion:configVersion];
+  v29 = v79;
+  [(SSRVoiceProfileRetrainerPSRExclave *)selfCopy _logSpeakerConfusionWithExplicitScores:v78 withImplicitScores:v79 withPurgeUtterances:v70 forProfile:v71 forConfigVersion:configVersion];
 
   v15 = 0;
-  policyCopy = v81;
-  v7 = v76;
-  v8 = v78;
+  policyCopy = v80;
+  v7 = v75;
+  v8 = v77;
 LABEL_54:
 
 LABEL_55:
-  v74 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (void)purgeLastSpeakerEmbedding
 {
-  *&v16[13] = *MEMORY[0x277D85DE8];
+  *&v15[13] = *MEMORY[0x277D85DE8];
   getSATVectorCount = [(SSRSpeakerRecognitionScorer *)self->_psrScorer getSATVectorCount];
   v4 = *MEMORY[0x277D01970];
   if (getSATVectorCount)
@@ -939,13 +919,13 @@ LABEL_55:
       voiceProfile = self->_voiceProfile;
       v7 = v4;
       profileID = [(SSRVoiceProfile *)voiceProfile profileID];
-      v13 = 136315650;
-      v14 = "[SSRVoiceProfileRetrainerPSRExclave purgeLastSpeakerEmbedding]";
-      v15 = 1026;
-      *v16 = v5;
-      v16[2] = 2114;
-      *&v16[3] = profileID;
-      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Deleting vector %{public}d from profile %{public}@", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "[SSRVoiceProfileRetrainerPSRExclave purgeLastSpeakerEmbedding]";
+      v14 = 1026;
+      *v15 = v5;
+      v15[2] = 2114;
+      *&v15[3] = profileID;
+      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Deleting vector %{public}d from profile %{public}@", &v12, 0x1Cu);
     }
 
     [(SSRSpeakerRecognitionScorer *)self->_psrScorer deleteVectorAtIndex:v5];
@@ -953,63 +933,61 @@ LABEL_55:
 
   else if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v10 = self->_voiceProfile;
-    v11 = v4;
-    profileID2 = [(SSRVoiceProfile *)v10 profileID];
-    v13 = 136315394;
-    v14 = "[SSRVoiceProfileRetrainerPSRExclave purgeLastSpeakerEmbedding]";
-    v15 = 2114;
-    *v16 = profileID2;
-    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s ERR: Vector count of zero for profile %{public}@", &v13, 0x16u);
+    v9 = self->_voiceProfile;
+    v10 = v4;
+    profileID2 = [(SSRVoiceProfile *)v9 profileID];
+    v12 = 136315394;
+    v13 = "[SSRVoiceProfileRetrainerPSRExclave purgeLastSpeakerEmbedding]";
+    v14 = 2114;
+    *v15 = profileID2;
+    _os_log_error_impl(&dword_225E12000, v10, OS_LOG_TYPE_ERROR, "%s ERR: Vector count of zero for profile %{public}@", &v12, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUtterances:(id)utterances withPolicy:(id)policy withCompletion:(id)completion
 {
-  v97[1] = *MEMORY[0x277D85DE8];
+  v96[1] = *MEMORY[0x277D85DE8];
   utterancesCopy = utterances;
   policyCopy = policy;
   completionCopy = completion;
   v11 = objc_autoreleasePoolPush();
-  v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v67 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v61 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v66 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (utterancesCopy && [utterancesCopy count])
   {
-    v58 = v11;
-    v59 = completionCopy;
-    v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [v68 addObject:self->_psrScorer];
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v57 = v11;
+    v58 = completionCopy;
+    v67 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    [v67 addObject:self->_psrScorer];
     v72 = 0u;
-    v60 = utterancesCopy;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v59 = utterancesCopy;
     obj = utterancesCopy;
-    v12 = [obj countByEnumeratingWithState:&v71 objects:v95 count:16];
-    v13 = v67;
+    v12 = [obj countByEnumeratingWithState:&v70 objects:v94 count:16];
+    v13 = v66;
     if (!v12)
     {
       goto LABEL_34;
     }
 
     v14 = v12;
-    v15 = *v72;
-    v70 = *MEMORY[0x277CCA450];
-    v66 = policyCopy;
-    v61 = *v72;
+    v15 = *v71;
+    v69 = *MEMORY[0x277CCA450];
+    v65 = policyCopy;
+    v60 = *v71;
     while (1)
     {
       v16 = 0;
       do
       {
-        if (*v72 != v15)
+        if (*v71 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v71 + 1) + 8 * v16);
+        v17 = *(*(&v70 + 1) + 8 * v16);
         pathExtension = [v17 pathExtension];
         v19 = [pathExtension isEqualToString:@"wav"];
 
@@ -1024,7 +1002,7 @@ LABEL_55:
             goto LABEL_16;
           }
 
-          path = [(SSRVoiceProfileRetrainerPSRExclave *)self _processSpeakerVector:self->_speakerVector withSize:self->_speakerVectorSize withScorers:v68 processedAudioDurationMs:self->_processedAudioDurationMs];
+          path = [(SSRVoiceProfileRetrainerPSRExclave *)self _processSpeakerVector:self->_speakerVector withSize:self->_speakerVectorSize withScorers:v67 processedAudioDurationMs:self->_processedAudioDurationMs];
           if (!path)
           {
             v38 = MEMORY[0x277CCACA8];
@@ -1036,23 +1014,23 @@ LABEL_55:
             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v78 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
-              v79 = 2114;
-              v80 = uRLByDeletingLastPathComponent;
+              v77 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
+              v78 = 2114;
+              v79 = uRLByDeletingLastPathComponent;
               _os_log_error_impl(&dword_225E12000, v41, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
             }
 
             v42 = MEMORY[0x277CCA9B8];
-            v91 = @"reason";
-            v92 = uRLByDeletingLastPathComponent;
-            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+            v90 = @"reason";
+            v91 = uRLByDeletingLastPathComponent;
+            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
             v21 = [v42 errorWithDomain:@"com.apple.speakerrecognition" code:754 userInfo:v43];
 
             path2 = [v17 path];
-            v13 = v67;
-            [v67 setObject:v21 forKey:path2];
+            v13 = v66;
+            [v66 setObject:v21 forKey:path2];
 
-            policyCopy = v66;
+            policyCopy = v65;
             goto LABEL_15;
           }
 
@@ -1068,28 +1046,28 @@ LABEL_55:
               lastPathComponent4 = [uRLByDeletingLastPathComponent lastPathComponent];
               v28URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
               [v28URLByDeletingLastPathComponent lastPathComponent];
-              v34 = v64 = uRLByDeletingLastPathComponent;
+              v34 = v63 = uRLByDeletingLastPathComponent;
               getSATVectorCount = [(SSRSpeakerRecognitionScorer *)self->_psrScorer getSATVectorCount];
               *buf = 136316674;
-              v78 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
-              v79 = 2114;
-              v80 = lastPathComponent2;
-              v81 = 2114;
-              v82 = lastPathComponent3;
-              v83 = 2114;
-              v84 = lastPathComponent4;
-              v85 = 2114;
-              v86 = v34;
-              v87 = 2050;
-              v88 = getSATVectorCount;
-              v89 = 2114;
-              v90 = path;
+              v77 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
+              v78 = 2114;
+              v79 = lastPathComponent2;
+              v80 = 2114;
+              v81 = lastPathComponent3;
+              v82 = 2114;
+              v83 = lastPathComponent4;
+              v84 = 2114;
+              v85 = v34;
+              v86 = 2050;
+              v87 = getSATVectorCount;
+              v88 = 2114;
+              v89 = path;
               _os_log_impl(&dword_225E12000, log, OS_LOG_TYPE_DEFAULT, "%s Adding %{public}@ to {%{public}@, %{public}@, %{public}@} as %{public}lu vector with scoreCard %{public}@", buf, 0x48u);
 
-              v15 = v61;
-              uRLByDeletingLastPathComponent = v64;
+              v15 = v60;
+              uRLByDeletingLastPathComponent = v63;
 
-              policyCopy = v66;
+              policyCopy = v65;
             }
 
             getSATVectorCount2 = [(SSRSpeakerRecognitionScorer *)self->_psrScorer getSATVectorCount];
@@ -1097,7 +1075,7 @@ LABEL_55:
             if ([(SSRSpeakerRecognitionScorer *)self->_psrScorer getSATVectorCount]- getSATVectorCount2 == 1)
             {
               path3 = [v17 path];
-              [v62 setObject:path forKey:path3];
+              [v61 setObject:path forKey:path3];
               v21 = 0;
             }
 
@@ -1108,25 +1086,25 @@ LABEL_55:
               if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v78 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
-                v79 = 2114;
-                v80 = path3;
+                v77 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
+                v78 = 2114;
+                v79 = path3;
                 _os_log_error_impl(&dword_225E12000, v45, OS_LOG_TYPE_ERROR, "%s %{public}@", buf, 0x16u);
               }
 
               v46 = MEMORY[0x277CCA9B8];
-              v75 = v70;
-              v76 = path3;
-              v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+              v74 = v69;
+              v75 = path3;
+              v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
               v21 = [v46 errorWithDomain:@"com.apple.speakerrecognition" code:739 userInfo:v47];
 
               path4 = [v17 path];
-              [v67 setObject:v21 forKey:path4];
+              [v66 setObject:v21 forKey:path4];
 
-              policyCopy = v66;
+              policyCopy = v65;
             }
 
-            v13 = v67;
+            v13 = v66;
             goto LABEL_15;
           }
 
@@ -1143,16 +1121,16 @@ LABEL_55:
           if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v78 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
-            v79 = 2114;
-            v80 = path;
+            v77 = "[SSRVoiceProfileRetrainerPSRExclave addUtterances:withPolicy:withCompletion:]";
+            v78 = 2114;
+            v79 = path;
             _os_log_error_impl(&dword_225E12000, v25, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
           }
 
           v26 = MEMORY[0x277CCA9B8];
-          v93 = v70;
-          v94 = path;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+          v92 = v69;
+          v93 = path;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
           v21 = [v26 errorWithDomain:@"com.apple.speakerrecognition" code:729 userInfo:v27];
         }
 
@@ -1165,7 +1143,7 @@ LABEL_16:
       }
 
       while (v14 != v16);
-      v49 = [obj countByEnumeratingWithState:&v71 objects:v95 count:16];
+      v49 = [obj countByEnumeratingWithState:&v70 objects:v94 count:16];
       v14 = v49;
       if (!v49)
       {
@@ -1175,15 +1153,15 @@ LABEL_34:
         absoluteString = [(NSURL *)self->_psrModelFilePath absoluteString];
         [(SSRVoiceProfile *)voiceProfile updateVoiceProfilePathExclave:absoluteString];
 
-        completionCopy = v59;
-        if (v59)
+        completionCopy = v58;
+        if (v58)
         {
-          (*(v59 + 2))(v59, 0, v62, v67);
+          (*(v58 + 2))(v58, 0, v61, v66);
         }
 
-        utterancesCopy = v60;
-        v11 = v58;
-        v52 = v68;
+        utterancesCopy = v59;
+        v11 = v57;
+        v52 = v67;
         goto LABEL_39;
       }
     }
@@ -1194,9 +1172,9 @@ LABEL_34:
   if (completionCopy)
   {
     v54 = MEMORY[0x277CCA9B8];
-    v96 = *MEMORY[0x277CCA450];
-    v97[0] = v53;
-    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:&v96 count:1];
+    v95 = *MEMORY[0x277CCA450];
+    v96[0] = v53;
+    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:&v95 count:1];
     v56 = [v54 errorWithDomain:@"com.apple.speakerrecognition" code:701 userInfo:v55];
     (*(completionCopy + 2))(completionCopy, v56, 0, 0);
   }
@@ -1204,34 +1182,31 @@ LABEL_34:
 LABEL_39:
 
   objc_autoreleasePoolPop(v11);
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)implicitTrainingRequired
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   getSATVectorCount = [(SSRSpeakerRecognitionScorer *)self->_psrScorer getSATVectorCount];
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     maximumSpeakerVectors = self->_maximumSpeakerVectors;
-    v8 = 136315650;
-    v9 = "[SSRVoiceProfileRetrainerPSRExclave implicitTrainingRequired]";
-    v10 = 2050;
-    v11 = getSATVectorCount;
-    v12 = 2050;
-    v13 = maximumSpeakerVectors;
-    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s satVectorCount %{public}ld maxCount %{public}ld", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[SSRVoiceProfileRetrainerPSRExclave implicitTrainingRequired]";
+    v9 = 2050;
+    v10 = getSATVectorCount;
+    v11 = 2050;
+    v12 = maximumSpeakerVectors;
+    _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s satVectorCount %{public}ld maxCount %{public}ld", &v7, 0x20u);
   }
 
-  result = getSATVectorCount < self->_maximumSpeakerVectors;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return getSATVectorCount < self->_maximumSpeakerVectors;
 }
 
 - (BOOL)needsRetrainingWithAudioFiles:(id)files
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   if (![(SSRSpeakerRecognitionScorer *)self->_psrScorer satModelAvailable])
   {
@@ -1241,13 +1216,13 @@ LABEL_39:
       goto LABEL_12;
     }
 
-    v32 = 136315138;
-    v33 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
+    v31 = 136315138;
+    v32 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
     v18 = "%s PSRNeedsRetraining(YES): satModelAvailable is not available!";
     v19 = v17;
     v20 = 12;
 LABEL_11:
-    _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, v18, &v32, v20);
+    _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, v18, &v31, v20);
     goto LABEL_12;
   }
 
@@ -1264,10 +1239,10 @@ LABEL_11:
     }
 
     psrModelFilePath = self->_psrModelFilePath;
-    v32 = 136315394;
-    v33 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
-    v34 = 2114;
-    v35 = psrModelFilePath;
+    v31 = 136315394;
+    v32 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
+    v33 = 2114;
+    v34 = psrModelFilePath;
     v18 = "%s PSRNeedsRetraining(YES): phsSATFile doesnt exist at: %{public}@.";
     v19 = v21;
     v20 = 22;
@@ -1286,19 +1261,19 @@ LABEL_11:
       spIdType = self->_spIdType;
       v14 = v12;
       v15 = [SSRUtils stringForCSSpIdType:spIdType];
-      v32 = 136316162;
-      v33 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
-      v34 = 2050;
-      v35 = v8;
-      v36 = 2050;
-      v37 = v10;
-      v38 = 2050;
-      v39 = maximumSpeakerVectors;
-      v40 = 2114;
-      v41 = v15;
+      v31 = 136316162;
+      v32 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
+      v33 = 2050;
+      v34 = v8;
+      v35 = 2050;
+      v36 = v10;
+      v37 = 2050;
+      v38 = maximumSpeakerVectors;
+      v39 = 2114;
+      v40 = v15;
       v16 = "%s PSRNeedsRetraining(YES): SpeakerVectors MISMATCH! (%{public}ld, %{public}ld, %{public}ld, %{public}@)";
 LABEL_18:
-      _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, v16, &v32, 0x34u);
+      _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, v16, &v31, 0x34u);
 
       goto LABEL_12;
     }
@@ -1306,25 +1281,25 @@ LABEL_18:
     goto LABEL_12;
   }
 
-  v26 = *MEMORY[0x277D01970];
-  v27 = os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT);
+  v25 = *MEMORY[0x277D01970];
+  v26 = os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT);
   if (v8 > maximumSpeakerVectors && v10 != maximumSpeakerVectors)
   {
-    if (v27)
+    if (v26)
     {
-      v28 = self->_spIdType;
-      v14 = v26;
-      v15 = [SSRUtils stringForCSSpIdType:v28];
-      v32 = 136316162;
-      v33 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
-      v34 = 2050;
-      v35 = v8;
-      v36 = 2050;
-      v37 = v10;
-      v38 = 2050;
-      v39 = maximumSpeakerVectors;
-      v40 = 2114;
-      v41 = v15;
+      v27 = self->_spIdType;
+      v14 = v25;
+      v15 = [SSRUtils stringForCSSpIdType:v27];
+      v31 = 136316162;
+      v32 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
+      v33 = 2050;
+      v34 = v8;
+      v35 = 2050;
+      v36 = v10;
+      v37 = 2050;
+      v38 = maximumSpeakerVectors;
+      v39 = 2114;
+      v40 = v15;
       v16 = "%s PSRNeedsRetraining(YES): SpeakerVectors Max MISMATCH! (%{public}ld, %{public}ld, %{public}ld, %{public}@)";
       goto LABEL_18;
     }
@@ -1334,28 +1309,27 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v27)
+  if (v26)
   {
-    v29 = self->_spIdType;
-    v30 = v26;
-    v31 = [SSRUtils stringForCSSpIdType:v29];
-    v32 = 136316162;
-    v33 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
-    v34 = 2050;
-    v35 = v8;
-    v36 = 2050;
-    v37 = v10;
-    v38 = 2050;
-    v39 = maximumSpeakerVectors;
-    v40 = 2114;
-    v41 = v31;
-    _os_log_impl(&dword_225E12000, v30, OS_LOG_TYPE_DEFAULT, "%s PSRNeedsRetraining(NO): audioFiles:%{public}ld, vectors:%{public}ld, max:%{public}ld, modelType: %{public}@", &v32, 0x34u);
+    v28 = self->_spIdType;
+    v29 = v25;
+    v30 = [SSRUtils stringForCSSpIdType:v28];
+    v31 = 136316162;
+    v32 = "[SSRVoiceProfileRetrainerPSRExclave needsRetrainingWithAudioFiles:]";
+    v33 = 2050;
+    v34 = v8;
+    v35 = 2050;
+    v36 = v10;
+    v37 = 2050;
+    v38 = maximumSpeakerVectors;
+    v39 = 2114;
+    v40 = v30;
+    _os_log_impl(&dword_225E12000, v29, OS_LOG_TYPE_DEFAULT, "%s PSRNeedsRetraining(NO): audioFiles:%{public}ld, vectors:%{public}ld, max:%{public}ld, modelType: %{public}@", &v31, 0x34u);
   }
 
   v23 = 0;
 LABEL_13:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -1364,15 +1338,14 @@ LABEL_13:
   v3 = MEMORY[0x277CCACA8];
   v4 = [SSRUtils stringForSpeakerRecognizerType:1];
   profileID = [(SSRVoiceProfile *)self->_voiceProfile profileID];
-  psrModelFilePath = self->_psrModelFilePath;
-  v7 = [v3 stringWithFormat:@"{%@:%@:%@:%@}", v4, profileID, psrModelFilePath, self->_asset];
+  v6 = [v3 stringWithFormat:@"{%@:%@:%@:%@}", v4, profileID, self->_psrModelFilePath, self->_asset];
 
-  return v7;
+  return v6;
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_novDetector)
   {
     nd_close();
@@ -1383,52 +1356,49 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[SSRVoiceProfileRetrainerPSRExclave dealloc]";
-    v8 = 2114;
+    v6 = "[SSRVoiceProfileRetrainerPSRExclave dealloc]";
+    v7 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s dealloc %{public}@", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = SSRVoiceProfileRetrainerPSRExclave;
-  [(SSRVoiceProfileRetrainerPSRExclave *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SSRVoiceProfileRetrainerPSRExclave;
+  [(SSRVoiceProfileRetrainerPSRExclave *)&v4 dealloc];
 }
 
 - (BOOL)resetModelForRetraining
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     psrModelFilePath = self->_psrModelFilePath;
-    v9 = 136315394;
-    v10 = "[SSRVoiceProfileRetrainerPSRExclave resetModelForRetraining]";
-    v11 = 2114;
-    v12 = psrModelFilePath;
-    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s Deleting model file at %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SSRVoiceProfileRetrainerPSRExclave resetModelForRetraining]";
+    v10 = 2114;
+    v11 = psrModelFilePath;
+    _os_log_error_impl(&dword_225E12000, v3, OS_LOG_TYPE_ERROR, "%s Deleting model file at %{public}@", &v8, 0x16u);
   }
 
   path = [(NSURL *)self->_psrModelFilePath path];
   v5 = [SSRUtils removeItemAtPath:path];
 
-  result = [(SSRSpeakerRecognitionScorer *)self->_psrScorer resetScorerWithModelFilePath:self->_psrModelFilePath];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(SSRSpeakerRecognitionScorer *)self->_psrScorer resetScorerWithModelFilePath:self->_psrModelFilePath];
 }
 
 - (SSRVoiceProfileRetrainerPSRExclave)initWithVoiceRetrainingContext:(id)context secureAsset:(id)asset secureSpeakerRecognitionConfig:(id)config
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   assetCopy = asset;
   configCopy = config;
   selfCopy = 0;
   if (contextCopy && assetCopy)
   {
-    v63.receiver = self;
-    v63.super_class = SSRVoiceProfileRetrainerPSRExclave;
-    self = [(SSRVoiceProfileRetrainerPSRExclave *)&v63 init];
+    v60.receiver = self;
+    v60.super_class = SSRVoiceProfileRetrainerPSRExclave;
+    self = [(SSRVoiceProfileRetrainerPSRExclave *)&v60 init];
     if (!self)
     {
 LABEL_33:
@@ -1458,17 +1428,17 @@ LABEL_33:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            v69 = 1;
+            v66 = 1;
             psrMemoryIndex = [(SecureSpeakerRecognitionConfig *)self->_speakerRecognitionConfig psrMemoryIndex];
             memoryIndexes = [psrMemoryIndex memoryIndexes];
-            v60[0] = MEMORY[0x277D85DD0];
-            v60[1] = 3221225472;
-            v60[2] = __112__SSRVoiceProfileRetrainerPSRExclave_initWithVoiceRetrainingContext_secureAsset_secureSpeakerRecognitionConfig___block_invoke;
-            v60[3] = &unk_278578A48;
-            v62 = buf;
+            v57[0] = MEMORY[0x277D85DD0];
+            v57[1] = 3221225472;
+            v57[2] = __112__SSRVoiceProfileRetrainerPSRExclave_initWithVoiceRetrainingContext_secureAsset_secureSpeakerRecognitionConfig___block_invoke;
+            v57[3] = &unk_278578A48;
+            v59 = buf;
             selfCopy2 = self;
-            v61 = selfCopy2;
-            [memoryIndexes enumerateKeysAndObjectsUsingBlock:v60];
+            v58 = selfCopy2;
+            [memoryIndexes enumerateKeysAndObjectsUsingBlock:v57];
 
             if ((*(*&buf[8] + 24) & 1) == 0)
             {
@@ -1477,76 +1447,74 @@ LABEL_33:
               goto LABEL_22;
             }
 
-            novDetector = self->_novDetector;
             psrConfigString = [(SecureSpeakerRecognitionConfig *)self->_speakerRecognitionConfig psrConfigString];
-            v21 = psrConfigString;
+            v20 = psrConfigString;
             [psrConfigString cStringUsingEncoding:4];
-            v22 = nd_initialize();
+            v21 = nd_initialize();
 
-            v23 = *MEMORY[0x277D01970];
-            if (v22)
+            v22 = *MEMORY[0x277D01970];
+            if (v21)
             {
-              v24 = v23;
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v23 = v22;
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
-                v55 = self->_novDetector;
-                v56 = nd_error();
-                *v64 = 136315394;
-                v65 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-                v66 = 2080;
-                v67 = v56;
-                _os_log_error_impl(&dword_225E12000, v24, OS_LOG_TYPE_ERROR, "%s Failed to initialize nov detector with error %s", v64, 0x16u);
+                v53 = nd_error();
+                *v61 = 136315394;
+                v62 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
+                v63 = 2080;
+                v64 = v53;
+                _os_log_error_impl(&dword_225E12000, v23, OS_LOG_TYPE_ERROR, "%s Failed to initialize nov detector with error %s", v61, 0x16u);
               }
             }
 
             else if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_INFO))
             {
-              *v64 = 136315138;
-              v65 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-              _os_log_impl(&dword_225E12000, v23, OS_LOG_TYPE_INFO, "%s Successfully created nov detector", v64, 0xCu);
+              *v61 = 136315138;
+              v62 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
+              _os_log_impl(&dword_225E12000, v22, OS_LOG_TYPE_INFO, "%s Successfully created nov detector", v61, 0xCu);
             }
 
             _Block_object_dispose(buf, 8);
-            if (v22)
+            if (v21)
             {
               goto LABEL_22;
             }
 
             if ([contextCopy forceRetrain])
             {
-              v27 = *MEMORY[0x277D015C8];
+              v26 = *MEMORY[0x277D015C8];
               if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
               {
-                v28 = v27;
+                v27 = v26;
                 secureProfileModelFilePath = [v15 secureProfileModelFilePath];
                 *buf = 136315394;
                 *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
                 *&buf[12] = 2114;
                 *&buf[14] = secureProfileModelFilePath;
-                _os_log_impl(&dword_225E12000, v28, OS_LOG_TYPE_DEFAULT, "%s Deleting model file at %{public}@", buf, 0x16u);
+                _os_log_impl(&dword_225E12000, v27, OS_LOG_TYPE_DEFAULT, "%s Deleting model file at %{public}@", buf, 0x16u);
               }
 
               secureProfileModelFilePath2 = [v15 secureProfileModelFilePath];
               path = [secureProfileModelFilePath2 path];
-              v32 = [SSRUtils removeItemAtPath:path];
+              v31 = [SSRUtils removeItemAtPath:path];
             }
 
-            v33 = [SSRSpeakerRecognitionScorer alloc];
+            v32 = [SSRSpeakerRecognitionScorer alloc];
             voiceProfile = [contextCopy voiceProfile];
             profileID = [voiceProfile profileID];
             secureProfileModelFilePath3 = [v15 secureProfileModelFilePath];
             psrConfigString2 = [(SecureSpeakerRecognitionConfig *)self->_speakerRecognitionConfig psrConfigString];
             psrMemoryIndex2 = [(SecureSpeakerRecognitionConfig *)self->_speakerRecognitionConfig psrMemoryIndex];
-            LOBYTE(v57) = 1;
-            v38 = [(SSRSpeakerRecognitionScorer *)v33 initWithProfileID:profileID withModelFile:secureProfileModelFilePath3 withConfigFile:0 withResourceFile:0 configData:psrConfigString2 memoryIndex:psrMemoryIndex2 withOffsetsType:0 forRetraining:v57];
+            LOBYTE(v54) = 1;
+            v37 = [(SSRSpeakerRecognitionScorer *)v32 initWithProfileID:profileID withModelFile:secureProfileModelFilePath3 withConfigFile:0 withResourceFile:0 configData:psrConfigString2 memoryIndex:psrMemoryIndex2 withOffsetsType:0 forRetraining:v54];
             psrScorer = selfCopy2->_psrScorer;
-            selfCopy2->_psrScorer = v38;
+            selfCopy2->_psrScorer = v37;
 
             if (selfCopy2->_psrScorer)
             {
-              v40 = dispatch_queue_create("com.apple.corespeech.speakerretrain.secure.psrq", 0);
+              v39 = dispatch_queue_create("com.apple.corespeech.speakerretrain.secure.psrq", 0);
               queue = selfCopy2->_queue;
-              selfCopy2->_queue = v40;
+              selfCopy2->_queue = v39;
 
               configFilePath = [v15 configFilePath];
               configFilePath = selfCopy2->_configFilePath;
@@ -1576,7 +1544,7 @@ LABEL_33:
               goto LABEL_33;
             }
 
-            v25 = *MEMORY[0x277D015C8];
+            v24 = *MEMORY[0x277D015C8];
             if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_22;
@@ -1584,16 +1552,16 @@ LABEL_33:
 
             *buf = 136315138;
             *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-            v26 = "%s ERR: Cannot create PSR Scorer";
+            v25 = "%s ERR: Cannot create PSR Scorer";
             goto LABEL_21;
           }
 
-          v25 = *MEMORY[0x277D015C8];
+          v24 = *MEMORY[0x277D015C8];
           if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
             *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-            v26 = "%s Secure Speaker detector failed to create nov detector.";
+            v25 = "%s Secure Speaker detector failed to create nov detector.";
             goto LABEL_21;
           }
 
@@ -1603,7 +1571,7 @@ LABEL_22:
           goto LABEL_34;
         }
 
-        v25 = *MEMORY[0x277D015C8];
+        v24 = *MEMORY[0x277D015C8];
         if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_22;
@@ -1611,12 +1579,12 @@ LABEL_22:
 
         *buf = 136315138;
         *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-        v26 = "%s Secure Speaker detector config is nil";
+        v25 = "%s Secure Speaker detector config is nil";
       }
 
       else
       {
-        v25 = *MEMORY[0x277D015C8];
+        v24 = *MEMORY[0x277D015C8];
         if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_22;
@@ -1624,13 +1592,13 @@ LABEL_22:
 
         *buf = 136315138;
         *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-        v26 = "%s PSRModel Retraining asset is nil! - Skipping";
+        v25 = "%s PSRModel Retraining asset is nil! - Skipping";
       }
     }
 
     else
     {
-      v25 = *MEMORY[0x277D015C8];
+      v24 = *MEMORY[0x277D015C8];
       if (!os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_22;
@@ -1638,52 +1606,48 @@ LABEL_22:
 
       *buf = 136315138;
       *&buf[4] = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]";
-      v26 = "%s PSRModel Retraining context is nil! - Skipping";
+      v25 = "%s PSRModel Retraining context is nil! - Skipping";
     }
 
 LABEL_21:
-    _os_log_impl(&dword_225E12000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
+    _os_log_impl(&dword_225E12000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
     goto LABEL_22;
   }
 
 LABEL_34:
 
-  v53 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 void __112__SSRVoiceProfileRetrainerPSRExclave_initWithVoiceRetrainingContext_secureAsset_secureSpeakerRecognitionConfig___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = v7;
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
-    v9 = *(*(a1 + 32) + 8);
-    v10 = v7;
-    v11 = a3;
+    v9 = v7;
+    v10 = a3;
     [v8 cStringUsingEncoding:4];
-    [v11 bytes];
-    [v11 length];
+    [v10 bytes];
+    [v10 length];
 
     if (nd_addresource())
     {
-      v12 = *MEMORY[0x277D01970];
+      v11 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEBUG))
       {
-        v14 = 136315395;
-        v15 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]_block_invoke";
-        v16 = 2113;
-        v17 = v8;
-        _os_log_debug_impl(&dword_225E12000, v12, OS_LOG_TYPE_DEBUG, "%s Failed to add resource %{private}@", &v14, 0x16u);
+        v12 = 136315395;
+        v13 = "[SSRVoiceProfileRetrainerPSRExclave initWithVoiceRetrainingContext:secureAsset:secureSpeakerRecognitionConfig:]_block_invoke";
+        v14 = 2113;
+        v15 = v8;
+        _os_log_debug_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEBUG, "%s Failed to add resource %{private}@", &v12, 0x16u);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
       *a4 = 1;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

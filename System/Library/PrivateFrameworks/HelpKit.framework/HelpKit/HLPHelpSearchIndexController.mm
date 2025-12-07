@@ -10,6 +10,7 @@
 - (id)mergeDictionary:(id)dictionary withDictionary:(id)withDictionary;
 - (id)resultsWithSearchText:(id)text localeCode:(id)code searchTerms:(id *)terms;
 - (id)searchTermsForSearchText:(id)text localeCode:(id)code;
+- (id)searchTree:(id)tree forQueryWord:(id)word withMaxDepth:(int)depth;
 - (void)CSSearchForSearchText:(id)text completionHandler:(id)handler;
 - (void)_hpdResultsFromCSSearchableItems:(id)items rankingQueries:(id)queries;
 - (void)cancelSpotlightSearch;
@@ -35,9 +36,10 @@
   if (self->_useCSSearch != search)
   {
     self->_useCSSearch = search;
+    privateSearchableIndex = self->_privateSearchableIndex;
     if (search)
     {
-      if (self->_privateSearchableIndex)
+      if (privateSearchableIndex)
       {
         return;
       }
@@ -53,7 +55,7 @@
 
     self->_privateSearchableIndex = defaultSearchableIndex;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](defaultSearchableIndex, privateSearchableIndex);
   }
 }
 
@@ -172,7 +174,7 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
 
 void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:*(a1 + 32)];
   if (v3)
@@ -184,9 +186,9 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
     {
       v6 = MEMORY[0x277CCAAC8];
       v7 = _allowedClassesForIndexArchive();
-      v15 = 0;
-      v8 = [v6 unarchivedObjectOfClasses:v7 fromData:v5 error:&v15];
-      v9 = v15;
+      v14 = 0;
+      v8 = [v6 unarchivedObjectOfClasses:v7 fromData:v5 error:&v14];
+      v9 = v14;
       v4 = [v8 mutableCopy];
 
       if (v4)
@@ -200,7 +202,7 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v9;
+          v16 = v9;
           _os_log_impl(&dword_2522BC000, v11, OS_LOG_TYPE_DEFAULT, "Unable to achive search index file. %@", buf, 0xCu);
         }
 
@@ -220,12 +222,10 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
       block[2] = __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke_41;
       block[3] = &unk_279706F08;
       block[4] = WeakRetained;
-      v14 = v10;
+      v13 = v10;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke_41(uint64_t a1)
@@ -312,15 +312,15 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
 
 - (id)resultsWithSearchText:(id)text localeCode:(id)code searchTerms:(id *)terms
 {
-  v52[2] = *MEMORY[0x277D85DE8];
+  v51[2] = *MEMORY[0x277D85DE8];
   textCopy = text;
   codeCopy = code;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__0;
-  v50 = __Block_byref_object_dispose__0;
-  v51 = [MEMORY[0x277CBEC10] mutableCopy];
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__0;
+  v49 = __Block_byref_object_dispose__0;
+  v50 = [MEMORY[0x277CBEC10] mutableCopy];
   if ([textCopy length])
   {
     v10 = MEMORY[0x277CBEB18];
@@ -329,25 +329,25 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
 
     if ([(HLPHelpBookController *)self->_helpBookController isSemanticHTML])
     {
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke;
-      v45[3] = &unk_279706F58;
-      v45[4] = self;
-      v45[5] = &v46;
-      [v12 enumerateObjectsUsingBlock:v45];
-      if ([v47[5] count])
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke;
+      v44[3] = &unk_279706F58;
+      v44[4] = self;
+      v44[5] = &v45;
+      [v12 enumerateObjectsUsingBlock:v44];
+      if ([v46[5] count])
       {
-        v13 = [v47[5] keysSortedByValueUsingComparator:&__block_literal_global_55];
+        v13 = [v46[5] keysSortedByValueUsingComparator:&__block_literal_global_55];
         v14 = [MEMORY[0x277CBEBF8] mutableCopy];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_3;
-        v43[3] = &unk_279706DD0;
-        v43[4] = self;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_3;
+        v42[3] = &unk_279706DD0;
+        v42[4] = self;
         v15 = v14;
-        v44 = v15;
-        [v13 enumerateObjectsUsingBlock:v43];
+        v43 = v15;
+        [v13 enumerateObjectsUsingBlock:v42];
         *terms = [MEMORY[0x277CBEA60] arrayWithArray:v12];
         v16 = [MEMORY[0x277CBEA60] arrayWithArray:v15];
       }
@@ -360,8 +360,8 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
 
     else
     {
-      v31 = [textCopy substringFromIndex:{objc_msgSend(textCopy, "length") - 1}];
-      if ([v31 isEqualToString:@" "])
+      v30 = [textCopy substringFromIndex:{objc_msgSend(textCopy, "length") - 1}];
+      if ([v30 isEqualToString:@" "])
       {
         lastObject = 0;
       }
@@ -371,57 +371,57 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
         lastObject = [v12 lastObject];
       }
 
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_4;
-      v41[3] = &unk_279706DD0;
-      v41[4] = self;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_4;
+      v40[3] = &unk_279706DD0;
+      v40[4] = self;
       v17 = v12;
-      v42 = v17;
-      [v17 enumerateObjectsUsingBlock:v41];
+      v41 = v17;
+      [v17 enumerateObjectsUsingBlock:v40];
       if (lastObject)
       {
         searchIndex = [(HLPHelpSearchIndexController *)self searchIndex];
         allKeys = [searchIndex allKeys];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_5;
-        v38[3] = &unk_279706DD0;
-        v39 = lastObject;
-        v40 = v17;
-        [allKeys enumerateObjectsUsingBlock:v38];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_5;
+        v37[3] = &unk_279706DD0;
+        v38 = lastObject;
+        v39 = v17;
+        [allKeys enumerateObjectsUsingBlock:v37];
       }
 
       copyrightTopicIdentifier = [(HLPHelpBookController *)self->_helpBookController copyrightTopicIdentifier];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_6;
-      v35[3] = &unk_279706FC8;
-      v35[4] = self;
-      v37 = &v46;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_6;
+      v34[3] = &unk_279706FC8;
+      v34[4] = self;
+      v36 = &v45;
       v21 = copyrightTopicIdentifier;
-      v36 = v21;
-      [v17 enumerateObjectsUsingBlock:v35];
-      if ([v47[5] count])
+      v35 = v21;
+      [v17 enumerateObjectsUsingBlock:v34];
+      if ([v46[5] count])
       {
         *terms = [MEMORY[0x277CBEA60] arrayWithArray:v17];
-        allValues = [v47[5] allValues];
+        allValues = [v46[5] allValues];
         v23 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"matchCount" ascending:0];
-        v52[0] = v23;
+        v51[0] = v23;
         v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"weight" ascending:0];
-        v52[1] = v24;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+        v51[1] = v24;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
         v26 = [allValues sortedArrayUsingDescriptors:v25];
 
         v27 = [MEMORY[0x277CBEBF8] mutableCopy];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_8;
-        v33[3] = &unk_279706FF0;
-        v33[4] = self;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchTerms___block_invoke_8;
+        v32[3] = &unk_279706FF0;
+        v32[4] = self;
         v28 = v27;
-        v34 = v28;
-        [v26 enumerateObjectsUsingBlock:v33];
+        v33 = v28;
+        [v26 enumerateObjectsUsingBlock:v32];
         v16 = [MEMORY[0x277CBEA60] arrayWithArray:v28];
       }
 
@@ -437,9 +437,7 @@ void __58__HLPHelpSearchIndexController_processData_formattedData___block_invoke
     v16 = 0;
   }
 
-  _Block_object_dispose(&v46, 8);
-
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
 
   return v16;
 }
@@ -586,6 +584,41 @@ void __77__HLPHelpSearchIndexController_resultsWithSearchText_localeCode_searchT
     [*(a1 + 40) addObject:v8];
     v7 = v8;
   }
+}
+
+- (id)searchTree:(id)tree forQueryWord:(id)word withMaxDepth:(int)depth
+{
+  v5 = *&depth;
+  wordCopy = word;
+  v9 = [tree objectForKeyedSubscript:@"_"];
+  v10 = v9;
+  v11 = 0;
+  if (wordCopy && v9)
+  {
+    if ([wordCopy length])
+    {
+      v12 = [wordCopy substringWithRange:{0, 1}];
+      v13 = [v10 objectForKeyedSubscript:v12];
+      v14 = [wordCopy substringFromIndex:1];
+      if ([wordCopy length] == 1)
+      {
+        [(HLPHelpSearchIndexController *)self getAllIdentifiersFromTree:v13 withMaxDepth:v5];
+      }
+
+      else
+      {
+        [(HLPHelpSearchIndexController *)self searchTree:v13 forQueryWord:v14 withMaxDepth:v5];
+      }
+      v11 = ;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  return v11;
 }
 
 - (id)getAllIdentifiersFromTree:(id)tree withMaxDepth:(int)depth
@@ -766,18 +799,19 @@ LABEL_11:
 
 uint64_t __54__HLPHelpSearchIndexController__stopwordsForLanguage___block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc(MEMORY[0x277CBEAC0]);
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 pathForResource:@"stopwords" ofType:@"plist"];
-  v6 = [v2 initWithContentsOfFile:v5];
-  v7 = _stopwordsForLanguage__stopwordsDictionary;
-  _stopwordsForLanguage__stopwordsDictionary = v6;
+  v1 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 pathForResource:@"stopwords" ofType:@"plist"];
+  v4 = [v1 initWithContentsOfFile:v3];
+  v5 = _stopwordsForLanguage__stopwordsDictionary;
+  _stopwordsForLanguage__stopwordsDictionary = v4;
 
-  v8 = objc_alloc(MEMORY[0x277CBEB38]);
-  _stopwordsForLanguage__stopwordsCache = [v8 initWithCapacity:{objc_msgSend(_stopwordsForLanguage__stopwordsDictionary, "count")}];
+  v6 = objc_alloc(MEMORY[0x277CBEB38]);
+  v7 = [v6 initWithCapacity:{objc_msgSend(_stopwordsForLanguage__stopwordsDictionary, "count")}];
+  v8 = _stopwordsForLanguage__stopwordsCache;
+  _stopwordsForLanguage__stopwordsCache = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 - (id)_strippedSearchTermFromSearchTerm:(id)term
@@ -913,49 +947,47 @@ void __52__HLPHelpSearchIndexController__tokenizeSearchTerm___block_invoke_3(uin
 
 - (id)_rankingQueriesForSearchTerm:(id)term
 {
-  v28[14] = *MEMORY[0x277D85DE8];
+  v27[14] = *MEMORY[0x277D85DE8];
   termCopy = term;
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
   v5 = [(HLPHelpSearchIndexController *)self _strippedSearchTermFromSearchTerm:termCopy];
   v6 = *MEMORY[0x277CC31A0];
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC31A0], v5];
-  v28[0] = v27;
+  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC31A0], v5];
+  v27[0] = v26;
   v7 = *MEMORY[0x277CC2CE8];
-  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2CE8], v5];
-  v28[1] = v26;
+  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2CE8], v5];
+  v27[1] = v25;
   v8 = *MEMORY[0x277CC2750];
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2750], v5];
-  v28[2] = v25;
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2750], v5];
+  v27[2] = v24;
   v9 = *MEMORY[0x277CC2760];
-  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2760], v5];
-  v28[3] = v24;
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v6, v5];
-  v28[4] = v22;
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v7, v5];
-  v28[5] = v21;
-  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v8, v5];
-  v28[6] = v20;
-  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v9, v5];
-  v28[7] = v19;
+  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", *MEMORY[0x277CC2760], v5];
+  v27[3] = v23;
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v6, v5];
+  v27[4] = v21;
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v7, v5];
+  v27[5] = v20;
+  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v8, v5];
+  v27[6] = v19;
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v9, v5];
+  v27[7] = v18;
   termCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", v7, termCopy];
-  v28[8] = termCopy;
+  v27[8] = termCopy;
   termCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", v8, termCopy];
-  v28[9] = termCopy2;
+  v27[9] = termCopy2;
   termCopy3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@*cdwt", v9, termCopy];
-  v28[10] = termCopy3;
+  v27[10] = termCopy3;
   termCopy4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v7, termCopy];
-  v28[11] = termCopy4;
+  v27[11] = termCopy4;
   termCopy5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v8, termCopy];
-  v28[12] = termCopy5;
+  v27[12] = termCopy5;
   termCopy6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@=%@cdwt", v9, termCopy];
 
-  v28[13] = termCopy6;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:14];
-  [v23 addObjectsFromArray:v16];
+  v27[13] = termCopy6;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:14];
+  [v22 addObjectsFromArray:v16];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (id)_fetchAttributesForCSSearchQuery
@@ -972,26 +1004,24 @@ void __52__HLPHelpSearchIndexController__tokenizeSearchTerm___block_invoke_3(uin
 
 void __64__HLPHelpSearchIndexController__fetchAttributesForCSSearchQuery__block_invoke()
 {
-  v6[11] = *MEMORY[0x277D85DE8];
+  v5[11] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC2BD8];
-  v6[0] = *MEMORY[0x277CC3350];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x277CC3350];
+  v5[1] = v0;
   v1 = *MEMORY[0x277CC2CE8];
-  v6[2] = *MEMORY[0x277CC2760];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x277CC2760];
+  v5[3] = v1;
   v2 = *MEMORY[0x277CC2E80];
-  v6[4] = *MEMORY[0x277CC2750];
-  v6[5] = v2;
-  v6[6] = @"_kMDItemHelpTags";
-  v6[7] = @"_kMDItemHelpIdentifier";
-  v6[8] = @"_kMDItemHelpTitle";
-  v6[9] = @"_kMDItemHelpSummary";
-  v6[10] = @"_kMDItemHelpPath";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:11];
+  v5[4] = *MEMORY[0x277CC2750];
+  v5[5] = v2;
+  v5[6] = @"_kMDItemHelpTags";
+  v5[7] = @"_kMDItemHelpIdentifier";
+  v5[8] = @"_kMDItemHelpTitle";
+  v5[9] = @"_kMDItemHelpSummary";
+  v5[10] = @"_kMDItemHelpPath";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:11];
   v4 = _fetchAttributesForCSSearchQuery_attributes;
   _fetchAttributesForCSSearchQuery_attributes = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hpdResultsFromCSSearchableItems:(id)items rankingQueries:(id)queries
@@ -1038,29 +1068,29 @@ void __80__HLPHelpSearchIndexController__hpdResultsFromCSSearchableItems_ranking
 
 - (NSArray)spotlightSearchResults
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_spotlightSearchScores sortedArrayUsingComparator:&__block_literal_global_106];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         helpBookController = [(HLPHelpSearchIndexController *)self helpBookController];
         identifier = [v10 identifier];
         v13 = [helpBookController helpItemForID:identifier];
@@ -1071,13 +1101,11 @@ void __80__HLPHelpSearchIndexController__hpdResultsFromCSSearchableItems_ranking
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

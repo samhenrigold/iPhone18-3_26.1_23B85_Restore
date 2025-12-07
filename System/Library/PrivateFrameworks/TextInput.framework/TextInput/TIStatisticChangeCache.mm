@@ -10,9 +10,11 @@
 
 uint64_t __40__TIStatisticChangeCache_sharedInstance__block_invoke()
 {
-  sharedInstance_instance_8678 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_instance_8678;
+  sharedInstance_instance_8678 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)sharedInstance

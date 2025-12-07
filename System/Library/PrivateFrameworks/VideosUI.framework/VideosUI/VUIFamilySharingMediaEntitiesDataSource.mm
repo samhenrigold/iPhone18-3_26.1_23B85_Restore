@@ -370,7 +370,7 @@ LABEL_18:
 
   [(VUIFamilySharingEntity *)v5 setRelationships:v17];
   v19 = [VUIFamilySharingMediaCollection alloc];
-  v20 = VUIMediaEntityFetchRequestAllPropertiesSet();
+  v20 = VUIMediaEntityFetchRequestAllPropertiesSet(v19);
   v21 = +[VUIMediaEntityType show];
   v22 = [(VUIFamilySharingMediaCollection *)v19 initWithAMSEntity:v5 requestedProperties:v20 mediaEntityType:v21];
 
@@ -472,7 +472,7 @@ LABEL_18:
 
             [(VUIFamilySharingEntity *)v17 setRelationships:v28];
             v31 = [VUIFamilySharingMediaCollection alloc];
-            VUIMediaEntityFetchRequestAllPropertiesSet();
+            VUIMediaEntityFetchRequestAllPropertiesSet(v31);
             v32 = v41 = relationships;
             v33 = v14;
             season3 = [*(v14 + 1048) season];
@@ -1289,32 +1289,32 @@ uint64_t __69__VUIFamilySharingMediaEntitiesDataSource__episodeOrderingComparato
 
   if (type == v7)
   {
-    v16 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = VUIDefaultLogObject(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [VUIFamilySharingMediaEntitiesDataSource _isAllowedToShowMediaItem:v16];
+      [VUIFamilySharingMediaEntitiesDataSource _isAllowedToShowMediaItem:v18];
     }
 
-    v17 = +[VUISettingsManager sharedInstance];
-    maxMovieRank = [v17 maxMovieRank];
+    v19 = +[VUISettingsManager sharedInstance];
+    maxMovieRank = [v19 maxMovieRank];
     goto LABEL_14;
   }
 
   type2 = [itemCopy type];
-  v9 = +[VUIMediaEntityType episode];
-  if (type2 != v9)
+  v10 = +[VUIMediaEntityType episode];
+  if (type2 != v10)
   {
     type3 = [itemCopy type];
-    v11 = +[VUIMediaEntityType show];
-    v12 = v11;
-    if (type3 != v11)
+    v12 = +[VUIMediaEntityType show];
+    v13 = v12;
+    if (type3 != v12)
     {
       type4 = [itemCopy type];
-      v14 = +[VUIMediaEntityType season];
+      v15 = +[VUIMediaEntityType season];
 
-      if (type4 != v14)
+      if (type4 != v15)
       {
-        v15 = 0;
+        v17 = 0;
         goto LABEL_15;
       }
 
@@ -1323,32 +1323,32 @@ uint64_t __69__VUIFamilySharingMediaEntitiesDataSource__episodeOrderingComparato
   }
 
 LABEL_11:
-  v19 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v21 = VUIDefaultLogObject(v16);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    [VUIFamilySharingMediaEntitiesDataSource _isAllowedToShowMediaItem:v19];
+    [VUIFamilySharingMediaEntitiesDataSource _isAllowedToShowMediaItem:v21];
   }
 
-  v17 = +[VUISettingsManager sharedInstance];
-  maxMovieRank = [v17 maxTVShowRank];
+  v19 = +[VUISettingsManager sharedInstance];
+  maxMovieRank = [v19 maxTVShowRank];
 LABEL_14:
-  v15 = maxMovieRank;
+  v17 = maxMovieRank;
 
 LABEL_15:
-  unsignedIntegerValue = [v15 unsignedIntegerValue];
-  if (v15)
+  unsignedIntegerValue = [v17 unsignedIntegerValue];
+  if (v17)
   {
-    v21 = rank == 0;
+    v23 = rank == 0;
   }
 
   else
   {
-    v21 = 1;
+    v23 = 1;
   }
 
-  v23 = v21 || unsignedIntegerValue >= rank;
+  v25 = v23 || unsignedIntegerValue >= rank;
 
-  return v23;
+  return v25;
 }
 
 @end

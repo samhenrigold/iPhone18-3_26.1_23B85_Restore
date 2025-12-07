@@ -40,87 +40,87 @@
 - (double)p_applyAccordionResizeFactor:(double)factor region:(id)region direction:(int64_t)direction totalOfCaptured:(double)captured count:(unsigned int)count capturedArray:(void *)array currentArray:(void *)currentArray minimumArray:(void *)self0
 {
   regionCopy = region;
-  v20 = -(captured - captured * factor);
+  v19 = -(captured - captured * factor);
   factorCopy = factor;
   do
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
     countCopy = count;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
     capturedCopy = captured;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = factorCopy * captured;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = factorCopy * captured;
     if (direction)
     {
-      started = objc_msgSend_startColumnIndex(self, v16, v17, v18, v19);
+      started = objc_msgSend_startColumnIndex(self, v16, v17, v18);
     }
 
     else
     {
-      started = objc_msgSend_startRowIndex(self, v16, v17, v18, v19);
+      started = objc_msgSend_startRowIndex(self, v16, v17, v18);
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_221494594;
-    v31[3] = &unk_278465AB0;
-    v32 = started;
-    v31[8] = currentArray;
-    v31[9] = array;
-    *&v31[10] = factor;
-    v31[11] = minimumArray;
-    v31[4] = &v37;
-    v31[5] = &v33;
-    v31[6] = &v45;
-    v31[7] = &v41;
-    objc_msgSend_enumerateInDirection_usingBlock_(regionCopy, v23, direction, v31, v24);
-    v25 = v42[3];
-    if (*(v46 + 6) && vabdd_f64(v20, v25) >= 0.1 && fabs(v25 / v20 + -1.0) >= 0.0001)
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_221494594;
+    v29[3] = &unk_278465AB0;
+    v30 = started;
+    v29[8] = currentArray;
+    v29[9] = array;
+    *&v29[10] = factor;
+    v29[11] = minimumArray;
+    v29[4] = &v35;
+    v29[5] = &v31;
+    v29[6] = &v43;
+    v29[7] = &v39;
+    objc_msgSend_enumerateInDirection_usingBlock_(regionCopy, v22, direction, v29);
+    v23 = v40[3];
+    if (*(v44 + 6) && vabdd_f64(v19, v23) >= 0.1 && fabs(v23 / v19 + -1.0) >= 0.0001)
     {
-      v26 = 0;
-      factor = v34[3] / v38[3];
+      v24 = 0;
+      factor = v32[3] / v36[3];
     }
 
     else
     {
-      v26 = 1;
-      if (v25 > v20)
+      v24 = 1;
+      if (v23 > v19)
       {
-        factorCopy = (v25 + captured) / captured;
+        factorCopy = (v23 + captured) / captured;
       }
     }
 
-    _Block_object_dispose(&v33, 8);
-    _Block_object_dispose(&v37, 8);
-    _Block_object_dispose(&v41, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v43, 8);
   }
 
-  while (!v26);
+  while (!v24);
 
   return factorCopy;
 }
 
 - (double)applyResizeHeightFactor:(double)factor
 {
-  if (objc_msgSend_numberOfRows(self, a2, v3, v4, v5))
+  if (objc_msgSend_numberOfRows(self, a2, v3, v4))
   {
-    v12 = objc_msgSend_rowRegion(self, v8, v9, v10, v11);
-    objc_msgSend_capturedRowHeightTotal(self, v13, v14, v15, v16);
-    v18 = v17;
-    v23 = objc_msgSend_numberOfResizableRows(self, v19, v20, v21, v22);
-    objc_msgSend_p_applyAccordionResizeFactor_region_direction_totalOfCaptured_count_capturedArray_currentArray_minimumArray_(self, v24, v12, 0, v23, &self->super._capturedRowHeights, &self->super._currentRowHeights, &self->super._minimumRowHeights, factor, v18);
-    factor = v25;
+    v10 = objc_msgSend_rowRegion(self, v7, v8, v9);
+    objc_msgSend_capturedRowHeightTotal(self, v11, v12, v13);
+    v15 = v14;
+    v19 = objc_msgSend_numberOfResizableRows(self, v16, v17, v18);
+    objc_msgSend_p_applyAccordionResizeFactor_region_direction_totalOfCaptured_count_capturedArray_currentArray_minimumArray_(self, v20, v10, 0, v19, &self->super._capturedRowHeights, &self->super._currentRowHeights, &self->super._minimumRowHeights, factor, v15);
+    factor = v21;
   }
 
   self->_heightFactor = factor;
@@ -129,14 +129,14 @@
 
 - (double)applyResizeWidthFactor:(double)factor
 {
-  if (objc_msgSend_numberOfColumns(self, a2, v3, v4, v5))
+  if (objc_msgSend_numberOfColumns(self, a2, v3, v4))
   {
-    v12 = objc_msgSend_columnRegion(self, v8, v9, v10, v11);
-    objc_msgSend_capturedColumnWidthTotal(self, v13, v14, v15, v16);
-    v18 = v17;
-    v23 = objc_msgSend_numberOfResizableColumns(self, v19, v20, v21, v22);
-    objc_msgSend_p_applyAccordionResizeFactor_region_direction_totalOfCaptured_count_capturedArray_currentArray_minimumArray_(self, v24, v12, 1, v23, &self->super._capturedColumnWidths, &self->super._currentColumnWidths, &self->super._minimumColumnWidths, factor, v18);
-    factor = v25;
+    v10 = objc_msgSend_columnRegion(self, v7, v8, v9);
+    objc_msgSend_capturedColumnWidthTotal(self, v11, v12, v13);
+    v15 = v14;
+    v19 = objc_msgSend_numberOfResizableColumns(self, v16, v17, v18);
+    objc_msgSend_p_applyAccordionResizeFactor_region_direction_totalOfCaptured_count_capturedArray_currentArray_minimumArray_(self, v20, v10, 1, v19, &self->super._capturedColumnWidths, &self->super._currentColumnWidths, &self->super._minimumColumnWidths, factor, v15);
+    factor = v21;
   }
 
   self->_widthFactor = factor;
@@ -146,64 +146,64 @@
 - (void)captureNewMinimumRowHeights:(id)heights
 {
   heightsCopy = heights;
-  v9 = objc_msgSend_numberOfRows(heightsCopy, v5, v6, v7, v8);
-  v10 = v9;
-  v24 = 0;
-  sub_221420DAC(&__p, v9);
-  if (v9)
+  v8 = objc_msgSend_numberOfRows(heightsCopy, v5, v6, v7);
+  v9 = v8;
+  v21 = 0;
+  sub_221420DAC(&__p, v8, &v21);
+  if (v8)
   {
-    v15 = 0;
-    v16 = -1.0;
+    v13 = 0;
+    v14 = -1.0;
     do
     {
-      if (self->super._capturedRowHeights.__begin_[v15] == 0.0)
+      if (self->super._capturedRowHeights.__begin_[v13] == 0.0)
       {
-        v11 = __p;
-        *(__p + v15++) = 0;
+        v10 = __p;
+        *(__p + v13++) = 0;
       }
 
       else
       {
-        v17 = objc_msgSend_tableRowsBehavior(heightsCopy, v11, v12, v13, v14, v24);
-        v21 = 8.0;
-        if (v17 == 1)
+        v15 = objc_msgSend_tableRowsBehavior(heightsCopy, v10, v11, v12);
+        v18 = 8.0;
+        if (v15 == 1)
         {
-          objc_msgSend_fittingHeightOfRow_(heightsCopy, v18, v15, v19, v20, 8.0);
+          objc_msgSend_fittingHeightOfRow_(heightsCopy, v16, v13, v17, 8.0);
         }
 
-        *(__p + v15) = v21;
-        if (v16 < 0.0)
+        *(__p + v13) = v18;
+        if (v14 < 0.0)
         {
-          objc_msgSend_strokeHeightOfGridRow_inColumnRange_(heightsCopy, v18, v15, 0, 2147483646);
-          v16 = v22;
+          objc_msgSend_strokeHeightOfGridRow_inColumnRange_(heightsCopy, v16, v13, 0, 2147483646);
+          v14 = v19;
         }
 
-        objc_msgSend_strokeHeightOfGridRow_inColumnRange_(heightsCopy, v18, v15 + 1, 0, 2147483646);
-        v11 = __p;
-        *(__p + v15) = (v16 + v23) * 0.5 + *(__p + v15);
-        ++v15;
-        v16 = v23;
+        objc_msgSend_strokeHeightOfGridRow_inColumnRange_(heightsCopy, v16, v13 + 1, 0, 2147483646);
+        v10 = __p;
+        *(__p + v13) = (v14 + v20) * 0.5 + *(__p + v13);
+        ++v13;
+        v14 = v20;
       }
     }
 
-    while (v15 != v10);
+    while (v13 != v9);
   }
 
   else
   {
-    v11 = __p;
+    v10 = __p;
   }
 
   if (&self->super._minimumRowHeights != &__p)
   {
-    sub_22128026C(&self->super._minimumRowHeights.__begin_, v11, v26, (v26 - v11) >> 3);
-    v11 = __p;
+    sub_22128026C(&self->super._minimumRowHeights, v10, v23, (v23 - v10) >> 3);
+    v10 = __p;
   }
 
-  if (v11)
+  if (v10)
   {
-    v26 = v11;
-    operator delete(v11);
+    v23 = v10;
+    operator delete(v10);
   }
 }
 

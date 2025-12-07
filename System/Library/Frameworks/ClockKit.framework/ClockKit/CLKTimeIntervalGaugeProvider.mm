@@ -406,7 +406,7 @@ id __56__CLKTimeIntervalGaugeProvider__maybeStartOrStopUpdates__block_invoke_17(
       v5 = CLKLoggingObjectForDomain(10);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [CLKTimeIntervalGaugeProvider validate];
+        [(CLKTimeIntervalGaugeProvider *)self validate];
       }
 
 LABEL_23:
@@ -449,10 +449,10 @@ LABEL_23:
 {
   OUTLINED_FUNCTION_2();
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_3();
-  v3 = OUTLINED_FUNCTION_0_1(v2);
+  v3 = OUTLINED_FUNCTION_3(v1, v2);
+  v4 = OUTLINED_FUNCTION_0_1(v3);
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
+  _os_log_fault_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 @end

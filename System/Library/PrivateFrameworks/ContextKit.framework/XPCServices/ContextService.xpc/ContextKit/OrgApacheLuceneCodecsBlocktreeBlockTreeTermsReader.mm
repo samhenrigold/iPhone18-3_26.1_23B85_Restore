@@ -19,7 +19,7 @@
   postingsReader = self->postingsReader_;
   v6[0] = self->termsIn_;
   v6[1] = postingsReader;
-  v4 = [IOSObjectArray arrayWithObjects:v6 count:2 type:JavaIoCloseable_class_()];
+  v4 = [IOSObjectArray arrayWithObjects:v6 count:2 type:JavaIoCloseable_class_(self, a2)];
   OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v4);
   fields = self->fields_;
   if (!fields)
@@ -33,12 +33,12 @@
 - (id)iterator
 {
   fields = self->fields_;
-  if (!fields || (v3 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_([(JavaUtilTreeMap *)fields keySet])) == 0)
+  if (!fields || (v3 = [(JavaUtilTreeMap *)fields keySet], (v5 = JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v3, v4)) == 0))
   {
     JreThrowNullPointerException();
   }
 
-  return [(JavaUtilCollections_UnmodifiableCollection *)v3 iterator];
+  return [(JavaUtilCollections_UnmodifiableCollection *)v5 iterator];
 }
 
 - (id)termsWithNSString:(id)string
@@ -122,7 +122,7 @@ LABEL_13:
   [(JavaUtilArrayList *)v3 addAllWithJavaUtilCollection:OrgApacheLuceneUtilAccountables_namedAccountablesWithNSString_withJavaUtilMap_(@"field", self->fields_)];
   [(JavaUtilArrayList *)v3 addWithId:OrgApacheLuceneUtilAccountables_namedAccountableWithNSString_withOrgApacheLuceneUtilAccountable_(@"delegate", self->postingsReader_, v4, v5, v6, v7, v8, v9)];
 
-  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3);
+  return JavaUtilCollections_unmodifiableListWithJavaUtilList_(v3, v10);
 }
 
 - (void)checkIntegrity
@@ -147,7 +147,6 @@ LABEL_13:
   }
 
   [(JavaUtilTreeMap *)fields size];
-  postingsReader = self->postingsReader_;
   return JreStrcat("$$I$@C", v5, v6, v7, v8, v9, v10, v11, v3);
 }
 
@@ -160,9 +159,10 @@ LABEL_13:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    Singleton = OrgApacheLuceneUtilFstByteSequenceOutputs_getSingleton();
+    Singleton = OrgApacheLuceneUtilFstByteSequenceOutputs_getSingleton(v3, v4);
     JreStrongAssign(&OrgApacheLuceneCodecsBlocktreeBlockTreeTermsReader_FST_OUTPUTS_, Singleton);
     if (!OrgApacheLuceneCodecsBlocktreeBlockTreeTermsReader_FST_OUTPUTS_)
     {

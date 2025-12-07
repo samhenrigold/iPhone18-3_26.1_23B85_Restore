@@ -86,46 +86,46 @@ void __96__SFExternalCredentialIdentityStoreManager_getCredentialIdentityStoreWi
       if (v5)
       {
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v13 = 0;
-        v7 = [defaultManager createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v13];
-        v8 = v13;
+        v15 = 0;
+        v7 = [defaultManager createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v15];
+        v8 = v15;
 
         if (v7)
         {
-          v9 = [v5 URLByAppendingPathComponent:@"Identities.db" isDirectory:0];
-          v10 = [[SFExternalCredentialIdentityStore alloc] initWithURL:v9];
+          v11 = [v5 URLByAppendingPathComponent:@"Identities.db" isDirectory:0];
+          v12 = [[SFExternalCredentialIdentityStore alloc] initWithURL:v11];
         }
 
         else
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXCredentials();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v13 = WBS_LOG_CHANNEL_PREFIXCredentials(v9, v10);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            [(SFExternalCredentialIdentityStoreManager *)v8 _credentialIdentityStoreWithIdentifier:v11];
+            [(SFExternalCredentialIdentityStoreManager *)v8 _credentialIdentityStoreWithIdentifier:v13];
           }
 
-          v10 = 0;
+          v12 = 0;
         }
       }
 
       else
       {
-        v10 = 0;
+        v12 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (void)removeCredentialIdentityStoreWithIdentifier:(id)identifier completion:(id)completion
@@ -218,11 +218,10 @@ LABEL_15:
 
 - (void)_credentialIdentityStoreWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Failed to create directory for identities database with error %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Failed to create directory for identities database with error %{public}@", &v2, 0xCu);
 }
 
 @end

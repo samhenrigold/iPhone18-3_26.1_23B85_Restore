@@ -1,4 +1,5 @@
 @interface FBADevicePickingNavigationController
+- (FBADevicePickingNavigationController)initWithDeviceChoices:(id)choices allowsMultipleSelection:(BOOL)selection completion:(id)completion;
 - (id)initForPlatform:(id)platform completion:(id)completion;
 - (void)deviceChoicesController:(id)controller didChooseDevices:(id)devices;
 - (void)deviceChoicesControllerDidCancelWithController:(id)controller;
@@ -8,6 +9,31 @@
 @end
 
 @implementation FBADevicePickingNavigationController
+
+- (FBADevicePickingNavigationController)initWithDeviceChoices:(id)choices allowsMultipleSelection:(BOOL)selection completion:(id)completion
+{
+  selectionCopy = selection;
+  completionCopy = completion;
+  choicesCopy = choices;
+  v10 = +[UIStoryboard fbaMainStoryboard];
+  v11 = objc_opt_class();
+  v12 = NSStringFromClass(v11);
+  v13 = [v10 instantiateViewControllerWithIdentifier:v12];
+
+  [v13 setDeviceChoices:choicesCopy];
+  [v13 setIsMultiSelect:selectionCopy];
+  [v13 setChoiceDelegate:self];
+  v17.receiver = self;
+  v17.super_class = FBADevicePickingNavigationController;
+  v14 = [(FBADevicePickingNavigationController *)&v17 initWithRootViewController:v13];
+  v15 = v14;
+  if (v14)
+  {
+    [(FBADevicePickingNavigationController *)v14 setCompletion:completionCopy];
+  }
+
+  return v15;
+}
 
 - (id)initForPlatform:(id)platform completion:(id)completion
 {

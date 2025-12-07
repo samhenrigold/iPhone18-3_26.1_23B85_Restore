@@ -1,3 +1,81 @@
+void sub_195DFFE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  RB::DisplayList::Builder::~Builder(va);
+  if (STACK[0x3F8])
+  {
+    free(STACK[0x3F8]);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t RB::DisplayList::PathProjectionStyle::can_mix(RB::DisplayList::PathProjectionStyle *this, RB::DisplayList::Interpolator::Contents *a2, const RB::DisplayList::Style *a3)
+{
+  if (!a3)
+  {
+    return 0;
+  }
+
+  if (*(this + 28) != *(a3 + 28))
+  {
+    return 0;
+  }
+
+  v7.var0 = *(this + 12);
+  v7.var1 = *(this + 13);
+  v8.var0 = *(a3 + 12);
+  v8.var1 = *(a3 + 13);
+  LODWORD(result) = RBPathCanMix(v7, v8);
+  v6 = vornq_s8(vmvnq_s8(vceqq_f64(*(this + 5), *(a3 + 5))), vceqq_f64(*(this + 4), *(a3 + 4)));
+  if (vorrq_s8(vdupq_laneq_s64(v6, 1), v6).i64[0] >= 0)
+  {
+    return result;
+  }
+
+  else
+  {
+    return result != 0;
+  }
+}
+
+float64x2_t *RB::DisplayList::PathProjectionStyle::mix(float64x2_t *this, const RB::DisplayList::Interpolator::State *a2, float64x2_t *a3, const RB::DisplayList::CachedTransform *a4)
+{
+  if (!a3)
+  {
+    return 0;
+  }
+
+  RB::Heap::emplace<RB::DisplayList::PathProjectionStyle>((*(*a4 + 8) + 16));
+  v8 = v7;
+  v7[4] = vmlaq_n_f64(this[4], vsubq_f64(a3[4], this[4]), *(a2 + 4));
+  v7[5] = vmlaq_n_f64(this[5], vsubq_f64(a3[5], this[5]), *(a2 + 4));
+  v9 = this[6].f64[0];
+  v10 = this[6].f64[1];
+  v11 = a3[6].f64[0];
+  v12 = a3[6].f64[1];
+  v13 = *(a2 + 4);
+  v14 = this[1].f64[0];
+  v15 = a3[1].f64[0];
+  RB::mix(*&v14, *&v15, v16, v13);
+  v23[0] = v17;
+  v23[1] = v18;
+  v23[2] = v19;
+  *&v25.var0 = v9;
+  *&v25.var1 = v10;
+  *&v26.var0 = v11;
+  *&v26.var1 = v12;
+  RBPathMix(v25, v26, v13, *&v14, *&v15, v23, &v24);
+  v20 = *&v8[6].f64[0];
+  v21 = *&v8[6].f64[1];
+  v8[6] = v24;
+  *&v24.f64[0] = v20;
+  *&v24.f64[1] = v21;
+  RBPathRelease(v20, v21);
+  LODWORD(v8[7].f64[0]) = LODWORD(a3[7].f64[0]);
+  return v8;
+}
+
 double RB::Heap::emplace<RB::DisplayList::PathProjectionStyle>(RB::Heap *this)
 {
   v2 = *(this + 3);
@@ -57,7 +135,7 @@ void *RB::DisplayList::PathProjectionStyle::encode(RB::DisplayList::PathProjecti
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::PathProjectionStyle::decode(float64x2_t *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::PathProjectionStyle::decode(float64x2_t *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -94,7 +172,7 @@ LABEL_16:
             if ((v6 & 7) == 2)
             {
               RB::ProtobufDecoder::begin_message(a2);
-              RBPathDecode(a2);
+              RBPathDecode();
             }
 
             *(a2 + 56) = 1;
@@ -197,28 +275,28 @@ uint64_t RB::DisplayList::AlphaThresholdStyle::can_mix(float32x2_t *this, RB::Di
   }
 }
 
-float32x2_t RB::DisplayList::AlphaThresholdStyle::bounds(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+double RB::DisplayList::AlphaThresholdStyle::bounds(float32x2_t *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v4 = *(a1 + 56);
-  result = 0;
+  v4 = a1[7];
+  result = 0.0;
   if (vmvn_s8(vcge_f32(v4, vdup_lane_s32(v4, 1))).u32[0])
   {
     if (v4.f32[0] >= 0.0)
     {
-      return RB::DisplayList::Style::bounds(a1, a2, a3, a4);
+      *&result = RB::DisplayList::Style::bounds(a1, a2, a3, a4);
     }
 
     else
     {
-      v6 = *(a1 + 24);
+      v6 = a1[3];
       if (v6)
       {
-        return v6[2];
+        return *(*&v6 + 16);
       }
 
       else
       {
-        return 0x100000001000000;
+        return 7.29112205e-304;
       }
     }
   }
@@ -294,11 +372,11 @@ void RB::DisplayList::AlphaThresholdStyle::print(const RB::AffineTransform **thi
   RB::DisplayList::Style::print(this, a2, a3);
 }
 
-double RB::DisplayList::State::add_gradient_map(__n128 *a1, RB::DisplayList::Builder *a2, char a3, unint64_t a4, uint64_t a5, __int16 a6, uint64_t a7, int a8, double a9, float a10)
+double RB::DisplayList::State::add_gradient_map(__n128 *a1, RB::DisplayList::Builder *a2, char a3, double a4, unint64_t a5, uint64_t a6, __int16 a7, uint64_t a8, int a9, float a10)
 {
-  v13 = a6;
+  v13 = a7;
   v20 = *(a2 + 1);
-  if ((a6 & 0x100) == 0)
+  if ((a7 & 0x100) == 0)
   {
     v13 = a1[9].n128_i16[6];
   }
@@ -318,8 +396,8 @@ double RB::DisplayList::State::add_gradient_map(__n128 *a1, RB::DisplayList::Bui
   *(v21 + 16) = 0u;
   *(v21 + 32) = 0u;
   *v21 = &unk_1F0A39748;
-  *(v21 + 56) = a9;
-  RB::Fill::Gradient::Gradient(v21 + 64, (v20 + 2), 3, a4, a5, v13, a7, a8, a10, 0.0, 0.0, 0.0, 0.0);
+  *(v21 + 56) = a4;
+  RB::Fill::Gradient::Gradient(v21 + 64, (v20 + 2), 3, a5, a6, v13, a8, a9, a10, 0.0, 0.0, 0.0, 0.0);
   *(v21 + 128) = a3;
 
   *&result = RB::DisplayList::State::add_style(a1, a2, v21).n128_u64[0];
@@ -348,7 +426,7 @@ unint64_t RB::DisplayList::AlphaGradientStyle::copy(RB::DisplayList::AlphaGradie
   return v4;
 }
 
-unsigned __int8 *RB::DisplayList::AlphaGradientStyle::draw(RB::DisplayList::AlphaGradientStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::AlphaGradientStyle::draw(RB::DisplayList::AlphaGradientStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   v10 = *(a2 + 1);
   v11 = (v10[4] + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -529,7 +607,7 @@ __n128 RB::DisplayList::GlassHighlightStyle::copy(RB::DisplayList::GlassHighligh
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GlassHighlightStyle::draw(RB::DisplayList::GlassHighlightStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GlassHighlightStyle::draw(RB::DisplayList::GlassHighlightStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   if (RB::GlassHighlightEffect::can_discard_color((this + 56)))
   {
@@ -704,7 +782,7 @@ __n128 RB::DisplayList::GlassDisplacementStyle::copy(RB::DisplayList::GlassDispl
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::GlassDisplacementStyle::draw(RB::DisplayList::GlassDisplacementStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GlassDisplacementStyle::draw(RB::DisplayList::GlassDisplacementStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   if (RB::GlassDisplacementEffect::can_discard_color((this + 56)))
   {
@@ -851,23 +929,23 @@ void RB::CustomShader::Closure::~Closure(id *this)
   v5 = *this;
   if (*this)
   {
-    if (atomic_fetch_add_explicit(v5 + 2, 0xFFFFFFFF, memory_order_release) == 1)
+    if (atomic_fetch_add_explicit((v5 + 8), 0xFFFFFFFF, memory_order_release) == 1)
     {
       RB::CustomShader::Library::intern_function(v5);
     }
   }
 }
 
-uint64_t RB::DisplayList::CustomEffectStyle::copy(RB::DisplayList::CustomEffectStyle *this, RB::DisplayList::Builder *a2)
+uint64_t RB::DisplayList::CustomEffectStyle::copy(RB::DisplayList::CustomEffectStyle *this, RB::DisplayList::Builder *a2, __n128 a3, __n128 a4)
 {
-  v4 = *(this + 28);
-  if (v4)
+  v6 = *(this + 28);
+  if (v6)
   {
-    v4 = RB::DisplayList::Layer::copy(v4, a2, 0);
+    v6 = RB::DisplayList::Layer::copy(v6, a2, 0);
   }
 
-  v6 = v4;
-  return _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((*(a2 + 1) + 16), (this + 56), &v6, this + 29, this + 30, (this + 248), this + 66);
+  v8 = v6;
+  return _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((*(a2 + 1) + 16), (this + 56), &v8, this + 29, this + 30, (this + 248), this + 66, a3, a4);
 }
 
 void RB::DisplayList::CustomEffectStyle::apply_transform(RB::DisplayList::CustomEffectStyle *this, const RB::DisplayList::CachedTransform *a2)
@@ -932,7 +1010,8 @@ double RB::DisplayList::CustomEffectStyle::bounds(uint64_t a1, uint64_t a2, void
       v39 = *v22;
       v40 = v23;
       v41 = v24;
-      *v25.i8 = RB::operator*(&v39, v16, v18);
+      v23.n128_u64[0] = v18;
+      *v25.i8 = RB::operator*(&v39, v16, v23);
       v26 = vabs_f32(*(a1 + 240));
       *v28.i8 = vcgt_f32(vneg_f32(0x80000000800000), *v27.i8);
       *v29.i8 = vsub_f32(*v25.i8, v26);
@@ -963,14 +1042,14 @@ uint64_t RB::DisplayList::CustomEffectStyle::mix(float32x2_t *this, float32_t *a
     return 0;
   }
 
-  v20 = 0;
+  v21 = 0;
   v8 = this[28];
   if (v8)
   {
     v9 = a3[28];
     if (v9)
     {
-      v20 = RB::DisplayList::Layer::mix(v8, a2, v9, a4);
+      v21 = RB::DisplayList::Layer::mix(v8, a2, v9, a4);
     }
   }
 
@@ -978,13 +1057,14 @@ uint64_t RB::DisplayList::CustomEffectStyle::mix(float32x2_t *this, float32_t *a
   v11 = a2[4];
   v12 = this[30];
   v13 = a3[30];
-  v19 = vmla_n_f32(this[29], vsub_f32(a3[29], this[29]), v11);
-  v18 = vmla_n_f32(v12, vsub_f32(v13, v12), v11);
-  *&v17 = RB::mix(this[31], this[32], a3[31], a3[32], v11);
-  *(&v17 + 1) = v14;
-  v15 = _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((v10 + 16), &this[7], &v20, &v19, &v18, &v17, &this[33]);
-  RB::CustomShader::Closure::mix((v15 + 56), &a3[7], a2[4]);
-  return v15;
+  v20 = vmla_n_f32(this[29], vsub_f32(a3[29], this[29]), v11);
+  v19 = vmla_n_f32(v12, vsub_f32(v13, v12), v11);
+  v14.n128_f64[0] = RB::mix(this[31], this[32], a3[31], a3[32], v11);
+  *&v18 = v14.n128_u64[0];
+  *(&v18 + 1) = v15.n128_u64[0];
+  v16 = _ZN2RB4Heap7emplaceINS_11DisplayList17CustomEffectStyleEJRKNS_12CustomShader7ClosureERPNS2_5LayerERKDv2_fSD_RKNS_4RectERKjEEEPT_DpOT0_((v10 + 16), &this[7], &v21, &v20, &v19, &v18, &this[33], v14, v15);
+  RB::CustomShader::Closure::mix(v16 + 56, &a3[7], a2[4]);
+  return v16;
 }
 
 void *RB::DisplayList::CustomEffectStyle::prepare_encode(RB::DisplayList::CustomEffectStyle *this, RB::Encoder *a2)
@@ -1061,7 +1141,7 @@ void *RB::DisplayList::CustomEffectStyle::encode(RB::DisplayList::CustomEffectSt
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::CustomEffectStyle::decode(RB::DisplayList::CustomEffectStyle *this, size_t **a2)
+uint64_t RB::DisplayList::CustomEffectStyle::decode(RB::DisplayList::CustomEffectStyle *this, size_t **a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -1268,7 +1348,7 @@ RB::DisplayList::PredicateStyle *RB::DisplayList::PredicateStyle::copy(RB::Displ
   return RB::DisplayList::PredicateStyle::PredicateStyle(v4, (this + 56), v5);
 }
 
-unsigned __int8 *RB::DisplayList::PredicateStyle::draw(RB::DisplayList::PredicateStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, uint64_t (***a4)(RB::DisplayList::Item *), char a5)
+RB::DisplayList::Builder *RB::DisplayList::PredicateStyle::draw(RB::DisplayList::PredicateStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, uint64_t (***a4)(RB::DisplayList::Item *), char a5)
 {
   if (((*a4)[23])(a4, this + 56) == *(this + 96))
   {
@@ -1396,7 +1476,7 @@ RB::DisplayList::TransformStyle *RB::Heap::emplace<RB::DisplayList::TransformSty
   return RB::DisplayList::TransformStyle::TransformStyle(v3, a2);
 }
 
-unsigned __int8 *RB::DisplayList::TransformStyle::draw(RB::DisplayList::TransformStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::TransformStyle::draw(RB::DisplayList::TransformStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   v10 = *(this + 3);
   *(a4 + 2) = *(this + 4);
@@ -1437,7 +1517,7 @@ void *RB::DisplayList::TransformStyle::encode(RB::DisplayList::TransformStyle *t
   RB::DisplayList::Style::encode(this, a2);
   RB::ProtobufEncoder::encode_varint(a2, 0x4AuLL);
   RB::ProtobufEncoder::begin_length_delimited(a2);
-  RB::DisplayList::Transform::encode(this + 14, a2);
+  RB::DisplayList::Transform::encode((this + 56), a2);
 
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
@@ -1582,7 +1662,7 @@ RB::DisplayList::AnimationStyle *RB::DisplayList::AnimationStyle::copy(RB::Displ
   return RB::DisplayList::AnimationStyle::AnimationStyle(v4, (this + 56), (this + 6), v5);
 }
 
-unsigned __int8 *RB::DisplayList::AnimationStyle::draw(RB::DisplayList::AnimationStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::AnimationStyle::draw(RB::DisplayList::AnimationStyle *this, RB::DisplayList::Builder *a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   v9 = *(this + 3);
   *(a4 + 2) = *(this + 4);
@@ -1626,7 +1706,7 @@ void *RB::DisplayList::AnimationStyle::encode(RB::DisplayList::AnimationStyle *t
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::AnimationStyle::decode(RB::DisplayList::AnimationStyle *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::AnimationStyle::decode(RB::DisplayList::AnimationStyle *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -1724,9 +1804,9 @@ void RB::DisplayList::AnimationStyle::print(RB::DisplayList::AnimationStyle *thi
   RB::SexpString::pop(a2);
 }
 
-void sub_195E02B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_195E02B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   RB::XML::Document::~Document(va);
   _Unwind_Resume(a1);
 }
@@ -1801,7 +1881,7 @@ uint64_t RB::DisplayList::CrossFadeStyle::apply_transform(RB::DisplayList::Cross
   return result;
 }
 
-unsigned __int8 *RB::DisplayList::CrossFadeStyle::draw(RB::DisplayList::CrossFadeStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::CrossFadeStyle::draw(RB::DisplayList::CrossFadeStyle *this, size_t **a2, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   v10 = *(this + 7);
   if (v10)
@@ -1923,7 +2003,7 @@ void *RB::DisplayList::CrossFadeStyle::encode(RB::DisplayList::CrossFadeStyle *t
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::DisplayList::CrossFadeStyle::decode(RB::DisplayList::CrossFadeStyle *this, RB::Decoder *a2)
+uint64_t RB::DisplayList::CrossFadeStyle::decode(RB::DisplayList::CrossFadeStyle *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -3081,7 +3161,7 @@ void RB::DisplayList::CrossFadeStyle::~CrossFadeStyle(RB::DisplayList::CrossFade
   JUMPOUT(0x19A8C09E0);
 }
 
-unsigned __int8 *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Projection>::draw(uint64_t a1, size_t **this, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
+RB::DisplayList::Builder *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Projection>::draw(uint64_t a1, size_t **this, RB::DisplayList::Layer *a3, RB::DisplayList::Item *a4, char a5)
 {
   *(a4 + 2) = *(a1 + 32);
   v5 = *(a1 + 72);
@@ -3460,7 +3540,7 @@ void *RB::DisplayList::GeometryMatrixStyle<RB::GeometryStyle::Projection>::encod
   RB::ProtobufEncoder::begin_length_delimited(a2);
   RB::ProtobufEncoder::encode_varint(a2, 0x32uLL);
   RB::ProtobufEncoder::begin_length_delimited(a2);
-  RB::GeometryStyle::Projection::encode((a1 + 7), a2);
+  RB::GeometryStyle::Projection::encode(a1 + 7, a2);
   RB::ProtobufEncoder::end_length_delimited(a2);
 
   return RB::ProtobufEncoder::end_length_delimited(a2);
@@ -3791,7 +3871,7 @@ void RB::DisplayList::FilterStyle<RB::Filter::ColorMatrix>::print(const RB::Affi
   RB::SexpString::pop(this);
 }
 
-unint64_t RB::Heap::emplace<RB::DisplayList::FilterStyle<RB::Filter::ColorMatrix>,RB::Filter::ColorMatrix const&,RB::DisplayList::Builder &>(size_t *a1, RB::Filter::ColorMatrix *a2, RB::DisplayList::Builder *a3)
+size_t RB::Heap::emplace<RB::DisplayList::FilterStyle<RB::Filter::ColorMatrix>,RB::Filter::ColorMatrix const&,RB::DisplayList::Builder &>(size_t *a1, RB::Filter::ColorMatrix *a2, RB::DisplayList::Builder *a3)
 {
   v5 = (a1[2] + 7) & 0xFFFFFFFFFFFFFFF8;
   if (v5 + 72 > a1[3])
@@ -4001,7 +4081,7 @@ double RB::Decoder::emplace<RB::DisplayList::ColorFilterStyle<RB::ColorStyle::Lu
   return result;
 }
 
-unint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMultiply>::decode(uint64_t a1, RB::ProtobufDecoder *this)
+uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMultiply>::decode(uint64_t a1, RB::ProtobufDecoder *this)
 {
   result = RB::ProtobufDecoder::next_field(this);
   if (result)
@@ -4066,7 +4146,7 @@ LABEL_15:
   return result;
 }
 
-unint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::decode(uint64_t a1, RB::ProtobufDecoder *this)
+uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::HueRotation>::decode(uint64_t a1, RB::ProtobufDecoder *this)
 {
   result = RB::ProtobufDecoder::next_field(this);
   if (result)
@@ -4131,7 +4211,7 @@ LABEL_15:
   return result;
 }
 
-unint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::decode(uint64_t a1, RB::ProtobufDecoder *this)
+uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::LuminanceToAlpha>::decode(uint64_t a1, RB::ProtobufDecoder *this)
 {
   result = RB::ProtobufDecoder::next_field(this);
   if (result)
@@ -4196,7 +4276,7 @@ LABEL_16:
   return result;
 }
 
-unint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMonochrome>::decode(uint64_t a1, RB::ProtobufDecoder *this)
+uint64_t RB::DisplayList::ColorFilterStyle<RB::ColorStyle::ColorMonochrome>::decode(uint64_t a1, RB::ProtobufDecoder *this)
 {
   result = RB::ProtobufDecoder::next_field(this);
   if (result)
@@ -4567,25 +4647,25 @@ int32x2_t *RB::render_masks(int32x2_t *result, int32x2_t *a2, unint64_t a3, uint
 
     LODWORD(v26) = v26 & 0xFFFEFFFF | v17;
     HIDWORD(v26) = HIDWORD(v26) & 0xFFFFFFC0 | a9 & 0x3F;
-    *a6 = *&v15[14];
+    *a6 = *(v15 + 112);
     LODWORD(v18) = 0;
-    *(&v18 + 1) = -*&v15[14].i32[1];
+    *(&v18 + 1) = -*(v15 + 116);
     __asm { FMOV            V0.2S, #-1.0 }
 
     *(a6 + 8) = v18;
     *(a6 + 16) = -_D0;
-    *(a6 + 24) = v15[15].i32[0];
-    v15[25].i32[1] = RB::RenderFrame::buffer_id(*(*v15 + 16), *a4);
-    v15[26] = vmovn_s64(*(a4 + 8));
+    *(a6 + 24) = *(v15 + 120);
+    *(v15 + 204) = RB::RenderFrame::buffer_id(*(*v15 + 16), *a4);
+    *(v15 + 208) = vmovn_s64(*(a4 + 8));
     v24 = RB::RenderFrame::buffer_id(*(*v15 + 16), a5);
-    v15[27].i32[1] = 0;
-    v15[28].i32[0] = 0;
-    v15[27].i32[0] = v24;
+    *(v15 + 220) = 0;
+    *(v15 + 224) = 0;
+    *(v15 + 216) = v24;
     RB::Fill::set_image_globals(v15, a6, 0xBC, 4uLL, &v26, v25);
     result = RB::RenderPass::draw_indexed_primitives(v15, v26, 4, **(*v15 + 16) + 136, 4uLL, a3, *a2, a2[1]);
-    *(&v15[25] + 4) = 0;
-    *(&v15[26] + 4) = 0;
-    *(&v15[27] + 4) = 0;
+    *(v15 + 204) = 0;
+    *(v15 + 212) = 0;
+    *(v15 + 220) = 0;
   }
 
   return result;
@@ -4634,9 +4714,9 @@ char *RB::vector<std::pair<RB::objc_ptr<RBSymbolAnimator *>,RB::objc_ptr<objc_ob
   return a1;
 }
 
-void sub_195E07DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_195E07DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   RB::Symbol::Presentation::~Presentation(va);
   _Unwind_Resume(a1);
 }
@@ -4903,7 +4983,7 @@ void sub_195E086E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RBSymbolUpdateLayerClip(uint64_t a1, _RBDrawingState *a2, int a3, char a4, float a5)
+uint64_t RBSymbolUpdateLayerClip(uint64_t a1, __n128 *a2, unsigned int a3, char a4, float a5)
 {
   v7 = *a1;
   v8 = *a1 + 8;
@@ -4929,7 +5009,7 @@ uint64_t RBSymbolUpdateLayerClip(uint64_t a1, _RBDrawingState *a2, int a3, char 
     v42 = 1;
   }
 
-  v53 = *(a2 + 21);
+  v53 = a2[10].n128_u64[1];
   if (a4)
   {
     v13 = v10 + v42;
@@ -5116,8 +5196,9 @@ void *std::pair<RB::objc_ptr<RBSymbolAnimator *>,RB::objc_ptr<objc_object  {objc
   return a1;
 }
 
-void RB::ColorStyle::ColorMultiply::color_matrix(void *a1, void *a2, unsigned __int16 a3, char a4, float32_t a5)
+void RB::ColorStyle::ColorMultiply::color_matrix(void *a1, void *a2, unsigned __int16 a3, uint64_t a4, float32_t a5)
 {
+  v5 = a4;
   v11[0] = *a1;
   *(v11 + 6) = *(a1 + 6);
   v8 = RB::color_flags_space(a4, a3);
@@ -5128,7 +5209,7 @@ void RB::ColorStyle::ColorMultiply::color_matrix(void *a1, void *a2, unsigned __
   }
 
   v10 = v11[0];
-  if ((a4 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
     v10.i16[2] = WORD2(v11[0]);
     v10.i16[3] = COERCE_UNSIGNED_INT(1.0);
@@ -5189,7 +5270,7 @@ void RB::ColorStyle::ColorMultiply::mix(RB::ColorStyle::ColorMultiply *this, con
     *&v3[8] = 0;
   }
 
-  RB::Fill::Color::mix(this, v3, 0, a3);
+  RB::Fill::Color::mix(a3, this, v3, 0);
 }
 
 void *RB::ColorStyle::ColorMultiply::encode(RB::ColorStyle::ColorMultiply *this, RB::Encoder *a2)
@@ -5201,7 +5282,7 @@ void *RB::ColorStyle::ColorMultiply::encode(RB::ColorStyle::ColorMultiply *this,
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-BOOL RB::ColorStyle::ColorMultiply::decode_field(RB::Fill::Color *a1, RB::ProtobufDecoder *this, uint64_t a3)
+BOOL RB::ColorStyle::ColorMultiply::decode_field(RB::Fill::Color *a1, char **this, uint64_t a3)
 {
   v3 = a3 & 0x7FFFFFFF8;
   if ((a3 & 0x7FFFFFFF8) == 8)
@@ -5216,7 +5297,7 @@ BOOL RB::ColorStyle::ColorMultiply::decode_field(RB::Fill::Color *a1, RB::Protob
     else
     {
       *(this + 56) = 1;
-      *this = *(this + 1);
+      *this = this[1];
     }
   }
 
@@ -5231,8 +5312,9 @@ void RB::ColorStyle::ColorMultiply::print(RB::ColorStyle::ColorMultiply *this, R
   RB::SexpString::pop(a2);
 }
 
-uint64_t RB::ColorStyle::AlphaMultiply::color_matrix(void *a1, uint64_t a2, unsigned __int16 a3, char a4, float32_t a5)
+uint64_t RB::ColorStyle::AlphaMultiply::color_matrix(void *a1, uint64_t a2, unsigned __int16 a3, uint64_t a4, float32_t a5)
 {
+  v5 = a4;
   v13[0] = *a1;
   *(v13 + 6) = *(a1 + 6);
   v8 = RB::color_flags_space(a4, a3);
@@ -5243,7 +5325,7 @@ uint64_t RB::ColorStyle::AlphaMultiply::color_matrix(void *a1, uint64_t a2, unsi
   }
 
   v11 = v13[0];
-  if ((a4 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
     v11.i16[2] = WORD2(v13[0]);
     v11.i16[3] = COERCE_UNSIGNED_INT(1.0);
@@ -5251,7 +5333,7 @@ uint64_t RB::ColorStyle::AlphaMultiply::color_matrix(void *a1, uint64_t a2, unsi
     v11 = vmul_n_f16(v11, *(v13 + 3));
   }
 
-  return RB::ColorMatrix::set_alpha_multiply(a2, (a4 & 4) != 0, v11, v10);
+  return RB::ColorMatrix::set_alpha_multiply(a2, (v5 & 4) != 0, v11, v10);
 }
 
 BOOL RB::ColorStyle::AlphaMultiply::test(uint64_t a1, unsigned int a2, int a3)
@@ -5296,7 +5378,7 @@ void RB::ColorStyle::AlphaMultiply::mix(RB::ColorStyle::AlphaMultiply *this, con
   {
     v3[0] = *a2;
     *(v3 + 6) = *(a2 + 6);
-    RB::Fill::Color::mix(this, v3, 0, a3);
+    RB::Fill::Color::mix(a3, this, v3, 0);
   }
 }
 
@@ -5433,8 +5515,9 @@ void RB::ColorStyle::LuminanceToAlpha::print(RB::ColorStyle::LuminanceToAlpha *t
   RB::SexpString::pop(a2);
 }
 
-void RB::ColorStyle::ColorMonochrome::color_matrix(uint64_t a1, void *a2, unsigned __int16 a3, char a4, float32_t a5)
+void RB::ColorStyle::ColorMonochrome::color_matrix(uint64_t a1, void *a2, unsigned __int16 a3, uint64_t a4, float32_t a5)
 {
+  v5 = a4;
   v12[0] = *a1;
   *(v12 + 6) = *(a1 + 6);
   v9 = RB::color_flags_space(a4, a3);
@@ -5445,7 +5528,7 @@ void RB::ColorStyle::ColorMonochrome::color_matrix(uint64_t a1, void *a2, unsign
   }
 
   v11 = v12[0];
-  if ((a4 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
     v11.i16[2] = WORD2(v12[0]);
     v11.i16[3] = COERCE_UNSIGNED_INT(1.0);
@@ -5491,7 +5574,7 @@ float32_t RB::ColorStyle::ColorMonochrome::mix(float32x2_t *this, float32x2_t *a
   if (a2)
   {
     v6 = a3.f32[0];
-    RB::Fill::Color::mix(this, a2, 0, a3);
+    RB::Fill::Color::mix(a3, this, a2, 0);
     *a3.f32 = vmla_n_f32(this[2], vsub_f32(a2[2], this[2]), v6);
     this[2] = *a3.f32;
   }
@@ -5565,18 +5648,18 @@ LABEL_8:
   return this;
 }
 
-uint64_t RB::ColorStyle::ColorMonochrome::decode_field(float *a1, RB::ProtobufDecoder *this, unint64_t a3)
+uint64_t RB::ColorStyle::ColorMonochrome::decode_field(RB::Fill::Color *a1, char **this, unint64_t a3)
 {
   v5 = a3 >> 3;
   if ((a3 >> 3) == 3)
   {
-    a1[5] = RB::ProtobufDecoder::float_field(this, a3);
+    *(a1 + 5) = RB::ProtobufDecoder::float_field(this, a3);
     return 1;
   }
 
   if (v5 == 2)
   {
-    a1[4] = RB::ProtobufDecoder::float_field(this, a3);
+    *(a1 + 4) = RB::ProtobufDecoder::float_field(this, a3);
     return 1;
   }
 
@@ -5595,7 +5678,7 @@ uint64_t RB::ColorStyle::ColorMonochrome::decode_field(float *a1, RB::ProtobufDe
 
   result = 1;
   *(this + 56) = 1;
-  *this = *(this + 1);
+  *this = this[1];
   return result;
 }
 
@@ -5880,28 +5963,28 @@ float32x2_t RB::Filter::GaussianBlur::mix(RB::Filter::GaussianBlur *this, const 
   return result;
 }
 
-void sub_195E09E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_195E09E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   RB::DisplayList::CachedTransform::~CachedTransform(va);
   _Unwind_Resume(a1);
 }
 
-void RB::Filter::GaussianBlur::render_variable(uint64_t a1, uint64_t a2, RB::RenderPass *a3, int32x2_t a4)
+void RB::Filter::GaussianBlur::render_variable(uint64_t a1, uint64_t a2, double *a3, double a4)
 {
   v114 = *MEMORY[0x1E69E9840];
   v6 = vaddv_f32(*a1) * 0.305;
   if (v6 >= 0.5)
   {
-    v10 = *(a3 + 168);
-    v11 = *(a3 + 176);
+    v10 = a3[21];
+    v11 = a3[22];
     v12 = vcvt_f32_s32(v11);
     v13 = *(a1 + 24);
     if ((v13 & 0x100) != 0)
     {
       *v112 = *(a1 + 8);
       v15.i32[1] = HIDWORD(v112[0]);
-      v16 = vsub_s32(a4, v10);
+      v16 = vsub_s32(*&a4, v10);
       v15.f32[0] = v16.i32[0];
       RB::Rect::translate(v112, v15, v16.i32[1]);
       v14 = vmaxnm_f32(v112[0], 0);
@@ -5998,12 +6081,12 @@ void RB::Filter::GaussianBlur::render_variable(uint64_t a1, uint64_t a2, RB::Ren
         v43 = v14;
         do
         {
-          RB::RenderPass::RenderPass(&v96, *a3, v109, v33, 1, 9, 0);
+          RB::RenderPass::RenderPass(&v96, *a3, v109, v33, 1u, 9);
           v44 = vshl_s32(vadd_s32(*(v109 + 64), vdup_n_s32(~(-1 << v33))), vneg_s32(vdup_n_s32(v33)));
           v45.n128_u64[0] = vmin_s32(vadd_s32(v44, 0x100000001), v44);
           v103 = 0;
           v104 = v45.n128_u64[0];
-          RB::RenderPass::set_extra_attachments(&v96, MTLPixelFormatInvalid, v45);
+          RB::RenderPass::set_extra_attachments(&v96, 0, v45);
           RB::Coverage::set_plane(v92, &v96, v46);
           v47 = vcvt_f32_s32(v35);
           v48 = vrecpe_f32(v47);
@@ -6085,7 +6168,7 @@ void RB::Filter::GaussianBlur::render_variable(uint64_t a1, uint64_t a2, RB::Ren
           v107 = 0;
           v108 = 0;
           RB::RenderPass::~RenderPass(&v96);
-          v33 = (v33 + 1);
+          ++v33;
         }
 
         while (v24 != v33);
@@ -6106,7 +6189,7 @@ void RB::Filter::GaussianBlur::render_variable(uint64_t a1, uint64_t a2, RB::Ren
         v65 = v30;
       }
 
-      (*(**(a1 + 32) + 168))(*(a1 + 32), a2, v65, 0, 19, *&a4);
+      (*(**(a1 + 32) + 168))(*(a1 + 32), a2, v65, 0, 19, a4);
       if (v112[1])
       {
         v67 = v112[1];
@@ -6626,7 +6709,7 @@ void *RB::GeometryStyle::Rotation::encode(RB::GeometryStyle::Rotation *this, RB:
   return RB::ProtobufEncoder::float2_field(a2, 2, v5);
 }
 
-unint64_t RB::GeometryStyle::Rotation::decode(RB::GeometryStyle::Rotation *this, RB::Decoder *a2)
+uint64_t RB::GeometryStyle::Rotation::decode(RB::GeometryStyle::Rotation *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -6708,7 +6791,7 @@ void *RB::GeometryStyle::Scale::encode(RB::GeometryStyle::Scale *this, RB::Encod
   return RB::ProtobufEncoder::float2_field(a2, 2, v4);
 }
 
-unint64_t RB::GeometryStyle::Scale::decode(RB::GeometryStyle::Scale *this, RB::Decoder *a2)
+uint64_t RB::GeometryStyle::Scale::decode(RB::GeometryStyle::Scale *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -6816,7 +6899,7 @@ BOOL RB::GeometryStyle::Rotation3D::operator==(uint64_t a1, uint64_t a2)
   }
 }
 
-double RB::GeometryStyle::Rotation3D::set_projection_matrix(RB::GeometryStyle::Rotation3D *this, float32x4_t *a2)
+double RB::GeometryStyle::Rotation3D::set_projection_matrix(RB::GeometryStyle::Rotation3D *this, int8x16_t *a2)
 {
   v4 = *(MEMORY[0x1E69792E8] + 80);
   v32[4] = *(MEMORY[0x1E69792E8] + 64);
@@ -6901,25 +6984,25 @@ void *RB::GeometryStyle::Rotation3D::encode(float32x4_t *this, RB::Encoder *a2)
 
   RB::ProtobufEncoder::float3_field(a2, 2, this[1]);
   result = RB::ProtobufEncoder::float3_field(a2, 3, this[2]);
-  v6 = this[3].i32[0];
-  if (*&v6 != 0.0)
+  v6 = this[3].f32[0];
+  if (v6 != 0.0)
   {
     RB::ProtobufEncoder::encode_varint(a2, 0x25uLL);
-    result = RB::ProtobufEncoder::encode_fixed32(a2, v6);
+    result = RB::ProtobufEncoder::encode_fixed32(a2, SLODWORD(v6));
   }
 
-  v7 = this[3].i32[1];
-  if (*&v7 != 0.0)
+  v7 = this[3].f32[1];
+  if (v7 != 0.0)
   {
     RB::ProtobufEncoder::encode_varint(a2, 0x2DuLL);
 
-    return RB::ProtobufEncoder::encode_fixed32(a2, v7);
+    return RB::ProtobufEncoder::encode_fixed32(a2, SLODWORD(v7));
   }
 
   return result;
 }
 
-unint64_t RB::GeometryStyle::Rotation3D::decode(__n128 *this, RB::Decoder *a2)
+uint64_t RB::GeometryStyle::Rotation3D::decode(__n128 *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -7078,7 +7161,7 @@ uint64_t RB::vector<RB::refcounted_ptr<RB::RenderTask>,32ul,unsigned int>::~vect
     v4 = 0;
     do
     {
-      v5 = v3[v4];
+      v5 = *(v3 + 8 * v4);
       if (v5)
       {
         v6 = v5[2] - 1;
@@ -7122,7 +7205,7 @@ uint64_t RB::vector<RB::refcounted_ptr<RB::DisplayList::RenderState::RootTexture
     v4 = 0;
     do
     {
-      v5 = v3[v4];
+      v5 = *(v3 + 8 * v4);
       if (v5)
       {
         v6 = v5[2] - 1;
@@ -7148,12 +7231,12 @@ uint64_t RB::vector<RB::refcounted_ptr<RB::DisplayList::RenderState::RootTexture
   return a1;
 }
 
-uint64_t RB::DisplayList::Item::prepare_task(uint64_t a1, MTLPixelFormat a2)
+uint64_t RB::DisplayList::Item::prepare_task(uint64_t a1, size_t *a2)
 {
   result = (*(*a1 + 160))(a1);
   if ((*(a1 + 46) & 0xC0) == 0x40)
   {
-    v5 = *(a2 + 1456);
+    v5 = a2[182];
     v6 = *(a1 + 48);
     v13 = v5[2];
     v12[0] = 0;
@@ -7199,7 +7282,7 @@ int32x2_t *RB::DisplayList::BackdropColorMatrixItem::render(uint64_t a1, uint64_
   v7 = *(a1 + 48);
   if (!v7)
   {
-    MEMORY[0x1EEE9AC00](a1, a2);
+    MEMORY[0x1EEE9AC00](a1);
     v7 = v15;
     v15[0] = 0;
     v15[1] = 0;
@@ -7211,7 +7294,7 @@ int32x2_t *RB::DisplayList::BackdropColorMatrixItem::render(uint64_t a1, uint64_
   return RB::Filter::ColorMatrix::render(v7, v6, *(a2 + 1072), a5, v5, _S0);
 }
 
-unsigned __int8 *RB::DisplayList::CustomItem::render(uint64_t a1, double a2, uint64_t a3, int32x2_t *a4, int a5, char a6)
+unsigned __int8 *RB::DisplayList::CustomItem::render(float32x2_t *a1, double a2, uint64_t a3, int32x2_t *a4, int a5, char a6)
 {
   v8 = 38;
   if (a4[16].i32[1] == 2)
@@ -7227,20 +7310,22 @@ unsigned __int8 *RB::DisplayList::CustomItem::render(uint64_t a1, double a2, uin
   }
 
   v11 = v10 | v8;
-  v12 = *(a1 + 56);
+  v12 = a1[7];
   v13.i64[0] = SLODWORD(a2);
   v13.i64[1] = SHIDWORD(a2);
-  v14 = v12[1];
-  v15 = vaddq_f64(v12[2], vcvtq_f64_s64(v13));
-  v28[0] = *v12;
-  v28[1] = v14;
-  v28[2] = v15;
-  v16 = RB::operator*(v28, *(a1 + 64), *(a1 + 72));
-  RB::Bounds::Bounds(v27, v16, v17, v18, v19);
-  _H2 = *(a1 + 44);
+  v15 = *(*&v12 + 16);
+  v16 = vaddq_f64(*(*&v12 + 32), vcvtq_f64_s64(v13));
+  v29[0] = **&v12;
+  v14.n128_u64[1] = *&v29[0].f64[1];
+  v29[1] = v15;
+  v29[2] = v16;
+  v14.n128_u64[0] = a1[9];
+  v17 = RB::operator*(v29, a1[8], v14);
+  RB::Bounds::Bounds(v28, v17, v18, v19, v20);
+  _H2 = a1[5].i16[2];
   __asm { FCVT            S2, H2 }
 
-  return RB::RenderPass::draw_custom(a4, (v11 | (v9 << 32)), *(a1 + 48), v28, *(a1 + 80), v27[0], v27[1], _S2);
+  return RB::RenderPass::draw_custom(a4, (v11 | (v9 << 32)), *&a1[6], v29, a1[10].i32[0], v28[0], v28[1], _S2);
 }
 
 void RB::DisplayList::SpillItem::print(RB::DisplayList::SpillItem *this, RB::SexpString *a2, uint64_t a3)
@@ -7587,15 +7672,15 @@ LABEL_14:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(uint64_t result, unint64_t *a2)
+unint64_t *std::__insertion_sort_unguarded[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(unint64_t *result, unint64_t *a2)
 {
   if (result != a2)
   {
     v3 = result;
-    v4 = (result + 24);
-    if ((result + 24) != a2)
+    v4 = result + 3;
+    if (result + 3 != a2)
     {
-      v5 = (result + 8);
+      v5 = result + 1;
       do
       {
         v6 = v4;
@@ -7712,7 +7797,7 @@ LABEL_16:
 LABEL_24:
   if (i < a2)
   {
-    v14 = (a2 - 3);
+    v14 = a2 - 3;
     do
     {
       a2 = v14;
@@ -7785,7 +7870,7 @@ LABEL_24:
 
       while (!v24);
 LABEL_40:
-      v26 = (a2 - 3);
+      v26 = a2 - 3;
       do
       {
         a2 = v26;
@@ -7831,7 +7916,7 @@ LABEL_40:
   return i;
 }
 
-unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *,std::__less<void,void> &>(unint64_t *a1, unint64_t *a2)
+unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *,std::__less<void,void> &>(unint64_t *a1, char *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -7872,14 +7957,14 @@ unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgP
       while (1)
       {
         v14 = *(a2 - 3);
-        a2 -= 3;
+        a2 -= 24;
         v15 = v14 < v3;
         if (v14 != v3)
         {
           break;
         }
 
-        v16 = a2[1];
+        v16 = *(a2 + 1);
         v11 = v16 == v4;
         v15 = v16 < v4;
         if (!v11)
@@ -7887,7 +7972,7 @@ unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgP
           break;
         }
 
-        if (a2[2] < v5)
+        if (*(a2 + 2) < v5)
         {
           goto LABEL_27;
         }
@@ -7904,11 +7989,11 @@ unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgP
       while (1)
       {
         v17 = *(a2 - 3);
-        a2 -= 3;
+        a2 -= 24;
         v18 = v17 < v3;
         if (v17 == v3)
         {
-          v19 = a2[1];
+          v19 = *(a2 + 1);
           v11 = v19 == v4;
           v18 = v19 < v4;
           if (v11)
@@ -7924,7 +8009,7 @@ unint64_t *std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgP
       }
     }
 
-    while (a2[2] >= v5 && v13 < a2);
+    while (*(a2 + 2) >= v5 && v13 < a2);
   }
 
 LABEL_27:
@@ -8153,17 +8238,17 @@ LABEL_23:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
     if (a2 - a1 >= 25)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[3 * v10];
+      v12 = &a1[24 * v10];
       do
       {
         std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(a1, a4, v9, v12);
@@ -8185,17 +8270,17 @@ unint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__
           v14 = *v13;
           *v13 = *a1;
           *a1 = v14;
-          v15 = v13[1];
-          v16 = v13[2];
-          v17 = a1[2];
-          v13[1] = a1[1];
-          v13[2] = v17;
-          a1[1] = v15;
-          a1[2] = v16;
+          v15 = *(v13 + 1);
+          v16 = *(v13 + 2);
+          v17 = *(a1 + 2);
+          *(v13 + 1) = *(a1 + 1);
+          *(v13 + 2) = v17;
+          *(a1 + 1) = v15;
+          *(a1 + 2) = v16;
           std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(a1, a4, v9, a1);
         }
 
-        v13 += 3;
+        v13 += 24;
       }
 
       while (v13 != a3);
@@ -8204,33 +8289,33 @@ unint64_t *std::__partial_sort_impl[abi:nn200100]<std::_ClassicAlgPolicy,std::__
     if (v8 >= 25)
     {
       v18 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v19 = a2 - 3;
+      v19 = a2 - 24;
       do
       {
         v21 = *a1;
-        v20 = a1[1];
-        v22 = a1[2];
+        v20 = *(a1 + 1);
+        v22 = *(a1 + 2);
         v23 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(a1, a4, v18);
         if (v19 == v23)
         {
           *v23 = v21;
-          v23[1] = v20;
-          v23[2] = v22;
+          *(v23 + 1) = v20;
+          *(v23 + 2) = v22;
         }
 
         else
         {
           *v23 = *v19;
-          v24 = v19[2];
-          v23[1] = v19[1];
-          v23[2] = v24;
+          v24 = *(v19 + 2);
+          *(v23 + 1) = *(v19 + 1);
+          *(v23 + 2) = v24;
           *v19 = v21;
-          v19[1] = v20;
-          v19[2] = v22;
-          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(a1, (v23 + 3), a4, 0xAAAAAAAAAAAAAAABLL * (v23 + 3 - a1));
+          *(v19 + 1) = v20;
+          *(v19 + 2) = v22;
+          std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<std::pair<unsigned long,unsigned long>,RB::DisplayList::LayerTask *> *>(a1, (v23 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v23 + 24 - a1) >> 3));
         }
 
-        v19 -= 3;
+        v19 -= 24;
       }
 
       while (v18-- > 2);
@@ -8420,7 +8505,7 @@ uint64_t std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZNK2RB11DisplayList5Layer9make_taskERNS3_11RenderStateENS2_6BoundsERKS7_PS8_jfPKNS3_4ItemEPKDv4_fE3__0PNS_4pairISD_jEEEEbT1_SM_T0_(uint64_t a1, uint64_t a2)
+BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZNK2RB11DisplayList5Layer9make_taskERNS3_11RenderStateENS2_6BoundsERKS7_PS8_jfPKNS3_4ItemEPKDv4_fE3__0PNS_4pairISD_jEEEEbT1_SM_T0_(uint64_t a1, uint64_t *a2)
 {
   v2 = (a2 - a1) >> 4;
   if (v2 > 2)
@@ -8429,7 +8514,7 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN
     {
       v5 = *(a1 + 16);
       v6 = *a1;
-      v7 = *(a2 - 16);
+      v7 = *(a2 - 2);
       if (v5 < *a1)
       {
         if (v7 >= v5)
@@ -8439,20 +8524,20 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN
           v29 = *(a1 + 8);
           *(a1 + 8) = *(a1 + 24);
           *(a1 + 24) = v29;
-          v30 = *(a2 - 16);
+          v30 = *(a2 - 2);
           if (v30 < v6)
           {
             *(a1 + 16) = v30;
-            *(a2 - 16) = v6;
-            *(a1 + 24) = *(a2 - 8);
-            *(a2 - 8) = v29;
+            *(a2 - 2) = v6;
+            *(a1 + 24) = *(a2 - 2);
+            *(a2 - 2) = v29;
           }
 
           return 1;
         }
 
         *a1 = v7;
-        *(a2 - 16) = v6;
+        *(a2 - 2) = v6;
         goto LABEL_13;
       }
 
@@ -8462,10 +8547,10 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN
       }
 
       *(a1 + 16) = v7;
-      *(a2 - 16) = v5;
+      *(a2 - 2) = v5;
       v18 = *(a1 + 24);
-      *(a1 + 24) = *(a2 - 8);
-      *(a2 - 8) = v18;
+      *(a1 + 24) = *(a2 - 2);
+      *(a2 - 2) = v18;
       v19 = *(a1 + 16);
       v20 = *a1;
       if (v19 >= *a1)
@@ -8487,7 +8572,7 @@ LABEL_52:
     {
       if (v2 == 5)
       {
-        _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZNK2RB11DisplayList5Layer9make_taskERNS3_11RenderStateENS2_6BoundsERKS7_PS8_jfPKNS3_4ItemEPKDv4_fE3__0PNS_4pairISD_jEELi0EEEvT1_SM_SM_SM_SM_T0_(a1, (a1 + 16), (a1 + 32), (a1 + 48), (a2 - 16));
+        _ZNSt3__17__sort5B8nn200100INS_17_ClassicAlgPolicyERZNK2RB11DisplayList5Layer9make_taskERNS3_11RenderStateENS2_6BoundsERKS7_PS8_jfPKNS3_4ItemEPKDv4_fE3__0PNS_4pairISD_jEELi0EEEvT1_SM_SM_SM_SM_T0_(a1, (a1 + 16), (a1 + 32), (a1 + 48), a2 - 2);
         return 1;
       }
 
@@ -8550,17 +8635,17 @@ LABEL_46:
 
     v14 = v16;
 LABEL_48:
-    v41 = *(a2 - 16);
+    v41 = *(a2 - 2);
     if (v41 >= v14)
     {
       return 1;
     }
 
     *(a1 + 32) = v41;
-    *(a2 - 16) = v14;
+    *(a2 - 2) = v14;
     v42 = *(a1 + 40);
-    *(a1 + 40) = *(a2 - 8);
-    *(a2 - 8) = v42;
+    *(a1 + 40) = *(a2 - 2);
+    *(a2 - 2) = v42;
     v43 = *(a1 + 32);
     v44 = *(a1 + 16);
     if (v43 >= v44)
@@ -8593,16 +8678,16 @@ LABEL_48:
 
   if (v2 == 2)
   {
-    v3 = *(a2 - 16);
+    v3 = *(a2 - 2);
     v4 = *a1;
     if (v3 < *a1)
     {
       *a1 = v3;
-      *(a2 - 16) = v4;
+      *(a2 - 2) = v4;
 LABEL_13:
       v8 = *(a1 + 8);
-      *(a1 + 8) = *(a2 - 8);
-      *(a2 - 8) = v8;
+      *(a1 + 8) = *(a2 - 2);
+      *(a2 - 2) = v8;
     }
 
     return 1;
@@ -8659,8 +8744,8 @@ LABEL_14:
     *(a1 + 40) = v13;
   }
 
-  v32 = a1 + 48;
-  if (a1 + 48 == a2)
+  v32 = (a1 + 48);
+  if ((a1 + 48) == a2)
   {
     return 1;
   }
@@ -8673,7 +8758,7 @@ LABEL_14:
     v36 = *v9;
     if (*v32 < *v9)
     {
-      v37 = *(v32 + 8);
+      v37 = *(v32 + 2);
       v38 = v33;
       while (1)
       {
@@ -8700,13 +8785,13 @@ LABEL_41:
       *(v40 + 8) = v37;
       if (++v34 == 8)
       {
-        return v32 + 16 == a2;
+        return v32 + 2 == a2;
       }
     }
 
     v9 = v32;
     v33 += 16;
-    v32 += 16;
+    v32 += 2;
     if (v32 == a2)
     {
       return 1;
@@ -9132,7 +9217,7 @@ void *RB::AnimationLayer::encode(void *this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::AnimationLayer::decode(RB::AnimationLayer *this, RB::Decoder *a2)
+uint64_t RB::AnimationLayer::decode(RB::AnimationLayer *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -9379,15 +9464,15 @@ float RB::Symbol::Animator::color(uint64_t a1, int a2)
   return v6;
 }
 
-uint64_t RB::Symbol::Animator::set_color(uint64_t a1, int a2, float32x4_t *a3)
+uint64_t RB::Symbol::Animator::set_color(os_unfair_lock_s *a1, int a2, float32x4_t *a3)
 {
   v5 = RB::Symbol::Model::style_color_index(a2);
   if (v5 != -1)
   {
     v6 = v5;
     os_unfair_lock_lock(a1);
-    v8 = (a1 + 8);
-    v7 = *(a1 + 8);
+    v8 = a1 + 2;
+    v7 = *&a1[2]._os_unfair_lock_opaque;
     if (v6 >= *(v7 + 32))
     {
       if (a3->f32[3] == -32768.0)
@@ -9405,10 +9490,10 @@ LABEL_9:
       return v9;
     }
 
-    RB::Symbol::Model::copy_on_write(a1 + 8);
-    v10 = *v8;
-    v11 = (*v8 + 24);
-    v13 = (*v8 + 32);
+    RB::Symbol::Model::copy_on_write(&a1[2]);
+    v10 = *&v8->_os_unfair_lock_opaque;
+    v11 = (*&v8->_os_unfair_lock_opaque + 24);
+    v13 = (*&v8->_os_unfair_lock_opaque + 32);
     for (i = *v13; v6 >= *v13; i = *v13)
     {
       if (*(v10 + 36) < i + 1)
@@ -9419,14 +9504,14 @@ LABEL_9:
 
       *(*v11 + 16 * i) = RBColorNull;
       ++*v13;
-      v10 = *v8;
-      v11 = (*v8 + 24);
-      v13 = (*v8 + 32);
+      v10 = *&v8->_os_unfair_lock_opaque;
+      v11 = (*&v8->_os_unfair_lock_opaque + 24);
+      v13 = (*&v8->_os_unfair_lock_opaque + 32);
     }
 
     *(*v11 + 16 * v6) = *a3;
-    ++*(*(a1 + 8) + 100);
-    ++*(a1 + 60);
+    ++*(*&a1[2]._os_unfair_lock_opaque + 100);
+    ++a1[15]._os_unfair_lock_opaque;
     v9 = 1;
     goto LABEL_9;
   }
@@ -9454,15 +9539,15 @@ void RB::Symbol::Animator::fill(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
   os_unfair_lock_unlock(a1);
 }
 
-uint64_t RB::Symbol::Animator::set_fill(uint64_t a1, int a2, void *a3)
+uint64_t RB::Symbol::Animator::set_fill(os_unfair_lock_s *a1, int a2, void *a3)
 {
   v5 = RB::Symbol::Model::style_color_index(a2);
   if (v5 != -1)
   {
     v6 = v5;
     os_unfair_lock_lock(a1);
-    v8 = (a1 + 8);
-    v7 = *(a1 + 8);
+    v8 = a1 + 2;
+    v7 = *&a1[2]._os_unfair_lock_opaque;
     if (v6 >= *(v7 + 48))
     {
       if (!a3)
@@ -9480,10 +9565,10 @@ LABEL_13:
       return v9;
     }
 
-    RB::Symbol::Model::copy_on_write(a1 + 8);
-    v10 = *v8;
-    v11 = (*v8 + 40);
-    v13 = (*v8 + 48);
+    RB::Symbol::Model::copy_on_write(&a1[2]);
+    v10 = *&v8->_os_unfair_lock_opaque;
+    v11 = (*&v8->_os_unfair_lock_opaque + 40);
+    v13 = (*&v8->_os_unfair_lock_opaque + 48);
     v12 = *v13;
     while (v6 >= v12)
     {
@@ -9492,7 +9577,7 @@ LABEL_13:
       {
         RB::vector<RB::objc_ptr<void({block_pointer})(RBFill *,CGRect)>,0ul,unsigned int>::reserve_slow(v11, v14);
         v12 = *v13;
-        v10 = *v8;
+        v10 = *&v8->_os_unfair_lock_opaque;
         v14 = *v13 + 1;
       }
 
@@ -9507,8 +9592,8 @@ LABEL_13:
     v16 = [a3 copy];
 
     *(v15 + 8 * v6) = v16;
-    ++*(*(a1 + 8) + 100);
-    ++*(a1 + 60);
+    ++*(*&a1[2]._os_unfair_lock_opaque + 100);
+    ++a1[15]._os_unfair_lock_opaque;
     v9 = 1;
     goto LABEL_13;
   }
@@ -9738,81 +9823,8 @@ BOOL RB::Symbol::Animator::cancel_animation_at_index(RB::Symbol::Animator *this,
       v6 = (this + 8);
     }
 
-    RB::Symbol::Animation::cancel(v3, *&v4, *v6);
+    RB::Symbol::Animation::cancel(v3, v4, *v6);
   }
 
   return v5;
-}
-
-uint64_t RB::Symbol::Animator::cancel_animation_by_id(os_unfair_lock_s *this, unsigned int a2)
-{
-  os_unfair_lock_lock(this);
-  v4 = *&this[6]._os_unfair_lock_opaque;
-  if (!v4)
-  {
-LABEL_9:
-    v7 = 0;
-    goto LABEL_10;
-  }
-
-  v5 = *&this[4]._os_unfair_lock_opaque;
-  if (*v5 != a2)
-  {
-    v6 = 0;
-    v8 = v5 + 22;
-    while (v4 - 1 != v6)
-    {
-      v9 = *v8;
-      v8 += 22;
-      ++v6;
-      if (v9 == a2)
-      {
-        v7 = v6 < v4;
-        goto LABEL_8;
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-  v6 = 0;
-  v7 = 1;
-LABEL_8:
-  a2 = RB::Symbol::Animator::cancel_animation_at_index(this, v6);
-LABEL_10:
-  os_unfair_lock_unlock(this);
-  return v7 & a2;
-}
-
-uint64_t RB::Symbol::Animator::cancel_animations_by_mask(os_unfair_lock_s *this, unsigned int a2)
-{
-  os_unfair_lock_lock(this);
-  v4 = 0;
-  v5 = 0;
-LABEL_2:
-  v6 = v5;
-  while (1)
-  {
-    v5 = v6;
-    if (v4 >= *&this[6]._os_unfair_lock_opaque)
-    {
-      break;
-    }
-
-    if ((a2 >> *(*&this[4]._os_unfair_lock_opaque + 88 * v4 + 4)))
-    {
-      v7 = RB::Symbol::Animator::cancel_animation_at_index(this, v4);
-      v6 = 1;
-      if (v7)
-      {
-        continue;
-      }
-    }
-
-    ++v4;
-    goto LABEL_2;
-  }
-
-  os_unfair_lock_unlock(this);
-  return v5 & 1;
 }

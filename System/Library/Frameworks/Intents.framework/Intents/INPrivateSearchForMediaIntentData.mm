@@ -16,73 +16,71 @@
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   audioSearchResults = [(INPrivateSearchForMediaIntentData *)self audioSearchResults];
-  v6 = [audioSearchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [audioSearchResults countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(audioSearchResults);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [audioSearchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [audioSearchResults countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   audioSearchResults = [(INPrivateSearchForMediaIntentData *)self audioSearchResults];
-  v5 = [audioSearchResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [audioSearchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(audioSearchResults);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [audioSearchResults countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [audioSearchResults countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -100,14 +98,13 @@
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)_dictionaryRepresentation
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v18 = @"privateMediaIntentData";
+  v22[5] = *MEMORY[0x1E69E9840];
+  v17 = @"privateMediaIntentData";
   privateMediaIntentData = self->_privateMediaIntentData;
   null = privateMediaIntentData;
   if (!privateMediaIntentData)
@@ -115,9 +112,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"audioSearchResults";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"audioSearchResults";
   audioSearchResults = self->_audioSearchResults;
   null2 = audioSearchResults;
   if (!audioSearchResults)
@@ -125,8 +122,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"internalSignals";
+  v22[1] = null2;
+  v19 = @"internalSignals";
   internalSignals = self->_internalSignals;
   null3 = internalSignals;
   if (!internalSignals)
@@ -134,8 +131,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"appInferred";
+  v22[2] = null3;
+  v20 = @"appInferred";
   appInferred = self->_appInferred;
   null4 = appInferred;
   if (!appInferred)
@@ -143,8 +140,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"pegasusMetaData";
+  v22[3] = null4;
+  v21 = @"pegasusMetaData";
   pegasusMetaData = self->_pegasusMetaData;
   null5 = pegasusMetaData;
   if (!pegasusMetaData)
@@ -152,8 +149,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (pegasusMetaData)
   {
     if (appInferred)
@@ -211,7 +208,6 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -266,29 +262,28 @@ LABEL_16:
 
 - (INPrivateSearchForMediaIntentData)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"privateMediaIntentData"];
   v6 = MEMORY[0x1E695DFD8];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"audioSearchResults"];
 
   v10 = MEMORY[0x1E695DFD8];
+  v18 = objc_opt_class();
   v19 = objc_opt_class();
   v20 = objc_opt_class();
-  v21 = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:3];
-  v12 = [v10 setWithArray:{v11, v19, v20}];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:3];
+  v12 = [v10 setWithArray:{v11, v18, v19}];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"internalSignals"];
 
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appInferred"];
   v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pegasusMetaData"];
 
   v16 = [(INPrivateSearchForMediaIntentData *)self initWithPrivateMediaIntentData:v5 audioSearchResults:v9 internalSignals:v13 appInferred:v14 pegasusMetaData:v15];
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

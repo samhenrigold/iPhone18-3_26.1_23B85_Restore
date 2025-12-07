@@ -40,15 +40,15 @@
 
 @implementation CBDisplayContaineriOS
 
-uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+void *__51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 8))
+    if (*(result[4] + 8))
     {
-      v4 = *(*(result + 32) + 8);
+      v4 = *(result[4] + 8);
     }
 
     else
@@ -72,11 +72,10 @@ uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2(
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    [*(v5 + 32) handleNotificationForKey:a2 withProperty:a3 from:*(*(*(v5 + 40) + 8) + 40)];
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    [v5[4] handleNotificationForKey:a2 withProperty:a3 from:*(*(v5[5] + 8) + 40)];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -125,66 +124,62 @@ void __60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invo
   v13 = *(a1 + 32);
   v14 = v18;
   dispatch_async(v3, &block);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setColorMitigations
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v13 = a2;
+  v12 = a2;
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_relevantServices;
-  v8 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v15 count:16];
-  if (v8)
+  v7 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v14 count:16];
+  if (v7)
   {
-    v4 = *__b[2];
-    v5 = 0;
-    v6 = v8;
+    v3 = *__b[2];
+    v4 = 0;
+    v5 = v7;
     while (1)
     {
-      v3 = v5;
-      if (*__b[2] != v4)
+      v2 = v4;
+      if (*__b[2] != v3)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = 0;
-      v12 = *(__b[1] + 8 * v5);
-      service = v12;
+      v11 = 0;
+      v11 = *(__b[1] + 8 * v4);
+      service = v11;
       if (selfCopy->_builtIn)
       {
-        if (IOHIDServiceClientConformsTo(v12, 0xFF00u, 4u))
+        if (IOHIDServiceClientConformsTo(v11, 0xFF00u, 4u))
         {
-          autoBrightnessModule = selfCopy->_autoBrightnessModule;
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && ([(CBContainerModuleProtocol *)selfCopy->_autoBrightnessModule shouldMitigateHarmony:service]& 1) != 0)
           {
-            v9 = [[CBALSNode alloc] initWithALSServiceClient:service];
-            if ([(CBALSNode *)v9 colorSupport])
+            v8 = [[CBALSNode alloc] initWithALSServiceClient:service];
+            if ([(CBALSNode *)v8 colorSupport])
             {
               [(CBContainerModuleProtocol *)selfCopy->_harmonyModule enableMitigations:1];
             }
 
-            MEMORY[0x1E69E5920](v9);
+            MEMORY[0x1E69E5920](v8);
           }
         }
       }
 
-      ++v5;
-      if (v3 + 1 >= v6)
+      ++v4;
+      if (v2 + 1 >= v5)
       {
-        v5 = 0;
-        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v15 count:16];
-        if (!v6)
+        v4 = 0;
+        v5 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v14 count:16];
+        if (!v5)
         {
           break;
         }
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (CBDisplayContaineriOS)initWithBacklightService:(unsigned int)service
@@ -218,8 +213,7 @@ void __60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invo
 LABEL_52:
     MEMORY[0x1E69E5920](selfCopy);
     selfCopy = 0;
-    v46 = 0;
-    goto LABEL_53;
+    return 0;
   }
 
   v39.receiver = selfCopy;
@@ -394,10 +388,7 @@ LABEL_52:
     *(selfCopy + 19) = 0;
   }
 
-  v46 = selfCopy;
-LABEL_53:
-  *MEMORY[0x1E69E9840];
-  return v46;
+  return selfCopy;
 }
 
 - (CBDisplayContaineriOS)initWithCADisplay:(id)display
@@ -500,15 +491,15 @@ LABEL_21:
   return selfCopy;
 }
 
-uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 8))
+    if (*(result[4] + 8))
     {
-      v4 = *(*(result + 32) + 8);
+      v4 = *(result[4] + 8);
     }
 
     else
@@ -532,11 +523,10 @@ uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t r
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    [*(v5 + 32) handleNotificationForKey:a2 withProperty:a3 from:*(*(*(v5 + 40) + 8) + 40)];
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    [v5[4] handleNotificationForKey:a2 withProperty:a3 from:*(*(v5[5] + 8) + 40)];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -671,7 +661,6 @@ uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t r
     IOObjectRelease(existing);
   }
 
-  *MEMORY[0x1E69E9840];
   return v10 & 1;
 }
 
@@ -739,7 +728,6 @@ uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t r
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -938,7 +926,6 @@ uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t r
   }
 
   MEMORY[0x1E69E5920](v28);
-  *MEMORY[0x1E69E9840];
   return setupInternalModules & 1;
 }
 
@@ -1078,11 +1065,10 @@ uint64_t __43__CBDisplayContaineriOS_initWithCADisplay___block_invoke(uint64_t r
 
   v6 = v26[5];
   _Block_object_dispose(&v25, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke(uint64_t a1)
+_BYTE *__44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke(uint64_t a1)
 {
   v12 = a1;
   v11 = a1;
@@ -1112,7 +1098,7 @@ uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59CBED8];
   if (result)
@@ -1128,7 +1114,7 @@ uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_2(uint64_
   return result;
 }
 
-uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_3(uint64_t a1)
+void *__44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_3(uint64_t a1)
 {
   v12 = a1;
   v11 = a1;
@@ -1150,7 +1136,7 @@ uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_3(uint64_
   return result;
 }
 
-uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59CBED8];
   if (result)
@@ -1213,26 +1199,24 @@ uint64_t __44__CBDisplayContaineriOS_copyPropertyForKey___block_invoke_4(uint64_
         if ([getKeyString isEqualToString:@"DisplayBrightnessAuto"] & 1) != 0 || (objc_msgSend(getKeyString, "isEqualToString:", @"BrightnessWeakCap") & 1) != 0 || (objc_msgSend(getKeyString, "isEqualToString:", @"DisplayBrightness2"))
         {
           v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_displayControlModule setProperty:queueCopy forKey:getKeyString]) != 0;
-          v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_autoBrightnessModule setProperty:queueCopy forKey:getKeyString]) != 0;
+          return (v22 | [(CBContainerModuleProtocol *)selfCopy->_autoBrightnessModule setProperty:queueCopy forKey:getKeyString]) != 0;
         }
 
         else
         {
           v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_autoBrightnessModule setProperty:queueCopy forKey:getKeyString]) != 0;
-          v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_displayControlModule setProperty:queueCopy forKey:getKeyString]) != 0;
+          return (v22 | [(CBContainerModuleProtocol *)selfCopy->_displayControlModule setProperty:queueCopy forKey:getKeyString]) != 0;
         }
       }
     }
 
-    goto LABEL_50;
+    return v22;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-LABEL_50:
-    v27 = v22;
-    goto LABEL_51;
+    return v22;
   }
 
   if ([keyCopy isEqualToString:@"kCoreBrightnessPresetStateChanged"])
@@ -1241,8 +1225,7 @@ LABEL_50:
 LABEL_49:
     v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_harmonyModule setProperty:queueCopy forKey:keyCopy]) != 0;
     v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_AODModule setProperty:queueCopy forKey:keyCopy]) != 0;
-    v22 = (v22 | [(CBContainerModuleProtocol *)selfCopy->_SliderCommitTelemetryModule setProperty:queueCopy forKey:keyCopy]) != 0;
-    goto LABEL_50;
+    return (v22 | [(CBContainerModuleProtocol *)selfCopy->_SliderCommitTelemetryModule setProperty:queueCopy forKey:keyCopy]) != 0;
   }
 
   if (!selfCopy->_builtIn && ![(NSArray *)selfCopy->_allowlist containsObject:keyCopy])
@@ -1324,10 +1307,7 @@ LABEL_49:
   v4 = [queueCopy copy];
   selfCopy->_cachedABPref = v4;
   v22 = 1;
-  v27 = 1;
-LABEL_51:
-  *MEMORY[0x1E69E9840];
-  return v27 & 1;
+  return 1;
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -1357,7 +1337,7 @@ LABEL_51:
   return v6 & 1;
 }
 
-uint64_t __44__CBDisplayContaineriOS_setProperty_forKey___block_invoke(uint64_t a1)
+void *__44__CBDisplayContaineriOS_setProperty_forKey___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setPropertyNoQueue:*(a1 + 40) forKey:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -1484,8 +1464,6 @@ uint64_t __44__CBDisplayContaineriOS_setProperty_forKey___block_invoke(uint64_t 
     -[CBContainerModuleProtocol setProperty:forKey:](self->_displayControlModule, "setProperty:forKey:", [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(change, "brightnessDisabledForDisplay:", self->_displayID)}], @"CBDisplayPresetLockBrightnessUpdates");
     objc_autoreleasePoolPop(context);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleCBDisplayContainerStart
@@ -1743,19 +1721,17 @@ void __54__CBDisplayContaineriOS_handleCBDisplayContainerStart__block_invoke(uin
     DisplayNotify(1u);
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __54__CBDisplayContaineriOS_handleCBDisplayContainerStart__block_invoke_151(uint64_t result, uint64_t a2, uint64_t a3)
+void *__54__CBDisplayContaineriOS_handleCBDisplayContainerStart__block_invoke_151(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 8))
+    if (*(result[4] + 8))
     {
-      v4 = *(*(result + 32) + 8);
+      v4 = *(result[4] + 8);
     }
 
     else
@@ -1779,11 +1755,10 @@ uint64_t __54__CBDisplayContaineriOS_handleCBDisplayContainerStart__block_invoke
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    [*(v5 + 32) handleNotificationForKey:a2 withProperty:a3 from:*(*(*(v5 + 40) + 8) + 40)];
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    [v5[4] handleNotificationForKey:a2 withProperty:a3 from:*(*(v5[5] + 8) + 40)];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1804,7 +1779,7 @@ uint64_t __54__CBDisplayContaineriOS_handleCBDisplayContainerStart__block_invoke
   return 1;
 }
 
-uint64_t __60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invoke(uint64_t a1)
+void *__60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invoke(uint64_t a1)
 {
   v13 = a1;
   v23 = a1;
@@ -1859,13 +1834,11 @@ uint64_t __60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_
       [*(*(a1 + 40) + 88) setProperty:*(a1 + 48) forKey:@"EDRHeadroomRequest"];
     }
 
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 32);
     return [*(*(a1 + 40) + 48) enumerateObjectsUsingBlock:?];
   }
 }
 
-uint64_t __60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invoke_2_179(uint64_t a1, void *a2)
+void *__60__CBDisplayContaineriOS_handleCBBrtCtlDisplayContainerStart__block_invoke_2_179(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CBED8];
   if (result)
@@ -1938,17 +1911,14 @@ double __57__CBDisplayContaineriOS_sendNotificationForKey_andValue___block_invok
   {
     if (*(*(a1 + 32) + 149) & 1) != 0 || ([*(a1 + 40) isEqual:@"DisplayBrightnessAuto2"] & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"DisplayBrightnessAuto2Available") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"DisplayBrightness2") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"CEOverride") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"CEOutput") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"RLuxOverride") & 1) != 0 || (objc_msgSend(*(a1 + 40), "isEqual:", @"RLuxOutput"))
     {
-      v1 = *(a1 + 40);
-      v2 = *(a1 + 48);
       (*(*(*(a1 + 32) + 32) + 16))();
     }
 
-    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:*(a1 + 40) andDisplay:*(*(a1 + 32) + 160)];
-    if (v6)
+    v3 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:*(a1 + 40) andDisplay:*(*(a1 + 32) + 160)];
+    if (v3)
     {
-      v4 = *(a1 + 48);
       (*(*(*(a1 + 32) + 32) + 16))();
-      *&result = MEMORY[0x1E69E5920](v6).n128_u64[0];
+      *&result = MEMORY[0x1E69E5920](v3).n128_u64[0];
     }
   }
 
@@ -2060,7 +2030,7 @@ double __57__CBDisplayContaineriOS_sendNotificationForKey_andValue___block_invok
   }
 }
 
-uint64_t __68__CBDisplayContaineriOS_handleNotificationForKey_withProperty_from___block_invoke(void *a1, void *a2)
+void *__68__CBDisplayContaineriOS_handleNotificationForKey_withProperty_from___block_invoke(void *a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CBED8];
   if (result)
@@ -2687,11 +2657,10 @@ uint64_t __68__CBDisplayContaineriOS_handleNotificationForKey_withProperty_from_
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy->_running;
 }
 
-uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke(uint64_t a1, void *a2)
+void *__45__CBDisplayContaineriOS_setupInternalModules__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC0D0];
   if (result)
@@ -2704,35 +2673,34 @@ uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke(uint64_t
 
 void __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_224(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = a4;
-  v12 = a1;
+  v14 = a1;
+  v13 = a2;
+  v12 = a3;
+  v11 = a4;
+  v10 = a1;
   if ([a2 conformsToProtocol:&unk_1F59CBED8])
   {
-    v6[0] = 0;
-    v6[1] = v6;
-    v7 = 1375731712;
-    v8 = 48;
-    v9 = __Block_byref_object_copy__16;
-    v10 = __Block_byref_object_dispose__16;
-    v11 = v15;
-    v5 = *(a1 + 32);
-    [v15 registerNotificationBlock:?];
-    _Block_object_dispose(v6, 8);
+    v4[0] = 0;
+    v4[1] = v4;
+    v5 = 1375731712;
+    v6 = 48;
+    v7 = __Block_byref_object_copy__16;
+    v8 = __Block_byref_object_dispose__16;
+    v9 = v13;
+    [v13 registerNotificationBlock:?];
+    _Block_object_dispose(v4, 8);
   }
 }
 
-uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+void *__45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 8))
+    if (*(result[4] + 8))
     {
-      v4 = *(*(result + 32) + 8);
+      v4 = *(result[4] + 8);
     }
 
     else
@@ -2756,11 +2724,10 @@ uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2(uint64
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    [*(v5 + 32) handleNotificationForKey:a2 withProperty:a3 from:*(*(*(v5 + 40) + 8) + 40)];
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    [v5[4] handleNotificationForKey:a2 withProperty:a3 from:*(*(v5[5] + 8) + 40)];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2774,7 +2741,7 @@ uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_225(uint
   return [*(*(a1 + 32) + 48) enumerateObjectsUsingBlock:{MEMORY[0x1E69E9820], 3221225472, __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2_226, &unk_1E867B668, a2, a1, a4, a3, a2, a1}];
 }
 
-uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2_226(uint64_t a1, void *a2)
+void *__45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2_226(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -2798,7 +2765,6 @@ uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2_226(ui
   v11[1] = +[CBDictConfigProvider providerWithDict:](CBDictConfigProvider, "providerWithDict:", [objc_msgSend(ctl "getBrightnessCapabilities")]);
   v7 = -[CBDisplayContextiOS initWithQueue:andBrtCtl:andConfig:andTwilight:andAmmolite:andGCP:]([CBDisplayContextiOS alloc], "initWithQueue:andBrtCtl:andConfig:andTwilight:andAmmolite:andGCP:", queue, ctl, config, -[CBTwilight initWithParams:]([CBTwilight alloc], "initWithParams:", -[CBTwilightParams initWithParser:]([CBTwilightParams alloc], "initWithParser:", config)), -[CBAmmolite initWithParams:]([CBAmmolite alloc], "initWithParams:", -[CBChromaticCorrectionParams initFromAmmoliteFromParser:]([CBChromaticCorrectionParams alloc], "initFromAmmoliteFromParser:", config)), -[CBGammaContrastPreservation initWithParams:]([CBGammaContrastPreservation alloc], "initWithParams:", +[CBGammaContrastPreservationParams paramsWithProvider:](CBGammaContrastPreservationParams, "paramsWithProvider:", +[CBCombinedConfigProvider providerFromList:](CBCombinedConfigProvider, "providerFromList:", [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2]))));
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3079,11 +3045,9 @@ uint64_t __45__CBDisplayContaineriOS_setupInternalModules__block_invoke_2_226(ui
     selfCopy->_missedProperties = 0;
     [(CBDisplayContaineriOS *)selfCopy handlePresetChange:+[CBPresetsParser sharedInstance]];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke(uint64_t a1, void *a2)
+void *__51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC0D0];
   if (result)
@@ -3096,23 +3060,22 @@ uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke(ui
 
 void __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_253(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v16 = a1;
-  v15 = a2;
-  v14 = a3;
-  v13 = a4;
-  v12 = a1;
+  v14 = a1;
+  v13 = a2;
+  v12 = a3;
+  v11 = a4;
+  v10 = a1;
   if ([a2 conformsToProtocol:&unk_1F59CBED8])
   {
-    v6[0] = 0;
-    v6[1] = v6;
-    v7 = 1375731712;
-    v8 = 48;
-    v9 = __Block_byref_object_copy__16;
-    v10 = __Block_byref_object_dispose__16;
-    v11 = v15;
-    v5 = *(a1 + 32);
-    [v15 registerNotificationBlock:?];
-    _Block_object_dispose(v6, 8);
+    v4[0] = 0;
+    v4[1] = v4;
+    v5 = 1375731712;
+    v6 = 48;
+    v7 = __Block_byref_object_copy__16;
+    v8 = __Block_byref_object_dispose__16;
+    v9 = v13;
+    [v13 registerNotificationBlock:?];
+    _Block_object_dispose(v4, 8);
   }
 }
 
@@ -3126,7 +3089,7 @@ uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_25
   return [*(*(a1 + 32) + 48) enumerateObjectsUsingBlock:{MEMORY[0x1E69E9820], 3221225472, __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2_255, &unk_1E867B668, a2, a1, a4, a3, a2, a1}];
 }
 
-uint64_t __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2_255(uint64_t a1, void *a2)
+void *__51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_2_255(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -3166,8 +3129,6 @@ void __51__CBDisplayContaineriOS_setupInternalBrtCtlModules__block_invoke_3(uint
     __os_log_helper_16_2_1_8_64(v7, a2);
     _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Restored %@ property", v7, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)tearDownInternalModules
@@ -3262,7 +3223,7 @@ uint64_t __45__CBDisplayContaineriOS_handleHIDEvent_from___block_invoke(void *a1
   return [v2 enumerateObjectsUsingBlock:{MEMORY[0x1E69E9820], 3221225472, __45__CBDisplayContaineriOS_handleHIDEvent_from___block_invoke_2, &__block_descriptor_48_e15_v32__0_8Q16_B24l, v8, a1[6], v9, v10}];
 }
 
-uint64_t __45__CBDisplayContaineriOS_handleHIDEvent_from___block_invoke_2(uint64_t a1, void *a2)
+void *__45__CBDisplayContaineriOS_handleHIDEvent_from___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -3295,7 +3256,6 @@ uint64_t __45__CBDisplayContaineriOS_addHIDServiceClient___block_invoke(uint64_t
   if ([*(a1 + 32) matchDisplayWithHidService:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 40) addObject:*(a1 + 40)];
-    v3 = *(a1 + 40);
     [*(*(a1 + 32) + 48) enumerateObjectsUsingBlock:?];
   }
 
@@ -3307,7 +3267,7 @@ uint64_t __45__CBDisplayContaineriOS_addHIDServiceClient___block_invoke(uint64_t
   return [*(a1 + 32) setColorMitigations];
 }
 
-uint64_t __45__CBDisplayContaineriOS_addHIDServiceClient___block_invoke_2(uint64_t a1, void *a2)
+void *__45__CBDisplayContaineriOS_addHIDServiceClient___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -3350,7 +3310,7 @@ uint64_t __48__CBDisplayContaineriOS_removeHIDServiceClient___block_invoke(uint6
   return [v1 enumerateObjectsUsingBlock:?];
 }
 
-uint64_t __48__CBDisplayContaineriOS_removeHIDServiceClient___block_invoke_2(uint64_t a1, void *a2)
+void *__48__CBDisplayContaineriOS_removeHIDServiceClient___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -3409,7 +3369,7 @@ uint64_t __48__CBDisplayContaineriOS_removeHIDServiceClient___block_invoke_2(uin
   return v6;
 }
 
-uint64_t __51__CBDisplayContaineriOS_copyPreferenceForKey_user___block_invoke(void *a1)
+void *__51__CBDisplayContaineriOS_copyPreferenceForKey_user___block_invoke(void *a1)
 {
   v6 = *MEMORY[0x1E69E9840];
   if (*(a1[4] + 8))
@@ -3440,7 +3400,6 @@ uint64_t __51__CBDisplayContaineriOS_copyPreferenceForKey_user___block_invoke(vo
 
   result = [*(a1[4] + 104) copyPreferenceForKey:a1[5] user:a1[6]];
   *(*(a1[7] + 8) + 40) = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3461,12 +3420,12 @@ uint64_t __51__CBDisplayContaineriOS_copyPreferenceForKey_user___block_invoke(vo
   dispatch_async(queue, &block);
 }
 
-void __55__CBDisplayContaineriOS_setNightShiftFactorDictionary___block_invoke(uint64_t a1)
+double __55__CBDisplayContaineriOS_setNightShiftFactorDictionary___block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 8))
   {
-    v2 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
   }
 
   else
@@ -3481,18 +3440,18 @@ void __55__CBDisplayContaineriOS_setNightShiftFactorDictionary___block_invoke(ui
       inited = init_default_corebrightness_log();
     }
 
-    v2 = inited;
+    v3 = inited;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    __os_log_helper_16_2_1_8_64(v4, *(a1 + 40));
-    _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_INFO, "NightShift setNightShiftFactorDictionary %@", v4, 0xCu);
+    __os_log_helper_16_2_1_8_64(v5, *(a1 + 40));
+    _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_INFO, "NightShift setNightShiftFactorDictionary %@", v5, 0xCu);
   }
 
   [*(*(a1 + 32) + 104) setNightShiftFactorDictionary:*(a1 + 40)];
-  MEMORY[0x1E69E5920](*(a1 + 40));
-  *MEMORY[0x1E69E9840];
+  *&result = MEMORY[0x1E69E5920](*(a1 + 40)).n128_u64[0];
+  return result;
 }
 
 - (void)setPreference:(id)preference forKey:(id)key user:(id)user
@@ -3518,12 +3477,12 @@ void __55__CBDisplayContaineriOS_setNightShiftFactorDictionary___block_invoke(ui
   dispatch_async(queue, &block);
 }
 
-void __51__CBDisplayContaineriOS_setPreference_forKey_user___block_invoke(void *a1)
+double __51__CBDisplayContaineriOS_setPreference_forKey_user___block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(a1[4] + 8))
   {
-    v2 = *(a1[4] + 8);
+    v3 = *(a1[4] + 8);
   }
 
   else
@@ -3538,20 +3497,20 @@ void __51__CBDisplayContaineriOS_setPreference_forKey_user___block_invoke(void *
       inited = init_default_corebrightness_log();
     }
 
-    v2 = inited;
+    v3 = inited;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    __os_log_helper_16_2_2_8_64_8_64(v4, a1[5], a1[6]);
-    _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_INFO, "NightShift setPreference %@ for key %@", v4, 0x16u);
+    __os_log_helper_16_2_2_8_64_8_64(v5, a1[5], a1[6]);
+    _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_INFO, "NightShift setPreference %@ for key %@", v5, 0x16u);
   }
 
   [*(a1[4] + 104) setPreference:a1[5] forKey:a1[6] user:a1[7]];
   MEMORY[0x1E69E5920](a1[5]);
   MEMORY[0x1E69E5920](a1[6]);
-  MEMORY[0x1E69E5920](a1[7]);
-  *MEMORY[0x1E69E9840];
+  *&result = MEMORY[0x1E69E5920](a1[7]).n128_u64[0];
+  return result;
 }
 
 - (id)copyStatusInfo
@@ -3632,7 +3591,7 @@ uint64_t __49__CBDisplayContaineriOS_handleDisplayModeUpdate___block_invoke(void
   return [v2 enumerateObjectsUsingBlock:{MEMORY[0x1E69E9820], 3221225472, __49__CBDisplayContaineriOS_handleDisplayModeUpdate___block_invoke_2, &unk_1E867BEB8, a1[5], v8, v9, v10}];
 }
 
-uint64_t __49__CBDisplayContaineriOS_handleDisplayModeUpdate___block_invoke_2(uint64_t a1, void *a2)
+void *__49__CBDisplayContaineriOS_handleDisplayModeUpdate___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59D3468];
   if (result)

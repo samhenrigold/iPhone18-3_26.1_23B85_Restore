@@ -29,7 +29,7 @@
   *(v22 + 84) = index;
   *(v22 + 92) = endIndex;
   std::vector<gm::Matrix<float,3,1>>::resize(v22 + 4, count);
-  std::vector<geo::PolylineCoordinate>::resize(v23 + 7, count);
+  std::vector<geo::PolylineCoordinate>::resize(&v23->super._polylineCoordinates.__begin_, count);
   if (transform)
   {
     if (reversePoints)
@@ -39,7 +39,7 @@
         goto LABEL_26;
       }
 
-      v24 = (v23[4] + 12 * count - 4);
+      v24 = (v23->super._points.__begin_ + 12 * count - 4);
       v25 = 1;
       do
       {
@@ -61,7 +61,7 @@
         goto LABEL_26;
       }
 
-      v32 = (v23[4] + 8);
+      v32 = (v23->super._points.__begin_ + 8);
       v33 = 1;
       do
       {
@@ -84,7 +84,7 @@
       goto LABEL_26;
     }
 
-    v28 = (v23[4] + 12 * count - 4);
+    v28 = (v23->super._points.__begin_ + 12 * count - 4);
     v29 = 1;
     do
     {
@@ -106,7 +106,7 @@
       goto LABEL_26;
     }
 
-    v36 = (v23[4] + 8);
+    v36 = (v23->super._points.__begin_ + 8);
     v37 = 1;
     do
     {
@@ -123,16 +123,16 @@
 
   if (reversePoints)
   {
-    v40 = 8 * count;
+    countCopy = count;
     v41 = index + count - 1;
     v42 = 1;
     do
     {
-      v43 = v23[7] + v40;
+      v43 = &v23->super._polylineCoordinates.__begin_[countCopy];
       v44 = v42;
-      *(v43 - 8) = v41;
-      *(v43 - 4) = 0;
-      v40 -= 8;
+      v43[-1].index = v41;
+      v43[-1].offset = 0.0;
+      --countCopy;
       --v41;
       ++v42;
     }
@@ -146,11 +146,11 @@
     v46 = 1;
     do
     {
-      v47 = (v23[7] + v45);
-      *v47 = index + v46 - 1;
-      v47[1] = 0;
+      v47 = &v23->super._polylineCoordinates.__begin_[v45];
+      v47->index = index + v46 - 1;
+      v47->offset = 0.0;
       v48 = v46;
-      v45 += 8;
+      ++v45;
       ++v46;
     }
 
@@ -158,7 +158,7 @@
   }
 
 LABEL_26:
-  v23[17] = d;
+  v23->_lineID = d;
   if (precision)
   {
     v49 = 1.0 / (1 << precision << z);
@@ -169,7 +169,7 @@ LABEL_26:
     v49 = 0.0;
   }
 
-  *(v23 + 18) = fmax(v49, 0.0000001);
+  v23->_vertexEqualityTolerance = fmax(v49, 0.0000001);
   v50 = v23;
 LABEL_30:
 

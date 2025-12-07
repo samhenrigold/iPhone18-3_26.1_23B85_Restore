@@ -3,7 +3,7 @@
 
 @implementation FigRoutingContextUtilities
 
-void *__FigRoutingContextUtilities_IsFollowingAnotherContext_block_invoke(uint64_t a1)
+const UInt8 *__FigRoutingContextUtilities_IsFollowingAnotherContext_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (result)
@@ -111,7 +111,7 @@ void __FigRoutingContextUtilities_UnfollowUUIDFromLeader_block_invoke(uint64_t a
   }
 }
 
-CFIndex __FigRoutingContextUtilities_GetIndexOfCurrentlyActivatingSubEndpoints_block_invoke(uint64_t a1)
+uint64_t __FigRoutingContextUtilities_GetIndexOfCurrentlyActivatingSubEndpoints_block_invoke(uint64_t a1)
 {
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (result)
@@ -153,7 +153,7 @@ LABEL_9:
 
 int *__FigRoutingContextUtilities_CreateStateInfoStringForContext_block_invoke(uint64_t a1)
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   result = _routingContextUtilities_getContextForUUIDFromDict(*(*(a1 + 40) + 480), *(a1 + 48));
   if (result)
   {
@@ -179,20 +179,20 @@ int *__FigRoutingContextUtilities_CreateStateInfoStringForContext_block_invoke(u
     }
 
     [v4 appendFormat:@"[aggregateEndpoint: %@]\n", v6];
-    v61 = v3;
-    v62 = a1;
-    v69 = *(a1 + 32);
+    v58 = v3;
+    v59 = a1;
+    v66 = *(a1 + 32);
     v7 = *(v3 + 9);
     v8 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v9 = [v7 countByEnumeratingWithState:&v86 objects:v90 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v83 objects:v87 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v87;
+      v11 = *v84;
       obj = *MEMORY[0x1E69620F8];
       v12 = *MEMORY[0x1E695E480];
       v13 = *MEMORY[0x1E69621E8];
@@ -200,14 +200,14 @@ int *__FigRoutingContextUtilities_CreateStateInfoStringForContext_block_invoke(u
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v87 != v11)
+          if (*v84 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v15 = *(*(&v86 + 1) + 8 * i);
+          v15 = *(*(&v83 + 1) + 8 * i);
           cf[0] = 0;
-          v76[0] = 0;
+          v73[0] = 0;
           CMBaseObject = FigEndpointGetCMBaseObject();
           v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
           if (v17)
@@ -219,62 +219,61 @@ int *__FigRoutingContextUtilities_CreateStateInfoStringForContext_block_invoke(u
           v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
           if (v19)
           {
-            v19(v18, v13, v12, v76);
+            v19(v18, v13, v12, v73);
           }
 
-          [v8 appendFormat:@"endpoint: %@ endpointID: %@ endpointName: %@\n", v15, cf[0], v76[0]];
+          [v8 appendFormat:@"endpoint: %@ endpointID: %@ endpointName: %@\n", v15, cf[0], v73[0]];
           if (cf[0])
           {
             CFRelease(cf[0]);
           }
 
-          if (v76[0])
+          if (v73[0])
           {
-            CFRelease(v76[0]);
+            CFRelease(v73[0]);
           }
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v86 objects:v90 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v83 objects:v87 count:16];
       }
 
       while (v10);
     }
 
-    [v69 appendFormat:@"[currentEndpoints: %@]\n", v8];
-    [*(v62 + 32) appendFormat:@"[defaultLeaderUUID: %@]\n", *(v61 + 12)];
-    [*(v62 + 32) appendFormat:@"[commChannelUUID: %@]\n", *(v61 + 13)];
-    v70 = *(v62 + 32);
-    v20 = *(v61 + 14);
+    [v66 appendFormat:@"[currentEndpoints: %@]\n", v8];
+    [*(v59 + 32) appendFormat:@"[defaultLeaderUUID: %@]\n", *(v58 + 12)];
+    [*(v59 + 32) appendFormat:@"[commChannelUUID: %@]\n", *(v58 + 13)];
+    v67 = *(v59 + 32);
+    v20 = *(v58 + 14);
     v21 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v22 = [v20 countByEnumeratingWithState:&v86 objects:v90 count:16];
+    v22 = [v20 countByEnumeratingWithState:&v83 objects:v87 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v87;
+      v24 = *v84;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v87 != v24)
+          if (*v84 != v24)
           {
             objc_enumerationMutation(v20);
           }
 
-          v26 = *(*(&v86 + 1) + 8 * j);
           Value = FigCFDictionaryGetValue();
+          v27 = FigCFDictionaryGetValue();
           v28 = FigCFDictionaryGetValue();
+          [v21 appendFormat:@"endpoint: %@ clientRoutingContextUUID: %@ ClientRouteChangeOptions: %@ internalRouteChangeOptions:%@\r", Value, v27, v28, FigCFDictionaryGetValue()];
           v29 = FigCFDictionaryGetValue();
-          [v21 appendFormat:@"endpoint: %@ clientRoutingContextUUID: %@ ClientRouteChangeOptions: %@ internalRouteChangeOptions:%@\r", Value, v28, v29, FigCFDictionaryGetValue()];
-          v30 = FigCFDictionaryGetValue();
-          v31 = 0;
-          if (v30)
+          v30 = 0;
+          if (v29)
           {
 LABEL_26:
-            Count = CFArrayGetCount(v30);
+            Count = CFArrayGetCount(v29);
             goto LABEL_28;
           }
 
@@ -282,184 +281,182 @@ LABEL_26:
           {
             Count = 0;
 LABEL_28:
-            if (v31 >= Count)
+            if (v30 >= Count)
             {
               break;
             }
 
-            [v21 appendFormat:@"\tsubEndpoint: %@\r", CFArrayGetValueAtIndex(v30, v31++)];
-            if (v30)
+            [v21 appendFormat:@"\tsubEndpoint: %@\r", CFArrayGetValueAtIndex(v29, v30++)];
+            if (v29)
             {
               goto LABEL_26;
             }
           }
         }
 
-        v23 = [v20 countByEnumeratingWithState:&v86 objects:v90 count:16];
+        v23 = [v20 countByEnumeratingWithState:&v83 objects:v87 count:16];
       }
 
       while (v23);
     }
 
-    [v70 appendFormat:@"[currentlyActivatingEndpointsInfo: %@]\n", v21];
-    v60 = *(v62 + 32);
-    v33 = *(v61 + 15);
+    [v67 appendFormat:@"[currentlyActivatingEndpointsInfo: %@]\n", v21];
+    v57 = *(v59 + 32);
+    v32 = *(v58 + 15);
     obja = *MEMORY[0x1E695E480];
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
     *cf = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v63 = v33;
-    v66 = [v33 countByEnumeratingWithState:cf objects:v90 count:16];
-    if (v66)
+    v80 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v60 = v32;
+    v63 = [v32 countByEnumeratingWithState:cf objects:v87 count:16];
+    if (v63)
     {
-      v64 = *v83;
-      v71 = *MEMORY[0x1E69621E8];
-      v68 = *MEMORY[0x1E69620F8];
+      v61 = *v80;
+      v68 = *MEMORY[0x1E69621E8];
+      v65 = *MEMORY[0x1E69620F8];
       theArray = Mutable;
       do
       {
-        v35 = 0;
+        v34 = 0;
         do
         {
-          if (*v83 != v64)
+          if (*v80 != v61)
           {
-            objc_enumerationMutation(v63);
+            objc_enumerationMutation(v60);
           }
 
-          v67 = v35;
-          v36 = *(cf[1] + v35);
-          v37 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v64 = v34;
+          v35 = *(cf[1] + v34);
+          v36 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v37 = FigCFDictionaryGetValue();
           v38 = FigCFDictionaryGetValue();
-          v39 = FigCFDictionaryGetValue();
           FigCFDictionaryGetValue();
           FigCFDictionaryGetValue();
-          v40 = CFDictionaryGetValue(v36, @"ActivatedEndpointsInfo_SubEndpointsInfo");
-          v80 = 0;
-          v81 = 0;
-          if (v38)
+          v39 = CFDictionaryGetValue(v35, @"ActivatedEndpointsInfo_SubEndpointsInfo");
+          v77 = 0;
+          v78 = 0;
+          if (v37)
           {
-            v41 = FigEndpointGetCMBaseObject();
-            v42 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v42)
+            v40 = FigEndpointGetCMBaseObject();
+            v41 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v41)
             {
-              v42(v41, v71, obja, &v81);
+              v41(v40, v68, obja, &v78);
             }
 
-            v43 = FigEndpointGetCMBaseObject();
-            v44 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-            if (v44)
+            v42 = FigEndpointGetCMBaseObject();
+            v43 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+            if (v43)
             {
-              v44(v43, v68, obja, &v80);
+              v43(v42, v65, obja, &v77);
             }
           }
 
-          v46 = v80;
-          v45 = v81;
+          v45 = v77;
+          v44 = v78;
           UInt64 = FigCFNumberGetUInt64();
-          [v37 appendFormat:@"<endpoint %p endpointName: %@ endpointID %@ activationSeed %llu transportType: %@ endpointFeatures: %llu>\r", v38, v45, v46, UInt64, v39, FigCFNumberGetUInt64()];
-          if (v81)
+          [v36 appendFormat:@"<endpoint %p endpointName: %@ endpointID %@ activationSeed %llu transportType: %@ endpointFeatures: %llu>\r", v37, v44, v45, UInt64, v38, FigCFNumberGetUInt64()];
+          if (v78)
           {
-            CFRelease(v81);
-            v81 = 0;
+            CFRelease(v78);
+            v78 = 0;
           }
 
-          if (v80)
+          if (v77)
           {
-            CFRelease(v80);
-            v80 = 0;
+            CFRelease(v77);
+            v77 = 0;
           }
 
-          v78 = 0u;
-          v79 = 0u;
-          *v76 = 0u;
-          v77 = 0u;
-          v48 = [v40 countByEnumeratingWithState:v76 objects:&v86 count:16];
-          if (v48)
+          v75 = 0u;
+          v76 = 0u;
+          *v73 = 0u;
+          v74 = 0u;
+          v47 = [v39 countByEnumeratingWithState:v73 objects:&v83 count:16];
+          if (v47)
           {
-            v49 = v48;
-            v50 = *v77;
+            v48 = v47;
+            v49 = *v74;
             do
             {
-              for (k = 0; k != v49; ++k)
+              for (k = 0; k != v48; ++k)
               {
-                if (*v77 != v50)
+                if (*v74 != v49)
                 {
-                  objc_enumerationMutation(v40);
+                  objc_enumerationMutation(v39);
                 }
 
-                v52 = *(v76[1] + k);
-                v53 = FigCFDictionaryGetValue();
+                v51 = FigCFDictionaryGetValue();
                 FigCFDictionaryGetValue();
-                v74 = 0;
-                v75 = 0;
-                if (v53)
+                v71 = 0;
+                v72 = 0;
+                if (v51)
                 {
+                  v52 = FigEndpointGetCMBaseObject();
+                  v53 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+                  if (v53)
+                  {
+                    v53(v52, v68, obja, &v72);
+                  }
+
                   v54 = FigEndpointGetCMBaseObject();
                   v55 = *(*(CMBaseObjectGetVTable() + 8) + 48);
                   if (v55)
                   {
-                    v55(v54, v71, obja, &v75);
-                  }
-
-                  v56 = FigEndpointGetCMBaseObject();
-                  v57 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                  if (v57)
-                  {
-                    v57(v56, v68, obja, &v74);
+                    v55(v54, v65, obja, &v71);
                   }
                 }
 
-                [v37 appendFormat:@"\t<subEndpoint %p subEndpointName: %@ subEndpointID %@ activationSeed %llu>\r", v53, v75, v74, FigCFNumberGetUInt64()];
-                if (v75)
+                [v36 appendFormat:@"\t<subEndpoint %p subEndpointName: %@ subEndpointID %@ activationSeed %llu>\r", v51, v72, v71, FigCFNumberGetUInt64()];
+                if (v72)
                 {
-                  CFRelease(v75);
-                  v75 = 0;
+                  CFRelease(v72);
+                  v72 = 0;
                 }
 
-                if (v74)
+                if (v71)
                 {
-                  CFRelease(v74);
+                  CFRelease(v71);
                 }
               }
 
-              v49 = [v40 countByEnumeratingWithState:v76 objects:&v86 count:16];
+              v48 = [v39 countByEnumeratingWithState:v73 objects:&v83 count:16];
             }
 
-            while (v49);
+            while (v48);
           }
 
           Mutable = theArray;
-          CFArrayAppendValue(theArray, v37);
+          CFArrayAppendValue(theArray, v36);
 
-          v35 = v67 + 1;
+          v34 = v64 + 1;
         }
 
-        while (v67 + 1 != v66);
-        v66 = [v63 countByEnumeratingWithState:cf objects:v90 count:16];
+        while (v64 + 1 != v63);
+        v63 = [v60 countByEnumeratingWithState:cf objects:v87 count:16];
       }
 
-      while (v66);
+      while (v63);
     }
 
-    v58 = [(__CFArray *)Mutable componentsJoinedByString:@"\n"];
+    v56 = [(__CFArray *)Mutable componentsJoinedByString:@"\n"];
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    [v60 appendFormat:@"[activatedEndpointsInfo: %@]\n", v58];
-    [*(v62 + 32) appendFormat:@"[currentPickedRouteDescriptors: %@]\n", *(v61 + 16)];
-    [*(v62 + 32) appendFormat:@"[multiRouteSelectionSucceeded: %hhu]\n", *(v61 + 136)];
-    [*(v62 + 32) appendFormat:@"[scaleFactorsForEndpoints: %@]\n", *(v61 + 18)];
-    [*(v62 + 32) appendFormat:@"[mainVolume: %f]\n", *(v61 + 38)];
-    [*(v62 + 32) appendFormat:@"[cachedScreenEndpointID: %@]\n", *(v61 + 20)];
-    [*(v62 + 32) appendFormat:@"[cachedAudioEndpointID: %@]\n", *(v61 + 21)];
-    result = [*(v62 + 32) appendFormat:@"[supportedOutputChannelLayouts: %@]\n", *(v61 + 26)];
+    [v57 appendFormat:@"[activatedEndpointsInfo: %@]\n", v56];
+    [*(v59 + 32) appendFormat:@"[currentPickedRouteDescriptors: %@]\n", *(v58 + 16)];
+    [*(v59 + 32) appendFormat:@"[multiRouteSelectionSucceeded: %hhu]\n", *(v58 + 136)];
+    [*(v59 + 32) appendFormat:@"[scaleFactorsForEndpoints: %@]\n", *(v58 + 18)];
+    [*(v59 + 32) appendFormat:@"[mainVolume: %f]\n", *(v58 + 38)];
+    [*(v59 + 32) appendFormat:@"[cachedScreenEndpointID: %@]\n", *(v58 + 20)];
+    [*(v59 + 32) appendFormat:@"[cachedAudioEndpointID: %@]\n", *(v58 + 21)];
+    return [*(v59 + 32) appendFormat:@"[supportedOutputChannelLayouts: %@]\n", *(v58 + 26)];
   }
 
-  v59 = *MEMORY[0x1E69E9840];
   return result;
 }
 

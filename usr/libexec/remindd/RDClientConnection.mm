@@ -13,10 +13,12 @@
 {
   selfCopy = self;
   sub_1000090AC();
+  v4 = v3;
 
-  v3 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (void)storePerformerWithProcessName:(id)name storeContainerToken:(id)token reason:(id)reason completion:(id)completion
@@ -30,6 +32,9 @@
   tokenCopy = token;
   selfCopy = self;
   sub_10000CCAC(v9, v11, token, v12, v14, sub_10000A878);
+
+  v11, v17, v18, v19, v20, v21, v22, v23;
+  v14, v24, v25, v26, v27, v28, v29, v30;
 }
 
 - (void)cloudKitNetworkActivityDidUpdate:(id)update

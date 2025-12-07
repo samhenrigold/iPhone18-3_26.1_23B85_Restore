@@ -38,7 +38,7 @@
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -48,40 +48,39 @@
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSMousePointerGlobalContextOptions cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSMousePointerGlobalContextOptions.m";
-          v18 = 1024;
-          v19 = 41;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSMousePointerGlobalContextOptions.m";
+          v17 = 1024;
+          v18 = 41;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1863B84ECLL);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSMousePointerGlobalContextOptions;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSMousePointerGlobalContextOptions;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -118,7 +117,7 @@
   v7.super_class = BKSMousePointerGlobalContextOptions;
   coderCopy = coder;
   v4 = [(BKSMousePointerGlobalContextOptions *)&v7 init];
-  v5 = [coderCopy decodeBoolForKey:{@"pinOnButtonDown", v7.receiver, v7.super_class}];
+  v5 = [coderCopy decodeBoolForKey:{v7.receiver, v7.super_class}];
 
   v4->_pinOnButtonDown = v5;
   return v4;
@@ -126,10 +125,10 @@
 
 - (BKSMousePointerGlobalContextOptions)init
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSMousePointerGlobalContextOptions"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSMousePointerGlobalContextOptions init]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;
@@ -149,10 +148,10 @@
 
 + (BKSMousePointerGlobalContextOptions)new
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSMousePointerGlobalContextOptions"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSMousePointerGlobalContextOptions new]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;

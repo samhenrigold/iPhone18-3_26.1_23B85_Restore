@@ -38,7 +38,7 @@
   v4 = type metadata accessor for SFRemoteAlertPresentationRequest();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for RemoteAlertSceneDelegate();
+  v6.super_class = type metadata accessor for RemoteAlertSceneDelegate(0);
   return [(RemoteAlertSceneDelegate *)&v6 init];
 }
 

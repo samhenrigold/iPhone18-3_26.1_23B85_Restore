@@ -69,7 +69,7 @@
 
 - (void)_initHemi
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4.i32[0] = 1.0;
   v5 = _NTKCreateHalfOctahedron(v3, v4);
@@ -78,33 +78,33 @@
 
   self->_octahedronGeomRange = (v5 | 0xD8000000000);
   v7 = acosf(0.0) / 3.1416;
-  v27 = 0;
+  v26 = 0;
   v8 = &unk_25B726E9C;
-  v25 = xmmword_25B726EC0;
+  v24 = xmmword_25B726EC0;
   LODWORD(v9) = vld1_dup_f32(v8).u32[0];
   *(&v9 + 1) = v7;
-  v26 = v9;
-  v28 = xmmword_25B726ED0;
+  v25 = v9;
+  v27 = xmmword_25B726ED0;
   __asm { FMOV            V1.2S, #0.875 }
 
   *(&_D1 + 1) = v7;
-  v30 = 0;
-  v29 = _D1;
-  v33 = 0;
-  v31 = xmmword_25B726EE0;
+  v29 = 0;
+  v28 = _D1;
+  v32 = 0;
+  v30 = xmmword_25B726EE0;
   __asm { FMOV            V1.2S, #0.375 }
 
   *(&_D1 + 1) = v7;
-  v32 = _D1;
-  v36 = 0;
-  v34 = xmmword_25B726EF0;
+  v31 = _D1;
+  v35 = 0;
+  v33 = xmmword_25B726EF0;
   __asm { FMOV            V1.2S, #0.625 }
 
   *(&_D1 + 1) = v7;
-  v35 = _D1;
+  v34 = _D1;
   v17 = v3;
-  v18 = [v17 addVertices:&v25 count:4];
-  v19 = [v17 addIndices:&_NTKCreateQuad_indices count:4 vbase:{v18, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
+  v18 = [v17 addVertices:&v24 count:4];
+  v19 = [v17 addIndices:&_NTKCreateQuad_indices count:4 vbase:{v18, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35}];
 
   self->_quadGeomRange = (v19 | 0x400000000);
   v20 = -[MTLDevice newBufferWithBytes:length:options:](self->_mtlDevice, "newBufferWithBytes:length:options:", [v17 vertices], 32 * objc_msgSend(v17, "vcount"), 0);
@@ -114,8 +114,6 @@
   v22 = -[MTLDevice newBufferWithBytes:length:options:](self->_mtlDevice, "newBufferWithBytes:length:options:", [v17 indices], 2 * objc_msgSend(v17, "icount"), 0);
   indexBuffer = self->_resources.indexBuffer;
   self->_resources.indexBuffer = v22;
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bindAssetArt:(unint64_t)art renderEncoder:(id)encoder toSlot:(unint64_t)slot
@@ -391,35 +389,35 @@ LABEL_16:
 
 - (void)renderWithScene:(id)scene viewport:(NUNIViewport)viewport commandBuffer:(id)buffer passDescriptor:(id)descriptor
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   v10 = [buffer renderCommandEncoderWithDescriptor:descriptor];
   kdebug_trace();
   selfCopy = self;
   memcpy(__dst, &self->_state, sizeof(__dst));
-  memset(v51, 0, sizeof(v51));
+  memset(v50, 0, sizeof(v50));
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v41 = sceneCopy;
+  v40 = sceneCopy;
   spheroids = [sceneCopy spheroids];
-  v12 = [spheroids countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v12 = [spheroids countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v44;
+    v15 = *v43;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v15)
+        if (*v43 != v15)
         {
           objc_enumerationMutation(spheroids);
         }
 
-        v17 = *(*(&v43 + 1) + 8 * i);
+        v17 = *(*(&v42 + 1) + 8 * i);
         [v17 radiusScale];
         if (v18 > 0.00001)
         {
@@ -445,9 +443,9 @@ LABEL_16:
                 _S0 = 1258291194;
                 if (type != 12)
                 {
-                  v42 = __dst[3];
+                  v41 = __dst[3];
                   [v17 position];
-                  _S2 = vsubq_f32(v42, v22).i32[2];
+                  _S2 = vsubq_f32(v41, v22).i32[2];
                   __asm { FMLA            S0, S2, V1.S[2] }
                 }
               }
@@ -456,12 +454,12 @@ LABEL_16:
             v28 = &__base[8 * v14];
             *v28 = _S0;
             v28[1] = v14;
-            objc_storeStrong(v51 + v14++, v17);
+            objc_storeStrong(v50 + v14++, v17);
           }
         }
       }
 
-      v13 = [spheroids countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v13 = [spheroids countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v13);
@@ -478,13 +476,13 @@ LABEL_16:
   [v10 setVertexBuffer:selfCopy->_resources.vertexBuffer offset:0 atIndex:0];
   if (v14 >= 1)
   {
-    v31 = &v50;
+    v31 = &v49;
     v32 = 4;
     for (j = v14; j; --j)
     {
       v34 = *v31;
       v31 += 2;
-      v35 = *(v51 + v34);
+      v35 = *(v50 + v34);
       if ([v35 isVisible])
       {
         programType = [v35 programType];
@@ -524,26 +522,24 @@ LABEL_30:
   for (k = 184; k != -8; k -= 8)
   {
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renderOffscreenWithScene:(id)scene viewport:(NUNIViewport)viewport commandBuffer:(id)buffer
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   bufferCopy = buffer;
   kdebug_trace();
   [(NUNIClassicRenderer *)self _updateStateWithScene:sceneCopy viewport:viewport];
   memcpy(__dst, &self->_state, sizeof(__dst));
-  memset(v45, 0, sizeof(v45));
+  memset(v44, 0, sizeof(v44));
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v35 = sceneCopy;
+  v34 = sceneCopy;
   spheroids = [sceneCopy spheroids];
-  v10 = [spheroids countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v10 = [spheroids countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -552,17 +548,17 @@ LABEL_30:
 
   v11 = v10;
   v12 = 0;
-  v13 = *v38;
+  v13 = *v37;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v38 != v13)
+      if (*v37 != v13)
       {
         objc_enumerationMutation(spheroids);
       }
 
-      v15 = *(*(&v37 + 1) + 8 * i);
+      v15 = *(*(&v36 + 1) + 8 * i);
       [v15 radiusScale];
       if (v16 > 0.00001)
       {
@@ -591,9 +587,9 @@ LABEL_12:
               _S0 = 1266679805;
               if (type != 12)
               {
-                v36 = __dst[3];
+                v35 = __dst[3];
                 [v15 position];
-                _S2 = vsubq_f32(v36, v21).i32[2];
+                _S2 = vsubq_f32(v35, v21).i32[2];
                 __asm { FMLA            S0, S2, V1.S[2] }
               }
             }
@@ -602,13 +598,13 @@ LABEL_12:
           v27 = &__base[8 * v12];
           *v27 = _S0;
           v27[1] = v12;
-          objc_storeStrong(v45 + v12++, v15);
+          objc_storeStrong(v44 + v12++, v15);
           continue;
         }
       }
     }
 
-    v11 = [spheroids countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v11 = [spheroids countByEnumeratingWithState:&v36 objects:v41 count:16];
   }
 
   while (v11);
@@ -618,12 +614,12 @@ LABEL_21:
   if (v12 >= 1)
   {
     v28 = v12;
-    v29 = &v44;
+    v29 = &v43;
     do
     {
       v30 = *v29;
       v29 += 2;
-      v31 = *(v45 + v30);
+      v31 = *(v44 + v30);
       if ([v31 isVisible] && objc_msgSend(v31, "programType") != 1)
       {
         [(NUNIClassicRenderer *)self drawOffscreen3DWithCommandBuffer:bufferCopy state:__dst spheroid:v31];
@@ -639,8 +635,6 @@ LABEL_21:
   for (j = 184; j != -8; j -= 8)
   {
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateStateWithScene:(id)scene viewport:(NUNIViewport)viewport
@@ -827,41 +821,42 @@ LABEL_13:
 {
   libraryCopy = library;
   pixelFormat = [(NUNIRenderer *)self pixelFormat];
+  v21 = pixelFormat;
   if (type >= 3)
   {
     [NUNIClassicRenderer _createPipelineForProgramType:fromLibrary:];
   }
 
-  v6 = off_27995FAD0[type];
-  v7 = off_27995FAE8[type];
-  v8 = MEMORY[0x277CFA788];
-  v9 = NUNIBundle();
-  v10 = [v8 archiveWithName:@"NUNIClassicShaders" bundle:v9 device:self->_mtlDevice];
+  v7 = off_27995FAD0[type];
+  v8 = off_27995FAE8[type];
+  v9 = MEMORY[0x277CFA788];
+  v10 = NUNIBundle(pixelFormat);
+  v11 = [v9 archiveWithName:@"NUNIClassicShaders" bundle:v10 device:self->_mtlDevice];
 
   functionDescriptor = [MEMORY[0x277CD6D78] functionDescriptor];
+  [functionDescriptor setName:v8];
+  v13 = [v11 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
   [functionDescriptor setName:v7];
-  v12 = [v10 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
-  [functionDescriptor setName:v6];
-  v13 = [v10 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
-  v14 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v14 setLabel:_NUNIClassicPipelineNames[type]];
-  [v14 setVertexFunction:v12];
-  [v14 setFragmentFunction:v13];
-  colorAttachments = [v14 colorAttachments];
-  v16 = [colorAttachments objectAtIndexedSubscript:0];
+  v14 = [v11 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
+  v15 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v15 setLabel:_NUNIClassicPipelineNames[type]];
+  [v15 setVertexFunction:v13];
+  [v15 setFragmentFunction:v14];
+  colorAttachments = [v15 colorAttachments];
+  v17 = [colorAttachments objectAtIndexedSubscript:0];
 
-  [v16 setPixelFormat:pixelFormat];
-  [v16 setBlendingEnabled:1];
-  [v16 setRgbBlendOperation:0];
-  [v16 setAlphaBlendOperation:0];
-  [v16 setSourceRGBBlendFactor:1];
-  [v16 setSourceAlphaBlendFactor:1];
-  [v16 setDestinationRGBBlendFactor:5];
-  [v16 setDestinationAlphaBlendFactor:5];
-  v17 = [v10 newRenderPipelineStateForDevice:self->_mtlDevice withDescriptor:v14];
+  [v17 setPixelFormat:v21];
+  [v17 setBlendingEnabled:1];
+  [v17 setRgbBlendOperation:0];
+  [v17 setAlphaBlendOperation:0];
+  [v17 setSourceRGBBlendFactor:1];
+  [v17 setSourceAlphaBlendFactor:1];
+  [v17 setDestinationRGBBlendFactor:5];
+  [v17 setDestinationAlphaBlendFactor:5];
+  v18 = [v11 newRenderPipelineStateForDevice:self->_mtlDevice withDescriptor:v15];
   p_resources = &self->_resources;
-  v19 = p_resources->pipelines[type];
-  p_resources->pipelines[type] = v17;
+  v20 = p_resources->pipelines[type];
+  p_resources->pipelines[type] = v18;
 
   if (!p_resources->pipelines[type])
   {
@@ -871,7 +866,7 @@ LABEL_13:
 
 - (void)_initPrograms
 {
-  v4 = NUNIBundle();
+  v4 = NUNIBundle(self);
   v3 = [(MTLDevice *)self->_mtlDevice newDefaultLibraryWithBundle:v4 error:0];
   [(NUNIClassicRenderer *)self _createPipelineForProgramType:0 fromLibrary:v3];
   [(NUNIClassicRenderer *)self _createPipelineForProgramType:1 fromLibrary:v3];

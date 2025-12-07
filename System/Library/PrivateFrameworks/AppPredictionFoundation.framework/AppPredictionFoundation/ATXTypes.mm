@@ -6,6 +6,7 @@
 + (id)stringForConsumerSubtype:(unsigned __int8)subtype;
 + (id)stringForConsumerType:(unint64_t)type;
 + (id)stringForEngagementType:(unint64_t)type;
++ (id)uiTypeForActionConsumerSubType:(unsigned __int8)type;
 + (id)validConsumerSubTypeList;
 + (id)validConsumerSubTypes;
 + (id)validConsumerTypeList;
@@ -27,7 +28,7 @@
     return off_278590078[type];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXTypes *)type stringForEngagementType:v5];
@@ -44,7 +45,7 @@
     return off_2785900B0[type];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXTypes *)type stringForConsumerType:v5];
@@ -57,28 +58,22 @@
 + (id)stringForConsumerSubtype:(unsigned __int8)subtype
 {
   subtypeCopy = subtype;
-  v9 = *MEMORY[0x277D85DE8];
-  if (subtype >= 0x32u)
+  v8 = *MEMORY[0x277D85DE8];
+  if (subtype < 0x32u)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      v8 = subtypeCopy;
-      _os_log_error_impl(&dword_226368000, v5, OS_LOG_TYPE_ERROR, "stringForConsumerSubtype called with invalid ATXConsumerSubType value of %lu", buf, 0xCu);
-    }
-
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"stringForConsumerSubtype called with invalid ATXConsumerSubType value of %lu", subtypeCopy}];
-    result = @"Error";
+    return off_278590170[subtype];
   }
 
-  else
+  v5 = __atxlog_handle_default(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    result = off_278590170[subtype];
+    *buf = 134217984;
+    v7 = subtypeCopy;
+    _os_log_error_impl(&dword_226368000, v5, OS_LOG_TYPE_ERROR, "stringForConsumerSubtype called with invalid ATXConsumerSubType value of %lu", buf, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"stringForConsumerSubtype called with invalid ATXConsumerSubType value of %lu", subtypeCopy}];
+  return @"Error";
 }
 
 + (id)safeStringForConsumerSubtype:(unsigned __int8)subtype
@@ -237,6 +232,28 @@
   }
 
   return v3;
+}
+
++ (id)uiTypeForActionConsumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  if (type - 16) < 0x19 && ((0x1D0007Fu >> (type - 16)))
+  {
+    return off_278590300[(type - 16)];
+  }
+
+  v6 = __atxlog_handle_default(self);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    [(ATXTypes *)self uiTypeForActionConsumerSubType:typeCopy, v6];
+  }
+
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = [self stringForConsumerSubtype:typeCopy];
+  [v7 raise:v8 format:{@"unsupported consumerSubType of %@ passed into uiTypeForActionConsumerSubType", v9}];
+
+  return @"SPOTLIGHT";
 }
 
 + (unint64_t)engagementTypeForString:(id)string found:(BOOL *)found
@@ -416,31 +433,27 @@ LABEL_9:
 
 + (void)stringForEngagementType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "stringForConsumerType called with invalid ATXEngagementType value of %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "stringForConsumerType called with invalid ATXEngagementType value of %lu", &v2, 0xCu);
 }
 
 + (void)stringForConsumerType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "stringForConsumerType called with invalid ATXConsumerType value of %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "stringForConsumerType called with invalid ATXConsumerType value of %lu", &v2, 0xCu);
 }
 
 + (void)uiTypeForActionConsumerSubType:(NSObject *)a3 .cold.1(void *a1, unsigned __int8 a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = [a1 stringForConsumerSubtype:a2];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_226368000, a3, OS_LOG_TYPE_ERROR, "unsupported consumerSubType of %@ passed into uiTypeForActionConsumerSubType", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_226368000, a3, OS_LOG_TYPE_ERROR, "unsupported consumerSubType of %@ passed into uiTypeForActionConsumerSubType", &v5, 0xCu);
 }
 
 @end

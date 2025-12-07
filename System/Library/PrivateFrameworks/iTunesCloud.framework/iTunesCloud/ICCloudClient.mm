@@ -445,7 +445,7 @@ LABEL_13:
   dispatch_async(serverSetupBlockQueue, block);
 }
 
-uint64_t __40__ICCloudClient__serverSetupDidComplete__block_invoke(uint64_t a1)
+void *__40__ICCloudClient__serverSetupDidComplete__block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) serverIsSetup];

@@ -196,9 +196,7 @@ LABEL_9:
 
 - (void)setQueryToSearchAcrossAllDomains:(id)domains
 {
-  v4 = [domains copy];
-  queryToSearchAcrossAllDomains = self->_queryToSearchAcrossAllDomains;
-  self->_queryToSearchAcrossAllDomains = v4;
+  self->_queryToSearchAcrossAllDomains = [domains copy];
 
   MEMORY[0x1EEE66BB8]();
 }

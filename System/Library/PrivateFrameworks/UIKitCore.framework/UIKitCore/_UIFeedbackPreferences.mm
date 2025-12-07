@@ -175,16 +175,16 @@
       goto LABEL_10;
     }
 
-    v7 = [(__CFString *)categoryCopy isEqual:@"3DTouch"];
+    isEqual = objc_msgSend_isEqual_(categoryCopy);
 
     v8 = @"effects";
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_11;
     }
 
     v9 = v6;
-    if (v9 == @"effects-keyboardclicks" || (v10 = v9, v11 = [(__CFString *)v9 isEqual:@"effects-keyboardclicks"], v10, v11))
+    if (v9 == @"effects-keyboardclicks" || (v10 = v9, v11 = objc_msgSend_isEqual_(v9), v10, v11))
     {
       if (type == 1)
       {
@@ -276,9 +276,9 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v14 = [(__CFString *)v12 isEqual:@"3DTouch"];
+  isEqual = objc_msgSend_isEqual_(v12);
 
-  if (v14)
+  if (isEqual)
   {
 LABEL_17:
     if (_AXSForceTouchEnabled())
@@ -304,7 +304,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v17 = [(__CFString *)v15 isEqual:@"effects-keyboardclicks"];
+  v17 = objc_msgSend_isEqual_(v15);
 
   if (v17)
   {
@@ -321,7 +321,7 @@ LABEL_14:
 {
   keyCopy = key;
   v15 = keyCopy;
-  if (type != 1 || (v9 = keyCopy, keyCopy = v15, v9 != @"effects") && ((v10 = v9) == 0 || (v11 = [(__CFString *)v9 isEqual:@"effects"], v10, keyCopy = v15, (v11 & 1) == 0)))
+  if (type != 1 || (v9 = keyCopy, keyCopy = v15, v9 != @"effects") && ((v10 = v9) == 0 || (isEqual = objc_msgSend_isEqual_(v9, v15, @"effects"), v10, keyCopy = v15, (isEqual & 1) == 0)))
   {
     v12 = [(_UIFeedbackPreferences *)self _defaultKeyForCategoryKey:keyCopy type:type];
     v13 = [(NSUserDefaults *)self->_userDefaults objectForKey:v12];

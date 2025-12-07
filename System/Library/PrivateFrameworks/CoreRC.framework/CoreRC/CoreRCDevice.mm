@@ -173,12 +173,12 @@
   delegate = [(CoreRCDevice *)self delegate];
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCDevice receivedHIDEvent:fromDevice:];
+    [(CoreRCDevice *)self receivedHIDEvent:device fromDevice:event];
   }
 
   if ([event isRepeat] && gLogCategory_CoreRCDevice <= 60 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCDevice receivedHIDEvent:fromDevice:];
+    [CoreRCDevice receivedHIDEvent:event fromDevice:?];
   }
 
   if (objc_opt_respondsToSelector())
@@ -204,124 +204,114 @@
 
 - (unint64_t)removeAllOwningClients
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
     [(CoreRCDevice *)self removeAllOwningClients];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   owningClients = self->_owningClients;
-  v4 = [(NSMutableSet *)owningClients countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableSet *)owningClients countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(owningClients);
         }
 
-        [objc_msgSend(*(*(&v10 + 1) + 8 * i) "userInfo")];
+        [objc_msgSend(*(*(&v9 + 1) + 8 * i) "userInfo")];
       }
 
-      v5 = [(NSMutableSet *)owningClients countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableSet *)owningClients countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableSet *)self->_owningClients removeAllObjects];
-  result = [(NSMutableSet *)self->_owningClients count];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(NSMutableSet *)self->_owningClients count];
 }
 
 - (unint64_t)removeOwningClient:(id)client
 {
   if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    owningClients = self->_owningClients;
-    clientCopy = client;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCDevice removeOwningClient:]", 40, "remove owning client: %@  self:%@ %@", client, self, self->_owningClients);
   }
 
-  [(NSMutableSet *)self->_owningClients removeObject:client, clientCopy, selfCopy, owningClients];
+  [(NSMutableSet *)self->_owningClients removeObject:client];
   [objc_msgSend(client "userInfo")];
-  v5 = self->_owningClients;
+  owningClients = self->_owningClients;
 
-  return [(NSMutableSet *)v5 count];
+  return [(NSMutableSet *)owningClients count];
 }
 
 - (unint64_t)addOwningClient:(id)client
 {
   if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    owningClients = self->_owningClients;
-    clientCopy = client;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCDevice addOwningClient:]", 40, "add owning client: %@  self:%@ %@", client, self, self->_owningClients);
   }
 
-  [(NSMutableSet *)self->_owningClients addObject:client, clientCopy, selfCopy, owningClients];
+  [(NSMutableSet *)self->_owningClients addObject:client];
   [objc_msgSend(client "userInfo")];
-  v5 = self->_owningClients;
+  owningClients = self->_owningClients;
 
-  return [(NSMutableSet *)v5 count];
+  return [(NSMutableSet *)owningClients count];
 }
 
 - (void)mergePropertiesFromDevice:(id)device
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(CoreRCDevice *)self isEqual:?])
   {
     if (-[NSUUID isEqual:](-[CoreRCDevice busUniqueID](self, "busUniqueID"), "isEqual:", [device busUniqueID]))
     {
-      v18 = 0u;
-      v19 = 0u;
+      v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       mergeProperties = [(CoreRCDevice *)self mergeProperties];
-      v6 = [mergeProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [mergeProperties countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
         v8 = 0;
-        v9 = *v17;
+        v9 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v17 != v9)
+            if (*v14 != v9)
             {
               objc_enumerationMutation(mergeProperties);
             }
 
-            v11 = *(*(&v16 + 1) + 8 * i);
-            v12 = [device valueForKey:{v11, v14, selfCopy}];
+            v11 = *(*(&v13 + 1) + 8 * i);
+            v12 = [device valueForKey:v11];
             if (([-[CoreRCDevice valueForKey:](self valueForKey:{v11), "isEqual:", v12}] & 1) == 0)
             {
               [(CoreRCDevice *)self setValue:v12 forKey:v11];
               if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
               {
-                v14 = v11;
-                selfCopy = self;
-                LogPrintF();
+                LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCDevice mergePropertiesFromDevice:]", 10, "UPDATED %@: %@\n", v11, self);
               }
 
               v8 = 1;
             }
           }
 
-          v7 = [mergeProperties countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v7 = [mergeProperties countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -332,15 +322,13 @@
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)receivedHIDEvent:fromDevice:.cold.1()
+- (uint64_t)receivedHIDEvent:(uint64_t)a3 fromDevice:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCDevice receivedHIDEvent:fromDevice:]", 10, "NOTIFY %@ %@ RECEIVED EVENT <%@> From %@ %@\n", v6, a1, a3, v7, a2);
 }
 
 @end

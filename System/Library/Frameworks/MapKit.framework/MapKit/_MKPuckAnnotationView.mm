@@ -1366,7 +1366,7 @@ LABEL_6:
     v13 = self->_baseLayer;
     if (v13)
     {
-      [(CALayer *)v13 transform];
+      objc_msgSend_transform(v13);
     }
 
     else
@@ -2760,7 +2760,7 @@ LABEL_16:
     v16 = currentLayer;
     if (currentLayer)
     {
-      [currentLayer transform];
+      objc_msgSend_transform(currentLayer);
     }
 
     else
@@ -2794,7 +2794,7 @@ LABEL_16:
       v22 = currentLayer2;
       if (currentLayer2)
       {
-        [currentLayer2 transform];
+        objc_msgSend_transform(currentLayer2);
       }
 
       else
@@ -2827,7 +2827,7 @@ LABEL_16:
         puckLayer = self->_puckLayer;
         if (puckLayer)
         {
-          [(CALayer *)puckLayer transform];
+          objc_msgSend_transform(puckLayer);
         }
 
         else

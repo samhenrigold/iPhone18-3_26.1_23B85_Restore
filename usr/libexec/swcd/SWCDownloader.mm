@@ -18,9 +18,11 @@
 - (void)_processDownloadedDataForState:(id)state;
 - (void)_resumePendingTasks;
 - (void)downloadAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)downloadAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier downloadRoute:(unsigned __int8)route completionHandler:(id)handler;
 - (void)enumerateActiveAASAFileDownloadsWithBlock:(id)block;
 - (void)receiveSIGTERMSignal;
 - (void)updateAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)updateAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier downloadRoute:(unsigned __int8)route completionHandler:(id)handler;
 @end
 
 @implementation SWCDownloader
@@ -81,12 +83,62 @@
   -[SWCDownloader downloadAASAFileForDomain:applicationIdentifier:downloadRoute:completionHandler:](self, "downloadAASAFileForDomain:applicationIdentifier:downloadRoute:completionHandler:", domainCopy, identifierCopy, [domainCopy modeOfOperation] != 0, handlerCopy);
 }
 
+- (void)downloadAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier downloadRoute:(unsigned __int8)route completionHandler:(id)handler
+{
+  routeCopy = route;
+  domainCopy = domain;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  v14 = handlerCopy;
+  if (handlerCopy)
+  {
+    v6 = objc_retainBlock(handlerCopy);
+    v16 = v6;
+    v15 = [NSArray arrayWithObjects:&v16 count:1];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  [(SWCDownloader *)self _downloadAASAFileForDomain:domainCopy applicationIdentifier:identifierCopy downloadRoute:routeCopy discretionary:0 completionHandlers:v15];
+  if (v14)
+  {
+  }
+}
+
 - (void)updateAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier completionHandler:(id)handler
 {
   domainCopy = domain;
   identifierCopy = identifier;
   handlerCopy = handler;
   -[SWCDownloader updateAASAFileForDomain:applicationIdentifier:downloadRoute:completionHandler:](self, "updateAASAFileForDomain:applicationIdentifier:downloadRoute:completionHandler:", domainCopy, identifierCopy, [domainCopy modeOfOperation] != 0, handlerCopy);
+}
+
+- (void)updateAASAFileForDomain:(id)domain applicationIdentifier:(id)identifier downloadRoute:(unsigned __int8)route completionHandler:(id)handler
+{
+  routeCopy = route;
+  domainCopy = domain;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  v14 = handlerCopy;
+  if (handlerCopy)
+  {
+    v6 = objc_retainBlock(handlerCopy);
+    v16 = v6;
+    v15 = [NSArray arrayWithObjects:&v16 count:1];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  [(SWCDownloader *)self _downloadAASAFileForDomain:domainCopy applicationIdentifier:identifierCopy downloadRoute:routeCopy discretionary:1 completionHandlers:v15];
+  if (v14)
+  {
+  }
 }
 
 - (void)enumerateActiveAASAFileDownloadsWithBlock:(id)block

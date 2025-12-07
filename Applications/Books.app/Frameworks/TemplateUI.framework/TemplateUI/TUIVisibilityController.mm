@@ -625,12 +625,12 @@ LABEL_24:
   selfCopy = self;
   v21 = [(_TUIVisibilityUpdate *)v19 initWithTime:1 flags:v31 block:time];
   [updatesCopy addObject:v21];
-  children = [v20 children];
+  v22 = objc_msgSend_children(v20);
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v23 = [children countByEnumeratingWithState:&v27 objects:v38 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v27 objects:v38 count:16];
   if (v23)
   {
     v24 = v23;
@@ -642,7 +642,7 @@ LABEL_24:
       {
         if (*v28 != v25)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v22);
         }
 
         [(TUIVisibilityController *)self _appendVisibleBoundsUpdatesAtTime:*(*(&v27 + 1) + 8 * v26) forCollector:updatesCopy toUpdates:time];
@@ -650,7 +650,7 @@ LABEL_24:
       }
 
       while (v24 != v26);
-      v24 = [children countByEnumeratingWithState:&v27 objects:v38 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v27 objects:v38 count:16];
     }
 
     while (v24);
@@ -684,12 +684,12 @@ LABEL_24:
   selfCopy = self;
   v21 = [(_TUIVisibilityUpdate *)v19 initWithTime:1 flags:v31 block:time];
   [updatesCopy addObject:v21];
-  children = [v20 children];
+  v22 = objc_msgSend_children(v20);
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v23 = [children countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v23)
   {
     v24 = v23;
@@ -701,7 +701,7 @@ LABEL_24:
       {
         if (*v28 != v25)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v22);
         }
 
         [(TUIVisibilityController *)self _appendVisibilityUpdatesAtTime:*(*(&v27 + 1) + 8 * v26) forCollector:updatesCopy toUpdates:time];
@@ -709,7 +709,7 @@ LABEL_24:
       }
 
       while (v24 != v26);
-      v24 = [children countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v24);

@@ -70,7 +70,7 @@
 
 - (void)dump
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -78,17 +78,16 @@
     v5 = HMFGetLogIdentifier();
     name = [(HAPMetadataUnit *)self name];
     unitDescription = [(HAPMetadataUnit *)self unitDescription];
-    v9 = 138543874;
-    v10 = v5;
-    v11 = 2112;
-    v12 = name;
-    v13 = 2112;
-    v14 = unitDescription;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataUnit %@:  description: %@", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2112;
+    v11 = name;
+    v12 = 2112;
+    v13 = unitDescription;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@HAPMetadataUnit %@:  description: %@", &v8, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

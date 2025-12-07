@@ -342,6 +342,7 @@ LABEL_6:
 
 - (BOOL)canOverlapPlaybackFromPlayerItem:(id)item toPlayerItem:(id)playerItem
 {
+  v9 = *MEMORY[0x1E69E9840];
   v6 = [AVQueuePlayer _canOverlapPlaybackFromPlayerItem:"_canOverlapPlaybackFromPlayerItem:toPlayerItem:" toPlayerItem:?];
   if ([(AVPlayer *)self currentItem]== item)
   {
@@ -378,8 +379,8 @@ LABEL_6:
 
 void __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlaybackConditionsChangedFor_dueTo___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v19 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v2 = [*(a1 + 32) items];
   if ([v2 count])
   {
@@ -393,15 +394,15 @@ void __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlayback
 
   if ([v2 count] < 2 || (v4 = objc_msgSend(v2, "objectAtIndex:", 1)) == 0)
   {
-    [*(a1 + 32) _updateCurrentOverlapStateGiven:3584 hasStateChanged:&v19];
-    if (v19 != 1)
+    [*(a1 + 32) _updateCurrentOverlapStateGiven:3584 hasStateChanged:&v17];
+    if (v17 != 1)
     {
       return;
     }
 
     if (dword_1ED5AC198)
     {
-      v18 = 0;
+      v16 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -423,12 +424,12 @@ void __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlayback
   v8 = v4 == v6 || v6 == 0 || v3 == v6;
   if (v8 && (![*(a1 + 32) _isBufferedAirPlayActive] || objc_msgSend(v3, "_isReadyForInspectionOfTracks") && objc_msgSend(v5, "_isReadyForInspectionOfTracks")))
   {
-    [*(a1 + 32) _updateCurrentOverlapStateGiven:objc_msgSend(*(a1 + 32) hasStateChanged:{"_canOverlapPlaybackFromPlayerItem:toPlayerItem:", v3, v5), &v19}];
-    if (v19 == 1)
+    [*(a1 + 32) _updateCurrentOverlapStateGiven:objc_msgSend(*(a1 + 32) hasStateChanged:{"_canOverlapPlaybackFromPlayerItem:toPlayerItem:", v3, v5), &v17}];
+    if (v17 == 1)
     {
       if (dword_1ED5AC198)
       {
-        v18 = 0;
+        v16 = 0;
         type = OS_LOG_TYPE_DEFAULT;
         v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
@@ -436,12 +437,12 @@ void __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlayback
       }
 
       v11 = [*(a1 + 32) _stateDispatchQueue];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlaybackConditionsChangedFor_dueTo___block_invoke_75;
-      v15[3] = &unk_1E7460C00;
-      v15[4] = *(a1 + 32);
-      v12 = v15;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __99__AVQueuePlayer_AVPlayer_OverlapPlaybackConditions___canOverlapPlaybackConditionsChangedFor_dueTo___block_invoke_75;
+      v13[3] = &unk_1E7460C00;
+      v13[4] = *(a1 + 32);
+      v12 = v13;
 LABEL_24:
       dispatch_async(v11, v12);
     }

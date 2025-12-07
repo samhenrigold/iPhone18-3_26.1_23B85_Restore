@@ -4,8 +4,10 @@
 - (void)copyFromReadProxy:(id)proxy;
 - (void)copyFromTimestamp:(id)timestamp;
 - (void)setClock:(unint64_t)clock;
+- (void)setModifier:(unsigned __int8)modifier;
 - (void)setSiteIdentifier:(id)identifier;
 - (void)setSiteIdentifierBytes:(void *)bytes length:(unint64_t)length;
+- (void)setUnordered:(BOOL)unordered;
 @end
 
 @implementation CKDistributedTimestampMutableProxy
@@ -137,6 +139,21 @@
   }
 }
 
+- (void)setModifier:(unsigned __int8)modifier
+{
+  modifierCopy = modifier;
+  v8 = objc_msgSend_backingStore(self, a2, modifier, v3, v4, v5, v6);
+  v14 = v8;
+  if (v8)
+  {
+    v15 = objc_msgSend_writerForProxy_(v8, v9, self, v10, v11, v12, v13);
+    v22 = objc_msgSend_binding(v14, v16, v17, v18, v19, v20, v21);
+    v23 = v22[18];
+    objc_msgSend_structInstance(self, v24, v25, v26, v27, v28, v29);
+    objc_msgSend_setData_withEncoding_forField_inStruct_(v15, v30, &modifierCopy, "C", v23, &v32, v31);
+  }
+}
+
 - (void)setClock:(unint64_t)clock
 {
   v9 = objc_msgSend_backingStore(self, a2, clock, v3, v4, v5, v6);
@@ -149,6 +166,21 @@
     v24 = v23[6];
     objc_msgSend_structInstance(self, v25, v26, v27, v28, v29, v30);
     objc_msgSend_setData_withEncoding_forField_inStruct_(v16, v31, &clockCopy, "Q", v24, &v33, v32);
+  }
+}
+
+- (void)setUnordered:(BOOL)unordered
+{
+  v9 = objc_msgSend_backingStore(self, a2, unordered, v3, v4, v5, v6);
+  v15 = v9;
+  if (v9)
+  {
+    unorderedCopy = unordered;
+    v16 = objc_msgSend_writerForProxy_(v9, v10, self, v11, v12, v13, v14);
+    v23 = objc_msgSend_binding(v15, v17, v18, v19, v20, v21, v22);
+    v24 = v23[19];
+    objc_msgSend_structInstance(self, v25, v26, v27, v28, v29, v30);
+    objc_msgSend_setData_withEncoding_forField_inStruct_(v16, v31, &unorderedCopy, "C", v24, &v33, v32);
   }
 }
 

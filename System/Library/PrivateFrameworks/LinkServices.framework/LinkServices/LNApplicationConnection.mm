@@ -1,6 +1,7 @@
 @interface LNApplicationConnection
 - (BOOL)shouldRefreshWithOptions:(id)options;
 - (LNApplicationConnection)initWithBundleIdentifier:(id)identifier;
+- (LNApplicationConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error;
 - (void)handleConnectionActionResponse:(id)response;
 @end
 
@@ -18,7 +19,7 @@
 
 - (BOOL)shouldRefreshWithOptions:(id)options
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -38,12 +39,12 @@
   }
 
   v11 = MEMORY[0x1E698E620];
-  [(LNConnection *)self auditToken];
+  objc_msgSend_auditToken(self);
   v12 = [v11 tokenFromAuditToken:buf];
   v13 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v12, "pid")}];
-  v26 = 0;
-  v14 = [MEMORY[0x1E69C75D0] handleForIdentifier:v13 error:&v26];
-  v15 = v26;
+  v25 = 0;
+  v14 = [MEMORY[0x1E69C75D0] handleForIdentifier:v13 error:&v25];
+  v15 = v25;
   if (!v14)
   {
     v16 = getLNLogCategoryConnection();
@@ -51,11 +52,11 @@
     {
       logPrefix = [(LNConnection *)self logPrefix];
       *buf = 138543874;
-      v28 = logPrefix;
-      v29 = 2114;
-      v30 = v13;
-      v31 = 2114;
-      v32 = v15;
+      v27 = logPrefix;
+      v28 = 2114;
+      v29 = v13;
+      v30 = 2114;
+      v31 = v15;
       _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_ERROR, "%{public}@ Unable to get process handle for pid %{public}@, %{public}@", buf, 0x20u);
     }
   }
@@ -67,9 +68,9 @@
     {
       logPrefix2 = [(LNConnection *)self logPrefix];
       *buf = 138543618;
-      v28 = logPrefix2;
-      v29 = 2114;
-      v30 = v13;
+      v27 = logPrefix2;
+      v28 = 2114;
+      v29 = v13;
       _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, "%{public}@ pid %{public}@ is a daemon; refresh is not required", buf, 0x16u);
     }
 
@@ -90,12 +91,11 @@
 
   else
   {
-    v25.receiver = self;
-    v25.super_class = LNApplicationConnection;
-    v20 = [(LNConnection *)&v25 shouldRefreshWithOptions:v8];
+    v24.receiver = self;
+    v24.super_class = LNApplicationConnection;
+    v20 = [(LNConnection *)&v24 shouldRefreshWithOptions:v8];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -120,7 +120,7 @@
   listenerEndpoint = [responseCopy listenerEndpoint];
   if (responseCopy)
   {
-    [responseCopy auditToken];
+    objc_msgSend_auditToken(responseCopy);
   }
 
   else
@@ -129,6 +129,31 @@
   }
 
   [(LNConnection *)self connectUsingListenerEndpoint:listenerEndpoint auditToken:v10];
+}
+
+- (LNApplicationConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity error:(id *)error
+{
+  onlyCopy = only;
+  identifierCopy = identifier;
+  bundleIdentifierCopy = bundleIdentifier;
+  instanceIdentifierCopy = instanceIdentifier;
+  identityCopy = identity;
+  if ([(LNApplicationConnection *)self isMemberOfClass:objc_opt_class()])
+  {
+    v18 = [[LNEmbeddedApplicationConnection alloc] initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:onlyCopy userIdentity:identityCopy error:error];
+  }
+
+  else
+  {
+    v21.receiver = self;
+    v21.super_class = LNApplicationConnection;
+    v18 = [(LNConnection *)&v21 initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:onlyCopy userIdentity:identityCopy error:error];
+    self = &v18->super;
+  }
+
+  p_super = &v18->super;
+
+  return p_super;
 }
 
 @end

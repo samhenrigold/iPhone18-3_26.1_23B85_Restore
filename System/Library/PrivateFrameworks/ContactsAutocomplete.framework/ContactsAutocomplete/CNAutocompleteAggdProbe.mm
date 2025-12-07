@@ -66,16 +66,14 @@
 
 - (id)fullKey:(id)key
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   keyPrefix = [(CNAutocompleteAggdProbe *)self keyPrefix];
   v6 = [(CNAutocompleteAggdProbe *)self bundleID:keyPrefix];
-  v12[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
 
   v9 = CNAutocompleteProbeBuildKey(v7, v8);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -107,8 +105,8 @@
   setData = [(CNAutocompleteAggdProbe *)self setData];
   [CNAutocompleteAggdProbeAggdWrapper ADClientBatchKeysAddKeys:addData setKeys:setData];
 
-  v5 = CNALoggingContextProbes();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CNALoggingContextProbes(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     addData2 = [(CNAutocompleteAggdProbe *)self addData];
     setData2 = [(CNAutocompleteAggdProbe *)self setData];
@@ -116,7 +114,7 @@
     v12 = addData2;
     v13 = 2112;
     v14 = setData2;
-    _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "PROBES: add: %@ set: %@", &v11, 0x16u);
+    _os_log_impl(&dword_2155FE000, v6, OS_LOG_TYPE_DEFAULT, "PROBES: add: %@ set: %@", &v11, 0x16u);
   }
 
   addData3 = [(CNAutocompleteAggdProbe *)self addData];
@@ -124,8 +122,6 @@
 
   setData3 = [(CNAutocompleteAggdProbe *)self setData];
   [setData3 removeAllObjects];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -27,22 +27,22 @@
 - (WBSPasswordBreachResultQuery)initWithDictionaryRepresentation:(id)representation
 {
   representationCopy = representation;
-  v5 = [representationCopy safari_dataForKey:@"PersistentIdentifier"];
-  if (v5)
+  v6 = [representationCopy safari_dataForKey:@"PersistentIdentifier"];
+  if (v6)
   {
-    v6 = [representationCopy safari_dateForKey:@"DateLastModified"];
-    if (v6)
+    v8 = [representationCopy safari_dateForKey:@"DateLastModified"];
+    if (v8)
     {
-      self = [(WBSPasswordBreachResultQuery *)self initWithPersistentIdentifier:v5 dateLastModified:v6];
+      self = [(WBSPasswordBreachResultQuery *)self initWithPersistentIdentifier:v6 dateLastModified:v8];
       selfCopy = self;
     }
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [WBSPasswordBreachResultQuery initWithDictionaryRepresentation:v9];
+        [WBSPasswordBreachResultQuery initWithDictionaryRepresentation:v11];
       }
 
       selfCopy = 0;
@@ -51,10 +51,10 @@
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordBreachResultQuery initWithDictionaryRepresentation:v8];
+      [WBSPasswordBreachResultQuery initWithDictionaryRepresentation:v10];
     }
 
     selfCopy = 0;
@@ -65,14 +65,13 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"PersistentIdentifier";
-  v6[1] = @"DateLastModified";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"PersistentIdentifier";
+  v5[1] = @"DateLastModified";
   dateLastModified = self->_dateLastModified;
-  v7[0] = self->_persistentIdentifier;
-  v7[1] = dateLastModified;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = self->_persistentIdentifier;
+  v6[1] = dateLastModified;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

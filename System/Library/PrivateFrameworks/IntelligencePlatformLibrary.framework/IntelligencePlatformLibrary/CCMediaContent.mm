@@ -881,9 +881,9 @@ LABEL_21:
             case 1:
               v65 = [CCMediaAlbumArtist alloc];
               v66 = CCPBReaderReadDataNoCopy();
-              v168 = 0;
-              v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v168];
-              v10 = v168;
+              v166 = 0;
+              v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v166];
+              v10 = v166;
               albumArtist = self->_albumArtist;
               self->_albumArtist = v67;
 
@@ -900,9 +900,9 @@ LABEL_21:
             case 2:
               v100 = [CCMediaSongArtist alloc];
               v101 = CCPBReaderReadDataNoCopy();
-              v167 = 0;
-              v102 = [(CCItemMessage *)v100 initWithData:v101 error:&v167];
-              v10 = v167;
+              v165 = 0;
+              v102 = [(CCItemMessage *)v100 initWithData:v101 error:&v165];
+              v10 = v165;
               v103 = self->_songArtist;
               self->_songArtist = v102;
 
@@ -919,9 +919,9 @@ LABEL_21:
             case 3:
               v23 = [CCMediaAlbum alloc];
               v24 = CCPBReaderReadDataNoCopy();
-              v166 = 0;
-              v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v166];
-              v10 = v166;
+              v164 = 0;
+              v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v164];
+              v10 = v164;
               album = self->_album;
               self->_album = v25;
 
@@ -988,9 +988,9 @@ LABEL_63:
         {
           v80 = [CCMediaGenre alloc];
           v81 = CCPBReaderReadDataNoCopy();
-          v165 = 0;
-          v82 = [(CCItemMessage *)v80 initWithData:v81 error:&v165];
-          v10 = v165;
+          v163 = 0;
+          v82 = [(CCItemMessage *)v80 initWithData:v81 error:&v163];
+          v10 = v163;
           v83 = self->_genre;
           self->_genre = v82;
 
@@ -1018,9 +1018,9 @@ LABEL_63:
           {
             v41 = [CCMediaPlaylist alloc];
             v42 = CCPBReaderReadDataNoCopy();
-            v163 = 0;
-            v43 = [(CCItemMessage *)v41 initWithData:v42 error:&v163];
-            v10 = v163;
+            v161 = 0;
+            v43 = [(CCItemMessage *)v41 initWithData:v42 error:&v161];
+            v10 = v161;
             v44 = self->_playlist;
             self->_playlist = v43;
 
@@ -1053,9 +1053,9 @@ LABEL_63:
 
         v126 = [CCMediaSong alloc];
         v127 = CCPBReaderReadDataNoCopy();
-        v164 = 0;
-        v128 = [(CCItemMessage *)v126 initWithData:v127 error:&v164];
-        v10 = v164;
+        v162 = 0;
+        v128 = [(CCItemMessage *)v126 initWithData:v127 error:&v162];
+        v10 = v162;
         v129 = self->_song;
         self->_song = v128;
 
@@ -1093,9 +1093,9 @@ LABEL_64:
           case 0xA:
             v87 = [CCMediaMovie alloc];
             v88 = CCPBReaderReadDataNoCopy();
-            v159 = 0;
-            v89 = [(CCItemMessage *)v87 initWithData:v88 error:&v159];
-            v10 = v159;
+            v157 = 0;
+            v89 = [(CCItemMessage *)v87 initWithData:v88 error:&v157];
+            v10 = v157;
             v90 = self->_movie;
             self->_movie = v89;
 
@@ -1136,9 +1136,9 @@ LABEL_64:
           case 0xB:
             v134 = [CCMediaAudiobookArtist alloc];
             v135 = CCPBReaderReadDataNoCopy();
-            v158 = 0;
-            v136 = [(CCItemMessage *)v134 initWithData:v135 error:&v158];
-            v10 = v158;
+            v156 = 0;
+            v136 = [(CCItemMessage *)v134 initWithData:v135 error:&v156];
+            v10 = v156;
             v137 = self->_audiobookArtist;
             self->_audiobookArtist = v136;
 
@@ -1182,9 +1182,9 @@ LABEL_64:
           case 0xC:
             v50 = [CCMediaAudiobook alloc];
             v51 = CCPBReaderReadDataNoCopy();
-            v157 = 0;
-            v52 = [(CCItemMessage *)v50 initWithData:v51 error:&v157];
-            v10 = v157;
+            v155 = 0;
+            v52 = [(CCItemMessage *)v50 initWithData:v51 error:&v155];
+            v10 = v155;
             v53 = self->_audiobook;
             self->_audiobook = v52;
 
@@ -1237,9 +1237,9 @@ LABEL_64:
           case 7:
             v70 = [CCMediaMusicVideo alloc];
             v71 = CCPBReaderReadDataNoCopy();
-            v162 = 0;
-            v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v162];
-            v10 = v162;
+            v160 = 0;
+            v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v160];
+            v10 = v160;
             v73 = self->_musicVideo;
             self->_musicVideo = v72;
 
@@ -1271,9 +1271,9 @@ LABEL_64:
           case 8:
             v115 = [CCMediaTVShow alloc];
             v116 = CCPBReaderReadDataNoCopy();
-            v161 = 0;
-            v117 = [(CCItemMessage *)v115 initWithData:v116 error:&v161];
-            v10 = v161;
+            v159 = 0;
+            v117 = [(CCItemMessage *)v115 initWithData:v116 error:&v159];
+            v10 = v159;
             v118 = self->_TVShow;
             self->_TVShow = v117;
 
@@ -1308,9 +1308,9 @@ LABEL_64:
           case 9:
             v29 = [CCMediaTVEpisode alloc];
             v30 = CCPBReaderReadDataNoCopy();
-            v160 = 0;
-            v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v160];
-            v10 = v160;
+            v158 = 0;
+            v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v158];
+            v10 = v158;
             v32 = self->_TVEpisode;
             self->_TVEpisode = v31;
 
@@ -1358,7 +1358,6 @@ LABEL_72:
       {
         v148 = objc_opt_class();
         v149 = NSStringFromClass(v148);
-        v150 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -1378,23 +1377,22 @@ LABEL_77:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v155 = 1;
+    v153 = 1;
     goto LABEL_81;
   }
 
 LABEL_78:
-  v151 = objc_opt_class();
-  v152 = NSStringFromClass(v151);
-  v153 = *&v6[*v9];
-  v154 = CCInvalidBufferErrorForMessage();
+  v150 = objc_opt_class();
+  v151 = NSStringFromClass(v150);
+  v152 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_79:
-  v155 = 0;
+  v153 = 0;
 LABEL_81:
 
-  return v155;
+  return v153;
 }
 
 - (CCMediaContent)initWithEntity:(id)entity entityType:(unsigned int)type error:(id *)error

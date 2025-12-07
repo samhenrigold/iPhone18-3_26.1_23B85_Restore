@@ -117,13 +117,13 @@
 
 - (PrivacyProxyServiceStatus)initWithData:(id)data
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ACD0];
   dataCopy = data;
-  v16 = 0;
-  v6 = [[v4 alloc] initForReadingFromData:dataCopy error:&v16];
+  v15 = 0;
+  v6 = [[v4 alloc] initForReadingFromData:dataCopy error:&v15];
 
-  v7 = v16;
+  v7 = v15;
   v8 = v7;
   if (v6)
   {
@@ -137,9 +137,9 @@
 
   if (v9)
   {
-    v15.receiver = self;
-    v15.super_class = PrivacyProxyServiceStatus;
-    v12 = [(PrivacyProxyServiceStatus *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = PrivacyProxyServiceStatus;
+    v12 = [(PrivacyProxyServiceStatus *)&v14 init];
     if (v12)
     {
       v12 = [(PrivacyProxyServiceStatus *)v12 initWithCoder:v6];
@@ -155,14 +155,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, "Failed to create a decoder for the service status %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -7,14 +7,14 @@ uint64_t sub_100039FEC(_xpc_connection_s *a1, void *a2)
     if (__SC_log_enabled())
     {
       v4 = _os_log_pack_size();
-      __chkstk_darwin(v4, v5, v6);
-      v7 = *__error();
-      v8 = _os_log_pack_fill();
+      v5 = &v24 - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v6 = __error();
+      v7 = _os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "connection %p pid %d permission denied", v24, v25);
       pid = xpc_connection_get_pid(a1);
-      *v8 = 134218240;
-      *(v8 + 4) = a1;
-      *(v8 + 12) = 1024;
-      *(v8 + 14) = pid;
+      *v7 = 134218240;
+      *(v7 + 4) = a1;
+      *(v7 + 12) = 1024;
+      *(v7 + 14) = pid;
       __SC_log_send();
     }
 
@@ -27,28 +27,28 @@ uint64_t sub_100039FEC(_xpc_connection_s *a1, void *a2)
     return 22;
   }
 
-  v12 = string;
+  v11 = string;
   int64 = xpc_dictionary_get_int64(a2, "PrimaryRank");
-  v14 = int64;
+  v13 = int64;
   if (int64 > 4)
   {
     return 22;
   }
 
-  v15 = off_10007A950[int64 & 7];
+  v14 = off_10007A950[int64 & 7];
   context = xpc_connection_get_context(a1);
   if (!context)
   {
     context = sub_10003A898(a1, a2);
   }
 
-  valuePtr = v14;
+  HIDWORD(v24) = v13;
   if (context[5])
   {
-    v17 = CFStringCreateWithCString(0, v12, 0x8000100u);
-    if (!v14)
+    v16 = CFStringCreateWithCString(0, v11, 0x8000100u);
+    if (!v13)
     {
-      CFDictionaryRemoveValue(context[5], v17);
+      CFDictionaryRemoveValue(context[5], v16);
       if (!CFDictionaryGetCount(context[5]))
       {
         CFRelease(context[5]);
@@ -59,25 +59,25 @@ uint64_t sub_100039FEC(_xpc_connection_s *a1, void *a2)
     }
 
 LABEL_18:
-    v18 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    CFDictionarySetValue(context[5], v17, v18);
-    CFRelease(v18);
+    v17 = CFNumberCreate(0, kCFNumberSInt32Type, &v24 + 4);
+    CFDictionarySetValue(context[5], v16, v17);
+    CFRelease(v17);
 LABEL_19:
-    sub_10003ABCC(v17);
+    sub_10003ABCC(v16);
     if (qword_100081968 && qword_100081970)
     {
       dispatch_async(qword_100081968, qword_100081970);
     }
 
-    sub_10003AC88(v17);
-    CFRelease(v17);
+    sub_10003AC88(v16);
+    CFRelease(v16);
     goto LABEL_23;
   }
 
-  if (v14)
+  if (v13)
   {
     context[5] = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v17 = CFStringCreateWithCString(0, v12, 0x8000100u);
+    v16 = CFStringCreateWithCString(0, v11, 0x8000100u);
     goto LABEL_18;
   }
 
@@ -87,22 +87,22 @@ LABEL_23:
   result = __SC_log_enabled();
   if (result)
   {
-    v19 = _os_log_pack_size();
-    __chkstk_darwin(v19, v20, v21);
-    v22 = *__error();
-    v23 = _os_log_pack_fill();
-    v24 = context[4];
-    v25 = *(context + 6);
-    *v23 = 136316162;
-    *(v23 + 4) = v24;
-    *(v23 + 12) = 1024;
-    *(v23 + 14) = v25;
-    *(v23 + 18) = 2080;
-    *(v23 + 20) = v12;
-    *(v23 + 28) = 2080;
-    *(v23 + 30) = v15;
-    *(v23 + 38) = 1024;
-    *(v23 + 40) = v14;
+    v18 = _os_log_pack_size();
+    v19 = &v24 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = __error();
+    v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "%s[%d] SetInterfaceRank(%s) = %s (%u)", v24, v25, v26, v27, v28);
+    v22 = context[4];
+    v23 = *(context + 6);
+    *v21 = 136316162;
+    *(v21 + 4) = v22;
+    *(v21 + 12) = 1024;
+    *(v21 + 14) = v23;
+    *(v21 + 18) = 2080;
+    *(v21 + 20) = v11;
+    *(v21 + 28) = 2080;
+    *(v21 + 30) = v14;
+    *(v21 + 38) = 1024;
+    *(v21 + 40) = v13;
     __SC_log_send();
     return 0;
   }
@@ -123,14 +123,14 @@ LABEL_14:
       if (__SC_log_enabled())
       {
         v15 = _os_log_pack_size();
-        __chkstk_darwin(v15, v16, v17);
-        v18 = *__error();
-        v19 = _os_log_pack_fill();
+        v16 = &v29 - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v17 = __error();
+        v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "connection %p pid %d permission denied", v29, v30);
         pid = xpc_connection_get_pid(a1);
-        *v19 = 134218240;
-        *(v19 + 4) = a1;
-        *(v19 + 12) = 1024;
-        *(v19 + 14) = pid;
+        *v18 = 134218240;
+        *(v18 + 4) = a1;
+        *(v18 + 12) = 1024;
+        *(v18 + 14) = pid;
         __SC_log_send();
       }
 
@@ -174,7 +174,7 @@ LABEL_14:
     context = sub_10003A898(a1, a2);
   }
 
-  valuePtr = v11;
+  HIDWORD(v29) = v11;
   if (context[6])
   {
     v14 = CFStringCreateWithCString(0, v8, 0x8000100u);
@@ -191,9 +191,9 @@ LABEL_14:
     }
 
 LABEL_21:
-    v22 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    CFDictionarySetValue(context[6], v14, v22);
-    CFRelease(v22);
+    v21 = CFNumberCreate(0, kCFNumberSInt32Type, &v29 + 4);
+    CFDictionarySetValue(context[6], v14, v21);
+    CFRelease(v21);
 LABEL_22:
     sub_10003ABCC(v14);
     sub_10003AD1C(v14);
@@ -219,30 +219,30 @@ LABEL_26:
   result = __SC_log_enabled();
   if (result)
   {
-    v23 = _os_log_pack_size();
-    __chkstk_darwin(v23, v24, v25);
-    v26 = *__error();
-    v27 = _os_log_pack_fill();
-    v28 = context[4];
-    v29 = *(context + 6);
-    v30 = "";
+    v22 = _os_log_pack_size();
+    v23 = &v29 - ((__chkstk_darwin(v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v24 = __error();
+    v25 = _os_log_pack_fill(v23, v22, *v24, &_mh_execute_header, "%s[%d] SetInterfaceAdvisory(%s) = %s (%u) reason='%s'", v29, v30, v31, v32, v33, v34);
+    v26 = context[4];
+    v27 = *(context + 6);
+    v28 = "";
     if (v9)
     {
-      v30 = v9;
+      v28 = v9;
     }
 
-    *v27 = 136316418;
-    *(v27 + 4) = v28;
-    *(v27 + 12) = 1024;
-    *(v27 + 14) = v29;
-    *(v27 + 18) = 2080;
-    *(v27 + 20) = v8;
-    *(v27 + 28) = 2080;
-    *(v27 + 30) = v12;
-    *(v27 + 38) = 1024;
-    *(v27 + 40) = v11;
-    *(v27 + 44) = 2080;
-    *(v27 + 46) = v30;
+    *v25 = 136316418;
+    *(v25 + 4) = v26;
+    *(v25 + 12) = 1024;
+    *(v25 + 14) = v27;
+    *(v25 + 18) = 2080;
+    *(v25 + 20) = v8;
+    *(v25 + 28) = 2080;
+    *(v25 + 30) = v12;
+    *(v25 + 38) = 1024;
+    *(v25 + 40) = v11;
+    *(v25 + 44) = 2080;
+    *(v25 + 46) = v28;
     __SC_log_send();
     return 0;
   }
@@ -257,11 +257,11 @@ void sub_10003A778(_xpc_connection_s *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 134217984;
-    *(v6 + 4) = a1;
+    v3 = &v7 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "IPMonitorControlServer: client %p went away", v7);
+    *v5 = 134217984;
+    *(v5 + 4) = a1;
     __SC_log_send();
   }
 
@@ -304,19 +304,19 @@ _OWORD *sub_10003A898(_xpc_connection_s *a1, void *a2)
   if (__SC_log_enabled())
   {
     v7 = _os_log_pack_size();
-    __chkstk_darwin(v7, v8, v9);
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    v12 = *(v4 + 4);
-    v13 = *(v4 + 6);
-    *v11 = 136315906;
-    *(v11 + 4) = v12;
-    *(v11 + 12) = 1024;
-    *(v11 + 14) = v13;
-    *(v11 + 18) = 2048;
-    *(v11 + 20) = v4;
-    *(v11 + 28) = 2048;
-    *(v11 + 30) = a1;
+    v8 = &v14 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "Created %s [%d] session %p (connection %p)", v14, v15, v16, v17);
+    v11 = *(v4 + 4);
+    v12 = *(v4 + 6);
+    *v10 = 136315906;
+    *(v10 + 4) = v11;
+    *(v10 + 12) = 1024;
+    *(v10 + 14) = v12;
+    *(v10 + 18) = 2048;
+    *(v10 + 20) = v4;
+    *(v10 + 28) = 2048;
+    *(v10 + 30) = a1;
     __SC_log_send();
   }
 
@@ -330,17 +330,17 @@ void sub_10003AA8C(uint64_t a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 24);
-    *v6 = 136315650;
-    *(v6 + 4) = v7;
-    *(v6 + 12) = 1024;
-    *(v6 + 14) = v8;
-    *(v6 + 18) = 2048;
-    *(v6 + 20) = a1;
+    v3 = &v8 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "Releasing %s [%d] session %p", v8, v9, v10);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 24);
+    *v5 = 136315650;
+    *(v5 + 4) = v6;
+    *(v5 + 12) = 1024;
+    *(v5 + 14) = v7;
+    *(v5 + 18) = 2048;
+    *(v5 + 20) = a1;
     __SC_log_send();
   }
 
@@ -442,26 +442,26 @@ void sub_10003AF54(uint64_t *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 134217984;
-    *(v6 + 4) = a1;
+    v3 = &v23 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "Invalidating %p", v23);
+    *v5 = 134217984;
+    *(v5 + 4) = a1;
     __SC_log_send();
   }
 
-  v7 = *a1;
-  v8 = a1[1];
+  v6 = *a1;
+  v7 = a1[1];
   if (*a1)
   {
-    *(v7 + 8) = v8;
+    *(v6 + 8) = v7;
   }
 
-  *v8 = v7;
-  v9 = a1[6];
+  *v7 = v6;
+  v8 = a1[6];
   if (!a1[5])
   {
-    if (!v9)
+    if (!v8)
     {
       return;
     }
@@ -469,31 +469,31 @@ void sub_10003AF54(uint64_t *a1)
     goto LABEL_9;
   }
 
-  if (v9)
+  if (v8)
   {
 LABEL_9:
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
+      v9 = _os_log_pack_size();
+      v10 = &v23 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = __error();
+      v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "pid %d removing advisories %@");
       pid = xpc_connection_get_pid(a1[2]);
-      v16 = a1[6];
-      *v14 = 67109378;
-      *(v14 + 4) = pid;
-      *(v14 + 8) = 2112;
-      *(v14 + 10) = v16;
+      v14 = a1[6];
+      *v12 = 67109378;
+      *(v12 + 4) = pid;
+      *(v12 + 8) = 2112;
+      *(v12 + 10) = v14;
       __SC_log_send();
     }
 
     CFDictionaryApplyFunction(a1[6], sub_10003B294, 0);
-    v17 = a1[6];
-    if (v17)
+    v15 = a1[6];
+    if (v15)
     {
-      CFRelease(v17);
+      CFRelease(v15);
       a1[6] = 0;
     }
   }
@@ -504,24 +504,24 @@ LABEL_9:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v18 = _os_log_pack_size();
-      __chkstk_darwin(v18, v19, v20);
-      v21 = *__error();
-      v22 = _os_log_pack_fill();
-      v23 = xpc_connection_get_pid(a1[2]);
-      v24 = a1[5];
-      *v22 = 67109378;
-      *(v22 + 4) = v23;
-      *(v22 + 8) = 2112;
-      *(v22 + 10) = v24;
+      v16 = _os_log_pack_size();
+      v17 = &v23 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = __error();
+      v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "pid %d removing assertions %@");
+      v20 = xpc_connection_get_pid(a1[2]);
+      v21 = a1[5];
+      *v19 = 67109378;
+      *(v19 + 4) = v20;
+      *(v19 + 8) = 2112;
+      *(v19 + 10) = v21;
       __SC_log_send();
     }
 
     CFDictionaryApplyFunction(a1[5], sub_10003B300, 0);
-    v25 = a1[5];
-    if (v25)
+    v22 = a1[5];
+    if (v22)
     {
-      CFRelease(v25);
+      CFRelease(v22);
       a1[5] = 0;
     }
   }
@@ -562,30 +562,30 @@ _DWORD *sub_10003B3C4()
   {
     if (*(i + 40) || *(i + 48))
     {
-      v26 = 0;
       v27 = 0;
-      v23 = 0;
+      v28 = 0;
       v24 = 0;
+      v25 = 0;
       v2 = CFNumberCreate(0, kCFNumberSInt32Type, (i + 24));
       v3 = CFStringCreateWithCString(0, *(i + 32), 0x8000100u);
       keys[0] = @"ProcessID";
       keys[1] = @"ProcessName";
-      values[0] = v2;
-      values[1] = v3;
+      values = v2;
+      v23 = v3;
       v4 = *(i + 40);
       if (v4)
       {
-        v26 = @"Assertions";
-        v23 = v4;
-        v5 = &v24;
-        v6 = &v27;
+        v27 = @"Assertions";
+        v24 = v4;
+        v5 = &v25;
+        v6 = &v28;
         v7 = 3;
       }
 
       else
       {
-        v5 = &v23;
-        v6 = &v26;
+        v5 = &v24;
+        v6 = &v27;
         v7 = 2;
       }
 
@@ -597,7 +597,7 @@ _DWORD *sub_10003B3C4()
         ++v7;
       }
 
-      v9 = CFDictionaryCreate(0, keys, values, v7, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      v9 = CFDictionaryCreate(0, keys, &values, v7, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       CFRelease(v2);
       CFRelease(v3);
       if (v9)
@@ -614,13 +614,13 @@ _DWORD *sub_10003B3C4()
   v12 = Length + 200;
   if ((Length + 200) <= 0x8000)
   {
-    v19 = Length;
-    v18 = malloc_type_calloc(1uLL, v12, 0x5FAEB7F9uLL);
-    *v18 = 1;
-    v18[1] = v19;
+    v18 = Length;
+    v17 = malloc_type_calloc(1uLL, v12, 0x5FAEB7F9uLL);
+    *v17 = 1;
+    v17[1] = v18;
     __strlcpy_chk();
     BytePtr = CFDataGetBytePtr(Data);
-    memcpy(v18 + 50, BytePtr, v19);
+    memcpy(v17 + 50, BytePtr, v18);
   }
 
   else
@@ -630,23 +630,23 @@ _DWORD *sub_10003B3C4()
     if (__SC_log_enabled())
     {
       v13 = _os_log_pack_size();
-      __chkstk_darwin(v13, v14, v15);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      *v17 = 136315650;
-      *(v17 + 4) = "IPMonitorControlCopyOSStateData";
-      *(v17 + 12) = 2048;
-      *(v17 + 14) = v12;
-      *(v17 + 22) = 1024;
-      *(v17 + 24) = 0x8000;
+      v14 = &v21 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "%s: state data too large (%zu > %d)", v21, values, v23);
+      *v16 = 136315650;
+      *(v16 + 4) = "IPMonitorControlCopyOSStateData";
+      *(v16 + 12) = 2048;
+      *(v16 + 14) = v12;
+      *(v16 + 22) = 1024;
+      *(v16 + 24) = 0x8000;
       __SC_log_send();
     }
 
-    v18 = 0;
+    v17 = 0;
   }
 
   CFRelease(Data);
-  return v18;
+  return v17;
 }
 
 void sub_10003B6E0(void *key, uint64_t a2, CFDictionaryRef *a3)
@@ -819,7 +819,7 @@ void sub_10003D5F8()
     if (SCDynamicStoreSetDispatchQueue(v6, qword_100081AE0))
     {
       sub_10003F998(v0, Mutable);
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
     if (!qword_100081998)
@@ -830,16 +830,11 @@ void sub_10003D5F8()
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-LABEL_13:
-      v7 = _os_log_pack_size();
-      __chkstk_darwin(v7, v8, v9);
-      v10 = *__error();
-      v11 = _os_log_pack_fill();
-      v12 = SCError();
-      v13 = SCErrorString(v12);
-      *v11 = 136315138;
-      *(v11 + 4) = v13;
-      __SC_log_send();
+      v11 = _os_log_pack_size();
+      v12 = values - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = *__error();
+      v10 = _os_log_pack_fill(v12, v11, v13, &_mh_execute_header, "SCDynamicStoreSetDispatchQueue() failed: %s");
+      goto LABEL_14;
     }
   }
 
@@ -853,11 +848,21 @@ LABEL_13:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      goto LABEL_13;
+      v7 = _os_log_pack_size();
+      v8 = values - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = *__error();
+      v10 = _os_log_pack_fill(v8, v7, v9, &_mh_execute_header, "SCDynamicStoreSetNotificationKeys() failed: %s");
+LABEL_14:
+      v14 = v10;
+      v15 = SCError();
+      v16 = SCErrorString(v15);
+      *v14 = 136315138;
+      *(v14 + 4) = v16;
+      __SC_log_send();
     }
   }
 
-LABEL_14:
+LABEL_15:
   CFRelease(v0);
   CFRelease(Mutable);
 }
@@ -899,7 +904,7 @@ void sub_10003D9A0(CFBundleRef bundle, int a2)
     sub_100067DFC();
   }
 
-  sub_1000583F0();
+  sub_1000583F0(qword_100081AE0, sub_10004619C);
   sub_10004619C();
   sub_100037850(bundle, &stru_10007AA28);
   sub_1000471F0(bundle, &stru_10007AA88);
@@ -940,7 +945,7 @@ void sub_10003DC04(uint64_t a1)
   if (!byte_100081698 || (dword_1000819B8 & 2) != 0)
   {
 
-    sub_10003DE18();
+    sub_10003DE18(a1);
   }
 
   else
@@ -950,8 +955,9 @@ void sub_10003DC04(uint64_t a1)
   }
 }
 
-void sub_10003DCB0(int a1)
+void sub_10003DCB0(uint64_t a1)
 {
+  v1 = a1;
   if (qword_100081AE8 != -1)
   {
     sub_100067EBC();
@@ -965,7 +971,8 @@ void sub_10003DCB0(int a1)
     v2 = dword_1000819B8;
   }
 
-  dword_1000819B8 = v2 | a1;
+  dword_1000819B8 = v2 | v1;
+  v3 = qword_100081B08;
   if (qword_100081B08)
   {
     dispatch_source_cancel(qword_100081B08);
@@ -983,16 +990,16 @@ void sub_10003DCB0(int a1)
 
     qword_100081B08 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, qword_100081AF0);
     dispatch_source_set_event_handler(qword_100081B08, &stru_10007AD50);
-    v3 = qword_100081B08;
-    v4 = dispatch_time(0, 5000000000);
-    dispatch_source_set_timer(v3, v4, 0xFFFFFFFFFFFFFFFFLL, 0x989680uLL);
+    v4 = qword_100081B08;
+    v5 = dispatch_time(0, 5000000000);
+    dispatch_source_set_timer(v4, v5, 0xFFFFFFFFFFFFFFFFLL, 0x989680uLL);
     dispatch_resume(qword_100081B08);
   }
 
-  sub_10003DE18();
+  sub_10003DE18(v3);
 }
 
-void sub_10003DE18()
+void sub_10003DE18(uint64_t a1)
 {
   if (qword_100081AE8 != -1)
   {
@@ -1012,20 +1019,20 @@ void sub_10003DE18()
         byte_100081B10 = 0;
       }
 
-      v50.tv_sec = 0;
-      *&v50.tv_usec = 0;
-      gettimeofday(&v50, 0);
-      tv_sec = v50.tv_sec;
-      v1 = qword_100081AF8;
-      v2 = v50.tv_usec - dword_100081B00;
-      if (v50.tv_usec >= dword_100081B00)
+      v46.tv_sec = 0;
+      *&v46.tv_usec = 0;
+      gettimeofday(&v46, 0);
+      tv_sec = v46.tv_sec;
+      v2 = qword_100081AF8;
+      v3 = v46.tv_usec - dword_100081B00;
+      if (v46.tv_usec >= dword_100081B00)
       {
-        v3 = v50.tv_usec - dword_100081B00;
+        v4 = v46.tv_usec - dword_100081B00;
       }
 
       else
       {
-        v3 = v50.tv_usec - dword_100081B00 + 1000000;
+        v4 = v46.tv_usec - dword_100081B00 + 1000000;
       }
 
       if (!qword_100081998)
@@ -1036,11 +1043,11 @@ void sub_10003DE18()
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v4 = tv_sec - v1 + (v2 >> 31);
-        v5 = _os_log_pack_size();
-        __chkstk_darwin(v5, v6, v7);
-        v8 = *__error();
-        v9 = _os_log_pack_fill();
+        v5 = tv_sec - v2 + (v3 >> 31);
+        v6 = _os_log_pack_size();
+        v7 = &v45 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8 = __error();
+        v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "Post com.apple.system.config.network_change (%s: %ld.%6.6d: 0x%x)", v45, v46.tv_sec, v46.tv_usec, v47);
         v10 = "delayed";
         v11 = byte_100081B10 == 0;
         v12 = dword_1000819B8;
@@ -1052,9 +1059,9 @@ void sub_10003DE18()
 
         *(v9 + 4) = v10;
         *(v9 + 12) = 2048;
-        *(v9 + 14) = v4;
+        *(v9 + 14) = v5;
         *(v9 + 22) = 1024;
-        *(v9 + 24) = v3;
+        *(v9 + 24) = v4;
         *(v9 + 28) = 1024;
         *(v9 + 30) = v12;
         __SC_log_send();
@@ -1082,11 +1089,11 @@ void sub_10003DE18()
           if (__SC_log_enabled())
           {
             v16 = _os_log_pack_size();
-            __chkstk_darwin(v16, v17, v18);
-            v19 = *__error();
-            v20 = _os_log_pack_fill();
-            *v20 = 67109120;
-            v20[1] = v15;
+            v17 = &v45 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v18 = __error();
+            v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "notify_post(com.apple.system.config.network_change.nwi) failed: error=%d", v45);
+            *v19 = 67109120;
+            v19[1] = v15;
             __SC_log_send();
           }
         }
@@ -1094,10 +1101,10 @@ void sub_10003DE18()
 
       if ((dword_1000819B8 & 2) != 0)
       {
-        v21 = notify_post("com.apple.system.config.network_change.dns");
-        if (v21)
+        v20 = notify_post("com.apple.system.config.network_change.dns");
+        if (v20)
         {
-          v22 = v21;
+          v21 = v20;
           if (!qword_100081998)
           {
             qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -1106,12 +1113,12 @@ void sub_10003DE18()
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v23 = _os_log_pack_size();
-            __chkstk_darwin(v23, v24, v25);
-            v26 = *__error();
-            v27 = _os_log_pack_fill();
-            *v27 = 67109120;
-            v27[1] = v22;
+            v22 = _os_log_pack_size();
+            v23 = &v45 - ((__chkstk_darwin(v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v24 = __error();
+            v25 = _os_log_pack_fill(v23, v22, *v24, &_mh_execute_header, "notify_post(com.apple.system.config.network_change.dns) failed: error=%d", v45);
+            *v25 = 67109120;
+            v25[1] = v21;
             __SC_log_send();
           }
         }
@@ -1120,10 +1127,10 @@ void sub_10003DE18()
       if ((dword_1000819B8 & 4) != 0)
       {
         process_AgentMonitor_Proxy();
-        v28 = notify_post("com.apple.system.config.proxy_change");
-        if (v28)
+        v26 = notify_post("com.apple.system.config.proxy_change");
+        if (v26)
         {
-          v29 = v28;
+          v27 = v26;
           if (!qword_100081998)
           {
             qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -1132,18 +1139,18 @@ void sub_10003DE18()
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v30 = _os_log_pack_size();
-            __chkstk_darwin(v30, v31, v32);
-            v33 = *__error();
-            v34 = _os_log_pack_fill();
-            *v34 = 67109120;
-            v34[1] = v29;
+            v28 = _os_log_pack_size();
+            v29 = &v45 - ((__chkstk_darwin(v28) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v30 = __error();
+            v31 = _os_log_pack_fill(v29, v28, *v30, &_mh_execute_header, "notify_post(com.apple.system.config.proxy_change) failed: error=%d", v45);
+            *v31 = 67109120;
+            v31[1] = v27;
             __SC_log_send();
           }
         }
       }
 
-      v35 = dword_1000819B8;
+      v32 = dword_1000819B8;
       if ((dword_1000819B8 & 0x10) != 0)
       {
         if (qword_100081A50 || qword_100081A58 || qword_100081A60)
@@ -1168,16 +1175,16 @@ void sub_10003DE18()
           }
         }
 
-        v35 = dword_1000819B8 & 0xFFFFFFEF;
+        v32 = dword_1000819B8 & 0xFFFFFFEF;
         dword_1000819B8 &= ~0x10u;
       }
 
-      if (v35)
+      if (v32)
       {
-        v36 = notify_post("com.apple.system.config.network_change");
-        if (v36)
+        v33 = notify_post("com.apple.system.config.network_change");
+        if (v33)
         {
-          v37 = v36;
+          v34 = v33;
           if (!qword_100081998)
           {
             qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -1186,12 +1193,12 @@ void sub_10003DE18()
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v38 = _os_log_pack_size();
-            __chkstk_darwin(v38, v39, v40);
-            v41 = *__error();
-            v42 = _os_log_pack_fill();
-            *v42 = 67109120;
-            v42[1] = v37;
+            v35 = _os_log_pack_size();
+            v36 = &v45 - ((__chkstk_darwin(v35) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v37 = __error();
+            v38 = _os_log_pack_fill(v36, v35, *v37, &_mh_execute_header, "notify_post(com.apple.system.config.network_change) failed: error=%d", v45);
+            *v38 = 67109120;
+            v38[1] = v34;
             __SC_log_send();
           }
         }
@@ -1210,30 +1217,30 @@ void sub_10003DE18()
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v43 = _os_log_pack_size();
-        __chkstk_darwin(v43, v44, v45);
-        v46 = *__error();
-        v47 = _os_log_pack_fill();
+        v39 = _os_log_pack_size();
+        v40 = &v45 - ((__chkstk_darwin(v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v41 = __error();
+        v42 = _os_log_pack_fill(v40, v39, *v41, &_mh_execute_header, "Defer com.apple.system.config.network_change (%s, %s)", v45, v46.tv_sec);
         if (byte_100081698)
         {
-          v48 = "DNS";
+          v43 = "DNS";
         }
 
         else
         {
-          v48 = "!DNS";
+          v43 = "!DNS";
         }
 
-        v49 = "nwi";
+        v44 = "nwi";
         if (!byte_100081699)
         {
-          v49 = "!nwi";
+          v44 = "!nwi";
         }
 
-        *v47 = 136315394;
-        *(v47 + 4) = v48;
-        *(v47 + 12) = 2080;
-        *(v47 + 14) = v49;
+        *v42 = 136315394;
+        *(v42 + 4) = v43;
+        *(v42 + 12) = 2080;
+        *(v42 + 14) = v44;
         __SC_log_send();
       }
     }
@@ -1259,16 +1266,16 @@ void sub_10003E62C(uint64_t a1)
 {
   byte_100081699 = *(a1 + 32);
 
-  sub_10003DE18();
+  sub_10003DE18(a1);
 }
 
 char *sub_10003E690()
 {
-  v17 = 0;
-  *v19 = 0x2800000001;
-  v18 = 4;
-  sysctl(v19, 2u, &v17, &v18, 0, 0);
-  if (v17)
+  HIDWORD(v15) = 0;
+  *v17 = 0x2800000001;
+  v16 = 4;
+  sysctl(v17, 2u, &v15 + 4, &v16, 0, 0);
+  if (HIDWORD(v15))
   {
     byte_1000819D8 = 1;
   }
@@ -1299,28 +1306,28 @@ char *sub_10003E690()
     if (__SC_log_enabled())
     {
       v1 = _os_log_pack_size();
-      __chkstk_darwin(v1, v2, v3);
-      v4 = *__error();
-      v5 = _os_log_pack_fill();
-      v6 = "";
+      v2 = &v15 - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v3 = __error();
+      v4 = _os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "%sflushing IPv4 routes", v15);
+      v5 = "";
       if (v0)
       {
-        v6 = "not ";
+        v5 = "not ";
       }
 
-      *v5 = 136315138;
-      *(v5 + 4) = v6;
+      *v4 = 136315138;
+      *(v4 + 4) = v5;
       __SC_log_send();
     }
 
     if ((v0 & 1) == 0)
     {
-      v7 = sub_10001539C();
-      if (v7 != -1)
+      v6 = sub_10001539C();
+      if (v6 != -1)
       {
-        v8 = v7;
-        sub_100046B00(v7);
-        close(v8);
+        v7 = v6;
+        sub_100046B00(v6);
+        close(v7);
       }
     }
   }
@@ -1358,14 +1365,14 @@ char *sub_10003E690()
     result = __SC_log_enabled();
     if (result)
     {
-      v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
-      v15 = SCError();
-      v16 = SCErrorString(v15);
-      *v14 = 136315138;
-      *(v14 + 4) = v16;
+      v9 = _os_log_pack_size();
+      v10 = &v15 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = __error();
+      v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "IPMonitor ip_plugin_init SCDynamicStoreCreate failed: %s", v15);
+      v13 = SCError();
+      v14 = SCErrorString(v13);
+      *v12 = 136315138;
+      *(v12 + 4) = v14;
       return __SC_log_send();
     }
   }
@@ -1393,9 +1400,9 @@ uint64_t sub_10003EBB4()
     if (result)
     {
       v1 = _os_log_pack_size();
-      __chkstk_darwin(v1, v2, v3);
-      v4 = *__error();
-      *_os_log_pack_fill() = 0;
+      v2 = &v4 - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v3 = __error();
+      *_os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "IPMonitorControlServerStart failed") = 0;
       return __SC_log_send();
     }
   }
@@ -1453,11 +1460,11 @@ void sub_10003EF0C(unsigned int *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 138412290;
-    *(v6 + 4) = v1;
+    v3 = &v6 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%@");
+    *v5 = 138412290;
+    *(v5 + 4) = v1;
     __SC_log_send();
   }
 
@@ -1565,13 +1572,13 @@ void sub_10003F2CC(uint64_t a1, unsigned int *a2, uint64_t a3)
     if (__SC_log_enabled())
     {
       v6 = _os_log_pack_size();
-      __chkstk_darwin(v6, v7, v8);
-      v9 = *__error();
-      v10 = _os_log_pack_fill();
-      *v10 = 136315394;
-      *(v10 + 4) = a3;
-      *(v10 + 12) = 2112;
-      *(v10 + 14) = Mutable;
+      v7 = &v14 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v8 = __error();
+      v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "%s: %@");
+      *v9 = 136315394;
+      *(v9 + 4) = a3;
+      *(v9 + 12) = 2112;
+      *(v9 + 14) = Mutable;
 LABEL_10:
       __SC_log_send();
     }
@@ -1587,12 +1594,12 @@ LABEL_10:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      *v15 = 138412290;
-      *(v15 + 4) = Mutable;
+      v10 = _os_log_pack_size();
+      v11 = &v14 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "%@");
+      *v13 = 138412290;
+      *(v13 + 4) = Mutable;
       goto LABEL_10;
     }
   }
@@ -1611,17 +1618,16 @@ void sub_10003F574(unsigned int *a1, CFMutableStringRef theString)
 {
   v4 = *(a1 + 20);
   v5 = *(a1 + 21);
-  v6 = *(a1 + 22);
-  v7 = *(a1 + 23);
+  v6 = *(a1 + 23);
   if ((a1[4] & 4) != 0)
   {
-    CFStringAppendFormat(theString, 0, @"Host %d.%d.%d.%d", v4, v5, *(a1 + 22), v7);
+    CFStringAppendFormat(theString, 0, @"Host %d.%d.%d.%d", v4, v5, *(a1 + 22), v6);
   }
 
   else
   {
-    CFStringAppendFormat(theString, 0, @"Net %d.%d.%d.%d", v4, v5, *(a1 + 22), v7);
-    CFStringAppendFormat(theString, 0, @"/%d", *a1, v8, v9, v10);
+    CFStringAppendFormat(theString, 0, @"Net %d.%d.%d.%d", v4, v5, *(a1 + 22), v6);
+    CFStringAppendFormat(theString, 0, @"/%d", *a1, v13, v14, v15);
   }
 
   if ((a1[4] & 2) != 0)
@@ -1629,7 +1635,7 @@ void sub_10003F574(unsigned int *a1, CFMutableStringRef theString)
     CFStringAppendFormat(theString, 0, @" Gate %d.%d.%d.%d", *(a1 + 28), *(a1 + 29), *(a1 + 30), *(a1 + 31));
   }
 
-  sub_10003F6BC(a1, theString);
+  sub_10003F6BC(a1, theString, v7, v8, v9, v10, v11, v12);
   if (a1[8])
   {
     CFStringAppendFormat(theString, 0, @" Ifa %d.%d.%d.%d", a1[8], BYTE1(a1[8]), BYTE2(a1[8]), HIBYTE(a1[8]));
@@ -1638,16 +1644,16 @@ void sub_10003F574(unsigned int *a1, CFMutableStringRef theString)
   sub_10003F774(a1, theString);
 }
 
-void sub_10003F6BC(uint64_t a1, __CFString *a2)
+void sub_10003F6BC(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (sub_100038C50(*(a1 + 4), v4))
+  if (sub_100038C50(*(a1 + 4), v16, a3, a4, a5, a6, a7, a8))
   {
-    CFStringAppendFormat(a2, 0, @" Ifp %s", v4);
+    CFStringAppendFormat(a2, 0, @" Ifp %s", v16);
   }
 
-  if (sub_100038C50(*(a1 + 8), v4))
+  if (sub_100038C50(*(a1 + 8), v16, v10, v11, v12, v13, v14, v15))
   {
-    CFStringAppendFormat(a2, 0, @" !Ifp %s", v4);
+    CFStringAppendFormat(a2, 0, @" !Ifp %s", v16);
   }
 }
 
@@ -1749,14 +1755,14 @@ void sub_10003F998(CFArrayRef keys, CFArrayRef patterns)
       if (__SC_log_enabled())
       {
         v5 = _os_log_pack_size();
-        __chkstk_darwin(v5, v6, v7);
-        v8 = *__error();
-        v9 = _os_log_pack_fill();
+        v6 = &v17 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v7 = __error();
+        v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "IPMonitor prime %ld keys %@");
         Count = CFArrayGetCount(v4);
-        *v9 = 134218242;
-        *(v9 + 4) = Count;
-        *(v9 + 12) = 2112;
-        *(v9 + 14) = v4;
+        *v8 = 134218242;
+        *(v8 + 4) = Count;
+        *(v8 + 12) = 2112;
+        *(v8 + 14) = v4;
         __SC_log_send();
       }
 
@@ -1773,14 +1779,11 @@ void sub_10003F998(CFArrayRef keys, CFArrayRef patterns)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-LABEL_15:
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      *v15 = 136315138;
-      *(v15 + 4) = "prime_notifications";
-      __SC_log_send();
+      v14 = _os_log_pack_size();
+      v15 = &v17 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = *__error();
+      v13 = _os_log_pack_fill(v15, v14, v16, &_mh_execute_header, "%s: no keys");
+      goto LABEL_16;
     }
   }
 
@@ -1794,7 +1797,14 @@ LABEL_15:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      goto LABEL_15;
+      v10 = _os_log_pack_size();
+      v11 = &v17 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = *__error();
+      v13 = _os_log_pack_fill(v11, v10, v12, &_mh_execute_header, "%s: no content");
+LABEL_16:
+      *v13 = 136315138;
+      *(v13 + 4) = "prime_notifications";
+      __SC_log_send();
     }
   }
 }
@@ -1807,22 +1817,22 @@ CFArrayRef sub_10003FC98(const __CFDictionary *a1)
     return 0;
   }
 
-  v5 = Count;
-  __chkstk_darwin(Count, v3, v4);
-  v7 = (&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  if (v6 >= 0x200)
+  v3 = Count;
+  __chkstk_darwin(Count);
+  v5 = (&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  if (v4 >= 0x200)
   {
-    v8 = 512;
+    v6 = 512;
   }
 
   else
   {
-    v8 = v6;
+    v6 = v4;
   }
 
-  bzero(&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
-  CFDictionaryGetKeysAndValues(a1, v7, 0);
-  return CFArrayCreate(0, v7, v5, &kCFTypeArrayCallBacks);
+  bzero(&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
+  CFDictionaryGetKeysAndValues(a1, v5, 0);
+  return CFArrayCreate(0, v5, v3, &kCFTypeArrayCallBacks);
 }
 
 void sub_10003FD7C(__int16 a1, CFTypeRef cf)
@@ -1844,18 +1854,19 @@ void sub_10003FD7C(__int16 a1, CFTypeRef cf)
 
 void sub_10003FE50(const __CFArray *a1, const void *a2)
 {
+  v22 = a1;
   if (qword_1000819C0)
   {
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
     *keys = 0u;
-    v20 = 0u;
+    v26 = 0u;
     Count = CFDictionaryGetCount(qword_1000819C0);
     if (Count >= 11)
     {
@@ -1873,21 +1884,25 @@ void sub_10003FE50(const __CFArray *a1, const void *a2)
       }
     }
 
-    v4 = 0;
-    v5 = kSCEntNetIPv4;
-    v6 = &v3[Count];
-    v16 = v3;
+    v5 = 0;
+    v6 = kSCEntNetIPv4;
+    v23 = kSCEntNetIPv6;
+    v7 = &v3[Count];
+    *&v4 = 138412546;
+    v19 = v4;
+    v21 = kSCEntNetIPv4;
+    v20 = v3;
     do
     {
-      v7 = v3[v4];
-      v8 = v6[v4];
-      Value = CFDictionaryGetValue(v8, v5);
-      if (Value || (Value = CFDictionaryGetValue(v8, kSCEntNetIPv6)) != 0)
+      v8 = v3[v5];
+      v9 = v7[v5];
+      Value = CFDictionaryGetValue(v9, v6);
+      if (Value || (Value = CFDictionaryGetValue(v9, v23)) != 0)
       {
-        v10 = sub_10001C324(Value);
-        if (v10)
+        v11 = sub_10001C324(Value);
+        if (v11)
         {
-          if (CFEqual(v10, a2))
+          if (CFEqual(v11, a2))
           {
             if (!qword_100081998)
             {
@@ -1897,28 +1912,33 @@ void sub_10003FE50(const __CFArray *a1, const void *a2)
             _SC_syslog_os_log_mapping();
             if (__SC_log_enabled())
             {
-              v11 = _os_log_pack_size();
-              __chkstk_darwin(v11, v12, v13);
-              v14 = *__error();
-              v15 = _os_log_pack_fill();
-              *v15 = 138412546;
-              *(v15 + 4) = v7;
-              *(v15 + 12) = 2112;
-              *(v15 + 14) = a2;
+              v12 = v7;
+              v13 = a2;
+              v14 = _os_log_pack_size();
+              v15 = &v19 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+              v16 = __error();
+              v17 = v14;
+              a2 = v13;
+              v7 = v12;
+              v18 = _os_log_pack_fill(v15, v17, *v16, &_mh_execute_header, "Found IP service %@ on interface %@");
+              *v18 = v19;
+              *(v18 + 4) = v8;
+              *(v18 + 12) = 2112;
+              *(v18 + 14) = a2;
               __SC_log_send();
-              v3 = v16;
-              v5 = kSCEntNetIPv4;
+              v3 = v20;
+              v6 = v21;
             }
 
-            sub_100010060(a1, v7);
+            sub_100010060(v22, v8);
           }
         }
       }
 
-      ++v4;
+      ++v5;
     }
 
-    while (Count != v4);
+    while (Count != v5);
     if (v3 != keys)
     {
       free(v3);
@@ -1977,12 +1997,12 @@ void sub_100040290(int a1, void *a2)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v13 = _os_log_pack_size();
-      __chkstk_darwin(v13, v14, v15);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      *v17 = 138412290;
-      *(v17 + 4) = a2;
+      v11 = _os_log_pack_size();
+      v12 = &v15 - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = __error();
+      v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, "NAT64 Cancel %@");
+      *v14 = 138412290;
+      *(v14 + 4) = a2;
       __SC_log_send();
     }
 
@@ -2003,12 +2023,12 @@ void sub_100040290(int a1, void *a2)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v8 = _os_log_pack_size();
-        __chkstk_darwin(v8, v9, v10);
-        v11 = *__error();
-        v12 = _os_log_pack_fill();
-        *v12 = 138412290;
-        *(v12 + 4) = a2;
+        v7 = _os_log_pack_size();
+        v8 = &v15 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v9 = __error();
+        v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "NAT64 Update %@");
+        *v10 = 138412290;
+        *(v10 + 4) = a2;
         __SC_log_send();
       }
 
@@ -2034,11 +2054,11 @@ void sub_100040290(int a1, void *a2)
       if (__SC_log_enabled())
       {
         v3 = _os_log_pack_size();
-        __chkstk_darwin(v3, v4, v5);
-        v6 = *__error();
-        v7 = _os_log_pack_fill();
-        *v7 = 138412290;
-        *(v7 + 4) = a2;
+        v4 = &v15 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v5 = __error();
+        v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "NAT64 Start %@");
+        *v6 = 138412290;
+        *(v6 + 4) = a2;
         __SC_log_send();
       }
 
@@ -2163,17 +2183,17 @@ LABEL_12:
     }
 
     v14 = _os_log_pack_size();
-    __chkstk_darwin(v14, v15, v16);
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    *v18 = 138413058;
-    *(v18 + 4) = a1;
-    *(v18 + 12) = 2112;
-    *(v18 + 14) = a3;
-    *(v18 + 22) = 2112;
-    *(v18 + 24) = cf1;
-    *(v18 + 32) = 2112;
-    *(v18 + 34) = v13;
+    v15 = &v18 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v14, *v16, &_mh_execute_header, "serviceID %@ %@ %@ value = %@");
+    *v17 = 138413058;
+    *(v17 + 4) = a1;
+    *(v17 + 12) = 2112;
+    *(v17 + 14) = a3;
+    *(v17 + 22) = 2112;
+    *(v17 + 24) = cf1;
+    *(v17 + 32) = 2112;
+    *(v17 + 34) = v13;
     __SC_log_send();
   }
 
@@ -2211,14 +2231,14 @@ void sub_100040A34(unsigned int *a1, CFMutableStringRef theString)
   if ((a1[4] & 4) != 0)
   {
     CFStringAppend(theString, @"Host ");
-    v5 = inet_ntop(30, a1 + 5, v9, 0x2Eu);
-    CFStringAppendCString(theString, v5, 0x600u);
+    v11 = inet_ntop(30, a1 + 5, v15, 0x2Eu);
+    CFStringAppendCString(theString, v11, 0x600u);
   }
 
   else
   {
     CFStringAppend(theString, @"Net ");
-    v4 = inet_ntop(30, a1 + 5, v9, 0x2Eu);
+    v4 = inet_ntop(30, a1 + 5, v15, 0x2Eu);
     CFStringAppendCString(theString, v4, 0x600u);
     CFStringAppendFormat(theString, 0, @"/%d", *a1);
   }
@@ -2226,16 +2246,16 @@ void sub_100040A34(unsigned int *a1, CFMutableStringRef theString)
   if ((a1[4] & 2) != 0)
   {
     CFStringAppend(theString, @" Gate ");
-    v6 = inet_ntop(30, a1 + 9, v9, 0x2Eu);
-    CFStringAppendCString(theString, v6, 0x600u);
+    v12 = inet_ntop(30, a1 + 9, v15, 0x2Eu);
+    CFStringAppendCString(theString, v12, 0x600u);
   }
 
-  sub_10003F6BC(a1, theString);
+  sub_10003F6BC(a1, theString, v5, v6, v7, v8, v9, v10);
   if (*(a1 + 13) != *in6addr_any.__u6_addr8 || *(a1 + 15) != *&in6addr_any.__u6_addr32[2])
   {
     CFStringAppend(theString, @" Ifa ");
-    v8 = inet_ntop(30, a1 + 13, v9, 0x2Eu);
-    CFStringAppendCString(theString, v8, 0x600u);
+    v14 = inet_ntop(30, a1 + 13, v15, 0x2Eu);
+    CFStringAppendCString(theString, v14, 0x600u);
   }
 
   sub_10003F774(a1, theString);
@@ -2644,7 +2664,7 @@ LABEL_91:
   i32[1] = v31;
   i32[3] = v43;
   *(i32 + 8) |= 0x10u;
-  v72 = (i32 + 17);
+  v72 = i32 + 17;
   if ((v71 & 1) == 0)
   {
     *(i32 + 42) |= v42 & 8 | 0x10;
@@ -2727,22 +2747,22 @@ LABEL_97:
 
 _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3)
 {
-  v68 = 0;
+  v67 = 0;
   valuePtr = 0x1000000;
-  v65 = 0;
+  v64 = 0;
   if (!a2)
   {
     return 0;
   }
 
-  v6 = sub_100041B7C(a2, kSCPropInterfaceName, v69);
+  v6 = sub_100041B7C(a2, kSCPropInterfaceName, v68);
   if (!v6)
   {
     return 0;
   }
 
   v7 = v6;
-  v8 = sub_100013354(v69);
+  v8 = sub_100013354(v68);
   if (!v8)
   {
     return 0;
@@ -2751,16 +2771,16 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
   v9 = v8;
   v10 = sub_100013930(a2, v7);
   Value = CFDictionaryGetValue(a2, kSCPropNetIPv4Router);
-  if (!sub_10003D258(2, Value, &v65, 4uLL))
+  if (!sub_10003D258(2, Value, &v64, 4uLL))
   {
-    sub_100041C24(a2, kSCPropNetIPv4DestAddresses, &v65);
+    sub_100041C24(a2, kSCPropNetIPv4DestAddresses, &v64);
   }
 
-  v12 = sub_100041C24(a2, kSCPropNetIPv4Addresses, &v68 + 4);
-  if (v12 && (v12 = sub_100041C24(a2, kSCPropNetIPv4SubnetMasks, &v68)) != 0)
+  v12 = sub_100041C24(a2, kSCPropNetIPv4Addresses, &v67 + 4);
+  if (v12 && (v12 = sub_100041C24(a2, kSCPropNetIPv4SubnetMasks, &v67)) != 0)
   {
-    v13 = v68 & HIDWORD(v68);
-    v12 = sub_100041CE4(v68);
+    v13 = v67 & HIDWORD(v67);
+    v12 = sub_100041CE4(v67);
     if (v12 < 0)
     {
       v55 = v12;
@@ -2773,14 +2793,15 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
       if (__SC_log_enabled())
       {
         v28 = _os_log_pack_size();
-        v60 = &v52;
-        __chkstk_darwin(v28, v29, v30);
-        v31 = *__error();
-        v32 = _os_log_pack_fill();
-        v33 = v68;
-        v34 = BYTE1(v68);
-        v35 = BYTE2(v68);
-        v36 = BYTE3(v68);
+        v59 = &v52;
+        v29 = v13;
+        v30 = &v52 - ((__chkstk_darwin(v28) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v31 = __error();
+        v32 = _os_log_pack_fill(v30, v28, *v31, &_mh_execute_header, "ignoring bad subnet mask %d.%d.%d.%d on %s", v52, Count, v54, v56, v58);
+        v33 = v67;
+        v34 = BYTE1(v67);
+        v35 = BYTE2(v67);
+        v36 = BYTE3(v67);
         *v32 = 67110146;
         *(v32 + 4) = v33;
         *(v32 + 8) = 1024;
@@ -2790,7 +2811,8 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
         *(v32 + 20) = 1024;
         *(v32 + 22) = v36;
         *(v32 + 26) = 2080;
-        *(v32 + 28) = v69;
+        *(v32 + 28) = v68;
+        v13 = v29;
         __SC_log_send();
         v14 = 1;
         v15 = 0;
@@ -2819,7 +2841,7 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
     v14 = 1;
   }
 
-  if (!HIDWORD(v68))
+  if (!HIDWORD(v67))
   {
     return 0;
   }
@@ -2831,9 +2853,9 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
   }
 
   v54 = v13;
-  if (v65)
+  if (v64)
   {
-    if (v68 != -1 && HIDWORD(v68) == v65)
+    if (v67 != -1 && HIDWORD(v67) == v64)
     {
       v17 = 0;
     }
@@ -2871,7 +2893,7 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
   }
 
   v21 = valuePtr;
-  LODWORD(v60) = v14;
+  LODWORD(v59) = v14;
   if (valuePtr == 50331648)
   {
     v57 = 0;
@@ -2892,9 +2914,9 @@ _DWORD *sub_100041458(_DWORD *a1, const __CFDictionary *a2, const __CFNumber *a3
     v57 = 0;
   }
 
-  v59 = v20 & 2;
-  v22 = v15 + (v59 >> 1);
-  v58 = sub_100038CD8();
+  HIDWORD(v58) = v20 & 2;
+  v22 = v15 + (HIDWORD(v58) >> 1);
+  LODWORD(v58) = sub_100038CD8();
   if (v9 == v58)
   {
     v56 = 1;
@@ -2916,8 +2938,8 @@ LABEL_47:
     goto LABEL_62;
   }
 
-  v56 = v65 == 0;
-  if (v65)
+  v56 = v64 == 0;
+  if (v64)
   {
     v25 = v22 + 1;
   }
@@ -3004,7 +3026,7 @@ LABEL_65:
     v39 = 0;
   }
 
-  v40 = v59;
+  v40 = HIDWORD(v58);
   if ((v39 & 1) == 0)
   {
     if (v19)
@@ -3021,15 +3043,15 @@ LABEL_65:
   }
 
   v42 = a1 + 3;
-  v66 = a1 + 3;
-  v43 = v60;
+  v65 = a1 + 3;
+  v43 = v59;
   if (!v56)
   {
     *(a1 + 4) |= 2u;
     a1[4] = v9;
-    v44 = HIDWORD(v68);
+    v44 = HIDWORD(v67);
     *(a1 + 14) = v20;
-    v45 = v65;
+    v45 = v64;
     if (!v40)
     {
       v45 = v44;
@@ -3039,7 +3061,7 @@ LABEL_65:
     a1[11] = v44;
     a1[6] = valuePtr;
     v42 = a1 + 12;
-    v66 = a1 + 12;
+    v65 = a1 + 12;
   }
 
   if (v9 == v58)
@@ -3055,18 +3077,18 @@ LABEL_85:
       *(v42 + 8) |= 8u;
     }
 
-    v48 = v68;
-    v47 = HIDWORD(v68);
+    v48 = v67;
+    v47 = HIDWORD(v67);
     v42[5] = v54;
     v42[6] = v48;
     *v42 = v55;
     v42[1] = v9;
-    v49 = HIDWORD(v68);
+    v49 = HIDWORD(v67);
     v42[7] = v47;
     v42[8] = v49;
     v42[3] = v21;
     v42 += 9;
-    v66 = v42;
+    v65 = v42;
     if (!v40)
     {
       goto LABEL_91;
@@ -3083,8 +3105,8 @@ LABEL_85:
   *(v42 + 5) = -1;
   *v42 = 32;
   v42[1] = v9;
-  v46 = HIDWORD(v68);
-  v42[8] = HIDWORD(v68);
+  v46 = HIDWORD(v67);
+  v42[8] = HIDWORD(v67);
   v42[3] = v21;
   if ((v20 & 8) != 0)
   {
@@ -3097,7 +3119,7 @@ LABEL_85:
   v42[17] = v46;
   v42[12] = v21;
   v42 += 18;
-  v66 = v42;
+  v65 = v42;
   if ((v43 & 1) == 0)
   {
     goto LABEL_85;
@@ -3112,45 +3134,45 @@ LABEL_88:
       *(v42 + 8) |= 8u;
     }
 
-    v50 = HIDWORD(v68);
-    v42[5] = v65;
+    v50 = HIDWORD(v67);
+    v42[5] = v64;
     v42[6] = -1;
     *v42 = 32;
     v42[1] = v9;
-    v51 = HIDWORD(v68);
+    v51 = HIDWORD(v67);
     v42[7] = v50;
     v42[8] = v51;
     v42[3] = v21;
-    v66 = v42 + 9;
+    v65 = v42 + 9;
   }
 
 LABEL_91:
   if (v27 | v23)
   {
     context[0] = 0;
-    v62 = 0;
-    v64 = 0u;
+    v61 = 0;
+    v63 = 0u;
     context[1] = a1;
-    v63 = &v66;
-    LODWORD(v64) = v21;
+    v62 = &v65;
+    LODWORD(v63) = v21;
     if (v23)
     {
-      LODWORD(v62) = v9;
-      LODWORD(context[0]) = HIDWORD(v68);
-      *(&v64 + 1) = "AdditionalRoutes";
-      v70.location = 0;
-      v70.length = Count;
-      CFArrayApplyFunction(v23, v70, sub_100041F30, context);
+      LODWORD(v61) = v9;
+      LODWORD(context[0]) = HIDWORD(v67);
+      *(&v63 + 1) = "AdditionalRoutes";
+      v69.location = 0;
+      v69.length = Count;
+      CFArrayApplyFunction(v23, v69, sub_100041F30, context);
     }
 
     if (v27)
     {
-      *(&v64 + 1) = "ExcludedRoutes";
-      LODWORD(v62) = 0;
-      HIDWORD(v62) = v9;
-      v71.location = 0;
-      v71.length = v26;
-      CFArrayApplyFunction(v27, v71, sub_100041F30, context);
+      *(&v63 + 1) = "ExcludedRoutes";
+      LODWORD(v61) = 0;
+      HIDWORD(v61) = v9;
+      v70.location = 0;
+      v70.length = v26;
+      CFArrayApplyFunction(v27, v70, sub_100041F30, context);
     }
   }
 
@@ -3303,150 +3325,160 @@ uint64_t sub_100041F30(const void *a1, uint64_t a2)
     if (result)
     {
       v13 = _os_log_pack_size();
-      __chkstk_darwin(v13, v14, v15);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      v18 = *(a2 + 40);
-      *v17 = 136315138;
-      *(v17 + 4) = v18;
+      v14 = &v35[-((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "%s route is not a dictionary", v34);
+      v17 = *(a2 + 40);
+      *v16 = 136315138;
+      *(v16 + 4) = v17;
       result = __SC_log_send();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   Value = CFDictionaryGetValue(a1, kSCPropNetIPv4RouteDestinationAddress);
-  if (!sub_10003D258(2, Value, (v4 + 20), 4uLL) || (v7 = CFDictionaryGetValue(a1, kSCPropNetIPv4RouteSubnetMask), !sub_10003D258(2, v7, (v4 + 24), 4uLL)))
+  if (sub_10003D258(2, Value, (v4 + 20), 4uLL) && (v7 = CFDictionaryGetValue(a1, kSCPropNetIPv4RouteSubnetMask), sub_10003D258(2, v7, (v4 + 24), 4uLL)))
   {
-    if (!qword_100081998)
+    result = sub_100041CE4(*(v4 + 24));
+    if ((result & 0x80000000) == 0)
     {
-      qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-    }
+      *v4 = result;
+      v9 = *(a2 + 32);
+      v10 = *(a2 + 16);
+      *(v4 + 8) = *(a2 + 20);
+      *(v4 + 12) = v9;
+      if (v10)
+      {
+        *(v4 + 4) = v10;
+        *(v4 + 32) = *a2;
+        if (!*(a2 + 20))
+        {
+          v11 = CFDictionaryGetValue(a1, kSCPropNetIPv4RouteGatewayAddress);
+          result = sub_10003D258(2, v11, (v4 + 28), 4uLL);
+          if (result)
+          {
+            v12 = *(v4 + 16);
+            *(v4 + 16) = v12 | 2;
+            if (*v4 == 32)
+            {
+              *(v4 + 16) = v12 | 6;
+            }
+          }
+        }
 
-    _SC_syslog_os_log_mapping();
-    result = __SC_log_enabled();
-    if (!result)
-    {
-      goto LABEL_20;
-    }
+        goto LABEL_40;
+      }
 
-LABEL_18:
-    v19 = _os_log_pack_size();
-    __chkstk_darwin(v19, v20, v21);
-    v22 = *__error();
-    v23 = _os_log_pack_fill();
-    v24 = *(a2 + 40);
-    *v23 = 136315394;
-    *(v23 + 4) = v24;
-    *(v23 + 12) = 2112;
-    *(v23 + 14) = a1;
-LABEL_19:
-    result = __SC_log_send();
-LABEL_20:
-    --**(a2 + 8);
-    return result;
-  }
-
-  result = sub_100041CE4(*(v4 + 24));
-  if ((result & 0x80000000) != 0)
-  {
-    if (!qword_100081998)
-    {
-      qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-    }
-
-    _SC_syslog_os_log_mapping();
-    result = __SC_log_enabled();
-    if (!result)
-    {
-      goto LABEL_20;
-    }
-
-    goto LABEL_18;
-  }
-
-  *v4 = result;
-  v9 = *(a2 + 32);
-  v10 = *(a2 + 16);
-  *(v4 + 8) = *(a2 + 20);
-  *(v4 + 12) = v9;
-  if (v10)
-  {
-    *(v4 + 4) = v10;
-    *(v4 + 32) = *a2;
-    if (!*(a2 + 20))
-    {
-      v11 = CFDictionaryGetValue(a1, kSCPropNetIPv4RouteGatewayAddress);
-      result = sub_10003D258(2, v11, (v4 + 28), 4uLL);
+      result = sub_100041B7C(a1, kSCPropNetIPv4RouteInterfaceName, v35);
       if (result)
       {
-        v12 = *(v4 + 16);
-        *(v4 + 16) = v12 | 2;
-        if (*v4 == 32)
+        result = sub_100013354(v35);
+        if (!result)
         {
-          *(v4 + 16) = v12 | 6;
+          if (!qword_100081998)
+          {
+            qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          }
+
+          _SC_syslog_os_log_mapping();
+          result = __SC_log_enabled();
+          if (!result)
+          {
+            goto LABEL_21;
+          }
+
+          v30 = _os_log_pack_size();
+          v31 = &v35[-((__chkstk_darwin(v30) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+          v32 = *__error();
+          v29 = _os_log_pack_fill(v31, v30, v32, &_mh_execute_header, "%s: interface %s does not exist, %@");
+LABEL_38:
+          v33 = *(a2 + 40);
+          *v29 = 136315650;
+          *(v29 + 4) = v33;
+          *(v29 + 12) = 2080;
+          *(v29 + 14) = v35;
+          *(v29 + 22) = 2112;
+          *(v29 + 24) = a1;
+          goto LABEL_20;
         }
+
+        if (result == *(a2 + 16))
+        {
+          if (!qword_100081998)
+          {
+            qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          }
+
+          _SC_syslog_os_log_mapping();
+          result = __SC_log_enabled();
+          if (!result)
+          {
+            goto LABEL_21;
+          }
+
+          v26 = _os_log_pack_size();
+          v27 = &v35[-((__chkstk_darwin(v26) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+          v28 = *__error();
+          v29 = _os_log_pack_fill(v27, v26, v28, &_mh_execute_header, "%s: interface %s unexpected, %@");
+          goto LABEL_38;
+        }
+
+        *(v4 + 4) = result;
       }
+
+LABEL_40:
+      **(a2 + 24) += 36;
+      return result;
     }
 
-    goto LABEL_37;
-  }
+    if (!qword_100081998)
+    {
+      qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+    }
 
-  result = sub_100041B7C(a1, kSCPropNetIPv4RouteInterfaceName, v31);
-  if (result)
-  {
-    result = sub_100013354(v31);
+    _SC_syslog_os_log_mapping();
+    result = __SC_log_enabled();
     if (!result)
     {
-      if (!qword_100081998)
-      {
-        qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-      }
-
-      _SC_syslog_os_log_mapping();
-      result = __SC_log_enabled();
-      if (!result)
-      {
-        goto LABEL_20;
-      }
-
-LABEL_35:
-      v25 = _os_log_pack_size();
-      __chkstk_darwin(v25, v26, v27);
-      v28 = *__error();
-      v29 = _os_log_pack_fill();
-      v30 = *(a2 + 40);
-      *v29 = 136315650;
-      *(v29 + 4) = v30;
-      *(v29 + 12) = 2080;
-      *(v29 + 14) = v31;
-      *(v29 + 22) = 2112;
-      *(v29 + 24) = a1;
-      goto LABEL_19;
+      goto LABEL_21;
     }
 
-    if (result == *(a2 + 16))
-    {
-      if (!qword_100081998)
-      {
-        qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-      }
-
-      _SC_syslog_os_log_mapping();
-      result = __SC_log_enabled();
-      if (!result)
-      {
-        goto LABEL_20;
-      }
-
-      goto LABEL_35;
-    }
-
-    *(v4 + 4) = result;
+    v23 = _os_log_pack_size();
+    v24 = &v35[-((__chkstk_darwin(v23) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+    v25 = *__error();
+    v21 = _os_log_pack_fill(v24, v23, v25, &_mh_execute_header, "%s route has invalid subnet mask, %@");
   }
 
-LABEL_37:
-  **(a2 + 24) += 36;
+  else
+  {
+    if (!qword_100081998)
+    {
+      qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+    }
+
+    _SC_syslog_os_log_mapping();
+    result = __SC_log_enabled();
+    if (!result)
+    {
+      goto LABEL_21;
+    }
+
+    v18 = _os_log_pack_size();
+    v19 = &v35[-((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+    v20 = *__error();
+    v21 = _os_log_pack_fill(v19, v18, v20, &_mh_execute_header, "%s route is invalid, %@");
+  }
+
+  v22 = *(a2 + 40);
+  *v21 = 136315394;
+  *(v21 + 4) = v22;
+  *(v21 + 12) = 2112;
+  *(v21 + 14) = a1;
+LABEL_20:
+  result = __SC_log_send();
+LABEL_21:
+  --**(a2 + 8);
   return result;
 }
 
@@ -3470,7 +3502,7 @@ BOOL sub_1000424BC(const __CFDictionary *a1, const void *a2, void *a3)
   return result;
 }
 
-int8x16_t sub_10004257C(int8x16_t *a1, int a2)
+int8x16_t sub_10004257C(int8x16_t *a1, unsigned int a2)
 {
   v4 = 0;
   v7 = 0uLL;
@@ -3515,13 +3547,13 @@ uint64_t sub_100042634(const void *a1, uint64_t a2)
     result = __SC_log_enabled();
     if (result)
     {
-      v15 = _os_log_pack_size();
-      __chkstk_darwin(v15, v16, v17);
-      v18 = *__error();
-      v19 = _os_log_pack_fill();
-      v20 = *(a2 + 40);
-      *v19 = 136315138;
-      *(v19 + 4) = v20;
+      v14 = _os_log_pack_size();
+      v15 = &v32[-((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+      v16 = __error();
+      v17 = _os_log_pack_fill(v15, v14, *v16, &_mh_execute_header, "%s route is not a dictionary", v31);
+      v18 = *(a2 + 40);
+      *v17 = 136315138;
+      *(v17 + 4) = v18;
       result = __SC_log_send();
     }
 
@@ -3529,117 +3561,129 @@ uint64_t sub_100042634(const void *a1, uint64_t a2)
   }
 
   Value = CFDictionaryGetValue(a1, kSCPropNetIPv6RouteDestinationAddress);
-  if (!sub_10003D258(30, Value, v4 + 5, 0x10uLL) || (v7 = CFDictionaryGetValue(a1, kSCPropNetIPv6RoutePrefixLength), result = sub_100042B18(v7, v4), !result) || *v4 > 0x80u)
+  if (sub_10003D258(30, Value, v4 + 5, 0x10uLL))
   {
-    if (!qword_100081998)
+    v7 = CFDictionaryGetValue(a1, kSCPropNetIPv6RoutePrefixLength);
+    result = sub_100042B18(v7, v4);
+    if (result)
     {
-      qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-    }
-
-    _SC_syslog_os_log_mapping();
-    result = __SC_log_enabled();
-    if (!result)
-    {
-      goto LABEL_15;
-    }
-
-    v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    v14 = *(a2 + 40);
-    *v13 = 136315394;
-    *(v13 + 4) = v14;
-    *(v13 + 12) = 2112;
-    *(v13 + 14) = a1;
-LABEL_10:
-    result = __SC_log_send();
-LABEL_15:
-    --**(a2 + 8);
-    return result;
-  }
-
-  v21 = *(a2 + 32);
-  v22 = *(a2 + 16);
-  v4[2] = *(a2 + 20);
-  v4[3] = v21;
-  if (v22)
-  {
-    v4[1] = v22;
-    *(v4 + 13) = **a2;
-    if (!*(a2 + 20))
-    {
-      v23 = CFDictionaryGetValue(a1, kSCPropNetIPv6RouteGatewayAddress);
-      result = sub_10003D258(30, v23, v4 + 9, 0x10uLL);
-      if (result)
+      if (*v4 <= 0x80u)
       {
-        v24 = *(v4 + 8);
-        *(v4 + 8) = v24 | 2;
-        if (*v4 == 128)
+        v19 = *(a2 + 32);
+        v20 = *(a2 + 16);
+        v4[2] = *(a2 + 20);
+        v4[3] = v19;
+        if (v20)
         {
-          *(v4 + 8) = v24 | 6;
+          v4[1] = v20;
+          *(v4 + 13) = **a2;
+          if (!*(a2 + 20))
+          {
+            v21 = CFDictionaryGetValue(a1, kSCPropNetIPv6RouteGatewayAddress);
+            result = sub_10003D258(30, v21, v4 + 9, 0x10uLL);
+            if (result)
+            {
+              v22 = *(v4 + 8);
+              *(v4 + 8) = v22 | 2;
+              if (*v4 == 128)
+              {
+                *(v4 + 8) = v22 | 6;
+              }
+            }
+          }
+
+          goto LABEL_35;
         }
-      }
-    }
 
-    goto LABEL_33;
-  }
+        result = sub_100041B7C(a1, kSCPropNetIPv6RouteInterfaceName, v32);
+        if (result)
+        {
+          result = sub_100013354(v32);
+          if (!result)
+          {
+            if (!qword_100081998)
+            {
+              qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+            }
 
-  result = sub_100041B7C(a1, kSCPropNetIPv6RouteInterfaceName, v31);
-  if (result)
-  {
-    result = sub_100013354(v31);
-    if (!result)
-    {
-      if (!qword_100081998)
-      {
-        qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-      }
+            _SC_syslog_os_log_mapping();
+            result = __SC_log_enabled();
+            if (!result)
+            {
+              goto LABEL_15;
+            }
 
-      _SC_syslog_os_log_mapping();
-      result = __SC_log_enabled();
-      if (!result)
-      {
-        goto LABEL_15;
-      }
-
-LABEL_31:
-      v25 = _os_log_pack_size();
-      __chkstk_darwin(v25, v26, v27);
-      v28 = *__error();
-      v29 = _os_log_pack_fill();
-      v30 = *(a2 + 40);
-      *v29 = 136315650;
-      *(v29 + 4) = v30;
-      *(v29 + 12) = 2080;
-      *(v29 + 14) = v31;
-      *(v29 + 22) = 2112;
-      *(v29 + 24) = a1;
-      goto LABEL_10;
-    }
-
-    if (result == *(a2 + 16))
-    {
-      if (!qword_100081998)
-      {
-        qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-      }
-
-      _SC_syslog_os_log_mapping();
-      result = __SC_log_enabled();
-      if (!result)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_31;
-    }
-
-    v4[1] = result;
-  }
-
+            v27 = _os_log_pack_size();
+            v28 = &v32[-((__chkstk_darwin(v27) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+            v29 = *__error();
+            v26 = _os_log_pack_fill(v28, v27, v29, &_mh_execute_header, "%s: interface %s does not exist, %@");
 LABEL_33:
-  **(a2 + 24) += 68;
+            v30 = *(a2 + 40);
+            *v26 = 136315650;
+            *(v26 + 4) = v30;
+            *(v26 + 12) = 2080;
+            *(v26 + 14) = v32;
+            *(v26 + 22) = 2112;
+            *(v26 + 24) = a1;
+            goto LABEL_10;
+          }
+
+          if (result == *(a2 + 16))
+          {
+            if (!qword_100081998)
+            {
+              qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+            }
+
+            _SC_syslog_os_log_mapping();
+            result = __SC_log_enabled();
+            if (!result)
+            {
+              goto LABEL_15;
+            }
+
+            v23 = _os_log_pack_size();
+            v24 = &v32[-((__chkstk_darwin(v23) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+            v25 = *__error();
+            v26 = _os_log_pack_fill(v24, v23, v25, &_mh_execute_header, "%s: interface %s unexpected, %@");
+            goto LABEL_33;
+          }
+
+          v4[1] = result;
+        }
+
+LABEL_35:
+        **(a2 + 24) += 68;
+        return result;
+      }
+    }
+  }
+
+  if (!qword_100081998)
+  {
+    qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+  }
+
+  _SC_syslog_os_log_mapping();
+  result = __SC_log_enabled();
+  if (!result)
+  {
+    goto LABEL_15;
+  }
+
+  v9 = _os_log_pack_size();
+  v10 = &v32[-((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v11 = __error();
+  v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "%s route is invalid, %@");
+  v13 = *(a2 + 40);
+  *v12 = 136315394;
+  *(v12 + 4) = v13;
+  *(v12 + 12) = 2112;
+  *(v12 + 14) = a1;
+LABEL_10:
+  result = __SC_log_send();
+LABEL_15:
+  --**(a2 + 8);
   return result;
 }
 
@@ -3657,17 +3701,18 @@ uint64_t sub_100042B18(const __CFNumber *a1, void *a2)
   }
 }
 
-void sub_100042BAC(__CFDictionary *a1, unint64_t a2, const __CFArray *a3, int a4, int a5, int a6, uint64_t a7)
+void sub_100042BAC(__CFDictionary *a1, unint64_t a2, const __CFArray *a3, int a4, int a5, uint64_t a6, uint64_t a7)
 {
   if (!(a2 | a3))
   {
     return;
   }
 
+  v8 = a6;
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   if (a3)
   {
-    sub_100043258(a3, a6, Mutable, a7);
+    sub_100043258(a3, v8, Mutable, a7);
     v15 = CFArrayGetCount(Mutable) < 1;
   }
 
@@ -3695,7 +3740,7 @@ void sub_100042BAC(__CFDictionary *a1, unint64_t a2, const __CFArray *a3, int a4
   v41 = xmmword_10006CAA0;
   v40[0] = xmmword_10006CAC0;
   *(v40 + 12) = *(&xmmword_10006CAC0 + 12);
-  if ((~a6 & 3) != 0)
+  if ((~v8 & 3) != 0)
   {
     v18 = CFRetain(a2);
     goto LABEL_42;
@@ -3710,7 +3755,7 @@ void sub_100042BAC(__CFDictionary *a1, unint64_t a2, const __CFArray *a3, int a4
 
   theArray = v18;
   v30 = v15;
-  v31 = a6;
+  v31 = v8;
   v32 = a7;
   v33 = a5;
   v34 = a4;
@@ -3785,7 +3830,7 @@ LABEL_38:
       a4 = v34;
       a7 = v32;
       v15 = v30;
-      LOBYTE(a6) = v31;
+      LOBYTE(v8) = v31;
       v18 = theArray;
       goto LABEL_42;
     }
@@ -3834,9 +3879,9 @@ LABEL_41:
   a4 = v34;
   a7 = v32;
   v15 = v30;
-  LOBYTE(a6) = v31;
+  LOBYTE(v8) = v31;
 LABEL_42:
-  sub_100043258(v18, a6, Mutable, a7);
+  sub_100043258(v18, v8, Mutable, a7);
   CFRelease(v18);
 LABEL_43:
   if (CFArrayGetCount(Mutable))
@@ -3888,8 +3933,9 @@ const void *sub_100042F38(const void *a1, const void *a2)
   return 0;
 }
 
-void sub_100042FE8(__CFDictionary *a1, void *key, const __CFDictionary *a3, CFDictionaryRef theDict, char a5, int a6)
+void sub_100042FE8(__CFDictionary *a1, void *key, const __CFDictionary *a3, CFDictionaryRef theDict, uint64_t a5, int a6)
 {
+  v7 = a5;
   if (theDict && (Value = CFDictionaryGetValue(theDict, key), TypeID = CFArrayGetTypeID(), Value))
   {
     if (CFGetTypeID(Value) == TypeID)
@@ -3949,7 +3995,7 @@ LABEL_14:
         for (i = 0; i != v19; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v13, i);
-          v22 = sub_100043710(ValueAtIndex, a5);
+          v22 = sub_100043710(ValueAtIndex, v7);
           if (v22)
           {
             v23 = v22;
@@ -3970,7 +4016,7 @@ LABEL_14:
         for (j = 0; j != v26; ++j)
         {
           v28 = CFArrayGetValueAtIndex(v16, j);
-          v29 = sub_100043710(v28, a5);
+          v29 = sub_100043710(v28, v7);
           if (v29)
           {
             v30 = v29;
@@ -3996,34 +4042,41 @@ LABEL_14:
 
 void sub_100043258(const __CFArray *a1, char a2, __CFArray *a3, uint64_t a4)
 {
+  v35 = a4;
   Count = CFArrayGetCount(a1);
   if (Count >= 1)
   {
-    v8 = Count;
-    v9 = 0;
-    v10 = &selRef_qosMarkingIsEnabled_;
-    v33 = Count;
+    v9 = Count;
+    v10 = 0;
+    v11 = &selRef_qosMarkingIsEnabled_;
+    *&v8 = 138412290;
+    v33 = v8;
+    *(&v12 + 1) = 0x100000000000000;
+    v36 = xmmword_10006CA80;
+    *&v12 = 136315138;
+    v32 = v12;
+    v34 = Count;
     do
     {
-      v37 = 0uLL;
-      v35 = 0;
-      ValueAtIndex = CFArrayGetValueAtIndex(a1, v9);
+      v39 = 0uLL;
+      v37 = 0;
+      ValueAtIndex = CFArrayGetValueAtIndex(a1, v10);
       if (!ValueAtIndex)
       {
         sub_100068030();
       }
 
-      v12 = ValueAtIndex;
-      if (sub_10003D258(2, ValueAtIndex, &v35, 4uLL))
+      v14 = ValueAtIndex;
+      if (sub_10003D258(2, ValueAtIndex, &v37, 4uLL))
       {
-        if ((a2 & 1) != 0 || v35 == 16777343)
+        if ((a2 & 1) != 0 || v37 == 16777343)
         {
           goto LABEL_32;
         }
 
-        if (!v10[307])
+        if (!v11[307])
         {
-          v10[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          v11[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
         }
 
         _SC_syslog_os_log_mapping();
@@ -4032,45 +4085,45 @@ void sub_100043258(const __CFArray *a1, char a2, __CFArray *a3, uint64_t a4)
           goto LABEL_34;
         }
 
-        v13 = _os_log_pack_size();
-        __chkstk_darwin(v13, v14, v15);
-        v16 = *__error();
-        v17 = _os_log_pack_fill();
-        v18 = v35;
-        v19 = BYTE1(v35);
-        v20 = BYTE2(v35);
-        v21 = HIBYTE(v35);
-        *v17 = 67109888;
-        *(v17 + 4) = v18;
-        *(v17 + 8) = 1024;
-        *(v17 + 10) = v19;
-        *(v17 + 14) = 1024;
-        *(v17 + 16) = v20;
-        *(v17 + 20) = 1024;
-        *(v17 + 22) = v21;
+        v15 = _os_log_pack_size();
+        v16 = &v32 - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v17 = __error();
+        v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "no IPv4 connectivity, ignoring DNS server address %d.%d.%d.%d", v32, DWORD2(v32), v33, DWORD2(v33));
+        v19 = v37;
+        v20 = BYTE1(v37);
+        v21 = BYTE2(v37);
+        v22 = HIBYTE(v37);
+        *v18 = 67109888;
+        *(v18 + 4) = v19;
+        *(v18 + 8) = 1024;
+        *(v18 + 10) = v20;
+        *(v18 + 14) = 1024;
+        *(v18 + 16) = v21;
+        *(v18 + 20) = 1024;
+        *(v18 + 22) = v22;
       }
 
       else
       {
-        if (!sub_10003D258(30, v12, &v37, 0x10uLL))
+        if (!sub_10003D258(30, v14, &v39, 0x10uLL))
         {
-          if (!v10[307])
+          if (!v11[307])
           {
-            v10[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+            v11[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
           }
 
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
             v28 = _os_log_pack_size();
-            __chkstk_darwin(v28, v29, v30);
-            v31 = *__error();
-            v32 = _os_log_pack_fill();
-            *v32 = 138412290;
-            *(v32 + 4) = v12;
-            v10 = &selRef_qosMarkingIsEnabled_;
+            v29 = &v32 - ((__chkstk_darwin(v28) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v30 = __error();
+            v31 = _os_log_pack_fill(v29, v28, *v30, &_mh_execute_header, "ignoring bad DNS server address '%@'");
+            *v31 = v33;
+            *(v31 + 4) = v14;
+            v11 = &selRef_qosMarkingIsEnabled_;
             __SC_log_send();
-            v8 = v33;
+            v9 = v34;
           }
 
           goto LABEL_34;
@@ -4078,46 +4131,46 @@ void sub_100043258(const __CFArray *a1, char a2, __CFArray *a3, uint64_t a4)
 
         if ((a2 & 2) != 0)
         {
-          if (v37.u8[0] == 255)
+          if (v39.u8[0] == 255)
           {
-            if ((v37.i8[1] & 0xF0) != 0x30 && a4 && (v37.i8[1] & 0xF) == 2)
+            if ((v39.i8[1] & 0xF0) != 0x30 && v35 && (v39.i8[1] & 0xF) == 2)
             {
               goto LABEL_31;
             }
 
 LABEL_32:
-            CFRetain(v12);
+            CFRetain(v14);
           }
 
           else
           {
-            if (v37.u8[0] != 254 || !a4 || (v37.i8[1] & 0xC0) != 0x80)
+            if (v39.u8[0] != 254 || !v35 || (v39.i8[1] & 0xC0) != 0x80)
             {
               goto LABEL_32;
             }
 
 LABEL_31:
-            if (CFStringFind(v12, @"%", 0).location != -1)
+            if (CFStringFind(v14, @"%", 0).location != -1)
             {
               goto LABEL_32;
             }
 
-            v12 = CFStringCreateWithFormat(0, 0, @"%@%%%@", v12, a4);
+            v14 = CFStringCreateWithFormat(0, 0, @"%@%%%@", v14, v35);
           }
 
-          CFArrayAppendValue(a3, v12);
-          CFRelease(v12);
+          CFArrayAppendValue(a3, v14);
+          CFRelease(v14);
           goto LABEL_34;
         }
 
-        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v37, xmmword_10006CA80)))) & 1) == 0)
+        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v39, v36)))) & 1) == 0)
         {
           goto LABEL_32;
         }
 
-        if (!v10[307])
+        if (!v11[307])
         {
-          v10[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          v11[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
         }
 
         _SC_syslog_os_log_mapping();
@@ -4126,22 +4179,22 @@ LABEL_31:
           goto LABEL_34;
         }
 
-        v22 = _os_log_pack_size();
-        __chkstk_darwin(v22, v23, v24);
-        v25 = *__error();
-        v26 = _os_log_pack_fill();
-        v27 = inet_ntop(30, &v37, v36, 0x2Eu);
-        *v26 = 136315138;
+        v23 = _os_log_pack_size();
+        v24 = &v32 - ((__chkstk_darwin(v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v25 = __error();
+        v26 = _os_log_pack_fill(v24, v23, *v25, &_mh_execute_header, "no IPv6 connectivity, ignoring DNS server address %s", v32);
+        v27 = inet_ntop(30, &v39, v38, 0x2Eu);
+        *v26 = v32;
         *(v26 + 4) = v27;
       }
 
       __SC_log_send();
-      v10 = &selRef_qosMarkingIsEnabled_;
+      v11 = &selRef_qosMarkingIsEnabled_;
 LABEL_34:
-      ++v9;
+      ++v10;
     }
 
-    while (v8 != v9);
+    while (v9 != v10);
   }
 }
 
@@ -4217,8 +4270,8 @@ const void *sub_1000438CC(const __CFDictionary *a1)
       return v6;
     }
 
-    v13 = CFStringGetTypeID();
-    if (CFGetTypeID(v6) == v13)
+    v12 = CFStringGetTypeID();
+    if (CFGetTypeID(v6) == v12)
     {
       if (!qword_100081998)
       {
@@ -4242,14 +4295,14 @@ const void *sub_1000438CC(const __CFDictionary *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v19 = _os_log_pack_size();
-      __chkstk_darwin(v19, v20, v21);
-      v22 = *__error();
-      v23 = _os_log_pack_fill();
-      *v23 = 138412546;
-      *(v23 + 4) = Value;
-      *(v23 + 12) = 2112;
-      *(v23 + 14) = @"NetworkSignature";
+      v17 = _os_log_pack_size();
+      v18 = &v22 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v19 = __error();
+      v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "%@: ignoring invalid %@");
+      *v20 = 138412546;
+      *(v20 + 4) = Value;
+      *(v20 + 12) = 2112;
+      *(v20 + 14) = @"NetworkSignature";
       goto LABEL_15;
     }
 
@@ -4269,13 +4322,13 @@ const void *sub_1000438CC(const __CFDictionary *a1)
     if (__SC_log_enabled())
     {
       v8 = _os_log_pack_size();
-      __chkstk_darwin(v8, v9, v10);
-      v11 = *__error();
-      v12 = _os_log_pack_fill();
-      *v12 = 138412546;
-      *(v12 + 4) = Value;
-      *(v12 + 12) = 2112;
-      *(v12 + 14) = @"NetworkSignatureHash";
+      v9 = &v22 - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = __error();
+      v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "%@: ignoring invalid %@");
+      *v11 = 138412546;
+      *(v11 + 4) = Value;
+      *(v11 + 12) = 2112;
+      *(v11 + 14) = @"NetworkSignatureHash";
 LABEL_15:
       __SC_log_send();
       return 0;
@@ -4293,14 +4346,14 @@ LABEL_15:
   if (__SC_log_enabled())
   {
 LABEL_21:
-    v14 = _os_log_pack_size();
-    __chkstk_darwin(v14, v15, v16);
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    *v18 = 138412546;
-    *(v18 + 4) = Value;
-    *(v18 + 12) = 2112;
-    *(v18 + 14) = v4;
+    v13 = _os_log_pack_size();
+    v14 = &v22 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = *__error();
+    v16 = _os_log_pack_fill(v14, v13, v15, &_mh_execute_header, "%@: using %@");
+    *v16 = 138412546;
+    *(v16 + 4) = Value;
+    *(v16 + 12) = 2112;
+    *(v16 + 14) = v4;
     __SC_log_send();
   }
 
@@ -4508,13 +4561,13 @@ void sub_100044130(uint64_t a1, unsigned int *a2, uint64_t a3)
     if (__SC_log_enabled())
     {
       v6 = _os_log_pack_size();
-      __chkstk_darwin(v6, v7, v8);
-      v9 = *__error();
-      v10 = _os_log_pack_fill();
-      *v10 = 136315394;
-      *(v10 + 4) = a3;
-      *(v10 + 12) = 2112;
-      *(v10 + 14) = Mutable;
+      v7 = &v14 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v8 = __error();
+      v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "%s: %@");
+      *v9 = 136315394;
+      *(v9 + 4) = a3;
+      *(v9 + 12) = 2112;
+      *(v9 + 14) = Mutable;
 LABEL_10:
       __SC_log_send();
     }
@@ -4530,12 +4583,12 @@ LABEL_10:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      *v15 = 138412290;
-      *(v15 + 4) = Mutable;
+      v10 = _os_log_pack_size();
+      v11 = &v14 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "%@");
+      *v13 = 138412290;
+      *(v13 + 4) = Mutable;
       goto LABEL_10;
     }
   }
@@ -4562,11 +4615,11 @@ void sub_1000443D8(unsigned int *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 138412290;
-    *(v6 + 4) = v1;
+    v3 = &v6 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%@");
+    *v5 = 138412290;
+    *(v5 + 4) = v1;
     __SC_log_send();
   }
 
@@ -4599,15 +4652,15 @@ uint64_t sub_1000445B0(unsigned int *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
+    v3 = v40 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "Network information (generation %llu size=%lu)", v40[0], v40[1]);
     generation = nwi_state_get_generation();
-    v8 = 4 * a1[1] + 224 * a1[1] + 40;
-    *v6 = 134218240;
-    *(v6 + 4) = generation;
-    *(v6 + 12) = 2048;
-    *(v6 + 14) = v8;
+    v7 = 4 * a1[1] + 224 * a1[1] + 40;
+    *v5 = 134218240;
+    *(v5 + 4) = generation;
+    *(v5 + 12) = 2048;
+    *(v5 + 14) = v7;
     __SC_log_send();
   }
 
@@ -4619,12 +4672,12 @@ uint64_t sub_1000445B0(unsigned int *a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    *v13 = 136315138;
-    *(v13 + 4) = "IPv4 network interface information";
+    v8 = _os_log_pack_size();
+    v9 = v40 - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = __error();
+    v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "%s", v40[0]);
+    *v11 = 136315138;
+    *(v11 + 4) = "IPv4 network interface information";
     __SC_log_send();
   }
 
@@ -4638,28 +4691,28 @@ uint64_t sub_1000445B0(unsigned int *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v16 = _os_log_pack_size();
-      __chkstk_darwin(v16, v17, v18);
-      v19 = *__error();
-      v20 = _os_log_pack_fill();
-      *v20 = 136315138;
-      *(v20 + 4) = "   No IPv4 states found";
+      v14 = _os_log_pack_size();
+      v15 = v40 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v16 = __error();
+      v17 = _os_log_pack_fill(v15, v14, *v16, &_mh_execute_header, "%s", v40[0]);
+      *v17 = 136315138;
+      *(v17 + 4) = "   No IPv4 states found";
       __SC_log_send();
     }
   }
 
   else
   {
-    v14 = 0;
-    v15 = (a1 + 10);
+    v12 = 0;
+    v13 = a1 + 10;
     do
     {
-      sub_100044C9C(v15);
-      ++v14;
-      v15 += 112;
+      sub_100044C9C(v13);
+      ++v12;
+      v13 += 28;
     }
 
-    while (v14 < a1[2]);
+    while (v12 < a1[2]);
   }
 
   sub_100045668();
@@ -4671,12 +4724,12 @@ uint64_t sub_1000445B0(unsigned int *a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v21 = _os_log_pack_size();
-    __chkstk_darwin(v21, v22, v23);
-    v24 = *__error();
-    v25 = _os_log_pack_fill();
-    *v25 = 136315138;
-    *(v25 + 4) = "IPv6 network interface information";
+    v18 = _os_log_pack_size();
+    v19 = v40 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = __error();
+    v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "%s", v40[0]);
+    *v21 = 136315138;
+    *(v21 + 4) = "IPv6 network interface information";
     __SC_log_send();
   }
 
@@ -4690,58 +4743,58 @@ uint64_t sub_1000445B0(unsigned int *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v28 = _os_log_pack_size();
-      __chkstk_darwin(v28, v29, v30);
-      v31 = *__error();
-      v32 = _os_log_pack_fill();
-      *v32 = 136315138;
-      *(v32 + 4) = "   No IPv6 states found\n";
+      v24 = _os_log_pack_size();
+      v25 = v40 - ((__chkstk_darwin(v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = __error();
+      v27 = _os_log_pack_fill(v25, v24, *v26, &_mh_execute_header, "%s", v40[0]);
+      *v27 = 136315138;
+      *(v27 + 4) = "   No IPv6 states found\n";
       __SC_log_send();
     }
   }
 
   else
   {
-    v26 = 0;
-    v27 = &a1[28 * a1[1] + 10];
+    v22 = 0;
+    v23 = &a1[28 * a1[1] + 10];
     do
     {
-      sub_100044C9C(v27);
-      ++v26;
-      v27 += 112;
+      sub_100044C9C(v23);
+      ++v22;
+      v23 += 28;
     }
 
-    while (v26 < a1[3]);
+    while (v22 < a1[3]);
   }
 
   sub_100045668();
   result = nwi_state_get_interface_names();
   if (result)
   {
-    __chkstk_darwin(result, v34, v35);
-    v38 = &v50 - v37;
-    v39 = v36 >= 0x200 ? 512 : v36;
-    bzero(&v50 - v37, v39);
+    __chkstk_darwin(result);
+    v31 = v40 - v30;
+    v32 = v29 >= 0x200 ? 512 : v29;
+    bzero(v40 - v30, v32);
     result = nwi_state_get_interface_names();
     if (result)
     {
-      v42 = result;
-      v43 = (17 * result);
-      __chkstk_darwin(result, v40, v41);
-      bzero(&v50 - ((v43 + 15) & 0x1FFFFFFF0), v43);
-      v44 = 0;
+      v33 = result;
+      v34 = (17 * result);
+      __chkstk_darwin(result);
+      bzero(v40 - ((v34 + 15) & 0x1FFFFFFF0), v34);
+      v35 = 0;
       do
       {
-        if (v44)
+        if (v35)
         {
-          strlcat(&v50 - ((v43 + 15) & 0x1FFFFFFF0), " ", v43);
+          strlcat(v40 - ((v34 + 15) & 0x1FFFFFFF0), " ", v34);
         }
 
-        strlcat(&v50 - ((v43 + 15) & 0x1FFFFFFF0), *&v38[v44], v43);
-        v44 += 8;
+        strlcat(v40 - ((v34 + 15) & 0x1FFFFFFF0), *&v31[v35], v34);
+        v35 += 8;
       }
 
-      while (8 * v42 != v44);
+      while (8 * v33 != v35);
       if (!qword_100081998)
       {
         qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -4751,12 +4804,12 @@ uint64_t sub_1000445B0(unsigned int *a1)
       result = __SC_log_enabled();
       if (result)
       {
-        v45 = _os_log_pack_size();
-        __chkstk_darwin(v45, v46, v47);
-        v48 = *__error();
-        v49 = _os_log_pack_fill();
-        *v49 = 136315138;
-        *(v49 + 4) = &v50 - ((v43 + 15) & 0x1FFFFFFF0);
+        v36 = _os_log_pack_size();
+        v37 = v40 - ((__chkstk_darwin(v36) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v38 = __error();
+        v39 = _os_log_pack_fill(v37, v36, *v38, &_mh_execute_header, "Network interfaces: %s", v40[0]);
+        *v39 = 136315138;
+        *(v39 + 4) = v40 - ((v34 + 15) & 0x1FFFFFFF0);
         return __SC_log_send();
       }
     }
@@ -4826,23 +4879,23 @@ uint64_t sub_100044C9C(uint64_t a1)
         v8 = v5;
       }
 
-      v7 += snprintf(&v58[v7], 99 - v7, ",%p", v8);
+      v7 += snprintf(&v52[v7], 99 - v7, ",%p", v8);
     }
 
     if (v7)
     {
-      v58[v7 - 1] = 41;
+      v52[v7 - 1] = 41;
     }
   }
 
   else
   {
-    v58[0] = 0;
+    v52[0] = 0;
   }
 
   ifname = nwi_ifstate_get_ifname();
   reachability_flags = nwi_ifstate_get_reachability_flags();
-  if (!inet_ntop(*(a1 + 32), (a1 + 36), v59, 0x2Eu))
+  if (!inet_ntop(*(a1 + 32), (a1 + 36), v53, 0x2Eu))
   {
     __strlcpy_chk();
   }
@@ -4856,15 +4909,15 @@ uint64_t sub_100044C9C(uint64_t a1)
   if (__SC_log_enabled())
   {
     v11 = _os_log_pack_size();
-    __chkstk_darwin(v11, v12, v13);
-    v14 = *__error();
-    v15 = _os_log_pack_fill();
-    *v15 = 136315650;
-    *(v15 + 4) = ifname;
-    *(v15 + 12) = 2048;
-    *(v15 + 14) = v4;
-    *(v15 + 22) = 2080;
-    *(v15 + 24) = v58;
+    v12 = &v49 - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = __error();
+    v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, " %7s : flags      : %p %s", v49, v50, v51);
+    *v14 = 136315650;
+    *(v14 + 4) = ifname;
+    *(v14 + 12) = 2048;
+    *(v14 + 14) = v4;
+    *(v14 + 22) = 2080;
+    *(v14 + 24) = v52;
     __SC_log_send();
   }
 
@@ -4876,12 +4929,12 @@ uint64_t sub_100044C9C(uint64_t a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v16 = _os_log_pack_size();
-    __chkstk_darwin(v16, v17, v18);
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
-    *v20 = 136315138;
-    *(v20 + 4) = v59;
+    v15 = _os_log_pack_size();
+    v16 = &v49 - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = __error();
+    v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "           address    : %s", v49);
+    *v18 = 136315138;
+    *(v18 + 4) = v53;
     __SC_log_send();
   }
 
@@ -4896,17 +4949,17 @@ uint64_t sub_100044C9C(uint64_t a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v21 = _os_log_pack_size();
-      __chkstk_darwin(v21, v22, v23);
-      v24 = *__error();
-      v25 = _os_log_pack_fill();
-      *v25 = 136315138;
-      *(v25 + 4) = v57;
+      v19 = _os_log_pack_size();
+      v20 = &v49 - ((__chkstk_darwin(v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = __error();
+      v22 = _os_log_pack_fill(v20, v19, *v21, &_mh_execute_header, "           VPN server : %s", v49);
+      *v22 = 136315138;
+      *(v22 + 4) = &v50 + 2;
       __SC_log_send();
     }
   }
 
-  sub_1000457A4(reachability_flags, v57);
+  sub_1000457A4(reachability_flags, &v50 + 2);
   if (!qword_100081998)
   {
     qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -4915,27 +4968,28 @@ uint64_t sub_100044C9C(uint64_t a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v26 = _os_log_pack_size();
-    __chkstk_darwin(v26, v27, v28);
-    v29 = *__error();
-    v30 = _os_log_pack_fill();
-    *v30 = 136315138;
-    *(v30 + 4) = v57;
+    v23 = _os_log_pack_size();
+    v24 = &v49 - ((__chkstk_darwin(v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v25 = __error();
+    v26 = _os_log_pack_fill(v24, v23, *v25, &_mh_execute_header, "           reach      : %s", v49);
+    *v26 = 136315138;
+    *(v26 + 4) = &v50 + 2;
     __SC_log_send();
   }
 
-  v31 = *(a1 + 28);
-  if (BYTE3(v31) > 4u)
+  HIDWORD(v49) = 0;
+  v27 = *(a1 + 28);
+  if (BYTE3(v27) > 4u)
   {
-    v32 = "???";
+    v28 = "???";
   }
 
   else
   {
-    v32 = *(off_10007AE38 + ((v31 >> 21) & 0x7F8));
+    v28 = *(off_10007AE38 + ((v27 >> 21) & 0x7F8));
   }
 
-  if ((v31 & 0xFFFFFF) == 0xFFFFFF)
+  if ((v27 & 0xFFFFFF) == 0xFFFFFF)
   {
     if (!qword_100081998)
     {
@@ -4945,14 +4999,14 @@ uint64_t sub_100044C9C(uint64_t a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v33 = _os_log_pack_size();
-      __chkstk_darwin(v33, v34, v35);
-      v36 = *__error();
-      v37 = _os_log_pack_fill();
-      *v37 = 67109378;
-      *(v37 + 4) = v31;
-      *(v37 + 8) = 2080;
-      *(v37 + 10) = v32;
+      v29 = _os_log_pack_size();
+      v30 = &v49 - ((__chkstk_darwin(v29) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v31 = __error();
+      v32 = _os_log_pack_fill(v30, v29, *v31, &_mh_execute_header, "           rank       : 0x%08x (%s, Last)", v49, v50);
+      *v32 = 67109378;
+      *(v32 + 4) = v27;
+      *(v32 + 8) = 2080;
+      *(v32 + 10) = v28;
 LABEL_61:
       __SC_log_send();
     }
@@ -4968,16 +5022,16 @@ LABEL_61:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v38 = _os_log_pack_size();
-      __chkstk_darwin(v38, v39, v40);
-      v41 = *__error();
-      v42 = _os_log_pack_fill();
-      *v42 = 67109634;
-      *(v42 + 4) = v31;
-      *(v42 + 8) = 2080;
-      *(v42 + 10) = v32;
-      *(v42 + 18) = 1024;
-      *(v42 + 20) = v31 & 0xFFFFFF;
+      v33 = _os_log_pack_size();
+      v34 = &v49 - ((__chkstk_darwin(v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v35 = __error();
+      v36 = _os_log_pack_fill(v34, v33, *v35, &_mh_execute_header, "           rank       : 0x%08x (%s, %u)", v49, v50, v51);
+      *v36 = 67109634;
+      *(v36 + 4) = v27;
+      *(v36 + 8) = 2080;
+      *(v36 + 10) = v28;
+      *(v36 + 18) = 1024;
+      *(v36 + 20) = v27 & 0xFFFFFF;
       goto LABEL_61;
     }
   }
@@ -4985,7 +5039,7 @@ LABEL_61:
   signature = nwi_ifstate_get_signature();
   if (signature)
   {
-    v44 = CFDataCreate(0, signature, 0);
+    v38 = CFDataCreate(0, signature, SHIDWORD(v49));
     if (!qword_100081998)
     {
       qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -4994,16 +5048,16 @@ LABEL_61:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v45 = _os_log_pack_size();
-      __chkstk_darwin(v45, v46, v47);
-      v48 = *__error();
-      v49 = _os_log_pack_fill();
-      *v49 = 138412290;
-      *(v49 + 4) = v44;
+      v39 = _os_log_pack_size();
+      v40 = &v49 - ((__chkstk_darwin(v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v41 = __error();
+      v42 = _os_log_pack_fill(v40, v39, *v41, &_mh_execute_header, "           signature  : %@");
+      *v42 = 138412290;
+      *(v42 + 4) = v38;
       __SC_log_send();
     }
 
-    CFRelease(v44);
+    CFRelease(v38);
   }
 
   generation = nwi_ifstate_get_generation();
@@ -5016,12 +5070,12 @@ LABEL_61:
   result = __SC_log_enabled();
   if (result)
   {
-    v52 = _os_log_pack_size();
-    __chkstk_darwin(v52, v53, v54);
-    v55 = *__error();
-    v56 = _os_log_pack_fill();
-    *v56 = 134217984;
-    *(v56 + 4) = generation;
+    v45 = _os_log_pack_size();
+    v46 = &v49 - ((__chkstk_darwin(v45) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v47 = __error();
+    v48 = _os_log_pack_fill(v46, v45, *v47, &_mh_execute_header, "           generation : %llu", v49);
+    *v48 = 134217984;
+    *(v48 + 4) = generation;
     return __SC_log_send();
   }
 
@@ -5031,7 +5085,7 @@ LABEL_61:
 uint64_t sub_100045668()
 {
   reachability_flags = nwi_state_get_reachability_flags();
-  sub_1000457A4(reachability_flags, __str);
+  sub_1000457A4(reachability_flags, v6 + 4);
   if (!qword_100081998)
   {
     qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -5042,11 +5096,11 @@ uint64_t sub_100045668()
   if (result)
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 136315138;
-    *(v6 + 4) = __str;
+    v3 = v6 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "   REACH : flags %s", v6[0]);
+    *v5 = 136315138;
+    *(v5 + 4) = v6 + 4;
     return __SC_log_send();
   }
 
@@ -5159,11 +5213,11 @@ unint64_t sub_1000457A4(unsigned int a1, char *__str)
 
 void sub_100045A10(uint64_t a1, int a2)
 {
-  v24 = 0;
+  v23 = 0;
   v4 = *(a1 + 16);
-  LODWORD(v24) = v4;
+  LODWORD(v23) = v4;
   v5 = malloc_type_calloc(v4, 4uLL, 0x100004052888210uLL);
-  v25 = v5;
+  v24 = v5;
   if (v5 && *(a1 + 16) >= 1)
   {
     v6 = v5;
@@ -5178,7 +5232,7 @@ void sub_100045A10(uint64_t a1, int a2)
     while (v7 < *(a1 + 16));
   }
 
-  if (ioctl(a2, 0xC01069B2uLL, &v24))
+  if (ioctl(a2, 0xC01069B2uLL, &v23))
   {
     if (!qword_100081998)
     {
@@ -5189,21 +5243,21 @@ void sub_100045A10(uint64_t a1, int a2)
     if (__SC_log_enabled())
     {
       v9 = _os_log_pack_size();
-      __chkstk_darwin(v9, v10, v11);
-      v12 = *__error();
-      v13 = _os_log_pack_fill();
+      v10 = &v22 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = __error();
+      v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "SIOCSIFORDER for %u(%p) failed on %d: %s", v22, v23, v24, v25);
+      v13 = v23;
       v14 = v24;
-      v15 = v25;
-      v16 = __error();
-      v17 = strerror(*v16);
-      *v13 = 67109890;
-      *(v13 + 4) = v14;
-      *(v13 + 8) = 2048;
-      *(v13 + 10) = v15;
-      *(v13 + 18) = 1024;
-      *(v13 + 20) = a2;
-      *(v13 + 24) = 2080;
-      *(v13 + 26) = v17;
+      v15 = __error();
+      v16 = strerror(*v15);
+      *v12 = 67109890;
+      *(v12 + 4) = v13;
+      *(v12 + 8) = 2048;
+      *(v12 + 10) = v14;
+      *(v12 + 18) = 1024;
+      *(v12 + 20) = a2;
+      *(v12 + 24) = 2080;
+      *(v12 + 26) = v16;
 LABEL_14:
       __SC_log_send();
     }
@@ -5219,20 +5273,20 @@ LABEL_14:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v18 = _os_log_pack_size();
-      __chkstk_darwin(v18, v19, v20);
-      v21 = *__error();
-      v22 = _os_log_pack_fill();
-      v23 = v24;
-      *v22 = 67109120;
-      v22[1] = v23;
+      v17 = _os_log_pack_size();
+      v18 = &v22 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v19 = __error();
+      v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "Set kernel interface order for %u interfaces", v22);
+      v21 = v23;
+      *v20 = 67109120;
+      v20[1] = v21;
       goto LABEL_14;
     }
   }
 
-  if (v25)
+  if (v24)
   {
-    free(v25);
+    free(v24);
   }
 }
 
@@ -5291,30 +5345,30 @@ LABEL_11:
     result = __SC_log_enabled();
     if (result)
     {
-      v28 = _os_log_pack_size();
-      __chkstk_darwin(v28, v29, v30);
-      v31 = *__error();
-      v32 = _os_log_pack_fill();
+      v24 = _os_log_pack_size();
+      v25 = &v31 - ((__chkstk_darwin(v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = __error();
+      v27 = _os_log_pack_fill(v25, v24, *v26, &_mh_execute_header, "siocsifnetsignature(%s, IPv%c, %d) failed: %s", v31, v32, v33, v34);
       if (a2 == 2)
       {
-        v33 = 52;
+        v28 = 52;
       }
 
       else
       {
-        v33 = 54;
+        v28 = 54;
       }
 
-      v34 = __error();
-      v35 = strerror(*v34);
-      *v32 = 136315906;
-      *(v32 + 4) = v4;
-      *(v32 + 12) = 1024;
-      *(v32 + 14) = v33;
-      *(v32 + 18) = 1024;
-      *(v32 + 20) = v9;
-      *(v32 + 24) = 2080;
-      *(v32 + 26) = v35;
+      v29 = __error();
+      v30 = strerror(*v29);
+      *v27 = 136315906;
+      *(v27 + 4) = v4;
+      *(v27 + 12) = 1024;
+      *(v27 + 14) = v28;
+      *(v27 + 18) = 1024;
+      *(v27 + 20) = v9;
+      *(v27 + 24) = 2080;
+      *(v27 + 26) = v30;
       return __SC_log_send();
     }
   }
@@ -5330,55 +5384,55 @@ LABEL_11:
     result = __SC_log_enabled();
     if (result)
     {
-      v13 = _os_log_pack_size();
-      v36 = v9;
-      __chkstk_darwin(v13, v14, v15);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      *v17 = 67109634;
+      v11 = _os_log_pack_size();
+      LODWORD(v31) = v9;
+      v12 = &v31 - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = __error();
+      v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, "IPv%c Network Signature %s %s", v31, v32, v33);
+      *v14 = 67109634;
       if (a2 == 2)
       {
-        v18 = 52;
+        v15 = 52;
       }
 
       else
       {
-        v18 = 54;
+        v15 = 54;
       }
 
-      *(v17 + 4) = v18;
-      *(v17 + 8) = 2080;
-      *(v17 + 10) = v7;
-      *(v17 + 18) = 2080;
-      *(v17 + 20) = v4;
+      *(v14 + 4) = v15;
+      *(v14 + 8) = 2080;
+      *(v14 + 10) = v7;
+      *(v14 + 18) = 2080;
+      *(v14 + 20) = v4;
       result = __SC_log_send();
-      v9 = v36;
+      v9 = v31;
     }
 
     if (v8 && byte_1000819B4 == 1)
     {
-      __chkstk_darwin(result, v11, v12);
-      v20 = &__str[-v19 - 4];
-      __str[-v19 - 4] = 0;
+      __chkstk_darwin(result);
+      v17 = &v31 - v16;
+      *(&v31 - v16) = 0;
       if (v9 <= 1)
       {
-        v21 = 1;
+        v18 = 1;
       }
 
       else
       {
-        v21 = v9;
+        v18 = v9;
       }
 
       do
       {
-        v22 = *v10++;
-        snprintf(__str, 4uLL, "%02x ", v22);
-        strlcat(v20, __str, (3 * v9) | 1);
-        --v21;
+        v19 = *v10++;
+        snprintf(&v31 + 4, 4uLL, "%02x ", v19);
+        strlcat(v17, &v31 + 4, (3 * v9) | 1);
+        --v18;
       }
 
-      while (v21);
+      while (v18);
       if (!qword_100081998)
       {
         qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -5388,12 +5442,12 @@ LABEL_11:
       result = __SC_log_enabled();
       if (result)
       {
-        v23 = _os_log_pack_size();
-        __chkstk_darwin(v23, v24, v25);
-        v26 = *__error();
-        v27 = _os_log_pack_fill();
-        *v27 = 136315138;
-        *(v27 + 4) = v20;
+        v20 = _os_log_pack_size();
+        v21 = &v31 - ((__chkstk_darwin(v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v22 = __error();
+        v23 = _os_log_pack_fill(v21, v20, *v22, &_mh_execute_header, "Signature Bytes: %s", v31);
+        *v23 = 136315138;
+        *(v23 + 4) = v17;
         return __SC_log_send();
       }
     }
@@ -5416,9 +5470,9 @@ uint64_t sub_10004619C()
     if (__SC_log_enabled())
     {
       v0 = _os_log_pack_size();
-      __chkstk_darwin(v0, v1, v2);
-      v3 = *__error();
-      *_os_log_pack_fill() = 0;
+      v1 = &v12 - ((__chkstk_darwin(v0) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v2 = __error();
+      *_os_log_pack_fill(v1, v0, *v2, &_mh_execute_header, "Setting logging verbose mode on") = 0;
       __SC_log_send();
     }
   }
@@ -5433,10 +5487,10 @@ uint64_t sub_10004619C()
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v4 = _os_log_pack_size();
-      __chkstk_darwin(v4, v5, v6);
-      v7 = *__error();
-      *_os_log_pack_fill() = 0;
+      v3 = _os_log_pack_size();
+      v4 = &v12 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = __error();
+      *_os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "Setting logging verbose mode off") = 0;
       __SC_log_send();
     }
 
@@ -5453,22 +5507,22 @@ uint64_t sub_10004619C()
   result = __SC_log_enabled();
   if (result)
   {
-    v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
+    v7 = _os_log_pack_size();
+    v8 = &v12 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "Service coupling is %s", v12);
     if (byte_100081A78)
     {
-      v14 = "disabled";
+      v11 = "disabled";
     }
 
     else
     {
-      v14 = "enabled";
+      v11 = "enabled";
     }
 
-    *v13 = 136315138;
-    *(v13 + 4) = v14;
+    *v10 = 136315138;
+    *(v10 + 4) = v11;
     return __SC_log_send();
   }
 
@@ -5479,14 +5533,14 @@ void sub_1000464F4(id a1)
 {
   byte_100081B10 = 1;
 
-  sub_10003DE18();
+  sub_10003DE18(a1);
 }
 
 uint64_t sub_100046558()
 {
-  multiuser_flags = 0;
+  HIDWORD(v15) = 0;
   v0 = mach_host_self();
-  multiuser_config_flags = host_get_multiuser_config_flags(v0, &multiuser_flags);
+  multiuser_config_flags = host_get_multiuser_config_flags(v0, &v15 + 1);
   if (multiuser_config_flags)
   {
     v2 = multiuser_config_flags;
@@ -5499,39 +5553,39 @@ uint64_t sub_100046558()
     if (__SC_log_enabled())
     {
       v3 = _os_log_pack_size();
-      __chkstk_darwin(v3, v4, v5);
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      v8 = mach_error_string(v2);
-      *v7 = 136315394;
-      *(v7 + 4) = v8;
-      *(v7 + 12) = 1024;
-      *(v7 + 14) = v2;
+      v4 = &v15 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = __error();
+      v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "host_get_multiuser_config_flags() failed, %s (%d)", v15, v16);
+      v7 = mach_error_string(v2);
+      *v6 = 136315394;
+      *(v6 + 4) = v7;
+      *(v6 + 12) = 1024;
+      *(v6 + 14) = v2;
       __SC_log_send();
-      v9 = "false";
-      v10 = 0;
+      v8 = "false";
+      v9 = 0;
     }
 
     else
     {
-      v10 = 0;
-      v9 = "false";
+      v9 = 0;
+      v8 = "false";
     }
   }
 
   else
   {
-    if ((multiuser_flags & 0x80000000) == 0)
+    if (SHIDWORD(v15) >= 0)
     {
-      v9 = "false";
+      v8 = "false";
     }
 
     else
     {
-      v9 = "true";
+      v8 = "true";
     }
 
-    v10 = multiuser_flags >> 31;
+    v9 = HIDWORD(v15) >> 31;
   }
 
   if (!qword_100081998)
@@ -5542,18 +5596,18 @@ uint64_t sub_100046558()
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v11 = _os_log_pack_size();
-    __chkstk_darwin(v11, v12, v13);
-    v14 = *__error();
-    v15 = _os_log_pack_fill();
-    *v15 = 136315394;
-    *(v15 + 4) = "host_is_multiuser";
-    *(v15 + 12) = 2080;
-    *(v15 + 14) = v9;
+    v10 = _os_log_pack_size();
+    v11 = &v15 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = __error();
+    v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "%s: %s", v15, v16);
+    *v13 = 136315394;
+    *(v13 + 4) = "host_is_multiuser";
+    *(v13 + 12) = 2080;
+    *(v13 + 14) = v8;
     __SC_log_send();
   }
 
-  return v10;
+  return v9;
 }
 
 void sub_1000467E0(id a1)
@@ -5587,18 +5641,18 @@ uint64_t sub_100046890()
     result = __SC_log_enabled();
     if (result)
     {
-      v8 = _os_log_pack_size();
-      __chkstk_darwin(v8, v9, v10);
-      v11 = *__error();
-      v12 = _os_log_pack_fill();
-      v13 = __error();
-      v14 = strerror(*v13);
-      *v12 = 136315650;
-      *(v12 + 4) = "my_sem_establish";
-      *(v12 + 12) = 2080;
-      *(v12 + 14) = "com.apple.configd.first-boot";
-      *(v12 + 22) = 2080;
-      *(v12 + 24) = v14;
+      v7 = _os_log_pack_size();
+      v8 = &v13 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = __error();
+      v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "%s: failed to create %s, %s", v13, v14, v15);
+      v11 = __error();
+      v12 = strerror(*v11);
+      *v10 = 136315650;
+      *(v10 + 4) = "my_sem_establish";
+      *(v10 + 12) = 2080;
+      *(v10 + 14) = "com.apple.configd.first-boot";
+      *(v10 + 22) = 2080;
+      *(v10 + 24) = v12;
       return __SC_log_send();
     }
   }
@@ -5615,13 +5669,13 @@ uint64_t sub_100046890()
     if (__SC_log_enabled())
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      *v6 = 136315394;
-      *(v6 + 4) = "my_sem_establish";
-      *(v6 + 12) = 2080;
-      *(v6 + 14) = "com.apple.configd.first-boot";
+      v3 = &v13 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s: created %s", v13, v14);
+      *v5 = 136315394;
+      *(v5 + 4) = "my_sem_establish";
+      *(v5 + 12) = 2080;
+      *(v5 + 14) = "com.apple.configd.first-boot";
       __SC_log_send();
     }
 
@@ -5633,25 +5687,25 @@ uint64_t sub_100046890()
 
 void sub_100046B00(uint64_t a1)
 {
-  v37 = 0;
-  *v38 = xmmword_10006CA90;
-  v39 = 0x81000000002;
+  v41 = 0;
+  *v42 = xmmword_10006CA90;
+  v43 = 0x81000000002;
   v2 = 3;
   while (1)
   {
-    if (sysctl(v38, 6u, 0, &v37, 0, 0) < 0)
+    if (sysctl(v42, 6u, 0, &v41, 0, 0) < 0)
     {
       return;
     }
 
-    v3 = malloc_type_malloc(v37, 0x2B82A6BAuLL);
+    v3 = malloc_type_malloc(v41, 0x2B82A6BAuLL);
     if (!v3)
     {
       return;
     }
 
     v4 = v3;
-    if ((sysctl(v38, 6u, v3, &v37, 0, 0) & 0x80000000) == 0)
+    if ((sysctl(v42, 6u, v3, &v41, 0, 0) & 0x80000000) == 0)
     {
       break;
     }
@@ -5663,20 +5717,22 @@ void sub_100046B00(uint64_t a1)
     }
   }
 
-  if (v37 >= 1)
+  if (v41 >= 1)
   {
-    v5 = v4 + v37;
-    v6 = &selRef_qosMarkingIsEnabled_;
-    v7 = v4;
-    v35 = v4 + v37;
+    v6 = v4 + v41;
+    v7 = &selRef_qosMarkingIsEnabled_;
+    *&v5 = 67110146;
+    v37 = v5;
+    v8 = v4;
+    v39 = v4 + v41;
     do
     {
-      v8 = bswap32(*(v7 + 24));
-      if (HIBYTE(v8) == 127)
+      v9 = bswap32(*(v8 + 24));
+      if (HIBYTE(v9) == 127)
       {
-        if (!v6[307])
+        if (!v7[307])
         {
-          v6[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          v7[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
         }
 
         _SC_syslog_os_log_mapping();
@@ -5684,112 +5740,116 @@ void sub_100046B00(uint64_t a1)
         {
           goto LABEL_25;
         }
+
+        v10 = _os_log_pack_size();
+        v11 = &v37 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v12 = __error();
+        *_os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "flush_routes: ignoring loopback route") = 0;
+      }
+
+      else if (v9 >> 8 == 14680064)
+      {
+        if (!v7[307])
+        {
+          v7[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+        }
+
+        _SC_syslog_os_log_mapping();
+        if (!__SC_log_enabled())
+        {
+          goto LABEL_25;
+        }
+
+        v13 = _os_log_pack_size();
+        v14 = &v37 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v15 = __error();
+        *_os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "flush_routes: ignoring multicast route") = 0;
       }
 
       else
       {
-        if (v8 >> 8 != 14680064)
+        *(v8 + 3) = 2;
+        *(v8 + 5) = ++dword_1000819DC;
+        v16 = write(a1, v8, *v8);
+        v17 = v7[307];
+        if (v16 < 0)
         {
-          *(v7 + 3) = 2;
-          *(v7 + 5) = ++dword_1000819DC;
-          v13 = write(a1, v7, *v7);
-          v14 = v6[307];
-          if (v13 < 0)
+          if (!v17)
           {
-            if (!v14)
-            {
-              v6[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-            }
-
-            _SC_syslog_os_log_mapping();
-            if (!__SC_log_enabled())
-            {
-              goto LABEL_25;
-            }
-
-            v24 = _os_log_pack_size();
-            __chkstk_darwin(v24, v25, v26);
-            v27 = *__error();
-            v28 = _os_log_pack_fill();
-            v29 = a1;
-            v30 = *(v7 + 96);
-            v31 = *(v7 + 97);
-            v32 = *(v7 + 98);
-            v36 = *(v7 + 99);
-            v33 = __error();
-            v34 = strerror(*v33);
-            *v28 = 67110146;
-            *(v28 + 4) = v30;
-            a1 = v29;
-            *(v28 + 8) = 1024;
-            *(v28 + 10) = v31;
-            v6 = &selRef_qosMarkingIsEnabled_;
-            *(v28 + 14) = 1024;
-            *(v28 + 16) = v32;
-            v5 = v35;
-            *(v28 + 20) = 1024;
-            *(v28 + 22) = v36;
-            *(v28 + 26) = 2080;
-            *(v28 + 28) = v34;
+            v7[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
           }
 
-          else
+          v26 = _SC_syslog_os_log_mapping();
+          if (!__SC_log_enabled())
           {
-            if (!v14)
-            {
-              v6[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-            }
-
-            _SC_syslog_os_log_mapping();
-            if (!__SC_log_enabled())
-            {
-              goto LABEL_25;
-            }
-
-            v15 = _os_log_pack_size();
-            __chkstk_darwin(v15, v16, v17);
-            v18 = *__error();
-            v19 = _os_log_pack_fill();
-            v20 = *(v7 + 96);
-            v21 = *(v7 + 97);
-            v22 = *(v7 + 98);
-            v23 = *(v7 + 99);
-            *v19 = 67109888;
-            *(v19 + 4) = v20;
-            *(v19 + 8) = 1024;
-            *(v19 + 10) = v21;
-            *(v19 + 14) = 1024;
-            *(v19 + 16) = v22;
-            *(v19 + 20) = 1024;
-            *(v19 + 22) = v23;
+            goto LABEL_25;
           }
 
-          goto LABEL_24;
+          v27 = _os_log_pack_size();
+          HIDWORD(v40) = v26;
+          v28 = &v37 - ((__chkstk_darwin(v27) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v29 = __error();
+          v30 = _os_log_pack_fill(v28, v27, *v29, &_mh_execute_header, "flush_routes: removing route for %d.%d.%d.%d failed: %s", v37, DWORD2(v37), v38, v39, v40);
+          v31 = a1;
+          v32 = *(v8 + 96);
+          v33 = *(v8 + 97);
+          v34 = *(v8 + 98);
+          LODWORD(v40) = *(v8 + 99);
+          v35 = __error();
+          v36 = strerror(*v35);
+          *v30 = v37;
+          *(v30 + 4) = v32;
+          a1 = v31;
+          *(v30 + 8) = 1024;
+          *(v30 + 10) = v33;
+          v7 = &selRef_qosMarkingIsEnabled_;
+          *(v30 + 14) = 1024;
+          *(v30 + 16) = v34;
+          v6 = v39;
+          *(v30 + 20) = 1024;
+          *(v30 + 22) = v40;
+          *(v30 + 26) = 2080;
+          *(v30 + 28) = v36;
         }
 
-        if (!v6[307])
+        else
         {
-          v6[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
-        }
+          if (!v17)
+          {
+            v7[307] = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
+          }
 
-        _SC_syslog_os_log_mapping();
-        if (!__SC_log_enabled())
-        {
-          goto LABEL_25;
+          _SC_syslog_os_log_mapping();
+          if (!__SC_log_enabled())
+          {
+            goto LABEL_25;
+          }
+
+          v18 = _os_log_pack_size();
+          v19 = &v37 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v20 = __error();
+          v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "flush_routes: removed route for %d.%d.%d.%d", v37, DWORD2(v37), v38, v39);
+          v22 = *(v8 + 96);
+          v23 = *(v8 + 97);
+          v24 = *(v8 + 98);
+          v25 = *(v8 + 99);
+          *v21 = 67109888;
+          *(v21 + 4) = v22;
+          *(v21 + 8) = 1024;
+          *(v21 + 10) = v23;
+          *(v21 + 14) = 1024;
+          *(v21 + 16) = v24;
+          *(v21 + 20) = 1024;
+          *(v21 + 22) = v25;
         }
       }
 
-      v9 = _os_log_pack_size();
-      __chkstk_darwin(v9, v10, v11);
-      v12 = *__error();
-      *_os_log_pack_fill() = 0;
-LABEL_24:
       __SC_log_send();
 LABEL_25:
-      v7 = (v7 + *v7);
+      v8 = (v8 + *v8);
     }
 
-    while (v7 < v5);
+    while (v8 < v6);
   }
 
   free(v4);
@@ -5809,12 +5869,12 @@ void sub_100046FFC(id a1)
   if (__SC_log_enabled())
   {
     v1 = _os_log_pack_size();
-    __chkstk_darwin(v1, v2, v3);
-    v4 = *__error();
-    v5 = _os_log_pack_fill();
-    v6 = qword_100081AD0;
-    *v5 = 138412290;
-    *(v5 + 4) = v6;
+    v2 = &v6 - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v3 = __error();
+    v4 = _os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "Notifying:\n%@");
+    v5 = qword_100081AD0;
+    *v4 = 138412290;
+    *(v4 + 4) = v5;
     __SC_log_send();
   }
 }
@@ -5868,11 +5928,11 @@ uint64_t sub_1000471F0(uint64_t a1, const void *a2)
   if (result)
   {
     v7 = _os_log_pack_size();
-    __chkstk_darwin(v7, v8, v9);
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    *v11 = 136315138;
-    *(v11 + 4) = v3;
+    v8 = handler - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "XPC server %s started", handler[0]);
+    *v10 = 136315138;
+    *(v10 + 4) = v3;
     return __SC_log_send();
   }
 
@@ -5895,9 +5955,9 @@ uint64_t sub_1000473C8()
     if (result)
     {
       v1 = _os_log_pack_size();
-      __chkstk_darwin(v1, v2, v3);
-      v4 = *__error();
-      *_os_log_pack_fill() = 0;
+      v2 = &v4 - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v3 = __error();
+      *_os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "Network information: os_state_add_handler() failed") = 0;
       return __SC_log_send();
     }
   }
@@ -5916,11 +5976,11 @@ uint64_t sub_1000474F8(const __CFData *a1)
     if (__SC_log_enabled())
     {
       v3 = _os_log_pack_size();
-      __chkstk_darwin(v3, v4, v5);
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      *v7 = 134217984;
-      *(v7 + 4) = v2;
+      v4 = &block[-1] - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = __error();
+      v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "Network information updated: %llu", v16);
+      *v6 = 134217984;
+      *(v6 + 4) = v2;
       __SC_log_send();
     }
 
@@ -5958,22 +6018,22 @@ uint64_t sub_1000474F8(const __CFData *a1)
   notify_key = nwi_state_get_notify_key();
   if (notify_key)
   {
-    v9 = notify_key;
+    v8 = notify_key;
     _nwi_state_force_refresh();
-    v10 = notify_post(v9);
-    if (v10)
+    v9 = notify_post(v8);
+    if (v9)
     {
-      v11 = v10;
+      v10 = v9;
       sub_1000035EC();
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v12 = _os_log_pack_size();
-        __chkstk_darwin(v12, v13, v14);
-        v15 = *__error();
-        v16 = _os_log_pack_fill();
-        *v16 = 67109120;
-        v16[1] = v11;
+        v11 = _os_log_pack_size();
+        v12 = &block[-1] - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v13 = __error();
+        v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, "notify_post() failed: %u", v16);
+        *v14 = 67109120;
+        v14[1] = v10;
         __SC_log_send();
       }
     }
@@ -6002,57 +6062,57 @@ os_state_data_s *__cdecl sub_100047820(id a1, os_state_hints_s *a2)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        v4 = *__error();
-        v5 = _os_log_pack_fill();
-        *v5 = 134218240;
-        *(v5 + 4) = v3;
-        *(v5 + 12) = 2048;
-        *(v5 + 14) = 0x8000;
+        v4 = _os_log_pack_size();
+        v5 = __error();
+        v6 = _os_log_pack_fill(v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v4, *v5, &_mh_execute_header, "Network information : state data too large (%zu > %zu)", v14[0], v14[1]);
+        *v6 = 134218240;
+        *(v6 + 4) = v3;
+        *(v6 + 12) = 2048;
+        *(v6 + 14) = 0x8000;
         __SC_log_send();
       }
 
       return 0;
     }
 
-    v6 = Length;
+    v7 = Length;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
     v3 = 200;
   }
 
-  v7 = malloc_type_calloc(1uLL, v3, 0x4772D010uLL);
-  if (!v7)
+  v8 = malloc_type_calloc(1uLL, v3, 0x4772D010uLL);
+  if (!v8)
   {
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      _os_log_pack_size();
-      v10 = *__error();
-      *_os_log_pack_fill() = 0;
+      v11 = _os_log_pack_size();
+      v12 = __error();
+      *_os_log_pack_fill(v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, *v12, &_mh_execute_header, "Network information: could not allocate state data") = 0;
       __SC_log_send();
     }
 
     return 0;
   }
 
-  v8 = v7;
-  v7->var0 = 3;
-  v7->var1.var1 = v6;
+  v9 = v8;
+  v8->var0 = 3;
+  v8->var1.var1 = v7;
   __strlcpy_chk();
   __strlcpy_chk();
   __strlcpy_chk();
-  if (v6 >= 1)
+  if (v7 >= 1)
   {
     BytePtr = CFDataGetBytePtr(qword_100081B28[0]);
-    memcpy(v8->var4, BytePtr, v6);
+    memcpy(v9->var4, BytePtr, v7);
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t sub_100047AD8(_xpc_connection_s *a1, xpc_object_t xdict)
@@ -6063,16 +6123,16 @@ uint64_t sub_100047AD8(_xpc_connection_s *a1, xpc_object_t xdict)
   if (__SC_log_enabled())
   {
     v4 = _os_log_pack_size();
-    __chkstk_darwin(v4, v5, v6);
-    v7 = *__error();
-    v8 = _os_log_pack_fill();
+    v5 = &v10 - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = __error();
+    v7 = _os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "<%p:%d> Network information ack: %llu", v10, v11, v12);
     pid = xpc_connection_get_pid(a1);
-    *v8 = 134218496;
-    *(v8 + 4) = a1;
-    *(v8 + 12) = 1024;
-    *(v8 + 14) = pid;
-    *(v8 + 18) = 2048;
-    *(v8 + 20) = uint64;
+    *v7 = 134218496;
+    *(v7 + 4) = a1;
+    *(v7 + 12) = 1024;
+    *(v7 + 14) = pid;
+    *(v7 + 18) = 2048;
+    *(v7 + 20) = uint64;
     __SC_log_send();
   }
 
@@ -6092,14 +6152,14 @@ uint64_t sub_100047AD8(_xpc_connection_s *a1, xpc_object_t xdict)
 
 void sub_100047C6C(_xpc_connection_s *a1, xpc_object_t xdict)
 {
-  v19 = 0;
+  v18 = 0;
   memset(dst, 0, sizeof(dst));
   remote_connection = xpc_dictionary_get_remote_connection(xdict);
   reply = xpc_dictionary_create_reply(xdict);
   uuid = xpc_dictionary_get_uuid(xdict, "AgentUUID");
   if (!uuid || (uuid_copy(dst, uuid), (string = xpc_dictionary_get_string(xdict, "AgentType")) == 0))
   {
-    v17 = 0;
+    v16 = 0;
     if (!reply)
     {
       goto LABEL_13;
@@ -6125,39 +6185,39 @@ void sub_100047C6C(_xpc_connection_s *a1, xpc_object_t xdict)
     }
 
     v11 = _os_log_pack_size();
-    __chkstk_darwin(v11, v12, v13);
-    v14 = *__error();
-    v15 = _os_log_pack_fill();
+    v12 = &dst[-((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+    v13 = __error();
+    v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, "<%p:%s[%d]> Config agent information copy", v18, *dst, *&dst[8]);
     pid = xpc_connection_get_pid(a1);
-    *v15 = 134218498;
-    *(v15 + 4) = a1;
-    *(v15 + 12) = 2080;
-    *(v15 + 14) = v10;
-    *(v15 + 22) = 1024;
-    *(v15 + 24) = pid;
+    *v14 = 134218498;
+    *(v14 + 4) = a1;
+    *(v14 + 12) = 2080;
+    *(v14 + 14) = v10;
+    *(v14 + 22) = 1024;
+    *(v14 + 24) = pid;
     __SC_log_send();
   }
 
   if (!strcmp(v8, "DNSAgent"))
   {
-    v18 = copy_dns_information_for_agent_uuid(dst, &v19);
+    v17 = copy_dns_information_for_agent_uuid(dst, &v18);
   }
 
   else
   {
     if (strcmp(v8, "ProxyAgent"))
     {
-      v17 = 0;
+      v16 = 0;
       goto LABEL_21;
     }
 
-    v18 = copy_proxy_information_for_agent_uuid(dst, &v19);
+    v17 = copy_proxy_information_for_agent_uuid(dst, &v18);
   }
 
-  v17 = v18;
-  if (v18 && v19)
+  v16 = v17;
+  if (v17 && v18)
   {
-    xpc_dictionary_set_data(reply, "AgentData", v18, v19);
+    xpc_dictionary_set_data(reply, "AgentData", v17, v18);
   }
 
 LABEL_21:
@@ -6169,9 +6229,9 @@ LABEL_12:
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    free(v17);
+    free(v16);
   }
 }
 
@@ -6226,19 +6286,20 @@ void sub_100047F90(NSObject *a1)
     _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-LABEL_12:
-    v14 = _os_log_pack_size();
-    __chkstk_darwin(v14, v15, v16);
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    v19 = SCError();
-    v20 = SCErrorString(v19);
-    *v18 = 136315138;
-    *(v18 + 4) = v20;
-    goto LABEL_13;
+    v13 = _os_log_pack_size();
+    v14 = &v26 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = *__error();
+    v16 = _os_log_pack_fill(v14, v13, v15, &_mh_execute_header, "SCDynamicStoreCreate() failed: %s");
+LABEL_13:
+    v23 = v16;
+    v24 = SCError();
+    v25 = SCErrorString(v24);
+    *v23 = 136315138;
+    *(v23 + 4) = v25;
+    goto LABEL_14;
   }
 
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
@@ -6261,10 +6322,14 @@ LABEL_12:
     _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    goto LABEL_12;
+    v17 = _os_log_pack_size();
+    v18 = &v26 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = *__error();
+    v16 = _os_log_pack_fill(v18, v17, v19, &_mh_execute_header, "SCDynamicStoreSetNotificationKeys() failed: %s");
+    goto LABEL_13;
   }
 
   if (!SCDynamicStoreSetDispatchQueue(qword_100081B70, a1))
@@ -6273,10 +6338,14 @@ LABEL_12:
     _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    goto LABEL_12;
+    v20 = _os_log_pack_size();
+    v21 = &v26 - ((__chkstk_darwin(v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22 = *__error();
+    v16 = _os_log_pack_fill(v21, v20, v22, &_mh_execute_header, "SCDynamicStoreSetDispatchQueue() failed: %s");
+    goto LABEL_13;
   }
 
   v7 = notify_register_dispatch("com.apple.system.config.network_change", &out_token, a1, &stru_10007AF60);
@@ -6291,16 +6360,16 @@ LABEL_12:
   if (__SC_log_enabled())
   {
     v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    *v13 = 67109120;
-    v13[1] = v8;
-LABEL_13:
+    v10 = &v26 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = __error();
+    v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "notify_register_dispatch() failed: %u", v26);
+    *v12 = 67109120;
+    v12[1] = v8;
+LABEL_14:
     __SC_log_send();
   }
 
-LABEL_14:
+LABEL_15:
   if (qword_100081B70)
   {
     SCDynamicStoreSetDispatchQueue(qword_100081B70, 0);
@@ -6318,9 +6387,9 @@ void sub_1000483BC()
     if (__SC_log_enabled())
     {
       v0 = _os_log_pack_size();
-      __chkstk_darwin(v0, v1, v2);
-      v3 = *__error();
-      *_os_log_pack_fill() = 0;
+      v1 = &v3 - ((__chkstk_darwin(v0) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v2 = __error();
+      *_os_log_pack_fill(v1, v0, *v2, &_mh_execute_header, "hostname: ptr query stop") = 0;
       __SC_log_send();
     }
 
@@ -6331,12 +6400,12 @@ void sub_1000483BC()
   }
 }
 
-uint64_t sub_1000484F0()
+uint64_t sub_1000484F0(uint64_t a1)
 {
   *bytes = 0;
-  v17 = 0;
-  v19 = 0;
-  v18 = 0;
+  v20 = 0;
+  v22 = 0;
+  v21 = 0;
   if (!_SC_cfstring_to_cstring())
   {
     sub_1000035EC();
@@ -6347,12 +6416,12 @@ uint64_t sub_1000484F0()
       return result;
     }
 
-LABEL_8:
     v8 = _os_log_pack_size();
-    __chkstk_darwin(v8, v9, v10);
-    v11 = *__error();
+    v9 = bytes - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0) + 56;
+    v10 = *__error();
+    v11 = _os_log_pack_fill(v9, v8, v10, &_mh_execute_header, "could not convert [primary] address string");
 LABEL_13:
-    *_os_log_pack_fill() = 0;
+    *v11 = 0;
     __SC_log_send();
     return 0;
   }
@@ -6367,18 +6436,22 @@ LABEL_13:
       return result;
     }
 
-    goto LABEL_8;
+    v12 = _os_log_pack_size();
+    v13 = bytes - ((__chkstk_darwin(v12) + 15) & 0xFFFFFFFFFFFFFFF0) + 56;
+    v14 = *__error();
+    v11 = _os_log_pack_fill(v13, v12, v14, &_mh_execute_header, "could not convert [primary] address");
+    goto LABEL_13;
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v1 = CFDataCreate(0, bytes, bytes[0]);
-  CFDictionarySetValue(Mutable, @"ptr-address", v1);
-  CFRelease(v1);
+  v2 = CFDataCreate(0, bytes, bytes[0]);
+  CFDictionarySetValue(Mutable, @"ptr-address", v2);
+  CFRelease(v2);
   qword_100081B78 = SCNetworkReachabilityCreateWithOptions();
   CFRelease(Mutable);
-  v2 = qword_100081B78;
+  v3 = qword_100081B78;
   sub_1000035EC();
-  if (!v2)
+  if (!v3)
   {
     _SC_syslog_os_log_mapping();
     result = __SC_log_enabled();
@@ -6387,19 +6460,20 @@ LABEL_13:
       return result;
     }
 
-    v12 = _os_log_pack_size();
-    __chkstk_darwin(v12, v13, v14);
-    v15 = *__error();
+    v15 = _os_log_pack_size();
+    v16 = bytes - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0) + 56;
+    v17 = *__error();
+    v11 = _os_log_pack_fill(v16, v15, v17, &_mh_execute_header, "could not resolve [primary] address");
     goto LABEL_13;
   }
 
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v3 = _os_log_pack_size();
-    __chkstk_darwin(v3, v4, v5);
-    v6 = *__error();
-    *_os_log_pack_fill() = 0;
+    v4 = _os_log_pack_size();
+    v5 = bytes - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0) + 56;
+    v6 = __error();
+    *_os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "hostname: ptr query start") = 0;
     __SC_log_send();
   }
 
@@ -6411,20 +6485,20 @@ LABEL_13:
 
 void sub_100048874(uint64_t a1, char a2)
 {
-  v53.tv_sec = 0;
-  *&v53.tv_usec = 0;
-  gettimeofday(&v53, 0);
-  if (v53.tv_usec >= dword_100081B88)
+  v47.tv_sec = 0;
+  *&v47.tv_usec = 0;
+  gettimeofday(&v47, 0);
+  if (v47.tv_usec >= dword_100081B88)
   {
-    v3 = v53.tv_usec - dword_100081B88;
+    v3 = v47.tv_usec - dword_100081B88;
   }
 
   else
   {
-    v3 = v53.tv_usec - dword_100081B88 + 1000000;
+    v3 = v47.tv_usec - dword_100081B88 + 1000000;
   }
 
-  v4 = v53.tv_sec - qword_100081B80 + ((v53.tv_usec - dword_100081B88) >> 31);
+  v4 = v47.tv_sec - qword_100081B80 + ((v47.tv_usec - dword_100081B88) >> 31);
   if ((a2 & 2) == 0)
   {
     sub_1000035EC();
@@ -6432,55 +6506,55 @@ void sub_100048874(uint64_t a1, char a2)
     if (__SC_log_enabled())
     {
       v5 = _os_log_pack_size();
-      __chkstk_darwin(v5, v6, v7);
-      v8 = *__error();
-      v9 = _os_log_pack_fill();
-      *v9 = 134218240;
-      *(v9 + 4) = v4;
-      *(v9 + 12) = 1024;
-      *(v9 + 14) = v3 / 1000;
+      v6 = &v46 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = __error();
+      v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "hostname: ptr query complete, host not found (query time = %ld.%3.3d)", v46, LODWORD(v47.tv_sec));
+      *v8 = 134218240;
+      *(v8 + 4) = v4;
+      *(v8 + 12) = 1024;
+      *(v8 + 14) = v3 / 1000;
       __SC_log_send();
     }
 
 LABEL_31:
-    v40 = SCDynamicStoreCopyLocalHostName(qword_100081B70);
+    v35 = SCDynamicStoreCopyLocalHostName(qword_100081B70);
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
-    v41 = __SC_log_enabled();
-    if (v40)
+    v36 = __SC_log_enabled();
+    if (v35)
     {
-      if (v41)
+      if (v36)
       {
-        v42 = _os_log_pack_size();
-        __chkstk_darwin(v42, v43, v44);
-        v45 = *__error();
-        v46 = _os_log_pack_fill();
-        *v46 = 138412290;
-        *(v46 + 4) = v40;
+        v37 = _os_log_pack_size();
+        v38 = &v46 - ((__chkstk_darwin(v37) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v39 = __error();
+        v40 = _os_log_pack_fill(v38, v37, *v39, &_mh_execute_header, "hostname (multicast DNS) = %@");
+        *v40 = 138412290;
+        *(v40 + 4) = v35;
         __SC_log_send();
       }
 
-      MutableCopy = CFStringCreateMutableCopy(0, 0, v40);
+      MutableCopy = CFStringCreateMutableCopy(0, 0, v35);
       if (!MutableCopy)
       {
         sub_1000681A4();
       }
 
-      v48 = MutableCopy;
+      v42 = MutableCopy;
       CFStringAppend(MutableCopy, @".local");
-      sub_10000B890(v48);
-      CFRelease(v48);
-      CFRelease(v40);
+      sub_10000B890(v42);
+      CFRelease(v42);
+      CFRelease(v35);
     }
 
     else
     {
-      if (v41)
+      if (v36)
       {
-        v49 = _os_log_pack_size();
-        __chkstk_darwin(v49, v50, v51);
-        v52 = *__error();
-        *_os_log_pack_fill() = 0;
+        v43 = _os_log_pack_size();
+        v44 = &v46 - ((__chkstk_darwin(v43) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v45 = __error();
+        *_os_log_pack_fill(v44, v43, *v45, &_mh_execute_header, "hostname (localhost)") = 0;
         __SC_log_send();
       }
 
@@ -6492,64 +6566,65 @@ LABEL_39:
     return;
   }
 
-  v10 = SCNetworkReachabilityCopyResolvedAddress();
-  if (v10)
+  HIDWORD(v46) = 0;
+  v9 = SCNetworkReachabilityCopyResolvedAddress();
+  if (v9)
   {
-    v11 = v10;
-    Count = CFArrayGetCount(v10);
+    v10 = v9;
+    Count = CFArrayGetCount(v9);
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
-    v13 = __SC_log_enabled();
+    v12 = __SC_log_enabled();
     if (Count < 1)
     {
-      if (v13)
+      if (v12)
       {
-        v28 = _os_log_pack_size();
-        __chkstk_darwin(v28, v29, v30);
-        v31 = *__error();
-        v32 = _os_log_pack_fill();
-        *v32 = 134218240;
-        *(v32 + 4) = v4;
-        *(v32 + 12) = 1024;
-        *(v32 + 14) = v3 / 1000;
+        v25 = _os_log_pack_size();
+        v26 = &v46 - ((__chkstk_darwin(v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v27 = __error();
+        v28 = _os_log_pack_fill(v26, v25, *v27, &_mh_execute_header, "hostname: ptr query complete w/no hosts (query time = %ld.%3.3d)", v46, LODWORD(v47.tv_sec));
+        *v28 = 134218240;
+        *(v28 + 4) = v4;
+        *(v28 + 12) = 1024;
+        *(v28 + 14) = v3 / 1000;
         __SC_log_send();
       }
 
-      CFRelease(v11);
+      CFRelease(v10);
       goto LABEL_31;
     }
 
-    if (v13)
+    if (v12)
     {
-      v14 = _os_log_pack_size();
-      __chkstk_darwin(v14, v15, v16);
-      v17 = *__error();
-      v18 = _os_log_pack_fill();
-      *v18 = 134218240;
-      *(v18 + 4) = v4;
-      *(v18 + 12) = 1024;
-      *(v18 + 14) = v3 / 1000;
+      v13 = _os_log_pack_size();
+      v14 = &v46 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "hostname: ptr query complete (query time = %ld.%3.3d)", v46, LODWORD(v47.tv_sec));
+      *v16 = 134218240;
+      *(v16 + 4) = v4;
+      *(v16 + 12) = 1024;
+      *(v16 + 14) = v3 / 1000;
       __SC_log_send();
     }
 
-    v19 = _SCPreferencesCopyComputerName();
-    if (v19)
+    v17 = _SCPreferencesCopyComputerName();
+    if (v17)
     {
-      v20 = v19;
+      v18 = v17;
       if (_SC_CFStringIsValidDNSName())
       {
-        if (CFStringFind(v20, @".", 0).length)
+        if (CFStringFind(v18, @".", 0).length)
         {
-          v21 = 0;
+          v19 = 0;
           while (1)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v11, v21);
-            if (CFStringCompare(ValueAtIndex, v20, 1uLL) == kCFCompareEqualTo)
+            ValueAtIndex = CFArrayGetValueAtIndex(v10, v19);
+            if (CFStringCompare(ValueAtIndex, v18, 1uLL) == kCFCompareEqualTo)
             {
               break;
             }
 
-            if (Count == ++v21)
+            if (Count == ++v19)
             {
               goto LABEL_17;
             }
@@ -6558,10 +6633,10 @@ LABEL_39:
 
         else
         {
-          ValueAtIndex = sub_100048FB0(v11, Count, v20);
+          ValueAtIndex = sub_100048FB0(v10, Count, v18);
         }
 
-        CFRelease(v20);
+        CFRelease(v18);
         if (ValueAtIndex)
         {
 LABEL_28:
@@ -6569,17 +6644,17 @@ LABEL_28:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v35 = _os_log_pack_size();
-            __chkstk_darwin(v35, v36, v37);
-            v38 = *__error();
-            v39 = _os_log_pack_fill();
-            *v39 = 138412290;
-            *(v39 + 4) = ValueAtIndex;
+            v31 = _os_log_pack_size();
+            v32 = &v46 - ((__chkstk_darwin(v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v33 = __error();
+            v34 = _os_log_pack_fill(v32, v31, *v33, &_mh_execute_header, "hostname (reverse DNS query) = %@");
+            *v34 = 138412290;
+            *(v34 + 4) = ValueAtIndex;
             __SC_log_send();
           }
 
           sub_10000B890(ValueAtIndex);
-          CFRelease(v11);
+          CFRelease(v10);
           if (ValueAtIndex)
           {
             goto LABEL_39;
@@ -6592,14 +6667,14 @@ LABEL_28:
       else
       {
 LABEL_17:
-        CFRelease(v20);
+        CFRelease(v18);
       }
     }
 
-    v33 = SCDynamicStoreCopyLocalHostName(qword_100081B70);
-    if (!v33 || (v34 = v33, ValueAtIndex = sub_100048FB0(v11, Count, v33), CFRelease(v34), !ValueAtIndex))
+    v29 = SCDynamicStoreCopyLocalHostName(qword_100081B70);
+    if (!v29 || (v30 = v29, ValueAtIndex = sub_100048FB0(v10, Count, v29), CFRelease(v30), !ValueAtIndex))
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v11, 0);
+      ValueAtIndex = CFArrayGetValueAtIndex(v10, 0);
     }
 
     goto LABEL_28;
@@ -6609,14 +6684,14 @@ LABEL_17:
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v23 = _os_log_pack_size();
-    __chkstk_darwin(v23, v24, v25);
-    v26 = *__error();
-    v27 = _os_log_pack_fill();
-    *v27 = 134218240;
-    *(v27 + 4) = v4;
-    *(v27 + 12) = 1024;
-    *(v27 + 14) = v3 / 1000;
+    v21 = _os_log_pack_size();
+    v22 = &v46 - ((__chkstk_darwin(v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v21, *v23, &_mh_execute_header, "hostname: ptr query reply w/no hosts (query time = %ld.%3.3d)", v46, LODWORD(v47.tv_sec));
+    *v24 = 134218240;
+    *(v24 + 4) = v4;
+    *(v24 + 12) = 1024;
+    *(v24 + 14) = v3 / 1000;
     __SC_log_send();
   }
 }
@@ -6732,38 +6807,38 @@ void sub_100049394(void *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    v7 = a1[4];
-    v8 = a1[5];
-    v9 = a1[6];
-    *v6 = 138412802;
-    *(v6 + 4) = v7;
-    *(v6 + 12) = 2112;
-    *(v6 + 14) = v8;
-    *(v6 + 22) = 2112;
-    *(v6 + 24) = v9;
+    v3 = &context - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "NAT64 requests %@ updates %@ cancellations %@");
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = a1[6];
+    *v5 = 138412802;
+    *(v5 + 4) = v6;
+    *(v5 + 12) = 2112;
+    *(v5 + 14) = v7;
+    *(v5 + 22) = 2112;
+    *(v5 + 24) = v8;
     __SC_log_send();
   }
 
-  v10 = a1[4];
-  v11 = a1[5];
-  v12 = a1[6];
+  v9 = a1[4];
+  v10 = a1[5];
+  v11 = a1[6];
   context = 0;
-  if (v12)
-  {
-    CFSetApplyFunction(v12, sub_100049558, 0);
-  }
-
   if (v11)
   {
-    CFSetApplyFunction(v11, sub_100049784, &context);
+    CFSetApplyFunction(v11, sub_100049558, 0);
   }
 
   if (v10)
   {
-    CFSetApplyFunction(v10, sub_1000499CC, &context);
+    CFSetApplyFunction(v10, sub_100049784, &context);
+  }
+
+  if (v9)
+  {
+    CFSetApplyFunction(v9, sub_1000499CC, &context);
   }
 
   if (context)
@@ -6771,22 +6846,22 @@ void sub_100049394(void *a1)
     dns_configuration_free();
   }
 
-  v13 = a1[4];
+  v12 = a1[4];
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  v13 = a1[5];
   if (v13)
   {
     CFRelease(v13);
   }
 
-  v14 = a1[5];
+  v14 = a1[6];
   if (v14)
   {
     CFRelease(v14);
-  }
-
-  v15 = a1[6];
-  if (v15)
-  {
-    CFRelease(v15);
   }
 }
 
@@ -6808,14 +6883,14 @@ void sub_100049558(CFTypeRef cf1)
       if (__SC_log_enabled())
       {
         v3 = _os_log_pack_size();
-        __chkstk_darwin(v3, v4, v5);
-        v6 = *__error();
-        v7 = _os_log_pack_fill();
-        v8 = v2[3];
-        *v7 = 136315394;
-        *(v7 + 4) = v8;
-        *(v7 + 12) = 2080;
-        *(v7 + 14) = "_nat64_process_cancel_request";
+        v4 = v12 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v5 = __error();
+        v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "%s %s: removing NAT64 request", v12[0], v12[1]);
+        v7 = v2[3];
+        *v6 = 136315394;
+        *(v6 + 4) = v7;
+        *(v6 + 12) = 2080;
+        *(v6 + 14) = "_nat64_process_cancel_request";
         __SC_log_send();
       }
 
@@ -6830,14 +6905,14 @@ void sub_100049558(CFTypeRef cf1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    *v13 = 138412546;
-    *(v13 + 4) = cf1;
-    *(v13 + 12) = 2080;
-    *(v13 + 14) = "_nat64_process_cancel_request";
+    v8 = _os_log_pack_size();
+    v9 = v12 - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = __error();
+    v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "%@ %s: no active NAT64 request");
+    *v11 = 138412546;
+    *(v11 + 4) = cf1;
+    *(v11 + 12) = 2080;
+    *(v11 + 14) = "_nat64_process_cancel_request";
     __SC_log_send();
   }
 }
@@ -6860,13 +6935,13 @@ uint64_t sub_100049784(CFTypeRef cf1, uint64_t *a2)
       if (__SC_log_enabled())
       {
         v5 = _os_log_pack_size();
-        __chkstk_darwin(v5, v6, v7);
-        v8 = *__error();
-        v9 = _os_log_pack_fill();
-        *v9 = 138412546;
-        *(v9 + 4) = cf1;
-        *(v9 + 12) = 2080;
-        *(v9 + 14) = "_nat64_process_prefix_update";
+        v6 = &v16 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v7 = __error();
+        v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "%@: %s");
+        *v8 = 138412546;
+        *(v8 + 4) = cf1;
+        *(v8 + 12) = 2080;
+        *(v8 + 14) = "_nat64_process_prefix_update";
         __SC_log_send();
       }
 
@@ -6875,9 +6950,9 @@ uint64_t sub_100049784(CFTypeRef cf1, uint64_t *a2)
       result = sub_10004A948(cf1);
       if (result)
       {
-        v11 = result;
-        v12 = sub_10004ACBC(a2);
-        return sub_10004AEC0(v11, v12);
+        v10 = result;
+        v11 = sub_10004ACBC(a2);
+        return sub_10004AEC0(v10, v11);
       }
 
       return result;
@@ -6889,14 +6964,14 @@ uint64_t sub_100049784(CFTypeRef cf1, uint64_t *a2)
   result = __SC_log_enabled();
   if (result)
   {
-    v13 = _os_log_pack_size();
-    __chkstk_darwin(v13, v14, v15);
-    v16 = *__error();
-    v17 = _os_log_pack_fill();
-    *v17 = 138412546;
-    *(v17 + 4) = cf1;
-    *(v17 + 12) = 2080;
-    *(v17 + 14) = "_nat64_process_prefix_update";
+    v12 = _os_log_pack_size();
+    v13 = &v16 - ((__chkstk_darwin(v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = __error();
+    v15 = _os_log_pack_fill(v13, v12, *v14, &_mh_execute_header, "%@ %s: no existing request");
+    *v15 = 138412546;
+    *(v15 + 4) = cf1;
+    *(v15 + 12) = 2080;
+    *(v15 + 14) = "_nat64_process_prefix_update";
     return __SC_log_send();
   }
 
@@ -6933,53 +7008,57 @@ uint64_t sub_1000499CC(CFTypeRef cf1, uint64_t *a2)
   return result;
 }
 
-_DWORD *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
+int *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
 {
-  memset(v46, 0, sizeof(v46));
   memset(v45, 0, sizeof(v45));
+  memset(v44, 0, sizeof(v44));
+  v41 = a1;
   __strlcpy_chk();
-  v41 = a2;
+  HIDWORD(v39) = a2;
   if (a2)
   {
     if (a2 >= 1)
     {
-      v5 = 0;
-      v6 = v46;
+      v6 = 0;
+      v7 = HIDWORD(v39);
+      v8 = v45;
+      *&v5 = 136315650;
+      v40 = v5;
       do
       {
-        v44 = 0;
-        memset(v43, 0, sizeof(v43));
+        v43 = 0;
+        memset(v42, 0, sizeof(v42));
         nw_nat64_write_prefix_to_string();
         sub_1000035EC();
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v7 = _os_log_pack_size();
-          __chkstk_darwin(v7, v8, v9);
-          v10 = *__error();
-          v11 = _os_log_pack_fill();
-          *v11 = 136315650;
-          *(v11 + 4) = a1;
-          *(v11 + 12) = 1024;
-          *(v11 + 14) = v5;
-          *(v11 + 18) = 2080;
-          *(v11 + 20) = v43;
+          v9 = _os_log_pack_size();
+          v10 = &v38 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v11 = __error();
+          v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "%s: nat64 prefix[%d] = %s", v38, v39, v40);
+          *v12 = v40;
+          *(v12 + 4) = v41;
+          *(v12 + 12) = 1024;
+          *(v12 + 14) = v6;
+          *(v12 + 18) = 2080;
+          *(v12 + 20) = v42;
           __SC_log_send();
         }
 
-        if (v5 <= 3)
+        if (v6 <= 3)
         {
-          *v6 = *a3;
-          *(v6 - 2) = *(a3 + 4);
-          *(v6 - 2) = *(a3 + 12);
+          *v8 = *a3;
+          *(v8 - 2) = *(a3 + 4);
+          *(v8 - 2) = *(a3 + 12);
         }
 
-        ++v5;
-        v6 += 5;
+        ++v6;
+        v8 += 5;
         a3 += 16;
       }
 
-      while (v41 != v5);
+      while (v7 != v6);
     }
   }
 
@@ -6989,12 +7068,12 @@ _DWORD *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v12 = _os_log_pack_size();
-      __chkstk_darwin(v12, v13, v14);
-      v15 = *__error();
-      v16 = _os_log_pack_fill();
+      v13 = _os_log_pack_size();
+      v14 = &v38 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "%s: nat64 prefix unavailable", v38);
       *v16 = 136315138;
-      *(v16 + 4) = a1;
+      *(v16 + 4) = v41;
       __SC_log_send();
     }
   }
@@ -7010,19 +7089,19 @@ _DWORD *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
       return result;
     }
 
-    v27 = _os_log_pack_size();
-    __chkstk_darwin(v27, v28, v29);
-    v30 = *__error();
-    v31 = _os_log_pack_fill();
-    v32 = __error();
-    v33 = strerror(*v32);
-    *v31 = 136315138;
-    *(v31 + 4) = v33;
+    v26 = _os_log_pack_size();
+    v27 = &v38 - ((__chkstk_darwin(v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = __error();
+    v29 = _os_log_pack_fill(v27, v26, *v28, &_mh_execute_header, "socket() failed: %s", v38);
+    v30 = __error();
+    v31 = strerror(*v30);
+    *v29 = 136315138;
+    *(v29 + 4) = v31;
     return __SC_log_send();
   }
 
   v18 = v17;
-  v19 = ioctl(v17, 0xC06069C2uLL, v45);
+  v19 = ioctl(v17, 0xC06069C2uLL, v44);
   close(v18);
   if (v19 != -1)
   {
@@ -7035,40 +7114,40 @@ _DWORD *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
     }
 
     v21 = _os_log_pack_size();
-    __chkstk_darwin(v21, v22, v23);
-    v24 = *__error();
-    v25 = _os_log_pack_fill();
-    v26 = "es";
-    if (v41 == 1)
+    v22 = &v38 - ((__chkstk_darwin(v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = __error();
+    v24 = _os_log_pack_fill(v22, v21, *v23, &_mh_execute_header, "%s: nat64 prefix%s updated", v38, v39);
+    v25 = "es";
+    if (HIDWORD(v39) == 1)
     {
-      v26 = "";
+      v25 = "";
     }
 
-    *v25 = 136315394;
-    *(v25 + 4) = a1;
-    *(v25 + 12) = 2080;
-    *(v25 + 14) = v26;
+    *v24 = 136315394;
+    *(v24 + 4) = v41;
+    *(v24 + 12) = 2080;
+    *(v24 + 14) = v25;
     return __SC_log_send();
   }
 
   result = __error();
-  if (v41 || *result != 2)
+  if (HIDWORD(v39) || *result != 2)
   {
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
     result = __SC_log_enabled();
     if (result)
     {
-      v34 = _os_log_pack_size();
-      __chkstk_darwin(v34, v35, v36);
-      v37 = *__error();
-      v38 = _os_log_pack_fill();
-      v39 = __error();
-      v40 = strerror(*v39);
-      *v38 = 136315394;
-      *(v38 + 4) = a1;
-      *(v38 + 12) = 2080;
-      *(v38 + 14) = v40;
+      v32 = _os_log_pack_size();
+      v33 = &v38 - ((__chkstk_darwin(v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34 = __error();
+      v35 = _os_log_pack_fill(v33, v32, *v34, &_mh_execute_header, "%s: ioctl(SIOCSIFNAT64PREFIX) failed: %s", v38, v39);
+      v36 = __error();
+      v37 = strerror(*v36);
+      *v35 = 136315394;
+      *(v35 + 4) = v41;
+      *(v35 + 12) = 2080;
+      *(v35 + 14) = v37;
       return __SC_log_send();
     }
   }
@@ -7076,38 +7155,38 @@ _DWORD *sub_100049AAC(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_10004A030(uint64_t a1)
+uint64_t sub_10004A030(uint64_t *a1)
 {
   sub_1000035EC();
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    v7 = *(a1 + 24);
-    *v6 = 136315394;
-    *(v6 + 4) = v7;
-    *(v6 + 12) = 2080;
-    *(v6 + 14) = "NAT64PrefixRequestInvalidate";
+    v3 = v11 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s: %s", v11[0], v11[1]);
+    v6 = a1[3];
+    *v5 = 136315394;
+    *(v5 + 4) = v6;
+    *(v5 + 12) = 2080;
+    *(v5 + 14) = "NAT64PrefixRequestInvalidate";
     __SC_log_send();
   }
 
   sub_10004A4B8(a1);
   result = sub_10004A5FC(a1);
-  v9 = *(a1 + 48);
-  if (v9)
+  v8 = *(a1 + 24);
+  if (v8)
   {
-    *(a1 + 48) = v9 & 0xFFFE;
-    v10 = *a1;
-    v11 = *(a1 + 8);
+    *(a1 + 24) = v8 & 0xFFFE;
+    v9 = *a1;
+    v10 = a1[1];
     if (*a1)
     {
-      *(v10 + 8) = v11;
+      *(v9 + 8) = v10;
     }
 
-    *v11 = v10;
+    *v10 = v9;
   }
 
   if (!qword_100081BA0)
@@ -7129,19 +7208,19 @@ void sub_10004A198(uint64_t a1)
     if (__SC_log_enabled())
     {
       v3 = _os_log_pack_size();
-      __chkstk_darwin(v3, v4, v5);
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      v8 = *(a1 + 24);
-      v9 = *(a1 + 44);
-      *v7 = 136315906;
-      *(v7 + 4) = v8;
-      *(v7 + 12) = 2080;
-      *(v7 + 14) = "NAT64PrefixRequestRelease";
-      *(v7 + 22) = 2048;
-      *(v7 + 24) = a1;
-      *(v7 + 32) = 1024;
-      *(v7 + 34) = v9;
+      v4 = &v20 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = __error();
+      v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "%s: %s %p %u", v20, v21, v22, v23);
+      v7 = *(a1 + 24);
+      v8 = *(a1 + 44);
+      *v6 = 136315906;
+      *(v6 + 4) = v7;
+      *(v6 + 12) = 2080;
+      *(v6 + 14) = "NAT64PrefixRequestRelease";
+      *(v6 + 22) = 2048;
+      *(v6 + 24) = a1;
+      *(v6 + 32) = 1024;
+      *(v6 + 34) = v8;
       __SC_log_send();
     }
 
@@ -7152,31 +7231,31 @@ void sub_10004A198(uint64_t a1)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v10 = _os_log_pack_size();
-        __chkstk_darwin(v10, v11, v12);
-        v13 = *__error();
-        v14 = _os_log_pack_fill();
-        v15 = *(a1 + 24);
-        *v14 = 136315650;
-        *(v14 + 4) = v15;
-        *(v14 + 12) = 2080;
-        *(v14 + 14) = "NAT64PrefixRequestRelease";
-        *(v14 + 22) = 2048;
-        *(v14 + 24) = a1;
+        v9 = _os_log_pack_size();
+        v10 = &v20 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v11 = __error();
+        v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "%s %s: deallocate %p", v20, v21, v22);
+        v13 = *(a1 + 24);
+        *v12 = 136315650;
+        *(v12 + 4) = v13;
+        *(v12 + 12) = 2080;
+        *(v12 + 14) = "NAT64PrefixRequestRelease";
+        *(v12 + 22) = 2048;
+        *(v12 + 24) = a1;
         __SC_log_send();
       }
 
-      v16 = *(a1 + 32);
-      if (v16)
+      v14 = *(a1 + 32);
+      if (v14)
       {
-        CFRelease(v16);
+        CFRelease(v14);
         *(a1 + 32) = 0;
       }
 
-      v17 = *(a1 + 24);
-      if (v17)
+      v15 = *(a1 + 24);
+      if (v15)
       {
-        CFAllocatorDeallocate(0, v17);
+        CFAllocatorDeallocate(0, v15);
       }
 
       free(a1);
@@ -7189,14 +7268,14 @@ void sub_10004A198(uint64_t a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v18 = _os_log_pack_size();
-      __chkstk_darwin(v18, v19, v20);
-      v21 = *__error();
-      v22 = _os_log_pack_fill();
-      *v22 = 136315394;
-      *(v22 + 4) = "NAT64PrefixRequestRelease";
-      *(v22 + 12) = 2048;
-      *(v22 + 14) = a1;
+      v16 = _os_log_pack_size();
+      v17 = &v20 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = __error();
+      v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "%s: retain count is zero %p", v20, v21);
+      *v19 = 136315394;
+      *(v19 + 4) = "NAT64PrefixRequestRelease";
+      *(v19 + 12) = 2048;
+      *(v19 + 14) = a1;
       __SC_log_send();
     }
   }
@@ -7211,18 +7290,17 @@ void sub_10004A4B8(uint64_t a1)
     if (__SC_log_enabled())
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      v7 = *(a1 + 24);
-      *v6 = 136315394;
-      *(v6 + 4) = v7;
-      *(v6 + 12) = 2080;
-      *(v6 + 14) = "NAT64PrefixRequestStopResolver";
+      v3 = v7 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s: %s", v7[0], v7[1]);
+      v6 = *(a1 + 24);
+      *v5 = 136315394;
+      *(v5 + 4) = v6;
+      *(v5 + 12) = 2080;
+      *(v5 + 14) = "NAT64PrefixRequestStopResolver";
       __SC_log_send();
     }
 
-    v8 = *(a1 + 16);
     nw_nat64_prefixes_resolver_cancel();
     nw_release(*(a1 + 16));
     *(a1 + 16) = 0;
@@ -7240,14 +7318,14 @@ uint64_t sub_10004A5FC(uint64_t result)
     if (result)
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      v7 = *(v1 + 24);
-      *v6 = 136315394;
-      *(v6 + 4) = v7;
-      *(v6 + 12) = 2080;
-      *(v6 + 14) = "NAT64PrefixRequestRemoveFromWaiting";
+      v3 = v7 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s %s: no longer waiting for DNS", v7[0], v7[1]);
+      v6 = *(v1 + 24);
+      *v5 = 136315394;
+      *(v5 + 4) = v6;
+      *(v5 + 12) = 2080;
+      *(v5 + 14) = "NAT64PrefixRequestRemoveFromWaiting";
       result = __SC_log_send();
     }
 
@@ -7271,16 +7349,16 @@ uint64_t sub_10004A738()
       if (result)
       {
         v2 = _os_log_pack_size();
-        __chkstk_darwin(v2, v3, v4);
-        v5 = *__error();
-        v6 = _os_log_pack_fill();
-        v7 = dword_10008169C;
-        *v6 = 136315650;
-        *(v6 + 4) = "monitor_dnsinfo_stop";
-        *(v6 + 12) = 1024;
-        *(v6 + 14) = v7;
-        *(v6 + 18) = 1024;
-        *(v6 + 20) = v1;
+        v3 = &v12 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v4 = __error();
+        v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s notify_cancel(token %d) failed %d", v12, v13, v14);
+        v6 = dword_10008169C;
+        *v5 = 136315650;
+        *(v5 + 4) = "monitor_dnsinfo_stop";
+        *(v5 + 12) = 1024;
+        *(v5 + 14) = v6;
+        *(v5 + 18) = 1024;
+        *(v5 + 20) = v1;
 LABEL_7:
         result = __SC_log_send();
       }
@@ -7292,15 +7370,15 @@ LABEL_7:
       result = __SC_log_enabled();
       if (result)
       {
-        v8 = _os_log_pack_size();
-        __chkstk_darwin(v8, v9, v10);
-        v11 = *__error();
-        v12 = _os_log_pack_fill();
-        v13 = dword_10008169C;
-        *v12 = 136315394;
-        *(v12 + 4) = "monitor_dnsinfo_stop";
-        *(v12 + 12) = 1024;
-        *(v12 + 14) = v13;
+        v7 = _os_log_pack_size();
+        v8 = &v12 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v9 = __error();
+        v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "%s notify_cancel(token %d) success", v12, v13);
+        v11 = dword_10008169C;
+        *v10 = 136315394;
+        *(v10 + 4) = "monitor_dnsinfo_stop";
+        *(v10 + 12) = 1024;
+        *(v10 + 14) = v11;
         goto LABEL_7;
       }
     }
@@ -7320,12 +7398,12 @@ void *sub_10004A948(const void *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v14 = _os_log_pack_size();
-      __chkstk_darwin(v14, v15, v16);
-      v17 = *__error();
-      v18 = _os_log_pack_fill();
-      *v18 = 138412290;
-      *(v18 + 4) = a1;
+      v13 = _os_log_pack_size();
+      v14 = &v22 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "%@: could not convert interface name");
+      *v16 = 138412290;
+      *(v16 + 4) = a1;
       __SC_log_send();
     }
 
@@ -7340,12 +7418,12 @@ void *sub_10004A948(const void *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v19 = _os_log_pack_size();
-      __chkstk_darwin(v19, v20, v21);
-      v22 = *__error();
-      v23 = _os_log_pack_fill();
-      *v23 = 136315138;
-      *(v23 + 4) = v3;
+      v17 = _os_log_pack_size();
+      v18 = &v22 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v19 = __error();
+      v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "%s: interface does not exist", v22);
+      *v20 = 136315138;
+      *(v20 + 4) = v3;
       __SC_log_send();
     }
 
@@ -7360,15 +7438,15 @@ void *sub_10004A948(const void *a1)
   if (__SC_log_enabled())
   {
     v7 = _os_log_pack_size();
-    __chkstk_darwin(v7, v8, v9);
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    *v11 = 138412802;
-    *(v11 + 4) = a1;
-    *(v11 + 12) = 2080;
-    *(v11 + 14) = "NAT64PrefixRequestCreate";
-    *(v11 + 22) = 2048;
-    *(v11 + 24) = v6;
+    v8 = &v22 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "%@: %s %p");
+    *v10 = 138412802;
+    *(v10 + 4) = a1;
+    *(v10 + 12) = 2080;
+    *(v10 + 14) = "NAT64PrefixRequestCreate";
+    *(v10 + 22) = 2048;
+    *(v10 + 24) = v6;
     __SC_log_send();
   }
 
@@ -7376,15 +7454,15 @@ void *sub_10004A948(const void *a1)
   *(v6 + 1) = 0u;
   *(v6 + 2) = 0u;
   *v6 = 0u;
-  v12 = CFRetain(a1);
+  v11 = CFRetain(a1);
   v6[3] = v3;
-  v6[4] = v12;
+  v6[4] = v11;
   *(v6 + 10) = v5;
-  v13 = qword_100081BA0;
+  v12 = qword_100081BA0;
   *v6 = qword_100081BA0;
-  if (v13)
+  if (v12)
   {
-    *(v13 + 8) = v6;
+    *(v12 + 8) = v6;
   }
 
   qword_100081BA0 = v6;
@@ -7410,14 +7488,14 @@ uint64_t sub_10004ACBC(uint64_t *a1)
     if (__SC_log_enabled())
     {
       v3 = _os_log_pack_size();
-      __chkstk_darwin(v3, v4, v5);
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      v8 = *(v1 + 24);
-      *v7 = 136315394;
-      *(v7 + 4) = "nat64_get_dns_config";
-      *(v7 + 12) = 2048;
-      *(v7 + 14) = v8;
+      v4 = v13 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v5 = __error();
+      v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "%s: generation %llu", v13[0], v13[1]);
+      v7 = *(v1 + 24);
+      *v6 = 136315394;
+      *(v6 + 4) = "nat64_get_dns_config";
+      *(v6 + 12) = 2048;
+      *(v6 + 14) = v7;
       __SC_log_send();
     }
   }
@@ -7428,12 +7506,12 @@ uint64_t sub_10004ACBC(uint64_t *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
-      *v14 = 136315138;
-      *(v14 + 4) = "nat64_get_dns_config";
+      v9 = _os_log_pack_size();
+      v10 = v13 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = __error();
+      v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "%s: dns_configuration_copy() returned NULL", v13[0]);
+      *v12 = 136315138;
+      *(v12 + 4) = "nat64_get_dns_config";
       __SC_log_send();
     }
 
@@ -7450,14 +7528,14 @@ uint64_t sub_10004AEC0(uint64_t a1, uint64_t a2)
   if (__SC_log_enabled())
   {
     v4 = _os_log_pack_size();
-    __chkstk_darwin(v4, v5, v6);
-    v7 = *__error();
-    v8 = _os_log_pack_fill();
-    v9 = *(a1 + 24);
-    *v8 = 136315394;
-    *(v8 + 4) = v9;
-    *(v8 + 12) = 2080;
-    *(v8 + 14) = "NAT64PrefixRequestCheckStart";
+    v5 = &v35 - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = __error();
+    v7 = _os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "%s: %s", v35, v36);
+    v8 = *(a1 + 24);
+    *v7 = 136315394;
+    *(v7 + 4) = v8;
+    *(v7 + 12) = 2080;
+    *(v7 + 14) = "NAT64PrefixRequestCheckStart";
     __SC_log_send();
   }
 
@@ -7468,15 +7546,15 @@ uint64_t sub_10004AEC0(uint64_t a1, uint64_t a2)
     result = __SC_log_enabled();
     if (result)
     {
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      v16 = *(a1 + 24);
-      *v15 = 136315394;
-      *(v15 + 4) = v16;
-      *(v15 + 12) = 2080;
-      *(v15 + 14) = "NAT64PrefixRequestCheckStart";
+      v10 = _os_log_pack_size();
+      v11 = &v35 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "%s %s: resolver is already active", v35, v36);
+      v14 = *(a1 + 24);
+      *v13 = 136315394;
+      *(v13 + 4) = v14;
+      *(v13 + 12) = 2080;
+      *(v13 + 14) = "NAT64PrefixRequestCheckStart";
       return __SC_log_send();
     }
   }
@@ -7485,74 +7563,74 @@ uint64_t sub_10004AEC0(uint64_t a1, uint64_t a2)
   {
     if (a2)
     {
-      v17 = *(a2 + 12);
-      if (v17)
+      v15 = *(a2 + 12);
+      if (v15)
       {
-        v18 = 0;
-        if (v17 >= 1)
+        v16 = 0;
+        if (v15 >= 1)
         {
-          v19 = *(a2 + 16);
-          if (v19)
+          v17 = *(a2 + 16);
+          if (v17)
           {
-            v20 = *(a1 + 40);
-            v21 = v17 - 1;
+            v18 = *(a1 + 40);
+            v19 = v15 - 1;
             do
             {
-              v22 = *v19++;
-              v23 = *(v22 + 64);
-              v18 = v23 == v20;
+              v20 = *v17++;
+              v21 = *(v20 + 64);
+              v16 = v21 == v18;
             }
 
-            while (v23 != v20 && v21-- != 0);
+            while (v21 != v18 && v19-- != 0);
           }
         }
       }
 
       else
       {
-        v18 = 0;
+        v16 = 0;
       }
 
-      v25 = *(a2 + 24);
+      v23 = *(a2 + 24);
     }
 
     else
     {
-      v18 = 0;
-      v25 = 0;
+      v16 = 0;
+      v23 = 0;
     }
 
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v26 = _os_log_pack_size();
-      __chkstk_darwin(v26, v27, v28);
-      v29 = *__error();
-      v30 = _os_log_pack_fill();
-      v31 = *(a1 + 24);
-      *v30 = 136315906;
-      *(v30 + 4) = v31;
-      if (v18)
+      v24 = _os_log_pack_size();
+      v25 = &v35 - ((__chkstk_darwin(v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = __error();
+      v27 = _os_log_pack_fill(v25, v24, *v26, &_mh_execute_header, "%s: %s: DNS is %savailable (gen %llu)", v35, v36, v37, v38);
+      v28 = *(a1 + 24);
+      *v27 = 136315906;
+      *(v27 + 4) = v28;
+      if (v16)
       {
-        v32 = "";
+        v29 = "";
       }
 
       else
       {
-        v32 = "not ";
+        v29 = "not ";
       }
 
-      *(v30 + 12) = 2080;
-      *(v30 + 14) = "NAT64PrefixRequestCheckStart";
-      *(v30 + 22) = 2080;
-      *(v30 + 24) = v32;
-      *(v30 + 32) = 2048;
-      *(v30 + 34) = v25;
+      *(v27 + 12) = 2080;
+      *(v27 + 14) = "NAT64PrefixRequestCheckStart";
+      *(v27 + 22) = 2080;
+      *(v27 + 24) = v29;
+      *(v27 + 32) = 2048;
+      *(v27 + 34) = v23;
       __SC_log_send();
     }
 
-    if (v18)
+    if (v16)
     {
       return sub_10004B818(a1);
     }
@@ -7563,15 +7641,15 @@ uint64_t sub_10004AEC0(uint64_t a1, uint64_t a2)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v33 = _os_log_pack_size();
-        __chkstk_darwin(v33, v34, v35);
-        v36 = *__error();
-        v37 = _os_log_pack_fill();
-        v38 = *(a1 + 24);
-        *v37 = 136315394;
-        *(v37 + 4) = v38;
-        *(v37 + 12) = 2080;
-        *(v37 + 14) = "NAT64PrefixRequestCheckStart";
+        v30 = _os_log_pack_size();
+        v31 = &v35 - ((__chkstk_darwin(v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v32 = __error();
+        v33 = _os_log_pack_fill(v31, v30, *v32, &_mh_execute_header, "%s: %s: waiting for DNS before starting resolver", v35, v36);
+        v34 = *(a1 + 24);
+        *v33 = 136315394;
+        *(v33 + 4) = v34;
+        *(v33 + 12) = 2080;
+        *(v33 + 14) = "NAT64PrefixRequestCheckStart";
         __SC_log_send();
       }
 
@@ -7591,19 +7669,19 @@ uint64_t sub_10004B2D4(uint64_t a1)
   if (result)
   {
     v3 = _os_log_pack_size();
-    __chkstk_darwin(v3, v4, v5);
-    v6 = *__error();
-    v7 = _os_log_pack_fill();
-    v8 = *(a1 + 24);
-    v9 = *(a1 + 44);
-    *v7 = 136315906;
-    *(v7 + 4) = v8;
-    *(v7 + 12) = 2080;
-    *(v7 + 14) = "NAT64PrefixRequestRetain";
-    *(v7 + 22) = 2048;
-    *(v7 + 24) = a1;
-    *(v7 + 32) = 1024;
-    *(v7 + 34) = v9;
+    v4 = v9 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v5 = __error();
+    v6 = _os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "%s: %s %p %u", v9[0], v9[1], v9[2], v10);
+    v7 = *(a1 + 24);
+    v8 = *(a1 + 44);
+    *v6 = 136315906;
+    *(v6 + 4) = v7;
+    *(v6 + 12) = 2080;
+    *(v6 + 14) = "NAT64PrefixRequestRetain";
+    *(v6 + 22) = 2048;
+    *(v6 + 24) = a1;
+    *(v6 + 32) = 1024;
+    *(v6 + 34) = v8;
     return __SC_log_send();
   }
 
@@ -7615,8 +7693,8 @@ const char *sub_10004B424(NSObject *a1)
   result = dns_configuration_notify_key();
   if (dword_10008169C == -1)
   {
-    out_token = 0;
-    v3 = notify_register_dispatch(result, &out_token, a1, &stru_10007B000);
+    HIDWORD(v13) = 0;
+    v3 = notify_register_dispatch(result, &v13 + 1, a1, &stru_10007B000);
     sub_1000035EC();
     if (v3)
     {
@@ -7625,13 +7703,13 @@ const char *sub_10004B424(NSObject *a1)
       if (result)
       {
         v4 = _os_log_pack_size();
-        __chkstk_darwin(v4, v5, v6);
-        v7 = *__error();
-        v8 = _os_log_pack_fill();
-        *v8 = 136315394;
-        *(v8 + 4) = "monitor_dnsinfo_start";
-        *(v8 + 12) = 1024;
-        *(v8 + 14) = v3;
+        v5 = &v13 - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v6 = __error();
+        v7 = _os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "%s notify_register_dispatch failed %d", v13, v14);
+        *v7 = 136315394;
+        *(v7 + 4) = "monitor_dnsinfo_start";
+        *(v7 + 12) = 1024;
+        *(v7 + 14) = v3;
         return __SC_log_send();
       }
     }
@@ -7642,19 +7720,19 @@ const char *sub_10004B424(NSObject *a1)
       result = __SC_log_enabled();
       if (result)
       {
-        v9 = _os_log_pack_size();
-        __chkstk_darwin(v9, v10, v11);
-        v12 = *__error();
-        v13 = _os_log_pack_fill();
-        v14 = out_token;
-        *v13 = 136315394;
-        *(v13 + 4) = "monitor_dnsinfo_start";
-        *(v13 + 12) = 1024;
-        *(v13 + 14) = v14;
+        v8 = _os_log_pack_size();
+        v9 = &v13 - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v10 = __error();
+        v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "%s notify_register_dispatch success (token %d)", v13, v14);
+        v12 = HIDWORD(v13);
+        *v11 = 136315394;
+        *(v11 + 4) = "monitor_dnsinfo_start";
+        *(v11 + 12) = 1024;
+        *(v11 + 14) = v12;
         result = __SC_log_send();
       }
 
-      dword_10008169C = out_token;
+      dword_10008169C = HIDWORD(v13);
     }
   }
 
@@ -7665,7 +7743,7 @@ void sub_10004B648(id a1, int a2)
 {
   if (dword_10008169C == a2)
   {
-    v14 = 0;
+    v13 = 0;
     v2 = qword_100081BA0;
     if (qword_100081BA0)
     {
@@ -7674,17 +7752,17 @@ void sub_10004B648(id a1, int a2)
       {
         if ((*(v2 + 48) & 2) != 0)
         {
-          sub_10004ACBC(&v14);
-          v3 = v14;
-          if (!v14)
+          sub_10004ACBC(&v13);
+          v3 = v13;
+          if (!v13)
           {
             return;
           }
 
-          v4 = *(v14 + 12);
+          v4 = *(v13 + 3);
           if (v4)
           {
-            v5 = *(v14 + 16);
+            v5 = *(v13 + 2);
             if (v4 >= 1 && v5 != 0)
             {
               while (*(*v5 + 64) != *(v2 + 40))
@@ -7720,16 +7798,16 @@ LABEL_15:
     if (__SC_log_enabled())
     {
       v8 = _os_log_pack_size();
-      __chkstk_darwin(v8, v9, v10);
-      v11 = *__error();
-      v12 = _os_log_pack_fill();
-      v13 = dword_10008169C;
-      *v12 = 136315650;
-      *(v12 + 4) = "monitor_dnsinfo_start_block_invoke";
-      *(v12 + 12) = 1024;
-      *(v12 + 14) = a2;
-      *(v12 + 18) = 1024;
-      *(v12 + 20) = v13;
+      v9 = &v13 - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = __error();
+      v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "%s token %d != expected token %d, ignoring", v13, v14, v15);
+      v12 = dword_10008169C;
+      *v11 = 136315650;
+      *(v11 + 4) = "monitor_dnsinfo_start_block_invoke";
+      *(v11 + 12) = 1024;
+      *(v11 + 14) = a2;
+      *(v11 + 18) = 1024;
+      *(v11 + 20) = v12;
       __SC_log_send();
     }
   }
@@ -7742,14 +7820,14 @@ uint64_t sub_10004B818(uint64_t a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    v7 = *(a1 + 24);
-    *v6 = 136315394;
-    *(v6 + 4) = v7;
-    *(v6 + 12) = 2080;
-    *(v6 + 14) = "NAT64PrefixRequestStart";
+    v3 = &v10 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s: %s", v10, v11);
+    v6 = *(a1 + 24);
+    *v5 = 136315394;
+    *(v5 + 4) = v6;
+    *(v5 + 12) = 2080;
+    *(v5 + 14) = "NAT64PrefixRequestStart";
     __SC_log_send();
   }
 
@@ -7757,9 +7835,20 @@ uint64_t sub_10004B818(uint64_t a1)
   result = sub_10004BA3C(*(a1 + 40));
   if (result)
   {
-    v9 = result;
+    v8 = result;
     sub_10004B2D4(a1);
-    CFAbsoluteTimeGetCurrent();
+    v16 = _NSConcreteStackBlock;
+    v17 = 0x40000000;
+    v18 = sub_10004BBBC;
+    v19 = &unk_10007B020;
+    v20 = a1;
+    Current = CFAbsoluteTimeGetCurrent();
+    v10 = _NSConcreteStackBlock;
+    v11 = 0x40000000;
+    v12 = sub_10004BCC8;
+    v13 = &unk_10007B040;
+    v14 = a1;
+    v15 = Current;
     nw_nat64_prefixes_resolver_set_cancel_handler();
     if (qword_100081BA8 != -1)
     {
@@ -7768,14 +7857,15 @@ uint64_t sub_10004B818(uint64_t a1)
 
     nw_nat64_prefixes_resolver_set_update_handler();
     result = nw_nat64_prefixes_resolver_start();
-    *(a1 + 16) = v9;
+    *(a1 + 16) = v8;
   }
 
   return result;
 }
 
-uint64_t sub_10004BA3C(int a1)
+uint64_t sub_10004BA3C(uint64_t a1)
 {
+  v1 = a1;
   v2 = nw_parameters_create();
   v3 = nw_interface_create_with_index();
   if (v3)
@@ -7796,11 +7886,11 @@ uint64_t sub_10004BA3C(int a1)
     if (__SC_log_enabled())
     {
       v7 = _os_log_pack_size();
-      __chkstk_darwin(v7, v8, v9);
-      v10 = *__error();
-      v11 = _os_log_pack_fill();
-      *v11 = 67109120;
-      v11[1] = a1;
+      v8 = &v11 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v9 = __error();
+      v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "nw_interface_create_with_index(%u) failed", v11);
+      *v10 = 67109120;
+      v10[1] = v1;
       __SC_log_send();
     }
 
@@ -7814,12 +7904,12 @@ void sub_10004BBBC(uint64_t a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    _os_log_pack_size();
-    v2 = *__error();
-    v3 = _os_log_pack_fill();
-    v4 = *(*(a1 + 32) + 24);
-    *v3 = 136315138;
-    *(v3 + 4) = v4;
+    v2 = _os_log_pack_size();
+    v3 = __error();
+    v4 = _os_log_pack_fill(&v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0), v2, *v3, &_mh_execute_header, "%s: NAT64 resolver cancelled", v6);
+    v5 = *(*(a1 + 32) + 24);
+    *v4 = 136315138;
+    *(v4 + 4) = v5;
     __SC_log_send();
   }
 
@@ -7839,15 +7929,15 @@ void sub_10004BCC8(uint64_t a1, unsigned int a2, uint64_t a3)
     }
 
     v5 = _os_log_pack_size();
-    __chkstk_darwin(v5, v6, v7);
-    v8 = *__error();
-    v9 = _os_log_pack_fill();
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 24);
-    *v9 = 136315394;
-    *(v9 + 4) = v11;
-    *(v9 + 12) = 2048;
-    *(v9 + 14) = v10;
+    v6 = v19 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = __error();
+    v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "%s: NAT64 request is stale %p", v19[0], v19[1]);
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 24);
+    *v8 = 136315394;
+    *(v8 + 4) = v10;
+    *(v8 + 12) = 2048;
+    *(v8 + 14) = v9;
 LABEL_10:
     __SC_log_send();
     return;
@@ -7862,22 +7952,22 @@ LABEL_10:
       return;
     }
 
-    v15 = _os_log_pack_size();
-    __chkstk_darwin(v15, v16, v17);
-    v18 = *__error();
-    v19 = _os_log_pack_fill();
-    v20 = *(*(a1 + 32) + 24);
-    *v19 = 136315138;
-    *(v19 + 4) = v20;
+    v14 = _os_log_pack_size();
+    v15 = v19 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v14, *v16, &_mh_execute_header, "%s: NAT64 no prefixes", v19[0]);
+    v18 = *(*(a1 + 32) + 24);
+    *v17 = 136315138;
+    *(v17 + 4) = v18;
     goto LABEL_10;
   }
 
   sub_100049AAC(*(v4 + 24), a2, a3);
   sub_10004BF18(*(*(a1 + 32) + 32), a2, a3, *(a1 + 40));
   sub_10004A030(*(a1 + 32));
-  v14 = *(a1 + 32);
+  v13 = *(a1 + 32);
 
-  sub_10004A198(v14);
+  sub_10004A198(v13);
 }
 
 void sub_10004BF18(CFStringRef ifname, unsigned int a2, uint64_t a3, CFAbsoluteTime a4)
@@ -7897,9 +7987,9 @@ void sub_10004BF18(CFStringRef ifname, unsigned int a2, uint64_t a3, CFAbsoluteT
       v11 = a2;
       do
       {
-        v24 = 0;
+        v23 = 0;
+        v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         *cStr = 0u;
         nw_nat64_write_prefix_to_string();
         v12 = CFStringCreateWithCString(0, cStr, 0x600u);
@@ -7927,13 +8017,13 @@ void sub_10004BF18(CFStringRef ifname, unsigned int a2, uint64_t a3, CFAbsoluteT
     if (__SC_log_enabled())
     {
       v16 = _os_log_pack_size();
-      __chkstk_darwin(v16, v17, v18);
-      v19 = *__error();
-      v20 = _os_log_pack_fill();
-      *v20 = 138412546;
-      *(v20 + 4) = ifname;
-      *(v20 + 12) = 2112;
-      *(v20 + 14) = Mutable;
+      v17 = &cStr[-((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v18 = __error();
+      v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "%@: PLAT discovery complete %@");
+      *v19 = 138412546;
+      *(v19 + 4) = ifname;
+      *(v19 + 12) = 2112;
+      *(v19 + 14) = Mutable;
       __SC_log_send();
     }
 
@@ -7954,14 +8044,14 @@ uint64_t sub_10004C1C0(uint64_t result)
     if (result)
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      v7 = *(v1 + 24);
-      *v6 = 136315394;
-      *(v6 + 4) = v7;
-      *(v6 + 12) = 2080;
-      *(v6 + 14) = "NAT64PrefixRequestAddToWaiting";
+      v3 = v7 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "%s %s: waiting for DNS", v7[0], v7[1]);
+      v6 = *(v1 + 24);
+      *v5 = 136315394;
+      *(v5 + 4) = v6;
+      *(v5 + 12) = 2080;
+      *(v5 + 14) = "NAT64PrefixRequestAddToWaiting";
       result = __SC_log_send();
     }
 
@@ -7980,8 +8070,8 @@ void sub_10004C444(id a1)
 
 void sub_10004EA44(int a1)
 {
-  v7 = a1;
-  if (sysctlbyname("net.inet.mptcp.allow_aggregate", 0, 0, &v7, 4uLL) == -1)
+  v11 = a1;
+  if (sysctlbyname("net.inet.mptcp.allow_aggregate", 0, 0, &v11, 4uLL) == -1)
   {
     if (*__error() == 2)
     {
@@ -7989,39 +8079,53 @@ void sub_10004EA44(int a1)
     }
 
     v1 = sub_1000035EC();
-    v4 = _SC_syslog_os_log_mapping();
+    v6 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v24 = 0u;
       v25 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      v10 = 0u;
-      os_log_type_enabled(v1, v4);
-      v1 = v1;
-      v5 = __error();
-      v6 = strerror(*v5);
-      v8 = 136315138;
-      v9 = v6;
-      v3 = _os_log_send_and_compose_impl();
-
-LABEL_7:
-      __SC_log_send2();
-      if (v3 != &v10)
+      if (_sc_log <= 0)
       {
-        free(v3);
+        v7 = 2;
       }
+
+      else
+      {
+        v7 = 3;
+      }
+
+      if (os_log_type_enabled(v1, v6))
+      {
+        v8 = v7;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v1 = v1;
+      v9 = __error();
+      v10 = strerror(*v9);
+      v12 = 136315138;
+      v13 = v10;
+      v5 = _os_log_send_and_compose_impl(v8, 0, &v14, 256, &_mh_execute_header, v1, v6, "sysctlbyname(net.inet.mptcp.allow_aggregate) failed: %s", &v12);
+
+      goto LABEL_19;
     }
   }
 
@@ -8031,36 +8135,61 @@ LABEL_7:
     v2 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v24 = 0u;
       v25 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
       v17 = 0u;
+      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      v10 = 0u;
-      os_log_type_enabled(v1, v2);
-      v8 = 67109120;
-      LODWORD(v9) = v7;
-      v3 = _os_log_send_and_compose_impl();
-      goto LABEL_7;
+      if (_sc_log <= 0)
+      {
+        v3 = 2;
+      }
+
+      else
+      {
+        v3 = 3;
+      }
+
+      if (os_log_type_enabled(v1, v2))
+      {
+        v4 = v3;
+      }
+
+      else
+      {
+        v4 = 2;
+      }
+
+      v12 = 67109120;
+      LODWORD(v13) = v11;
+      v5 = _os_log_send_and_compose_impl(v4, 0, &v14, 256, &_mh_execute_header, v1, v2, "Transport Converter Proxy: sysctl net.inet.mptcp.allow_aggregate=%d", &v12);
+LABEL_19:
+      __SC_log_send2();
+      if (v5 != &v14)
+      {
+        free(v5);
+      }
     }
   }
 }
 
-void sub_10004FE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_10004FE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8071,57 +8200,60 @@ uint64_t sub_10004FECC(uint64_t a1, uint64_t a2, unint64_t a3)
     v6 = 0;
     do
     {
+      v55 = 0u;
+      memset(v56, 0, sizeof(v56));
+      v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       v47 = 0u;
-      memset(v48, 0, sizeof(v48));
+      v48 = 0u;
       v45 = 0u;
       v46 = 0u;
+      v7 = *(a2 + v6);
       v43 = 0u;
       v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v7 = *(a2 + v6);
-      v35 = 0u;
-      v36 = 0u;
       v6 += 1 + v7;
-      v34 = 0u;
+      v42 = 0u;
       if (v6 > a3)
       {
         break;
       }
 
       __memcpy_chk();
-      if (v34 == 7630692)
+      if (v42 == 7630692)
       {
-        v12 = sub_1000035EC();
-        v13 = _SC_syslog_os_log_mapping();
+        v14 = sub_1000035EC();
+        v15 = _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
+          v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           v32 = 0u;
           v33 = 0u;
           v30 = 0u;
           v31 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
-          v21 = 0u;
-          v18 = 0uLL;
-          v19 = 0uLL;
-          os_log_type_enabled(v12, v13);
-          v14 = _os_log_send_and_compose_impl();
+          v16 = _sc_log <= 0 ? 2 : 3;
+          v26 = 0uLL;
+          v27 = 0uLL;
+          v17 = os_log_type_enabled(v14, v15) ? v16 : 2;
+          v25[0] = 0;
+          LODWORD(v24) = 2;
+          v18 = _os_log_send_and_compose_impl(v17, 0, &v26, 256, &_mh_execute_header, v14, v15, "DNR is configuring DoT resolver", v25, v24);
           __SC_log_send2();
-          if (v14 != &v18)
+          if (v18 != &v26)
           {
-            free(v14);
+            free(v18);
           }
         }
 
@@ -8130,66 +8262,90 @@ uint64_t sub_10004FECC(uint64_t a1, uint64_t a2, unint64_t a3)
 
       else
       {
-        v8 = v34 ^ 0x3268 | BYTE2(v34);
+        v8 = v42 ^ 0x3268 | BYTE2(v42);
         v9 = sub_1000035EC();
         if (v8)
         {
           v10 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
+            v40 = 0u;
+            v41 = 0u;
+            v38 = 0u;
+            v39 = 0u;
+            v36 = 0u;
+            v37 = 0u;
+            v34 = 0u;
+            v35 = 0u;
             v32 = 0u;
             v33 = 0u;
             v30 = 0u;
             v31 = 0u;
             v28 = 0u;
             v29 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v24 = 0u;
-            v25 = 0u;
-            v22 = 0u;
-            v23 = 0u;
-            v20 = 0u;
-            v21 = 0u;
-            v18 = 0uLL;
-            v19 = 0uLL;
-            os_log_type_enabled(v9, v10);
-            v11 = _os_log_send_and_compose_impl();
-            __SC_log_send2();
-            if (v11 != &v18)
+            if (_sc_log <= 0)
             {
-              free(v11);
+              v11 = 2;
+            }
+
+            else
+            {
+              v11 = 3;
+            }
+
+            v26 = 0uLL;
+            v27 = 0uLL;
+            if (os_log_type_enabled(v9, v10))
+            {
+              v12 = v11;
+            }
+
+            else
+            {
+              v12 = 2;
+            }
+
+            v25[0] = 0;
+            LODWORD(v24) = 2;
+            v13 = _os_log_send_and_compose_impl(v12, 0, &v26, 256, &_mh_execute_header, v9, v10, "DNR ALPN value unsupported", v25, v24);
+            __SC_log_send2();
+            if (v13 != &v26)
+            {
+              free(v13);
             }
           }
         }
 
         else
         {
-          v15 = _SC_syslog_os_log_mapping();
+          v19 = _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
+            v40 = 0u;
+            v41 = 0u;
+            v38 = 0u;
+            v39 = 0u;
+            v36 = 0u;
+            v37 = 0u;
+            v34 = 0u;
+            v35 = 0u;
             v32 = 0u;
             v33 = 0u;
             v30 = 0u;
             v31 = 0u;
             v28 = 0u;
             v29 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v24 = 0u;
-            v25 = 0u;
-            v22 = 0u;
-            v23 = 0u;
-            v20 = 0u;
-            v21 = 0u;
-            v18 = 0uLL;
-            v19 = 0uLL;
-            os_log_type_enabled(v9, v15);
-            v16 = _os_log_send_and_compose_impl();
+            v20 = _sc_log <= 0 ? 2 : 3;
+            v26 = 0uLL;
+            v27 = 0uLL;
+            v21 = os_log_type_enabled(v9, v19) ? v20 : 2;
+            v25[0] = 0;
+            LODWORD(v24) = 2;
+            v22 = _os_log_send_and_compose_impl(v21, 0, &v26, 256, &_mh_execute_header, v9, v19, "DNR is configuring DoH resolver", v25, v24);
             __SC_log_send2();
-            if (v16 != &v18)
+            if (v22 != &v26)
             {
-              free(v16);
+              free(v22);
             }
           }
 
@@ -8232,6 +8388,12 @@ void process_AgentMonitor()
     v1 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
       v21 = 0u;
@@ -8242,36 +8404,38 @@ void process_AgentMonitor()
       v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      v9 = 0u;
-      v10 = 0u;
-      os_log_type_enabled(v0, v1);
-      v2 = _os_log_send_and_compose_impl();
+      v2 = _sc_log <= 0 ? 2 : 3;
+      v3 = os_log_type_enabled(v0, v1) ? v2 : 2;
+      v14[0] = 0;
+      v4 = _os_log_send_and_compose_impl(v3, 0, &v15, 256, &_mh_execute_header, v0, v1, "Triggering AgentMonitor", v14, 2);
       __SC_log_send2();
-      if (v2 != &v9)
+      if (v4 != &v15)
       {
-        free(v2);
+        free(v4);
       }
     }
 
-    v3 = objc_autoreleasePoolPush();
-    v4 = +[AgentController sharedController];
-    v5 = v4;
-    if (v4)
+    v5 = objc_autoreleasePoolPush();
+    v6 = +[AgentController sharedController];
+    v7 = v6;
+    if (v6)
     {
-      v6 = [v4 controllerQueue];
-      dispatch_sync(v6, &stru_10007B0E8);
+      v8 = [v6 controllerQueue];
+      dispatch_sync(v8, &stru_10007B0E8);
     }
 
     else
     {
-      v6 = sub_1000035EC();
-      v7 = _SC_syslog_os_log_mapping();
+      v8 = sub_1000035EC();
+      v9 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
         v21 = 0u;
@@ -8282,23 +8446,38 @@ void process_AgentMonitor()
         v18 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v13 = 0u;
-        v14 = 0u;
-        v11 = 0u;
-        v12 = 0u;
-        v9 = 0u;
-        v10 = 0u;
-        os_log_type_enabled(v6, v7);
-        v8 = _os_log_send_and_compose_impl();
-        __SC_log_send2();
-        if (v8 != &v9)
+        if (_sc_log <= 0)
         {
-          free(v8);
+          v10 = 2;
+        }
+
+        else
+        {
+          v10 = 3;
+        }
+
+        if (os_log_type_enabled(v8, v9))
+        {
+          v11 = v10;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        v14[0] = 0;
+        LODWORD(v13) = 2;
+        v12 = _os_log_send_and_compose_impl(v11, 0, &v15, 256, &_mh_execute_header, v8, v9, "AgentController could not be initialized", v14, v13);
+        __SC_log_send2();
+        if (v12 != &v15)
+        {
+          free(v12);
         }
       }
     }
 
-    objc_autoreleasePoolPop(v3);
+    objc_autoreleasePoolPop(v5);
   }
 }
 
@@ -8319,6 +8498,12 @@ void process_AgentMonitor_DNS()
     v1 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
       v21 = 0u;
@@ -8329,36 +8514,38 @@ void process_AgentMonitor_DNS()
       v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      v9 = 0u;
-      v10 = 0u;
-      os_log_type_enabled(v0, v1);
-      v2 = _os_log_send_and_compose_impl();
+      v2 = _sc_log <= 0 ? 2 : 3;
+      v3 = os_log_type_enabled(v0, v1) ? v2 : 2;
+      v14[0] = 0;
+      v4 = _os_log_send_and_compose_impl(v3, 0, &v15, 256, &_mh_execute_header, v0, v1, "Triggering AgentMonitor for DNS", v14, 2);
       __SC_log_send2();
-      if (v2 != &v9)
+      if (v4 != &v15)
       {
-        free(v2);
+        free(v4);
       }
     }
 
-    v3 = objc_autoreleasePoolPush();
-    v4 = +[AgentController sharedController];
-    v5 = v4;
-    if (v4)
+    v5 = objc_autoreleasePoolPush();
+    v6 = +[AgentController sharedController];
+    v7 = v6;
+    if (v6)
     {
-      v6 = [v4 controllerQueue];
-      dispatch_sync(v6, &stru_10007B108);
+      v8 = [v6 controllerQueue];
+      dispatch_sync(v8, &stru_10007B108);
     }
 
     else
     {
-      v6 = sub_1000035EC();
-      v7 = _SC_syslog_os_log_mapping();
+      v8 = sub_1000035EC();
+      v9 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
         v21 = 0u;
@@ -8369,23 +8556,38 @@ void process_AgentMonitor_DNS()
         v18 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v13 = 0u;
-        v14 = 0u;
-        v11 = 0u;
-        v12 = 0u;
-        v9 = 0u;
-        v10 = 0u;
-        os_log_type_enabled(v6, v7);
-        v8 = _os_log_send_and_compose_impl();
-        __SC_log_send2();
-        if (v8 != &v9)
+        if (_sc_log <= 0)
         {
-          free(v8);
+          v10 = 2;
+        }
+
+        else
+        {
+          v10 = 3;
+        }
+
+        if (os_log_type_enabled(v8, v9))
+        {
+          v11 = v10;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        v14[0] = 0;
+        LODWORD(v13) = 2;
+        v12 = _os_log_send_and_compose_impl(v11, 0, &v15, 256, &_mh_execute_header, v8, v9, "AgentController could not be initialized", v14, v13);
+        __SC_log_send2();
+        if (v12 != &v15)
+        {
+          free(v12);
         }
       }
     }
 
-    objc_autoreleasePoolPop(v3);
+    objc_autoreleasePoolPop(v5);
   }
 }
 
@@ -8403,6 +8605,12 @@ void process_AgentMonitor_Proxy()
     v1 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
       v21 = 0u;
@@ -8413,36 +8621,38 @@ void process_AgentMonitor_Proxy()
       v18 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v11 = 0u;
-      v12 = 0u;
-      v9 = 0u;
-      v10 = 0u;
-      os_log_type_enabled(v0, v1);
-      v2 = _os_log_send_and_compose_impl();
+      v2 = _sc_log <= 0 ? 2 : 3;
+      v3 = os_log_type_enabled(v0, v1) ? v2 : 2;
+      v14[0] = 0;
+      v4 = _os_log_send_and_compose_impl(v3, 0, &v15, 256, &_mh_execute_header, v0, v1, "Triggering AgentMonitor for Proxy", v14, 2);
       __SC_log_send2();
-      if (v2 != &v9)
+      if (v4 != &v15)
       {
-        free(v2);
+        free(v4);
       }
     }
 
-    v3 = objc_autoreleasePoolPush();
-    v4 = +[AgentController sharedController];
-    v5 = v4;
-    if (v4)
+    v5 = objc_autoreleasePoolPush();
+    v6 = +[AgentController sharedController];
+    v7 = v6;
+    if (v6)
     {
-      v6 = [v4 controllerQueue];
-      dispatch_sync(v6, &stru_10007B128);
+      v8 = [v6 controllerQueue];
+      dispatch_sync(v8, &stru_10007B128);
     }
 
     else
     {
-      v6 = sub_1000035EC();
-      v7 = _SC_syslog_os_log_mapping();
+      v8 = sub_1000035EC();
+      v9 = _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
         v21 = 0u;
@@ -8453,23 +8663,38 @@ void process_AgentMonitor_Proxy()
         v18 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v13 = 0u;
-        v14 = 0u;
-        v11 = 0u;
-        v12 = 0u;
-        v9 = 0u;
-        v10 = 0u;
-        os_log_type_enabled(v6, v7);
-        v8 = _os_log_send_and_compose_impl();
-        __SC_log_send2();
-        if (v8 != &v9)
+        if (_sc_log <= 0)
         {
-          free(v8);
+          v10 = 2;
+        }
+
+        else
+        {
+          v10 = 3;
+        }
+
+        if (os_log_type_enabled(v8, v9))
+        {
+          v11 = v10;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        v14[0] = 0;
+        LODWORD(v13) = 2;
+        v12 = _os_log_send_and_compose_impl(v11, 0, &v15, 256, &_mh_execute_header, v8, v9, "AgentController could not be initialized", v14, v13);
+        __SC_log_send2();
+        if (v12 != &v15)
+        {
+          free(v12);
         }
       }
     }
 
-    objc_autoreleasePoolPop(v3);
+    objc_autoreleasePoolPop(v5);
   }
 }
 
@@ -8481,10 +8706,10 @@ void sub_100056F88(id a1)
 
 uint64_t copy_proxy_information_for_agent_uuid(uint64_t a1, uint64_t a2)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   if (!objc_opt_class())
   {
     goto LABEL_6;
@@ -8500,7 +8725,7 @@ uint64_t copy_proxy_information_for_agent_uuid(uint64_t a1, uint64_t a2)
     block[1] = 3221225472;
     block[2] = sub_10005726C;
     block[3] = &unk_10007B150;
-    block[4] = &v13;
+    block[4] = &v15;
     block[5] = a1;
     block[6] = a2;
     dispatch_sync(v7, block);
@@ -8512,14 +8737,33 @@ uint64_t copy_proxy_information_for_agent_uuid(uint64_t a1, uint64_t a2)
     v10 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v18, 0, sizeof(v18));
-      os_log_type_enabled(v7, v10);
-      v17 = 0;
-      v11 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v11 != v18)
+      memset(v20, 0, sizeof(v20));
+      if (_sc_log <= 0)
       {
-        free(v11);
+        v11 = 2;
+      }
+
+      else
+      {
+        v11 = 3;
+      }
+
+      if (os_log_type_enabled(v7, v10))
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v19[0] = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, v20, 256, &_mh_execute_header, v7, v10, "AgentController could not be initialized", v19, 2);
+      __SC_log_send2();
+      if (v13 != v20)
+      {
+        free(v13);
       }
     }
   }
@@ -8527,7 +8771,7 @@ uint64_t copy_proxy_information_for_agent_uuid(uint64_t a1, uint64_t a2)
   objc_autoreleasePoolPop(v4);
   if (v6)
   {
-    v8 = v14[3];
+    v8 = v16[3];
   }
 
   else
@@ -8536,13 +8780,13 @@ LABEL_6:
     v8 = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v15, 8);
   return v8;
 }
 
-void sub_10005723C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10005723C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8555,10 +8799,10 @@ void sub_10005726C(void *a1)
 
 uint64_t copy_dns_information_for_agent_uuid(uint64_t a1, uint64_t a2)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   if (!objc_opt_class())
   {
     goto LABEL_6;
@@ -8574,7 +8818,7 @@ uint64_t copy_dns_information_for_agent_uuid(uint64_t a1, uint64_t a2)
     block[1] = 3221225472;
     block[2] = sub_10005756C;
     block[3] = &unk_10007B150;
-    block[4] = &v13;
+    block[4] = &v15;
     block[5] = a1;
     block[6] = a2;
     dispatch_sync(v7, block);
@@ -8586,14 +8830,33 @@ uint64_t copy_dns_information_for_agent_uuid(uint64_t a1, uint64_t a2)
     v10 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v18, 0, sizeof(v18));
-      os_log_type_enabled(v7, v10);
-      v17 = 0;
-      v11 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v11 != v18)
+      memset(v20, 0, sizeof(v20));
+      if (_sc_log <= 0)
       {
-        free(v11);
+        v11 = 2;
+      }
+
+      else
+      {
+        v11 = 3;
+      }
+
+      if (os_log_type_enabled(v7, v10))
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v19[0] = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, v20, 256, &_mh_execute_header, v7, v10, "AgentController could not be initialized", v19, 2);
+      __SC_log_send2();
+      if (v13 != v20)
+      {
+        free(v13);
       }
     }
   }
@@ -8601,7 +8864,7 @@ uint64_t copy_dns_information_for_agent_uuid(uint64_t a1, uint64_t a2)
   objc_autoreleasePoolPop(v4);
   if (v6)
   {
-    v8 = v14[3];
+    v8 = v16[3];
   }
 
   else
@@ -8610,13 +8873,13 @@ LABEL_6:
     v8 = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v15, 8);
   return v8;
 }
 
-void sub_10005753C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10005753C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8751,20 +9014,20 @@ void sub_1000579D8(uint64_t a1)
     if (__SC_log_enabled())
     {
       v4 = _os_log_pack_size();
-      __chkstk_darwin(v4, v5, v6);
-      v7 = *__error();
-      v8 = _os_log_pack_fill();
-      v9 = *(a1 + 32);
-      *v8 = 67109120;
-      v8[1] = v9;
+      v5 = &v10 - ((__chkstk_darwin(v4) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v6 = __error();
+      v7 = _os_log_pack_fill(v5, v4, *v6, &_mh_execute_header, "DNS/nwi dropping ack w/no entitlement, pid = %d", v10);
+      v8 = *(a1 + 32);
+      *v7 = 67109120;
+      v7[1] = v8;
       __SC_log_send();
     }
 
     if ((byte_100081BD0 & 1) == 0)
     {
       byte_100081BD0 = 1;
-      v10 = dispatch_time(0, 180000000000);
-      dispatch_after(v10, qword_100081BE8, &stru_10007B1D0);
+      v9 = dispatch_time(0, 180000000000);
+      dispatch_after(v9, qword_100081BE8, &stru_10007B1D0);
     }
   }
 
@@ -8792,11 +9055,11 @@ char *_scprefs_observer_watch(int a1, char *__s, uint64_t a3, const void *a4)
   if (__SC_log_enabled())
   {
     v10 = _os_log_pack_size();
-    __chkstk_darwin(v10, v11, v12);
-    v13 = *__error();
-    v14 = _os_log_pack_fill();
-    *v14 = 136315138;
-    *(v14 + 4) = v9 + 40;
+    v11 = block - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = __error();
+    v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "Created a new element to watch for %s", block[0]);
+    *v13 = 136315138;
+    *(v13 + 4) = v9 + 40;
     __SC_log_send();
   }
 
@@ -8829,11 +9092,11 @@ uint64_t sub_100057E30()
     if (result)
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      *v6 = 67109120;
-      v6[1] = v1;
+      v3 = &v6 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "notify_register_dispatch() failed: %u", v6);
+      *v5 = 67109120;
+      v5[1] = v1;
       return __SC_log_send();
     }
   }
@@ -8861,9 +9124,9 @@ void sub_10005803C()
   if (__SC_log_enabled())
   {
     v0 = _os_log_pack_size();
-    __chkstk_darwin(v0, v1, v2);
-    v3 = *__error();
-    *_os_log_pack_fill() = 0;
+    v1 = &v4 - ((__chkstk_darwin(v0) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v2 = __error();
+    *_os_log_pack_fill(v1, v0, *v2, &_mh_execute_header, "PrefsObserver notification received") = 0;
     __SC_log_send();
   }
 
@@ -8880,7 +9143,7 @@ BOOL sub_100058168(int *a1)
 {
   v3 = (a1 + 10);
   v2 = *a1;
-  *&v16.wbuf[14] = 0;
+  *&v15.wbuf[14] = 0;
   if (v2 == 2)
   {
     v4 = "/Library/Managed Preferences/mobile";
@@ -8891,23 +9154,23 @@ BOOL sub_100058168(int *a1)
     v4 = 0;
   }
 
-  memset(&v16, 0, 96);
-  CC_SHA256_Init(&v16);
-  memset(&v17, 0, sizeof(v17));
-  snprintf(v18, 0x400uLL, "%s/%s", v4, v3);
-  if (stat(v18, &v17) || (v17.st_mode & 0xF000) != 0x8000)
+  memset(&v15, 0, 96);
+  CC_SHA256_Init(&v15);
+  memset(&v16, 0, sizeof(v16));
+  snprintf(v17, 0x400uLL, "%s/%s", v4, v3);
+  if (stat(v17, &v16) || (v16.st_mode & 0xF000) != 0x8000)
   {
-    CC_SHA256_Final(v18, &v16);
+    CC_SHA256_Final(v17, &v15);
     v6 = 0;
   }
 
   else
   {
-    v5 = strlen(v18);
-    CC_SHA256_Update(&v16, v18, v5);
-    CC_SHA256_Update(&v16, &v17.st_mtimespec, 0x10u);
-    CC_SHA256_Final(v18, &v16);
-    v6 = CFDataCreate(0, v18, 32);
+    v5 = strlen(v17);
+    CC_SHA256_Update(&v15, v17, v5);
+    CC_SHA256_Update(&v15, &v16.st_mtimespec, 0x10u);
+    CC_SHA256_Final(v17, &v15);
+    v6 = CFDataCreate(0, v17, 32);
   }
 
   v7 = *(a1 + 2);
@@ -8942,26 +9205,26 @@ LABEL_13:
   if (__SC_log_enabled())
   {
     v9 = _os_log_pack_size();
-    __chkstk_darwin(v9, v10, v11);
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    v14 = "did not change";
+    v10 = &v15 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v11 = __error();
+    v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "preferences file: %s %s", *v15.count, *v15.hash);
+    v13 = "did not change";
     if (v8)
     {
-      v14 = "changed";
+      v13 = "changed";
     }
 
-    *v13 = 136315394;
-    *(v13 + 4) = v3;
-    *(v13 + 12) = 2080;
-    *(v13 + 14) = v14;
+    *v12 = 136315394;
+    *(v12 + 4) = v3;
+    *(v12 + 12) = 2080;
+    *(v12 + 14) = v13;
     __SC_log_send();
   }
 
   return v8;
 }
 
-uint64_t sub_1000583F0()
+uint64_t sub_1000583F0(uint64_t a1, uint64_t a2)
 {
 
   return _SCControlPrefsCreateWithQueue();
@@ -9006,9 +9269,9 @@ void sub_1000585D0(__CFBundle *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    *_os_log_pack_fill() = 0;
+    v3 = &v35 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    *_os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "load() called") = 0;
     __SC_log_send();
   }
 
@@ -9020,13 +9283,13 @@ void sub_1000585D0(__CFBundle *a1)
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v6 = _os_log_pack_size();
-    __chkstk_darwin(v6, v7, v8);
-    v9 = *__error();
-    v10 = _os_log_pack_fill();
+    v5 = _os_log_pack_size();
+    v6 = &v35 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = __error();
+    v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "  bundle ID = %@");
     Identifier = CFBundleGetIdentifier(a1);
-    *v10 = 138412290;
-    *(v10 + 4) = Identifier;
+    *v8 = 138412290;
+    *(v8 + 4) = Identifier;
     __SC_log_send();
   }
 
@@ -9043,20 +9306,69 @@ void sub_1000585D0(__CFBundle *a1)
     _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_28;
+      goto LABEL_30;
     }
 
-LABEL_27:
-    v21 = _os_log_pack_size();
-    __chkstk_darwin(v21, v22, v23);
-    v24 = *__error();
-    v25 = _os_log_pack_fill();
-    v26 = SCError();
-    v27 = SCErrorString(v26);
-    *v25 = 136315138;
-    *(v25 + 4) = v27;
-    __SC_log_send();
+    v23 = _os_log_pack_size();
+    v24 = &v35 - ((__chkstk_darwin(v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v25 = __error();
+    v26 = _os_log_pack_fill(v24, v23, *v25, &_mh_execute_header, "SCDynamicStoreCreate() failed: %s", v35);
+    v27 = SCError();
+    v28 = SCErrorString(v27);
+    *v26 = 136315138;
+    *(v26 + 4) = v28;
+    goto LABEL_29;
+  }
+
+  Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+  v11 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+  qword_100081C30 = SCDynamicStoreKeyCreateNetworkInterface(0, kSCDynamicStoreDomainState);
+  CFArrayAppendValue(Mutable, qword_100081C30);
+  v12 = CFStringCreateWithFormat(0, 0, @"%@%@/%@/%@/%@/%@", &stru_10007C038, kSCDynamicStoreDomainSetup, kSCCompNetwork, @"Override", @"InterfaceType", kSCNetworkInterfaceTypeIEEE80211);
+  CFArrayAppendValue(Mutable, v12);
+  CFRelease(v12);
+  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, kSCEntNetAirPort);
+  CFArrayAppendValue(v11, NetworkInterfaceEntity);
+  CFRelease(NetworkInterfaceEntity);
+  v14 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, kSCEntNetEthernet);
+  CFArrayAppendValue(v11, v14);
+  CFRelease(v14);
+  if (_os_feature_enabled_impl())
+  {
+    v15 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, 0);
+    CFArrayAppendValue(v11, v15);
+    CFRelease(v15);
+  }
+
+  v16 = SCDynamicStoreSetNotificationKeys(qword_100081C28, Mutable, v11);
+  CFRelease(Mutable);
+  CFRelease(v11);
+  if (!v16)
+  {
+    if (!qword_100081C38)
+    {
+      qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
+    }
+
+    _SC_syslog_os_log_mapping();
+    if (!__SC_log_enabled())
+    {
+      goto LABEL_30;
+    }
+
+    v29 = _os_log_pack_size();
+    v30 = &v35 - ((__chkstk_darwin(v29) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v31 = *__error();
+    v22 = _os_log_pack_fill(v30, v29, v31, &_mh_execute_header, "SCDynamicStoreSetNotificationKeys() failed: %s");
 LABEL_28:
+    v32 = v22;
+    v33 = SCError();
+    v34 = SCErrorString(v33);
+    *v32 = 136315138;
+    *(v32 + 4) = v34;
+LABEL_29:
+    __SC_log_send();
+LABEL_30:
     if (qword_100081C18)
     {
       CFRelease(qword_100081C18);
@@ -9075,54 +9387,15 @@ LABEL_28:
     return;
   }
 
-  Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  qword_100081C30 = SCDynamicStoreKeyCreateNetworkInterface(0, kSCDynamicStoreDomainState);
-  CFArrayAppendValue(Mutable, qword_100081C30);
-  v14 = CFStringCreateWithFormat(0, 0, @"%@%@/%@/%@/%@/%@", &stru_10007C038, kSCDynamicStoreDomainSetup, kSCCompNetwork, @"Override", @"InterfaceType", kSCNetworkInterfaceTypeIEEE80211);
-  CFArrayAppendValue(Mutable, v14);
-  CFRelease(v14);
-  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, kSCEntNetAirPort);
-  CFArrayAppendValue(v13, NetworkInterfaceEntity);
-  CFRelease(NetworkInterfaceEntity);
-  v16 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, kSCEntNetEthernet);
-  CFArrayAppendValue(v13, v16);
-  CFRelease(v16);
-  if (_os_feature_enabled_impl())
-  {
-    v17 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainSetup, kSCCompAnyRegex, 0);
-    CFArrayAppendValue(v13, v17);
-    CFRelease(v17);
-  }
-
-  v18 = SCDynamicStoreSetNotificationKeys(qword_100081C28, Mutable, v13);
-  CFRelease(Mutable);
-  CFRelease(v13);
-  if (!v18)
-  {
-    if (!qword_100081C38)
-    {
-      qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-    }
-
-    _SC_syslog_os_log_mapping();
-    if (!__SC_log_enabled())
-    {
-      goto LABEL_28;
-    }
-
-    goto LABEL_27;
-  }
-
-  v19 = qword_100081C28;
-  v20 = qword_100081C58;
+  v17 = qword_100081C28;
+  v18 = qword_100081C58;
   if (!qword_100081C58)
   {
-    v20 = dispatch_queue_create("com.apple.SystemConfiguration.LinkConfiguration", 0);
-    qword_100081C58 = v20;
+    v18 = dispatch_queue_create("com.apple.SystemConfiguration.LinkConfiguration", 0);
+    qword_100081C58 = v18;
   }
 
-  if (!SCDynamicStoreSetDispatchQueue(v19, v20))
+  if (!SCDynamicStoreSetDispatchQueue(v17, v18))
   {
     if (!qword_100081C38)
     {
@@ -9132,10 +9405,14 @@ LABEL_28:
     _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_28;
+      goto LABEL_30;
     }
 
-    goto LABEL_27;
+    v19 = _os_log_pack_size();
+    v20 = &v35 - ((__chkstk_darwin(v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = *__error();
+    v22 = _os_log_pack_fill(v20, v19, v21, &_mh_execute_header, "SCDynamicStoreSetDispatchQueue() failed: %s");
+    goto LABEL_28;
   }
 }
 
@@ -9511,7 +9788,7 @@ void sub_10005928C(void *key, void *value)
       }
     }
 
-    sub_10005A664(v5);
+    sub_10005A664(v5, value);
     sub_10005A888(v5, value);
     sub_10005B088(v5, value);
   }
@@ -9530,7 +9807,7 @@ void sub_10005928C(void *key, void *value)
     if (v10)
     {
       v11 = v10;
-      sub_10005A664(v5);
+      sub_10005A664(v5, v10);
       sub_10005A888(v5, v11);
       sub_10005B088(v5, v11);
       CFDictionaryRemoveValue(qword_100081C18, key);
@@ -9538,213 +9815,4 @@ void sub_10005928C(void *key, void *value)
   }
 
   CFRelease(v5);
-}
-
-uint64_t sub_100059528(const __CFString *a1, const void *a2)
-{
-  v4 = _SCNetworkInterfaceCreateWithBSDName();
-  if (v4)
-  {
-    v5 = v4;
-    v6 = SCNetworkInterfaceSupportsLowDataMode();
-    CFRelease(v5);
-    if (v6)
-    {
-      TypeID = CFDictionaryGetTypeID();
-      v10 = a2 && CFGetTypeID(a2) == TypeID && (valuePtr = 0, Value = CFDictionaryGetValue(a2, kSCPropEnableLowDataMode), v9 = CFNumberGetTypeID(), Value) && CFGetTypeID(Value) == v9 && CFNumberGetValue(Value, kCFNumberIntType, &valuePtr) && valuePtr != 0;
-      return sub_10005B668(a1, v10);
-    }
-
-    if (!qword_100081C38)
-    {
-      qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-    }
-
-    _SC_syslog_os_log_mapping();
-    result = __SC_log_enabled();
-    if (result)
-    {
-LABEL_18:
-      v12 = _os_log_pack_size();
-      __chkstk_darwin(v12, v13, v14);
-      v15 = *__error();
-      v16 = _os_log_pack_fill();
-      *v16 = 138412290;
-      *(v16 + 4) = a1;
-      return __SC_log_send();
-    }
-  }
-
-  else
-  {
-    if (!qword_100081C38)
-    {
-      qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-    }
-
-    _SC_syslog_os_log_mapping();
-    result = __SC_log_enabled();
-    if (result)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1000597CC(int a1)
-{
-  result = sub_100059E44();
-  if (result)
-  {
-    v3 = result;
-    if (a1)
-    {
-      v4 = a1 == 2;
-      if (!qword_100081C38)
-      {
-        qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-      }
-
-      _SC_syslog_os_log_mapping();
-      if (!__SC_log_enabled())
-      {
-        return sub_10005A03C(v3, v4);
-      }
-
-      v5 = _os_log_pack_size();
-      __chkstk_darwin(v5, v6, v7);
-      v8 = *__error();
-      v9 = _os_log_pack_fill();
-      v10 = "in";
-      if (a1 == 2)
-      {
-        v10 = "";
-      }
-
-      *v9 = 138412546;
-      *(v9 + 4) = v3;
-      *(v9 + 12) = 2080;
-      *(v9 + 14) = v10;
-    }
-
-    else
-    {
-      v4 = sub_10005BAA0();
-      if (!qword_100081C38)
-      {
-        qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-      }
-
-      _SC_syslog_os_log_mapping();
-      if (!__SC_log_enabled())
-      {
-        return sub_10005A03C(v3, v4);
-      }
-
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      v16 = "";
-      if (!v4)
-      {
-        v16 = "in";
-      }
-
-      *v15 = 138412546;
-      *(v15 + 4) = v3;
-      *(v15 + 12) = 2080;
-      *(v15 + 14) = v16;
-    }
-
-    __SC_log_send();
-    return sub_10005A03C(v3, v4);
-  }
-
-  return result;
-}
-
-void sub_100059A40()
-{
-  if (qword_100081C50)
-  {
-    if (!qword_100081C38)
-    {
-      qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-    }
-
-    _SC_syslog_os_log_mapping();
-    if (__SC_log_enabled())
-    {
-      v0 = _os_log_pack_size();
-      __chkstk_darwin(v0, v1, v2);
-      v3 = *__error();
-      *_os_log_pack_fill() = 0;
-      __SC_log_send();
-    }
-
-    dispatch_source_cancel(qword_100081C50);
-    dispatch_release(qword_100081C50);
-    qword_100081C50 = 0;
-  }
-}
-
-void sub_100059B80(const __CFDate *a1)
-{
-  sub_100059A40();
-  if (!qword_100081C38)
-  {
-    qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-  }
-
-  _SC_syslog_os_log_mapping();
-  if (__SC_log_enabled())
-  {
-    v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
-    *v6 = 138412290;
-    *(v6 + 4) = a1;
-    __SC_log_send();
-  }
-
-  Current = CFAbsoluteTimeGetCurrent();
-  AbsoluteTime = CFDateGetAbsoluteTime(a1);
-  if (!qword_100081C38)
-  {
-    qword_100081C38 = os_log_create("com.apple.SystemConfiguration", "LinkConfiguration");
-  }
-
-  v9 = AbsoluteTime - Current;
-  _SC_syslog_os_log_mapping();
-  if (__SC_log_enabled())
-  {
-    v10 = _os_log_pack_size();
-    __chkstk_darwin(v10, v11, v12);
-    v13 = *__error();
-    v14 = _os_log_pack_fill();
-    *v14 = 134218496;
-    *(v14 + 4) = AbsoluteTime;
-    *(v14 + 12) = 2048;
-    *(v14 + 14) = Current;
-    *(v14 + 22) = 2048;
-    *(v14 + 24) = v9;
-    __SC_log_send();
-  }
-
-  v15 = dispatch_time(0xFFFFFFFFFFFFFFFELL, (v9 * 1000000000.0));
-  v16 = qword_100081C58;
-  if (!qword_100081C58)
-  {
-    v16 = dispatch_queue_create("com.apple.SystemConfiguration.LinkConfiguration", 0);
-    qword_100081C58 = v16;
-  }
-
-  qword_100081C50 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v16);
-  dispatch_source_set_event_handler(qword_100081C50, &stru_10007B2D0);
-  dispatch_source_set_timer(qword_100081C50, v15, 0xFFFFFFFFFFFFFFFFLL, 0);
-  dispatch_resume(qword_100081C50);
 }

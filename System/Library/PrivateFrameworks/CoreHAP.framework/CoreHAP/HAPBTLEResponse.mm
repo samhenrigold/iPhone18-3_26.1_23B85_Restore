@@ -17,14 +17,14 @@
 
 - (unint64_t)_deserializeHeaderBodyLengthWithData:(id)data error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length] > 1)
   {
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v11 = 2;
-    [dataCopy getBytes:&v14 range:{0, 2}];
-    self->_bodyLength = v14;
+    [dataCopy getBytes:&v13 range:{0, 2}];
+    self->_bodyLength = v13;
   }
 
   else
@@ -35,13 +35,13 @@
     {
       v9 = HMFGetLogIdentifier();
       shortDescription = [(HAPBTLEResponse *)self shortDescription];
-      v14 = 138543874;
-      v15 = v9;
-      v16 = 2112;
-      v17 = shortDescription;
-      v18 = 2112;
-      v19 = dataCopy;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to parse header body length with control body: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
+      v16 = shortDescription;
+      v17 = 2112;
+      v18 = dataCopy;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to parse header body length with control body: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -57,7 +57,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -94,7 +93,7 @@ LABEL_5:
 
 - (unint64_t)appendData:(id)data error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([(HAPBTLEResponse *)self isComplete])
   {
@@ -104,11 +103,11 @@ LABEL_5:
     {
       v9 = HMFGetLogIdentifier();
       shortDescription = [(HAPBTLEResponse *)self shortDescription];
-      v29 = 138543618;
-      v30 = v9;
-      v31 = 2112;
-      v32 = shortDescription;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Not appending data, the response is complete", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v9;
+      v30 = 2112;
+      v31 = shortDescription;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Not appending data, the response is complete", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -141,13 +140,13 @@ LABEL_6:
       {
         v17 = HMFGetLogIdentifier();
         shortDescription2 = [(HAPBTLEResponse *)self shortDescription];
-        v29 = 138543874;
-        v30 = v17;
-        v31 = 2112;
-        v32 = shortDescription2;
-        v33 = 2112;
-        v34 = dataCopy;
-        _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@[%@] The data, %@, does not contain the entire response header", &v29, 0x20u);
+        v28 = 138543874;
+        v29 = v17;
+        v30 = 2112;
+        v31 = shortDescription2;
+        v32 = 2112;
+        v33 = dataCopy;
+        _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@[%@] The data, %@, does not contain the entire response header", &v28, 0x20u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -213,7 +212,6 @@ LABEL_14:
 
 LABEL_27:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

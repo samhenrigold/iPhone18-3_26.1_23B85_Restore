@@ -108,7 +108,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   stringValue = self->_stringValue;
@@ -153,30 +153,30 @@
   if ([(NSMutableArray *)self->_arrayValues count])
   {
     v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_arrayValues, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v15 = self->_arrayValues;
-    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          dictionaryRepresentation4 = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
           [v14 addObject:dictionaryRepresentation4];
         }
 
-        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v17);
@@ -188,8 +188,8 @@
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    v25 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSet];
-    [v4 setObject:v25 forKey:@"isSet"];
+    v24 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSet];
+    [v4 setObject:v24 forKey:@"isSet"];
 
     has = self->_has;
     if ((has & 8) == 0)
@@ -209,8 +209,8 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isSecurePropertyValue, v29}];
-  [v4 setObject:v26 forKey:@"isSecurePropertyValue"];
+  v25 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isSecurePropertyValue, v28}];
+  [v4 setObject:v25 forKey:@"isSecurePropertyValue"];
 
   has = self->_has;
   if ((has & 1) == 0)
@@ -225,8 +225,8 @@ LABEL_25:
   }
 
 LABEL_33:
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isDate, v29}];
-  [v4 setObject:v27 forKey:@"isDate"];
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isDate, v28}];
+  [v4 setObject:v26 forKey:@"isDate"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -241,25 +241,24 @@ LABEL_26:
   }
 
 LABEL_34:
-  v28 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isError, v29}];
-  [v4 setObject:v28 forKey:@"isError"];
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isError, v28}];
+  [v4 setObject:v27 forKey:@"isError"];
 
   if ((*&self->_has & 4) != 0)
   {
 LABEL_27:
-    v22 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isMiniUUIDSet, v29}];
+    v22 = [MEMORY[0x1E696AD98] numberWithBool:{self->_isMiniUUIDSet, v28}];
     [v4 setObject:v22 forKey:@"isMiniUUIDSet"];
   }
 
 LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_stringValue)
   {
@@ -291,30 +290,29 @@ LABEL_28:
     PBDataWriterWriteSubmessage();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_arrayValues;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -323,7 +321,6 @@ LABEL_28:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    isSet = self->_isSet;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -343,7 +340,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  isSecurePropertyValue = self->_isSecurePropertyValue;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -355,7 +351,6 @@ LABEL_23:
     }
 
 LABEL_30:
-    isError = self->_isError;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 4) == 0)
     {
@@ -366,7 +361,6 @@ LABEL_30:
   }
 
 LABEL_29:
-  isDate = self->_isDate;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) != 0)
@@ -378,13 +372,10 @@ LABEL_24:
   if ((has & 4) != 0)
   {
 LABEL_25:
-    isMiniUUIDSet = self->_isMiniUUIDSet;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_26:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -502,7 +493,7 @@ LABEL_23:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_stringValue copyWithZone:zone];
   v7 = *(v5 + 48);
@@ -528,30 +519,30 @@ LABEL_23:
   v17 = *(v5 + 24);
   *(v5 + 24) = v16;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v18 = self->_arrayValues;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v28;
+    v21 = *v27;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v28 != v21)
+        if (*v27 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v27 + 1) + 8 * i) copyWithZone:{zone, v27}];
+        v23 = [*(*(&v26 + 1) + 8 * i) copyWithZone:{zone, v26}];
         [v5 addArrayValues:v23];
       }
 
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v20);
@@ -596,7 +587,7 @@ LABEL_18:
     *(v5 + 72) |= 2u;
     if ((*&self->_has & 4) == 0)
     {
-      goto LABEL_14;
+      return v5;
     }
 
     goto LABEL_13;
@@ -619,8 +610,6 @@ LABEL_13:
     *(v5 + 72) |= 4u;
   }
 
-LABEL_14:
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -702,7 +691,6 @@ LABEL_14:
       goto LABEL_54;
     }
 
-    v13 = *(equalCopy + 68);
     if (self->_isSet)
     {
       if ((*(equalCopy + 68) & 1) == 0)
@@ -729,7 +717,6 @@ LABEL_14:
       goto LABEL_54;
     }
 
-    v14 = *(equalCopy + 67);
     if (self->_isSecurePropertyValue)
     {
       if ((*(equalCopy + 67) & 1) == 0)
@@ -756,7 +743,6 @@ LABEL_14:
       goto LABEL_54;
     }
 
-    v15 = *(equalCopy + 64);
     if (self->_isDate)
     {
       if ((*(equalCopy + 64) & 1) == 0)
@@ -793,7 +779,6 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  v16 = *(equalCopy + 65);
   if (self->_isError)
   {
     if ((*(equalCopy + 65) & 1) == 0)
@@ -914,7 +899,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 6))
   {
@@ -976,29 +961,29 @@ LABEL_6:
     [(NRPBPropertyValue *)self setDictionaryKey:?];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(fromCopy + 1);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(NRPBPropertyValue *)self addArrayValues:*(*(&v18 + 1) + 8 * i), v18];
+        [(NRPBPropertyValue *)self addArrayValues:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
@@ -1067,8 +1052,6 @@ LABEL_34:
   }
 
 LABEL_35:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

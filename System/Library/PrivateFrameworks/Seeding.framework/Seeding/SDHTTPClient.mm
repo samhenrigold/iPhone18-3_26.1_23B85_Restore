@@ -52,7 +52,7 @@ uint64_t __30__SDHTTPClient_sharedInstance__block_invoke()
 
 + (id)_seedingSessionConfiguration
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
   v3 = MEMORY[0x277CCACA8];
   processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -63,23 +63,21 @@ uint64_t __30__SDHTTPClient_sharedInstance__block_invoke()
   v9 = +[SDDevice osBuild];
   v10 = [v3 stringWithFormat:@"%@ (Seeding) (Model %@) (%@ %@) Version/%@", processName, v6, v7, v8, v9];
 
-  v16[0] = @"Seeding-Device-Id";
+  v15[0] = @"Seeding-Device-Id";
   v11 = +[SDAnalytics deviceIdentifier];
   uUIDString = [v11 UUIDString];
-  v16[1] = @"User-Agent";
-  v17[0] = uUIDString;
-  v17[1] = v10;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[1] = @"User-Agent";
+  v16[0] = uUIDString;
+  v16[1] = v10;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   [defaultSessionConfiguration setHTTPAdditionalHeaders:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return defaultSessionConfiguration;
 }
 
 - (NSURL)baseURL
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   overrideServerURL = [(SDHTTPClient *)self overrideServerURL];
   if (!overrideServerURL)
   {
@@ -91,9 +89,9 @@ LABEL_8:
   v3 = +[SDSeedingLogging fwHandle];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = overrideServerURL;
-    _os_log_impl(&dword_22E41E000, v3, OS_LOG_TYPE_INFO, "Attempting to use custom ServerURL: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = overrideServerURL;
+    _os_log_impl(&dword_22E41E000, v3, OS_LOG_TYPE_INFO, "Attempting to use custom ServerURL: %@", &v7, 0xCu);
   }
 
   v4 = [MEMORY[0x277CBEBC0] URLWithString:overrideServerURL];
@@ -109,8 +107,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -231,22 +227,19 @@ LABEL_18:
 
 - (void)baseURL
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Invalid custom ServerURL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Invalid custom ServerURL: %@", &v2, 0xCu);
 }
 
 - (void)URLSession:(void *)a1 didReceiveChallenge:(NSObject *)a2 completionHandler:.cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Certificate failure. Error: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_22E41E000, a2, OS_LOG_TYPE_ERROR, "Certificate failure. Error: %{public}@", &v4, 0xCu);
 }
 
 @end

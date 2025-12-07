@@ -55,7 +55,7 @@
 - (void)applicationWillSuspend
 {
   selfCopy = self;
-  sub_10024D214();
+  sub_10024D214(selfCopy);
 }
 
 - (void)handleKeyboardDidShowWithKeyboardShowNotification:(id)notification

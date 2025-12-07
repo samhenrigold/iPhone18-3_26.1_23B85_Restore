@@ -17,7 +17,6 @@
 
 - (void)setValue:()MTMaterialDescriptionInternal forProperty:ofFilter:isCompositingFilter:
 {
-  v32 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -25,7 +24,7 @@
   {
     if (a6)
     {
-      v13 = [self objectForKey:@"compositingFilter"];
+      v13 = [self objectForKey:?];
       v14 = 0;
       if (v13)
       {
@@ -35,38 +34,34 @@
 
     else
     {
-      v15 = [self objectForKey:@"filters"];
+      v15 = [self objectForKey:?];
       if (!v15)
       {
         v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        [self setObject:v15 forKey:@"filters"];
+        [self setObject:? forKey:?];
       }
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
       v14 = v15;
-      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v16 = [v14 countByEnumeratingWithState:? objects:? count:?];
       if (v16)
       {
         v17 = v16;
-        v24 = a6;
+        v23 = a6;
         selfCopy = self;
-        v26 = v11;
-        v18 = *v28;
+        v25 = v11;
+        v18 = MEMORY[0];
         while (2)
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v17; i = (i + 1))
           {
-            if (*v28 != v18)
+            if (MEMORY[0] != v18)
             {
               objc_enumerationMutation(v14);
             }
 
-            v20 = *(*(&v27 + 1) + 8 * i);
-            v21 = [v20 objectForKey:@"type"];
-            v22 = [v12 isEqualToString:v21];
+            v20 = *(8 * i);
+            v21 = [v20 objectForKey:?];
+            v22 = [v12 isEqualToString:?];
 
             if (v22)
             {
@@ -75,7 +70,7 @@
             }
           }
 
-          v17 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v17 = [v14 countByEnumeratingWithState:? objects:? count:?];
           if (v17)
           {
             continue;
@@ -87,8 +82,8 @@
         v13 = 0;
 LABEL_17:
         self = selfCopy;
-        v11 = v26;
-        a6 = v24;
+        v11 = v25;
+        a6 = v23;
       }
 
       else
@@ -103,10 +98,10 @@ LABEL_17:
     }
 
     v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v13 setObject:v12 forKey:@"type"];
+    [v13 setObject:? forKey:?];
     if (!a6)
     {
-      [v14 addObject:v13];
+      [v14 addObject:?];
       if (!v10)
       {
         goto LABEL_24;
@@ -115,7 +110,7 @@ LABEL_17:
       goto LABEL_23;
     }
 
-    [self setObject:v13 forKey:@"compositingFilter"];
+    [self setObject:? forKey:?];
 LABEL_22:
     if (!v10)
     {
@@ -125,18 +120,15 @@ LABEL_24:
     }
 
 LABEL_23:
-    [v13 setObject:v10 forKey:v11];
+    [v13 setObject:? forKey:?];
     goto LABEL_24;
   }
 
 LABEL_25:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processAdditionalInfo:()MTMaterialDescriptionInternal forFilterInFiltersArray:
 {
-  v21 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = v7;
@@ -144,38 +136,31 @@ LABEL_25:
   {
     if (v7)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v9 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v6 countByEnumeratingWithState:0 objects:? count:?];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = MEMORY[0];
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v10; i = (i + 1))
           {
-            if (*v17 != v11)
+            if (MEMORY[0] != v11)
             {
               objc_enumerationMutation(v6);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * i);
-            v14 = [v6 objectForKey:v13];
-            [self setValue:v14 forProperty:v13 ofFilter:v8 isCompositingFilter:0];
+            v13 = [v6 objectForKey:?];
+            [self setValue:? forProperty:? ofFilter:? isCompositingFilter:?];
           }
 
-          v10 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v6 countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v10);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTintColor:()MTMaterialDescriptionInternal includingOptimizations:withAdditionalInfoPromise:
@@ -183,30 +168,24 @@ LABEL_25:
   v7 = a5;
   if (a3)
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
     v12 = 0u;
-    [a3 sourceOverColorMatrix];
-    v11[2] = v14;
-    v11[3] = v15;
-    v11[4] = v16;
-    v11[0] = v12;
-    v11[1] = v13;
-    v8 = [MEMORY[0x1E696B098] valueWithBytes:v11 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-    v9 = *MEMORY[0x1E6979880];
-    [self setValue:v8 forProperty:@"inputColorMatrix" ofFilterInFiltersArray:*MEMORY[0x1E6979880]];
+    v10 = 0u;
+    [&v10 sourceOverColorMatrix];
+    v8 = [MEMORY[0x1E696B098] valueWithBytes:v10 objCType:{v11, v12, v13, v14}];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
     if (v7)
     {
-      v10 = v7[2](v7);
-      [self _processAdditionalInfo:v10 forFilterInFiltersArray:v9];
+      v9 = v7[2](v7);
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v9];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
 }
@@ -225,94 +204,82 @@ LABEL_25:
     }
 
     v14 = v13;
-    v15 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
-    [self setValue:v15 forProperty:@"inputAmount" ofFilterInFiltersArray:v14];
+    v15 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
     if ([v17 count] == 4)
     {
-      [self setValue:v17 forProperty:@"inputValues" ofFilterInFiltersArray:v14];
+      [self setValue:? forProperty:? ofFilterInFiltersArray:?];
     }
 
     if (v11)
     {
       v16 = v11[2](v11);
-      [self _processAdditionalInfo:v16 forFilterInFiltersArray:v14];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v14];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
 }
 
 - (void)setBlurRadius:()MTMaterialDescriptionInternal inputMaskImage:ignoringIdentity:includingOptimizations:withAdditionalInfoPromise:
 {
-  v23 = a7;
+  v21 = a7;
   v12 = *MEMORY[0x1E6979928];
   if (!a5 || MTIdentityValueForFilter(*MEMORY[0x1E6979928]) != a2)
   {
-    v13 = a2 > 29.5;
-    if (a2 >= 35.0)
-    {
-      v13 = 0;
-    }
-
-    if ((v13 & a6) != 0)
-    {
-      a2 = 29.5;
-    }
-
-    v14 = *MEMORY[0x1E6979D70];
     if (a4)
     {
-      v15 = *MEMORY[0x1E6979D70];
+      v13 = *MEMORY[0x1E6979D70];
     }
 
     else
     {
-      v15 = v12;
+      v13 = v12;
     }
 
-    v16 = v15;
-    v17 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
-    [self setValue:v17 forProperty:@"inputRadius" ofFilterInFiltersArray:v16];
+    v14 = v13;
+    v15 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
     if (a4)
     {
-      [self setValue:a4 forProperty:@"inputMaskImage" ofFilterInFiltersArray:v14];
+      [self setValue:? forProperty:? ofFilterInFiltersArray:?];
     }
 
-    if (v23)
+    if (v21)
     {
-      v18 = v23[2]();
-      v19 = v18;
+      v16 = v21[2]();
+      v17 = v16;
       if (a6)
       {
-        if (v18)
+        if (v16)
         {
-          v20 = [v18 mutableCopy];
+          v18 = [v16 mutableCopy];
 
-          v19 = v20;
-LABEL_18:
-          v21 = _MTGetCoreMaterialPlatformConfiguration();
+          v17 = v18;
+LABEL_14:
+          v19 = _MTGetCoreMaterialPlatformConfiguration();
           if (objc_opt_respondsToSelector())
           {
-            blurEdgesOptimization = [v21 blurEdgesOptimization];
-            [v19 setObject:MEMORY[0x1E695E118] forKey:blurEdgesOptimization];
+            blurEdgesOptimization = [v19 blurEdgesOptimization];
+            [v17 setObject:? forKey:?];
           }
 
-          if ((objc_opt_respondsToSelector() & 1) == 0 || [v21 isDitherOptimizationSupported])
+          if ((objc_opt_respondsToSelector() & 1) == 0 || [v19 isDitherOptimizationSupported])
           {
-            [v19 setObject:MEMORY[0x1E695E118] forKey:@"inputDither"];
+            [v17 setObject:? forKey:?];
           }
 
-          goto LABEL_25;
+          goto LABEL_21;
         }
 
-LABEL_17:
-        v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        goto LABEL_18;
+LABEL_13:
+        v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        goto LABEL_14;
       }
     }
 
@@ -320,14 +287,14 @@ LABEL_17:
     {
       if (a6)
       {
-        goto LABEL_17;
+        goto LABEL_13;
       }
 
-      v19 = 0;
+      v17 = 0;
     }
 
-LABEL_25:
-    [self _processAdditionalInfo:v19 forFilterInFiltersArray:v16];
+LABEL_21:
+    [self _processAdditionalInfo:? forFilterInFiltersArray:?];
   }
 }
 
@@ -336,69 +303,66 @@ LABEL_25:
   v8 = a5;
   if (a3)
   {
-    v11 = v8;
-    v9 = *MEMORY[0x1E6979810];
-    [self setValue:0 forProperty:0 ofFilterInFiltersArray:*MEMORY[0x1E6979810]];
+    v10 = v8;
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
     if (a4)
     {
-      [self setObject:&unk_1F3E01870 forKey:@"scale"];
+      [self setObject:? forKey:?];
     }
 
-    if (v11)
+    if (v10)
     {
-      v10 = v11[2](v11);
-      [self _processAdditionalInfo:v10 forFilterInFiltersArray:v9];
+      v9 = v10[2](v10);
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v9];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
-    v8 = v11;
+    v8 = v10;
   }
 }
 
 - (void)setSaturation:()MTMaterialDescriptionInternal ignoringIdentity:includingOptimizations:withAdditionalInfoPromise:
 {
-  v12 = a6;
-  v9 = *MEMORY[0x1E6979890];
+  v11 = a6;
   if (!a4 || MTIdentityValueForFilter(*MEMORY[0x1E6979890]) != a2)
   {
-    v10 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
-    [self setValue:v10 forProperty:@"inputAmount" ofFilterInFiltersArray:v9];
+    v9 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
-    if (v12)
+    if (v11)
     {
-      v11 = v12[2]();
-      [self _processAdditionalInfo:v11 forFilterInFiltersArray:v9];
+      v10 = v11[2]();
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v9];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
 }
 
 - (void)setBrightness:()MTMaterialDescriptionInternal ignoringIdentity:includingOptimizations:withAdditionalInfoPromise:
 {
-  v12 = a6;
-  v9 = *MEMORY[0x1E6979848];
+  v11 = a6;
   if (!a4 || MTIdentityValueForFilter(*MEMORY[0x1E6979848]) != a2)
   {
-    v10 = [MEMORY[0x1E696AD98] numberWithDouble:a2];
-    [self setValue:v10 forProperty:@"inputAmount" ofFilterInFiltersArray:v9];
+    v9 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
-    if (v12)
+    if (v11)
     {
-      v11 = v12[2]();
-      [self _processAdditionalInfo:v11 forFilterInFiltersArray:v9];
+      v10 = v11[2]();
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v9];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
 }
@@ -406,28 +370,20 @@ LABEL_25:
 - (void)setColorMatrix:()MTMaterialDescriptionInternal ignoringIdentity:includingOptimizations:withAdditionalInfoPromise:
 {
   v9 = a6;
-  if (!a4 || (v10 = a3[3], v18[2] = a3[2], v18[3] = v10, v18[4] = a3[4], v11 = a3[1], v18[0] = *a3, v18[1] = v11, !MTCAColorMatrixIsIdentity(v18)))
+  if (!a4 || (v10 = a3[3], v14[2] = a3[2], v14[3] = v10, v14[4] = a3[4], v11 = a3[1], v14[0] = *a3, v14[1] = v11, !MTCAColorMatrixIsIdentity(v14)))
   {
-    v12 = a3[3];
-    v17[2] = a3[2];
-    v17[3] = v12;
-    v17[4] = a3[4];
-    v13 = a3[1];
-    v17[0] = *a3;
-    v17[1] = v13;
-    v14 = [MEMORY[0x1E696B098] valueWithBytes:v17 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-    v15 = *MEMORY[0x1E6979880];
-    [self setValue:v14 forProperty:@"inputColorMatrix" ofFilterInFiltersArray:*MEMORY[0x1E6979880]];
+    v12 = [MEMORY[0x1E696B098] valueWithBytes:*a3 objCType:{*(a3 + 2), *(a3 + 3), a3[2], *(a3 + 6), *(a3 + 7), a3[4]}];
+    [self setValue:? forProperty:? ofFilterInFiltersArray:?];
 
     if (v9)
     {
-      v16 = v9[2](v9);
-      [self _processAdditionalInfo:v16 forFilterInFiltersArray:v15];
+      v13 = v9[2](v9);
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:v15];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
 }
@@ -437,43 +393,36 @@ LABEL_25:
   if (a2 != 0.0 || (a4 & 1) == 0)
   {
     v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-    [self setObject:v5 forKey:@"zoom"];
+    [self setObject:? forKey:?];
   }
 }
 
 - (void)setCurvesInputValues:()MTMaterialDescriptionInternal ignoringIdentity:includingOptimizations:withAdditionalInfoPromise:
 {
-  v26 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a6;
   if (!a4 || [v9 count])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:0 objects:? count:?];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
-      v15 = *MEMORY[0x1E69798B8];
+      v14 = MEMORY[0];
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v22 != v14)
+          if (MEMORY[0] != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
-          v18 = [v11 objectForKeyedSubscript:{v17, v21}];
-          [self setValue:v18 forProperty:v17 ofFilterInFiltersArray:v15];
+          v16 = [v11 objectForKeyedSubscript:?];
+          [self setValue:? forProperty:? ofFilterInFiltersArray:?];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v13);
@@ -481,30 +430,28 @@ LABEL_25:
 
     if (v10)
     {
-      v19 = v10[2](v10);
-      [self _processAdditionalInfo:v19 forFilterInFiltersArray:*MEMORY[0x1E69798B8]];
+      v17 = v10[2](v10);
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
 
     else
     {
-      [self _processAdditionalInfo:0 forFilterInFiltersArray:*MEMORY[0x1E69798B8]];
+      [self _processAdditionalInfo:? forFilterInFiltersArray:?];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sortFiltersWithOrder:()MTMaterialDescriptionInternal
 {
   v4 = a3;
-  v5 = [self objectForKey:@"filters"];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __75__NSMutableDictionary_MTMaterialDescriptionInternal__sortFiltersWithOrder___block_invoke;
-  v7[3] = &unk_1E80BE050;
-  v8 = v4;
+  v5 = [self objectForKey:?];
+  v7 = MEMORY[0x1E69E9820];
+  v8 = 3221225472;
+  v9 = __75__NSMutableDictionary_MTMaterialDescriptionInternal__sortFiltersWithOrder___block_invoke;
+  v10 = &unk_1E80BE050;
+  v11 = v4;
   v6 = v4;
-  [v5 sortUsingComparator:v7];
+  [v5 sortUsingComparator:?];
 }
 
 @end

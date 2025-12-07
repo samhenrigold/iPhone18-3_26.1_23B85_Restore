@@ -54,40 +54,38 @@
   return v3;
 }
 
-void __44__GKInstallMetadata_secureCodedPropertyKeys__block_invoke()
+void __44__GKInstallMetadata_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[13] = *MEMORY[0x277D85DE8];
-  v3[0] = @"bundleID";
-  v4[0] = objc_opt_class();
-  v3[1] = @"adamID";
-  v4[1] = objc_opt_class();
-  v3[2] = @"bundleShortVersion";
-  v4[2] = objc_opt_class();
-  v3[3] = @"name";
-  v4[3] = objc_opt_class();
-  v3[4] = @"shortName";
-  v4[4] = objc_opt_class();
-  v3[5] = @"estimatedInstallDate";
-  v4[5] = objc_opt_class();
-  v3[6] = @"supportsGameController";
-  v4[6] = objc_opt_class();
-  v3[7] = @"isArcade";
-  v4[7] = objc_opt_class();
-  v3[8] = @"platform";
-  v4[8] = objc_opt_class();
-  v3[9] = @"isHidden";
-  v4[9] = objc_opt_class();
-  v3[10] = @"metadataEligibility";
-  v4[10] = objc_opt_class();
-  v3[11] = @"applicationType";
-  v4[11] = objc_opt_class();
-  v3[12] = @"isBeta";
-  v4[12] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:13];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_11;
-  secureCodedPropertyKeys_sSecureCodedKeys_11 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[13] = *MEMORY[0x277D85DE8];
+  v4[0] = @"bundleID";
+  v5[0] = objc_opt_class();
+  v4[1] = @"adamID";
+  v5[1] = objc_opt_class();
+  v4[2] = @"bundleShortVersion";
+  v5[2] = objc_opt_class();
+  v4[3] = @"name";
+  v5[3] = objc_opt_class();
+  v4[4] = @"shortName";
+  v5[4] = objc_opt_class();
+  v4[5] = @"estimatedInstallDate";
+  v5[5] = objc_opt_class();
+  v4[6] = @"supportsGameController";
+  v5[6] = objc_opt_class();
+  v4[7] = @"isArcade";
+  v5[7] = objc_opt_class();
+  v4[8] = @"platform";
+  v5[8] = objc_opt_class();
+  v4[9] = @"isHidden";
+  v5[9] = objc_opt_class();
+  v4[10] = @"metadataEligibility";
+  v5[10] = objc_opt_class();
+  v4[11] = @"applicationType";
+  v5[11] = objc_opt_class();
+  v4[12] = @"isBeta";
+  v5[12] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:13];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_11;
+  secureCodedPropertyKeys_sSecureCodedKeys_11 = v2;
 }
 
 @end

@@ -2465,7 +2465,7 @@ LABEL_35:
   }
 }
 
-uint64_t __57__MFMailComposeView_dropTarget_didDropDragItems_atPoint___block_invoke(uint64_t a1)
+void *__57__MFMailComposeView_dropTarget_didDropDragItems_atPoint___block_invoke(uint64_t a1)
 {
   v2 = ++*(*(*(a1 + 64) + 8) + 24);
   result = [*(a1 + 32) count];

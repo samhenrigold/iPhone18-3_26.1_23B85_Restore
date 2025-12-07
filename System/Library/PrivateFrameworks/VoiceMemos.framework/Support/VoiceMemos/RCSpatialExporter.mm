@@ -35,22 +35,21 @@
 - (void)writeCompositionWithCompletionBlock:(id)block
 {
   v5 = sub_100024720(&qword_10005CB50, &qword_10003F510);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(block);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = sub_10002C78C;
-  v12[6] = v10;
+  v7 = &v13 - v6;
+  v8 = _Block_copy(block);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = sub_10002C78C;
+  v11[6] = v9;
   selfCopy = self;
-  sub_10002C968(0, 0, v8, &unk_10003FAB8, v12);
+  sub_10002C968(0, 0, v7, &unk_10003FAB8, v11);
 }
 
 - (float)progress

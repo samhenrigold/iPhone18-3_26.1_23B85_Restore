@@ -120,45 +120,48 @@ uint64_t __41__FASettingsPresetConfiguration_BOOLKeys__block_invoke()
 {
   dictionaryCopy = dictionary;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPresetConfiguration initWithDictionary:];
+      [FASettingsPresetConfiguration initWithDictionary:?];
     }
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"values"];
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"values"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v8 = objc_opt_isKindOfClass();
+  if (v8)
   {
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"computedProperties"];
-    v8 = v7;
-    v9 = MEMORY[0x1E695E0F8];
-    if (v7)
+    v9 = [dictionaryCopy objectForKeyedSubscript:@"computedProperties"];
+    v10 = v9;
+    v11 = MEMORY[0x1E695E0F8];
+    if (v9)
     {
-      v9 = v7;
+      v11 = v9;
     }
 
-    v10 = v9;
+    v12 = v11;
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v13 = objc_opt_isKindOfClass();
+    if (v13)
     {
-      v11 = [v10 aaf_map:&__block_literal_global_50];
-      v12 = [(FASettingsPresetConfiguration *)self validatedValuesFromValues:v6];
-      self = [(FASettingsPresetConfiguration *)self initWithValues:v12 computedProperties:v11];
+      v14 = [v12 aaf_map:&__block_literal_global_50];
+      v15 = [(FASettingsPresetConfiguration *)self validatedValuesFromValues:v7];
+      self = [(FASettingsPresetConfiguration *)self initWithValues:v15 computedProperties:v14];
 
       selfCopy = self;
     }
 
     else
     {
-      v11 = _FALogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = _FALogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [FASettingsPresetConfiguration initWithDictionary:];
+        [FASettingsPresetConfiguration initWithDictionary:?];
       }
 
       selfCopy = 0;
@@ -167,10 +170,10 @@ uint64_t __41__FASettingsPresetConfiguration_BOOLKeys__block_invoke()
 
   else
   {
-    v10 = _FALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _FALogSystem(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPresetConfiguration initWithDictionary:];
+      [FASettingsPresetConfiguration initWithDictionary:?];
     }
 
     selfCopy = 0;
@@ -189,30 +192,30 @@ FASettingsPresetComputedProperty *__52__FASettingsPresetConfiguration_initWithDi
 
 - (id)validatedValuesFromValues:(id)values
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = valuesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        if ([v11 isEqualToString:{@"STCustomRestrictionConfiguration.STCustomRestrictionWebFilterState", v17}])
+        v11 = *(*(&v16 + 1) + 8 * i);
+        if ([v11 isEqualToString:{@"STCustomRestrictionConfiguration.STCustomRestrictionWebFilterState", v16}])
         {
           v12 = [v6 objectForKeyedSubscript:v11];
           if ([(FASettingsPresetConfiguration *)self isValidTriState:v12])
@@ -235,13 +238,11 @@ LABEL_11:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -402,12 +403,11 @@ void __64__FASettingsPresetConfiguration_allValuesWithUserValueProvider___block_
   [*(a1 + 48) addObject:v6];
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_1B70B0000, v0, v1, "Error decoding %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = objc_opt_class();
+  OUTLINED_FUNCTION_0(&dword_1B70B0000, v1, v2, "Error decoding %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

@@ -6,48 +6,42 @@
 void __epp_Dissociate_block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
-  v2 = epp_copyInner();
+  v2 = epp_copyInner(*(a1 + 32));
   if (v2)
   {
     __epp_Dissociate_block_invoke_cold_1(v1, v2);
   }
 }
 
-uint64_t __carEndpoint_Dissociate_block_invoke(uint64_t result)
+void __carEndpoint_Dissociate_block_invoke(uint64_t a1)
 {
-  *(*(*(result + 32) + 8) + 24) = *(*(result + 40) + 176);
-  v1 = *(result + 40);
+  *(*(*(a1 + 32) + 8) + 24) = *(*(a1 + 40) + 176);
+  v1 = *(a1 + 40);
   *(v1 + 176) = 1;
-  if (!*(*(*(result + 32) + 8) + 24))
+  if (!*(*(*(a1 + 32) + 8) + 24))
   {
     v2 = *(v1 + 240);
     if (v2)
     {
-      v3 = result;
-      v4 = *(*(CMBaseObjectGetVTable() + 16) + 96);
-      if (v4)
+      v3 = *(*(CMBaseObjectGetVTable() + 16) + 96);
+      if (v3)
       {
-        v4(v2, 0, 0, 0, 0);
+        v3(v2, 0, 0, 0, 0);
       }
 
-      result = APSenderSessionGetCMBaseObject(*(*(v3 + 40) + 240));
-      if (result)
+      APSenderSessionGetCMBaseObject();
+      if (v4)
       {
-        v5 = result;
-        VTable = CMBaseObjectGetVTable();
-        v7 = *(VTable + 8);
-        result = VTable + 8;
-        v8 = *(v7 + 24);
-        if (v8)
+        v5 = v4;
+        v6 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+        if (v6)
         {
 
-          return v8(v5);
+          v6(v5);
         }
       }
     }
   }
-
-  return result;
 }
 
 void __carEndpoint_Dissociate_block_invoke_2(uint64_t a1)

@@ -1,9 +1,21 @@
 @interface SCROBrailleEvent
++ (id)eventWithType:(int)type data:(id)data data2:(id)data2 data3:(id)data3;
 - (SCROBrailleEvent)initWithType:(int)type data:(id)data data2:(id)data2 data3:(id)data3;
 - (id)description;
 @end
 
 @implementation SCROBrailleEvent
+
++ (id)eventWithType:(int)type data:(id)data data2:(id)data2 data3:(id)data3
+{
+  v8 = *&type;
+  data3Copy = data3;
+  data2Copy = data2;
+  dataCopy = data;
+  v12 = [objc_alloc(objc_opt_class()) initWithType:v8 data:dataCopy data2:data2Copy data3:data3Copy];
+
+  return v12;
+}
 
 - (SCROBrailleEvent)initWithType:(int)type data:(id)data data2:(id)data2 data3:(id)data3
 {

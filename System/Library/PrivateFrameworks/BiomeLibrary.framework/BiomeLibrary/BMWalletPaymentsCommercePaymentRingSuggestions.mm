@@ -44,44 +44,44 @@
 
 - (id)jsonDictionary
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommercePaymentRingSuggestions accountState](self, "accountState")}];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommercePaymentRingSuggestions paidUsingRing](self, "paidUsingRing")}];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommercePaymentRingSuggestions lastPaymentCategory](self, "lastPaymentCategory")}];
   v6 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommercePaymentRingSuggestions paymentAction](self, "paymentAction")}];
-  v14[0] = @"accountState";
+  v13[0] = @"accountState";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"paidUsingRing";
+  v14[0] = null;
+  v13[1] = @"paidUsingRing";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"lastPaymentCategory";
+  v14[1] = null2;
+  v13[2] = @"lastPaymentCategory";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"paymentAction";
+  v14[2] = null3;
+  v13[3] = @"paymentAction";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (v6)
   {
     if (v5)
@@ -126,22 +126,21 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (BMWalletPaymentsCommercePaymentRingSuggestions)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"accountState"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v39 = 0;
+    v38 = 0;
 LABEL_9:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"paidUsingRing"];
-    v38 = v9;
+    v37 = v9;
     if (v9 && (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -162,19 +161,19 @@ LABEL_9:
             goto LABEL_30;
           }
 
-          v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           errorCopy = error;
           selfCopy = self;
-          v27 = *MEMORY[0x1E698F240];
-          v44 = *MEMORY[0x1E696A578];
+          v26 = *MEMORY[0x1E698F240];
+          v43 = *MEMORY[0x1E696A578];
           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"paidUsingRing"];
-          v45 = v14;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-          v28 = v27;
+          v44 = v14;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v27 = v26;
           self = selfCopy;
           v15 = 0;
           selfCopy5 = 0;
-          *errorCopy = [v24 initWithDomain:v28 code:2 userInfo:v13];
+          *errorCopy = [v23 initWithDomain:v27 code:2 userInfo:v13];
           goto LABEL_29;
         }
 
@@ -190,7 +189,7 @@ LABEL_9:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"lastPaymentCategory"];
-    v37 = v7;
+    v36 = v7;
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v15 = v11;
@@ -213,16 +212,16 @@ LABEL_9:
           }
 
           errorCopy2 = error;
-          v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v31 = *MEMORY[0x1E698F240];
-          v42 = *MEMORY[0x1E696A578];
+          v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v30 = *MEMORY[0x1E698F240];
+          v41 = *MEMORY[0x1E696A578];
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"lastPaymentCategory"];
-          v43 = v18;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-          v32 = [v30 initWithDomain:v31 code:2 userInfo:v16];
+          v42 = v18;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+          v31 = [v29 initWithDomain:v30 code:2 userInfo:v16];
           v14 = 0;
           selfCopy5 = 0;
-          *errorCopy2 = v32;
+          *errorCopy2 = v31;
           goto LABEL_28;
         }
 
@@ -253,13 +252,13 @@ LABEL_9:
         {
           if (error)
           {
-            v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v35 = *MEMORY[0x1E698F240];
-            v40 = *MEMORY[0x1E696A578];
-            v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"paymentAction"];
-            v41 = v33;
-            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-            *error = [v36 initWithDomain:v35 code:2 userInfo:v34];
+            v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v34 = *MEMORY[0x1E698F240];
+            v39 = *MEMORY[0x1E696A578];
+            v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"paymentAction"];
+            v40 = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+            *error = [v35 initWithDomain:v34 code:2 userInfo:v33];
           }
 
           v18 = 0;
@@ -279,14 +278,14 @@ LABEL_9:
     }
 
     v15 = v11;
-    self = -[BMWalletPaymentsCommercePaymentRingSuggestions initWithAccountState:paidUsingRing:lastPaymentCategory:paymentAction:](selfCopy4, "initWithAccountState:paidUsingRing:lastPaymentCategory:paymentAction:", [v39 intValue], objc_msgSend(v11, "intValue"), objc_msgSend(v14, "intValue"), objc_msgSend(v18, "intValue"));
+    self = -[BMWalletPaymentsCommercePaymentRingSuggestions initWithAccountState:paidUsingRing:lastPaymentCategory:paymentAction:](selfCopy4, "initWithAccountState:paidUsingRing:lastPaymentCategory:paymentAction:", [v38 intValue], objc_msgSend(v11, "intValue"), objc_msgSend(v14, "intValue"), objc_msgSend(v18, "intValue"));
     selfCopy5 = self;
 LABEL_28:
 
-    v7 = v37;
+    v7 = v36;
 LABEL_29:
 
-    v10 = v38;
+    v10 = v37;
     goto LABEL_30;
   }
 
@@ -295,7 +294,7 @@ LABEL_29:
   {
     v8 = v7;
 LABEL_8:
-    v39 = v8;
+    v38 = v8;
     goto LABEL_9;
   }
 
@@ -308,24 +307,23 @@ LABEL_8:
 
   if (!error)
   {
-    v39 = 0;
+    v38 = 0;
     selfCopy5 = 0;
     goto LABEL_31;
   }
 
-  v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v23 = *MEMORY[0x1E698F240];
-  v46 = *MEMORY[0x1E696A578];
+  v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v22 = *MEMORY[0x1E698F240];
+  v45 = *MEMORY[0x1E696A578];
   v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"accountState"];
-  v47[0] = v15;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
-  v39 = 0;
+  v46[0] = v15;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+  v38 = 0;
   selfCopy5 = 0;
-  *error = [v22 initWithDomain:v23 code:2 userInfo:v10];
+  *error = [v21 initWithDomain:v22 code:2 userInfo:v10];
 LABEL_30:
 
 LABEL_31:
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy5;
 }
 
@@ -340,14 +338,10 @@ LABEL_31:
 
 - (void)writeTo:(id)to
 {
-  accountState = self->_accountState;
   toCopy = to;
   PBDataWriterWriteUint32Field();
-  paidUsingRing = self->_paidUsingRing;
   PBDataWriterWriteUint32Field();
-  lastPaymentCategory = self->_lastPaymentCategory;
   PBDataWriterWriteUint32Field();
-  paymentAction = self->_paymentAction;
   PBDataWriterWriteUint32Field();
 }
 
@@ -667,36 +661,32 @@ LABEL_81:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"accountState" number:1 type:4 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"paidUsingRing" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"lastPaymentCategory" number:3 type:4 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"paymentAction" number:4 type:4 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"accountState" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"paidUsingRing" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"lastPaymentCategory" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"paymentAction" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

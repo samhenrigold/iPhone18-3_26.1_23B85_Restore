@@ -100,7 +100,7 @@ id __55__PFCameraMetadataJSONDebugSerialization_JSONDebugData__block_invoke(uint
     v16 = MEMORY[0x1E696AD98];
     if (v11)
     {
-      [v11 timeRange];
+      objc_msgSend_timeRange(v11);
     }
 
     else
@@ -118,7 +118,7 @@ id __55__PFCameraMetadataJSONDebugSerialization_JSONDebugData__block_invoke(uint
     v18 = MEMORY[0x1E696AD98];
     if (v11)
     {
-      [v11 timeRange];
+      objc_msgSend_timeRange(v11);
     }
 
     else

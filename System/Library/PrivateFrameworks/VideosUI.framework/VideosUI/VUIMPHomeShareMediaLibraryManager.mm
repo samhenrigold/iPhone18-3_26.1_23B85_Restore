@@ -168,7 +168,7 @@ void __77__VUIMPHomeShareMediaLibraryManager__handleAvailableMediaLibrariesDidCh
   librariesCopy = libraries;
   mutableHomeShareMediaLibraries = [(VUIMPHomeShareMediaLibraryManager *)self mutableHomeShareMediaLibraries];
   _homeShareMediaLibraries = [(VUIMPHomeShareMediaLibraryManager *)self _homeShareMediaLibraries];
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(_homeShareMediaLibraries);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412802;
@@ -182,8 +182,7 @@ void __77__VUIMPHomeShareMediaLibraryManager__handleAvailableMediaLibrariesDidCh
 
   v8 = objc_alloc_init(MEMORY[0x1E69DF6B0]);
   v9 = [v8 changeSetFromObjects:mutableHomeShareMediaLibraries toObjects:_homeShareMediaLibraries identifierBlock:&__block_literal_global_109 isEqualBlock:&__block_literal_global_16_1];
-  [mutableHomeShareMediaLibraries vui_applyChangeSet:v9 destinationObjects:_homeShareMediaLibraries];
-  v10 = VUIDefaultLogObject();
+  v10 = VUIDefaultLogObject([mutableHomeShareMediaLibraries vui_applyChangeSet:v9 destinationObjects:_homeShareMediaLibraries]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412546;

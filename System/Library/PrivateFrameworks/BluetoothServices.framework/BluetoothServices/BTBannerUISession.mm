@@ -40,24 +40,24 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __29__BTBannerUISession_activate__block_invoke(uint64_t result)
+void *__29__BTBannerUISession_activate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v1 = result;
+  v3 = result;
   if (gLogCategory_BTBannerUISession <= 50)
   {
     if (gLogCategory_BTBannerUISession != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = __29__BTBannerUISession_activate__block_invoke_cold_1();
+      result = __29__BTBannerUISession_activate__block_invoke_cold_1(result, a2, a3);
     }
   }
 
-  v2 = *(v1 + 32);
-  if ((*(v2 + 8) & 1) == 0)
+  v4 = v3[4];
+  if ((*(v4 + 8) & 1) == 0)
   {
-    *(v2 + 8) = 1;
-    v3 = *(v1 + 32);
+    *(v4 + 8) = 1;
+    v5 = v3[4];
 
-    return [v3 _activate];
+    return [v5 _activate];
   }
 
   return result;
@@ -259,68 +259,77 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
     [(BTBannerUISession *)self _xpcConnectionMessage:eventCopy];
   }
 
-  else if (eventCopy == MEMORY[0x277D863F8])
-  {
-    if (gLogCategory_BTBannerUISession <= 30 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
-    {
-      [BTBannerUISession _xpcEvent:];
-    }
-
-    v7 = MEMORY[0x245CFACE0](self->_actionHandler);
-    v8 = v7;
-    if (v7)
-    {
-      (*(v7 + 16))(v7, 4, 0);
-    }
-
-    xpcConnection = self->_xpcConnection;
-    self->_xpcConnection = 0;
-  }
-
-  else if (eventCopy == MEMORY[0x277D863F0])
-  {
-    if (gLogCategory_BTBannerUISession <= 30 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
-    {
-      [BTBannerUISession _xpcEvent:];
-    }
-
-    v10 = MEMORY[0x245CFACE0](self->_actionHandler);
-    v11 = v10;
-    if (v10)
-    {
-      (*(v10 + 16))(v10, 3, 0);
-    }
-
-    v12 = self->_xpcConnection;
-    if (v12)
-    {
-      v13 = v12;
-      xpc_connection_cancel(v13);
-      v14 = self->_xpcConnection;
-      self->_xpcConnection = 0;
-    }
-  }
-
   else
   {
-    v4 = CUXPCDecodeNSErrorIfNeeded();
-    v5 = v4;
-    if (v4)
+    v6 = eventCopy;
+    if (eventCopy == MEMORY[0x277D863F8])
     {
-      v6 = v4;
+      if (gLogCategory_BTBannerUISession <= 30)
+      {
+        if (gLogCategory_BTBannerUISession != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          [(BTBannerUISession *)v6 _xpcEvent:v4, v5];
+        }
+      }
+
+      v10 = MEMORY[0x245CFACE0](self->_actionHandler);
+      v11 = v10;
+      if (v10)
+      {
+        (*(v10 + 16))(v10, 4, 0);
+      }
+
+      xpcConnection = self->_xpcConnection;
+      self->_xpcConnection = 0;
+    }
+
+    else if (eventCopy == MEMORY[0x277D863F0])
+    {
+      if (gLogCategory_BTBannerUISession <= 30)
+      {
+        if (gLogCategory_BTBannerUISession != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          [(BTBannerUISession *)v6 _xpcEvent:v4, v5];
+        }
+      }
+
+      v13 = MEMORY[0x245CFACE0](self->_actionHandler);
+      v14 = v13;
+      if (v13)
+      {
+        (*(v13 + 16))(v13, 3, 0);
+      }
+
+      v15 = self->_xpcConnection;
+      if (v15)
+      {
+        v16 = v15;
+        xpc_connection_cancel(v16);
+        v17 = self->_xpcConnection;
+        self->_xpcConnection = 0;
+      }
     }
 
     else
     {
-      v15 = *MEMORY[0x277CCA590];
-      v6 = NSErrorF();
-    }
+      v7 = CUXPCDecodeNSErrorIfNeeded();
+      v8 = v7;
+      if (v7)
+      {
+        v9 = v7;
+      }
 
-    v16 = v6;
+      else
+      {
+        v9 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "XPC event error");
+      }
 
-    if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
+      v18 = v9;
+
+      if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcEvent:]", 90, "### XPC error: %{error}, %{xpc}", v18, eventCopy);
+      }
     }
   }
 }
@@ -329,7 +338,7 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_1_0(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendMessage]", a3, "### No valid XPC connection");
   }
 }
 
@@ -371,24 +380,27 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
 {
   messageCopy = message;
   int64 = xpc_dictionary_get_int64(messageCopy, "BUISKeyType");
-  v5 = int64;
+  v7 = int64;
   if (int64 > 1)
   {
     if (int64 == 2)
     {
-      if (gLogCategory_BTBannerUISession <= 50 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_BTBannerUISession <= 50)
       {
-        [BTBannerUISession _xpcConnectionMessage:];
+        if (gLogCategory_BTBannerUISession != -1 || (int64 = _LogCategory_Initialize(), int64))
+        {
+          [(BTBannerUISession *)int64 _xpcConnectionMessage:v5, v6];
+        }
       }
 
       v13 = MEMORY[0x245CFACE0](self->_actionHandler);
-      v7 = v13;
+      v9 = v13;
       if (!v13)
       {
         goto LABEL_32;
       }
 
-      v8 = *(v13 + 16);
+      v10 = *(v13 + 16);
     }
 
     else
@@ -398,23 +410,26 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
         goto LABEL_21;
       }
 
-      if (gLogCategory_BTBannerUISession <= 50 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_BTBannerUISession <= 50)
       {
-        [BTBannerUISession _xpcConnectionMessage:];
+        if (gLogCategory_BTBannerUISession != -1 || (int64 = _LogCategory_Initialize(), int64))
+        {
+          [(BTBannerUISession *)int64 _xpcConnectionMessage:v5, v6];
+        }
       }
 
-      v9 = MEMORY[0x245CFACE0](self->_actionHandler);
-      v7 = v9;
-      if (!v9)
+      v11 = MEMORY[0x245CFACE0](self->_actionHandler);
+      v9 = v11;
+      if (!v11)
       {
         goto LABEL_32;
       }
 
-      v8 = *(v9 + 16);
+      v10 = *(v11 + 16);
     }
 
 LABEL_31:
-    v8();
+    v10();
     goto LABEL_32;
   }
 
@@ -422,28 +437,34 @@ LABEL_31:
   {
     if (int64 == 1)
     {
-      if (gLogCategory_BTBannerUISession <= 50 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_BTBannerUISession <= 50)
       {
-        [BTBannerUISession _xpcConnectionMessage:];
+        if (gLogCategory_BTBannerUISession != -1 || (int64 = _LogCategory_Initialize(), int64))
+        {
+          [(BTBannerUISession *)int64 _xpcConnectionMessage:v5, v6];
+        }
       }
 
-      v6 = MEMORY[0x245CFACE0](self->_actionHandler);
-      v7 = v6;
-      if (!v6)
+      v8 = MEMORY[0x245CFACE0](self->_actionHandler);
+      v9 = v8;
+      if (!v8)
       {
         goto LABEL_32;
       }
 
-      v8 = *(v6 + 16);
+      v10 = *(v8 + 16);
       goto LABEL_31;
     }
   }
 
   else
   {
-    if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_BTBannerUISession <= 90)
     {
-      [BTBannerUISession _xpcConnectionMessage:];
+      if (gLogCategory_BTBannerUISession != -1 || (int64 = _LogCategory_Initialize(), int64))
+      {
+        [(BTBannerUISession *)int64 _xpcConnectionMessage:v5, v6];
+      }
     }
 
     if (!xpc_dictionary_expects_reply())
@@ -451,23 +472,20 @@ LABEL_31:
       goto LABEL_33;
     }
 
-    v10 = *MEMORY[0x277CCA590];
-    v11 = NSErrorF();
-    [(BTBannerUISession *)self _xpcSendReplyError:v11 request:messageCopy, 0];
+    v12 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "Unknown message type: %lld", 0);
+    [(BTBannerUISession *)self _xpcSendReplyError:v12 request:messageCopy];
   }
 
 LABEL_21:
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    [BTBannerUISession _xpcConnectionMessage:];
+    [BTBannerUISession _xpcConnectionMessage:v7];
   }
 
   if (xpc_dictionary_expects_reply())
   {
-    v12 = *MEMORY[0x277CCA590];
-    v14 = v5;
-    v7 = NSErrorF();
-    [(BTBannerUISession *)self _xpcSendReplyError:v7 request:messageCopy, v14];
+    v9 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "Unknown message type: %lld", v7);
+    [(BTBannerUISession *)self _xpcSendReplyError:v9 request:messageCopy];
 LABEL_32:
   }
 
@@ -480,41 +498,41 @@ LABEL_33:
 {
   errorCopy = error;
   requestCopy = request;
-  v7 = self->_xpcConnection;
-  if (v7)
+  v9 = self->_xpcConnection;
+  if (v9)
   {
     reply = xpc_dictionary_create_reply(requestCopy);
     if (reply)
     {
       CUXPCEncodeNSError();
-      xpc_connection_send_message(v7, reply);
+      xpc_connection_send_message(v9, reply);
     }
 
     else
     {
-      [BTBannerUISession _xpcSendReplyError:request:];
+      [(BTBannerUISession *)0 _xpcSendReplyError:v10 request:v11];
     }
   }
 
   else
   {
-    [BTBannerUISession _xpcSendReplyError:request:];
+    [(BTBannerUISession *)0 _xpcSendReplyError:v7 request:v8];
   }
 }
 
-- (void)_xpcSendReplyError:request:.cold.1()
+- (void)_xpcSendReplyError:(uint64_t)a3 request:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_1_0(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendReplyError:request:]", a3, "### Send error create reply failed");
   }
 }
 
-- (void)_xpcSendReplyError:request:.cold.2()
+- (void)_xpcSendReplyError:(uint64_t)a3 request:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_1_0(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendReplyError:request:]", a3, "### Send error with no cnx");
   }
 }
 

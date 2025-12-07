@@ -44,15 +44,15 @@
 
 - (PCVisitHistoryPredictor)initWithCoder:(id)coder
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy containsValueForKey:@"config"] & 1) == 0)
   {
     v33 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v41) = 0;
-      _os_log_impl(&dword_1CEE74000, v33, OS_LOG_TYPE_DEFAULT, "coder doesn't contain visit history config key - initializing with default config instead", &v41, 2u);
+      LOWORD(v40) = 0;
+      _os_log_impl(&dword_1CEE74000, v33, OS_LOG_TYPE_DEFAULT, "coder doesn't contain visit history config key - initializing with default config instead", &v40, 2u);
     }
 
     v6 = objc_alloc_init(PCVisitHistoryPredictorConfig);
@@ -66,8 +66,8 @@
     v35 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v41) = 0;
-      _os_log_impl(&dword_1CEE74000, v35, OS_LOG_TYPE_DEFAULT, "decoding visit history config failed", &v41, 2u);
+      LOWORD(v40) = 0;
+      _os_log_impl(&dword_1CEE74000, v35, OS_LOG_TYPE_DEFAULT, "decoding visit history config failed", &v40, 2u);
     }
 
     v6 = 0;
@@ -95,10 +95,10 @@ LABEL_39:
       goto LABEL_33;
     }
 
-    LOWORD(v41) = 0;
+    LOWORD(v40) = 0;
     v37 = "decoding nnmodel failed";
 LABEL_32:
-    _os_log_impl(&dword_1CEE74000, v36, OS_LOG_TYPE_DEFAULT, v37, &v41, 2u);
+    _os_log_impl(&dword_1CEE74000, v36, OS_LOG_TYPE_DEFAULT, v37, &v40, 2u);
     goto LABEL_33;
   }
 
@@ -111,8 +111,8 @@ LABEL_32:
     v10 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v41) = 0;
-      _os_log_impl(&dword_1CEE74000, v10, OS_LOG_TYPE_DEFAULT, "decoding NeuralNetModel from NSData failed", &v41, 2u);
+      LOWORD(v40) = 0;
+      _os_log_impl(&dword_1CEE74000, v10, OS_LOG_TYPE_DEFAULT, "decoding NeuralNetModel from NSData failed", &v40, 2u);
     }
   }
 
@@ -130,7 +130,7 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    LOWORD(v41) = 0;
+    LOWORD(v40) = 0;
     v37 = "decoding visit inidices encoder failed";
     goto LABEL_32;
   }
@@ -149,7 +149,7 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    LOWORD(v41) = 0;
+    LOWORD(v40) = 0;
     v37 = "decoding loi to location map failed";
     goto LABEL_32;
   }
@@ -182,16 +182,16 @@ LABEL_32:
         if (v31)
         {
           abbreviation = [(NSTimeZone *)self->_timeZone abbreviation];
-          v41 = 138412290;
-          v42 = abbreviation;
-          _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_DEFAULT, "timeZone decoded as %@", &v41, 0xCu);
+          v40 = 138412290;
+          v41 = abbreviation;
+          _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_DEFAULT, "timeZone decoded as %@", &v40, 0xCu);
         }
       }
 
       else if (v31)
       {
-        LOWORD(v41) = 0;
-        _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_DEFAULT, "timeZone decoded as empty", &v41, 2u);
+        LOWORD(v40) = 0;
+        _os_log_impl(&dword_1CEE74000, v30, OS_LOG_TYPE_DEFAULT, "timeZone decoded as empty", &v40, 2u);
       }
 
       goto LABEL_38;
@@ -203,7 +203,7 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    LOWORD(v41) = 0;
+    LOWORD(v40) = 0;
     v37 = "decoding loi to work map failed";
     goto LABEL_32;
   }
@@ -211,7 +211,7 @@ LABEL_32:
   v36 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v41) = 0;
+    LOWORD(v40) = 0;
     v37 = "decoding loi to home map failed";
     goto LABEL_32;
   }
@@ -222,7 +222,6 @@ LABEL_34:
   v38 = 0;
 LABEL_40:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
@@ -254,41 +253,41 @@ LABEL_40:
 
 - (void)storeHomeLoisTo:(id)to workLoisTo:(id)loisTo from:(id)from withVisitIndices:(id)indices
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   toCopy = to;
   loisToCopy = loisTo;
   fromCopy = from;
   indicesCopy = indices;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v10 = [indicesCopy countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v10 = [indicesCopy countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v48;
+    v12 = *v47;
     v13 = 0x1E83B7000uLL;
-    v35 = *v48;
-    v36 = indicesCopy;
+    v34 = *v47;
+    v35 = indicesCopy;
     do
     {
       v14 = 0;
-      v38 = v11;
+      v37 = v11;
       do
       {
-        if (*v48 != v12)
+        if (*v47 != v12)
         {
           objc_enumerationMutation(indicesCopy);
         }
 
-        v15 = *(*(&v47 + 1) + 8 * v14);
-        v16 = [indicesCopy objectForKeyedSubscript:{v15, v35, v36}];
+        v15 = *(*(&v46 + 1) + 8 * v14);
+        v16 = [indicesCopy objectForKeyedSubscript:{v15, v34, v35}];
         kTravelingString = [*(v13 + 2216) kTravelingString];
-        v40 = v16;
+        v39 = v16;
         if (([v16 isEqualToString:kTravelingString] & 1) == 0)
         {
-          v39 = v14;
+          v38 = v14;
           kInfrequentString = [*(v13 + 2216) kInfrequentString];
           if ([v16 isEqualToString:kInfrequentString])
           {
@@ -299,32 +298,32 @@ LABEL_40:
             kNilString = [*(v13 + 2216) kNilString];
             v20 = [v16 isEqualToString:kNilString];
 
-            v11 = v38;
+            v11 = v37;
             if (v20)
             {
               goto LABEL_29;
             }
 
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
             v44 = 0u;
+            v45 = 0u;
+            v42 = 0u;
+            v43 = 0u;
             kTravelingString = fromCopy;
-            v21 = [kTravelingString countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v21 = [kTravelingString countByEnumeratingWithState:&v42 objects:v50 count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v44;
+              v23 = *v43;
               do
               {
                 for (i = 0; i != v22; ++i)
                 {
-                  if (*v44 != v23)
+                  if (*v43 != v23)
                   {
                     objc_enumerationMutation(kTravelingString);
                   }
 
-                  v25 = *(*(&v43 + 1) + 8 * i);
+                  v25 = *(*(&v42 + 1) + 8 * i);
                   loiIdentifier = [v25 loiIdentifier];
                   if (loiIdentifier)
                   {
@@ -363,18 +362,18 @@ LABEL_40:
                   }
                 }
 
-                v22 = [kTravelingString countByEnumeratingWithState:&v43 objects:v51 count:16];
+                v22 = [kTravelingString countByEnumeratingWithState:&v42 objects:v50 count:16];
               }
 
               while (v22);
-              v12 = v35;
-              indicesCopy = v36;
+              v12 = v34;
+              indicesCopy = v35;
               v13 = 0x1E83B7000;
-              v11 = v38;
+              v11 = v37;
             }
           }
 
-          v14 = v39;
+          v14 = v38;
         }
 
 LABEL_29:
@@ -382,18 +381,16 @@ LABEL_29:
       }
 
       while (v14 != v11);
-      v11 = [indicesCopy countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v11 = [indicesCopy countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v11);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeWithHistory:(id)history transitions:(id)transitions locationsOfInterest:(id)interest homekitHomes:(id)homes atTime:(double)time inTimeZone:(id)zone withError:(id *)error
 {
-  v203 = *MEMORY[0x1E69E9840];
+  v202 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   transitionsCopy = transitions;
   interestCopy = interest;
@@ -452,15 +449,15 @@ LABEL_29:
 
   v22 = [PCNeuralNetworkUtilities sortVisitHistory:historyCopy];
   v23 = [PCNeuralNetworkUtilities sortTransitionHistory:transitionsCopy];
-  v173 = [v23 mutableCopy];
+  v172 = [v23 mutableCopy];
 
-  v24 = [v173 count];
+  v24 = [v172 count];
   if (v24 >= 1)
   {
     v25 = (v24 & 0x7FFFFFFF) + 1;
     do
     {
-      v26 = [v173 objectAtIndexedSubscript:v25 - 2];
+      v26 = [v172 objectAtIndexedSubscript:v25 - 2];
       if ([v26 hasStartTimeCFAbsolute])
       {
         if ([v26 hasStopTimeCFAbsolute])
@@ -471,7 +468,7 @@ LABEL_29:
           v30 = v28 - v29;
           if (v30 > 14400.0)
           {
-            [v173 removeObjectAtIndex:v25 - 2];
+            [v172 removeObjectAtIndex:v25 - 2];
             v31 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
             if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
@@ -491,20 +488,20 @@ LABEL_29:
     while (v25 > 1);
   }
 
-  v167 = zoneCopy;
+  v166 = zoneCopy;
   v32 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
-  if (v167)
+  if (v166)
   {
     if (v33)
     {
-      abbreviation = [v167 abbreviation];
+      abbreviation = [v166 abbreviation];
       *buf = 138412290;
       *&buf[4] = abbreviation;
       _os_log_impl(&dword_1CEE74000, v32, OS_LOG_TYPE_DEFAULT, "Training time zone: %@", buf, 0xCu);
     }
 
-    v169 = v167;
+    v168 = v166;
   }
 
   else
@@ -515,7 +512,7 @@ LABEL_29:
       _os_log_impl(&dword_1CEE74000, v32, OS_LOG_TYPE_DEFAULT, "No input time zone - defaulting to PST for training", buf, 2u);
     }
 
-    v169 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"PST"];
+    v168 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"PST"];
   }
 
   [(PCVisitHistoryPredictor *)self setCandidateModel:0];
@@ -531,7 +528,7 @@ LABEL_29:
   v38 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [(PCVisitHistoryPredictor *)self setCandidateLoiToWorkMap:v38];
 
-  [(PCVisitHistoryPredictor *)self setCandidateTimeZone:v169];
+  [(PCVisitHistoryPredictor *)self setCandidateTimeZone:v168];
   v39 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
@@ -542,25 +539,25 @@ LABEL_29:
   }
 
   v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v193 = 0u;
-  v194 = 0u;
-  v191 = 0u;
   v192 = 0u;
+  v193 = 0u;
+  v190 = 0u;
+  v191 = 0u;
   v42 = v22;
-  v43 = [v42 countByEnumeratingWithState:&v191 objects:v202 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v190 objects:v201 count:16];
   if (v43)
   {
-    v44 = *v192;
+    v44 = *v191;
     do
     {
       for (i = 0; i != v43; ++i)
       {
-        if (*v192 != v44)
+        if (*v191 != v44)
         {
           objc_enumerationMutation(v42);
         }
 
-        loiIdentifier = [*(*(&v191 + 1) + 8 * i) loiIdentifier];
+        loiIdentifier = [*(*(&v190 + 1) + 8 * i) loiIdentifier];
         if (!loiIdentifier)
         {
           v47 = +[PCNeuralNetworkUtilities kNilString];
@@ -584,31 +581,31 @@ LABEL_29:
         }
       }
 
-      v43 = [v42 countByEnumeratingWithState:&v191 objects:v202 count:16];
+      v43 = [v42 countByEnumeratingWithState:&v190 objects:v201 count:16];
     }
 
     while (v43);
   }
 
-  v189 = 0u;
-  v190 = 0u;
-  v187 = 0u;
   v188 = 0u;
+  v189 = 0u;
+  v186 = 0u;
+  v187 = 0u;
   v53 = v42;
-  v54 = [v53 countByEnumeratingWithState:&v187 objects:v201 count:16];
+  v54 = [v53 countByEnumeratingWithState:&v186 objects:v200 count:16];
   if (v54)
   {
-    v55 = *v188;
+    v55 = *v187;
     do
     {
       for (j = 0; j != v54; ++j)
       {
-        if (*v188 != v55)
+        if (*v187 != v55)
         {
           objc_enumerationMutation(v53);
         }
 
-        v57 = *(*(&v187 + 1) + 8 * j);
+        v57 = *(*(&v186 + 1) + 8 * j);
         loiIdentifier2 = [v57 loiIdentifier];
         if (loiIdentifier2)
         {
@@ -645,7 +642,7 @@ LABEL_29:
         }
       }
 
-      v54 = [v53 countByEnumeratingWithState:&v187 objects:v201 count:16];
+      v54 = [v53 countByEnumeratingWithState:&v186 objects:v200 count:16];
     }
 
     while (v54);
@@ -661,29 +658,29 @@ LABEL_29:
     v68 = [PCNeuralNetworkUtilities sortDictionaryByValues:v41];
     v69 = objc_alloc_init(MEMORY[0x1E695DF90]);
     [v68 subarrayWithRange:{objc_msgSend(v68, "count") - 100, 100}];
+    v184 = 0u;
     v185 = 0u;
-    v186 = 0u;
-    v183 = 0u;
-    v70 = v184 = 0u;
-    v71 = [v70 countByEnumeratingWithState:&v183 objects:v200 count:16];
+    v182 = 0u;
+    v70 = v183 = 0u;
+    v71 = [v70 countByEnumeratingWithState:&v182 objects:v199 count:16];
     if (v71)
     {
-      v72 = *v184;
+      v72 = *v183;
       do
       {
         for (k = 0; k != v71; ++k)
         {
-          if (*v184 != v72)
+          if (*v183 != v72)
           {
             objc_enumerationMutation(v70);
           }
 
-          v74 = *(*(&v183 + 1) + 8 * k);
+          v74 = *(*(&v182 + 1) + 8 * k);
           v75 = [v41 objectForKeyedSubscript:v74];
           [v69 setObject:v75 forKeyedSubscript:v74];
         }
 
-        v71 = [v70 countByEnumeratingWithState:&v183 objects:v200 count:16];
+        v71 = [v70 countByEnumeratingWithState:&v182 objects:v199 count:16];
       }
 
       while (v71);
@@ -692,25 +689,25 @@ LABEL_29:
     v76 = v69;
   }
 
-  v181 = 0u;
-  v182 = 0u;
-  v179 = 0u;
   v180 = 0u;
+  v181 = 0u;
+  v178 = 0u;
+  v179 = 0u;
   v77 = v53;
-  v78 = [v77 countByEnumeratingWithState:&v179 objects:v199 count:16];
+  v78 = [v77 countByEnumeratingWithState:&v178 objects:v198 count:16];
   if (v78)
   {
-    v79 = *v180;
+    v79 = *v179;
     do
     {
       for (m = 0; m != v78; ++m)
       {
-        if (*v180 != v79)
+        if (*v179 != v79)
         {
           objc_enumerationMutation(v77);
         }
 
-        loiIdentifier3 = [*(*(&v179 + 1) + 8 * m) loiIdentifier];
+        loiIdentifier3 = [*(*(&v178 + 1) + 8 * m) loiIdentifier];
         if (loiIdentifier3)
         {
           v82 = [v76 objectForKey:loiIdentifier3];
@@ -743,7 +740,7 @@ LABEL_29:
 LABEL_80:
       }
 
-      v78 = [v77 countByEnumeratingWithState:&v179 objects:v199 count:16];
+      v78 = [v77 countByEnumeratingWithState:&v178 objects:v198 count:16];
     }
 
     while (v78);
@@ -824,7 +821,7 @@ LABEL_80:
     [(PCVisitHistoryPredictorConfig *)self->_config timestepSizeMinutes];
     v120 = v119;
     candidateVisitIndicies8 = [(PCVisitHistoryPredictor *)self candidateVisitIndicies];
-    v118 = [PCNeuralNetworkUtilities convertToTimestepDataset:v77 currentTime:v173 visitHistory:candidateVisitIndicies8 transitionHistory:v120 startTime:time visitIndicies:v111];
+    v118 = [PCNeuralNetworkUtilities convertToTimestepDataset:v77 currentTime:v172 visitHistory:candidateVisitIndicies8 transitionHistory:v120 startTime:time visitIndicies:v111];
 
     v122 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
@@ -885,27 +882,27 @@ LABEL_80:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v196 = __Block_byref_object_copy__0;
-    v197 = __Block_byref_object_dispose__0;
-    v198 = 0;
+    v195 = __Block_byref_object_copy__0;
+    v196 = __Block_byref_object_dispose__0;
+    v197 = 0;
     candidateModel = [(PCVisitHistoryPredictor *)self candidateModel];
     loiAtTimestepArray3 = [v118 loiAtTimestepArray];
-    v176[0] = MEMORY[0x1E69E9820];
-    v176[1] = 3221225472;
-    v176[2] = __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfInterest_homekitHomes_atTime_inTimeZone_withError___block_invoke;
-    v176[3] = &unk_1E83B8650;
-    v178 = buf;
+    v175[0] = MEMORY[0x1E69E9820];
+    v175[1] = 3221225472;
+    v175[2] = __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfInterest_homekitHomes_atTime_inTimeZone_withError___block_invoke;
+    v175[3] = &unk_1E83B8650;
+    v177 = buf;
     v141 = v135;
-    v177 = v141;
-    [candidateModel fitLabelEncoderWithArray:loiAtTimestepArray3 completionHandler:v176];
+    v176 = v141;
+    [candidateModel fitLabelEncoderWithArray:loiAtTimestepArray3 completionHandler:v175];
 
     if (dispatch_semaphore_wait(v141, v137))
     {
       v142 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
       if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
       {
-        *v175 = 0;
-        _os_log_impl(&dword_1CEE74000, v142, OS_LOG_TYPE_DEFAULT, "Error: timed out while fitting ordinal label encoder on lois", v175, 2u);
+        *v174 = 0;
+        _os_log_impl(&dword_1CEE74000, v142, OS_LOG_TYPE_DEFAULT, "Error: timed out while fitting ordinal label encoder on lois", v174, 2u);
       }
 
       goto LABEL_118;
@@ -920,8 +917,8 @@ LABEL_80:
     v145 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
     {
-      *v175 = 0;
-      _os_log_impl(&dword_1CEE74000, v145, OS_LOG_TYPE_DEFAULT, "sequencing data matrix...", v175, 2u);
+      *v174 = 0;
+      _os_log_impl(&dword_1CEE74000, v145, OS_LOG_TYPE_DEFAULT, "sequencing data matrix...", v174, 2u);
     }
 
     v146 = [MEMORY[0x1E696AD98] numberWithLong:{-[NeuralNetConfig getUnknownLoiIdLabel](v129, "getUnknownLoiIdLabel")}];
@@ -930,8 +927,8 @@ LABEL_80:
     v147 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
     {
-      *v175 = 0;
-      _os_log_impl(&dword_1CEE74000, v147, OS_LOG_TYPE_DEFAULT, "training...", v175, 2u);
+      *v174 = 0;
+      _os_log_impl(&dword_1CEE74000, v147, OS_LOG_TYPE_DEFAULT, "training...", v174, 2u);
     }
 
     candidateModel2 = [(PCVisitHistoryPredictor *)self candidateModel];
@@ -1000,8 +997,6 @@ LABEL_119:
   }
 
 LABEL_120:
-
-  v164 = *MEMORY[0x1E69E9840];
 }
 
 void __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfInterest_homekitHomes_atTime_inTimeZone_withError___block_invoke(uint64_t a1, void *a2)
@@ -1013,29 +1008,29 @@ void __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfIn
 
 - (void)findMismatchedTrainedLois:(id *)lois visitHistory:(id)history
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v6 = historyCopy;
-  v7 = [v6 countByEnumeratingWithState:&v50 objects:v57 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v51;
+    v9 = *v50;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v51 != v9)
+        if (*v50 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v50 + 1) + 8 * i);
+        v11 = *(*(&v49 + 1) + 8 * i);
         loiIdentifier = [v11 loiIdentifier];
 
         if (loiIdentifier)
@@ -1045,41 +1040,41 @@ void __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfIn
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v49 objects:v56 count:16];
     }
 
     while (v8);
   }
 
-  v39 = v6;
+  v38 = v6;
 
-  v40 = v5;
-  v41 = [MEMORY[0x1E695DFD8] setWithArray:v5];
+  v39 = v5;
+  v40 = [MEMORY[0x1E695DFD8] setWithArray:v5];
   selfCopy3 = self;
   *lois = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = self->_visitIndicies;
-  v15 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+  v15 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v45 objects:v55 count:16];
   if (v15)
   {
     v16 = v15;
-    v45 = *v47;
+    v44 = *v46;
     v17 = 0x1E83B7000uLL;
     do
     {
       v18 = 0;
       do
       {
-        if (*v47 != v45)
+        if (*v46 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v46 + 1) + 8 * v18);
-        v20 = [(NSMutableDictionary *)selfCopy3->_visitIndicies objectForKeyedSubscript:v19, v39];
+        v19 = *(*(&v45 + 1) + 8 * v18);
+        v20 = [(NSMutableDictionary *)selfCopy3->_visitIndicies objectForKeyedSubscript:v19, v38];
         kTravelingString = [*(v17 + 2216) kTravelingString];
         if ([v20 isEqualToString:kTravelingString])
         {
@@ -1099,7 +1094,7 @@ void __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfIn
         v17 = v23;
         if ((v25 & 1) == 0)
         {
-          v26 = [v41 containsObject:v19];
+          v26 = [v40 containsObject:v19];
           v27 = [(NSMutableDictionary *)selfCopy3->_loiToHomeMap objectForKeyedSubscript:v19];
           if (v27)
           {
@@ -1153,7 +1148,7 @@ void __119__PCVisitHistoryPredictor_computeWithHistory_transitions_locationsOfIn
             if (os_log_type_enabled(kInfrequentString, OS_LOG_TYPE_ERROR))
             {
               *buf = 138739971;
-              v55 = v19;
+              v54 = v19;
               _os_log_impl(&dword_1CEE74000, kInfrequentString, OS_LOG_TYPE_ERROR, "Trained LOI UUID %{sensitive}@ is missing from current visit history", buf, 0xCu);
             }
 
@@ -1167,19 +1162,17 @@ LABEL_18:
       }
 
       while (v16 != v18);
-      v37 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+      v37 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v45 objects:v55 count:16];
       v16 = v37;
     }
 
     while (v37);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predictWithHistory:(id)history transitionHistory:(id)transitionHistory locationHistory:(id)locationHistory homekitHomes:(id)homes atTime:(double)time locations:(id *)locations transitions:(id *)transitions containsHomeKitPredictions:(id *)self0 missingLoiResults:(id *)self1
 {
-  v244 = *MEMORY[0x1E69E9840];
+  v243 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   transitionHistoryCopy = transitionHistory;
   locationHistoryCopy = locationHistory;
@@ -1234,8 +1227,8 @@ LABEL_18:
   }
 
   [(PCVisitHistoryPredictor *)self findMismatchedTrainedLois:results visitHistory:v15];
-  v175 = [PCNeuralNetworkUtilities sortVisitHistory:historyCopy];
-  v174 = [PCNeuralNetworkUtilities sortTransitionHistory:transitionHistoryCopy];
+  v174 = [PCNeuralNetworkUtilities sortVisitHistory:historyCopy];
+  v173 = [PCNeuralNetworkUtilities sortTransitionHistory:transitionHistoryCopy];
   v19 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
@@ -1243,7 +1236,7 @@ LABEL_18:
     _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_DEFAULT, "converting to timestep array...", buf, 2u);
   }
 
-  v20 = [v175 objectAtIndexedSubscript:0];
+  v20 = [v174 objectAtIndexedSubscript:0];
   [v20 entryTimeCFAbsolute];
   v22 = v21;
 
@@ -1257,46 +1250,46 @@ LABEL_18:
 
   if (v22 <= time)
   {
-    v228 = 0u;
-    v229 = 0u;
-    v226 = 0u;
     v227 = 0u;
+    v228 = 0u;
+    v225 = 0u;
+    v226 = 0u;
     obj = homesCopy;
-    v195 = [obj countByEnumeratingWithState:&v226 objects:v243 count:16];
-    if (v195)
+    v194 = [obj countByEnumeratingWithState:&v225 objects:v242 count:16];
+    if (v194)
     {
-      v192 = *v227;
+      v191 = *v226;
       do
       {
-        for (i = 0; i != v195; ++i)
+        for (i = 0; i != v194; ++i)
         {
-          if (*v227 != v192)
+          if (*v226 != v191)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v226 + 1) + 8 * i);
+          v28 = *(*(&v225 + 1) + 8 * i);
           if ([v28 hasLocation])
           {
-            v224 = 0u;
-            v225 = 0u;
-            v222 = 0u;
             v223 = 0u;
+            v224 = 0u;
+            v221 = 0u;
+            v222 = 0u;
             v29 = self->_visitIndicies;
-            v30 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v222 objects:v242 count:16];
+            v30 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v221 objects:v241 count:16];
             if (v30)
             {
-              v31 = *v223;
+              v31 = *v222;
               while (2)
               {
                 for (j = 0; j != v30; ++j)
                 {
-                  if (*v223 != v31)
+                  if (*v222 != v31)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  v33 = [(NSMutableDictionary *)self->_loiToLocationMap objectForKeyedSubscript:*(*(&v222 + 1) + 8 * j)];
+                  v33 = [(NSMutableDictionary *)self->_loiToLocationMap objectForKeyedSubscript:*(*(&v221 + 1) + 8 * j)];
                   toLocation = [v33 toLocation];
                   location = [v28 location];
                   [PCLocationUtils distanceInMetersBetweenLocation:toLocation andLocation:location];
@@ -1312,7 +1305,7 @@ LABEL_18:
                   }
                 }
 
-                v30 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v222 objects:v242 count:16];
+                v30 = [(NSMutableDictionary *)v29 countByEnumeratingWithState:&v221 objects:v241 count:16];
                 if (v30)
                 {
                   continue;
@@ -1337,15 +1330,15 @@ LABEL_18:
 LABEL_37:
         }
 
-        v195 = [obj countByEnumeratingWithState:&v226 objects:v243 count:16];
+        v194 = [obj countByEnumeratingWithState:&v225 objects:v242 count:16];
       }
 
-      while (v195);
+      while (v194);
     }
 
     [(PCVisitHistoryPredictorConfig *)self->_config timestepSizeMinutes];
-    v183 = [PCNeuralNetworkUtilities convertToTimestepDataset:"convertToTimestepDataset:currentTime:visitHistory:transitionHistory:startTime:visitIndicies:" currentTime:v175 visitHistory:v174 transitionHistory:self->_visitIndicies startTime:? visitIndicies:?];
-    loiAtTimestepArray = [v183 loiAtTimestepArray];
+    v182 = [PCNeuralNetworkUtilities convertToTimestepDataset:"convertToTimestepDataset:currentTime:visitHistory:transitionHistory:startTime:visitIndicies:" currentTime:v174 visitHistory:v173 transitionHistory:self->_visitIndicies startTime:? visitIndicies:?];
+    loiAtTimestepArray = [v182 loiAtTimestepArray];
     v40 = [loiAtTimestepArray count] == 0;
 
     if (!v40)
@@ -1353,7 +1346,7 @@ LABEL_37:
       v41 = 0;
       do
       {
-        loiAtTimestepArray2 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray2 = [v182 loiAtTimestepArray];
         v43 = [loiAtTimestepArray2 objectAtIndexedSubscript:v41];
         v44 = +[PCNeuralNetworkUtilities kUnknownString];
         v45 = [v43 isEqualToString:v44];
@@ -1361,11 +1354,11 @@ LABEL_37:
         if (v45)
         {
           v46 = +[PCNeuralNetworkUtilities kTravelingString];
-          loiAtTimestepArray3 = [v183 loiAtTimestepArray];
+          loiAtTimestepArray3 = [v182 loiAtTimestepArray];
           [loiAtTimestepArray3 setObject:v46 atIndexedSubscript:v41];
         }
 
-        loiAtTimestepArray4 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray4 = [v182 loiAtTimestepArray];
         v49 = [loiAtTimestepArray4 count];
 
         ++v41;
@@ -1377,7 +1370,7 @@ LABEL_37:
     v50 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
-      loiAtTimestepArray5 = [v183 loiAtTimestepArray];
+      loiAtTimestepArray5 = [v182 loiAtTimestepArray];
       v52 = [loiAtTimestepArray5 count];
       *buf = 134217984;
       *&buf[4] = v52;
@@ -1391,7 +1384,7 @@ LABEL_37:
       _os_log_impl(&dword_1CEE74000, v53, OS_LOG_TYPE_DEFAULT, "using one hot encoder...", buf, 2u);
     }
 
-    loiAtTimestepArray6 = [v183 loiAtTimestepArray];
+    loiAtTimestepArray6 = [v182 loiAtTimestepArray];
     v55 = [loiAtTimestepArray6 count] > 3;
 
     if (v55)
@@ -1399,26 +1392,26 @@ LABEL_37:
       v56 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
       if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        loiAtTimestepArray7 = [v183 loiAtTimestepArray];
-        loiAtTimestepArray8 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray7 = [v182 loiAtTimestepArray];
+        loiAtTimestepArray8 = [v182 loiAtTimestepArray];
         objb = [loiAtTimestepArray7 objectAtIndexedSubscript:{objc_msgSend(loiAtTimestepArray8, "count") - 4}];
-        loiAtTimestepArray9 = [v183 loiAtTimestepArray];
-        loiAtTimestepArray10 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray9 = [v182 loiAtTimestepArray];
+        loiAtTimestepArray10 = [v182 loiAtTimestepArray];
         v59 = [loiAtTimestepArray9 objectAtIndexedSubscript:{objc_msgSend(loiAtTimestepArray10, "count") - 3}];
-        loiAtTimestepArray11 = [v183 loiAtTimestepArray];
-        loiAtTimestepArray12 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray11 = [v182 loiAtTimestepArray];
+        loiAtTimestepArray12 = [v182 loiAtTimestepArray];
         v62 = [loiAtTimestepArray11 objectAtIndexedSubscript:{objc_msgSend(loiAtTimestepArray12, "count") - 2}];
-        loiAtTimestepArray13 = [v183 loiAtTimestepArray];
-        loiAtTimestepArray14 = [v183 loiAtTimestepArray];
+        loiAtTimestepArray13 = [v182 loiAtTimestepArray];
+        loiAtTimestepArray14 = [v182 loiAtTimestepArray];
         v65 = [loiAtTimestepArray13 objectAtIndexedSubscript:{objc_msgSend(loiAtTimestepArray14, "count") - 1}];
         *buf = 138413058;
         *&buf[4] = objb;
         *&buf[12] = 2112;
         *&buf[14] = v59;
         *&buf[22] = 2112;
-        v240 = v62;
-        LOWORD(v241) = 2112;
-        *(&v241 + 2) = v65;
+        v239 = v62;
+        LOWORD(v240) = 2112;
+        *(&v240 + 2) = v65;
         _os_log_impl(&dword_1CEE74000, v56, OS_LOG_TYPE_DEFAULT, "last four timesteps: %@, %@, %@, %@", buf, 0x2Au);
       }
     }
@@ -1426,52 +1419,52 @@ LABEL_37:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v240 = __Block_byref_object_copy__0;
-    *&v241 = __Block_byref_object_dispose__0;
-    *(&v241 + 1) = 0;
+    v239 = __Block_byref_object_copy__0;
+    *&v240 = __Block_byref_object_dispose__0;
+    *(&v240 + 1) = 0;
     v66 = dispatch_semaphore_create(0);
     model = self->_model;
-    loiAtTimestepArray15 = [v183 loiAtTimestepArray];
-    v219[0] = MEMORY[0x1E69E9820];
-    v219[1] = 3221225472;
-    v219[2] = __167__PCVisitHistoryPredictor_predictWithHistory_transitionHistory_locationHistory_homekitHomes_atTime_locations_transitions_containsHomeKitPredictions_missingLoiResults___block_invoke;
-    v219[3] = &unk_1E83B8650;
-    v221 = buf;
+    loiAtTimestepArray15 = [v182 loiAtTimestepArray];
+    v218[0] = MEMORY[0x1E69E9820];
+    v218[1] = 3221225472;
+    v218[2] = __167__PCVisitHistoryPredictor_predictWithHistory_transitionHistory_locationHistory_homekitHomes_atTime_locations_transitions_containsHomeKitPredictions_missingLoiResults___block_invoke;
+    v218[3] = &unk_1E83B8650;
+    v220 = buf;
     dsema = v66;
-    v220 = dsema;
-    [(PCNeuralNetModel *)model encodeWithLabelEncoderWithArray:loiAtTimestepArray15 completionHandler:v219];
+    v219 = dsema;
+    [(PCNeuralNetModel *)model encodeWithLabelEncoderWithArray:loiAtTimestepArray15 completionHandler:v218];
 
     [(PCVisitHistoryPredictorConfig *)self->_config loiEncodingTimeoutSeconds];
     v70 = dispatch_time(0, (v69 * 1000000000.0));
     if (dispatch_semaphore_wait(dsema, v70))
     {
       v71 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
-      v170 = v71;
+      v169 = v71;
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
-        *v237 = 0;
-        _os_log_impl(&dword_1CEE74000, v71, OS_LOG_TYPE_DEFAULT, "Error: timed out while encoding prediction lois with one hot encoder", v237, 2u);
+        *v236 = 0;
+        _os_log_impl(&dword_1CEE74000, v71, OS_LOG_TYPE_DEFAULT, "Error: timed out while encoding prediction lois with one hot encoder", v236, 2u);
       }
     }
 
     else
     {
       v72 = [*(*&buf[8] + 40) mutableCopy];
-      [v183 setOrdinalLoiLabels:v72];
+      [v182 setOrdinalLoiLabels:v72];
 
-      v170 = self->_timeZone;
-      if (v170)
+      v169 = self->_timeZone;
+      if (v169)
       {
         v73 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
         if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
         {
           abbreviation = [(NSTimeZone *)self->_timeZone abbreviation];
-          *v237 = 138412290;
-          v238 = abbreviation;
-          _os_log_impl(&dword_1CEE74000, v73, OS_LOG_TYPE_DEFAULT, "Prediction time zone: %@", v237, 0xCu);
+          *v236 = 138412290;
+          v237 = abbreviation;
+          _os_log_impl(&dword_1CEE74000, v73, OS_LOG_TYPE_DEFAULT, "Prediction time zone: %@", v236, 0xCu);
         }
 
-        v75 = v183;
+        v75 = v182;
         selfCopy2 = self;
       }
 
@@ -1480,70 +1473,70 @@ LABEL_37:
         v77 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
         if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
         {
-          *v237 = 0;
-          _os_log_impl(&dword_1CEE74000, v77, OS_LOG_TYPE_DEFAULT, "No trained time zone - defaulting to PST for prediction", v237, 2u);
+          *v236 = 0;
+          _os_log_impl(&dword_1CEE74000, v77, OS_LOG_TYPE_DEFAULT, "No trained time zone - defaulting to PST for prediction", v236, 2u);
         }
 
-        v170 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"PST"];
+        v169 = [MEMORY[0x1E695DFE8] timeZoneWithAbbreviation:@"PST"];
         selfCopy2 = self;
-        v75 = v183;
+        v75 = v182;
       }
 
-      [PCNeuralNetworkUtilities applySinCosTransform:v75 timeZone:v170];
+      [PCNeuralNetworkUtilities applySinCosTransform:v75 timeZone:v169];
       v78 = MEMORY[0x1E696AD98];
       getConfig = [(PCNeuralNetModel *)selfCopy2->_model getConfig];
-      v168 = [v78 numberWithLong:{objc_msgSend(getConfig, "getUnknownLoiIdLabel")}];
+      v167 = [v78 numberWithLong:{objc_msgSend(getConfig, "getUnknownLoiIdLabel")}];
 
-      v169 = [v183 getFeatureMatrixWithUnknownLoiLabel:v168];
+      v168 = [v182 getFeatureMatrixWithUnknownLoiLabel:v167];
       v80 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
-        v81 = [v169 count];
-        *v237 = 134217984;
-        v238 = v81;
-        _os_log_impl(&dword_1CEE74000, v80, OS_LOG_TYPE_DEFAULT, "matrix length count: %lu", v237, 0xCu);
+        v81 = [v168 count];
+        *v236 = 134217984;
+        v237 = v81;
+        _os_log_impl(&dword_1CEE74000, v80, OS_LOG_TYPE_DEFAULT, "matrix length count: %lu", v236, 0xCu);
       }
 
-      v82 = [v169 count];
+      v82 = [v168 count];
       if (v82 >= [(PCVisitHistoryPredictorConfig *)self->_config inputSequenceLength])
       {
-        v166 = [v169 subarrayWithRange:{objc_msgSend(v169, "count") - -[PCVisitHistoryPredictorConfig inputSequenceLength](self->_config, "inputSequenceLength"), -[PCVisitHistoryPredictorConfig inputSequenceLength](self->_config, "inputSequenceLength")}];
-        v236 = v166;
-        v167 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v236 count:1];
-        v84 = [(PCNeuralNetModel *)self->_model predictFromTensorWithXPredict:v167 xPredictMatrix:v166 timesteps:[(PCVisitHistoryPredictorConfig *)self->_config inputSequenceLength]];
+        v165 = [v168 subarrayWithRange:{objc_msgSend(v168, "count") - -[PCVisitHistoryPredictorConfig inputSequenceLength](self->_config, "inputSequenceLength"), -[PCVisitHistoryPredictorConfig inputSequenceLength](self->_config, "inputSequenceLength")}];
+        v235 = v165;
+        v166 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v235 count:1];
+        v84 = [(PCNeuralNetModel *)self->_model predictFromTensorWithXPredict:v166 xPredictMatrix:v165 timesteps:[(PCVisitHistoryPredictorConfig *)self->_config inputSequenceLength]];
         if ([v84 count])
         {
-          v165 = v84;
+          v164 = v84;
           v85 = [v84 objectAtIndexedSubscript:0];
-          v173 = [v85 mutableCopy];
+          v172 = [v85 mutableCopy];
 
-          v86 = [v169 objectAtIndexedSubscript:{objc_msgSend(v169, "count") - 1}];
+          v86 = [v168 objectAtIndexedSubscript:{objc_msgSend(v168, "count") - 1}];
           v87 = [v86 objectAtIndexedSubscript:0];
           intValue = [v87 intValue];
 
           v89 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
-            *v237 = 67109120;
-            LODWORD(v238) = intValue;
-            _os_log_impl(&dword_1CEE74000, v89, OS_LOG_TYPE_DEFAULT, "current location index: %d", v237, 8u);
+            *v236 = 67109120;
+            LODWORD(v237) = intValue;
+            _os_log_impl(&dword_1CEE74000, v89, OS_LOG_TYPE_DEFAULT, "current location index: %d", v236, 8u);
           }
 
           v90 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
           if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
           {
-            v91 = [v169 objectAtIndexedSubscript:{objc_msgSend(v169, "count") - 1}];
-            *v237 = 138412290;
-            v238 = v91;
-            _os_log_impl(&dword_1CEE74000, v90, OS_LOG_TYPE_DEFAULT, "current state vector: %@", v237, 0xCu);
+            v91 = [v168 objectAtIndexedSubscript:{objc_msgSend(v168, "count") - 1}];
+            *v236 = 138412290;
+            v237 = v91;
+            _os_log_impl(&dword_1CEE74000, v90, OS_LOG_TYPE_DEFAULT, "current state vector: %@", v236, 0xCu);
           }
 
-          v172 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v171 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v92 = 0;
           v93 = intValue;
           while (1)
           {
-            v94 = [v173 objectAtIndexedSubscript:0];
+            v94 = [v172 objectAtIndexedSubscript:0];
             v95 = [v94 count] > v92;
 
             if (!v95)
@@ -1561,12 +1554,12 @@ LABEL_37:
               [MEMORY[0x1E696AD98] numberWithInt:0];
             }
             v96 = ;
-            [v172 addObject:v96];
+            [v171 addObject:v96];
 
             ++v92;
           }
 
-          [v173 insertObject:v172 atIndex:0];
+          [v172 insertObject:v171 atIndex:0];
           selfCopy4 = self;
           [(PCVisitHistoryPredictorConfig *)self->_config visitProbabilityThreshold];
           v99 = v98;
@@ -1574,88 +1567,88 @@ LABEL_37:
           v101 = v100;
           *&v100 = v99;
           LODWORD(v102) = 1.0;
-          [PCNeuralNetworkUtilities createPredictedContextFromPredSequence:v173 timestepSize:1 currentTime:v100 preds:v101 probabilityCalculationMode:time probabilityPercentile:v102];
+          [PCNeuralNetworkUtilities createPredictedContextFromPredSequence:v172 timestepSize:1 currentTime:v100 preds:v101 probabilityCalculationMode:time probabilityPercentile:v102];
+          v216 = 0u;
           v217 = 0u;
-          v218 = 0u;
-          v215 = 0u;
-          v103 = v216 = 0u;
-          v104 = [v103 countByEnumeratingWithState:&v215 objects:v235 count:16];
+          v214 = 0u;
+          v103 = v215 = 0u;
+          v104 = [v103 countByEnumeratingWithState:&v214 objects:v234 count:16];
           if (v104)
           {
-            v105 = *v216;
+            v105 = *v215;
             do
             {
               for (k = 0; k != v104; ++k)
               {
-                if (*v216 != v105)
+                if (*v215 != v105)
                 {
                   objc_enumerationMutation(v103);
                 }
 
-                v107 = *(*(&v215 + 1) + 8 * k);
+                v107 = *(*(&v214 + 1) + 8 * k);
                 v108 = -[PCNeuralNetModel decodeLabelWithIndex:](selfCopy4->_model, "decodeLabelWithIndex:", [v107 visitLoiIdx]);
                 [v107 setVisitLoiString:v108];
 
                 selfCopy4 = self;
               }
 
-              v104 = [v103 countByEnumeratingWithState:&v215 objects:v235 count:16];
+              v104 = [v103 countByEnumeratingWithState:&v214 objects:v234 count:16];
             }
 
             while (v104);
           }
 
-          v213 = 0u;
-          v214 = 0u;
-          v211 = 0u;
           v212 = 0u;
-          v182 = v103;
-          v185 = [v182 countByEnumeratingWithState:&v211 objects:v234 count:16];
-          if (v185)
+          v213 = 0u;
+          v210 = 0u;
+          v211 = 0u;
+          v181 = v103;
+          v184 = [v181 countByEnumeratingWithState:&v210 objects:v233 count:16];
+          if (v184)
           {
-            v184 = *v212;
+            v183 = *v211;
             do
             {
-              for (m = 0; m != v185; ++m)
+              for (m = 0; m != v184; ++m)
               {
-                if (*v212 != v184)
+                if (*v211 != v183)
                 {
-                  objc_enumerationMutation(v182);
+                  objc_enumerationMutation(v181);
                 }
 
-                v109 = *(*(&v211 + 1) + 8 * m);
+                v109 = *(*(&v210 + 1) + 8 * m);
                 visitLoiString = [v109 visitLoiString];
                 v111 = +[PCNeuralNetworkUtilities kInfrequentString];
                 v112 = [visitLoiString isEqualToString:v111];
 
                 if ((v112 & 1) == 0)
                 {
-                  v194 = objc_alloc_init(PCPPredictedContext);
+                  v193 = objc_alloc_init(PCPPredictedContext);
                   [v109 visitProbability];
-                  [(PCPPredictedContext *)v194 setProbability:?];
-                  v188 = objc_alloc_init(PCPPredictedContextDateInterval);
+                  [(PCPPredictedContext *)v193 setProbability:?];
+                  v187 = objc_alloc_init(PCPPredictedContextDateInterval);
                   obja = objc_alloc_init(PCPPredictedContextDate);
                   [v109 visitEntryTime];
                   [(PCPPredictedContextDate *)obja setDate:?];
                   [v109 visitEntryUnc];
                   [(PCPPredictedContextDate *)obja setConfidenceInterval:?];
-                  [(PCPPredictedContextDateInterval *)v188 setStartDate:obja];
-                  v187 = objc_alloc_init(PCPPredictedContextDate);
+                  [(PCPPredictedContextDateInterval *)v187 setStartDate:obja];
+                  v186 = objc_alloc_init(PCPPredictedContextDate);
                   [v109 visitExitTime];
-                  [(PCPPredictedContextDate *)v187 setDate:?];
+                  [(PCPPredictedContextDate *)v186 setDate:?];
                   [v109 visitExitUnc];
-                  [(PCPPredictedContextDate *)v187 setConfidenceInterval:?];
-                  [(PCPPredictedContextDateInterval *)v188 setEndDate:v187];
-                  [(PCPPredictedContext *)v194 setDateInterval:v188];
-                  v186 = objc_alloc_init(PCPSource);
+                  [(PCPPredictedContextDate *)v186 setConfidenceInterval:?];
+                  [(PCPPredictedContextDateInterval *)v187 setEndDate:v186];
+                  [(PCPPredictedContext *)v193 setDateInterval:v187];
+                  v185 = objc_alloc_init(PCPSource);
                   v113 = objc_opt_class();
                   v114 = NSStringFromClass(v113);
-                  [(PCPSource *)v186 setIdentifier:v114];
+                  [(PCPSource *)v185 setIdentifier:v114];
 
-                  v233 = v186;
-                  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v233 count:1];
+                  v232 = v185;
+                  v115 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v232 count:1];
                   v116 = [v115 mutableCopy];
-                  [(PCPPredictedContext *)v194 setSources:v116];
+                  [(PCPPredictedContext *)v193 setSources:v116];
 
                   visitLoiString2 = [v109 visitLoiString];
                   v118 = +[PCNeuralNetworkUtilities kTravelingString];
@@ -1664,7 +1657,7 @@ LABEL_37:
                   if (v119)
                   {
                     v120 = objc_alloc_init(PCPPredictedContextTransition);
-                    [(PCPPredictedContextTransition *)v120 setPredictedContext:v194];
+                    [(PCPPredictedContextTransition *)v120 setPredictedContext:v193];
                     predictedContext = [(PCPPredictedContextTransition *)v120 predictedContext];
                     [predictedContext setContextType:2];
 
@@ -1683,32 +1676,32 @@ LABEL_37:
                   else
                   {
                     v120 = objc_alloc_init(PCPPredictedContextLocation);
-                    [(PCPPredictedContextTransition *)v120 setPredictedContext:v194];
+                    [(PCPPredictedContextTransition *)v120 setPredictedContext:v193];
                     predictedContext2 = [(PCPPredictedContextTransition *)v120 predictedContext];
                     [predictedContext2 setContextType:1];
 
                     v126 = objc_alloc_init(PCPLocationOfInterest);
                     [(PCPPredictedContextTransition *)v120 setLocationOfInterest:v126];
 
-                    v209 = 0u;
-                    v210 = 0u;
-                    v207 = 0u;
                     v208 = 0u;
+                    v209 = 0u;
+                    v206 = 0u;
+                    v207 = 0u;
                     v127 = self->_visitIndicies;
-                    v128 = [(NSMutableDictionary *)v127 countByEnumeratingWithState:&v207 objects:v232 count:16];
+                    v128 = [(NSMutableDictionary *)v127 countByEnumeratingWithState:&v206 objects:v231 count:16];
                     if (v128)
                     {
-                      v129 = *v208;
+                      v129 = *v207;
 LABEL_95:
                       v130 = 0;
                       while (1)
                       {
-                        if (*v208 != v129)
+                        if (*v207 != v129)
                         {
                           objc_enumerationMutation(v127);
                         }
 
-                        v131 = *(*(&v207 + 1) + 8 * v130);
+                        v131 = *(*(&v206 + 1) + 8 * v130);
                         v132 = [(NSMutableDictionary *)self->_visitIndicies objectForKeyedSubscript:v131];
                         visitLoiString3 = [v109 visitLoiString];
                         v134 = [v132 isEqual:visitLoiString3];
@@ -1720,7 +1713,7 @@ LABEL_95:
 
                         if (v128 == ++v130)
                         {
-                          v128 = [(NSMutableDictionary *)v127 countByEnumeratingWithState:&v207 objects:v232 count:16];
+                          v128 = [(NSMutableDictionary *)v127 countByEnumeratingWithState:&v206 objects:v231 count:16];
                           if (v128)
                           {
                             goto LABEL_95;
@@ -1755,9 +1748,9 @@ LABEL_104:
                       if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
                       {
                         visitLoiString4 = [v109 visitLoiString];
-                        *v237 = 138412290;
-                        v238 = visitLoiString4;
-                        _os_log_impl(&dword_1CEE74000, v139, OS_LOG_TYPE_DEFAULT, "Unable to match prediction %@ with loiIdentifier", v237, 0xCu);
+                        *v236 = 138412290;
+                        v237 = visitLoiString4;
+                        _os_log_impl(&dword_1CEE74000, v139, OS_LOG_TYPE_DEFAULT, "Unable to match prediction %@ with loiIdentifier", v236, 0xCu);
                       }
 
                       uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -1784,10 +1777,10 @@ LABEL_104:
                 }
               }
 
-              v185 = [v182 countByEnumeratingWithState:&v211 objects:v234 count:16];
+              v184 = [v181 countByEnumeratingWithState:&v210 objects:v233 count:16];
             }
 
-            while (v185);
+            while (v184);
           }
 
           if (*locations && [*locations count])
@@ -1796,40 +1789,40 @@ LABEL_104:
             if (os_log_type_enabled(v148, OS_LOG_TYPE_INFO))
             {
               v149 = [*locations count];
-              *v237 = 134217984;
-              v238 = v149;
-              _os_log_impl(&dword_1CEE74000, v148, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", v237, 0xCu);
+              *v236 = 134217984;
+              v237 = v149;
+              _os_log_impl(&dword_1CEE74000, v148, OS_LOG_TYPE_INFO, "--- Location Predictions (%lu) ---", v236, 0xCu);
             }
 
-            v205 = 0u;
-            v206 = 0u;
-            v203 = 0u;
             v204 = 0u;
+            v205 = 0u;
+            v202 = 0u;
+            v203 = 0u;
             v150 = *locations;
-            v151 = [v150 countByEnumeratingWithState:&v203 objects:v231 count:16];
+            v151 = [v150 countByEnumeratingWithState:&v202 objects:v230 count:16];
             if (v151)
             {
-              v152 = *v204;
+              v152 = *v203;
               do
               {
                 for (n = 0; n != v151; ++n)
                 {
-                  if (*v204 != v152)
+                  if (*v203 != v152)
                   {
                     objc_enumerationMutation(v150);
                   }
 
-                  v154 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v203 + 1) + 8 * n)];
+                  v154 = [PCLoggingUtils formattedStringForLocationPrediction:*(*(&v202 + 1) + 8 * n)];
                   v155 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
                   if (os_log_type_enabled(v155, OS_LOG_TYPE_INFO))
                   {
-                    *v237 = 138739971;
-                    v238 = v154;
-                    _os_log_impl(&dword_1CEE74000, v155, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", v237, 0xCu);
+                    *v236 = 138739971;
+                    v237 = v154;
+                    _os_log_impl(&dword_1CEE74000, v155, OS_LOG_TYPE_INFO, "Location Prediction: %{sensitive}@", v236, 0xCu);
                   }
                 }
 
-                v151 = [v150 countByEnumeratingWithState:&v203 objects:v231 count:16];
+                v151 = [v150 countByEnumeratingWithState:&v202 objects:v230 count:16];
               }
 
               while (v151);
@@ -1841,8 +1834,8 @@ LABEL_104:
             v150 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
             if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
             {
-              *v237 = 0;
-              _os_log_impl(&dword_1CEE74000, v150, OS_LOG_TYPE_INFO, "No Location Predictions to log", v237, 2u);
+              *v236 = 0;
+              _os_log_impl(&dword_1CEE74000, v150, OS_LOG_TYPE_INFO, "No Location Predictions to log", v236, 2u);
             }
           }
 
@@ -1852,40 +1845,40 @@ LABEL_104:
             if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
             {
               v157 = [*transitions count];
-              *v237 = 134217984;
-              v238 = v157;
-              _os_log_impl(&dword_1CEE74000, v156, OS_LOG_TYPE_INFO, "--- Transition Predictions (%lu) ---", v237, 0xCu);
+              *v236 = 134217984;
+              v237 = v157;
+              _os_log_impl(&dword_1CEE74000, v156, OS_LOG_TYPE_INFO, "--- Transition Predictions (%lu) ---", v236, 0xCu);
             }
 
-            v201 = 0u;
-            v202 = 0u;
-            v199 = 0u;
             v200 = 0u;
+            v201 = 0u;
+            v198 = 0u;
+            v199 = 0u;
             v158 = *transitions;
-            v159 = [v158 countByEnumeratingWithState:&v199 objects:v230 count:16];
+            v159 = [v158 countByEnumeratingWithState:&v198 objects:v229 count:16];
             if (v159)
             {
-              v160 = *v200;
+              v160 = *v199;
               do
               {
                 for (ii = 0; ii != v159; ++ii)
                 {
-                  if (*v200 != v160)
+                  if (*v199 != v160)
                   {
                     objc_enumerationMutation(v158);
                   }
 
-                  v162 = [PCLoggingUtils formattedStringForTransitionPrediction:*(*(&v199 + 1) + 8 * ii)];
+                  v162 = [PCLoggingUtils formattedStringForTransitionPrediction:*(*(&v198 + 1) + 8 * ii)];
                   v163 = _plc_log_get_normal_handle(PCLogCategoryCalendarVisitPredictor);
                   if (os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
                   {
-                    *v237 = 138739971;
-                    v238 = v162;
-                    _os_log_impl(&dword_1CEE74000, v163, OS_LOG_TYPE_INFO, "Transition Prediction: %{sensitive}@", v237, 0xCu);
+                    *v236 = 138739971;
+                    v237 = v162;
+                    _os_log_impl(&dword_1CEE74000, v163, OS_LOG_TYPE_INFO, "Transition Prediction: %{sensitive}@", v236, 0xCu);
                   }
                 }
 
-                v159 = [v158 countByEnumeratingWithState:&v199 objects:v230 count:16];
+                v159 = [v158 countByEnumeratingWithState:&v198 objects:v229 count:16];
               }
 
               while (v159);
@@ -1897,15 +1890,15 @@ LABEL_104:
             v158 = _plc_log_get_normal_handle(PCLogCategoryCalendarVisitPredictor);
             if (os_log_type_enabled(v158, OS_LOG_TYPE_INFO))
             {
-              *v237 = 0;
-              _os_log_impl(&dword_1CEE74000, v158, OS_LOG_TYPE_INFO, "No Transition Predictions to log", v237, 2u);
+              *v236 = 0;
+              _os_log_impl(&dword_1CEE74000, v158, OS_LOG_TYPE_INFO, "No Transition Predictions to log", v236, 2u);
             }
           }
 
-          v84 = v165;
+          v84 = v164;
         }
 
-        v83 = v166;
+        v83 = v165;
       }
 
       else
@@ -1913,14 +1906,14 @@ LABEL_104:
         v83 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
         if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
         {
-          *v237 = 0;
-          _os_log_impl(&dword_1CEE74000, v83, OS_LOG_TYPE_DEFAULT, "prediction data matrix is too small for number of input timesteps required", v237, 2u);
+          *v236 = 0;
+          _os_log_impl(&dword_1CEE74000, v83, OS_LOG_TYPE_DEFAULT, "prediction data matrix is too small for number of input timesteps required", v236, 2u);
         }
       }
     }
 
     _Block_object_dispose(buf, 8);
-    v24 = v183;
+    v24 = v182;
   }
 
   else
@@ -1933,10 +1926,8 @@ LABEL_104:
     }
   }
 
-  v25 = v175;
+  v25 = v174;
 LABEL_148:
-
-  v164 = *MEMORY[0x1E69E9840];
 }
 
 void __167__PCVisitHistoryPredictor_predictWithHistory_transitionHistory_locationHistory_homekitHomes_atTime_locations_transitions_containsHomeKitPredictions_missingLoiResults___block_invoke(uint64_t a1, void *a2)

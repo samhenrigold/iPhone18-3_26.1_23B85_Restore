@@ -94,28 +94,27 @@
   location[0] = 0;
   objc_storeStrong(location, alert);
   animatedCopy = animated;
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
-  v11 = SUSUILog();
-  v10 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v10 = SUSUILog();
+  v9 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1FCC(v17, location[0]);
-    _os_log_impl(&dword_0, v11, v10, "[Alerts] Presenting alert: %@", v17, 0xCu);
+    sub_1FCC(v16, location[0]);
+    _os_log_impl(&dword_0, v10, v9, "[Alerts] Presenting alert: %@", v16, 0xCu);
   }
 
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v10, 0);
   [location[0] _setPresentationManager:selfCopy];
-  v5 = [SUSUINotificationPresenter alloc];
-  v9 = [(SUSUINotificationPresenter *)v5 initWithQueue:selfCopy->_queue alert:location[0]];
-  if (([(NSMutableArray *)selfCopy->_presenters containsObject:v9]& 1) == 0)
+  v4 = [SUSUINotificationPresenter alloc];
+  v8 = [(SUSUINotificationPresenter *)v4 initWithQueue:selfCopy->_queue alert:location[0]];
+  if (([(NSMutableArray *)selfCopy->_presenters containsObject:v8]& 1) == 0)
   {
-    [(NSMutableArray *)selfCopy->_presenters addObject:v9];
+    [(NSMutableArray *)selfCopy->_presenters addObject:v8];
   }
 
-  if ([v9 presentAlert])
+  if ([v8 presentAlert])
   {
-    v15 = 1;
+    v14 = 1;
   }
 
   else
@@ -123,35 +122,34 @@
     oslog = SUSUILog();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1FCC(v16, location[0]);
-      _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Alerts] Failed presenting alert: %@", v16, 0xCu);
+      sub_1FCC(v15, location[0]);
+      _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Alerts] Failed presenting alert: %@", v15, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
     [location[0] _setPresentationManager:0];
-    [(NSMutableArray *)selfCopy->_presenters removeObject:v9];
-    v15 = 0;
+    [(NSMutableArray *)selfCopy->_presenters removeObject:v8];
+    v14 = 0;
   }
 
-  objc_storeStrong(&v9, 0);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  return v15 & 1;
+  return v14 & 1;
 }
 
 - (void)dismissAlert:(id)alert animated:(BOOL)animated
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, alert);
   animatedCopy = animated;
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
   oslog = SUSUILog();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1FCC(v10, location[0]);
-    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Alerts] Dismissing alert: %@", v10, 0xCu);
+    sub_1FCC(v8, location[0]);
+    _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "[Alerts] Dismissing alert: %@", v8, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
@@ -162,56 +160,55 @@
 - (void)dismissAlertsOfClass:(Class)class animated:(BOOL)animated
 {
   selfCopy = self;
-  v26 = a2;
+  v25 = a2;
   classCopy = class;
   animatedCopy = animated;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v23 = SUSUILog();
-  v22 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = SUSUILog();
+  v21 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    log = v23;
-    type = v22;
-    v11 = classCopy;
+    log = v22;
+    type = v21;
+    v10 = classCopy;
     presentedAlerts = [(SUSUIAlertPresentationManager *)selfCopy presentedAlerts];
-    v12 = presentedAlerts;
-    v21 = v12;
-    v15 = [(SUSUIAlertPresentationManager *)selfCopy presentedAlertsOfClass:classCopy];
-    v20 = v15;
-    sub_2420(v29, v11, v12, v20);
-    _os_log_impl(&dword_0, log, type, "[Alerts] Dismissing alerts of class: %@ (_presentedAlertItems: %@, ofClass: %@)", v29, 0x20u);
+    v11 = presentedAlerts;
+    v20 = v11;
+    v14 = [(SUSUIAlertPresentationManager *)selfCopy presentedAlertsOfClass:classCopy];
+    v19 = v14;
+    sub_2420(v28, v10, v11, v19);
+    _os_log_impl(&dword_0, log, type, "[Alerts] Dismissing alerts of class: %@ (_presentedAlertItems: %@, ofClass: %@)", v28, 0x20u);
 
+    objc_storeStrong(&v19, 0);
     objc_storeStrong(&v20, 0);
-    objc_storeStrong(&v21, 0);
   }
 
-  objc_storeStrong(&v23, 0);
-  v19 = [(SUSUIAlertPresentationManager *)selfCopy presentedAlertsOfClass:classCopy];
+  objc_storeStrong(&v22, 0);
+  v18 = [(SUSUIAlertPresentationManager *)selfCopy presentedAlertsOfClass:classCopy];
   memset(__b, 0, sizeof(__b));
-  v9 = v19;
-  v10 = [v9 countByEnumeratingWithState:__b objects:v28 count:16];
-  if (v10)
+  v8 = v18;
+  v9 = [v8 countByEnumeratingWithState:__b objects:v27 count:16];
+  if (v9)
   {
-    v6 = *__b[2];
-    v7 = 0;
-    v8 = v10;
+    v5 = *__b[2];
+    v6 = 0;
+    v7 = v9;
     while (1)
     {
-      v5 = v7;
-      if (*__b[2] != v6)
+      v4 = v6;
+      if (*__b[2] != v5)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v8);
       }
 
-      v18 = *(__b[1] + 8 * v7);
-      [(SUSUIAlertPresentationManager *)selfCopy dismissAlert:v18 animated:animatedCopy];
-      ++v7;
-      if (v5 + 1 >= v8)
+      v17 = *(__b[1] + 8 * v6);
+      [(SUSUIAlertPresentationManager *)selfCopy dismissAlert:v17 animated:animatedCopy];
+      ++v6;
+      if (v4 + 1 >= v7)
       {
-        v7 = 0;
-        v8 = [v9 countByEnumeratingWithState:__b objects:v28 count:16];
-        if (!v8)
+        v6 = 0;
+        v7 = [v8 countByEnumeratingWithState:__b objects:v27 count:16];
+        if (!v7)
         {
           break;
         }
@@ -219,7 +216,7 @@
     }
   }
 
-  objc_storeStrong(&v19, 0);
+  objc_storeStrong(&v18, 0);
 }
 
 - (void)dismissAllAlertsAnimated:(BOOL)animated
@@ -347,33 +344,31 @@ LABEL_16:
   location[0] = 0;
   objc_storeStrong(location, alert);
   animatedCopy = animated;
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
   oslog = SUSUILog();
   type = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1FCC(v12, location[0]);
-    _os_log_impl(&dword_0, oslog, type, "[Alerts] Updating alert: %@", v12, 0xCu);
+    sub_1FCC(v11, location[0]);
+    _os_log_impl(&dword_0, oslog, type, "[Alerts] Updating alert: %@", v11, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
-  v6 = [(SUSUIAlertPresentationManager *)selfCopy _presenterForAlertItem:location[0]];
-  if (v6)
+  v5 = [(SUSUIAlertPresentationManager *)selfCopy _presenterForAlertItem:location[0]];
+  if (v5)
   {
-    [v6 updateAlert];
+    [v5 updateAlert];
   }
 
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
 - (void)updateAllAlertLockState:(BOOL)state
 {
   selfCopy = self;
-  v16 = a2;
+  v15 = a2;
   stateCopy = state;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   oslog = SUSUILog();
   type = OS_LOG_TYPE_DEFAULT;
@@ -381,44 +376,44 @@ LABEL_16:
   {
     if (stateCopy)
     {
-      v4 = @"YES";
+      v3 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v3 = @"NO";
     }
 
-    sub_1FCC(v19, v4);
-    _os_log_impl(&dword_0, oslog, type, "[Alerts] Updating alert lock state to isUILocked: %@", v19, 0xCu);
+    sub_1FCC(v18, v3);
+    _os_log_impl(&dword_0, oslog, type, "[Alerts] Updating alert lock state to isUILocked: %@", v18, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
   memset(__b, 0, sizeof(__b));
   obj = [(SUSUIAlertPresentationManager *)selfCopy presentedAlerts];
-  v10 = [(NSSet *)obj countByEnumeratingWithState:__b objects:v18 count:16];
-  if (v10)
+  v9 = [(NSSet *)obj countByEnumeratingWithState:__b objects:v17 count:16];
+  if (v9)
   {
-    v6 = *__b[2];
-    v7 = 0;
-    v8 = v10;
+    v5 = *__b[2];
+    v6 = 0;
+    v7 = v9;
     while (1)
     {
-      v5 = v7;
-      if (*__b[2] != v6)
+      v4 = v6;
+      if (*__b[2] != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(__b[1] + 8 * v7);
-      [v12 setIsUILocked:stateCopy];
-      [(SUSUIAlertPresentationManager *)selfCopy updateAlert:v12 animated:1];
-      ++v7;
-      if (v5 + 1 >= v8)
+      v11 = *(__b[1] + 8 * v6);
+      [v11 setIsUILocked:stateCopy];
+      [(SUSUIAlertPresentationManager *)selfCopy updateAlert:v11 animated:1];
+      ++v6;
+      if (v4 + 1 >= v7)
       {
-        v7 = 0;
-        v8 = [(NSSet *)obj countByEnumeratingWithState:__b objects:v18 count:16];
-        if (!v8)
+        v6 = 0;
+        v7 = [(NSSet *)obj countByEnumeratingWithState:__b objects:v17 count:16];
+        if (!v7)
         {
           break;
         }
@@ -430,44 +425,43 @@ LABEL_16:
 - (id)presentedAlertsOfClass:(Class)class
 {
   selfCopy = self;
-  v18[2] = a2;
-  v18[1] = class;
-  queue = self->_queue;
+  v17[2] = a2;
+  v17[1] = class;
   BSDispatchQueueAssert();
-  v18[0] = +[NSMutableSet set];
+  v17[0] = +[NSMutableSet set];
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_presenters;
-  v15 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v15)
+  v14 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
+  if (v14)
   {
-    v11 = *__b[2];
-    v12 = 0;
-    v13 = v15;
+    v10 = *__b[2];
+    v11 = 0;
+    v12 = v14;
     while (1)
     {
-      v10 = v12;
-      if (*__b[2] != v11)
+      v9 = v11;
+      if (*__b[2] != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(__b[1] + 8 * v12);
-      alertItem = [v17 alertItem];
+      v16 = *(__b[1] + 8 * v11);
+      alertItem = [v16 alertItem];
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        v6 = v18[0];
-        alertItem2 = [v17 alertItem];
-        [v6 addObject:?];
+        v5 = v17[0];
+        alertItem2 = [v16 alertItem];
+        [v5 addObject:?];
       }
 
-      ++v12;
-      if (v10 + 1 >= v13)
+      ++v11;
+      if (v9 + 1 >= v12)
       {
-        v12 = 0;
-        v13 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v13)
+        v11 = 0;
+        v12 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
+        if (!v12)
         {
           break;
         }
@@ -475,10 +469,10 @@ LABEL_16:
     }
   }
 
-  v5 = v18[0];
-  objc_storeStrong(v18, 0);
+  v4 = v17[0];
+  objc_storeStrong(v17, 0);
 
-  return v5;
+  return v4;
 }
 
 - (void)_noteAlertDeactivated:(id)deactivated
@@ -487,19 +481,18 @@ LABEL_16:
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, deactivated);
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
-  v5 = [(SUSUIAlertPresentationManager *)selfCopy _presenterForAlertItem:location[0]];
-  if (v5)
+  v4 = [(SUSUIAlertPresentationManager *)selfCopy _presenterForAlertItem:location[0]];
+  if (v4)
   {
-    alertItem = [v5 alertItem];
+    alertItem = [v4 alertItem];
     [alertItem _setPresentationManager:0];
 
-    [v5 dismissAlert];
-    [(NSMutableArray *)selfCopy->_presenters removeObject:v5];
+    [v4 dismissAlert];
+    [(NSMutableArray *)selfCopy->_presenters removeObject:v4];
   }
 
-  objc_storeStrong(&v5, 0);
+  objc_storeStrong(&v4, 0);
   objc_storeStrong(location, 0);
 }
 

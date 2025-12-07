@@ -83,7 +83,7 @@
 - (void)fetchLatestRecordKeyFromCKAndCreateIfKeyDoesNotExistWithCompletion:(id)completion forceFetch:(BOOL)fetch
 {
   fetchCopy = fetch;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _CKUtilitiesSharedInstance = [(IMDCKRecordSaltManager *)self _CKUtilitiesSharedInstance];
   cloudKitSyncingEnabled = [_CKUtilitiesSharedInstance cloudKitSyncingEnabled];
@@ -116,9 +116,9 @@
         }
 
         *buf = 138412546;
-        v26 = v17;
-        v27 = 2112;
-        v28 = v16;
+        v25 = v17;
+        v26 = 2112;
+        v27 = v16;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "CloudKit Salt not fetched: syncing enabled %@ first unlock %@", buf, 0x16u);
       }
     }
@@ -127,8 +127,8 @@
     block[1] = 3221225472;
     block[2] = sub_22B5FF1F0;
     block[3] = &unk_278706258;
-    v23 = completionCopy;
-    v24 = isUnderFirstDataProtectionLock;
+    v22 = completionCopy;
+    v23 = isUnderFirstDataProtectionLock;
     v18 = completionCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
@@ -146,17 +146,15 @@
     }
 
     ckQueue = [(IMDCKRecordSaltManager *)self ckQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = sub_22B5FF290;
-    v20[3] = &unk_278703808;
-    v20[4] = self;
-    v21 = completionCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = sub_22B5FF290;
+    v19[3] = &unk_278703808;
+    v19[4] = self;
+    v20 = completionCopy;
     v14 = completionCopy;
-    dispatch_async(ckQueue, v20);
+    dispatch_async(ckQueue, v19);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDeDupeRecordZone

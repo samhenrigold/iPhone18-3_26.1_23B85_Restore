@@ -657,7 +657,7 @@ LABEL_18:
   return v18;
 }
 
-uint64_t __78__PHAssetResourceUploadJobChangeRequest_validateInsertIntoPhotoLibrary_error___block_invoke(uint64_t a1)
+void *__78__PHAssetResourceUploadJobChangeRequest_validateInsertIntoPhotoLibrary_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -750,12 +750,14 @@ LABEL_11:
   }
 
   destinationData = self->_destinationData;
+  v6 = xdict;
   if (destinationData)
   {
     xpc_dictionary_set_data(xdict, "PHDestinationDataKey", [(NSData *)destinationData bytes], [(NSData *)self->_destinationData length]);
+    v6 = xdict;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](destinationData, v6);
 }
 
 - (PHAssetResourceUploadJobChangeRequest)initWithXPCDict:(id)dict request:(id)request clientAuthorization:(id)authorization
@@ -808,9 +810,11 @@ LABEL_11:
   configurationHelper = self->_configurationHelper;
   self->_configurationHelper = v3;
 
-  self->_internalResourceObjectIDHelper = [[PHRelationshipChangeRequestHelper alloc] initWithRelationshipName:@"assetResource" changeRequestHelper:self->super._helper];
+  v5 = [[PHRelationshipChangeRequestHelper alloc] initWithRelationshipName:@"assetResource" changeRequestHelper:self->super._helper];
+  internalResourceObjectIDHelper = self->_internalResourceObjectIDHelper;
+  self->_internalResourceObjectIDHelper = v5;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, internalResourceObjectIDHelper);
 }
 
 - (PHAssetResourceUploadJobChangeRequest)initWithUUID:(id)d objectID:(id)iD
@@ -908,9 +912,12 @@ LABEL_11:
 
 uint64_t __111__PHAssetResourceUploadJobChangeRequest__countOfCancellableAcknowledgeableJobsWithConfiguration_library_error___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:*(a1 + 56)];
+  v2 = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:*(a1 + 56)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (id)creationRequestForAssetResourceUploadJobWithDestination:(id)destination resource:(id)resource

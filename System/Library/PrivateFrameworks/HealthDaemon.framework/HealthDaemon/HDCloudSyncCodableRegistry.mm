@@ -98,7 +98,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   disabledOwnerIdentifiers = self->_disabledOwnerIdentifiers;
@@ -110,30 +110,30 @@
   if ([(NSMutableArray *)self->_stores count])
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_stores, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v7 = self->_stores;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v35;
+      v10 = *v34;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v33 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v9);
@@ -145,30 +145,30 @@
   if ([(NSMutableArray *)self->_disabledSyncIdentities count])
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_disabledSyncIdentities, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v14 = self->_disabledSyncIdentities;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v31;
+      v17 = *v30;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v31 != v17)
+          if (*v30 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v29 + 1) + 8 * j) dictionaryRepresentation];
           [v13 addObject:dictionaryRepresentation2];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v16);
@@ -215,114 +215,108 @@
     [v4 setObject:dictionaryRepresentation4 forKey:@"sharedProfileIdentifier"];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   toCopy = to;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_disabledOwnerIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v35;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v35 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v11 = self->_stores;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v31;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v31 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v30 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        ++v15;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
-    }
-
-    while (v13);
-  }
-
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v17 = self->_disabledSyncIdentities;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v26 objects:v38 count:16];
-  if (v18)
+  v24 = 0u;
+  v25 = 0u;
+  v10 = self->_stores;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v27;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v27 != v20)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        v22 = *(*(&v26 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v12);
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_disabledSyncIdentities;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
   }
 
@@ -333,7 +327,6 @@
 
   if (*&self->_has)
   {
-    displayNameModificationDate = self->_displayNameModificationDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -351,8 +344,6 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -443,102 +434,102 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v6 = self->_disabledOwnerIdentifiers;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v43;
+    v9 = *v42;
     do
     {
       v10 = 0;
       do
       {
-        if (*v43 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v42 + 1) + 8 * v10) copyWithZone:zone];
+        v11 = [*(*(&v41 + 1) + 8 * v10) copyWithZone:zone];
         [v5 addDisabledOwnerIdentifiers:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v8);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v12 = self->_stores;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v39;
+    v15 = *v38;
     do
     {
       v16 = 0;
       do
       {
-        if (*v39 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v38 + 1) + 8 * v16) copyWithZone:zone];
+        v17 = [*(*(&v37 + 1) + 8 * v16) copyWithZone:zone];
         [v5 addStores:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v14);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v18 = self->_disabledSyncIdentities;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v35;
+    v21 = *v34;
     do
     {
       v22 = 0;
       do
       {
-        if (*v35 != v21)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v34 + 1) + 8 * v22) copyWithZone:{zone, v34}];
+        v23 = [*(*(&v33 + 1) + 8 * v22) copyWithZone:{zone, v33}];
         [v5 addDisabledSyncIdentities:v23];
 
         ++v22;
       }
 
       while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v20);
@@ -550,7 +541,7 @@
     *(v5 + 76) |= 2u;
   }
 
-  v24 = [(NSString *)self->_displayFirstName copyWithZone:zone, v34];
+  v24 = [(NSString *)self->_displayFirstName copyWithZone:zone, v33];
   v25 = *(v5 + 32);
   *(v5 + 32) = v24;
 
@@ -572,7 +563,6 @@
   v31 = *(v5 + 56);
   *(v5 + 56) = v30;
 
-  v32 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -620,7 +610,6 @@
       goto LABEL_29;
     }
 
-    v11 = *(equalCopy + 72);
     if (self->_deleted)
     {
       if ((*(equalCopy + 72) & 1) == 0)
@@ -649,7 +638,7 @@
   if (![(NSString *)displayFirstName isEqual:?])
   {
 LABEL_29:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_30;
   }
 
@@ -687,17 +676,17 @@ LABEL_13:
   sharedProfileIdentifier = self->_sharedProfileIdentifier;
   if (sharedProfileIdentifier | *(equalCopy + 7))
   {
-    v15 = [(HDCloudSyncCodableProfileIdentifier *)sharedProfileIdentifier isEqual:?];
+    v14 = [(HDCloudSyncCodableProfileIdentifier *)sharedProfileIdentifier isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_30:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash
@@ -756,87 +745,87 @@ LABEL_30:
 
 - (void)mergeFrom:(id)from
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   fromCopy = from;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v5 = *(fromCopy + 2);
-  v6 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HDCloudSyncCodableRegistry *)self addDisabledOwnerIdentifiers:*(*(&v33 + 1) + 8 * i)];
+        [(HDCloudSyncCodableRegistry *)self addDisabledOwnerIdentifiers:*(*(&v32 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v7);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = *(fromCopy + 8);
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(HDCloudSyncCodableRegistry *)self addStores:*(*(&v29 + 1) + 8 * j)];
+        [(HDCloudSyncCodableRegistry *)self addStores:*(*(&v28 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v12);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v15 = *(fromCopy + 3);
-  v16 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(HDCloudSyncCodableRegistry *)self addDisabledSyncIdentities:*(*(&v25 + 1) + 8 * k), v25];
+        [(HDCloudSyncCodableRegistry *)self addDisabledSyncIdentities:*(*(&v24 + 1) + 8 * k), v24];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v17);
@@ -893,8 +882,6 @@ LABEL_30:
   {
     [(HDCloudSyncCodableRegistry *)self setSharedProfileIdentifier:?];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

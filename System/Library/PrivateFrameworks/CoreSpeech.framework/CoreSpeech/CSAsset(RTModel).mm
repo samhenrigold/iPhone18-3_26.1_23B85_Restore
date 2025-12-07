@@ -31,72 +31,68 @@
 
 - (uint64_t)_allowMultiPhrase:()RTModel forceSkipEngineVersionCheck:
 {
-  v30 = *MEMORY[0x277D85DE8];
-  if (a3)
+  v29 = *MEMORY[0x277D85DE8];
+  if (!a3)
   {
-    v5 = a3;
-    accessoryInfo = [v5 accessoryInfo];
-    supportsJustSiri = [accessoryInfo supportsJustSiri];
+    return 0;
+  }
 
-    engineMajorVersion = [v5 engineMajorVersion];
-    unsignedIntValue = [engineMajorVersion unsignedIntValue];
+  v5 = a3;
+  accessoryInfo = [v5 accessoryInfo];
+  supportsJustSiri = [accessoryInfo supportsJustSiri];
 
-    engineMinorVersion = [v5 engineMinorVersion];
-    unsignedIntValue2 = [engineMinorVersion unsignedIntValue];
+  engineMajorVersion = [v5 engineMajorVersion];
+  unsignedIntValue = [engineMajorVersion unsignedIntValue];
 
-    if (unsignedIntValue)
-    {
-      v12 = unsignedIntValue2 == 0;
-    }
+  engineMinorVersion = [v5 engineMinorVersion];
+  unsignedIntValue2 = [engineMinorVersion unsignedIntValue];
 
-    else
-    {
-      v12 = 1;
-    }
-
-    v13 = !v12;
-    if (a4)
-    {
-      v14 = 1;
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    allowMph = [v5 allowMph];
-
-    v16 = supportsJustSiri & v14 & allowMph;
-    v17 = *MEMORY[0x277D015D8];
-    if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
-    {
-      v20 = 136316162;
-      v21 = "[CSAsset(RTModel) _allowMultiPhrase:forceSkipEngineVersionCheck:]";
-      v22 = 1024;
-      v23 = supportsJustSiri & v14 & allowMph;
-      v24 = 1024;
-      v25 = supportsJustSiri;
-      v26 = 1024;
-      v27 = v14;
-      v28 = 1024;
-      v29 = allowMph & 1;
-      _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s Multi-phrase keyword detection (%d): Accessory supports multi-phrase: %d, engine support multi-phrase: %d, device allows multi-phrase: %d", &v20, 0x24u);
-    }
+  if (unsignedIntValue)
+  {
+    v12 = unsignedIntValue2 == 0;
   }
 
   else
   {
-    v16 = 0;
+    v12 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v13 = !v12;
+  if (a4)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  allowMph = [v5 allowMph];
+
+  v16 = supportsJustSiri & v14 & allowMph;
+  v17 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = 136316162;
+    v20 = "[CSAsset(RTModel) _allowMultiPhrase:forceSkipEngineVersionCheck:]";
+    v21 = 1024;
+    v22 = supportsJustSiri & v14 & allowMph;
+    v23 = 1024;
+    v24 = supportsJustSiri;
+    v25 = 1024;
+    v26 = v14;
+    v27 = 1024;
+    v28 = allowMph & 1;
+    _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEFAULT, "%s Multi-phrase keyword detection (%d): Accessory supports multi-phrase: %d, engine support multi-phrase: %d, device allows multi-phrase: %d", &v19, 0x24u);
+  }
+
   return v16;
 }
 
 - (id)_rtModelWithRequestOptions:()RTModel accessoryBlobs:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = [self _getFilteredAccessoryRTBlobListForRequestOptions:v6 accessoryBlobs:a4 forceSkipEngineVersionCheck:0];
   engineMajorVersion = [v6 engineMajorVersion];
@@ -105,28 +101,28 @@
   engineMinorVersion = [v6 engineMinorVersion];
   unsignedIntValue2 = [engineMinorVersion unsignedIntValue];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = v7;
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v12)
   {
     v13 = v12;
     selfCopy = self;
-    v26 = v6;
-    v14 = *v29;
+    v25 = v6;
+    v14 = *v28;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         v17 = [v16 objectForKeyedSubscript:@"majorVersion"];
         unsignedIntValue3 = [v17 unsignedIntValue];
 
@@ -135,13 +131,13 @@
 
         if (unsignedIntValue3 == unsignedIntValue && unsignedIntValue2 >= unsignedIntValue4)
         {
-          v6 = v26;
-          v22 = [selfCopy _buildRTModelWithBlobConfig:v16 requestOptions:v26];
+          v6 = v25;
+          v22 = [selfCopy _buildRTModelWithBlobConfig:v16 requestOptions:v25];
           goto LABEL_15;
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v13)
       {
         continue;
@@ -151,7 +147,7 @@
     }
 
     v22 = 0;
-    v6 = v26;
+    v6 = v25;
   }
 
   else
@@ -161,14 +157,12 @@
 
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_getFilteredAccessoryRTBlobListForRequestOptions:()RTModel accessoryBlobs:forceSkipEngineVersionCheck:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = [self _splitBlobsByPhraseType:a4];
   userSelectedPhraseType = [v8 userSelectedPhraseType];
@@ -190,13 +184,13 @@ LABEL_15:
     v15 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315650;
-      v20 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
-      v21 = 1024;
-      *v22 = 0;
-      *&v22[4] = 2112;
-      *&v22[6] = v8;
-      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s Falling back to HSOnly phrase - Multi-phrase allowed: %d, request options: %@", &v19, 0x1Cu);
+      v18 = 136315650;
+      v19 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
+      v20 = 1024;
+      *v21 = 0;
+      *&v21[4] = 2112;
+      *&v21[6] = v8;
+      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s Falling back to HSOnly phrase - Multi-phrase allowed: %d, request options: %@", &v18, 0x1Cu);
     }
 
     v11 = @"HSOnly";
@@ -207,45 +201,43 @@ LABEL_8:
   v16 = *v13;
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v19 = 136315651;
-    v20 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
-    v21 = 2113;
-    *v22 = v11;
-    *&v22[8] = 2113;
-    *&v22[10] = v14;
-    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s Selected phrase type: %{private}@ accessory RTBlobs: %{private}@", &v19, 0x20u);
+    v18 = 136315651;
+    v19 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
+    v20 = 2113;
+    *v21 = v11;
+    *&v21[8] = 2113;
+    *&v21[10] = v14;
+    _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s Selected phrase type: %{private}@ accessory RTBlobs: %{private}@", &v18, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)_splitBlobsByPhraseType:()RTModel
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * i);
+        v10 = *(*(&v29 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"phraseType"];
         v12 = v11;
         if (v11)
@@ -270,32 +262,32 @@ LABEL_8:
         [v15 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v7);
   }
 
   allKeys = [v4 allKeys];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v17 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v17 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * j);
+        v21 = *(*(&v25 + 1) + 8 * j);
         v22 = [v4 objectForKeyedSubscript:v21];
         v23 = [v22 sortedArrayUsingComparator:&__block_literal_global_63];
 
@@ -305,20 +297,18 @@ LABEL_8:
         }
       }
 
-      v18 = [allKeys countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (CSVoiceTriggerRTModel)_buildRTModelWithBlobConfig:()RTModel requestOptions:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [v6 objectForKeyedSubscript:@"blob"];
@@ -338,9 +328,9 @@ LABEL_8:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v44 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
-        v45 = 2114;
-        v46 = v10;
+        v43 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
+        v44 = 2114;
+        v45 = v10;
         _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s Reading blob from : %{public}@", buf, 0x16u);
       }
 
@@ -348,11 +338,11 @@ LABEL_8:
       if (v16)
       {
         v17 = [MEMORY[0x277D01758] sha1StringFromInputData:v16];
-        v42 = [v17 substringWithRange:{0, 20}];
+        v41 = [v17 substringWithRange:{0, 20}];
 
-        v41 = [MEMORY[0x277D01758] sha256DataFromInputData:v16];
+        v40 = [MEMORY[0x277D01758] sha256DataFromInputData:v16];
         v18 = [v6 objectForKeyedSubscript:@"signature"];
-        v40 = v18;
+        v39 = v18;
         if (v18)
         {
           v19 = v18;
@@ -364,22 +354,22 @@ LABEL_8:
 
           if (v23)
           {
-            v39 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v21];
+            v38 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v21];
           }
 
           else
           {
-            v39 = 0;
+            v38 = 0;
           }
         }
 
         else
         {
-          v39 = 0;
+          v38 = 0;
         }
 
         v27 = [v6 objectForKeyedSubscript:@"cert"];
-        v38 = v27;
+        v37 = v27;
         if (v27)
         {
           v28 = v27;
@@ -407,7 +397,7 @@ LABEL_8:
 
         v34 = [CSVoiceTriggerRTModel alloc];
         siriLocale = [v7 siriLocale];
-        v25 = [(CSVoiceTriggerRTModel *)v34 initWithData:v16 hash:v42 locale:siriLocale digest:v41 signature:v39 certificate:v33];
+        v25 = [(CSVoiceTriggerRTModel *)v34 initWithData:v16 hash:v41 locale:siriLocale digest:v40 signature:v38 certificate:v33];
       }
 
       else
@@ -416,9 +406,9 @@ LABEL_8:
         if (os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v44 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
-          v45 = 2114;
-          v46 = v10;
+          v43 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
+          v44 = 2114;
+          v45 = v10;
           _os_log_error_impl(&dword_222E4D000, v26, OS_LOG_TYPE_ERROR, "%s Blob is nil : %{public}@", buf, 0x16u);
         }
 
@@ -431,9 +421,9 @@ LABEL_8:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v44 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
-        v45 = 2114;
-        v46 = v10;
+        v43 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
+        v44 = 2114;
+        v45 = v10;
         _os_log_error_impl(&dword_222E4D000, v14, OS_LOG_TYPE_ERROR, "%s blob file is not exists at %{public}@", buf, 0x16u);
       }
 
@@ -447,21 +437,19 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v44 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
+      v43 = "[CSAsset(RTModel) _buildRTModelWithBlobConfig:requestOptions:]";
       _os_log_error_impl(&dword_222E4D000, v24, OS_LOG_TYPE_ERROR, "%s blob file name is not exists", buf, 0xCu);
     }
 
     v25 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)localeMapWithName:()RTModel
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   dictionary = [self dictionary];
   if (dictionary)
@@ -494,17 +482,15 @@ LABEL_8:
   v15 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
   {
-    v18 = 136315394;
-    v19 = "[CSAsset(RTModel) localeMapWithName:]";
-    v20 = 2114;
-    v21 = v4;
-    _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s Locale map for %{public}@ is not available on asset", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CSAsset(RTModel) localeMapWithName:]";
+    v19 = 2114;
+    v20 = v4;
+    _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s Locale map for %{public}@ is not available on asset", &v17, 0x16u);
   }
 
   v14 = 0;
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -527,7 +513,7 @@ LABEL_9:
 
 - (id)rtModelWithRequestOptions:()RTModel
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   accessoryModelType = [v4 accessoryModelType];
   integerValue = [accessoryModelType integerValue];
@@ -543,98 +529,76 @@ LABEL_9:
   }
 
   dictionary = [self dictionary];
-  if (!dictionary)
+  if (dictionary && (v9 = dictionary, [self dictionary], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectForKeyedSubscript:", v7), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v9, v11))
   {
-    goto LABEL_7;
-  }
-
-  v9 = dictionary;
-  dictionary2 = [self dictionary];
-  v11 = [dictionary2 objectForKeyedSubscript:v7];
-
-  if (v11)
-  {
-    dictionary3 = [self dictionary];
-    v13 = [dictionary3 objectForKeyedSubscript:v7];
+    dictionary2 = [self dictionary];
+    v13 = [dictionary2 objectForKeyedSubscript:v7];
 
     v14 = [self _rtModelWithRequestOptions:v4 accessoryBlobs:v13];
   }
 
   else
   {
-LABEL_7:
     v15 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[CSAsset(RTModel) rtModelWithRequestOptions:]";
-      _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s corespeech.json doesn't contains rtblobs", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSAsset(RTModel) rtModelWithRequestOptions:]";
+      _os_log_error_impl(&dword_222E4D000, v15, OS_LOG_TYPE_ERROR, "%s corespeech.json doesn't contains rtblobs", &v17, 0xCu);
     }
 
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)latestHearstRTModelWithRequestOptions:()RTModel
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a3;
   dictionary = [self dictionary];
-  if (!dictionary)
+  if (!dictionary || (v6 = dictionary, [self dictionary], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", @"rtblobs"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !v8))
   {
-    goto LABEL_18;
-  }
-
-  v6 = dictionary;
-  dictionary2 = [self dictionary];
-  v8 = [dictionary2 objectForKeyedSubscript:@"rtblobs"];
-
-  if (!v8)
-  {
-LABEL_18:
     v25 = 0;
     goto LABEL_23;
   }
 
-  dictionary3 = [self dictionary];
-  v10 = [dictionary3 objectForKeyedSubscript:@"rtblobs"];
+  dictionary2 = [self dictionary];
+  v10 = [dictionary2 objectForKeyedSubscript:@"rtblobs"];
   selfCopy = self;
-  v32 = v4;
+  v31 = v4;
   v11 = [self _getFilteredAccessoryRTBlobListForRequestOptions:v4 accessoryBlobs:v10 forceSkipEngineVersionCheck:1];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v12 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (!v12)
   {
     v14 = 0;
-    v34 = 0;
+    v33 = 0;
     v15 = 0;
     goto LABEL_20;
   }
 
   v13 = v12;
   v14 = 0;
-  v34 = 0;
+  v33 = 0;
   v15 = 0;
-  v16 = *v37;
+  v16 = *v36;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v37 != v16)
+      if (*v36 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v36 + 1) + 8 * i);
+      v18 = *(*(&v35 + 1) + 8 * i);
       v19 = [v18 objectForKeyedSubscript:@"majorVersion"];
       unsignedIntValue = [v19 unsignedIntValue];
 
@@ -647,18 +611,18 @@ LABEL_18:
 LABEL_14:
         v24 = v18;
 
-        v34 = unsignedIntValue2;
+        v33 = unsignedIntValue2;
         v15 = v24;
         continue;
       }
 
-      if (v14 == unsignedIntValue && v34 < unsignedIntValue2)
+      if (v14 == unsignedIntValue && v33 < unsignedIntValue2)
       {
         goto LABEL_14;
       }
     }
 
-    v13 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v13 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
   }
 
   while (v13);
@@ -668,29 +632,28 @@ LABEL_20:
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
-    v41 = "[CSAsset(RTModel) latestHearstRTModelWithRequestOptions:]";
-    v42 = 1024;
-    v43 = v14;
-    v44 = 1024;
-    v45 = v34;
-    v46 = 2113;
-    v47 = v15;
+    v40 = "[CSAsset(RTModel) latestHearstRTModelWithRequestOptions:]";
+    v41 = 1024;
+    v42 = v14;
+    v43 = 1024;
+    v44 = v33;
+    v45 = 2113;
+    v46 = v15;
     _os_log_impl(&dword_222E4D000, v26, OS_LOG_TYPE_DEFAULT, "%s latestMajorVersion = %d, LatestMinorVersion = %d rtBlob = %{private}@", buf, 0x22u);
   }
 
   v27 = [CSVoiceTriggerRTModelRequestOptions alloc];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __58__CSAsset_RTModel__latestHearstRTModelWithRequestOptions___block_invoke;
-  v35[3] = &__block_descriptor_48_e56_v16__0___CSVoiceTriggerRTModelRequestOptionsMutablity__8l;
-  v35[4] = v14;
-  v35[5] = v34;
-  v4 = v32;
-  v28 = [(CSVoiceTriggerRTModelRequestOptions *)v27 initWithCSRTModelRequestOptions:v32 builder:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __58__CSAsset_RTModel__latestHearstRTModelWithRequestOptions___block_invoke;
+  v34[3] = &__block_descriptor_48_e56_v16__0___CSVoiceTriggerRTModelRequestOptionsMutablity__8l;
+  v34[4] = v14;
+  v34[5] = v33;
+  v4 = v31;
+  v28 = [(CSVoiceTriggerRTModelRequestOptions *)v27 initWithCSRTModelRequestOptions:v31 builder:v34];
   v25 = [selfCopy _buildRTModelWithBlobConfig:v15 requestOptions:v28];
 
 LABEL_23:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -705,7 +668,7 @@ LABEL_23:
 
 - (CSVoiceTriggerRTModel)createRTModelWithLocale:()RTModel
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a3;
   resourcePath = [self resourcePath];
   v6 = MEMORY[0x277D015D8];
@@ -742,13 +705,13 @@ LABEL_23:
           v17 = v15;
           if (v23)
           {
-            v43 = 136315650;
-            v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-            v45 = 2114;
-            v46 = 0;
-            v47 = 2114;
-            v48 = v15;
-            _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_DEFAULT, "%s RT specific configuration %{public}@ does not exist, defaulting to unified configuration %{public}@", &v43, 0x20u);
+            v42 = 136315650;
+            v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+            v44 = 2114;
+            v45 = 0;
+            v46 = 2114;
+            v47 = v15;
+            _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_DEFAULT, "%s RT specific configuration %{public}@ does not exist, defaulting to unified configuration %{public}@", &v42, 0x20u);
             v17 = v15;
           }
         }
@@ -759,11 +722,11 @@ LABEL_23:
     v25 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136315394;
-      v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-      v45 = 2114;
-      v46 = v24;
-      _os_log_impl(&dword_222E4D000, v25, OS_LOG_TYPE_DEFAULT, "%s Creating RT blob using: %{public}@", &v43, 0x16u);
+      v42 = 136315394;
+      v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+      v44 = 2114;
+      v45 = v24;
+      _os_log_impl(&dword_222E4D000, v25, OS_LOG_TYPE_DEFAULT, "%s Creating RT blob using: %{public}@", &v42, 0x16u);
     }
 
     v26 = MEMORY[0x277D7A8C0];
@@ -776,11 +739,11 @@ LABEL_23:
     {
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = 136315394;
-        v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-        v45 = 2114;
-        v46 = v24;
-        _os_log_impl(&dword_222E4D000, v29, OS_LOG_TYPE_DEFAULT, "%s CorealisRT model creation done successfully : %{public}@", &v43, 0x16u);
+        v42 = 136315394;
+        v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+        v44 = 2114;
+        v45 = v24;
+        _os_log_impl(&dword_222E4D000, v29, OS_LOG_TYPE_DEFAULT, "%s CorealisRT model creation done successfully : %{public}@", &v42, 0x16u);
       }
 
       v31 = [self assetHashInResourcePath:v24];
@@ -790,9 +753,9 @@ LABEL_23:
     {
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v43 = 136315138;
-        v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-        _os_log_error_impl(&dword_222E4D000, v29, OS_LOG_TYPE_ERROR, "%s Failed to create CorealisRT model", &v43, 0xCu);
+        v42 = 136315138;
+        v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+        _os_log_error_impl(&dword_222E4D000, v29, OS_LOG_TYPE_ERROR, "%s Failed to create CorealisRT model", &v42, 0xCu);
       }
 
       v31 = 0;
@@ -805,7 +768,7 @@ LABEL_23:
       resourcePath6 = [self resourcePath];
       if (resourcePath6)
       {
-        v41 = resourcePath6;
+        v40 = resourcePath6;
         path = [self path];
 
         if (path)
@@ -825,9 +788,9 @@ LABEL_23:
   v32 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = 136315138;
-    v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-    _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_DEFAULT, "%s Defaulting to en_US CorealisRT model", &v43, 0xCu);
+    v42 = 136315138;
+    v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+    _os_log_impl(&dword_222E4D000, v32, OS_LOG_TYPE_DEFAULT, "%s Defaulting to en_US CorealisRT model", &v42, 0xCu);
   }
 
   getDefaultBlob = [*(v7 + 2240) getDefaultBlob];
@@ -838,9 +801,9 @@ LABEL_23:
   {
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136315138;
-      v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-      _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_DEFAULT, "%s Default CorealisRT model creation done successfully", &v43, 0xCu);
+      v42 = 136315138;
+      v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+      _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_DEFAULT, "%s Default CorealisRT model creation done successfully", &v42, 0xCu);
     }
 
     v31 = @"nohash";
@@ -849,13 +812,13 @@ LABEL_21:
     v36 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136315650;
-      v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-      v45 = 2114;
-      v46 = v4;
-      v47 = 2114;
-      v48 = v31;
-      _os_log_impl(&dword_222E4D000, v36, OS_LOG_TYPE_DEFAULT, "%s RT Model queried - %{public}@ %{public}@", &v43, 0x20u);
+      v42 = 136315650;
+      v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+      v44 = 2114;
+      v45 = v4;
+      v46 = 2114;
+      v47 = v31;
+      _os_log_impl(&dword_222E4D000, v36, OS_LOG_TYPE_DEFAULT, "%s RT Model queried - %{public}@ %{public}@", &v42, 0x20u);
     }
 
     v37 = [[CSVoiceTriggerRTModel alloc] initWithData:v28 hash:v31 locale:v4];
@@ -865,22 +828,20 @@ LABEL_21:
 
   if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
-    v43 = 136315138;
-    v44 = "[CSAsset(RTModel) createRTModelWithLocale:]";
-    _os_log_error_impl(&dword_222E4D000, v34, OS_LOG_TYPE_ERROR, "%s Failed to create default CorealisRT model", &v43, 0xCu);
+    v42 = 136315138;
+    v43 = "[CSAsset(RTModel) createRTModelWithLocale:]";
+    _os_log_error_impl(&dword_222E4D000, v34, OS_LOG_TYPE_ERROR, "%s Failed to create default CorealisRT model", &v42, 0xCu);
   }
 
   v37 = 0;
 LABEL_27:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
 
 + (uint64_t)supportsMultiPhraseVoiceTriggerForEngineVersion:()RTModel engineMinorVersion:accessoryRTModelType:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -891,13 +852,13 @@ LABEL_27:
   v13 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315650;
-    v20 = "+[CSAsset(RTModel) supportsMultiPhraseVoiceTriggerForEngineVersion:engineMinorVersion:accessoryRTModelType:]";
-    v21 = 2112;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_DEFAULT, "%s Incoming Major version:%@, Incoming Minor version:%@", &v19, 0x20u);
+    v18 = 136315650;
+    v19 = "+[CSAsset(RTModel) supportsMultiPhraseVoiceTriggerForEngineVersion:engineMinorVersion:accessoryRTModelType:]";
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    _os_log_impl(&dword_222E4D000, v13, OS_LOG_TYPE_DEFAULT, "%s Incoming Major version:%@, Incoming Minor version:%@", &v18, 0x20u);
   }
 
   if (unsignedIntegerValue)
@@ -921,7 +882,6 @@ LABEL_27:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

@@ -371,7 +371,7 @@
   v3 = *(&self->_imageCache + 4);
   if (!v3)
   {
-    v4 = AEBundle();
+    v4 = AEBundle(0);
     v5 = [v4 URLForResource:@"toc_web_cell.html" withExtension:@"tmpl"];
 
     v10 = 0;
@@ -497,9 +497,9 @@ LABEL_7:
   [*(&self->super._verticalCenteringInsets.right + 4) setScrollIndicatorInsets:{0.0, 0.0, v8 + v10, 0.0}];
 
   view3 = [(BKTOCContentViewController *)self view];
-  v51 = [view3 viewWithTag:9999];
+  v53 = [view3 viewWithTag:9999];
 
-  [v51 removeFromSuperview];
+  [v53 removeFromSuperview];
   [*(&self->super._verticalCenteringInsets.right + 4) setAlpha:1.0];
   if ([(BKTOCViewController *)self tocContentType])
   {
@@ -514,8 +514,8 @@ LABEL_7:
       v16 = +[UIColor clearColor];
       [(BKTOCBookmarksDescription *)v15 setBackgroundColor:v16];
 
-      v50 = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2];
-      v49 = [v50 fontDescriptorWithDesign:UIFontDescriptorSystemDesignSerif];
+      v52 = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2];
+      v51 = [v52 fontDescriptorWithDesign:UIFontDescriptorSystemDesignSerif];
       v17 = [UIFont fontWithDescriptor:0.0 size:?];
       v18 = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
       titleLabel = [(BKTOCBookmarksDescription *)v15 titleLabel];
@@ -524,37 +524,39 @@ LABEL_7:
       descriptionLabel = [(BKTOCBookmarksDescription *)v15 descriptionLabel];
       [descriptionLabel setFont:v18];
 
-      if ([(BKTOCViewController *)self tocContentType]== &dword_0 + 1)
+      tocContentType = [(BKTOCViewController *)self tocContentType];
+      if (tocContentType == 1)
       {
-        v21 = @"Tap a page you want to bookmark, tap the menu icon, then tap the bookmark button.";
-        v22 = @"No Bookmarks";
+        v22 = @"Tap a page you want to bookmark, tap the menu icon, then tap the bookmark button.";
+        v23 = @"No Bookmarks";
       }
 
       else
       {
-        if ([(BKTOCViewController *)self tocContentType]!= &dword_0 + 2)
+        tocContentType = [(BKTOCViewController *)self tocContentType];
+        if (tocContentType != 2)
         {
-          v26 = 0;
-          v24 = 0;
+          v28 = 0;
+          v25 = 0;
           goto LABEL_12;
         }
 
-        v21 = @"Tap and hold on a word. You can extend the selection to include an entire passage. Then tap “Highlight” or “Note”. You can add notes to highlighted passages later by tapping the highlight and then “Note”.";
-        v22 = @"No Highlights or Notes";
+        v22 = @"Tap and hold on a word. You can extend the selection to include an entire passage. Then tap “Highlight” or “Note”. You can add notes to highlighted passages later by tapping the highlight and then “Note”.";
+        v23 = @"No Highlights or Notes";
       }
 
-      v23 = AEBundle();
-      v24 = [v23 localizedStringForKey:v22 value:&stru_1E7188 table:0];
+      v24 = AEBundle(tocContentType);
+      v25 = [v24 localizedStringForKey:v23 value:&stru_1E7188 table:0];
 
-      v25 = AEBundle();
-      v26 = [v25 localizedStringForKey:v21 value:&stru_1E7188 table:0];
+      v27 = AEBundle(v26);
+      v28 = [v27 localizedStringForKey:v22 value:&stru_1E7188 table:0];
 
 LABEL_12:
       titleLabel2 = [(BKTOCBookmarksDescription *)v15 titleLabel];
-      [titleLabel2 setText:v24];
+      [titleLabel2 setText:v25];
 
       descriptionLabel2 = [(BKTOCBookmarksDescription *)v15 descriptionLabel];
-      [descriptionLabel2 setText:v26];
+      [descriptionLabel2 setText:v28];
 
       themePage = [(BKTOCContentViewController *)self themePage];
       secondaryTextColor = [themePage secondaryTextColor];
@@ -567,20 +569,20 @@ LABEL_12:
 
       view4 = [(BKTOCContentViewController *)self view];
       [view4 bounds];
-      v35 = v34;
       v37 = v36;
       v39 = v38;
       v41 = v40;
+      v43 = v42;
       [(BKContentViewController *)self contentInsets];
-      [(BKTOCBookmarksDescription *)v15 setFrame:v35 + v45, v37 + v42, v39 - (v45 + v43), v41 - (v42 + v44)];
+      [(BKTOCBookmarksDescription *)v15 setFrame:v37 + v47, v39 + v44, v41 - (v47 + v45), v43 - (v44 + v46)];
 
       [(BKTOCBookmarksDescription *)v15 setTag:9999];
-      v46 = *(&self->_sharedWebView + 4);
+      v48 = *(&self->_sharedWebView + 4);
       *(&self->_sharedWebView + 4) = v15;
-      v47 = v15;
+      v49 = v15;
 
       view5 = [(BKTOCContentViewController *)self view];
-      [view5 addSubview:v47];
+      [view5 addSubview:v49];
 
       [*(&self->super._verticalCenteringInsets.right + 4) setAlpha:0.0];
     }
@@ -880,7 +882,7 @@ LABEL_26:
 
 - (BOOL)showRowForCurrentLocation
 {
-  v11 = 0;
+  v12 = 0;
   fetchedObjects = [*(&self->super._paginationController + 4) fetchedObjects];
   if (![fetchedObjects count])
   {
@@ -906,8 +908,8 @@ LABEL_8:
   v6 = pageNumberForCurrentLocation;
   if ([(BKTOCViewController *)self tocContentType])
   {
-    v7 = [(BKTOCContentViewController *)self annotationIndexPathForRowNearestPageNumber:v6 isExactPageMatch:&v11];
-    if ((v11 & 1) == 0)
+    v7 = [(BKTOCContentViewController *)self annotationIndexPathForRowNearestPageNumber:v6 isExactPageMatch:&v12];
+    if ((v12 & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -916,7 +918,7 @@ LABEL_8:
   else
   {
     v7 = [(BKTOCContentViewController *)self tocIndexPathForRowNearestPageNumber:v6];
-    v11 = 1;
+    v12 = 1;
   }
 
   v7 = v7;
@@ -932,14 +934,15 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (([*(&self->super._verticalCenteringInsets.right + 4) isEditing] & 1) == 0)
+  isEditing = [*(&self->super._verticalCenteringInsets.right + 4) isEditing];
+  if ((isEditing & 1) == 0)
   {
-    v10 = BKTOCCVCLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = BKTOCCVCLog(isEditing);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Highlighting row at %@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Highlighting row at %@", buf, 0xCu);
     }
 
     [*(&self->super._verticalCenteringInsets.right + 4) selectRowAtIndexPath:v7 animated:1 scrollPosition:0];
@@ -984,7 +987,7 @@ LABEL_12:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [*(&self->super._verticalCenteringInsets.right + 4) cellForRowAtIndexPath:{v9, v12}];
-        v11 = BKTOCCVCLog();
+        v11 = BKTOCCVCLog(v10);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = v12;
@@ -1511,22 +1514,23 @@ LABEL_12:
   fetchedObjects = [fetchedResultsController fetchedObjects];
   v10 = [fetchedObjects count];
 
-  if ([pathCopy row] >= v10)
+  v11 = [pathCopy row];
+  if (v11 >= v10)
   {
-    v17 = BKTOCCVCLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = BKTOCCVCLog(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_138108(pathCopy, v10, v17);
+      sub_138108(pathCopy, v10, v18);
     }
   }
 
   else
   {
     fetchedResultsController2 = [(BKTOCContentViewController *)self fetchedResultsController];
-    v12 = [fetchedResultsController2 objectAtIndexPath:pathCopy];
+    v13 = [fetchedResultsController2 objectAtIndexPath:pathCopy];
 
-    [(BKTOCContentViewController *)self _configureAnnotationCell:cellCopy forAnnotation:v12 forRowAtIndexPath:pathCopy];
-    annotationNote = [v12 annotationNote];
+    [(BKTOCContentViewController *)self _configureAnnotationCell:cellCopy forAnnotation:v13 forRowAtIndexPath:pathCopy];
+    annotationNote = [v13 annotationNote];
     noteLabel = [cellCopy noteLabel];
     [noteLabel setText:annotationNote];
 
@@ -1549,7 +1553,7 @@ LABEL_12:
     [noteLabel4 setLineBreakMode:4];
 
     highlightedTextLabel = [cellCopy highlightedTextLabel];
-    [highlightedTextLabel setAnnotation:v12];
+    [highlightedTextLabel setAnnotation:v13];
     highlightedTextLabelFont = [(BKTOCContentViewController *)self highlightedTextLabelFont];
     [highlightedTextLabel setFont:highlightedTextLabelFont];
 
@@ -1581,12 +1585,12 @@ LABEL_12:
     {
       [themePage tocPageNumberTextColor];
     }
-    v27 = ;
+    v28 = ;
     pageLabel = [cellCopy pageLabel];
-    [pageLabel setTextColor:v27];
+    [pageLabel setTextColor:v28];
 
     dateLabel = [cellCopy dateLabel];
-    [dateLabel setTextColor:v27];
+    [dateLabel setTextColor:v28];
   }
 }
 
@@ -1615,7 +1619,7 @@ LABEL_12:
 
   if (![v11 length])
   {
-    v13 = AEBundle();
+    v13 = AEBundle(0);
     v14 = [v13 localizedStringForKey:@"No title" value:&stru_1E7188 table:0];
 
     v11 = v14;
@@ -1724,20 +1728,21 @@ LABEL_12:
   if ([(BKTOCViewController *)self tocContentType]== &dword_0 + 2)
   {
     v6 = [(BKTOCContentViewController *)self deleteSwipeAction:pathCopy];
-    v13[0] = v6;
+    v14[0] = v6;
     v7 = [(BKTOCContentViewController *)self shareSwipeAction:pathCopy];
-    v13[1] = v7;
-    v8 = [NSArray arrayWithObjects:v13 count:2];
+    v14[1] = v7;
+    v8 = [NSArray arrayWithObjects:v14 count:2];
   }
 
   else
   {
-    if ([(BKTOCViewController *)self tocContentType]!= &dword_0 + 1)
+    tocContentType = [(BKTOCViewController *)self tocContentType];
+    if (tocContentType != 1)
     {
-      v10 = BKTOCCVCLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = BKTOCCVCLog(tocContentType);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_1381A0(v10);
+        sub_1381A0(v11);
       }
 
       v8 = 0;
@@ -1745,22 +1750,22 @@ LABEL_12:
     }
 
     v6 = [(BKTOCContentViewController *)self deleteSwipeAction:pathCopy];
-    v12 = v6;
-    v8 = [NSArray arrayWithObjects:&v12 count:1];
+    v13 = v6;
+    v8 = [NSArray arrayWithObjects:&v13 count:1];
   }
 
   if (v8)
   {
-    v9 = [UISwipeActionsConfiguration configurationWithActions:v8];
-    [v9 setPerformsFirstActionWithFullSwipe:0];
+    v10 = [UISwipeActionsConfiguration configurationWithActions:v8];
+    [v10 setPerformsFirstActionWithFullSwipe:0];
     goto LABEL_11;
   }
 
 LABEL_10:
-  v9 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v9;
+  return v10;
 }
 
 - (id)shareSwipeAction:(id)action
@@ -2195,7 +2200,7 @@ LABEL_37:
 - (void)tableView:(id)view performPrimaryActionForRowAtIndexPath:(id)path
 {
   pathCopy = path;
-  v6 = BKTOCCVCLog();
+  v6 = BKTOCCVCLog(pathCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v18 = 134217984;
@@ -2278,7 +2283,7 @@ LABEL_13:
 {
   pathCopy = path;
   viewCopy = view;
-  v8 = BKTOCCVCLog();
+  v8 = BKTOCCVCLog(viewCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1381E4();
@@ -2311,76 +2316,76 @@ LABEL_13:
     v10 = [viewCopy cellForRowAtIndexPath:pathCopy];
     if (v10)
     {
-      v28 = v10;
-      v11 = AEBundle();
+      v30 = v10;
+      v11 = AEBundle(v10);
       v12 = [v11 localizedStringForKey:@"Select" value:&stru_1E7188 table:0];
       v13 = [UIImage systemImageNamed:@"checkmark.circle"];
+      v42[0] = _NSConcreteStackBlock;
+      v42[1] = 3221225472;
+      v42[2] = sub_7CD48;
+      v42[3] = &unk_1E4970;
+      v42[4] = self;
+      v14 = pathCopy;
+      v43 = v14;
+      v28 = [UIAction actionWithTitle:v12 image:v13 identifier:@"context.menu.select" handler:v42];
+
+      v16 = AEBundle(v15);
+      v17 = [v16 localizedStringForKey:@"Share" value:&stru_1E7188 table:0];
+      v18 = [UIImage systemImageNamed:@"square.and.arrow.up"];
       v40[0] = _NSConcreteStackBlock;
       v40[1] = 3221225472;
-      v40[2] = sub_7CD48;
+      v40[2] = sub_7CD54;
       v40[3] = &unk_1E4970;
       v40[4] = self;
-      v14 = pathCopy;
-      v41 = v14;
-      v26 = [UIAction actionWithTitle:v12 image:v13 identifier:@"context.menu.select" handler:v40];
+      v19 = v14;
+      v41 = v19;
+      v29 = [UIAction actionWithTitle:v17 image:v18 identifier:@"context.menu.share" handler:v40];
 
-      v15 = AEBundle();
-      v16 = [v15 localizedStringForKey:@"Share" value:&stru_1E7188 table:0];
-      v17 = [UIImage systemImageNamed:@"square.and.arrow.up"];
+      v21 = AEBundle(v20);
+      v22 = [v21 localizedStringForKey:@"Delete" value:&stru_1E7188 table:0];
+      v23 = [UIImage systemImageNamed:@"trash"];
       v38[0] = _NSConcreteStackBlock;
       v38[1] = 3221225472;
-      v38[2] = sub_7CD54;
+      v38[2] = sub_7CD60;
       v38[3] = &unk_1E4970;
       v38[4] = self;
-      v18 = v14;
-      v39 = v18;
-      v27 = [UIAction actionWithTitle:v16 image:v17 identifier:@"context.menu.share" handler:v38];
+      v39 = v19;
+      v24 = [UIAction actionWithTitle:v22 image:v23 identifier:@"context.menu.delete" handler:v38];
 
-      v19 = AEBundle();
-      v20 = [v19 localizedStringForKey:@"Delete" value:&stru_1E7188 table:0];
-      v21 = [UIImage systemImageNamed:@"trash"];
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_7CD60;
-      v36[3] = &unk_1E4970;
-      v36[4] = self;
-      v37 = v18;
-      v22 = [UIAction actionWithTitle:v20 image:v21 identifier:@"context.menu.delete" handler:v36];
-
-      [v22 setAttributes:{objc_msgSend(v22, "attributes") | 2}];
+      [v24 setAttributes:{objc_msgSend(v24, "attributes") | 2}];
       v9 = 0;
       if ([(BKTOCViewController *)self tocContentType]== &dword_0 + 1)
       {
-        v33[0] = _NSConcreteStackBlock;
-        v33[1] = 3221225472;
-        v33[2] = sub_7CD6C;
-        v33[3] = &unk_1E4998;
-        v34 = v22;
-        v35 = v26;
-        v9 = [UIContextMenuConfiguration configurationWithIdentifier:0 previewProvider:0 actionProvider:v33];
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_7CD6C;
+        v35[3] = &unk_1E4998;
+        v36 = v24;
+        v37 = v28;
+        v9 = [UIContextMenuConfiguration configurationWithIdentifier:0 previewProvider:0 actionProvider:v35];
       }
 
       if ([(BKTOCViewController *)self tocContentType]== &dword_0 + 2)
       {
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_7CE7C;
-        v29[3] = &unk_1E49C0;
-        v23 = v27;
-        v30 = v27;
-        v31 = v22;
-        v32 = v26;
-        v24 = [UIContextMenuConfiguration configurationWithIdentifier:0 previewProvider:0 actionProvider:v29];
+        v31[0] = _NSConcreteStackBlock;
+        v31[1] = 3221225472;
+        v31[2] = sub_7CE7C;
+        v31[3] = &unk_1E49C0;
+        v25 = v29;
+        v32 = v29;
+        v33 = v24;
+        v34 = v28;
+        v26 = [UIContextMenuConfiguration configurationWithIdentifier:0 previewProvider:0 actionProvider:v31];
 
-        v9 = v24;
+        v9 = v26;
       }
 
       else
       {
-        v23 = v27;
+        v25 = v29;
       }
 
-      v10 = v28;
+      v10 = v30;
     }
 
     else
@@ -2444,15 +2449,16 @@ LABEL_8:
 
         [*(&self->super._paginationController + 4) setDelegate:self];
         v17 = *(&self->super._paginationController + 4);
-        v22 = 0;
-        v18 = [v17 performFetch:&v22];
-        v19 = v22;
+        v23 = 0;
+        v18 = [v17 performFetch:&v23];
+        v19 = v23;
+        v20 = v19;
         if ((v18 & 1) == 0)
         {
-          v20 = BKTOCCVCLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+          v21 = BKTOCCVCLog(v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
-            sub_13716C(self, v19, v20);
+            sub_13716C(self, v20, v21);
           }
         }
 
@@ -3129,7 +3135,7 @@ LABEL_13:
 
   if (superview)
   {
-    editingToolbar9 = BKTOCCVCLog();
+    editingToolbar9 = BKTOCCVCLog(v5);
     if (os_log_type_enabled(editingToolbar9, OS_LOG_TYPE_DEBUG))
     {
       sub_138258(self, editingToolbar9);
@@ -3155,23 +3161,23 @@ LABEL_13:
     leadingAnchor = [editingToolbar5 leadingAnchor];
     view3 = [(BKTOCContentViewController *)self view];
     leadingAnchor2 = [view3 leadingAnchor];
-    v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v36[0] = v31;
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v37[0] = v32;
     editingToolbar6 = [(BKTOCContentViewController *)self editingToolbar];
     trailingAnchor = [editingToolbar6 trailingAnchor];
     view4 = [(BKTOCContentViewController *)self view];
     trailingAnchor2 = [view4 trailingAnchor];
-    v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v36[1] = v12;
+    v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v37[1] = v13;
     editingToolbar7 = [(BKTOCContentViewController *)self editingToolbar];
     bottomAnchor = [editingToolbar7 bottomAnchor];
     view5 = [(BKTOCContentViewController *)self view];
     safeAreaLayoutGuide = [view5 safeAreaLayoutGuide];
     bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
-    v18 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v36[2] = v18;
-    v19 = [NSArray arrayWithObjects:v36 count:3];
-    [NSLayoutConstraint activateConstraints:v19];
+    v19 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v37[2] = v19;
+    v20 = [NSArray arrayWithObjects:v37 count:3];
+    [NSLayoutConstraint activateConstraints:v20];
 
     view6 = [(BKTOCContentViewController *)self view];
     [view6 setNeedsLayout];
@@ -3181,20 +3187,20 @@ LABEL_13:
 
     editingToolbar8 = [(BKTOCContentViewController *)self editingToolbar];
     [editingToolbar8 frame];
-    [*(&self->super._verticalCenteringInsets.right + 4) setContentInset:{0.0, 0.0, v23, 0.0}];
+    [*(&self->super._verticalCenteringInsets.right + 4) setContentInset:{0.0, 0.0, v24, 0.0}];
 
     editingToolbar9 = [(BKTOCContentViewController *)self editingToolbar];
     [editingToolbar9 frame];
-    v25 = v24;
+    v26 = v25;
     view8 = [(BKTOCContentViewController *)self view];
     [view8 safeAreaInsets];
-    [*(&self->super._verticalCenteringInsets.right + 4) setScrollIndicatorInsets:{0.0, 0.0, v25 + v27, 0.0}];
+    [*(&self->super._verticalCenteringInsets.right + 4) setScrollIndicatorInsets:{0.0, 0.0, v26 + v28, 0.0}];
   }
 }
 
 - (void)removeEditModeToolbar
 {
-  v3 = BKTOCCVCLog();
+  v3 = BKTOCCVCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_138304(v3);
@@ -3226,7 +3232,7 @@ LABEL_13:
   if (!v3)
   {
     v4 = [[UIToolbar alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-    v5 = AEBundle();
+    v5 = AEBundle(v4);
     v6 = [v5 localizedStringForKey:@"Share" value:&stru_1E7188 table:0];
     v7 = [UIImage systemImageNamed:@"square.and.arrow.up"];
     v31[0] = _NSConcreteStackBlock;
@@ -3237,7 +3243,7 @@ LABEL_13:
     v8 = [UIAction actionWithTitle:v6 image:v7 identifier:@"toolbar.share" handler:v31];
 
     v29 = [[UIBarButtonItem alloc] initWithPrimaryAction:v8];
-    v9 = AEBundle();
+    v9 = AEBundle(v29);
     v10 = [v9 localizedStringForKey:@"Delete" value:&stru_1E7188 table:0];
     v11 = [UIImage systemImageNamed:@"trash"];
     v30[0] = _NSConcreteStackBlock;
@@ -3316,15 +3322,15 @@ LABEL_8:
   indexPathsForSelectedRows = [*(&self->super._verticalCenteringInsets.right + 4) indexPathsForSelectedRows];
   v4 = [indexPathsForSelectedRows count];
 
-  v5 = BKTOCCVCLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = BKTOCCVCLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_138348();
   }
 
-  v6 = [(BKTOCContentViewController *)self editToolbarFooterTextWithCount:v4];
+  v7 = [(BKTOCContentViewController *)self editToolbarFooterTextWithCount:v4];
   WeakRetained = objc_loadWeakRetained((&self->_editingToolbar + 4));
-  [WeakRetained setTitle:v6];
+  [WeakRetained setTitle:v7];
 }
 
 - (id)editToolbarFooterTextWithCount:(unint64_t)count
@@ -3340,7 +3346,7 @@ LABEL_8:
   {
     v5 = @"%lu Highlight(s) Selected";
 LABEL_5:
-    v6 = AEBundle();
+    v6 = AEBundle(self);
     v7 = [v6 localizedStringForKey:v5 value:&stru_1E7188 table:0];
     v8 = [NSString localizedStringWithFormat:v7, count];
 

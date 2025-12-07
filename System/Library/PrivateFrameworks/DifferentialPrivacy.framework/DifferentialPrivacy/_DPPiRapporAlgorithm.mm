@@ -1,5 +1,7 @@
 @interface _DPPiRapporAlgorithm
++ (id)piRapporWithNumberOfClasses:(unint64_t)classes prime:(unsigned int)prime alpha0:(double)alpha0 alpha1:(double)alpha1;
 - (BOOL)encodeClassIndex:(unint64_t)index coeffs:(unsigned int *)coeffs phi0Buf:(unsigned int *)buf otherPhiBuf:(unsigned int *)phiBuf;
+- (_DPPiRapporAlgorithm)initWithNumberOfClasses:(unint64_t)classes prime:(unsigned int)prime alpha0:(double)alpha0 alpha1:(double)alpha1;
 - (id)decode:(id)decode;
 - (id)encodeClassIndex:(unint64_t)index;
 - (id)encodeClassIndices:(id)indices;
@@ -7,15 +9,142 @@
 
 @implementation _DPPiRapporAlgorithm
 
+- (_DPPiRapporAlgorithm)initWithNumberOfClasses:(unint64_t)classes prime:(unsigned int)prime alpha0:(double)alpha0 alpha1:(double)alpha1
+{
+  selfCopy = self;
+  if (!classes)
+  {
+    v9 = [_DPLog framework:0];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+    }
+
+    goto LABEL_29;
+  }
+
+  if (prime > 1)
+  {
+    if (alpha0 <= 0.0 || alpha0 >= 1.0)
+    {
+      v9 = +[_DPLog framework];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+      }
+
+LABEL_29:
+
+      goto LABEL_30;
+    }
+
+    if (alpha1 <= 0.0 || alpha1 >= 1.0)
+    {
+      v9 = +[_DPLog framework];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+      }
+
+      goto LABEL_29;
+    }
+
+    if (alpha0 >= alpha1)
+    {
+      v9 = +[_DPLog framework];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+      }
+
+      goto LABEL_29;
+    }
+
+    v22.receiver = self;
+    v22.super_class = _DPPiRapporAlgorithm;
+    v14 = [(_DPPiRapporAlgorithm *)&v22 init];
+    selfCopy = v14;
+    if (v14)
+    {
+      v14->_numberOfClasses = classes;
+      v14->_prime = prime;
+      v14->_alpha0 = alpha0;
+      v14->_alpha1 = alpha1;
+      v15 = log(classes);
+      selfCopy->_numberOfOtherPhi = vcvtpd_u64_f64(v15 / log(prime));
+      v16 = vcvtpd_u64_f64(prime * alpha0);
+      selfCopy->_threshold = v16;
+      if (v16)
+      {
+        v17 = v16 >= prime;
+      }
+
+      else
+      {
+        v17 = 1;
+      }
+
+      if (v17)
+      {
+        v8 = +[_DPLog framework];
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+        }
+
+        goto LABEL_5;
+      }
+
+      v20 = [_DPBiasedCoin coinWithBias:alpha1];
+      if (!v20)
+      {
+        v9 = +[_DPLog framework];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+        }
+
+        goto LABEL_29;
+      }
+
+      coin = selfCopy->_coin;
+      selfCopy->_coin = v20;
+    }
+
+    selfCopy = selfCopy;
+    v18 = selfCopy;
+    goto LABEL_31;
+  }
+
+  v8 = [_DPLog framework:alpha0];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    [_DPPiRapporAlgorithm initWithNumberOfClasses:prime:alpha0:alpha1:];
+  }
+
+LABEL_5:
+
+LABEL_30:
+  v18 = 0;
+LABEL_31:
+
+  return v18;
+}
+
++ (id)piRapporWithNumberOfClasses:(unint64_t)classes prime:(unsigned int)prime alpha0:(double)alpha0 alpha1:(double)alpha1
+{
+  v6 = [[_DPPiRapporAlgorithm alloc] initWithNumberOfClasses:classes prime:*&prime alpha0:alpha0 alpha1:alpha1];
+
+  return v6;
+}
+
 - (id)encodeClassIndex:(unint64_t)index
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(_DPPiRapporAlgorithm *)self encodeClassIndices:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -205,92 +334,26 @@ LABEL_6:
   return v17 > v16;
 }
 
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithNumberOfClasses:prime:alpha0:alpha1:.cold.7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)encodeClassIndices:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)encodeClassIndices:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)decode:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218240;
-  v7 = [a1 numberOfOtherPhi];
-  v8 = 2048;
-  v9 = a2;
-  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "The provided Pi-Rappor encoder result is likely not generated by this Pi-Rappor algorithm instance, expected numberOfOtherPhi: %lu, got numberOfOtherPhi: %lu", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = [a1 numberOfOtherPhi];
+  v7 = 2048;
+  v8 = a2;
+  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "The provided Pi-Rappor encoder result is likely not generated by this Pi-Rappor algorithm instance, expected numberOfOtherPhi: %lu, got numberOfOtherPhi: %lu", &v5, 0x16u);
 }
 
 - (void)encodeClassIndex:(os_log_t)log coeffs:phi0Buf:otherPhiBuf:.cold.1(int *a1, int *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Pi-Rappor algorithm failed to sample phi0 within lower bound (%d) and upper bound (%d).", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Pi-Rappor algorithm failed to sample phi0 within lower bound (%d) and upper bound (%d).", v5, 0xEu);
 }
 
 @end

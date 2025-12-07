@@ -6,8 +6,8 @@
 - (__n128)convertDictToExtrinsicsAngles:(void *)angles;
 - (id)convertExtrinsicsAnglesToDict:(ADPearlColorInFieldCalibrationInterSessionData *)self;
 - (id)persistenceData;
-- (uint64_t)initWithFactoryPearlToColorTransform:(double)transform currentPearlToColorTransform:(double)colorTransform andDeviceName:(double)name;
 - (void)initIsfWithFlowType:(int)type;
+- (void)initWithFactoryPearlToColorTransform:(double)transform currentPearlToColorTransform:(double)colorTransform andDeviceName:(double)name;
 @end
 
 @implementation ADPearlColorInFieldCalibrationInterSessionData
@@ -91,7 +91,7 @@
 {
   v36.receiver = self;
   v36.super_class = ADPearlColorInFieldCalibrationInterSessionData;
-  v11 = [(ADInFieldCalibrationInterSessionData *)&v36 init];
+  v11 = [(ADInFieldCalibrationInterSessionData *)&v36 init:a2.n128_f64[0]];
   v12 = v11;
   if (v11 && (([(ADInFieldCalibrationInterSessionData *)v11 setVersion:6], [(ADPearlColorInFieldCalibrationInterSessionData *)v12 initIsfWithFlowType:a10], !v12->super._isf) || (v13 = objc_alloc_init(ADPearlColorInFieldCalibrationTelemetryData), inFieldCalibrationTelemetryData = v12->_inFieldCalibrationTelemetryData, v12->_inFieldCalibrationTelemetryData = v13, inFieldCalibrationTelemetryData, v33 = 0u, v34 = 0u, v33.i32[2] = a2.n128_i32[2], v35 = 0u, v34.i32[2] = transform.n128_i32[2], v33.i64[0] = a2.n128_u64[0], v34.i64[0] = transform.n128_u64[0], v35.i32[2] = colorTransform.n128_i32[2], v35.i64[0] = colorTransform.n128_u64[0], [ADUtils calcRotationAngle:&v33], *v12->_pearlToColorRotationAngles = v15, v30 = 0u, v31 = 0u, v32 = 0u, v16 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a6, v33.f32[0]), a7, v34.f32[0]), a8, v35.f32[0]), v17 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a6, *v33.f32, 1), a7, *v34.f32, 1), a8, *v35.f32, 1), v18 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a6, v33, 2), a7, v34, 2), a8, v35, 2), DWORD2(v30) = v16.i32[2], DWORD2(v31) = v17.i32[2], *&v30 = v16.i64[0], *&v31 = v17.i64[0], DWORD2(v32) = v18.i32[2], *&v32 = v18.i64[0], [ADUtils calcRotationAngle:&v30], isf = v12->super._isf, [(ADPearlColorInFieldCalibrationInterSessionData *)v12 convertExtrinsicsAnglesToDict:?], v20 = objc_claimAutoreleasedReturnValue(), v21 = [(ADInterSessionFilter *)isf fillWithEntry:v20], v20, v21)))
   {
@@ -224,7 +224,7 @@ LABEL_18:
   return v9;
 }
 
-- (uint64_t)initWithFactoryPearlToColorTransform:(double)transform currentPearlToColorTransform:(double)colorTransform andDeviceName:(double)name
+- (void)initWithFactoryPearlToColorTransform:(double)transform currentPearlToColorTransform:(double)colorTransform andDeviceName:(double)name
 {
   v12 = a11;
   if ([v12 hasPrefix:@"J7"] & 1) != 0 || (objc_msgSend(v12, "hasPrefix:", @"J8"))

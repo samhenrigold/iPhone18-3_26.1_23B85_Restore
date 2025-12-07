@@ -12,7 +12,7 @@
 - (void)mute
 {
   selfCopy = self;
-  sub_624A4C();
+  sub_624A4C(v2);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -60,13 +60,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_626448(&qword_93E918, 255, type metadata accessor for NSKeyValueChangeKey);
+  sub_626448(&qword_93E918, 255, type metadata accessor for NSKeyValueChangeKey, &unk_77D77C);
   v15 = sub_7690F0();
 
 LABEL_8:
   sub_624D14(v10, v12, v18, v15, context);
 
-  sub_10A2C(v18, &unk_93FBD0);
+  sub_10A2C(v18, &unk_93FBD0, &qword_77DFA0);
 }
 
 - (void)traitCollectionDidChange:(id)change

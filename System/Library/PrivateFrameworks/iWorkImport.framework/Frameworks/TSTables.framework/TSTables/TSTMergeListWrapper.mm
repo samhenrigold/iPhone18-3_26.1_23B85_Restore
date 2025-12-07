@@ -60,9 +60,9 @@
 {
   testCopy = test;
   __p = 0;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v16 = 0;
+  v15 = 0;
   begin = self->_mergeList.__begin_;
   end = self->_mergeList.__end_;
   if (begin != end)
@@ -70,13 +70,13 @@
     v7 = begin + 1;
     do
     {
-      v15 = v7[-1];
-      if ((*(testCopy + 2))(testCopy, *&v15.origin, *&v15.size, &v16))
+      v14 = v7[-1];
+      if ((*(testCopy + 2))(testCopy, *&v14.origin, *&v14.size, &v15))
       {
-        sub_221083454(&__p, &v15);
+        sub_221083454(&__p, &v14);
       }
 
-      if (v16)
+      if (v15)
       {
         break;
       }
@@ -86,14 +86,14 @@
   }
 
   v9 = objc_alloc(objc_opt_class());
-  v13 = objc_msgSend_initWithMergeList_(v9, v10, &__p, v11, v12);
+  v12 = objc_msgSend_initWithMergeList_(v9, v10, &__p, v11);
   if (__p)
   {
-    v18 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 
-  return v13;
+  return v12;
 }
 
 - (id).cxx_construct

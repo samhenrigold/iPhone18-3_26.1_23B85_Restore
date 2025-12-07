@@ -44,10 +44,10 @@
 
 - (void)commonInit
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = TPPillView;
-  [(TPControl *)&v19 commonInit];
+  v19[3] = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = TPPillView;
+  [(TPControl *)&v18 commonInit];
   layer = [(TPPillView *)self layer];
   [layer setCornerRadius:12.5];
 
@@ -76,10 +76,10 @@
   [(UILabel *)self->_textLabel setLineBreakMode:5];
   v13 = objc_alloc(MEMORY[0x1E69DCF90]);
   v14 = self->_badgeImageView;
-  v20[0] = self->_badgeView;
-  v20[1] = v14;
-  v20[2] = self->_textLabel;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[0] = self->_badgeView;
+  v19[1] = v14;
+  v19[2] = self->_textLabel;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v16 = [v13 initWithArrangedSubviews:v15];
   stackView = self->_stackView;
   self->_stackView = v16;
@@ -92,7 +92,6 @@
   [(UIStackView *)self->_stackView setSpacing:6.0];
   [(UIStackView *)self->_stackView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(TPPillView *)self addSubview:self->_stackView];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate

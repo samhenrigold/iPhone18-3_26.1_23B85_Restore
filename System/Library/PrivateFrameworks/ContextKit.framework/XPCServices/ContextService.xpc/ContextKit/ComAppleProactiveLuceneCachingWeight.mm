@@ -1,4 +1,5 @@
 @interface ComAppleProactiveLuceneCachingWeight
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int;
 - (id)scorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (void)dealloc;
 - (void)extractTermsWithJavaUtilSet:(id)set;
@@ -34,6 +35,17 @@ LABEL_10:
   v7 = self->cachedTerms_;
 
   [(OrgApacheLuceneSearchWeight *)w extractTermsWithJavaUtilSet:v7];
+}
+
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int
+{
+  w = self->w_;
+  if (!w)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchWeight *)w explainWithOrgApacheLuceneIndexLeafReaderContext:context withInt:*&int];
 }
 
 - (void)normalizeWithFloat:(float)float withFloat:(float)withFloat

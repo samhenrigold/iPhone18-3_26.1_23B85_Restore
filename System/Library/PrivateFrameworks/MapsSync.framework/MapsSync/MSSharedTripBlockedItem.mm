@@ -98,20 +98,20 @@
 - (NSString)sharedTripIdentifier
 {
   selfCopy = self;
-  sub_1B631E458();
-  v4 = v3;
+  sub_1B631E458(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setSharedTripIdentifier:(id)identifier

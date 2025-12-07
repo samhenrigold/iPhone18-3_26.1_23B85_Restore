@@ -10,7 +10,7 @@
 
 - (void)remindersDatabaseDidChange
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = MEMORY[0x277CF3AF0];
   v5 = *(MEMORY[0x277CF3AF0] + 6);
@@ -27,7 +27,7 @@
   {
     transactionId = [v6 transactionId];
     *buf = 138412290;
-    v20 = transactionId;
+    v19 = transactionId;
     _os_log_impl(&dword_2424DF000, v7, v8, "XXXXXXXXXX: DADREMLocalDBWatcher: DATransaction starting, ID: %@", buf, 0xCu);
   }
 
@@ -39,22 +39,20 @@
     do
     {
       v13 = dataaccess_get_global_queue();
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __50__DADREMLocalDBWatcher_remindersDatabaseDidChange__block_invoke;
-      v16[3] = &unk_278D52A60;
-      v18 = nextObject2;
-      v17 = v6;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __50__DADREMLocalDBWatcher_remindersDatabaseDidChange__block_invoke;
+      v15[3] = &unk_278D52A60;
+      v17 = nextObject2;
+      v16 = v6;
       v14 = nextObject2;
-      dispatch_async(v13, v16);
+      dispatch_async(v13, v15);
 
       nextObject2 = [objectEnumerator nextObject];
     }
 
     while (nextObject2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedDBWatcher
@@ -93,7 +91,7 @@ uint64_t __39__DADREMLocalDBWatcher_sharedDBWatcher__block_invoke()
 
 - (void)registerConcernedRemindersParty:(id)party withChangedBlock:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   partyCopy = party;
   blockCopy = block;
   v9 = DALoggingwithCategory();
@@ -101,7 +99,7 @@ uint64_t __39__DADREMLocalDBWatcher_sharedDBWatcher__block_invoke()
   if (os_log_type_enabled(v9, v10))
   {
     *buf = 138412290;
-    v20 = partyCopy;
+    v19 = partyCopy;
     _os_log_impl(&dword_2424DF000, v9, v10, "Registering concerned cal party: %@", buf, 0xCu);
   }
 
@@ -123,7 +121,6 @@ uint64_t __39__DADREMLocalDBWatcher_sharedDBWatcher__block_invoke()
   [(NSMapTable *)concernedRemindersPartyToBlockMap setObject:v16 forKey:partyCopy];
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeConcernedRemindersParty:(id)party

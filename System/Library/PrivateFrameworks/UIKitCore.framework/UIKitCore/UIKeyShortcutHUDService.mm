@@ -133,11 +133,11 @@
   }
 }
 
-void __43__UIKeyShortcutHUDService_sharedHUDService__block_invoke()
+void __43__UIKeyShortcutHUDService_sharedHUDService__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = qword_1ED49F030;
-  qword_1ED49F030 = v0;
+  v1 = objc_opt_new();
+  v2 = qword_1ED49F030;
+  qword_1ED49F030 = v1;
 }
 
 - (UIKeyShortcutHUDService)init
@@ -538,7 +538,7 @@ void __50__UIKeyShortcutHUDService_scheduleHUDPresentation__block_invoke(uint64_
 - (void)_requestHUDPresentationIfAllowedWithUnpreparedConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UISuppressKeyShortcutHUD, @"UISuppressKeyShortcutHUD") & 1) != 0 || !byte_1EA95E524)
+  if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UISuppressKeyShortcutHUD, @"UISuppressKeyShortcutHUD") || !byte_1EA95E524)
   {
     if ([(UIKeyShortcutHUDService *)self _isHUDSupportedOnPlatform]&& [(UIKeyShortcutHUDService *)self _isHUDAllowedToAppearForProcess]&& [(UIKeyShortcutHUDService *)self _isHUDAllowedOverCurrentWindow]&& [(UIKeyShortcutHUDService *)self _isHUDAllowedForCurrentResponder]&& [(UIKeyShortcutHUDService *)self _isHUDAllowedForConfiguration:configurationCopy]&& [(UIKeyShortcutHUDService *)self _isHUDAllowedToBePresentedForPresentationState:[(UIKeyShortcutHUDService *)self hudPresentationState]])
     {
@@ -703,7 +703,7 @@ void __78__UIKeyShortcutHUDService__requestHUDPresentationWithUnpreparedConfigur
 - (void)_requestHUDDismissal
 {
   v9 = *MEMORY[0x1E69E9840];
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_KeyShortcutHUDEnhancedLogging, @"KeyShortcutHUDEnhancedLogging") & 1) == 0 && byte_1EA95E20C)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_KeyShortcutHUDEnhancedLogging, @"KeyShortcutHUDEnhancedLogging") && byte_1EA95E20C)
   {
     v3 = _UIKeyShortcutHUDLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -999,13 +999,13 @@ void __81__UIKeyShortcutHUDService_keyShortcutHUDDidDismissWithResponse_toOverla
   [(UIKeyShortcutHUDService *)self setDeferredResponseTimer:0];
 }
 
-uint64_t __60__UIKeyShortcutHUDService__handleDeferredDismissalResponse___block_invoke(uint64_t result)
+id *__60__UIKeyShortcutHUDService__handleDeferredDismissalResponse___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    if (*(result + 40))
+    if (result[5])
     {
-      return [*(result + 48) _handleKeyCommandFromResponse:? withSession:?];
+      return [result[6] _handleKeyCommandFromResponse:? withSession:?];
     }
   }
 

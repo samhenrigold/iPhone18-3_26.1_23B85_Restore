@@ -100,34 +100,7 @@
           currentConditions2 = [(WAForecastModel *)v7 currentConditions];
           IsEqual = WAObjectIsEqual(currentConditions, currentConditions2);
 
-          if (!IsEqual)
-          {
-            goto LABEL_17;
-          }
-
-          dailyForecasts = [(WAForecastModel *)self dailyForecasts];
-          dailyForecasts2 = [(WAForecastModel *)v7 dailyForecasts];
-          v23 = WAObjectIsEqual(dailyForecasts, dailyForecasts2);
-
-          if (!v23)
-          {
-            goto LABEL_17;
-          }
-
-          hourlyForecasts = [(WAForecastModel *)self hourlyForecasts];
-          hourlyForecasts2 = [(WAForecastModel *)v7 hourlyForecasts];
-          v26 = WAObjectIsEqual(hourlyForecasts, hourlyForecasts2);
-
-          if (!v26)
-          {
-            goto LABEL_17;
-          }
-
-          severeWeatherEvents = [(WAForecastModel *)self severeWeatherEvents];
-          severeWeatherEvents2 = [(WAForecastModel *)v7 severeWeatherEvents];
-          v29 = WAObjectIsEqual(severeWeatherEvents, severeWeatherEvents2);
-
-          if (v29)
+          if (IsEqual && ([(WAForecastModel *)self dailyForecasts], v21 = objc_claimAutoreleasedReturnValue(), [(WAForecastModel *)v7 dailyForecasts], v22 = objc_claimAutoreleasedReturnValue(), v23 = WAObjectIsEqual(v21, v22), v22, v21, v23) && ([(WAForecastModel *)self hourlyForecasts], v24 = objc_claimAutoreleasedReturnValue(), [(WAForecastModel *)v7 hourlyForecasts], v25 = objc_claimAutoreleasedReturnValue(), v26 = WAObjectIsEqual(v24, v25), v25, v24, v26) && ([(WAForecastModel *)self severeWeatherEvents], v27 = objc_claimAutoreleasedReturnValue(), [(WAForecastModel *)v7 severeWeatherEvents], v28 = objc_claimAutoreleasedReturnValue(), v29 = WAObjectIsEqual(v27, v28), v28, v27, v29))
           {
             nextHourPrecipitation = [(WAForecastModel *)self nextHourPrecipitation];
             nextHourPrecipitation2 = [(WAForecastModel *)v7 nextHourPrecipitation];
@@ -136,7 +109,6 @@
 
           else
           {
-LABEL_17:
             v13 = 0;
           }
 

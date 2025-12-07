@@ -603,39 +603,40 @@ LABEL_16:
 
 - (void)_logCurrentLayoutState
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   IsPad = _SFDeviceIsPad();
-  v3 = WBS_LOG_CHANNEL_PREFIXLayout();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (IsPad)
+  v3 = IsPad;
+  v5 = WBS_LOG_CHANNEL_PREFIXLayout(IsPad, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (!v4)
+    if (!v6)
     {
       return;
     }
 
-    v5 = v3;
-    v6 = stringForCurrentTabBarLayoutPreference();
-    v8 = 138543362;
-    v9 = v6;
-    v7 = "Current Tab Bar Layout: %{public}@";
+    v7 = v5;
+    v8 = stringForCurrentTabBarLayoutPreference();
+    v10 = 138543362;
+    v11 = v8;
+    v9 = "Current Tab Bar Layout: %{public}@";
   }
 
   else
   {
-    if (!v4)
+    if (!v6)
     {
       return;
     }
 
-    v5 = v3;
-    v6 = stringForCurrentCapsuleLayoutPreference();
-    v8 = 138543362;
-    v9 = v6;
-    v7 = "Current Capsule Layout: %{public}@";
+    v7 = v5;
+    v8 = stringForCurrentCapsuleLayoutPreference();
+    v10 = 138543362;
+    v11 = v8;
+    v9 = "Current Capsule Layout: %{public}@";
   }
 
-  _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, v7, &v8, 0xCu);
+  _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, v9, &v10, 0xCu);
 }
 
 - (void)_updateRefreshControlStyle
@@ -786,7 +787,7 @@ LABEL_16:
 
 - (void)_createBottomToolbarIfNeeded
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   if (!self->_bottomToolbar && !self->_capsuleViewController)
   {
     WeakRetained = objc_loadWeakRetained(&self->_browserController);
@@ -807,29 +808,29 @@ LABEL_16:
     [(BrowserRootViewController *)self updateCapsuleMinimizationStyle];
     objc_initWeak(&location, self);
     v9 = self->_capsuleViewController;
-    v42[0] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
-    v34 = MEMORY[0x277D85DD0];
-    v35 = 3221225472;
-    v36 = __57__BrowserRootViewController__createBottomToolbarIfNeeded__block_invoke;
-    v37 = &unk_2781D7828;
-    objc_copyWeak(&v38, &location);
-    v11 = [(CapsuleNavigationBarViewController *)v9 registerForTraitChanges:v10 withHandler:&v34];
+    v43[0] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+    v35 = MEMORY[0x277D85DD0];
+    v36 = 3221225472;
+    v37 = __57__BrowserRootViewController__createBottomToolbarIfNeeded__block_invoke;
+    v38 = &unk_2781D7828;
+    objc_copyWeak(&v39, &location);
+    v11 = [(CapsuleNavigationBarViewController *)v9 registerForTraitChanges:v10 withHandler:&v35];
 
-    [(CapsuleNavigationBarViewController *)self->_capsuleViewController setLinkedPageView:self->_tabSwitcherViewController, v34, v35, v36, v37];
+    [(CapsuleNavigationBarViewController *)self->_capsuleViewController setLinkedPageView:self->_tabSwitcherViewController, v35, v36, v37, v38];
     tabOverviewIsVisible = [(TabSwitcherViewController *)self->_tabSwitcherViewController tabOverviewIsVisible];
-    v13 = WBS_LOG_CHANNEL_PREFIXTabView();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = WBS_LOG_CHANNEL_PREFIXTabView(tabOverviewIsVisible, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = @"not visible";
+      v15 = @"not visible";
       if (tabOverviewIsVisible)
       {
-        v14 = @"visible";
+        v15 = @"visible";
       }
 
       *buf = 138412290;
-      v41 = v14;
-      _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Setting up capsule view while tab overview is %@", buf, 0xCu);
+      v42 = v15;
+      _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "Setting up capsule view while tab overview is %@", buf, 0xCu);
     }
 
     [capsuleCollectionView setShouldDismissContent:tabOverviewIsVisible];
@@ -858,9 +859,9 @@ LABEL_16:
       [(CapsuleNavigationBarViewController *)self->_capsuleViewController transitionToState:self->_inYttriumState animated:0 completionHandler:0];
     }
 
-    v20 = [objc_alloc(MEMORY[0x277D28E38]) initWithEffect:0];
+    v21 = [objc_alloc(MEMORY[0x277D28E38]) initWithEffect:0];
     topBackdrop = self->_topBackdrop;
-    self->_topBackdrop = v20;
+    self->_topBackdrop = v21;
 
     [(SFThemeColorEffectView *)self->_topBackdrop setThemeColorVisibility:1.0];
     [(SFOrderedContainerView *)self->_documentAndTopBarsContainerView addSubview:self->_topBackdrop];
@@ -868,19 +869,19 @@ LABEL_16:
     [(BrowserRootViewController *)self _updateScrollPocketForTopBackdrop];
     if (([MEMORY[0x277D49A08] isSolariumEnabled] & 1) == 0)
     {
-      v22 = objc_alloc(MEMORY[0x277D75D18]);
+      v23 = objc_alloc(MEMORY[0x277D75D18]);
       contentView = [(SFThemeColorEffectView *)self->_topBackdrop contentView];
       [contentView bounds];
-      Height = CGRectGetHeight(v43);
+      Height = CGRectGetHeight(v44);
       _SFOnePixel();
-      v26 = v25;
+      v27 = v26;
       contentView2 = [(SFThemeColorEffectView *)self->_topBackdrop contentView];
       [contentView2 bounds];
-      Width = CGRectGetWidth(v44);
+      Width = CGRectGetWidth(v45);
       _SFOnePixel();
-      v30 = [v22 initWithFrame:{0.0, Height - v26, Width, v29}];
+      v31 = [v23 initWithFrame:{0.0, Height - v27, Width, v30}];
       topSeparator = self->_topSeparator;
-      self->_topSeparator = v30;
+      self->_topSeparator = v31;
 
       [(UIView *)self->_topSeparator setAutoresizingMask:10];
       [(BrowserRootViewController *)self _updateCapsuleTopSeparatorColor];
@@ -893,7 +894,7 @@ LABEL_16:
     capsuleCollectionView3 = [(CapsuleNavigationBarViewController *)self->_capsuleViewController capsuleCollectionView];
     [(CatalogViewController *)self->_catalogViewController setStartPageScrollObserver:capsuleCollectionView3];
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
 }
@@ -4576,7 +4577,7 @@ void __81__BrowserRootViewController_setNeedsPreferredStatusBarUpdateAfterCommit
   v2[2] = __81__BrowserRootViewController_setNeedsPreferredStatusBarUpdateAfterCommitAnimated___block_invoke_2;
   v2[3] = &unk_2781D4D40;
   v2[4] = *(a1 + 32);
-  [(UIView *)0.25 safari_animate:v1 withDuration:v2 animations:?];
+  [(UIView *)MEMORY[0x277D75D18] safari_animate:v1 withDuration:v2 animations:0.25];
 }
 
 - (int64_t)preferredStatusBarStyle
@@ -5771,7 +5772,7 @@ uint64_t __71__BrowserRootViewController_showDefaultBrowserSheetWithDisplayHandl
   return v4();
 }
 
-uint64_t __71__BrowserRootViewController_showDefaultBrowserSheetWithDisplayHandler___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__71__BrowserRootViewController_showDefaultBrowserSheetWithDisplayHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) dismissDefaultBrowserSheetForOtherWindows];
   if ((a2 - 1) <= 1)
@@ -8289,7 +8290,7 @@ void __48__BrowserRootViewController__receivedTouchDown___block_invoke(uint64_t 
   dispatch_after(v8, MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __50__BrowserRootViewController__refreshControlFired___block_invoke(uint64_t a1)
+void *__50__BrowserRootViewController__refreshControlFired___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRefreshing];
   if (result)
@@ -8498,7 +8499,7 @@ uint64_t __50__BrowserRootViewController__refreshControlFired___block_invoke(uin
   [MEMORY[0x277D75D18] performWithoutAnimation:v3];
 }
 
-uint64_t __83__BrowserRootViewController__prepareBarsForTransitionFromPreviousToolbarPlacement___block_invoke(uint64_t a1)
+void *__83__BrowserRootViewController__prepareBarsForTransitionFromPreviousToolbarPlacement___block_invoke(uint64_t a1)
 {
   if (*(a1 + 40) != 1)
   {
@@ -8703,7 +8704,7 @@ void __80__BrowserRootViewController_viewWillTransitionToSize_withTransitionCoor
     v11 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [BrowserRootViewController presentViewController:controllerCopy animated:v11 completion:?];
+      [BrowserRootViewController presentViewController:controllerCopy animated:v11 completion:self];
     }
   }
 
@@ -8733,9 +8734,9 @@ void __80__BrowserRootViewController_viewWillTransitionToSize_withTransitionCoor
   }
 }
 
-id __71__BrowserRootViewController_presentViewController_animated_completion___block_invoke(uint64_t a1)
+id __71__BrowserRootViewController_presentViewController_animated_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -8743,23 +8744,23 @@ id __71__BrowserRootViewController_presentViewController_animated_completion___b
     [WeakRetained cancelFavorites];
   }
 
-  v4 = [*v2 presentingViewController];
+  v5 = [*v3 presentingViewController];
 
-  if (v4)
+  if (v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __71__BrowserRootViewController_presentViewController_animated_completion___block_invoke_cold_1(v2, a1, v5);
+      __71__BrowserRootViewController_presentViewController_animated_completion___block_invoke_cold_1(v3, a1, v6);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 48);
-  v10.receiver = *(a1 + 40);
-  v10.super_class = BrowserRootViewController;
-  return objc_msgSendSuper2(&v10, sel_presentViewController_animated_completion_, v6, v7, v8);
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 48);
+  v11.receiver = *(a1 + 40);
+  v11.super_class = BrowserRootViewController;
+  return objc_msgSendSuper2(&v11, sel_presentViewController_animated_completion_, v7, v8, v9);
 }
 
 - (BOOL)viewControllerIsKindOfSKStoreProductViewControllerClass:(id)class
@@ -9694,25 +9695,27 @@ void __90__BrowserRootViewController_capsuleCollectionView_willEndSelectionGestu
 - (id)snapshotContentProviderForTab:(id)tab
 {
   tabCopy = tab;
-  if ([(BrowserRootViewController *)self isPerformingSizeTransition])
+  isPerformingSizeTransition = [(BrowserRootViewController *)self isPerformingSizeTransition];
+  if (isPerformingSizeTransition)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(isPerformingSizeTransition, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [BrowserRootViewController snapshotContentProviderForTab:];
     }
 
 LABEL_4:
-    v6 = 0;
+    v8 = 0;
     goto LABEL_27;
   }
 
   if (([tabCopy isBlank] & 1) == 0)
   {
-    if ([tabCopy isHibernated])
+    isHibernated = [tabCopy isHibernated];
+    if (isHibernated)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(isHibernated, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [BrowserRootViewController snapshotContentProviderForTab:];
       }
@@ -9720,10 +9723,11 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    if (([tabCopy contentIsReadyForSnapshot] & 1) == 0)
+    contentIsReadyForSnapshot = [tabCopy contentIsReadyForSnapshot];
+    if ((contentIsReadyForSnapshot & 1) == 0)
     {
-      v27 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v34 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(contentIsReadyForSnapshot, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         [BrowserRootViewController snapshotContentProviderForTab:];
       }
@@ -9753,46 +9757,47 @@ LABEL_4:
 
         [frontWebView bounds];
         [(BrowserRootViewController *)self maximumObscuredInsetsForRect:frontWebView inCoordinateSpace:0 ignoreBarsMinimized:?];
-        v16 = v15;
-        v18 = v17;
-        v20 = v19;
-        v22 = v21;
+        v21 = v20;
+        v23 = v22;
+        v25 = v24;
+        v27 = v26;
         [frontWebView bounds];
-        v6 = [[WebViewSnapshotContentProvider alloc] initWithWebView:frontWebView contentFrame:v18 + v23, v16 + v24, v25 - (v18 + v22), v26 - (v16 + v20)];
+        v8 = [[WebViewSnapshotContentProvider alloc] initWithWebView:frontWebView contentFrame:v23 + v28, v21 + v29, v30 - (v23 + v27), v31 - (v21 + v25)];
       }
 
       else
       {
-        v28 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v35 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(0, v15);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [BrowserRootViewController snapshotContentProviderForTab:];
         }
 
-        v6 = 0;
+        v8 = 0;
       }
 
       goto LABEL_25;
     }
 
-    if ([WeakRetained favoritesAreEmbedded])
+    favoritesAreEmbedded = [WeakRetained favoritesAreEmbedded];
+    if (favoritesAreEmbedded)
     {
       tabGroupTab = [tabCopy tabGroupTab];
       tabGroupUUID = [tabGroupTab tabGroupUUID];
       tabController2 = [WeakRetained tabController];
       activeTabGroupUUID = [tabController2 activeTabGroupUUID];
-      v34 = WBSIsEqual();
+      v43 = WBSIsEqual();
 
-      if (v34)
+      if (v43)
       {
-        v6 = catalogViewController;
+        v8 = catalogViewController;
 LABEL_25:
 
         goto LABEL_26;
       }
 
-      v36 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v47 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v44, v45);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         [BrowserRootViewController snapshotContentProviderForTab:];
       }
@@ -9800,23 +9805,23 @@ LABEL_25:
 
     else
     {
-      v35 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v46 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(favoritesAreEmbedded, v38);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         [BrowserRootViewController snapshotContentProviderForTab:];
       }
     }
 
-    v6 = 0;
+    v8 = 0;
     goto LABEL_25;
   }
 
-  v6 = screenTimeOverlayViewController;
+  v8 = screenTimeOverlayViewController;
 LABEL_26:
 
 LABEL_27:
 
-  return v6;
+  return v8;
 }
 
 - (void)_updateScrollPocketsAreHidden
@@ -9985,10 +9990,11 @@ void __62__BrowserRootViewController__installTabSwitcherViewController__block_in
   else
   {
     [(BrowserRootViewController *)self _uninstallTabSwitcherViewController];
-    if ([(TabSwitcherViewController *)self->_tabSwitcherViewController tabOverviewIsVisible])
+    tabOverviewIsVisible = [(TabSwitcherViewController *)self->_tabSwitcherViewController tabOverviewIsVisible];
+    if (tabOverviewIsVisible)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXTabView();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXTabView(tabOverviewIsVisible, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [BrowserRootViewController _tabSwitcherVisibilityDidChange:];
       }
@@ -10047,8 +10053,8 @@ void __62__BrowserRootViewController__installTabSwitcherViewController__block_in
 - (void)tabOverviewVisibilityDidChange:(BOOL)change
 {
   changeCopy = change;
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = WBS_LOG_CHANNEL_PREFIXTabView();
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = WBS_LOG_CHANNEL_PREFIXTabView(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"not visible";
@@ -10057,18 +10063,18 @@ void __62__BrowserRootViewController__installTabSwitcherViewController__block_in
       v6 = @"visible";
     }
 
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Tab overview changed to %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Tab overview changed to %@", &v11, 0xCu);
   }
 
   if (changeCopy)
   {
-    v7 = 0.0;
+    v8 = 0.0;
     if (![(TabSwitcherViewController *)self->_tabSwitcherViewController presentationState])
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXTabView();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = WBS_LOG_CHANNEL_PREFIXTabView(0, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         [BrowserRootViewController tabOverviewVisibilityDidChange:];
       }
@@ -10077,12 +10083,12 @@ void __62__BrowserRootViewController__installTabSwitcherViewController__block_in
 
   else
   {
-    v7 = 0.1;
+    v8 = 0.1;
   }
 
   capsuleCollectionView = [(CapsuleNavigationBarViewController *)self->_capsuleViewController capsuleCollectionView];
   [capsuleCollectionView setUserInteractionEnabled:changeCopy ^ 1];
-  [capsuleCollectionView setShouldDismissContent:changeCopy withDelay:v7];
+  [capsuleCollectionView setShouldDismissContent:changeCopy withDelay:v8];
 }
 
 - (void)toggleSidebar
@@ -10224,22 +10230,33 @@ void __75__BrowserRootViewController_presentToastForAddedBookmark_suggestedFolde
   return WeakRetained;
 }
 
-- (void)presentViewController:(void *)a1 animated:(void *)a2 completion:.cold.1(void *a1, void *a2)
+- (void)presentViewController:(void *)a1 animated:(void *)a2 completion:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v12 = [a1 presentingViewController];
-  OUTLINED_FUNCTION_2_3(&dword_215819000, v6, v7, "Trying to present %{public}@ from %{public}@ (pre-dismiss) when it is already presented by: %{public}@", v8, v9, v10, v11, 2u);
+  v4 = a2;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [a1 presentingViewController];
+  *v14 = 138543874;
+  *&v14[4] = a1;
+  *&v14[12] = 2114;
+  *&v14[14] = v6;
+  *&v14[22] = 2114;
+  OUTLINED_FUNCTION_2_3(&dword_215819000, v8, v9, "Trying to present %{public}@ from %{public}@ (pre-dismiss) when it is already presented by: %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16], v7);
 }
 
 void __71__BrowserRootViewController_presentViewController_animated_completion___block_invoke_cold_1(id *a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v13 = [*a1 presentingViewController];
-  OUTLINED_FUNCTION_2_3(&dword_215819000, v7, v8, "Trying to present %{public}@ from %{public}@ (post-dismiss) when it is already presented by: %{public}@", v9, v10, v11, v12, 2u);
+  v4 = *a1;
+  v5 = a3;
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [*a1 presentingViewController];
+  *v15 = 138543874;
+  *&v15[4] = v4;
+  *&v15[12] = 2114;
+  *&v15[14] = v7;
+  *&v15[22] = 2114;
+  OUTLINED_FUNCTION_2_3(&dword_215819000, v9, v10, "Trying to present %{public}@ from %{public}@ (post-dismiss) when it is already presented by: %{public}@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16], v8);
 }
 
 @end

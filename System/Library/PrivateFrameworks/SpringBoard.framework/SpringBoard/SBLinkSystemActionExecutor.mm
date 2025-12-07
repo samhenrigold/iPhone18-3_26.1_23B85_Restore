@@ -40,7 +40,7 @@
     if (!linkAction)
     {
       v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@) Cannot execute action without link action app intent: %@, configured action: %@", self, intent, associatedBundleIdentifier];;
-      v32 = SBLogSystemActionExecution();
+      v32 = SBLogSystemActionExecution(v31);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
         [(SBLinkSystemActionExecutor *)v31 _previewWithCoordinator:v32];
@@ -148,7 +148,7 @@ LABEL_19:
   }
 
   intent = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@) Cannot execute action without bundle ID configured action: %@", self, configuredAction];;
-  v17 = SBLogSystemActionExecution();
+  v17 = SBLogSystemActionExecution(intent);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
     [(SBLinkSystemActionExecutor *)intent _previewWithCoordinator:v17];

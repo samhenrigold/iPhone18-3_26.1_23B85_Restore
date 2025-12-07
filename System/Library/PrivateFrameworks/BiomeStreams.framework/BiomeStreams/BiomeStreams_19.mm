@@ -1,3737 +1,3 @@
-void _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    v24 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v3 = a1 + 64;
-    v4 = -1 << *(a1 + 32);
-    v5 = _HashTable.startBucket.getter();
-    v6 = 0;
-    v23 = *(a1 + 36);
-    v21 = v1;
-    while ((v5 & 0x8000000000000000) == 0 && v5 < 1 << *(a1 + 32))
-    {
-      v8 = v5 >> 6;
-      if ((*(v3 + 8 * (v5 >> 6)) & (1 << v5)) == 0)
-      {
-        goto LABEL_22;
-      }
-
-      if (v23 != *(a1 + 36))
-      {
-        goto LABEL_23;
-      }
-
-      v9 = (*(a1 + 48) + 16 * v5);
-      v10 = v9[1];
-      v22 = *v9;
-      v11 = *(v24 + 16);
-      v12 = *(v24 + 24);
-
-      if (v11 >= v12 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v12 > 1, v11 + 1, 1);
-      }
-
-      *(v24 + 16) = v11 + 1;
-      v13 = v24 + 16 * v11;
-      *(v13 + 32) = v22;
-      *(v13 + 40) = v10;
-      v7 = 1 << *(a1 + 32);
-      if (v5 >= v7)
-      {
-        goto LABEL_24;
-      }
-
-      v3 = a1 + 64;
-      v14 = *(a1 + 64 + 8 * v8);
-      if ((v14 & (1 << v5)) == 0)
-      {
-        goto LABEL_25;
-      }
-
-      if (v23 != *(a1 + 36))
-      {
-        goto LABEL_26;
-      }
-
-      v15 = v14 & (-2 << (v5 & 0x3F));
-      if (v15)
-      {
-        v7 = __clz(__rbit64(v15)) | v5 & 0x7FFFFFFFFFFFFFC0;
-      }
-
-      else
-      {
-        v16 = v8 << 6;
-        v17 = v8 + 1;
-        v18 = (a1 + 72 + 8 * v8);
-        while (v17 < (v7 + 63) >> 6)
-        {
-          v20 = *v18++;
-          v19 = v20;
-          v16 += 64;
-          ++v17;
-          if (v20)
-          {
-            outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v5, v23, 0);
-            v7 = __clz(__rbit64(v19)) + v16;
-            goto LABEL_4;
-          }
-        }
-
-        outlined consume of [[StorableValue] : [String : StorableValue]].Index._Variant(v5, v23, 0);
-      }
-
-LABEL_4:
-      ++v6;
-      v5 = v7;
-      if (v6 == v21)
-      {
-        return;
-      }
-    }
-
-    __break(1u);
-LABEL_22:
-    __break(1u);
-LABEL_23:
-    __break(1u);
-LABEL_24:
-    __break(1u);
-LABEL_25:
-    __break(1u);
-LABEL_26:
-    __break(1u);
-  }
-}
-
-uint64_t specialized SQLExpressionNode.sql()()
-{
-  v1 = v0;
-  v2 = SQLExpressionAExpr.expressionString.getter();
-  v4 = v3;
-  v30 = v2;
-  v31 = v3;
-  lazy protocol witness table accessor for type String and conformance String();
-  v5 = 0;
-  v6 = 0;
-  lazy protocol witness table accessor for type String and conformance String();
-  while (1)
-  {
-    v28 = v2;
-    v29 = v4;
-    v26 = 63;
-    v27 = 0xE100000000000000;
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v23)
-    {
-      return v2;
-    }
-
-    outlined init with copy of PgQuery_Alias?(v1, v22, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v7 = v24;
-    if (v24)
-    {
-      v8 = v25;
-      __swift_project_boxed_opaque_existential_1(v22, v24);
-      v9 = (*(v8 + 32))(v7, v8);
-      __swift_destroy_boxed_opaque_existential_1Tm(v22);
-    }
-
-    else
-    {
-      _s10Foundation4UUIDVSgWOhTm_0(v22, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-      v9 = MEMORY[0x1E69E7CC0];
-    }
-
-    v10 = v1[8];
-    v11 = v1[9];
-    __swift_project_boxed_opaque_existential_1(v1 + 5, v10);
-    result = (*(v11 + 32))(v10, v11);
-    v13 = *(result + 16);
-    v14 = *(v9 + 16);
-    v15 = v14 + v13;
-    if (__OFADD__(v14, v13))
-    {
-      break;
-    }
-
-    v16 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v15 <= *(v9 + 24) >> 1)
-    {
-      if (*(v16 + 16))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      if (v14 <= v15)
-      {
-        v19 = v14 + v13;
-      }
-
-      else
-      {
-        v19 = v14;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v19, 1, v9);
-      v9 = result;
-      if (*(v16 + 16))
-      {
-LABEL_10:
-        if ((*(v9 + 24) >> 1) - *(v9 + 16) < v13)
-        {
-          goto LABEL_27;
-        }
-
-        swift_arrayInitWithCopy();
-
-        v17 = *(v9 + 16);
-        if (v13)
-        {
-          v18 = __OFADD__(v17, v13);
-          v17 += v13;
-          if (v18)
-          {
-            goto LABEL_28;
-          }
-
-          *(v9 + 16) = v17;
-        }
-
-        if (v6 >= v17)
-        {
-          goto LABEL_26;
-        }
-
-        goto LABEL_22;
-      }
-    }
-
-    if (v13)
-    {
-      goto LABEL_25;
-    }
-
-    if (v6 >= *(v9 + 16))
-    {
-      goto LABEL_26;
-    }
-
-LABEL_22:
-    v20 = *(v9 + v5 + 32);
-    v21 = *(v9 + v5 + 40);
-
-    v22[0] = v20;
-    v22[1] = v21;
-    String.replaceSubrange<A>(_:with:)();
-
-    ++v6;
-    v2 = v30;
-    v4 = v31;
-    v5 += 24;
-  }
-
-  __break(1u);
-LABEL_25:
-  __break(1u);
-LABEL_26:
-  __break(1u);
-LABEL_27:
-  __break(1u);
-LABEL_28:
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_1(v0, v1);
-  v3 = (*(v2 + 8))(v1, v2);
-  v12 = v3;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v4 = 0;
-  for (i = 0; ; ++i)
-  {
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v11)
-    {
-      return v3;
-    }
-
-    v6 = v0[3];
-    v7 = v0[4];
-    __swift_project_boxed_opaque_existential_1(v0, v6);
-    result = (*(v7 + 32))(v6, v7);
-    if (i >= *(result + 16))
-    {
-      break;
-    }
-
-    v10 = *(result + v4 + 32);
-    v9 = *(result + v4 + 40);
-
-    String.replaceSubrange<A>(_:with:)();
-
-    v3 = v12;
-    v4 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = SQLExpressionNullTest.expressionString.getter();
-  v10 = v1;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v4 = v0[3];
-    v5 = v0[4];
-    __swift_project_boxed_opaque_existential_1(v0, v4);
-    result = (*(v5 + 32))(v4, v5);
-    if (i >= *(result + 16))
-    {
-      break;
-    }
-
-    v8 = *(result + v2 + 32);
-    v7 = *(result + v2 + 40);
-
-    String.replaceSubrange<A>(_:with:)();
-
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = *v0;
-  v10 = *v0;
-  v11 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v5 = v0[4];
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = *v0;
-  v10 = *v0;
-  v11 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v5 = v0[3];
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v10 = *v0;
-  lazy protocol witness table accessor for type String and conformance String();
-  v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  MEMORY[0x1865F6280](v1);
-
-  MEMORY[0x1865F6280](39, 0xE100000000000000);
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return 39;
-    }
-
-    v5 = *(v0 + 4);
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v2 = *(v0 + 208);
-  v16 = *(v0 + 200);
-  v1 = v16;
-  v17 = v2;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v12 = v16;
-  v13 = v2;
-  v10 = 63;
-  v11 = 0xE100000000000000;
-  BidirectionalCollection<>.firstRange<A>(of:)();
-  if (v15)
-  {
-    return v1;
-  }
-
-  v3 = AggregationFunction.name()();
-  v4 = *(v0 + 193);
-  v8 = v3;
-  v9 = v4;
-
-  outlined destroy of Binding(&v8);
-  v14 = v3;
-  String.replaceSubrange<A>(_:with:)();
-
-  v1 = v16;
-  v12 = v16;
-  v13 = v17;
-  v10 = 63;
-  v11 = 0xE100000000000000;
-  BidirectionalCollection<>.firstRange<A>(of:)();
-  if (v15 == 1)
-  {
-    return v1;
-  }
-
-  v6 = AggregationFunction.name()();
-  result = v6._countAndFlagsBits;
-  v7 = *(v0 + 193);
-  v8 = v6;
-  v9 = v7;
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()(uint64_t result, uint64_t a2, char a3)
-{
-  v3 = result;
-  if ((a3 & 1) == 0)
-  {
-    v4 = 0;
-    v5 = 0xE000000000000000;
-    goto LABEL_22;
-  }
-
-  v4 = a2;
-  if (a2 <= 1)
-  {
-    if (!a2)
-    {
-      v5 = 0xE000000000000000;
-      goto LABEL_22;
-    }
-
-    v61 = 40;
-    v62 = 0xE100000000000000;
-    v17 = *(result + 16);
-    v7 = MEMORY[0x1E69E7CC0];
-    if (v17)
-    {
-      v59 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0);
-      v7 = v59;
-      v18 = v3 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v18, &v52);
-        v19 = v55;
-        v20 = v56;
-        __swift_project_boxed_opaque_existential_1(&v52, v55);
-        v21 = (*(v20 + 8))(v19, v20);
-        v23 = v22;
-        __swift_destroy_boxed_opaque_existential_1Tm(&v52);
-        v59 = v7;
-        v25 = *(v7 + 16);
-        v24 = *(v7 + 24);
-        if (v25 >= v24 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v24 > 1, v25 + 1, 1);
-          v7 = v59;
-        }
-
-        *(v7 + 16) = v25 + 1;
-        v26 = v7 + 16 * v25;
-        *(v26 + 32) = v21;
-        *(v26 + 40) = v23;
-        v18 += 40;
-        --v17;
-      }
-
-      while (v17);
-    }
-
-    goto LABEL_21;
-  }
-
-  if (a2 == 2)
-  {
-    v61 = 40;
-    v62 = 0xE100000000000000;
-    v6 = *(result + 16);
-    v7 = MEMORY[0x1E69E7CC0];
-    if (v6)
-    {
-      v59 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
-      v7 = v59;
-      v8 = v3 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v8, &v52);
-        v9 = v55;
-        v10 = v56;
-        __swift_project_boxed_opaque_existential_1(&v52, v55);
-        v11 = (*(v10 + 8))(v9, v10);
-        v13 = v12;
-        __swift_destroy_boxed_opaque_existential_1Tm(&v52);
-        v59 = v7;
-        v15 = *(v7 + 16);
-        v14 = *(v7 + 24);
-        if (v15 >= v14 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v15 + 1, 1);
-          v7 = v59;
-        }
-
-        *(v7 + 16) = v15 + 1;
-        v16 = v7 + 16 * v15;
-        *(v16 + 32) = v11;
-        *(v16 + 40) = v13;
-        v8 += 40;
-        --v6;
-      }
-
-      while (v6);
-    }
-
-LABEL_21:
-    v52 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v30 = BidirectionalCollection<>.joined(separator:)();
-    v32 = v31;
-
-    MEMORY[0x1865F6280](v30, v32);
-
-    MEMORY[0x1865F6280](41, 0xE100000000000000);
-    v4 = v61;
-    v5 = v62;
-    goto LABEL_22;
-  }
-
-  v52 = 0x20544F4E28;
-  v53 = 0xE500000000000000;
-  if (!*(result + 16))
-  {
-    goto LABEL_50;
-  }
-
-  v27 = *(result + 56);
-  v28 = *(result + 64);
-  __swift_project_boxed_opaque_existential_1((result + 32), v27);
-  v29 = (*(v28 + 8))(v27, v28);
-  MEMORY[0x1865F6280](v29);
-
-  MEMORY[0x1865F6280](41, 0xE100000000000000);
-  v4 = v52;
-  v5 = v53;
-LABEL_22:
-  v61 = v4;
-  v62 = v5;
-  lazy protocol witness table accessor for type String and conformance String();
-  v33 = 0;
-  v50 = v3 + 32;
-  lazy protocol witness table accessor for type String and conformance String();
-  for (i = v3; ; v3 = i)
-  {
-    v59 = v4;
-    v60 = v5;
-    v57 = 63;
-    v58 = 0xE100000000000000;
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v54)
-    {
-      return v4;
-    }
-
-    v34 = *(v3 + 16);
-    if (v34)
-    {
-      break;
-    }
-
-    v36 = MEMORY[0x1E69E7CC0];
-LABEL_42:
-    if (v33 >= *(v36 + 16))
-    {
-      goto LABEL_49;
-    }
-
-    v47 = v36 + 24 * v33;
-    v49 = *(v47 + 32);
-    v48 = *(v47 + 40);
-
-    v52 = v49;
-    v53 = v48;
-    String.replaceSubrange<A>(_:with:)();
-
-    ++v33;
-    v4 = v61;
-    v5 = v62;
-  }
-
-  v35 = v50;
-  v36 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v35, &v52);
-    v38 = v55;
-    v37 = v56;
-    __swift_project_boxed_opaque_existential_1(&v52, v55);
-    v39 = (*(v37 + 32))(v38, v37);
-    result = __swift_destroy_boxed_opaque_existential_1Tm(&v52);
-    v40 = *(v39 + 16);
-    v41 = *(v36 + 16);
-    v42 = v41 + v40;
-    if (__OFADD__(v41, v40))
-    {
-      break;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v42 <= *(v36 + 24) >> 1)
-    {
-      if (*(v39 + 16))
-      {
-        goto LABEL_37;
-      }
-    }
-
-    else
-    {
-      if (v41 <= v42)
-      {
-        v43 = v41 + v40;
-      }
-
-      else
-      {
-        v43 = v41;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v43, 1, v36);
-      v36 = result;
-      if (*(v39 + 16))
-      {
-LABEL_37:
-        if ((*(v36 + 24) >> 1) - *(v36 + 16) < v40)
-        {
-          goto LABEL_47;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v40)
-        {
-          v44 = *(v36 + 16);
-          v45 = __OFADD__(v44, v40);
-          v46 = v44 + v40;
-          if (v45)
-          {
-            goto LABEL_48;
-          }
-
-          *(v36 + 16) = v46;
-        }
-
-        goto LABEL_27;
-      }
-    }
-
-    if (v40)
-    {
-      goto LABEL_46;
-    }
-
-LABEL_27:
-    v35 += 40;
-    if (!--v34)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  __break(1u);
-LABEL_46:
-  __break(1u);
-LABEL_47:
-  __break(1u);
-LABEL_48:
-  __break(1u);
-LABEL_49:
-  __break(1u);
-LABEL_50:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = dispatch thunk of CustomStringConvertible.description.getter();
-  v11 = v4;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v5 = 0;
-  for (i = (a3 + 40); ; i += 3)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v10)
-    {
-      return v4;
-    }
-
-    if (v5 >= *(a3 + 16))
-    {
-      break;
-    }
-
-    v8 = *(i - 1);
-    v9 = *i;
-    String.replaceSubrange<A>(_:with:)();
-    ++v5;
-    v4 = v11;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()(char a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  v5 = MEMORY[0x1E69E7CC0];
-  v41 = v4;
-  if (v4)
-  {
-    v48 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = v48;
-    v6 = a2 + 32;
-    v7 = v4;
-    do
-    {
-      outlined init with copy of Aggregation(v6, &v43);
-      v8 = v46;
-      v9 = v47;
-      __swift_project_boxed_opaque_existential_1(&v43, v46);
-      v10 = (*(v9 + 8))(v8, v9);
-      v12 = v11;
-      __swift_destroy_boxed_opaque_existential_1Tm(&v43);
-      v48 = v5;
-      v14 = *(v5 + 16);
-      v13 = *(v5 + 24);
-      if (v14 >= v13 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v13 > 1, v14 + 1, 1);
-        v5 = v48;
-      }
-
-      *(v5 + 16) = v14 + 1;
-      v15 = v5 + 16 * v14;
-      *(v15 + 32) = v10;
-      *(v15 + 40) = v12;
-      v6 += 40;
-      --v7;
-    }
-
-    while (v7);
-    v4 = v41;
-  }
-
-  v43 = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance [A]();
-  v16 = BidirectionalCollection<>.joined(separator:)();
-  v18 = v17;
-
-  LOBYTE(v48) = a1;
-  v43 = SQLFunction.rawValue.getter();
-  v44 = v19;
-  MEMORY[0x1865F6280](40, 0xE100000000000000);
-  MEMORY[0x1865F6280](v16, v18);
-
-  MEMORY[0x1865F6280](41, 0xE100000000000000);
-  v20 = v43;
-  v48 = v43;
-  v49 = v44;
-  lazy protocol witness table accessor for type String and conformance String();
-  v21 = lazy protocol witness table accessor for type String and conformance String();
-  v42 = 0;
-  v40 = a2 + 32;
-  while (1)
-  {
-    v22 = v21;
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v45)
-    {
-      return v20;
-    }
-
-    if (v4)
-    {
-      break;
-    }
-
-    v26 = MEMORY[0x1E69E7CC0];
-LABEL_28:
-    if (v42 >= *(v26 + 16))
-    {
-      goto LABEL_35;
-    }
-
-    v37 = v26 + 24 * v42;
-    v39 = *(v37 + 32);
-    v38 = *(v37 + 40);
-
-    v43 = v39;
-    v44 = v38;
-    String.replaceSubrange<A>(_:with:)();
-
-    v21 = v22;
-    ++v42;
-    v20 = v48;
-    v4 = v41;
-  }
-
-  v24 = v40;
-  v25 = v4;
-  v26 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v24, &v43);
-    v27 = v46;
-    v28 = v47;
-    __swift_project_boxed_opaque_existential_1(&v43, v46);
-    result = (*(v28 + 32))(v27, v28);
-    v29 = *(result + 16);
-    v30 = *(v26 + 16);
-    v31 = v30 + v29;
-    if (__OFADD__(v30, v29))
-    {
-      break;
-    }
-
-    v32 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v31 <= *(v26 + 24) >> 1)
-    {
-      if (*(v32 + 16))
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      if (v30 <= v31)
-      {
-        v33 = v30 + v29;
-      }
-
-      else
-      {
-        v33 = v30;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v33, 1, v26);
-      v26 = result;
-      if (*(v32 + 16))
-      {
-LABEL_22:
-        if ((*(v26 + 24) >> 1) - *(v26 + 16) < v29)
-        {
-          goto LABEL_33;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v29)
-        {
-          v34 = *(v26 + 16);
-          v35 = __OFADD__(v34, v29);
-          v36 = v34 + v29;
-          if (v35)
-          {
-            goto LABEL_34;
-          }
-
-          *(v26 + 16) = v36;
-        }
-
-        goto LABEL_12;
-      }
-    }
-
-    if (v29)
-    {
-      goto LABEL_32;
-    }
-
-LABEL_12:
-    result = __swift_destroy_boxed_opaque_existential_1Tm(&v43);
-    v24 += 40;
-    if (!--v25)
-    {
-      goto LABEL_28;
-    }
-  }
-
-  __break(1u);
-LABEL_32:
-  __break(1u);
-LABEL_33:
-  __break(1u);
-LABEL_34:
-  __break(1u);
-LABEL_35:
-  __break(1u);
-  return result;
-}
-
-uint64_t SQLExpressionConstString.expressionString.getter()
-{
-  v3 = *v0;
-  v4 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  MEMORY[0x1865F6280](v1);
-
-  MEMORY[0x1865F6280](39, 0xE100000000000000);
-  return 39;
-}
-
-uint64_t protocol witness for SQLExpressionNode.sql() in conformance SQLExpressionConstString()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 4);
-  return specialized SQLExpressionNode.sql()();
-}
-
-uint64_t protocol witness for SQLExpressionNode.sql() in conformance SQLExpressionColumnRef()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 4);
-  return specialized SQLExpressionNode.sql()();
-}
-
-uint64_t SQLExpressionAExpr.init(expr:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v115 = a3;
-  v116 = a5;
-  v113 = a2;
-  v114 = a4;
-  v108 = a6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  v102 = &v97 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v101 = &v97 - v11;
-  String = type metadata accessor for PgQuery_String(0);
-  v12 = *(*(String - 8) + 64);
-  v13 = MEMORY[0x1EEE9AC00](String);
-  v99 = (&v97 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v13);
-  v98 = (&v97 - v15);
-  Node = type metadata accessor for PgQuery_Node(0);
-  v17 = *(Node - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x1EEE9AC00](Node);
-  v105 = &v97 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v100 = &v97 - v22;
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v107 = &v97 - v24;
-  MEMORY[0x1EEE9AC00](v23);
-  v106 = &v97 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v27 = *(*(v26 - 8) + 64);
-  v28 = MEMORY[0x1EEE9AC00](v26 - 8);
-  v110 = &v97 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v32 = &v97 - v31;
-  MEMORY[0x1EEE9AC00](v30);
-  v34 = &v97 - v33;
-  v35 = *(type metadata accessor for PgQuery_A_Expr(0) + 20);
-  v109 = a1;
-  v36 = *(a1 + v35);
-  v37 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr;
-  outlined init with copy of PgQuery_Alias?(v36 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr, v34, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v104 = v17;
-  v38 = *(v17 + 48);
-  v39 = v38(v34, 1, Node);
-  _s10Foundation4UUIDVSgWOhTm_0(v34, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v112 = v36;
-  if (v39 == 1)
-  {
-    v40 = v108;
-    *(v108 + 32) = 0;
-    *v40 = 0u;
-    *(v40 + 16) = 0u;
-    v41 = v110;
-    v42 = v111;
-    v43 = v115;
-  }
-
-  else
-  {
-    outlined init with copy of PgQuery_Alias?(v36 + v37, v32, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    v44 = v38(v32, 1, Node);
-    v45 = v38;
-    v97 = Node;
-    if (v44 == 1)
-    {
-      v46 = v106;
-      UnknownStorage.init()();
-      v47 = Node;
-      v48 = *(Node + 20);
-      v41 = v110;
-      v49 = v111;
-      if (one-time initialization token for defaultInstance != -1)
-      {
-        swift_once();
-      }
-
-      *(v46 + v48) = static PgQuery_Node._StorageClass.defaultInstance;
-      v38 = v45;
-      v50 = v45(v32, 1, v47);
-
-      if (v50 != 1)
-      {
-        _s10Foundation4UUIDVSgWOhTm_0(v32, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-      }
-    }
-
-    else
-    {
-      v46 = v106;
-      outlined init with take of PgQuery_BitString(v32, v106, type metadata accessor for PgQuery_Node);
-      v41 = v110;
-      v49 = v111;
-    }
-
-    v51 = v46;
-    v43 = v115;
-    v52 = v46;
-    v53 = v116;
-    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(&v117, v51, v113, v115, v114, v116);
-    if (v49)
-    {
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v53, type metadata accessor for SQLTokenInformation);
-      outlined destroy of PgQuery_Node.OneOf_Node(v52, type metadata accessor for PgQuery_Node);
-      return outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-    }
-
-    outlined destroy of PgQuery_Node.OneOf_Node(v52, type metadata accessor for PgQuery_Node);
-    v55 = v118;
-    v56 = v108;
-    *v108 = v117;
-    *(v56 + 16) = v55;
-    v40 = v56;
-    *(v56 + 32) = v119;
-    v42 = 0;
-    Node = v97;
-  }
-
-  v57 = v112;
-  outlined init with copy of PgQuery_Alias?(v112 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rexpr, v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v58 = v38;
-  if (v38(v41, 1, Node) == 1)
-  {
-    v59 = v107;
-    UnknownStorage.init()();
-    v60 = Node;
-    v61 = *(Node + 20);
-    if (one-time initialization token for defaultInstance != -1)
-    {
-      swift_once();
-    }
-
-    *(v59 + v61) = static PgQuery_Node._StorageClass.defaultInstance;
-    v62 = v58(v41, 1, v60);
-
-    v43 = v115;
-    Node = v60;
-    v63 = v59;
-    v57 = v112;
-    v64 = v113;
-    if (v62 != 1)
-    {
-      _s10Foundation4UUIDVSgWOhTm_0(v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    }
-  }
-
-  else
-  {
-    v63 = v107;
-    outlined init with take of PgQuery_BitString(v41, v107, type metadata accessor for PgQuery_Node);
-    v64 = v113;
-  }
-
-  v65 = v116;
-  buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(&v117, v63, v64, v43, v114, v116);
-  if (v42)
-  {
-
-    outlined destroy of PgQuery_Node.OneOf_Node(v65, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_Node.OneOf_Node(v63, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-    return _s10Foundation4UUIDVSgWOhTm_0(v40, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  }
-
-  outlined destroy of PgQuery_Node.OneOf_Node(v63, type metadata accessor for PgQuery_Node);
-
-  result = outlined init with take of Aggregation(&v117, v40 + 40);
-  if (*(v57 + 24) != 1 || (v66 = *(v57 + 16), ((1 << v66) & 0x1FDFD) != 0))
-  {
-    type metadata accessor for SQLExpressionError();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-    swift_allocError();
-    v67 = v109;
-    outlined init with copy of PgQuery_Node(v109, v68, type metadata accessor for PgQuery_A_Expr);
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-    outlined destroy of PgQuery_Node.OneOf_Node(v116, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_Node.OneOf_Node(v67, type metadata accessor for PgQuery_A_Expr);
-    _s10Foundation4UUIDVSgWOhTm_0(v40, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    return __swift_destroy_boxed_opaque_existential_1Tm((v40 + 40));
-  }
-
-  if (v66 != 1)
-  {
-    v76 = *(v57 + 32);
-    if (!*(v76 + 16))
-    {
-LABEL_50:
-      __break(1u);
-      return result;
-    }
-
-    v77 = v105;
-    outlined init with copy of PgQuery_Node(v76 + ((*(v104 + 80) + 32) & ~*(v104 + 80)), v105, type metadata accessor for PgQuery_Node);
-    v78 = *(v77 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-    v79 = v102;
-    outlined init with copy of PgQuery_Alias?(v78, v102, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v80 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-    if ((*(*(v80 - 8) + 48))(v79, 1, v80) == 1)
-    {
-      _s10Foundation4UUIDVSgWOhTm_0(v79, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-      v81 = v99;
-      v75 = v116;
-    }
-
-    else
-    {
-      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      v75 = v116;
-      if (EnumCaseMultiPayload == 222)
-      {
-        v81 = v99;
-        outlined init with take of PgQuery_BitString(v79, v99, type metadata accessor for PgQuery_String);
-LABEL_39:
-        v85 = 0x454B494C20544F4ELL;
-        outlined destroy of PgQuery_Node.OneOf_Node(v105, type metadata accessor for PgQuery_Node);
-        v88 = v81;
-        v90 = *v81;
-        v89 = v81[1];
-
-        outlined destroy of PgQuery_Node.OneOf_Node(v88, type metadata accessor for PgQuery_String);
-        if (v90 == 8289825 && v89 == 0xE300000000000000)
-        {
-
-          v86 = 0xE800000000000000;
-        }
-
-        else
-        {
-          v91 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-          if (v91)
-          {
-            v86 = 0xE800000000000000;
-          }
-
-          else
-          {
-            v85 = 1162561868;
-            v86 = 0xE400000000000000;
-          }
-        }
-
-        goto LABEL_45;
-      }
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v79, type metadata accessor for PgQuery_Node.OneOf_Node);
-      v81 = v99;
-    }
-
-    *v81 = 0;
-    v81[1] = 0xE000000000000000;
-    v87 = v81 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_39;
-  }
-
-  v69 = *(v57 + 32);
-  if (!*(v69 + 16))
-  {
-    __break(1u);
-    goto LABEL_50;
-  }
-
-  v70 = v100;
-  outlined init with copy of PgQuery_Node(v69 + ((*(v104 + 80) + 32) & ~*(v104 + 80)), v100, type metadata accessor for PgQuery_Node);
-  v71 = *(v70 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v72 = v101;
-  outlined init with copy of PgQuery_Alias?(v71, v101, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v73 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v74 = (*(*(v73 - 8) + 48))(v72, 1, v73);
-  v75 = v116;
-  if (v74 == 1)
-  {
-    _s10Foundation4UUIDVSgWOhTm_0(v72, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-LABEL_35:
-    v82 = v98;
-    *v98 = 0;
-    v82[1] = 0xE000000000000000;
-    v84 = v82 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_36;
-  }
-
-  if (swift_getEnumCaseMultiPayload() != 222)
-  {
-    outlined destroy of PgQuery_Node.OneOf_Node(v72, type metadata accessor for PgQuery_Node.OneOf_Node);
-    goto LABEL_35;
-  }
-
-  v82 = v98;
-  outlined init with take of PgQuery_BitString(v72, v98, type metadata accessor for PgQuery_String);
-LABEL_36:
-  outlined destroy of PgQuery_Node.OneOf_Node(v70, type metadata accessor for PgQuery_Node);
-  v85 = *v82;
-  v86 = v82[1];
-
-  outlined destroy of PgQuery_Node.OneOf_Node(v82, type metadata accessor for PgQuery_String);
-LABEL_45:
-  *(v40 + 80) = v85;
-  *(v40 + 88) = v86;
-
-  outlined init with copy of PgQuery_Alias?(v40, &v117, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v92 = *(&v118 + 1);
-  if (*(&v118 + 1))
-  {
-    v93 = v119;
-    __swift_project_boxed_opaque_existential_1(&v117, *(&v118 + 1));
-    (*(v93 + 16))(&v120, v92, v93);
-    v94 = v120;
-    __swift_destroy_boxed_opaque_existential_1Tm(&v117);
-  }
-
-  else
-  {
-    _s10Foundation4UUIDVSgWOhTm_0(&v117, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v94 = 8;
-  }
-
-  LOBYTE(v117) = v94;
-  v95 = *(v40 + 64);
-  v96 = *(v40 + 72);
-  __swift_project_boxed_opaque_existential_1((v40 + 40), v95);
-  (*(v96 + 16))(&v120, v95, v96);
-  static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)(&v117, &v120, v85, v86, &v120 + 1);
-  outlined destroy of PgQuery_Node.OneOf_Node(v75, type metadata accessor for SQLTokenInformation);
-
-  result = outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-  *(v40 + 96) = BYTE1(v120);
-  return result;
-}
-
-uint64_t static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  v8 = *a1;
-  v9 = *a2;
-  if (v8 <= 3)
-  {
-    *a1;
-    goto LABEL_8;
-  }
-
-  if (*a1 <= 5u || v8 == 6)
-  {
-LABEL_8:
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v10)
-    {
-      goto LABEL_35;
-    }
-
-    if (v9 > 3 && v9 > 6)
-    {
-      goto LABEL_34;
-    }
-
-    v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v12)
-    {
-LABEL_35:
-      v13 = 7;
-      goto LABEL_36;
-    }
-
-    if (a3 == 31868 && a4 == 0xE200000000000000 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) != 0))
-    {
-      v13 = 2;
-LABEL_36:
-      *a5 = v13;
-      return result;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x1EEE9AC00](result);
-    v26 = &v27;
-    v14 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #0 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if (v14)
-    {
-      goto LABEL_54;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x1EEE9AC00](result);
-    v26 = &v27;
-    v15 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #1 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if (v15)
-    {
-      goto LABEL_54;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x1EEE9AC00](result);
-    v26 = &v27;
-    v16 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #2 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if ((v16 & 1) == 0)
-    {
-      goto LABEL_54;
-    }
-
-    v17 = v8;
-    if (!specialized Sequence<>.contains(_:)(v8, &outlined read-only object #3 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)) || (v17 = v9, !specialized Sequence<>.contains(_:)(v9, &outlined read-only object #4 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:))))
-    {
-LABEL_38:
-      type metadata accessor for SQLExpressionError();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-      swift_allocError();
-      *v20 = a3;
-      *(v20 + 8) = a4;
-      *(v20 + 16) = v17;
-      swift_storeEnumTagMultiPayload();
-      swift_willThrow();
-    }
-
-    if (v8 == 3)
-    {
-      goto LABEL_41;
-    }
-
-    v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v21)
-    {
-LABEL_43:
-      v13 = 3;
-      goto LABEL_36;
-    }
-
-    if (v9 == 3)
-    {
-LABEL_41:
-
-      goto LABEL_43;
-    }
-
-    v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v22)
-    {
-      goto LABEL_43;
-    }
-
-    if (v8 > 1 || !v8)
-    {
-      v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v23)
-      {
-LABEL_53:
-        v13 = 1;
-        goto LABEL_36;
-      }
-
-      if (v9 > 1 || !v9)
-      {
-        v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v24 & 1) == 0)
-        {
-          goto LABEL_54;
-        }
-
-        goto LABEL_53;
-      }
-    }
-
-    goto LABEL_53;
-  }
-
-  if (v8 == 7)
-  {
-    goto LABEL_34;
-  }
-
-  if (*a2 <= 3u)
-  {
-    *a2;
-    goto LABEL_27;
-  }
-
-  if (*a2 > 5u && v9 != 6)
-  {
-LABEL_34:
-
-    goto LABEL_35;
-  }
-
-LABEL_27:
-  v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v18)
-  {
-    goto LABEL_35;
-  }
-
-  if (a3 != 126 || a4 != 0xE100000000000000)
-  {
-    result = _stringCompareWithSmolCheck(_:_:expecting:)();
-    if ((result & 1) == 0)
-    {
-      v27 = a3;
-      v28 = a4;
-      MEMORY[0x1EEE9AC00](result);
-      v26 = &v27;
-      v19 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v25, &outlined read-only object #5 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-      result = swift_arrayDestroy();
-      if (v19)
-      {
-        result = specialized Sequence<>.contains(_:)(v9, &outlined read-only object #6 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-        if (result)
-        {
-          *a5 = v9;
-          return result;
-        }
-
-        v17 = v9;
-        goto LABEL_38;
-      }
-    }
-  }
-
-LABEL_54:
-  *a5 = 0;
-  return result;
-}
-
-BOOL specialized Sequence<>.contains(_:)(unsigned __int8 a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = (a2 + 32);
-  v4 = a1;
-  do
-  {
-    v6 = v2;
-    if (v2-- == 0)
-    {
-      break;
-    }
-
-    v8 = *v3;
-    if (v8 > 3)
-    {
-      if (*v3 > 5u)
-      {
-        v14 = 0xE400000000000000;
-        if (v8 == 6)
-        {
-          v13 = 1684632949;
-        }
-
-        else
-        {
-          v13 = 1819047278;
-        }
-      }
-
-      else
-      {
-        if (v8 == 4)
-        {
-          v13 = 1635017060;
-        }
-
-        else
-        {
-          v13 = 1852797802;
-        }
-
-        v14 = 0xE400000000000000;
-      }
-    }
-
-    else
-    {
-      if (v8 == 2)
-      {
-        v9 = 0x676E69727473;
-      }
-
-      else
-      {
-        v9 = 1702125924;
-      }
-
-      if (v8 == 2)
-      {
-        v10 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v10 = 0xE400000000000000;
-      }
-
-      if (*v3)
-      {
-        v11 = 0x656C62756F64;
-      }
-
-      else
-      {
-        v11 = 0x72656765746E69;
-      }
-
-      if (*v3)
-      {
-        v12 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v12 = 0xE700000000000000;
-      }
-
-      if (*v3 <= 1u)
-      {
-        v13 = v11;
-      }
-
-      else
-      {
-        v13 = v9;
-      }
-
-      if (*v3 <= 1u)
-      {
-        v14 = v12;
-      }
-
-      else
-      {
-        v14 = v10;
-      }
-    }
-
-    v15 = 1819047278;
-    if (v4 == 6)
-    {
-      v15 = 1684632949;
-    }
-
-    v16 = 1852797802;
-    if (v4 == 4)
-    {
-      v16 = 1635017060;
-    }
-
-    if (v4 <= 5)
-    {
-      v15 = v16;
-    }
-
-    if (v4 == 2)
-    {
-      v17 = 0x676E69727473;
-    }
-
-    else
-    {
-      v17 = 1702125924;
-    }
-
-    if (v4 == 2)
-    {
-      v18 = 0xE600000000000000;
-    }
-
-    else
-    {
-      v18 = 0xE400000000000000;
-    }
-
-    if (v4)
-    {
-      v19 = 0x656C62756F64;
-    }
-
-    else
-    {
-      v19 = 0x72656765746E69;
-    }
-
-    if (v4)
-    {
-      v20 = 0xE600000000000000;
-    }
-
-    else
-    {
-      v20 = 0xE700000000000000;
-    }
-
-    if (v4 <= 1)
-    {
-      v17 = v19;
-      v18 = v20;
-    }
-
-    if (v4 <= 3)
-    {
-      v21 = v17;
-    }
-
-    else
-    {
-      v21 = v15;
-    }
-
-    if (v4 <= 3)
-    {
-      v22 = v18;
-    }
-
-    else
-    {
-      v22 = 0xE400000000000000;
-    }
-
-    if (v13 == v21 && v14 == v22)
-    {
-
-      return v6 != 0;
-    }
-
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    ++v3;
-  }
-
-  while ((v5 & 1) == 0);
-  return v6 != 0;
-}
-
-uint64_t SQLExpressionAExpr.expressionString.getter()
-{
-  v1 = v0[8];
-  v2 = v0[9];
-  __swift_project_boxed_opaque_existential_1(v0 + 5, v1);
-  v3 = (*(v2 + 8))(v1, v2);
-  v5 = v4;
-  outlined init with copy of PgQuery_Alias?(v0, &v12, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v6 = v14;
-  if (v14)
-  {
-    v7 = v15;
-    __swift_project_boxed_opaque_existential_1(&v12, v14);
-    v8 = (*(v7 + 8))(v6, v7);
-    v10 = v9;
-    __swift_destroy_boxed_opaque_existential_1Tm(&v12);
-    v12 = 40;
-    v13 = 0xE100000000000000;
-    MEMORY[0x1865F6280](v8, v10);
-
-    MEMORY[0x1865F6280](32, 0xE100000000000000);
-  }
-
-  else
-  {
-    _s10Foundation4UUIDVSgWOhTm_0(&v12, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v12 = 40;
-    v13 = 0xE100000000000000;
-  }
-
-  MEMORY[0x1865F6280](v0[10], v0[11]);
-  MEMORY[0x1865F6280](32, 0xE100000000000000);
-  MEMORY[0x1865F6280](v3, v5);
-
-  MEMORY[0x1865F6280](41, 0xE100000000000000);
-  return v12;
-}
-
-uint64_t SQLExpressionAExpr.aggregationFunctions.getter()
-{
-  outlined init with copy of PgQuery_Alias?(v0, v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v1 = v9;
-  if (v9)
-  {
-    v2 = v10;
-    __swift_project_boxed_opaque_existential_1(v8, v9);
-    v3 = (*(v2 + 24))(v1, v2);
-    __swift_destroy_boxed_opaque_existential_1Tm(v8);
-  }
-
-  else
-  {
-    _s10Foundation4UUIDVSgWOhTm_0(v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v3 = MEMORY[0x1E69E7CC0];
-  }
-
-  v4 = v0[8];
-  v5 = v0[9];
-  __swift_project_boxed_opaque_existential_1(v0 + 5, v4);
-  v6 = (*(v5 + 24))(v4, v5);
-  v8[0] = v3;
-  specialized Array.append<A>(contentsOf:)(v6);
-  return v8[0];
-}
-
-uint64_t SQLExpressionAExpr.bindings.getter()
-{
-  outlined init with copy of PgQuery_Alias?(v0, v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v1 = v9;
-  if (v9)
-  {
-    v2 = v10;
-    __swift_project_boxed_opaque_existential_1(v8, v9);
-    v3 = (*(v2 + 32))(v1, v2);
-    __swift_destroy_boxed_opaque_existential_1Tm(v8);
-  }
-
-  else
-  {
-    _s10Foundation4UUIDVSgWOhTm_0(v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v3 = MEMORY[0x1E69E7CC0];
-  }
-
-  v4 = v0[8];
-  v5 = v0[9];
-  __swift_project_boxed_opaque_existential_1(v0 + 5, v4);
-  v6 = (*(v5 + 32))(v4, v5);
-  v8[0] = v3;
-  specialized Array.append<A>(contentsOf:)(v6);
-  return v8[0];
-}
-
-uint64_t SQLExpressioBoolExpr.expressionString.getter()
-{
-  if (*(v0 + 16) != 1)
-  {
-    return 0;
-  }
-
-  v2 = *v0;
-  result = v0[1];
-  if (result > 1)
-  {
-    if (result != 2)
-    {
-      v35 = 0x20544F4E28;
-      v36 = 0xE500000000000000;
-      if (!*(v2 + 16))
-      {
-        __break(1u);
-        return result;
-      }
-
-      outlined init with copy of Aggregation(v2 + 32, v32);
-      v24 = v33;
-      v25 = v34;
-      __swift_project_boxed_opaque_existential_1(v32, v33);
-      v26 = (*(v25 + 8))(v24, v25);
-      MEMORY[0x1865F6280](v26);
-
-      __swift_destroy_boxed_opaque_existential_1Tm(v32);
-LABEL_22:
-      MEMORY[0x1865F6280](41, 0xE100000000000000);
-      return v35;
-    }
-
-    v35 = 40;
-    v36 = 0xE100000000000000;
-    v3 = *(v2 + 16);
-    v4 = MEMORY[0x1E69E7CC0];
-    if (v3)
-    {
-      v30 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-      v4 = v30;
-      v5 = v2 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v5, v32);
-        v6 = v33;
-        v7 = v34;
-        __swift_project_boxed_opaque_existential_1(v32, v33);
-        v8 = (*(v7 + 8))(v6, v7);
-        v10 = v9;
-        __swift_destroy_boxed_opaque_existential_1Tm(v32);
-        v12 = *(v30 + 16);
-        v11 = *(v30 + 24);
-        if (v12 >= v11 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11 > 1, v12 + 1, 1);
-        }
-
-        *(v30 + 16) = v12 + 1;
-        v13 = v30 + 16 * v12;
-        *(v13 + 32) = v8;
-        *(v13 + 40) = v10;
-        v5 += 40;
-        --v3;
-      }
-
-      while (v3);
-    }
-
-LABEL_21:
-    v32[0] = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v27 = BidirectionalCollection<>.joined(separator:)();
-    v29 = v28;
-
-    MEMORY[0x1865F6280](v27, v29);
-
-    goto LABEL_22;
-  }
-
-  if (result)
-  {
-    v35 = 40;
-    v36 = 0xE100000000000000;
-    v14 = *(v2 + 16);
-    v4 = MEMORY[0x1E69E7CC0];
-    if (v14)
-    {
-      v31 = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14, 0);
-      v4 = v31;
-      v15 = v2 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v15, v32);
-        v16 = v33;
-        v17 = v34;
-        __swift_project_boxed_opaque_existential_1(v32, v33);
-        v18 = (*(v17 + 8))(v16, v17);
-        v20 = v19;
-        __swift_destroy_boxed_opaque_existential_1Tm(v32);
-        v22 = *(v31 + 16);
-        v21 = *(v31 + 24);
-        if (v22 >= v21 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v21 > 1, v22 + 1, 1);
-        }
-
-        *(v31 + 16) = v22 + 1;
-        v23 = v31 + 16 * v22;
-        *(v23 + 32) = v18;
-        *(v23 + 40) = v20;
-        v15 += 40;
-        --v14;
-      }
-
-      while (v14);
-    }
-
-    goto LABEL_21;
-  }
-
-  return result;
-}
-
-void SQLExpressioBoolExpr.aggregationFunctions.getter()
-{
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return;
-  }
-
-  v2 = *v0 + 32;
-  v3 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v2, v13);
-    v4 = v14;
-    v5 = v15;
-    __swift_project_boxed_opaque_existential_1(v13, v14);
-    v6 = (*(v5 + 24))(v4, v5);
-    __swift_destroy_boxed_opaque_existential_1Tm(v13);
-    v7 = *(v6 + 16);
-    v8 = *(v3 + 16);
-    if (__OFADD__(v8, v7))
-    {
-      break;
-    }
-
-    if (swift_isUniquelyReferenced_nonNull_native() && v8 + v7 <= *(v3 + 24) >> 1)
-    {
-      if (*(v6 + 16))
-      {
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v3 = v9;
-      if (*(v6 + 16))
-      {
-LABEL_11:
-        if ((*(v3 + 24) >> 1) - *(v3 + 16) < v7)
-        {
-          goto LABEL_18;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v7)
-        {
-          v10 = *(v3 + 16);
-          v11 = __OFADD__(v10, v7);
-          v12 = v10 + v7;
-          if (v11)
-          {
-            goto LABEL_19;
-          }
-
-          *(v3 + 16) = v12;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v7)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_4:
-    v2 += 40;
-    if (!--v1)
-    {
-      return;
-    }
-  }
-
-  __break(1u);
-LABEL_17:
-  __break(1u);
-LABEL_18:
-  __break(1u);
-LABEL_19:
-  __break(1u);
-}
-
-char *SQLExpressioBoolExpr.bindings.getter()
-{
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v2 = *v0 + 32;
-  v3 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v2, v15);
-    v5 = v16;
-    v6 = v17;
-    __swift_project_boxed_opaque_existential_1(v15, v16);
-    v7 = (*(v6 + 32))(v5, v6);
-    result = __swift_destroy_boxed_opaque_existential_1Tm(v15);
-    v8 = *(v7 + 16);
-    v9 = *(v3 + 2);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v3 + 3) >> 1)
-    {
-      if (*(v7 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v11 = v9 + v8;
-      }
-
-      else
-      {
-        v11 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
-      v3 = result;
-      if (*(v7 + 16))
-      {
-LABEL_14:
-        if ((*(v3 + 3) >> 1) - *(v3 + 2) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v12 = *(v3 + 2);
-          v13 = __OFADD__(v12, v8);
-          v14 = v12 + v8;
-          if (v13)
-          {
-            goto LABEL_23;
-          }
-
-          *(v3 + 2) = v14;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    v2 += 40;
-    if (!--v1)
-    {
-      return v3;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-uint64_t SQLExpressionNullTest.expressionString.getter()
-{
-  if (*(v0 + 48) != 1)
-  {
-    return 0;
-  }
-
-  result = *(v0 + 40);
-  if (result)
-  {
-    if (result == 1)
-    {
-      v2 = *(v0 + 24);
-      v3 = *(v0 + 32);
-      __swift_project_boxed_opaque_existential_1(v0, v2);
-      v4 = (*(v3 + 8))(v2, v3);
-      MEMORY[0x1865F6280](v4);
-
-      v5 = 0x4C4C554E20534920;
-      v6 = 0xE900000000000029;
-    }
-
-    else
-    {
-      _StringGuts.grow(_:)(16);
-
-      v7 = *(v0 + 24);
-      v8 = *(v0 + 32);
-      __swift_project_boxed_opaque_existential_1(v0, v7);
-      v9 = (*(v8 + 8))(v7, v8);
-      MEMORY[0x1865F6280](v9);
-
-      v5 = 0x20544F4E20534920;
-      v6 = 0xED0000294C4C554ELL;
-    }
-
-    MEMORY[0x1865F6280](v5, v6);
-    return 40;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for SQLExpressionNode.aggregationFunctions.getter in conformance SQLExpressionNullTest()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_1(v0, v1);
-  return (*(v2 + 24))(v1, v2);
-}
-
-uint64_t protocol witness for SQLExpressionNode.bindings.getter in conformance SQLExpressionNullTest()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_1(v0, v1);
-  return (*(v2 + 32))(v1, v2);
-}
-
-uint64_t protocol witness for SQLExpressionNode.expressionString.getter in conformance SQLExpressionAggregationFunction()
-{
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 208);
-
-  return v1;
-}
-
-uint64_t protocol witness for SQLExpressionNode.aggregationFunctions.getter in conformance SQLExpressionAggregationFunction()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser19AggregationFunctionVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser19AggregationFunctionVGMR);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_184D29AA0;
-  outlined init with copy of AggregationFunction(v0, v1 + 32);
-  return v1;
-}
-
-uint64_t protocol witness for SQLExpressionNode.bindings.getter in conformance SQLExpressionAggregationFunction()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMR);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_184D29AA0;
-  v2 = AggregationFunction.name()();
-  v3 = *(v0 + 193);
-  *(v1 + 32) = v2;
-  *(v1 + 48) = v3;
-  return v1;
-}
-
-uint64_t SQLExpressionNonAggregationFunction.init(functionName:argList:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-
-  v8._countAndFlagsBits = a1;
-  v8._object = a2;
-  SQLFunction.init(rawValue:)(v8);
-  v9 = v23[0];
-  if (LOBYTE(v23[0]) == 98)
-  {
-
-    type metadata accessor for SQLExpressionError();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-    swift_allocError();
-    *v10 = a1;
-    v10[1] = a2;
-    swift_storeEnumTagMultiPayload();
-    return swift_willThrow();
-  }
-
-  else
-  {
-
-    BYTE1(v27) = v23[0];
-    v12 = *(a3 + 16);
-    v13._rawValue = MEMORY[0x1E69E7CC0];
-    if (v12)
-    {
-      v22 = a4;
-      rawValue = MEMORY[0x1E69E7CC0];
-
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-      v13._rawValue = rawValue;
-      v14 = a3 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v14, v23);
-        v15 = v24;
-        v16 = v25;
-        __swift_project_boxed_opaque_existential_1(v23, v24);
-        (*(v16 + 16))(&v27, v15, v16);
-        __swift_destroy_boxed_opaque_existential_1Tm(v23);
-        rawValue = v13._rawValue;
-        v18 = *(v13._rawValue + 2);
-        v17 = *(v13._rawValue + 3);
-        if (v18 >= v17 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1);
-          v13._rawValue = rawValue;
-        }
-
-        v19 = v27;
-        *(v13._rawValue + 2) = v18 + 1;
-        *(v13._rawValue + v18 + 32) = v19;
-        v14 += 40;
-        --v12;
-      }
-
-      while (v12);
-
-      a4 = v22;
-    }
-
-    SQLFunction.returnType(argTypes:)(v13);
-    if (v20)
-    {
-    }
-
-    else
-    {
-
-      v21 = BYTE2(v27);
-      *a4 = v9;
-      *(a4 + 8) = a3;
-      *(a4 + 16) = v21;
-    }
-  }
-
-  return result;
-}
-
-uint64_t SQLExpressionNonAggregationFunction.expressionString.getter()
-{
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v2 + 16);
-  v4 = MEMORY[0x1E69E7CC0];
-  if (v3)
-  {
-    v22 = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-    v4 = v22;
-    v5 = v2 + 32;
-    do
-    {
-      outlined init with copy of Aggregation(v5, v19);
-      v6 = v20;
-      v7 = v21;
-      __swift_project_boxed_opaque_existential_1(v19, v20);
-      v8 = (*(v7 + 8))(v6, v7);
-      v10 = v9;
-      __swift_destroy_boxed_opaque_existential_1Tm(v19);
-      v22 = v4;
-      v12 = *(v4 + 16);
-      v11 = *(v4 + 24);
-      if (v12 >= v11 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11 > 1, v12 + 1, 1);
-        v4 = v22;
-      }
-
-      *(v4 + 16) = v12 + 1;
-      v13 = v4 + 16 * v12;
-      *(v13 + 32) = v8;
-      *(v13 + 40) = v10;
-      v5 += 40;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  v19[0] = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance [A]();
-  v14 = BidirectionalCollection<>.joined(separator:)();
-  v16 = v15;
-
-  LOBYTE(v22) = v1;
-  v19[0] = SQLFunction.rawValue.getter();
-  v19[1] = v17;
-  MEMORY[0x1865F6280](40, 0xE100000000000000);
-  MEMORY[0x1865F6280](v14, v16);
-
-  MEMORY[0x1865F6280](41, 0xE100000000000000);
-  return v19[0];
-}
-
-void SQLExpressionNonAggregationFunction.aggregationFunctions.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v1 + 16);
-  if (!v2)
-  {
-    return;
-  }
-
-  v3 = v1 + 32;
-  v4 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v3, v15);
-    v5 = v16;
-    v6 = v17;
-    __swift_project_boxed_opaque_existential_1(v15, v16);
-    v7 = (*(v6 + 24))(v5, v6);
-    v8 = *(v7 + 16);
-    v9 = *(v4 + 16);
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    v10 = v7;
-    if (swift_isUniquelyReferenced_nonNull_native() && v9 + v8 <= *(v4 + 24) >> 1)
-    {
-      if (*(v10 + 16))
-      {
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v4 = v11;
-      if (*(v10 + 16))
-      {
-LABEL_11:
-        if ((*(v4 + 24) >> 1) - *(v4 + 16) < v8)
-        {
-          goto LABEL_18;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v12 = *(v4 + 16);
-          v13 = __OFADD__(v12, v8);
-          v14 = v12 + v8;
-          if (v13)
-          {
-            goto LABEL_19;
-          }
-
-          *(v4 + 16) = v14;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_4:
-    __swift_destroy_boxed_opaque_existential_1Tm(v15);
-    v3 += 40;
-    if (!--v2)
-    {
-      return;
-    }
-  }
-
-  __break(1u);
-LABEL_17:
-  __break(1u);
-LABEL_18:
-  __break(1u);
-LABEL_19:
-  __break(1u);
-}
-
-uint64_t SQLExpressionNonAggregationFunction.bindings.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v1 + 16);
-  if (!v2)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v3 = v1 + 32;
-  v4 = MEMORY[0x1E69E7CC0];
-  while (1)
-  {
-    outlined init with copy of Aggregation(v3, v16);
-    v6 = v17;
-    v7 = v18;
-    __swift_project_boxed_opaque_existential_1(v16, v17);
-    result = (*(v7 + 32))(v6, v7);
-    v8 = *(result + 16);
-    v9 = *(v4 + 16);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    v11 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v4 + 24) >> 1)
-    {
-      if (*(v11 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v12 = v9 + v8;
-      }
-
-      else
-      {
-        v12 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v4);
-      v4 = result;
-      if (*(v11 + 16))
-      {
-LABEL_14:
-        if ((*(v4 + 24) >> 1) - *(v4 + 16) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v13 = *(v4 + 16);
-          v14 = __OFADD__(v13, v8);
-          v15 = v13 + v8;
-          if (v14)
-          {
-            goto LABEL_23;
-          }
-
-          *(v4 + 16) = v15;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    __swift_destroy_boxed_opaque_existential_1Tm(v16);
-    v3 += 40;
-    if (!--v2)
-    {
-      return v4;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.AVGCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.AVGCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.COUNTCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.COUNTCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys@<X0>(_BYTE *a1@<X8>)
-{
-
-  *a1 = 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.AggregationType.CodingKeys()
-{
-  v1 = *v0;
-  v2 = 4675137;
-  v3 = 5068115;
-  if (v1 != 6)
-  {
-    v3 = 0x4C41544F54;
-  }
-
-  v4 = 5783885;
-  if (v1 != 4)
-  {
-    v4 = 5130573;
-  }
-
-  if (*v0 <= 5u)
-  {
-    v3 = v4;
-  }
-
-  v5 = 0x54535F544E554F43;
-  if (v1 != 2)
-  {
-    v5 = 0x4F435F50554F5247;
-  }
-
-  if (*v0)
-  {
-    v2 = 0x544E554F43;
-  }
-
-  if (*v0 > 1u)
-  {
-    v2 = v5;
-  }
-
-  if (*v0 <= 3u)
-  {
-    return v2;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = specialized AggregationFunction.AggregationType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x6F74617261706573;
-  }
-
-  else
-  {
-    result = 0x6973736572707865;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = a1 == 0x6973736572707865 && a2 == 0xEA00000000006E6FLL;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v8 = 0;
-  }
-
-  else if (a1 == 0x6F74617261706573 && a2 == 0xE900000000000072)
-  {
-
-    v8 = 1;
-  }
-
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v9)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
-  }
-
-  *a3 = v8;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.MAXCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.MAXCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.MINCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.MINCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.SUMCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.SUMCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.AVGCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  if (a1 == 0x6973736572707865 && a2 == 0xEA00000000006E6FLL)
-  {
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v7 = v5 ^ 1;
-  }
-
-  *a3 = v7 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.TOTALCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.TOTALCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t AggregationFunction.AggregationType.encode(to:)(void *a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15TOTALCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15TOTALCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v72 = *(v2 - 8);
-  v73 = v2;
-  v3 = *(v72 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v71 = &v52 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13SUMCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13SUMCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v69 = *(v5 - 8);
-  v70 = v5;
-  v6 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v68 = &v52 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MINCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MINCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v66 = *(v8 - 8);
-  v67 = v8;
-  v9 = *(v66 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v63 = &v52 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MAXCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MAXCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v60 = *(v11 - 8);
-  v61 = v11;
-  v12 = *(v60 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v59 = &v52 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO22GROUP_CONCATCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO22GROUP_CONCATCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v64 = *(v14 - 8);
-  v65 = v14;
-  v15 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v62 = &v52 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO20COUNT_STARCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO20COUNT_STARCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v55 = *(v17 - 8);
-  v56 = v17;
-  v18 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v54 = &v52 - v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15COUNTCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15COUNTCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v57 = *(v20 - 8);
-  v58 = v20;
-  v21 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v23 = &v52 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13AVGCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13AVGCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v53 = *(v24 - 8);
-  v25 = *(v53 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v52 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v29 = *(v28 - 8);
-  v75 = v28;
-  v76 = v29;
-  v30 = *(v29 + 64);
-  MEMORY[0x1EEE9AC00](v28);
-  v32 = &v52 - v31;
-  v33 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-  v34 = v32;
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  outlined init with copy of AggregationFunction.AggregationType(v74, &v85);
-  if (v97 > 3u)
-  {
-    if (v97 > 5u)
-    {
-      v35 = v75;
-      if (v97 != 6)
-      {
-        LOBYTE(v79) = 2;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-        v51 = v54;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        (*(v55 + 8))(v51, v56);
-        return (*(v76 + 8))(v34, v35);
-      }
-
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      LOBYTE(v78[0]) = 7;
-      lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-      v36 = v71;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-      v37 = v73;
-      KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v38 = v72;
-    }
-
-    else
-    {
-      v35 = v75;
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      if (v97 == 4)
-      {
-        LOBYTE(v78[0]) = 5;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-        v36 = v63;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-        v37 = v67;
-        KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v38 = v66;
-      }
-
-      else
-      {
-        LOBYTE(v78[0]) = 6;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-        v36 = v68;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-        v37 = v70;
-        KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v38 = v69;
-      }
-    }
-
-    (*(v38 + 8))(v36, v37);
-LABEL_17:
-    outlined destroy of SQLExpression(&v79);
-    v47 = *(v76 + 8);
-    v48 = v34;
-    return v47(v48, v35);
-  }
-
-  if (v97 <= 1u)
-  {
-    if (v97)
-    {
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      LOBYTE(v78[0]) = 1;
-      lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-      v45 = v75;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-      v46 = v58;
-      KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v57 + 8))(v23, v46);
-      outlined destroy of SQLExpression(&v79);
-      return (*(v76 + 8))(v34, v45);
-    }
-
-    v81 = v87;
-    v82 = v88;
-    v83 = v89;
-    v84 = v90;
-    v79 = v85;
-    v80 = v86;
-    LOBYTE(v78[0]) = 0;
-    lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-    v35 = v75;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v53 + 8))(v27, v24);
-    goto LABEL_17;
-  }
-
-  v39 = v98;
-  v40 = v32;
-  if (v97 != 2)
-  {
-    v81 = v87;
-    v82 = v88;
-    v83 = v89;
-    v84 = v90;
-    v79 = v85;
-    v80 = v86;
-    LOBYTE(v78[0]) = 4;
-    lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-    v49 = v59;
-    v35 = v75;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-    v50 = v61;
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v60 + 8))(v49, v50);
-    outlined destroy of SQLExpression(&v79);
-    v47 = *(v76 + 8);
-    v48 = v40;
-    return v47(v48, v35);
-  }
-
-  v81 = v87;
-  v82 = v88;
-  v83 = v89;
-  v84 = v90;
-  v79 = v85;
-  v80 = v86;
-  v78[2] = v93;
-  v78[3] = v94;
-  v78[4] = v95;
-  v78[5] = v96;
-  v78[0] = v91;
-  v78[1] = v92;
-  v77 = 3;
-  lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-  v41 = v62;
-  v42 = v75;
-  KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  v77 = 0;
-  lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-  v43 = v65;
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v39)
-  {
-    v77 = 1;
-    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-  }
-
-  (*(v64 + 8))(v41, v43);
-  _s10Foundation4UUIDVSgWOhTm_0(v78, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-  outlined destroy of SQLExpression(&v79);
-  return (*(v76 + 8))(v32, v42);
-}
-
-uint64_t AggregationFunction.init(functionName:args:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = a2;
-  v6 = a1;
-  if (a1 == 6780513 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v8 = *(a3 + 16);
-    if (v8)
-    {
-      if (v8 == 1)
-      {
-
-        if (*(a3 + 16))
-        {
-          outlined init with copy of Aggregation(a3 + 32, v127);
-
-          v9 = v128;
-          v10 = v129;
-          __swift_project_boxed_opaque_existential_1(v127, v128);
-          v11 = *((*(v10 + 24))(v9, v10) + 16);
-
-          if (v11)
-          {
-LABEL_8:
-            v12 = v128;
-            v13 = v129;
-            __swift_project_boxed_opaque_existential_1(v127, v128);
-            v14 = (*(v13 + 40))(v12, v13);
-            v16 = v15;
-            lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-            swift_allocError();
-            *v17 = v14;
-            *(v17 + 8) = v16;
-            *(v17 + 16) = 0;
-            *(v17 + 24) = 0;
-            *(v17 + 32) = 3;
-            swift_willThrow();
-            return __swift_destroy_boxed_opaque_existential_1Tm(v127);
-          }
-
-          outlined init with copy of Aggregation(v127, v124);
-          SQLExpression.init(rootNode:)(v124, &v130);
-          v23 = 256;
-          goto LABEL_24;
-        }
-
-        __break(1u);
-        goto LABEL_95;
-      }
-
-      v143 = v6;
-      v121 = v5;
-      v124[0] = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8, 0);
-      v24 = v124[0];
-      v25 = a3 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v25, v127);
-        v26 = v128;
-        v27 = v129;
-        __swift_project_boxed_opaque_existential_1(v127, v128);
-        v28 = (*(v27 + 40))(v26, v27);
-        v30 = v29;
-        __swift_destroy_boxed_opaque_existential_1Tm(v127);
-        v124[0] = v24;
-        v32 = *(v24 + 16);
-        v31 = *(v24 + 24);
-        if (v32 >= v31 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1);
-          v24 = v124[0];
-        }
-
-        *(v24 + 16) = v32 + 1;
-        v33 = v24 + 16 * v32;
-        *(v33 + 32) = v28;
-        *(v33 + 40) = v30;
-        v25 += 40;
-        --v8;
-      }
-
-      while (v8);
-      goto LABEL_57;
-    }
-
-LABEL_86:
-
-    v24 = MEMORY[0x1E69E7CC0];
-    goto LABEL_87;
-  }
-
-  if (v6 == 0x746E756F63 && v5 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v19 = *(a3 + 16);
-    if (!v19)
-    {
-
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
-      v139 = 0u;
-      v136 = 0u;
-      v137 = 0u;
-      v134 = 0u;
-      v135 = 0u;
-      v132 = 0u;
-      v133 = 0u;
-      v131 = 0u;
-      v130 = 0u;
-      v142 = 7;
-      goto LABEL_27;
-    }
-
-    if (v19 != 1)
-    {
-      v143 = v6;
-      v122 = v5;
-      v124[0] = MEMORY[0x1E69E7CC0];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
-      v24 = v124[0];
-      v50 = a3 + 32;
-      do
-      {
-        outlined init with copy of Aggregation(v50, v127);
-        v51 = v128;
-        v52 = v129;
-        __swift_project_boxed_opaque_existential_1(v127, v128);
-        v53 = (*(v52 + 40))(v51, v52);
-        v55 = v54;
-        __swift_destroy_boxed_opaque_existential_1Tm(v127);
-        v124[0] = v24;
-        v57 = *(v24 + 16);
-        v56 = *(v24 + 24);
-        if (v57 >= v56 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v56 > 1, v57 + 1, 1);
-          v24 = v124[0];
-        }
-
-        *(v24 + 16) = v57 + 1;
-        v58 = v24 + 16 * v57;
-        *(v58 + 32) = v53;
-        *(v58 + 40) = v55;
-        v50 += 40;
-        --v19;
-      }
-
-      while (v19);
-
-      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-      swift_allocError();
-      *v59 = v143;
-      *(v59 + 8) = v122;
-      goto LABEL_88;
-    }
-
-    if (*(a3 + 16))
-    {
-      outlined init with copy of Aggregation(a3 + 32, v127);
-
-      v20 = v128;
-      v21 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      v22 = *((*(v21 + 24))(v20, v21) + 16);
-
-      if (v22)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of Aggregation(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v23 = 1;
-      goto LABEL_24;
-    }
-
-    __break(1u);
-LABEL_104:
-    v116 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v117 = 0;
-    if (v116)
-    {
-LABEL_111:
-      HIBYTE(v142) = v117;
-      goto LABEL_25;
-    }
-
-    v118 = v128;
-    v119 = v129;
-    __swift_project_boxed_opaque_existential_1(v127, v128);
-    (*(v119 + 16))(v124, v118, v119);
-    if (LOBYTE(v124[0]) <= 6u)
-    {
-LABEL_110:
-      v120 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      v117 = (v120 & 1) == 0;
-      goto LABEL_111;
-    }
-
-LABEL_112:
-
-    HIBYTE(v142) = 0;
-    goto LABEL_25;
-  }
-
-  if (v6 == 0x6F635F70756F7267 && v5 == 0xEC0000007461636ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v42 = *(a3 + 16);
-    if (!v42)
-    {
-      goto LABEL_86;
-    }
-
-    if (v42 != 1)
-    {
-      if (v42 != 2)
-      {
-        v143 = v6;
-        v121 = v5;
-        v124[0] = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v42, 0);
-        v24 = v124[0];
-        v69 = a3 + 32;
-        do
-        {
-          outlined init with copy of Aggregation(v69, v127);
-          v70 = v128;
-          v71 = v129;
-          __swift_project_boxed_opaque_existential_1(v127, v128);
-          v72 = (*(v71 + 40))(v70, v71);
-          v74 = v73;
-          __swift_destroy_boxed_opaque_existential_1Tm(v127);
-          v124[0] = v24;
-          v76 = *(v24 + 16);
-          v75 = *(v24 + 24);
-          if (v76 >= v75 >> 1)
-          {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v75 > 1, v76 + 1, 1);
-            v24 = v124[0];
-          }
-
-          *(v24 + 16) = v76 + 1;
-          v77 = v24 + 16 * v76;
-          *(v77 + 32) = v72;
-          *(v77 + 40) = v74;
-          v69 += 40;
-          --v42;
-        }
-
-        while (v42);
-LABEL_57:
-
-        v5 = v121;
-        v6 = v143;
-LABEL_87:
-        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-        swift_allocError();
-        *v59 = v6;
-        *(v59 + 8) = v5;
-LABEL_88:
-        *(v59 + 16) = v24;
-        *(v59 + 24) = 0;
-        *(v59 + 32) = 4;
-        return swift_willThrow();
-      }
-
-      v43 = *(a3 + 16);
-      if (v43)
-      {
-        outlined init with copy of Aggregation(a3 + 32, v127);
-        if (v43 != 1)
-        {
-          outlined init with copy of Aggregation(a3 + 72, v124);
-
-          v44 = v128;
-          v45 = v129;
-          __swift_project_boxed_opaque_existential_1(v127, v128);
-          v46 = *((*(v45 + 24))(v44, v45) + 16);
-
-          if (v46)
-          {
-            v47 = v128;
-            v48 = v129;
-            v49 = v127;
-          }
-
-          else
-          {
-            v78 = v125;
-            v79 = v126;
-            __swift_project_boxed_opaque_existential_1(v124, v125);
-            v80 = *((*(v79 + 24))(v78, v79) + 16);
-
-            if (!v80)
-            {
-              outlined init with copy of Aggregation(v127, v123);
-              SQLExpression.init(rootNode:)(v123, &v130);
-              outlined init with copy of Aggregation(v124, v123);
-              SQLExpression.init(rootNode:)(v123, &v136);
-              v142 = 514;
-              __swift_destroy_boxed_opaque_existential_1Tm(v124);
-              goto LABEL_25;
-            }
-
-            v47 = v125;
-            v48 = v126;
-            v49 = v124;
-          }
-
-          __swift_project_boxed_opaque_existential_1(v49, v47);
-          v81 = (*(v48 + 40))(v47, v48);
-          v83 = v82;
-          lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-          swift_allocError();
-          *v84 = v81;
-          *(v84 + 8) = v83;
-          *(v84 + 16) = 0;
-          *(v84 + 24) = 0;
-          *(v84 + 32) = 3;
-          swift_willThrow();
-          __swift_destroy_boxed_opaque_existential_1Tm(v124);
-          return __swift_destroy_boxed_opaque_existential_1Tm(v127);
-        }
-
-        goto LABEL_109;
-      }
-
-LABEL_108:
-      __break(1u);
-LABEL_109:
-      __break(1u);
-      goto LABEL_110;
-    }
-
-    if (!*(a3 + 16))
-    {
-      __break(1u);
-      goto LABEL_108;
-    }
-
-    outlined init with copy of Aggregation(a3 + 32, v127);
-
-    v66 = v128;
-    v67 = v129;
-    __swift_project_boxed_opaque_existential_1(v127, v128);
-    v68 = *((*(v67 + 24))(v66, v67) + 16);
-
-    if (v68)
-    {
-      goto LABEL_8;
-    }
-
-    outlined init with copy of Aggregation(v127, v124);
-    SQLExpression.init(rootNode:)(v124, &v130);
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v141 = 0u;
-    v23 = 514;
-LABEL_24:
-    v142 = v23;
-LABEL_25:
-    result = __swift_destroy_boxed_opaque_existential_1Tm(v127);
-LABEL_27:
-    v34 = v139;
-    v35 = v141;
-    *(a4 + 160) = v140;
-    *(a4 + 176) = v35;
-    v36 = v135;
-    v37 = v137;
-    v38 = v138;
-    *(a4 + 96) = v136;
-    *(a4 + 112) = v37;
-    *(a4 + 128) = v38;
-    *(a4 + 144) = v34;
-    v39 = v131;
-    v40 = v133;
-    v41 = v134;
-    *(a4 + 32) = v132;
-    *(a4 + 48) = v40;
-    *(a4 + 192) = v142;
-    *(a4 + 64) = v41;
-    *(a4 + 80) = v36;
-    *a4 = v130;
-    *(a4 + 16) = v39;
-    return result;
-  }
-
-  if (v6 == 7889261 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    if (*(a3 + 16) == 1)
-    {
-      outlined init with copy of Aggregation(a3 + 32, v127);
-
-      v60 = v128;
-      v61 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      v62 = *((*(v61 + 24))(v60, v61) + 16);
-
-      if (v62)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of Aggregation(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v63 = 3;
-      goto LABEL_49;
-    }
-
-    goto LABEL_96;
-  }
-
-  if (v6 == 7235949 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    if (*(a3 + 16) == 1)
-    {
-      outlined init with copy of Aggregation(a3 + 32, v127);
-
-      v85 = v128;
-      v86 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      v87 = *((*(v86 + 24))(v85, v86) + 16);
-
-      if (v87)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of Aggregation(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v63 = 4;
-LABEL_49:
-      LOBYTE(v142) = v63;
-      v64 = v128;
-      v65 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      (*(v65 + 16))(&v142 + 1, v64, v65);
-      goto LABEL_25;
-    }
-
-LABEL_96:
-
-    *(a4 + 160) = 0u;
-    *(a4 + 176) = 0u;
-    *(a4 + 128) = 0u;
-    *(a4 + 144) = 0u;
-    *(a4 + 96) = 0u;
-    *(a4 + 112) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 80) = 0u;
-    *(a4 + 32) = 0u;
-    *(a4 + 48) = 0u;
-    *a4 = 0u;
-    *(a4 + 16) = 0u;
-    *(a4 + 192) = 255;
-    return result;
-  }
-
-  if (v6 == 7173491 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v88 = *(a3 + 16);
-    if (!v88)
-    {
-      goto LABEL_86;
-    }
-
-    if (v88 == 1)
-    {
-
-      if (*(a3 + 16))
-      {
-        outlined init with copy of Aggregation(a3 + 32, v127);
-
-        v89 = v128;
-        v90 = v129;
-        __swift_project_boxed_opaque_existential_1(v127, v128);
-        v91 = *((*(v90 + 24))(v89, v90) + 16);
-
-        if (v91)
-        {
-          goto LABEL_8;
-        }
-
-        outlined init with copy of Aggregation(v127, v124);
-        SQLExpression.init(rootNode:)(v124, &v130);
-        LOBYTE(v142) = 5;
-        v92 = v128;
-        v93 = v129;
-        __swift_project_boxed_opaque_existential_1(v127, v128);
-        (*(v93 + 16))(v124, v92, v93);
-        if (LOBYTE(v124[0]) <= 3u && !LOBYTE(v124[0]))
-        {
-          goto LABEL_112;
-        }
-
-        goto LABEL_104;
-      }
-
-      __break(1u);
-      goto LABEL_114;
-    }
-
-    v143 = v6;
-    v124[0] = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v88, 0);
-    v24 = v124[0];
-    v98 = a3 + 32;
-    do
-    {
-      outlined init with copy of Aggregation(v98, v127);
-      v99 = v128;
-      v100 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      v101 = (*(v100 + 40))(v99, v100);
-      v103 = v102;
-      __swift_destroy_boxed_opaque_existential_1Tm(v127);
-      v124[0] = v24;
-      v105 = *(v24 + 16);
-      v104 = *(v24 + 24);
-      if (v105 >= v104 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v104 > 1, v105 + 1, 1);
-        v24 = v124[0];
-      }
-
-      *(v24 + 16) = v105 + 1;
-      v106 = v24 + 16 * v105;
-      *(v106 + 32) = v101;
-      *(v106 + 40) = v103;
-      v98 += 40;
-      --v88;
-    }
-
-    while (v88);
-LABEL_101:
-
-    v6 = v143;
-    goto LABEL_87;
-  }
-
-  if ((v6 != 0x6C61746F74 || v5 != 0xE500000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-LABEL_95:
-
-    goto LABEL_96;
-  }
-
-  v94 = *(a3 + 16);
-  if (!v94)
-  {
-    goto LABEL_86;
-  }
-
-  v143 = v6;
-  if (v94 != 1)
-  {
-    v124[0] = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v94, 0);
-    v24 = v124[0];
-    v107 = a3 + 32;
-    do
-    {
-      outlined init with copy of Aggregation(v107, v127);
-      v108 = v128;
-      v109 = v129;
-      __swift_project_boxed_opaque_existential_1(v127, v128);
-      v110 = (*(v109 + 40))(v108, v109);
-      v112 = v111;
-      __swift_destroy_boxed_opaque_existential_1Tm(v127);
-      v124[0] = v24;
-      v114 = *(v24 + 16);
-      v113 = *(v24 + 24);
-      if (v114 >= v113 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v113 > 1, v114 + 1, 1);
-        v24 = v124[0];
-      }
-
-      *(v24 + 16) = v114 + 1;
-      v115 = v24 + 16 * v114;
-      *(v115 + 32) = v110;
-      *(v115 + 40) = v112;
-      v107 += 40;
-      --v94;
-    }
-
-    while (v94);
-    goto LABEL_101;
-  }
-
-  if (*(a3 + 16))
-  {
-    outlined init with copy of Aggregation(a3 + 32, v127);
-
-    v95 = v128;
-    v96 = v129;
-    __swift_project_boxed_opaque_existential_1(v127, v128);
-    v97 = *((*(v96 + 24))(v95, v96) + 16);
-
-    if (v97)
-    {
-      goto LABEL_8;
-    }
-
-    outlined init with copy of Aggregation(v127, v124);
-    SQLExpression.init(rootNode:)(v124, &v130);
-    v23 = 262;
-    goto LABEL_24;
-  }
-
-LABEL_114:
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.CodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x79546E7275746572;
-  }
-
-  else
-  {
-    result = 0x7461676572676761;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = a1 == 0x7461676572676761 && a2 == 0xEF657079546E6F69;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v8 = 0;
-  }
-
-  else if (a1 == 0x79546E7275746572 && a2 == 0xEA00000000006570)
-  {
-
-    v8 = 1;
-  }
-
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v9)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
-  }
-
-  *a3 = v8;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
 {
   v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
@@ -3744,20 +10,18 @@ uint64_t AggregationFunction.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12[-v8];
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = &v11[-v8];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12[15] = 0;
+  v11[15] = 0;
   lazy protocol witness table accessor for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v12[14] = *(v3 + 193);
-    v12[13] = 1;
+    v11[14] = *(v3 + 193);
+    v11[13] = 1;
     lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
@@ -3809,51 +73,41 @@ uint64_t protocol witness for SQLExpressionNode.returnType.getter in conformance
 
 uint64_t SQLExpression.hash(into:)(uint64_t a1)
 {
-  v3 = v1[5];
-  v4 = v1[6];
   String.hash(into:)();
-  v5 = v1[9];
+  v3 = *(v1 + 72);
 
-  return specialized Array<A>.hash(into:)(a1, v5);
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
 Swift::Int SQLExpression.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
+  specialized Array<A>.hash(into:)(v2, *(v0 + 72));
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLExpression()
 {
   Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
+  specialized Array<A>.hash(into:)(v2, *(v0 + 72));
   return Hasher._finalize()();
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance SQLExpression(uint64_t a1)
 {
-  v3 = v1[5];
-  v4 = v1[6];
   String.hash(into:)();
-  v5 = v1[9];
+  v3 = *(v1 + 72);
 
-  return specialized Array<A>.hash(into:)(a1, v5);
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLExpression()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLExpression(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
+  specialized Array<A>.hash(into:)(v3, *(v1 + 72));
   return Hasher._finalize()();
 }
 
@@ -4375,10 +629,10 @@ void _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_
       bzero(a1, 8 * a2);
     }
 
-    v51 = a2;
-    v52 = 0;
+    v50 = a2;
+    v51 = 0;
     v7 = 0;
-    v57 = a3;
+    v56 = a3;
     v10 = a3[8];
     v9 = a3 + 8;
     v8 = v10;
@@ -4427,14 +681,14 @@ void _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_
       v13 &= v13 - 1;
 LABEL_14:
       v18 = v15 | (v7 << 6);
-      v19 = v57[7];
-      v20 = (v57[6] + 16 * v18);
+      v19 = v56[7];
+      v20 = (v56[6] + 16 * v18);
       v21 = v20[1];
-      v58[0] = *v20;
-      v58[1] = v21;
-      v59 = *(v19 + 8 * v18);
+      v57[0] = *v20;
+      v57[1] = v21;
+      v58 = *(v19 + 8 * v18);
 
-      v22 = a4(v58, &v59);
+      v22 = a4(v57, &v58);
       if (v4)
       {
 
@@ -4446,7 +700,7 @@ LABEL_14:
       if (v23)
       {
         *(a1 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
-        v24 = __OFADD__(v52++, 1);
+        v24 = __OFADD__(v51++, 1);
         if (v24)
         {
           break;
@@ -4456,15 +710,15 @@ LABEL_14:
 
     __break(1u);
 LABEL_19:
-    if (!v52)
+    if (!v51)
     {
 LABEL_47:
 
       return;
     }
 
-    v25 = v57;
-    if (v52 == v57[2])
+    v25 = v56;
+    if (v51 == v56[2])
     {
       return;
     }
@@ -4472,7 +726,7 @@ LABEL_47:
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
     v26 = static _DictionaryStorage.allocate(capacity:)();
     v27 = v26;
-    if (v51)
+    if (v50)
     {
       v28 = a1;
       v29 = *a1;
@@ -4486,43 +740,42 @@ LABEL_47:
 
     v30 = 0;
     v31 = v26 + 64;
-    v32 = v52;
+    v32 = v51;
     while (v29)
     {
       v33 = __clz(__rbit64(v29));
-      v53 = (v29 - 1) & v29;
+      v52 = (v29 - 1) & v29;
 LABEL_35:
       v36 = v33 | (v30 << 6);
       v37 = (v25[6] + 16 * v36);
       v38 = *v37;
       v39 = v37[1];
-      v56 = *(v25[7] + 8 * v36);
-      v40 = *(v27 + 40);
+      v55 = *(v25[7] + 8 * v36);
       Hasher.init(_seed:)();
 
       String.hash(into:)();
-      v41 = Hasher._finalize()();
-      v42 = -1 << *(v27 + 32);
-      v43 = v41 & ~v42;
-      v44 = v43 >> 6;
-      if (((-1 << v43) & ~*(v31 + 8 * (v43 >> 6))) == 0)
+      v40 = Hasher._finalize()();
+      v41 = -1 << *(v27 + 32);
+      v42 = v40 & ~v41;
+      v43 = v42 >> 6;
+      if (((-1 << v42) & ~*(v31 + 8 * (v42 >> 6))) == 0)
       {
-        v46 = 0;
-        v47 = (63 - v42) >> 6;
+        v45 = 0;
+        v46 = (63 - v41) >> 6;
         v28 = a1;
-        while (++v44 != v47 || (v46 & 1) == 0)
+        while (++v43 != v46 || (v45 & 1) == 0)
         {
-          v48 = v44 == v47;
-          if (v44 == v47)
+          v47 = v43 == v46;
+          if (v43 == v46)
           {
-            v44 = 0;
+            v43 = 0;
           }
 
-          v46 |= v48;
-          v49 = *(v31 + 8 * v44);
-          if (v49 != -1)
+          v45 |= v47;
+          v48 = *(v31 + 8 * v43);
+          if (v48 != -1)
           {
-            v45 = __clz(__rbit64(~v49)) + (v44 << 6);
+            v44 = __clz(__rbit64(~v48)) + (v43 << 6);
             goto LABEL_45;
           }
         }
@@ -4530,14 +783,14 @@ LABEL_35:
         goto LABEL_50;
       }
 
-      v45 = __clz(__rbit64((-1 << v43) & ~*(v31 + 8 * (v43 >> 6)))) | v43 & 0x7FFFFFFFFFFFFFC0;
+      v44 = __clz(__rbit64((-1 << v42) & ~*(v31 + 8 * (v42 >> 6)))) | v42 & 0x7FFFFFFFFFFFFFC0;
       v28 = a1;
 LABEL_45:
-      *(v31 + ((v45 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v45;
-      v50 = (*(v27 + 48) + 16 * v45);
-      *v50 = v38;
-      v50[1] = v39;
-      *(*(v27 + 56) + 8 * v45) = v56;
+      *(v31 + ((v44 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v44;
+      v49 = (*(v27 + 48) + 16 * v44);
+      *v49 = v38;
+      v49[1] = v39;
+      *(*(v27 + 56) + 8 * v44) = v55;
       ++*(v27 + 16);
       v24 = __OFSUB__(v32--, 1);
       if (v24)
@@ -4545,8 +798,8 @@ LABEL_45:
         goto LABEL_52;
       }
 
-      v25 = v57;
-      v29 = v53;
+      v25 = v56;
+      v29 = v52;
       if (!v32)
       {
         goto LABEL_47;
@@ -4562,7 +815,7 @@ LABEL_45:
         break;
       }
 
-      if (v30 >= v51)
+      if (v30 >= v50)
       {
         goto LABEL_47;
       }
@@ -4572,7 +825,7 @@ LABEL_45:
       if (v35)
       {
         v33 = __clz(__rbit64(v35));
-        v53 = (v35 - 1) & v35;
+        v52 = (v35 - 1) & v35;
         goto LABEL_35;
       }
     }
@@ -4594,12 +847,9 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
   result = MEMORY[0x1865F6890](v3);
   if (v3)
   {
-    v5 = (a2 + 48);
+    v5 = a2 + 48;
     do
     {
-      v7 = *(v5 - 2);
-      v6 = *(v5 - 1);
-      v8 = *v5;
       v5 += 24;
 
       String.hash(into:)();
@@ -4616,42 +866,42 @@ uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
 
 uint64_t specialized static AggregationFunction.AggregationType.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  outlined init with copy of AggregationFunction.AggregationType(a1, v44);
-  outlined init with copy of AggregationFunction.AggregationType(a2, &v46);
-  if (v45 > 3u)
+  outlined init with copy of AggregationFunction.AggregationType(a1, v46);
+  outlined init with copy of AggregationFunction.AggregationType(a2, &v48);
+  if (v47 > 3u)
   {
-    if (v45 > 5u)
+    if (v47 > 5u)
     {
-      if (v45 != 6)
+      if (v47 != 6)
       {
-        if (v57 == 7)
+        if (v60 == 7)
         {
-          v4 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(v49, v53), vorrq_s8(v51, v55)), vorrq_s8(vorrq_s8(v50, v54), vorrq_s8(v52, v56))), vorrq_s8(vorrq_s8(v46, *v48), vorrq_s8(v47, *&v48[16])));
+          v4 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(v52, v56), vorrq_s8(v54, v58)), vorrq_s8(vorrq_s8(v53, v57), vorrq_s8(v55, v59))), vorrq_s8(vorrq_s8(v48, v50), vorrq_s8(v49, v51)));
           if (!*&vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)))
           {
-            outlined destroy of AggregationFunction.AggregationType(v44);
+            outlined destroy of AggregationFunction.AggregationType(v46);
             v3 = 1;
             return v3 & 1;
           }
         }
 
 LABEL_45:
-        _s10Foundation4UUIDVSgWOhTm_0(v44, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMd, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMR);
+        _s10Foundation4UUIDVSgWOhTm_0(v46, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMd, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMR);
         v3 = 0;
         return v3 & 1;
       }
 
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 6)
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 6)
       {
         goto LABEL_44;
       }
     }
 
-    else if (v45 == 4)
+    else if (v47 == 4)
     {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 4)
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 4)
       {
         goto LABEL_44;
       }
@@ -4659,8 +909,8 @@ LABEL_45:
 
     else
     {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 5)
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 5)
       {
         goto LABEL_44;
       }
@@ -4669,12 +919,12 @@ LABEL_45:
     goto LABEL_32;
   }
 
-  if (v45 <= 1u)
+  if (v47 <= 1u)
   {
-    if (!v45)
+    if (!v47)
     {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (!v57)
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (!v60)
       {
         goto LABEL_32;
       }
@@ -4682,30 +932,30 @@ LABEL_45:
       goto LABEL_44;
     }
 
-    outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-    if (v57 != 1)
+    outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+    if (v60 != 1)
     {
 LABEL_44:
-      outlined destroy of SQLExpression(&v38);
+      outlined destroy of SQLExpression(&v39);
       goto LABEL_45;
     }
 
 LABEL_32:
-    v17 = *v40;
-    v18 = *&v40[16];
-    v19 = v41;
-    v20 = v42;
-    v15 = v38;
-    v16 = v39;
-    v34 = *v48;
-    v35 = *&v48[16];
-    v36 = v49;
-    v37 = v50;
-    v32 = v46;
-    v33 = v47;
-    if (*&v40[8] == *&v48[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v18), BYTE8(v35)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v19.i64[0], v36.i64[0]))
+    v17 = v41;
+    v18 = v42;
+    v19 = v43;
+    v20 = v44;
+    v15 = v39;
+    v16 = v40;
+    v35 = v50;
+    v36 = v51;
+    v37 = v52;
+    v38 = v53;
+    v33 = v48;
+    v34 = v49;
+    if (__PAIR128__(v42, v41.u64[1]) == __PAIR128__(v51.u64[0], v50.u64[1]) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v18), v36.u8[8]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v19.i64[0], v37.i64[0]))
     {
-      v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v19.i64[1], v36.i64[1]);
+      v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v19.i64[1], v37.i64[1]);
     }
 
     else
@@ -4713,15 +963,15 @@ LABEL_32:
       v3 = 0;
     }
 
-    outlined destroy of SQLExpression(&v32);
+    outlined destroy of SQLExpression(&v33);
     outlined destroy of SQLExpression(&v15);
     goto LABEL_39;
   }
 
-  if (v45 != 2)
+  if (v47 != 2)
   {
-    outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-    if (v57 != 3)
+    outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+    if (v60 != 3)
     {
       goto LABEL_44;
     }
@@ -4729,53 +979,53 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-  if (v57 != 2)
+  outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+  if (v60 != 2)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v43, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v45, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
     goto LABEL_44;
   }
 
-  v34 = *v40;
-  v35 = *&v40[16];
-  v36 = v41;
-  v37 = v42;
-  v32 = v38;
+  v35 = v41;
+  v36 = v42;
+  v37 = v43;
+  v38 = v44;
   v33 = v39;
-  v28[2] = *v48;
-  v29 = *&v48[16];
-  v30 = v49;
-  v31 = v50;
-  v28[0] = v46;
-  v28[1] = v47;
-  v27[2] = v43[2];
-  v27[3] = v43[3];
-  v27[4] = v43[4];
-  v27[5] = v43[5];
-  v27[0] = v43[0];
-  v27[1] = v43[1];
-  v26[2] = v53;
-  v26[3] = v54;
-  v26[4] = v55;
-  v26[5] = v56;
-  v26[0] = v51;
-  v26[1] = v52;
-  if (*&v40[8] == *&v48[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v35), BYTE8(v29)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v36.i64[0], v30.i64[0]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v36.i64[1], v30.i64[1]))
+  v34 = v40;
+  v29[2] = v50;
+  v30 = v51;
+  v31 = v52;
+  v32 = v53;
+  v29[0] = v48;
+  v29[1] = v49;
+  v28[2] = v45[2];
+  v28[3] = v45[3];
+  v28[4] = v45[4];
+  v28[5] = v45[5];
+  v28[0] = v45[0];
+  v28[1] = v45[1];
+  v27[2] = v56;
+  v27[3] = v57;
+  v27[4] = v58;
+  v27[5] = v59;
+  v27[0] = v54;
+  v27[1] = v55;
+  if (__PAIR128__(v42, v41.u64[1]) == __PAIR128__(v51.u64[0], v50.u64[1]) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v36.u8[8], v30.u8[8]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v37.i64[0], v31.i64[0]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v37.i64[1], v31.i64[1]))
   {
-    outlined init with copy of PgQuery_Alias?(v27, &v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined init with copy of PgQuery_Alias?(v26, &v21, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined init with copy of PgQuery_Alias?(v28, &v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined init with copy of PgQuery_Alias?(v27, &v21, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
     if (v16.i64[1])
     {
       outlined init with copy of PgQuery_Alias?(&v15, v10, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
       if (*(&v22 + 1))
       {
-        v6[2] = *v23;
-        v7 = *&v23[16];
-        v8 = v24;
-        v9 = v25;
+        v6[2] = v23;
+        v7 = v24;
+        v8 = v25;
+        v9 = v26;
         v6[0] = v21;
         v6[1] = v22;
-        if (v11 == *&v23[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v12, BYTE8(v7)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v13, v8))
+        if (v11 == __PAIR128__(v24, *(&v23 + 1)) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v12, BYTE8(v7)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v13, v8))
         {
           v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v14, *(&v8 + 1));
         }
@@ -4785,29 +1035,29 @@ LABEL_32:
           v3 = 0;
         }
 
-        _s10Foundation4UUIDVSgWOhTm_0(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
         _s10Foundation4UUIDVSgWOhTm_0(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        _s10Foundation4UUIDVSgWOhTm_0(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
         outlined destroy of SQLExpression(v6);
-        outlined destroy of SQLExpression(v28);
-        outlined destroy of SQLExpression(&v32);
+        outlined destroy of SQLExpression(v29);
+        outlined destroy of SQLExpression(&v33);
         outlined destroy of SQLExpression(v10);
         _s10Foundation4UUIDVSgWOhTm_0(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
         goto LABEL_39;
       }
 
-      _s10Foundation4UUIDVSgWOhTm_0(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
       _s10Foundation4UUIDVSgWOhTm_0(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of SQLExpression(v28);
-      outlined destroy of SQLExpression(&v32);
+      _s10Foundation4UUIDVSgWOhTm_0(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of SQLExpression(v29);
+      outlined destroy of SQLExpression(&v33);
       outlined destroy of SQLExpression(v10);
     }
 
     else
     {
-      _s10Foundation4UUIDVSgWOhTm_0(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
       _s10Foundation4UUIDVSgWOhTm_0(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of SQLExpression(v28);
-      outlined destroy of SQLExpression(&v32);
+      _s10Foundation4UUIDVSgWOhTm_0(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of SQLExpression(v29);
+      outlined destroy of SQLExpression(&v33);
       if (!*(&v22 + 1))
       {
         _s10Foundation4UUIDVSgWOhTm_0(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
@@ -4821,15 +1071,15 @@ LABEL_32:
 
   else
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
     _s10Foundation4UUIDVSgWOhTm_0(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of SQLExpression(v28);
-    outlined destroy of SQLExpression(&v32);
+    _s10Foundation4UUIDVSgWOhTm_0(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of SQLExpression(v29);
+    outlined destroy of SQLExpression(&v33);
   }
 
   v3 = 0;
 LABEL_39:
-  outlined destroy of AggregationFunction.AggregationType(v44);
+  outlined destroy of AggregationFunction.AggregationType(v46);
   return v3 & 1;
 }
 
@@ -5569,7 +1819,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata accessor for SQLExpressionError()
+uint64_t type metadata accessor for SQLExpressionError(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SQLExpressionError;
   if (!type metadata singleton initialization cache for SQLExpressionError)
@@ -5580,37 +1830,37 @@ uint64_t type metadata accessor for SQLExpressionError()
   return result;
 }
 
-void type metadata completion function for SQLExpressionError()
+void type metadata completion function for SQLExpressionError(uint64_t a1)
 {
   type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (node: PgQuery_Node), type metadata accessor for PgQuery_Node);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (BOOLExpr: PgQuery_BoolExpr), type metadata accessor for PgQuery_BoolExpr);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for (numNotArgExprs: Int)();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (aExpr: PgQuery_A_Expr), type metadata accessor for PgQuery_A_Expr);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (nullTest: PgQuery_NullTest), type metadata accessor for PgQuery_NullTest);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (op: String, dataType: SQLDataType));
-            if (v5 <= 0x3F)
+            type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (op: String, dataType: SQLDataType), &type metadata for SQLDataType, "op dataType ");
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (table: String, column: String));
-              if (v6 <= 0x3F)
+              type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (table: String, column: String), MEMORY[0x1E69E6158], "table column ");
+              if (v7 <= 0x3F)
               {
                 type metadata accessor for (column: String)();
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for (function: String, argTypes: [SQLDataType])();
-                  if (v8 <= 0x3F)
+                  type metadata accessor for (function: String, argTypes: [SQLDataType])(319);
+                  if (v9 <= 0x3F)
                   {
-                    type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (column: String, tokenColumn: String));
-                    if (v9 <= 0x3F)
+                    type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (column: String, tokenColumn: String), MEMORY[0x1E69E6158], "column tokenColumn ");
+                    if (v10 <= 0x3F)
                     {
                       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                     }
@@ -5661,106 +1911,107 @@ uint64_t type metadata accessor for (column: String)()
   return result;
 }
 
-void type metadata accessor for (function: String, argTypes: [SQLDataType])()
+void type metadata accessor for (function: String, argTypes: [SQLDataType])(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]))
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14BiomeSQLParser11SQLDataTypeOGMd, &_sSay14BiomeSQLParser11SQLDataTypeOGMR);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]));
     }
   }
 }
 
-void type metadata accessor for (op: String, dataType: SQLDataType)(uint64_t a1, unint64_t *a2)
+void type metadata accessor for (op: String, dataType: SQLDataType)(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!*a2)
   {
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v4)
+    if (!v6)
     {
       atomic_store(TupleTypeMetadata2, a2);
     }
   }
 }
 
-uint64_t specialized ColumnResolver.init(schemas:)(uint64_t a1)
+Swift::Int specialized ColumnResolver.init(schemas:)(uint64_t a1)
 {
-  v207[9] = *MEMORY[0x1E69E9840];
-  v195 = *(a1 + 16);
-  v194 = a1;
-  if (!v195)
+  v200[9] = *MEMORY[0x1E69E9840];
+  v188 = *(a1 + 16);
+  v187 = a1;
+  if (!v188)
   {
     v2 = MEMORY[0x1E69E7CC8];
 LABEL_48:
-    v54 = *(v2 + 32);
+    v53 = *(v2 + 32);
     v10 = v2;
-    v2 = (((1 << v54) + 63) >> 6);
-    if ((v54 & 0x3Fu) > 0xD)
+    v2 = ((1 << v53) + 63) >> 6;
+    v11 = 8 * v2;
+    if ((v53 & 0x3Fu) > 0xD)
     {
       goto LABEL_188;
     }
 
 LABEL_49:
-    MEMORY[0x1EEE9AC00](a1);
-    v56 = (&v190 - ((v55 + 15) & 0x3FFFFFFFFFFFFFF0));
-    bzero(v56, v55);
+    MEMORY[0x1EEE9AC00](a1, v11);
+    v55 = (&v183 - ((v54 + 15) & 0x3FFFFFFFFFFFFFF0));
+    bzero(v55, v54);
+    v56 = 0;
     v57 = 0;
-    v58 = 0;
-    v59 = v10;
-    v61 = *(v10 + 64);
+    v58 = v10;
+    v60 = *(v10 + 64);
     v10 += 64;
-    v60 = v61;
-    v62 = 1 << *(v10 - 32);
-    v63 = -1;
-    if (v62 < 64)
+    v59 = v60;
+    v61 = 1 << *(v10 - 32);
+    v62 = -1;
+    if (v61 < 64)
     {
-      v63 = ~(-1 << v62);
+      v62 = ~(-1 << v61);
     }
 
-    v64 = v63 & v60;
-    v65 = (v62 + 63) >> 6;
+    v63 = v62 & v59;
+    v64 = (v61 + 63) >> 6;
     while (1)
     {
-      if (v64)
+      if (v63)
       {
-        v66 = __clz(__rbit64(v64));
-        v64 &= v64 - 1;
-        v67 = v66 | (v58 << 6);
+        v65 = __clz(__rbit64(v63));
+        v63 &= v63 - 1;
+        v66 = v65 | (v57 << 6);
       }
 
       else
       {
-        v68 = v58;
+        v67 = v57;
         do
         {
-          v58 = v68 + 1;
-          if (__OFADD__(v68, 1))
+          v57 = v67 + 1;
+          if (__OFADD__(v67, 1))
           {
             goto LABEL_182;
           }
 
-          if (v58 >= v65)
+          if (v57 >= v64)
           {
             goto LABEL_63;
           }
 
-          v69 = *(v10 + 8 * v58);
-          ++v68;
+          v68 = *(v10 + 8 * v57);
+          ++v67;
         }
 
-        while (!v69);
-        v64 = (v69 - 1) & v69;
-        v67 = __clz(__rbit64(v69)) | (v58 << 6);
+        while (!v68);
+        v63 = (v68 - 1) & v68;
+        v66 = __clz(__rbit64(v68)) | (v57 << 6);
       }
 
-      if (*(*(v59 + 56) + 8 * v67) >= 2)
+      if (*(*(v58 + 56) + 8 * v66) >= 2)
       {
-        *(v56 + ((v67 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v67;
-        v21 = __OFADD__(v57++, 1);
-        if (v21)
+        *(v55 + ((v66 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v66;
+        v22 = __OFADD__(v56++, 1);
+        if (v22)
         {
           break;
         }
@@ -5769,232 +2020,228 @@ LABEL_49:
 
     __break(1u);
 LABEL_63:
-    if (v57)
+    if (v56)
     {
-      v10 = v59;
-      if (v57 == *(v59 + 16))
+      v10 = v58;
+      if (v56 == *(v58 + 16))
       {
 
-        v70 = v59;
+        v69 = v58;
       }
 
       else
       {
-        countAndFlagsBits = &v190;
-        v203 = v2;
+        countAndFlagsBits = &v183;
+        v196 = v2;
         v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-        v70 = static _DictionaryStorage.allocate(capacity:)();
-        v71 = 0;
-        v72 = *v56;
-        v73 = v70 + 64;
-        v74 = v59;
+        v69 = static _DictionaryStorage.allocate(capacity:)();
+        v70 = 0;
+        v71 = *v55;
+        v72 = v69 + 64;
+        v73 = v58;
         do
         {
-          if (v72)
+          if (v71)
           {
-            v78 = __clz(__rbit64(v72));
-            v72 &= v72 - 1;
+            v77 = __clz(__rbit64(v71));
+            v71 &= v71 - 1;
           }
 
           else
           {
-            v79 = v71;
+            v78 = v70;
             do
             {
-              v71 = v79 + 1;
-              if (__OFADD__(v79, 1))
+              v70 = v78 + 1;
+              if (__OFADD__(v78, 1))
               {
                 goto LABEL_186;
               }
 
-              if (v71 >= v203)
+              if (v70 >= v196)
               {
                 goto LABEL_86;
               }
 
-              v80 = v56[v71];
-              ++v79;
+              v79 = v55[v70];
+              ++v78;
             }
 
-            while (!v80);
-            v78 = __clz(__rbit64(v80));
-            v72 = (v80 - 1) & v80;
+            while (!v79);
+            v77 = __clz(__rbit64(v79));
+            v71 = (v79 - 1) & v79;
           }
 
-          v81 = v78 | (v71 << 6);
-          v82 = (*(v74 + 48) + 16 * v81);
-          v83 = *v82;
-          v10 = v82[1];
-          v205 = *(*(v74 + 56) + 8 * v81);
-          v84 = *(v70 + 40);
+          v80 = v77 | (v70 << 6);
+          v81 = (*(v73 + 48) + 16 * v80);
+          v82 = *v81;
+          v10 = v81[1];
+          v198 = *(*(v73 + 56) + 8 * v80);
           Hasher.init(_seed:)();
 
-          v204 = v83;
+          v197 = v82;
           String.hash(into:)();
-          v2 = v207;
-          v85 = Hasher._finalize()();
-          v86 = -1 << *(v70 + 32);
-          v87 = v85 & ~v86;
-          v88 = v87 >> 6;
-          if (((-1 << v87) & ~*(v73 + 8 * (v87 >> 6))) != 0)
+          v2 = v200;
+          v83 = Hasher._finalize()();
+          v84 = -1 << *(v69 + 32);
+          v85 = v83 & ~v84;
+          v86 = v85 >> 6;
+          if (((-1 << v85) & ~*(v72 + 8 * (v85 >> 6))) != 0)
           {
-            v75 = __clz(__rbit64((-1 << v87) & ~*(v73 + 8 * (v87 >> 6)))) | v87 & 0x7FFFFFFFFFFFFFC0;
-            v74 = v59;
+            v74 = __clz(__rbit64((-1 << v85) & ~*(v72 + 8 * (v85 >> 6)))) | v85 & 0x7FFFFFFFFFFFFFC0;
+            v73 = v58;
           }
 
           else
           {
-            v89 = 0;
-            v90 = (63 - v86) >> 6;
-            v74 = v59;
+            v87 = 0;
+            v88 = (63 - v84) >> 6;
+            v73 = v58;
             do
             {
-              if (++v88 == v90 && (v89 & 1) != 0)
+              if (++v86 == v88 && (v87 & 1) != 0)
               {
                 goto LABEL_187;
               }
 
-              v91 = v88 == v90;
-              if (v88 == v90)
+              v89 = v86 == v88;
+              if (v86 == v88)
               {
-                v88 = 0;
+                v86 = 0;
               }
 
-              v89 |= v91;
-              v92 = *(v73 + 8 * v88);
+              v87 |= v89;
+              v90 = *(v72 + 8 * v86);
             }
 
-            while (v92 == -1);
-            v75 = __clz(__rbit64(~v92)) + (v88 << 6);
+            while (v90 == -1);
+            v74 = __clz(__rbit64(~v90)) + (v86 << 6);
           }
 
-          *(v73 + ((v75 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v75;
-          v76 = (*(v70 + 48) + 16 * v75);
-          v77 = v205;
-          *v76 = v204;
-          v76[1] = v10;
-          *(*(v70 + 56) + 8 * v75) = v77;
-          ++*(v70 + 16);
-          --v57;
+          *(v72 + ((v74 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v74;
+          v75 = (*(v69 + 48) + 16 * v74);
+          v76 = v198;
+          *v75 = v197;
+          v75[1] = v10;
+          *(*(v69 + 56) + 8 * v74) = v76;
+          ++*(v69 + 16);
+          --v56;
         }
 
-        while (v57);
+        while (v56);
       }
     }
 
     else
     {
-      v70 = MEMORY[0x1E69E7CC8];
+      v69 = MEMORY[0x1E69E7CC8];
     }
 
 LABEL_86:
 
-    v93 = v197;
+    v91 = v190;
 LABEL_87:
-    _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(v70);
-    v95 = v94;
-    v192 = v93;
+    _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(v69);
+    v93 = v92;
+    v185 = v91;
 
-    v96 = MEMORY[0x1865F6400](*(v95 + 16), MEMORY[0x1E69E6158], MEMORY[0x1E69E6168]);
-    v206 = v96;
-    v97 = *(v95 + 16);
-    if (v97)
+    v94 = MEMORY[0x1865F6400](*(v93 + 16), MEMORY[0x1E69E6158], MEMORY[0x1E69E6168]);
+    v199 = v94;
+    v95 = *(v93 + 16);
+    if (v95)
     {
-      v98 = 0;
-      v99 = (v95 + 40);
+      v96 = 0;
+      v97 = (v93 + 40);
       do
       {
-        if (v98 >= *(v95 + 16))
+        if (v96 >= *(v93 + 16))
         {
           goto LABEL_184;
         }
 
-        ++v98;
-        v10 = *(v99 - 1);
-        v100 = *v99;
+        ++v96;
+        v10 = *(v97 - 1);
+        v98 = *v97;
 
-        v2 = &v206;
-        specialized Set._Variant.insert(_:)(v207, v10, v100);
+        v2 = &v199;
+        specialized Set._Variant.insert(_:)(v200, v10, v98);
 
-        v99 += 2;
+        v97 += 2;
       }
 
-      while (v97 != v98);
-      v101 = v206;
+      while (v95 != v96);
+      v99 = v199;
     }
 
     else
     {
-      v101 = v96;
+      v99 = v94;
     }
 
-    if (!v195)
+    if (!v188)
     {
-      v104 = MEMORY[0x1E69E7CC8];
-LABEL_174:
-      v187 = *MEMORY[0x1E69E9840];
-      return v104;
+      return MEMORY[0x1E69E7CC8];
     }
 
-    v102 = 0;
-    v193 = v194 + 32;
-    v103 = v101 + 56;
-    v104 = MEMORY[0x1E69E7CC8];
-    v196 = v101;
-    v197 = (v101 + 56);
+    v100 = 0;
+    v186 = v187 + 32;
+    v101 = v99 + 56;
+    v102 = MEMORY[0x1E69E7CC8];
+    v189 = v99;
+    v190 = v99 + 56;
 LABEL_96:
-    v105 = (v193 + 24 * v102);
-    v106 = v105[1];
-    v201 = *v105;
-    v107 = v105[2];
-    v194 = v102 + 1;
-    v108 = v107 + 64;
-    v109 = 1 << *(v107 + 32);
-    if (v109 < 64)
+    v103 = (v186 + 24 * v100);
+    v104 = v103[1];
+    v194 = *v103;
+    v105 = v103[2];
+    v187 = v100 + 1;
+    v106 = v105 + 64;
+    v107 = 1 << *(v105 + 32);
+    if (v107 < 64)
     {
-      v110 = ~(-1 << v109);
+      v108 = ~(-1 << v107);
     }
 
     else
     {
-      v110 = -1;
+      v108 = -1;
     }
 
-    v111 = v110 & *(v107 + 64);
-    v2 = ((v109 + 63) >> 6);
-    v203 = v106;
+    v109 = v108 & *(v105 + 64);
+    v2 = (v107 + 63) >> 6;
+    v196 = v104;
 
-    v204 = v107;
+    v197 = v105;
     swift_bridgeObjectRetain_n();
-    v112 = 0;
-    v199 = v2;
-    for (i = v107 + 64; ; v108 = i)
+    v110 = 0;
+    v192 = v2;
+    for (i = v105 + 64; ; v106 = i)
     {
-      if (!v111)
+      if (!v109)
       {
         while (1)
         {
-          v114 = v112 + 1;
-          if (__OFADD__(v112, 1))
+          v112 = v110 + 1;
+          if (__OFADD__(v110, 1))
           {
             break;
           }
 
-          if (v114 >= v2)
+          if (v112 >= v2)
           {
 
-            v102 = v194;
-            if (v194 == v195)
+            v100 = v187;
+            if (v187 == v188)
             {
-              goto LABEL_174;
+              return v102;
             }
 
             goto LABEL_96;
           }
 
-          v111 = *(v108 + 8 * v114);
-          ++v112;
-          if (v111)
+          v109 = *(v106 + 8 * v112);
+          ++v110;
+          if (v109)
           {
             goto LABEL_107;
           }
@@ -6007,84 +2254,83 @@ LABEL_177:
         goto LABEL_178;
       }
 
-      v114 = v112;
+      v112 = v110;
 LABEL_107:
-      v115 = __clz(__rbit64(v111)) | (v114 << 6);
-      v116 = (*(v204 + 48) + 16 * v115);
-      v117 = *v116;
-      object = v116[1];
-      LODWORD(v205) = *(*(v204 + 56) + v115);
-      if (!*(v101 + 16))
+      v113 = __clz(__rbit64(v109)) | (v112 << 6);
+      v114 = (*(v197 + 48) + 16 * v113);
+      v115 = *v114;
+      object = v114[1];
+      LODWORD(v198) = *(*(v197 + 56) + v113);
+      if (!*(v99 + 16))
       {
         break;
       }
 
-      v118 = *(v101 + 40);
       Hasher.init(_seed:)();
 
       String.hash(into:)();
-      v119 = Hasher._finalize()();
-      v120 = -1 << *(v101 + 32);
-      v121 = v119 & ~v120;
-      if (((*(v103 + ((v121 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v121) & 1) == 0)
+      v116 = Hasher._finalize()();
+      v117 = -1 << *(v99 + 32);
+      v118 = v116 & ~v117;
+      if (((*(v101 + ((v118 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v118) & 1) == 0)
       {
         goto LABEL_118;
       }
 
-      v10 = ~v120;
+      v10 = ~v117;
       while (1)
       {
-        v122 = (*(v101 + 48) + 16 * v121);
-        v123 = *v122 == v117 && v122[1] == object;
-        if (v123 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        v119 = (*(v99 + 48) + 16 * v118);
+        v120 = *v119 == v115 && v119[1] == object;
+        if (v120 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
           break;
         }
 
-        v121 = (v121 + 1) & v10;
-        if (((*(v103 + ((v121 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v121) & 1) == 0)
+        v118 = (v118 + 1) & v10;
+        if (((*(v101 + ((v118 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v118) & 1) == 0)
         {
           goto LABEL_118;
         }
       }
 
 LABEL_128:
-      v207[0] = v201;
-      v207[1] = v203;
+      v200[0] = v194;
+      v200[1] = v196;
 
       MEMORY[0x1865F6280](46, 0xE100000000000000);
-      MEMORY[0x1865F6280](v117, object);
+      MEMORY[0x1865F6280](v115, object);
 
-      v137 = String.lowercased()();
-      object = v137._object;
+      v132 = String.lowercased()();
+      object = v132._object;
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v207[0] = v104;
-      v2 = v104;
-      v139 = specialized __RawDictionaryStorage.find<A>(_:)(v137._countAndFlagsBits, v137._object);
-      v141 = *(v104 + 16);
-      v142 = (v140 & 1) == 0;
-      v21 = __OFADD__(v141, v142);
-      v143 = v141 + v142;
-      if (v21)
+      v200[0] = v102;
+      v2 = v102;
+      v134 = specialized __RawDictionaryStorage.find<A>(_:)(v132._countAndFlagsBits, v132._object);
+      v135 = *(v102 + 16);
+      v136 = (v11 & 1) == 0;
+      v22 = __OFADD__(v135, v136);
+      v137 = v135 + v136;
+      if (v22)
       {
         goto LABEL_179;
       }
 
-      v10 = v140;
-      if (*(v104 + 24) < v143)
+      v10 = v11;
+      if (*(v102 + 24) < v137)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v143, isUniquelyReferenced_nonNull_native);
-        v104 = v207[0];
-        v2 = v207[0];
-        v139 = specialized __RawDictionaryStorage.find<A>(_:)(v137._countAndFlagsBits, v137._object);
-        if ((v10 & 1) != (v144 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v137, isUniquelyReferenced_nonNull_native);
+        v102 = v200[0];
+        v2 = v200[0];
+        v134 = specialized __RawDictionaryStorage.find<A>(_:)(v132._countAndFlagsBits, v132._object);
+        if ((v10 & 1) != (v11 & 1))
         {
           goto LABEL_195;
         }
 
 LABEL_133:
-        v103 = v197;
+        v101 = v190;
         goto LABEL_134;
       }
 
@@ -6093,176 +2339,176 @@ LABEL_133:
         goto LABEL_133;
       }
 
-      countAndFlagsBits = v139;
+      countAndFlagsBits = v134;
       v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-      v147 = static _DictionaryStorage.copy(original:)();
-      v148 = *(v104 + 16);
-      v198 = v147;
-      if (v148)
+      v140 = static _DictionaryStorage.copy(original:)();
+      v141 = *(v102 + 16);
+      v191 = v140;
+      if (v141)
       {
-        v149 = v147;
-        v150 = (v147 + 64);
-        v2 = (v104 + 64);
-        v151 = ((1 << *(v149 + 32)) + 63) >> 6;
-        if (v149 != v104 || v150 >= &v2[v151])
+        v142 = v140;
+        v143 = (v140 + 64);
+        v2 = v102 + 64;
+        v144 = ((1 << *(v142 + 32)) + 63) >> 6;
+        if (v142 != v102 || v143 >= v2 + 8 * v144)
         {
-          memmove(v150, (v104 + 64), 8 * v151);
+          memmove(v143, (v102 + 64), 8 * v144);
         }
 
-        v152 = 0;
-        v198[2] = *(v104 + 16);
-        v153 = 1 << *(v104 + 32);
-        v154 = *(v104 + 64);
-        if (v153 < 64)
+        v145 = 0;
+        v191[2] = *(v102 + 16);
+        v146 = 1 << *(v102 + 32);
+        v147 = *(v102 + 64);
+        if (v146 < 64)
         {
-          v155 = ~(-1 << v153);
+          v148 = ~(-1 << v146);
         }
 
         else
         {
-          v155 = -1;
+          v148 = -1;
         }
 
-        v156 = v155 & v154;
-        v157 = (v153 + 63) >> 6;
-        if ((v155 & v154) != 0)
+        v149 = v148 & v147;
+        v150 = (v146 + 63) >> 6;
+        if ((v148 & v147) != 0)
         {
           do
           {
-            v158 = __clz(__rbit64(v156));
-            v156 &= v156 - 1;
+            v151 = __clz(__rbit64(v149));
+            v149 &= v149 - 1;
 LABEL_151:
-            v161 = v158 | (v152 << 6);
-            v162 = (*(v104 + 48) + 16 * v161);
-            v164 = *v162;
-            v163 = v162[1];
-            LOBYTE(v162) = *(*(v104 + 56) + v161);
-            v165 = v198;
-            v166 = (v198[6] + 16 * v161);
-            *v166 = v164;
-            v166[1] = v163;
-            *(v165[7] + v161) = v162;
+            v154 = v151 | (v145 << 6);
+            v155 = (*(v102 + 48) + 16 * v154);
+            v157 = *v155;
+            v156 = v155[1];
+            LOBYTE(v155) = *(*(v102 + 56) + v154);
+            v158 = v191;
+            v159 = (v191[6] + 16 * v154);
+            *v159 = v157;
+            v159[1] = v156;
+            *(v158[7] + v154) = v155;
           }
 
-          while (v156);
+          while (v149);
         }
 
-        v159 = v152;
+        v152 = v145;
         while (1)
         {
-          v152 = v159 + 1;
-          if (__OFADD__(v159, 1))
+          v145 = v152 + 1;
+          if (__OFADD__(v152, 1))
           {
             goto LABEL_193;
           }
 
-          if (v152 >= v157)
+          if (v145 >= v150)
           {
             break;
           }
 
-          v160 = v2[v152];
-          ++v159;
-          if (v160)
+          v153 = *(v2 + 8 * v145);
+          ++v152;
+          if (v153)
           {
-            v158 = __clz(__rbit64(v160));
-            v156 = (v160 - 1) & v160;
+            v151 = __clz(__rbit64(v153));
+            v149 = (v153 - 1) & v153;
             goto LABEL_151;
           }
         }
 
-        v101 = v196;
+        v99 = v189;
       }
 
-      v139 = countAndFlagsBits;
-      v103 = v197;
-      v104 = v198;
+      v134 = countAndFlagsBits;
+      v101 = v190;
+      v102 = v191;
 LABEL_134:
-      v111 &= v111 - 1;
+      v109 &= v109 - 1;
       if (v10)
       {
-        v113 = v139;
+        v111 = v134;
 
-        *(*(v104 + 56) + v113) = v205;
+        *(*(v102 + 56) + v111) = v198;
       }
 
       else
       {
-        *(v104 + 8 * (v139 >> 6) + 64) |= 1 << v139;
-        *(*(v104 + 48) + 16 * v139) = v137;
-        *(*(v104 + 56) + v139) = v205;
-        v145 = *(v104 + 16);
-        v21 = __OFADD__(v145, 1);
-        v146 = v145 + 1;
-        if (v21)
+        *(v102 + 8 * (v134 >> 6) + 64) |= 1 << v134;
+        *(*(v102 + 48) + 16 * v134) = v132;
+        *(*(v102 + 56) + v134) = v198;
+        v138 = *(v102 + 16);
+        v22 = __OFADD__(v138, 1);
+        v139 = v138 + 1;
+        if (v22)
         {
           goto LABEL_183;
         }
 
-        *(v104 + 16) = v146;
+        *(v102 + 16) = v139;
       }
 
-      v112 = v114;
-      v2 = v199;
+      v110 = v112;
+      v2 = v192;
     }
 
 LABEL_118:
-    v124 = String.lowercased()();
-    v10 = v124._object;
-    v2 = v104;
-    v125 = swift_isUniquelyReferenced_nonNull_native();
-    v207[0] = v2;
-    countAndFlagsBits = v124._countAndFlagsBits;
-    v127 = specialized __RawDictionaryStorage.find<A>(_:)(v124._countAndFlagsBits, v124._object);
-    v128 = v2[2];
-    v129 = (v126 & 1) == 0;
-    v130 = v128 + v129;
-    if (__OFADD__(v128, v129))
+    v121 = String.lowercased()();
+    v10 = v121._object;
+    v2 = v102;
+    v122 = swift_isUniquelyReferenced_nonNull_native();
+    v200[0] = v2;
+    countAndFlagsBits = v121._countAndFlagsBits;
+    v123 = specialized __RawDictionaryStorage.find<A>(_:)(v121._countAndFlagsBits, v121._object);
+    v124 = *(v2 + 16);
+    v125 = (v11 & 1) == 0;
+    v126 = v124 + v125;
+    if (__OFADD__(v124, v125))
     {
       goto LABEL_180;
     }
 
-    v131 = v126;
-    v198 = v2;
-    if (v2[3] < v130)
+    v127 = v11;
+    v191 = v2;
+    if (*(v2 + 24) < v126)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v130, v125);
-      v104 = v207[0];
-      v2 = v207[0];
-      v132 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v124._object);
-      if ((v131 & 1) != (v133 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v126, v122);
+      v102 = v200[0];
+      v2 = v200[0];
+      v128 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v121._object);
+      if ((v127 & 1) != (v11 & 1))
       {
         goto LABEL_195;
       }
 
-      v127 = v132;
-      if (v131)
+      v123 = v128;
+      if (v127)
       {
         goto LABEL_122;
       }
 
 LABEL_125:
-      *(v104 + 8 * (v127 >> 6) + 64) |= 1 << v127;
-      v134 = (*(v104 + 48) + 16 * v127);
-      *v134 = countAndFlagsBits;
-      v134[1] = v124._object;
-      *(*(v104 + 56) + v127) = v205;
-      v135 = *(v104 + 16);
-      v21 = __OFADD__(v135, 1);
-      v136 = v135 + 1;
-      if (v21)
+      *(v102 + 8 * (v123 >> 6) + 64) |= 1 << v123;
+      v129 = (*(v102 + 48) + 16 * v123);
+      *v129 = countAndFlagsBits;
+      v129[1] = v121._object;
+      *(*(v102 + 56) + v123) = v198;
+      v130 = *(v102 + 16);
+      v22 = __OFADD__(v130, 1);
+      v131 = v130 + 1;
+      if (v22)
       {
         goto LABEL_185;
       }
 
-      *(v104 + 16) = v136;
+      *(v102 + 16) = v131;
       goto LABEL_127;
     }
 
-    if (v125)
+    if (v122)
     {
-      v104 = v198;
-      if ((v126 & 1) == 0)
+      v102 = v191;
+      if ((v11 & 1) == 0)
       {
         goto LABEL_125;
       }
@@ -6271,92 +2517,92 @@ LABEL_125:
     else
     {
       v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-      v167 = v198;
-      v168 = static _DictionaryStorage.copy(original:)();
-      v169 = v167;
-      v104 = v168;
-      if (v169[2])
+      v160 = v191;
+      v161 = static _DictionaryStorage.copy(original:)();
+      v162 = v160;
+      v102 = v161;
+      if (v162[2])
       {
-        v170 = (v168 + 64);
-        v171 = (v169 + 8);
-        v172 = ((1 << *(v104 + 32)) + 63) >> 6;
-        v190 = v169 + 8;
-        if (v104 != v169 || v170 >= &v171[8 * v172])
+        v163 = (v161 + 64);
+        v164 = (v162 + 8);
+        v165 = ((1 << *(v102 + 32)) + 63) >> 6;
+        v183 = v162 + 8;
+        if (v102 != v162 || v163 >= &v164[8 * v165])
         {
-          memmove(v170, v171, 8 * v172);
+          memmove(v163, v164, 8 * v165);
         }
 
-        v173 = 0;
-        v174 = v198;
-        *(v104 + 16) = v198[2];
-        v175 = 1 << *(v174 + 32);
-        v176 = v174[8];
-        if (v175 < 64)
+        v166 = 0;
+        v167 = v191;
+        *(v102 + 16) = v191[2];
+        v168 = 1 << *(v167 + 32);
+        v169 = v167[8];
+        if (v168 < 64)
         {
-          v177 = ~(-1 << v175);
+          v170 = ~(-1 << v168);
         }
 
         else
         {
-          v177 = -1;
+          v170 = -1;
         }
 
-        v178 = v177 & v176;
-        v2 = ((v175 + 63) >> 6);
-        if (!v178)
+        v171 = v170 & v169;
+        v2 = (v168 + 63) >> 6;
+        if (!v171)
         {
           goto LABEL_162;
         }
 
         while (1)
         {
-          v179 = __clz(__rbit64(v178));
-          for (j = (v178 - 1) & v178; ; j = (v181 - 1) & v181)
+          v172 = __clz(__rbit64(v171));
+          for (j = (v171 - 1) & v171; ; j = (v174 - 1) & v174)
           {
-            v182 = v179 | (v173 << 6);
-            v183 = (v198[6] + 16 * v182);
-            v185 = *v183;
-            v184 = v183[1];
-            LOBYTE(v183) = *(v198[7] + v182);
-            v186 = (*(v104 + 48) + 16 * v182);
-            *v186 = v185;
-            v186[1] = v184;
-            *(*(v104 + 56) + v182) = v183;
+            v175 = v172 | (v166 << 6);
+            v176 = (v191[6] + 16 * v175);
+            v178 = *v176;
+            v177 = v176[1];
+            LOBYTE(v176) = *(v191[7] + v175);
+            v179 = (*(v102 + 48) + 16 * v175);
+            *v179 = v178;
+            v179[1] = v177;
+            *(*(v102 + 56) + v175) = v176;
 
-            v178 = j;
+            v171 = j;
             if (j)
             {
               break;
             }
 
 LABEL_162:
-            v180 = v173;
+            v173 = v166;
             do
             {
-              v173 = v180 + 1;
-              if (__OFADD__(v180, 1))
+              v166 = v173 + 1;
+              if (__OFADD__(v173, 1))
               {
                 goto LABEL_194;
               }
 
-              if (v173 >= v2)
+              if (v166 >= v2)
               {
                 goto LABEL_169;
               }
 
-              v181 = v190[v173];
-              ++v180;
+              v174 = v183[v166];
+              ++v173;
             }
 
-            while (!v181);
-            v179 = __clz(__rbit64(v181));
+            while (!v174);
+            v172 = __clz(__rbit64(v174));
           }
         }
       }
 
 LABEL_169:
 
-      if ((v131 & 1) == 0)
+      if ((v127 & 1) == 0)
       {
         goto LABEL_125;
       }
@@ -6364,20 +2610,20 @@ LABEL_169:
 
 LABEL_122:
 
-    *(*(v104 + 56) + v127) = v205;
+    *(*(v102 + 56) + v123) = v198;
 LABEL_127:
-    v101 = v196;
+    v99 = v189;
     goto LABEL_128;
   }
 
   v1 = 0;
-  v198 = (a1 + 32);
+  v191 = (a1 + 32);
   v2 = MEMORY[0x1E69E7CC8];
   v3 = MEMORY[0x1E69E7CC8];
 LABEL_4:
-  v4 = &v198[3 * v1];
+  v4 = &v191[3 * v1];
   v5 = v4[2];
-  v199 = v4[1];
+  v192 = v4[1];
   i = v1 + 1;
   v6 = v5 + 64;
   v7 = 1 << *(v5 + 32);
@@ -6394,30 +2640,30 @@ LABEL_4:
   v9 = v8 & *(v5 + 64);
   v10 = (v7 + 63) >> 6;
 
-  v203 = v5;
+  v196 = v5;
   swift_bridgeObjectRetain_n();
-  v11 = 0;
-  v201 = v5 + 64;
+  v12 = 0;
+  v194 = v5 + 64;
   for (countAndFlagsBits = v10; ; v10 = countAndFlagsBits)
   {
     if (!v9)
     {
       while (1)
       {
-        v12 = v11 + 1;
-        if (__OFADD__(v11, 1))
+        v13 = v12 + 1;
+        if (__OFADD__(v12, 1))
         {
           __break(1u);
           goto LABEL_176;
         }
 
-        if (v12 >= v10)
+        if (v13 >= v10)
         {
           break;
         }
 
-        v9 = *(v6 + 8 * v12);
-        ++v11;
+        v9 = *(v6 + 8 * v13);
+        ++v12;
         if (v9)
         {
           goto LABEL_15;
@@ -6425,7 +2671,7 @@ LABEL_4:
       }
 
       v1 = i;
-      if (i == v195)
+      if (i == v188)
       {
         goto LABEL_48;
       }
@@ -6433,120 +2679,120 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v12 = v11;
+    v13 = v12;
 LABEL_15:
-    v13 = (*(v203 + 48) + ((v12 << 10) | (16 * __clz(__rbit64(v9)))));
-    v14 = *v13;
-    v15 = v13[1];
-    v16 = v2[2];
+    v14 = (*(v196 + 48) + ((v13 << 10) | (16 * __clz(__rbit64(v9)))));
+    v15 = *v14;
+    v16 = v14[1];
+    v17 = *(v2 + 16);
 
-    v205 = v14;
-    if (v16)
+    v198 = v15;
+    if (v17)
     {
 
-      v17 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
-      v19 = v18;
+      v18 = specialized __RawDictionaryStorage.find<A>(_:)(v15, v16);
+      v20 = v19;
 
-      if (v19)
+      if (v20)
       {
-        v20 = *(v2[7] + 8 * v17);
+        v21 = *(*(v2 + 56) + 8 * v18);
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      v14 = v205;
-      v6 = v201;
+      v15 = v198;
+      v6 = v194;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = __OFADD__(v20, 1);
-    v22 = v20 + 1;
-    if (v21)
+    v22 = __OFADD__(v21, 1);
+    v23 = v21 + 1;
+    if (v22)
     {
       goto LABEL_177;
     }
 
-    v204 = v22;
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v207[0] = v3;
+    v197 = v23;
+    v24 = swift_isUniquelyReferenced_nonNull_native();
+    v200[0] = v3;
     v2 = v3;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
+    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v15, v16);
     v25 = *(v3 + 16);
-    v26 = (v24 & 1) == 0;
+    v26 = (v11 & 1) == 0;
     v27 = v25 + v26;
     if (__OFADD__(v25, v26))
     {
       break;
     }
 
-    object = v24;
+    object = v11;
     if (*(v3 + 24) >= v27)
     {
-      if ((v23 & 1) == 0)
+      if ((v24 & 1) == 0)
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-        v196 = static _DictionaryStorage.copy(original:)();
+        v189 = static _DictionaryStorage.copy(original:)();
         if (*(v3 + 16))
         {
-          v35 = (v196 + 64);
-          v36 = (v3 + 64);
-          v37 = ((1 << *(v196 + 32)) + 63) >> 6;
-          v193 = v3 + 64;
-          if (v196 != v3 || v35 >= &v36[8 * v37])
+          v34 = (v189 + 64);
+          v35 = (v3 + 64);
+          v36 = ((1 << *(v189 + 32)) + 63) >> 6;
+          v186 = v3 + 64;
+          if (v189 != v3 || v34 >= &v35[8 * v36])
           {
-            memmove(v35, v36, 8 * v37);
+            memmove(v34, v35, 8 * v36);
           }
 
-          v38 = 0;
-          *(v196 + 16) = *(v3 + 16);
-          v39 = 1 << *(v3 + 32);
-          v40 = *(v3 + 64);
-          if (v39 < 64)
+          v37 = 0;
+          *(v189 + 16) = *(v3 + 16);
+          v38 = 1 << *(v3 + 32);
+          v39 = *(v3 + 64);
+          if (v38 < 64)
           {
-            v41 = ~(-1 << v39);
+            v40 = ~(-1 << v38);
           }
 
           else
           {
-            v41 = -1;
+            v40 = -1;
           }
 
-          v42 = v41 & v40;
-          v43 = (v39 + 63) >> 6;
-          if ((v41 & v40) != 0)
+          v41 = v40 & v39;
+          v42 = (v38 + 63) >> 6;
+          if ((v40 & v39) != 0)
           {
             do
             {
-              v44 = __clz(__rbit64(v42));
-              v42 &= v42 - 1;
+              v43 = __clz(__rbit64(v41));
+              v41 &= v41 - 1;
 LABEL_44:
-              v47 = v44 | (v38 << 6);
-              v48 = (*(v3 + 48) + 16 * v47);
-              v50 = *v48;
-              v49 = v48[1];
-              v51 = *(*(v3 + 56) + 8 * v47);
-              v52 = v196;
-              v53 = (*(v196 + 48) + 16 * v47);
-              *v53 = v50;
-              v53[1] = v49;
-              *(*(v52 + 56) + 8 * v47) = v51;
+              v46 = v43 | (v37 << 6);
+              v47 = (*(v3 + 48) + 16 * v46);
+              v49 = *v47;
+              v48 = v47[1];
+              v50 = *(*(v3 + 56) + 8 * v46);
+              v51 = v189;
+              v52 = (*(v189 + 48) + 16 * v46);
+              *v52 = v49;
+              v52[1] = v48;
+              *(*(v51 + 56) + 8 * v46) = v50;
             }
 
-            while (v42);
+            while (v41);
           }
 
-          v45 = v38;
+          v44 = v37;
           while (1)
           {
-            v38 = v45 + 1;
-            if (__OFADD__(v45, 1))
+            v37 = v44 + 1;
+            if (__OFADD__(v44, 1))
             {
               __break(1u);
 LABEL_193:
@@ -6555,32 +2801,32 @@ LABEL_194:
               __break(1u);
             }
 
-            if (v38 >= v43)
+            if (v37 >= v42)
             {
               break;
             }
 
-            v46 = *(v193 + 8 * v38);
-            ++v45;
-            if (v46)
+            v45 = *(v186 + 8 * v37);
+            ++v44;
+            if (v45)
             {
-              v44 = __clz(__rbit64(v46));
-              v42 = (v46 - 1) & v46;
+              v43 = __clz(__rbit64(v45));
+              v41 = (v45 - 1) & v45;
               goto LABEL_44;
             }
           }
         }
 
-        v2 = v196;
+        v2 = v189;
       }
     }
 
     else
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v23);
-      v2 = v207[0];
-      v29 = specialized __RawDictionaryStorage.find<A>(_:)(v205, v15);
-      if ((object & 1) != (v30 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v24);
+      v2 = v200[0];
+      v29 = specialized __RawDictionaryStorage.find<A>(_:)(v198, v16);
+      if ((object & 1) != (v11 & 1))
       {
 LABEL_195:
         KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -6589,37 +2835,37 @@ LABEL_195:
       }
 
       v10 = v29;
-      v2 = v207[0];
+      v2 = v200[0];
     }
 
     v9 &= v9 - 1;
     if (object)
     {
 
-      *(v2[7] + 8 * v10) = v204;
+      *(*(v2 + 56) + 8 * v10) = v197;
     }
 
     else
     {
-      v2[(v10 >> 6) + 8] |= 1 << v10;
-      v31 = (v2[6] + 16 * v10);
-      v32 = v204;
-      *v31 = v205;
-      v31[1] = v15;
-      *(v2[7] + 8 * v10) = v32;
-      v33 = v2[2];
-      v21 = __OFADD__(v33, 1);
-      v34 = v33 + 1;
-      if (v21)
+      *(v2 + 8 * (v10 >> 6) + 64) |= 1 << v10;
+      v30 = (*(v2 + 48) + 16 * v10);
+      v31 = v197;
+      *v30 = v198;
+      v30[1] = v16;
+      *(*(v2 + 56) + 8 * v10) = v31;
+      v32 = *(v2 + 16);
+      v22 = __OFADD__(v32, 1);
+      v33 = v32 + 1;
+      if (v22)
       {
         goto LABEL_181;
       }
 
-      v2[2] = v34;
+      *(v2 + 16) = v33;
     }
 
     v3 = v2;
-    v11 = v12;
+    v12 = v13;
   }
 
 LABEL_178:
@@ -6643,21 +2889,23 @@ LABEL_186:
 LABEL_187:
   __break(1u);
 LABEL_188:
+  v181 = v11;
 
   if (swift_stdlib_isStackAllocationSafe())
   {
 
+    v11 = v181;
     goto LABEL_49;
   }
 
   object = swift_slowAlloc();
 
-  v93 = v197;
+  v91 = v190;
   _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVySSSiG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SiTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lySSSiIsgnndzo_Tf1nc_n(object, v2, v10, closure #2 in ColumnResolver.init(schemas:));
-  v2 = v93;
-  if (!v93)
+  v2 = v91;
+  if (!v91)
   {
-    v70 = v189;
+    v69 = v182;
 
     MEMORY[0x1865F7B70](object, -1, -1);
 
@@ -6791,7 +3039,7 @@ unint64_t lazy protocol witness table accessor for type SQLExpressionError and c
   result = lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError;
   if (!lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError)
   {
-    type metadata accessor for SQLExpressionError();
+    type metadata accessor for SQLExpressionError(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError);
   }
@@ -6799,22 +3047,19 @@ unint64_t lazy protocol witness table accessor for type SQLExpressionError and c
   return result;
 }
 
-uint64_t *__swift_deallocate_boxed_opaque_existential_1(uint64_t *result)
+uint64_t __swift_deallocate_boxed_opaque_existential_1(uint64_t result)
 {
-  v1 = *(result[3] - 8);
-  if ((*(v1 + 80) & 0x20000) != 0)
+  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *result;
-    v3 = *(v1 + 64) + ((*(v1 + 80) + 16) & ~*(v1 + 80));
     JUMPOUT(0x1865F7B70);
   }
 
   return result;
 }
 
-void *partial apply for closure #1 in SQLExpressionFuncCall.init(function:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+uint64_t partial apply for closure #1 in SQLExpressionFuncCall.init(function:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
-  result = buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(a3, a1, v3[2], v3[3], v3[4], v3[5]);
+  result = buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(a1, v3[2], v3[3], v3[4], v3[5], a3);
   if (v4)
   {
     *a2 = v4;
@@ -6843,11 +3088,6 @@ uint64_t outlined destroy of PgQuery_Node.OneOf_Node(uint64_t a1, uint64_t (*a2)
 
 uint64_t objectdestroyTm()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
@@ -6859,7 +3099,7 @@ uint64_t outlined init with take of PgQuery_BitString(uint64_t a1, uint64_t a2, 
   return a2;
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   return partial apply for specialized closure #1 in Sequence<>.contains(_:)(a1) & 1;
 }
@@ -7342,7 +3582,7 @@ uint64_t getEnumTagSinglePayload for SQLExpressionConstString(uint64_t a1, int a
   return (v2 + 1);
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -7509,35 +3749,128 @@ uint64_t specialized Set.contains(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v6 = *(a3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(a3 + 32);
-  v9 = v7 & ~v8;
-  if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(a3 + 32);
+  v8 = v6 & ~v7;
+  if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = ~v8;
+  v9 = ~v7;
   while (1)
   {
-    v11 = (*(a3 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v10 = (*(a3 + 48) + 16 * v8);
+    v11 = *v10 == a1 && v10[1] == a2;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
       break;
     }
 
-    v9 = (v9 + 1) & v10;
-    if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+    v8 = (v8 + 1) & v9;
+    if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
     {
       return 0;
     }
   }
 
   return 1;
+}
+
+Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SQLTokenInformation.tokenName(location:)(Swift::Int32 location)
+{
+  v2 = *&location;
+  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
+  v4 = *(ScanToken - 8);
+  v6 = MEMORY[0x1EEE9AC00](ScanToken - 8, v5);
+  v8 = (&v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = MEMORY[0x1EEE9AC00](v6, v9);
+  v12 = &v32 - v11;
+  ParseResult = MEMORY[0x1EEE9AC00](v10, v13);
+  v17 = &v32 - v16;
+  v18 = *(v1 + 8);
+  v19 = *(v18 + 16);
+  if (v19)
+  {
+    v20 = 0;
+    while (1)
+    {
+      if (v20 >= *(v18 + 16))
+      {
+        __break(1u);
+        goto LABEL_11;
+      }
+
+      outlined init with copy of PgQuery_ScanResult(v18 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, v8, type metadata accessor for PgQuery_ScanToken);
+      if (*v8 == v2)
+      {
+        break;
+      }
+
+      ++v20;
+      ParseResult = outlined destroy of PgQuery_ParseResult(v8, type metadata accessor for PgQuery_ScanToken);
+      if (v19 == v20)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    outlined init with take of PgQuery_ParseResult(v8, v12, type metadata accessor for PgQuery_ScanToken);
+    outlined init with take of PgQuery_ParseResult(v12, v17, type metadata accessor for PgQuery_ScanToken);
+    type metadata accessor for SQLTokenInformation(0);
+    v28 = String.index(_:offsetBy:)();
+    ParseResult = String.index(_:offsetBy:)();
+    if (ParseResult >> 14 >= v28 >> 14)
+    {
+      v29 = String.subscript.getter();
+      v26 = MEMORY[0x1865F6210](v29);
+      v2 = v30;
+
+      outlined destroy of PgQuery_ParseResult(v17, type metadata accessor for PgQuery_ScanToken);
+      goto LABEL_9;
+    }
+
+LABEL_11:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_6:
+    v21 = (v1 + *(type metadata accessor for SQLTokenInformation(0) + 20));
+    v23 = *v21;
+    v22 = v21[1];
+    v33 = 0;
+    v34 = 0xE000000000000000;
+
+    _StringGuts.grow(_:)(28);
+
+    v33 = 0xD00000000000001ALL;
+    v34 = 0x8000000184DEA4A0;
+    v35 = v2;
+    v24 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1865F6280](v24);
+
+    v25 = v33;
+    v26 = v34;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v27 = v23;
+    *(v27 + 8) = v22;
+    *(v27 + 16) = v25;
+    *(v27 + 24) = v26;
+    *(v27 + 32) = 0;
+    swift_willThrow();
+LABEL_9:
+    ParseResult = v26;
+    v15 = v2;
+  }
+
+  result._object = v15;
+  result._countAndFlagsBits = ParseResult;
+  return result;
 }
 
 unint64_t SQLParserError.description.getter()
@@ -7737,24 +4070,19 @@ BiomeSQLParser::SQLRawDataType_optional __swiftcall SQLRawDataType.init(rawValue
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLRawDataType()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SQLRawDataType()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SQLRawDataType(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLRawDataType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLRawDataType(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -7964,41 +4292,37 @@ uint64_t DatabaseCatalog.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = v11 - v6;
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = v10 - v6;
   v8 = *v1;
-  v9 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11[1] = v8;
+  v10[1] = v8;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
-  lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema);
+  lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema, MEMORY[0x1E69E6160], MEMORY[0x1E69E5E38]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
   return (*(v4 + 8))(v7, v3);
 }
 
-uint64_t DatabaseCatalog.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t DatabaseCatalog.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = v12 - v8;
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = v11 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
-    lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema);
+    lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema, MEMORY[0x1E69E6190], MEMORY[0x1E69E5E58]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v6 + 8))(v9, v5);
-    *a2 = v12[1];
+    *a2 = v11[1];
   }
 
   return __swift_destroy_boxed_opaque_existential_1Tm(a1);
@@ -8087,7 +4411,7 @@ uint64_t static Schema.lookup(rangeVar:catalog:)@<X0>(void *a1@<X0>, uint64_t *a
   return swift_willThrow();
 }
 
-uint64_t static Schema.== infix(_:_:)(void *a1, void *a2)
+uint64_t static Schema.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a2[2];
@@ -8353,16 +4677,13 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Schema
 {
   if (*v0)
   {
-    result = 0x736E6D756C6F63;
+    return 0x736E6D756C6F63;
   }
 
   else
   {
-    result = 0x6D614E656C626174;
+    return 0x6D614E656C626174;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Schema.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -8416,39 +4737,33 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t Schema.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
-  v14 = *(v4 - 8);
-  v5 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v13 = v1[2];
-  v10 = a1[4];
+  v11 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4, v5);
+  v7 = &v9 - v6;
+  v10 = *(v1 + 16);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v17 = 0;
+  v14 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v2)
   {
-    v15 = v13;
-    v16 = 1;
+    v12 = v10;
+    v13 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
-    lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType);
+    lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType, MEMORY[0x1E69E6160], MEMORY[0x1E69E5E38]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v14 + 8))(v7, v4);
+  return (*(v11 + 8))(v7, v4);
 }
 
-uint64_t Schema.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t Schema.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = v17 - v8;
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = v16 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -8457,24 +4772,24 @@ uint64_t Schema.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
     return __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  v19 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v14 = v11;
+  v18 = 0;
+  v10 = KeyedDecodingContainer.decode(_:forKey:)();
+  v12 = v11;
+  v13 = v10;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
-  v18 = 1;
-  lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType);
+  v17 = 1;
+  lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType, MEMORY[0x1E69E6190], MEMORY[0x1E69E5E58]);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   (*(v6 + 8))(v9, v5);
-  v15 = v17[1];
-  *a2 = v14;
-  a2[1] = v13;
-  a2[2] = v15;
+  v14 = v16[1];
+  *a2 = v13;
+  a2[1] = v12;
+  a2[2] = v14;
 
   __swift_destroy_boxed_opaque_existential_1Tm(a1);
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Schema(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Schema(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a2[2];
@@ -8489,667 +4804,650 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Sch
 
 uint64_t FromClause.init(fromClauseNodes:resources:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v391 = a2;
-  v378 = a3;
+  v422 = a2;
+  v409 = a3;
   v4 = type metadata accessor for SQLTokenInformation(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v336 = &v315 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4 - 8, v5);
+  v367 = &v346 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v342 = &v315 - v9;
+  MEMORY[0x1EEE9AC00](v7 - 8, v8);
+  v373 = &v346 - v9;
   ColumnRef = type metadata accessor for PgQuery_ColumnRef(0);
-  v10 = *(*(ColumnRef - 8) + 64);
-  v11 = MEMORY[0x1EEE9AC00](ColumnRef);
-  v337 = (&v315 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v11);
-  v344 = (&v315 - v13);
+  v11 = MEMORY[0x1EEE9AC00](ColumnRef, v10);
+  v368 = (&v346 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v11, v13);
+  v375 = (&v346 - v14);
   String = type metadata accessor for PgQuery_String(0);
-  v14 = *(*(String - 8) + 64);
-  MEMORY[0x1EEE9AC00](String);
-  v356 = (&v315 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v365 = type metadata accessor for PgQuery_FuncCall(0);
-  v16 = *(*(v365 - 8) + 64);
-  v17 = MEMORY[0x1EEE9AC00](v365);
-  v340 = &v315 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v347 = &v315 - v20;
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v352 = &v315 - v22;
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v354 = &v315 - v24;
-  MEMORY[0x1EEE9AC00](v23);
-  v361 = &v315 - v25;
+  MEMORY[0x1EEE9AC00](String, v15);
+  v387 = (&v346 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v396 = type metadata accessor for PgQuery_FuncCall(0);
+  v18 = MEMORY[0x1EEE9AC00](v396, v17);
+  v371 = &v346 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = MEMORY[0x1EEE9AC00](v18, v20);
+  v378 = &v346 - v22;
+  v24 = MEMORY[0x1EEE9AC00](v21, v23);
+  v383 = &v346 - v25;
+  v27 = MEMORY[0x1EEE9AC00](v24, v26);
+  v385 = &v346 - v28;
+  MEMORY[0x1EEE9AC00](v27, v29);
+  v392 = &v346 - v30;
   List = type metadata accessor for PgQuery_List(0);
-  v26 = *(*(List - 8) + 64);
-  v27 = MEMORY[0x1EEE9AC00](List);
-  v29 = (&v315 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v30 = MEMORY[0x1EEE9AC00](v27);
-  v348 = (&v315 - v31);
-  v32 = MEMORY[0x1EEE9AC00](v30);
-  v353 = (&v315 - v33);
-  v34 = MEMORY[0x1EEE9AC00](v32);
-  v360 = (&v315 - v35);
-  v36 = MEMORY[0x1EEE9AC00](v34);
-  v363 = (&v315 - v37);
-  MEMORY[0x1EEE9AC00](v36);
-  v368 = (&v315 - v38);
+  v32 = MEMORY[0x1EEE9AC00](List, v31);
+  v34 = (&v346 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v36 = MEMORY[0x1EEE9AC00](v32, v35);
+  v379 = (&v346 - v37);
+  v39 = MEMORY[0x1EEE9AC00](v36, v38);
+  v384 = (&v346 - v40);
+  v42 = MEMORY[0x1EEE9AC00](v39, v41);
+  v391 = (&v346 - v43);
+  v45 = MEMORY[0x1EEE9AC00](v42, v44);
+  v394 = (&v346 - v46);
+  MEMORY[0x1EEE9AC00](v45, v47);
+  v399 = (&v346 - v48);
   RangeFunction = type metadata accessor for PgQuery_RangeFunction(0);
-  v372 = *(RangeFunction - 8);
-  v373 = RangeFunction;
-  v40 = *(v372 + 64);
-  MEMORY[0x1EEE9AC00](RangeFunction);
-  v370 = &v315 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  v43 = *(*(v42 - 8) + 64);
-  v44 = MEMORY[0x1EEE9AC00](v42 - 8);
-  v371 = &v315 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v44);
-  v374 = &v315 - v46;
-  v388 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v390 = *(v388 - 8);
-  v47 = *(v390 + 64);
-  v48 = MEMORY[0x1EEE9AC00](v388);
-  v377 = (&v315 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v48);
-  v375 = &v315 - v50;
+  v403 = *(RangeFunction - 8);
+  v404 = RangeFunction;
+  MEMORY[0x1EEE9AC00](RangeFunction, v50);
+  v401 = &v346 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  v54 = MEMORY[0x1EEE9AC00](v52 - 8, v53);
+  v402 = &v346 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v54, v56);
+  v405 = &v346 - v57;
+  v419 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  v421 = *(v419 - 8);
+  v59 = MEMORY[0x1EEE9AC00](v419, v58);
+  v408 = (&v346 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v59, v61);
+  v406 = &v346 - v62;
   RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v51 = *(RangeVar - 8);
-  v52 = *(v51 + 64);
-  MEMORY[0x1EEE9AC00](RangeVar);
-  v54 = &v315 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v387 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v55 = *(*(v387 - 8) + 64);
-  v56 = MEMORY[0x1EEE9AC00](v387);
-  v338 = &v315 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = MEMORY[0x1EEE9AC00](v56);
-  v339 = &v315 - v59;
-  v60 = MEMORY[0x1EEE9AC00](v58);
-  v343 = &v315 - v61;
-  v62 = MEMORY[0x1EEE9AC00](v60);
-  v345 = &v315 - v63;
-  v64 = MEMORY[0x1EEE9AC00](v62);
-  v346 = &v315 - v65;
-  v66 = MEMORY[0x1EEE9AC00](v64);
-  v349 = &v315 - v67;
-  v68 = MEMORY[0x1EEE9AC00](v66);
-  v351 = &v315 - v69;
-  v70 = MEMORY[0x1EEE9AC00](v68);
-  v355 = &v315 - v71;
-  v72 = MEMORY[0x1EEE9AC00](v70);
-  v358 = &v315 - v73;
-  v74 = MEMORY[0x1EEE9AC00](v72);
-  v357 = &v315 - v75;
-  v76 = MEMORY[0x1EEE9AC00](v74);
-  v359 = &v315 - v77;
-  v78 = MEMORY[0x1EEE9AC00](v76);
-  v362 = &v315 - v79;
-  v80 = MEMORY[0x1EEE9AC00](v78);
-  v367 = &v315 - v81;
-  v82 = MEMORY[0x1EEE9AC00](v80);
-  v366 = &v315 - v83;
-  v84 = MEMORY[0x1EEE9AC00](v82);
-  v379 = &v315 - v85;
-  v86 = MEMORY[0x1EEE9AC00](v84);
-  v386 = &v315 - v87;
-  v88 = MEMORY[0x1EEE9AC00](v86);
-  v384 = &v315 - v89;
-  v90 = MEMORY[0x1EEE9AC00](v88);
-  v92 = &v315 - v91;
-  MEMORY[0x1EEE9AC00](v90);
-  v94 = &v315 - v93;
-  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v96 = *(*(v95 - 8) + 64);
-  v97 = MEMORY[0x1EEE9AC00](v95 - 8);
-  *&v381 = &v315 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v97);
-  v100 = &v315 - v99;
+  v63 = *(RangeVar - 8);
+  MEMORY[0x1EEE9AC00](RangeVar, v64);
+  v66 = &v346 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v418 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v68 = MEMORY[0x1EEE9AC00](v418, v67);
+  v369 = &v346 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v71 = MEMORY[0x1EEE9AC00](v68, v70);
+  v370 = &v346 - v72;
+  v74 = MEMORY[0x1EEE9AC00](v71, v73);
+  v374 = &v346 - v75;
+  v77 = MEMORY[0x1EEE9AC00](v74, v76);
+  v376 = &v346 - v78;
+  v80 = MEMORY[0x1EEE9AC00](v77, v79);
+  v377 = &v346 - v81;
+  v83 = MEMORY[0x1EEE9AC00](v80, v82);
+  v380 = &v346 - v84;
+  v86 = MEMORY[0x1EEE9AC00](v83, v85);
+  v382 = &v346 - v87;
+  v89 = MEMORY[0x1EEE9AC00](v86, v88);
+  v386 = &v346 - v90;
+  v92 = MEMORY[0x1EEE9AC00](v89, v91);
+  v389 = &v346 - v93;
+  v95 = MEMORY[0x1EEE9AC00](v92, v94);
+  v388 = &v346 - v96;
+  v98 = MEMORY[0x1EEE9AC00](v95, v97);
+  v390 = &v346 - v99;
+  v101 = MEMORY[0x1EEE9AC00](v98, v100);
+  v393 = &v346 - v102;
+  v104 = MEMORY[0x1EEE9AC00](v101, v103);
+  v398 = &v346 - v105;
+  v107 = MEMORY[0x1EEE9AC00](v104, v106);
+  v397 = &v346 - v108;
+  v110 = MEMORY[0x1EEE9AC00](v107, v109);
+  v410 = &v346 - v111;
+  v113 = MEMORY[0x1EEE9AC00](v110, v112);
+  v417 = &v346 - v114;
+  v116 = MEMORY[0x1EEE9AC00](v113, v115);
+  v415 = &v346 - v117;
+  v119 = MEMORY[0x1EEE9AC00](v116, v118);
+  v121 = &v346 - v120;
+  MEMORY[0x1EEE9AC00](v119, v122);
+  v124 = &v346 - v123;
+  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  v127 = MEMORY[0x1EEE9AC00](v125 - 8, v126);
+  *&v412 = &v346 - ((v128 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v127, v129);
+  v131 = &v346 - v130;
   Node = type metadata accessor for PgQuery_Node(0);
-  v102 = *(Node - 8);
-  v103 = *(v102 + 64);
-  v104 = MEMORY[0x1EEE9AC00](Node);
-  v105 = MEMORY[0x1EEE9AC00](v104);
-  v106 = MEMORY[0x1EEE9AC00](v105);
-  v107 = MEMORY[0x1EEE9AC00](v106);
-  v108 = MEMORY[0x1EEE9AC00](v107);
-  v109 = MEMORY[0x1EEE9AC00](v108);
-  v110 = MEMORY[0x1EEE9AC00](v109);
-  v111 = MEMORY[0x1EEE9AC00](v110);
-  v112 = MEMORY[0x1EEE9AC00](v111);
-  v113 = MEMORY[0x1EEE9AC00](v112);
-  v364 = &v315 - v114;
-  v115 = MEMORY[0x1EEE9AC00](v113);
-  v116 = MEMORY[0x1EEE9AC00](v115);
-  v376 = &v315 - v117;
-  v118 = MEMORY[0x1EEE9AC00](v116);
-  v130 = (&v315 - v126);
+  v133 = *(Node - 8);
+  v135 = MEMORY[0x1EEE9AC00](Node, v134);
+  v137 = MEMORY[0x1EEE9AC00](v135, v136);
+  v139 = MEMORY[0x1EEE9AC00](v137, v138);
+  v141 = MEMORY[0x1EEE9AC00](v139, &v346 - v140);
+  v143 = MEMORY[0x1EEE9AC00](v141, v142);
+  v145 = MEMORY[0x1EEE9AC00](v143, v144);
+  v147 = MEMORY[0x1EEE9AC00](v145, v146);
+  v149 = MEMORY[0x1EEE9AC00](v147, v148);
+  v151 = MEMORY[0x1EEE9AC00](v149, v150);
+  v153 = MEMORY[0x1EEE9AC00](v151, v152);
+  v395 = &v346 - v154;
+  v156 = MEMORY[0x1EEE9AC00](v153, v155);
+  v158 = MEMORY[0x1EEE9AC00](v156, v157);
+  v407 = &v346 - v159;
+  v161 = MEMORY[0x1EEE9AC00](v158, v160);
+  v173 = (&v346 - v169);
   if (!*(a1 + 16))
   {
 
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v138 = 0xD00000000000002FLL;
-    *(v138 + 8) = 0x8000000184DEA730;
-    *(v138 + 16) = 0;
-    *(v138 + 24) = 0;
-    *(v138 + 32) = 1;
+    *v181 = 0xD00000000000002FLL;
+    *(v181 + 8) = 0x8000000184DEA730;
+    *(v181 + 16) = 0;
+    *(v181 + 24) = 0;
+    *(v181 + 32) = 1;
     swift_willThrow();
-    v139 = type metadata accessor for PlanResources;
-    v140 = v391;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
+    v182 = type metadata accessor for PlanResources;
+    v183 = v422;
+    return outlined destroy of PgQuery_ParseResult(v183, v182);
   }
 
-  v333 = *(a1 + 16);
-  v334 = v54;
-  v325 = v124;
-  v326 = v125;
-  v323 = v122;
-  v324 = v123;
-  v321 = v29;
-  v322 = v121;
-  v319 = v119;
-  v320 = v120;
-  v317 = v128;
-  v318 = v129;
-  v332 = v102;
-  v327 = (*(v102 + 80) + 32) & ~*(v102 + 80);
-  v328 = v127;
-  v131 = v118;
-  v329 = a1 + v327;
-  outlined init with copy of PgQuery_ScanResult(a1 + v327, &v315 - v126, type metadata accessor for PgQuery_Node);
-  v132 = a1;
-  v335 = v51;
-  v133 = *(v51 + 56);
-  v385 = v100;
-  v133(v100, 1, 1, RangeVar);
-  v330 = v131;
-  v134 = *(v131 + 20);
-  v382 = v130;
-  outlined init with copy of PgQuery_Alias?(*(v130 + v134) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v94, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v383 = v94;
-  outlined init with copy of PgQuery_Alias?(v94, v92, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v136 = v390 + 48;
-  v135 = *(v390 + 48);
-  v137 = v92;
-  if (v135(v92, 1, v388) == 1)
+  v364 = *(a1 + 16);
+  v365 = v66;
+  v356 = v167;
+  v357 = v168;
+  v354 = v165;
+  v355 = v166;
+  v352 = v34;
+  v353 = v164;
+  v350 = v162;
+  v351 = v163;
+  v348 = v171;
+  v349 = v172;
+  v363 = v133;
+  v358 = (*(v133 + 80) + 32) & ~*(v133 + 80);
+  v359 = v170;
+  v174 = v161;
+  v360 = a1 + v358;
+  outlined init with copy of PgQuery_ScanResult(a1 + v358, &v346 - v169, type metadata accessor for PgQuery_Node);
+  v175 = a1;
+  v366 = v63;
+  v176 = *(v63 + 56);
+  v416 = v131;
+  v176(v131, 1, 1, RangeVar);
+  v361 = v174;
+  v177 = *(v174 + 20);
+  v413 = v173;
+  outlined init with copy of PgQuery_Alias?(*(v173 + v177) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v124, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v414 = v124;
+  outlined init with copy of PgQuery_Alias?(v124, v121, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v179 = v421 + 48;
+  v178 = *(v421 + 48);
+  v180 = v121;
+  if (v178(v121, 1, v419) == 1)
   {
 
 LABEL_9:
-    v148 = v391;
-    *&v406 = 0;
-    *(&v406 + 1) = 0xE000000000000000;
+    v191 = v422;
+    *&v437 = 0;
+    *(&v437 + 1) = 0xE000000000000000;
     _StringGuts.grow(_:)(49);
 
-    *&v406 = 0xD00000000000002FLL;
-    *(&v406 + 1) = 0x8000000184DEA6A0;
-    v149 = v383;
-    outlined init with copy of PgQuery_Alias?(v383, v386, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v150 = String.init<A>(describing:)();
-    MEMORY[0x1865F6280](v150);
+    *&v437 = 0xD00000000000002FLL;
+    *(&v437 + 1) = 0x8000000184DEA6A0;
+    v192 = v414;
+    outlined init with copy of PgQuery_Alias?(v414, v417, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v193 = String.init<A>(describing:)();
+    MEMORY[0x1865F6280](v193);
 
-    v151 = v406;
+    v194 = v437;
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v152 = v151;
-    *(v152 + 16) = 0;
-    *(v152 + 24) = 0;
-    *(v152 + 32) = 1;
+    *v195 = v194;
+    *(v195 + 16) = 0;
+    *(v195 + 24) = 0;
+    *(v195 + 32) = 1;
     swift_willThrow();
-    outlined destroy of PgQuery_ParseResult(v148, type metadata accessor for PlanResources);
-    _s10Foundation4UUIDVSgWOhTm_0(v149, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
-    return _s10Foundation4UUIDVSgWOhTm_0(v137, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of PgQuery_ParseResult(v191, type metadata accessor for PlanResources);
+    _s10Foundation4UUIDVSgWOhTm_0(v192, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
+    return _s10Foundation4UUIDVSgWOhTm_0(v180, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
-  v331 = v132;
-  v141 = v92;
-  v142 = v384;
-  outlined init with copy of PgQuery_Alias?(v141, v384, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v362 = v175;
+  v184 = v121;
+  v185 = v415;
+  outlined init with copy of PgQuery_Alias?(v184, v415, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   if (swift_getEnumCaseMultiPayload() != 1)
   {
 
-    outlined destroy of PgQuery_ParseResult(v142, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v185, type metadata accessor for PgQuery_Node.OneOf_Node);
     goto LABEL_9;
   }
 
-  v390 = v136;
-  v143 = v385;
-  _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with take of PgQuery_ParseResult(v142, v143, type metadata accessor for PgQuery_RangeVar);
-  v144 = RangeVar;
-  v133(v143, 0, 1, RangeVar);
-  _s10Foundation4UUIDVSgWOhTm_0(v137, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v145 = v381;
-  outlined init with copy of PgQuery_Alias?(v143, v381, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  if ((*(v335 + 48))(v145, 1, v144) == 1)
+  v421 = v179;
+  v186 = v416;
+  _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  outlined init with take of PgQuery_ParseResult(v185, v186, type metadata accessor for PgQuery_RangeVar);
+  v187 = RangeVar;
+  v176(v186, 0, 1, RangeVar);
+  _s10Foundation4UUIDVSgWOhTm_0(v180, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v188 = v412;
+  outlined init with copy of PgQuery_Alias?(v186, v412, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  if ((*(v366 + 48))(v188, 1, v187) == 1)
   {
 
-    _s10Foundation4UUIDVSgWOhTm_0(v145, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v188, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v146 = 0xD00000000000001CLL;
-    *(v146 + 8) = 0x8000000184DEA6D0;
-    *(v146 + 16) = 0;
-    *(v146 + 24) = 0;
-    *(v146 + 32) = 1;
+    *v189 = 0xD00000000000001CLL;
+    *(v189 + 8) = 0x8000000184DEA6D0;
+    *(v189 + 16) = 0;
+    *(v189 + 24) = 0;
+    *(v189 + 32) = 1;
     swift_willThrow();
-    outlined destroy of PgQuery_ParseResult(v391, type metadata accessor for PlanResources);
-    _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v147 = v143;
+    outlined destroy of PgQuery_ParseResult(v422, type metadata accessor for PlanResources);
+    _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v190 = v186;
 LABEL_12:
-    _s10Foundation4UUIDVSgWOhTm_0(v147, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    v139 = type metadata accessor for PgQuery_Node;
-    v140 = v382;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
+    _s10Foundation4UUIDVSgWOhTm_0(v190, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    v182 = type metadata accessor for PgQuery_Node;
+    v183 = v413;
+    return outlined destroy of PgQuery_ParseResult(v183, v182);
   }
 
-  v154 = v334;
-  outlined init with take of PgQuery_ParseResult(v145, v334, type metadata accessor for PgQuery_RangeVar);
-  v155 = v391;
-  v396[0] = *v391;
+  v197 = v365;
+  outlined init with take of PgQuery_ParseResult(v188, v365, type metadata accessor for PgQuery_RangeVar);
+  v198 = v422;
+  v427[0] = *v422;
 
-  v156 = v380;
-  static Schema.lookup(rangeVar:catalog:)(v154, v396, &v406);
-  v157 = v156;
-  v158 = v331;
-  if (v156)
+  v199 = v411;
+  static Schema.lookup(rangeVar:catalog:)(v197, v427, &v437);
+  v200 = v199;
+  v201 = v362;
+  if (v199)
   {
 
-    outlined destroy of PgQuery_ParseResult(v155, type metadata accessor for PlanResources);
+    outlined destroy of PgQuery_ParseResult(v198, type metadata accessor for PlanResources);
 
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v147 = v385;
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_RangeVar);
+    _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v190 = v416;
     goto LABEL_12;
   }
 
-  v316 = v135;
+  v347 = v178;
 
-  v159 = v406;
-  v160 = v407;
-  v387 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
-  v161 = swift_allocObject();
-  *(v161 + 16) = xmmword_184D29AA0;
-  RangeVar = v159;
-  *(v161 + 32) = v159;
-  *(v161 + 48) = v160;
-  v410 = 0u;
-  v411 = 0u;
-  v408 = 0u;
-  v409 = 0u;
-  v406 = 0u;
-  v407 = 0u;
-  v162 = *(v158 + 16);
-  v163 = v383;
-  if (v162 < v333)
+  v202 = v437;
+  v203 = v438;
+  v418 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
+  v204 = swift_allocObject();
+  *(v204 + 16) = xmmword_184D29AA0;
+  RangeVar = v202;
+  *(v204 + 32) = v202;
+  *(v204 + 48) = v203;
+  v441 = 0u;
+  v442 = 0u;
+  v439 = 0u;
+  v440 = 0u;
+  v437 = 0u;
+  v438 = 0u;
+  v205 = *(v201 + 16);
+  v206 = v414;
+  if (v205 < v364)
   {
     __break(1u);
     goto LABEL_78;
   }
 
-  v164 = v161;
-  v165 = v316;
-  if (v333 != 2)
+  v207 = v204;
+  v208 = v347;
+  if (v364 != 2)
   {
 
-    outlined destroy of PgQuery_ParseResult(v155, type metadata accessor for PlanResources);
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    _s10Foundation4UUIDVSgWOhTm_0(v163, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    result = outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v198, type metadata accessor for PlanResources);
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_RangeVar);
+    _s10Foundation4UUIDVSgWOhTm_0(v206, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    result = outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
     goto LABEL_19;
   }
 
-  v381 = xmmword_184D29AA0;
-  v166 = v376;
-  outlined init with copy of PgQuery_ScanResult(v329 + *(v332 + 72), v376, type metadata accessor for PgQuery_Node);
-  v167 = v379;
-  outlined init with copy of PgQuery_Alias?(*(v166 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v379, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v412 = xmmword_184D29AA0;
+  v209 = v407;
+  outlined init with copy of PgQuery_ScanResult(v360 + *(v363 + 72), v407, type metadata accessor for PgQuery_Node);
+  v210 = v410;
+  outlined init with copy of PgQuery_Alias?(*(v209 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v410, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
 
-  outlined destroy of PgQuery_ParseResult(v166, type metadata accessor for PgQuery_Node);
-  if (v165(v167, 1, v388) == 1)
+  outlined destroy of PgQuery_ParseResult(v209, type metadata accessor for PgQuery_Node);
+  if (v208(v210, 1, v419) == 1)
   {
 
-    outlined destroy of PgQuery_ParseResult(v391, type metadata accessor for PlanResources);
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
-    result = _s10Foundation4UUIDVSgWOhTm_0(v379, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of PgQuery_ParseResult(v422, type metadata accessor for PlanResources);
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_RangeVar);
+    _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
+    result = _s10Foundation4UUIDVSgWOhTm_0(v410, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
 LABEL_19:
-    v168 = v378;
-    *v378 = v164;
-    v169 = v409;
-    *(v168 + 5) = v408;
-    *(v168 + 7) = v169;
-    v170 = v411;
-    *(v168 + 9) = v410;
-    *(v168 + 11) = v170;
-    v171 = v407;
-    *(v168 + 1) = v406;
-    *(v168 + 3) = v171;
+    v211 = v409;
+    *v409 = v207;
+    v212 = v440;
+    *(v211 + 5) = v439;
+    *(v211 + 7) = v212;
+    v213 = v442;
+    *(v211 + 9) = v441;
+    *(v211 + 11) = v213;
+    v214 = v438;
+    *(v211 + 1) = v437;
+    *(v211 + 3) = v214;
     return result;
   }
 
-  v386 = v160;
-  v384 = *(&v159 + 1);
-  v380 = v164;
-  v376 = 0;
-  v172 = v375;
-  outlined init with take of PgQuery_ParseResult(v379, v375, type metadata accessor for PgQuery_Node.OneOf_Node);
-  v173 = v372;
-  v174 = v373;
-  v175 = *(v372 + 56);
-  v176 = v374;
-  v175(v374, 1, 1, v373);
-  outlined init with copy of PgQuery_ScanResult(v172, v377, type metadata accessor for PgQuery_Node.OneOf_Node);
+  v417 = v203;
+  v415 = *(&v202 + 1);
+  v411 = v207;
+  v407 = 0;
+  v215 = v406;
+  outlined init with take of PgQuery_ParseResult(v410, v406, type metadata accessor for PgQuery_Node.OneOf_Node);
+  v216 = v403;
+  v217 = v404;
+  v218 = *(v403 + 56);
+  v219 = v405;
+  v218(v405, 1, 1, v404);
+  outlined init with copy of PgQuery_ScanResult(v215, v408, type metadata accessor for PgQuery_Node.OneOf_Node);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v178 = v391;
+  v221 = v422;
   if (EnumCaseMultiPayload != 182)
   {
 
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v181 = 0xD000000000000030;
-    *(v181 + 8) = 0x8000000184DEA6F0;
-    *(v181 + 16) = 0;
-    *(v181 + 24) = 0;
-    *(v181 + 32) = 1;
+    *v224 = 0xD000000000000030;
+    *(v224 + 8) = 0x8000000184DEA6F0;
+    *(v224 + 16) = 0;
+    *(v224 + 24) = 0;
+    *(v224 + 32) = 1;
     swift_willThrow();
 
-    outlined destroy of PgQuery_ParseResult(v178, type metadata accessor for PlanResources);
-    _s10Foundation4UUIDVSgWOhTm_0(v176, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v172, type metadata accessor for PgQuery_Node.OneOf_Node);
-    _s10Foundation4UUIDVSgWOhTm_0(&v406, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v334, type metadata accessor for PgQuery_RangeVar);
-    _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
-    v140 = v377;
-    v139 = type metadata accessor for PgQuery_Node.OneOf_Node;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
+    outlined destroy of PgQuery_ParseResult(v221, type metadata accessor for PlanResources);
+    _s10Foundation4UUIDVSgWOhTm_0(v219, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v215, type metadata accessor for PgQuery_Node.OneOf_Node);
+    _s10Foundation4UUIDVSgWOhTm_0(&v437, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PgQuery_RangeVar);
+    _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
+    v183 = v408;
+    v182 = type metadata accessor for PgQuery_Node.OneOf_Node;
+    return outlined destroy of PgQuery_ParseResult(v183, v182);
   }
 
-  _s10Foundation4UUIDVSgWOhTm_0(v176, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  outlined init with take of PgQuery_ParseResult(v377, v176, type metadata accessor for PgQuery_RangeFunction);
-  v175(v176, 0, 1, v174);
-  v179 = v371;
-  outlined init with copy of PgQuery_Alias?(v176, v371, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  v180 = v176;
-  if ((*(v173 + 48))(v179, 1, v174) == 1)
+  _s10Foundation4UUIDVSgWOhTm_0(v219, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  outlined init with take of PgQuery_ParseResult(v408, v219, type metadata accessor for PgQuery_RangeFunction);
+  v218(v219, 0, 1, v217);
+  v222 = v402;
+  outlined init with copy of PgQuery_Alias?(v219, v402, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  v223 = v219;
+  if ((*(v216 + 48))(v222, 1, v217) == 1)
   {
 
-    _s10Foundation4UUIDVSgWOhTm_0(v179, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v222, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
 LABEL_28:
-    v190 = v382;
-    v191 = v385;
-    v192 = v375;
+    v233 = v413;
+    v234 = v416;
+    v235 = v406;
 LABEL_57:
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v212 = 0xD000000000000030;
-    *(v212 + 8) = 0x8000000184DEA6F0;
-    *(v212 + 16) = 0;
-    *(v212 + 24) = 0;
-    *(v212 + 32) = 1;
+    *v253 = 0xD000000000000030;
+    *(v253 + 8) = 0x8000000184DEA6F0;
+    *(v253 + 16) = 0;
+    *(v253 + 24) = 0;
+    *(v253 + 32) = 1;
     swift_willThrow();
 
-    outlined destroy of PgQuery_ParseResult(v178, type metadata accessor for PlanResources);
-    _s10Foundation4UUIDVSgWOhTm_0(v180, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v192, type metadata accessor for PgQuery_Node.OneOf_Node);
-    _s10Foundation4UUIDVSgWOhTm_0(&v406, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v334, type metadata accessor for PgQuery_RangeVar);
-    _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    _s10Foundation4UUIDVSgWOhTm_0(v191, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    v139 = type metadata accessor for PgQuery_Node;
-    v140 = v190;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
+    outlined destroy of PgQuery_ParseResult(v221, type metadata accessor for PlanResources);
+    _s10Foundation4UUIDVSgWOhTm_0(v223, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v235, type metadata accessor for PgQuery_Node.OneOf_Node);
+    _s10Foundation4UUIDVSgWOhTm_0(&v437, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PgQuery_RangeVar);
+    _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v234, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    v182 = type metadata accessor for PgQuery_Node;
+    v183 = v233;
+    return outlined destroy of PgQuery_ParseResult(v183, v182);
   }
 
-  v182 = v179;
-  v183 = v370;
-  outlined init with take of PgQuery_ParseResult(v182, v370, type metadata accessor for PgQuery_RangeFunction);
-  v184 = *(v183 + 8);
-  if (*(v184 + 16) != 1)
+  v225 = v222;
+  v226 = v401;
+  outlined init with take of PgQuery_ParseResult(v225, v401, type metadata accessor for PgQuery_RangeFunction);
+  v227 = *(v226 + 8);
+  if (*(v227 + 16) != 1)
   {
 
-    outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_RangeFunction);
+    outlined destroy of PgQuery_ParseResult(v226, type metadata accessor for PgQuery_RangeFunction);
     goto LABEL_28;
   }
 
-  v185 = v328;
-  outlined init with copy of PgQuery_ScanResult(v184 + v327, v328, type metadata accessor for PgQuery_Node);
-  v155 = *(v185 + *(v330 + 20));
-  v157 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v186 = v366;
-  outlined init with copy of PgQuery_Alias?(v155 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v366, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v187 = v316(v186, 1, v388);
-  v145 = MEMORY[0x1E69E7CC0];
-  if (v187 == 1)
+  v228 = v359;
+  outlined init with copy of PgQuery_ScanResult(v227 + v358, v359, type metadata accessor for PgQuery_Node);
+  v198 = *(v228 + *(v361 + 20));
+  v200 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
+  v229 = v397;
+  outlined init with copy of PgQuery_Alias?(v198 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v397, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v230 = v347(v229, 1, v419);
+  v188 = MEMORY[0x1E69E7CC0];
+  if (v230 == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v186, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v189 = v367;
-    v188 = v368;
+    _s10Foundation4UUIDVSgWOhTm_0(v229, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v232 = v398;
+    v231 = v399;
   }
 
   else
   {
-    v193 = swift_getEnumCaseMultiPayload() == 225;
-    v194 = v186;
-    v189 = v367;
-    v188 = v368;
-    if (v193)
+    v236 = swift_getEnumCaseMultiPayload() == 225;
+    v237 = v229;
+    v232 = v398;
+    v231 = v399;
+    if (v236)
     {
-      outlined init with take of PgQuery_ParseResult(v194, v368, type metadata accessor for PgQuery_List);
+      outlined init with take of PgQuery_ParseResult(v237, v399, type metadata accessor for PgQuery_List);
       goto LABEL_33;
     }
 
-    outlined destroy of PgQuery_ParseResult(v194, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v237, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  *v188 = v145;
-  v195 = v188 + *(List + 20);
+  *v231 = v188;
   UnknownStorage.init()();
 LABEL_33:
-  v196 = *v188;
+  v238 = *v231;
 
-  outlined destroy of PgQuery_ParseResult(v188, type metadata accessor for PgQuery_List);
-  v197 = *(v196 + 16);
+  outlined destroy of PgQuery_ParseResult(v231, type metadata accessor for PgQuery_List);
+  v239 = *(v238 + 16);
 
-  if (v197 != 2)
+  if (v239 != 2)
   {
     goto LABEL_54;
   }
 
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v189, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v189, 1, v388) == 1)
+  outlined init with copy of PgQuery_Alias?(v198 + v200, v232, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v232, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v189, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v232, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 225)
     {
-      v198 = v363;
-      outlined init with take of PgQuery_ParseResult(v189, v363, type metadata accessor for PgQuery_List);
+      v240 = v394;
+      outlined init with take of PgQuery_ParseResult(v232, v394, type metadata accessor for PgQuery_List);
       goto LABEL_41;
     }
 
-    outlined destroy of PgQuery_ParseResult(v189, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v232, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v198 = v363;
-  *v363 = v145;
-  v199 = v198 + *(List + 20);
+  v240 = v394;
+  *v394 = v188;
   UnknownStorage.init()();
 LABEL_41:
-  v200 = v198;
-  v201 = *v198;
+  v241 = v240;
+  v242 = *v240;
 
-  outlined destroy of PgQuery_ParseResult(v200, type metadata accessor for PgQuery_List);
-  if (!*(v201 + 16))
+  outlined destroy of PgQuery_ParseResult(v241, type metadata accessor for PgQuery_List);
+  if (!*(v242 + 16))
   {
 
 LABEL_54:
 
-    outlined destroy of PgQuery_ParseResult(v328, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v359, type metadata accessor for PgQuery_Node);
 
-    v211 = v183;
+    v252 = v226;
 LABEL_55:
-    outlined destroy of PgQuery_ParseResult(v211, type metadata accessor for PgQuery_RangeFunction);
+    outlined destroy of PgQuery_ParseResult(v252, type metadata accessor for PgQuery_RangeFunction);
 LABEL_56:
-    v178 = v391;
-    v190 = v382;
-    v191 = v385;
-    v180 = v374;
-    v192 = v375;
+    v221 = v422;
+    v233 = v413;
+    v234 = v416;
+    v223 = v405;
+    v235 = v406;
     goto LABEL_57;
   }
 
-  v202 = v364;
-  outlined init with copy of PgQuery_ScanResult(v201 + v327, v364, type metadata accessor for PgQuery_Node);
+  v243 = v395;
+  outlined init with copy of PgQuery_ScanResult(v242 + v358, v395, type metadata accessor for PgQuery_Node);
 
-  v203 = *(v202 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v204 = v362;
-  outlined init with copy of PgQuery_Alias?(v203, v362, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v204, 1, v388) == 1)
+  v244 = *(v243 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
+  v245 = v393;
+  outlined init with copy of PgQuery_Alias?(v244, v393, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v245, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v204, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v205 = v361;
+    _s10Foundation4UUIDVSgWOhTm_0(v245, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v246 = v392;
   }
 
   else
   {
-    v193 = swift_getEnumCaseMultiPayload() == 170;
-    v206 = v204;
-    v205 = v361;
-    if (v193)
+    v236 = swift_getEnumCaseMultiPayload() == 170;
+    v247 = v245;
+    v246 = v392;
+    if (v236)
     {
-      outlined init with take of PgQuery_ParseResult(v206, v361, type metadata accessor for PgQuery_FuncCall);
+      outlined init with take of PgQuery_ParseResult(v247, v392, type metadata accessor for PgQuery_FuncCall);
       goto LABEL_51;
     }
 
-    outlined destroy of PgQuery_ParseResult(v206, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v247, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
   UnknownStorage.init()();
-  v207 = *(v365 + 20);
+  v248 = *(v396 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(v205 + v207) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+  *(v246 + v248) = static PgQuery_FuncCall._StorageClass.defaultInstance;
 
 LABEL_51:
-  outlined destroy of PgQuery_ParseResult(v364, type metadata accessor for PgQuery_Node);
-  v208 = *(*(v205 + *(v365 + 20)) + 16);
+  outlined destroy of PgQuery_ParseResult(v395, type metadata accessor for PgQuery_Node);
+  v249 = *(*(v246 + *(v396 + 20)) + 16);
 
-  outlined destroy of PgQuery_ParseResult(v205, type metadata accessor for PgQuery_FuncCall);
-  v209 = *(v208 + 16);
+  outlined destroy of PgQuery_ParseResult(v246, type metadata accessor for PgQuery_FuncCall);
+  v250 = *(v249 + 16);
 
-  if (v209 != 1)
+  if (v250 != 1)
   {
     goto LABEL_54;
   }
 
-  v210 = v359;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v359, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v210, 1, v388) == 1)
+  v251 = v390;
+  outlined init with copy of PgQuery_Alias?(v198 + v200, v390, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v251, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v210, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v251, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 225)
     {
-      v213 = v360;
-      outlined init with take of PgQuery_ParseResult(v210, v360, type metadata accessor for PgQuery_List);
+      v254 = v391;
+      outlined init with take of PgQuery_ParseResult(v251, v391, type metadata accessor for PgQuery_List);
       goto LABEL_62;
     }
 
-    outlined destroy of PgQuery_ParseResult(v210, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v251, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v213 = v360;
-  *v360 = v145;
-  v214 = v213 + *(List + 20);
+  v254 = v391;
+  *v391 = v188;
   UnknownStorage.init()();
 LABEL_62:
-  v215 = *v213;
+  v255 = *v254;
 
-  outlined destroy of PgQuery_ParseResult(v213, type metadata accessor for PgQuery_List);
-  if (!*(v215 + 16))
+  outlined destroy of PgQuery_ParseResult(v254, type metadata accessor for PgQuery_List);
+  if (!*(v255 + 16))
   {
 LABEL_74:
 
 LABEL_120:
 
-    outlined destroy of PgQuery_ParseResult(v328, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v359, type metadata accessor for PgQuery_Node);
 
-    v211 = v370;
+    v252 = v401;
     goto LABEL_55;
   }
 
-  v216 = v326;
-  outlined init with copy of PgQuery_ScanResult(v215 + v327, v326, type metadata accessor for PgQuery_Node);
+  v256 = v357;
+  outlined init with copy of PgQuery_ScanResult(v255 + v358, v357, type metadata accessor for PgQuery_Node);
 
-  v217 = v357;
-  outlined init with copy of PgQuery_Alias?(*(v216 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v217, 1, v388) == 1)
+  v257 = v388;
+  outlined init with copy of PgQuery_Alias?(*(v256 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v388, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v257, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v217, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v257, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 170)
     {
-      v218 = v354;
-      outlined init with take of PgQuery_ParseResult(v357, v354, type metadata accessor for PgQuery_FuncCall);
+      v258 = v385;
+      outlined init with take of PgQuery_ParseResult(v388, v385, type metadata accessor for PgQuery_FuncCall);
       goto LABEL_71;
     }
 
-    outlined destroy of PgQuery_ParseResult(v357, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v388, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v218 = v354;
+  v258 = v385;
   UnknownStorage.init()();
-  v219 = *(v365 + 20);
+  v259 = *(v396 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(v218 + v219) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+  *(v258 + v259) = static PgQuery_FuncCall._StorageClass.defaultInstance;
 
 LABEL_71:
-  outlined destroy of PgQuery_ParseResult(v326, type metadata accessor for PgQuery_Node);
-  v220 = *(*(v218 + *(v365 + 20)) + 16);
+  outlined destroy of PgQuery_ParseResult(v357, type metadata accessor for PgQuery_Node);
+  v260 = *(*(v258 + *(v396 + 20)) + 16);
 
-  outlined destroy of PgQuery_ParseResult(v218, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v220 + 16))
+  outlined destroy of PgQuery_ParseResult(v258, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v260 + 16))
   {
     goto LABEL_74;
   }
 
-  v221 = v325;
-  outlined init with copy of PgQuery_ScanResult(v220 + v327, v325, type metadata accessor for PgQuery_Node);
+  v261 = v356;
+  outlined init with copy of PgQuery_ScanResult(v260 + v358, v356, type metadata accessor for PgQuery_Node);
 
-  v222 = v358;
-  outlined init with copy of PgQuery_Alias?(*(v221 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v358, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v222, 1, v388) == 1)
+  v262 = v389;
+  outlined init with copy of PgQuery_Alias?(*(v261 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v389, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v262, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v358, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v389, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
 LABEL_79:
-    v223 = v356;
-    *v356 = 0;
-    v223[1] = 0xE000000000000000;
-    v224 = v223 + *(String + 20);
+    v263 = v387;
+    *v387 = 0;
+    v263[1] = 0xE000000000000000;
     UnknownStorage.init()();
     goto LABEL_80;
   }
@@ -9157,27 +5455,27 @@ LABEL_79:
   if (swift_getEnumCaseMultiPayload() != 222)
   {
 LABEL_78:
-    outlined destroy of PgQuery_ParseResult(v358, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v389, type metadata accessor for PgQuery_Node.OneOf_Node);
     goto LABEL_79;
   }
 
-  outlined init with take of PgQuery_ParseResult(v358, v356, type metadata accessor for PgQuery_String);
+  outlined init with take of PgQuery_ParseResult(v389, v387, type metadata accessor for PgQuery_String);
 LABEL_80:
-  outlined destroy of PgQuery_ParseResult(v325, type metadata accessor for PgQuery_Node);
-  v225 = v356;
-  v227 = *v356;
-  v226 = v356[1];
+  outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+  v264 = v387;
+  v266 = *v387;
+  v265 = v387[1];
 
-  outlined destroy of PgQuery_ParseResult(v225, type metadata accessor for PgQuery_String);
-  if (v227 == 0x6361655F6E6F736ALL && v226 == 0xE900000000000068)
+  outlined destroy of PgQuery_ParseResult(v264, type metadata accessor for PgQuery_String);
+  if (v266 == 0x6361655F6E6F736ALL && v265 == 0xE900000000000068)
   {
   }
 
   else
   {
-    v228 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v267 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v228 & 1) == 0)
+    if ((v267 & 1) == 0)
     {
 LABEL_119:
 
@@ -9185,444 +5483,436 @@ LABEL_119:
     }
   }
 
-  v229 = v355;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v355, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v229, 1, v388) == 1)
+  v268 = v386;
+  outlined init with copy of PgQuery_Alias?(v198 + v200, v386, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v268, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v355, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v386, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 225)
     {
-      outlined init with take of PgQuery_ParseResult(v355, v353, type metadata accessor for PgQuery_List);
+      outlined init with take of PgQuery_ParseResult(v386, v384, type metadata accessor for PgQuery_List);
       goto LABEL_90;
     }
 
-    outlined destroy of PgQuery_ParseResult(v355, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v386, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v230 = v353;
-  *v353 = v145;
-  v231 = v230 + *(List + 20);
+  *v384 = v188;
   UnknownStorage.init()();
 LABEL_90:
-  v232 = v353;
-  v233 = *v353;
+  v269 = v384;
+  v270 = *v384;
 
-  outlined destroy of PgQuery_ParseResult(v232, type metadata accessor for PgQuery_List);
-  if (!*(v233 + 16))
+  outlined destroy of PgQuery_ParseResult(v269, type metadata accessor for PgQuery_List);
+  if (!*(v270 + 16))
   {
 LABEL_118:
 
     goto LABEL_119;
   }
 
-  v234 = v324;
-  outlined init with copy of PgQuery_ScanResult(v233 + v327, v324, type metadata accessor for PgQuery_Node);
+  v271 = v355;
+  outlined init with copy of PgQuery_ScanResult(v270 + v358, v355, type metadata accessor for PgQuery_Node);
 
-  v235 = v351;
-  outlined init with copy of PgQuery_Alias?(*(v234 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v351, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v235, 1, v388) == 1)
+  v272 = v382;
+  outlined init with copy of PgQuery_Alias?(*(v271 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v272, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v351, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 170)
     {
-      outlined init with take of PgQuery_ParseResult(v351, v352, type metadata accessor for PgQuery_FuncCall);
+      outlined init with take of PgQuery_ParseResult(v382, v383, type metadata accessor for PgQuery_FuncCall);
       goto LABEL_99;
     }
 
-    outlined destroy of PgQuery_ParseResult(v351, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
   UnknownStorage.init()();
-  v236 = *(v365 + 20);
+  v273 = *(v396 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(v352 + v236) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+  *(v383 + v273) = static PgQuery_FuncCall._StorageClass.defaultInstance;
 
 LABEL_99:
-  outlined destroy of PgQuery_ParseResult(v324, type metadata accessor for PgQuery_Node);
-  v237 = v352;
-  v238 = *(*(v352 + *(v365 + 20)) + 24);
+  outlined destroy of PgQuery_ParseResult(v355, type metadata accessor for PgQuery_Node);
+  v274 = v383;
+  v275 = *(*(v383 + *(v396 + 20)) + 24);
 
-  outlined destroy of PgQuery_ParseResult(v237, type metadata accessor for PgQuery_FuncCall);
-  v239 = *(v238 + 16);
+  outlined destroy of PgQuery_ParseResult(v274, type metadata accessor for PgQuery_FuncCall);
+  v276 = *(v275 + 16);
 
-  if (v239 != 1)
+  if (v276 != 1)
   {
     goto LABEL_119;
   }
 
-  v240 = v349;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v349, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v240, 1, v388) == 1)
+  v277 = v380;
+  outlined init with copy of PgQuery_Alias?(v198 + v200, v380, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v277, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v349, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v380, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 225)
     {
-      outlined init with take of PgQuery_ParseResult(v349, v348, type metadata accessor for PgQuery_List);
+      outlined init with take of PgQuery_ParseResult(v380, v379, type metadata accessor for PgQuery_List);
       goto LABEL_106;
     }
 
-    outlined destroy of PgQuery_ParseResult(v349, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v380, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v241 = v348;
-  *v348 = v145;
-  v242 = v241 + *(List + 20);
+  *v379 = v188;
   UnknownStorage.init()();
 LABEL_106:
-  v243 = v348;
-  v244 = *v348;
+  v278 = v379;
+  v279 = *v379;
 
-  outlined destroy of PgQuery_ParseResult(v243, type metadata accessor for PgQuery_List);
-  if (!*(v244 + 16))
+  outlined destroy of PgQuery_ParseResult(v278, type metadata accessor for PgQuery_List);
+  if (!*(v279 + 16))
   {
     goto LABEL_118;
   }
 
-  v245 = v323;
-  outlined init with copy of PgQuery_ScanResult(v244 + v327, v323, type metadata accessor for PgQuery_Node);
+  v280 = v354;
+  outlined init with copy of PgQuery_ScanResult(v279 + v358, v354, type metadata accessor for PgQuery_Node);
 
-  v246 = v346;
-  outlined init with copy of PgQuery_Alias?(*(v245 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v346, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v246, 1, v388) == 1)
+  v281 = v377;
+  outlined init with copy of PgQuery_Alias?(*(v280 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v377, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v281, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v346, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v377, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 170)
     {
-      outlined init with take of PgQuery_ParseResult(v346, v347, type metadata accessor for PgQuery_FuncCall);
+      outlined init with take of PgQuery_ParseResult(v377, v378, type metadata accessor for PgQuery_FuncCall);
       goto LABEL_115;
     }
 
-    outlined destroy of PgQuery_ParseResult(v346, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v377, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
   UnknownStorage.init()();
-  v247 = *(v365 + 20);
+  v282 = *(v396 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(v347 + v247) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+  *(v378 + v282) = static PgQuery_FuncCall._StorageClass.defaultInstance;
 
 LABEL_115:
-  outlined destroy of PgQuery_ParseResult(v323, type metadata accessor for PgQuery_Node);
-  v248 = v347;
-  v249 = *(*(v347 + *(v365 + 20)) + 24);
+  outlined destroy of PgQuery_ParseResult(v354, type metadata accessor for PgQuery_Node);
+  v283 = v378;
+  v284 = *(*(v378 + *(v396 + 20)) + 24);
 
-  outlined destroy of PgQuery_ParseResult(v248, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v249 + 16))
+  outlined destroy of PgQuery_ParseResult(v283, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v284 + 16))
   {
     goto LABEL_118;
   }
 
-  v250 = v322;
-  outlined init with copy of PgQuery_ScanResult(v249 + v327, v322, type metadata accessor for PgQuery_Node);
+  v285 = v353;
+  outlined init with copy of PgQuery_ScanResult(v284 + v358, v353, type metadata accessor for PgQuery_Node);
 
-  v251 = v345;
-  outlined init with copy of PgQuery_Alias?(*(v250 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v345, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v251, 1, v388) == 1)
+  v286 = v376;
+  outlined init with copy of PgQuery_Alias?(*(v285 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v376, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v286, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v345, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v376, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 167)
     {
-      outlined init with take of PgQuery_ParseResult(v345, v344, type metadata accessor for PgQuery_ColumnRef);
+      outlined init with take of PgQuery_ParseResult(v376, v375, type metadata accessor for PgQuery_ColumnRef);
       goto LABEL_125;
     }
 
-    outlined destroy of PgQuery_ParseResult(v345, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v376, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v252 = v344;
-  *v344 = v145;
-  *(v252 + 2) = 0;
-  v253 = v252 + *(ColumnRef + 24);
+  v287 = v375;
+  *v375 = v188;
+  *(v287 + 2) = 0;
   UnknownStorage.init()();
 LABEL_125:
-  outlined destroy of PgQuery_ParseResult(v322, type metadata accessor for PgQuery_Node);
-  v254 = v344;
-  v255 = *v344;
+  outlined destroy of PgQuery_ParseResult(v353, type metadata accessor for PgQuery_Node);
+  v288 = v375;
+  v289 = *v375;
 
-  outlined destroy of PgQuery_ParseResult(v254, type metadata accessor for PgQuery_ColumnRef);
-  v256 = *(v255 + 16);
+  outlined destroy of PgQuery_ParseResult(v288, type metadata accessor for PgQuery_ColumnRef);
+  v290 = *(v289 + 16);
 
-  if (v256 != 1)
+  if (v290 != 1)
   {
     goto LABEL_119;
   }
 
-  v257 = v343;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v343, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v257, 1, v388) == 1)
+  v291 = v374;
+  outlined init with copy of PgQuery_Alias?(v198 + v200, v374, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v291, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v343, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v374, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 225)
     {
-      outlined init with take of PgQuery_ParseResult(v343, v321, type metadata accessor for PgQuery_List);
+      outlined init with take of PgQuery_ParseResult(v374, v352, type metadata accessor for PgQuery_List);
       goto LABEL_132;
     }
 
-    outlined destroy of PgQuery_ParseResult(v343, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v374, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v258 = v321;
-  *v321 = v145;
-  v259 = v258 + *(List + 20);
+  *v352 = v188;
   UnknownStorage.init()();
 LABEL_132:
-  v260 = v321;
-  v261 = *v321;
+  v292 = v352;
+  v293 = *v352;
 
-  outlined destroy of PgQuery_ParseResult(v260, type metadata accessor for PgQuery_List);
-  if (!*(v261 + 16))
+  outlined destroy of PgQuery_ParseResult(v292, type metadata accessor for PgQuery_List);
+  if (!*(v293 + 16))
   {
 LABEL_144:
 
-    (*(v332 + 56))(v342, 1, 1, v330);
+    (*(v363 + 56))(v373, 1, 1, v361);
 LABEL_154:
-    outlined destroy of PgQuery_ParseResult(v328, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v359, type metadata accessor for PgQuery_Node);
 
-    outlined destroy of PgQuery_ParseResult(v370, type metadata accessor for PgQuery_RangeFunction);
-    _s10Foundation4UUIDVSgWOhTm_0(v342, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    outlined destroy of PgQuery_ParseResult(v401, type metadata accessor for PgQuery_RangeFunction);
+    _s10Foundation4UUIDVSgWOhTm_0(v373, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
     goto LABEL_56;
   }
 
-  v262 = v320;
-  outlined init with copy of PgQuery_ScanResult(v261 + v327, v320, type metadata accessor for PgQuery_Node);
+  v294 = v351;
+  outlined init with copy of PgQuery_ScanResult(v293 + v358, v351, type metadata accessor for PgQuery_Node);
 
-  v263 = v339;
-  outlined init with copy of PgQuery_Alias?(*(v262 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v339, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v263, 1, v388) == 1)
+  v295 = v370;
+  outlined init with copy of PgQuery_Alias?(*(v294 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v370, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v295, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v339, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v370, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 170)
     {
-      outlined init with take of PgQuery_ParseResult(v339, v340, type metadata accessor for PgQuery_FuncCall);
+      outlined init with take of PgQuery_ParseResult(v370, v371, type metadata accessor for PgQuery_FuncCall);
       goto LABEL_141;
     }
 
-    outlined destroy of PgQuery_ParseResult(v339, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v370, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
   UnknownStorage.init()();
-  v264 = *(v365 + 20);
+  v296 = *(v396 + 20);
   if (one-time initialization token for defaultInstance != -1)
   {
     swift_once();
   }
 
-  *(v340 + v264) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+  *(v371 + v296) = static PgQuery_FuncCall._StorageClass.defaultInstance;
 
 LABEL_141:
-  outlined destroy of PgQuery_ParseResult(v320, type metadata accessor for PgQuery_Node);
-  v265 = v340;
-  v266 = *(*(v340 + *(v365 + 20)) + 24);
+  outlined destroy of PgQuery_ParseResult(v351, type metadata accessor for PgQuery_Node);
+  v297 = v371;
+  v298 = *(*(v371 + *(v396 + 20)) + 24);
 
-  outlined destroy of PgQuery_ParseResult(v265, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v266 + 16))
+  outlined destroy of PgQuery_ParseResult(v297, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v298 + 16))
   {
     goto LABEL_144;
   }
 
-  v267 = v319;
-  outlined init with copy of PgQuery_ScanResult(v266 + v327, v319, type metadata accessor for PgQuery_Node);
+  v299 = v350;
+  outlined init with copy of PgQuery_ScanResult(v298 + v358, v350, type metadata accessor for PgQuery_Node);
 
-  v268 = v338;
-  outlined init with copy of PgQuery_Alias?(*(v267 + *(v330 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v316(v268, 1, v388) == 1)
+  v300 = v369;
+  outlined init with copy of PgQuery_Alias?(*(v299 + *(v361 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v369, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v347(v300, 1, v419) == 1)
   {
-    _s10Foundation4UUIDVSgWOhTm_0(v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v369, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 167)
     {
-      outlined init with take of PgQuery_ParseResult(v338, v337, type metadata accessor for PgQuery_ColumnRef);
+      outlined init with take of PgQuery_ParseResult(v369, v368, type metadata accessor for PgQuery_ColumnRef);
       goto LABEL_149;
     }
 
-    outlined destroy of PgQuery_ParseResult(v338, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v369, type metadata accessor for PgQuery_Node.OneOf_Node);
   }
 
-  v269 = v337;
-  *v337 = v145;
-  *(v269 + 2) = 0;
-  v270 = v269 + *(ColumnRef + 24);
+  v301 = v368;
+  *v368 = v188;
+  *(v301 + 2) = 0;
   UnknownStorage.init()();
 LABEL_149:
-  outlined destroy of PgQuery_ParseResult(v319, type metadata accessor for PgQuery_Node);
-  v271 = v337;
-  v272 = *v337;
+  outlined destroy of PgQuery_ParseResult(v350, type metadata accessor for PgQuery_Node);
+  v302 = v368;
+  v303 = *v368;
 
-  outlined destroy of PgQuery_ParseResult(v271, type metadata accessor for PgQuery_ColumnRef);
-  if (*(v272 + 16))
+  outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_ColumnRef);
+  if (*(v303 + 16))
   {
-    outlined init with copy of PgQuery_ScanResult(v272 + v327, v342, type metadata accessor for PgQuery_Node);
-    v273 = 0;
+    outlined init with copy of PgQuery_ScanResult(v303 + v358, v373, type metadata accessor for PgQuery_Node);
+    v304 = 0;
   }
 
   else
   {
-    v273 = 1;
+    v304 = 1;
   }
 
-  v274 = v332;
-  v275 = v342;
-  v276 = v273;
-  v277 = v330;
-  (*(v332 + 56))(v342, v276, 1, v330);
-  if ((*(v274 + 48))(v275, 1, v277) == 1)
+  v305 = v363;
+  v306 = v373;
+  v307 = v304;
+  v308 = v361;
+  (*(v363 + 56))(v373, v307, 1, v361);
+  if ((*(v305 + 48))(v306, 1, v308) == 1)
   {
 
     goto LABEL_154;
   }
 
-  v278 = v317;
-  outlined init with take of PgQuery_ParseResult(v342, v317, type metadata accessor for PgQuery_Node);
-  outlined init with copy of PgQuery_ScanResult(v278, v318, type metadata accessor for PgQuery_Node);
-  v279 = swift_allocObject();
-  *(v279 + 16) = v381;
-  v280 = v384;
-  *(v279 + 32) = RangeVar;
-  *(v279 + 40) = v280;
-  *(v279 + 48) = v386;
-  v281 = type metadata accessor for PlanResources(0);
-  outlined init with copy of PgQuery_ScanResult(v391 + *(v281 + 20), v336, type metadata accessor for SQLTokenInformation);
+  v309 = v348;
+  outlined init with take of PgQuery_ParseResult(v373, v348, type metadata accessor for PgQuery_Node);
+  outlined init with copy of PgQuery_ScanResult(v309, v349, type metadata accessor for PgQuery_Node);
+  v310 = swift_allocObject();
+  *(v310 + 16) = v412;
+  v311 = v415;
+  *(v310 + 32) = RangeVar;
+  *(v310 + 40) = v311;
+  *(v310 + 48) = v417;
+  v312 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(v422 + *(v312 + 20), v367, type metadata accessor for SQLTokenInformation);
 
-  v283 = v376;
-  v284 = specialized ColumnResolver.init(schemas:)(v282);
-  if (!v283)
+  v314 = v407;
+  v315 = specialized ColumnResolver.init(schemas:)(v313);
+  if (!v314)
   {
-    v286 = v284;
-    v287 = v285;
+    v317 = v315;
+    v318 = v316;
 
-    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v318, v279, v286, v287, v336, v395);
-    v288 = 0x65756C6176;
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v349, v310, v317, v318, v367, v426);
+    v319 = 0x65756C6176;
 
-    outlined init with copy of Aggregation(v395, v394);
-    outlined init with copy of Aggregation(v394, v396);
-    v289 = v397;
-    v290 = v398;
-    __swift_project_boxed_opaque_existential_1(v396, v397);
-    v399 = (*(v290 + 8))(v289, v290);
-    v400 = v291;
-    v292 = v397;
-    v293 = v398;
-    __swift_project_boxed_opaque_existential_1(v396, v397);
-    (*(v293 + 16))(&v412, v292, v293);
-    v401 = v412;
-    v294 = v397;
-    v295 = v398;
-    __swift_project_boxed_opaque_existential_1(v396, v397);
-    v402 = (*(v295 + 24))(v294, v295);
-    v296 = v397;
-    v297 = v398;
-    __swift_project_boxed_opaque_existential_1(v396, v397);
-    v403 = (*(v297 + 32))(v296, v297);
-    v298 = v397;
-    v299 = v398;
-    __swift_project_boxed_opaque_existential_1(v396, v397);
-    v300 = (*(v299 + 40))(v298, v299);
-    v302 = v301;
-    __swift_destroy_boxed_opaque_existential_1Tm(v394);
-    __swift_destroy_boxed_opaque_existential_1Tm(v395);
-    outlined destroy of PgQuery_ParseResult(v336, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_Node);
-    _s10Foundation4UUIDVSgWOhTm_0(&v406, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    v404 = v300;
-    v405 = v302;
-    outlined init with copy of SQLExpression(v396, &v406);
-    v303 = v401;
-    v392[0] = 0x65756C6176;
-    v392[1] = 0xE500000000000000;
-    v393 = v401;
+    outlined init with copy of Aggregation(v426, v425);
+    outlined init with copy of Aggregation(v425, v427);
+    v320 = v428;
+    v321 = v429;
+    __swift_project_boxed_opaque_existential_1(v427, v428);
+    v430 = (*(v321 + 8))(v320, v321);
+    v431 = v322;
+    v323 = v428;
+    v324 = v429;
+    __swift_project_boxed_opaque_existential_1(v427, v428);
+    (*(v324 + 16))(&v443, v323, v324);
+    v432 = v443;
+    v325 = v428;
+    v326 = v429;
+    __swift_project_boxed_opaque_existential_1(v427, v428);
+    v433 = (*(v326 + 24))(v325, v326);
+    v327 = v428;
+    v328 = v429;
+    __swift_project_boxed_opaque_existential_1(v427, v428);
+    v434 = (*(v328 + 32))(v327, v328);
+    v329 = v428;
+    v330 = v429;
+    __swift_project_boxed_opaque_existential_1(v427, v428);
+    v331 = (*(v330 + 40))(v329, v330);
+    v333 = v332;
+    __swift_destroy_boxed_opaque_existential_1Tm(v425);
+    __swift_destroy_boxed_opaque_existential_1Tm(v426);
+    outlined destroy of PgQuery_ParseResult(v367, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v349, type metadata accessor for PgQuery_Node);
+    _s10Foundation4UUIDVSgWOhTm_0(&v437, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    v435 = v331;
+    v436 = v333;
+    outlined init with copy of SQLExpression(v427, &v437);
+    v334 = v432;
+    v423[0] = 0x65756C6176;
+    v423[1] = 0xE500000000000000;
+    v424 = v432;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-    v304 = static _DictionaryStorage.allocate(capacity:)();
+    v335 = static _DictionaryStorage.allocate(capacity:)();
 
-    _s10Foundation4UUIDVSgWOhTm_0(v392, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
-    v305 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
-    v307 = v306;
+    _s10Foundation4UUIDVSgWOhTm_0(v423, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
+    v336 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
+    v338 = v337;
 
-    if (v307)
+    if (v338)
     {
       __break(1u);
     }
 
     else
     {
-      v304[(v305 >> 6) + 8] |= 1 << v305;
-      v308 = (v304[6] + 16 * v305);
-      *v308 = 0x65756C6176;
-      v308[1] = 0xE500000000000000;
-      *(v304[7] + v305) = v303;
-      v309 = v304[2];
-      v310 = __OFADD__(v309, 1);
-      v311 = v309 + 1;
-      if (!v310)
+      v335[(v336 >> 6) + 8] |= 1 << v336;
+      v339 = (v335[6] + 16 * v336);
+      *v339 = 0x65756C6176;
+      v339[1] = 0xE500000000000000;
+      *(v335[7] + v336) = v334;
+      v340 = v335[2];
+      v341 = __OFADD__(v340, 1);
+      v342 = v340 + 1;
+      if (!v341)
       {
-        v304[2] = v311;
-        v307 = *(v380 + 16);
-        v288 = v307 + 1;
-        if (v307 < *(v380 + 24) >> 1)
+        v335[2] = v342;
+        v338 = *(v411 + 16);
+        v319 = v338 + 1;
+        if (v338 < *(v411 + 24) >> 1)
         {
 LABEL_160:
 
-          outlined destroy of PgQuery_ParseResult(v391, type metadata accessor for PlanResources);
-          outlined destroy of PgQuery_ParseResult(v317, type metadata accessor for PgQuery_Node);
-          _s10Foundation4UUIDVSgWOhTm_0(v374, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-          outlined destroy of PgQuery_ParseResult(v375, type metadata accessor for PgQuery_Node.OneOf_Node);
-          outlined destroy of PgQuery_ParseResult(v334, type metadata accessor for PgQuery_RangeVar);
-          _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-          _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-          outlined destroy of SQLExpression(v396);
-          v312 = v380;
-          *(v380 + 16) = v288;
-          v313 = (v312 + 24 * v307);
-          v164 = v312;
-          v313[4] = 0x6361655F6E6F736ALL;
-          v313[5] = 0xE900000000000068;
-          v313[6] = v304;
-          outlined destroy of PgQuery_ParseResult(v328, type metadata accessor for PgQuery_Node);
-          outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
-          result = outlined destroy of PgQuery_ParseResult(v370, type metadata accessor for PgQuery_RangeFunction);
+          outlined destroy of PgQuery_ParseResult(v422, type metadata accessor for PlanResources);
+          outlined destroy of PgQuery_ParseResult(v348, type metadata accessor for PgQuery_Node);
+          _s10Foundation4UUIDVSgWOhTm_0(v405, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+          outlined destroy of PgQuery_ParseResult(v406, type metadata accessor for PgQuery_Node.OneOf_Node);
+          outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PgQuery_RangeVar);
+          _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+          _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+          outlined destroy of SQLExpression(v427);
+          v343 = v411;
+          *(v411 + 16) = v319;
+          v344 = (v343 + 24 * v338);
+          v207 = v343;
+          v344[4] = 0x6361655F6E6F736ALL;
+          v344[5] = 0xE900000000000068;
+          v344[6] = v335;
+          outlined destroy of PgQuery_ParseResult(v359, type metadata accessor for PgQuery_Node);
+          outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
+          result = outlined destroy of PgQuery_ParseResult(v401, type metadata accessor for PgQuery_RangeFunction);
           goto LABEL_19;
         }
 
 LABEL_163:
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v380 = v314;
+        v411 = v345;
         goto LABEL_160;
       }
     }
@@ -9632,58 +5922,49 @@ LABEL_163:
   }
 
   swift_bridgeObjectRelease_n();
-  outlined destroy of PgQuery_ParseResult(v391, type metadata accessor for PlanResources);
-  outlined destroy of PgQuery_ParseResult(v336, type metadata accessor for SQLTokenInformation);
-  outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_ParseResult(v317, type metadata accessor for PgQuery_Node);
-  _s10Foundation4UUIDVSgWOhTm_0(v374, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  outlined destroy of PgQuery_ParseResult(v375, type metadata accessor for PgQuery_Node.OneOf_Node);
-  _s10Foundation4UUIDVSgWOhTm_0(&v406, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-  outlined destroy of PgQuery_ParseResult(v334, type metadata accessor for PgQuery_RangeVar);
-  _s10Foundation4UUIDVSgWOhTm_0(v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  _s10Foundation4UUIDVSgWOhTm_0(v385, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined destroy of PgQuery_ParseResult(v328, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v422, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v367, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v349, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v348, type metadata accessor for PgQuery_Node);
+  _s10Foundation4UUIDVSgWOhTm_0(v405, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  outlined destroy of PgQuery_ParseResult(v406, type metadata accessor for PgQuery_Node.OneOf_Node);
+  _s10Foundation4UUIDVSgWOhTm_0(&v437, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PgQuery_RangeVar);
+  _s10Foundation4UUIDVSgWOhTm_0(v414, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  _s10Foundation4UUIDVSgWOhTm_0(v416, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  outlined destroy of PgQuery_ParseResult(v359, type metadata accessor for PgQuery_Node);
 
-  outlined destroy of PgQuery_ParseResult(v382, type metadata accessor for PgQuery_Node);
-  return outlined destroy of PgQuery_ParseResult(v370, type metadata accessor for PgQuery_RangeFunction);
+  outlined destroy of PgQuery_ParseResult(v413, type metadata accessor for PgQuery_Node);
+  return outlined destroy of PgQuery_ParseResult(v401, type metadata accessor for PgQuery_RangeFunction);
 }
 
-unint64_t specialized Collection.dropFirst(_:)(unint64_t result, uint64_t a2)
+uint64_t specialized Collection.dropFirst(_:)(uint64_t result, uint64_t a2)
 {
-  if ((result & 0x8000000000000000) != 0)
+  if (result < 0)
   {
     __break(1u);
   }
 
   else
   {
-    if (*(a2 + 16) < result)
-    {
-      v3 = *(a2 + 16);
-    }
-
-    v4 = *(type metadata accessor for PgQuery_ScanToken(0) - 8);
-    v5 = a2 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+    type metadata accessor for PgQuery_ScanToken(0);
     return a2;
   }
 
   return result;
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance FromClause.CodingKeys()
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance FromClause.CodingKeys()
 {
   if (*v0)
   {
-    result = 0xD000000000000012;
+    return 0xD000000000000012;
   }
 
   else
   {
-    result = 0x73616D65686373;
+    return 0x73616D65686373;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromClause.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -9739,21 +6020,19 @@ uint64_t FromClause.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser10FromClauseV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser10FromClauseV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12[-v8];
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = &v11[-v8];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FromClause.CodingKeys and conformance FromClause.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v13 = *v3;
-  v12[7] = 0;
+  v12 = *v3;
+  v11[7] = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser6SchemaVGMd, &_sSay14BiomeSQLParser6SchemaVGMR);
   lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [Schema] and conformance <A> [A], &_sSay14BiomeSQLParser6SchemaVGMd, &_sSay14BiomeSQLParser6SchemaVGMR, lazy protocol witness table accessor for type Schema and conformance Schema);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v12[6] = 1;
+    v11[6] = 1;
     lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   }
@@ -9764,7 +6043,6 @@ uint64_t FromClause.encode(to:)(void *a1)
 uint64_t ResultColumn.documentation.getter()
 {
   v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
 
   return v1;
 }
@@ -9788,242 +6066,233 @@ __n128 ResultColumn.init(expression:alias:documentation:)@<Q0>(uint64_t a1@<X0>,
   return result;
 }
 
-unint64_t ResultColumn.init(node:schemas:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+unint64_t ResultColumn.init(node:schemas:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
 {
-  v201 = a3;
-  v200 = a2;
-  v192 = a4;
-  v194 = type metadata accessor for CharacterSet();
-  v183 = *(v194 - 8);
-  v5 = *(v183 + 64);
-  MEMORY[0x1EEE9AC00](v194);
-  v193 = &v181 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v199 = a3;
+  v198 = a2;
+  v190 = a4;
+  v192 = type metadata accessor for CharacterSet();
+  v181 = *(v192 - 8);
+  MEMORY[0x1EEE9AC00](v192, v5);
+  v191 = &v179 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   ScanToken = type metadata accessor for PgQuery_ScanToken(0);
-  v188 = *(ScanToken - 8);
-  v8 = *(v188 + 8);
-  v9 = MEMORY[0x1EEE9AC00](ScanToken - 8);
-  v187 = &v181 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v186 = &v181 - v11;
-  v184 = type metadata accessor for SQLTokenInformation(0);
-  v12 = *(*(v184 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v184);
-  v189 = &v181 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v14 - 8);
-  v191 = &v181 - v16;
+  v186 = *(ScanToken - 8);
+  v9 = MEMORY[0x1EEE9AC00](ScanToken - 8, v8);
+  v185 = &v179 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9, v11);
+  v184 = &v179 - v12;
+  v182 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x1EEE9AC00](v182, v13);
+  v187 = &v179 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x1EEE9AC00](v15 - 8, v16);
+  v189 = &v179 - v17;
   Node = type metadata accessor for PgQuery_Node(0);
-  v190 = *(Node - 8);
-  v18 = *(v190 + 64);
-  v19 = MEMORY[0x1EEE9AC00](Node);
-  v21 = &v181 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v195 = (&v181 - v22);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v23 - 8);
-  v185 = &v181 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
-  v27 = *(*(v26 - 8) + 64);
-  v28 = MEMORY[0x1EEE9AC00](v26 - 8);
-  v30 = (&v181 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v28);
-  v32 = &v181 - v31;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v34 = *(*(v33 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v33 - 8);
-  v36 = &v181 - v35;
+  v188 = *(Node - 8);
+  v20 = MEMORY[0x1EEE9AC00](Node, v19);
+  v22 = &v179 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20, v23);
+  v193 = &v179 - v24;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v25 - 8, v26);
+  v183 = &v179 - v27;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
+  v30 = MEMORY[0x1EEE9AC00](v28 - 8, v29);
+  v32 = (&v179 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v30, v33);
+  v35 = &v179 - v34;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  MEMORY[0x1EEE9AC00](v36 - 8, v37);
+  v39 = &v179 - v38;
   ResTarget = type metadata accessor for PgQuery_ResTarget(0);
-  v38 = *(*(ResTarget - 8) + 64);
-  MEMORY[0x1EEE9AC00](ResTarget);
-  v197 = &v181 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v198 = Node;
-  v40 = *(Node + 20);
-  v199 = a1;
-  outlined init with copy of PgQuery_Alias?(*(a1 + v40) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v36, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v41 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  if ((*(*(v41 - 8) + 48))(v36, 1, v41) == 1)
+  MEMORY[0x1EEE9AC00](ResTarget, v41);
+  v195 = &v179 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v196 = Node;
+  v43 = *(Node + 20);
+  v197 = a1;
+  outlined init with copy of PgQuery_Alias?(*(a1 + v43) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v39, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v44 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  if ((*(*(v44 - 8) + 48))(v39, 1, v44) == 1)
   {
 
-    _s10Foundation4UUIDVSgWOhTm_0(v36, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    _s10Foundation4UUIDVSgWOhTm_0(v39, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
 LABEL_18:
-    v204._countAndFlagsBits = 0;
-    v204._object = 0xE000000000000000;
+    v202._countAndFlagsBits = 0;
+    v202._object = 0xE000000000000000;
     _StringGuts.grow(_:)(36);
 
-    v204._countAndFlagsBits = 0xD000000000000022;
-    v204._object = 0x8000000184DEA670;
-    v66 = v199;
-    outlined init with copy of PgQuery_ScanResult(v199, v21, type metadata accessor for PgQuery_Node);
-    v67 = String.init<A>(describing:)();
-    MEMORY[0x1865F6280](v67);
+    v202._countAndFlagsBits = 0xD000000000000022;
+    v202._object = 0x8000000184DEA670;
+    v70 = v197;
+    outlined init with copy of PgQuery_ScanResult(v197, v22, type metadata accessor for PgQuery_Node);
+    v71 = String.init<A>(describing:)();
+    MEMORY[0x1865F6280](v71);
 
-    countAndFlagsBits = v204._countAndFlagsBits;
-    object = v204._object;
+    countAndFlagsBits = v202._countAndFlagsBits;
+    object = v202._object;
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v70 = countAndFlagsBits;
-    *(v70 + 8) = object;
-    *(v70 + 16) = 0;
-    *(v70 + 24) = 0;
-    *(v70 + 32) = 1;
+    *v74 = countAndFlagsBits;
+    *(v74 + 8) = object;
+    *(v74 + 16) = 0;
+    *(v74 + 24) = 0;
+    *(v74 + 32) = 1;
     swift_willThrow();
-    outlined destroy of PgQuery_ParseResult(v66, type metadata accessor for PgQuery_Node);
-    v71 = type metadata accessor for SQLTokenInformation;
-    v72 = &v218;
-    return outlined destroy of PgQuery_ParseResult(*(v72 - 32), v71);
+    outlined destroy of PgQuery_ParseResult(v70, type metadata accessor for PgQuery_Node);
+    v75 = type metadata accessor for SQLTokenInformation;
+    v76 = &v216;
+    return outlined destroy of PgQuery_ParseResult(*(v76 - 32), v75);
   }
 
   if (swift_getEnumCaseMultiPayload() != 175)
   {
 
-    outlined destroy of PgQuery_ParseResult(v36, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of PgQuery_ParseResult(v39, type metadata accessor for PgQuery_Node.OneOf_Node);
     goto LABEL_18;
   }
 
-  v42 = v36;
-  v43 = v197;
-  ParseResult = outlined init with take of PgQuery_ParseResult(v42, v197, type metadata accessor for PgQuery_ResTarget);
-  v45 = *(v43 + *(ResTarget + 20));
-  v46 = *(v45 + 24);
-  v47 = *(v45 + 16) & 0xFFFFFFFFFFFFLL;
-  if ((v46 & 0x2000000000000000) != 0)
+  v45 = v39;
+  v46 = v195;
+  ParseResult = outlined init with take of PgQuery_ParseResult(v45, v195, type metadata accessor for PgQuery_ResTarget);
+  v49 = *(v46 + *(ResTarget + 20));
+  v50 = *(v49 + 24);
+  v51 = *(v49 + 16) & 0xFFFFFFFFFFFFLL;
+  if ((v50 & 0x2000000000000000) != 0)
   {
-    v47 = HIBYTE(v46) & 0xF;
+    v51 = HIBYTE(v50) & 0xF;
   }
 
-  v182 = *(v43 + *(ResTarget + 20));
-  if (!v47)
+  v180 = *(v46 + *(ResTarget + 20));
+  if (!v51)
   {
-    v185 = 0;
-    v73 = v192;
-    *(v192 + 96) = 0;
-    *(v73 + 104) = 0;
-    v30 = v196;
-    v56 = v201;
+    v183 = 0;
+    v77 = v190;
+    *(v190 + 96) = 0;
+    *(v77 + 104) = 0;
+    v32 = v194;
+    v60 = v199;
     goto LABEL_21;
   }
 
-  v48 = *(v201 + 8);
-  MEMORY[0x1EEE9AC00](ParseResult);
-  v179 = v43;
-  result = specialized Collection.firstIndex(where:)(partial apply for closure #1 in ResultColumn.init(node:schemas:tokenInformation:), (&v181 - 4), v48);
-  if (v50)
+  v52 = *(v199 + 1);
+  MEMORY[0x1EEE9AC00](ParseResult, v48);
+  v177 = v46;
+  result = specialized Collection.firstIndex(where:)(partial apply for closure #1 in ResultColumn.init(node:schemas:tokenInformation:), (&v179 - 4), v52);
+  if (v54)
   {
 LABEL_93:
     __break(1u);
     return result;
   }
 
-  v196 = result;
-  v204._countAndFlagsBits = specialized Collection.dropFirst(_:)(result, v48);
-  v204._object = v51;
-  v205 = v52;
-  v206 = v53;
-  v207 = v52;
-  v208 = 0;
-  v54 = v48;
+  v194 = result;
+  v202._countAndFlagsBits = specialized Collection.dropFirst(_:)(result, v52);
+  v202._object = v55;
+  v203 = v56;
+  v204 = v57;
+  v205 = v56;
+  v206 = 0;
+  v58 = v52;
 
   while (1)
   {
-    specialized EnumeratedSequence.Iterator.next()(v30);
-    _s10Foundation4UUIDVSgWObTm_0(v30, v32, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
-    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
-    if ((*(*(v55 - 8) + 48))(v32, 1, v55) == 1)
+    specialized EnumeratedSequence.Iterator.next()(v32);
+    _s10Foundation4UUIDVSgWObTm_0(v32, v35, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
+    v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+    if ((*(*(v59 - 8) + 48))(v35, 1, v59) == 1)
     {
 
       swift_unknownObjectRelease();
-      v82 = *(v182 + 16);
-      v81 = *(v182 + 24);
+      v86 = *(v180 + 16);
+      v85 = *(v180 + 24);
       goto LABEL_29;
     }
 
-    v56 = *v32;
-    v57 = *(v55 + 48);
-    v58 = *&v32[v57];
-    outlined destroy of PgQuery_ParseResult(&v32[v57], type metadata accessor for PgQuery_ScanToken);
-    SQLTokenInformation.tokenName(location:)(v58);
-    if (v59)
+    v60 = *v35;
+    v61 = *(v59 + 48);
+    v62 = *&v35[v61];
+    outlined destroy of PgQuery_ParseResult(&v35[v61], type metadata accessor for PgQuery_ScanToken);
+    SQLTokenInformation.tokenName(location:)(v62);
+    if (v63)
     {
 
       swift_unknownObjectRelease();
       goto LABEL_31;
     }
 
-    v60 = String.lowercased()();
-    v61 = v60._countAndFlagsBits;
+    v64 = String.lowercased()();
+    v65 = v64._countAndFlagsBits;
 
-    v62 = String.lowercased()();
-    v63 = v62._object;
-    if (v60._countAndFlagsBits == v62._countAndFlagsBits && v60._object == v62._object)
+    v66 = String.lowercased()();
+    v67 = v66._object;
+    if (v64._countAndFlagsBits == v66._countAndFlagsBits && v64._object == v66._object)
     {
       break;
     }
 
-    v65 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v69 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v65)
+    if (v69)
     {
       goto LABEL_33;
     }
   }
 
 LABEL_33:
-  v85 = v196 + v56;
-  if (__OFADD__(v196, v56))
+  v89 = v194 + v60;
+  if (__OFADD__(v194, v60))
   {
 LABEL_86:
     __break(1u);
     goto LABEL_87;
   }
 
-  v86 = __OFADD__(v85, 1);
-  v87 = v85 + 1;
-  v56 = v201;
-  if (v86)
+  v90 = __OFADD__(v89, 1);
+  v91 = v89 + 1;
+  v60 = v199;
+  if (v90)
   {
 LABEL_87:
     __break(1u);
 LABEL_88:
     swift_once();
-    v74 = v198;
+    v78 = v196;
 LABEL_23:
-    *(v61 + v56) = static PgQuery_Node._StorageClass.defaultInstance;
-    v75 = (v63)(v54, 1, v74);
+    *(v65 + v60) = static PgQuery_Node._StorageClass.defaultInstance;
+    v79 = (v67)(v58, 1, v78);
 
-    v56 = v32;
-    v76 = v189;
-    if (v75 != 1)
+    v60 = v35;
+    v80 = v187;
+    if (v79 != 1)
     {
-      _s10Foundation4UUIDVSgWOhTm_0(v54, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+      _s10Foundation4UUIDVSgWOhTm_0(v58, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
     }
 
     goto LABEL_26;
   }
 
-  if (v87 >= *(v54 + 16))
+  if (v91 >= *(v58 + 16))
   {
 
-    v93 = *(v182 + 16);
-    v92 = *(v182 + 24);
+    v97 = *(v180 + 16);
+    v96 = *(v180 + 24);
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v94 = v93;
-    *(v94 + 8) = v92;
-    *(v94 + 16) = 0;
-    *(v94 + 24) = 0;
-    *(v94 + 32) = 8;
+    *v98 = v97;
+    *(v98 + 8) = v96;
+    *(v98 + 16) = 0;
+    *(v98 + 24) = 0;
+    *(v98 + 32) = 8;
     swift_willThrow();
 
 LABEL_41:
     swift_unknownObjectRelease();
-    outlined destroy of PgQuery_ParseResult(v199, type metadata accessor for PgQuery_Node);
-    v84 = v56;
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_Node);
+    v88 = v60;
     goto LABEL_42;
   }
 
-  if ((v87 & 0x8000000000000000) != 0)
+  if (v91 < 0)
   {
     __break(1u);
 LABEL_90:
@@ -10035,78 +6304,76 @@ LABEL_92:
     goto LABEL_93;
   }
 
-  SQLTokenInformation.tokenName(location:)(*(v54 + ((v188[80] + 32) & ~v188[80]) + *(v188 + 9) * v87));
-  if (v88)
+  SQLTokenInformation.tokenName(location:)(*(v58 + ((v186[80] + 32) & ~v186[80]) + *(v186 + 9) * v91));
+  if (v92)
   {
 
     goto LABEL_41;
   }
 
-  v196 = 0;
+  v194 = 0;
   swift_unknownObjectRelease();
-  v204 = String.lowercased()();
-  v117 = v182;
-  v118 = *(v182 + 16);
-  v119 = *(v182 + 24);
-  v203[0] = String.lowercased()();
-  v120 = type metadata accessor for Locale();
-  v121 = v185;
-  (*(*(v120 - 8) + 56))(v185, 1, 1, v120);
-  v179 = lazy protocol witness table accessor for type String and conformance String();
-  v180 = v179;
+  v202 = String.lowercased()();
+  v121 = v180;
+  v201[0] = String.lowercased()();
+  v122 = type metadata accessor for Locale();
+  v123 = v183;
+  (*(*(v122 - 8) + 56))(v183, 1, 1, v122);
+  v177 = lazy protocol witness table accessor for type String and conformance String();
+  v178 = v177;
   StringProtocol.range<A>(of:options:range:locale:)();
-  v123 = v122;
-  _s10Foundation4UUIDVSgWOhTm_0(v121, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v125 = v124;
+  _s10Foundation4UUIDVSgWOhTm_0(v123, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
-  if (v123)
+  if (v125)
   {
 
-    v82 = *(v117 + 16);
-    v81 = *(v117 + 24);
+    v86 = *(v121 + 16);
+    v85 = *(v121 + 24);
 LABEL_29:
     lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
     swift_allocError();
-    *v83 = v82;
-    *(v83 + 8) = v81;
-    *(v83 + 16) = 0;
-    *(v83 + 24) = 0;
-    *(v83 + 32) = 8;
+    *v87 = v86;
+    *(v87 + 8) = v85;
+    *(v87 + 16) = 0;
+    *(v87 + 24) = 0;
+    *(v87 + 32) = 8;
     swift_willThrow();
 
 LABEL_31:
-    outlined destroy of PgQuery_ParseResult(v199, type metadata accessor for PgQuery_Node);
-    v84 = v201;
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_Node);
+    v88 = v199;
 LABEL_42:
-    outlined destroy of PgQuery_ParseResult(v84, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v88, type metadata accessor for SQLTokenInformation);
     goto LABEL_43;
   }
 
-  v124 = String.subscript.getter();
-  v126 = v125;
+  v126 = String.subscript.getter();
   v128 = v127;
   v130 = v129;
+  v132 = v131;
 
-  v131 = MEMORY[0x1865F6210](v124, v126, v128, v130);
-  v133 = v132;
+  v133 = MEMORY[0x1865F6210](v126, v128, v130, v132);
+  v135 = v134;
 
-  v134 = v192;
-  *(v192 + 96) = v131;
-  *(v134 + 104) = v133;
-  v185 = v133;
-  v30 = v196;
-  v56 = v201;
-  v45 = v117;
+  v136 = v190;
+  *(v190 + 96) = v133;
+  *(v136 + 104) = v135;
+  v183 = v135;
+  v32 = v194;
+  v60 = v199;
+  v49 = v121;
 LABEL_21:
-  v54 = v191;
-  outlined init with copy of PgQuery_Alias?(v45 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val, v191, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v63 = *(v190 + 48);
-  v74 = v198;
-  if ((v63)(v54, 1, v198) == 1)
+  v58 = v189;
+  outlined init with copy of PgQuery_Alias?(v49 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val, v189, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v67 = *(v188 + 48);
+  v78 = v196;
+  if ((v67)(v58, 1, v196) == 1)
   {
-    v32 = v56;
-    v61 = v195;
+    v35 = v60;
+    v65 = v193;
     UnknownStorage.init()();
-    v56 = *(v74 + 20);
+    v60 = *(v78 + 20);
     if (one-time initialization token for defaultInstance == -1)
     {
       goto LABEL_23;
@@ -10115,249 +6382,244 @@ LABEL_21:
     goto LABEL_88;
   }
 
-  outlined init with take of PgQuery_ParseResult(v54, v195, type metadata accessor for PgQuery_Node);
-  v76 = v189;
+  outlined init with take of PgQuery_ParseResult(v58, v193, type metadata accessor for PgQuery_Node);
+  v80 = v187;
 LABEL_26:
-  outlined init with copy of PgQuery_ScanResult(v56, v76, type metadata accessor for SQLTokenInformation);
-  v77 = v200;
+  outlined init with copy of PgQuery_ScanResult(v60, v80, type metadata accessor for SQLTokenInformation);
+  v81 = v198;
 
-  v79 = specialized ColumnResolver.init(schemas:)(v78);
-  v61 = v30;
-  if (!v30)
+  v83 = specialized ColumnResolver.init(schemas:)(v82);
+  v65 = v32;
+  if (!v32)
   {
-    v89 = v79;
-    v90 = v80;
+    v93 = v83;
+    v94 = v84;
 
-    v91 = v195;
-    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v195, v77, v89, v90, v76, &v203[0]._countAndFlagsBits);
-    v196 = 0;
+    v95 = v193;
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v193, v81, v93, v94, v80, &v201[0]._countAndFlagsBits);
+    v194 = 0;
 
-    outlined init with copy of Aggregation(v203, v202);
-    outlined init with copy of Aggregation(v202, &v204);
-    v95 = v206;
-    v96 = v207;
-    __swift_project_boxed_opaque_existential_1(&v204, v206);
-    v208 = (*(v96 + 8))(v95, v96);
-    v209 = v97;
-    v98 = v206;
-    v99 = v207;
-    __swift_project_boxed_opaque_existential_1(&v204, v206);
-    (*(v99 + 16))(&v215, v98, v99);
-    v210 = v215;
-    v100 = v206;
-    v101 = v207;
-    __swift_project_boxed_opaque_existential_1(&v204, v206);
-    v211 = (*(v101 + 24))(v100, v101);
-    v102 = v206;
-    v103 = v207;
-    __swift_project_boxed_opaque_existential_1(&v204, v206);
-    v212 = (*(v103 + 32))(v102, v103);
-    v104 = v206;
-    v105 = v207;
-    __swift_project_boxed_opaque_existential_1(&v204, v206);
-    v106 = (*(v105 + 40))(v104, v105);
-    v108 = v107;
-    __swift_destroy_boxed_opaque_existential_1Tm(v202);
-    __swift_destroy_boxed_opaque_existential_1Tm(&v203[0]._countAndFlagsBits);
-    outlined destroy of PgQuery_ParseResult(v76, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_ParseResult(v91, type metadata accessor for PgQuery_Node);
-    v213 = v106;
-    v214 = v108;
-    outlined init with copy of SQLExpression(&v204, v192);
-    v109 = *(v56 + 8);
-    v32 = v188;
-    v30 = v186;
-    v110 = v187;
-    v200 = *(v109 + 16);
-    if (v200)
+    outlined init with copy of Aggregation(v201, v200);
+    outlined init with copy of Aggregation(v200, &v202);
+    v99 = v204;
+    v100 = v205;
+    __swift_project_boxed_opaque_existential_1(&v202, v204);
+    v206 = (*(v100 + 8))(v99, v100);
+    v207 = v101;
+    v102 = v204;
+    v103 = v205;
+    __swift_project_boxed_opaque_existential_1(&v202, v204);
+    (*(v103 + 16))(&v213, v102, v103);
+    v208 = v213;
+    v104 = v204;
+    v105 = v205;
+    __swift_project_boxed_opaque_existential_1(&v202, v204);
+    v209 = (*(v105 + 24))(v104, v105);
+    v106 = v204;
+    v107 = v205;
+    __swift_project_boxed_opaque_existential_1(&v202, v204);
+    v210 = (*(v107 + 32))(v106, v107);
+    v108 = v204;
+    v109 = v205;
+    __swift_project_boxed_opaque_existential_1(&v202, v204);
+    v110 = (*(v109 + 40))(v108, v109);
+    v112 = v111;
+    __swift_destroy_boxed_opaque_existential_1Tm(v200);
+    __swift_destroy_boxed_opaque_existential_1Tm(v201);
+    outlined destroy of PgQuery_ParseResult(v80, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v95, type metadata accessor for PgQuery_Node);
+    v211 = v110;
+    v212 = v112;
+    outlined init with copy of SQLExpression(&v202, v190);
+    v113 = *(v60 + 8);
+    v35 = v186;
+    v32 = v184;
+    v114 = v185;
+    v198 = *(v113 + 16);
+    if (v198)
     {
-      v63 = 0;
-      v111 = *(v182 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
+      v67 = 0;
+      v115 = *(v180 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
       while (1)
       {
-        if (v63 >= *(v109 + 16))
+        if (v67 >= *(v113 + 16))
         {
           __break(1u);
           goto LABEL_86;
         }
 
-        v112 = v109;
-        v54 = v109 + ((v32[80] + 32) & ~v32[80]);
-        v61 = *(v32 + 9);
-        outlined init with copy of PgQuery_ScanResult(v54 + v61 * v63, v30, type metadata accessor for PgQuery_ScanToken);
-        v113 = *v30;
-        result = outlined destroy of PgQuery_ParseResult(v30, type metadata accessor for PgQuery_ScanToken);
-        if (v113 == v111)
+        v116 = v113;
+        v58 = v113 + ((v35[80] + 32) & ~v35[80]);
+        v65 = *(v35 + 9);
+        outlined init with copy of PgQuery_ScanResult(v58 + v65 * v67, v32, type metadata accessor for PgQuery_ScanToken);
+        v117 = *v32;
+        result = outlined destroy of PgQuery_ParseResult(v32, type metadata accessor for PgQuery_ScanToken);
+        if (v117 == v115)
         {
           break;
         }
 
-        ++v63;
-        v56 = v201;
-        v109 = v112;
-        if (v200 == v63)
+        ++v67;
+        v60 = v199;
+        v113 = v116;
+        if (v198 == v67)
         {
           goto LABEL_49;
         }
       }
 
-      v189 = v54;
-      v56 = v201;
-      if (*(v112 + 16) < v63)
+      v187 = v58;
+      v60 = v199;
+      if (*(v116 + 16) < v67)
       {
         goto LABEL_92;
       }
 
-      v182 = v112;
+      v180 = v116;
 
-      v135 = MEMORY[0x1E69E7CC0];
-      v136 = v189;
-      if (v63)
+      v137 = MEMORY[0x1E69E7CC0];
+      v138 = v187;
+      if (v67)
       {
-        v137 = (v63 - 1);
-        v195 = (v183 + 8);
-        v138 = v63;
-        v186 = (v63 - 1);
-        while (v137 < v63)
+        v139 = (v67 - 1);
+        v193 = (v181 + 8);
+        v140 = v67;
+        v184 = (v67 - 1);
+        while (v139 < v67)
         {
-          outlined init with copy of PgQuery_ScanResult(&v136[--v138 * v61], v110, type metadata accessor for PgQuery_ScanToken);
-          if (*(v110 + 16) == 1)
+          outlined init with copy of PgQuery_ScanResult(&v138[--v140 * v65], v114, type metadata accessor for PgQuery_ScanToken);
+          if (*(v114 + 16) == 1)
           {
-            v140 = *(v110 + 1);
-            if (v140 - 39 >= 0x152 && v140 - 378 >= 0x74)
+            v142 = *(v114 + 8);
+            if (v142 - 39 >= 0x152 && v142 - 378 >= 0x74)
             {
-              if (v140 > 0x26)
+              if (v142 > 0x26)
               {
                 goto LABEL_81;
               }
 
-              if (((1 << v140) & 0x1FFFFFFFBFLL) == 0)
+              if (((1 << v142) & 0x1FFFFFFFBFLL) == 0)
               {
-                if (((1 << v140) & 0x6000000000) == 0)
+                if (((1 << v142) & 0x6000000000) == 0)
                 {
                   goto LABEL_81;
                 }
 
-                v188 = v135;
-                PgQuery_Token.rawValue.getter(v140, 1);
-                v141 = (v56 + *(v184 + 20));
-                v143 = *v141;
-                v142 = v141[1];
-                v144 = *v110;
-                v145 = String.index(_:offsetBy:)();
-                v146 = v110[1];
+                v186 = v137;
+                PgQuery_Token.rawValue.getter(v142, 1);
+                v143 = String.index(_:offsetBy:)();
                 result = String.index(_:offsetBy:)();
-                if (result >> 14 < v145 >> 14)
+                if (result >> 14 < v143 >> 14)
                 {
                   goto LABEL_90;
                 }
 
-                v147 = String.subscript.getter();
-                v148 = MEMORY[0x1865F6210](v147);
-                v150 = v149;
+                v144 = String.subscript.getter();
+                v145 = MEMORY[0x1865F6210](v144);
+                v147 = v146;
 
-                v203[0]._countAndFlagsBits = v148;
-                v203[0]._object = v150;
-                v151 = v193;
+                v201[0]._countAndFlagsBits = v145;
+                v201[0]._object = v147;
+                v148 = v191;
                 static CharacterSet.whitespaces.getter();
-                v191 = lazy protocol witness table accessor for type String and conformance String();
-                v152 = StringProtocol.trimmingCharacters(in:)();
-                v154 = v153;
-                v190 = *v195;
-                (v190)(v151, v194);
+                v189 = lazy protocol witness table accessor for type String and conformance String();
+                v149 = StringProtocol.trimmingCharacters(in:)();
+                v151 = v150;
+                v188 = *v193;
+                (v188)(v148, v192);
 
-                v203[0]._countAndFlagsBits = 10;
-                v203[0]._object = 0xE100000000000000;
-                MEMORY[0x1EEE9AC00](v155);
-                v179 = v203;
-                v156 = v196;
-                v157 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, closure #1 in Sequence<>.contains(_:)specialized partial apply, (&v181 - 4), v152, v154, &v216);
-                v196 = v156;
-                v158 = *(v157 + 16);
-                if (v158)
+                v201[0]._countAndFlagsBits = 10;
+                v201[0]._object = 0xE100000000000000;
+                MEMORY[0x1EEE9AC00](v152, v153);
+                v177 = v201;
+                v154 = v194;
+                v155 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, closure #1 in Sequence<>.contains(_:)specialized partial apply, (&v179 - 4), v149, v151, &v214);
+                v194 = v154;
+                v156 = *(v155 + 16);
+                if (v156)
                 {
-                  v215 = MEMORY[0x1E69E7CC0];
-                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v158, 0);
-                  v159 = v215;
-                  v185 = v157;
-                  v160 = (v157 + 56);
+                  v213 = MEMORY[0x1E69E7CC0];
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v156, 0);
+                  v157 = v213;
+                  v183 = v155;
+                  v158 = (v155 + 56);
                   do
                   {
-                    v200 = v158;
-                    v162 = *(v160 - 3);
-                    v161 = *(v160 - 2);
-                    v163 = v159;
-                    v164 = *(v160 - 1);
-                    v165 = *v160;
+                    v198 = v156;
+                    v160 = *(v158 - 3);
+                    v159 = *(v158 - 2);
+                    v161 = v157;
+                    v162 = *(v158 - 1);
+                    v163 = *v158;
 
-                    v203[0]._countAndFlagsBits = MEMORY[0x1865F6210](v162, v161, v164, v165);
-                    v203[0]._object = v166;
-                    v167 = v193;
+                    v201[0]._countAndFlagsBits = MEMORY[0x1865F6210](v160, v159, v162, v163);
+                    v201[0]._object = v164;
+                    v165 = v191;
                     static CharacterSet.whitespaces.getter();
-                    v159 = v163;
-                    v168 = StringProtocol.trimmingCharacters(in:)();
-                    v198 = v169;
+                    v157 = v161;
+                    v166 = StringProtocol.trimmingCharacters(in:)();
+                    v196 = v167;
 
-                    (v190)(v167, v194);
+                    (v188)(v165, v192);
 
-                    v215 = v159;
-                    v171 = *(v159 + 16);
-                    v170 = *(v159 + 24);
-                    if (v171 >= v170 >> 1)
+                    v213 = v157;
+                    v169 = *(v157 + 16);
+                    v168 = *(v157 + 24);
+                    if (v169 >= v168 >> 1)
                     {
-                      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v170 > 1, v171 + 1, 1);
-                      v159 = v215;
+                      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v168 > 1, v169 + 1, 1);
+                      v157 = v213;
                     }
 
-                    *(v159 + 16) = v171 + 1;
-                    v172 = v159 + 16 * v171;
-                    v173 = v198;
-                    *(v172 + 32) = v168;
-                    *(v172 + 40) = v173;
-                    v160 += 4;
-                    v158 = v200 - 1;
+                    *(v157 + 16) = v169 + 1;
+                    v170 = v157 + 16 * v169;
+                    v171 = v196;
+                    *(v170 + 32) = v166;
+                    *(v170 + 40) = v171;
+                    v158 += 4;
+                    v156 = v198 - 1;
                   }
 
-                  while (v200 != 1);
+                  while (v198 != 1);
 
-                  v110 = v187;
+                  v114 = v185;
                 }
 
                 else
                 {
 
-                  v159 = MEMORY[0x1E69E7CC0];
+                  v157 = MEMORY[0x1E69E7CC0];
                 }
 
-                v174 = v159;
-                v175 = *(v159 + 16);
-                v135 = v188;
-                v176 = *(v188 + 2);
-                if (__OFADD__(v176, v175))
+                v172 = v157;
+                v173 = *(v157 + 16);
+                v137 = v186;
+                v174 = *(v186 + 2);
+                if (__OFADD__(v174, v173))
                 {
                   goto LABEL_91;
                 }
 
                 isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-                v202[0] = v135;
-                if (!isUniquelyReferenced_nonNull_native || v176 + v175 > *(v135 + 24) >> 1)
+                v200[0] = v137;
+                if (!isUniquelyReferenced_nonNull_native || v174 + v173 > *(v137 + 24) >> 1)
                 {
                   specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-                  v135 = v139;
-                  v202[0] = v139;
+                  v137 = v141;
+                  v200[0] = v141;
                 }
 
-                v56 = v201;
-                specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, 0, v175, v174);
+                v60 = v199;
+                specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, 0, v173, v172);
 
-                v136 = v189;
-                v137 = v186;
+                v138 = v187;
+                v139 = v184;
               }
             }
           }
 
-          outlined destroy of PgQuery_ParseResult(v110, type metadata accessor for PgQuery_ScanToken);
-          if (!v138)
+          outlined destroy of PgQuery_ParseResult(v114, type metadata accessor for PgQuery_ScanToken);
+          if (!v140)
           {
             goto LABEL_82;
           }
@@ -10365,50 +6627,3436 @@ LABEL_26:
 
         __break(1u);
 LABEL_81:
-        outlined destroy of PgQuery_ParseResult(v110, type metadata accessor for PgQuery_ScanToken);
+        outlined destroy of PgQuery_ParseResult(v114, type metadata accessor for PgQuery_ScanToken);
       }
 
 LABEL_82:
 
-      if (*(v135 + 16))
+      if (*(v137 + 16))
       {
-        v203[0]._countAndFlagsBits = v135;
+        v201[0]._countAndFlagsBits = v137;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
         lazy protocol witness table accessor for type [String] and conformance [A]();
-        v114 = BidirectionalCollection<>.joined(separator:)();
-        v115 = v178;
+        v118 = BidirectionalCollection<>.joined(separator:)();
+        v119 = v176;
 
-        outlined destroy of SQLExpression(&v204);
+        outlined destroy of SQLExpression(&v202);
         goto LABEL_51;
       }
 
-      outlined destroy of SQLExpression(&v204);
+      outlined destroy of SQLExpression(&v202);
     }
 
     else
     {
 LABEL_49:
-      outlined destroy of SQLExpression(&v204);
+      outlined destroy of SQLExpression(&v202);
     }
 
-    v114 = 0;
-    v115 = 0;
+    v118 = 0;
+    v119 = 0;
 LABEL_51:
-    outlined destroy of PgQuery_ParseResult(v199, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_ParseResult(v56, type metadata accessor for SQLTokenInformation);
-    v116 = v192;
-    *(v192 + 112) = v114;
-    *(v116 + 120) = v115;
+    outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v60, type metadata accessor for SQLTokenInformation);
+    v120 = v190;
+    *(v190 + 112) = v118;
+    *(v120 + 120) = v119;
 LABEL_43:
-    v71 = type metadata accessor for PgQuery_ResTarget;
-    v72 = &v217;
-    return outlined destroy of PgQuery_ParseResult(*(v72 - 32), v71);
+    v75 = type metadata accessor for PgQuery_ResTarget;
+    v76 = &v215;
+    return outlined destroy of PgQuery_ParseResult(*(v76 - 32), v75);
   }
 
   swift_bridgeObjectRelease_n();
-  outlined destroy of PgQuery_ParseResult(v76, type metadata accessor for SQLTokenInformation);
-  outlined destroy of PgQuery_ParseResult(v195, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_ParseResult(v199, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_ParseResult(v56, type metadata accessor for SQLTokenInformation);
-  outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_ResTarget);
+  outlined destroy of PgQuery_ParseResult(v80, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v193, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v197, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v60, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v195, type metadata accessor for PgQuery_ResTarget);
+}
+
+uint64_t specialized EnumeratedSequence.Iterator.next()@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+  result = MEMORY[0x1EEE9AC00](v3, v4);
+  v8 = (&v16 - v7);
+  v9 = v1[4];
+  v10 = v1[3] >> 1;
+  if (v9 == v10)
+  {
+    v11 = *(v6 + 56);
+
+    return v11(a1, 1, 1, v3);
+  }
+
+  else
+  {
+    if (v9 >= v10 || v9 < v1[2])
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v17 = v6;
+      v13 = v1[1] + *(*(type metadata accessor for PgQuery_ScanToken(0) - 8) + 72) * v9;
+      v1[4] = v9 + 1;
+      v14 = *(v3 + 48);
+      v15 = v1[5];
+      *v8 = v15;
+      result = outlined init with copy of PgQuery_ScanResult(v13, v8 + v14, type metadata accessor for PgQuery_ScanToken);
+      if (!__OFADD__(v15, 1))
+      {
+        v1[5] = v15 + 1;
+        _s10Foundation4UUIDVSgWObTm_0(v8, a1, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+        return (*(v17 + 56))(a1, 0, 1, v3);
+      }
+    }
+
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance ResultColumn.CodingKeys()
+{
+  v1 = 0x7361696C61;
+  if (*v0 != 1)
+  {
+    v1 = 0x746E656D75636F64;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 0x6973736572707865;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ResultColumn.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized ResultColumn.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ResultColumn.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ResultColumn.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t ResultColumn.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser12ResultColumnV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser12ResultColumnV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v9[-v6];
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v9[15] = 0;
+  lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (v1)
+  {
+    return (*(v4 + 8))(v7, v3);
+  }
+
+  v9[14] = 1;
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  v9[13] = 2;
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  return (*(v4 + 8))(v7, v3);
+}
+
+uint64_t SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v395 = a2;
+  v320 = a3;
+  v4 = type metadata accessor for SQLTokenInformation(0);
+  v6 = MEMORY[0x1EEE9AC00](v4 - 8, v5);
+  v321 = &v308 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v326 = &v308 - v9;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v329 = *(Node - 8);
+  v11 = MEMORY[0x1EEE9AC00](Node, v10);
+  v323 = &v308 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11, v13);
+  i = &v308 - v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v17 = MEMORY[0x1EEE9AC00](v15 - 8, v16);
+  v322 = &v308 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = MEMORY[0x1EEE9AC00](v17, v19);
+  v22 = &v308 - v21;
+  v24 = MEMORY[0x1EEE9AC00](v20, v23);
+  v26 = &v308 - v25;
+  MEMORY[0x1EEE9AC00](v24, v27);
+  v29 = &v308 - v28;
+  v30 = type metadata accessor for PlanResources(0);
+  MEMORY[0x1EEE9AC00](v30, v31);
+  v33 = (&v308 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v34 = *(a1 + *(type metadata accessor for PgQuery_SelectStmt(0) + 20));
+  outlined init with copy of PgQuery_ScanResult(v395, v33, type metadata accessor for PlanResources);
+
+  v36 = v330;
+  v37 = FromClause.init(fromClauseNodes:resources:)(v35, v33, &v371);
+  if (v36)
+  {
+    outlined destroy of PgQuery_ParseResult(a1, type metadata accessor for PgQuery_SelectStmt);
+    return outlined destroy of PgQuery_ParseResult(v395, type metadata accessor for PlanResources);
+  }
+
+  v318 = a1;
+  v328._countAndFlagsBits = v29;
+  v314 = v26;
+  v315 = v22;
+  v313 = v30;
+  v379[4] = v375;
+  v379[5] = v376;
+  v380 = v377;
+  v379[0] = v371;
+  v379[1] = v372;
+  v379[3] = v374;
+  v379[2] = v373;
+  v40 = v371;
+  v41 = *&v34[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList];
+  MEMORY[0x1EEE9AC00](v37, v38);
+  v42 = v395;
+  *(&v308 - 2) = v40;
+  *(&v308 - 1) = v42;
+
+  NodeVG_AF12ResultColumnVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF12ResultColumnVsAE_pTg5(partial apply for closure #1 in SelectCore.init(select:resources:), (&v308 - 4), v41);
+  v317 = 0;
+  isUniquelyReferenced_nonNull_native = NodeVG_AF12ResultColumnVsAE_pTg5;
+  v311 = v40;
+  v312 = v34;
+  v324 = 0;
+
+  v394 = isUniquelyReferenced_nonNull_native;
+  v45 = *(isUniquelyReferenced_nonNull_native + 16);
+  v319 = isUniquelyReferenced_nonNull_native;
+  if (v45)
+  {
+    v330 = isUniquelyReferenced_nonNull_native + 32;
+
+    v46 = 0;
+    v47 = MEMORY[0x1E69E7CC8];
+    v48 = MEMORY[0x1E69E7CC8];
+    countAndFlagsBits = v328._countAndFlagsBits;
+    v316 = v45;
+    while (1)
+    {
+      if (v46 >= *(isUniquelyReferenced_nonNull_native + 16))
+      {
+        __break(1u);
+        goto LABEL_138;
+      }
+
+      outlined init with copy of ResultColumn(v330 + (v46 << 7), &v371);
+      v50 = v378;
+      if (v378)
+      {
+        if (!*(v375 + 16))
+        {
+          break;
+        }
+      }
+
+      v41 = v47;
+LABEL_6:
+      ++v46;
+      outlined destroy of ResultColumn(&v371);
+      v47 = v41;
+      if (v46 == v45)
+      {
+
+        goto LABEL_40;
+      }
+    }
+
+    v45 = v377;
+    LODWORD(v328._object) = BYTE8(v374);
+
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *&v355 = v47;
+    v52 = specialized __RawDictionaryStorage.find<A>(_:)(v45, v50);
+    v53 = *(v47 + 16);
+    v54 = (v51 & 1) == 0;
+    v55 = v53 + v54;
+    if (__OFADD__(v53, v54))
+    {
+      __break(1u);
+      goto LABEL_266;
+    }
+
+    countAndFlagsBits = v51;
+    if (*(v47 + 24) >= v55)
+    {
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        v41 = v47;
+        if (v51)
+        {
+LABEL_14:
+
+          *(*(v41 + 56) + v52) = v328._object;
+LABEL_19:
+          v48 = v41;
+          isUniquelyReferenced_nonNull_native = v319;
+          countAndFlagsBits = v328._countAndFlagsBits;
+          v45 = v316;
+          goto LABEL_6;
+        }
+      }
+
+      else
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+        v62 = static _DictionaryStorage.copy(original:)();
+        v41 = v62;
+        if (*(v47 + 16))
+        {
+          v63 = (v62 + 64);
+          v64 = (v47 + 64);
+          v65 = ((1 << *(v41 + 32)) + 63) >> 6;
+          v309 = v47 + 64;
+          if (v41 != v47 || v63 >= &v64[8 * v65])
+          {
+            memmove(v63, v64, 8 * v65);
+          }
+
+          v66 = 0;
+          *(v41 + 16) = *(v47 + 16);
+          v67 = 1 << *(v47 + 32);
+          if (v67 < 64)
+          {
+            v68 = ~(-1 << v67);
+          }
+
+          else
+          {
+            v68 = -1;
+          }
+
+          v69 = v68 & *(v47 + 64);
+          isUniquelyReferenced_nonNull_native = (v67 + 63) >> 6;
+          if (v69)
+          {
+            do
+            {
+              v70 = __clz(__rbit64(v69));
+              *&v310 = (v69 - 1) & v69;
+LABEL_34:
+              v73 = v70 | (v66 << 6);
+              v74 = (*(v47 + 48) + 16 * v73);
+              v76 = *v74;
+              v75 = v74[1];
+              LOBYTE(v74) = *(*(v47 + 56) + v73);
+              v77 = (*(v41 + 48) + 16 * v73);
+              *v77 = v76;
+              v77[1] = v75;
+              *(*(v41 + 56) + v73) = v74;
+
+              v69 = v310;
+            }
+
+            while (v310);
+          }
+
+          v71 = v66;
+          while (1)
+          {
+            v66 = v71 + 1;
+            if (__OFADD__(v71, 1))
+            {
+              goto LABEL_326;
+            }
+
+            if (v66 >= isUniquelyReferenced_nonNull_native)
+            {
+              break;
+            }
+
+            v72 = *(v309 + 8 * v66);
+            ++v71;
+            if (v72)
+            {
+              v70 = __clz(__rbit64(v72));
+              *&v310 = (v72 - 1) & v72;
+              goto LABEL_34;
+            }
+          }
+        }
+
+        if (countAndFlagsBits)
+        {
+          goto LABEL_14;
+        }
+      }
+    }
+
+    else
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v55, isUniquelyReferenced_nonNull_native);
+      v41 = v355;
+      v56 = specialized __RawDictionaryStorage.find<A>(_:)(v45, v50);
+      if ((countAndFlagsBits & 1) != (v57 & 1))
+      {
+        goto LABEL_335;
+      }
+
+      v52 = v56;
+      if (countAndFlagsBits)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    *(v41 + 8 * (v52 >> 6) + 64) |= 1 << v52;
+    v58 = (*(v41 + 48) + 16 * v52);
+    *v58 = v45;
+    v58[1] = v50;
+    *(*(v41 + 56) + v52) = v328._object;
+    v59 = *(v41 + 16);
+    v60 = __OFADD__(v59, 1);
+    v61 = v59 + 1;
+    if (v60)
+    {
+      __break(1u);
+LABEL_281:
+      *&v371 = v50;
+      goto LABEL_284;
+    }
+
+    *(v41 + 16) = v61;
+    goto LABEL_19;
+  }
+
+  v48 = MEMORY[0x1E69E7CC8];
+  countAndFlagsBits = v328._countAndFlagsBits;
+LABEL_40:
+  v316 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
+  v78 = swift_allocObject();
+  v310 = xmmword_184D29AA0;
+  *(v78 + 16) = xmmword_184D29AA0;
+  strcpy((v78 + 32), "select_alias");
+  *(v78 + 45) = 0;
+  *(v78 + 46) = -5120;
+  *(v78 + 48) = v48;
+  *&v371 = v311;
+
+  specialized Array.append<A>(contentsOf:)(v78);
+  v330 = v371;
+  v79 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
+  v45 = v312;
+  outlined init with copy of PgQuery_Alias?(&v312[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause], countAndFlagsBits, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v41 = v329 + 48;
+  v80 = *(v329 + 48);
+  v47 = Node;
+  v81 = v80(countAndFlagsBits, 1, Node);
+  _s10Foundation4UUIDVSgWOhTm_0(countAndFlagsBits, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v329 = v41;
+  v328._countAndFlagsBits = v80;
+  if (v81 == 1)
+  {
+    v386 = 0u;
+    v385 = 0u;
+    v384 = 0u;
+    v383 = 0u;
+    v382 = 0u;
+    v381 = 0u;
+    v52 = v324;
+    v47 = v395;
+    countAndFlagsBits = v319;
+    isUniquelyReferenced_nonNull_native = v330;
+  }
+
+  else
+  {
+    v86 = v314;
+    outlined init with copy of PgQuery_Alias?(&v45[v79], v314, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v87 = v80(v86, 1, v47);
+    v45 = v324;
+    isUniquelyReferenced_nonNull_native = v313;
+    if (v87 == 1)
+    {
+      countAndFlagsBits = i;
+      UnknownStorage.init()();
+      v46 = *(v47 + 20);
+      if (one-time initialization token for defaultInstance != -1)
+      {
+        goto LABEL_321;
+      }
+
+      goto LABEL_48;
+    }
+
+    countAndFlagsBits = i;
+    outlined init with take of PgQuery_ParseResult(v86, i, type metadata accessor for PgQuery_Node);
+    v47 = v395;
+    v41 = v326;
+LABEL_51:
+    outlined init with copy of PgQuery_ScanResult(v47 + *(isUniquelyReferenced_nonNull_native + 20), v41, type metadata accessor for SQLTokenInformation);
+    isUniquelyReferenced_nonNull_native = v330;
+
+    v91 = specialized ColumnResolver.init(schemas:)(v90);
+    if (v45)
+    {
+      v324 = v45;
+      swift_bridgeObjectRelease_n();
+      outlined destroy of PgQuery_ParseResult(v41, type metadata accessor for SQLTokenInformation);
+      outlined destroy of PgQuery_ParseResult(countAndFlagsBits, type metadata accessor for PgQuery_Node);
+      outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_SelectStmt);
+      v97 = 0;
+      v98 = 0;
+      v99 = 0;
+      goto LABEL_65;
+    }
+
+    v95 = v91;
+    v96 = v92;
+    v52 = 0;
+
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(countAndFlagsBits, isUniquelyReferenced_nonNull_native, v95, v96, v41, &v355);
+
+    outlined init with copy of Aggregation(&v355, v368);
+    SQLExpression.init(rootNode:)(v368, &v371);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v355);
+    outlined destroy of PgQuery_ParseResult(v41, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(countAndFlagsBits, type metadata accessor for PgQuery_Node);
+    v383 = v373;
+    v384 = v374;
+    v385 = v375;
+    v386 = v376;
+    v381 = v371;
+    v382 = v372;
+    countAndFlagsBits = v319;
+  }
+
+  outlined init with copy of PgQuery_Alias?(&v381, &v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  v46 = v318;
+  if (*(&v372 + 1))
+  {
+    v357 = v373;
+    v358 = v374;
+    v359 = v375;
+    v360 = v376;
+    v355 = v371;
+    v356 = v372;
+    v82 = v375;
+    if (*(v375 + 16))
+    {
+
+      if (*(v82 + 16))
+      {
+        outlined init with copy of AggregationFunction(v82 + 32, &v371);
+        v83 = AggregationFunction.name()();
+        outlined destroy of AggregationFunction(&v371);
+        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+        v84 = swift_allocError();
+        *v85 = v83;
+        *(v85 + 16) = 0;
+        *(v85 + 24) = 0;
+        *(v85 + 32) = 5;
+        v324 = v84;
+        swift_willThrow();
+        outlined destroy of PgQuery_ParseResult(v46, type metadata accessor for PgQuery_SelectStmt);
+        outlined destroy of SQLExpression(&v355);
+        goto LABEL_64;
+      }
+
+      __break(1u);
+      goto LABEL_323;
+    }
+
+    v93 = outlined destroy of SQLExpression(&v355);
+  }
+
+  else
+  {
+    v93 = _s10Foundation4UUIDVSgWOhTm_0(&v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  v100 = *&v312[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupClause];
+  MEMORY[0x1EEE9AC00](v93, v94);
+  *(&v308 - 2) = isUniquelyReferenced_nonNull_native;
+  *(&v308 - 1) = v47;
+
+  NodeVG_AF13SQLExpressionVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF13SQLExpressionVsAE_pTg5(partial apply for closure #3 in SelectCore.init(select:resources:), (&v308 - 4), v100);
+  v324 = v52;
+  if (v52)
+  {
+
+    v102 = v318;
+    goto LABEL_63;
+  }
+
+  v52 = NodeVG_AF13SQLExpressionVsAE_pTg5;
+
+  v103 = v52;
+  v104 = *(v52 + 16);
+  v105 = v104 + 1;
+  v106 = 96;
+  v46 = v318;
+  while (--v105)
+  {
+    v41 = *(v52 + v106);
+    v106 += 96;
+    if (*(v41 + 16))
+    {
+
+      if (*(v41 + 16))
+      {
+        outlined init with copy of AggregationFunction(v41 + 32, &v371);
+        v107 = AggregationFunction.name()();
+        outlined destroy of AggregationFunction(&v371);
+        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+        v108 = swift_allocError();
+        *v109 = v107;
+        *(v109 + 16) = 0;
+        *(v109 + 24) = 0;
+        *(v109 + 32) = 6;
+        v324 = v108;
+        swift_willThrow();
+        v102 = v46;
+LABEL_63:
+        outlined destroy of PgQuery_ParseResult(v102, type metadata accessor for PgQuery_SelectStmt);
+LABEL_64:
+        v98 = 0;
+        v99 = 0;
+        v97 = 1;
+        goto LABEL_65;
+      }
+
+LABEL_323:
+      __break(1u);
+LABEL_324:
+      __break(1u);
+      goto LABEL_325;
+    }
+  }
+
+  if (v104)
+  {
+    LODWORD(v326) = 0;
+    goto LABEL_82;
+  }
+
+  v111 = countAndFlagsBits + 32;
+  v112 = -*(countAndFlagsBits + 16);
+  v113 = -1;
+  while (v112 + v113 != -1)
+  {
+    if (++v113 >= *(countAndFlagsBits + 16))
+    {
+LABEL_319:
+      __break(1u);
+LABEL_320:
+      __break(1u);
+LABEL_321:
+      swift_once();
+LABEL_48:
+      *(countAndFlagsBits + v46) = static PgQuery_Node._StorageClass.defaultInstance;
+      v88 = v314;
+      v89 = (v328._countAndFlagsBits)(v314, 1, v47);
+
+      v47 = v395;
+      v41 = v326;
+      if (v89 != 1)
+      {
+        _s10Foundation4UUIDVSgWOhTm_0(v88, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+      }
+
+      goto LABEL_51;
+    }
+
+    v114 = v111 + 128;
+    outlined init with copy of ResultColumn(v111, &v371);
+    v115 = *(v375 + 16);
+    outlined destroy of ResultColumn(&v371);
+    v111 = v114;
+    v46 = v318;
+    if (v115)
+    {
+      LODWORD(v326) = 0;
+      v103 = MEMORY[0x1E69E7CC0];
+      goto LABEL_82;
+    }
+  }
+
+  v103 = 0;
+  LODWORD(v326) = 1;
+LABEL_82:
+  v387 = v103;
+  v41 = v315;
+  v330 = *(countAndFlagsBits + 16);
+  if (v330)
+  {
+    v116 = 0;
+    v328._object = (countAndFlagsBits + 32);
+    isUniquelyReferenced_nonNull_native = MEMORY[0x1E69E7CC8];
+    while (1)
+    {
+      if (v116 >= *(countAndFlagsBits + 16))
+      {
+        __break(1u);
+LABEL_283:
+        v52 = MEMORY[0x1E69E7CC0];
+        v47 = *(MEMORY[0x1E69E7CC0] + 16);
+        *&v371 = MEMORY[0x1E69E7CC0];
+        if (v47)
+        {
+LABEL_284:
+          v275 = 0;
+          while (v275 < *(v52 + 16))
+          {
+            v276 = v275 + 1;
+
+            v41 = &v371;
+            specialized Array.append<A>(contentsOf:)(v277);
+            v275 = v276;
+            if (v47 == v276)
+            {
+              goto LABEL_287;
+            }
+          }
+
+          goto LABEL_324;
+        }
+
+LABEL_287:
+
+        v278 = v371;
+        outlined init with copy of PgQuery_Alias?(&v388, &v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        if (*(&v372 + 1))
+        {
+          v279 = v375;
+
+          outlined destroy of SQLExpression(&v371);
+        }
+
+        else
+        {
+          _s10Foundation4UUIDVSgWOhTm_0(&v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+          v279 = MEMORY[0x1E69E7CC0];
+        }
+
+        *&v371 = v278;
+        specialized Array.append<A>(contentsOf:)(v279);
+        v280 = v371;
+        v326 = *(v371 + 16);
+        if (!v326)
+        {
+LABEL_313:
+
+          outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_SelectStmt);
+          outlined init with copy of SelectCore(v379, v320);
+          outlined destroy of PgQuery_ParseResult(v395, type metadata accessor for PlanResources);
+          return outlined destroy of SelectCore(v379);
+        }
+
+        v281 = 0;
+        Node = v371 + 32;
+        v282 = v330 + 56;
+        v283 = v329 + 56;
+        while (v281 < *(v280 + 16))
+        {
+          v284 = v280;
+          outlined init with copy of AggregationFunction(Node + 200 * v281, &v371);
+          v328 = AggregationFunction.name()();
+          v285 = String.lowercased()();
+          v286 = v330;
+          if (*(v330 + 16))
+          {
+            Hasher.init(_seed:)();
+            String.hash(into:)();
+            v287 = Hasher._finalize()();
+            v288 = -1 << *(v286 + 32);
+            v289 = v287 & ~v288;
+            if ((*(v282 + ((v289 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v289))
+            {
+              v290 = ~v288;
+              while (1)
+              {
+                v291 = *(v330 + 48) + 16 * v289;
+                v292 = *v291 == v285._countAndFlagsBits && *(v291 + 8) == v285._object;
+                if (v292 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  break;
+                }
+
+                v289 = (v289 + 1) & v290;
+                if (((*(v282 + ((v289 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v289) & 1) == 0)
+                {
+                  goto LABEL_303;
+                }
+              }
+
+              v301 = "e as any select column's name";
+              v302 = 0xD000000000000051;
+              goto LABEL_317;
+            }
+          }
+
+LABEL_303:
+
+          v293 = String.lowercased()();
+          if (*(v329 + 16))
+          {
+            v294 = v329;
+            Hasher.init(_seed:)();
+            String.hash(into:)();
+            v295 = Hasher._finalize()();
+            v296 = -1 << *(v294 + 32);
+            v297 = v295 & ~v296;
+            if ((*(v283 + ((v297 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v297))
+            {
+              v298 = ~v296;
+              do
+              {
+                v299 = *(v329 + 48) + 16 * v297;
+                v300 = *v299 == v293._countAndFlagsBits && *(v299 + 8) == v293._object;
+                if (v300 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  goto LABEL_316;
+                }
+
+                v297 = (v297 + 1) & v298;
+              }
+
+              while (((*(v283 + ((v297 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v297) & 1) != 0);
+            }
+          }
+
+          ++v281;
+
+          outlined destroy of AggregationFunction(&v371);
+          v280 = v284;
+          if (v281 == v326)
+          {
+            goto LABEL_313;
+          }
+        }
+
+LABEL_334:
+        __break(1u);
+LABEL_335:
+        result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        __break(1u);
+        return result;
+      }
+
+      outlined init with copy of ResultColumn(v328._object + 128 * v116, &v371);
+      v117 = v378;
+      if (v378)
+      {
+        break;
+      }
+
+      outlined destroy of ResultColumn(&v371);
+LABEL_85:
+      if (++v116 == v330)
+      {
+        goto LABEL_117;
+      }
+    }
+
+    v45 = v377;
+    v46 = BYTE8(v374);
+
+    v118 = swift_isUniquelyReferenced_nonNull_native();
+    *&v355 = isUniquelyReferenced_nonNull_native;
+    v119 = specialized __RawDictionaryStorage.find<A>(_:)(v45, v117);
+    v121 = *(isUniquelyReferenced_nonNull_native + 16);
+    v122 = (v120 & 1) == 0;
+    v60 = __OFADD__(v121, v122);
+    v123 = v121 + v122;
+    if (v60)
+    {
+      __break(1u);
+LABEL_316:
+
+      v301 = "hema column names";
+      v302 = 0xD000000000000050;
+LABEL_317:
+      v303 = v318;
+      v304 = v301 | 0x8000000000000000;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      v305 = swift_allocError();
+      object = v328._object;
+      *v307 = v328._countAndFlagsBits;
+      *(v307 + 8) = object;
+      *(v307 + 16) = v302;
+      *(v307 + 24) = v304;
+      *(v307 + 32) = 7;
+      v324 = v305;
+      swift_willThrow();
+      outlined destroy of AggregationFunction(&v371);
+      v270 = v303;
+      goto LABEL_270;
+    }
+
+    v47 = v120;
+    if (*(isUniquelyReferenced_nonNull_native + 24) < v123)
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v123, v118);
+      v124 = v355;
+      v119 = specialized __RawDictionaryStorage.find<A>(_:)(v45, v117);
+      if ((v47 & 1) != (v125 & 1))
+      {
+        goto LABEL_335;
+      }
+
+      countAndFlagsBits = v319;
+      if (v47)
+      {
+        goto LABEL_92;
+      }
+
+LABEL_95:
+      *(v124 + 8 * (v119 >> 6) + 64) |= 1 << v119;
+      v127 = (*(v124 + 48) + 16 * v119);
+      *v127 = v45;
+      v127[1] = v117;
+      *(*(v124 + 56) + v119) = v46;
+      outlined destroy of ResultColumn(&v371);
+      v128 = *(v124 + 16);
+      v60 = __OFADD__(v128, 1);
+      v129 = v128 + 1;
+      if (v60)
+      {
+        __break(1u);
+        goto LABEL_319;
+      }
+
+      *(v124 + 16) = v129;
+      goto LABEL_97;
+    }
+
+    if (v118)
+    {
+      v124 = isUniquelyReferenced_nonNull_native;
+      countAndFlagsBits = v319;
+      if ((v120 & 1) == 0)
+      {
+        goto LABEL_95;
+      }
+    }
+
+    else
+    {
+      v309 = v119;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+      v130 = static _DictionaryStorage.copy(original:)();
+      v124 = v130;
+      if (*(isUniquelyReferenced_nonNull_native + 16))
+      {
+        v131 = (v130 + 64);
+        v132 = 1 << *(v124 + 32);
+        v314 = (isUniquelyReferenced_nonNull_native + 64);
+        v133 = (v132 + 63) >> 6;
+        if (v124 != isUniquelyReferenced_nonNull_native || v131 >= &v314[8 * v133])
+        {
+          memmove(v131, v314, 8 * v133);
+        }
+
+        v134 = 0;
+        *(v124 + 16) = *(isUniquelyReferenced_nonNull_native + 16);
+        v135 = 1 << *(isUniquelyReferenced_nonNull_native + 32);
+        if (v135 < 64)
+        {
+          v136 = ~(-1 << v135);
+        }
+
+        else
+        {
+          v136 = -1;
+        }
+
+        i = (v136 & *(isUniquelyReferenced_nonNull_native + 64));
+        v137 = (v135 + 63) >> 6;
+        v138 = i;
+        if (!i)
+        {
+          goto LABEL_107;
+        }
+
+        while (1)
+        {
+          v139 = __clz(__rbit64(v138));
+          for (i = ((v138 - 1) & v138); ; i = ((v141 - 1) & v141))
+          {
+            v142 = v139 | (v134 << 6);
+            v143 = (*(isUniquelyReferenced_nonNull_native + 48) + 16 * v142);
+            v145 = *v143;
+            v144 = v143[1];
+            LOBYTE(v143) = *(*(isUniquelyReferenced_nonNull_native + 56) + v142);
+            v146 = (*(v124 + 48) + 16 * v142);
+            *v146 = v145;
+            v146[1] = v144;
+            *(*(v124 + 56) + v142) = v143;
+
+            v138 = i;
+            if (i)
+            {
+              break;
+            }
+
+LABEL_107:
+            v140 = v134;
+            do
+            {
+              v134 = v140 + 1;
+              if (__OFADD__(v140, 1))
+              {
+                goto LABEL_333;
+              }
+
+              if (v134 >= v137)
+              {
+                goto LABEL_114;
+              }
+
+              v141 = *&v314[8 * v134];
+              ++v140;
+            }
+
+            while (!v141);
+            v139 = __clz(__rbit64(v141));
+          }
+        }
+      }
+
+LABEL_114:
+
+      v119 = v309;
+      countAndFlagsBits = v319;
+      if ((v47 & 1) == 0)
+      {
+        goto LABEL_95;
+      }
+    }
+
+LABEL_92:
+    v126 = v119;
+
+    *(*(v124 + 56) + v126) = v46;
+    outlined destroy of ResultColumn(&v371);
+LABEL_97:
+    v47 = v395;
+    v46 = v318;
+    isUniquelyReferenced_nonNull_native = v124;
+    v41 = v315;
+    goto LABEL_85;
+  }
+
+  isUniquelyReferenced_nonNull_native = MEMORY[0x1E69E7CC8];
+LABEL_117:
+  v147 = v312;
+  v330 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingClause;
+  outlined init with copy of PgQuery_Alias?(&v312[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingClause], v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v45 = v328._countAndFlagsBits;
+  if ((v328._countAndFlagsBits)(v41, 1, Node) == 1)
+  {
+
+    _s10Foundation4UUIDVSgWOhTm_0(v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v388 = 0u;
+    v389 = 0u;
+    v390 = 0u;
+    v391 = 0u;
+    v392 = 0u;
+    v393 = 0u;
+    v52 = v324;
+  }
+
+  else
+  {
+    _s10Foundation4UUIDVSgWOhTm_0(v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v150 = swift_allocObject();
+    *(v150 + 16) = v310;
+    strcpy((v150 + 32), "select_alias");
+    *(v150 + 45) = 0;
+    *(v150 + 46) = -5120;
+    *(v150 + 48) = isUniquelyReferenced_nonNull_native;
+    *&v371 = v311;
+
+    specialized Array.append<A>(contentsOf:)(v150);
+    v41 = v371;
+    v151 = &v147[v330];
+    v152 = v322;
+    outlined init with copy of PgQuery_Alias?(v151, v322, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v153 = Node;
+    if ((v45)(v152, 1, Node) == 1)
+    {
+      isUniquelyReferenced_nonNull_native = v323;
+      UnknownStorage.init()();
+      v46 = *(v153 + 20);
+      v52 = v324;
+      if (one-time initialization token for defaultInstance != -1)
+      {
+        goto LABEL_328;
+      }
+
+      goto LABEL_124;
+    }
+
+    outlined init with take of PgQuery_ParseResult(v152, v323, type metadata accessor for PgQuery_Node);
+    v52 = v324;
+LABEL_127:
+    isUniquelyReferenced_nonNull_native = v321;
+    outlined init with copy of PgQuery_ScanResult(v47 + *(v313 + 20), v321, type metadata accessor for SQLTokenInformation);
+
+    v157 = specialized ColumnResolver.init(schemas:)(v156);
+    if (v52)
+    {
+      v324 = v52;
+      swift_bridgeObjectRelease_n();
+      outlined destroy of PgQuery_ParseResult(isUniquelyReferenced_nonNull_native, type metadata accessor for SQLTokenInformation);
+      outlined destroy of PgQuery_ParseResult(v323, type metadata accessor for PgQuery_Node);
+      outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_SelectStmt);
+      v99 = 0;
+      v97 = 1;
+      v98 = 1;
+      goto LABEL_65;
+    }
+
+    v159 = v157;
+    v160 = v158;
+    v52 = 0;
+
+    v45 = v323;
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v323, v41, v159, v160, isUniquelyReferenced_nonNull_native, &v355);
+
+    outlined init with copy of Aggregation(&v355, v368);
+    SQLExpression.init(rootNode:)(v368, &v371);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v355);
+    outlined destroy of PgQuery_ParseResult(isUniquelyReferenced_nonNull_native, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v45, type metadata accessor for PgQuery_Node);
+    v390 = v373;
+    v391 = v374;
+    v392 = v375;
+    v393 = v376;
+    v388 = v371;
+    v389 = v372;
+    v46 = v318;
+  }
+
+  outlined init with copy of PgQuery_Alias?(&v388, &v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  if (*(&v372 + 1))
+  {
+    v368[2] = v373;
+    v368[3] = v374;
+    v369 = v375;
+    v370 = v376;
+    v368[0] = v371;
+    v368[1] = v372;
+    if (v326)
+    {
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      v148 = swift_allocError();
+      *v149 = 0u;
+      *(v149 + 16) = 0u;
+      *(v149 + 32) = 9;
+      v324 = v148;
+      swift_willThrow();
+      outlined destroy of SQLExpression(v368);
+      outlined destroy of PgQuery_ParseResult(v46, type metadata accessor for PgQuery_SelectStmt);
+      v97 = 1;
+      v98 = 1;
+      v99 = 1;
+      goto LABEL_65;
+    }
+
+    isUniquelyReferenced_nonNull_native = v52;
+    v161 = MEMORY[0x1E69E7CD0];
+    *&v349 = MEMORY[0x1E69E7CD0];
+    v162 = *(countAndFlagsBits + 16);
+    if (v162)
+    {
+      v163 = countAndFlagsBits + 32;
+      do
+      {
+        outlined init with copy of ResultColumn(v163, &v371);
+        v164 = v378;
+        if (v378 && *(v375 + 16))
+        {
+          v165 = v377;
+
+          v41 = &v349;
+          specialized Set._Variant.insert(_:)(&v355, v165, v164);
+        }
+
+        outlined destroy of ResultColumn(&v371);
+        v163 += 128;
+        --v162;
+      }
+
+      while (v162);
+LABEL_138:
+      v161 = v349;
+    }
+
+    v46 = v369;
+    v52 = isUniquelyReferenced_nonNull_native;
+    i = *(v369 + 16);
+    if (i)
+    {
+      v166 = 0;
+      v167 = v369 + 32;
+      v329 = v161 + 56;
+      v45 = MEMORY[0x1E69E7CC0];
+      isUniquelyReferenced_nonNull_native = 96;
+      v330 = v161;
+      v321 = v369;
+      v322 = v369 + 32;
+      while (1)
+      {
+        if (v166 >= *(v46 + 16))
+        {
+          goto LABEL_332;
+        }
+
+        v326 = v166;
+        outlined init with copy of AggregationFunction(v167 + 200 * v166, &v371);
+        outlined init with copy of AggregationFunction.AggregationType(&v371, &v355);
+        outlined destroy of AggregationFunction(&v371);
+        if (v367 > 3u)
+        {
+          break;
+        }
+
+        if (v367 <= 1u)
+        {
+          goto LABEL_156;
+        }
+
+        if (v367 != 2)
+        {
+LABEL_159:
+          v351 = v357;
+          v352 = v358;
+          v353 = v359;
+          v354 = v360;
+          v349 = v355;
+          v350 = v356;
+          outlined init with copy of SQLExpression(&v349, &v343);
+          v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v45);
+          v193 = *(v41 + 16);
+          v192 = *(v41 + 24);
+          v328._object = (v193 + 1);
+          if (v193 >= v192 >> 1)
+          {
+            v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v192 > 1), v193 + 1, 1, v41);
+          }
+
+          outlined destroy of SQLExpression(&v349);
+          v179 = v41;
+          *(v41 + 16) = v328._object;
+          v194 = (v41 + 96 * v193);
+          v195 = v344;
+          v194[2] = v343;
+          v194[3] = v195;
+          v196 = v348;
+          v198 = v345;
+          v197 = v346;
+          v194[6] = v347;
+          v194[7] = v196;
+          v194[4] = v198;
+          v194[5] = v197;
+          goto LABEL_162;
+        }
+
+        v351 = v357;
+        v352 = v358;
+        v353 = v359;
+        v354 = v360;
+        v349 = v355;
+        v350 = v356;
+        v345 = v363;
+        v346 = v364;
+        v347 = v365;
+        v348 = v366;
+        v343 = v361;
+        v344 = v362;
+        outlined init with copy of SQLExpression(&v349, &v337);
+        v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v45);
+        v170 = *(v168 + 2);
+        v169 = *(v168 + 3);
+        v41 = v170 + 1;
+        if (v170 >= v169 >> 1)
+        {
+          v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v169 > 1), v170 + 1, 1, v168);
+        }
+
+        *(v168 + 2) = v41;
+        v171 = &v168[96 * v170];
+        v172 = v338;
+        *(v171 + 2) = v337;
+        *(v171 + 3) = v172;
+        v173 = v339;
+        v174 = v340;
+        v175 = v342;
+        *(v171 + 6) = v341;
+        *(v171 + 7) = v175;
+        *(v171 + 4) = v173;
+        *(v171 + 5) = v174;
+        outlined init with copy of PgQuery_Alias?(&v343, &v331, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        if (*(&v332 + 1))
+        {
+          v176 = v47;
+          v339 = v333;
+          v340 = v334;
+          v341 = v335;
+          v342 = v336;
+          v337 = v331;
+          v338 = v332;
+          outlined init with copy of SQLExpression(&v337, &v331);
+          v177 = *(v168 + 3);
+          v178 = v170 + 2;
+          if ((v170 + 2) > (v177 >> 1))
+          {
+            v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v177 > 1), v170 + 2, 1, v168);
+          }
+
+          v46 = v321;
+          outlined destroy of SQLExpression(&v337);
+          _s10Foundation4UUIDVSgWOhTm_0(&v343, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+          outlined destroy of SQLExpression(&v349);
+          v179 = v168;
+          *(v168 + 2) = v178;
+          isUniquelyReferenced_nonNull_native = 96;
+          v180 = (v179 + 96 * v41);
+          v181 = v332;
+          v180[2] = v331;
+          v180[3] = v181;
+          v182 = v336;
+          v184 = v333;
+          v183 = v334;
+          v180[6] = v335;
+          v180[7] = v182;
+          v180[4] = v184;
+          v180[5] = v183;
+          v47 = v176;
+LABEL_162:
+          v161 = v330;
+          goto LABEL_165;
+        }
+
+        v41 = &_s14BiomeSQLParser13SQLExpressionVSgMd;
+        _s10Foundation4UUIDVSgWOhTm_0(&v343, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        outlined destroy of SQLExpression(&v349);
+        _s10Foundation4UUIDVSgWOhTm_0(&v331, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        v46 = v321;
+        v179 = v168;
+        isUniquelyReferenced_nonNull_native = 96;
+LABEL_165:
+        Node = *(v179 + 16);
+        if (Node)
+        {
+          v46 = 0;
+          v199 = (v179 + 32);
+          v328._countAndFlagsBits = v179;
+          v323 = (v179 + 32);
+          while (1)
+          {
+            if (v46 >= *(v179 + 16))
+            {
+              goto LABEL_331;
+            }
+
+            v324 = v52;
+            outlined init with copy of SQLExpression(&v199[96 * v46], &v355);
+            v45 = *(&v359 + 1);
+            isUniquelyReferenced_nonNull_native = *(*(&v359 + 1) + 16);
+            if (isUniquelyReferenced_nonNull_native)
+            {
+              break;
+            }
+
+LABEL_183:
+            ++v46;
+            outlined destroy of SQLExpression(&v355);
+            v179 = v328._countAndFlagsBits;
+            v199 = v323;
+            v52 = v324;
+            v45 = MEMORY[0x1E69E7CC0];
+            isUniquelyReferenced_nonNull_native = 96;
+            if (v46 == Node)
+            {
+
+              v46 = v321;
+              goto LABEL_186;
+            }
+          }
+
+          v52 = 0;
+          v328._object = (*(&v359 + 1) + 32);
+          while (v52 < *(v45 + 2))
+          {
+            if (*(v161 + 16))
+            {
+              v200 = (v328._object + 24 * v52);
+              v202 = *v200;
+              v201 = v200[1];
+              Hasher.init(_seed:)();
+              swift_bridgeObjectRetain_n();
+              String.hash(into:)();
+              v203 = Hasher._finalize()();
+              v204 = -1 << *(v161 + 32);
+              v41 = v203 & ~v204;
+              if ((*(v329 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41))
+              {
+                v205 = ~v204;
+                do
+                {
+                  v206 = (*(v330 + 48) + 16 * v41);
+                  v207 = *v206 == v202 && v206[1] == v201;
+                  if (v207 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                  {
+                    swift_bridgeObjectRelease_n();
+
+                    v208 = v360;
+                    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+                    v209 = swift_allocError();
+                    *v210 = v208;
+                    *(v210 + 16) = 0;
+                    *(v210 + 24) = 0;
+                    *(v210 + 32) = 3;
+                    v324 = v209;
+                    swift_willThrow();
+
+                    outlined destroy of SQLExpression(v368);
+                    outlined destroy of SQLExpression(&v355);
+                    goto LABEL_269;
+                  }
+
+                  v41 = (v41 + 1) & v205;
+                }
+
+                while (((*(v329 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41) & 1) != 0);
+              }
+
+              swift_bridgeObjectRelease_n();
+              v47 = v395;
+              countAndFlagsBits = v319;
+              v161 = v330;
+            }
+
+            if (++v52 == isUniquelyReferenced_nonNull_native)
+            {
+              goto LABEL_183;
+            }
+          }
+
+LABEL_325:
+          __break(1u);
+LABEL_326:
+          __break(1u);
+LABEL_327:
+          __break(1u);
+LABEL_328:
+          swift_once();
+LABEL_124:
+          *(isUniquelyReferenced_nonNull_native + v46) = static PgQuery_Node._StorageClass.defaultInstance;
+          v154 = v322;
+          v155 = (v45)(v322, 1);
+
+          if (v155 != 1)
+          {
+            _s10Foundation4UUIDVSgWOhTm_0(v154, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+          }
+
+          goto LABEL_127;
+        }
+
+LABEL_186:
+        v166 = v326 + 1;
+        v167 = v322;
+        if (v326 + 1 == i)
+        {
+          goto LABEL_189;
+        }
+      }
+
+      if (v367 > 5u)
+      {
+        if (v367 != 6)
+        {
+          v179 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 0, 1, v45);
+          goto LABEL_165;
+        }
+      }
+
+      else if (v367 == 4)
+      {
+        goto LABEL_159;
+      }
+
+LABEL_156:
+      v351 = v357;
+      v352 = v358;
+      v353 = v359;
+      v354 = v360;
+      v349 = v355;
+      v350 = v356;
+      outlined init with copy of SQLExpression(&v349, &v343);
+      v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v45);
+      v186 = *(v41 + 16);
+      v185 = *(v41 + 24);
+      if (v186 >= v185 >> 1)
+      {
+        v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v185 > 1), v186 + 1, 1, v41);
+      }
+
+      outlined destroy of SQLExpression(&v349);
+      v179 = v41;
+      *(v41 + 16) = v186 + 1;
+      v187 = (v41 + 96 * v186);
+      v188 = v344;
+      v187[2] = v343;
+      v187[3] = v188;
+      v189 = v348;
+      v191 = v345;
+      v190 = v346;
+      v187[6] = v347;
+      v187[7] = v189;
+      v187[4] = v191;
+      v187[5] = v190;
+      v161 = v330;
+      v45 = MEMORY[0x1E69E7CC0];
+      goto LABEL_165;
+    }
+
+LABEL_189:
+
+    outlined destroy of SQLExpression(v368);
+  }
+
+  else
+  {
+    _s10Foundation4UUIDVSgWOhTm_0(&v371, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  v211 = MEMORY[0x1E69E7CD0];
+  *&v355 = MEMORY[0x1E69E7CD0];
+  v212 = v311;
+  v323 = *(v311 + 16);
+  if (v323)
+  {
+    v213 = 0;
+    v214 = v311 + 32;
+    v322 = v311 + 32;
+    do
+    {
+      v324 = v52;
+      if (v213 >= *(v212 + 16))
+      {
+        goto LABEL_327;
+      }
+
+      v215 = v214 + 24 * v213;
+      v216 = *(v215 + 8);
+      v41 = *(v215 + 16);
+      i = v213 + 1;
+      v326 = v216;
+      v217 = v41 + 64;
+      v218 = 1 << *(v41 + 32);
+      if (v218 < 64)
+      {
+        v219 = ~(-1 << v218);
+      }
+
+      else
+      {
+        v219 = -1;
+      }
+
+      isUniquelyReferenced_nonNull_native = v219 & *(v41 + 64);
+      v46 = (v218 + 63) >> 6;
+
+      swift_bridgeObjectRetain_n();
+      v220 = 0;
+      Node = v46;
+      v328._countAndFlagsBits = v41 + 64;
+      v328._object = v41;
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        while (1)
+        {
+LABEL_201:
+          v222 = (*(v41 + 48) + ((v220 << 10) | (16 * __clz(__rbit64(isUniquelyReferenced_nonNull_native)))));
+          v223 = v222[1];
+          v47 = v355;
+          v329 = *v222;
+          v224 = String.lowercased()();
+          v225 = *(v47 + 16);
+          v330 = v223;
+          if (v225)
+          {
+            Hasher.init(_seed:)();
+
+            String.hash(into:)();
+            v226 = Hasher._finalize()();
+            v227 = -1 << *(v47 + 32);
+            v228 = v226 & ~v227;
+            if ((*(v47 + 56 + ((v228 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v228))
+            {
+              v229 = ~v227;
+              while (1)
+              {
+                v230 = *(v47 + 48) + 16 * v228;
+                v231 = *v230 == v224._countAndFlagsBits && *(v230 + 8) == v224._object;
+                if (v231 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  break;
+                }
+
+                v228 = (v228 + 1) & v229;
+                if (((*(v47 + 56 + ((v228 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v228) & 1) == 0)
+                {
+                  goto LABEL_212;
+                }
+              }
+
+              lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+              v233 = swift_allocError();
+              v234 = v330;
+              *v235 = v329;
+              *(v235 + 8) = v234;
+              *(v235 + 16) = 0xD000000000000027;
+              *(v235 + 24) = 0x8000000184DEA4C0;
+              *(v235 + 32) = 7;
+              v324 = v233;
+              swift_willThrow();
+
+              goto LABEL_268;
+            }
+          }
+
+          else
+          {
+          }
+
+LABEL_212:
+          isUniquelyReferenced_nonNull_native &= isUniquelyReferenced_nonNull_native - 1;
+
+          v232 = String.lowercased()();
+          v45 = v232._object;
+
+          specialized Set._Variant.insert(_:)(&v371, v232._countAndFlagsBits, v232._object);
+
+          countAndFlagsBits = v319;
+          v217 = v328._countAndFlagsBits;
+          v41 = v328._object;
+          v46 = Node;
+          if (!isUniquelyReferenced_nonNull_native)
+          {
+            goto LABEL_197;
+          }
+        }
+      }
+
+      while (1)
+      {
+LABEL_197:
+        v221 = v220 + 1;
+        if (__OFADD__(v220, 1))
+        {
+          goto LABEL_320;
+        }
+
+        if (v221 >= v46)
+        {
+          break;
+        }
+
+        isUniquelyReferenced_nonNull_native = *(v217 + 8 * v221);
+        ++v220;
+        if (isUniquelyReferenced_nonNull_native)
+        {
+          v220 = v221;
+          goto LABEL_201;
+        }
+      }
+
+      v52 = v324;
+      v213 = i;
+      v212 = v311;
+      v211 = MEMORY[0x1E69E7CD0];
+      v214 = v322;
+    }
+
+    while (i != v323);
+    v330 = v355;
+  }
+
+  else
+  {
+    v330 = MEMORY[0x1E69E7CD0];
+  }
+
+  *&v368[0] = v211;
+  v41 = *(countAndFlagsBits + 16);
+  if (!v41)
+  {
+    goto LABEL_248;
+  }
+
+  v236 = 0;
+  v237 = countAndFlagsBits + 32;
+  v329 = v330 + 56;
+  Node = countAndFlagsBits + 32;
+  v328._countAndFlagsBits = v41;
+  do
+  {
+    if (v236 >= *(countAndFlagsBits + 16))
+    {
+LABEL_330:
+      __break(1u);
+LABEL_331:
+      __break(1u);
+LABEL_332:
+      __break(1u);
+LABEL_333:
+      __break(1u);
+      goto LABEL_334;
+    }
+
+    outlined init with copy of ResultColumn(v237 + (v236 << 7), &v371);
+    v46 = v378;
+    if (v378)
+    {
+      v324 = v52;
+      v238 = *&v368[0];
+      v328._object = v377;
+      v239 = String.lowercased()();
+      if (*(v238 + 16))
+      {
+        Hasher.init(_seed:)();
+
+        String.hash(into:)();
+        v240 = Hasher._finalize()();
+        v241 = -1 << *(v238 + 32);
+        v242 = v240 & ~v241;
+        if ((*(v238 + 56 + ((v242 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v242))
+        {
+          v243 = ~v241;
+          while (1)
+          {
+            v244 = *(v238 + 48) + 16 * v242;
+            v245 = *v244 == v239._countAndFlagsBits && *(v244 + 8) == v239._object;
+            if (v245 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+              break;
+            }
+
+            v242 = (v242 + 1) & v243;
+            if (((*(v238 + 56 + ((v242 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v242) & 1) == 0)
+            {
+              goto LABEL_234;
+            }
+          }
+
+          v266 = 0xD000000000000021;
+
+          v267 = "lect alias names";
+          goto LABEL_267;
+        }
+      }
+
+      else
+      {
+      }
+
+LABEL_234:
+
+      v246 = String.lowercased()();
+      v45 = v246._object;
+      v247 = v330;
+      if (*(v330 + 16))
+      {
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+        v248 = Hasher._finalize()();
+        v249 = -1 << *(v247 + 32);
+        v250 = v248 & ~v249;
+        countAndFlagsBits = v319;
+        if ((*(v329 + ((v250 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v250))
+        {
+          v251 = ~v249;
+          while (1)
+          {
+            v252 = *(v330 + 48) + 16 * v250;
+            v253 = *v252 == v246._countAndFlagsBits && *(v252 + 8) == v246._object;
+            if (v253 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+              break;
+            }
+
+            v250 = (v250 + 1) & v251;
+            if (((*(v329 + ((v250 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v250) & 1) == 0)
+            {
+              goto LABEL_245;
+            }
+          }
+
+LABEL_266:
+
+          v267 = "ave the same name";
+          v266 = 0xD000000000000043;
+LABEL_267:
+
+          lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+          v268 = swift_allocError();
+          *v269 = v328._object;
+          *(v269 + 8) = v46;
+          *(v269 + 16) = v266;
+          *(v269 + 24) = v267 | 0x8000000000000000;
+          *(v269 + 32) = 7;
+          v324 = v268;
+          swift_willThrow();
+          outlined destroy of ResultColumn(&v371);
+LABEL_268:
+
+          goto LABEL_269;
+        }
+      }
+
+      else
+      {
+        countAndFlagsBits = v319;
+      }
+
+LABEL_245:
+
+      v254 = String.lowercased()();
+
+      specialized Set._Variant.insert(_:)(&v355, v254._countAndFlagsBits, v254._object);
+
+      outlined destroy of ResultColumn(&v371);
+      v52 = v324;
+      v237 = Node;
+      v41 = v328._countAndFlagsBits;
+    }
+
+    else
+    {
+      outlined destroy of ResultColumn(&v371);
+    }
+
+    ++v236;
+  }
+
+  while (v236 != v41);
+  v211 = *&v368[0];
+LABEL_248:
+  v255 = *(countAndFlagsBits + 16);
+  v329 = v211;
+  if (!v255)
+  {
+LABEL_271:
+    v324 = v52;
+    v46 = v319;
+    isUniquelyReferenced_nonNull_native = *(v319 + 16);
+    if (!isUniquelyReferenced_nonNull_native)
+    {
+      goto LABEL_283;
+    }
+
+    v50 = MEMORY[0x1E69E7CC0];
+    *&v355 = MEMORY[0x1E69E7CC0];
+    v41 = &v355;
+    specialized ContiguousArray.reserveCapacity(_:)(isUniquelyReferenced_nonNull_native);
+    v45 = (v46 + 32);
+    v52 = v355;
+    do
+    {
+      outlined init with copy of ResultColumn(v45, &v371);
+      v46 = v375;
+
+      outlined destroy of ResultColumn(&v371);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v41 = &v355;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v52 + 16) + 1, 1);
+        v52 = v355;
+      }
+
+      countAndFlagsBits = *(v52 + 16);
+      v271 = *(v52 + 24);
+      v47 = countAndFlagsBits + 1;
+      if (countAndFlagsBits >= v271 >> 1)
+      {
+        v41 = &v355;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v271 > 1), countAndFlagsBits + 1, 1);
+        v52 = v355;
+      }
+
+      *(v52 + 16) = v47;
+      *(v52 + 8 * countAndFlagsBits + 32) = v46;
+      v45 += 128;
+      --isUniquelyReferenced_nonNull_native;
+    }
+
+    while (isUniquelyReferenced_nonNull_native);
+    goto LABEL_281;
+  }
+
+  v256 = 0;
+  countAndFlagsBits += 32;
+  v257 = v211 + 56;
+  while (2)
+  {
+    if (v256 >= *(v319 + 16))
+    {
+      __break(1u);
+      goto LABEL_330;
+    }
+
+    outlined init with copy of ResultColumn(countAndFlagsBits + (v256 << 7), &v371);
+    if (v378)
+    {
+LABEL_251:
+      ++v256;
+      outlined destroy of ResultColumn(&v371);
+      if (v256 == v255)
+      {
+        goto LABEL_271;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v41 = *(&v376 + 1);
+  v328._object = v376;
+  v258 = String.lowercased()();
+  v45 = v258._object;
+  v259 = *(v329 + 16);
+  v324 = v52;
+  if (!v259 || (v328._countAndFlagsBits = v41, v260 = v329, Hasher.init(_seed:)(), String.hash(into:)(), v261 = Hasher._finalize()(), v262 = -1 << *(v260 + 32), v41 = v261 & ~v262, ((*(v257 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41) & 1) == 0))
+  {
+LABEL_250:
+
+    v52 = v324;
+    goto LABEL_251;
+  }
+
+  v263 = ~v262;
+  while (1)
+  {
+    v264 = *(v329 + 48) + 16 * v41;
+    v265 = *v264 == v258._countAndFlagsBits && *(v264 + 8) == v258._object;
+    if (v265 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+      break;
+    }
+
+    v41 = (v41 + 1) & v263;
+    if (((*(v257 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41) & 1) == 0)
+    {
+      goto LABEL_250;
+    }
+  }
+
+  lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+  v272 = swift_allocError();
+  v273 = v328._countAndFlagsBits;
+  *v274 = v328._object;
+  *(v274 + 8) = v273;
+  *(v274 + 16) = 0xD00000000000003DLL;
+  *(v274 + 24) = 0x8000000184DEA4F0;
+  *(v274 + 32) = 7;
+  v324 = v272;
+  swift_willThrow();
+
+  outlined destroy of ResultColumn(&v371);
+LABEL_269:
+  v270 = v318;
+LABEL_270:
+  outlined destroy of PgQuery_ParseResult(v270, type metadata accessor for PgQuery_SelectStmt);
+  v97 = 1;
+  v98 = 1;
+  v99 = 1;
+  v47 = v395;
+LABEL_65:
+  outlined destroy of PgQuery_ParseResult(v47, type metadata accessor for PlanResources);
+  result = outlined destroy of FromClause(v379);
+  if (v97)
+  {
+    result = _s10Foundation4UUIDVSgWOhTm_0(&v381, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  if (v98)
+  {
+  }
+
+  v110 = v317;
+  if (v99)
+  {
+    result = _s10Foundation4UUIDVSgWOhTm_0(&v388, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  if (!v110)
+  {
+  }
+
+  return result;
+}
+
+unint64_t closure #1 in SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+{
+  v11 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x1EEE9AC00](v11 - 8, v12);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Node = type metadata accessor for PgQuery_Node(0);
+  MEMORY[0x1EEE9AC00](Node - 8, v16);
+  v18 = &v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PgQuery_ScanResult(a1, v18, type metadata accessor for PgQuery_Node);
+  v19 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(a3 + *(v19 + 20), v14, type metadata accessor for SQLTokenInformation);
+
+  result = ResultColumn.init(node:schemas:tokenInformation:)(v18, a2, v14, a5);
+  if (v5)
+  {
+    *a4 = v5;
+  }
+
+  return result;
+}
+
+uint64_t closure #3 in SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+{
+  v11 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x1EEE9AC00](v11 - 8, v12);
+  v14 = v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Node = type metadata accessor for PgQuery_Node(0);
+  MEMORY[0x1EEE9AC00](Node - 8, v16);
+  v18 = v25 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PgQuery_ScanResult(a1, v18, type metadata accessor for PgQuery_Node);
+  v19 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(a3 + *(v19 + 20), v14, type metadata accessor for SQLTokenInformation);
+
+  v21 = specialized ColumnResolver.init(schemas:)(v20);
+  v23 = v22;
+
+  if (v5)
+  {
+    outlined destroy of PgQuery_ParseResult(v14, type metadata accessor for SQLTokenInformation);
+    result = outlined destroy of PgQuery_ParseResult(v18, type metadata accessor for PgQuery_Node);
+    *a4 = v5;
+  }
+
+  else
+  {
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v18, a2, v21, v23, v14, v26);
+
+    outlined init with copy of Aggregation(v26, v25);
+    SQLExpression.init(rootNode:)(v25, a5);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+    outlined destroy of PgQuery_ParseResult(v14, type metadata accessor for SQLTokenInformation);
+    return outlined destroy of PgQuery_ParseResult(v18, type metadata accessor for PgQuery_Node);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance SelectCore.CodingKeys()
+{
+  v1 = *v0;
+  v2 = 1836020326;
+  v3 = 0x794270756F7267;
+  v4 = 0x676E69766168;
+  if (v1 != 3)
+  {
+    v4 = 0x7463656C6573;
+  }
+
+  if (v1 != 2)
+  {
+    v3 = v4;
+  }
+
+  if (*v0)
+  {
+    v2 = 0x6572656877;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SelectCore.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized SelectCore.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SelectCore.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SelectCore.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t SelectCore.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser10SelectCoreV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser10SelectCoreV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = &v11 - v8;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  LOBYTE(v13) = 0;
+  lazy protocol witness table accessor for type FromClause and conformance FromClause();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v2)
+  {
+    LOBYTE(v13) = 1;
+    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    v13 = *(v3 + 200);
+    v12 = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR);
+    lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [SQLExpression] and conformance <A> [A], &_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR, lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression);
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    LOBYTE(v13) = 3;
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    v13 = *(v3 + 304);
+    v12 = 4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser12ResultColumnVGMd, &_sSay14BiomeSQLParser12ResultColumnVGMR);
+    lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [ResultColumn] and conformance <A> [A], &_sSay14BiomeSQLParser12ResultColumnVGMd, &_sSay14BiomeSQLParser12ResultColumnVGMR, lazy protocol witness table accessor for type ResultColumn and conformance ResultColumn);
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  return (*(v6 + 8))(v9, v5);
+}
+
+void *MaterializedView.init(create:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Swift::String *a3@<X8>)
+{
+  v85 = a2;
+  v75 = a3;
+  v81 = type metadata accessor for PlanResources(0);
+  MEMORY[0x1EEE9AC00](v81, v4);
+  v73 = &v68 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8, v7);
+  v83 = &v68 - v8;
+  SelectStmt = type metadata accessor for PgQuery_SelectStmt(0);
+  MEMORY[0x1EEE9AC00](SelectStmt, v9);
+  v72 = &v68 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8, v12);
+  v76 = &v68 - v13;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v71 = *(Node - 8);
+  MEMORY[0x1EEE9AC00](Node, v14);
+  v77 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  MEMORY[0x1EEE9AC00](v16 - 8, v17);
+  v19 = &v68 - v18;
+  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
+  v79 = *(RangeVar - 8);
+  v80 = RangeVar;
+  MEMORY[0x1EEE9AC00](RangeVar, v21);
+  v23 = &v68 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+  MEMORY[0x1EEE9AC00](v24 - 8, v25);
+  v27 = &v68 - v26;
+  IntoClause = type metadata accessor for PgQuery_IntoClause(0);
+  v29 = *(IntoClause - 8);
+  MEMORY[0x1EEE9AC00](IntoClause, v30);
+  v32 = &v68 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = *(a1 + *(type metadata accessor for PgQuery_CreateTableAsStmt(0) + 20));
+  destructiveProjectEnumData for StorableValue();
+  if (v34 != 24)
+  {
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v39 = 0xD000000000000039;
+    *(v39 + 8) = 0x8000000184DEA460;
+    *(v39 + 16) = 0;
+    *(v39 + 24) = 0;
+    *(v39 + 32) = 1;
+    swift_willThrow();
+    outlined destroy of PgQuery_ParseResult(v85, type metadata accessor for PlanResources);
+    return outlined destroy of PgQuery_ParseResult(a1, type metadata accessor for PgQuery_CreateTableAsStmt);
+  }
+
+  v74 = a1;
+  outlined init with copy of PgQuery_Alias?(v33 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__into, v27, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+  v35 = *(v29 + 48);
+  v36 = v35(v27, 1, IntoClause);
+  v69 = v33;
+  if (v36 == 1)
+  {
+    UnknownStorage.init()();
+    v37 = *(IntoClause + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      v67 = *(IntoClause + 20);
+      swift_once();
+      v37 = v67;
+    }
+
+    *&v32[v37] = static PgQuery_IntoClause._StorageClass.defaultInstance;
+    v38 = v35(v27, 1, IntoClause);
+
+    if (v38 != 1)
+    {
+      _s10Foundation4UUIDVSgWOhTm_0(v27, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of PgQuery_ParseResult(v27, v32, type metadata accessor for PgQuery_IntoClause);
+  }
+
+  outlined init with copy of PgQuery_Alias?(*&v32[*(IntoClause + 20)] + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rel, v19, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  v41 = v80;
+  v42 = *(v79 + 48);
+  v43 = v42(v19, 1, v80);
+  v44 = v74;
+  if (v43 == 1)
+  {
+    *v23 = 0;
+    *(v23 + 1) = 0xE000000000000000;
+    *(v23 + 2) = 0;
+    *(v23 + 3) = 0xE000000000000000;
+    *(v23 + 4) = 0;
+    *(v23 + 5) = 0xE000000000000000;
+    v23[48] = 0;
+    *(v23 + 7) = 0;
+    *(v23 + 8) = 0xE000000000000000;
+    *(v23 + 18) = 0;
+    UnknownStorage.init()();
+    v45 = *(v41 + 44);
+    Alias = type metadata accessor for PgQuery_Alias(0);
+    (*(*(Alias - 8) + 56))(&v23[v45], 1, 1, Alias);
+    v47 = v42(v19, 1, v41);
+    v48 = v83;
+    v49 = v69;
+    if (v47 != 1)
+    {
+      _s10Foundation4UUIDVSgWOhTm_0(v19, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of PgQuery_ParseResult(v19, v23, type metadata accessor for PgQuery_RangeVar);
+    v48 = v83;
+    v49 = v69;
+  }
+
+  outlined destroy of PgQuery_ParseResult(v32, type metadata accessor for PgQuery_IntoClause);
+  v50 = *(v23 + 18);
+  outlined destroy of PgQuery_ParseResult(v23, type metadata accessor for PgQuery_RangeVar);
+  v51 = v85;
+  v52 = SQLTokenInformation.tokenName(location:)(v50);
+  if (v53)
+  {
+    outlined destroy of PgQuery_ParseResult(v51, type metadata accessor for PlanResources);
+    return outlined destroy of PgQuery_ParseResult(v44, type metadata accessor for PgQuery_CreateTableAsStmt);
+  }
+
+  v54 = v76;
+  *v75 = v52;
+  object = v52._object;
+  outlined init with copy of PgQuery_Alias?(v49 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query, v54, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v55 = *(v71 + 48);
+  v56 = Node;
+  if ((v55)(v54, 1, Node) == 1)
+  {
+    v57 = v77;
+    UnknownStorage.init()();
+    v58 = *(v56 + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      swift_once();
+    }
+
+    *(v57 + v58) = static PgQuery_Node._StorageClass.defaultInstance;
+    v59 = v76;
+    v60 = v55(v76, 1);
+
+    v48 = v83;
+    if (v60 != 1)
+    {
+      _s10Foundation4UUIDVSgWOhTm_0(v59, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    }
+  }
+
+  else
+  {
+    v61 = v54;
+    v57 = v77;
+    outlined init with take of PgQuery_ParseResult(v61, v77, type metadata accessor for PgQuery_Node);
+  }
+
+  outlined init with copy of PgQuery_Alias?(*(v57 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v48, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v62 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  v63 = (*(*(v62 - 8) + 48))(v48, 1, v62);
+  v64 = v72;
+  if (v63 == 1)
+  {
+    _s10Foundation4UUIDVSgWOhTm_0(v48, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+LABEL_26:
+    UnknownStorage.init()();
+    v65 = *(SelectStmt + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      swift_once();
+    }
+
+    *(v64 + v65) = static PgQuery_SelectStmt._StorageClass.defaultInstance;
+
+    goto LABEL_29;
+  }
+
+  if (swift_getEnumCaseMultiPayload() != 56)
+  {
+    outlined destroy of PgQuery_ParseResult(v48, type metadata accessor for PgQuery_Node.OneOf_Node);
+    goto LABEL_26;
+  }
+
+  outlined init with take of PgQuery_ParseResult(v48, v64, type metadata accessor for PgQuery_SelectStmt);
+LABEL_29:
+  outlined destroy of PgQuery_ParseResult(v77, type metadata accessor for PgQuery_Node);
+  v66 = v73;
+  outlined init with copy of PgQuery_ScanResult(v51, v73, type metadata accessor for PlanResources);
+  SelectCore.init(select:resources:)(v64, v66, v84);
+  outlined destroy of PgQuery_ParseResult(v51, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v74, type metadata accessor for PgQuery_CreateTableAsStmt);
+  return memcpy(&v75[1], v84, 0x138uLL);
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance MaterializedView.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0x7463656C6573;
+  }
+
+  else
+  {
+    return 1701667182;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MaterializedView.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v5 = a1 == 1701667182 && a2 == 0xE400000000000000;
+  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0x7463656C6573 && a2 == 0xE600000000000000)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance MaterializedView.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance MaterializedView.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t MaterializedView.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser16MaterializedViewV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser16MaterializedViewV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v9[-v6];
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v9[15] = 0;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  if (!v1)
+  {
+    v9[14] = 1;
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  return (*(v4 + 8))(v7, v3);
+}
+
+uint64_t LogicalPlan.sql.getter()
+{
+  v1 = *(v0 + 336);
+
+  return v1;
+}
+
+uint64_t LogicalPlan.documentation.getter()
+{
+  v1 = *(v0 + 352);
+
+  return v1;
+}
+
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance LogicalPlan.CodingKeys()
+{
+  v1 = 7106931;
+  v2 = 0xD000000000000010;
+  if (*v0 != 2)
+  {
+    v2 = 0x6F437463656C6573;
+  }
+
+  if (*v0)
+  {
+    v1 = 0x746E656D75636F64;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlan.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized LogicalPlan.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlan.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlan.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t LogicalPlan.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser11LogicalPlanV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser11LogicalPlanV10CodingKeysOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = &v11[-v8];
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  outlined init with copy of LogicalPlanType(v3, v12);
+  if (v12[328] == 1)
+  {
+    memcpy(v11, v12, sizeof(v11));
+    v13 = 2;
+    lazy protocol witness table accessor for type MaterializedView and conformance MaterializedView();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    outlined destroy of MaterializedView(v11);
+    if (!v2)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    memcpy(v11, v12, 0x138uLL);
+    v13 = 3;
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    if (!v2)
+    {
+      outlined destroy of SelectCore(v11);
+LABEL_7:
+      v12[0] = 0;
+      KeyedEncodingContainer.encode(_:forKey:)();
+      v12[0] = 1;
+      KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+      return (*(v6 + 8))(v9, v5);
+    }
+
+    outlined destroy of SelectCore(v11);
+  }
+
+  return (*(v6 + 8))(v9, v5);
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance LogicalPlanType.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0xD000000000000010;
+  }
+
+  else
+  {
+    return 0x6F437463656C6573;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlanType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = a1 == 0x6F437463656C6573 && a2 == 0xEA00000000006572;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0xD000000000000010 && 0x8000000184DDC910 == a2)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.MaterializedViewCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.MaterializedViewCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlanType.MaterializedViewCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  if (a1 == 12383 && a2 == 0xE200000000000000)
+  {
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    v7 = v5 ^ 1;
+  }
+
+  *a3 = v7 & 1;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.SelectCoreCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.SelectCoreCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t LogicalPlanType.encode(to:)(void *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO26MaterializedViewCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO26MaterializedViewCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v21 = *(v2 - 8);
+  v22 = v2;
+  MEMORY[0x1EEE9AC00](v2, v3);
+  v5 = &v19 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO20SelectCoreCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO20SelectCoreCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v19 = *(v6 - 8);
+  v20 = v6;
+  MEMORY[0x1EEE9AC00](v6, v7);
+  v9 = &v19 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10, v12);
+  v14 = &v19 - v13;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  outlined init with copy of LogicalPlanType(v23, v25);
+  v15 = (v11 + 8);
+  if (v25[328])
+  {
+    memcpy(v24, v25, sizeof(v24));
+    v26 = 1;
+    lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+    lazy protocol witness table accessor for type MaterializedView and conformance MaterializedView();
+    v16 = v22;
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    (*(v21 + 8))(v5, v16);
+    outlined destroy of MaterializedView(v24);
+  }
+
+  else
+  {
+    memcpy(v24, v25, 0x138uLL);
+    v26 = 0;
+    lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    v17 = v20;
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    (*(v19 + 8))(v9, v17);
+    outlined destroy of SelectCore(v24);
+  }
+
+  return (*v15)(v14, v10);
+}
+
+void SQLParseResult.init(sql:)(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  ScanResult = type metadata accessor for PgQuery_ScanResult(0);
+  MEMORY[0x1EEE9AC00](ScanResult, v6);
+  v109 = &v94 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = type metadata accessor for CharacterSet();
+  v110 = *(v113 - 8);
+  MEMORY[0x1EEE9AC00](v113, v8);
+  v112 = &v94 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for BinaryDecodingOptions();
+  v12 = MEMORY[0x1EEE9AC00](v10 - 8, v11);
+  v108 = &v94 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v14);
+  ParseResult = type metadata accessor for PgQuery_ParseResult(0);
+  MEMORY[0x1EEE9AC00](ParseResult, v16);
+  v18 = &v94 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for SQLParseResult(0);
+  v20 = *(v19 + 28);
+  v111 = a3;
+  v21 = (a3 + v20);
+  *v21 = a1;
+  v21[1] = a2;
+  v115 = a1;
+  v22 = String.utf8CString.getter();
+  v119 = a2;
+
+  pg_query_parse_protobuf(v22 + 32, &v116);
+  v23 = v116;
+  v24 = *(&v116 + 1);
+  v25 = v117;
+
+  if (*(&v25 + 1))
+  {
+    if (**(&v25 + 1))
+    {
+      v26 = String.init(cString:)();
+      v28 = v27;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v29 = v119;
+      *v30 = v115;
+      *(v30 + 8) = v29;
+      *(v30 + 16) = v26;
+      *(v30 + 24) = v28;
+      *(v30 + 32) = 0;
+      swift_willThrow();
+LABEL_17:
+
+      return;
+    }
+
+    goto LABEL_42;
+  }
+
+  v104 = v25;
+  v105 = v19;
+  v106 = v23;
+  if (!v24)
+  {
+    goto LABEL_43;
+  }
+
+  v31 = v24;
+  v32 = v24;
+  v33 = v106;
+  v34 = specialized Data.init(bytes:count:)(v31, v106);
+  v36 = v35;
+  v118 = 0;
+  v116 = 0u;
+  v117 = 0u;
+  outlined copy of Data._Representation(v34, v35);
+  BinaryDecodingOptions.init()();
+  lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ParseResult and conformance PgQuery_ParseResult, type metadata accessor for PgQuery_ParseResult, &protocol conformance descriptor for PgQuery_ParseResult);
+  v37 = v114;
+  Message.init(serializedData:extensions:partial:options:)();
+  if (v37)
+  {
+
+    outlined consume of Data._Representation(v34, v36);
+    goto LABEL_17;
+  }
+
+  v114 = v34;
+  v38 = v111;
+  outlined init with take of PgQuery_ParseResult(v18, v111, type metadata accessor for PgQuery_ParseResult);
+  deparse_protobuf = pg_query_deparse_protobuf(v33, v32);
+  if (v40)
+  {
+    deparse_protobuf = *v40;
+    if (*v40)
+    {
+LABEL_15:
+      v52 = String.init(cString:)();
+      v54 = v53;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v56 = v119;
+      *v55 = v115;
+      *(v55 + 8) = v56;
+      *(v55 + 16) = v52;
+      *(v55 + 24) = v54;
+LABEL_16:
+      *(v55 + 32) = 0;
+      swift_willThrow();
+      outlined consume of Data._Representation(v114, v36);
+      outlined destroy of PgQuery_ParseResult(v38, type metadata accessor for PgQuery_ParseResult);
+      goto LABEL_17;
+    }
+
+    __break(1u);
+  }
+
+  v100 = v40;
+  if (!deparse_protobuf)
+  {
+LABEL_46:
+    __break(1u);
+    goto LABEL_47;
+  }
+
+  v41 = deparse_protobuf;
+  v98 = v32;
+  v42 = objc_allocWithZone(MEMORY[0x1E696AEC0]);
+  v99 = v41;
+  v43 = [v42 initWithCString:v41 encoding:4];
+  if (!v43)
+  {
+LABEL_47:
+    __break(1u);
+    goto LABEL_48;
+  }
+
+  v44 = v43;
+  v45 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v47 = v46;
+
+  v101 = v47;
+  v48 = String.utf8CString.getter();
+  pg_query_split_with_parser((v48 + 32), &v116);
+  v49 = v116;
+  v50 = DWORD2(v116);
+  v51 = v117;
+
+  if (*(&v51 + 1))
+  {
+    if (!**(&v51 + 1))
+    {
+LABEL_48:
+      __break(1u);
+LABEL_49:
+      __break(1u);
+      goto LABEL_50;
+    }
+
+    goto LABEL_15;
+  }
+
+  v102 = v45;
+  v97 = v51;
+  v103 = v49;
+  if (*(*(v38 + 8) + 16) != v50)
+  {
+
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    v78 = v119;
+    *v55 = v115;
+    *(v55 + 8) = v78;
+    *(v55 + 16) = 0xD000000000000042;
+    *(v55 + 24) = 0x8000000184DEA390;
+    goto LABEL_16;
+  }
+
+  if ((v50 & 0x80000000) != 0)
+  {
+LABEL_41:
+    __break(1u);
+LABEL_42:
+    __break(1u);
+LABEL_43:
+    __break(1u);
+LABEL_44:
+    __break(1u);
+LABEL_45:
+    __break(1u);
+    goto LABEL_46;
+  }
+
+  v96 = v36;
+  v95 = v50;
+  if (v50)
+  {
+    ++v110;
+    v57 = MEMORY[0x1E69E7CC0];
+    v58 = v50;
+    v59 = v103;
+    while (v103)
+    {
+      v60 = *v59;
+      if (!*v59)
+      {
+        goto LABEL_44;
+      }
+
+      v61 = v60[1];
+      v62 = *v60;
+      v63 = String.index(_:offsetBy:)();
+      if (__OFADD__(v62, v61))
+      {
+        __break(1u);
+LABEL_40:
+        __break(1u);
+        goto LABEL_41;
+      }
+
+      if (String.index(_:offsetBy:)() >> 14 < v63 >> 14)
+      {
+        goto LABEL_40;
+      }
+
+      v64 = String.subscript.getter();
+      v65 = MEMORY[0x1865F6210](v64);
+      v67 = v66;
+
+      *&v116 = v65;
+      *(&v116 + 1) = v67;
+      v68 = v112;
+      static CharacterSet.whitespacesAndNewlines.getter();
+      lazy protocol witness table accessor for type String and conformance String();
+      v69 = StringProtocol.trimmingCharacters(in:)();
+      v70 = v68;
+      v71 = v69;
+      v73 = v72;
+      (*v110)(v70, v113);
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v57 = v76;
+      }
+
+      v74 = *(v57 + 16);
+      if (v74 >= *(v57 + 24) >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v57 = v77;
+      }
+
+      *(v57 + 16) = v74 + 1;
+      v75 = v57 + 16 * v74;
+      *(v75 + 32) = v71;
+      *(v75 + 40) = v73;
+      ++v59;
+      if (!--v58)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    goto LABEL_45;
+  }
+
+  v57 = MEMORY[0x1E69E7CC0];
+LABEL_34:
+  *(v111 + *(v105 + 24)) = v57;
+  v79 = v115;
+  v80 = String.utf8CString.getter();
+
+  pg_query_scan(v80 + 32, v81);
+  v82 = v116;
+  v83 = *(&v116 + 1);
+  v84 = v117;
+
+  if (*(&v84 + 1))
+  {
+    if (**(&v84 + 1))
+    {
+
+      v85 = String.init(cString:)();
+      v87 = v86;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v88 = v119;
+      *v89 = v79;
+      *(v89 + 8) = v88;
+      *(v89 + 16) = v85;
+      *(v89 + 24) = v87;
+      *(v89 + 32) = 0;
+      swift_willThrow();
+      outlined consume of Data._Representation(v114, v96);
+      outlined destroy of PgQuery_ParseResult(v111, type metadata accessor for PgQuery_ParseResult);
+
+      goto LABEL_17;
+    }
+
+    goto LABEL_49;
+  }
+
+  v115 = v84;
+
+  if (v83)
+  {
+
+    v90 = specialized Data.init(bytes:count:)(v83, v82);
+    v92 = v91;
+    v118 = 0;
+    v116 = 0u;
+    v117 = 0u;
+    outlined copy of Data._Representation(v90, v91);
+    BinaryDecodingOptions.init()();
+    lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ScanResult and conformance PgQuery_ScanResult, type metadata accessor for PgQuery_ScanResult, &protocol conformance descriptor for PgQuery_ScanResult);
+    v93 = v109;
+    Message.init(serializedData:extensions:partial:options:)();
+    outlined init with take of PgQuery_ParseResult(v93, v111 + *(v105 + 20), type metadata accessor for PgQuery_ScanResult);
+    LODWORD(v116) = v82;
+    *(&v116 + 1) = v83;
+    v117 = v115;
+    pg_query_free_scan_result(&v116);
+    *&v116 = v103;
+    DWORD2(v116) = v95;
+    v117 = v97;
+    pg_query_free_split_result(&v116);
+    pg_query_free_deparse_result(v99, v100);
+    LODWORD(v116) = v106;
+    *(&v116 + 1) = v98;
+    v117 = v104;
+    pg_query_free_protobuf_parse_result(&v116);
+    outlined consume of Data._Representation(v114, v96);
+    outlined consume of Data._Representation(v90, v92);
+    return;
+  }
+
+LABEL_50:
+  __break(1u);
+}
+
+void *SQLParseResult.plans(with:)(uint64_t *a1)
+{
+  v3 = type metadata accessor for PlanResources(0);
+  v4 = v3 - 8;
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v23[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = type metadata accessor for SQLTokenInformation(0);
+  v9 = v8 - 8;
+  MEMORY[0x1EEE9AC00](v8, v10);
+  v12 = &v23[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = *a1;
+  v14 = type metadata accessor for SQLParseResult(0);
+  outlined init with copy of PgQuery_ScanResult(v1 + v14[5], v12, type metadata accessor for PgQuery_ScanResult);
+  v15 = (v1 + v14[7]);
+  v16 = *v15;
+  v17 = v15[1];
+  v18 = &v12[*(v9 + 28)];
+  *v18 = v16;
+  v18[1] = v17;
+  outlined init with copy of PgQuery_ScanResult(v12, v7 + *(v4 + 28), type metadata accessor for SQLTokenInformation);
+  *v7 = v13;
+  v19 = *(v1 + 8);
+  v20 = *(v1 + v14[6]);
+  v24 = v12;
+  v25 = v7;
+
+  RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySay14BiomeSQLParser15PgQuery_RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n(v19, v20, partial apply for closure #1 in SQLParseResult.plans(with:), v23);
+
+  outlined destroy of PgQuery_ParseResult(v7, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v12, type metadata accessor for SQLTokenInformation);
+  return RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n;
+}
+
+uint64_t closure #1 in SQLParseResult.plans(with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+{
+  v127 = a5;
+  v139 = a4;
+  v120 = a6;
+  v121 = a3;
+  v119 = a2;
+  v145 = a1;
+  SelectStmt = type metadata accessor for PgQuery_SelectStmt(0);
+  v8 = MEMORY[0x1EEE9AC00](SelectStmt - 8, v7);
+  v126 = &v118 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8, v10);
+  v136 = &v118 - v11;
+  v12 = type metadata accessor for PlanResources(0);
+  v14 = MEMORY[0x1EEE9AC00](v12 - 8, v13);
+  v125 = &v118 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v16);
+  v124 = &v118 - v17;
+  TableAsStmt = type metadata accessor for PgQuery_CreateTableAsStmt(0);
+  v20 = MEMORY[0x1EEE9AC00](TableAsStmt - 8, v19);
+  v122 = &v118 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20, v22);
+  v123 = &v118 - v23;
+  v147 = type metadata accessor for CharacterSet();
+  v144 = *(v147 - 8);
+  MEMORY[0x1EEE9AC00](v147, v24);
+  v146 = &v118 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
+  v27 = *(ScanToken - 8);
+  v29 = MEMORY[0x1EEE9AC00](ScanToken - 8, v28);
+  v133 = &v118 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29, v31);
+  v33 = (&v118 - v32);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x1EEE9AC00](v34 - 8, v35);
+  v37 = &v118 - v36;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v39 = *(Node - 8);
+  MEMORY[0x1EEE9AC00](Node, v40);
+  v42 = &v118 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v129 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v44 = MEMORY[0x1EEE9AC00](v129, v43);
+  v128 = &v118 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = MEMORY[0x1EEE9AC00](v44, v46);
+  v131 = &v118 - v48;
+  v50 = MEMORY[0x1EEE9AC00](v47, v49);
+  v132 = &v118 - v51;
+  MEMORY[0x1EEE9AC00](v50, v52);
+  v138 = &v118 - v53;
+  v145 = *&v145[*(type metadata accessor for PgQuery_RawStmt(0) + 20)];
+  outlined init with copy of PgQuery_Alias?(&v145[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmt], v37, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v54 = *(v39 + 48);
+  if ((v54)(v37, 1, Node) == 1)
+  {
+    UnknownStorage.init()();
+    v55 = *(Node + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+LABEL_55:
+      v117 = v55;
+      swift_once();
+      v55 = v117;
+    }
+
+    *&v55[v42] = static PgQuery_Node._StorageClass.defaultInstance;
+    v56 = (v54)(v37, 1, Node);
+
+    if (v56 != 1)
+    {
+      _s10Foundation4UUIDVSgWOhTm_0(v37, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of PgQuery_ParseResult(v37, v42, type metadata accessor for PgQuery_Node);
+  }
+
+  outlined init with copy of PgQuery_Alias?(*(v42 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v138, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  outlined destroy of PgQuery_ParseResult(v42, type metadata accessor for PgQuery_Node);
+  v57 = *(v139 + 8);
+  v37 = *(v57 + 16);
+  if (!v37)
+  {
+LABEL_36:
+    v93 = 0;
+LABEL_37:
+    v94 = v132;
+    outlined init with copy of PgQuery_Alias?(v138, v132, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v95 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+    if ((*(*(v95 - 8) + 48))(v94, 1, v95) == 1)
+    {
+      v96 = v94;
+
+LABEL_47:
+      v149[0]._countAndFlagsBits = 0;
+      v149[0]._object = 0xE000000000000000;
+      _StringGuts.grow(_:)(90);
+      MEMORY[0x1865F6280](0xD000000000000058, 0x8000000184DEA400);
+      v109 = v138;
+      outlined init with copy of PgQuery_Alias?(v138, v128, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      v110 = String.init<A>(describing:)();
+      MEMORY[0x1865F6280](v110);
+
+      countAndFlagsBits = v149[0]._countAndFlagsBits;
+      object = v149[0]._object;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      *v113 = countAndFlagsBits;
+      *(v113 + 8) = object;
+      *(v113 + 16) = 0;
+      *(v113 + 24) = 0;
+      *(v113 + 32) = 1;
+      swift_willThrow();
+      v108 = v109;
+      goto LABEL_48;
+    }
+
+    v96 = v94;
+    outlined init with copy of PgQuery_Alias?(v94, v131, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 56)
+    {
+      v104 = v136;
+      outlined init with take of PgQuery_ParseResult(v131, v136, type metadata accessor for PgQuery_SelectStmt);
+      v105 = v126;
+      outlined init with copy of PgQuery_ScanResult(v104, v126, type metadata accessor for PgQuery_SelectStmt);
+      v106 = v125;
+      outlined init with copy of PgQuery_ScanResult(v127, v125, type metadata accessor for PlanResources);
+      v107 = v141;
+      SelectCore.init(select:resources:)(v105, v106, v149);
+      if (v107)
+      {
+
+        v102 = type metadata accessor for PgQuery_SelectStmt;
+        v103 = v104;
+        goto LABEL_45;
+      }
+
+      outlined destroy of PgQuery_ParseResult(v104, type metadata accessor for PgQuery_SelectStmt);
+      _s10Foundation4UUIDVSgWOhTm_0(v138, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      LOBYTE(v149[20]._object) = 0;
+    }
+
+    else
+    {
+      if (EnumCaseMultiPayload != 90)
+      {
+
+        outlined destroy of PgQuery_ParseResult(v131, type metadata accessor for PgQuery_Node.OneOf_Node);
+        goto LABEL_47;
+      }
+
+      v98 = v123;
+      outlined init with take of PgQuery_ParseResult(v131, v123, type metadata accessor for PgQuery_CreateTableAsStmt);
+      v99 = v122;
+      outlined init with copy of PgQuery_ScanResult(v98, v122, type metadata accessor for PgQuery_CreateTableAsStmt);
+      v100 = v124;
+      outlined init with copy of PgQuery_ScanResult(v127, v124, type metadata accessor for PlanResources);
+      v101 = v141;
+      MaterializedView.init(create:resources:)(v99, v100, v149);
+      if (v101)
+      {
+
+        v102 = type metadata accessor for PgQuery_CreateTableAsStmt;
+        v103 = v98;
+LABEL_45:
+        outlined destroy of PgQuery_ParseResult(v103, v102);
+        v108 = v138;
+LABEL_48:
+        _s10Foundation4UUIDVSgWOhTm_0(v108, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+        v114 = v96;
+        return _s10Foundation4UUIDVSgWOhTm_0(v114, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      }
+
+      outlined destroy of PgQuery_ParseResult(v98, type metadata accessor for PgQuery_CreateTableAsStmt);
+      _s10Foundation4UUIDVSgWOhTm_0(v138, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      LOBYTE(v149[20]._object) = 1;
+    }
+
+    v115 = v120;
+    memcpy(v120, v149, 0x149uLL);
+    v116 = v121;
+    v115[42] = v119;
+    v115[43] = v116;
+    v115[44] = v37;
+    v115[45] = v93;
+
+    v114 = v96;
+    return _s10Foundation4UUIDVSgWOhTm_0(v114, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  v42 = 0;
+  v55 = v145;
+  v58 = *&v145[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation];
+  v142 = *(v139 + 8);
+  while (1)
+  {
+    if (v42 >= *(v57 + 16))
+    {
+      __break(1u);
+LABEL_54:
+      __break(1u);
+      goto LABEL_55;
+    }
+
+    Node = v57 + ((*(v27 + 80) + 32) & ~*(v27 + 80));
+    v54 = *(v27 + 72);
+    outlined init with copy of PgQuery_ScanResult(Node + v54 * v42, v33, type metadata accessor for PgQuery_ScanToken);
+    v59 = *v33;
+    outlined destroy of PgQuery_ParseResult(v33, type metadata accessor for PgQuery_ScanToken);
+    if (v59 >= v58)
+    {
+      break;
+    }
+
+    ++v42;
+    v57 = v142;
+    if (v37 == v42)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  v134 = v54;
+  v135 = Node;
+  v150 = MEMORY[0x1E69E7CC0];
+  result = v142;
+  Node = *(v142 + 16);
+  v61 = v133;
+  if (Node >= v42)
+  {
+    v62 = v42;
+
+    if (Node != v42)
+    {
+      v145 = (v144 + 8);
+      v42 = v136;
+      v130 = Node;
+      while (1)
+      {
+        v140 = v62;
+        outlined init with copy of PgQuery_ScanResult(v135 + v62 * v134, v61, type metadata accessor for PgQuery_ScanToken);
+        v64 = *(v61 + 8);
+        if (*(v61 + 16) != 1 || (v64 - 37) >= 2)
+        {
+          break;
+        }
+
+        PgQuery_Token.rawValue.getter(v64, 1);
+        v66 = v139 + *(type metadata accessor for SQLTokenInformation(0) + 20);
+        v33 = *v66;
+        v37 = *(v66 + 8);
+        v27 = String.index(_:offsetBy:)();
+        if (String.index(_:offsetBy:)() >> 14 < v27 >> 14)
+        {
+          goto LABEL_54;
+        }
+
+        v67 = String.subscript.getter();
+        v68 = MEMORY[0x1865F6210](v67);
+        v70 = v69;
+
+        v149[0]._countAndFlagsBits = v68;
+        v149[0]._object = v70;
+        v71 = v146;
+        static CharacterSet.whitespaces.getter();
+        v144 = lazy protocol witness table accessor for type String and conformance String();
+        v72 = StringProtocol.trimmingCharacters(in:)();
+        v74 = v73;
+        v143 = *v145;
+        v143(v71, v147);
+
+        v149[0]._countAndFlagsBits = 10;
+        v149[0]._object = 0xE100000000000000;
+        MEMORY[0x1EEE9AC00](v75, v76);
+        *(&v118 - 2) = v149;
+        v77 = v141;
+        v54 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Sequence<>.contains(_:), (&v118 - 4), v72, v74, &v118);
+        v78 = *(v54 + 16);
+        v141 = v77;
+        if (v78)
+        {
+          v148 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v78, 0);
+          v79 = v148;
+          v137 = v54;
+          v80 = (v54 + 56);
+          do
+          {
+            v81 = *(v80 - 3);
+            v82 = *(v80 - 2);
+            v84 = *(v80 - 1);
+            v83 = *v80;
+
+            if (Substring.distance(from:to:)())
+            {
+              v149[0]._countAndFlagsBits = MEMORY[0x1865F6210](v81, v82, v84, v83);
+              v149[0]._object = v85;
+              v86 = v146;
+              static CharacterSet.whitespaces.getter();
+              v87 = StringProtocol.trimmingCharacters(in:)();
+              v89 = v88;
+
+              v143(v86, v147);
+            }
+
+            else
+            {
+
+              v89 = 0xE100000000000000;
+              v87 = 10;
+            }
+
+            v148 = v79;
+            v54 = *(v79 + 16);
+            v90 = *(v79 + 24);
+            if (v54 >= v90 >> 1)
+            {
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v90 > 1, v54 + 1, 1);
+              v79 = v148;
+            }
+
+            *(v79 + 16) = v54 + 1;
+            v91 = v79 + 16 * v54;
+            *(v91 + 32) = v87;
+            *(v91 + 40) = v89;
+            v80 += 4;
+            --v78;
+          }
+
+          while (v78);
+
+          v42 = v136;
+          v61 = v133;
+          Node = v130;
+        }
+
+        else
+        {
+
+          v79 = MEMORY[0x1E69E7CC0];
+        }
+
+        v63 = v140 + 1;
+        specialized Array.append<A>(contentsOf:)(v79);
+        outlined destroy of PgQuery_ParseResult(v61, type metadata accessor for PgQuery_ScanToken);
+        v62 = v63;
+        if (v63 == Node)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      outlined destroy of PgQuery_ParseResult(v61, type metadata accessor for PgQuery_ScanToken);
+    }
+
+LABEL_32:
+
+    if (*(v150 + 16))
+    {
+      v149[0]._countAndFlagsBits = v150;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+      lazy protocol witness table accessor for type [String] and conformance [A]();
+      v37 = BidirectionalCollection<>.joined(separator:)();
+      v93 = v92;
+
+      goto LABEL_37;
+    }
+
+LABEL_35:
+    v37 = 0;
+    goto LABEL_36;
+  }
+
+  __break(1u);
+  return result;
 }

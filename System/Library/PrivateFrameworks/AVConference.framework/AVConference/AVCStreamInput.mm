@@ -177,7 +177,7 @@ LABEL_12:
   return v12;
 }
 
-uint64_t __70__AVCStreamInput_initWithDelegate_delegateQueue_format_options_error___block_invoke(uint64_t a1)
+void *__70__AVCStreamInput_initWithDelegate_delegateQueue_format_options_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setupXPCConnection];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -293,7 +293,7 @@ LABEL_5:
 
 - (id)newRemoteQueueWithServerPid:(int)pid
 {
-  SenderQueueWithPoolSize = VCRemoteImageQueue_CreateSenderQueueWithPoolSize(*&pid, &self->_senderQueue);
+  SenderQueueWithPoolSize = VCRemoteImageQueue_CreateSenderQueueWithPoolSize(*&pid, &self->_senderQueue, self->_memoryPoolSize);
   senderQueue = self->_senderQueue;
   if (senderQueue && SenderQueueWithPoolSize)
   {
@@ -329,7 +329,7 @@ LABEL_5:
     self->_sampleBufferAllocator = 0;
   }
 
-  VCRemoteImageQueue_Destroy(&self->_senderQueue);
+  VCRemoteImageQueue_Destroy(&self->_senderQueue, v8);
   return 0;
 }
 
@@ -393,7 +393,7 @@ LABEL_5:
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [(AVCStreamInput *)self tearDownConnectionWithTerminateMessage:1];
   xpcQueue = self->_xpcQueue;
   if (xpcQueue)
@@ -423,33 +423,33 @@ LABEL_5:
     CFRelease(sampleBufferAllocator);
   }
 
-  VCRemoteImageQueue_Destroy(&self->_senderQueue);
+  VCRemoteImageQueue_Destroy(&self->_senderQueue, v5);
   kdebug_trace();
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ %@-dealloc");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v7 = VRTraceErrorLogLevelToCSTR();
-    v8 = *MEMORY[0x1E6986650];
+    v8 = VRTraceErrorLogLevelToCSTR();
+    v9 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 136316162;
-      v12 = v7;
-      v13 = 2080;
-      v14 = "[AVCStreamInput dealloc]";
-      v15 = 1024;
-      v16 = 356;
-      v17 = 2112;
-      v18 = NSStringFromClass(v9);
-      v19 = 2048;
+      v13 = v8;
+      v14 = 2080;
+      v15 = "[AVCStreamInput dealloc]";
+      v16 = 1024;
+      v17 = 356;
+      v18 = 2112;
+      v19 = NSStringFromClass(v10);
+      v20 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, "AVCStreamInput [%s] %s:%d @:@ %@-dealloc (%p)", buf, 0x30u);
+      _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, "AVCStreamInput [%s] %s:%d @:@ %@-dealloc (%p)", buf, 0x30u);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = AVCStreamInput;
-  [(AVCStreamInput *)&v10 dealloc];
+  v11.receiver = self;
+  v11.super_class = AVCStreamInput;
+  [(AVCStreamInput *)&v11 dealloc];
 }
 
 - (int)initializeServerSideInputStream
@@ -944,7 +944,7 @@ uint64_t __27__AVCStreamInput_didResume__block_invoke(uint64_t a1)
   [(AVConferenceXPCClient *)self->_xpcConnection registerBlockForService:service block:v5 queue:self->_xpcQueue];
 }
 
-uint64_t __49__AVCStreamInput_registerService_weakSelf_block___block_invoke(uint64_t a1, void *a2)
+void *__49__AVCStreamInput_registerService_weakSelf_block___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -1783,7 +1783,7 @@ LABEL_7:
   if (self->_useFigRemoteQueue)
   {
     self->_useFigRemoteQueue = 0;
-    VCRemoteImageQueue_Destroy(&self->_senderQueue);
+    VCRemoteImageQueue_Destroy(&self->_senderQueue, v3);
   }
 
   os_unfair_lock_unlock(&self->_senderQueueLock);
@@ -2055,7 +2055,7 @@ LABEL_21:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_29_6() == v0)
+  if (OUTLINED_FUNCTION_29_6(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2072,7 +2072,7 @@ LABEL_21:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -2103,7 +2103,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_29_6() == v0)
+  if (OUTLINED_FUNCTION_29_6(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2120,7 +2120,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -2151,7 +2151,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_30_7() == v0)
+  if (OUTLINED_FUNCTION_30_7(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2168,7 +2168,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -2199,7 +2199,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_29_6() == v0)
+  if (OUTLINED_FUNCTION_29_6(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2216,7 +2216,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -2247,7 +2247,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_30_7() == v0)
+  if (OUTLINED_FUNCTION_30_7(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2264,7 +2264,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -2433,7 +2433,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_30_7() == v0)
+  if (OUTLINED_FUNCTION_30_7(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -2450,7 +2450,7 @@ LABEL_11:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 

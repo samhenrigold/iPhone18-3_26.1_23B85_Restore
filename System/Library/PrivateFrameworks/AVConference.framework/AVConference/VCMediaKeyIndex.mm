@@ -199,7 +199,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d keyToCompare is not of VCMediaKeyIndex class", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d keyToCompare is not of VCMediaKeyIndex class", v4, v5, v6, v7);
     }
   }
 
@@ -215,7 +215,7 @@
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d prefix is not of VCMediaKeyIndex class", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v2, v3, " [%s] %s:%d prefix is not of VCMediaKeyIndex class", v4, v5, v6, v7);
     }
   }
 

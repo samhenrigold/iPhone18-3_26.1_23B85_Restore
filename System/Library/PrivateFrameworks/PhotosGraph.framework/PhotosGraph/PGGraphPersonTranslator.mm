@@ -11,30 +11,30 @@
 
 - (id)personNodePropertyKeysFromPHPersonPropertyKeys:(id)keys
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = keysCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        if (([v10 isEqualToString:{@"name", v13}] & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"displayName"))
+        v10 = *(*(&v12 + 1) + 8 * i);
+        if (([v10 isEqualToString:{@"name", v12}] & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"displayName"))
         {
           [v4 addObject:@"name"];
         }
@@ -50,74 +50,66 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)personTypeProperties
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"type";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = @"type";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)verifiedTypeProperties
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"verifiedType";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = @"verifiedType";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)stateUpdateProperties
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"name";
-  v7[1] = @"displayName";
-  v7[2] = @"personUri";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"name";
+  v6[1] = @"displayName";
+  v6[2] = @"personUri";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)graphChangesForChangedPropertyNamesByLocalIdentifier:(id)identifier change:(id)change progressBlock:(id)block
 {
-  v105[1] = *MEMORY[0x277D85DE8];
+  v104[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   changeCopy = change;
   blockCopy = block;
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x2020000000;
-  v98 = 0;
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x2020000000;
   v94 = 0;
-  v66 = _Block_copy(blockCopy);
-  if (!v66 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v92[3] < 0.01) || (v92[3] = v8, LOBYTE(v105[0]) = 0, (*(v66 + 2))(v66, v105, 0.0), v9 = *(v96 + 24) | LOBYTE(v105[0]), *(v96 + 24) = v9, (v9 & 1) == 0))
+  v95 = &v94;
+  v96 = 0x2020000000;
+  v97 = 0;
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x2020000000;
+  v93 = 0;
+  v65 = _Block_copy(blockCopy);
+  if (!v65 || (v8 = CFAbsoluteTimeGetCurrent(), v8 - v91[3] < 0.01) || (v91[3] = v8, LOBYTE(v104[0]) = 0, (*(v65 + 2))(v65, v104, 0.0), v9 = *(v95 + 24) | LOBYTE(v104[0]), *(v95 + 24) = v9, (v9 & 1) == 0))
   {
     verifiedTypeProperties = [(PGGraphPersonTranslator *)self verifiedTypeProperties];
     stateUpdateProperties = [(PGGraphPersonTranslator *)self stateUpdateProperties];
@@ -127,37 +119,37 @@
     v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
     array = [MEMORY[0x277CBEB18] array];
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __101__PGGraphPersonTranslator_graphChangesForChangedPropertyNamesByLocalIdentifier_change_progressBlock___block_invoke;
-    v79[3] = &unk_278887BC8;
-    v57 = verifiedTypeProperties;
-    v80 = v57;
-    v62 = v14;
-    v81 = v62;
-    v59 = personTypeProperties;
-    v82 = v59;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __101__PGGraphPersonTranslator_graphChangesForChangedPropertyNamesByLocalIdentifier_change_progressBlock___block_invoke;
+    v78[3] = &unk_278887BC8;
+    v56 = verifiedTypeProperties;
+    v79 = v56;
+    v61 = v14;
+    v80 = v61;
+    v58 = personTypeProperties;
+    v81 = v58;
     selfCopy2 = self;
-    v64 = v16;
-    v84 = v64;
-    v58 = stateUpdateProperties;
-    v85 = v58;
+    v63 = v16;
+    v83 = v63;
+    v57 = stateUpdateProperties;
+    v84 = v57;
     v18 = array;
-    v86 = v18;
-    v55 = v66;
-    v87 = v55;
-    v88 = &v91;
-    v89 = &v95;
-    v90 = 0x3F847AE147AE147BLL;
-    [identifierCopy enumerateKeysAndObjectsUsingBlock:v79];
-    if (*(v96 + 24) == 1)
+    v85 = v18;
+    v54 = v65;
+    v86 = v54;
+    v87 = &v90;
+    v88 = &v94;
+    v89 = 0x3F847AE147AE147BLL;
+    [identifierCopy enumerateKeysAndObjectsUsingBlock:v78];
+    if (*(v95 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
         *&buf[4] = 623;
-        LOWORD(v102) = 2080;
-        *(&v102 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
+        LOWORD(v101) = 2080;
+        *(&v101 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
         v19 = MEMORY[0x277D86220];
 LABEL_10:
         _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -166,10 +158,10 @@ LABEL_10:
 
     else
     {
-      if ([v64 count])
+      if ([v63 count])
       {
         v20 = MEMORY[0x277CBEB58];
-        allKeys = [v64 allKeys];
+        allKeys = [v63 allKeys];
         v22 = [v20 setWithArray:allKeys];
 
         photoLibrary = [(PGGraphEntityTranslator *)self photoLibrary];
@@ -181,64 +173,64 @@ LABEL_10:
         [librarySpecificFetchOptions setIncludedDetectionTypes:&unk_2844863D8];
         v27 = *MEMORY[0x277CD9C58];
         *buf = *MEMORY[0x277CD9C60];
-        *&v102 = v27;
+        *&v101 = v27;
         v28 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:2];
         [librarySpecificFetchOptions setFetchPropertySets:v28];
 
         v29 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions];
 
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __101__PGGraphPersonTranslator_graphChangesForChangedPropertyNamesByLocalIdentifier_change_progressBlock___block_invoke_396;
-        v75[3] = &unk_278887BF0;
-        v76 = v18;
-        v77 = v15;
-        v78 = v64;
-        [v29 enumerateObjectsUsingBlock:v75];
+        v74[0] = MEMORY[0x277D85DD0];
+        v74[1] = 3221225472;
+        v74[2] = __101__PGGraphPersonTranslator_graphChangesForChangedPropertyNamesByLocalIdentifier_change_progressBlock___block_invoke_396;
+        v74[3] = &unk_278887BF0;
+        v75 = v18;
+        v76 = v15;
+        v77 = v63;
+        [v29 enumerateObjectsUsingBlock:v74];
       }
 
-      if ([v62 count])
+      if ([v61 count])
       {
         photoLibrary2 = [(PGGraphEntityTranslator *)self photoLibrary];
-        v56 = v62;
+        v55 = v61;
         librarySpecificFetchOptions2 = [photoLibrary2 librarySpecificFetchOptions];
-        v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"localIdentifier IN %@ AND verifiedType = %d", v56, -2];
+        v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"localIdentifier IN %@ AND verifiedType = %d", v55, -2];
 
         [librarySpecificFetchOptions2 setPredicate:v32];
         [librarySpecificFetchOptions2 setIncludedDetectionTypes:&unk_2844863F0];
-        v105[0] = *MEMORY[0x277CD9C60];
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:1];
+        v104[0] = *MEMORY[0x277CD9C60];
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:1];
         [librarySpecificFetchOptions2 setFetchPropertySets:v33];
 
         v34 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions2];
         v35 = [MEMORY[0x277CBEB58] set];
         *buf = MEMORY[0x277D85DD0];
-        *&v102 = 3221225472;
-        *(&v102 + 1) = __tombstonedLocalIdentifiersFrom_block_invoke;
-        v103 = &unk_278887C60;
+        *&v101 = 3221225472;
+        *(&v101 + 1) = __tombstonedLocalIdentifiersFrom_block_invoke;
+        v102 = &unk_278887C60;
         v36 = v35;
-        v104 = v36;
+        v103 = v36;
         [v34 enumerateObjectsUsingBlock:buf];
 
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
         v72 = 0u;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
         v37 = v36;
-        v38 = [v37 countByEnumeratingWithState:&v71 objects:v100 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v70 objects:v99 count:16];
         if (v38)
         {
-          v39 = *v72;
+          v39 = *v71;
           do
           {
             for (i = 0; i != v38; ++i)
             {
-              if (*v72 != v39)
+              if (*v71 != v39)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v41 = *(*(&v71 + 1) + 8 * i);
+              v41 = *(*(&v70 + 1) + 8 * i);
               v42 = [PGGraphPersonsDeletion alloc];
               v43 = [MEMORY[0x277CBEB98] setWithObject:v41];
               v44 = [(PGGraphPersonsDeletion *)v42 initWithPersonLocalIdentifiers:v43];
@@ -246,35 +238,35 @@ LABEL_10:
               [v18 addObject:v44];
             }
 
-            v38 = [v37 countByEnumeratingWithState:&v71 objects:v100 count:16];
+            v38 = [v37 countByEnumeratingWithState:&v70 objects:v99 count:16];
           }
 
           while (v38);
         }
 
-        [v56 minusSet:v37];
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
+        [v55 minusSet:v37];
         v68 = 0u;
-        v45 = v56;
-        v46 = [v45 countByEnumeratingWithState:&v67 objects:v99 count:16];
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v45 = v55;
+        v46 = [v45 countByEnumeratingWithState:&v66 objects:v98 count:16];
         if (v46)
         {
-          v47 = *v68;
+          v47 = *v67;
           do
           {
             for (j = 0; j != v46; ++j)
             {
-              if (*v68 != v47)
+              if (*v67 != v47)
               {
                 objc_enumerationMutation(v45);
               }
 
-              [v15 addObject:*(*(&v67 + 1) + 8 * j)];
+              [v15 addObject:*(*(&v66 + 1) + 8 * j)];
             }
 
-            v46 = [v45 countByEnumeratingWithState:&v67 objects:v99 count:16];
+            v46 = [v45 countByEnumeratingWithState:&v66 objects:v98 count:16];
           }
 
           while (v46);
@@ -289,7 +281,7 @@ LABEL_10:
         [v18 addObjectsFromArray:v50];
       }
 
-      if (!v66 || (Current = CFAbsoluteTimeGetCurrent(), Current - v92[3] < 0.01) || (v92[3] = Current, LOBYTE(v105[0]) = 0, (*(v55 + 2))(v55, v105, 1.0), v52 = *(v96 + 24) | LOBYTE(v105[0]), *(v96 + 24) = v52, (v52 & 1) == 0))
+      if (!v65 || (Current = CFAbsoluteTimeGetCurrent(), Current - v91[3] < 0.01) || (v91[3] = Current, LOBYTE(v104[0]) = 0, (*(v54 + 2))(v54, v104, 1.0), v52 = *(v95 + 24) | LOBYTE(v104[0]), *(v95 + 24) = v52, (v52 & 1) == 0))
       {
         v10 = v18;
         goto LABEL_38;
@@ -299,8 +291,8 @@ LABEL_10:
       {
         *buf = 67109378;
         *&buf[4] = 693;
-        LOWORD(v102) = 2080;
-        *(&v102 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
+        LOWORD(v101) = 2080;
+        *(&v101 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
         v19 = MEMORY[0x277D86220];
         goto LABEL_10;
       }
@@ -316,17 +308,15 @@ LABEL_38:
   {
     *buf = 67109378;
     *&buf[4] = 574;
-    LOWORD(v102) = 2080;
-    *(&v102 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
+    LOWORD(v101) = 2080;
+    *(&v101 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Core/PGGraphEntityTranslator.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v10 = MEMORY[0x277CBEBF8];
 LABEL_39:
-  _Block_object_dispose(&v91, 8);
-  _Block_object_dispose(&v95, 8);
-
-  v53 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v90, 8);
+  _Block_object_dispose(&v94, 8);
 
   return v10;
 }
@@ -419,20 +409,18 @@ id __101__PGGraphPersonTranslator_graphChangesForChangedPropertyNamesByLocalIden
 
 - (id)graphChangesForDeletedLocalIdentifiers:(id)identifiers progressBlock:(id)block
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v11 = [identifiersCopy count];
+    v10 = [identifiersCopy count];
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Delete %ld persons", buf, 0xCu);
   }
 
   v5 = [[PGGraphPersonsDeletion alloc] initWithPersonLocalIdentifiers:identifiersCopy];
-  v9 = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
 
   return v6;
 }

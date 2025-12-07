@@ -9,7 +9,7 @@
 
 + (void)_logForMissingEntitlementWithResult:(id)result
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   error = [resultCopy error];
   if (error)
@@ -31,25 +31,24 @@
     entitlement = [resultCopy entitlement];
     isEntitled = [resultCopy isEntitled];
     error2 = [resultCopy error];
-    v15 = 138544898;
+    v14 = 138544898;
     selfCopy = self;
-    v17 = 2114;
-    v18 = processName;
-    v19 = 1024;
-    v20 = processIdentifier;
-    v21 = 2114;
-    v22 = group;
-    v23 = 2114;
-    v24 = entitlement;
-    v25 = 1024;
-    v26 = isEntitled;
-    v27 = 2114;
-    v28 = error2;
-    _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_ERROR, "%{public}@ - Process %{public}@ PID[%d] - Group: %{public}@ - Entitlement: %{public}@ - Entitled: %{BOOL}u - Error: %{public}@", &v15, 0x40u);
+    v16 = 2114;
+    v17 = processName;
+    v18 = 1024;
+    v19 = processIdentifier;
+    v20 = 2114;
+    v21 = group;
+    v22 = 2114;
+    v23 = entitlement;
+    v24 = 1024;
+    v25 = isEntitled;
+    v26 = 2114;
+    v27 = error2;
+    _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_ERROR, "%{public}@ - Process %{public}@ PID[%d] - Group: %{public}@ - Entitlement: %{public}@ - Entitled: %{BOOL}u - Error: %{public}@", &v14, 0x40u);
   }
 
 LABEL_7:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_checkBooleanEntitlement:(id)entitlement task:(__SecTask *)task

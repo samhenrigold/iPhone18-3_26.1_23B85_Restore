@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for DraftingViewController()
+uint64_t type metadata accessor for DraftingViewController(uint64_t a1)
 {
   result = qword_100008650;
   if (!qword_100008650)
@@ -25,7 +25,7 @@ id sub_10000144C(void *a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   v11.receiver = a1;
-  v11.super_class = type metadata accessor for DraftingViewController();
+  v11.super_class = type metadata accessor for DraftingViewController(0);
   v9 = objc_msgSendSuper2(&v11, "initWithNibName:bundle:", v7, a4);
 
   return v9;
@@ -34,7 +34,7 @@ id sub_10000144C(void *a1, uint64_t a2, uint64_t a3, void *a4)
 id sub_1000014F0(void *a1, uint64_t a2, void *a3)
 {
   v7.receiver = a1;
-  v7.super_class = type metadata accessor for DraftingViewController();
+  v7.super_class = type metadata accessor for DraftingViewController(0);
   v4 = a3;
   v5 = objc_msgSendSuper2(&v7, "initWithCoder:", v4);
 
@@ -48,7 +48,7 @@ id sub_1000014F0(void *a1, uint64_t a2, void *a3)
 id sub_100001568()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for DraftingViewController();
+  v2.super_class = type metadata accessor for DraftingViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 

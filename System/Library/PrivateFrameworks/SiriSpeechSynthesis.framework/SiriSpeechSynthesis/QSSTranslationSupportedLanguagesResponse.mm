@@ -41,7 +41,7 @@ flatbuffers::DetachedBuffer *__56__QSSTranslationSupportedLanguagesResponse_flat
 
 - (Offset<siri::speech::schema_fb::TranslationSupportedLanguagesResponse>)addObjectToBuffer:(void *)buffer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   request_id = [(QSSTranslationSupportedLanguagesResponse *)self request_id];
   v6 = request_id;
   if (!request_id)
@@ -63,7 +63,7 @@ flatbuffers::DetachedBuffer *__56__QSSTranslationSupportedLanguagesResponse_flat
 
   uTF8String2 = [(__CFString *)return_string UTF8String];
   v12 = strlen(uTF8String2);
-  v23 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v21 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   language_pairs = [(QSSTranslationSupportedLanguagesResponse *)self language_pairs];
   v14 = [language_pairs count];
@@ -77,16 +77,11 @@ flatbuffers::DetachedBuffer *__56__QSSTranslationSupportedLanguagesResponse_flat
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  memset(v25, 0, sizeof(v25));
   obj = [(QSSTranslationSupportedLanguagesResponse *)self language_pairs];
-  if ([obj countByEnumeratingWithState:&v27 objects:v31 count:16])
+  if ([obj countByEnumeratingWithState:v25 objects:v26 count:16])
   {
-    *v28;
-    *v28;
-    [**(&v27 + 1) addObjectToBuffer:buffer];
+    [**(&v25[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -99,16 +94,14 @@ flatbuffers::DetachedBuffer *__56__QSSTranslationSupportedLanguagesResponse_flat
   v18 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, return_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v23);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v21);
   if (v15)
   {
     v19 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v15);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 10, v19);
   }
 
-  v20.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v16 - v17 + v18);
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v16 - v17 + v18);
 }
 
 - (NSArray)language_pairs

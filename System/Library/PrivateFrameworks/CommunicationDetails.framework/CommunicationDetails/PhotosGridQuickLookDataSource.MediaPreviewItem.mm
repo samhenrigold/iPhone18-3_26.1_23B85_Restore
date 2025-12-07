@@ -19,12 +19,12 @@
 
 - (NSURL)previewItemURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtCC20CommunicationDetails29PhotosGridQuickLookDataSource16MediaPreviewItem_mediaItemURL;
   swift_beginAccess();
-  outlined init with copy of URL?(self + v6, v5, &_s10Foundation3URLVSgMd);
+  outlined init with copy of URL?(self + v6, v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);

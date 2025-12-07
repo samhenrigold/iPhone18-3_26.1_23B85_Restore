@@ -70,23 +70,21 @@ void __72__WFSmartPromptDialogRequest_getContentCollectionWithCompletionHandler_
 
 void __72__WFSmartPromptDialogRequest_getContentCollectionWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
     v4 = getWFGeneralLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136315138;
-      v7 = "[WFSmartPromptDialogRequest getContentCollectionWithCompletionHandler:]_block_invoke_3";
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Unable to unarchive smart prompt content collection.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[WFSmartPromptDialogRequest getContentCollectionWithCompletionHandler:]_block_invoke_3";
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Unable to unarchive smart prompt content collection.", &v5, 0xCu);
     }
   }
 
   [*(a1 + 32) setCachedSourceContentCollection:v3];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -161,13 +159,13 @@ void __72__WFSmartPromptDialogRequest_getContentCollectionWithCompletionHandler_
 
 - (WFSmartPromptDialogRequest)initWithConfiguration:(id)configuration attribution:(id)attribution
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   attributionCopy = attribution;
   localizedPrompt = [configurationCopy localizedPrompt];
-  v56.receiver = self;
-  v56.super_class = WFSmartPromptDialogRequest;
-  v10 = [(WFDialogRequest *)&v56 initWithAttribution:attributionCopy prompt:localizedPrompt];
+  v55.receiver = self;
+  v55.super_class = WFSmartPromptDialogRequest;
+  v10 = [(WFDialogRequest *)&v55 initWithAttribution:attributionCopy prompt:localizedPrompt];
 
   if (v10)
   {
@@ -189,7 +187,7 @@ void __72__WFSmartPromptDialogRequest_getContentCollectionWithCompletionHandler_
 
       numberOfItems = [(WFContentCollection *)v10->_cachedSourceContentCollection numberOfItems];
       v19 = numberOfItems;
-      if (numberOfItems > 1 || numberOfItems == 1 && ([configurationCopy requestSource], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", @"Siri"), v27, v28))
+      if (numberOfItems > 1 || numberOfItems == 1 && ([configurationCopy requestSource], v27 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v27), v27, isEqualToString))
       {
         v20 = MEMORY[0x1E696AEC0];
         v21 = WFLocalizedString(@"Show All %d");
@@ -295,7 +293,7 @@ LABEL_26:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v58 = "[WFSmartPromptDialogRequest initWithConfiguration:attribution:]";
+      v57 = "[WFSmartPromptDialogRequest initWithConfiguration:attribution:]";
       _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s Unable to archive smart prompt source content collection", buf, 0xCu);
     }
   }
@@ -303,7 +301,6 @@ LABEL_26:
   v26 = 0;
 LABEL_27:
 
-  v54 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

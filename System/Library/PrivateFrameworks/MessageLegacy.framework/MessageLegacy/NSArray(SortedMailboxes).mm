@@ -1,10 +1,10 @@
 @interface NSArray(SortedMailboxes)
-- (uint64_t)mf_indexOfMailboxDictionaryWithName:()SortedMailboxes;
+- (CFIndex)mf_indexOfMailboxDictionaryWithName:()SortedMailboxes;
 @end
 
 @implementation NSArray(SortedMailboxes)
 
-- (uint64_t)mf_indexOfMailboxDictionaryWithName:()SortedMailboxes
+- (CFIndex)mf_indexOfMailboxDictionaryWithName:()SortedMailboxes
 {
   v5 = [self count];
   v8.location = 0;

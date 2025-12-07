@@ -7,11 +7,11 @@
 
 - (void)initWithOspreyResponse:()Osprey confidenceThreshold:isSanitized:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v8 = a3;
-  v45.receiver = self;
-  v45.super_class = &off_28488EEE8;
-  v9 = objc_msgSendSuper2(&v45, sel_init);
+  v44.receiver = self;
+  v44.super_class = &off_28488EEE8;
+  v9 = objc_msgSendSuper2(&v44, sel_init);
   v10 = v9;
   if (v9)
   {
@@ -48,29 +48,29 @@
 
     else
     {
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       firstObject = [recognition_result post_itn_nbest_choices];
-      v24 = [firstObject countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v24 = [firstObject countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v24)
       {
         v25 = v24;
-        v39 = recognition_text;
-        v40 = v8;
-        v26 = *v42;
+        v38 = recognition_text;
+        v39 = v8;
+        v26 = *v41;
         v27 = a4;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v42 != v26)
+            if (*v41 != v26)
             {
               objc_enumerationMutation(firstObject);
             }
 
-            v29 = [objc_alloc(MEMORY[0x277CE1BA8]) initWithRecognitionChoice:*(*(&v41 + 1) + 8 * i) inSausage:post_itn];
+            v29 = [objc_alloc(MEMORY[0x277CE1BA8]) initWithRecognitionChoice:*(*(&v40 + 1) + 8 * i) inSausage:post_itn];
             locale2 = [v10 locale];
             [v29 setLocale:locale2];
 
@@ -79,12 +79,12 @@
             [array addObject:v29];
           }
 
-          v25 = [firstObject countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v25 = [firstObject countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v25);
-        v8 = v40;
-        recognition_text = v39;
+        v8 = v39;
+        recognition_text = v38;
       }
     }
 
@@ -98,17 +98,16 @@
     v36 = v10;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)initWithOspreyPartialRecognitionResponse:()Osprey isSanitized:
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
-  v21.receiver = self;
-  v21.super_class = &off_28488EEE8;
-  v7 = objc_msgSendSuper2(&v21, sel_init);
+  v20.receiver = self;
+  v20.super_class = &off_28488EEE8;
+  v7 = objc_msgSendSuper2(&v20, sel_init);
   v8 = v7;
   if (v7)
   {
@@ -141,14 +140,13 @@
     [v12 setMinConfidence:0.0];
     [v12 setMaxConfidence:0.0];
     [v12 setLowConfidence:0];
-    v22[0] = v12;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v12;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [v8 setTranscriptions:v17];
 
     v18 = v8;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

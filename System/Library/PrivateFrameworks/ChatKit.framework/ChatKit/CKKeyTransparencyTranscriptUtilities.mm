@@ -59,7 +59,7 @@ LABEL_13:
   v14 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v13];
   v15 = objc_alloc(MEMORY[0x1E696AD40]);
   v16 = MEMORY[0x1E696AEC0];
-  v17 = CKFrameworkBundle();
+  v17 = CKFrameworkBundle(v15);
   v18 = [v17 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
   v19 = [v16 stringWithFormat:v18, v14];
 

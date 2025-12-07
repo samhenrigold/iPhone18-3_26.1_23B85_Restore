@@ -592,11 +592,11 @@ LABEL_6:
   entryPointsCoordinator = [(MapsSceneDelegate *)self entryPointsCoordinator];
   v14 = [anyObject URL];
   session = [v10 session];
-  options = [anyObject options];
+  v16 = objc_msgSend_options(anyObject);
   coordinateSpace = [v10 coordinateSpace];
 
   [coordinateSpace bounds];
-  [entryPointsCoordinator openURL:v14 session:session sceneOptions:options mkOptions:0 windowSize:{v18, v19}];
+  [entryPointsCoordinator openURL:v14 session:session sceneOptions:v16 mkOptions:0 windowSize:{v18, v19}];
 }
 
 - (void)setMapsActivity:(id)activity assumedSourceFidelity:(unint64_t)fidelity source:(int64_t)source

@@ -39,7 +39,8 @@
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       stringValue = [dCopy stringValue];
       DSID = self->_DSID;
@@ -48,20 +49,18 @@
 
     else
     {
-      v8 = _AALogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _AALogSystem(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = 138412290;
         v11 = dCopy;
-        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Attempted to set invalid DSID: %{mask}@", &v10, 0xCu);
+        _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Attempted to set invalid DSID: %{mask}@", &v10, 0xCu);
       }
 
       DSID = self->_DSID;
       self->_DSID = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

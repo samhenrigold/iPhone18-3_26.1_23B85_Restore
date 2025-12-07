@@ -116,66 +116,64 @@ LABEL_5:
 
 - (BOOL)validate
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (getSearchPropertyInfo(self->_property))
+  v13 = *MEMORY[0x277D85DE8];
+  if (!getSearchPropertyInfo(self->_property))
   {
-    if ([(CADPropertyFilter *)self isDate])
+    v4 = CADLogHandle;
+    LODWORD(comparison) = os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR);
+    if (!comparison)
     {
-      dateValue = [(CADPropertyFilter *)self dateValue];
+      return comparison;
     }
 
-    else
-    {
-      if (![(CADPropertyFilter *)self isString])
-      {
-        goto LABEL_10;
-      }
-
-      dateValue = [(CADPropertyFilter *)self stringValue];
-    }
-
-    v8 = dateValue;
-
-    if (!v8 && [(CADPropertyFilter *)self comparison])
-    {
-      comparison = [(CADPropertyFilter *)self comparison];
-      if (comparison != 1)
-      {
-        v4 = CADLogHandle;
-        LODWORD(comparison) = os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR);
-        if (comparison)
-        {
-          comparison = self->_comparison;
-          v12 = 134217984;
-          v13 = comparison;
-          v7 = "comparison %li is invalid for null values.";
-          goto LABEL_6;
-        }
-      }
-
-      goto LABEL_11;
-    }
-
-LABEL_10:
-    LOBYTE(comparison) = 1;
-    goto LABEL_11;
-  }
-
-  v4 = CADLogHandle;
-  LODWORD(comparison) = os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR);
-  if (comparison)
-  {
     property = self->_property;
-    v12 = 134217984;
-    v13 = property;
+    v11 = 134217984;
+    v12 = property;
     v7 = "property %li is invalid.";
-LABEL_6:
-    _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_ERROR, v7, &v12, 0xCu);
-    LOBYTE(comparison) = 0;
+    goto LABEL_6;
   }
 
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
+  if ([(CADPropertyFilter *)self isDate])
+  {
+    dateValue = [(CADPropertyFilter *)self dateValue];
+  }
+
+  else
+  {
+    if (![(CADPropertyFilter *)self isString])
+    {
+LABEL_10:
+      LOBYTE(comparison) = 1;
+      return comparison;
+    }
+
+    dateValue = [(CADPropertyFilter *)self stringValue];
+  }
+
+  v8 = dateValue;
+
+  if (v8 || ![(CADPropertyFilter *)self comparison])
+  {
+    goto LABEL_10;
+  }
+
+  comparison = [(CADPropertyFilter *)self comparison];
+  if (comparison != 1)
+  {
+    v4 = CADLogHandle;
+    LODWORD(comparison) = os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR);
+    if (comparison)
+    {
+      comparison = self->_comparison;
+      v11 = 134217984;
+      v12 = comparison;
+      v7 = "comparison %li is invalid for null values.";
+LABEL_6:
+      _os_log_impl(&dword_22430B000, v4, OS_LOG_TYPE_ERROR, v7, &v11, 0xCu);
+      LOBYTE(comparison) = 0;
+    }
+  }
+
   return comparison;
 }
 
@@ -277,30 +275,13 @@ LABEL_9:
   v12.receiver = self;
   v12.super_class = CADPropertyFilter;
   v5 = [(CADFilter *)&v12 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v5->_property = [coderCopy decodeIntegerForKey:@"property"];
-  v5->_comparison = [coderCopy decodeIntegerForKey:@"comparison"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"stringValue"];
-  stringValue = v5->_stringValue;
-  v5->_stringValue = v6;
-
-  v5->_integerValue = [coderCopy decodeIntegerForKey:@"integerValue"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateValue"];
-  dateValue = v5->_dateValue;
-  v5->_dateValue = v8;
-
-  if (![(CADPropertyFilter *)v5 validate])
+  if (v5 && (v5->_property = [coderCopy decodeIntegerForKey:@"property"], v5->_comparison = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"comparison"), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"stringValue"), v6 = objc_claimAutoreleasedReturnValue(), stringValue = v5->_stringValue, v5->_stringValue = v6, stringValue, v5->_integerValue = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"integerValue"), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"dateValue"), v8 = objc_claimAutoreleasedReturnValue(), dateValue = v5->_dateValue, v5->_dateValue = v8, dateValue, !-[CADPropertyFilter validate](v5, "validate")))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_3:
     v10 = v5;
   }
 

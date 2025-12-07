@@ -103,7 +103,7 @@ uint64_t __55__AMSSQLiteEntity_initWithPropertyValues_onConnection___block_invok
   return v7;
 }
 
-uint64_t __55__AMSSQLiteEntity_initWithPropertyValues_onConnection___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__55__AMSSQLiteEntity_initWithPropertyValues_onConnection___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 48) _insertValues:a3 intoTable:a2 withPersistentID:*(a1 + 56) onConnection:*(a1 + 32)];
   if ((result & 1) == 0)

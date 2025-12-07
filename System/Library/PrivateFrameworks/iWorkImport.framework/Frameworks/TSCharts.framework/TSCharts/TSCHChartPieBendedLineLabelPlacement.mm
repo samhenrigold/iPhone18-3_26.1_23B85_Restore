@@ -144,7 +144,7 @@ LABEL_18:
         }
 
         memset(&v149, 0, sizeof(v149));
-        objc_msgSend_transformOutwardsAlongWedgeBisectionForWedgeLayoutInfo_withMinimumNecessaryDistance_(self, v114, v83, v116, v117, v43);
+        objc_msgSend_transformOutwardsAlongWedgeBisectionForWedgeLayoutInfo_withMinimumNecessaryDistance_(self, v83, v116, v117);
         v148 = v149;
         objc_msgSend_concatenateCombinedLabelTransformWithTransform_(v43, v120, v149.tx, v149.c, v121, &v148);
       }
@@ -335,7 +335,7 @@ LABEL_23:
       v51 = objc_msgSend_objectAtIndexedSubscript_(arrayCopy, v47, v48, v49, v50, v41 + v40);
       if (objc_msgSend_enableCalloutLineSetting(v46, v52, v53, v54, v55))
       {
-        objc_msgSend_transformToShiftWedgeLayoutInfoAwayFromAdjacentWedgeLayoutInfo_adjacentWedgeLayoutInfo_adjacentShouldBeAbove_totalHeightOverlap_(self, v56, v27, c, v59, v46, v51, disk != 0);
+        objc_msgSend_transformToShiftWedgeLayoutInfoAwayFromAdjacentWedgeLayoutInfo_adjacentWedgeLayoutInfo_adjacentShouldBeAbove_totalHeightOverlap_(self, v27, c, v59);
         a = v76.a;
         c = v76.c;
         v77 = *&v76.a;
@@ -1402,33 +1402,33 @@ LABEL_15:
 LABEL_10:
   v76 = lineEndCopy;
   v77 = endCopy;
-  v94 = 0;
-  v92 = 0u;
-  v93 = 0u;
-  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v78, v33, v35, v27, v43, 0, v76, v77, strokeCopy, v29);
-  v91 = 0;
-  v89 = 0u;
+  v92 = 0;
   v90 = 0u;
-  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v79, v33, v35, v27, v43, 1, v76, v77, strokeCopy, v29);
-  *&v89 = qword_2764D7150[v27 < v33];
-  v87[0] = v89;
-  v87[1] = v90;
-  v88 = v91;
-  v85[0] = v92;
-  v85[1] = v93;
-  v86 = v94;
-  v83 = objc_msgSend_createClippedPath_headPositioning_tailPositioning_stroke_(MEMORY[0x277D81160], v80, *&v92, *&v93, v81, v43, v87, v85, strokeCopy);
+  v91 = 0u;
+  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v33, v35, v27, v29);
+  v89 = 0;
+  v87 = 0u;
+  v88 = 0u;
+  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v33, v35, v27, v29);
+  *&v87 = qword_2764D7150[v27 < v33];
+  v85[0] = v87;
+  v85[1] = v88;
+  v86 = v89;
+  v83[0] = v90;
+  v83[1] = v91;
+  v84 = v92;
+  v81 = objc_msgSend_createClippedPath_headPositioning_tailPositioning_stroke_(MEMORY[0x277D81160], v78, *&v90, *&v91, v79, v43, v85, v83, strokeCopy);
   if (path)
   {
-    *path = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v82, *(&v92 + 1), *&v93, *&v92, v77, strokeCopy);
+    *path = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v80, *(&v90 + 1), *&v91, *&v90, v77, strokeCopy);
   }
 
   if (endPath)
   {
-    *endPath = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v82, *(&v89 + 1), *&v90, *&v89, v76, strokeCopy);
+    *endPath = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v80, *(&v87 + 1), *&v88, *&v87, v76, strokeCopy);
   }
 
-  return v83;
+  return v81;
 }
 
 - (CGPoint)calloutLineStartpointForWedgeLayoutInfo:(id)info

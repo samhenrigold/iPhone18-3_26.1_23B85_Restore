@@ -70,38 +70,38 @@
     [_FBSDisplayLayoutEndpointServices _checkinService:a2];
   }
 
-  v18 = serviceCopy;
+  v19 = serviceCopy;
   endpoint = [serviceCopy endpoint];
   os_unfair_lock_lock(&__sharedEndpointServicesLock);
-  v6 = [__sharedEndpointServices objectForKey:endpoint];
-  v7 = v18;
-  v8 = v6;
-  if (v6)
+  v7 = [__sharedEndpointServices objectForKey:endpoint];
+  v8 = v19;
+  v9 = v7;
+  if (v7)
   {
-    v9 = 0;
-    v10 = v6 + 8;
-    v11 = v6 + 32;
-    v12 = 1;
+    v10 = 0;
+    v11 = v7 + 8;
+    v12 = v7 + 32;
+    v13 = 1;
     do
     {
       while (1)
       {
-        v13 = *(v11 + 8 * v9);
-        if (*(v10 + 8 * v9) == v7)
+        v14 = *(v12 + 8 * v10);
+        if (*(v11 + 8 * v10) == v8)
         {
           break;
         }
 
-        v12 &= v13 == 0;
+        v13 &= v14 == 0;
 LABEL_6:
-        if (++v9 == 3)
+        if (++v10 == 3)
         {
-          if (v12)
+          if (v13)
           {
             [__sharedEndpointServices removeObjectForKey:endpoint];
             if (![__sharedEndpointServices count])
             {
-              v16 = __sharedEndpointServices;
+              v17 = __sharedEndpointServices;
               __sharedEndpointServices = 0;
             }
           }
@@ -110,35 +110,35 @@ LABEL_6:
         }
       }
 
-      if (!v13)
+      if (!v14)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid refcnt for qos=%i endpoint=%@", v9, endpoint];
+        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid refcnt for qos=%i endpoint=%@", v10, endpoint];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [_FBSDisplayLayoutEndpointServices _checkinService:a2];
+          [(_FBSDisplayLayoutEndpointServices *)a2 _checkinService:self];
         }
 
-        [v17 UTF8String];
+        [v18 UTF8String];
         _bs_set_crash_log_message();
       }
 
-      v14 = v13 - 1;
-      *(v11 + 8 * v9) = v14;
-      if (!v14)
+      v15 = v14 - 1;
+      *(v12 + 8 * v10) = v15;
+      if (!v15)
       {
-        [v7 invalidate];
-        v15 = *(v10 + 8 * v9);
-        *(v10 + 8 * v9) = 0;
+        [v8 invalidate];
+        v16 = *(v11 + 8 * v10);
+        *(v11 + 8 * v10) = 0;
 
-        v7 = v18;
+        v8 = v19;
         goto LABEL_6;
       }
 
-      v12 = 0;
-      ++v9;
+      v13 = 0;
+      ++v10;
     }
 
-    while (v9 != 3);
+    while (v10 != 3);
   }
 
 LABEL_16:
@@ -147,15 +147,14 @@ LABEL_16:
 
 + (void)_checkoutServiceWithEndpoint:(uint64_t)a1 qos:(char *)a2 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"endpoint's service is unexpected : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"endpoint's service is unexpected : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -164,16 +163,14 @@ LABEL_16:
 
 + (void)_checkoutServiceWithEndpoint:(char)a1 qos:(char *)a2 .cold.2(char a1, char *a2)
 {
-  v11 = a1;
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid QOS %d"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid QOS %d", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -182,41 +179,41 @@ LABEL_16:
 
 + (void)_checkoutServiceWithEndpoint:(char *)a1 qos:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"endpoint", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-+ (void)_checkinService:(const char *)a1 .cold.1(const char *a1)
++ (void)_checkinService:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)_checkinService:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"service"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"service", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

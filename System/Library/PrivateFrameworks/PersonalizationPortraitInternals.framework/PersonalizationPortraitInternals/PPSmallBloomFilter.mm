@@ -82,7 +82,7 @@
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v7 = [features featureValueForName:{self->_inputName, options}];
   stringValue = [v7 stringValue];
   localizedLowercaseString = [stringValue localizedLowercaseString];
@@ -103,14 +103,12 @@
   v12 = objc_alloc(MEMORY[0x277CBFED0]);
   outputName = self->_outputName;
   v13 = [MEMORY[0x277CCABB0] numberWithBool:v11];
-  v20 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v19 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v15 = [PPCoreMLUtils _multiArrayForNumberArray:v14];
-  v22[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&outputName count:1];
+  v21[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&outputName count:1];
   v17 = [v12 initWithDictionary:v16 error:error];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

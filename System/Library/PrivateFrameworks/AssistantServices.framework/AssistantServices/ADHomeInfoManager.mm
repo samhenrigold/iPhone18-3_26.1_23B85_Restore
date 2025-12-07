@@ -167,8 +167,8 @@ LABEL_5:
         v95 = v8;
         v99 = +[NSMutableDictionary dictionary];
         v102 = +[NSMutableDictionary dictionary];
-        v13 = [(NSMutableDictionary *)selfCopy->_homeUserSettings objectForKey:uUIDString];
-        v14 = [(NSMutableDictionary *)v13 objectForKey:@"allowVoiceID"];
+        v13 = objc_msgSend_objectForKey_(selfCopy->_homeUserSettings);
+        v14 = objc_msgSend_objectForKey_(v13);
         integerValue = [v14 integerValue];
         v15 = v13;
         if (v13)
@@ -192,7 +192,7 @@ LABEL_5:
         owner2 = [(HMHome *)v9 owner];
         v18 = [(ADHomeInfoManager *)selfCopy _settingsForHomeUser:owner2 forHome:v9];
 
-        v19 = [(NSMutableDictionary *)v18 objectForKey:@"allowVoiceID"];
+        v19 = objc_msgSend_objectForKey_(v18);
         integerValue2 = [v19 integerValue];
         v21 = v19;
         [v102 setObject:v19 forKey:uUIDString];
@@ -318,9 +318,9 @@ LABEL_5:
               uniqueIdentifier3 = [v43 uniqueIdentifier];
               uUIDString3 = [uniqueIdentifier3 UUIDString];
 
-              v46 = [p_isa[8] objectForKey:uUIDString3];
+              v46 = objc_msgSend_objectForKey_(p_isa[8]);
 
-              v47 = [(NSMutableDictionary *)v46 objectForKey:@"allowVoiceID"];
+              v47 = objc_msgSend_objectForKey_(v46);
 
               integerValue3 = [v47 integerValue];
               v109 = v46;
@@ -344,7 +344,7 @@ LABEL_5:
               v41 = v47;
               v18 = [p_isa _settingsForHomeUser:v43 forHome:v104];
 
-              v49 = [(NSMutableDictionary *)v18 objectForKey:@"allowVoiceID"];
+              v49 = objc_msgSend_objectForKey_(v18);
 
               integerValue4 = [v49 integerValue];
               [v102 setObject:v49 forKey:uUIDString3];
@@ -462,7 +462,7 @@ LABEL_72:
         currentUser5 = [(HMHome *)v104 currentUser];
         v68 = [p_isa _settingsForHomeUser:currentUser5 forHome:v104];
 
-        v69 = [p_isa[8] objectForKey:uUIDString5];
+        v69 = objc_msgSend_objectForKey_(p_isa[8]);
 
         if (v69)
         {
@@ -479,10 +479,10 @@ LABEL_72:
           }
         }
 
-        v71 = [v68 objectForKey:@"allowVoiceID"];
+        v71 = objc_msgSend_objectForKey_(v68);
         integerValue5 = [v71 integerValue];
 
-        v73 = [(NSMutableDictionary *)v69 objectForKey:@"allowVoiceID"];
+        v73 = objc_msgSend_objectForKey_(v69);
         integerValue6 = [v73 integerValue];
 
         if (([(NSMutableDictionary *)v69 isEqualToDictionary:v68]& 1) != 0)
@@ -936,11 +936,11 @@ LABEL_13:
   homes = [(HMHomeManager *)self->_homeManager homes];
   v7 = [(ADHomeInfoManager *)self _activityNotificationsForHomes:homes];
 
-  v8 = [v7 objectForKey:homeIdentifier];
+  v8 = objc_msgSend_objectForKey_(v7);
 
   if (v8)
   {
-    v9 = [v7 objectForKey:homeIdentifier];
+    v9 = objc_msgSend_objectForKey_(v7);
     bOOLValue = [v9 BOOLValue];
   }
 
@@ -1254,7 +1254,7 @@ LABEL_11:
 
       if (([uUIDString isEqualToString:uUIDString2] & 1) == 0)
       {
-        v12 = [(NSMutableDictionary *)self->_homeSharingStates objectForKey:uUIDString];
+        v12 = objc_msgSend_objectForKey_(self->_homeSharingStates);
         integerValue = [v12 integerValue];
 
         if (integerValue <= 0)

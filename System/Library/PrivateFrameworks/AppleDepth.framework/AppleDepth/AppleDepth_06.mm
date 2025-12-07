@@ -8,8 +8,9 @@ void sub_2403E95C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CVBuffer *PixelBufferUtils::errorsPixelBuffer(PixelBufferUtils *this, __CVBuffer *a2, __CVBuffer *a3, int a4)
+__CVBuffer *PixelBufferUtils::errorsPixelBuffer(PixelBufferUtils *this, __CVBuffer *a2, __CVBuffer *a3, uint64_t a4)
 {
+  v4 = a4;
   v5 = a3;
   PixelFormatType = CVPixelBufferGetPixelFormatType(this);
   if (PixelFormatType != CVPixelBufferGetPixelFormatType(a2))
@@ -50,12 +51,12 @@ __CVBuffer *PixelBufferUtils::errorsPixelBuffer(PixelBufferUtils *this, __CVBuff
   CVPixelBufferLockBaseAddress(data, 0);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
   v17 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(this, *MEMORY[0x277CBF3A0], &pixelBufferOut);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, this, *MEMORY[0x277CBF3A0]);
   memset(&v257, 0, sizeof(v257));
-  PixelBufferUtils::asVImageBuffer(a2, *v17, &v257);
+  PixelBufferUtils::asVImageBuffer(&v257, a2, *v17);
   memset(&v256, 0, sizeof(v256));
   v209 = data;
-  PixelBufferUtils::asVImageBuffer(data, *v17, &v256);
+  PixelBufferUtils::asVImageBuffer(&v256, data, *v17);
   pixelBuffer = this;
   v208 = a2;
   if (v11 > 1278226535)
@@ -75,7 +76,7 @@ __CVBuffer *PixelBufferUtils::errorsPixelBuffer(PixelBufferUtils *this, __CVBuff
 
       if (v11 == 1380410945)
       {
-        calcDiffsRaw<float>(&pixelBufferOut, v257.data, v257.rowBytes, v256.data, v256.rowBytes, v5, a4);
+        calcDiffsRaw<float>(&pixelBufferOut, v257.data, v257.rowBytes, v256.data, v256.rowBytes, v5, v4);
         goto LABEL_110;
       }
 
@@ -112,7 +113,7 @@ LABEL_36:
         v32 = pixelBufferOut.rowBytes;
         v34 = v256.rowBytes;
         v33 = v257.data;
-        v35 = a4;
+        v35 = v4;
         v36 = v256.data;
         v199 = v256.data + 2 * pixelBufferOut.width;
         v195 = v257.data + 2 * pixelBufferOut.width;
@@ -377,7 +378,7 @@ LABEL_141:
       }
 
 LABEL_105:
-      PixelBufferUtils::pixelFormatAsString(v11, v254);
+      PixelBufferUtils::pixelFormatAsString(v254, v11);
       if (v255 >= 0)
       {
         v124 = v254;
@@ -411,13 +412,13 @@ LABEL_105:
     if (v11 == 32)
     {
 LABEL_26:
-      calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, a4, 4, v18, v19);
+      calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, v4, 4, v18, v19);
       goto LABEL_110;
     }
 
     if (v11 == 843264104)
     {
-      calcDiffsRaw<half>(&pixelBufferOut, v257.data, v257.rowBytes, v256.data, v256.rowBytes, v5, a4);
+      calcDiffsRaw<half>(&pixelBufferOut, v257.data, v257.rowBytes, v256.data, v256.rowBytes, v5, v4);
       goto LABEL_110;
     }
 
@@ -433,7 +434,7 @@ LABEL_26:
     {
       if (v11 == 1278226488)
       {
-        calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, a4, 1, v18, v19);
+        calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, v4, 1, v18, v19);
 LABEL_70:
         v81 = pixelBufferOut.height;
         if (!pixelBufferOut.height)
@@ -452,7 +453,7 @@ LABEL_70:
         v85 = pixelBufferOut.rowBytes;
         v87 = v256.rowBytes;
         v86 = v257.data;
-        v88 = a4;
+        v88 = v4;
         v89 = v256.data;
         v211 = v256.data + 4 * pixelBufferOut.width;
         v204 = v257.data + 4 * pixelBufferOut.width;
@@ -697,12 +698,12 @@ LABEL_17:
     }
   }
 
-  PixelBufferUtils::asVImageBuffer(this, 0, *v17, &pixelBufferOut);
-  PixelBufferUtils::asVImageBuffer(a2, 0, *v17, &v257);
-  calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, a4, 1, v23, v24);
-  PixelBufferUtils::asVImageBuffer(this, 1, *v17, &pixelBufferOut);
-  PixelBufferUtils::asVImageBuffer(a2, 1, *v17, &v257);
-  calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, a4, 2, v25, v26);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, this, 0, *v17);
+  PixelBufferUtils::asVImageBuffer(&v257, a2, 0, *v17);
+  calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, v4, 1, v23, v24);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, this, 1, *v17);
+  PixelBufferUtils::asVImageBuffer(&v257, a2, 1, *v17);
+  calcDiffsRaw<unsigned char>(&pixelBufferOut, &v257, &v256, v5, v4, 2, v25, v26);
 LABEL_110:
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
   CVPixelBufferUnlockBaseAddress(v208, 1uLL);
@@ -820,8 +821,8 @@ void calcDiffsRaw<half>(float16x8_t **a1, float16x8_t *a2, uint64_t a3, float16x
   {
     v16 = 0;
     v17 = 4 * v7;
-    v121 = a4->i64 + v17;
-    v118 = a2->i64 + v17;
+    v121 = &a4->i8[v17];
+    v118 = &a2->i8[v17];
     v119 = v13->i64 + v17;
     if (v8)
     {
@@ -859,9 +860,9 @@ void calcDiffsRaw<half>(float16x8_t **a1, float16x8_t *a2, uint64_t a3, float16x
       else
       {
         v28 = 0;
-        v41 = v121 + v16 * v9;
+        v41 = &v121[v16 * v9];
         v42 = v119 + v24;
-        v44 = v23 < v118 + v26 && v27 < v41;
+        v44 = v23 < &v118[v26] && v27 < v41;
         v45 = v25 >= v41 || v23 >= v42;
         if (v45 && !v44)
         {
@@ -948,7 +949,7 @@ LABEL_16:
       v22 = (v130 + v9);
       v21 = (v132 + v11);
       v14 = v129;
-      v20 = (v133 + v129);
+      v20 = (v129 + v133);
       if (v137 <= (v135 + 1))
       {
         return;
@@ -978,7 +979,7 @@ LABEL_16:
 
       while (v8 > v64);
       ++v63;
-      v13 = (v13 + v14);
+      v13 = (v14 + v13);
       v12 = (v12 + v11);
       v10 = (v10 + v9);
     }
@@ -1001,9 +1002,9 @@ LABEL_16:
   {
     v78 = 0;
     v79 = 4 * v7;
-    v131 = a4->i64 + v79;
+    v131 = &a4->i8[v79];
     v128 = v13->i64 + v79;
-    v125 = a2->i64 + v79;
+    v125 = &a2->i8[v79];
     v120 = 2 * (v8 & 0x1FFFFFFF8);
     v80 = *a1;
     v81 = a2;
@@ -1012,13 +1013,13 @@ LABEL_16:
     {
       v83 = 0;
       v84 = (v10->i16 + v78 * v9);
-      v85 = v131 + v78 * v9;
+      v85 = &v131[v78 * v9];
       v86 = v14 * v78;
       v87 = v11;
       v88 = (v13->i16 + v14 * v78);
       v89 = v78 * v87;
       v90 = (v12->i16 + v89);
-      v92 = v84 < v125 + v89 && v90 < v85;
+      v92 = v84 < &v125[v89] && v90 < v85;
       v93 = v88 >= v85 || v84 >= v128 + v86;
       v139 = v80;
       v134 = v82;
@@ -1102,7 +1103,7 @@ LABEL_50:
       v11 = a3;
       v81 = (v136 + a3);
       v14 = v129;
-      v80 = (v139 + v129);
+      v80 = (v129 + v139);
       if (v137 <= v78)
       {
         return;
@@ -1130,7 +1131,7 @@ LABEL_50:
 
     while (v8 > v72);
     ++v71;
-    v13 = (v13 + v14);
+    v13 = (v14 + v13);
     v12 = (v12 + v11);
     v10 = (v10 + v9);
   }
@@ -1164,10 +1165,10 @@ void calcDiffsRaw<float>(float32x4_t **a1, float32x4_t *a2, uint64_t a3, float32
   if (a6)
   {
     v15 = 0;
-    v16 = v7;
-    v17 = &a4[v16];
-    v91 = &v12[v16];
-    f32 = a2[v16].f32;
+    v16 = (16 * v7);
+    v17 = (v16 + a4);
+    v91 = v16 + v12;
+    v89 = (v16 + a2);
     if (v8)
     {
       v18 = (v8 - 1) >> 32 == 0;
@@ -1204,9 +1205,9 @@ void calcDiffsRaw<float>(float32x4_t **a1, float32x4_t *a2, uint64_t a3, float32
       else
       {
         v28 = 0;
-        v36 = v91 + v24;
-        v37 = v17 + v15 * v9;
-        v39 = v23 < (f32 + v26) && v27 < v37;
+        v36 = &v91[v24];
+        v37 = (v17->f32 + v15 * v9);
+        v39 = v23 < (v89->f32 + v26) && v27 < v37;
         v40 = v25 >= v37 || v23 >= v36;
         if (v40 && !v39)
         {
@@ -1289,11 +1290,11 @@ LABEL_11:
   if (v51)
   {
     v55 = 0;
-    v56 = v7;
-    v57 = &a4[v56];
-    v98 = &v12[v56];
-    v95 = a2[v56].f32;
-    v88 = &a4[v56];
+    v56 = (16 * v7);
+    v57 = (v56 + a4);
+    v98 = v56 + v12;
+    v95 = (v56 + a2);
+    v88 = (v56 + a4);
     v90 = 4 * (v8 & 0x1FFFFFFFCLL);
     v58 = *a1;
     v59 = a2;
@@ -1302,13 +1303,13 @@ LABEL_11:
     {
       v61 = 0;
       v62 = (v10->f32 + v55 * v9);
-      v63 = v57 + v55 * v9;
+      v63 = (v57->f32 + v55 * v9);
       v64 = v13 * v55;
       v65 = (v12->f32 + v64);
       v66 = v55 * v11;
       v67 = (v105->f32 + v55 * v11);
-      v69 = v62 < (v95 + v66) && v67 < v63;
-      v70 = v65 >= v63 || v62 >= (v98->f32 + v64);
+      v69 = v62 < (v95->f32 + v66) && v67 < v63;
+      v70 = v65 >= v63 || v62 >= &v98[v64];
       v107 = v58;
       v100 = v60;
       v102 = v59;
@@ -2215,7 +2216,7 @@ uint64_t PixelBufferUtils::pixelBufferFromData(PixelBufferUtils *this, NSData *a
   return v42;
 }
 
-__CVBuffer *PixelBufferUtils::pixelBufferFromRawFile(PixelBufferUtils *this, unint64_t a2, size_t a3, OSType a4)
+__CVBuffer *PixelBufferUtils::pixelBufferFromRawFile(PixelBufferUtils *this, size_t a2, size_t a3, OSType a4)
 {
   v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:this];
   v9 = v8;
@@ -2341,7 +2342,7 @@ void PixelBufferUtils::pixelBufferToRawFile(PixelBufferUtils *this, CVPixelBuffe
     {
       CVPixelBufferRelease(v13);
 LABEL_8:
-      PixelBufferUtils::pixelFormatAsString(PixelFormatType, &pixelBufferOut);
+      PixelBufferUtils::pixelFormatAsString(&pixelBufferOut, PixelFormatType);
       if ((pixelBufferOut.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_pixelBufferOut = &pixelBufferOut;
@@ -2487,7 +2488,7 @@ LABEL_29:
   std::string::append(&pixelBufferOut, v30, v31);
   std::string::append(&pixelBufferOut, ".", 1uLL);
   v32 = CVPixelBufferGetPixelFormatType(v3);
-  PixelBufferUtils::pixelFormatAsString(v32, &v88);
+  PixelBufferUtils::pixelFormatAsString(&v88, v32);
   v33 = HIBYTE(v88.__r_.__value_.__r.__words[2]);
   v34 = HIBYTE(v88.__r_.__value_.__r.__words[2]);
   v36 = v88.__r_.__value_.__l.__size_;
@@ -3490,7 +3491,7 @@ LABEL_13:
     if (!v11)
     {
 LABEL_8:
-      PixelBufferUtils::pixelFormatAsString(PixelFormatType, pixelBufferOut);
+      PixelBufferUtils::pixelFormatAsString(pixelBufferOut, PixelFormatType);
       if (v40 >= 0)
       {
         v12 = pixelBufferOut;
@@ -3761,9 +3762,9 @@ uint64_t PixelBufferUtils::colorizedDepthPixelBuffer(PixelBufferUtils *this, __C
   CVPixelBufferLockBaseAddress(a7, 0);
   memset(&v138, 0, sizeof(v138));
   v16 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(this, *MEMORY[0x277CBF3A0], &v138);
+  PixelBufferUtils::asVImageBuffer(&v138, this, *MEMORY[0x277CBF3A0]);
   memset(&v137, 0, sizeof(v137));
-  PixelBufferUtils::asVImageBuffer(a7, *v16, &v137);
+  PixelBufferUtils::asVImageBuffer(&v137, a7, *v16);
   if (PixelFormatType > 1717855599)
   {
     if (PixelFormatType > 1751410031)
@@ -4176,7 +4177,7 @@ LABEL_12:
     }
 
 LABEL_158:
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
     if (v136 >= 0)
     {
       v134 = __p;
@@ -4721,7 +4722,7 @@ LABEL_112:
         }
 
 LABEL_299:
-        PixelBufferUtils::pixelFormatAsString(PixelFormatType, pixelBufferOut);
+        PixelBufferUtils::pixelFormatAsString(pixelBufferOut, PixelFormatType);
         if (v296 >= 0)
         {
           v291 = pixelBufferOut;
@@ -5417,7 +5418,7 @@ void sub_2403EF350(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PixelBufferUtils::colorizePointCloudOnPixelBuffer(CVPixelBufferRef pixelBuffer, __CVBuffer *a2, unint64_t a3, const CGPoint *a4, const float *a5, float a6, float a7, float a8)
+void PixelBufferUtils::colorizePointCloudOnPixelBuffer(CVPixelBufferRef pixelBuffer, __CVBuffer *a2, unint64_t a3, CGPoint *a4, const float *a5, float a6, float a7, float a8)
 {
   if (a8 <= 0.0)
   {
@@ -5451,7 +5452,7 @@ uint64_t PixelBufferUtils::addCirclesToPixelBuffer(PixelBufferUtils *this, __CVB
   Height = CVPixelBufferGetHeight(this);
   if (PixelFormatType != 1111970369)
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
     if (v40 >= 0)
     {
       v37 = __p;
@@ -5523,7 +5524,7 @@ void sub_2403EF89C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PixelBufferUtils::createColorizedPointCloud(PixelBufferUtils *this, unint64_t a2, const CGPoint *a3, const float *a4, size_t a5, const float *a6, float a7, float a8, float a9)
+__CVBuffer *PixelBufferUtils::createColorizedPointCloud(PixelBufferUtils *this, unint64_t a2, CGPoint *a3, const float *a4, size_t a5, const float *a6, float a7, float a8, float a9)
 {
   pixelBufferOut = 0;
   v18 = *MEMORY[0x277CBECE8];
@@ -5578,7 +5579,7 @@ __CVBuffer *PixelBufferUtils::createPixelBufferCopy(PixelBufferUtils *this, __CV
   return v8;
 }
 
-CVPixelBufferRef PixelBufferUtils::asPixelBuffer(unint64_t this, size_t a2, PixelBufferUtils *a3, char *a4, void *a5)
+CVPixelBufferRef PixelBufferUtils::asPixelBuffer(size_t this, size_t a2, PixelBufferUtils *a3, char *a4, void *a5)
 {
   planeWidth[3] = *MEMORY[0x277D85DE8];
   if (PixelBufferUtils::planeCountForPixelFormat(a3))
@@ -5706,12 +5707,12 @@ LABEL_25:
           {
             if (v13)
             {
-              PixelBufferUtils::asVImageBuffer(this, v14, *v17, &__p);
+              PixelBufferUtils::asVImageBuffer(&__p, this, v14, *v17);
             }
 
             else
             {
-              PixelBufferUtils::asVImageBuffer(this, *v17, &__p);
+              PixelBufferUtils::asVImageBuffer(&__p, this, *v17);
               v14 = 0;
             }
 
@@ -5781,7 +5782,7 @@ LABEL_25:
         }
 
 LABEL_85:
-        PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+        PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
         if ((__p.width & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -6015,12 +6016,12 @@ uint64_t scaleColorsRawInPlace<float>(__CVBuffer *a1, char a2, int a3, float a4,
   {
     if (v10)
     {
-      PixelBufferUtils::asVImageBuffer(a1, v11, *v14, &v29);
+      PixelBufferUtils::asVImageBuffer(&v29, a1, v11, *v14);
     }
 
     else
     {
-      PixelBufferUtils::asVImageBuffer(a1, *v14, &v29);
+      PixelBufferUtils::asVImageBuffer(&v29, a1, *v14);
       v11 = 0;
     }
 
@@ -6108,12 +6109,12 @@ uint64_t scaleColorsRawInPlace<half>(__CVBuffer *a1, char a2, int a3, float a4, 
   {
     if (v10)
     {
-      PixelBufferUtils::asVImageBuffer(a1, v11, *v14, &v39);
+      PixelBufferUtils::asVImageBuffer(&v39, a1, v11, *v14);
     }
 
     else
     {
-      PixelBufferUtils::asVImageBuffer(a1, *v14, &v39);
+      PixelBufferUtils::asVImageBuffer(&v39, a1, *v14);
       v11 = 0;
     }
 
@@ -6213,12 +6214,12 @@ uint64_t scaleColorsRawInPlace<unsigned char>(__CVBuffer *a1, char a2, int a3, f
   {
     if (v10)
     {
-      PixelBufferUtils::asVImageBuffer(a1, v11, *v14, &v30);
+      PixelBufferUtils::asVImageBuffer(&v30, a1, v11, *v14);
     }
 
     else
     {
-      PixelBufferUtils::asVImageBuffer(a1, *v14, &v30);
+      PixelBufferUtils::asVImageBuffer(&v30, a1, *v14);
       v11 = 0;
     }
 
@@ -6644,16 +6645,16 @@ LABEL_55:
   return result;
 }
 
-__CVBuffer *PixelBufferUtils::savePlyFromDepthBuffer(__CVBuffer *this, __CVBuffer *a2, const char *a3, float a4, CGPoint a5, float a6, float a7, float a8)
+__CVBuffer *PixelBufferUtils::savePlyFromDepthBuffer(__CVBuffer *this, __CVBuffer *a2, const char *a3, double a4, CGPoint a5, float a6, float a7, float a8, char a9)
 {
   if (this)
   {
-    v8 = this;
+    v9 = this;
     CVPixelBufferGetWidth(this);
-    CVPixelBufferGetHeight(v8);
-    CVPixelBufferLockBaseAddress(v8, 1uLL);
-    CVPixelBufferGetBytesPerRow(v8);
-    CVPixelBufferGetBaseAddress(v8);
+    CVPixelBufferGetHeight(v9);
+    CVPixelBufferLockBaseAddress(v9, 1uLL);
+    CVPixelBufferGetBytesPerRow(v9);
+    CVPixelBufferGetBaseAddress(v9);
     operator new[]();
   }
 
@@ -6676,7 +6677,7 @@ uint64_t PixelBufferUtils::addTextToPixelBuffer(PixelBufferUtils *this, __CVBuff
   Height = CVPixelBufferGetHeight(this);
   if (PixelFormatType != 32 && PixelFormatType != 1111970369)
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if (__p.c >= 0.0)
     {
       a = COERCE_DOUBLE(&__p);
@@ -6752,11 +6753,11 @@ uint64_t PixelBufferUtils::addTextToPixelBuffer(PixelBufferUtils *this, __CVBuff
 
 uint64_t PixelBufferUtilsSession::PixelBufferUtilsSession(uint64_t a1, int a2, signed int a3, int a4, int a5, double a6, double a7, double a8, double a9, CGFloat a10, CGFloat a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17)
 {
-  v23 = a13;
-  v24 = a12;
-  v25 = a11;
-  v26 = a10;
-  v27 = a9;
+  v20 = a13;
+  v21 = a12;
+  v22 = a11;
+  v23 = a10;
+  v24 = a9;
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -6776,37 +6777,37 @@ uint64_t PixelBufferUtilsSession::PixelBufferUtilsSession(uint64_t a1, int a2, s
   *(a1 + 128) = a17;
   *(a1 + 136) = a4;
   *(a1 + 140) = a5;
-  v48.origin.x = a10;
-  v48.origin.y = a11;
-  v48.size.width = a12;
-  v48.size.height = a13;
-  if (CGRectIsEmpty(v48))
+  v45.origin.x = a10;
+  v45.origin.y = a11;
+  v45.size.width = a12;
+  v45.size.height = a13;
+  if (CGRectIsEmpty(v45))
   {
-    v26 = 0.0;
-    v25 = 0.0;
-    v24 = a6;
-    v23 = a7;
+    v23 = 0.0;
+    v22 = 0.0;
+    v21 = a6;
+    v20 = a7;
   }
 
-  if (a2 == a3 && a6 == a8 && a7 == v27)
+  if (a2 == a3 && a6 == a8 && a7 == v24)
   {
-    v33 = (a5 | a4) == 0;
-    if (v24 == a6 && v23 == a7)
+    v30 = (a5 | a4) == 0;
+    if (v21 == a6 && v20 == a7)
     {
       if (!(a5 | a4))
       {
-        LOBYTE(v34) = 1;
+        LOBYTE(v31) = 1;
         goto LABEL_37;
       }
 
-      v34 = 0;
+      v31 = 0;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v33 = (a5 | a4) == 0;
+    v30 = (a5 | a4) == 0;
   }
 
   if (a2 <= 1751410031)
@@ -6844,14 +6845,14 @@ uint64_t PixelBufferUtilsSession::PixelBufferUtilsSession(uint64_t a1, int a2, s
     {
       if (a3 != 1717855600)
       {
-        v36 = 1717856627;
+        v33 = 1717856627;
         goto LABEL_52;
       }
     }
 
     else if (a3 != 825306677)
     {
-      v36 = 825437747;
+      v33 = 825437747;
       goto LABEL_52;
     }
 
@@ -6862,7 +6863,7 @@ uint64_t PixelBufferUtilsSession::PixelBufferUtilsSession(uint64_t a1, int a2, s
   {
     if (a3 != 1751410032)
     {
-      v36 = 1751411059;
+      v33 = 1751411059;
       goto LABEL_52;
     }
 
@@ -6876,15 +6877,15 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v36 = 1932996149;
+  v33 = 1932996149;
 LABEL_52:
-  if (a3 == v36)
+  if (a3 == v33)
   {
     goto LABEL_53;
   }
 
-  v34 = 1;
-  if (v33)
+  v31 = 1;
+  if (v30)
   {
     goto LABEL_37;
   }
@@ -6899,13 +6900,13 @@ LABEL_10:
         goto LABEL_60;
       }
 
-      v35 = 1919365992;
+      v32 = 1919365992;
       goto LABEL_59;
     }
 
     if (a3 != 1717856627)
     {
-      v35 = 1751411059;
+      v32 = 1751411059;
       goto LABEL_59;
     }
 
@@ -6921,7 +6922,7 @@ LABEL_60:
       goto LABEL_60;
     }
 
-    v35 = 1380411457;
+    v32 = 1380411457;
   }
 
   else
@@ -6931,63 +6932,63 @@ LABEL_60:
       goto LABEL_60;
     }
 
-    v35 = 825437747;
+    v32 = 825437747;
   }
 
 LABEL_59:
-  if (a3 == v35)
+  if (a3 == v32)
   {
     goto LABEL_60;
   }
 
-  if (!v34)
+  if (!v31)
   {
     goto LABEL_39;
   }
 
   if ((a4 & 0xFFFFFFFD) == 1)
   {
-    v39 = v27;
+    v36 = v24;
   }
 
   else
   {
-    v39 = a8;
+    v36 = a8;
   }
 
   if ((a4 & 0xFFFFFFFD) == 1)
   {
-    v27 = a8;
+    v24 = a8;
   }
 
   pixelBufferOut = 0;
-  v40 = *MEMORY[0x277CBECE8];
+  v37 = *MEMORY[0x277CBECE8];
   BufferAttributes = getBufferAttributes();
-  v42 = CVPixelBufferCreate(v40, v39, v27, a3, BufferAttributes, &pixelBufferOut);
-  v43 = pixelBufferOut;
-  if (v42)
+  v39 = CVPixelBufferCreate(v37, v36, v24, a3, BufferAttributes, &pixelBufferOut);
+  v40 = pixelBufferOut;
+  if (v39)
   {
-    v43 = 0;
+    v40 = 0;
   }
 
-  *a1 = v43;
-  if (!v43)
+  *a1 = v40;
+  if (!v40)
   {
     NSLog(&cfstr_SDErrorFailedA.isa, "PixelBufferUtilsSession", 4440);
     return a1;
   }
 
-  LOBYTE(v34) = 0;
+  LOBYTE(v31) = 0;
 LABEL_37:
-  v49.origin.x = v26;
-  v49.origin.y = v25;
-  v49.size.width = v24;
-  v49.size.height = v23;
-  v50.origin.x = a14;
-  v50.origin.y = a15;
-  v50.size.width = a16;
-  v50.size.height = a17;
-  VTTransferSession = createVTTransferSession(v49, v50);
+  v46.origin.x = v23;
+  v46.origin.y = v22;
+  v46.size.width = v21;
+  v46.size.height = v20;
+  v47.origin.x = a14;
+  v47.origin.y = a15;
+  v47.size.width = a16;
+  v47.size.height = a17;
+  VTTransferSession = createVTTransferSession(v46, v47);
   *(a1 + 8) = VTTransferSession;
   if (!VTTransferSession)
   {
@@ -6996,7 +6997,7 @@ LABEL_37:
     return a1;
   }
 
-  if ((v34 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
 LABEL_39:
     if (a5)
@@ -7007,12 +7008,12 @@ LABEL_39:
     else
     {
       pixelBufferOut = 0;
-      v44 = VTImageRotationSessionCreate();
-      v45 = pixelBufferOut;
-      if (!v44)
+      v41 = VTImageRotationSessionCreate();
+      v42 = pixelBufferOut;
+      if (!v41)
       {
         *(a1 + 16) = pixelBufferOut;
-        if (v45)
+        if (v42)
         {
           return a1;
         }
@@ -7029,10 +7030,10 @@ LABEL_39:
 LABEL_76:
     CVPixelBufferRelease(*a1);
     *a1 = 0;
-    v46 = *(a1 + 8);
-    if (v46)
+    v43 = *(a1 + 8);
+    if (v43)
     {
-      VTPixelTransferSessionInvalidate(v46);
+      VTPixelTransferSessionInvalidate(v43);
       CFRelease(*(a1 + 8));
     }
 
@@ -7132,7 +7133,7 @@ BOOL PixelBufferUtilsSession::verifyOutput(PixelBufferUtilsSession *this, CVPixe
   return width == CVPixelBufferGetWidth(pixelBuffer) && height == CVPixelBufferGetHeight(pixelBuffer) && CVPixelBufferGetPixelFormatType(pixelBuffer) == var6;
 }
 
-BOOL PixelBufferUtilsSession::setScalingMode(uint64_t a1, int a2)
+BOOL PixelBufferUtilsSession::setScalingMode(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 8);
   if (v2)
@@ -7151,12 +7152,12 @@ BOOL PixelBufferUtilsSession::setScalingMode(uint64_t a1, int a2)
       return VTSessionSetProperty(v2, v3, *v4) == 0;
     }
 
-    NSLog(&cfstr_SDErrorUnknown.isa, "setScalingMode", 4514);
+    NSLog(&cfstr_SDErrorUnknown.isa, a2, "setScalingMode", 4514);
   }
 
   else
   {
-    NSLog(&cfstr_SDErrorSession.isa, "setScalingMode", 4504);
+    NSLog(&cfstr_SDErrorSession.isa, a2, "setScalingMode", 4504);
   }
 
   return 0;
@@ -7453,7 +7454,7 @@ PixelBufferUtils *PixelBufferUtilsTiledView::render(PixelBufferUtilsTiledView *t
   CVPixelBufferLockBaseAddress(data, 0);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
   v62 = data;
-  PixelBufferUtils::asVImageBuffer(data, *v12, &pixelBufferOut);
+  PixelBufferUtils::asVImageBuffer(&pixelBufferOut, data, *v12);
   v25 = this->var5;
   if (v25 && pixelBufferOut.rowBytes * v25 >= 4)
   {
@@ -7687,37 +7688,37 @@ void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(uint64_t a1, unint64_
   }
 }
 
-void sub_2403F50E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2403F50E0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ADPCEDisparityColorExecutor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_2403F60E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, ...)
+void sub_2403F60E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
-  objc_sync_exit(v11);
+  objc_sync_exit(v18);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2403F6FA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2403F6FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
-  objc_sync_exit(v2);
+  objc_sync_exit(v3);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2403F7644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2403F7644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  v8 = v6;
+  va_start(va, a7);
+  v11 = v9;
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
@@ -7730,17 +7731,17 @@ void sub_2403F7D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2403F87AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2403F87AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2403F889C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2403F889C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7750,7 +7751,7 @@ void *fmincon_spg(void (*a1)(void, void, void, void), void (*a2)(void, void, voi
   v12 = 0;
   v14 = a9;
   v13 = a10;
-  v336[8] = *MEMORY[0x277D85DE8];
+  v334[10] = *MEMORY[0x277D85DE8];
   v307 = 0;
   memset(v333, 0, sizeof(v333));
   v332 = 0u;
@@ -7957,7 +7958,7 @@ LABEL_42:
 
   v41 = v333;
   v42 = v330;
-  v43 = v336;
+  v43 = &v334[2];
   v44 = v27 & 0xC;
   if (a5 < 4)
   {
@@ -8002,7 +8003,7 @@ LABEL_47:
 LABEL_49:
   if (a5 >= 4)
   {
-    v56 = v336;
+    v56 = &v334[2];
     v57 = a7 + 1;
     v58 = v294;
     v59 = v27 & 0xC;
@@ -8083,7 +8084,7 @@ LABEL_65:
     goto LABEL_67;
   }
 
-  v76 = v336;
+  v76 = &v334[2];
   v77 = v333;
   v78 = v27 & 0xC;
   do
@@ -8111,7 +8112,7 @@ LABEL_67:
     goto LABEL_72;
   }
 
-  v87 = v336;
+  v87 = &v334[2];
   v88 = v27 & 0xC;
   do
   {
@@ -8150,7 +8151,7 @@ LABEL_72:
   v94 = *v334;
   if (a5 != 1)
   {
-    v95 = &v335;
+    v95 = &v334[1];
     v96 = a5 - 1;
     do
     {
@@ -8317,7 +8318,7 @@ LABEL_139:
                     }
 
                     v177 = v322;
-                    v178 = v336;
+                    v178 = &v334[2];
                     v179 = v27 & 0xC;
                     do
                     {
@@ -8360,7 +8361,7 @@ LABEL_153:
                     }
 
                     v187 = v333;
-                    v188 = v336;
+                    v188 = &v334[2];
                     v189 = &v310;
                     v190 = v27 & 0xC;
                     do
@@ -8986,10 +8987,10 @@ LABEL_237:
   return result;
 }
 
-void sub_2403F9CDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2403F9CDC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CVPixelBufferARCWrapper;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9007,50 +9008,69 @@ void sub_2403FBD64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2403FC178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_2403FC178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  objc_sync_exit(v20);
-
-  InstrumentsTraceGuard::~InstrumentsTraceGuard(&a18);
-  _Unwind_Resume(a1);
-}
-
-void sub_2403FC5A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
-{
-  objc_sync_exit(v21);
-
-  InstrumentsTraceGuard::~InstrumentsTraceGuard(&a18);
-  _Unwind_Resume(a1);
-}
-
-void sub_2403FCBFC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a17);
+  objc_sync_exit(v19);
 
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2403FCDA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2403FC5A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  a9.super_class = ADJasperPearlInFieldCalibrationExecutor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  va_start(va, a17);
+  objc_sync_exit(v20);
+
+  InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void GMC_RansacFitFundMatrix(uint64_t a1, uint64_t a2)
+void sub_2403FCBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  if (*(a1 + 20))
+  va_start(va, a3);
+
+  InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2403FCDA0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
+{
+  a9.super_class = ADJasperPearlInFieldCalibrationExecutor;
+  [(_Unwind_Exception *)&a9 dealloc:a3];
+  _Unwind_Resume(a1);
+}
+
+void GMC_RansacFitFundMatrix(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int *a8, BOOL *a9, double *a10)
+{
+  v10 = *(a1 + 20);
+  v19[0] = off_285231258;
+  if (v10)
   {
     operator new[]();
   }
 
-  if (*(a2 + 20))
+  v20 = 3;
+  v21 = 0;
+  v22 = 0;
+  v23 = 24 * v10;
+  v19[0] = &unk_2852312D8;
+  v19[1] = 0;
+  v11 = *(a2 + 20);
+  v13 = off_285231258;
+  if (v11)
   {
     operator new[]();
   }
 
-  Algo::Normalize2DPts();
+  v15 = 3;
+  v16 = 0;
+  v17 = 0;
+  v18 = 24 * v11;
+  v13 = &unk_2852312D8;
+  v14 = 0;
+  memset(v12, 0, sizeof(v12));
+  Algo::Normalize2DPts(a1, v19, v12);
 }
 
 void sub_2403FE080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)

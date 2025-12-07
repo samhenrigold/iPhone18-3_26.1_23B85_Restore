@@ -373,8 +373,8 @@ uint64_t __61__PXSuggesterDebugViewController_didSelectFullLibraryButton___block
 
   else
   {
-    info = [itemCopy info];
-    v10 = [info objectForKeyedSubscript:@"identicalExistingSuggestionInfo"];
+    v9 = objc_msgSend_info(itemCopy);
+    v10 = [v9 objectForKeyedSubscript:@"identicalExistingSuggestionInfo"];
 
     if (v10)
     {
@@ -383,8 +383,8 @@ uint64_t __61__PXSuggesterDebugViewController_didSelectFullLibraryButton___block
 
     else
     {
-      info2 = [itemCopy info];
-      v12 = [info2 objectForKeyedSubscript:@"suggestionsByCollisionReason"];
+      v11 = objc_msgSend_info(itemCopy);
+      v12 = [v11 objectForKeyedSubscript:@"suggestionsByCollisionReason"];
       v13 = [v12 count];
 
       if (!v13)
@@ -496,8 +496,8 @@ id __92__PXSuggesterDebugViewController_tableView_contextMenuConfigurationForRow
   suggestion = [v11 suggestion];
   v6 = [MEMORY[0x1E6978630] fetchKeyCuratedAssetInAssetCollection:suggestion referenceAsset:0];
   v7 = [PXSuggestionDebugViewController alloc];
-  info = [v11 info];
-  v9 = [(PXSuggestionDebugViewController *)v7 initWithSuggestion:suggestion suggestionInfo:info];
+  v8 = objc_msgSend_info(v11);
+  v9 = [(PXSuggestionDebugViewController *)v7 initWithSuggestion:suggestion suggestionInfo:v8];
 
   navigationController = [(PXSuggesterDebugViewController *)self navigationController];
   [navigationController px_presentViewControllerInNavigationController:v9 animated:1 dimissButtonLocation:0 completion:0];

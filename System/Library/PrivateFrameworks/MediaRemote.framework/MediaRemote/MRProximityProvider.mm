@@ -124,7 +124,7 @@
 
 - (void)receiveEvent:(id)event
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   mediaRemoteID = [eventCopy mediaRemoteID];
   v6 = _MRLogForCategory(7uLL);
@@ -157,7 +157,7 @@
         block[1] = 3221225472;
         block[2] = __36__MRProximityProvider_receiveEvent___block_invoke;
         block[3] = &unk_1E769A4A0;
-        v20 = mediaRemoteID;
+        v19 = mediaRemoteID;
         selfCopy = self;
         dispatch_async(dispatchQueue, block);
       }
@@ -169,21 +169,21 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v23 = uUIDString;
-        v24 = 2114;
-        v25 = mediaRemoteID;
+        v22 = uUIDString;
+        v23 = 2114;
+        v24 = mediaRemoteID;
         _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] migrateForDevice<%{public}@> beginning for device %{public}@", buf, 0x16u);
       }
 
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __36__MRProximityProvider_receiveEvent___block_invoke_111;
-      v15[3] = &unk_1E769B9B0;
-      v16 = uUIDString;
-      v17 = mediaRemoteID;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __36__MRProximityProvider_receiveEvent___block_invoke_111;
+      v14[3] = &unk_1E769B9B0;
+      v15 = uUIDString;
+      v16 = mediaRemoteID;
       selfCopy2 = self;
       v13 = uUIDString;
-      [(MRProximityProvider *)self _migrateForDevice:v17 completion:v15];
+      [(MRProximityProvider *)self _migrateForDevice:v16 completion:v14];
     }
   }
 
@@ -196,8 +196,6 @@
   {
     [(MRProximityProvider *)self _endProvidingDisplayContextIfNeeded:mediaRemoteID];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __36__MRProximityProvider_receiveEvent___block_invoke(uint64_t a1)
@@ -210,7 +208,7 @@ void __36__MRProximityProvider_receiveEvent___block_invoke(uint64_t a1)
 
 void __36__MRProximityProvider_receiveEvent___block_invoke_111(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -218,11 +216,11 @@ void __36__MRProximityProvider_receiveEvent___block_invoke_111(uint64_t a1, void
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     *buf = 138543874;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v3;
+    v16 = v5;
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v3;
     _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] migrateForDevice<%{public}@> completed for device %{public}@ with error: %{public}@", buf, 0x20u);
   }
 
@@ -235,15 +233,13 @@ void __36__MRProximityProvider_receiveEvent___block_invoke_111(uint64_t a1, void
     block[1] = 3221225472;
     block[2] = __36__MRProximityProvider_receiveEvent___block_invoke_112;
     block[3] = &unk_1E769BA00;
-    v13 = v3;
+    v12 = v3;
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v14 = v9;
-    v15 = v10;
+    v13 = v9;
+    v14 = v10;
     dispatch_async(v8, block);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __36__MRProximityProvider_receiveEvent___block_invoke_112(uint64_t a1)
@@ -268,7 +264,7 @@ void __36__MRProximityProvider_receiveEvent___block_invoke_112(uint64_t a1)
 
 - (void)device:(id)device stateDidChange:(unint64_t)change
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   if (change == 3)
   {
@@ -278,9 +274,9 @@ void __36__MRProximityProvider_receiveEvent___block_invoke_112(uint64_t a1)
       v8 = [deviceCopy uid];
       prepareError = [deviceCopy prepareError];
       *buf = 138543618;
-      v18 = v8;
-      v19 = 2112;
-      v20 = prepareError;
+      v17 = v8;
+      v18 = 2112;
+      v19 = prepareError;
       _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Device %{public}@ prepare failed with error %@.", buf, 0x16u);
     }
 
@@ -290,22 +286,20 @@ void __36__MRProximityProvider_receiveEvent___block_invoke_112(uint64_t a1)
     [v10 setMediaRemoteID:v11];
 
     dispatchQueue = [(MRProximityProvider *)self dispatchQueue];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __45__MRProximityProvider_device_stateDidChange___block_invoke;
-    v15[3] = &unk_1E769A4A0;
-    v15[4] = self;
-    v16 = v10;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __45__MRProximityProvider_device_stateDidChange___block_invoke;
+    v14[3] = &unk_1E769A4A0;
+    v14[4] = self;
+    v15 = v10;
     v13 = v10;
-    dispatch_async(dispatchQueue, v15);
+    dispatch_async(dispatchQueue, v14);
   }
 
   else if (change == 2)
   {
     [(MRProximityProvider *)self _recalculateMigrationBehaviorAndProvideUpdatedDisplayContextForDevice:deviceCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
@@ -316,7 +310,7 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
 
 - (void)_addDeviceIfNeeded:(id)needed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -332,8 +326,8 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
       v9 = _MRLogForCategory(7uLL);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Initializing proactive device.", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Initializing proactive device.", &v16, 2u);
       }
 
       v10 = +[MRMigrationDevice proactiveDevice];
@@ -352,9 +346,9 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
     v14 = _MRLogForCategory(7uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
-      v18 = neededCopy;
-      _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Adding device %{public}@.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = neededCopy;
+      _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Adding device %{public}@.", &v16, 0xCu);
     }
 
     remoteDevices2 = [(MRProximityProvider *)selfCopy remoteDevices];
@@ -362,13 +356,11 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeDeviceIfNeeded:(id)needed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -391,11 +383,11 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
       v14 = [remoteDevices3 objectForKeyedSubscript:neededCopy];
       endpoint = [v14 endpoint];
       v16 = [(MRProximityProvider *)selfCopy _nameForDevice:v12 inEndpoint:endpoint];
-      v22 = 138543618;
-      v23 = neededCopy;
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Removing device %{public}@ (%@).", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = neededCopy;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Removing device %{public}@ (%@).", &v21, 0x16u);
     }
 
     remoteDevices4 = [(MRProximityProvider *)selfCopy remoteDevices];
@@ -409,8 +401,8 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
       v20 = _MRLogForCategory(7uLL);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Clearing proactive device.", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Clearing proactive device.", &v21, 2u);
       }
 
       [(MRProximityProvider *)selfCopy setProactiveDevice:0];
@@ -418,13 +410,11 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginProvidingDisplayContextIfNeeded:(id)needed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -442,14 +432,14 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
       v10 = _MRLogForCategory(7uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v16 = [v6 uid];
+        v15 = [v6 uid];
         endpoint = [v6 endpoint];
-        v18 = [(MRProximityProvider *)selfCopy _nameForDevice:v16 inEndpoint:endpoint];
-        v22 = 138543618;
-        v23 = neededCopy;
-        v24 = 2112;
-        v25 = v18;
-        _os_log_debug_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Begin providing for device %{public}@ (%@).", &v22, 0x16u);
+        v17 = [(MRProximityProvider *)selfCopy _nameForDevice:v15 inEndpoint:endpoint];
+        v21 = 138543618;
+        v22 = neededCopy;
+        v23 = 2112;
+        v24 = v17;
+        _os_log_debug_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Begin providing for device %{public}@ (%@).", &v21, 0x16u);
       }
     }
 
@@ -470,14 +460,14 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
         v14 = _MRLogForCategory(7uLL);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v19 = [v6 uid];
+          v18 = [v6 uid];
           endpoint2 = [v6 endpoint];
-          v21 = [(MRProximityProvider *)selfCopy _nameForDevice:v19 inEndpoint:endpoint2];
-          v22 = 138543618;
-          v23 = neededCopy;
-          v24 = 2112;
-          v25 = v21;
-          _os_log_debug_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Cannot provide because no result has been calculated yet for device %{public}@ (%@).", &v22, 0x16u);
+          v20 = [(MRProximityProvider *)selfCopy _nameForDevice:v18 inEndpoint:endpoint2];
+          v21 = 138543618;
+          v22 = neededCopy;
+          v23 = 2112;
+          v24 = v20;
+          _os_log_debug_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Cannot provide because no result has been calculated yet for device %{public}@ (%@).", &v21, 0x16u);
         }
       }
     }
@@ -493,12 +483,11 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endProvidingDisplayContextIfNeeded:(id)needed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -511,14 +500,14 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
     v9 = _MRLogForCategory(7uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [v8 uid];
+      v11 = [v8 uid];
       endpoint = [v8 endpoint];
-      v14 = [(MRProximityProvider *)selfCopy _nameForDevice:v12 inEndpoint:endpoint];
-      v15 = 138543618;
-      v16 = neededCopy;
-      v17 = 2112;
-      v18 = v14;
-      _os_log_debug_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEBUG, "[ProximityProvider] End providing for device %{public}@ (%@).", &v15, 0x16u);
+      v13 = [(MRProximityProvider *)selfCopy _nameForDevice:v11 inEndpoint:endpoint];
+      v14 = 138543618;
+      v15 = neededCopy;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_debug_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEBUG, "[ProximityProvider] End providing for device %{public}@ (%@).", &v14, 0x16u);
     }
 
     providingDevices2 = [(MRProximityProvider *)selfCopy providingDevices];
@@ -526,8 +515,6 @@ void __45__MRProximityProvider_device_stateDidChange___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_provideDisplayContextForDevice:(id)device
@@ -579,7 +566,7 @@ void __55__MRProximityProvider__provideDisplayContextForDevice___block_invoke(ui
 
 - (id)_displayContextForDevice:(id)device withRemotePlayerState:(id)state proactivePlayerState:(id)playerState migrationBehavior:(id)behavior
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   stateCopy = state;
   playerStateCopy = playerState;
@@ -587,11 +574,11 @@ void __55__MRProximityProvider__provideDisplayContextForDevice___block_invoke(ui
   v14 = objc_alloc_init(getPCMediaRemoteDisplayContextClass());
   [v14 setProxDeviceState:stateCopy];
   [v14 setSelectedDeviceState:playerStateCopy];
-  v62 = deviceCopy;
+  v61 = deviceCopy;
   v15 = [deviceCopy uid];
   [v14 setMediaRemoteID:v15];
 
-  v61 = behaviorCopy;
+  v60 = behaviorCopy;
   if ([behaviorCopy action] == 2)
   {
     v16 = 2;
@@ -652,23 +639,23 @@ LABEL_9:
     legacyBodyText = [v14 legacyBodyText];
     localizedSecondaryAltText = [v14 localizedSecondaryAltText];
     *buf = 138412546;
-    v64 = legacyBodyText;
-    v65 = 2112;
-    v66 = localizedSecondaryAltText;
+    v63 = legacyBodyText;
+    v64 = 2112;
+    v65 = localizedSecondaryAltText;
     _os_log_impl(&dword_1A2860000, v30, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Legacy: %@. V2: %@.", buf, 0x16u);
   }
 
   v33 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v60 = [v62 uid];
-    v59 = MRMediaRemoteCopyPlaybackStateDescription([playerStateCopy playbackState]);
+    v59 = [v61 uid];
+    v58 = MRMediaRemoteCopyPlaybackStateDescription([playerStateCopy playbackState]);
     playbackQueue3 = [playerStateCopy playbackQueue];
-    v55 = [playbackQueue3 contentItemWithOffset:0];
-    identifier = [v55 identifier];
+    v54 = [playbackQueue3 contentItemWithOffset:0];
+    identifier = [v54 identifier];
     playbackQueue4 = [playerStateCopy playbackQueue];
-    v53 = [playbackQueue4 contentItemWithOffset:0];
-    artwork3 = [v53 artwork];
+    v52 = [playbackQueue4 contentItemWithOffset:0];
+    artwork3 = [v52 artwork];
     imageData3 = [artwork3 imageData];
     v34 = @"YES";
     if (!imageData3)
@@ -676,17 +663,17 @@ LABEL_9:
       v34 = @"NO";
     }
 
-    v46 = v34;
+    v45 = v34;
     playerLastPlayingDate = [playerStateCopy playerLastPlayingDate];
-    v52 = v14;
+    v51 = v14;
     v35 = MRMediaRemoteCopyPlaybackStateDescription([stateCopy playbackState]);
     playbackQueue5 = [stateCopy playbackQueue];
-    v48 = [playbackQueue5 contentItemWithOffset:0];
-    identifier2 = [v48 identifier];
+    v47 = [playbackQueue5 contentItemWithOffset:0];
+    identifier2 = [v47 identifier];
     playbackQueue6 = [stateCopy playbackQueue];
     [playbackQueue6 contentItemWithOffset:0];
-    v45 = v57 = v19;
-    artwork4 = [v45 artwork];
+    v44 = v56 = v19;
+    artwork4 = [v44 artwork];
     imageData4 = [artwork4 imageData];
     v39 = playerStateCopy;
     if (imageData4)
@@ -701,31 +688,29 @@ LABEL_9:
 
     playerLastPlayingDate2 = [stateCopy playerLastPlayingDate];
     *buf = 138545410;
-    v64 = v60;
-    v65 = 2112;
-    v66 = v59;
-    v67 = 2112;
-    v68 = identifier;
-    v69 = 2112;
-    v70 = v46;
-    v71 = 2112;
-    v72 = playerLastPlayingDate;
-    v73 = 2112;
-    v74 = v35;
-    v75 = 2112;
-    v76 = identifier2;
-    v77 = 2112;
-    v78 = v40;
+    v63 = v59;
+    v64 = 2112;
+    v65 = v58;
+    v66 = 2112;
+    v67 = identifier;
+    v68 = 2112;
+    v69 = v45;
+    v70 = 2112;
+    v71 = playerLastPlayingDate;
+    v72 = 2112;
+    v73 = v35;
+    v74 = 2112;
+    v75 = identifier2;
+    v76 = 2112;
+    v77 = v40;
     playerStateCopy = v39;
-    v79 = 2112;
-    v80 = playerLastPlayingDate2;
+    v78 = 2112;
+    v79 = playerLastPlayingDate2;
     _os_log_impl(&dword_1A2860000, v33, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Context for %{public}@ - Proactive: state=%@, item=%@, art=%@, lpd=%@. Remote: state=%@, item=%@, art=%@, lpd=%@", buf, 0x5Cu);
 
-    v19 = v57;
-    v14 = v52;
+    v19 = v56;
+    v14 = v51;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -840,7 +825,7 @@ LABEL_9:
 
 - (void)_recalculateMigrationBehaviorAndProvideUpdatedDisplayContextForDevice:(id)device
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -853,56 +838,54 @@ LABEL_9:
 
   else
   {
-    v23[0] = deviceCopy;
-    allValues = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = deviceCopy;
+    allValues = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   }
 
   objc_sync_exit(selfCopy);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = allValues;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     v11 = MEMORY[0x1E69E9820];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         if ([v13 isPrepared])
         {
           v14 = [v13 uid];
-          v17[0] = v11;
-          v17[1] = 3221225472;
-          v17[2] = __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDisplayContextForDevice___block_invoke;
-          v17[3] = &unk_1E76A4430;
-          v17[4] = selfCopy;
-          v17[5] = v13;
-          [(MRProximityProvider *)selfCopy _migrationBehaviorForRemoteDevice:v14 completion:v17];
+          v16[0] = v11;
+          v16[1] = 3221225472;
+          v16[2] = __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDisplayContextForDevice___block_invoke;
+          v16[3] = &unk_1E76A4430;
+          v16[4] = selfCopy;
+          v16[5] = v13;
+          [(MRProximityProvider *)selfCopy _migrationBehaviorForRemoteDevice:v14 completion:v16];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDisplayContextForDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   objc_sync_enter(v4);
@@ -925,25 +908,25 @@ void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDis
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = [*(a1 + 40) uid];
-      v37 = 138543618;
-      v38 = v16;
-      v39 = 2112;
-      v40 = v8;
-      _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Device %{public}@ (%@) was removed while updating result. Ignoring.", &v37, 0x16u);
+      v36 = 138543618;
+      v37 = v16;
+      v38 = 2112;
+      v39 = v8;
+      _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Device %{public}@ (%@) was removed while updating result. Ignoring.", &v36, 0x16u);
     }
   }
 
   v17 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v36 = [*(a1 + 40) uid];
-    v37 = 138543874;
-    v38 = v36;
-    v39 = 2112;
-    v40 = v8;
-    v41 = 2112;
-    v42 = v3;
-    _os_log_debug_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Result for device %{public}@ (%@):\n%@", &v37, 0x20u);
+    v35 = [*(a1 + 40) uid];
+    v36 = 138543874;
+    v37 = v35;
+    v38 = 2112;
+    v39 = v8;
+    v40 = 2112;
+    v41 = v3;
+    _os_log_debug_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Result for device %{public}@ (%@):\n%@", &v36, 0x20u);
   }
 
   if (([v11 isEqual:v3] & 1) == 0)
@@ -957,13 +940,13 @@ void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDis
       {
         v20 = [*(a1 + 40) uid];
         v21 = [v3 error];
-        v37 = 138543874;
-        v38 = v20;
-        v39 = 2112;
-        v40 = v8;
-        v41 = 2114;
-        v42 = v21;
-        _os_log_error_impl(&dword_1A2860000, v19, OS_LOG_TYPE_ERROR, "[ProximityProvider] Error for device %{public}@ (%@) : %{public}@", &v37, 0x20u);
+        v36 = 138543874;
+        v37 = v20;
+        v38 = 2112;
+        v39 = v8;
+        v40 = 2114;
+        v41 = v21;
+        _os_log_error_impl(&dword_1A2860000, v19, OS_LOG_TYPE_ERROR, "[ProximityProvider] Error for device %{public}@ (%@) : %{public}@", &v36, 0x20u);
       }
     }
 
@@ -974,13 +957,13 @@ void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDis
       {
         v22 = [*(a1 + 40) uid];
         v23 = [v3 reason];
-        v37 = 138543874;
-        v38 = v22;
-        v39 = 2112;
-        v40 = v8;
-        v41 = 2114;
-        v42 = v23;
-        _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Behavior for device %{public}@ (%@) : %{public}@", &v37, 0x20u);
+        v36 = 138543874;
+        v37 = v22;
+        v38 = 2112;
+        v39 = v8;
+        v40 = 2114;
+        v41 = v23;
+        _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Behavior for device %{public}@ (%@) : %{public}@", &v36, 0x20u);
       }
     }
 
@@ -1011,7 +994,6 @@ void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDis
   }
 
   objc_sync_exit(v4);
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_deviceForUID:(id)d
@@ -1019,9 +1001,9 @@ void __93__MRProximityProvider__recalculateMigrationBehaviorAndProvideUpdatedDis
   dCopy = d;
   proactiveDevice = [(MRProximityProvider *)self proactiveDevice];
   v6 = [proactiveDevice uid];
-  v7 = [dCopy isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(dCopy);
 
-  if (v7)
+  if (isEqualToString)
   {
     proactiveDevice2 = [(MRProximityProvider *)self proactiveDevice];
   }
@@ -1114,61 +1096,61 @@ void __52__MRProximityProvider__migrateForDevice_completion___block_invoke(uint6
         v40 = *(a1 + 48);
         v41 = objc_alloc(MEMORY[0x1E696ABC0]);
         v9 = [v4 error];
-        v26 = [v41 initWithMRError:3 description:v8 underlyingError:v9];
-        (*(v40 + 16))(v40, v26);
+        v27 = [v41 initWithMRError:3 description:v8 underlyingError:v9];
+        (*(v40 + 16))(v40, v27);
         goto LABEL_17;
       }
 
-      v20 = *(a1 + 32);
-      v21 = [v4 sourceUID];
-      v22 = [v20 _deviceForUID:v21];
-      v8 = [v22 endpoint];
+      v21 = *(a1 + 32);
+      v22 = [v4 sourceUID];
+      v23 = [v21 _deviceForUID:v22];
+      v8 = [v23 endpoint];
 
-      v23 = *(a1 + 32);
-      v24 = [v4 destinationUID];
-      v25 = [v23 _deviceForUID:v24];
-      v9 = [v25 endpoint];
+      v24 = *(a1 + 32);
+      v25 = [v4 destinationUID];
+      v26 = [v24 _deviceForUID:v25];
+      v9 = [v26 endpoint];
     }
 
-    v26 = [*(a1 + 32) _outputDeviceWithUID:*(a1 + 40) fromSource:v8 andDestination:v9];
+    v27 = [*(a1 + 32) _outputDeviceWithUID:*(a1 + 40) fromSource:v8 andDestination:v9];
     v42 = [*(a1 + 32) _deviceForUID:*(a1 + 40)];
-    v27 = _MRLogForCategory(7uLL);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = _MRLogForCategory(7uLL);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = *(a1 + 32);
-      v28 = *(a1 + 40);
-      v30 = [v42 uid];
-      v31 = [v42 endpoint];
-      v32 = [v29 _nameForDevice:v30 inEndpoint:v31];
+      v30 = *(a1 + 32);
+      v29 = *(a1 + 40);
+      v31 = [v42 uid];
+      v32 = [v42 endpoint];
+      v33 = [v30 _nameForDevice:v31 inEndpoint:v32];
       *buf = 138543874;
-      v46 = v28;
+      v46 = v29;
       v47 = 2112;
-      v48 = v32;
+      v48 = v33;
       v49 = 2112;
       v50 = v4;
-      _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] migrateForDevice %{public}@ (%@) evaluated result:\n%@", buf, 0x20u);
+      _os_log_impl(&dword_1A2860000, v28, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] migrateForDevice %{public}@ (%@) evaluated result:\n%@", buf, 0x20u);
     }
 
-    v33 = _MRLogForCategory(7uLL);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = _MRLogForCategory(7uLL);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       v46 = v8;
       v47 = 2114;
       v48 = v9;
       v49 = 2114;
-      v50 = v26;
-      _os_log_impl(&dword_1A2860000, v33, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Will migrate with source %{public}@, dest %{public}@, outputDevice %{public}@.", buf, 0x20u);
+      v50 = v27;
+      _os_log_impl(&dword_1A2860000, v34, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] Will migrate with source %{public}@, dest %{public}@, outputDevice %{public}@.", buf, 0x20u);
     }
 
-    v34 = [v4 destinationUID];
+    v35 = [v4 destinationUID];
     v43[0] = MEMORY[0x1E69E9820];
     v43[1] = 3221225472;
     v43[2] = __52__MRProximityProvider__migrateForDevice_completion___block_invoke_155;
     v43[3] = &unk_1E769BCD0;
     v43[4] = *(a1 + 32);
     v44 = *(a1 + 48);
-    [MRProximityProvider _migrate:v8 destinationEndpoint:v9 destinationUID:v34 outputDevice:v26 label:@"MRProximityProvider" completion:v43];
+    [MRProximityProvider _migrate:v8 destinationEndpoint:v9 destinationUID:v35 outputDevice:v27 label:@"MRProximityProvider" completion:v43];
 
 LABEL_17:
     goto LABEL_18;
@@ -1195,25 +1177,23 @@ LABEL_17:
     __52__MRProximityProvider__migrateForDevice_completion___block_invoke_cold_2((a1 + 40), v16);
   }
 
-  v17 = MRLogCategoryMigrationOversize();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = MRLogCategoryMigrationOversize(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v46 = v8;
-    _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[ProximityProvider] %{public}@", buf, 0xCu);
   }
 
-  v18 = [*(a1 + 32) migratingDevice];
-  objc_sync_enter(v18);
+  v19 = [*(a1 + 32) migratingDevice];
+  objc_sync_enter(v19);
   [*(a1 + 32) setMigratingDevice:0];
-  objc_sync_exit(v18);
+  objc_sync_exit(v19);
 
-  v19 = *(a1 + 48);
+  v20 = *(a1 + 48);
   v9 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:3 description:@"No valid behavior exists for device."];
-  (*(v19 + 16))(v19, v9);
+  (*(v20 + 16))(v20, v9);
 LABEL_18:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MRProximityProvider__migrateForDevice_completion___block_invoke_155(uint64_t a1, void *a2)
@@ -1352,10 +1332,9 @@ uint64_t __84__MRProximityProvider__migrationBehaviorForRemoteDevice_proactiveDe
     [*(a1 + 32) setError:v4];
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(*(a1 + 40) + 16);
+  v5 = *(*(a1 + 40) + 16);
 
-  return v6();
+  return v5();
 }
 
 - (id)_effectivePlayerStateForDevice:(id)device
@@ -1448,9 +1427,9 @@ uint64_t __54__MRProximityProvider__effectivePlayerStateForDevice___block_invoke
   reasonCopy = reason;
   uniqueIdentifier = [endpointCopy uniqueIdentifier];
   uniqueIdentifier2 = [remoteEndpointCopy uniqueIdentifier];
-  v22 = [uniqueIdentifier isEqualToString:uniqueIdentifier2];
+  isEqualToString = objc_msgSend_isEqualToString_(uniqueIdentifier);
 
-  if (!v22)
+  if (!isEqualToString)
   {
     v27 = !v16;
     if (!IsAdvancing || (v27 & 1) != 0)
@@ -1571,7 +1550,7 @@ LABEL_7:
 
 + (void)_migrate:(id)_migrate destinationEndpoint:(id)endpoint destinationUID:(id)d outputDevice:(id)device label:(id)label completion:(id)completion
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   _migrateCopy = _migrate;
   endpointCopy = endpoint;
   dCopy = d;
@@ -1597,49 +1576,49 @@ LABEL_7:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v64 = v21;
+    v63 = v21;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke;
-  v56[3] = &unk_1E76A2C50;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke;
+  v55[3] = &unk_1E76A2C50;
   v23 = v16;
-  v57 = v23;
-  v62 = v18;
-  v36 = labelCopy;
-  v58 = v36;
-  v59 = @"MigrateProximity";
+  v56 = v23;
+  v61 = v18;
+  v35 = labelCopy;
+  v57 = v35;
+  v58 = @"MigrateProximity";
   v24 = date;
-  v60 = v24;
+  v59 = v24;
   v25 = completionCopy;
-  v61 = v25;
-  v26 = MEMORY[0x1A58E3570](v56);
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_208;
-  v51[3] = &unk_1E76A4480;
+  v60 = v25;
+  v26 = MEMORY[0x1A58E3570](v55);
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_208;
+  v50[3] = &unk_1E76A4480;
   v27 = deviceCopy;
-  v52 = v27;
+  v51 = v27;
   v28 = dCopy;
-  v53 = v28;
-  v54 = @"MigrateProximity";
+  v52 = v28;
+  v53 = @"MigrateProximity";
   v29 = v23;
-  v55 = v29;
-  v30 = MEMORY[0x1A58E3570](v51);
+  v54 = v29;
+  v30 = MEMORY[0x1A58E3570](v50);
   v31 = _migrateCopy;
   if (([_migrateCopy isLocalEndpoint] & 1) == 0 && (!endpointCopy || (objc_msgSend(endpointCopy, "isLocalEndpoint") & 1) == 0))
   {
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2;
-    v46[3] = &unk_1E76A44A8;
-    v50 = v26;
-    v47 = @"MigrateProximity";
-    v48 = v29;
-    v49 = _migrateCopy;
-    (v30)[2](v30, v46);
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2;
+    v45[3] = &unk_1E76A44A8;
+    v49 = v26;
+    v46 = @"MigrateProximity";
+    v47 = v29;
+    v48 = _migrateCopy;
+    (v30)[2](v30, v45);
 
     goto LABEL_14;
   }
@@ -1649,18 +1628,18 @@ LABEL_7:
   {
     if ([_migrateCopy isLocalEndpoint])
     {
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2_219;
-      v39[3] = &unk_1E76A44D0;
-      v45 = v26;
-      v40 = v29;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2_219;
+      v38[3] = &unk_1E76A44D0;
+      v44 = v26;
+      v39 = v29;
       v32 = endpointCopy;
-      v41 = endpointCopy;
-      v42 = @"MigrateProximity";
-      v43 = v28;
-      v44 = _migrateCopy;
-      (v30)[2](v30, v39);
+      v40 = endpointCopy;
+      v41 = @"MigrateProximity";
+      v42 = v28;
+      v43 = _migrateCopy;
+      (v30)[2](v30, v38);
 
       goto LABEL_15;
     }
@@ -1681,13 +1660,11 @@ LABEL_14:
   [(MRPlaybackSessionMigrateRequest *)v29 setEndpointOptions:[(MRPlaybackSessionMigrateRequest *)v29 endpointOptions]& 0xFFFFFFFFFFFFFFF7];
   [_migrateCopy migrateToEndpoint:endpointCopy request:v29 queue:MEMORY[0x1E69E96A0] completion:v26];
 LABEL_15:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) endEventWithID:*(a1 + 72) error:v3];
   v4 = *(a1 + 40);
@@ -1708,16 +1685,16 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
       v10 = *(a1 + 40);
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
-      v29 = 138544386;
-      v30 = v8;
-      v31 = 2114;
-      v32 = v9;
-      v33 = 2114;
-      v34 = v3;
-      v35 = 2114;
-      v36 = v10;
-      v37 = 2048;
-      v38 = v12;
+      v28 = 138544386;
+      v29 = v8;
+      v30 = 2114;
+      v31 = v9;
+      v32 = 2114;
+      v33 = v3;
+      v34 = 2114;
+      v35 = v10;
+      v36 = 2048;
+      v37 = v12;
       v13 = "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds";
       v14 = v6;
       v15 = 52;
@@ -1734,20 +1711,20 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
       v9 = [*(a1 + 32) requestID];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
-      v29 = 138544130;
-      v30 = v23;
-      v31 = 2114;
-      v32 = v9;
-      v33 = 2114;
-      v34 = v3;
-      v35 = 2048;
-      v36 = v24;
+      v28 = 138544130;
+      v29 = v23;
+      v30 = 2114;
+      v31 = v9;
+      v32 = 2114;
+      v33 = v3;
+      v34 = 2048;
+      v35 = v24;
       v13 = "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds";
       v14 = v6;
       v15 = 42;
     }
 
-    _os_log_error_impl(&dword_1A2860000, v14, OS_LOG_TYPE_ERROR, v13, &v29, v15);
+    _os_log_error_impl(&dword_1A2860000, v14, OS_LOG_TYPE_ERROR, v13, &v28, v15);
   }
 
   else
@@ -1765,14 +1742,14 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
       v18 = *(a1 + 40);
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
-      v29 = 138544130;
-      v30 = v17;
-      v31 = 2114;
-      v32 = v9;
-      v33 = 2114;
-      v34 = v18;
-      v35 = 2048;
-      v36 = v19;
+      v28 = 138544130;
+      v29 = v17;
+      v30 = 2114;
+      v31 = v9;
+      v32 = 2114;
+      v33 = v18;
+      v34 = 2048;
+      v35 = v19;
       v20 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v21 = v6;
       v22 = 42;
@@ -1789,18 +1766,18 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
       v9 = [*(a1 + 32) requestID];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
-      v29 = 138543874;
-      v30 = v25;
-      v31 = 2114;
-      v32 = v9;
-      v33 = 2048;
-      v34 = v26;
+      v28 = 138543874;
+      v29 = v25;
+      v30 = 2114;
+      v31 = v9;
+      v32 = 2048;
+      v33 = v26;
       v20 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v21 = v6;
       v22 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, v20, &v29, v22);
+    _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, v20, &v28, v22);
   }
 
 LABEL_15:
@@ -1810,8 +1787,6 @@ LABEL_15:
   {
     (*(v27 + 16))(v27, v3);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_208(uint64_t a1, void *a2)
@@ -1838,7 +1813,7 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1853,36 +1828,34 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
       v7 = *(a1 + 32);
       v8 = [*(a1 + 40) requestID];
       *buf = 138543874;
-      v23 = v7;
-      v24 = 2114;
-      v25 = v8;
-      v26 = 2112;
-      v27 = @"Adding prox device to proactiveEndpoint";
+      v22 = v7;
+      v23 = 2114;
+      v24 = v8;
+      v25 = 2112;
+      v26 = @"Adding prox device to proactiveEndpoint";
       _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
 
     [*(a1 + 40) setRequestType:2];
     v9 = [*(a1 + 40) startEvent:@"AddOutputDevices" role:1];
     v10 = *(a1 + 40);
-    v21 = v5;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v20 = v5;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
     [v10 addDestinationTypesFromDevices:v11];
 
     v12 = *(a1 + 48);
-    v20 = v5;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v19 = v5;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
     v14 = [*(a1 + 40) requestID];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_217;
-    v16[3] = &unk_1E769D978;
-    v17 = *(a1 + 40);
-    v19 = v9;
-    v18 = *(a1 + 56);
-    [v12 addOutputDevices:v13 initiator:v14 withReplyQueue:MEMORY[0x1E69E96A0] completion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_217;
+    v15[3] = &unk_1E769D978;
+    v16 = *(a1 + 40);
+    v18 = v9;
+    v17 = *(a1 + 56);
+    [v12 addOutputDevices:v13 initiator:v14 withReplyQueue:MEMORY[0x1E69E96A0] completion:v15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_217(uint64_t a1, void *a2)
@@ -1899,7 +1872,7 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_2_219(uint64_t a1, void *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1924,8 +1897,8 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
     if (*(a1 + 40))
     {
       v8 = *(a1 + 64);
-      v23 = v5;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+      v22 = v5;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
       [v8 migrateToOutputDevices:v9 request:*(a1 + 32) initiator:0 queue:MEMORY[0x1E69E96A0] completion:*(a1 + 72)];
     }
 
@@ -1937,32 +1910,30 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
         v11 = *(a1 + 48);
         v12 = *(a1 + 56);
         *buf = 138543874;
-        v26 = v11;
-        v27 = 2114;
-        v28 = v12;
-        v29 = 2112;
-        v30 = @"Falling back to setOutputDevice because destination is not remote-controllable.";
+        v25 = v11;
+        v26 = 2114;
+        v27 = v12;
+        v28 = 2112;
+        v29 = @"Falling back to setOutputDevice because destination is not remote-controllable.";
         _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
       }
 
       v13 = [*(a1 + 32) startEvent:@"SetOutputDevice" role:1];
       v14 = ([*(a1 + 32) playerOptions] >> 6) & 1;
       v15 = *(a1 + 64);
-      v24 = v5;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_227;
-      v18[3] = &unk_1E76A27F8;
-      v19 = *(a1 + 32);
-      v22 = v13;
-      v20 = *(a1 + 48);
-      v21 = *(a1 + 72);
-      [v15 setOutputDevices:v16 initiator:@"MRProximityProvider" fadeAudio:v14 withReplyQueue:MEMORY[0x1E69E96A0] completion:v18];
+      v23 = v5;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_227;
+      v17[3] = &unk_1E76A27F8;
+      v18 = *(a1 + 32);
+      v21 = v13;
+      v19 = *(a1 + 48);
+      v20 = *(a1 + 72);
+      [v15 setOutputDevices:v16 initiator:@"MRProximityProvider" fadeAudio:v14 withReplyQueue:MEMORY[0x1E69E96A0] completion:v17];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outputDevice_label_completion___block_invoke_227(uint64_t a1, void *a2)
@@ -2004,66 +1975,66 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
 
 - (id)_nameForDevice:(id)device inEndpoint:(id)endpoint
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   outputDevices = [endpoint outputDevices];
-  v7 = [outputDevices countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v7 = [outputDevices countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
-    v25 = *v32;
-    v26 = outputDevices;
+    v9 = *v31;
+    v24 = *v31;
+    v25 = outputDevices;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         clusterComposition = [v11 clusterComposition];
 
         if (clusterComposition)
         {
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           clusterComposition2 = [v11 clusterComposition];
-          v14 = [clusterComposition2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v14 = [clusterComposition2 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v28;
+            v16 = *v27;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v28 != v16)
+                if (*v27 != v16)
                 {
                   objc_enumerationMutation(clusterComposition2);
                 }
 
-                v18 = [*(*(&v27 + 1) + 8 * j) uid];
-                v19 = [v18 isEqualToString:deviceCopy];
+                v18 = [*(*(&v26 + 1) + 8 * j) uid];
+                isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-                if (v19)
+                if (isEqualToString)
                 {
                   name = [v11 name];
 
-                  outputDevices = v26;
+                  outputDevices = v25;
                   goto LABEL_22;
                 }
               }
 
-              v15 = [clusterComposition2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v15 = [clusterComposition2 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v15)
               {
                 continue;
@@ -2073,14 +2044,14 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
             }
           }
 
-          v9 = v25;
-          outputDevices = v26;
+          v9 = v24;
+          outputDevices = v25;
         }
 
         else
         {
           v20 = [v11 uid];
-          v21 = [v20 isEqualToString:deviceCopy];
+          v21 = objc_msgSend_isEqualToString_(v20);
 
           if (v21)
           {
@@ -2090,7 +2061,7 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
         }
       }
 
-      v8 = [outputDevices countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = [outputDevices countByEnumeratingWithState:&v30 objects:v35 count:16];
       name = 0;
       if (v8)
       {
@@ -2107,8 +2078,6 @@ void __97__MRProximityProvider__migrate_destinationEndpoint_destinationUID_outpu
   }
 
 LABEL_22:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return name;
 }
@@ -2136,52 +2105,39 @@ LABEL_22:
 
 - (void)receiveEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Received event %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Received event %@.", &v2, 0xCu);
 }
 
 - (void)_beginProvidingDisplayContextIfNeeded:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Begin providing for device %{public}@, but device is not prepared, so must defer initial provide.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_persistArtworkData:forDevice:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_26();
-  OUTLINED_FUNCTION_3_0(&dword_1A2860000, v0, v1, "[ProximityProvider] Failed to persist artwork data for device %{public}@. Error: %@.");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A2860000, a2, OS_LOG_TYPE_DEBUG, "[ProximityProvider] Begin providing for device %{public}@, but device is not prepared, so must defer initial provide.", &v2, 0xCu);
 }
 
 void __52__MRProximityProvider__migrateForDevice_completion___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = [a2 error];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[ProximityProvider] No result for device %{public}@, error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[ProximityProvider] No result for device %{public}@, error: %{public}@", &v6, 0x16u);
 }
 
 void __52__MRProximityProvider__migrateForDevice_completion___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[ProximityProvider] No result for device %@. Was this device prepared before handoff was attempted?", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[ProximityProvider] No result for device %@. Was this device prepared before handoff was attempted?", &v3, 0xCu);
 }
 
 @end

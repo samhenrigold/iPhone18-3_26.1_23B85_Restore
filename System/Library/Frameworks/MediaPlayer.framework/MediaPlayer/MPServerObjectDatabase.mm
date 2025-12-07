@@ -23,6 +23,7 @@
 - (id)relatedIdentifierSetsForParentIdentifierSet:(id)set parentVersionHash:(id)hash childKey:(id)key;
 - (id)updateTokensForResults:(id *)results;
 - (uint64_t)_payloadData:(uint64_t)data forIdentifierSet:(void *)set options:(void *)options outError:(void *)error;
+- (uint64_t)updateIdentifiersForResults:(uint64_t *)results options:(uint64_t *)options;
 - (uint64_t)updateTokensForResults:(uint64_t)results;
 - (void)dealloc;
 - (void)enumerateAssetsMissingSINFsForHashedPersonID:(id)d usingBlock:(id)block;
@@ -30,7 +31,6 @@
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 - (void)updateIdentifiersForResults:(id)results options:(unint64_t)options;
-- (void)updateIdentifiersForResults:(void *)result options:(void *)options;
 - (void)updateIdentifiersForResults:options:;
 - (void)updateTokensForResults:;
 - (void)updateTokensForResults:(id)results;
@@ -57,11 +57,11 @@
   return v2;
 }
 
-void __52__MPServerObjectDatabase_sharedServerObjectDatabase__block_invoke(uint64_t a1)
+void __52__MPServerObjectDatabase_sharedServerObjectDatabase__block_invoke(uint64_t a1, uint64_t a2)
 {
   if ([objc_opt_class() prefersInMemoryDatabase])
   {
-    v2 = &__block_literal_global_35598;
+    v3 = &__block_literal_global_35598;
   }
 
   else
@@ -71,12 +71,12 @@ void __52__MPServerObjectDatabase_sharedServerObjectDatabase__block_invoke(uint6
     aBlock[2] = __52__MPServerObjectDatabase_sharedServerObjectDatabase__block_invoke_3;
     aBlock[3] = &__block_descriptor_40_e21___MSVSQLDatabase_8__0l;
     aBlock[4] = *(a1 + 32);
-    v2 = _Block_copy(aBlock);
+    v3 = _Block_copy(aBlock);
   }
 
-  v3 = [[MPServerObjectDatabase alloc] _initWithDatabaseCreationBlock:v2];
-  v4 = +[MPServerObjectDatabase sharedServerObjectDatabase]::__sharedServerObjectDatabase;
-  +[MPServerObjectDatabase sharedServerObjectDatabase]::__sharedServerObjectDatabase = v3;
+  v4 = [[MPServerObjectDatabase alloc] _initWithDatabaseCreationBlock:v3];
+  v5 = +[MPServerObjectDatabase sharedServerObjectDatabase]::__sharedServerObjectDatabase;
+  +[MPServerObjectDatabase sharedServerObjectDatabase]::__sharedServerObjectDatabase = v4;
 }
 
 id __52__MPServerObjectDatabase_sharedServerObjectDatabase__block_invoke_3(uint64_t a1)
@@ -1005,12 +1005,12 @@ LABEL_13:
           v17 = 0;
         }
 
-        if (v13[12])
+        if (*(v13 + 96))
         {
           *v46 = &v40;
-          v18 = std::__hash_table<std::__hash_value_type<long long,unsigned long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,unsigned long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,unsigned long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(buf, v40)[3];
+          v18 = std::__hash_table<std::__hash_value_type<long long,unsigned long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,unsigned long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,unsigned long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(buf, v40, v46)[3];
           *v46 = &v40;
-          v19 = std::__hash_table<std::__hash_value_type<long long,unsigned long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,unsigned long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,unsigned long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(buf, v40);
+          v19 = std::__hash_table<std::__hash_value_type<long long,unsigned long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,unsigned long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,unsigned long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(buf, v40, v46);
           v17 |= 4u;
           ++v19[3];
           v20 = v18 << 48;
@@ -1025,7 +1025,7 @@ LABEL_13:
         v22 = os_log_create("com.apple.amp.mediaplayer", "ServerObjects");
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v23 = v13[6];
+          v23 = *(v13 + 48);
           *v46 = 138413314;
           *&v46[4] = v23;
           v47 = 2048;
@@ -1233,7 +1233,7 @@ LABEL_13:
               v28[2] = v16;
               v29 = v78;
               v30 = v79;
-              v31 = (v28 + v78 - v79);
+              v31 = v28 + v78 - v79;
               if (v78 != v79)
               {
                 v32 = v78;
@@ -1241,8 +1241,8 @@ LABEL_13:
                 do
                 {
                   *v33 = *v32;
-                  *(v33 + 8) = *(v32 + 1);
-                  v32 += 3;
+                  *(v33 + 8) = *(v32 + 8);
+                  v32 += 24;
                   v33 += 24;
                 }
 
@@ -1602,11 +1602,11 @@ void __62__MPServerObjectDatabase_updateIdentifiersForResults_options___block_in
   v40[2](v40);
 }
 
-- (void)updateIdentifiersForResults:(void *)result options:(void *)options
+- (uint64_t)updateIdentifiersForResults:(uint64_t *)results options:(uint64_t *)options
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *results = 0;
+  results[1] = 0;
+  results[2] = 0;
   v2 = options[1];
   if (v2 != *options)
   {
@@ -1619,7 +1619,7 @@ void __62__MPServerObjectDatabase_updateIdentifiersForResults_options___block_in
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return results;
 }
 
 - (void)updateIdentifiersForResults:options:
@@ -2196,7 +2196,7 @@ LABEL_17:
   *(results + 16) = 0;
   *(results + 24) = 0;
   *(results + 8) = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * {__strong}*,NSString * {__strong}*>(results + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * {__strong}*,NSString * {__strong}*>((results + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
   *(results + 32) = *(a2 + 32);
 }
 
@@ -2353,14 +2353,14 @@ void __49__MPServerObjectDatabase_updateTokensForResults___block_invoke_187(void
           v25 = os_log_create("com.apple.amp.mediaplayer", "ServerObjects");
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
-            *v46 = 138412290;
-            *&v46[4] = v24;
-            _os_log_impl(&dword_1A238D000, v25, OS_LOG_TYPE_DEBUG, "[SOD] updateTokensForResults: | clearing result token [not found] result=%@", v46, 0xCu);
+            LODWORD(v46) = 138412290;
+            *(&v46 + 4) = v24;
+            _os_log_impl(&dword_1A238D000, v25, OS_LOG_TYPE_DEBUG, "[SOD] updateTokensForResults: | clearing result token [not found] result=%@", &v46, 0xCu);
           }
 
           [v24 setToken:0 forDatabase:{0, a1[4]}];
-          *v46 = &buf[8];
-          std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>::__destroy_vector::operator()[abi:ne200100](v46);
+          *&v46 = &buf[8];
+          std::vector<objc_object  {objcproto33MPObjectDatabaseProgressiveResult}* {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
 
           v20 = [v37 indexGreaterThanIndex:v20];
           v21 = a1;

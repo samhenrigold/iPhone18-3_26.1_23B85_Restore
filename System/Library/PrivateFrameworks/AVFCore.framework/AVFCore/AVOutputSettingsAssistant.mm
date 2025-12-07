@@ -256,18 +256,18 @@
   v17 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:{-[NSDictionary objectForKey:](v3, "objectForKey:", @"AVVideoCompressionPropertiesKey"}];
   if (v5)
   {
-    [(AVOutputSettingsAssistant *)self sourceVideoAverageFrameDuration];
+    objc_msgSend_sourceVideoAverageFrameDuration(self);
     v18 = 1.0 / CMTimeGetSeconds(&time);
     *&v18 = v18;
     v19 = [(AVOutputSettingsAssistantVideoSettingsAdjuster *)self->_internal->videoSettingsAdjuster averageBitRateForSourceFormatDescription:v5 andTargetFrameRate:self->_internal->videoEncoderSpecification andEncoderSpecification:v18];
     [v17 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInteger:", v19), @"AverageBitRate"}];
   }
 
-  [(AVOutputSettingsAssistant *)self sourceVideoMinFrameDuration];
+  objc_msgSend_sourceVideoMinFrameDuration(self);
   [v17 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", 1.0 / CMTimeGetSeconds(&time)), @"ExpectedFrameRate"}];
   if ([objc_msgSend(objc_opt_class() "videoEncoderCapabilities")])
   {
-    [(AVOutputSettingsAssistant *)self sourceVideoMinFrameDuration];
+    objc_msgSend_sourceVideoMinFrameDuration(self);
     CMTimeMake(&v23, 1, 30);
     if (CMTimeCompare(&time, &v23) < 0)
     {

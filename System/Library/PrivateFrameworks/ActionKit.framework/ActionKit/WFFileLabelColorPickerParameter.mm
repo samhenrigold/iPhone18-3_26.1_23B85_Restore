@@ -127,48 +127,47 @@ LABEL_24:
 
 - (WFFileLabelColorPickerParameter)initWithDefinition:(id)definition
 {
-  v21[8] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = WFFileLabelColorPickerParameter;
-  v3 = [(WFFileLabelColorPickerParameter *)&v19 initWithDefinition:definition];
+  v20[8] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = WFFileLabelColorPickerParameter;
+  v3 = [(WFFileLabelColorPickerParameter *)&v18 initWithDefinition:definition];
   if (v3)
   {
     v4 = [&unk_28509CB18 if_map:&__block_literal_global_203];
     possibleStates = v3->_possibleStates;
     v3->_possibleStates = v4;
 
-    v20[0] = &unk_28509AF88;
+    v19[0] = &unk_28509AF88;
     v6 = WFLocalizedString(@"No Color");
-    v21[0] = v6;
-    v20[1] = &unk_28509AFA0;
+    v20[0] = v6;
+    v19[1] = &unk_28509AFA0;
     v7 = WFLocalizedString(@"Red");
-    v21[1] = v7;
-    v20[2] = &unk_28509AFB8;
+    v20[1] = v7;
+    v19[2] = &unk_28509AFB8;
     v8 = WFLocalizedString(@"Orange");
-    v21[2] = v8;
-    v20[3] = &unk_28509AFD0;
+    v20[2] = v8;
+    v19[3] = &unk_28509AFD0;
     v9 = WFLocalizedString(@"Yellow");
-    v21[3] = v9;
-    v20[4] = &unk_28509AFE8;
+    v20[3] = v9;
+    v19[4] = &unk_28509AFE8;
     v10 = WFLocalizedString(@"Green");
-    v21[4] = v10;
-    v20[5] = &unk_28509B000;
+    v20[4] = v10;
+    v19[5] = &unk_28509B000;
     v11 = WFLocalizedString(@"Blue");
-    v21[5] = v11;
-    v20[6] = &unk_28509B018;
+    v20[5] = v11;
+    v19[6] = &unk_28509B018;
     v12 = WFLocalizedString(@"Purple");
-    v21[6] = v12;
-    v20[7] = &unk_28509B030;
+    v20[6] = v12;
+    v19[7] = &unk_28509B030;
     v13 = WFLocalizedString(@"Gray");
-    v21[7] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:8];
+    v20[7] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
     localizedLabelsForLabelNumbers = v3->_localizedLabelsForLabelNumbers;
     v3->_localizedLabelsForLabelNumbers = v14;
 
     v16 = v3;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

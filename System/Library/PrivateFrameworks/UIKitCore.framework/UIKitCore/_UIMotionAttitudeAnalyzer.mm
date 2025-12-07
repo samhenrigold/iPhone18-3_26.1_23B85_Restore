@@ -767,7 +767,7 @@ LABEL_27:
   {
     v7 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B358, @"UIMotionEffectHysteresisExitThreshold");
     v8 = qword_1ED48B360;
-    v9 = v7 == 0;
+    v9 = !v7;
     v10 = 0.0075;
   }
 
@@ -775,7 +775,7 @@ LABEL_27:
   {
     v11 = _UIInternalPreferenceUsesDefault_1(&_MergedGlobals_945, @"UIMotionEffectHysteresisEntranceThreshold");
     v8 = qword_1ED48B350;
-    v9 = v11 == 0;
+    v9 = !v11;
     v10 = 0.006;
   }
 

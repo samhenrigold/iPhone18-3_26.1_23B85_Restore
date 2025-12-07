@@ -1,5 +1,6 @@
 @interface FetchXPCActivityScheduler
 + (const)_xpcActivityIdentifierForType:(int)type;
++ (void)unregisterXPCActivityForType:(int)type;
 - (FetchXPCActivityScheduler)initWithType:(int)type interval:(double)interval delegate:(id)delegate;
 - (FetchXPCActivitySchedulerDelegate)delegate;
 - (const)_xpcActivityIdentifier;
@@ -18,6 +19,20 @@
 @end
 
 @implementation FetchXPCActivityScheduler
+
++ (void)unregisterXPCActivityForType:(int)type
+{
+  v3 = *&type;
+  v5 = +[DaemonFetchController log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Unregistering XPC activity for type %d.", v6, 8u);
+  }
+
+  xpc_activity_unregister([self _xpcActivityIdentifierForType:v3]);
+}
 
 - (FetchXPCActivityScheduler)initWithType:(int)type interval:(double)interval delegate:(id)delegate
 {

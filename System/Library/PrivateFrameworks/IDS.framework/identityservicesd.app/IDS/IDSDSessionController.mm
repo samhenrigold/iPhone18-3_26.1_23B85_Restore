@@ -469,7 +469,7 @@ LABEL_24:
     else
     {
       prefixedURI4 = [iCopy prefixedURI];
-      if ([prefixedURI4 isEqualToIgnoringCase:IDSDefaultPairedDevice])
+      if (objc_msgSend_isEqualToIgnoringCase_(prefixedURI4))
       {
       }
 
@@ -477,7 +477,7 @@ LABEL_24:
       {
         v32 = +[IDSPairingManager sharedInstance];
         pairedDeviceUniqueID = [v32 pairedDeviceUniqueID];
-        v34 = [unprefixedURI isEqualToIgnoringCase:pairedDeviceUniqueID];
+        v34 = objc_msgSend_isEqualToIgnoringCase_(unprefixedURI);
 
         if (!v34)
         {
@@ -1027,7 +1027,7 @@ LABEL_99:
   topicCopy = topic;
   contextCopy = context;
   v52 = [contextCopy objectForKeyedSubscript:IDSMessageContextServerTimestampKey];
-  [v52 doubleValue];
+  objc_msgSend_doubleValue(v52);
   v48 = [NSDate dateWithTimeIntervalSince1970:?];
   v19 = objc_opt_class();
   v51 = sub_10001B690(v19, messageCopy, IDSFanoutMessageGroupIDKey);
@@ -1322,7 +1322,7 @@ LABEL_99:
           v10 = *(*(&v19 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_sessions objectForKey:v10, v15];
           clientID = [v11 clientID];
-          v13 = [clientID isEqualToIgnoringCase:clientCopy];
+          v13 = objc_msgSend_isEqualToIgnoringCase_(clientID);
 
           if (v13)
           {
@@ -1426,7 +1426,7 @@ LABEL_99:
           v11 = *(*(&v25 + 1) + 8 * i);
           reasonCopy3 = [(NSMutableDictionary *)self->_sessions objectForKey:v11, v18, reasonCopy3];
           getFromService = [reasonCopy3 getFromService];
-          v14 = [getFromService isEqualToIgnoringCase:serviceCopy];
+          v14 = objc_msgSend_isEqualToIgnoringCase_(getFromService);
 
           if (v14)
           {
@@ -1521,7 +1521,7 @@ LABEL_99:
             v9 = *(*(&v20 + 1) + 8 * i);
             v10 = [(NSMutableDictionary *)self->_sessions objectForKey:v9];
             clientID = [v10 clientID];
-            v12 = [clientID isEqualToIgnoringCase:v4];
+            v12 = objc_msgSend_isEqualToIgnoringCase_(clientID);
 
             if (v12)
             {
@@ -1591,10 +1591,10 @@ LABEL_99:
 
   v13 = +[IDSPairingManager sharedInstance];
   pairedDeviceUniqueID = [v13 pairedDeviceUniqueID];
-  v15 = [unprefixedURI isEqualToIgnoringCase:pairedDeviceUniqueID];
+  v15 = objc_msgSend_isEqualToIgnoringCase_(unprefixedURI);
 
   prefixedURI2 = [(__CFString *)iCopy prefixedURI];
-  v17 = [prefixedURI2 isEqualToIgnoringCase:IDSDefaultPairedDevice];
+  v17 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI2);
 
   v18 = +[IDSDAccountController sharedInstance];
   v19 = [v18 accountWithUniqueID:dCopy];

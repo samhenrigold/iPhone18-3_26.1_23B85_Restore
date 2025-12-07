@@ -66,7 +66,7 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
 
 - (PLAccountingEnergyEstimateEventEntry)initWithNodeID:(id)d withRootNodeID:(id)iD withParentEntryID:(int)entryID withNumAncestors:(int)ancestors withEnergy:(double)energy withRange:(id)range withEntryDate:(id)date
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   rangeCopy = range;
@@ -75,9 +75,9 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
   selfCopy = 0;
   if ((entryID & 0x80000000) == 0 && intValue >= 1)
   {
-    v74.receiver = self;
-    v74.super_class = PLAccountingEnergyEstimateEventEntry;
-    v22 = [(PLAccountingEnergyEventEntry *)&v74 initWithNodeID:dCopy withEnergy:rangeCopy withRange:dateCopy withEntryDate:energy];
+    v73.receiver = self;
+    v73.super_class = PLAccountingEnergyEstimateEventEntry;
+    v22 = [(PLAccountingEnergyEventEntry *)&v73 initWithNodeID:dCopy withEnergy:rangeCopy withRange:dateCopy withEntryDate:energy];
     if (v22)
     {
       v23 = +[PLAccountingDistributionRuleManager sharedInstance];
@@ -98,39 +98,39 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
 
       entryIDCopy = entryID;
       ancestorsCopy = ancestors;
-      v63 = v26;
+      v62 = v26;
       if (v26 && [v26 count])
       {
-        v57 = v24;
-        v58 = dateCopy;
-        v59 = rangeCopy;
-        v60 = iDCopy;
-        v61 = dCopy;
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
+        v56 = v24;
+        v57 = dateCopy;
+        v58 = rangeCopy;
+        v59 = iDCopy;
+        v60 = dCopy;
         v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v27 = v26;
-        v28 = [v27 countByEnumeratingWithState:&v70 objects:v77 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v69 objects:v76 count:16];
         if (v28)
         {
           v29 = v28;
           v30 = 0;
-          v31 = *v71;
+          v31 = *v70;
           v32 = 0x277D3F000uLL;
-          v66 = *v71;
+          v65 = *v70;
           do
           {
             v33 = 0;
-            v67 = v29;
+            v66 = v29;
             do
             {
-              if (*v71 != v31)
+              if (*v70 != v31)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v34 = *(*(&v70 + 1) + 8 * v33);
+              v34 = *(*(&v69 + 1) + 8 * v33);
               if ([*(v32 + 384) debugEnabled])
               {
                 v35 = objc_opt_class();
@@ -159,14 +159,14 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
                   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v76 = v38;
+                    v75 = v38;
                     _os_log_debug_impl(&dword_25EDCD000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
                   v22 = v37;
                   v27 = v36;
-                  v29 = v67;
-                  v31 = v66;
+                  v29 = v66;
+                  v31 = v65;
                   v32 = 0x277D3F000uLL;
                 }
               }
@@ -175,14 +175,14 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
               if ([*(v32 + 384) debugEnabled])
               {
                 v44 = objc_opt_class();
-                v68[0] = MEMORY[0x277D85DD0];
-                v68[1] = 3221225472;
-                v68[2] = __140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke_22;
-                v68[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-                v68[4] = v44;
+                v67[0] = MEMORY[0x277D85DD0];
+                v67[1] = 3221225472;
+                v67[2] = __140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke_22;
+                v67[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+                v67[4] = v44;
                 if (initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__defaultOnce_20 != -1)
                 {
-                  dispatch_once(&initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__defaultOnce_20, v68);
+                  dispatch_once(&initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__defaultOnce_20, v67);
                 }
 
                 if (initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__classDebugEnabled_21 == 1)
@@ -198,12 +198,12 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
                   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v76 = v45;
+                    v75 = v45;
                     _os_log_debug_impl(&dword_25EDCD000, v50, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
-                  v29 = v67;
-                  v31 = v66;
+                  v29 = v66;
+                  v31 = v65;
                   v32 = 0x277D3F000;
                 }
               }
@@ -212,7 +212,7 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
             }
 
             while (v29 != v33);
-            v29 = [v27 countByEnumeratingWithState:&v70 objects:v77 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v69 objects:v76 count:16];
           }
 
           while (v29);
@@ -223,11 +223,11 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
           v30 = 0;
         }
 
-        iDCopy = v60;
-        dCopy = v61;
-        dateCopy = v58;
-        rangeCopy = v59;
-        v24 = v57;
+        iDCopy = v59;
+        dCopy = v60;
+        dateCopy = v57;
+        rangeCopy = v58;
+        v24 = v56;
       }
 
       else
@@ -257,18 +257,17 @@ uint64_t __48__PLAccountingEnergyEstimateEventEntry_entryKey__block_invoke()
     selfCopy = self;
   }
 
-  v55 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
-uint64_t __140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke(uint64_t a1)
+void *__140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke_22(uint64_t a1)
+void *__140__PLAccountingEnergyEstimateEventEntry_initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate___block_invoke_22(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initWithNodeID_withRootNodeID_withParentEntryID_withNumAncestors_withEnergy_withRange_withEntryDate__classDebugEnabled_21 = result;

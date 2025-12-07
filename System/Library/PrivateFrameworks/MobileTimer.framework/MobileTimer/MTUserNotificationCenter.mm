@@ -33,6 +33,7 @@
 - (unint64_t)conditionalLockScreenDestination;
 - (unint64_t)firingNotificationDestinations;
 - (void)dismissNotificationsForAlarm:(id)alarm dismissAction:(unint64_t)action;
+- (void)dismissNotificationsForAlarm:(id)alarm includeMainIdentifier:(BOOL)identifier includeSnooze:(BOOL)snooze;
 - (void)dismissNotificationsForAlarmKitAlertWithId:(id)id;
 - (void)dismissNotificationsForTimer:(id)timer;
 - (void)dismissNotificationsWithIdentifiers:(id)identifiers;
@@ -57,28 +58,27 @@
 
 - (MTUserNotificationCenter)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MTUserNotificationCenter;
-  v2 = [(MTUserNotificationCenter *)&v6 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MTUserNotificationCenter;
+  v2 = [(MTUserNotificationCenter *)&v5 init];
   if (v2)
   {
     v3 = MTLogForCategory(3);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v8 = v2;
+      v7 = v2;
       _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@...", buf, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)setupNotificationCenter
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -95,35 +95,33 @@
     v7 = [notificationCategories count];
     *buf = 138543874;
     selfCopy2 = self;
-    v15 = 2048;
-    v16 = v7;
-    v17 = 2114;
-    v18 = @"com.apple.mobiletimer";
+    v14 = 2048;
+    v15 = v7;
+    v16 = 2114;
+    v17 = @"com.apple.mobiletimer";
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ setting %lu categories for %{public}@", buf, 0x20u);
   }
 
   [v4 setNotificationCategories:notificationCategories];
-  v11 = @"com.apple.mobiletimer";
-  v12 = v4;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v10 = @"com.apple.mobiletimer";
+  v11 = v4;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   notificationCenters = self->_notificationCenters;
   self->_notificationCenters = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerActionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   objc_storeStrong(&self->_actionHandler, handler);
   allValues = [(NSDictionary *)self->_notificationCenters allValues];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__MTUserNotificationCenter_registerActionHandler___block_invoke;
-  v10[3] = &unk_1E7B0E9D0;
-  v10[4] = self;
-  [allValues na_each:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__MTUserNotificationCenter_registerActionHandler___block_invoke;
+  v9[3] = &unk_1E7B0E9D0;
+  v9[4] = self;
+  [allValues na_each:v9];
 
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -131,12 +129,10 @@
     actionHandler = self->_actionHandler;
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2114;
-    v14 = actionHandler;
+    v12 = 2114;
+    v13 = actionHandler;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ handling responses with %{public}@", buf, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_t a1, void *a2)
@@ -149,33 +145,33 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
 
 - (id)alarmCategories
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v32 = [v2 localizedStringForKey:@"ALARM_STOP_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
+  v31 = [v2 localizedStringForKey:@"ALARM_STOP_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v31 = [v3 localizedStringForKey:@"ALARM_SNOOZE_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
+  v30 = [v3 localizedStringForKey:@"ALARM_SNOOZE_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
   v4 = MEMORY[0x1E6983250];
   v5 = [MEMORY[0x1E6983260] iconWithSystemImageName:@"stop.circle"];
-  v6 = [v4 actionWithIdentifier:@"MTAlarmDismissAction" title:v32 options:0 icon:v5];
+  v6 = [v4 actionWithIdentifier:@"MTAlarmDismissAction" title:v31 options:0 icon:v5];
 
   v7 = MEMORY[0x1E6983250];
   v8 = [MEMORY[0x1E6983260] iconWithSystemImageName:@"zzz"];
-  v30 = [v7 actionWithIdentifier:@"MTAlarmSnoozeAction" title:v31 options:0 icon:v8];
+  v29 = [v7 actionWithIdentifier:@"MTAlarmSnoozeAction" title:v30 options:0 icon:v8];
 
-  v29 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmSecondaryAction" title:&stru_1F29360E0 options:0];
+  v28 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmSecondaryAction" title:&stru_1F29360E0 options:0];
   v9 = MEMORY[0x1E6983278];
-  v36[0] = v30;
-  v36[1] = v6;
-  v36[2] = v29;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+  v35[0] = v29;
+  v35[1] = v6;
+  v35[2] = v28;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
   v11 = MEMORY[0x1E695E0F0];
   v12 = [v9 categoryWithIdentifier:@"MTAlarmCategory" actions:v10 intentIdentifiers:MEMORY[0x1E695E0F0] options:0x141F00003];
 
   v13 = MEMORY[0x1E6983278];
-  v35 = v6;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v34 = v6;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
   v15 = [v13 categoryWithIdentifier:@"MTAlarmNoSnoozeCategory" actions:v14 intentIdentifiers:v11 options:0x141F00003];
 
   v16 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
@@ -186,26 +182,24 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
   v20 = [v18 actionWithIdentifier:@"MTAlarmDismissAction" title:v17 options:0 icon:v19];
 
   v21 = MEMORY[0x1E6983218];
-  v34 = v20;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v33 = v20;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
   v23 = [v21 categoryWithIdentifier:@"AlarmSnoozeCountdown" actions:v22 intentIdentifiers:v11 options:131073];
 
   [v23 setListPriority:1];
   v24 = MEMORY[0x1E695DFD8];
-  v33[0] = v12;
-  v33[1] = v15;
-  v33[2] = v23;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
+  v32[0] = v12;
+  v32[1] = v15;
+  v32[2] = v23;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
   v26 = [v24 setWithArray:v25];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 - (id)timerCategories
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v3 = [v2 localizedStringForKey:@"TIMER_STOP_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
@@ -216,73 +210,69 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
   v7 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTTimerRepeatAction" title:v5 options:0];
   v8 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTTimerSecondaryAction" title:&stru_1F29360E0 options:0];
   v9 = MEMORY[0x1E6983278];
-  v18[0] = v6;
-  v18[1] = v7;
-  v18[2] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+  v17[0] = v6;
+  v17[1] = v7;
+  v17[2] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
   v11 = [v9 categoryWithIdentifier:@"MTTimerCategory" actions:v10 intentIdentifiers:MEMORY[0x1E695E0F0] options:0x141F00003];
 
   v12 = MEMORY[0x1E695DFD8];
-  v17 = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+  v16 = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
   v14 = [v12 setWithArray:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)bedtimeCategories
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v32 = [v2 localizedStringForKey:@"BEDTIME_GO_TO_BED_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
+  v31 = [v2 localizedStringForKey:@"BEDTIME_GO_TO_BED_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v31 = [v3 localizedStringForKey:@"BEDTIME_SNOOZE_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
+  v30 = [v3 localizedStringForKey:@"BEDTIME_SNOOZE_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
-  v30 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmGoToBedAction" title:v32 options:0];
-  v29 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmSnoozeAction" title:v31 options:0];
+  v29 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmGoToBedAction" title:v31 options:0];
+  v28 = [MEMORY[0x1E6983250] actionWithIdentifier:@"MTAlarmSnoozeAction" title:v30 options:0];
   v4 = MEMORY[0x1E6983278];
-  v36[0] = v29;
-  v36[1] = v30;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
-  v28 = [v4 categoryWithIdentifier:@"MTBedtimeAlarmCategory" actions:v5 intentIdentifiers:MEMORY[0x1E695E0F0] options:1];
+  v35[0] = v28;
+  v35[1] = v29;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+  v27 = [v4 categoryWithIdentifier:@"MTBedtimeAlarmCategory" actions:v5 intentIdentifiers:MEMORY[0x1E695E0F0] options:1];
 
   v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v27 = [v6 localizedStringForKey:@"ALARM_STOP_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
+  v26 = [v6 localizedStringForKey:@"ALARM_STOP_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
   v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"ALARM_SNOOZE_ACTION" value:&stru_1F29360E0 table:@"Localizable"];
 
   v9 = MEMORY[0x1E6983250];
   v10 = [MEMORY[0x1E6983260] iconWithSystemImageName:@"stop.circle"];
-  v11 = [v9 actionWithIdentifier:@"MTAlarmDismissAction" title:v27 options:0 icon:v10];
+  v11 = [v9 actionWithIdentifier:@"MTAlarmDismissAction" title:v26 options:0 icon:v10];
 
   v12 = MEMORY[0x1E6983250];
   v13 = [MEMORY[0x1E6983260] iconWithSystemImageName:@"zzz"];
   v14 = [v12 actionWithIdentifier:@"MTAlarmSnoozeAction" title:v8 options:0 icon:v13];
 
   v15 = MEMORY[0x1E6983278];
-  v35[0] = v14;
-  v35[1] = v11;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+  v34[0] = v14;
+  v34[1] = v11;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
   v17 = MEMORY[0x1E695E0F0];
   v18 = [v15 categoryWithIdentifier:@"MTWakeUpAlarmCategory" actions:v16 intentIdentifiers:MEMORY[0x1E695E0F0] options:0x141F00003];
 
   v19 = MEMORY[0x1E6983278];
-  v34 = v11;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v33 = v11;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
   v21 = [v19 categoryWithIdentifier:@"MTWakeUpAlarmNoSnoozeCategory" actions:v20 intentIdentifiers:v17 options:0x141F00003];
 
   v22 = MEMORY[0x1E695DFA8];
-  v33[0] = v28;
-  v33[1] = v18;
-  v33[2] = v21;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
+  v32[0] = v27;
+  v32[1] = v18;
+  v32[2] = v21;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:3];
   v24 = [v22 setWithArray:v23];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -365,7 +355,7 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
 
 - (void)postNotificationForScheduledAlarm:(id)alarm content:(id)content completionBlock:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   contentCopy = content;
   blockCopy = block;
@@ -374,8 +364,8 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v33 = 2114;
-    v34 = alarmCopy;
+    v32 = 2114;
+    v33 = alarmCopy;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ firing %{public}@", buf, 0x16u);
   }
 
@@ -413,34 +403,32 @@ void __50__MTUserNotificationCenter_registerActionHandler___block_invoke(uint64_
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v33 = 2114;
-    v34 = v18;
+    v32 = 2114;
+    v33 = v18;
     _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ adding request %{public}@", buf, 0x16u);
   }
 
   v20 = [(MTUserNotificationCenter *)self _notificationCenterForScheduledAlarm:alarmCopy];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_completionBlock___block_invoke;
-  v25[3] = &unk_1E7B0E9F8;
-  objc_copyWeak(&v29, &location);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_completionBlock___block_invoke;
+  v24[3] = &unk_1E7B0E9F8;
+  objc_copyWeak(&v28, &location);
   v21 = alarmCopy;
-  v26 = v21;
+  v25 = v21;
   v22 = v12;
-  v27 = v22;
+  v26 = v22;
   v23 = blockCopy;
-  v28 = v23;
-  [v20 addNotificationRequest:v18 withCompletionHandler:v25];
+  v27 = v23;
+  [v20 addNotificationRequest:v18 withCompletionHandler:v24];
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = [*(a1 + 32) scheduleable];
@@ -449,14 +437,14 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
     v6 = MTLogForCategory(3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = [v5 alarmID];
-      v18 = 138543874;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v3;
-      _os_log_error_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v18, 0x20u);
+      v16 = [v5 alarmID];
+      v17 = 138543874;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v3;
+      _os_log_error_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v17, 0x20u);
     }
 
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to post alarm user notifiation"];
@@ -470,22 +458,22 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [v5 alarmID];
-      v18 = 138543618;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v9;
-      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ fired %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v9;
+      _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ fired %{public}@", &v17, 0x16u);
     }
 
     v10 = MTLogForCategory(3);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [WeakRetained reportingDelegate];
-      v18 = 138543618;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v11;
-      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ telling reporting delegate %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v11;
+      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ telling reporting delegate %{public}@", &v17, 0x16u);
     }
 
     v7 = [WeakRetained reportingDelegate];
@@ -500,22 +488,20 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
   {
     (*(v15 + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissRelatedNotificationsForScheduledAlarm:(id)alarm
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543618;
+    v15 = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = alarmCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing related notifications for %{public}@", &v16, 0x16u);
+    v17 = 2114;
+    v18 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing related notifications for %{public}@", &v15, 0x16u);
   }
 
   scheduleable = [alarmCopy scheduleable];
@@ -544,15 +530,13 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
 
     [(MTUserNotificationCenter *)self dismissNotificationsWithIdentifiers:scheduleable2];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_allIdentifiersForAlarm:(id)alarm includeMainIdentifier:(BOOL)identifier includeSnooze:(BOOL)snooze
 {
   snoozeCopy = snooze;
   identifierCopy = identifier;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v8 = objc_opt_new();
   if (snoozeCopy)
@@ -560,8 +544,8 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
     v9 = objc_opt_class();
     alarmIDString = [alarmCopy alarmIDString];
     v11 = [v9 _snoozeCountdownIdentifier:alarmIDString];
-    v21[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [v8 addObjectsFromArray:v12];
   }
 
@@ -576,19 +560,49 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
     v14 = objc_opt_class();
     alarmIDString3 = [alarmCopy alarmIDString];
     v16 = [v14 _goToBedIdentifier:alarmIDString3];
-    v20 = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v19 = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
     [v8 addObjectsFromArray:v17];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
+- (void)dismissNotificationsForAlarm:(id)alarm includeMainIdentifier:(BOOL)identifier includeSnooze:(BOOL)snooze
+{
+  snoozeCopy = snooze;
+  identifierCopy = identifier;
+  v21 = *MEMORY[0x1E69E9840];
+  alarmCopy = alarm;
+  v9 = MTLogForCategory(3);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 138543618;
+    selfCopy = self;
+    v19 = 2114;
+    v20 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing any notifications for %{public}@", &v17, 0x16u);
+  }
+
+  if (alarmCopy)
+  {
+    v10 = [objc_opt_class() _allIdentifiersForAlarm:alarmCopy includeMainIdentifier:identifierCopy includeSnooze:snoozeCopy];
+    [(MTUserNotificationCenter *)self dismissNotificationsWithIdentifiers:v10];
+  }
+
+  else
+  {
+    v10 = MTLogForCategory(3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [(MTUserNotificationCenter *)self dismissNotificationsForAlarm:v10 includeMainIdentifier:v11 includeSnooze:v12, v13, v14, v15, v16];
+    }
+  }
+}
+
 - (void)dismissNotificationsForAlarm:(id)alarm dismissAction:(unint64_t)action
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -596,10 +610,10 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
     v8 = MTDismissAlarmActionDescription(action);
     *buf = 138543874;
     selfCopy = self;
-    v27 = 2114;
-    v28 = alarmCopy;
-    v29 = 2114;
-    v30 = v8;
+    v26 = 2114;
+    v27 = alarmCopy;
+    v28 = 2114;
+    v29 = v8;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing notifications for %{public}@ (%{public}@)", buf, 0x20u);
   }
 
@@ -616,9 +630,9 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
       v21 = objc_opt_class();
       alarmIDString = [alarmCopy alarmIDString];
       v11 = [v21 _snoozeCountdownIdentifier:alarmIDString];
-      v23 = v11;
+      v22 = v11;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = &v23;
+      v13 = &v22;
     }
 
     else
@@ -626,12 +640,12 @@ void __86__MTUserNotificationCenter_postNotificationForScheduledAlarm_content_co
       v9 = objc_opt_class();
       alarmIDString = [alarmCopy alarmIDString];
       v11 = [v9 _goToBedIdentifier:alarmIDString];
-      v24 = v11;
+      v23 = v11;
       v12 = MEMORY[0x1E695DEC8];
-      v13 = &v24;
+      v13 = &v23;
     }
 
-    v14 = [v12 arrayWithObjects:v13 count:{1, v23, v24}];
+    v14 = [v12 arrayWithObjects:v13 count:{1, v22, v23}];
 
 LABEL_12:
     [(MTUserNotificationCenter *)self dismissNotificationsWithIdentifiers:v14];
@@ -645,55 +659,49 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissNotificationsWithIdentifiers:(id)identifiers
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = identifiersCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing notifications with identifiers %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = identifiersCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing notifications with identifiers %{public}@", &v6, 0x16u);
   }
 
   [(MTUserNotificationCenter *)self tearDownNotificationsForEventIdentifiers:identifiersCopy];
   [MTCFUserNotificationPoster cancelNotificationsWithIdentifiers:identifiersCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tearDownNotificationsForEventIdentifiers:(id)identifiers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = identifiersCopy;
+    v13 = 2114;
+    v14 = identifiersCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ tearDownNotificationsForEventIdentifiers %{public}@", buf, 0x16u);
   }
 
   allValues = [(NSDictionary *)self->_notificationCenters allValues];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke;
-  v9[3] = &unk_1E7B0EA90;
-  v10 = identifiersCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke;
+  v8[3] = &unk_1E7B0EA90;
+  v9 = identifiersCopy;
   selfCopy2 = self;
   v7 = identifiersCopy;
-  [allValues na_each:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [allValues na_each:v8];
 }
 
 void __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -714,13 +722,13 @@ void __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___b
 
 void __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke_3;
-  v9[3] = &unk_1E7B0EA20;
-  v10 = *(a1 + 32);
-  v4 = [a2 na_filter:v9];
+  v14 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke_3;
+  v8[3] = &unk_1E7B0EA20;
+  v9 = *(a1 + 32);
+  v4 = [a2 na_filter:v8];
   v5 = [v4 na_map:&__block_literal_global_29];
 
   v6 = MTLogForCategory(3);
@@ -728,14 +736,13 @@ void __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___b
   {
     v7 = *(a1 + 40);
     *buf = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v5;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v5;
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Tearing down %{public}@", buf, 0x16u);
   }
 
   [*(a1 + 48) removeDeliveredNotificationsWithIdentifiers:v5];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___block_invoke_3(uint64_t a1, void *a2)
@@ -775,7 +782,7 @@ id __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___blo
 
 - (void)postNotificationForScheduledTimer:(id)timer completionBlock:(id)block
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   blockCopy = block;
   v8 = MTLogForCategory(4);
@@ -783,8 +790,8 @@ id __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___blo
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v26 = 2114;
-    v27 = timerCopy;
+    v25 = 2114;
+    v26 = timerCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ firing %{public}@", buf, 0x16u);
   }
 
@@ -811,31 +818,29 @@ id __69__MTUserNotificationCenter_tearDownNotificationsForEventIdentifiers___blo
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v26 = 2114;
-      v27 = v15;
+      v25 = 2114;
+      v26 = v15;
       _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ adding request %{public}@", buf, 0x16u);
     }
 
     _notificationCenterForScheduledTimer = [(MTUserNotificationCenter *)self _notificationCenterForScheduledTimer];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completionBlock___block_invoke;
-    v19[3] = &unk_1E7B0EAB8;
-    objc_copyWeak(&v22, &location);
-    v20 = scheduleable;
-    v21 = blockCopy;
-    [_notificationCenterForScheduledTimer addNotificationRequest:v15 withCompletionHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completionBlock___block_invoke;
+    v18[3] = &unk_1E7B0EAB8;
+    objc_copyWeak(&v21, &location);
+    v19 = scheduleable;
+    v20 = blockCopy;
+    [_notificationCenterForScheduledTimer addNotificationRequest:v15 withCompletionHandler:v18];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (v3)
@@ -843,14 +848,14 @@ void __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completion
     v5 = MTLogForCategory(4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 32) timerID];
-      v11 = 138543874;
-      v12 = WeakRetained;
-      v13 = 2114;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v11, 0x20u);
+      v9 = [*(a1 + 32) timerID];
+      v10 = 138543874;
+      v11 = WeakRetained;
+      v12 = 2114;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v10, 0x20u);
     }
 
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to post timer user notifiation"];
@@ -864,11 +869,11 @@ void __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completion
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [*(a1 + 32) timerID];
-      v11 = 138543618;
-      v12 = WeakRetained;
-      v13 = 2114;
-      v14 = v7;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ fired %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = WeakRetained;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ fired %{public}@", &v10, 0x16u);
     }
   }
 
@@ -877,8 +882,6 @@ void __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completion
   {
     (*(v8 + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interruptAudioAndLockDeviceWithCompletionBlock:(id)block
@@ -897,7 +900,7 @@ void __78__MTUserNotificationCenter_postNotificationForScheduledTimer_completion
 
 uint64_t __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletionBlock___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [getTUCallCenterClass() sharedInstance];
   v3 = [v2 currentCallCount];
 
@@ -912,23 +915,23 @@ uint64_t __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletio
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ interrupting audio", &buf, 0xCu);
     }
 
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v8 = getMRMediaRemoteSendCommandSymbolLoc_ptr;
-    v18 = getMRMediaRemoteSendCommandSymbolLoc_ptr;
+    v17 = getMRMediaRemoteSendCommandSymbolLoc_ptr;
     if (!getMRMediaRemoteSendCommandSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v20 = __getMRMediaRemoteSendCommandSymbolLoc_block_invoke;
-      v21 = &unk_1E7B0C600;
-      v22 = &v15;
+      v19 = __getMRMediaRemoteSendCommandSymbolLoc_block_invoke;
+      v20 = &unk_1E7B0C600;
+      v21 = &v14;
       __getMRMediaRemoteSendCommandSymbolLoc_block_invoke(&buf);
-      v8 = v16[3];
+      v8 = v15[3];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
     if (!v8)
     {
       __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletionBlock___block_invoke_cold_1();
@@ -962,24 +965,23 @@ uint64_t __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletio
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result);
+    return (*(result + 16))(result);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)dismissNotificationsForTimer:(id)timer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = timerCopy;
+    v18 = 2114;
+    v19 = timerCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissing %{public}@", buf, 0x16u);
   }
 
@@ -987,8 +989,8 @@ uint64_t __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletio
   {
     _notificationCenterForScheduledTimer = [(MTUserNotificationCenter *)self _notificationCenterForScheduledTimer];
     timerIDString = [timerCopy timerIDString];
-    v16 = timerIDString;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = timerIDString;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     [_notificationCenterForScheduledTimer removeDeliveredNotificationsWithIdentifiers:v8];
   }
 
@@ -1000,8 +1002,6 @@ uint64_t __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletio
       [(MTUserNotificationCenter *)self dismissNotificationsForTimer:_notificationCenterForScheduledTimer, v9, v10, v11, v12, v13, v14];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)requestIdentifierForScheduledAlarm:(id)alarm
@@ -1044,11 +1044,10 @@ LABEL_6:
 
 + (id)notificationPrefixes
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"MTBedtimeAlarm";
-  v5[1] = @"MTSnoozeCountdown";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"MTBedtimeAlarm";
+  v4[1] = @"MTSnoozeCountdown";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -1405,7 +1404,7 @@ LABEL_4:
 
 + (id)userInfoForAlarm:(id)alarm
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   trigger = [alarmCopy trigger];
@@ -1443,37 +1442,35 @@ LABEL_4:
     [v4 setObject:v14 forKey:@"MTSilentModeOptions"];
   }
 
-  v26 = &unk_1F2965F18;
+  v25 = &unk_1F2965F18;
   scheduleable3 = [alarmCopy scheduleable];
   alarmIDString = [scheduleable3 alarmIDString];
-  v27[0] = alarmIDString;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v26[0] = alarmIDString;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v18 = getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr;
-  v25 = getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr;
+  v24 = getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr;
   if (!getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr)
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_block_invoke;
-    v21[3] = &unk_1E7B0C600;
-    v21[4] = &v22;
-    __getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_block_invoke(v21);
-    v18 = v23[3];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_block_invoke;
+    v20[3] = &unk_1E7B0C600;
+    v20[4] = &v21;
+    __getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_block_invoke(v20);
+    v18 = v22[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (!v18)
   {
     +[MTUserNotificationCenter userInfoForAlarm:];
   }
 
   [v4 setObject:v17 forKeyedSubscript:*v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1522,20 +1519,18 @@ LABEL_5:
 
 - (void)removeAllDeliveredNotifications
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ removing all delivered notifications.", &v7, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ removing all delivered notifications.", &v6, 0xCu);
   }
 
   notificationCenters = [(MTUserNotificationCenter *)self notificationCenters];
   allValues = [notificationCenters allValues];
   [allValues na_each:&__block_literal_global_121];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postBedtimeNotificationForAlarm:(id)alarm date:(id)date
@@ -1566,25 +1561,25 @@ LABEL_5:
 
 void __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v3;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v3;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ fetched delivered notifications: %{public}@", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completion___block_invoke_124;
-  v11[3] = &unk_1E7B0EA20;
-  v12 = *(a1 + 40);
-  v6 = [v3 na_filter:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completion___block_invoke_124;
+  v10[3] = &unk_1E7B0EA20;
+  v11 = *(a1 + 40);
+  v6 = [v3 na_filter:v10];
   v7 = [v6 firstObject];
 
   v8 = MTLogForCategory(3);
@@ -1592,9 +1587,9 @@ void __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completi
   {
     v9 = *(a1 + 32);
     *buf = 138543618;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v7;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v7;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ delivered filtered notification: %{public}@", buf, 0x16u);
   }
 
@@ -1602,8 +1597,6 @@ void __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completi
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_completion___block_invoke_124(uint64_t a1, void *a2)
@@ -1636,17 +1629,17 @@ uint64_t __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_comp
 
 - (void)postNotificationForAlarmKitAlarm:(id)alarm completionBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   blockCopy = block;
   v8 = MTLogForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v16 = 138543618;
+    v15 = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = alarmCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ posting notification for alarmkit alarm: %{public}@", &v16, 0x16u);
+    v17 = 2114;
+    v18 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ posting notification for alarmkit alarm: %{public}@", &v15, 0x16u);
   }
 
   v9 = objc_opt_new();
@@ -1666,44 +1659,40 @@ uint64_t __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_comp
 
   [objc_opt_class() setCommonContent:v9 alert:alarmCopy];
   [(MTUserNotificationCenter *)self postNotificationForAlarmKitAlarm:alarmCopy content:v9 completionBlock:blockCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissNotificationsForAlarmKitAlertWithId:(id)id
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   idCopy = id;
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = idCopy;
+    v10 = 2114;
+    v11 = idCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ dismissing notifications for alarmkit alert: %{public}@", buf, 0x16u);
   }
 
-  v8 = idCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+  v7 = idCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
   [(MTUserNotificationCenter *)self dismissNotificationsWithIdentifiers:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotificationForAlarmKitTimer:(id)timer completionBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   blockCopy = block;
   v8 = MTLogForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543618;
+    v16 = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = timerCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ posting notification for alarmkit timer: %{public}@", &v17, 0x16u);
+    v18 = 2114;
+    v19 = timerCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ posting notification for alarmkit timer: %{public}@", &v16, 0x16u);
   }
 
   v9 = objc_opt_new();
@@ -1724,8 +1713,6 @@ uint64_t __75__MTUserNotificationCenter_retrieveDelieveredNotificationForId_comp
 
   [objc_opt_class() setCommonContent:v9 alert:timerCopy];
   [(MTUserNotificationCenter *)self postNotificationForAlarmKitTimer:timerCopy content:v9 completionBlock:blockCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)commonAlarmKitPayload:(id)payload
@@ -1809,7 +1796,7 @@ LABEL_7:
 
 - (void)postNotificationForAlarmKitAlarm:(id)alarm content:(id)content completionBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   contentCopy = content;
   blockCopy = block;
@@ -1818,8 +1805,8 @@ LABEL_7:
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v31 = 2114;
-    v32 = alarmCopy;
+    v30 = 2114;
+    v31 = alarmCopy;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ firing alarmkit alarm %{public}@", buf, 0x16u);
   }
 
@@ -1836,34 +1823,32 @@ LABEL_7:
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v31 = 2114;
-    v32 = v16;
+    v30 = 2114;
+    v31 = v16;
     _os_log_impl(&dword_1B1F9F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ adding request %{public}@", buf, 0x16u);
   }
 
   v18 = [(MTUserNotificationCenter *)self _notificationCenterForScheduledAlarm:0];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_completionBlock___block_invoke;
-  v23[3] = &unk_1E7B0E9F8;
-  objc_copyWeak(&v27, &location);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_completionBlock___block_invoke;
+  v22[3] = &unk_1E7B0E9F8;
+  objc_copyWeak(&v26, &location);
   v19 = alarmCopy;
-  v24 = v19;
+  v23 = v19;
   v20 = v15;
-  v25 = v20;
+  v24 = v20;
   v21 = blockCopy;
-  v26 = v21;
-  [v18 addNotificationRequest:v16 withCompletionHandler:v23];
+  v25 = v21;
+  [v18 addNotificationRequest:v16 withCompletionHandler:v22];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (v3)
@@ -1871,14 +1856,14 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_com
     v5 = MTLogForCategory(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v17 = [*(a1 + 32) identifier];
-      v18 = 138543874;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v3;
-      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v18, 0x20u);
+      v16 = [*(a1 + 32) identifier];
+      v17 = 138543874;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v3;
+      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire %{public}@ with error %{public}@", &v17, 0x20u);
     }
 
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to post alarm user notifiation"];
@@ -1892,22 +1877,22 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_com
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 32) identifier];
-      v18 = 138543618;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ fired alarmkit alarm %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ fired alarmkit alarm %{public}@", &v17, 0x16u);
     }
 
     v9 = MTLogForCategory(3);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [WeakRetained reportingDelegate];
-      v18 = 138543618;
-      v19 = WeakRetained;
-      v20 = 2114;
-      v21 = v10;
-      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ telling reporting delegate %{public}@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = WeakRetained;
+      v19 = 2114;
+      v20 = v10;
+      _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ telling reporting delegate %{public}@", &v17, 0x16u);
     }
 
     v6 = [WeakRetained reportingDelegate];
@@ -1923,13 +1908,11 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_com
   {
     (*(v15 + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotificationForAlarmKitTimer:(id)timer content:(id)content completionBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   contentCopy = content;
   blockCopy = block;
@@ -1938,8 +1921,8 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_com
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v28 = 2114;
-    v29 = timerCopy;
+    v27 = 2114;
+    v28 = timerCopy;
     _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ firing alarmkit timer %{public}@", buf, 0x16u);
   }
 
@@ -1955,32 +1938,30 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitAlarm_content_com
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v28 = 2114;
-    v29 = v15;
+    v27 = 2114;
+    v28 = v15;
     _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ adding request %{public}@", buf, 0x16u);
   }
 
   _notificationCenterForScheduledTimer = [(MTUserNotificationCenter *)self _notificationCenterForScheduledTimer];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_completionBlock___block_invoke;
-  v21[3] = &unk_1E7B0EAB8;
-  objc_copyWeak(&v24, &location);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_completionBlock___block_invoke;
+  v20[3] = &unk_1E7B0EAB8;
+  objc_copyWeak(&v23, &location);
   v18 = timerCopy;
-  v22 = v18;
+  v21 = v18;
   v19 = blockCopy;
-  v23 = v19;
-  [_notificationCenterForScheduledTimer addNotificationRequest:v15 withCompletionHandler:v21];
+  v22 = v19;
+  [_notificationCenterForScheduledTimer addNotificationRequest:v15 withCompletionHandler:v20];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (v3)
@@ -1988,14 +1969,14 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_com
     v5 = MTLogForCategory(4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 32) identifier];
-      v11 = 138543874;
-      v12 = WeakRetained;
-      v13 = 2114;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire alarmkit timer %{public}@ with error %{public}@", &v11, 0x20u);
+      v9 = [*(a1 + 32) identifier];
+      v10 = 138543874;
+      v11 = WeakRetained;
+      v12 = 2114;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_error_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to fire alarmkit timer %{public}@ with error %{public}@", &v10, 0x20u);
     }
 
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to post alarmkit timer user notifiation"];
@@ -2009,11 +1990,11 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_com
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [*(a1 + 32) identifier];
-      v11 = 138543618;
-      v12 = WeakRetained;
-      v13 = 2114;
-      v14 = v7;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ fired alarmkit timer %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = WeakRetained;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ fired alarmkit timer %{public}@", &v10, 0x16u);
     }
   }
 
@@ -2022,8 +2003,6 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_com
   {
     (*(v8 + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (MTEventReporting)reportingDelegate
@@ -2035,9 +2014,9 @@ void __85__MTUserNotificationCenter_postNotificationForAlarmKitTimer_content_com
 
 - (void)dismissNotificationsForAlarm:(uint64_t)a3 includeMainIdentifier:(uint64_t)a4 includeSnooze:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, a2, a3, "%{public}@ alarm is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, a2, a3, "%{public}@ alarm is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletionBlock___block_invoke_cold_1()
@@ -2051,9 +2030,9 @@ void __75__MTUserNotificationCenter_interruptAudioAndLockDeviceWithCompletionBlo
 
 - (void)dismissNotificationsForTimer:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, a2, a3, "%{public}@ timer is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1B1F9F000, a2, a3, "%{public}@ timer is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)userInfoForAlarm:.cold.1()

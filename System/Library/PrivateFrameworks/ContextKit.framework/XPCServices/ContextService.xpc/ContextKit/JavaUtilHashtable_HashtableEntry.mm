@@ -32,31 +32,31 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  if (![JavaUtilMap_Entry_class_() isInstance:equal])
+  v5 = [JavaUtilMap_Entry_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaUtilMap_Entry_class_();
+  v7 = JavaUtilMap_Entry_class_(v5, v6);
   if (!equal)
   {
-    key = self->key_;
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v6 = self->key_;
-  if (!v6)
+  key = self->key_;
+  if (!key)
   {
 LABEL_11:
     JreThrowNullPointerException();
   }
 
-  if (![v6 isEqual:{objc_msgSend(equal, "getKey")}])
+  if (![key isEqual:{objc_msgSend(equal, "getKey")}])
   {
     return 0;
   }

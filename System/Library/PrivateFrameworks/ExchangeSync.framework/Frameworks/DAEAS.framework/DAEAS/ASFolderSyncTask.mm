@@ -13,11 +13,11 @@
 
 - (ASFolderSyncTask)initWithPreviousSyncKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v12.receiver = self;
-  v12.super_class = ASFolderSyncTask;
-  v5 = [(ASTask *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = ASFolderSyncTask;
+  v5 = [(ASTask *)&v11 init];
   if (v5)
   {
     v6 = [keyCopy copy];
@@ -31,92 +31,88 @@
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138412290;
-        v14 = keyCopy;
+        v13 = keyCopy;
         _os_log_impl(&dword_24A0AC000, v8, v9, "Folder hierarchy sync task created with sync key %@", buf, 0xCu);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_setSpinning:(BOOL)spinning
 {
   spinningCopy = spinning;
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!spinning || !self->_isSpinning)
   {
-    dataclasses = self->_dataclasses;
-    v6 = appBundleIDsForDADataclasses();
+    v5 = appBundleIDsForDADataclasses();
     self->_isSpinning = spinningCopy;
+    v17 = 0u;
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    obj = v6;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
-    if (v7)
+    obj = v5;
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v20;
-      v10 = *(MEMORY[0x277D03988] + 6);
+      v7 = v6;
+      v8 = *v18;
+      v9 = *(MEMORY[0x277D03988] + 6);
       if (spinningCopy)
       {
-        v11 = @"ON";
+        v10 = @"ON";
       }
 
       else
       {
-        v11 = @"OFF";
+        v10 = @"OFF";
       }
 
-      v12 = *(MEMORY[0x277D03988] + 7);
+      v11 = *(MEMORY[0x277D03988] + 7);
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v9)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
-          v15 = DALoggingwithCategory();
-          if (os_log_type_enabled(v15, v10))
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = DALoggingwithCategory();
+          if (os_log_type_enabled(v14, v9))
           {
             *buf = 138412546;
-            v24 = v11;
-            v25 = 2112;
-            v26 = v14;
-            _os_log_impl(&dword_24A0AC000, v15, v10, "Telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
+            v22 = v10;
+            v23 = 2112;
+            v24 = v13;
+            _os_log_impl(&dword_24A0AC000, v14, v9, "Telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
           }
 
           SBSSetStatusBarShowsActivityForApplication();
-          v16 = DALoggingwithCategory();
-          if (os_log_type_enabled(v16, v12))
+          v15 = DALoggingwithCategory();
+          if (os_log_type_enabled(v15, v11))
           {
             *buf = 138412546;
-            v24 = v11;
-            v25 = 2112;
-            v26 = v14;
-            _os_log_impl(&dword_24A0AC000, v16, v12, "Finished telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
+            v22 = v10;
+            v23 = 2112;
+            v24 = v13;
+            _os_log_impl(&dword_24A0AC000, v15, v11, "Finished telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
-      while (v8);
+      while (v7);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)requestBody
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(ASFolderSyncTask *)self _setSpinning:1];
   v3 = objc_opt_new();
   v4 = self->_previousSyncKey;
@@ -127,11 +123,11 @@
     v7 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v6, v7))
     {
-      v12 = 134218242;
+      v11 = 134218242;
       selfCopy = self;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_24A0AC000, v6, v7, "Folder hierarchy sync task %p using sync key %{public}@", &v12, 0x16u);
+      v13 = 2114;
+      v14 = v5;
+      _os_log_impl(&dword_24A0AC000, v6, v7, "Folder hierarchy sync task %p using sync key %{public}@", &v11, 0x16u);
     }
   }
 
@@ -151,8 +147,6 @@
   [v3 closeTag:22];
   data = [v3 data];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
@@ -166,7 +160,7 @@
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -300,13 +294,12 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)finishWithError:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (self->_isSpinning)
   {
@@ -342,8 +335,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v33 = 2112;
-        v34 = errorCopy;
+        v32 = 2112;
+        v33 = errorCopy;
         v10 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v8, v9, "%@ failed: %@", buf, 0x16u);
       }
@@ -365,8 +358,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy = objc_opt_class();
-        v33 = 2112;
-        v34 = v8;
+        v32 = 2112;
+        v33 = v8;
         v16 = selfCopy;
         _os_log_impl(&dword_24A0AC000, v14, v15, "%@ Parsed response of %@", buf, 0x16u);
       }
@@ -420,21 +413,19 @@ LABEL_31:
       }
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __36__ASFolderSyncTask_finishWithError___block_invoke;
-    v26[3] = &unk_278FC8028;
-    v26[4] = self;
-    v30 = v6;
-    v27 = errorCopy;
-    v28 = updatedFolders;
-    v29 = syncKey;
-    [(ASTask *)self finishWithError:v27 afterDelegateCallout:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __36__ASFolderSyncTask_finishWithError___block_invoke;
+    v25[3] = &unk_278FC8028;
+    v25[4] = self;
+    v29 = v6;
+    v26 = errorCopy;
+    v27 = updatedFolders;
+    v28 = syncKey;
+    [(ASTask *)self finishWithError:v26 afterDelegateCallout:v25];
   }
 
   [(ASTask *)self setCurrentlyParsingItem:0];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ASFolderSyncTask_finishWithError___block_invoke(void *a1)
@@ -457,32 +448,26 @@ void __36__ASFolderSyncTask_finishWithError___block_invoke(void *a1)
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (status < 0xD && ((0x1FC3u >> status) & 1) != 0)
   {
-    result = qword_24A14DF88[status];
+    return qword_24A14DF88[status];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 @end

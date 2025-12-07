@@ -13,269 +13,265 @@
 
 - (void)beginService
 {
-  v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [(CLIntersiloServiceMock *)self setKeyedPayloads:v3];
+  v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  objc_msgSend_setKeyedPayloads_(self, v3, v4);
 }
 
 - (void)setPayload:(id)payload forKey:(id)key
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   keyCopy = key;
-  keyedPayloads = [(CLIntersiloServiceMock *)self keyedPayloads];
+  v9 = objc_msgSend_keyedPayloads(self, v7, v8);
 
-  if (!keyedPayloads)
+  if (!v9)
   {
-    v12 = sub_1DF814218();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v20 = sub_1DF814218();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "self.keyedPayloads";
-      _os_log_impl(&dword_1DF7FE000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "self.keyedPayloads";
+      _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v13 = sub_1DF814218();
-    if (os_signpost_enabled(v13))
+    v21 = sub_1DF814218();
+    if (os_signpost_enabled(v21))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "self.keyedPayloads";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Overrider didn't call up to super for beginService?", "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "self.keyedPayloads";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Overrider didn't call up to super for beginService?", "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v14 = sub_1DF814218();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v22 = sub_1DF814218();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "self.keyedPayloads";
-      _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "self.keyedPayloads";
+      _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Overrider didn't call up to super for beginService?, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_19:
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloService.m", 149, "[CLIntersiloServiceMock setPayload:forKey:]");
+LABEL_20:
+    __asm { BL              ___stack_chk_fail }
   }
 
-  keyedPayloads2 = [(CLIntersiloServiceMock *)self keyedPayloads];
-  v9 = [keyedPayloads2 objectForKey:keyCopy];
+  v12 = objc_msgSend_keyedPayloads(self, v10, v11);
+  v14 = objc_msgSend_objectForKey_(v12, v13, keyCopy);
 
-  if (v9)
+  if (v14)
   {
-    v15 = sub_1DF814218();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v23 = sub_1DF814218();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "![self.keyedPayloads objectForKey:key]";
-      _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "![self.keyedPayloads objectForKey:key]";
+      _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v16 = sub_1DF814218();
-    if (os_signpost_enabled(v16))
+    v24 = sub_1DF814218();
+    if (os_signpost_enabled(v24))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "![self.keyedPayloads objectForKey:key]";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Only one payload per key at at time", "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "![self.keyedPayloads objectForKey:key]";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Only one payload per key at at time", "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v14 = sub_1DF814218();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v25 = sub_1DF814218();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = &unk_1DF8255EF;
-      v22 = 2082;
-      v23 = "assert";
-      v24 = 2081;
-      v25 = "![self.keyedPayloads objectForKey:key]";
-      _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v28 = 0;
+      v29 = 2082;
+      v30 = &unk_1DF8255EF;
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "![self.keyedPayloads objectForKey:key]";
+      _os_log_impl(&dword_1DF7FE000, v25, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Only one payload per key at at time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_19;
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloService.m", 150, "[CLIntersiloServiceMock setPayload:forKey:]");
+    goto LABEL_20;
   }
 
-  keyedPayloads3 = [(CLIntersiloServiceMock *)self keyedPayloads];
-  [keyedPayloads3 setObject:payloadCopy forKey:keyCopy];
+  v17 = objc_msgSend_keyedPayloads(self, v15, v16);
+  objc_msgSend_setObject_forKey_(v17, v18, payloadCopy, keyCopy);
 
-  [payloadCopy setInUse:1];
-  v11 = *MEMORY[0x1E69E9840];
+  objc_msgSend_setInUse_(payloadCopy, v19, 1);
 }
 
 - (id)getPayloadForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  keyedPayloads = [(CLIntersiloServiceMock *)self keyedPayloads];
-  v6 = [keyedPayloads objectForKey:keyCopy];
+  v7 = objc_msgSend_keyedPayloads(self, v5, v6);
+  v9 = objc_msgSend_objectForKey_(v7, v8, keyCopy);
 
-  if (!v6)
+  if (!v9)
   {
-    v9 = sub_1DF814218();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    v10 = sub_1DF814218();
-    if (os_signpost_enabled(v10))
-    {
-      *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A payload must be ready for this key", "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
     v11 = sub_1DF814218();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
+      v15 = 0;
       v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v17 = &unk_1DF8255EF;
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "payload";
+      _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    v12 = sub_1DF814218();
+    if (os_signpost_enabled(v12))
+    {
+      *buf = 68289539;
+      v15 = 0;
+      v16 = 2082;
+      v17 = &unk_1DF8255EF;
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "payload";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A payload must be ready for this key", "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    v13 = sub_1DF814218();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      v15 = 0;
+      v16 = 2082;
+      v17 = &unk_1DF8255EF;
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "payload";
+      _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A payload must be ready for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloService.m", 161, "[CLIntersiloServiceMock getPayloadForKey:]");
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v9;
 }
 
 - (void)removePayloadForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  keyedPayloads = [(CLIntersiloServiceMock *)self keyedPayloads];
-  v5 = [keyedPayloads objectForKey:keyCopy];
+  v6 = objc_msgSend_keyedPayloads(self, v4, v5);
+  v8 = objc_msgSend_objectForKey_(v6, v7, keyCopy);
 
-  if (!v5)
+  if (!v8)
   {
-    v8 = sub_1DF814218();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v13 = sub_1DF814218();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "payload";
+      _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v9 = sub_1DF814218();
-    if (os_signpost_enabled(v9))
+    v14 = sub_1DF814218();
+    if (os_signpost_enabled(v14))
     {
       *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A payload must be around to remove for this key", "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "payload";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "A payload must be around to remove for this key", "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v10 = sub_1DF814218();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v15 = sub_1DF814218();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v13 = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2082;
-      v17 = "assert";
-      v18 = 2081;
-      v19 = "payload";
-      _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = &unk_1DF8255EF;
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "payload";
+      _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_INFO, "{msg%{public}.0s:A payload must be around to remove for this key, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloService.m", 167, "[CLIntersiloServiceMock removePayloadForKey:]");
   }
 
-  keyedPayloads2 = [(CLIntersiloServiceMock *)self keyedPayloads];
-  [keyedPayloads2 removeObjectForKey:keyCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = objc_msgSend_keyedPayloads(self, v9, v10);
+  objc_msgSend_removeObjectForKey_(v11, v12, keyCopy);
 }
 
 - (void)setPayload:(id)payload forSelector:(SEL)selector
 {
   payloadCopy = payload;
-  v7 = NSStringFromSelector(selector);
-  [(CLIntersiloServiceMock *)self setPayload:payloadCopy forKey:v7];
+  v8 = NSStringFromSelector(selector);
+  objc_msgSend_setPayload_forKey_(self, v7, payloadCopy, v8);
 }
 
 - (id)syncgetPayloadForSelector:(SEL)selector
 {
   v4 = NSStringFromSelector(selector);
-  v5 = [(CLIntersiloServiceMock *)self getPayloadForKey:v4];
+  v6 = objc_msgSend_getPayloadForKey_(self, v5, v4);
 
-  return v5;
+  return v6;
 }
 
 - (id)getPayloadForSelector:(SEL)selector
 {
   v4 = NSStringFromSelector(selector);
-  v5 = [(CLIntersiloServiceMock *)self getPayloadForKey:v4];
+  v6 = objc_msgSend_getPayloadForKey_(self, v5, v4);
 
-  return v5;
+  return v6;
 }
 
 - (void)removePayloadForSelector:(SEL)selector
 {
-  v4 = NSStringFromSelector(selector);
-  [(CLIntersiloServiceMock *)self removePayloadForKey:v4];
+  v5 = NSStringFromSelector(selector);
+  objc_msgSend_removePayloadForKey_(self, v4, v5);
 }
 
 @end

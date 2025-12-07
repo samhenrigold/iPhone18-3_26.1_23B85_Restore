@@ -111,7 +111,8 @@
   {
     v6 = equalCopy;
     v7 = objc_opt_class();
-    if ([v7 isEqual:objc_opt_class()] && (v8 = -[UISceneOpenURLOptions hash](self, "hash"), v8 == -[UISceneOpenURLOptions hash](v6, "hash")) && ((sourceApp = self->_sourceApp, sourceApp == v6->_sourceApp) || sourceApp && -[NSString isEqual:](sourceApp, "isEqual:")) && ((sourceProcessHandle = self->_sourceProcessHandle, sourceProcessHandle == v6->_sourceProcessHandle) || sourceProcessHandle && -[BSProcessHandle isEqual:](sourceProcessHandle, "isEqual:")) && self->_annotation == v6->_annotation && (openInPlace = self->_openInPlace, openInPlace == -[UISceneOpenURLOptions openInPlace](v6, "openInPlace")))
+    objc_opt_class();
+    if (objc_msgSend_isEqual_(v7) && (v8 = [(UISceneOpenURLOptions *)self hash], v8 == [(UISceneOpenURLOptions *)v6 hash]) && ((sourceApp = self->_sourceApp, sourceApp == v6->_sourceApp) || sourceApp && objc_msgSend_isEqual_(sourceApp)) && ((sourceProcessHandle = self->_sourceProcessHandle, sourceProcessHandle == v6->_sourceProcessHandle) || sourceProcessHandle && objc_msgSend_isEqual_(sourceProcessHandle)) && self->_annotation == v6->_annotation && (openInPlace = self->_openInPlace, openInPlace == [(UISceneOpenURLOptions *)v6 openInPlace]))
     {
       eventAttribution = self->_eventAttribution;
       eventAttribution = [(UISceneOpenURLOptions *)v6 eventAttribution];

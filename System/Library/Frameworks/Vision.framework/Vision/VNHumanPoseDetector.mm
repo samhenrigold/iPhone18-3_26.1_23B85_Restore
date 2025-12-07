@@ -245,20 +245,20 @@ uint64_t __117__VNHumanPoseDetector_createRegionOfInterestCrop_options_qosClass_
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{objc_msgSend(v7, "width")}];
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v10 = getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr;
-    v19 = getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr;
+    v20 = getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr;
     if (!getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr)
     {
       v11 = VideoProcessingLibrary();
-      v17[3] = dlsym(v11, "VCPRequestFrameWidthPropertyKey");
-      getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr = v17[3];
-      v10 = v17[3];
+      v18[3] = dlsym(v11, "VCPRequestFrameWidthPropertyKey");
+      getVCPRequestFrameWidthPropertyKeySymbolLoc(void)::ptr = v18[3];
+      v10 = v18[3];
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v10)
     {
       goto LABEL_13;
@@ -267,25 +267,25 @@ uint64_t __117__VNHumanPoseDetector_createRegionOfInterestCrop_options_qosClass_
     [v8 setObject:v9 forKeyedSubscript:*v10];
 
     v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{objc_msgSend(v7, "height")}];
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v13 = getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr;
-    v19 = getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr;
+    v20 = getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr;
     if (!getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr)
     {
       v14 = VideoProcessingLibrary();
-      v17[3] = dlsym(v14, "VCPRequestFrameHeightPropertyKey");
-      getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr = v17[3];
-      v13 = v17[3];
+      v18[3] = dlsym(v14, "VCPRequestFrameHeightPropertyKey");
+      getVCPRequestFrameHeightPropertyKeySymbolLoc(void)::ptr = v18[3];
+      v13 = v18[3];
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v13)
     {
 LABEL_13:
-      dlerror();
-      result = abort_report_np();
+      v16 = dlerror();
+      result = abort_report_np("%s", v16);
       __break(1u);
       return result;
     }
@@ -305,34 +305,34 @@ LABEL_13:
 {
   optionsCopy = options;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v13 = 0;
-  if ([VNValidationUtilities getBOOLValue:&v13 forKey:@"VNHumanPoseDetectorInitOption_UseCPUOnly" inOptions:optionsCopy withDefaultValue:0 error:error])
+  v14 = 0;
+  if ([VNValidationUtilities getBOOLValue:&v14 forKey:@"VNHumanPoseDetectorInitOption_UseCPUOnly" inOptions:optionsCopy withDefaultValue:0 error:error])
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:v13];
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:v14];
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v8 = getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr;
-    v22 = getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr;
+    v23 = getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr;
     if (!getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr)
     {
-      v14 = MEMORY[0x1E69E9820];
-      v15 = 3221225472;
-      v16 = ___ZL41getVCPRequestForceCPUPropertyKeySymbolLocv_block_invoke;
-      v17 = &unk_1E77B69F0;
-      v18 = &v19;
+      v15 = MEMORY[0x1E69E9820];
+      v16 = 3221225472;
+      v17 = ___ZL41getVCPRequestForceCPUPropertyKeySymbolLocv_block_invoke;
+      v18 = &unk_1E77B69F0;
+      v19 = &v20;
       v9 = VideoProcessingLibrary();
       v10 = dlsym(v9, "VCPRequestForceCPUPropertyKey");
-      *(v18[1] + 24) = v10;
-      getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr = *(v18[1] + 24);
-      v8 = v20[3];
+      *(v19[1] + 24) = v10;
+      getVCPRequestForceCPUPropertyKeySymbolLoc(void)::ptr = *(v19[1] + 24);
+      v8 = v21[3];
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v8)
     {
-      dlerror();
-      result = abort_report_np();
+      v13 = dlerror();
+      result = abort_report_np("%s", v13);
       __break(1u);
       return result;
     }

@@ -43,15 +43,15 @@
 
 - (void)_launchWithURLString:(id)string completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   completionCopy = completion;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = stringCopy;
-    _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Recieved URL to launch: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = stringCopy;
+    _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Recieved URL to launch: %@", &v10, 0xCu);
   }
 
   v8 = [MEMORY[0x277CBEBC0] URLWithString:stringCopy];
@@ -59,7 +59,6 @@
   [defaultWorkspace openSensitiveURL:v8 withOptions:0];
 
   completionCopy[2](completionCopy, 1, 0);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate

@@ -88,11 +88,10 @@ void __82__WGWidgetAttributionViewAccessibility__accessibilityLoadAccessibilityI
   v3 = a2;
   v4 = *(a1 + 32);
   objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = __UIAccessibilityCastAsClass();
-  v7 = [v6 text];
-  v8 = [v3 string];
-  [v4 _axSetIsStockWidget:{objc_msgSend(v7, "isEqualToString:", v8)}];
+  v5 = __UIAccessibilityCastAsClass();
+  v6 = [v5 text];
+  v7 = [v3 string];
+  [v4 _axSetIsStockWidget:{objc_msgSend(v6, "isEqualToString:", v7)}];
 }
 
 void __82__WGWidgetAttributionViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3(uint64_t a1, void *a2)
@@ -100,11 +99,10 @@ void __82__WGWidgetAttributionViewAccessibility__accessibilityLoadAccessibilityI
   v3 = a2;
   v4 = *(a1 + 32);
   objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = __UIAccessibilityCastAsClass();
-  v7 = [v6 text];
-  v8 = [v3 string];
-  [v4 _axSetIsWeatherWidget:{objc_msgSend(v7, "isEqualToString:", v8)}];
+  v5 = __UIAccessibilityCastAsClass();
+  v6 = [v5 text];
+  v7 = [v3 string];
+  [v4 _axSetIsWeatherWidget:{objc_msgSend(v6, "isEqualToString:", v7)}];
 }
 
 - (void)_configureAttributedString

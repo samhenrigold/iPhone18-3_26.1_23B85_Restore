@@ -144,28 +144,28 @@
   v5 = +[MSDTargetDevice sharedInstance];
   demoUserHomePath = [v5 demoUserHomePath];
 
-  v37 = demoUserHomePath;
-  v39 = [demoUserHomePath stringByAppendingPathComponent:@"PseudoContainers"];
-  v45 = 0u;
-  v46 = 0u;
+  v39 = demoUserHomePath;
+  v41 = [demoUserHomePath stringByAppendingPathComponent:@"PseudoContainers"];
   v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v7 = allDependentOperations;
-  v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v46;
+    v10 = *v48;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v46 != v10)
+        if (*v48 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * i);
+        v12 = *(*(&v47 + 1) + 8 * i);
         context = [v12 context];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -177,36 +177,36 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v9);
   }
 
-  v36 = v7;
+  v38 = v7;
 
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   obj = v3;
-  v16 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v16 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v42;
-    v38 = *v42;
+    v18 = *v44;
+    v40 = *v44;
     do
     {
       v19 = 0;
       do
       {
-        if (*v42 != v18)
+        if (*v44 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v41 + 1) + 8 * v19);
+        v20 = *(*(&v43 + 1) + 8 * v19);
         identifier = [v20 identifier];
         containerType = [v20 containerType];
         if (![v20 containerized])
@@ -217,7 +217,7 @@
         }
 
         uniqueName = [v20 uniqueName];
-        v24 = [v39 stringByAppendingPathComponent:uniqueName];
+        v24 = [v41 stringByAppendingPathComponent:uniqueName];
 
         if ([containerType isEqualToString:@"AppData"])
         {
@@ -237,17 +237,18 @@
           goto LABEL_23;
         }
 
-        if ([containerType isEqualToString:@"GroupData"])
+        v29 = [containerType isEqualToString:@"GroupData"];
+        if (v29)
         {
           groupContainerPaths = [(MSDApplicationDataPrepareOperation *)self groupContainerPaths];
           v26 = [groupContainerPaths objectForKey:identifier];
 
           dataContainerPaths2 = [(MSDApplicationDataPrepareOperation *)self groupContainerPaths];
 LABEL_23:
-          v30 = dataContainerPaths2;
+          v31 = dataContainerPaths2;
           [dataContainerPaths2 removeObjectForKey:identifier];
 
-          v18 = v38;
+          v18 = v40;
           if (v24)
           {
             goto LABEL_24;
@@ -260,14 +261,14 @@ LABEL_23:
         if (v24)
         {
 LABEL_24:
-          v31 = sub_100063A54();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v32 = sub_100063A54(v29);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v50 = v20;
-            v51 = 2114;
-            v52 = v24;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Container '%{public}@' assigned with pseudo content root path: %{public}@", buf, 0x16u);
+            v52 = v20;
+            v53 = 2114;
+            v54 = v24;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Container '%{public}@' assigned with pseudo content root path: %{public}@", buf, 0x16u);
           }
 
           [v20 setPseudoContentRootPath:v24];
@@ -276,21 +277,22 @@ LABEL_24:
 LABEL_27:
         if (v26)
         {
-          if ([v26 hasPrefix:@"/private"])
+          v33 = [v26 hasPrefix:@"/private"];
+          if (v33)
           {
-            v32 = [v26 substringFromIndex:{objc_msgSend(@"/private", "length")}];
+            v34 = [v26 substringFromIndex:{objc_msgSend(@"/private", "length")}];
 
-            v26 = v32;
+            v26 = v34;
           }
 
-          v33 = sub_100063A54();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v35 = sub_100063A54(v33);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v50 = v20;
-            v51 = 2114;
-            v52 = v26;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Container '%{public}@' assigned with content root path: %{public}@", buf, 0x16u);
+            v52 = v20;
+            v53 = 2114;
+            v54 = v26;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Container '%{public}@' assigned with content root path: %{public}@", buf, 0x16u);
           }
 
           [v20 setContentRootPath:v26];
@@ -302,11 +304,11 @@ LABEL_33:
       }
 
       while (v17 != v19);
-      v34 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
-      v17 = v34;
+      v36 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
+      v17 = v36;
     }
 
-    while (v34);
+    while (v36);
   }
 
   return 1;

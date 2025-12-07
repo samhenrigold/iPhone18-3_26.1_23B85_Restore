@@ -71,13 +71,13 @@
   v26 = *MEMORY[0x277D85DE8];
   if ((a3 - 1) >= 2)
   {
-    v5 = pk_General_log();
+    v5 = pk_General_log(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
     if (v6)
     {
-      v7 = pk_General_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *v19 = 136446978;
         *&v19[4] = "[PKPass(NanoPassKit) npkCompleteHashForWatchOSVersion:]";
@@ -87,7 +87,7 @@
         v23 = 120;
         v24 = 2048;
         v25 = a3;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Cannot calculate npk complete hash for version %llu)", v19, 0x2Au);
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Cannot calculate npk complete hash for version %llu)", v19, 0x2Au);
       }
     }
 
@@ -98,38 +98,36 @@
 
   if (manifestHash)
   {
-    v9 = MEMORY[0x277CBEB28];
+    v10 = MEMORY[0x277CBEB28];
     manifestHash2 = [self manifestHash];
-    v11 = [v9 dataWithData:manifestHash2];
+    v12 = [v10 dataWithData:manifestHash2];
 
     if (a3 == 1)
     {
       v19[0] = [self settings] & 1;
-      v12 = v11;
-      v13 = 1;
+      v13 = v12;
+      v14 = 1;
     }
 
     else
     {
       settings = [self settings];
-      v16 = [self settings] & 0x20 | settings & 1;
-      *v19 = v16 | [self settings] & 0x10;
-      v12 = v11;
-      v13 = 2;
+      v17 = [self settings] & 0x20 | settings & 1;
+      *v19 = v17 | [self settings] & 0x10;
+      v13 = v12;
+      v14 = 2;
     }
 
-    [v12 appendBytes:v19 length:{v13, *v19}];
-    v14 = [MEMORY[0x277CBEA90] dataWithData:v11];
+    [v13 appendBytes:v19 length:{v14, *v19}];
+    v15 = [MEMORY[0x277CBEA90] dataWithData:v12];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 - (uint64_t)npkUsesDynamicView
@@ -144,46 +142,42 @@
 
 - (uint64_t)npkCanUseDynamicTransactionView
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   paymentPass = [self paymentPass];
   isAppleCardPass = [paymentPass isAppleCardPass];
 
-  if (isAppleCardPass)
+  if (!isAppleCardPass)
   {
-    paymentPass2 = [self paymentPass];
-    supportsCategoryVisualization = [paymentPass2 supportsCategoryVisualization];
+    return 0;
+  }
 
-    v6 = pk_ui_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  paymentPass2 = [self paymentPass];
+  supportsCategoryVisualization = [paymentPass2 supportsCategoryVisualization];
 
-    if (v7)
+  v7 = pk_ui_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+  if (v8)
+  {
+    v10 = pk_ui_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = pk_ui_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      uniqueID = [self uniqueID];
+      v12 = uniqueID;
+      v13 = @"NO";
+      if (supportsCategoryVisualization)
       {
-        uniqueID = [self uniqueID];
-        v10 = uniqueID;
-        v11 = @"NO";
-        if (supportsCategoryVisualization)
-        {
-          v11 = @"YES";
-        }
-
-        v14 = 138412546;
-        v15 = uniqueID;
-        v16 = 2112;
-        v17 = v11;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Checking dynamic view setup for account account pass id %@ supportsCategoryVisualization %@", &v14, 0x16u);
+        v13 = @"YES";
       }
+
+      v15 = 138412546;
+      v16 = uniqueID;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Checking dynamic view setup for account account pass id %@ supportsCategoryVisualization %@", &v15, 0x16u);
     }
   }
 
-  else
-  {
-    supportsCategoryVisualization = 0;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return supportsCategoryVisualization;
 }
 
@@ -312,39 +306,39 @@
   if (npkSupportsBluetooth)
   {
     npkIsHomeKeyUWB = [self npkIsHomeKeyUWB];
-    v5 = @"PASSIVE_ENTRY";
+    v6 = @"PASSIVE_ENTRY";
     if (npkIsHomeKeyUWB)
     {
-      v5 = @"UNLOCK_ON_APPROACH";
+      v6 = @"UNLOCK_ON_APPROACH";
     }
 
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v7 = pk_General_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = pk_General_log(v4);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_General_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_General_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11[0] = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: No valid UWB localization key for a pass that does not support bluetooth.", v11, 2u);
+        v13[0] = 0;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: No valid UWB localization key for a pass that does not support bluetooth.", v13, 2u);
       }
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)npkIsAddValuePending
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D2BA58]) initWithDomain:@"com.apple.nanopassbook"];
   v3 = [v2 objectForKey:@"TransitValuePending"];
   uniqueID = [self uniqueID];
@@ -361,27 +355,27 @@
 
     else
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       allValues = [v5 allValues];
-      v9 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         while (2)
         {
           v12 = 0;
           do
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v13 = [*(*(&v16 + 1) + 8 * v12) objectForKeyedSubscript:@"date"];
+            v13 = [*(*(&v15 + 1) + 8 * v12) objectForKeyedSubscript:@"date"];
 
             if (v13)
             {
@@ -393,7 +387,7 @@
           }
 
           while (v10 != v12);
-          v10 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v10)
           {
             continue;
@@ -413,13 +407,12 @@ LABEL_15:
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)npkPendingAddValueStateExpireDateForBalanceFieldWithIdentifier:()NanoPassKit currentBalance:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   uniqueID = [self uniqueID];
@@ -432,46 +425,45 @@ LABEL_15:
   v14 = 1;
   if (v7 && v11)
   {
-    v15 = [v11 compare:v7];
-    v14 = v15 != -1;
-    v13 = v15 == -1;
+    v11 = [v11 compare:v7];
+    v14 = v11 != -1;
+    v13 = v11 == -1;
   }
 
-  v16 = 0;
+  v15 = 0;
   if (v14 && v10)
   {
-    v16 = [v10 dateByAddingTimeInterval:600.0];
+    v11 = [v10 dateByAddingTimeInterval:600.0];
+    v15 = v11;
   }
 
-  v17 = pk_Payment_log();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v16 = pk_Payment_log(v11);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  if (v18)
+  if (v17)
   {
-    v19 = pk_Payment_log();
+    v19 = pk_Payment_log(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID2 = [self uniqueID];
-      v23 = 138413058;
-      v24 = v16;
-      v25 = 2112;
-      v26 = uniqueID2;
-      v27 = 2112;
-      v28 = v6;
-      v29 = 1024;
-      v30 = v13;
-      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate: %@ for pass %@ field:%@ balanceUpdated:%d", &v23, 0x26u);
+      v22 = 138413058;
+      v23 = v15;
+      v24 = 2112;
+      v25 = uniqueID2;
+      v26 = 2112;
+      v27 = v6;
+      v28 = 1024;
+      v29 = v13;
+      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate: %@ for pass %@ field:%@ balanceUpdated:%d", &v22, 0x26u);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 - (id)npkPendingAddValueStateExpireDateForCommutePlanFieldWithIdentifier:()NanoPassKit expiryDate:rawCountValue:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a5;
   v10 = a4;
@@ -481,43 +473,42 @@ LABEL_15:
   v13 = [v12 objectForKey:@"date"];
   v14 = [self _hasPlanUpdatedWithFieldIdentifier:v8 fieldInfo:v12 renewalDate:v13 expiryDate:v10 rawCountValue:v9];
 
-  v15 = 0;
+  v16 = 0;
   if (v13 && (v14 & 1) == 0)
   {
     v15 = [v13 dateByAddingTimeInterval:600.0];
+    v16 = v15;
   }
 
-  v16 = pk_Payment_log();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_Payment_log(v15);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-  if (v17)
+  if (v18)
   {
-    v18 = pk_Payment_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = pk_Payment_log(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       uniqueID2 = [self uniqueID];
-      v22 = 138413314;
-      v23 = v15;
-      v24 = 2112;
-      v25 = uniqueID2;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 1024;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v13;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate: %@ for pass %@ field:%@ planUpdated:%d renewalDate: %@", &v22, 0x30u);
+      v23 = 138413314;
+      v24 = v16;
+      v25 = 2112;
+      v26 = uniqueID2;
+      v27 = 2112;
+      v28 = v8;
+      v29 = 1024;
+      v30 = v14;
+      v31 = 2112;
+      v32 = v13;
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate: %@ for pass %@ field:%@ planUpdated:%d renewalDate: %@", &v23, 0x30u);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 - (BOOL)_hasPlanUpdatedWithFieldIdentifier:()NanoPassKit fieldInfo:renewalDate:expiryDate:rawCountValue:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a6;
   v12 = a7;
@@ -525,38 +516,39 @@ LABEL_15:
   v14 = [v13 objectForKey:@"planExpiry"];
   v15 = [v13 objectForKey:@"planTripCount"];
 
-  v16 = 0;
+  v17 = 0;
   if (v11 && v14)
   {
-    v16 = [v14 compare:v11] == -1;
+    v16 = [v14 compare:v11];
+    v17 = v16 == -1;
   }
 
-  v17 = 0;
+  v18 = 0;
   if (v12 && v15)
   {
-    v17 = [v15 compare:v12] == -1;
+    v16 = [v15 compare:v12];
+    v18 = v16 == -1;
   }
 
-  v18 = pk_Payment_log();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  v19 = pk_Payment_log(v16);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-  if (v19)
+  if (v20)
   {
-    v20 = pk_Payment_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = pk_Payment_log(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412802;
-      v24 = v10;
-      v25 = 1024;
-      v26 = v16;
-      v27 = 1024;
-      v28 = v17;
-      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate for field:%@ expiryDateDidUpdate:%d tripCountDidUpdate: %d", &v23, 0x18u);
+      v24 = 138412802;
+      v25 = v10;
+      v26 = 1024;
+      v27 = v17;
+      v28 = 1024;
+      v29 = v18;
+      _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: PendingAddValueStateExpireDate for field:%@ expiryDateDidUpdate:%d tripCountDidUpdate: %d", &v24, 0x18u);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v16 || v17;
+  return v17 || v18;
 }
 
 + (void)npkHandleTransitValuePendingAmount:()NanoPassKit forBalanceField:passWithUniqueID:
@@ -565,13 +557,13 @@ LABEL_15:
   v7 = a3;
   v8 = a4;
   v9 = a5;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 138412802;
       v20 = v7;
@@ -579,7 +571,7 @@ LABEL_15:
       v22 = v8;
       v23 = 2112;
       v24 = v9;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkHandleTransitValuePendingAmount %@ withField:%@ forPassWithID %@", &v19, 0x20u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkHandleTransitValuePendingAmount %@ withField:%@ forPassWithID %@", &v19, 0x20u);
     }
   }
 
@@ -588,25 +580,23 @@ LABEL_15:
 
   if (v9)
   {
-    v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
     date = [MEMORY[0x277CBEAA8] date];
-    [v15 setObject:date forKey:@"date"];
+    [v16 setObject:date forKey:@"date"];
 
     if (v7)
     {
-      [v15 setObject:v7 forKey:@"amount"];
+      [v16 setObject:v7 forKey:@"amount"];
     }
 
     if (value)
     {
-      [v15 setObject:value forKey:@"balance"];
+      [v16 setObject:value forKey:@"balance"];
     }
 
     identifier = [v8 identifier];
-    __setPendingFieldValueInfo(v15, v9, identifier);
+    __setPendingFieldValueInfo(v16, v9, identifier);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)npkHandleTransitValuePendingExpiryDate:()NanoPassKit forCommutePlanField:passWithUniqueID:
@@ -619,13 +609,13 @@ LABEL_15:
   expiryDate = [usageDateRange expiryDate];
 
   rawCountValue = [v8 rawCountValue];
-  v13 = pk_Payment_log();
+  v13 = pk_Payment_log(rawCountValue);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
   if (v14)
   {
-    v15 = pk_Payment_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = pk_Payment_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v20 = 138413314;
       v21 = v7;
@@ -637,232 +627,249 @@ LABEL_15:
       v27 = expiryDate;
       v28 = 2112;
       v29 = rawCountValue;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkHandleTransitValuePendingExpiryDate %@ withField:%@ forPassWithID %@ currentExpiry: %@, tripCount: %@", &v20, 0x34u);
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkHandleTransitValuePendingExpiryDate %@ withField:%@ forPassWithID %@ currentExpiry: %@, tripCount: %@", &v20, 0x34u);
     }
   }
 
   if (v9)
   {
-    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
     date = [MEMORY[0x277CBEAA8] date];
-    [v16 setObject:date forKey:@"date"];
+    [v17 setObject:date forKey:@"date"];
 
     if (expiryDate)
     {
-      [v16 setObject:expiryDate forKey:@"planExpiry"];
+      [v17 setObject:expiryDate forKey:@"planExpiry"];
     }
 
     if (rawCountValue)
     {
-      [v16 setObject:rawCountValue forKey:@"planTripCount"];
+      [v17 setObject:rawCountValue forKey:@"planTripCount"];
     }
 
     identifier = [v8 identifier];
-    __setPendingFieldValueInfo(v16, v9, identifier);
+    __setPendingFieldValueInfo(v17, v9, identifier);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)npkClearTransitValuePendingStateIfNecessaryForPassWithID:()NanoPassKit withBalanceFields:commutePlanFields:
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v58 = a3;
+  v76 = *MEMORY[0x277D85DE8];
+  v61 = a3;
   v7 = a4;
   v8 = a5;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(v8);
   LODWORD(a4) = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (a4)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v70 = v58;
-      v71 = 2112;
-      v72 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkClearTransitValuePendingStateIfNecessaryForPassWithID %@ fields %@", buf, 0x16u);
+      v73 = v61;
+      v74 = 2112;
+      v75 = v7;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: npkClearTransitValuePendingStateIfNecessaryForPassWithID %@ fields %@", buf, 0x16u);
     }
   }
 
-  if (v58)
+  if (v61)
   {
-    v53 = v7;
-    v54 = v8;
-    v65 = 0u;
+    v56 = v7;
+    v57 = v8;
+    v68 = 0u;
+    v69 = 0u;
     v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v63 objects:v68 count:16];
-    if (v12)
+    v67 = 0u;
+    v12 = v7;
+    v13 = [v12 countByEnumeratingWithState:&v66 objects:v71 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v64;
-      v15 = @"balance";
-      obj = v11;
+      v14 = v13;
+      v15 = *v67;
+      v16 = @"balance";
+      obj = v12;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v64 != v14)
+          if (*v67 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v63 + 1) + 8 * i);
-          identifier = [v17 identifier];
-          v19 = __pendingFieldValueInfo(v58, identifier);
+          v18 = *(*(&v66 + 1) + 8 * i);
+          identifier = [v18 identifier];
+          v20 = __pendingFieldValueInfo(v61, identifier);
 
-          if (v19)
+          if (v20)
           {
-            v20 = [v19 objectForKey:v15];
-            balance = [v17 balance];
+            v21 = [v20 objectForKey:v16];
+            balance = [v18 balance];
             value = [balance value];
 
-            if (v20)
+            if (v21)
             {
-              v23 = value == 0;
+              v24 = value == 0;
             }
 
             else
             {
-              v23 = 1;
+              v24 = 1;
             }
 
-            if (!v23 && [v20 compare:value] == -1)
+            if (!v24 && [v21 compare:value] == -1)
             {
-              v24 = v15;
-              v25 = pk_Payment_log();
-              v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+              v25 = v16;
+              v26 = pk_Payment_log(-1);
+              v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
-              if (v26)
+              if (v27)
               {
-                v27 = pk_Payment_log();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                v29 = pk_Payment_log(v28);
+                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: Balance is greater than before pending top up, clearing value pending state", buf, 2u);
+                  _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: Balance is greater than before pending top up, clearing value pending state", buf, 2u);
                 }
               }
 
-              v28 = [v19 mutableCopy];
-              [v28 removeObjectForKey:@"date"];
-              [v28 removeObjectForKey:v24];
-              identifier2 = [v17 identifier];
-              __setPendingFieldValueInfo(v28, v58, identifier2);
+              v30 = [v20 mutableCopy];
+              [v30 removeObjectForKey:@"date"];
+              [v30 removeObjectForKey:v25];
+              identifier2 = [v18 identifier];
+              __setPendingFieldValueInfo(v30, v61, identifier2);
 
-              v15 = v24;
-              v11 = obj;
+              v16 = v25;
+              v12 = obj;
             }
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v66 objects:v71 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v61 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    obja = v54;
-    v30 = [obja countByEnumeratingWithState:&v59 objects:v67 count:16];
-    if (v30)
+    v63 = 0u;
+    obja = v57;
+    v32 = [obja countByEnumeratingWithState:&v62 objects:v70 count:16];
+    if (v32)
     {
-      v31 = v30;
-      v32 = *v60;
+      v33 = v32;
+      v34 = *v63;
       do
       {
-        v33 = 0;
-        v55 = v31;
+        v35 = 0;
+        v58 = v33;
         do
         {
-          if (*v60 != v32)
+          if (*v63 != v34)
           {
             objc_enumerationMutation(obja);
           }
 
-          v34 = *(*(&v59 + 1) + 8 * v33);
-          identifier3 = [v34 identifier];
-          v36 = __pendingFieldValueInfo(v58, identifier3);
+          v36 = *(*(&v62 + 1) + 8 * v35);
+          identifier3 = [v36 identifier];
+          v38 = __pendingFieldValueInfo(v61, identifier3);
 
-          if (v36)
+          if (v38)
           {
-            v37 = [v36 objectForKey:@"planExpiry"];
-            usageDateRange = [v34 usageDateRange];
+            v39 = [v38 objectForKey:@"planExpiry"];
+            usageDateRange = [v36 usageDateRange];
             expiryDate = [usageDateRange expiryDate];
 
-            v40 = [v36 objectForKey:@"planTripCount"];
-            rawCountValue = [v34 rawCountValue];
-            if (v37)
+            v42 = [v38 objectForKey:@"planTripCount"];
+            rawCountValue = [v36 rawCountValue];
+            v44 = rawCountValue;
+            if (v39)
             {
-              v42 = expiryDate == 0;
+              v45 = expiryDate == 0;
             }
 
             else
             {
-              v42 = 1;
+              v45 = 1;
             }
 
-            v43 = !v42 && [v37 compare:expiryDate] == -1;
-            if (v40)
+            if (v45)
             {
-              v44 = rawCountValue == 0;
+              v46 = 0;
             }
 
             else
             {
-              v44 = 1;
+              rawCountValue = [v39 compare:expiryDate];
+              v46 = rawCountValue == -1;
             }
 
-            v45 = !v44 && [v40 compare:rawCountValue] == -1;
-            if (v43 || v45)
+            if (v42)
             {
-              v46 = v32;
-              v47 = pk_Payment_log();
-              v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
+              v47 = v44 == 0;
+            }
 
-              if (v48)
+            else
+            {
+              v47 = 1;
+            }
+
+            if (v47)
+            {
+              v48 = 0;
+            }
+
+            else
+            {
+              rawCountValue = [v42 compare:v44];
+              v48 = rawCountValue == -1;
+            }
+
+            if (v46 || v48)
+            {
+              v49 = v34;
+              v50 = pk_Payment_log(rawCountValue);
+              v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
+
+              if (v51)
               {
-                v49 = pk_Payment_log();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v53 = pk_Payment_log(v52);
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_25B300000, v49, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: expiration date or trip count is greater than before pending renew, clearing value pending state", buf, 2u);
+                  _os_log_impl(&dword_25B300000, v53, OS_LOG_TYPE_DEFAULT, "Notice: addValuePending: expiration date or trip count is greater than before pending renew, clearing value pending state", buf, 2u);
                 }
               }
 
-              v50 = [v36 mutableCopy];
-              [v50 removeObjectForKey:@"date"];
-              [v50 removeObjectForKey:@"planExpiry"];
-              [v50 removeObjectForKey:@"planTripCount"];
-              identifier4 = [v34 identifier];
-              __setPendingFieldValueInfo(v50, v58, identifier4);
+              v54 = [v38 mutableCopy];
+              [v54 removeObjectForKey:@"date"];
+              [v54 removeObjectForKey:@"planExpiry"];
+              [v54 removeObjectForKey:@"planTripCount"];
+              identifier4 = [v36 identifier];
+              __setPendingFieldValueInfo(v54, v61, identifier4);
 
-              v32 = v46;
-              v31 = v55;
+              v34 = v49;
+              v33 = v58;
             }
           }
 
-          ++v33;
+          ++v35;
         }
 
-        while (v31 != v33);
-        v31 = [obja countByEnumeratingWithState:&v59 objects:v67 count:16];
+        while (v33 != v35);
+        v33 = [obja countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
-      while (v31);
+      while (v33);
     }
 
-    v7 = v53;
-    v8 = v54;
+    v7 = v56;
+    v8 = v57;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 @end

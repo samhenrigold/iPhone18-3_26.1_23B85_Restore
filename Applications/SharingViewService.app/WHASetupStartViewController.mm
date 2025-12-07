@@ -14,7 +14,7 @@
   viewCopy = view;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super._mainController dismiss:1];
@@ -25,7 +25,7 @@
   buttonCopy = button;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -39,7 +39,7 @@
     BYTE1(self->_startButton) = 1;
     if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupStartViewController handleStartButton:]", 30, "Start button\n");
     }
 
     containerView = [(SVSBaseViewController *)self containerView];
@@ -157,7 +157,7 @@ LABEL_26:
   disappearCopy = disappear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -170,7 +170,7 @@ LABEL_26:
   appearCopy = appear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v18.receiver = self;

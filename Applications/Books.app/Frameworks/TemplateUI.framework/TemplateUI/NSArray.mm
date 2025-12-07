@@ -41,14 +41,14 @@ LABEL_5:
 - (BOOL)tui_hasProperty:(id)property
 {
   propertyCopy = property;
-  if ([propertyCopy isEqualToString:@"empty"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v4 = 1;
   }
 
   else
   {
-    v4 = [propertyCopy isEqualToString:@"count"];
+    v4 = objc_msgSend_isEqualToString_(propertyCopy);
   }
 
   return v4;
@@ -57,7 +57,7 @@ LABEL_5:
 - (id)tui_valueForProperty:(id)property
 {
   propertyCopy = property;
-  if ([propertyCopy isEqualToString:@"count"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v5 = [NSNumber numberWithUnsignedInteger:[(NSArray *)self count]];
 LABEL_5:
@@ -65,7 +65,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([propertyCopy isEqualToString:@"empty"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v5 = [NSNumber numberWithInt:[(NSArray *)self count]== 0];
     goto LABEL_5;

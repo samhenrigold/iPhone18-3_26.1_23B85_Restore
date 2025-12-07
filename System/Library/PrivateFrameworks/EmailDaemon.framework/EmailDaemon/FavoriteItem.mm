@@ -1,7 +1,13 @@
 @interface FavoriteItem
 + (OS_os_log)log;
 + (id)itemForAccount:(id)account;
++ (id)itemForInboxWithAccount:(id)account selected:(BOOL)selected;
++ (id)itemForMailbox:(id)mailbox selected:(BOOL)selected;
++ (id)itemForMailbox:(id)mailbox selected:(BOOL)selected shouldSync:(BOOL)sync;
 + (id)itemForOutbox;
++ (id)itemForSharedMailboxWithType:(unint64_t)type selected:(BOOL)selected;
++ (id)itemForUnifiedMailboxWithType:(int64_t)type selected:(BOOL)selected;
++ (id)itemForVIP:(id)p selected:(BOOL)selected;
 + (id)itemFromDictionary:(id)dictionary;
 - (BOOL)isExpandable;
 - (BOOL)isExpanded;
@@ -48,6 +54,63 @@
   v4 = [[FavoriteItem_Account alloc] initWithAccount:accountCopy];
 
   return v4;
+}
+
++ (id)itemForMailbox:(id)mailbox selected:(BOOL)selected
+{
+  v4 = [self itemForMailbox:mailbox selected:selected shouldSync:1];
+
+  return v4;
+}
+
++ (id)itemForMailbox:(id)mailbox selected:(BOOL)selected shouldSync:(BOOL)sync
+{
+  syncCopy = sync;
+  selectedCopy = selected;
+  mailboxCopy = mailbox;
+  v8 = [[FavoriteItem_Mailbox alloc] initWithMailbox:mailboxCopy];
+  [(FavoriteItem *)v8 setSelected:selectedCopy];
+  [(FavoriteItem *)v8 setShouldSync:syncCopy];
+
+  return v8;
+}
+
++ (id)itemForInboxWithAccount:(id)account selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  accountCopy = account;
+  v6 = [[FavoriteItem_Inbox alloc] initWithAccount:accountCopy];
+  [(FavoriteItem *)v6 setSelected:selectedCopy];
+
+  return v6;
+}
+
++ (id)itemForUnifiedMailboxWithType:(int64_t)type selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5 = [[FavoriteItem_UnifiedMailbox alloc] initWithMailboxType:type];
+  [(FavoriteItem *)v5 setSelected:selectedCopy];
+
+  return v5;
+}
+
++ (id)itemForSharedMailboxWithType:(unint64_t)type selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5 = [[FavoriteItem_SharedMailbox alloc] initWithSourceType:type];
+  [(FavoriteItem *)v5 setSelected:selectedCopy];
+
+  return v5;
+}
+
++ (id)itemForVIP:(id)p selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  pCopy = p;
+  v6 = [[FavoriteItem_VIPMailbox alloc] initWithVIP:pCopy];
+  [(FavoriteItem *)v6 setSelected:selectedCopy];
+
+  return v6;
 }
 
 + (id)itemForOutbox

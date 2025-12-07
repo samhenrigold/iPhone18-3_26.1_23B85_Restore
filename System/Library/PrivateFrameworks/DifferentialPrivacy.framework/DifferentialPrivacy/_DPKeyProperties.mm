@@ -22,7 +22,7 @@
 
 + (id)parametersForAlgorithm:(id)algorithm properties:(id)properties epsilon:(id)epsilon
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   algorithmCopy = algorithm;
   propertiesCopy = properties;
   epsilonCopy = epsilon;
@@ -31,31 +31,31 @@
   v11 = [_DPAlgorithmParameters algorithmParametersForKey:algorithmCopy];
   v12 = [v11 mutableCopy];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v26;
+    v16 = *v25;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v25 + 1) + 8 * i);
+        v18 = *(*(&v24 + 1) + 8 * i);
         v19 = [v13 objectForKeyedSubscript:v18];
         [v12 setObject:v19 forKeyedSubscript:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v15);
@@ -71,19 +71,18 @@
   v21 = [v20 copy];
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (_DPKeyProperties)initWithPropertyName:(id)name dictionary:(id)dictionary
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
-  v83.receiver = self;
-  v83.super_class = _DPKeyProperties;
-  v9 = [(_DPKeyProperties *)&v83 init];
+  v82.receiver = self;
+  v82.super_class = _DPKeyProperties;
+  v9 = [(_DPKeyProperties *)&v82 init];
   v10 = v9;
   if (!v9)
   {
@@ -156,7 +155,7 @@ LABEL_14:
     v18 = +[_DPLog framework];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [_DPKeyProperties initWithPropertyName:? dictionary:?];
+      [_DPKeyProperties initWithPropertyName:dictionary:];
     }
 
     goto LABEL_28;
@@ -183,7 +182,7 @@ LABEL_14:
       v20 = +[_DPLog framework];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [_DPKeyProperties initWithPropertyName:? dictionary:?];
+        [_DPKeyProperties initWithPropertyName:dictionary:];
       }
 
 LABEL_27:
@@ -213,10 +212,10 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v74 = v23;
-  v75 = v16;
-  v76 = v12;
-  v77 = nameCopy;
+  v73 = v23;
+  v74 = v16;
+  v75 = v12;
+  v76 = nameCopy;
   v24 = [dictionaryCopy objectForKeyedSubscript:@"ServerAlgorithmString"];
   serverAlgorithmString = v10->_serverAlgorithmString;
   v10->_serverAlgorithmString = v24;
@@ -225,32 +224,32 @@ LABEL_28:
   parameterDictionary = v10->_parameterDictionary;
   v10->_parameterDictionary = v26;
 
-  v78 = [dictionaryCopy objectForKeyedSubscript:@"PrivatizationAlgorithm"];
+  v77 = [dictionaryCopy objectForKeyedSubscript:@"PrivatizationAlgorithm"];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   v28 = kAlgorithmStringsMap;
-  v29 = [v28 countByEnumeratingWithState:&v79 objects:v84 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v78 objects:v83 count:16];
   if (!v29)
   {
     goto LABEL_46;
   }
 
   v30 = v29;
-  v31 = *v80;
+  v31 = *v79;
   while (2)
   {
     for (i = 0; i != v30; ++i)
     {
-      if (*v80 != v31)
+      if (*v79 != v31)
       {
         objc_enumerationMutation(v28);
       }
 
-      v33 = *(*(&v79 + 1) + 8 * i);
+      v33 = *(*(&v78 + 1) + 8 * i);
       v34 = [kAlgorithmStringsMap objectForKeyedSubscript:v33];
-      if ([v78 isEqual:v34])
+      if ([v77 isEqual:v34])
       {
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -268,8 +267,8 @@ LABEL_28:
           v38 = [dictionaryCopy objectForKeyedSubscript:@"MinimumPossible"];
           v39 = [dictionaryCopy objectForKeyedSubscript:@"MaximumPossible"];
           v40 = v39;
-          nameCopy = v77;
-          v16 = v75;
+          nameCopy = v76;
+          v16 = v74;
           if (v38 && v39)
           {
             v41 = [_DPValueRange rangeWithMin:v38 max:v39];
@@ -287,20 +286,20 @@ LABEL_28:
               if (v44)
               {
                 v45 = v44;
-                v73 = [_DPPrivacyBudget budgetWithName:v44];
-                objc_storeStrong(&v10->_budget, v73);
+                v72 = [_DPPrivacyBudget budgetWithName:v44];
+                objc_storeStrong(&v10->_budget, v72);
                 if (v10->_budget)
                 {
-                  v72 = v43;
+                  v71 = v43;
                   v46 = [dictionaryCopy objectForKeyedSubscript:@"HuffmanTableClass"];
                   objc_storeStrong(&v10->_huffmanTableClass, v46);
-                  v70 = [dictionaryCopy objectForKeyedSubscript:@"AcceptableError"];
-                  objc_storeStrong(&v10->_acceptableError, v70);
+                  v69 = [dictionaryCopy objectForKeyedSubscript:@"AcceptableError"];
+                  objc_storeStrong(&v10->_acceptableError, v69);
                   v47 = [dictionaryCopy objectForKeyedSubscript:@"MinimumTrimmed"];
-                  v68 = [dictionaryCopy objectForKeyedSubscript:@"MaximumTrimmed"];
-                  v69 = v47;
-                  v67 = [_DPValueRange rangeWithMin:v47 max:?];
-                  objc_storeStrong(&v10->_trimmedScale, v67);
+                  v67 = [dictionaryCopy objectForKeyedSubscript:@"MaximumTrimmed"];
+                  v68 = v47;
+                  v66 = [_DPValueRange rangeWithMin:v47 max:?];
+                  objc_storeStrong(&v10->_trimmedScale, v66);
                   v48 = [dictionaryCopy objectForKeyedSubscript:@"Namespace"];
                   namespaceName = v10->_namespaceName;
                   v10->_namespaceName = v48;
@@ -315,7 +314,7 @@ LABEL_28:
                   v10->_transparencyLogLifetime = [v52 unsignedIntegerValue];
 
                   v53 = [dictionaryCopy objectForKeyedSubscript:@"TransparencyLogReportName"];
-                  v71 = v46;
+                  v70 = v46;
                   if (v53 && (v54 = v53, [dictionaryCopy objectForKeyedSubscript:@"TransparencyLogReportName"], v55 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v56 = objc_opt_isKindOfClass(), v55, v54, (v56 & 1) == 0))
                   {
                     dataSource = +[_DPLog framework];
@@ -339,7 +338,7 @@ LABEL_28:
                     v61 = 1;
                   }
 
-                  nameCopy = v77;
+                  nameCopy = v76;
                   if ((v61 & 1) == 0)
                   {
                     goto LABEL_30;
@@ -356,7 +355,7 @@ LABEL_28:
               }
 
               v21 = 0;
-              nameCopy = v77;
+              nameCopy = v76;
               goto LABEL_81;
             }
 
@@ -376,7 +375,7 @@ LABEL_28:
       }
     }
 
-    v30 = [v28 countByEnumeratingWithState:&v79 objects:v84 count:16];
+    v30 = [v28 countByEnumeratingWithState:&v78 objects:v83 count:16];
     if (v30)
     {
       continue;
@@ -389,8 +388,8 @@ LABEL_46:
 
 LABEL_64:
   v62 = +[_DPLog framework];
-  nameCopy = v77;
-  v16 = v75;
+  nameCopy = v76;
+  v16 = v74;
   if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
     [_DPKeyProperties initWithPropertyName:dictionary:];
@@ -403,7 +402,6 @@ LABEL_30:
   v21 = 0;
 LABEL_81:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -492,15 +490,6 @@ LABEL_81:
   return [v3 privatizationAlgorithmStringFor:privatizationAlgorithm];
 }
 
-- (void)initWithPropertyName:(uint64_t *)a1 dictionary:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithPropertyName:dictionary:.cold.2()
 {
   OUTLINED_FUNCTION_1_3();
@@ -508,42 +497,16 @@ LABEL_81:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)initWithPropertyName:dictionary:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithPropertyName:(void *)a1 dictionary:(NSObject *)a2 .cold.4(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [a1 objectForKeyedSubscript:@"TransparencyLogReportName"];
-  v6 = 138412546;
-  v7 = @"TransparencyLogReportName";
-  v8 = 2112;
-  v9 = objc_opt_class();
-  v4 = v9;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Expect '%@' property to have string type, instead got type: '%@'.", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPropertyName:dictionary:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPropertyName:dictionary:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = @"TransparencyLogReportName";
+  v7 = 2112;
+  v8 = objc_opt_class();
+  v4 = v8;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Expect '%@' property to have string type, instead got type: '%@'.", &v5, 0x16u);
 }
 
 - (void)initWithPropertyName:dictionary:.cold.7()
@@ -551,15 +514,6 @@ LABEL_81:
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)initWithPropertyName:(uint64_t *)a1 dictionary:.cold.8(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPropertyName:dictionary:.cold.9()

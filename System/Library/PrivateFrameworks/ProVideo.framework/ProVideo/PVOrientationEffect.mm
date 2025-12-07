@@ -243,7 +243,7 @@ LABEL_6:
     if ([(PVOrientationEffect *)self showAlt])
     {
       LODWORD(v45) = 1.0;
-      [(PVOrientationEffect *)self rotationNodeForPercent:v45 atCenter:v43, v44];
+      objc_msgSend_rotationNodeForPercent_atCenter_(self, v45, v43, v44);
       value = time.value;
       PVInputHGNodeMap<unsigned int>::GetNode(inputs, intValue, &v57);
       (*(*value + 120))(value, 0, v57);
@@ -258,7 +258,7 @@ LABEL_6:
 
     else
     {
-      return PVInputHGNodeMap<unsigned int>::GetNode(inputs, intValue, v11);
+      PVInputHGNodeMap<unsigned int>::GetNode(inputs, intValue, v11);
     }
 
     return v47;
@@ -278,7 +278,7 @@ LABEL_6:
       if (showAlt != [(PVOrientationEffect *)self oldShowAlt])
       {
         *&v52 = v20;
-        [(PVOrientationEffect *)self rotationNodeForPercent:v52 atCenter:v43, v44];
+        objc_msgSend_rotationNodeForPercent_atCenter_(self, v52, v43, v44);
         (*(*v56 + 120))(v56, 0, v57);
         v53 = v56;
         if (v57 != v56)

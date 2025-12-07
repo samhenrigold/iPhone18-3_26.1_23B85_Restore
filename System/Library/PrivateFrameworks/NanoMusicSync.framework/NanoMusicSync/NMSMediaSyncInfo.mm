@@ -45,13 +45,12 @@
 
 - (void)_registerForInfoChanged
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_error_impl(&dword_25B27B000, log, OS_LOG_TYPE_ERROR, "Failed to register for notification: %@ with status: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 1024;
+  v6 = a2;
+  _os_log_error_impl(&dword_25B27B000, log, OS_LOG_TYPE_ERROR, "Failed to register for notification: %@ with status: %d", &v3, 0x12u);
 }
 
 - (id)_notificationName
@@ -657,7 +656,7 @@ LABEL_9:
 
 - (id)_syncInfoModelKindForMPModelKind:(id)kind
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   kindCopy = kind;
   identityKind = [kindCopy identityKind];
   identityKind2 = [MEMORY[0x277CD5E48] identityKind];
@@ -676,32 +675,30 @@ LABEL_9:
 
     if ((v10 & 1) == 0)
     {
-      v13 = MEMORY[0x277CBEAD8];
-      v14 = *MEMORY[0x277CBE658];
-      v19 = @"modelKind";
+      v12 = MEMORY[0x277CBEAD8];
+      v13 = *MEMORY[0x277CBE658];
+      v18 = @"modelKind";
       identityKind5 = [kindCopy identityKind];
-      v20[0] = identityKind5;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      v17 = [v13 exceptionWithName:v14 reason:@"Unsupported modelKind." userInfo:v16];
-      v18 = v17;
+      v19[0] = identityKind5;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v16 = [v12 exceptionWithName:v13 reason:@"Unsupported modelKind." userInfo:v15];
+      v17 = v16;
 
-      objc_exception_throw(v17);
+      objc_exception_throw(v16);
     }
 
     v7 = &unk_286C8D700;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __73__NMSMediaSyncInfo_NanoMusic___identifiersWithKeepLocalStates_modelKind___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "UserInfo is missing MID data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "UserInfo is missing MID data: %@", &v2, 0xCu);
 }
 
 @end

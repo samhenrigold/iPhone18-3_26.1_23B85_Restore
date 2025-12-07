@@ -42,7 +42,9 @@
 - (void)updateLiveListenCell:(id)cell;
 - (void)updateLiveListenWithState:(BOOL)state andLevel:(double)level;
 - (void)updateView;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBecomeActive;
 - (void)willResignActive;
 @end
@@ -132,6 +134,42 @@
   [v16 addObserver:self selector:"handleResignActive" name:UIApplicationWillResignActiveNotification object:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = HearingAidDetailController;
+  [(HearingAidDetailController *)&v6 viewWillAppear:appear];
+  v4 = HCLogHearingAids();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "HearingAidDetailViewController: Will appear", v5, 2u);
+  }
+
+  [(HearingAidDetailController *)self _setupListeners];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = HearingAidDetailController;
+  [(HearingAidDetailController *)&v8 viewDidDisappear:disappear];
+  v4 = HCLogHearingAids();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v7 = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "HearingAidDetailViewController: Did disappear", v7, 2u);
+  }
+
+  v5 = +[AXHAServer sharedInstance];
+  [v5 unregisterUpdateListener:self];
+
+  device = [(HearingAidDetailController *)self device];
+  [device setKeepInSync:0];
+
+  [(HearingAidDetailController *)self restartSoundRecognitionIfNecessary];
+}
+
 - (void)willBecomeActive
 {
   v5.receiver = self;
@@ -189,7 +227,7 @@
   location[3] = sub_107B8;
   location[4] = &unk_48A20;
   location[5] = self;
-  AXPerformBlockOnMainThreadAfterDelay();
+  AXPerformBlockOnMainThreadAfterDelay(0.0);
   device = [(HearingAidDetailController *)self device];
   [device setKeepInSync:1];
   objc_initWeak(location, self);

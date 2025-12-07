@@ -120,7 +120,7 @@
 
 - (WKWebpagePreferences)defaultWebpagePreferences
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = API::PageConfiguration::Data::LazyInitializedRef<API::WebsitePolicies,&API::PageConfiguration::Data::createWebsitePolicies>::get((v7 + 48));
   CFRetain(*(v2 + 1));
   v3 = *(v2 + 1);
@@ -155,7 +155,7 @@
 
 - (WKPreferences)preferences
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = API::PageConfiguration::Data::LazyInitializedRef<WebKit::WebPreferences,&API::PageConfiguration::Data::createWebPreferences>::get((v7 + 32));
   CFRetain(*(v2 + 1));
   v3 = *(v2 + 1);
@@ -193,7 +193,7 @@
   v3 = objc_opt_class();
   if ((WebCoreObjCScheduleDeallocateOnMainRunLoop(v3, self) & 1) == 0)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self);
     v4 = v8;
     *v8 = &unk_1F111B740;
     API::PageConfiguration::Data::~Data((v4 + 2), v5);
@@ -214,7 +214,7 @@
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     self = v7;
   }
 
@@ -224,8 +224,8 @@
   }
 
   v2 = API::PageConfiguration::websiteDataStore(self);
-  CFRetain(*(v2 + 8));
-  v3 = *(v2 + 8);
+  CFRetain(v2[1]);
+  v3 = v2[1];
   if (v3)
   {
     objc_opt_class();
@@ -236,7 +236,7 @@
       return result;
     }
 
-    v4 = *(v2 + 8);
+    v4 = v2[1];
   }
 
   else
@@ -257,7 +257,7 @@
 
 - (WKWebView)_relatedWebView
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = *(v8 + 128);
   if (v2 && (v3 = *(v2 + 8)) != 0)
   {
@@ -288,7 +288,7 @@
 
 - (WKProcessPool)processPool
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = API::PageConfiguration::Data::LazyInitializedRef<WebKit::WebProcessPool,&API::PageConfiguration::Data::createWebProcessPool>::get((v7 + 16));
   CFRetain(*(v2 + 8));
   v3 = *(v2 + 8);
@@ -323,7 +323,7 @@
 
 - (WKWebView)_webViewToCloneSessionStorageFrom
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = *(v8 + 264);
   if (v2 && (v3 = *(v2 + 8)) != 0)
   {
@@ -354,7 +354,7 @@
 
 - (WKUserContentController)userContentController
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = API::PageConfiguration::Data::LazyInitializedRef<WebKit::WebUserContentControllerProxy,&API::PageConfiguration::Data::createWebUserContentControllerProxy>::get((v7 + 24));
   CFRetain(*(v2 + 1));
   v3 = *(v2 + 1);
@@ -389,7 +389,7 @@
 
 - (_WKVisitedLinkStore)_visitedLinkStore
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = API::PageConfiguration::Data::LazyInitializedRef<WebKit::VisitedLinkStore,&API::PageConfiguration::Data::createVisitedLinkStore>::get((v7 + 40));
   CFRetain(*(v2 + 1));
   v3 = *(v2 + 1);
@@ -424,7 +424,7 @@
 
 - (WKWebExtensionController)_strongWebExtensionController
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = v7;
   v3 = *(v7 + 104);
   if (!v3)
@@ -465,7 +465,7 @@ LABEL_7:
 
 - (WKWebExtensionController)_weakWebExtensionController
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = v8;
   v3 = *(v8 + 112);
   if (!v3 || (v4 = *(v3 + 8)) == 0)
@@ -542,7 +542,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     self = v4;
   }
 
@@ -658,7 +658,7 @@ LABEL_5:
 
 - (WKWebView)_alternateWebViewForNavigationGestures
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = *(v8 + 272);
   if (v2 && (v3 = *(v2 + 8)) != 0)
   {
@@ -810,7 +810,7 @@ LABEL_5:
   v5 = v4;
   if (v4)
   {
-    [v4 _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(v4);
     v6 = v9;
   }
 
@@ -820,7 +820,7 @@ LABEL_5:
     v9 = 0;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self);
   API::PageConfiguration::Data::operator=((v6 + 16), v8 + 16);
   if (v8)
   {
@@ -885,7 +885,7 @@ LABEL_5:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (processPool)
     {
@@ -925,7 +925,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (preferences)
     {
@@ -965,7 +965,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (userContentController)
     {
@@ -1003,7 +1003,7 @@ LABEL_6:
 
 - (NSURL)_requiredWebExtensionBaseURL
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   WTF::URL::createCFURL(&v8, (v7 + 64));
   v2 = v8;
   v8 = 0;
@@ -1031,7 +1031,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v9;
   }
 
@@ -1042,7 +1042,7 @@ LABEL_6:
   }
 
   MEMORY[0x19EB01DE0](v8, l);
-  WTF::URL::operator=(v4 + 64, v8);
+  WTF::URL::operator=((v4 + 64), v8);
   v6 = v8[0];
   v8[0] = 0;
   if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1062,7 +1062,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v6;
     if (controller)
     {
@@ -1109,7 +1109,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (controller)
     {
@@ -1155,7 +1155,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (websiteDataStore)
     {
@@ -1195,7 +1195,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (defaultWebpagePreferences)
     {
@@ -1254,7 +1254,7 @@ LABEL_6:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (store)
     {
@@ -1315,7 +1315,7 @@ LABEL_6:
 
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self);
   }
 
   else
@@ -1359,7 +1359,7 @@ LABEL_6:
 
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self);
     self = v23;
   }
 
@@ -1379,27 +1379,27 @@ LABEL_6:
     v22 = 0;
     if (v18)
     {
-      if (v18[2] == 1)
+      if (*(v18 + 2) == 1)
       {
         (*(*v18 + 8))(v18);
       }
 
       else
       {
-        --v18[2];
+        --*(v18 + 2);
       }
     }
 
     if (v21)
     {
-      if (v21[2] == 1)
+      if (*(v21 + 2) == 1)
       {
         (*(*v21 + 8))();
       }
 
       else
       {
-        --v21[2];
+        --*(v21 + 2);
       }
     }
 
@@ -1447,7 +1447,7 @@ LABEL_39:
     return 0;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self);
   if (v16)
   {
     v7 = WTF::HashMap<WTF::String,WTF::Ref<WebKit::WebURLSchemeHandler,WTF::RawPtrTraits<WebKit::WebURLSchemeHandler>,WTF::DefaultRefDerefTraits<WebKit::WebURLSchemeHandler>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WebKit::WebURLSchemeHandler,WTF::RawPtrTraits<WebKit::WebURLSchemeHandler>,WTF::DefaultRefDerefTraits<WebKit::WebURLSchemeHandler>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,WTF::Ref<WebKit::WebURLSchemeHandler,WTF::RawPtrTraits<WebKit::WebURLSchemeHandler>,WTF::DefaultRefDerefTraits<WebKit::WebURLSchemeHandler>>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::Ref<WebKit::WebURLSchemeHandler,WTF::RawPtrTraits<WebKit::WebURLSchemeHandler>,WTF::DefaultRefDerefTraits<WebKit::WebURLSchemeHandler>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,WTF::String>(v14 + 51, &v15, v6);
@@ -1625,7 +1625,7 @@ LABEL_9:
   {
     if (self)
     {
-      [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+      objc_msgSend__protectedPageConfiguration(self, a2);
       v4 = v9;
     }
 
@@ -1661,7 +1661,7 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v5 = v9;
   v6 = *(v9 + 264);
   *(v9 + 264) = 0;
@@ -1690,7 +1690,7 @@ LABEL_14:
   {
     if (self)
     {
-      [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+      objc_msgSend__protectedPageConfiguration(self, a2);
       v4 = v9;
     }
 
@@ -1726,7 +1726,7 @@ LABEL_14:
     goto LABEL_12;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v5 = v9;
   v6 = *(v9 + 272);
   *(v9 + 272) = 0;
@@ -1931,7 +1931,7 @@ LABEL_14:
     goto LABEL_8;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   self = v7;
   if (class)
   {
@@ -1954,7 +1954,7 @@ LABEL_9:
 
 - (WKWebsiteDataStore)_websiteDataStoreIfExists
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = v7;
   v3 = *(v7 + 56);
   if (!v3)
@@ -2015,7 +2015,7 @@ LABEL_7:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v13;
   }
 
@@ -2061,7 +2061,7 @@ LABEL_7:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     self = v15;
   }
 
@@ -2070,7 +2070,7 @@ LABEL_7:
     v15 = 0;
   }
 
-  API::PageConfiguration::maskedURLSchemes(self, &v16);
+  API::PageConfiguration::maskedURLSchemes(&v16, self);
   v2 = v15;
   v15 = 0;
   if (v2)
@@ -2187,7 +2187,7 @@ LABEL_7:
     while (v5);
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self);
   v12 = v16[0];
   *(v16[0] + 440) = 1;
   v13 = v22;
@@ -2237,7 +2237,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v4 = v10;
   if (!networkCopy)
   {
@@ -2303,7 +2303,7 @@ LABEL_6:
       while (v5);
     }
 
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self);
     v21 = v19;
     v11 = v20[0];
     v19 = 0;
@@ -2333,7 +2333,7 @@ LABEL_6:
 
   else
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     LOBYTE(v21) = 0;
     v25 = 0;
     std::__optional_storage_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::MemoryCompactLookupOnlyRobinHoodHashTableTraits,(WTF::ShouldValidateKey)1>,false>>((v19 + 464), &v21);
@@ -2455,7 +2455,7 @@ LABEL_13:
 
 - (_WKApplicationManifest)_applicationManifest
 {
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v2 = v7;
   v3 = *(v7 + 400);
   if (!v3)
@@ -2498,7 +2498,7 @@ LABEL_7:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v4 = v7;
     if (manifest)
     {
@@ -2537,7 +2537,7 @@ LABEL_6:
 - (void)_setApplePayEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self, a2);
   v4 = v5;
   *(v5 + 503) = enabledCopy | 0x100;
   v5 = 0;
@@ -2639,7 +2639,7 @@ LABEL_7:
   {
     if (self)
     {
-      [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+      objc_msgSend__protectedPageConfiguration(self, a2);
       v4 = v12;
     }
 
@@ -2672,7 +2672,7 @@ LABEL_12:
 
   else
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     v10[0] = 0;
     v11 = 0;
     std::__optional_storage_base<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,false>>((*v9 + 360), v10);
@@ -2694,7 +2694,7 @@ LABEL_12:
 {
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     self = v4;
   }
 
@@ -2717,7 +2717,7 @@ LABEL_12:
   loadCopy = load;
   if (self)
   {
-    [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+    objc_msgSend__protectedPageConfiguration(self, a2);
     self = v5;
   }
 
@@ -2758,7 +2758,7 @@ LABEL_12:
   }
 
   v10 = isSafariViewService | v6;
-  [(WKWebViewConfiguration *)self _protectedPageConfiguration];
+  objc_msgSend__protectedPageConfiguration(self);
   v11 = v13;
   v12 = v10 | *(v13 + 18) & 1;
   v13 = 0;

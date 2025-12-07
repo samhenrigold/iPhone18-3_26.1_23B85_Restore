@@ -54,6 +54,7 @@
 - (id)displayNameForDialect:(id)dialect context:(unint64_t)context displayLanguage:(id)language;
 - (id)displayNameForLanguage:(id)language context:(unint64_t)context displayLanguage:(id)displayLanguage;
 - (id)displayNameForLocale:(id)locale displayLanguage:(id)language capitalization:(unint64_t)capitalization short:(BOOL)short;
+- (id)displayNameForRegion:(id)region displayLanguage:(id)language capitalization:(unint64_t)capitalization short:(BOOL)short;
 - (id)languageList;
 - (id)localizedNameForScript:(signed __int16)script;
 @end
@@ -173,66 +174,61 @@ void __29__IntlUtility_stdLanguageIDs__block_invoke()
 void __46__IntlUtility_normalizedLanguageIDFromString___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEAC0];
-  v2 = *(a1 + 32);
-  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v6 URLForResource:@"LanguageCodeExceptions" withExtension:@"plist"];
-  v4 = [v1 dictionaryWithContentsOfURL:v3];
-  v5 = normalizedLanguageIDFromString__sSpecialIDReplacements;
-  normalizedLanguageIDFromString__sSpecialIDReplacements = v4;
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v5 URLForResource:@"LanguageCodeExceptions" withExtension:@"plist"];
+  v3 = [v1 dictionaryWithContentsOfURL:v2];
+  v4 = normalizedLanguageIDFromString__sSpecialIDReplacements;
+  normalizedLanguageIDFromString__sSpecialIDReplacements = v3;
 }
 
 void __46__IntlUtility_normalizedLanguageIDFromString___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CBEB18];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() stdLanguageIDs];
-  v5 = [v2 arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x277CBEB18];
+  v2 = [objc_opt_class() stdLanguageIDs];
+  v3 = [v1 arrayWithCapacity:{objc_msgSend(v2, "count")}];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() stdLanguageIDs];
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v4 = [objc_opt_class() stdLanguageIDs];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v9 = v8;
-    v10 = *v17;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      v11 = 0;
+      v8 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v4);
         }
 
-        v12 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v16 + 1) + 8 * v11)];
-        [v5 addObject:v12];
+        v9 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v12 + 1) + 8 * v8)];
+        [v3 addObject:v9];
 
-        ++v11;
+        ++v8;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
 
-  v13 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
-  v14 = normalizedLanguageIDFromString__sCanonicalLanguageIDs;
-  normalizedLanguageIDFromString__sCanonicalLanguageIDs = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CBEA60] arrayWithArray:v3];
+  v11 = normalizedLanguageIDFromString__sCanonicalLanguageIDs;
+  normalizedLanguageIDFromString__sCanonicalLanguageIDs = v10;
 }
 
 + (id)capitalizeFirstWordOfName:(id)name accordingToLanguage:(id)language
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:language];
   v7 = [nameCopy length];
@@ -246,7 +242,7 @@ void __46__IntlUtility_normalizedLanguageIDFromString___block_invoke_2(uint64_t 
     v8 = v7;
   }
 
-  [nameCopy getCharacters:v17 range:{0, v8}];
+  [nameCopy getCharacters:v16 range:{0, v8}];
   [v6 UTF8String];
   ubrk_open();
   ubrk_first();
@@ -258,8 +254,6 @@ void __46__IntlUtility_normalizedLanguageIDFromString___block_invoke_2(uint64_t 
 
   v13 = [nameCopy substringFromIndex:v9];
   v14 = [v12 stringByAppendingString:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -319,20 +313,17 @@ uint64_t __42__IntlUtility_alternateContinentOfRegion___block_invoke()
 
 + (id)defaultCalendarForLocaleID:(id)d
 {
-  v6 = *MEMORY[0x277D85DE8];
   [d UTF8String];
   uloc_getBaseName();
   ucal_open();
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:ucal_getType()];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:ucal_getType()];
   ucal_close();
-  if (!v5)
+  if (!v4)
   {
-    v5 = *MEMORY[0x277CBE5C0];
+    v4 = *MEMORY[0x277CBE5C0];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v4;
 }
 
 + (id)_lunarCalendarData
@@ -355,12 +346,11 @@ uint64_t __42__IntlUtility_alternateContinentOfRegion___block_invoke()
 void __33__IntlUtility__lunarCalendarData__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEAC0];
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v3 URLForResource:@"LunarCalendars" withExtension:@"plist"];
-  v5 = [v1 dictionaryWithContentsOfURL:v4];
-  v6 = _lunarCalendarData___lunarCalendarData;
-  _lunarCalendarData___lunarCalendarData = v5;
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 URLForResource:@"LunarCalendars" withExtension:@"plist"];
+  v4 = [v1 dictionaryWithContentsOfURL:v3];
+  v5 = _lunarCalendarData___lunarCalendarData;
+  _lunarCalendarData___lunarCalendarData = v4;
 
   if (!_lunarCalendarData___lunarCalendarData && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
@@ -601,7 +591,7 @@ void __49__IntlUtility_preferredLunarCalendarForLocaleID___block_invoke(uint64_t
 
 + (id)localeForCalendarID:(id)d andLocale:(id)locale preferredLanguages:(id)languages
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   languagesCopy = languages;
   v10 = MEMORY[0x277CBEB38];
@@ -619,9 +609,9 @@ void __49__IntlUtility_preferredLunarCalendarForLocaleID___block_invoke(uint64_t
     {
       v18 = v17;
       v19 = *MEMORY[0x277CBE6F8];
-      v42[0] = *MEMORY[0x277CBE6C8];
-      v42[1] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+      v41[0] = *MEMORY[0x277CBE6C8];
+      v41[1] = v19;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
       [v14 removeObjectsForKeys:v20];
 
       v21 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v18];
@@ -647,7 +637,7 @@ void __49__IntlUtility_preferredLunarCalendarForLocaleID___block_invoke(uint64_t
   }
 
   v33 = v15;
-  v41 = languagesCopy;
+  v40 = languagesCopy;
   if ([v29 length])
   {
     [v14 setObject:v29 forKeyedSubscript:@"numbers"];
@@ -660,8 +650,6 @@ void __49__IntlUtility_preferredLunarCalendarForLocaleID___block_invoke(uint64_t
   v37 = [v34 canonicalLocaleIdentifierFromString:v36];
 
   v38 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v37];
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -885,10 +873,10 @@ LABEL_20:
 
 + (id)numberingSystemsForLocaleID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   array = [MEMORY[0x277CBEB18] array];
-  v21 = dCopy;
+  v20 = dCopy;
   v5 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:dCopy];
   v6 = [v5 mutableCopy];
 
@@ -898,10 +886,10 @@ LABEL_20:
     [array addObject:v7];
   }
 
-  v20 = v7;
-  v19 = [v6 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v19 = v7;
+  v18 = [v6 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   if ([&unk_2841A2548 containsObject:?])
   {
     v8 = &unk_2841A2560;
@@ -912,23 +900,23 @@ LABEL_20:
     v8 = &unk_2841A2578;
   }
 
+  v23 = 0uLL;
   v24 = 0uLL;
-  v25 = 0uLL;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v6 setObject:*(*(&v22 + 1) + 8 * i) forKeyedSubscript:@"numbers"];
+        [v6 setObject:*(*(&v21 + 1) + 8 * i) forKeyedSubscript:@"numbers"];
         v13 = [MEMORY[0x277CBEAF8] localeIdentifierFromComponents:v6];
         [v13 UTF8String];
         v14 = unumsys_open();
@@ -952,7 +940,7 @@ LABEL_20:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -962,8 +950,6 @@ LABEL_20:
   {
     [array addObject:@"latn"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1000,52 +986,49 @@ LABEL_20:
 
 void __27__IntlUtility_languageList__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CBEAF8] supportedLanguages];
-  v3 = [v2 allObjects];
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEAF8] supportedLanguages];
+  v2 = [v1 allObjects];
 
-  v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v3 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v2, "count")}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v6)
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v18;
+    v6 = v5;
+    v7 = *v15;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v15 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{v10, v17}];
-        v12 = [v11 localizedStringForLanguage:v10 context:3];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{v9, v14}];
+        v11 = [v10 localizedStringForLanguage:v9 context:3];
 
-        if ([v12 length])
+        if ([v11 length])
         {
-          v13 = *(a1 + 32);
-          v14 = [objc_opt_class() capitalizeFirstWordOfName:v12 accordingToLanguage:v10];
-          [v4 setObject:v14 forKeyedSubscript:v10];
+          v12 = [objc_opt_class() capitalizeFirstWordOfName:v11 accordingToLanguage:v9];
+          [v3 setObject:v12 forKeyedSubscript:v9];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v15 = languageList___languageToNativeNameMap;
-  languageList___languageToNativeNameMap = v4;
-
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = languageList___languageToNativeNameMap;
+  languageList___languageToNativeNameMap = v3;
 }
 
 + (BOOL)forceCapitalizationInLanguageLists
@@ -1065,15 +1048,14 @@ void __27__IntlUtility_languageList__block_invoke(uint64_t a1)
 
 void __49__IntlUtility_forceCapitalizationInLanguageLists__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = [v2 localizedStringForKey:@"ForceCapitalizationInLanguageLists" value:@"0" table:0];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v1 localizedStringForKey:@"ForceCapitalizationInLanguageLists" value:@"0" table:0];
 
-  if ([v13 length])
+  if ([v12 length])
   {
-    v3 = [v13 isEqualToString:@"0"];
-    forceCapitalizationInLanguageLists___capitalize = v3 ^ 1;
-    if ((v3 & 1) == 0)
+    v2 = [v12 isEqualToString:@"0"];
+    forceCapitalizationInLanguageLists___capitalize = v2 ^ 1;
+    if ((v2 & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -1084,23 +1066,23 @@ void __49__IntlUtility_forceCapitalizationInLanguageLists__block_invoke(uint64_t
     forceCapitalizationInLanguageLists___capitalize = 0;
   }
 
-  v4 = MEMORY[0x277CBEAF8];
-  v5 = [MEMORY[0x277CCA8D8] mainBundle];
-  v6 = [v5 preferredLocalizations];
-  v7 = [v6 firstObject];
-  v8 = [v4 canonicalLanguageIdentifierFromString:v7];
+  v3 = MEMORY[0x277CBEAF8];
+  v4 = [MEMORY[0x277CCA8D8] mainBundle];
+  v5 = [v4 preferredLocalizations];
+  v6 = [v5 firstObject];
+  v7 = [v3 canonicalLanguageIdentifierFromString:v6];
 
-  if ([v8 length])
+  if ([v7 length])
   {
-    v9 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v8];
-    v10 = [v9 localizedStringForLanguage:v8 context:3];
+    v8 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v7];
+    v9 = [v8 localizedStringForLanguage:v7 context:3];
 
-    if ([v10 length])
+    if ([v9 length])
     {
-      v11 = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
-      v12 = [v10 rangeOfCharacterFromSet:v11];
+      v10 = [MEMORY[0x277CCA900] uppercaseLetterCharacterSet];
+      v11 = [v9 rangeOfCharacterFromSet:v10];
 
-      forceCapitalizationInLanguageLists___capitalize = v12 == 0;
+      forceCapitalizationInLanguageLists___capitalize = v11 == 0;
     }
   }
 
@@ -1118,7 +1100,6 @@ LABEL_10:
 
 - (id)displayNameForDialect:(id)dialect context:(unint64_t)context displayLanguage:(id)language
 {
-  v16 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   dialectCopy = dialect;
   v10 = [objc_opt_class() normalizedLanguageIDFromString:dialectCopy];
@@ -1139,14 +1120,12 @@ LABEL_10:
 
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)ICUdisplayNameForLanguage:(id)language capitalization:(ULocaleDisplayNames *)capitalization
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (capitalization)
   {
     [language UTF8String];
@@ -1161,7 +1140,7 @@ LABEL_10:
       v6 = v4;
     }
 
-    v5 = [MEMORY[0x277CCACA8] stringWithCharacters:v9 length:v6];
+    v5 = [MEMORY[0x277CCACA8] stringWithCharacters:v8 length:v6];
   }
 
   else
@@ -1169,15 +1148,13 @@ LABEL_10:
     v5 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)displayNameForLocale:(id)locale displayLanguage:(id)language capitalization:(unint64_t)capitalization short:(BOOL)short
 {
   shortCopy = short;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   languageCopy = language;
   if (!languageCopy)
@@ -1189,7 +1166,7 @@ LABEL_10:
     languageCopy = [v11 canonicalLanguageIdentifierFromString:firstObject];
   }
 
-  v27 = 0;
+  v26 = 0;
   v15 = [IntlUtility UDisplayContextForIUDisplayNameContext:capitalization];
   if (shortCopy)
   {
@@ -1201,9 +1178,9 @@ LABEL_10:
     v16 = 512;
   }
 
-  v28 = v15;
-  v29 = v16;
-  v26 = 0;
+  v27 = v15;
+  v28 = v16;
+  v25 = 0;
   [languageCopy UTF8String];
   uldn_openForContext();
   [localeCopy UTF8String];
@@ -1211,14 +1188,14 @@ LABEL_10:
   if (v17 >= 150)
   {
     v17 = 0;
-    v26 = 15;
+    v25 = 15;
   }
 
-  v18 = &v25 - ((2 * (v17 + 1) + 15) & 0x3FFFFFFF0);
+  v18 = &v24 - ((2 * (v17 + 1) + 15) & 0x3FFFFFFF0);
   [localeCopy UTF8String];
   v19 = uldn_localeDisplayName();
   uldn_close();
-  if (v26 <= 0)
+  if (v25 <= 0)
   {
     v20 = [MEMORY[0x277CCACA8] stringWithCharacters:v18 length:v19];
   }
@@ -1240,8 +1217,6 @@ LABEL_10:
 
   v22 = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
@@ -1260,31 +1235,31 @@ LABEL_10:
 
 + (id)filterLanguageList:(id)list forRegion:(id)region fromLanguages:(id)languages
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   listCopy = list;
   regionCopy = region;
   languagesCopy = languages;
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = listCopy;
-  v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         regionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v13, regionCopy];
         v15 = [IntlUtility normalizedLanguageIDFromString:regionCopy];
 
@@ -1313,20 +1288,18 @@ LABEL_12:
 LABEL_13:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (id)preferredLanguagesFromLanguages:(id)languages byAddingFallbacksForRegion:(id)region
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   regionCopy = region;
   v7 = [languagesCopy mutableCopy];
@@ -1337,39 +1310,39 @@ LABEL_13:
 
   if ([&unk_2841A2590 containsObject:v11])
   {
-    v21 = regionCopy;
-    v22 = v7;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v20 = regionCopy;
+    v21 = v7;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = languagesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:{*(*(&v23 + 1) + 8 * i), v21}];
+          v17 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:{*(*(&v22 + 1) + 8 * i), v20}];
           v18 = [&unk_2841A2590 containsObject:v17];
 
           if (v18)
           {
-            regionCopy = v21;
-            v7 = v22;
+            regionCopy = v20;
+            v7 = v21;
             goto LABEL_14;
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v14)
         {
           continue;
@@ -1379,37 +1352,35 @@ LABEL_13:
       }
     }
 
-    regionCopy = v21;
-    v12 = [MEMORY[0x277CBEAF8] languageFromLanguage:v11 byReplacingRegion:v21];
+    regionCopy = v20;
+    v12 = [MEMORY[0x277CBEAF8] languageFromLanguage:v11 byReplacingRegion:v20];
     if ([v12 length])
     {
-      v7 = v22;
-      if ([v22 count])
+      v7 = v21;
+      if ([v21 count])
       {
-        [v22 addObject:v12];
+        [v21 addObject:v12];
       }
     }
 
     else
     {
-      v7 = v22;
+      v7 = v21;
     }
 
 LABEL_14:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)parentLocaleIdentifierForIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [identifierCopy UTF8String];
   ualoc_getAppleParent();
-  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
   v5 = [v4 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 
   if ([(__CFString *)v5 isEqualToString:identifierCopy])
@@ -1417,8 +1388,6 @@ LABEL_14:
 
     v5 = @"root";
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1479,13 +1448,12 @@ LABEL_14:
 
 + (id)_supportedCalendarsOnEmbeddedSystems
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBE600];
-  v6[0] = *MEMORY[0x277CBE5C0];
-  v6[1] = v2;
-  v6[2] = *MEMORY[0x277CBE588];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CBE5C0];
+  v5[1] = v2;
+  v5[2] = *MEMORY[0x277CBE588];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
 
   return v3;
 }
@@ -1516,6 +1484,17 @@ LABEL_14:
   }
 
   v13 = v12;
+
+  return v12;
+}
+
+- (id)displayNameForRegion:(id)region displayLanguage:(id)language capitalization:(unint64_t)capitalization short:(BOOL)short
+{
+  shortCopy = short;
+  v9 = MEMORY[0x277CBEAF8];
+  languageCopy = language;
+  regionCopy = region;
+  v12 = [v9 displayNameForRegion:regionCopy displayLanguage:languageCopy context:objc_msgSend(objc_opt_class() short:{"formattingContextFromIUDisplayNameContext:", capitalization), shortCopy}];
 
   return v12;
 }
@@ -1564,148 +1543,148 @@ LABEL_14:
 
 + (id)_proposedOverrideLanguageFromLanguage:(id)language forLocalizations:(id)localizations preferredLanguages:(id)languages regionCode:(id)code
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   localizationsCopy = localizations;
   languagesCopy = languages;
   codeCopy = code;
   if ([languageCopy length] && objc_msgSend(localizationsCopy, "count") && objc_msgSend(languagesCopy, "count") && objc_msgSend(codeCopy, "length") && (objc_msgSend(localizationsCopy, "containsObject:", languageCopy) & 1) != 0)
   {
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __100__IntlUtility__proposedOverrideLanguageFromLanguage_forLocalizations_preferredLanguages_regionCode___block_invoke;
-    v55[3] = &unk_2787A9258;
-    v56 = localizationsCopy;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __100__IntlUtility__proposedOverrideLanguageFromLanguage_forLocalizations_preferredLanguages_regionCode___block_invoke;
+    v54[3] = &unk_2787A9258;
+    v55 = localizationsCopy;
     v13 = languageCopy;
-    v57 = v13;
-    v48 = MEMORY[0x2318E03E0](v55);
-    v46 = v13;
-    v43 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:v13];
+    v56 = v13;
+    v47 = MEMORY[0x2318E03E0](v54);
+    v45 = v13;
+    v42 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:v13];
     v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(languagesCopy, "count")}];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v15 = languagesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v52;
+      v18 = *v51;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v52 != v18)
+          if (*v51 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:*(*(&v51 + 1) + 8 * i)];
+          v20 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:*(*(&v50 + 1) + 8 * i)];
           [v14 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v51 objects:v59 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
       }
 
       while (v17);
     }
 
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __100__IntlUtility__proposedOverrideLanguageFromLanguage_forLocalizations_preferredLanguages_regionCode___block_invoke_2;
-    v49[3] = &unk_2787A9280;
-    v21 = v43;
-    v50 = v21;
-    v22 = [v14 indexesOfObjectsPassingTest:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __100__IntlUtility__proposedOverrideLanguageFromLanguage_forLocalizations_preferredLanguages_regionCode___block_invoke_2;
+    v48[3] = &unk_2787A9280;
+    v21 = v42;
+    v49 = v21;
+    v22 = [v14 indexesOfObjectsPassingTest:v48];
     if ([v22 count] && (v23 = objc_msgSend(v22, "firstIndex"), v23 != 0x7FFFFFFFFFFFFFFFLL))
     {
-      v29 = v23;
-      v42 = languagesCopy;
-      v44 = v21;
+      v28 = v23;
+      v41 = languagesCopy;
+      v43 = v21;
       while (1)
       {
-        v30 = v22;
-        v31 = [v15 mutableCopy];
-        [v31 removeObjectAtIndex:v29];
-        v32 = [v15 objectAtIndexedSubscript:v29];
-        [v31 insertObject:v32 atIndex:0];
+        v29 = v22;
+        v30 = [v15 mutableCopy];
+        [v30 removeObjectAtIndex:v28];
+        v31 = [v15 objectAtIndexedSubscript:v28];
+        [v30 insertObject:v31 atIndex:0];
 
-        if ((v48)[2](v48, v31))
+        if ((v47)[2](v47, v30))
         {
           break;
         }
 
-        v22 = v30;
-        v29 = [v30 indexGreaterThanIndex:v29];
+        v22 = v29;
+        v28 = [v29 indexGreaterThanIndex:v28];
 
-        if (v29 == 0x7FFFFFFFFFFFFFFFLL)
+        if (v28 == 0x7FFFFFFFFFFFFFFFLL)
         {
           v24 = 0;
-          v21 = v44;
-          v25 = v46;
+          v21 = v43;
+          v25 = v45;
           goto LABEL_25;
         }
       }
 
-      v24 = [v15 objectAtIndexedSubscript:v29];
+      v24 = [v15 objectAtIndexedSubscript:v28];
 
-      v21 = v44;
-      v25 = v46;
-      v22 = v30;
+      v21 = v43;
+      v25 = v45;
+      v22 = v29;
 LABEL_25:
-      languagesCopy = v42;
+      languagesCopy = v41;
     }
 
     else
     {
       v24 = 0;
-      v25 = v46;
+      v25 = v45;
     }
 
     if (![v24 length])
     {
-      v45 = v21;
-      v47 = v22;
-      v33 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v25];
-      countryCode = [v33 countryCode];
-      v42 = [countryCode length];
+      v44 = v21;
+      v46 = v22;
+      v32 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v25];
+      countryCode = [v32 countryCode];
+      v41 = [countryCode length];
 
-      if (v42)
+      if (v41)
       {
-        v22 = v47;
+        v22 = v46;
       }
 
       else
       {
-        v42 = [MEMORY[0x277CBEAF8] languageFromLanguage:v25 byReplacingRegion:codeCopy];
-        v58 = v42;
-        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
-        v36 = [v35 arrayByAddingObjectsFromArray:v15];
-        v37 = (v48)[2](v48, v36);
+        v41 = [MEMORY[0x277CBEAF8] languageFromLanguage:v25 byReplacingRegion:codeCopy];
+        v57 = v41;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+        v35 = [v34 arrayByAddingObjectsFromArray:v15];
+        v36 = (v47)[2](v47, v35);
 
-        if (v37)
+        if (v36)
         {
-          v38 = v42;
+          v37 = v41;
 
-          v24 = v38;
+          v24 = v37;
         }
 
-        v22 = v47;
+        v22 = v46;
       }
 
-      v21 = v45;
+      v21 = v44;
     }
 
     if (![v24 length])
     {
-      v39 = languagesCopy;
-      v40 = v22;
-      v41 = v25;
+      v38 = languagesCopy;
+      v39 = v22;
+      v40 = v25;
 
-      v24 = v41;
-      v22 = v40;
-      languagesCopy = v39;
+      v24 = v40;
+      v22 = v39;
+      languagesCopy = v38;
     }
 
     v26 = v24;
@@ -1715,8 +1694,6 @@ LABEL_25:
   {
     v26 = languageCopy;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1746,17 +1723,14 @@ uint64_t __100__IntlUtility__proposedOverrideLanguageFromLanguage_forLocalizatio
   dataContainerURL = [record dataContainerURL];
   path = [dataContainerURL path];
 
-  v8 = *MEMORY[0x277CBF040];
-  v9 = *MEMORY[0x277CBF010];
-  v10 = _CFPreferencesCopyValueWithContainer();
-
+  v8 = _CFPreferencesCopyValueWithContainer();
   if ((_NSIsNSArray() & 1) == 0)
   {
 
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 + (void)checkForDiscoveredLanguages:(id)languages
@@ -1869,22 +1843,19 @@ uint64_t __43__IntlUtility_checkForDiscoveredLanguages___block_invoke(uint64_t a
 
 void __46__IntlUtility_preferredLanguagesForBundleIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = a2;
-    v6 = objc_opt_class();
+    v3 = a2;
+    v4 = objc_opt_class();
 
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v5;
-    v7 = v6;
-    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error obtaining remote object proxy, %{public}@", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v3;
+    v5 = v4;
+    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error obtaining remote object proxy, %{public}@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setPreferredLanguage:(id)language forBundleID:(id)d
@@ -1895,10 +1866,10 @@ void __46__IntlUtility_preferredLanguagesForBundleIDs___block_invoke(uint64_t a1
   bundleURL = [v8 bundleURL];
   if (bundleURL)
   {
-    v52 = bundleURL;
+    v50 = bundleURL;
     v10 = [MEMORY[0x277CCA8D8] bundleWithURL:bundleURL];
     v11 = v10;
-    v54 = languageCopy;
+    v52 = languageCopy;
     selfCopy = self;
     if (languageCopy)
     {
@@ -1930,8 +1901,8 @@ void __46__IntlUtility_preferredLanguagesForBundleIDs___block_invoke(uint64_t a1
     v28 = [v25 preferredLocalizationsFromArray:normalizedLocalizations3 forPreferences:_globalPreferredLanguages];
     firstObject2 = [v28 firstObject];
 
-    v49 = firstObject2;
-    v50 = firstObject;
+    v47 = firstObject2;
+    v48 = firstObject;
     v30 = [firstObject isEqualToString:firstObject2];
     if (v30)
     {
@@ -1943,65 +1914,63 @@ void __46__IntlUtility_preferredLanguagesForBundleIDs___block_invoke(uint64_t a1
       array2 = [languageCopy array];
     }
 
-    v53 = v8;
+    v51 = v8;
     dataContainerURL = [v8 dataContainerURL];
     path = [dataContainerURL path];
 
-    v34 = *MEMORY[0x277CBF040];
-    v35 = *MEMORY[0x277CBF010];
     _CFPreferencesSetValueWithContainer();
     bundleIdentifier = [v11 bundleIdentifier];
-    v37 = [bundleIdentifier hasPrefix:@"com.apple."];
+    v35 = [bundleIdentifier hasPrefix:@"com.apple."];
 
-    if (v37 && path)
+    if (v35 && path)
     {
       _CFPreferencesSetValueWithContainer();
     }
 
     mEMORY[0x277CEAF78] = [MEMORY[0x277CEAF78] sharedDeviceConnection];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke;
-    v55[3] = &unk_2787A9340;
-    v58 = selfCopy;
-    v39 = array2;
-    v56 = v39;
-    v40 = languageCopy;
-    v57 = v40;
-    [mEMORY[0x277CEAF78] fetchWatchAppBundleIDForCompanionAppBundleID:dCopy completion:v55];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke;
+    v53[3] = &unk_2787A9340;
+    v56 = selfCopy;
+    v37 = array2;
+    v54 = v37;
+    v38 = languageCopy;
+    v55 = v38;
+    [mEMORY[0x277CEAF78] fetchWatchAppBundleIDForCompanionAppBundleID:dCopy completion:v53];
 
     perAppLanguageSelectionBundleIdentifiers = [selfCopy perAppLanguageSelectionBundleIdentifiers];
-    v42 = [MEMORY[0x277CBEB40] orderedSetWithArray:perAppLanguageSelectionBundleIdentifiers];
-    v43 = v42;
-    v44 = v30 ^ 1;
-    if (!v54)
+    v40 = [MEMORY[0x277CBEB40] orderedSetWithArray:perAppLanguageSelectionBundleIdentifiers];
+    v41 = v40;
+    v42 = v30 ^ 1;
+    if (!v52)
     {
-      v44 = 0;
+      v42 = 0;
     }
 
-    if (v44)
+    if (v42)
     {
-      [v42 addObject:dCopy];
+      [v40 addObject:dCopy];
     }
 
     else
     {
-      [v42 removeObject:dCopy];
+      [v40 removeObject:dCopy];
     }
 
-    array3 = [v43 array];
-    v46 = [array3 isEqualToArray:perAppLanguageSelectionBundleIdentifiers];
+    array3 = [v41 array];
+    v44 = [array3 isEqualToArray:perAppLanguageSelectionBundleIdentifiers];
 
-    if ((v46 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
       standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      array4 = [v43 array];
+      array4 = [v41 array];
       [standardUserDefaults setObject:array4 forKey:@"ApplePerAppLanguageSelectionBundleIdentifiers" inDomain:*MEMORY[0x277CCA208]];
     }
 
-    v8 = v53;
-    languageCopy = v54;
-    bundleURL = v52;
+    v8 = v51;
+    languageCopy = v52;
+    bundleURL = v50;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -2012,116 +1981,110 @@ void __46__IntlUtility_preferredLanguagesForBundleIDs___block_invoke(uint64_t a1
 
 void __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 48);
       *buf = 138543618;
       *&buf[4] = objc_opt_class();
       *&buf[12] = 2114;
       *&buf[14] = v6;
-      v8 = *&buf[4];
+      v7 = *&buf[4];
       _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error obtaining watch app bundle ID, %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2050000000;
-    v9 = getNRPairedDeviceRegistryClass_softClass_0;
-    v23 = getNRPairedDeviceRegistryClass_softClass_0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2050000000;
+    v8 = getNRPairedDeviceRegistryClass_softClass_0;
+    v21 = getNRPairedDeviceRegistryClass_softClass_0;
     if (!getNRPairedDeviceRegistryClass_softClass_0)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getNRPairedDeviceRegistryClass_block_invoke_0;
-      v27 = &unk_2787A8FA0;
-      v28 = &v20;
+      v25 = &unk_2787A8FA0;
+      v26 = &v18;
       __getNRPairedDeviceRegistryClass_block_invoke_0(buf);
-      v9 = v21[3];
+      v8 = v19[3];
     }
 
-    v10 = v9;
-    _Block_object_dispose(&v20, 8);
-    v11 = [v9 sharedInstance];
-    v12 = [v11 getActivePairedDevice];
+    v9 = v8;
+    _Block_object_dispose(&v18, 8);
+    v10 = [v8 sharedInstance];
+    v11 = [v10 getActivePairedDevice];
 
-    v13 = [MEMORY[0x277CEAF78] sharedDeviceConnection];
-    v24 = @"AppleLanguages";
-    v14 = *(a1 + 32);
-    if (v14)
+    v12 = [MEMORY[0x277CEAF78] sharedDeviceConnection];
+    v22 = @"AppleLanguages";
+    v13 = *(a1 + 32);
+    if (v13)
     {
-      v15 = *(a1 + 32);
+      v14 = *(a1 + 32);
     }
 
     else
     {
-      v15 = [*(a1 + 40) array];
+      v14 = [*(a1 + 40) array];
     }
 
-    v16 = v14 == 0;
-    v25 = v15;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke_248;
-    v19[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-    v19[4] = *(a1 + 48);
-    [v13 updatePreferencesForApplicationWithIdentifier:v5 preferences:v17 writingToPreferencesLocation:1 forPairedDevice:v12 options:1 completion:v19];
+    v15 = v13 == 0;
+    v23 = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke_248;
+    v17[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+    v17[4] = *(a1 + 48);
+    [v12 updatePreferencesForApplicationWithIdentifier:v5 preferences:v16 writingToPreferencesLocation:1 forPairedDevice:v11 options:1 completion:v17];
 
-    if (v16)
+    if (v15)
     {
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke_248(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = a2;
-    v6 = objc_opt_class();
+    v3 = a2;
+    v4 = objc_opt_class();
 
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v5;
-    v7 = v6;
-    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error updating preferences for watch app, %{public}@", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = v4;
+    v8 = 2114;
+    v9 = v3;
+    v5 = v4;
+    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error updating preferences for watch app, %{public}@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setPreferredLanguage:(id)language forBundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [self _setPreferredLanguage:language forBundleID:dCopy];
   v7 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifier:dCopy];
   v8 = [objc_alloc(MEMORY[0x277D47010]) initWithExplanation:@"Terminating app on per-app language change"];
   [v8 setMaximumTerminationResistance:40];
   v9 = [objc_alloc(MEMORY[0x277D47020]) initWithPredicate:v7 context:v8];
-  v17 = 0;
-  v10 = [v9 acquireWithError:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [v9 acquireWithError:&v16];
+  v11 = v16;
   if ((v10 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2114;
-    v21 = dCopy;
+    v18 = v12;
+    v19 = 2114;
+    v20 = dCopy;
     v13 = v12;
     _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%{public}@]: Error obtaining termination assertion on %{public}@", buf, 0x16u);
   }
@@ -2130,8 +2093,6 @@ void __49__IntlUtility__setPreferredLanguage_forBundleID___block_invoke_248(uint
   _getXPCConnectionForLocalizationSwitcher = [self _getXPCConnectionForLocalizationSwitcher];
   remoteObjectProxy = [_getXPCConnectionForLocalizationSwitcher remoteObjectProxy];
   [remoteObjectProxy notifyPreferredLanguageChangedForBundleID:dCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setPreferredLanguage:(id)language forBundleID:(id)d andRelaunchWithCompletion:(id)completion
@@ -2198,13 +2159,13 @@ uint64_t __55__IntlUtility__getXPCConnectionForLocalizationSwitcher__block_invok
 
 + (void)subscribeToAppLanguageChanges:(id)changes
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __45__IntlUtility_subscribeToAppLanguageChanges___block_invoke;
   handler[3] = &unk_2787A9390;
-  v8 = changesCopy;
+  v7 = changesCopy;
   v4 = changesCopy;
   xpc_set_event_stream_handler("com.apple.IntlPreferences.events", 0, handler);
   v5 = xpc_dictionary_create(0, 0, 0);
@@ -2212,26 +2173,24 @@ uint64_t __55__IntlUtility__getXPCConnectionForLocalizationSwitcher__block_invok
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v10 = "per_app_language_changed";
+    v9 = "per_app_language_changed";
     _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC event [%{public}s] registered.", buf, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __45__IntlUtility_subscribeToAppLanguageChanges___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, *MEMORY[0x277D86430]);
   v5 = xpc_dictionary_get_string(v3, "bundleID");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = string;
-    v11 = 2082;
-    v12 = v5;
-    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC event [%{public}s] received with bundle ID = [%{public}s]", &v9, 0x16u);
+    v8 = 136446466;
+    v9 = string;
+    v10 = 2082;
+    v11 = v5;
+    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC event [%{public}s] received with bundle ID = [%{public}s]", &v8, 0x16u);
   }
 
   if (v5)
@@ -2249,31 +2208,26 @@ void __45__IntlUtility_subscribeToAppLanguageChanges___block_invoke(uint64_t a1,
       xpc_dictionary_send_reply();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unsubscribeFromAppLanguageChanges
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   xpc_set_event();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136446210;
-    v4 = "per_app_language_changed";
-    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC event [%{public}s] unregistered.", &v3, 0xCu);
+    v2 = 136446210;
+    v3 = "per_app_language_changed";
+    _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "XPC event [%{public}s] unregistered.", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setPreferredLanguage:(uint64_t)a1 forBundleID:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138477827;
-  v3 = a1;
-  _os_log_error_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "App bundle for ID %{private}@ doesn't exist, exiting", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138477827;
+  v2 = a1;
+  _os_log_error_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "App bundle for ID %{private}@ doesn't exist, exiting", &v1, 0xCu);
 }
 
 @end

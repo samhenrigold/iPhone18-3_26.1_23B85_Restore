@@ -38,7 +38,7 @@
   selfCopy = self;
 
   v13.receiver = selfCopy;
-  v13.super_class = type metadata accessor for WatchComplicationsWidgetSceneContentViewController();
+  v13.super_class = type metadata accessor for WatchComplicationsWidgetSceneContentViewController(0);
   [(WidgetSceneContentViewController *)&v13 _updateWithFrameSpecifier:specifierCopy completion:v10];
 
   _Block_release(v10);

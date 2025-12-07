@@ -106,15 +106,14 @@
   {
     request = self->_request;
     *buf = 138412546;
-    v9 = request;
-    v10 = 2048;
+    v8 = request;
+    v9 = 2048;
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Cancelling URL request: %@  (%p)", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v7 = self->_request;
     _IDSLogV();
   }
 

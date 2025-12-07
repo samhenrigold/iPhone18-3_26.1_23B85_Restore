@@ -226,7 +226,7 @@
 {
   v16 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"cloudAssetDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedAssetCloudGUIDs;
 LABEL_35:
@@ -234,97 +234,97 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if ([keyCopy isEqualToString:@"cloudAlbumDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedAlbumCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudMemoryDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedMemoryCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudPersonDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedPersonCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudFaceCropDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedFaceCropCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudOwnedCMMDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedOwnedMomentShareCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudSubscribedCMMDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedSubscribedMomentShareCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudOwnedLibraryScopeDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedOwnedLibraryScopeCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudSubscribedLibraryScopeDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedSubscribedLibraryScopeCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudSuggestionDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedSuggestionCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudUserFeedbackDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedUserFeedbackCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudInternalResourceUUIDToResourceTypeMappings"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedInternalResourceUUIDToResourceTypeMappings;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudSocialGroupDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedSocialGroupCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudOwnedCollectionShareDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedOwnedCollectionShareCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudSubscribedCollectionShareDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedSubscribedCollectionShareCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudReactDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedReactCloudGUIDs;
     goto LABEL_35;
   }
 
-  if ([keyCopy isEqualToString:@"cloudTextCommentDeleteGUIDs"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     deletedAssetCloudGUIDs = self->_deletedTextCommentCloudGUIDs;
     goto LABEL_35;
@@ -356,7 +356,7 @@ LABEL_36:
 {
   v16 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if ([keyCopy isEqualToString:*MEMORY[0x1E695D320]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     insertedObjectIDs = self->_insertedObjectIDs;
 LABEL_7:
@@ -364,13 +364,13 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if ([keyCopy isEqualToString:*MEMORY[0x1E695D4C8]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     insertedObjectIDs = self->_updatedObjectIDs;
     goto LABEL_7;
   }
 
-  if ([keyCopy isEqualToString:*MEMORY[0x1E695D2F0]])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     insertedObjectIDs = self->_deletedObjectIDs;
     goto LABEL_7;
@@ -410,8 +410,8 @@ LABEL_8:
 {
   changeCopy = change;
   changedObjectID = [changeCopy changedObjectID];
-  entity = [changedObjectID entity];
-  managedObjectClassName = [entity managedObjectClassName];
+  v5 = objc_msgSend_entity(changedObjectID);
+  managedObjectClassName = [v5 managedObjectClassName];
 
   v7 = NSClassFromString(managedObjectClassName);
   if ([(objc_class *)v7 conformsToProtocol:&unk_1F0FD13C0])
@@ -592,7 +592,7 @@ LABEL_8:
   else
   {
     v6 = [(PLLocalChangeEventBuilder *)self _filteredUpdatedPropertiesFromChange:changeCopy];
-    if (![v6 count])
+    if (!objc_msgSend_count(v6))
     {
       _pl_prettyDescription = PLPersistentHistoryGetLog();
       if (os_log_type_enabled(_pl_prettyDescription, OS_LOG_TYPE_DEBUG))
@@ -748,7 +748,7 @@ LABEL_8:
   v8 = PLPersistentHistoryGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v9 = [iteratorCopy count];
+    v9 = objc_msgSend_count(iteratorCopy);
     v10 = _Block_copy(testCopy);
     *buf = 134218242;
     v22 = v9;
@@ -823,12 +823,12 @@ void __70__PLLocalChangeEventBuilder_recordTransactionsFromIterator_untilTest___
 {
   dCopy = d;
   [(NSMutableSet *)self->_updatedObjectIDs addObject:dCopy];
-  entity = [dCopy entity];
-  name = [entity name];
+  v4 = objc_msgSend_entity(dCopy);
+  name = [v4 name];
   v6 = +[PLLimitedLibraryFetchFilter entityName];
-  v7 = [name isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v7)
+  if (isEqualToString)
   {
     mEMORY[0x1E69BF2B0] = [MEMORY[0x1E69BF2B0] sharedInstance];
     v9 = [mEMORY[0x1E69BF2B0] photosAccessAllowedWithScope:7];

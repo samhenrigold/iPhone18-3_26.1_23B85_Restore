@@ -60,7 +60,7 @@ void __56___PXCuratedLibraryLayoutAssetsSnapshot_initWithLayout___block_invoke_4
   [v11 enumerateAssetInfoForGeometries:a4 styles:a5 infos:a6 count:v12 options:0 usingBlock:v13];
 }
 
-uint64_t __56___PXCuratedLibraryLayoutAssetsSnapshot_initWithLayout___block_invoke_2(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _BYTE *a9)
+void *__56___PXCuratedLibraryLayoutAssetsSnapshot_initWithLayout___block_invoke_2(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _BYTE *a9)
 {
   v10 = *(a1 + 32);
   v12[0] = MEMORY[0x1E69E9820];

@@ -9,11 +9,11 @@
 - (id)description
 {
   selfCopy = self;
-  v49[5] = *MEMORY[0x1E69E9840];
+  v48[5] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
-  v35.receiver = self;
-  v35.super_class = MNAudioSystemEvent;
-  v4 = [(MNAudioSystemEvent *)&v35 description];
+  v34.receiver = self;
+  v34.super_class = MNAudioSystemEvent;
+  v4 = [(MNAudioSystemEvent *)&v34 description];
   v5 = [v3 stringWithString:v4];
 
   utterance = [(MNAudioSystemEvent *)selfCopy utterance];
@@ -27,48 +27,48 @@
 
   if ([(MNAudioSystemEvent *)selfCopy shortPrompt])
   {
-    v33 = selfCopy;
-    v34 = v5;
+    v32 = selfCopy;
+    v33 = v5;
     shortPrompt = [(MNAudioSystemEvent *)selfCopy shortPrompt];
-    v48[0] = &unk_1F4EE28C0;
-    v48[1] = &unk_1F4EE28D8;
-    v49[0] = @"Continuation";
-    v49[1] = @"General Maneuver";
-    v48[2] = &unk_1F4EE28F0;
-    v48[3] = &unk_1F4EE2908;
-    v49[2] = @"Start";
-    v49[3] = @"Arrival";
-    v48[4] = &unk_1F4EE2920;
-    v49[4] = @"Started Walking";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:5];
-    v46[0] = &unk_1F4EE2938;
-    v46[1] = &unk_1F4EE2950;
-    v47[0] = @"Direction (Left)";
-    v47[1] = @"Direction (Right)";
-    v46[2] = &unk_1F4EE2968;
-    v47[2] = @"Must Not Replace Speech";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+    v47[0] = &unk_1F4EE28C0;
+    v47[1] = &unk_1F4EE28D8;
+    v48[0] = @"Continuation";
+    v48[1] = @"General Maneuver";
+    v47[2] = &unk_1F4EE28F0;
+    v47[3] = &unk_1F4EE2908;
+    v48[2] = @"Start";
+    v48[3] = @"Arrival";
+    v47[4] = &unk_1F4EE2920;
+    v48[4] = @"Started Walking";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:5];
+    v45[0] = &unk_1F4EE2938;
+    v45[1] = &unk_1F4EE2950;
+    v46[0] = @"Direction (Left)";
+    v46[1] = @"Direction (Right)";
+    v45[2] = &unk_1F4EE2968;
+    v46[2] = @"Must Not Replace Speech";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
     v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     allKeys = [v10 allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v14 = [allKeys countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v41;
+      v16 = *v40;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v41 != v16)
+          if (*v40 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = *(*(&v40 + 1) + 8 * i);
+          v18 = *(*(&v39 + 1) + 8 * i);
           if ((shortPrompt & 0xF) == [v18 unsignedIntegerValue])
           {
             v19 = [v10 objectForKeyedSubscript:v18];
@@ -76,32 +76,32 @@
           }
         }
 
-        v15 = [allKeys countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v15);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     allKeys2 = [v11 allKeys];
-    v21 = [allKeys2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v21 = [allKeys2 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v37;
+      v23 = *v36;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v37 != v23)
+          if (*v36 != v23)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v25 = *(*(&v36 + 1) + 8 * j);
+          v25 = *(*(&v35 + 1) + 8 * j);
           if (([v25 unsignedIntegerValue] & ~shortPrompt) == 0)
           {
             v26 = [v11 objectForKeyedSubscript:v25];
@@ -109,7 +109,7 @@
           }
         }
 
-        v22 = [allKeys2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v22 = [allKeys2 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v22);
@@ -117,10 +117,10 @@
 
     v27 = [v12 componentsJoinedByString:@"|"];
 
-    v5 = v34;
-    [v34 appendFormat:@" instructions: %@", v27];
+    v5 = v33;
+    [v33 appendFormat:@" instructions: %@", v27];
 
-    selfCopy = v33;
+    selfCopy = v32;
   }
 
   handler = [(MNAudioSystemEvent *)selfCopy handler];
@@ -133,7 +133,6 @@
   [v5 appendFormat:@" %@", v29];
 
   v30 = [v5 copy];
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }

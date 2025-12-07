@@ -1,4 +1,5 @@
 @interface MCProfileWarning
++ (id)warningWithLocalizedTitle:(id)title localizedBody:(id)body isLongForm:(BOOL)form;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToProfileWarning:(id)warning;
 - (MCProfileWarning)initWithCoder:(id)coder;
@@ -25,6 +26,16 @@
   }
 
   return v12;
+}
+
++ (id)warningWithLocalizedTitle:(id)title localizedBody:(id)body isLongForm:(BOOL)form
+{
+  formCopy = form;
+  bodyCopy = body;
+  titleCopy = title;
+  v10 = [[self alloc] initWithLocalizedTitle:titleCopy localizedBody:bodyCopy isLongForm:formCopy];
+
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

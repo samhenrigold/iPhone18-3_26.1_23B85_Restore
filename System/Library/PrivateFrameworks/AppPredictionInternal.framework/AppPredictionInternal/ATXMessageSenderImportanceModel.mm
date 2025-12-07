@@ -6,7 +6,7 @@
 
 - (id)calculateSenderImportanceForMessageWithContextRequest:(id)request contactStore:(id)store contactRelationships:(id)relationships
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   storeCopy = store;
   relationshipsCopy = relationships;
@@ -19,8 +19,8 @@
   v15 = 0.0;
   v16 = 0.0;
   v17 = 0.0;
-  v79 = v12;
-  v80 = textMessage;
+  v78 = v12;
+  v79 = textMessage;
   if (v12)
   {
     v18 = v12;
@@ -62,29 +62,29 @@
       v15 = 0.0;
     }
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     emailAddresses = [v18 emailAddresses];
-    v29 = [emailAddresses countByEnumeratingWithState:&v81 objects:v85 count:16];
+    v29 = [emailAddresses countByEnumeratingWithState:&v80 objects:v84 count:16];
     if (v29)
     {
       v30 = v29;
-      v76 = storeCopy;
-      v77 = requestCopy;
+      v75 = storeCopy;
+      v76 = requestCopy;
       v31 = 0;
-      v32 = *v82;
+      v32 = *v81;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v82 != v32)
+          if (*v81 != v32)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
-          v34 = *(*(&v81 + 1) + 8 * i);
+          v34 = *(*(&v80 + 1) + 8 * i);
           vipContactEmailAddresses = [relationshipsCopy vipContactEmailAddresses];
           value = [v34 value];
           v37 = [vipContactEmailAddresses containsObject:value];
@@ -92,14 +92,14 @@
           v31 |= v37;
         }
 
-        v30 = [emailAddresses countByEnumeratingWithState:&v81 objects:v85 count:16];
+        v30 = [emailAddresses countByEnumeratingWithState:&v80 objects:v84 count:16];
       }
 
       while (v30);
       v14 = (v31 & 1);
-      storeCopy = v76;
-      requestCopy = v77;
-      textMessage = v80;
+      storeCopy = v75;
+      requestCopy = v76;
+      textMessage = v79;
     }
   }
 
@@ -118,11 +118,11 @@
 
     else
     {
-      identifier4 = [v79 identifier];
+      identifier4 = [v78 identifier];
       if (identifier4)
       {
         cnContactIdsOfPinnedChatsInMessage = [relationshipsCopy cnContactIdsOfPinnedChatsInMessage];
-        identifier5 = [v79 identifier];
+        identifier5 = [v78 identifier];
         v41 = [cnContactIdsOfPinnedChatsInMessage containsObject:identifier5];
       }
 
@@ -199,7 +199,6 @@
   [v65 setObject:v72 forKeyedSubscript:@"isMentionedInGroupMessage"];
 
   v73 = [[ATXSenderImportance alloc] initWithSenderImportanceScore:v65 featureDictionary:fmin(fmax(v52 + v54 + v56 + v58 + v60 + v62 + v64 + 0.0, 0.0), 1.0)];
-  v74 = *MEMORY[0x277D85DE8];
 
   return v73;
 }

@@ -2,6 +2,7 @@
 - (BOOL)setProperty:(id)property forKey:(id)key;
 - (SYCompressedFileOutputStream)initWithURL:(id)l append:(BOOL)append;
 - (id)delegate;
+- (id)initToFileAtPath:(id)path append:(BOOL)append;
 - (id)propertyForKey:(id)key;
 - (id)streamError;
 - (int64_t)write:(const char *)write maxLength:(unint64_t)length;
@@ -18,6 +19,17 @@
 @end
 
 @implementation SYCompressedFileOutputStream
+
+- (id)initToFileAtPath:(id)path append:(BOOL)append
+{
+  appendCopy = append;
+  v6 = MEMORY[0x1E695DFF8];
+  stringByStandardizingPath = [path stringByStandardizingPath];
+  v8 = [v6 fileURLWithPath:stringByStandardizingPath];
+  v9 = [(SYCompressedFileOutputStream *)self initWithURL:v8 append:appendCopy];
+
+  return v9;
+}
 
 - (SYCompressedFileOutputStream)initWithURL:(id)l append:(BOOL)append
 {
@@ -129,19 +141,17 @@
 
   getCFRunLoop = [loopCopy getCFRunLoop];
   runloopSource = self->_internal->_runloopSource;
-  v10 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-  v11 = *MEMORY[0x1E695E8E0];
-  if (v10)
+  if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
   {
-    v12 = *MEMORY[0x1E695E8E0];
+    v10 = *MEMORY[0x1E695E8E0];
   }
 
   else
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
   }
 
-  CFRunLoopAddSource(getCFRunLoop, runloopSource, v12);
+  CFRunLoopAddSource(getCFRunLoop, runloopSource, v10);
   os_unfair_lock_unlock(&self->_internalLock);
 }
 
@@ -154,19 +164,17 @@
   {
     getCFRunLoop = [loopCopy getCFRunLoop];
     runloopSource = self->_internal->_runloopSource;
-    v9 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-    v10 = *MEMORY[0x1E695E8E0];
-    if (v9)
+    if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
     {
-      v11 = *MEMORY[0x1E695E8E0];
+      v9 = *MEMORY[0x1E695E8E0];
     }
 
     else
     {
-      v11 = modeCopy;
+      v9 = modeCopy;
     }
 
-    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v11);
+    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v9);
     os_unfair_lock_unlock(&self->_internalLock);
   }
 }
@@ -411,7 +419,7 @@ LABEL_18:
 
 - (BOOL)setProperty:(id)property forKey:(id)key
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   keyCopy = key;
   if (![keyCopy isEqualToString:@"protection-class"])
@@ -434,14 +442,14 @@ LABEL_8:
   if (self->_fd == -1)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v16 = *MEMORY[0x1E696A3A0];
-    v17[0] = propertyCopy;
+    v15 = *MEMORY[0x1E696A3A0];
+    v16[0] = propertyCopy;
     v9 = 1;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     path = [(NSURL *)self->_url path];
-    v15 = [defaultManager setAttributes:v13 ofItemAtPath:path error:0];
+    v14 = [defaultManager setAttributes:v12 ofItemAtPath:path error:0];
 
-    if (v15)
+    if (v14)
     {
       goto LABEL_9;
     }
@@ -459,7 +467,6 @@ LABEL_8:
   v9 = fcntl(self->_fd, 64, v8) == 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

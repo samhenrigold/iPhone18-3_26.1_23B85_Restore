@@ -18,7 +18,7 @@
   v6 = type metadata accessor for DateComponents();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v10.receiver = self;
-  v10.super_class = type metadata accessor for InsightsEntriesViewController();
+  v10.super_class = type metadata accessor for InsightsEntriesViewController(0);
   coderCopy = coder;
   v8 = [(JournalEntryCollectionViewController *)&v10 initWithCoder:coderCopy];
 

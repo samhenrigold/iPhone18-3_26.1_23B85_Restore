@@ -13,7 +13,7 @@
 
   metrics = [self metrics];
   cloudKitMetrics = [metrics cloudKitMetrics];
-  [cloudKitMetrics duration];
+  objc_msgSend_duration(cloudKitMetrics);
   v7 = v6;
 
   if (v7 > 0.0)
@@ -21,7 +21,7 @@
     v8 = MEMORY[0x277CCABB0];
     metrics2 = [self metrics];
     cloudKitMetrics2 = [metrics2 cloudKitMetrics];
-    [cloudKitMetrics2 duration];
+    objc_msgSend_duration(cloudKitMetrics2);
     v11 = [v8 numberWithDouble:?];
     [v3 setObject:v11 forKeyedSubscript:@"duration"];
   }

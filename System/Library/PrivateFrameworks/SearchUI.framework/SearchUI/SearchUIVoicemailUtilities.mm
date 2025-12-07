@@ -9,7 +9,7 @@
 
 + (void)playVoicemailWithIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33B0, &qword_1DA275840);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

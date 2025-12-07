@@ -183,169 +183,169 @@
 
 - (void)layoutSubviews
 {
-  v69.receiver = self;
-  v69.super_class = NTKCFaceDetailSectionHeaderView;
-  [(NTKCFaceDetailSectionHeaderView *)&v69 layoutSubviews];
+  v71.receiver = self;
+  v71.super_class = NTKCFaceDetailSectionHeaderView;
+  [(NTKCFaceDetailSectionHeaderView *)&v71 layoutSubviews];
   [(NTKCFaceDetailSectionHeaderView *)self _updateConfig];
   contentView = [(NTKCFaceDetailSectionHeaderView *)self contentView];
   [contentView bounds];
-  v66 = v4;
-  v67 = v5;
+  v68 = v4;
+  v69 = v5;
   v7 = v6;
   v9 = v8;
 
-  v10 = NTKCScreenEdgeMargin();
-  v11 = v10;
+  v12 = NTKCScreenEdgeMargin(v10, v11);
+  v13 = v12;
   IsRTL = CLKLayoutIsRTL();
   textLabel = [(NTKCFaceDetailSectionHeaderView *)self textLabel];
   [textLabel frame];
-  v15 = v14;
   v17 = v16;
   v19 = v18;
   v21 = v20;
+  v23 = v22;
 
-  v65 = v10;
+  v67 = v12;
   if (IsRTL)
   {
-    v70.origin.x = v66;
-    v70.origin.y = v67;
-    v70.size.width = v7;
-    v70.size.height = v9;
-    Width = CGRectGetWidth(v70);
-    v71.origin.x = v15;
-    v71.origin.y = v17;
-    v71.size.width = v19;
-    v71.size.height = v21;
-    v11 = Width - CGRectGetWidth(v71) - v10;
+    v72.origin.x = v68;
+    v72.origin.y = v69;
+    v72.size.width = v7;
+    v72.size.height = v9;
+    Width = CGRectGetWidth(v72);
+    v73.origin.x = v17;
+    v73.origin.y = v19;
+    v73.size.width = v21;
+    v73.size.height = v23;
+    v13 = Width - CGRectGetWidth(v73) - v12;
   }
 
-  v64 = v9;
-  v23 = v7;
-  v24 = 6.0;
+  v66 = v9;
+  v25 = v7;
+  v26 = 6.0;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     font = [(UILabel *)self->_detailLabel font];
     [font _scaledValueForValue:22.0];
-    v27 = v26;
+    v29 = v28;
 
     textLabel2 = [(NTKCFaceDetailSectionHeaderView *)self textLabel];
     [textLabel2 _lastLineBaseline];
-    v24 = v27 - v29;
+    v26 = v29 - v31;
   }
 
   textLabel3 = [(NTKCFaceDetailSectionHeaderView *)self textLabel];
-  [textLabel3 setFrame:{v11, v24, v19, v21}];
+  [textLabel3 setFrame:{v13, v26, v21, v23}];
 
   [(UILabel *)self->_detailLabel frame];
-  v61 = v32;
-  v62 = v31;
-  v63 = v33;
-  v68 = v10;
-  rect = v21;
+  v63 = v34;
+  v64 = v33;
+  v65 = v35;
+  v70 = v12;
+  rect = v23;
   if (_os_feature_enabled_impl())
   {
-    v72.origin.x = v11;
-    v72.origin.y = v24;
-    v72.size.width = v19;
-    v72.size.height = v21;
-    v34 = v11;
-    MinY = CGRectGetMinY(v72);
+    v74.origin.x = v13;
+    v74.origin.y = v26;
+    v74.size.width = v21;
+    v74.size.height = v23;
+    v36 = v13;
+    MinY = CGRectGetMinY(v74);
     textLabel4 = [(NTKCFaceDetailSectionHeaderView *)self textLabel];
     [textLabel4 _firstLineBaseline];
-    v38 = MinY + v37;
+    v40 = MinY + v39;
     [(UILabel *)self->_detailLabel _lastLineBaseline];
-    v40 = v38 - v39;
+    v42 = v40 - v41;
   }
 
   else
   {
     font2 = [(UILabel *)self->_detailLabel font];
     [font2 _scaledValueForValue:22.0];
-    v34 = v11;
-    v43 = v42;
+    v36 = v13;
+    v45 = v44;
 
     [(UILabel *)self->_detailLabel _lastLineBaseline];
-    v40 = v43 - v44;
+    v42 = v45 - v46;
   }
 
-  v73.origin.y = v67;
-  v73.origin.x = v66;
-  v73.size.width = v23;
-  v73.size.height = v64;
-  v45 = CGRectGetWidth(v73) + v10 * -2.0;
-  v74.origin.x = v34;
-  v74.origin.y = v24;
-  v74.size.width = v19;
-  v74.size.height = rect;
-  v46 = v45 - CGRectGetWidth(v74) + -16.0;
-  v47 = v61;
-  v75.origin.x = v62;
-  v75.origin.y = v40;
-  v75.size.width = v61;
-  v75.size.height = v63;
-  v48 = CGRectGetWidth(v75);
-  v49 = 0.0;
-  if (v46 >= 0.0)
+  v75.origin.y = v69;
+  v75.origin.x = v68;
+  v75.size.width = v25;
+  v75.size.height = v66;
+  v47 = CGRectGetWidth(v75) + v12 * -2.0;
+  v76.origin.x = v36;
+  v76.origin.y = v26;
+  v76.size.width = v21;
+  v76.size.height = rect;
+  v48 = v47 - CGRectGetWidth(v76) + -16.0;
+  v49 = v63;
+  v77.origin.x = v64;
+  v77.origin.y = v42;
+  v77.size.width = v63;
+  v77.size.height = v65;
+  v50 = CGRectGetWidth(v77);
+  v51 = 0.0;
+  if (v48 >= 0.0)
   {
-    v49 = v46;
+    v51 = v48;
   }
 
-  if (v48 > v46)
+  if (v50 > v48)
   {
-    v47 = v49;
+    v49 = v51;
   }
 
-  v50 = v65;
+  v52 = v67;
   if ((IsRTL & 1) == 0)
   {
-    v76.origin.x = v66;
-    v76.origin.y = v67;
-    v76.size.width = v23;
-    v76.size.height = v64;
-    v51 = CGRectGetWidth(v76) - v68;
-    v77.origin.x = v62;
-    v77.origin.y = v40;
-    v77.size.width = v47;
-    v77.size.height = v63;
-    v50 = v51 - CGRectGetWidth(v77);
+    v78.origin.x = v68;
+    v78.origin.y = v69;
+    v78.size.width = v25;
+    v78.size.height = v66;
+    v53 = CGRectGetWidth(v78) - v70;
+    v79.origin.x = v64;
+    v79.origin.y = v42;
+    v79.size.width = v49;
+    v79.size.height = v65;
+    v52 = v53 - CGRectGetWidth(v79);
   }
 
-  [(UILabel *)self->_detailLabel setFrame:v50, v40, v47, v63];
+  [(UILabel *)self->_detailLabel setFrame:v52, v42, v49, v65];
   [(NTKCSeparatorView *)self->_separator frame];
-  v53 = v52;
   v55 = v54;
+  v57 = v56;
   if (_os_feature_enabled_impl())
   {
-    v56 = 0.0;
+    v58 = 0.0;
     if (IsRTL)
     {
-      v57 = 0.0;
+      v59 = 0.0;
     }
 
     else
     {
-      v57 = v68;
+      v59 = v70;
     }
 
     [(NTKCFaceDetailSectionHeaderView *)self bounds];
-    v58 = CGRectGetWidth(v78) - v68;
+    v60 = CGRectGetWidth(v80) - v70;
   }
 
   else
   {
     [(NTKCFaceDetailSectionHeaderView *)self bounds];
-    v58 = CGRectGetWidth(v79);
+    v60 = CGRectGetWidth(v81);
     [(NTKCFaceDetailSectionHeaderView *)self bounds];
-    Height = CGRectGetHeight(v80);
-    v57 = 0.0;
-    v81.origin.x = 0.0;
-    v81.origin.y = v53;
-    v81.size.width = v58;
-    v81.size.height = v55;
-    v56 = Height - CGRectGetHeight(v81);
+    Height = CGRectGetHeight(v82);
+    v59 = 0.0;
+    v83.origin.x = 0.0;
+    v83.origin.y = v55;
+    v83.size.width = v60;
+    v83.size.height = v57;
+    v58 = Height - CGRectGetHeight(v83);
   }
 
-  [(NTKCSeparatorView *)self->_separator setFrame:v57, v56, v58, v55];
+  [(NTKCSeparatorView *)self->_separator setFrame:v59, v58, v60, v57];
 }
 
 - (void)_updateConfig

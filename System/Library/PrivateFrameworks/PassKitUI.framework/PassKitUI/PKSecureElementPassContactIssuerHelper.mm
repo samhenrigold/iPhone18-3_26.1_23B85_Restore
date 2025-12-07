@@ -275,11 +275,12 @@ uint64_t __82__PKSecureElementPassContactIssuerHelper_presentContactViewControll
 
 - (void)callIssuerWithSourceItem:(id)item
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  if (PKStoreDemoModeEnabled())
+  v5 = PKStoreDemoModeEnabled();
+  if (v5)
   {
-    organizationName = PKUIStoreDemoGatewayViewController();
+    organizationName = PKUIStoreDemoGatewayViewController(v5, v6, v7);
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained contactIssuerHelper:self didRequestPresentViewController:organizationName animated:1 completion:0];
 
@@ -290,81 +291,81 @@ LABEL_33:
   if (!PKUserInterfaceIdiomSupportsLargeLayouts())
   {
     organizationName = [(PKSecureElementPass *)self->_pass organizationName];
-    v7 = [MEMORY[0x1E69DC650] alertControllerWithTitle:organizationName message:0 preferredStyle:0];
-    v8 = MEMORY[0x1E69DCC10];
-    v52[0] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
-    v10 = [v8 appearanceWhenContainedInInstancesOfClasses:v9];
-    [v10 setNumberOfLines:2];
+    v10 = [MEMORY[0x1E69DC650] alertControllerWithTitle:organizationName message:0 preferredStyle:0];
+    v11 = MEMORY[0x1E69DCC10];
+    v55[0] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
+    v13 = [v11 appearanceWhenContainedInInstancesOfClasses:v12];
+    [v13 setNumberOfLines:2];
 
-    v11 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC100]];
-    v12 = v11;
-    if (v11)
+    v14 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC100]];
+    v15 = v14;
+    if (v14)
     {
-      v13 = MEMORY[0x1E69DC648];
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke;
-      v48[3] = &unk_1E80112E8;
-      v49 = v11;
-      v14 = [v13 actionWithTitle:v49 style:0 handler:v48];
-      [v7 addAction:v14];
+      v16 = MEMORY[0x1E69DC648];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke;
+      v51[3] = &unk_1E80112E8;
+      v52 = v14;
+      v17 = [v16 actionWithTitle:v52 style:0 handler:v51];
+      [v10 addAction:v17];
     }
 
     selfCopy = self;
-    v46 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
+    v48 = 0u;
     obj = [(PKSecureElementPass *)self->_pass backFieldBuckets];
-    v36 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
-    if (!v36)
+    v39 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+    if (!v39)
     {
 LABEL_32:
 
-      v29 = PKLocalizedString(&cfstr_RemoveSheetCan.isa);
-      v30 = [MEMORY[0x1E69DC648] actionWithTitle:v29 style:1 handler:0];
-      [v7 addAction:v30];
+      v32 = PKLocalizedString(&cfstr_RemoveSheetCan.isa);
+      v33 = [MEMORY[0x1E69DC648] actionWithTitle:v32 style:1 handler:0];
+      [v10 addAction:v33];
 
-      popoverPresentationController = [v7 popoverPresentationController];
+      popoverPresentationController = [v10 popoverPresentationController];
       [popoverPresentationController setSourceItem:itemCopy];
 
-      v32 = objc_loadWeakRetained(&selfCopy->_delegate);
-      [v32 contactIssuerHelper:selfCopy didRequestPresentViewController:v7 animated:1 completion:0];
+      v35 = objc_loadWeakRetained(&selfCopy->_delegate);
+      [v35 contactIssuerHelper:selfCopy didRequestPresentViewController:v10 animated:1 completion:0];
 
       goto LABEL_33;
     }
 
-    v35 = *v45;
+    v38 = *v48;
 LABEL_9:
-    v15 = 0;
+    v18 = 0;
     while (1)
     {
-      if (*v45 != v35)
+      if (*v48 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v37 = v15;
-      v16 = *(*(&v44 + 1) + 8 * v15);
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
+      v40 = v18;
+      v19 = *(*(&v47 + 1) + 8 * v18);
       v43 = 0u;
-      v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v40 objects:v50 count:16];
-      if (v18)
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
+      v20 = v19;
+      v21 = [v20 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      if (v21)
       {
         break;
       }
 
 LABEL_30:
 
-      v15 = v37 + 1;
-      if (v37 + 1 == v36)
+      v18 = v40 + 1;
+      if (v40 + 1 == v39)
       {
-        v36 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
-        if (!v36)
+        v39 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+        if (!v39)
         {
           goto LABEL_32;
         }
@@ -373,51 +374,51 @@ LABEL_30:
       }
     }
 
-    v19 = v18;
-    v20 = *v41;
+    v22 = v21;
+    v23 = *v44;
 LABEL_14:
-    v21 = 0;
+    v24 = 0;
     while (1)
     {
-      if (*v41 != v20)
+      if (*v44 != v23)
       {
-        objc_enumerationMutation(v17);
+        objc_enumerationMutation(v20);
       }
 
-      v22 = *(*(&v40 + 1) + 8 * v21);
-      if ([v22 dataDetectorTypes] != 1)
+      v25 = *(*(&v43 + 1) + 8 * v24);
+      if ([v25 dataDetectorTypes] != 1)
       {
         goto LABEL_28;
       }
 
-      label = [v22 label];
+      label = [v25 label];
 
-      value = [v22 value];
+      value = [v25 value];
 
       if (label)
       {
-        v25 = value == 0;
+        v28 = value == 0;
       }
 
       else
       {
-        v25 = 1;
+        v28 = 1;
       }
 
-      if (v25)
+      if (v28)
       {
         if (label || (label = value) != 0)
         {
 LABEL_27:
-          v27 = MEMORY[0x1E69DC648];
-          v38[0] = MEMORY[0x1E69E9820];
-          v38[1] = 3221225472;
-          v38[2] = __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke_2;
-          v38[3] = &unk_1E80112E8;
-          v12 = value;
-          v39 = v12;
-          v28 = [v27 actionWithTitle:label style:0 handler:v38];
-          [v7 addAction:v28];
+          v30 = MEMORY[0x1E69DC648];
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke_2;
+          v41[3] = &unk_1E80112E8;
+          v15 = value;
+          v42 = v15;
+          v31 = [v30 actionWithTitle:label style:0 handler:v41];
+          [v10 addAction:v31];
 
           organizationName = label;
           goto LABEL_28;
@@ -426,22 +427,22 @@ LABEL_27:
 
       else
       {
-        v26 = [label stringByAppendingFormat:@"\n%@", value];
+        v29 = [label stringByAppendingFormat:@"\n%@", value];
 
-        label = v26;
-        if (v26)
+        label = v29;
+        if (v29)
         {
           goto LABEL_27;
         }
       }
 
       organizationName = 0;
-      v12 = value;
+      v15 = value;
 LABEL_28:
-      if (v19 == ++v21)
+      if (v22 == ++v24)
       {
-        v19 = [v17 countByEnumeratingWithState:&v40 objects:v50 count:16];
-        if (!v19)
+        v22 = [v20 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        if (!v22)
         {
           goto LABEL_30;
         }
@@ -455,32 +456,33 @@ LABEL_28:
 LABEL_34:
 }
 
-void __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke()
+void __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = PKTelephoneURLFromPhoneNumber();
-  v0 = [MEMORY[0x1E6963608] defaultWorkspace];
-  [v0 openSensitiveURL:v1 withOptions:0];
+  v3 = PKTelephoneURLFromPhoneNumber();
+  v2 = [MEMORY[0x1E6963608] defaultWorkspace];
+  [v2 openSensitiveURL:v3 withOptions:0];
 }
 
-void __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke_2()
+void __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = PKTelephoneURLFromPhoneNumber();
-  v0 = [MEMORY[0x1E6963608] defaultWorkspace];
-  [v0 openSensitiveURL:v1 withOptions:0];
+  v3 = PKTelephoneURLFromPhoneNumber();
+  v2 = [MEMORY[0x1E6963608] defaultWorkspace];
+  [v2 openSensitiveURL:v3 withOptions:0];
 }
 
 - (void)openIssuerWebsite
 {
-  if (PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (v3)
   {
-    v4 = PKUIStoreDemoGatewayViewController();
+    v7 = PKUIStoreDemoGatewayViewController(v3, v4, v5);
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained contactIssuerHelper:self didRequestPresentViewController:v4 animated:1 completion:0];
+    [WeakRetained contactIssuerHelper:self didRequestPresentViewController:v7 animated:1 completion:0];
   }
 
   else
   {
-    v4 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC108]];
+    v7 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC108]];
     WeakRetained = [MEMORY[0x1E695DFF8] URLWithString:?];
     PKOpenURL();
   }
@@ -488,43 +490,44 @@ void __67__PKSecureElementPassContactIssuerHelper_callIssuerWithSourceItem___blo
 
 - (void)emailIssuer
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  if (PKStoreDemoModeEnabled())
+  v17[1] = *MEMORY[0x1E69E9840];
+  v3 = PKStoreDemoModeEnabled();
+  if (v3)
   {
-    v12 = PKUIStoreDemoGatewayViewController();
+    v15 = PKUIStoreDemoGatewayViewController(v3, v4, v5);
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained contactIssuerHelper:self didRequestPresentViewController:v12 animated:1 completion:0];
+    [WeakRetained contactIssuerHelper:self didRequestPresentViewController:v15 animated:1 completion:0];
 
-    v4 = v12;
+    v7 = v15;
   }
 
   else
   {
     if ([(objc_class *)getMFMailComposeViewControllerClass_0() canSendMail])
     {
-      v5 = objc_alloc_init(getMFMailComposeViewControllerClass_0());
-      [v5 setMailComposeDelegate:self];
-      v6 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC0F0]];
-      v14[0] = v6;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-      [v5 setToRecipients:v7];
+      v8 = objc_alloc_init(getMFMailComposeViewControllerClass_0());
+      [v8 setMailComposeDelegate:self];
+      v9 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC0F0]];
+      v17[0] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+      [v8 setToRecipients:v10];
 
-      v8 = objc_loadWeakRetained(&self->_delegate);
-      [v8 contactIssuerHelper:self didRequestPresentViewController:v5 animated:1 completion:0];
+      v11 = objc_loadWeakRetained(&self->_delegate);
+      [v11 contactIssuerHelper:self didRequestPresentViewController:v8 animated:1 completion:0];
 
       return;
     }
 
-    v13 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC0F0]];
-    if ([v13 length])
+    v16 = [(PKSecureElementPass *)self->_pass localizedValueForFieldKey:*MEMORY[0x1E69BC0F0]];
+    if ([v16 length])
     {
-      v9 = MEMORY[0x1E695DFF8];
-      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"mailto:%@", v13];
-      v11 = [v9 URLWithString:v10];
+      v12 = MEMORY[0x1E695DFF8];
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"mailto:%@", v16];
+      v14 = [v12 URLWithString:v13];
       PKOpenURL();
     }
 
-    v4 = v13;
+    v7 = v16;
   }
 }
 

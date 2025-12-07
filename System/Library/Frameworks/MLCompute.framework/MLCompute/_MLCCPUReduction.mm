@@ -1,5 +1,6 @@
 @interface _MLCCPUReduction
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor;
++ (id)layerWithDevice:(id)device reduceType:(int)type dimensions:(id)dimensions sourceShapeCount:(unint64_t)count;
 - (_MLCCPUReduction)initWithDevice:(id)device reduceType:(int)type dimensions:(id)dimensions;
 @end
 
@@ -7,10 +8,10 @@
 
 - (_MLCCPUReduction)initWithDevice:(id)device reduceType:(int)type dimensions:(id)dimensions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v9 = [MEMORY[0x277CBEBF8] mutableCopy];
-  bzero(v24, 0x218uLL);
+  bzero(v23, 0x218uLL);
   if (type <= 4)
   {
     if (type > 2)
@@ -18,18 +19,18 @@
       if (type == 3)
       {
 LABEL_20:
-        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:536];
-        memset(v29, 0, sizeof(v29));
+        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:536];
         memset(v28, 0, sizeof(v28));
-        v12 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:176];
-        v13 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:176];
-        memset(v23, 0, sizeof(v23));
-        v14 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
-        v27[0] = v12;
-        v27[1] = v13;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
-        v26 = v14;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+        memset(v27, 0, sizeof(v27));
+        v12 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:176];
+        v13 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:176];
+        memset(v22, 0, sizeof(v22));
+        v14 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:176];
+        v26[0] = v12;
+        v26[1] = v13;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+        v25 = v14;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
         v17 = [MLCCPUDeviceOps deviceOpsWithType:43 params:v11 inDeltaData:v15 outDeltaData:v16 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
         [v17 setBinaryOperation:0];
@@ -39,9 +40,9 @@ LABEL_20:
         }
 
         v18 = [v9 copy];
-        v22.receiver = self;
-        v22.super_class = _MLCCPUReduction;
-        self = [(_MLCCPULayer *)&v22 initWithDevice:deviceCopy deviceOps:v18];
+        v21.receiver = self;
+        v21.super_class = _MLCCPUReduction;
+        self = [(_MLCCPULayer *)&v21 initWithDevice:deviceCopy deviceOps:v18];
 
         selfCopy = self;
         goto LABEL_23;
@@ -49,7 +50,7 @@ LABEL_20:
 
       v10 = 1;
 LABEL_19:
-      v25 = v10;
+      v24 = v10;
       goto LABEL_20;
     }
 
@@ -106,8 +107,17 @@ LABEL_19:
   selfCopy = 0;
 LABEL_23:
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
+}
+
++ (id)layerWithDevice:(id)device reduceType:(int)type dimensions:(id)dimensions sourceShapeCount:(unint64_t)count
+{
+  v6 = *&type;
+  dimensionsCopy = dimensions;
+  deviceCopy = device;
+  v11 = [[self alloc] initWithDevice:deviceCopy reduceType:v6 dimensions:dimensionsCopy];
+
+  return v11;
 }
 
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor
@@ -182,15 +192,13 @@ LABEL_9:
 
 - (void)initWithDevice:(const char *)a1 reduceType:(int)a2 dimensions:(NSObject *)a3 .cold.1(const char *a1, int a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: unknown reduceType type = %d", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: unknown reduceType type = %d", &v6, 0x12u);
 }
 
 @end

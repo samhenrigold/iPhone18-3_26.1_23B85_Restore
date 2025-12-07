@@ -341,12 +341,19 @@ void __46__MOPlatformInfo__createDefaultsManagerDaemon__block_invoke(id a1)
 void __24__MOPlatformInfo_isIpad__block_invoke(id a1)
 {
   v1 = MGCopyAnswer();
-  if (v1 && [v1 isEqualToString:@"iPad"])
+  v2 = v1;
+  if (v1)
   {
-    isIpad_result = 1;
+    v3 = v1;
+    v1 = [v1 isEqualToString:@"iPad"];
+    v2 = v3;
+    if (v1)
+    {
+      isIpad_result = 1;
+    }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 + (unint64_t)generativeModelsAvailabilityStatus

@@ -14,15 +14,13 @@
 
 + (id)sublibraries
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   v3 = [self ECR];
   entityTagging = [self EntityTagging];
-  v9[1] = entityTagging;
+  v8[1] = entityTagging;
   views = [self Views];
-  v9[2] = views;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[2] = views;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
 
   return v6;
 }
@@ -63,22 +61,20 @@
 
 + (id)MessageTerms
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForMessageTerms = [self configurationForMessageTerms];
   v3 = +[BMIntelligencePlatformMessageTerms columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"IntelligencePlatform.MessageTerms" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"IntelligencePlatform.MessageTerms" schema:v9 configuration:configurationForMessageTerms];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -93,22 +89,20 @@
 
 + (id)FeatureStore
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForFeatureStore = [self configurationForFeatureStore];
   v3 = +[BMIntelligencePlatformFeatureStore columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"IntelligencePlatform.FeatureStore" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"IntelligencePlatform.FeatureStore" schema:v9 configuration:configurationForFeatureStore];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

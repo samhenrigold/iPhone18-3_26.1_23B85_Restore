@@ -71,7 +71,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1000085D8(0, &qword_100208020);
+  sub_1000085D8(0, &qword_100208020, UITouch_ptr);
   sub_10003A39C();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -98,7 +98,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1000085D8(0, &qword_100208020);
+  sub_1000085D8(0, &qword_100208020, UITouch_ptr);
   sub_10003A39C();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -164,7 +164,7 @@
   v7 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC7Preview18LoupeContainerView_loupePanGesture);
   if (v7)
   {
-    sub_1000085D8(0, &qword_100207008);
+    sub_1000085D8(0, &qword_100207008, UIGestureRecognizer_ptr);
     recognizerCopy = recognizer;
     gestureRecognizerCopy = gestureRecognizer;
     selfCopy = self;

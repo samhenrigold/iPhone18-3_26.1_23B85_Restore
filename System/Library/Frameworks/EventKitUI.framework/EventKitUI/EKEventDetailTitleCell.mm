@@ -1462,7 +1462,7 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
 
 - (double)_layoutForWidth:(double)width
 {
-  v326 = *MEMORY[0x1E69E9840];
+  v348 = *MEMORY[0x1E69E9840];
   areAnimationsEnabled = [MEMORY[0x1E69DD250] areAnimationsEnabled];
   selfCopy = self;
   if (MEMORY[0x1D38B98D0]([MEMORY[0x1E69DD250] setAnimationsEnabled:0]))
@@ -1503,13 +1503,13 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
   }
 
   [(EKEventDetailTitleCell *)selfCopy2 layoutMargins];
-  v297 = v11;
+  v319 = v11;
   [(EKEventDetailTitleCell *)selfCopy2 layoutMargins];
-  v295 = v12;
+  v317 = v12;
   [(EKEventDetailTitleCell *)selfCopy2 safeAreaInsets];
-  v293 = v13;
+  v315 = v13;
   [(EKEventDetailTitleCell *)selfCopy2 safeAreaInsets];
-  v291 = v14;
+  v313 = v14;
   if ([(EKEventDetailTitleCell *)selfCopy2 nonInteractivePlatterMode]&& (CUIKCurrentLocaleRequiresIndianLanguageAdjustments() & 1) != 0)
   {
     _scaledTitleFont = [objc_opt_class() _scaledTitleFont];
@@ -1523,22 +1523,22 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
     v15 = 0;
   }
 
-  v316 = 0;
-  v317 = &v316;
-  v318 = 0x3010000000;
-  v320 = 0;
-  v321 = 0.0;
-  v319 = "";
+  v338 = 0;
+  v339 = &v338;
+  v340 = 0x3010000000;
+  v342 = 0;
+  v343 = 0.0;
+  v341 = "";
   [(EKEventDetailCell *)selfCopy detailsLeftInset];
   v17 = v16;
   [_scaledTitleFont _scaledValueForValue:30.0];
   v19 = v18;
   [(UILabel *)selfCopy->_titleView _firstBaselineOffsetFromTop];
-  v320 = v17;
-  v321 = v19 - v20;
+  v342 = v17;
+  v343 = v19 - v20;
   if (!delegate)
   {
-    v40 = selfCopy;
+    v44 = selfCopy;
     [(UIButton *)selfCopy->_editButton removeFromSuperview];
     goto LABEL_39;
   }
@@ -1572,11 +1572,13 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
   frame = [(UIButton *)v22->_editButton frame];
   rect = v35;
   v37 = v36;
-  v38 = v317[4];
-  v39 = v317[5];
-  if (MEMORY[0x1D38B98D0](frame))
+  v38 = v339[4];
+  v39 = v339[5];
+  v40 = MEMORY[0x1D38B98D0](frame);
+  if (v40)
   {
-    if (CalInterfaceIsLeftToRight())
+    IsLeftToRight = CalInterfaceIsLeftToRight(v40, v41);
+    if (IsLeftToRight)
     {
       v38 = width - v37;
     }
@@ -1590,12 +1592,13 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
   }
 
   traitCollection = [(EKEventDetailTitleCell *)v22 traitCollection];
-  if (EKUIUsesLargeTextLayout(traitCollection))
+  v46 = EKUIUsesLargeTextLayout(traitCollection);
+  if (v46)
   {
-    IsLeftToRight = CalInterfaceIsLeftToRight();
+    v48 = CalInterfaceIsLeftToRight(v46, v47);
 
     v22 = selfCopy;
-    if (IsLeftToRight)
+    if (v48)
     {
       goto LABEL_26;
     }
@@ -1609,59 +1612,60 @@ void __43__EKEventDetailTitleCell__recurrenceButton__block_invoke_4(uint64_t a1)
 
   titleLabel = [(UIButton *)v22->_editButton titleLabel];
   [titleLabel frame];
-  v45 = v44;
+  v51 = v50;
   titleLabel2 = [(UIButton *)v22->_editButton titleLabel];
   [titleLabel2 frame];
-  v48 = v47;
+  v54 = v53;
 
   v22 = selfCopy;
-  [(EKEventDetailTitleCell *)selfCopy layoutMargins];
-  v38 = v37 - v45 - v48 + width - v49 - v37;
+  IsLeftToRight = [(EKEventDetailTitleCell *)selfCopy layoutMargins];
+  v38 = v37 - v51 - v54 + width - v55 - v37;
 LABEL_26:
   if (v22->_visibleItems)
   {
     traitCollection2 = [(EKEventDetailTitleCell *)v22 traitCollection];
-    v51 = EKUIUsesLargeTextLayout(traitCollection2);
+    v57 = EKUIUsesLargeTextLayout(traitCollection2);
 
-    if (!v51)
+    if (!v57)
     {
       font = [(UILabel *)selfCopy->_titleView font];
       titleLabel3 = [(UIButton *)selfCopy->_editButton titleLabel];
       font2 = [titleLabel3 font];
 
       [font ascender];
-      v56 = v55;
-      [font capHeight];
-      v58 = v57;
-      [font2 ascender];
-      v60 = v59;
-      [font capHeight];
       v62 = v61;
+      [font capHeight];
+      v64 = v63;
+      [font2 ascender];
+      v66 = v65;
+      [font capHeight];
+      v68 = v67;
       titleLabel4 = [(UIButton *)selfCopy->_editButton titleLabel];
       [titleLabel4 frame];
-      v65 = v64;
+      v71 = v70;
 
-      CalRoundToScreenScale(v56 + v58 - (v60 + v62) - v65);
-      v67 = v66;
+      CalRoundToScreenScale(v62 + v64 - (v66 + v68) - v71);
+      v73 = v72;
 
-      v39 = v39 + v67;
+      v39 = v39 + v73;
     }
 
     v22 = selfCopy;
   }
 
-  if ((CalInterfaceIsLeftToRight() & 1) != 0 || ([(EKEventDetailTitleCell *)v22 traitCollection], v68 = objc_claimAutoreleasedReturnValue(), v69 = EKUIUsesLargeTextLayout(v68), v68, v22 = selfCopy, v69))
+  v74 = CalInterfaceIsLeftToRight(IsLeftToRight, v43);
+  if ((v74 & 1) != 0 || ([(EKEventDetailTitleCell *)v22 traitCollection], v76 = objc_claimAutoreleasedReturnValue(), v77 = EKUIUsesLargeTextLayout(v76), v76, v22 = selfCopy, v77))
   {
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v74, v75))
     {
       traitCollection3 = [(EKEventDetailTitleCell *)v22 traitCollection];
-      v71 = EKUIUsesLargeTextLayout(traitCollection3);
+      v79 = EKUIUsesLargeTextLayout(traitCollection3);
 
       v22 = selfCopy;
-      if (v71)
+      if (v79)
       {
         [(EKEventDetailTitleCell *)selfCopy safeAreaInsets];
-        v38 = v38 + v72;
+        v38 = v38 + v80;
       }
     }
   }
@@ -1669,72 +1673,72 @@ LABEL_26:
   else
   {
     [(EKEventDetailTitleCell *)selfCopy layoutMargins];
-    v38 = v73;
+    v38 = v81;
   }
 
-  contentView = [(EKEventDetailTitleCell *)v22 contentView];
-  [contentView convertRect:v22 fromView:{v38, v39, v37, rect}];
+  v82 = objc_msgSend_contentView(v22);
+  [v82 convertRect:v22 fromView:{v38, v39, v37, rect}];
   [(UIButton *)v22->_editButton setFrame:?];
 
-  contentView2 = [(EKEventDetailTitleCell *)selfCopy contentView];
-  [contentView2 addSubview:selfCopy->_editButton];
+  v83 = objc_msgSend_contentView(selfCopy);
+  [v83 addSubview:selfCopy->_editButton];
 
   traitCollection4 = [(EKEventDetailTitleCell *)selfCopy traitCollection];
-  v77 = EKUIUsesLargeTextLayout(traitCollection4);
+  v85 = EKUIUsesLargeTextLayout(traitCollection4);
 
-  if (v77)
+  if (v85)
   {
-    v327.origin.x = v38;
-    v327.origin.y = v39;
-    v327.size.width = v37;
-    v327.size.height = rect;
-    v40 = selfCopy;
-    v317[5] = CGRectGetMaxY(v327);
+    v349.origin.x = v38;
+    v349.origin.y = v39;
+    v349.size.width = v37;
+    v349.size.height = rect;
+    v44 = selfCopy;
+    v339[5] = CGRectGetMaxY(v349);
   }
 
   else
   {
-    v40 = selfCopy;
+    v44 = selfCopy;
   }
 
 LABEL_39:
-  v78 = width - v297 - v295;
-  v284 = v293 + v291;
-  v79 = *(v317 + 5);
-  v312 = 0;
-  v313 = &v312;
-  v314 = 0x2020000000;
-  v315 = v79;
-  if (v40->_visibleItems)
+  v86 = width - v319 - v317;
+  v306 = v315 + v313;
+  v87 = *(v339 + 5);
+  v334 = 0;
+  v335 = &v334;
+  v336 = 0x2020000000;
+  v337 = v87;
+  if (v44->_visibleItems)
   {
-    _editButton2 = [(EKEventDetailTitleCell *)v40 _editButton];
-    [(UIButton *)v40->_editButton frame];
-    [_editButton2 sizeThatFits:{v81, v82}];
-    v84 = v83;
+    _editButton2 = [(EKEventDetailTitleCell *)v44 _editButton];
+    [(UIButton *)v44->_editButton frame];
+    [_editButton2 sizeThatFits:{v91, v92}];
+    v94 = v93;
 
     delegate5 = [(EKEventDetailTitleCell *)selfCopy delegate];
     LODWORD(_editButton2) = [delegate5 titleShouldInsetForEditButton:selfCopy];
 
     LODWORD(delegate5) = MEMORY[0x1D38B98D0]();
     [(UILabel *)selfCopy->_titleView frame];
-    v87 = v86;
+    v97 = v96;
     if ((delegate5 & _editButton2) != 0)
     {
-      v88 = v84 + 8.0;
+      v98 = v94 + 8.0;
     }
 
     else
     {
-      v88 = 0.0;
+      v98 = 0.0;
     }
 
-    v89 = v317[4];
-    v90 = v317[5];
+    v99 = v339[4];
+    v100 = v339[5];
     traitCollection5 = [(EKEventDetailTitleCell *)selfCopy traitCollection];
-    v92 = EKUIUsesLargeTextLayout(traitCollection5);
+    v102 = EKUIUsesLargeTextLayout(traitCollection5);
 
-    v93 = v78 - v88;
-    if (v92)
+    v103 = v86 - v98;
+    if (v102)
     {
       p_isa = &selfCopy->super.super.super.super.super.super.isa;
     }
@@ -1743,46 +1747,46 @@ LABEL_39:
     {
       p_isa = &selfCopy->super.super.super.super.super.super.isa;
       [(UIButton *)selfCopy->_editButton frame];
-      v93 = v93 - v95;
+      v103 = v103 - v105;
     }
 
-    [p_isa[140] setFrame:{CalRoundRectToScreenScale(v89, v90, v93, v87)}];
-    [p_isa[140] sizeToFit];
-    if ((CalInterfaceIsLeftToRight() & 1) == 0)
+    [p_isa[140] setFrame:{CalRoundRectToScreenScale(v99, v100, v103, v97)}];
+    sizeToFit = [p_isa[140] sizeToFit];
+    if ((CalInterfaceIsLeftToRight(sizeToFit, v107) & 1) == 0)
     {
       [p_isa[140] frame];
-      [p_isa[140] setFrame:width - v284 - v96 - v97];
+      [p_isa[140] setFrame:width - v306 - v108 - v109];
     }
 
     [p_isa[140] frame];
-    v99 = v98;
-    contentView3 = [p_isa contentView];
-    [contentView3 addSubview:p_isa[140]];
+    v111 = v110;
+    v112 = objc_msgSend_contentView(p_isa);
+    [v112 addSubview:p_isa[140]];
 
-    v40 = selfCopy;
-    [(UILabel *)selfCopy->_titleView _lastLineBaseline];
-    v313[3] = v99 + v101;
+    v44 = selfCopy;
+    _lastLineBaseline = [(UILabel *)selfCopy->_titleView _lastLineBaseline];
+    v335[3] = v111 + v113;
   }
 
   else
   {
-    [(UILabel *)v40->_titleView removeFromSuperview];
+    _lastLineBaseline = [(UILabel *)v44->_titleView removeFromSuperview];
   }
 
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(_lastLineBaseline, v89))
   {
-    v102 = EKUIScaleFactor();
-    v103 = -1.0;
+    v114 = EKUIScaleFactor();
+    v115 = -1.0;
   }
 
   else
   {
-    v102 = EKUIScaleFactor();
-    v103 = 1.0;
+    v114 = EKUIScaleFactor();
+    v115 = 1.0;
   }
 
-  v317[4] = v103 / v102 + v317[4];
-  visibleItems = v40->_visibleItems;
+  v339[4] = v115 / v114 + v339[4];
+  visibleItems = v44->_visibleItems;
   if (v15)
   {
     [objc_opt_class() _scaledLocationFont];
@@ -1792,287 +1796,287 @@ LABEL_39:
   {
     [objc_opt_class() _locationFont];
   }
-  v280 = ;
+  v302 = ;
 
-  [v280 _scaledValueForValue:30.0];
-  v278 = v104;
-  [v280 _scaledValueForValue:21.0];
-  v283 = v105;
+  [v302 _scaledValueForValue:30.0];
+  v300 = v116;
+  [v302 _scaledValueForValue:21.0];
+  v305 = v117;
   if ((visibleItems & 2) != 0)
   {
-    v310 = 0u;
-    v311 = 0u;
-    v308 = 0u;
-    v309 = 0u;
+    v332 = 0u;
+    v333 = 0u;
+    v330 = 0u;
+    v331 = 0u;
     obj = selfCopy->_locationItems;
-    v111 = [(NSMutableArray *)obj countByEnumeratingWithState:&v308 objects:v325 count:16];
-    if (v111)
+    v125 = [(NSMutableArray *)obj countByEnumeratingWithState:&v330 objects:v347 count:16];
+    if (v125)
     {
-      v294 = *v309;
-      v286 = *MEMORY[0x1E69DB650];
+      v316 = *v331;
+      v308 = *MEMORY[0x1E69DB650];
       do
       {
-        v296 = v111;
-        for (i = 0; i != v296; ++i)
+        v318 = v125;
+        for (i = 0; i != v318; ++i)
         {
-          if (*v309 != v294)
+          if (*v331 != v316)
           {
             objc_enumerationMutation(obj);
           }
 
-          v113 = *(*(&v308 + 1) + 8 * i);
-          locationView = [v113 locationView];
+          v127 = *(*(&v330 + 1) + 8 * i);
+          locationView = [v127 locationView];
           [locationView frame];
-          v116 = v115;
-          v118 = v117;
-          [v113 updateAttributedString];
-          [locationView setFrame:{v116, v118, v78, 0.0}];
+          v130 = v129;
+          v132 = v131;
+          [v127 updateAttributedString];
+          [locationView setFrame:{v130, v132, v86, 0.0}];
           [locationView sizeToFit];
           font3 = [locationView font];
           [font3 _scaledValueForValue:22.0];
-          v121 = v120;
+          v135 = v134;
 
           [locationView frame];
-          if (v122 > v121 * 8.0 && !selfCopy->_showAllLocation)
+          if (v136 > v135 * 8.0 && !selfCopy->_showAllLocation)
           {
             [locationView frame];
-            v124 = v123;
+            v138 = v137;
             [locationView frame];
-            [locationView setFrame:v124];
-            v323 = v286;
+            [locationView setFrame:v138];
+            v345 = v308;
             labelColor = [MEMORY[0x1E69DC888] labelColor];
-            v324 = labelColor;
-            v126 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v324 forKeys:&v323 count:1];
-            [locationView setLinkTextAttributes:v126];
+            v346 = labelColor;
+            v140 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v346 forKeys:&v345 count:1];
+            [locationView setLinkTextAttributes:v140];
 
             layoutManager = [locationView layoutManager];
             textContainer = [locationView textContainer];
-            v129 = [layoutManager glyphRangeForTextContainer:textContainer];
-            v131 = v130;
+            v143 = [layoutManager glyphRangeForTextContainer:textContainer];
+            v145 = v144;
 
             attributedText = [locationView attributedText];
-            v292 = [attributedText attributesAtIndex:0 effectiveRange:0];
+            v314 = [attributedText attributesAtIndex:0 effectiveRange:0];
 
-            v133 = objc_alloc(MEMORY[0x1E696AD40]);
+            v147 = objc_alloc(MEMORY[0x1E696AD40]);
             ellipsisString = [MEMORY[0x1E696AEC0] ellipsisString];
-            v298 = [v133 initWithString:ellipsisString attributes:v292];
+            v320 = [v147 initWithString:ellipsisString attributes:v314];
 
-            v135 = EventKitUIBundle();
-            v288 = [v135 localizedStringForKey:@"ShowMoreLocation" value:@"   Show More" table:0];
+            v149 = EventKitUIBundle();
+            v310 = [v149 localizedStringForKey:@"ShowMoreLocation" value:@"   Show More" table:0];
 
-            recta = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v292];
-            v136 = CalendarAppTintColor();
-            [recta setObject:v136 forKeyedSubscript:v286];
+            recta = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v314];
+            v150 = CalendarAppTintColor();
+            [recta setObject:v150 forKeyedSubscript:v308];
 
-            v137 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v288 attributes:recta];
-            [v298 appendAttributedString:v137];
+            v151 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v310 attributes:recta];
+            [v320 appendAttributedString:v151];
 
-            v138 = objc_alloc(MEMORY[0x1E69DB800]);
+            v152 = objc_alloc(MEMORY[0x1E69DB800]);
             textContainer2 = [locationView textContainer];
             [textContainer2 size];
-            v140 = [v138 initWithSize:?];
+            v154 = [v152 initWithSize:?];
 
-            v141 = objc_alloc_init(MEMORY[0x1E69DB808]);
-            [v141 setAttributedString:v298];
-            v142 = objc_opt_new();
-            [v142 setTextContainer:v140];
-            [v141 addTextLayoutManager:v142];
-            textContainer3 = [v142 textContainer];
+            v155 = objc_alloc_init(MEMORY[0x1E69DB808]);
+            [v155 setAttributedString:v320];
+            v156 = objc_opt_new();
+            [v156 setTextContainer:v154];
+            [v155 addTextLayoutManager:v156];
+            textContainer3 = [v156 textContainer];
             layoutManager2 = [textContainer3 layoutManager];
-            [layoutManager2 boundingRectForGlyphRange:0 inTextContainer:{objc_msgSend(v298, "length"), v140}];
-            v146 = v145;
+            [layoutManager2 boundingRectForGlyphRange:0 inTextContainer:{objc_msgSend(v320, "length"), v154}];
+            v160 = v159;
 
             layoutManager3 = [locationView layoutManager];
             textContainer4 = [locationView textContainer];
-            [layoutManager3 boundingRectForGlyphRange:v131 + v129 - 1 inTextContainer:{1, textContainer4}];
-            v150 = v149;
+            [layoutManager3 boundingRectForGlyphRange:v145 + v143 - 1 inTextContainer:{1, textContainer4}];
+            v164 = v163;
 
             textContainer5 = [locationView textContainer];
             [textContainer5 size];
-            v153 = v152;
+            v167 = v166;
 
             textContainer6 = [locationView textContainer];
             layoutManager4 = [textContainer6 layoutManager];
             textContainer7 = [locationView textContainer];
-            v157 = [layoutManager4 glyphIndexForPoint:textContainer7 inTextContainer:{v153 - v146, v150}];
+            v171 = [layoutManager4 glyphIndexForPoint:textContainer7 inTextContainer:{v167 - v160, v164}];
 
             textContainer8 = [locationView textContainer];
             layoutManager5 = [textContainer8 layoutManager];
-            v160 = [layoutManager5 characterIndexForGlyphAtIndex:v157];
+            v174 = [layoutManager5 characterIndexForGlyphAtIndex:v171];
 
             textStorage = [locationView textStorage];
             string = [textStorage string];
-            v163 = [string length];
-            selfCopy->_showLocationRange.location = v160 - 1;
-            selfCopy->_showLocationRange.length = v163 - (v160 - 1);
+            v177 = [string length];
+            selfCopy->_showLocationRange.location = v174 - 1;
+            selfCopy->_showLocationRange.length = v177 - (v174 - 1);
 
             textStorage2 = [locationView textStorage];
-            [textStorage2 replaceCharactersInRange:selfCopy->_showLocationRange.location withAttributedString:{selfCopy->_showLocationRange.length, v298}];
+            [textStorage2 replaceCharactersInRange:selfCopy->_showLocationRange.location withAttributedString:{selfCopy->_showLocationRange.length, v320}];
 
-            tapRecognizer = [v113 tapRecognizer];
+            tapRecognizer = [v127 tapRecognizer];
             LODWORD(textStorage2) = tapRecognizer == 0;
 
             if (textStorage2)
             {
-              v166 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:selfCopy action:sel_handleTapOnLabel_];
-              [locationView addGestureRecognizer:v166];
+              v180 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:selfCopy action:sel_handleTapOnLabel_];
+              [locationView addGestureRecognizer:v180];
             }
           }
 
           [locationView frame];
-          v168 = v167;
-          v170 = v169;
-          v171 = v313[3];
+          v182 = v181;
+          v184 = v183;
+          v185 = v335[3];
           font4 = [locationView font];
           [font4 _scaledValueForValue:22.0];
-          v174 = v173;
+          v188 = v187;
           font5 = [locationView font];
           [font5 ascender];
-          v317[5] = v171 + v174 - v176;
+          v339[5] = v185 + v188 - v190;
 
-          v177 = v317[4];
-          v178 = v317[5];
-          v179 = CalInterfaceIsLeftToRight();
-          v180 = width - v284 - v168 - v177;
-          if (v179)
+          v191 = v339[4];
+          v192 = v339[5];
+          v195 = CalInterfaceIsLeftToRight(v193, v194);
+          v196 = width - v306 - v182 - v191;
+          if (v195)
           {
-            v180 = v177;
+            v196 = v191;
           }
 
-          [locationView setFrame:{CalRoundRectToScreenScale(v180, v178, v168, v170)}];
-          contentView4 = [(EKEventDetailTitleCell *)selfCopy contentView];
-          [contentView4 addSubview:locationView];
+          [locationView setFrame:{CalRoundRectToScreenScale(v196, v192, v182, v184)}];
+          v197 = objc_msgSend_contentView(selfCopy);
+          [v197 addSubview:locationView];
 
-          v328.origin.x = v177;
-          v328.origin.y = v178;
-          v328.size.width = v168;
-          v328.size.height = v170;
-          MaxY = CGRectGetMaxY(v328);
+          v350.origin.x = v191;
+          v350.origin.y = v192;
+          v350.size.width = v182;
+          v350.size.height = v184;
+          MaxY = CGRectGetMaxY(v350);
           font6 = [locationView font];
           [font6 descender];
-          v313[3] = MaxY + v184 + -8.0;
+          v335[3] = MaxY + v200 + -8.0;
 
-          v317[5] = v313[3];
+          v339[5] = v335[3];
         }
 
-        v111 = [(NSMutableArray *)obj countByEnumeratingWithState:&v308 objects:v325 count:16];
+        v125 = [(NSMutableArray *)obj countByEnumeratingWithState:&v330 objects:v347 count:16];
       }
 
-      while (v111);
+      while (v125);
     }
   }
 
   else
   {
-    v306 = 0u;
-    v307 = 0u;
-    v304 = 0u;
-    v305 = 0u;
-    v106 = selfCopy->_locationItems;
-    v107 = [(NSMutableArray *)v106 countByEnumeratingWithState:&v304 objects:v322 count:16];
-    if (v107)
+    v328 = 0u;
+    v329 = 0u;
+    v326 = 0u;
+    v327 = 0u;
+    v118 = selfCopy->_locationItems;
+    v119 = [(NSMutableArray *)v118 countByEnumeratingWithState:&v326 objects:v344 count:16];
+    if (v119)
     {
-      v108 = *v305;
+      v120 = *v327;
       do
       {
-        for (j = 0; j != v107; ++j)
+        for (j = 0; j != v119; ++j)
         {
-          if (*v305 != v108)
+          if (*v327 != v120)
           {
-            objc_enumerationMutation(v106);
+            objc_enumerationMutation(v118);
           }
 
-          locationView2 = [*(*(&v304 + 1) + 8 * j) locationView];
+          locationView2 = [*(*(&v326 + 1) + 8 * j) locationView];
           [locationView2 removeFromSuperview];
         }
 
-        v107 = [(NSMutableArray *)v106 countByEnumeratingWithState:&v304 objects:v322 count:16];
+        v119 = [(NSMutableArray *)v118 countByEnumeratingWithState:&v326 objects:v344 count:16];
       }
 
-      while (v107);
+      while (v119);
     }
 
-    v317[5] = v313[3];
+    v339[5] = v335[3];
   }
 
-  v185 = &selfCopy->super.super.super.super.super.super.isa;
-  if (CalInterfaceIsLeftToRight())
+  v201 = &selfCopy->super.super.super.super.super.super.isa;
+  if (CalInterfaceIsLeftToRight(v123, v124))
   {
-    v186 = EKUIScaleFactor();
-    v187 = -1.0;
+    v202 = EKUIScaleFactor();
+    v203 = -1.0;
   }
 
   else
   {
-    v186 = EKUIScaleFactor();
-    v187 = 1.0;
+    v202 = EKUIScaleFactor();
+    v203 = 1.0;
   }
 
-  v188 = v317;
-  v317[4] = v317[4] - v187 / v186;
+  v204 = v339;
+  v339[4] = v339[4] - v203 / v202;
   if ((visibleItems & 0x100) != 0)
   {
     if ((visibleItems & 2) != 0)
     {
-      v192 = v188[5] + 5.5;
+      v208 = v204[5] + 5.5;
     }
 
     else
     {
-      v192 = v188[5] + 5.5 + 8.0;
+      v208 = v204[5] + 5.5 + 8.0;
     }
 
-    v188[5] = v192;
+    v204[5] = v208;
     _suggestedLocationCell = [(EKEventDetailTitleCell *)selfCopy _suggestedLocationCell];
-    LODWORD(v194) = 1148846080;
-    LODWORD(v195) = 1112014848;
-    [_suggestedLocationCell systemLayoutSizeFittingSize:width - v284 withHorizontalFittingPriority:0.0 verticalFittingPriority:{v194, v195}];
-    v197 = v196;
-    v199 = v198;
+    LODWORD(v210) = 1148846080;
+    LODWORD(v211) = 1112014848;
+    [_suggestedLocationCell systemLayoutSizeFittingSize:width - v306 withHorizontalFittingPriority:0.0 verticalFittingPriority:{v210, v211}];
+    v213 = v212;
+    v215 = v214;
 
-    v329.origin.x = CalRoundRectToScreenScale(0.0, v192, v197, v199);
-    x = v329.origin.x;
-    y = v329.origin.y;
-    width = v329.size.width;
-    height = v329.size.height;
-    v204 = CGRectGetMaxY(v329);
-    v313[3] = v204;
-    v317[5] = v204 + -8.0;
+    v351.origin.x = CalRoundRectToScreenScale(0.0, v208, v213, v215);
+    x = v351.origin.x;
+    y = v351.origin.y;
+    width = v351.size.width;
+    height = v351.size.height;
+    v220 = CGRectGetMaxY(v351);
+    v335[3] = v220;
+    v339[5] = v220 + -8.0;
     [(EKEventDetailSuggestedLocationCell *)selfCopy->_suggestedLocationCell setFrame:x, y, width, height];
-    contentView5 = [(EKEventDetailTitleCell *)selfCopy contentView];
-    [contentView5 addSubview:selfCopy->_suggestedLocationCell];
+    v221 = objc_msgSend_contentView(selfCopy);
+    [v221 addSubview:selfCopy->_suggestedLocationCell];
 
-    v185 = &selfCopy->super.super.super.super.super.super.isa;
+    v201 = &selfCopy->super.super.super.super.super.super.isa;
     if ((selfCopy->_visibleItems & 0x200) != 0)
     {
-      v190 = v317;
-      v189 = v317[5];
-      v191 = 23.5;
+      v206 = v339;
+      v205 = v339[5];
+      v207 = 23.5;
 LABEL_94:
-      v208 = v189 + v191;
-      v190[5] = v189 + v191;
-      _conferenceDetailView = [v185 _conferenceDetailView];
-      LODWORD(v210) = 1148846080;
-      LODWORD(v211) = 1112014848;
-      [_conferenceDetailView systemLayoutSizeFittingSize:width - v284 withHorizontalFittingPriority:0.0 verticalFittingPriority:{v210, v211}];
-      v213 = v212;
-      v215 = v214;
+      v224 = v205 + v207;
+      v206[5] = v205 + v207;
+      _conferenceDetailView = [v201 _conferenceDetailView];
+      LODWORD(v226) = 1148846080;
+      LODWORD(v227) = 1112014848;
+      [_conferenceDetailView systemLayoutSizeFittingSize:width - v306 withHorizontalFittingPriority:0.0 verticalFittingPriority:{v226, v227}];
+      v229 = v228;
+      v231 = v230;
 
-      v330.origin.x = CalRoundRectToScreenScale(0.0, v208, v213, v215);
-      v216 = v330.origin.x;
-      v217 = v330.origin.y;
-      v218 = v330.size.width;
-      v219 = v330.size.height;
-      v220 = CGRectGetMaxY(v330);
-      v313[3] = v220;
-      v317[5] = v220 + -8.0;
-      [(EKEventDetailConferenceCell *)selfCopy->_conferenceDetailView setFrame:v216, v217, v218, v219];
-      contentView6 = [(EKEventDetailTitleCell *)selfCopy contentView];
-      [contentView6 addSubview:selfCopy->_conferenceDetailView];
+      v352.origin.x = CalRoundRectToScreenScale(0.0, v224, v229, v231);
+      v232 = v352.origin.x;
+      v233 = v352.origin.y;
+      v234 = v352.size.width;
+      v235 = v352.size.height;
+      v236 = CGRectGetMaxY(v352);
+      v335[3] = v236;
+      v339[5] = v236 + -8.0;
+      [(EKEventDetailConferenceCell *)selfCopy->_conferenceDetailView setFrame:v232, v233, v234, v235];
+      v237 = objc_msgSend_contentView(selfCopy);
+      [v237 addSubview:selfCopy->_conferenceDetailView];
 
-      v207 = v317;
-      v206 = v317[5];
-      v185 = &selfCopy->super.super.super.super.super.super.isa;
+      v223 = v339;
+      v222 = v339[5];
+      v201 = &selfCopy->super.super.super.super.super.super.isa;
       goto LABEL_95;
     }
   }
@@ -2080,80 +2084,80 @@ LABEL_94:
   else
   {
     [(EKEventDetailSuggestedLocationCell *)selfCopy->_suggestedLocationCell removeFromSuperview];
-    v189 = v313[3];
-    v190 = v317;
-    v317[5] = v189;
+    v205 = v335[3];
+    v206 = v339;
+    v339[5] = v205;
     if ((selfCopy->_visibleItems & 0x200) != 0)
     {
       if ((visibleItems & 2) != 0)
       {
-        v191 = 8.0;
+        v207 = 8.0;
       }
 
       else
       {
-        v191 = 13.5;
+        v207 = 13.5;
       }
 
       goto LABEL_94;
     }
   }
 
-  [v185[146] removeFromSuperview];
-  v206 = v313[3];
-  v207 = v317;
-  v317[5] = v206;
+  [v201[146] removeFromSuperview];
+  v222 = v335[3];
+  v223 = v339;
+  v339[5] = v222;
 LABEL_95:
-  v207[5] = v278 + 3.0 + v206;
-  startCalendarDate = [v185[136] startCalendarDate];
+  v223[5] = v300 + 3.0 + v222;
+  startCalendarDate = [v201[136] startCalendarDate];
   dayComponents = [startCalendarDate dayComponents];
 
   endCalendarDate = [(EKEvent *)selfCopy->super._event endCalendarDate];
   dayComponents2 = [endCalendarDate dayComponents];
 
-  v226 = selfCopy;
-  v227 = [dayComponents day];
-  if (v227 == [dayComponents2 day] && (v228 = objc_msgSend(dayComponents, "month"), v228 == objc_msgSend(dayComponents2, "month")))
+  v242 = selfCopy;
+  v243 = [dayComponents day];
+  if (v243 == [dayComponents2 day] && (v244 = objc_msgSend(dayComponents, "month"), v244 == objc_msgSend(dayComponents2, "month")))
   {
     year = [dayComponents year];
-    v230 = year != [dayComponents2 year];
+    v246 = year != [dayComponents2 year];
   }
 
   else
   {
-    v230 = 1;
+    v246 = 1;
   }
 
-  v302[0] = 0;
-  v302[1] = v302;
-  v302[2] = 0x2020000000;
-  v303 = 0;
+  v324[0] = 0;
+  v324[1] = v324;
+  v324[2] = 0x2020000000;
+  v325 = 0;
   dateTimeViews = selfCopy->_dateTimeViews;
-  v300[0] = MEMORY[0x1E69E9820];
-  v300[1] = 3221225472;
-  v300[2] = __42__EKEventDetailTitleCell__layoutForWidth___block_invoke;
-  v300[3] = &unk_1E8441D58;
-  *&v300[8] = width;
-  v300[9] = 0;
-  v300[4] = selfCopy;
-  v300[5] = v302;
-  v300[6] = &v316;
-  v300[7] = &v312;
-  *&v300[10] = v78;
-  *&v300[11] = v283;
-  v301 = v230;
-  [(NSMutableArray *)dateTimeViews enumerateObjectsUsingBlock:v300];
+  v322[0] = MEMORY[0x1E69E9820];
+  v322[1] = 3221225472;
+  v322[2] = __42__EKEventDetailTitleCell__layoutForWidth___block_invoke;
+  v322[3] = &unk_1E8441D58;
+  *&v322[8] = width;
+  v322[9] = 0;
+  v322[4] = selfCopy;
+  v322[5] = v324;
+  v322[6] = &v338;
+  v322[7] = &v334;
+  *&v322[10] = v86;
+  *&v322[11] = v305;
+  v323 = v246;
+  [(NSMutableArray *)dateTimeViews enumerateObjectsUsingBlock:v322];
   if ((selfCopy->_visibleItems & 0x20) != 0)
   {
-    v232 = &OBJC_IVAR___EKEventDetailTitleCell__recurrenceButton;
+    v248 = &OBJC_IVAR___EKEventDetailTitleCell__recurrenceButton;
     if (!shouldShowPreviousButton)
     {
-      v232 = &OBJC_IVAR___EKEventDetailTitleCell__recurrenceView;
+      v248 = &OBJC_IVAR___EKEventDetailTitleCell__recurrenceView;
     }
 
-    v233 = *(&selfCopy->super.super.super.super.super.super.isa + *v232);
+    v249 = *(&selfCopy->super.super.super.super.super.super.isa + *v248);
     p_recurrenceView = &selfCopy->_recurrenceView;
-    v235 = selfCopy->_recurrenceView;
+    v251 = selfCopy->_recurrenceView;
     p_recurrenceButton = &selfCopy->_recurrenceView;
     if ((shouldShowPreviousButton & 1) == 0)
     {
@@ -2161,46 +2165,46 @@ LABEL_95:
     }
 
     [*p_recurrenceButton removeFromSuperview];
-    [v233 frame];
-    [v233 sizeThatFits:{v78, 0.0}];
-    v239 = v238;
-    if (v78 >= v237)
+    [v249 frame];
+    [v249 sizeThatFits:{v86, 0.0}];
+    v255 = v254;
+    if (v86 >= v253)
     {
-      v240 = v237;
+      v256 = v253;
     }
 
     else
     {
-      v240 = v78;
+      v256 = v86;
     }
 
-    [(UILabel *)v235 _firstLineBaseline];
-    v241 = v317[4];
-    v243 = v317[5] - v242;
-    v317[5] = v243;
-    [v233 sizeToFit];
-    [*p_recurrenceView sizeToFit];
-    if (CalInterfaceIsLeftToRight())
+    [(UILabel *)v251 _firstLineBaseline];
+    v257 = v339[4];
+    v259 = v339[5] - v258;
+    v339[5] = v259;
+    [v249 sizeToFit];
+    sizeToFit2 = [*p_recurrenceView sizeToFit];
+    if (CalInterfaceIsLeftToRight(sizeToFit2, v261))
     {
-      v244 = v241;
+      v262 = v257;
     }
 
     else
     {
-      v244 = width - v284 - v240 - v241;
+      v262 = width - v306 - v256 - v257;
     }
 
-    [v233 setFrame:{CalRoundRectToScreenScale(v244, v243, v240, v239)}];
-    [*p_recurrenceView setFrame:{CalRoundRectToScreenScale(v244, v243, v240, v239)}];
-    v245 = v317[5];
-    [(UILabel *)v235 _lastLineBaseline];
-    v247 = v245 + v246;
-    v313[3] = v247;
-    v317[5] = v283 + v247;
-    contentView7 = [(EKEventDetailTitleCell *)selfCopy contentView];
-    [contentView7 addSubview:v233];
+    [v249 setFrame:{CalRoundRectToScreenScale(v262, v259, v256, v255)}];
+    [*p_recurrenceView setFrame:{CalRoundRectToScreenScale(v262, v259, v256, v255)}];
+    v263 = v339[5];
+    [(UILabel *)v251 _lastLineBaseline];
+    v265 = v263 + v264;
+    v335[3] = v265;
+    v339[5] = v305 + v265;
+    v266 = objc_msgSend_contentView(selfCopy);
+    [v266 addSubview:v249];
 
-    v226 = selfCopy;
+    v242 = selfCopy;
   }
 
   else
@@ -2209,34 +2213,34 @@ LABEL_95:
     [(UIButton *)selfCopy->_recurrenceButton removeFromSuperview];
   }
 
-  travelTimeView = v226->_travelTimeView;
-  if ((v226->_visibleItems & 0x10) != 0)
+  travelTimeView = v242->_travelTimeView;
+  if ((v242->_visibleItems & 0x10) != 0)
   {
     [(UILabel *)travelTimeView sizeToFit];
-    [(UILabel *)v226->_travelTimeView frame];
-    v251 = v250;
-    [(UILabel *)v226->_travelTimeView sizeToFit];
-    [(UILabel *)v226->_travelTimeView _firstLineBaseline];
-    v252 = v317[4];
-    v254 = v317[5] - v253;
-    v317[5] = v254;
-    v255 = CalInterfaceIsLeftToRight();
-    v256 = width - v284 - v78 - v252;
-    if (v255)
+    [(UILabel *)v242->_travelTimeView frame];
+    v269 = v268;
+    [(UILabel *)v242->_travelTimeView sizeToFit];
+    _firstLineBaseline = [(UILabel *)v242->_travelTimeView _firstLineBaseline];
+    v271 = v339[4];
+    v273 = v339[5] - v272;
+    v339[5] = v273;
+    v275 = CalInterfaceIsLeftToRight(_firstLineBaseline, v274);
+    v276 = width - v306 - v86 - v271;
+    if (v275)
     {
-      v256 = v252;
+      v276 = v271;
     }
 
-    [(UILabel *)v226->_travelTimeView setFrame:CalRoundRectToScreenScale(v256, v254, v78, v251)];
-    contentView8 = [(EKEventDetailTitleCell *)v226 contentView];
-    [contentView8 addSubview:v226->_travelTimeView];
+    [(UILabel *)v242->_travelTimeView setFrame:CalRoundRectToScreenScale(v276, v273, v86, v269)];
+    v277 = objc_msgSend_contentView(v242);
+    [v277 addSubview:v242->_travelTimeView];
 
-    v258 = v317[5];
-    v226 = selfCopy;
+    v278 = v339[5];
+    v242 = selfCopy;
     [(UILabel *)selfCopy->_travelTimeView _lastLineBaseline];
-    v260 = v258 + v259;
-    v313[3] = v260;
-    v317[5] = v283 + v260;
+    v280 = v278 + v279;
+    v335[3] = v280;
+    v339[5] = v305 + v280;
   }
 
   else
@@ -2244,35 +2248,35 @@ LABEL_95:
     [(UILabel *)travelTimeView removeFromSuperview];
   }
 
-  statusView = v226->_statusView;
-  if ((v226->_visibleItems & 0x40) != 0)
+  statusView = v242->_statusView;
+  if ((v242->_visibleItems & 0x40) != 0)
   {
     [(UILabel *)statusView frame];
-    [(UILabel *)v226->_statusView sizeThatFits:v78, 0.0];
-    v263 = v262;
-    v265 = v264;
-    [(UILabel *)v226->_statusView _firstLineBaseline];
-    v266 = v317[4];
-    v268 = v317[5] - v267;
-    v317[5] = v268;
-    [(UILabel *)v226->_statusView sizeToFit];
-    v269 = CalInterfaceIsLeftToRight();
-    v270 = width - v284 - v263 - v266;
-    if (v269)
+    [(UILabel *)v242->_statusView sizeThatFits:v86, 0.0];
+    v283 = v282;
+    v285 = v284;
+    [(UILabel *)v242->_statusView _firstLineBaseline];
+    v286 = v339[4];
+    v288 = v339[5] - v287;
+    v339[5] = v288;
+    sizeToFit3 = [(UILabel *)v242->_statusView sizeToFit];
+    v291 = CalInterfaceIsLeftToRight(sizeToFit3, v290);
+    v292 = width - v306 - v283 - v286;
+    if (v291)
     {
-      v270 = v266;
+      v292 = v286;
     }
 
-    [(UILabel *)v226->_statusView setFrame:CalRoundRectToScreenScale(v270, v268, v263, v265)];
-    contentView9 = [(EKEventDetailTitleCell *)v226 contentView];
-    [contentView9 addSubview:v226->_statusView];
+    [(UILabel *)v242->_statusView setFrame:CalRoundRectToScreenScale(v292, v288, v283, v285)];
+    v293 = objc_msgSend_contentView(v242);
+    [v293 addSubview:v242->_statusView];
 
-    v272 = v317[5];
-    v226 = selfCopy;
+    v294 = v339[5];
+    v242 = selfCopy;
     [(UILabel *)selfCopy->_statusView _lastLineBaseline];
-    v274 = v272 + v273;
-    v313[3] = v274;
-    v317[5] = v283 + v274;
+    v296 = v294 + v295;
+    v335[3] = v296;
+    v339[5] = v305 + v296;
   }
 
   else
@@ -2280,19 +2284,19 @@ LABEL_95:
     [(UILabel *)statusView removeFromSuperview];
   }
 
-  if (v226->_hideTopCellSeparator || v226->_hideBottomCellSeparator)
+  if (v242->_hideTopCellSeparator || v242->_hideBottomCellSeparator)
   {
-    [(EKEventDetailTitleCell *)v226 _updateSeparatorStyle];
+    [(EKEventDetailTitleCell *)v242 _updateSeparatorStyle];
   }
 
   [MEMORY[0x1E69DD250] setAnimationsEnabled:areAnimationsEnabled];
-  v275 = v313[3];
-  _Block_object_dispose(v302, 8);
+  v297 = v335[3];
+  _Block_object_dispose(v324, 8);
 
-  _Block_object_dispose(&v312, 8);
-  _Block_object_dispose(&v316, 8);
+  _Block_object_dispose(&v334, 8);
+  _Block_object_dispose(&v338, 8);
 
-  return v275;
+  return v297;
 }
 
 void __42__EKEventDetailTitleCell__layoutForWidth___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -2333,35 +2337,35 @@ void __42__EKEventDetailTitleCell__layoutForWidth___block_invoke(uint64_t a1, vo
 
   else if ((EKUIHasFallbackSizingContext() & 1) == 0)
   {
-    v28 = kEKUILogHandle;
+    v30 = kEKUILogHandle;
     if (os_log_type_enabled(kEKUILogHandle, OS_LOG_TYPE_DEBUG))
     {
-      *v45 = 0;
-      _os_log_impl(&dword_1D3400000, v28, OS_LOG_TYPE_DEBUG, "Unable to determine size class for event detail title cell", v45, 2u);
+      *v49 = 0;
+      _os_log_impl(&dword_1D3400000, v30, OS_LOG_TYPE_DEBUG, "Unable to determine size class for event detail title cell", v49, 2u);
     }
 
     goto LABEL_14;
   }
 
   IsRegularInViewHierarchy = EKUICurrentWidthSizeClassIsRegularInViewHierarchy(*(a1 + 32));
-  if ((a3 & 1) == 0 || !IsRegularInViewHierarchy || ([v19 bounds], v22 = v16 + CGRectGetWidth(v46), v23 = *(a1 + 80), objc_msgSend(*(a1 + 32), "detailsLeftInset"), v22 >= v23 - v24))
+  if ((a3 & 1) == 0 || !IsRegularInViewHierarchy || ([v19 bounds], v22 = v16 + CGRectGetWidth(v50), v23 = *(a1 + 80), objc_msgSend(*(a1 + 32), "detailsLeftInset"), v22 >= v23 - v24))
   {
 LABEL_14:
-    v29 = [v5 font];
-    [v29 ascender];
-    *(*(*(a1 + 48) + 8) + 40) = *(*(*(a1 + 48) + 8) + 40) - v30;
+    v31 = [v5 font];
+    [v31 ascender];
+    *(*(*(a1 + 48) + 8) + 40) = *(*(*(a1 + 48) + 8) + 40) - v32;
 
-    v31 = *(*(a1 + 48) + 8);
-    v25 = *(v31 + 32);
-    v27 = *(v31 + 40);
-    v47.origin.x = v25;
-    v47.origin.y = v27;
-    v47.size.width = v16;
-    v47.size.height = v18;
-    MaxY = CGRectGetMaxY(v47);
-    v33 = [v5 font];
-    [v33 descender];
-    *(*(*(a1 + 56) + 8) + 24) = MaxY + v34;
+    v33 = *(*(a1 + 48) + 8);
+    v25 = *(v33 + 32);
+    v29 = *(v33 + 40);
+    v51.origin.x = v25;
+    v51.origin.y = v29;
+    v51.size.width = v16;
+    v51.size.height = v18;
+    MaxY = CGRectGetMaxY(v51);
+    v35 = [v5 font];
+    [v35 descender];
+    *(*(*(a1 + 56) + 8) + 24) = MaxY + v36;
 
     *(*(*(a1 + 48) + 8) + 40) = *(*(*(a1 + 56) + 8) + 24) + *(a1 + 88);
     goto LABEL_15;
@@ -2369,31 +2373,32 @@ LABEL_14:
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
   v25 = *(*(*(a1 + 48) + 8) + 32);
-  [v19 frame];
-  v27 = v26;
+  v26 = [v19 frame];
+  v29 = v28;
 LABEL_15:
-  if (CalInterfaceIsLeftToRight() && (*(*(*(a1 + 40) + 8) + 24) & 1) != 0 || (CalInterfaceIsLeftToRight() & 1) == 0 && (*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
+  IsLeftToRight = CalInterfaceIsLeftToRight(v26, v27);
+  if (IsLeftToRight && (*(*(*(a1 + 40) + 8) + 24) & 1) != 0 || (CalInterfaceIsLeftToRight(IsLeftToRight, v38) & 1) == 0 && (*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v35 = *(a1 + 64);
+    v39 = *(a1 + 64);
     [*(a1 + 32) layoutMargins];
-    v37 = v35 - v36 - v16;
-    v38 = [*(a1 + 32) contentView];
-    [v38 convertRect:*(a1 + 32) fromView:{v37, v27, v16, v18}];
-    v25 = v39;
-    v27 = v40;
-    v16 = v41;
-    v18 = v42;
+    v41 = v39 - v40 - v16;
+    v42 = objc_msgSend_contentView(*(a1 + 32));
+    [v42 convertRect:*(a1 + 32) fromView:{v41, v29, v16, v18}];
+    v25 = v43;
+    v29 = v44;
+    v16 = v45;
+    v18 = v46;
   }
 
-  v43 = *(*(a1 + 40) + 8);
-  if (*(v43 + 24) == 1 && *(a1 + 96) == 1)
+  v47 = *(*(a1 + 40) + 8);
+  if (*(v47 + 24) == 1 && *(a1 + 96) == 1)
   {
-    *(v43 + 24) = 0;
+    *(v47 + 24) = 0;
   }
 
-  [v5 setFrame:{v25, v27, v16, v18}];
-  v44 = [*(a1 + 32) contentView];
-  [v44 addSubview:v5];
+  [v5 setFrame:{v25, v29, v16, v18}];
+  v48 = objc_msgSend_contentView(*(a1 + 32));
+  [v48 addSubview:v5];
 
 LABEL_24:
 }

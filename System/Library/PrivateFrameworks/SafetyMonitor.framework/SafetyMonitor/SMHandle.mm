@@ -52,7 +52,7 @@ LABEL_5:
 
 - (id)canonicalizedHandle
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   primaryHandle = [(SMHandle *)self primaryHandle];
   v4 = [SMHandleFormatting canonicalIDSAddressForAddress:primaryHandle];
   v5 = v4;
@@ -69,26 +69,26 @@ LABEL_5:
   v7 = primaryHandle2;
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   secondaryHandles = [(SMHandle *)self secondaryHandles];
-  v10 = [secondaryHandles countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [secondaryHandles countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(secondaryHandles);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = [SMHandleFormatting canonicalIDSAddressForAddress:v14];
         v16 = v15;
         if (v15)
@@ -109,32 +109,31 @@ LABEL_5:
         }
       }
 
-      v11 = [secondaryHandles countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [secondaryHandles countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v19 = [[SMHandle alloc] initWithPrimaryHandle:v7 secondaryHandles:v8];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 + (int64_t)getSMHandleTypeWithHandle:(id)handle
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (!handleCopy)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "+[SMHandle getSMHandleTypeWithHandle:]";
-      v10 = 1024;
-      v11 = 54;
-      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handle (in %s:%d)", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "+[SMHandle getSMHandleTypeWithHandle:]";
+      v9 = 1024;
+      v10 = 54;
+      _os_log_error_impl(&dword_26455D000, v4, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: handle (in %s:%d)", &v7, 0x12u);
     }
   }
 
@@ -153,19 +152,16 @@ LABEL_5:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)descriptionDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"__kSMPrimaryHandleKey";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"__kSMPrimaryHandleKey";
   primaryHandle = [(SMHandle *)self primaryHandle];
-  v7[0] = primaryHandle;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = primaryHandle;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -202,7 +198,7 @@ LABEL_5:
 
 - (SMHandle)initWithDictionary:(id)dictionary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy valueForKey:@"__kSMPrimaryHandleKey"];
   v6 = [dictionaryCopy valueForKey:@"__kSMSecondaryHandlesKey"];
@@ -217,15 +213,14 @@ LABEL_5:
     v8 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[SMHandle initWithDictionary:]";
-      _os_log_error_impl(&dword_26455D000, v8, OS_LOG_TYPE_ERROR, "%s, toHandleString is empty", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SMHandle initWithDictionary:]";
+      _os_log_error_impl(&dword_26455D000, v8, OS_LOG_TYPE_ERROR, "%s, toHandleString is empty", &v10, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

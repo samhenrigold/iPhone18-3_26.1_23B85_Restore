@@ -51,7 +51,7 @@
   v12.super_class = SBContinuousExposeToHomeSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v12 transitionWillBegin];
   v4 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+  v5 = SBAppendSwitcherModifierResponse();
 
   recentAppLayouts = [(SBContinuousExposeToHomeSwitcherModifier *)self recentAppLayouts];
   v7 = [(SBContinuousExposeToHomeSwitcherModifier *)self adjustedAppLayoutsForAppLayouts:recentAppLayouts];
@@ -60,7 +60,7 @@
   if (firstObject)
   {
     v9 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:firstObject alignment:0 animated:0];
-    v10 = SBAppendSwitcherModifierResponse(v9, v5);
+    v10 = SBAppendSwitcherModifierResponse();
 
     v5 = v10;
   }
@@ -179,7 +179,7 @@ void __61__SBContinuousExposeToHomeSwitcherModifier_visibleAppLayouts__block_inv
   return v11;
 }
 
-uint64_t __85__SBContinuousExposeToHomeSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
+void *__85__SBContinuousExposeToHomeSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) opacityForLayoutRole:a1[7] inAppLayout:a1[5] atIndex:a1[8]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -206,7 +206,7 @@ uint64_t __85__SBContinuousExposeToHomeSwitcherModifier_opacityForLayoutRole_inA
   return v4;
 }
 
-uint64_t __72__SBContinuousExposeToHomeSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(void *a1)
+void *__72__SBContinuousExposeToHomeSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) titleAndIconOpacityForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -233,7 +233,7 @@ uint64_t __72__SBContinuousExposeToHomeSwitcherModifier_titleAndIconOpacityForIn
   return v4;
 }
 
-uint64_t __64__SBContinuousExposeToHomeSwitcherModifier_headerStyleForIndex___block_invoke(void *a1)
+void *__64__SBContinuousExposeToHomeSwitcherModifier_headerStyleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) headerStyleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -264,7 +264,7 @@ uint64_t __64__SBContinuousExposeToHomeSwitcherModifier_headerStyleForIndex___bl
   return v9;
 }
 
-uint64_t __81__SBContinuousExposeToHomeSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__81__SBContinuousExposeToHomeSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) shadowStyleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -290,7 +290,7 @@ uint64_t __81__SBContinuousExposeToHomeSwitcherModifier_shadowStyleForLayoutRole
   return v3;
 }
 
-uint64_t __70__SBContinuousExposeToHomeSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
+void *__70__SBContinuousExposeToHomeSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) homeScreenBackdropBlurType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -325,7 +325,7 @@ uint64_t __70__SBContinuousExposeToHomeSwitcherModifier_homeScreenBackdropBlurTy
   return result;
 }
 
-uint64_t __76__SBContinuousExposeToHomeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
+void *__76__SBContinuousExposeToHomeSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) contentOffsetForIndex:a1[6] alignment:a1[7]];
   v3 = *(a1[5] + 8);
@@ -459,7 +459,7 @@ uint64_t __76__SBContinuousExposeToHomeSwitcherModifier_contentOffsetForIndex_al
   return v9;
 }
 
-uint64_t __89__SBContinuousExposeToHomeSwitcherModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1)
+void *__89__SBContinuousExposeToHomeSwitcherModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) adjustedSpaceAccessoryViewScale:*(a1 + 40) forAppLayout:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = v3;

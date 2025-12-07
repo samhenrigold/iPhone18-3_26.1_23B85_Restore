@@ -23,7 +23,7 @@
 
 - (NSURL)previewItemURL
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280242C60);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280242C60, &qword_268051D00);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v8 - v3;
   sub_268038F94(&v8 - v3);

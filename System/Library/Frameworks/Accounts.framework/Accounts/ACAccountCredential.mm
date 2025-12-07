@@ -24,7 +24,6 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)credentialItemForKey:(id)key;
 - (unint64_t)hash;
-- (void)_clearDirtyProperties;
 - (void)_markPropertyDirty:(id)dirty;
 - (void)encodeWithCoder:(id)coder;
 - (void)setCredentialItem:(id)item forKey:(id)key;
@@ -253,68 +252,66 @@ LABEL_14:
 
 void __39__ACAccountCredential_allSupportedKeys__block_invoke()
 {
-  v5[36] = *MEMORY[0x1E69E9840];
+  v4[36] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"oauth-token";
-  v5[1] = @"oauth-token-secret";
-  v5[2] = @"oath-refresh-token";
-  v5[3] = @"oauth-expiry-date";
-  v5[4] = @"password";
-  v5[5] = @"purpose";
-  v5[6] = @"token";
-  v5[7] = @"oauth-token-nosync";
-  v5[8] = @"oauth-graphAPI-token";
-  v5[9] = @"rpassword";
-  v5[10] = @"old-password";
-  v5[11] = @"find-my-iphone-token";
-  v5[12] = @"find-my-iphone-app-token";
-  v5[13] = @"find-my-iphone-siri-token";
-  v5[14] = @"maps-token";
-  v5[15] = @"hsa-token";
-  v5[16] = @"find-my-friends-token";
-  v5[17] = @"find-my-friends-app-token";
-  v5[18] = @"token-expiry-date";
-  v5[19] = @"heartbeat-token";
-  v5[20] = @"heartbeat-token-creation";
-  v5[21] = @"continuation-key";
-  v5[22] = @"continuation-key-creation";
-  v5[23] = @"password-reset-token";
-  v5[24] = @"password-reset-token-creation";
-  v5[25] = @"password-reset-token-backup";
-  v5[26] = @"yahoo-xympki-token";
-  v5[27] = @"yahoo-xympki-cookie-y";
-  v5[28] = @"yahoo-xympki-cookie-t";
-  v5[29] = @"yahoo-xympki-cookie-crumb";
-  v5[30] = @"tencent-weibo-client-consumer-key";
-  v5[31] = @"container-user-id";
-  v5[32] = @"cloudkit-token";
-  v5[33] = @"mdm-server-token";
-  v5[34] = @"search-party-token";
-  v5[35] = @"key-transparency-token";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:36];
+  v4[0] = @"oauth-token";
+  v4[1] = @"oauth-token-secret";
+  v4[2] = @"oath-refresh-token";
+  v4[3] = @"oauth-expiry-date";
+  v4[4] = @"password";
+  v4[5] = @"purpose";
+  v4[6] = @"token";
+  v4[7] = @"oauth-token-nosync";
+  v4[8] = @"oauth-graphAPI-token";
+  v4[9] = @"rpassword";
+  v4[10] = @"old-password";
+  v4[11] = @"find-my-iphone-token";
+  v4[12] = @"find-my-iphone-app-token";
+  v4[13] = @"find-my-iphone-siri-token";
+  v4[14] = @"maps-token";
+  v4[15] = @"hsa-token";
+  v4[16] = @"find-my-friends-token";
+  v4[17] = @"find-my-friends-app-token";
+  v4[18] = @"token-expiry-date";
+  v4[19] = @"heartbeat-token";
+  v4[20] = @"heartbeat-token-creation";
+  v4[21] = @"continuation-key";
+  v4[22] = @"continuation-key-creation";
+  v4[23] = @"password-reset-token";
+  v4[24] = @"password-reset-token-creation";
+  v4[25] = @"password-reset-token-backup";
+  v4[26] = @"yahoo-xympki-token";
+  v4[27] = @"yahoo-xympki-cookie-y";
+  v4[28] = @"yahoo-xympki-cookie-t";
+  v4[29] = @"yahoo-xympki-cookie-crumb";
+  v4[30] = @"tencent-weibo-client-consumer-key";
+  v4[31] = @"container-user-id";
+  v4[32] = @"cloudkit-token";
+  v4[33] = @"mdm-server-token";
+  v4[34] = @"search-party-token";
+  v4[35] = @"key-transparency-token";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:36];
   v2 = [v0 setWithArray:v1];
   v3 = allSupportedKeys_keys;
   allSupportedKeys_keys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)supportedKeysForAccountTypeIdentifier:(id)identifier credentialType:(id)type
 {
-  v40[8] = *MEMORY[0x1E69E9840];
+  v39[8] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   typeCopy = type;
   if ([identifierCopy isEqualToString:@"com.apple.account.idms"])
   {
-    v40[0] = @"token";
-    v40[1] = @"heartbeat-token";
-    v40[2] = @"heartbeat-token-creation";
-    v40[3] = @"continuation-key";
-    v40[4] = @"continuation-key-creation";
-    v40[5] = @"password-reset-token";
-    v40[6] = @"password-reset-token-creation";
-    v40[7] = @"password-reset-token-backup";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:8];
+    v39[0] = @"token";
+    v39[1] = @"heartbeat-token";
+    v39[2] = @"heartbeat-token-creation";
+    v39[3] = @"continuation-key";
+    v39[4] = @"continuation-key-creation";
+    v39[5] = @"password-reset-token";
+    v39[6] = @"password-reset-token-creation";
+    v39[7] = @"password-reset-token-backup";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:8];
 LABEL_15:
     v13 = v7;
     goto LABEL_16;
@@ -325,12 +322,12 @@ LABEL_15:
     v8 = MEMORY[0x1E695DEC8];
     v9 = @"password";
 LABEL_6:
-    v23 = v9;
-    v24 = 0;
+    v22 = v9;
+    v23 = 0;
 LABEL_12:
     v12 = @"token";
 LABEL_13:
-    [v8 arrayWithObjects:{v12, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37}];
+    [v8 arrayWithObjects:{v12, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
     v7 = LABEL_14:;
     goto LABEL_15;
   }
@@ -338,20 +335,20 @@ LABEL_13:
   if ([identifierCopy isEqualToString:@"com.apple.account.GameCenter"] || objc_msgSend(identifierCopy, "isEqualToString:", @"com.apple.account.IdentityServices"))
   {
     v8 = MEMORY[0x1E695DEC8];
-    v25 = 0;
+    v24 = 0;
 LABEL_10:
     v10 = @"rpassword";
     v11 = @"password";
 LABEL_11:
-    v23 = v11;
-    v24 = v10;
+    v22 = v11;
+    v23 = v10;
     goto LABEL_12;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.DeviceLocator"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v25 = 0;
+    v24 = 0;
     v10 = @"find-my-iphone-siri-token";
     v11 = @"find-my-iphone-app-token";
     goto LABEL_11;
@@ -359,34 +356,34 @@ LABEL_11:
 
   if ([identifierCopy isEqualToString:@"com.apple.account.FindMyFriends"])
   {
-    [MEMORY[0x1E695DEC8] arrayWithObjects:{@"find-my-friends-app-token", @"find-my-friends-token", 0, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37}];
+    [MEMORY[0x1E695DEC8] arrayWithObjects:{@"find-my-friends-app-token", @"find-my-friends-token", 0, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
     goto LABEL_14;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.AppleAccount"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v36 = @"key-transparency-token";
-    v37 = 0;
-    v34 = @"find-my-iphone-siri-token";
-    v35 = @"search-party-token";
-    v32 = @"find-my-friends-app-token";
-    v33 = @"mdm-server-token";
-    v30 = @"cloudkit-token";
-    v31 = @"find-my-friends-token";
-    v28 = @"maps-token";
-    v29 = @"hsa-token";
-    v26 = @"find-my-iphone-token";
-    v27 = @"find-my-iphone-app-token";
-    v25 = @"old-password";
+    v35 = @"key-transparency-token";
+    v36 = 0;
+    v33 = @"find-my-iphone-siri-token";
+    v34 = @"search-party-token";
+    v31 = @"find-my-friends-app-token";
+    v32 = @"mdm-server-token";
+    v29 = @"cloudkit-token";
+    v30 = @"find-my-friends-token";
+    v27 = @"maps-token";
+    v28 = @"hsa-token";
+    v25 = @"find-my-iphone-token";
+    v26 = @"find-my-iphone-app-token";
+    v24 = @"old-password";
     goto LABEL_10;
   }
 
   if (([identifierCopy isEqualToString:@"com.apple.account.iTunesStore"] & 1) != 0 || objc_msgSend(identifierCopy, "isEqualToString:", @"com.apple.account.iTunesStore.sandbox"))
   {
     v8 = MEMORY[0x1E695DEC8];
-    v23 = @"rpassword";
-    v24 = 0;
+    v22 = @"rpassword";
+    v23 = 0;
 LABEL_28:
     v12 = @"password";
     goto LABEL_13;
@@ -395,18 +392,18 @@ LABEL_28:
   if ([identifierCopy isEqualToString:@"com.apple.account.tencentweibo"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v27 = @"oauth-token-nosync";
-    v28 = 0;
-    v16 = @"tencent-weibo-client-consumer-key";
+    v26 = @"oauth-token-nosync";
+    v27 = 0;
+    v15 = @"tencent-weibo-client-consumer-key";
 LABEL_31:
-    v25 = @"purpose";
-    v26 = v16;
-    v17 = @"oauth-expiry-date";
+    v24 = @"purpose";
+    v25 = v15;
+    v16 = @"oauth-expiry-date";
 LABEL_35:
-    v18 = @"oath-refresh-token";
+    v17 = @"oath-refresh-token";
 LABEL_36:
-    v23 = v18;
-    v24 = v17;
+    v22 = v17;
+    v23 = v16;
 LABEL_37:
     v12 = @"oauth-token";
     goto LABEL_13;
@@ -415,81 +412,81 @@ LABEL_37:
   if ([identifierCopy isEqualToString:@"com.apple.account.Google"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v26 = @"oauth-token-nosync";
-    v27 = 0;
-    v25 = @"oauth-expiry-date";
+    v25 = @"oauth-token-nosync";
+    v26 = 0;
+    v24 = @"oauth-expiry-date";
 LABEL_34:
-    v17 = @"password";
+    v16 = @"password";
     goto LABEL_35;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.Yahoo"])
   {
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"oauth-token", @"oath-refresh-token", @"oauth-token-nosync", @"password", @"oauth-expiry-date", 0}];
-    v39[0] = @"yahoo-xympki-token";
-    v39[1] = @"yahoo-xympki-cookie-y";
-    v39[2] = @"yahoo-xympki-cookie-t";
-    v39[3] = @"yahoo-xympki-cookie-crumb";
-    v20 = MEMORY[0x1E695DEC8];
-    v21 = v39;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"oauth-token", @"oath-refresh-token", @"oauth-token-nosync", @"password", @"oauth-expiry-date", 0}];
+    v38[0] = @"yahoo-xympki-token";
+    v38[1] = @"yahoo-xympki-cookie-y";
+    v38[2] = @"yahoo-xympki-cookie-t";
+    v38[3] = @"yahoo-xympki-cookie-crumb";
+    v19 = MEMORY[0x1E695DEC8];
+    v20 = v38;
 LABEL_42:
-    v22 = [v20 arrayWithObjects:v21 count:4];
-    v13 = [v19 arrayByAddingObjectsFromArray:v22];
+    v21 = [v19 arrayWithObjects:v20 count:4];
+    v13 = [v18 arrayByAddingObjectsFromArray:v21];
 
     goto LABEL_16;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.aol"])
   {
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"oauth-token", @"oath-refresh-token", @"oauth-token-nosync", @"password", @"oauth-expiry-date", 0}];
-    v38[0] = @"yahoo-xympki-token";
-    v38[1] = @"yahoo-xympki-cookie-y";
-    v38[2] = @"yahoo-xympki-cookie-t";
-    v38[3] = @"yahoo-xympki-cookie-crumb";
-    v20 = MEMORY[0x1E695DEC8];
-    v21 = v38;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"oauth-token", @"oath-refresh-token", @"oauth-token-nosync", @"password", @"oauth-expiry-date", 0}];
+    v37[0] = @"yahoo-xympki-token";
+    v37[1] = @"yahoo-xympki-cookie-y";
+    v37[2] = @"yahoo-xympki-cookie-t";
+    v37[3] = @"yahoo-xympki-cookie-crumb";
+    v19 = MEMORY[0x1E695DEC8];
+    v20 = v37;
     goto LABEL_42;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.Hotmail"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v25 = @"oauth-graphAPI-token";
-    v26 = 0;
+    v24 = @"oauth-graphAPI-token";
+    v25 = 0;
     goto LABEL_34;
   }
 
   if ([identifierCopy isEqualToString:@"com.apple.account.Exchange"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v28 = @"oauth-graphAPI-token";
-    v29 = 0;
-    v27 = @"password";
+    v27 = @"oauth-graphAPI-token";
+    v28 = 0;
+    v26 = @"password";
 LABEL_47:
-    v16 = @"oauth-token-nosync";
+    v15 = @"oauth-token-nosync";
     goto LABEL_31;
   }
 
   if ([typeCopy isEqualToString:@"oauth"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v25 = 0;
-    v17 = @"oauth-token-nosync";
-    v18 = @"oauth-token-secret";
+    v24 = 0;
+    v16 = @"oauth-token-nosync";
+    v17 = @"oauth-token-secret";
     goto LABEL_36;
   }
 
   if ([typeCopy isEqualToString:@"password"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v23 = 0;
+    v22 = 0;
     goto LABEL_28;
   }
 
   if ([typeCopy isEqualToString:@"oauth2"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v27 = 0;
+    v26 = 0;
     goto LABEL_47;
   }
 
@@ -500,7 +497,7 @@ LABEL_47:
 
   if ([typeCopy isEqualToString:@"yahoo-xympki-tokens"])
   {
-    [MEMORY[0x1E695DEC8] arrayWithObjects:{@"yahoo-xympki-token", @"yahoo-xympki-cookie-y", @"yahoo-xympki-cookie-t", @"yahoo-xympki-cookie-crumb", 0, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37}];
+    [MEMORY[0x1E695DEC8] arrayWithObjects:{@"yahoo-xympki-token", @"yahoo-xympki-cookie-y", @"yahoo-xympki-cookie-t", @"yahoo-xympki-cookie-crumb", 0, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
     goto LABEL_14;
   }
 
@@ -508,18 +505,18 @@ LABEL_47:
   {
 LABEL_55:
     v8 = MEMORY[0x1E695DEC8];
-    v23 = 0;
+    v22 = 0;
     goto LABEL_12;
   }
 
   if ([typeCopy isEqualToString:@"hybrid"])
   {
     v8 = MEMORY[0x1E695DEC8];
-    v26 = @"password";
-    v27 = 0;
-    v24 = @"token";
-    v25 = @"oath-refresh-token";
-    v23 = @"oauth-token-secret";
+    v25 = @"password";
+    v26 = 0;
+    v23 = @"token";
+    v24 = @"oath-refresh-token";
+    v22 = @"oauth-token-secret";
     goto LABEL_37;
   }
 
@@ -532,8 +529,6 @@ LABEL_55:
 
   v13 = 0;
 LABEL_16:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -621,12 +616,12 @@ LABEL_8:
 
 - (id)_initWithProtobuf:(id)protobuf
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   v5 = [(ACAccountCredential *)self init];
   if (v5)
   {
-    v32 = protobufCopy;
+    v31 = protobufCopy;
     v6 = protobufCopy;
     credentialType = [v6 credentialType];
     v8 = [credentialType copy];
@@ -649,33 +644,33 @@ LABEL_8:
     credentialItems = [v6 credentialItems];
     v17 = [v15 initWithCapacity:{objc_msgSend(credentialItems, "count")}];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     credentialItems2 = [v6 credentialItems];
-    v19 = [credentialItems2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v19 = [credentialItems2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(credentialItems2);
           }
 
-          v23 = *(*(&v33 + 1) + 8 * i);
+          v23 = *(*(&v32 + 1) + 8 * i);
           value = [v23 value];
           v25 = [ACZeroingString stringWithString:value];
           v26 = [v23 key];
           [v17 setObject:v25 forKeyedSubscript:v26];
         }
 
-        v20 = [credentialItems2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v20 = [credentialItems2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v20);
@@ -686,10 +681,9 @@ LABEL_8:
     v5->_credentialItems = v27;
 
     v29 = v5;
-    protobufCopy = v32;
+    protobufCopy = v31;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -795,13 +789,6 @@ void __38__ACAccountCredential__encodeProtobuf__block_invoke(uint64_t a1, void *
     v9 = objc_loadWeakRetained(&self->_owningAccount);
     [v9 _markCredentialDirty];
   }
-}
-
-- (void)_clearDirtyProperties
-{
-  dirtyProperties = self->_dirtyProperties;
-  self->_dirtyProperties = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (id)credentialItemForKey:(id)key

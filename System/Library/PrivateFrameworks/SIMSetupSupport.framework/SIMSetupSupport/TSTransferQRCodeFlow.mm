@@ -26,36 +26,37 @@
   controllerCopy = controller;
   if (controllerCopy)
   {
-    if (_os_feature_enabled_impl())
+    v5 = _os_feature_enabled_impl();
+    if (v5)
     {
-      v5 = +[TSCellularPlanManagerCache sharedInstance];
-      planItems = [v5 planItems];
+      v6 = +[TSCellularPlanManagerCache sharedInstance];
+      planItems = [v6 planItems];
 
       v27 = 0u;
       v28 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v7 = planItems;
-      v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (v8)
+      v8 = planItems;
+      v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v9)
       {
-        v9 = *v26;
+        v10 = *v26;
         while (2)
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v26 != v9)
+            if (*v26 != v10)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v11 = *(*(&v25 + 1) + 8 * i);
-            iccid = [v11 iccid];
-            v13 = [iccid isEqualToString:self->_iccid];
+            v12 = *(*(&v25 + 1) + 8 * i);
+            iccid = [v12 iccid];
+            v14 = [iccid isEqualToString:self->_iccid];
 
-            if (v13)
+            if (v14)
             {
-              carrierName = [v11 carrierName];
+              carrierName = [v12 carrierName];
               carrierName = self->_carrierName;
               self->_carrierName = carrierName;
 
@@ -63,8 +64,8 @@
             }
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
-          if (v8)
+          v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          if (v9)
           {
             continue;
           }
@@ -75,19 +76,19 @@
 
 LABEL_16:
 
-      v17 = MEMORY[0x2667315D0](controllerCopy);
+      v18 = MEMORY[0x2667315D0](controllerCopy);
       objc_initWeak(buf, self);
-      v18 = +[TSCoreTelephonyClientCache sharedInstance];
+      v19 = +[TSCoreTelephonyClientCache sharedInstance];
       iccid = self->_iccid;
       v22[0] = MEMORY[0x277D85DD0];
       v22[1] = 3221225472;
       v22[2] = __44__TSTransferQRCodeFlow_firstViewController___block_invoke;
       v22[3] = &unk_279B45468;
       objc_copyWeak(&v24, buf);
-      v20 = v17;
+      v21 = v18;
       v22[4] = self;
-      v23 = v20;
-      [v18 getPlanTransferCredentials:iccid completion:v22];
+      v23 = v21;
+      [v19 getPlanTransferCredentials:iccid completion:v22];
 
       objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
@@ -95,29 +96,27 @@ LABEL_16:
 
     else
     {
-      v14 = _TSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _TSLogDomain(v5);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         v31 = "[TSTransferQRCodeFlow firstViewController:]";
-        _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "SIMSetupSupport/MagnoliaOverQRCode is disabled @%s", buf, 0xCu);
+        _os_log_impl(&dword_262AA8000, v15, OS_LOG_TYPE_DEFAULT, "SIMSetupSupport/MagnoliaOverQRCode is disabled @%s", buf, 0xCu);
       }
 
       controllerCopy[2](controllerCopy, 0);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TSTransferQRCodeFlow_firstViewController___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
   {
-    v7 = _TSLogDomain();
+    v7 = _TSLogDomain(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__TSTransferQRCodeFlow_firstViewController___block_invoke_cold_2(v7);
@@ -128,7 +127,7 @@ void __44__TSTransferQRCodeFlow_firstViewController___block_invoke(uint64_t a1, 
 
   if (![v3 length])
   {
-    v7 = _TSLogDomain();
+    v7 = _TSLogDomain(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__TSTransferQRCodeFlow_firstViewController___block_invoke_cold_1(v7);
@@ -141,40 +140,36 @@ LABEL_10:
   }
 
   v5 = [[TSTransferQRCodeViewController alloc] initWithTransferCredentials:v3 carrierName:WeakRetained[13]];
-  [*(a1 + 32) setTopViewController:v5];
-  v6 = _TSLogDomain();
+  v6 = _TSLogDomain([*(a1 + 32) setTopViewController:v5]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = objc_opt_class();
-    v11 = 2080;
-    v12 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = objc_opt_class();
+    v10 = 2080;
+    v11 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v8, 0x16u);
   }
 
   [(TSTransferQRCodeViewController *)v5 setDelegate:WeakRetained];
   (*(*(a1 + 40) + 16))();
 
 LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TSTransferQRCodeFlow_firstViewController___block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]no credentials @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]no credentials @%s", &v1, 0xCu);
 }
 
 void __44__TSTransferQRCodeFlow_firstViewController___block_invoke_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSTransferQRCodeFlow firstViewController:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v1, 0xCu);
 }
 
 @end

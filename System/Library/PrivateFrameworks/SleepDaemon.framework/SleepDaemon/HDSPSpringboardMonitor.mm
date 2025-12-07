@@ -16,11 +16,11 @@
 
 - (HDSPSpringboardMonitor)initWithCallbackScheduler:(id)scheduler isAppleWatch:(BOOL)watch
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   schedulerCopy = scheduler;
-  v16.receiver = self;
-  v16.super_class = HDSPSpringboardMonitor;
-  v7 = [(HDSPSpringboardMonitor *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HDSPSpringboardMonitor;
+  v7 = [(HDSPSpringboardMonitor *)&v15 init];
   if (v7)
   {
     v8 = HKSPLogForCategory();
@@ -28,9 +28,9 @@
     {
       v9 = objc_opt_class();
       *buf = 138543618;
-      v18 = v9;
-      v19 = 2048;
-      v20 = v7;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v7;
       v10 = v9;
       _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] initializing...", buf, 0x16u);
     }
@@ -45,7 +45,6 @@
     v13 = v7;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -78,7 +77,7 @@
 
 - (BOOL)_checkSpringBoardStarted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (HKSPIsHomePod())
   {
     LOBYTE(v3) = 1;
@@ -108,15 +107,14 @@
       _processName = [(HDSPSpringboardMonitor *)self _processName];
       *state64 = 138543874;
       *&state64[4] = v5;
-      v12 = 2114;
-      v13 = _processName;
-      v14 = 1024;
-      v15 = v3;
+      v11 = 2114;
+      v12 = _processName;
+      v13 = 1024;
+      v14 = v3;
       _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ started = %d", state64, 0x1Cu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -169,7 +167,7 @@
 
 - (void)_startMonitoring
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_notifyToken == -1)
   {
     handler[0] = MEMORY[0x277D85DD0];
@@ -185,9 +183,9 @@
       v5 = v8;
       _processName = [(HDSPSpringboardMonitor *)self _processName];
       *buf = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = _processName;
+      v11 = v8;
+      v12 = 2114;
+      v13 = _processName;
       v7 = "[%{public}@] Start monitoring %{public}@ start";
       goto LABEL_6;
     }
@@ -202,9 +200,9 @@
       v5 = v4;
       _processName = [(HDSPSpringboardMonitor *)self _processName];
       *buf = 138543618;
-      v12 = v4;
-      v13 = 2114;
-      v14 = _processName;
+      v11 = v4;
+      v12 = 2114;
+      v13 = _processName;
       v7 = "[%{public}@] Alreay monitoring %{public}@";
 LABEL_6:
       _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, v7, buf, 0x16u);
@@ -212,7 +210,6 @@ LABEL_6:
   }
 
   [(HDSPSpringboardMonitor *)self _checkAndNotify];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAndNotify
@@ -256,7 +253,7 @@ _BYTE *__41__HDSPSpringboardMonitor__checkAndNotify__block_invoke(uint64_t a1)
 
 - (void)_stopMonitoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
@@ -268,15 +265,13 @@ _BYTE *__41__HDSPSpringboardMonitor__checkAndNotify__block_invoke(uint64_t a1)
       v5 = objc_opt_class();
       v6 = v5;
       _processName = [(HDSPSpringboardMonitor *)self _processName];
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2114;
-      v12 = _processName;
-      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stop monitoring %{public}@ start", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2114;
+      v11 = _processName;
+      _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stop monitoring %{public}@ start", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -267,7 +267,7 @@
       goto LABEL_228;
     }
 
-    LODWORD(v176) = v15;
+    LODWORD(v191) = v15;
     anyFingerDown = self->_anyFingerDown;
     self->_currentFingerCount = fingerCount;
     v18 = [eventCopy fingerCount] != 0;
@@ -294,8 +294,8 @@
             block[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke;
             block[3] = &unk_78D28;
             block[4] = self;
-            block[5] = ZOTDenormalizePoint(v24);
-            block[6] = v25;
+            block[5] = ZOTDenormalizePoint(v25, v26, v24);
+            block[6] = v27;
             dispatch_async(&_dispatch_main_q, block);
             record3 = [eventCopy record];
             -[ZOTFullscreenEventHandler postHandCancelWithSenderID:](self, "postHandCancelWithSenderID:", [record3 senderID]);
@@ -317,33 +317,33 @@ LABEL_26:
               if (fingerCount == &dword_0 + 1)
               {
                 zoomDelegate3 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-                v35 = [zoomDelegate3 interfaceOrientationWithFullscreenEventHandler:self];
+                v39 = [zoomDelegate3 interfaceOrientationWithFullscreenEventHandler:self];
                 [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
-                v38 = v37;
-                if (v35 == 4)
+                v42 = v41;
+                if (v39 == 4)
                 {
-                  v39 = 1.0 - v37;
-                  v38 = v36;
+                  v43 = 1.0 - v41;
+                  v42 = v40;
                 }
 
-                else if (v35 == 3)
+                else if (v39 == 3)
                 {
-                  v39 = v37;
-                  v38 = 1.0 - v36;
+                  v43 = v41;
+                  v42 = 1.0 - v40;
                 }
 
                 else
                 {
-                  v39 = v36;
-                  if (v35 == 2)
+                  v43 = v40;
+                  if (v39 == 2)
                   {
-                    v38 = 1.0 - v37;
-                    v39 = 1.0 - v36;
+                    v42 = 1.0 - v41;
+                    v43 = 1.0 - v40;
                   }
                 }
 
                 zoomDelegate4 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-                [zoomDelegate4 fullscreenEventHandler:self didReceiveOneFingerDownAtLocation:{v39, v38}];
+                [zoomDelegate4 fullscreenEventHandler:self didReceiveOneFingerDownAtLocation:{v43, v42}];
 
                 self->_oneFingerWasDown = 1;
               }
@@ -381,65 +381,65 @@ LABEL_26:
 
           if (self->_anyFingerDown)
           {
-            v46 = ZOTTimeUnset;
+            v52 = ZOTTimeUnset;
             if (self->_anyFingerDownTime == ZOTTimeUnset)
             {
               self->_anyFingerDownTime = v7;
             }
 
 LABEL_69:
-            v200 = 0u;
-            v201 = 0u;
-            v198 = 0u;
-            v199 = 0u;
+            v215 = 0u;
+            v216 = 0u;
+            v213 = 0u;
+            v214 = 0u;
             record5 = [eventCopy record];
             handInfo = [record5 handInfo];
             paths = [handInfo paths];
 
-            v56 = [paths countByEnumeratingWithState:&v198 objects:v206 count:16];
-            if (v56)
+            v62 = [paths countByEnumeratingWithState:&v213 objects:v221 count:16];
+            if (v62)
             {
-              v57 = *v199;
-              v58 = 0.0;
+              v63 = *v214;
+              v64 = 0.0;
               do
               {
-                for (i = 0; i != v56; i = i + 1)
+                for (i = 0; i != v62; i = i + 1)
                 {
-                  if (*v199 != v57)
+                  if (*v214 != v63)
                   {
                     objc_enumerationMutation(paths);
                   }
 
-                  v60 = *(*(&v198 + 1) + 8 * i);
-                  [v60 orbValue];
-                  if (v58 < v61)
+                  v66 = *(*(&v213 + 1) + 8 * i);
+                  [v66 orbValue];
+                  if (v64 < v67)
                   {
-                    [v60 orbValue];
-                    v58 = v62;
+                    [v66 orbValue];
+                    v64 = v68;
                   }
                 }
 
-                v56 = [paths countByEnumeratingWithState:&v198 objects:v206 count:16];
+                v62 = [paths countByEnumeratingWithState:&v213 objects:v221 count:16];
               }
 
-              while (v56);
+              while (v62);
             }
 
             if (isTouchEventWeCareAbout && !self->_snarfing && (fingerCount == &dword_0 + 3 || self->_isTrackingHoverText) && !self->_ignoreSnarfingForFingerSession && [(ZOTFullscreenEventHandler *)self _verifyZoomActionIsAppropriate:eventCopy])
             {
               [(AXThreadTimer *)self->_eventPostTimer cancel];
-              v63 = &_dispatch_main_q;
-              v197[0] = _NSConcreteStackBlock;
-              v197[1] = 3221225472;
-              v197[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_4;
-              v197[3] = &unk_78D00;
-              v197[4] = self;
-              dispatch_async(&_dispatch_main_q, v197);
+              v69 = &_dispatch_main_q;
+              v212[0] = _NSConcreteStackBlock;
+              v212[1] = 3221225472;
+              v212[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_4;
+              v212[3] = &unk_78D00;
+              v212[4] = self;
+              dispatch_async(&_dispatch_main_q, v212);
 
               self->_snarfing = 1;
               [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
-              self->_tapPoint.x = v64;
-              self->_tapPoint.y = v65;
+              self->_tapPoint.x = v70;
+              self->_tapPoint.y = v71;
               [(AXThreadTimer *)self->_autopanTimer cancel];
               record6 = [eventCopy record];
               -[ZOTFullscreenEventHandler postHandCancelWithSenderID:](self, "postHandCancelWithSenderID:", [record6 senderID]);
@@ -454,15 +454,15 @@ LABEL_69:
             IsPad = AXDeviceIsPad();
             if (fingerCount > 3)
             {
-              v70 = IsPad;
+              v76 = IsPad;
             }
 
             else
             {
-              v70 = 0;
+              v76 = 0;
             }
 
-            if (v70 == 1 && !self->_zooming && !self->_zoomPanning)
+            if (v76 == 1 && !self->_zooming && !self->_zoomPanning)
             {
               self->_ignoreSnarfingForFingerSession = 1;
             }
@@ -475,18 +475,18 @@ LABEL_69:
               {
                 record8 = [eventCopy record];
                 handInfo3 = [record8 handInfo];
-                v75 = [handInfo3 lifetimeFingerCount] < 3;
+                v81 = [handInfo3 lifetimeFingerCount] < 3;
 
-                if (v75)
+                if (v81)
                 {
-                  self->_snarfLastTime = v46;
-                  v76 = ZOOMLogEvents();
-                  if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+                  self->_snarfLastTime = v52;
+                  v82 = ZOOMLogEvents();
+                  if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
                   {
                     isTouchEventWeCareAbout = [eventCopy record];
                     *buf = 138412290;
                     *&buf[4] = isTouchEventWeCareAbout;
-                    _os_log_impl(&dword_0, v76, OS_LOG_TYPE_INFO, "one of the fingers we were tracking with zoom was cancelled, so stop snarfing: %@", buf, 0xCu);
+                    _os_log_impl(&dword_0, v82, OS_LOG_TYPE_INFO, "one of the fingers we were tracking with zoom was cancelled, so stop snarfing: %@", buf, 0xCu);
                   }
 
                   [(AXThreadTimer *)self->_tapCountResetTimer cancel];
@@ -503,15 +503,15 @@ LABEL_69:
             {
               if (fingerCount)
               {
-                v84 = isTouchEventWeCareAbout;
+                v90 = isTouchEventWeCareAbout;
               }
 
               else
               {
-                v84 = 1;
+                v90 = 1;
               }
 
-              if ((v84 & 1) == 0)
+              if ((v90 & 1) == 0)
               {
                 eventDelegate3 = [(ZOTFullscreenEventHandler *)self eventDelegate];
                 [eventDelegate3 dispatchEventToSystem:eventCopy];
@@ -520,12 +520,12 @@ LABEL_69:
                 {
                   objc_initWeak(buf, self);
                   eventPostTimer = self->_eventPostTimer;
-                  v181[0] = _NSConcreteStackBlock;
-                  v181[1] = 3221225472;
-                  v181[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_10;
-                  v181[3] = &unk_78D00;
-                  v181[4] = self;
-                  [(AXThreadTimer *)eventPostTimer afterDelay:v181 processBlock:0.0799999982];
+                  v196[0] = _NSConcreteStackBlock;
+                  v196[1] = 3221225472;
+                  v196[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_10;
+                  v196[3] = &unk_78D00;
+                  v196[4] = self;
+                  [(AXThreadTimer *)eventPostTimer afterDelay:v196 processBlock:0.0799999982];
                   objc_destroyWeak(buf);
                 }
 
@@ -535,33 +535,33 @@ LABEL_69:
               if (fingerCount)
               {
                 zoomDelegate6 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-                v86 = [zoomDelegate6 isZoomMovingWithVelocityWithFullscreenEventHandler:self];
+                v92 = [zoomDelegate6 isZoomMovingWithVelocityWithFullscreenEventHandler:self];
 
-                if (v86)
+                if (v92)
                 {
-                  v180[0] = _NSConcreteStackBlock;
-                  v180[1] = 3221225472;
-                  v180[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_11;
-                  v180[3] = &unk_78D00;
-                  v180[4] = self;
-                  dispatch_async(&_dispatch_main_q, v180);
+                  v195[0] = _NSConcreteStackBlock;
+                  v195[1] = 3221225472;
+                  v195[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_11;
+                  v195[3] = &unk_78D00;
+                  v195[4] = self;
+                  dispatch_async(&_dispatch_main_q, v195);
                   self->_snarfLastTime = v7;
                 }
 
                 else
                 {
-                  v107 = [(ZOTFullscreenEventHandler *)self _hasReachedFlickVelocity:eventCopy];
+                  v113 = [(ZOTFullscreenEventHandler *)self _hasReachedFlickVelocity:eventCopy];
                   if (fingerCount == &dword_0 + 1)
                   {
-                    v108 = v107;
+                    v114 = v113;
                   }
 
                   else
                   {
-                    v108 = 0;
+                    v114 = 0;
                   }
 
-                  if (v108 == 1)
+                  if (v114 == 1)
                   {
                     [(AXThreadTimer *)self->_autopanTimer cancel];
                     if (self->_autopanDownEvent)
@@ -569,7 +569,7 @@ LABEL_69:
                       eventDelegate4 = [(ZOTFullscreenEventHandler *)self eventDelegate];
                       [eventDelegate4 dispatchEventToSystem:self->_autopanDownEvent];
 
-                      v110 = self->_autopanDownEvent;
+                      v116 = self->_autopanDownEvent;
                       self->_autopanDownEvent = 0;
                     }
 
@@ -583,7 +583,7 @@ LABEL_69:
                     eventDelegate6 = [(ZOTFullscreenEventHandler *)self eventDelegate];
                     [eventDelegate6 dispatchEventToSystem:eventCopy];
 
-                    v113 = self->_autopanDownEvent;
+                    v119 = self->_autopanDownEvent;
                     self->_autopanDownEvent = 0;
                   }
                 }
@@ -603,12 +603,12 @@ LABEL_115:
 
               else
               {
-                if (self->_anyFingerDownTime == v46 && !self->_wasPassingThroughSystemGesture && (-[ZOTEvent handEventType](self->_lastEvent, "handEventType") != 9 || [eventCopy handEventType] != 10))
+                if (self->_anyFingerDownTime == v52 && !self->_wasPassingThroughSystemGesture && (-[ZOTEvent handEventType](self->_lastEvent, "handEventType") != 9 || [eventCopy handEventType] != 10))
                 {
                   record9 = [eventCopy record];
                   handInfo4 = [record9 handInfo];
                   isStylus = [handInfo4 isStylus];
-                  if (isStylus && ([eventCopy record], v176 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v176, "handInfo"), v175 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v175, "paths"), v174 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v174, "firstObject"), isTouchEventWeCareAbout = objc_claimAutoreleasedReturnValue(), objc_msgSend(isTouchEventWeCareAbout, "altitude"), v93 > 0.0))
+                  if (isStylus && ([eventCopy record], v191 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v191, "handInfo"), v190 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v190, "paths"), v189 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v189, "firstObject"), isTouchEventWeCareAbout = objc_claimAutoreleasedReturnValue(), objc_msgSend(isTouchEventWeCareAbout, "altitude"), v99 > 0.0))
                   {
                   }
 
@@ -617,13 +617,13 @@ LABEL_115:
                     record10 = [eventCopy record];
                     handInfo5 = [record10 handInfo];
                     pathsIncludingMayBeginEvents = [handInfo5 pathsIncludingMayBeginEvents];
-                    v152 = [pathsIncludingMayBeginEvents count];
+                    v166 = [pathsIncludingMayBeginEvents count];
 
                     if (isStylus)
                     {
                     }
 
-                    if (!v152)
+                    if (!v166)
                     {
                       goto LABEL_227;
                     }
@@ -703,85 +703,85 @@ LABEL_106:
             snarfFingerCount = self->_snarfFingerCount;
             if (fingerCount)
             {
-              v96 = [eventCopy fingerWithIdentifier:self->_snarfFingerIdentifier];
-              if (v96 && !([eventCopy chordChanged] & 1 | (snarfFingerCount != fingerCount)))
+              v102 = [eventCopy fingerWithIdentifier:self->_snarfFingerIdentifier];
+              if (v102 && !([eventCopy chordChanged] & 1 | (snarfFingerCount != fingerCount)))
               {
-                [v96 location];
-                v99 = v125;
-                v101 = v126;
-                v97 = v96;
+                [v102 location];
+                v105 = v131;
+                v107 = v132;
+                v103 = v102;
               }
 
               else
               {
-                v97 = [eventCopy fingerAtIndex:0];
+                v103 = [eventCopy fingerAtIndex:0];
 
-                self->_snarfFingerIdentifier = [v97 identifier];
-                [v97 location];
-                v99 = v98;
-                v101 = v100;
-                v102 = fabs(v100) != INFINITY;
-                if (fabs(v98) == INFINITY || !v102)
+                self->_snarfFingerIdentifier = [v103 identifier];
+                [v103 location];
+                v105 = v104;
+                v107 = v106;
+                v108 = fabs(v106) != INFINITY;
+                if (fabs(v104) == INFINITY || !v108)
                 {
                   record11 = [eventCopy record];
                   [record11 location];
-                  v99 = v104;
-                  v101 = v105;
+                  v105 = v110;
+                  v107 = v111;
                 }
 
                 y = self->_trackingLocation.y;
-                self->_offsetLocation.x = self->_trackingLocation.x - v99;
-                self->_offsetLocation.y = y - v101;
-                self->_velocityLastTime = v46;
+                self->_offsetLocation.x = self->_trackingLocation.x - v105;
+                self->_offsetLocation.y = y - v107;
+                self->_velocityLastTime = v52;
               }
 
-              v127 = fingerCount;
-              v128 = fabs(v101) != INFINITY;
-              if (fabs(v99) == INFINITY || !v128)
+              v133 = fingerCount;
+              v134 = fabs(v107) != INFINITY;
+              if (fabs(v105) == INFINITY || !v134)
               {
                 record12 = [eventCopy record];
                 [record12 location];
-                v99 = v130;
-                v101 = v131;
+                v105 = v136;
+                v107 = v137;
 
-                v127 = fingerCount;
+                v133 = fingerCount;
               }
 
-              self->_snarfFingerCount = v127;
-              v132 = v99 + self->_offsetLocation.x;
-              v133 = v101 + self->_offsetLocation.y;
-              self->_trackingLocation.x = v132;
-              self->_trackingLocation.y = v133;
+              self->_snarfFingerCount = v133;
+              v138 = v105 + self->_offsetLocation.x;
+              v139 = v107 + self->_offsetLocation.y;
+              self->_trackingLocation.x = v138;
+              self->_trackingLocation.y = v139;
               tapCount = self->_tapCount;
               if (tapCount > 1)
               {
-                v142 = 0.0;
+                v156 = 0.0;
               }
 
               else
               {
                 *buf = 0;
-                v196 = 0.0;
-                [eventCopy averageLocation];
-                v137 = v135;
-                v138 = v136;
-                if (self->_velocityLastTime == v46)
+                v211 = 0.0;
+                averageLocation = [eventCopy averageLocation];
+                v145 = v143;
+                v146 = v144;
+                if (self->_velocityLastTime == v52)
                 {
-                  self->_velocityLocation.x = v135;
-                  self->_velocityLocation.y = v136;
-                  self->_lastPanTime = v46;
+                  self->_velocityLocation.x = v143;
+                  self->_velocityLocation.y = v144;
+                  self->_lastPanTime = v52;
                 }
 
-                v139 = ZOTDenormalizePoint(v135);
-                ZOTFlipDenormalizedPoint(v139);
-                v140 = ZOTDenormalizePoint(self->_velocityLocation.x);
-                ZOTFlipDenormalizedPoint(v140);
-                self->_velocityLocation.x = v137;
-                self->_velocityLocation.y = v138;
+                v147 = ZOTDenormalizePoint(averageLocation, v142, v143);
+                ZOTFlipDenormalizedPoint(v148, v149, v147);
+                v152 = ZOTDenormalizePoint(v150, v151, self->_velocityLocation.x);
+                ZOTFlipDenormalizedPoint(v153, v154, v152);
+                self->_velocityLocation.x = v145;
+                self->_velocityLocation.y = v146;
                 SCRCMathGetVectorAndDistanceForPoints();
-                v141 = ZOTMainScreenScaleFactor();
+                v155 = ZOTMainScreenScaleFactor();
                 tapCount = self->_tapCount;
-                v142 = v196 / v141;
+                v156 = v211 / v155;
               }
 
               if (tapCount)
@@ -806,23 +806,23 @@ LABEL_106:
                   {
                     objc_initWeak(buf, self);
                     editingGestureHoldTimer = self->_editingGestureHoldTimer;
-                    v194[0] = _NSConcreteStackBlock;
-                    v194[1] = 3221225472;
-                    v194[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_286;
-                    v194[3] = &unk_78CD8;
-                    objc_copyWeak(&v195, buf);
-                    v192[0] = _NSConcreteStackBlock;
-                    v192[1] = 3221225472;
-                    v192[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_2_287;
-                    v192[3] = &unk_78CD8;
-                    objc_copyWeak(&v193, buf);
-                    [(AXThreadTimer *)editingGestureHoldTimer afterDelay:v194 processBlock:v192 cancelBlock:0.5];
-                    objc_destroyWeak(&v193);
-                    objc_destroyWeak(&v195);
+                    v209[0] = _NSConcreteStackBlock;
+                    v209[1] = 3221225472;
+                    v209[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_286;
+                    v209[3] = &unk_78CD8;
+                    objc_copyWeak(&v210, buf);
+                    v207[0] = _NSConcreteStackBlock;
+                    v207[1] = 3221225472;
+                    v207[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_2_287;
+                    v207[3] = &unk_78CD8;
+                    objc_copyWeak(&v208, buf);
+                    [(AXThreadTimer *)editingGestureHoldTimer afterDelay:v209 processBlock:v207 cancelBlock:0.5];
+                    objc_destroyWeak(&v208);
+                    objc_destroyWeak(&v210);
                     objc_destroyWeak(buf);
                   }
 
-                  [(ZOTFullscreenEventHandler *)self _handleDoubleTapEvent:eventCopy newLocation:v132, v133];
+                  [(ZOTFullscreenEventHandler *)self _handleDoubleTapEvent:eventCopy newLocation:v138, v139];
                 }
 
 LABEL_226:
@@ -831,22 +831,22 @@ LABEL_226:
               }
 
               [(AXThreadTimer *)self->_tapCountResetTimer cancel];
-              if (!_AXSVoiceOverTouchEnabled() && fabs(self->_mainDisplayZoomLevel + -1.0) < 0.1 && v142 < 20.0)
+              if (!_AXSVoiceOverTouchEnabled() && fabs(self->_mainDisplayZoomLevel + -1.0) < 0.1 && v156 < 20.0)
               {
                 self->_sendingUnzoomedPanFingers = 1;
-                v144 = self->_lastEvent;
+                v158 = self->_lastEvent;
                 objc_initWeak(buf, self);
                 autopanTimer = self->_autopanTimer;
-                v189[0] = _NSConcreteStackBlock;
-                v189[1] = 3221225472;
-                v189[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_3_288;
-                v189[3] = &unk_78E00;
-                objc_copyWeak(&v191, buf);
-                v146 = v144;
-                v190 = v146;
-                [(AXThreadTimer *)autopanTimer afterDelay:v189 processBlock:0.5];
+                v204[0] = _NSConcreteStackBlock;
+                v204[1] = 3221225472;
+                v204[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_3_288;
+                v204[3] = &unk_78E00;
+                objc_copyWeak(&v206, buf);
+                v160 = v158;
+                v205 = v160;
+                [(AXThreadTimer *)autopanTimer afterDelay:v204 processBlock:0.5];
 
-                objc_destroyWeak(&v191);
+                objc_destroyWeak(&v206);
                 objc_destroyWeak(buf);
               }
 
@@ -855,9 +855,9 @@ LABEL_226:
                 goto LABEL_224;
               }
 
-              v147 = fabs(v142) + self->_pannerTrackDistance;
-              self->_pannerTrackDistance = v147;
-              if (v147 <= 20.0 || _AXSVoiceOverTouchEnabled() && v7 - self->_anyFingerDownTime <= 0.175)
+              v161 = fabs(v156) + self->_pannerTrackDistance;
+              self->_pannerTrackDistance = v161;
+              if (v161 <= 20.0 || _AXSVoiceOverTouchEnabled() && v7 - self->_anyFingerDownTime <= 0.175)
               {
                 goto LABEL_224;
               }
@@ -883,7 +883,7 @@ LABEL_226:
 
                 SCRCMathGetAverage();
                 borderpanMode = self->_borderpanMode;
-                if (v169 < 125.0)
+                if (v184 < 125.0)
                 {
 LABEL_184:
                   if (borderpanMode)
@@ -897,7 +897,7 @@ LABEL_219:
                       {
                         [eventCopy magneticLocation];
                         self->_initialSingleFingerLocation.x = x;
-                        self->_initialSingleFingerLocation.y = v164;
+                        self->_initialSingleFingerLocation.y = v179;
                       }
                     }
 
@@ -910,13 +910,13 @@ LABEL_219:
                   }
 
 LABEL_218:
-                  v162 = &_dispatch_main_q;
-                  v188[0] = _NSConcreteStackBlock;
-                  v188[1] = 3221225472;
-                  v188[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_4_289;
-                  v188[3] = &unk_78D00;
-                  v188[4] = self;
-                  dispatch_async(&_dispatch_main_q, v188);
+                  v177 = &_dispatch_main_q;
+                  v203[0] = _NSConcreteStackBlock;
+                  v203[1] = 3221225472;
+                  v203[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_4_289;
+                  v203[3] = &unk_78D00;
+                  v203[4] = self;
+                  dispatch_async(&_dispatch_main_q, v203);
 
                   self->_borderpanMode = 1;
                   goto LABEL_219;
@@ -941,7 +941,7 @@ LABEL_224:
 LABEL_216:
                 self->_zoomPanning = 1;
                 zoomDelegate8 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-                [zoomDelegate8 fullscreenEventHandler:self updateZoomMovementWithPoint:ZOTDenormalizePoint(self->_trackingLocation.x)];
+                [zoomDelegate8 fullscreenEventHandler:self updateZoomMovementWithPoint:{ZOTDenormalizePoint(zoomDelegate8, v176, self->_trackingLocation.x)}];
 
                 goto LABEL_224;
               }
@@ -954,7 +954,7 @@ LABEL_216:
             if (!snarfFingerCount || [eventCopy handEventType] == 8)
             {
 LABEL_98:
-              self->_velocityLastTime = v46;
+              self->_velocityLastTime = v52;
               self->_offsetLocation = CGPointZero;
               SCRCMathClearAverage();
               self->_zooming = 0;
@@ -966,23 +966,23 @@ LABEL_98:
               self->_snarfFingerCount = 0;
               [(AXThreadTimer *)self->_editingGestureHoldTimer cancel];
               self->_shouldPerformEditingGesture = 0;
-              v77 = &_dispatch_main_q;
-              v182[0] = _NSConcreteStackBlock;
-              v182[1] = 3221225472;
-              v182[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_9;
-              v182[3] = &unk_78D00;
-              v182[4] = self;
-              dispatch_async(&_dispatch_main_q, v182);
+              v83 = &_dispatch_main_q;
+              v197[0] = _NSConcreteStackBlock;
+              v197[1] = 3221225472;
+              v197[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_9;
+              v197[3] = &unk_78D00;
+              v197[4] = self;
+              dispatch_async(&_dispatch_main_q, v197);
 
               if (!self->_currentlyTransititioningBetweenApps || v7 - self->_lastAppTransition > 1.0)
               {
                 zoomDelegate9 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
                 isTouchEventWeCareAbout = [(ZOTFullscreenEventHandler *)self zoomDelegate];
                 [isTouchEventWeCareAbout storedZoomLevelWithFullscreenEventHandler:self];
-                v80 = v79;
+                v86 = v85;
                 zoomDelegate10 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
                 [zoomDelegate10 zoomLocationWithFullscreenEventHandler:self];
-                [zoomDelegate9 fullscreenEventHandler:self storeZoomLevel:-[ZOTFullscreenEventHandler isMainDisplayZoomedIn](self location:"isMainDisplayZoomedIn") ^ 1 zoomed:self->_applicationKey forKey:{v80, v82, v83}];
+                [zoomDelegate9 fullscreenEventHandler:self storeZoomLevel:-[ZOTFullscreenEventHandler isMainDisplayZoomedIn](self location:"isMainDisplayZoomedIn") ^ 1 zoomed:self->_applicationKey forKey:{v86, v88, v89}];
               }
 
               goto LABEL_106;
@@ -990,72 +990,72 @@ LABEL_98:
 
             if (self->_pannerTrackDistance > 20.0 && !self->_borderpanMode)
             {
-              v114 = &_dispatch_main_q;
-              v187[0] = _NSConcreteStackBlock;
-              v187[1] = 3221225472;
-              v187[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_5;
-              v187[3] = &unk_78D00;
-              v187[4] = self;
-              dispatch_async(&_dispatch_main_q, v187);
+              v120 = &_dispatch_main_q;
+              v202[0] = _NSConcreteStackBlock;
+              v202[1] = 3221225472;
+              v202[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_5;
+              v202[3] = &unk_78D00;
+              v202[4] = self;
+              dispatch_async(&_dispatch_main_q, v202);
 
               SCRCMathGetAverage();
-              v116 = v115;
+              v122 = v121;
               if (self->_tapCount != 2)
               {
                 if (_AXSVoiceOverTouchEnabled())
                 {
                   if (self->_snarfing)
                   {
-                    if (v7 - self->_anyFingerDownTime < 0.35 || (-[ZOTFullscreenEventHandler zoomDelegate](self, "zoomDelegate"), v117 = objc_claimAutoreleasedReturnValue(), [v117 zoomLevelWithFullscreenEventHandler:self], v119 = v118 < AXZoomMinimumZoomLevel + 0.000001, v117, v119))
+                    if (v7 - self->_anyFingerDownTime < 0.35 || (-[ZOTFullscreenEventHandler zoomDelegate](self, "zoomDelegate"), v123 = objc_claimAutoreleasedReturnValue(), [v123 zoomLevelWithFullscreenEventHandler:self], v125 = v124 < AXZoomMinimumZoomLevel + 0.000001, v123, v125))
                     {
                       currentVector = self->_currentVector;
                       zoomDelegate11 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-                      v122 = ZOTConvertVectorToScreenStandard([zoomDelegate11 interfaceOrientationWithFullscreenEventHandler:self], currentVector);
+                      v128 = ZOTConvertVectorToScreenStandard([zoomDelegate11 interfaceOrientationWithFullscreenEventHandler:self], currentVector);
 
-                      if (v116 <= 125.0)
+                      if (v122 <= 125.0)
                       {
-                        v172 = 0;
+                        v187 = 0;
                       }
 
                       else
                       {
-                        v123 = v122;
-                        if (v123 <= 45.0 || v123 >= 315.0)
+                        v129 = v128;
+                        if (v129 <= 45.0 || v129 >= 315.0)
                         {
-                          v124 = +[VOSGesture ThreeFingerFlickRight];
+                          v130 = +[VOSGesture ThreeFingerFlickRight];
                         }
 
-                        else if (v123 <= 45.0 || v123 > 135.0)
+                        else if (v129 <= 45.0 || v129 > 135.0)
                         {
-                          if (v123 <= 135.0 || v123 > 225.0)
+                          if (v129 <= 135.0 || v129 > 225.0)
                           {
-                            v172 = 0;
-                            if (v123 < 225.0 || v123 > 315.0)
+                            v187 = 0;
+                            if (v129 < 225.0 || v129 > 315.0)
                             {
                               goto LABEL_252;
                             }
 
-                            v124 = +[VOSGesture ThreeFingerFlickDown];
+                            v130 = +[VOSGesture ThreeFingerFlickDown];
                           }
 
                           else
                           {
-                            v124 = +[VOSGesture ThreeFingerFlickLeft];
+                            v130 = +[VOSGesture ThreeFingerFlickLeft];
                           }
                         }
 
                         else
                         {
-                          v124 = +[VOSGesture ThreeFingerFlickUp];
+                          v130 = +[VOSGesture ThreeFingerFlickUp];
                         }
 
-                        v172 = v124;
+                        v187 = v130;
                       }
 
 LABEL_252:
-                      isTouchEventWeCareAbout = [NSKeyedArchiver archivedDataWithRootObject:v172 requiringSecureCoding:1 error:0];
-                      v173 = +[AXVoiceOverServer server];
-                      [v173 triggerGesture:isTouchEventWeCareAbout];
+                      isTouchEventWeCareAbout = [NSKeyedArchiver archivedDataWithRootObject:v187 requiringSecureCoding:1 error:0];
+                      v188 = +[AXVoiceOverServer server];
+                      [v188 triggerGesture:isTouchEventWeCareAbout];
 
                       goto LABEL_98;
                     }
@@ -1064,32 +1064,32 @@ LABEL_252:
               }
 
               isTouchEventWeCareAbout = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-              [isTouchEventWeCareAbout fullscreenEventHandler:self continueZoomMovementWithVelocity:v116 angle:self->_currentVector];
+              [isTouchEventWeCareAbout fullscreenEventHandler:self continueZoomMovementWithVelocity:v122 angle:self->_currentVector];
             }
 
-            if ((v176 & 1) != 0 || v7 - self->_lastPanTime < 0.25 || self->_zooming || self->_shouldPerformEditingGesture)
+            if ((v191 & 1) != 0 || v7 - self->_lastPanTime < 0.25 || self->_zooming || self->_shouldPerformEditingGesture)
             {
               self->_tapCount = 0;
               if (self->_shouldPerformEditingGesture)
               {
-                v159 = [NSMutableArray alloc];
+                v173 = [NSMutableArray alloc];
                 isTouchEventWeCareAbout = [eventCopy record];
-                v160 = [v159 initWithObjects:{isTouchEventWeCareAbout, 0}];
+                v174 = [v173 initWithObjects:{isTouchEventWeCareAbout, 0}];
 
-                [(ZOTFullscreenEventHandler *)self _drainEventRepostQueue:v160 replayEvents:1 updateEventTimestamps:1];
+                [(ZOTFullscreenEventHandler *)self _drainEventRepostQueue:v174 replayEvents:1 updateEventTimestamps:1];
               }
 
-              self->_tapLastTime = v46;
-              self->_tapDoubleLastTime = v46;
-              self->_lastPanTime = v46;
+              self->_tapLastTime = v52;
+              self->_tapDoubleLastTime = v52;
+              self->_lastPanTime = v52;
             }
 
             else
             {
-              v166 = self->_tapCount;
-              if (v166 < 1 || v7 - self->_tapLastTime <= 0.25)
+              v181 = self->_tapCount;
+              if (v181 < 1 || v7 - self->_tapLastTime <= 0.25)
               {
-                self->_tapCount = v166 + 1;
+                self->_tapCount = v181 + 1;
                 self->_tapLastTime = v7;
                 if (!_AXSVoiceOverTouchEnabled())
                 {
@@ -1100,41 +1100,41 @@ LABEL_252:
                 {
                   [(AXThreadTimer *)self->_multiTapTimer cancel];
                   objc_initWeak(buf, self);
-                  v167 = self->_tapCount;
+                  v182 = self->_tapCount;
                   multiTapTimer = self->_multiTapTimer;
-                  v183[0] = _NSConcreteStackBlock;
-                  v183[1] = 3221225472;
-                  v183[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_7;
-                  v183[3] = &unk_78E28;
-                  objc_copyWeak(v185, buf);
-                  v184 = eventCopy;
-                  v185[1] = v167;
-                  [(AXThreadTimer *)multiTapTimer afterDelay:v183 processBlock:&__block_literal_global_1 cancelBlock:0.275];
+                  v198[0] = _NSConcreteStackBlock;
+                  v198[1] = 3221225472;
+                  v198[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_7;
+                  v198[3] = &unk_78E28;
+                  objc_copyWeak(v200, buf);
+                  v199 = eventCopy;
+                  v200[1] = v182;
+                  [(AXThreadTimer *)multiTapTimer afterDelay:v198 processBlock:&__block_literal_global_1 cancelBlock:0.275];
 
-                  objc_destroyWeak(v185);
+                  objc_destroyWeak(v200);
                   objc_destroyWeak(buf);
                 }
 
                 else
                 {
-                  v170 = self->_tapCount;
-                  if (v170 >= 3)
+                  v185 = self->_tapCount;
+                  if (v185 >= 3)
                   {
-                    if (v170 == 3)
+                    if (v185 == 3)
                     {
                       [(AXThreadTimer *)self->_tapCountResetTimer cancel];
                       [(AXThreadTimer *)self->_editingGestureHoldTimer cancel];
-                      v171 = &_dispatch_main_q;
-                      v186[0] = _NSConcreteStackBlock;
-                      v186[1] = 3221225472;
-                      v186[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_6;
-                      v186[3] = &unk_78D00;
-                      v186[4] = self;
-                      dispatch_async(&_dispatch_main_q, v186);
+                      v186 = &_dispatch_main_q;
+                      v201[0] = _NSConcreteStackBlock;
+                      v201[1] = 3221225472;
+                      v201[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_6;
+                      v201[3] = &unk_78D00;
+                      v201[4] = self;
+                      dispatch_async(&_dispatch_main_q, v201);
                     }
 
                     self->_tapCount = 0;
-                    self->_tapLastTime = v46;
+                    self->_tapLastTime = v52;
                   }
                 }
               }
@@ -1150,50 +1150,50 @@ LABEL_252:
             goto LABEL_98;
           }
 
-          v46 = ZOTTimeUnset;
+          v52 = ZOTTimeUnset;
           *&self->_twoFingerTapDownWithHold = ZOTTimeUnset;
-          self->_firstFingerDownTime = v46;
-          self->_secondFingerDownTime = v46;
-          self->_thirdFingerDownTime = v46;
+          self->_firstFingerDownTime = v52;
+          self->_secondFingerDownTime = v52;
+          self->_thirdFingerDownTime = v52;
           if (_AXSVoiceOverTouchEnabled())
           {
             SCRCMathGetAverage();
-            *&v47 = v47;
-            if (*&v47 > 125.0 && self->_shouldPerformEditingGesture)
+            *&v53 = v53;
+            if (*&v53 > 125.0 && self->_shouldPerformEditingGesture)
             {
-              v48 = self->_currentVector;
+              v54 = self->_currentVector;
               zoomDelegate12 = [(ZOTFullscreenEventHandler *)self zoomDelegate];
-              v50 = ZOTConvertVectorToScreenStandard([zoomDelegate12 interfaceOrientationWithFullscreenEventHandler:self], v48);
+              v56 = ZOTConvertVectorToScreenStandard([zoomDelegate12 interfaceOrientationWithFullscreenEventHandler:self], v54);
 
-              v51 = 43;
-              if (v50 > 45.0 && v50 < 315.0)
+              v57 = 43;
+              if (v56 > 45.0 && v56 < 315.0)
               {
-                if (v50 <= 45.0 || v50 > 135.0)
+                if (v56 <= 45.0 || v56 > 135.0)
                 {
-                  if (v50 <= 135.0 || v50 > 225.0)
+                  if (v56 <= 135.0 || v56 > 225.0)
                   {
-                    if (v50 < 225.0 || v50 > 315.0)
+                    if (v56 < 225.0 || v56 > 315.0)
                     {
                       goto LABEL_68;
                     }
 
-                    v51 = 40;
+                    v57 = 40;
                   }
 
                   else
                   {
-                    v51 = 42;
+                    v57 = 42;
                   }
                 }
 
                 else
                 {
-                  v51 = 41;
+                  v57 = 41;
                 }
               }
 
-              v52 = +[AXVoiceOverServer server];
-              [v52 triggerCommand:v51];
+              v58 = +[AXVoiceOverServer server];
+              [v58 triggerCommand:v57];
             }
           }
 
@@ -1220,37 +1220,37 @@ LABEL_68:
       orbFinger = self->_orbFinger;
       if (orbFinger == -1)
       {
-        v28 = [eventCopy fingerAtIndex:0];
-        self->_orbFinger = [v28 identifier];
+        v30 = [eventCopy fingerAtIndex:0];
+        self->_orbFinger = [v30 identifier];
 
         orbFinger = self->_orbFinger;
       }
 
-      v29 = [eventCopy fingerWithIdentifier:orbFinger];
-      [v29 location];
-      v31 = v30;
+      v31 = [eventCopy fingerWithIdentifier:orbFinger];
+      [v31 location];
+      v33 = v32;
 
-      v202[0] = _NSConcreteStackBlock;
-      v202[1] = 3221225472;
-      v202[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_3;
-      v202[3] = &unk_78D28;
-      v202[4] = self;
-      v202[5] = ZOTDenormalizePoint(v31);
-      v202[6] = v32;
-      dispatch_async(&_dispatch_main_q, v202);
+      v217[0] = _NSConcreteStackBlock;
+      v217[1] = 3221225472;
+      v217[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_3;
+      v217[3] = &unk_78D28;
+      v217[4] = self;
+      v217[5] = ZOTDenormalizePoint(v34, v35, v33);
+      v217[6] = v36;
+      dispatch_async(&_dispatch_main_q, v217);
     }
 
     else
     {
-      [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
-      v203[0] = _NSConcreteStackBlock;
-      v203[1] = 3221225472;
-      v203[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_2;
-      v203[3] = &unk_78D28;
-      v203[4] = self;
-      v203[5] = ZOTDenormalizePoint(v41);
-      v203[6] = v42;
-      dispatch_async(&_dispatch_main_q, v203);
+      v45 = [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
+      v218[0] = _NSConcreteStackBlock;
+      v218[1] = 3221225472;
+      v218[2] = __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_2;
+      v218[3] = &unk_78D28;
+      v218[4] = self;
+      v218[5] = ZOTDenormalizePoint(v45, v46, v47);
+      v218[6] = v48;
+      dispatch_async(&_dispatch_main_q, v218);
       self->_orbSnarfing = 0;
       self->_orbFinger = -1;
     }
@@ -1328,12 +1328,12 @@ void __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_5(uint64_t a1)
   [v2 endZoomMovementWithFullscreenEventHandler:*(a1 + 32)];
 }
 
-void __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_6(uint64_t a1)
+void __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2 = ZOTDenormalizePoint(*(*(a1 + 32) + 1224));
-  v4 = v3;
-  v5 = [*(a1 + 32) zoomDelegate];
-  [v5 fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerTripleTapAtLocation:{v2, v4}];
+  v3 = ZOTDenormalizePoint(a1, a2, *(*(a1 + 32) + 1224));
+  v5 = v4;
+  v6 = [*(a1 + 32) zoomDelegate];
+  [v6 fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerTripleTapAtLocation:{v3, v5}];
 }
 
 void __42__ZOTFullscreenEventHandler__handleEvent___block_invoke_7(uint64_t a1)
@@ -1666,12 +1666,12 @@ LABEL_79:
   return v11 ^ 1;
 }
 
-void __50__ZOTFullscreenEventHandler__handleTrackpadEvent___block_invoke(uint64_t a1)
+void __50__ZOTFullscreenEventHandler__handleTrackpadEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ZOTDenormalizePoint(0.5);
-  v4 = v3;
-  v5 = [*(a1 + 32) zoomDelegate];
-  [v5 fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerTripleTapAtLocation:{v2, v4}];
+  v3 = ZOTDenormalizePoint(a1, a2, 0.5);
+  v5 = v4;
+  v6 = [*(a1 + 32) zoomDelegate];
+  [v6 fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerTripleTapAtLocation:{v3, v5}];
 }
 
 void __50__ZOTFullscreenEventHandler__handleTrackpadEvent___block_invoke_2(uint64_t a1)
@@ -2042,11 +2042,12 @@ void __71__ZOTFullscreenEventHandler__handleTrackpadDoubleTapEvent_newLocation__
   y = location.y;
   x = location.x;
   eventCopy = event;
-  if ([eventCopy fingerCount] == &dword_0 + 3)
+  fingerCount = [eventCopy fingerCount];
+  if (fingerCount == &dword_0 + 3)
   {
-    [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
-    self->_tapPoint.x = v8;
-    self->_tapPoint.y = v9;
+    fingerCount = [(ZOTFullscreenEventHandler *)self _middleFingerForEvent:eventCopy];
+    self->_tapPoint.x = v10;
+    self->_tapPoint.y = v11;
   }
 
   if (self->_tapDoubleTracking)
@@ -2082,26 +2083,26 @@ void __71__ZOTFullscreenEventHandler__handleTrackpadDoubleTapEvent_newLocation__
     self->_tapDoubleTracking = 1;
   }
 
-  v12 = self->_trackingLocation.x;
+  v14 = self->_trackingLocation.x;
   if (deviceOrientation != 4)
   {
     if (deviceOrientation == 3)
     {
-      v12 = 1.0 - v12;
+      v14 = 1.0 - v14;
     }
 
     else if (deviceOrientation == 2)
     {
-      v12 = 1.0 - self->_trackingLocation.y;
+      v14 = 1.0 - self->_trackingLocation.y;
     }
 
     else
     {
-      v12 = self->_trackingLocation.y;
+      v14 = self->_trackingLocation.y;
     }
   }
 
-  v13 = ZOTDenormalizeValue(self->_zoomerTrackStart - v12);
+  v15 = ZOTDenormalizeValue(fingerCount, v9, self->_zoomerTrackStart - v14);
   if (self->_shouldPerformEditingGesture)
   {
     if (!_AXSVoiceOverTouchEnabled())
@@ -2120,10 +2121,10 @@ void __71__ZOTFullscreenEventHandler__handleTrackpadDoubleTapEvent_newLocation__
       [record2 applyAccessibilityDataToCreatorHIDEvent];
 
       record3 = [eventCopy record];
-      v19 = [(ZOTFullscreenEventHandler *)self _senderIDForRepostingOfEvent:record3];
+      v21 = [(ZOTFullscreenEventHandler *)self _senderIDForRepostingOfEvent:record3];
 
       record4 = [eventCopy record];
-      [record6 sendHIDSystemEvent:record4 repostCreatorHIDEvent:1 senderID:v19];
+      [record6 sendHIDSystemEvent:record4 repostCreatorHIDEvent:1 senderID:v21];
 
       goto LABEL_29;
     }
@@ -2131,9 +2132,9 @@ void __71__ZOTFullscreenEventHandler__handleTrackpadDoubleTapEvent_newLocation__
 
   else
   {
-    v21 = v13;
-    v22 = fabs(v13);
-    if (self->_zooming || v22 > 20.0)
+    v23 = v15;
+    v24 = fabs(v15);
+    if (self->_zooming || v24 > 20.0)
     {
       if (self->_zooming)
       {
@@ -2142,54 +2143,54 @@ void __71__ZOTFullscreenEventHandler__handleTrackpadDoubleTapEvent_newLocation__
 
       else
       {
-        v27 = ZOOMLogEvents();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v29 = ZOOMLogEvents();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           zooming = self->_zooming;
           zoomerTrackStart = self->_zoomerTrackStart;
           *buf = 67110144;
-          v39 = zooming;
-          v40 = 1024;
-          v41 = v22 > 20.0;
-          v42 = 2048;
-          v43 = zoomerTrackStart;
+          v41 = zooming;
+          v42 = 1024;
+          v43 = v24 > 20.0;
           v44 = 2048;
-          v45 = v12;
+          v45 = zoomerTrackStart;
           v46 = 2048;
-          v47 = v21;
-          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "Zooming. Canceling timer. zooming:%d deltaExceeded:%d zoomTrackerStart:%f zoomValue:%f normalizedDelta:%f", buf, 0x2Cu);
+          v47 = v14;
+          v48 = 2048;
+          v49 = v23;
+          _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "Zooming. Canceling timer. zooming:%d deltaExceeded:%d zoomTrackerStart:%f zoomValue:%f normalizedDelta:%f", buf, 0x2Cu);
         }
 
         [(AXThreadTimer *)self->_editingGestureHoldTimer cancel];
         self->_zooming = 1;
-        *v30.i64 = -v21;
-        v31.i64[0] = 20.0;
-        v32.f64[0] = NAN;
-        v32.f64[1] = NAN;
-        *&zoomStartOffset = vbslq_s8(vnegq_f64(v32), v31, v30).u64[0];
+        *v32.i64 = -v23;
+        v33.i64[0] = 20.0;
+        v34.f64[0] = NAN;
+        v34.f64[1] = NAN;
+        *&zoomStartOffset = vbslq_s8(vnegq_f64(v34), v33, v32).u64[0];
         self->_zoomStartOffset = zoomStartOffset;
       }
 
-      v33 = (v21 + zoomStartOffset) * (AXZoomMaximumZoomLevel - AXZoomMinimumZoomLevel);
-      ZOTMainScreenSize();
-      v35 = self->_mainDisplayZoomLevel + ZOTMainScreenScaleFactor() * (v33 / v34);
-      v36 = AXZoomMinimumZoomLevel;
-      if (v35 >= AXZoomMinimumZoomLevel + 0.000001)
+      v35 = (v23 + zoomStartOffset) * (AXZoomMaximumZoomLevel - AXZoomMinimumZoomLevel);
+      v36 = v35 / ZOTMainScreenSize();
+      v37 = self->_mainDisplayZoomLevel + ZOTMainScreenScaleFactor() * v36;
+      v38 = AXZoomMinimumZoomLevel;
+      if (v37 >= AXZoomMinimumZoomLevel + 0.000001)
       {
-        v36 = v35;
-        if (v35 > AXZoomMaximumZoomLevel)
+        v38 = v37;
+        if (v37 > AXZoomMaximumZoomLevel)
         {
-          v36 = AXZoomMaximumZoomLevel;
+          v38 = AXZoomMaximumZoomLevel;
         }
       }
 
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = __63__ZOTFullscreenEventHandler__handleDoubleTapEvent_newLocation___block_invoke;
-      v37[3] = &unk_78E98;
-      v37[4] = self;
-      *&v37[5] = v36;
-      dispatch_async(&_dispatch_main_q, v37);
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = __63__ZOTFullscreenEventHandler__handleDoubleTapEvent_newLocation___block_invoke;
+      v39[3] = &unk_78E98;
+      v39[4] = self;
+      *&v39[5] = v38;
+      dispatch_async(&_dispatch_main_q, v39);
     }
 
     else if (([(AXThreadTimer *)self->_editingGestureHoldTimer isPending]& 1) != 0 || [(AXThreadTimer *)self->_editingGestureHoldTimer isActive])
@@ -2230,36 +2231,37 @@ void __63__ZOTFullscreenEventHandler__handleDoubleTapEvent_newLocation___block_i
     {
       [eventCopy time];
       self->_tapDoubleLastTime = v9;
-      if ([(ZOTFullscreenEventHandler *)self isAnyDisplayZoomedIn])
+      isAnyDisplayZoomedIn = [(ZOTFullscreenEventHandler *)self isAnyDisplayZoomedIn];
+      if (isAnyDisplayZoomedIn)
       {
-        v10 = v17;
-        v17[0] = _NSConcreteStackBlock;
-        v17[1] = 3221225472;
-        v17[2] = __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tapCount___block_invoke_2;
-        v17[3] = &unk_78D00;
-        v17[4] = self;
+        v12 = v19;
+        v19[0] = _NSConcreteStackBlock;
+        v19[1] = 3221225472;
+        v19[2] = __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tapCount___block_invoke_2;
+        v19[3] = &unk_78D00;
+        v19[4] = self;
       }
 
       else
       {
-        v14 = ZOTDenormalizePoint(self->_tapPoint.x);
-        v10 = block;
+        v16 = ZOTDenormalizePoint(isAnyDisplayZoomedIn, v11, self->_tapPoint.x);
+        v12 = block;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tapCount___block_invoke;
         block[3] = &unk_78D28;
         block[4] = self;
-        *&block[5] = v14;
-        block[6] = v15;
+        *&block[5] = v16;
+        block[6] = v17;
       }
 
-      dispatch_async(&_dispatch_main_q, v10);
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tapCount___block_invoke_3;
-      v16[3] = &unk_78D00;
-      v16[4] = self;
-      dispatch_async(&_dispatch_main_q, v16);
+      dispatch_async(&_dispatch_main_q, v12);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tapCount___block_invoke_3;
+      v18[3] = &unk_78D00;
+      v18[4] = self;
+      dispatch_async(&_dispatch_main_q, v18);
     }
   }
 
@@ -2276,11 +2278,11 @@ void __63__ZOTFullscreenEventHandler__handleDoubleTapEvent_newLocation___block_i
       case 5:
         v8 = +[VOSGesture ThreeFingerQuadrupleTap];
 LABEL_13:
-        v11 = v8;
-        v12 = [NSKeyedArchiver archivedDataWithRootObject:v8 requiringSecureCoding:1 error:0];
+        v13 = v8;
+        v14 = [NSKeyedArchiver archivedDataWithRootObject:v8 requiringSecureCoding:1 error:0];
 
-        v13 = +[AXVoiceOverServer server];
-        [v13 triggerGesture:v12];
+        v15 = +[AXVoiceOverServer server];
+        [v15 triggerGesture:v14];
 
         break;
     }
@@ -2299,35 +2301,36 @@ void __78__ZOTFullscreenEventHandler__handleVoiceOverMultiTapActionWithEvent_tap
   [v3 zoomLevelWithFullscreenEventHandler:*(a1 + 32)];
   *(*(a1 + 32) + 1328) = v4;
 
-  v12 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
+  v12 = 0u;
   v5 = [*(a1 + 32) externalDisplayZoomDelegates];
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v11;
+    v8 = v6;
+    v9 = *v12;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v11 != v8)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v9) fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerDoubleTapAtLocation:ZOTDenormalizePoint(0.5)];
-        v9 = v9 + 1;
+        v6 = [*(*(&v11 + 1) + 8 * v10) fullscreenEventHandler:*(a1 + 32) didReceiveThreeFingerDoubleTapAtLocation:{ZOTDenormalizePoint(v6, v7, 0.5)}];
+        v10 = v10 + 1;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v8 != v10);
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v8 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 }
 
@@ -2829,88 +2832,88 @@ void __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke(uint64_t
   v3 = _AXSVoiceOverTouchEnabled();
   if (!v3 || (*(a1 + 56) & 1) != 0)
   {
-    v4 = 1280;
+    v5 = 1280;
     if ((v3 != 0) | *(a1 + 56) & 1)
     {
-      v4 = 1288;
+      v5 = 1288;
     }
 
-    v5 = *&WeakRetained[v4];
-    if (v5 == 2)
+    v6 = *&WeakRetained[v5];
+    if (v6 == 2)
     {
-      v8 = *(a1 + 48);
+      v9 = *(a1 + 48);
       if ((v3 != 0) | *(a1 + 56) & 1)
       {
-        *(WeakRetained + 151) = v8;
-        v9 = -1.0;
+        *(WeakRetained + 151) = v9;
         v10 = -1.0;
+        v11 = -1.0;
       }
 
       else
       {
-        *(WeakRetained + 149) = v8;
-        v9 = ZOTDenormalizePoint(*(WeakRetained + 153));
-        v10 = v11;
+        *(WeakRetained + 149) = v9;
+        v10 = ZOTDenormalizePoint(v3, v4, *(WeakRetained + 153));
+        v11 = v12;
       }
 
       if ([WeakRetained isAnyDisplayZoomedIn])
       {
-        v12 = v16;
-        v16[0] = _NSConcreteStackBlock;
-        v16[1] = 3221225472;
-        v16[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_3;
-        v16[3] = &unk_78D00;
-        v16[4] = WeakRetained;
+        v13 = v17;
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_3;
+        v17[3] = &unk_78D00;
+        v17[4] = WeakRetained;
       }
 
       else
       {
-        v12 = v14;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_301;
-        v14[3] = &unk_78F10;
-        *&v14[5] = v9;
-        *&v14[6] = v10;
-        v14[4] = WeakRetained;
-        v15 = *(a1 + 56);
+        v13 = v15;
+        v15[0] = _NSConcreteStackBlock;
+        v15[1] = 3221225472;
+        v15[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_301;
+        v15[3] = &unk_78F10;
+        *&v15[5] = v10;
+        *&v15[6] = v11;
+        v15[4] = WeakRetained;
+        v16 = *(a1 + 56);
       }
 
-      dispatch_async(&_dispatch_main_q, v12);
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_302;
-      v13[3] = &unk_78D00;
-      v13[4] = WeakRetained;
       dispatch_async(&_dispatch_main_q, v13);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_302;
+      v14[3] = &unk_78D00;
+      v14[4] = WeakRetained;
+      dispatch_async(&_dispatch_main_q, v14);
     }
 
-    else if (v5 == 1)
+    else if (v6 == 1)
     {
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_2;
       block[3] = &unk_78EE8;
-      v18 = *(a1 + 56);
-      v6 = *(a1 + 32);
+      v19 = *(a1 + 56);
+      v7 = *(a1 + 32);
       block[4] = WeakRetained;
-      block[5] = v6;
+      block[5] = v7;
       dispatch_async(&_dispatch_main_q, block);
       if (*(a1 + 56) == 1)
       {
-        v7 = WeakRetained[1337] == 0;
+        v8 = WeakRetained[1337] == 0;
         goto LABEL_19;
       }
 
       if ((WeakRetained[1336] & 1) == 0)
       {
-        v7 = [WeakRetained isMainDisplayZoomedIn] ^ 1;
+        v8 = [WeakRetained isMainDisplayZoomedIn] ^ 1;
         goto LABEL_19;
       }
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_19:
   if (*(a1 + 56) == 1)
   {
@@ -2922,59 +2925,61 @@ LABEL_19:
   {
     *(WeakRetained + 160) = 0;
     *(WeakRetained + 150) = ZOTTimeUnset;
-    [WeakRetained _drainEventRepostQueue:*(WeakRetained + 205) replayEvents:v7 updateEventTimestamps:0];
+    [WeakRetained _drainEventRepostQueue:*(WeakRetained + 205) replayEvents:v8 updateEventTimestamps:0];
   }
 }
 
 void __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) zoomDelegate];
-  v3 = *(a1 + 32);
+  v4 = v2;
+  v5 = *(a1 + 32);
   if (*(a1 + 48) == 1)
   {
-    v4 = ZOTDenormalizePoint(0.5);
+    v6 = ZOTDenormalizePoint(v2, v3, 0.5);
   }
 
   else
   {
-    [*(a1 + 32) _middleFingerForEvent:*(v3 + 176)];
+    [*(a1 + 32) _middleFingerForEvent:*(v5 + 176)];
   }
 
-  [v2 fullscreenEventHandler:v3 didReceiveThreeFingerSingleTapAtLocation:v4];
+  [v4 fullscreenEventHandler:v5 didReceiveThreeFingerSingleTapAtLocation:v6];
 
-  v5 = [*(a1 + 32) zoomDelegate];
-  [v5 zoomLevelWithFullscreenEventHandler:*(a1 + 32)];
-  *(*(a1 + 32) + 1328) = v6;
+  v7 = [*(a1 + 32) zoomDelegate];
+  [v7 zoomLevelWithFullscreenEventHandler:*(a1 + 32)];
+  *(*(a1 + 32) + 1328) = v8;
 
-  v14 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v7 = [*(a1 + 32) externalDisplayZoomDelegates];
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v8)
+  v16 = 0u;
+  v9 = [*(a1 + 32) externalDisplayZoomDelegates];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
   {
-    v9 = v8;
-    v10 = *v13;
+    v12 = v10;
+    v13 = *v16;
     do
     {
-      v11 = 0;
+      v14 = 0;
       do
       {
-        if (*v13 != v10)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v9);
         }
 
-        [*(*(&v12 + 1) + 8 * v11) fullscreenEventHandler:*(a1 + 40) didReceiveThreeFingerSingleTapAtLocation:ZOTDenormalizePoint(0.5)];
-        v11 = v11 + 1;
+        v10 = [*(*(&v15 + 1) + 8 * v14) fullscreenEventHandler:*(a1 + 40) didReceiveThreeFingerSingleTapAtLocation:{ZOTDenormalizePoint(v10, v11, 0.5)}];
+        v14 = v14 + 1;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v12 != v14);
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v12 = v10;
     }
 
-    while (v9);
+    while (v10);
   }
 }
 
@@ -3038,7 +3043,7 @@ void __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_301(uint
   {
     v3 = NSStringFromPoint(*(a1 + 40));
     *buf = 138412290;
-    v22 = v3;
+    v23 = v3;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "4. did receive three finger double tap at %@", buf, 0xCu);
   }
 
@@ -3049,44 +3054,45 @@ void __49__ZOTFullscreenEventHandler__scheduleTapTimeout___block_invoke_301(uint
   [v5 zoomLevelWithFullscreenEventHandler:*(a1 + 32)];
   *(*(a1 + 32) + 1328) = v6;
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v7 = [*(a1 + 32) externalDisplayZoomDelegates];
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = v8;
-    v10 = *v17;
+    v10 = v8;
+    v11 = *v18;
     do
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
-        v13 = *(a1 + 32);
-        v14 = -1.0;
+        v13 = *(*(&v17 + 1) + 8 * v12);
+        v14 = *(a1 + 32);
         v15 = -1.0;
+        v16 = -1.0;
         if ((*(a1 + 56) & 1) == 0)
         {
-          v14 = ZOTDenormalizePoint(0.5);
+          v15 = ZOTDenormalizePoint(v8, v9, 0.5);
         }
 
-        [v12 fullscreenEventHandler:v13 didReceiveThreeFingerDoubleTapAtLocation:{v14, v15}];
-        v11 = v11 + 1;
+        v8 = [v13 fullscreenEventHandler:v14 didReceiveThreeFingerDoubleTapAtLocation:{v15, v16}];
+        v12 = v12 + 1;
       }
 
-      while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v10 != v12);
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = v8;
     }
 
-    while (v9);
+    while (v8);
   }
 }
 

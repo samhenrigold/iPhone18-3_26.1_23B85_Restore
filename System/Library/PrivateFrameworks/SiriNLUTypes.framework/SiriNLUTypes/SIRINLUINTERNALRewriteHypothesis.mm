@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rewriteTypeAsString:(int)string;
 - (int)StringAsRewriteType:(id)type;
 - (int)rewriteType;
 - (unint64_t)hash;
@@ -234,33 +235,31 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_asrId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_utterance)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    rewriteType = self->_rewriteType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -339,6 +338,29 @@ LABEL_16:
   else
   {
     v4 = [typeCopy isEqualToString:@"REFERENCE_RESOLUTION"];
+  }
+
+  return v4;
+}
+
+- (id)rewriteTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"REFERENCE_RESOLUTION";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"CORRECTION";
   }
 
   return v4;

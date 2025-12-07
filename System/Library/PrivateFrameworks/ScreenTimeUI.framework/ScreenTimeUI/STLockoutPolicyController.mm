@@ -1827,7 +1827,7 @@ LABEL_23:
       selfCopy3 = self;
       v22 = 4;
 LABEL_35:
-      [(STLockoutPolicyController *)selfCopy3 _changeInternalStateTo:v22, *v31, *&v31[16], v32];
+      [(STLockoutPolicyController *)selfCopy3 _changeInternalStateTo:v22, *v31, *&v31[8], v32];
       goto LABEL_6;
     }
 

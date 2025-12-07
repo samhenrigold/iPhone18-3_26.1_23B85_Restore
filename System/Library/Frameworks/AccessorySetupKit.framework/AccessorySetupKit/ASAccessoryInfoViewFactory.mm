@@ -31,7 +31,7 @@
   deviceCopy = device;
   if (gLogCategory_ASAccessoryInfoView <= 15 && (gLogCategory_ASAccessoryInfoView != -1 || _LogCategory_Initialize()))
   {
-    +[ASAccessoryInfoViewFactory infoViewControllerFromDevice:];
+    [ASAccessoryInfoViewFactory infoViewControllerFromDevice:deviceCopy];
   }
 
   v4 = [[ASAccessoryInfoViewController alloc] initWithDevice:deviceCopy];
@@ -44,7 +44,7 @@
   devicesCopy = devices;
   if (gLogCategory_ASAccessoryInfoView <= 15 && (gLogCategory_ASAccessoryInfoView != -1 || _LogCategory_Initialize()))
   {
-    +[ASAccessoryInfoViewFactory resetWiFiViewControllerFromDevices:];
+    [ASAccessoryInfoViewFactory resetWiFiViewControllerFromDevices:devicesCopy];
   }
 
   v4 = [[ASAccessoryResetWiFiViewController alloc] initWithDevices:devicesCopy];

@@ -886,9 +886,11 @@ void __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_invo
 
 uint64_t __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_invoke()
 {
-  __supportedAggregateFunctions = [MEMORY[0x277CBEB98] setWithObjects:{@"TOTAL", @"MAX", @"MIN", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"TOTAL", @"MAX", @"MIN", 0}];
+  v1 = __supportedAggregateFunctions;
+  __supportedAggregateFunctions = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)enumeratePersistentIDsAndProperties:(id)properties ordered:(BOOL)ordered sectionProperty:(id)property cancelBlock:(id)block usingBlock:(id)usingBlock
@@ -899,10 +901,10 @@ uint64_t __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_
   blockCopy = block;
   usingBlockCopy = usingBlock;
   library = [(ML3Query *)self library];
-  v35 = blockCopy;
+  v36 = blockCopy;
   checkoutReaderConnection = [library checkoutReaderConnection];
-  memset(v54, 0, sizeof(v54));
-  v55 = 1065353216;
+  memset(v55, 0, sizeof(v55));
+  v56 = 1065353216;
   if (propertiesCopy | propertyCopy)
   {
     v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(propertiesCopy, "count") + 1}];
@@ -916,7 +918,7 @@ uint64_t __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_
     {
       for (i = 0; ; ++i)
       {
-        LODWORD(v52[0]) = i;
+        LODWORD(v53[0]) = i;
         if ([propertiesCopy count] <= i)
         {
           break;
@@ -925,7 +927,7 @@ uint64_t __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_
         v18 = [propertiesCopy objectAtIndexedSubscript:i];
         if ([(objc_class *)self->_entityClass propertyIsCountProperty:v18])
         {
-          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v54, i);
+          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v55, i, v53);
         }
 
         else
@@ -941,120 +943,121 @@ uint64_t __60__ML3Query_valueForAggregateFunction_onEntitiesForProperty___block_
     v16 = 0;
   }
 
-  [(ML3Predicate *)self->_predicate spotlightPredicate];
-  memset(v52, 0, sizeof(v52));
-  v36 = v53 = 1065353216;
-  if (v36)
+  spotlightPredicate = [(ML3Predicate *)self->_predicate spotlightPredicate];
+  memset(v53, 0, sizeof(v53));
+  v54 = 1065353216;
+  v37 = spotlightPredicate;
+  if (spotlightPredicate)
   {
-    v32 = orderedCopy;
+    v33 = orderedCopy;
     string = [MEMORY[0x277CCAB68] string];
-    [v36 appendSQLToMutableString:string entityClass:self->_entityClass];
+    [v37 appendSQLToMutableString:string entityClass:self->_entityClass];
     persistentIDParameters = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_orderingTerms, "count") + 1}];
     [persistentIDParameters addObjectsFromArray:self->_orderingTerms];
-    v21 = [ML3OrderingTerm orderingTermWithProperty:string direction:2];
-    [persistentIDParameters addObject:v21];
+    v22 = [ML3OrderingTerm orderingTermWithProperty:string direction:2];
+    [persistentIDParameters addObject:v22];
 
     objc_storeStrong(&self->_orderingTerms, persistentIDParameters);
-    v22 = 0;
     v23 = 0;
+    v24 = 0;
     while (1)
     {
-      LODWORD(v50[0]) = v22;
-      if ([v16 count] <= v22)
+      LODWORD(v51[0]) = v23;
+      if ([v16 count] <= v23)
       {
         break;
       }
 
-      v24 = [v16 objectAtIndex:v22];
-      v25 = [(ML3Query *)self nameOrderPropertyForProperty:v24];
+      v25 = [v16 objectAtIndex:v23];
+      v26 = [(ML3Query *)self nameOrderPropertyForProperty:v25];
 
-      if (v25)
+      if (v26)
       {
-        [v16 replaceObjectAtIndex:v22 withObject:v25];
-        std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v52, v22);
-        v23 = 1;
+        [v16 replaceObjectAtIndex:v23 withObject:v26];
+        std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v53, v23, v51);
+        v24 = 1;
       }
 
-      ++v22;
+      ++v23;
     }
 
     library2 = [(ML3Query *)self library];
-    [(ML3Query *)self loadNamesFromLibrary:library2 onConnection:checkoutReaderConnection forPredicate:v36 loadAllNames:v23 & 1 cancelHandler:v35];
+    [(ML3Query *)self loadNamesFromLibrary:library2 onConnection:checkoutReaderConnection forPredicate:v37 loadAllNames:v24 & 1 cancelHandler:v36];
 
-    if (v35 && v35[2]())
+    if (v36 && v36[2]())
     {
       [library checkInDatabaseConnection:checkoutReaderConnection];
-      v27 = v35;
+      v28 = v36;
       goto LABEL_29;
     }
 
-    orderedCopy = v32;
+    orderedCopy = v33;
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
   string = [(ML3Query *)self selectPersistentIDsSQLAndProperties:v16 ordered:orderedCopy];
   persistentIDParameters = [(ML3Query *)self persistentIDParameters];
-  v28 = [(ML3Query *)self enumerationDatabaseResultForSQL:string onConnection:checkoutReaderConnection withParameters:persistentIDParameters];
-  v29 = [propertiesCopy count];
-  v30 = v29;
-  if (v29)
+  v29 = [(ML3Query *)self enumerationDatabaseResultForSQL:string onConnection:checkoutReaderConnection withParameters:persistentIDParameters];
+  v30 = [propertiesCopy count];
+  v31 = v30;
+  if (v30)
   {
-    v31 = malloc_type_calloc(v29, 8uLL, 0x80040B8603338uLL);
-    bzero(v31, 8 * v30);
+    v32 = malloc_type_calloc(v30, 8uLL, 0x80040B8603338uLL);
+    bzero(v32, 8 * v31);
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x2020000000;
+  v52 = 0;
   v50[0] = 0;
   v50[1] = v50;
   v50[2] = 0x2020000000;
-  v51 = 0;
-  v49[0] = 0;
-  v49[1] = v49;
-  v49[2] = 0x2020000000;
-  v49[3] = 0;
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3321888768;
-  v38[2] = __95__ML3Query_enumeratePersistentIDsAndProperties_ordered_sectionProperty_cancelBlock_usingBlock___block_invoke;
-  v38[3] = &unk_284085948;
-  v38[4] = self;
-  v44 = v50;
-  v42 = v35;
-  v39 = propertyCopy;
-  v46 = v30;
-  v48[40] = v23 & 1;
-  std::unordered_set<int>::unordered_set(v47, v52);
-  v47[5] = v31;
-  v40 = v36;
-  std::unordered_set<int>::unordered_set(v48, v54);
-  v41 = propertiesCopy;
-  v43 = usingBlockCopy;
-  v45 = v49;
-  v27 = v35;
-  [v28 enumerateRowsWithBlock:v38];
+  v50[3] = 0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3321888768;
+  v39[2] = __95__ML3Query_enumeratePersistentIDsAndProperties_ordered_sectionProperty_cancelBlock_usingBlock___block_invoke;
+  v39[3] = &unk_284085948;
+  v39[4] = self;
+  v45 = v51;
+  v43 = v36;
+  v40 = propertyCopy;
+  v47 = v31;
+  v49[40] = v24 & 1;
+  std::unordered_set<int>::unordered_set(v48, v53);
+  v48[5] = v32;
+  v41 = v37;
+  std::unordered_set<int>::unordered_set(v49, v55);
+  v42 = propertiesCopy;
+  v44 = usingBlockCopy;
+  v46 = v50;
+  v28 = v36;
+  [v29 enumerateRowsWithBlock:v39];
   [library checkInDatabaseConnection:checkoutReaderConnection];
-  if (v31)
+  if (v32)
   {
-    free(v31);
+    free(v32);
   }
 
+  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v49);
   std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v48);
-  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v47);
 
-  _Block_object_dispose(v49, 8);
   _Block_object_dispose(v50, 8);
+  _Block_object_dispose(v51, 8);
 
 LABEL_29:
-  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v52);
+  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v53);
 
-  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v54);
+  std::__hash_table<unsigned long long,echo_hash_shift<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v55);
 }
 
 void __95__ML3Query_enumeratePersistentIDsAndProperties_ordered_sectionProperty_cancelBlock_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)

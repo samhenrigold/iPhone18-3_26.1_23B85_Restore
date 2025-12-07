@@ -43,10 +43,11 @@
   lCopy = l;
   postdataCopy = postdata;
   v13 = [(TSWebsheetSignupFlow *)self init];
+  v14 = v13;
   if (v13)
   {
-    v14 = _TSLogDomain();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _TSLogDomain(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 136315650;
       uTF8String = [lCopy UTF8String];
@@ -54,23 +55,22 @@
       v22 = postdataCopy;
       v23 = 2080;
       v24 = "[TSWebsheetSignupFlow initWithRequestType:skipIntroPaneForWebsheetFlow:websheetURL:postdata:]";
-      _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "websheet: [%s] %@ @%s", &v19, 0x20u);
+      _os_log_impl(&dword_262AA8000, v15, OS_LOG_TYPE_DEFAULT, "websheet: [%s] %@ @%s", &v19, 0x20u);
     }
 
-    plan = v13->_plan;
-    v13->_plan = 0;
+    plan = v14->_plan;
+    v14->_plan = 0;
 
-    iccid = v13->_iccid;
-    v13->_iccid = 0;
+    iccid = v14->_iccid;
+    v14->_iccid = 0;
 
-    objc_storeStrong(&v13->_websheetURL, l);
-    objc_storeStrong(&v13->_postdata, postdata);
-    v13->_requestType = type;
-    v13->_skipIntroPaneForWebsheetFlow = flow;
+    objc_storeStrong(&v14->_websheetURL, l);
+    objc_storeStrong(&v14->_postdata, postdata);
+    v14->_requestType = type;
+    v14->_skipIntroPaneForWebsheetFlow = flow;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (TSWebsheetSignupFlow)initWithPlan:(id)plan
@@ -78,30 +78,30 @@
   v16 = *MEMORY[0x277D85DE8];
   planCopy = plan;
   v6 = [(TSWebsheetSignupFlow *)self init];
+  v7 = v6;
   if (v6)
   {
-    v7 = _TSLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412546;
       v13 = planCopy;
       v14 = 2080;
       v15 = "[TSWebsheetSignupFlow initWithPlan:]";
-      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Websheet flow: %@ @%s", &v12, 0x16u);
+      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Websheet flow: %@ @%s", &v12, 0x16u);
     }
 
-    objc_storeStrong(&v6->_plan, plan);
-    iccid = v6->_iccid;
-    v6->_iccid = 0;
+    objc_storeStrong(&v7->_plan, plan);
+    iccid = v7->_iccid;
+    v7->_iccid = 0;
 
-    websheetURL = v6->_websheetURL;
-    v6->_websheetURL = 0;
+    websheetURL = v7->_websheetURL;
+    v7->_websheetURL = 0;
 
-    v6->_skipIntroPaneForWebsheetFlow = 1;
+    v7->_skipIntroPaneForWebsheetFlow = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (TSWebsheetSignupFlow)initWithIccid:(id)iccid
@@ -109,30 +109,30 @@
   v16 = *MEMORY[0x277D85DE8];
   iccidCopy = iccid;
   v6 = [(TSWebsheetSignupFlow *)self init];
+  v7 = v6;
   if (v6)
   {
-    v7 = _TSLogDomain();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412546;
       v13 = iccidCopy;
       v14 = 2080;
       v15 = "[TSWebsheetSignupFlow initWithIccid:]";
-      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Websheet flow: ICCID %@ @%s", &v12, 0x16u);
+      _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Websheet flow: ICCID %@ @%s", &v12, 0x16u);
     }
 
-    plan = v6->_plan;
-    v6->_plan = 0;
+    plan = v7->_plan;
+    v7->_plan = 0;
 
-    objc_storeStrong(&v6->_iccid, iccid);
-    websheetURL = v6->_websheetURL;
-    v6->_websheetURL = 0;
+    objc_storeStrong(&v7->_iccid, iccid);
+    websheetURL = v7->_websheetURL;
+    v7->_websheetURL = 0;
 
-    v6->_skipIntroPaneForWebsheetFlow = 1;
+    v7->_skipIntroPaneForWebsheetFlow = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -277,16 +277,16 @@ void __49__TSWebsheetSignupFlow_getWebsheetViewController__block_invoke(uint64_t
 
 - (void)accountCancelled
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]not supported @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSWebsheetSignupFlow accountCancelled]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]not supported @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)accountPendingRelease
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]not supported @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSWebsheetSignupFlow accountPendingRelease]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]not supported @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_createURLRequest:(id)request
@@ -335,7 +335,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = _TSLogDomain();
+  v14 = _TSLogDomain(requestCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [(TSWebsheetSignupFlow *)v14 _createURLRequest:v15, v16, v17, v18, v19, v20, v21];
@@ -401,9 +401,9 @@ void __42__TSWebsheetSignupFlow__createURLRequest___block_invoke_2(uint64_t a1, 
 
 - (void)_createURLRequest:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Missing required parameters @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSWebsheetSignupFlow _createURLRequest:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]Missing required parameters @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

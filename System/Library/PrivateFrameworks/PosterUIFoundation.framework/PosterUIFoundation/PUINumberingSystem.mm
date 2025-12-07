@@ -188,9 +188,9 @@ void __45__PUINumberingSystem_numberingSystemForType___block_invoke_2(uint64_t a
 - (PUINumberingSystem)initWithNumberingSystemType:(id)type
 {
   typeCopy = type;
-  v70.receiver = self;
-  v70.super_class = PUINumberingSystem;
-  v5 = [(PUINumberingSystem *)&v70 init];
+  v87.receiver = self;
+  v87.super_class = PUINumberingSystem;
+  v5 = [(PUINumberingSystem *)&v87 init];
   if (v5)
   {
     allNumberingSystemTypes = [objc_opt_class() allNumberingSystemTypes];
@@ -202,219 +202,234 @@ void __45__PUINumberingSystem_numberingSystemForType___block_invoke_2(uint64_t a
       typeCopy = @"latn";
     }
 
-    v8 = MEMORY[0x1E69DCAB8];
-    v9 = PUIBundle();
-    v10 = [v8 imageNamed:@"textformat.12" inBundle:v9 withConfiguration:0];
+    v9 = MEMORY[0x1E69DCAB8];
+    v10 = PUIBundle(v8);
+    v11 = [v9 imageNamed:@"textformat.12" inBundle:v10 withConfiguration:0];
     image = v5->_image;
-    v5->_image = v10;
+    v5->_image = v11;
 
-    v12 = PUIBundle();
-    v13 = [v12 localizedStringForKey:@"ARABIC_NUMBERS" value:&stru_1F1C6DED8 table:0];
+    v14 = PUIBundle(v13);
+    v15 = [v14 localizedStringForKey:@"ARABIC_NUMBERS" value:&stru_1F1C6DED8 table:0];
     localizedDisplayName = v5->_localizedDisplayName;
-    v5->_localizedDisplayName = v13;
+    v5->_localizedDisplayName = v15;
 
     objc_storeStrong(&v5->_type, typeCopy);
     objc_storeStrong(&v5->_systemName, typeCopy);
     currentLocale = [MEMORY[0x1E695DF58] currentLocale];
     localeIdentifier = [currentLocale localeIdentifier];
 
-    v17 = [MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:localeIdentifier];
-    v18 = [v17 mutableCopy];
+    v19 = [MEMORY[0x1E695DF58] componentsFromLocaleIdentifier:localeIdentifier];
+    v20 = [v19 mutableCopy];
 
-    [v18 setObject:v5->_systemName forKey:@"numbers"];
-    v19 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v18];
-    v20 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v19];
+    [v20 setObject:v5->_systemName forKey:@"numbers"];
+    v21 = [MEMORY[0x1E695DF58] localeIdentifierFromComponents:v20];
+    v22 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v21];
     locale = v5->_locale;
-    v5->_locale = v20;
+    v5->_locale = v22;
 
     if (([(__CFString *)typeCopy isEqualToString:@"latn"]& 1) != 0)
     {
       goto LABEL_22;
     }
 
-    if ([(__CFString *)typeCopy isEqualToString:@"arab"])
+    v24 = [(__CFString *)typeCopy isEqualToString:@"arab"];
+    if (v24)
     {
-      v22 = PUIBundle();
-      v23 = v22;
-      v24 = @"ARABIC_INDIC_NUMBERS";
+      v25 = PUIBundle(v24);
+      v26 = v25;
+      v27 = @"ARABIC_INDIC_NUMBERS";
     }
 
     else
     {
-      if ([(__CFString *)typeCopy isEqualToString:@"deva"])
+      v32 = [(__CFString *)typeCopy isEqualToString:@"deva"];
+      if (v32)
       {
-        v29 = PUIBundle();
-        v30 = [v29 localizedStringForKey:@"DEVANAGARI_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v31 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v30;
+        v33 = PUIBundle(v32);
+        v34 = [v33 localizedStringForKey:@"DEVANAGARI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v35 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v34;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.hi";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.hi";
         goto LABEL_20;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"khmr"])
+      v36 = [(__CFString *)typeCopy isEqualToString:@"khmr"];
+      if (v36)
       {
-        v32 = PUIBundle();
-        v33 = [v32 localizedStringForKey:@"KHMER_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v34 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v33;
+        v37 = PUIBundle(v36);
+        v38 = [v37 localizedStringForKey:@"KHMER_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v39 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v38;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.km";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.km";
         goto LABEL_20;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"mymr"])
+      v40 = [(__CFString *)typeCopy isEqualToString:@"mymr"];
+      if (v40)
       {
-        v35 = PUIBundle();
-        v36 = [v35 localizedStringForKey:@"BURMESE_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v37 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v36;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.my";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"beng"])
-      {
-        v38 = PUIBundle();
-        v39 = [v38 localizedStringForKey:@"BANGLA_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v40 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v39;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.bn";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"guru"])
-      {
-        v41 = PUIBundle();
-        v42 = [v41 localizedStringForKey:@"GURMUKHI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v41 = PUIBundle(v40);
+        v42 = [v41 localizedStringForKey:@"BURMESE_NUMBERS" value:&stru_1F1C6DED8 table:0];
         v43 = v5->_localizedDisplayName;
         v5->_localizedDisplayName = v42;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.pa";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.my";
         goto LABEL_20;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"gujr"])
+      v44 = [(__CFString *)typeCopy isEqualToString:@"beng"];
+      if (v44)
       {
-        v44 = PUIBundle();
-        v45 = [v44 localizedStringForKey:@"GUJARATI_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v46 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v45;
+        v45 = PUIBundle(v44);
+        v46 = [v45 localizedStringForKey:@"BANGLA_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v47 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v46;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.gu";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.bn";
         goto LABEL_20;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"taml"])
+      v48 = [(__CFString *)typeCopy isEqualToString:@"guru"];
+      if (v48)
       {
-        v48 = PUIBundle();
-        v50 = [v48 localizedStringForKey:@"TAMIL_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v49 = PUIBundle(v48);
+        v50 = [v49 localizedStringForKey:@"GURMUKHI_NUMBERS" value:&stru_1F1C6DED8 table:0];
         v51 = v5->_localizedDisplayName;
         v5->_localizedDisplayName = v50;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.pa";
+        goto LABEL_20;
+      }
+
+      v52 = [(__CFString *)typeCopy isEqualToString:@"gujr"];
+      if (v52)
+      {
+        v53 = PUIBundle(v52);
+        v54 = [v53 localizedStringForKey:@"GUJARATI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v55 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v54;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.gu";
+        goto LABEL_20;
+      }
+
+      v59 = [(__CFString *)typeCopy isEqualToString:@"taml"];
+      if (v59)
+      {
+        v57 = PUIBundle(v59);
+        v60 = [v57 localizedStringForKey:@"TAMIL_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v61 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v60;
 
         goto LABEL_21;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"telu"])
+      v62 = [(__CFString *)typeCopy isEqualToString:@"telu"];
+      if (v62)
       {
-        v52 = PUIBundle();
-        v53 = [v52 localizedStringForKey:@"TELUGU_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v54 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v53;
+        v63 = PUIBundle(v62);
+        v64 = [v63 localizedStringForKey:@"TELUGU_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v65 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v64;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.te";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.te";
         goto LABEL_20;
       }
 
-      if ([(__CFString *)typeCopy isEqualToString:@"mlym"])
+      v66 = [(__CFString *)typeCopy isEqualToString:@"mlym"];
+      if (v66)
       {
-        v55 = PUIBundle();
-        v56 = [v55 localizedStringForKey:@"MALAYALAM_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v57 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v56;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.ml";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"knda"])
-      {
-        v58 = PUIBundle();
-        v59 = [v58 localizedStringForKey:@"KANNADA_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v60 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v59;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.kn";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"orya"])
-      {
-        v61 = PUIBundle();
-        v62 = [v61 localizedStringForKey:@"ODIA_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v63 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v62;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.or";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"olck"])
-      {
-        v64 = PUIBundle();
-        v65 = [v64 localizedStringForKey:@"OLCHIKI_NUMBERS" value:&stru_1F1C6DED8 table:0];
-        v66 = v5->_localizedDisplayName;
-        v5->_localizedDisplayName = v65;
-
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.sat";
-        goto LABEL_20;
-      }
-
-      if ([(__CFString *)typeCopy isEqualToString:@"mtei"])
-      {
-        v67 = PUIBundle();
-        v68 = [v67 localizedStringForKey:@"MEITEI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v67 = PUIBundle(v66);
+        v68 = [v67 localizedStringForKey:@"MALAYALAM_NUMBERS" value:&stru_1F1C6DED8 table:0];
         v69 = v5->_localizedDisplayName;
         v5->_localizedDisplayName = v68;
 
-        v27 = MEMORY[0x1E69DCAB8];
-        v28 = @"textformat.numbers.mni";
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.ml";
         goto LABEL_20;
       }
 
-      if (![(__CFString *)typeCopy isEqualToString:@"arabext"])
+      v70 = [(__CFString *)typeCopy isEqualToString:@"knda"];
+      if (v70)
+      {
+        v71 = PUIBundle(v70);
+        v72 = [v71 localizedStringForKey:@"KANNADA_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v73 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v72;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.kn";
+        goto LABEL_20;
+      }
+
+      v74 = [(__CFString *)typeCopy isEqualToString:@"orya"];
+      if (v74)
+      {
+        v75 = PUIBundle(v74);
+        v76 = [v75 localizedStringForKey:@"ODIA_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v77 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v76;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.or";
+        goto LABEL_20;
+      }
+
+      v78 = [(__CFString *)typeCopy isEqualToString:@"olck"];
+      if (v78)
+      {
+        v79 = PUIBundle(v78);
+        v80 = [v79 localizedStringForKey:@"OLCHIKI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v81 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v80;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.sat";
+        goto LABEL_20;
+      }
+
+      v82 = [(__CFString *)typeCopy isEqualToString:@"mtei"];
+      if (v82)
+      {
+        v83 = PUIBundle(v82);
+        v84 = [v83 localizedStringForKey:@"MEITEI_NUMBERS" value:&stru_1F1C6DED8 table:0];
+        v85 = v5->_localizedDisplayName;
+        v5->_localizedDisplayName = v84;
+
+        v30 = MEMORY[0x1E69DCAB8];
+        v31 = @"textformat.numbers.mni";
+        goto LABEL_20;
+      }
+
+      v86 = [(__CFString *)typeCopy isEqualToString:@"arabext"];
+      if (!v86)
       {
         goto LABEL_22;
       }
 
-      v22 = PUIBundle();
-      v23 = v22;
-      v24 = @"URDU_NUMBERS";
+      v25 = PUIBundle(v86);
+      v26 = v25;
+      v27 = @"URDU_NUMBERS";
     }
 
-    v25 = [v22 localizedStringForKey:v24 value:&stru_1F1C6DED8 table:0];
-    v26 = v5->_localizedDisplayName;
-    v5->_localizedDisplayName = v25;
+    v28 = [v25 localizedStringForKey:v27 value:&stru_1F1C6DED8 table:0];
+    v29 = v5->_localizedDisplayName;
+    v5->_localizedDisplayName = v28;
 
-    v27 = MEMORY[0x1E69DCAB8];
-    v28 = @"textformat.numbers.ar";
+    v30 = MEMORY[0x1E69DCAB8];
+    v31 = @"textformat.numbers.ar";
 LABEL_20:
-    v47 = [v27 systemImageNamed:v28];
-    v48 = v5->_image;
-    v5->_image = v47;
+    v56 = [v30 systemImageNamed:v31];
+    v57 = v5->_image;
+    v5->_image = v56;
 LABEL_21:
 
 LABEL_22:

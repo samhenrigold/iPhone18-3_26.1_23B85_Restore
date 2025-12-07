@@ -36,9 +36,9 @@
   length = range.length;
   location = range.location;
   sourceCopy = source;
-  v114.receiver = self;
-  v114.super_class = CRLWPTypesetterTextSource;
-  v7 = [(CRLWPTypesetterTextSource *)&v114 init];
+  v86.receiver = self;
+  v86.super_class = CRLWPTypesetterTextSource;
+  v7 = [(CRLWPTypesetterTextSource *)&v86 init];
   if (!v7)
   {
     goto LABEL_63;
@@ -62,20 +62,20 @@
       sub_10134AFAC();
     }
 
-    v93 = off_1019EDA68;
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+    v72 = off_1019EDA68;
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d The source storage and/or the specified sub range are invalid.", v94, v95, v96, v97, v98, v99, v100, "[CRLWPTypesetterTextSource initWithSource:subRange:]");
-    v101 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
-    v102 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v101 file:v102 lineNumber:54 isFatal:1 description:"The source storage and/or the specified sub range are invalid."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d The source storage and/or the specified sub range are invalid.", "[CRLWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm", 54);
+    v73 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
+    v74 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v73 file:v74 lineNumber:54 isFatal:1 description:"The source storage and/or the specified sub range are invalid."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v103, v104);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v75, v76);
     goto LABEL_82;
   }
 
@@ -96,15 +96,15 @@
 
     v13 = 0;
     v14 = location;
-    v109 = v11;
+    v81 = v11;
     while (1)
     {
       v15 = [v12 writingDirectionForParagraphAtCharIndex:v14];
       v16 = [v12 textRangeForParagraphAtCharIndex:v14];
-      v111 = &v16[v17];
+      v83 = &v16[v17];
       v18 = (v8 >= &v16[v17] ? &v16[v17] : v8);
       v19 = (v16 <= v14 ? v14 : v16);
-      v110 = v15 == 1;
+      v82 = v15 == 1;
       if (v15 == 1)
       {
         break;
@@ -136,25 +136,25 @@
             sub_10134AD24();
           }
 
-          v69 = off_1019EDA68;
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v62 = off_1019EDA68;
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
             +[CRLAssertionHandler packedBacktraceString];
             objc_claimAutoreleasedReturnValue();
             sub_10130E89C();
           }
 
-          sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d zero-length character", v70, v71, v72, v73, v74, v75, v76, "[CRLWPTypesetterTextSource initWithSource:subRange:]");
-          v77 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
-          v78 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
-          [CRLAssertionHandler handleFailureInFunction:v77 file:v78 lineNumber:149 isFatal:1 description:"zero-length character"];
+          sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d zero-length character", "[CRLWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm", 149);
+          v63 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
+          v64 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
+          [CRLAssertionHandler handleFailureInFunction:v63 file:v64 lineNumber:149 isFatal:1 description:"zero-length character"];
 
-          SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v79, v80);
+          SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v65, v66);
           goto LABEL_82;
         }
 
-        v115[0] = 0;
-        v40 = sub_100281034([(CRLWPTypesetterTextSource *)v7 composedCharacterAtCharIndex:v19 isSurrogatePair:v115]);
+        v87[0] = 0;
+        v40 = sub_100281034([(CRLWPTypesetterTextSource *)v7 composedCharacterAtCharIndex:v19 isSurrogatePair:v87]);
         if (v40 == 3 && v13)
         {
           break;
@@ -222,8 +222,8 @@
       }
 
       v7->_bidiCharIndexes.__end_ = v43;
-      v113 = 0;
-      sub_1002C75A0(&v7->_bidiDirectionMarkIsRTLVector, &v113);
+      v85 = 0;
+      sub_1002C75A0(&v7->_bidiDirectionMarkIsRTLVector, &v85);
 LABEL_56:
       if (v14 >= v18)
       {
@@ -243,28 +243,28 @@ LABEL_56:
           sub_10134ADFC();
         }
 
-        v81 = off_1019EDA68;
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+        v67 = off_1019EDA68;
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           +[CRLAssertionHandler packedBacktraceString];
           objc_claimAutoreleasedReturnValue();
           sub_10130E89C();
         }
 
-        sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Failed to advance curCharIndex", v82, v83, v84, v85, v86, v87, v88, "[CRLWPTypesetterTextSource initWithSource:subRange:]");
-        v89 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
-        v90 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
-        [CRLAssertionHandler handleFailureInFunction:v89 file:v90 lineNumber:173 isFatal:1 description:"Failed to advance curCharIndex"];
+        sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Failed to advance curCharIndex", "[CRLWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm", 173);
+        v68 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
+        v69 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
+        [CRLAssertionHandler handleFailureInFunction:v68 file:v69 lineNumber:173 isFatal:1 description:"Failed to advance curCharIndex"];
 
-        SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v91, v92);
+        SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v70, v71);
         goto LABEL_82;
       }
 
       v14 = v18;
-      v13 = v110;
+      v13 = v82;
       v8 = (location + length);
-      v12 = v109;
-      if (v111 >= location + length)
+      v12 = v81;
+      if (v83 >= location + length)
       {
 LABEL_58:
 
@@ -286,8 +286,8 @@ LABEL_58:
         break;
       }
 
-      v115[0] = 0;
-      v22 = [(CRLWPTypesetterTextSource *)v7 composedCharacterAtCharIndex:v19 isSurrogatePair:v115];
+      v87[0] = 0;
+      v22 = [(CRLWPTypesetterTextSource *)v7 composedCharacterAtCharIndex:v19 isSurrogatePair:v87];
       v23 = sub_100281034(v22);
       v24 = v23;
       if (v22 == 9 || v23 == 6 || !v20 && (v23 - 6) >= 0xFFFFFFFE)
@@ -347,8 +347,8 @@ LABEL_58:
         }
 
         v7->_bidiCharIndexes.__end_ = v28;
-        v113 = 1;
-        sub_1002C75A0(&v7->_bidiDirectionMarkIsRTLVector, &v113);
+        v85 = 1;
+        sub_1002C75A0(&v7->_bidiDirectionMarkIsRTLVector, &v85);
       }
 
       v20 = v24 == 3;
@@ -383,12 +383,12 @@ LABEL_58:
       sub_10130E89C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d zero-length character", v58, v59, v60, v61, v62, v63, v64, "[CRLWPTypesetterTextSource initWithSource:subRange:]");
-    v65 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
-    v66 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v65 file:v66 lineNumber:125 isFatal:1 description:"zero-length character"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d zero-length character", "[CRLWPTypesetterTextSource initWithSource:subRange:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm", 125);
+    v58 = [NSString stringWithUTF8String:"[CRLWPTypesetterTextSource initWithSource:subRange:]"];
+    v59 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPTypesetterTextSource.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v58 file:v59 lineNumber:125 isFatal:1 description:"zero-length character"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v67, v68);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v60, v61);
 LABEL_82:
     abort();
   }

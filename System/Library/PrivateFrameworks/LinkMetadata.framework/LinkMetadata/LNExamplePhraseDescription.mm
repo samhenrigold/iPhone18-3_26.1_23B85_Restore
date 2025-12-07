@@ -458,7 +458,7 @@ LABEL_7:
 
 - (LNExamplePhraseDescription)initWithKind:(int64_t)kind parentIdentifier:(id)identifier phrase:(id)phrase expected:(id)expected phraseTemplate:(id)template
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   phraseCopy = phrase;
   expectedCopy = expected;
@@ -486,9 +486,9 @@ LABEL_7:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"LNExamplePhraseDescription.m" lineNumber:25 description:{@"Invalid parameter not satisfying: %@", @"phrase"}];
 
 LABEL_3:
-  v35.receiver = self;
-  v35.super_class = LNExamplePhraseDescription;
-  v17 = [(LNExamplePhraseDescription *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = LNExamplePhraseDescription;
+  v17 = [(LNExamplePhraseDescription *)&v34 init];
   v18 = v17;
   if (v17)
   {
@@ -498,8 +498,8 @@ LABEL_3:
     v18->_parentIdentifier = v19;
 
     v21 = [phraseCopy copy];
-    v36[0] = v21;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = v21;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
     phrases = v18->_phrases;
     v18->_phrases = v22;
 
@@ -518,7 +518,6 @@ LABEL_3:
     v30 = v18;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

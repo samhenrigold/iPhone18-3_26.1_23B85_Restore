@@ -64,13 +64,13 @@
   if (v4)
   {
     v5 = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = xmmword_249BA0290;
     *(v6 + 32) = v5;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;
@@ -110,7 +110,7 @@
 - (NSString)description
 {
   selfCopy = self;
-  v3 = DOCBrowserContainerController.description.getter();
+  v3 = DOCBrowserContainerController.description.getter(selfCopy);
   v5 = v4;
 
   v6 = MEMORY[0x24C1FAD20](v3, v5);
@@ -257,7 +257,7 @@
 - (void)revealWithNodes:(id)nodes selectEvenIfVisible:(BOOL)visible completionBlock:(id)block
 {
   v7 = _Block_copy(block);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = swift_allocObject();
   *(v9 + 16) = v7;

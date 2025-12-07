@@ -8,6 +8,7 @@
 - (void)setArticle:(id)article;
 - (void)setArticleLoading:(BOOL)loading;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -133,6 +134,15 @@ void __64__NSSArticleViewControllerInternal_initWithSpotlightIdentifier___block_
   view2 = [(NSSArticleViewControllerInternal *)self view];
   articleView = [(NSSArticleViewControllerInternal *)self articleView];
   [view2 addSubview:articleView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NSSArticleViewControllerInternal;
+  [(NSSArticleViewControllerInternal *)&v4 viewWillAppear:appear];
+  [(NSSArticleViewControllerInternal *)self _tickleSpinner];
+  [(NSSArticleViewControllerInternal *)self _tickleArticleView];
 }
 
 - (void)viewWillLayoutSubviews

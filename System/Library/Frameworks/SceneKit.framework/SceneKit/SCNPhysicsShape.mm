@@ -64,7 +64,7 @@
     v11 = v4;
     if (object && referenceObject)
     {
-      v8 = scn_default_log();
+      v8 = scn_default_log(self, a2);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v9 = 0;
@@ -87,7 +87,8 @@
   if (cachedObject)
   {
     v5 = CFGetTypeID(cachedObject);
-    if (CFTypeIsC3DGeometry(v5))
+    IsC3DGeometry = CFTypeIsC3DGeometry(v5, v6);
+    if (IsC3DGeometry)
     {
       geometryRef = self->_cachedObject;
 LABEL_8:
@@ -95,7 +96,7 @@ LABEL_8:
       goto LABEL_14;
     }
 
-    if (v5 == C3DNodeGetTypeID())
+    if (v5 == C3DNodeGetTypeID(IsC3DGeometry, v8))
     {
       nodeRef = self->_cachedObject;
 LABEL_13:
@@ -141,37 +142,37 @@ LABEL_14:
   }
 
 LABEL_19:
-  v9 = [(NSDictionary *)self->_options valueForKey:@"SCNPhysicsShapeScaleKey"];
-  if (v9)
+  v12 = [(NSDictionary *)self->_options valueForKey:@"SCNPhysicsShapeScaleKey"];
+  if (v12)
   {
-    v10 = v9;
-    [v9 SCNVector3Value];
-    v12 = v11;
-    v14 = v13;
-    v16 = v15;
+    v13 = v12;
+    [v12 SCNVector3Value];
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v10 floatValue];
-      v16 = v17;
-      v14 = v17;
-      v12 = v17;
+      [v13 floatValue];
+      v19 = v20;
+      v17 = v20;
+      v15 = v20;
     }
 
-    if (v12 != 0.0 && v14 != 0.0 && v16 != 0.0)
+    if (v15 != 0.0 && v17 != 0.0 && v19 != 0.0)
     {
-      v31.x = 1.0;
-      v31.y = 1.0;
-      v31.z = 1.0;
-      v30.x = v12;
-      v30.y = v14;
-      v30.z = v16;
-      if (!SCNVector3EqualToVector3(v30, v31))
+      v34.x = 1.0;
+      v34.y = 1.0;
+      v34.z = 1.0;
+      v33.x = v15;
+      v33.y = v17;
+      v33.z = v19;
+      if (!SCNVector3EqualToVector3(v33, v34))
       {
         collisionShape = self->_collisionShape;
-        v28 = __PAIR64__(LODWORD(v14), LODWORD(v12));
-        v29 = LODWORD(v16);
-        (*(collisionShape->var0 + 6))(collisionShape, &v28);
+        v31 = __PAIR64__(LODWORD(v17), LODWORD(v15));
+        v32 = LODWORD(v19);
+        (*(collisionShape->var0 + 6))(collisionShape, &v31);
       }
     }
   }
@@ -182,28 +183,28 @@ LABEL_19:
     if (objc_opt_isKindOfClass())
     {
       referenceObject = self->_referenceObject;
-      v20 = self->_collisionShape;
+      v23 = self->_collisionShape;
       [referenceObject scale];
-      v22 = v21;
+      v25 = v24;
       [referenceObject scale];
-      v24 = v23;
+      v27 = v26;
       [referenceObject scale];
-      v28 = __PAIR64__(v24, v22);
-      v29 = v25;
-      (*(v20->var0 + 6))(v20, &v28);
+      v31 = __PAIR64__(v27, v25);
+      v32 = v28;
+      (*(v23->var0 + 6))(v23, &v31);
     }
   }
 
-  v26 = [(NSDictionary *)self->_options valueForKey:@"SCNPhysicsShapeCollisionMarginKey", v28, v29];
-  if (v26)
+  v29 = [(NSDictionary *)self->_options valueForKey:@"SCNPhysicsShapeCollisionMarginKey", v31, v32];
+  if (v29)
   {
-    [v26 floatValue];
-    if (v27.n128_f32[0] < 0.0)
+    [v29 floatValue];
+    if (v30.n128_f32[0] < 0.0)
     {
-      v27.n128_f32[0] = 0.0;
+      v30.n128_f32[0] = 0.0;
     }
 
-    (*(self->_collisionShape->var0 + 11))(self->_collisionShape, v27);
+    (*(self->_collisionShape->var0 + 11))(self->_collisionShape, v30);
   }
 
   return self->_collisionShape;
@@ -282,7 +283,7 @@ uint64_t __52__SCNPhysicsShape__customEncodingOfSCNPhysicsShape___block_invoke(u
   v7 = [v3 stringWithFormat:@"transform%d", v6];
   if (a2)
   {
-    [a2 SCNMatrix4Value];
+    objc_msgSend_SCNMatrix4Value(a2);
   }
 
   else
@@ -332,22 +333,22 @@ uint64_t __52__SCNPhysicsShape__customEncodingOfSCNPhysicsShape___block_invoke(u
 
 - (SCNPhysicsShape)initWithCoder:(id)coder
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = SCNPhysicsShape;
-  v4 = [(SCNPhysicsShape *)&v8 init];
+  v11[4] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SCNPhysicsShape;
+  v4 = [(SCNPhysicsShape *)&v10 init];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
     [SCNTransaction setImmediateMode:1];
     [(SCNPhysicsShape *)v4 _customDecodingOfSCNPhysicsShape:coder];
     v6 = MEMORY[0x277CBEB98];
-    v9[0] = objc_opt_class();
-    v9[1] = objc_opt_class();
-    v9[2] = objc_opt_class();
-    v9[3] = objc_opt_class();
-    -[SCNPhysicsShape setReferenceObject:](v4, "setReferenceObject:", [coder decodeObjectOfClasses:objc_msgSend(v6 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 4)), @"referenceObject"}]);
-    v4->_options = [coder decodeObjectOfClasses:SCNPlistClasses() forKey:@"options"];
+    v11[0] = objc_opt_class();
+    v11[1] = objc_opt_class();
+    v11[2] = objc_opt_class();
+    v11[3] = objc_opt_class();
+    v7 = -[SCNPhysicsShape setReferenceObject:](v4, "setReferenceObject:", [coder decodeObjectOfClasses:objc_msgSend(v6 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 4)), @"referenceObject"}]);
+    v4->_options = [coder decodeObjectOfClasses:SCNPlistClasses(v7 forKey:{v8), @"options"}];
     [SCNTransaction setImmediateMode:v5];
   }
 

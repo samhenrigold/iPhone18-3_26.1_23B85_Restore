@@ -36,7 +36,7 @@
 
 + (id)_errorForMissingResourceURL:(id)l errorDomain:(id)domain
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA8D8];
   domainCopy = domain;
   lCopy = l;
@@ -46,27 +46,25 @@
   mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
   v11 = [mainBundle2 localizedStringForKey:@"Check that resource is available: %@" value:&stru_2835E9330 table:0];
 
-  v25[0] = *MEMORY[0x277CCA450];
+  v24[0] = *MEMORY[0x277CCA450];
   v12 = MEMORY[0x277CCACA8];
   path = [lCopy path];
   v14 = [v12 stringWithFormat:v9, path];
-  v26[0] = v14;
-  v25[1] = *MEMORY[0x277CCA470];
+  v25[0] = v14;
+  v24[1] = *MEMORY[0x277CCA470];
   v15 = MEMORY[0x277CCACA8];
   path2 = [lCopy path];
   v17 = [v15 stringWithFormat:v9, path2];
-  v26[1] = v17;
-  v25[2] = *MEMORY[0x277CCA498];
+  v25[1] = v17;
+  v24[2] = *MEMORY[0x277CCA498];
   v18 = MEMORY[0x277CCACA8];
   path3 = [lCopy path];
 
   v20 = [v18 stringWithFormat:v11, path3];
-  v26[2] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v25[2] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
 
   v22 = [MEMORY[0x277CCA9B8] errorWithDomain:domainCopy code:2 userInfo:v21];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

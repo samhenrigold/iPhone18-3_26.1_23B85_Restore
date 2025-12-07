@@ -34,9 +34,11 @@
 
 uint64_t __27__HMFSystemInfo_systemInfo__block_invoke()
 {
-  qword_280AFC638 = objc_alloc_init(HMFSystemInfo);
+  v0 = objc_alloc_init(HMFSystemInfo);
+  v1 = qword_280AFC638;
+  qword_280AFC638 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (int64_t)productColor
@@ -118,25 +120,23 @@ uint64_t __27__HMFSystemInfo_systemInfo__block_invoke()
   nameCopy = name;
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = HMFGetOSLogHandle(selfCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = HMFGetLogIdentifier(selfCopy);
+    v12 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543618;
-    v18 = v11;
+    v18 = v12;
     v19 = 2112;
     v20 = nameCopy;
-    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updated system name to '%@'", buf, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Updated system name to '%@'", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = +[HMFNotificationCenter defaultCenter];
+  v13 = +[HMFNotificationCenter defaultCenter];
   v15 = @"HMFSystemInfoNameNotificationKey";
   v16 = nameCopy;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  [v12 postNotificationName:@"HMFSystemInfoNameUpdatedNotification" object:selfCopy userInfo:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  [v13 postNotificationName:@"HMFSystemInfoNameUpdatedNotification" object:selfCopy userInfo:v14];
 }
 
 - (NSString)model
@@ -178,23 +178,21 @@ uint64_t __27__HMFSystemInfo_systemInfo__block_invoke()
   sourceCopy = source;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v9 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = HMFGetOSLogHandle(selfCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = HMFGetLogIdentifier(selfCopy);
-    v11 = HMFBooleanToString(migratingCopy);
+    v11 = HMFGetLogIdentifier(selfCopy);
+    v12 = HMFBooleanToString(migratingCopy);
     v14 = 138543618;
-    v15 = v10;
+    v15 = v11;
     v16 = 2112;
-    v17 = v11;
-    _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Updated migration status to '%@'", &v14, 0x16u);
+    v17 = v12;
+    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updated migration status to '%@'", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v12 = +[HMFNotificationCenter defaultCenter];
-  [v12 postNotificationName:@"HMFSystemInfoMigratingUpdatedNotification" object:selfCopy userInfo:0];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13 = +[HMFNotificationCenter defaultCenter];
+  [v13 postNotificationName:@"HMFSystemInfoMigratingUpdatedNotification" object:selfCopy userInfo:0];
 }
 
 - (HMFMACAddress)WiFiInterfaceMACAddress

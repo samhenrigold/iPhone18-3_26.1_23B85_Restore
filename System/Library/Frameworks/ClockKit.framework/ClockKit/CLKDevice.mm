@@ -226,44 +226,45 @@
 
 - (BOOL)_queryAndCacheNanoRegistryDeviceCapabilities
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_cachedCapabilitiesLock);
   supportsCompanionSync = self->_supportsCompanionSync;
   v4 = [(CLKDevice *)self supportsPDRCapability:1179807559];
+  v5 = v4;
   self->_supportsCompanionSync = v4;
   isExplorer = self->_isExplorer;
-  if (CLKInternalBuild() && (keyExistsAndHasValidFormat = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(@"Explorer", @"com.apple.ClockKit", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && AppBooleanValue)
+  if (CLKInternalBuild(v4, v7) && (keyExistsAndHasValidFormat = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(@"Explorer", @"com.apple.ClockKit", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && AppBooleanValue)
   {
-    v7 = CLKLoggingObjectForDomain(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = CLKLoggingObjectForDomain(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23702D000, v7, OS_LOG_TYPE_DEFAULT, "OVERRIDE explorer", buf, 2u);
+      _os_log_impl(&dword_23702D000, v9, OS_LOG_TYPE_DEFAULT, "OVERRIDE explorer", buf, 2u);
     }
 
-    v8 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v8 = [(CLKDevice *)self supportsPDRCapability:1252261691];
+    v10 = [(CLKDevice *)self supportsPDRCapability:1252261691];
   }
 
-  v9 = v8;
-  self->_isExplorer = v8;
+  v11 = v10;
+  self->_isExplorer = v10;
   hasRichMediaComplications = self->_hasRichMediaComplications;
-  v11 = [(CLKDevice *)self supportsPDRCapability:2268473290];
-  v12 = supportsCompanionSync == v4 && v9 == isExplorer;
-  self->_hasRichMediaComplications = v11;
-  v14 = !v12 || v11 != hasRichMediaComplications;
+  v13 = [(CLKDevice *)self supportsPDRCapability:2268473290];
+  v15 = supportsCompanionSync == v5 && v11 == isExplorer;
+  self->_hasRichMediaComplications = v13 & 1;
+  v17 = !v15 || (v13 & 1) != hasRichMediaComplications;
   supportsUrsa = self->_supportsUrsa;
-  if (CLKInternalBuild() && (keyExistsAndHasValidFormat = 0, v16 = CFPreferencesGetAppBooleanValue(@"Ursa", @"com.apple.ClockKit", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && v16)
+  if (CLKInternalBuild(v13, v14) && (keyExistsAndHasValidFormat = 0, v19 = CFPreferencesGetAppBooleanValue(@"Ursa", @"com.apple.ClockKit", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && v19)
   {
-    v17 = CLKLoggingObjectForDomain(0);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = CLKLoggingObjectForDomain(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23702D000, v17, OS_LOG_TYPE_DEFAULT, "OVERRIDE ursa", buf, 2u);
+      _os_log_impl(&dword_23702D000, v20, OS_LOG_TYPE_DEFAULT, "OVERRIDE ursa", buf, 2u);
     }
   }
 
@@ -273,27 +274,27 @@
 
     if (pdrDevice)
     {
-      v19 = [(CLKDevice *)self supportsPDRCapability:2876656872];
+      v23 = [(CLKDevice *)self supportsPDRCapability:2876656872];
       goto LABEL_26;
     }
   }
 
-  v19 = 1;
+  v23 = 1;
 LABEL_26:
-  self->_supportsUrsa = v19;
-  if (v19 != supportsUrsa)
+  self->_supportsUrsa = v23 & 1;
+  if ((v23 & 1) != supportsUrsa)
   {
-    v14 = 1;
+    v17 = 1;
   }
 
   supportsPolaris = self->_supportsPolaris;
-  if (CLKInternalBuild() && (keyExistsAndHasValidFormat = 0, v21 = CFPreferencesGetAppBooleanValue(@"AbsoluteAltitudeEnabled", @"com.apple.locationd", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && v21)
+  if (CLKInternalBuild(v23, v21) && (keyExistsAndHasValidFormat = 0, v25 = CFPreferencesGetAppBooleanValue(@"AbsoluteAltitudeEnabled", @"com.apple.locationd", &keyExistsAndHasValidFormat), keyExistsAndHasValidFormat) && v25)
   {
-    v22 = CLKLoggingObjectForDomain(0);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v26 = CLKLoggingObjectForDomain(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23702D000, v22, OS_LOG_TYPE_DEFAULT, "OVERRIDE polaris", buf, 2u);
+      _os_log_impl(&dword_23702D000, v26, OS_LOG_TYPE_DEFAULT, "OVERRIDE polaris", buf, 2u);
     }
   }
 
@@ -303,139 +304,139 @@ LABEL_26:
 
     if (pdrDevice2)
     {
-      v24 = [(CLKDevice *)self supportsPDRCapability:4273717761];
+      v29 = [(CLKDevice *)self supportsPDRCapability:4273717761];
       goto LABEL_37;
     }
   }
 
-  v24 = 1;
+  v29 = 1;
 LABEL_37:
-  self->_supportsPolaris = v24;
-  if (v24 != supportsPolaris)
+  self->_supportsPolaris = v29 & 1;
+  if ((v29 & 1) != supportsPolaris)
   {
-    v14 = 1;
+    v17 = 1;
   }
 
   supportsCharon = self->_supportsCharon;
-  CLKInternalBuild();
+  CLKInternalBuild(v29, v27);
   pdrDevice3 = [(CLKDevice *)self pdrDevice];
 
   if (pdrDevice3)
   {
-    v27 = [(CLKDevice *)self supportsPDRCapability:3847477697];
+    v32 = [(CLKDevice *)self supportsPDRCapability:3847477697];
   }
 
   else
   {
-    v27 = 1;
+    v32 = 1;
   }
 
-  self->_supportsCharon = v27;
-  if (v27 == supportsCharon)
+  self->_supportsCharon = v32;
+  if (v32 == supportsCharon)
   {
-    v28 = v14;
+    v33 = v17;
   }
 
   else
   {
-    v28 = 1;
+    v33 = 1;
   }
 
   runningGraceOrLater = self->_runningGraceOrLater;
   pdrDevice4 = [(CLKDevice *)self pdrDevice];
   if (pdrDevice4)
   {
-    v31 = [(CLKDevice *)self supportsPDRCapability:2289945074];
+    v36 = [(CLKDevice *)self supportsPDRCapability:2289945074];
   }
 
   else
   {
-    v31 = 1;
+    v36 = 1;
   }
 
-  self->_runningGraceOrLater = v31;
+  self->_runningGraceOrLater = v36;
 
-  if (v28)
+  if (v33)
   {
     [(CLKDevice *)self _checkUpdateFlushCapabilitiesCache_locked];
 LABEL_50:
     ++self->_version;
-    v32 = 1;
+    v37 = 1;
     goto LABEL_54;
   }
 
-  v33 = self->_runningGraceOrLater;
-  if ([(CLKDevice *)self _checkUpdateFlushCapabilitiesCache_locked]|| v33 != runningGraceOrLater)
+  v38 = self->_runningGraceOrLater;
+  if ([(CLKDevice *)self _checkUpdateFlushCapabilitiesCache_locked]|| v38 != runningGraceOrLater)
   {
     goto LABEL_50;
   }
 
-  v32 = 0;
+  v37 = 0;
 LABEL_54:
   os_unfair_lock_unlock(&self->_cachedCapabilitiesLock);
-  v34 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v39 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = self->_isExplorer;
+    v40 = self->_isExplorer;
     *buf = 67109120;
-    v50 = v35;
-    _os_log_impl(&dword_23702D000, v34, OS_LOG_TYPE_DEFAULT, "CLKDevice isExplorer: %u", buf, 8u);
+    v55 = v40;
+    _os_log_impl(&dword_23702D000, v39, OS_LOG_TYPE_DEFAULT, "CLKDevice isExplorer: %u", buf, 8u);
   }
 
-  v36 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  v41 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = self->_hasRichMediaComplications;
+    v42 = self->_hasRichMediaComplications;
     *buf = 67109120;
-    v50 = v37;
-    _os_log_impl(&dword_23702D000, v36, OS_LOG_TYPE_DEFAULT, "CLKDevice hasRichMediaComplications: %u", buf, 8u);
+    v55 = v42;
+    _os_log_impl(&dword_23702D000, v41, OS_LOG_TYPE_DEFAULT, "CLKDevice hasRichMediaComplications: %u", buf, 8u);
   }
 
-  v38 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v43 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = self->_runningGraceOrLater;
+    v44 = self->_runningGraceOrLater;
     *buf = 67109120;
-    v50 = v39;
-    _os_log_impl(&dword_23702D000, v38, OS_LOG_TYPE_DEFAULT, "CLKDevice runningGraceOrLater: %u", buf, 8u);
+    v55 = v44;
+    _os_log_impl(&dword_23702D000, v43, OS_LOG_TYPE_DEFAULT, "CLKDevice runningGraceOrLater: %u", buf, 8u);
   }
 
-  v40 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v45 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = self->_supportsUrsa;
+    v46 = self->_supportsUrsa;
     *buf = 67109120;
-    v50 = v41;
-    _os_log_impl(&dword_23702D000, v40, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsUrsa: %u", buf, 8u);
+    v55 = v46;
+    _os_log_impl(&dword_23702D000, v45, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsUrsa: %u", buf, 8u);
   }
 
-  v42 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v47 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = self->_supportsPolaris;
+    v48 = self->_supportsPolaris;
     *buf = 67109120;
-    v50 = v43;
-    _os_log_impl(&dword_23702D000, v42, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsPolaris: %u", buf, 8u);
+    v55 = v48;
+    _os_log_impl(&dword_23702D000, v47, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsPolaris: %u", buf, 8u);
   }
 
-  v44 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v49 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v45 = self->_supportsCharon;
+    v50 = self->_supportsCharon;
     *buf = 67109120;
-    v50 = v45;
-    _os_log_impl(&dword_23702D000, v44, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsCharon: %u", buf, 8u);
+    v55 = v50;
+    _os_log_impl(&dword_23702D000, v49, OS_LOG_TYPE_DEFAULT, "CLKDevice supportsCharon: %u", buf, 8u);
   }
 
-  v46 = CLKLoggingObjectForDomain(0);
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  v51 = CLKLoggingObjectForDomain(0);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v50 = v32;
-    _os_log_impl(&dword_23702D000, v46, OS_LOG_TYPE_DEFAULT, "CLKDevice capabilityChanged: %u", buf, 8u);
+    v55 = v37;
+    _os_log_impl(&dword_23702D000, v51, OS_LOG_TYPE_DEFAULT, "CLKDevice capabilityChanged: %u", buf, 8u);
   }
 
-  return v32;
+  return v37;
 }
 
 - (BOOL)_checkUpdateFlushCapabilitiesCache_locked

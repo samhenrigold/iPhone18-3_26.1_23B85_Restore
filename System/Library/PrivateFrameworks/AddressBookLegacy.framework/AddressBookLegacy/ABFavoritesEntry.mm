@@ -447,7 +447,7 @@ LABEL_23:
       v70 = 0;
       if ([v6 property] == kABPersonPhoneProperty)
       {
-        v13 = ABCCopyArrayOfUIDsMatchingPhoneNumberWithCountryAndHint(v3, *(v6 + 2), 0, &v70);
+        v13 = ABCCopyArrayOfUIDsMatchingPhoneNumberWithCountryAndHint(v3, *(v6 + 2), 0, &v70, 0);
         goto LABEL_37;
       }
 
@@ -457,7 +457,7 @@ LABEL_23:
       {
         v68 = 0;
         v69 = 0;
-        v13 = ABCCopyArrayOfUIDsMatchingEmailAddressIncludingLabels(v3, *(v6 + 2), &v68, &v69);
+        v13 = ABCCopyArrayOfUIDsMatchingEmailAddressIncludingLabels(v3, *(v6 + 2), &v68, &v69, &v70);
         if (v68)
         {
           CFRelease(v68);

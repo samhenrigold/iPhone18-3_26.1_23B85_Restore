@@ -24,7 +24,7 @@
 
 - (id)extensionForBundleIdentifier:(id)identifier error:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_lock);
   v7 = identifierCopy;
@@ -34,35 +34,35 @@
 
     availableExtensions = MEMORY[0x10];
 LABEL_17:
-    [(NSMutableDictionary *)availableExtensions removeObjectForKey:v8, v21];
+    [(NSMutableDictionary *)availableExtensions removeObjectForKey:v8, v20];
     v11 = 0;
     v18 = 0;
     goto LABEL_18;
   }
 
   os_unfair_lock_assert_owner(&self->_lock);
-  v26 = *MEMORY[0x277CCA0F8];
-  v27[0] = @"com.apple.healthkit.background-observation";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v25 = *MEMORY[0x277CCA0F8];
+  v26[0] = @"com.apple.healthkit.background-observation";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   [MEMORY[0x277CCA9C8] extensionsWithMatchingAttributes:v9 error:error];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v10 = v24 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = v23 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v22;
+    v12 = *v21;
     while (2)
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         hd_extensionContainerBundleIdentifier = [v14 hd_extensionContainerBundleIdentifier];
         if ([hd_extensionContainerBundleIdentifier isEqualToString:v8])
         {
@@ -72,7 +72,7 @@ LABEL_17:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         continue;
@@ -104,8 +104,6 @@ LABEL_12:
 
 LABEL_18:
   os_unfair_lock_unlock(&self->_lock);
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

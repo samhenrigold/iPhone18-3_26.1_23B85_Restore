@@ -213,15 +213,15 @@ uint64_t _sSo7CGPointVwst_0(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_2431382BC()
+uint64_t sub_2431382BC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for GradientMaskModifier();
+  type metadata accessor for GradientMaskModifier(255, *a1, a1[1], a4);
   swift_getWitnessTable();
   type metadata accessor for _ViewModifier_Content();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMR);
   type metadata accessor for ModifiedContent();
   swift_getWitnessTable();
-  lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<LinearGradient, _FrameLayout>> and conformance _MaskAlignmentEffect<A>, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd);
+  lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<LinearGradient, _FrameLayout>> and conformance _MaskAlignmentEffect<A>, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMR, MEMORY[0x277CE03E8]);
   return swift_getWitnessTable();
 }
 
@@ -232,7 +232,7 @@ uint64_t sub_2431383C8()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t sub_243138400@<X0>(_BYTE *a1@<X8>)
+void *sub_243138400@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIHorizontalSizeClassKey and conformance CPUIHorizontalSizeClassKey();
   result = EnvironmentValues.subscript.getter();
@@ -240,18 +240,18 @@ uint64_t sub_243138400@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_24313849C()
+uint64_t sub_24313849C(uint64_t *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMR);
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<CPUIHorizontalSizeClass> and conformance _EnvironmentKeyWritingModifier<A>();
   return swift_getWitnessTable();
 }
 
-uint64_t sub_243138514@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_243138514@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, _BYTE *a3@<X8>)
 {
-  result = UIMutableTraits.cpuiIsPortrait.getter();
-  *a1 = result & 1;
+  result = UIMutableTraits.cpuiIsPortrait.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
+  *a3 = result & 1;
   return result;
 }
 
@@ -262,7 +262,7 @@ __n128 sub_243138588(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_243138594@<X0>(_BYTE *a1@<X8>)
+void *sub_243138594@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIIsPortraitKey and conformance CPUIIsPortraitKey();
   result = EnvironmentValues.subscript.getter();
@@ -270,18 +270,18 @@ uint64_t sub_243138594@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_243138630()
+uint64_t sub_243138630(uint64_t *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMR);
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>();
   return swift_getWitnessTable();
 }
 
-uint64_t sub_2431386A8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_2431386A8@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
-  result = UIMutableTraits.wallpaperAppearanceType.getter();
-  *a1 = result;
+  result = UIMutableTraits.wallpaperAppearanceType.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
+  *a3 = result;
   return result;
 }
 
@@ -308,7 +308,7 @@ uint64_t sub_24313887C@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_2431388AC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -326,7 +326,7 @@ uint64_t sub_243138964(uint64_t a1, uint64_t a2, int *a3)
     return (v4 + 1);
   }
 
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
   if (*(*(v8 - 8) + 84) == a2)
   {
     v9 = v8;
@@ -338,7 +338,7 @@ LABEL_9:
     return v13(a1 + v11, a2, v9);
   }
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   if (*(*(v12 - 8) + 84) == a2)
   {
     v9 = v12;
@@ -347,7 +347,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMd, &_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMR);
   v15 = *(*(v14 - 8) + 48);
   v16 = a1 + a3[10];
 
@@ -363,7 +363,7 @@ uint64_t sub_243138AF4(uint64_t result, uint64_t a2, int a3, int *a4)
     return result;
   }
 
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
   if (*(*(v8 - 8) + 84) == a3)
   {
     v9 = v8;
@@ -375,7 +375,7 @@ LABEL_7:
     return v13(v5 + v11, a2, a2, v9);
   }
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   if (*(*(v12 - 8) + 84) == a3)
   {
     v9 = v12;
@@ -384,7 +384,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMd, &_s7SwiftUI11EnvironmentVyAA15DynamicTypeSizeOGMR);
   v15 = *(*(v14 - 8) + 56);
   v16 = v5 + a4[10];
 
@@ -401,12 +401,12 @@ uint64_t sub_243138CF0@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_243138D54()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
-uint64_t sub_243138D9C@<X0>(_BYTE *a1@<X8>)
+void *sub_243138D9C@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted();
   result = EnvironmentValues.subscript.getter();
@@ -416,7 +416,7 @@ uint64_t sub_243138D9C@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_243138ECC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
   if (v5 >= 2)
   {
@@ -441,7 +441,7 @@ uint64_t sub_243138F44(uint64_t a1, int a2, uint64_t a3)
     v5 = 0;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v7 = *(*(v6 - 8) + 56);
 
   return v7(a1, v5, a3, v6);
@@ -487,7 +487,7 @@ void sub_243139148(id *a1)
 
 uint64_t sub_2431391BC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGAA11_ClipEffectVyAA16RoundedRectangleVGGAA13_ShadowEffectVGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGAA11_ClipEffectVyAA16RoundedRectangleVGGAA13_ShadowEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGAA11_ClipEffectVyAA16RoundedRectangleVGGAA13_ShadowEffectVGMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -498,14 +498,7 @@ uint64_t sub_24313922C()
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
-uint64_t sub_243139284@<X0>(void *a1@<X8>)
-{
-  result = EnvironmentValues.minimumScaleFactor.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t _sxRi_zRi0_zlyytIsegr_SgWOy_0(uint64_t result)
+uint64_t _sxRi_zRi0_zlyytIsegr_SgWOy_0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -559,13 +552,6 @@ uint64_t sub_243139488()
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t sub_243139590@<X0>(void *a1@<X8>)
-{
-  result = EnvironmentValues.displayScale.getter();
-  *a1 = v3;
-  return result;
-}
-
 double sub_243139608@<D0>(uint64_t a1@<X8>)
 {
   lazy protocol witness table accessor for type IconLayerSizeKey and conformance IconLayerSizeKey();
@@ -576,7 +562,7 @@ double sub_243139608@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t sub_2431396B4@<X0>(_BYTE *a1@<X8>)
+void *sub_2431396B4@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type IconLayerDrawsBorderKey and conformance IconLayerDrawsBorderKey();
   result = EnvironmentValues.subscript.getter();
@@ -584,7 +570,7 @@ uint64_t sub_2431396B4@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_2431397D0@<X0>(_BYTE *a1@<X8>)
+void *sub_2431397D0@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type DisableIconLayerEnviromentSettingsKey and conformance DisableIconLayerEnviromentSettingsKey();
   result = EnvironmentValues.subscript.getter();
@@ -592,7 +578,7 @@ uint64_t sub_2431397D0@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_24313986C@<X0>(void *a1@<X8>)
+void *sub_24313986C@<X0>(void *a1@<X8>)
 {
   lazy protocol witness table accessor for type HomeScreenIconModeKey and conformance HomeScreenIconModeKey();
   result = EnvironmentValues.subscript.getter();
@@ -606,18 +592,18 @@ uint64_t sub_2431398BC()
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
-uint64_t sub_243139900(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_243139900(uint64_t result, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
   }
 
-  return result;
+  return v3;
 }
 
-uint64_t sub_24313990C(uint64_t a1, uint64_t a2, int *a3)
+uint64_t sub_24313990C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -629,52 +615,52 @@ LABEL_8:
     return v9(v10, a2, v8);
   }
 
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMd, &_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMR);
   if (*(*(v11 - 8) + 84) == a2)
   {
     v8 = v11;
     v12 = *(v11 - 8);
-    v13 = a3[9];
+    v13 = *(a3 + 36);
 LABEL_7:
     v9 = *(v12 + 48);
     v10 = a1 + v13;
     goto LABEL_8;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMd, &_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMR);
   if (*(*(v14 - 8) + 84) == a2)
   {
     v8 = v14;
     v12 = *(v14 - 8);
-    v13 = a3[11];
+    v13 = *(a3 + 44);
     goto LABEL_7;
   }
 
   if (a2 == 0x7FFFFFFF)
   {
-    v16 = *(a1 + a3[18]);
-    if (v16 >= 0xFFFFFFFF)
+    v17 = *(a1 + *(a3 + 72));
+    if (v17 >= 0xFFFFFFFF)
     {
-      LODWORD(v16) = -1;
+      LODWORD(v17) = -1;
     }
 
-    return (v16 + 1);
+    return (v17 + 1);
   }
 
   else
   {
-    type metadata accessor for AsyncIconLayer.LoadingState();
-    v17 = type metadata accessor for State();
-    v18 = *(*(v17 - 8) + 48);
-    v19 = a1 + a3[22];
+    type metadata accessor for AsyncIconLayer.LoadingState(255, *(a3 + 16), *(a3 + 24), v15);
+    v18 = type metadata accessor for State();
+    v19 = *(*(v18 - 8) + 48);
+    v20 = a1 + *(a3 + 88);
 
-    return v18(v19, a2, v17);
+    return v19(v20, a2, v18);
   }
 }
 
-uint64_t sub_243139AFC(uint64_t a1, uint64_t a2, int a3, int *a4)
+uint64_t sub_243139AFC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -686,55 +672,55 @@ LABEL_8:
     return v11(v12, a2, a2, v10);
   }
 
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMd, &_s7SwiftUI11EnvironmentVyAA15LayoutDirectionOGMR);
   if (*(*(v13 - 8) + 84) == a3)
   {
     v10 = v13;
     v14 = *(v13 - 8);
-    v15 = a4[9];
+    v15 = *(a4 + 36);
 LABEL_7:
     v11 = *(v14 + 56);
     v12 = a1 + v15;
     goto LABEL_8;
   }
 
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMd, &_s7SwiftUI11EnvironmentVyAA19ColorSchemeContrastOGMR);
   if (*(*(result - 8) + 84) == a3)
   {
     v10 = result;
     v14 = *(result - 8);
-    v15 = a4[11];
+    v15 = *(a4 + 44);
     goto LABEL_7;
   }
 
   if (a3 == 0x7FFFFFFF)
   {
-    *(a1 + a4[18]) = (a2 - 1);
+    *(a1 + *(a4 + 72)) = (a2 - 1);
   }
 
   else
   {
-    type metadata accessor for AsyncIconLayer.LoadingState();
-    v17 = type metadata accessor for State();
-    v18 = *(*(v17 - 8) + 56);
-    v19 = a1 + a4[22];
+    type metadata accessor for AsyncIconLayer.LoadingState(255, *(a4 + 16), *(a4 + 24), v17);
+    v18 = type metadata accessor for State();
+    v19 = *(*(v18 - 8) + 56);
+    v20 = a1 + *(a4 + 88);
 
-    return v18(v19, a2, a2, v17);
+    return v19(v20, a2, a2, v18);
   }
 
   return result;
 }
 
-uint64_t sub_243139CEC()
+uint64_t sub_243139CEC(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for AsyncIconLayer.Inner();
+  type metadata accessor for AsyncIconLayer.Inner(255, *a1, a1[1], a4);
   type metadata accessor for ModifiedContent();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd, &_s9CarPlayUI21IconEnvironmentTraitsVSgMR);
   swift_getWitnessTable();
   swift_getWitnessTable();
   lazy protocol witness table accessor for type IconEnvironmentTraits? and conformance <A> A?(&lazy protocol witness table cache variable for type IconEnvironmentTraits? and conformance <A> A?, &_s9CarPlayUI21IconEnvironmentTraitsVSgMd, &_s9CarPlayUI21IconEnvironmentTraitsVSgMR, lazy protocol witness table accessor for type IconEnvironmentTraits and conformance IconEnvironmentTraits);
   swift_getOpaqueTypeMetadata2();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSo17ISImageDescriptorCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSo17ISImageDescriptorCSgMd, &_sSo17ISImageDescriptorCSgMR);
   swift_getOpaqueTypeConformance2();
   lazy protocol witness table accessor for type IconEnvironmentTraits? and conformance <A> A?(&lazy protocol witness table cache variable for type ISImageDescriptor? and conformance <A> A?, &_sSo17ISImageDescriptorCSgMd, &_sSo17ISImageDescriptorCSgMR, lazy protocol witness table accessor for type ISImageDescriptor and conformance NSObject);
   return swift_getOpaqueTypeConformance2();
@@ -742,7 +728,7 @@ uint64_t sub_243139CEC()
 
 uint64_t sub_243139EA0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for AsyncIconLayerPhase();
+  v6 = type metadata accessor for AsyncIconLayerPhase(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -765,7 +751,7 @@ uint64_t sub_243139EA0(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_243139F5C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = type metadata accessor for AsyncIconLayerPhase();
+  result = type metadata accessor for AsyncIconLayerPhase(0);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -782,7 +768,7 @@ uint64_t sub_243139F5C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_24313A014(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_24313A014(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 2147483646)
   {
@@ -803,7 +789,7 @@ uint64_t sub_24313A014(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd);
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd, &_s9CarPlayUI21IconEnvironmentTraitsVSgMR);
     v10 = *(v9 - 8);
     if (*(v10 + 84) == a2)
     {
@@ -816,7 +802,7 @@ uint64_t sub_24313A014(uint64_t *a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v14 = type metadata accessor for AsyncIconLayerPhase();
+      v14 = type metadata accessor for AsyncIconLayerPhase(0);
       v15 = *(*(v14 - 8) + 48);
       v16 = a1 + *(a3 + 48);
 
@@ -835,7 +821,7 @@ void *sub_24313A150(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI21IconEnvironmentTraitsVSgMd, &_s9CarPlayUI21IconEnvironmentTraitsVSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -848,7 +834,7 @@ void *sub_24313A150(void *result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = type metadata accessor for AsyncIconLayerPhase();
+      v13 = type metadata accessor for AsyncIconLayerPhase(0);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 48);
 
@@ -859,84 +845,86 @@ void *sub_24313A150(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_24313A280()
+uint64_t sub_24313A280(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = type metadata accessor for AsyncIconLayer();
-  v2 = *(*(v1 - 1) + 80);
-  v3 = (v2 + 64) & ~v2;
-  v4 = *(*(v1 - 1) + 64);
+  v5 = *(v4 + 32);
+  v6 = *(v4 + 40);
+  v7 = type metadata accessor for AsyncIconLayer(0, v5, v6, a4);
+  v8 = *(*(v7 - 1) + 80);
+  v9 = (v8 + 64) & ~v8;
+  v10 = *(*(v7 - 1) + 64);
   swift_unknownObjectRelease();
 
-  v5 = v0 + v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  v11 = v4 + v9;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v6 = type metadata accessor for ColorScheme();
-    (*(*(v6 - 8) + 8))(v0 + v3, v6);
+    v12 = type metadata accessor for ColorScheme();
+    (*(*(v12 - 8) + 8))(v4 + v9, v12);
   }
 
   else
   {
   }
 
-  v7 = v1[9];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15LayoutDirectionO_GMd);
+  v13 = v7[9];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15LayoutDirectionO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15LayoutDirectionO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v8 = type metadata accessor for LayoutDirection();
-    (*(*(v8 - 8) + 8))(v5 + v7, v8);
+    v14 = type metadata accessor for LayoutDirection();
+    (*(*(v14 - 8) + 8))(v11 + v13, v14);
   }
 
   else
   {
   }
 
-  outlined consume of Environment<Bool>.Content(*(v5 + v1[10]), *(v5 + v1[10] + 8));
-  v9 = v1[11];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMd);
+  outlined consume of Environment<Bool>.Content(*(v11 + v7[10]), *(v11 + v7[10] + 8));
+  v15 = v7[11];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA19ColorSchemeContrastO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v10 = type metadata accessor for ColorSchemeContrast();
-    (*(*(v10 - 8) + 8))(v5 + v9, v10);
+    v16 = type metadata accessor for ColorSchemeContrast();
+    (*(*(v16 - 8) + 8))(v11 + v15, v16);
   }
 
   else
   {
   }
 
-  outlined consume of Environment<CGSize?>.Content(*(v5 + v1[12]), *(v5 + v1[12] + 8), *(v5 + v1[12] + 16), *(v5 + v1[12] + 17));
-  outlined consume of Environment<Bool>.Content(*(v5 + v1[13]), *(v5 + v1[13] + 8));
-  sub_243139900(*(v5 + v1[14]), *(v5 + v1[14] + 8), *(v5 + v1[14] + 9));
-  sub_243139900(*(v5 + v1[15]), *(v5 + v1[15] + 8), *(v5 + v1[15] + 9));
-  outlined consume of Environment<Bool>.Content(*(v5 + v1[16]), *(v5 + v1[16] + 8));
-  outlined consume of Environment<SBSHomeScreenIconStyleConfiguration?>.Content(*(v5 + v1[17]), *(v5 + v1[17] + 8));
+  outlined consume of Environment<CGSize?>.Content(*(v11 + v7[12]), *(v11 + v7[12] + 8), *(v11 + v7[12] + 16), *(v11 + v7[12] + 17));
+  outlined consume of Environment<Bool>.Content(*(v11 + v7[13]), *(v11 + v7[13] + 8));
+  sub_243139900(*(v11 + v7[14]), *(v11 + v7[14] + 8), *(v11 + v7[14] + 9));
+  sub_243139900(*(v11 + v7[15]), *(v11 + v7[15] + 8), *(v11 + v7[15] + 9));
+  outlined consume of Environment<Bool>.Content(*(v11 + v7[16]), *(v11 + v7[16] + 8));
+  outlined consume of Environment<SBSHomeScreenIconStyleConfiguration?>.Content(*(v11 + v7[17]), *(v11 + v7[17] + 8));
 
-  v11 = (v5 + v1[22]);
+  v17 = (v11 + v7[22]);
 
-  v12 = type metadata accessor for AsyncIconLayer.LoadingState();
-  v13 = v11 + *(v12 + 40);
-  v14 = type metadata accessor for IconEnvironmentTraits();
-  if (!(*(*(v14 - 1) + 48))(v13, 1, v14))
+  v19 = type metadata accessor for AsyncIconLayer.LoadingState(0, v5, v6, v18);
+  v20 = v17 + *(v19 + 40);
+  v21 = type metadata accessor for IconEnvironmentTraits(0);
+  if (!(*(*(v21 - 1) + 48))(v20, 1, v21))
   {
-    v15 = type metadata accessor for ColorScheme();
-    (*(*(v15 - 8) + 8))(v13, v15);
-    v30 = v2;
-    v16 = v4;
-    v17 = v3;
-    v18 = v14[5];
-    v19 = type metadata accessor for ColorSchemeContrast();
-    (*(*(v19 - 8) + 8))(&v13[v18], v19);
-    v20 = v14[6];
-    v21 = type metadata accessor for LayoutDirection();
-    v22 = &v13[v20];
-    v3 = v17;
-    v4 = v16;
-    v2 = v30;
-    (*(*(v21 - 8) + 8))(v22, v21);
+    v22 = type metadata accessor for ColorScheme();
+    (*(*(v22 - 8) + 8))(v20, v22);
+    v37 = v8;
+    v23 = v10;
+    v24 = v9;
+    v25 = v21[5];
+    v26 = type metadata accessor for ColorSchemeContrast();
+    (*(*(v26 - 8) + 8))(&v20[v25], v26);
+    v27 = v21[6];
+    v28 = type metadata accessor for LayoutDirection();
+    v29 = &v20[v27];
+    v9 = v24;
+    v10 = v23;
+    v8 = v37;
+    (*(*(v28 - 8) + 8))(v29, v28);
   }
 
-  v23 = (v11 + *(v12 + 48));
-  type metadata accessor for AsyncIconLayerPhase();
+  v30 = (v17 + *(v19 + 48));
+  type metadata accessor for AsyncIconLayerPhase(0);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload == 1)
   {
@@ -944,34 +932,34 @@ uint64_t sub_24313A280()
 
   else if (!EnumCaseMultiPayload)
   {
-    v31 = v4;
-    v25 = v3;
-    outlined consume of Environment<Bool>.Content(*v23, *(v23 + 8));
-    v26 = type metadata accessor for IconLayer();
-    v27 = v26[5];
+    v38 = v10;
+    v32 = v9;
+    outlined consume of Environment<Bool>.Content(*v30, *(v30 + 8));
+    v33 = type metadata accessor for IconLayer(0);
+    v34 = v33[5];
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v28 = type metadata accessor for ColorScheme();
-      (*(*(v28 - 8) + 8))(v23 + v27, v28);
+      v35 = type metadata accessor for ColorScheme();
+      (*(*(v35 - 8) + 8))(v30 + v34, v35);
     }
 
     else
     {
     }
 
-    outlined consume of Environment<Bool>.Content(*(v23 + v26[6]), *(v23 + v26[6] + 8));
-    outlined consume of Environment<Bool>.Content(*(v23 + v26[7]), *(v23 + v26[7] + 8));
+    outlined consume of Environment<Bool>.Content(*(v30 + v33[6]), *(v30 + v33[6] + 8));
+    outlined consume of Environment<Bool>.Content(*(v30 + v33[7]), *(v30 + v33[7] + 8));
 
-    v3 = v25;
-    v4 = v31;
+    v9 = v32;
+    v10 = v38;
   }
 
   type metadata accessor for State();
 
-  return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
+  return MEMORY[0x2821FE8E8](v4, v9 + v10, v8 | 7);
 }
 
-uint64_t sub_24313A804()
+uint64_t sub_24313A804(void *a1)
 {
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type _AccessibilityIgnoresInvertColorsViewModifier and conformance _AccessibilityIgnoresInvertColorsViewModifier();
@@ -1074,14 +1062,14 @@ uint64_t sub_24313AB44(uint64_t a1, uint64_t a2, int a3, int *a4)
 
 uint64_t sub_24313AC94()
 {
-  v1 = type metadata accessor for IconLayer();
+  v1 = type metadata accessor for IconLayer(0);
   v2 = *(*(v1 - 1) + 80);
   v3 = *(*(v1 - 1) + 64);
   v4 = (v2 + 16) & ~v2;
   v5 = v0 + v4;
   outlined consume of Environment<Bool>.Content(*(v0 + v4), *(v0 + v4 + 8));
   v6 = v1[5];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v7 = type metadata accessor for ColorScheme();
@@ -1100,7 +1088,7 @@ uint64_t sub_24313AC94()
 
 uint64_t sub_24313AE00(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -1125,7 +1113,7 @@ uint64_t sub_24313AE00(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_24313AECC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -1146,14 +1134,14 @@ uint64_t sub_24313AECC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313AFC0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_24313B030(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMd, &_s7SwiftUI15ModifiedContentVyAA21_GlassEffectContainerVyAA4ViewPAAE06_glassF0_2inQrAA01_E0V_qd__tAA5ShapeRd__lFQOyAA5ColorV_AA03AnyK0VQo_GAA30_EnvironmentKeyWritingModifierVyAA0L6SchemeOGGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1212,7 +1200,7 @@ uint64_t sub_24313B2C4(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
     v12 = *(v11 - 8);
     if (*(v12 + 84) != a2)
     {
@@ -1249,7 +1237,7 @@ uint64_t sub_24313B3EC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+    result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
     v14 = *(result - 8);
     if (*(v14 + 84) != a3)
     {
@@ -1267,7 +1255,7 @@ uint64_t sub_24313B3EC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313B508(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
   if (v5 >= 2)
   {
@@ -1292,7 +1280,7 @@ uint64_t sub_24313B580(uint64_t a1, int a2, uint64_t a3)
     v5 = 0;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v7 = *(*(v6 - 8) + 56);
 
   return v7(a1, v5, a3, v6);
@@ -1316,7 +1304,7 @@ uint64_t sub_24313B67C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_24313B6EC()
 {
-  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd) - 8);
+  v1 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMR) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(v1 + 64);
@@ -1328,7 +1316,7 @@ uint64_t sub_24313B6EC()
     if (EnumCaseMultiPayload == 1)
     {
 
-      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd) + 48);
+      v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd, &_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMR) + 48);
       v9 = type metadata accessor for Image.Scale();
       v10 = *(v9 - 8);
       if (!(*(v10 + 48))(v5 + v8, 1, v9))
@@ -1375,7 +1363,7 @@ uint64_t sub_24313B8DC(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 24);
 
@@ -1401,7 +1389,7 @@ uint64_t sub_24313BA0C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 24);
 
@@ -1426,7 +1414,7 @@ uint64_t sub_24313BB3C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a2)
     {
@@ -1439,7 +1427,7 @@ uint64_t sub_24313BB3C(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
       v14 = *(*(v13 - 8) + 48);
       v15 = a1 + *(a3 + 28);
 
@@ -1458,7 +1446,7 @@ uint64_t sub_24313BC78(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -1471,7 +1459,7 @@ uint64_t sub_24313BC78(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 28);
 
@@ -1484,15 +1472,15 @@ uint64_t sub_24313BC78(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313BDC4()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAE5ScaleOGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAE5ScaleOGGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAE5ScaleOGGMR);
   lazy protocol witness table accessor for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Image.Scale>> and conformance <> ModifiedContent<A, B>();
   return swift_getOpaqueTypeConformance2();
 }
 
-uint64_t sub_24313BE48@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_24313BE48@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, _BYTE *a3@<X8>)
 {
-  result = UIMutableTraits.limitedUI.getter();
-  *a1 = result & 1;
+  result = UIMutableTraits.limitedUI.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
+  *a3 = result & 1;
   return result;
 }
 
@@ -1503,11 +1491,19 @@ __n128 sub_24313BEBC(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_24313BEC8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_24313BEC8@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
-  result = UIMutableTraits.limitedUserInterfaces.getter();
-  *a1 = result;
+  result = UIMutableTraits.limitedUserInterfaces.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
+  *a3 = result;
   return result;
+}
+
+uint64_t sub_24313BEFC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a3 + a4 - 16);
+  v5 = *(a3 + a4 - 8);
+
+  return UIMutableTraits.limitedUserInterfaces.setter(v6, v4, v5);
 }
 
 uint64_t sub_24313BF58@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -1550,9 +1546,9 @@ uint64_t sub_24313C06C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_24313C0C8(uint64_t a1, void *a2)
+uint64_t sub_24313C0C8(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC9CarPlayUI26ArtworkShelfViewController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -1574,7 +1570,7 @@ uint64_t sub_24313C12C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMd, &_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 24);
 
@@ -1592,7 +1588,7 @@ uint64_t sub_24313C1E8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMd, &_s9CarPlayUI26ArtworkShelfViewControllerC0F5ModelV5ImageOSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 24);
 
@@ -1667,7 +1663,7 @@ uint64_t sub_24313C42C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 28);
 
@@ -1685,7 +1681,7 @@ uint64_t sub_24313C4E8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 28);
 
@@ -1697,21 +1693,21 @@ uint64_t sub_24313C4E8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313C5A4(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_24313C614(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_24313C684(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1759,7 +1755,7 @@ uint64_t sub_24313C85C()
 
 uint64_t sub_24313C8A4(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAeAE10textSuffixyQrAA4TextV0J0VFQOyAN_Qo_AA24_ForegroundStyleModifierVyAA017HierarchicalShapeM0VGGAA022_EnvironmentKeyWritingN0VyAHSgGG_Qo_AYyAA5ImageV5ScaleOGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAeAE10textSuffixyQrAA4TextV0J0VFQOyAN_Qo_AA24_ForegroundStyleModifierVyAA017HierarchicalShapeM0VGGAA022_EnvironmentKeyWritingN0VyAHSgGG_Qo_AYyAA5ImageV5ScaleOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAeAE10textSuffixyQrAA4TextV0J0VFQOyAN_Qo_AA24_ForegroundStyleModifierVyAA017HierarchicalShapeM0VGGAA022_EnvironmentKeyWritingN0VyAHSgGG_Qo_AYyAA5ImageV5ScaleOGGMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1791,7 +1787,7 @@ id sub_24313CABC@<X0>(id *a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-uint64_t sub_24313CB04@<X0>(_BYTE *a1@<X8>)
+void *sub_24313CB04@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIIsLimitedUIKey and conformance CPUIIsLimitedUIKey();
   result = EnvironmentValues.subscript.getter();
@@ -1799,7 +1795,7 @@ uint64_t sub_24313CB04@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_24313CBA0@<X0>(void *a1@<X8>)
+void *sub_24313CBA0@<X0>(void *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIIslimitedUserInterfacesKey and conformance CPUIIslimitedUserInterfacesKey();
   result = EnvironmentValues.subscript.getter();
@@ -1807,11 +1803,19 @@ uint64_t sub_24313CBA0@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_24313CC2C@<X0>(_BYTE *a1@<X8>)
+void *sub_24313CC2C@<X0>(_BYTE *a3@<X8>)
 {
   result = UIMutableTraits.cpuiHorizontalSizeClass.getter();
-  *a1 = v3;
+  *a3 = v5;
   return result;
+}
+
+uint64_t sub_24313CC70(char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a3 + a4 - 16);
+  v5 = *(a3 + a4 - 8);
+  v7 = *a1;
+  return UIMutableTraits.cpuiHorizontalSizeClass.setter(&v7, v4, v5);
 }
 
 __n128 sub_24313CCBC(__n128 *a1, __n128 *a2)
@@ -1821,7 +1825,7 @@ __n128 sub_24313CCBC(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_24313CCC8(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_24313CCC8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1836,7 +1840,7 @@ uint64_t sub_24313CCC8(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 32);
 
@@ -1854,7 +1858,7 @@ void *sub_24313CD84(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 32);
 
@@ -1884,7 +1888,7 @@ uint64_t sub_24313CE40(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v11 = *(*(v10 - 8) + 48);
     v12 = &a1[*(a3 + 20)];
 
@@ -1902,7 +1906,7 @@ _BYTE *sub_24313CEFC(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = &v5[*(a4 + 20)];
 
@@ -1955,14 +1959,14 @@ uint64_t sub_24313D1DC()
 
 uint64_t sub_24313D214(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_24313D284(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyACyACyACyAA6CircleVAA011_ForegroundG8ModifierVyAA5ColorVGGAA12_FrameLayoutVGAA08_OverlayL0VyACyACyACyAA5ImageVAA012_AspectRatioO0VGASGAPGGGG_AA05PlainiG0VQo_AA024_EnvironmentKeyTransformL0VySbGGAA14_OpacityEffectVGSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1990,7 +1994,7 @@ uint64_t sub_24313D3C8@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_24313D44C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2013,7 +2017,7 @@ uint64_t sub_24313D4B8(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = &a1[*(a3 + 20)];
 
@@ -2031,7 +2035,7 @@ _BYTE *sub_24313D56C(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = &v5[*(a4 + 20)];
 
@@ -2043,7 +2047,7 @@ _BYTE *sub_24313D56C(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313D654(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2069,7 +2073,7 @@ uint64_t sub_24313D654(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_24313D72C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2088,11 +2092,11 @@ uint64_t sub_24313D72C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313D7F0()
 {
-  v1 = *(type metadata accessor for ProgressBarView() - 8);
+  v1 = *(type metadata accessor for ProgressBarView(0) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(v1 + 64);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v5 = type metadata accessor for ColorScheme();
@@ -2127,7 +2131,7 @@ uint64_t sub_24313D9FC()
   v4 = *(*v1 + 64);
 
   v5 = v1[7];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v6 = type metadata accessor for Image.Scale();
@@ -2141,7 +2145,7 @@ uint64_t sub_24313D9FC()
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
 }
 
-uint64_t sub_24313DB50(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_24313DB50(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2156,7 +2160,7 @@ uint64_t sub_24313DB50(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 20);
 
@@ -2174,7 +2178,7 @@ void *sub_24313DC0C(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMd, &_s7SwiftUI11EnvironmentVyAA5ImageV5ScaleOGMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 20);
 
@@ -2186,7 +2190,7 @@ void *sub_24313DC0C(void *result, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313DCC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2197,7 +2201,7 @@ uint64_t sub_24313DCC0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -2207,7 +2211,7 @@ uint64_t sub_24313DCC0(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_24313DDC8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2218,7 +2222,7 @@ uint64_t sub_24313DDC8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -2228,14 +2232,14 @@ uint64_t sub_24313DDC8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_24313DEDC()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t sub_24313DF48(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
   if (v5 >= 2)
   {
@@ -2260,7 +2264,7 @@ uint64_t sub_24313DFC0(uint64_t a1, int a2, uint64_t a3)
     v5 = 0;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   v7 = *(*(v6 - 8) + 56);
 
   return v7(a1, v5, a3, v6);
@@ -2315,13 +2319,13 @@ uint64_t sub_24313E2C0()
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t outlined consume of Environment<Bool>.Content(uint64_t a1, char a2)
+uint64_t outlined consume of Environment<Bool>.Content(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t __CPUITextVariantsSort_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2359,16 +2363,16 @@ uint64_t __CPUITextVariantsSort_block_invoke(uint64_t a1, void *a2, void *a3)
   return v7;
 }
 
-id CarPlayUIGeneralLogging()
+id CarPlayUIGeneralLogging(uint64_t a1)
 {
   if (CarPlayUIGeneralLogging_onceToken != -1)
   {
     CarPlayUIGeneralLogging_cold_1();
   }
 
-  v1 = CarPlayUIGeneralLogging_facility;
+  v2 = CarPlayUIGeneralLogging_facility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CarPlayUIGeneralLogging_block_invoke()
@@ -2670,7 +2674,7 @@ LABEL_16:
   return v3;
 }
 
-uint64_t CPUIDeviceSupportsSoundRecognition()
+uint64_t CPUIDeviceSupportsSoundRecognition(uint64_t a1, uint64_t a2)
 {
   if (CPUIDeviceSupportsSoundRecognition_onceToken != -1)
   {
@@ -2940,31 +2944,31 @@ __CFString *CPUIDescriptionForUserInterfaceStyle(unint64_t a1)
   }
 }
 
-double CPUISizeForText(void *a1, void *a2, void *a3, double a4)
+double CPUISizeForText(void *a1, void *a2, void *a3, double a4, double a5)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v15 = *MEMORY[0x277D740A8];
-  v16[0] = a2;
-  v7 = MEMORY[0x277CBEAC0];
-  v8 = a3;
-  v9 = a2;
-  v10 = a1;
-  v11 = [v7 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D740A8];
+  v17[0] = a2;
+  v8 = MEMORY[0x277CBEAC0];
+  v9 = a3;
+  v10 = a2;
+  v11 = a1;
+  v12 = [v8 dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
-  [v10 boundingRectWithSize:1 options:v11 attributes:v8 context:{a4, 1.79769313e308}];
+  [v11 boundingRectWithSize:1 options:v12 attributes:v9 context:{a4, 1.79769313e308}];
   UICeilToScale();
-  v13 = v12;
+  v14 = v13;
   UICeilToScale();
-  return v13;
+  return v14;
 }
 
-double CPUISizeForAttributedText(void *a1, uint64_t a2, double a3)
+double CPUISizeForAttributedText(void *a1, uint64_t a2, double a3, double a4)
 {
   [a1 boundingRectWithSize:1 options:a2 context:{a3, 1.79769313e308}];
   UICeilToScale();
-  v4 = v3;
+  v5 = v4;
   UICeilToScale();
-  return v4;
+  return v5;
 }
 
 void __CPUICannedArtworkSizeNearestToSize_block_invoke()
@@ -2973,21 +2977,21 @@ void __CPUICannedArtworkSizeNearestToSize_block_invoke()
   CPUICannedArtworkSizeNearestToSize__cannedSizes = &unk_2855D84B8;
 }
 
-id CPUINowPlayingLayoutForSafeAreaFrameScaleArtworkSports(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7, double a8, double a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+id CPUINowPlayingLayoutForSafeAreaFrameScaleArtworkSports(uint64_t a1, int a2, int a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8, double a9, double a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
-  v18 = a9;
+  v18 = a11;
   if (a1)
   {
-    CGRectGetWidth(*&a2);
-    v30.origin.x = a2;
-    v30.origin.y = a3;
-    v30.size.width = a4;
-    v30.size.height = a5;
+    CGRectGetWidth(*&a4);
+    v30.origin.x = a4;
+    v30.origin.y = a5;
+    v30.size.width = a6;
+    v30.size.height = a7;
     CGRectGetHeight(v30);
-    v18 = a9;
+    v18 = a11;
   }
 
-  v25 = [objc_alloc(objc_opt_class()) initWithSafeArea:a1 frame:a2 displayScale:a3 showsArtwork:{a4, a5, a6, a7, a8, v18, a17}];
+  v25 = [objc_alloc(objc_opt_class()) initWithSafeArea:a1 frame:a4 displayScale:a5 showsArtwork:{a6, a7, a8, a9, a10, v18, a17}];
 
   return v25;
 }
@@ -3105,7 +3109,17 @@ unint64_t lazy protocol witness table accessor for type CPUIHorizontalSizeClassT
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t static CPUIHorizontalSizeClassKey.write(to:value:)(uint64_t a1, char *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(a1, v3);
+  v6 = v2;
+  return UIMutableTraits.cpuiHorizontalSizeClass.setter(&v6, v3, v4);
+}
+
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -3113,7 +3127,17 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
+}
+
+uint64_t protocol witness for static UITraitBridgedEnvironmentKey.write(to:value:) in conformance CPUIHorizontalSizeClassKey(uint64_t a1, char *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(a1, v3);
+  v6 = v2;
+  return UIMutableTraits.cpuiHorizontalSizeClass.setter(&v6, v3, v4);
 }
 
 BOOL protocol witness for SetAlgebra.insert(_:) in conformance UIViewAutoresizing(void *a1, uint64_t *a2)
@@ -3143,12 +3167,12 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance ISImageDescriptorName@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance ISImageDescriptorName@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x245D2BBE0](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x245D2BBE0](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
@@ -3160,11 +3184,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CPUINow
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CPUINowPlayingPlaceholderType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CPUINowPlayingPlaceholderType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x245D2C000](v1);
+  MEMORY[0x245D2C000](v2);
   return Hasher._finalize()();
 }
 
@@ -3178,8 +3202,8 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance IS
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance ISImageDescriptorName(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(&lazy protocol witness table cache variable for type ISImageDescriptorName and conformance ISImageDescriptorName, type metadata accessor for ISImageDescriptorName);
-  v3 = lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(&lazy protocol witness table cache variable for type ISImageDescriptorName and conformance ISImageDescriptorName, type metadata accessor for ISImageDescriptorName);
+  v2 = lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(&lazy protocol witness table cache variable for type ISImageDescriptorName and conformance ISImageDescriptorName, type metadata accessor for ISImageDescriptorName, &protocol conformance descriptor for ISImageDescriptorName);
+  v3 = lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(&lazy protocol witness table cache variable for type ISImageDescriptorName and conformance ISImageDescriptorName, type metadata accessor for ISImageDescriptorName, &protocol conformance descriptor for ISImageDescriptorName);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -3193,37 +3217,37 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance ISImageDe
   return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ISImageDescriptorName()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ISImageDescriptorName(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ISImageDescriptorName()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ISImageDescriptorName(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v0 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v0;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance UIContentSizeCategory()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance UIContentSizeCategory(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t lazy protocol witness table accessor for type CPUIHorizontalSizeClassKey and conformance CPUIHorizontalSizeClassKey()
@@ -3265,7 +3289,7 @@ __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ISIconShape and conformance ISIconShape(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3278,12 +3302,12 @@ uint64_t lazy protocol witness table accessor for type ISIconShape and conforman
   return result;
 }
 
-void type metadata accessor for UIBlurEffectStyle(uint64_t a1, unint64_t *a2)
+void type metadata accessor for UIBlurEffectStyle(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -3400,7 +3424,7 @@ double GradientProperties.locations.getter(uint64_t a1, uint64_t a2)
   v5 = v4();
   v9 = v5 / ((v4)(a1, a2) + 60.0);
   v8 = (1.0 - v9) * 0.5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd, &_ss23_ContiguousArrayStorageCySdGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_2431E2E20;
   *(v6 + 32) = 0;
@@ -3620,10 +3644,10 @@ uint64_t closure #1 in StrokeView.body.getter@<X0>(__int128 *a1@<X0>, uint64_t a
   v48 = 256;
   v49 = 0x4018000000000000;
   v50 = 0;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v32, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v36, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v40, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v45, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v32, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v36, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v40, v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v45, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
   v51[0] = v19;
   v51[1] = v20;
   v52 = v21;
@@ -3631,7 +3655,7 @@ uint64_t closure #1 in StrokeView.body.getter@<X0>(__int128 *a1@<X0>, uint64_t a
   v54 = 256;
   v55 = 0x4000000000000000;
   v56 = 0;
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v51, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v51, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
   v57[0] = v22;
   v57[1] = v23;
   v58 = v24;
@@ -3639,7 +3663,7 @@ uint64_t closure #1 in StrokeView.body.getter@<X0>(__int128 *a1@<X0>, uint64_t a
   v60 = 256;
   v61 = 0x3FE0000000000000;
   v62 = 0;
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v57, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA4PathVAA5ColorVGAA11_BlurEffectVGMR);
 }
 
 double protocol witness for View.body.getter in conformance StrokeView@<D0>(uint64_t a1@<X8>)
@@ -3679,8 +3703,8 @@ double protocol witness for View.body.getter in conformance StrokeView@<D0>(uint
   v34 = v48;
   v33[0] = v35;
   v33[1] = v36;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v19, v17, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v19, v17, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA06_ShapeD0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2OtGMR);
   v45 = v29;
   v46 = v30;
   v47 = v31;
@@ -3695,7 +3719,7 @@ double protocol witness for View.body.getter in conformance StrokeView@<D0>(uint
   v40 = v24;
   v35 = v19;
   v36 = v20;
-  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMd) + 36);
+  v7 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMR) + 36);
   v8 = *MEMORY[0x277CE13B8];
   v9 = type metadata accessor for BlendMode();
   (*(*(v9 - 8) + 104))(a1 + v7, v8, v9);
@@ -3727,33 +3751,33 @@ double protocol witness for View.body.getter in conformance StrokeView@<D0>(uint
 
 uint64_t GradientMaskModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v18 = a1;
-  v19 = a3;
+  v17 = a1;
+  v18 = a3;
   swift_getWitnessTable();
   type metadata accessor for _ViewModifier_Content();
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMR);
   v5 = type metadata accessor for ModifiedContent();
-  v17 = *(v5 - 8);
+  v16 = *(v5 - 8);
   v6 = MEMORY[0x28223BE20](v5);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);
-  v10 = &v16 - v9;
-  v20 = *(a2 + 16);
-  v21 = v3;
+  v10 = &v15 - v9;
+  v19 = *(a2 + 16);
+  v20 = v3;
   static Alignment.center.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGMR);
   WitnessTable = swift_getWitnessTable();
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<LinearGradient, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGMR, lazy protocol witness table accessor for type LinearGradient and conformance LinearGradient);
   View.mask<A>(alignment:_:)();
-  v12 = lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<LinearGradient, _FrameLayout>> and conformance _MaskAlignmentEffect<A>, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd);
-  v22 = WitnessTable;
-  v23 = v12;
-  v13 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v8, v5, v13);
-  v14 = *(v17 + 8);
-  v14(v8, v5);
-  static ViewBuilder.buildExpression<A>(_:)(v10, v5, v13);
-  return (v14)(v10, v5);
+  v12 = lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<LinearGradient, _FrameLayout>> and conformance _MaskAlignmentEffect<A>, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMd, &_s7SwiftUI20_MaskAlignmentEffectVyAA15ModifiedContentVyAA14LinearGradientVAA12_FrameLayoutVGGMR, MEMORY[0x277CE03E8]);
+  v21 = WitnessTable;
+  v22 = v12;
+  swift_getWitnessTable();
+  static ViewBuilder.buildExpression<A>(_:)();
+  v13 = *(v16 + 8);
+  v13(v8, v5);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v13)(v10, v5);
 }
 
 double closure #1 in GradientMaskModifier.body(content:)@<D0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
@@ -3787,21 +3811,21 @@ uint64_t GlowModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
   v10 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
   v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMd) + 36));
+  v13 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36));
   v14 = type metadata accessor for RoundedRectangle();
   v15 = *MEMORY[0x277CE0118];
   v16 = *(v10 + 104);
   v16(v13 + *(v14 + 20), v15, v9);
   *v13 = a5;
   v13[1] = a5;
-  *(v13 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd) + 36)) = 256;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMd);
+  *(v13 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR) + 36)) = 256;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMR);
   v18 = *(*(v17 - 8) + 16);
   v50 = a3;
   v18(a3, a1, v17);
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v19 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGMd) + 36));
+  v19 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGMR) + 36));
   v20 = v56;
   *v19 = v55;
   v19[1] = v20;
@@ -3847,7 +3871,7 @@ uint64_t GlowModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
   *&v69 = v49;
   v38 = v48;
   *(&v69 + 1) = v48;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMd);
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMR);
   v40 = (v50 + *(v39 + 36));
   v41 = v67[1];
   v40[4] = v67[0];
@@ -3878,8 +3902,8 @@ uint64_t GlowModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, ui
   v80 = v36;
   v81 = v37;
   v82 = v38;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v63, &v53, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd);
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v70, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v63, &v53, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMR);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v70, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMR);
 }
 
 __n128 protocol witness for GradientProperties.startPoint.getter in conformance GlowModifier.StaticGradientProperties@<Q0>(__n128 *a1@<X8>)
@@ -3913,7 +3937,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Glo
   return specialized static GlowModifier.StaticGradientProperties.== infix(_:_:)(v7, v8) & 1;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3997,10 +4021,10 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for GradientMaskModifier()
+uint64_t type metadata completion function for GradientMaskModifier(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4365,9 +4389,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout>, _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout>, _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGAA08_OverlayF0VyACyAF06StrokeE0VAF012GradientMaskF0VyAH06StaticR10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGAA12_FrameLayoutVGMR, lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMd, &_s7SwiftUI16_OverlayModifierVyAA15ModifiedContentVy07CarPlayB010StrokeViewVAF012GradientMaskD0VyAF04GlowD0V06StaticK10Properties33_7FA4945C62998D2E6A7EF0190F6C3B8ALLVGGGMR, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout>, _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4375,7 +4399,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -4392,9 +4416,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy07CarPlayB004GlowF0VGAA11_ClipEffectVyAA16RoundedRectangleVGGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy07CarPlayB004GlowD0VGMR, MEMORY[0x277CE04B0]);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4426,7 +4450,7 @@ uint64_t getContiguousArrayStorageType<A>(for:)(uint64_t a1, uint64_t a2)
   if (swift_isClassType() && a2)
   {
 
-    return __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    return __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   }
 
   else
@@ -4446,12 +4470,12 @@ uint64_t specialized static GlowModifier.StaticGradientProperties.== infix(_:_:)
   return static Color.== infix(_:_:)();
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<GlowModifier>, _ClipEffect<RoundedRectangle>>, _FrameLayout> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -4472,17 +4496,17 @@ unint64_t lazy protocol witness table accessor for type LinearGradient and confo
   return result;
 }
 
-uint64_t outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -4491,8 +4515,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ZStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>)>>, _BlendModeEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>)>>, _BlendModeEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type ZStack<TupleView<(ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>)>> and conformance ZStack<A>, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAA06_ShapeE0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyACyAA06_ShapeG0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGAA010_BlendModeL0VGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type ZStack<TupleView<(ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>)>> and conformance ZStack<A>, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAA06_ShapeE0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGMd, &_s7SwiftUI6ZStackVyAA9TupleViewVyAA15ModifiedContentVyAA06_ShapeE0VyAA4PathVAA5ColorVGAA11_BlurEffectVG_A2QtGGMR, MEMORY[0x277CE11A8]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ZStack<TupleView<(ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>, ModifiedContent<_ShapeView<Path, Color>, _BlurEffect>)>>, _BlendModeEffect> and conformance <> ModifiedContent<A, B>);
   }
@@ -4500,12 +4524,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ZStack<T
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4646,17 +4670,17 @@ unint64_t type metadata accessor for UIImage()
   return result;
 }
 
-void closure #1 in CPUIArtworkBackgroundView.scheduleAnimationPauseTimer()()
+void closure #1 in CPUIArtworkBackgroundView.scheduleAnimationPauseTimer()(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = OBJC_IVAR____TtC9CarPlayUI25CPUIArtworkBackgroundView_metalView;
-    v2 = Strong;
+    v3 = OBJC_IVAR____TtC9CarPlayUI25CPUIArtworkBackgroundView_metalView;
+    v4 = Strong;
     [*(Strong + OBJC_IVAR____TtC9CarPlayUI25CPUIArtworkBackgroundView_metalView) setEnableSetNeedsDisplay_];
-    v3 = *&v2[v1];
-    [v3 setPaused_];
+    v5 = *&v4[v3];
+    [v5 setPaused_];
   }
 }
 
@@ -4678,10 +4702,10 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
 uint64_t CPUIArtworkBackgroundView.buildBackgroundView()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI8BackdropO17ViewConfigurationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI8BackdropO17ViewConfigurationVSgMd, &_s11MediaCoreUI8BackdropO17ViewConfigurationVSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v34 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI12MetalContextVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI12MetalContextVSgMd, &_s11MediaCoreUI12MetalContextVSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v34 - v6;
   v8 = type metadata accessor for MetalContext();
@@ -4758,7 +4782,7 @@ uint64_t CPUIArtworkBackgroundView.buildBackgroundView()()
 
 uint64_t outlined destroy of MetalContext?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI12MetalContextVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MediaCoreUI12MetalContextVSgMd, &_s11MediaCoreUI12MetalContextVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -4792,11 +4816,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CPUIHor
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CPUIHorizontalSizeClass()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CPUIHorizontalSizeClass(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x245D2C000](v1);
+  MEMORY[0x245D2C000](v2);
   return Hasher._finalize()();
 }
 
@@ -4981,14 +5005,14 @@ uint64_t protocol witness for static EnvironmentKey._valuesEqual(_:_:) in confor
   return MEMORY[0x282130D40](a1, a2, a3, a4, v8);
 }
 
-uint64_t EnvironmentValues.cpuiHorizontalSizeClass.getter()
+void *EnvironmentValues.cpuiHorizontalSizeClass.getter()
 {
   lazy protocol witness table accessor for type CPUIHorizontalSizeClassKey and conformance CPUIHorizontalSizeClassKey();
 
   return EnvironmentValues.subscript.getter();
 }
 
-uint64_t key path getter for EnvironmentValues.cpuiHorizontalSizeClass : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
+void *key path getter for EnvironmentValues.cpuiHorizontalSizeClass : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIHorizontalSizeClassKey and conformance CPUIHorizontalSizeClassKey();
   result = EnvironmentValues.subscript.getter();
@@ -5004,7 +5028,7 @@ uint64_t (*EnvironmentValues.cpuiHorizontalSizeClass.modify(void *a1))(uint64_t 
   return EnvironmentValues.cpuiHorizontalSizeClass.modify;
 }
 
-uint64_t View.cpuiHorizontalSizeClass(_:)()
+uint64_t View.cpuiHorizontalSizeClass(_:)(char *a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   View.environment<A>(_:_:)();
@@ -5124,7 +5148,7 @@ unint64_t lazy protocol witness table accessor for type _EnvironmentKeyWritingMo
   result = lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<CPUIHorizontalSizeClass> and conformance _EnvironmentKeyWritingModifier<A>;
   if (!lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<CPUIHorizontalSizeClass> and conformance _EnvironmentKeyWritingModifier<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy07CarPlayB023CPUIHorizontalSizeClassOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<CPUIHorizontalSizeClass> and conformance _EnvironmentKeyWritingModifier<A>);
   }
@@ -5196,21 +5220,21 @@ unint64_t lazy protocol witness table accessor for type CPUIIsPortraitTrait and 
   return result;
 }
 
-uint64_t UIMutableTraits.cpuiIsPortrait.getter()
+uint64_t UIMutableTraits.cpuiIsPortrait.getter(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type CPUIIsPortraitTrait and conformance CPUIIsPortraitTrait();
 
   return dispatch thunk of UIMutableTraits.subscript.getter();
 }
 
-uint64_t UIMutableTraits.cpuiIsPortrait.setter()
+uint64_t UIMutableTraits.cpuiIsPortrait.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   lazy protocol witness table accessor for type CPUIIsPortraitTrait and conformance CPUIIsPortraitTrait();
 
   return dispatch thunk of UIMutableTraits.subscript.setter();
 }
 
-uint64_t (*UIMutableTraits.cpuiIsPortrait.modify(uint64_t a1, uint64_t a2, uint64_t a3))()
+uint64_t (*UIMutableTraits.cpuiIsPortrait.modify(uint64_t a1, uint64_t a2, uint64_t a3))(uint64_t *a1)
 {
   *(a1 + 8) = a3;
   *(a1 + 16) = v3;
@@ -5250,7 +5274,7 @@ unint64_t lazy protocol witness table accessor for type CPUIIsPortraitKey and co
   return result;
 }
 
-uint64_t key path getter for EnvironmentValues.cpuiIsPortrait : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
+void *key path getter for EnvironmentValues.cpuiIsPortrait : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type CPUIIsPortraitKey and conformance CPUIIsPortraitKey();
   result = EnvironmentValues.subscript.getter();
@@ -5267,7 +5291,7 @@ uint64_t (*EnvironmentValues.cpuiIsPortrait.modify(uint64_t a1))(uint64_t a1)
   return EnvironmentValues.cpuiIsPortrait.modify;
 }
 
-uint64_t View.cpuiIsPortrait(_:)()
+uint64_t View.cpuiIsPortrait(_:)(char a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   View.environment<A>(_:_:)();
@@ -5278,12 +5302,20 @@ unint64_t lazy protocol witness table accessor for type _EnvironmentKeyWritingMo
   result = lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>;
   if (!lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVySbGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Bool> and conformance _EnvironmentKeyWritingModifier<A>);
   }
 
   return result;
+}
+
+uint64_t static CPUIIsPortraitKey.write(to:value:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(a1, v3);
+  return UIMutableTraits.cpuiIsPortrait.setter(a2, v3, v4);
 }
 
 uint64_t protocol witness for static UITraitBridgedEnvironmentKey.read(from:) in conformance CPUIIsPortraitKey@<X0>(_BYTE *a1@<X8>)
@@ -5292,6 +5324,15 @@ uint64_t protocol witness for static UITraitBridgedEnvironmentKey.read(from:) in
   result = UITraitCollection.subscript.getter();
   *a1 = result & 1;
   return result;
+}
+
+uint64_t protocol witness for static UITraitBridgedEnvironmentKey.write(to:value:) in conformance CPUIIsPortraitKey(uint64_t a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 32);
+  __swift_mutable_project_boxed_opaque_existential_1(a1, v3);
+  return UIMutableTraits.cpuiIsPortrait.setter(v2, v3, v4);
 }
 
 uint64_t UITraitCollection.wallpaperAppearanceType.getter()
@@ -5327,60 +5368,60 @@ unint64_t lazy protocol witness table accessor for type CPUIWallpaperAppearanceT
   return result;
 }
 
-uint64_t UIMutableTraits.wallpaperAppearanceType.getter()
+uint64_t UIMutableTraits.wallpaperAppearanceType.getter(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type CPUIWallpaperAppearanceTypeTrait and conformance CPUIWallpaperAppearanceTypeTrait();
   lazy protocol witness table accessor for type CPUIWallpaperAppearanceType and conformance CPUIWallpaperAppearanceType();
   dispatch thunk of UIMutableTraits.subscript.getter();
-  return v1;
+  return v3;
 }
 
-uint64_t UIMutableTraits.wallpaperAppearanceType.setter()
+uint64_t UIMutableTraits.wallpaperAppearanceType.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   lazy protocol witness table accessor for type CPUIWallpaperAppearanceTypeTrait and conformance CPUIWallpaperAppearanceTypeTrait();
   lazy protocol witness table accessor for type CPUIWallpaperAppearanceType and conformance CPUIWallpaperAppearanceType();
   return dispatch thunk of UIMutableTraits.subscript.setter();
 }
 
-uint64_t (*UIMutableTraits.wallpaperAppearanceType.modify(uint64_t *a1, uint64_t a2, uint64_t a3))()
+uint64_t (*UIMutableTraits.wallpaperAppearanceType.modify(uint64_t *a1, uint64_t a2, uint64_t a3))(uint64_t *a1)
 {
   a1[2] = a3;
   a1[3] = v3;
   a1[1] = a2;
-  *a1 = UIMutableTraits.wallpaperAppearanceType.getter();
+  *a1 = UIMutableTraits.wallpaperAppearanceType.getter(a2, a3);
   return UIMutableTraits.wallpaperAppearanceType.modify;
 }
 
 __n128 GridView.SquareGrid.Cell.body.getter@<Q0>(uint64_t a1@<X8>)
 {
   v38 = a1;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMR);
   v2 = *(v32 - 8);
   MEMORY[0x28223BE20](v32);
   v4 = &v32 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMR);
   v6 = v5 - 8;
   MEMORY[0x28223BE20](v5);
   v8 = &v32 - v7;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
   MEMORY[0x28223BE20](v33);
   v10 = &v32 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_MR);
   v36 = *(v11 - 8);
   v37 = v11;
   MEMORY[0x28223BE20](v11);
   v34 = &v32 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMR);
   MEMORY[0x28223BE20](v13 - 8);
   v35 = &v32 - v14;
   v15 = *v1;
   type metadata accessor for GridView.Base.Artwork(0);
-  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.Artwork and conformance GridView.Base.Artwork, type metadata accessor for GridView.Base.Artwork);
+  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.Artwork and conformance GridView.Base.Artwork, type metadata accessor for GridView.Base.Artwork, &protocol conformance descriptor for GridView.Base.Artwork);
 
   Button.init(action:label:)();
   swift_getKeyPath();
   *&v39 = v15;
-  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   if (*(v15 + OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__disabledAppearance))
@@ -5404,7 +5445,7 @@ __n128 GridView.SquareGrid.Cell.body.getter@<Q0>(uint64_t a1@<X8>)
   KeyPath = swift_getKeyPath();
   v20 = swift_allocObject();
   *(v20 + 16) = (v18 & 1) == 0;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v8, v10, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v8, v10, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMR);
   v21 = &v10[*(v33 + 36)];
   *v21 = KeyPath;
   v21[1] = partial apply for closure #1 in View.disabled(_:);
@@ -5436,7 +5477,7 @@ __n128 GridView.SquareGrid.Cell.body.getter@<Q0>(uint64_t a1@<X8>)
   v26 = v25;
   v27 = v38;
   sub_2431388AC(v26, v38);
-  v28 = v27 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMd) + 36);
+  v28 = v27 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMR) + 36);
   v29 = v44;
   *(v28 + 64) = v43;
   *(v28 + 80) = v29;
@@ -5453,7 +5494,7 @@ __n128 GridView.SquareGrid.Cell.body.getter@<Q0>(uint64_t a1@<X8>)
 uint64_t closure #1 in GridView.SquareGrid.Cell.body.getter(uint64_t a1)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v2 = *(a1 + OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__action);
@@ -5484,7 +5525,7 @@ uint64_t closure #1 in GridView.SquareGrid.Cell.body.getter(uint64_t a1)
 uint64_t closure #2 in GridView.SquareGrid.Cell.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__imageConfiguration;
@@ -5495,10 +5536,10 @@ uint64_t closure #2 in GridView.SquareGrid.Cell.body.getter@<X0>(uint64_t a1@<X0
 uint64_t specialized View.absorbTap(_:)(char a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0Vy07CarPlayB004GridG0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AP06SquareM0O4CellVAKVQo_AA08_OverlayU0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA6__GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0Vy07CarPlayB004GridG0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AP06SquareM0O4CellVAKVQo_AA08_OverlayU0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA6__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0Vy07CarPlayB004GridG0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AP06SquareM0O4CellVAKVQo_AA08_OverlayU0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA6__GMR);
   MEMORY[0x28223BE20](v4);
   v6 = &v24 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMR);
   MEMORY[0x28223BE20](v7);
   v9 = &v24 - v8;
   if (a1)
@@ -5506,21 +5547,21 @@ uint64_t specialized View.absorbTap(_:)(char a1)
     v24 = static Color.clear.getter();
     LOBYTE(v25) = 0;
     v10 = &v9[*(v7 + 36)];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
     View.onTapGesture(count:perform:)();
 
     v11 = static Alignment.center.getter();
     v13 = v12;
-    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd) + 36)];
+    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR) + 36)];
     *v14 = v11;
     v14[1] = v13;
-    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md);
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_MR);
     (*(*(v15 - 8) + 16))(v9, v2, v15);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    v16 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    v16 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     v17 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     v18 = lazy protocol witness table accessor for type GridView.SquareGrid.Cell.ButtonStyle and conformance GridView.SquareGrid.Cell.ButtonStyle();
     v24 = v16;
@@ -5529,16 +5570,16 @@ uint64_t specialized View.absorbTap(_:)(char a1)
     v27 = v18;
     swift_getOpaqueTypeConformance2();
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd);
+    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMR);
   }
 
   else
   {
-    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md);
+    v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0Vy07CarPlayB004GridC0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAEVQo_MR);
     (*(*(v20 - 8) + 16))(v6, v2, v20);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    v21 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    v21 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     v22 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     v23 = lazy protocol witness table accessor for type GridView.SquareGrid.Cell.ButtonStyle and conformance GridView.SquareGrid.Cell.ButtonStyle();
     v24 = v21;
@@ -5552,10 +5593,10 @@ uint64_t specialized View.absorbTap(_:)(char a1)
 
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAA0J0Vy07CarPlayB004GridG0C9CondensedO4CellV0D0VG_AtKVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayS0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGA1__GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAA0J0Vy07CarPlayB004GridG0C9CondensedO4CellV0D0VG_AtKVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayS0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGA1__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAA0J0Vy07CarPlayB004GridG0C9CondensedO4CellV0D0VG_AtKVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayS0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGA1__GMR);
   MEMORY[0x28223BE20](v4);
   v6 = &v16 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMR);
   MEMORY[0x28223BE20](v7);
   v9 = &v16 - v8;
   if (a1)
@@ -5563,30 +5604,30 @@ uint64_t specialized View.absorbTap(_:)(char a1)
     v16 = static Color.clear.getter();
     v17 = 0;
     v10 = &v9[*(v7 + 36)];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
     View.onTapGesture(count:perform:)();
 
     v11 = static Alignment.center.getter();
     v13 = v12;
-    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd) + 36)];
+    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR) + 36)];
     *v14 = v11;
     v14[1] = v13;
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMR);
     swift_storeEnumTagMultiPayload();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd);
+    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMR);
   }
 
   else
   {
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v6, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v6, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
     swift_storeEnumTagMultiPayload();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     return _ConditionalContent<>.init(storage:)();
@@ -5595,10 +5636,10 @@ uint64_t specialized View.absorbTap(_:)(char a1)
 
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyACyAGy07CarPlayB004GridG0C4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleG0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingW0VGAA013_TraitWritingQ0VyAA0w8PriorityY3KeyVGG_AGyAA6ZStackVyAZyAA14LinearGradientV_AN15ProgressiveBlurVtGGAVyAGyAGyAGyAP4HeroO4CellV6LabelsVAA015_EnvironmentKeyzQ0VyAA0T6SchemeOGGAA010_FlexFrameW0VGA5_GGGtGGA34_GGGAGyA0_AVyAGyAGyAGyAXyAZyAGyAGyAGyATA2_GAN014InnerHighlightQ0VGA11_G_A35_tGGA34_GA5_GA5_GGGGGA28_yAA4FontVSgGGA28_yAA13TextAlignmentOGG_A24_AKVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformQ0VySbGGAVyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyA0_AA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGA75__GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyACyAGy07CarPlayB004GridG0C4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleG0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingW0VGAA013_TraitWritingQ0VyAA0w8PriorityY3KeyVGG_AGyAA6ZStackVyAZyAA14LinearGradientV_AN15ProgressiveBlurVtGGAVyAGyAGyAGyAP4HeroO4CellV6LabelsVAA015_EnvironmentKeyzQ0VyAA0T6SchemeOGGAA010_FlexFrameW0VGA5_GGGtGGA34_GGGAGyA0_AVyAGyAGyAGyAXyAZyAGyAGyAGyATA2_GAN014InnerHighlightQ0VGA11_G_A35_tGGA34_GA5_GA5_GGGGGA28_yAA4FontVSgGGA28_yAA13TextAlignmentOGG_A24_AKVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformQ0VySbGGAVyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyA0_AA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGA75__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyACyAGy07CarPlayB004GridG0C4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleG0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingW0VGAA013_TraitWritingQ0VyAA0w8PriorityY3KeyVGG_AGyAA6ZStackVyAZyAA14LinearGradientV_AN15ProgressiveBlurVtGGAVyAGyAGyAGyAP4HeroO4CellV6LabelsVAA015_EnvironmentKeyzQ0VyAA0T6SchemeOGGAA010_FlexFrameW0VGA5_GGGtGGA34_GGGAGyA0_AVyAGyAGyAGyAXyAZyAGyAGyAGyATA2_GAN014InnerHighlightQ0VGA11_G_A35_tGGA34_GA5_GA5_GGGGGA28_yAA4FontVSgGGA28_yAA13TextAlignmentOGG_A24_AKVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformQ0VySbGGAVyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyA0_AA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGA75__GMR);
   MEMORY[0x28223BE20](v4);
   v6 = &v16 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMR);
   MEMORY[0x28223BE20](v7);
   v9 = &v16 - v8;
   if (a1)
@@ -5606,30 +5647,30 @@ uint64_t specialized View.absorbTap(_:)(char a1)
     v16 = static Color.clear.getter();
     v17 = 0;
     v10 = &v9[*(v7 + 36)];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
     View.onTapGesture(count:perform:)();
 
     v11 = static Alignment.center.getter();
     v13 = v12;
-    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd) + 36)];
+    v14 = &v10[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR) + 36)];
     *v14 = v11;
     v14[1] = v13;
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v9, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v9, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, v6, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMR);
     swift_storeEnumTagMultiPayload();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd);
+    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMR);
   }
 
   else
   {
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v6, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v2, v6, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
     swift_storeEnumTagMultiPayload();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     return _ConditionalContent<>.init(storage:)();
@@ -5639,10 +5680,10 @@ uint64_t specialized View.absorbTap(_:)(char a1)
 uint64_t specialized View.absorbTap(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyAA5LabelVyAGyAA6HStackVyAA05TupleG0VyAGyAA5GroupVyACyAGyAiAE10fontWeightyQrAA4FontV0P0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA1_5ScaleOGG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA011_ForegroundiV0VyAA017HierarchicalShapeI0VGGSg_AGyAA4TextVA4_ySiSgGGtGGA4_yAXSgGGA13_7ArtworkVGGAA14_OpacityEffectVGAA01_st9TransformV0VySbGG_A11_0rZ0O4CellVAKVQo_AA08_OverlayV0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeV0VyAA9RectangleVGG_Qo_GGA51__GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyAA5LabelVyAGyAA6HStackVyAA05TupleG0VyAGyAA5GroupVyACyAGyAiAE10fontWeightyQrAA4FontV0P0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA1_5ScaleOGG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA011_ForegroundiV0VyAA017HierarchicalShapeI0VGGSg_AGyAA4TextVA4_ySiSgGGtGGA4_yAXSgGGA13_7ArtworkVGGAA14_OpacityEffectVGAA01_st9TransformV0VySbGG_A11_0rZ0O4CellVAKVQo_AA08_OverlayV0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeV0VyAA9RectangleVGG_Qo_GGA51__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonI0Rd__lFQOyAGyAGyAA0J0VyAA5LabelVyAGyAA6HStackVyAA05TupleG0VyAGyAA5GroupVyACyAGyAiAE10fontWeightyQrAA4FontV0P0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA1_5ScaleOGG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA011_ForegroundiV0VyAA017HierarchicalShapeI0VGGSg_AGyAA4TextVA4_ySiSgGGtGGA4_yAXSgGGA13_7ArtworkVGGAA14_OpacityEffectVGAA01_st9TransformV0VySbGG_A11_0rZ0O4CellVAKVQo_AA08_OverlayV0VyAiAE12onTapGesture5count7performQrSi_yyctFQOyAGyAA5ColorVAA01_d5ShapeV0VyAA9RectangleVGG_Qo_GGA51__GMR);
   MEMORY[0x28223BE20](v6);
   v8 = v29 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMR);
   MEMORY[0x28223BE20](v9);
   v11 = v29 - v10;
   if (a1)
@@ -5652,43 +5693,43 @@ uint64_t specialized View.absorbTap(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
     v30 = v12;
     LOBYTE(v31) = 0;
     v13 = &v11[*(v9 + 36)];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
     View.onTapGesture(count:perform:)();
 
     v14 = static Alignment.center.getter();
     v16 = v15;
-    v17 = &v13[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd) + 36)];
+    v17 = &v13[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR) + 36)];
     *v17 = v14;
     v17[1] = v16;
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_Md);
+    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_MR);
     (*(*(v18 - 8) + 16))(v11, v3, v18);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, v8, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, v8, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    v19 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd);
+    v19 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMR);
     v20 = type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle(255);
     v21 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    v22 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle);
+    v22 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle, &protocol conformance descriptor for GridView.ImageGrid.Cell.ButtonStyle);
     v30 = v19;
     v31 = v20;
     v32 = v21;
     v33 = v22;
     swift_getOpaqueTypeConformance2();
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd);
+    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMR);
   }
 
   else
   {
-    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_Md);
+    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA15ModifiedContentVyAGyAA0F0VyAA5LabelVyAGyAA6HStackVyAA05TupleC0VyAGyAA5GroupVyAA012_ConditionalH0VyAGyAcAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridC0C4BaseO09Accessoryc7HostingC0VGGAA011_ForegroundeU0VyAA017HierarchicalShapeE0VGGSg_AGyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAEVQo_MR);
     (*(*(v24 - 8) + 16))(v8, v3, v24);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    v25 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd);
+    v25 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMR);
     v26 = type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle(255);
     v27 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    v28 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle);
+    v28 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle, &protocol conformance descriptor for GridView.ImageGrid.Cell.ButtonStyle);
     v30 = v25;
     v31 = v26;
     v32 = v27;
@@ -5701,19 +5742,19 @@ uint64_t specialized View.absorbTap(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8>)
 uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char a1@<W1>, uint64_t a2@<X8>)
 {
   v64 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMR);
   MEMORY[0x28223BE20](v3);
   v5 = &v54 - v4;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd);
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMR);
   MEMORY[0x28223BE20](v58);
   v7 = &v54 - v6;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMR);
   MEMORY[0x28223BE20](v59);
   v9 = &v54 - v8;
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd);
+  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMR);
   MEMORY[0x28223BE20](v60);
   v62 = &v54 - v10;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMR);
   MEMORY[0x28223BE20](v61);
   v63 = &v54 - v11;
   v12 = type metadata accessor for RoundedRectangle();
@@ -5741,12 +5782,12 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
 
   *v14 = _Q0;
   ButtonStyleConfiguration.label.getter();
-  v23 = &v5[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMd) + 36)];
+  v23 = &v5[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMR) + 36)];
   *v23 = 0x3FF0000000000000;
   *(v23 + 4) = 0;
   v24 = &v5[*(v3 + 36)];
   outlined init with copy of RoundedRectangle(v14, v24, MEMORY[0x277CDFC08]);
-  *(v24 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd) + 36)) = 256;
+  *(v24 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR) + 36)) = 256;
   if (v15)
   {
     v25 = 0.75;
@@ -5757,7 +5798,7 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
     v25 = 1.0;
   }
 
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v5, v7, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v5, v7, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMR);
   *&v7[*(v58 + 36)] = v25;
   v57 = v7;
   LODWORD(v58) = v15;
@@ -5768,7 +5809,7 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
 
   v56 = static GridView.SquareGrid.Cell.Specs.Shadow.color;
   v67 = v12;
-  v26 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type RoundedRectangle and conformance RoundedRectangle, MEMORY[0x277CDFC08]);
+  v26 = lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type RoundedRectangle and conformance RoundedRectangle, MEMORY[0x277CDFC08], MEMORY[0x277CDFBE0]);
   v68 = v26;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v66);
   v28 = MEMORY[0x277CDFC08];
@@ -5791,7 +5832,7 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
   *(v32 + 8) = 0x4014000000000000;
   *(v32 + 9) = v29;
   *(v32 + 10) = v31;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v57, v9, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v57, v9, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMR);
 
   __swift_destroy_boxed_opaque_existential_1(v66);
   v67 = v59;
@@ -5807,7 +5848,7 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
   v38[72] = 0;
   *v38 = v36;
   *(v38 + 8) = xmmword_2431E35C0;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v33, v37, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v33, v37, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMR);
   __swift_destroy_boxed_opaque_existential_1(v66);
   v39 = v58 & 1;
   if (v58)
@@ -5825,7 +5866,7 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
   v44 = v43;
   v45 = v37;
   v46 = v63;
-  v47 = outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v45, v63, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd);
+  v47 = outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v45, v63, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMR);
   v48 = v46 + *(v61 + 36);
   *v48 = v40;
   *(v48 + 8) = v40;
@@ -5835,8 +5876,8 @@ uint64_t GridView.SquareGrid.Cell.ButtonStyle.makeBody(configuration:)@<X0>(char
   outlined destroy of RoundedRectangle(v35);
   v50 = v46;
   v51 = v64;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v50, v64, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v50, v64, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMR);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMR);
   v53 = v51 + *(result + 36);
   *v53 = v49;
   *(v53 + 8) = v39;
@@ -5881,30 +5922,6 @@ uint64_t one-time initialization function for color()
   return result;
 }
 
-{
-  result = static Color.accentColor.getter();
-  static GridView.Condensed.Cell.Specs.Highlight.color = result;
-  return result;
-}
-
-{
-  result = static Color.primary.getter();
-  static Specs.Title.color = result;
-  return result;
-}
-
-{
-  result = static Color.accentColor.getter();
-  static Specs.Subtitle.color = result;
-  return result;
-}
-
-{
-  result = static Color.accentColor.getter();
-  static Specs.Controls.color = result;
-  return result;
-}
-
 uint64_t key path getter for EnvironmentValues.isFocused : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
 {
   result = EnvironmentValues.isFocused.getter();
@@ -5912,14 +5929,14 @@ uint64_t key path getter for EnvironmentValues.isFocused : EnvironmentValues@<X0
   return result;
 }
 
-uint64_t key path getter for GridView.Base.ViewModel.allowsTouches : GridView.Base.ViewModel@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, _BYTE *a3@<X8>)
+uint64_t key path getter for GridView.Base.ViewModel.allowsTouches : GridView.Base.ViewModel@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, _BYTE *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  *a3 = *(v5 + *a2);
+  *a4 = *(v6 + *a3);
   return result;
 }
 
@@ -5935,9 +5952,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5950,8 +5967,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<G
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Base.Artwork> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Base.Artwork> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGMR, MEMORY[0x277CDF028]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
   }
@@ -5973,7 +5990,7 @@ unint64_t lazy protocol witness table accessor for type GridView.SquareGrid.Cell
 
 uint64_t outlined destroy of ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -5997,21 +6014,21 @@ unint64_t lazy protocol witness table accessor for type GridView.SquareGrid.Cell
   return result;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithTake_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -6079,7 +6096,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_Conditi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GAA16_FlexFrameLayoutVGMR);
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>);
@@ -6092,7 +6109,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_Conditi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0VyAA5LabelVyACyAA6HStackVyAA05TupleF0VyACyAA5GroupVyAEyACyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GAA16_FlexFrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0VyAA5LabelVyACyAA6HStackVyAA05TupleF0VyACyAA5GroupVyAEyACyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA012_ConditionalD0VyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyACyACyAA0I0VyAA5LabelVyACyAA6HStackVyAA05TupleF0VyACyAA5GroupVyAEyACyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GAA16_FlexFrameLayoutVGMR);
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>);
@@ -6106,9 +6123,9 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0Vy07CarPlayB004GridF0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AN06SquareL0O4CellVAIVQo_AA08_OverlayT0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeT0VyAA9RectangleVGG_Qo_GGA4_GMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type GridView.SquareGrid.Cell.ButtonStyle and conformance GridView.SquareGrid.Cell.ButtonStyle();
     swift_getOpaqueTypeConformance2();
@@ -6123,12 +6140,12 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0VyAA5LabelVyAEyAA6HStackVyAA05TupleF0VyAEyAA5GroupVyACyAEyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_AEyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0VyAA5LabelVyAEyAA6HStackVyAA05TupleF0VyAEyAA5GroupVyACyAEyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_AEyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAEyAEyAA0I0VyAA5LabelVyAEyAA6HStackVyAA05TupleF0VyAEyAA5GroupVyACyAEyAgAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridF0C4BaseO09Accessoryf7HostingF0VGGAA011_ForegroundhU0VyAA017HierarchicalShapeH0VGGSg_AEyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAIVQo_AA08_OverlayU0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGA49_GMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMR);
     type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle(255);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    _s9CarPlayUI8GridViewC4BaseO0E5ModelCAG11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle);
+    _s9CarPlayUI8GridViewC4BaseO0E5ModelCAG11Observation10ObservableAAWlTm_0(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle, &protocol conformance descriptor for GridView.ImageGrid.Cell.ButtonStyle);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, <<opaque return type of View.buttonStyle<A>(_:)>>.0> and conformance <> _ConditionalContent<A, B>);
@@ -6142,12 +6159,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0Vy07CarPlayB004GridE0C4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGG_AL06SquareK0O4CellVAGVQo_AA08_OverlayS0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeS0VyAA9RectangleVGG_Qo_GGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVy07CarPlayB08GridViewC4BaseO7ArtworkVGAA14_OpacityEffectVGAA32_EnvironmentKeyTransformModifierVySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type GridView.SquareGrid.Cell.ButtonStyle and conformance GridView.SquareGrid.Cell.ButtonStyle();
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6159,13 +6176,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA5LabelVyACyAA6HStackVyAA05TupleE0VyACyAA5GroupVyAA012_ConditionalD0VyACyAeAE10fontWeightyQrAA4FontV0O0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyA_5ScaleOGG07CarPlayB004GridE0C4BaseO09Accessorye7HostingE0VGGAA011_ForegroundgU0VyAA017HierarchicalShapeG0VGGSg_ACyAA4TextVA2_ySiSgGGtGGA2_yAVSgGGA11_7ArtworkVGGAA14_OpacityEffectVGAA01_rs9TransformU0VySbGG_A9_0qY0O4CellVAGVQo_AA08_OverlayU0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeU0VyAA9RectangleVGG_Qo_GGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMR);
     type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle(255);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle);
+    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.ImageGrid.Cell.ButtonStyle and conformance GridView.ImageGrid.Cell.ButtonStyle, type metadata accessor for GridView.ImageGrid.Cell.ButtonStyle, &protocol conformance descriptor for GridView.ImageGrid.Cell.ButtonStyle);
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6273,9 +6290,9 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -6293,10 +6310,10 @@ uint64_t outlined destroy of RoundedRectangle(uint64_t a1)
   return a1;
 }
 
-uint64_t outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
@@ -6317,9 +6334,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGAA01_pq9TransformS0VySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6332,8 +6349,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<L
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA5LabelVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAGyAA5GroupVyAA012_ConditionalF0VyAGyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_AGyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA5LabelVyACyAA6HStackVyAA9TupleViewVyACyAA5GroupVyAA012_ConditionalD0VyACyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_ACyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGAA14_OpacityEffectVGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA5LabelVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAGyAA5GroupVyAA012_ConditionalF0VyAGyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_AGyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGMd, &_s7SwiftUI6ButtonVyAA5LabelVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAGyAA5GroupVyAA012_ConditionalF0VyAGyAA0I0PAAE10fontWeightyQrAA4FontV0M0VSgFQOyAA5ImageV_Qo_AA30_EnvironmentKeyWritingModifierVyAY5ScaleOGG07CarPlayB004GridI0C4BaseO09Accessoryi7HostingI0VGGAA016_ForegroundStyleS0VyAA22HierarchicalShapeStyleVGGSg_AGyAA4TextVA0_ySiSgGGtGGA0_yATSgGGA9_7ArtworkVGGMR, MEMORY[0x277CDF028]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<Label<ModifiedContent<HStack<TupleView<(ModifiedContent<Group<_ConditionalContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _EnvironmentKeyWritingModifier<Image.Scale>>, GridView.Base.AccessoryViewHostingView>>, _ForegroundStyleModifier<HierarchicalShapeStyle>>?, ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>)>>, _EnvironmentKeyWritingModifier<Font?>>, GridView.Base.Artwork>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
   }
@@ -6346,8 +6363,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Color, _
   result = lazy protocol witness table cache variable for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA5ColorVAA01_D13ShapeModifierVyAA9RectangleVGGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMR, MEMORY[0x277CE0470]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Color, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6360,9 +6377,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGATyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAzA01_d5ShapeP0VyAA9RectangleVGG_Qo_GGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6375,9 +6392,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGAA024_EnvironmentKeyTransformP0VySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect>, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6390,11 +6407,11 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMd);
-    type metadata accessor for GridView.Hero.Cell.ButtonStyle();
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyACyACyAA0H0VyAA012_ConditionalD0VyACy07CarPlayB004GridE0C4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleE0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingV0VGAA013_TraitWritingP0VyAA0v8PriorityX3KeyVGG_ACyAA6ZStackVyAXyAA14LinearGradientV_AL15ProgressiveBlurVtGGATyACyACyACyAN4HeroO4CellV6LabelsVAA015_EnvironmentKeyyP0VyAA0S6SchemeOGGAA010_FlexFrameV0VGA3_GGGtGGA32_GGGACyAzTyACyACyACyAVyAXyACyACyACyARA0_GAL014InnerHighlightP0VGA9_G_A33_tGGA32_GA3_GA3_GGGGGA26_yAA4FontVSgGGA26_yAA13TextAlignmentOGG_A22_AGVQo_AA14_OpacityEffectVGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMR);
+    type metadata accessor for GridView.Hero.Cell.ButtonStyle(255);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, ();
-    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Hero.Cell.ButtonStyle and conformance GridView.Hero.Cell.ButtonStyle, type metadata accessor for GridView.Hero.Cell.ButtonStyle);
+    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type GridView.Hero.Cell.ButtonStyle and conformance GridView.Hero.Cell.ButtonStyle, type metadata accessor for GridView.Hero.Cell.ButtonStyle, &protocol conformance descriptor for GridView.Hero.Cell.ButtonStyle);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
@@ -6408,9 +6425,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLay;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLay)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGA22_yAA13TextAlignmentOGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLayout>,();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TextAlignment> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13TextAlignmentOGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TextAlignment> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13TextAlignmentOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA13TextAlignmentOGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLay);
   }
@@ -6423,9 +6440,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<_
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLa;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLa)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLayout>, _PaddingL, &_s7SwiftUI6ButtonVyAA19_ConditionalContentVyAA08ModifiedE0Vy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_AGyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyAGyAGyAGyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGAGyAvPyAGyAGyAGyARyATyAGyAGyAGyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyAA012_ConditionalD0VyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyACyAA6VStackVyAA05TupleJ0VyACyACyACyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_ACyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyACyACyACyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGACyAvPyACyACyACyARyATyACyACyACyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGA22_yAA4FontVSgGGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLayout>, _PaddingL, &_s7SwiftUI6ButtonVyAA19_ConditionalContentVyAA08ModifiedE0Vy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_AGyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyAGyAGyAGyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGAGyAvPyAGyAGyAGyARyATyAGyAGyAGyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGMd, &_s7SwiftUI6ButtonVyAA19_ConditionalContentVyAA08ModifiedE0Vy07CarPlayB08GridViewC4BaseO7ArtworkVAA16_OverlayModifierVyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA5ColorVAA18_AspectRatioLayoutVGAA08_PaddingT0VGAA013_TraitWritingN0VyAA0t8PriorityV3KeyVGG_AGyAA6ZStackVyATyAA14LinearGradientV_AH15ProgressiveBlurVtGGAPyAGyAGyAGyAJ4HeroO4CellV6LabelsVAA012_EnvironmentywN0VyAA0Q6SchemeOGGAA010_FlexFrameT0VGA_GGGtGGA28_GGGAGyAvPyAGyAGyAGyARyATyAGyAGyAGyAnXGAH014InnerHighlightN0VGA5_G_A29_tGGA28_GA_GA_GGGGGMR, MEMORY[0x277CDF028]);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<_ConditionalContent<ModifiedContent<GridView.Base.Artwork, _OverlayModifier<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<Color, _AspectRatioLayout>, _PaddingLayout>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ZStack<TupleView<(LinearGradient, ProgressiveBlur)>>, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>, _PaddingLayout>>>)>>, _FlexFrameLayout>>>, ModifiedContent<Color, _OverlayModifier<ModifiedContent<ModifiedContent<ModifiedContent<VStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _TraitWritingModifier<LayoutPriorityTraitKey>>, ModifiedContent<ModifiedContent<GridView.Hero.Cell.Labels, _EnvironmentKeyWritingModifier<ColorScheme>>, _FlexFrameLayout>)>>, _FlexFrameLayout>, _PaddingLa);
   }
@@ -6438,9 +6455,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayQ0VyAeAE12onTapGesture5count7performQrSi_yyctFQOyACyAA5ColorVAA01_d5ShapeQ0VyAA9RectangleVGG_Qo_GGMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0> and conformance _OverlayModifier<A>, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMd, &_s7SwiftUI16_OverlayModifierVyAA4ViewPAAE12onTapGesture5count7performQrSi_yyctFQOyAA15ModifiedContentVyAA5ColorVAA01_l5ShapeD0VyAA9RectangleVGG_Qo_GMR, MEMORY[0x277CDFC88]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6453,12 +6470,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Condensed.Cell.Content> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Condensed.Cell.Content> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMR, MEMORY[0x277CDF028]);
     lazy protocol witness table accessor for type GridView.Condensed.Cell.ButtonStyle and conformance GridView.Condensed.Cell.ButtonStyle();
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6470,13 +6487,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonG0Rd__lFQOyAA0I0VyAA6VStackVyAA05TupleE0VyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_ACyACyACyACyACyACyACyACyAA5LabelVyAA4TextVAOGAA011_ForegroundgR0VyAA5ColorVGGAA022_EnvironmentKeyWritingR0VyAA4FontVSgGGA10_yAWGGA10_ySiSgGGAA08_PaddingO0VGAA06_FrameO0VGAA011_BackgroundgR0VyAA8MaterialVGGA10_yAA0Y6SchemeOGGSgtGGG_AA05PlainiG0VQo_AA01_z12KeyTransformR0VySbGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMd, &_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMR);
     type metadata accessor for PlainButtonStyle();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<VStack<TupleView<(ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _GeometryActionModifier<CGFloat>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Label<Text, Image>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _EnvironmentKeyWritingModifier<CGFloat>>, _EnvironmentKeyWritingModifier<Int?>>, _PaddingLayout>, _FrameLayout>, _BackgroundStyleModifier<Material>>, _EnvironmentKeyWritingModifier<ColorScheme>>?)>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMd);
-    lazy protocol witness table accessor for type VideoArtworkSnapshot and conformance VideoArtworkSnapshot(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18]);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<VStack<TupleView<(ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _GeometryActionModifier<CGFloat>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Label<Text, Image>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _EnvironmentKeyWritingModifier<CGFloat>>, _EnvironmentKeyWritingModifier<Int?>>, _PaddingLayout>, _FrameLayout>, _BackgroundStyleModifier<Material>>, _EnvironmentKeyWritingModifier<ColorScheme>>?)>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMd, &_s7SwiftUI6ButtonVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAIyAA5ImageVAA18_AspectRatioLayoutVGAA23_GeometryActionModifierVy12CoreGraphics7CGFloatVGG_AIyAIyAIyAIyAIyAIyAIyAIyAA5LabelVyAA4TextVAKGAA016_ForegroundStyleO0VyAA5ColorVGGAA022_EnvironmentKeyWritingO0VyAA4FontVSgGGA6_yASGGA6_ySiSgGGAA08_PaddingL0VGAA06_FrameL0VGAA011_BackgroundvO0VyAA8MaterialVGGA6_yAA0W6SchemeOGGSgtGGGMR, MEMORY[0x277CDF028]);
+    lazy protocol witness table accessor for type VideoArtworkSnapshot and conformance VideoArtworkSnapshot(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<Bool> and conformance _EnvironmentKeyTransformModifier<A>, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMd, &_s7SwiftUI32_EnvironmentKeyTransformModifierVySbGMR, MEMORY[0x277CE08A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6508,9 +6525,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGAA010_AnimationR0VySbGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySbGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySbGMd, &_s7SwiftUI18_AnimationModifierVySbGMR, MEMORY[0x277CE01A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6523,7 +6540,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGAA06_ScaleM0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier>, _ScaleEffect> and conformance <> ModifiedContent<A, B>);
@@ -6537,7 +6554,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>>, FocusRingModifier> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGAX09FocusRingR033_C2414E8B1C72748AF3156B15159BFF28LLVGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type FocusRingModifier and conformance FocusRingModifier();
     result = swift_getWitnessTable();
@@ -6552,9 +6569,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGAA19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _BackgroundModifier<_ShadowView<AnyInsettableShape>> and conformance _BackgroundModifier<A>, &_s7SwiftUI19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _BackgroundModifier<_ShadowView<AnyInsettableShape>> and conformance _BackgroundModifier<A>, &_s7SwiftUI19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGMd, &_s7SwiftUI19_BackgroundModifierVyAA11_ShadowViewVy07CarPlayB018AnyInsettableShapeVGGMR, MEMORY[0x277CE0328]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect>, _BackgroundModifier<_ShadowView<AnyInsettableShape>>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6567,7 +6584,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGAA08_OpacityM0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>>, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
@@ -6581,9 +6598,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGAA11_ClipEffectVyAA16RoundedRectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -6596,8 +6613,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ButtonSt
   result = lazy protocol witness table cache variable for type ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMd);
-    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA18_AspectRatioLayoutVGMR);
+    lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278], MEMORY[0x277CDE270]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ButtonStyleConfiguration.Label, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -6605,7 +6622,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ButtonSt
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type GridView.Base.Artwork and conformance GridView.Base.Artwork(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7236,29 +7253,29 @@ uint64_t storeEnumTagSinglePayload for GridView.Condensed.Layout(uint64_t result
 uint64_t GridView.Condensed.Cell.body.getter@<X0>(uint64_t a1@<X8>)
 {
   v16[1] = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMR);
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = v16 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
   v7 = v6 - 8;
   MEMORY[0x28223BE20](v6);
   v9 = v16 - v8;
   v10 = *v1;
   type metadata accessor for GridView.Condensed.Cell.Content(0);
-  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content, type metadata accessor for GridView.Condensed.Cell.Content);
+  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content, type metadata accessor for GridView.Condensed.Cell.Content, &protocol conformance descriptor for GridView.Condensed.Cell.Content);
 
   Button.init(action:label:)();
   KeyPath = swift_getKeyPath();
   v18 = 0;
-  lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Condensed.Cell.Content> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd);
+  lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type Button<GridView.Condensed.Cell.Content> and conformance Button<A>, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMd, &_s7SwiftUI6ButtonVy07CarPlayB08GridViewC9CondensedO4CellV7ContentVGMR, MEMORY[0x277CDF028]);
   lazy protocol witness table accessor for type GridView.Condensed.Cell.ButtonStyle and conformance GridView.Condensed.Cell.ButtonStyle();
   View.buttonStyle<A>(_:)();
 
   (*(v3 + 8))(v5, v2);
   swift_getKeyPath();
   KeyPath = v10;
-  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v11 = OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__allowsTouches;
@@ -7275,13 +7292,13 @@ uint64_t GridView.Condensed.Cell.body.getter@<X0>(uint64_t a1@<X8>)
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   specialized View.absorbTap(_:)((*(v10 + v11) & 1) == 0);
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v9, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0Vy07CarPlayB004GridE0C9CondensedO4CellV0D0VG_ApGVQo_AA32_EnvironmentKeyTransformModifierVySbGGMR);
 }
 
 uint64_t closure #1 in GridView.Condensed.Cell.body.getter(uint64_t a1)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v2 = *(a1 + OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__action);
@@ -7292,7 +7309,7 @@ uint64_t closure #1 in GridView.Condensed.Cell.body.getter(uint64_t a1)
 uint64_t closure #2 in GridView.Condensed.Cell.body.getter@<X0>(void *a1@<X0>, char *a2@<X8>)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel);
+  lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.ViewModel and conformance GridView.Base.ViewModel, type metadata accessor for GridView.Base.ViewModel, &protocol conformance descriptor for GridView.Base.ViewModel);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = a1[5];
@@ -7310,7 +7327,7 @@ uint64_t closure #2 in GridView.Condensed.Cell.body.getter@<X0>(void *a1@<X0>, c
   v6 = OBJC_IVAR____TtCOC9CarPlayUI8GridView4Base9ViewModel__accessory;
   swift_beginAccess();
   v7 = type metadata accessor for GridView.Condensed.Cell.Content(0);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v6, &a2[v7[6]], &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v6, &a2[v7[6]], &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
   v8 = v7[7];
   swift_getKeyPath();
   ObservationRegistrar.access<A, B>(_:keyPath:)();
@@ -7336,7 +7353,7 @@ uint64_t closure #2 in GridView.Condensed.Cell.body.getter@<X0>(void *a1@<X0>, c
   a2[v7[9]] = v11;
   v12 = v7[10];
   *&a2[v12] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR);
   swift_storeEnumTagMultiPayload();
   v13 = &a2[v7[11]];
   *v13 = swift_getKeyPath();
@@ -7351,13 +7368,13 @@ uint64_t closure #2 in GridView.Condensed.Cell.body.getter@<X0>(void *a1@<X0>, c
 uint64_t GridView.Condensed.Cell.Content.body.getter@<X0>(uint64_t a1@<X8>)
 {
   v57 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v47 - v3;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMd);
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMR);
   MEMORY[0x28223BE20](v55);
   v56 = &v47 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI18RoundedCornerStyleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v48 = &v47 - v7;
   v53 = type metadata accessor for GridView.Condensed.Cell.Specs.Image.Shape(0);
@@ -7368,52 +7385,52 @@ uint64_t GridView.Condensed.Cell.Content.body.getter@<X0>(uint64_t a1@<X8>)
   v51 = *(v52 - 8);
   MEMORY[0x28223BE20](v52);
   v49 = &v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
   v12 = MEMORY[0x28223BE20](v11 - 8);
   v14 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v12);
   v16 = &v47 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   MEMORY[0x28223BE20](v17 - 8);
   v19 = &v47 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMR);
   v21 = MEMORY[0x28223BE20](v20 - 8);
   v23 = &v47 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v21);
   v25 = &v47 - v24;
   v26 = *(type metadata accessor for GridView.Condensed.Cell.Content(0) + 28);
   v54 = v1;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v1 + v26, v19, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v1 + v26, v19, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   v27 = type metadata accessor for GridView.Base.ViewModel.ImageConfiguration(0);
   if ((*(*(v27 - 8) + 48))(v19, 1, v27) == 1)
   {
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v19, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v19, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
     v28 = 1;
   }
 
   else
   {
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v19[*(v27 + 20)], v16, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v19[*(v27 + 20)], v16, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
     outlined destroy of GridView.Condensed.Cell.Specs.Image.Shape(v19, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration);
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v16, v14, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v16, v14, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV5ShapeOSgMR);
     v28 = 1;
     if ((*(v51 + 48))(v14, 1, v52) != 1)
     {
       v29 = v49;
       outlined init with take of GridView.Base.ViewModel.ImageConfiguration.Shape(v14, v49, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Shape);
-      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
       v31 = *(v30 - 8);
       if ((*(v31 + 48))(v29, 1, v30) != 1)
       {
         v32 = *v29;
         v33 = *(v29 + 8);
         v34 = v48;
-        outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v29 + *(v30 + 48), v48, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+        outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v29 + *(v30 + 48), v48, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
         v35 = *(v30 + 48);
         v36 = v50;
         *v50 = v32;
         *(v36 + 8) = v33;
-        outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v34, v36 + v35, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+        outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v34, v36 + v35, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
         v28 = 0;
       }
 
@@ -7427,44 +7444,44 @@ uint64_t GridView.Condensed.Cell.Content.body.getter@<X0>(uint64_t a1@<X8>)
   v38 = v28;
   v39 = v53;
   (*(v8 + 56))(v25, v38, 1, v53);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v25, v23, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v25, v23, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMR);
   if ((*(v8 + 48))(v23, 1, v39) == 1)
   {
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v23, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd);
-    v60 = MEMORY[0x277CE14A8];
-    v61 = lazy protocol witness table accessor for type Rectangle and conformance Rectangle();
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v23, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMR);
+    v59[3] = MEMORY[0x277CE14A8];
+    v59[4] = lazy protocol witness table accessor for type Rectangle and conformance Rectangle();
   }
 
   else
   {
-    GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter(v62);
+    GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter(v60);
     outlined destroy of GridView.Condensed.Cell.Specs.Image.Shape(v23, type metadata accessor for GridView.Condensed.Cell.Specs.Image.Shape);
-    outlined init with take of InsettableShape(v62, v59);
+    outlined init with take of InsettableShape(v60, v59);
   }
 
   outlined init with copy of InsettableShape(v59, v58);
   *v4 = static VerticalAlignment.center.getter();
   *(v4 + 1) = 0;
   v4[16] = 0;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA5GroupVyAA19_ConditionalContentVyAMyAA08ModifiedK0VyAOyAOyAOy07CarPlayB004GridD0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA5ColorVGGAA06_FrameG0VGAA08_PaddingG0VGAOyAOyAVA11_GA14_GGAOyAOyAOyAOyAvA012_AspectRatioG0VGAP014InnerHighlightW0VGAA13_ShadowEffectVGA14_GGSgG_AOyAOyAOyAOyAOyAA6VStackVyAIyAOyAOyAOyAA4TextVAZySiSgGGA2_GA8_G_AIyAOyAA27_TextBaselineRelativeSpacerVA11_G_A40_tGSgtGGAA14_OpacityEffectVGAA01_tu9TransformW0VySbGGAA010_FlexFrameG0VGA14_GAA06_TraitvW0VyAA0g13PriorityTraitU0VGGAOyAA6ZStackVyAMyAOyAOyAOyAA0D0PAAE10fontWeightyQrA0_6WeightVSgFQOyAOyAA0S0VA2_G_Qo_A8_GAZyA74_5ScaleOGGA11_GAT09Accessoryd7HostingD0VGGA60_yAA015TransitionTraitU0VGGSgtGGMd);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA5GroupVyAA19_ConditionalContentVyAMyAA08ModifiedK0VyAOyAOyAOy07CarPlayB004GridD0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA5ColorVGGAA06_FrameG0VGAA08_PaddingG0VGAOyAOyAVA11_GA14_GGAOyAOyAOyAOyAvA012_AspectRatioG0VGAP014InnerHighlightW0VGAA13_ShadowEffectVGA14_GGSgG_AOyAOyAOyAOyAOyAA6VStackVyAIyAOyAOyAOyAA4TextVAZySiSgGGA2_GA8_G_AIyAOyAA27_TextBaselineRelativeSpacerVA11_G_A40_tGSgtGGAA14_OpacityEffectVGAA01_tu9TransformW0VySbGGAA010_FlexFrameG0VGA14_GAA06_TraitvW0VyAA0g13PriorityTraitU0VGGAOyAA6ZStackVyAMyAOyAOyAOyAA0D0PAAE10fontWeightyQrA0_6WeightVSgFQOyAOyAA0S0VA2_G_Qo_A8_GAZyA74_5ScaleOGGA11_GAT09Accessoryd7HostingD0VGGA60_yAA015TransitionTraitU0VGGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA5GroupVyAA19_ConditionalContentVyAMyAA08ModifiedK0VyAOyAOyAOy07CarPlayB004GridD0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleW0VyAA5ColorVGGAA06_FrameG0VGAA08_PaddingG0VGAOyAOyAVA11_GA14_GGAOyAOyAOyAOyAvA012_AspectRatioG0VGAP014InnerHighlightW0VGAA13_ShadowEffectVGA14_GGSgG_AOyAOyAOyAOyAOyAA6VStackVyAIyAOyAOyAOyAA4TextVAZySiSgGGA2_GA8_G_AIyAOyAA27_TextBaselineRelativeSpacerVA11_G_A40_tGSgtGGAA14_OpacityEffectVGAA01_tu9TransformW0VySbGGAA010_FlexFrameG0VGA14_GAA06_TraitvW0VyAA0g13PriorityTraitU0VGGAOyAA6ZStackVyAMyAOyAOyAOyAA0D0PAAE10fontWeightyQrA0_6WeightVSgFQOyAOyAA0S0VA2_G_Qo_A8_GAZyA74_5ScaleOGGA11_GAT09Accessoryd7HostingD0VGGA60_yAA015TransitionTraitU0VGGSgtGGMR);
   closure #1 in GridView.Condensed.Cell.Content.body.getter(v54, v58, &v4[*(v40 + 44)]);
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v25, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v25, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMd, &_s9CarPlayUI8GridViewC9CondensedO4CellV5SpecsO5ImageO5ShapeOSgMR);
   v41 = v56;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v4, v56, &_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v4, v56, &_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA5GroupVyAA19_ConditionalContentVyAIyAA08ModifiedH0VyAKyAKyAKy07CarPlayB004GridE0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGAKyAKyARA7_GA10_GGAKyAKyAKyAKyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_AKyAKyAKyAKyAKyAA6VStackVyAEyAKyAKyAKyAA4TextVAVySiSgGGAZGA4_G_AEyAKyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGAKyAA6ZStackVyAIyAKyAKyAKyAA0E0PAAE10fontWeightyQrAX6WeightVSgFQOyAKyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessorye7HostingE0VGGA56_yAA015TransitionTraitR0VGGSgtGGMR);
   v42 = (v41 + *(v55 + 36));
-  v43 = v62[5];
-  v42[4] = v62[4];
+  v43 = v60[5];
+  v42[4] = v60[4];
   v42[5] = v43;
-  v42[6] = v62[6];
-  v44 = v62[1];
-  *v42 = v62[0];
+  v42[6] = v60[6];
+  v44 = v60[1];
+  *v42 = v60[0];
   v42[1] = v44;
-  v45 = v62[3];
-  v42[2] = v62[2];
+  v45 = v60[3];
+  v42[2] = v60[2];
   v42[3] = v45;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v41, v57, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v41, v57, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA5GroupVyAA012_ConditionalD0VyAKyACyACyACyACy07CarPlayB004GridG0C4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleT0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingZ0VGACyACyARA7_GA10_GGACyACyACyACyArA012_AspectRatioZ0VGAL014InnerHighlightT0VGAA13_ShadowEffectVGA10_GGSgG_ACyACyACyACyACyAA6VStackVyAGyACyACyACyAA4TextVAVySiSgGGAZGA4_G_AGyACyAA27_TextBaselineRelativeSpacerVA7_G_A36_tGSgtGGAA14_OpacityEffectVGAA01_qr9TransformT0VySbGGAA05_FlexyZ0VGA10_GAA06_TraitsT0VyAA0z13PriorityTraitR0VGGACyAA6ZStackVyAKyACyACyACyAA0G0PAAE10fontWeightyQrAX6WeightVSgFQOyACyAA0P0VAZG_Qo_A4_GAVyA70_5ScaleOGGA7_GAP09Accessoryg7HostingG0VGGA56_yAA015TransitionTraitR0VGGSgtGGA52_GMR);
   __swift_destroy_boxed_opaque_existential_1(v59);
   return outlined destroy of AnyInsettableShape(v58);
 }
@@ -7476,7 +7493,7 @@ unint64_t GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter@<X0>(
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI18RoundedCornerStyleOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
   v9 = MEMORY[0x28223BE20](v8 - 8);
   v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
@@ -7485,7 +7502,7 @@ unint64_t GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter@<X0>(
   MEMORY[0x28223BE20](v14 - 8);
   v16 = (&v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
   outlined init with copy of GridView.Condensed.Cell.Specs.Image.Shape(v2, v16, type metadata accessor for GridView.Condensed.Cell.Specs.Image.Shape);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMd, &_sSdSg6radius_7SwiftUI18RoundedCornerStyleOSg5styletMR);
   if ((*(*(v17 - 8) + 48))(v16, 1, v17) == 1)
   {
     a1[3] = MEMORY[0x277CE1120];
@@ -7497,20 +7514,20 @@ unint64_t GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter@<X0>(
   {
     v19 = *v16;
     v20 = *(v16 + 8);
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v16 + *(v17 + 48), v13, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v16 + *(v17 + 48), v13, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
     if (v20)
     {
       v19 = 5.0;
     }
 
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v13, v11, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v13, v11, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
     v21 = *(v5 + 48);
     if (v21(v11, 1, v4) == 1)
     {
       (*(v5 + 104))(v7, *MEMORY[0x277CE0118], v4);
       if (v21(v11, 1, v4) != 1)
       {
-        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
       }
     }
 
@@ -7521,12 +7538,12 @@ unint64_t GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter@<X0>(
 
     v22 = type metadata accessor for RoundedRectangle();
     a1[3] = v22;
-    a1[4] = lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type RoundedRectangle and conformance RoundedRectangle, MEMORY[0x277CDFC08]);
+    a1[4] = lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type RoundedRectangle and conformance RoundedRectangle, MEMORY[0x277CDFC08], MEMORY[0x277CDFBE0]);
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
     *boxed_opaque_existential_1 = v19;
     boxed_opaque_existential_1[1] = v19;
     (*(v5 + 32))(boxed_opaque_existential_1 + *(v22 + 20), v7, v4);
-    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v13, &_s7SwiftUI18RoundedCornerStyleOSgMd);
+    return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v13, &_s7SwiftUI18RoundedCornerStyleOSgMd, &_s7SwiftUI18RoundedCornerStyleOSgMR);
   }
 
   return result;
@@ -7535,24 +7552,24 @@ unint64_t GridView.Condensed.Cell.Specs.Image.Shape.insettableShape.getter@<X0>(
 uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v61 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMR);
   v57 = *(v5 - 8);
   v58 = v5;
   MEMORY[0x28223BE20](v5);
   v7 = (&v50 - v6);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v50 - v9;
   v52 = type metadata accessor for GridView.Base.ViewModel.Accessory(0);
   v11 = *(v52 - 8);
   MEMORY[0x28223BE20](v52);
   v51 = &v50 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMR);
   v14 = MEMORY[0x28223BE20](v13 - 8);
   v59 = &v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
   v64 = &v50 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMR);
   v18 = MEMORY[0x28223BE20](v17 - 8);
   v63 = &v50 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18);
@@ -7589,8 +7606,8 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
   v111[5] = *&v67[64];
   v111[0] = v66;
   v111[1] = *v67;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v97, v65, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v111, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v97, v65, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v111, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAEyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAIyAA4FontVSgGGAA016_ForegroundStyleK0VyAA5ColorVGG_ACyAEyAA01_G22BaselineRelativeSpacerVAA12_FrameLayoutVG_AWtGSgtGMR);
   *&v94[167] = v107;
   *&v94[183] = v108;
   *&v94[199] = v109;
@@ -7621,10 +7638,10 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
   v28 = v27;
   v30 = v29;
   v96 = 0;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v21[6], v10, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v21[6], v10, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
   if ((*(v11 + 48))(v10, 1, v52) == 1)
   {
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v10, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v10, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC9AccessoryOSgMR);
     (*(v57 + 56))(v64, 1, 1, v58);
   }
 
@@ -7634,13 +7651,13 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
     outlined init with take of GridView.Base.ViewModel.ImageConfiguration.Shape(v10, v51, type metadata accessor for GridView.Base.ViewModel.Accessory);
     *v7 = static Alignment.center.getter();
     v7[1] = v32;
-    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA19_ConditionalContentVyAA08ModifiedI0VyAKyAKyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGAWyAU5ScaleOGGAA06_FrameG0VG07CarPlayB004GridD0C4BaseO09Accessoryd7HostingD0VGGMd);
+    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA19_ConditionalContentVyAA08ModifiedI0VyAKyAKyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGAWyAU5ScaleOGGAA06_FrameG0VG07CarPlayB004GridD0C4BaseO09Accessoryd7HostingD0VGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA19_ConditionalContentVyAA08ModifiedI0VyAKyAKyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGAWyAU5ScaleOGGAA06_FrameG0VG07CarPlayB004GridD0C4BaseO09Accessoryd7HostingD0VGGMR);
     closure #3 in closure #1 in GridView.Condensed.Cell.Content.body.getter(v31, a1, v7 + *(v33 + 44));
     v34 = static AnyTransition.blur(radius:)();
     v35 = v58;
     *(v7 + *(v58 + 36)) = v34;
     v36 = v64;
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v7, v64, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v7, v64, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGMR);
     (*(v57 + 56))(v36, 0, 1, v35);
     outlined destroy of GridView.Condensed.Cell.Specs.Image.Shape(v31, type metadata accessor for GridView.Base.ViewModel.Accessory);
   }
@@ -7656,13 +7673,13 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
   }
 
   v38 = v63;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v62, v63, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v62, v63, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMR);
   v39 = v59;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v64, v59, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v64, v59, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMR);
   v40 = v38;
   v41 = v61;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v40, v61, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd);
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgG_AGyAGyAGyAGyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA4TextVARySiSgGGAVGA0_G_A27_yAGyAA27_TextBaselineRelativeSpacerVA3_G_A34_tGSgtGGAA14_OpacityEffectVGAA01_op9TransformR0VySbGGAA05_FlexwX0VGA6_GAA06_TraitqR0VyAA0x13PriorityTraitP0VGGAGyAA6ZStackVyAEyAGyAGyAGyAA0J0PAAE10fontWeightyQrAT6WeightVSgFQOyAGyAA0N0VAVG_Qo_A0_GARyA68_5ScaleOGGA3_GAL09Accessoryj7HostingJ0VGGA54_yAA015TransitionTraitP0VGGSgtMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v40, v61, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMR);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgG_AGyAGyAGyAGyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA4TextVARySiSgGGAVGA0_G_A27_yAGyAA27_TextBaselineRelativeSpacerVA3_G_A34_tGSgtGGAA14_OpacityEffectVGAA01_op9TransformR0VySbGGAA05_FlexwX0VGA6_GAA06_TraitqR0VyAA0x13PriorityTraitP0VGGAGyAA6ZStackVyAEyAGyAGyAGyAA0J0PAAE10fontWeightyQrAT6WeightVSgFQOyAGyAA0N0VAVG_Qo_A0_GARyA68_5ScaleOGGA3_GAL09Accessoryj7HostingJ0VGGA54_yAA015TransitionTraitP0VGGSgtMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgG_AGyAGyAGyAGyAGyAA6VStackVyAA05TupleJ0VyAGyAGyAGyAA4TextVARySiSgGGAVGA0_G_A27_yAGyAA27_TextBaselineRelativeSpacerVA3_G_A34_tGSgtGGAA14_OpacityEffectVGAA01_op9TransformR0VySbGGAA05_FlexwX0VGA6_GAA06_TraitqR0VyAA0x13PriorityTraitP0VGGAGyAA6ZStackVyAEyAGyAGyAGyAA0J0PAAE10fontWeightyQrAT6WeightVSgFQOyAGyAA0N0VAVG_Qo_A0_GARyA68_5ScaleOGGA3_GAL09Accessoryj7HostingJ0VGGA54_yAA015TransitionTraitP0VGGSgtMR);
   v43 = *(v42 + 48);
   *(&v65[24] + 1) = *&v94[176];
   *(&v65[26] + 1) = *&v94[192];
@@ -7706,11 +7723,11 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
   LOBYTE(v65[54]) = 0;
   v65[55] = 0x3FF0000000000000;
   memcpy((v41 + v43), v65, 0x1C0uLL);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v39, v41 + *(v42 + 64), &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, &v66, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v64, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v62, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v39, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v39, v41 + *(v42 + 64), &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMR);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, &v66, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v64, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v62, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v39, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA012_ConditionalD0VyACyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0VGGAA06_TraitnO0VyAA015TransitionTraitM0VGGSgMR);
   *&v67[177] = *&v94[176];
   *&v67[193] = *&v94[192];
   *v68 = *&v94[208];
@@ -7746,27 +7763,27 @@ uint64_t closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(void *a1
   v84 = v30;
   v85 = 0;
   v86 = 0x3FF0000000000000;
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v66, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMd);
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v63, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v66, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA6VStackVyAA9TupleViewVyACyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAKyAA4FontVSgGGAA016_ForegroundStyleL0VyAA5ColorVGG_AGyACyAA01_H22BaselineRelativeSpacerVAA12_FrameLayoutVG_AYtGSgtGGAA14_OpacityEffectVGAA01_ij9TransformL0VySbGGAA05_FlextU0VGAA08_PaddingU0VGAA06_TraitkL0VyAA0u13PriorityTraitJ0VGGMR);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v63, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMd, &_s7SwiftUI5GroupVyAA19_ConditionalContentVyAEyAA08ModifiedE0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_GGSgGMR);
 }
 
 uint64_t closure #1 in closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v142 = a2;
   v158 = a3;
-  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd);
+  v155 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMR);
   MEMORY[0x28223BE20](v155);
   v143 = &v126 - v4;
-  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd);
+  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMR);
   MEMORY[0x28223BE20](v147);
   v127 = &v126 - v5;
-  v152 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_G_GMd);
+  v152 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_G_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_GGAGyAGyAGyAGyAnA012_AspectRatioX0VGAH014InnerHighlightR0VGAA13_ShadowEffectVGA6_G_GMR);
   MEMORY[0x28223BE20](v152);
   v154 = &v126 - v6;
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_G_GMd);
+  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_G_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAGy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleR0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingX0VGAGyAGyANA3_GA6_G_GMR);
   MEMORY[0x28223BE20](v145);
   v146 = &v126 - v7;
-  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
+  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
   MEMORY[0x28223BE20](v153);
   v148 = &v126 - v8;
   v130 = type metadata accessor for EnvironmentValues();
@@ -7776,33 +7793,33 @@ uint64_t closure #1 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   v132 = type metadata accessor for GridView.Base.Artwork.SystemImage(0);
   MEMORY[0x28223BE20](v132);
   v134 = &v126 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v133 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
+  v133 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
   MEMORY[0x28223BE20](v133);
   v136 = &v126 - v11;
-  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd);
+  v135 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMR);
   MEMORY[0x28223BE20](v135);
   v139 = &v126 - v12;
-  v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd);
+  v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMR);
   MEMORY[0x28223BE20](v137);
   v141 = &v126 - v13;
-  v144 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd);
+  v144 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMR);
   v14 = MEMORY[0x28223BE20](v144);
   v140 = &v126 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
   v138 = &v126 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
   v18 = MEMORY[0x28223BE20](v17 - 8);
   v20 = &v126 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = MEMORY[0x28223BE20](v18);
   v23 = &v126 - v22;
   MEMORY[0x28223BE20](v21);
   v149 = &v126 - v24;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMR);
   v156 = *(v25 - 8);
   v157 = v25;
   MEMORY[0x28223BE20](v25);
   v151 = &v126 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   MEMORY[0x28223BE20](v27 - 8);
   v29 = &v126 - v28;
   v30 = type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Image(0);
@@ -7815,7 +7832,7 @@ uint64_t closure #1 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   v131 = type metadata accessor for GridView.Condensed.Cell.Content(0);
   v39 = *(v131 + 28);
   v150 = a1;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v39, v29, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(a1 + v39, v29, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   v40 = type metadata accessor for GridView.Base.ViewModel.ImageConfiguration(0);
   if ((*(*(v40 - 8) + 48))(v29, 1, v40) != 1)
   {
@@ -7840,7 +7857,7 @@ uint64_t closure #1 in closure #1 in GridView.Condensed.Cell.Content.body.getter
           outlined init with copy of GridView.Condensed.Cell.Specs.Image.Shape(v38, v127, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Image);
           static Alignment.center.getter();
           _FrameLayout.init(width:height:alignment:)();
-          v50 = (v49 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMd) + 36));
+          v50 = (v49 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMR) + 36));
           v51 = v160;
           *v50 = v159;
           v50[1] = v51;
@@ -7854,26 +7871,26 @@ uint64_t closure #1 in closure #1 in GridView.Condensed.Cell.Content.body.getter
           *(v53 + 24) = v56;
           *(v53 + 32) = v57;
           *(v53 + 40) = 0;
-          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v49, v146, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd);
+          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v49, v146, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMR);
           swift_storeEnumTagMultiPayload();
           lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
           lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
           v58 = v148;
           _ConditionalContent<>.init(storage:)();
-          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v58, v154, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
+          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v58, v154, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
           swift_storeEnumTagMultiPayload();
           lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout>, ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>();
           lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
           _ConditionalContent<>.init(storage:)();
 
-          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v58, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
-          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v49, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd);
+          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v58, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
+          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v49, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMR);
           v42 = v158;
 LABEL_17:
           v43 = v157;
 LABEL_39:
           outlined destroy of GridView.Condensed.Cell.Specs.Image.Shape(v126, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Image);
-          outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v48, v42, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMd);
+          outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v48, v42, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGAEyAEyAEyAEyAlA012_AspectRatioW0VGAF014InnerHighlightQ0VGAA13_ShadowEffectVGA4_GGMR);
           v41 = 0;
           return (*(v44 + 56))(v42, v41, 1, v43);
         }
@@ -7883,9 +7900,9 @@ LABEL_39:
 
       else
       {
-        v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMd);
-        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33 + *(v71 + 48), &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd);
-        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33, &_s8MusicKit7ArtworkVSgMd);
+        v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMd, &_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMR);
+        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33 + *(v71 + 48), &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMR);
+        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v33, &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
         v42 = v158;
         v44 = v156;
         v48 = v151;
@@ -7896,7 +7913,7 @@ LABEL_39:
       outlined init with copy of GridView.Condensed.Cell.Specs.Image.Shape(v72, v143, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Image);
       v74 = GridView.Condensed.Cell.Content.aspectRatio.getter();
       v76 = v75;
-      v77 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMd) + 36);
+      v77 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMR) + 36);
       *v77 = v74;
       *(v77 + 8) = v76 & 1;
       *(v77 + 9) = 1;
@@ -7904,14 +7921,14 @@ LABEL_39:
       *&v161 = lazy protocol witness table accessor for type AnyInsettableShape and conformance AnyInsettableShape();
       *&v159 = swift_allocObject();
       outlined init with copy of AnyInsettableShape(v142, v159 + 16);
-      v78 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMd) + 36);
+      v78 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMR) + 36);
       outlined init with copy of InsettableShape(&v159, v78 + 24);
       *v78 = 0;
       *(v78 + 8) = 0;
       *(v78 + 16) = 1;
-      v79 = *(type metadata accessor for InnerHighlightModifier() + 28);
+      v79 = *(type metadata accessor for InnerHighlightModifier(0) + 28);
       *(v78 + v79) = swift_getKeyPath();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
       swift_storeEnumTagMultiPayload();
       __swift_destroy_boxed_opaque_existential_1(&v159);
       if (one-time initialization token for color != -1)
@@ -7920,7 +7937,7 @@ LABEL_39:
       }
 
       v80 = static GridView.Condensed.Cell.Specs.Image.Shadow.color;
-      v81 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMd) + 36);
+      v81 = v73 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMR) + 36);
       *v81 = v80;
       *(v81 + 8) = xmmword_2431E35B0;
       *(v81 + 24) = 0x4014000000000000;
@@ -7935,25 +7952,25 @@ LABEL_39:
       *(v83 + 24) = v86;
       *(v83 + 32) = v87;
       *(v83 + 40) = 0;
-      outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v73, v82, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd);
+      outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v73, v82, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMR);
       swift_storeEnumTagMultiPayload();
       lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout>, ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>();
       lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
       _ConditionalContent<>.init(storage:)();
-      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v73, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd);
+      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v73, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMR);
       goto LABEL_17;
     }
 
     v59 = *v33;
     v60 = v33[1];
-    v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd);
+    v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd, &_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMR);
     v62 = v33 + *(v61 + 64);
     v63 = *v62;
     v64 = v62[8];
     v65 = v33 + *(v61 + 48);
     v66 = v149;
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v65, v149, &_s7SwiftUI5ImageV5ScaleOSgMd);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v66, v20, &_s7SwiftUI5ImageV5ScaleOSgMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v65, v149, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v66, v20, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     v67 = type metadata accessor for Image.Scale();
     v68 = *(v67 - 8);
     v69 = *(v68 + 48);
@@ -7968,7 +7985,7 @@ LABEL_39:
       (*(v68 + 16))(v23, v70, v67);
       if (v69(v20, 1, v67) != 1)
       {
-        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v20, &_s7SwiftUI5ImageV5ScaleOSgMd);
+        outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v20, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
       }
     }
 
@@ -7994,13 +8011,13 @@ LABEL_39:
     *v88 = v59;
     v88[1] = v60;
     v89 = v132;
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v23, v88 + *(v132 + 20), &_s7SwiftUI5ImageV5ScaleOSgMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v23, v88 + *(v132 + 20), &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     v90 = v88 + *(v89 + 24);
     *v90 = v63;
     v90[8] = 0;
     v91 = *(v89 + 28);
     *(v88 + v91) = swift_getKeyPath();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMR);
     swift_storeEnumTagMultiPayload();
     if (one-time initialization token for font != -1)
     {
@@ -8095,11 +8112,11 @@ LABEL_38:
     v110 = v139;
     v111 = *v105;
 
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v94, v110, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v94, v110, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     *(v110 + *(v135 + 36)) = v111;
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v110, v108, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v110, v108, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMR);
     v112 = (v108 + *(v137 + 36));
     v113 = v160;
     *v112 = v159;
@@ -8111,7 +8128,7 @@ LABEL_38:
     v117 = v116;
     v119 = v118;
     v121 = v120;
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v108, v109, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v108, v109, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMR);
     v122 = v109 + *(v144 + 36);
     *v122 = v111;
     *(v122 + 8) = v115;
@@ -8120,26 +8137,26 @@ LABEL_38:
     *(v122 + 32) = v121;
     *(v122 + 40) = 0;
     v123 = v138;
-    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v109, v138, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd);
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v123, v146, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd);
+    outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v109, v138, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMR);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v123, v146, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     v124 = v148;
     _ConditionalContent<>.init(storage:)();
-    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v124, v154, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
+    outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v124, v154, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout>, ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v124, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v123, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd);
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v149, &_s7SwiftUI5ImageV5ScaleOSgMd);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v124, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v123, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMR);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v149, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     v42 = v158;
     goto LABEL_39;
   }
 
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v29, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v29, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   v41 = 1;
   v43 = v157;
   v42 = v158;
@@ -8149,21 +8166,22 @@ LABEL_38:
 
 uint64_t GridView.Condensed.Cell.Content.aspectRatio.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   MEMORY[0x28223BE20](v1 - 8);
-  v3 = &v15 - v2;
+  v3 = &v16 - v2;
   v4 = type metadata accessor for GridView.Base.ViewModel.ImageConfiguration.Image(0);
   MEMORY[0x28223BE20](v4);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for GridView.Condensed.Cell.Content(0);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v0 + *(v7 + 28), v3, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v0 + *(v7 + 28), v3, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR);
   v8 = type metadata accessor for GridView.Base.ViewModel.ImageConfiguration(0);
   if ((*(*(v8 - 8) + 48))(v3, 1, v8) == 1)
   {
     v9 = &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMd;
-    v10 = v3;
+    v10 = &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationVSgMR;
+    v11 = v3;
 LABEL_7:
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v10, v9);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v11, v9, v10);
     return 0;
   }
 
@@ -8173,9 +8191,10 @@ LABEL_7:
   if (!EnumCaseMultiPayload)
   {
 
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd);
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMd, &_sSS_7SwiftUI5ImageV5ScaleOSgAA4FontV6WeightVSgtMR);
     v9 = &_s7SwiftUI5ImageV5ScaleOSgMd;
-    v10 = &v6[*(v12 + 48)];
+    v10 = &_s7SwiftUI5ImageV5ScaleOSgMR;
+    v11 = &v6[*(v13 + 48)];
     goto LABEL_7;
   }
 
@@ -8186,9 +8205,9 @@ LABEL_7:
 
   else
   {
-    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMd);
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v6[*(v14 + 48)], &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd);
-    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v6, &_s8MusicKit7ArtworkVSgMd);
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMd, &_s8MusicKit7ArtworkVSg_9CarPlayUI8GridViewC4BaseO0H5ModelC18ImageConfigurationV0K0O11PlaceholderOSgtMR);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v6[*(v15 + 48)], &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMd, &_s9CarPlayUI8GridViewC4BaseO0E5ModelC18ImageConfigurationV0H0O11PlaceholderOSgMR);
+    outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v6, &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
   }
 
   return 0x3FF0000000000000;
@@ -8205,7 +8224,7 @@ uint64_t closure #2 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   v7 = MEMORY[0x28223BE20](v5);
   v85 = &v75 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = MEMORY[0x28223BE20](v7);
-  v79 = &v75 - v10;
+  v79 = (&v75 - v10);
   MEMORY[0x28223BE20](v9);
   v12 = &v75 - v11;
   v13 = a1[1];
@@ -8225,7 +8244,7 @@ uint64_t closure #2 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   KeyPath = swift_getKeyPath();
   v20 = type metadata accessor for GridView.Condensed.Cell.Content(0);
   v95 = *(v20 + 40);
-  specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, MEMORY[0x277CDFA28], v12);
+  specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR, MEMORY[0x277CDFA28], v12);
   v89 = specialized static GridView.Condensed.Cell.Specs.Labels.Title.font(size:)(v12);
   v80 = v12;
   v81 = v6;
@@ -8325,7 +8344,7 @@ LABEL_14:
     v34 = v23;
 
     v35 = v79;
-    specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, MEMORY[0x277CDFA28], v79);
+    specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR, MEMORY[0x277CDFA28], v79);
     v36 = v81;
     v37 = v85;
     v38 = v96;
@@ -8355,7 +8374,7 @@ LABEL_14:
     v45 = v44;
     v82 = swift_getKeyPath();
     v46 = v80;
-    specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, MEMORY[0x277CDFA28], v80);
+    specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR, MEMORY[0x277CDFA28], v80);
     v95 = specialized static GridView.Condensed.Cell.Specs.Labels.Subtitle.font(size:)(v46);
     v86(v46, v96);
     v47 = swift_getKeyPath();
@@ -8409,8 +8428,8 @@ LABEL_32:
           *(&v137 + 1) = v47;
           *&v138 = v95;
           *(&v138 + 1) = v55;
-          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v129, &v152, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd);
-          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v134, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd);
+          outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v129, &v152, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMR);
+          outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v134, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMR);
           *&v143 = 0;
           BYTE8(v143) = v56;
           *&v144 = v81;
@@ -8424,7 +8443,7 @@ LABEL_32:
           v151 = v114;
           v147 = v110;
           v148 = v111;
-          CPUIArtworkBackgroundView.didChangeState(renderer:)(&v143);
+          CPUIArtworkBackgroundView.didChangeState(renderer:)();
           v158 = v149;
           v159 = v150;
           v160 = v151;
@@ -8577,9 +8596,9 @@ LABEL_33:
   v73 = v116;
   *a2 = v115;
   *(a2 + 1) = v73;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v129, &v110, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v134, &v110, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMd);
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v143, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v129, &v110, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMR);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v134, &v110, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMR);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v143, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpacerVAA12_FrameLayoutVG_AEyAEyAEyAA0G0VAA30_EnvironmentKeyWritingModifierVySiSgGGANyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGtGSgMR);
   *&v110 = v67;
   *(&v110 + 1) = v66;
   LOBYTE(v111) = v99;
@@ -8594,13 +8613,13 @@ LABEL_33:
   *(&v113 + 1) = v101;
   *&v114 = v69;
   *(&v114 + 1) = v100;
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v110, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(&v110, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGMR);
 }
 
 uint64_t closure #3 in closure #1 in GridView.Condensed.Cell.Content.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v70 = a2;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0V_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0V_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAGyAA4ViewPAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAA5ImageVAA30_EnvironmentKeyWritingModifierVyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGASyAQ5ScaleOGGAA12_FrameLayoutVG07CarPlayB004GridG0C4BaseO09Accessoryg7HostingG0V_GMR);
   MEMORY[0x28223BE20](v5);
   v7 = (v66 - v6);
   v8 = type metadata accessor for Image.Scale();
@@ -8612,23 +8631,23 @@ uint64_t closure #3 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   v69 = v10;
   MEMORY[0x28223BE20](v10);
   v67 = v66 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAFSgGG_Qo_Md);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAFSgGG_Qo_Md, &_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAFSgGG_Qo_MR);
   v72 = *(v12 - 8);
   v73 = v12;
   MEMORY[0x28223BE20](v12);
   v81 = v66 - v13;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   MEMORY[0x28223BE20](v71);
   v82 = v66 - v14;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd);
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMR);
   MEMORY[0x28223BE20](v74);
   v76 = v66 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMR);
   v17 = MEMORY[0x28223BE20](v16);
   v75 = v66 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v17);
   v78 = v66 - v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
   v21 = MEMORY[0x28223BE20](v20 - 8);
   v23 = v66 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v21);
@@ -8652,11 +8671,11 @@ uint64_t closure #3 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   v66[0] = v8;
   v66[1] = v5;
   v66[2] = a3;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS4name_7SwiftUI5ImageV5ScaleOSgAB4FontV6WeightVSgtMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS4name_7SwiftUI5ImageV5ScaleOSgAB4FontV6WeightVSgtMd, &_sSS4name_7SwiftUI5ImageV5ScaleOSgAB4FontV6WeightVSgtMR);
   v33 = *(v28 + *(v32 + 64) + 8);
   v34 = v28 + *(v32 + 48);
   v77 = v25;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v34, v25, &_s7SwiftUI5ImageV5ScaleOSgMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v34, v25, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
   v35 = Image.init(systemName:)();
   if (one-time initialization token for font != -1)
   {
@@ -8683,7 +8702,7 @@ uint64_t closure #3 in closure #1 in GridView.Condensed.Cell.Content.body.getter
   {
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
   lazy protocol witness table accessor for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
   View.fontWeight(_:)();
 
@@ -8768,7 +8787,7 @@ LABEL_22:
   v54 = v82;
   (*(v72 + 32))(v82, v81, v73);
   *(v54 + *(v71 + 36)) = v53;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v52, v23, &_s7SwiftUI5ImageV5ScaleOSgMd);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v52, v23, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
   v55 = v80;
   v56 = *(v80 + 48);
   if (v56(v23, 1, v43) == 1)
@@ -8782,7 +8801,7 @@ LABEL_22:
     (*(v55 + 16))(v51, v57, v43);
     if (v56(v23, 1, v43) != 1)
     {
-      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v23, &_s7SwiftUI5ImageV5ScaleOSgMd);
+      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v23, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
     }
   }
 
@@ -8794,66 +8813,66 @@ LABEL_22:
   v58 = swift_getKeyPath();
   v59 = v76;
   v60 = &v76[*(v74 + 36)];
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMd);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMR);
   (*(v55 + 32))(v60 + *(v61 + 28), v51, v43);
   *v60 = v58;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v82, v59, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v82, v59, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
   v62 = v75;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v59, v75, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v59, v75, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMR);
   v63 = (v62 + *(v16 + 36));
   v64 = v84;
   *v63 = v83;
   v63[1] = v64;
   v63[2] = v85;
   v65 = v78;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v62, v78, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd);
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, v7, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v62, v78, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMR);
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, v7, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMR);
   swift_storeEnumTagMultiPayload();
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
   lazy protocol witness table accessor for type GridView.Base.AccessoryViewHostingView and conformance GridView.Base.AccessoryViewHostingView();
   _ConditionalContent<>.init(storage:)();
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd);
-  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v77, &_s7SwiftUI5ImageV5ScaleOSgMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v65, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMR);
+  return outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v77, &_s7SwiftUI5ImageV5ScaleOSgMd, &_s7SwiftUI5ImageV5ScaleOSgMR);
 }
 
-uint64_t specialized Environment.wrappedValue.getter@<X0>(uint64_t a1@<X8>)
+uint64_t specialized Environment.wrappedValue.getter@<X0>(void *a1@<X8>)
 {
-  return specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, MEMORY[0x277CDF3E0], a1);
+  return specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR, MEMORY[0x277CDF3E0], a1);
 }
 
 {
-  return specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd, MEMORY[0x277CE1060], a1);
+  return specialized Environment.wrappedValue.getter(&_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA5ImageV5ScaleO_GMR, MEMORY[0x277CE1060], a1);
 }
 
-uint64_t specialized Environment.wrappedValue.getter@<X0>(uint64_t *a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
+uint64_t specialized Environment.wrappedValue.getter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t (*a3)(void)@<X2>, void *a4@<X8>)
 {
-  v6 = v3;
-  v8 = type metadata accessor for EnvironmentValues();
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(a1);
-  MEMORY[0x28223BE20](v12);
-  v14 = &v18 - v13;
-  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v6, &v18 - v13, a1);
+  v8 = v4;
+  v10 = type metadata accessor for EnvironmentValues();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v14);
+  v16 = &v20 - v15;
+  outlined init with copy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v8, &v20 - v15, a1, a2);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v15 = a2(0);
-    return (*(*(v15 - 8) + 32))(a3, v14, v15);
+    v17 = a3(0);
+    return (*(*(v17 - 8) + 32))(a4, v16, v17);
   }
 
   else
   {
     static os_log_type_t.fault.getter();
-    v17 = static Log.runtimeIssuesLog.getter();
+    v19 = static Log.runtimeIssuesLog.getter();
     os_log(_:dso:log:_:_:)();
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
 
-    return (*(v9 + 8))(v11, v8);
+    return (*(v11 + 8))(v13, v10);
   }
 }
 
@@ -8864,7 +8883,7 @@ uint64_t EnvironmentValues.isHighlighted.getter()
   return v1;
 }
 
-uint64_t key path getter for EnvironmentValues.isHighlighted : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
+void *key path getter for EnvironmentValues.isHighlighted : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
 {
   lazy protocol witness table accessor for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted();
   result = EnvironmentValues.subscript.getter();
@@ -8874,16 +8893,16 @@ uint64_t key path getter for EnvironmentValues.isHighlighted : EnvironmentValues
 
 uint64_t GridView.Condensed.Cell.ButtonStyle.makeBody(configuration:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
 {
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMd);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMR);
   MEMORY[0x28223BE20](v51);
   v9 = &v48[-v8];
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMR);
   MEMORY[0x28223BE20](v10);
   v54 = &v48[-v11];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMR);
   MEMORY[0x28223BE20](v12 - 8);
   v53 = &v48[-v13];
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMd);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMR);
   MEMORY[0x28223BE20](v52);
   v15 = &v48[-v14];
   v16 = type metadata accessor for EnvironmentValues();
@@ -8946,14 +8965,14 @@ uint64_t GridView.Condensed.Cell.ButtonStyle.makeBody(configuration:)@<X0>(uint6
   v31 = static Edge.Set.all.getter();
   v32 = v9;
   v33 = v54;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v32, v54, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v32, v54, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMd, &_s7SwiftUI15ModifiedContentVyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGMR);
   v34 = &v33[*(v10 + 36)];
   *v34 = v30;
   v34[8] = v31;
   v35 = v53;
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v33, v53, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v33, v53, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGMR);
   v36 = static Animation.default.getter();
-  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v35, v15, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMd);
+  outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v35, v15, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGMR);
   v37 = &v15[*(v52 + 36)];
   *v37 = v36;
   v37[8] = v25 & 1;
@@ -8964,14 +8983,14 @@ uint64_t GridView.Condensed.Cell.ButtonStyle.makeBody(configuration:)@<X0>(uint6
 
   v38 = type metadata accessor for RoundedCornerStyle();
   v39 = __swift_project_value_buffer(v38, static GridView.Condensed.Cell.Specs.Corner.style);
-  v40 = (a4 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGAA05_ClipQ0VyAA16RoundedRectangleVGGMd) + 36));
+  v40 = (a4 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGAA05_ClipQ0VyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGAA05_ClipQ0VyAA16RoundedRectangleVGGMR) + 36));
   v41 = type metadata accessor for RoundedRectangle();
   (*(*(v38 - 8) + 16))(&v40[*(v41 + 20)], v39, v38);
   __asm { FMOV            V0.2D, #10.0 }
 
   *v40 = _Q0;
-  *&v40[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd) + 36)] = 256;
-  return outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v15, a4, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMd);
+  *&v40[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR) + 36)] = 256;
+  return outlined init with take of ModifiedContent<Button<GridView.Base.Artwork>, _OpacityEffect>(v15, a4, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA24ButtonStyleConfigurationV5LabelVAA30_EnvironmentKeyWritingModifierVySbGGAA011_BackgroundfL0VyAA5ColorVGGAA23_CompositingGroupEffectVGAA010_AnimationL0VySbGGMR);
 }
 
 id one-time initialization function for color()
@@ -9004,11 +9023,23 @@ uint64_t one-time initialization function for style(uint64_t a1)
   return one-time initialization function for style(a1, static GridView.Hero.Cell.Specs.Corner.style);
 }
 
-uint64_t one-time initialization function for normal()
+uint64_t one-time initialization function for normal(uint64_t a1)
 {
   result = static Color.accentColor.getter();
   static GridView.Condensed.Cell.Specs.Image.Symbol.Color.normal = result;
   return result;
+}
+
+{
+  return one-time initialization function for highlighted(a1, &selRef_labelColor, &static GridView.Condensed.Cell.Specs.Labels.Title.Color.normal);
+}
+
+{
+  return one-time initialization function for highlighted(a1, &selRef_secondaryLabelColor, &static GridView.Condensed.Cell.Specs.Labels.Subtitle.Color.normal);
+}
+
+{
+  return one-time initialization function for highlighted(a1, &selRef_tertiaryLabelColor, &static GridView.Condensed.Cell.Specs.Accessory.Image.Color.normal);
 }
 
 uint64_t one-time initialization function for highlighted(uint64_t a1)
@@ -9064,36 +9095,15 @@ uint64_t one-time initialization function for font()
   return result;
 }
 
+void one-time initialization function for weight()
 {
-  result = static Font.callout.getter();
-  static Specs.Controls.font = result;
-  return result;
-}
-
-uint64_t one-time initialization function for weight()
-{
-  result = static Font.Weight.semibold.getter();
-  static GridView.Condensed.Cell.Specs.Image.Symbol.weight = v1;
-  return result;
+  static Font.Weight.semibold.getter();
+  static GridView.Condensed.Cell.Specs.Image.Symbol.weight = v0;
 }
 
 {
-  result = static Font.Weight.semibold.getter();
-  static GridView.Condensed.Cell.Specs.Accessory.Image.weight = v1;
-  return result;
-}
-
-uint64_t one-time initialization function for normal(uint64_t a1)
-{
-  return one-time initialization function for highlighted(a1, &selRef_labelColor, &static GridView.Condensed.Cell.Specs.Labels.Title.Color.normal);
-}
-
-{
-  return one-time initialization function for highlighted(a1, &selRef_secondaryLabelColor, &static GridView.Condensed.Cell.Specs.Labels.Subtitle.Color.normal);
-}
-
-{
-  return one-time initialization function for highlighted(a1, &selRef_tertiaryLabelColor, &static GridView.Condensed.Cell.Specs.Accessory.Image.Color.normal);
+  static Font.Weight.semibold.getter();
+  static GridView.Condensed.Cell.Specs.Accessory.Image.weight = v0;
 }
 
 uint64_t one-time initialization function for highlighted(uint64_t a1, SEL *a2, uint64_t *a3)
@@ -9115,7 +9125,36 @@ uint64_t one-time initialization function for style(uint64_t a1, uint64_t (*a2)(
   return v9(v7, v8, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t one-time initialization function for color(uint64_t a1)
+{
+  result = static Color.accentColor.getter();
+  static GridView.Condensed.Cell.Specs.Highlight.color = result;
+  return result;
+}
+
+{
+  return one-time initialization function for color(a1, &static Specs.Artwork.InnerStroke.color, 0.1);
+}
+
+{
+  result = static Color.primary.getter();
+  static Specs.Title.color = result;
+  return result;
+}
+
+{
+  result = static Color.accentColor.getter();
+  static Specs.Subtitle.color = result;
+  return result;
+}
+
+{
+  result = static Color.accentColor.getter();
+  static Specs.Controls.color = result;
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9152,7 +9191,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>>, ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAA0I0Vy07CarPlayB004GridF0C9CondensedO4CellV0D0VG_ArIVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayR0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeR0VyAA9RectangleVGG_Qo_GGA_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAA0I0Vy07CarPlayB004GridF0C9CondensedO4CellV0D0VG_ArIVQo_AA32_EnvironmentKeyTransformModifierVySbGGAA08_OverlayR0VyAgAE12onTapGesture5count7performQrSi_yyctFQOyAEyAA5ColorVAA01_d5ShapeR0VyAA9RectangleVGG_Qo_GGA_GMd, "ڛ");
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>>, _OverlayModifier<<<opaque return type of View.onTapGesture(count:perform:)>>.0>> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.buttonStyle<A>(_:)>>.0, _EnvironmentKeyTransformModifier<Bool>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
@@ -9224,22 +9263,22 @@ uint64_t storeEnumTagSinglePayload for GridView.Condensed.Cell.ButtonStyle(uint6
   return result;
 }
 
-void type metadata completion function for GridView.Condensed.Cell.Content()
+void type metadata completion function for GridView.Condensed.Cell.Content(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for GridView.Base.ViewModel.Accessory?(319, &lazy cache variable for type metadata for GridView.Base.ViewModel.Accessory?, type metadata accessor for GridView.Base.ViewModel.Accessory, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for GridView.Base.ViewModel.Accessory?(319, &lazy cache variable for type metadata for GridView.Base.ViewModel.ImageConfiguration?, type metadata accessor for GridView.Base.ViewModel.ImageConfiguration, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for GridView.Base.ViewModel.Accessory?(319, &lazy cache variable for type metadata for Environment<DynamicTypeSize>, MEMORY[0x277CDFA28], MEMORY[0x277CDF468]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for String?(319, &lazy cache variable for type metadata for Environment<Bool>, MEMORY[0x277D839B0], MEMORY[0x277CDF468]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -9274,7 +9313,7 @@ void type metadata accessor for String?(uint64_t a1, unint64_t *a2, uint64_t a3,
   }
 }
 
-uint64_t type metadata accessor for GridView.Condensed.Cell.Content(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for GridView.Condensed.Cell.Content(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -9356,7 +9395,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGAA12_FrameLayoutVGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
@@ -9370,9 +9409,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGAOyAM5ScaleOGGMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Image.Scale> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Image.Scale> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ImageV5ScaleOGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Image.Scale>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9385,11 +9424,11 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMR, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9402,8 +9441,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Image, _
   result = lazy protocol witness table cache variable for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9442,13 +9481,13 @@ uint64_t key path getter for EnvironmentValues.lineLimit : EnvironmentValues, se
   return result;
 }
 
-uint64_t key path setter for EnvironmentValues.dynamicTypeSize : EnvironmentValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t (*a6)(char *))
+uint64_t key path setter for EnvironmentValues.dynamicTypeSize : EnvironmentValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(char *))
 {
-  a5(0);
-  MEMORY[0x28223BE20]();
-  v9 = &v12 - v8;
-  (*(v10 + 16))(&v12 - v8, a1);
-  return a6(v9);
+  v8 = a5(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = &v13 - v9;
+  (*(v11 + 16))(&v13 - v9, a1);
+  return a6(v10);
 }
 
 unint64_t lazy protocol witness table accessor for type String and conformance String()
@@ -9465,7 +9504,7 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
 
 uint64_t specialized static GridView.Condensed.Cell.Specs.Labels.Title.font(size:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v16 - v3;
   v5 = type metadata accessor for DynamicTypeSize();
@@ -9491,14 +9530,14 @@ uint64_t specialized static GridView.Condensed.Cell.Specs.Labels.Title.font(size
     if (v14 != v13)
     {
       v11 = static Font.system(size:weight:design:)();
-      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd);
+      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
       (*(v6 + 8))(v8, v5);
       return v11;
     }
   }
 
   v11 = static Font.system(size:weight:design:)();
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   return v11;
 }
 
@@ -9519,7 +9558,7 @@ double _s7SwiftUI9TupleViewVyAA15ModifiedContentVyAA27_TextBaselineRelativeSpace
 
 uint64_t specialized static GridView.Condensed.Cell.Specs.Labels.Subtitle.font(size:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v16 - v3;
   v5 = type metadata accessor for DynamicTypeSize();
@@ -9545,14 +9584,14 @@ uint64_t specialized static GridView.Condensed.Cell.Specs.Labels.Subtitle.font(s
     if (v14 != v13)
     {
       v11 = static Font.system(size:weight:design:)();
-      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd);
+      outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
       (*(v6 + 8))(v8, v5);
       return v11;
     }
   }
 
   v11 = static Font.system(size:weight:design:)();
-  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd);
+  outlined destroy of _OverlayModifier<ModifiedContent<StrokeView, GradientMaskModifier<GlowModifier.StaticGradientProperties>>>(v4, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
   return v11;
 }
 
@@ -9606,7 +9645,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout>, ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout>, ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAEyAEy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleQ0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingW0VGAEyAEyALA1_GA4_GGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
@@ -9621,7 +9660,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGAA08_PaddingV0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
@@ -9635,7 +9674,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGAA12_FrameLayoutVGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
@@ -9649,9 +9688,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA016_ForegroundStyleP0VyAA5ColorVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMR, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9664,9 +9703,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<GridView
   result = lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd);
-    lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.Artwork.SystemImage and conformance GridView.Base.Artwork.SystemImage, type metadata accessor for GridView.Base.Artwork.SystemImage);
-    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkV11SystemImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+    lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.Artwork.SystemImage and conformance GridView.Base.Artwork.SystemImage, type metadata accessor for GridView.Base.Artwork.SystemImage, &protocol conformance descriptor for GridView.Base.Artwork.SystemImage);
+    lazy protocol witness table accessor for type _ViewModifier_Content<GlowModifier> and conformance _ViewModifier_Content<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork.SystemImage, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -9679,8 +9718,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd);
-    lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGAA08_PaddingL0VGMR);
+    lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA12_FrameLayoutVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _FrameLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -9693,7 +9732,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGAA08_PaddingM0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect>, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
@@ -9707,7 +9746,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMd, &_s7SwiftUI15ModifiedContentVyACyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGAA13_ShadowEffectVGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier>, _ShadowEffect> and conformance <> ModifiedContent<A, B>);
@@ -9721,46 +9760,11 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMd);
-    lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMd);
-    lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type InnerHighlightModifier and conformance InnerHighlightModifier, type metadata accessor for InnerHighlightModifier);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMd, &_s7SwiftUI15ModifiedContentVyACy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGAD22InnerHighlightModifierVGMR);
+    lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMd, &_s7SwiftUI15ModifiedContentVy07CarPlayB08GridViewC4BaseO7ArtworkVAA18_AspectRatioLayoutVGMR);
+    lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type InnerHighlightModifier and conformance InnerHighlightModifier, type metadata accessor for InnerHighlightModifier, &protocol conformance descriptor for InnerHighlightModifier);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<GridView.Base.Artwork, _AspectRatioLayout>, InnerHighlightModifier> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-uint64_t lazy protocol witness table accessor for type ModifiedContent<GridView.Base.Artwork, _FrameLayout> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
-    lazy protocol witness table accessor for type GridView.Condensed.Cell.Content and conformance GridView.Condensed.Cell.Content(&lazy protocol witness table cache variable for type GridView.Base.Artwork and conformance GridView.Base.Artwork, type metadata accessor for GridView.Base.Artwork);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t outlined copy of Environment<Bool>.Content(uint64_t a1, char a2)
-{
-  if ((a2 & 1) == 0)
-  {
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted()
-{
-  result = lazy protocol witness table cache variable for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted;
-  if (!lazy protocol witness table cache variable for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentValues.__Key_isHighlighted and conformance EnvironmentValues.__Key_isHighlighted);
   }
 
   return result;

@@ -11,6 +11,7 @@
 - (void)createCoreLocationObjects;
 - (void)dealloc;
 - (void)destroyCoreLocationObjects;
+- (void)invokeClientsCallbackType:(int)type withLocation:(id)location withError:(id)error;
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
@@ -40,19 +41,16 @@
   return v3;
 }
 
-uint64_t __48__WiFiLocationManager_sharedWiFiLocationManager__block_invoke()
+void __48__WiFiLocationManager_sharedWiFiLocationManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = objc_opt_class();
-  if (result)
+  if (objc_opt_class())
   {
-    v1 = objc_alloc_init(WiFiLocationManager);
-    v2 = sharedWiFiLocationManager_sharedWiFiLocationManager;
-    sharedWiFiLocationManager_sharedWiFiLocationManager = v1;
+    v2 = objc_alloc_init(WiFiLocationManager);
+    v3 = sharedWiFiLocationManager_sharedWiFiLocationManager;
+    sharedWiFiLocationManager_sharedWiFiLocationManager = v2;
 
-    return MEMORY[0x2821F96F8](v1, v2);
+    MEMORY[0x2821F96F8](v2, v3);
   }
-
-  return result;
 }
 
 - (WiFiLocationManager)init
@@ -103,16 +101,16 @@ uint64_t __48__WiFiLocationManager_sharedWiFiLocationManager__block_invoke()
 
 - (void)registerCallbackFunctionPtr:(void *)ptr withContext:(void *)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
-  v12[0] = context;
-  v12[1] = ptr;
-  v8 = [MEMORY[0x277CCAE60] valueWithBytes:v12 objCType:"{?=^v^?}"];
+  v11[0] = context;
+  v11[1] = ptr;
+  v8 = [MEMORY[0x277CCAE60] valueWithBytes:v11 objCType:"{?=^v^?}"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[WiFiLocationManager registerCallbackFunctionPtr:withContext:]";
-    v15 = 2048;
+    v13 = "[WiFiLocationManager registerCallbackFunctionPtr:withContext:]";
+    v14 = 2048;
     ptrCopy = ptr;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Adding client: %p", buf, 0x16u);
   }
@@ -124,21 +122,20 @@ uint64_t __48__WiFiLocationManager_sharedWiFiLocationManager__block_invoke()
 
   objc_sync_exit(selfCopy);
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerVisitCallbackFunctionPtr:(void *)ptr withContext:(void *)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
-  v12[0] = context;
-  v12[1] = ptr;
-  v8 = [MEMORY[0x277CCAE60] valueWithBytes:v12 objCType:"{?=^v^?}"];
+  v11[0] = context;
+  v11[1] = ptr;
+  v8 = [MEMORY[0x277CCAE60] valueWithBytes:v11 objCType:"{?=^v^?}"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[WiFiLocationManager registerVisitCallbackFunctionPtr:withContext:]";
-    v15 = 2048;
+    v13 = "[WiFiLocationManager registerVisitCallbackFunctionPtr:withContext:]";
+    v14 = 2048;
     ptrCopy = ptr;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Adding client: %p", buf, 0x16u);
   }
@@ -150,19 +147,80 @@ uint64_t __48__WiFiLocationManager_sharedWiFiLocationManager__block_invoke()
 
   objc_sync_exit(selfCopy);
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
+}
+
+- (void)invokeClientsCallbackType:(int)type withLocation:(id)location withError:(id)error
+{
+  v6 = *&type;
+  v29 = *MEMORY[0x277D85DE8];
+  locationCopy = location;
+  errorCopy = error;
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v12 = MEMORY[0x277D86220];
+  v13 = MEMORY[0x277D86220];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = [WiFiLocationManager getStringOfCallbackType:v6];
+    userInfo = [errorCopy userInfo];
+    *buf = 136315650;
+    *&buf[4] = "[WiFiLocationManager invokeClientsCallbackType:withLocation:withError:]";
+    *&buf[12] = 2112;
+    *&buf[14] = v14;
+    v27 = 2112;
+    v28 = userInfo;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: callbackType: %@, error: %@", buf, 0x20u);
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  clientsDataArray = [(WiFiLocationManager *)selfCopy clientsDataArray];
+  v17 = [clientsDataArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v17)
+  {
+    v18 = *v22;
+    do
+    {
+      for (i = 0; i != v17; ++i)
+      {
+        if (*v22 != v18)
+        {
+          objc_enumerationMutation(clientsDataArray);
+        }
+
+        v20 = *(*(&v21 + 1) + 8 * i);
+        *buf = 0;
+        *&buf[8] = 0;
+        [v20 getValue:buf];
+        if (*&buf[8])
+        {
+          (*&buf[8])(v6, *buf, locationCopy, errorCopy);
+        }
+      }
+
+      v17 = [clientsDataArray countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v17);
+  }
+
+  objc_sync_exit(selfCopy);
+  objc_autoreleasePoolPop(v10);
 }
 
 - (void)requestLowAccuracyLocationUpdate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v29 = "[WiFiLocationManager requestLowAccuracyLocationUpdate]";
+    v28 = "[WiFiLocationManager requestLowAccuracyLocationUpdate]";
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -209,11 +267,11 @@ LABEL_15:
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
+    v25 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v9 = [mainBundle localizedStringForKey:@"Location services are not authorized." value:&stru_28487EF20 table:0];
-    v27 = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v11 = [v7 errorWithDomain:@"com.apple.ios.wifi" code:1 userInfo:v10];
 
     v12 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
@@ -237,7 +295,6 @@ LABEL_17:
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v3);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WiFiLocationManager_requestLowAccuracyLocationUpdate__block_invoke(uint64_t a1)
@@ -249,14 +306,14 @@ void __55__WiFiLocationManager_requestLowAccuracyLocationUpdate__block_invoke(ui
 
 - (void)requestHighAccuracyLocationUpdate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[WiFiLocationManager requestHighAccuracyLocationUpdate]";
+    v26 = "[WiFiLocationManager requestHighAccuracyLocationUpdate]";
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -287,11 +344,11 @@ void __55__WiFiLocationManager_requestLowAccuracyLocationUpdate__block_invoke(ui
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
+    v23 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v7 = [mainBundle localizedStringForKey:@"Location services are not authorized." value:&stru_28487EF20 table:0];
-    v25 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v9 = [v5 errorWithDomain:@"com.apple.ios.wifi" code:1 userInfo:v8];
 
     v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
@@ -314,7 +371,6 @@ void __55__WiFiLocationManager_requestLowAccuracyLocationUpdate__block_invoke(ui
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v3);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WiFiLocationManager_requestHighAccuracyLocationUpdate__block_invoke(uint64_t a1)
@@ -326,14 +382,14 @@ void __56__WiFiLocationManager_requestHighAccuracyLocationUpdate__block_invoke(u
 
 - (void)requestLeechedAccuracyLocationUpdate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[WiFiLocationManager requestLeechedAccuracyLocationUpdate]";
+    v26 = "[WiFiLocationManager requestLeechedAccuracyLocationUpdate]";
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -352,11 +408,11 @@ void __56__WiFiLocationManager_requestHighAccuracyLocationUpdate__block_invoke(u
   else
   {
     v6 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
+    v23 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v8 = [mainBundle localizedStringForKey:@"Location services are not authorized." value:&stru_28487EF20 table:0];
-    v25 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v10 = [v6 errorWithDomain:@"com.apple.ios.wifi" code:1 userInfo:v9];
 
     v11 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
@@ -379,7 +435,6 @@ void __56__WiFiLocationManager_requestHighAccuracyLocationUpdate__block_invoke(u
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v3);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __59__WiFiLocationManager_requestLeechedAccuracyLocationUpdate__block_invoke(uint64_t a1)
@@ -391,14 +446,14 @@ void __59__WiFiLocationManager_requestLeechedAccuracyLocationUpdate__block_invok
 
 - (void)stopQueryingLocation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[WiFiLocationManager stopQueryingLocation]";
+    v8 = "[WiFiLocationManager stopQueryingLocation]";
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -413,7 +468,6 @@ void __59__WiFiLocationManager_requestLeechedAccuracyLocationUpdate__block_invok
 
   objc_sync_exit(selfCopy);
   objc_autoreleasePoolPop(v3);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WiFiLocationManager_stopQueryingLocation__block_invoke(uint64_t a1)
@@ -426,16 +480,16 @@ void __43__WiFiLocationManager_stopQueryingLocation__block_invoke(uint64_t a1)
 - (void)setShouldMonitorVisits:(unsigned __int8)visits
 {
   visitsCopy = visits;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "[WiFiLocationManager setShouldMonitorVisits:]";
-    v12 = 1024;
-    v13 = visitsCopy;
+    v10 = "[WiFiLocationManager setShouldMonitorVisits:]";
+    v11 = 1024;
+    v12 = visitsCopy;
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s shouldMonitorVisits: %d", buf, 0x12u);
   }
 
@@ -450,7 +504,6 @@ void __43__WiFiLocationManager_stopQueryingLocation__block_invoke(uint64_t a1)
 
   objc_sync_exit(selfCopy);
   objc_autoreleasePoolPop(v5);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__WiFiLocationManager_setShouldMonitorVisits___block_invoke(uint64_t a1)
@@ -472,7 +525,7 @@ void __46__WiFiLocationManager_setShouldMonitorVisits___block_invoke(uint64_t a1
 
 - (void)createCoreLocationObjects
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = objc_alloc(MEMORY[0x277CBFC18]);
   queue = [(WiFiLocationManager *)self queue];
@@ -489,11 +542,11 @@ void __46__WiFiLocationManager_setShouldMonitorVisits___block_invoke(uint64_t a1
       v8 = "is not";
     }
 
-    v10 = 136315394;
-    v11 = "[WiFiLocationManager createCoreLocationObjects]";
-    v12 = 2080;
-    v13 = v8;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: WiFi %s authorized for location", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WiFiLocationManager createCoreLocationObjects]";
+    v11 = 2080;
+    v12 = v8;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: WiFi %s authorized for location", &v9, 0x16u);
   }
 
   if ([(WiFiLocationManager *)self isAuthorized])
@@ -502,7 +555,6 @@ void __46__WiFiLocationManager_setShouldMonitorVisits___block_invoke(uint64_t a1
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroyCoreLocationObjects
@@ -519,18 +571,18 @@ void __46__WiFiLocationManager_setShouldMonitorVisits___block_invoke(uint64_t a1
 
 - (void)setCLLocationUpdateParams:(id)params
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_autoreleasePoolPush();
   intValue = [paramsCopy intValue];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v7 = [WiFiLocationManager getStringOfState:intValue];
-    v19 = 136315394;
-    v20 = "[WiFiLocationManager setCLLocationUpdateParams:]";
-    v21 = 2112;
-    v22 = v7;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: state <%@>", &v19, 0x16u);
+    v18 = 136315394;
+    v19 = "[WiFiLocationManager setCLLocationUpdateParams:]";
+    v20 = 2112;
+    v21 = v7;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: state <%@>", &v18, 0x16u);
   }
 
   if (intValue <= 1)
@@ -590,20 +642,18 @@ LABEL_13:
 
 LABEL_14:
   objc_autoreleasePoolPop(v5);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationRequestDidTimeOut
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x277CCA9B8];
-  v13 = *MEMORY[0x277CCA450];
+  v12 = *MEMORY[0x277CCA450];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v6 = [mainBundle localizedStringForKey:@"Location request timed out." value:&stru_28487EF20 table:0];
-  v14[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v8 = [v4 errorWithDomain:@"com.apple.ios.wifi" code:60 userInfo:v7];
 
   [(WiFiLocationManager *)self invokeClientsCallbackType:2 withLocation:0 withError:v8];
@@ -621,7 +671,6 @@ LABEL_14:
   [(WiFiLocationManager *)self setCLLocationUpdateParams:v11];
 
   objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelLocationRequestTimeOut
@@ -634,7 +683,7 @@ LABEL_14:
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   locationsCopy = locations;
   v8 = objc_autoreleasePoolPush();
@@ -656,11 +705,11 @@ LABEL_14:
       v10 = "not available";
     }
 
-    v29 = 136315394;
-    v30 = "[WiFiLocationManager locationManager:didUpdateLocations:]";
-    v31 = 2080;
-    v32 = v10;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: updated location %s", &v29, 0x16u);
+    v28 = 136315394;
+    v29 = "[WiFiLocationManager locationManager:didUpdateLocations:]";
+    v30 = 2080;
+    v31 = v10;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: updated location %s", &v28, 0x16u);
   }
 
   if (lastObject)
@@ -709,18 +758,17 @@ LABEL_14:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring new location, keeping existing one", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring new location, keeping existing one", &v28, 2u);
     }
   }
 
   objc_autoreleasePoolPop(v8);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v7 = objc_autoreleasePoolPush();
   [(WiFiLocationManager *)self setIsAuthorized:(status - 3) < 2];
@@ -742,8 +790,8 @@ LABEL_14:
     v9 = MEMORY[0x277CCA9B8];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v11 = [mainBundle localizedStringForKey:@"Location services are not authorized." value:&stru_28487EF20 table:0];
-    v18 = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v8 = [v9 errorWithDomain:@"com.apple.wifi" code:1 userInfo:v12];
   }
 
@@ -758,7 +806,6 @@ LABEL_14:
   }
 
   objc_autoreleasePoolPop(v7);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
@@ -792,7 +839,7 @@ LABEL_14:
 
 - (void)locationManager:(id)manager didVisit:(id)visit
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   visitCopy = visit;
   v8 = objc_autoreleasePoolPush();
@@ -807,26 +854,26 @@ LABEL_14:
 
   if ([(WiFiLocationManager *)selfCopy shouldMonitorVisits])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     visitClientsDataArray = [(WiFiLocationManager *)selfCopy visitClientsDataArray];
-    v11 = [visitClientsDataArray countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v11 = [visitClientsDataArray countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(visitClientsDataArray);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * v13);
+          v14 = *(*(&v18 + 1) + 8 * v13);
           *buf = 0uLL;
           [v14 getValue:buf];
           if (*&buf[8])
@@ -838,7 +885,7 @@ LABEL_14:
         }
 
         while (v11 != v13);
-        v11 = [visitClientsDataArray countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [visitClientsDataArray countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v11);
@@ -857,12 +904,11 @@ LABEL_14:
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v8);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logLocation:(id)location addPrefixString:(id)string
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   stringCopy = string;
   v7 = objc_autoreleasePoolPush();
@@ -881,11 +927,11 @@ LABEL_14:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = stringCopy;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: source=%@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = stringCopy;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: source=%@", &v10, 0x16u);
     }
   }
 
@@ -895,8 +941,6 @@ LABEL_14:
   }
 
   objc_autoreleasePoolPop(v7);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)isLocationValid:(id)valid uptoSeconds:(double)seconds isHighAccuracy:(unsigned __int8)accuracy
@@ -910,7 +954,7 @@ LABEL_14:
 
 + (unsigned)isLocationValid:(id)valid uptoSeconds:(double)seconds requiredAccuracy:(double)accuracy
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   v8 = objc_autoreleasePoolPush();
   if (validCopy)
@@ -922,17 +966,17 @@ LABEL_14:
       [timestamp timeIntervalSinceNow];
       if (v11 > 0.0)
       {
-        v36 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        if (v36)
+        v35 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+        if (v35)
         {
-          [(WiFiLocationManager *)v36 isLocationValid:v37 uptoSeconds:v38 requiredAccuracy:v39, v40, v41, v42, v43];
+          [(WiFiLocationManager *)v35 isLocationValid:v36 uptoSeconds:v37 requiredAccuracy:v38, v39, v40, v41, v42];
         }
       }
 
       else
       {
         v12 = -v11;
-        [validCopy clientLocation];
+        objc_msgSend_clientLocation(validCopy, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         if (v12 < seconds || v12 < 0.0 || 0.0 == -1)
         {
           [validCopy horizontalAccuracy];
@@ -948,10 +992,10 @@ LABEL_14:
 
     else
     {
-      v28 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      if (v28)
+      v27 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      if (v27)
       {
-        [(WiFiLocationManager *)v28 isLocationValid:v29 uptoSeconds:v30 requiredAccuracy:v31, v32, v33, v34, v35];
+        [(WiFiLocationManager *)v27 isLocationValid:v28 uptoSeconds:v29 requiredAccuracy:v30, v31, v32, v33, v34];
       }
     }
 
@@ -961,7 +1005,7 @@ LABEL_18:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v45 = v17;
+      v44 = v17;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "isLocationValid: %s", buf, 0xCu);
     }
 
@@ -978,7 +1022,6 @@ LABEL_18:
 LABEL_21:
   objc_autoreleasePoolPop(v8);
 
-  v26 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1025,24 +1068,21 @@ LABEL_21:
 
 - (void)locationManager:(void *)a1 didFailWithError:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
-  v3 = 136315394;
-  v4 = "[WiFiLocationManager locationManager:didFailWithError:]";
-  v5 = 2112;
-  v6 = v1;
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: error: %@", &v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[WiFiLocationManager locationManager:didFailWithError:]";
+  v4 = 2112;
+  v5 = v1;
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: error: %@", &v2, 0x16u);
 }
 
 + (void)logLocation:(uint64_t)a1 addPrefixString:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@: Error: location is nil", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@: Error: location is nil", &v1, 0xCu);
 }
 
 @end

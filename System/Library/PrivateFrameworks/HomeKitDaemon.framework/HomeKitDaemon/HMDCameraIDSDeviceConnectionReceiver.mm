@@ -29,7 +29,7 @@
 
 - (void)_callSessionEndedWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraIDSDeviceConnection *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -40,11 +40,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -53,13 +53,11 @@
   {
     [delegate deviceConnectionReceiver:selfCopy didEndSessionWithError:errorCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_socketOpenedWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraIDSDeviceConnection *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -70,11 +68,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didSetup delegate with error %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didSetup delegate with error %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -83,8 +81,6 @@
   {
     [delegate deviceConnectionReceiver:selfCopy didSetUpWithError:errorCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int)remoteAudioSocket
@@ -165,10 +161,9 @@ LABEL_7:
 
 void __51__HMDCameraIDSDeviceConnectionReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_32936;
-  logCategory__hmf_once_v3_32936 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_32936;
+  logCategory__hmf_once_v3_32936 = v0;
 }
 
 @end

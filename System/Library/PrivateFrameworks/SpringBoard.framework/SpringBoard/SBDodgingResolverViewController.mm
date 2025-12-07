@@ -503,14 +503,14 @@ uint64_t __78__SBDodgingResolverViewController__updateLayoutWithItemIdentifier_c
 - (void)_updateItemIfNeeded:(id)needed
 {
   neededCopy = needed;
-  if ([(NSMutableSet *)self->_itemsNeedingUpdate containsObject:?])
+  if (objc_msgSend_containsObject_(self->_itemsNeedingUpdate))
   {
     [(NSMutableSet *)self->_itemsNeedingUpdate removeObject:neededCopy];
     delegate = [neededCopy delegate];
     v5 = [delegate dodgingResolver:self preferenceForDodgingItem:neededCopy];
 
     isUpdatingInteractively = [v5 isUpdatingInteractively];
-    if ([(NSMutableSet *)self->_itemsNeedingNonAnimatedUpdate containsObject:neededCopy])
+    if (objc_msgSend_containsObject_(self->_itemsNeedingNonAnimatedUpdate))
     {
       [(NSMutableSet *)self->_itemsNeedingNonAnimatedUpdate removeObject:neededCopy];
       v7 = 0;
@@ -547,14 +547,15 @@ uint64_t __78__SBDodgingResolverViewController__updateLayoutWithItemIdentifier_c
 
 - (void)_handleEventResponse:(id)response
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (!responseCopy)
   {
     [(SBDodgingResolverViewController *)a2 _handleEventResponse:?];
   }
 
-  if ([responseCopy isValid])
+  isValid = [responseCopy isValid];
+  if (isValid)
   {
     [responseCopy delay];
     if (BSFloatIsZero())
@@ -565,50 +566,51 @@ uint64_t __78__SBDodgingResolverViewController__updateLayoutWithItemIdentifier_c
     else
     {
       [responseCopy delay];
-      v9 = dispatch_time(0, (v8 * 1000000000.0));
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __56__SBDodgingResolverViewController__handleEventResponse___block_invoke;
-      v10[3] = &unk_2783A92D8;
-      v11 = responseCopy;
+      v10 = dispatch_time(0, (v9 * 1000000000.0));
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __56__SBDodgingResolverViewController__handleEventResponse___block_invoke;
+      v11[3] = &unk_2783A92D8;
+      v12 = responseCopy;
       selfCopy = self;
-      dispatch_after(v9, MEMORY[0x277D85CD0], v10);
+      dispatch_after(v10, MEMORY[0x277D85CD0], v11);
     }
   }
 
   else
   {
-    v6 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = SBLogAppSwitcher(isValid);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = [responseCopy description];
+      v8 = [responseCopy description];
       *buf = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "[DodgingVC] Skipping the following action because it's no longer valid: %@", buf, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "[DodgingVC] Skipping the following action because it's no longer valid: %@", buf, 0xCu);
     }
   }
 }
 
 void __56__SBDodgingResolverViewController__handleEventResponse___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isValid])
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
-    v3 = *(a1 + 32);
-    v2 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v3 = *(a1 + 40);
 
-    [v2 _performEventResponse:v3];
+    [v3 _performEventResponse:v4];
   }
 
   else
   {
-    v4 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogAppSwitcher(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = [*(a1 + 32) description];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "[DodgingVC] Skipping the following action because it's no longer valid: %@", &v6, 0xCu);
+      v6 = [*(a1 + 32) description];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "[DodgingVC] Skipping the following action because it's no longer valid: %@", &v7, 0xCu);
     }
   }
 }

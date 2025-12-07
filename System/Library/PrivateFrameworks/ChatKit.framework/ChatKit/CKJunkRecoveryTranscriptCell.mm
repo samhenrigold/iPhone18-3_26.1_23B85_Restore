@@ -70,7 +70,7 @@
 
   v6 = objc_alloc(MEMORY[0x1E696AAB0]);
   v7 = MEMORY[0x1E696AEC0];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v6);
   v9 = [v8 localizedStringForKey:@"DELETE_CONVERSATION" value:&stru_1F04268F8 table:@"ChatKit"];
   v10 = [v7 localizedStringWithFormat:v9, 1];
 
@@ -114,7 +114,7 @@
   }
 
   v6 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v6);
   v8 = [v7 localizedStringForKey:@"NOT_SPAM" value:&stru_1F04268F8 table:@"ChatKit"];
   v9 = [v6 initWithString:v8 attributes:centerTranscriptButtonTextAttributes];
 
@@ -135,48 +135,49 @@
 
 + (id)attributedRecoverConversationStringWithDeletionDate:(id)date
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v4 = [CKUtilities daysUntilJunkFilterDeletionForDate:dateCopy];
-  if (IMOSLoggingEnabled())
+  v5 = IMOSLoggingEnabled();
+  if (v5)
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v18 = dateCopy;
-      v19 = 2048;
-      v20 = v4;
-      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Computing JunkRecovery text with date %@ → %lu days", buf, 0x16u);
+      v19 = dateCopy;
+      v20 = 2048;
+      v21 = v4;
+      _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Computing JunkRecovery text with date %@ → %lu days", buf, 0x16u);
     }
   }
 
-  v6 = MEMORY[0x1E696AEC0];
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"JUNK_CONVERSATION_WILL_BE_DELETED_IN_DAYS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = [v6 localizedStringWithFormat:v8, v4];
+  v7 = MEMORY[0x1E696AEC0];
+  v8 = CKFrameworkBundle(v5);
+  v9 = [v8 localizedStringForKey:@"JUNK_CONVERSATION_WILL_BE_DELETED_IN_DAYS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v7 localizedStringWithFormat:v9, v4];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-  LODWORD(v7) = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
+  LODWORD(v8) = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
 
-  if (v7)
+  if (v8)
   {
-    v11 = @"\u200F";
+    v12 = @"\u200F";
   }
 
   else
   {
-    v11 = @"\u200E";
+    v12 = @"\u200E";
   }
 
-  v12 = [(__CFString *)v11 stringByAppendingString:v9];
+  v13 = [(__CFString *)v12 stringByAppendingString:v10];
 
-  v13 = +[CKUIBehavior sharedBehaviors];
-  transcriptEmphasizedFontAttributes = [v13 transcriptEmphasizedFontAttributes];
+  v14 = +[CKUIBehavior sharedBehaviors];
+  transcriptEmphasizedFontAttributes = [v14 transcriptEmphasizedFontAttributes];
 
-  v15 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v12 attributes:transcriptEmphasizedFontAttributes];
+  v16 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v13 attributes:transcriptEmphasizedFontAttributes];
 
-  return v15;
+  return v16;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

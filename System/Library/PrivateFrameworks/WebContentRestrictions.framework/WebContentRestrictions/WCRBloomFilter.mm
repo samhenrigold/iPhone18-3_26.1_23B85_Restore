@@ -326,23 +326,24 @@ LABEL_4:
 
         v15 = *(*(&v35 + 1) + 8 * v14);
         v16 = [filterCopy contains:v15];
-        v17 = __WCRDefaultLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v17 = v16;
+        v18 = __WCRDefaultLog(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138740227;
-          v18 = @"Allowed";
-          if (v16)
+          v19 = @"Allowed";
+          if (v17)
           {
-            v18 = @"Blocked";
+            v19 = @"Blocked";
           }
 
           v40 = v15;
           v41 = 2112;
-          v42 = v18;
-          _os_log_impl(&dword_272D8F000, v17, OS_LOG_TYPE_DEFAULT, "%{sensitive}@ -> %@", buf, 0x16u);
+          v42 = v19;
+          _os_log_impl(&dword_272D8F000, v18, OS_LOG_TYPE_DEFAULT, "%{sensitive}@ -> %@", buf, 0x16u);
         }
 
-        if (v16)
+        if (v17)
         {
           break;
         }
@@ -355,7 +356,7 @@ LABEL_4:
             goto LABEL_4;
           }
 
-          v19 = 0;
+          v20 = 0;
           blockCopy = v33;
           goto LABEL_29;
         }
@@ -366,32 +367,32 @@ LABEL_4:
 
       if (!v31)
       {
-        v19 = 1;
+        v20 = 1;
         v10 = v32;
         blockCopy = v33;
         goto LABEL_31;
       }
 
       v34 = 0;
-      v20 = [WCRCipherMLClient categoryForString:v12 withError:&v34];
-      v21 = v34;
-      v11 = v21;
-      v22 = MEMORY[0x277CCACA8];
+      v21 = [WCRCipherMLClient categoryForString:v12 withError:&v34];
+      v22 = v34;
+      v11 = v22;
+      v23 = MEMORY[0x277CCACA8];
       blockCopy = v33;
-      if (v20 || !v21)
+      if (v21 || !v22)
       {
-        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"CipherML response: %@", v20];
-        [WCRLogging log:v28 withType:0];
+        v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"CipherML response: %@", v21];
+        [WCRLogging log:v29 withType:0];
 
-        v19 = [v20 integerValue] == 301 || objc_msgSend(v20, "integerValue") == 303 || objc_msgSend(v20, "integerValue") == 1505 || objc_msgSend(v20, "integerValue") == 501;
+        v20 = [v21 integerValue] == 301 || objc_msgSend(v21, "integerValue") == 303 || objc_msgSend(v21, "integerValue") == 1505 || objc_msgSend(v21, "integerValue") == 501;
       }
 
       else
       {
-        v23 = [v21 description];
-        v24 = [v22 stringWithFormat:@"CipherML error: %s. Falling back to local filter verdict.", objc_msgSend(v23, "UTF8String")];
-        v19 = 1;
-        [WCRLogging log:v24 withType:1];
+        v24 = [v22 description];
+        v25 = [v23 stringWithFormat:@"CipherML error: %s. Falling back to local filter verdict.", objc_msgSend(v24, "UTF8String")];
+        v20 = 1;
+        [WCRLogging log:v25 withType:1];
       }
 
 LABEL_29:
@@ -400,7 +401,7 @@ LABEL_29:
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
 LABEL_31:
@@ -410,20 +411,19 @@ LABEL_31:
   {
     scheme = [blockCopy scheme];
 
-    v26 = @"Unknown format";
+    v27 = @"Unknown format";
     if (!scheme)
     {
-      v26 = @"Missing a scheme (e.g. https://)";
+      v27 = @"Missing a scheme (e.g. https://)";
     }
 
-    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to parse URL: %@", v26];
-    [WCRLogging log:v27 withType:1];
+    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to parse URL: %@", v27];
+    [WCRLogging log:v28 withType:1];
 
-    v19 = 0;
+    v20 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v20;
 }
 
 + (id)_matchingStringsForDomain:(id)domain
@@ -462,7 +462,7 @@ LABEL_31:
 
 + (id)_matchingStringsForURL:(id)l
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = lCopy;
   if (lCopy)
@@ -495,21 +495,21 @@ LABEL_31:
 
       if (v16)
       {
-        v50 = v11;
+        v49 = v11;
         [v7 addObject:v16];
-        v49 = v16;
+        v48 = v16;
         v18 = v16;
         host5 = [v4 host];
+        v50 = 0u;
         v51 = 0u;
         v52 = 0u;
         v53 = 0u;
-        v54 = 0u;
         pathComponents2 = [v4 pathComponents];
-        v21 = [pathComponents2 countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v21 = [pathComponents2 countByEnumeratingWithState:&v50 objects:v54 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v52;
+          v23 = *v51;
           do
           {
             v24 = 0;
@@ -517,12 +517,12 @@ LABEL_31:
             v26 = host5;
             do
             {
-              if (*v52 != v23)
+              if (*v51 != v23)
               {
                 objc_enumerationMutation(pathComponents2);
               }
 
-              v27 = *(*(&v51 + 1) + 8 * v24);
+              v27 = *(*(&v50 + 1) + 8 * v24);
               v18 = [v25 stringByAppendingPathComponent:v27];
 
               host5 = [v26 stringByAppendingPathComponent:v27];
@@ -539,7 +539,7 @@ LABEL_31:
             }
 
             while (v22 != v24);
-            v22 = [pathComponents2 countByEnumeratingWithState:&v51 objects:v55 count:16];
+            v22 = [pathComponents2 countByEnumeratingWithState:&v50 objects:v54 count:16];
           }
 
           while (v22);
@@ -569,7 +569,7 @@ LABEL_31:
 
         fragment = [v4 fragment];
 
-        v16 = v49;
+        v16 = v48;
         if (fragment)
         {
           v39 = MEMORY[0x277CCACA8];
@@ -590,7 +590,7 @@ LABEL_31:
           host5 = v43;
         }
 
-        v11 = v50;
+        v11 = v49;
         v46 = [v7 copy];
       }
 
@@ -610,8 +610,6 @@ LABEL_31:
   {
     v46 = 0;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
@@ -637,25 +635,23 @@ LABEL_31:
 
 id __78__WCRBloomFilter_reportAnalyticsBloomFilterVersion_withAppleAllowListVersion___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"bloom_filter_version";
-  v5[1] = @"apple_allowlist_version";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"bloom_filter_version";
+  v4[1] = @"apple_allowlist_version";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 id __51__WCRBloomFilter_reportAnalyticsBloomFilterBlocked__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"bloom_filter_verdict";
-  v4[0] = @"Blocked";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"bloom_filter_verdict";
+  v3[0] = @"Blocked";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }

@@ -5,21 +5,21 @@
 
 void ____EventCallback_block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = __Block_byref_object_copy__3;
-  v19 = __Block_byref_object_dispose__3;
-  v20 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = ____EventCallback_block_invoke_167;
-  v13[3] = &unk_1E8414450;
+  v20 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3052000000;
+  v17 = __Block_byref_object_copy__3;
+  v18 = __Block_byref_object_dispose__3;
+  v19 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ____EventCallback_block_invoke_167;
+  v12[3] = &unk_1E8414450;
   v2 = *(a1 + 32);
-  v13[4] = v2;
-  v13[5] = &v15;
-  v14 = *(a1 + 40);
+  v12[4] = v2;
+  v12[5] = &v14;
+  v13 = *(a1 + 40);
   v3 = *(v2 + 144);
   if (v3)
   {
@@ -33,12 +33,12 @@ void ____EventCallback_block_invoke(uint64_t a1)
 
   os_unfair_lock_lock((v2 + 120));
   v4 = *(*(a1 + 32) + 124);
-  v5 = (&v13[-1] - ((8 * v4 + 15) & 0xFFFFFFFF0));
+  v5 = (&v12[-1] - ((8 * v4 + 15) & 0xFFFFFFFF0));
   v6 = *(a1 + 32);
   v7 = *(v6 + 128);
   if (v7)
   {
-    v8 = (&v13[-1] - ((8 * v4 + 15) & 0xFFFFFFFF0));
+    v8 = (&v12[-1] - ((8 * v4 + 15) & 0xFFFFFFFF0));
     do
     {
       *v8++ = v7;
@@ -55,7 +55,7 @@ void ____EventCallback_block_invoke(uint64_t a1)
     do
     {
       v9 = *v5;
-      [(__GCHIDSystemObservation *)*v5 DO_OBSERVER_CALLOUT_FOR_EVENT:v13 FROM:?];
+      [(__GCHIDSystemObservation *)*v5 DO_OBSERVER_CALLOUT_FOR_EVENT:v12 FROM:?];
 
       ++v5;
       --v4;
@@ -72,8 +72,7 @@ LABEL_10:
   }
 
   CFRelease(*(a1 + 56));
-  _Block_object_dispose(&v15, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t ____EventCallback_block_invoke_167(uint64_t a1)
@@ -110,7 +109,7 @@ uint64_t ____EventCallback_block_invoke_167(uint64_t a1)
   return result;
 }
 
-uint64_t ____EventCallback_block_invoke_167_cold_1()
+GCHIDServiceInfo *____EventCallback_block_invoke_167_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
   v4 = v3;

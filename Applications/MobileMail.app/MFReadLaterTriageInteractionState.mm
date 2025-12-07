@@ -19,7 +19,7 @@
 {
   swift_getObjCClassMetadata();
   _objc_retain(items);
-  sub_10025C9B0(&unk_1006D7220);
+  sub_10025C9B0(&unk_1006D7220, &qword_1004FF600);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjCClassMetadata();
   v6 = sub_1003CAD54(v4);
@@ -40,7 +40,7 @@
   v13 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v10);
   v14 = &v6 - v13;
-  v15 = (*(*(sub_10025C9B0(&qword_1006D8740) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v15 = (*(*(sub_10025C9B0(&qword_1006D8740, &unk_100501CB0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v3 = __chkstk_darwin(dateCopy);
   v16 = &v6 - v15;
   _objc_retain(v3);
@@ -119,7 +119,7 @@
 - (NSDate)date
 {
   selfCopy = self;
-  v3 = sub_10025C9B0(&qword_1006D8740);
+  v3 = sub_10025C9B0(&qword_1006D8740, &unk_100501CB0);
   v8 = (*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v3);
   v10 = &isa - v8;

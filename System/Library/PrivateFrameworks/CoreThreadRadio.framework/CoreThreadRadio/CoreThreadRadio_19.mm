@@ -1,3 +1,231 @@
+void NetworkDiagnosticsLogFileDescriptors::NetworkDiagnosticsLogFileDescriptors(NetworkDiagnosticsLogFileDescriptors *this)
+{
+  *(this + 58) = 0;
+  *this = v3;
+  v4 = v2;
+  *(this + *(v3 - 24)) = v2;
+  v5 = (this + *(*this - 24));
+  std::ios_base::init(v5, this + 8);
+  v5[1].__vftable = 0;
+  v5[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 129) = 0;
+  *(this + 71) = v3;
+  *(this + *(v3 - 24) + 568) = v4;
+  v6 = (this + *(*(this + 71) - 24) + 568);
+  std::ios_base::init(v6, this + 576);
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 200) = 0;
+  *(this + 142) = v3;
+  *(this + *(v3 - 24) + 1136) = v4;
+  v7 = (this + *(*(this + 142) - 24) + 1136);
+  std::ios_base::init(v7, this + 1144);
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 271) = 0;
+  *(this + 213) = v3;
+  *(this + *(v3 - 24) + 1704) = v4;
+  v8 = (this + *(*(this + 213) - 24) + 1704);
+  std::ios_base::init(v8, this + 1712);
+  v8[1].__vftable = 0;
+  v8[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 342) = 0;
+  *(this + 284) = v3;
+  *(this + *(v3 - 24) + 2272) = v4;
+  v9 = (this + *(*(this + 284) - 24) + 2272);
+  std::ios_base::init(v9, this + 2280);
+  v9[1].__vftable = 0;
+  v9[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 413) = 0;
+  *(this + 355) = v3;
+  *(this + *(v3 - 24) + 2840) = v4;
+  v10 = (this + *(*(this + 355) - 24) + 2840);
+  std::ios_base::init(v10, this + 2848);
+  v10[1].__vftable = 0;
+  v10[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 484) = 0;
+  *(this + 426) = v3;
+  *(this + *(v3 - 24) + 3408) = v4;
+  v11 = (this + *(*(this + 426) - 24) + 3408);
+  std::ios_base::init(v11, this + 3416);
+  v11[1].__vftable = 0;
+  v11[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 555) = 0;
+  *(this + 497) = v3;
+  *(this + *(v3 - 24) + 3976) = v4;
+  v12 = (this + *(*(this + 497) - 24) + 3976);
+  std::ios_base::init(v12, this + 3984);
+  v12[1].__vftable = 0;
+  v12[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 626) = 0;
+  *(this + 568) = v3;
+  *(this + *(v3 - 24) + 4544) = v4;
+  v13 = (this + *(*(this + 568) - 24) + 4544);
+  std::ios_base::init(v13, this + 4552);
+  v13[1].__vftable = 0;
+  v13[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 697) = 0;
+  *(this + 639) = v3;
+  *(this + *(v3 - 24) + 5112) = v4;
+  v14 = (this + *(*(this + 639) - 24) + 5112);
+  std::ios_base::init(v14, this + 5120);
+  v14[1].__vftable = 0;
+  v14[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+  *(this + 768) = 0;
+  *(this + 710) = v3;
+  *(this + *(v3 - 24) + 5680) = v4;
+  v15 = (this + *(*(this + 710) - 24) + 5680);
+  std::ios_base::init(v15, this + 5688);
+  v15[1].__vftable = 0;
+  v15[1].__fmtflags_ = -1;
+  std::filebuf::basic_filebuf();
+}
+
+void sub_100224608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14)
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  std::ofstream::~ofstream(v16);
+  std::ofstream::~ofstream(v15);
+  std::ofstream::~ofstream(v17);
+  std::ofstream::~ofstream(a9);
+  std::ofstream::~ofstream(a10);
+  std::ofstream::~ofstream(a11);
+  std::ofstream::~ofstream(a12);
+  std::ofstream::~ofstream(a13);
+  std::ofstream::~ofstream(a14);
+  std::ofstream::~ofstream(v14);
+  _Unwind_Resume(a1);
+}
+
+void sub_100224738()
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224708);
+}
+
+void sub_100224764(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224710);
+}
+
+void sub_100224790()
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224718);
+}
+
+void sub_1002247BC()
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224720);
+}
+
+void sub_1002247E0()
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224728);
+}
+
+void sub_100224804()
+{
+  std::ostream::~ostream();
+  std::ios::~ios();
+  JUMPOUT(0x100224730);
+}
+
+void *std::ofstream::~ofstream(void *a1)
+{
+  std::filebuf::~filebuf();
+  std::ostream::~ostream();
+  std::ios::~ios();
+  return a1;
+}
+
+void NetworkDiagnosticsLogFileNames::~NetworkDiagnosticsLogFileNames(void **this)
+{
+  if (*(this + 311) < 0)
+  {
+    operator delete(this[36]);
+  }
+
+  if (*(this + 287) < 0)
+  {
+    operator delete(this[33]);
+  }
+
+  if (*(this + 263) < 0)
+  {
+    operator delete(this[30]);
+  }
+
+  if (*(this + 239) < 0)
+  {
+    operator delete(this[27]);
+  }
+
+  if (*(this + 215) < 0)
+  {
+    operator delete(this[24]);
+  }
+
+  if (*(this + 191) < 0)
+  {
+    operator delete(this[21]);
+  }
+
+  if (*(this + 167) < 0)
+  {
+    operator delete(this[18]);
+  }
+
+  if (*(this + 143) < 0)
+  {
+    operator delete(this[15]);
+  }
+
+  if (*(this + 119) < 0)
+  {
+    operator delete(this[12]);
+  }
+
+  if (*(this + 95) < 0)
+  {
+    operator delete(this[9]);
+  }
+
+  if (*(this + 71) < 0)
+  {
+    operator delete(this[6]);
+  }
+
+  if (*(this + 47) < 0)
+  {
+    operator delete(this[3]);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
 void NetworkDiagnosticsConfigDb::openFiles(uint64_t *a1, NSObject *a2)
 {
   if (*(a1 + 23) >= 0)
@@ -15,16 +243,11 @@ void NetworkDiagnosticsConfigDb::openFiles(uint64_t *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "TDM:ERR to create TDM log folder currentTime: %s", &v3, 0xCu);
 }
 
-void NetworkDiagnosticsConfigDb::openFiles(char *a1)
+void NetworkDiagnosticsConfigDb::openFiles()
 {
-  OUTLINED_FUNCTION_18(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_18(__stack_chk_guard);
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_5_1(&_mh_execute_header, v4, v5, "TDM:ERR to open %s", v6);
+  OUTLINED_FUNCTION_5_1(&_mh_execute_header, v0, v1, "TDM:ERR to open %s", v2);
 }
 
 void threadDiagnosticsManager_MsgHandler(uint64_t a1, void **a2, uint64_t a3)
@@ -384,7 +607,7 @@ void threadDiagnosticsManager_MsgHandler(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: Returning error response handler ...", &v1, 0xCu);
 }
 
-uint64_t NetworkDiagnosticsManager::getInstance(NetworkDiagnosticsManager *this)
+NetworkDiagnosticsManager *NetworkDiagnosticsManager::getInstance(NetworkDiagnosticsManager *this)
 {
   if (!NetworkDiagnosticsManager::mInstance)
   {
@@ -394,7 +617,7 @@ uint64_t NetworkDiagnosticsManager::getInstance(NetworkDiagnosticsManager *this)
   return NetworkDiagnosticsManager::mInstance;
 }
 
-void sub_10022587C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
+void sub_10022587C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22)
 {
   if (v23 < 0)
   {
@@ -403,7 +626,7 @@ void sub_10022587C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -462,7 +685,7 @@ void *boost::any_cast<nl::Data>(void *result)
   return result;
 }
 
-void sub_100226F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_100226F24(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a28 < 0)
   {
@@ -471,7 +694,7 @@ void sub_100226F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v29 < 0)
@@ -482,11 +705,11 @@ void sub_100226F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1002271D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1002271D4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v16 + 23) < 0)
@@ -502,11 +725,11 @@ void sub_1002271D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100227464(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100227464(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v16 + 23) < 0)
@@ -522,11 +745,11 @@ void sub_100227464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1002276F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1002276F4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v16 + 23) < 0)
@@ -542,11 +765,11 @@ void sub_1002276F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100227964(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100227964(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -557,11 +780,11 @@ void sub_100227964(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100227BC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100227BC4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -572,11 +795,11 @@ void sub_100227BC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100227E20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100227E20(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -587,11 +810,11 @@ void sub_100227E20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100228080(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_100228080(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -602,11 +825,11 @@ void sub_100228080(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1002282E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1002282E0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16 < 0)
@@ -688,24 +911,22 @@ void NetworkDiagnosticsMdnsResolver::NetworkDiagnosticsMdnsResolver(NetworkDiagn
   std::vector<MyServiceType>::reserve(v3, 0x64uLL);
 }
 
-void sub_1002297B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1002297B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ios::~ios();
-  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(v3);
-  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(v2 + 32);
+  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table((v3 + 32));
   std::vector<MyServiceType>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<MyServiceType>::reserve(void *result, unint64_t a2)
+MyServiceType **std::vector<MyServiceType>::reserve(MyServiceType **result, unint64_t a2)
 {
   if (0xF0F0F0F0F0F0F0F1 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x1E1E1E1E1E1E1E2)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<MyServiceType>>(result, a2);
     }
 
@@ -715,9 +936,9 @@ void *std::vector<MyServiceType>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1002298D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1002298D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<MyServiceType>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -727,8 +948,8 @@ void NetworkDiagnosticsMdnsResolver::~NetworkDiagnosticsMdnsResolver(NetworkDiag
   std::filebuf::~filebuf();
   std::ostream::~ostream();
   std::ios::~ios();
-  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(this + 72);
-  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(this + 32);
+  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(this + 9);
+  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(this + 4);
   v3 = (this + 8);
   std::vector<MyServiceType>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
@@ -758,66 +979,60 @@ void NetworkDiagnosticsMdnsResolver::cleanup(NetworkDiagnosticsMdnsResolver *thi
   NetworkDiagnosticsMdnsResolver::closeFiles(this);
 }
 
-BOOL NetworkDiagnosticsMdnsResolver::initialize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+BOOL NetworkDiagnosticsMdnsResolver::initialize(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t **a6)
 {
-  v9 = (a1 + 120);
-  v10 = (a2 + 23);
-  if (*(a2 + 23) < 0)
-  {
-    v11 = *a2;
-  }
-
+  v8 = (a1 + 120);
   std::ofstream::open();
-  v12 = *(v9 + *(*(a1 + 120) - 24) + 32) & 5;
-  if (v12)
+  v9 = *(v8 + *(*(a1 + 120) - 24) + 32) & 5;
+  if (v9)
   {
     logging_obg = log_get_logging_obg("com.apple.wpantund.tdm", "default");
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
     {
-      NetworkDiagnosticsMdnsResolver::initialize(v10, a2);
+      NetworkDiagnosticsMdnsResolver::initialize();
     }
   }
 
   else
   {
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Current Time:", 13);
-    v15 = *(a6 + 23);
-    if (v15 >= 0)
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Current Time:", 13);
+    v12 = *(a6 + 23);
+    if (v12 >= 0)
     {
-      v16 = a6;
+      v13 = a6;
     }
 
     else
     {
-      v16 = *a6;
+      v13 = *a6;
     }
 
-    if (v15 >= 0)
+    if (v12 >= 0)
     {
-      v17 = *(a6 + 23);
+      v14 = *(a6 + 23);
     }
 
     else
     {
-      v17 = *(a6 + 8);
+      v14 = a6[1];
     }
 
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v16, v17);
-    std::ios_base::getloc((v18 + *(*v18 - 24)));
-    v19 = std::locale::use_facet(&v22, &std::ctype<char>::id);
-    (v19->__vftable[2].~facet_0)(v19, 10);
-    std::locale::~locale(&v22);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
+    std::ios_base::getloc((v15 + *(*v15 - 24)));
+    v16 = std::locale::use_facet(&v19, &std::ctype<char>::id);
+    (v16->__vftable[2].~facet_0)(v16, 10);
+    std::locale::~locale(&v19);
     std::ostream::put();
     std::ostream::flush();
-    std::ios_base::getloc((v9 + *(*v9 - 24)));
-    v20 = std::locale::use_facet(&v22, &std::ctype<char>::id);
-    (v20->__vftable[2].~facet_0)(v20, 10);
-    std::locale::~locale(&v22);
+    std::ios_base::getloc((v8 + *(*v8 - 24)));
+    v17 = std::locale::use_facet(&v19, &std::ctype<char>::id);
+    (v17->__vftable[2].~facet_0)(v17, 10);
+    std::locale::~locale(&v19);
     std::ostream::put();
     std::ostream::flush();
   }
 
-  return v12 == 0;
+  return v9 == 0;
 }
 
 void NetworkDiagnosticsMdnsResolver::MyStopBrowsingForServices(NetworkDiagnosticsMdnsResolver *this, CFNetServiceBrowserRef browser)
@@ -849,7 +1064,7 @@ void NetworkDiagnosticsMdnsResolver::MyStopBrowsingForServices(NetworkDiagnostic
   }
 }
 
-void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNetServiceBrowser *a2, std::string *__str, uint64_t a4, uint64_t a5, char a6)
+void NetworkDiagnosticsMdnsResolver::updatebrowsedService(NetworkDiagnosticsMdnsResolver *a1, __CFNetServiceBrowser *a2, std::string *__str, const std::string *a4, const std::string *a5, char a6)
 {
   v27 = 0;
   *v28 = 0u;
@@ -863,24 +1078,24 @@ void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNet
   std::string::operator=(v31, __str);
   std::string::operator=(&v29[1], a4);
   std::string::operator=(v28, a5);
-  v12 = a1[2];
-  if (v12 >= a1[3])
+  v12 = *(a1 + 2);
+  if (v12 >= *(a1 + 3))
   {
-    v13 = std::vector<MyServiceType>::__emplace_back_slow_path<MyServiceType const&>((a1 + 1), &v27);
+    v13 = std::vector<MyServiceType>::__emplace_back_slow_path<MyServiceType const&>(a1 + 8, &v27);
   }
 
   else
   {
-    MyServiceType::MyServiceType(a1[2], &v27);
+    MyServiceType::MyServiceType(*(a1 + 2), &v27);
     v13 = v12 + 136;
-    a1[2] = v12 + 136;
+    *(a1 + 2) = v12 + 136;
   }
 
-  a1[2] = v13;
+  *(a1 + 2) = v13;
   padString(__str, 0x1EuLL, 32);
   padString(a4, 0x1EuLL, 32);
   padString(a5, 0x32uLL, 32);
-  v14 = *(a5 + 23);
+  v14 = SHIBYTE(a5->__r_.__value_.__r.__words[2]);
   if (v14 >= 0)
   {
     v15 = a5;
@@ -888,22 +1103,22 @@ void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNet
 
   else
   {
-    v15 = *a5;
+    v15 = a5->__r_.__value_.__r.__words[0];
   }
 
   if (v14 >= 0)
   {
-    v16 = *(a5 + 23);
+    size = HIBYTE(a5->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v16 = *(a5 + 8);
+    size = a5->__r_.__value_.__l.__size_;
   }
 
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 15, v15, v16);
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 15, v15, size);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "   ", 3);
-  v18 = *(a4 + 23);
+  v18 = SHIBYTE(a4->__r_.__value_.__r.__words[2]);
   if (v18 >= 0)
   {
     v19 = a4;
@@ -911,17 +1126,17 @@ void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNet
 
   else
   {
-    v19 = *a4;
+    v19 = a4->__r_.__value_.__r.__words[0];
   }
 
   if (v18 >= 0)
   {
-    v20 = *(a4 + 23);
+    v20 = HIBYTE(a4->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v20 = *(a4 + 8);
+    v20 = a4->__r_.__value_.__l.__size_;
   }
 
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 15, v19, v20);
@@ -939,15 +1154,15 @@ void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNet
 
   if (v22 >= 0)
   {
-    size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
+    v24 = HIBYTE(__str->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = __str->__r_.__value_.__l.__size_;
+    v24 = __str->__r_.__value_.__l.__size_;
   }
 
-  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 15, v23, size);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 15, v23, v24);
   std::ios_base::getloc((v25 + *(*v25 - 24)));
   v26 = std::locale::use_facet(&v36, &std::ctype<char>::id);
   (v26->__vftable[2].~facet_0)(v26, 10);
@@ -985,7 +1200,7 @@ void NetworkDiagnosticsMdnsResolver::updatebrowsedService(unint64_t *a1, __CFNet
   }
 }
 
-void sub_10022A048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+void sub_10022A048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 16) = v10;
   MyServiceType::~MyServiceType(&a9);
@@ -1020,7 +1235,7 @@ void MyServiceType::~MyServiceType(void **this)
   }
 }
 
-void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(NetworkDiagnosticsMdnsResolver *this, __CFNetServiceBrowser *a2, CFNetServiceRef theService, uint64_t *a4, CFStreamError *a5, void *a6)
+void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(NetworkDiagnosticsMdnsResolver *this, __CFNetServiceBrowser *a2, CFNetServiceRef theService, _DWORD *a4, CFStreamError *a5, void *a6)
 {
   v9 = a2;
   if (!a5)
@@ -1032,7 +1247,7 @@ void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(NetworkDiagnosticsMdnsReso
     }
   }
 
-  if (!a4 || !*(a4 + 2))
+  if (!a4 || !a4[2])
   {
     goto LABEL_13;
   }
@@ -1040,7 +1255,7 @@ void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(NetworkDiagnosticsMdnsReso
   v12 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(a4);
+    NetworkDiagnosticsMdnsResolver::MyBrowseCallBack();
   }
 
   if ((v9 & 1) == 0 && a5)
@@ -1048,7 +1263,7 @@ void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(NetworkDiagnosticsMdnsReso
     v13 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(a4);
+      NetworkDiagnosticsMdnsResolver::MyBrowseCallBack();
     }
 
     NetworkDiagnosticsMdnsResolver::MyStopBrowsingForServices(a5, this);
@@ -1060,7 +1275,7 @@ LABEL_13:
     Name = CFNetServiceGetName(theService);
     CFStringGetCString(Name, buffer, 64, 0x8000100u);
     Type = CFNetServiceGetType(theService);
-    CFStringGetCString(Type, v25, 24, 0x8000100u);
+    CFStringGetCString(Type, v23, 24, 0x8000100u);
     Domain = CFNetServiceGetDomain(theService);
     CFStringGetCString(Domain, __s, 1005, 0x8000100u);
     v17 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
@@ -1069,28 +1284,28 @@ LABEL_13:
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315650;
       *(buf.__r_.__value_.__r.__words + 4) = __s;
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = v25;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = v23;
       HIWORD(buf.__r_.__value_.__r.__words[2]) = 2080;
-      v23 = buffer;
+      v21 = buffer;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "TDM: MyBrowseCallBack for %s.%s hostname:%s", &buf, 0x20u);
     }
 
     std::string::basic_string[abi:ne200100]<0>(&buf, __s);
-    std::string::basic_string[abi:ne200100]<0>(v20, v25);
-    std::string::basic_string[abi:ne200100]<0>(__p, buffer);
+    std::string::basic_string[abi:ne200100]<0>(&v19, v23);
+    std::string::basic_string[abi:ne200100]<0>(&__p, buffer);
     if (a5)
     {
-      NetworkDiagnosticsMdnsResolver::updatebrowsedService(a5, this, &buf, v20, __p, v9);
+      NetworkDiagnosticsMdnsResolver::updatebrowsedService(a5, this, &buf, &v19, &__p, v9);
     }
 
-    if (v19 < 0)
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v21 < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -1145,7 +1360,7 @@ uint64_t NetworkDiagnosticsMdnsResolver::MyStartBrowsingForServices(NetworkDiagn
       result = os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        NetworkDiagnosticsMdnsResolver::MyStartBrowsingForServices(&error.domain);
+        NetworkDiagnosticsMdnsResolver::MyStartBrowsingForServices();
         return 0;
       }
     }
@@ -1219,11 +1434,11 @@ void NetworkDiagnosticsMdnsResolver::MyResolveCallBack(NetworkDiagnosticsMdnsRes
 
                 v18 = bswap32(*(v14 + 1));
                 *buf = 136315650;
-                *v41 = v17;
-                *&v41[8] = 2080;
-                *&v41[10] = __s;
-                *&v41[18] = 1024;
-                v42 = HIWORD(v18);
+                *v42 = v17;
+                *&v42[8] = 2080;
+                *&v42[10] = __s;
+                *&v42[18] = 1024;
+                v43 = HIWORD(v18);
                 _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "TDM: MyResolveCallBack hostanme:%s ip:%s port:%d", buf, 0x1Cu);
               }
 
@@ -1262,33 +1477,33 @@ void NetworkDiagnosticsMdnsResolver::MyResolveCallBack(NetworkDiagnosticsMdnsRes
               {
                 MyServiceType::MyServiceType(buf, (*(this + 1) + 136 * v30));
                 p_str = &__str;
-                v34 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 4, &__str.__r_.__value_.__l.__data_);
+                v34 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 4, &__str.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_str, &v39);
                 v15 = MyServiceType::operator=((v34 + 5), buf);
               }
 
-              if (v51 < 0)
+              if (v52 < 0)
               {
                 operator delete(__p);
               }
 
-              if (v49 < 0)
+              if (v50 < 0)
               {
-                operator delete(v48);
+                operator delete(v49);
               }
 
-              if (v47 < 0)
+              if (v48 < 0)
               {
-                operator delete(v46);
+                operator delete(v47);
               }
 
-              if (v45 < 0)
+              if (v46 < 0)
               {
-                operator delete(v44);
+                operator delete(v45);
               }
 
-              if (v43 < 0)
+              if (v44 < 0)
               {
-                operator delete(*&v41[4]);
+                operator delete(*&v42[4]);
               }
 
               if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
@@ -1318,11 +1533,11 @@ void NetworkDiagnosticsMdnsResolver::MyResolveCallBack(NetworkDiagnosticsMdnsRes
               v28 = v14[1];
               v29 = *v14;
               *buf = 136315650;
-              *v41 = v27;
-              *&v41[8] = 1024;
-              *&v41[10] = v28;
-              *&v41[14] = 1024;
-              *&v41[16] = v29;
+              *v42 = v27;
+              *&v42[8] = 1024;
+              *&v42[10] = v28;
+              *&v42[14] = 1024;
+              *&v42[16] = v29;
               _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "TDM: Not a valid Ipv6 address hostname:%s sa_family=%d sa_len=%d", buf, 0x18u);
             }
           }
@@ -1528,7 +1743,7 @@ LABEL_25:
   v29 = log_get_logging_obg("com.apple.wpantund.tdm", "default");
   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    NetworkDiagnosticsMdnsResolver::MyResolveService(v2);
+    NetworkDiagnosticsMdnsResolver::MyResolveService();
   }
 
   CFRelease(v9);
@@ -1610,9 +1825,9 @@ void std::vector<MyServiceType>::__destroy_vector::operator()[abi:ne200100](void
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1669,14 +1884,14 @@ void std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__
   }
 }
 
-void std::vector<MyServiceType>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<MyServiceType>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<MyServiceType>>::destroy[abi:ne200100]<MyServiceType,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<MyServiceType>>::destroy[abi:ne200100]<MyServiceType,0>(result, i))
   {
     i -= 136;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<MyServiceType>>::destroy[abi:ne200100]<MyServiceType,0>(uint64_t a1, uint64_t a2)
@@ -1881,9 +2096,9 @@ uint64_t std::vector<MyServiceType>::__emplace_back_slow_path<MyServiceType cons
   return v12;
 }
 
-void sub_10022B5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10022B5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<MyServiceType>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2077,35 +2292,35 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -2113,44 +2328,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
 void sub_10022BC70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2240,87 +2455,74 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-void NetworkDiagnosticsMdnsResolver::initialize(char *a1, uint64_t *a2)
+void NetworkDiagnosticsMdnsResolver::initialize()
 {
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack(uint64_t *a1)
+void NetworkDiagnosticsMdnsResolver::MyBrowseCallBack()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: inside MyBrowseCallBack instance is NULL ", v2, v3, v4, v5);
 }
 
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v2 = *v1;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void NetworkDiagnosticsMdnsResolver::MyStartBrowsingForServices(uint64_t *a1)
 {
-  v1 = *(OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard) + 2);
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
   OUTLINED_FUNCTION_3_5();
-  v5 = 1024;
-  v6 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "TDM: CFNetServiceBrowserSearchForServices returned :(domain = %ld, error = %d)", v4, 0x12u);
+  OUTLINED_FUNCTION_12();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void NetworkDiagnosticsMdnsResolver::MyStartBrowsingForServices()
+{
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  OUTLINED_FUNCTION_3_5();
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "TDM: CFNetServiceBrowserSearchForServices returned :(domain = %ld, error = %d)", v2, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: gServiceBrowserRef is NULL. Failed to create ", v2, v3, v4, v5);
 }
 
 void NetworkDiagnosticsMdnsResolver::MyResolveCallBack()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: sa is NULL ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: sa is NULL ", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: addrDataRef is NULL ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: addrDataRef is NULL ", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: No address got in response to resolve ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: No address got in response to resolve ", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: Address is NULL in response ", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&_mh_execute_header, v0, v1, "TDM: ERROR: Address is NULL in response ", v2, v3, v4, v5);
 }
 
-void NetworkDiagnosticsMdnsResolver::MyResolveService(uint64_t *a1)
+void NetworkDiagnosticsMdnsResolver::MyResolveService()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = v2 + 136 * v1;
-  if (*(v3 + 31) < 0)
-  {
-    v4 = *(v3 + 8);
-  }
-
-  if (*(v3 + 55) < 0)
-  {
-    v5 = *(v3 + 32);
-  }
-
-  if (*(v3 + 79) < 0)
-  {
-    v6 = *(v3 + 56);
-  }
-
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void NetworkDiagnosticsMdnsResolver::MyResolveService(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -2687,14 +2889,14 @@ uint64_t NetworkDiagnosticsLogger::output_services_info(uint64_t result, void *a
   return result;
 }
 
-uint64_t NetworkDiagnosticsLogger::output_dns_info_to_debug(uint64_t result, void *a2, void *a3, void *a4)
+void *NetworkDiagnosticsLogger::output_dns_info_to_debug(void *result, void *a2, void *a3, void *a4)
 {
-  v4 = *(result + 3976);
+  v4 = result[497];
   if (v4[7])
   {
     v5 = result;
-    v6 = (result + 568);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((result + 568), "---------", 9);
+    v6 = result + 71;
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(result + 71, "---------", 9);
     std::ios_base::getloc((v7 + *(*v7 - 24)));
     v8 = std::locale::use_facet(&v200, &std::ctype<char>::id);
     (v8->__vftable[2].~facet_0)(v8, 10);
@@ -4095,798 +4297,732 @@ uint64_t NetworkDiagnosticsLogger::output_dns_info_to_debug(uint64_t result, voi
 uint64_t NetworkDiagnosticsLogger::insertNetworkInformationToDot(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a1[498];
-  v6 = *(v5 + 6648);
-  v7 = *(v5 + 6656);
-  v8 = *(v5 + 6658);
-  v9 = *(v5 + 6660);
-  v120 = a1[497];
-  v119 = *(v120 + 112);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v130);
-  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v131, "0x", 2);
-  v125[0] = 48;
-  v11 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, v125);
-  v12 = *v11;
-  *(v11 + *(*v11 - 24) + 24) = 4;
-  *(v11 + *(v12 - 24) + 8) = *(v11 + *(v12 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v6 = *(v5 + 6658);
+  v7 = *(v5 + 6660);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v117);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v118, "0x", 2);
+  v112[0] = 48;
+  v9 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, v112);
+  v10 = *v9;
+  *(v9 + *(*v9 - 24) + 24) = 4;
+  *(v9 + *(v10 - 24) + 8) = *(v9 + *(v10 - 24) + 8) & 0xFFFFFFB5 | 8;
   std::ostream::operator<<();
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v125);
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v126, "0x", 2);
-  v124.__r_.__value_.__s.__data_[0] = 48;
-  v14 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v13, &v124);
-  v15 = *v14;
-  *(v14 + *(*v14 - 24) + 24) = 16;
-  *(v14 + *(v15 - 24) + 8) = *(v14 + *(v15 - 24) + 8) & 0xFFFFFFB5 | 8;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v112);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v113, "0x", 2);
+  v111.__r_.__value_.__s.__data_[0] = 48;
+  v12 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v11, &v111);
+  v13 = *v12;
+  *(v12 + *(*v12 - 24) + 24) = 16;
+  *(v12 + *(v13 - 24) + 8) = *(v12 + *(v13 - 24) + 8) & 0xFFFFFFB5 | 8;
   std::ostream::operator<<();
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "ThreadNwInfo [pos=0,0! shape=plaintext fontsize=14 margin=0 width=0 height=0 label=<<table title=Thread NW Info border=0 cellborder=1 cellspacing=0 color=black>\\  ", 186);
-  std::ios_base::getloc((v16 + *(*v16 - 24)));
-  v17 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v17->__vftable[2].~facet_0)(v17, 10);
-  std::locale::~locale(&v124);
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "ThreadNwInfo [pos=0,0! shape=plaintext fontsize=14 margin=0 width=0 height=0 label=<<table title=Thread NW Info border=0 cellborder=1 cellspacing=0 color=black>\\  ", 186);
+  std::ios_base::getloc((v14 + *(*v14 - 24)));
+  v15 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v15->__vftable[2].~facet_0)(v15, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>Time</td><td align=left>", 47);
-  v19 = *(v5 + 23);
-  if (v19 >= 0)
+  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>Time</td><td align=left>", 47);
+  v17 = *(v5 + 23);
+  if (v17 >= 0)
   {
-    v20 = v5;
+    v18 = v5;
   }
 
   else
   {
-    v20 = *v5;
+    v18 = *v5;
   }
 
-  if (v19 >= 0)
+  if (v17 >= 0)
   {
-    v21 = *(v5 + 23);
+    v19 = *(v5 + 23);
   }
 
   else
   {
-    v21 = *(v5 + 8);
+    v19 = *(v5 + 8);
   }
 
-  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v20, v21);
-  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v23 + *(*v23 - 24)));
-  v24 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v24->__vftable[2].~facet_0)(v24, 10);
-  std::locale::~locale(&v124);
+  v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v18, v19);
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v21 + *(*v21 - 24)));
+  v22 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v22->__vftable[2].~facet_0)(v22, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>NetworkName</td><td align=left>", 54);
-  v26 = *(v5 + 6687);
-  if (v26 >= 0)
+  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>NetworkName</td><td align=left>", 54);
+  v24 = *(v5 + 6687);
+  if (v24 >= 0)
   {
-    v27 = v5 + 6664;
+    v25 = v5 + 6664;
   }
 
   else
   {
-    v27 = *(v5 + 6664);
+    v25 = *(v5 + 6664);
   }
 
-  if (v26 >= 0)
+  if (v24 >= 0)
   {
-    v28 = *(v5 + 6687);
+    v26 = *(v5 + 6687);
   }
 
   else
   {
-    v28 = *(v5 + 6672);
+    v26 = *(v5 + 6672);
   }
 
-  v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v27, v28);
-  v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v30 + *(*v30 - 24)));
-  v31 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v31->__vftable[2].~facet_0)(v31, 10);
-  std::locale::~locale(&v124);
+  v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v25, v26);
+  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v28 + *(*v28 - 24)));
+  v29 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v29->__vftable[2].~facet_0)(v29, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>Channel</td><td align=left>", 50);
-  std::to_string(&v124, v8);
-  if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>Channel</td><td align=left>", 50);
+  std::to_string(&v111, v6);
+  if ((v111.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v33 = &v124;
+    v31 = &v111;
   }
 
   else
   {
-    v33 = v124.__r_.__value_.__r.__words[0];
+    v31 = v111.__r_.__value_.__r.__words[0];
   }
 
-  if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v111.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v124.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v111.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v124.__r_.__value_.__l.__size_;
+    size = v111.__r_.__value_.__l.__size_;
   }
 
-  v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, v33, size);
-  v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v36 + *(*v36 - 24)));
-  v37 = std::locale::use_facet(&v135, &std::ctype<char>::id);
-  (v37->__vftable[2].~facet_0)(v37, 10);
-  std::locale::~locale(&v135);
+  v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v31, size);
+  v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v34 + *(*v34 - 24)));
+  v35 = std::locale::use_facet(&v122, &std::ctype<char>::id);
+  (v35->__vftable[2].~facet_0)(v35, 10);
+  std::locale::~locale(&v122);
   std::ostream::put();
   std::ostream::flush();
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v111.__r_.__value_.__l.__data_);
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>PANID</td><td align=left>", 48);
-  v38 = std::ostream::operator<<();
-  v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v39 + *(*v39 - 24)));
-  v40 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v40->__vftable[2].~facet_0)(v40, 10);
-  std::locale::~locale(&v124);
+  v36 = std::ostream::operator<<();
+  v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v37 + *(*v37 - 24)));
+  v38 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v38->__vftable[2].~facet_0)(v38, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>XPANID</td><td align=left>", 49);
-  v41 = std::ostream::operator<<();
-  v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v42 + *(*v42 - 24)));
-  v43 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v43->__vftable[2].~facet_0)(v43, 10);
-  std::locale::~locale(&v124);
+  v39 = std::ostream::operator<<();
+  v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v40 + *(*v40 - 24)));
+  v41 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v41->__vftable[2].~facet_0)(v41, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>PartitionID</td><td align=left>", 54);
-  std::to_string(&v124, v9);
-  if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>PartitionID</td><td align=left>", 54);
+  std::to_string(&v111, v7);
+  if ((v111.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v45 = &v124;
+    v43 = &v111;
   }
 
   else
   {
-    v45 = v124.__r_.__value_.__r.__words[0];
+    v43 = v111.__r_.__value_.__r.__words[0];
   }
 
-  if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v111.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v46 = HIBYTE(v124.__r_.__value_.__r.__words[2]);
+    v44 = HIBYTE(v111.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v46 = v124.__r_.__value_.__l.__size_;
+    v44 = v111.__r_.__value_.__l.__size_;
   }
 
-  v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
-  v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v48 + *(*v48 - 24)));
-  v49 = std::locale::use_facet(&v135, &std::ctype<char>::id);
-  (v49->__vftable[2].~facet_0)(v49, 10);
-  std::locale::~locale(&v135);
+  v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, v43, v44);
+  v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v46 + *(*v46 - 24)));
+  v47 = std::locale::use_facet(&v122, &std::ctype<char>::id);
+  (v47->__vftable[2].~facet_0)(v47, 10);
+  std::locale::~locale(&v122);
   std::ostream::put();
   std::ostream::flush();
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v111.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v124.__r_.__value_.__l.__data_);
+    operator delete(v111.__r_.__value_.__l.__data_);
   }
 
-  v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>MLPrefix</td><td align=left>", 51);
-  v51 = *(v5 + 6711);
-  if (v51 >= 0)
+  v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>MLPrefix</td><td align=left>", 51);
+  v49 = *(v5 + 6711);
+  if (v49 >= 0)
   {
-    v52 = v5 + 6688;
-  }
-
-  else
-  {
-    v52 = *(v5 + 6688);
-  }
-
-  if (v51 >= 0)
-  {
-    v53 = *(v5 + 6711);
+    v50 = v5 + 6688;
   }
 
   else
   {
-    v53 = *(v5 + 6696);
+    v50 = *(v5 + 6688);
   }
 
-  v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, v52, v53);
-  v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, "/64", 3);
-  v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v56 + *(*v56 - 24)));
-  v57 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v57->__vftable[2].~facet_0)(v57, 10);
-  std::locale::~locale(&v124);
+  if (v49 >= 0)
+  {
+    v51 = *(v5 + 6711);
+  }
+
+  else
+  {
+    v51 = *(v5 + 6696);
+  }
+
+  v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v50, v51);
+  v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "/64", 3);
+  v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v54 + *(*v54 - 24)));
+  v55 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v55->__vftable[2].~facet_0)(v55, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalRouters</td><td href=", 48);
-  v59 = *(v5 + 319);
-  if (v59 >= 0)
+  v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalRouters</td><td href=", 48);
+  v57 = *(v5 + 319);
+  if (v57 >= 0)
   {
-    v60 = v5 + 296;
+    v58 = v5 + 296;
   }
 
   else
   {
-    v60 = *(v5 + 296);
+    v58 = *(v5 + 296);
   }
 
-  if (v59 >= 0)
+  if (v57 >= 0)
   {
-    v61 = *(v5 + 319);
+    v59 = *(v5 + 319);
   }
 
   else
   {
-    v61 = *(v5 + 304);
+    v59 = *(v5 + 304);
   }
 
-  v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v60, v61);
-  v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, " align=left>", 15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v63, "<U><FONT color=blue>", 22);
-  v64 = *(a2 + 24);
-  v65 = std::ostream::operator<<();
-  v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, "</FONT></U> </td></tr> \\ ", 25);
-  std::ios_base::getloc((v66 + *(*v66 - 24)));
-  v67 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v67->__vftable[2].~facet_0)(v67, 10);
-  std::locale::~locale(&v124);
+  v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, v58, v59);
+  v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, " align=left>", 15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "<U><FONT color=blue>", 22);
+  v62 = std::ostream::operator<<();
+  v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "</FONT></U> </td></tr> \\ ", 25);
+  std::ios_base::getloc((v63 + *(*v63 - 24)));
+  v64 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v64->__vftable[2].~facet_0)(v64, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v68 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalFEDs</td><td href=", 45);
-  v69 = *(v5 + 271);
-  if (v69 >= 0)
+  v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalFEDs</td><td href=", 45);
+  v66 = *(v5 + 271);
+  if (v66 >= 0)
   {
-    v70 = v5 + 248;
+    v67 = v5 + 248;
   }
 
   else
   {
-    v70 = *(v5 + 248);
+    v67 = *(v5 + 248);
   }
 
-  if (v69 >= 0)
+  if (v66 >= 0)
   {
-    v71 = *(v5 + 271);
+    v68 = *(v5 + 271);
   }
 
   else
   {
-    v71 = *(v5 + 256);
+    v68 = *(v5 + 256);
   }
 
-  v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v68, v70, v71);
-  v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, " align=left>", 15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v73, "<U><FONT color=blue>", 22);
-  v74 = *(a3 + 24);
-  v75 = std::ostream::operator<<();
-  v76 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v75, "</FONT></U> </td></tr> \\ ", 25);
-  std::ios_base::getloc((v76 + *(*v76 - 24)));
-  v77 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v77->__vftable[2].~facet_0)(v77, 10);
-  std::locale::~locale(&v124);
+  v69 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, v67, v68);
+  v70 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v69, " align=left>", 15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v70, "<U><FONT color=blue>", 22);
+  v71 = std::ostream::operator<<();
+  v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, "</FONT></U> </td></tr> \\ ", 25);
+  std::ios_base::getloc((v72 + *(*v72 - 24)));
+  v73 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v73->__vftable[2].~facet_0)(v73, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v78 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalSEDs</td><td href=", 45);
-  v79 = *(v5 + 295);
-  if (v79 >= 0)
+  v74 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalSEDs</td><td href=", 45);
+  v75 = *(v5 + 295);
+  if (v75 >= 0)
   {
-    v80 = v5 + 272;
+    v76 = v5 + 272;
   }
 
   else
   {
-    v80 = *(v5 + 272);
+    v76 = *(v5 + 272);
   }
 
-  if (v79 >= 0)
+  if (v75 >= 0)
   {
-    v81 = *(v5 + 295);
+    v77 = *(v5 + 295);
   }
 
   else
   {
-    v81 = *(v5 + 280);
+    v77 = *(v5 + 280);
   }
 
-  v82 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v78, v80, v81);
-  v83 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v82, " align=left>", 15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, "<U><FONT color=blue>", 22);
-  v84 = *(a4 + 24);
-  v85 = std::ostream::operator<<();
-  v86 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v85, "</FONT></U> </td></tr> \\ ", 25);
-  std::ios_base::getloc((v86 + *(*v86 - 24)));
-  v87 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v87->__vftable[2].~facet_0)(v87, 10);
-  std::locale::~locale(&v124);
+  v78 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v74, v76, v77);
+  v79 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v78, " align=left>", 15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v79, "<U><FONT color=blue>", 22);
+  v80 = std::ostream::operator<<();
+  v81 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, "</FONT></U> </td></tr> \\ ", 25);
+  std::ios_base::getloc((v81 + *(*v81 - 24)));
+  v82 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v82->__vftable[2].~facet_0)(v82, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalNodes</td><td align=left>", 53);
-  v88 = *(a3 + 24) + *(a2 + 24);
-  v89 = *(a4 + 24);
-  v90 = std::ostream::operator<<();
-  v91 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v90, "</td></tr> \\ ", 13);
-  std::ios_base::getloc((v91 + *(*v91 - 24)));
-  v92 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v92->__vftable[2].~facet_0)(v92, 10);
-  std::locale::~locale(&v124);
+  v83 = std::ostream::operator<<();
+  v84 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, "</td></tr> \\ ", 13);
+  std::ios_base::getloc((v84 + *(*v84 - 24)));
+  v85 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v85->__vftable[2].~facet_0)(v85, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v93 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalServicesDiscovered</td><td href=", 59);
-  v94 = *(v5 + 199);
-  if (v94 >= 0)
+  v86 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalServicesDiscovered</td><td href=", 59);
+  v87 = *(v5 + 199);
+  if (v87 >= 0)
   {
-    v95 = v5 + 176;
+    v88 = v5 + 176;
   }
 
   else
   {
-    v95 = *(v5 + 176);
+    v88 = *(v5 + 176);
   }
 
-  if (v94 >= 0)
+  if (v87 >= 0)
   {
-    v96 = *(v5 + 199);
+    v89 = *(v5 + 199);
   }
 
   else
   {
-    v96 = *(v5 + 184);
+    v89 = *(v5 + 184);
   }
 
-  v97 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v93, v95, v96);
-  v98 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v97, " align=left>", 15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v98, "<U><FONT color=blue>", 22);
-  v99 = (*(v120 + 16) - *(v120 + 8)) >> 3;
-  v100 = std::ostream::operator<<();
-  v101 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v100, "</FONT></U> </td></tr> \\ ", 25);
-  std::ios_base::getloc((v101 + *(*v101 - 24)));
-  v102 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v102->__vftable[2].~facet_0)(v102, 10);
-  std::locale::~locale(&v124);
+  v90 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v86, v88, v89);
+  v91 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v90, " align=left>", 15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v91, "<U><FONT color=blue>", 22);
+  v92 = std::ostream::operator<<();
+  v93 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v92, "</FONT></U> </td></tr> \\ ", 25);
+  std::ios_base::getloc((v93 + *(*v93 - 24)));
+  v94 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v94->__vftable[2].~facet_0)(v94, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v103 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalServicesResolved</td><td href=", 57);
-  v104 = *(v5 + 223);
-  if (v104 >= 0)
+  v95 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "<tr><td align=left>TotalServicesResolved</td><td href=", 57);
+  v96 = *(v5 + 223);
+  if (v96 >= 0)
   {
-    v105 = v5 + 200;
+    v97 = v5 + 200;
   }
 
   else
   {
-    v105 = *(v5 + 200);
+    v97 = *(v5 + 200);
   }
 
-  if (v104 >= 0)
+  if (v96 >= 0)
   {
-    v106 = *(v5 + 223);
+    v98 = *(v5 + 223);
   }
 
   else
   {
-    v106 = *(v5 + 208);
+    v98 = *(v5 + 208);
   }
 
-  v107 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v103, v105, v106);
-  v108 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v107, " align=left>", 15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v108, "<U><FONT color=blue>", 22);
-  v109 = std::ostream::operator<<();
-  v110 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v109, "</FONT></U> </td></tr> \\ ", 25);
-  std::ios_base::getloc((v110 + *(*v110 - 24)));
-  v111 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v111->__vftable[2].~facet_0)(v111, 10);
-  std::locale::~locale(&v124);
+  v99 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v95, v97, v98);
+  v100 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v99, " align=left>", 15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v100, "<U><FONT color=blue>", 22);
+  v101 = std::ostream::operator<<();
+  v102 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v101, "</FONT></U> </td></tr> \\ ", 25);
+  std::ios_base::getloc((v102 + *(*v102 - 24)));
+  v103 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v103->__vftable[2].~facet_0)(v103, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v112 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "</table>>];", 11);
-  std::ios_base::getloc((v112 + *(*v112 - 24)));
-  v113 = std::locale::use_facet(&v124, &std::ctype<char>::id);
-  (v113->__vftable[2].~facet_0)(v113, 10);
-  std::locale::~locale(&v124);
+  v104 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "</table>>];", 11);
+  std::ios_base::getloc((v104 + *(*v104 - 24)));
+  v105 = std::locale::use_facet(&v111, &std::ctype<char>::id);
+  (v105->__vftable[2].~facet_0)(v105, 10);
+  std::locale::~locale(&v111);
   std::ostream::put();
   std::ostream::flush();
-  v117 = v115;
-  v126 = v115;
-  if (v129 < 0)
+  v109 = v107;
+  v113 = v107;
+  if (v116 < 0)
   {
-    operator delete(v128[7].__locale_);
+    operator delete(v115[7].__locale_);
   }
 
-  std::locale::~locale(v128);
+  std::locale::~locale(v115);
   std::iostream::~basic_iostream();
   std::ios::~ios();
-  v130[0] = v114;
-  *(v130 + *(v114 - 24)) = v116;
-  v131 = v117;
-  if (v134 < 0)
+  v117[0] = v106;
+  *(v117 + *(v106 - 24)) = v108;
+  v118 = v109;
+  if (v121 < 0)
   {
-    operator delete(v133[7].__locale_);
+    operator delete(v120[7].__locale_);
   }
 
-  std::locale::~locale(v133);
+  std::locale::~locale(v120);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_100230350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::locale a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_100230350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::locale a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a20);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a55);
   _Unwind_Resume(a1);
 }
 
-uint64_t NetworkDiagnosticsLogger::initialize(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, const char *a7, const char *a8, uint64_t *a9, uint64_t *a10, uint64_t a11)
+uint64_t NetworkDiagnosticsLogger::initialize(void *a1, const char **a2, uint64_t **a3, uint64_t **a4, uint64_t **a5, const char *a6, const char *a7, const char *a8, uint64_t **a9, const char *a10, uint64_t **a11)
 {
-  v17 = a2;
-  if (*(a2 + 23) < 0)
-  {
-    v19 = *a2;
-  }
-
   std::ofstream::open();
   if ((*(a1 + *(*a1 - 24) + 32) & 5) != 0)
   {
-LABEL_4:
-    v20 = __stderrp;
-    if (*(v17 + 23) >= 0)
+LABEL_2:
+    v19 = __stderrp;
+    if (*(a2 + 23) >= 0)
     {
-      v21 = v17;
+      v20 = a2;
     }
 
     else
     {
-      v21 = *v17;
+      v20 = *a2;
     }
 
-LABEL_43:
-    fprintf(v20, "ERR to open %s\n", v21);
+LABEL_35:
+    fprintf(v19, "ERR to open %s\n", v20);
     return 0;
   }
 
-  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "Current Time:", 13);
-  v23 = *(a11 + 23);
-  if (v23 >= 0)
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "Current Time:", 13);
+  v22 = *(a11 + 23);
+  if (v22 >= 0)
   {
-    v24 = a11;
+    v23 = a11;
   }
 
   else
   {
-    v24 = *a11;
+    v23 = *a11;
   }
 
-  if (v23 >= 0)
+  if (v22 >= 0)
   {
-    v25 = *(a11 + 23);
+    v24 = *(a11 + 23);
   }
 
   else
   {
-    v25 = *(a11 + 8);
+    v24 = a11[1];
   }
 
-  v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v24, v25);
-  std::ios_base::getloc((v26 + *(*v26 - 24)));
-  v27 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v27->__vftable[2].~facet_0)(v27, 10);
-  std::locale::~locale(&v77);
+  v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
+  std::ios_base::getloc((v25 + *(*v25 - 24)));
+  v26 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v26->__vftable[2].~facet_0)(v26, 10);
+  std::locale::~locale(&v68);
   std::ostream::put();
   std::ostream::flush();
   std::ios_base::getloc((a1 + *(*a1 - 24)));
-  v28 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v28->__vftable[2].~facet_0)(v28, 10);
-  std::locale::~locale(&v77);
+  v27 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v27->__vftable[2].~facet_0)(v27, 10);
+  std::locale::~locale(&v68);
   std::ostream::put();
   std::ostream::flush();
-  v29 = a1 + 71;
-  if (*(a3 + 23) < 0)
-  {
-    v30 = *a3;
-  }
-
   std::ofstream::open();
-  if ((*(v29 + *(a1[71] - 24) + 32) & 5) != 0)
+  if ((*(a1 + *(a1[71] - 24) + 600) & 5) != 0)
   {
-    v20 = __stderrp;
+    v19 = __stderrp;
     if (*(a3 + 23) >= 0)
     {
-      v21 = a3;
+      v20 = a3;
     }
 
     else
     {
-      v21 = *a3;
+      v20 = *a3;
     }
 
-    goto LABEL_43;
+    goto LABEL_35;
   }
 
-  v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 71, "Current Time:", 13);
-  v32 = *(a11 + 23);
-  if (v32 >= 0)
+  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 71, "Current Time:", 13);
+  v29 = *(a11 + 23);
+  if (v29 >= 0)
   {
-    v33 = a11;
+    v30 = a11;
   }
 
   else
   {
-    v33 = *a11;
+    v30 = *a11;
   }
 
-  if (v32 >= 0)
+  if (v29 >= 0)
   {
-    v34 = *(a11 + 23);
+    v31 = *(a11 + 23);
   }
 
   else
   {
-    v34 = *(a11 + 8);
+    v31 = a11[1];
   }
 
-  v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, v33, v34);
-  std::ios_base::getloc((v35 + *(*v35 - 24)));
-  v36 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v36->__vftable[2].~facet_0)(v36, 10);
-  std::locale::~locale(&v77);
+  v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v30, v31);
+  std::ios_base::getloc((v32 + *(*v32 - 24)));
+  v33 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v33->__vftable[2].~facet_0)(v33, 10);
+  std::locale::~locale(&v68);
   std::ostream::put();
   std::ostream::flush();
-  std::ios_base::getloc((v29 + *(*v29 - 24)));
-  v37 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v37->__vftable[2].~facet_0)(v37, 10);
-  std::locale::~locale(&v77);
+  std::ios_base::getloc((a1 + *(a1[71] - 24) + 568));
+  v34 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v34->__vftable[2].~facet_0)(v34, 10);
+  std::locale::~locale(&v68);
   std::ostream::put();
   std::ostream::flush();
-  v38 = a1 + 142;
-  if (a6[23] < 0)
-  {
-    v39 = *a6;
-  }
-
   std::ofstream::open();
-  if ((*(v38 + *(a1[142] - 24) + 32) & 5) != 0)
+  if ((*(a1 + *(a1[142] - 24) + 1168) & 5) != 0)
   {
-    goto LABEL_28;
+    goto LABEL_22;
   }
 
-  v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 142, "Current Time:", 13);
-  v41 = *(a11 + 23);
-  if (v41 >= 0)
+  v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 142, "Current Time:", 13);
+  v36 = *(a11 + 23);
+  if (v36 >= 0)
   {
-    v42 = a11;
-  }
-
-  else
-  {
-    v42 = *a11;
-  }
-
-  if (v41 >= 0)
-  {
-    v43 = *(a11 + 23);
+    v37 = a11;
   }
 
   else
   {
-    v43 = *(a11 + 8);
+    v37 = *a11;
   }
 
-  v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, v42, v43);
-  std::ios_base::getloc((v44 + *(*v44 - 24)));
-  v45 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v45->__vftable[2].~facet_0)(v45, 10);
-  std::locale::~locale(&v77);
-  std::ostream::put();
-  std::ostream::flush();
-  std::ios_base::getloc((v38 + *(*v38 - 24)));
-  v46 = std::locale::use_facet(&v77, &std::ctype<char>::id);
-  (v46->__vftable[2].~facet_0)(v46, 10);
-  std::locale::~locale(&v77);
-  std::ostream::put();
-  std::ostream::flush();
-  if (a7[23] < 0)
+  if (v36 >= 0)
   {
-    v47 = *a7;
+    v38 = *(a11 + 23);
   }
 
+  else
+  {
+    v38 = a11[1];
+  }
+
+  v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v37, v38);
+  std::ios_base::getloc((v39 + *(*v39 - 24)));
+  v40 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v40->__vftable[2].~facet_0)(v40, 10);
+  std::locale::~locale(&v68);
+  std::ostream::put();
+  std::ostream::flush();
+  std::ios_base::getloc((a1 + *(a1[142] - 24) + 1136));
+  v41 = std::locale::use_facet(&v68, &std::ctype<char>::id);
+  (v41->__vftable[2].~facet_0)(v41, 10);
+  std::locale::~locale(&v68);
+  std::ostream::put();
+  std::ostream::flush();
   std::ofstream::open();
   if ((*(a1 + *(a1[213] - 24) + 1736) & 5) != 0)
   {
-    v20 = __stderrp;
+    v19 = __stderrp;
     if (a7[23] >= 0)
     {
-      v21 = a7;
+      v20 = a7;
     }
 
     else
     {
-      v21 = *a7;
+      v20 = *a7;
     }
 
-    goto LABEL_43;
+    goto LABEL_35;
   }
 
-  v17 = a9;
-  v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 213, "Current Time:", 13);
-  v50 = *(a11 + 23);
-  if (v50 >= 0)
+  a2 = a9;
+  v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 213, "Current Time:", 13);
+  v44 = *(a11 + 23);
+  if (v44 >= 0)
   {
-    v51 = a11;
+    v45 = a11;
   }
 
   else
   {
-    v51 = *a11;
+    v45 = *a11;
   }
 
-  if (v50 >= 0)
+  if (v44 >= 0)
   {
-    v52 = *(a11 + 23);
+    v46 = *(a11 + 23);
   }
 
   else
   {
-    v52 = *(a11 + 8);
+    v46 = a11[1];
   }
 
-  v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, v51, v52);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v53);
+  v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, v45, v46);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v47);
   std::endl[abi:ne200100]<char,std::char_traits<char>>(a1 + 213);
-  if (*(a9 + 23) < 0)
-  {
-    v54 = *a9;
-  }
-
   std::ofstream::open();
   if ((*(a1 + *(a1[355] - 24) + 2872) & 5) != 0)
   {
-    goto LABEL_4;
+    goto LABEL_2;
   }
 
   a6 = a10;
-  v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 355, "Current Time:", 13);
-  v56 = *(a11 + 23);
-  if (v56 >= 0)
-  {
-    v57 = a11;
-  }
-
-  else
-  {
-    v57 = *a11;
-  }
-
-  if (v56 >= 0)
-  {
-    v58 = *(a11 + 23);
-  }
-
-  else
-  {
-    v58 = *(a11 + 8);
-  }
-
-  v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, v57, v58);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v59);
+  v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 355, "Current Time:", 13);
+  v49 = *(a11 + 23);
+  v50 = v49 >= 0 ? a11 : *a11;
+  v51 = v49 >= 0 ? *(a11 + 23) : a11[1];
+  v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v50, v51);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v52);
   std::endl[abi:ne200100]<char,std::char_traits<char>>(a1 + 355);
-  if (*(a10 + 23) < 0)
-  {
-    v60 = *a10;
-  }
-
   std::ofstream::open();
   if ((*(a1 + *(a1[426] - 24) + 3440) & 5) != 0)
   {
-LABEL_28:
-    v20 = __stderrp;
+LABEL_22:
+    v19 = __stderrp;
     if (a6[23] >= 0)
     {
-      v21 = a6;
+      v20 = a6;
     }
 
     else
     {
-      v21 = *a6;
+      v20 = *a6;
     }
 
-    goto LABEL_43;
+    goto LABEL_35;
   }
 
-  v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 426, "Current Time:", 13);
-  v62 = *(a11 + 23);
-  if (v62 >= 0)
+  v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 426, "Current Time:", 13);
+  v54 = *(a11 + 23);
+  if (v54 >= 0)
   {
-    v63 = a11;
+    v55 = a11;
   }
 
   else
   {
-    v63 = *a11;
+    v55 = *a11;
   }
 
-  if (v62 >= 0)
+  if (v54 >= 0)
   {
-    v64 = *(a11 + 23);
+    v56 = *(a11 + 23);
   }
 
   else
   {
-    v64 = *(a11 + 8);
+    v56 = a11[1];
   }
 
-  v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, v63, v64);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v65);
+  v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, v55, v56);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v57);
   std::endl[abi:ne200100]<char,std::char_traits<char>>(a1 + 426);
-  if (a8[23] < 0)
-  {
-    v66 = *a8;
-  }
-
   std::ofstream::open();
   if ((*(a1 + *(a1[284] - 24) + 2304) & 5) != 0)
   {
-    v20 = __stderrp;
+    v19 = __stderrp;
     if (a8[23] >= 0)
     {
-      v21 = a8;
+      v20 = a8;
     }
 
     else
     {
-      v21 = *a8;
+      v20 = *a8;
     }
 
-    goto LABEL_43;
+    goto LABEL_35;
   }
 
-  v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 284, "Current Time:", 13);
-  v68 = *(a11 + 23);
-  if (v68 >= 0)
+  v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 284, "Current Time:", 13);
+  v59 = *(a11 + 23);
+  if (v59 >= 0)
   {
-    v69 = a11;
+    v60 = a11;
   }
 
   else
   {
-    v69 = *a11;
+    v60 = *a11;
   }
 
-  if (v68 >= 0)
+  if (v59 >= 0)
   {
-    v70 = *(a11 + 23);
+    v61 = *(a11 + 23);
   }
 
   else
   {
-    v70 = *(a11 + 8);
+    v61 = a11[1];
   }
 
-  v71 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v67, v69, v70);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v71);
+  v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v60, v61);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v62);
   std::endl[abi:ne200100]<char,std::char_traits<char>>(a1 + 284);
-  v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "digraph {", 9);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v72);
+  v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "digraph {", 9);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v63);
   if ((*(a1[498] + 48) & 1) == 0)
   {
-    v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "concentrate=true;", 17);
-    std::endl[abi:ne200100]<char,std::char_traits<char>>(v73);
+    v64 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "concentrate=true;", 17);
+    std::endl[abi:ne200100]<char,std::char_traits<char>>(v64);
   }
 
-  v74 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "forcelabels=true;", 17);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v74);
-  v75 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "rankdir=LR;", 11);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v75);
-  v76 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "node [shape=box, color=red];", 28);
-  std::endl[abi:ne200100]<char,std::char_traits<char>>(v76);
+  v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "forcelabels=true;", 17);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v65);
+  v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "rankdir=LR;", 11);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v66);
+  v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "node [shape=box, color=red];", 28);
+  std::endl[abi:ne200100]<char,std::char_traits<char>>(v67);
   NetworkDiagnosticsLogger::insertLegendToDotFile(a1, a4, a5, a3);
   return 1;
 }
 
-uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t **a2, uint64_t **a3, uint64_t **a4)
 {
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 142, "digraph {", 9);
   std::ios_base::getloc((v8 + *(*v8 - 24)));
@@ -5043,7 +5179,7 @@ uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t a2, 
 
   else
   {
-    v49 = *(a3 + 8);
+    v49 = a3[1];
   }
 
   v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, v48, v49);
@@ -5073,7 +5209,7 @@ uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t a2, 
 
   else
   {
-    v56 = *(a4 + 8);
+    v56 = a4[1];
   }
 
   v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, v55, v56);
@@ -5103,7 +5239,7 @@ uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t a2, 
 
   else
   {
-    v63 = *(a2 + 8);
+    v63 = a2[1];
   }
 
   v64 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, v62, v63);
@@ -5144,7 +5280,7 @@ uint64_t NetworkDiagnosticsLogger::insertLegendToDotFile(void *a1, uint64_t a2, 
   return std::ostream::flush();
 }
 
-uint64_t **NetworkDiagnosticsLogger::output_addr16tlv_to_file(uint64_t a1, unsigned __int16 a2, uint64_t a3, uint64_t a4, _DWORD *a5, void *a6, void *a7)
+uint64_t **NetworkDiagnosticsLogger::output_addr16tlv_to_file(uint64_t a1, unsigned __int16 a2, uint64_t **a3, uint64_t a4, _DWORD *a5, void *a6, void *a7)
 {
   v23 = a2;
   v12 = (a1 + 568);
@@ -5167,7 +5303,7 @@ uint64_t **NetworkDiagnosticsLogger::output_addr16tlv_to_file(uint64_t a1, unsig
 
   else
   {
-    v16 = *(a3 + 8);
+    v16 = a3[1];
   }
 
   v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v15, v16);
@@ -5203,7 +5339,7 @@ uint64_t **NetworkDiagnosticsLogger::output_addr16tlv_to_file(uint64_t a1, unsig
     }
   }
 
-  return std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a6, &v23);
+  return std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a6, &v23, &v23);
 }
 
 void NetworkDiagnosticsLogger::output_ipAddrListTlv_to_file(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5, uint64_t a6, void *a7, void *a8, void *a9)
@@ -5211,16 +5347,16 @@ void NetworkDiagnosticsLogger::output_ipAddrListTlv_to_file(uint64_t a1, uint64_
   v12 = (a1 + 568);
   v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((a1 + 568), "IpAddressList: ", 15);
   std::ios_base::getloc((v13 + *(*v13 - 24)));
-  v14 = std::locale::use_facet(v71, &std::ctype<char>::id);
+  v14 = std::locale::use_facet(v72, &std::ctype<char>::id);
   (v14->__vftable[2].~facet_0)(v14, 10);
-  std::locale::~locale(v71);
+  std::locale::~locale(v72);
   std::ostream::put();
   std::ostream::flush();
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "-------------- ", 15);
   std::ios_base::getloc((v15 + *(*v15 - 24)));
-  v16 = std::locale::use_facet(v71, &std::ctype<char>::id);
+  v16 = std::locale::use_facet(v72, &std::ctype<char>::id);
   (v16->__vftable[2].~facet_0)(v16, 10);
-  std::locale::~locale(v71);
+  std::locale::~locale(v72);
   std::ostream::put();
   std::ostream::flush();
   v17 = *(a3 + 24);
@@ -5264,13 +5400,13 @@ LABEL_7:
 
       memset(__s, 0, 46);
       inet_ntop(30, &v29[16 * v27], __s, 0x2Eu);
-      std::string::basic_string[abi:ne200100]<0>(v71, __s);
+      std::string::basic_string[abi:ne200100]<0>(v72, __s);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      __str = *v71;
+      __str = *v72;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Index:", 6);
       v30 = std::ostream::operator<<();
       v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, " Ipv6 Address: ", 15);
@@ -5293,14 +5429,14 @@ LABEL_7:
         goto LABEL_51;
       }
 
-      MyServiceType::MyServiceType(v71, (v38 + 5));
-      if (v76 != a2)
+      MyServiceType::MyServiceType(v72, (v38 + 5));
+      if (v77 != a2)
       {
-        v76 = a2;
+        v77 = a2;
       }
 
       v39 = a6;
-      MyServiceType::operator=((v38 + 5), v71);
+      MyServiceType::operator=((v38 + 5), v72);
       v40 = a9[1] - *a9;
       if (v40)
       {
@@ -5374,28 +5510,28 @@ LABEL_7:
       }
 
       v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " Name:", 6);
-      if (v71[31] >= 0)
+      if (v72[31] >= 0)
       {
-        v54 = &v71[8];
+        v54 = &v72[8];
       }
 
       else
       {
-        v54 = *&v71[8];
+        v54 = *&v72[8];
       }
 
-      if (v71[31] >= 0)
+      if (v72[31] >= 0)
       {
-        v55 = v71[31];
+        v55 = v72[31];
       }
 
       else
       {
-        v55 = *&v71[16];
+        v55 = *&v72[16];
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, v54, v55);
-      std::string::operator=(a4, &v71[8]);
+      std::string::operator=(a4, &v72[8]);
       a6 = v39;
       v28 = a5;
       if ((__p[23] & 0x80000000) != 0)
@@ -5403,24 +5539,24 @@ LABEL_7:
         operator delete(*__p);
       }
 
-      if (SHIBYTE(v74) < 0)
+      if (SHIBYTE(v75) < 0)
       {
-        operator delete(*(&v73 + 1));
+        operator delete(*(&v74 + 1));
       }
 
-      if (SBYTE7(v73) < 0)
+      if (SBYTE7(v74) < 0)
       {
-        operator delete(v72);
+        operator delete(v73);
       }
 
-      if ((v71[55] & 0x80000000) != 0)
+      if ((v72[55] & 0x80000000) != 0)
       {
-        operator delete(*&v71[32]);
+        operator delete(*&v72[32]);
       }
 
-      if ((v71[31] & 0x80000000) != 0)
+      if ((v72[31] & 0x80000000) != 0)
       {
-        v37 = *&v71[8];
+        v37 = *&v72[8];
 LABEL_115:
         operator delete(v37);
       }
@@ -5429,9 +5565,9 @@ LABEL_50:
       v23 = 1;
 LABEL_51:
       std::ios_base::getloc((v12 + *(*v12 - 24)));
-      v33 = std::locale::use_facet(v71, &std::ctype<char>::id);
+      v33 = std::locale::use_facet(v72, &std::ctype<char>::id);
       (v33->__vftable[2].~facet_0)(v33, 10);
-      std::locale::~locale(v71);
+      std::locale::~locale(v72);
       std::ostream::put();
       std::ostream::flush();
       if (++v27 == v60)
@@ -5440,11 +5576,11 @@ LABEL_51:
       }
     }
 
-    gethostname(v71, 0x400uLL);
+    gethostname(v72, 0x400uLL);
     v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " Name:", 6);
-    v35 = strlen(v71);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v71, v35);
-    std::string::basic_string[abi:ne200100]<0>(v61, v71);
+    v35 = strlen(v72);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v72, v35);
+    std::string::basic_string[abi:ne200100]<0>(v61, v72);
     if (*(a4 + 23) < 0)
     {
       operator delete(*a4);
@@ -5468,26 +5604,26 @@ LABEL_51:
     std::string::operator=(v65, a4);
     v66 = a2;
     std::string::operator=(&v61[8], a4);
-    strcpy(v70, "CANNOT DETRMINE");
-    std::string::basic_string[abi:ne200100]<0>(&v68, v70);
+    strcpy(v71, "CANNOT DETRMINE");
+    std::string::basic_string[abi:ne200100]<0>(&v69, v71);
     if (SBYTE7(v63) < 0)
     {
       operator delete(v62);
     }
 
-    v62 = v68;
-    *&v63 = v69;
-    std::string::basic_string[abi:ne200100]<0>(&v68, v70);
+    v62 = v69;
+    *&v63 = v70;
+    std::string::basic_string[abi:ne200100]<0>(&v69, v71);
     if ((v61[55] & 0x80000000) != 0)
     {
       operator delete(*&v61[32]);
     }
 
-    *&v61[32] = v68;
-    *&v61[48] = v69;
+    *&v61[32] = v69;
+    *&v61[48] = v70;
     *&v65[24] = 0;
-    *&v68 = &__str;
-    v36 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a7, &__str.__r_.__value_.__l.__data_);
+    *&v69 = &__str;
+    v36 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a7, &__str.__r_.__value_.__l.__data_, &std::piecewise_construct, &v69, &v68);
     MyServiceType::operator=((v36 + 5), v61);
     if ((v65[23] & 0x80000000) != 0)
     {
@@ -5520,9 +5656,9 @@ LABEL_51:
 
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "ERR: IP Address List information not present", 44);
   std::ios_base::getloc((v21 + *(*v21 - 24)));
-  v22 = std::locale::use_facet(v71, &std::ctype<char>::id);
+  v22 = std::locale::use_facet(v72, &std::ctype<char>::id);
   (v22->__vftable[2].~facet_0)(v22, 10);
-  std::locale::~locale(v71);
+  std::locale::~locale(v72);
   std::ostream::put();
   std::ostream::flush();
 LABEL_8:
@@ -5543,14 +5679,14 @@ LABEL_9:
     }
 
     fprintf(__stderrp, "WARN: output_ipAddrListTlv_to_file sDsnInfo has no entry possibly bec not reg to SRP proxy. Cannot determine hostname for Rloc16=%s\n", v24);
-    strcpy(&v68, "CANNOT DETRMINE");
-    *v71 = 0;
-    memset(&v71[8], 0, 48);
-    v72 = 0u;
+    strcpy(&v69, "CANNOT DETRMINE");
+    *v72 = 0;
+    memset(&v72[8], 0, 48);
     v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
     memset(__p, 0, sizeof(__p));
-    v76 = -1;
+    v77 = -1;
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       if (__str.__r_.__value_.__l.__size_)
@@ -5565,10 +5701,10 @@ LABEL_9:
       v25 = &__str;
 LABEL_19:
       fprintf(__stderrp, "WARN Entered address for dnsInfo unresolved service=%s rloc16=%x\n", v25, a2);
-      std::string::operator=((&v73 + 8), &__str);
+      std::string::operator=((&v74 + 8), &__str);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(__s, &v68);
+    std::string::basic_string[abi:ne200100]<0>(__s, &v69);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -5576,58 +5712,58 @@ LABEL_19:
 
     *__p = __s[0];
     *&__p[16] = *&__s[1];
-    v76 = a2;
-    std::string::basic_string[abi:ne200100]<0>(__s, &v68);
-    if ((v71[31] & 0x80000000) != 0)
+    v77 = a2;
+    std::string::basic_string[abi:ne200100]<0>(__s, &v69);
+    if ((v72[31] & 0x80000000) != 0)
     {
-      operator delete(*&v71[8]);
+      operator delete(*&v72[8]);
     }
 
-    *&v71[8] = __s[0];
-    *&v71[24] = *&__s[1];
-    std::string::basic_string[abi:ne200100]<0>(__s, &v68);
-    if (SBYTE7(v73) < 0)
+    *&v72[8] = __s[0];
+    *&v72[24] = *&__s[1];
+    std::string::basic_string[abi:ne200100]<0>(__s, &v69);
+    if (SBYTE7(v74) < 0)
     {
-      operator delete(v72);
+      operator delete(v73);
     }
 
-    v72 = __s[0];
-    *&v73 = *&__s[1];
-    std::string::basic_string[abi:ne200100]<0>(__s, &v68);
-    if ((v71[55] & 0x80000000) != 0)
+    v73 = __s[0];
+    *&v74 = *&__s[1];
+    std::string::basic_string[abi:ne200100]<0>(__s, &v69);
+    if ((v72[55] & 0x80000000) != 0)
     {
-      operator delete(*&v71[32]);
+      operator delete(*&v72[32]);
     }
 
-    *&v71[32] = __s[0];
-    *&v71[48] = *&__s[1];
+    *&v72[32] = __s[0];
+    *&v72[48] = *&__s[1];
     *&__p[24] = 0;
     *&__s[0] = &__str;
-    v26 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a7, &__str.__r_.__value_.__l.__data_);
-    MyServiceType::operator=((v26 + 5), v71);
+    v26 = std::__hash_table<std::__hash_value_type<std::string,MyServiceType>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MyServiceType>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MyServiceType>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MyServiceType>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a7, &__str.__r_.__value_.__l.__data_, &std::piecewise_construct, __s, v71);
+    MyServiceType::operator=((v26 + 5), v72);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
     }
 
-    if (SHIBYTE(v74) < 0)
+    if (SHIBYTE(v75) < 0)
     {
-      operator delete(*(&v73 + 1));
+      operator delete(*(&v74 + 1));
     }
 
-    if (SBYTE7(v73) < 0)
+    if (SBYTE7(v74) < 0)
     {
-      operator delete(v72);
+      operator delete(v73);
     }
 
-    if ((v71[55] & 0x80000000) != 0)
+    if ((v72[55] & 0x80000000) != 0)
     {
-      operator delete(*&v71[32]);
+      operator delete(*&v72[32]);
     }
 
-    if ((v71[31] & 0x80000000) != 0)
+    if ((v72[31] & 0x80000000) != 0)
     {
-      operator delete(*&v71[8]);
+      operator delete(*&v72[8]);
     }
 
     if ((v61[23] & 0x80000000) != 0)
@@ -5658,8 +5794,10 @@ void sub_100232840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t NetworkDiagnosticsLogger::output_node_to_dot_file(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, void *a8, void *a9, void *a10)
+uint64_t NetworkDiagnosticsLogger::output_node_to_dot_file(void *a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t **a5, uint64_t a6, unsigned __int16 a7, void *a8, void *a9, void *a10)
 {
+  v11 = a7;
+  v14 = a2;
   v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
   v17 = *(a3 + 23);
   if (v17 >= 0)
@@ -5679,12 +5817,12 @@ uint64_t NetworkDiagnosticsLogger::output_node_to_dot_file(void *a1, int a2, uin
 
   else
   {
-    v19 = *(a3 + 8);
+    v19 = a3[1];
   }
 
   v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v18, v19);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "", 1);
-  if (getRloc16FromRouterId(a7) == a2)
+  if (getRloc16FromRouterId(v11) == v14)
   {
     v21 = " [shape=box] [color=green] ";
 LABEL_9:
@@ -5693,7 +5831,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  NodeType = getNodeType(a2, a8, a9, a10);
+  NodeType = getNodeType(v14, a8, a9, a10);
   if (NodeType)
   {
     if (NodeType == 1)
@@ -5735,7 +5873,7 @@ LABEL_10:
   v26 = *(a5 + 23);
   if ((v26 & 0x80u) != 0)
   {
-    v26 = *(a5 + 8);
+    v26 = a5[1];
   }
 
   if (v26)
@@ -5760,7 +5898,7 @@ LABEL_10:
 
     else
     {
-      v30 = *(a5 + 8);
+      v30 = a5[1];
     }
 
     v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v29, v30);
@@ -5777,28 +5915,28 @@ LABEL_10:
   return std::ostream::flush();
 }
 
-uint64_t NetworkDiagnosticsLogger::output_routeTlv_to_file(void *a1, int a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t NetworkDiagnosticsLogger::output_routeTlv_to_file(void *a1, int a2, uint64_t **a3, uint64_t a4, char a5)
 {
   v6 = *(a4 + 8);
   v7 = a1 + 71;
   std::ios_base::getloc((a1 + *(a1[71] - 24) + 568));
-  v8 = std::locale::use_facet(&v72, &std::ctype<char>::id);
+  v8 = std::locale::use_facet(&v71, &std::ctype<char>::id);
   (v8->__vftable[2].~facet_0)(v8, 10);
-  std::locale::~locale(&v72);
+  std::locale::~locale(&v71);
   std::ostream::put();
   std::ostream::flush();
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Route: ", 7);
   std::ios_base::getloc((v9 + *(*v9 - 24)));
-  v10 = std::locale::use_facet(&v72, &std::ctype<char>::id);
+  v10 = std::locale::use_facet(&v71, &std::ctype<char>::id);
   (v10->__vftable[2].~facet_0)(v10, 10);
-  std::locale::~locale(&v72);
+  std::locale::~locale(&v71);
   std::ostream::put();
   std::ostream::flush();
   v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "------ ", 7);
   std::ios_base::getloc((v11 + *(*v11 - 24)));
-  v12 = std::locale::use_facet(&v72, &std::ctype<char>::id);
+  v12 = std::locale::use_facet(&v71, &std::ctype<char>::id);
   (v12->__vftable[2].~facet_0)(v12, 10);
-  std::locale::~locale(&v72);
+  std::locale::~locale(&v71);
   std::ostream::put();
   std::ostream::flush();
   if (v6)
@@ -5811,237 +5949,236 @@ uint64_t NetworkDiagnosticsLogger::output_routeTlv_to_file(void *a1, int a2, uin
 
     if (v13 <= 8)
     {
-      v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ERR: Route information not valid", 32);
-      std::ios_base::getloc((v66 + *(*v66 - 24)));
-      v67 = std::locale::use_facet(&v72, &std::ctype<char>::id);
-      (v67->__vftable[2].~facet_0)(v67, 10);
+      v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ERR: Route information not valid", 32);
+      std::ios_base::getloc((v65 + *(*v65 - 24)));
+      v66 = std::locale::use_facet(&v71, &std::ctype<char>::id);
+      (v66->__vftable[2].~facet_0)(v66, 10);
     }
 
     else
     {
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "RouterSequenceId:", 17);
-      v14 = *(v6 + 2);
-      v15 = std::ostream::operator<<();
-      std::ios_base::getloc((v15 + *(*v15 - 24)));
-      v16 = std::locale::use_facet(&v72, &std::ctype<char>::id);
+      v14 = std::ostream::operator<<();
+      std::ios_base::getloc((v14 + *(*v14 - 24)));
+      v15 = std::locale::use_facet(&v71, &std::ctype<char>::id);
+      (v15->__vftable[2].~facet_0)(v15, 10);
+      std::locale::~locale(&v71);
+      std::ostream::put();
+      std::ostream::flush();
+      std::ios_base::getloc((v14 + *(*v14 - 24)));
+      v16 = std::locale::use_facet(&v71, &std::ctype<char>::id);
       (v16->__vftable[2].~facet_0)(v16, 10);
-      std::locale::~locale(&v72);
+      std::locale::~locale(&v71);
       std::ostream::put();
       std::ostream::flush();
-      std::ios_base::getloc((v15 + *(*v15 - 24)));
-      v17 = std::locale::use_facet(&v72, &std::ctype<char>::id);
-      (v17->__vftable[2].~facet_0)(v17, 10);
-      std::locale::~locale(&v72);
-      std::ostream::put();
-      std::ostream::flush();
+      v17 = 0;
       v18 = 0;
-      v19 = 0;
-      v20 = v6 + 3;
-      v21 = v6 + 11;
+      v19 = v6 + 3;
+      v20 = v6 + 11;
       do
       {
-        if (((*(v20 + (v18 >> 3)) << (v18 & 7)) & 0x80) != 0)
+        if (((*(v19 + (v17 >> 3)) << (v17 & 7)) & 0x80) != 0)
         {
-          v72.__locale_ = 0;
+          v71.__locale_ = 0;
+          v72 = 0;
           v73 = 0;
-          v74 = 0;
-          Rloc16FromRouterId = getRloc16FromRouterId(v18);
-          v23 = Rloc16FromRouterId;
-          convertUint16ToHexString(Rloc16FromRouterId, &v72);
-          v24 = *(v21 + v19);
+          Rloc16FromRouterId = getRloc16FromRouterId(v17);
+          v22 = Rloc16FromRouterId;
+          convertUint16ToHexString(Rloc16FromRouterId, &v71);
+          v23 = *(v20 + v18);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "RouteId:", 8);
-          v25 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ",  ", 3);
-          v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Rloc16:", 7);
-          if (v74 >= 0)
+          v24 = std::ostream::operator<<();
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ",  ", 3);
+          v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Rloc16:", 7);
+          if (v73 >= 0)
           {
-            locale = &v72;
+            locale = &v71;
           }
 
           else
           {
-            locale = v72.__locale_;
+            locale = v71.__locale_;
           }
 
-          if (v74 >= 0)
+          if (v73 >= 0)
           {
-            v28 = HIBYTE(v74);
+            v27 = HIBYTE(v73);
           }
 
           else
           {
-            v28 = v73;
+            v27 = v72;
           }
 
-          v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, locale, v28);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ",  ", 3);
+          v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, locale, v27);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ",  ", 3);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Cost:", 5);
+          v29 = std::ostream::operator<<();
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ",  ", 3);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "LQIn:", 5);
           v30 = std::ostream::operator<<();
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ",  ", 3);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "LQIn:", 5);
-          v31 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ",  ", 3);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "LQOut:", 6);
-          v32 = (v24 >> 6);
-          v33 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ",  ", 3);
+          v31 = (v23 >> 6);
+          v32 = std::ostream::operator<<();
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ",  ", 3);
           std::ios_base::getloc((v7 + *(*v7 - 24)));
-          v34 = std::locale::use_facet(&v75, &std::ctype<char>::id);
-          (v34->__vftable[2].~facet_0)(v34, 10);
-          std::locale::~locale(&v75);
+          v33 = std::locale::use_facet(&v74, &std::ctype<char>::id);
+          (v33->__vftable[2].~facet_0)(v33, 10);
+          std::locale::~locale(&v74);
           std::ostream::put();
           std::ostream::flush();
-          if (v23 != a2 && ot::LinkQualityToCost(v32) != 16)
+          if (v22 != a2 && ot::LinkQualityToCost(v31) != 16)
           {
             if (a5)
             {
-              v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
-              v36 = *(a3 + 23);
-              if (v36 >= 0)
+              v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
+              v35 = *(a3 + 23);
+              if (v35 >= 0)
               {
-                v37 = a3;
+                v36 = a3;
               }
 
               else
               {
-                v37 = *a3;
+                v36 = *a3;
               }
 
-              if (v36 >= 0)
+              if (v35 >= 0)
               {
-                v38 = *(a3 + 23);
+                v37 = *(a3 + 23);
               }
 
               else
               {
-                v38 = *(a3 + 8);
+                v37 = a3[1];
               }
 
-              v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v37, v38);
-              v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "", 1);
-              v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, " -> ", 4);
-              v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "", 1);
-              if (v74 >= 0)
+              v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v36, v37);
+              v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "", 1);
+              v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, " -> ", 4);
+              v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "", 1);
+              if (v73 >= 0)
               {
-                v43 = &v72;
+                v42 = &v71;
               }
 
               else
               {
-                v43 = v72.__locale_;
+                v42 = v71.__locale_;
               }
 
-              if (v74 >= 0)
+              if (v73 >= 0)
               {
-                v44 = HIBYTE(v74);
+                v43 = HIBYTE(v73);
               }
 
               else
               {
-                v44 = v73;
+                v43 = v72;
               }
 
-              v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, v43, v44);
-              v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "", 1);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, "[label=", 8);
-              ot::LinkQualityToCost(v32);
+              v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, v42, v43);
+              v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, "", 1);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "[label=", 8);
+              ot::LinkQualityToCost(v31);
+              v46 = std::ostream::operator<<();
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, " weight=", 10);
+              ot::LinkQualityToCost(v31);
               v47 = std::ostream::operator<<();
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, " weight=", 10);
-              ot::LinkQualityToCost(v32);
-              v48 = std::ostream::operator<<();
-              v49 = "     ];";
-              v50 = 8;
+              v48 = "     ];";
+              v49 = 8;
             }
 
             else
             {
-              v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
-              v52 = *(a3 + 23);
-              if (v52 >= 0)
+              v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
+              v51 = *(a3 + 23);
+              if (v51 >= 0)
               {
-                v53 = a3;
+                v52 = a3;
               }
 
               else
               {
-                v53 = *a3;
+                v52 = *a3;
               }
 
-              if (v52 >= 0)
+              if (v51 >= 0)
               {
-                v54 = *(a3 + 23);
+                v53 = *(a3 + 23);
               }
 
               else
               {
-                v54 = *(a3 + 8);
+                v53 = a3[1];
               }
 
-              v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, v53, v54);
-              v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, "", 1);
-              v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, " -> ", 4);
-              v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, "", 1);
-              if (v74 >= 0)
+              v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, v52, v53);
+              v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, "", 1);
+              v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, " -> ", 4);
+              v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, "", 1);
+              if (v73 >= 0)
               {
-                v59 = &v72;
+                v58 = &v71;
               }
 
               else
               {
-                v59 = v72.__locale_;
+                v58 = v71.__locale_;
               }
 
-              if (v74 >= 0)
+              if (v73 >= 0)
               {
-                v60 = HIBYTE(v74);
+                v59 = HIBYTE(v73);
               }
 
               else
               {
-                v60 = v73;
+                v59 = v72;
               }
 
-              v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v59, v60);
-              v49 = ";";
-              v50 = 2;
+              v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, v58, v59);
+              v48 = ";";
+              v49 = 2;
             }
 
-            v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v49, v50);
-            std::ios_base::getloc((v61 + *(*v61 - 24)));
-            v62 = std::locale::use_facet(&v75, &std::ctype<char>::id);
-            (v62->__vftable[2].~facet_0)(v62, 10);
-            std::locale::~locale(&v75);
+            v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, v48, v49);
+            std::ios_base::getloc((v60 + *(*v60 - 24)));
+            v61 = std::locale::use_facet(&v74, &std::ctype<char>::id);
+            (v61->__vftable[2].~facet_0)(v61, 10);
+            std::locale::~locale(&v74);
             std::ostream::put();
             std::ostream::flush();
           }
 
-          if (SHIBYTE(v74) < 0)
+          if (SHIBYTE(v73) < 0)
           {
-            operator delete(v72.__locale_);
+            operator delete(v71.__locale_);
           }
 
-          ++v19;
+          ++v18;
         }
 
-        ++v18;
+        ++v17;
       }
 
-      while (v18 != 63);
+      while (v17 != 63);
       std::ios_base::getloc((v7 + *(*v7 - 24)));
-      v63 = std::locale::use_facet(&v72, &std::ctype<char>::id);
-      (v63->__vftable[2].~facet_0)(v63, 10);
+      v62 = std::locale::use_facet(&v71, &std::ctype<char>::id);
+      (v62->__vftable[2].~facet_0)(v62, 10);
     }
   }
 
   else
   {
-    v64 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ERR: Route information not present", 34);
-    std::ios_base::getloc((v64 + *(*v64 - 24)));
-    v65 = std::locale::use_facet(&v72, &std::ctype<char>::id);
-    (v65->__vftable[2].~facet_0)(v65, 10);
+    v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ERR: Route information not present", 34);
+    std::ios_base::getloc((v63 + *(*v63 - 24)));
+    v64 = std::locale::use_facet(&v71, &std::ctype<char>::id);
+    (v64->__vftable[2].~facet_0)(v64, 10);
   }
 
-  std::locale::~locale(&v72);
+  std::locale::~locale(&v71);
   std::ostream::put();
   return std::ostream::flush();
 }
@@ -6050,33 +6187,33 @@ uint64_t NetworkDiagnosticsLogger::output_connectivityTlv_to_file(uint64_t a1, u
 {
   v4 = (a1 + 568);
   std::ios_base::getloc((a1 + 568 + *(*(a1 + 568) - 24)));
-  v5 = std::locale::use_facet(&v29, &std::ctype<char>::id);
+  v5 = std::locale::use_facet(&v21, &std::ctype<char>::id);
   (v5->__vftable[2].~facet_0)(v5, 10);
-  std::locale::~locale(&v29);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "ConnectivityTLV: ", 17);
   std::ios_base::getloc((v6 + *(*v6 - 24)));
-  v7 = std::locale::use_facet(&v29, &std::ctype<char>::id);
+  v7 = std::locale::use_facet(&v21, &std::ctype<char>::id);
   (v7->__vftable[2].~facet_0)(v7, 10);
-  std::locale::~locale(&v29);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "----------------", 16);
   std::ios_base::getloc((v8 + *(*v8 - 24)));
-  v9 = std::locale::use_facet(&v29, &std::ctype<char>::id);
+  v9 = std::locale::use_facet(&v21, &std::ctype<char>::id);
   (v9->__vftable[2].~facet_0)(v9, 10);
-  std::locale::~locale(&v29);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   v10 = *(a3 + 40);
   if (!v10)
   {
-    v22 = "Connectivity TLV not present";
-    v23 = v4;
-    v24 = 28;
+    v14 = "Connectivity TLV not present";
+    v15 = v4;
+    v16 = 28;
 LABEL_9:
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v22, v24);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v14, v16);
     goto LABEL_10;
   }
 
@@ -6088,62 +6225,54 @@ LABEL_9:
 
   if (v11 <= 9 && v11 != 7)
   {
-    v22 = "ERR: Connectivity TLV is not valid";
-    v23 = v4;
-    v24 = 34;
+    v14 = "ERR: Connectivity TLV is not valid";
+    v15 = v4;
+    v16 = 34;
     goto LABEL_9;
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "ActiveRouters = ", 16);
-  v12 = *(v10 + 8);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  IdSequence = ", 15);
-  v13 = *(v10 + 7);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  LeaderCost = ", 15);
-  v14 = *(v10 + 6);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  Parentpriority = ", 19);
   std::ostream::operator<<();
   std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v15 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v15->__vftable[2].~facet_0)(v15, 10);
-  std::locale::~locale(&v29);
+  v12 = std::locale::use_facet(&v21, &std::ctype<char>::id);
+  (v12->__vftable[2].~facet_0)(v12, 10);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  SEDBuffersize = ", 18);
-  v16 = bswap32(*(v10 + 9));
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  SEDDatagramCount = ", 21);
-  v17 = *(v10 + 11);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  LQ1= ", 7);
-  v18 = *(v10 + 5);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  LQ2= ", 7);
-  v19 = *(v10 + 4);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "  LQ3= ", 7);
-  v20 = *(v10 + 3);
   std::ostream::operator<<();
-  v21 = v4;
+  v13 = v4;
 LABEL_10:
-  std::ios_base::getloc((v21 + *(*v21 - 24)));
-  v25 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v25->__vftable[2].~facet_0)(v25, 10);
-  std::locale::~locale(&v29);
+  std::ios_base::getloc((v13 + *(*v13 - 24)));
+  v17 = std::locale::use_facet(&v21, &std::ctype<char>::id);
+  (v17->__vftable[2].~facet_0)(v17, 10);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v26 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v26->__vftable[2].~facet_0)(v26, 10);
-  std::locale::~locale(&v29);
+  v18 = std::locale::use_facet(&v21, &std::ctype<char>::id);
+  (v18->__vftable[2].~facet_0)(v18, 10);
+  std::locale::~locale(&v21);
   std::ostream::put();
   std::ostream::flush();
   std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v27 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v27->__vftable[2].~facet_0)(v27, 10);
-  std::locale::~locale(&v29);
+  v19 = std::locale::use_facet(&v21, &std::ctype<char>::id);
+  (v19->__vftable[2].~facet_0)(v19, 10);
+  std::locale::~locale(&v21);
   std::ostream::put();
   return std::ostream::flush();
 }
@@ -6153,26 +6282,26 @@ uint64_t NetworkDiagnosticsLogger::output_macCountersTlv_to_file(uint64_t a1, ui
   v4 = (a1 + 568);
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((a1 + 568), "MacCountersTLV: ", 16);
   std::ios_base::getloc((v5 + *(*v5 - 24)));
-  v6 = std::locale::use_facet(&v26, &std::ctype<char>::id);
+  v6 = std::locale::use_facet(&v17, &std::ctype<char>::id);
   (v6->__vftable[2].~facet_0)(v6, 10);
-  std::locale::~locale(&v26);
+  std::locale::~locale(&v17);
   std::ostream::put();
   std::ostream::flush();
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "----------------", 16);
   std::ios_base::getloc((v7 + *(*v7 - 24)));
-  v8 = std::locale::use_facet(&v26, &std::ctype<char>::id);
+  v8 = std::locale::use_facet(&v17, &std::ctype<char>::id);
   (v8->__vftable[2].~facet_0)(v8, 10);
-  std::locale::~locale(&v26);
+  std::locale::~locale(&v17);
   std::ostream::put();
   std::ostream::flush();
   v9 = *(a3 + 32);
   if (!v9)
   {
-    v21 = "ERR: Mac counters TLV not present";
-    v22 = v4;
-    v23 = 33;
+    v12 = "ERR: Mac counters TLV not present";
+    v13 = v4;
+    v14 = 33;
 LABEL_8:
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v21, v23);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v12, v14);
     goto LABEL_9;
   }
 
@@ -6184,73 +6313,64 @@ LABEL_8:
 
   if (v10 <= 0x23)
   {
-    v21 = "ERR: Mac counters TLV is not valid";
-    v22 = v4;
-    v23 = 34;
+    v12 = "ERR: Mac counters TLV is not valid";
+    v13 = v4;
+    v14 = 34;
     goto LABEL_8;
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "IfInUcastPkts = ", 16);
-  v11 = *(v9 + 14);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfOutUcastPkts = ", 20);
-  v12 = *(v9 + 26);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfInBcastPkts = ", 19);
-  v13 = *(v9 + 18);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfOutBcastPkts = ", 20);
-  v14 = *(v9 + 30);
   std::ostream::operator<<();
   std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v15 = std::locale::use_facet(&v26, &std::ctype<char>::id);
-  (v15->__vftable[2].~facet_0)(v15, 10);
-  std::locale::~locale(&v26);
+  v11 = std::locale::use_facet(&v17, &std::ctype<char>::id);
+  (v11->__vftable[2].~facet_0)(v11, 10);
+  std::locale::~locale(&v17);
   std::ostream::put();
   std::ostream::flush();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "IfInErrors=", 11);
-  v16 = *(v9 + 6);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfOutErrors = ", 17);
-  v17 = *(v9 + 10);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfInDiscards = ", 18);
-  v18 = *(v9 + 22);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfOutDiscards = ", 19);
-  v19 = *(v9 + 34);
   std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "   IfUnknownProtos = ", 21);
-  v20 = *(v9 + 2);
   std::ostream::operator<<();
 LABEL_9:
   std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v24 = std::locale::use_facet(&v26, &std::ctype<char>::id);
-  (v24->__vftable[2].~facet_0)(v24, 10);
-  std::locale::~locale(&v26);
+  v15 = std::locale::use_facet(&v17, &std::ctype<char>::id);
+  (v15->__vftable[2].~facet_0)(v15, 10);
+  std::locale::~locale(&v17);
   std::ostream::put();
   return std::ostream::flush();
 }
 
-uint64_t NetworkDiagnosticsLogger::output_childTableTlv_to_file(void *a1, __int16 a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+uint64_t NetworkDiagnosticsLogger::output_childTableTlv_to_file(void *a1, __int16 a2, uint64_t **a3, uint64_t a4, void *a5, void *a6)
 {
   v8 = a1 + 71;
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1 + 71, "ChildTable: ", 12);
   std::ios_base::getloc((v9 + *(*v9 - 24)));
-  v10 = std::locale::use_facet(&v81, &std::ctype<char>::id);
+  v10 = std::locale::use_facet(&v78, &std::ctype<char>::id);
   (v10->__vftable[2].~facet_0)(v10, 10);
-  std::locale::~locale(&v81);
+  std::locale::~locale(&v78);
   std::ostream::put();
   std::ostream::flush();
   v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "----------- ", 12);
   std::ios_base::getloc((v11 + *(*v11 - 24)));
-  v12 = std::locale::use_facet(&v81, &std::ctype<char>::id);
+  v12 = std::locale::use_facet(&v78, &std::ctype<char>::id);
   (v12->__vftable[2].~facet_0)(v12, 10);
-  std::locale::~locale(&v81);
+  std::locale::~locale(&v78);
   std::ostream::put();
   std::ostream::flush();
   v13 = *(a4 + 16);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v81);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v78);
   if (!v13)
   {
     v16 = "ERR: ChildTable information not present";
@@ -6258,9 +6378,9 @@ uint64_t NetworkDiagnosticsLogger::output_childTableTlv_to_file(void *a1, __int1
 LABEL_8:
     v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v16, v17);
     std::ios_base::getloc((v18 + *(*v18 - 24)));
-    v19 = std::locale::use_facet(&v78, &std::ctype<char>::id);
+    v19 = std::locale::use_facet(&v75, &std::ctype<char>::id);
     (v19->__vftable[2].~facet_0)(v19, 10);
-    std::locale::~locale(&v78);
+    std::locale::~locale(&v75);
     std::ostream::put();
     std::ostream::flush();
     goto LABEL_53;
@@ -6299,187 +6419,184 @@ LABEL_10:
       v23 = v13 + 1;
     }
 
-    v24 = (v23 + 1);
+    v24 = v23 + 1;
     v25 = v21;
     do
     {
-      v78.__locale_ = 0;
-      v79 = 0;
-      v80 = 0;
+      v75.__locale_ = 0;
+      v76 = 0;
+      v77 = 0;
       Rloc16FromChildId = getRloc16FromChildId(a2, bswap32(*v24 & 0xFF01) >> 16);
-      v77 = Rloc16FromChildId;
-      convertUint16ToHexString(Rloc16FromChildId, &v78);
-      if ((v24[1] & 8) != 0)
+      v74 = Rloc16FromChildId;
+      convertUint16ToHexString(Rloc16FromChildId, &v75);
+      if ((*(v24 + 2) & 8) != 0)
       {
-        std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a5, &v77);
-        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v82, "", 1);
-        if (v80 >= 0)
+        std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a5, &v74, &v74);
+        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v79, "", 1);
+        if (v77 >= 0)
         {
-          locale = &v78;
+          locale = &v75;
         }
 
         else
         {
-          locale = v78.__locale_;
+          locale = v75.__locale_;
         }
 
-        if (v80 >= 0)
+        if (v77 >= 0)
         {
-          v36 = HIBYTE(v80);
+          v36 = HIBYTE(v77);
         }
 
         else
         {
-          v36 = v79;
+          v36 = v76;
         }
 
         v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, locale, v36);
         v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "", 1);
         v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, " [shape=circle,color=red];", 26);
         std::ios_base::getloc((v39 + *(*v39 - 24)));
-        v40 = std::locale::use_facet(&v89, &std::ctype<char>::id);
+        v40 = std::locale::use_facet(&v86, &std::ctype<char>::id);
         (v40->__vftable[2].~facet_0)(v40, 10);
-        std::locale::~locale(&v89);
+        std::locale::~locale(&v86);
         std::ostream::put();
         std::ostream::flush();
       }
 
       else
       {
-        std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a6, &v77);
-        v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v82, "", 1);
-        if (v80 >= 0)
+        std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a6, &v74, &v74);
+        v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v79, "", 1);
+        if (v77 >= 0)
         {
-          v28 = &v78;
+          v28 = &v75;
         }
 
         else
         {
-          v28 = v78.__locale_;
+          v28 = v75.__locale_;
         }
 
-        if (v80 >= 0)
+        if (v77 >= 0)
         {
-          v29 = HIBYTE(v80);
+          v29 = HIBYTE(v77);
         }
 
         else
         {
-          v29 = v79;
+          v29 = v76;
         }
 
         v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v28, v29);
         v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "", 1);
         v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, " [shape=circle,color=orange];", 29);
         std::ios_base::getloc((v32 + *(*v32 - 24)));
-        v33 = std::locale::use_facet(&v89, &std::ctype<char>::id);
+        v33 = std::locale::use_facet(&v86, &std::ctype<char>::id);
         (v33->__vftable[2].~facet_0)(v33, 10);
-        std::locale::~locale(&v89);
+        std::locale::~locale(&v86);
         std::ostream::put();
         std::ostream::flush();
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "ChildId:", 8);
-      v41 = bswap32(*v24 & 0xFF01);
-      v42 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, ",  ", 3);
-      v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Rloc16:", 7);
-      if (v80 >= 0)
+      v41 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, ",  ", 3);
+      v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Rloc16:", 7);
+      if (v77 >= 0)
       {
-        v44 = &v78;
+        v43 = &v75;
       }
 
       else
       {
-        v44 = v78.__locale_;
+        v43 = v75.__locale_;
       }
 
-      if (v80 >= 0)
+      if (v77 >= 0)
       {
-        v45 = HIBYTE(v80);
+        v44 = HIBYTE(v77);
       }
 
       else
       {
-        v45 = v79;
+        v44 = v76;
       }
 
-      v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, v44, v45);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, ",  ", 3);
+      v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, v43, v44);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, ",  ", 3);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Mode:", 5);
-      v47 = *(v24 + 2);
-      v48 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, ",  ", 3);
+      v46 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, ",  ", 3);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Timeout:", 8);
-      v49 = *v24;
       std::ostream::operator<<();
       std::ios_base::getloc((v8 + *(*v8 - 24)));
-      v50 = std::locale::use_facet(&v89, &std::ctype<char>::id);
-      (v50->__vftable[2].~facet_0)(v50, 10);
-      std::locale::~locale(&v89);
+      v47 = std::locale::use_facet(&v86, &std::ctype<char>::id);
+      (v47->__vftable[2].~facet_0)(v47, 10);
+      std::locale::~locale(&v86);
       std::ostream::put();
       std::ostream::flush();
-      v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
-      v52 = *(a3 + 23);
-      if (v52 >= 0)
+      v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, "", 1);
+      v49 = *(a3 + 23);
+      if (v49 >= 0)
       {
-        v53 = a3;
+        v50 = a3;
       }
 
       else
       {
-        v53 = *a3;
+        v50 = *a3;
       }
 
-      if (v52 >= 0)
+      if (v49 >= 0)
       {
-        v54 = *(a3 + 23);
+        v51 = *(a3 + 23);
       }
 
       else
       {
-        v54 = *(a3 + 8);
+        v51 = a3[1];
       }
 
-      v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, v53, v54);
-      v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, "", 1);
-      v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, " -> ", 4);
-      v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, "", 1);
-      if (v80 >= 0)
+      v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v50, v51);
+      v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "", 1);
+      v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, " -> ", 4);
+      v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, "", 1);
+      if (v77 >= 0)
       {
-        v59 = &v78;
+        v56 = &v75;
       }
 
       else
       {
-        v59 = v78.__locale_;
+        v56 = v75.__locale_;
       }
 
-      if (v80 >= 0)
+      if (v77 >= 0)
       {
-        v60 = HIBYTE(v80);
+        v57 = HIBYTE(v77);
       }
 
       else
       {
-        v60 = v79;
+        v57 = v76;
       }
 
-      v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v59, v60);
-      v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "", 1);
-      v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "[color=brown];", 16);
-      std::ios_base::getloc((v63 + *(*v63 - 24)));
-      v64 = std::locale::use_facet(&v89, &std::ctype<char>::id);
-      (v64->__vftable[2].~facet_0)(v64, 10);
-      std::locale::~locale(&v89);
+      v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, v56, v57);
+      v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, "", 1);
+      v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, "[color=brown];", 16);
+      std::ios_base::getloc((v60 + *(*v60 - 24)));
+      v61 = std::locale::use_facet(&v86, &std::ctype<char>::id);
+      (v61->__vftable[2].~facet_0)(v61, 10);
+      std::locale::~locale(&v86);
       std::ostream::put();
       std::ostream::flush();
-      if (SHIBYTE(v80) < 0)
+      if (SHIBYTE(v77) < 0)
       {
-        operator delete(v78.__locale_);
+        operator delete(v75.__locale_);
       }
 
-      v24 = (v24 + 3);
+      v24 += 3;
       --v25;
     }
 
@@ -6488,56 +6605,56 @@ LABEL_10:
 
   else
   {
-    v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "ChildTable empty", 16);
-    std::ios_base::getloc((v65 + *(*v65 - 24)));
-    v66 = std::locale::use_facet(&v78, &std::ctype<char>::id);
-    (v66->__vftable[2].~facet_0)(v66, 10);
-    std::locale::~locale(&v78);
+    v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "ChildTable empty", 16);
+    std::ios_base::getloc((v62 + *(*v62 - 24)));
+    v63 = std::locale::use_facet(&v75, &std::ctype<char>::id);
+    (v63->__vftable[2].~facet_0)(v63, 10);
+    std::locale::~locale(&v75);
     std::ostream::put();
     std::ostream::flush();
   }
 
   std::ios_base::getloc((v8 + *(*v8 - 24)));
-  v67 = std::locale::use_facet(&v78, &std::ctype<char>::id);
-  (v67->__vftable[2].~facet_0)(v67, 10);
-  std::locale::~locale(&v78);
+  v64 = std::locale::use_facet(&v75, &std::ctype<char>::id);
+  (v64->__vftable[2].~facet_0)(v64, 10);
+  std::locale::~locale(&v75);
   std::ostream::put();
   std::ostream::flush();
 LABEL_53:
   std::ios_base::getloc((v8 + *(*v8 - 24)));
-  v68 = std::locale::use_facet(&v78, &std::ctype<char>::id);
-  (v68->__vftable[2].~facet_0)(v68, 10);
-  std::locale::~locale(&v78);
+  v65 = std::locale::use_facet(&v75, &std::ctype<char>::id);
+  (v65->__vftable[2].~facet_0)(v65, 10);
+  std::locale::~locale(&v75);
   std::ostream::put();
   std::ostream::flush();
   std::ios_base::getloc((v8 + *(*v8 - 24)));
-  v69 = std::locale::use_facet(&v78, &std::ctype<char>::id);
-  (v69->__vftable[2].~facet_0)(v69, 10);
-  std::locale::~locale(&v78);
+  v66 = std::locale::use_facet(&v75, &std::ctype<char>::id);
+  (v66->__vftable[2].~facet_0)(v66, 10);
+  std::locale::~locale(&v75);
   std::ostream::put();
   std::ostream::flush();
-  if (v85 >= v86)
+  if (v82 >= v83)
   {
-    v70 = v83[7](&v83);
+    v67 = v80[7](&v80);
   }
 
   else
   {
-    v70 = v86 - v85;
+    v67 = v83 - v82;
   }
 
-  if (v70)
+  if (v67)
   {
     std::ostream::operator<<();
   }
 
-  v82 = v71;
-  if (v88 < 0)
+  v79 = v68;
+  if (v85 < 0)
   {
     operator delete(__p);
   }
 
-  std::locale::~locale(&v84);
+  std::locale::~locale(&v81);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
@@ -7040,7 +7157,7 @@ void _GLOBAL__sub_I_ThreadDiagnosticsManagerBridge_mm()
 
 void NetworkDiagnosticsManager::NetworkDiagnosticsManager(NetworkDiagnosticsManager *this)
 {
-  v2 = NetworkDiagnosticsConfigDb::NetworkDiagnosticsConfigDb(this);
+  NetworkDiagnosticsConfigDb::NetworkDiagnosticsConfigDb(this);
   NetworkDiagnosticsMdnsResolver::NetworkDiagnosticsMdnsResolver((v2 + 6752), this);
   NetworkDiagnosticsLogger::NetworkDiagnosticsLogger((this + 7456), (this + 6752), this);
   NetworkDiagnosticsReqTransmitReceive::NetworkDiagnosticsReqTransmitReceive(this + 11448, this, this + 7456);
@@ -7144,9 +7261,9 @@ uint64_t NetworkDiagnosticsManager::initialize(NetworkDiagnosticsManager *this)
   current_time(v5);
   *(this + 11792) = 0;
   NetworkDiagnosticsPendingConfig::NetworkDiagnosticsPendingConfig(v4, (this + 11736));
-  if (NetworkDiagnosticsConfigDb::initialize(this, v5) && (atomic_store(0, this + 11736), NetworkDiagnosticsMdnsResolver::initialize(this + 6752, this + 176, this + 200, *(this + 6), *(this + 7), v5)))
+  if (NetworkDiagnosticsConfigDb::initialize(this, v5) && (atomic_store(0, this + 11736), NetworkDiagnosticsMdnsResolver::initialize(this + 6752, this + 22, this + 200, *(this + 6), *(this + 7), v5)))
   {
-    v2 = NetworkDiagnosticsLogger::initialize(this + 932, this + 40, this + 56, this + 80, this + 104, this + 344, this + 200, this + 296, this + 31, this + 34, v5);
+    v2 = NetworkDiagnosticsLogger::initialize(this + 932, this + 40, this + 7, this + 10, this + 13, this + 344, this + 200, this + 296, this + 31, this + 272, v5);
   }
 
   else
@@ -7383,7 +7500,7 @@ uint64_t NetworkDiagnosticsManager::startDiagnostics(NetworkDiagnosticsManager *
       NetworkDiagnosticsManager::resolveServices(this);
 LABEL_5:
       *(this + 2916) = 1;
-      result = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_self_ncp(this + 11448, this + 839);
+      result = NetworkDiagnosticsReqTransmitReceive::send_networkdiagnostics_get_to_self_ncp(this + 11448, this + 6712);
       if (result)
       {
         return result;
@@ -7590,7 +7707,7 @@ uint64_t std::string::insert[abi:ne200100](std::string *this, uint64_t a2, std::
   return v4 + v6;
 }
 
-_BYTE *convertNodeTypeForDisplay@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *convertNodeTypeForDisplay@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 > 2)
   {
@@ -7655,14 +7772,13 @@ uint64_t convertUint16ToHexString(uint64_t a1, uint64_t a2)
   return std::ios::~ios();
 }
 
-void sub_100236E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100236E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
 {
-  va_start(va, a4);
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
 
-_BYTE *current_time@<X0>(_BYTE *a1@<X8>)
+void *current_time@<X0>(void *a1@<X8>)
 {
   gettimeofday(&v4, 0);
   v2 = localtime(&v4.tv_sec);
@@ -7827,7 +7943,7 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return std::iostream::~basic_iostream();
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7839,14 +7955,14 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
-uint64_t **std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::find<unsigned short>(void *a1, unsigned __int16 *a2)
+uint64_t ***std::__hash_table<unsigned short,std::hash<unsigned short>,std::equal_to<unsigned short>,std::allocator<unsigned short>>::find<unsigned short>(void *a1, unsigned __int16 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -8026,156 +8142,156 @@ uint64_t ot::Posix::HardwareIdentifier::getChipsetFromHWIdentifiers(CFDictionary
 
 void getFilePathFromDirectory(char *a1, char *a2, const char *a3, unsigned __int8 a4)
 {
-  v60 = a1;
-  v59 = a2;
-  v58 = a3;
-  v57 = a4;
+  v38 = a1;
+  v37 = a2;
+  v36 = a3;
+  v35 = a4;
   d_name = 0;
-  memset(v65, 0, sizeof(v65));
-  memset(v64, 0, sizeof(v64));
+  memset(v43, 0, sizeof(v43));
+  memset(v42, 0, sizeof(v42));
   memset(__s1, 0, sizeof(__s1));
-  v54 = 0;
-  v55 = 0;
-  v52 = 0;
-  v53 = 0;
-  v51 = 0;
-  v50 = "154_p";
-  v49 = "154_evt";
-  v48 = "154_final";
-  v47 = 0;
-  v46 = 0;
-  v45 = 0;
-  ot::Posix::HardwareIdentifier::HardwareIdentifier(&v44);
-  ChipsetFromHWIdentifiers = ot::Posix::HardwareIdentifier::getChipsetFromHWIdentifiers(&v44);
-  ot::Posix::HardwareIdentifier::getSteppingFromHWIdentifiers(&v44, v65, 0x20u);
-  ot::Posix::HardwareIdentifier::getPlatformFromHWIdentifiers(&v44, v64, 0x20u);
-  ot::Posix::HardwareIdentifier::getVendorFromHWIdentifiers(&v44, __s1, 0x20u);
-  otLogWarnPlat("chipsetVal = %llu, chipsetStepping = %s, platform = %s, vendor = %s", v4, v5, v6, v7, v8, v9, v10, ChipsetFromHWIdentifiers);
-  memset(v62, 0, sizeof(v62));
-  ot::Posix::HardwareIdentifier::getSKUFromSystem(&v44, v62, 0x20u);
-  memset(v61, 0, sizeof(v61));
-  v11 = strlen(v62);
-  snprintf(v61, v11 + 2, "_%s", v62);
-  if (!ChipsetFromHWIdentifiers || !LOBYTE(v65[0]) || !LOBYTE(v64[0]) || !LOBYTE(__s1[0]))
+  v32 = 0;
+  v33 = 0;
+  v30 = 0;
+  v31 = 0;
+  v29 = 0;
+  v28 = "154_p";
+  v27 = "154_evt";
+  v26 = "154_final";
+  v25 = 0;
+  v24 = 0;
+  v23 = 0;
+  ot::Posix::HardwareIdentifier::HardwareIdentifier(&v22);
+  ChipsetFromHWIdentifiers = ot::Posix::HardwareIdentifier::getChipsetFromHWIdentifiers(&v22);
+  ot::Posix::HardwareIdentifier::getSteppingFromHWIdentifiers(&v22, v43, 0x20u);
+  ot::Posix::HardwareIdentifier::getPlatformFromHWIdentifiers(&v22, v42, 0x20u);
+  ot::Posix::HardwareIdentifier::getVendorFromHWIdentifiers(&v22, __s1, 0x20u);
+  otLogWarnPlat("chipsetVal = %llu, chipsetStepping = %s, platform = %s, vendor = %s", ChipsetFromHWIdentifiers, v43, v42, __s1);
+  memset(v40, 0, sizeof(v40));
+  ot::Posix::HardwareIdentifier::getSKUFromSystem(&v22, v40, 0x20u);
+  memset(v39, 0, sizeof(v39));
+  v4 = strlen(v40);
+  snprintf(v39, v4 + 2, "_%s", v40);
+  if (!ChipsetFromHWIdentifiers || !LOBYTE(v43[0]) || !LOBYTE(v42[0]) || !LOBYTE(__s1[0]))
   {
     return;
   }
 
   if (!strcmp(__s1, "u"))
   {
-    v51 = "os_usi";
+    v29 = "os_usi";
   }
 
   else if (!strcmp(__s1, "g"))
   {
-    v51 = "os_stats";
+    v29 = "os_stats";
   }
 
   else
   {
-    v51 = "os_amkor";
+    v29 = "os_amkor";
   }
 
-  snprintf(v66, 8uLL, "%llu", ChipsetFromHWIdentifiers);
-  LOBYTE(v64[0]) = toupper(SLOBYTE(v64[0]));
-  v42 = opendir(v59);
-  if (!v42)
+  snprintf(v44, 8uLL, "%llu", ChipsetFromHWIdentifiers);
+  LOBYTE(v42[0]) = toupper(SLOBYTE(v42[0]));
+  v20 = opendir(v37);
+  if (!v20)
   {
-    otLogWarnPlat("Could not open PTB/BANDEDGE folder path directory", v12, v13, v14, v15, v16, v17, v18, v34);
+    otLogWarnPlat("Could not open PTB/BANDEDGE folder path directory");
     return;
   }
 
   while (1)
   {
-    v45 = readdir(v42);
-    if (!v45)
+    v23 = readdir(v20);
+    if (!v23)
     {
       break;
     }
 
-    v26 = toLower(v45->d_name);
-    if (strstr[abi:dn200100](v26, v58))
+    v5 = toLower(v23->d_name);
+    if (strstr[abi:dn200100](v5, v36))
     {
-      v38 = toLower(v45->d_name);
-      v27 = toLower(v66);
-      if (strstr[abi:dn200100](v38, v27))
+      v16 = toLower(v23->d_name);
+      v6 = toLower(v44);
+      if (strstr[abi:dn200100](v16, v6))
       {
-        v37 = toLower(v45->d_name);
-        v28 = toLower(v65);
-        if (strstr[abi:dn200100](v37, v28))
+        v15 = toLower(v23->d_name);
+        v7 = toLower(v43);
+        if (strstr[abi:dn200100](v15, v7))
         {
-          v36 = toLower(v45->d_name);
-          v29 = toLower(v64);
-          if (strstr[abi:dn200100](v36, v29))
+          v14 = toLower(v23->d_name);
+          v8 = toLower(v42);
+          if (strstr[abi:dn200100](v14, v8))
           {
-            v30 = toLower(v45->d_name);
-            if (strstr[abi:dn200100](v30, v51))
+            v9 = toLower(v23->d_name);
+            if (strstr[abi:dn200100](v9, v29))
             {
-              if (strstr[abi:dn200100](v45->d_name, "154") && ((ot::Posix::HardwareIdentifier::isIPad(&v44) & 1) != 0 || !ot::Posix::HardwareIdentifier::isSKUSpecificiPhone(&v44) || strstr[abi:dn200100](v45->d_name, v61) && (!strcmp(v62, sku_list[0]) || !strcmp(v62, off_1004E53F0[0]) || !strcmp(v62, off_1004E53F8[0]) || !strcmp(v62, off_1004E5400[0]) || !strcmp(v62, off_1004E5408))))
+              if (strstr[abi:dn200100](v23->d_name, "154") && ((ot::Posix::HardwareIdentifier::isIPad(&v22) & 1) != 0 || !ot::Posix::HardwareIdentifier::isSKUSpecificiPhone(&v22) || strstr[abi:dn200100](v23->d_name, v39) && (!strcmp(v40, sku_list[0]) || !strcmp(v40, off_1004E53F0[0]) || !strcmp(v40, off_1004E53F8[0]) || !strcmp(v40, off_1004E5400[0]) || !strcmp(v40, off_1004E5408))))
               {
-                v31 = toLower(v45->d_name);
-                v41 = strstr[abi:dn200100](v31, v50);
-                v32 = toLower(v45->d_name);
-                v40 = strstr[abi:dn200100](v32, v49);
-                v33 = toLower(v45->d_name);
-                v39 = strstr[abi:dn200100](v33, v48);
-                if ((v47 & 1) == 0 && v39)
+                v10 = toLower(v23->d_name);
+                v19 = strstr[abi:dn200100](v10, v28);
+                v11 = toLower(v23->d_name);
+                v18 = strstr[abi:dn200100](v11, v27);
+                v12 = toLower(v23->d_name);
+                v17 = strstr[abi:dn200100](v12, v26);
+                if ((v25 & 1) == 0 && v17)
                 {
-                  v47 = 1;
-                  v54 = 0;
-                  v55 = 0;
+                  v25 = 1;
+                  v32 = 0;
+                  v33 = 0;
                 }
 
-                if ((v47 & 1) == 0 && (v46 & 1) == 0 && v40)
+                if ((v25 & 1) == 0 && (v24 & 1) == 0 && v18)
                 {
-                  v46 = 1;
-                  v54 = 0;
-                  v55 = 0;
+                  v24 = 1;
+                  v32 = 0;
+                  v33 = 0;
                 }
 
-                if (((v47 & 1) != 1 || !v40 && !v41) && ((v46 & 1) != 1 || !v41))
+                if (((v25 & 1) != 1 || !v18 && !v19) && ((v24 & 1) != 1 || !v19))
                 {
-                  v52 = 0;
-                  v53 = 0;
-                  if ((v47 & 1) == 1)
+                  v30 = 0;
+                  v31 = 0;
+                  if ((v25 & 1) == 1)
                   {
-                    LOWORD(v52) = *&v39[strlen(v48)];
-                    BYTE2(v52) = 0;
-                    if (!v54 || SBYTE1(v52) > SBYTE1(v54))
+                    LOWORD(v30) = *&v17[strlen(v26)];
+                    BYTE2(v30) = 0;
+                    if (!v32 || SBYTE1(v30) > SBYTE1(v32))
                     {
-                      v55 = 0;
-                      v54 = v52;
+                      v33 = 0;
+                      v32 = v30;
 LABEL_57:
-                      d_name = v45->d_name;
-                      v35 = strlen(v59);
-                      if (v35 + strlen(v45->d_name) < v57 - 1)
+                      d_name = v23->d_name;
+                      v13 = strlen(v37);
+                      if (v13 + strlen(v23->d_name) < v35 - 1)
                       {
-                        strlcpy(v60, v59, v57);
-                        strcat(v60, d_name);
+                        strlcpy(v38, v37, v35);
+                        strcat(v38, d_name);
                       }
                     }
                   }
 
-                  else if ((v46 & 1) == 1)
+                  else if ((v24 & 1) == 1)
                   {
-                    LOWORD(v52) = *&v40[strlen(v49)];
-                    BYTE2(v52) = 0;
-                    if (!v54 || SBYTE1(v52) > SBYTE1(v54))
+                    LOWORD(v30) = *&v18[strlen(v27)];
+                    BYTE2(v30) = 0;
+                    if (!v32 || SBYTE1(v30) > SBYTE1(v32))
                     {
-                      v55 = 0;
-                      v54 = v52;
+                      v33 = 0;
+                      v32 = v30;
                       goto LABEL_57;
                     }
                   }
 
                   else
                   {
-                    v52 = *&v41[strlen(v50) - 1];
-                    v53 = 0;
-                    if (!v54 || SBYTE1(v52) > SBYTE1(v54) || SBYTE1(v52) == SBYTE1(v54) && SHIBYTE(v52) > SHIBYTE(v54))
+                    v30 = *&v19[strlen(v28) - 1];
+                    v31 = 0;
+                    if (!v32 || SBYTE1(v30) > SBYTE1(v32) || SBYTE1(v30) == SBYTE1(v32) && SHIBYTE(v30) > SHIBYTE(v32))
                     {
-                      v55 = 0;
-                      v54 = v52;
+                      v33 = 0;
+                      v32 = v30;
                       goto LABEL_57;
                     }
                   }
@@ -8188,17 +8304,17 @@ LABEL_57:
     }
   }
 
-  if (*v60)
+  if (*v38)
   {
-    otLogWarnPlat("Load file: %s, version %s ", v19, v20, v21, v22, v23, v24, v25, v60);
+    otLogWarnPlat("Load file: %s, version %s ", v38, &v32);
   }
 
   else
   {
-    otLogWarnPlat("Failed to find the right %s file", v19, v20, v21, v22, v23, v24, v25, v58);
+    otLogWarnPlat("Failed to find the right %s file", v36);
   }
 
-  closedir(v42);
+  closedir(v20);
 }
 
 void *ot::Posix::HardwareIdentifier::getSKUFromSystem(ot::Posix::HardwareIdentifier *this, char *a2, unsigned __int16 a3)
@@ -8311,19 +8427,19 @@ uint64_t readFromFilePTB(const char *a1, unsigned __int8 *a2, unsigned __int16 a
   __stream = fopen(a1, "rb");
   if (__stream)
   {
-    v20 = fread(a2, 1uLL, a3, __stream);
-    if (!v20 || ferror(__stream))
+    v5 = fread(a2, 1uLL, a3, __stream);
+    if (!v5 || ferror(__stream))
     {
-      otLogWarnPlat("PTB file read error", v10, v11, v12, v13, v14, v15, v16, v18);
+      otLogWarnPlat("PTB file read error");
     }
 
     fclose(__stream);
-    return v20;
+    return v5;
   }
 
   else
   {
-    otLogWarnPlat("PTB file does not exist", v3, v4, v5, v6, v7, v8, v9, v18);
+    otLogWarnPlat("PTB file does not exist");
     return 0;
   }
 }
@@ -9170,52 +9286,52 @@ uint64_t ot::Posix::HdlcInterface::Init(uint64_t a1, uint64_t a2, uint64_t a3, u
 
 uint64_t ot::Posix::HdlcInterface::OpenFile(ot::Posix::HdlcInterface *this, const ot::Url::Url *a2)
 {
-  v14 = 0;
+  v10 = 0;
   while (ot::Posix::HdlcInterface::OpenFile(ot::Url::Url const&)::count < 0x19u)
   {
     RadioSpinel = ot::Posix::Radio::GetRadioSpinel(&sRadio);
     Rcp2Vendor2Enabled = ot::Spinel::RadioSpinel::GetRcp2Vendor2Enabled(RadioSpinel);
     if (Rcp2Vendor2Enabled)
     {
-      v14 = ot::Posix::HdlcInterface::airship_open(Rcp2Vendor2Enabled);
+      v10 = ot::Posix::HdlcInterface::airship_open(Rcp2Vendor2Enabled);
       logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
       if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
         if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v18, ot::Posix::HdlcInterface::OpenFile(ot::Url::Url const&)::count, v14);
-          _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "AS Transport::OpenFile:airship_open Attempd= %d status = %d", v18, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v14, ot::Posix::HdlcInterface::OpenFile(ot::Url::Url const&)::count, v10);
+          _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "AS Transport::OpenFile:airship_open Attempd= %d status = %d", v14, 0xEu);
         }
       }
 
       else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v17, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v17, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v13, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v13, 0x16u);
       }
     }
 
     else
     {
-      v14 = ot::Posix::HdlcInterface::skywalk_open(Rcp2Vendor2Enabled);
-      v12 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v12 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      v10 = ot::Posix::HdlcInterface::skywalk_open(Rcp2Vendor2Enabled);
+      v8 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v8 && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v16, ot::Posix::HdlcInterface::OpenFile(ot::Url::Url const&)::count, v14);
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Skywalk::OpenFile:skywalk_open Attempt= %d status = %d", v16, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v12, ot::Posix::HdlcInterface::OpenFile(ot::Url::Url const&)::count, v10);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Skywalk::OpenFile:skywalk_open Attempt= %d status = %d", v12, 0xEu);
         }
       }
 
-      else if (!v12 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      else if (!v8 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v15, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v15, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v11, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v11, 0x16u);
       }
     }
 
-    if (!v14)
+    if (!v10)
     {
       gPciStatus = 0;
       break;
@@ -9225,39 +9341,27 @@ uint64_t ot::Posix::HdlcInterface::OpenFile(ot::Posix::HdlcInterface *this, cons
     usleep(0x186A0u);
   }
 
-  if (v14)
+  if (v10)
   {
     perror("open PCIe failed");
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-    otExitCodeToString(1);
-    otLogCritPlat("%s() at %s:%d: %s", v4, v5, v6, v7, v8, v9, v10, "OpenFile");
+    v7 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+    if (v7)
+    {
+      v6 = v7 + 1;
+    }
+
+    else
+    {
+      v6 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+    }
+
+    v4 = otExitCodeToString(1);
+    otLogCritPlat("%s() at %s:%d: %s", "OpenFile", v6, 819, v4);
     handle_daemon_exit();
     exit(1);
   }
 
   return 0;
-}
-
-void ot::Posix::HdlcInterface::HandleHdlcFrame(uint64_t a1, int a2)
-{
-  ot::Posix::HdlcInterface::HandleHdlcFrame(a1, a2);
-}
-
-{
-  if (*(a1 + 8) && *(a1 + 24))
-  {
-    if (a2)
-    {
-      ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::DiscardFrame(*(a1 + 24));
-      v2 = otThreadErrorToString(a2);
-      otLogWarnPlat("Error decoding hdlc frame: %s", v3, v4, v5, v6, v7, v8, v9, v2);
-    }
-
-    else
-    {
-      (*(a1 + 8))(*(a1 + 16));
-    }
-  }
 }
 
 void ot::Posix::HdlcInterface::~HdlcInterface(ot::Posix::HdlcInterface *this)
@@ -9517,7 +9621,7 @@ uint64_t ot::Posix::HdlcInterface::SendFrame(ot::Posix::HdlcInterface *this, con
   }
 }
 
-uint64_t ot::Spinel::FrameBuffer<(unsigned short)8192>::FrameBuffer(uint64_t a1)
+ot::Spinel::FrameWritePointer *ot::Spinel::FrameBuffer<(unsigned short)8192>::FrameBuffer(ot::Spinel::FrameWritePointer *a1)
 {
   ot::Spinel::FrameBuffer<(unsigned short)8192>::FrameBuffer(a1);
   return a1;
@@ -9531,25 +9635,41 @@ uint64_t ot::Spinel::FrameBuffer<(unsigned short)8192>::FrameBuffer(uint64_t a1)
 
 uint64_t ot::Posix::HdlcInterface::Write(ot::Posix::HdlcInterface *this, ot::Posix::HdlcInterface *a2, unsigned __int16 a3)
 {
+  v14 = this;
+  v13 = a2;
   v12 = a3;
+  v11 = 0;
+  v10 = a3;
   RadioSpinel = ot::Posix::Radio::GetRadioSpinel(&sRadio);
   if (ot::Spinel::RadioSpinel::GetRcp2Vendor2Enabled(RadioSpinel))
   {
-    v13 = ot::Posix::HdlcInterface::airship_write(a2, v12);
+    v11 = ot::Posix::HdlcInterface::airship_write(v13, v10);
   }
 
   else
   {
-    v13 = ot::Posix::HdlcInterface::skywalk_write(a2, v12);
+    v11 = ot::Posix::HdlcInterface::skywalk_write(v13, v10);
   }
 
-  if (v13)
+  if (v11)
   {
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-    otExitCodeToString(5);
-    otLogCritPlat("%s() at %s:%d: %s", v4, v5, v6, v7, v8, v9, v10, "Write");
+    v9 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+    if (v9)
+    {
+      v8 = v9 + 1;
+    }
+
+    else
+    {
+      v8 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+    }
+
+    v6 = v8;
+    v7 = 5;
+    v4 = otExitCodeToString(5);
+    otLogCritPlat("%s() at %s:%d: %s", "Write", v8, 386, v4);
     handle_daemon_exit();
-    exit(5);
+    exit(v7);
   }
 
   return 0;
@@ -9564,9 +9684,8 @@ uint64_t ot::Spinel::FrameBuffer<(unsigned short)8192>::GetFrame(uint64_t a1)
   return ot::Spinel::FrameBuffer<(unsigned short)8192>::GetFrame(a1);
 }
 
-uint64_t ot::Spinel::FrameBuffer<(unsigned short)8192>::GetLength(void *a1)
+uint64_t ot::Spinel::FrameBuffer<(unsigned short)8192>::GetLength(_WORD *a1)
 {
-  v1 = __OFSUB__(*a1, a1 + 10);
   return (*a1 - (a1 + 10));
 }
 
@@ -9658,23 +9777,29 @@ uint64_t ot::Posix::HdlcInterface::UpdateFdSet(ot::Posix::HdlcInterface *this, v
 uint64_t ot::Posix::HdlcInterface::WaitForWritable(ot::Posix::HdlcInterface *this)
 {
   v24 = this;
+  v13 = this;
   v23 = 0;
   v22 = xmmword_1004487B0;
   v21 = otPlatTimeGet();
-  for (i = v21 + 2000000; ; v22.tv_usec = (i - v21) % 0xF4240)
+  v20 = v21 + 2000000;
+  v17 = 0;
+  while (1)
   {
+    p_b = &__b;
+    __len = 128;
+    __c = 0;
     memset(&__b, 0, sizeof(__b));
     memset(&v18, 0, sizeof(v18));
-    v28 = *(this + 12);
-    p_b = &__b;
+    v28 = *(v13 + 12);
+    v27 = &__b;
     v42 = v28;
     v41 = &__b;
     if (__darwin_check_fd_set_overflow(v28, &__b, 0))
     {
-      p_b->fds_bits[v28 / 0x20uLL] |= 1 << (v28 % 0x20uLL);
+      v27->fds_bits[v28 / 0x20uLL] |= 1 << (v28 % 0x20uLL);
     }
 
-    v26 = *(this + 12);
+    v26 = *(v13 + 12);
     v25 = &v18;
     v45 = v26;
     v44 = &v18;
@@ -9683,7 +9808,7 @@ uint64_t ot::Posix::HdlcInterface::WaitForWritable(ot::Posix::HdlcInterface *thi
       v25->fds_bits[v26 / 0x20uLL] |= 1 << (v26 % 0x20uLL);
     }
 
-    v17 = select(*(this + 12) + 1, 0, &__b, &v18, &v22);
+    v17 = select(*(v13 + 12) + 1, 0, &__b, &v18, &v22);
     if (v17 > 0)
     {
       break;
@@ -9691,23 +9816,37 @@ uint64_t ot::Posix::HdlcInterface::WaitForWritable(ot::Posix::HdlcInterface *thi
 
     if (v17 < 0 && *__error() != 4)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-      otExitCodeToString(5);
-      otLogCritPlat("%s() at %s:%d: %s", v8, v9, v10, v11, v12, v13, v14, "WaitForWritable");
+      v15 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+      if (v15)
+      {
+        v6 = v15 + 1;
+      }
+
+      else
+      {
+        v6 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+      }
+
+      v4 = v6;
+      v5 = 5;
+      v2 = otExitCodeToString(5);
+      otLogCritPlat("%s() at %s:%d: %s", "WaitForWritable", v6, 561, v2);
       handle_daemon_exit();
-      exit(5);
+      exit(v5);
     }
 
     v21 = otPlatTimeGet();
-    if (i <= v21)
+    if (v20 <= v21)
     {
       return 1;
     }
 
-    v22.tv_sec = (i - v21) / 0xF4240;
+    v14 = v20 - v21;
+    v22.tv_sec = (v20 - v21) / 0xF4240;
+    v22.tv_usec = (v20 - v21) % 0xF4240;
   }
 
-  v33 = *(this + 12);
+  v33 = *(v13 + 12);
   v32 = &__b;
   v36 = v33;
   v35 = &__b;
@@ -9723,7 +9862,7 @@ uint64_t ot::Posix::HdlcInterface::WaitForWritable(ot::Posix::HdlcInterface *thi
 
   if (!v34)
   {
-    v30 = *(this + 12);
+    v30 = *(v13 + 12);
     v29 = &v18;
     v39 = v30;
     v38 = &v18;
@@ -9739,118 +9878,27 @@ uint64_t ot::Posix::HdlcInterface::WaitForWritable(ot::Posix::HdlcInterface *thi
 
     if (v31)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-      otExitCodeToString(1);
-      otLogCritPlat("%s() at %s:%d: %s", v1, v2, v3, v4, v5, v6, v7, "WaitForWritable");
+      v16 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+      if (v16)
+      {
+        v9 = v16 + 1;
+      }
+
+      else
+      {
+        v9 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+      }
+
+      v7 = v9;
+      v8 = 1;
+      v1 = otExitCodeToString(1);
+      otLogCritPlat("%s() at %s:%d: %s", "WaitForWritable", v9, 552, v1);
       handle_daemon_exit();
-      exit(1);
+      exit(v8);
     }
 
     __assert_rtn("WaitForWritable", "hdlc_skywalk_interface.cpp", 556, "false");
   }
 
   return v23;
-}
-
-uint64_t ot::Posix::HdlcInterface::airship_open(ot::Posix::HdlcInterface *this)
-{
-  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
-  {
-    if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-    {
-      __os_log_helper_16_2_1_8_32(v17, "airship_open");
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Creating Airship interface...\n", v17, 0xCu);
-    }
-  }
-
-  else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    __os_log_helper_16_2_2_8_32_8_32(v16, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v16, 0x16u);
-  }
-
-  if (ot::Posix::HdlcInterface::airship_open_rings(thread_ctx))
-  {
-    gPciStatus = 0;
-    v5 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v5 && (syslog_is_the_mask_enabled(6) & 1) != 0)
-    {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-      {
-        __os_log_helper_16_2_2_8_32_4_0(v15, "airship_open", gPciStatus);
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s: airship_open_rings() successful gPciStatus=%d\n", v15, 0x12u);
-      }
-    }
-
-    else if (!v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      __os_log_helper_16_2_2_8_32_8_32(v14, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v14, 0x16u);
-    }
-
-    if (pthread_create(&g_hci_thread_id, 0, ot::Posix::HdlcInterface::airship_read_thread, 0))
-    {
-      v3 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v3 && (syslog_is_the_mask_enabled(6) & 1) != 0)
-      {
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-        {
-          __os_log_helper_16_2_1_8_32(v11, "airship_open");
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s: failed to create airship rx thread\n", v11, 0xCu);
-        }
-      }
-
-      else if (!v3 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_2_2_8_32_8_32(v10, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v10, 0x16u);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      v2 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v2 && (syslog_is_the_mask_enabled(6) & 1) != 0)
-      {
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-        {
-          __os_log_helper_16_2_1_8_32(v9, "airship_open");
-          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s: created airship rx thread\n", v9, 0xCu);
-        }
-      }
-
-      else if (!v2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_2_2_8_32_8_32(v8, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v8, 0x16u);
-      }
-
-      return 0;
-    }
-  }
-
-  else
-  {
-    gPciStatus = 3;
-    v4 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v4 && (syslog_is_the_mask_enabled(6) & 1) != 0)
-    {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        __os_log_helper_16_2_2_8_32_4_0(v13, "airship_open", gPciStatus);
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s: airship_open_rings() failed gPciStatus=%d\n", v13, 0x12u);
-      }
-    }
-
-    else if (!v4 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      __os_log_helper_16_2_2_8_32_8_32(v12, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v12, 0x16u);
-    }
-
-    return 1;
-  }
 }

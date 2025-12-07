@@ -51,9 +51,9 @@ LABEL_35:
       goto LABEL_20;
     }
 
-    v8 = [(__CFString *)v6 isEqualToString:@"twinkling"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v8)
+    if (isEqualToString)
     {
 LABEL_6:
       v9 = 0;
@@ -61,28 +61,28 @@ LABEL_6:
     }
 
     v11 = v7;
-    if (v11 == @"falling" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"falling"], v12, (v13 & 1) != 0))
+    if (v11 == @"falling" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, (v13 & 1) != 0))
     {
       v9 = 1;
       goto LABEL_21;
     }
 
     v14 = v12;
-    if (v14 == @"blooming" || (v15 = v14, v16 = [(__CFString *)v14 isEqualToString:@"blooming"], v15, (v16 & 1) != 0))
+    if (v14 == @"blooming" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(v14), v15, (v16 & 1) != 0))
     {
       v9 = 2;
       goto LABEL_21;
     }
 
     v17 = v15;
-    if (v17 == @"rising" || (v18 = v17, v19 = [(__CFString *)v17 isEqualToString:@"rising"], v18, (v19 & 1) != 0))
+    if (v17 == @"rising" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(v17), v18, (v19 & 1) != 0))
     {
       v9 = 3;
       goto LABEL_21;
     }
 
     v20 = v18;
-    if (v20 == @"shooting" || (v21 = v20, v22 = [(__CFString *)v20 isEqualToString:@"shooting"], v21, v22))
+    if (v20 == @"shooting" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(v20), v21, v22))
     {
       v9 = 4;
     }
@@ -103,7 +103,7 @@ LABEL_21:
       goto LABEL_26;
     }
 
-    v26 = [(__CFString *)v23 isEqualToString:@"low"];
+    v26 = objc_msgSend_isEqualToString_(v23);
 
     if (v26)
     {
@@ -111,7 +111,7 @@ LABEL_21:
     }
 
     v36 = v24;
-    if (v36 == @"medium" || (v37 = v36, v38 = [(__CFString *)v36 isEqualToString:@"medium"], v37, (v38 & 1) != 0))
+    if (v36 == @"medium" || (v37 = v36, v38 = objc_msgSend_isEqualToString_(v36), v37, (v38 & 1) != 0))
     {
       v27 = 1;
     }
@@ -122,7 +122,7 @@ LABEL_21:
       if (v39 != @"high")
       {
         v40 = v39;
-        v41 = [(__CFString *)v39 isEqualToString:@"high"];
+        v41 = objc_msgSend_isEqualToString_(v39);
 
         if (!v41)
         {
@@ -143,13 +143,13 @@ LABEL_27:
     v30 = 0;
     if (v28 != @"off" && v28)
     {
-      v31 = [(__CFString *)v28 isEqualToString:@"off"];
+      v31 = objc_msgSend_isEqualToString_(v28);
 
       v30 = 0;
       if ((v31 & 1) == 0)
       {
         v32 = v29;
-        if (v32 == @"turbulence" || (v33 = v32, v34 = [(__CFString *)v32 isEqualToString:@"turbulence"], v33, v34))
+        if (v32 == @"turbulence" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(v32), v33, v34))
         {
           v30 = 1;
         }

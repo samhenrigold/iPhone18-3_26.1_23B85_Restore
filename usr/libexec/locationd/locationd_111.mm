@@ -1,221 +1,167 @@
-void sub_10083119C(uint64_t a1, void *a2)
+uint64_t sub_10080FC6C@<X0>(uint64_t result@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (*(a1 + 65) != a2)
+  v3 = *(*(*(result + 168) + ((*(result + 192) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(result + 192) & 0x1FFLL));
+  v4 = *(result + 136);
+  v5 = *(result + 144);
+  v6 = v3 - v4;
+  v8 = a2[4];
+  v7 = a2[5];
+  v9 = (v3 - v4) / (v7 - v4) * a2[1] + (1.0 - (v3 - v4) / (v7 - v4)) * *(result + 104);
+  *(a3 + 24) = 0u;
+  *(a3 + 40) = 0u;
+  *(a3 + 56) = 0;
+  v10 = *(result + 96);
+  if (v10 <= *a2)
   {
-    *(a1 + 65) = a2;
-    if (qword_1025D4600 != -1)
+    v10 = *a2;
+  }
+
+  *a3 = v10;
+  *(a3 + 4) = 1;
+  *(a3 + 8) = v9;
+  *(a3 + 16) = 0x3FF0000000000000;
+  *(a3 + 32) = v3 + v8 - v7;
+  *(a3 + 40) = v3;
+  *(a3 + 48) = v6 + v5;
+  return result;
+}
+
+void sub_10080FD00(uint64_t a1, int a2)
+{
+  *(a1 + 16) = 1;
+  v4 = sub_1000137E0();
+  *(a1 + 24) = v4;
+  *(a1 + 20) = a2;
+  v5 = *(a1 + 40);
+  *(a1 + 96) = *(a1 + 32);
+  *(a1 + 104) = v5;
+  *(a1 + 128) = v4;
+  *(a1 + 136) = CFAbsoluteTimeGetCurrent();
+  *(a1 + 144) = 0x7FF0000000000000;
+  sub_10116BDEC(a1 + 208);
+  if (qword_1025D43A0 != -1)
+  {
+    sub_10001CA24();
+  }
+
+  v6 = qword_1025D43A8;
+  if (os_log_type_enabled(qword_1025D43A8, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = *(a1 + 20);
+    v8 = *(a1 + 104);
+    v9 = *(a1 + 128);
+    v10 = *(a1 + 136);
+    v11 = *(a1 + 96);
+    v12 = *(a1 + 100);
+    v13 = *(a1 + 144);
+    *buf = 67110656;
+    v33 = v7;
+    v34 = 2048;
+    v35 = v8;
+    v36 = 2048;
+    v37 = v9;
+    v38 = 2048;
+    v39 = v10;
+    v40 = 1024;
+    v41 = v11;
+    v42 = 1024;
+    v43 = v12;
+    v44 = 2048;
+    v45 = v13;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "sessionType,%d,lastGoodCatherine,%.0f,timestamp,%.6f,startTime,%.6f,dataSource,%d,interpolation,%d,staleness=%.6f", buf, 0x3Cu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1025D43A0 != -1)
     {
-      sub_10194EAB4();
+      sub_101948884();
     }
 
-    v4 = qword_1025D4608;
-    if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEFAULT))
+    v14 = *(a1 + 20);
+    v15 = *(a1 + 104);
+    v16 = *(a1 + 128);
+    v17 = *(a1 + 136);
+    v18 = *(a1 + 96);
+    v19 = *(a1 + 100);
+    v20 = *(a1 + 144);
+    LODWORD(v24) = 67110656;
+    HIDWORD(v24) = v14;
+    *v25 = 2048;
+    *&v25[2] = v15;
+    *&v25[10] = 2048;
+    *v26 = v17;
+    *&v26[8] = 1024;
+    v27 = v18;
+    v28 = 1024;
+    v29 = v19;
+    v30 = 2048;
+    v31 = v20;
+    LODWORD(v23) = 60;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D43A8, 2, "sessionType,%d,lastGoodCatherine,%.0f,timestamp,%.6f,startTime,%.6f,dataSource,%d,interpolation,%d,staleness=%.6f", &v24, v23, v24, *v25, *&v25[8], HIDWORD(v16), *&v26[2]);
+    v22 = v21;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLCatherineInterpolator::startSession(const CLMotionActivity::Type)", "%s\n", v21);
+    if (v22 != buf)
     {
-      v5[0] = 67240192;
-      v5[1] = a2;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "LCOutputBuffer,setting simulation mode,enabled,%{public}d", v5, 8u);
+      free(v22);
     }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_10194F7EC(a2);
-      if (!a2)
-      {
-        return;
-      }
-    }
-
-    else if (!a2)
-    {
-      return;
-    }
-
-    sub_1006A97E8(*(a1 + 40));
   }
 }
 
-void *sub_10083129C(void *a1)
+void sub_10080FF60(uint64_t a1)
 {
-  *a1 = off_102475C90;
-  v2 = a1[6];
-  if (v2)
+  v2 = *(a1 + 20);
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 20) = 0;
+  v3 = *(a1 + 40);
+  *(a1 + 96) = *(a1 + 32);
+  *(a1 + 104) = v3;
+  *(a1 + 128) = 0;
+  *(a1 + 136) = CFAbsoluteTimeGetCurrent();
+  *(a1 + 144) = 0x7FF0000000000000;
+  sub_10116BE20(a1 + 208);
+  if (qword_1025D43A0 != -1)
   {
-    sub_100008080(v2);
+    sub_10001CA24();
   }
 
-  v3 = a1[4];
-  if (v3)
+  v4 = qword_1025D43A8;
+  if (os_log_type_enabled(qword_1025D43A8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008080(v3);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLCatherineInterpolator stopped session type %d", v5, 8u);
   }
 
-  v4 = a1[2];
-  if (v4)
+  if (sub_10000A100(121, 2))
   {
-    std::__shared_weak_count::__release_weak(v4);
+    sub_101948AD8(v2);
+  }
+}
+
+void *sub_100810CCC(void *a1, uint64_t a2)
+{
+  sub_10000EC00(__p, "");
+  sub_100810E2C(a1, "SmoothedGaitMetricsHistory", a2, __p, 1, 30.0);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
   }
 
+  *a1 = off_102474478;
+  a1[9] = off_102474540;
+  a1[46] = off_102474590;
+  sub_100DD42E4(a1 + 47, 0, 0);
+  sub_100DD42E4(a1 + 49, 0, 0);
+  sub_100DD42E4(a1 + 51, 0, 0);
+  sub_100DD42E4(a1 + 53, 0, 0);
+  (*(*a1 + 112))(a1);
   return a1;
 }
 
-void sub_100831300(void *a1)
-{
-  *a1 = off_102475C90;
-  v2 = a1[6];
-  if (v2)
-  {
-    sub_100008080(v2);
-  }
-
-  v3 = a1[4];
-  if (v3)
-  {
-    sub_100008080(v3);
-  }
-
-  v4 = a1[2];
-  if (v4)
-  {
-    std::__shared_weak_count::__release_weak(v4);
-  }
-
-  operator delete();
-}
-
-uint64_t sub_1008313B4(uint64_t *a1, uint64_t a2)
-{
-  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 4);
-  v3 = v2 + 1;
-  if (v2 + 1 > 0x1C71C71C71C71C7)
-  {
-    sub_10028C64C();
-  }
-
-  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4) > v3)
-  {
-    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4);
-  }
-
-  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 4) >= 0xE38E38E38E38E3)
-  {
-    v6 = 0x1C71C71C71C71C7;
-  }
-
-  else
-  {
-    v6 = v3;
-  }
-
-  v20 = a1;
-  if (v6)
-  {
-    sub_1001EBF28(a1, v6);
-  }
-
-  v7 = 144 * v2;
-  __p = 0;
-  v17 = v7;
-  v19 = 0;
-  *v7 = off_1024DE5F8;
-  v8 = *(a2 + 72);
-  v9 = *(a2 + 88);
-  v10 = *(a2 + 104);
-  *(v7 + 120) = *(a2 + 120);
-  *(v7 + 104) = v10;
-  *(v7 + 88) = v9;
-  *(v7 + 72) = v8;
-  v11 = *(a2 + 8);
-  v12 = *(a2 + 24);
-  v13 = *(a2 + 40);
-  *(v7 + 56) = *(a2 + 56);
-  *(v7 + 40) = v13;
-  *(v7 + 24) = v12;
-  *(v7 + 8) = v11;
-  *(v7 + 128) = *(a2 + 128);
-  v18 = 144 * v2 + 144;
-  sub_1001EBF84(a1, &__p);
-  v14 = a1[1];
-  if (v18 != v17)
-  {
-    v18 = (v18 - v17 - 144) % 0x90uLL + v17;
-  }
-
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  return v14;
-}
-
-void sub_100831554(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1008315CC(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_102475D28;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-void *sub_1008316AC(void *a1, double *a2, double *a3, char *a4)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = off_102475D78;
-  sub_100831788((a1 + 3), a2, a3, a4);
-  return a1;
-}
-
-void sub_100831728(std::__shared_weak_count *a1)
-{
-  a1->__vftable = off_102475D78;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete();
-}
-
-uint64_t sub_100831788(uint64_t a1, double *a2, double *a3, char *__s)
-{
-  v6 = *a2;
-  v7 = *a3;
-  v8 = strlen(__s);
-  if (v8 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    sub_100061080();
-  }
-
-  v9 = v8;
-  if (v8 >= 0x17)
-  {
-    operator new();
-  }
-
-  v12 = v8;
-  if (v8)
-  {
-    memcpy(&__dst, __s, v8);
-  }
-
-  *(&__dst + v9) = 0;
-  sub_1006A997C(a1, &__dst, v6, v7);
-  if (v12 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  return a1;
-}
-
-void sub_10083187C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_100810E00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
@@ -225,2928 +171,2430 @@ void sub_10083187C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100831898(uint64_t a1)
+uint64_t sub_100810E2C(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, float a6)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v6 = a5;
+  v8 = a3;
+  *(a1 + 8) = 0u;
+  v12 = (a1 + 8);
+  *(a1 + 56) = 0u;
+  *(a1 + 40) = 0u;
+  *(a1 + 24) = 0u;
+  *a1 = off_102450C98;
+  sub_1003FFA38((a1 + 8));
+  *v12 = off_102450CC8;
+  *a1 = off_102474848;
+  *(a1 + 72) = off_1024748F0;
+  sub_101052EEC(a1 + 72, a2, v8, a1, a6, a4, v6, 0);
+  *a1 = off_102474848;
+  *(a1 + 72) = off_1024748F0;
+  *(a1 + 176) = 0u;
+  *(a1 + 232) = 0u;
+  *(a1 + 248) = 0u;
+  *(a1 + 264) = 0;
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0;
+  *(a1 + 272) = 12000;
+  *(a1 + 280) = off_102450C98;
+  sub_1003FFA38((a1 + 288));
+  *(a1 + 288) = off_102450CC8;
+  *(a1 + 352) = 0;
+  *(a1 + 360) = 0;
+  v13 = *(a1 + 112);
+  v17 = a1 + 112;
+  (*(v13 + 16))(a1 + 112);
+  v18 = 256;
+  if ((v8 & 1) == 0)
   {
-    *(a1 + 48) = v2;
-    operator delete(v2);
-  }
-
-  if (*(a1 + 39) < 0)
-  {
-    v3 = *(a1 + 16);
-
-    operator delete(v3);
-  }
-}
-
-uint64_t sub_100831DF0(uint64_t a1, void *a2, uint64_t a3)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10194F920();
-  }
-
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 138412290;
-    *&buf[4] = [objc_msgSend(a2 "coarseMetadata")];
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "#compensation GeoLocation coarseMetaData: %@", buf, 0xCu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_10194F934(a2);
-  }
-
-  v38 = 0;
-  v7 = +[NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:error:](NSKeyedArchiver, "archivedDataWithRootObject:requiringSecureCoding:error:", [a2 coarseMetadata], 1, &v38);
-  if (v38)
-  {
-    if (qword_1025D47A0 != -1)
+    if (*(a4 + 23) < 0)
     {
-      sub_10194F8F8();
+      sub_100007244(__p, *a4, *(a4 + 8));
     }
 
-    v8 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    else
     {
-      *buf = 138412290;
-      *&buf[4] = v38;
-      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "#compensation GeoLocation coarseMetaData encoding failed, error, %@", buf, 0xCu);
+      *__p = *a4;
+      v16 = *(a4 + 16);
     }
 
-    if (sub_10000A100(121, 0))
-    {
-      sub_10194FA60(&v38);
-    }
+    sub_101053788(a1 + 72, __p);
   }
 
-  __asm { FMOV            V0.2D, #-1.0 }
-
-  *&buf[44] = _Q0;
-  *&buf[60] = _Q0;
-  *buf = 0xFFFF;
-  *&buf[84] = 0;
-  *&buf[88] = 0xBFF0000000000000;
-  *&v47[20] = 0xBFF0000000000000;
-  *v47 = 0;
-  *&v47[28] = 0x7FFFFFFF;
-  memset(v48, 0, 25);
-  [objc_msgSend(a2 "latLng")];
-  *&buf[4] = v14;
-  [objc_msgSend(a2 "latLng")];
-  *&buf[12] = v15;
-  [objc_msgSend(a2 "latLng")];
-  *&v47[4] = v16;
-  [objc_msgSend(a2 "latLng")];
-  *&v47[12] = v17;
-  [a2 timestamp];
-  *&buf[76] = v18;
-  *&buf[28] = [a2 altitude];
-  [a2 horizontalAccuracy];
-  *&buf[20] = v19;
-  [a2 verticalAccuracy];
-  *&buf[36] = v20;
-  v21 = [a2 referenceFrame];
-  if (v21 <= 2)
-  {
-    *&v48[4] = v21;
-  }
-
-  [a2 speed];
-  *&buf[44] = v22;
-  [a2 course];
-  if (v23 < 360.0)
-  {
-    [a2 course];
-    if (v24 >= 0.0)
-    {
-      [a2 course];
-      *&buf[60] = v25;
-    }
-  }
-
-  sub_10018D404(v37);
-  sub_1001097CC(v37, a1 + 48, buf);
-  v27 = v26;
-  if ([objc_msgSend(*(a1 + 32) "sourceInformation")])
-  {
-    v48[24] = 1;
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10194F8F8();
-  }
-
-  v28 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v29 = LocationLogEncryptionDataSize();
-    v30 = LocationLogEncryptionEncryptData();
-    v31 = LocationLogEncryptionDataSize();
-    v32 = LocationLogEncryptionEncryptData();
-    *v39 = 68290562;
-    *&v39[4] = 0;
-    *&v39[8] = 2082;
-    *&v39[10] = "";
-    *&v39[18] = 1040;
-    *&v39[20] = v29;
-    *&v39[24] = 2098;
-    *&v39[26] = v30;
-    *&v39[34] = 1040;
-    *&v39[36] = v31;
-    *&v39[40] = 2098;
-    *&v39[42] = v32;
-    *&v39[50] = 2050;
-    *&v39[52] = v27;
-    *&v39[60] = 2050;
-    *&v39[62] = a3;
-    _os_log_impl(dword_100000000, v28, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Location #compensation Snapping, Input:%{public, location:Encrypted_CLClientLocation}.*P, Output:%{public, location:Encrypted_CLClientLocation}.*P, distance:%{public}f, GeoResultCode:%{public}ld}", v39, 0x46u);
-  }
-
-  v44[0] = @"Distance";
-  v33 = [NSNumber numberWithDouble:v27];
-  v44[1] = @"GeoResultCode";
-  v45[0] = v33;
-  v45[1] = [NSNumber numberWithInteger:a3];
-  [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:2];
-  AnalyticsSendEvent();
-  v34 = *(a1 + 40);
-  v35 = [CLLocation alloc];
-  v41 = *v47;
-  v42 = *&v47[16];
-  v43[0] = *v48;
-  *(v43 + 12) = *&v48[12];
-  *&v39[32] = *&buf[32];
-  *&v39[48] = *&buf[48];
-  *&v39[64] = *&buf[64];
-  v40 = *&buf[80];
-  *v39 = *buf;
-  *&v39[16] = *&buf[16];
-  return (*(v34 + 16))(v34, [v35 initWithClientLocation:v39], ((a3 - 1) & 0xFFFFFFFFFFFFFFFDLL) == 0, v7);
-}
-
-uint64_t sub_1008327D8(_BYTE *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v26[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          [objc_msgSend(a2 "data")];
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v26[0] & 0x7F) << v5;
-        if ((v26[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v11 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v11 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v12 = (v11 >> 3);
-      if (v12 <= 2)
-      {
-        if (v12 == 1)
-        {
-          a1[48] |= 1u;
-          v26[0] = 0;
-          v21 = [a2 position] + 8;
-          if (v21 >= [a2 position] && (v22 = objc_msgSend(a2, "position") + 8, v22 <= objc_msgSend(a2, "length")))
-          {
-            [objc_msgSend(a2 "data")];
-            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v23 = v26[0];
-          v24 = 8;
-          goto LABEL_48;
-        }
-
-        if (v12 == 2)
-        {
-          a1[48] |= 2u;
-          v26[0] = 0;
-          v15 = [a2 position] + 8;
-          if (v15 >= [a2 position] && (v16 = objc_msgSend(a2, "position") + 8, v16 <= objc_msgSend(a2, "length")))
-          {
-            [objc_msgSend(a2 "data")];
-            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v23 = v26[0];
-          v24 = 16;
-          goto LABEL_48;
-        }
-      }
-
-      else
-      {
-        switch(v12)
-        {
-          case 3u:
-            a1[48] |= 4u;
-            v26[0] = 0;
-            v17 = [a2 position] + 8;
-            if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 8, v18 <= objc_msgSend(a2, "length")))
-            {
-              [objc_msgSend(a2 "data")];
-              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v23 = v26[0];
-            v24 = 24;
-            goto LABEL_48;
-          case 4u:
-            a1[48] |= 8u;
-            v26[0] = 0;
-            v19 = [a2 position] + 8;
-            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 8, v20 <= objc_msgSend(a2, "length")))
-            {
-              [objc_msgSend(a2 "data")];
-              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v23 = v26[0];
-            v24 = 32;
-LABEL_48:
-            *&a1[v24] = v23;
-            goto LABEL_49;
-          case 5u:
-            v13 = objc_alloc_init(TRANSITPbRegionPreloadTile);
-            [a1 addTiles:v13];
-
-            v26[0] = 0;
-            v26[1] = 0;
-            result = PBReaderPlaceMark();
-            if (!result)
-            {
-              return result;
-            }
-
-            result = sub_1004E5198(v13, a2);
-            if (!result)
-            {
-              return result;
-            }
-
-            PBReaderRecallMark();
-            goto LABEL_49;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_49:
-      v25 = [a2 position];
-    }
-
-    while (v25 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-_OWORD *sub_1008336C4(_OWORD *a1, uint64_t a2)
-{
-  a1[1] = 0u;
-  *a1 = 0u;
-  sub_100833BFC((a1 + 2), a2);
+  *(a1 + 232) = 0xBFF0000000000000;
+  (*(*(a1 + 112) + 24))(a1 + 112);
   return a1;
 }
 
-void sub_100833704(_Unwind_Exception *a1)
+void sub_100811214(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
-  v4 = v1[3];
-  v1[3] = 0;
-  if (v4)
-  {
-    operator delete();
-  }
-
-  sub_10194FB80(v2, v1 + 1, v1);
+  sub_1017EC98C(&a21);
+  *a13 = a12;
+  sub_1003FFCFC(v31);
+  sub_1007D4B7C(v30);
+  sub_1010532A4(v29);
+  *v27 = a14;
+  sub_1003FFCFC(v28);
   _Unwind_Resume(a1);
 }
 
-BOOL sub_100833744(void *a1, int a2)
+void *sub_1008112BC(void *a1)
 {
-  if (a2 > 1)
-  {
-    if (a2 == 3)
-    {
-      if (!a1[3])
-      {
-        operator new();
-      }
-    }
-
-    else if (a2 == 2 && !a1[2])
-    {
-      operator new();
-    }
-
-    return *a1 || a1[1] || a1[2] || a1[3] != 0;
-  }
-
-  if (a2)
-  {
-    if (a2 == 1 && !a1[1])
-    {
-      operator new();
-    }
-
-    return *a1 || a1[1] || a1[2] || a1[3] != 0;
-  }
-
-  v2 = 1;
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  return v2;
+  *a1 = off_102474848;
+  v2 = a1 + 9;
+  a1[9] = off_1024748F0;
+  sub_10081713C(a1, 0, 0);
+  a1[35] = off_102450C98;
+  sub_1003FFCFC(a1 + 36);
+  sub_1007D4B7C(a1 + 22);
+  sub_1010532A4(v2);
+  *a1 = off_102450C98;
+  sub_1003FFCFC(a1 + 1);
+  return a1;
 }
 
-BOOL sub_1008339A0(uint64_t *a1, int a2)
+void sub_1008113A0(void *a1)
 {
-  if (a2 > 1)
-  {
-    if (a2 == 3)
-    {
-      v6 = a1[3];
-      a1[3] = 0;
-      if (v6)
-      {
-        goto LABEL_13;
-      }
-    }
+  sub_1008112BC(a1);
 
-    else if (a2 == 2)
-    {
-      v4 = a1[2];
-      a1[2] = 0;
-      if (v4)
-      {
-LABEL_13:
-        operator delete();
-      }
-    }
-  }
-
-  else
-  {
-    if (!a2)
-    {
-      v5 = *a1;
-      *a1 = 0;
-      if (v5)
-      {
-        goto LABEL_13;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (a2 == 1)
-    {
-      v3 = a1[1];
-      a1[1] = 0;
-      if (v3)
-      {
-        goto LABEL_13;
-      }
-    }
-  }
-
-  if (*a1)
-  {
-    return 1;
-  }
-
-LABEL_15:
-  if (a1[1] || a1[2])
-  {
-    return 1;
-  }
-
-  return a1[3] != 0;
+  operator delete();
 }
 
-uint64_t sub_100833A88(uint64_t a1, uint64_t a2)
+void sub_1008113D8(uint64_t a1)
 {
-  for (i = 0; ; ++i)
-  {
-    if (i <= 1)
-    {
-      if (i)
-      {
-        v8 = *(a1 + 8);
-        if (v8 && sub_10050B0B0(v8, a2, (a1 + 64), a1 + 72, &v10))
-        {
-          v5 = a1 + 32;
-          v6 = 1;
-          goto LABEL_14;
-        }
-      }
+  sub_1008112BC((a1 - 72));
 
-      else if (*a1 && sub_100E0B5F8(*a1, a2, &v10))
-      {
-        v5 = a1 + 32;
-        v6 = 0;
-LABEL_14:
-        sub_100833BA8(v5, v6);
-        continue;
-      }
+  operator delete();
+}
 
-      continue;
-    }
+void sub_100811414(uint64_t a1)
+{
+  sub_1008112BC((a1 - 368));
 
-    if (i != 2)
-    {
-      break;
-    }
+  operator delete();
+}
 
-    v7 = *(a1 + 16);
-    if (v7 && sub_1007EFE24(v7, a2, (a1 + 64), &v10))
-    {
-      v5 = a1 + 32;
-      v6 = 2;
-      goto LABEL_14;
-    }
-  }
-
-  result = *(a1 + 24);
+uint64_t sub_100811450(uint64_t *a1)
+{
+  result = sub_100023B68(a1[10]);
   if (result)
   {
-    result = sub_1007340BC(result, a2, &v10);
+    sub_100811500(a1);
+    sub_100811618(a1);
+    sub_100608EC8(a1[10], "SmoothedGaitMetricsHistory", &off_102474638, &off_1025D8750, 0);
+    a1[47] = sub_100614C1C(a1[10], "DELETE FROM SmoothedGaitMetricsHistory WHERE startTime < ?");
+    a1[48] = v3;
+    a1[49] = sub_100614C1C(a1[10], "SELECT * from SmoothedGaitMetricsHistory ORDER BY startTime ASC");
+    a1[50] = v4;
+    a1[51] = sub_100614C1C(a1[10], "SELECT COUNT(*) FROM SmoothedGaitMetricsHistory");
+    a1[52] = v5;
+    result = sub_100614C1C(a1[10], "INSERT INTO SmoothedGaitMetricsHistory (startTime, walkingSpeed, stepLength, cycleTime, distance, doubleSupportPercentage, asymmetryProbability, numGaitMetrics \t\t\t\t) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    a1[53] = result;
+    a1[54] = v6;
+  }
+
+  return result;
+}
+
+uint64_t sub_100811500(uint64_t a1)
+{
+  result = sub_10060A6D8(*(a1 + 80), "SmoothedGaitMetricsHistory");
+  if (result)
+  {
+    v3 = "numGaitMetrics";
+    v4 = 5;
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    sub_100611268(*(a1 + 80), "SmoothedGaitMetricsHistory", "numGaitMetrics", &v3);
+  }
+
+  return result;
+}
+
+uint64_t sub_100811618(uint64_t a1)
+{
+  result = sub_10060A6D8(*(a1 + 80), "SmoothedGaitMetricsHistory");
+  if (result)
+  {
+    v3 = "numGaitMetrics";
+    v4 = 5;
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    sub_100611268(*(a1 + 80), "SmoothedGaitMetricsHistory", "numGaitMetrics", &v3);
+  }
+
+  return result;
+}
+
+void sub_100811AF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  sub_10026C504(&a17);
+  if (v55)
+  {
+    (*(*v55 + 8))(v55);
+  }
+
+  sub_10026C504(&a55);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100811B9C(uint64_t a1, uint64_t a2)
+{
+  result = sub_100099160(a1 + 72);
+  if (result)
+  {
+    sub_100144CA0((a1 + 424), &v19);
+    if (v19)
+    {
+      v5 = sub_100008880(v19);
+      if (sub_1001A3BD4(v5, 1, *(a2 + 8)))
+      {
+        v6 = sub_100008880(v19);
+        if (sub_1001A3BD4(v6, 2, *(a2 + 16)))
+        {
+          v7 = sub_100008880(v19);
+          if (sub_1001A3BD4(v7, 3, *(a2 + 24)))
+          {
+            v8 = sub_100008880(v19);
+            if (sub_1001A3BD4(v8, 4, *(a2 + 36)))
+            {
+              v9 = sub_100008880(v19);
+              if (sub_1001A3BD4(v9, 5, *(a2 + 32)))
+              {
+                v10 = sub_100008880(v19);
+                if (sub_1001A3BD4(v10, 6, *(a2 + 20)))
+                {
+                  v11 = sub_100008880(v19);
+                  if (sub_1001A3BD4(v11, 7, *(a2 + 28)))
+                  {
+                    v12 = sub_100008880(v19);
+                    if (sub_1001452C8(v12, 8, *(a2 + 40)))
+                    {
+                      v13 = *(a1 + 80);
+                      v14 = sub_100008880(v19);
+                      sub_1001A3DEC(v13, v14);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    else
+    {
+      if (qword_1025D4420 != -1)
+      {
+        sub_101948D40();
+      }
+
+      v15 = qword_1025D4428;
+      if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "[SmoothedGaitMetricsRecorderDb] Invalid SQL statement", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_101948E5C(buf);
+        v18 = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4428, 16, "[SmoothedGaitMetricsRecorderDb] Invalid SQL statement", &v18, 2);
+        v17 = v16;
+        sub_100152C7C("Generic", 1, 0, 0, "virtual void CLMobility::SmoothedGaitMetricsRecorderDb::insertRecordUL(const SmoothedGaitMetrics &, BOOL)", "%s\n", v16);
+        if (v17 != buf)
+        {
+          free(v17);
+        }
+      }
+    }
+
+    result = v19;
+    v19 = 0;
     if (result)
     {
-      return sub_100833BA8(a1 + 32, 3);
+      return (*(*result + 8))(result);
     }
   }
 
   return result;
 }
 
-uint64_t sub_100833BA8(uint64_t a1, int a2)
-{
-  v4 = a2;
-  v2 = *(a1 + 24);
-  if (!v2)
-  {
-    sub_1000CF05C();
-  }
-
-  return (*(*v2 + 48))(v2, &v4);
-}
-
-uint64_t sub_100833BFC(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void *sub_100833C94(void *a1)
-{
-  v1 = [a1 path];
-
-  return sub_10023F024(v1);
-}
-
-id sub_100833CBC(void *a1)
-{
-  v2 = objc_alloc_init(NSMutableData);
-  [v2 setLength:20];
-  CC_SHA1([a1 bytes], objc_msgSend(a1, "length"), objc_msgSend(v2, "mutableBytes"));
-
-  return v2;
-}
-
-uint64_t sub_100833D40(void *a1)
-{
-  v2 = open_dprotected_np([a1 UTF8String], 521, 2, 0, 416);
-  if (v2 == -1)
-  {
-    if (qword_1025D47D0 != -1)
-    {
-      sub_10194FC20();
-    }
-
-    v3 = qword_1025D47D8;
-    if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_DEFAULT))
-    {
-      v4 = __error();
-      v5 = strerror(*v4);
-      *buf = 68289539;
-      v8 = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2082;
-      v12 = v5;
-      v13 = 2113;
-      v14 = a1;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning open failed, errno:%{public, location:escape_only}s, path:%{private, location:escape_only}@}", buf, 0x26u);
-    }
-  }
-
-  return v2;
-}
-
-uint64_t sub_100833E60(void *a1)
-{
-  v2 = open([a1 UTF8String], 0);
-  if (v2 == -1)
-  {
-    if (qword_1025D47D0 != -1)
-    {
-      sub_10194FC20();
-    }
-
-    v3 = qword_1025D47D8;
-    if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_DEFAULT))
-    {
-      v4 = __error();
-      v5 = strerror(*v4);
-      v7[0] = 68289539;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      v10 = 2082;
-      v11 = v5;
-      v12 = 2113;
-      v13 = a1;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning open failed, errno:%{public, location:escape_only}s, path:%{private, location:escape_only}@}", v7, 0x26u);
-    }
-  }
-
-  return v2;
-}
-
-BOOL sub_100833F70(void *a1, void *a2, int a3)
-{
-  v6 = sub_100833D40(a1);
-  v7 = sub_100833E60(a2);
-  if (v6 == -1 || (v8 = v7, v7 == -1))
-  {
-    if (qword_1025D47D0 != -1)
-    {
-      sub_10194FC20();
-    }
-
-    v14 = qword_1025D47D8;
-    v10 = 0;
-    if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289539;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
-      v22 = 2113;
-      v23 = a1;
-      v24 = 2113;
-      v25 = a2;
-      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning failed to concatenate files, leading:%{private, location:escape_only}@, trailing:%{private, location:escape_only}@}", buf, 0x26u);
-      return 0;
-    }
-  }
-
-  else
-  {
-    v9 = [[NSData alloc] _cl_initWithFileDescriptor:v7];
-    v10 = 1;
-    v11 = [[NSFileHandle alloc] initWithFileDescriptor:v6 closeOnDealloc:1];
-    [v11 writeData:v9];
-
-    close(v8);
-    if (a3 && [+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
-    {
-      v17 = 0;
-      [+[NSFileManager defaultManager](NSFileManager removeItemAtPath:"removeItemAtPath:error:" error:a2, &v17];
-      if (v17)
-      {
-        if (qword_1025D47D0 != -1)
-        {
-          sub_10194FC34();
-        }
-
-        v12 = qword_1025D47D8;
-        if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 68289539;
-          v19 = 0;
-          v20 = 2082;
-          v21 = "";
-          v22 = 2113;
-          v23 = a2;
-          v24 = 2113;
-          v25 = v17;
-          _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:failed to remove fs item, path:%{private, location:escape_only}@, error:%{private, location:escape_only}@}", buf, 0x26u);
-          if (qword_1025D47D0 != -1)
-          {
-            sub_10194FC34();
-          }
-        }
-
-        v13 = qword_1025D47D8;
-        if (os_signpost_enabled(qword_1025D47D8))
-        {
-          *buf = 68289539;
-          v19 = 0;
-          v20 = 2082;
-          v21 = "";
-          v22 = 2113;
-          v23 = a2;
-          v24 = 2113;
-          v25 = v17;
-          _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "failed to remove fs item", "{msg%{public}.0s:failed to remove fs item, path:%{private, location:escape_only}@, error:%{private, location:escape_only}@}", buf, 0x26u);
-        }
-      }
-
-      else
-      {
-        if (qword_1025D47D0 != -1)
-        {
-          sub_10194FC34();
-        }
-
-        v15 = qword_1025D47D8;
-        if (os_log_type_enabled(qword_1025D47D8, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 68289283;
-          v19 = 0;
-          v20 = 2082;
-          v21 = "";
-          v22 = 2113;
-          v23 = a2;
-          _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:removed fs item, path:%{private, location:escape_only}@}", buf, 0x1Cu);
-        }
-      }
-
-      return v17 == 0;
-    }
-  }
-
-  return v10;
-}
-
-uint64_t sub_100834300(uint64_t a1, uint64_t a2)
-{
-  if (qword_1025D4640 != -1)
-  {
-    sub_10194FC5C();
-  }
-
-  v3 = off_1025D4648;
-  if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Updating settings via OTA.", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_10194FC70();
-  }
-
-  sub_100FBEBE8();
-  sub_10004FD18(v21);
-  if (sub_100185ADC(a2, "Geofence", v21))
-  {
-    sub_10004FD18(v20);
-    if (sub_100185ADC(v21, "GeofenceClassifier", v20))
-    {
-      v18[0] = 0;
-      if (sub_10001CB4C(v20, "usePreciseFencesForAll", v18))
-      {
-        byte_102630FA8 = v18[0];
-      }
-
-      if (sub_10001CB4C(v20, "usePreciseFencesForHelperFence", v18))
-      {
-        byte_102630FA9 = v18[0];
-      }
-
-      if (sub_10001CB4C(v20, "useVisitEventsForSignificationMonitoring", v18))
-      {
-        byte_102630FAA = v18[0];
-      }
-
-      *buf = 0;
-      if (sub_1000B9370(v20, "fenceEffectiveMinimumRadiusHighAccuracy", buf))
-      {
-        qword_102630FB0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fenceEffectiveMinimumRadiusHighAccuracyUrban", buf))
-      {
-        qword_102630FB8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fenceEffectiveMinimumRadiusNormalAccuracy", buf))
-      {
-        qword_102630FC0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "helperFenceRadiusScaleFactor", buf))
-      {
-        qword_102630FC8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "maxRadiusForLocationType", buf))
-      {
-        qword_102630FD0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "maxRadiusForEnvironmentType", buf))
-      {
-        qword_102630FD8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "largeFenceExitRadiusOffset", buf))
-      {
-        qword_102630FE0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "largeFenceEntryRadiusOffset", buf))
-      {
-        qword_102630FE8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "unknownFineMediumFenceExitRadiusOffset", buf))
-      {
-        qword_102630FF0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetForCellWifiOn", buf))
-      {
-        qword_102630FF8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetForCellWifiOff", buf))
-      {
-        qword_102631000 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetForLacWifiOn", buf))
-      {
-        qword_102631008 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetForLacWifiOff", buf))
-      {
-        qword_102631010 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetOnCoarse", buf))
-      {
-        qword_102631018 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceEntryRadiusScaleFactorOnCoarse", buf))
-      {
-        qword_102631020 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitRadiusOffsetWifi", buf))
-      {
-        qword_102631028 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceGpsExitRadiusOffsetWifiOn", buf))
-      {
-        qword_102631030 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceGpsExitRadiusOffsetWifiOff", buf))
-      {
-        qword_102631038 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumPreciseFenceGpsExitRadiusOffsetWifiOn", buf))
-      {
-        qword_102631040 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumPreciseFenceGpsExitRadiusOffsetWifiOff", buf))
-      {
-        qword_102631048 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitAccurateLocationUncFactor", buf))
-      {
-        qword_102631050 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceEntryAccurateLocationUncFactor", buf))
-      {
-        qword_102631058 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceExitInaccurateLocationUncFactor", buf))
-      {
-        qword_102631060 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "fineMediumFenceEntryInaccurateLocationUncFactor", buf))
-      {
-        qword_102631068 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "loiFenceRadiusChangeThreshold", buf))
-      {
-        qword_102631070 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "loiFenceDistanceChangeThreshold", buf))
-      {
-        qword_102631078 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "locationSignificantChangeMinInterval", buf))
-      {
-        qword_102631080 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "locationSignificantChangeMinDistance", buf))
-      {
-        qword_102631088 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "locationSignificantChangeLowAccuracyThreshold", buf))
-      {
-        qword_102631090 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "accurateLocationThreshold", buf))
-      {
-        qword_102631098 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "accurateGpsLocationPaddingThreshold", buf))
-      {
-        qword_1026310A0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "gpsHAccMultiplicationFactor", buf))
-      {
-        qword_1026310A8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "pipelineHAccMultiplicationFactor", buf))
-      {
-        qword_1026310B0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "cellHAccMultiplicationFactor", buf))
-      {
-        qword_1026310B8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "locationSessionStartWindowSec", buf))
-      {
-        qword_1026310C0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "locationSessionIntervalFromLastLocationSec", buf))
-      {
-        qword_1026310C8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "minWifiUnc", buf))
-      {
-        qword_1026310D0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "minGpsUnc", buf))
-      {
-        qword_1026310D8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "maxHorizontalAccuracy", buf))
-      {
-        qword_1026310E0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "cellTypeMinimumHorizontalAccuracy", buf))
-      {
-        qword_1026310E8 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "circularEmergencyFenceOffset", buf))
-      {
-        qword_1026310F0 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "polygonalEntryLocationAccuracyThreshold", buf))
-      {
-        qword_102631100 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "polygonalEntryLocationAccuracyScaleFactor", buf))
-      {
-        qword_102631108 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "polygonalExitLocationAccuracyScaleFactor", buf))
-      {
-        qword_102631110 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "polygonalExitHysteresisBuffer", buf))
-      {
-        qword_102631118 = *buf;
-      }
-
-      if (sub_10001CB4C(v20, "useMiLo", v18))
-      {
-        byte_102631120 = v18[0];
-      }
-
-      if (sub_10001CB4C(v20, "collectMiLoHomeLoiMetricsForInternalUsers", v18))
-      {
-        byte_102631121 = v18[0];
-      }
-
-      if (sub_10001CB4C(v20, "collectMiLoHomeLoiMetricsForAllUsers", v18))
-      {
-        byte_102631122 = v18[0];
-      }
-
-      if (sub_1000B9370(v20, "maxMiLoAge", buf))
-      {
-        qword_102631128 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "homeLoiProbabilityThreshold", buf))
-      {
-        qword_102631130 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "maxWaitTimeToReceiveMiLoEventUpdate", buf))
-      {
-        qword_102631138 = *buf;
-      }
-
-      if (sub_1000B9370(v20, "maxGpsHomeLoiExitTimeDiff", buf))
-      {
-        qword_102631140 = *buf;
-      }
-
-      if (sub_10001CB4C(v20, "collectGpsOpportunisticallyForMiLoMetrics", v18))
-      {
-        byte_102631148 = v18[0];
-      }
-
-      if (sub_10001CB4C(v20, "inflateGpsUncertaintyOnExitForSignalStrength", v18))
-      {
-        byte_102631149 = v18[0];
-      }
-
-      LODWORD(v19[0]) = 0;
-      if (sub_10005BBE4(v20, "gnssConvergenceShortCount", v19))
-      {
-        dword_10263114C = v19[0];
-      }
-
-      if (sub_10005BBE4(v20, "gnssConvergenceLongCount", v19))
-      {
-        dword_102631150 = v19[0];
-      }
-    }
-
-    else
-    {
-      if (qword_1025D4640 != -1)
-      {
-        sub_10194FD88();
-      }
-
-      v6 = off_1025D4648;
-      if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Geofence::GeofenceClassifier not available", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10194FDB0(buf);
-        LOWORD(v19[0]) = 0;
-        v11 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLFenceSettingsOta::updateSettings(const CLNameValuePair &)", "%s\n", v11);
-        if (v11 != buf)
-        {
-          free(v11);
-        }
-      }
-    }
-
-    sub_10004FD18(v19);
-    if (sub_100185ADC(v21, "GeofenceEPNO", v19))
-    {
-      *v18 = 0;
-      *buf = 0;
-      v17[0] = 0;
-      if (sub_1004FB7DC(v19, "numTiles", v18))
-      {
-        dword_102631158 = *v18;
-      }
-
-      if (sub_1000B9370(v19, "radiusFactorEntryThreshold", buf))
-      {
-        qword_102631160 = *buf;
-      }
-
-      if (sub_1000B9370(v19, "radiusFactor", buf))
-      {
-        qword_102631168 = *buf;
-      }
-
-      if (sub_1000B9370(v19, "maxRadius", buf))
-      {
-        qword_102631170 = *buf;
-      }
-
-      if (sub_1000B9370(v19, "minRadius", buf))
-      {
-        qword_102631178 = *buf;
-      }
-
-      if (sub_1000B9370(v19, "currentlySeenReachThreshold", buf))
-      {
-        qword_102631180 = *buf;
-      }
-
-      if (sub_10001CB4C(v19, "throttleEpnoWakes", v17))
-      {
-        byte_102631188 = v17[0];
-      }
-    }
-
-    else
-    {
-      if (qword_1025D4640 != -1)
-      {
-        sub_10194FD88();
-      }
-
-      v7 = off_1025D4648;
-      if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Geofence::GeofenceEPNO not available", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10194FDB0(buf);
-        *v18 = 0;
-        v12 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLFenceSettingsOta::updateSettings(const CLNameValuePair &)", "%s\n", v12);
-        if (v12 != buf)
-        {
-          free(v12);
-        }
-      }
-    }
-
-    sub_10004FD18(v18);
-    if (sub_100185ADC(v21, "GeofenceGpsUncertaintyInflation", v18))
-    {
-      v15[0] = 0;
-      if (sub_10001CB4C(v18, "inflateGpsLocationsIfSignalStrengthNotReported", v15))
-      {
-        byte_102631190 = v15[0];
-      }
-
-      *v17 = 0;
-      if (sub_10005BBE4(v18, "minimumNumberOfTrackedSignalsStrong", v17))
-      {
-        dword_102631198 = *v17;
-      }
-
-      if (sub_10005BBE4(v18, "minimumNumberOfTrackedSignals", v17))
-      {
-        dword_102631194 = *v17;
-      }
-
-      *buf = 0;
-      if (sub_1000B9370(v18, "signalStrengthStrong", buf))
-      {
-        qword_1026311A0 = *buf;
-      }
-
-      if (sub_1000B9370(v18, "horizontalAccuracyForWeakSignals", buf))
-      {
-        qword_1026311A8 = *buf;
-      }
-    }
-
-    else
-    {
-      if (qword_1025D4640 != -1)
-      {
-        sub_10194FD88();
-      }
-
-      v8 = off_1025D4648;
-      if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Geofence::GeofenceGpsUncertaintyInflation not available", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10194FDB0(buf);
-        *v17 = 0;
-        v13 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLFenceSettingsOta::updateSettings(const CLNameValuePair &)", "%s\n", v13);
-        if (v13 != buf)
-        {
-          free(v13);
-        }
-      }
-    }
-
-    sub_10004FD18(v17);
-    if (sub_100185ADC(v21, "GeofenceFastEntry", v17))
-    {
-      v16 = 0;
-      *buf = 0;
-      *v15 = 0;
-      if (sub_10001CB4C(v17, "enabled", &v16))
-      {
-        byte_1026311B0 = v16;
-      }
-
-      if (sub_1000B9370(v17, "convergenceTimerIntervalNearMax", buf))
-      {
-        qword_1026311B8 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceTimerIntervalNearMin", buf))
-      {
-        qword_1026311C0 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceTimerIntervalAdjacent", buf))
-      {
-        qword_1026311C8 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceStateDistanceThresholdNear", buf))
-      {
-        qword_1026311D0 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceStateDistanceThresholdAdjacent", buf))
-      {
-        qword_1026311D8 = *buf;
-      }
-
-      if (sub_10005BBE4(v17, "maximumLocationBufferSize", v15))
-      {
-        dword_1026311E0 = *v15;
-      }
-
-      if (sub_10005BBE4(v17, "converganceAttemptsPerWindow", v15))
-      {
-        dword_1026311E4 = *v15;
-      }
-
-      if (sub_1000B9370(v17, "convergenceBudgetWindow", buf))
-      {
-        qword_1026311E8 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceAttemptMaxDuration", buf))
-      {
-        qword_1026311F0 = *buf;
-      }
-
-      if (sub_1000B9370(v17, "convergenceAttemptMaxGNSSDuration", buf))
-      {
-        qword_1026311F8 = *buf;
-      }
-    }
-
-    else
-    {
-      if (qword_1025D4640 != -1)
-      {
-        sub_10194FD88();
-      }
-
-      v9 = off_1025D4648;
-      if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Geofence::GeofenceFastEntry not available", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10194FDB0(buf);
-        *v15 = 0;
-        v14 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLFenceSettingsOta::updateSettings(const CLNameValuePair &)", "%s\n", v14);
-        if (v14 != buf)
-        {
-          free(v14);
-        }
-      }
-    }
-
-    sub_100005DA4(v17);
-    sub_100005DA4(v18);
-    sub_100005DA4(v19);
-    sub_100005DA4(v20);
-  }
-
-  else
-  {
-    if (qword_1025D4640 != -1)
-    {
-      sub_10194FD88();
-    }
-
-    v4 = off_1025D4648;
-    if (os_log_type_enabled(off_1025D4648, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "Fence: CLFenceSettingsOta - Geofence not available", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_10194FDB0(buf);
-      LOWORD(v20[0]) = 0;
-      v5 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "void CLFenceSettingsOta::updateSettings(const CLNameValuePair &)", "%s\n", v5);
-      if (v5 != buf)
-      {
-        free(v5);
-      }
-    }
-  }
-
-  return sub_100005DA4(v21);
-}
-
-void sub_1008357C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va4, a5);
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
-  va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
-  va_copy(va4, va3);
-  v15 = va_arg(va4, void);
-  v17 = va_arg(va4, void);
-  sub_100005DA4(va);
-  sub_100005DA4(va1);
-  sub_100005DA4(va2);
-  sub_100005DA4(va3);
-  sub_100005DA4(va4);
-  _Unwind_Resume(a1);
-}
-
-void sub_100835A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id sub_100835A90(uint64_t a1)
-{
-  result = [*(*(a1 + 32) + 8) hasChanges];
-  if (result)
-  {
-    v3 = *(*(a1 + 32) + 8);
-    v4 = *(*(a1 + 40) + 8) + 40;
-
-    return [v3 save:v4];
-  }
-
-  return result;
-}
-
-void sub_100835BF4(void *a1)
-{
-  v2 = [[NSFetchRequest alloc] initWithEntityName:a1[4]];
-  [v2 setPredicate:{+[NSCompoundPredicate andPredicateWithSubpredicates:](NSCompoundPredicate, "andPredicateWithSubpredicates:", a1[5])}];
-  v3 = [[NSBatchDeleteRequest alloc] initWithFetchRequest:v2];
-  [*(a1[6] + 8) executeRequest:v3 error:*(a1[7] + 8) + 40];
-}
-
-void sub_100835E2C(uint64_t a1)
-{
-  v2 = objc_alloc_init(NSFetchRequest);
-  [v2 setEntity:{+[NSEntityDescription entityForName:inManagedObjectContext:](NSEntityDescription, "entityForName:inManagedObjectContext:", *(a1 + 32), *(*(a1 + 40) + 8))}];
-  [v2 setPredicate:{+[NSCompoundPredicate andPredicateWithSubpredicates:](NSCompoundPredicate, "andPredicateWithSubpredicates:", *(a1 + 48))}];
-  v3 = [*(*(a1 + 40) + 8) executeFetchRequest:v2 error:*(*(a1 + 56) + 8) + 40];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_100835F18;
-  v5[3] = &unk_102475EB8;
-  v4 = *(a1 + 64);
-  v6 = *(a1 + 32);
-  v7 = v4;
-  [v3 enumerateObjectsUsingBlock:v5];
-}
-
-id sub_100835F18(uint64_t a1, void *a2)
-{
-  v4 = [NSString stringWithFormat:@"managedObject of class %@ must respond to convert selector", NSClassFromString(*(a1 + 32))];
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-    sub_10194FE58(a1, v4);
-  }
-
-  result = [a2 performSelector:"convert"];
-  if (result)
-  {
-    v6 = result;
-    v7 = *(*(*(a1 + 48) + 8) + 40);
-
-    return [v7 addObject:v6];
-  }
-
-  return result;
-}
-
-void sub_1008360F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-id sub_10083611C(void *a1)
-{
-  v2 = [NSFetchRequest fetchRequestWithEntityName:a1[4]];
-  [(NSFetchRequest *)v2 setPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:a1[5]]];
-  result = [*(a1[6] + 8) countForFetchRequest:v2 error:*(a1[8] + 8) + 40];
-  *(*(a1[7] + 8) + 24) = result;
-  return result;
-}
-
-void sub_1008362B4(id a1)
-{
-  if (objc_opt_class())
-  {
-    sub_10001A3E8();
-    if (sub_10071BCEC())
-    {
-      v1 = sub_10001A3E8();
-      if ((**v1)(v1))
-      {
-        byte_10265A600 = 1;
-      }
-    }
-  }
-}
-
-void sub_1008369D8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  operator delete();
-}
-
-id sub_100836A08(uint64_t a1)
-{
-  if (qword_1025D47B0 != -1)
-  {
-    sub_10194FF00();
-  }
-
-  v2 = qword_1025D47B8;
-  if (os_log_type_enabled(qword_1025D47B8, OS_LOG_TYPE_INFO))
-  {
-    v4[0] = 68289026;
-    v4[1] = 0;
-    v5 = 2082;
-    v6 = "";
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Stop timer fired}", v4, 0x12u);
-  }
-
-  return [*(a1 + 32) stopLocation];
-}
-
-void sub_100836C04(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  operator delete();
-}
-
-id sub_100836C34(uint64_t a1)
-{
-  if (qword_1025D47B0 != -1)
-  {
-    sub_10194FF00();
-  }
-
-  v2 = qword_1025D47B8;
-  if (os_log_type_enabled(qword_1025D47B8, OS_LOG_TYPE_INFO))
-  {
-    v4[0] = 68289026;
-    v4[1] = 0;
-    v5 = 2082;
-    v6 = "";
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Motion alarm stop timer fired}", v4, 0x12u);
-  }
-
-  return [*(a1 + 32) stopMotionAlarm];
-}
-
-id sub_100836D18(uint64_t a1)
-{
-  if (qword_1025D47B0 != -1)
-  {
-    sub_10194FF00();
-  }
-
-  v2 = qword_1025D47B8;
-  if (os_log_type_enabled(qword_1025D47B8, OS_LOG_TYPE_INFO))
-  {
-    v4[0] = 68289026;
-    v4[1] = 0;
-    v5 = 2082;
-    v6 = "";
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Repeating motion state}", v4, 0x12u);
-  }
-
-  return [*(a1 + 32) sendMotionState];
-}
-
-id sub_100836DEC(uint64_t a1)
-{
-  [*(a1 + 32) sendAliveAgainMessage];
-  [objc_msgSend(*(a1 + 32) "aliveAgainThrottleTimer")];
-  v2 = *(a1 + 32);
-
-  return [v2 setAliveAgainThrottleTimer:0];
-}
-
-uint64_t *sub_100836F40(uint64_t **a1, uint64_t *a2)
-{
-  result = *a1;
-  *a1 = a2;
-  if (result)
-  {
-    sub_100838FA4(result);
-
-    operator delete();
-  }
-
-  return result;
-}
-
-void sub_1008384FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+void sub_100811E34(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    sub_100008080(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_100838EC8(uint64_t a1, __int128 *a2, void *a3, uint64_t a4, double a5)
+char *sub_100811E7C@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  *a1 = 0;
-  v9 = [a3 newTimer];
-  *(a1 + 8) = v9;
-  *(a1 + 16) = a5;
-  if (*(a2 + 23) < 0)
+  if (result[111] < 0)
   {
-    sub_100007244((a1 + 24), *a2, *(a2 + 1));
-    v9 = *(a1 + 8);
+    return sub_100007244(a2, *(result + 11), *(result + 12));
   }
 
-  else
-  {
-    v10 = *a2;
-    *(a1 + 40) = *(a2 + 2);
-    *(a1 + 24) = v10;
-  }
-
-  [v9 setHandler:a4];
-  return a1;
-}
-
-void sub_100838F50(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 47) < 0)
-  {
-    operator delete(v1[3]);
-  }
-
-  v3 = *v1;
-  *v1 = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *sub_100838FA4(uint64_t *a1)
-{
-  [a1[1] invalidate];
-
-  if (*(a1 + 47) < 0)
-  {
-    operator delete(a1[3]);
-  }
-
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  return a1;
-}
-
-double sub_10083901C()
-{
-  result = 30.0;
-  qword_10265A610 = 0x403E000000000000;
+  *a2 = *(result + 88);
+  *(a2 + 16) = *(result + 13);
   return result;
 }
 
-NSDictionary *sub_1008390A8(uint64_t a1)
+char *sub_100811EA4@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v5[0] = @"boutType";
-  v6[0] = [NSNumber numberWithInt:*(*(a1 + 32) + 1)];
-  v5[1] = @"duration";
-  *&v2 = *(*(a1 + 32) + 2);
-  v6[1] = [NSNumber numberWithFloat:v2];
-  v5[2] = @"timeSinceLastBout";
-  *&v3 = *(*(a1 + 32) + 10);
-  v6[2] = [NSNumber numberWithFloat:v3];
-  return [NSDictionary dictionaryWithObjects:v6 forKeys:v5 count:3];
+  if (result[39] < 0)
+  {
+    return sub_100007244(a2, *(result + 2), *(result + 3));
+  }
+
+  *a2 = *(result + 1);
+  *(a2 + 16) = *(result + 4);
+  return result;
 }
 
-uint64_t sub_100839180(uint64_t a1)
+uint64_t sub_100811ECC(uint64_t a1, char *a2, const char **a3, const char **a4)
 {
-  v2 = *a1;
-  if (v2)
+  if (!sub_10060A9FC(*(a1 + 80), a2))
   {
-    *(a1 + 8) = v2;
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-uint64_t sub_100839318(uint64_t a1)
-{
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_1008398E8;
-  block[3] = &unk_102447418;
-  block[4] = a1;
-  if (qword_10265A628 != -1)
-  {
-    dispatch_once(&qword_10265A628, block);
-  }
-
-  return qword_1026372E8;
-}
-
-id sub_1008395B4(id *a1, uint64_t a2)
-{
-  *v16 = 0xFFFF;
-  *&v16[4] = 0uLL;
-  *&v16[20] = xmmword_101C75BF0;
-  __asm { FMOV            V0.2D, #-1.0 }
-
-  *&v16[36] = _Q0;
-  *&v16[52] = _Q0;
-  *&v16[68] = _Q0;
-  v17 = 0uLL;
-  *&v16[88] = 0xBFF0000000000000;
-  *&v16[84] = 0;
-  LODWORD(v18) = 0;
-  *(&v18 + 4) = 0xBFF0000000000000;
-  HIDWORD(v18) = 0x7FFFFFFF;
-  memset(v19, 0, 25);
-  if ((*(*a1 + 29))(a1, v16) && sub_100072814(v16) && (v9 = *&v16[20], *&v16[20] > 0.0))
-  {
-    if (qword_1025D47A0 != -1)
+    if (qword_1025D4200 != -1)
     {
-      sub_1019500BC();
+      sub_101948EA0();
     }
 
-    v10 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    v6 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = LocationLogEncryptionDataSize();
-      v12 = LocationLogEncryptionEncryptData();
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 1040;
-      *&buf[20] = v11;
-      *&buf[24] = 2098;
-      *&buf[26] = v12;
-      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#cclp passing cached location to reply, location:%{public, location:Encrypted_CLClientLocation}.*P}", buf, 0x22u);
-    }
-
-    v24 = v17;
-    v25 = v18;
-    v26[0] = *v19;
-    *(v26 + 12) = *&v19[12];
-    *&buf[32] = *&v16[32];
-    v21 = *&v16[48];
-    v22 = *&v16[64];
-    v23 = *&v16[80];
-    *buf = *v16;
-    *&buf[16] = *&v16[16];
-    return (*(a2 + 16))(a2, 1, buf);
-  }
-
-  else
-  {
-    v14 = [objc_msgSend(a1[4] vendor];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10083AC28;
-    v15[3] = &unk_102476120;
-    v15[4] = a2;
-    v15[5] = a1;
-    return [v14 fetchLocationWithReply:v15];
-  }
-}
-
-uint64_t sub_100839824(uint64_t a1, uint64_t a2, __int128 *a3)
-{
-  v3 = *(a1 + 32);
-  v4 = a3[7];
-  v16 = a3[6];
-  v17 = v4;
-  v18[0] = a3[8];
-  *(v18 + 12) = *(a3 + 140);
-  v5 = a3[3];
-  v12 = a3[2];
-  v13 = v5;
-  v6 = a3[5];
-  v14 = a3[4];
-  v15 = v6;
-  v7 = a3[1];
-  v10 = *a3;
-  v11 = v7;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10083BE04;
-  v9[3] = &unk_10246A7A0;
-  return (*(v3 + 16))(v3, a2, [v9 copy]);
-}
-
-void sub_100839958(uint64_t a1, void *a2)
-{
-  *sub_1006A597C(a1, "correctiveCompensated", a2) = off_102475FE0;
-  v3 = [[CLSettingsMirror alloc] initInUniverse:*(a1 + 32)];
-  *(a1 + 128) = 0;
-  *(a1 + 120) = v3;
-  *(a1 + 136) = 0;
-  *(a1 + 144) = [objc_msgSend(*(a1 + 32) "silo")];
-  *(a1 + 152) = [objc_msgSend(*(a1 + 32) "silo")];
-  *(a1 + 160) = [objc_msgSend(*(a1 + 32) "silo")];
-  __asm { FMOV            V0.2D, #-1.0 }
-
-  *(a1 + 168) = _Q0;
-  *(a1 + 184) = 0;
-  *(a1 + 202) = 0;
-  *(a1 + 208) = off_10245B020;
-  operator new();
-}
-
-void sub_100839E4C(uint64_t a1)
-{
-  v2 = *(a1 + 168);
-  [*(a1 + 120) doubleForKey:@"CCLP.CorrectiveCompensationInterval" defaultValue:900.0];
-  *(a1 + 168) = v3;
-  v4 = *(a1 + 176);
-  [*(a1 + 120) doubleForKey:@"CCLP.ApparentCorrectiveCompensationInterval" defaultValue:1.79769313e308];
-  *(a1 + 176) = v5;
-  *(a1 + 184) = [*(a1 + 120) BOOLForKey:@"CCLP.CorrectiveCompensationClaimsOriginalAccuracy" defaultValue:0];
-  *(a1 + 201) = [*(a1 + 120) BOOLForKey:@"CCLP.ClockAlignmentTestModeEnabled" defaultValue:0];
-  *(a1 + 204) = [*(a1 + 120) BOOLForKey:@"CCLP.EnableClockAlignment" defaultValue:0];
-  if (*(a1 + 201) == 1)
-  {
-    *(a1 + 168) = 0x405E000000000000;
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_1019500E4();
-  }
-
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = *(a1 + 168);
-    v8 = *(a1 + 176);
-    v9 = *(a1 + 184);
-    v10 = *(a1 + 201);
-    v11 = *(a1 + 204);
-    v12 = 0x4088600000000000;
-    if (*(a1 + 201))
-    {
-      v12 = 0x4059000000000000;
-    }
-
-    v13 = 0x4092C00000000000;
-    if (*(a1 + 201))
-    {
-      v13 = 0x4064000000000000;
-    }
-
-    v20[0] = 68290818;
-    v21 = 2082;
-    v20[1] = 0;
-    v22 = "";
-    v23 = 2050;
-    v24 = v7;
-    v25 = 2050;
-    v26 = v8;
-    v27 = 1026;
-    v28 = v9;
-    v29 = 1026;
-    v30 = v10;
-    v31 = 1026;
-    v32 = v11;
-    v33 = 2050;
-    v34 = v12;
-    v35 = 2050;
-    v36 = v13;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Update #compensation #settings for CCLP, CorrectiveCompensationInterval:%{public}f, ApparentCorrectiveCompensationInterval:%{public}f, CorrectiveCompensationClaimsOriginalAccuracy:%{public}hhd, ClockAlignmentTestModeEnabled:%{public}hhd, EnableClockAlignment:%{public}hhd, CorrectiveCompensationIntervalLowerBound:%{public}f, CorrectiveCompensationIntervalUpperBound:%{public}f}", v20, 0x4Cu);
-  }
-
-  if (*(a1 + 168) != v2)
-  {
-    [*(a1 + 144) nextFireDelay];
-    if (v14 != 1.79769313e308)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_1019500BC();
-      }
-
-      v15 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "#cclp CorrectiveCompensationInterval changed. Reset CompensationTimer.", v20, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1019500F8();
-      }
-
-      [*(a1 + 144) setNextFireDelay:0.0];
-    }
-  }
-
-  v16 = *(a1 + 176);
-  if (v16 != v4)
-  {
-    if (v16 > *(a1 + 168))
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_1019500BC();
-      }
-
-      v17 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEBUG, "#warning #cclp ApparentCorrectiveCompensationInterval greater than CorrectiveCompensationInterval", v20, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1019501DC();
-      }
-
-      *(a1 + 176) = 0x7FEFFFFFFFFFFFFFLL;
-    }
-
-    [*(a1 + 144) nextFireDelay];
-    if (v18 != 1.79769313e308)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_1019500BC();
-      }
-
-      v19 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEBUG, "#cclp ApparentCorrectiveCompensationInterval changed. Reset ApparentCompensationTimer.", v20, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1019502C0();
-      }
-
-      [*(a1 + 152) setNextFireDelay:0.0];
-    }
-  }
-}
-
-void sub_10083A1E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  CLProfilingIdentify();
-  [objc_msgSend(*(a4 + 32) "silo")];
-  if (qword_1025D47F0 != -1)
-  {
-    sub_1019503A4();
-  }
-
-  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-  {
-    v11 = 1;
-    v8 = _os_activity_create(dword_100000000, "CL: CLCorrectiveCompensatedLocationProvider::onSimulationNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v8, &state);
-
-    if (qword_1025D47F0 != -1)
-    {
-      sub_1019503B8();
-    }
-
-    v9 = qword_1025D47F8;
-    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      v13 = 0;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2082;
-      v17 = "activity";
-      v18 = 2050;
-      v19 = a4;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLCorrectiveCompensatedLocationProvider::onSimulationNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  sub_10083B210(a4, v6, v7, a3);
-  if (v11 == 1)
-  {
-    os_activity_scope_leave(&state);
-  }
-}
-
-void sub_10083A3B8(uint64_t a1)
-{
-  sub_100021AFC(v5);
-  LODWORD(buf) = 0;
-  if ((*(*a1 + 128))(a1, &buf, v5))
-  {
-    [*(a1 + 40) currentLatchedAbsoluteTimestamp];
-    v6 = v2;
-    v7 = *(a1 + 168) * 1.33333333;
-    LODWORD(buf) = 0;
-    sub_10001D7D0(a1, &buf, v5, 1, 0xFFFFFFFFLL, 0);
-    v3 = *(a1 + 176);
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_1019500BC();
-    }
-
-    v4 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      buf = 68289026;
-      v15 = 2082;
-      v16 = "";
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#cclp ceasing apparent #compensation rate increase monitoring due to no cached message}", &buf, 0x12u);
-    }
-
-    v3 = 1.79769313e308;
-  }
-
-  [*(a1 + 152) setNextFireDelay:v3];
-
-  if (v12)
-  {
-    sub_100008080(v12);
-  }
-
-  if (v11 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v9)
-  {
-    sub_100008080(v9);
-  }
-
-  if (v8)
-  {
-    sub_100008080(v8);
-  }
-}
-
-void sub_10083A59C(uint64_t a1)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_1019500E4();
-  }
-
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 68289538;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 1040;
-    *&buf[20] = LocationLogEncryptionDataSize();
-    *&buf[24] = 2098;
-    *&buf[26] = LocationLogEncryptionEncryptData();
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#cclp UpdateLastReceivedLocationTimer fired. Using location, location:%{public, location:Encrypted_CLClientLocation}.*P}", buf, 0x22u);
-  }
-
-  [*(a1 + 160) setNextFireDelay:1.79769313e308];
-  if (sub_100072814(a1 + 240))
-  {
-    sub_100021AFC(buf);
-    v3 = *(a1 + 352);
-    v19 = *(a1 + 336);
-    v20 = v3;
-    v21[0] = *(a1 + 368);
-    *(v21 + 12) = *(a1 + 380);
-    v4 = *(a1 + 288);
-    *&buf[32] = *(a1 + 272);
-    v16 = v4;
-    v5 = *(a1 + 320);
-    v17 = *(a1 + 304);
-    v18 = v5;
-    v6 = *(a1 + 256);
-    *buf = *(a1 + 240);
-    *&buf[16] = v6;
-    *(a1 + 240) = 0xFFFF;
-    *(a1 + 244) = 0;
-    *(a1 + 252) = 0;
-    __asm { FMOV            V1.2D, #-1.0 }
-
-    *(a1 + 260) = xmmword_101C75BF0;
-    *(a1 + 276) = _Q1;
-    *(a1 + 292) = _Q1;
-    *(a1 + 308) = _Q1;
-    *(a1 + 324) = 0;
-    *(a1 + 352) = 0;
-    *(a1 + 328) = 0xBFF0000000000000;
-    *(a1 + 336) = 0;
-    *(a1 + 344) = 0;
-    *(a1 + 356) = 0xBFF0000000000000;
-    *(a1 + 364) = 0x7FFFFFFF;
-    *(a1 + 376) = 0;
-    *(a1 + 384) = 0;
-    *(a1 + 368) = 0;
-    *(a1 + 392) = 0;
-    v14 = 0;
-    sub_100310748(a1, v12, &v14);
-
-    if (v26)
-    {
-      sub_100008080(v26);
-    }
-
-    if (v25 < 0)
-    {
-      operator delete(v24);
-    }
-
-    if (v23)
-    {
-      sub_100008080(v23);
-    }
-
-    if (v22)
-    {
-      sub_100008080(v22);
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_1019500BC();
-    }
-
-    v13 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "#cclp #warning UpdateLastReceivedLocationTimer handler early return. LastReceivedLocation is invalid.", buf, 2u);
+      LODWORD(buf[0].__r_.__value_.__l.__data_) = 136446210;
+      *(buf[0].__r_.__value_.__r.__words + 4) = a2;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "#Notice %{public}s needs autoincrement migration", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_1019504F8();
+      sub_101948EB4(a2);
     }
-  }
-}
 
-void sub_10083A814(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
-{
-  if (a2)
-  {
-    sub_10037EA9C(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10083A840(uint64_t a1)
-{
-  [*(*(a1 + 136) + 16) unregister:*(*(a1 + 136) + 8) forNotification:12];
-  [*(a1 + 160) invalidate];
-
-  *(a1 + 160) = 0;
-  [*(a1 + 152) invalidate];
-
-  *(a1 + 152) = 0;
-  [*(a1 + 144) invalidate];
-
-  *(a1 + 144) = 0;
-  [*(a1 + 120) invalidate];
-
-  *(a1 + 120) = 0;
-}
-
-uint64_t sub_10083A8C0(uint64_t a1, unsigned int *a2)
-{
-  sub_1000F4588();
-  [*(a1 + 144) nextFireDelay];
-  if (v4 == 1.79769313e308)
-  {
-    if (qword_1025D47A0 != -1)
+    __p = 0;
+    v28 = 0uLL;
+    sub_10000EC00(buf, a2);
+    v7 = std::string::append(buf, "AutoIncr", 8uLL);
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v26 = v7->__r_.__value_.__r.__words[2];
+    v25 = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      sub_1019500E4();
+      operator delete(buf[0].__r_.__value_.__l.__data_);
     }
 
-    v7 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    sub_10000EC00(buf, a2);
+    v9 = std::string::append(buf, "Index", 5uLL);
+    v10 = *&v9->__r_.__value_.__l.__data_;
+    v24 = v9->__r_.__value_.__r.__words[2];
+    *v23 = v10;
+    v9->__r_.__value_.__l.__size_ = 0;
+    v9->__r_.__value_.__r.__words[2] = 0;
+    v9->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      v8 = sub_100048D98(*a2);
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = v8;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#cclp registering to FLC, notification:%{public, location:escape_only}s}", &v10, 0x1Cu);
+      operator delete(buf[0].__r_.__value_.__l.__data_);
     }
 
-    [*(*(a1 + 128) + 16) register:*(*(a1 + 128) + 8) forNotification:*a2 registrationInfo:0];
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
+    sub_100144A84(*(a1 + 80));
+    if (v28 >= 0)
     {
-      sub_1019500E4();
+      v11 = HIBYTE(v28);
     }
 
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      v6 = sub_100048D98(*a2);
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = v6;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#cclp skip registering to FLC - timer locked(no need to source location from FLC), notification:%{public, location:escape_only}s}", &v10, 0x1Cu);
+      v11 = v28;
     }
-  }
 
-  return 1;
-}
-
-uint64_t sub_10083AA60(uint64_t a1, unsigned int *a2)
-{
-  sub_1001ECC7C(a1);
-  [*(a1 + 144) nextFireDelay];
-  if (v4 == 1.79769313e308)
-  {
-    if (qword_1025D47A0 != -1)
+    v12 = buf;
+    sub_100070148(buf, v11 + 21);
+    if ((buf[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      sub_1019500E4();
+      v12 = buf[0].__r_.__value_.__r.__words[0];
     }
 
-    v7 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    if (v11)
     {
-      v8 = sub_100048D98(*a2);
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = v8;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#cclp unregistering from FLC, notification:%{public, location:escape_only}s}", &v10, 0x1Cu);
+      if (v28 >= 0)
+      {
+        p_p = &__p;
+      }
+
+      else
+      {
+        p_p = __p;
+      }
+
+      memmove(v12, p_p, v11);
     }
 
-    (*(*a1 + 120))(a1, a2);
-    [*(*(a1 + 128) + 16) unregister:*(*(a1 + 128) + 8) forNotification:*a2];
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
+    strcpy(v12 + v11, "DROP TABLE IF EXISTS ");
+    if (v26 >= 0)
     {
-      sub_1019500E4();
+      v14 = &v25;
     }
 
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      v6 = sub_100048D98(*a2);
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = v6;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#cclp skip unregistering from FLC - timer locked(will get unsubcribed after receiving snapped result), notification:%{public, location:escape_only}s}", &v10, 0x1Cu);
+      v14 = v25;
     }
-  }
 
-  return 1;
-}
-
-void sub_10083AC28(uint64_t a1, int a2, uint64_t a3)
-{
-  v5 = *(a1 + 40);
-  (*(a3 + 16))(&v11, a3);
-  if (a2 && sub_100072814(&v11) && *(&v12 + 4) >= 0.0)
-  {
-    if (qword_1025D47A0 != -1)
+    if (v26 >= 0)
     {
-      sub_1019500BC();
+      v15 = HIBYTE(v26);
     }
 
-    v6 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    else
     {
-      v7 = LocationLogEncryptionDataSize();
-      v8 = LocationLogEncryptionEncryptData();
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 1040;
-      *&buf[20] = v7;
-      *&buf[24] = 2098;
-      *&buf[26] = v8;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#cclp perform snapping on location by LC, location:%{public, location:Encrypted_CLClientLocation}.*P}", buf, 0x22u);
+      v15 = *(&v25 + 1);
     }
 
-    sub_100021AFC(buf);
-    v24 = v17;
-    v25 = v18;
-    v26[0] = *v19;
-    *(v26 + 12) = *&v19[12];
-    *&buf[32] = v13;
-    v21 = v14;
-    v22 = v15;
-    v23 = v16;
-    *buf = v11;
-    *&buf[16] = v12;
-    sub_100310884(v5);
-
-    if (v31)
-    {
-      sub_100008080(v31);
-    }
-
-    if (v30 < 0)
+    v16 = std::string::append(buf, v14, v15);
+    v17 = v16->__r_.__value_.__r.__words[0];
+    v30.__r_.__value_.__r.__words[0] = v16->__r_.__value_.__l.__size_;
+    *(v30.__r_.__value_.__r.__words + 7) = *(&v16->__r_.__value_.__r.__words[1] + 7);
+    v18 = HIBYTE(v16->__r_.__value_.__r.__words[2]);
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v28) < 0)
     {
       operator delete(__p);
     }
 
-    if (v28)
+    __p = v17;
+    *&v28 = v30.__r_.__value_.__r.__words[0];
+    *(&v28 + 7) = *(v30.__r_.__value_.__r.__words + 7);
+    HIBYTE(v28) = v18;
+    if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      sub_100008080(v28);
+      operator delete(buf[0].__r_.__value_.__l.__data_);
+      v18 = HIBYTE(v28);
+      v17 = __p;
     }
 
-    if (v27)
+    if (v18 >= 0)
     {
-      sub_100008080(v27);
+      v19 = &__p;
     }
+
+    else
+    {
+      v19 = v17;
+    }
+
+    sub_1000388D8(*(a1 + 80), v19);
+  }
+
+  v20 = *(a1 + 80);
+  if (*(v20 + 88) <= 0)
+  {
+    v21 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    if (qword_1025D47A0 != -1)
+    v21 = *(v20 + 88);
+  }
+
+  sub_1001B16EC(v20, v21);
+  return 0;
+}
+
+void sub_100812FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
+{
+  if (a32 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a39 < 0)
+  {
+    operator delete(a34);
+  }
+
+  if (a46 < 0)
+  {
+    operator delete(a41);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100813290(void *a1, uint64_t a2, double a3, double a4)
+{
+  if (sub_100099160((a1 + 9)))
+  {
+    if (sub_100099160((a1 + 9)))
     {
-      sub_1019500BC();
+      sub_10003848C(buf);
+      v5 = sub_100038730(&v16, "SELECT * FROM ", 14);
+      (*(*a1 + 64))(__p, a1);
+      if ((v14 & 0x80u) == 0)
+      {
+        v6 = __p;
+      }
+
+      else
+      {
+        v6 = __p[0];
+      }
+
+      if ((v14 & 0x80u) == 0)
+      {
+        v7 = v14;
+      }
+
+      else
+      {
+        v7 = __p[1];
+      }
+
+      v8 = sub_100038730(v5, v6, v7);
+      sub_100038730(v8, " WHERE startTime > ? and startTime <= ? ORDER BY startTime ASC", 62);
+      if (v14 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      v9 = a1[10];
+      sub_100073518(buf, __p);
+      if ((v14 & 0x80u) == 0)
+      {
+        v10 = __p;
+      }
+
+      else
+      {
+        v10 = __p[0];
+      }
+
+      sub_1000388D8(v9, v10);
     }
 
-    v9 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    return 100;
+  }
+
+  else
+  {
+    if (qword_1025D4420 != -1)
+    {
+      sub_101948FCC();
+    }
+
+    v11 = qword_1025D4428;
+    if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_INFO, "#warning #cclp LocationController has no location", buf, 2u);
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "SmoothedGaitMetricsHistory not accessible", buf, 2u);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_1019506E8();
+      sub_101948FE0();
     }
 
-    v10 = *(a1 + 32);
-    v24 = v17;
-    v25 = v18;
-    v26[0] = *v19;
-    *(v26 + 12) = *&v19[12];
-    *&buf[32] = v13;
-    v21 = v14;
-    v22 = v15;
-    v23 = v16;
-    *buf = v11;
-    *&buf[16] = v12;
-    (*(v10 + 16))();
+    return 109;
   }
 }
 
-void sub_10083AEE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100813700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
-  if (a2)
+  if (a14 < 0)
   {
-    sub_10037EA9C(exception_object);
+    operator delete(__p);
   }
 
-  _Unwind_Resume(exception_object);
+  sub_10026C504(&a20);
+  _Unwind_Resume(a1);
 }
 
-double sub_10083AF10(uint64_t a1)
+uint64_t sub_10081377C(uint64_t *a1, uint64_t a2)
 {
-  v1 = *(a1 + 168);
-  if (*(a1 + 204))
+  v4 = sub_100008880(*a1);
+  v5 = sqlite3_step(v4);
+  if (v5 == 101)
   {
-    v3 = *(a1 + 201);
-    if (v1 == 900.0 || (*(a1 + 201) & 1) != 0)
+    return 1;
+  }
+
+  if (v5 != 100)
+  {
+    return 2;
+  }
+
+  sub_1008137F0(a1, a2);
+  return 0;
+}
+
+uint64_t sub_1008137F0(uint64_t *a1, uint64_t a2)
+{
+  v4 = sub_100008880(*a1);
+  *a2 = sqlite3_column_int(v4, 0);
+  v5 = sub_100008880(*a1);
+  *(a2 + 8) = sqlite3_column_double(v5, 1);
+  v6 = sub_100008880(*a1);
+  v7 = sqlite3_column_double(v6, 2);
+  *(a2 + 16) = v7;
+  v8 = sub_100008880(*a1);
+  v9 = sqlite3_column_double(v8, 3);
+  *(a2 + 24) = v9;
+  v10 = sub_100008880(*a1);
+  v11 = sqlite3_column_double(v10, 4);
+  *(a2 + 36) = v11;
+  v12 = sub_100008880(*a1);
+  v13 = sqlite3_column_double(v12, 5);
+  *(a2 + 32) = v13;
+  v14 = sub_100008880(*a1);
+  v15 = sqlite3_column_double(v14, 6);
+  *(a2 + 20) = v15;
+  v16 = sub_100008880(*a1);
+  v17 = sqlite3_column_double(v16, 7);
+  *(a2 + 28) = v17;
+  v18 = sub_100008880(*a1);
+  result = sqlite3_column_int(v18, 8);
+  *(a2 + 40) = result;
+  return result;
+}
+
+uint64_t sub_1008138E0(void *a1, _OWORD *a2)
+{
+  v5 = a1 + 14;
+  v4 = a1[14];
+  v6 = a1 + 9;
+  v23 = a1 + 14;
+  (*(v4 + 16))(a1 + 14);
+  v24 = 256;
+  if (sub_100099160(v6))
+  {
+    LODWORD(v22[0]) = 0;
+    memset(v22 + 8, 0, 36);
+    v7 = (*(*a1 + 104))(a1, v22);
+    if (v7)
     {
-      v6 = (v1 != 900.0) | v3;
-      if ((v1 != 900.0) | v3 & 1)
+      if (v7 == 1)
       {
-        v7 = 100.0;
+        if (qword_1025D4420 != -1)
+        {
+          sub_101948D40();
+        }
+
+        v13 = qword_1025D4428;
+        if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEBUG, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: No recent records in database", buf, 2u);
+        }
+
+        if (!sub_10000A100(121, 2))
+        {
+          goto LABEL_29;
+        }
+
+        sub_101948E5C(buf);
+        v21[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4428, 2, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: No recent records in database", v21, 2);
+        v10 = v14;
+        sub_100152C7C("Generic", 1, 0, 2, "virtual CMError CLMobility::SmoothedGaitMetricsRecorderDb::mostRecentSmoothedGaitMetrics(SmoothedGaitMetrics &) const", "%s\n", v14);
+      }
+
+      else if (v7 == 2)
+      {
+        if (qword_1025D4420 != -1)
+        {
+          sub_101948D40();
+        }
+
+        v8 = qword_1025D4428;
+        if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: Query error", buf, 2u);
+        }
+
+        if (!sub_10000A100(121, 0))
+        {
+          goto LABEL_29;
+        }
+
+        sub_101948E5C(buf);
+        v21[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4428, 16, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: Query error", v21, 2);
+        v10 = v9;
+        sub_100152C7C("Generic", 1, 0, 0, "virtual CMError CLMobility::SmoothedGaitMetricsRecorderDb::mostRecentSmoothedGaitMetrics(SmoothedGaitMetrics &) const", "%s\n", v9);
       }
 
       else
       {
-        v7 = 780.0;
-      }
-
-      [*(a1 + 40) currentLatchedAbsoluteTimestamp];
-      v9 = v8;
-      v10 = *(a1 + 168);
-      v11 = v9 % v10;
-      if (v11 <= (v1 - v7))
-      {
-        v14 = v10 - v11;
-        if (v7 >= v14)
+        if (qword_1025D4420 != -1)
         {
-          v1 = v7;
+          sub_101948D40();
         }
 
-        else
+        v16 = qword_1025D4428;
+        if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_ERROR))
         {
-          v1 = v14;
-        }
-      }
-
-      else
-      {
-        v12 = 1200.0;
-        if (v6)
-        {
-          v12 = 160.0;
+          *buf = 0;
+          _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: unexpected return type", buf, 2u);
         }
 
-        v13 = -(v11 - v10 * 2.0);
-        if (v13 >= v12)
+        if (!sub_10000A100(121, 0))
         {
-          v1 = v12;
+          goto LABEL_29;
         }
 
-        else
-        {
-          v1 = v13;
-        }
+        sub_101948E5C(buf);
+        v21[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4428, 16, "[SmoothedGaitMetricsHistory] Most recent smoothed gait metrics: unexpected return type", v21, 2);
+        v10 = v20;
+        sub_100152C7C("Generic", 1, 0, 0, "virtual CMError CLMobility::SmoothedGaitMetricsRecorderDb::mostRecentSmoothedGaitMetrics(SmoothedGaitMetrics &) const", "%s\n", v20);
       }
 
-      if (qword_1025D47A0 != -1)
+      if (v10 != buf)
       {
-        sub_1019500E4();
-      }
-
-      v15 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        v17 = 134217984;
-        v18 = v1;
-        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "#cclp: next fire delay: %f", &v17, 0xCu);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_101950FC8(v1);
+        free(v10);
       }
     }
 
     else
     {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_1019500E4();
-      }
-
-      v4 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v17) = 0;
-        _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "#cclp: Clock Alignment disabled. Either TestMode should be enabled or CompensationInterval should be 15m. Check #compensation #settings", &v17, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_101950EE4();
-      }
+      v15 = v22[1];
+      *a2 = v22[0];
+      a2[1] = v15;
+      *(a2 + 28) = *(&v22[1] + 12);
     }
+
+LABEL_29:
+    v12 = 100;
+    goto LABEL_30;
+  }
+
+  if (qword_1025D4420 != -1)
+  {
+    sub_101948FCC();
+  }
+
+  v11 = qword_1025D4428;
+  if (os_log_type_enabled(qword_1025D4428, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "[SmoothedGaitMetricsHistory] Database inaccessible, unable to query", buf, 2u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_101948E5C(buf);
+    LOWORD(v22[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4428, 2, "[SmoothedGaitMetricsHistory] Database inaccessible, unable to query", v22, 2);
+    v19 = v18;
+    sub_100152C7C("Generic", 1, 0, 2, "virtual CMError CLMobility::SmoothedGaitMetricsRecorderDb::mostRecentSmoothedGaitMetrics(SmoothedGaitMetrics &) const", "%s\n", v18);
+    if (v19 != buf)
+    {
+      free(v19);
+    }
+  }
+
+  v12 = 109;
+LABEL_30:
+  (*(*v5 + 24))(v5);
+  return v12;
+}
+
+void sub_100813DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+  sub_1017EC98C(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100813E38(void *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = a1 + 14;
+  (*(a1[14] + 16))(a1 + 14);
+  (*(*a1 + 120))(a1, a2, a3);
+  return (*(*v6 + 24))(v6);
+}
+
+void sub_100813F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_1017EC98C(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100813F24(uint64_t *a1, uint64_t a2)
+{
+  if (*(*(a2 + 8) - 16) != 1.79769313e308 || !sub_100099160((a1 + 9)))
+  {
+    return -1;
+  }
+
+  sub_100144A84(a1[10]);
+  Current = CFAbsoluteTimeGetCurrent();
+  sub_100144CA0(a1 + 47, &v13);
+  v5 = sub_100008880(v13);
+  if (sub_1001A3BD4(v5, 1, Current - *(*(a2 + 8) - 24)))
+  {
+    v6 = a1[10];
+    v7 = sub_100008880(v13);
+    sub_1001A3DEC(v6, v7);
+    v8 = (*(*a1 + 152))(a1);
   }
 
   else
   {
-    if (qword_1025D47A0 != -1)
+    v8 = -1;
+  }
+
+  sub_1001454E0(a1[10]);
+  v9 = a1[10];
+  if (*(v9 + 88) <= 0)
+  {
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v10 = *(v9 + 88);
+  }
+
+  sub_1001B16EC(v9, v10);
+  v11 = v13;
+  v13 = 0;
+  if (v11)
+  {
+    (*(*v11 + 8))(v11);
+  }
+
+  return v8;
+}
+
+void sub_100814060(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    sub_101880BC0();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100814084(uint64_t a1, uint64_t a2)
+{
+  result = sub_100099160(a1 + 72);
+  if (result)
+  {
+    *(a2 + 8) = *a2;
+    sub_100144CA0((a1 + 392), &v19);
+    sub_100144A84(*(a1 + 80));
+    *v18 = 0;
+    memset(&v18[8], 0, 36);
+    while (!sub_10081377C(&v19, v18))
     {
-      sub_1019500E4();
+      v5 = *(a2 + 8);
+      v6 = *(a2 + 16);
+      if (v5 >= v6)
+      {
+        v9 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a2) >> 4);
+        v10 = v9 + 1;
+        if (v9 + 1 > 0x555555555555555)
+        {
+          sub_10028C64C();
+        }
+
+        v11 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a2) >> 4);
+        if (2 * v11 > v10)
+        {
+          v10 = 2 * v11;
+        }
+
+        if (v11 >= 0x2AAAAAAAAAAAAAALL)
+        {
+          v12 = 0x555555555555555;
+        }
+
+        else
+        {
+          v12 = v10;
+        }
+
+        if (v12)
+        {
+          sub_1008169AC(a2, v12);
+        }
+
+        v13 = 48 * v9;
+        v14 = *&v18[16];
+        *v13 = *v18;
+        *(v13 + 16) = v14;
+        *(v13 + 32) = *&v18[32];
+        v8 = 48 * v9 + 48;
+        v15 = *(a2 + 8) - *a2;
+        v16 = 48 * v9 - v15;
+        memcpy((v13 - v15), *a2, v15);
+        v17 = *a2;
+        *a2 = v16;
+        *(a2 + 8) = v8;
+        *(a2 + 16) = 0;
+        if (v17)
+        {
+          operator delete(v17);
+        }
+      }
+
+      else
+      {
+        v7 = *&v18[16];
+        *v5 = *v18;
+        v5[1] = v7;
+        v5[2] = *&v18[32];
+        v8 = (v5 + 3);
+      }
+
+      *(a2 + 8) = v8;
     }
 
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    sub_1001454E0(*(a1 + 80));
+    result = v19;
+    v19 = 0;
+    if (result)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "#cclp: Clock Alignment disabled by default settings. Using default CC interval", &v17, 2u);
+      return (*(*result + 8))(result);
     }
+  }
 
-    if (sub_10000A100(121, 2))
-    {
-      sub_101950E00();
-    }
+  return result;
+}
+
+void sub_10081423C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+{
+  if (a16)
+  {
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100814280(uint64_t a1)
+{
+  if (!sub_100099160(a1 + 72))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  sub_100144CA0((a1 + 408), &v8);
+  v3 = sub_100008880(v8);
+  v4 = sqlite3_step(v3);
+  if (v4 == 100)
+  {
+    v5 = sub_100008880(v8);
+    v1 = sqlite3_column_int(v5, 0);
+  }
+
+  v6 = v8;
+  v8 = 0;
+  if (v6)
+  {
+    (*(*v6 + 8))(v6);
+  }
+
+  if (v4 != 100)
+  {
+    return 0xFFFFFFFFLL;
   }
 
   return v1;
 }
 
-void sub_10083B188(uint64_t a1, int *a2, uint64_t a3, int a4, uint64_t a5, int a6)
+void sub_10081432C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  [*(a1 + 144) nextFireDelay];
-  if (v12 != 1.79769313e308)
+  if (a10)
   {
-    sub_1019510E0();
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  sub_10001D7D0(a1, a2, a3, a4, a5, a6);
+  _Unwind_Resume(exception_object);
 }
 
-void sub_10083B210(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100814374(void *a1, uint64_t a2, double a3, double a4)
 {
-  if (qword_1025D47A0 != -1)
+  (*(*a1 + 64))(buf);
+  if ((SBYTE3(v21) & 0x80000000) == 0)
   {
-    sub_1019500E4();
+    if (BYTE3(v21))
+    {
+      goto LABEL_3;
+    }
+
+LABEL_18:
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v12 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v19 = 2082;
+      *&v19[2] = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getEntriesByTimeRange, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v13 = qword_1025D4208;
+    if (os_signpost_enabled(qword_1025D4208))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v19 = 2082;
+      *&v19[2] = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "getTableName() != ";
+      _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Need to override getTableName in order to use default definition of getEntriesByTimeRange", "{msg%{public}.0s:Need to override getTableName in order to use default definition of getEntriesByTimeRange, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v14 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v19 = 2082;
+      *&v19[2] = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getEntriesByTimeRange, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Motion/Activity/CLActivityRecorderDb.h", 607, "getEntriesByTimeRange");
+    __break(1u);
   }
 
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  v11 = *v19;
+  operator delete(*buf);
+  if (!v11)
   {
-    if (*(a4 + 832))
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  if (sub_100099160((a1 + 9)))
+  {
+    sub_10003848C(buf);
+    v5 = sub_100038730(&v19[8], "SELECT * FROM ", 14);
+    (*(*a1 + 64))(__p, a1);
+    if ((v17 & 0x80u) == 0)
     {
-      v7 = "enabled";
+      v6 = __p;
     }
 
     else
     {
-      v7 = "disabled";
+      v6 = __p[0];
     }
 
-    v12 = 136315138;
-    v13 = v7;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "#cclp Simulation %s", &v12, 0xCu);
+    if ((v17 & 0x80u) == 0)
+    {
+      v7 = v17;
+    }
+
+    else
+    {
+      v7 = __p[1];
+    }
+
+    v8 = sub_100038730(v5, v6, v7);
+    sub_100038730(v8, " WHERE startTime > ? and startTime <= ? ORDER BY rowid ASC", 58);
+    if (v17 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v9 = a1[10];
+    sub_100073518(buf, __p);
+    if ((v17 & 0x80u) == 0)
+    {
+      v10 = __p;
+    }
+
+    else
+    {
+      v10 = __p[0];
+    }
+
+    sub_1000388D8(v9, v10);
   }
 
-  if (sub_10000A100(121, 2))
-  {
-    sub_101951274(a4);
-  }
-
-  [*(a1 + 144) nextFireDelay];
-  if (v8 == 1.79769313e308 && (*(a1 + 203) & 1) == 0)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_1019500BC();
-    }
-
-    v11 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      LOWORD(v12) = 0;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "#cclp CompensationTimer not scheduled and not subscribed to FLC", &v12, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_10195138C();
-    }
-  }
-
-  else
-  {
-    v9 = 4.0;
-    if (*(a4 + 832))
-    {
-      v9 = 3.0;
-    }
-
-    [*(a1 + 160) setNextFireDelay:v9];
-    [*(a1 + 144) nextFireDelay];
-    if (v10 != 1.79769313e308)
-    {
-      *(a1 + 202) = *(a4 + 832);
-      [*(a1 + 144) setNextFireDelay:0.0];
-    }
-  }
+  return 2;
 }
 
-void sub_10083B3E8(uint64_t a1, void *a2, int a3, void *a4)
+void sub_1008149D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
 {
-  v7 = *(a1 + 40);
-  if (a2)
+  if (a18 < 0)
   {
-    [a2 clientLocation];
+    operator delete(__p);
+  }
+
+  sub_10026C504(&a24);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100814A60(uint64_t a1)
+{
+  v3 = *(a1 + 112);
+  v2 = a1 + 112;
+  v4 = v2 - 40;
+  v13 = v2;
+  (*(v3 + 16))();
+  if (!sub_100099160(v4))
+  {
+    sub_100817388(a1);
+  }
+
+  if (qword_1025D4200 != -1)
+  {
+    sub_101948EA0();
+  }
+
+  v5 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = (a1 + 88);
+    if (*(a1 + 111) < 0)
+    {
+      v6 = *v6;
+    }
+
+    *buf = 68289282;
+    *&buf[8] = 2082;
+    *&buf[10] = "";
+    v17 = 2082;
+    v18 = v6;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Database is already opened., name:%{public, location:escape_only}s}", buf, 0x1Cu);
+  }
+
+  if (*(a1 + 216))
+  {
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v7 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      v8 = *(a1 + 216);
+      *buf = 134349056;
+      *&buf[4] = v8;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "In memory buffer should have been empty! Instead it had a size of %{public}lu.", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_101948CFC(buf);
+      v10 = *(a1 + 216);
+      v14 = 134349056;
+      v15 = v10;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 17, "In memory buffer should have been empty! Instead it had a size of %{public}lu.", &v14, 12);
+      v12 = v11;
+      sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLActivityRecorderDb<CLMobility::SmoothedGaitMetrics, CLActivityDB::ClassBDataProtectionPolicy>::setDatabaseAccessible() [T = CLMobility::SmoothedGaitMetrics, DataProtectionPolicy = CLActivityDB::ClassBDataProtectionPolicy]", "%s\n", v11);
+      if (v12 != buf)
+      {
+        free(v12);
+      }
+    }
+  }
+
+  (*(*v13 + 24))(v13);
+  return 1;
+}
+
+void sub_100815134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  sub_1017EC98C(va);
+  _Unwind_Resume(a1);
+}
+
+__n128 sub_100815170(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = *a3;
+  v4 = *(a3 + 16);
+  *(a2 + 28) = *(a3 + 28);
+  *a2 = result;
+  *(a2 + 16) = v4;
+  return result;
+}
+
+id *sub_100815184(uint64_t a1, __int128 *a2, char a3)
+{
+  v35[0] = os_transaction_create();
+  v35[1] = 0;
+  if (*(a1 + 232) > 0.0 && (*(*a1 + 136))(a1, a1 + 224, a2))
+  {
+    (*(*a1 + 72))(a1, a1 + 224, a2);
+    return sub_10001A420(v35);
+  }
+
+  if ((a3 & 1) == 0)
+  {
+    sub_100144A84(*(a1 + 80));
+  }
+
+  v31 = 0;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0;
+  v6 = (*(*a1 + 104))(a1, &v31);
+  if (v6 == 1)
+  {
+    (*(*a1 + 120))(a1, a2, 1);
   }
 
   else
   {
-    memset(v55, 0, 28);
-    v54 = 0u;
-    v53 = 0u;
-    v52 = 0u;
-    v51 = 0u;
-    v50 = 0u;
-    memset(buf, 0, sizeof(buf));
-  }
-
-  v44 = v53;
-  v45 = v54;
-  v46[0] = v55[0];
-  *(v46 + 12) = *(v55 + 12);
-  v41 = *&buf[32];
-  v42 = v50;
-  *v43 = v51;
-  *&v43[16] = v52;
-  v39 = *buf;
-  v40 = *&buf[16];
-  *(v7 + 200) = 0;
-  [*(v7 + 40) currentLatchedAbsoluteTimestamp];
-  v9 = v8;
-  v10 = *(a1 + 124);
-  v11 = *(v7 + 168);
-  if (qword_1025D47A0 != -1)
-  {
-    sub_1019500BC();
-  }
-
-  v12 = vabdd_f64(v9, v10);
-  v13 = v11 * 1.33333333;
-  v14 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v15 = *(a1 + 1616);
-    v16 = LocationLogEncryptionDataSize();
-    v17 = LocationLogEncryptionEncryptData();
-    *buf = 68290562;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 1026;
-    *&buf[20] = a3;
-    *&buf[24] = 2050;
-    *&buf[26] = v12;
-    *&buf[34] = 1026;
-    *&buf[36] = v12 < v13;
-    *&buf[40] = 1026;
-    *&buf[42] = v15;
-    *&buf[46] = 1040;
-    LODWORD(v50) = v16;
-    WORD2(v50) = 2098;
-    *(&v50 + 6) = v17;
-    _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#cclp snapLocation reply, permanent:%{public}hhd, cacheAge:%{public}f, cacheAgeLessThanExtendedInterval:%{public}hhd, hasCachedLocation:%{public}hhd, location:%{public, location:Encrypted_CLClientLocation}.*P}", buf, 0x3Eu);
-  }
-
-  if ((a3 & 1) != 0 || *(a1 + 1616) != 1 || v12 >= v13)
-  {
-    LODWORD(v44) = 12;
-    *&v43[24] = vabdd_f64(v9, *&v43[12]) + *(v7 + 168) * 1.33333333;
-    if (*(v7 + 184) == 1)
+    if (v6)
     {
-      *(&v40 + 4) = *(a1 + 1608);
-    }
-
-    sub_100021AFC(v31);
-    v31[6] = v44;
-    v31[7] = v45;
-    v32[0] = v46[0];
-    *(v32 + 12) = *(v46 + 12);
-    v31[2] = v41;
-    v31[3] = v42;
-    v31[4] = *v43;
-    v31[5] = *&v43[16];
-    v31[0] = v39;
-    v31[1] = v40;
-    if (a4)
-    {
-      if (qword_1025D47A0 != -1)
+      if (qword_1025D4200 != -1)
       {
-        sub_1019500BC();
+        sub_101948CD4();
       }
 
-      v18 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+      v14 = qword_1025D4208;
+      if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEBUG, "#cclp Encoded coarse meta data available", buf, 2u);
+        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_FAULT, "Failed to insert record due to failure from reading the most recent entry.", buf, 2u);
       }
 
-      if (sub_10000A100(121, 2))
+      if (sub_10000A100(121, 0))
       {
-        sub_1019509C4(buf);
-        LOWORD(v47) = 0;
-        v29 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLCorrectiveCompensatedLocationProvider::performLocationSnapping(const CLLocationProvider_Type::Notification &, const CLLocationProvider_Type::NotificationData &, void (^)(BOOL, CLDaemonLocation))_block_invoke", "%s\n", v29);
-        if (v29 != buf)
+        sub_101948CFC(buf);
+        LOWORD(v36) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 17, "Failed to insert record due to failure from reading the most recent entry.", &v36, 2);
+        v16 = v15;
+        sub_100152C7C("Generic", 1, 0, 0, "virtual void CLActivityRecorderDb<CLMobility::SmoothedGaitMetrics, CLActivityDB::ClassBDataProtectionPolicy>::sanitizeAndStoreRecordUL(const T &, BOOL) [T = CLMobility::SmoothedGaitMetrics, DataProtectionPolicy = CLActivityDB::ClassBDataProtectionPolicy]", "%s\n", v15);
+        if (v16 != buf)
         {
-          free(v29);
+          free(v16);
         }
       }
 
-      sub_10083BBE4(&v38, a4);
+      goto LABEL_41;
     }
 
-    if (*(a1 + 32))
+    v7 = *(a2 + 1);
+    v8 = *&v32;
+    v9 = v7 - *&v32;
+    if (v7 - *&v32 < 0.0)
     {
-      if (qword_1025D47A0 != -1)
+      v9 = -(v7 - *&v32);
+    }
+
+    if (v9 > 604800.0)
+    {
+      if (qword_1025D4200 != -1)
       {
-        sub_1019500BC();
+        sub_101948CD4();
       }
 
-      v19 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+      v10 = qword_1025D4208;
+      if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "#cclp delivering compensated location to reply block", buf, 2u);
+        v11 = *(a2 + 1);
+        *buf = 134349312;
+        v41 = *&v32;
+        v42 = 2050;
+        v43 = v11;
+        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "#Notice Potential CM database inconsistency, time jump %{public}lf %{public}lf", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
       {
-        sub_1019509C4(buf);
-        LOWORD(v47) = 0;
-        v30 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLCorrectiveCompensatedLocationProvider::performLocationSnapping(const CLLocationProvider_Type::Notification &, const CLLocationProvider_Type::NotificationData &, void (^)(BOOL, CLDaemonLocation))_block_invoke", "%s\n", v30);
+        sub_101948CFC(buf);
+        v23 = *(a2 + 1);
+        v36 = 134349312;
+        v37 = *&v32;
+        v38 = 2050;
+        v39 = v23;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 0, "#Notice Potential CM database inconsistency, time jump %{public}lf %{public}lf", &v36, 22);
+        v25 = v24;
+        sub_100152C7C("Generic", 1, 0, 2, "virtual void CLActivityRecorderDb<CLMobility::SmoothedGaitMetrics, CLActivityDB::ClassBDataProtectionPolicy>::sanitizeAndStoreRecordUL(const T &, BOOL) [T = CLMobility::SmoothedGaitMetrics, DataProtectionPolicy = CLActivityDB::ClassBDataProtectionPolicy]", "%s\n", v24);
+        if (v25 != buf)
+        {
+          free(v25);
+        }
+      }
+
+      CLWriteStackshot();
+      v7 = *(a2 + 1);
+      v8 = *&v32;
+    }
+
+    if (v7 < v8)
+    {
+      if (v8 - v7 < 10.0)
+      {
+        if (qword_1025D4200 != -1)
+        {
+          sub_101948CD4();
+        }
+
+        v12 = qword_1025D4208;
+        if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+        {
+          v13 = *(a2 + 1);
+          *buf = 134217984;
+          v41 = v13;
+          _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_INFO, "Entry being recorded has a startTime in the recent past.  Deleting records after %f.", buf, 0xCu);
+        }
+
+        if (sub_10000A100(121, 2))
+        {
+          sub_101948CFC(buf);
+          v26 = *(a2 + 1);
+          v36 = 134217984;
+          v37 = v26;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 1, "Entry being recorded has a startTime in the recent past.  Deleting records after %f.", COERCE_DOUBLE(&v36));
+          v28 = v27;
+          sub_100152C7C("Generic", 1, 0, 2, "virtual void CLActivityRecorderDb<CLMobility::SmoothedGaitMetrics, CLActivityDB::ClassBDataProtectionPolicy>::sanitizeAndStoreRecordUL(const T &, BOOL) [T = CLMobility::SmoothedGaitMetrics, DataProtectionPolicy = CLActivityDB::ClassBDataProtectionPolicy]", "%s\n", v27);
+          if (v28 != buf)
+          {
+            free(v28);
+          }
+        }
+
+        (*(*a1 + 88))(a1, a2);
+        goto LABEL_40;
+      }
+
+      v17 = *(a1 + 136);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+
+      v18 = v7 - v8 - v17;
+      v19 = qword_1025D4208;
+      if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+      {
+        *buf = 134217984;
+        v41 = v18;
+        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "Entry being recorded has a startTime in the substantial past.  Shift records by %f.", buf, 0xCu);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_101948CFC(buf);
+        v36 = 134217984;
+        v37 = v18;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 1, "Entry being recorded has a startTime in the substantial past.  Shift records by %f.", COERCE_DOUBLE(&v36));
+        v30 = v29;
+        sub_100152C7C("Generic", 1, 0, 2, "virtual void CLActivityRecorderDb<CLMobility::SmoothedGaitMetrics, CLActivityDB::ClassBDataProtectionPolicy>::sanitizeAndStoreRecordUL(const T &, BOOL) [T = CLMobility::SmoothedGaitMetrics, DataProtectionPolicy = CLActivityDB::ClassBDataProtectionPolicy]", "%s\n", v29);
         if (v30 != buf)
         {
           free(v30);
         }
       }
 
-      v20 = *(a1 + 32);
-      v53 = v44;
-      v54 = v45;
-      v55[0] = v46[0];
-      *(v55 + 12) = *(v46 + 12);
-      *&buf[32] = v41;
-      v50 = v42;
-      v51 = *v43;
-      v52 = *&v43[16];
-      *&buf[16] = v40;
-      *buf = v39;
-      (*(v20 + 16))();
+      (*(*a1 + 96))(a1, v18);
     }
 
-    *buf = 0;
-    (*(*v7 + 152))(v7, buf, v31, 1, 0xFFFFFFFFLL, 0);
-    [*(v7 + 152) setNextFireDelay:*(v7 + 176)];
-    v21 = qword_1026372D0;
-    v22 = qword_1026372D8;
-    while (v21 != v22)
+    (*(*a1 + 144))(a1, &v31, a1 + 224, a2);
+    (*(*a1 + 120))(a1, a2, 1);
+  }
+
+LABEL_40:
+  v20 = *a2;
+  v21 = a2[1];
+  *(a1 + 252) = *(a2 + 28);
+  *(a1 + 224) = v20;
+  *(a1 + 240) = v21;
+LABEL_41:
+  if ((a3 & 1) == 0)
+  {
+    sub_1001454E0(*(a1 + 80));
+  }
+
+  return sub_10001A420(v35);
+}
+
+void sub_1008158B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_10001A420(va);
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_1008158E8(void *a1, uint64_t a2)
+{
+  (*(*a1 + 64))(buf);
+  if ((SBYTE3(v20) & 0x80000000) == 0)
+  {
+    if (BYTE3(v20))
     {
-      [*(*(v7 + 128) + 16) unregister:*(*(v7 + 128) + 8) forNotification:*v21++];
+      goto LABEL_3;
     }
 
-    *(v7 + 203) = 0;
-    if (*(v7 + 202))
+LABEL_18:
+    if (qword_1025D4200 != -1)
     {
-      *(v7 + 202) = 0;
-      v23 = rand();
-      v24 = *(v7 + 168);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_1019500BC();
-      }
+      sub_101948CD4();
+    }
 
-      v25 = vcvts_n_f32_s32(v23, 0x1FuLL) * v24 + 1.0;
-      v26 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    v12 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Need to override getTableName in order to use default definition of deleteRecordsAfterInsertUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
       {
-        *buf = 134217984;
-        *&buf[4] = v25;
-        _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_DEFAULT, "#cclp Simulation started. Random next fire delay: %f", buf, 0xCu);
+        sub_101948CD4();
       }
+    }
 
-      if (sub_10000A100(121, 2))
+    v13 = qword_1025D4208;
+    if (os_signpost_enabled(qword_1025D4208))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Need to override getTableName in order to use default definition of deleteRecordsAfterInsertUL", "{msg%{public}.0s:Need to override getTableName in order to use default definition of deleteRecordsAfterInsertUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
       {
-        sub_1019509C4(buf);
-        v47 = 134217984;
-        v48 = v25;
-        v27 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLCorrectiveCompensatedLocationProvider::performLocationSnapping(const CLLocationProvider_Type::Notification &, const CLLocationProvider_Type::NotificationData &, void (^)(BOOL, CLDaemonLocation))_block_invoke", "%s\n", v27);
-        if (v27 != buf)
-        {
-          free(v27);
-        }
+        sub_101948CD4();
       }
+    }
+
+    v14 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Need to override getTableName in order to use default definition of deleteRecordsAfterInsertUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Motion/Activity/CLActivityRecorderDb.h", 560, "deleteRecordsAfterInsertUL");
+    __break(1u);
+  }
+
+  v11 = *v18;
+  operator delete(*buf);
+  if (!v11)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  result = sub_100099160((a1 + 9));
+  if (result)
+  {
+    (*(*a1 + 120))(a1, a2, 1);
+    sub_10003848C(buf);
+    v5 = sub_100038730(&v18[8], "DELETE FROM ", 12);
+    (*(*a1 + 64))(__p, a1);
+    if ((v16 & 0x80u) == 0)
+    {
+      v6 = __p;
     }
 
     else
     {
-      v25 = sub_10083AF10(v7);
+      v6 = __p[0];
     }
 
-    [*(v7 + 144) setNextFireDelay:v25];
-
-    if (v37)
+    if ((v16 & 0x80u) == 0)
     {
-      sub_100008080(v37);
+      v7 = v16;
     }
 
-    if (v36 < 0)
+    else
     {
-      operator delete(__p);
+      v7 = __p[1];
     }
 
-    if (v34)
+    v8 = sub_100038730(v5, v6, v7);
+    sub_100038730(v8, " WHERE startTime > ?", 20);
+    if (v16 < 0)
     {
-      sub_100008080(v34);
+      operator delete(__p[0]);
     }
 
-    if (v33)
+    v9 = a1[10];
+    sub_100073518(buf, __p);
+    if ((v16 & 0x80u) == 0)
     {
-      sub_100008080(v33);
+      v10 = __p;
     }
+
+    else
+    {
+      v10 = __p[0];
+    }
+
+    sub_1000388D8(v9, v10);
   }
 
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_1019500BC();
-    }
-
-    v28 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v28, OS_LOG_TYPE_INFO, "#cclp snapLocation expecting a improved location", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101951470();
-    }
-  }
-}
-
-void sub_10083BB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  sub_100311054(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_10083BBE4(void **a1, void *a2)
-{
-  v3 = a2;
-  v4 = *a1;
-  *a1 = v3;
-}
-
-__n128 sub_10083BE04@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(a1 + 144);
-  *(a2 + 96) = *(a1 + 128);
-  *(a2 + 112) = v2;
-  *(a2 + 128) = *(a1 + 160);
-  *(a2 + 140) = *(a1 + 172);
-  v3 = *(a1 + 80);
-  *(a2 + 32) = *(a1 + 64);
-  *(a2 + 48) = v3;
-  v4 = *(a1 + 112);
-  *(a2 + 64) = *(a1 + 96);
-  *(a2 + 80) = v4;
-  result = *(a1 + 32);
-  v6 = *(a1 + 48);
-  *a2 = result;
-  *(a2 + 16) = v6;
   return result;
 }
 
-uint64_t sub_10083BE38()
+void sub_100815E48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
 {
-  v1[0] = xmmword_101CB0DA8;
-  v1[1] = unk_101CB0DB8;
-  qword_1026372D8 = 0;
-  unk_1026372E0 = 0;
-  qword_1026372D0 = 0;
-  sub_1004579D4(&qword_1026372D0, v1, &v2, 8uLL);
-  return __cxa_atexit(sub_100839180, &qword_1026372D0, dword_100000000);
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  sub_10026C504(&a20);
+  _Unwind_Resume(a1);
 }
 
-void sub_10083BF20(id a1)
+BOOL sub_100815E9C(void *a1, double a2)
 {
-  sub_10001A3E8();
-  v1 = 1;
-  if ((sub_10001CF3C() & 1) == 0)
+  (*(*a1 + 64))(buf);
+  if ((SBYTE3(v19) & 0x80000000) == 0)
   {
-    sub_10001A3E8();
-    if ((sub_1007194F0() & 1) == 0)
+    if (BYTE3(v19))
     {
-      sub_10001A3E8();
-      if ((sub_10003A088() & 2) != 0)
+      goto LABEL_3;
+    }
+
+LABEL_18:
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v11 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Need to override getTableName in order to use default definition of shiftRecordsByUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
       {
-        v1 = 0;
+        sub_101948CD4();
       }
+    }
+
+    v12 = qword_1025D4208;
+    if (os_signpost_enabled(qword_1025D4208))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Need to override getTableName in order to use default definition of shiftRecordsByUL", "{msg%{public}.0s:Need to override getTableName in order to use default definition of shiftRecordsByUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v13 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Need to override getTableName in order to use default definition of shiftRecordsByUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Motion/Activity/CLActivityRecorderDb.h", 577, "shiftRecordsByUL");
+    __break(1u);
+  }
+
+  v10 = *v17;
+  operator delete(*buf);
+  if (!v10)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  result = sub_100099160((a1 + 9));
+  if (result)
+  {
+    sub_10003848C(buf);
+    v4 = sub_100038730(&v17[8], "UPDATE ", 7);
+    (*(*a1 + 64))(__p, a1);
+    if ((v15 & 0x80u) == 0)
+    {
+      v5 = __p;
+    }
+
+    else
+    {
+      v5 = __p[0];
+    }
+
+    if ((v15 & 0x80u) == 0)
+    {
+      v6 = v15;
+    }
+
+    else
+    {
+      v6 = __p[1];
+    }
+
+    v7 = sub_100038730(v4, v5, v6);
+    sub_100038730(v7, " SET startTime = startTime + ?", 30);
+    if (v15 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v8 = a1[10];
+    sub_100073518(buf, __p);
+    if ((v15 & 0x80u) == 0)
+    {
+      v9 = __p;
+    }
+
+    else
+    {
+      v9 = __p[0];
+    }
+
+    sub_1000388D8(v8, v9);
+  }
+
+  return result;
+}
+
+void sub_1008163BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  sub_10026C504(&a20);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100816410(void *a1, uint64_t a2)
+{
+  (*(*a1 + 64))(buf);
+  if ((SBYTE3(v19) & 0x80000000) == 0)
+  {
+    if (BYTE3(v19))
+    {
+      goto LABEL_3;
+    }
+
+LABEL_18:
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v11 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getMostRecentRecordUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v12 = qword_1025D4208;
+    if (os_signpost_enabled(qword_1025D4208))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Need to override getTableName in order to use default definition of getMostRecentRecordUL", "{msg%{public}.0s:Need to override getTableName in order to use default definition of getMostRecentRecordUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v13 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v17 = 2082;
+      *&v17[2] = "";
+      v18 = 2082;
+      v19 = "assert";
+      v20 = 2081;
+      v21 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getMostRecentRecordUL, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Motion/Activity/CLActivityRecorderDb.h", 592, "getMostRecentRecordUL");
+    __break(1u);
+  }
+
+  v10 = *v17;
+  operator delete(*buf);
+  if (!v10)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  if (sub_100099160((a1 + 9)))
+  {
+    sub_10003848C(buf);
+    v3 = sub_100038730(&v17[8], "SELECT * FROM ", 14);
+    (*(*a1 + 64))(__p, a1);
+    if ((v15 & 0x80u) == 0)
+    {
+      v4 = __p;
+    }
+
+    else
+    {
+      v4 = __p[0];
+    }
+
+    if ((v15 & 0x80u) == 0)
+    {
+      v5 = v15;
+    }
+
+    else
+    {
+      v5 = __p[1];
+    }
+
+    v6 = sub_100038730(v3, v4, v5);
+    sub_100038730(v6, " ORDER BY ROWID DESC LIMIT 1", 28);
+    if (v15 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v7 = a1[10];
+    sub_100073518(buf, __p);
+    if ((v15 & 0x80u) == 0)
+    {
+      v8 = __p;
+    }
+
+    else
+    {
+      v8 = __p[0];
+    }
+
+    sub_1000388D8(v7, v8);
+  }
+
+  return 2;
+}
+
+void sub_10081691C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
+{
+  if (a13)
+  {
+    sub_101880BC0();
+  }
+
+  sub_10026C504(&a20);
+  _Unwind_Resume(a1);
+}
+
+void sub_1008169AC(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x555555555555556)
+  {
+    operator new();
+  }
+
+  sub_1001D0818();
+}
+
+BOOL sub_100816A04(uint64_t *a1, void *a2)
+{
+  (*(*a1 + 64))(buf);
+  if ((SBYTE3(v20) & 0x80000000) == 0)
+  {
+    if (BYTE3(v20))
+    {
+      goto LABEL_3;
+    }
+
+LABEL_18:
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v12 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getAllRecords, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v13 = qword_1025D4208;
+    if (os_signpost_enabled(qword_1025D4208))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Need to override getTableName in order to use default definition of getAllRecords", "{msg%{public}.0s:Need to override getTableName in order to use default definition of getAllRecords, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D4200 != -1)
+      {
+        sub_101948CD4();
+      }
+    }
+
+    v14 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      *&buf[4] = 0;
+      *v18 = 2082;
+      *&v18[2] = "";
+      v19 = 2082;
+      v20 = "assert";
+      v21 = 2081;
+      v22 = "getTableName() != ";
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Need to override getTableName in order to use default definition of getAllRecords, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Motion/Activity/CLActivityRecorderDb.h", 528, "getAllRecords");
+    __break(1u);
+  }
+
+  v11 = *v18;
+  operator delete(*buf);
+  if (!v11)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  result = sub_100099160((a1 + 9));
+  if (result)
+  {
+    a2[1] = *a2;
+    sub_10003848C(buf);
+    v5 = sub_100038730(&v18[8], "SELECT * from ", 14);
+    (*(*a1 + 64))(__p, a1);
+    if ((v16 & 0x80u) == 0)
+    {
+      v6 = __p;
+    }
+
+    else
+    {
+      v6 = __p[0];
+    }
+
+    if ((v16 & 0x80u) == 0)
+    {
+      v7 = v16;
+    }
+
+    else
+    {
+      v7 = __p[1];
+    }
+
+    v8 = sub_100038730(v5, v6, v7);
+    sub_100038730(v8, " ORDER BY id ASC", 16);
+    if (v16 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v9 = a1[10];
+    sub_100073518(buf, __p);
+    if ((v16 & 0x80u) == 0)
+    {
+      v10 = __p;
+    }
+
+    else
+    {
+      v10 = __p[0];
+    }
+
+    sub_1000388D8(v9, v10);
+  }
+
+  return result;
+}
+
+void sub_100817024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+{
+  if (v24)
+  {
+    (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  sub_10026C504(&a24);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1008170AC(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v6 = sub_100008880(*a2);
+  v7 = sqlite3_step(v6);
+  if (v7 == 101)
+  {
+    return 1;
+  }
+
+  if (v7 != 100)
+  {
+    return 2;
+  }
+
+  (*(*a1 + 128))(a1, a2, a3);
+  return 0;
+}
+
+void sub_10081713C(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  if (qword_1025D4200 != -1)
+  {
+    sub_101948EA0();
+  }
+
+  v6 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_INFO))
+  {
+    (*(*a1 + 64))(__p, a1);
+    v7 = v12 >= 0 ? __p : __p[0];
+    *buf = 136315138;
+    v14 = v7;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "%s insert handle set.", buf, 0xCu);
+    if (v12 < 0)
+    {
+      operator delete(__p[0]);
     }
   }
 
-  byte_10265A648 = v1;
-}
-
-uint64_t sub_10083C0D8(uint64_t a1)
-{
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_10083C4CC;
-  block[3] = &unk_102447418;
-  block[4] = a1;
-  if (qword_10265A668 != -1)
+  if (sub_10000A100(121, 2))
   {
-    dispatch_once(&qword_10265A668, block);
+    sub_101949144(a1);
   }
 
-  return qword_1026372F0;
+  if ((!a2 || !a3) && a2 | a3)
+  {
+    if (qword_1025D4200 != -1)
+    {
+      sub_101948CD4();
+    }
+
+    v8 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_ERROR))
+    {
+      (*(*a1 + 64))(__p, a1);
+      v9 = v12 >= 0 ? __p : __p[0];
+      *buf = 136315138;
+      v14 = v9;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "%s, Invalid update finished handlers.", buf, 0xCu);
+      if (v12 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194928C(a1);
+    }
+  }
+
+  *(a1 + 352) = a2;
+  v10 = *(a1 + 360);
+  if (v10)
+  {
+    _Block_release(v10);
+  }
+
+  if (a3)
+  {
+    *(a1 + 360) = _Block_copy(a3);
+  }
 }
 
-void sub_10083C3B8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_100817404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1008175B4(uint64_t a1)
+{
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100817BE8;
+  block[3] = &unk_102447418;
+  block[4] = a1;
+  if (qword_10265A3C0 != -1)
+  {
+    dispatch_once(&qword_10265A3C0, block);
+  }
+
+  return qword_1026372B8;
+}
+
+void sub_100817958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10081798C(uint64_t a1, int a2, __int128 *a3, uint64_t a4)
+{
+  if (*(a3 + 23) < 0)
+  {
+    sub_100007244(&__dst, *a3, *(a3 + 1));
+  }
+
+  else
+  {
+    __dst = *a3;
+    v17 = *(a3 + 2);
+  }
+
+  if (*(a4 + 23) < 0)
+  {
+    sub_100007244(v14, *a4, *(a4 + 8));
+  }
+
+  else
+  {
+    *v14 = *a4;
+    v15 = *(a4 + 16);
+  }
+
+  v7 = *(a1 + 40);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3321888768;
+  v8[2] = sub_100818040;
+  v8[3] = &unk_102474A70;
+  v8[4] = a1;
+  v13 = a2;
+  if (SHIBYTE(v17) < 0)
+  {
+    sub_100007244(v9, __dst, *(&__dst + 1));
+  }
+
+  else
+  {
+    *v9 = __dst;
+    v10 = v17;
+  }
+
+  if (SHIBYTE(v15) < 0)
+  {
+    sub_100007244(__p, v14[0], v14[1]);
+  }
+
+  else
+  {
+    *__p = *v14;
+    v12 = v15;
+  }
+
+  [v7 async:v8];
+  if (SHIBYTE(v12) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v10) < 0)
+  {
+    operator delete(v9[0]);
+  }
+
+  if (SHIBYTE(v15) < 0)
+  {
+    operator delete(v14[0]);
+  }
+
+  if (SHIBYTE(v17) < 0)
+  {
+    operator delete(__dst);
+  }
+}
+
+void sub_100817B04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+{
+  if (a19 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a32 < 0)
+  {
+    operator delete(a27);
+  }
+
+  if (*(v32 - 41) < 0)
+  {
+    operator delete(*(v32 - 64));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100817C58(uint64_t a1, void *a2)
+{
+  v3 = sub_100817D4C(a1, "CLBacklightStateNotifier", a2);
+  *v3 = off_1024749A0;
+  v3[14] = 0;
+  *(a1 + 112) = [[CLBacklightStateNotifierAdapter alloc] initWithCLBacklightStateNotifier:a1];
+  v4 = [+[BLSBacklight sharedBacklight](BLSBacklight "sharedBacklight")];
+  v5 = *(a1 + 40);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100818264;
+  v7[3] = &unk_102460CC8;
+  v7[4] = a1;
+  v8 = v4;
+  [v5 async:v7];
+  return a1;
+}
+
+uint64_t sub_100817D4C(uint64_t a1, char *a2, void *a3)
+{
+  *a1 = off_102474B78;
+  sub_10000EC00((a1 + 8), a2);
+  *(a1 + 32) = a3;
+  *(a1 + 40) = [a3 silo];
+  *(a1 + 48) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 56) = a1 + 64;
+  *(a1 + 88) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = a1 + 88;
+  *(a1 + 104) = 0;
+  *(a1 + 108) = 0;
+  return a1;
+}
+
+void sub_100817DDC(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 31) < 0)
+  {
+    operator delete(*v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100817DF8(uint64_t a1)
+{
+  *a1 = off_102474B78;
+  [*(a1 + 48) invalidate];
+
+  sub_10018F070(a1 + 80, *(a1 + 88));
+  sub_10047BD74(a1 + 56, *(a1 + 64));
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+uint64_t sub_100817E7C(uint64_t a1)
+{
+  *a1 = off_1024749A0;
+  *(a1 + 108) = 1;
+
+  *(a1 + 112) = 0;
+
+  return sub_100817DF8(a1);
+}
+
+void sub_100817EE8(uint64_t a1)
+{
+  sub_100817E7C(a1);
+
   operator delete();
 }
 
-uint64_t sub_10083C3E8(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6)
+void sub_100817F20(uint64_t a1)
 {
-  *a1 = off_1024764C8;
+  *(a1 + 108) = 1;
+
+  *(a1 + 112) = 0;
+}
+
+void sub_100818040(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = 0;
+  if (sub_10000608C(v2, &v3, 1))
+  {
+    v9 = 0;
+    v3 = *(a1 + 88);
+    if (*(a1 + 63) < 0)
+    {
+      sub_100007244(&v4, *(a1 + 40), *(a1 + 48));
+    }
+
+    else
+    {
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 56);
+    }
+
+    if (*(a1 + 87) < 0)
+    {
+      sub_100007244(&__p, *(a1 + 64), *(a1 + 72));
+    }
+
+    else
+    {
+      __p = *(a1 + 64);
+      v7 = *(a1 + 80);
+    }
+
+    v8 = 0;
+    (*(*v2 + 152))(v2, &v9, &v3, 1, 0xFFFFFFFFLL, 0);
+    if (SHIBYTE(v7) < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (SHIBYTE(v5) < 0)
+    {
+      operator delete(v4);
+    }
+  }
+}
+
+void sub_100818150(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+char *sub_10081817C(char *result, uint64_t a2)
+{
+  v3 = result;
+  if (*(a2 + 63) < 0)
+  {
+    result = sub_100007244(result + 40, *(a2 + 40), *(a2 + 48));
+  }
+
+  else
+  {
+    v4 = *(a2 + 40);
+    *(result + 7) = *(a2 + 56);
+    *(result + 40) = v4;
+  }
+
+  if (*(a2 + 87) < 0)
+  {
+    return sub_100007244(v3 + 64, *(a2 + 64), *(a2 + 72));
+  }
+
+  v5 = *(a2 + 64);
+  *(v3 + 10) = *(a2 + 80);
+  *(v3 + 4) = v5;
+  return result;
+}
+
+void sub_1008181F0(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 63) < 0)
+  {
+    operator delete(*(v1 + 40));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10081820C(uint64_t a1)
+{
+  if (*(a1 + 87) < 0)
+  {
+    operator delete(*(a1 + 64));
+  }
+
+  if (*(a1 + 63) < 0)
+  {
+    v2 = *(a1 + 40);
+
+    operator delete(v2);
+  }
+}
+
+void sub_100818264(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *buf = 1;
+  if (sub_10000608C(v2, buf, 1))
+  {
+    if (qword_1025D41E0 != -1)
+    {
+      sub_101949588();
+    }
+
+    v3 = qword_1025D41E8;
+    if (os_log_type_enabled(qword_1025D41E8, OS_LOG_TYPE_INFO))
+    {
+      v4 = *(a1 + 40);
+      *buf = 67109120;
+      v7 = v4;
+      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_INFO, "CLBacklightState, didChangeAlwaysOnEnabled, %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_1019495B0(a1);
+    }
+
+    v5 = 1;
+    *buf = 0;
+    *v8 = 0u;
+    *__p = 0u;
+    v10 = 0u;
+    v11 = *(a1 + 40);
+    (*(*v2 + 152))(v2, &v5, buf, 1, 0xFFFFFFFFLL, 0);
+    if (SHIBYTE(v10) < 0)
+    {
+      operator delete(__p[1]);
+    }
+
+    if (SHIBYTE(__p[0]) < 0)
+    {
+      operator delete(v8[0]);
+    }
+  }
+}
+
+void sub_1008183E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  sub_100819DB0(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1008183FC(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6)
+{
+  *a1 = &off_102474CC8;
   *(a1 + 8) = [[CLNotifierClientAdapter alloc] initWithClient:a1];
   *(a1 + 24) = a5;
   *(a1 + 32) = a6;
@@ -3172,402 +2620,29 @@ uint64_t sub_10083C3E8(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_
   return a1;
 }
 
-void sub_10083C53C(uint64_t a1, void *a2)
+void sub_1008185A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  *a1 = off_102476470;
-  sub_10083CB04(a1 + 8, "CachedLocationController", a2);
-  *a1 = off_102476288;
-  *(a1 + 8) = off_1024762E0;
-  sub_100D9D2B4(a1 + 120, "Traffic", *(a1 + 40));
-  *(a1 + 320) = 0;
-  *(a1 + 328) = 0;
-  *(a1 + 312) = 0;
-  *(a1 + 344) = 0;
-  *(a1 + 352) = 0x4072C00000000000;
-  *(a1 + 360) = 0;
-  sub_100A2E128(a1 + 368, *(a1 + 40));
-  sub_101332BB4((a1 + 552), *(a1 + 40));
-  sub_100ED3918(a1 + 568, a1 + 552);
-  *(a1 + 792) = [objc_msgSend(*(a1 + 40) "vendor")];
-  v4 = [*(a1 + 48) newTimer];
-  *(a1 + 336) = v4;
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10083CBB0;
-  v6[3] = &unk_102449A78;
-  v6[4] = a1;
-  [v4 setHandler:v6];
-  v5 = [[CLRouteListener alloc] initInUniverse:a2 withDelegate:a1];
-  *(a1 + 544) = v5;
-  [v5 enable];
-  sub_1007A98FC();
-}
-
-void sub_10083CA08(_Unwind_Exception *a1)
-{
-  sub_100A2E174(v1 + 46);
-  v4 = v1[41];
-  v1[41] = 0;
-  if (v4)
+  if (a15 < 0)
   {
-    (*(*v4 + 8))(v4);
+    operator delete(__p);
   }
-
-  v5 = v1[40];
-  v1[40] = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = v1[39];
-  v1[39] = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  sub_100B55830((v1 + 15));
-  sub_10083CC64(v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10083CB04(uint64_t a1, char *a2, void *a3)
-{
-  *a1 = off_1024764F0;
-  sub_10000EC00((a1 + 8), a2);
-  *(a1 + 32) = a3;
-  *(a1 + 40) = [a3 silo];
-  *(a1 + 48) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 56) = a1 + 64;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = a1 + 88;
-  *(a1 + 104) = 0;
-  *(a1 + 108) = 0;
-  return a1;
-}
-
-void sub_10083CB94(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 31) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10083CBB8(uint64_t a1)
-{
-  if (qword_1025D4600 != -1)
-  {
-    sub_101951784();
-  }
-
-  v2 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_INFO))
-  {
-    *v3 = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "CLC: Debounce timer fired, stopping", v3, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101951798();
-  }
-
-  sub_1000DFEFC(a1, 0, 1.79769313e308);
-}
-
-uint64_t sub_10083CC64(uint64_t a1)
-{
-  *a1 = off_1024764F0;
-  [*(a1 + 48) invalidate];
-
-  sub_10018F070(a1 + 80, *(a1 + 88));
-  sub_10047BD74(a1 + 56, *(a1 + 64));
-  if (*(a1 + 31) < 0)
-  {
-    operator delete(*(a1 + 8));
-  }
-
-  return a1;
-}
-
-void *sub_10083CCE8(void *a1)
-{
-  *a1 = off_102476288;
-  v2 = (a1 + 1);
-  a1[1] = off_1024762E0;
-  sub_10083CE78(a1);
-  sub_100A2E174(a1 + 46);
-  v3 = a1[41];
-  a1[41] = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  v4 = a1[40];
-  a1[40] = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = a1[39];
-  a1[39] = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  sub_100B55830((a1 + 15));
-  sub_10083CC64(v2);
-  return a1;
-}
-
-void sub_10083CE04(void *a1)
-{
-  sub_10083CCE8(a1);
 
   operator delete();
 }
 
-void sub_10083CE3C(uint64_t a1)
-{
-  sub_10083CCE8((a1 - 8));
-
-  operator delete();
-}
-
-void sub_10083CE78(uint64_t a1)
-{
-  sub_1000DFEFC(a1, 0, 1.79769313e308);
-  [*(a1 + 336) invalidate];
-
-  *(a1 + 336) = 0;
-  *(a1 + 352) = 0x4072C00000000000;
-  [*(*(a1 + 312) + 16) unregister:*(*(a1 + 312) + 8) forNotification:4];
-  [*(*(a1 + 312) + 16) unregister:*(*(a1 + 312) + 8) forNotification:13];
-  [*(*(a1 + 320) + 16) unregister:*(*(a1 + 320) + 8) forNotification:4];
-  [*(*(a1 + 320) + 16) unregister:*(*(a1 + 320) + 8) forNotification:2];
-  [*(*(a1 + 328) + 16) unregister:*(*(a1 + 328) + 8) forNotification:4];
-  [*(*(a1 + 328) + 16) unregister:*(*(a1 + 328) + 8) forNotification:1];
-  [*(a1 + 544) disable];
-
-  *(a1 + 544) = 0;
-  *(a1 + 792) = 0;
-}
-
-_BYTE *sub_10083D068@<X0>(int a1@<W1>, _BYTE *a2@<X8>)
-{
-  if (a1)
-  {
-    if (a1 != 1)
-    {
-      if (qword_1025D4600 != -1)
-      {
-        sub_101951784();
-      }
-
-      v4 = qword_1025D4608;
-      if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 68289539;
-        v8 = 0;
-        v9 = 2082;
-        v10 = "";
-        v11 = 2082;
-        v12 = "assert";
-        v13 = 2081;
-        v14 = "false";
-        _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CLC: Unknown CLCachedLocationController::CachedLocationState value, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        if (qword_1025D4600 != -1)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      while (1)
-      {
-        v5 = qword_1025D4608;
-        if (os_signpost_enabled(qword_1025D4608))
-        {
-          *buf = 68289539;
-          v8 = 0;
-          v9 = 2082;
-          v10 = "";
-          v11 = 2082;
-          v12 = "assert";
-          v13 = 2081;
-          v14 = "false";
-          _os_signpost_emit_with_name_impl(dword_100000000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CLC: Unknown CLCachedLocationController::CachedLocationState value", "{msg%{public}.0s:CLC: Unknown CLCachedLocationController::CachedLocationState value, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-          if (qword_1025D4600 != -1)
-          {
-            sub_101951718();
-          }
-        }
-
-        v6 = qword_1025D4608;
-        if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_INFO))
-        {
-          *buf = 68289539;
-          v8 = 0;
-          v9 = 2082;
-          v10 = "";
-          v11 = 2082;
-          v12 = "assert";
-          v13 = 2081;
-          v14 = "false";
-          _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLC: Unknown CLCachedLocationController::CachedLocationState value, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        abort_report_np();
-LABEL_18:
-        sub_101951718();
-      }
-    }
-
-    v2 = "Active";
-  }
-
-  else
-  {
-    v2 = "Off";
-  }
-
-  return sub_10000EC00(a2, v2);
-}
-
-void sub_10083D2C8(uint64_t a1, double a2)
-{
-  if (qword_1025D4600 != -1)
-  {
-    sub_101951784();
-  }
-
-  v4 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "CLC: Received start route", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019519F4();
-  }
-
-  v5 = a2 * 1.5;
-  if (a2 * 1.5 < a2 + 600.0)
-  {
-    v5 = a2 + 600.0;
-  }
-
-  sub_1000DFEFC(a1, 1, v5);
-  sub_1000E04E8(a1, 1);
-  *buf = 0xFFFF;
-  v14 = 0;
-  v13 = 0;
-  v15 = xmmword_101C75BF0;
-  __asm { FMOV            V0.2D, #-1.0 }
-
-  v16 = _Q0;
-  v17 = _Q0;
-  v18 = _Q0;
-  v19 = 0;
-  v21 = 0;
-  v22 = 0;
-  v20 = 0xBFF0000000000000;
-  v23 = 0;
-  v24 = 0xBFF0000000000000;
-  v25 = 0x7FFFFFFF;
-  v27 = 0;
-  v28 = 0;
-  v26 = 0;
-  v29 = 0;
-  Current = CFAbsoluteTimeGetCurrent();
-  sub_100ED391C((a1 + 568), buf, &Current);
-}
-
-id sub_10083D410(uint64_t a1, uint64_t a2)
-{
-  v3 = [objc_msgSend(*(a1 + 40) "vendor")];
-
-  return [v3 syncSetNavigationStateChange:a2];
-}
-
-void sub_10083D458(uint64_t a1, int a2)
-{
-  if (qword_1025D4600 != -1)
-  {
-    sub_101951784();
-  }
-
-  v4 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = *(a1 + 360);
-    v8[0] = 67240448;
-    v8[1] = a2;
-    v9 = 1026;
-    v10 = v5;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLC: Suspend for exception, %{public}#x, oldExceptions %{public}#x", v8, 0xEu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101951FBC();
-  }
-
-  v6 = *(a1 + 360);
-  if (v6)
-  {
-    *(a1 + 360) = v6 | a2;
-  }
-
-  else
-  {
-    if (qword_1025D4600 != -1)
-    {
-      sub_101951718();
-    }
-
-    v7 = qword_1025D4608;
-    if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "CLC: Suspend", v8, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_1019520CC();
-    }
-
-    *(a1 + 360) |= a2;
-    sub_1000DFEFC(a1, 0, 1.79769313e308);
-    [*(a1 + 544) disable];
-  }
-}
-
-void sub_10083D5F8(uint64_t a1, uint64_t a2)
+void sub_1008185D0(_BYTE *result, void *a2)
 {
   v9 = a2;
-  if ((*(a1 + 108) & 1) == 0)
+  if ((result[108] & 1) == 0)
   {
-    v4 = *(a1 + 88);
+    v4 = *(result + 11);
     if (!v4)
     {
       goto LABEL_9;
     }
 
-    v5 = a1 + 80;
-    v6 = a1 + 88;
+    v5 = (result + 80);
+    v6 = result + 88;
     do
     {
       if (*(v4 + 32) >= a2)
@@ -3579,12 +2654,12 @@ void sub_10083D5F8(uint64_t a1, uint64_t a2)
     }
 
     while (v4);
-    if (v6 != a1 + 88 && *(v6 + 32) <= a2)
+    if (v6 != result + 88 && *(v6 + 8) <= a2)
     {
-      while (*(v6 + 56))
+      while (*(v6 + 7))
       {
-        *buf = *(*(v6 + 40) + 28);
-        (*(*a1 + 112))(a1, a2, buf);
+        *buf = *(*(v6 + 5) + 28);
+        (*(*result + 112))(result, a2, buf);
       }
 
       sub_1001132D0(v5, &v9);
@@ -3595,14 +2670,14 @@ void sub_10083D5F8(uint64_t a1, uint64_t a2)
 LABEL_9:
       if (qword_1025D47F0 != -1)
       {
-        sub_101951884();
+        sub_1019496B4();
       }
 
       v7 = qword_1025D47F8;
       if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_FAULT))
       {
-        v8 = (a1 + 8);
-        if (*(a1 + 31) < 0)
+        v8 = result + 8;
+        if (result[31] < 0)
         {
           v8 = *v8;
         }
@@ -3616,13 +2691,13 @@ LABEL_9:
 
       if (sub_10000A100(121, 0))
       {
-        sub_1019525AC();
+        sub_1019496C8(result, a2);
       }
     }
   }
 }
 
-uint64_t sub_10083D79C(uint64_t a1, uint64_t a2, int a3, void *a4)
+uint64_t sub_100818774(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
   v7 = sub_100109F14(a4);
   if (v7)
@@ -3638,91 +2713,106 @@ uint64_t sub_10083D79C(uint64_t a1, uint64_t a2, int a3, void *a4)
   }
 }
 
-uint64_t sub_10083D954(uint64_t a1, int a2, int *a3, char *a4)
+uint64_t sub_10081892C(char *a1, uint64_t a2, int *a3, char *a4)
 {
-  v32 = a2;
-  if (*(a1 + 108))
+  v31 = a2;
+  if (a1[108])
   {
     return 0;
   }
 
-  v7 = *(a1 + 88);
+  v5 = a2;
+  v7 = *(a1 + 11);
   if (v7)
   {
     v10 = a1 + 88;
     do
     {
-      if (*(v7 + 32) >= a2)
+      if (*(v7 + 8) >= a2)
       {
         v10 = v7;
       }
 
-      v7 = *(v7 + 8 * (*(v7 + 32) < a2));
+      v7 = *&v7[8 * (*(v7 + 8) < a2)];
     }
 
     while (v7);
-    if (v10 != a1 + 88 && *(v10 + 32) <= a2)
+    if (v10 != a1 + 88 && *(v10 + 8) <= a2)
     {
-      v31 = v10;
-      v14 = *a3;
-      v17 = *(v10 + 48);
-      v16 = v10 + 48;
-      v15 = v17;
-      if (!v17)
+      v30 = v10;
+      v13 = *a3;
+      v16 = *(v10 + 6);
+      v15 = v10 + 48;
+      v14 = v16;
+      if (!v16)
       {
         goto LABEL_25;
       }
 
-      v18 = v16;
+      v17 = v15;
       do
       {
-        if (*(v15 + 28) >= v14)
+        if (*(v14 + 7) >= v13)
         {
-          v18 = v15;
+          v17 = v14;
         }
 
-        v15 = *(v15 + 8 * (*(v15 + 28) < v14));
+        v14 = *&v14[8 * (*(v14 + 7) < v13)];
       }
 
-      while (v15);
-      if (v18 == v16 || v14 < *(v18 + 28))
+      while (v14);
+      if (v17 == v15 || v13 < *(v17 + 7))
       {
 LABEL_25:
-        v18 = v16;
+        v17 = v15;
       }
 
-      v19 = *(a1 + 64);
-      if (!v19)
+      v18 = *(a1 + 8);
+      if (!v18)
       {
         goto LABEL_33;
       }
 
-      v20 = a1 + 64;
+      v19 = a1 + 64;
       do
       {
-        if (*(v19 + 32) >= v14)
+        if (*(v18 + 8) >= v13)
         {
-          v20 = v19;
+          v19 = v18;
         }
 
-        v19 = *(v19 + 8 * (*(v19 + 32) < v14));
+        v18 = *&v18[8 * (*(v18 + 8) < v13)];
       }
 
-      while (v19);
-      if (v20 != a1 + 64 && v14 >= *(v20 + 32))
+      while (v18);
+      if (v19 != a1 + 64 && v13 >= *(v19 + 8))
       {
-        v30 = v20;
-        v27 = *(v20 + 56);
-        v28 = *a4;
-        *buf = &v32;
-        *(sub_100007FA0(v20 + 40, &v32) + 32) = v28;
+        v29 = v19;
+        v26 = *(v19 + 7);
+        v27 = *a4;
+        *buf = &v31;
+        *(sub_100007FA0((v19 + 40), &v31, &unk_101C66300, buf) + 32) = v27;
         *buf = 0;
-        if (v18 == v16 && (*(*a1 + 128))(a1, a3, buf))
+        *&buf[8] = 0u;
+        *__p = 0u;
+        v34 = 0u;
+        v35 = 0;
+        if (v17 == v15 && (*(*a1 + 128))(a1, a3, buf))
         {
-          sub_10083F8B4();
+          sub_10081A9B0(buf);
         }
 
-        if (v27)
+        if (SHIBYTE(v34) < 0)
+        {
+          operator delete(__p[1]);
+        }
+
+        if (SHIBYTE(__p[0]) < 0)
+        {
+          operator delete(*&buf[8]);
+        }
+
+        if (v26)
         {
           goto LABEL_37;
         }
@@ -3731,37 +2821,37 @@ LABEL_25:
       else
       {
 LABEL_33:
-        v21 = a1 + 56;
-        v30 = a1 + 64;
-        v22 = byte_1025D8E91;
-        v29 = v14;
-        *buf = &v29;
-        *(sub_100024014(a1 + 56, &v29) + 80) = v22;
-        v29 = *a3;
-        *buf = &v29;
-        v23 = sub_100024014(a1 + 56, &v29);
-        v24 = v23[9];
-        v23[8] = 0;
-        v23[9] = 0;
-        if (v24)
+        v20 = (a1 + 56);
+        v29 = a1 + 64;
+        v21 = byte_1025D8881;
+        v28 = v13;
+        *buf = &v28;
+        *(sub_100024014((a1 + 56), &v28, &unk_101C66300, buf) + 80) = v21;
+        v28 = *a3;
+        *buf = &v28;
+        v22 = sub_100024014((a1 + 56), &v28, &unk_101C66300, buf);
+        v23 = v22[9];
+        v22[8] = 0;
+        v22[9] = 0;
+        if (v23)
         {
-          sub_100008080(v24);
+          sub_100008080(v23);
         }
 
-        v25 = *a4;
-        v29 = *a3;
-        *buf = &v29;
-        v26 = sub_100024014(v21, &v29);
-        *buf = &v32;
-        *(sub_100007FA0((v26 + 5), &v32) + 32) = v25;
+        v24 = *a4;
+        v28 = *a3;
+        *buf = &v28;
+        v25 = sub_100024014(v20, &v28, &unk_101C66300, buf);
+        *buf = &v31;
+        *(sub_100007FA0((v25 + 5), &v31, &unk_101C66300, buf) + 32) = v24;
       }
 
       (*(*a1 + 168))(a1, a3);
 LABEL_37:
-      if (v18 == v16)
+      if (v17 == v15)
       {
         *buf = *a3;
-        sub_1003C9410(v31 + 40, buf);
+        sub_1003C9410((v30 + 40), buf, buf);
       }
 
       return 1;
@@ -3770,37 +2860,43 @@ LABEL_37:
 
   if (qword_1025D47F0 != -1)
   {
-    sub_101951884();
+    sub_1019496B4();
   }
 
   v11 = qword_1025D47F8;
   if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_FAULT))
   {
-    v12 = (a1 + 8);
-    if (*(a1 + 31) < 0)
+    v12 = a1 + 8;
+    if (a1[31] < 0)
     {
       v12 = *v12;
     }
 
     *buf = 136446466;
     *&buf[4] = v12;
-    v34 = 1026;
-    v35 = a2;
+    *&buf[12] = 1026;
+    *&buf[14] = v5;
     _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "%{public}s; client %{public}d does not exist", buf, 0x12u);
   }
 
-  v13 = sub_10000A100(121, 0);
-  result = 0;
-  if (v13)
+  result = sub_10000A100(121, 0);
+  if (result)
   {
-    sub_1019526B0();
+    sub_1019497C8(a1);
     return 0;
   }
 
   return result;
 }
 
-BOOL sub_10083DD0C(uint64_t a1, int a2, int *a3)
+void sub_100818D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  sub_100819DB0(va);
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_100818D30(uint64_t a1, void *a2, int *a3)
 {
   v5 = *(a1 + 88);
   if (!v5)
@@ -3857,7 +2953,7 @@ LABEL_24:
 LABEL_8:
     if (qword_1025D47F0 != -1)
     {
-      sub_101951884();
+      sub_1019496B4();
     }
 
     v7 = qword_1025D47F8;
@@ -3880,7 +2976,7 @@ LABEL_8:
     result = 0;
     if (v9)
     {
-      sub_1019527B4();
+      sub_1019498D0(a1, a2);
       return 0;
     }
   }
@@ -3888,9 +2984,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_10083DEA0(char *a1, int a2, int *a3)
+uint64_t sub_100818EC4(char *a1, int a2, int *a3)
 {
-  v23 = a2;
+  HIDWORD(v25) = a2;
   v3 = a1[108];
   if ((v3 & 1) == 0)
   {
@@ -3920,12 +3016,12 @@ uint64_t sub_10083DEA0(char *a1, int a2, int *a3)
           v12 = v8;
           do
           {
-            if (*(v9 + 7) >= v11)
+            if (*(v9 + 28) >= v11)
             {
               v12 = v9;
             }
 
-            v9 = *&v9[8 * (*(v9 + 7) < v11)];
+            v9 = *(v9 + 8 * (*(v9 + 28) < v11));
           }
 
           while (v9);
@@ -3954,7 +3050,7 @@ uint64_t sub_10083DEA0(char *a1, int a2, int *a3)
             while (v13);
             if (v15 != a1 + 64 && v14 >= *(v15 + 8))
             {
-              sub_10004E6E0((v15 + 40), &v23);
+              sub_10004E6E0((v15 + 40), &v25 + 1);
               if (!*(v15 + 7))
               {
                 (*(*a1 + 176))(a1, a3);
@@ -3966,7 +3062,7 @@ uint64_t sub_10083DEA0(char *a1, int a2, int *a3)
 LABEL_23:
               if (qword_1025D47F0 != -1)
               {
-                sub_101951898();
+                sub_1019499D0();
               }
 
               v16 = qword_1025D47F8;
@@ -3979,7 +3075,7 @@ LABEL_23:
                 }
 
                 (*(*a1 + 160))(__p, a1, a3);
-                if (v33 >= 0)
+                if (v35 >= 0)
                 {
                   v18 = __p;
                 }
@@ -3991,10 +3087,10 @@ LABEL_23:
 
                 *buf = 136446466;
                 *&buf[4] = v17;
-                v25 = 2082;
-                v26 = v18;
+                v27 = 2082;
+                v28 = v18;
                 _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_FAULT, "%{public}s; notification %{public}s not found", buf, 0x16u);
-                if (v33 < 0)
+                if (v35 < 0)
                 {
                   operator delete(__p[0]);
                 }
@@ -4005,7 +3101,7 @@ LABEL_23:
                 bzero(__p, 0x65CuLL);
                 if (qword_1025D47F0 != -1)
                 {
-                  sub_101951898();
+                  sub_1019499D0();
                 }
 
                 v20 = a1 + 8;
@@ -4014,31 +3110,34 @@ LABEL_23:
                   v20 = *v20;
                 }
 
+                v21 = qword_1025D47F8;
                 (*(*a1 + 160))(buf, a1, a3);
-                if (v27 >= 0)
+                if (v29 >= 0)
                 {
-                  v21 = buf;
+                  v22 = buf;
                 }
 
                 else
                 {
-                  v21 = *buf;
+                  v22 = *buf;
                 }
 
-                v28 = 136446466;
-                v29 = v20;
-                v30 = 2082;
-                v31 = v21;
-                v22 = _os_log_send_and_compose_impl();
-                if (v27 < 0)
+                v30 = 136446466;
+                v31 = v20;
+                v32 = 2082;
+                v33 = v22;
+                LODWORD(v25) = 22;
+                _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, v21, 17, "%{public}s; notification %{public}s not found", &v30, v25);
+                v24 = v23;
+                if (v29 < 0)
                 {
                   operator delete(*buf);
                 }
 
-                sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNotifier<CLCachedLocationController_Type::Notification, CLCachedLocationController_Type::NotificationData, char, char>::unregisterForNotification(int, const Notification_T &) [Notification_T = CLCachedLocationController_Type::Notification, NotificationData_T = CLCachedLocationController_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v22);
-                if (v22 != __p)
+                sub_100152C7C("Generic", 1, 0, 0, "virtual BOOL CLNotifier<CLBacklightStateNotifier_Type::Notification, CLBacklightStateNotifier_Type::NotificationData, char, char>::unregisterForNotification(int, const Notification_T &) [Notification_T = CLBacklightStateNotifier_Type::Notification, NotificationData_T = CLBacklightStateNotifier_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v24);
+                if (v24 != __p)
                 {
-                  free(v22);
+                  free(v24);
                 }
               }
             }
@@ -4051,73 +3150,149 @@ LABEL_23:
   return v3 ^ 1u;
 }
 
-void sub_10083E370(uint64_t a1, int *a2, uint64_t a3, int a4)
+uint64_t sub_100819268(uint64_t a1, int *a2, uint64_t a3)
+{
+  v5 = *(a1 + 64);
+  v3 = a1 + 64;
+  v4 = v5;
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v7 = *a2;
+  v8 = v3;
+  do
+  {
+    if (*(v4 + 32) >= v7)
+    {
+      v8 = v4;
+    }
+
+    v4 = *(v4 + 8 * (*(v4 + 32) < v7));
+  }
+
+  while (v4);
+  if (v8 == v3)
+  {
+    return 0;
+  }
+
+  if (v7 < *(v8 + 32))
+  {
+    return 0;
+  }
+
+  v9 = *(v8 + 64);
+  if (!v9)
+  {
+    return 0;
+  }
+
+  *a3 = *v9;
+  std::string::operator=((a3 + 8), (v9 + 8));
+  std::string::operator=((a3 + 32), (v9 + 32));
+  *(a3 + 56) = *(v9 + 56);
+  return 1;
+}
+
+void sub_1008193A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    sub_100008080(a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1008193B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = 0;
+  *v5 = 0u;
+  *__p = 0u;
+  v7 = 0u;
+  v8 = 0;
+  (*(*a1 + 152))(a1, a2, &v4, a3, a4, 0);
+  if (SHIBYTE(v7) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  if (SHIBYTE(__p[0]) < 0)
+  {
+    operator delete(v5[0]);
+  }
+}
+
+void sub_10081945C(uint64_t a1, int *a2, uint64_t a3, int a4, int a5)
 {
   if ((*(a1 + 108) & 1) == 0)
   {
-    v4 = *(a1 + 64);
-    if (!v4)
+    v7 = a1 + 64;
+    v6 = *(a1 + 64);
+    if (!v6)
     {
       goto LABEL_9;
     }
 
-    v5 = *a2;
-    v6 = a1 + 64;
+    v8 = *a2;
+    v9 = a1 + 64;
     do
     {
-      if (*(v4 + 32) >= v5)
+      if (*(v6 + 32) >= v8)
       {
-        v6 = v4;
+        v9 = v6;
       }
 
-      v4 = *(v4 + 8 * (*(v4 + 32) < v5));
+      v6 = *(v6 + 8 * (*(v6 + 32) < v8));
     }
 
-    while (v4);
-    if (v6 == a1 + 64 || v5 < *(v6 + 32))
+    while (v6);
+    if (v9 == v7 || v8 < *(v9 + 32))
     {
 LABEL_9:
-      v9 = v10;
-      memset(v10, 0, 32);
-      sub_100248B84(buf, a2, &v9);
-      sub_10047D8C8();
+      v12 = v13;
+      memset(v13, 0, 32);
+      sub_100248B84(buf, a2, &v12);
+      sub_10047D8C8(v7 - 8, buf);
     }
 
     if (a4)
     {
-      operator new();
+      sub_10081A420();
     }
 
-    v7 = *(v6 + 72);
-    *(v6 + 64) = 0;
-    *(v6 + 72) = 0;
-    if (v7)
+    v10 = *(v9 + 72);
+    *(v9 + 64) = 0;
+    *(v9 + 72) = 0;
+    if (v10)
     {
-      sub_100008080(v7);
+      sub_100008080(v10);
     }
 
-    if (*(v6 + 56))
+    if (*(v9 + 56))
     {
-      sub_10083ED88();
+      sub_100819E24(a3);
     }
   }
 }
 
-void sub_10083E840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100819908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_101865570(va);
-  sub_101864718(v9 - 144);
+  sub_101864718(v16 - 144);
   _Unwind_Resume(a1);
 }
 
-void sub_10083E86C(uint64_t a1)
+void sub_100819934(uint64_t a1)
 {
   if (*(a1 + 108) == 1)
   {
     if (qword_1025D47F0 != -1)
     {
-      sub_101951884();
+      sub_1019496B4();
     }
 
     v2 = qword_1025D47F8;
@@ -4130,13 +3305,13 @@ void sub_10083E86C(uint64_t a1)
       }
 
       *buf = 136315138;
-      v20 = v3;
+      v32 = v3;
       _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "%s; already shutdown; not listing clients", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_1019529D8(a1);
+      sub_101949B14(a1);
     }
   }
 
@@ -4144,7 +3319,7 @@ void sub_10083E86C(uint64_t a1)
   {
     if (qword_1025D47F0 != -1)
     {
-      sub_101951884();
+      sub_1019496B4();
     }
 
     v4 = qword_1025D47F8;
@@ -4158,50 +3333,51 @@ void sub_10083E86C(uint64_t a1)
 
       v6 = *(a1 + 96);
       *buf = 136315394;
-      v20 = v5;
-      v21 = 2048;
-      v22[0] = v6;
+      v32 = v5;
+      v33 = 2048;
+      v34[0] = v6;
       _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "%s; listing clients, num clients: %zu", buf, 0x16u);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_1019528B8(a1);
+      sub_1019499F8(a1);
     }
 
     v7 = *(a1 + 80);
     if (v7 != (a1 + 88))
     {
+      v8 = (a1 + 8);
       do
       {
-        v8 = v7[5];
-        if (v8 != v7 + 6)
+        v9 = v7[5];
+        if (v9 != v7 + 6)
         {
           do
           {
             if (qword_1025D47F0 != -1)
             {
-              sub_101951898();
+              sub_1019499D0();
             }
 
-            v9 = qword_1025D47F8;
+            v10 = qword_1025D47F8;
             if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
             {
-              v10 = (a1 + 8);
+              v11 = (a1 + 8);
               if (*(a1 + 31) < 0)
               {
-                v10 = *(a1 + 8);
+                v11 = *v8;
               }
 
-              v11 = *(v7 + 8);
-              v12 = *(v8 + 7);
+              v12 = *(v7 + 8);
+              v13 = *(v9 + 7);
               *buf = 136315650;
-              v20 = v10;
-              v21 = 1024;
-              LODWORD(v22[0]) = v11;
-              WORD2(v22[0]) = 1024;
-              *(v22 + 6) = v12;
-              _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "%s; clients, id: %d, notification: %d", buf, 0x18u);
+              v32 = v11;
+              v33 = 1024;
+              LODWORD(v34[0]) = v12;
+              WORD2(v34[0]) = 1024;
+              *(v34 + 6) = v13;
+              _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "%s; clients, id: %d, notification: %d", buf, 0x18u);
             }
 
             if (sub_10000A100(121, 2))
@@ -4209,89 +3385,104 @@ void sub_10083E86C(uint64_t a1)
               bzero(buf, 0x65CuLL);
               if (qword_1025D47F0 != -1)
               {
-                sub_101951898();
+                sub_1019499D0();
               }
 
-              v16 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 2, "virtual void CLNotifier<CLCachedLocationController_Type::Notification, CLCachedLocationController_Type::NotificationData, char, char>::listClients() [Notification_T = CLCachedLocationController_Type::Notification, NotificationData_T = CLCachedLocationController_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v16);
-              if (v16 != buf)
+              v17 = (a1 + 8);
+              if (*(a1 + 31) < 0)
               {
-                free(v16);
+                v17 = *v8;
+              }
+
+              v18 = *(v7 + 8);
+              v19 = *(v9 + 7);
+              v25 = 136315650;
+              v26 = v17;
+              v27 = 1024;
+              v28 = v18;
+              v29 = 1024;
+              v30 = v19;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D47F8, 2, "%s; clients, id: %d, notification: %d", &v25, 24, v24);
+              v21 = v20;
+              sub_100152C7C("Generic", 1, 0, 2, "virtual void CLNotifier<CLBacklightStateNotifier_Type::Notification, CLBacklightStateNotifier_Type::NotificationData, char, char>::listClients() [Notification_T = CLBacklightStateNotifier_Type::Notification, NotificationData_T = CLBacklightStateNotifier_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v20);
+              if (v21 != buf)
+              {
+                free(v21);
               }
             }
 
-            v13 = v8[1];
-            if (v13)
+            v14 = v9[1];
+            if (v14)
             {
               do
               {
-                v14 = v13;
-                v13 = *v13;
+                v15 = v14;
+                v14 = *v14;
               }
 
-              while (v13);
+              while (v14);
             }
 
             else
             {
               do
               {
-                v14 = v8[2];
-                v15 = *v14 == v8;
-                v8 = v14;
+                v15 = v9[2];
+                v16 = *v15 == v9;
+                v9 = v15;
               }
 
-              while (!v15);
+              while (!v16);
             }
 
-            v8 = v14;
+            v9 = v15;
           }
 
-          while (v14 != v7 + 6);
+          while (v15 != v7 + 6);
         }
 
-        v17 = v7[1];
-        if (v17)
+        v22 = v7[1];
+        if (v22)
         {
           do
           {
-            v18 = v17;
-            v17 = *v17;
+            v23 = v22;
+            v22 = *v22;
           }
 
-          while (v17);
+          while (v22);
         }
 
         else
         {
           do
           {
-            v18 = v7[2];
-            v15 = *v18 == v7;
-            v7 = v18;
+            v23 = v7[2];
+            v16 = *v23 == v7;
+            v7 = v23;
           }
 
-          while (!v15);
+          while (!v16);
         }
 
-        v7 = v18;
+        v7 = v23;
       }
 
-      while (v18 != (a1 + 88));
+      while (v23 != (a1 + 88));
     }
   }
 }
 
-void sub_10083EC30(uint64_t a1)
+void sub_100819CF8(uint64_t a1)
 {
-  sub_10083ED18(a1);
+  sub_10081A940(a1);
 
   operator delete();
 }
 
-id sub_10083EC68(uint64_t a1, int a2, void *a3)
+id sub_100819D30(uint64_t a1, int a2, void *a3)
 {
-  result = sub_10083F384(a3);
+  result = sub_10081A6AC(a3);
   if (result)
   {
     v6 = a2;
@@ -4301,19 +3492,32 @@ id sub_10083EC68(uint64_t a1, int a2, void *a3)
   return result;
 }
 
-uint64_t sub_10083ED18(uint64_t a1)
+uint64_t sub_100819DB0(uint64_t a1)
 {
-  *a1 = off_1024764C8;
-  v2 = (a1 + 8);
-  [*(a1 + 16) forget:*(a1 + 8)];
+  if (*(a1 + 55) < 0)
+  {
+    operator delete(*(a1 + 32));
+  }
 
-  [*v2 invalidate];
-  *v2 = 0;
-  *(a1 + 16) = 0;
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
   return a1;
 }
 
-void sub_10083EE34(void *a1, int *a2, void *a3)
+void sub_100819F3C(_Unwind_Exception *a1)
+{
+  if (*(v1 + 31) < 0)
+  {
+    operator delete(*v2);
+  }
+
+  operator delete();
+}
+
+void sub_100819F6C(void *a1, int *a2, void *a3)
 {
   if ((*(a1 + 108) & 1) == 0)
   {
@@ -4336,8 +3540,8 @@ void sub_10083EE34(void *a1, int *a2, void *a3)
       while (v4);
       if (v9 != v5 && v8 >= *(v9 + 32))
       {
-        v37 = v9;
-        v10 = sub_10083F384(a3);
+        v39 = v9;
+        v10 = sub_10081A6AC(a3);
         (*(*a1 + 184))(a1, a2, v10, v9 + 80);
         v11 = *(v9 + 40);
         if (v11 != (v9 + 48))
@@ -4367,8 +3571,8 @@ void sub_10083EE34(void *a1, int *a2, void *a3)
             while (v14);
             if (v16 != v12 && (v17 = *(v16 + 8), v15 >= v17))
             {
-              v36 = v16;
-              sub_10083F1F0(a1, &v36, &v37, a3);
+              v38 = v16;
+              sub_10081A328(a1, &v38, &v39, a3);
               v21 = a1[8];
               if (!v21)
               {
@@ -4393,7 +3597,7 @@ void sub_10083EE34(void *a1, int *a2, void *a3)
                 return;
               }
 
-              v37 = v23;
+              v39 = v23;
               v25 = *(v23 + 48);
               v11 = (v23 + 48);
               v24 = v25;
@@ -4462,10 +3666,10 @@ void sub_10083EE34(void *a1, int *a2, void *a3)
             else
             {
 LABEL_18:
-              v36 = a1 + 11;
+              v38 = a1 + 11;
               if (qword_1025D47F0 != -1)
               {
-                sub_101951898();
+                sub_1019499D0();
               }
 
               v18 = qword_1025D47F8;
@@ -4479,9 +3683,9 @@ LABEL_18:
 
                 v20 = *(v11 + 7);
                 *buf = 136446466;
-                v43 = v19;
-                v44 = 1026;
-                v45 = v20;
+                v45 = v19;
+                v46 = 1026;
+                v47 = v20;
                 _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_FAULT, "%{public}s; unknown client %{public}d", buf, 0x12u);
               }
 
@@ -4490,7 +3694,7 @@ LABEL_18:
                 bzero(buf, 0x65CuLL);
                 if (qword_1025D47F0 != -1)
                 {
-                  sub_101951898();
+                  sub_1019499D0();
                 }
 
                 v33 = a1 + 1;
@@ -4500,38 +3704,40 @@ LABEL_18:
                 }
 
                 v34 = *(v11 + 7);
-                v38 = 136446466;
-                v39 = v33;
-                v40 = 1026;
-                v41 = v34;
-                v35 = _os_log_send_and_compose_impl();
-                sub_100152C7C("Generic", 1, 0, 0, "void CLNotifier<CLCachedLocationController_Type::Notification, CLCachedLocationController_Type::NotificationData, char, char>::invokeClientsWithData(const Notification_T &, CLCppContainer *) [Notification_T = CLCachedLocationController_Type::Notification, NotificationData_T = CLCachedLocationController_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v35);
-                if (v35 != buf)
+                v40 = 136446466;
+                v41 = v33;
+                v42 = 1026;
+                v43 = v34;
+                LODWORD(v37) = 18;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D47F8, 17, "%{public}s; unknown client %{public}d", &v40, v37);
+                v36 = v35;
+                sub_100152C7C("Generic", 1, 0, 0, "void CLNotifier<CLBacklightStateNotifier_Type::Notification, CLBacklightStateNotifier_Type::NotificationData, char, char>::invokeClientsWithData(const Notification_T &, CLCppContainer *) [Notification_T = CLBacklightStateNotifier_Type::Notification, NotificationData_T = CLBacklightStateNotifier_Type::NotificationData, NotificationInfo_T = char, RegistrationInfo_T = char]", "%s\n", v35);
+                if (v36 != buf)
                 {
-                  free(v35);
+                  free(v36);
                 }
               }
             }
           }
 
-          while (v11 != (v37 + 48));
+          while (v11 != (v39 + 48));
         }
       }
     }
   }
 }
 
-_BYTE *sub_10083F1F0(_BYTE *result, uint64_t a2, uint64_t *a3, void *a4)
+_BYTE *sub_10081A328(_BYTE *result, uint64_t a2, uint64_t *a3, void *a4)
 {
   if ((result[108] & 1) == 0)
   {
     v7 = result;
     v8 = *(*a2 + 32);
     LODWORD(v12) = *(*a3 + 32);
-    v9 = sub_10083F384(a4);
+    v9 = sub_10081A6AC(a4);
     v10 = *a3;
     v13 = (*a2 + 32);
-    v11 = sub_100007FA0(v10 + 40, v13);
+    v11 = sub_100007FA0(v10 + 40, v13, &unk_101C66300, &v13);
     result = (*(*v7 + 192))(v7, v8, &v12, v9, v10 + 80, v11 + 4);
     if (result)
     {
@@ -4542,113 +3748,107 @@ _BYTE *sub_10083F1F0(_BYTE *result, uint64_t a2, uint64_t *a3, void *a4)
   return result;
 }
 
-void sub_10083F308(std::__shared_weak_count *a1)
+uint64_t sub_10081A48C(uint64_t a1, uint64_t a2)
 {
-  a1->__vftable = off_1024765D0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = off_102474C58;
+  *(a1 + 24) = *a2;
+  if (*(a2 + 31) < 0)
+  {
+    sub_100007244((a1 + 32), *(a2 + 8), *(a2 + 16));
+  }
+
+  else
+  {
+    v4 = *(a2 + 8);
+    *(a1 + 48) = *(a2 + 24);
+    *(a1 + 32) = v4;
+  }
+
+  if (*(a2 + 55) < 0)
+  {
+    sub_100007244((a1 + 56), *(a2 + 32), *(a2 + 40));
+  }
+
+  else
+  {
+    v5 = *(a2 + 32);
+    *(a1 + 72) = *(a2 + 48);
+    *(a1 + 56) = v5;
+  }
+
+  *(a1 + 80) = *(a2 + 56);
+  return a1;
+}
+
+void sub_10081A534(_Unwind_Exception *a1)
+{
+  if (*(v1 + 55) < 0)
+  {
+    operator delete(*(v1 + 32));
+  }
+
+  std::__shared_weak_count::~__shared_weak_count(v1);
+  _Unwind_Resume(a1);
+}
+
+void sub_10081A580(std::__shared_weak_count *a1)
+{
+  a1->__vftable = off_102474C58;
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   operator delete();
 }
 
-uint64_t sub_10083F364(uint64_t a1)
+void sub_10081A5E0(uint64_t a1)
 {
-  result = *(a1 + 32);
-  if (result)
+  if (*(a1 + 55) < 0)
   {
+    operator delete(*(a1 + 32));
+  }
+
+  if (*(a1 + 31) < 0)
+  {
+    v2 = *(a1 + 8);
+
+    operator delete(v2);
+  }
+}
+
+uint64_t sub_10081A638(uint64_t result)
+{
+  v1 = *(result + 32);
+  if (v1)
+  {
+    if (*(v1 + 55) < 0)
+    {
+      operator delete(*(v1 + 32));
+    }
+
+    if (*(v1 + 31) < 0)
+    {
+      operator delete(*(v1 + 8));
+    }
+
     operator delete();
   }
 
   return result;
 }
 
-id sub_10083F384(void *a1)
+id sub_10081A6AC(void *a1)
 {
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-
-    return sub_10083F420(a1);
+    return 0;
   }
 
-  else
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-
-      return sub_10083F5F8(a1);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
+  return sub_10081A70C(a1);
 }
 
-id sub_10083F420(void *a1)
-{
-  v2 = [a1 binaryVersion];
-  [a1 sizeOfType];
-  if (!v2)
-  {
-    return sub_10083F7FC(&v6, a1);
-  }
-
-  if (getenv("_INTERSILO_UNIT_TEST"))
-  {
-    if (qword_1025D41A0 != -1)
-    {
-      sub_101952AE8();
-    }
-
-    v3 = qword_1025D41A8;
-    if (os_log_type_enabled(qword_1025D41A8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218498;
-      v8 = v2;
-      v9 = 2048;
-      v10 = 0;
-      v11 = 2080;
-      v12 = 0x8000000101CB0FB3 & 0x7FFFFFFFFFFFFFFFLL;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "Mismatch of versions between encoded (%llu) and decoded (%llu) objects! This is possibly because the version has changed on one side and possibly broken ABI compatibility. Please update your type for %s accordingly", buf, 0x20u);
-    }
-
-    if (sub_10000A100(121, 0))
-    {
-      sub_101952AFC();
-    }
-  }
-
-  else
-  {
-    if (qword_1025D41A0 != -1)
-    {
-      sub_101952AE8();
-    }
-
-    v5 = qword_1025D41A8;
-    if (os_log_type_enabled(qword_1025D41A8, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 134218498;
-      v8 = v2;
-      v9 = 2048;
-      v10 = 0;
-      v11 = 2080;
-      v12 = 0x8000000101CB0FB3 & 0x7FFFFFFFFFFFFFFFLL;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_FAULT, "Mismatch of versions between encoded (%llu) and decoded (%llu) objects! This is possibly because the version has changed on one side and possibly broken ABI compatibility. Please update your type for %s accordingly", buf, 0x20u);
-    }
-
-    if (sub_10000A100(121, 0))
-    {
-      sub_101952C04();
-    }
-  }
-
-  return 0;
-}
-
-id sub_10083F5F8(void *a1)
+id sub_10081A70C(void *a1)
 {
   v2 = [a1 binaryVersion];
   [a1 sizeOfType];
@@ -4658,7 +3858,7 @@ id sub_10083F5F8(void *a1)
     {
       if (qword_1025D41A0 != -1)
       {
-        sub_101952AE8();
+        sub_101949C20();
       }
 
       v3 = qword_1025D41A8;
@@ -4669,13 +3869,13 @@ id sub_10083F5F8(void *a1)
         v8 = 2048;
         v9 = 0;
         v10 = 2080;
-        v11 = 0x8000000101CB0FB3 & 0x7FFFFFFFFFFFFFFFLL;
+        v11 = 0x8000000101CAFE79 & 0x7FFFFFFFFFFFFFFFLL;
         _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "Mismatch of versions between encoded (%llu) and decoded (%llu) objects! This is possibly because the version has changed on one side and possibly broken ABI compatibility. Please update your type for %s accordingly", &v6, 0x20u);
       }
 
       if (sub_10000A100(121, 0))
       {
-        sub_101952D0C();
+        sub_101949C34();
       }
     }
 
@@ -4683,7 +3883,7 @@ id sub_10083F5F8(void *a1)
     {
       if (qword_1025D41A0 != -1)
       {
-        sub_101952AE8();
+        sub_101949C20();
       }
 
       v5 = qword_1025D41A8;
@@ -4694,13 +3894,13 @@ id sub_10083F5F8(void *a1)
         v8 = 2048;
         v9 = 0;
         v10 = 2080;
-        v11 = 0x8000000101CB0FB3 & 0x7FFFFFFFFFFFFFFFLL;
+        v11 = 0x8000000101CAFE79 & 0x7FFFFFFFFFFFFFFFLL;
         _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_FAULT, "Mismatch of versions between encoded (%llu) and decoded (%llu) objects! This is possibly because the version has changed on one side and possibly broken ABI compatibility. Please update your type for %s accordingly", &v6, 0x20u);
       }
 
       if (sub_10000A100(121, 0))
       {
-        sub_101952E14();
+        sub_101949D34();
       }
     }
 
@@ -4714,8229 +3914,5873 @@ id sub_10083F5F8(void *a1)
   }
 }
 
-id sub_10083F7FC(uint64_t a1, void *a2)
+uint64_t sub_10081A940(uint64_t a1)
 {
-  if (![a2 cppObjectPtr] && objc_msgSend(objc_msgSend(a2, "compatibilityInfo"), "isEqual:", &off_10254F008))
-  {
-    if ([objc_msgSend(a2 "serialized")] != 4)
-    {
-      sub_101952F1C();
-    }
+  *a1 = &off_102474CC8;
+  v2 = (a1 + 8);
+  [*(a1 + 16) forget:*(a1 + 8)];
 
-    [a2 setCppObjectPtr:{objc_msgSend(objc_msgSend(a2, "serialized"), "bytes")}];
-  }
-
-  return [a2 cppObjectPtr];
+  [*v2 invalidate];
+  *v2 = 0;
+  *(a1 + 16) = 0;
+  return a1;
 }
 
-uint64_t sub_10083F960(uint64_t a1)
+void sub_10081AAC8(_Unwind_Exception *a1)
 {
-  result = *(a1 + 32);
-  if (result)
+  if (*(v1 + 31) < 0)
   {
+    operator delete(*v2);
+  }
+
+  operator delete();
+}
+
+uint64_t sub_10081AAF8(uint64_t result)
+{
+  v1 = *(result + 32);
+  if (v1)
+  {
+    if (*(v1 + 55) < 0)
+    {
+      operator delete(*(v1 + 32));
+    }
+
+    if (*(v1 + 31) < 0)
+    {
+      operator delete(*(v1 + 8));
+    }
+
     operator delete();
   }
 
   return result;
 }
 
-uint64_t sub_10083F980()
+uint64_t sub_10081AB6C(uint64_t a1)
 {
-  sub_10000EC00(&qword_10265A630, "com.apple.locationd.bundle-/System/Library/LocationBundles/Traffic.bundle");
+  result = sub_100177B18(a1);
+  if ((result & 0x10) != 0)
+  {
+    operator new();
+  }
 
-  return __cxa_atexit(&std::string::~string, &qword_10265A630, dword_100000000);
+  return result;
 }
 
-void sub_10083F9E0(uint64_t a1, uint64_t a2, char a3, float a4, float a5, double a6)
+void sub_10081AF70(uint64_t a1, int *a2, _OWORD *a3, uint64_t a4)
 {
-  v12 = CFAbsoluteTimeGetCurrent() - a6;
-  if (v12 > *a1 + 3600.0)
+  CLProfilingIdentify();
+  [objc_msgSend(*(a4 + 32) "silo")];
+  if (qword_1025D47F0 != -1)
   {
-    v13 = 0;
-    *a1 = v12;
-    *(a1 + 8) = 0;
-LABEL_10:
-    *(a1 + 8) = v13 + 1;
-    v15 = *(a2 + 1);
-    LOBYTE(__p[0]) = 0;
-    BYTE8(v38) = 0;
-    sub_10083FF84(v15, __p, buf);
-    memset(v49, 0, sizeof(v49));
-    v16 = v48;
-    v17 = v49;
-    if (v48)
-    {
-      v17 = buf;
-    }
-
-    v18 = *v17;
-    v19 = *&buf[8];
-    if (!v48)
-    {
-      v19 = 0;
-    }
-
-    v20 = v17[2];
-    *v17 = 0;
-    v17[1] = 0;
-    v17[2] = 0;
-    __src = v18;
-    v45 = v19;
-    v46 = v20;
-    if (v49[0])
-    {
-      operator delete(v49[0]);
-    }
-
-    if (v16 && *buf)
-    {
-      operator delete(*buf);
-    }
-
-    if (BYTE8(v38) == 1 && SBYTE7(v38) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    sub_1008403E4(&__src, *(a2 + 66) == 0, v12);
-    LODWORD(__p[0]) = 3;
-    *(__p + 4) = *(a2 + 2);
-    HIDWORD(__p[1]) = *(a2 + 10);
-    v21 = *(a2 + 30);
-    v38 = *(a2 + 14);
-    v39 = v21;
-    v40 = *(a2 + 46);
-    *&v41 = v12;
-    DWORD2(v41) = *(a2 + 62);
-    v42 = *(a2 + 66);
-    LOBYTE(v43) = a3;
-    *(&v43 + 4) = __PAIR64__(LODWORD(a5), LODWORD(a4));
-    if (qword_1025D45D0 != -1)
-    {
-      sub_1019531C8();
-    }
-
-    v22 = qword_1025D45D8;
-    if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-    {
-      if (v15 > 2)
-      {
-        v23 = 0;
-      }
-
-      else
-      {
-        v23 = *(&off_102476670 + v15);
-      }
-
-      v24 = sub_100840544(__p);
-      *buf = 138543618;
-      *&buf[4] = v23;
-      *&buf[12] = 2114;
-      *&buf[14] = v24;
-      _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEFAULT, "[IMUCal] Inserting %{public}@ entry:%{public}@", buf, 0x16u);
-    }
-
-    v25 = sub_10000A100(121, 2);
-    if (v25)
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1025D45D0 != -1)
-      {
-        sub_1019531C8();
-      }
-
-      if (v15 > 2)
-      {
-        v34 = 0;
-      }
-
-      else
-      {
-        v34 = *(&off_102476670 + v15);
-      }
-
-      v35 = sub_100840544(__p);
-      LODWORD(v49[0]) = 138543618;
-      *(v49 + 4) = v34;
-      WORD2(v49[1]) = 2114;
-      *(&v49[1] + 6) = v35;
-      v36 = _os_log_send_and_compose_impl();
-      v25 = sub_100152C7C("Generic", 1, 0, 2, "void CLIMUCalDataStore::insertEstimate(const CMMotionCoprocessorReply::SensorParameterEstimate &, BOOL, float, float, CFAbsoluteTime)", "%s\n", v36);
-      if (v36 != buf)
-      {
-        free(v36);
-      }
-    }
-
-    v26 = v45;
-    if (v45 >= v46)
-    {
-      v28 = __src;
-      v29 = v45 - __src;
-      v30 = 0x6DB6DB6DB6DB6DB7 * ((v45 - __src) >> 4);
-      v31 = v30 + 1;
-      if ((v30 + 1) > 0x249249249249249)
-      {
-        sub_10028C64C();
-      }
-
-      if (0xDB6DB6DB6DB6DB6ELL * ((v46 - __src) >> 4) > v31)
-      {
-        v31 = 0xDB6DB6DB6DB6DB6ELL * ((v46 - __src) >> 4);
-      }
-
-      if ((0x6DB6DB6DB6DB6DB7 * ((v46 - __src) >> 4)) >= 0x124924924924924)
-      {
-        v31 = 0x249249249249249;
-      }
-
-      if (v31)
-      {
-        sub_100841A94(&__src, v31);
-      }
-
-      v32 = (16 * ((v45 - __src) >> 4));
-      v32[3] = v40;
-      v32[4] = v41;
-      v32[5] = v42;
-      v32[6] = v43;
-      *v32 = *__p;
-      v32[1] = v38;
-      v32[2] = v39;
-      v27 = 112 * v30 + 112;
-      v33 = (112 * v30 - v29);
-      memcpy(v32 - v29, v28, v29);
-      v25 = __src;
-      __src = v33;
-      v45 = v27;
-      v46 = 0;
-      if (v25)
-      {
-        operator delete(v25);
-      }
-    }
-
-    else
-    {
-      v45[3] = v40;
-      v26[4] = v41;
-      v26[5] = v42;
-      v26[6] = v43;
-      *v26 = *__p;
-      v26[1] = v38;
-      v26[2] = v39;
-      v27 = (v26 + 7);
-    }
-
-    v45 = v27;
-    sub_100840614(v25, v15, &__src);
-    sub_100840A20(a1, v15, &__src, a6 != 0.0);
-    if (__src)
-    {
-      v45 = __src;
-      operator delete(__src);
-    }
-
-    return;
+    sub_101949E48();
   }
 
-  v13 = *(a1 + 8);
-  if (v13 < 0x3C)
+  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
   {
-    goto LABEL_10;
-  }
+    v11 = 1;
+    v8 = _os_activity_create(dword_100000000, "CL: CLPressure::onBias", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v8, &state);
 
-  if (qword_1025D45D0 != -1)
-  {
-    sub_1019530A0();
-  }
-
-  v14 = qword_1025D45D8;
-  if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "[IMUCal] Excessive writes, skipping this estimate", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 0))
-  {
-    sub_1019530B4();
-  }
-}
-
-void sub_10083FF30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double sub_10083FF84@<D0>(unsigned int a1@<W0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  if (*(a2 + 24) == 1)
-  {
-    if (*(a2 + 23) >= 0)
+    if (qword_1025D47F0 != -1)
     {
-      v5 = a2;
+      sub_101949E5C();
     }
 
-    else
+    v9 = qword_1025D47F8;
+    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *a2;
+      *buf = 68289538;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "activity";
+      v18 = 2050;
+      v19 = a4;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLPressure::onBias, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
     }
-
-    v6 = [NSURL fileURLWithPath:[NSString stringWithUTF8String:v5]];
   }
 
   else
   {
-    v6 = sub_1008412F4(a1);
+    v11 = 0;
   }
 
-  v8 = v6;
-  if (!v6)
+  sub_10081B380(a4, v7, a2, a3);
+  if (v11 == 1)
   {
-LABEL_22:
-    *a3 = 0;
-    *(a3 + 24) = 0;
-    return result;
+    os_activity_scope_leave(&state);
+  }
+}
+
+void sub_10081B13C(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+{
+  CLProfilingIdentify();
+  [objc_msgSend(*(a4 + 32) "silo")];
+  if (qword_1025D47F0 != -1)
+  {
+    sub_101949E48();
   }
 
-  v9 = [NSData dataWithContentsOfURL:v6];
-  if (!v9)
+  v7 = os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
-    if (qword_1025D45D0 != -1)
+    v12 = 1;
+    v9 = _os_activity_create(dword_100000000, "CL: CLPressure::onMotionStateObserverNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v9, &state);
+
+    if (qword_1025D47F0 != -1)
     {
-      sub_1019530A0();
+      sub_101949E5C();
     }
 
-    v12 = qword_1025D45D8;
-    if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
+    v10 = qword_1025D47F8;
+    v7 = os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG);
+    if (v7)
     {
-      *buf = 138543362;
-      v24 = [(NSURL *)v8 path];
-      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "[IMUCal] %{public}@ not available", buf, 0xCu);
+      *buf = 68289538;
+      v14 = 0;
+      v15 = 2082;
+      v16 = "";
+      v17 = 2082;
+      v18 = "activity";
+      v19 = 2050;
+      v20 = a4;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLPressure::onMotionStateObserverNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  sub_10081BB74(v7, v8, a2, a3);
+  if (v12 == 1)
+  {
+    os_activity_scope_leave(&state);
+  }
+}
+
+uint64_t sub_10081B304(uint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    sub_1007F05F0(result);
+
+    operator delete();
+  }
+
+  return result;
+}
+
+void sub_10081B350(uint64_t a1, _OWORD *a2)
+{
+  v2 = *(a1 + 32);
+  v3 = 0;
+  sub_10081B380(v2, a2, &v3, a2);
+}
+
+void sub_10081B380(uint64_t a1, uint64_t a2, int *a3, _OWORD *a4)
+{
+  if (qword_1025D42D0 != -1)
+  {
+    sub_101949E84();
+  }
+
+  v7 = qword_1025D42D8;
+  if (os_log_type_enabled(qword_1025D42D8, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEBUG, "Received Bias Notification", buf, 2u);
+  }
+
+  v8 = sub_10000A100(121, 2);
+  if (v8)
+  {
+    sub_101949E98();
+  }
+
+  if (*a3)
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_101949F9C();
+    }
+
+    v10 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_ERROR))
+    {
+      v11 = *a3;
+      *buf = 67240192;
+      *&buf[4] = v11;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "Unexpected pressure bias notification.notification,%{public}d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_101949FC4(a3);
+    }
+  }
+
+  else
+  {
+    *buf = *a4;
+    *&buf[13] = *(a4 + 13);
+    v12 = sub_100011660(v8, v9);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10081B658;
+    v13[3] = &unk_1024725B8;
+    v13[4] = a1;
+    v14[0] = *buf;
+    *(v14 + 13) = *&buf[13];
+    sub_100042800(v12, v13);
+  }
+}
+
+void *sub_10081B554(void *a1)
+{
+  *a1 = off_102474D10;
+  v2 = a1[17];
+  a1[17] = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = a1[16];
+  if (v3)
+  {
+    sub_100008080(v3);
+  }
+
+  v4 = a1[6];
+  a1[6] = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  sub_10081B304(a1 + 5, 0);
+
+  return sub_10095D914(a1);
+}
+
+void sub_10081B620(void *a1)
+{
+  sub_10081B554(a1);
+
+  operator delete();
+}
+
+uint64_t sub_10081B658(uint64_t result)
+{
+  v1 = *(result + 32);
+  v2 = *(result + 40);
+  *(v1 + 89) = *(result + 53);
+  *(v1 + 76) = v2;
+  if (*(result + 52) != 3.4028e38 || *(result + 44) != 0.0 || *(result + 48) != 0.0)
+  {
+    *(v1 + 57) = 1;
+  }
+
+  return result;
+}
+
+double sub_10081B6A8(void *a1, void *a2, uint64_t *a3)
+{
+  if (a2 > 1)
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194A0C4();
+    }
+
+    v9 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_FAULT))
+    {
+      v11 = 67240192;
+      LODWORD(v12) = a2;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "Unrecognized pressure notification %{public}d", &v11, 8u);
+    }
+
+    v7 = 0.0;
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A0D8(a2);
+    }
+  }
+
+  else
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194A0C4();
+    }
+
+    v5 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_INFO))
+    {
+      v6 = *a3;
+      v11 = 134349056;
+      v12 = v6;
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "Setting pressure data update interval to %{public}f", &v11, 0xCu);
     }
 
     if (sub_10000A100(121, 2))
     {
-      sub_10195331C(v8);
+      sub_10194A1D4();
     }
 
-    goto LABEL_22;
+    return sub_10081B830(a1);
   }
 
-  v10 = v9;
-  if (__ROR8__(0x6DB6DB6DB6DB6DB7 * [(NSData *)v9 length], 4) >= 0x24924924924924AuLL)
+  return v7;
+}
+
+double sub_10081B830(void *a1)
+{
+  v2 = 0;
+  v3 = 1;
+  v4 = 0.0;
+  do
   {
-    if (qword_1025D45D0 != -1)
+    v5 = v3;
+    v7 = sub_10027E6E4(a1, v2);
+    if (v4 == 0.0 || (v7 > 0.0 ? (v8 = v7 < v4) : (v8 = 0), v8))
     {
-      sub_1019530A0();
+      v4 = v7;
     }
 
-    v11 = qword_1025D45D8;
-    if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134349312;
-      v24 = 112;
-      v25 = 2050;
-      v26 = [(NSData *)v10 length];
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "[IMUCal] Expected multiple of %{public}zu bytes but got %{public}zu", buf, 0x16u);
-    }
-
-    if (sub_10000A100(121, 0))
-    {
-      sub_1019531F0(v10);
-    }
-
-    goto LABEL_22;
+    v3 = 0;
+    v2 = 1;
   }
 
-  sub_100841AF0(&v17, (([(NSData *)v10 length]>> 4) * 0x2492492492492493uLL) >> 64);
-  memcpy(v17, [(NSData *)v10 bytes], [(NSData *)v10 length]);
-  if (qword_1025D45D0 != -1)
+  while ((v5 & 1) != 0);
+  a1[8] = 0;
+  if (a1[5])
   {
-    sub_1019531C8();
-  }
-
-  v13 = qword_1025D45D8;
-  if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-  {
-    if (a1 > 2)
+    v9 = sub_10027E6E4(a1, 1);
+    v10 = a1[5];
+    if (v9 == 0.0)
     {
-      v14 = 0;
+      sub_1007F0B34(v10);
     }
 
     else
     {
-      v14 = *(&off_102476670 + a1);
+      sub_1007F05F4(v10);
+    }
+  }
+
+  if (a1[6])
+  {
+    v11 = sub_10027E6E4(a1, 1);
+    v12 = a1[6];
+    v14 = *(v12 + 8);
+    v13 = *(v12 + 16);
+    if (v11 == 0.0)
+    {
+      v6 = [v13 unregister:v14 forNotification:0];
     }
 
-    *buf = 134349314;
-    v24 = 0x6DB6DB6DB6DB6DB7 * ((*(&v17 + 1) - v17) >> 4);
-    v25 = 2114;
-    v26 = v14;
-    _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "[IMUCal] Read %{public}zu %{public}@ entries", buf, 0x16u);
+    else
+    {
+      v6 = [v13 register:v14 forNotification:0 registrationInfo:0];
+    }
+  }
+
+  if (!a1[15])
+  {
+    v15 = sub_100177B18(v6);
+    if ((v15 & 0x10) != 0)
+    {
+      v17 = sub_1009B38EC(v15, v16);
+      sub_101860780(v17);
+    }
+  }
+
+  sub_10017A1F4(a1[15], v4);
+  v18 = sub_100179350(a1[15], v4);
+  if (qword_1025D4310 != -1)
+  {
+    sub_101949F9C();
+  }
+
+  v19 = qword_1025D4318;
+  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134349056;
+    *&buf[4] = v18;
+    _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "Setting pressure batch interval to: %{public}ld us", buf, 0xCu);
   }
 
   if (sub_10000A100(121, 2))
   {
-    bzero(buf, 0x65CuLL);
-    if (qword_1025D45D0 != -1)
-    {
-      sub_1019531C8();
-    }
-
-    if (a1 > 2)
-    {
-      v15 = 0;
-    }
-
-    else
-    {
-      v15 = *(&off_102476670 + a1);
-    }
-
-    v19 = 134349314;
-    v20 = 0x6DB6DB6DB6DB6DB7 * ((*(&v17 + 1) - v17) >> 4);
-    v21 = 2114;
-    v22 = v15;
-    v16 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "static std::optional<std::vector<CLIMUCalDataStore::Entry>> CLIMUCalDataStore::read(const CMIMUCal::Parameter, const std::optional<std::string> &)", "%s\n", v16);
-    if (v16 != buf)
-    {
-      free(v16);
-    }
+    sub_10194A2C8();
   }
 
-  result = *&v17;
-  *a3 = v17;
-  *(a3 + 16) = v18;
-  *(a3 + 24) = 1;
-  return result;
+  return v4;
 }
 
-void sub_1008403BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
+void sub_10081BA40(uint64_t a1, uint64_t a2)
 {
-  if (__p)
+  v2 = a2;
+  if (sub_10071BCEC(a1, a2))
   {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *sub_1008403E4(void *result, int a2, double a3)
-{
-  v3 = result;
-  v4 = *result;
-  v5 = 0x6DB6DB6DB6DB6DB7 * ((result[1] - *result) >> 4);
-  if (v5 < 1)
-  {
-    v10 = -1;
-    v9 = -1;
-    v8 = -1;
-    goto LABEL_23;
-  }
-
-  v6 = v5 & 0x7FFFFFFF;
-  v7 = &v4[112 * v6 - 48];
-  v8 = -1;
-  v9 = -1;
-  v10 = -1;
-  do
-  {
-    --v6;
-    if (v8 < 0 && *v7 + 604800.0 < a3)
-    {
-      v8 = v6;
-    }
-
-    if (a2)
-    {
-      if (v9 < 0 && *(v7 + 16) != 0)
-      {
-        v9 = v6;
-      }
-    }
-
-    if (v10 < 0 && *(v7 - 64) != 3)
-    {
-      v10 = v6;
-    }
-
-    v7 -= 112;
-  }
-
-  while ((v6 + 1) > 1);
-  if (v8 < 0)
-  {
-LABEL_23:
-    if (v10 < 0)
-    {
-      return result;
-    }
-  }
-
-  v14 = v8 + 1;
-  if ((v9 & 0x80000000) == 0 && v9 <= v8)
-  {
-    v15 = &v4[112 * v9];
-    v16 = &v4[112 * v8];
-    v17 = *v15;
-    v18 = *(v15 + 2);
-    *(v16 + 1) = *(v15 + 1);
-    *(v16 + 2) = v18;
-    *v16 = v17;
-    v19 = *(v15 + 3);
-    v20 = *(v15 + 4);
-    v21 = *(v15 + 5);
-    *(v16 + 92) = *(v15 + 92);
-    *(v16 + 4) = v20;
-    *(v16 + 5) = v21;
-    *(v16 + 3) = v19;
-    v14 = v8;
-  }
-
-  if (v10 + 1 > v14)
-  {
-    v22 = v10 + 1;
-  }
-
-  else
-  {
-    v22 = v14;
-  }
-
-  if ((v22 & 0x80000000) == 0 && v22)
-  {
-    v24 = *result;
-    v23 = result[1];
-    v25 = (*result + 112 * v22);
-    v26 = v23 - v25;
-    if (v23 != v25)
-    {
-      result = memmove(*result, v25, v26 - 4);
-    }
-
-    v3[1] = v24 + v26;
-  }
-
-  return result;
-}
-
-void sub_100840614(uint64_t a1, unsigned int a2, void *a3)
-{
-  v5 = sub_1008412F4(a2);
-  if (v5)
-  {
-    v6 = v5;
-    v7 = [NSData dataWithBytes:*a3 length:a3[1] - *a3];
-    v19 = 0;
-    if ([(NSData *)v7 writeToURL:v6 options:1 error:&v19])
-    {
-      if (qword_1025D45D0 != -1)
-      {
-        sub_1019531C8();
-      }
-
-      v8 = qword_1025D45D8;
-      if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 = 0x6DB6DB6DB6DB6DB7 * ((a3[1] - *a3) >> 4);
-        if (a2 > 2)
-        {
-          v10 = 0;
-        }
-
-        else
-        {
-          v10 = *(&off_102476670 + a2);
-        }
-
-        *buf = 134349314;
-        v27 = v9;
-        v28 = 2114;
-        v29 = v10;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "[IMUCal] Wrote %{public}zu %{public}@ entries", buf, 0x16u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1025D45D0 != -1)
-        {
-          sub_1019531C8();
-        }
-
-        v14 = 0x6DB6DB6DB6DB6DB7 * ((a3[1] - *a3) >> 4);
-        if (a2 > 2)
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-          v15 = *(&off_102476670 + a2);
-        }
-
-        v20 = 134349314;
-        v21 = v14;
-        v22 = 2114;
-        v23 = v15;
-        v18 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "void CLIMUCalDataStore::write(const CMIMUCal::Parameter, const std::vector<CLIMUCalDataStore::Entry> &)", "%s\n");
-LABEL_32:
-        if (v18 != buf)
-        {
-          free(v18);
-        }
-      }
-    }
-
-    else
-    {
-      if (qword_1025D45D0 != -1)
-      {
-        sub_1019531C8();
-      }
-
-      v11 = qword_1025D45D8;
-      if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_ERROR))
-      {
-        v12 = 0x6DB6DB6DB6DB6DB7 * ((a3[1] - *a3) >> 4);
-        if (a2 > 2)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = *(&off_102476670 + a2);
-        }
-
-        *buf = 134349570;
-        v27 = v12;
-        v28 = 2114;
-        v29 = v13;
-        v30 = 2114;
-        v31 = v19;
-        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "[IMUCal] Failed to write %{public}zu %{public}@ entries, error=%{public}@", buf, 0x20u);
-      }
-
-      if (sub_10000A100(121, 0))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1025D45D0 != -1)
-        {
-          sub_1019531C8();
-        }
-
-        v16 = 0x6DB6DB6DB6DB6DB7 * ((a3[1] - *a3) >> 4);
-        if (a2 > 2)
-        {
-          v17 = 0;
-        }
-
-        else
-        {
-          v17 = *(&off_102476670 + a2);
-        }
-
-        v20 = 134349570;
-        v21 = v16;
-        v22 = 2114;
-        v23 = v17;
-        v24 = 2114;
-        v25 = v19;
-        v18 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 0, "void CLIMUCalDataStore::write(const CMIMUCal::Parameter, const std::vector<CLIMUCalDataStore::Entry> &)", "%s\n");
-        goto LABEL_32;
-      }
-    }
-  }
-}
-
-void sub_100840A20(uint64_t a1, unsigned int a2, void *a3, int a4)
-{
-  if (*a3 != a3[1] && (!a2 || a2 == 2))
-  {
-    v7 = a1 + 16;
-    if (*(a1 + 16 + 8 * a2) < 1.0)
-    {
-      *(v7 + 8 * a2) = *(*a3 + 64);
-    }
-
-    Current = CFAbsoluteTimeGetCurrent();
-    if (a4)
-    {
-      v9 = *(a3[1] - 48);
-    }
-
-    else
-    {
-      v9 = Current;
-    }
-
-    if (v9 >= *(v7 + 8 * a2) + 86400.0)
-    {
-      v11 = *a3;
-      v10 = a3[1];
-      if (v10 != *a3)
-      {
-        v12 = 0;
-        v13 = 0;
-        v14 = 0;
-        do
-        {
-          if (!*(v11 + v12 + 80))
-          {
-            AnalyticsSendEventLazy();
-            ++v14;
-            v11 = *a3;
-            v10 = a3[1];
-          }
-
-          ++v13;
-          v12 += 112;
-        }
-
-        while (v13 < 0x6DB6DB6DB6DB6DB7 * ((v10 - v11) >> 4));
-      }
-
-      *(v7 + 8 * a2) = v9;
-    }
-  }
-}
-
-void sub_100840BEC()
-{
-  for (i = 0; i != 3; ++i)
-  {
-    v27[0] = 0;
-    v31 = 0;
-    sub_10083FF84(i, v27, buf);
-    memset(__p, 0, sizeof(__p));
-    v1 = v26;
-    v2 = buf;
-    if (!v26)
-    {
-      v2 = __p;
-    }
-
-    v3 = *v2;
-    if (v26)
-    {
-      v4 = *&buf[8];
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    v5 = v2[2];
-    *v2 = 0;
-    v2[1] = 0;
-    v2[2] = 0;
-    v24[0] = v3;
-    v24[1] = v4;
-    v24[2] = v5;
-    v6 = __p[0];
-    if (__p[0])
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v1)
-    {
-      v6 = *buf;
-      if (*buf)
-      {
-        operator delete(*buf);
-      }
-    }
-
-    if (v31 == 1 && v30 < 0)
-    {
-      operator delete(*v27);
-    }
-
-    v7 = 0;
-    v8 = -1227133513 * ((v4 - v3) >> 4);
-    v9 = v8 + 1;
-    v10 = &v3[112 * v8];
-    v11 = 1;
-    do
-    {
-      v12 = v11;
-      v13 = v10;
-      v14 = v9;
-      while (--v14 >= 1)
-      {
-        v15 = v13 - 112;
-        v16 = *(v13 - 4) != 0;
-        v13 -= 112;
-        if (v7 == v16)
-        {
-          ++*(v15 + 11);
-          if (qword_1025D45D0 != -1)
-          {
-            sub_1019531C8();
-          }
-
-          v17 = qword_1025D45D8;
-          if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-          {
-            if (i > 2)
-            {
-              v18 = 0;
-            }
-
-            else
-            {
-              v18 = *(&off_102476670 + i);
-            }
-
-            v19 = sub_100840544(v15);
-            *buf = 138543618;
-            *&buf[4] = v18;
-            *&buf[12] = 2114;
-            *&buf[14] = v19;
-            _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "[IMUCal] Inserting impact to %{public}@ entry:%{public}@", buf, 0x16u);
-          }
-
-          v6 = sub_10000A100(121, 2);
-          if (v6)
-          {
-            bzero(buf, 0x65CuLL);
-            if (qword_1025D45D0 != -1)
-            {
-              sub_1019531C8();
-            }
-
-            if (i > 2)
-            {
-              v20 = 0;
-            }
-
-            else
-            {
-              v20 = *(&off_102476670 + i);
-            }
-
-            v21 = sub_100840544(v15);
-            *v27 = 138543618;
-            *&v27[4] = v20;
-            v28 = 2114;
-            v29 = v21;
-            v22 = _os_log_send_and_compose_impl();
-            v6 = sub_100152C7C("Generic", 1, 0, 2, "void CLIMUCalDataStore::insertImpact()", "%s\n", v22);
-            if (v22 != buf)
-            {
-              free(v22);
-            }
-          }
-
-          break;
-        }
-      }
-
-      v11 = 0;
-      v7 = 1;
-    }
-
-    while ((v12 & 1) != 0);
-    sub_100840614(v6, i, v24);
-    if (v3)
-    {
-      operator delete(v3);
-    }
-  }
-}
-
-void sub_100840F78(unsigned int a1@<W1>, char **a2@<X8>, double a3@<D0>)
-{
-  LOBYTE(v13) = 0;
-  v15 = 0;
-  sub_10083FF84(a1, &v13, v16);
-  memset(__p, 0, sizeof(__p));
-  v6 = v17;
-  v7 = __p;
-  if (v17)
-  {
-    v7 = v16;
-  }
-
-  v8 = *v7;
-  if (v17)
-  {
-    v9 = v16[1];
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = v7[2];
-  *v7 = 0;
-  v7[1] = 0;
-  v7[2] = 0;
-  *a2 = v8;
-  a2[1] = v9;
-  a2[2] = v10;
-  if (__p[0])
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v6 && v16[0])
-  {
-    operator delete(v16[0]);
-  }
-
-  if (v15 == 1 && v14 < 0)
-  {
-    operator delete(v13);
-  }
-
-  if (v8 != v9)
-  {
-    v11 = sub_1008403E4(a2, 1, a3);
-    if (v9 - v8 != a2[1] - *a2)
-    {
-      sub_100840614(v11, a1, a2);
-    }
-  }
-}
-
-void sub_100841084(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
-{
-  if (v20)
-  {
-    *(v19 + 8) = v20;
-    operator delete(v20);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *sub_1008410C0@<X0>(void *result@<X0>, uint64_t a2@<X8>)
-{
-  v2 = -1227133513 * ((result[1] - *result) >> 4);
-  v3 = v2 + 1;
-  v4 = *result + 112 * v2;
-  while (--v3 >= 1)
-  {
-    v5 = (v4 - 112);
-    v6 = *(v4 - 32);
-    v4 -= 112;
-    if (v6)
-    {
-      v7 = v5[5];
-      *(a2 + 64) = v5[4];
-      *(a2 + 80) = v7;
-      *(a2 + 96) = v5[6];
-      v8 = v5[1];
-      *a2 = *v5;
-      *(a2 + 16) = v8;
-      v9 = v5[3];
-      v10 = 1;
-      *(a2 + 32) = v5[2];
-      *(a2 + 48) = v9;
-      goto LABEL_6;
-    }
-  }
-
-  v10 = 0;
-  *a2 = 0;
-LABEL_6:
-  *(a2 + 112) = v10;
-  return result;
-}
-
-void sub_100841144(uint64_t a1, unsigned int a2)
-{
-  v2 = sub_1008412F4(a2);
-  if (v2)
-  {
-    v3 = v2;
-    v4 = +[NSFileManager defaultManager];
-    v9 = 0;
-    if ([(NSFileManager *)v4 fileExistsAtPath:[(NSURL *)v3 path]]&& [(NSFileManager *)v4 removeItemAtURL:v3 error:&v9])
-    {
-      if (qword_1025D45D0 != -1)
-      {
-        sub_1019531C8();
-      }
-
-      v5 = qword_1025D45D8;
-      if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-      {
-        v6 = [(NSURL *)v3 path];
-        *buf = 138543362;
-        v11 = v6;
-        _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "[IMUCal] Deleting %{public}@", buf, 0xCu);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10195353C(v3);
-      }
-    }
-
-    else
-    {
-      if (qword_1025D45D0 != -1)
-      {
-        sub_1019531C8();
-      }
-
-      v7 = qword_1025D45D8;
-      if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_ERROR))
-      {
-        v8 = [(NSURL *)v3 path];
-        *buf = 138543362;
-        v11 = v8;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "[IMUCal] Failed to delete %{public}@", buf, 0xCu);
-      }
-
-      if (sub_10000A100(121, 0))
-      {
-        sub_101953430(v3);
-      }
-    }
-  }
-}
-
-NSURL *sub_1008412F4(unsigned int a1)
-{
-  if (a1 >= 3)
-  {
-    if (qword_1025D45D0 != -1)
-    {
-      sub_1019530A0();
-    }
-
-    v3 = qword_1025D45D8;
-    if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_ERROR))
-    {
-      v4 = 138543362;
-      v5 = 0;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "[IMUCal] Parameter %{public}@ not supported", &v4, 0xCu);
-    }
-
-    if (sub_10000A100(121, 0))
-    {
-      sub_101953648();
-    }
-
-    return 0;
-  }
-
-  else
-  {
-    v1 = *(&off_102476688 + a1);
-
-    return [NSURL fileURLWithPath:v1];
-  }
-}
-
-void sub_100841418(uint64_t a1, unsigned int a2)
-{
-  __p[0] = 0;
-  v16 = 0;
-  sub_10083FF84(a2, __p, &v9);
-  if (v16 == 1 && v15 < 0)
-  {
-    operator delete(*__p);
-  }
-
-  if (v11)
-  {
-    v2 = v9;
-    v3 = v10;
-    if (v9 != v10)
-    {
-      v4 = v9;
-      do
-      {
-        if (qword_1025D45D0 != -1)
-        {
-          sub_1019531C8();
-        }
-
-        v5 = qword_1025D45D8;
-        if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-        {
-          v6 = sub_100840544(v4);
-          *__p = 138543362;
-          *&__p[4] = v6;
-          _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "[IMUCal] %{public}@", __p, 0xCu);
-        }
-
-        if (sub_10000A100(121, 2))
-        {
-          sub_101953744(__p);
-          v7 = sub_100840544(v4);
-          v12 = 138543362;
-          v13 = v7;
-          v8 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "void CLIMUCalDataStore::readAndLog(const CMIMUCal::Parameter) const", "%s\n", v8);
-          if (v8 != __p)
-          {
-            free(v8);
-          }
-        }
-
-        v4 += 28;
-      }
-
-      while (v4 != v3);
-    }
-
+    v8 = 0x3FA0E5604189374CLL;
     if (v2)
     {
-      operator delete(v2);
+      v4 = &v8;
+    }
+
+    else
+    {
+      v4 = &unk_101CAFEB8;
+    }
+
+    sub_10183A3AC(buf, "PressureTempMaxUpdateInterval", v4, 0);
+    *(a1 + 112) = *&v10[4];
+    v5 = (a1 + 112);
+    if (qword_1025D4310 != -1)
+    {
+      sub_101949F9C();
+    }
+
+    v6 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_INFO))
+    {
+      v7 = *v5 * 1000.0;
+      *buf = 134349056;
+      *v10 = v7;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "Temperature update interval set to %{public}f ms", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A3C0();
     }
   }
 }
 
-void sub_100841624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25)
+void sub_10081BB74(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
-  if (v25)
+  if (sub_10071BCEC(a1, a2) && !*a3)
   {
-    operator delete(v25);
-  }
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194A0C4();
+    }
 
-  _Unwind_Resume(exception_object);
+    v6 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = *(a4 + 8);
+      v8 = 134349056;
+      v9 = v7;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "Notified of workout event type %{public}ld", &v8, 0xCu);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A4C0();
+    }
+
+    if (qword_10265A3C8 != -1)
+    {
+      sub_10194A5B4();
+    }
+
+    if (qword_1026372C0)
+    {
+      sub_10081BA40(qword_1026372C0, *(a4 + 8) != 0);
+    }
+  }
 }
 
-id sub_100841670(uint64_t a1)
+uint64_t sub_10081BD2C()
 {
-  v2 = +[NSMutableDictionary dictionary];
-  v14[0] = @"EstimateCovarianceXX";
-  v15[0] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 16)];
-  v14[1] = @"EstimateCovarianceXY";
-  v15[1] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 24)];
-  v14[2] = @"EstimateCovarianceXZ";
-  v15[2] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 32)];
-  v14[3] = @"EstimateCovarianceYY";
-  v15[3] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 40)];
-  v14[4] = @"EstimateCovarianceYZ";
-  v15[4] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 48)];
-  v14[5] = @"EstimateCovarianceZZ";
-  v15[5] = [NSNumber numberWithDouble:*(**(a1 + 32) + 112 * *(a1 + 40) + 56)];
-  v14[6] = @"EstimateX";
-  LODWORD(v3) = *(**(a1 + 32) + 112 * *(a1 + 40) + 4);
-  v15[6] = [NSNumber numberWithFloat:v3];
-  v14[7] = @"EstimateY";
-  LODWORD(v4) = *(**(a1 + 32) + 112 * *(a1 + 40) + 8);
-  v15[7] = [NSNumber numberWithFloat:v4];
-  v14[8] = @"EstimateZ";
-  LODWORD(v5) = *(**(a1 + 32) + 112 * *(a1 + 40) + 12);
-  v15[8] = [NSNumber numberWithFloat:v5];
-  v14[9] = @"NumberOfImpacts";
-  v15[9] = [NSNumber numberWithUnsignedLong:*(**(a1 + 32) + 112 * *(a1 + 40) + 88)];
-  v14[10] = @"TableIndex";
-  v15[10] = [NSNumber numberWithUnsignedLong:*(a1 + 48)];
-  v14[11] = @"TemperatureIMU";
-  LODWORD(v6) = *(**(a1 + 32) + 112 * *(a1 + 40) + 72);
-  v15[11] = [NSNumber numberWithFloat:v6];
-  v14[12] = @"TimeSincePrevious";
-  v15[12] = [NSString stringWithFormat:@"%.0f", *(a1 + 56) / 60.0];
-  v15[13] = &off_10254F020;
-  v14[13] = @"NumberOfEstimates";
-  v14[14] = @"NumberOfEstimatesIndoors";
-  if (*(**(a1 + 32) + 112 * *(a1 + 40) + 96))
+  if ((atomic_load_explicit(byte_10265A3D8, memory_order_acquire) & 1) == 0)
   {
-    v7 = &off_10254F038;
+    sub_10194A728();
   }
 
-  else
-  {
-    v7 = &off_10254F020;
-  }
-
-  v15[14] = v7;
-  [v2 setDictionary:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v15, v14, 15)}];
-  LODWORD(v8) = *(**(a1 + 32) + 112 * *(a1 + 40) + 100);
-  [v2 setObject:+[NSNumber numberWithFloat:](NSNumber forKeyedSubscript:{"numberWithFloat:", v8), @"RelativeHumidityOutside"}];
-  LODWORD(v9) = *(**(a1 + 32) + 112 * *(a1 + 40) + 104);
-  [v2 setObject:+[NSNumber numberWithFloat:](NSNumber forKeyedSubscript:{"numberWithFloat:", v9), @"TemperatureOutside"}];
-  if (qword_1025D45D0 != -1)
-  {
-    sub_1019531C8();
-  }
-
-  v10 = qword_1025D45D8;
-  if (os_log_type_enabled(qword_1025D45D8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138477827;
-    v13 = v2;
-    _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "Sending analytics: \n%{private}@", buf, 0xCu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101953788(v2);
-  }
-
-  return v2;
-}
-
-void sub_100841A94(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x24924924924924ALL)
+  result = qword_10265A3D0;
+  if (!qword_10265A3D0)
   {
     operator new();
   }
 
-  sub_1001D0818();
-}
-
-void *sub_100841AF0(void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    sub_100841B80(result, a2);
-  }
-
   return result;
 }
 
-void sub_100841B64(_Unwind_Exception *exception_object)
+uint64_t sub_10081BDB4(unint64_t a1, _DWORD *a2)
 {
-  v3 = *v1;
-  if (*v1)
+  v3 = a1;
+  if (a1 >= 3)
   {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100841B80(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x24924924924924ALL)
-  {
-    sub_100841A94(a1, a2);
-  }
-
-  sub_10028C64C();
-}
-
-id sub_1008421A4(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 24);
-  v3 = *(a1 + 56);
-  v5[2] = *(a1 + 40);
-  v6[0] = v3;
-  *(v6 + 10) = *(a1 + 66);
-  v5[0] = *(a1 + 8);
-  v5[1] = v2;
-  return [a2 onSensorParameterEstimate:v5];
-}
-
-void sub_100842BB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10084349C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-NSDictionary *sub_100843644()
-{
-  v10[0] = @"/System/Library/PrivateFrameworks/BulletinBoard.framework";
-  v9[0] = @"/System/Library/LocationBundles/AppSuggestions.bundle";
-  v9[1] = @"/System/Library/LocationBundles/CalendarLocation.bundle";
-  v9[2] = @"/System/Library/LocationBundles/DestinationdLocationBundleiOS.bundle";
-  v9[3] = @"/System/Library/LocationBundles/DoNotDisturb.bundle";
-  v9[4] = @"/System/Library/LocationBundles/ExposureNotificationBundle.bundle";
-  v9[5] = @"/System/Library/LocationBundles/MapsAnnouncements.bundle";
-  v9[6] = @"/System/Library/LocationBundles/NavdLocationBundleiOS.bundle";
-  v9[7] = @"/System/Library/LocationBundles/Oos.bundle";
-  v9[8] = @"/System/Library/LocationBundles/PassbookRelevancy.bundle";
-  v9[9] = @"/System/Library/LocationBundles/RemindersAlerts.bundle";
-  v9[10] = @"/System/Library/LocationBundles/SafetyAlerts.bundle";
-  v9[11] = @"/System/Library/LocationBundles/ShortcutsLocation.bundle";
-  v9[12] = @"/System/Library/LocationBundles/Wea.bundle";
-  v11[0] = [NSArray arrayWithObjects:v9 count:13];
-  v10[1] = @"/System/Library/LocationBundles/Traffic.bundle";
-  v8[0] = @"/System/Library/LocationBundles/IonosphereHarvest.bundle";
-  v8[1] = @"/System/Library/LocationBundles/AltimeterHarvest.bundle";
-  v8[2] = @"/System/Library/LocationBundles/GeocorrectionDLocationBundle.bundle";
-  v8[3] = @"/System/Library/LocationBundles/TraceHarvest.bundle";
-  v11[1] = [NSArray arrayWithObjects:v8 count:4];
-  v10[2] = @"/System/Library/PrivateFrameworks/MobileWiFi.framework";
-  v7[0] = @"/System/Library/LocationBundles/UWBRegulatory.bundle";
-  v7[1] = @"/System/Library/LocationBundles/WRMLinkSelection.bundle";
-  v7[2] = @"/System/Library/PrivateFrameworks/NetworkServiceProxy.framework";
-  v11[2] = [NSArray arrayWithObjects:v7 count:3];
-  v10[3] = @"/System/Library/LocationBundles/SystemCustomization.bundle";
-  v6[0] = @"/System/Library/PrivateFrameworks/ChronoCore.framework";
-  v6[1] = @"/System/Library/LocationBundles/CountryTracker.bundle";
-  v6[2] = @"/System/Library/PrivateFrameworks/ClockPoster.framework";
-  v6[3] = @"/System/Library/ExtensionKit/Extensions/MercuryPosterExtension.appex";
-  v6[4] = @"/System/Library/LocationBundles/WebContentFilterEligibility.bundle";
-  v11[3] = [NSArray arrayWithObjects:v6 count:5];
-  v10[4] = @"/System/Library/PrivateFrameworks/CoreParsec.framework";
-  v5 = @"/System/Library/LocationBundles/eSIMTravelBuddy.bundle";
-  v11[4] = [NSArray arrayWithObjects:&v5 count:1];
-  v10[5] = @"/System/Library/PrivateFrameworks/HomeKitDaemon.framework";
-  v4[0] = @"/System/Library/LocationBundles/CarPlayHomeLocation.bundle";
-  v4[1] = @"/System/Library/PrivateFrameworks/HomeEnergyDaemon.framework";
-  v11[5] = [NSArray arrayWithObjects:v4 count:2];
-  v10[6] = @"/System/Library/PrivateFrameworks/DeviceManagement.framework";
-  v3 = @"/System/Library/PrivateFrameworks/MDM.framework";
-  v11[6] = [NSArray arrayWithObjects:&v3 count:1];
-  v10[7] = @"/System/Library/PrivateFrameworks/FMF.framework";
-  v2 = @"/System/Library/LocationBundles/SafetyMonitorLocationBundle.bundle";
-  v11[7] = [NSArray arrayWithObjects:&v2 count:1];
-  v10[8] = @"/System/Library/LocationBundles/Routine.bundle";
-  v1[0] = @"/System/Library/LocationBundles/Milod.bundle";
-  v1[1] = @"/System/Library/LocationBundles/FedMobility.bundle";
-  v11[8] = [NSArray arrayWithObjects:v1 count:2];
-  return [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:9];
-}
-
-NSArray *sub_1008439C0()
-{
-  v1[0] = @"/System/Library/LocationBundles/PassbookMerchantLookup.bundle";
-  v1[1] = @"/System/Library/Frameworks/CoreTelephony.framework";
-  v1[2] = @"/System/Library/LocationBundles/CompassCalibration.bundle";
-  v1[3] = @"/System/Library/LocationBundles/Emergency SOS.bundle";
-  v1[4] = @"/System/Library/PrivateFrameworks/WirelessDiagnostics.framework";
-  v1[5] = @"/System/Library/LocationBundles/MotionCalibration.bundle";
-  v1[6] = @"/System/Library/LocationBundles/TimeZone.bundle";
-  v1[7] = @"/System/Library/PrivateFrameworks/FindMyDevice.framework";
-  v1[8] = @"/System/Library/LocationBundles/WifiCalling.bundle";
-  v1[9] = @"/System/Library/LocationBundles/Bifrost.bundle";
-  v1[10] = @"/System/Library/LocationBundles/ClipServicesLocation.bundle";
-  v1[11] = @"/System/Library/LocationBundles/AppGenius.bundle";
-  v1[12] = @"/System/Library/LocationBundles/LocationHarvest.bundle";
-  return [NSArray arrayWithObjects:v1 count:13];
-}
-
-NSArray *sub_100843AD4()
-{
-  v1[0] = @"/System/Library/Frameworks/CoreWLAN.framework";
-  v1[1] = @"/System/Library/LocationBundles/CarbonAnalytics.bundle";
-  v1[2] = @"/System/Library/LocationBundles/NanoCompassAlerts.bundle";
-  v1[3] = @"/System/Library/LocationBundles/NanoSmartStack.bundle";
-  return [NSArray arrayWithObjects:v1 count:4];
-}
-
-void sub_100844084(void *a1, uint64_t a2)
-{
-  xpc_dictionary_set_string(a1, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
-  xpc_dictionary_set_BOOL(a1, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-  xpc_dictionary_set_BOOL(a1, XPC_ACTIVITY_PREVENT_DEVICE_SLEEP, 1);
-  v4 = a2 == 2;
-  if (a2 == 2)
-  {
-    v5 = 60;
-  }
-
-  else
-  {
-    v5 = 30;
-  }
-
-  xpc_dictionary_set_BOOL(a1, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, v4);
-  xpc_dictionary_set_string(a1, XPC_ACTIVITY_NETWORK_TRANSFER_DIRECTION, XPC_ACTIVITY_NETWORK_TRANSFER_DIRECTION_DOWNLOAD);
-  xpc_dictionary_set_uint64(a1, XPC_ACTIVITY_GRACE_PERIOD, v5);
-  v6 = XPC_ACTIVITY_REQUIRES_CLASS_C;
-
-  xpc_dictionary_set_BOOL(a1, v6, 1);
-}
-
-void sub_100844184(uint64_t a1, xpc_activity_t activity)
-{
-  state = xpc_activity_get_state(activity);
-  if (qword_1025D4600 != -1)
-  {
-    sub_101953B6C();
-  }
-
-  v5 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 67240192;
-    LODWORD(v11) = state;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "#tiledownloadscheduler, callback, %{public}d", buf, 8u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101953E6C(state);
-  }
-
-  if (state == 2)
-  {
-    v6 = [objc_msgSend(*(a1 + 32) "universe")];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100844370;
-    v9[3] = &unk_102447418;
-    v9[4] = *(a1 + 32);
-    [v6 async:v9];
-    if (!xpc_activity_set_state(activity, 5))
+    if (qword_1025D46A0 != -1)
     {
-      if (qword_1025D4600 != -1)
-      {
-        sub_101953F58();
-      }
-
-      v7 = qword_1025D4608;
-      if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_FAULT))
-      {
-        v8 = xpc_activity_get_state(activity);
-        *buf = 134349056;
-        v11 = v8;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "#tiledownloadscheduler, failed to mark activity as done. current state, %{public}ld", buf, 0xCu);
-      }
-
-      if (sub_10000A100(121, 0))
-      {
-        sub_101953F80();
-      }
-    }
-  }
-}
-
-id sub_100844370(uint64_t a1)
-{
-  if (qword_1025D4600 != -1)
-  {
-    sub_101953B6C();
-  }
-
-  v2 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
-  {
-    v3 = [objc_msgSend(*(a1 + 32) "clients")];
-    *buf = 134349056;
-    v15 = v3;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "#tiledownloadscheduler, run, wifi connectivity, client count, %{public}ld", buf, 0xCu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_10195407C();
-  }
-
-  [*(a1 + 32) setHasRegisteredForWifiConnectivity:0];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v4 = [*(a1 + 32) clients];
-  result = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (result)
-  {
-    v6 = result;
-    v7 = *v10;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v10 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        [*(*(&v9 + 1) + 8 * v8) onScheduledTileDownloadWithReachabilityRequirement:2];
-        v8 = v8 + 1;
-      }
-
-      while (v6 != v8);
-      result = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
-      v6 = result;
+      sub_10194A79C();
     }
 
-    while (result);
-  }
-
-  return result;
-}
-
-void sub_1008445B4(uint64_t a1, xpc_activity_t activity)
-{
-  state = xpc_activity_get_state(activity);
-  if (qword_1025D4600 != -1)
-  {
-    sub_101953B6C();
-  }
-
-  v5 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 67240192;
-    LODWORD(v11) = state;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "#tiledownloadscheduler, callback, %{public}d", buf, 8u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954170(state);
-  }
-
-  if (state == 2)
-  {
-    v6 = [objc_msgSend(*(a1 + 32) "universe")];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1008447A0;
-    v9[3] = &unk_102447418;
-    v9[4] = *(a1 + 32);
-    [v6 async:v9];
-    if (!xpc_activity_set_state(activity, 5))
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
     {
-      if (qword_1025D4600 != -1)
-      {
-        sub_101953F58();
-      }
-
-      v7 = qword_1025D4608;
-      if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_FAULT))
-      {
-        v8 = xpc_activity_get_state(activity);
-        *buf = 134349056;
-        v11 = v8;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "#tiledownloadscheduler, failed to mark activity as done. current state, %{public}ld", buf, 0xCu);
-      }
-
-      if (sub_10000A100(121, 0))
-      {
-        sub_10195425C();
-      }
-    }
-  }
-}
-
-id sub_1008447A0(uint64_t a1)
-{
-  if (qword_1025D4600 != -1)
-  {
-    sub_101953B6C();
-  }
-
-  v2 = qword_1025D4608;
-  if (os_log_type_enabled(qword_1025D4608, OS_LOG_TYPE_DEBUG))
-  {
-    v3 = [objc_msgSend(*(a1 + 32) "clients")];
-    *buf = 134349056;
-    v15 = v3;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "#tiledownloadscheduler, run, cellular connectivity, client count, %{public}ld", buf, 0xCu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954358();
-  }
-
-  [*(a1 + 32) setHasRegisteredForCellularConnectivity:0];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v4 = [*(a1 + 32) clients];
-  result = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (result)
-  {
-    v6 = result;
-    v7 = *v10;
-    do
-    {
-      v8 = 0;
-      do
-      {
-        if (*v10 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        [*(*(&v9 + 1) + 8 * v8) onScheduledTileDownloadWithReachabilityRequirement:1];
-        v8 = v8 + 1;
-      }
-
-      while (v6 != v8);
-      result = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
-      v6 = result;
+      *buf = 134217984;
+      v11 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "CLVPC,fromCLARSessionState,Received unhandled ar session state: %lu", buf, 0xCu);
     }
 
-    while (result);
-  }
-
-  return result;
-}
-
-BOOL sub_100844A28(uint64_t a1)
-{
-  v2 = *(a1 + 22);
-  if (v2 <= 3)
-  {
-    v3 = 3;
-  }
-
-  else
-  {
-    v3 = *(a1 + 22);
-  }
-
-  if (v3 - 3 >= v2)
-  {
-    v4 = 0;
-    if ((*(a1 + 92) & 1) == 0)
+    if (sub_10000A100(121, 0))
     {
-      goto LABEL_18;
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = v2 + 1;
-    do
-    {
-      if (*sub_100457AE8((a1 + 20), v5 - 2) <= 18.0)
+      sub_10194A7B0(buf);
+      v8 = 134217984;
+      v9 = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLARSessionState,Received unhandled ar session state: %lu", &v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLARSessionState(const _CLARSessionState, CLP::LogEntry::Vision::ARSessionState &)", "%s\n", v6);
+      if (v7 != buf)
       {
-        ++v4;
-      }
-
-      v6 = *(a1 + 22);
-      if (v6 <= 3)
-      {
-        v6 = 3;
-      }
-
-      --v5;
-    }
-
-    while (v5 > v6 - 2);
-    if ((*(a1 + 92) & 1) == 0)
-    {
-      if (v4 >= 3)
-      {
-        v7 = *(a1 + 72) ^ 1;
-        return v7 & 1;
-      }
-
-LABEL_18:
-      v7 = 0;
-      return v7 & 1;
-    }
-  }
-
-  return sub_100844B10(a1, v4);
-}
-
-BOOL sub_100844B10(uint64_t a1, unsigned int a2)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  if (*(a1 + 22) && *sub_100457AE8((a1 + 20), *(a1 + 22) - 1) > *(a1 + 88))
-  {
-    *(a1 + 80) = 0x7FEFFFFFFFFFFFFFLL;
-  }
-
-  v5 = 0;
-  if (a2 >= 3 && (*(a1 + 72) & 1) == 0)
-  {
-    v7 = *(a1 + 80);
-    v6 = (a1 + 80);
-    v8 = v7;
-    v5 = Current > v7;
-    if (Current > v7)
-    {
-      if (Current - v8 <= 180.0)
-      {
-        return 0;
-      }
-
-      if (qword_1025D4310 != -1)
-      {
-        sub_10195444C();
-      }
-
-      v9 = qword_1025D4318;
-      if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = *v6;
-        v12 = 134218240;
-        v13 = Current;
-        v14 = 2048;
-        v15 = v10;
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "pressure quality check for good wet barometer mitigation should be applied,now,%f,lastUnknownToGoodSatifiedTimestamp,%f", &v12, 0x16u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_101954460();
-      }
-
-      Current = 1.79769313e308;
-    }
-
-    *v6 = Current;
-  }
-
-  return v5;
-}
-
-BOOL sub_100844C90(uint64_t a1)
-{
-  if (!*(a1 + 22))
-  {
-    return 0;
-  }
-
-  v2 = 0;
-  v3 = *(a1 + 22) + 1;
-  do
-  {
-    if (*sub_100457AE8((a1 + 20), v3 - 2) >= 275.0)
-    {
-      ++v2;
-    }
-
-    v4 = *(a1 + 22);
-    if (v4 <= 1)
-    {
-      v4 = 1;
-    }
-
-    --v3;
-  }
-
-  while (v3 > v4);
-  return v2 != 0;
-}
-
-BOOL sub_100844D1C(uint64_t a1)
-{
-  v1 = *(a1 + 22);
-  if (v1 <= 5)
-  {
-    v2 = 5;
-  }
-
-  else
-  {
-    v2 = *(a1 + 22);
-  }
-
-  if (v2 - 5 >= v1)
-  {
-    return 0;
-  }
-
-  v4 = 0;
-  v5 = v1 + 1;
-  do
-  {
-    if (*sub_100457AE8((a1 + 20), v5 - 2) < 275.0)
-    {
-      ++v4;
-    }
-
-    v6 = *(a1 + 22);
-    if (v6 <= 5)
-    {
-      v6 = 5;
-    }
-
-    --v5;
-  }
-
-  while (v5 > v6 - 4);
-  return v4 > 2;
-}
-
-BOOL sub_100844DBC(uint64_t a1)
-{
-  v1 = *(a1 + 22);
-  if (v1 <= 5)
-  {
-    v2 = 5;
-  }
-
-  else
-  {
-    v2 = *(a1 + 22);
-  }
-
-  if (v2 - 5 >= v1)
-  {
-    return 0;
-  }
-
-  v4 = 0;
-  v5 = v1 + 1;
-  do
-  {
-    v6 = *sub_100457AE8((a1 + 20), v5 - 2) > *(a1 + 88) && *sub_100457AE8((a1 + 20), v5 - 2) < 275.0;
-    v4 += v6;
-    v7 = *(a1 + 22);
-    if (v7 <= 5)
-    {
-      v7 = 5;
-    }
-
-    --v5;
-  }
-
-  while (v5 > v7 - 4);
-  return v4 > 2;
-}
-
-void sub_100844E90(uint64_t a1)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  *(a1 + 20) = 0;
-  *(a1 + 64) = -1082130432;
-  if (qword_1025D4310 != -1)
-  {
-    sub_10195444C();
-  }
-
-  v3 = qword_1025D4318;
-  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEBUG))
-  {
-    v4 = *(a1 + 68);
-    v5 = *(a1 + 16);
-    v6 = 134218496;
-    v7 = Current;
-    v8 = 1024;
-    v9 = v4;
-    v10 = 1024;
-    v11 = v5;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "pressure quality state reset,timestamp,%f,old,%d,new,%d", &v6, 0x18u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954570();
-  }
-
-  *(a1 + 68) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0x7FEFFFFFFFFFFFFFLL;
-}
-
-uint64_t sub_100844FB0(uint64_t a1)
-{
-  *a1 = &unk_102476740;
-  *(a1 + 8) = 10;
-  *(a1 + 16) = 512;
-  *(a1 + 20) = 0x500000000;
-  *(a1 + 48) = -1082130432;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = -1082130432;
-  *(a1 + 68) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0x7FEFFFFFFFFFFFFFLL;
-  v2 = sub_10071C8A8();
-  v3 = 54.0;
-  if (v2)
-  {
-    v3 = 35.0;
-  }
-
-  *(a1 + 88) = v3;
-  *(a1 + 92) = v2;
-  if (qword_1025D4310 != -1)
-  {
-    sub_10195444C();
-  }
-
-  v4 = qword_1025D4318;
-  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *(a1 + 92);
-    v6 = *(a1 + 88);
-    v8[0] = 67109376;
-    v8[1] = v5;
-    v9 = 2048;
-    v10 = v6;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "init pressure quality controller,deviceModelRequiresWetBarometerMitigation,%d,unknownFromGoodThreshold,%f", v8, 0x12u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954668((a1 + 92), (a1 + 88));
-  }
-
-  return a1;
-}
-
-uint64_t sub_100845124(uint64_t result, int a2, uint64_t a3, float a4)
-{
-  if (a4 != -1.0 && a3 != 0)
-  {
-    v5 = a4 <= 18.0 && a2 <= 0;
-    if (!v5 || a3 == 4)
-    {
-      v7 = *(result + 22);
-      v8 = *(result + 24);
-      v9 = *(result + 20);
-      if (v9 + v7 >= v8)
-      {
-        v10 = *(result + 24);
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
-      *(result + 4 * (v9 + v7 - v10) + 28) = a4;
-      if (v8 <= v7)
-      {
-        if (v9 + 1 < v8)
-        {
-          LOWORD(v8) = 0;
-        }
-
-        *(result + 20) = v9 + 1 - v8;
-      }
-
-      else
-      {
-        *(result + 22) = v7 + 1;
+        free(v7);
       }
     }
+
+    LODWORD(v3) = -1;
   }
 
-  return result;
+  *a2 = v3;
+  return 1;
 }
 
-uint64_t sub_100845198(uint64_t a1, int a2, uint64_t a3, __int16 a4, float a5)
+void sub_10081BF40(_Unwind_Exception *a1, int a2)
 {
-  *(a1 + 56) = a3;
-  *(a1 + 48) = a5;
-  result = sub_1000CE87C(a1, 1, &v12);
-  if (a3)
+  if (!a2)
   {
-    result = sub_100845124(a1, a2, a3, a5);
-    *(a1 + 72) |= (a4 & 0x1000) != 0;
-    if (*(a1 + 22))
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_10081BF4C(void *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    if (a2)
     {
-      return sub_1000CE87C(a1, 0, &v11);
-    }
-  }
-
-  return result;
-}
-
-void sub_100845264(uint64_t a1)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  *(a1 + 20) = 0;
-  *(a1 + 64) = *(a1 + 48);
-  if (qword_1025D4310 != -1)
-  {
-    sub_10195444C();
-  }
-
-  v3 = qword_1025D4318;
-  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEBUG))
-  {
-    v4 = *(a1 + 68);
-    v5 = *(a1 + 16);
-    v6 = 134218496;
-    v7 = Current;
-    v8 = 1024;
-    v9 = v4;
-    v10 = 1024;
-    v11 = v5;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "pressure quality state transition,timestamp,%f,old,%d,new,%d", &v6, 0x18u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954794();
-  }
-
-  *(a1 + 68) = *(a1 + 16);
-}
-
-void sub_10084537C(uint64_t a1)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  *(a1 + 20) = 0;
-  *(a1 + 64) = *(a1 + 48);
-  if (qword_1025D4310 != -1)
-  {
-    sub_10195444C();
-  }
-
-  v3 = qword_1025D4318;
-  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEBUG))
-  {
-    v4 = *(a1 + 68);
-    v5 = *(a1 + 16);
-    v6 = 134218496;
-    v7 = Current;
-    v8 = 1024;
-    v9 = v4;
-    v10 = 1024;
-    v11 = v5;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "pressure quality state transition,timestamp,%f,old,%d,new,%d", &v6, 0x18u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_10195488C();
-  }
-
-  *(a1 + 68) = *(a1 + 16);
-}
-
-void sub_100845894(id a1)
-{
-  if (qword_1025D4720 != -1)
-  {
-    sub_101954984();
-  }
-
-  v1 = qword_1025D4728;
-  if (os_log_type_enabled(qword_1025D4728, OS_LOG_TYPE_INFO))
-  {
-    *v2 = 0;
-    _os_log_impl(dword_100000000, v1, OS_LOG_TYPE_INFO, "xpc interruption handler", v2, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954AA8();
-  }
-}
-
-void sub_100845928(id a1)
-{
-  if (qword_1025D4720 != -1)
-  {
-    sub_101954984();
-  }
-
-  v1 = qword_1025D4728;
-  if (os_log_type_enabled(qword_1025D4728, OS_LOG_TYPE_INFO))
-  {
-    *v2 = 0;
-    _os_log_impl(dword_100000000, v1, OS_LOG_TYPE_INFO, "xpc invalidation handler", v2, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954B84();
-  }
-}
-
-uint64_t sub_100845AB4(uint64_t a1)
-{
-  v2 = [*(*(a1 + 32) + 32) fetchBleAdvertisementsWithIdentityFilter:0];
-  if (qword_1025D4720 != -1)
-  {
-    sub_101954984();
-  }
-
-  v3 = qword_1025D4728;
-  if (os_log_type_enabled(qword_1025D4728, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = 134217984;
-    v6 = [v2 count];
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "fetch'd %zu advertisements from volatile store", &v5, 0xCu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101954D3C(v2);
-  }
-
-  return (*(*(a1 + 40) + 16))();
-}
-
-uint64_t sub_100845CBC(uint64_t a1)
-{
-  v2 = [*(*(a1 + 32) + 32) fetchBleAdvertisementsWithIdentityFilter:0];
-  v10 = 0.0;
-  v11 = 0;
-  [*(*(a1 + 32) + 32) fetchFromStatisticsNumberOfAdvs:&v11 accumulatedTime:&v10];
-  if (qword_1025D4720 != -1)
-  {
-    sub_101954A80();
-  }
-
-  v3 = qword_1025D4728;
-  if (os_log_type_enabled(qword_1025D4728, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = [v2 count];
-    *buf = 134218496;
-    v21 = v4;
-    v22 = 2048;
-    v23 = v11;
-    v24 = 2048;
-    v25 = v10;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "fetch'd %zu advertisements from volatile store, N %zu, T %.1f", buf, 0x20u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    bzero(buf, 0x65CuLL);
-    if (qword_1025D4720 != -1)
-    {
-      sub_101954A80();
-    }
-
-    v8 = [v2 count];
-    v14 = 134218496;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v11;
-    v18 = 2048;
-    v19 = v10;
-    v9 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLGatheringXPCServer fetchAdvertisementsDetailedWithCompletion:]_block_invoke", "%s\n", v9);
-    if (v9 != buf)
-    {
-      free(v9);
-    }
-  }
-
-  v5.n128_f64[0] = v10;
-  if (v10 == 0.0 && v11 != 0)
-  {
-    v12 = NSLocalizedDescriptionKey;
-    v13 = @"received advertisements without scanning?";
-    [NSError errorWithDomain:kCLErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1, v10]];
-    v5.n128_f64[0] = v10;
-  }
-
-  return (*(*(a1 + 40) + 16))(v5);
-}
-
-uint64_t sub_1008460B8(void *a1)
-{
-  if ([*(a1[4] + 24) getEnablementStatus])
-  {
-    [*(a1[4] + 24) stop];
-    [*(a1[4] + 40) overrideWithConfiguration:a1[6]];
-    [*(a1[4] + 24) run];
-    v2 = *(a1[5] + 16);
-
-    return v2();
-  }
-
-  else
-  {
-    v4 = NSLocalizedDescriptionKey;
-    v5 = @"CLGatheringBluetoothClient disabled";
-    [NSError errorWithDomain:kCLErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObjects:&v5 forKeys:&v4 count:1]];
-    return (*(a1[5] + 16))();
-  }
-}
-
-long double sub_1008462A8(uint64_t a1, uint64_t a2)
-{
-  if (qword_1025D41B0 != -1)
-  {
-    sub_10195504C();
-  }
-
-  v3 = qword_1025D41B8;
-  if (os_log_type_enabled(qword_1025D41B8, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = *a2;
-    v4 = *(a2 + 8);
-    v6 = *(a2 + 16);
-    v7 = *(a2 + 24);
-    v11 = 134284289;
-    v12 = v4;
-    v13 = 2049;
-    v14 = v5;
-    v15 = 2049;
-    v16 = v6;
-    v17 = 2049;
-    v18 = v7;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEFAULT, "CLMobility::SteadinessModelBalance::Features,intermediateBoutsAsymmetryPercentageMedian,%{private}.3f,intermediateBoutsAsymmetryPercentageCv,%{private}.3f,intermediateBoutsDoubleSupportPercentageMedian,%{private}.3f,intermediateBoutsDoubleSupportPercentageStd,%{private}.3f", &v11, 0x2Au);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101955060(a2);
-  }
-
-  v8 = vdupq_n_s64(0xFFF0000000000000);
-  if ((vmaxv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*a2, v8), vceqq_f64(*(a2 + 16), v8)))) & 1) == 0)
-  {
-    return sub_1009A32C0(a2);
-  }
-
-  if (qword_1025D41B0 != -1)
-  {
-    sub_1019551AC();
-  }
-
-  v9 = qword_1025D41B8;
-  if (os_log_type_enabled(qword_1025D41B8, OS_LOG_TYPE_INFO))
-  {
-    LOWORD(v11) = 0;
-    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_INFO, "Rejection: CLMobilitySteadinessModelBalance missing required feature inputs", &v11, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019551D4();
-  }
-
-  return -INFINITY;
-}
-
-double sub_10084644C(double a1, uint64_t a2, uint64_t *a3)
-{
-  __src = 0;
-  v73 = 0;
-  v74 = 0;
-  v4 = *a3;
-  v5 = a3[1];
-  if (*a3 == v5)
-  {
-    __p = 0;
-    v70 = 0;
-    v71 = 0;
-    v66 = 0;
-    v67 = 0;
-    v68 = 0;
-  }
-
-  else
-  {
-    v6 = 0;
-    v7 = a1 + -2419200.0;
-    do
-    {
-      v8 = *(v4 + 8);
-      if (v8 < a1 && v8 >= v7)
+      v59 = 0;
+      sub_10081C7D8([a1 trackingState], &v59);
+      v4 = v59;
+      if (!sub_100AB8CC0(v59))
       {
-        if (v6 >= v74)
-        {
-          v20 = __src;
-          v21 = v6 - __src;
-          v22 = 0x6DB6DB6DB6DB6DB7 * ((v6 - __src) >> 5);
-          v23 = v22 + 1;
-          if ((v22 + 1) > 0x124924924924924)
-          {
-            sub_10028C64C();
-          }
-
-          if (0xDB6DB6DB6DB6DB6ELL * ((v74 - __src) >> 5) > v23)
-          {
-            v23 = 0xDB6DB6DB6DB6DB6ELL * ((v74 - __src) >> 5);
-          }
-
-          if ((0x6DB6DB6DB6DB6DB7 * ((v74 - __src) >> 5)) >= 0x92492492492492)
-          {
-            v24 = 0x124924924924924;
-          }
-
-          else
-          {
-            v24 = v23;
-          }
-
-          if (v24)
-          {
-            sub_1006EB5FC(&__src, v24);
-          }
-
-          v25 = (32 * ((v6 - __src) >> 5));
-          v26 = *(v4 + 16);
-          *v25 = *v4;
-          v25[1] = v26;
-          v27 = *(v4 + 32);
-          v28 = *(v4 + 48);
-          v29 = *(v4 + 80);
-          v25[4] = *(v4 + 64);
-          v25[5] = v29;
-          v25[2] = v27;
-          v25[3] = v28;
-          v30 = *(v4 + 96);
-          v31 = *(v4 + 112);
-          v32 = *(v4 + 144);
-          v25[8] = *(v4 + 128);
-          v25[9] = v32;
-          v25[6] = v30;
-          v25[7] = v31;
-          v33 = *(v4 + 160);
-          v34 = *(v4 + 176);
-          v35 = *(v4 + 208);
-          v25[12] = *(v4 + 192);
-          v25[13] = v35;
-          v25[10] = v33;
-          v25[11] = v34;
-          v6 = (224 * v22 + 224);
-          v36 = (224 * v22 - v21);
-          memcpy(v25 - v21, v20, v21);
-          v37 = __src;
-          __src = v36;
-          v73 = v6;
-          v74 = 0;
-          if (v37)
-          {
-            operator delete(v37);
-          }
-        }
-
-        else
-        {
-          v10 = *(v4 + 16);
-          *v6 = *v4;
-          *(v6 + 1) = v10;
-          v11 = *(v4 + 32);
-          v12 = *(v4 + 48);
-          v13 = *(v4 + 80);
-          *(v6 + 4) = *(v4 + 64);
-          *(v6 + 5) = v13;
-          *(v6 + 2) = v11;
-          *(v6 + 3) = v12;
-          v14 = *(v4 + 96);
-          v15 = *(v4 + 112);
-          v16 = *(v4 + 144);
-          *(v6 + 8) = *(v4 + 128);
-          *(v6 + 9) = v16;
-          *(v6 + 6) = v14;
-          *(v6 + 7) = v15;
-          v17 = *(v4 + 160);
-          v18 = *(v4 + 176);
-          v19 = *(v4 + 208);
-          *(v6 + 12) = *(v4 + 192);
-          *(v6 + 13) = v19;
-          *(v6 + 10) = v17;
-          *(v6 + 11) = v18;
-          v6 += 224;
-        }
-
-        v73 = v6;
+        __assert_rtn("set_tracking_state", "CLPVisionEvent.pb.h", 3498, "::CLP::LogEntry::Vision::VIOTrackingState_IsValid(value)");
       }
 
-      v4 += 224;
-    }
-
-    while (v4 != v5);
-    v38 = __src;
-    __p = 0;
-    v70 = 0;
-    v71 = 0;
-    v66 = 0;
-    v67 = 0;
-    v68 = 0;
-    if (__src != v6)
-    {
-      do
-      {
-        v39 = v38[2] - v38[1];
-        if (v39 <= 600.0 && v39 > 60.0)
-        {
-          v41 = *(v38 + 13);
-          if (v41)
-          {
-            v42 = 42;
-          }
-
-          else
-          {
-            v42 = -1;
-          }
-
-          if ((v42 & *(v38 + 49)) == 0)
-          {
-            v43 = v70;
-            if (v70 >= v71)
-            {
-              v45 = __p;
-              v46 = v70 - __p;
-              v47 = (v70 - __p) >> 3;
-              v48 = v47 + 1;
-              if ((v47 + 1) >> 61)
-              {
-                goto LABEL_78;
-              }
-
-              v49 = v71 - __p;
-              if ((v71 - __p) >> 2 > v48)
-              {
-                v48 = v49 >> 2;
-              }
-
-              if (v49 >= 0x7FFFFFFFFFFFFFF8)
-              {
-                v50 = 0x1FFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v50 = v48;
-              }
-
-              if (v50)
-              {
-                sub_1000B9708(&__p, v50);
-              }
-
-              *(8 * v47) = v38[15];
-              v44 = 8 * v47 + 8;
-              memcpy(0, v45, v46);
-              v51 = __p;
-              __p = 0;
-              v70 = v44;
-              v71 = 0;
-              if (v51)
-              {
-                operator delete(v51);
-              }
-            }
-
-            else
-            {
-              *v70 = v38[15];
-              v44 = (v43 + 8);
-            }
-
-            v70 = v44;
-            v41 = *(v38 + 13);
-          }
-
-          if (v41)
-          {
-            v52 = 42;
-          }
-
-          else
-          {
-            v52 = -1;
-          }
-
-          if ((v52 & *(v38 + 51)) == 0)
-          {
-            v53 = v67;
-            if (v67 >= v68)
-            {
-              v55 = v66;
-              v56 = v67 - v66;
-              v57 = (v67 - v66) >> 3;
-              v58 = v57 + 1;
-              if ((v57 + 1) >> 61)
-              {
-LABEL_78:
-                sub_10028C64C();
-              }
-
-              v59 = v68 - v66;
-              if ((v68 - v66) >> 2 > v58)
-              {
-                v58 = v59 >> 2;
-              }
-
-              if (v59 >= 0x7FFFFFFFFFFFFFF8)
-              {
-                v60 = 0x1FFFFFFFFFFFFFFFLL;
-              }
-
-              else
-              {
-                v60 = v58;
-              }
-
-              if (v60)
-              {
-                sub_1000B9708(&v66, v60);
-              }
-
-              *(8 * v57) = v38[17];
-              v54 = 8 * v57 + 8;
-              memcpy(0, v55, v56);
-              v61 = v66;
-              v66 = 0;
-              v67 = v54;
-              v68 = 0;
-              if (v61)
-              {
-                operator delete(v61);
-              }
-            }
-
-            else
-            {
-              *v67 = v38[17];
-              v54 = (v53 + 8);
-            }
-
-            v67 = v54;
-          }
-        }
-
-        v38 += 28;
-      }
-
-      while (v38 != v6);
-    }
-  }
-
-  if (qword_1025D41B0 != -1)
-  {
-    sub_1019551AC();
-  }
-
-  v62 = qword_1025D41B8;
-  if (os_log_type_enabled(qword_1025D41B8, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134349824;
-    v84 = a1;
-    v85 = 2050;
-    v86 = 0x6DB6DB6DB6DB6DB7 * ((v73 - __src) >> 5);
-    v87 = 2050;
-    v88 = (v70 - __p) >> 3;
-    v89 = 2050;
-    v90 = (v67 - v66) >> 3;
-    _os_log_impl(dword_100000000, v62, OS_LOG_TYPE_DEBUG, "SteadinessModelBalance::extractFeatures,classificationTime,%{public}.2f,numBouts,%{public}lu,doubleSupportPercentages,%{public}lu,asymmetryPercentages,%{public}lu", buf, 0x2Au);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019552E8(buf);
-    v75 = 134349824;
-    v76 = a1;
-    v77 = 2050;
-    v78 = 0x6DB6DB6DB6DB6DB7 * ((v73 - __src) >> 5);
-    v79 = 2050;
-    v80 = (v70 - __p) >> 3;
-    v81 = 2050;
-    v82 = (v67 - v66) >> 3;
-    v65 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "Features CLMobility::SteadinessModelBalance::extractFeatures(CFAbsoluteTime, const std::vector<BoutMetrics> &) const", "%s\n", v65);
-    if (v65 != buf)
-    {
-      free(v65);
-    }
-  }
-
-  sub_100FB15E4(&v66);
-  v63 = sub_100FB14B0(&v66);
-  sub_100FB15E4(&__p);
-  sub_100FB13FC(&__p);
-  if (v66)
-  {
-    v67 = v66;
-    operator delete(v66);
-  }
-
-  if (__p)
-  {
-    v70 = __p;
-    operator delete(__p);
-  }
-
-  if (__src)
-  {
-    v73 = __src;
-    operator delete(__src);
-  }
-
-  return v63;
-}
-
-void sub_100846A60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (a15)
-  {
-    operator delete(a15);
-  }
-
-  if (a18)
-  {
-    operator delete(a18);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_100846AEC()
-{
-  result = qword_1026372F8;
-  if (qword_1026372F8)
-  {
-    return (*(*qword_1026372F8 + 8))();
-  }
-
-  return result;
-}
-
-void sub_100846B20(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-  if ((byte_10265A690 & 1) == 0)
-  {
-    byte_10265A690 = 1;
-    v4 = wireless_diagnostics::google::protobuf::internal::VerifyVersion(0x1E9808, 2005000, "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Positioning/ProtobufDefs/CLPPrivateDataCapture.pb.cc", a4);
-    sub_10041B8E4(v4, v5, v6, v7);
-    sub_100D0BBD0(v8, v9, v10, v11);
-    sub_10099907C(v12, v13, v14, v15);
-    sub_101234534(v16, v17, v18, v19);
-    sub_10063BFB8(v20, v21, v22, v23);
-    sub_1015F481C(v24, v25, v26, v27);
-    sub_100B7D4D0(v28, v29, v30, v31);
-    sub_100E72208(v32, v33, v34, v35);
-    sub_100A5714C(v36, v37, v38, v39);
-    sub_1012A34B4(v40, v41, v42, v43);
-    sub_10110985C(v44, v45, v46, v47);
-    sub_1009464B0(v48, v49, v50, v51);
-    sub_100DE4A28(v52, v53, v54, v55);
-    operator new();
-  }
-}
-
-uint64_t sub_100846C64(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-  v5 = sub_10041F7B4(a1, a2, a3, a4);
-  a1[1] = v5;
-  v9 = sub_10042031C(v5, v6, v7, v8);
-  a1[2] = v9;
-  v13 = sub_100420DF8(v9, v10, v11, v12);
-  a1[3] = v13;
-  v17 = sub_100428B50(v13, v14, v15, v16);
-  a1[4] = v17;
-  v21 = sub_10042C350(v17, v18, v19, v20);
-  a1[5] = v21;
-  v25 = sub_10042D5CC(v21, v22, v23, v24);
-  a1[6] = v25;
-  v29 = sub_10043127C(v25, v26, v27, v28);
-  a1[7] = v29;
-  v33 = sub_100431A54(v29, v30, v31, v32);
-  a1[8] = v33;
-  v37 = sub_100431FF8(v33, v34, v35, v36);
-  a1[9] = v37;
-  v41 = sub_100433924(v37, v38, v39, v40);
-  a1[10] = v41;
-  v45 = sub_10043A360(v41, v42, v43, v44);
-  a1[11] = v45;
-  v49 = sub_10043B48C(v45, v46, v47, v48);
-  a1[12] = v49;
-  v53 = sub_100D18D38(v49, v50, v51, v52);
-  a1[13] = v53;
-  v57 = sub_10043CA04(v53, v54, v55, v56);
-  a1[14] = v57;
-  v61 = sub_10043D200(v57, v58, v59, v60);
-  a1[15] = v61;
-  v65 = sub_10044115C(v61, v62, v63, v64);
-  a1[16] = v65;
-  v69 = sub_100443720(v65, v66, v67, v68);
-  a1[17] = v69;
-  v73 = sub_100428B50(v69, v70, v71, v72);
-  a1[18] = v73;
-  v77 = sub_100445F84(v73, v74, v75, v76);
-  a1[19] = v77;
-  v81 = sub_100447F34(v77, v78, v79, v80);
-  a1[20] = v81;
-  v85 = sub_100434DD0(v81, v82, v83, v84);
-  a1[21] = v85;
-  v89 = sub_100449C1C(v85, v86, v87, v88);
-  a1[22] = v89;
-  v93 = sub_1004366EC(v89, v90, v91, v92);
-  a1[23] = v93;
-  v97 = sub_100438190(v93, v94, v95, v96);
-  a1[24] = v97;
-  v101 = sub_10043763C(v97, v98, v99, v100);
-  a1[25] = v101;
-  v105 = sub_100443FD0(v101, v102, v103, v104);
-  a1[26] = v105;
-  v109 = sub_100446CC8(v105, v106, v107, v108);
-  a1[27] = v109;
-  v113 = sub_10044A798(v109, v110, v111, v112);
-  a1[28] = v113;
-  v117 = sub_10044C644(v113, v114, v115, v116);
-  a1[29] = v117;
-  v121 = sub_10044F770(v117, v118, v119, v120);
-  a1[30] = v121;
-  v125 = sub_10045125C(v121, v122, v123, v124);
-  a1[31] = v125;
-  v129 = sub_10042F810(v125, v126, v127, v128);
-  a1[32] = v129;
-  v133 = sub_1004529DC(v129, v130, v131, v132);
-  a1[33] = v133;
-  v137 = sub_1012A8B5C(v133, v134, v135, v136);
-  a1[34] = v137;
-  v141 = sub_100453940(v137, v138, v139, v140);
-  a1[35] = v141;
-  v145 = sub_100E892C0(v141, v142, v143, v144);
-  a1[36] = v145;
-  v149 = sub_100999584(v145, v146, v147, v148);
-  a1[37] = v149;
-  v153 = sub_100B7D960(v149, v150, v151, v152);
-  a1[38] = v153;
-  v157 = sub_1015F4C58(v153, v154, v155, v156);
-  a1[39] = v157;
-  v161 = sub_100A57514(v157, v158, v159, v160);
-  a1[40] = v161;
-  v165 = sub_10110A3F4(v161, v162, v163, v164);
-  a1[41] = v165;
-  v169 = sub_10063C4E4(v165, v166, v167, v168);
-  a1[42] = v169;
-  v173 = sub_101234C38(v169, v170, v171, v172);
-  a1[43] = v173;
-  v177 = sub_100E004C4(v173, v174, v175, v176);
-  a1[44] = v177;
-  v181 = sub_100948B58(v177, v178, v179, v180);
-  a1[45] = v181;
-  v185 = sub_100949290(v181, v182, v183, v184);
-  a1[46] = v185;
-  v189 = sub_100949B20(v185, v186, v187, v188);
-  a1[47] = v189;
-  v193 = sub_10094A3A8(v189, v190, v191, v192);
-  a1[48] = v193;
-  v197 = sub_10094AAC8(v193, v194, v195, v196);
-  a1[49] = v197;
-  v201 = sub_10094B9D4(v197, v198, v199, v200);
-  a1[50] = v201;
-  v205 = sub_10094C200(v201, v202, v203, v204);
-  a1[51] = v205;
-  v209 = sub_10094CA80(v205, v206, v207, v208);
-  a1[52] = v209;
-  v213 = sub_10094D6D4(v209, v210, v211, v212);
-  a1[53] = v213;
-  v217 = sub_10094DDC4(v213, v214, v215, v216);
-  a1[54] = v217;
-  v221 = sub_10094E6B8(v217, v218, v219, v220);
-  a1[55] = v221;
-  v225 = sub_10094ECD8(v221, v222, v223, v224);
-  a1[56] = v225;
-  v229 = sub_10094F3AC(v225, v226, v227, v228);
-  a1[57] = v229;
-  v233 = sub_10094FB08(v229, v230, v231, v232);
-  a1[58] = v233;
-  result = sub_100950174(v233, v234, v235, v236);
-  a1[59] = result;
-  return result;
-}
-
-void sub_100846E5C(uint64_t a1, uint64_t a2)
-{
-  if (a2 == a1)
-  {
-    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
-    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v125);
-  }
-
-  v4 = *(a2 + 488);
-  if (v4)
-  {
-    if (v4)
-    {
-      *(a1 + 488) |= 1u;
-      v5 = *(a1 + 8);
-      if (!v5)
-      {
-        operator new();
-      }
-
+      v5 = *(a2 + 88);
+      *(a2 + 80) = v4;
+      *(a2 + 88) = v5 | 3;
       v6 = *(a2 + 8);
       if (!v6)
       {
-        v6 = *(qword_1026372F8 + 8);
-      }
-
-      sub_10041F6A4(v5, v6);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 2) != 0)
-    {
-      *(a1 + 488) |= 2u;
-      v7 = *(a1 + 16);
-      if (!v7)
-      {
         operator new();
       }
 
-      v8 = *(a2 + 16);
-      if (!v8)
-      {
-        v8 = *(qword_1026372F8 + 16);
-      }
-
-      sub_10042020C(v7, v8);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 4) != 0)
-    {
-      *(a1 + 488) |= 4u;
-      v9 = *(a1 + 24);
+      [a1 originTimestamp];
+      v8 = sub_10081C970(v6, v7);
+      *(a2 + 88) |= 4u;
+      v9 = *(a2 + 16);
       if (!v9)
       {
         operator new();
       }
 
-      v10 = *(a2 + 24);
-      if (!v10)
-      {
-        v10 = *(qword_1026372F8 + 24);
-      }
-
-      sub_100420CE8(v9, v10);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 8) != 0)
-    {
-      *(a1 + 488) |= 8u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        operator new();
-      }
-
-      v12 = *(a2 + 32);
-      if (!v12)
-      {
-        v12 = *(qword_1026372F8 + 32);
-      }
-
-      sub_100428520(v11, v12);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x10) != 0)
-    {
-      *(a1 + 488) |= 0x10u;
-      v13 = *(a1 + 40);
+      [a1 timestamp];
+      v11 = sub_10081C970(v9, v10);
+      objc_msgSend_inertialStateInfo(a1);
+      *(a2 + 88) |= 8u;
+      v13 = *(a2 + 24);
       if (!v13)
       {
         operator new();
       }
 
-      v14 = *(a2 + 40);
-      if (!v14)
+      v14 = v13[4].i32[0];
+      v13->i64[1] = *v60;
+      v12.i32[0] = *&v60[8];
+      v15 = vmovl_u16(*&vmovl_u8(v12));
+      v13[1] = v15;
+      v15.i32[0] = v61;
+      v13[2] = vmovl_u16(*&vmovl_u8(*v15.i8));
+      v16 = v63;
+      v13[3].i32[0] = v62;
+      v13[3].i32[1] = v16;
+      v17 = v64;
+      v13[4].i32[0] = v14 | 0xFFF;
+      v13[3].i32[2] = v17;
+      if ([a1 inertialState])
       {
-        v14 = *(qword_1026372F8 + 40);
+        v18 = [objc_msgSend(a1 "inertialState")];
+        v19 = [objc_msgSend(a1 "inertialState")];
+        v20 = v19;
+        if (v19 > 0x7FFFFFFFFFFFFFF7)
+        {
+          goto LABEL_58;
+        }
+
+        if (v19 >= 0x17)
+        {
+          operator new();
+        }
+
+        BYTE7(v66) = v19;
+        if (v19)
+        {
+          memmove(buf, v18, v19);
+        }
+
+        buf[v20] = 0;
+        *(a2 + 88) |= 0x10u;
+        v27 = *(a2 + 32);
+        if (v27 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+        {
+          operator new();
+        }
+
+        std::string::operator=(v27, buf);
+        if (SBYTE7(v66) < 0)
+        {
+          operator delete(*buf);
+        }
       }
 
-      sub_10042C048(v13, v14);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x20) != 0)
-    {
-      *(a1 + 488) |= 0x20u;
-      v15 = *(a1 + 48);
-      if (!v15)
-      {
-        operator new();
-      }
-
-      v16 = *(a2 + 48);
-      if (!v16)
-      {
-        v16 = *(qword_1026372F8 + 48);
-      }
-
-      sub_10042D2CC(v15, v16);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x40) != 0)
-    {
-      *(a1 + 488) |= 0x40u;
-      v17 = *(a1 + 56);
-      if (!v17)
-      {
-        operator new();
-      }
-
-      v18 = *(a2 + 56);
-      if (!v18)
-      {
-        v18 = *(qword_1026372F8 + 56);
-      }
-
-      sub_100430F74(v17, v18);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x80) != 0)
-    {
-      *(a1 + 488) |= 0x80u;
-      v19 = *(a1 + 64);
-      if (!v19)
-      {
-        operator new();
-      }
-
-      v20 = *(a2 + 64);
-      if (!v20)
-      {
-        v20 = *(qword_1026372F8 + 64);
-      }
-
-      sub_100431950(v19, v20);
-      v4 = *(a2 + 488);
-    }
-  }
-
-  if ((v4 & 0xFF00) != 0)
-  {
-    if ((v4 & 0x100) != 0)
-    {
-      *(a1 + 488) |= 0x100u;
-      v21 = *(a1 + 72);
-      if (!v21)
-      {
-        operator new();
-      }
-
-      v22 = *(a2 + 72);
-      if (!v22)
-      {
-        v22 = *(qword_1026372F8 + 72);
-      }
-
-      sub_100431D68(v21, v22);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x200) != 0)
-    {
-      *(a1 + 488) |= 0x200u;
-      v23 = *(a1 + 80);
-      if (!v23)
-      {
-        operator new();
-      }
-
-      v24 = *(a2 + 80);
-      if (!v24)
-      {
-        v24 = *(qword_1026372F8 + 80);
-      }
-
-      sub_100433614(v23, v24);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x400) != 0)
-    {
-      *(a1 + 488) |= 0x400u;
-      v25 = *(a1 + 88);
-      if (!v25)
-      {
-        operator new();
-      }
-
-      v26 = *(a2 + 88);
-      if (!v26)
-      {
-        v26 = *(qword_1026372F8 + 88);
-      }
-
-      sub_100439E7C(v25, v26);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x800) != 0)
-    {
-      *(a1 + 488) |= 0x800u;
-      v27 = *(a1 + 96);
-      if (!v27)
-      {
-        operator new();
-      }
-
-      v28 = *(a2 + 96);
-      if (!v28)
-      {
-        v28 = *(qword_1026372F8 + 96);
-      }
-
-      sub_10043B24C(v27, v28);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x1000) != 0)
-    {
-      *(a1 + 488) |= 0x1000u;
-      v29 = *(a1 + 104);
+      objc_msgSend_inertialCovarianceInfo(a1);
+      *(a2 + 88) |= 0x20u;
+      v29 = *(a2 + 40);
       if (!v29)
       {
         operator new();
       }
 
-      v30 = *(a2 + 104);
-      if (!v30)
-      {
-        v30 = *(qword_1026372F8 + 104);
-      }
-
-      sub_100D18A4C(v29, v30);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x2000) != 0)
-    {
-      *(a1 + 488) |= 0x2000u;
-      v31 = *(a1 + 112);
-      if (!v31)
-      {
-        operator new();
-      }
-
-      v32 = *(a2 + 112);
-      if (!v32)
-      {
-        v32 = *(qword_1026372F8 + 112);
-      }
-
-      sub_10043C824(v31, v32);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x4000) != 0)
-    {
-      *(a1 + 488) |= 0x4000u;
-      v33 = *(a1 + 120);
-      if (!v33)
-      {
-        operator new();
-      }
-
-      v34 = *(a2 + 120);
-      if (!v34)
-      {
-        v34 = *(qword_1026372F8 + 120);
-      }
-
-      sub_10043D038(v33, v34);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x8000) != 0)
-    {
-      *(a1 + 488) |= 0x8000u;
-      v35 = *(a1 + 128);
-      if (!v35)
-      {
-        operator new();
-      }
-
-      v36 = *(a2 + 128);
-      if (!v36)
-      {
-        v36 = *(qword_1026372F8 + 128);
-      }
-
-      sub_100440E30(v35, v36);
-      v4 = *(a2 + 488);
-    }
-  }
-
-  if ((v4 & 0xFF0000) != 0)
-  {
-    if ((v4 & 0x10000) != 0)
-    {
-      *(a1 + 488) |= 0x10000u;
-      v37 = *(a1 + 136);
-      if (!v37)
-      {
-        operator new();
-      }
-
-      v38 = *(a2 + 136);
-      if (!v38)
-      {
-        v38 = *(qword_1026372F8 + 136);
-      }
-
-      sub_1004433CC(v37, v38);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x20000) != 0)
-    {
-      *(a1 + 488) |= 0x20000u;
-      v39 = *(a1 + 144);
-      if (!v39)
-      {
-        operator new();
-      }
-
-      v40 = *(a2 + 144);
-      if (!v40)
-      {
-        v40 = *(qword_1026372F8 + 144);
-      }
-
-      sub_100428520(v39, v40);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x40000) != 0)
-    {
-      *(a1 + 488) |= 0x40000u;
-      v41 = *(a1 + 152);
-      if (!v41)
-      {
-        operator new();
-      }
-
-      v42 = *(a2 + 152);
-      if (!v42)
-      {
-        v42 = *(qword_1026372F8 + 152);
-      }
-
-      sub_100445B40(v41, v42);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x80000) != 0)
-    {
-      *(a1 + 488) |= 0x80000u;
-      v43 = *(a1 + 160);
-      if (!v43)
-      {
-        operator new();
-      }
-
-      v44 = *(a2 + 160);
-      if (!v44)
-      {
-        v44 = *(qword_1026372F8 + 160);
-      }
-
-      sub_100447D60(v43, v44);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x100000) != 0)
-    {
-      *(a1 + 488) |= 0x100000u;
-      v45 = *(a1 + 168);
-      if (!v45)
-      {
-        operator new();
-      }
-
-      v46 = *(a2 + 168);
-      if (!v46)
-      {
-        v46 = *(qword_1026372F8 + 168);
-      }
-
-      sub_100434ACC(v45, v46);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x200000) != 0)
-    {
-      *(a1 + 488) |= 0x200000u;
-      v47 = *(a1 + 176);
-      if (!v47)
-      {
-        operator new();
-      }
-
-      v48 = *(a2 + 176);
-      if (!v48)
-      {
-        v48 = *(qword_1026372F8 + 176);
-      }
-
-      sub_1004498A8(v47, v48);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x400000) != 0)
-    {
-      *(a1 + 488) |= 0x400000u;
-      v49 = *(a1 + 184);
-      if (!v49)
-      {
-        operator new();
-      }
-
-      v50 = *(a2 + 184);
-      if (!v50)
-      {
-        v50 = *(qword_1026372F8 + 184);
-      }
-
-      sub_1004363D8(v49, v50);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x800000) != 0)
-    {
-      *(a1 + 488) |= 0x800000u;
-      v51 = *(a1 + 192);
-      if (!v51)
-      {
-        operator new();
-      }
-
-      v52 = *(a2 + 192);
-      if (!v52)
-      {
-        v52 = *(qword_1026372F8 + 192);
-      }
-
-      sub_100437D70(v51, v52);
-      v4 = *(a2 + 488);
-    }
-  }
-
-  if (HIBYTE(v4))
-  {
-    if ((v4 & 0x1000000) != 0)
-    {
-      *(a1 + 488) |= 0x1000000u;
-      v53 = *(a1 + 200);
-      if (!v53)
-      {
-        operator new();
-      }
-
-      v54 = *(a2 + 200);
-      if (!v54)
-      {
-        v54 = *(qword_1026372F8 + 200);
-      }
-
-      sub_100437450(v53, v54);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x2000000) != 0)
-    {
-      *(a1 + 488) |= 0x2000000u;
-      v55 = *(a1 + 208);
-      if (!v55)
-      {
-        operator new();
-      }
-
-      v56 = *(a2 + 208);
-      if (!v56)
-      {
-        v56 = *(qword_1026372F8 + 208);
-      }
-
-      sub_100443DF0(v55, v56);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x4000000) != 0)
-    {
-      *(a1 + 488) |= 0x4000000u;
-      v57 = *(a1 + 216);
-      if (!v57)
-      {
-        operator new();
-      }
-
-      v58 = *(a2 + 216);
-      if (!v58)
-      {
-        v58 = *(qword_1026372F8 + 216);
-      }
-
-      sub_100446AE8(v57, v58);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x8000000) != 0)
-    {
-      *(a1 + 488) |= 0x8000000u;
-      v59 = *(a1 + 224);
-      if (!v59)
-      {
-        operator new();
-      }
-
-      v60 = *(a2 + 224);
-      if (!v60)
-      {
-        v60 = *(qword_1026372F8 + 224);
-      }
-
-      sub_10044A624(v59, v60);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x10000000) != 0)
-    {
-      *(a1 + 488) |= 0x10000000u;
-      v61 = *(a1 + 232);
-      if (!v61)
-      {
-        operator new();
-      }
-
-      v62 = *(a2 + 232);
-      if (!v62)
-      {
-        v62 = *(qword_1026372F8 + 232);
-      }
-
-      sub_10044C328(v61, v62);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x20000000) != 0)
-    {
-      *(a1 + 488) |= 0x20000000u;
-      v63 = *(a1 + 240);
-      if (!v63)
-      {
-        operator new();
-      }
-
-      v64 = *(a2 + 240);
-      if (!v64)
-      {
-        v64 = *(qword_1026372F8 + 240);
-      }
-
-      sub_10044F570(v63, v64);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x40000000) != 0)
-    {
-      *(a1 + 488) |= 0x40000000u;
-      v65 = *(a1 + 248);
-      if (!v65)
-      {
-        operator new();
-      }
-
-      v66 = *(a2 + 248);
-      if (!v66)
-      {
-        v66 = *(qword_1026372F8 + 248);
-      }
-
-      sub_100450EBC(v65, v66);
-      v4 = *(a2 + 488);
-    }
-
-    if ((v4 & 0x80000000) != 0)
-    {
-      *(a1 + 488) |= 0x80000000;
-      v67 = *(a1 + 256);
-      if (!v67)
-      {
-        operator new();
-      }
-
-      v68 = *(a2 + 256);
-      if (!v68)
-      {
-        v68 = *(qword_1026372F8 + 256);
-      }
-
-      sub_10042F50C(v67, v68);
-    }
-  }
-
-  v69 = *(a2 + 492);
-  if (v69)
-  {
-    if (v69)
-    {
-      *(a1 + 492) |= 1u;
-      v70 = *(a1 + 264);
-      if (!v70)
-      {
-        operator new();
-      }
-
-      v71 = *(a2 + 264);
-      if (!v71)
-      {
-        v71 = *(qword_1026372F8 + 264);
-      }
-
-      sub_100452438(v70, v71);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 2) != 0)
-    {
-      *(a1 + 492) |= 2u;
-      v72 = *(a1 + 272);
-      if (!v72)
-      {
-        operator new();
-      }
-
-      v73 = *(a2 + 272);
-      if (!v73)
-      {
-        v73 = *(qword_1026372F8 + 272);
-      }
-
-      sub_1012A8884(v72, v73);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 4) != 0)
-    {
-      *(a1 + 492) |= 4u;
-      v74 = *(a1 + 280);
-      if (!v74)
-      {
-        operator new();
-      }
-
-      v75 = *(a2 + 280);
-      if (!v75)
-      {
-        v75 = *(qword_1026372F8 + 280);
-      }
-
-      sub_10045377C(v74, v75);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 8) != 0)
-    {
-      *(a1 + 492) |= 8u;
-      v76 = *(a1 + 288);
-      if (!v76)
-      {
-        operator new();
-      }
-
-      v77 = *(a2 + 288);
-      if (!v77)
-      {
-        v77 = *(qword_1026372F8 + 288);
-      }
-
-      sub_100E88DC8(v76, v77);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x10) != 0)
-    {
-      *(a1 + 492) |= 0x10u;
-      v78 = *(a1 + 296);
-      if (!v78)
-      {
-        operator new();
-      }
-
-      v79 = *(a2 + 296);
-      if (!v79)
-      {
-        v79 = *(qword_1026372F8 + 296);
-      }
-
-      sub_100999298(v78, v79);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x20) != 0)
-    {
-      *(a1 + 492) |= 0x20u;
-      v80 = *(a1 + 304);
-      if (!v80)
-      {
-        operator new();
-      }
-
-      v81 = *(a2 + 304);
-      if (!v81)
-      {
-        v81 = *(qword_1026372F8 + 304);
-      }
-
-      sub_100B7D5DC(v80, v81);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x40) != 0)
-    {
-      *(a1 + 492) |= 0x40u;
-      v82 = *(a1 + 312);
-      if (!v82)
-      {
-        operator new();
-      }
-
-      v83 = *(a2 + 312);
-      if (!v83)
-      {
-        v83 = *(qword_1026372F8 + 312);
-      }
-
-      sub_1015F4A80(v82, v83);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x80) != 0)
-    {
-      *(a1 + 492) |= 0x80u;
-      v84 = *(a1 + 320);
-      if (!v84)
-      {
-        operator new();
-      }
-
-      v85 = *(a2 + 320);
-      if (!v85)
-      {
-        v85 = *(qword_1026372F8 + 320);
-      }
-
-      sub_100A5734C(v84, v85);
-      v69 = *(a2 + 492);
-    }
-  }
-
-  if ((v69 & 0xFF00) != 0)
-  {
-    if ((v69 & 0x100) != 0)
-    {
-      *(a1 + 492) |= 0x100u;
-      v86 = *(a1 + 328);
-      if (!v86)
-      {
-        operator new();
-      }
-
-      v87 = *(a2 + 328);
-      if (!v87)
-      {
-        v87 = *(qword_1026372F8 + 328);
-      }
-
-      sub_101109E9C(v86, v87);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x200) != 0)
-    {
-      *(a1 + 492) |= 0x200u;
-      v88 = *(a1 + 336);
-      if (!v88)
-      {
-        operator new();
-      }
-
-      v89 = *(a2 + 336);
-      if (!v89)
-      {
-        v89 = *(qword_1026372F8 + 336);
-      }
-
-      sub_10063C314(v88, v89);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x400) != 0)
-    {
-      *(a1 + 492) |= 0x400u;
-      v90 = *(a1 + 344);
-      if (!v90)
-      {
-        operator new();
-      }
-
-      v91 = *(a2 + 344);
-      if (!v91)
-      {
-        v91 = *(qword_1026372F8 + 344);
-      }
-
-      sub_10123488C(v90, v91);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x800) != 0)
-    {
-      *(a1 + 492) |= 0x800u;
-      v92 = *(a1 + 352);
-      if (!v92)
-      {
-        operator new();
-      }
-
-      v93 = *(a2 + 352);
-      if (!v93)
-      {
-        v93 = *(qword_1026372F8 + 352);
-      }
-
-      sub_100DFF9EC(v92, v93);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x1000) != 0)
-    {
-      *(a1 + 492) |= 0x1000u;
-      v94 = *(a1 + 360);
-      if (!v94)
-      {
-        operator new();
-      }
-
-      v95 = *(a2 + 360);
-      if (!v95)
-      {
-        v95 = *(qword_1026372F8 + 360);
-      }
-
-      sub_100948958(v94, v95);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x2000) != 0)
-    {
-      *(a1 + 492) |= 0x2000u;
-      v96 = *(a1 + 368);
-      if (!v96)
-      {
-        operator new();
-      }
-
-      v97 = *(a2 + 368);
-      if (!v97)
-      {
-        v97 = *(qword_1026372F8 + 368);
-      }
-
-      sub_100949034(v96, v97);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x4000) != 0)
-    {
-      *(a1 + 492) |= 0x4000u;
-      v98 = *(a1 + 376);
-      if (!v98)
-      {
-        operator new();
-      }
-
-      v99 = *(a2 + 376);
-      if (!v99)
-      {
-        v99 = *(qword_1026372F8 + 376);
-      }
-
-      sub_100949960(v98, v99);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x8000) != 0)
-    {
-      v100 = *(a2 + 480);
-      if (!sub_10041ECEC(v100))
-      {
-        sub_10195532C();
-      }
-
-      *(a1 + 492) |= 0x8000u;
-      *(a1 + 480) = v100;
-      v69 = *(a2 + 492);
-    }
-  }
-
-  if ((v69 & 0xFF0000) != 0)
-  {
-    if ((v69 & 0x10000) != 0)
-    {
-      *(a1 + 492) |= 0x10000u;
-      v101 = *(a1 + 384);
-      if (!v101)
-      {
-        operator new();
-      }
-
-      v102 = *(a2 + 384);
-      if (!v102)
-      {
-        v102 = *(qword_1026372F8 + 384);
-      }
-
-      sub_10094A19C(v101, v102);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x20000) != 0)
-    {
-      *(a1 + 492) |= 0x20000u;
-      v103 = *(a1 + 392);
-      if (!v103)
-      {
-        operator new();
-      }
-
-      v104 = *(a2 + 392);
-      if (!v104)
-      {
-        v104 = *(qword_1026372F8 + 392);
-      }
-
-      sub_10094A8BC(v103, v104);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x40000) != 0)
-    {
-      *(a1 + 492) |= 0x40000u;
-      v105 = *(a1 + 400);
-      if (!v105)
-      {
-        operator new();
-      }
-
-      v106 = *(a2 + 400);
-      if (!v106)
-      {
-        v106 = *(qword_1026372F8 + 400);
-      }
-
-      sub_10094B6E0(v105, v106);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x80000) != 0)
-    {
-      *(a1 + 492) |= 0x80000u;
-      v107 = *(a1 + 408);
-      if (!v107)
-      {
-        operator new();
-      }
-
-      v108 = *(a2 + 408);
-      if (!v108)
-      {
-        v108 = *(qword_1026372F8 + 408);
-      }
-
-      sub_10094BFBC(v107, v108);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x100000) != 0)
-    {
-      *(a1 + 492) |= 0x100000u;
-      v109 = *(a1 + 416);
-      if (!v109)
-      {
-        operator new();
-      }
-
-      v110 = *(a2 + 416);
-      if (!v110)
-      {
-        v110 = *(qword_1026372F8 + 416);
-      }
-
-      sub_10094C86C(v109, v110);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x200000) != 0)
-    {
-      *(a1 + 492) |= 0x200000u;
-      v111 = *(a1 + 424);
-      if (!v111)
-      {
-        operator new();
-      }
-
-      v112 = *(a2 + 424);
-      if (!v112)
-      {
-        v112 = *(qword_1026372F8 + 424);
-      }
-
-      sub_10094D4BC(v111, v112);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x400000) != 0)
-    {
-      *(a1 + 492) |= 0x400000u;
-      v113 = *(a1 + 432);
-      if (!v113)
-      {
-        operator new();
-      }
-
-      v114 = *(a2 + 432);
-      if (!v114)
-      {
-        v114 = *(qword_1026372F8 + 432);
-      }
-
-      sub_10094DC84(v113, v114);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x800000) != 0)
-    {
-      *(a1 + 492) |= 0x800000u;
-      v115 = *(a1 + 440);
-      if (!v115)
-      {
-        operator new();
-      }
-
-      v116 = *(a2 + 440);
-      if (!v116)
-      {
-        v116 = *(qword_1026372F8 + 440);
-      }
-
-      sub_10094E4FC(v115, v116);
-      v69 = *(a2 + 492);
-    }
-  }
-
-  if (HIBYTE(v69))
-  {
-    if ((v69 & 0x1000000) != 0)
-    {
-      *(a1 + 492) |= 0x1000000u;
-      v117 = *(a1 + 448);
-      if (!v117)
-      {
-        operator new();
-      }
-
-      v118 = *(a2 + 448);
-      if (!v118)
-      {
-        v118 = *(qword_1026372F8 + 448);
-      }
-
-      sub_10094EAEC(v117, v118);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x2000000) != 0)
-    {
-      *(a1 + 492) |= 0x2000000u;
-      v119 = *(a1 + 456);
-      if (!v119)
-      {
-        operator new();
-      }
-
-      v120 = *(a2 + 456);
-      if (!v120)
-      {
-        v120 = *(qword_1026372F8 + 456);
-      }
-
-      sub_10094F1A0(v119, v120);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x4000000) != 0)
-    {
-      *(a1 + 492) |= 0x4000000u;
-      v121 = *(a1 + 464);
-      if (!v121)
-      {
-        operator new();
-      }
-
-      v122 = *(a2 + 464);
-      if (!v122)
-      {
-        v122 = *(qword_1026372F8 + 464);
-      }
-
-      sub_10094F928(v121, v122);
-      v69 = *(a2 + 492);
-    }
-
-    if ((v69 & 0x8000000) != 0)
-    {
-      *(a1 + 492) |= 0x8000000u;
-      v123 = *(a1 + 472);
-      if (!v123)
-      {
-        operator new();
-      }
-
-      v124 = *(a2 + 472);
-      if (!v124)
-      {
-        v124 = *(qword_1026372F8 + 472);
-      }
-
-      sub_10094FF40(v123, v124);
-    }
-  }
-}
-
-void sub_100848660(uint64_t a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
-  JUMPOUT(0x100848658);
-}
-
-void sub_100848674(wireless_diagnostics::google::protobuf::MessageLite *a1)
-{
-  *a1 = off_102476928;
-  sub_1000150A4(a1);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(a1);
-}
-
-uint64_t sub_1008486C8(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-  result = qword_1026372F8;
-  if (!qword_1026372F8)
-  {
-    sub_100846B20(0, a2, a3, a4);
-    return qword_1026372F8;
-  }
-
-  return result;
-}
-
-uint64_t sub_1008487A8(uint64_t result)
-{
-  v1 = result;
-  v2 = *(result + 488);
-  if (v2)
-  {
-    if (v2)
-    {
-      result = *(result + 8);
-      if (result)
-      {
-        result = sub_10041F838(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 2) != 0)
-    {
-      result = *(v1 + 16);
-      if (result)
-      {
-        result = sub_1004203A0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 4) != 0)
-    {
-      result = *(v1 + 24);
-      if (result)
-      {
-        result = sub_100420E7C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 8) != 0)
-    {
-      result = *(v1 + 32);
-      if (result)
-      {
-        result = sub_100428BF0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x10) != 0)
-    {
-      result = *(v1 + 40);
-      if (result)
-      {
-        result = sub_10042C3D0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x20) != 0)
-    {
-      result = *(v1 + 48);
-      if (result)
-      {
-        result = sub_10042D64C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x40) != 0)
-    {
-      result = *(v1 + 56);
-      if (result)
-      {
-        result = sub_1004312FC(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x80) != 0)
-    {
-      result = *(v1 + 64);
-      if (result)
-      {
-        result = sub_100431AD0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-  }
-
-  if ((v2 & 0xFF00) != 0)
-  {
-    if ((v2 & 0x100) != 0)
-    {
-      result = *(v1 + 72);
-      if (result)
-      {
-        result = sub_100432080(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x200) != 0)
-    {
-      result = *(v1 + 80);
-      if (result)
-      {
-        result = sub_1004339A4(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x400) != 0)
-    {
-      result = *(v1 + 88);
-      if (result)
-      {
-        result = sub_10043A3F0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x800) != 0)
-    {
-      result = *(v1 + 96);
-      if (result)
-      {
-        result = sub_10043B514(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x1000) != 0)
-    {
-      result = *(v1 + 104);
-      if (result)
-      {
-        result = sub_100D18DDC(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x2000) != 0)
-    {
-      result = *(v1 + 112);
-      if (result)
-      {
-        result = sub_10043CA88(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x4000) != 0)
-    {
-      result = *(v1 + 120);
-      if (result)
-      {
-        result = sub_10043D27C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x8000) != 0)
-    {
-      result = *(v1 + 128);
-      if (result)
-      {
-        result = sub_1004411DC(result);
-        v2 = *(v1 + 488);
-      }
-    }
-  }
-
-  if ((v2 & 0xFF0000) != 0)
-  {
-    if ((v2 & 0x10000) != 0)
-    {
-      result = *(v1 + 136);
-      if (result)
-      {
-        result = sub_1004437A4(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x20000) != 0)
-    {
-      result = *(v1 + 144);
-      if (result)
-      {
-        result = sub_100428BF0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x40000) != 0)
-    {
-      result = *(v1 + 152);
-      if (result)
-      {
-        result = sub_100446010(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x80000) != 0)
-    {
-      result = *(v1 + 160);
-      if (result)
-      {
-        result = sub_100447FB0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x100000) != 0)
-    {
-      result = *(v1 + 168);
-      if (result)
-      {
-        result = sub_100434E50(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x200000) != 0)
-    {
-      result = *(v1 + 176);
-      if (result)
-      {
-        result = sub_100449CA8(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x400000) != 0)
-    {
-      result = *(v1 + 184);
-      if (result)
-      {
-        result = sub_10043676C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x800000) != 0)
-    {
-      result = *(v1 + 192);
-      if (result)
-      {
-        result = sub_100438224(result);
-        v2 = *(v1 + 488);
-      }
-    }
-  }
-
-  if (HIBYTE(v2))
-  {
-    if ((v2 & 0x1000000) != 0)
-    {
-      result = *(v1 + 200);
-      if (result)
-      {
-        result = sub_1004376C8(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x2000000) != 0)
-    {
-      result = *(v1 + 208);
-      if (result)
-      {
-        result = sub_100444054(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x4000000) != 0)
-    {
-      result = *(v1 + 216);
-      if (result)
-      {
-        result = sub_100446D4C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x8000000) != 0)
-    {
-      result = *(v1 + 224);
-      if (result)
-      {
-        result = sub_10044A81C(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x10000000) != 0)
-    {
-      result = *(v1 + 232);
-      if (result)
-      {
-        result = sub_10044C6D0(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x20000000) != 0)
-    {
-      result = *(v1 + 240);
-      if (result)
-      {
-        result = sub_10044F7F8(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x40000000) != 0)
-    {
-      result = *(v1 + 248);
-      if (result)
-      {
-        result = sub_1004512E4(result);
-        v2 = *(v1 + 488);
-      }
-    }
-
-    if ((v2 & 0x80000000) != 0)
-    {
-      result = *(v1 + 256);
-      if (result)
-      {
-        result = sub_10042F890(result);
-      }
-    }
-  }
-
-  v3 = *(v1 + 492);
-  if (v3)
-  {
-    if (v3)
-    {
-      result = *(v1 + 264);
-      if (result)
-      {
-        result = sub_100452A68(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 2) != 0)
-    {
-      result = *(v1 + 272);
-      if (result)
-      {
-        result = sub_1012A8BF0(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 4) != 0)
-    {
-      result = *(v1 + 280);
-      if (result)
-      {
-        result = sub_1004539D0(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 8) != 0)
-    {
-      result = *(v1 + 288);
-      if (result)
-      {
-        result = sub_100E8934C(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x10) != 0)
-    {
-      result = *(v1 + 296);
-      if (result)
-      {
-        result = sub_100999600(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x20) != 0)
-    {
-      result = *(v1 + 304);
-      if (result)
-      {
-        result = sub_100B7D9E8(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x40) != 0)
-    {
-      result = *(v1 + 312);
-      if (result)
-      {
-        result = sub_1015F4CD4(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x80) != 0)
-    {
-      result = *(v1 + 320);
-      if (result)
-      {
-        result = sub_100A57590(result);
-        v3 = *(v1 + 492);
-      }
-    }
-  }
-
-  if ((v3 & 0xFF00) != 0)
-  {
-    if ((v3 & 0x100) != 0)
-    {
-      result = *(v1 + 328);
-      if (result)
-      {
-        result = sub_10110A484(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x200) != 0)
-    {
-      result = *(v1 + 336);
-      if (result)
-      {
-        result = sub_10063C560(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x400) != 0)
-    {
-      result = *(v1 + 344);
-      if (result)
-      {
-        result = sub_101234CC0(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x800) != 0)
-    {
-      result = *(v1 + 352);
-      if (result)
-      {
-        result = sub_100E00574(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x1000) != 0)
-    {
-      result = *(v1 + 360);
-      if (result)
-      {
-        result = sub_100948BD8(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x2000) != 0)
-    {
-      result = *(v1 + 368);
-      if (result)
-      {
-        result = sub_100949310(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x4000) != 0)
-    {
-      result = *(v1 + 376);
-      if (result)
-      {
-        result = sub_100949BAC(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    *(v1 + 480) = 0;
-  }
-
-  if ((v3 & 0xFF0000) != 0)
-  {
-    if ((v3 & 0x10000) != 0)
-    {
-      result = *(v1 + 384);
-      if (result)
-      {
-        result = sub_10094A428(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x20000) != 0)
-    {
-      result = *(v1 + 392);
-      if (result)
-      {
-        result = sub_10094AB48(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x40000) != 0)
-    {
-      result = *(v1 + 400);
-      if (result)
-      {
-        result = sub_10094BA50(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x80000) != 0)
-    {
-      result = *(v1 + 408);
-      if (result)
-      {
-        result = sub_10094C280(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x100000) != 0)
-    {
-      result = *(v1 + 416);
-      if (result)
-      {
-        result = sub_10094CB0C(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x200000) != 0)
-    {
-      result = *(v1 + 424);
-      if (result)
-      {
-        result = sub_10094D750(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x400000) != 0)
-    {
-      result = *(v1 + 432);
-      if (result)
-      {
-        result = sub_10094DE50(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x800000) != 0)
-    {
-      result = *(v1 + 440);
-      if (result)
-      {
-        result = sub_10094E740(result);
-        v3 = *(v1 + 492);
-      }
-    }
-  }
-
-  if (HIBYTE(v3))
-  {
-    if ((v3 & 0x1000000) != 0)
-    {
-      result = *(v1 + 448);
-      if (result)
-      {
-        result = sub_10094ED64(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x2000000) != 0)
-    {
-      result = *(v1 + 456);
-      if (result)
-      {
-        result = sub_10094F438(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x4000000) != 0)
-    {
-      result = *(v1 + 464);
-      if (result)
-      {
-        result = sub_10094FB90(result);
-        v3 = *(v1 + 492);
-      }
-    }
-
-    if ((v3 & 0x8000000) != 0)
-    {
-      result = *(v1 + 472);
-      if (result)
-      {
-        result = sub_1009501F0(result);
-      }
-    }
-  }
-
-  *(v1 + 488) = 0;
-  return result;
-}
-
-uint64_t sub_100848CAC(uint64_t a1, wireless_diagnostics::google::protobuf::internal::WireFormatLite *this, unsigned int a3)
-{
-  while (1)
-  {
-    while (1)
-    {
-      while (1)
-      {
-        v5 = *(this + 1);
-        if (v5 >= *(this + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
+      v30 = v29[4].i32[0];
+      v29->i64[1] = v53;
+      v28.i32[0] = v54;
+      v31 = vmovl_u16(*&vmovl_u8(v28));
+      v29[1] = v31;
+      v31.i32[0] = v55;
+      v29[2] = vmovl_u16(*&vmovl_u8(*v31.i8));
+      v29[3].i32[0] = v56;
+      v29[3].i32[1] = v57;
+      v29[4].i32[0] = v30 | 0xFFF;
+      v29[3].i32[2] = v58;
+      if (![a1 inertialCovariance])
+      {
+        goto LABEL_49;
+      }
+
+      v32 = [objc_msgSend(a1 "inertialCovariance")];
+      v33 = [objc_msgSend(a1 "inertialCovariance")];
+      v34 = v33;
+      if (v33 <= 0x7FFFFFFFFFFFFFF7)
+      {
+        if (v33 >= 0x17)
         {
-          TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(this);
-          *(this + 8) = TagFallback;
-          if (!TagFallback)
+          operator new();
+        }
+
+        BYTE7(v66) = v33;
+        if (v33)
+        {
+          memmove(buf, v32, v33);
+        }
+
+        buf[v34] = 0;
+        *(a2 + 88) |= 0x40u;
+        v35 = *(a2 + 48);
+        if (v35 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+        {
+          operator new();
+        }
+
+        std::string::operator=(v35, buf);
+        if (SBYTE7(v66) < 0)
+        {
+          operator delete(*buf);
+        }
+
+LABEL_49:
+        *(a2 + 88) |= 0x80u;
+        v36 = *(a2 + 56);
+        if (!v36)
+        {
+          operator new();
+        }
+
+        [a1 cameraPose];
+        *buf = v37;
+        v66 = v38;
+        v67 = v39;
+        v68 = v40;
+        v41 = sub_10081CEAC(buf, v36);
+        *(a2 + 88) |= 0x100u;
+        v42 = *(a2 + 64);
+        if (!v42)
+        {
+          operator new();
+        }
+
+        [a1 cameraIntrinsics];
+        *&buf[8] = v43;
+        DWORD2(v66) = v44;
+        *buf = v45;
+        *&v66 = v46;
+        DWORD2(v67) = v47;
+        *&v67 = v48;
+        v49 = sub_10081D210(buf, v42);
+        [a1 cameraImageResolution];
+        *(a2 + 88) |= 0x200u;
+        v52 = *(a2 + 72);
+        if (!v52)
+        {
+          operator new();
+        }
+
+        *(v52 + 28) |= 3u;
+        result = v8 & v11 & v41 & v49;
+        *(v52 + 8) = v50;
+        *(v52 + 16) = v51;
+        return result;
+      }
+
+LABEL_58:
+      sub_100061080();
+    }
+
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v25 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      *&buf[4] = 0;
+      _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_ERROR, "CLVPC,fromCLVIOEstimation,Invalid output pointer,pEstimationMsg,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      *v60 = 134283521;
+      *&v60[4] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLVIOEstimation,Invalid output pointer,pEstimationMsg,%{private}p", v60, 12);
+      v24 = v26;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLVIOEstimation(const _CLVIOEstimation *const, CLP::LogEntry::Vision::VIOEstimation *)", "%s\n", v26);
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v21 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      *&buf[4] = 0;
+      _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_ERROR, "CLVPC,fromCLVIOEstimation,Invalid input pointer,estimation,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      *v60 = 134283521;
+      *&v60[4] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLVIOEstimation,Invalid input pointer,estimation,%{private}p", v60, 12);
+      v24 = v23;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLVIOEstimation(const _CLVIOEstimation *const, CLP::LogEntry::Vision::VIOEstimation *)", "%s\n", v23);
+LABEL_27:
+      if (v24 != buf)
+      {
+        free(v24);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10081C704(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10081C7D8(unsigned int a1, int *a2)
+{
+  v3 = a1;
+  if (a1 >= 5)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "CLVPC,fromCV3DVIOTrackingState,Received unhandled vio tracking state: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCV3DVIOTrackingState,Received unhandled vio tracking state: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCV3DVIOTrackingState(const CV3DVIOTrackingState, CLP::LogEntry::Vision::VIOTrackingState &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = -1;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_10081C964(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_10081C970(uint64_t a1, double a2)
+{
+  v28 = a2;
+  if (a1)
+  {
+    *(a1 + 36) |= 2u;
+    *(a1 + 16) = a2;
+    if (*&a2 > -1 && ((*&a2 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF || (*&a2 - 1) < 0xFFFFFFFFFFFFFLL || (*&a2 & 0x7FFFFFFFFFFFFFFFLL) == 0)
+    {
+      *v29 = 0;
+      v7 = sub_10081BD2C();
+      v8 = sub_100309F2C(v7, &v28, v29);
+      if (v8)
+      {
+        v9 = *v29;
+        *(a1 + 36) |= 1u;
+        *(a1 + 8) = v9;
+      }
+
+      else
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v16 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToCFAbsolute_RealTime failed", buf, 2u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          LOWORD(v27) = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToCFAbsolute_RealTime failed", &v27, 2);
+          v22 = v21;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::Vision::TimeStamp *)", "%s\n", v21);
+          if (v22 != buf)
           {
-            return 1;
+            free(v22);
+          }
+        }
+      }
+
+      v27 = 0;
+      v17 = sub_10081BD2C();
+      v18 = sub_100131674(v17, &v28, &v27);
+      if (v18)
+      {
+        v19 = v27;
+        *(a1 + 36) |= 4u;
+        *(a1 + 24) = v19;
+      }
+
+      else
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v20 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToMachContinuous_RealTime failed", buf, 2u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v26[0] = 0;
+          LODWORD(v25) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToMachContinuous_RealTime failed", v26, v25);
+          v24 = v23;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::Vision::TimeStamp *)", "%s\n", v23);
+          if (v24 != buf)
+          {
+            free(v24);
+          }
+        }
+      }
+
+      return v8 & v18;
+    }
+
+    else
+    {
+      if (qword_1025D46A0 != -1)
+      {
+        sub_10194A79C();
+      }
+
+      v14 = qword_1025D46A8;
+      if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134349056;
+        v31 = a2;
+        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,Invalid input value,machAbsoluteTime,%{public}.3lf", buf, 0xCu);
+      }
+
+      result = sub_10000A100(121, 0);
+      if (result)
+      {
+        sub_10194A7B0(buf);
+        *v29 = 134349056;
+        *&v29[4] = v28;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,Invalid input value,machAbsoluteTime,%{public}.3lf", v29, 12);
+        v13 = v15;
+        sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::Vision::TimeStamp *)", "%s\n", v15);
+        goto LABEL_27;
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v10 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v31 = 0.0;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,Invalid output pointer,pTimeStampMsg,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      *v29 = 134283521;
+      *&v29[4] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,Invalid output pointer,pTimeStampMsg,%{private}p", v29, 12);
+      v13 = v12;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::Vision::TimeStamp *)", "%s\n", v12);
+LABEL_27:
+      if (v13 != buf)
+      {
+        free(v13);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10081CEA0(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_10081CEAC(uint64_t a1, int *a2)
+{
+  if (a2)
+  {
+    sub_1003C79DC((a2 + 2));
+    wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), 4);
+    v4 = 0;
+    LODWORD(v5) = 1;
+    do
+    {
+      v6 = a2[5];
+      v7 = a2[4];
+      if (v7 >= v6)
+      {
+        if (v6 == a2[6])
+        {
+          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), v6 + 1);
+          v6 = a2[5];
+        }
+
+        a2[5] = v6 + 1;
+        sub_100821DC0();
+      }
+
+      v8 = *(a2 + 1);
+      a2[4] = v7 + 1;
+      v9 = sub_100821934(a1, *(v8 + 8 * v7));
+      v10 = v9;
+      if (!v9)
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v11 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67240192;
+          LODWORD(v22) = v4;
+          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat4x4,fromSimdFloat4(matrix.columns[%{public}d]) failed", buf, 8u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v19 = 67240192;
+          LODWORD(v20) = v4;
+          LODWORD(v18) = 8;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat4x4,fromSimdFloat4(matrix.columns[%{public}d]) failed", &v19, v18);
+          v13 = v12;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat4x4(const simd_float4x4 &, CLP::LogEntry::Vision::simd_floatMxN *)", "%s\n", v12);
+          if (v13 != buf)
+          {
+            free(v13);
+          }
+        }
+      }
+
+      v5 = v5 & v10;
+      ++v4;
+      a1 += 16;
+    }
+
+    while (v4 != 4);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v14 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v22 = 0;
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat4x4,Invalid output pointer,pMatrixMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v19 = 134283521;
+      v20 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat4x4,Invalid output pointer,pMatrixMsg,%{private}p", &v19, 12);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat4x4(const simd_float4x4 &, CLP::LogEntry::Vision::simd_floatMxN *)", "%s\n", v16);
+      if (v17 != buf)
+      {
+        free(v17);
+      }
+    }
+
+    return 0;
+  }
+
+  return v5;
+}
+
+void sub_10081D200(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081D210(uint64_t a1, int *a2)
+{
+  if (a2)
+  {
+    sub_1003C79DC((a2 + 2));
+    wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), 3);
+    v4 = 0;
+    LODWORD(v5) = 1;
+    do
+    {
+      v6 = a2[5];
+      v7 = a2[4];
+      if (v7 >= v6)
+      {
+        if (v6 == a2[6])
+        {
+          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), v6 + 1);
+          v6 = a2[5];
+        }
+
+        a2[5] = v6 + 1;
+        sub_100821DC0();
+      }
+
+      v8 = *(a2 + 1);
+      a2[4] = v7 + 1;
+      v9 = sub_100821738(a1, *(v8 + 8 * v7));
+      v10 = v9;
+      if (!v9)
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v11 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67240192;
+          LODWORD(v22) = v4;
+          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat3x3,fromSimdFloat3(matrix.columns[%{public}d]) failed", buf, 8u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v19 = 67240192;
+          LODWORD(v20) = v4;
+          LODWORD(v18) = 8;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat3x3,fromSimdFloat3(matrix.columns[%{public}d]) failed", &v19, v18);
+          v13 = v12;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat3x3(const simd_float3x3 &, CLP::LogEntry::Vision::simd_floatMxN *)", "%s\n", v12);
+          if (v13 != buf)
+          {
+            free(v13);
+          }
+        }
+      }
+
+      v5 = v5 & v10;
+      ++v4;
+      a1 += 16;
+    }
+
+    while (v4 != 3);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v14 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v22 = 0;
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat3x3,Invalid output pointer,pMatrixMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v19 = 134283521;
+      v20 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat3x3,Invalid output pointer,pMatrixMsg,%{private}p", &v19, 12);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat3x3(const simd_float3x3 &, CLP::LogEntry::Vision::simd_floatMxN *)", "%s\n", v16);
+      if (v17 != buf)
+      {
+        free(v17);
+      }
+    }
+
+    return 0;
+  }
+
+  return v5;
+}
+
+void sub_10081D564(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081D574(void *a1, uint64_t a2)
+{
+  if (!a1)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v15 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v23 = 0;
+      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "CLVPC,fromCLVLLocalizationResult,Invalid input pointer,localizationResult,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (!result)
+    {
+      return result;
+    }
+
+    sub_10194A7B0(buf);
+    v20 = 134283521;
+    v21 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLVLLocalizationResult,Invalid input pointer,localizationResult,%{private}p", &v20, 12);
+    v17 = v16;
+    sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLVLLocalizationResult(const _CLVLLocalizationResult *const, CLP::LogEntry::Vision::VLLocalizationResult *)", "%s\n", v16);
+LABEL_25:
+    if (v17 != buf)
+    {
+      free(v17);
+    }
+
+    return 0;
+  }
+
+  if (a2)
+  {
+    *(a2 + 56) |= 1u;
+    v4 = *(a2 + 8);
+    if (!v4)
+    {
+      operator new();
+    }
+
+    [a1 timestamp];
+    v6 = sub_10081C970(v4, v5);
+    *(a2 + 56) |= 2u;
+    v7 = *(a2 + 16);
+    if (!v7)
+    {
+      operator new();
+    }
+
+    objc_msgSend_location(a1);
+    v8 = sub_10081DA0C(buf, v7);
+    *(a2 + 56) |= 4u;
+    v9 = *(a2 + 24);
+    if (!v9)
+    {
+      operator new();
+    }
+
+    objc_msgSend_transform(a1);
+    v10 = sub_10081DC34(buf, v9);
+    *(a2 + 56) |= 8u;
+    v11 = *(a2 + 32);
+    if (!v11)
+    {
+      operator new();
+    }
+
+    objc_msgSend_covariance(a1);
+    v12 = sub_10081DF98(buf, v11);
+    [a1 confidence];
+    result = v6 & v8 & v10 & v12;
+    *(a2 + 56) |= 0x10u;
+    *(a2 + 48) = v14;
+    return result;
+  }
+
+  if (qword_1025D46A0 != -1)
+  {
+    sub_10194A79C();
+  }
+
+  v18 = qword_1025D46A8;
+  if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134283521;
+    v23 = 0;
+    _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_ERROR, "CLVPC,fromCLVLLocalizationResult,Invalid output pointer,pLocalizationResultMsg,%{private}p", buf, 0xCu);
+  }
+
+  result = sub_10000A100(121, 0);
+  if (result)
+  {
+    sub_10194A7B0(buf);
+    v20 = 134283521;
+    v21 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLVLLocalizationResult,Invalid output pointer,pLocalizationResultMsg,%{private}p", &v20, 12);
+    v17 = v19;
+    sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLVLLocalizationResult(const _CLVLLocalizationResult *const, CLP::LogEntry::Vision::VLLocalizationResult *)", "%s\n", v19);
+    goto LABEL_25;
+  }
+
+  return result;
+}
+
+void sub_10081D970(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL sub_10081DA0C(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    *(a2 + 28) |= 1u;
+    v4 = *(a2 + 8);
+    if (!v4)
+    {
+      operator new();
+    }
+
+    result = sub_10081E76C(a1, v4);
+    v6 = *(a1 + 32);
+    *(a2 + 28) |= 2u;
+    *(a2 + 16) = v6;
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v7 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v13 = 0;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocation,Invalid output pointer,pLocationMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v10 = 134283521;
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocation,Invalid output pointer,pLocationMsg,%{private}p", &v10, 12);
+      v9 = v8;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocation(const VLLocation &, CLP::LogEntry::Vision::VLLocation *)", "%s\n", v8);
+      if (v9 != buf)
+      {
+        free(v9);
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_10081DBF8(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10081DC34(uint64_t a1, int *a2)
+{
+  if (a2)
+  {
+    sub_1003C79DC((a2 + 2));
+    wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), 4);
+    v4 = 0;
+    LODWORD(v5) = 1;
+    do
+    {
+      v6 = a2[5];
+      v7 = a2[4];
+      if (v7 >= v6)
+      {
+        if (v6 == a2[6])
+        {
+          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), v6 + 1);
+          v6 = a2[5];
+        }
+
+        a2[5] = v6 + 1;
+        sub_100821E24();
+      }
+
+      v8 = *(a2 + 1);
+      a2[4] = v7 + 1;
+      v9 = sub_100821B30(a1, *(v8 + 8 * v7));
+      v10 = v9;
+      if (!v9)
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v11 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67240192;
+          LODWORD(v22) = v4;
+          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdDouble4x4,fromSimdDouble4(matrix.columns[%{public}d]) failed", buf, 8u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v19 = 67240192;
+          LODWORD(v20) = v4;
+          LODWORD(v18) = 8;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdDouble4x4,fromSimdDouble4(matrix.columns[%{public}d]) failed", &v19, v18);
+          v13 = v12;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdDouble4x4(const simd_double4x4 &, CLP::LogEntry::Vision::simd_doubleMxN *)", "%s\n", v12);
+          if (v13 != buf)
+          {
+            free(v13);
+          }
+        }
+      }
+
+      v5 = v5 & v10;
+      ++v4;
+      a1 += 32;
+    }
+
+    while (v4 != 4);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v14 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v22 = 0;
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdDouble4x4,Invalid output pointer,pMatrixMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v19 = 134283521;
+      v20 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdDouble4x4,Invalid output pointer,pMatrixMsg,%{private}p", &v19, 12);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdDouble4x4(const simd_double4x4 &, CLP::LogEntry::Vision::simd_doubleMxN *)", "%s\n", v16);
+      if (v17 != buf)
+      {
+        free(v17);
+      }
+    }
+
+    return 0;
+  }
+
+  return v5;
+}
+
+void sub_10081DF88(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081DF98(uint64_t a1, int *a2)
+{
+  if (a2)
+  {
+    sub_1003C79DC((a2 + 2));
+    wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), 6);
+    v4 = 0;
+    LODWORD(v5) = 1;
+    do
+    {
+      v6 = a2[5];
+      v7 = a2[4];
+      if (v7 >= v6)
+      {
+        if (v6 == a2[6])
+        {
+          wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a2 + 2), v6 + 1);
+          v6 = a2[5];
+        }
+
+        a2[5] = v6 + 1;
+        sub_100821D5C();
+      }
+
+      v8 = *(a2 + 1);
+      a2[4] = v7 + 1;
+      v9 = sub_10081E974(a1, *(v8 + 8 * v7));
+      v10 = v9;
+      if (!v9)
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v11 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67240192;
+          LODWORD(v22) = v4;
+          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "CLVPC,fromVLMatrixf6x6,fromVLVectorf6(matrix.v[%{public}d]) failed", buf, 8u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v19 = 67240192;
+          LODWORD(v20) = v4;
+          LODWORD(v18) = 8;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLMatrixf6x6,fromVLVectorf6(matrix.v[%{public}d]) failed", &v19, v18);
+          v13 = v12;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLMatrixf6x6(const VLMatrixf6x6 &, CLP::LogEntry::Vision::VLMatrixfMxN *)", "%s\n", v12);
+          if (v13 != buf)
+          {
+            free(v13);
+          }
+        }
+      }
+
+      v5 = v5 & v10;
+      ++v4;
+      a1 += 24;
+    }
+
+    while (v4 != 6);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v14 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v22 = 0;
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromVLMatrixf6x6,Invalid output pointer,pMatrixMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v19 = 134283521;
+      v20 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLMatrixf6x6,Invalid output pointer,pMatrixMsg,%{private}p", &v19, 12);
+      v17 = v16;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLMatrixf6x6(const VLMatrixf6x6 &, CLP::LogEntry::Vision::VLMatrixfMxN *)", "%s\n", v16);
+      if (v17 != buf)
+      {
+        free(v17);
+      }
+    }
+
+    return 0;
+  }
+
+  return v5;
+}
+
+void sub_10081E2EC(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081E2FC(void *a1, uint64_t a2)
+{
+  if (sub_10081D574(a1, a2))
+  {
+    if ([a1 debugInfo])
+    {
+      *(a2 + 56) |= 0x20u;
+      v4 = *(a2 + 40);
+      if (!v4)
+      {
+        operator new();
+      }
+
+      v5 = [a1 debugInfo];
+
+      return sub_10081E52C(v5, v4);
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v7 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "CLVPC,fromCLVLLocalizationResultForHarvest,Failed in VL estimate conversion", buf, 2u);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      v10[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLVLLocalizationResultForHarvest,Failed in VL estimate conversion", v10, 2);
+      v9 = v8;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLVLLocalizationResultForHarvest(const _CLVLLocalizationResult *const, CLP::LogEntry::Vision::VLLocalizationResult *)", "%s\n", v8);
+      if (v9 != buf)
+      {
+        free(v9);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10081E4F0(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10081E52C(void *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    if ([a1 maps488Details])
+    {
+      *(a2 + 20) |= 1u;
+      v4 = *(a2 + 8);
+      if (!v4)
+      {
+        operator new();
+      }
+
+      v5 = [a1 maps488Details];
+
+      return sub_10081EB6C(v5, v4);
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v7 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v13 = 0;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocalizationDebugInfo,Invalid input pointer,debugInfo,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      v10 = 134283521;
+      v11 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocalizationDebugInfo,Invalid input pointer,debugInfo,%{private}p", &v10, 12);
+      v9 = v8;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocalizationDebugInfo(const _CLVLLocalizationDebugInfo *const, CLP::LogEntry::Vision::VLLocalizationDebugInfo *)", "%s\n", v8);
+      if (v9 != buf)
+      {
+        free(v9);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10081E730(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL sub_10081E76C(_OWORD *a1, _DWORD *a2)
+{
+  if (a2)
+  {
+    a2[4] = 0;
+    sub_1003C7898(a2 + 2, 3);
+    v4 = 0;
+    v5 = a2[4];
+    do
+    {
+      v6 = a1[1];
+      v13[0] = *a1;
+      v13[1] = v6;
+      v7 = *(v13 + (v4 & 3));
+      if (v5 == a2[5])
+      {
+        sub_1003C7898(a2 + 2, v5 + 1);
+        v5 = a2[4];
+      }
+
+      v8 = *(a2 + 1);
+      a2[4] = v5 + 1;
+      *(v8 + 8 * v5) = v7;
+      ++v4;
+      ++v5;
+    }
+
+    while (v4 != 3);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v9 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v17 = 0;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdDouble3,Invalid output pointer,pVectorMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v14 = 134283521;
+      v15 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdDouble3,Invalid output pointer,pVectorMsg,%{private}p", &v14, 12);
+      v12 = v11;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdDouble3(const simd_double3 &, CLP::LogEntry::Vision::simd_doubleM *)", "%s\n", v11);
+      if (v12 != buf)
+      {
+        free(v12);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_10081E964(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_10081E974(uint64_t a1, _DWORD *a2)
+{
+  if (a2)
+  {
+    a2[4] = 0;
+    sub_1003945DC(a2 + 2, 6);
+    v4 = 0;
+    v5 = a2[4];
+    do
+    {
+      v6 = *(a1 + v4);
+      if (v5 == a2[5])
+      {
+        sub_1003945DC(a2 + 2, v5 + 1);
+        v5 = a2[4];
+      }
+
+      v7 = *(a2 + 1);
+      a2[4] = v5 + 1;
+      *(v7 + 4 * v5) = v6;
+      v4 += 4;
+      ++v5;
+    }
+
+    while (v4 != 24);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v8 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v15 = 0;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "CLVPC,fromVLVectorf6,Invalid output pointer,pVectorMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v12 = 134283521;
+      v13 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLVectorf6,Invalid output pointer,pVectorMsg,%{private}p", &v12, 12);
+      v11 = v10;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLVectorf6(const float (&)[6], CLP::LogEntry::Vision::VLVectorfM *)", "%s\n", v10);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_10081EB5C(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081EB6C(void *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    v4 = [a1 inliersCount];
+    *(a2 + 276) |= 1u;
+    *(a2 + 8) = v4;
+    *(a2 + 24) = 0;
+    *(a2 + 40) = 0;
+    *(a2 + 56) = 0;
+    if (![a1 inliersCount] || objc_msgSend(a1, "points2D") && objc_msgSend(a1, "points3D") && objc_msgSend(a1, "inlierIndices"))
+    {
+      v5 = [a1 points2D];
+      v6 = [a1 points3D];
+      v7 = [a1 inlierIndices];
+      v8 = [a1 inliersCount];
+      sub_1003945DC((a2 + 16), 2 * v8);
+      sub_1003C7898((a2 + 32), 3 * v8);
+      sub_1003945DC((a2 + 48), v8);
+      if (v8 >= 1)
+      {
+        v9 = v8 & 0x7FFFFFFF;
+        v10 = (v6 + 16);
+        v11 = (v5 + 4);
+        do
+        {
+          v12 = *(v11 - 1);
+          v13 = *(a2 + 24);
+          v14 = *(a2 + 28);
+          if (v13 == v14)
+          {
+            sub_1003945DC((a2 + 16), v13 + 1);
+            v13 = *(a2 + 24);
+            v14 = *(a2 + 28);
+          }
+
+          v15 = *(a2 + 16);
+          v16 = v13 + 1;
+          *(a2 + 24) = v13 + 1;
+          *(v15 + 4 * v13) = v12;
+          v17 = *v11;
+          if (v13 + 1 == v14)
+          {
+            sub_1003945DC((a2 + 16), v13 + 2);
+            v16 = *(a2 + 24);
+            v15 = *(a2 + 16);
+          }
+
+          *(a2 + 24) = v16 + 1;
+          *(v15 + 4 * v16) = v17;
+          v18 = *(v10 - 2);
+          v20 = *(a2 + 40);
+          v19 = *(a2 + 44);
+          if (v20 == v19)
+          {
+            sub_1003C7898((a2 + 32), v20 + 1);
+            v20 = *(a2 + 40);
+            v19 = *(a2 + 44);
+          }
+
+          v21 = *(a2 + 32);
+          v22 = v20 + 1;
+          *(a2 + 40) = v20 + 1;
+          *(v21 + 8 * v20) = v18;
+          v23 = *(v10 - 1);
+          if (v20 + 1 == v19)
+          {
+            sub_1003C7898((a2 + 32), v20 + 2);
+            v21 = *(a2 + 32);
+            v22 = *(a2 + 40);
+            v19 = *(a2 + 44);
+          }
+
+          v24 = v22 + 1;
+          *(a2 + 40) = v22 + 1;
+          *(v21 + 8 * v22) = v23;
+          v25 = *v10;
+          if (v22 + 1 == v19)
+          {
+            sub_1003C7898((a2 + 32), v22 + 2);
+            v24 = *(a2 + 40);
+            v21 = *(a2 + 32);
+          }
+
+          *(a2 + 40) = v24 + 1;
+          *(v21 + 8 * v24) = v25;
+          v26 = *v7;
+          v27 = *(a2 + 56);
+          if (v27 == *(a2 + 60))
+          {
+            sub_1003945DC((a2 + 48), v27 + 1);
+            v27 = *(a2 + 56);
+          }
+
+          v28 = *(a2 + 48);
+          *(a2 + 56) = v27 + 1;
+          *(v28 + 4 * v27) = v26;
+          v10 += 3;
+          v11 += 2;
+          ++v7;
+          --v9;
+        }
+
+        while (v9);
+      }
+
+      v123 = 1;
+    }
+
+    else
+    {
+      if (qword_1025D46A0 != -1)
+      {
+        sub_10194A79C();
+      }
+
+      v33 = qword_1025D46A8;
+      if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(buf[0].__r_.__value_.__l.__data_) = 0;
+        _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocalizationMaps488Details,Invalid inliers", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194A7B0(buf);
+        LOWORD(v124) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocalizationMaps488Details,Invalid inliers", &v124, 2);
+        v120 = v119;
+        sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocalizationMaps488Details(const _CLVLLocalizationMaps488Details *const, CLP::LogEntry::Vision::VLLocalizationMaps488Details *)", "%s\n", v119);
+        if (v120 != buf)
+        {
+          free(v120);
+        }
+      }
+
+      v123 = 0;
+    }
+
+    v34 = [a1 slamOrigin];
+    *(a2 + 72) = 0;
+    sub_1003C7898((a2 + 64), 6);
+    v35 = 0;
+    v36 = *(a2 + 72);
+    do
+    {
+      v37 = *&v34[v35];
+      if (v36 == *(a2 + 76))
+      {
+        sub_1003C7898((a2 + 64), v36 + 1);
+        v36 = *(a2 + 72);
+      }
+
+      v38 = *(a2 + 64);
+      *(a2 + 72) = v36 + 1;
+      *(v38 + 8 * v36) = v37;
+      v35 += 8;
+      ++v36;
+    }
+
+    while (v35 != 48);
+    v39 = [a1 slamTracksCount];
+    *(a2 + 276) |= 0x20u;
+    *(a2 + 80) = v39;
+    v40 = [a1 descriptorDimension];
+    *(a2 + 276) |= 0x80u;
+    *(a2 + 104) = v40;
+    *(a2 + 96) = 0;
+    v41 = *(a2 + 112);
+    if (v41 != &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+    {
+      if (*(v41 + 23) < 0)
+      {
+        **v41 = 0;
+        *(v41 + 8) = 0;
+      }
+
+      else
+      {
+        *v41 = 0;
+        *(v41 + 23) = 0;
+      }
+    }
+
+    *(a2 + 276) &= ~0x100u;
+    *(a2 + 128) = 0;
+    *(a2 + 144) = 0;
+    *(a2 + 160) = 0;
+    if (![a1 slamTracksCount] || objc_msgSend(a1, "slamTracks") && (!objc_msgSend(a1, "descriptorDimension") || objc_msgSend(a1, "slamTrackDescriptors")) && objc_msgSend(a1, "slamTrackObservations") && (!objc_msgSend(a1, "totalObservationsCount") || objc_msgSend(a1, "slamTracks2D")) && (!objc_msgSend(a1, "totalObservationsCount") || objc_msgSend(a1, "slamTrackImageIndices")))
+    {
+      v42 = [a1 slamTracks];
+      v43 = [a1 slamTrackObservations];
+      v44 = [a1 slamTracksCount];
+      sub_1003945DC((a2 + 88), 3 * v44);
+      sub_1003945DC((a2 + 120), v44);
+      if (v44 >= 1)
+      {
+        v45 = v44 & 0x7FFFFFFF;
+        v46 = (v42 + 8);
+        do
+        {
+          v47 = *(v46 - 2);
+          v49 = *(a2 + 96);
+          v48 = *(a2 + 100);
+          if (v49 == v48)
+          {
+            sub_1003945DC((a2 + 88), v49 + 1);
+            v49 = *(a2 + 96);
+            v48 = *(a2 + 100);
+          }
+
+          v50 = *(a2 + 88);
+          v51 = v49 + 1;
+          *(a2 + 96) = v49 + 1;
+          *(v50 + 4 * v49) = v47;
+          v52 = *(v46 - 1);
+          if (v49 + 1 == v48)
+          {
+            sub_1003945DC((a2 + 88), v49 + 2);
+            v50 = *(a2 + 88);
+            v51 = *(a2 + 96);
+            v48 = *(a2 + 100);
+          }
+
+          v53 = v51 + 1;
+          *(a2 + 96) = v51 + 1;
+          *(v50 + 4 * v51) = v52;
+          v54 = *v46;
+          if (v51 + 1 == v48)
+          {
+            sub_1003945DC((a2 + 88), v51 + 2);
+            v53 = *(a2 + 96);
+            v50 = *(a2 + 88);
+          }
+
+          *(a2 + 96) = v53 + 1;
+          *(v50 + 4 * v53) = v54;
+          v55 = *v43;
+          v56 = *(a2 + 128);
+          if (v56 == *(a2 + 132))
+          {
+            sub_1003945DC((a2 + 120), v56 + 1);
+            v56 = *(a2 + 128);
+          }
+
+          v57 = *(a2 + 120);
+          *(a2 + 128) = v56 + 1;
+          *(v57 + 4 * v56) = v55;
+          v46 += 3;
+          ++v43;
+          --v45;
+        }
+
+        while (v45);
+      }
+
+      v58 = [a1 descriptorDimension];
+      v59 = [a1 slamTracksCount];
+      v60 = [a1 slamTrackDescriptors];
+      if (v60)
+      {
+        v61 = v59 * v58;
+        if (v61 >= 0x7FFFFFFFFFFFFFF8)
+        {
+          sub_100061080();
+        }
+
+        if (v61 >= 0x17)
+        {
+          operator new();
+        }
+
+        *(&buf[0].__r_.__value_.__s + 23) = v61;
+        if (v61)
+        {
+          memmove(buf, v60, v61);
+        }
+
+        buf[0].__r_.__value_.__s.__data_[v61] = 0;
+        *(a2 + 276) |= 0x100u;
+        v63 = *(a2 + 112);
+        if (v63 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+        {
+          operator new();
+        }
+
+        std::string::operator=(v63, buf);
+        if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(buf[0].__r_.__value_.__l.__data_);
+        }
+      }
+
+      v64 = [a1 slamTracks2D];
+      v65 = [a1 slamTrackImageIndices];
+      v66 = [a1 totalObservationsCount];
+      sub_1003945DC((a2 + 136), 2 * v66);
+      sub_1003945DC((a2 + 152), v66);
+      if (v66 >= 1)
+      {
+        v67 = v66 & 0x7FFFFFFF;
+        v68 = (v64 + 4);
+        do
+        {
+          v69 = *(v68 - 1);
+          v70 = *(a2 + 144);
+          v71 = *(a2 + 148);
+          if (v70 == v71)
+          {
+            sub_1003945DC((a2 + 136), v70 + 1);
+            v70 = *(a2 + 144);
+            v71 = *(a2 + 148);
+          }
+
+          v72 = *(a2 + 136);
+          v73 = v70 + 1;
+          *(a2 + 144) = v70 + 1;
+          *(v72 + 4 * v70) = v69;
+          v74 = *v68;
+          if (v70 + 1 == v71)
+          {
+            sub_1003945DC((a2 + 136), v70 + 2);
+            v73 = *(a2 + 144);
+            v72 = *(a2 + 136);
+          }
+
+          *(a2 + 144) = v73 + 1;
+          *(v72 + 4 * v73) = v74;
+          v75 = *v65;
+          v76 = *(a2 + 160);
+          if (v76 == *(a2 + 164))
+          {
+            sub_1003945DC((a2 + 152), v76 + 1);
+            v76 = *(a2 + 160);
+          }
+
+          v77 = *(a2 + 152);
+          *(a2 + 160) = v76 + 1;
+          *(v77 + 4 * v76) = v75;
+          v68 += 2;
+          ++v65;
+          --v67;
+        }
+
+        while (v67);
+      }
+
+      v122 = 1;
+    }
+
+    else
+    {
+      if (qword_1025D46A0 != -1)
+      {
+        sub_10194A7F4();
+      }
+
+      v62 = qword_1025D46A8;
+      if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(buf[0].__r_.__value_.__l.__data_) = 0;
+        _os_log_impl(dword_100000000, v62, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocalizationMaps488Details,Invalid slamTracks", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194A7B0(buf);
+        LOWORD(v124) = 0;
+        LODWORD(v121) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocalizationMaps488Details,Invalid slamTracks", &v124, v121);
+        v118 = v117;
+        sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocalizationMaps488Details(const _CLVLLocalizationMaps488Details *const, CLP::LogEntry::Vision::VLLocalizationMaps488Details *)", "%s\n", v117);
+        if (v118 != buf)
+        {
+          free(v118);
+        }
+      }
+
+      v122 = 0;
+    }
+
+    v78 = [a1 frameCount];
+    *(a2 + 276) |= 0x1000u;
+    *(a2 + 168) = v78;
+    *(a2 + 184) = 0;
+    *(a2 + 200) = 0;
+    *(a2 + 216) = 0;
+    *(a2 + 232) = 0;
+    if (![a1 frameCount] || objc_msgSend(a1, "perFrameVioStatusCodes") && objc_msgSend(a1, "perFrameVioPoses") && objc_msgSend(a1, "perFrameCalibrationMatrices") && objc_msgSend(a1, "perFrameDistortion"))
+    {
+      v79 = [a1 perFrameVioStatusCodes];
+      v80 = [a1 perFrameVioPoses];
+      v81 = [a1 perFrameCalibrationMatrices];
+      v82 = [a1 perFrameDistortion];
+      v83 = [a1 frameCount];
+      sub_1003945DC((a2 + 176), v83);
+      sub_1003945DC((a2 + 192), 12 * v83);
+      sub_1003945DC((a2 + 208), 9 * v83);
+      sub_1003945DC((a2 + 224), 2 * v83);
+      if (v83 >= 1)
+      {
+        v84 = 0;
+        v85 = v83 & 0x7FFFFFFF;
+        do
+        {
+          v86 = v79[v84];
+          v87 = *(a2 + 184);
+          if (v87 == *(a2 + 188))
+          {
+            sub_1003945DC((a2 + 176), v87 + 1);
+            v87 = *(a2 + 184);
+          }
+
+          v88 = 0;
+          v89 = *(a2 + 176);
+          *(a2 + 184) = v87 + 1;
+          *(v89 + 4 * v87) = v86;
+          v90 = *(a2 + 200);
+          do
+          {
+            v91 = *&v80[v88];
+            if (v90 == *(a2 + 204))
+            {
+              sub_1003945DC((a2 + 192), v90 + 1);
+              v90 = *(a2 + 200);
+            }
+
+            v92 = *(a2 + 192);
+            *(a2 + 200) = v90 + 1;
+            *(v92 + 4 * v90) = v91;
+            v88 += 4;
+            ++v90;
+          }
+
+          while (v88 != 48);
+          v93 = 0;
+          v94 = *(a2 + 216);
+          do
+          {
+            v95 = *&v81[v93];
+            if (v94 == *(a2 + 220))
+            {
+              sub_1003945DC((a2 + 208), v94 + 1);
+              v94 = *(a2 + 216);
+            }
+
+            v96 = *(a2 + 208);
+            *(a2 + 216) = v94 + 1;
+            *(v96 + 4 * v94) = v95;
+            v93 += 4;
+            ++v94;
+          }
+
+          while (v93 != 36);
+          v97 = v82[2 * v84];
+          v98 = *(a2 + 232);
+          v99 = *(a2 + 236);
+          if (v98 == v99)
+          {
+            sub_1003945DC((a2 + 224), v98 + 1);
+            v98 = *(a2 + 232);
+            v99 = *(a2 + 236);
+          }
+
+          v100 = *(a2 + 224);
+          v101 = v98 + 1;
+          *(a2 + 232) = v98 + 1;
+          *(v100 + 4 * v98) = v97;
+          v102 = v82[2 * v84 + 1];
+          if (v98 + 1 == v99)
+          {
+            sub_1003945DC((a2 + 224), v98 + 2);
+            v101 = *(a2 + 232);
+            v100 = *(a2 + 224);
+          }
+
+          *(a2 + 232) = v101 + 1;
+          *(v100 + 4 * v101) = v102;
+          ++v84;
+          v80 += 48;
+          v81 += 36;
+        }
+
+        while (v84 != v85);
+      }
+
+      v103 = 1;
+    }
+
+    else
+    {
+      if (qword_1025D46A0 != -1)
+      {
+        sub_10194A7F4();
+      }
+
+      v104 = qword_1025D46A8;
+      if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(buf[0].__r_.__value_.__l.__data_) = 0;
+        _os_log_impl(dword_100000000, v104, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocalizationMaps488Details,Invalid frames", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194A7B0(buf);
+        LOWORD(v124) = 0;
+        LODWORD(v121) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocalizationMaps488Details,Invalid frames", &v124, v121);
+        v116 = v115;
+        sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocalizationMaps488Details(const _CLVLLocalizationMaps488Details *const, CLP::LogEntry::Vision::VLLocalizationMaps488Details *)", "%s\n", v115);
+        if (v116 != buf)
+        {
+          free(v116);
+        }
+      }
+
+      v103 = 0;
+    }
+
+    v105 = [a1 resultPoseRotation];
+    *(a2 + 248) = 0;
+    sub_1003C7898((a2 + 240), 9);
+    v106 = 0;
+    v107 = *(a2 + 248);
+    do
+    {
+      v108 = *&v105[v106];
+      if (v107 == *(a2 + 252))
+      {
+        sub_1003C7898((a2 + 240), v107 + 1);
+        v107 = *(a2 + 248);
+      }
+
+      v109 = *(a2 + 240);
+      *(a2 + 248) = v107 + 1;
+      *(v109 + 8 * v107) = v108;
+      v106 += 8;
+      ++v107;
+    }
+
+    while (v106 != 72);
+    v110 = [a1 resultPoseTranslation];
+    *(a2 + 264) = 0;
+    sub_1003C7898((a2 + 256), 3);
+    v111 = 0;
+    v112 = *(a2 + 264);
+    do
+    {
+      v113 = *&v110[v111];
+      if (v112 == *(a2 + 268))
+      {
+        sub_1003C7898((a2 + 256), v112 + 1);
+        v112 = *(a2 + 264);
+      }
+
+      v114 = *(a2 + 256);
+      *(a2 + 264) = v112 + 1;
+      *(v114 + 8 * v112) = v113;
+      v111 += 8;
+      ++v112;
+    }
+
+    while (v111 != 24);
+    return v123 & v122 & v103;
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v29 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf[0].__r_.__value_.__l.__data_) = 134283521;
+      *(buf[0].__r_.__value_.__r.__words + 4) = 0;
+      _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_ERROR, "CLVPC,fromVLLocalizationMaps488Details,Invalid input pointer,maps488Details,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      v124 = 134283521;
+      v125 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromVLLocalizationMaps488Details,Invalid input pointer,maps488Details,%{private}p", &v124, 12);
+      v32 = v31;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromVLLocalizationMaps488Details(const _CLVLLocalizationMaps488Details *const, CLP::LogEntry::Vision::VLLocalizationMaps488Details *)", "%s\n", v31);
+      if (v32 != buf)
+      {
+        free(v32);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10081F920(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10081F970(unsigned int *a1, uint64_t a2)
+{
+  if (a2)
+  {
+    *buf = 0;
+    sub_10081FDA8(*a1, buf);
+    v4 = *buf;
+    if (sub_1001E06EC(*buf))
+    {
+      v5 = *(a2 + 152);
+      *(a2 + 48) = v4;
+      *(a2 + 152) = v5 | 3;
+      v6 = *(a2 + 8);
+      if (!v6)
+      {
+        operator new();
+      }
+
+      v7 = sub_10081FF4C(a1 + 1, v6);
+      v8 = *(a2 + 152);
+      *(a2 + 16) = *(a1 + 5);
+      *(a2 + 32) = *(a1 + 9);
+      *(a2 + 56) = *(a1 + 13);
+      *(a2 + 152) = v8 | 0x3FC;
+      *(a2 + 72) = *(a1 + 17);
+      *(a2 + 52) = a1[21];
+      v9 = *(a1 + 11);
+      *(a2 + 152) = v8 | 0xFFC;
+      *(a2 + 88) = v9;
+      v30 = 0;
+      sub_1008200F0(a1[24], &v30);
+      v10 = v30;
+      if (sub_100108BCC(v30))
+      {
+        v11 = *(a2 + 152);
+        *(a2 + 104) = v10;
+        *(a2 + 152) = v11 | 0x3000;
+        v12 = *(a2 + 96);
+        if (!v12)
+        {
+          operator new();
+        }
+
+        v13 = sub_10081FF4C(a1 + 25, v12);
+        v14 = *(a1 + 29);
+        v15 = *(a2 + 152);
+        *(a2 + 152) = v15 | 0x4000;
+        *(a2 + 112) = v14;
+        v16 = a1[31];
+        *(a2 + 152) = v15 | 0xC000;
+        *(a2 + 108) = v16;
+        v29 = 0;
+        sub_100820288(a1[32], &v29);
+        v17 = v29;
+        if (sub_1001E0708(v29))
+        {
+          *(a2 + 152) |= 0x10000u;
+          *(a2 + 120) = v17;
+          v28 = 0;
+          sub_100820444(a1[33], &v28);
+          v18 = v28;
+          if (sub_10041ECEC(v28))
+          {
+            *(a2 + 152) |= 0x20000u;
+            *(a2 + 124) = v18;
+            v27 = 0;
+            sub_100820444(a1[34], &v27);
+            v19 = v27;
+            if (sub_10041ECEC(v27))
+            {
+              result = v7 & v13;
+              *(a2 + 152) |= 0x40000u;
+              *(a2 + 128) = v19;
+              return result;
+            }
+
+            v22 = "::CLP::LogEntry::PrivateData::ClientLocationReferenceFrameType_IsValid(value)";
+            v23 = 15471;
+            v24 = "set_raw_reference_frame";
+          }
+
+          else
+          {
+            v22 = "::CLP::LogEntry::PrivateData::ClientLocationReferenceFrameType_IsValid(value)";
+            v23 = 15448;
+            v24 = "set_reference_frame";
           }
         }
 
         else
         {
-          *(this + 8) = TagFallback;
-          *(this + 1) = v5 + 1;
-          if (!TagFallback)
-          {
-            return 1;
-          }
-        }
-
-        v7 = TagFallback >> 3;
-        v8 = TagFallback & 7;
-        if (TagFallback >> 3 <= 0x3ED)
-        {
-          switch(v7)
-          {
-            case 1u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              *(a1 + 488) |= 1u;
-              v9 = *(a1 + 8);
-              if (!v9)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v10 = *(this + 1);
-              if (v10 >= *(this + 2) || *v10 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v10;
-                *(this + 1) = v10 + 1;
-              }
-
-              v223 = *(this + 14);
-              v224 = *(this + 15);
-              *(this + 14) = v223 + 1;
-              if (v223 >= v224)
-              {
-                return 0;
-              }
-
-              v225 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10041F888(v9, this, v226) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v225);
-              v227 = *(this + 14);
-              v20 = __OFSUB__(v227, 1);
-              v228 = v227 - 1;
-              if (v228 < 0 == v20)
-              {
-                *(this + 14) = v228;
-              }
-
-              v229 = *(this + 1);
-              if (v229 >= *(this + 2) || *v229 != 18)
-              {
-                continue;
-              }
-
-              *(this + 1) = v229 + 1;
-              goto LABEL_511;
-            case 2u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-LABEL_511:
-              *(a1 + 488) |= 2u;
-              v230 = *(a1 + 16);
-              if (!v230)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v231 = *(this + 1);
-              if (v231 >= *(this + 2) || *v231 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v231;
-                *(this + 1) = v231 + 1;
-              }
-
-              v232 = *(this + 14);
-              v233 = *(this + 15);
-              *(this + 14) = v232 + 1;
-              if (v232 >= v233)
-              {
-                return 0;
-              }
-
-              v234 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004203F0(v230, this, v235) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v234);
-              v236 = *(this + 14);
-              v20 = __OFSUB__(v236, 1);
-              v237 = v236 - 1;
-              if (v237 < 0 == v20)
-              {
-                *(this + 14) = v237;
-              }
-
-              v238 = *(this + 1);
-              if (v238 >= *(this + 2) || *v238 != 26)
-              {
-                continue;
-              }
-
-              *(this + 1) = v238 + 1;
-LABEL_525:
-              *(a1 + 488) |= 4u;
-              v239 = *(a1 + 24);
-              if (!v239)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v240 = *(this + 1);
-              if (v240 >= *(this + 2) || *v240 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v240;
-                *(this + 1) = v240 + 1;
-              }
-
-              v241 = *(this + 14);
-              v242 = *(this + 15);
-              *(this + 14) = v241 + 1;
-              if (v241 >= v242)
-              {
-                return 0;
-              }
-
-              v243 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100420ECC(v239, this, v244) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v243);
-              v245 = *(this + 14);
-              v20 = __OFSUB__(v245, 1);
-              v246 = v245 - 1;
-              if (v246 < 0 == v20)
-              {
-                *(this + 14) = v246;
-              }
-
-              v247 = *(this + 1);
-              if (v247 >= *(this + 2) || *v247 != 34)
-              {
-                continue;
-              }
-
-              *(this + 1) = v247 + 1;
-LABEL_539:
-              *(a1 + 488) |= 8u;
-              v248 = *(a1 + 32);
-              if (!v248)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v249 = *(this + 1);
-              if (v249 >= *(this + 2) || *v249 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v249;
-                *(this + 1) = v249 + 1;
-              }
-
-              v250 = *(this + 14);
-              v251 = *(this + 15);
-              *(this + 14) = v250 + 1;
-              if (v250 >= v251)
-              {
-                return 0;
-              }
-
-              v252 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100428D2C(v248, this, v253) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v252);
-              v254 = *(this + 14);
-              v20 = __OFSUB__(v254, 1);
-              v255 = v254 - 1;
-              if (v255 < 0 == v20)
-              {
-                *(this + 14) = v255;
-              }
-
-              v256 = *(this + 1);
-              if (v256 >= *(this + 2) || *v256 != 42)
-              {
-                continue;
-              }
-
-              *(this + 1) = v256 + 1;
-LABEL_553:
-              *(a1 + 488) |= 0x10u;
-              v257 = *(a1 + 40);
-              if (!v257)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v258 = *(this + 1);
-              if (v258 >= *(this + 2) || *v258 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v258;
-                *(this + 1) = v258 + 1;
-              }
-
-              v259 = *(this + 14);
-              v260 = *(this + 15);
-              *(this + 14) = v259 + 1;
-              if (v259 >= v260)
-              {
-                return 0;
-              }
-
-              v261 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10042C434(v257, this, v262) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v261);
-              v263 = *(this + 14);
-              v20 = __OFSUB__(v263, 1);
-              v264 = v263 - 1;
-              if (v264 < 0 == v20)
-              {
-                *(this + 14) = v264;
-              }
-
-              v265 = *(this + 1);
-              if (v265 >= *(this + 2) || *v265 != 50)
-              {
-                continue;
-              }
-
-              *(this + 1) = v265 + 1;
-LABEL_567:
-              *(a1 + 488) |= 0x20u;
-              v266 = *(a1 + 48);
-              if (!v266)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v267 = *(this + 1);
-              if (v267 >= *(this + 2) || *v267 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v267;
-                *(this + 1) = v267 + 1;
-              }
-
-              v268 = *(this + 14);
-              v269 = *(this + 15);
-              *(this + 14) = v268 + 1;
-              if (v268 >= v269)
-              {
-                return 0;
-              }
-
-              v270 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10042D6B0(v266, this, v271) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v270);
-              v272 = *(this + 14);
-              v20 = __OFSUB__(v272, 1);
-              v273 = v272 - 1;
-              if (v273 < 0 == v20)
-              {
-                *(this + 14) = v273;
-              }
-
-              v274 = *(this + 1);
-              if (v274 >= *(this + 2) || *v274 != 58)
-              {
-                continue;
-              }
-
-              *(this + 1) = v274 + 1;
-LABEL_581:
-              *(a1 + 488) |= 0x40u;
-              v275 = *(a1 + 56);
-              if (!v275)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v276 = *(this + 1);
-              if (v276 >= *(this + 2) || *v276 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v276;
-                *(this + 1) = v276 + 1;
-              }
-
-              v277 = *(this + 14);
-              v278 = *(this + 15);
-              *(this + 14) = v277 + 1;
-              if (v277 >= v278)
-              {
-                return 0;
-              }
-
-              v279 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10043136C(v275, this, v280) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v279);
-              v281 = *(this + 14);
-              v20 = __OFSUB__(v281, 1);
-              v282 = v281 - 1;
-              if (v282 < 0 == v20)
-              {
-                *(this + 14) = v282;
-              }
-
-              v283 = *(this + 1);
-              if (v283 >= *(this + 2) || *v283 != 66)
-              {
-                continue;
-              }
-
-              *(this + 1) = v283 + 1;
-LABEL_595:
-              *(a1 + 488) |= 0x80u;
-              v284 = *(a1 + 64);
-              if (!v284)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v285 = *(this + 1);
-              if (v285 >= *(this + 2) || *v285 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v285;
-                *(this + 1) = v285 + 1;
-              }
-
-              v286 = *(this + 14);
-              v287 = *(this + 15);
-              *(this + 14) = v286 + 1;
-              if (v286 >= v287)
-              {
-                return 0;
-              }
-
-              v288 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100431AFC(v284, this, v289) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v288);
-              v290 = *(this + 14);
-              v20 = __OFSUB__(v290, 1);
-              v291 = v290 - 1;
-              if (v291 < 0 == v20)
-              {
-                *(this + 14) = v291;
-              }
-
-              v292 = *(this + 1);
-              if (v292 >= *(this + 2) || *v292 != 74)
-              {
-                continue;
-              }
-
-              *(this + 1) = v292 + 1;
-LABEL_609:
-              *(a1 + 488) |= 0x100u;
-              v293 = *(a1 + 72);
-              if (!v293)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v294 = *(this + 1);
-              if (v294 >= *(this + 2) || *v294 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v294;
-                *(this + 1) = v294 + 1;
-              }
-
-              v295 = *(this + 14);
-              v296 = *(this + 15);
-              *(this + 14) = v295 + 1;
-              if (v295 >= v296)
-              {
-                return 0;
-              }
-
-              v297 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004320B8(v293, this, v298) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v297);
-              v299 = *(this + 14);
-              v20 = __OFSUB__(v299, 1);
-              v300 = v299 - 1;
-              if (v300 < 0 == v20)
-              {
-                *(this + 14) = v300;
-              }
-
-              v301 = *(this + 1);
-              if (v301 >= *(this + 2) || *v301 != 82)
-              {
-                continue;
-              }
-
-              *(this + 1) = v301 + 1;
-LABEL_623:
-              *(a1 + 488) |= 0x200u;
-              v302 = *(a1 + 80);
-              if (!v302)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v303 = *(this + 1);
-              if (v303 >= *(this + 2) || *v303 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v303;
-                *(this + 1) = v303 + 1;
-              }
-
-              v304 = *(this + 14);
-              v305 = *(this + 15);
-              *(this + 14) = v304 + 1;
-              if (v304 >= v305)
-              {
-                return 0;
-              }
-
-              v306 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100433A08(v302, this, v307) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v306);
-              v308 = *(this + 14);
-              v20 = __OFSUB__(v308, 1);
-              v309 = v308 - 1;
-              if (v309 < 0 == v20)
-              {
-                *(this + 14) = v309;
-              }
-
-              v310 = *(this + 1);
-              if (v310 >= *(this + 2) || *v310 != 90)
-              {
-                continue;
-              }
-
-              *(this + 1) = v310 + 1;
-LABEL_637:
-              *(a1 + 488) |= 0x400u;
-              v311 = *(a1 + 88);
-              if (!v311)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v312 = *(this + 1);
-              if (v312 >= *(this + 2) || *v312 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v312;
-                *(this + 1) = v312 + 1;
-              }
-
-              v313 = *(this + 14);
-              v314 = *(this + 15);
-              *(this + 14) = v313 + 1;
-              if (v313 >= v314)
-              {
-                return 0;
-              }
-
-              v315 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10043A49C(v311, this, v316) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v315);
-              v317 = *(this + 14);
-              v20 = __OFSUB__(v317, 1);
-              v318 = v317 - 1;
-              if (v318 < 0 == v20)
-              {
-                *(this + 14) = v318;
-              }
-
-              v319 = *(this + 1);
-              if (v319 >= *(this + 2) || *v319 != 98)
-              {
-                continue;
-              }
-
-              *(this + 1) = v319 + 1;
-LABEL_651:
-              *(a1 + 488) |= 0x800u;
-              v320 = *(a1 + 96);
-              if (!v320)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v321 = *(this + 1);
-              if (v321 >= *(this + 2) || *v321 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v321;
-                *(this + 1) = v321 + 1;
-              }
-
-              v322 = *(this + 14);
-              v323 = *(this + 15);
-              *(this + 14) = v322 + 1;
-              if (v322 >= v323)
-              {
-                return 0;
-              }
-
-              v324 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10043B550(v320, this, v325) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v324);
-              v326 = *(this + 14);
-              v20 = __OFSUB__(v326, 1);
-              v327 = v326 - 1;
-              if (v327 < 0 == v20)
-              {
-                *(this + 14) = v327;
-              }
-
-              v328 = *(this + 1);
-              if (v328 >= *(this + 2) || *v328 != 106)
-              {
-                continue;
-              }
-
-              *(this + 1) = v328 + 1;
-LABEL_665:
-              *(a1 + 488) |= 0x1000u;
-              v329 = *(a1 + 104);
-              if (!v329)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v330 = *(this + 1);
-              if (v330 >= *(this + 2) || *v330 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v330;
-                *(this + 1) = v330 + 1;
-              }
-
-              v331 = *(this + 14);
-              v332 = *(this + 15);
-              *(this + 14) = v331 + 1;
-              if (v331 >= v332)
-              {
-                return 0;
-              }
-
-              v333 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10013B658(v329, this, v334) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v333);
-              v335 = *(this + 14);
-              v20 = __OFSUB__(v335, 1);
-              v336 = v335 - 1;
-              if (v336 < 0 == v20)
-              {
-                *(this + 14) = v336;
-              }
-
-              v337 = *(this + 1);
-              if (v337 >= *(this + 2) || *v337 != 114)
-              {
-                continue;
-              }
-
-              *(this + 1) = v337 + 1;
-LABEL_679:
-              *(a1 + 488) |= 0x2000u;
-              v338 = *(a1 + 112);
-              if (!v338)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v339 = *(this + 1);
-              if (v339 >= *(this + 2) || *v339 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v339;
-                *(this + 1) = v339 + 1;
-              }
-
-              v340 = *(this + 14);
-              v341 = *(this + 15);
-              *(this + 14) = v340 + 1;
-              if (v340 >= v341)
-              {
-                return 0;
-              }
-
-              v342 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10043CAD8(v338, this, v343) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v342);
-              v344 = *(this + 14);
-              v20 = __OFSUB__(v344, 1);
-              v345 = v344 - 1;
-              if (v345 < 0 == v20)
-              {
-                *(this + 14) = v345;
-              }
-
-              v346 = *(this + 1);
-              if (v346 >= *(this + 2) || *v346 != 122)
-              {
-                continue;
-              }
-
-              *(this + 1) = v346 + 1;
-LABEL_693:
-              *(a1 + 488) |= 0x4000u;
-              v347 = *(a1 + 120);
-              if (!v347)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v348 = *(this + 1);
-              if (v348 >= *(this + 2) || *v348 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v348;
-                *(this + 1) = v348 + 1;
-              }
-
-              v349 = *(this + 14);
-              v350 = *(this + 15);
-              *(this + 14) = v349 + 1;
-              if (v349 >= v350)
-              {
-                return 0;
-              }
-
-              v351 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10043D2A8(v347, this, v352) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v351);
-              v353 = *(this + 14);
-              v20 = __OFSUB__(v353, 1);
-              v354 = v353 - 1;
-              if (v354 < 0 == v20)
-              {
-                *(this + 14) = v354;
-              }
-
-              v355 = *(this + 1);
-              if (*(this + 4) - v355 <= 1 || *v355 != 130 || v355[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v355 + 2;
-LABEL_708:
-              *(a1 + 488) |= 0x8000u;
-              v356 = *(a1 + 128);
-              if (!v356)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v357 = *(this + 1);
-              if (v357 >= *(this + 2) || *v357 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v357;
-                *(this + 1) = v357 + 1;
-              }
-
-              v358 = *(this + 14);
-              v359 = *(this + 15);
-              *(this + 14) = v358 + 1;
-              if (v358 >= v359)
-              {
-                return 0;
-              }
-
-              v360 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100441240(v356, this, v361) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v360);
-              v362 = *(this + 14);
-              v20 = __OFSUB__(v362, 1);
-              v363 = v362 - 1;
-              if (v363 < 0 == v20)
-              {
-                *(this + 14) = v363;
-              }
-
-              v364 = *(this + 1);
-              if (*(this + 4) - v364 <= 1 || *v364 != 138 || v364[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v364 + 2;
-LABEL_723:
-              *(a1 + 488) |= 0x10000u;
-              v365 = *(a1 + 136);
-              if (!v365)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v366 = *(this + 1);
-              if (v366 >= *(this + 2) || *v366 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v366;
-                *(this + 1) = v366 + 1;
-              }
-
-              v367 = *(this + 14);
-              v368 = *(this + 15);
-              *(this + 14) = v367 + 1;
-              if (v367 >= v368)
-              {
-                return 0;
-              }
-
-              v369 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10044380C(v365, this, v370) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v369);
-              v371 = *(this + 14);
-              v20 = __OFSUB__(v371, 1);
-              v372 = v371 - 1;
-              if (v372 < 0 == v20)
-              {
-                *(this + 14) = v372;
-              }
-
-              v373 = *(this + 1);
-              if (*(this + 4) - v373 <= 1 || *v373 != 146 || v373[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v373 + 2;
-LABEL_738:
-              *(a1 + 488) |= 0x20000u;
-              v374 = *(a1 + 144);
-              if (!v374)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v375 = *(this + 1);
-              if (v375 >= *(this + 2) || *v375 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v375;
-                *(this + 1) = v375 + 1;
-              }
-
-              v376 = *(this + 14);
-              v377 = *(this + 15);
-              *(this + 14) = v376 + 1;
-              if (v376 >= v377)
-              {
-                return 0;
-              }
-
-              v378 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100428D2C(v374, this, v379) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v378);
-              v380 = *(this + 14);
-              v20 = __OFSUB__(v380, 1);
-              v381 = v380 - 1;
-              if (v381 < 0 == v20)
-              {
-                *(this + 14) = v381;
-              }
-
-              v382 = *(this + 1);
-              if (*(this + 4) - v382 <= 1 || *v382 != 154 || v382[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v382 + 2;
-LABEL_753:
-              *(a1 + 488) |= 0x40000u;
-              v383 = *(a1 + 152);
-              if (!v383)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v384 = *(this + 1);
-              if (v384 >= *(this + 2) || *v384 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v384;
-                *(this + 1) = v384 + 1;
-              }
-
-              v385 = *(this + 14);
-              v386 = *(this + 15);
-              *(this + 14) = v385 + 1;
-              if (v385 >= v386)
-              {
-                return 0;
-              }
-
-              v387 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004460A0(v383, this, v388) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v387);
-              v389 = *(this + 14);
-              v20 = __OFSUB__(v389, 1);
-              v390 = v389 - 1;
-              if (v390 < 0 == v20)
-              {
-                *(this + 14) = v390;
-              }
-
-              v391 = *(this + 1);
-              if (*(this + 4) - v391 <= 1 || *v391 != 162 || v391[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v391 + 2;
-LABEL_768:
-              *(a1 + 488) |= 0x80000u;
-              v392 = *(a1 + 160);
-              if (!v392)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v393 = *(this + 1);
-              if (v393 >= *(this + 2) || *v393 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v393;
-                *(this + 1) = v393 + 1;
-              }
-
-              v394 = *(this + 14);
-              v395 = *(this + 15);
-              *(this + 14) = v394 + 1;
-              if (v394 >= v395)
-              {
-                return 0;
-              }
-
-              v396 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100447FE8(v392, this, v397) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v396);
-              v398 = *(this + 14);
-              v20 = __OFSUB__(v398, 1);
-              v399 = v398 - 1;
-              if (v399 < 0 == v20)
-              {
-                *(this + 14) = v399;
-              }
-
-              v400 = *(this + 1);
-              if (*(this + 4) - v400 <= 1 || *v400 != 170 || v400[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v400 + 2;
-LABEL_783:
-              *(a1 + 488) |= 0x100000u;
-              v401 = *(a1 + 168);
-              if (!v401)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v402 = *(this + 1);
-              if (v402 >= *(this + 2) || *v402 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v402;
-                *(this + 1) = v402 + 1;
-              }
-
-              v403 = *(this + 14);
-              v404 = *(this + 15);
-              *(this + 14) = v403 + 1;
-              if (v403 >= v404)
-              {
-                return 0;
-              }
-
-              v405 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100434EB4(v401, this, v406) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v405);
-              v407 = *(this + 14);
-              v20 = __OFSUB__(v407, 1);
-              v408 = v407 - 1;
-              if (v408 < 0 == v20)
-              {
-                *(this + 14) = v408;
-              }
-
-              v409 = *(this + 1);
-              if (*(this + 4) - v409 <= 1 || *v409 != 178 || v409[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v409 + 2;
-LABEL_798:
-              *(a1 + 488) |= 0x200000u;
-              v410 = *(a1 + 176);
-              if (!v410)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v411 = *(this + 1);
-              if (v411 >= *(this + 2) || *v411 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v411;
-                *(this + 1) = v411 + 1;
-              }
-
-              v412 = *(this + 14);
-              v413 = *(this + 15);
-              *(this + 14) = v412 + 1;
-              if (v412 >= v413)
-              {
-                return 0;
-              }
-
-              v414 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100449D44(v410, this, v415) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v414);
-              v416 = *(this + 14);
-              v20 = __OFSUB__(v416, 1);
-              v417 = v416 - 1;
-              if (v417 < 0 == v20)
-              {
-                *(this + 14) = v417;
-              }
-
-              v418 = *(this + 1);
-              if (*(this + 4) - v418 <= 1 || *v418 != 186 || v418[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v418 + 2;
-LABEL_813:
-              *(a1 + 488) |= 0x400000u;
-              v419 = *(a1 + 184);
-              if (!v419)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v420 = *(this + 1);
-              if (v420 >= *(this + 2) || *v420 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v420;
-                *(this + 1) = v420 + 1;
-              }
-
-              v421 = *(this + 14);
-              v422 = *(this + 15);
-              *(this + 14) = v421 + 1;
-              if (v421 >= v422)
-              {
-                return 0;
-              }
-
-              v423 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004367D0(v419, this, v424) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v423);
-              v425 = *(this + 14);
-              v20 = __OFSUB__(v425, 1);
-              v426 = v425 - 1;
-              if (v426 < 0 == v20)
-              {
-                *(this + 14) = v426;
-              }
-
-              v427 = *(this + 1);
-              if (*(this + 4) - v427 <= 1 || *v427 != 194 || v427[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v427 + 2;
-LABEL_828:
-              *(a1 + 488) |= 0x800000u;
-              v428 = *(a1 + 192);
-              if (!v428)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v429 = *(this + 1);
-              if (v429 >= *(this + 2) || *v429 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v429;
-                *(this + 1) = v429 + 1;
-              }
-
-              v430 = *(this + 14);
-              v431 = *(this + 15);
-              *(this + 14) = v430 + 1;
-              if (v430 >= v431)
-              {
-                return 0;
-              }
-
-              v432 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004382A0(v428, this, v433) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v432);
-              v434 = *(this + 14);
-              v20 = __OFSUB__(v434, 1);
-              v435 = v434 - 1;
-              if (v435 < 0 == v20)
-              {
-                *(this + 14) = v435;
-              }
-
-              v436 = *(this + 1);
-              if (*(this + 4) - v436 <= 1 || *v436 != 202 || v436[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v436 + 2;
-LABEL_843:
-              *(a1 + 488) |= 0x1000000u;
-              v437 = *(a1 + 200);
-              if (!v437)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v438 = *(this + 1);
-              if (v438 >= *(this + 2) || *v438 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v438;
-                *(this + 1) = v438 + 1;
-              }
-
-              v439 = *(this + 14);
-              v440 = *(this + 15);
-              *(this + 14) = v439 + 1;
-              if (v439 >= v440)
-              {
-                return 0;
-              }
-
-              v441 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100437744(v437, this, v442) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v441);
-              v443 = *(this + 14);
-              v20 = __OFSUB__(v443, 1);
-              v444 = v443 - 1;
-              if (v444 < 0 == v20)
-              {
-                *(this + 14) = v444;
-              }
-
-              v445 = *(this + 1);
-              if (*(this + 4) - v445 <= 1 || *v445 != 210 || v445[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v445 + 2;
-LABEL_858:
-              *(a1 + 488) |= 0x2000000u;
-              v446 = *(a1 + 208);
-              if (!v446)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v447 = *(this + 1);
-              if (v447 >= *(this + 2) || *v447 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v447;
-                *(this + 1) = v447 + 1;
-              }
-
-              v448 = *(this + 14);
-              v449 = *(this + 15);
-              *(this + 14) = v448 + 1;
-              if (v448 >= v449)
-              {
-                return 0;
-              }
-
-              v450 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004440A4(v446, this, v451) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v450);
-              v452 = *(this + 14);
-              v20 = __OFSUB__(v452, 1);
-              v453 = v452 - 1;
-              if (v453 < 0 == v20)
-              {
-                *(this + 14) = v453;
-              }
-
-              v454 = *(this + 1);
-              if (*(this + 4) - v454 <= 1 || *v454 != 218 || v454[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v454 + 2;
-LABEL_873:
-              *(a1 + 488) |= 0x4000000u;
-              v455 = *(a1 + 216);
-              if (!v455)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v456 = *(this + 1);
-              if (v456 >= *(this + 2) || *v456 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v456;
-                *(this + 1) = v456 + 1;
-              }
-
-              v457 = *(this + 14);
-              v458 = *(this + 15);
-              *(this + 14) = v457 + 1;
-              if (v457 >= v458)
-              {
-                return 0;
-              }
-
-              v459 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100446D9C(v455, this, v460) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v459);
-              v461 = *(this + 14);
-              v20 = __OFSUB__(v461, 1);
-              v462 = v461 - 1;
-              if (v462 < 0 == v20)
-              {
-                *(this + 14) = v462;
-              }
-
-              v463 = *(this + 1);
-              if (*(this + 4) - v463 <= 1 || *v463 != 226 || v463[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v463 + 2;
-LABEL_888:
-              *(a1 + 488) |= 0x8000000u;
-              v464 = *(a1 + 224);
-              if (!v464)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v465 = *(this + 1);
-              if (v465 >= *(this + 2) || *v465 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v465;
-                *(this + 1) = v465 + 1;
-              }
-
-              v466 = *(this + 14);
-              v467 = *(this + 15);
-              *(this + 14) = v466 + 1;
-              if (v466 >= v467)
-              {
-                return 0;
-              }
-
-              v468 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10044A850(v464, this, v469) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v468);
-              v470 = *(this + 14);
-              v20 = __OFSUB__(v470, 1);
-              v471 = v470 - 1;
-              if (v471 < 0 == v20)
-              {
-                *(this + 14) = v471;
-              }
-
-              v472 = *(this + 1);
-              if (*(this + 4) - v472 <= 1 || *v472 != 234 || v472[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v472 + 2;
-LABEL_903:
-              *(a1 + 488) |= 0x10000000u;
-              v473 = *(a1 + 232);
-              if (!v473)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v474 = *(this + 1);
-              if (v474 >= *(this + 2) || *v474 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v474;
-                *(this + 1) = v474 + 1;
-              }
-
-              v475 = *(this + 14);
-              v476 = *(this + 15);
-              *(this + 14) = v475 + 1;
-              if (v475 >= v476)
-              {
-                return 0;
-              }
-
-              v477 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10044C748(v473, this, v478) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v477);
-              v479 = *(this + 14);
-              v20 = __OFSUB__(v479, 1);
-              v480 = v479 - 1;
-              if (v480 < 0 == v20)
-              {
-                *(this + 14) = v480;
-              }
-
-              v481 = *(this + 1);
-              if (*(this + 4) - v481 <= 1 || *v481 != 242 || v481[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v481 + 2;
-LABEL_918:
-              *(a1 + 488) |= 0x20000000u;
-              v482 = *(a1 + 240);
-              if (!v482)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v483 = *(this + 1);
-              if (v483 >= *(this + 2) || *v483 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v483;
-                *(this + 1) = v483 + 1;
-              }
-
-              v484 = *(this + 14);
-              v485 = *(this + 15);
-              *(this + 14) = v484 + 1;
-              if (v484 >= v485)
-              {
-                return 0;
-              }
-
-              v486 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10044F850(v482, this, v487) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v486);
-              v488 = *(this + 14);
-              v20 = __OFSUB__(v488, 1);
-              v489 = v488 - 1;
-              if (v489 < 0 == v20)
-              {
-                *(this + 14) = v489;
-              }
-
-              v490 = *(this + 1);
-              if (*(this + 4) - v490 <= 1 || *v490 != 250 || v490[1] != 1)
-              {
-                continue;
-              }
-
-              *(this + 1) = v490 + 2;
-LABEL_933:
-              *(a1 + 488) |= 0x40000000u;
-              v491 = *(a1 + 248);
-              if (!v491)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v492 = *(this + 1);
-              if (v492 >= *(this + 2) || *v492 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v492;
-                *(this + 1) = v492 + 1;
-              }
-
-              v493 = *(this + 14);
-              v494 = *(this + 15);
-              *(this + 14) = v493 + 1;
-              if (v493 >= v494)
-              {
-                return 0;
-              }
-
-              v495 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100451368(v491, this, v496) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v495);
-              v497 = *(this + 14);
-              v20 = __OFSUB__(v497, 1);
-              v498 = v497 - 1;
-              if (v498 < 0 == v20)
-              {
-                *(this + 14) = v498;
-              }
-
-              v499 = *(this + 1);
-              if (*(this + 4) - v499 <= 1 || *v499 != 130 || v499[1] != 2)
-              {
-                continue;
-              }
-
-              *(this + 1) = v499 + 2;
-LABEL_948:
-              *(a1 + 488) |= 0x80000000;
-              v500 = *(a1 + 256);
-              if (!v500)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v501 = *(this + 1);
-              if (v501 >= *(this + 2) || *v501 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v501;
-                *(this + 1) = v501 + 1;
-              }
-
-              v502 = *(this + 14);
-              v503 = *(this + 15);
-              *(this + 14) = v502 + 1;
-              if (v502 >= v503)
-              {
-                return 0;
-              }
-
-              v504 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10042F8F4(v500, this, v505) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v504);
-              v506 = *(this + 14);
-              v20 = __OFSUB__(v506, 1);
-              v507 = v506 - 1;
-              if (v507 < 0 == v20)
-              {
-                *(this + 14) = v507;
-              }
-
-              v508 = *(this + 1);
-              if (*(this + 4) - v508 <= 1 || *v508 != 138 || v508[1] != 2)
-              {
-                continue;
-              }
-
-              *(this + 1) = v508 + 2;
-LABEL_963:
-              *(a1 + 492) |= 1u;
-              v509 = *(a1 + 264);
-              if (!v509)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v510 = *(this + 1);
-              if (v510 >= *(this + 2) || *v510 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v510;
-                *(this + 1) = v510 + 1;
-              }
-
-              v511 = *(this + 14);
-              v512 = *(this + 15);
-              *(this + 14) = v511 + 1;
-              if (v511 >= v512)
-              {
-                return 0;
-              }
-
-              v513 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100452B58(v509, this, v514) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v513);
-              v515 = *(this + 14);
-              v20 = __OFSUB__(v515, 1);
-              v516 = v515 - 1;
-              if (v516 < 0 == v20)
-              {
-                *(this + 14) = v516;
-              }
-
-              v517 = *(this + 1);
-              if (*(this + 4) - v517 <= 1 || *v517 != 146 || v517[1] != 2)
-              {
-                continue;
-              }
-
-              *(this + 1) = v517 + 2;
-LABEL_978:
-              *(a1 + 492) |= 2u;
-              v518 = *(a1 + 272);
-              if (!v518)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v519 = *(this + 1);
-              if (v519 >= *(this + 2) || *v519 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v519;
-                *(this + 1) = v519 + 1;
-              }
-
-              v520 = *(this + 14);
-              v521 = *(this + 15);
-              *(this + 14) = v520 + 1;
-              if (v520 >= v521)
-              {
-                return 0;
-              }
-
-              v522 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1012A8C5C(v518, this, v523) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v522);
-              v524 = *(this + 14);
-              v20 = __OFSUB__(v524, 1);
-              v525 = v524 - 1;
-              if (v525 < 0 == v20)
-              {
-                *(this + 14) = v525;
-              }
-
-              v526 = *(this + 1);
-              if (*(this + 4) - v526 <= 1 || *v526 != 154 || v526[1] != 2)
-              {
-                continue;
-              }
-
-              *(this + 1) = v526 + 2;
-LABEL_993:
-              *(a1 + 492) |= 4u;
-              v527 = *(a1 + 280);
-              if (!v527)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v528 = *(this + 1);
-              if (v528 >= *(this + 2) || *v528 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v528;
-                *(this + 1) = v528 + 1;
-              }
-
-              v529 = *(this + 14);
-              v530 = *(this + 15);
-              *(this + 14) = v529 + 1;
-              if (v529 >= v530)
-              {
-                return 0;
-              }
-
-              v531 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_1004539F4(v527, this, v532) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v531);
-              v533 = *(this + 14);
-              v20 = __OFSUB__(v533, 1);
-              v534 = v533 - 1;
-              if (v534 < 0 == v20)
-              {
-                *(this + 14) = v534;
-              }
-
-              v535 = *(this + 1);
-              if (*(this + 4) - v535 <= 1 || *v535 != 226 || v535[1] != 62)
-              {
-                continue;
-              }
-
-              *(this + 1) = v535 + 2;
-LABEL_1008:
-              *(a1 + 492) |= 8u;
-              v536 = *(a1 + 288);
-              if (!v536)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v537 = *(this + 1);
-              if (v537 >= *(this + 2) || *v537 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v537;
-                *(this + 1) = v537 + 1;
-              }
-
-              v538 = *(this + 14);
-              v539 = *(this + 15);
-              *(this + 14) = v538 + 1;
-              if (v538 >= v539)
-              {
-                return 0;
-              }
-
-              v540 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100E893FC(v536, this, v541) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v540);
-              v542 = *(this + 14);
-              v20 = __OFSUB__(v542, 1);
-              v543 = v542 - 1;
-              if (v543 < 0 == v20)
-              {
-                *(this + 14) = v543;
-              }
-
-              v544 = *(this + 1);
-              if (*(this + 4) - v544 <= 1 || *v544 != 242 || v544[1] != 62)
-              {
-                continue;
-              }
-
-              *(this + 1) = v544 + 2;
-              break;
-            case 3u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_525;
-            case 4u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_539;
-            case 5u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_553;
-            case 6u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_567;
-            case 7u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_581;
-            case 8u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_595;
-            case 9u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_609;
-            case 0xAu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_623;
-            case 0xBu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_637;
-            case 0xCu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_651;
-            case 0xDu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_665;
-            case 0xEu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_679;
-            case 0xFu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_693;
-            case 0x10u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_708;
-            case 0x11u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_723;
-            case 0x12u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_738;
-            case 0x13u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_753;
-            case 0x14u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_768;
-            case 0x15u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_783;
-            case 0x16u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_798;
-            case 0x17u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_813;
-            case 0x18u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_828;
-            case 0x19u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_843;
-            case 0x1Au:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_858;
-            case 0x1Bu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_873;
-            case 0x1Cu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_888;
-            case 0x1Du:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_903;
-            case 0x1Eu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_918;
-            case 0x1Fu:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_933;
-            case 0x20u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_948;
-            case 0x21u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_963;
-            case 0x22u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_978;
-            case 0x23u:
-              if (v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_993;
-            default:
-              if (v7 != 1004 || v8 != 2)
-              {
-                goto LABEL_147;
-              }
-
-              goto LABEL_1008;
-          }
-
-          goto LABEL_41;
-        }
-
-        if (TagFallback >> 3 <= 0x3F7)
-        {
-          break;
-        }
-
-        switch(v7)
-        {
-          case 0x7D0u:
-            if (v8 == 2)
-            {
-              goto LABEL_265;
-            }
-
-            goto LABEL_147;
-          case 0x7D1u:
-            if (v8 == 2)
-            {
-              goto LABEL_280;
-            }
-
-            goto LABEL_147;
-          case 0x7D2u:
-            if (v8 == 2)
-            {
-              goto LABEL_295;
-            }
-
-            goto LABEL_147;
-          case 0x7D3u:
-            if ((TagFallback & 7) != 0)
-            {
-              goto LABEL_147;
-            }
-
-            v14 = *(this + 1);
-            v13 = *(this + 2);
-            goto LABEL_310;
-          case 0x7D4u:
-            if (v8 == 2)
-            {
-              goto LABEL_322;
-            }
-
-            goto LABEL_147;
-          case 0x7D5u:
-            if (v8 == 2)
-            {
-              goto LABEL_337;
-            }
-
-            goto LABEL_147;
-          case 0x7D6u:
-            if (v8 == 2)
-            {
-              goto LABEL_352;
-            }
-
-            goto LABEL_147;
-          case 0x7D7u:
-            if (v8 == 2)
-            {
-              goto LABEL_367;
-            }
-
-            goto LABEL_147;
-          case 0x7D8u:
-            if (v8 != 2)
-            {
-              goto LABEL_147;
-            }
-
-            goto LABEL_382;
-          case 0x7D9u:
-            if (v8 == 2)
-            {
-              goto LABEL_397;
-            }
-
-            goto LABEL_147;
-          case 0x7DAu:
-            if (v8 == 2)
-            {
-              goto LABEL_412;
-            }
-
-            goto LABEL_147;
-          case 0x7DBu:
-            if (v8 == 2)
-            {
-              goto LABEL_427;
-            }
-
-            goto LABEL_147;
-          case 0x7DCu:
-            if (v8 == 2)
-            {
-              goto LABEL_442;
-            }
-
-            goto LABEL_147;
-          case 0x7DDu:
-            if (v8 == 2)
-            {
-              goto LABEL_457;
-            }
-
-            goto LABEL_147;
-          case 0x7DEu:
-            if (v8 == 2)
-            {
-              goto LABEL_472;
-            }
-
-            goto LABEL_147;
-          case 0x7DFu:
-            if (v8 == 2)
-            {
-              goto LABEL_487;
-            }
-
-            goto LABEL_147;
-          default:
-            if (v7 == 1016)
-            {
-              if (v8 == 2)
-              {
-                goto LABEL_235;
-              }
-
-              goto LABEL_147;
-            }
-
-            if (v7 != 1017 || v8 != 2)
-            {
-              goto LABEL_147;
-            }
-
-LABEL_250:
-            *(a1 + 492) |= 0x800u;
-            v77 = *(a1 + 352);
-            if (!v77)
-            {
-              operator new();
-            }
-
-            v545 = 0;
-            v78 = *(this + 1);
-            if (v78 >= *(this + 2) || *v78 < 0)
-            {
-              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-              {
-                return 0;
-              }
-            }
-
-            else
-            {
-              v545 = *v78;
-              *(this + 1) = v78 + 1;
-            }
-
-            v79 = *(this + 14);
-            v80 = *(this + 15);
-            *(this + 14) = v79 + 1;
-            if (v79 >= v80)
-            {
-              return 0;
-            }
-
-            v81 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-            if (!sub_100E007A4(v77, this, v82) || *(this + 36) != 1)
-            {
-              return 0;
-            }
-
-            wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v81);
-            v83 = *(this + 14);
-            v20 = __OFSUB__(v83, 1);
-            v84 = v83 - 1;
-            if (v84 < 0 == v20)
-            {
-              *(this + 14) = v84;
-            }
-
-            v85 = *(this + 1);
-            if (*(this + 4) - v85 > 1 && *v85 == 130 && v85[1] == 125)
-            {
-              *(this + 1) = v85 + 2;
-LABEL_265:
-              *(a1 + 492) |= 0x1000u;
-              v86 = *(a1 + 360);
-              if (!v86)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v87 = *(this + 1);
-              if (v87 >= *(this + 2) || *v87 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v87;
-                *(this + 1) = v87 + 1;
-              }
-
-              v88 = *(this + 14);
-              v89 = *(this + 15);
-              *(this + 14) = v88 + 1;
-              if (v88 >= v89)
-              {
-                return 0;
-              }
-
-              v90 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_100948C18(v86, this, v91) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v90);
-              v92 = *(this + 14);
-              v20 = __OFSUB__(v92, 1);
-              v93 = v92 - 1;
-              if (v93 < 0 == v20)
-              {
-                *(this + 14) = v93;
-              }
-
-              v94 = *(this + 1);
-              if (*(this + 4) - v94 > 1 && *v94 == 138 && v94[1] == 125)
-              {
-                *(this + 1) = v94 + 2;
-LABEL_280:
-                *(a1 + 492) |= 0x2000u;
-                v95 = *(a1 + 368);
-                if (!v95)
-                {
-                  operator new();
-                }
-
-                v545 = 0;
-                v96 = *(this + 1);
-                if (v96 >= *(this + 2) || *v96 < 0)
-                {
-                  if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                  {
-                    return 0;
-                  }
-                }
-
-                else
-                {
-                  v545 = *v96;
-                  *(this + 1) = v96 + 1;
-                }
-
-                v97 = *(this + 14);
-                v98 = *(this + 15);
-                *(this + 14) = v97 + 1;
-                if (v97 >= v98)
-                {
-                  return 0;
-                }
-
-                v99 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                if (!sub_100949354(v95, this, v100) || *(this + 36) != 1)
-                {
-                  return 0;
-                }
-
-                wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v99);
-                v101 = *(this + 14);
-                v20 = __OFSUB__(v101, 1);
-                v102 = v101 - 1;
-                if (v102 < 0 == v20)
-                {
-                  *(this + 14) = v102;
-                }
-
-                v103 = *(this + 1);
-                if (*(this + 4) - v103 > 1 && *v103 == 146 && v103[1] == 125)
-                {
-                  *(this + 1) = v103 + 2;
-LABEL_295:
-                  *(a1 + 492) |= 0x4000u;
-                  v104 = *(a1 + 376);
-                  if (!v104)
-                  {
-                    operator new();
-                  }
-
-                  v545 = 0;
-                  v105 = *(this + 1);
-                  if (v105 >= *(this + 2) || *v105 < 0)
-                  {
-                    if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                    {
-                      return 0;
-                    }
-                  }
-
-                  else
-                  {
-                    v545 = *v105;
-                    *(this + 1) = v105 + 1;
-                  }
-
-                  v106 = *(this + 14);
-                  v107 = *(this + 15);
-                  *(this + 14) = v106 + 1;
-                  if (v106 >= v107)
-                  {
-                    return 0;
-                  }
-
-                  v108 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                  if (!sub_100949BCC(v104, this, v109) || *(this + 36) != 1)
-                  {
-                    return 0;
-                  }
-
-                  wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v108);
-                  v110 = *(this + 14);
-                  v20 = __OFSUB__(v110, 1);
-                  v111 = v110 - 1;
-                  if (v111 < 0 == v20)
-                  {
-                    *(this + 14) = v111;
-                  }
-
-                  v112 = *(this + 1);
-                  v13 = *(this + 2);
-                  if (v13 - v112 > 1 && *v112 == 152 && v112[1] == 125)
-                  {
-                    v14 = (v112 + 2);
-                    *(this + 1) = v14;
-LABEL_310:
-                    v545 = 0;
-                    if (v14 >= v13 || (v113 = *v14, (v113 & 0x80000000) != 0))
-                    {
-                      result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545);
-                      if (!result)
-                      {
-                        return result;
-                      }
-
-                      v113 = v545;
-                    }
-
-                    else
-                    {
-                      *(this + 1) = v14 + 1;
-                    }
-
-                    if (sub_10041ECEC(v113))
-                    {
-                      if (!sub_10041ECEC(v113))
-                      {
-                        sub_10195532C();
-                      }
-
-                      *(a1 + 492) |= 0x8000u;
-                      *(a1 + 480) = v113;
-                    }
-
-                    v115 = *(this + 1);
-                    if (*(this + 4) - v115 >= 2 && *v115 == 162 && v115[1] == 125)
-                    {
-                      *(this + 1) = v115 + 2;
-LABEL_322:
-                      *(a1 + 492) |= 0x10000u;
-                      v116 = *(a1 + 384);
-                      if (!v116)
-                      {
-                        operator new();
-                      }
-
-                      v545 = 0;
-                      v117 = *(this + 1);
-                      if (v117 >= *(this + 2) || *v117 < 0)
-                      {
-                        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                        {
-                          return 0;
-                        }
-                      }
-
-                      else
-                      {
-                        v545 = *v117;
-                        *(this + 1) = v117 + 1;
-                      }
-
-                      v118 = *(this + 14);
-                      v119 = *(this + 15);
-                      *(this + 14) = v118 + 1;
-                      if (v118 >= v119)
-                      {
-                        return 0;
-                      }
-
-                      v120 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                      if (!sub_10094A468(v116, this, v121) || *(this + 36) != 1)
-                      {
-                        return 0;
-                      }
-
-                      wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v120);
-                      v122 = *(this + 14);
-                      v20 = __OFSUB__(v122, 1);
-                      v123 = v122 - 1;
-                      if (v123 < 0 == v20)
-                      {
-                        *(this + 14) = v123;
-                      }
-
-                      v124 = *(this + 1);
-                      if (*(this + 4) - v124 > 1 && *v124 == 170 && v124[1] == 125)
-                      {
-                        *(this + 1) = v124 + 2;
-LABEL_337:
-                        *(a1 + 492) |= 0x20000u;
-                        v125 = *(a1 + 392);
-                        if (!v125)
-                        {
-                          operator new();
-                        }
-
-                        v545 = 0;
-                        v126 = *(this + 1);
-                        if (v126 >= *(this + 2) || *v126 < 0)
-                        {
-                          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                          {
-                            return 0;
-                          }
-                        }
-
-                        else
-                        {
-                          v545 = *v126;
-                          *(this + 1) = v126 + 1;
-                        }
-
-                        v127 = *(this + 14);
-                        v128 = *(this + 15);
-                        *(this + 14) = v127 + 1;
-                        if (v127 >= v128)
-                        {
-                          return 0;
-                        }
-
-                        v129 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                        if (!sub_10094AB88(v125, this, v130) || *(this + 36) != 1)
-                        {
-                          return 0;
-                        }
-
-                        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v129);
-                        v131 = *(this + 14);
-                        v20 = __OFSUB__(v131, 1);
-                        v132 = v131 - 1;
-                        if (v132 < 0 == v20)
-                        {
-                          *(this + 14) = v132;
-                        }
-
-                        v133 = *(this + 1);
-                        if (*(this + 4) - v133 > 1 && *v133 == 178 && v133[1] == 125)
-                        {
-                          *(this + 1) = v133 + 2;
-LABEL_352:
-                          *(a1 + 492) |= 0x40000u;
-                          v134 = *(a1 + 400);
-                          if (!v134)
-                          {
-                            operator new();
-                          }
-
-                          v545 = 0;
-                          v135 = *(this + 1);
-                          if (v135 >= *(this + 2) || *v135 < 0)
-                          {
-                            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                            {
-                              return 0;
-                            }
-                          }
-
-                          else
-                          {
-                            v545 = *v135;
-                            *(this + 1) = v135 + 1;
-                          }
-
-                          v136 = *(this + 14);
-                          v137 = *(this + 15);
-                          *(this + 14) = v136 + 1;
-                          if (v136 >= v137)
-                          {
-                            return 0;
-                          }
-
-                          v138 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                          if (!sub_10094BAA0(v134, this, v139) || *(this + 36) != 1)
-                          {
-                            return 0;
-                          }
-
-                          wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v138);
-                          v140 = *(this + 14);
-                          v20 = __OFSUB__(v140, 1);
-                          v141 = v140 - 1;
-                          if (v141 < 0 == v20)
-                          {
-                            *(this + 14) = v141;
-                          }
-
-                          v142 = *(this + 1);
-                          if (*(this + 4) - v142 > 1 && *v142 == 186 && v142[1] == 125)
-                          {
-                            *(this + 1) = v142 + 2;
-LABEL_367:
-                            *(a1 + 492) |= 0x80000u;
-                            v143 = *(a1 + 408);
-                            if (!v143)
-                            {
-                              operator new();
-                            }
-
-                            v545 = 0;
-                            v144 = *(this + 1);
-                            if (v144 >= *(this + 2) || *v144 < 0)
-                            {
-                              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                              {
-                                return 0;
-                              }
-                            }
-
-                            else
-                            {
-                              v545 = *v144;
-                              *(this + 1) = v144 + 1;
-                            }
-
-                            v145 = *(this + 14);
-                            v146 = *(this + 15);
-                            *(this + 14) = v145 + 1;
-                            if (v145 >= v146)
-                            {
-                              return 0;
-                            }
-
-                            v147 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                            if (!sub_10094C2C4(v143, this, v148) || *(this + 36) != 1)
-                            {
-                              return 0;
-                            }
-
-                            wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v147);
-                            v149 = *(this + 14);
-                            v20 = __OFSUB__(v149, 1);
-                            v150 = v149 - 1;
-                            if (v150 < 0 == v20)
-                            {
-                              *(this + 14) = v150;
-                            }
-
-                            v151 = *(this + 1);
-                            if (*(this + 4) - v151 > 1 && *v151 == 194 && v151[1] == 125)
-                            {
-                              *(this + 1) = v151 + 2;
-LABEL_382:
-                              *(a1 + 492) |= 0x100000u;
-                              v152 = *(a1 + 416);
-                              if (!v152)
-                              {
-                                operator new();
-                              }
-
-                              v545 = 0;
-                              v153 = *(this + 1);
-                              if (v153 >= *(this + 2) || *v153 < 0)
-                              {
-                                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                {
-                                  return 0;
-                                }
-                              }
-
-                              else
-                              {
-                                v545 = *v153;
-                                *(this + 1) = v153 + 1;
-                              }
-
-                              v154 = *(this + 14);
-                              v155 = *(this + 15);
-                              *(this + 14) = v154 + 1;
-                              if (v154 >= v155)
-                              {
-                                return 0;
-                              }
-
-                              v156 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                              if (!sub_10094CB60(v152, this, v157) || *(this + 36) != 1)
-                              {
-                                return 0;
-                              }
-
-                              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v156);
-                              v158 = *(this + 14);
-                              v20 = __OFSUB__(v158, 1);
-                              v159 = v158 - 1;
-                              if (v159 < 0 == v20)
-                              {
-                                *(this + 14) = v159;
-                              }
-
-                              v160 = *(this + 1);
-                              if (*(this + 4) - v160 > 1 && *v160 == 202 && v160[1] == 125)
-                              {
-                                *(this + 1) = v160 + 2;
-LABEL_397:
-                                *(a1 + 492) |= 0x200000u;
-                                v161 = *(a1 + 424);
-                                if (!v161)
-                                {
-                                  operator new();
-                                }
-
-                                v545 = 0;
-                                v162 = *(this + 1);
-                                if (v162 >= *(this + 2) || *v162 < 0)
-                                {
-                                  if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                  {
-                                    return 0;
-                                  }
-                                }
-
-                                else
-                                {
-                                  v545 = *v162;
-                                  *(this + 1) = v162 + 1;
-                                }
-
-                                v163 = *(this + 14);
-                                v164 = *(this + 15);
-                                *(this + 14) = v163 + 1;
-                                if (v163 >= v164)
-                                {
-                                  return 0;
-                                }
-
-                                v165 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                if (!sub_10094D784(v161, this, v166) || *(this + 36) != 1)
-                                {
-                                  return 0;
-                                }
-
-                                wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v165);
-                                v167 = *(this + 14);
-                                v20 = __OFSUB__(v167, 1);
-                                v168 = v167 - 1;
-                                if (v168 < 0 == v20)
-                                {
-                                  *(this + 14) = v168;
-                                }
-
-                                v169 = *(this + 1);
-                                if (*(this + 4) - v169 > 1 && *v169 == 210 && v169[1] == 125)
-                                {
-                                  *(this + 1) = v169 + 2;
-LABEL_412:
-                                  *(a1 + 492) |= 0x400000u;
-                                  v170 = *(a1 + 432);
-                                  if (!v170)
-                                  {
-                                    operator new();
-                                  }
-
-                                  v545 = 0;
-                                  v171 = *(this + 1);
-                                  if (v171 >= *(this + 2) || *v171 < 0)
-                                  {
-                                    if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                    {
-                                      return 0;
-                                    }
-                                  }
-
-                                  else
-                                  {
-                                    v545 = *v171;
-                                    *(this + 1) = v171 + 1;
-                                  }
-
-                                  v172 = *(this + 14);
-                                  v173 = *(this + 15);
-                                  *(this + 14) = v172 + 1;
-                                  if (v172 >= v173)
-                                  {
-                                    return 0;
-                                  }
-
-                                  v174 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                  if (!sub_10094DE84(v170, this, v175) || *(this + 36) != 1)
-                                  {
-                                    return 0;
-                                  }
-
-                                  wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v174);
-                                  v176 = *(this + 14);
-                                  v20 = __OFSUB__(v176, 1);
-                                  v177 = v176 - 1;
-                                  if (v177 < 0 == v20)
-                                  {
-                                    *(this + 14) = v177;
-                                  }
-
-                                  v178 = *(this + 1);
-                                  if (*(this + 4) - v178 > 1 && *v178 == 218 && v178[1] == 125)
-                                  {
-                                    *(this + 1) = v178 + 2;
-LABEL_427:
-                                    *(a1 + 492) |= 0x800000u;
-                                    v179 = *(a1 + 440);
-                                    if (!v179)
-                                    {
-                                      operator new();
-                                    }
-
-                                    v545 = 0;
-                                    v180 = *(this + 1);
-                                    if (v180 >= *(this + 2) || *v180 < 0)
-                                    {
-                                      if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                      {
-                                        return 0;
-                                      }
-                                    }
-
-                                    else
-                                    {
-                                      v545 = *v180;
-                                      *(this + 1) = v180 + 1;
-                                    }
-
-                                    v181 = *(this + 14);
-                                    v182 = *(this + 15);
-                                    *(this + 14) = v181 + 1;
-                                    if (v181 >= v182)
-                                    {
-                                      return 0;
-                                    }
-
-                                    v183 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                    if (!sub_10094E78C(v179, this, v184) || *(this + 36) != 1)
-                                    {
-                                      return 0;
-                                    }
-
-                                    wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v183);
-                                    v185 = *(this + 14);
-                                    v20 = __OFSUB__(v185, 1);
-                                    v186 = v185 - 1;
-                                    if (v186 < 0 == v20)
-                                    {
-                                      *(this + 14) = v186;
-                                    }
-
-                                    v187 = *(this + 1);
-                                    if (*(this + 4) - v187 > 1 && *v187 == 226 && v187[1] == 125)
-                                    {
-                                      *(this + 1) = v187 + 2;
-LABEL_442:
-                                      *(a1 + 492) |= 0x1000000u;
-                                      v188 = *(a1 + 448);
-                                      if (!v188)
-                                      {
-                                        operator new();
-                                      }
-
-                                      v545 = 0;
-                                      v189 = *(this + 1);
-                                      if (v189 >= *(this + 2) || *v189 < 0)
-                                      {
-                                        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                        {
-                                          return 0;
-                                        }
-                                      }
-
-                                      else
-                                      {
-                                        v545 = *v189;
-                                        *(this + 1) = v189 + 1;
-                                      }
-
-                                      v190 = *(this + 14);
-                                      v191 = *(this + 15);
-                                      *(this + 14) = v190 + 1;
-                                      if (v190 >= v191)
-                                      {
-                                        return 0;
-                                      }
-
-                                      v192 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                      if (!sub_10094EDB4(v188, this, v193) || *(this + 36) != 1)
-                                      {
-                                        return 0;
-                                      }
-
-                                      wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v192);
-                                      v194 = *(this + 14);
-                                      v20 = __OFSUB__(v194, 1);
-                                      v195 = v194 - 1;
-                                      if (v195 < 0 == v20)
-                                      {
-                                        *(this + 14) = v195;
-                                      }
-
-                                      v196 = *(this + 1);
-                                      if (*(this + 4) - v196 > 1 && *v196 == 234 && v196[1] == 125)
-                                      {
-                                        *(this + 1) = v196 + 2;
-LABEL_457:
-                                        *(a1 + 492) |= 0x2000000u;
-                                        v197 = *(a1 + 456);
-                                        if (!v197)
-                                        {
-                                          operator new();
-                                        }
-
-                                        v545 = 0;
-                                        v198 = *(this + 1);
-                                        if (v198 >= *(this + 2) || *v198 < 0)
-                                        {
-                                          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                          {
-                                            return 0;
-                                          }
-                                        }
-
-                                        else
-                                        {
-                                          v545 = *v198;
-                                          *(this + 1) = v198 + 1;
-                                        }
-
-                                        v199 = *(this + 14);
-                                        v200 = *(this + 15);
-                                        *(this + 14) = v199 + 1;
-                                        if (v199 >= v200)
-                                        {
-                                          return 0;
-                                        }
-
-                                        v201 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                        if (!sub_10094F488(v197, this, v202) || *(this + 36) != 1)
-                                        {
-                                          return 0;
-                                        }
-
-                                        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v201);
-                                        v203 = *(this + 14);
-                                        v20 = __OFSUB__(v203, 1);
-                                        v204 = v203 - 1;
-                                        if (v204 < 0 == v20)
-                                        {
-                                          *(this + 14) = v204;
-                                        }
-
-                                        v205 = *(this + 1);
-                                        if (*(this + 4) - v205 > 1 && *v205 == 242 && v205[1] == 125)
-                                        {
-                                          *(this + 1) = v205 + 2;
-LABEL_472:
-                                          *(a1 + 492) |= 0x4000000u;
-                                          v206 = *(a1 + 464);
-                                          if (!v206)
-                                          {
-                                            operator new();
-                                          }
-
-                                          v545 = 0;
-                                          v207 = *(this + 1);
-                                          if (v207 >= *(this + 2) || *v207 < 0)
-                                          {
-                                            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                            {
-                                              return 0;
-                                            }
-                                          }
-
-                                          else
-                                          {
-                                            v545 = *v207;
-                                            *(this + 1) = v207 + 1;
-                                          }
-
-                                          v208 = *(this + 14);
-                                          v209 = *(this + 15);
-                                          *(this + 14) = v208 + 1;
-                                          if (v208 >= v209)
-                                          {
-                                            return 0;
-                                          }
-
-                                          v210 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                          if (!sub_10094FC14(v206, this, v211) || *(this + 36) != 1)
-                                          {
-                                            return 0;
-                                          }
-
-                                          wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v210);
-                                          v212 = *(this + 14);
-                                          v20 = __OFSUB__(v212, 1);
-                                          v213 = v212 - 1;
-                                          if (v213 < 0 == v20)
-                                          {
-                                            *(this + 14) = v213;
-                                          }
-
-                                          v214 = *(this + 1);
-                                          if (*(this + 4) - v214 > 1 && *v214 == 250 && v214[1] == 125)
-                                          {
-                                            *(this + 1) = v214 + 2;
-LABEL_487:
-                                            *(a1 + 492) |= 0x8000000u;
-                                            v215 = *(a1 + 472);
-                                            if (!v215)
-                                            {
-                                              operator new();
-                                            }
-
-                                            v545 = 0;
-                                            v216 = *(this + 1);
-                                            if (v216 >= *(this + 2) || *v216 < 0)
-                                            {
-                                              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                                              {
-                                                return 0;
-                                              }
-                                            }
-
-                                            else
-                                            {
-                                              v545 = *v216;
-                                              *(this + 1) = v216 + 1;
-                                            }
-
-                                            v217 = *(this + 14);
-                                            v218 = *(this + 15);
-                                            *(this + 14) = v217 + 1;
-                                            if (v217 >= v218)
-                                            {
-                                              return 0;
-                                            }
-
-                                            v219 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                                            if (!sub_100950230(v215, this, v220) || *(this + 36) != 1)
-                                            {
-                                              return 0;
-                                            }
-
-                                            wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v219);
-                                            v221 = *(this + 14);
-                                            v20 = __OFSUB__(v221, 1);
-                                            v222 = v221 - 1;
-                                            if (v222 < 0 == v20)
-                                            {
-                                              *(this + 14) = v222;
-                                            }
-
-                                            if (*(this + 1) == *(this + 2) && (*(this + 11) || *(this + 6) == *(this + 10)))
-                                            {
-                                              *(this + 8) = 0;
-                                              result = 1;
-                                              *(this + 36) = 1;
-                                              return result;
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            break;
-        }
-      }
-
-      if (TagFallback >> 3 > 0x3F1)
-      {
-        if (v7 == 1010)
-        {
-          if (v8 == 2)
-          {
-            goto LABEL_190;
-          }
-        }
-
-        else if (v7 == 1012)
-        {
-          if (v8 == 2)
-          {
-            goto LABEL_205;
-          }
-        }
-
-        else if (v7 == 1014 && v8 == 2)
-        {
-          goto LABEL_220;
-        }
-
-        goto LABEL_147;
-      }
-
-      if (v7 != 1006)
-      {
-        break;
-      }
-
-      if (v8 != 2)
-      {
-        goto LABEL_147;
-      }
-
-LABEL_41:
-      *(a1 + 492) |= 0x10u;
-      v11 = *(a1 + 296);
-      if (!v11)
-      {
-        operator new();
-      }
-
-      v545 = 0;
-      v12 = *(this + 1);
-      if (v12 >= *(this + 2) || *v12 < 0)
-      {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-        {
-          return 0;
+          v22 = "::CLP::LogEntry::PrivateData::DaemonLocation_LocationIntegrityType_IsValid(value)";
+          v23 = 15425;
+          v24 = "set_integrity";
         }
       }
 
       else
       {
-        v545 = *v12;
-        *(this + 1) = v12 + 1;
+        v22 = "::CLP::LogEntry::PrivateData::LocationType_IsValid(value)";
+        v23 = 15316;
+        v24 = "set_type";
+      }
+    }
+
+    else
+    {
+      v22 = "::CLP::LogEntry::PrivateData::DaemonLocation_ClientLocationSuitabilityType_IsValid(value)";
+      v23 = 15031;
+      v24 = "set_suitability";
+    }
+
+    __assert_rtn(v24, "CLPPrivateDataShared.pb.h", v23, v22);
+  }
+
+  if (qword_1025D46A0 != -1)
+  {
+    sub_10194A79C();
+  }
+
+  v21 = qword_1025D46A8;
+  if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134283521;
+    v33 = 0;
+    _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_ERROR, "CLVPC,fromCLDaemonLocation,Invalid output pointer, pLocationMsg,%{private}p", buf, 0xCu);
+  }
+
+  result = sub_10000A100(121, 0);
+  if (result)
+  {
+    sub_10194A7B0(buf);
+    v30 = 134283521;
+    v31 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLDaemonLocation,Invalid output pointer, pLocationMsg,%{private}p", &v30, 12);
+    v26 = v25;
+    sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLDaemonLocation(const CLDaemonLocation &, CLP::LogEntry::PrivateData::DaemonLocation *)", "%s\n", v25);
+    if (v26 != buf)
+    {
+      free(v26);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_10081FD4C(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10081FDA8(int a1, int *a2)
+{
+  v3 = a1;
+  if ((a1 - 1) >= 2 && a1 != 0xFFFF)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v5 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      v11 = v3;
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "CLVPC,fromCLClientLocationSuitability,Received unhandled location suitability: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A7B0(buf);
+      v9[0] = 67109120;
+      v9[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 2, "CLVPC,fromCLClientLocationSuitability,Received unhandled location suitability: %d", v9);
+      v8 = v7;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLVisionProtobufConverter::fromCLClientLocationSuitability(const CLClientLocationSuitability, CLP::LogEntry::PrivateData::DaemonLocation_ClientLocationSuitabilityType &)", "%s\n", v7);
+      if (v8 != buf)
+      {
+        free(v8);
+      }
+    }
+
+    v3 = 0;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_10081FF40(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+BOOL sub_10081FF4C(_OWORD *a1, uint64_t a2)
+{
+  if (a2)
+  {
+    *(a2 + 28) |= 3u;
+    *(a2 + 8) = *a1;
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v3 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v10 = 0;
+      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "CLVPC,fromCLClientLocationCoordinate,Invalid output pointer,pCoordinateMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v7 = 134283521;
+      v8 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLClientLocationCoordinate,Invalid output pointer,pCoordinateMsg,%{private}p", &v7, 12);
+      v6 = v5;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLClientLocationCoordinate(const CLClientLocationCoordinate &, CLP::LogEntry::PrivateData::ClientLocationCoordinate *)", "%s\n", v5);
+      if (v6 != buf)
+      {
+        free(v6);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_1008200E4(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_1008200F0(unsigned int a1, unsigned int *a2)
+{
+  v3 = a1;
+  if (a1 >= 0xE)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "CLVPC,fromCLLocationType,Received unhandled location type: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLLocationType,Received unhandled location type: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLLocationType(const CLLocationType, CLP::LogEntry::PrivateData::LocationType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = 0;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_10082027C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_100820288(int a1, int *a2)
+{
+  v3 = a1;
+  if (((a1 - 25) > 0x32 || ((1 << (a1 - 25)) & 0x4000002000001) == 0) && a1)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLVPC,fromCLLocationIntegrity,Received unhandled location integrity: %u", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 2, "CLVPC,fromCLLocationIntegrity,Received unhandled location integrity: %u", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLVisionProtobufConverter::fromCLLocationIntegrity(const CLLocationIntegrity, CLP::LogEntry::PrivateData::DaemonLocation_LocationIntegrityType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = -1;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_100820438(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_100820444(unsigned int a1, unsigned int *a2)
+{
+  v3 = a1;
+  if (a1 >= 3)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLVPC,fromCLClientLocationReferenceFrame,Received unhandled location reference frame: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 2, "CLVPC,fromCLClientLocationReferenceFrame,Received unhandled location reference frame: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLVisionProtobufConverter::fromCLClientLocationReferenceFrame(const CLClientLocationReferenceFrame, CLP::LogEntry::PrivateData::ClientLocationReferenceFrameType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = 0;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_1008205D0(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_1008205DC(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v4 = *(a2 + 368);
+    *(a2 + 8) = *a1;
+    *(a2 + 24) = *(a1 + 16);
+    *(a2 + 40) = *(a1 + 32);
+    *(a2 + 48) = *(a1 + 40);
+    *(a2 + 56) = *(a1 + 48);
+    v5 = *(a1 + 52);
+    *(a2 + 368) = v4 | 0x1FF;
+    *(a2 + 112) = v5;
+    *buf = 0;
+    sub_100820B80(*(a1 + 56), buf);
+    v6 = *buf;
+    if (sub_10041ECF8(*buf))
+    {
+      v7 = *(a2 + 368);
+      *(a2 + 60) = v6;
+      *(a2 + 368) = v7 | 0x600;
+      v8 = *(a2 + 64);
+      if (!v8)
+      {
+        operator new();
       }
 
-      v15 = *(this + 14);
-      v16 = *(this + 15);
-      *(this + 14) = v15 + 1;
-      if (v15 >= v16)
+      v9 = sub_10081FF4C((a1 + 64), v8);
+      v10 = *(a1 + 80);
+      v11 = *(a2 + 368);
+      *(a2 + 368) = v11 | 0x800;
+      *(a2 + 72) = v10;
+      v12 = *(a1 + 88);
+      *(a2 + 368) = v11 | 0x1800;
+      *(a2 + 80) = v12;
+      *(a2 + 84) = *(a1 + 92);
+      *(a2 + 113) = *(a1 + 96);
+      *(a2 + 368) = v11 | 0x807800;
+      v13 = *(a2 + 136);
+      if (!v13)
       {
-        return 0;
+        operator new();
       }
 
-      v17 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-      if (!sub_1009996FC(v11, this, v18) || *(this + 36) != 1)
+      v14 = sub_100820D1C(a1 + 104, v13);
+      *(a2 + 368) |= 0x8000u;
+      v15 = *(a2 + 88);
+      if (!v15)
       {
-        return 0;
+        operator new();
       }
 
-      wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v17);
-      v19 = *(this + 14);
-      v20 = __OFSUB__(v19, 1);
-      v21 = v19 - 1;
-      if (v21 < 0 == v20)
+      *(v15 + 28) |= 3u;
+      *(v15 + 8) = *(a1 + 296);
+      v35 = 0;
+      sub_100820EC8(*(a1 + 312), &v35);
+      v16 = v35;
+      if (sub_1001F162C(v35))
       {
-        *(this + 14) = v21;
-      }
-
-      v22 = *(this + 1);
-      if (*(this + 4) - v22 > 1 && *v22 == 250 && v22[1] == 62)
-      {
-        *(this + 1) = v22 + 2;
-LABEL_160:
-        *(a1 + 492) |= 0x20u;
-        v23 = *(a1 + 304);
-        if (!v23)
+        v17 = *(a2 + 368);
+        *(a2 + 96) = v16;
+        *(a2 + 100) = *(a1 + 316);
+        *(a2 + 368) = v17 | 0x70000;
+        v18 = *(a2 + 104);
+        if (!v18)
         {
           operator new();
         }
 
-        v545 = 0;
-        v24 = *(this + 1);
-        if (v24 >= *(this + 2) || *v24 < 0)
+        v19 = sub_10081FF4C((a1 + 320), v18);
+        *(a2 + 368) |= 0x180000u;
+        *(a2 + 120) = *(a1 + 336);
+        v34 = 0;
+        sub_100821064(*(a1 + 352), &v34);
+        v20 = v34;
+        if (sub_10041ECEC(v34))
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          v545 = *v24;
-          *(this + 1) = v24 + 1;
-        }
-
-        v25 = *(this + 14);
-        v26 = *(this + 15);
-        *(this + 14) = v25 + 1;
-        if (v25 >= v26)
-        {
-          return 0;
-        }
-
-        v27 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-        if (!sub_100B7DA54(v23, this, v28) || *(this + 36) != 1)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v27);
-        v29 = *(this + 14);
-        v20 = __OFSUB__(v29, 1);
-        v30 = v29 - 1;
-        if (v30 < 0 == v20)
-        {
-          *(this + 14) = v30;
-        }
-
-        v31 = *(this + 1);
-        if (*(this + 4) - v31 > 1 && *v31 == 130 && v31[1] == 63)
-        {
-          *(this + 1) = v31 + 2;
-LABEL_175:
-          *(a1 + 492) |= 0x40u;
-          v32 = *(a1 + 312);
-          if (!v32)
+          *(a2 + 116) = v20;
+          *(a2 + 114) = *(a1 + 356);
+          *(a2 + 144) = *(a1 + 360);
+          *(a2 + 160) = *(a1 + 376);
+          *(a2 + 176) = *(a1 + 496);
+          *(a2 + 115) = *(a1 + 512);
+          *(a2 + 192) = *(a1 + 392);
+          *(a2 + 200) = *(a1 + 416);
+          *(a2 + 276) = *(a1 + 424);
+          *(a2 + 368) = vorr_s8(*(a2 + 368), 0x7FF600000);
+          v21 = *(a2 + 208);
+          if (!v21)
           {
             operator new();
           }
 
-          v545 = 0;
-          v33 = *(this + 1);
-          if (v33 >= *(this + 2) || *v33 < 0)
+          v22 = sub_10081FF4C((a1 + 432), v21);
+          v23 = *(a1 + 448);
+          *(a2 + 372) |= 8u;
+          *(a2 + 216) = v23;
+          v33 = 0;
+          sub_100820444(*(a1 + 456), &v33);
+          v24 = v33;
+          if (sub_10041ECEC(v33))
           {
-            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-            {
-              return 0;
-            }
+            result = (v9 && v14 && v19) & v22;
+            v26 = *(a2 + 372);
+            *(a2 + 272) = v24;
+            *(a2 + 372) = v26 | 0x70;
+            *(a2 + 224) = *(a1 + 480);
+            return result;
           }
 
-          else
+          v28 = "::CLP::LogEntry::PrivateData::ClientLocationReferenceFrameType_IsValid(value)";
+          v29 = 16874;
+          v30 = "set_fused_reference_frame";
+        }
+
+        else
+        {
+          v28 = "::CLP::LogEntry::PrivateData::DaemonLocationPrivate_ClientLocationOriginDeviceType_IsValid(value)";
+          v29 = 16503;
+          v30 = "set_origin_device";
+        }
+      }
+
+      else
+      {
+        v28 = "::CLP::LogEntry::PrivateData::DaemonLocationPrivate_UndulationModelType_IsValid(value)";
+        v29 = 16372;
+        v30 = "set_undulation_model";
+      }
+    }
+
+    else
+    {
+      v28 = "::CLP::LogEntry::PrivateData::DaemonLocationPrivate_MatchQualityType_IsValid(value)";
+      v29 = 16177;
+      v30 = "set_match_quality";
+    }
+
+    __assert_rtn(v30, "CLPPrivateDataShared.pb.h", v29, v28);
+  }
+
+  if (qword_1025D46A0 != -1)
+  {
+    sub_10194A79C();
+  }
+
+  v27 = qword_1025D46A8;
+  if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134283521;
+    v38 = 0;
+    _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_ERROR, "CLVPC,fromCLDaemonLocationPrivate,Invalid output pointer,pLocationPrivateMsg,%{private}p", buf, 0xCu);
+  }
+
+  result = sub_10000A100(121, 0);
+  if (result)
+  {
+    sub_10194A7B0(buf);
+    v35 = 134283521;
+    v36 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLDaemonLocationPrivate,Invalid output pointer,pLocationPrivateMsg,%{private}p", &v35, 12);
+    v32 = v31;
+    sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLDaemonLocationPrivate(const CLDaemonLocationPrivate &, CLP::LogEntry::PrivateData::DaemonLocationPrivate *)", "%s\n", v31);
+    if (v32 != buf)
+    {
+      free(v32);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_100820AE0(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    operator delete();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100820B80(int a1, int *a2)
+{
+  v3 = a1;
+  if ((a1 - 1) >= 3)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLVPC,fromCLClientLocationMatchQuality,Received unhandled match quality: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 2, "CLVPC,fromCLClientLocationMatchQuality,Received unhandled match quality: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLVisionProtobufConverter::fromCLClientLocationMatchQuality(const CLClientLocationMatchQuality, CLP::LogEntry::PrivateData::DaemonLocationPrivate_MatchQualityType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = 0;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_100820D10(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+BOOL sub_100820D1C(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v3 = *(a2 + 32);
+    *(a2 + 8) = *a1;
+    *(a2 + 24) = *(a1 + 16);
+    *(a2 + 32) = v3 | 0xF;
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v11 = 0;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "CLVPC,fromCLMapMatcherData,Invalid output pointer,pMapMatcherDataMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v8 = 134283521;
+      v9 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLMapMatcherData,Invalid output pointer,pMapMatcherDataMsg,%{private}p", &v8, 12);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLMapMatcherData(const CLMapMatcherData &, CLP::LogEntry::PrivateData::MapMatcherData *)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_100820EBC(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_100820EC8(int a1, int *a2)
+{
+  v3 = a1;
+  if ((a1 + 1) >= 4)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "CLVPC,fromCLUndulationModelType,Received unhandled undulation model type: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromCLUndulationModelType,Received unhandled undulation model type: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromCLUndulationModelType(const CLUndulationModelType, CLP::LogEntry::PrivateData::DaemonLocationPrivate_UndulationModelType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = -1;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_100821058(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_100821064(unsigned int a1, unsigned int *a2)
+{
+  v3 = a1;
+  if (a1 >= 3)
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v4 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      v10 = v3;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "CLVPC,fromCLClientLocationOriginDevice,Received unhandled location origin device: %d", buf, 8u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194A7B0(buf);
+      v8[0] = 67109120;
+      v8[1] = v3;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 2, "CLVPC,fromCLClientLocationOriginDevice,Received unhandled location origin device: %d", v8);
+      v7 = v6;
+      sub_100152C7C("Generic", 1, 0, 2, "BOOL CLVisionProtobufConverter::fromCLClientLocationOriginDevice(const CLClientLocationOriginDevice, CLP::LogEntry::PrivateData::DaemonLocationPrivate_ClientLocationOriginDeviceType &)", "%s\n", v6);
+      if (v7 != buf)
+      {
+        free(v7);
+      }
+    }
+
+    v3 = 0;
+  }
+
+  *a2 = v3;
+  return 1;
+}
+
+void sub_1008211F0(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+uint64_t sub_1008211FC(uint64_t a1, double a2)
+{
+  v28 = a2;
+  if (a1)
+  {
+    *(a1 + 44) |= 2u;
+    *(a1 + 16) = a2;
+    if (*&a2 > -1 && ((*&a2 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF || (*&a2 - 1) < 0xFFFFFFFFFFFFFLL || (*&a2 & 0x7FFFFFFFFFFFFFFFLL) == 0)
+    {
+      *v29 = 0;
+      v7 = sub_10081BD2C();
+      v8 = sub_100309F2C(v7, &v28, v29);
+      if (v8)
+      {
+        v9 = *v29;
+        *(a1 + 44) |= 1u;
+        *(a1 + 8) = v9;
+      }
+
+      else
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v16 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToCFAbsolute_RealTime failed", buf, 2u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          LOWORD(v27) = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToCFAbsolute_RealTime failed", &v27, 2);
+          v22 = v21;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::LogEntry_TimeStamp *)", "%s\n", v21);
+          if (v22 != buf)
           {
-            v545 = *v33;
-            *(this + 1) = v33 + 1;
-          }
-
-          v34 = *(this + 14);
-          v35 = *(this + 15);
-          *(this + 14) = v34 + 1;
-          if (v34 >= v35)
-          {
-            return 0;
-          }
-
-          v36 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-          if (!sub_1015F4D84(v32, this, v37) || *(this + 36) != 1)
-          {
-            return 0;
-          }
-
-          wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v36);
-          v38 = *(this + 14);
-          v20 = __OFSUB__(v38, 1);
-          v39 = v38 - 1;
-          if (v39 < 0 == v20)
-          {
-            *(this + 14) = v39;
-          }
-
-          v40 = *(this + 1);
-          if (*(this + 4) - v40 > 1 && *v40 == 146 && v40[1] == 63)
-          {
-            *(this + 1) = v40 + 2;
-LABEL_190:
-            *(a1 + 492) |= 0x80u;
-            v41 = *(a1 + 320);
-            if (!v41)
-            {
-              operator new();
-            }
-
-            v545 = 0;
-            v42 = *(this + 1);
-            if (v42 >= *(this + 2) || *v42 < 0)
-            {
-              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-              {
-                return 0;
-              }
-            }
-
-            else
-            {
-              v545 = *v42;
-              *(this + 1) = v42 + 1;
-            }
-
-            v43 = *(this + 14);
-            v44 = *(this + 15);
-            *(this + 14) = v43 + 1;
-            if (v43 >= v44)
-            {
-              return 0;
-            }
-
-            v45 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-            if (!sub_100A57620(v41, this, v46) || *(this + 36) != 1)
-            {
-              return 0;
-            }
-
-            wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v45);
-            v47 = *(this + 14);
-            v20 = __OFSUB__(v47, 1);
-            v48 = v47 - 1;
-            if (v48 < 0 == v20)
-            {
-              *(this + 14) = v48;
-            }
-
-            v49 = *(this + 1);
-            if (*(this + 4) - v49 > 1 && *v49 == 162 && v49[1] == 63)
-            {
-              *(this + 1) = v49 + 2;
-LABEL_205:
-              *(a1 + 492) |= 0x100u;
-              v50 = *(a1 + 328);
-              if (!v50)
-              {
-                operator new();
-              }
-
-              v545 = 0;
-              v51 = *(this + 1);
-              if (v51 >= *(this + 2) || *v51 < 0)
-              {
-                if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                {
-                  return 0;
-                }
-              }
-
-              else
-              {
-                v545 = *v51;
-                *(this + 1) = v51 + 1;
-              }
-
-              v52 = *(this + 14);
-              v53 = *(this + 15);
-              *(this + 14) = v52 + 1;
-              if (v52 >= v53)
-              {
-                return 0;
-              }
-
-              v54 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-              if (!sub_10110A7B4(v50, this, v55) || *(this + 36) != 1)
-              {
-                return 0;
-              }
-
-              wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v54);
-              v56 = *(this + 14);
-              v20 = __OFSUB__(v56, 1);
-              v57 = v56 - 1;
-              if (v57 < 0 == v20)
-              {
-                *(this + 14) = v57;
-              }
-
-              v58 = *(this + 1);
-              if (*(this + 4) - v58 > 1 && *v58 == 178 && v58[1] == 63)
-              {
-                *(this + 1) = v58 + 2;
-LABEL_220:
-                *(a1 + 492) |= 0x200u;
-                v59 = *(a1 + 336);
-                if (!v59)
-                {
-                  operator new();
-                }
-
-                v545 = 0;
-                v60 = *(this + 1);
-                if (v60 >= *(this + 2) || *v60 < 0)
-                {
-                  if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                  {
-                    return 0;
-                  }
-                }
-
-                else
-                {
-                  v545 = *v60;
-                  *(this + 1) = v60 + 1;
-                }
-
-                v61 = *(this + 14);
-                v62 = *(this + 15);
-                *(this + 14) = v61 + 1;
-                if (v61 >= v62)
-                {
-                  return 0;
-                }
-
-                v63 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                if (!sub_10063C5FC(v59, this, v64) || *(this + 36) != 1)
-                {
-                  return 0;
-                }
-
-                wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v63);
-                v65 = *(this + 14);
-                v20 = __OFSUB__(v65, 1);
-                v66 = v65 - 1;
-                if (v66 < 0 == v20)
-                {
-                  *(this + 14) = v66;
-                }
-
-                v67 = *(this + 1);
-                if (*(this + 4) - v67 > 1 && *v67 == 194 && v67[1] == 63)
-                {
-                  *(this + 1) = v67 + 2;
-LABEL_235:
-                  *(a1 + 492) |= 0x400u;
-                  v68 = *(a1 + 344);
-                  if (!v68)
-                  {
-                    operator new();
-                  }
-
-                  v545 = 0;
-                  v69 = *(this + 1);
-                  if (v69 >= *(this + 2) || *v69 < 0)
-                  {
-                    if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(this, &v545))
-                    {
-                      return 0;
-                    }
-                  }
-
-                  else
-                  {
-                    v545 = *v69;
-                    *(this + 1) = v69 + 1;
-                  }
-
-                  v70 = *(this + 14);
-                  v71 = *(this + 15);
-                  *(this + 14) = v70 + 1;
-                  if (v70 >= v71)
-                  {
-                    return 0;
-                  }
-
-                  v72 = wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(this, v545);
-                  if (!sub_101234E24(v68, this, v73) || *(this + 36) != 1)
-                  {
-                    return 0;
-                  }
-
-                  wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(this, v72);
-                  v74 = *(this + 14);
-                  v20 = __OFSUB__(v74, 1);
-                  v75 = v74 - 1;
-                  if (v75 < 0 == v20)
-                  {
-                    *(this + 14) = v75;
-                  }
-
-                  v76 = *(this + 1);
-                  if (*(this + 4) - v76 > 1 && *v76 == 202 && v76[1] == 63)
-                  {
-                    *(this + 1) = v76 + 2;
-                    goto LABEL_250;
-                  }
-                }
-              }
-            }
+            free(v22);
           }
         }
       }
+
+      v27 = 0;
+      v17 = sub_10081BD2C();
+      v18 = sub_100131674(v17, &v28, &v27);
+      if (v18)
+      {
+        v19 = v27;
+        *(a1 + 44) |= 4u;
+        *(a1 + 24) = v19;
+      }
+
+      else
+      {
+        if (qword_1025D46A0 != -1)
+        {
+          sub_10194A7F4();
+        }
+
+        v20 = qword_1025D46A8;
+        if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToMachContinuous_RealTime failed", buf, 2u);
+        }
+
+        if (sub_10000A100(121, 0))
+        {
+          sub_10194A7B0(buf);
+          v26[0] = 0;
+          LODWORD(v25) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,convertMachAbsoluteToMachContinuous_RealTime failed", v26, v25);
+          v24 = v23;
+          sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::LogEntry_TimeStamp *)", "%s\n", v23);
+          if (v24 != buf)
+          {
+            free(v24);
+          }
+        }
+      }
+
+      return v8 & v18;
     }
 
-    if (v7 == 1007)
+    else
     {
-      if (v8 == 2)
+      if (qword_1025D46A0 != -1)
       {
-        goto LABEL_160;
+        sub_10194A79C();
+      }
+
+      v14 = qword_1025D46A8;
+      if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 134349056;
+        v31 = a2;
+        _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,Invalid input value,machAbsoluteTime,%{public}.3lf", buf, 0xCu);
+      }
+
+      result = sub_10000A100(121, 0);
+      if (result)
+      {
+        sub_10194A7B0(buf);
+        *v29 = 134349056;
+        *&v29[4] = v28;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,Invalid input value,machAbsoluteTime,%{public}.3lf", v29, 12);
+        v13 = v15;
+        sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::LogEntry_TimeStamp *)", "%s\n", v15);
+        goto LABEL_27;
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v10 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v31 = 0.0;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "CLVPC,fromMachAbsoluteTime,Invalid output pointer,pTimeStampMsg,%{private}p", buf, 0xCu);
+    }
+
+    result = sub_10000A100(121, 0);
+    if (result)
+    {
+      sub_10194A7B0(buf);
+      *v29 = 134283521;
+      *&v29[4] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromMachAbsoluteTime,Invalid output pointer,pTimeStampMsg,%{private}p", v29, 12);
+      v13 = v12;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromMachAbsoluteTime(const CFTimeInterval, CLP::LogEntry::LogEntry_TimeStamp *)", "%s\n", v12);
+LABEL_27:
+      if (v13 != buf)
+      {
+        free(v13);
+      }
+
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_10082172C(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  sub_10037EA9C(a1);
+}
+
+BOOL sub_100821738(uint64_t a1, _DWORD *a2)
+{
+  if (a2)
+  {
+    a2[4] = 0;
+    sub_1003945DC(a2 + 2, 3);
+    v4 = 0;
+    v5 = a2[4];
+    do
+    {
+      v6 = *(a1 + 4 * (v4 & 3));
+      if (v5 == a2[5])
+      {
+        sub_1003945DC(a2 + 2, v5 + 1);
+        v5 = a2[4];
+      }
+
+      v7 = *(a2 + 1);
+      a2[4] = v5 + 1;
+      *(v7 + 4 * v5) = v6;
+      ++v4;
+      ++v5;
+    }
+
+    while (v4 != 3);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v8 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v15 = 0;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat3,Invalid output pointer,pVectorMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v12 = 134283521;
+      v13 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat3,Invalid output pointer,pVectorMsg,%{private}p", &v12, 12);
+      v11 = v10;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat3(const simd_float3 &, CLP::LogEntry::Vision::simd_floatM *)", "%s\n", v10);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_100821924(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_100821934(uint64_t a1, _DWORD *a2)
+{
+  if (a2)
+  {
+    a2[4] = 0;
+    sub_1003945DC(a2 + 2, 4);
+    v4 = 0;
+    v5 = a2[4];
+    do
+    {
+      v6 = *(a1 + 4 * (v4 & 3));
+      if (v5 == a2[5])
+      {
+        sub_1003945DC(a2 + 2, v5 + 1);
+        v5 = a2[4];
+      }
+
+      v7 = *(a2 + 1);
+      a2[4] = v5 + 1;
+      *(v7 + 4 * v5) = v6;
+      ++v4;
+      ++v5;
+    }
+
+    while (v4 != 4);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v8 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v15 = 0;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdFloat4,Invalid output pointer,pVectorMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v12 = 134283521;
+      v13 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdFloat4,Invalid output pointer,pVectorMsg,%{private}p", &v12, 12);
+      v11 = v10;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdFloat4(const simd_float4 &, CLP::LogEntry::Vision::simd_floatM *)", "%s\n", v10);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_100821B20(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL sub_100821B30(uint64_t a1, _DWORD *a2)
+{
+  if (a2)
+  {
+    a2[4] = 0;
+    sub_1003C7898(a2 + 2, 4);
+    v4 = 0;
+    v5 = a2[4];
+    do
+    {
+      v6 = *(a1 + 8 * (v4 & 3));
+      if (v5 == a2[5])
+      {
+        sub_1003C7898(a2 + 2, v5 + 1);
+        v5 = a2[4];
+      }
+
+      v7 = *(a2 + 1);
+      a2[4] = v5 + 1;
+      *(v7 + 8 * v5) = v6;
+      ++v4;
+      ++v5;
+    }
+
+    while (v4 != 4);
+  }
+
+  else
+  {
+    if (qword_1025D46A0 != -1)
+    {
+      sub_10194A79C();
+    }
+
+    v8 = qword_1025D46A8;
+    if (os_log_type_enabled(qword_1025D46A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134283521;
+      v15 = 0;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "CLVPC,fromSimdDouble4,Invalid output pointer,pVectorMsg,%{private}p", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194A7B0(buf);
+      v12 = 134283521;
+      v13 = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D46A8, 16, "CLVPC,fromSimdDouble4,Invalid output pointer,pVectorMsg,%{private}p", &v12, 12);
+      v11 = v10;
+      sub_100152C7C("Generic", 1, 0, 0, "BOOL CLVisionProtobufConverter::fromSimdDouble4(const simd_double4 &, CLP::LogEntry::Vision::simd_doubleM *)", "%s\n", v10);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
+    }
+  }
+
+  return a2 != 0;
+}
+
+void sub_100821D1C(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10037EA9C(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_100822380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    sub_100008080(a12);
+  }
+
+  operator delete();
+}
+
+id sub_1008223A8(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 80);
+  v6[4] = *(a1 + 64);
+  v6[5] = v2;
+  v6[6] = *(a1 + 96);
+  v7 = *(a1 + 112);
+  v3 = *(a1 + 16);
+  v6[0] = *a1;
+  v6[1] = v3;
+  v4 = *(a1 + 48);
+  v6[2] = *(a1 + 32);
+  v6[3] = v4;
+  return [a2 onAddBout:v6];
+}
+
+void sub_100822A10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
+{
+  if (a15)
+  {
+    sub_100008080(a15);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100822A28(uint64_t a1, uint64_t a2)
+{
+  if (qword_1025D4430 != -1)
+  {
+    sub_10194A830();
+  }
+
+  v3 = qword_1025D4438;
+  if (os_log_type_enabled(qword_1025D4438, OS_LOG_TYPE_DEBUG))
+  {
+    *v5 = 0;
+    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "Aggregating bout records", v5, 2u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194ABE4();
+  }
+
+  return sub_1003EF91C(*(*(a1 + 32) + 56));
+}
+
+double sub_100822CFC(uint64_t a1, double **a2)
+{
+  v2 = *a2;
+  result = **a2;
+  v4 = 0.0;
+  while (v2 != a2[1])
+  {
+    v4 = v4 + v2[2];
+    v2 += 3;
+  }
+
+  return result;
+}
+
+uint64_t sub_100822D28(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+double sub_100822DFC(uint64_t a1, double **a2)
+{
+  v2 = a2[1];
+  result = **a2;
+  v4 = 0.0;
+  if (*a2 != v2)
+  {
+    v5 = *a2;
+    do
+    {
+      v4 = v4 + v5[2];
+      v5 += 3;
+    }
+
+    while (v5 != v2);
+  }
+
+  return result;
+}
+
+uint64_t sub_100822E4C(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_100822F30(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_10082301C(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void *sub_100823068(void *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    v3 = v2[42];
+    if (v3)
+    {
+      v2[43] = v3;
+      operator delete(v3);
+    }
+
+    sub_1001FB750(v2 + 28);
+    v4 = v2[25];
+    if (v4)
+    {
+      v2[26] = v4;
+      operator delete(v4);
+    }
+
+    v5 = v2[1];
+    if (v5)
+    {
+      sub_100008080(v5);
+    }
+
+    operator delete();
+  }
+
+  return result;
+}
+
+void sub_1008232EC(uint64_t a1, void *a2)
+{
+  v4 = [CMAbsoluteAltitudeData alloc];
+  [a2 altitude];
+  v6 = v5;
+  [a2 accuracy];
+  v8 = v7;
+  [a2 precision];
+  v10 = v9;
+  [a2 filteredPressure];
+  v12 = v11;
+  v13 = [a2 statusInfo];
+  [a2 timestamp];
+  v15 = [v4 initWithAltitude:v13 accuracy:v6 precision:v8 filteredPressure:v10 status:v12 timestamp:v14];
+  v17 = CMAbsoluteAltitudeKey;
+  v18 = v15;
+  v16 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  sub_100825CC4(a1, &v16);
+}
+
+void sub_100823478(uint64_t a1, uint64_t a2)
+{
+  v3 = [[CMSignificantElevationSample alloc] initWithSignificantElevation:a2];
+  v5 = CMSignificantElevationKeySample;
+  v6 = v3;
+  v4 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+
+  sub_100825388(a1, &v4);
+}
+
+void sub_100823628(uint64_t a1, void *a2)
+{
+  v4 = [CMCompanionRelativeElevationData alloc];
+  [a2 timestamp];
+  v6 = v5;
+  [a2 relativeElevation];
+  *&v8 = v7;
+  v9 = [v4 initWithTimestamp:v6 companionRelativeElevation:v8];
+  v11 = CMCompanionRelativeElevationKey;
+  v12 = v9;
+  v10 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  sub_100825D48(a1, &v10);
+}
+
+void sub_100823718(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+{
+  v5 = sub_10005C6F0(a1, a2, a3, a4, a5);
+  *v5 = off_102475068;
+  v5[6] = 0;
+  v5[7] = 0;
+  v5[8] = 0;
+  sub_100156C60();
+}
+
+void sub_100823880(_Unwind_Exception *a1)
+{
+  v4 = *v2;
+  *v2 = 0;
+  if (v4)
+  {
+    (*(*v4 + 8))(v4);
+  }
+
+  sub_100114E74(v1);
+  _Unwind_Resume(a1);
+}
+
+void sub_1008238C8(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
+{
+  CLProfilingIdentify();
+  [objc_msgSend(*(a4 + 8) "silo")];
+  if (qword_1025D47F0 != -1)
+  {
+    sub_10194AE08();
+  }
+
+  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = 1;
+    v8 = _os_activity_create(dword_100000000, "CL: CLElevationSubscription::onOdometerUpdate", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v8, &state);
+
+    if (qword_1025D47F0 != -1)
+    {
+      sub_10194AE1C();
+    }
+
+    v9 = qword_1025D47F8;
+    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 68289538;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = "activity";
+      v18 = 2050;
+      v19 = a4;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLElevationSubscription::onOdometerUpdate, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  sub_100825264(a4, v7, a2, a3);
+  if (v11 == 1)
+  {
+    os_activity_scope_leave(&state);
+  }
+}
+
+uint64_t sub_100823A98(uint64_t a1)
+{
+  *a1 = off_102475068;
+
+  [*(a1 + 64) setValid:0];
+  v2 = *(a1 + 48);
+  *(a1 + 48) = 0;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  [*(a1 + 72) invalidate];
+
+  *(a1 + 72) = 0;
+  v3 = *(a1 + 48);
+  *(a1 + 48) = 0;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  return sub_100114E74(a1);
+}
+
+void sub_100823B80(uint64_t a1)
+{
+  sub_100823A98(a1);
+
+  operator delete();
+}
+
+uint64_t sub_100823BB8@<X0>(uint64_t a1@<X8>)
+{
+  v11[0] = off_102475388;
+  v11[1] = sub_100823F68;
+  v11[2] = 0;
+  v11[3] = v11;
+  sub_10000EC00(v12, "kCLConnectionMessageSignificantElevationUpdate");
+  sub_100825E2C(&v13, v11);
+  v8 = off_102475388;
+  v9[0] = sub_1008242F8;
+  v9[1] = 0;
+  v10 = &v8;
+  sub_10000EC00(v14, "kCLConnectionMessageFilteredElevationUpdate");
+  sub_100825E2C(&v15, &v8);
+  v7[0] = off_102475438;
+  v7[1] = sub_1008246A0;
+  v7[2] = 0;
+  v7[3] = v7;
+  sub_10000EC00(v16, "kCLConnectionMessageSignificantElevationDeltaQuery");
+  sub_100825E2C(&v17, v7);
+  v6[0] = off_102475388;
+  v6[1] = sub_100824A44;
+  v6[2] = 0;
+  v6[3] = v6;
+  sub_10000EC00(v18, "kCLConnectionMessageAbsoluteAltitudeUpdate");
+  sub_100825E2C(&v19, v6);
+  v5[0] = off_102475388;
+  v5[1] = nullsub_461;
+  v5[2] = 0;
+  v5[3] = v5;
+  sub_10000EC00(v20, "kCLConnectionMessageCompanionRelativeElevationUpdate");
+  sub_100825E2C(&v21, v5);
+  v4[0] = off_102475438;
+  v4[1] = sub_100824DE0;
+  v4[2] = 0;
+  v4[3] = v4;
+  sub_10000EC00(v22, "kCLConnectionMessageElevationProfileQuery");
+  sub_100825E2C(&v23, v4);
+  sub_1008268C0(a1, v12, 6);
+  v2 = 42;
+  do
+  {
+    sub_1008266A4(&v11[v2]);
+    if (SHIBYTE((&v10)[v2]) < 0)
+    {
+      operator delete(v9[v2]);
+    }
+
+    v2 -= 7;
+  }
+
+  while (v2 * 8);
+  sub_1008266A4(v4);
+  sub_1008266A4(v5);
+  sub_1008266A4(v6);
+  sub_1008266A4(v7);
+  sub_1008266A4(&v8);
+  return sub_1008266A4(v11);
+}
+
+void sub_100823E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+{
+  v32 = -336;
+  v33 = v30;
+  do
+  {
+    v33 = sub_100825EAC(v33) - 56;
+    v32 += 56;
+  }
+
+  while (v32);
+  sub_1008266A4(&a10);
+  sub_1008266A4(&a14);
+  sub_1008266A4(&a18);
+  sub_1008266A4(&a22);
+  sub_1008266A4(&a26);
+  sub_1008266A4(&a30);
+  _Unwind_Resume(a1);
+}
+
+void sub_100823F68(void *a1, int a2)
+{
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  if (qword_1025D4310 != -1)
+  {
+    sub_10194AE44();
+  }
+
+  v5 = qword_1025D4318;
+  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = a1[3];
+    *buf = 138412802;
+    *&buf[4] = v6;
+    v26 = 2048;
+    v27 = a1;
+    v28 = 1024;
+    v29 = a2;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "SignificantElevation subscription changed, %@, %p, %d", buf, 0x1Cu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194AE58(buf);
+    v10 = a1[3];
+    v19 = 138412802;
+    v20 = v10;
+    v21 = 2048;
+    v22 = a1;
+    v23 = 1024;
+    v24 = a2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 0, "SignificantElevation subscription changed, %@, %p, %d", &v19, 28);
+    v12 = v11;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLElevationSubscription::handleRequestSignificantElevationUpdate(BOOL, const CLNameValuePair &)", "%s\n", v11);
+    if (v12 != buf)
+    {
+      free(v12);
+    }
+  }
+
+  v19 = 0;
+  if ((sub_100825490(a1, &v19) & 1) == 0)
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194AE9C();
+    }
+
+    v9 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "#Warning Failed to subscribe to significant elevation updates.", buf, 2u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194AE58(buf);
+      v16[0] = 0;
+      LODWORD(v15) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 0, "#Warning Failed to subscribe to significant elevation updates.", v16, v15);
+      v14 = v13;
+      sub_100152C7C("Generic", 1, 0, 2, "void CLElevationSubscription::handleRequestSignificantElevationUpdate(BOOL, const CLNameValuePair &)", "%s\n", v13);
+      if (v14 != buf)
+      {
+        free(v14);
       }
     }
 
-    else if (v7 == 1008 && v8 == 2)
+    v17 = CMErrorMessage;
+    v18 = [NSNumber numberWithUnsignedInt:v19];
+    *buf = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    sub_10082556C(a1, buf);
+  }
+
+  sub_1000F3B70(a1);
+  v7 = a1[7];
+  v8 = a1[8];
+  if (a2)
+  {
+    [v7 registerClient:v8 forNotification:5];
+  }
+
+  else
+  {
+    [v7 unregisterClient:v8 forNotification:5];
+  }
+}
+
+void sub_1008242F8(uint64_t a1, int a2)
+{
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  v5 = sub_1004D2ECC(*(a1 + 8));
+  if (!v5 || (sub_100177B18(v5) & 0x10) == 0)
+  {
+    v12 = CMErrorMessage;
+    v13 = &off_10254EFA8;
+    *buf = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    sub_100825600(a1, buf);
+  }
+
+  if ((sub_100275B0C(a1) & 1) == 0)
+  {
+    v9 = CMErrorMessage;
+    v10 = &off_10254EFC0;
+    *buf = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    sub_100825600(a1, buf);
+  }
+
+  sub_1000F3B70(a1);
+  v6 = *(a1 + 48);
+  v8 = *(v6 + 8);
+  v7 = *(v6 + 16);
+  if (a2)
+  {
+    [v7 register:v8 forNotification:3 registrationInfo:0];
+    [*(*(a1 + 48) + 16) register:*(*(a1 + 48) + 8) forNotification:7 registrationInfo:0];
+  }
+
+  else
+  {
+    [v7 unregister:v8 forNotification:3];
+    [*(*(a1 + 48) + 16) unregister:*(*(a1 + 48) + 8) forNotification:7];
+  }
+}
+
+void sub_1008246A0(uint64_t a1, uint64_t a2)
+{
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  v22 = 0;
+  if (sub_100825490(a1, &v22))
+  {
+    v5 = objc_opt_class();
+    v6 = [NSSet setWithObjects:v5, objc_opt_class(), 0];
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a2, v6);
+    v8 = DictionaryOfClasses;
+    if (DictionaryOfClasses && (v9 = CMSignificantElevationKeyQueryTimeRange, [DictionaryOfClasses objectForKeyedSubscript:CMSignificantElevationKeyQueryTimeRange]))
     {
-      goto LABEL_175;
+      sub_10000FF38(buf, "CLDaemonClient.OdometerNotifier.SignificantElevationDeltaQuery", 0);
+      v10 = [v8 objectForKeyedSubscript:v9];
+      v11 = *(*(a1 + 48) + 16);
+      v12 = [v10 startDate];
+      v13 = [v10 endDate];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3321888768;
+      v19[2] = sub_100825694;
+      v19[3] = &unk_102475088;
+      v14 = *(a2 + 8);
+      v19[4] = *a2;
+      v20 = v14;
+      if (v14)
+      {
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      [v11 querySignificantElevationDeltaFromDate:v12 toDate:v13 withReply:v19];
+      if (v20)
+      {
+        sub_100008080(v20);
+      }
+
+      sub_10001A420(buf);
     }
 
-LABEL_147:
-    if (v8 == 4)
+    else
+    {
+      if (qword_1025D4310 != -1)
+      {
+        sub_10194AE44();
+      }
+
+      v15 = qword_1025D4318;
+      if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_FAULT))
+      {
+        LOWORD(buf[0]) = 0;
+        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_FAULT, "Programmer error: Wrong parameters were passed.", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194AE58(buf);
+        v21[0] = 0;
+        LODWORD(v18) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 17, "Programmer error: Wrong parameters were passed.", v21, v18);
+        v17 = v16;
+        sub_100152C7C("Generic", 1, 0, 0, "void CLElevationSubscription::handleMessageSignificantElevationDeltaQuery(std::shared_ptr<CLConnectionMessage>)", "%s\n", v16);
+        if (v17 != buf)
+        {
+          free(v17);
+        }
+      }
+
+      v23 = CMErrorMessage;
+      v24 = &off_10254EFD8;
+      [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      CLConnectionMessage::sendReply();
+    }
+  }
+
+  else
+  {
+    v26 = CMErrorMessage;
+    v27 = [NSNumber numberWithUnsignedInt:v22];
+    [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    CLConnectionMessage::sendReply();
+  }
+}
+
+void sub_100824A44(void *a1, int a2)
+{
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  if (qword_1025D4310 != -1)
+  {
+    sub_10194AE44();
+  }
+
+  v5 = qword_1025D4318;
+  if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = a1[3];
+    *buf = 138412802;
+    *&buf[4] = v6;
+    v26 = 2048;
+    v27 = a1;
+    v28 = 1024;
+    v29 = a2;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "AbsoluteAltitude subscription changed, %@, %p, %d", buf, 0x1Cu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194AE58(buf);
+    v10 = a1[3];
+    v19 = 138412802;
+    v20 = v10;
+    v21 = 2048;
+    v22 = a1;
+    v23 = 1024;
+    v24 = a2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 0, "AbsoluteAltitude subscription changed, %@, %p, %d", &v19, 28);
+    v12 = v11;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLElevationSubscription::handleRequestAbsoluteAltitudeUpdate(BOOL, const CLNameValuePair &)", "%s\n", v11);
+    if (v12 != buf)
+    {
+      free(v12);
+    }
+  }
+
+  v19 = 0;
+  if ((sub_1008259C4(a1, &v19) & 1) == 0)
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194AE9C();
+    }
+
+    v9 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "#Warning Failed to subscribe to absolute altitude updates.", buf, 2u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10194AE58(buf);
+      v16[0] = 0;
+      LODWORD(v15) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 0, "#Warning Failed to subscribe to absolute altitude updates.", v16, v15);
+      v14 = v13;
+      sub_100152C7C("Generic", 1, 0, 2, "void CLElevationSubscription::handleRequestAbsoluteAltitudeUpdate(BOOL, const CLNameValuePair &)", "%s\n", v13);
+      if (v14 != buf)
+      {
+        free(v14);
+      }
+    }
+
+    v17 = CMErrorMessage;
+    v18 = [NSNumber numberWithUnsignedInt:v19];
+    *buf = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    sub_100825B18(a1, buf);
+  }
+
+  sub_1000F3B70(a1);
+  v7 = a1[7];
+  v8 = a1[8];
+  if (a2)
+  {
+    [v7 registerClient:v8 forNotification:1];
+    sub_100825BAC(a1);
+  }
+
+  else
+  {
+    [v7 unregisterClient:v8 forNotification:1];
+  }
+}
+
+void sub_100824DE0(uint64_t a1, uint64_t a2)
+{
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  v27 = 0;
+  if (sub_100825490(a1, &v27))
+  {
+    Dictionary = CLConnectionMessage::getDictionary(*a2);
+    v6 = Dictionary;
+    if (Dictionary && (v7 = [Dictionary objectForKeyedSubscript:CMElevationProfileKeyQueryStartTime]) != 0 && (v8 = objc_msgSend(v6, "objectForKeyedSubscript:", CMElevationProfileKeyQueryEndTime)) != 0 && (v9 = CMElevationProfileKeyQueryFromRecordId, objc_msgSend(v6, "objectForKeyedSubscript:", CMElevationProfileKeyQueryFromRecordId)) && (v10 = CMElevationProfileKeyQueryBatchSize, objc_msgSend(v6, "objectForKeyedSubscript:", CMElevationProfileKeyQueryBatchSize)))
+    {
+      [v7 doubleValue];
+      v12 = v11;
+      [v8 doubleValue];
+      v14 = v13;
+      if (v12 <= v13)
+      {
+        v16 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:v12];
+        v17 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:v14];
+        v18 = [v6 objectForKeyedSubscript:v9];
+        v19 = [v6 objectForKeyedSubscript:v10];
+        sub_10000FF38(buf, "CLDaemonClient.ElevationProfileQuery", 0);
+        v20 = *(a1 + 56);
+        v24[0] = _NSConcreteStackBlock;
+        v24[1] = 3321888768;
+        v24[2] = sub_100825760;
+        v24[3] = &unk_1024750B8;
+        v21 = *(a2 + 8);
+        v24[4] = *a2;
+        v25 = v21;
+        if (v21)
+        {
+          atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+        }
+
+        [v20 queryElevationsFromDate:v16 toDate:v17 withBatchSize:v19 fromRecordId:v18 withReply:v24];
+
+        if (v25)
+        {
+          sub_100008080(v25);
+        }
+
+        sub_10001A420(buf);
+      }
+
+      else
+      {
+        v28 = CMErrorMessage;
+        v29 = &off_10254EFD8;
+        [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        CLConnectionMessage::sendReply();
+      }
+    }
+
+    else
+    {
+      if (qword_1025D4310 != -1)
+      {
+        sub_10194AE44();
+      }
+
+      v15 = qword_1025D4318;
+      if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_FAULT))
+      {
+        LOWORD(buf[0]) = 0;
+        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_FAULT, "Programmer error: Wrong parameters were passed.", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194AE58(buf);
+        v26[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4318, 17, "Programmer error: Wrong parameters were passed.", v26, 2);
+        v23 = v22;
+        sub_100152C7C("Generic", 1, 0, 0, "void CLElevationSubscription::handleMessageElevationProfileQuery(std::shared_ptr<CLConnectionMessage>)", "%s\n", v22);
+        if (v23 != buf)
+        {
+          free(v23);
+        }
+      }
+
+      v30 = CMErrorMessage;
+      v31 = &off_10254EFD8;
+      [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      CLConnectionMessage::sendReply();
+    }
+  }
+
+  else
+  {
+    v33 = CMErrorMessage;
+    v34 = [NSNumber numberWithUnsignedInt:v27];
+    [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    CLConnectionMessage::sendReply();
+  }
+}
+
+uint64_t sub_100825264(uint64_t result, uint64_t a2, int *a3, uint64_t a4)
+{
+  v4 = result;
+  v5 = *a3;
+  if (*a3 == 3 || v5 == 7)
+  {
+    v7 = [[CMSignificantElevationSample alloc] initWithFilteredElevation:a4];
+    v10 = CMFilteredElevationKeySample;
+    v11 = v7;
+    v9 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+
+    sub_10082540C(v4, &v9);
+  }
+
+  if (v5 == 6)
+  {
+    v8 = [[CMSignificantElevationSample alloc] initWithSignificantElevation:a4];
+    v12 = CMSignificantElevationKeySample;
+    v13 = v8;
+    v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+
+    sub_100825388(v4, &v9);
+  }
+
+  return result;
+}
+
+void sub_1008253F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100825478(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100825490(uint64_t a1, int *a2)
+{
+  v4 = sub_100275B0C(a1);
+  if (v4)
+  {
+    sub_10001A3E8(v4, v5);
+    v6 = sub_10001CF3C();
+    if (v6)
+    {
+      sub_10000EC00(&__p, "com.apple.locationd.natalimetry");
+      v7 = sub_1001C2F40(a1);
+      v8 = v7;
+      if (v12 < 0)
+      {
+        operator delete(__p);
+        if ((v8 & 1) == 0)
+        {
+LABEL_13:
+          v9 = 110;
+          goto LABEL_14;
+        }
+      }
+
+      else if ((v7 & 1) == 0)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else if ((sub_100177B18(v6) & 0x10) == 0)
+    {
+LABEL_12:
+      v9 = 109;
+      goto LABEL_14;
+    }
+
+    if (sub_1004D2ECC(*(a1 + 8)))
     {
       return 1;
     }
 
-    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(this, TagFallback, a3) & 1) == 0)
+    goto LABEL_12;
+  }
+
+  v9 = 111;
+LABEL_14:
+  result = 0;
+  *a2 = v9;
+  return result;
+}
+
+void sub_100825550(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1008255E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10082567C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100825694(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v3 = CMSignificantElevationKeySample;
+    v4 = a2;
+    [NSDictionary dictionaryWithObjects:&v4 forKeys:&v3 count:1];
+  }
+
+  else
+  {
+    v5 = CMErrorMessage;
+    v6 = &off_10254EFA8;
+    [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  }
+
+  return CLConnectionMessage::sendReply();
+}
+
+void sub_100825760(uint64_t a1, void *a2, unsigned int a3, unsigned int a4)
+{
+  if (a2)
+  {
+    v5 = objc_alloc_init(NSMutableArray);
+    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(a2);
+    if (v6)
     {
-      return 0;
+      v7 = v6;
+      v8 = MEMORY[0];
+      do
+      {
+        for (i = 0; i != v7; i = i + 1)
+        {
+          if (MEMORY[0] != v8)
+          {
+            objc_enumerationMutation(a2);
+          }
+
+          v10 = *(8 * i);
+          v11 = [CMAbsoluteAltitudeData alloc];
+          [v10 altitude];
+          v13 = v12;
+          [v10 accuracy];
+          v15 = v14;
+          [v10 precision];
+          v17 = v16;
+          [v10 filteredPressure];
+          v19 = v18;
+          v20 = [v10 statusInfo];
+          [v10 timestamp];
+          v22 = [v11 initWithAltitude:v20 accuracy:v13 precision:v15 filteredPressure:v17 status:v19 timestamp:v21];
+          [v5 addObject:v22];
+        }
+
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(a2);
+      }
+
+      while (v7);
+    }
+
+    v26[0] = v5;
+    v25[0] = CMElevationProfileKeyAltitudeArray;
+    v25[1] = CMElevationProfileKeyLastBatch;
+    v26[1] = [NSNumber numberWithBool:a3];
+    v25[2] = CMElevationProfileKeyQueryFromRecordId;
+    v26[2] = [NSNumber numberWithInt:a4];
+    [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:3];
+    CLConnectionMessage::sendReply();
+  }
+
+  else
+  {
+    v27 = CMErrorMessage;
+    v28 = &off_10254EFA8;
+    [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    CLConnectionMessage::sendReply();
+  }
+}
+
+uint64_t sub_1008259C4(uint64_t a1, _DWORD *a2)
+{
+  v4 = sub_100275B0C(a1);
+  sub_10000EC00(__p, "com.apple.locationd.absolute_altimeter");
+  v5 = sub_1001C2F40(a1);
+  if (v11 < 0)
+  {
+    operator delete(*__p);
+  }
+
+  v6 = v4 | v5;
+  if ((v6 & 1) == 0)
+  {
+    if (qword_1025D4310 != -1)
+    {
+      sub_10194AE9C();
+    }
+
+    v7 = qword_1025D4318;
+    if (os_log_type_enabled(qword_1025D4318, OS_LOG_TYPE_ERROR))
+    {
+      v8 = *(a1 + 24);
+      *__p = 138543362;
+      *&__p[4] = v8;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "%{public}@ is not entitled for motion updates", __p, 0xCu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194AEC4(a1);
+    }
+
+    *a2 = 111;
+  }
+
+  return v6 & 1;
+}
+
+void sub_100825AF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100825B94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id sub_100825BAC(uint64_t a1)
+{
+  v2 = [*(a1 + 72) arrayForKey:@"ElevationThresholds" defaultValue:0];
+  result = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, 0);
+  if (result)
+  {
+    v4 = result;
+    v5 = MEMORY[0];
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (MEMORY[0] != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        [*(8 * v6) floatValue];
+        [*(a1 + 56) registerClient:*(a1 + 64) forElevationThreshold:{1.79769313e308, v7}];
+        v6 = v6 + 1;
+      }
+
+      while (v4 != v6);
+      result = objc_msgSend_countByEnumeratingWithState_objects_count_(v2);
+      v4 = result;
+    }
+
+    while (result);
+  }
+
+  return result;
+}
+
+void sub_100825D30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100825DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    sub_100008080(a11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100825E2C(uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+uint64_t sub_100825EAC(uint64_t a1)
+{
+  sub_1008266A4(a1 + 24);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+double sub_100825FA0(uint64_t a1, double **a2)
+{
+  v2 = *a2;
+  result = **a2;
+  v4 = 0.0;
+  while (v2 != a2[1])
+  {
+    v4 = v4 + v2[2];
+    v2 += 3;
+  }
+
+  return result;
+}
+
+uint64_t sub_100825FCC(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+double sub_1008260A0(uint64_t a1, double **a2)
+{
+  v2 = a2[1];
+  result = **a2;
+  v4 = 0.0;
+  if (*a2 != v2)
+  {
+    v5 = *a2;
+    do
+    {
+      v4 = v4 + v5[2];
+      v5 += 3;
+    }
+
+    while (v5 != v2);
+  }
+
+  return result;
+}
+
+uint64_t sub_1008260F0(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1008261D4(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1008262C0(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 sub_100826368(uint64_t a1, uint64_t a2)
+{
+  *a2 = off_102475388;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void sub_100826398(uint64_t a1, uint64_t a2, __int128 *a3)
+{
+  v3 = *a3;
+  *a3 = 0uLL;
+  sub_100826444(a1 + 8, a2, &v3);
+  if (*(&v3 + 1))
+  {
+    sub_100008080(*(&v3 + 1));
+  }
+}
+
+void sub_1008263E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    sub_100008080(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1008263F8(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_100826444(uint64_t a1, uint64_t a2, CLConnectionMessage **a3)
+{
+  v6 = (*(*a2 + 16))(a2);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*a3, v6);
+  sub_100005548(v15, DictionaryOfClasses);
+  v14 = 0;
+  if (sub_10001CB4C(v15, "kCLConnectionMessageSubscribeKey", &v14, 0xFFFFFFFFLL))
+  {
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = (a2 + (v9 >> 1));
+    if (v9)
+    {
+      v8 = *(*v10 + v8);
+    }
+
+    v8(v10, v14, v15);
+  }
+
+  else
+  {
+    if (qword_1025D4790 != -1)
+    {
+      sub_10194AFC4();
+    }
+
+    v11 = qword_1025D4798;
+    if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289026;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Couldn't get value for kCLConnectionMessageSubscribeKey key}", buf, 0x12u);
+      if (qword_1025D4790 != -1)
+      {
+        sub_10194AFC4();
+      }
+    }
+
+    v12 = qword_1025D4798;
+    if (os_signpost_enabled(qword_1025D4798))
+    {
+      *buf = 68289026;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Couldn't get value for kCLConnectionMessageSubscribeKey key", "{msg%{public}.0s:Couldn't get value for kCLConnectionMessageSubscribeKey key}", buf, 0x12u);
+    }
+  }
+
+  return sub_100005DA4();
+}
+
+uint64_t sub_1008266A4(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+__n128 sub_100826780(uint64_t a1, uint64_t a2)
+{
+  *a2 = off_102475438;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void sub_1008267B0(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v3 = *a3;
+  v4 = a3[1];
+  *a3 = 0;
+  a3[1] = 0;
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 16);
+  v7 = (a2 + (v6 >> 1));
+  if (v6)
+  {
+    v5 = *(*v7 + v5);
+  }
+
+  v8 = v3;
+  v9 = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v5(v7, &v8);
+  if (v9)
+  {
+    sub_100008080(v9);
+  }
+
+  if (v4)
+  {
+    sub_100008080(v4);
+  }
+}
+
+void sub_100826850(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    sub_100008080(a10);
+  }
+
+  if (v10)
+  {
+    sub_100008080(v10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100826874(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1008268C0(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
+  if (a3)
+  {
+    v5 = 56 * a3;
+    do
+    {
+      sub_10082693C(a1, a2, a2);
+      a2 += 7;
+      v5 -= 56;
+    }
+
+    while (v5);
+  }
+
+  return a1;
+}
+
+const void **sub_10082693C(void *a1, uint64_t *a2, uint64_t a3)
+{
+  v5 = sub_100007070(a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    goto LABEL_18;
+  }
+
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
+  {
+    v10 = v5;
+    if (v5 >= *&v7)
+    {
+      v10 = v5 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v5;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_18:
+    sub_100826B98();
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v6)
+    {
+      break;
+    }
+
+    if (v9 > 1)
+    {
+      if (v13 >= *&v7)
+      {
+        v13 %= *&v7;
+      }
+    }
+
+    else
+    {
+      v13 &= *&v7 - 1;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!sub_100019DF4(a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
+}
+
+void sub_100826B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_100826C14(va);
+  _Unwind_Resume(a1);
+}
+
+char **sub_100826C14(char **a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      sub_100826D70(v2 + 16);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+char *sub_100826C60(char *__dst, __int128 *a2)
+{
+  if (*(a2 + 23) < 0)
+  {
+    sub_100007244(__dst, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v4 = *a2;
+    *(__dst + 2) = *(a2 + 2);
+    *__dst = v4;
+  }
+
+  sub_100826CD8((__dst + 24), a2 + 24);
+  return __dst;
+}
+
+void sub_100826CBC(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100826CD8(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void sub_100826D70(uint64_t a1)
+{
+  sub_1008266A4(a1 + 24);
+  if (*(a1 + 23) < 0)
+  {
+    v2 = *a1;
+
+    operator delete(v2);
+  }
+}
+
+uint64_t sub_100826DC0(uint64_t a1)
+{
+  sub_100826DFC(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_100826DFC(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_100826D70((v2 + 2));
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+uint64_t sub_100826E40()
+{
+  qword_10265A488 = off_102475188;
+  qword_10265A4A0 = &qword_10265A488;
+  __cxa_atexit(sub_1003EE78C, &qword_10265A488, dword_100000000);
+  qword_10265A4A8 = off_102475208;
+  qword_10265A4C0 = &qword_10265A4A8;
+  __cxa_atexit(sub_1003EE78C, &qword_10265A4A8, dword_100000000);
+  qword_10265A4C8 = off_102475288;
+  qword_10265A4E0 = &qword_10265A4C8;
+  __cxa_atexit(sub_1003EE790, &qword_10265A4C8, dword_100000000);
+  qword_10265A4E8 = off_102475308;
+  qword_10265A500 = &qword_10265A4E8;
+
+  return __cxa_atexit(sub_1003EE790, &qword_10265A4E8, dword_100000000);
+}
+
+uint64_t sub_1008270C4(uint64_t a1)
+{
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1008278F4;
+  block[3] = &unk_102447418;
+  block[4] = a1;
+  if (qword_10265A528 != -1)
+  {
+    dispatch_once(&qword_10265A528, block);
+  }
+
+  return qword_1026372C8;
+}
+
+void sub_10082731C(id a1)
+{
+  sub_10001A3E8(a1, v1);
+  if (sub_10001CF3C())
+  {
+    byte_10265A518 = 1;
+  }
+}
+
+const void *sub_100827348(const void *a1, void *a2)
+{
+  v3 = sub_1008274F8(a1, "CLWatchOrientationSettingsNotifier", a2);
+  *v3 = off_102475518;
+  sub_1008275A4(v3);
+  sub_1008277E8(a1);
+  if (qword_1025D4200 != -1)
+  {
+    sub_10194B1A8();
+  }
+
+  v4 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "Watch Orientation,Orientation Notifier Instantiated", buf, 2u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194B1BC(buf);
+    v8[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4208, 2, "Watch Orientation,Orientation Notifier Instantiated", v8, 2);
+    v7 = v6;
+    sub_100152C7C("Generic", 1, 0, 2, "CLWatchOrientationSettingsNotifier::CLWatchOrientationSettingsNotifier(id<CLIntersiloUniverse>)", "%s\n", v6);
+    if (v7 != buf)
+    {
+      free(v7);
+    }
+  }
+
+  return a1;
+}
+
+uint64_t sub_1008274F8(uint64_t a1, char *a2, void *a3)
+{
+  *a1 = off_1024756C0;
+  sub_10000EC00((a1 + 8), a2);
+  *(a1 + 32) = a3;
+  *(a1 + 40) = [a3 silo];
+  *(a1 + 48) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 56) = a1 + 64;
+  *(a1 + 88) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = a1 + 88;
+  *(a1 + 104) = 0;
+  *(a1 + 108) = 0;
+  return a1;
+}
+
+void sub_100827588(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 31) < 0)
+  {
+    operator delete(*v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1008275A4(uint64_t a1)
+{
+  v14 = 0;
+  v2 = sub_1004E8644(@"invertUI", @"com.apple.nano", &v14);
+  if (v14)
+  {
+    v3 = v2 == 0;
+  }
+
+  else
+  {
+    if (qword_1025D4200 != -1)
+    {
+      sub_10194B200();
+    }
+
+    v4 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_ERROR, "Watch Orientation,Crown orientation setting key is invalid, defaulting to crown on right (not inverted)", buf, 2u);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10194B228();
+    }
+
+    v3 = 1;
+  }
+
+  *(a1 + 116) = v3;
+  v5 = (a1 + 116);
+  v14 = 0;
+  v6 = sub_1004E8644(@"wornOnRightArm", @"com.apple.nano", &v14);
+  if (v14)
+  {
+    v7 = v6 != 0;
+  }
+
+  else
+  {
+    if (qword_1025D4200 != -1)
+    {
+      sub_10194B200();
+    }
+
+    v8 = qword_1025D4208;
+    if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "Watch Orientation,Wrist orientation setting key is invalid, defaulting to left wrist", buf, 2u);
+    }
+
+    v9 = sub_10000A100(121, 0);
+    v7 = 0;
+    if (v9)
+    {
+      sub_10194B314();
+      v7 = 0;
+    }
+  }
+
+  *(a1 + 112) = v7;
+  v10 = (a1 + 112);
+  if (qword_1025D4200 != -1)
+  {
+    sub_10194B200();
+  }
+
+  v11 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = *v5;
+    v13 = *v10;
+    *buf = 67240448;
+    v16 = v12;
+    v17 = 1026;
+    v18 = v13;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "Watch Orientation,crown,%{public}d,wrist,%{public}d", buf, 0xEu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194B400(v5, v10);
+  }
+}
+
+void sub_1008277E8(const void *a1)
+{
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, a1, sub_100827F98, @"com.apple.nano.invertUIChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, a1, sub_100827F98, @"com.apple.nano.wristOrientationChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+}
+
+uint64_t sub_100827870(uint64_t a1)
+{
+  *a1 = off_1024756C0;
+  [*(a1 + 48) invalidate];
+
+  sub_10018F070(a1 + 80, *(a1 + 88));
+  sub_10047BD74(a1 + 56, *(a1 + 64));
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+uint64_t sub_100827964(void *a1)
+{
+  *a1 = off_102475518;
+  sub_1008279F8(a1);
+
+  return sub_100827870(a1);
+}
+
+void sub_1008279C0(void *a1)
+{
+  sub_100827964(a1);
+
+  operator delete();
+}
+
+void sub_1008279F8(_BYTE *a1)
+{
+  if (qword_1025D4200 != -1)
+  {
+    sub_10194B1A8();
+  }
+
+  v2 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEBUG))
+  {
+    *v3 = 0;
+    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "Watch Orientation,Orientation Notifier is shutting down.", v3, 2u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10194B51C();
+  }
+
+  sub_100827AA0(a1);
+  a1[108] = 1;
+}
+
+void sub_100827AA0(const void *a1)
+{
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterRemoveObserver(DarwinNotifyCenter, a1, @"com.apple.nano.invertUIChangedNotification", 0);
+
+  CFNotificationCenterRemoveObserver(DarwinNotifyCenter, a1, @"com.apple.nano.wristOrientationChangedNotification", 0);
+}
+
+uint64_t sub_100827B7C(void *a1, int *a2)
+{
+  if (qword_1025D4200 != -1)
+  {
+    sub_10194B1A8();
+  }
+
+  v4 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEBUG))
+  {
+    v14[0] = *a2;
+    v5 = v14[0];
+    v6 = sub_10000608C(a1, v14, 1);
+    *buf = 67109376;
+    *&buf[4] = v5;
+    LOWORD(v18) = 1024;
+    *(&v18 + 2) = v6;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "Watch Orientation,Added client for %d, count %d", buf, 0xEu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1025D4200 != -1)
+    {
+      sub_10194B200();
+    }
+
+    v8 = qword_1025D4208;
+    v9 = *a2;
+    v13 = v9;
+    v10 = sub_10000608C(a1, &v13, 1);
+    v14[0] = 67109376;
+    v14[1] = v9;
+    v15 = 1024;
+    v16 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v8, 2, "Watch Orientation,Added client for %d, count %d", v14, 14);
+    v12 = v11;
+    sub_100152C7C("Generic", 1, 0, 2, "virtual BOOL CLWatchOrientationSettingsNotifier::registerForNotificationInternal(const CLWatchOrientationSettingsNotifier_Type::Notification &)", "%s\n", v11);
+    if (v12 != buf)
+    {
+      free(v12);
+    }
+  }
+
+  v19 = 0;
+  v20 = 0;
+  *buf = a1[14];
+  v18 = 0;
+  v14[0] = 0;
+  (*(*a1 + 152))(a1, v14, buf, 1, 0xFFFFFFFFLL, 0);
+  return 1;
+}
+
+uint64_t sub_100827DB0(uint64_t a1, int *a2)
+{
+  if (qword_1025D4200 != -1)
+  {
+    sub_10194B1A8();
+  }
+
+  v4 = qword_1025D4208;
+  if (os_log_type_enabled(qword_1025D4208, OS_LOG_TYPE_DEBUG))
+  {
+    v14[0] = *a2;
+    v5 = v14[0];
+    v6 = sub_10000608C(a1, v14, 1);
+    *buf = 67109376;
+    v18 = v5;
+    v19 = 1024;
+    v20 = v6;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "Watch Orientation,Removed client for %d, count %d", buf, 0xEu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1025D4200 != -1)
+    {
+      sub_10194B200();
+    }
+
+    v8 = qword_1025D4208;
+    v9 = *a2;
+    v13 = v9;
+    v10 = sub_10000608C(a1, &v13, 1);
+    v14[0] = 67109376;
+    v14[1] = v9;
+    v15 = 1024;
+    v16 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v8, 2, "Watch Orientation,Removed client for %d, count %d", v14, 14);
+    v12 = v11;
+    sub_100152C7C("Generic", 1, 0, 2, "virtual BOOL CLWatchOrientationSettingsNotifier::unregisterForNotificationInternal(const CLWatchOrientationSettingsNotifier_Type::Notification &)", "%s\n", v11);
+    if (v12 != buf)
+    {
+      free(v12);
+    }
+  }
+
+  return 1;
+}
+
+void sub_100827F98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  CLProfilingIdentify();
+  [objc_msgSend(*(a2 + 32) "silo")];
+  if (qword_1025D47F0 != -1)
+  {
+    sub_10194B608();
+  }
+
+  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
+  {
+    v15 = 1;
+    v10 = _os_activity_create(dword_100000000, "CL: CLWatchOrientationSettingsNotifier::onOrientationSettingsChanged", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v10, &state);
+
+    if (qword_1025D47F0 != -1)
+    {
+      sub_10194B61C();
+    }
+
+    v11 = qword_1025D47F8;
+    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 68289538;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "activity";
+      v22 = 2050;
+      v23 = a2;
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLWatchOrientationSettingsNotifier::onOrientationSettingsChanged, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v12 = [*(a2 + 32) silo];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100829AF4;
+  v13[3] = &unk_10244FF80;
+  v13[4] = a2;
+  v13[5] = a1;
+  v13[6] = a3;
+  v13[7] = a4;
+  v13[8] = a5;
+  [v12 sync:v13];
+  if (v15 == 1)
+  {
+    os_activity_scope_leave(&state);
+  }
+}
+
+void sub_100828284(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  operator delete();
+}
+
+uint64_t sub_1008282B4(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6)
+{
+  *a1 = off_102475810;
+  *(a1 + 8) = [[CLNotifierClientAdapter alloc] initWithClient:a1];
+  *(a1 + 24) = a5;
+  *(a1 + 32) = a6;
+  if (*(a3 + 23) >= 0)
+  {
+    v12 = a3;
+  }
+
+  else
+  {
+    v12 = *a3;
+  }
+
+  v13 = [objc_msgSend(a4 "vendor")];
+  *(a1 + 16) = v13;
+  v14 = v13;
+  if (a2)
+  {
+    [*(a1 + 16) setDelegateEntityName:a2];
+  }
+
+  [*(a1 + 16) registerDelegate:*(a1 + 8) inSilo:{objc_msgSend(a4, "silo")}];
+  return a1;
+}
+
+void sub_100828398(_BYTE *result, void *a2)
+{
+  v9 = a2;
+  if ((result[108] & 1) == 0)
+  {
+    v4 = *(result + 11);
+    if (!v4)
+    {
+      goto LABEL_9;
+    }
+
+    v5 = (result + 80);
+    v6 = result + 88;
+    do
+    {
+      if (*(v4 + 32) >= a2)
+      {
+        v6 = v4;
+      }
+
+      v4 = *(v4 + 8 * (*(v4 + 32) < a2));
+    }
+
+    while (v4);
+    if (v6 != result + 88 && *(v6 + 8) <= a2)
+    {
+      while (*(v6 + 7))
+      {
+        *buf = *(*(v6 + 5) + 28);
+        (*(*result + 112))(result, a2, buf);
+      }
+
+      sub_1001132D0(v5, &v9);
+    }
+
+    else
+    {
+LABEL_9:
+      if (qword_1025D47F0 != -1)
+      {
+        sub_10194B608();
+      }
+
+      v7 = qword_1025D47F8;
+      if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_FAULT))
+      {
+        v8 = result + 8;
+        if (result[31] < 0)
+        {
+          v8 = *v8;
+        }
+
+        *buf = 136446466;
+        v11 = v8;
+        v12 = 1026;
+        v13 = a2;
+        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_FAULT, "%{public}s; client %{public}d does not exist", buf, 0x12u);
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10194B644(result, a2);
+      }
     }
   }
 }

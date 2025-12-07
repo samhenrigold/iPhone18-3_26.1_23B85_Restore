@@ -48,29 +48,30 @@
 
   if (v5)
   {
-    v7 = _EXLegacyLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _EXLegacyLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [EXExtensionRequest(NSExtensionActiveWebPageAlternative) applyActiveWebPageAlternativeIfNeededForExtension:v7];
+      [EXExtensionRequest(NSExtensionActiveWebPageAlternative) applyActiveWebPageAlternativeIfNeededForExtension:v8];
     }
 
     infoDictionary = [extensionCopy infoDictionary];
-    v9 = [infoDictionary _EX_dictionaryForKey:@"NSExtensionAttributes"];
+    v10 = [infoDictionary _EX_dictionaryForKey:@"NSExtensionAttributes"];
 
-    v10 = [v9 _EX_dictionaryForKey:@"NSExtensionAttributes"];
-    v11 = [v10 objectForKeyedSubscript:@"NSExtensionActivationRule"];
-    if (v11)
+    v11 = [v10 _EX_dictionaryForKey:@"NSExtensionAttributes"];
+    v12 = [v11 objectForKeyedSubscript:@"NSExtensionActivationRule"];
+    v13 = v12;
+    if (v12)
     {
-      v12 = _EXLegacyLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = _EXLegacyLog(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [(EXExtensionRequest(NSExtensionActiveWebPageAlternative) *)self applyActiveWebPageAlternativeIfNeededForExtension:v11, v12];
+        [(EXExtensionRequest(NSExtensionActiveWebPageAlternative) *)self applyActiveWebPageAlternativeIfNeededForExtension:v13, v14];
       }
 
-      v13 = objc_opt_class();
+      v15 = objc_opt_class();
       inputItems2 = [(EXExtensionRequest *)self inputItems];
-      v15 = [v13 _inputItemsByApplyingActiveWebPageAlternative:inputItems2 ifNeededByActivationRule:v11];
-      [(EXExtensionRequest *)self setInputItems:v15];
+      v17 = [v15 _inputItemsByApplyingActiveWebPageAlternative:inputItems2 ifNeededByActivationRule:v13];
+      [(EXExtensionRequest *)self setInputItems:v17];
     }
   }
 }

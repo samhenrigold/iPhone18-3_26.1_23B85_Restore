@@ -57,29 +57,26 @@
 
 + (id)propertiesToFetchDownloadInfo
 {
-  v4[3] = *MEMORY[0x277D85DE8];
+  v3[3] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D3DBE8];
-  v4[0] = *MEMORY[0x277D3DCD0];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x277D3DC00];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
-  v2 = *MEMORY[0x277D85DE8];
+  v3[0] = *MEMORY[0x277D3DCD0];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x277D3DC00];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
 
   return v1;
 }
 
 + (id)relationshipKeyPathsForPrefetchingDownloadInfo
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D3DE68];
-  v6[0] = *MEMORY[0x277D3DC90];
-  v6[1] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277D3DC90];
+  v5[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v2 = [v1 componentsJoinedByString:@"."];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v3;
 }
@@ -91,9 +88,9 @@
     +[MTEpisode(NMSDownloadableItem) _sizeEstimation];
   }
 
-  v1 = _sizeEstimation_sizeEstimation;
+  v2 = _sizeEstimation_sizeEstimation;
 
-  return v1;
+  return v2;
 }
 
 @end

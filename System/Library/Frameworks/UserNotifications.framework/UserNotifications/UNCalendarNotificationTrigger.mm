@@ -1,7 +1,9 @@
 @interface UNCalendarNotificationTrigger
++ (UNCalendarNotificationTrigger)triggerWithDateMatchingComponents:(NSDateComponents *)dateComponents repeats:(BOOL)repeats;
 - (BOOL)isEqual:(id)equal;
 - (NSDate)nextTriggerDate;
 - (UNCalendarNotificationTrigger)initWithCoder:(id)coder;
+- (id)_initWithDateComponents:(id)components repeats:(BOOL)repeats;
 - (id)description;
 - (id)nextTriggerDateAfterDate:(id)date withRequestedDate:(id)requestedDate;
 - (unint64_t)hash;
@@ -9,6 +11,37 @@
 @end
 
 @implementation UNCalendarNotificationTrigger
+
++ (UNCalendarNotificationTrigger)triggerWithDateMatchingComponents:(NSDateComponents *)dateComponents repeats:(BOOL)repeats
+{
+  v4 = repeats;
+  v6 = dateComponents;
+  v7 = [[self alloc] _initWithDateComponents:v6 repeats:v4];
+
+  return v7;
+}
+
+- (id)_initWithDateComponents:(id)components repeats:(BOOL)repeats
+{
+  repeatsCopy = repeats;
+  componentsCopy = components;
+  if (!componentsCopy)
+  {
+    [UNCalendarNotificationTrigger _initWithDateComponents:repeats:];
+  }
+
+  v11.receiver = self;
+  v11.super_class = UNCalendarNotificationTrigger;
+  v7 = [(UNNotificationTrigger *)&v11 _initWithRepeats:repeatsCopy];
+  if (v7)
+  {
+    v8 = [componentsCopy copy];
+    v9 = v7[2];
+    v7[2] = v8;
+  }
+
+  return v7;
+}
 
 - (unint64_t)hash
 {

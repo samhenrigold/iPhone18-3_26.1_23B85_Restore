@@ -173,32 +173,42 @@ LABEL_9:
   x = bounds.origin.x;
   memset(&slice, 0, sizeof(slice));
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
-  v10 = width - (v8 + v9);
-  remainder.origin.x = x + v8;
-  remainder.origin.y = y + 10.0;
-  remainder.size.width = v10;
-  remainder.size.height = height + -20.0;
+  v9 = x + v8;
+  v10 = y + 10.0;
+  v12 = width - (v8 + v11);
+  remainder.origin.x = v9;
+  remainder.origin.y = v10;
+  v13 = height + -20.0;
+  remainder.size.width = v12;
+  remainder.size.height = v13;
   [(PKCommutePlanDetailsTableViewCell *)self _shouldReverseLayoutDirection];
-  [(UILabel *)self->_primaryLabel pkui_sizeThatFits:1 forceWordWrap:v10, height + -20.0];
-  v12 = v11;
-  v27.origin.x = remainder.origin.x;
-  v27.origin.y = y + 10.0;
-  v27.size.width = v10;
-  v27.size.height = height + -20.0;
-  CGRectDivide(v27, &slice, &remainder, v12, CGRectMinYEdge);
-  v22 = slice.origin.y;
-  v23 = slice.origin.x;
-  v20 = slice.size.height;
-  v21 = slice.size.width;
+  [(UILabel *)self->_primaryLabel pkui_sizeThatFits:1 forceWordWrap:v12, v13];
+  v15 = v14;
+  v17 = v16;
+  v40.origin.x = v9;
+  v40.origin.y = v10;
+  v40.size.width = v12;
+  v40.size.height = v13;
+  CGRectDivide(v40, &slice, &remainder, v17, CGRectMinYEdge);
+  v35 = slice.origin.y;
+  v36 = slice.origin.x;
+  v33 = slice.size.height;
+  v34 = slice.size.width;
   CGRectDivide(remainder, &slice, &remainder, 4.0, CGRectMinYEdge);
-  v13 = v12 + 4.0 + 20.0;
+  v18 = v17 + 4.0 + 20.0;
   if (PKStringIsBlank(self->_secondaryText))
   {
     if (!self->_templateLayout)
     {
       primaryLabel = self->_primaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v20 = PKContentAlignmentMake();
+      v21.n128_u64[0] = v15;
+      v22.n128_f64[0] = v17;
+      v23.n128_f64[0] = v9;
+      v24.n128_f64[0] = v10;
+      v25.n128_f64[0] = v12;
+      v26.n128_f64[0] = v13;
+      PKSizeAlignedInRect(v20, v21, v22, v23, v24, v25, v26, v27);
       [(UILabel *)primaryLabel setFrame:?];
     }
   }
@@ -206,22 +216,22 @@ LABEL_9:
   else
   {
     [(UILabel *)self->_secondaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v16 = v15;
-    CGRectDivide(remainder, &slice, &remainder, v15, CGRectMinYEdge);
+    v29 = v28;
+    CGRectDivide(remainder, &slice, &remainder, v28, CGRectMinYEdge);
     if (!self->_templateLayout)
     {
-      [(UILabel *)self->_primaryLabel setFrame:v23, v22, v21, v20];
+      [(UILabel *)self->_primaryLabel setFrame:v36, v35, v34, v33];
       [(UILabel *)self->_secondaryLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
     }
 
-    v13 = v13 + v16;
+    v18 = v18 + v29;
   }
 
-  v17 = v13;
-  v18 = ceilf(v17);
-  v19 = width;
-  result.height = v18;
-  result.width = v19;
+  v30 = v18;
+  v31 = ceilf(v30);
+  v32 = width;
+  result.height = v31;
+  result.width = v32;
   return result;
 }
 

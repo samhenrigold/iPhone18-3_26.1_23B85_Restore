@@ -80,16 +80,15 @@
 - (void)addContext:(id)context
 {
   contextCopy = context;
-  v8.receiver = self;
-  v8.super_class = NLNLPLanguageModelState;
-  [(NLLanguageModelState *)&v8 addContext:contextCopy];
+  v7.receiver = self;
+  v7.super_class = NLNLPLanguageModelState;
+  [(NLLanguageModelState *)&v7 addContext:contextCopy];
   if (self->_modelState)
   {
     v5 = CoreLMCopyTokenIdsForText();
     if (v5)
     {
       v6 = v5;
-      modelState = self->_modelState;
       CoreLMUpdateWithContext();
       CFRelease(v6);
     }
@@ -122,7 +121,7 @@
   }
 
   v6 = v5;
-  if (CFArrayGetCount(v5) != 1 || (modelState = self->_modelState, (v8 = CoreLMCopyConditionalProbabilities()) == 0))
+  if (CFArrayGetCount(v5) != 1 || (v7 = CoreLMCopyConditionalProbabilities()) == 0)
   {
     CFRelease(v6);
 LABEL_9:
@@ -130,11 +129,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v9 = v8;
-  if (CFArrayGetCount(v8) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v9, 0), valuePtr = 0.0, CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr)))
+  v8 = v7;
+  if (CFArrayGetCount(v7) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(v8, 0), valuePtr = 0.0, CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &valuePtr)))
   {
-    v11 = [NLProbabilityInfo alloc];
-    initWithInvalidProbability = [(NLProbabilityInfo *)v11 initWithProbability:0 flags:valuePtr];
+    v10 = [NLProbabilityInfo alloc];
+    initWithInvalidProbability = [(NLProbabilityInfo *)v10 initWithProbability:0 flags:valuePtr];
   }
 
   else
@@ -142,7 +141,7 @@ LABEL_9:
     initWithInvalidProbability = 0;
   }
 
-  CFRelease(v9);
+  CFRelease(v8);
   CFRelease(v6);
   if (!initWithInvalidProbability)
   {
@@ -156,44 +155,42 @@ LABEL_10:
 
 - (id)conditionalProbabilityForString:(id)string
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   modelState = self->_modelState;
   if (modelState)
   {
-    v6 = self->_modelState;
-    v7 = CoreLMCopyTokenIdsForText();
-    v8 = [v7 count];
-    if (v8 < 2)
+    v6 = CoreLMCopyTokenIdsForText();
+    v7 = [v6 count];
+    if (v7 < 2)
     {
-      v10 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v9 = self->_modelState;
       modelState = CoreLMCreateCopy();
-      v10 = modelState != 0;
+      v8 = modelState != 0;
     }
 
-    if (v7)
+    if (v6)
     {
-      v11 = modelState == 0;
+      v9 = modelState == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    if (!v11)
+    if (!v9)
     {
-      if (!v8)
+      if (!v7)
       {
-        v16 = 1.0;
+        v13 = 1.0;
 LABEL_33:
-        initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v16];
-        if (!v10)
+        initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v13];
+        if (!v8)
         {
 LABEL_12:
 
@@ -210,45 +207,45 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v15 = 0;
-      v16 = 1.0;
+      v12 = 0;
+      v13 = 1.0;
       while (1)
       {
-        v17 = [v7 objectAtIndex:v15];
-        v26[0] = v17;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-        v18 = CoreLMCopyConditionalProbabilities();
-        if (!v18)
+        v14 = [v6 objectAtIndex:v12];
+        v23[0] = v14;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+        v15 = CoreLMCopyConditionalProbabilities();
+        if (!v15)
         {
           break;
         }
 
-        v19 = v18;
-        if (CFArrayGetCount(v18) == 1)
+        v16 = v15;
+        if (CFArrayGetCount(v15) == 1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v19, 0);
-          v24 = 0.0;
-          Value = CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &v24);
-          v22 = Value != 0;
+          ValueAtIndex = CFArrayGetValueAtIndex(v16, 0);
+          v21 = 0.0;
+          Value = CFNumberGetValue(ValueAtIndex, kCFNumberDoubleType, &v21);
+          v19 = Value != 0;
           if (Value)
           {
-            v16 = v16 * v24;
+            v13 = v13 * v21;
           }
         }
 
         else
         {
-          v22 = 0;
+          v19 = 0;
         }
 
-        CFRelease(v19);
-        if (++v15 < v8 && v22)
+        CFRelease(v16);
+        if (++v12 < v7 && v19)
         {
-          v25 = v17;
-          [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-          v23 = CoreLMUpdateWithContext();
+          v22 = v14;
+          [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+          v20 = CoreLMUpdateWithContext();
 
-          if ((v23 & 1) == 0)
+          if ((v20 & 1) == 0)
           {
             goto LABEL_10;
           }
@@ -257,13 +254,13 @@ LABEL_11:
         else
         {
 
-          if (!v22)
+          if (!v19)
           {
             goto LABEL_10;
           }
         }
 
-        if (v8 == v15)
+        if (v7 == v12)
         {
           goto LABEL_33;
         }
@@ -272,7 +269,7 @@ LABEL_11:
 
 LABEL_10:
     initWithInvalidProbability = 0;
-    if (!v10)
+    if (!v8)
     {
       goto LABEL_12;
     }
@@ -284,86 +281,83 @@ LABEL_13:
   initWithInvalidProbability = [[NLProbabilityInfo alloc] initWithInvalidProbability];
 LABEL_14:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return initWithInvalidProbability;
 }
 
 - (void)enumeratePredictions:(unint64_t)predictions maximumTokensPerPrediction:(unint64_t)prediction withBlock:(id)block
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (self->_modelState)
   {
     session = [(NLLanguageModelState *)self session];
     v10 = [session predictionOptionsForMaximumPredictions:predictions maximumTokensPerPrediction:prediction];
 
-    modelState = self->_modelState;
-    v32 = v10;
-    v12 = CoreLMCopyPredictions();
-    v13 = [v12 keysSortedByValueUsingComparator:&__block_literal_global_380];
+    v30 = v10;
+    v11 = CoreLMCopyPredictions();
+    v12 = [v11 keysSortedByValueUsingComparator:&__block_literal_global_380];
     session2 = [(NLLanguageModelState *)self session];
     predictionInitialCharacterSet = [session2 predictionInitialCharacterSet];
 
-    v38 = 0u;
-    v39 = 0u;
     v36 = 0u;
     v37 = 0u;
-    obj = v13;
-    v16 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-    if (v16)
+    v34 = 0u;
+    v35 = 0u;
+    obj = v12;
+    v15 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v15)
     {
-      v17 = v16;
+      v16 = v15;
       predictionsCopy = predictions;
-      v19 = 0;
-      v20 = *v37;
-      v34 = predictionsCopy;
+      v18 = 0;
+      v19 = *v35;
+      v32 = predictionsCopy;
 LABEL_4:
-      v21 = 0;
+      v20 = 0;
       while (1)
       {
-        if (*v37 != v20)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * v21);
-        v23 = [v12 objectForKey:v22];
-        [v23 doubleValue];
-        v25 = v24;
+        v21 = *(*(&v34 + 1) + 8 * v20);
+        v22 = [v11 objectForKey:v21];
+        [v22 doubleValue];
+        v24 = v23;
 
-        v35 = 0;
-        [v22 rangeOfCharacterFromSet:predictionInitialCharacterSet options:8];
-        if (v26)
+        v33 = 0;
+        [v21 rangeOfCharacterFromSet:predictionInitialCharacterSet options:8];
+        if (v25)
         {
-          v27 = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v25];
-          if ([v22 length] >= 2 && (objc_msgSend(v22, "hasSuffix:", @" ") & 1) != 0)
+          v26 = [[NLProbabilityInfo alloc] initWithProbability:0 flags:v24];
+          if ([v21 length] >= 2 && (objc_msgSend(v21, "hasSuffix:", @" ") & 1) != 0)
           {
-            v28 = [v22 substringToIndex:{objc_msgSend(v22, "length") - 1}];
+            v27 = [v21 substringToIndex:{objc_msgSend(v21, "length") - 1}];
           }
 
           else
           {
-            v28 = v22;
+            v27 = v21;
           }
 
-          v29 = v28;
-          v30 = [[NLPredictionInfo alloc] initWithPrediction:v28 probabilityInfo:v27];
-          blockCopy[2](blockCopy, v30, &v35);
-          ++v19;
+          v28 = v27;
+          v29 = [[NLPredictionInfo alloc] initWithPrediction:v27 probabilityInfo:v26];
+          blockCopy[2](blockCopy, v29, &v33);
+          ++v18;
 
-          predictionsCopy = v34;
+          predictionsCopy = v32;
         }
 
-        if ((v35 & 1) != 0 || v19 >= predictionsCopy)
+        if ((v33 & 1) != 0 || v18 >= predictionsCopy)
         {
           break;
         }
 
-        if (v17 == ++v21)
+        if (v16 == ++v20)
         {
-          v17 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-          if (v17)
+          v16 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          if (v16)
           {
             goto LABEL_4;
           }
@@ -373,8 +367,6 @@ LABEL_4:
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __85__NLNLPLanguageModelState_enumeratePredictions_maximumTokensPerPrediction_withBlock___block_invoke(uint64_t a1, void *a2, void *a3)

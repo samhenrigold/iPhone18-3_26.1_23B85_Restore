@@ -224,7 +224,7 @@
     v120 = styleCopy;
     if (layer)
     {
-      [layer sublayerTransform];
+      objc_msgSend_sublayerTransform(layer);
     }
 
     else
@@ -851,7 +851,7 @@ void __47__SBUIPasscodeLockNumberPad__animateFlyingOut___block_invoke(uint64_t a
           v16 = v15;
           if (v15)
           {
-            [v15 CGAffineTransformValue];
+            objc_msgSend_CGAffineTransformValue(v15);
           }
 
           else
@@ -929,7 +929,7 @@ void __47__SBUIPasscodeLockNumberPad__animateFlyingOut___block_invoke_2(uint64_t
     v5 = v4;
     if (v4)
     {
-      [v4 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v4);
     }
 
     else

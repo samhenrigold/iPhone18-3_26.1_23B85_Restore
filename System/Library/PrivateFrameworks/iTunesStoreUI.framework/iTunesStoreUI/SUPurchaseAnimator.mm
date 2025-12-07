@@ -120,7 +120,7 @@
       CGPathRelease(Mutable);
       [MEMORY[0x1E69DD250] beginAnimations:0];
       [MEMORY[0x1E69DD250] setAnimationDuration:0.5];
-      [view transform];
+      objc_msgSend_transform(view);
       v55 = v57;
       CGAffineTransformScale(&v56, &v55, scale, scale);
       v57 = v56;

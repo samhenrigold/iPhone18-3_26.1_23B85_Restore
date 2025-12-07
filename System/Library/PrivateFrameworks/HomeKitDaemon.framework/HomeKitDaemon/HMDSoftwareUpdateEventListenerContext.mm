@@ -51,7 +51,7 @@
 
 - (HMSoftwareUpdateDescriptor)softwareUpdateDescriptorForLastEvent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   topicForSoftwareUpdateDescriptor = [(HMDSoftwareUpdateEventListenerContext *)self topicForSoftwareUpdateDescriptor];
   if (topicForSoftwareUpdateDescriptor)
   {
@@ -75,11 +75,11 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = HMFGetLogIdentifier();
-          v19 = 138543618;
-          v20 = v16;
-          v21 = 2112;
-          v22 = v5;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse descriptor from event: %@", &v19, 0x16u);
+          v18 = 138543618;
+          v19 = v16;
+          v20 = 2112;
+          v21 = v5;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse descriptor from event: %@", &v18, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -94,11 +94,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v12;
-        v21 = 2112;
-        v22 = topicForSoftwareUpdateDescriptor;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve last event for topic: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v12;
+        v20 = 2112;
+        v21 = topicForSoftwareUpdateDescriptor;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve last event for topic: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -111,14 +111,12 @@
     v7 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (int64_t)softwareUpdateStatusForLastEvent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   topicForSoftwareUpdateDescriptor = [(HMDSoftwareUpdateEventListenerContext *)self topicForSoftwareUpdateDescriptor];
   if (topicForSoftwareUpdateDescriptor)
   {
@@ -142,11 +140,11 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = HMFGetLogIdentifier();
-          v19 = 138543618;
-          v20 = v16;
-          v21 = 2112;
-          v22 = v5;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse descriptor from event: %@", &v19, 0x16u);
+          v18 = 138543618;
+          v19 = v16;
+          v20 = 2112;
+          v21 = v5;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse descriptor from event: %@", &v18, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -162,11 +160,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v12;
-        v21 = 2112;
-        v22 = topicForSoftwareUpdateDescriptor;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve last event for topic: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v12;
+        v20 = 2112;
+        v21 = topicForSoftwareUpdateDescriptor;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve last event for topic: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -179,13 +177,12 @@
     status = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return status;
 }
 
 - (NSString)topicForSoftwareUpdateDescriptor
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   accessory = [(HMDSoftwareUpdateEventListenerContext *)self accessory];
   uuid = [accessory uuid];
   home = [accessory home];
@@ -209,15 +206,15 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138544130;
-        v22 = v18;
-        v23 = 2048;
-        v24 = v7;
-        v25 = 2112;
-        v26 = uuid2;
-        v27 = 2112;
-        v28 = uuid;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic with suffix: %ld, homeUUID: %@, accessoryUUID: %@", &v21, 0x2Au);
+        v20 = 138544130;
+        v21 = v18;
+        v22 = 2048;
+        v23 = v7;
+        v24 = 2112;
+        v25 = uuid2;
+        v26 = 2112;
+        v27 = uuid;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic with suffix: %ld, homeUUID: %@, accessoryUUID: %@", &v20, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -232,36 +229,34 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v14;
-      v23 = 2112;
-      v24 = uuid2;
-      v25 = 2112;
-      v26 = uuid;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic with homeUUID: %@, accessoryUUID: %@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v14;
+      v22 = 2112;
+      v23 = uuid2;
+      v24 = 2112;
+      v25 = uuid;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get topic with homeUUID: %@, accessoryUUID: %@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     v9 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)updateAppBadgeAndBulletinNotification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Updating app badge and bulletin", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Updating app badge and bulletin", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -281,15 +276,13 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot update app badge and bulletin because home is nil", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot update app badge and bulletin because home is nil", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerConsumer:(id)consumer topicFilters:(id)filters completion:(id)completion
@@ -334,10 +327,9 @@
 
 void __52__HMDSoftwareUpdateEventListenerContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_138278;
-  logCategory__hmf_once_v10_138278 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_138278;
+  logCategory__hmf_once_v10_138278 = v0;
 }
 
 @end

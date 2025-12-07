@@ -26,7 +26,7 @@
   sub_2658B6858();
   swift_endAccess();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for HeadphoneAudioNotificationModel();
+  v4.super_class = type metadata accessor for HeadphoneAudioNotificationModel(0);
   return [(HeadphoneAudioNotificationModel *)&v4 init];
 }
 

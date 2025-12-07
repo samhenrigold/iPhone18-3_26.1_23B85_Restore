@@ -10,43 +10,43 @@
 {
   stateCopy = state;
   contextCopy = context;
-  v14.receiver = self;
-  v14.super_class = KNArchivedUIState;
-  v10 = [(KNArchivedUIState *)&v14 initWithContext:contextCopy];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = KNArchivedUIState;
+  v8 = [(KNArchivedUIState *)&v12 initWithContext:contextCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_copy(stateCopy, v8, v9);
-    uiState = v10->_uiState;
-    v10->_uiState = v11;
+    v9 = [stateCopy copy];
+    uiState = v8->_uiState;
+    v8->_uiState = v9;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[40]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[40]];
 
-  v6 = objc_alloc_init(KNUIState);
+  v5 = objc_alloc_init(KNUIState);
   uiState = self->_uiState;
-  self->_uiState = v6;
+  self->_uiState = v5;
 
-  v8 = self->_uiState;
-  v11 = objc_msgSend_context(self, v9, v10);
-  objc_msgSend_loadFromArchive_unarchiver_context_(v8, v12, v5, unarchiverCopy, v11);
+  v7 = self->_uiState;
+  context = [(KNArchivedUIState *)self context];
+  [(KNUIState *)v7 loadFromArchive:v4 unarchiver:unarchiverCopy context:context];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275D906AC, off_2812EA908[40]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275D906AC descriptor:off_2812EA908[40]];
 
   uiState = self->_uiState;
-  v9 = objc_msgSend_context(self, v7, v8);
-  objc_msgSend_saveToArchive_archiver_context_(uiState, v10, v5, archiverCopy, v9);
+  context = [(KNArchivedUIState *)self context];
+  [(KNUIState *)uiState saveToArchive:v4 archiver:archiverCopy context:context];
 }
 
 @end

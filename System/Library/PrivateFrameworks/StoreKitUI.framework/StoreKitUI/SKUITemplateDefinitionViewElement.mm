@@ -3,6 +3,10 @@
 - (NSString)definitionType;
 - (SKUIPredicateListViewElement)predicateListViewElement;
 - (SKUIViewElement)contentViewElement;
+- (void)contentViewElement;
+- (void)definitionMode;
+- (void)definitionType;
+- (void)predicateListViewElement;
 @end
 
 @implementation SKUITemplateDefinitionViewElement
@@ -83,6 +87,30 @@
   v11 = [(SKUIViewElement *)self firstChildForElementType:89];
 
   return v11;
+}
+
+- (void)contentViewElement
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITemplateDefinitionViewElement contentViewElement]";
+}
+
+- (void)definitionMode
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITemplateDefinitionViewElement definitionMode]";
+}
+
+- (void)definitionType
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITemplateDefinitionViewElement definitionType]";
+}
+
+- (void)predicateListViewElement
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITemplateDefinitionViewElement predicateListViewElement]";
 }
 
 @end

@@ -143,29 +143,29 @@ void __60__DSWifiSyncStore_removeAllPairedDevicesOnQueue_completion___block_invo
 
 void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [v9 remotePairingFrameworkIdentifier];
 
         if (v10)
@@ -181,30 +181,28 @@ void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_in
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2;
-  v16[3] = &unk_278F72A58;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2;
+  v15[3] = &unk_278F72A58;
   v12 = *(a1 + 40);
-  v17 = *(a1 + 48);
+  v16 = *(a1 + 48);
   v13 = *(a1 + 56);
-  v18 = v3;
-  v19 = v13;
+  v17 = v3;
+  v18 = v13;
   v14 = v3;
-  [v12 removeComputersFromRemotePairing:v2 withCompletion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v12 removeComputersFromRemotePairing:v2 withCompletion:v15];
 }
 
 void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -219,35 +217,35 @@ void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_in
     block[1] = 3221225472;
     block[2] = __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_8;
     block[3] = &unk_278F72600;
-    v6 = &v27;
-    v27 = *(a1 + 48);
-    v26 = v3;
+    v6 = &v26;
+    v26 = *(a1 + 48);
+    v25 = v3;
     dispatch_async(v5, block);
   }
 
   else
   {
-    v18 = 0;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
+    v17 = 0;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v7 = *(a1 + 40);
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v29 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = [v12 lockdownFrameworkKey];
           v14 = lockdown_unpair_host_by_id();
 
@@ -256,29 +254,27 @@ void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_in
             v15 = DSLog_0;
             if (os_log_type_enabled(DSLog_0, OS_LOG_TYPE_ERROR))
             {
-              __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2_cold_2(v28, v15, v12, &v29);
+              __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2_cold_2(v27, v15, v12, &v28);
             }
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v29 count:16];
       }
 
       while (v9);
     }
 
     v16 = *(a1 + 32);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_9;
-    v19[3] = &unk_278F72978;
-    v6 = &v20;
-    v20 = *(a1 + 48);
-    dispatch_async(v16, v19);
-    v3 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_9;
+    v18[3] = &unk_278F72978;
+    v6 = &v19;
+    v19 = *(a1 + 48);
+    dispatch_async(v16, v18);
+    v3 = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeComputersFromRemotePairing:(id)pairing withCompletion:(id)completion
@@ -292,32 +288,28 @@ void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_in
 
 void __60__DSWifiSyncStore_removeAllPairedDevicesOnQueue_completion___block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_248C40000, a2, OS_LOG_TYPE_ERROR, "liblockdown - Error removing at least one paired device: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_248C40000, a2, OS_LOG_TYPE_ERROR, "liblockdown - Error removing at least one paired device: %d", v2, 8u);
 }
 
 void __60__DSWifiSyncStore_removeAllPairedDevicesOnQueue_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C40000, a2, OS_LOG_TYPE_ERROR, "Remote Pairing - Error removing at least one paired device: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C40000, a2, OS_LOG_TYPE_ERROR, "Remote Pairing - Error removing at least one paired device: %@", &v2, 0xCu);
 }
 
 void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "Failed to remove computers from remote pairing: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "Failed to remove computers from remote pairing: %@", &v5, 0xCu);
 }
 
 void __62__DSWifiSyncStore_removePairedDevices_onQueue_withCompletion___block_invoke_2_cold_2(uint8_t *a1, void *a2, void *a3, void *a4)

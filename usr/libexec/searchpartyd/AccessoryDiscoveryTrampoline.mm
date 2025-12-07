@@ -17,7 +17,6 @@
   v6 = _Block_copy(completion);
   v7 = swift_allocObject();
   *(v7 + 16) = v6;
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd28AccessoryDiscoveryTrampoline_implementation);
   withCopy = with;
   selfCopy = self;
   sub_100E12360(withCopy, sub_10026AE30, v7);
@@ -27,13 +26,12 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100E1B344(v8);
-  (*(v5 + 8))(v8, v4);
+  sub_100E1B344(v7);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)initiatePairingAndLocateAccessoryWithIdentifier:(id)identifier completion:(id)completion
@@ -103,18 +101,17 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd28AccessoryDiscoveryTrampoline_implementation);
-  _Block_copy(v11);
+  v11 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd28AccessoryDiscoveryTrampoline_implementation);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_100E1BDAC(v10, v12, v11);
-  _Block_release(v11);
-  _Block_release(v11);
-  (*(v7 + 8))(v10, v6);
+  sub_100E1BDAC(v9, v11, v10);
+  _Block_release(v10);
+  _Block_release(v10);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)finalizeProximityPairingForAccessoryIdentifier:(id)identifier configuration:(id)configuration completion:(id)completion

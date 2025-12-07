@@ -293,7 +293,7 @@ LABEL_17:
 
 + (id)start
 {
-  v3 = SBLogWorkspace();
+  v3 = SBLogWorkspace(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -619,29 +619,29 @@ LABEL_5:
   v2 = +[SBAssistantController sharedInstance];
   isSystemAssistantExperiencePersistentSiriEnabled = [v2 isSystemAssistantExperiencePersistentSiriEnabled];
 
-  v4 = SBLogWorkspace();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v5 = SBLogWorkspace(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (isSystemAssistantExperiencePersistentSiriEnabled)
   {
-    if (v5)
+    if (v6)
     {
       [SBMainWorkspace _defaultSiriWorkspaceTransitionOptions];
     }
 
-    v6 = 32;
+    v7 = 32;
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       [SBMainWorkspace _defaultSiriWorkspaceTransitionOptions];
     }
 
-    v6 = 64;
+    v7 = 64;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)createRequestForApplicationActivation:(id)activation options:(unint64_t)options
@@ -706,7 +706,7 @@ LABEL_5:
 
 - (id)_transactionForTransitionRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (!self->_currentTransaction)
   {
@@ -731,13 +731,13 @@ LABEL_5:
     [(SBMainWorkspace *)self _selectTransactionForAppActivationRequest:requestCopy];
   }
   v10 = ;
-  v11 = SBLogTransactionVerbose();
+  v11 = SBLogTransactionVerbose(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
 
   if (v12)
   {
-    v13 = SBLogTransactionVerbose();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = SBLogTransactionVerbose(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [SBMainWorkspace _transactionForTransitionRequest:];
     }
@@ -745,18 +745,18 @@ LABEL_5:
 
   else
   {
-    v13 = SBLogTransaction();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = SBLogTransaction(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = [MEMORY[0x277CF0C00] descriptionForObject:v10];
+      v15 = [MEMORY[0x277CF0C00] descriptionForObject:v10];
       transitionRequest = [v10 transitionRequest];
       compactDescriptionBuilder = [transitionRequest compactDescriptionBuilder];
       build = [compactDescriptionBuilder build];
-      v19 = 138543618;
-      v20 = v14;
-      v21 = 2114;
-      v22 = build;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Prepared %{public}@ for transition request:\n%{public}@", &v19, 0x16u);
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2114;
+      v23 = build;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Prepared %{public}@ for transition request:\n%{public}@", &v20, 0x16u);
     }
   }
 
@@ -768,7 +768,7 @@ LABEL_5:
   executionCopy = execution;
   v62 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v7 = SBLogWorkspace();
+  v7 = SBLogWorkspace(requestCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     succinctDescription = [requestCopy succinctDescription];
@@ -913,7 +913,7 @@ LABEL_40:
     }
 
     bundleIdentifier = [v34 bundleIdentifier];
-    if (isSOSActive && ([_canExecuteTransitionRequest_forExecution__canAppearOverSOSApps containsObject:bundleIdentifier] & 1) == 0)
+    if (isSOSActive && (objc_msgSend_containsObject_(_canExecuteTransitionRequest_forExecution__canAppearOverSOSApps) & 1) == 0)
     {
       v38 = applicationSceneEntities;
       registeredServicesSnapshot = [MEMORY[0x277CCACA8] stringWithFormat:@"Requesting application %@ while SOS active", bundleIdentifier];
@@ -934,7 +934,7 @@ LABEL_40:
     registeredServicesSnapshot = [v39 registeredServicesSnapshot];
 
     serviceBundleIdentifiers = [(__CFString *)registeredServicesSnapshot serviceBundleIdentifiers];
-    v42 = [serviceBundleIdentifiers containsObject:bundleIdentifier];
+    v42 = objc_msgSend_containsObject_(serviceBundleIdentifiers);
 
     if ((v42 & 1) == 0)
     {
@@ -1337,7 +1337,7 @@ void __66__SBMainWorkspace_dismissPowerDownTransientOverlayWithCompletion___bloc
 
 - (void)setCurrentTransaction:(id)transaction
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (self->_currentTransaction != transactionCopy)
   {
@@ -1359,16 +1359,15 @@ void __66__SBMainWorkspace_dismissPowerDownTransientOverlayWithCompletion___bloc
 
     if (transactionCopy)
     {
-      v38 = a2;
+      v39 = a2;
       objc_storeStrong(&self->_currentTransaction, transaction);
-      [(SBWorkspaceTransaction *)self->_currentTransaction addObserver:self];
-      v12 = SBLogTransactionVerbose();
+      v12 = SBLogTransactionVerbose([(SBWorkspaceTransaction *)self->_currentTransaction addObserver:self]);
       v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
 
       if (v13)
       {
-        v14 = SBLogTransactionVerbose();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = SBLogTransactionVerbose(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [SBMainWorkspace setCurrentTransaction:];
         }
@@ -1376,39 +1375,39 @@ void __66__SBMainWorkspace_dismissPowerDownTransientOverlayWithCompletion___bloc
 
       else
       {
-        v14 = SBLogTransaction();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = SBLogTransaction(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = [MEMORY[0x277CF0C00] descriptionForObject:transactionCopy];
+          v16 = [MEMORY[0x277CF0C00] descriptionForObject:transactionCopy];
           transitionRequest = [(SBWorkspaceTransaction *)transactionCopy transitionRequest];
           compactDescriptionBuilder = [transitionRequest compactDescriptionBuilder];
           [compactDescriptionBuilder build];
-          v17 = v37 = v7;
+          v18 = v38 = v7;
           *buf = 138543618;
-          v40 = v15;
-          v41 = 2114;
-          v42 = v17;
-          _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Running %{public}@ for transition request:\n%{public}@", buf, 0x16u);
+          v41 = v16;
+          v42 = 2114;
+          v43 = v18;
+          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Running %{public}@ for transition request:\n%{public}@", buf, 0x16u);
 
-          v7 = v37;
+          v7 = v38;
         }
       }
 
       eventQueue = [(SBWorkspace *)self eventQueue];
-      v19 = [eventQueue acquireLockForReason:@"CurrentTransaction"];
-      v20 = self->_currentTransactionLock;
-      self->_currentTransactionLock = v19;
+      v20 = [eventQueue acquireLockForReason:@"CurrentTransaction"];
+      v21 = self->_currentTransactionLock;
+      self->_currentTransactionLock = v20;
 
       transitionRequest2 = [(SBWorkspaceTransaction *)self->_currentTransaction transitionRequest];
-      v22 = SBMainWorkspaceMapInternalTransitionSourceToExternalTransitionSource([transitionRequest2 source]);
-      v23 = v22;
-      v24 = @"SBWorkspace";
-      if (v22)
+      v23 = SBMainWorkspaceMapInternalTransitionSourceToExternalTransitionSource([transitionRequest2 source]);
+      v24 = v23;
+      v25 = @"SBWorkspace";
+      if (v23)
       {
-        v24 = v22;
+        v25 = v23;
       }
 
-      v25 = v24;
+      v26 = v25;
 
       windowScene = [(SBWorkspaceTransaction *)transactionCopy windowScene];
       if (!windowScene)
@@ -1419,27 +1418,27 @@ void __66__SBMainWorkspace_dismissPowerDownTransientOverlayWithCompletion___bloc
       displayLayoutPublisher = [windowScene displayLayoutPublisher];
       if (!displayLayoutPublisher)
       {
-        [(SBMainWorkspace *)v38 setCurrentTransaction:windowScene];
+        [(SBMainWorkspace *)v39 setCurrentTransaction:windowScene];
       }
 
-      v28 = [displayLayoutPublisher transitionAssertionWithReason:v25];
+      v29 = [displayLayoutPublisher transitionAssertionWithReason:v26];
 
-      v29 = self->_displayLayoutTransitionAssertion;
-      self->_displayLayoutTransitionAssertion = v28;
+      v30 = self->_displayLayoutTransitionAssertion;
+      self->_displayLayoutTransitionAssertion = v29;
 
       [(SBWorkspaceTransaction *)transactionCopy begin];
       if (([(SBWorkspaceTransaction *)transactionCopy isComplete]& 1) == 0)
       {
-        v30 = +[SBPlatformController sharedInstance];
-        isInternalInstall = [v30 isInternalInstall];
+        v31 = +[SBPlatformController sharedInstance];
+        isInternalInstall = [v31 isInternalInstall];
 
         if (isInternalInstall)
         {
-          v32 = objc_alloc(MEMORY[0x277CF0D18]);
+          v33 = objc_alloc(MEMORY[0x277CF0D18]);
           queue = [(SBTransaction *)transactionCopy queue];
-          v34 = [v32 initWithProvider:transactionCopy queue:queue];
-          v35 = self->_transactionWatchdog;
-          self->_transactionWatchdog = v34;
+          v35 = [v33 initWithProvider:transactionCopy queue:queue];
+          v36 = self->_transactionWatchdog;
+          self->_transactionWatchdog = v35;
 
           [(BSWatchdog *)self->_transactionWatchdog setDelegate:self];
           [(BSWatchdog *)self->_transactionWatchdog start];
@@ -1514,7 +1513,7 @@ void __47__SBMainWorkspace__broadcastCurrentTransaction__block_invoke(uint64_t a
   v14 = [v13 observeDefault:v12 onQueue:v6 withBlock:v15];
 }
 
-uint64_t __48__SBMainWorkspace__initializeAndObserveDefaults__block_invoke(uint64_t a1)
+void *__48__SBMainWorkspace__initializeAndObserveDefaults__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) playSoundOnDeviceWake];
   __playSoundOnWake = result;
@@ -1593,7 +1592,7 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
 
 - (BOOL)_executeTransitionRequest:(id)request options:(unint64_t)options validator:(id)validator
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   validatorCopy = validator;
   v9 = SBLogCommon();
@@ -1601,7 +1600,7 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
   {
     succinctDescription = [requestCopy succinctDescription];
     *buf = 138543362;
-    v64 = succinctDescription;
+    v65 = succinctDescription;
     _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Executing request: %{public}@", buf, 0xCu);
   }
 
@@ -1609,10 +1608,10 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
   v12 = v11;
   if (v11)
   {
-    v52 = v11;
+    v53 = v11;
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
     v14 = v13;
-    v49 = mach_continuous_time();
+    v50 = mach_continuous_time();
     currentTransaction = [(SBMainWorkspace *)self currentTransaction];
     source = [requestCopy source];
     applicationContext = [requestCopy applicationContext];
@@ -1638,14 +1637,14 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
     v21 = currentTransaction;
     displayIdentity = [requestCopy displayIdentity];
     windowSceneManager = [SBApp windowSceneManager];
-    v51 = displayIdentity;
+    v52 = displayIdentity;
     v24 = [windowSceneManager windowSceneForDisplayIdentity:displayIdentity];
 
     applicationContext2 = [requestCopy applicationContext];
     requestedUnlockedEnvironmentMode = [applicationContext2 requestedUnlockedEnvironmentMode];
 
-    v50 = v24;
-    v48 = source;
+    v51 = v24;
+    v49 = source;
     if (requestedUnlockedEnvironmentMode == 2)
     {
       homeScreenController = [v24 homeScreenController];
@@ -1683,22 +1682,22 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
       succinctDescription2 = [requestCopy succinctDescription];
     }
 
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __63__SBMainWorkspace__executeTransitionRequest_options_validator___block_invoke;
-    v54[3] = &unk_2783A9D38;
-    v53 = validatorCopy;
-    v58 = validatorCopy;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __63__SBMainWorkspace__executeTransitionRequest_options_validator___block_invoke;
+    v55[3] = &unk_2783A9D38;
+    v54 = validatorCopy;
+    v59 = validatorCopy;
     v38 = requestCopy;
-    v55 = v38;
+    v56 = v38;
     selfCopy = self;
-    v59 = v14;
-    v60 = v49;
-    v61 = v19;
+    v60 = v14;
+    v61 = v50;
+    v62 = v19;
     v39 = v34;
-    v57 = v39;
-    v62 = v20;
-    v40 = [v35 eventWithName:succinctDescription2 handler:v54];
+    v58 = v39;
+    v63 = v20;
+    v40 = [v35 eventWithName:succinctDescription2 handler:v55];
     if (!eventLabel)
     {
     }
@@ -1708,18 +1707,18 @@ void __58__SBMainWorkspace__executeSuspendedTransactionForRequest___block_invoke
 
     if (((v19 | v20 | v33) & 1) == 0 && !isBackground2)
     {
-      if (v48 != 14)
+      if (v49 != 14)
       {
-        v43 = +[SBReachabilityManager sharedInstance];
-        [v43 deactivateReachability];
+        v44 = +[SBReachabilityManager sharedInstance];
+        [v44 deactivateReachability];
       }
 
       eventQueue = [(SBWorkspace *)self eventQueue];
       [eventQueue executeOrAppendEvent:v40];
 LABEL_31:
 
-      validatorCopy = v53;
-      v12 = v52;
+      validatorCopy = v54;
+      v12 = v53;
 LABEL_41:
 
       goto LABEL_42;
@@ -1739,40 +1738,40 @@ LABEL_41:
 
     if (isBackground2)
     {
-      v45 = SBLogWorkspace();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v46 = SBLogWorkspace(v43);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         name = [v40 name];
         *buf = 138543362;
-        v64 = name;
-        _os_log_impl(&dword_21ED4E000, v45, OS_LOG_TYPE_DEFAULT, "Executing suspended-activation immediately: %{public}@", buf, 0xCu);
+        v65 = name;
+        _os_log_impl(&dword_21ED4E000, v46, OS_LOG_TYPE_DEFAULT, "Executing suspended-activation immediately: %{public}@", buf, 0xCu);
       }
 
-      v12 = v52;
+      v12 = v53;
     }
 
     else
     {
-      v12 = v52;
+      v12 = v53;
       if (!v20)
       {
         goto LABEL_40;
       }
 
-      v45 = SBLogWorkspace();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v46 = SBLogWorkspace(v43);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349314;
-        v64 = v39;
-        v65 = 2114;
-        v66 = v38;
-        _os_log_impl(&dword_21ED4E000, v45, OS_LOG_TYPE_DEFAULT, "Interrupting transaction (%{public}p) for new request: %{public}@", buf, 0x16u);
+        v65 = v39;
+        v66 = 2114;
+        v67 = v38;
+        _os_log_impl(&dword_21ED4E000, v46, OS_LOG_TYPE_DEFAULT, "Interrupting transaction (%{public}p) for new request: %{public}@", buf, 0x16u);
       }
     }
 
 LABEL_40:
     [v40 execute];
-    validatorCopy = v53;
+    validatorCopy = v54;
     goto LABEL_41;
   }
 
@@ -1961,7 +1960,7 @@ void __63__SBMainWorkspace__executeTransitionRequest_options_validator___block_i
   [v3 gameDidLaunch:v2];
 }
 
-uint64_t __63__SBMainWorkspace__executeTransitionRequest_options_validator___block_invoke_4(uint64_t a1)
+void *__63__SBMainWorkspace__executeTransitionRequest_options_validator___block_invoke_4(uint64_t a1)
 {
   v2 = [*(a1 + 32) transientOverlayContext];
 
@@ -2204,7 +2203,7 @@ LABEL_41:
         goto LABEL_43;
       }
 
-      if (([externalForegroundApplicationSceneHandles containsObject:sceneHandle] & 1) == 0 && _SBWorkspaceCanLaunchApplication(v17, isBackground, v21, v58, &v68))
+      if ((objc_msgSend_containsObject_(externalForegroundApplicationSceneHandles) & 1) == 0 && _SBWorkspaceCanLaunchApplication(v17, isBackground, v21, v58, &v68))
       {
         if ([info supports64Bit])
         {
@@ -3402,7 +3401,7 @@ void __61__SBMainWorkspace__selectTransactionForAppActivationRequest___block_inv
 
 - (BOOL)_applicationProcessExited:(id)exited withContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   exitedCopy = exited;
   v8 = +[SBApplicationController sharedInstanceIfExists];
@@ -3418,31 +3417,32 @@ void __61__SBMainWorkspace__selectTransactionForAppActivationRequest___block_inv
     v13 = v10 == setupApplication && [(SBMainWorkspace *)self _handleSetupExited:setupApplication];
     exitReason = [contextCopy exitReason];
     terminationReason = [contextCopy terminationReason];
-    if ((FBSApplicationTerminationReasonIsGraceful() & 1) == 0 && terminationReason != 7 && (exitReason & 0x11) == 0)
+    IsGraceful = FBSApplicationTerminationReasonIsGraceful();
+    if ((IsGraceful & 1) == 0 && terminationReason != 7 && (exitReason & 0x11) == 0)
     {
       bundleIdentifier2 = [v10 bundleIdentifier];
-      v17 = [bundleIdentifier2 isEqualToString:@"com.apple.siri"];
+      v18 = [bundleIdentifier2 isEqualToString:@"com.apple.siri"];
 
-      if ((v17 & 1) == 0)
+      if ((v18 & 1) == 0)
       {
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __57__SBMainWorkspace__applicationProcessExited_withContext___block_invoke;
         block[3] = &unk_2783A8C18;
-        v22 = v10;
+        v23 = v10;
         dispatch_async(MEMORY[0x277D85CD0], block);
       }
     }
 
     if (v13)
     {
-      v18 = SBLogWorkspace();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = SBLogWorkspace(IsGraceful);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         bundleIdentifier3 = [v10 bundleIdentifier];
         *buf = 138543362;
-        v24 = bundleIdentifier3;
-        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, "%{public}@ should relaunch on exit", buf, 0xCu);
+        v25 = bundleIdentifier3;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_INFO, "%{public}@ should relaunch on exit", buf, 0xCu);
       }
     }
 
@@ -3532,9 +3532,9 @@ void __57__SBMainWorkspace__applicationProcessExited_withContext___block_invoke(
   }
 }
 
-uint64_t __50__SBMainWorkspace__destroyApplicationSceneEntity___block_invoke(uint64_t result, void *a2)
+void *__50__SBMainWorkspace__destroyApplicationSceneEntity___block_invoke(void *result, void *a2)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     return [a2 setActions:?];
   }
@@ -3757,7 +3757,7 @@ void __47__SBMainWorkspace__cleanupForRemovedAppEntity___block_invoke(uint64_t a
 uint64_t __79__SBMainWorkspace__removeApplicationEntities_withDestructionIntent_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 sceneHandle];
-  v4 = [*(a1 + 32) containsObject:v3];
+  v4 = objc_msgSend_containsObject_(*(a1 + 32));
 
   return v4;
 }
@@ -3888,7 +3888,7 @@ LABEL_21:
         }
 
         v5 = v57;
-        if (([v57 containsObject:uniqueIdentifier] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v57) & 1) == 0)
         {
           v23 = [mEMORY[0x277D0AAD8] sceneWithIdentifier:uniqueIdentifier];
           v24 = v50;
@@ -4050,7 +4050,7 @@ LABEL_52:
       v12 = v11;
       if (identifierCopy)
       {
-        LOBYTE(v9) = [v11 containsObject:identifierCopy];
+        LOBYTE(v9) = objc_msgSend_containsObject_(v11);
       }
 
       else
@@ -4633,80 +4633,80 @@ void __47__SBMainWorkspace_applicationProcessDidLaunch___block_invoke(uint64_t a
 
 void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke(uint64_t a1)
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   v2 = [SBApp restartManager];
   v3 = [v2 isPendingExit];
 
   if (!v3)
   {
-    v100 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     v101 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    v6 = [SBApp windowSceneManager];
-    v7 = [v6 connectedWindowScenes];
+    v102 = 0u;
+    v7 = [SBApp windowSceneManager];
+    v8 = [v7 connectedWindowScenes];
 
-    obj = v7;
-    v80 = [v7 countByEnumeratingWithState:&v98 objects:v107 count:16];
-    if (v80)
+    obj = v8;
+    v83 = [v8 countByEnumeratingWithState:&v101 objects:v110 count:16];
+    if (v83)
     {
-      v81 = 0;
-      v79 = *v99;
+      v84 = 0;
+      v82 = *v102;
       do
       {
-        for (i = 0; i != v80; ++i)
+        for (i = 0; i != v83; ++i)
         {
-          if (*v99 != v79)
+          if (*v102 != v82)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v98 + 1) + 8 * i);
-          v94 = 0u;
-          v95 = 0u;
-          v96 = 0u;
+          v10 = *(*(&v101 + 1) + 8 * i);
           v97 = 0u;
-          v10 = [v9 layoutStateProvider];
-          v11 = [v10 layoutState];
-          v12 = [v11 elements];
+          v98 = 0u;
+          v99 = 0u;
+          v100 = 0u;
+          v11 = [v10 layoutStateProvider];
+          v12 = [v11 layoutState];
+          v13 = [v12 elements];
 
-          v13 = [v12 countByEnumeratingWithState:&v94 objects:v106 count:16];
-          if (v13)
+          v14 = [v13 countByEnumeratingWithState:&v97 objects:v109 count:16];
+          if (v14)
           {
-            v14 = v13;
-            v82 = i;
-            v15 = *v95;
+            v15 = v14;
+            v85 = i;
+            v16 = *v98;
             while (2)
             {
-              for (j = 0; j != v14; ++j)
+              for (j = 0; j != v15; ++j)
               {
-                if (*v95 != v15)
+                if (*v98 != v16)
                 {
-                  objc_enumerationMutation(v12);
+                  objc_enumerationMutation(v13);
                 }
 
-                v17 = [*(*(&v94 + 1) + 8 * j) workspaceEntity];
-                v18 = [v17 applicationSceneEntity];
+                v18 = [*(*(&v97 + 1) + 8 * j) workspaceEntity];
+                v19 = [v18 applicationSceneEntity];
 
-                v19 = [v18 sceneHandle];
-                v20 = [v19 sceneIfExists];
-                v21 = [v20 clientProcess];
-                v22 = a1;
-                v23 = *(a1 + 32);
+                v20 = [v19 sceneHandle];
+                v21 = [v20 sceneIfExists];
+                v22 = [v21 clientProcess];
+                v23 = a1;
+                v24 = *(a1 + 32);
 
-                if (v21 == v23)
+                if (v22 == v24)
                 {
 
-                  v81 = v18;
-                  a1 = v22;
+                  v84 = v19;
+                  a1 = v23;
                   goto LABEL_19;
                 }
 
-                a1 = v22;
+                a1 = v23;
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v94 objects:v106 count:16];
-              if (v14)
+              v15 = [v13 countByEnumeratingWithState:&v97 objects:v109 count:16];
+              if (v15)
               {
                 continue;
               }
@@ -4715,62 +4715,62 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke(
             }
 
 LABEL_19:
-            i = v82;
+            i = v85;
           }
         }
 
-        v80 = [obj countByEnumeratingWithState:&v98 objects:v107 count:16];
+        v83 = [obj countByEnumeratingWithState:&v101 objects:v110 count:16];
       }
 
-      while (v80);
+      while (v83);
     }
 
     else
     {
-      v81 = 0;
+      v84 = 0;
     }
 
-    v24 = SBLogWorkspace();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = SBLogWorkspace(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = *(a1 + 32);
-      v26 = *(a1 + 40);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 40);
       *buf = 138543618;
-      v103 = v25;
-      v104 = 2114;
-      v105 = v26;
-      _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Process exited: %{public}@ -> %{public}@", buf, 0x16u);
+      v106 = v27;
+      v107 = 2114;
+      v108 = v28;
+      _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Process exited: %{public}@ -> %{public}@", buf, 0x16u);
     }
 
-    v27 = +[SBApplicationController sharedInstanceIfExists];
-    v28 = [*(a1 + 32) bundleIdentifier];
-    v29 = [v27 applicationWithBundleIdentifier:v28];
+    v29 = +[SBApplicationController sharedInstanceIfExists];
+    v30 = [*(a1 + 32) bundleIdentifier];
+    v31 = [v29 applicationWithBundleIdentifier:v30];
 
-    if (!v29)
+    if (!v31)
     {
-      if (v81)
+      if (v84)
       {
-        v33 = MEMORY[0x277CCACA8];
-        v34 = [v81 application];
-        v35 = [v34 bundleIdentifier];
-        v36 = [v33 stringWithFormat:@"ApplicationExited = %@", v35];
+        v36 = MEMORY[0x277CCACA8];
+        v37 = [v84 application];
+        v38 = [v37 bundleIdentifier];
+        v39 = [v36 stringWithFormat:@"ApplicationExited = %@", v38];
 
-        v37 = MEMORY[0x277D0AB18];
-        v83[0] = MEMORY[0x277D85DD0];
-        v83[1] = 3221225472;
-        v83[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_507;
-        v83[3] = &unk_2783A92D8;
-        v83[4] = *(a1 + 48);
-        v84 = v81;
-        v38 = [v37 eventWithName:v36 handler:v83];
-        v39 = [*(a1 + 48) eventQueue];
-        [v39 executeOrPrependEvent:v38];
+        v40 = MEMORY[0x277D0AB18];
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_507;
+        v86[3] = &unk_2783A92D8;
+        v86[4] = *(a1 + 48);
+        v87 = v84;
+        v41 = [v40 eventWithName:v39 handler:v86];
+        v42 = [*(a1 + 48) eventQueue];
+        [v42 executeOrPrependEvent:v41];
       }
 
       else
       {
-        v36 = SBLogCommon();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v39 = SBLogCommon();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_cold_1((a1 + 32));
         }
@@ -4781,175 +4781,176 @@ LABEL_19:
 
     if ([*(a1 + 48) _applicationProcessExited:*(a1 + 32) withContext:*(a1 + 40)])
     {
-      if (![v29 isAnyTerminationAssertionHeld])
+      v32 = [v31 isAnyTerminationAssertionHeld];
+      if (!v32)
       {
-        v32 = a1;
-        v40 = 1;
+        v35 = a1;
+        v43 = 1;
 LABEL_37:
-        v36 = [MEMORY[0x277CBEB18] array];
-        v41 = [MEMORY[0x277CBEB18] array];
-        v42 = +[SBLockScreenManager sharedInstance];
-        if ([v42 isUILocked])
+        v39 = [MEMORY[0x277CBEB18] array];
+        v44 = [MEMORY[0x277CBEB18] array];
+        v45 = +[SBLockScreenManager sharedInstance];
+        if ([v45 isUILocked])
         {
 
-          v43 = v32;
+          v46 = v35;
         }
 
         else
         {
-          v44 = [SBApp lockOutController];
-          v45 = [v44 isLockedOut];
+          v47 = [SBApp lockOutController];
+          v48 = [v47 isLockedOut];
 
-          v43 = v32;
-          if (v45)
+          v46 = v35;
+          if (v48)
           {
-            if (v40)
+            if (v43)
             {
-              v46 = [v29 bundleIdentifier];
-              v47 = [v46 isEqualToString:@"com.apple.purplebuddy"];
+              v49 = [v31 bundleIdentifier];
+              v50 = [v49 isEqualToString:@"com.apple.purplebuddy"];
             }
 
             else
             {
-              v47 = 0;
+              v50 = 0;
             }
 
-            if ((v47 & 1) != 0 || v81)
+            if ((v50 & 1) != 0 || v84)
             {
-              v63 = SBLogCommon();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+              v66 = SBLogCommon();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                LODWORD(v103) = v47;
-                _os_log_impl(&dword_21ED4E000, v63, OS_LOG_TYPE_DEFAULT, "Application exit detected and we need to return to the lock-screen: forceSetup: %d", buf, 8u);
+                LODWORD(v106) = v50;
+                _os_log_impl(&dword_21ED4E000, v66, OS_LOG_TYPE_DEFAULT, "Application exit detected and we need to return to the lock-screen: forceSetup: %d", buf, 8u);
               }
 
-              v64 = MEMORY[0x277CCACA8];
-              v65 = [v29 bundleIdentifier];
-              v58 = [v64 stringWithFormat:@"ReturnToLockscreenFromApplicationExited = %@", v65];
+              v67 = MEMORY[0x277CCACA8];
+              v68 = [v31 bundleIdentifier];
+              v61 = [v67 stringWithFormat:@"ReturnToLockscreenFromApplicationExited = %@", v68];
 
-              v92[0] = MEMORY[0x277D85DD0];
-              v92[1] = 3221225472;
-              v92[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_500;
-              v92[3] = &unk_2783A9F58;
-              v92[4] = *(v32 + 48);
-              v93 = v47;
-              v66 = [MEMORY[0x277D0AB18] eventWithName:v58 handler:v92];
-              [v36 addObject:v66];
+              v95[0] = MEMORY[0x277D85DD0];
+              v95[1] = 3221225472;
+              v95[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_500;
+              v95[3] = &unk_2783A9F58;
+              v95[4] = *(v35 + 48);
+              v96 = v50;
+              v69 = [MEMORY[0x277D0AB18] eventWithName:v61 handler:v95];
+              [v39 addObject:v69];
 
-              v40 = 1;
+              v43 = 1;
               goto LABEL_58;
             }
 
-            v40 = 1;
+            v43 = 1;
 LABEL_59:
-            v67 = +[SBApplicationController sharedInstance];
-            v68 = [v67 setupApplication];
+            v70 = +[SBApplicationController sharedInstance];
+            v71 = [v70 setupApplication];
 
-            v69 = +[SBSetupManager sharedInstance];
-            v70 = v69;
-            if (v29 != v68 && [v69 isInSetupMode] && ((v40 | objc_msgSend(v70, "updateInSetupMode") ^ 1) & 1) == 0 && v81)
+            v72 = +[SBSetupManager sharedInstance];
+            v73 = v72;
+            if (v31 != v71 && [v72 isInSetupMode] && ((v43 | objc_msgSend(v73, "updateInSetupMode") ^ 1) & 1) == 0 && v84)
             {
-              v71 = SBLogCommon();
-              if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+              v74 = SBLogCommon();
+              if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_21ED4E000, v71, OS_LOG_TYPE_DEFAULT, "Activating Setup on a process exit because we're in setup mode.", buf, 2u);
+                _os_log_impl(&dword_21ED4E000, v74, OS_LOG_TYPE_DEFAULT, "Activating Setup on a process exit because we're in setup mode.", buf, 2u);
               }
 
-              SBWorkspaceActivateApplicationWithActionsAndResult(v68, 0, 0);
+              SBWorkspaceActivateApplicationWithActionsAndResult(v71, 0, 0);
             }
 
-            v72 = [v36 count];
-            v73 = [v41 count];
-            if (v72 | v73)
+            v75 = [v39 count];
+            v76 = [v44 count];
+            if (v75 | v76)
             {
-              v75 = v73;
-              if (v72)
+              v78 = v76;
+              if (v75)
               {
-                v76 = +[SBReachabilityManager sharedInstance];
-                [v76 deactivateReachability];
+                v79 = +[SBReachabilityManager sharedInstance];
+                [v79 deactivateReachability];
 
-                v77 = [*(v43 + 48) eventQueue];
-                [v77 executeOrPrependEvents:v36];
+                v80 = [*(v46 + 48) eventQueue];
+                [v80 executeOrPrependEvents:v39];
               }
 
-              if (!v75)
+              if (!v78)
               {
                 goto LABEL_74;
               }
 
-              v74 = [*(v43 + 48) eventQueue];
-              [v74 executeOrInsertEvents:v41 atPosition:1];
+              v77 = [*(v46 + 48) eventQueue];
+              [v77 executeOrInsertEvents:v44 atPosition:1];
             }
 
             else
             {
-              v74 = SBLogWorkspace();
-              if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+              v77 = SBLogWorkspace(v76);
+              if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_21ED4E000, v74, OS_LOG_TYPE_INFO, "No transaction needed for exiting app.", buf, 2u);
+                _os_log_impl(&dword_21ED4E000, v77, OS_LOG_TYPE_INFO, "No transaction needed for exiting app.", buf, 2u);
               }
             }
 
 LABEL_74:
 LABEL_75:
 
-            v4 = v81;
+            v5 = v84;
             goto LABEL_76;
           }
         }
 
-        if (v81)
+        if (v84)
         {
-          v48 = v40;
+          v51 = v43;
         }
 
         else
         {
-          v48 = 1;
+          v51 = 1;
         }
 
-        if ((v48 & 1) == 0)
+        if ((v51 & 1) == 0)
         {
-          v49 = MEMORY[0x277CCACA8];
-          v50 = [v29 bundleIdentifier];
-          v51 = [v49 stringWithFormat:@"ApplicationExited = %@", v50];
+          v52 = MEMORY[0x277CCACA8];
+          v53 = [v31 bundleIdentifier];
+          v54 = [v52 stringWithFormat:@"ApplicationExited = %@", v53];
 
-          v52 = MEMORY[0x277D0AB18];
+          v55 = MEMORY[0x277D0AB18];
+          v91[0] = MEMORY[0x277D85DD0];
+          v91[1] = 3221225472;
+          v91[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_2;
+          v91[3] = &unk_2783A8ED8;
+          v56 = v31;
+          v57 = *(v46 + 48);
+          v92 = v56;
+          v93 = v57;
+          v94 = v84;
+          v58 = [v55 eventWithName:v54 handler:v91];
+          [v39 addObject:v58];
+        }
+
+        if (v43)
+        {
+          v59 = MEMORY[0x277CCACA8];
+          v60 = [v31 bundleIdentifier];
+          v61 = [v59 stringWithFormat:@"RelaunchAfterApplicationExited = %@", v60];
+
+          v62 = MEMORY[0x277D0AB18];
           v88[0] = MEMORY[0x277D85DD0];
           v88[1] = 3221225472;
-          v88[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_2;
-          v88[3] = &unk_2783A8ED8;
-          v53 = v29;
-          v54 = *(v43 + 48);
-          v89 = v53;
-          v90 = v54;
-          v91 = v81;
-          v55 = [v52 eventWithName:v51 handler:v88];
-          [v36 addObject:v55];
-        }
+          v88[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_3;
+          v88[3] = &unk_2783A92D8;
+          v63 = v31;
+          v64 = *(v46 + 48);
+          v89 = v63;
+          v90 = v64;
+          v65 = [v62 eventWithName:v61 handler:v88];
+          [v39 addObject:v65];
 
-        if (v40)
-        {
-          v56 = MEMORY[0x277CCACA8];
-          v57 = [v29 bundleIdentifier];
-          v58 = [v56 stringWithFormat:@"RelaunchAfterApplicationExited = %@", v57];
-
-          v59 = MEMORY[0x277D0AB18];
-          v85[0] = MEMORY[0x277D85DD0];
-          v85[1] = 3221225472;
-          v85[2] = __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_3;
-          v85[3] = &unk_2783A92D8;
-          v60 = v29;
-          v61 = *(v43 + 48);
-          v86 = v60;
-          v87 = v61;
-          v62 = [v59 eventWithName:v58 handler:v85];
-          [v36 addObject:v62];
-
-          v40 = 0;
+          v43 = 0;
 LABEL_58:
 
           goto LABEL_59;
@@ -4958,34 +4959,34 @@ LABEL_58:
         goto LABEL_59;
       }
 
-      v30 = SBLogWorkspace();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v33 = SBLogWorkspace(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v31 = *(a1 + 32);
+        v34 = *(a1 + 32);
         *buf = 138412290;
-        v103 = v31;
-        _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_INFO, "Not actually relaunching %@ because it has outstanding termination assertions", buf, 0xCu);
+        v106 = v34;
+        _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_INFO, "Not actually relaunching %@ because it has outstanding termination assertions", buf, 0xCu);
       }
 
-      v32 = a1;
+      v35 = a1;
     }
 
     else
     {
-      v32 = a1;
+      v35 = a1;
     }
 
-    v40 = 0;
+    v43 = 0;
     goto LABEL_37;
   }
 
-  v4 = SBLogWorkspace();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = SBLogWorkspace(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
+    v6 = *(a1 + 32);
     *buf = 138412290;
-    v103 = v5;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Ignoring application exit of %@ because we are pending exit.", buf, 0xCu);
+    v106 = v6;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Ignoring application exit of %@ because we are pending exit.", buf, 0xCu);
   }
 
 LABEL_76:
@@ -5011,27 +5012,27 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) processState];
   v3 = [v2 isRunning];
 
   if (v3)
   {
-    v4 = SBLogWorkspace();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogWorkspace(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = [*(a1 + 32) bundleIdentifier];
+      v6 = [*(a1 + 32) bundleIdentifier];
       *buf = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "Not creating an app relaunch transaction because %{public}@ is already running", buf, 0xCu);
+      v10 = v6;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "Not creating an app relaunch transaction because %{public}@ is already running", buf, 0xCu);
     }
   }
 
   else
   {
-    v7 = [[SBDeviceApplicationSceneEntity alloc] initWithApplicationForMainDisplay:*(a1 + 32)];
-    v6 = [*(a1 + 40) _selectTransactionForAppRelaunch:?];
-    [*(a1 + 40) setCurrentTransaction:v6];
+    v8 = [[SBDeviceApplicationSceneEntity alloc] initWithApplicationForMainDisplay:*(a1 + 32)];
+    v7 = [*(a1 + 40) _selectTransactionForAppRelaunch:?];
+    [*(a1 + 40) setCurrentTransaction:v7];
   }
 }
 
@@ -5140,7 +5141,7 @@ LABEL_11:
   bundleIdentifier = [requestCopy bundleIdentifier];
   clientProcess = [requestCopy clientProcess];
   currentOpenApplicationInstance = [MEMORY[0x277D0AB08] currentOpenApplicationInstance];
-  v12 = SBLogWorkspace();
+  v12 = SBLogWorkspace(currentOpenApplicationInstance);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   v56 = completionCopy;
   if (currentOpenApplicationInstance)
@@ -7573,7 +7574,7 @@ LABEL_200:
         goto LABEL_272;
       }
 
-      v144 = SBLogWorkspace();
+      v144 = SBLogWorkspace(v142);
       if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
@@ -8146,7 +8147,7 @@ LABEL_17:
 
 - (void)_handleUserActionRequest:(id)request options:(id)options activationSettings:(id)settings origin:(id)origin withResult:(id)result
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   settingsCopy = settings;
@@ -8163,45 +8164,45 @@ LABEL_17:
     [SBMainWorkspace _handleUserActionRequest:a2 options:? activationSettings:? origin:? withResult:?];
   }
 
-  v128 = resultCopy;
+  v127 = resultCopy;
   v17 = [optionsCopy bs_safeURLForKey:*MEMORY[0x277D0AC40]];
   v18 = +[SBApplicationController sharedInstance];
   v19 = [settingsCopy BOOLForActivationSetting:52];
   scheme = [v17 scheme];
-  v123 = [scheme isEqualToString:@"test"];
+  v122 = [scheme isEqualToString:@"test"];
 
-  v132 = v18;
+  v131 = v18;
   dataActivationApplication = [v18 dataActivationApplication];
   bundleIdentifier = [dataActivationApplication bundleIdentifier];
-  v133 = [requestCopy isEqualToIgnoringCase:bundleIdentifier];
+  v132 = [requestCopy isEqualToIgnoringCase:bundleIdentifier];
 
   v23 = [optionsCopy bs_safeObjectForKey:@"__SBWorkspaceOpenOptionUnlockResult" ofType:objc_opt_class()];
   bOOLValue = [v23 BOOLValue];
 
   v24 = [optionsCopy bs_safeObjectForKey:*MEMORY[0x277D0AC28] ofType:objc_opt_class()];
+  v152 = 0u;
   v153 = 0u;
-  v154 = 0u;
-  auditToken = [originCopy auditToken];
-  v26 = auditToken;
-  if (auditToken)
+  v25 = objc_msgSend_auditToken(originCopy);
+  v26 = v25;
+  if (v25)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v25);
   }
 
   else
   {
+    v152 = 0u;
     v153 = 0u;
-    v154 = 0u;
   }
 
-  v27 = SBRunningApplicationForAuditToken();
+  v27 = SBRunningApplicationForAuditToken(&v152);
   v28 = v27 != 0;
   if (!((v27 == 0) | v19 & 1))
   {
-    v28 = bOOLValue | v133;
+    v28 = bOOLValue | v132;
   }
 
-  v127 = v27;
+  v126 = v27;
   if (v27)
   {
     if ((v28 & 1) == 0)
@@ -8211,8 +8212,8 @@ LABEL_17:
       {
         bundleIdentifier2 = [v29 bundleIdentifier];
         v85 = FBSOpenApplicationErrorCreate();
-        v57 = v128;
-        (v128)[2](v128, v85);
+        v57 = v127;
+        (v127)[2](v127, v85);
 
         goto LABEL_84;
       }
@@ -8220,25 +8221,25 @@ LABEL_17:
   }
 
   mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
-  v131 = originCopy;
+  v130 = originCopy;
   v31 = [mEMORY[0x277D0AAC0] processForPID:{objc_msgSend(originCopy, "pid")}];
 
-  v134 = v31;
+  v133 = v31;
   isExtensionProcess = [v31 isExtensionProcess];
   v33 = isExtensionProcess & (v19 | bOOLValue);
-  v129 = requestCopy;
-  v126 = v17;
+  v128 = requestCopy;
+  v125 = v17;
   if (!isExtensionProcess || (v33 & 1) != 0)
   {
     goto LABEL_36;
   }
 
-  v34 = v134;
+  v34 = v133;
   extensionInfo = [v34 extensionInfo];
   typeIdentifier = [extensionInfo typeIdentifier];
   sb_type = [extensionInfo sb_type];
   v38 = sb_type;
-  v119 = typeIdentifier;
+  v118 = typeIdentifier;
   if (sb_type)
   {
     v39 = NSStringFromSBExtensionType(sb_type);
@@ -8249,16 +8250,16 @@ LABEL_17:
     v39 = typeIdentifier;
   }
 
-  v121 = v39;
-  originCopy = v131;
-  v124 = FBSProcessPrettyDescription();
+  v120 = v39;
+  originCopy = v130;
+  v123 = FBSProcessPrettyDescription();
   v40 = SBLogCommon();
   if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v157 = v124;
-    v158 = 2114;
-    v159 = v121;
+    v156 = v123;
+    v157 = 2114;
+    v158 = v120;
     _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_INFO, "Verifying request for <%{public}@> of extension type %{public}@...", buf, 0x16u);
   }
 
@@ -8273,7 +8274,7 @@ LABEL_17:
         if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v157 = v119;
+          v156 = v118;
           _os_log_impl(&dword_21ED4E000, v53, OS_LOG_TYPE_INFO, "Extension type <%{public}@> predates 10.0 -- ignoring visibility check and allowing the openURL request.", buf, 0xCu);
         }
 
@@ -8291,7 +8292,7 @@ LABEL_32:
         if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v157 = v124;
+          v156 = v123;
           _os_log_impl(&dword_21ED4E000, v53, OS_LOG_TYPE_INFO, "Extension <%{public}@> is not allowed to open URLs, period.", buf, 0xCu);
         }
 
@@ -8304,13 +8305,13 @@ LABEL_111:
       }
     }
 
-    v114 = extensionInfo;
-    v118 = v24;
+    v113 = extensionInfo;
+    v117 = v24;
     v88 = MEMORY[0x277D46F48];
     v89 = [MEMORY[0x277D46F50] identifierWithPid:{objc_msgSend(v34, "pid")}];
-    v152 = 0;
-    v90 = [v88 handleForIdentifier:v89 error:&v152];
-    v53 = v152;
+    v151 = 0;
+    v90 = [v88 handleForIdentifier:v89 error:&v151];
+    v53 = v151;
 
     if (!v90)
     {
@@ -8318,29 +8319,28 @@ LABEL_111:
       if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v157 = v124;
-        v158 = 2114;
-        v159 = v53;
+        v156 = v123;
+        v157 = 2114;
+        v158 = v53;
         _os_log_impl(&dword_21ED4E000, v99, OS_LOG_TYPE_INFO, "Extension <%{public}@> is not considered foreground-running (no handle found): error=%{public}@", buf, 0x16u);
       }
 
-      v24 = v118;
-      extensionInfo = v114;
+      v24 = v117;
+      extensionInfo = v113;
       goto LABEL_94;
     }
 
     v91 = v90;
     descriptor = [MEMORY[0x277D46FB0] descriptor];
     [descriptor setValues:1];
-    v113 = v91;
-    log = *MEMORY[0x277D0AC90];
-    v155 = *MEMORY[0x277D0AC90];
-    v93 = [MEMORY[0x277CBEA60] arrayWithObjects:&v155 count:1];
+    v112 = v91;
+    v154 = *MEMORY[0x277D0AC90];
+    v93 = [MEMORY[0x277CBEA60] arrayWithObjects:&v154 count:1];
     [descriptor setEndowmentNamespaces:v93];
 
-    v112 = descriptor;
-    v94 = [v113 currentStateMatchingDescriptor:descriptor];
-    v111 = v94;
+    v111 = descriptor;
+    v94 = [v112 currentStateMatchingDescriptor:descriptor];
+    v110 = v94;
     if (v94)
     {
       endowmentNamespaces = v94;
@@ -8349,7 +8349,7 @@ LABEL_111:
       if (taskState == 4 || taskState == 2)
       {
         endowmentNamespaces = [endowmentNamespaces endowmentNamespaces];
-        v108 = [endowmentNamespaces containsObject:log];
+        v108 = objc_msgSend_containsObject_(endowmentNamespaces);
       }
 
       else
@@ -8361,50 +8361,50 @@ LABEL_111:
       {
       }
 
-      loga = SBLogCommon();
-      v104 = os_log_type_enabled(loga, OS_LOG_TYPE_INFO);
+      log = SBLogCommon();
+      v104 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
       if (v108)
       {
-        v24 = v118;
+        v24 = v117;
         if (v104)
         {
           *buf = 138543362;
-          v157 = v124;
-          _os_log_impl(&dword_21ED4E000, loga, OS_LOG_TYPE_INFO, "Extension <%{public}@> is considered foreground-running.", buf, 0xCu);
+          v156 = v123;
+          _os_log_impl(&dword_21ED4E000, log, OS_LOG_TYPE_INFO, "Extension <%{public}@> is considered foreground-running.", buf, 0xCu);
         }
 
-        extensionInfo = v114;
+        extensionInfo = v113;
         goto LABEL_32;
       }
 
-      v24 = v118;
+      v24 = v117;
       if (!v104)
       {
-        extensionInfo = v114;
+        extensionInfo = v113;
         extensionIdentifier2 = extensionIdentifier;
-        v105 = loga;
+        v105 = log;
         goto LABEL_110;
       }
 
       *buf = 138543618;
-      v157 = v124;
-      v158 = 1024;
-      LODWORD(v159) = v97;
+      v156 = v123;
+      v157 = 1024;
+      LODWORD(v158) = v97;
       v101 = "Extension <%{public}@> is not considered foreground-running (taskState: %u).";
-      v100 = loga;
-      v102 = loga;
+      v100 = log;
+      v102 = log;
       v103 = 18;
     }
 
     else
     {
       v100 = SBLogCommon();
-      v24 = v118;
+      v24 = v117;
       if (!os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
       {
 LABEL_108:
         v105 = v100;
-        extensionInfo = v114;
+        extensionInfo = v113;
         extensionIdentifier2 = extensionIdentifier;
 LABEL_110:
 
@@ -8412,7 +8412,7 @@ LABEL_110:
       }
 
       *buf = 138543362;
-      v157 = v124;
+      v156 = v123;
       v101 = "Extension <%{public}@> is not considered foreground-running (unknown state).";
       v102 = v100;
       v103 = 12;
@@ -8423,7 +8423,7 @@ LABEL_110:
   }
 
   v41 = extensionInfo;
-  v116 = v24;
+  v115 = v24;
   identityOfCurrentProcess = [MEMORY[0x277D46F60] identityOfCurrentProcess];
   identity = [v34 identity];
   hostIdentity = [identity hostIdentity];
@@ -8446,36 +8446,36 @@ LABEL_110:
       }
 
       *buf = 138543618;
-      v157 = v124;
-      v158 = 2114;
-      v159 = v50;
+      v156 = v123;
+      v157 = 2114;
+      v158 = v50;
       _os_log_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_INFO, "NotificationUI extension <%{public}@> visibility is: %{public}@", buf, 0x16u);
     }
 
     if (v48)
     {
       v51 = 1;
-      v24 = v116;
+      v24 = v115;
 LABEL_33:
       v54 = SBLogCommon();
       if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v157 = v124;
-        v158 = 1024;
-        LODWORD(v159) = v51;
+        v156 = v123;
+        v157 = 1024;
+        LODWORD(v158) = v51;
         _os_log_impl(&dword_21ED4E000, v54, OS_LOG_TYPE_INFO, "Allowing openURL request from extension <%{public}@> because it is visible (%d) or entitled.", buf, 0x12u);
       }
 
       v33 = 1;
-      requestCopy = v129;
-      v17 = v126;
+      requestCopy = v128;
+      v17 = v125;
 LABEL_36:
       if (!v17)
       {
-        originCopy = v131;
-        v57 = v128;
-        [(SBMainWorkspace *)self _handleOpenApplicationRequest:requestCopy options:optionsCopy activationSettings:settingsCopy origin:v131 withResult:v128];
+        originCopy = v130;
+        v57 = v127;
+        [(SBMainWorkspace *)self _handleOpenApplicationRequest:requestCopy options:optionsCopy activationSettings:settingsCopy origin:v130 withResult:v127];
 LABEL_83:
 
         goto LABEL_84;
@@ -8483,43 +8483,43 @@ LABEL_83:
 
       v55 = settingsCopy;
       v56 = v24;
-      if (v133)
+      if (v132)
       {
-        [v132 dataActivationApplication];
+        [v131 dataActivationApplication];
       }
 
       else
       {
-        [v132 applicationWithBundleIdentifier:requestCopy];
+        [v131 applicationWithBundleIdentifier:requestCopy];
       }
       v58 = ;
       v59 = [optionsCopy bs_safeObjectForKey:*MEMORY[0x277D0ABF0] ofType:objc_opt_class()];
       bOOLValue2 = [v59 BOOLValue];
 
-      v151 = 0;
-      v61 = [(SBMainWorkspace *)self _targetWindowSceneForApplication:v58 options:optionsCopy settings:v55 requireForeground:bOOLValue2 ^ 1u targetDisplayConfiguration:0 error:&v151];
-      v62 = v151;
+      v150 = 0;
+      v61 = [(SBMainWorkspace *)self _targetWindowSceneForApplication:v58 options:optionsCopy settings:v55 requireForeground:bOOLValue2 ^ 1u targetDisplayConfiguration:0 error:&v150];
+      v62 = v150;
       v63 = v62;
       if (!v61 && v62)
       {
-        v57 = v128;
-        (v128)[2](v128, v62);
-        originCopy = v131;
+        v57 = v127;
+        (v127)[2](v127, v62);
+        originCopy = v130;
         v24 = v56;
         settingsCopy = v55;
 LABEL_81:
 
 LABEL_82:
-        requestCopy = v129;
-        v17 = v126;
+        requestCopy = v128;
+        v17 = v125;
         goto LABEL_83;
       }
 
-      v122 = v62;
+      v121 = v62;
       uiLockStateProvider = [v61 uiLockStateProvider];
       v65 = uiLockStateProvider;
       v24 = v56;
-      v115 = v55;
+      v114 = v55;
       if (uiLockStateProvider)
       {
         v66 = uiLockStateProvider;
@@ -8530,7 +8530,7 @@ LABEL_82:
         v66 = +[SBLockScreenManager sharedInstance];
       }
 
-      v125 = v66;
+      v124 = v66;
       v68 = v58;
 
       authenticationStatusProvider = [v61 authenticationStatusProvider];
@@ -8547,64 +8547,64 @@ LABEL_82:
 
       v72 = authenticationController;
 
-      isUILocked = [v125 isUILocked];
-      v120 = v72;
-      if (v123 & 1 | ((isUILocked & 1) == 0) | ([v72 isAuthenticatedCached] | bOOLValue) & 1)
+      isUILocked = [v124 isUILocked];
+      v119 = v72;
+      if (v122 & 1 | ((isUILocked & 1) == 0) | ([v72 isAuthenticatedCached] | bOOLValue) & 1)
       {
         v58 = v68;
-        if (!v129 || v68)
+        if (!v128 || v68)
         {
-          originCopy = v131;
-          v74 = v120;
-          settingsCopy = v115;
+          originCopy = v130;
+          v74 = v119;
+          settingsCopy = v114;
           if (v58)
           {
-            [(SBMainWorkspace *)self _updateActivationSettings:v115 forRequestWithOptions:optionsCopy clientProcess:v131 application:v58];
+            [(SBMainWorkspace *)self _updateActivationSettings:v114 forRequestWithOptions:optionsCopy clientProcess:v130 application:v58];
             if ((bOOLValue & 1) == 0)
             {
-              [v125 isUILocked];
+              [v124 isUILocked];
             }
 
-            [v115 setFlag:BSSettingFlagIfYes() forActivationSetting:29];
+            [v114 setFlag:BSSettingFlagIfYes() forActivationSetting:29];
           }
         }
 
         else
         {
-          originCopy = v131;
-          v74 = v120;
-          settingsCopy = v115;
-          if (([v129 isEqualToString:@"com.apple.springboard"] & 1) == 0)
+          originCopy = v130;
+          v74 = v119;
+          settingsCopy = v114;
+          if (([v128 isEqualToString:@"com.apple.springboard"] & 1) == 0)
           {
             v75 = FBSOpenApplicationErrorCreate();
-            v57 = v128;
-            (v128)[2](v128, v75);
+            v57 = v127;
+            (v127)[2](v127, v75);
 
 LABEL_79:
-            v63 = v122;
+            v63 = v121;
             goto LABEL_80;
           }
         }
 
-        if (v133)
+        if (v132)
         {
           v87 = +[SBWorkspace mainWorkspace];
-          v138[0] = MEMORY[0x277D85DD0];
-          v138[1] = 3221225472;
-          v138[2] = __89__SBMainWorkspace__handleUserActionRequest_options_activationSettings_origin_withResult___block_invoke_2;
-          v138[3] = &unk_2783AA1A0;
-          v139 = originCopy;
-          v140 = v58;
-          v141 = settingsCopy;
-          v57 = v128;
-          v142 = v128;
-          [v87 requestTransitionWithBuilder:v138];
+          v137[0] = MEMORY[0x277D85DD0];
+          v137[1] = 3221225472;
+          v137[2] = __89__SBMainWorkspace__handleUserActionRequest_options_activationSettings_origin_withResult___block_invoke_2;
+          v137[3] = &unk_2783AA1A0;
+          v138 = originCopy;
+          v139 = v58;
+          v140 = settingsCopy;
+          v57 = v127;
+          v141 = v127;
+          [v87 requestTransitionWithBuilder:v137];
         }
 
         else
         {
-          v57 = v128;
-          [SBApp applicationOpenURL:v126 withApplication:v58 animating:1 activationSettings:settingsCopy origin:originCopy notifyLSOnFailure:0 withResult:v128];
+          v57 = v127;
+          [SBApp applicationOpenURL:v125 withApplication:v58 animating:1 activationSettings:settingsCopy origin:originCopy notifyLSOnFailure:0 withResult:v127];
         }
 
         goto LABEL_79;
@@ -8616,31 +8616,31 @@ LABEL_79:
       v77 = [optionsCopy bs_safeObjectForKey:*MEMORY[0x277D0AC58] ofType:objc_opt_class()];
       bOOLValue4 = [v77 BOOLValue];
 
-      v79 = v131;
+      v79 = v130;
       v58 = v68;
       settingsCopy = v55;
-      if (([v131 hasEntitlement:@"com.apple.springboard.openurlswhenlocked"] & 1) == 0)
+      if (([v130 hasEntitlement:@"com.apple.springboard.openurlswhenlocked"] & 1) == 0)
       {
         v80 = [v55 BOOLForActivationSetting:52];
-        v150 = 0;
-        v117 = v24;
-        v81 = [(SBMainWorkspace *)self _canImplicitlyUnlockAtLockScreenWhileAuthenticatedFromOrigin:v131 givenOrigin:v24 trustedRequest:v80 outReason:&v150];
-        v82 = v150;
+        v149 = 0;
+        v116 = v24;
+        v81 = [(SBMainWorkspace *)self _canImplicitlyUnlockAtLockScreenWhileAuthenticatedFromOrigin:v130 givenOrigin:v24 trustedRequest:v80 outReason:&v149];
+        v82 = v149;
         v83 = v82;
         if (v81)
         {
-          v84 = SBLogWorkspace();
+          v84 = SBLogWorkspace(v82);
           if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v157 = v83;
-            v158 = 2112;
-            v159 = v131;
+            v156 = v83;
+            v157 = 2112;
+            v158 = v130;
             _os_log_impl(&dword_21ED4E000, v84, OS_LOG_TYPE_DEFAULT, "Allowing openURL unlock attempt for un-entitled process because we're authenticated and %@: %@", buf, 0x16u);
           }
 
-          v79 = v131;
-          v24 = v117;
+          v79 = v130;
+          v24 = v116;
         }
 
         else
@@ -8649,60 +8649,60 @@ LABEL_79:
           if (((bOOLValue3 | bOOLValue4) & 1) == 0)
           {
             v98 = FBSOpenApplicationErrorCreate();
-            v57 = v128;
-            (v128)[2](v128, v98);
+            v57 = v127;
+            (v127)[2](v127, v98);
 
-            originCopy = v131;
-            v24 = v117;
+            originCopy = v130;
+            v24 = v116;
             goto LABEL_62;
           }
 
-          v79 = v131;
-          v24 = v117;
+          v79 = v130;
+          v24 = v116;
           if (!v33)
           {
             FBSOpenApplicationErrorCreate();
-            v86 = originCopy = v131;
-            v57 = v128;
-            (v128)[2](v128, v86);
+            v86 = originCopy = v130;
+            v57 = v127;
+            (v127)[2](v127, v86);
 
             goto LABEL_62;
           }
         }
       }
 
-      v143[0] = MEMORY[0x277D85DD0];
-      v143[1] = 3221225472;
-      v143[2] = __89__SBMainWorkspace__handleUserActionRequest_options_activationSettings_origin_withResult___block_invoke;
-      v143[3] = &unk_2783AA018;
-      v144 = optionsCopy;
+      v142[0] = MEMORY[0x277D85DD0];
+      v142[1] = 3221225472;
+      v142[2] = __89__SBMainWorkspace__handleUserActionRequest_options_activationSettings_origin_withResult___block_invoke;
+      v142[3] = &unk_2783AA018;
+      v143 = optionsCopy;
       selfCopy = self;
-      v146 = v129;
-      v147 = v55;
-      v148 = v79;
-      v57 = v128;
-      v149 = v128;
+      v145 = v128;
+      v146 = v55;
+      v147 = v79;
+      v57 = v127;
+      v148 = v127;
       settingsCopy = v55;
-      [(SBMainWorkspace *)self _attemptUnlockToApplication:v58 showPasscode:bOOLValue4 & 1 origin:v148 givenOrigin:v24 options:v144 completion:v143];
+      [(SBMainWorkspace *)self _attemptUnlockToApplication:v58 showPasscode:bOOLValue4 & 1 origin:v147 givenOrigin:v24 options:v143 completion:v142];
 
-      originCopy = v131;
+      originCopy = v130;
 LABEL_62:
-      v74 = v120;
-      v63 = v122;
+      v74 = v119;
+      v63 = v121;
 LABEL_80:
 
       goto LABEL_81;
     }
 
-    v24 = v116;
+    v24 = v115;
 LABEL_112:
-    if (([v131 hasEntitlement:@"com.apple.springboard.openurlinbackground"] & 1) == 0)
+    if (([v130 hasEntitlement:@"com.apple.springboard.openurlinbackground"] & 1) == 0)
     {
       v106 = FBSOpenApplicationErrorCreate();
-      v57 = v128;
-      (v128)[2](v128, v106);
+      v57 = v127;
+      (v127)[2](v127, v106);
 
-      v134 = v34;
+      v133 = v34;
       goto LABEL_82;
     }
 
@@ -8711,13 +8711,13 @@ LABEL_112:
   }
 
   v67 = FBSOpenApplicationErrorCreate();
-  v57 = v128;
-  (v128)[2](v128, v67);
+  v57 = v127;
+  (v127)[2](v127, v67);
 
-  v135 = v34;
-  requestCopy = v129;
-  v17 = v126;
-  v24 = v116;
+  v134 = v34;
+  requestCopy = v128;
+  v17 = v125;
+  v24 = v115;
 
 LABEL_84:
 }
@@ -9109,68 +9109,74 @@ void __65__SBMainWorkspace_systemService_handleActions_origin_withResult___block
 
 - (void)watchdogFired:(id)fired
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (BSIsBeingDebugged())
+  v18 = *MEMORY[0x277D85DE8];
+  v4 = BSIsBeingDebugged();
+  if (v4)
   {
-    v4 = SBLogTransaction();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogTransaction(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v5 = "Ignoring transaction watchdog while FrontBoard is being debugged.";
+      v6 = "Ignoring transaction watchdog while FrontBoard is being debugged.";
 LABEL_7:
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, v5, buf, 2u);
-    }
-  }
-
-  else if (([(SBWorkspaceTransaction *)self->_currentTransaction isComplete]& 1) != 0)
-  {
-    v4 = SBLogTransaction();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      v5 = "Ignoring transaction watchdog because the transaction is complete.";
-      goto LABEL_7;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, v6, buf, 2u);
     }
   }
 
   else
   {
-    currentTransaction = self->_currentTransaction;
-    v11 = 0;
-    v7 = [(SBWorkspaceTransaction *)currentTransaction shouldWatchdog:&v11];
-    v4 = v11;
-    if (v7)
+    isComplete = [(SBWorkspaceTransaction *)self->_currentTransaction isComplete];
+    if (isComplete)
     {
-      v8 = SBLogTransactionVerbose();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-
-      if (v9)
+      v5 = SBLogTransaction(isComplete);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v10 = SBLogTransactionVerbose();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-        {
-          [(SBMainWorkspace *)&self->_currentTransaction watchdogFired:v10];
-        }
-      }
-
-      else
-      {
-        v10 = SBLogTransaction();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-        {
-          [SBMainWorkspace watchdogFired:];
-        }
+        *buf = 0;
+        v6 = "Ignoring transaction watchdog because the transaction is complete.";
+        goto LABEL_7;
       }
     }
 
     else
     {
-      v10 = SBLogTransaction();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      currentTransaction = self->_currentTransaction;
+      v15 = 0;
+      v9 = [(SBWorkspaceTransaction *)currentTransaction shouldWatchdog:&v15];
+      v10 = v15;
+      v5 = v10;
+      if (v9)
       {
-        *buf = 138412290;
-        v13 = v4;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Ignoring transaction watchdog for reason: %@", buf, 0xCu);
+        v11 = SBLogTransactionVerbose(v10);
+        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+
+        if (v12)
+        {
+          v14 = SBLogTransactionVerbose(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+          {
+            [(SBMainWorkspace *)&self->_currentTransaction watchdogFired:v14];
+          }
+        }
+
+        else
+        {
+          v14 = SBLogTransaction(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+          {
+            [SBMainWorkspace watchdogFired:];
+          }
+        }
+      }
+
+      else
+      {
+        v14 = SBLogTransaction(v10);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v17 = v5;
+          _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Ignoring transaction watchdog for reason: %@", buf, 0xCu);
+        }
       }
     }
   }
@@ -9178,7 +9184,7 @@ LABEL_7:
 
 - (void)transactionDidComplete:(id)complete
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   if (self->_currentTransaction != completeCopy)
   {
@@ -9186,15 +9192,16 @@ LABEL_7:
   }
 
   isFailed = [(SBWorkspaceTransaction *)completeCopy isFailed];
-  v7 = SBLogTransactionVerbose();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  v7 = isFailed;
+  v8 = SBLogTransactionVerbose(isFailed);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-  if (isFailed)
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
-      v9 = SBLogTransactionVerbose();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = SBLogTransactionVerbose(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [SBMainWorkspace transactionDidComplete:];
       }
@@ -9202,13 +9209,13 @@ LABEL_7:
 
     else
     {
-      v9 = SBLogTransaction();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogTransaction(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         _descriptionProem = [(SBWorkspaceTransaction *)completeCopy _descriptionProem];
         *buf = 138543362;
-        v16 = _descriptionProem;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Root transaction failed: %{public}@. Attempting to force us back to SB...", buf, 0xCu);
+        v19 = _descriptionProem;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Root transaction failed: %{public}@. Attempting to force us back to SB...", buf, 0xCu);
       }
     }
 
@@ -9217,10 +9224,10 @@ LABEL_7:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v10 = SBLogTransactionVerbose();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = SBLogTransactionVerbose(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [SBMainWorkspace transactionDidComplete:];
       }
@@ -9228,25 +9235,25 @@ LABEL_7:
 
     else
     {
-      v10 = SBLogTransaction();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = SBLogTransaction(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         _descriptionProem2 = [(SBWorkspaceTransaction *)completeCopy _descriptionProem];
         *buf = 138543362;
-        v16 = _descriptionProem2;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Root transaction complete: %{public}@", buf, 0xCu);
+        v19 = _descriptionProem2;
+        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Root transaction complete: %{public}@", buf, 0xCu);
       }
     }
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && ![(SBWorkspaceTransaction *)completeCopy clearsCompletionAsynchronously])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v15 = [(SBWorkspaceTransaction *)completeCopy clearsCompletionAsynchronously], !v15))
   {
-    v13 = SBLogTransaction();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v16 = SBLogTransaction(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Running next transaction event synchronously.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Running next transaction event synchronously.", buf, 2u);
     }
 
     [(SBMainWorkspace *)self setCurrentTransaction:0];
@@ -10173,21 +10180,21 @@ uint64_t __96__SBMainWorkspace_presentTransientOverlayViewController_originating
   v1 = [MEMORY[0x277CF0C00] descriptionForObject:v0];
   v2 = [v0 transitionRequest];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "Prepared %{public}@ for transition request:\n%{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "Prepared %{public}@ for transition request:\n%{public}@", v5, v6, v7, v8);
 }
 
 - (void)_canExecuteTransitionRequest:(void *)a1 forExecution:.cold.1(void *a1)
 {
   v1 = [a1 uniqueIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Application scene '%{public}@' cannot be launched because it has outstanding termination assertions.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Application scene '%{public}@' cannot be launched because it has outstanding termination assertions.", v4, v5, v6, v7);
 }
 
 - (void)_canExecuteTransitionRequest:(void *)a1 forExecution:.cold.2(void *a1)
 {
   v1 = [a1 uniqueIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Application scene '%{public}@' cannot be launched because it has been uninstalled.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Application scene '%{public}@' cannot be launched because it has been uninstalled.", v4, v5, v6, v7);
 }
 
 - (void)_generateIdleTimerBehaviorForReason:.cold.1()
@@ -10211,7 +10218,7 @@ uint64_t __96__SBMainWorkspace_presentTransientOverlayViewController_originating
   v1 = [MEMORY[0x277CF0C00] descriptionForObject:v0];
   v2 = [v0 transitionRequest];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "Running %{public}@ for transition request:\n%{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "Running %{public}@ for transition request:\n%{public}@", v5, v6, v7, v8);
 }
 
 - (void)setCurrentTransaction:.cold.2()
@@ -10294,12 +10301,12 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 {
   v1 = [*a1 bundleIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "An application that SpringBoard is not tracking with bundle identifier %{public}@ just exited.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "An application that SpringBoard is not tracking with bundle identifier %{public}@ just exited.", v4, v5, v6, v7);
 }
 
 - (void)_updateActivationSettings:(char *)a1 forRequestWithOptions:clientProcess:application:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"settings != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10307,7 +10314,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"settings != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10325,7 +10332,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleOpenApplicationRequest:(char *)a1 options:activationSettings:origin:withResult:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activationSettings != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10333,7 +10340,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"activationSettings != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10365,7 +10372,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleTrustedOpenRequestForApplication:(char *)a1 options:activationSettings:origin:withResult:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"settings"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10373,7 +10380,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"settings", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10383,7 +10390,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleTrustedOpenRequestForApplication:(char *)a1 options:activationSettings:origin:withResult:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"result"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10391,7 +10398,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"result", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10401,7 +10408,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleUntrustedOpenRequestForApplication:(void *)a1 options:(char *)a2 activationSettings:origin:withResult:.cold.1(void *a1, char *a2)
 {
-  v3 = [a1 stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [a1 stringWithFormat:@"Invalid condition not satisfying: %@", @"settings"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -10409,7 +10416,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"settings", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -10419,7 +10426,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleUntrustedOpenRequestForApplication:(char *)a1 options:activationSettings:origin:withResult:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"result"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10427,7 +10434,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"result", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10437,7 +10444,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleUserActionRequest:(char *)a1 options:activationSettings:origin:withResult:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"activationSettings"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10445,7 +10452,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"activationSettings", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -10455,7 +10462,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
 
 - (void)_handleUserActionRequest:(char *)a1 options:activationSettings:origin:withResult:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"result"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -10463,7 +10470,7 @@ void __57__SBMainWorkspace_applicationProcessDidExit_withContext___block_invoke_
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"result", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

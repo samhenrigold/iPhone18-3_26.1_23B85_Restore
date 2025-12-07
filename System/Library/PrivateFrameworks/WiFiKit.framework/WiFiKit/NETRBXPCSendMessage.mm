@@ -8,7 +8,7 @@ uint64_t ____NETRBXPCSendMessage_block_invoke(uint64_t a1, void *a2)
   if (!a2)
   {
     NETRBXPCCleanup();
-    NETRBErrorLog();
+    NETRBErrorLog("NULL response from xpc_connection_send_message_with_reply()");
     goto LABEL_10;
   }
 
@@ -19,14 +19,21 @@ uint64_t ____NETRBXPCSendMessage_block_invoke(uint64_t a1, void *a2)
     {
       goto LABEL_10;
     }
+
+    NETRBErrorLog("error: aborting XPC connection to daemon");
   }
 
   else if (v4 == MEMORY[0x277D86480])
   {
     xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+    NETRBErrorLog("error: %s");
   }
 
-  NETRBErrorLog();
+  else
+  {
+    NETRBErrorLog("unknown response");
+  }
+
   NETRBXPCCleanup();
 LABEL_10:
   v5 = *(*(a1 + 32) + 16);

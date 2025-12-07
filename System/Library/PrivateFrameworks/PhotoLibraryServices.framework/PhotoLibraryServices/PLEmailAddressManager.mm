@@ -41,7 +41,7 @@
     }
 
     self->_maxKey = 1;
-    v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSMutableDictionary count](self->_keysForEmails, "count")}];
+    v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(self->_keysForEmails)];
     emailsForKey = self->_emailsForKey;
     self->_emailsForKey = v13;
 

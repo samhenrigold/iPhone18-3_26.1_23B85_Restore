@@ -289,22 +289,21 @@ LABEL_72:
 
 - (void)dump
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
     v6 = [(HAPMetadataCharacteristicValue *)self description];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@%@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@%@", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -486,7 +485,7 @@ LABEL_72:
 
 + (id)initWithDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy hmf_numberForKey:@"MinLength"];
   v5 = [dictionaryCopy hmf_numberForKey:@"MaxLength"];
@@ -512,22 +511,22 @@ LABEL_72:
       v11 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v16 = HMFGetLogIdentifier();
+        v15 = HMFGetLogIdentifier();
         [dictionaryCopy hmf_stringForKey:@"ShortUUID"];
         *buf = 138544898;
-        v19 = v16;
-        v21 = v20 = 2112;
-        v12 = v21;
-        v22 = 2112;
-        v23 = v4;
-        v24 = 2112;
-        v25 = v5;
-        v26 = 2112;
-        v27 = v7;
-        v28 = 2112;
-        v29 = v5;
-        v30 = 2112;
-        v31 = v9;
+        v18 = v15;
+        v20 = v19 = 2112;
+        v12 = v20;
+        v21 = 2112;
+        v22 = v4;
+        v23 = 2112;
+        v24 = v5;
+        v25 = 2112;
+        v26 = v7;
+        v27 = 2112;
+        v28 = v5;
+        v29 = 2112;
+        v30 = v9;
         _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Characteristic %@ has both length and value metadata: minLength %@  maxLength %@  minValue %@  maxValue %@  stepValue %@", buf, 0x48u);
       }
 
@@ -538,8 +537,6 @@ LABEL_72:
 
     v6 = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

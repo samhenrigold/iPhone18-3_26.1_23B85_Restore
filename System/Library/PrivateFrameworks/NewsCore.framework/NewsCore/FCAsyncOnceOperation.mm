@@ -67,7 +67,7 @@ id __48__FCAsyncOnceOperation_initWithTarget_selector___block_invoke(uint64_t a1
 
 - (id)executeWithCallbackQueue:(id)queue completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   [(NFMutexLock *)self->_lock lock];
@@ -84,29 +84,29 @@ id __48__FCAsyncOnceOperation_initWithTarget_selector___block_invoke(uint64_t a1
     {
       if (self->_activeGroup && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"already have an active group"];
+        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"already have an active group"];
         *buf = 136315906;
-        v24 = "[FCAsyncOnceOperation executeWithCallbackQueue:completionHandler:]";
-        v25 = 2080;
-        v26 = "FCOnce.m";
-        v27 = 1024;
-        v28 = 155;
-        v29 = 2114;
-        v30 = v19;
+        v23 = "[FCAsyncOnceOperation executeWithCallbackQueue:completionHandler:]";
+        v24 = 2080;
+        v25 = "FCOnce.m";
+        v26 = 1024;
+        v27 = 155;
+        v28 = 2114;
+        v29 = v18;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
       if (self->_activeOperation && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"already have an active operation"];
+        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"already have an active operation"];
         *buf = 136315906;
-        v24 = "[FCAsyncOnceOperation executeWithCallbackQueue:completionHandler:]";
-        v25 = 2080;
-        v26 = "FCOnce.m";
-        v27 = 1024;
-        v28 = 156;
-        v29 = 2114;
-        v30 = v20;
+        v23 = "[FCAsyncOnceOperation executeWithCallbackQueue:completionHandler:]";
+        v24 = 2080;
+        v25 = "FCOnce.m";
+        v26 = 1024;
+        v27 = 156;
+        v28 = 2114;
+        v29 = v19;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -114,12 +114,12 @@ id __48__FCAsyncOnceOperation_initWithTarget_selector___block_invoke(uint64_t a1
       dispatch_group_enter(v10);
       objc_storeStrong(&self->_activeGroup, v10);
       workBlock = self->_workBlock;
-      v21[5] = MEMORY[0x1E69E9820];
-      v21[6] = 3221225472;
-      v21[7] = __67__FCAsyncOnceOperation_executeWithCallbackQueue_completionHandler___block_invoke;
-      v21[8] = &unk_1E7C42108;
-      v21[9] = self;
-      v22 = v10;
+      v20[5] = MEMORY[0x1E69E9820];
+      v20[6] = 3221225472;
+      v20[7] = __67__FCAsyncOnceOperation_executeWithCallbackQueue_completionHandler___block_invoke;
+      v20[8] = &unk_1E7C42108;
+      v20[9] = self;
+      v21 = v10;
       v12 = workBlock[2];
       v13 = v10;
       v14 = workBlock;
@@ -131,12 +131,12 @@ id __48__FCAsyncOnceOperation_initWithTarget_selector___block_invoke(uint64_t a1
     }
 
     self->_interest = interest + 1;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __67__FCAsyncOnceOperation_executeWithCallbackQueue_completionHandler___block_invoke_2;
-    v21[3] = &unk_1E7C36EA0;
-    v21[4] = self;
-    v8 = [FCCancelHandler cancelHandlerWithBlock:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __67__FCAsyncOnceOperation_executeWithCallbackQueue_completionHandler___block_invoke_2;
+    v20[3] = &unk_1E7C36EA0;
+    v20[4] = self;
+    v8 = [FCCancelHandler cancelHandlerWithBlock:v20];
     v16 = self->_activeGroup;
     [(NFMutexLock *)self->_lock unlock];
     if (v16)
@@ -149,8 +149,6 @@ id __48__FCAsyncOnceOperation_initWithTarget_selector___block_invoke(uint64_t a1
 
   handlerCopy[2](handlerCopy);
 LABEL_14:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -258,32 +256,32 @@ LABEL_4:
   [(FCOperationCanceling *)self->_activeOperation setRelativePriority:priority];
   objc_opt_class();
   activeOperation = self->_activeOperation;
-  if (activeOperation && (v6 = self->_activeOperation, (objc_opt_isKindOfClass() & 1) != 0))
+  if (activeOperation && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v7 = activeOperation;
-    v8 = 25;
+    v6 = activeOperation;
+    v7 = 25;
     if (!priority)
     {
-      v8 = 17;
+      v7 = 17;
     }
 
     if (priority == -1)
     {
-      v9 = 9;
+      v8 = 9;
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
     }
 
-    v10 = v7;
-    [(FCOperationCanceling *)v7 setQualityOfService:v9];
+    v9 = v6;
+    [(FCOperationCanceling *)v6 setQualityOfService:v8];
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   [(NFMutexLock *)self->_lock unlock];

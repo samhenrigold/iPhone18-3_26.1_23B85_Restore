@@ -37,7 +37,7 @@
 - (id)databaseFileWithBundleID:(id)d language:(id)language contextID:(id)iD name:(id)name createDirectory:(BOOL)directory
 {
   HIDWORD(v32) = directory;
-  v8 = sub_1001A6C04(&qword_1003B5800);
+  v8 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   __chkstk_darwin(v8 - 8);
   v10 = &v31 - v9;
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -67,7 +67,7 @@
 - (id)globalDatabaseFileWithBundleID:(id)d language:(id)language name:(id)name createDirectory:(BOOL)directory
 {
   directoryCopy = directory;
-  v8 = sub_1001A6C04(&qword_1003B5800);
+  v8 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   __chkstk_darwin(v8 - 8);
   v10 = &v26 - v9;
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();

@@ -109,7 +109,7 @@
   instruction = self->_instruction;
   if (equal)
   {
-    [equal timeRange];
+    objc_msgSend_timeRange(equal);
   }
 
   else
@@ -180,7 +180,7 @@ LABEL_14:
     {
       if (self)
       {
-        [(AVVideoCompositionInstruction *)self timeRange];
+        objc_msgSend_timeRange(self);
       }
 
       else
@@ -206,7 +206,7 @@ LABEL_14:
   {
     if (self)
     {
-      [(AVVideoCompositionInstruction *)self timeRange];
+      objc_msgSend_timeRange(self);
     }
 
     else
@@ -381,7 +381,7 @@ LABEL_14:
         }
 
         v8 = *(*(&v12 + 1) + 8 * i);
-        [(AVVideoCompositionInstruction *)self timeRange];
+        objc_msgSend_timeRange(self);
         v9 = [v8 dictionaryRepresentationWithTimeRange:&v11];
         if ([v9 objectForKey:@"TweenedAffineMatrix"] || objc_msgSend(v9, "objectForKey:", @"TweenedOpacity") || objc_msgSend(v9, "objectForKey:", @"TweenedCropRectangle"))
         {
@@ -487,7 +487,7 @@ LABEL_14:
   memset(&v38, 0, sizeof(v38));
   if (self)
   {
-    [(AVVideoCompositionInstruction *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   v4 = *MEMORY[0x1E695E480];

@@ -71,33 +71,33 @@
 
 - (void)addTicksWithCount:(unint64_t)count moduloGroups:(id)groups sizes:(id)sizes roundedCorners:(id)corners
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   sizesCopy = sizes;
   cornersCopy = corners;
-  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
   v12 = self->_tickGroups;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v67 objects:v71 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v68 objects:v72 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v68;
+    v15 = *v69;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v68 != v15)
+        if (*v69 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(&v67 + 1) + 8 * i) removeFromSuperview];
+        [*(*(&v68 + 1) + 8 * i) removeFromSuperview];
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v67 objects:v71 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v68 objects:v72 count:16];
     }
 
     while (v14);
@@ -130,7 +130,7 @@
 
   objc_storeStrong(&self->_moduloToGroup, v20);
   dialDiameter = self->_dialDiameter;
-  v62 = objc_opt_new();
+  v63 = objc_opt_new();
   v25 = cornersCopy;
   if ([groupsCopy count])
   {
@@ -164,7 +164,7 @@
         break;
       }
 
-      v64 = [(NTKCacheableAnalogDialView *)self _cacheIdentifierForTickCount:count modulus:unsignedIntegerValue size:bOOLValue rounded:v34, v36];
+      v65 = [(NTKCacheableAnalogDialView *)self _cacheIdentifierForTickCount:count modulus:unsignedIntegerValue size:bOOLValue rounded:v34, v36];
       v39 = [(BSUIMappedImageCache *)self->_cache imageForKey:?];
       if (!v39)
       {
@@ -181,11 +181,11 @@ LABEL_37:
       whiteColor = [MEMORY[0x277D75348] whiteColor];
       [v55 setTintColor:whiteColor];
 
-      v57 = _disabledLayerActions_0();
+      v58 = _disabledLayerActions_0(v57);
       layer = [v55 layer];
-      [layer setActions:v57];
+      [layer setActions:v58];
 
-      [(NSArray *)v62 addObject:v55];
+      [(NSArray *)v63 addObject:v55];
       [(UIView *)self->_tickContainer addSubview:v55];
 
       if (++v26 >= [groupsCopy count])
@@ -194,7 +194,7 @@ LABEL_37:
       }
     }
 
-    v64 = 0;
+    v65 = 0;
 LABEL_20:
     layer2 = [MEMORY[0x277CD9ED0] layer];
     [layer2 setBounds:{0.0, 0.0, self->_dialDiameter, self->_dialDiameter}];
@@ -262,9 +262,9 @@ LABEL_32:
             whiteColor2 = [MEMORY[0x277D75348] whiteColor];
             [layer3 setBackgroundColor:{objc_msgSend(whiteColor2, "CGColor")}];
 
-            CGAffineTransformMakeRotation(&v66, v28 * v41);
-            v65 = v66;
-            [layer3 setAffineTransform:&v65];
+            CGAffineTransformMakeRotation(&v67, v28 * v41);
+            v66 = v67;
+            [layer3 setAffineTransform:&v66];
             [layer2 addSublayer:layer3];
           }
         }
@@ -276,14 +276,14 @@ LABEL_32:
     }
 
     [layer2 bounds];
-    v73.width = v51;
-    v73.height = v52;
-    UIGraphicsBeginImageContextWithOptions(v73, 0, 0.0);
+    v74.width = v51;
+    v74.height = v52;
+    UIGraphicsBeginImageContextWithOptions(v74, 0, 0.0);
     [layer2 renderInContext:UIGraphicsGetCurrentContext()];
     v39 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     self = selfCopy;
-    if (v64)
+    if (v65)
     {
       [(BSUIMappedImageCache *)selfCopy->_cache setImage:v39 forKey:?];
     }
@@ -294,7 +294,7 @@ LABEL_32:
 
 LABEL_38:
   tickGroups = self->_tickGroups;
-  self->_tickGroups = v62;
+  self->_tickGroups = v63;
 }
 
 - (void)applyTickColor:(id)color toModulo:(unint64_t)modulo
@@ -343,7 +343,7 @@ LABEL_38:
     do
     {
       layer = [MEMORY[0x277CD9FC8] layer];
-      v14 = _disabledLayerActions_0();
+      v14 = _disabledLayerActions_0(layer);
       [layer setActions:v14];
 
       whiteColor = [MEMORY[0x277D75348] whiteColor];
@@ -369,9 +369,9 @@ LABEL_38:
   self->_textLayers = v9;
   v20 = v9;
 
-  v21 = _disabledLayerActions_0();
+  v22 = _disabledLayerActions_0(v21);
   layer3 = [(UIView *)self->_textContainer layer];
-  [layer3 setActions:v21];
+  [layer3 setActions:v22];
 
   [(NTKCacheableAnalogDialView *)self addSubview:self->_textContainer];
 }

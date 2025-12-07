@@ -21,14 +21,14 @@
 
 - (id)initWithName:(void *)name properties:
 {
-  v65[2] = *MEMORY[0x1E69E9840];
+  v64[2] = *MEMORY[0x1E69E9840];
   v6 = a2;
   nameCopy = name;
   if (self)
   {
-    v64.receiver = self;
-    v64.super_class = _DKSync3TransportPolicy;
-    v8 = objc_msgSendSuper2(&v64, sel_init);
+    v63.receiver = self;
+    v63.super_class = _DKSync3TransportPolicy;
+    v8 = objc_msgSendSuper2(&v63, sel_init);
     self = v8;
     if (v8)
     {
@@ -65,9 +65,9 @@
           *(self + 8) = bOOLValue;
           if ((bOOLValue & 1) == 0)
           {
-            v65[0] = @"Transport";
-            v65[1] = @"SyncBatchSizeInEvents";
-            v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+            v64[0] = @"Transport";
+            v64[1] = @"SyncBatchSizeInEvents";
+            v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
             v43 = OUTLINED_FUNCTION_28_1(v42);
 
             if (v43)
@@ -116,7 +116,6 @@
     }
   }
 
-  v62 = *MEMORY[0x1E69E9840];
   return self;
 }
 

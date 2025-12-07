@@ -54,7 +54,7 @@
   if (*(self + OBJC_IVAR___DOCPickerContext_nodesToMove))
   {
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
     v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -138,7 +138,7 @@
 
 - (DOCPickerContext)initWithFPURLs:(id)ls
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPSandboxingURLWrapper);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPSandboxingURLWrapper, 0x277CC6438);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return DOCPickerContext.init(fpurls:)(v3);
 }
@@ -152,7 +152,7 @@
 
 - (DOCPickerContext)initWithNodes:(id)nodes
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return DOCPickerContext.init(nodes:)(v3);
 }

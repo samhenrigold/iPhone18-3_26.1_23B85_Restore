@@ -244,46 +244,45 @@
 
 - (NSString)coreAssetName
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(_LTDUAFAssetModel *)self assetType]== 8 && [(NSString *)self->_identifier containsString:@"-partial-"])
   {
     v3 = [(NSString *)self->_identifier componentsSeparatedByString:@"-"];
     v4 = [v3 mutableCopy];
 
-    if ([v4 count] > 5)
+    v5 = [v4 count];
+    if (v5 > 5)
     {
       [v4 removeObjectsInRange:{objc_msgSend(v4, "count") - 3, 2}];
-      v8 = [v4 componentsJoinedByString:@"-"];
+      v10 = [v4 componentsJoinedByString:@"-"];
     }
 
     else
     {
-      v5 = _LTOSLogAssets();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = _LTOSLogAssets(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         identifier = self->_identifier;
-        v7 = v5;
-        v12 = 138412546;
-        v13 = identifier;
-        v14 = 2048;
-        v15 = [v4 count];
-        _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Asset identifier does not contain sufficient components: %@ has %zu components", &v12, 0x16u);
+        v9 = v7;
+        v13 = 138412546;
+        v14 = identifier;
+        v15 = 2048;
+        v16 = [v4 count];
+        _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "Asset identifier does not contain sufficient components: %@ has %zu components", &v13, 0x16u);
       }
 
-      v8 = self->_identifier;
+      v10 = self->_identifier;
     }
 
-    v9 = v8;
+    v11 = v10;
   }
 
   else
   {
-    v9 = self->_identifier;
+    v11 = self->_identifier;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v11;
 }
 
 - (unint64_t)assetSubtype
@@ -407,21 +406,19 @@
 
 - (NSArray)supportedLanguages
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   assetLanguage = [(_LTDUAFAssetModel *)self assetLanguage];
   v3 = assetLanguage;
   if (assetLanguage)
   {
-    v7[0] = assetLanguage;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = assetLanguage;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -465,7 +462,7 @@
 
 - (NSArray)localeIdentifiers
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   identifier = [(_LTDUAFAssetModel *)self identifier];
   v4 = [identifier componentsSeparatedByString:@"-"];
   v5 = [v4 mutableCopy];
@@ -477,48 +474,48 @@
     if (assetType == 8)
     {
       v8 = objc_opt_new();
-      v19 = [v5 indexOfObject:@"partial"];
-      if (v19 != 0x7FFFFFFFFFFFFFFFLL)
+      v18 = [v5 indexOfObject:@"partial"];
+      if (v18 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v25 = v19 + 1;
-        if (v19 + 1 < [v5 count])
+        v24 = v18 + 1;
+        if (v18 + 1 < [v5 count])
         {
-          v26 = [v5 objectAtIndexedSubscript:v25];
-          v27 = [_LTDAssetModel localeIdentifiersForLanguageName:v26];
+          v25 = [v5 objectAtIndexedSubscript:v24];
+          v26 = [_LTDAssetModel localeIdentifiersForLanguageName:v25];
 
-          [v8 addObjectsFromArray:v27];
+          [v8 addObjectsFromArray:v26];
         }
 
         goto LABEL_11;
       }
 
       supportedLanguages = [v5 subarrayWithRange:{2, objc_msgSend(v5, "count") - 5}];
+      v31 = 0u;
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
-      v20 = [supportedLanguages countByEnumeratingWithState:&v32 objects:v37 count:16];
-      if (v20)
+      v19 = [supportedLanguages countByEnumeratingWithState:&v31 objects:v36 count:16];
+      if (v19)
       {
-        v21 = v20;
-        v22 = *v33;
+        v20 = v19;
+        v21 = *v32;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v33 != v22)
+            if (*v32 != v21)
             {
               objc_enumerationMutation(supportedLanguages);
             }
 
-            v24 = [_LTDAssetModel localeIdentifiersForLanguageName:*(*(&v32 + 1) + 8 * i)];
-            [v8 addObjectsFromArray:v24];
+            v23 = [_LTDAssetModel localeIdentifiersForLanguageName:*(*(&v31 + 1) + 8 * i)];
+            [v8 addObjectsFromArray:v23];
           }
 
-          v21 = [supportedLanguages countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v20 = [supportedLanguages countByEnumeratingWithState:&v31 objects:v36 count:16];
         }
 
-        while (v21);
+        while (v20);
       }
 
 LABEL_10:
@@ -533,8 +530,8 @@ LABEL_12:
 
     if (assetType == 10 && [v5 count] == 2)
     {
-      v18 = [v5 objectAtIndexedSubscript:1];
-      v7 = [_LTDAssetModel localeIdentifiersForLanguageName:v18];
+      v17 = [v5 objectAtIndexedSubscript:1];
+      v7 = [_LTDAssetModel localeIdentifiersForLanguageName:v17];
     }
   }
 
@@ -543,30 +540,30 @@ LABEL_12:
     if ((assetType - 6) < 2)
     {
       v8 = objc_opt_new();
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       supportedLanguages = [(_LTDUAFAssetModel *)self supportedLanguages];
-      v10 = [supportedLanguages countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v10 = [supportedLanguages countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v29;
+        v12 = *v28;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v29 != v12)
+            if (*v28 != v12)
             {
               objc_enumerationMutation(supportedLanguages);
             }
 
-            v14 = [*(*(&v28 + 1) + 8 * j) stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+            v14 = [*(*(&v27 + 1) + 8 * j) stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
             [v8 addObject:v14];
           }
 
-          v11 = [supportedLanguages countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v11 = [supportedLanguages countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
         while (v11);
@@ -578,15 +575,13 @@ LABEL_12:
     if (assetType == 2 && [v5 count] == 2)
     {
       v8 = [v5 objectAtIndexedSubscript:1];
-      v38[0] = v8;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+      v37[0] = v8;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

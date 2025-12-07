@@ -111,18 +111,20 @@
 {
   v3 = OBJC_IVAR____TtC18FileProviderDaemon4FPCK_telemetryReport;
   swift_beginAccess();
-  if (*(self + v3))
+  v4 = *(self + v3);
+  if (v4)
   {
 
-    v4 = sub_1CF9E6618();
+    v5 = sub_1CF9E6618();
+    v4, v6, v7, v8, v9, v10, v11, v12;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)setTelemetryReport:(id)report
@@ -141,6 +143,7 @@
   swift_beginAccess();
   v6 = *(self + v5);
   *(self + v5) = v4;
+  v6, v7, v8, v9, v10, v11, v12, v13;
 }
 
 - (_TtC18FileProviderDaemon4FPCK)initWithDatabasesBackupsPaths:(id)paths volumeRole:(unsigned int)role providerDomainID:(id)d domainUserInfo:(id)info reason:(unint64_t)reason usingFPFS:(BOOL)s iCDPackageDetection:(BOOL)detection useShouldPause:(BOOL)self0 shouldPause:(id)aBlock sendDiagnostics:(id)self2 saveCheckpoint:(id)self3 reingestItems:(id)self4 isInvalidated:(id)self5
@@ -167,7 +170,8 @@
   *(v26 + 16) = v20;
   v27 = swift_allocObject();
   *(v27 + 16) = v21;
-  return FPCK.init(withDatabasesBackupsPaths:volumeRole:providerDomainID:domainUserInfo:reason:usingFPFS:iCDPackageDetection:useShouldPause:shouldPause:sendDiagnostics:saveCheckpoint:reingestItems:isInvalidated:)(v22, role, d, info, reason, sCopy, detection, pause, sub_1CF6FC860, v23, sub_1CF6FC898, v24, sub_1CF6FC8B0, v25, sub_1CF6FCF90, v26, sub_1CF6FC920, v27);
+  FPCK.init(withDatabasesBackupsPaths:volumeRole:providerDomainID:domainUserInfo:reason:usingFPFS:iCDPackageDetection:useShouldPause:shouldPause:sendDiagnostics:saveCheckpoint:reingestItems:isInvalidated:)(v22, role, d, info, reason, sCopy, detection, pause, sub_1CF6FC860, v23, sub_1CF6FC898, v24, sub_1CF6FC8B0, v25, sub_1CF6FCF90, v26, sub_1CF6FC920, v27);
+  return result;
 }
 
 - (BOOL)launchFromURLs:(id)ls options:(unint64_t)options contentBarrier:(int64_t)barrier error:(id *)error resultHandler:(id)handler
@@ -176,9 +180,10 @@
   sub_1CF9E5A58();
   v11 = sub_1CF9E6D48();
   v12 = swift_allocObject();
-  *(v12 + 2) = v10;
+  v12[2] = v10;
   selfCopy = self;
   sub_1CF6D013C(v11, options, barrier, sub_1CF6FC848, v12);
+  v11, v14, v15, v16, v17, v18, v19, v20;
 
   return 1;
 }
@@ -191,6 +196,7 @@
   selfCopy = self;
   LOBYTE(invariants) = sub_1CF6F67D4(item, status, v12, invariants);
 
+  v12, v15, v16, v17, v18, v19, v20, v21;
   return invariants & 1;
 }
 
@@ -202,7 +208,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1CF6E9C5C(&v9, var0, &qword_1EC4C2898, &unk_1CFA12AE0);
+    sub_1CF6E9C5C(&v9, var0, &qword_1EC4C2898, &unk_1CFA12AE0, MEMORY[0x1E69E76D8]);
     swift_endAccess();
   }
 
@@ -216,6 +222,7 @@
   v10 = v9;
   toCopy = to;
   sub_1CF6F9E84(v8, v10, dumpCopy, toCopy);
+  v10, v12, v13, v14, v15, v16, v17, v18;
 
   return 1;
 }

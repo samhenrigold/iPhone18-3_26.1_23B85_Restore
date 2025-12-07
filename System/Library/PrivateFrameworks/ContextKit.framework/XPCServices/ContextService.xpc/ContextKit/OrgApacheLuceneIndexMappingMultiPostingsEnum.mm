@@ -178,8 +178,6 @@ LABEL_29:
   result = [(OrgApacheLuceneIndexPostingsEnum *)current nextPosition];
   if (result < 0)
   {
-    doc = self->doc_;
-    field = self->field_;
     v12 = JreStrcat("$I$$$I", v5, v6, v7, v8, v9, v10, v11, @"position=");
 LABEL_7:
     mergeState = self->mergeState_;
@@ -211,8 +209,6 @@ LABEL_13:
 
   if (result > 0x7FFFFF7F)
   {
-    v23 = self->doc_;
-    v22 = self->field_;
     v12 = JreStrcat("$I$I$$$I", v5, v6, v7, v8, v9, v10, v11, @"position=");
     goto LABEL_7;
   }

@@ -213,7 +213,7 @@ LABEL_15:
         *(v8 + 1) = v11;
         if (v11)
         {
-          [VCAirPlayAudioHALPlugin convertASBDToInterleavedFormat:config];
+          objc_msgSend_convertASBDToInterleavedFormat_(VCAirPlayAudioHALPlugin);
           v12 = v19;
           v13 = *&buf[48];
           *(v8 + 3) = *&buf[32];
@@ -437,7 +437,7 @@ LABEL_11:
   v7 = objc_opt_class();
   if (!queue)
   {
-    [VCAirPlayAudioHALPlugin registerAudioServerPluginDriver:? onQueue:?];
+    [VCAirPlayAudioHALPlugin registerAudioServerPluginDriver:self onQueue:?];
     return;
   }
 
@@ -1735,7 +1735,7 @@ LABEL_11:
   _os_log_error_impl(&dword_1DB56E000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Re-register remote delay=%d sec because register returned error=%i", v3, 0x28u);
 }
 
-+ (void)registerAudioServerPluginDriver:(char)a1 onQueue:.cold.2(char a1)
++ (void)registerAudioServerPluginDriver:(char)a1 onQueue:(uint64_t)a2 .cold.2(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -1748,7 +1748,7 @@ LABEL_11:
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_2_0();
 LABEL_11:
-        _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+        _os_log_error_impl(v2, v3, v4, v5, v6, v7);
       }
     }
   }

@@ -21,18 +21,18 @@
     sub_10021C290();
   }
 
-  memset(v3, 0, sizeof(v3));
+  memset(v4, 0, sizeof(v4));
   v0 = JavaNioChannelsSpiSelectorProvider_class_();
-  v1 = JavaUtilServiceLoader_load__WithIOSClass_(v0);
-  if (!v1)
+  v2 = JavaUtilServiceLoader_load__WithIOSClass_(v0, v1);
+  if (!v2)
   {
     JreThrowNullPointerException();
   }
 
-  result = [(JavaUtilServiceLoader *)v1 countByEnumeratingWithState:v3 objects:v4 count:16];
+  result = [(JavaUtilServiceLoader *)v2 countByEnumeratingWithState:v4 objects:v5 count:16];
   if (result)
   {
-    return **(&v3[0] + 1);
+    return **(&v4[0] + 1);
   }
 
   return result;

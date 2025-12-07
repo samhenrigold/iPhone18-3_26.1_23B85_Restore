@@ -23,20 +23,20 @@
 - (CARSoundRecognitionPanel)initWithPanelController:(id)controller
 {
   controllerCopy = controller;
-  v39.receiver = self;
-  v39.super_class = CARSoundRecognitionPanel;
-  v5 = [(CARSettingsPanel *)&v39 initWithPanelController:controllerCopy];
+  v40.receiver = self;
+  v40.super_class = CARSoundRecognitionPanel;
+  v5 = [(CARSettingsPanel *)&v40 initWithPanelController:controllerCopy];
   if (v5)
   {
     objc_initWeak(&location, v5);
     v6 = [CARSettingsSwitchCellSpecifier alloc];
     v7 = sub_10001C80C(@"ACCESSIBILITY_SOUND_RECOGNITION");
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_1000170EC;
-    v36[3] = &unk_1000DAE68;
-    objc_copyWeak(&v37, &location);
-    v8 = [(CARSettingsSwitchCellSpecifier *)v6 initWithTitle:v7 image:0 icon:0 actionBlock:v36];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_1000170EC;
+    v37[3] = &unk_1000DAE68;
+    objc_copyWeak(&v38, &location);
+    v8 = [(CARSettingsSwitchCellSpecifier *)v6 initWithTitle:v7 image:0 icon:0 actionBlock:v37];
     soundRecognitionSwitchSpecifier = v5->_soundRecognitionSwitchSpecifier;
     v5->_soundRecognitionSwitchSpecifier = v8;
 
@@ -46,67 +46,67 @@
     v12 = [NSNumber numberWithBool:getSoundRecognitionPreferenceIsOn];
     [(CARSettingsCellSpecifier *)v11 setCellValue:v12];
 
-    v13 = sub_10001C784();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10001C784(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240192;
-      v41 = getSoundRecognitionPreferenceIsOn;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[Settings] Saved Sound Recognition preference is on: %{public}d", buf, 8u);
+      v42 = getSoundRecognitionPreferenceIsOn;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[Settings] Saved Sound Recognition preference is on: %{public}d", buf, 8u);
     }
 
     getCarHornPreferenceIsOn = [(CARSoundRecognitionPanel *)v5 getCarHornPreferenceIsOn];
-    v15 = objc_alloc_init(CARHornSpecifier);
+    v16 = objc_alloc_init(CARHornSpecifier);
     carHornSpecifier = v5->_carHornSpecifier;
-    v5->_carHornSpecifier = v15;
+    v5->_carHornSpecifier = v16;
 
     [(CARSettingsCellSpecifier *)v5->_carHornSpecifier setAccessibilityIdentifier:@"CPSettingsAccessibilitySoundRecognitionCarHornToggle"];
-    v17 = v5->_carHornSpecifier;
-    v18 = [NSNumber numberWithBool:getCarHornPreferenceIsOn];
-    [(CARSettingsCellSpecifier *)v17 setCellValue:v18];
+    v18 = v5->_carHornSpecifier;
+    v19 = [NSNumber numberWithBool:getCarHornPreferenceIsOn];
+    [(CARSettingsCellSpecifier *)v18 setCellValue:v19];
 
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1000171D8;
-    v34[3] = &unk_1000DAE68;
-    objc_copyWeak(&v35, &location);
-    [(CARSettingsCellSpecifier *)v5->_carHornSpecifier setActionBlock:v34];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_1000171D8;
+    v35[3] = &unk_1000DAE68;
+    objc_copyWeak(&v36, &location);
+    [(CARSettingsCellSpecifier *)v5->_carHornSpecifier setActionBlock:v35];
     getSirenPreferenceIsOn = [(CARSoundRecognitionPanel *)v5 getSirenPreferenceIsOn];
-    v20 = objc_alloc_init(CARSirenSpecifier);
+    v21 = objc_alloc_init(CARSirenSpecifier);
     sirenSpecifier = v5->_sirenSpecifier;
-    v5->_sirenSpecifier = v20;
+    v5->_sirenSpecifier = v21;
 
     [(CARSettingsCellSpecifier *)v5->_sirenSpecifier setAccessibilityIdentifier:@"CPSettingsAccessibilitySoundRecognitionSirenToggle"];
-    v22 = v5->_sirenSpecifier;
-    v23 = [NSNumber numberWithBool:getSirenPreferenceIsOn];
-    [(CARSettingsCellSpecifier *)v22 setCellValue:v23];
+    v23 = v5->_sirenSpecifier;
+    v24 = [NSNumber numberWithBool:getSirenPreferenceIsOn];
+    [(CARSettingsCellSpecifier *)v23 setCellValue:v24];
 
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1000172BC;
-    v32[3] = &unk_1000DAE68;
-    objc_copyWeak(&v33, &location);
-    [(CARSettingsCellSpecifier *)v5->_sirenSpecifier setActionBlock:v32];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_1000172BC;
+    v33[3] = &unk_1000DAE68;
+    objc_copyWeak(&v34, &location);
+    [(CARSettingsCellSpecifier *)v5->_sirenSpecifier setActionBlock:v33];
     getBabyCryingPreferenceIsOn = [(CARSoundRecognitionPanel *)v5 getBabyCryingPreferenceIsOn];
-    v25 = objc_alloc_init(CARBabyCryingSpecifier);
+    v26 = objc_alloc_init(CARBabyCryingSpecifier);
     babyCryingSpecifier = v5->_babyCryingSpecifier;
-    v5->_babyCryingSpecifier = v25;
+    v5->_babyCryingSpecifier = v26;
 
     [(CARSettingsCellSpecifier *)v5->_babyCryingSpecifier setAccessibilityIdentifier:@"CPSettingsAccessibilitySoundRecognitionBabyCryingToggle"];
-    v27 = v5->_babyCryingSpecifier;
-    v28 = [NSNumber numberWithBool:getBabyCryingPreferenceIsOn];
-    [(CARSettingsCellSpecifier *)v27 setCellValue:v28];
+    v28 = v5->_babyCryingSpecifier;
+    v29 = [NSNumber numberWithBool:getBabyCryingPreferenceIsOn];
+    [(CARSettingsCellSpecifier *)v28 setCellValue:v29];
 
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_1000173A0;
-    v30[3] = &unk_1000DAE68;
-    objc_copyWeak(&v31, &location);
-    [(CARSettingsCellSpecifier *)v5->_babyCryingSpecifier setActionBlock:v30];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000173A0;
+    v31[3] = &unk_1000DAE68;
+    objc_copyWeak(&v32, &location);
+    [(CARSettingsCellSpecifier *)v5->_babyCryingSpecifier setActionBlock:v31];
     [(CARSoundRecognitionPanel *)v5 _updateSpecifiers];
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v33);
-    objc_destroyWeak(&v35);
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(&location);
   }
 

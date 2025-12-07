@@ -1,4 +1,5 @@
 @interface TRILogTreatmentReader
++ (id)readerWithProjectId:(int)id paths:(id)paths;
 - (NSString)path;
 - (TRILogTreatmentReader)initWithProjectId:(int)id paths:(id)paths;
 - (id)fetchRolloutLogNamespaces;
@@ -40,16 +41,28 @@
 
 - (NSString)path
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   namespaceDescriptorsDir = [(TRIPaths *)self->_paths namespaceDescriptorsDir];
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", self->_projectId, namespaceDescriptorsDir, @"Projects"];
-  v10[2] = v5;
-  v10[3] = @"treatmentsV2.data";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
+  v9[2] = v5;
+  v9[3] = @"treatmentsV2.data";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
   v7 = [v3 pathWithComponents:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
+  return v7;
+}
+
++ (id)readerWithProjectId:(int)id paths:(id)paths
+{
+  v4 = *&id;
+  pathsCopy = paths;
+  IsValidValue = TRIProject_ProjectId_IsValidValue();
+  v7 = 0;
+  if (v4 && IsValidValue)
+  {
+    v7 = [[TRILogTreatmentReader alloc] initWithProjectId:v4 paths:pathsCopy];
+  }
 
   return v7;
 }
@@ -72,15 +85,13 @@
 
 - (id)namespaceLoggingTreatmentPath
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   namespaceDescriptorsDir = [(TRIPaths *)self->_paths namespaceDescriptorsDir];
-  v8[0] = namespaceDescriptorsDir;
-  v8[1] = @"logTreamentNamespaceData.data";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[0] = namespaceDescriptorsDir;
+  v7[1] = @"logTreamentNamespaceData.data";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v5 = [v2 pathWithComponents:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

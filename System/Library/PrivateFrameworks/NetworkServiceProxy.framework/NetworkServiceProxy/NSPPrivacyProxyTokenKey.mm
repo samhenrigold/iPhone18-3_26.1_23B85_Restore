@@ -144,37 +144,33 @@ LABEL_8:
     __assert_rtn("[NSPPrivacyProxyTokenKey writeTo:]", "NSPPrivacyProxyTokenKey.m", 183, "nil != self->_key");
   }
 
-  v11 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteDataField();
   has = self->_has;
   if (has)
   {
-    expiration = self->_expiration;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    rotation = self->_rotation;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
-  v8 = v11;
+  v6 = v7;
   if ((has & 8) != 0)
   {
-    tokenType = self->_tokenType;
     PBDataWriterWriteUint32Field();
-    v8 = v11;
+    v6 = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    metadataSize = self->_metadataSize;
     PBDataWriterWriteUint32Field();
-    v8 = v11;
+    v6 = v7;
   }
 }
 

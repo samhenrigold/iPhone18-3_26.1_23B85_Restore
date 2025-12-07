@@ -22,9 +22,11 @@
 
 uint64_t __44__EKPersistentEvent_defaultPropertiesToLoad__block_invoke()
 {
-  defaultPropertiesToLoad_defaultPropertiesToLoad_8 = CADEKPersistentEventDefaultPropertiesToLoad();
+  v0 = CADEKPersistentEventDefaultPropertiesToLoad();
+  v1 = defaultPropertiesToLoad_defaultPropertiesToLoad_8;
+  defaultPropertiesToLoad_defaultPropertiesToLoad_8 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)relations

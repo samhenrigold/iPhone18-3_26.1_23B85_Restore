@@ -40,8 +40,8 @@
 
 - (void)startWithPersonalizedResponseBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v22 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -60,40 +60,38 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
-      v21 = 136446210;
-      v22 = "[SSPersonalizeOffersRequest startWithPersonalizedResponseBlock:]";
-      LODWORD(v19) = 12;
-      v18 = &v21;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v20 = 136446210;
+      v21 = "[SSPersonalizeOffersRequest startWithPersonalizedResponseBlock:]";
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v21, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __65__SSPersonalizeOffersRequest_startWithPersonalizedResponseBlock___block_invoke;
-  v20[3] = &unk_1E84AC760;
-  v20[4] = self;
-  v20[5] = block;
-  [(SSRequest *)self _startWithMessageID:55 messageBlock:v20, v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __65__SSPersonalizeOffersRequest_startWithPersonalizedResponseBlock___block_invoke;
+  v19[3] = &unk_1E84AC760;
+  v19[4] = self;
+  v19[5] = block;
+  [(SSRequest *)self _startWithMessageID:55 messageBlock:v19];
 }
 
 uint64_t __65__SSPersonalizeOffersRequest_startWithPersonalizedResponseBlock___block_invoke(uint64_t a1, void *a2)
@@ -279,57 +277,57 @@ uint64_t __55__SSPersonalizeOffersRequest_startWithCompletionBlock___block_invok
 
 - (SSPersonalizeOffersRequest)initWithXPCEncoding:(id)encoding
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
     v5 = [(SSRequest *)self init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "50");
-      v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v16 = 0u;
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "50", v7);
+      v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v9)
+      v20 = 0u;
+      v10 = [(__CFDate *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v17;
+        v11 = v10;
+        v12 = *v18;
         do
         {
-          v12 = 0;
+          v13 = 0;
           do
           {
-            if (*v17 != v11)
+            if (*v18 != v12)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * v12);
+            v14 = *(*(&v17 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v14 = [[SSItem alloc] initWithItemDictionary:v13];
-              if (v14)
+              v15 = [[SSItem alloc] initWithItemDictionary:v14];
+              if (v15)
               {
-                v15 = v14;
-                [v8 addObject:v14];
+                v16 = v15;
+                [v9 addObject:v15];
               }
             }
 
-            ++v12;
+            ++v13;
           }
 
-          while (v10 != v12);
-          v10 = [(__CFArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          while (v11 != v13);
+          v11 = [(__CFDate *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
 
-      v5->_items = [v8 copy];
+      v5->_items = [v9 copy];
     }
   }
 

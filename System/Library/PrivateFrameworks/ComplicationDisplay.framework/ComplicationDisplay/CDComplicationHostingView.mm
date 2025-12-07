@@ -1,12 +1,36 @@
 @interface CDComplicationHostingView
 + (id)async;
 + (id)sync;
+- (CDComplicationHostingView)initWithFrame:(CGRect)frame async:(BOOL)async;
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (void)setBounds:(CGRect)bounds;
 - (void)setFrame:(CGRect)frame;
 @end
 
 @implementation CDComplicationHostingView
+
+- (CDComplicationHostingView)initWithFrame:(CGRect)frame async:(BOOL)async
+{
+  asyncCopy = async;
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  v14.receiver = self;
+  v14.super_class = CDComplicationHostingView;
+  v9 = [(CDComplicationHostingView *)&v14 initWithFrame:?];
+  if (v9)
+  {
+    height = [[_TtC19ComplicationDisplay20_ComplicationHosting alloc] initWithFrame:asyncCopy async:x, y, width, height];
+    hosting = v9->_hosting;
+    v9->_hosting = height;
+
+    view = [(_ComplicationHosting *)v9->_hosting view];
+    [(CDComplicationHostingView *)v9 addSubview:view];
+  }
+
+  return v9;
+}
 
 + (id)async
 {

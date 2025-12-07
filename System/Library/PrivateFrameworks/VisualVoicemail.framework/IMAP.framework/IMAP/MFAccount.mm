@@ -52,7 +52,9 @@
 - (void)setDomain:(id)domain;
 - (void)setHostname:(id)hostname;
 - (void)setPassword:(id)password;
+- (void)setPortNumber:(unsigned int)number;
 - (void)setPreferredAuthScheme:(id)scheme;
+- (void)setTryDirectSSL:(BOOL)l;
 - (void)setUsername:(id)username;
 - (void)setUsesSSL:(BOOL)l;
 - (void)setValueInAccountProperties:(id)properties forKey:(id)key;
@@ -140,9 +142,11 @@
 
 uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
 {
-  authSchemesForAccountClass_knownSchemes = +[MFAuthScheme knownSchemes];
+  v0 = +[MFAuthScheme knownSchemes];
+  v1 = authSchemesForAccountClass_knownSchemes;
+  authSchemesForAccountClass_knownSchemes = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MFAccount)initWithProperties:(id)properties andMambaID:(const char *)d
@@ -286,7 +290,7 @@ uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
 
 - (void)_setAccountProperties:(id)properties
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   _MFLockGlobalLock();
   v5 = [propertiesCopy mutableCopy];
@@ -304,7 +308,7 @@ uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
   [v5 removeObjectForKey:@"Password"];
   _MFUnlockGlobalLock();
   v10 = [propertiesCopy objectForKey:@"OAuth2Token"];
-  v23 = propertiesCopy;
+  v22 = propertiesCopy;
   v11 = [propertiesCopy objectForKey:@"OAuth2RefreshToken"];
   if (v10)
   {
@@ -313,26 +317,26 @@ uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
 
   uniqueId = [(MFAccount *)self uniqueId];
   excludedAccountPropertyKeys = [objc_opt_class() excludedAccountPropertyKeys];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v14 = v5;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
+        v19 = *(*(&v23 + 1) + 8 * i);
         if (([excludedAccountPropertyKeys containsObject:v19] & 1) == 0)
         {
           v20 = [v14 objectForKey:v19];
@@ -340,7 +344,7 @@ uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
@@ -350,8 +354,6 @@ uint64_t __39__MFAccount_authSchemesForAccountClass__block_invoke()
   {
     [(MFAccount *)self setPassword:v6];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)accountPropertiesValueForKey:(id)key value:(id)value
@@ -745,6 +747,50 @@ LABEL_11:
   return [v2 defaultSecurePortNumber];
 }
 
+- (void)setPortNumber:(unsigned int)number
+{
+  v3 = *&number;
+  if ([(MFAccount *)self portNumber]== number)
+  {
+    return;
+  }
+
+  if (v3)
+  {
+    if ([(MFAccount *)self usesSSL])
+    {
+      defaultSecurePortNumber = [(MFAccount *)self defaultSecurePortNumber];
+    }
+
+    else
+    {
+      defaultSecurePortNumber = [(MFAccount *)self defaultPortNumber];
+    }
+
+    v6 = defaultSecurePortNumber;
+    _MFLockGlobalLock();
+    if (v6 != v3)
+    {
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v3];
+      [(MFAccount *)self setAccountProperty:v7 forKey:@"PortNumber"];
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    _MFLockGlobalLock();
+  }
+
+  [(MFAccount *)self removeAccountPropertyForKey:@"PortNumber"];
+LABEL_10:
+  _MFUnlockGlobalLock();
+  [(MFAccount *)self releaseAllConnections];
+
+  [(MFAccount *)self _queueAccountInfoDidChange];
+}
+
 - (BOOL)usesSSL
 {
   usesSSL = [objc_opt_class() usesSSL];
@@ -768,6 +814,22 @@ LABEL_11:
     {
       [(MFAccount *)self removeAccountPropertyForKey:@"SSLEnabled"];
     }
+
+    _MFUnlockGlobalLock();
+    [(MFAccount *)self releaseAllConnections];
+
+    [(MFAccount *)self _queueAccountInfoDidChange];
+  }
+}
+
+- (void)setTryDirectSSL:(BOOL)l
+{
+  lCopy = l;
+  if ([(MFAccount *)self _shouldTryDirectSSLConnectionOnPort:[(MFAccount *)self portNumber]]!= l)
+  {
+    _MFLockGlobalLock();
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:lCopy];
+    [(MFAccount *)self setAccountProperty:v5 forKey:@"SSLIsDirect"];
 
     _MFUnlockGlobalLock();
     [(MFAccount *)self releaseAllConnections];
@@ -805,7 +867,7 @@ LABEL_11:
 
 - (id)clientCertificates
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [(MFAccount *)self _objectForAccountInfoKey:@"SSLClientIdentity"];
   if (v3)
   {
@@ -813,8 +875,8 @@ LABEL_11:
     if (v4)
     {
 LABEL_3:
-      v9[0] = v4;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+      v8[0] = v4;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
       CFRelease(v4);
       goto LABEL_6;
     }
@@ -833,8 +895,6 @@ LABEL_3:
 
   v5 = 0;
 LABEL_6:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1006,29 +1066,25 @@ LABEL_6:
 
 - (id)insecureConnectionSettings
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
   [defaultConnectionSettings setUsesSSL:0];
   [defaultConnectionSettings setTryDirectSSL:0];
-  v6[0] = defaultConnectionSettings;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = defaultConnectionSettings;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)secureConnectionSettings
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
   [defaultConnectionSettings setUsesSSL:1];
   [defaultConnectionSettings setTryDirectSSL:1];
   [defaultConnectionSettings setPortNumber:{-[MFAccount defaultSecurePortNumber](self, "defaultSecurePortNumber")}];
-  v7[0] = defaultConnectionSettings;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = defaultConnectionSettings;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }

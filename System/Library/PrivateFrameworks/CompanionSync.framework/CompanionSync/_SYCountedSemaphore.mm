@@ -27,24 +27,18 @@
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Error destroying Mach semaphore: %d (%{public}s)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Error destroying Mach semaphore: %d (%{public}s)", v5, v6, v7, v8);
 }
 
 - (void)_ensureSemaphore
 {
-  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Failed to create semaphore! %d (%{public}s)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Failed to create semaphore! %d (%{public}s)", v5, v6, v7, v8);
 }
 
 - (void)signal
@@ -194,24 +188,18 @@ LABEL_12:
 
 - (void)_waitSemaphoreWithTimeout:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Failed to wait on semaphore, but it didn't time out or abort: %d (%{public}s)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Failed to wait on semaphore, but it didn't time out or abort: %d (%{public}s)", v5, v6, v7, v8);
 }
 
 - (void)_waitSemaphoreWithTimeout:(void *)a1 .cold.4(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Error draining semaphore: %d (%{public}s)", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1DF835000, v3, v4, "Error draining semaphore: %d (%{public}s)", v5, v6, v7, v8);
 }
 
 @end

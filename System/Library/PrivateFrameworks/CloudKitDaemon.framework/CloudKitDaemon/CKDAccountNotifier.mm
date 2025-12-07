@@ -62,7 +62,7 @@
 
 - (void)postAccountChangedNotificationWithAccountID:(id)d changeType:(int64_t)type
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -75,9 +75,9 @@
     v9 = v6;
     v10 = CKStringFromAccountChangeType();
     *buf = 138412546;
-    v82 = dCopy;
-    v83 = 2114;
-    v84 = v10;
+    v81 = dCopy;
+    v82 = 2114;
+    v83 = v10;
     _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Account with ID %@ changed with type: %{public}@", buf, 0x16u);
   }
 
@@ -92,7 +92,7 @@
     isWarmingUp = objc_msgSend_isWarmingUp(self, v7, v8);
   }
 
-  v71 = objc_msgSend__accountChangeNotificationOperation_(self, v12, isWarmingUp);
+  v70 = objc_msgSend__accountChangeNotificationOperation_(self, v12, isWarmingUp);
   v13 = type == 3;
   obj = objc_msgSend_notificationHandlers(self, v14, v15);
   objc_sync_enter(obj);
@@ -119,53 +119,53 @@
     v40 = objc_msgSend_objectForKey_(v38, v39, v35);
 
     v41 = MEMORY[0x277CCA8C8];
-    v76[0] = v34;
-    v76[1] = 3221225472;
-    v76[2] = sub_225111930;
-    v76[3] = &unk_2785456F0;
+    v75[0] = v34;
+    v75[1] = 3221225472;
+    v75[2] = sub_225111930;
+    v75[3] = &unk_2785456F0;
     v42 = v40;
-    v78 = v42;
-    v77 = dCopy;
-    v79 = v13;
-    v44 = objc_msgSend_blockOperationWithBlock_(v41, v43, v76);
-    objc_msgSend_addDependency_(v71, v45, v44);
+    v77 = v42;
+    v76 = dCopy;
+    v78 = v13;
+    v44 = objc_msgSend_blockOperationWithBlock_(v41, v43, v75);
+    objc_msgSend_addDependency_(v70, v45, v44);
     objc_msgSend_addObject_(v24, v46, v44);
 
     v33 = v35;
   }
 
   objc_sync_exit(obj);
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v47 = v24;
-  v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v72, v80, 16);
+  v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v71, v79, 16);
   if (v51)
   {
-    v52 = *v73;
+    v52 = *v72;
     do
     {
       for (i = 0; i != v51; ++i)
       {
-        if (*v73 != v52)
+        if (*v72 != v52)
         {
           objc_enumerationMutation(v47);
         }
 
-        v54 = *(*(&v72 + 1) + 8 * i);
+        v54 = *(*(&v71 + 1) + 8 * i);
         v55 = objc_msgSend_accountChangeHandlerQueue(self, v49, v50);
         objc_msgSend_addOperation_(v55, v56, v54);
       }
 
-      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v72, v80, 16);
+      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v71, v79, 16);
     }
 
     while (v51);
   }
 
   v59 = objc_msgSend_accountChangeHandlerQueue(self, v57, v58);
-  objc_msgSend_addOperation_(v59, v60, v71);
+  objc_msgSend_addOperation_(v59, v60, v70);
 
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -193,8 +193,6 @@
     *buf = 0;
     _os_log_impl(&dword_22506F000, v67, OS_LOG_TYPE_INFO, "Account notification handlers are complete", buf, 2u);
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postAccountChangedNotificationToClients

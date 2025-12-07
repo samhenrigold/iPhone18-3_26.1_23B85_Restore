@@ -166,9 +166,9 @@
 {
   coderCopy = coder;
   payload = [(AXIPCMessage *)self payload];
-  if (payload && ![objc_opt_class() supportsSecureCoding])
+  if (payload && (v5 = [objc_opt_class() supportsSecureCoding], !v5))
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(v5, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Trying to serialize an AXIPC payload that does not support secure coding: %@");
   }
 
   else
@@ -182,7 +182,7 @@
 {
   v2 = MEMORY[0x1EEE9AC00](self);
   v13 = *MEMORY[0x1E69E9840];
-  [v2 auditToken];
+  objc_msgSend_auditToken(v2, 0, 0, 0, 0);
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:proc_pidpath(pid_4 encoding:{buffer, 0x1000u), 4}];
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
   if (v4)

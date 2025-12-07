@@ -144,7 +144,7 @@
   v40 = [(CommonProduct *)self findComponent:28];
   *&v41 = v38;
   [v40 calculateControlEffort:v41];
-  v42 = unk_1000AB904;
+  v42 = dword_1000AB904;
   v43 = [(CommonProduct *)self findComponent:27];
   v44 = v42 / 100.0;
   *&v45 = v44;
@@ -178,7 +178,7 @@
       v69 = [(CommonProduct *)self findComponent:32];
       *&v70 = v68 / 100.0;
       [v69 calculateControlEffort:v70];
-      v71 = unk_1000AB904;
+      v71 = dword_1000AB904;
       v72 = [(CommonProduct *)self findComponent:33];
       *&v73 = v71 / 100.0;
       [v72 calculateControlEffort:v73];
@@ -223,7 +223,7 @@ LABEL_24:
   v63 = [(CommonProduct *)self findComponent:30];
   *&v64 = v62 / 100.0;
   [v63 calculateControlEffort:v64];
-  v65 = unk_1000AB904;
+  v65 = dword_1000AB904;
   v66 = [(CommonProduct *)self findComponent:31];
   *&v67 = v65 / 100.0;
 LABEL_27:

@@ -6,7 +6,7 @@
 
 - (void)executeWithContext:(id)context completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   topLevelItem = [contextCopy topLevelItem];
@@ -14,54 +14,54 @@
   v9 = randomValidStrictDescendantOfTopLevelItem;
   if (randomValidStrictDescendantOfTopLevelItem)
   {
-    v24 = handlerCopy;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __71__WBSCyclerMoveBookmarkOperation_executeWithContext_completionHandler___block_invoke;
-    v31[3] = &unk_1E7FC5198;
+    v25 = handlerCopy;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __71__WBSCyclerMoveBookmarkOperation_executeWithContext_completionHandler___block_invoke;
+    v32[3] = &unk_1E7FC5198;
     v10 = randomValidStrictDescendantOfTopLevelItem;
-    v32 = v10;
-    v11 = [contextCopy randomDescendantOfList:topLevelItem enforcingTitlePrefixValidity:1 passingTest:v31];
+    v33 = v10;
+    v11 = [contextCopy randomDescendantOfList:topLevelItem enforcingTitlePrefixValidity:1 passingTest:v32];
     v12 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [v11 numberOfChildren] + (objc_msgSend(v11, "containsChild:", v10) ^ 1));
     uniqueIdentifier = [v10 uniqueIdentifier];
     uniqueIdentifier2 = [v11 uniqueIdentifier];
-    v15 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = WBS_LOG_CHANNEL_PREFIXCycler(uniqueIdentifier2, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v16 = v15;
+      v17 = v16;
       [v10 title];
-      v17 = v23 = topLevelItem;
+      v18 = v24 = topLevelItem;
       title = [v11 title];
       uniqueIdentifier3 = [v11 uniqueIdentifier];
       *buf = 138544386;
-      v34 = v17;
-      v35 = 2114;
-      v36 = uniqueIdentifier;
-      v37 = 2114;
-      v38 = title;
-      v39 = 2114;
-      v40 = uniqueIdentifier3;
-      v41 = 1024;
-      v42 = v12;
-      _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_INFO, "Moving bookmark (title: %{public}@, identifier: %{public}@) into folder (title: %{public}@, identifier: %{public}@) at index %d", buf, 0x30u);
+      v35 = v18;
+      v36 = 2114;
+      v37 = uniqueIdentifier;
+      v38 = 2114;
+      v39 = title;
+      v40 = 2114;
+      v41 = uniqueIdentifier3;
+      v42 = 1024;
+      v43 = v12;
+      _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "Moving bookmark (title: %{public}@, identifier: %{public}@) into folder (title: %{public}@, identifier: %{public}@) at index %d", buf, 0x30u);
 
-      topLevelItem = v23;
+      topLevelItem = v24;
     }
 
     testTarget = [contextCopy testTarget];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __71__WBSCyclerMoveBookmarkOperation_executeWithContext_completionHandler___block_invoke_2;
-    v25[3] = &unk_1E7FC50F8;
-    handlerCopy = v24;
-    v29 = v24;
-    v26 = topLevelItem;
-    v27 = uniqueIdentifier;
-    v28 = uniqueIdentifier2;
-    v30 = v12;
-    v21 = uniqueIdentifier2;
-    v22 = uniqueIdentifier;
-    [testTarget moveBookmarkWithIdentifier:v22 intoListWithIdentifier:v21 atIndex:v12 reply:v25];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __71__WBSCyclerMoveBookmarkOperation_executeWithContext_completionHandler___block_invoke_2;
+    v26[3] = &unk_1E7FC50F8;
+    handlerCopy = v25;
+    v30 = v25;
+    v27 = topLevelItem;
+    v28 = uniqueIdentifier;
+    v29 = uniqueIdentifier2;
+    v31 = v12;
+    v22 = uniqueIdentifier2;
+    v23 = uniqueIdentifier;
+    [testTarget moveBookmarkWithIdentifier:v23 intoListWithIdentifier:v22 atIndex:v12 reply:v26];
   }
 
   else

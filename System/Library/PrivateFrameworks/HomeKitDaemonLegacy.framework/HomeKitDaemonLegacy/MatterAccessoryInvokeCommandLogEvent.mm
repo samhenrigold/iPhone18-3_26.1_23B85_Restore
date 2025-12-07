@@ -22,12 +22,10 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC19HomeKitDaemonLegacy36MatterAccessoryInvokeCommandLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC19HomeKitDaemonLegacy36MatterAccessoryInvokeCommandLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_253CD0938();
+  v2 = sub_253CD0938();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
@@ -44,7 +42,6 @@
 - (_TtC19HomeKitDaemonLegacy36MatterAccessoryInvokeCommandLogEvent)initWithHomeUUID:(id)d
 {
   v3 = sub_253CCFF58();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   sub_253CCFF38();
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -55,7 +52,6 @@
 - (_TtC19HomeKitDaemonLegacy36MatterAccessoryInvokeCommandLogEvent)initWithStartTime:(double)time homeUUID:(id)d
 {
   v4 = sub_253CCFF58();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   sub_253CCFF38();
   result = _swift_stdlib_reportUnimplementedInitializer();

@@ -19,10 +19,10 @@
 
 + (id)hkmd_requestForTimeZoneNotification
 {
-  v0 = +[UNNotificationRequest _timeZoneContent];
-  v1 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"MedicationTimeZoneNotificationIdentifier" content:v0 trigger:0];
+  v1 = +[(UNNotificationRequest *)self];
+  v2 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"MedicationTimeZoneNotificationIdentifier" content:v1 trigger:0];
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)isNotMissedCategory:()HKMedications

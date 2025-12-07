@@ -39,7 +39,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -49,27 +49,25 @@
     v8 = HMFGetLogIdentifier();
     server = [(HMMTROTAApplyUpdateTimer *)selfCopy server];
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = server;
+    v13 = v8;
+    v14 = 2112;
+    v15 = server;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@OTA apply timed out for accessory server [%@]", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   WeakRetained = objc_loadWeakRetained(&selfCopy->_server);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __41__HMMTROTAApplyUpdateTimer_timerDidFire___block_invoke;
-  v12[3] = &unk_2786F0A58;
-  v12[4] = selfCopy;
-  [WeakRetained fetchSoftwareVersion:1 completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __41__HMMTROTAApplyUpdateTimer_timerDidFire___block_invoke;
+  v11[3] = &unk_2786F0A58;
+  v11[4] = selfCopy;
+  [WeakRetained fetchSoftwareVersion:1 completionHandler:v11];
 }
 
 void __41__HMMTROTAApplyUpdateTimer_timerDidFire___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -87,15 +85,15 @@ LABEL_5:
     }
 
     v10 = HMFGetLogIdentifier();
-    *v38 = 138543618;
-    *&v38[4] = v10;
-    *&v38[12] = 2112;
-    *&v38[14] = v6;
+    *v37 = 138543618;
+    *&v37[4] = v10;
+    *&v37[12] = 2112;
+    *&v37[14] = v6;
     v11 = "%{public}@Failed to retrieve software version number: %@";
     v12 = v9;
     v13 = 22;
 LABEL_4:
-    _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, v11, v38, v13);
+    _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, v11, v37, v13);
 
     goto LABEL_5;
   }
@@ -111,8 +109,8 @@ LABEL_4:
     }
 
     v10 = HMFGetLogIdentifier();
-    *v38 = 138543362;
-    *&v38[4] = v10;
+    *v37 = 138543362;
+    *&v37[4] = v10;
     v11 = "%{public}@Failed to retrieve software version number, got nil object";
     v12 = v9;
     v13 = 12;
@@ -123,38 +121,38 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v33 = v14;
+    v32 = v14;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  v34 = v33;
+  v33 = v32;
 
-  if (!v34)
+  if (!v33)
   {
     v7 = objc_autoreleasePoolPush();
     v8 = *(a1 + 32);
     v9 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v37 = HMFGetLogIdentifier();
-      *v38 = 138543618;
-      *&v38[4] = v37;
-      *&v38[12] = 2112;
-      *&v38[14] = v14;
-      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve software version number, unexpected object: %@", v38, 0x16u);
+      v36 = HMFGetLogIdentifier();
+      *v37 = 138543618;
+      *&v37[4] = v36;
+      *&v37[12] = 2112;
+      *&v37[14] = v14;
+      _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve software version number, unexpected object: %@", v37, 0x16u);
     }
 
     goto LABEL_5;
   }
 
-  v35 = [*(a1 + 32) expectedVersion];
-  v36 = [v35 isEqualToNumber:v14];
+  v34 = [*(a1 + 32) expectedVersion];
+  v35 = [v34 isEqualToNumber:v14];
 
-  if (v36)
+  if (v35)
   {
     v23 = [*(a1 + 32) otaProvider];
     v24 = [*(a1 + 32) server];
@@ -163,7 +161,7 @@ LABEL_4:
   }
 
 LABEL_6:
-  [*(a1 + 32) setRetryCount:{objc_msgSend(*(a1 + 32), "retryCount", *v38, *&v38[16]) + 1}];
+  [*(a1 + 32) setRetryCount:{objc_msgSend(*(a1 + 32), "retryCount", *v37, *&v37[8]) + 1}];
   v15 = objc_autoreleasePoolPush();
   v16 = *(a1 + 32);
   v17 = HMFGetOSLogHandle();
@@ -172,15 +170,15 @@ LABEL_6:
     v18 = HMFGetLogIdentifier();
     v19 = [*(a1 + 32) expectedVersion];
     v20 = [*(a1 + 32) retryCount];
-    *v38 = 138544130;
-    *&v38[4] = v18;
-    *&v38[12] = 2112;
-    *&v38[14] = v19;
-    *&v38[22] = 2112;
-    v39 = v14;
-    v40 = 2048;
-    v41 = v20;
-    _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Expected Version %@, accessory reported %@ [Attempt %ld].", v38, 0x2Au);
+    *v37 = 138544130;
+    *&v37[4] = v18;
+    *&v37[12] = 2112;
+    *&v37[14] = v19;
+    *&v37[22] = 2112;
+    v38 = v14;
+    v39 = 2048;
+    v40 = v20;
+    _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Expected Version %@, accessory reported %@ [Attempt %ld].", v37, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -215,13 +213,11 @@ LABEL_10:
 
   [*(a1 + 32) start];
 LABEL_14:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -229,23 +225,21 @@ LABEL_14:
   {
     v6 = HMFGetLogIdentifier();
     server = [(HMMTROTAApplyUpdateTimer *)selfCopy server];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = server;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Stop OTA apply timeout for accessory server [%@]", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = server;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Stop OTA apply timeout for accessory server [%@]", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   updateTimer = [(HMMTROTAApplyUpdateTimer *)selfCopy updateTimer];
   [updateTimer suspend];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -253,18 +247,16 @@ LABEL_14:
   {
     v6 = HMFGetLogIdentifier();
     server = [(HMMTROTAApplyUpdateTimer *)selfCopy server];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = server;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting OTA apply timeout for accessory server [%@]", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = server;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting OTA apply timeout for accessory server [%@]", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   updateTimer = [(HMMTROTAApplyUpdateTimer *)selfCopy updateTimer];
   [updateTimer resume];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTROTAApplyUpdateTimer)initWithServer:(id)server otaProvider:(id)provider newVersion:(id)version delay:(id)delay queue:(id)queue
@@ -309,12 +301,11 @@ LABEL_14:
 
 uint64_t __39__HMMTROTAApplyUpdateTimer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_11470;
-  logCategory__hmf_once_v9_11470 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_11470;
+  logCategory__hmf_once_v9_11470 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

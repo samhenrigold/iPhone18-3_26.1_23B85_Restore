@@ -1,1168 +1,10 @@
-uint64_t sub_F90F0(uint64_t a1, uint64_t a2, unsigned int *a3)
+unsigned int *sub_FB0C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *a3;
-  if (*a3 != ((*a3 + 63) & 0xFFFFFFC0))
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v8 = sub_160F34(3u);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(4);
-      if (v8)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | AVE ERR: x = %d not aligned\n", v9, 3, v10, "AVE_GetTileInfo", 5876, "pRect->iX == (((pRect->iX) + (64) - 1) & ~((64) - 1))", *a3);
-        v9 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      v33 = *a3;
-      syslog(3, "%lld %d AVE %s: %s:%d %s | AVE ERR: x = %d not aligned", v9);
-    }
-
-    return 4294966296;
-  }
-
-  v5 = a3[1];
-  if (v5 != ((v5 + 15) & 0xFFFFFFF0))
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v11 = sub_160F34(3u);
-      v12 = sub_175AE4();
-      v13 = sub_160F68(4);
-      if (v11)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | AVE ERR: y = %d not aligned\n", v12, 3, v13, "AVE_GetTileInfo", 5879, "pRect->iY == (((pRect->iY) + (16) - 1) & ~((16) - 1))", a3[1]);
-        v12 = sub_175AE4();
-        sub_160F68(4);
-      }
-
-      v34 = a3[1];
-      syslog(3, "%lld %d AVE %s: %s:%d %s | AVE ERR: y = %d not aligned", v12);
-    }
-
-    return 4294966296;
-  }
-
-  *(a2 + 552) = v4;
-  *(a2 + 556) = v5;
-  if (*(a1 + 10204) == 1)
-  {
-    result = 0;
-    *(a2 + 544) = 0;
-    return result;
-  }
-
-  if (*(a1 + 10171) != 1)
-  {
-    return 4294966296;
-  }
-
-  v14 = a3[3];
-  v15 = a3[2] + v4;
-  v16 = v14 + v5;
-  if (*(a1 + 76) >= 12)
-  {
-    v17 = *(a1 + 10868);
-    if (*(a1 + 10855) == 1)
-    {
-      if (v15 >= v17)
-      {
-        v15 = *(a1 + 10868);
-      }
-
-      *(a2 + 560) = v15;
-      v18 = *(a1 + 10872);
-      if (v16 >= v18)
-      {
-        v16 = *(a1 + 10872);
-      }
-
-      *(a2 + 564) = v16;
-      v15 = v17;
-      v16 = v18;
-    }
-
-    else
-    {
-      if (v15 <= v17)
-      {
-        v19 = a3[2];
-      }
-
-      else
-      {
-        v19 = v17 - v4;
-      }
-
-      *(a2 + 560) = v19;
-      v15 = v19 + v4;
-      v20 = *(a1 + 10872);
-      if (v16 <= v20)
-      {
-        v21 = v14;
-      }
-
-      else
-      {
-        v21 = v20 - v5;
-      }
-
-      *(a2 + 564) = v21;
-      v16 = v21 + v5;
-    }
-  }
-
-  if (v15 > *(a1 + 10864))
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v22 = sub_160F34(3u);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(4);
-      v25 = a3[2];
-      if (v22)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | AVE ERR: x(%d) + width(%d) > buffer stride(%u)\n", v23, 3, v24, "AVE_GetTileInfo", 5927, "stride <= pINS->VideoParamsDriver.pixelBuffer.Stride", *a3, a3[2], *(a1 + 10864));
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        v36 = a3[2];
-        v37 = *(a1 + 10864);
-        v32 = "stride <= pINS->VideoParamsDriver.pixelBuffer.Stride";
-        v35 = *a3;
-        v31 = 5927;
-      }
-
-      else
-      {
-        v36 = a3[2];
-        v37 = *(a1 + 10864);
-        v35 = *a3;
-        v31 = 5927;
-        v32 = "stride <= pINS->VideoParamsDriver.pixelBuffer.Stride";
-      }
-
-      v30 = v24;
-      v26 = "%lld %d AVE %s: %s:%d %s | AVE ERR: x(%d) + width(%d) > buffer stride(%u)";
-LABEL_44:
-      syslog(3, v26, v23, 3, v30, "AVE_GetTileInfo", v31, v32, v35, v36, v37);
-      return 4294966296;
-    }
-
-    return 4294966296;
-  }
-
-  if (v16 > *(a1 + 10872))
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v27 = sub_160F34(3u);
-      v23 = sub_175AE4();
-      v28 = sub_160F68(4);
-      v29 = a3[3];
-      if (v27)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | AVE ERR: y(%d) + height(%d) > buffer height (%u)\n", v23, 3, v28, "AVE_GetTileInfo", 5932, "height <= pINS->VideoParamsDriver.pixelBuffer.Height", a3[1], a3[3], *(a1 + 10872));
-        v23 = sub_175AE4();
-        v28 = sub_160F68(4);
-        v36 = a3[3];
-        v37 = *(a1 + 10872);
-        v32 = "height <= pINS->VideoParamsDriver.pixelBuffer.Height";
-        v35 = a3[1];
-        v31 = 5932;
-      }
-
-      else
-      {
-        v36 = a3[3];
-        v37 = *(a1 + 10872);
-        v35 = a3[1];
-        v31 = 5932;
-        v32 = "height <= pINS->VideoParamsDriver.pixelBuffer.Height";
-      }
-
-      v30 = v28;
-      v26 = "%lld %d AVE %s: %s:%d %s | AVE ERR: y(%d) + height(%d) > buffer height (%u)";
-      goto LABEL_44;
-    }
-
-    return 4294966296;
-  }
-
-  result = 0;
-  *(a2 + 544) = v4;
-  *(a2 + 548) = v5;
-  return result;
-}
-
-uint64_t sub_F959C(uint64_t a1, uint64_t a2)
-{
-  v4 = (a1 + 16456);
-  v5 = (a1 + 760);
-  v6 = sub_175AE4();
-  if (sub_160EF0(0xCu, 6))
-  {
-    v7 = sub_160F34(0xCu);
-    v8 = sub_175AE4();
-    v9 = sub_160F68(6);
-    if (v7)
-    {
-      printf("%lld %d AVE %s: %s Enter %p 0x%llx\n", v8, 12, v9, "AVE_Session_AVC_Create", a1, a2);
-      v10 = sub_175AE4();
-      v43 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%llx", v10, 12, v43, "AVE_Session_AVC_Create", a1, a2);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%llx", v8, 12, v9, "AVE_Session_AVC_Create", a1, a2);
-    }
-  }
-
-  v11 = sub_1502C8();
-  *(a1 + 64) = 1;
-  *v4 = 2;
-  *(a1 + 1256) = -1;
-  *(a1 + 10556) = 0x100000001;
-  *(a1 + 10772) = 1;
-  *(a1 + 776) = 1;
-  *&v12 = 0x100000001;
-  *(&v12 + 1) = 0x100000001;
-  *v5 = v12;
-  *(a1 + 712) = v11[103];
-  v13 = sub_1289FC(1, 1);
-  if (v13)
-  {
-    v14 = v13;
-    if (sub_160EF0(0xCu, 4))
-    {
-      v15 = sub_160F34(0xCu);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | fail to open AVC %p %lld %d\n", v16, 12, v17, "AVE_Session_AVC_Create", 6526, "ret == 0", a1, 0, v14);
-        v18 = sub_175AE4();
-        v44 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open AVC %p %lld %d", v18, 12, v44);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to open AVC %p %lld %d", v16, 12, v17);
-      }
-    }
-
-    v19 = 0;
-  }
-
-  else
-  {
-    *(a1 + 68) = sub_129100(*(a1 + 120));
-    *(a1 + 72) = sub_12910C(*(a1 + 120));
-    *(a1 + 56) = sub_129118(*(a1 + 120));
-    *(a1 + 76) = *(sub_16FD90(*(a1 + 68)) + 1);
-    v19 = *(a1 + 56);
-    sub_14DE24((a1 + 16592), v19);
-    sub_13EF48(*(a1 + 56), v11[403], (a1 + 12000));
-    sub_140028(*(a1 + 12000), 0, v6);
-    sub_CBCA0(*(a1 + 56), (a1 + 18064));
-    v4[2] = 30565;
-    v20 = sub_E814C(a1);
-    if (v20)
-    {
-      v14 = v20;
-      if (sub_160EF0(0xCu, 4))
-      {
-        v21 = sub_160F34(0xCu);
-        v22 = sub_175AE4();
-        v23 = sub_160F68(4);
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create property dictionary %p %lld %d\n", v22, 12, v23, "AVE_Session_AVC_Create", 6553, "ret == 0", a1, v19, v14);
-          v24 = sub_175AE4();
-          v45 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create property dictionary %p %lld %d", v24, 12, v45);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create property dictionary %p %lld %d", v22, 12, v23);
-        }
-      }
-    }
-
-    else
-    {
-      v27 = operator new(0x50uLL, &std::nothrow);
-      if (v27)
-      {
-        v28 = v27;
-        sub_16600(v27);
-        *(a1 + 16488) = v28;
-        v29 = *(a1 + 12000);
-        v30 = sub_175AE4();
-        sub_1403FC(v29, 0, v30);
-        v14 = 0;
-        v26 = 1;
-        goto LABEL_20;
-      }
-
-      *(a1 + 16488) = 0;
-      if (sub_160EF0(0xCu, 4))
-      {
-        v39 = sub_160F34(0xCu);
-        v40 = sub_175AE4();
-        v41 = sub_160F68(4);
-        if (v39)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | failed to create SEI instance %p %llu\n", v40, 12, v41, "AVE_Session_AVC_Create", 6558, "pINS->pcSEI != __null", a1, *(a1 + 56));
-          v40 = sub_175AE4();
-          sub_160F68(4);
-          v42 = *(a1 + 56);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create SEI instance %p %llu", v40, 12);
-      }
-
-      v14 = 4294966296;
-    }
-  }
-
-  v25 = *(a1 + 16488);
-  if (v25)
-  {
-    sub_16934(v25);
-    operator delete();
-  }
-
-  v26 = 0;
-LABEL_20:
-  v31 = sub_175AE4() - v6;
-  if (v31 >= 1000000)
-  {
-    v32 = 5;
-  }
-
-  else
-  {
-    v32 = 6;
-  }
-
-  if (v26)
-  {
-    v33 = v32;
-  }
-
-  else
-  {
-    v33 = 4;
-  }
-
-  if (sub_160EF0(0xCu, v33))
-  {
-    v34 = sub_160F34(0xCu);
-    v35 = sub_175AE4();
-    v36 = sub_160F68(v33);
-    if (v34)
-    {
-      printf("%lld %d AVE %s: %s Exit %p 0x%llx %lld %lld %d\n", v35, 12, v36, "AVE_Session_AVC_Create", a1, a2, v19, v31, v14);
-      v37 = sub_175AE4();
-      v46 = sub_160F68(v33);
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%llx %lld %lld %d", v37, 12, v46);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%llx %lld %lld %d", v35, 12, v36);
-    }
-  }
-
-  return v14;
-}
-
-void sub_F9BA8(int32x2_t *a1)
-{
-  if (sub_160EF0(0xCu, 7))
-  {
-    v2 = sub_160F34(0xCu);
-    v3 = sub_175AE4();
-    v4 = sub_160F68(7);
-    if (v2)
-    {
-      printf("%lld %d AVE %s: %s Enter %p\n", v3, 12, v4, "AVE_EnableH264FWRCSettings", a1);
-      v5 = sub_175AE4();
-      v42 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v42, "AVE_EnableH264FWRCSettings", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v3, 12, v4, "AVE_EnableH264FWRCSettings", a1);
-    }
-  }
-
-  if (sub_160EF0(0x10u, 8))
-  {
-    v6 = sub_160F34(0x10u);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(8);
-    v9 = a1[1348].u8[0];
-    if (v6)
-    {
-      printf("%lld %d AVE %s: %s:%d usageMode %d RealTime %d bRCModeSet %d eRCMode %d\n", v7, 16, v8, "AVE_EnableH264FWRCSettings", 1680, a1[1361].i32[1], a1[86].i32[1], a1[1348].u8[0], a1[141].i32[1]);
-      v7 = sub_175AE4();
-      sub_160F68(8);
-      v10 = a1[1348].u8[0];
-      v50 = a1[141].u32[1];
-      v46 = a1[1361].u32[1];
-      v48 = a1[86].u32[1];
-    }
-
-    else
-    {
-      v49 = a1[1348].u8[0];
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d usageMode %d RealTime %d bRCModeSet %d eRCMode %d", v7, 16);
-  }
-
-  if ((a1[140].i8[3] & 0x80) == 0 && a1[141].i32[1] == 8)
-  {
-    a1[1348].i8[0] = 0;
-  }
-
-  if (a1[1361].i32[1])
-  {
-    if ((a1[1348].i8[0] & 1) == 0)
-    {
-      a1[141].i32[1] = 1;
-    }
-
-    a1[1345].i8[4] = 1;
-    goto LABEL_58;
-  }
-
-  v11 = a1[1348].i8[0];
-  if (a1[86].i32[1] == 1)
-  {
-    if ((a1[1348].i8[0] & 1) == 0)
-    {
-      a1[141].i32[1] = 1;
-    }
-
-    a1[1345].i8[4] = 1;
-    a1[183].i32[0] = 0;
-    a1[86].i32[0] &= ~2u;
-    if (sub_160EF0(0xCu, 7))
-    {
-      v12 = sub_160F34(0xCu);
-      v13 = sub_175AE4();
-      v14 = sub_160F68(7);
-      if (v12)
-      {
-        printf("%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnWorkload\n", v13, 12, v14);
-        v15 = sub_175AE4();
-        v43 = sub_160F68(7);
-        syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnWorkload", v15, 12, v43);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnWorkload", v13, 12, v14);
-      }
-    }
-
-    v16 = vshr_n_u32(vadd_s32(a1[180], 0xF0000000FLL), 4uLL);
-    v17 = a1[139].i32[0] * v16.i32[1] * v16.i32[0];
-    if (v17 >= 0x13C681)
-    {
-      a1[86].i32[0] |= 0x100u;
-    }
-
-    v18 = (v16.i32[0] + 31) & 0x1FFFFFE0;
-    v19 = a1[167].i32[0];
-    if ((v19 & 0x40) != 0)
-    {
-      a1[86].i32[0] = a1[86].i32[0] & 0xFFFFFEFF | ((v17 > 0xAFC80) << 8);
-    }
-
-    if (v18 > 0x80 || v18 * v16.i32[1] >= 0x2D01)
-    {
-      v20 = (((v16.i32[0] + 1) >> 1) + 31) & 0x1FFFFFE0;
-      if (v20 > 0x80 || (v20 * ((v16.i32[1] + 1) >> 1) <= 0x2D00 ? (v21 = (v19 & 0x40) == 0) : (v21 = 1), v21))
-      {
-        v19 &= ~0x40u;
-      }
-
-      else
-      {
-        a1[86].i32[0] |= 0x100u;
-      }
-
-      a1[167].i32[0] = v19;
-    }
-  }
-
-  else if ((a1[1348].i8[0] & 1) == 0)
-  {
-    a1[141].i32[1] = 1;
-    a1[1345].i8[4] = 1;
-    a1[183].i32[0] = 0;
-  }
-
-  if (sub_160EF0(0xCu, 7))
-  {
-    v22 = sub_160F34(0xCu);
-    v23 = sub_175AE4();
-    v24 = sub_160F68(7);
-    if (v22)
-    {
-      printf("%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnBPP\n", v23, 12, v24);
-      v25 = sub_175AE4();
-      v44 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnBPP", v25, 12, v44);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_SetupFWRCSettingsBasedOnBPP", v23, 12, v24);
-    }
-  }
-
-  v26 = a1[180].i32[1] + 15;
-  v27 = a1[180].i32[0] + 15;
-  v28 = ((v27 & 0xFFFFFF0) * (v26 & 0xFFFFFFF0));
-  v29 = (v27 >> 4) * (v26 >> 4);
-  v30 = a1[139].i32[0];
-  v31 = v30 * v28;
-  if (v29 < 0xE11)
-  {
-    if (v30 <= 60 && v31 * 0.26 > a1[142].i32[0])
-    {
-      a1[167].i32[0] &= ~0x10u;
-    }
-
-    if (sub_160EF0(0xDCu, 7))
-    {
-      v33 = sub_160F34(0xDCu);
-      v34 = sub_175AE4();
-      v35 = sub_160F68(7);
-      v32 = v31 * 0.26;
-      goto LABEL_54;
-    }
-  }
-
-  else
-  {
-    v32 = v31 * 0.17;
-    if (v31 * 0.17 > a1[142].i32[0])
-    {
-      a1[167].i32[0] &= ~0x10u;
-    }
-
-    if (sub_160EF0(0xDCu, 7))
-    {
-      v33 = sub_160F34(0xDCu);
-      v34 = sub_175AE4();
-      v35 = sub_160F68(7);
-LABEL_54:
-      v36 = a1[142].u32[0];
-      if (v33)
-      {
-        printf("%lld %d AVE %s: BPP: BPP %f, BPP Scaled %f, iBitrate %d, AVE_QPMOD_FEATURE_FLAT_AREA %d\n", v34, 220, v35, v31, v32, a1[142].i32[0], a1[167].i32[0] & 0x10);
-        sub_175AE4();
-        sub_160F68(7);
-        v37 = a1[167].i32[0] & 0x10;
-      }
-
-      v47 = a1[142].u32[0];
-      syslog(3, "%lld %d AVE %s: BPP: BPP %f, BPP Scaled %f, iBitrate %d, AVE_QPMOD_FEATURE_FLAT_AREA %d");
-    }
-  }
-
-LABEL_58:
-  if (sub_160EF0(0xCu, 7))
-  {
-    v38 = sub_160F34(0xCu);
-    v39 = sub_175AE4();
-    v40 = sub_160F68(7);
-    if (v38)
-    {
-      printf("%lld %d AVE %s: %s Exit %p\n", v39, 12, v40, "AVE_EnableH264FWRCSettings", a1);
-      v41 = sub_175AE4();
-      v45 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p", v41, 12, v45, "AVE_EnableH264FWRCSettings", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p", v39, 12, v40, "AVE_EnableH264FWRCSettings", a1);
-    }
-  }
-}
-
-uint64_t sub_FA1D4(int32x2_t *a1)
-{
-  v2 = sub_1502C8();
-  v3 = v2[221];
-  if (v3 <= 3)
-  {
-    a1[157].i32[0] = v3;
-  }
-
-  v4 = v2[220];
-  if ((v4 & 0x80000000) == 0)
-  {
-    a1[156].i32[1] = v4;
-  }
-
-  v5 = v2[223];
-  if (v5 >= 1)
-  {
-    a1[161].i32[0] = v5;
-  }
-
-  v6 = v2[232];
-  if (v6 >= 1)
-  {
-    a1[163].i32[1] = v6;
-  }
-
-  v7 = v2[233];
-  if (v7 >= 1)
-  {
-    a1[164].i32[0] = v7;
-  }
-
-  v8 = a1[1501].i32[0];
-  if (sub_160EF0(0x10u, 6))
-  {
-    v9 = sub_160F34(0x10u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(6);
-    if (v9)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %d\n", v10, 16, v11, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", a1, v8);
-      v12 = sub_175AE4();
-      v85 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d", v12, 16, v85, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", a1, v8);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d", v10, 16, v11, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", a1, v8);
-    }
-  }
-
-  v13 = a1 + 2057;
-  sub_F9BA8(a1);
-  v14 = a1[167].i32[0];
-  if ((v14 & 0x40) != 0)
-  {
-    v15 = a1[180].i32[0] >> 4;
-    v16 = a1[180].i32[1] >> 4;
-    v17 = (v15 + 31) & 0x1FFFFFE0;
-    if (v17 > 0x80 || v17 * v16 >= 0x2D01)
-    {
-      v18 = (((v15 + 1) >> 1) + 31) & 0x1FFFFFE0;
-      if (v18 > 0x80 || v18 * ((v16 + 1) >> 1) >= 0x2D01)
-      {
-        a1[167].i32[0] = v14 & 0xFFFFFFBF;
-      }
-    }
-  }
-
-  if (v8 > 7)
-  {
-    if ((v8 - 8) > 1)
-    {
-LABEL_25:
-      if (sub_160EF0(3u, 4))
-      {
-        v19 = sub_160F34(3u);
-        v20 = sub_175AE4();
-        v21 = sub_160F68(4);
-        if (v19)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: profile not understood\n", v20, 3, v21, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3632, "false");
-          sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: profile not understood");
-      }
-
-      goto LABEL_109;
-    }
-
-LABEL_29:
-    if (v13->i32[0] == 2)
-    {
-      goto LABEL_43;
-    }
-
-    if (sub_160EF0(0x1Eu, 6))
-    {
-      v22 = sub_160F34(0x1Eu);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(6);
-      v25 = v13->u32[0];
-      v26 = a1[1716].i32[1];
-      if (v22)
-      {
-        printf("%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d\n", v23, 30, v24, v13->i32[0], v26);
-        v27 = sub_175AE4();
-        v28 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v27, 30, v28, v13->i32[0], a1[1716].i32[1]);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v23, 30, v24, v13->i32[0], v26);
-      }
-    }
-
-    if (v13->i32[0])
-    {
-LABEL_43:
-      a1[1716].i32[1] = 1;
-    }
-
-    else
-    {
-      a1[1716].i32[1] = 0;
-    }
-
-    a1[1725].i8[7] = 1;
-    a1[1272].i32[0] = 2;
-    if (a1[157].i32[0] < 1)
-    {
-      a1[157] = 0x100000000;
-      a1[161].i32[0] = 1;
-      a1[155].i32[0] &= ~0x400u;
-      if (sub_160EF0(0x1Eu, 6))
-      {
-        v47 = sub_160F34(0x1Eu);
-        v48 = sub_175AE4();
-        v49 = sub_160F68(6);
-        if (v47)
-        {
-          printf("%lld %d AVE %s: FIG: FIGAllowFrameReordering OFF\n", v48, 30, v49);
-          sub_175AE4();
-          sub_160F68(6);
-        }
-
-        syslog(3, "%lld %d AVE %s: FIG: FIGAllowFrameReordering OFF");
-      }
-    }
-
-    else
-    {
-      if (a1[141].i32[1] != 20)
-      {
-        a1[1345].i8[4] = 1;
-      }
-
-      if (sub_160EF0(0x1Eu, 6))
-      {
-        v43 = sub_160F34(0x1Eu);
-        v44 = sub_175AE4();
-        v45 = sub_160F68(6);
-        v46 = a1[157].u32[0];
-        if (v43)
-        {
-          printf("%lld %d AVE %s: %s:%d AllowFrameReordering ON -> B will be = %d (NumberOfBFrames %d)\n", v44, 30, v45, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3512, a1[157].i32[0], a1[2236].i32[1]);
-          v44 = sub_175AE4();
-          v45 = sub_160F68(6);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d AllowFrameReordering ON -> B will be = %d (NumberOfBFrames %d)", v44, 30, v45, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3512, a1[157].u32[0], a1[2236].u32[1]);
-      }
-    }
-
-    if (a1[162].i8[0])
-    {
-      if (sub_160EF0(3u, 4))
-      {
-        v50 = sub_160F34(3u);
-        v51 = sub_175AE4();
-        v52 = sub_160F68(4);
-        if (!v50)
-        {
-          goto LABEL_87;
-        }
-
-        v53 = 3530;
-        goto LABEL_86;
-      }
-
-      goto LABEL_109;
-    }
-
-    goto LABEL_95;
-  }
-
-  if (v8 == 2)
-  {
-    if (v13->i32[0] != 2)
-    {
-      if (sub_160EF0(0x1Eu, 6))
-      {
-        v29 = sub_160F34(0x1Eu);
-        v30 = sub_175AE4();
-        v31 = sub_160F68(6);
-        v32 = v13->u32[0];
-        v33 = a1[1716].i32[1];
-        if (v29)
-        {
-          printf("%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d\n", v30, 30, v31, v13->i32[0], v33);
-          v34 = sub_175AE4();
-          v35 = sub_160F68(6);
-          syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v34, 30, v35, v13->i32[0], a1[1716].i32[1]);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v30, 30, v31, v13->i32[0], v33);
-        }
-      }
-
-      if (v13->i32[0] == 1 && sub_160EF0(0x1Eu, 4))
-      {
-        v54 = sub_160F34(0x1Eu);
-        v55 = sub_175AE4();
-        v56 = sub_160F68(4);
-        if (v54)
-        {
-          printf("%lld %d AVE %s: FIG: SetProperty kVTCompressionPropertyKey_H264EntropyMode = CABAC and baseline profile. out of spec. set entropy to CAVLC\n", v55, 30, v56);
-          v57 = sub_175AE4();
-          v86 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: FIG: SetProperty kVTCompressionPropertyKey_H264EntropyMode = CABAC and baseline profile. out of spec. set entropy to CAVLC", v57, 30, v86);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: FIG: SetProperty kVTCompressionPropertyKey_H264EntropyMode = CABAC and baseline profile. out of spec. set entropy to CAVLC", v55, 30, v56);
-        }
-      }
-    }
-
-    a1[1716].i32[1] = 0;
-    a1[1725].i8[7] = 0;
-    a1[1272].i32[0] = 0;
-    a1[157] = 0x100000000;
-    a1[161].i32[0] = 1;
-    a1[155].i32[0] &= ~0x400u;
-    if (v13->i32[0] == 1)
-    {
-      if (sub_160EF0(0x1Eu, 4))
-      {
-        v66 = sub_160F34(0x1Eu);
-        v67 = sub_175AE4();
-        v68 = sub_160F68(4);
-        if (v66)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | profile %d but CABAC is on\n", v67, 30, v68, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3622, "pINS->FIGEntropyMode != EntropyModeCABAC", 2);
-          v67 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | profile %d but CABAC is on", v67);
-      }
-
-      goto LABEL_109;
-    }
-
-    if (a1[162].i8[0])
-    {
-      if (sub_160EF0(0x1Eu, 4))
-      {
-        v74 = sub_160F34(0x1Eu);
-        v75 = sub_175AE4();
-        v76 = sub_160F68(4);
-        if (v74)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | profile %d but bWeightedPrediction is on\n", v75, 30, v76, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3625, "(pINS->sSessionCfg.sEnc.sAlgCfg.sRef.iFeature & (1U<<0)) == 0", 2);
-          v75 = sub_175AE4();
-          sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | profile %d but bWeightedPrediction is on", v75);
-      }
-
-      goto LABEL_109;
-    }
-
-    goto LABEL_95;
-  }
-
-  if (v8 != 4)
-  {
-    if (v8 != 6)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_29;
-  }
-
-  if (v13->i32[0] == 2)
-  {
-    goto LABEL_69;
-  }
-
-  if (sub_160EF0(0x1Eu, 6))
-  {
-    v36 = sub_160F34(0x1Eu);
-    v37 = sub_175AE4();
-    v38 = sub_160F68(6);
-    v39 = v13->u32[0];
-    v40 = a1[1716].i32[1];
-    if (v36)
-    {
-      printf("%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d\n", v37, 30, v38, v13->i32[0], v40);
-      v41 = sub_175AE4();
-      v42 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v41, 30, v42, v13->i32[0], a1[1716].i32[1]);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: FIG: FIGEntropyMode = %d -> change the default %d", v37, 30, v38, v13->i32[0], v40);
-    }
-  }
-
-  if (v13->i32[0])
-  {
-LABEL_69:
-    a1[1716].i32[1] = 1;
-  }
-
-  else
-  {
-    a1[1716].i32[1] = 0;
-  }
-
-  a1[1725].i8[7] = 0;
-  a1[1272].i32[0] = 0;
-  if (a1[157].i32[0] < 1)
-  {
-    a1[157] = 0x100000000;
-    a1[161].i32[0] = 1;
-    a1[155].i32[0] &= ~0x400u;
-    if (sub_160EF0(0x1Eu, 6))
-    {
-      v62 = sub_160F34(0x1Eu);
-      v63 = sub_175AE4();
-      v64 = sub_160F68(6);
-      if (v62)
-      {
-        printf("%lld %d AVE %s: FIG: FIGAllowFrameReordering OFF\n", v63, 30, v64);
-        sub_175AE4();
-        sub_160F68(6);
-      }
-
-      syslog(3, "%lld %d AVE %s: FIG: FIGAllowFrameReordering OFF");
-    }
-  }
-
-  else
-  {
-    if (a1[141].i32[1] != 20)
-    {
-      a1[1345].i8[4] = 1;
-    }
-
-    if (sub_160EF0(0x1Eu, 6))
-    {
-      v58 = sub_160F34(0x1Eu);
-      v59 = sub_175AE4();
-      v60 = sub_160F68(6);
-      v61 = a1[157].u32[0];
-      if (v58)
-      {
-        printf("%lld %d AVE %s: %s:%d AllowFrameReordering ON -> B will be = %d (NumberOfBFrames %d)\n", v59, 30, v60, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3580, a1[157].i32[0], a1[2236].i32[1]);
-        v59 = sub_175AE4();
-        v60 = sub_160F68(6);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d AllowFrameReordering ON -> B will be = %d (NumberOfBFrames %d)", v59, 30, v60, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", 3580, a1[157].u32[0], a1[2236].u32[1]);
-    }
-  }
-
-  if (a1[162].i8[0])
-  {
-    if (sub_160EF0(3u, 4))
-    {
-      v65 = sub_160F34(3u);
-      v51 = sub_175AE4();
-      v52 = sub_160F68(4);
-      if (!v65)
-      {
-LABEL_87:
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: bWeightedPredictionis true and usage is default. not yet supported...");
-        goto LABEL_109;
-      }
-
-      v53 = 3597;
-LABEL_86:
-      printf("%lld %d AVE %s: %s:%d %s | FIG: bWeightedPredictionis true and usage is default. not yet supported...\n", v51, 3, v52, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", v53, "false");
-      sub_175AE4();
-      sub_160F68(4);
-      goto LABEL_87;
-    }
-
-LABEL_109:
-    v71 = 0;
-    v73 = -12902;
-    goto LABEL_110;
-  }
-
-LABEL_95:
-  if (a1[141].i32[1] == 3)
-  {
-    v69 = 0;
-    v70 = 0;
-    a1[1345].i8[4] = 1;
-    a1[183].i32[0] = 0;
-    if (a1[1344].i32[0] == 2)
-    {
-      v70 = a1[167].i32[0] & 0xFFFF7FAF;
-      v69 = a1[169].i32[0] & 0x1E;
-    }
-
-    a1[167].i32[0] = v70;
-    a1[169].i32[0] = v69;
-  }
-
-  v71 = 1;
-  if (a1[1507].i8[4] != 1)
-  {
-    goto LABEL_102;
-  }
-
-  a1[141].i32[1] = 3;
-  a1[1345].i8[4] = 1;
-  a1[183].i32[0] = 0;
-  a1[169].i32[0] = 0;
-  a1[155].i32[0] &= ~0x400u;
-  v72 = -6 * a1[1506].i32[1];
-  a1[168].i32[1] = v72;
-  a1[168].i32[0] = v72;
-  a1[154].i32[1] = v72;
-  a1[154].i32[0] = v72;
-  a1[144].i32[0] = v72;
-  a1[143].i32[1] = v72;
-  a1[143].i32[0] = v72;
-  a1[1501].i32[0] = 9;
-  a1[1504].i32[1] = 17;
-  a1[1716].i32[1] = 0;
-  a1[167].i32[0] = 0;
-  a1[1325].i32[1] = 0;
-  if (a1[9].i32[1] >= 30)
-  {
-    v73 = 0;
-    a1[1271].i8[2] = 1;
-  }
-
-  else
-  {
-LABEL_102:
-    v73 = 0;
-  }
-
-LABEL_110:
-  if (sub_160EF0(0x10u, 6))
-  {
-    v77 = sub_160F34(0x10u);
-    v78 = sub_175AE4();
-    v79 = sub_160F68(6);
-    if (v77)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d %d\n", v78, 16, v79, "AVE_H264NewDefaultsBasedOnProfileUsageDefault", a1, v8, v73);
-      v78 = sub_175AE4();
-      sub_160F68(6);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %p %d %d", v78);
-  }
-
-  if (v71)
-  {
-    return 0;
-  }
-
-  if (sub_160EF0(3u, 4))
-  {
-    v81 = sub_160F34(3u);
-    v82 = sub_175AE4();
-    v83 = sub_160F68(4);
-    if (v81)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_H264NewDefaultsBasedOnProfileUsageDefault failed\n", v82, 3, v83, "AVE_NewDefaultsBasedOnProfileUsageDefault", 3736, "err == noErr");
-      v84 = sub_175AE4();
-      v87 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264NewDefaultsBasedOnProfileUsageDefault failed", v84, 3, v87, "AVE_NewDefaultsBasedOnProfileUsageDefault", 3736, "err == noErr");
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264NewDefaultsBasedOnProfileUsageDefault failed", v82, 3, v83, "AVE_NewDefaultsBasedOnProfileUsageDefault", 3736, "err == noErr");
-    }
-  }
-
-  return 4294954394;
-}
-
-void H264H9EncoderRegister()
-{
-  v0 = sub_15B650();
-  if (!v0)
-  {
-    Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    if (Mutable)
-    {
-      v2 = Mutable;
-      CFDictionaryAddValue(Mutable, kVTVideoEncoder_IsHardwareAccelerated, kCFBooleanTrue);
-      CFDictionaryAddValue(v2, kVTVideoEncoder_IsParavirtualizationAware, kCFBooleanTrue);
-      CFDictionaryAddValue(v2, @"CMClassImplementationID", @"com.apple.videotoolbox.videoencoder.h264");
-      v0 = VTRegisterVideoEncoderWithInfo();
-      CFRelease(v2);
-    }
-
-    else
-    {
-      v0 = 0;
-    }
-  }
-
-  if (sub_160EF0(2u, 5))
-  {
-    v3 = sub_160F34(2u);
-    v4 = sub_175AE4();
-    v5 = sub_160F68(5);
-    if (v3)
-    {
-      printf("%lld %d AVE %s: Register AVC video encoder of AVE %d\n", v4, 2, v5, v0);
-      v6 = sub_175AE4();
-      v7 = sub_160F68(5);
-      syslog(3, "%lld %d AVE %s: Register AVC video encoder of AVE %d", v6, 2, v7, v0);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: Register AVC video encoder of AVE %d", v4, 2, v5, v0);
-    }
-  }
-}
-
-int *sub_FB0C8(int a1, int a2, int a3, int a4, uint64_t a5)
-{
+  v6 = a4;
   result = sub_17004C(a1, a2, a3);
   if (result)
   {
-    result = sub_162230(result, a4, a5);
+    result = sub_162230(result, v6, a5);
     if (result)
     {
       return *result;
@@ -1172,8 +14,11 @@ int *sub_FB0C8(int a1, int a2, int a3, int a4, uint64_t a5)
   return result;
 }
 
-uint64_t sub_FB108(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, uint64_t a11, int a12, int a13)
+uint64_t sub_FB108(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, int a9, int a10, uint64_t a11, int a12, int a13)
 {
+  v14 = a7;
+  v15 = a6;
+  v31 = a5;
   if (a1)
   {
     v20 = a13;
@@ -1286,7 +131,7 @@ uint64_t sub_FB108(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6
     v24 = sub_160F68(8);
     if (v23)
     {
-      printf("%lld %d AVE %s: %s:%d %d %d %d %d | %d %d %d | %d %d %d %lld | %d %d | %d %d\n", v28, 16, v24, "AVE_Enc_DecideThroughputMode", 332, a1, a2, v30, a4, a5, a6, a7, a8, a9, a10, a11, a12, v20, v21, v22);
+      printf("%lld %d AVE %s: %s:%d %d %d %d %d | %d %d %d | %d %d %d %lld | %d %d | %d %d\n", v28, 16, v24, "AVE_Enc_DecideThroughputMode", 332, a1, a2, v30, a4, v31, v15, v14, a8, a9, a10, a11, a12, v20, v21, v22);
       v29 = sub_175AE4();
       v27 = sub_160F68(8);
       syslog(3, "%lld %d AVE %s: %s:%d %d %d %d %d | %d %d %d | %d %d %d %lld | %d %d | %d %d", v29, 16, v27, "AVE_Enc_DecideThroughputMode", 332, a1, a2, v30);
@@ -1520,8 +365,8 @@ uint64_t sub_FB84C(uint64_t a1, double a2)
     {
       printf("%lld %d AVE %s: %s Enter %f %p\n", v5, 12, v6, "AVE_HEVC_SetCQFactor", a2, a1);
       v7 = sub_175AE4();
-      v19 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v7, 12, v19, "AVE_HEVC_SetCQFactor", a2, a1);
+      v18 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v7, 12, v18, "AVE_HEVC_SetCQFactor", a2, a1);
     }
 
     else
@@ -1544,7 +389,6 @@ uint64_t sub_FB84C(uint64_t a1, double a2)
           printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]\n", v16, 12, v17, "AVE_HEVC_SetCQFactor", 243, "fCQFactor >= 0.0 && fCQFactor <= 1.0", a1, *(a1 + 56), a2);
           v16 = sub_175AE4();
           sub_160F68(4);
-          v18 = *(a1 + 56);
         }
 
         syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]", v16, 12);
@@ -1661,8 +505,8 @@ uint64_t sub_FBB5C(const void *a1, const __CFString *a2, const void *a3)
 
 uint64_t sub_FBE00(uint64_t a1)
 {
-  v38 = 0uLL;
-  v39 = 0;
+  v36 = 0uLL;
+  v37 = 0;
   v2 = sub_1502C8();
   if (sub_160EF0(0xCu, 6))
   {
@@ -1673,8 +517,8 @@ uint64_t sub_FBE00(uint64_t a1)
     {
       printf("%lld %d AVE %s: %s Enter %p\n", v4, 12, v5, "AVE_Session_HEVC_CreatePropertyDict", a1);
       v6 = sub_175AE4();
-      v34 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v6, 12, v34, "AVE_Session_HEVC_CreatePropertyDict", a1);
+      v32 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v6, 12, v32, "AVE_Session_HEVC_CreatePropertyDict", a1);
     }
 
     else
@@ -1701,7 +545,7 @@ uint64_t sub_FBE00(uint64_t a1)
     }
 
     v13 = 4294966295;
-    goto LABEL_39;
+    goto LABEL_37;
   }
 
   v7 = 0;
@@ -1725,7 +569,7 @@ uint64_t sub_FBE00(uint64_t a1)
     v9 = v2[396] ? 1 : 2;
     v10 = v9 | v8;
     Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    *(&v38 + v7) = Mutable;
+    *(&v36 + v7) = Mutable;
     if (!Mutable)
     {
       break;
@@ -1737,32 +581,33 @@ uint64_t sub_FBE00(uint64_t a1)
       v13 = v12;
       if (sub_160EF0(0xCu, 4))
       {
-        v22 = sub_160F34(0xCu);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        v25 = *(a1 + 68);
-        if (v22)
+        v21 = sub_160F34(0xCu);
+        v22 = sub_175AE4();
+        v23 = sub_160F68(4);
+        if (v21)
         {
-          printf("%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d\n", v23, 12, v24, "AVE_Session_HEVC_CreatePropertyDict", 329, "ret == 0", a1, *(a1 + 56), v10, *(a1 + 68), v13);
-          v23 = sub_175AE4();
-          v24 = sub_160F68(4);
-          v26 = *(a1 + 56);
+          printf("%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d\n", v22, 12, v23, "AVE_Session_HEVC_CreatePropertyDict", 329, "ret == 0", a1, *(a1 + 56), v10, *(a1 + 68), v13);
+          v24 = sub_175AE4();
+          v34 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v24, 12, v34, "AVE_Session_HEVC_CreatePropertyDict");
         }
 
-        v37 = *(a1 + 68);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v23, 12, v24, "AVE_Session_HEVC_CreatePropertyDict");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v22, 12, v23, "AVE_Session_HEVC_CreatePropertyDict");
+        }
       }
 
-      goto LABEL_35;
+      goto LABEL_33;
     }
 
 LABEL_16:
     if (++v7 == 3)
     {
       v13 = 0;
-      *(a1 + 80) = v38;
-      *(a1 + 96) = v39;
-      goto LABEL_39;
+      *(a1 + 80) = v36;
+      *(a1 + 96) = v37;
+      goto LABEL_37;
     }
   }
 
@@ -1771,48 +616,49 @@ LABEL_16:
     v17 = sub_160F34(0xCu);
     v18 = sub_175AE4();
     v19 = sub_160F68(4);
-    v20 = *(a1 + 68);
     if (v17)
     {
       printf("%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d\n", v18, 12, v19, "AVE_Session_HEVC_CreatePropertyDict", 324, "paDict[i] != __null", a1, *(a1 + 56), v10, *(a1 + 68), 0);
-      v18 = sub_175AE4();
-      v19 = sub_160F68(4);
-      v21 = *(a1 + 56);
-    }
-
-    v36 = *(a1 + 68);
-    syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v18, 12, v19, "AVE_Session_HEVC_CreatePropertyDict");
-  }
-
-  v13 = 4294966293;
-LABEL_35:
-  for (i = 0; i != 24; i += 8)
-  {
-    v28 = *(&v38 + i);
-    if (v28)
-    {
-      CFRelease(v28);
-      *(&v38 + i) = 0;
-    }
-  }
-
-LABEL_39:
-  if (sub_160EF0(0xCu, 6))
-  {
-    v29 = sub_160F34(0xCu);
-    v30 = sub_175AE4();
-    v31 = sub_160F68(6);
-    if (v29)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v30, 12, v31, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
-      v32 = sub_175AE4();
-      v35 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v32, 12, v35, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
+      v20 = sub_175AE4();
+      v33 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v20, 12, v33, "AVE_Session_HEVC_CreatePropertyDict");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v30, 12, v31, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v18, 12, v19, "AVE_Session_HEVC_CreatePropertyDict");
+    }
+  }
+
+  v13 = 4294966293;
+LABEL_33:
+  for (i = 0; i != 24; i += 8)
+  {
+    v26 = *(&v36 + i);
+    if (v26)
+    {
+      CFRelease(v26);
+      *(&v36 + i) = 0;
+    }
+  }
+
+LABEL_37:
+  if (sub_160EF0(0xCu, 6))
+  {
+    v27 = sub_160F34(0xCu);
+    v28 = sub_175AE4();
+    v29 = sub_160F68(6);
+    if (v27)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v28, 12, v29, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
+      v30 = sub_175AE4();
+      v35 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v30, 12, v35, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v28, 12, v29, "AVE_Session_HEVC_CreatePropertyDict", a1, v13);
     }
   }
 
@@ -1914,8 +760,8 @@ uint64_t sub_FC5F0(uint64_t a1)
     {
       printf("%lld %d AVE %s: %s Enter %p\n", v3, 12, v4, "AVE_Session_HEVC_Destroy", a1);
       v5 = sub_175AE4();
-      v46 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v46, "AVE_Session_HEVC_Destroy", a1);
+      v42 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v42, "AVE_Session_HEVC_Destroy", a1);
     }
 
     else
@@ -1931,8 +777,8 @@ uint64_t sub_FC5F0(uint64_t a1)
     sub_140028(v6, 1u, v7);
     if (*(a1 + 104644) == 30568)
     {
-      v48 = sub_175AE4();
-      sub_12C9EC(*(a1 + 120), &v48, 0);
+      v44 = sub_175AE4();
+      sub_12C9EC(*(a1 + 120), &v44, 0);
     }
 
     if (sub_160EF0(2u, 0))
@@ -1951,10 +797,6 @@ uint64_t sub_FC5F0(uint64_t a1)
         printf("%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld\n", v9, 2, v10, v11, v12, v13, v14, v15, v16);
         v9 = sub_175AE4();
         v10 = sub_160F68(0);
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 64);
-        v19 = *(a1 + 10772);
-        v20 = *(a1 + 104648);
         sub_129124(*(a1 + 120));
         sub_129148(*(a1 + 120));
       }
@@ -1962,104 +804,104 @@ uint64_t sub_FC5F0(uint64_t a1)
       syslog(3, "%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld", v9, 2, v10);
     }
 
-    v24 = sub_12916C(*(a1 + 120));
+    v20 = sub_12916C(*(a1 + 120));
     *(a1 + 120) = 0;
-    v25 = *(a1 + 104712);
-    v26 = sub_175AE4();
-    sub_1403FC(v25, 1u, v26);
+    v21 = *(a1 + 104712);
+    v22 = sub_175AE4();
+    sub_1403FC(v21, 1u, v22);
     sub_1407CC(*(a1 + 104712));
     sub_140BA4(*(a1 + 104712), 16, 6, 0, 0);
     sub_151B10();
-    v27 = *(a1 + 104704);
-    if (v27)
+    v23 = *(a1 + 104704);
+    if (v23)
     {
-      sub_153A34(v27);
+      sub_153A34(v23);
       operator delete();
     }
 
-    v28 = *(a1 + 104712);
-    if (v28)
+    v24 = *(a1 + 104712);
+    if (v24)
     {
-      sub_13FB64(v28);
+      sub_13FB64(v24);
       *(a1 + 104712) = 0;
     }
 
-    v29 = *(a1 + 104720);
-    if (v29)
+    v25 = *(a1 + 104720);
+    if (v25)
     {
-      sub_CCDA4(v29);
+      sub_CCDA4(v25);
       sub_CC04C(*(a1 + 104720));
       *(a1 + 104720) = 0;
     }
 
-    v30 = *(a1 + 104728);
-    if (v30)
+    v26 = *(a1 + 104728);
+    if (v26)
     {
-      sub_D7B88(v30);
+      sub_D7B88(v26);
       operator delete();
     }
 
-    v31 = *(a1 + 104736);
-    if (v31)
+    v27 = *(a1 + 104736);
+    if (v27)
     {
-      sub_16934(v31);
+      sub_16934(v27);
       operator delete();
     }
 
-    v32 = *(a1 + 104656);
-    if (v32)
+    v28 = *(a1 + 104656);
+    if (v28)
     {
-      CFRelease(v32);
+      CFRelease(v28);
       *(a1 + 104656) = 0;
     }
 
-    v33 = 0;
-    v34 = a1 + 80;
+    v29 = 0;
+    v30 = a1 + 80;
     do
     {
-      v35 = *(v34 + v33);
-      if (v35)
+      v31 = *(v30 + v29);
+      if (v31)
       {
-        CFRelease(v35);
-        *(v34 + v33) = 0;
+        CFRelease(v31);
+        *(v30 + v29) = 0;
       }
 
-      v33 += 8;
+      v29 += 8;
     }
 
-    while (v33 != 24);
-    v36 = *(a1 + 104);
-    if (v36)
+    while (v29 != 24);
+    v32 = *(a1 + 104);
+    if (v32)
     {
-      CFRelease(v36);
+      CFRelease(v32);
       *(a1 + 104) = 0;
     }
 
-    v37 = *(a1 + 107992);
-    if (v37)
+    v33 = *(a1 + 107992);
+    if (v33)
     {
-      CFRelease(v37);
+      CFRelease(v33);
       *(a1 + 107992) = 0;
     }
 
-    v38 = *(a1 + 112);
-    if (v38)
+    v34 = *(a1 + 112);
+    if (v34)
     {
-      CFRelease(v38);
+      CFRelease(v34);
       *(a1 + 112) = 0;
     }
 
-    v39 = *(a1 + 104768);
-    if (v39)
+    v35 = *(a1 + 104768);
+    if (v35)
     {
-      CFRelease(v39);
+      CFRelease(v35);
       *(a1 + 104768) = 0;
     }
 
-    v40 = *(a1 + 104776);
-    if (v40)
+    v36 = *(a1 + 104776);
+    if (v36)
     {
-      CFRelease(v40);
+      CFRelease(v36);
       *(a1 + 104776) = 0;
     }
 
@@ -2070,46 +912,46 @@ uint64_t sub_FC5F0(uint64_t a1)
   {
     if (sub_160EF0(0xCu, 4))
     {
-      v21 = sub_160F34(0xCu);
-      v22 = sub_175AE4();
-      v23 = sub_160F68(4);
-      if (v21)
+      v17 = sub_160F34(0xCu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v22, 12, v23, "AVE_Session_HEVC_Destroy", 398, "pINS != __null", 0);
-        v22 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v18, 12, v19, "AVE_Session_HEVC_Destroy", 398, "pINS != __null", 0);
+        v18 = sub_175AE4();
         sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v22);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v18);
     }
 
     sub_151B10();
-    v24 = 4294966295;
+    v20 = 4294966295;
   }
 
   if (sub_160EF0(0xCu, 6))
   {
-    v41 = sub_160F34(0xCu);
-    v42 = sub_175AE4();
-    v43 = sub_160F68(6);
-    if (v41)
+    v37 = sub_160F34(0xCu);
+    v38 = sub_175AE4();
+    v39 = sub_160F68(6);
+    if (v37)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v42, 12, v43, "AVE_Session_HEVC_Destroy", a1, v24);
-      v44 = sub_175AE4();
-      v47 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v44, 12, v47, "AVE_Session_HEVC_Destroy", a1, v24);
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v38, 12, v39, "AVE_Session_HEVC_Destroy", a1, v20);
+      v40 = sub_175AE4();
+      v43 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v40, 12, v43, "AVE_Session_HEVC_Destroy", a1, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v42, 12, v43, "AVE_Session_HEVC_Destroy", a1, v24);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v38, 12, v39, "AVE_Session_HEVC_Destroy", a1, v20);
     }
   }
 
-  return v24;
+  return v20;
 }
 
-uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
+uint64_t sub_FCB00(uint64_t a1, _DWORD *a2)
 {
   v4 = sub_1502C8();
   if (sub_160EF0(0xCu, 6))
@@ -2121,8 +963,8 @@ uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
     {
       printf("%lld %d AVE %s: %s Enter %p %p\n", v6, 12, v7, "AVE_Session_HEVC_StartSession", a1, a2);
       v8 = sub_175AE4();
-      v60 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 12, v60, "AVE_Session_HEVC_StartSession", a1, a2);
+      v48 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 12, v48, "AVE_Session_HEVC_StartSession", a1, a2);
     }
 
     else
@@ -2137,26 +979,17 @@ uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
     {
       if (sub_160EF0(0xCu, 4))
       {
-        v23 = sub_160F34(0xCu);
+        v19 = sub_160F34(0xCu);
         v14 = sub_175AE4();
         v15 = sub_160F68(4);
-        v24 = *a2;
-        if (v23)
+        if (v19)
         {
           printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_HEVC_StartSession", 6820, "pDim->iWidth > 0 && pDim->iHeight > 0", a1, *(a1 + 56), *a2, a2[1]);
           v14 = sub_175AE4();
           v15 = sub_160F68(4);
-          v25 = *(a1 + 56);
-          v26 = *a2;
-          v27 = a2[1];
         }
 
-        else
-        {
-          v67 = *a2;
-        }
-
-        goto LABEL_30;
+        goto LABEL_29;
       }
     }
 
@@ -2176,35 +1009,35 @@ uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
       if (!sub_14E248(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), 0))
       {
         sub_FD844(a1);
-        v29 = *(a1 + 24732) + 8;
-        if (v29 <= *(a1 + 24736) + 8)
+        v21 = *(a1 + 24732) + 8;
+        if (v21 <= *(a1 + 24736) + 8)
         {
-          v29 = *(a1 + 24736) + 8;
+          v21 = *(a1 + 24736) + 8;
         }
 
-        if (sub_DDADC(*(a1 + 68), *(a1 + 64), 62, 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v29, 0, 0x414C4C20u, *(a1 + 16)))
+        if (sub_DDADC(*(a1 + 68), *(a1 + 64), 62, 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v21, 0, 0x1414C4C20, *(a1 + 16)))
         {
           if (sub_160EF0(0x1Eu, 4))
           {
-            v30 = sub_160F34(0x1Eu);
-            v31 = sub_175AE4();
-            v32 = sub_160F68(4);
-            if (v30)
+            v22 = sub_160F34(0x1Eu);
+            v23 = sub_175AE4();
+            v24 = sub_160F68(4);
+            if (v22)
             {
-              printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.\n", v31, 30, v32, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
-              v33 = sub_175AE4();
-              v61 = sub_160F68(4);
-              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v33, 30, v61, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.\n", v23, 30, v24, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              v25 = sub_175AE4();
+              v49 = sub_160F68(4);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v25, 30, v49, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
             }
 
             else
             {
-              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v31, 30, v32, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
+              syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v23, 30, v24, "AVE_Session_HEVC_StartSession", 6857, "ret == 0");
             }
           }
 
-          v28 = 4294954394;
-          goto LABEL_32;
+          v20 = 4294954394;
+          goto LABEL_31;
         }
 
         *(a1 + 104644) = 30566;
@@ -2216,15 +1049,15 @@ uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
         *(a1 + 108024) = 0u;
         if (*(a1 + 1112) >= 1)
         {
-          v41 = *(a1 + 1112);
+          v33 = *(a1 + 1112);
         }
 
         else
         {
-          v41 = 30;
+          v33 = 30;
         }
 
-        sub_153F28(*(a1 + 104704), v41, 0, 0);
+        sub_153F28(*(a1 + 104704), v33, 0, 0);
         *(a1 + 712) = v4[103];
         if (*(a1 + 10892) == 1)
         {
@@ -2233,112 +1066,109 @@ uint64_t sub_FCB00(uint64_t a1, unsigned int *a2)
 
         if (*(a1 + 16) == 1)
         {
-          v42 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v42 = 3;
+          v34 = 3;
         }
 
-        v43 = sub_16960(*(a1 + 104736), *(a1 + 56), 0, 0, 2, v42);
-        if (v43)
+        v35 = sub_16960(*(a1 + 104736), *(a1 + 56), 0, 0, 2, v34);
+        if (v35)
         {
-          v28 = v43;
+          v20 = v35;
           if (!sub_160EF0(0xCu, 4))
           {
-            goto LABEL_32;
+            goto LABEL_31;
           }
 
-          v44 = sub_160F34(0xCu);
-          v45 = sub_175AE4();
-          v46 = sub_160F68(4);
-          if (v44)
+          v36 = sub_160F34(0xCu);
+          v37 = sub_175AE4();
+          v38 = sub_160F68(4);
+          if (v36)
           {
-            printf("%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu\n", v45, 12, v46, "AVE_Session_HEVC_StartSession", 6904, "ret == 0", a1, *(a1 + 56));
-            v47 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu\n", v37, 12, v38, "AVE_Session_HEVC_StartSession", 6904, "ret == 0", a1, *(a1 + 56));
+            v39 = sub_175AE4();
             sub_160F68(4);
-            v48 = *(a1 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu", v47, 12);
-            goto LABEL_32;
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu", v39, 12);
+            goto LABEL_31;
           }
 
-          v64 = a1;
-          v65 = *(a1 + 56);
-          v63 = 6904;
-          v62 = v46;
-          v56 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
+          v53 = a1;
+          v54 = *(a1 + 56);
+          v52 = 6904;
+          v51 = v38;
+          v44 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
         }
 
         else
         {
-          v49 = sub_83F18(a1);
-          if (!v49)
+          v40 = sub_83F18(a1);
+          if (!v40)
           {
-            v57 = v4[30];
-            if (v57)
+            v45 = v4[30];
+            if (v45)
             {
-              *(a1 + 11468) = v57;
+              *(a1 + 11468) = v45;
             }
 
             for (i = 0; i != 72; i += 12)
             {
-              v59 = v4[i + 32];
-              if ((v59 & 0x80000000) == 0)
+              v47 = v4[i + 32];
+              if ((v47 & 0x80000000) == 0)
               {
-                *(a1 + 11476 + i * 4) = v59;
+                *(a1 + 11476 + i * 4) = v47;
               }
 
-              v28 = 0;
+              v20 = 0;
             }
 
-            goto LABEL_32;
+            goto LABEL_31;
           }
 
-          v28 = v49;
+          v20 = v40;
           if (!sub_160EF0(0xCu, 4))
           {
-LABEL_32:
-            v34 = *(a1 + 104712);
-            v35 = sub_175AE4();
-            sub_1403FC(v34, 3u, v35);
-            if (v28)
+LABEL_31:
+            v26 = *(a1 + 104712);
+            v27 = sub_175AE4();
+            sub_1403FC(v26, 3u, v27);
+            if (v20)
             {
-              v36 = *(a1 + 104728);
-              if (v36)
+              v28 = *(a1 + 104728);
+              if (v28)
               {
-                sub_D7B88(v36);
+                sub_D7B88(v28);
                 operator delete();
               }
             }
 
-            goto LABEL_35;
+            goto LABEL_34;
           }
 
-          v50 = sub_160F34(0xCu);
-          v45 = sub_175AE4();
-          v51 = sub_160F68(4);
-          v52 = *(a1 + 56);
-          if (v50)
+          v41 = sub_160F34(0xCu);
+          v37 = sub_175AE4();
+          v42 = sub_160F68(4);
+          if (v41)
           {
-            printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d\n", v45, 12, v51, "AVE_Session_HEVC_StartSession", 6912, "ret == 0", a1, *(a1 + 56), v28);
-            v53 = sub_175AE4();
-            v54 = sub_160F68(4);
-            v55 = *(a1 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d", v53, 12, v54);
-            goto LABEL_32;
+            printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d\n", v37, 12, v42, "AVE_Session_HEVC_StartSession", 6912, "ret == 0", a1, *(a1 + 56), v20);
+            v43 = sub_175AE4();
+            v50 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d", v43, 12, v50);
+            goto LABEL_31;
           }
 
-          v65 = *(a1 + 56);
-          v66 = v28;
-          v64 = a1;
-          v63 = 6912;
-          v62 = v51;
-          v56 = "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d";
+          v54 = *(a1 + 56);
+          v55 = v20;
+          v53 = a1;
+          v52 = 6912;
+          v51 = v42;
+          v44 = "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d";
         }
 
-        syslog(3, v56, v45, 12, v62, "AVE_Session_HEVC_StartSession", v63, "ret == 0", v64, v65, v66);
-        goto LABEL_32;
+        syslog(3, v44, v37, 12, v51, "AVE_Session_HEVC_StartSession", v52, "ret == 0", v53, v54, v55);
+        goto LABEL_31;
       }
 
       if (sub_160EF0(0xCu, 4))
@@ -2346,64 +1176,55 @@ LABEL_32:
         v13 = sub_160F34(0xCu);
         v14 = sub_175AE4();
         v15 = sub_160F68(4);
-        v16 = *(a1 + 1440);
         if (v13)
         {
           printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_HEVC_StartSession", 6839, "ret == 0", a1, *(a1 + 56), *(a1 + 1440), *(a1 + 1444));
           v14 = sub_175AE4();
           v15 = sub_160F68(4);
-          v17 = *(a1 + 56);
-          v18 = *(a1 + 1440);
-          v19 = *(a1 + 1444);
         }
 
-        else
-        {
-          v68 = *(a1 + 1440);
-        }
-
-LABEL_30:
+LABEL_29:
         syslog(3, "%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d", v14, 12, v15);
       }
     }
 
-    v28 = 4294965295;
-    goto LABEL_32;
+    v20 = 4294965295;
+    goto LABEL_31;
   }
 
   if (sub_160EF0(0xCu, 4))
   {
-    v20 = sub_160F34(0xCu);
-    v21 = sub_175AE4();
-    v22 = sub_160F68(4);
-    if (v20)
+    v16 = sub_160F34(0xCu);
+    v17 = sub_175AE4();
+    v18 = sub_160F68(4);
+    if (v16)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v21, 12, v22, "AVE_Session_HEVC_StartSession", 6816, "pINS != __null && pDim != __null", a1, a2);
-      v21 = sub_175AE4();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v17, 12, v18, "AVE_Session_HEVC_StartSession", 6816, "pINS != __null && pDim != __null", a1, a2);
+      v17 = sub_175AE4();
       sub_160F68(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v21, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v17, 12);
   }
 
-  v28 = 4294966295;
-LABEL_35:
+  v20 = 4294966295;
+LABEL_34:
   if (sub_160EF0(0xCu, 6))
   {
-    v37 = sub_160F34(0xCu);
-    v38 = sub_175AE4();
-    v39 = sub_160F68(6);
-    if (v37)
+    v29 = sub_160F34(0xCu);
+    v30 = sub_175AE4();
+    v31 = sub_160F68(6);
+    if (v29)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v38, 12, v39, "AVE_Session_HEVC_StartSession", a1, a2, v28);
-      v38 = sub_175AE4();
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v30, 12, v31, "AVE_Session_HEVC_StartSession", a1, a2, v20);
+      v30 = sub_175AE4();
       sub_160F68(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v38);
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v30);
   }
 
-  return v28;
+  return v20;
 }
 
 void sub_FD500(uint64_t a1)
@@ -2419,8 +1240,8 @@ void sub_FD500(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams\n", v5, 12, v6);
       v7 = sub_175AE4();
-      v31 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams", v7, 12, v31);
+      v29 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareCropParams", v7, 12, v29);
     }
 
     else
@@ -2479,8 +1300,8 @@ void sub_FD500(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: input -> %dx%d\n", v14, 16, v15, v9, v10);
       v16 = sub_175AE4();
-      v32 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: input -> %dx%d", v16, 16, v32, v9, v10);
+      v30 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: input -> %dx%d", v16, 16, v30, v9, v10);
     }
 
     else
@@ -2494,40 +1315,38 @@ void sub_FD500(uint64_t a1)
     v17 = sub_160F34(0x10u);
     v18 = sub_175AE4();
     v19 = sub_160F68(7);
-    v20 = *(a1 + 1440);
-    v21 = *(a1 + 1444);
+    v20 = *(a1 + 1444);
     if (v17)
     {
-      printf("%lld %d AVE %s: FIG: input multiple -> %dx%d\n", v18, 16, v19, *(a1 + 1440), v21);
-      v22 = sub_175AE4();
-      v23 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v22, 16, v23, *(a1 + 1440), *(a1 + 1444));
+      printf("%lld %d AVE %s: FIG: input multiple -> %dx%d\n", v18, 16, v19, *(a1 + 1440), v20);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v21, 16, v22, *(a1 + 1440), *(a1 + 1444));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v18, 16, v19, *(a1 + 1440), v21);
+      syslog(3, "%lld %d AVE %s: FIG: input multiple -> %dx%d", v18, 16, v19, *(a1 + 1440), v20);
     }
   }
 
   if (sub_160EF0(0x10u, 7))
   {
-    v24 = sub_160F34(0x10u);
-    v25 = sub_175AE4();
-    v26 = sub_160F68(7);
-    v27 = *(v3 + 16);
-    v28 = *(v3 + 8);
-    if (v24)
+    v23 = sub_160F34(0x10u);
+    v24 = sub_175AE4();
+    v25 = sub_160F68(7);
+    v26 = *(v3 + 8);
+    if (v23)
     {
-      printf("%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d\n", v25, 16, v26, *(v3 + 16), v28);
-      v29 = sub_175AE4();
-      v30 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v29, 16, v30, *(v3 + 16), *(v3 + 8));
+      printf("%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d\n", v24, 16, v25, *(v3 + 16), v26);
+      v27 = sub_175AE4();
+      v28 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v27, 16, v28, *(v3 + 16), *(v3 + 8));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v25, 16, v26, *(v3 + 16), v28);
+      syslog(3, "%lld %d AVE %s: FIG: frame_crop_bottom_offset %d frame_crop_right_offset %d", v24, 16, v25, *(v3 + 16), v26);
     }
   }
 }
@@ -2837,8 +1656,8 @@ uint64_t sub_FDFEC(uint64_t a1, int a2)
     {
       printf("%lld %d AVE %s: %s Enter %p 0x%x\n", v5, 12, v6, "AVE_Session_HEVC_BeginPass", a1, a2);
       v7 = sub_175AE4();
-      v39 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%x", v7, 12, v39, "AVE_Session_HEVC_BeginPass", a1, a2);
+      v37 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p 0x%x", v7, 12, v37, "AVE_Session_HEVC_BeginPass", a1, a2);
     }
 
     else
@@ -2854,19 +1673,18 @@ uint64_t sub_FDFEC(uint64_t a1, int a2)
       v8 = sub_160F34(0xD8u);
       v9 = sub_175AE4();
       v10 = sub_160F68(7);
-      v11 = *(a1 + 104664);
-      v12 = *(a1 + 104668);
+      v11 = *(a1 + 104668);
       if (v8)
       {
-        printf("%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)\n", v9, 216, v10, a2, *(a1 + 104664), v12);
-        v13 = sub_175AE4();
-        v14 = sub_160F68(7);
-        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v13, 216, v14, a2, *(a1 + 104664), *(a1 + 104668));
+        printf("%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)\n", v9, 216, v10, a2, *(a1 + 104664), v11);
+        v12 = sub_175AE4();
+        v13 = sub_160F68(7);
+        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v12, 216, v13, a2, *(a1 + 104664), *(a1 + 104668));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v9, 216, v10, a2, *(a1 + 104664), v12);
+        syslog(3, "%lld %d AVE %s: AVE FIG AVE_BeginPass called. beginPassFlags = %d (begin %d end %d)", v9, 216, v10, a2, *(a1 + 104664), v11);
       }
     }
 
@@ -2874,12 +1692,12 @@ uint64_t sub_FDFEC(uint64_t a1, int a2)
     {
       if (sub_160EF0(3u, 4))
       {
-        v23 = sub_160F34(3u);
-        v24 = sub_175AE4();
-        v25 = sub_160F68(4);
-        if (v23)
+        v22 = sub_160F34(3u);
+        v23 = sub_175AE4();
+        v24 = sub_160F68(4);
+        if (v22)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassStorage = NULL.\n", v24, 3, v25, "AVE_Session_HEVC_BeginPass", 7095, "pINS->multiPassStorage != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassStorage = NULL.\n", v23, 3, v24, "AVE_Session_HEVC_BeginPass", 7095, "pINS->multiPassStorage != __null");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -2890,54 +1708,50 @@ uint64_t sub_FDFEC(uint64_t a1, int a2)
       goto LABEL_40;
     }
 
-    v18 = *(a1 + 104664);
-    if (v18 != *(a1 + 104668))
+    v17 = *(a1 + 104664);
+    if (v17 != *(a1 + 104668))
     {
       if (sub_160EF0(3u, 4))
       {
-        v26 = sub_160F34(3u);
-        v27 = sub_175AE4();
-        v28 = sub_160F68(4);
-        v29 = *(a1 + 104664);
-        if (v26)
+        v25 = sub_160F34(3u);
+        v26 = sub_175AE4();
+        v27 = sub_160F68(4);
+        if (v25)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v27, 3, v28, "AVE_Session_HEVC_BeginPass", 7096, "pINS->multiPassBeginPassCounter == pINS->multiPassEndPassCounter", *(a1 + 104664), *(a1 + 104668));
-          v27 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v26, 3, v27, "AVE_Session_HEVC_BeginPass", 7096, "pINS->multiPassBeginPassCounter == pINS->multiPassEndPassCounter", *(a1 + 104664), *(a1 + 104668));
+          v26 = sub_175AE4();
           sub_160F68(4);
         }
 
-        v41 = *(a1 + 104664);
-        v42 = *(a1 + 104668);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v27);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v26);
       }
 
       goto LABEL_40;
     }
 
-    if (v18)
+    if (v17)
     {
-      v19 = v18 + 1;
-      *(a1 + 104664) = v19;
-      if (v19 >= 3)
+      v18 = v17 + 1;
+      *(a1 + 104664) = v18;
+      if (v18 >= 3)
       {
         if (sub_160EF0(3u, 4))
         {
-          v20 = sub_160F34(3u);
-          v21 = sub_175AE4();
-          v22 = sub_160F68(4);
-          if (v20)
+          v19 = sub_160F34(3u);
+          v20 = sub_175AE4();
+          v21 = sub_160F68(4);
+          if (v19)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d\n", v21, 3, v22, "AVE_Session_HEVC_BeginPass", 7105, "false", *(a1 + 104664));
-            v21 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d\n", v20, 3, v21, "AVE_Session_HEVC_BeginPass", 7105, "false", *(a1 + 104664));
+            v20 = sub_175AE4();
             sub_160F68(4);
           }
 
-          v40 = *(a1 + 104664);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d", v21);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pINS->multiPassBeginPassCounter reached max %d", v20);
         }
 
 LABEL_40:
-        v30 = 4294966296;
+        v28 = 4294966296;
         goto LABEL_41;
       }
     }
@@ -2948,12 +1762,12 @@ LABEL_40:
       {
         if (sub_160EF0(3u, 4))
         {
-          v31 = sub_160F34(3u);
-          v32 = sub_175AE4();
-          v33 = sub_160F68(4);
-          if (v31)
+          v29 = sub_160F34(3u);
+          v30 = sub_175AE4();
+          v31 = sub_160F68(4);
+          if (v29)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with SessionStatus == H3H264VideoEncoder_SessionStatus_Run\n", v32, 3, v33, "AVE_Session_HEVC_BeginPass", 7099, "pINS->SessionStatus != AVE_CommonWrapper_SessionStatus_Run");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_BeginPass called with SessionStatus == H3H264VideoEncoder_SessionStatus_Run\n", v30, 3, v31, "AVE_Session_HEVC_BeginPass", 7099, "pINS->SessionStatus != AVE_CommonWrapper_SessionStatus_Run");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -2967,48 +1781,48 @@ LABEL_40:
       *(a1 + 104664) = 1;
     }
 
-    v30 = 0;
+    v28 = 0;
     *(a1 + 104672) = a2;
     goto LABEL_41;
   }
 
   if (sub_160EF0(0xCu, 4))
   {
-    v15 = sub_160F34(0xCu);
-    v16 = sub_175AE4();
-    v17 = sub_160F68(4);
-    if (v15)
+    v14 = sub_160F34(0xCu);
+    v15 = sub_175AE4();
+    v16 = sub_160F68(4);
+    if (v14)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x\n", v16, 12, v17, "AVE_Session_HEVC_BeginPass", 7090, "pINS != __null", 0, a2);
-      v16 = sub_175AE4();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x\n", v15, 12, v16, "AVE_Session_HEVC_BeginPass", 7090, "pINS != __null", 0, a2);
+      v15 = sub_175AE4();
       sub_160F68(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x", v16, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p 0x%x", v15, 12);
   }
 
-  v30 = 4294966295;
+  v28 = 4294966295;
 LABEL_41:
   if (sub_160EF0(0xCu, 6))
   {
-    v34 = sub_160F34(0xCu);
-    v35 = sub_175AE4();
-    v36 = sub_160F68(6);
-    if (v34)
+    v32 = sub_160F34(0xCu);
+    v33 = sub_175AE4();
+    v34 = sub_160F68(6);
+    if (v32)
     {
-      printf("%lld %d AVE %s: %s Exit %p 0x%x %d\n", v35, 12, v36, "AVE_Session_HEVC_BeginPass", a1, a2, v30);
-      v37 = sub_175AE4();
+      printf("%lld %d AVE %s: %s Exit %p 0x%x %d\n", v33, 12, v34, "AVE_Session_HEVC_BeginPass", a1, a2, v28);
+      v35 = sub_175AE4();
       sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v37);
+      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v35);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v35);
+      syslog(3, "%lld %d AVE %s: %s Exit %p 0x%x %d", v33);
     }
   }
 
-  return v30;
+  return v28;
 }
 
 uint64_t sub_FE678(uint64_t a1, int *a2)
@@ -3022,8 +1836,8 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
     {
       printf("%lld %d AVE %s: %s Enter %p %p\n", v5, 12, v6, "AVE_Session_HEVC_EndPass", a1, a2);
       v7 = sub_175AE4();
-      v101 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 12, v101, "AVE_Session_HEVC_EndPass", a1, a2);
+      v94 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 12, v94, "AVE_Session_HEVC_EndPass", a1, a2);
     }
 
     else
@@ -3039,20 +1853,11 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
       v8 = sub_160F34(0xD8u);
       v9 = sub_175AE4();
       v10 = sub_160F68(7);
-      v11 = *(a1 + 104664);
       if (v8)
       {
         printf("%lld %d AVE %s: FIG: ENTER %s. beginPassFlags %d (begin %d end %d)\n", v9, 216, v10, "AVE_Session_HEVC_EndPass", *(a1 + 104672), *(a1 + 104664), *(a1 + 104668));
         v9 = sub_175AE4();
         sub_160F68(7);
-        v12 = *(a1 + 104672);
-        v102 = *(a1 + 104664);
-        v104 = *(a1 + 104668);
-      }
-
-      else
-      {
-        v103 = *(a1 + 104664);
       }
 
       syslog(3, "%lld %d AVE %s: FIG: ENTER %s. beginPassFlags %d (begin %d end %d)", v9);
@@ -3062,12 +1867,12 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
     {
       if (sub_160EF0(3u, 4))
       {
-        v27 = sub_160F34(3u);
-        v28 = sub_175AE4();
-        v29 = sub_160F68(4);
-        if (v27)
+        v24 = sub_160F34(3u);
+        v25 = sub_175AE4();
+        v26 = sub_160F68(4);
+        if (v24)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_EndPass called with SessionStatus != AVE_CommonWrapper_SessionStatus_Run\n", v28, 3, v29, "AVE_Session_HEVC_EndPass", 7142, "pINS->SessionStatus == AVE_CommonWrapper_SessionStatus_Run");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_EndPass called with SessionStatus != AVE_CommonWrapper_SessionStatus_Run\n", v25, 3, v26, "AVE_Session_HEVC_EndPass", 7142, "pINS->SessionStatus == AVE_CommonWrapper_SessionStatus_Run");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -3082,12 +1887,12 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
     {
       if (sub_160EF0(3u, 4))
       {
-        v30 = sub_160F34(3u);
-        v31 = sub_175AE4();
-        v32 = sub_160F68(4);
-        if (v30)
+        v27 = sub_160F34(3u);
+        v28 = sub_175AE4();
+        v29 = sub_160F68(4);
+        if (v27)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassStorage = NULL.\n", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7144, "pINS->multiPassStorage != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassStorage = NULL.\n", v28, 3, v29, "AVE_Session_HEVC_EndPass", 7144, "pINS->multiPassStorage != __null");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -3098,70 +1903,68 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
       goto LABEL_57;
     }
 
-    v16 = *(a1 + 104664);
-    v17 = *(a1 + 104668);
-    if (v16 != v17 + 1)
+    v14 = *(a1 + 104664);
+    v15 = *(a1 + 104668);
+    if (v14 != v15 + 1)
     {
       if (sub_160EF0(3u, 4))
       {
-        v33 = sub_160F34(3u);
-        v34 = sub_175AE4();
-        v35 = sub_160F68(4);
-        v36 = *(a1 + 104664);
-        if (v33)
+        v30 = sub_160F34(3u);
+        v31 = sub_175AE4();
+        v32 = sub_160F68(4);
+        if (v30)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v34, 3, v35, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
-          v34 = sub_175AE4();
-          v35 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d\n", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
+          v31 = sub_175AE4();
+          v32 = sub_160F68(4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v34, 3, v35, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: called with multiPassBeginPassCounter = %d, multiPassEndPassCounter = %d", v31, 3, v32, "AVE_Session_HEVC_EndPass", 7149, "pINS->multiPassBeginPassCounter == (pINS->multiPassEndPassCounter + 1)", *(a1 + 104664), *(a1 + 104668));
       }
 
       goto LABEL_57;
     }
 
-    if (v17)
+    if (v15)
     {
-      v18 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v18 = *(a1 + 104672) == 1;
+      v16 = *(a1 + 104672) == 1;
     }
 
-    v19 = !v18;
-    *(a1 + 104668) = v16;
+    v17 = !v16;
+    *(a1 + 104668) = v14;
     if (a2)
     {
-      *a2 = v19;
+      *a2 = v17;
     }
 
-    if (!v19)
+    if (!v17)
     {
-      v37 = 0;
+      v33 = 0;
       goto LABEL_58;
     }
 
     if (sub_160EF0(0xD8u, 6))
     {
-      v20 = sub_160F34(0xD8u);
-      v21 = sub_175AE4();
-      v22 = sub_160F68(6);
-      v23 = *(a1 + 104668);
-      v24 = *(a1 + 104648);
-      if (v20)
+      v18 = sub_160F34(0xD8u);
+      v19 = sub_175AE4();
+      v20 = sub_160F68(6);
+      v21 = *(a1 + 104648);
+      if (v18)
       {
-        printf("%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d\n", v21, 216, v22, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v24);
-        v25 = sub_175AE4();
-        v26 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v25, 216, v26, "AVE_Session_HEVC_EndPass", *(a1 + 104668), *(a1 + 104648));
+        printf("%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d\n", v19, 216, v20, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v21);
+        v22 = sub_175AE4();
+        v23 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v22, 216, v23, "AVE_Session_HEVC_EndPass", *(a1 + 104668), *(a1 + 104648));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v21, 216, v22, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v24);
+        syslog(3, "%lld %d AVE %s: FIG: %s furtherPassesRequested. Pass %d TotalFrames %d", v19, 216, v20, "AVE_Session_HEVC_EndPass", *(a1 + 104668), v21);
       }
     }
 
@@ -3170,12 +1973,12 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
     {
       if (sub_160EF0(3u, 4))
       {
-        v38 = sub_160F34(3u);
-        v39 = sub_175AE4();
-        v40 = sub_160F68(4);
-        if (v38)
+        v34 = sub_160F34(3u);
+        v35 = sub_175AE4();
+        v36 = sub_160F68(4);
+        if (v34)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Reset failed.\n", v39, 3, v40, "AVE_Session_HEVC_EndPass", 7186, "err == noErr");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Reset failed.\n", v35, 3, v36, "AVE_Session_HEVC_EndPass", 7186, "err == noErr");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -3184,7 +1987,7 @@ uint64_t sub_FE678(uint64_t a1, int *a2)
       }
 
 LABEL_57:
-      v37 = 4294966296;
+      v33 = 4294966296;
       goto LABEL_58;
     }
 
@@ -3193,26 +1996,25 @@ LABEL_57:
       goto LABEL_122;
     }
 
-    v110 = kCMTimeInvalid;
-    start = v110;
-    v108 = v110;
+    v100 = kCMTimeInvalid;
+    start = v100;
+    v98 = v100;
     Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
     if (Mutable)
     {
-      v42 = Mutable;
-      v43 = *(a1 + 104656);
-      *&v106.start.value = *&kCMTimeInvalid.value;
-      v106.start.epoch = kCMTimeInvalid.epoch;
+      v38 = Mutable;
+      *&v96.start.value = *&kCMTimeInvalid.value;
+      v96.start.epoch = kCMTimeInvalid.epoch;
       if (VTMultiPassStorageGetTimeStamp())
       {
         if (sub_160EF0(3u, 4))
         {
-          v44 = sub_160F34(3u);
-          v45 = sub_175AE4();
-          v46 = sub_160F68(4);
-          if (v44)
+          v39 = sub_160F34(3u);
+          v40 = sub_175AE4();
+          v41 = sub_160F68(4);
+          if (v39)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStamp kVTMultiPassStorageStep_GetFirstTimeStamp failed.\n", v45, 3, v46, "AVE_Session_HEVC_EndPass", 7202, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStamp kVTMultiPassStorageStep_GetFirstTimeStamp failed.\n", v40, 3, v41, "AVE_Session_HEVC_EndPass", 7202, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3225,32 +2027,31 @@ LABEL_57:
 
       if (sub_160EF0(0xD8u, 7))
       {
-        v54 = sub_160F34(0xD8u);
-        v55 = sub_175AE4();
-        v56 = sub_160F68(7);
-        if (v54)
+        v49 = sub_160F34(0xD8u);
+        v50 = sub_175AE4();
+        v51 = sub_160F68(7);
+        if (v49)
         {
-          printf("%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d\n", v55, 216, v56, "AVE_Session_HEVC_EndPass", v110.value, v110.timescale, v110.flags);
-          v55 = sub_175AE4();
+          printf("%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d\n", v50, 216, v51, "AVE_Session_HEVC_EndPass", v100.value, v100.timescale, v100.flags);
+          v50 = sub_175AE4();
           sub_160F68(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d", v55);
+        syslog(3, "%lld %d AVE %s: %s firstTimeInTimeRange value %lld timescale %d flags %d", v50);
       }
 
-      v57 = *(a1 + 104656);
-      *&v106.start.value = *&kCMTimeInvalid.value;
-      v106.start.epoch = kCMTimeInvalid.epoch;
+      *&v96.start.value = *&kCMTimeInvalid.value;
+      v96.start.epoch = kCMTimeInvalid.epoch;
       if (VTMultiPassStorageGetTimeStampAndDuration())
       {
         if (sub_160EF0(3u, 4))
         {
-          v58 = sub_160F34(3u);
-          v59 = sub_175AE4();
-          v60 = sub_160F68(4);
-          if (v58)
+          v52 = sub_160F34(3u);
+          v53 = sub_175AE4();
+          v54 = sub_160F68(4);
+          if (v52)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStampAndDuration kVTMultiPassStorageStep_GetLastTimeStamp failed.\n", v59, 3, v60, "AVE_Session_HEVC_EndPass", 7218, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: VTMultiPassStorageGetTimeStampAndDuration kVTMultiPassStorageStep_GetLastTimeStamp failed.\n", v53, 3, v54, "AVE_Session_HEVC_EndPass", 7218, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3263,76 +2064,76 @@ LABEL_57:
 
       if (sub_160EF0(0xD8u, 7))
       {
+        v55 = sub_160F34(0xD8u);
+        v56 = sub_175AE4();
+        v57 = sub_160F68(7);
+        if (v55)
+        {
+          printf("%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d\n", v56, 216, v57, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
+          v56 = sub_175AE4();
+          sub_160F68(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d", v56);
+      }
+
+      if (sub_160EF0(0xD8u, 7))
+      {
+        v58 = sub_160F34(0xD8u);
+        v59 = sub_175AE4();
+        v60 = sub_160F68(7);
+        if (v58)
+        {
+          printf("%lld %d AVE %s: %s duration value %lld timescale %d flags %d\n", v59, 216, v60, "AVE_Session_HEVC_EndPass", v98.value, v98.timescale, v98.flags);
+          v59 = sub_175AE4();
+          sub_160F68(7);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s duration value %lld timescale %d flags %d", v59);
+      }
+
+      lhs.start = start;
+      rhs = v98;
+      CMTimeAdd(&v96.start, &lhs.start, &rhs);
+      start = v96.start;
+      if (sub_160EF0(0xD8u, 7))
+      {
         v61 = sub_160F34(0xD8u);
         v62 = sub_175AE4();
         v63 = sub_160F68(7);
         if (v61)
         {
-          printf("%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d\n", v62, 216, v63, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
+          printf("%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d\n", v62, 216, v63, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
           v62 = sub_175AE4();
           sub_160F68(7);
         }
 
-        syslog(3, "%lld %d AVE %s: %s lastTimeInTimeRange value %lld timescale %d flags %d", v62);
-      }
-
-      if (sub_160EF0(0xD8u, 7))
-      {
-        v64 = sub_160F34(0xD8u);
-        v65 = sub_175AE4();
-        v66 = sub_160F68(7);
-        if (v64)
-        {
-          printf("%lld %d AVE %s: %s duration value %lld timescale %d flags %d\n", v65, 216, v66, "AVE_Session_HEVC_EndPass", v108.value, v108.timescale, v108.flags);
-          v65 = sub_175AE4();
-          sub_160F68(7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s duration value %lld timescale %d flags %d", v65);
-      }
-
-      lhs.start = start;
-      rhs = v108;
-      CMTimeAdd(&v106.start, &lhs.start, &rhs);
-      start = v106.start;
-      if (sub_160EF0(0xD8u, 7))
-      {
-        v67 = sub_160F34(0xD8u);
-        v68 = sub_175AE4();
-        v69 = sub_160F68(7);
-        if (v67)
-        {
-          printf("%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d\n", v68, 216, v69, "AVE_Session_HEVC_EndPass", start.value, start.timescale, start.flags);
-          v68 = sub_175AE4();
-          sub_160F68(7);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d", v68);
+        syslog(3, "%lld %d AVE %s: %s modified lastTimeInTimeRange value %lld timescale %d flags %d", v62);
       }
 
       if (*(a1 + 104648) <= 1u && !start.flags)
       {
-        v70 = *(a1 + 1112);
-        if (v70 < 1)
+        v64 = *(a1 + 1112);
+        if (v64 < 1)
         {
-          v70 = 30;
+          v64 = 30;
         }
 
-        *&start.timescale = *&v110.timescale;
-        start.epoch = v110.epoch;
-        start.value = v110.value + v110.timescale / v70;
+        *&start.timescale = *&v100.timescale;
+        start.epoch = v100.epoch;
+        start.value = v100.value + v100.timescale / v64;
       }
 
-      if (!v110.flags)
+      if (!v100.flags)
       {
         if (sub_160EF0(3u, 4))
         {
-          v74 = sub_160F34(3u);
-          v75 = sub_175AE4();
-          v76 = sub_160F68(4);
-          if (v74)
+          v68 = sub_160F34(3u);
+          v69 = sub_175AE4();
+          v70 = sub_160F68(4);
+          if (v68)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: firstTimeInTimeRange invalid.\n", v75, 3, v76, "AVE_Session_HEVC_EndPass", 7244, "firstTimeInTimeRange.flags != 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: firstTimeInTimeRange invalid.\n", v69, 3, v70, "AVE_Session_HEVC_EndPass", 7244, "firstTimeInTimeRange.flags != 0");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3347,12 +2148,12 @@ LABEL_57:
       {
         if (sub_160EF0(3u, 4))
         {
-          v77 = sub_160F34(3u);
-          v78 = sub_175AE4();
-          v79 = sub_160F68(4);
-          if (v77)
+          v71 = sub_160F34(3u);
+          v72 = sub_175AE4();
+          v73 = sub_160F68(4);
+          if (v71)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: lastTimeInTimeRange invalid.\n", v78, 3, v79, "AVE_Session_HEVC_EndPass", 7246, "lastTimeInTimeRange.flags != 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: lastTimeInTimeRange invalid.\n", v72, 3, v73, "AVE_Session_HEVC_EndPass", 7246, "lastTimeInTimeRange.flags != 0");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3363,37 +2164,37 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      memset(&v106, 0, sizeof(v106));
-      lhs.start = v110;
+      memset(&v96, 0, sizeof(v96));
+      lhs.start = v100;
       rhs = start;
-      CMTimeRangeFromTimeToTime(&v106, &lhs.start, &rhs);
+      CMTimeRangeFromTimeToTime(&v96, &lhs.start, &rhs);
       if (sub_160EF0(0xD8u, 6))
       {
-        v71 = sub_160F34(0xD8u);
-        v72 = sub_175AE4();
-        v73 = sub_160F68(6);
-        if (v71)
+        v65 = sub_160F34(0xD8u);
+        v66 = sub_175AE4();
+        v67 = sub_160F68(6);
+        if (v65)
         {
-          printf("%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d\n", v72, 216, v73, v106.start.value, v106.start.timescale, v106.start.flags, v106.duration.value, v106.duration.timescale, v106.duration.flags);
-          v72 = sub_175AE4();
+          printf("%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d\n", v66, 216, v67, v96.start.value, v96.start.timescale, v96.start.flags, v96.duration.value, v96.duration.timescale, v96.duration.flags);
+          v66 = sub_175AE4();
           sub_160F68(6);
         }
 
-        syslog(3, "%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d", v72, 216);
+        syslog(3, "%lld %d AVE %s: Start %lld, %d, %d; Duration %lld, %d, %d", v66, 216);
       }
 
-      lhs = v106;
-      v80 = CMTimeRangeCopyAsDictionary(&lhs, kCFAllocatorDefault);
-      if (!v80)
+      lhs = v96;
+      v74 = CMTimeRangeCopyAsDictionary(&lhs, kCFAllocatorDefault);
+      if (!v74)
       {
         if (sub_160EF0(3u, 4))
         {
-          v95 = sub_160F34(3u);
-          v96 = sub_175AE4();
-          v97 = sub_160F68(4);
-          if (v95)
+          v88 = sub_160F34(3u);
+          v89 = sub_175AE4();
+          v90 = sub_160F68(4);
+          if (v88)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: CMTimeRangeCopyAsDictionary failed.\n", v96, 3, v97, "AVE_Session_HEVC_EndPass", 7255, "currentTimeRangeDictionary != __null");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: CMTimeRangeCopyAsDictionary failed.\n", v89, 3, v90, "AVE_Session_HEVC_EndPass", 7255, "currentTimeRangeDictionary != __null");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3404,48 +2205,47 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      v81 = v80;
-      CFArrayAppendValue(v42, v80);
-      CFRelease(v81);
-      Count = CFArrayGetCount(v42);
-      v83 = malloc_type_malloc(48 * Count, 0x1000040EED21634uLL);
-      if (v83)
+      v75 = v74;
+      CFArrayAppendValue(v38, v74);
+      CFRelease(v75);
+      Count = CFArrayGetCount(v38);
+      v77 = malloc_type_malloc(48 * Count, 0x1000040EED21634uLL);
+      if (v77)
       {
-        v84 = v83;
+        v78 = v77;
         if (Count >= 1)
         {
-          v85 = 0;
-          v86 = v83;
+          v79 = 0;
+          v80 = v77;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v42, v85);
+            ValueAtIndex = CFArrayGetValueAtIndex(v38, v79);
             CMTimeRangeMakeFromDictionary(&lhs, ValueAtIndex);
-            v88 = *&lhs.start.value;
-            v89 = *&lhs.duration.timescale;
-            v86[1] = *&lhs.start.epoch;
-            v86[2] = v89;
-            *v86 = v88;
-            v86 += 3;
-            ++v85;
+            v82 = *&lhs.start.value;
+            v83 = *&lhs.duration.timescale;
+            v80[1] = *&lhs.start.epoch;
+            v80[2] = v83;
+            *v80 = v82;
+            v80 += 3;
+            ++v79;
           }
 
-          while (Count != v85);
+          while (Count != v79);
         }
 
-        v90 = *(a1 + 16);
         Pass = VTEncoderSessionSetTimeRangesForNextPass();
-        free(v84);
-        CFRelease(v42);
+        free(v78);
+        CFRelease(v38);
         if (Pass)
         {
           if (sub_160EF0(3u, 4))
           {
-            v92 = sub_160F34(3u);
-            v93 = sub_175AE4();
-            v94 = sub_160F68(4);
-            if (v92)
+            v85 = sub_160F34(3u);
+            v86 = sub_175AE4();
+            v87 = sub_160F68(4);
+            if (v85)
             {
-              printf("%lld %d AVE %s: %s:%d %s | FIG: VTEncoderSessionSetTimeRangesForNextPass failed.\n", v93, 3, v94, "AVE_Session_HEVC_EndPass", 7289, "err == noErr");
+              printf("%lld %d AVE %s: %s:%d %s | FIG: VTEncoderSessionSetTimeRangesForNextPass failed.\n", v86, 3, v87, "AVE_Session_HEVC_EndPass", 7289, "err == noErr");
               sub_175AE4();
               sub_160F68(4);
             }
@@ -3457,7 +2257,7 @@ LABEL_57:
         }
 
 LABEL_122:
-        v37 = 0;
+        v33 = 0;
         *(a1 + 104700) = *(a1 + 104648);
         *(a1 + 104648) = 0;
         goto LABEL_58;
@@ -3465,12 +2265,12 @@ LABEL_122:
 
       if (sub_160EF0(3u, 4))
       {
-        v98 = sub_160F34(3u);
-        v99 = sub_175AE4();
-        v100 = sub_160F68(4);
-        if (v98)
+        v91 = sub_160F34(3u);
+        v92 = sub_175AE4();
+        v93 = sub_160F68(4);
+        if (v91)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: malloc timeRanges failed.\n", v99, 3, v100, "AVE_Session_HEVC_EndPass", 7267, "timeRanges != __null");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: malloc timeRanges failed.\n", v92, 3, v93, "AVE_Session_HEVC_EndPass", 7267, "timeRanges != __null");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -3481,12 +2281,12 @@ LABEL_122:
 
     else if (sub_160EF0(3u, 4))
     {
-      v51 = sub_160F34(3u);
-      v52 = sub_175AE4();
-      v53 = sub_160F68(4);
-      if (v51)
+      v46 = sub_160F34(3u);
+      v47 = sub_175AE4();
+      v48 = sub_160F68(4);
+      if (v46)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.\n", v52, 3, v53, "AVE_Session_HEVC_EndPass", 7199, "timeRangeArray != __null");
+        printf("%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.\n", v47, 3, v48, "AVE_Session_HEVC_EndPass", 7199, "timeRangeArray != __null");
         sub_175AE4();
         sub_160F68(4);
       }
@@ -3494,212 +2294,200 @@ LABEL_122:
       syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: CFArrayCreateMutable failed.");
     }
 
-    v37 = 4294966293;
+    v33 = 4294966293;
     goto LABEL_58;
   }
 
   if (sub_160EF0(0xCu, 4))
   {
-    v13 = sub_160F34(0xCu);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(4);
-    if (v13)
+    v11 = sub_160F34(0xCu);
+    v12 = sub_175AE4();
+    v13 = sub_160F68(4);
+    if (v11)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v14, 12, v15, "AVE_Session_HEVC_EndPass", 7132, "pINS != __null", 0, a2);
-      v14 = sub_175AE4();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v12, 12, v13, "AVE_Session_HEVC_EndPass", 7132, "pINS != __null", 0, a2);
+      v12 = sub_175AE4();
       sub_160F68(4);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v14, 12);
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v12, 12);
   }
 
-  v37 = 4294966295;
+  v33 = 4294966295;
 LABEL_58:
   if (sub_160EF0(0xCu, 6))
   {
-    v47 = sub_160F34(0xCu);
-    v48 = sub_175AE4();
-    v49 = sub_160F68(6);
-    if (v47)
+    v42 = sub_160F34(0xCu);
+    v43 = sub_175AE4();
+    v44 = sub_160F68(6);
+    if (v42)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v48, 12, v49, "AVE_Session_HEVC_EndPass", a1, a2, v37);
-      v48 = sub_175AE4();
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v43, 12, v44, "AVE_Session_HEVC_EndPass", a1, a2, v33);
+      v43 = sub_175AE4();
       sub_160F68(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v48);
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v43);
   }
 
-  return v37;
+  return v33;
 }
 
-uint64_t sub_FF9C0()
+uint64_t sub_FF9C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = __chkstk_darwin();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v245 = v7;
-  v246 = v8;
+  v8 = __chkstk_darwin(a1, a2, a3, a4, a5, a6, a7, a8);
   v10 = v9;
   v12 = v11;
-  v247 = v0;
-  pixelBuffer = v9;
-  v271 = 0;
-  v270 = 0;
-  v269 = 0;
-  v264 = 0uLL;
-  v241 = sub_1502C8();
+  v14 = v13;
+  v225 = v15;
+  v226 = v16;
+  v18 = v17;
+  v20 = v19;
+  v227 = v8;
+  pixelBuffer = v17;
+  v251 = 0;
+  v250 = 0;
+  v249 = 0;
+  v244 = 0uLL;
+  v221 = sub_1502C8();
   if (sub_160EF0(0xCu, 7))
   {
-    v13 = sub_160F34(0xCu);
-    v14 = sub_175AE4();
-    v15 = sub_160F68(7);
-    if (v13)
+    v21 = sub_160F34(0xCu);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(7);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p\n", v14, 12, v15, "AVE_HEVC_Encode", v247, v12, v10, v245, v246, v6, v4);
-      v16 = sub_175AE4();
-      v216 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v16, 12, v216, "AVE_HEVC_Encode", v247);
+      printf("%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p\n", v22, 12, v23, "AVE_HEVC_Encode", v227, v20, v18, v225, v226, v14, v12);
+      v24 = sub_175AE4();
+      v207 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v24, 12, v207, "AVE_HEVC_Encode", v227);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v14, 12, v15, "AVE_HEVC_Encode", v247);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %p %p %p %p %p", v22, 12, v23, "AVE_HEVC_Encode", v227);
     }
   }
 
-  if ((v2 & 0x80000000) == 0 && v6 && v246 && v245 && v247 && pixelBuffer)
+  if ((v10 & 0x80000000) == 0 && v14 && v226 && v225 && v227 && pixelBuffer)
   {
-    v17 = (v247 + 104644);
-    v18 = sub_175AE4();
-    v267 = *v246;
-    v268 = v246[2];
-    v265 = *v6;
-    v266 = v6[2];
-    *&v264 = v267;
-    DWORD2(v264) = DWORD2(v267);
-    sub_1729E0(0, &v264);
+    v25 = (v227 + 104644);
+    v26 = sub_175AE4();
+    v247 = *v226;
+    v248 = v226[2];
+    v245 = *v14;
+    v246 = v14[2];
+    *&v244 = v247;
+    DWORD2(v244) = DWORD2(v247);
+    sub_1729E0(0, &v244);
     if (sub_160EF0(0x33u, 7))
     {
-      v19 = sub_160F34(0x33u);
-      v20 = sub_175AE4();
-      v21 = sub_160F68(7);
-      v22 = *(v247 + 56);
-      v23 = *v246;
-      v24 = *(v246 + 2);
-      v25 = *(v6 + 3);
-      if (v19)
+      v27 = sub_160F34(0x33u);
+      v28 = sub_175AE4();
+      v29 = sub_160F68(7);
+      v30 = *(v227 + 56);
+      v31 = *v226;
+      v32 = *(v226 + 2);
+      if (v27)
       {
-        v26 = v12;
-        v27 = v2;
-        v28 = v26;
-        printf("%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld\n", v20, 51, v21, "AVE_HEVC_Encode", 7445, v22, *(v247 + 104648), v23, v24, *(v246 + 3), v246[2], v264, DWORD2(v264), *v6, *(v6 + 2), *(v6 + 3), v6[2]);
-        v29 = sub_175AE4();
-        v30 = sub_160F68(7);
-        v31 = v246[2];
-        v32 = *(v246 + 3);
-        v33 = *(v6 + 3);
-        v235 = v6[2];
-        v232 = *v6;
-        v233 = *(v6 + 2);
-        v34 = v28;
-        v2 = v27;
-        v12 = v34;
-        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v29, 51, v30, "AVE_HEVC_Encode", 7445, *(v247 + 56), *(v247 + 104648), *v246, *(v246 + 2));
+        v33 = v20;
+        v34 = v10;
+        v35 = v33;
+        printf("%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld\n", v28, 51, v29, "AVE_HEVC_Encode", 7445, v30, *(v227 + 104648), v31, v32, *(v226 + 3), v226[2], v244, DWORD2(v244), *v14, *(v14 + 2), *(v14 + 3), v14[2]);
+        v36 = sub_175AE4();
+        v37 = sub_160F68(7);
+        v38 = v35;
+        v10 = v34;
+        v20 = v38;
+        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v36, 51, v37, "AVE_HEVC_Encode", 7445, *(v227 + 56), *(v227 + 104648), *v226, *(v226 + 2));
       }
 
       else
       {
-        v234 = *(v6 + 3);
-        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v20, &stru_20.segname[11], v21, "AVE_HEVC_Encode", 7445, v22, *(v247 + 104648), v23, v24);
+        syslog(3, "%lld %d AVE %s: %s:%d %lld %d timestamp %lld %d 0x%x %lld -> %lld %d | duration %lld %d 0x%x %lld", v28, &stru_20.segname[11], v29, "AVE_HEVC_Encode", 7445, v30, *(v227 + 104648), v31, v32);
       }
     }
 
     PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    *(v247 + 108000) = PixelFormatType;
-    if (!*(v247 + 104648))
+    *(v227 + 108000) = PixelFormatType;
+    if (!*(v227 + 104648))
     {
-      v275 = *(v247 + 1440);
-      v40 = sub_167CD8(PixelFormatType);
-      if (!v40)
+      v255 = *(v227 + 1440);
+      v44 = sub_167CD8(PixelFormatType);
+      if (!v44)
       {
         if (sub_160EF0(3u, 4))
         {
-          v65 = sub_160F34(3u);
-          v66 = sub_175AE4();
-          v67 = sub_160F68(4);
-          v68 = *(v247 + 56);
-          if (v65)
+          v68 = sub_160F34(3u);
+          v69 = sub_175AE4();
+          v70 = sub_160F68(4);
+          if (v68)
           {
-            printf("%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x\n", v66, 3, v67, "AVE_HEVC_Encode", 7462, "pPixelFmt != __null", v247, *(v247 + 56), *(v247 + 108000));
-            v69 = sub_175AE4();
-            v70 = sub_160F68(4);
-            v228 = *(v247 + 56);
-            v230 = *(v247 + 108000);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v69, 3, v70);
+            printf("%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x\n", v69, 3, v70, "AVE_HEVC_Encode", 7462, "pPixelFmt != __null", v227, *(v227 + 56), *(v227 + 108000));
+            v71 = sub_175AE4();
+            v72 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v71, 3, v72);
           }
 
           else
           {
-            v229 = *(v247 + 56);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v66, 3, v67);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to find pixel format %p %lld 0x%x", v69, 3, v70);
           }
         }
 
         goto LABEL_70;
       }
 
-      if (v241[420])
+      if (*(v221 + 420))
       {
-        v41 = v241 + 420;
+        v45 = (v221 + 105);
       }
 
       else
       {
-        v41 = 0;
+        v45 = 0;
       }
 
-      if (*(v247 + 104656))
+      if (*(v227 + 104656))
       {
-        v42 = 2;
+        v46 = 2;
       }
 
       else
       {
-        v42 = 1;
+        v46 = 1;
       }
 
-      sub_CC848(*(v247 + 104720), v41, *(v247 + 64), *(v247 + 10772), *(v241 + 103), *(v241 + 104), &v275, v42, *(v40 + 3), *(v40 + 1), *(v247 + 1136));
+      sub_CC848(*(v227 + 104720), v45, *(v227 + 64), *(v227 + 10772), v221[103], v221[104], &v255, v46, *(v44 + 3), *(v44 + 1), *(v227 + 1136));
     }
 
-    sub_CCF60(*(v247 + 104720), *(v247 + 104668), pixelBuffer);
-    v43 = *v17;
-    if (*v17 == 30566)
+    sub_CCF60(*(v227 + 104720), *(v227 + 104668), pixelBuffer);
+    v47 = *v25;
+    if (*v25 == 30566)
     {
       if (sub_15F5D0(pixelBuffer))
       {
-        v55 = 1;
+        v59 = 1;
       }
 
       else
       {
-        v55 = 2;
+        v59 = 2;
       }
 
-      *(v247 + 10804) = v55;
-      v56 = sub_10A628(v247);
-      if (v56)
+      *(v227 + 10804) = v59;
+      v60 = sub_10A628(v227);
+      if (v60)
       {
-        v51 = v56;
+        v55 = v60;
         if (sub_160EF0(3u, 4))
         {
-          v57 = sub_160F34(3u);
-          v58 = sub_175AE4();
-          v59 = sub_160F68(4);
-          if (v57)
+          v61 = sub_160F34(3u);
+          v62 = sub_175AE4();
+          v63 = sub_160F68(4);
+          if (v61)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ManageSessionSettings failed\n", v58, 3, v59, "AVE_HEVC_Encode", 7571, "err == 0");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ManageSessionSettings failed\n", v62, 3, v63, "AVE_HEVC_Encode", 7571, "err == 0");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3710,17 +2498,17 @@ uint64_t sub_FF9C0()
         goto LABEL_172;
       }
 
-      sub_102728(v247, pixelBuffer);
-      if (sub_1020A4(v247, &pixelBuffer, &v271, &v270, &v269 + 1, &v269, 1))
+      sub_102728(v227, pixelBuffer);
+      if (sub_1020A4(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 1))
       {
         if (sub_160EF0(3u, 4))
         {
-          v74 = sub_160F34(3u);
-          v75 = sub_175AE4();
-          v76 = sub_160F68(4);
-          if (v74)
+          v76 = sub_160F34(3u);
+          v77 = sub_175AE4();
+          v78 = sub_160F68(4);
+          if (v76)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v75, 3, v76, "AVE_HEVC_Encode", 7581, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v77, 3, v78, "AVE_HEVC_Encode", 7581, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3731,44 +2519,44 @@ uint64_t sub_FF9C0()
         goto LABEL_171;
       }
 
-      sub_10298C(v247, *(v247 + 10804) == 2);
-      if (*(v247 + 10804) == 2 && (*(v247 + 1120) & 0x10) == 0)
+      sub_10298C(v227, *(v227 + 10804) == 2);
+      if (*(v227 + 10804) == 2 && (*(v227 + 1120) & 0x10) == 0)
       {
-        v85 = *(v247 + 1112);
-        if (v85 < 1)
+        v87 = *(v227 + 1112);
+        if (v87 < 1)
         {
-          v85 = 30;
+          v87 = 30;
         }
 
-        v86 = vshr_n_u32(vadd_s32(*(v247 + 1440), 0xF0000000FLL), 4uLL);
-        v87 = v86.i32[1] * v85 * v86.i32[0];
-        if (*(v247 + 76) <= 29)
+        v88 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0xF0000000FLL), 4uLL);
+        v89 = v88.i32[1] * v87 * v88.i32[0];
+        if (*(v227 + 76) <= 29)
         {
-          v88 = 1944000;
+          v90 = 1944000;
         }
 
         else
         {
-          v88 = 2106000;
+          v90 = 2106000;
         }
 
-        if (v87 >= v88)
+        if (v89 >= v90)
         {
-          *(v247 + 716) &= 0xFFFFFC3F;
-          *(v247 + 11810) = 0;
+          *(v227 + 716) &= 0xFFFFFC3F;
+          *(v227 + 11810) = 0;
         }
       }
 
-      if (sub_102AD4(v247))
+      if (sub_102AD4(v227))
       {
         if (sub_160EF0(3u, 4))
         {
-          v89 = sub_160F34(3u);
-          v90 = sub_175AE4();
-          v91 = sub_160F68(4);
-          if (v89)
+          v91 = sub_160F34(3u);
+          v92 = sub_175AE4();
+          v93 = sub_160F68(4);
+          if (v91)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v90, 3, v91, "AVE_HEVC_Encode", 7609, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v92, 3, v93, "AVE_HEVC_Encode", 7609, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3779,98 +2567,98 @@ uint64_t sub_FF9C0()
         goto LABEL_171;
       }
 
-      sub_107808(v247, pixelBuffer);
-      sub_10A354(v247);
-      bzero(v280, 0x8C8uLL);
-      v275 = v247 + 672;
-      v276 = v247 + 1440;
-      v278 = *(v247 + 104712);
-      v279 = *(v247 + 104728);
-      v277 = v247 + 10752;
-      v282 = v247 + 12000;
-      v283 = v247 + 24236;
-      v285 = v247 + 39844;
-      v284 = v247 + 32040;
-      v286 = v247 + 49476;
-      v287 = v247 + 59112;
-      v288 = v247 + 80600;
-      memcpy(v289, (v247 + 106112), sizeof(v289));
-      v290 = v18;
-      if (sub_12A644(*(v247 + 120), &v275, v247 + 128, *(v247 + 16), *(v247 + 112), *(v247 + 104652), *(v247 + 104656), v247 + 160, (v247 + 11772), (v247 + 11464)))
+      sub_107808(v227, pixelBuffer);
+      sub_10A354(v227);
+      bzero(v260, 0x8C8uLL);
+      v255 = v227 + 672;
+      v256 = v227 + 1440;
+      v258 = *(v227 + 104712);
+      v259 = *(v227 + 104728);
+      v257 = v227 + 10752;
+      v262 = v227 + 12000;
+      v263 = v227 + 24236;
+      v265 = v227 + 39844;
+      v264 = v227 + 32040;
+      v266 = v227 + 49476;
+      v267 = v227 + 59112;
+      v268 = v227 + 80600;
+      memcpy(v269, (v227 + 106112), sizeof(v269));
+      v270 = v26;
+      if (sub_12A644(*(v227 + 120), &v255, v227 + 128, *(v227 + 16), *(v227 + 112), *(v227 + 104652), *(v227 + 104656), v227 + 160, (v227 + 11772), (v227 + 11464)))
       {
         if (sub_160EF0(3u, 4))
         {
-          v92 = sub_160F34(3u);
-          v93 = sub_175AE4();
-          v94 = sub_160F68(4);
-          if (v92)
+          v94 = sub_160F34(3u);
+          v95 = sub_175AE4();
+          v96 = sub_160F68(4);
+          if (v94)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v93, 3, v94, "AVE_HEVC_Encode", 7637, "err == noErr");
-            v95 = sub_175AE4();
-            v219 = sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v95, 3, v219, "AVE_HEVC_Encode", 7637, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v95, 3, v96, "AVE_HEVC_Encode", 7637, "err == noErr");
+            v97 = sub_175AE4();
+            v210 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v97, 3, v210, "AVE_HEVC_Encode", 7637, "err == noErr");
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v93, 3, v94, "AVE_HEVC_Encode", 7637, "err == noErr");
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v95, 3, v96, "AVE_HEVC_Encode", 7637, "err == noErr");
           }
         }
 
-        v51 = 4294966296;
+        v55 = 4294966296;
         goto LABEL_172;
       }
     }
 
-    else if (v43 == 30567)
+    else if (v47 == 30567)
     {
       if (sub_15F5D0(pixelBuffer))
       {
-        v52 = 1;
+        v56 = 1;
       }
 
       else
       {
-        v52 = 2;
+        v56 = 2;
       }
 
-      *(v247 + 10804) = v52;
-      sub_102728(v247, pixelBuffer);
-      if (sub_1020A4(v247, &pixelBuffer, &v271, &v270, &v269 + 1, &v269, 1))
+      *(v227 + 10804) = v56;
+      sub_102728(v227, pixelBuffer);
+      if (sub_1020A4(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 1))
       {
         if (sub_160EF0(3u, 4))
         {
-          v53 = sub_160F34(3u);
-          v45 = sub_175AE4();
-          v46 = sub_160F68(4);
-          if (!v53)
+          v57 = sub_160F34(3u);
+          v49 = sub_175AE4();
+          v50 = sub_160F68(4);
+          if (!v57)
           {
             goto LABEL_69;
           }
 
-          v47 = (v247 + 104644);
-          v48 = v2;
-          v49 = v12;
-          v50 = 7499;
+          v51 = (v227 + 104644);
+          v52 = v10;
+          v53 = v20;
+          v54 = 7499;
           goto LABEL_43;
         }
 
 LABEL_70:
-        v51 = 4294966294;
+        v55 = 4294966294;
         goto LABEL_172;
       }
 
-      sub_10298C(v247, *(v247 + 10804) == 2);
-      if (sub_102AD4(v247))
+      sub_10298C(v227, *(v227 + 10804) == 2);
+      if (sub_102AD4(v227))
       {
         if (sub_160EF0(3u, 4))
         {
-          v71 = sub_160F34(3u);
-          v72 = sub_175AE4();
-          v73 = sub_160F68(4);
-          if (v71)
+          v73 = sub_160F34(3u);
+          v74 = sub_175AE4();
+          v75 = sub_160F68(4);
+          if (v73)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v72, 3, v73, "AVE_HEVC_Encode", 7509, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v74, 3, v75, "AVE_HEVC_Encode", 7509, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -3881,131 +2669,128 @@ LABEL_70:
         goto LABEL_70;
       }
 
-      sub_107808(v247, pixelBuffer);
-      sub_10A354(v247);
-      if (*(v247 + 10804) == 2 && (*(v247 + 1120) & 0x10) == 0)
+      sub_107808(v227, pixelBuffer);
+      sub_10A354(v227);
+      if (*(v227 + 10804) == 2 && (*(v227 + 1120) & 0x10) == 0)
       {
-        v77 = *(v247 + 1112);
-        if (v77 < 1)
+        v79 = *(v227 + 1112);
+        if (v79 < 1)
         {
-          v77 = 30;
+          v79 = 30;
         }
 
-        v78 = vshr_n_u32(vadd_s32(*(v247 + 1440), 0xF0000000FLL), 4uLL);
-        v79 = v78.i32[1] * v77 * v78.i32[0];
-        if (*(v247 + 76) <= 29)
+        v80 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0xF0000000FLL), 4uLL);
+        v81 = v80.i32[1] * v79 * v80.i32[0];
+        if (*(v227 + 76) <= 29)
         {
-          v80 = 1944000;
+          v82 = 1944000;
         }
 
         else
         {
-          v80 = 2106000;
+          v82 = 2106000;
         }
 
-        if (v79 >= v80)
+        if (v81 >= v82)
         {
-          *(v247 + 716) &= 0xFFFFFC3F;
-          *(v247 + 11810) = 0;
+          *(v227 + 716) &= 0xFFFFFC3F;
+          *(v227 + 11810) = 0;
         }
       }
 
-      bzero(v280, 0x8C8uLL);
-      v275 = v247 + 672;
-      v276 = v247 + 1440;
-      v278 = *(v247 + 104712);
-      v279 = *(v247 + 104728);
-      v277 = v247 + 10752;
-      v282 = v247 + 12000;
-      v283 = v247 + 24236;
-      v285 = v247 + 39844;
-      v284 = v247 + 32040;
-      v286 = v247 + 49476;
-      v287 = v247 + 59112;
-      v288 = v247 + 80600;
-      memcpy(v289, (v247 + 106112), sizeof(v289));
-      v290 = v18;
-      if (sub_12A644(*(v247 + 120), &v275, v247 + 128, *(v247 + 16), *(v247 + 112), *(v247 + 104652), *(v247 + 104656), v247 + 160, (v247 + 11772), (v247 + 11464)))
+      bzero(v260, 0x8C8uLL);
+      v255 = v227 + 672;
+      v256 = v227 + 1440;
+      v258 = *(v227 + 104712);
+      v259 = *(v227 + 104728);
+      v257 = v227 + 10752;
+      v262 = v227 + 12000;
+      v263 = v227 + 24236;
+      v265 = v227 + 39844;
+      v264 = v227 + 32040;
+      v266 = v227 + 49476;
+      v267 = v227 + 59112;
+      v268 = v227 + 80600;
+      memcpy(v269, (v227 + 106112), sizeof(v269));
+      v270 = v26;
+      if (sub_12A644(*(v227 + 120), &v255, v227 + 128, *(v227 + 16), *(v227 + 112), *(v227 + 104652), *(v227 + 104656), v227 + 160, (v227 + 11772), (v227 + 11464)))
       {
         if (sub_160EF0(3u, 4))
         {
-          v81 = sub_160F34(3u);
-          v82 = sub_175AE4();
-          v83 = sub_160F68(4);
-          if (v81)
+          v83 = sub_160F34(3u);
+          v84 = sub_175AE4();
+          v85 = sub_160F68(4);
+          if (v83)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v82, 3, v83, "AVE_HEVC_Encode", 7556, "err == noErr");
-            v84 = sub_175AE4();
-            v218 = sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v84, 3, v218, "AVE_HEVC_Encode", 7556, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.\n", v84, 3, v85, "AVE_HEVC_Encode", 7556, "err == noErr");
+            v86 = sub_175AE4();
+            v209 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v86, 3, v209, "AVE_HEVC_Encode", 7556, "err == noErr");
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v82, 3, v83, "AVE_HEVC_Encode", 7556, "err == noErr");
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Start failed.", v84, 3, v85, "AVE_HEVC_Encode", 7556, "err == noErr");
           }
         }
 
-        v51 = 4294966296;
+        v55 = 4294966296;
         goto LABEL_172;
       }
     }
 
     else
     {
-      if (v43 != 30568)
+      if (v47 != 30568)
       {
         if (sub_160EF0(3u, 4))
         {
-          v60 = sub_160F34(3u);
-          v61 = sub_175AE4();
-          v62 = sub_160F68(4);
-          v63 = *v17;
-          if (v60)
+          v64 = sub_160F34(3u);
+          v65 = sub_175AE4();
+          v66 = sub_160F68(4);
+          if (v64)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.\n", v61, 3, v62, "AVE_HEVC_Encode", 7644, "false", *v17);
-            v64 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.\n", v65, 3, v66, "AVE_HEVC_Encode", 7644, "false", *v25);
+            v67 = sub_175AE4();
             sub_160F68(4);
-            v225 = *v17;
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v64);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v67);
           }
 
           else
           {
-            v226 = *v17;
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v61);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_H264EncodeFrame pINS->SessionStatus = 0x%08x.", v65);
           }
         }
 
         goto LABEL_171;
       }
 
-      if (sub_1020A4(v247, &pixelBuffer, &v271, &v270, &v269 + 1, &v269, 0))
+      if (sub_1020A4(v227, &pixelBuffer, &v251, &v250, &v249 + 1, &v249, 0))
       {
         if (sub_160EF0(3u, 4))
         {
-          v44 = sub_160F34(3u);
-          v45 = sub_175AE4();
-          v46 = sub_160F68(4);
-          if (!v44)
+          v48 = sub_160F34(3u);
+          v49 = sub_175AE4();
+          v50 = sub_160F68(4);
+          if (!v48)
           {
 LABEL_69:
             syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.");
             goto LABEL_70;
           }
 
-          v47 = (v247 + 104644);
-          v48 = v2;
-          v49 = v12;
-          v50 = 7482;
+          v51 = (v227 + 104644);
+          v52 = v10;
+          v53 = v20;
+          v54 = 7482;
 LABEL_43:
-          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v45, 3, v46, "AVE_HEVC_Encode", v50, "err == noErr");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_HEVC_VerifyImageBuffer failed.\n", v49, 3, v50, "AVE_HEVC_Encode", v54, "err == noErr");
           sub_175AE4();
           sub_160F68(4);
-          v54 = v49;
-          v2 = v48;
-          v17 = v47;
-          v12 = v54;
+          v58 = v53;
+          v10 = v52;
+          v25 = v51;
+          v20 = v58;
           goto LABEL_69;
         }
 
@@ -4013,184 +2798,182 @@ LABEL_43:
       }
     }
 
-    *v17 = 30568;
-    bzero(v274, 0x1738uLL);
-    v248 = 0;
-    v254 = 0u;
-    v255 = 0u;
-    v256 = 0u;
-    v257 = 0u;
-    memset(v258, 0, sizeof(v258));
-    v259 = 0u;
-    memset(v260, 0, sizeof(v260));
-    v261 = 0u;
-    v262 = 0u;
-    v263 = 0u;
-    v249 = 0u;
-    v250 = 0u;
-    memset(v251, 0, sizeof(v251));
-    v252 = 0u;
-    v253 = 0;
-    bzero(&v275, 0x4A40uLL);
-    v281[0] = -1;
-    v240 = v12;
-    if (v4)
+    *v25 = 30568;
+    bzero(v254, 0x1738uLL);
+    v228 = 0;
+    v234 = 0u;
+    v235 = 0u;
+    v236 = 0u;
+    v237 = 0u;
+    memset(v238, 0, sizeof(v238));
+    v239 = 0u;
+    memset(v240, 0, sizeof(v240));
+    v241 = 0u;
+    v242 = 0u;
+    v243 = 0u;
+    v229 = 0u;
+    v230 = 0u;
+    memset(v231, 0, sizeof(v231));
+    v232 = 0u;
+    v233 = 0;
+    bzero(&v255, 0x4A40uLL);
+    v261[0] = -1;
+    v220 = v20;
+    if (v12)
     {
-      Value = CFDictionaryGetValue(v4, @"ResetRCState");
-      if (*(v247 + 76) == 27 && (*(v247 + 716) & 0x3C0) == 0)
+      Value = CFDictionaryGetValue(v12, @"ResetRCState");
+      if (*(v227 + 76) == 27 && (*(v227 + 716) & 0x3C0) == 0)
       {
-        v97 = CFDictionaryGetValue(v4, kVTEncodeFrameOptionKey_ReducedResolutionSourceFrame);
-        if (v97 && sub_160EF0(0x10u, 6))
+        v99 = CFDictionaryGetValue(v12, kVTEncodeFrameOptionKey_ReducedResolutionSourceFrame);
+        if (v99 && sub_160EF0(0x10u, 6))
         {
-          v238 = sub_160F34(0x10u);
-          v242 = sub_175AE4();
-          v113 = sub_160F68(6);
-          if (v238)
+          v218 = sub_160F34(0x10u);
+          v222 = sub_175AE4();
+          v110 = sub_160F68(6);
+          if (v218)
           {
-            printf("%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p\n", v242, 16, v113, *(v247 + 16), v97);
-            v242 = sub_175AE4();
-            v113 = sub_160F68(6);
+            printf("%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p\n", v222, 16, v110, *(v227 + 16), v99);
+            v222 = sub_175AE4();
+            v110 = sub_160F68(6);
           }
 
-          syslog(3, "%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p", v242, 16, v113, *(v247 + 16), v97);
+          syslog(3, "%lld %d AVE %s: FIG: %p: use scaled source for LRME, %p", v222, 16, v110, *(v227 + 16), v99);
         }
       }
 
       else
       {
-        v97 = 0;
+        v99 = 0;
       }
 
       if (Value && CFEqual(Value, kCFBooleanTrue))
       {
-        v18 = sub_175AE4();
-        v248 = v18;
-        sub_12D170(*(v247 + 120), &v248);
+        v26 = sub_175AE4();
+        v228 = v26;
+        sub_12D170(*(v227 + 120), &v228);
       }
     }
 
     else
     {
-      v97 = 0;
+      v99 = 0;
     }
 
-    *&v258[1] = v267;
-    v259 = v265;
-    v98 = pixelBuffer;
-    *&v254 = v240;
-    *(&v254 + 1) = pixelBuffer;
-    *&v255 = v97;
-    v258[3] = v268;
-    DWORD2(v262) = *(v247 + 104668);
-    *&v260[1] = v264;
-    *(&v261 + 1) = v274;
-    *&v262 = v18;
-    v260[0] = v266;
-    *&v261 = &v275;
-    if (*(v247 + 10804) != 2)
+    *&v238[1] = v247;
+    v239 = v245;
+    v100 = pixelBuffer;
+    *&v234 = v220;
+    *(&v234 + 1) = pixelBuffer;
+    *&v235 = v99;
+    v238[3] = v248;
+    DWORD2(v242) = *(v227 + 104668);
+    *&v240[1] = v244;
+    *(&v241 + 1) = v254;
+    *&v242 = v26;
+    v240[0] = v246;
+    *&v241 = &v255;
+    if (*(v227 + 10804) != 2)
     {
-      v103 = vshr_n_u32(vadd_s32(*(v247 + 1440), 0x1F0000001FLL), 5uLL);
-      v104 = vmul_lane_s32(v103, v103, 1).u32[0];
-      if (v104 >> 5 < 0xFF)
+      v105 = vshr_n_u32(vadd_s32(*(v227 + 1440), 0x1F0000001FLL), 5uLL);
+      v106 = vmul_lane_s32(v105, v105, 1).u32[0];
+      if (v106 >> 5 < 0xFF)
       {
-        if (v104 < 0x7F8)
+        if (v106 < 0x7F8)
         {
-          v105 = 0.39;
+          v107 = 0.39;
         }
 
         else
         {
-          v105 = 0.58;
+          v107 = 0.58;
         }
       }
 
       else
       {
-        v105 = 1.0;
+        v107 = 1.0;
       }
 
-      v251[1].f64[1] = v105;
-      DWORD2(v252) = 127;
+      v231[1].f64[1] = v107;
+      DWORD2(v232) = 127;
       goto LABEL_130;
     }
 
-    if (!v2)
+    if (!v10)
     {
-      sub_1556B4(*(v247 + 104704), &v264);
-      v98 = pixelBuffer;
+      sub_1556B4(*(v227 + 104704), &v244);
+      v100 = pixelBuffer;
     }
 
-    sub_15F768(v98, &v249);
-    sub_CD91C(*(v247 + 104720), *(v247 + 104668), *(v247 + 104648), &v249);
-    if (*(v247 + 76) < 17 || (*(v247 + 716) & 0x3C0) == 0)
+    sub_15F768(v100, &v229);
+    sub_CD91C(*(v227 + 104720), *(v227 + 104668), *(v227 + 104648), &v229);
+    if (*(v227 + 76) < 17 || (*(v227 + 716) & 0x3C0) == 0)
     {
 LABEL_130:
-      v260[3] = &v249;
-      v12 = v240;
-      if ((*(v247 + 1337) & 2) != 0 && *(v247 + 76) >= 4 && (*(v247 + 1112) - 1) <= 0x3B)
+      v240[3] = &v229;
+      v20 = v220;
+      if ((*(v227 + 1337) & 2) != 0 && *(v227 + 76) >= 4 && (*(v227 + 1112) - 1) <= 0x3B)
       {
-        v106 = v247 + 104784;
-        if (sub_133F6C(v4, (v247 + 104784 + 648 * *(v247 + 106080))))
+        v108 = v227 + 104784;
+        if (sub_133F6C(v12, (v227 + 104784 + 648 * *(v227 + 106080))))
         {
-          if (*(v247 + 1112) == 60)
+          if (*(v227 + 1112) == 60)
           {
-            v112 = *(v247 + 106084);
-            if (v112 != -1 && v112 + 1 == *(v247 + 104648))
+            v109 = *(v227 + 106084);
+            if (v109 != -1 && v109 + 1 == *(v227 + 104648))
             {
-              memcpy((*(&v261 + 1) + 152), (v106 + 648 * (*(v247 + 106080) == 0)), 0x288uLL);
+              memcpy((*(&v241 + 1) + 152), (v108 + 648 * (*(v227 + 106080) == 0)), 0x288uLL);
             }
           }
         }
 
         else
         {
-          memset(v273, 0, sizeof(v273));
-          __dst = *(v247 + 104648);
-          v221 = *(v106 + 648 * *(v247 + 106080));
-          sub_172100(v273, 32, "%llu %d %d", v107, v108, v109, v110, v111, *(v247 + 56));
-          sub_133ED0((v106 + 648 * *(v247 + 106080)), 47, 6, v273, 0, v114, v115, v116);
-          memcpy((*(&v261 + 1) + 152), (v106 + 648 * *(v247 + 106080)), 0x288uLL);
-          if (*(v247 + 1112) == 60)
+          memset(v253, 0, sizeof(v253));
+          sub_172100(v253, 32, "%llu %d %d", *(v227 + 56), *(v227 + 104648), *(v108 + 648 * *(v227 + 106080)));
+          sub_133ED0((v108 + 648 * *(v227 + 106080)), 47, 6, v253, 0);
+          memcpy((*(&v241 + 1) + 152), (v108 + 648 * *(v227 + 106080)), 0x288uLL);
+          if (*(v227 + 1112) == 60)
           {
-            *(v247 + 106080) = *(v247 + 106080) == 0;
-            *(v247 + 106084) = *(v247 + 104648);
+            *(v227 + 106080) = *(v227 + 106080) == 0;
+            *(v227 + 106084) = *(v227 + 104648);
           }
 
-          v12 = v240;
+          v20 = v220;
         }
       }
 
-      v117 = CMGetAttachment(pixelBuffer, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-      if (v117)
+      v111 = CMGetAttachment(pixelBuffer, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+      if (v111)
       {
-        sub_1C324(*(v247 + 104736), *(v247 + 104648), v117);
+        sub_1C324(*(v227 + 104736), *(v227 + 104648), v111);
       }
 
-      sub_207A4(*(v247 + 104736), *(v247 + 104648));
-      sub_20464(*(v247 + 104736), *(v247 + 104648), *(v247 + 56));
-      sub_1D808(*(v247 + 104736), *(v247 + 104648), *(v260[3] + 16));
-      sub_1DC50(*(v247 + 104736), *(v247 + 104648), *v260[3]);
-      sub_1CE6C(*(v247 + 104736), *(v247 + 104648), *(v260[3] + 68));
-      sub_1F124(*(v247 + 104736), *(v247 + 104648), *(v246 + 2), *v246);
-      DWORD2(v263) = *(v247 + 104648);
-      HIDWORD(v263) = v2;
-      v118 = sub_10C92C(v247, v4, v274, &v275, &v254);
-      if (!*(v247 + 11476))
+      sub_207A4(*(v227 + 104736), *(v227 + 104648));
+      sub_20464(*(v227 + 104736), *(v227 + 104648), *(v227 + 56));
+      sub_1D808(*(v227 + 104736), *(v227 + 104648), *(v240[3] + 16));
+      sub_1DC50(*(v227 + 104736), *(v227 + 104648), *v240[3]);
+      sub_1CE6C(*(v227 + 104736), *(v227 + 104648), *(v240[3] + 68));
+      sub_1F124(*(v227 + 104736), *(v227 + 104648), *(v226 + 2), *v226);
+      DWORD2(v243) = *(v227 + 104648);
+      HIDWORD(v243) = v10;
+      v112 = sub_10C92C(v227, v12, v254, &v255, &v234);
+      if (!*(v227 + 11476))
       {
-        sub_10E85C(v247, v274, &v275, *v260[3]);
+        sub_10E85C(v227, v254, &v255, *v240[3]);
       }
 
-      *(*(&v261 + 1) + 936) = *(*(&v261 + 1) + 936) & 0xFFFFF9FF | ((*(*(&v261 + 1) + 152) > 0) << 9) | ((*(*(&v261 + 1) + 800) > 0) << 10);
-      if (*(v247 + 104668) && *(v247 + 104656) && sub_10EF18(v247, &v267))
+      *(*(&v241 + 1) + 936) = *(*(&v241 + 1) + 936) & 0xFFFFF9FF | ((*(*(&v241 + 1) + 152) > 0) << 9) | ((*(*(&v241 + 1) + 800) > 0) << 10);
+      if (*(v227 + 104668) && *(v227 + 104656) && sub_10EF18(v227, &v247, &v255))
       {
         if (sub_160EF0(3u, 4))
         {
-          v119 = sub_160F34(3u);
-          v120 = sub_175AE4();
-          v121 = sub_160F68(4);
-          if (v119)
+          v113 = sub_160F34(3u);
+          v114 = sub_175AE4();
+          v115 = sub_160F68(4);
+          if (v113)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_MultipassDataFetch failed.\n", v120, 3, v121, "AVE_HEVC_Encode", 8079, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_MultipassDataFetch failed.\n", v114, 3, v115, "AVE_HEVC_Encode", 8079, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -4201,40 +2984,40 @@ LABEL_130:
 
       else
       {
-        DWORD2(v263) = *(v247 + 104648);
-        HIDWORD(v263) = v2;
-        if (v270)
+        DWORD2(v243) = *(v227 + 104648);
+        HIDWORD(v243) = v10;
+        if (v250)
         {
-          v122 = pixelBuffer;
+          v116 = pixelBuffer;
         }
 
         else
         {
-          v122 = 0;
+          v116 = 0;
         }
 
-        *(&v257 + 1) = v122;
-        v123 = sub_12D95C(*(v247 + 120), &v254);
-        if (!v123)
+        *(&v237 + 1) = v116;
+        v117 = sub_12D95C(*(v227 + 120), &v234);
+        if (!v117)
         {
-          v51 = v118;
+          v55 = v112;
           goto LABEL_172;
         }
 
-        if (v123 == -536870173)
+        if (v117 == -536870173)
         {
-          v51 = v118;
+          v55 = v112;
           if (sub_160EF0(0x10u, 5))
           {
-            v124 = sub_160F34(0x10u);
-            v125 = sub_175AE4();
-            v126 = sub_160F68(5);
-            if (v124)
+            v118 = sub_160F34(0x10u);
+            v119 = sub_175AE4();
+            v120 = sub_160F68(5);
+            if (v118)
             {
-              printf("%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame\n", v125, 16, v126);
+              printf("%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame\n", v119, 16, v120);
               sub_175AE4();
               sub_160F68(5);
-              v51 = v118;
+              v55 = v112;
             }
 
             syslog(3, "%lld %d AVE %s: FIG: device returned kIOReturnNoPower. reject the frame");
@@ -4245,12 +3028,12 @@ LABEL_130:
 
         if (sub_160EF0(3u, 4))
         {
-          v127 = sub_160F34(3u);
-          v128 = sub_175AE4();
-          v129 = sub_160F68(4);
-          if (v127)
+          v121 = sub_160F34(3u);
+          v122 = sub_175AE4();
+          v123 = sub_160F68(4);
+          if (v121)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Process failed.\n", v128, 3, v129, "AVE_HEVC_Encode", 8102, "err == noErr");
+            printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_USL_Drv_Process failed.\n", v122, 3, v123, "AVE_HEVC_Encode", 8102, "err == noErr");
             sub_175AE4();
             sub_160F68(4);
           }
@@ -4260,97 +3043,64 @@ LABEL_130:
       }
 
 LABEL_171:
-      v51 = 4294966296;
+      v55 = 4294966296;
 LABEL_172:
-      if (v271 == 1 && pixelBuffer)
+      if (v251 == 1 && pixelBuffer)
       {
         CVPixelBufferRelease(pixelBuffer);
       }
 
-      ++v17[1];
+      ++v25[1];
       goto LABEL_176;
     }
 
-    if (*(&v252 + 1) == 0x1FFFFFFFFLL && sub_160EF0(0x10u, 5))
+    if (*(&v232 + 1) == 0x1FFFFFFFFLL && sub_160EF0(0x10u, 5))
     {
-      v99 = sub_160F34(0x10u);
-      v100 = sub_175AE4();
-      v101 = sub_160F68(5);
-      if (v99)
+      v101 = sub_160F34(0x10u);
+      v102 = sub_175AE4();
+      v103 = sub_160F68(5);
+      if (v101)
       {
-        printf("%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!\n", v100, 16, v101);
-        v102 = sub_175AE4();
-        v220 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v102, 16, v220);
+        printf("%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!\n", v102, 16, v103);
+        v104 = sub_175AE4();
+        v211 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v104, 16, v211);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v100, 16, v101);
+        syslog(3, "%lld %d AVE %s: FIG: MCTF Ban0Modulation Enabled, but Band0Strength is missing!", v102, 16, v103);
       }
     }
 
-    if (v251[0].f64[1] != 0.0 && *(&v250 + 1) != 0.0 && v251[0].f64[0] != 0.0)
+    if (v231[0].f64[1] != 0.0 && *(&v230 + 1) != 0.0 && v231[0].f64[0] != 0.0)
     {
-      v136 = sub_1502C8();
-      v137 = v136[133];
-      if (v137 > 0.0)
+      v130 = sub_1502C8();
+      v131 = v130[133];
+      if (v131 > 0.0)
       {
-        v138 = v136[134];
-        if (v138 > 0.0)
+        v132 = v130[134];
+        if (v132 > 0.0)
         {
-          v139 = vdupq_lane_s64(0x4170000000000000, 0);
-          v139.f64[0] = *(&v250 + 1);
-          v140 = vmulq_f64(*(v251 + 8), v139);
-          v141 = v251[0].f64[0] * v140.f64[0] / v140.f64[1];
-          if (v141 <= v137)
+          v133 = vdupq_lane_s64(0x4170000000000000, 0);
+          v133.f64[0] = *(&v230 + 1);
+          v134 = vmulq_f64(*(v231 + 8), v133);
+          v135 = v231[0].f64[0] * v134.f64[0] / v134.f64[1];
+          if (v135 <= v131)
           {
-            v148 = sub_160EF0(0x10u, 8);
-            if (v141 >= v138)
+            v142 = sub_160EF0(0x10u, 8);
+            if (v135 >= v132)
             {
-              if (v148)
-              {
-                v155 = sub_160F34(0x10u);
-                v243 = sub_175AE4();
-                v156 = sub_160F68(8);
-                v157 = *(v247 + 108008 + 4 * v2);
-                v158 = ((v141 - v141) * 1000.0);
-                if (v158 >= 0)
-                {
-                  v159 = ((v141 - v141) * 1000.0);
-                }
-
-                else
-                {
-                  v159 = -v158;
-                }
-
-                if (v155)
-                {
-                  printf("%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d\n", v243, 16, v156, v157, v141, v159);
-                  v160 = sub_175AE4();
-                  v161 = sub_160F68(8);
-                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v160, 16, v161, *(v247 + 108008 + 4 * v2), v141, v159);
-                }
-
-                else
-                {
-                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v243, 16, v156, v157, v141, v159);
-                }
-              }
-            }
-
-            else
-            {
-              if (v148)
+              if (v142)
               {
                 v149 = sub_160F34(0x10u);
-                v150 = sub_175AE4();
-                v151 = sub_160F68(8);
-                v152 = ((v141 - v141) * 1000.0);
+                v223 = sub_175AE4();
+                v150 = sub_160F68(8);
+                v151 = *(v227 + 108008 + 4 * v10);
+                v152 = ((v135 - v135) * 1000.0);
                 if (v152 >= 0)
                 {
-                  v153 = ((v141 - v141) * 1000.0);
+                  v153 = ((v135 - v135) * 1000.0);
                 }
 
                 else
@@ -4360,19 +3110,52 @@ LABEL_172:
 
                 if (v149)
                 {
-                  printf("%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d\n", v150, 16, v151, v141, v153);
+                  printf("%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d\n", v223, 16, v150, v151, v135, v153);
                   v154 = sub_175AE4();
-                  v223 = sub_160F68(8);
-                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v154, 16, v223, v141, v153);
+                  v155 = sub_160F68(8);
+                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v154, 16, v155, *(v227 + 108008 + 4 * v10), v135, v153);
                 }
 
                 else
                 {
-                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v150, 16, v151, v141, v153);
+                  syslog(3, "%lld %d AVE %s: MCTF with %d refs no change. overallgain: %d.%03d", v223, 16, v150, v151, v135, v153);
+                }
+              }
+            }
+
+            else
+            {
+              if (v142)
+              {
+                v143 = sub_160F34(0x10u);
+                v144 = sub_175AE4();
+                v145 = sub_160F68(8);
+                v146 = ((v135 - v135) * 1000.0);
+                if (v146 >= 0)
+                {
+                  v147 = ((v135 - v135) * 1000.0);
+                }
+
+                else
+                {
+                  v147 = -v146;
+                }
+
+                if (v143)
+                {
+                  printf("%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d\n", v144, 16, v145, v135, v147);
+                  v148 = sub_175AE4();
+                  v213 = sub_160F68(8);
+                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v148, 16, v213, v135, v147);
+                }
+
+                else
+                {
+                  syslog(3, "%lld %d AVE %s: MCTF with 1refs. overallgain: %d.%03d", v144, 16, v145, v135, v147);
                 }
               }
 
-              *(v247 + 4 * v2 + 108008) = 0;
+              *(v227 + 4 * v10 + 108008) = 0;
             }
           }
 
@@ -4380,152 +3163,150 @@ LABEL_172:
           {
             if (sub_160EF0(0x10u, 8))
             {
-              v142 = sub_160F34(0x10u);
-              v143 = sub_175AE4();
-              v144 = sub_160F68(8);
-              v145 = ((v141 - v141) * 1000.0);
-              if (v145 >= 0)
+              v136 = sub_160F34(0x10u);
+              v137 = sub_175AE4();
+              v138 = sub_160F68(8);
+              v139 = ((v135 - v135) * 1000.0);
+              if (v139 >= 0)
               {
-                v146 = ((v141 - v141) * 1000.0);
+                v140 = ((v135 - v135) * 1000.0);
               }
 
               else
               {
-                v146 = -v145;
+                v140 = -v139;
               }
 
-              if (v142)
+              if (v136)
               {
-                printf("%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d\n", v143, 16, v144, v141, v146);
-                v147 = sub_175AE4();
-                v222 = sub_160F68(8);
-                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v147, 16, v222, v141, v146);
+                printf("%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d\n", v137, 16, v138, v135, v140);
+                v141 = sub_175AE4();
+                v212 = sub_160F68(8);
+                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v141, 16, v212, v135, v140);
               }
 
               else
               {
-                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v143, 16, v144, v141, v146);
+                syslog(3, "%lld %d AVE %s: MCTF with 2refs. overallgain: %d.%03d", v137, 16, v138, v135, v140);
               }
             }
 
-            *(v247 + 4 * v2 + 108008) = 1;
+            *(v227 + 4 * v10 + 108008) = 1;
           }
         }
       }
     }
 
-    v162 = *(v247 + 76);
-    if ((HIDWORD(v252) + 1) >= 2 && DWORD2(v252) != -1)
+    v156 = *(v227 + 76);
+    if ((HIDWORD(v232) + 1) >= 2 && DWORD2(v232) != -1)
     {
-      if (v162 >= 30 && SDWORD2(v252) >= 255)
+      if (v156 >= 30 && SDWORD2(v232) >= 255)
       {
         if (sub_160EF0(0x10u, 5))
         {
-          v163 = sub_160F34(0x10u);
-          v164 = sub_175AE4();
-          v165 = sub_160F68(5);
-          if (v163)
+          v157 = sub_160F34(0x10u);
+          v158 = sub_175AE4();
+          v159 = sub_160F68(5);
+          if (v157)
           {
-            printf("%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On\n", v164, 16, v165, HIDWORD(v252), DWORD2(v252));
-            v166 = sub_175AE4();
-            v167 = sub_160F68(5);
-            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v166, 16, v167, HIDWORD(v252), DWORD2(v252));
+            printf("%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On\n", v158, 16, v159, HIDWORD(v232), DWORD2(v232));
+            v160 = sub_175AE4();
+            v161 = sub_160F68(5);
+            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v160, 16, v161, HIDWORD(v232), DWORD2(v232));
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v164, 16, v165, HIDWORD(v252), DWORD2(v252));
+            syslog(3, "%lld %d AVE %s: FIG:Unexpected MCTF DynSwitchOff detected: Band0ModEnabled:%d and Band0Strength:%d. Forcing MCTF On", v158, 16, v159, HIDWORD(v232), DWORD2(v232));
           }
         }
 
-        DWORD2(v252) = 127;
+        DWORD2(v232) = 127;
       }
 
       goto LABEL_268;
     }
 
-    if (v162 >= 30)
+    if (v156 >= 30)
     {
-      DWORD2(v252) = 127;
-      *(v247 + v2 + 108004) = 1;
+      DWORD2(v232) = 127;
+      *(v227 + v10 + 108004) = 1;
       goto LABEL_268;
     }
 
-    v168 = v247 + 108004;
-    v169 = *(v247 + 108004 + v2);
-    if (v251[0].f64[1] == 0.0 || *(&v250 + 1) == 0.0 || v251[0].f64[0] == 0.0)
+    v162 = v227 + 108004;
+    v163 = *(v227 + 108004 + v10);
+    if (v231[0].f64[1] == 0.0 || *(&v230 + 1) == 0.0 || v231[0].f64[0] == 0.0)
     {
       if (sub_160EF0(0x10u, 7))
       {
-        v180 = sub_160F34(0x10u);
-        v181 = sub_175AE4();
-        v182 = sub_160F68(7);
-        v183 = *(v247 + 104648);
-        if (v180)
+        v174 = sub_160F34(0x10u);
+        v175 = sub_175AE4();
+        v176 = sub_160F68(7);
+        v177 = *(v227 + 104648);
+        if (v174)
         {
-          printf("%lld %d AVE %s: FIG: F %d ISP meta data is missing!\n", v181, 16, v182, v183);
-          v184 = sub_175AE4();
-          v224 = sub_160F68(7);
-          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v184, 16, v224, *(v247 + 104648));
+          printf("%lld %d AVE %s: FIG: F %d ISP meta data is missing!\n", v175, 16, v176, v177);
+          v178 = sub_175AE4();
+          v214 = sub_160F68(7);
+          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v178, 16, v214, *(v227 + 104648));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v181, 16, v182, v183);
+          syslog(3, "%lld %d AVE %s: FIG: F %d ISP meta data is missing!", v175, 16, v176, v177);
         }
       }
 
-      DWORD2(v252) = 255;
-      if ((*(v168 + v2) & 1) == 0)
+      DWORD2(v232) = 255;
+      if ((*(v162 + v10) & 1) == 0)
       {
 LABEL_268:
-        if (*(v247 + 1112) < 1 || !HIDWORD(v252) || SDWORD2(v252) > 254)
+        if (*(v227 + 1112) < 1 || !HIDWORD(v232) || SDWORD2(v232) > 254)
         {
           goto LABEL_130;
         }
 
-        v198 = *(v247 + 1440);
-        v199 = *(v247 + 1444);
-        v200 = sub_155D40(*(v247 + 104704));
-        v201 = ((v199 + 31) >> 5) * ((v198 + 31) >> 5) * v200;
-        if (*(v247 + 76) <= 29)
+        v192 = *(v227 + 1440);
+        v193 = *(v227 + 1444);
+        v194 = sub_155D40(*(v227 + 104704));
+        v195 = ((v193 + 31) >> 5) * ((v192 + 31) >> 5) * v194;
+        if (*(v227 + 76) <= 29)
         {
-          v202 = 285600;
+          v196 = 285600;
         }
 
         else
         {
-          v202 = 530400;
+          v196 = 530400;
         }
 
-        if ((*(v247 + 1120) & 0x10) != 0)
+        if ((*(v227 + 1120) & 0x10) != 0)
         {
-          if (v202 * 1.5 >= v201)
+          if (v196 * 1.5 >= v195)
           {
 LABEL_282:
-            if ((*(v247 + 1451) & 2) != 0)
+            if ((*(v227 + 1451) & 2) != 0)
             {
-              v208 = *(v247 + 10556) < 2u ? 2 : 3;
-              v209 = v247 + 4 * v2;
-              sub_D9E84(&v249, *(v247 + 76), v208, (v209 + 108032), v281);
+              v201 = *(v227 + 10556) < 2u ? 2 : 3;
+              v202 = v227 + 4 * v10;
+              sub_D9E84(&v229, *(v227 + 76), v201, (v202 + 108032), v261);
               if (sub_160EF0(0x10u, 8))
               {
-                v210 = sub_160F34(0x10u);
-                v211 = sub_175AE4();
-                v212 = sub_160F68(8);
-                if (v210)
+                v203 = sub_160F34(0x10u);
+                v204 = sub_175AE4();
+                v205 = sub_160F68(8);
+                if (v203)
                 {
-                  printf("%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d\n", v211, 16, v212, "AVE_HEVC_Encode", 7944, v247, *(v247 + 56), v281[0], v2, *(v209 + 108032));
-                  v213 = sub_175AE4();
-                  v214 = sub_160F68(8);
-                  v231 = *(v209 + 108032);
-                  v227 = *(v247 + 56);
-                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v213, 16, v214);
+                  printf("%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d\n", v204, 16, v205, "AVE_HEVC_Encode", 7944, v227, *(v227 + 56), v261[0], v10, *(v202 + 108032));
+                  v206 = sub_175AE4();
+                  v215 = sub_160F68(8);
+                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v206, 16, v215);
                 }
 
                 else
                 {
-                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v211, 16, v212);
+                  syslog(3, "%lld %d AVE %s: %s:%d %p %lld PerFrameData.iDynamicStrength %d rangeIdx[%d] %d", v204, 16, v205);
                 }
               }
             }
@@ -4534,28 +3315,27 @@ LABEL_282:
           }
         }
 
-        else if (v201 <= v202)
+        else if (v195 <= v196)
         {
           goto LABEL_282;
         }
 
         if (sub_160EF0(0x10u, 5))
         {
-          v203 = sub_160F34(0x10u);
-          v204 = sub_175AE4();
-          v205 = sub_160F68(5);
-          if (v203)
+          v197 = sub_160F34(0x10u);
+          v198 = sub_175AE4();
+          v199 = sub_160F68(5);
+          if (v197)
           {
-            printf("%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d\n", v204, 16, v205, v200, v198, v199, (*(v247 + 1120) >> 4) & 1, HIDWORD(v252), DWORD2(v252));
-            v206 = sub_175AE4();
+            printf("%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d\n", v198, 16, v199, v194, v192, v193, (*(v227 + 1120) >> 4) & 1, HIDWORD(v232), DWORD2(v232));
+            v200 = sub_175AE4();
             sub_160F68(5);
-            v207 = (*(v247 + 1120) >> 4) & 1;
-            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v206, 16);
+            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v200, 16);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v204, 16);
+            syslog(3, "%lld %d AVE %s: FIG: MCTF unsupported fps %d for %dx%d. VFR %d. Band0Mod %d, %d", v198, 16);
           }
         }
 
@@ -4565,141 +3345,140 @@ LABEL_282:
 
     else
     {
-      v170 = sub_1502C8();
-      v171 = vdupq_lane_s64(0x4170000000000000, 0);
-      v171.f64[0] = *(&v250 + 1);
-      v172 = vmulq_f64(*(v251 + 8), v171);
-      v173 = v251[0].f64[0] * v172.f64[0] / v172.f64[1];
-      if (*(v247 + 10556) < 2u)
+      v164 = sub_1502C8();
+      v165 = vdupq_lane_s64(0x4170000000000000, 0);
+      v165.f64[0] = *(&v230 + 1);
+      v166 = vmulq_f64(*(v231 + 8), v165);
+      v167 = v231[0].f64[0] * v166.f64[0] / v166.f64[1];
+      if (*(v227 + 10556) < 2u)
       {
-        v174 = 2;
+        v168 = 2;
       }
 
       else
       {
-        v174 = 3;
+        v168 = 3;
       }
 
-      v175 = sub_D9988(v252, *(v247 + 76), v174);
-      v176 = 32.0;
-      if (v175)
+      v169 = sub_D9988(v232, *(v227 + 76), v168);
+      v170 = 32.0;
+      if (v169)
       {
-        v176 = 0.1;
+        v170 = 0.1;
       }
 
-      if (v170[132] > 0.0)
+      if (v164[132] > 0.0)
       {
-        v176 = v170[132];
+        v170 = v164[132];
       }
 
-      if (v173 >= v176)
+      if (v167 >= v170)
       {
-        DWORD2(v252) = 127;
-        *(v168 + v2) = 1;
+        DWORD2(v232) = 127;
+        *(v162 + v10) = 1;
       }
 
       else
       {
-        v177 = 24.0;
-        if (v175)
+        v171 = 24.0;
+        if (v169)
         {
-          v177 = 0.0;
+          v171 = 0.0;
         }
 
-        v178 = *(v168 + v2) & (v173 >= v177);
-        if ((*(v168 + v2) & (v173 >= v177)) != 0)
+        v172 = *(v162 + v10) & (v167 >= v171);
+        if ((*(v162 + v10) & (v167 >= v171)) != 0)
         {
-          v179 = 127;
+          v173 = 127;
         }
 
         else
         {
-          v179 = 255;
+          v173 = 255;
         }
 
-        DWORD2(v252) = v179;
-        *(v168 + v2) = v178;
-        if (v178 != 1)
+        DWORD2(v232) = v173;
+        *(v162 + v10) = v172;
+        if (v172 != 1)
         {
           goto LABEL_268;
         }
       }
     }
 
-    v185 = *(v247 + 1440);
-    v186 = sub_1502C8();
-    if ((*(v247 + 1120) & 0x10) != 0)
+    v179 = *(v227 + 1440);
+    v180 = sub_1502C8();
+    if ((*(v227 + 1120) & 0x10) != 0)
     {
-      v187 = sub_155D48(*(v247 + 104704));
+      v181 = sub_155D48(*(v227 + 104704));
     }
 
     else
     {
-      v187 = *(v247 + 1112);
+      v181 = *(v227 + 1112);
     }
 
-    if (v169)
+    if (v163)
     {
-      v188 = v186[270];
-      v189 = v188 <= 0;
-      v190 = 285600;
-    }
-
-    else
-    {
-      v188 = v186[271];
-      v189 = v188 <= 0;
-      v190 = 244800;
-    }
-
-    if (v189)
-    {
-      v191 = v190;
+      v182 = v180[270];
+      v183 = v182 <= 0;
+      v184 = 285600;
     }
 
     else
     {
-      v191 = v188;
+      v182 = v180[271];
+      v183 = v182 <= 0;
+      v184 = 244800;
     }
 
-    v192 = vshr_n_u32(vadd_s32(v185, 0x1F0000001FLL), 5uLL);
-    v193 = vmul_lane_s32(v192, v192, 1).u32[0] * v187;
-    if (v193 > v191)
+    if (v183)
     {
-      DWORD2(v252) = 255;
-      *(v168 + v2) = 0;
+      v185 = v184;
+    }
+
+    else
+    {
+      v185 = v182;
+    }
+
+    v186 = vshr_n_u32(vadd_s32(v179, 0x1F0000001FLL), 5uLL);
+    v187 = vmul_lane_s32(v186, v186, 1).u32[0] * v181;
+    if (v187 > v185)
+    {
+      DWORD2(v232) = 255;
+      *(v162 + v10) = 0;
     }
 
     if (sub_160EF0(0x10u, 8))
     {
-      v194 = sub_160F34(0x10u);
-      v244 = sub_175AE4();
-      v195 = sub_160F68(8);
-      if (*(v168 + v2))
+      v188 = sub_160F34(0x10u);
+      v224 = sub_175AE4();
+      v189 = sub_160F68(8);
+      if (*(v162 + v10))
       {
-        v196 = "Enable ";
+        v190 = "Enable ";
       }
 
       else
       {
-        v196 = "Disable";
+        v190 = "Disable";
       }
 
-      v237 = v196;
-      v239 = v195;
-      v236 = sub_155D64(*(v247 + 104704));
-      v197 = sub_155D40(*(v247 + 104704));
-      if (v194)
+      v217 = v190;
+      v219 = v189;
+      v216 = sub_155D64(*(v227 + 104704));
+      v191 = sub_155D40(*(v227 + 104704));
+      if (v188)
       {
-        printf("%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)\n", v244, 16, v239, v237, v187, v236, v197, v193, v191, v169);
-        v244 = sub_175AE4();
+        printf("%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)\n", v224, 16, v219, v217, v181, v216, v191, v187, v185, v163);
+        v224 = sub_175AE4();
         sub_160F68(8);
-        *(v168 + v2);
-        sub_155D64(*(v247 + 104704));
-        sub_155D40(*(v247 + 104704));
+        sub_155D64(*(v227 + 104704));
+        sub_155D40(*(v227 + 104704));
       }
 
-      syslog(3, "%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)", v244, 16);
+      syslog(3, "%lld %d AVE %s: %s MCTF. frameRate: %d cnt %d (%.2f), pixel rate %d threshold %d (prev set: %d)", v224, 16);
     }
 
     goto LABEL_268;
@@ -4707,221 +3486,217 @@ LABEL_282:
 
   if (sub_160EF0(0xCu, 4))
   {
-    v35 = sub_160F34(0xCu);
-    v36 = sub_175AE4();
-    v37 = sub_160F68(4);
-    if (v35)
+    v39 = sub_160F34(0xCu);
+    v40 = sub_175AE4();
+    v41 = sub_160F68(4);
+    if (v39)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d\n", v36, 12, v37, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v247, v12, pixelBuffer, v245, v246, v6, v4, v2);
-      v38 = sub_175AE4();
-      v217 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v38, 12, v217, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v247, v12);
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d\n", v40, 12, v41, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20, pixelBuffer, v225, v226, v14, v12, v10);
+      v42 = sub_175AE4();
+      v208 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v42, 12, v208, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v36, 12, v37, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v247, v12);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p %p %p %p %p %d", v40, 12, v41, "AVE_HEVC_Encode", 7430, "pINS != __null && pPixelBuf != __null && pRect != __null && pPTS != __null && pDuration != __null && idx >= 0", v227, v20);
     }
   }
 
-  v51 = 4294966295;
+  v55 = 4294966295;
 LABEL_176:
   if (sub_160EF0(0xCu, 7))
   {
-    v130 = sub_160F34(0xCu);
-    v131 = sub_175AE4();
-    v132 = sub_160F68(7);
-    if (v130)
+    v124 = sub_160F34(0xCu);
+    v125 = sub_175AE4();
+    v126 = sub_160F68(7);
+    if (v124)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d\n", v131, 12, v132, "AVE_HEVC_Encode", v247, v12, pixelBuffer, v245, v246, v6, v4, v2, v51);
-      v133 = sub_175AE4();
-      v134 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v133, 12, v134, "AVE_HEVC_Encode", v247, v12);
+      printf("%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d\n", v125, 12, v126, "AVE_HEVC_Encode", v227, v20, pixelBuffer, v225, v226, v14, v12, v10, v55);
+      v127 = sub_175AE4();
+      v128 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v127, 12, v128, "AVE_HEVC_Encode", v227, v20);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v131, 12, v132, "AVE_HEVC_Encode", v247, v12);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %p %p %p %p %d %d", v125, 12, v126, "AVE_HEVC_Encode", v227, v20);
     }
   }
 
-  return v51;
+  return v55;
 }
 
 uint64_t sub_1020A4(uint64_t a1, CVPixelBufferRef *a2, _BYTE *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, int a7)
 {
-  v68 = 0;
+  v59 = 0;
   v14 = (a1 + 104628);
   v15 = a1 + 24306;
-  v67 = 0u;
-  v66 = 0u;
-  v65 = 0u;
-  v64 = 0u;
-  v63 = 0u;
-  v62 = 0u;
-  v61 = 0u;
+  v58 = 0u;
+  v57 = 0u;
+  v56 = 0u;
+  v55 = 0u;
+  v54 = 0u;
+  v53 = 0u;
+  v52 = 0u;
   PixelFormatType = CVPixelBufferGetPixelFormatType(*a2);
-  HIDWORD(v62) = PixelFormatType;
+  HIDWORD(v53) = PixelFormatType;
   v17 = v14[365];
   if (!v17)
   {
     v17 = *(a1 + 1440);
   }
 
-  v54 = v17;
+  v45 = v17;
   v18 = v14[366];
   if (!v18)
   {
     v18 = *(a1 + 1444);
   }
 
-  v55 = v18;
+  v46 = v18;
   v19 = *(a1 + 10772);
-  v56 = vrev64_s32(*(a1 + 64));
-  v57 = *(a1 + 716);
-  v58 = v19;
+  v47 = vrev64_s32(*(a1 + 64));
+  v48 = *(a1 + 716);
+  v49 = v19;
   v20 = *(a1 + 10892);
-  v59 = *(a1 + 10752);
-  v60 = v20;
-  LODWORD(v62) = *(a1 + 10860);
-  BYTE4(v62) = *(a1 + 692) > 0;
-  DWORD2(v62) = *(a1 + 10804);
-  HIBYTE(v68) = *(a1 + 76) > 11;
+  v50 = *(a1 + 10752);
+  v51 = v20;
+  LODWORD(v53) = *(a1 + 10860);
+  BYTE4(v53) = *(a1 + 692) > 0;
+  DWORD2(v53) = *(a1 + 10804);
+  HIBYTE(v59) = *(a1 + 76) > 11;
   if (*(v15 + 406) == 1)
   {
-    v61 = *(v15 + 410);
+    v52 = *(v15 + 410);
   }
 
   if (v14[5] && *(a1 + 11972) != PixelFormatType)
   {
-    v21 = *(a1 + 56);
     kdebug_trace();
-    v22 = sub_DDF24(&v54, a2, (a1 + 104776), *(a1 + 11972));
-    v23 = *(a1 + 56);
-    v24 = v14[5];
-    v25 = *(a1 + 11972);
+    v21 = sub_DDF24(&v45, a2, (a1 + 104776), *(a1 + 11972));
     kdebug_trace();
-    if (v22)
+    if (v21)
     {
       if (sub_160EF0(3u, 4))
       {
-        v26 = sub_160F34(3u);
-        v27 = sub_175AE4();
-        v28 = sub_160F68(4);
-        v29 = *(a1 + 11972);
-        if (v26)
+        v22 = sub_160F34(3u);
+        v23 = sub_175AE4();
+        v24 = sub_160F68(4);
+        if (v22)
         {
-          printf("%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.\n", v27, 3, v28, "AVE_HEVC_VerifyImageBuffer", 4833, "err == noErr", *a2, HIDWORD(v62), *(a1 + 11972), v22);
-          v27 = sub_175AE4();
-          v28 = sub_160F68(4);
-          v30 = *a2;
+          printf("%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.\n", v23, 3, v24, "AVE_HEVC_VerifyImageBuffer", 4833, "err == noErr", *a2, HIDWORD(v53), *(a1 + 11972), v21);
+          v25 = sub_175AE4();
+          v43 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", v25, 3, v43);
         }
 
-        v51 = *(a1 + 11972);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", v27, 3, v28);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to transfer a pixel buffer to another format %p (0x%X -> 0x%X) %d.", v23, 3, v24);
+        }
       }
 
-      return v22;
+      return v21;
     }
 
     *a4 = 1;
   }
 
-  v22 = sub_DCDC0(&v54, a2, (a1 + 104768));
-  if (v22)
+  v21 = sub_DCDC0(&v45, a2, (a1 + 104768));
+  if (v21)
   {
-    return v22;
+    return v21;
   }
 
-  *a3 = v68;
-  v32 = DWORD1(v66);
-  *a5 = v66;
-  *a6 = v32;
+  *a3 = v59;
+  v27 = DWORD1(v57);
+  *a5 = v57;
+  *a6 = v27;
   if (*(a1 + 76) < 12)
   {
-    *(a1 + 10522) = BYTE1(v68);
+    *(a1 + 10522) = BYTE1(v59);
 LABEL_21:
-    v33 = BYTE2(v68);
+    v28 = BYTE2(v59);
     goto LABEL_22;
   }
 
-  *(a1 + 10522) = BYTE1(v68);
-  if (v54 == *(a1 + 1440) && v55 == *(a1 + 1444))
+  *(a1 + 10522) = BYTE1(v59);
+  if (v45 == *(a1 + 1440) && v46 == *(a1 + 1444))
   {
     goto LABEL_21;
   }
 
-  v33 = 1;
+  v28 = 1;
 LABEL_22:
-  *(a1 + 10850) = v33;
-  v34 = DWORD1(v64);
-  *(a1 + 10204) = (DWORD1(v64) & 0xFFFFFFFE) == 2;
-  if (v34 == 3)
+  *(a1 + 10850) = v28;
+  v29 = DWORD1(v55);
+  *(a1 + 10204) = (DWORD1(v55) & 0xFFFFFFFE) == 2;
+  if (v29 == 3)
   {
-    *(a1 + 10529) = BYTE12(v64);
+    *(a1 + 10529) = BYTE12(v55);
   }
 
-  if (v59 == 2)
+  if (v50 == 2)
   {
-    *(a1 + 10864) = DWORD2(v66);
-    *(a1 + 10868) = *(&v65 + 1);
-    *(a1 + 10876) = vuzp2q_s32(vextq_s8(v67, v67, 4uLL), v67);
+    *(a1 + 10864) = DWORD2(v57);
+    *(a1 + 10868) = *(&v56 + 1);
+    *(a1 + 10876) = vuzp2q_s32(vextq_s8(v58, v58, 4uLL), v58);
   }
 
   if (a7)
   {
-    v35 = HIDWORD(v62);
-    *(a1 + 10768) = HIDWORD(v62);
+    v30 = HIDWORD(v53);
+    *(a1 + 10768) = HIDWORD(v53);
     if (*(a1 + 10752) != 2 && !v14[5])
     {
-      v43 = *(v15 + 426) + 8;
-      if (v43 <= *(v15 + 430) + 8)
+      v37 = *(v15 + 426) + 8;
+      if (v37 <= *(v15 + 430) + 8)
       {
-        v43 = *(v15 + 430) + 8;
+        v37 = *(v15 + 430) + 8;
       }
 
-      v44 = sub_DDADC(*(a1 + 68), *(a1 + 64), *(a1 + 716), 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v43, *v14, v35, *(a1 + 16));
-      if (v44)
+      v38 = sub_DDADC(*(a1 + 68), *(a1 + 64), *(a1 + 716), 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v37, *v14, v30 | 0x100000000, *(a1 + 16));
+      if (v38)
       {
-        v45 = v44;
+        v39 = v38;
         if (sub_160EF0(0x1Eu, 5))
         {
-          v46 = sub_160F34(0x1Eu);
-          v47 = sub_175AE4();
-          v48 = sub_160F68(5);
-          if (v46)
+          v40 = sub_160F34(0x1Eu);
+          v41 = sub_175AE4();
+          v42 = sub_160F68(5);
+          if (v40)
           {
-            printf("%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d\n", v47, 30, v48, "AVE_HEVC_VerifyImageBuffer", 4903, a1, *(a1 + 56), 0, v45);
-            v47 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d\n", v41, 30, v42, "AVE_HEVC_VerifyImageBuffer", 4903, a1, *(a1 + 56), 0, v39);
+            v41 = sub_175AE4();
             sub_160F68(5);
-            v49 = *(a1 + 56);
           }
 
-          syslog(3, "%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d", v47, 30);
+          syslog(3, "%lld %d AVE %s: %s:%d fail to update pixel buffer dictionary %p %lld %d %d", v41, 30);
         }
       }
     }
 
-    v36 = DWORD2(v63);
-    v37 = v63;
-    *(v15 + 382) = DWORD2(v63);
-    *(a1 + 10188) = v36;
-    *(a1 + 10192) = v37;
-    *(a1 + 10171) = DWORD1(v64) != 1;
+    v31 = DWORD2(v54);
+    v32 = v54;
+    *(v15 + 382) = DWORD2(v54);
+    *(a1 + 10188) = v31;
+    *(a1 + 10192) = v32;
+    *(a1 + 10171) = DWORD1(v55) != 1;
     *(a1 + 10781) = 1;
-    if (v37 == 10)
+    if (v32 == 10)
     {
       *(a1 + 12070) = 0;
       *v15 = 0;
     }
 
-    if (v36 == 2)
+    if (v31 == 2)
     {
       *(a1 + 12071) = 1;
       *(v15 + 1) = 1;
     }
 
-    else if (v36 == 3)
+    else if (v31 == 3)
     {
       *(a1 + 12071) = 0;
       *(v15 + 1) = 0;
@@ -4935,7 +3710,7 @@ LABEL_22:
 
   if (v14[5])
   {
-    if (*(a1 + 11972) == HIDWORD(v62))
+    if (*(a1 + 11972) == HIDWORD(v53))
     {
       return 0;
     }
@@ -4944,26 +3719,21 @@ LABEL_22:
     {
       if (sub_160EF0(0xCu, 4))
       {
-        v38 = sub_160F34(0xCu);
-        v39 = sub_175AE4();
-        v40 = sub_160F68(4);
-        v41 = *(a1 + 11972);
-        if (v38)
+        v33 = sub_160F34(0xCu);
+        v34 = sub_175AE4();
+        v35 = sub_160F68(4);
+        if (v33)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x\n", v39, 12, v40, "AVE_HEVC_VerifyImageBuffer", 4956, "false", *(a1 + 56), v14[5], *(a1 + 11972), HIDWORD(v62));
-          v39 = sub_175AE4();
-          v40 = sub_160F68(4);
-          v42 = *(a1 + 56);
-          v52 = *(a1 + 11972);
-          v50 = v14[5];
+          printf("%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x\n", v34, 12, v35, "AVE_HEVC_VerifyImageBuffer", 4956, "false", *(a1 + 56), v14[5], *(a1 + 11972), HIDWORD(v53));
+          v36 = sub_175AE4();
+          v44 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v36, 12, v44);
         }
 
         else
         {
-          v53 = *(a1 + 11972);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v34, 12, v35);
         }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: pixel format change not supported %lld %d 0x%x 0x%x", v39, 12, v40);
       }
 
       return 4294954394;
@@ -4972,11 +3742,11 @@ LABEL_22:
 
   else
   {
-    v22 = 0;
-    *(a1 + 11972) = HIDWORD(v62);
+    v21 = 0;
+    *(a1 + 11972) = HIDWORD(v53);
   }
 
-  return v22;
+  return v21;
 }
 
 void sub_102728(uint64_t a1, __CVBuffer *a2)
@@ -4991,8 +3761,8 @@ void sub_102728(uint64_t a1, __CVBuffer *a2)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams\n", v6, 12, v7);
       v8 = sub_175AE4();
-      v28 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams", v8, 12, v28);
+      v26 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_UpdateCropParams", v8, 12, v26);
     }
 
     else
@@ -5085,21 +3855,11 @@ void sub_102728(uint64_t a1, __CVBuffer *a2)
       v23 = sub_160F34(0x10u);
       v24 = sub_175AE4();
       v25 = sub_160F68(7);
-      v26 = *(v4 + 768);
       if (v23)
       {
         printf("%lld %d AVE %s: FIG: conf_win_top_offset = %d conf_win_bottom_offset %d conf_win_left_offset = %d conf_win_right_offset %d\n", v24, 16, v25, *(v4 + 776), *(v4 + 780), *(v4 + 768), *(v4 + 772));
         v24 = sub_175AE4();
         sub_160F68(7);
-        v27 = *(v4 + 776);
-        v30 = *(v4 + 768);
-        v32 = *(v4 + 772);
-        v29 = *(v4 + 780);
-      }
-
-      else
-      {
-        v31 = *(v4 + 768);
       }
 
       syslog(3, "%lld %d AVE %s: FIG: conf_win_top_offset = %d conf_win_bottom_offset %d conf_win_left_offset = %d conf_win_right_offset %d", v24);
@@ -5148,8 +3908,8 @@ uint64_t sub_102AD4(uint64_t a1)
 {
   v2 = a1 + 104628;
   v3 = sub_1502C8();
-  v558 = 0;
-  v557 = 0.0;
+  v469 = 0;
+  v468 = 0.0;
   if (sub_160EF0(0xCu, 7))
   {
     v4 = sub_160F34(0xCu);
@@ -5159,8 +3919,8 @@ uint64_t sub_102AD4(uint64_t a1)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters\n", v5, 12, v6);
       v7 = sub_175AE4();
-      v463 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters", v7, 12, v463);
+      v427 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ValidateEncoderParameters", v7, 12, v427);
     }
 
     else
@@ -5179,8 +3939,8 @@ uint64_t sub_102AD4(uint64_t a1)
     {
       printf("%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]\n", v10, 16, v11);
       v12 = sub_175AE4();
-      v464 = sub_160F68(5);
-      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]", v12, 16, v464);
+      v428 = sub_160F68(5);
+      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_ConstantQualityFactor property supports values only                  in the range of [0,1]", v12, 16, v428);
     }
 
     else
@@ -5199,8 +3959,8 @@ uint64_t sub_102AD4(uint64_t a1)
     {
       printf("%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]\n", v15, 16, v16);
       v17 = sub_175AE4();
-      v465 = sub_160F68(5);
-      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]", v17, 16, v465);
+      v429 = sub_160F68(5);
+      syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_Quality property supports values only                          in the range of [0,1]", v17, 16, v429);
     }
 
     else
@@ -5211,7 +3971,7 @@ uint64_t sub_102AD4(uint64_t a1)
 
   if ((*(a1 + 1132) & 0xFFFFFFFE) == 6)
   {
-    v18 = sub_16D34C(*(v3 + 206), *(v2 + 1728), &v558);
+    v18 = sub_16D34C(*(v3 + 206), *(v2 + 1728), &v469);
     if (v18)
     {
       v19 = v18;
@@ -5220,120 +3980,97 @@ uint64_t sub_102AD4(uint64_t a1)
         v20 = sub_160F34(0x10u);
         v21 = sub_175AE4();
         v22 = sub_160F68(4);
-        v23 = *(v3 + 206);
         if (v20)
         {
           printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d\n", v21, 16, v22, "AVE_ValidateEncoderParameters", 3088, "ret == 0", a1, *(a1 + 56), *(v3 + 206), *(v2 + 1728));
-          v21 = sub_175AE4();
-          v22 = sub_160F68(4);
-          v24 = *(a1 + 56);
-          v536 = *(v3 + 206);
-          v542 = *(v2 + 1728);
+          v23 = sub_175AE4();
+          v430 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v23, 16, v430);
         }
 
         else
         {
-          v539 = *(v3 + 206);
-          v545 = *(v2 + 1728);
-          v530 = *(a1 + 56);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v21, 16, v22);
         }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBitrate fail %p %lld %d %d", v21, 16, v22);
       }
 
       return v19;
     }
 
-    *(a1 + 1208) = v558;
+    *(a1 + 1208) = v469;
   }
 
-  v25 = (v2 + 3060);
-  v26 = (v2 + 1732);
-  v27 = sub_16D7F4(*(a1 + 1120), &v557, v3[104], *(v2 + 3060), *(v2 + 1732));
-  if (v27)
+  v24 = sub_16D7F4(*(a1 + 1120), &v468, v3[104], *(v2 + 3060), *(v2 + 1732));
+  if (v24)
   {
-    v19 = v27;
+    v19 = v24;
     if (sub_160EF0(0x10u, 4))
     {
-      v28 = sub_160F34(0x10u);
-      v29 = sub_175AE4();
-      v30 = sub_160F68(4);
-      v31 = *(a1 + 1120);
-      if (v28)
+      v25 = sub_160F34(0x10u);
+      v26 = sub_175AE4();
+      v27 = sub_160F68(4);
+      if (v25)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx\n", v29, 16, v30, "AVE_ValidateEncoderParameters", 3099, "ret == 0", a1, *(a1 + 56), v3[104], *v25, *v26, *(a1 + 1120));
-        v29 = sub_175AE4();
-        v30 = sub_160F68(4);
-        v32 = *v25;
+        printf("%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx\n", v26, 16, v27, "AVE_ValidateEncoderParameters", 3099, "ret == 0", a1, *(a1 + 56), v3[104], *(v2 + 3060), *(v2 + 1732), *(a1 + 1120));
+        v26 = sub_175AE4();
+        v27 = sub_160F68(4);
       }
 
-      v549 = *(a1 + 1120);
-      v543 = *v25;
-      v547 = *v26;
-      v537 = *(v3 + 104);
-      v528 = *(a1 + 56);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx", v29, 16, v30);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVMaxBufferSize fail %p %lld %f %f %f 0x%llx", v26, 16, v27);
     }
 
     return v19;
   }
 
-  v33 = v557;
-  *(a1 + 1216) = v557;
-  v34 = (v2 + 3068);
-  v35 = (v2 + 1740);
-  v36 = sub_16DDF4(*(a1 + 1120), &v557, v3[105], *(v2 + 3068), *(v2 + 1740), v33);
-  if (v36)
+  v28 = *&v468;
+  *(a1 + 1216) = v468;
+  v29 = sub_16DDF4(*(a1 + 1120), &v468, v3[105], *(v2 + 3068), *(v2 + 1740), *&v28);
+  if (v29)
   {
-    v19 = v36;
+    v19 = v29;
     if (sub_160EF0(0x10u, 4))
     {
-      v37 = sub_160F34(0x10u);
-      v38 = sub_175AE4();
-      v39 = sub_160F68(4);
-      v40 = *(a1 + 1120);
-      if (v37)
+      v30 = sub_160F34(0x10u);
+      v31 = sub_175AE4();
+      v32 = sub_160F68(4);
+      if (v30)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx\n", v38, 16, v39, "AVE_ValidateEncoderParameters", 3112, "ret == 0", a1, *(a1 + 56), v3[105], *v34, *v35, *(a1 + 1216), *(a1 + 1120));
-        v38 = sub_175AE4();
-        v39 = sub_160F68(4);
-        v41 = *(v3 + 105);
-        v42 = *v35;
+        printf("%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx\n", v31, 16, v32, "AVE_ValidateEncoderParameters", 3112, "ret == 0", a1, *(a1 + 56), v3[105], *(v2 + 3068), *(v2 + 1740), *(a1 + 1216), *(a1 + 1120));
+        v33 = sub_175AE4();
+        v431 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v33, 16, v431);
       }
 
-      v551 = *(a1 + 1120);
-      v548 = *v35;
-      v550 = *(a1 + 1216);
-      v538 = *(v3 + 105);
-      v544 = *v34;
-      v529 = *(a1 + 56);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v38, 16, v39);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | Decide VBVInitialDelay fail %p %lld %f %f %f %f 0x%llx", v31, 16, v32);
+      }
     }
 
     return v19;
   }
 
-  v43 = (a1 + 10168);
-  *(a1 + 1224) = v557;
+  v34 = (a1 + 10168);
+  *(a1 + 1224) = v468;
   if (*(v2 + 1984) <= 0 && *(a1 + 11460) >= *(a1 + 1112))
   {
     *(a1 + 11460) = 0;
     *(a1 + 1288) = 1;
   }
 
-  v44 = *(a1 + 76);
-  if (v44 >= 30)
+  v35 = *(a1 + 76);
+  if (v35 >= 30)
   {
     if (*(a1 + 10248) == 1)
     {
       if (sub_160EF0(3u, 4))
       {
-        v45 = sub_160F34(3u);
-        v46 = sub_175AE4();
-        v47 = sub_160F68(4);
-        if (v45)
+        v36 = sub_160F34(3u);
+        v37 = sub_175AE4();
+        v38 = sub_160F68(4);
+        if (v36)
         {
-          printf("%lld %d AVE %s: %s:%d %s | current SoC doesn't support SliceEncodingMode. Fail.\n", v46, 3, v47, "AVE_ValidateEncoderParameters", 3129, "!pINS->VideoParams.bSliceEncodingMode");
+          printf("%lld %d AVE %s: %s:%d %s | current SoC doesn't support SliceEncodingMode. Fail.\n", v37, 3, v38, "AVE_ValidateEncoderParameters", 3129, "!pINS->VideoParams.bSliceEncodingMode");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -5346,107 +4083,106 @@ uint64_t sub_102AD4(uint64_t a1)
 
     if ((*(a1 + 1336) & 0x40) == 0 || (*(a1 + 1464) & 0x8000030) == 0)
     {
-LABEL_55:
+LABEL_53:
       if (*(a1 + 10752) != 2 && !*(v2 + 28) && *(v2 + 1772))
       {
-        goto LABEL_62;
+        goto LABEL_60;
       }
 
-      goto LABEL_57;
+      goto LABEL_55;
     }
 
     if (sub_160EF0(0x10u, 5))
     {
-      v49 = sub_160F34(0x10u);
-      v50 = sub_175AE4();
-      v51 = sub_160F68(5);
-      v52 = *(a1 + 1464);
-      if (v49)
+      v40 = sub_160F34(0x10u);
+      v41 = sub_175AE4();
+      v42 = sub_160F68(5);
+      v43 = *(a1 + 1464);
+      if (v40)
       {
-        printf("%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x\n", v50, 16, v51, "AVE_ValidateEncoderParameters", 3138, v52);
-        v53 = sub_175AE4();
-        v54 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v53, 16, v54, "AVE_ValidateEncoderParameters", 3138, *(a1 + 1464));
+        printf("%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x\n", v41, 16, v42, "AVE_ValidateEncoderParameters", 3138, v43);
+        v44 = sub_175AE4();
+        v45 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v44, 16, v45, "AVE_ValidateEncoderParameters", 3138, *(a1 + 1464));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v50, 16, v51, "AVE_ValidateEncoderParameters", 3138, v52);
+        syslog(3, "%lld %d AVE %s: %s:%d current SoC doesn't support AVE_QPMOD_FEATURE_STATIC_AREA. with Stats Enabled:0x%x", v41, 16, v42, "AVE_ValidateEncoderParameters", 3138, v43);
       }
     }
 
     *(a1 + 1336) &= ~0x40u;
-    v44 = *(a1 + 76);
+    v35 = *(a1 + 76);
   }
 
-  if (v44 >= 17)
+  if (v35 >= 17)
   {
-    goto LABEL_55;
+    goto LABEL_53;
   }
 
-LABEL_57:
+LABEL_55:
   *(a1 + 716) &= 0xFFFFFC3F;
   *(a1 + 11810) = 0;
   if (*(v2 + 28) && sub_160EF0(0x10u, 5))
   {
-    v55 = sub_160F34(0x10u);
-    v56 = sub_175AE4();
-    v57 = sub_160F68(5);
-    if (v55)
+    v46 = sub_160F34(0x10u);
+    v47 = sub_175AE4();
+    v48 = sub_160F68(5);
+    if (v46)
     {
-      printf("%lld %d AVE %s: FIG: MCTF is not supported for Multipass\n", v56, 16, v57);
-      v58 = sub_175AE4();
-      v466 = sub_160F68(5);
-      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v58, 16, v466);
+      printf("%lld %d AVE %s: FIG: MCTF is not supported for Multipass\n", v47, 16, v48);
+      v49 = sub_175AE4();
+      v432 = sub_160F68(5);
+      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v49, 16, v432);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v56, 16, v57);
+      syslog(3, "%lld %d AVE %s: FIG: MCTF is not supported for Multipass", v47, 16, v48);
     }
   }
 
-LABEL_62:
+LABEL_60:
   if (*(v2 + 1952) >= 1 && *(v2 + 1956) >= 1)
   {
     if (sub_160EF0(3u, 4))
     {
-      v59 = sub_160F34(3u);
-      v60 = sub_175AE4();
-      v61 = sub_160F68(4);
-      v62 = *(v2 + 1952);
-      if (v59)
+      v50 = sub_160F34(3u);
+      v51 = sub_175AE4();
+      v52 = sub_160F68(4);
+      if (v50)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.\n", v60, 3, v61, "AVE_ValidateEncoderParameters", 3177, "false", *(v2 + 1952), *(v2 + 1956));
-        v60 = sub_175AE4();
-        v61 = sub_160F68(4);
+        printf("%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.\n", v51, 3, v52, "AVE_ValidateEncoderParameters", 3177, "false", *(v2 + 1952), *(v2 + 1956));
+        v51 = sub_175AE4();
+        v52 = sub_160F68(4);
       }
 
-      v508 = *(v2 + 1952);
-      v527 = *(v2 + 1956);
-      v493 = 3177;
-      v494 = "false";
-      v467 = v61;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.";
-      goto LABEL_157;
+      v461 = *(v2 + 1952);
+      v462 = *(v2 + 1956);
+      v459 = 3177;
+      v460 = "false";
+      v433 = v52;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: pPropertyCfg->iEncodesDepth = %d and pPropertyCfg->iEncodesDisparity = %d -> fail.";
+      goto LABEL_155;
     }
 
     return 4294966295;
   }
 
-  v64 = a1 + 59393;
-  v65 = (a1 + 31173);
-  v66 = *(a1 + 1336);
-  if ((v66 & 0x4000000) != 0)
+  v54 = a1 + 59393;
+  v55 = (a1 + 31173);
+  v56 = *(a1 + 1336);
+  if ((v56 & 0x4000000) != 0)
   {
     *(a1 + 1120) &= ~0x200000000uLL;
     *(a1 + 1356) &= ~2u;
     *(a1 + 1448) &= ~0x10000000uLL;
     *(a1 + 1352) &= 0x1Eu;
-    *(a1 + 1336) = v66 & 0xF6FF7E8D;
+    *(a1 + 1336) = v56 & 0xF6FF7E8D;
     *(a1 + 10788) = 0;
-    *v65 = 0;
-    *v64 = 0;
+    *v55 = 0;
+    *v54 = 0;
     *(a1 + 42028) = 0;
     *(a1 + 60062) = 0;
     if (*(a1 + 1344) <= -13)
@@ -5470,48 +4206,45 @@ LABEL_62:
     }
   }
 
-  v67 = *(a1 + 1132);
-  if (v67 == 4)
+  v57 = *(a1 + 1132);
+  if (v57 == 4)
   {
     if (*(v2 + 28))
     {
       if (sub_160EF0(3u, 4))
       {
-        v72 = sub_160F34(3u);
-        v73 = sub_175AE4();
-        v74 = sub_160F68(4);
-        if (v72)
+        v61 = sub_160F34(3u);
+        v62 = sub_175AE4();
+        v63 = sub_160F68(4);
+        if (v61)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail\n", v73, 3, v74, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
-          v73 = sub_175AE4();
-          v74 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail\n", v62, 3, v63, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
+          v62 = sub_175AE4();
+          v63 = sub_160F68(4);
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail", v73, 3, v74, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: multiPassStorage and RC UsageMode = %d... not supported. fail", v62, 3, v63, "AVE_ValidateEncoderParameters", 3241, "false", *(a1 + 10892));
       }
 
       return 4294966296;
     }
   }
 
-  else if (v67 == 20 && *(a1 + 10892) != 1)
+  else if (v57 == 20 && *(a1 + 10892) != 1)
   {
     if (sub_160EF0(3u, 4))
     {
-      v68 = sub_160F34(3u);
-      v69 = sub_175AE4();
-      v70 = sub_160F68(4);
-      v71 = *(a1 + 10892);
-      if (v68)
+      v58 = sub_160F34(3u);
+      v59 = sub_175AE4();
+      v60 = sub_160F68(4);
+      if (v58)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.\n", v69, 3, v70, "AVE_ValidateEncoderParameters", 3232, "false", *(a1 + 10892), *(a1 + 1132));
-        v69 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.\n", v59, 3, v60, "AVE_ValidateEncoderParameters", 3232, "false", *(a1 + 10892), *(a1 + 1132));
+        v59 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v509 = *(a1 + 10892);
-      v531 = *(a1 + 1132);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.", v69);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Usage mode %d does not support eRCMode = 0x%x. Fail.", v59);
     }
 
     return 4294966295;
@@ -5519,48 +4252,48 @@ LABEL_62:
 
   if ((*(v2 + 1916) & 0x80000000) != 0)
   {
-    v75 = *(a1 + 10892);
-    if (v75 <= 0x26 && ((1 << v75) & 0x4000100002) != 0)
+    v64 = *(a1 + 10892);
+    if (v64 <= 0x26 && ((1 << v64) & 0x4000100002) != 0)
     {
       if (*(a1 + 76) <= 29)
       {
-        v76 = 0;
+        v65 = 0;
       }
 
       else
       {
-        v76 = 3;
+        v65 = 3;
       }
 
-      *v43 = v76;
+      *v34 = v65;
     }
   }
 
-  v77 = *(a1 + 1120);
-  if ((v77 & 0x80000000) == 0)
+  v66 = *(a1 + 1120);
+  if ((v66 & 0x80000000) == 0)
   {
-    v78 = *(a1 + 1256);
-    goto LABEL_103;
+    v67 = *(a1 + 1256);
+    goto LABEL_101;
   }
 
-  *(a1 + 1120) = v77 | 4;
-  v78 = *(a1 + 1256);
-  if (v78 == 2)
+  *(a1 + 1120) = v66 | 4;
+  v67 = *(a1 + 1256);
+  if (v67 == 2)
   {
-    v78 = 3;
+    v67 = 3;
     *(a1 + 1256) = 3;
   }
 
-  if (v67 == 4)
+  if (v57 == 4)
   {
     if (sub_160EF0(3u, 4))
     {
-      v79 = sub_160F34(3u);
-      v80 = sub_175AE4();
-      v81 = sub_160F68(4);
-      if (v79)
+      v68 = sub_160F34(3u);
+      v69 = sub_175AE4();
+      v70 = sub_160F68(4);
+      if (v68)
       {
-        printf("%lld %d AVE %s: %s:%d %s | DRL is not supported with lookahead feature\n", v80, 3, v81, "AVE_ValidateEncoderParameters", 3275, "false");
+        printf("%lld %d AVE %s: %s:%d %s | DRL is not supported with lookahead feature\n", v69, 3, v70, "AVE_ValidateEncoderParameters", 3275, "false");
         sub_175AE4();
         sub_160F68(4);
       }
@@ -5571,124 +4304,121 @@ LABEL_62:
     return 4294966296;
   }
 
-LABEL_103:
-  if (v78 >= 4)
+LABEL_101:
+  if (v67 >= 4)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v82 = sub_160F34(0x10u);
-      v83 = sub_175AE4();
-      v84 = sub_160F68(5);
-      v85 = *(a1 + 1256);
-      if (v82)
+      v71 = sub_160F34(0x10u);
+      v72 = sub_175AE4();
+      v73 = sub_160F68(5);
+      if (v71)
       {
-        printf("%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!\n", v83, 16, v84, "AVE_ValidateEncoderParameters", 3289, *(a1 + 1256), 3);
-        v83 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!\n", v72, 16, v73, "AVE_ValidateEncoderParameters", 3289, *(a1 + 1256), 3);
+        v72 = sub_175AE4();
         sub_160F68(5);
       }
 
-      v495 = *(a1 + 1256);
-      syslog(3, "%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!", v83);
+      syslog(3, "%lld %d AVE %s: %s:%d too many B frames (%d) max is %d. -> will gracefully default to the internal max!", v72);
     }
 
-    v78 = 3;
+    v67 = 3;
     *(a1 + 1256) = 3;
   }
 
-  v86 = *(a1 + 1240);
+  v74 = *(a1 + 1240);
   if (*(a1 + 76) >= 4)
   {
-    if ((v86 & 0x400) == 0)
+    if ((v74 & 0x400) == 0)
     {
-      goto LABEL_127;
+      goto LABEL_125;
     }
 
-    if (v78)
+    if (v67)
     {
       *(a1 + 10520) = 1;
-      goto LABEL_127;
+      goto LABEL_125;
     }
 
     if (sub_160EF0(0x10u, 5))
     {
-      v87 = sub_160F34(0x10u);
-      v88 = sub_175AE4();
-      v89 = sub_160F68(5);
-      if (v87)
+      v75 = sub_160F34(0x10u);
+      v76 = sub_175AE4();
+      v77 = sub_160F68(5);
+      if (v75)
       {
-        printf("%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB\n", v88, 16, v89);
-        v90 = sub_175AE4();
-        v468 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v90, 16, v468);
+        printf("%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB\n", v76, 16, v77);
+        v78 = sub_175AE4();
+        v434 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v78, 16, v434);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v88, 16, v89);
+        syslog(3, "%lld %d AVE %s: FIG: AdaptiveB is set when BFrames not enabled -> will disable AdaptiveB", v76, 16, v77);
       }
     }
 
-    v86 = *(a1 + 1240);
+    v74 = *(a1 + 1240);
   }
 
-  *(a1 + 1240) = v86 & 0xFFFFFBFF;
-LABEL_127:
-  v91 = *(a1 + 10252);
-  if (v91 >= 33)
+  *(a1 + 1240) = v74 & 0xFFFFFBFF;
+LABEL_125:
+  v79 = *(a1 + 10252);
+  if (v79 >= 33)
   {
     if (sub_160EF0(3u, 4))
     {
-      v95 = sub_160F34(3u);
-      v60 = sub_175AE4();
-      v96 = sub_160F68(4);
-      v97 = *(v43 + 21);
-      if (v95)
+      v83 = sub_160F34(3u);
+      v51 = sub_175AE4();
+      v84 = sub_160F68(4);
+      if (v83)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)\n", v60, 3, v96, "AVE_ValidateEncoderParameters", 3330, "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))", *(v43 + 21), 32);
-        v60 = sub_175AE4();
-        v96 = sub_160F68(4);
+        printf("%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)\n", v51, 3, v84, "AVE_ValidateEncoderParameters", 3330, "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))", *(v34 + 21), 32);
+        v51 = sub_175AE4();
+        v84 = sub_160F68(4);
       }
 
-      v508 = *(v43 + 21);
-      v527 = 32;
-      v493 = 3330;
-      v494 = "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))";
-      v467 = v96;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)";
-      goto LABEL_157;
+      v461 = *(v34 + 21);
+      v462 = 32;
+      v459 = 3330;
+      v460 = "pINS->VideoParams.sSliceMap.iNum <= ((32) < (256) ? (32) : (256))";
+      v433 = v84;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: too many slices (%d) max is %d for now (can be changed)";
+      goto LABEL_155;
     }
 
     return 4294966295;
   }
 
-  if (!v91)
+  if (!v79)
   {
     if (sub_160EF0(3u, 4))
     {
-      v99 = sub_160F34(3u);
-      v60 = sub_175AE4();
-      v100 = sub_160F68(4);
-      if (v99)
+      v86 = sub_160F34(3u);
+      v51 = sub_175AE4();
+      v87 = sub_160F68(4);
+      if (v86)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d\n", v60, 3, v100, "AVE_ValidateEncoderParameters", 3331, "pINS->VideoParams.sSliceMap.iNum != 0", *(v43 + 21));
-        v60 = sub_175AE4();
-        v100 = sub_160F68(4);
-        v494 = "pINS->VideoParams.sSliceMap.iNum != 0";
-        v508 = *(v43 + 21);
-        v493 = 3331;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d\n", v51, 3, v87, "AVE_ValidateEncoderParameters", 3331, "pINS->VideoParams.sSliceMap.iNum != 0", *(v34 + 21));
+        v51 = sub_175AE4();
+        v87 = sub_160F68(4);
+        v460 = "pINS->VideoParams.sSliceMap.iNum != 0";
+        v461 = *(v34 + 21);
+        v459 = 3331;
       }
 
       else
       {
-        v508 = *(v43 + 21);
-        v493 = 3331;
-        v494 = "pINS->VideoParams.sSliceMap.iNum != 0";
+        v461 = *(v34 + 21);
+        v459 = 3331;
+        v460 = "pINS->VideoParams.sSliceMap.iNum != 0";
       }
 
-      v467 = v100;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d";
-LABEL_157:
-      syslog(3, v63, v60, 3, v467, "AVE_ValidateEncoderParameters", v493, v494, v508, v527);
+      v433 = v87;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: Slices Per Frame = %d";
+LABEL_155:
+      syslog(3, v53, v51, 3, v433, "AVE_ValidateEncoderParameters", v459, v460, v461, v462);
     }
 
     return 4294966295;
@@ -5698,12 +4428,12 @@ LABEL_157:
   {
     if (sub_160EF0(0x10u, 4))
     {
-      v92 = sub_160F34(0x10u);
-      v93 = sub_175AE4();
-      v94 = sub_160F68(4);
-      if (v92)
+      v80 = sub_160F34(0x10u);
+      v81 = sub_175AE4();
+      v82 = sub_160F68(4);
+      if (v80)
       {
-        printf("%lld %d AVE %s: %s:%d %s | Unable to set bitdepth 10 for HEVC Profile that only supports bitdepth 8\n", v93, 16, v94, "AVE_ValidateEncoderParameters", 3342, "false");
+        printf("%lld %d AVE %s: %s:%d %s | Unable to set bitdepth 10 for HEVC Profile that only supports bitdepth 8\n", v81, 16, v82, "AVE_ValidateEncoderParameters", 3342, "false");
         sub_175AE4();
         sub_160F68(4);
       }
@@ -5718,78 +4448,73 @@ LABEL_157:
   {
     if (*(a1 + 10782) == 1)
     {
-      v98 = *(a1 + 24732) + 8;
+      v85 = *(a1 + 24732) + 8;
     }
 
     else
     {
-      v98 = *(a1 + 10192);
+      v85 = *(a1 + 10192);
     }
 
-    v101 = *(a1 + 24688);
-    if (v101)
+    v88 = *(a1 + 24688);
+    if (v88)
     {
-      if (v101 == 3)
+      if (v88 == 3)
       {
         if (sub_160EF0(0x10u, 6))
         {
-          v106 = sub_160F34(0x10u);
-          v552 = sub_175AE4();
-          v107 = sub_160F68(6);
-          v108 = *(a1 + 12028);
-          if (v106)
+          v92 = sub_160F34(0x10u);
+          v463 = sub_175AE4();
+          v93 = sub_160F68(6);
+          if (v92)
           {
-            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v552, 16, v107, "AVE_ValidateEncoderParameters", 3374, *(a1 + 12028), 9);
-            v109 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v463, 16, v93, "AVE_ValidateEncoderParameters", 3374, *(a1 + 12028), 9);
+            v94 = sub_175AE4();
             sub_160F68(6);
-            v497 = *(a1 + 12028);
-            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v109);
+            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v94);
           }
 
           else
           {
-            v499 = *(a1 + 12028);
-            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v552);
+            syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v463);
           }
         }
 
-        if (v98 == 10)
+        if (v85 == 10)
         {
-          v114 = 10;
+          v98 = 10;
         }
 
         else
         {
-          v114 = 9;
+          v98 = 9;
         }
 
-        goto LABEL_185;
+        goto LABEL_182;
       }
 
-      if (v101 == 2)
+      if (v88 == 2)
       {
         if (sub_160EF0(0x10u, 6))
         {
-          v102 = sub_160F34(0x10u);
-          v103 = sub_175AE4();
-          v104 = sub_160F68(6);
-          v105 = *(a1 + 12028);
-          if (v102)
+          v89 = sub_160F34(0x10u);
+          v90 = sub_175AE4();
+          v91 = sub_160F68(6);
+          if (v89)
           {
-            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v103, 16, v104, "AVE_ValidateEncoderParameters", 3366, *(a1 + 12028), 8);
-            v103 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v90, 16, v91, "AVE_ValidateEncoderParameters", 3366, *(a1 + 12028), 8);
+            v90 = sub_175AE4();
             sub_160F68(6);
           }
 
-          v496 = *(a1 + 12028);
-          syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v103);
+          syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v90);
         }
 
-        v114 = 8;
-LABEL_185:
-        *(a1 + 24264) = v114;
-        *(a1 + 12028) = v114;
-        goto LABEL_186;
+        v98 = 8;
+LABEL_182:
+        *(a1 + 24264) = v98;
+        *(a1 + 12028) = v98;
+        goto LABEL_183;
       }
     }
 
@@ -5797,93 +4522,82 @@ LABEL_185:
     {
       if (sub_160EF0(0x10u, 6))
       {
-        v110 = sub_160F34(0x10u);
-        v553 = sub_175AE4();
-        v111 = sub_160F68(6);
-        v112 = *(a1 + 12028);
-        if (v98 == 10)
+        v95 = sub_160F34(0x10u);
+        v464 = sub_175AE4();
+        v96 = sub_160F68(6);
+        if (v85 == 10)
         {
-          v113 = 7;
+          v97 = 7;
         }
 
         else
         {
-          v113 = 6;
+          v97 = 6;
         }
 
-        if (v110)
+        if (v95)
         {
-          printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v553, 16, v111, "AVE_ValidateEncoderParameters", 3383, *(a1 + 12028), v113);
-          v553 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d profile %d => %d\n", v464, 16, v96, "AVE_ValidateEncoderParameters", 3383, *(a1 + 12028), v97);
+          v464 = sub_175AE4();
           sub_160F68(6);
         }
 
-        v498 = *(a1 + 12028);
-        syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v553);
+        syslog(3, "%lld %d AVE %s: %s:%d profile %d => %d", v464);
       }
 
-      if (v98 == 10)
+      if (v85 == 10)
       {
-        v115 = 7;
+        v99 = 7;
       }
 
       else
       {
-        v115 = 6;
+        v99 = 6;
       }
 
-      *(a1 + 24264) = v115;
-      *(a1 + 12028) = v115;
+      *(a1 + 24264) = v99;
+      *(a1 + 12028) = v99;
     }
 
     if (sub_160EF0(0x10u, 6))
     {
-      v116 = sub_160F34(0x10u);
-      v117 = sub_175AE4();
-      v118 = sub_160F68(6);
-      v119 = *(a1 + 24688);
-      if (v116)
+      v100 = sub_160F34(0x10u);
+      v101 = sub_175AE4();
+      v102 = sub_160F68(6);
+      if (v100)
       {
-        printf("%lld %d AVE %s: %s:%d chroma format idc %d profile %d\n", v117, 16, v118, "AVE_ValidateEncoderParameters", 3391, *(a1 + 24688), *(a1 + 12028));
-        v117 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d chroma format idc %d profile %d\n", v101, 16, v102, "AVE_ValidateEncoderParameters", 3391, *(a1 + 24688), *(a1 + 12028));
+        v101 = sub_175AE4();
         sub_160F68(6);
-        v500 = *(a1 + 24688);
-        v510 = *(a1 + 12028);
       }
 
-      else
-      {
-        v501 = *(a1 + 24688);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d chroma format idc %d profile %d", v117);
+      syslog(3, "%lld %d AVE %s: %s:%d chroma format idc %d profile %d", v101);
     }
   }
 
-LABEL_186:
+LABEL_183:
   if (*(a1 + 1308) >= 2)
   {
-    v120 = *(a1 + 10892);
-    if (v120 == 20 || v120 == 10000 || v120 == 37)
+    v103 = *(a1 + 10892);
+    if (v103 == 20 || v103 == 10000 || v103 == 37)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v121 = sub_160F34(0x10u);
-        v122 = sub_175AE4();
-        v123 = sub_160F68(5);
-        v124 = *(a1 + 10892);
-        v125 = *(a1 + 1308);
-        if (v121)
+        v104 = sub_160F34(0x10u);
+        v105 = sub_175AE4();
+        v106 = sub_160F68(5);
+        v107 = *(a1 + 1308);
+        if (v104)
         {
-          printf("%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1\n", v122, 16, v123, *(a1 + 10892), v125);
-          v126 = sub_175AE4();
-          v127 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v126, 16, v127, *(a1 + 10892), *(a1 + 1308));
+          printf("%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1\n", v105, 16, v106, *(a1 + 10892), v107);
+          v108 = sub_175AE4();
+          v109 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v108, 16, v109, *(a1 + 10892), *(a1 + 1308));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v122, 16, v123, *(a1 + 10892), v125);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and Reference Number of P %d -> 1", v105, 16, v106, *(a1 + 10892), v107);
         }
       }
 
@@ -5898,26 +4612,26 @@ LABEL_186:
 
   if (*(a1 + 39959) == 1)
   {
-    v128 = *(a1 + 10892);
-    if (v128 <= 0x25 && ((1 << v128) & 0x2000100002) != 0 || v128 == 10000)
+    v110 = *(a1 + 10892);
+    if (v110 <= 0x25 && ((1 << v110) & 0x2000100002) != 0 || v110 == 10000)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v129 = sub_160F34(0x10u);
-        v130 = sub_175AE4();
-        v131 = sub_160F68(5);
-        v132 = *(a1 + 10892);
-        if (v129)
+        v111 = sub_160F34(0x10u);
+        v112 = sub_175AE4();
+        v113 = sub_160F68(5);
+        v114 = *(a1 + 10892);
+        if (v111)
         {
-          printf("%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.\n", v130, 16, v131, v132);
-          v133 = sub_175AE4();
-          v469 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v133, 16, v469, *(a1 + 10892));
+          printf("%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.\n", v112, 16, v113, v114);
+          v115 = sub_175AE4();
+          v435 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v115, 16, v435, *(a1 + 10892));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v130, 16, v131, v132);
+          syslog(3, "%lld %d AVE %s: FIG: usageMode = %d and bIsLossless is true not supported. Set it to false.", v112, 16, v113, v114);
         }
       }
 
@@ -5928,21 +4642,21 @@ LABEL_186:
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v134 = sub_160F34(0x10u);
-        v135 = sub_175AE4();
-        v136 = sub_160F68(5);
-        v137 = *(a1 + 1132);
-        if (v134)
+        v116 = sub_160F34(0x10u);
+        v117 = sub_175AE4();
+        v118 = sub_160F68(5);
+        v119 = *(a1 + 1132);
+        if (v116)
         {
-          printf("%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.\n", v135, 16, v136, v137);
-          v138 = sub_175AE4();
-          v470 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v138, 16, v470, *(a1 + 1132));
+          printf("%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.\n", v117, 16, v118, v119);
+          v120 = sub_175AE4();
+          v436 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v120, 16, v436, *(a1 + 1132));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v135, 16, v136, v137);
+          syslog(3, "%lld %d AVE %s: FIG: eRCMode = %d and bIsLossless is true not supported. Set eRCMode to FIXQP.", v117, 16, v118, v119);
         }
       }
 
@@ -5953,21 +4667,21 @@ LABEL_186:
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v139 = sub_160F34(0x10u);
-        v140 = sub_175AE4();
-        v141 = sub_160F68(5);
-        v142 = *(a1 + 1336);
-        if (v139)
+        v121 = sub_160F34(0x10u);
+        v122 = sub_175AE4();
+        v123 = sub_160F68(5);
+        v124 = *(a1 + 1336);
+        if (v121)
         {
-          printf("%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)\n", v140, 16, v141, "AVE_ValidateEncoderParameters", 3453, v142);
-          v143 = sub_175AE4();
-          v144 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v143, 16, v144, "AVE_ValidateEncoderParameters", 3453, *(a1 + 1336));
+          printf("%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)\n", v122, 16, v123, "AVE_ValidateEncoderParameters", 3453, v124);
+          v125 = sub_175AE4();
+          v126 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v125, 16, v126, "AVE_ValidateEncoderParameters", 3453, *(a1 + 1336));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v140, 16, v141, "AVE_ValidateEncoderParameters", 3453, v142);
+          syslog(3, "%lld %d AVE %s: %s:%d QPMod feature set to 0x%08x (!= 0) and bIsLossless is true not supported. Force QPMod feature to 0. (Set cu_qp_delta_enabled_flag to false)", v122, 16, v123, "AVE_ValidateEncoderParameters", 3453, v124);
         }
       }
 
@@ -5979,53 +4693,53 @@ LABEL_186:
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v145 = sub_160F34(0x10u);
-        v146 = sub_175AE4();
-        v147 = sub_160F68(5);
-        v148 = *(a1 + 1352);
-        if (v145)
+        v127 = sub_160F34(0x10u);
+        v128 = sub_175AE4();
+        v129 = sub_160F68(5);
+        v130 = *(a1 + 1352);
+        if (v127)
         {
-          printf("%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0\n", v146, 16, v147, v148);
-          v149 = sub_175AE4();
-          v471 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v149, 16, v471, *(a1 + 1352));
+          printf("%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0\n", v128, 16, v129, v130);
+          v131 = sub_175AE4();
+          v437 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v131, 16, v437, *(a1 + 1352));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v146, 16, v147, v148);
+          syslog(3, "%lld %d AVE %s: FIG: Lambda Modulation can not be supported when bIsLossless is set to true. Disable Lambda Modulation, set sLambdaMod.iFeature (0x%x) to 0", v128, 16, v129, v130);
         }
       }
 
       *(a1 + 1352) = 0;
     }
 
-    v150 = -6 * *(a1 + 24732);
-    *(a1 + 1348) = v150;
-    *(a1 + 1344) = v150;
-    *(a1 + 1152) = v150;
-    *(a1 + 1148) = v150;
-    *(a1 + 1144) = v150;
+    v132 = -6 * *(a1 + 24732);
+    *(a1 + 1348) = v132;
+    *(a1 + 1344) = v132;
+    *(a1 + 1152) = v132;
+    *(a1 + 1148) = v132;
+    *(a1 + 1144) = v132;
     *(a1 + 1232) = *(a1 + 1344);
     if (*(a1 + 1464))
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v151 = sub_160F34(0x10u);
-        v152 = sub_175AE4();
-        v153 = sub_160F68(5);
-        v154 = *(a1 + 1464);
-        if (v151)
+        v133 = sub_160F34(0x10u);
+        v134 = sub_175AE4();
+        v135 = sub_160F68(5);
+        v136 = *(a1 + 1464);
+        if (v133)
         {
-          printf("%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.\n", v152, 16, v153, v154);
-          v155 = sub_175AE4();
-          v472 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v155, 16, v472, *(a1 + 1464));
+          printf("%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.\n", v134, 16, v135, v136);
+          v137 = sub_175AE4();
+          v438 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v137, 16, v438, *(a1 + 1464));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v152, 16, v153, v154);
+          syslog(3, "%lld %d AVE %s: FIG: EnableSelStatsFlags = %d and bIsLossless is true not supported. Forcing EnableSelStatsFlags to STATISTICS_DISABLED.", v134, 16, v135, v136);
         }
       }
 
@@ -6036,21 +4750,21 @@ LABEL_186:
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v156 = sub_160F34(0x10u);
-        v157 = sub_175AE4();
-        v158 = sub_160F68(5);
-        v159 = *(a1 + 1336);
-        if (v156)
+        v138 = sub_160F34(0x10u);
+        v139 = sub_175AE4();
+        v140 = sub_160F68(5);
+        v141 = *(a1 + 1336);
+        if (v138)
         {
-          printf("%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.\n", v157, 16, v158, v159);
-          v160 = sub_175AE4();
-          v473 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v160, 16, v473, *(a1 + 1336));
+          printf("%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.\n", v139, 16, v140, v141);
+          v142 = sub_175AE4();
+          v439 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v142, 16, v439, *(a1 + 1336));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v157, 16, v158, v159);
+          syslog(3, "%lld %d AVE %s: FIG: sQPMod.iFeature = %d and bIsLossless is true not supported. Forcing AVE_QPMOD_FEATURE_STATIC_AREA to off.", v139, 16, v140, v141);
         }
       }
 
@@ -6059,50 +4773,50 @@ LABEL_186:
 
     *(a1 + 42028) = 1;
     *(a1 + 60062) = 1;
-    *v65 = 0;
-    *v64 = 0;
+    *v55 = 0;
+    *v54 = 0;
   }
 
   if (*(a1 + 1256))
   {
-    v161 = *(a1 + 11460);
+    v143 = *(a1 + 11460);
     if (*(v2 + 1836) <= 0)
     {
-      if (v161 < 1)
+      if (v143 < 1)
       {
-        goto LABEL_248;
+        goto LABEL_245;
       }
     }
 
-    else if (v161 < 1 || v161 < *(a1 + 1112))
+    else if (v143 < 1 || v143 < *(a1 + 1112))
     {
-      goto LABEL_248;
+      goto LABEL_245;
     }
 
     if (sub_160EF0(0x10u, 5))
     {
-      v162 = sub_160F34(0x10u);
-      v163 = sub_175AE4();
-      v164 = sub_160F68(5);
-      v165 = *(a1 + 1256);
-      if (v162)
+      v144 = sub_160F34(0x10u);
+      v145 = sub_175AE4();
+      v146 = sub_160F68(5);
+      v147 = *(a1 + 1256);
+      if (v144)
       {
-        printf("%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.\n", v163, 16, v164, "AVE_ValidateEncoderParameters", 3513, v165);
-        v166 = sub_175AE4();
-        v167 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v166, 16, v167, "AVE_ValidateEncoderParameters", 3513, *(a1 + 1256));
+        printf("%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.\n", v145, 16, v146, "AVE_ValidateEncoderParameters", 3513, v147);
+        v148 = sub_175AE4();
+        v149 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v148, 16, v149, "AVE_ValidateEncoderParameters", 3513, *(a1 + 1256));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v163, 16, v164, "AVE_ValidateEncoderParameters", 3513, v165);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and iAverageNonDroppableFrameRate is true. not supported yet, gracefully set it to false.", v145, 16, v146, "AVE_ValidateEncoderParameters", 3513, v147);
       }
     }
 
     *(a1 + 11460) = 0;
   }
 
-LABEL_248:
+LABEL_245:
   if (!*(a1 + 1336))
   {
     *(a1 + 39886) = 0;
@@ -6117,15 +4831,15 @@ LABEL_248:
   {
     if (*(a1 + 1132) == 20)
     {
-      v168 = 51;
+      v150 = 51;
     }
 
     else
     {
-      v168 = 48;
+      v150 = 48;
     }
 
-    *(a1 + 1236) = v168;
+    *(a1 + 1236) = v150;
   }
 
   if (*(a1 + 1344) <= -13)
@@ -6133,143 +4847,129 @@ LABEL_248:
     *(a1 + 1344) = -6 * *(a1 + 24732);
   }
 
-  v169 = (a1 + 1344);
+  v151 = (a1 + 1344);
   if (*(a1 + 1348) <= -13)
   {
     if (*(a1 + 1132) == 20)
     {
-      v170 = 51;
+      v152 = 51;
     }
 
     else
     {
-      v170 = 48;
+      v152 = 48;
     }
 
-    *(a1 + 1348) = v170;
+    *(a1 + 1348) = v152;
   }
 
   if (sub_17D104((a1 + 1344), *(a1 + 24732) + 8))
   {
     if (sub_160EF0(3u, 4))
     {
-      v171 = sub_160F34(3u);
-      v172 = sub_175AE4();
-      v173 = sub_160F68(4);
-      v174 = *(a1 + 1344);
-      if (v171)
+      v153 = sub_160F34(3u);
+      v154 = sub_175AE4();
+      v155 = sub_160F68(4);
+      if (v153)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]\n", v172, 3, v173, "AVE_ValidateEncoderParameters", 3553, "false", *(a1 + 1344), *(a1 + 1348));
-        v172 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]\n", v154, 3, v155, "AVE_ValidateEncoderParameters", 3553, "false", *(a1 + 1344), *(a1 + 1348));
+        v154 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v511 = *(a1 + 1344);
-      v532 = *(a1 + 1348);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]", v172);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect BlkQPRange [%d %d]", v154);
     }
 
     return 4294966295;
   }
 
-  v175 = (a1 + 1232);
+  v156 = (a1 + 1232);
   if (sub_17D104((a1 + 1232), *(a1 + 24732) + 8))
   {
     if (sub_160EF0(3u, 4))
     {
-      v176 = sub_160F34(3u);
-      v177 = sub_175AE4();
-      v178 = sub_160F68(4);
-      v179 = *(a1 + 1232);
-      if (v176)
+      v157 = sub_160F34(3u);
+      v158 = sub_175AE4();
+      v159 = sub_160F68(4);
+      if (v157)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]\n", v177, 3, v178, "AVE_ValidateEncoderParameters", 3561, "false", *(a1 + 1232), *(a1 + 1236));
-        v177 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]\n", v158, 3, v159, "AVE_ValidateEncoderParameters", 3561, "false", *(a1 + 1232), *(a1 + 1236));
+        v158 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v512 = *(a1 + 1232);
-      v533 = *(a1 + 1236);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]", v177);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Incorrect RCQPRange [%d %d]", v158);
     }
 
     return 4294966295;
   }
 
-  if (*v175 < *v169)
+  if (*v156 < *v151)
   {
-    *v175 = *v169;
+    *v156 = *v151;
   }
 
-  v180 = *(a1 + 1348);
-  if (*(a1 + 1236) > v180)
+  v160 = *(a1 + 1348);
+  if (*(a1 + 1236) > v160)
   {
-    *(a1 + 1236) = v180;
+    *(a1 + 1236) = v160;
   }
 
-  v181 = *(a1 + 1132);
+  v161 = *(a1 + 1132);
   if (*(a1 + 10764) == 1)
   {
-    if (v181 != 20)
+    if (v161 != 20)
     {
-      goto LABEL_297;
+      goto LABEL_294;
     }
 
     if (sub_160EF0(0x10u, 5))
     {
-      v182 = sub_160F34(0x10u);
-      v183 = sub_175AE4();
-      v184 = sub_160F68(5);
-      v185 = *(a1 + 1132);
-      if (v182)
+      v162 = sub_160F34(0x10u);
+      v163 = sub_175AE4();
+      v164 = sub_160F68(5);
+      v165 = *(a1 + 1132);
+      if (v162)
       {
-        printf("%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false\n", v183, 16, v184, v185);
-        v186 = sub_175AE4();
-        v474 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v186, 16, v474, *(a1 + 1132));
+        printf("%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false\n", v163, 16, v164, v165);
+        v166 = sub_175AE4();
+        v440 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v166, 16, v440, *(a1 + 1132));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v183, 16, v184, v185);
+        syslog(3, "%lld %d AVE %s: FIG: eRCMode 0x%x bUseAsyncFWScheduling = true -> not supported. set bUseAsyncFWScheduling to false", v163, 16, v164, v165);
       }
     }
 
-    v191 = 0;
-    goto LABEL_296;
+    v170 = 0;
+    goto LABEL_293;
   }
 
-  if (v181 != 20 && *(a1 + 1256))
+  if (v161 != 20 && *(a1 + 1256))
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v187 = sub_160F34(0x10u);
-      v188 = sub_175AE4();
-      v189 = sub_160F68(5);
-      v190 = *(a1 + 1132);
-      if (v187)
+      v167 = sub_160F34(0x10u);
+      v168 = sub_175AE4();
+      v169 = sub_160F68(5);
+      if (v167)
       {
-        printf("%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true\n", v188, 16, v189, "AVE_ValidateEncoderParameters", 3599, *(a1 + 1132), *(a1 + 1256));
-        v188 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true\n", v168, 16, v169, "AVE_ValidateEncoderParameters", 3599, *(a1 + 1132), *(a1 + 1256));
+        v168 = sub_175AE4();
         sub_160F68(5);
-        v502 = *(a1 + 1132);
-        v513 = *(a1 + 1256);
       }
 
-      else
-      {
-        v503 = *(a1 + 1132);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true", v188);
+      syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x bUseAsyncFWScheduling = false Bframes 0x%x -> not supported. set bUseAsyncFWScheduling to true", v168);
     }
 
-    v191 = 1;
-LABEL_296:
-    *(a1 + 10764) = v191;
+    v170 = 1;
+LABEL_293:
+    *(a1 + 10764) = v170;
   }
 
-LABEL_297:
+LABEL_294:
   if (*(v2 + 28))
   {
     *(a1 + 10540) = 1;
@@ -6279,194 +4979,193 @@ LABEL_297:
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v192 = sub_160F34(0x10u);
-      v193 = sub_175AE4();
-      v194 = sub_160F68(5);
-      v195 = *(a1 + 1256);
-      if (v192)
+      v171 = sub_160F34(0x10u);
+      v172 = sub_175AE4();
+      v173 = sub_160F68(5);
+      v174 = *(a1 + 1256);
+      if (v171)
       {
-        printf("%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case\n", v193, 16, v194, "AVE_ValidateEncoderParameters", 3627, v195);
-        v196 = sub_175AE4();
-        v197 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v196, 16, v197, "AVE_ValidateEncoderParameters", 3627, *(a1 + 1256));
+        printf("%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case\n", v172, 16, v173, "AVE_ValidateEncoderParameters", 3627, v174);
+        v175 = sub_175AE4();
+        v176 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v175, 16, v176, "AVE_ValidateEncoderParameters", 3627, *(a1 + 1256));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v193, 16, v194, "AVE_ValidateEncoderParameters", 3627, v195);
+        syslog(3, "%lld %d AVE %s: %s:%d BFrames = %d and LowDelay is true. Default to regular BFrames case", v172, 16, v173, "AVE_ValidateEncoderParameters", 3627, v174);
       }
     }
 
     *(a1 + 1476) = 0;
   }
 
-  v198 = *(a1 + 10192);
-  if (v198 == 8)
+  v177 = *(a1 + 10192);
+  if (v177 == 8)
   {
-    v199 = *(a1 + 1088);
+    v178 = *(a1 + 1088);
   }
 
   else
   {
-    if (v198 != 10)
+    if (v177 != 10)
     {
       if (sub_160EF0(3u, 4))
       {
-        v202 = sub_160F34(3u);
-        v203 = sub_175AE4();
-        v204 = sub_160F68(4);
-        if (v202)
+        v181 = sub_160F34(3u);
+        v182 = sub_175AE4();
+        v183 = sub_160F68(4);
+        if (v181)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail\n", v203, 3, v204, "AVE_ValidateEncoderParameters", 3642, "(pINS->VideoParams.input_bitdepth == 8) || (pINS->VideoParams.input_bitdepth == 10)", *(a1 + 10192));
-          v203 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail\n", v182, 3, v183, "AVE_ValidateEncoderParameters", 3642, "(pINS->VideoParams.input_bitdepth == 8) || (pINS->VideoParams.input_bitdepth == 10)", *(a1 + 10192));
+          v182 = sub_175AE4();
           sub_160F68(4);
         }
 
-        v514 = *(a1 + 10192);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail", v203);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: input_bitdepth = %d... not supported. Fail", v182);
       }
 
       return 4294966295;
     }
 
-    v199 = *(a1 + 1088);
+    v178 = *(a1 + 1088);
     if (*(a1 + 10853) != 1)
     {
-      v200 = v199 & 0xFFFFFFFFFFFFFFFELL;
-      goto LABEL_312;
+      v179 = v178 & 0xFFFFFFFFFFFFFFFELL;
+      goto LABEL_309;
     }
   }
 
-  v200 = v199 | 1;
-LABEL_312:
-  *(a1 + 1088) = v200;
-  if (sub_E71EC(*(a1 + 68), 1, 2, *v43))
+  v179 = v178 | 1;
+LABEL_309:
+  *(a1 + 1088) = v179;
+  if (sub_E71EC(*(a1 + 68), 1, 2, *v34))
   {
-    v201 = *(a1 + 76);
+    v180 = *(a1 + 76);
   }
 
   else
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v205 = sub_160F34(0x10u);
-      v206 = sub_175AE4();
-      v207 = sub_160F68(5);
-      v208 = *v43;
-      if (v205)
+      v184 = sub_160F34(0x10u);
+      v185 = sub_175AE4();
+      v186 = sub_160F68(5);
+      v187 = *v34;
+      if (v184)
       {
-        printf("%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0\n", v206, 16, v207, v208);
-        v209 = sub_175AE4();
-        v475 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v209, 16, v475, *v43);
+        printf("%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0\n", v185, 16, v186, v187);
+        v188 = sub_175AE4();
+        v441 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v188, 16, v441, *v34);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v206, 16, v207, v208);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode %d not supported. Default to 0", v185, 16, v186, v187);
       }
     }
 
-    v201 = *(a1 + 76);
-    if (v201 <= 29)
+    v180 = *(a1 + 76);
+    if (v180 <= 29)
     {
-      v210 = 0;
+      v189 = 0;
     }
 
     else
     {
-      v210 = 3;
+      v189 = 3;
     }
 
-    *v43 = v210;
+    *v34 = v189;
   }
 
-  if (v201 <= 8 && (*v43 & 0xFFFE) == 4 && (*(a1 + 1308) > 1 || *(a1 + 10556) >= 2u))
+  if (v180 <= 8 && (*v34 & 0xFFFE) == 4 && (*(a1 + 1308) > 1 || *(a1 + 10556) >= 2u))
   {
-    *v43 = 0;
+    *v34 = 0;
   }
 
   if ((*(a1 + 1444) * *(a1 + 1440)) >= 0x7E9000 && *(a1 + 1112) >= 100 && (*(v3 + 255) & 0x80000000) != 0 && (*(v2 + 1916) & 0x80000000) != 0)
   {
-    if (v201 <= 29)
+    if (v180 <= 29)
     {
-      v227 = 0;
+      v206 = 0;
     }
 
     else
     {
-      v227 = 3;
+      v206 = 3;
     }
 
-    *v43 = v227;
-LABEL_337:
+    *v34 = v206;
+LABEL_334:
     if (*(a1 + 64) != 2 && !*(a1 + 10531))
     {
-      goto LABEL_345;
+      goto LABEL_342;
     }
 
-    goto LABEL_339;
+    goto LABEL_336;
   }
 
-  if (*v43 != 7)
+  if (*v34 != 7)
   {
-    goto LABEL_337;
+    goto LABEL_334;
   }
 
-LABEL_339:
+LABEL_336:
   if ((*(a1 + 10172) & 1) == 0)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v211 = sub_160F34(0x10u);
-      v212 = sub_175AE4();
-      v213 = sub_160F68(5);
-      if (v211)
+      v190 = sub_160F34(0x10u);
+      v191 = sub_175AE4();
+      v192 = sub_160F68(5);
+      if (v190)
       {
-        printf("%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.\n", v212, 16, v213);
-        v214 = sub_175AE4();
-        v476 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v214, 16, v476);
+        printf("%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.\n", v191, 16, v192);
+        v193 = sub_175AE4();
+        v442 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v193, 16, v442);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v212, 16, v213);
+        syslog(3, "%lld %d AVE %s: FIG: SearchRangeMode = 7 or LRMEStandAlone or LRMERC -> must run in LRME-pipe async.", v191, 16, v192);
       }
     }
 
     *(a1 + 10172) = 1;
   }
 
-LABEL_345:
+LABEL_342:
   if (*(a1 + 10857) == 1)
   {
     if ((*(a1 + 1339) & 4) != 0)
     {
-      v215 = -6 * *(a1 + 24732);
-      v216 = *(a1 + 1144) + 4;
-      if (v216 <= v215)
+      v194 = -6 * *(a1 + 24732);
+      v195 = *(a1 + 1144) + 4;
+      if (v195 <= v194)
       {
-        v216 = -6 * *(a1 + 24732);
+        v195 = -6 * *(a1 + 24732);
       }
 
-      if (v216 >= 51)
+      if (v195 >= 51)
       {
-        v216 = 51;
+        v195 = 51;
       }
 
-      *(a1 + 1148) = v216;
-      if (v215 <= 51)
+      *(a1 + 1148) = v195;
+      if (v194 <= 51)
       {
-        v215 = v216 + 1;
+        v194 = v195 + 1;
       }
 
-      if (v215 >= 51)
+      if (v194 >= 51)
       {
-        v215 = 51;
+        v194 = 51;
       }
 
-      *(a1 + 1152) = v215;
+      *(a1 + 1152) = v194;
       *(a1 + 1132) = 3;
     }
 
@@ -6502,19 +5201,19 @@ LABEL_345:
     *(a1 + 1464) = 0;
     if (*(a1 + 10752) == 2)
     {
-      v217 = *(a1 + 1336) & 0xFFFF7F8F;
-      v218 = *(a1 + 1352) & 0x1E;
+      v196 = *(a1 + 1336) & 0xFFFF7F8F;
+      v197 = *(a1 + 1352) & 0x1E;
     }
 
     else
     {
-      v218 = 0;
-      v217 = 0;
+      v197 = 0;
+      v196 = 0;
       *(a1 + 39886) = 0;
     }
 
-    *(a1 + 1336) = v217;
-    *(a1 + 1352) = v218;
+    *(a1 + 1336) = v196;
+    *(a1 + 1352) = v197;
   }
 
   if ((*(a1 + 1123) & 0x80) != 0)
@@ -6527,372 +5226,358 @@ LABEL_345:
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v219 = sub_160F34(0x10u);
-      v220 = sub_175AE4();
-      v221 = sub_160F68(5);
-      v222 = *(a1 + 1336);
-      if (v219)
+      v198 = sub_160F34(0x10u);
+      v199 = sub_175AE4();
+      v200 = sub_160F68(5);
+      v201 = *(a1 + 1336);
+      if (v198)
       {
-        printf("%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.\n", v220, 16, v221, "AVE_ValidateEncoderParameters", 3818, v222);
-        v223 = sub_175AE4();
-        v224 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v223, 16, v224, "AVE_ValidateEncoderParameters", 3818, *(a1 + 1336));
+        printf("%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.\n", v199, 16, v200, "AVE_ValidateEncoderParameters", 3818, v201);
+        v202 = sub_175AE4();
+        v203 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v202, 16, v203, "AVE_ValidateEncoderParameters", 3818, *(a1 + 1336));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v220, 16, v221, "AVE_ValidateEncoderParameters", 3818, v222);
+        syslog(3, "%lld %d AVE %s: %s:%d cu_qp_delta_enabled_flag set false and QPMod set to %x (!= 0) is not supported. Force cu_qp_delta_enabled_flag to true.", v199, 16, v200, "AVE_ValidateEncoderParameters", 3818, v201);
       }
     }
 
     *(a1 + 39886) = 1;
   }
 
-  v556 = a1 + 24248;
+  v467 = a1 + 24248;
   if (*(a1 + 10192) == 10 && *(a1 + 10752) != 2)
   {
-    v225 = *(a1 + 31368);
-    if (v225 == 16)
+    v204 = *(a1 + 31368);
+    if (v204 == 16)
     {
       if (*(a1 + 24688) == 1 && (*(a1 + 39924) = 0x500000005, (*(a1 + 1123) & 0x80) != 0))
       {
-        LOBYTE(v226) = 0;
+        LOBYTE(v205) = 0;
         *(a1 + 1336) |= 0x8000000u;
       }
 
       else
       {
-        LOBYTE(v226) = 0;
+        LOBYTE(v205) = 0;
       }
     }
 
-    else if (v225 == 18 && (v226 = *(a1 + 24688), v226 == 1))
+    else if (v204 == 18 && (v205 = *(a1 + 24688), v205 == 1))
     {
       *(a1 + 39924) = 0xB0000000BLL;
     }
 
     else
     {
-      LOBYTE(v226) = 1;
+      LOBYTE(v205) = 1;
     }
 
-    v228 = *(a1 + 76);
-    if (v228 >= 23)
+    v207 = *(a1 + 76);
+    if (v207 >= 23)
     {
-      v229 = *(a1 + 24688);
-      if (v229 != 1)
+      v208 = *(a1 + 24688);
+      if (v208 != 1)
       {
-        LOBYTE(v226) = 1;
+        LOBYTE(v205) = 1;
       }
 
-      if ((v226 & 1) == 0 && (*(a1 + 1123) & 0x80) != 0)
+      if ((v205 & 1) == 0 && (*(a1 + 1123) & 0x80) != 0)
       {
         *(a1 + 39956) = 1;
       }
 
-      v43 = (a1 + 10168);
-      v64 = a1 + 59393;
-      if (v228 >= 0x1E && v229 == 1 && (v225 | 2) == 0x12)
+      v34 = (a1 + 10168);
+      v54 = a1 + 59393;
+      if (v207 >= 0x1E && v208 == 1 && (v204 | 2) == 0x12)
       {
         *(a1 + 39956) = 1;
       }
     }
   }
 
-  v230 = *(a1 + 1336);
-  if ((v230 & 0x40) != 0)
+  v209 = *(a1 + 1336);
+  if ((v209 & 0x40) != 0)
   {
-    v231 = *(a1 + 1440) + 15;
-    v232 = *(a1 + 1444) + 15;
-    v233 = v232 >> 4;
-    v234 = (v231 >> 4) + 31;
-    v235 = v234 & 0x1FFFFFE0;
-    if (v231 > 0x78F || v232 >= 0x450)
+    v210 = *(a1 + 1440) + 15;
+    v211 = *(a1 + 1444) + 15;
+    v212 = v211 >> 4;
+    v213 = (v210 >> 4) + 31;
+    v214 = v213 & 0x1FFFFFE0;
+    if (v210 > 0x78F || v211 >= 0x450)
     {
-      v236 = (((((v231 >> 4) + 1) >> 1) + 31) >> 5) * ((v233 + 1) >> 1);
+      v215 = (((((v210 >> 4) + 1) >> 1) + 31) >> 5) * ((v212 + 1) >> 1);
     }
 
     else
     {
-      v236 = (v234 >> 5) * v233;
+      v215 = (v213 >> 5) * v212;
     }
 
-    if (v235 > 0x100 || v232 > 0xC0F || v236 >= 0x121)
+    if (v214 > 0x100 || v211 > 0xC0F || v215 >= 0x121)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v237 = sub_160F34(0x10u);
-        v554 = sub_175AE4();
-        v238 = sub_160F68(5);
-        if (v237)
+        v216 = sub_160F34(0x10u);
+        v465 = sub_175AE4();
+        v217 = sub_160F68(5);
+        if (v216)
         {
-          printf("%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d\n", v554, 16, v238, v235, 256, v233, 192);
-          v239 = sub_175AE4();
+          printf("%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d\n", v465, 16, v217, v214, 256, v212, 192);
+          v218 = sub_175AE4();
           sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v239);
+          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v218);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v554);
+          syslog(3, "%lld %d AVE %s: AVE_FIG: align32MbW <= MAX_STATICAREASLOWQP_NMB_FRAME_HORIZONTAL && picHeightInMb <= MAX_STATICAREASLOWQP_NMB_FRAME_VERTICAL %d %d %d %d", v465);
         }
       }
 
-      v230 = *(a1 + 1336) & 0xFFFFFFBF;
-      *(a1 + 1336) = v230;
+      v209 = *(a1 + 1336) & 0xFFFFFFBF;
+      *(a1 + 1336) = v209;
     }
   }
 
-  v240 = a1 + 24248;
+  v219 = a1 + 24248;
   if (*(a1 + 11792) >= 0x1Fu)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v241 = sub_160F34(0x10u);
-      v242 = sub_175AE4();
-      v243 = sub_160F68(5);
-      if (v241)
+      v220 = sub_160F34(0x10u);
+      v221 = sub_175AE4();
+      v222 = sub_160F68(5);
+      if (v220)
       {
-        printf("%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM\n", v242, 16, v243, 30);
-        v244 = sub_175AE4();
-        v477 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v244, 16, v477, 30);
+        printf("%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM\n", v221, 16, v222, 30);
+        v223 = sub_175AE4();
+        v443 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v223, 16, v443, 30);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v242, 16, v243, 30);
+        syslog(3, "%lld %d AVE %s: AVE_FIG: ui32NumCodedBuffers exceeds max allowed value of AVE_CODED_BUF_MAX_NUM (%d) Forcing to AVE_CODED_BUF_MAX_NUM", v221, 16, v222, 30);
       }
     }
 
     *(a1 + 11792) = 30;
-    v230 = *(a1 + 1336);
+    v209 = *(a1 + 1336);
   }
 
-  if ((v230 & 0x10) != 0)
+  if ((v209 & 0x10) != 0)
   {
-    v245 = *(a1 + 1132);
-    if (v245 <= 0x14 && ((1 << v245) & 0x100009) != 0)
+    v224 = *(a1 + 1132);
+    if (v224 <= 0x14 && ((1 << v224) & 0x100009) != 0)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v246 = sub_160F34(0x10u);
-        v247 = sub_175AE4();
-        v248 = sub_160F68(5);
-        v249 = *(a1 + 1132);
-        if (v246)
+        v225 = sub_160F34(0x10u);
+        v226 = sub_175AE4();
+        v227 = sub_160F68(5);
+        if (v225)
         {
-          printf("%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false\n", v247, 16, v248, "AVE_ValidateEncoderParameters", 3932, *(a1 + 1132), *(a1 + 1336));
-          v247 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false\n", v226, 16, v227, "AVE_ValidateEncoderParameters", 3932, *(a1 + 1132), *(a1 + 1336));
+          v226 = sub_175AE4();
           sub_160F68(5);
-          v504 = *(a1 + 1132);
-          v515 = *(a1 + 1336);
         }
 
-        else
-        {
-          v505 = *(a1 + 1132);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false", v247);
+        syslog(3, "%lld %d AVE %s: %s:%d eRCMode 0x%x QPMod feature 0x%08x is not supported. Set AVE_QPMOD_FEATURE_FLAT_AREA to false", v226);
       }
 
-      v230 = *(a1 + 1336) & 0xFFFFFFEF;
-      *(a1 + 1336) = v230;
-      v245 = *(a1 + 1132);
+      v209 = *(a1 + 1336) & 0xFFFFFFEF;
+      *(a1 + 1336) = v209;
+      v224 = *(a1 + 1132);
     }
 
-    if (v245 == 100)
+    if (v224 == 100)
     {
       if (sub_160EF0(3u, 4))
       {
-        v250 = sub_160F34(3u);
-        v251 = sub_175AE4();
-        v252 = sub_160F68(4);
-        v253 = *(a1 + 1132);
-        if (v250)
+        v228 = sub_160F34(3u);
+        v229 = sub_175AE4();
+        v230 = sub_160F68(4);
+        if (v228)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.\n", v251, 3, v252, "AVE_ValidateEncoderParameters", 3939, "pINS->sSessionCfg.sEnc.sAlgCfg.sRC.eRCMode != AVE_RCMode_HwVal", "AVE_ValidateEncoderParameters", 3939, *(a1 + 1132), *(a1 + 1336));
-          v251 = sub_175AE4();
-          v252 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.\n", v229, 3, v230, "AVE_ValidateEncoderParameters", 3939, "pINS->sSessionCfg.sEnc.sAlgCfg.sRC.eRCMode != AVE_RCMode_HwVal", "AVE_ValidateEncoderParameters", 3939, *(a1 + 1132), *(a1 + 1336));
+          v229 = sub_175AE4();
+          v230 = sub_160F68(4);
         }
 
-        v540 = *(a1 + 1132);
-        v546 = *(a1 + 1336);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.", v251, 3, v252);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %s:%d eRCMode 0x%x and AVE_QPMOD_FEATURE_FLAT_AREA (QPMod feature: 0x%08x) is not supported.", v229, 3, v230);
       }
 
       return 4294966295;
     }
   }
 
-  if ((v230 & 0x8010) == 0x8000)
+  if ((v209 & 0x8010) == 0x8000)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v254 = sub_160F34(0x10u);
-      v255 = sub_175AE4();
-      v256 = sub_160F68(5);
-      v257 = *(a1 + 1336) & 0x10;
-      if (v254)
+      v231 = sub_160F34(0x10u);
+      v232 = sub_175AE4();
+      v233 = sub_160F68(5);
+      v234 = *(a1 + 1336) & 0x10;
+      if (v231)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false\n", v255, 16, v256, v257);
-        v258 = sub_175AE4();
-        v478 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v258, 16, v478, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false\n", v232, 16, v233, v234);
+        v235 = sub_175AE4();
+        v444 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v235, 16, v444, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v255, 16, v256, v257);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_EXT_LUMA to false", v232, 16, v233, v234);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFF7FFF;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFF7FFF;
+    *(a1 + 1336) = v209;
   }
 
-  if ((v230 & 0x30) == 0x20)
+  if ((v209 & 0x30) == 0x20)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v259 = sub_160F34(0x10u);
-      v260 = sub_175AE4();
-      v261 = sub_160F68(5);
-      v262 = *(a1 + 1336) & 0x10;
-      if (v259)
+      v236 = sub_160F34(0x10u);
+      v237 = sub_175AE4();
+      v238 = sub_160F68(5);
+      v239 = *(a1 + 1336) & 0x10;
+      if (v236)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false\n", v260, 16, v261, v262);
-        v263 = sub_175AE4();
-        v479 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v263, 16, v479, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false\n", v237, 16, v238, v239);
+        v240 = sub_175AE4();
+        v445 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v240, 16, v445, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v260, 16, v261, v262);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_FLAT_AREA %d -> not supported. set AVE_QPMOD_FEATURE_ULTRA_FLAT_AREA to false", v237, 16, v238, v239);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFFFFDF;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFFFFDF;
+    *(a1 + 1336) = v209;
   }
 
-  if ((v230 & 4) != 0 && (v230 & 0x12) != 0x12)
+  if ((v209 & 4) != 0 && (v209 & 0x12) != 0x12)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v264 = sub_160F34(0x10u);
-      v265 = sub_175AE4();
-      v266 = sub_160F68(5);
-      v267 = *(a1 + 1336) & 4;
-      v268 = *(a1 + 1336) & 0x10;
-      if (v264)
+      v241 = sub_160F34(0x10u);
+      v242 = sub_175AE4();
+      v243 = sub_160F68(5);
+      v244 = *(a1 + 1336) & 4;
+      v245 = *(a1 + 1336) & 0x10;
+      if (v241)
       {
-        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.\n", v265, 16, v266, v267, *(a1 + 1336) & 2, v268);
-        v269 = sub_175AE4();
-        v270 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v269, 16, v270, *(a1 + 1336) & 4, *(a1 + 1336) & 2, *(a1 + 1336) & 0x10);
+        printf("%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.\n", v242, 16, v243, v244, *(a1 + 1336) & 2, v245);
+        v246 = sub_175AE4();
+        v247 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v246, 16, v247, *(a1 + 1336) & 4, *(a1 + 1336) & 2, *(a1 + 1336) & 0x10);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v265, 16, v266, v267, *(a1 + 1336) & 2, v268);
+        syslog(3, "%lld %d AVE %s: FIG: AVE_QPMOD_FEATURE_LOW_VARIANCE = %d and requires both AVE_QPMOD_FEATURE_VARIANCE %d and AVE_QPMOD_FEATURE_FLAT_AREA %d. Forcing AVE_QPMOD_FEATURE_LOW_VARIANCE off.", v242, 16, v243, v244, *(a1 + 1336) & 2, v245);
       }
     }
 
-    v230 = *(a1 + 1336) & 0xFFFFFFFB;
-    *(a1 + 1336) = v230;
+    v209 = *(a1 + 1336) & 0xFFFFFFFB;
+    *(a1 + 1336) = v209;
   }
 
   if ((*(a1 + 1123) & 0x80) != 0)
   {
-    v271 = *(a1 + 1240) | 0x30000;
-    v272 = v230 & 0xFFFFFFAF;
-    v273 = *(a1 + 1132);
-    if (v273 == 8 || v273 == 6)
+    v248 = *(a1 + 1240) | 0x30000;
+    v249 = v209 & 0xFFFFFFAF;
+    v250 = *(a1 + 1132);
+    if (v250 == 8 || v250 == 6)
     {
-      v272 |= 0x30u;
+      v249 |= 0x30u;
     }
 
-    *(a1 + 1336) = (v272 | *(v3 + 237)) & ~*(v3 + 238);
-    *(a1 + 1240) = (*(v3 + 218) | v271) & ~*(v3 + 219);
+    *(a1 + 1336) = (v249 | *(v3 + 237)) & ~*(v3 + 238);
+    *(a1 + 1240) = (*(v3 + 218) | v248) & ~*(v3 + 219);
     if (sub_160EF0(0x10u, 6))
     {
-      v274 = sub_160F34(0x10u);
-      v275 = sub_175AE4();
-      v276 = sub_160F68(6);
-      if (v274)
+      v251 = sub_160F34(0x10u);
+      v252 = sub_175AE4();
+      v253 = sub_160F68(6);
+      if (v251)
       {
-        printf("%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled\n", v275, 16, v276);
-        v277 = sub_175AE4();
-        v480 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v277, 16, v480);
+        printf("%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled\n", v252, 16, v253);
+        v254 = sub_175AE4();
+        v446 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v254, 16, v446);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v275, 16, v276);
+        syslog(3, "%lld %d AVE %s: Static QP mod is disabled when lookahead RC feature is enabled", v252, 16, v253);
       }
     }
   }
 
-  v278 = *(a1 + 10244);
-  if (v278 >= 2)
+  v255 = *(a1 + 10244);
+  if (v255 >= 2)
   {
-    v279 = *(a1 + 1132);
-    if (v279 && v279 != 20 && (*(a1 + 24856) & 1) == 0)
+    v256 = *(a1 + 1132);
+    if (v256 && v256 != 20 && (*(a1 + 24856) & 1) == 0)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v280 = sub_160F34(0x10u);
-        v281 = sub_175AE4();
-        v282 = sub_160F68(5);
-        v283 = *(a1 + 10244);
-        v284 = *(a1 + 1132);
-        if (v280)
+        v257 = sub_160F34(0x10u);
+        v258 = sub_175AE4();
+        v259 = sub_160F68(5);
+        v260 = *(a1 + 1132);
+        if (v257)
         {
-          printf("%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1\n", v281, 16, v282, *(a1 + 10244), v284);
-          v285 = sub_175AE4();
-          v286 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v285, 16, v286, *(a1 + 10244), *(a1 + 1132));
+          printf("%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1\n", v258, 16, v259, *(a1 + 10244), v260);
+          v261 = sub_175AE4();
+          v262 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v261, 16, v262, *(a1 + 10244), *(a1 + 1132));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v281, 16, v282, *(a1 + 10244), v284);
+          syslog(3, "%lld %d AVE %s: FIG: i32PPSsCount (%d), eRCMode %d and scaling_list_enabled_flag is false. Not supported. Forcing i32PPSsCount to 1", v258, 16, v259, *(a1 + 10244), v260);
         }
       }
 
-      v278 = 1;
+      v255 = 1;
       *(a1 + 10244) = 1;
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
 
     if (*(a1 + 10892) == 1)
     {
-      v287.i64[0] = 0xC0000000CLL;
-      v287.i64[1] = 0xC0000000CLL;
-      v288.i64[0] = 0x100000001;
-      v288.i64[1] = 0x100000001;
-      v289 = vaddvq_s32(vsubq_s32(vbicq_s8(v288, vceqq_s32(*(a1 + 39892), v287)), vmvnq_s8(vceqq_s32(*(a1 + 39908), v287))));
-      if (v278 != v289)
+      v263.i64[0] = 0xC0000000CLL;
+      v263.i64[1] = 0xC0000000CLL;
+      v264.i64[0] = 0x100000001;
+      v264.i64[1] = 0x100000001;
+      v265 = vaddvq_s32(vsubq_s32(vbicq_s8(v264, vceqq_s32(*(a1 + 39892), v263)), vmvnq_s8(vceqq_s32(*(a1 + 39908), v263))));
+      if (v255 != v265)
       {
         if (sub_160EF0(3u, 4))
         {
-          v294 = sub_160F34(3u);
-          v295 = sub_175AE4();
-          v296 = sub_160F68(4);
-          v297 = *(a1 + 10244);
-          if (v294)
+          v270 = sub_160F34(3u);
+          v271 = sub_175AE4();
+          v272 = sub_160F68(4);
+          if (v270)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail\n", v295, 3, v296, "AVE_ValidateEncoderParameters", 4034, "pINS->VideoParams.i32PPSsCount == ch_qp_index_offset_cnt", *(a1 + 10244), v289);
-            v295 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail\n", v271, 3, v272, "AVE_ValidateEncoderParameters", 4034, "pINS->VideoParams.i32PPSsCount == ch_qp_index_offset_cnt", *(a1 + 10244), v265);
+            v271 = sub_175AE4();
             sub_160F68(4);
           }
 
-          v516 = *(a1 + 10244);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail", v295);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: PPS count = %d and ch_qp_index_offset_cnt = %d... are not compatible. fail", v271);
         }
 
         return 4294966295;
@@ -6904,53 +5589,53 @@ LABEL_345:
   {
     if ((*(a1 + 1296) & 1) == 0)
     {
-      goto LABEL_498;
+      goto LABEL_495;
     }
 
     if (sub_160EF0(0x10u, 5))
     {
-      v290 = sub_160F34(0x10u);
-      v291 = sub_175AE4();
-      v292 = sub_160F68(5);
-      if (v290)
+      v266 = sub_160F34(0x10u);
+      v267 = sub_175AE4();
+      v268 = sub_160F68(5);
+      if (v266)
       {
-        printf("%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.\n", v291, 16, v292);
-        v293 = sub_175AE4();
-        v481 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v293, 16, v481);
+        printf("%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.\n", v267, 16, v268);
+        v269 = sub_175AE4();
+        v447 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v269, 16, v447);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v291, 16, v292);
+        syslog(3, "%lld %d AVE %s: MultiRef and WP not supported together. Disabling MultiRef.", v267, 16, v268);
       }
 
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
 
     *(a1 + 1308) = 1;
   }
 
-  if (*(a1 + 1256) || (*v43 & 0xFFFE) == 4 || (*(a1 + 716) & 0x3C0) != 0 || *(a1 + 10556) > 1u || (*(a1 + 1296) & 1) != 0)
+  if (*(a1 + 1256) || (*v34 & 0xFFFE) == 4 || (*(a1 + 716) & 0x3C0) != 0 || *(a1 + 10556) > 1u || (*(a1 + 1296) & 1) != 0)
   {
-LABEL_498:
-    if ((*(v43 + 5) & 1) == 0)
+LABEL_495:
+    if ((*(v34 + 5) & 1) == 0)
     {
-      *(v43 + 5) = 1;
+      *(v34 + 5) = 1;
     }
   }
 
   if (*(a1 + 1264) == 1)
   {
-    v298 = *(a1 + 1240);
+    v273 = *(a1 + 1240);
     if (*(a1 + 10560) == 1)
     {
       *(a1 + 1268) = 0;
       *(a1 + 1272) = 0xBFF0000000000000;
       *(a1 + 1280) = 0xBFF0000000000000;
       *(a1 + 1252) = 0;
-      v298 &= ~0x400u;
-      *(a1 + 1240) = v298;
+      v273 &= ~0x400u;
+      *(a1 + 1240) = v273;
       *(a1 + 1260) = 1;
       *(a1 + 1288) = 1;
     }
@@ -6958,31 +5643,31 @@ LABEL_498:
 
   else
   {
-    v298 = *(a1 + 1240);
+    v273 = *(a1 + 1240);
   }
 
-  if ((v298 & 0x100) != 0 && !*(a1 + 1256))
+  if ((v273 & 0x100) != 0 && !*(a1 + 1256))
   {
-    *(a1 + 1240) = v298 & 0xFFFFFEFF;
+    *(a1 + 1240) = v273 & 0xFFFFFEFF;
     if (sub_160EF0(0x10u, 5))
     {
-      v299 = sub_160F34(0x10u);
-      v300 = sub_175AE4();
-      v301 = sub_160F68(5);
-      if (v299)
+      v274 = sub_160F34(0x10u);
+      v275 = sub_175AE4();
+      v276 = sub_160F68(5);
+      if (v274)
       {
-        printf("%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true\n", v300, 16, v301);
-        v302 = sub_175AE4();
-        v482 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v302, 16, v482);
+        printf("%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true\n", v275, 16, v276);
+        v277 = sub_175AE4();
+        v448 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v277, 16, v448);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v300, 16, v301);
+        syslog(3, "%lld %d AVE %s: FIG: CRA not supported with no B Frames. Forcing bClosedGOP to true", v275, 16, v276);
       }
 
-      v240 = a1 + 24248;
+      v219 = a1 + 24248;
     }
   }
 
@@ -6990,20 +5675,20 @@ LABEL_498:
   {
     if (*(a1 + 1112) <= 0 && sub_160EF0(0x10u, 5))
     {
-      v303 = sub_160F34(0x10u);
-      v304 = sub_175AE4();
-      v305 = sub_160F68(5);
-      if (v303)
+      v278 = sub_160F34(0x10u);
+      v279 = sub_175AE4();
+      v280 = sub_160F68(5);
+      if (v278)
       {
-        printf("%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined\n", v304, 16, v305);
-        v306 = sub_175AE4();
-        v483 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v306, 16, v483);
+        printf("%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined\n", v279, 16, v280);
+        v281 = sub_175AE4();
+        v449 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v281, 16, v449);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v304, 16, v305);
+        syslog(3, "%lld %d AVE %s: FIG: iLayerNum > 1 and ExpectedFR is not set, behavior is undefined", v279, 16, v280);
       }
     }
 
@@ -7011,46 +5696,46 @@ LABEL_498:
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v307 = sub_160F34(0x10u);
-        v308 = sub_175AE4();
-        v309 = sub_160F68(5);
-        if (v307)
+        v282 = sub_160F34(0x10u);
+        v283 = sub_175AE4();
+        v284 = sub_160F68(5);
+        if (v282)
         {
-          printf("%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop\n", v308, 16, v309);
-          v310 = sub_175AE4();
-          v484 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v310, 16, v484);
+          printf("%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop\n", v283, 16, v284);
+          v285 = sub_175AE4();
+          v450 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v285, 16, v450);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v308, 16, v309);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to disable FrameDrop", v283, 16, v284);
         }
       }
 
       *(a1 + 1088) &= ~2uLL;
     }
 
-    if (*(v43 + 80) == 1)
+    if (*(v34 + 80) == 1)
     {
-      *(v43 + 80) = 0;
-      *(v43 + 21) = 1;
+      *(v34 + 80) = 0;
+      *(v34 + 21) = 1;
       if (sub_160EF0(0x10u, 5))
       {
-        v311 = sub_160F34(0x10u);
-        v312 = sub_175AE4();
-        v313 = sub_160F68(5);
-        if (v311)
+        v286 = sub_160F34(0x10u);
+        v287 = sub_175AE4();
+        v288 = sub_160F68(5);
+        if (v286)
         {
-          printf("%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode\n", v312, 16, v313);
-          v314 = sub_175AE4();
-          v485 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v314, 16, v485);
+          printf("%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode\n", v287, 16, v288);
+          v289 = sub_175AE4();
+          v451 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v289, 16, v451);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v312, 16, v313);
+          syslog(3, "%lld %d AVE %s: FIG: MV-HEVC force to Frame Encoding mode", v287, 16, v288);
         }
       }
     }
@@ -7059,12 +5744,12 @@ LABEL_498:
     {
       if (sub_160EF0(3u, 4))
       {
-        v315 = sub_160F34(3u);
-        v316 = sub_175AE4();
-        v317 = sub_160F68(4);
-        if (v315)
+        v290 = sub_160F34(3u);
+        v291 = sub_175AE4();
+        v292 = sub_160F68(4);
+        if (v290)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Multipass\n", v316, 3, v317, "AVE_ValidateEncoderParameters", 4108, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Multipass\n", v291, 3, v292, "AVE_ValidateEncoderParameters", 4108, "false");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -7079,12 +5764,12 @@ LABEL_498:
     {
       if (sub_160EF0(3u, 4))
       {
-        v318 = sub_160F34(3u);
-        v319 = sub_175AE4();
-        v320 = sub_160F68(4);
-        if (v318)
+        v293 = sub_160F34(3u);
+        v294 = sub_175AE4();
+        v295 = sub_160F68(4);
+        if (v293)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Parallelization\n", v319, 3, v320, "AVE_ValidateEncoderParameters", 4114, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support Parallelization\n", v294, 3, v295, "AVE_ValidateEncoderParameters", 4114, "false");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -7095,17 +5780,17 @@ LABEL_498:
       return 4294965294;
     }
 
-    v321 = *(a1 + 1132);
-    if (v321 == 4 || v321 == 2 && (*(a1 + 1123) & 0x80) == 0)
+    v296 = *(a1 + 1132);
+    if (v296 == 4 || v296 == 2 && (*(a1 + 1123) & 0x80) == 0)
     {
       if (sub_160EF0(3u, 4))
       {
-        v322 = sub_160F34(3u);
-        v323 = sub_175AE4();
-        v324 = sub_160F68(4);
-        if (v322)
+        v297 = sub_160F34(3u);
+        v298 = sub_175AE4();
+        v299 = sub_160F68(4);
+        if (v297)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support DRL/CBR\n", v323, 3, v324, "AVE_ValidateEncoderParameters", 4122, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support DRL/CBR\n", v298, 3, v299, "AVE_ValidateEncoderParameters", 4122, "false");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -7120,12 +5805,12 @@ LABEL_498:
     {
       if (sub_160EF0(3u, 4))
       {
-        v325 = sub_160F34(3u);
-        v326 = sub_175AE4();
-        v327 = sub_160F68(4);
-        if (v325)
+        v300 = sub_160F34(3u);
+        v301 = sub_175AE4();
+        v302 = sub_160F68(4);
+        if (v300)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support BaseLayerFrameRate\n", v326, 3, v327, "AVE_ValidateEncoderParameters", 4128, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support BaseLayerFrameRate\n", v301, 3, v302, "AVE_ValidateEncoderParameters", 4128, "false");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -7140,12 +5825,12 @@ LABEL_498:
     {
       if (sub_160EF0(3u, 4))
       {
-        v333 = sub_160F34(3u);
-        v334 = sub_175AE4();
-        v335 = sub_160F68(4);
-        if (v333)
+        v307 = sub_160F34(3u);
+        v308 = sub_175AE4();
+        v309 = sub_160F68(4);
+        if (v307)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support ChromaFmt_400, ChromaFmt_422, or ChromaFmt_444\n", v334, 3, v335, "AVE_ValidateEncoderParameters", 4135, "false");
+          printf("%lld %d AVE %s: %s:%d %s | FIG: MV-HEVC does not support ChromaFmt_400, ChromaFmt_422, or ChromaFmt_444\n", v308, 3, v309, "AVE_ValidateEncoderParameters", 4135, "false");
           sub_175AE4();
           sub_160F68(4);
         }
@@ -7156,30 +5841,24 @@ LABEL_498:
       return 4294965294;
     }
 
-    v328 = (a1 + 15575);
+    v303 = (a1 + 15575);
     *(a1 + 1240) &= ~0x400u;
-    *(v43 + 352) = 1;
+    *(v34 + 352) = 1;
     if (*(a1 + 15575))
     {
       if (sub_160EF0(0x1Eu, 4))
       {
-        v329 = sub_160F34(0x1Eu);
-        v330 = sub_175AE4();
-        v331 = sub_160F68(4);
-        if (v329)
+        v304 = sub_160F34(0x1Eu);
+        v305 = sub_175AE4();
+        v306 = sub_160F68(4);
+        if (v304)
         {
-          printf("%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d\n", v330, 30, v331, "AVE_ValidateEncoderParameters", 4145, "pINS->VPSHevcParams.layer_id_in_nuh[0] == 0", *v328);
-          v330 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d\n", v305, 30, v306, "AVE_ValidateEncoderParameters", 4145, "pINS->VPSHevcParams.layer_id_in_nuh[0] == 0", *v303);
+          v305 = sub_175AE4();
           sub_160F68(4);
-          v332 = *v328;
         }
 
-        else
-        {
-          v517 = *v328;
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d", v330);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | non-zero layer ID at base layer %d", v305);
       }
 
       return 4294965290;
@@ -7189,109 +5868,96 @@ LABEL_498:
     {
       if (sub_160EF0(0x1Eu, 4))
       {
-        v341 = sub_160F34(0x1Eu);
-        v342 = sub_175AE4();
-        v343 = sub_160F68(4);
-        v344 = *(a1 + 10556);
-        if (v341)
+        v315 = sub_160F34(0x1Eu);
+        v316 = sub_175AE4();
+        v317 = sub_160F68(4);
+        if (v315)
         {
-          printf("%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d\n", v342, 30, v343, "AVE_ValidateEncoderParameters", 4150, "pINS->VideoParams.iLayerNum <= ((2) < ((63 + 1)) ? (2) : ((63 + 1)))", *(a1 + 10556), 2);
-          v342 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d\n", v316, 30, v317, "AVE_ValidateEncoderParameters", 4150, "pINS->VideoParams.iLayerNum <= ((2) < ((63 + 1)) ? (2) : ((63 + 1)))", *(a1 + 10556), 2);
+          v316 = sub_175AE4();
           sub_160F68(4);
-          v345 = *(a1 + 10556);
         }
 
-        else
-        {
-          v518 = *(a1 + 10556);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d", v342);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | video layer number %d is larger than MAX %d", v316);
       }
 
       return 4294965291;
     }
 
-    v336 = *(a1 + 15639);
+    v310 = *(a1 + 15639);
     if (!*(a1 + 15639))
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v337 = sub_160F34(0x10u);
-        v338 = sub_175AE4();
-        v339 = sub_160F68(5);
-        if (v337)
+        v311 = sub_160F34(0x10u);
+        v312 = sub_175AE4();
+        v313 = sub_160F68(5);
+        if (v311)
         {
-          printf("%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values\n", v338, 16, v339);
-          v340 = sub_175AE4();
-          v486 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v340, 16, v486);
+          printf("%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values\n", v312, 16, v313);
+          v314 = sub_175AE4();
+          v452 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v314, 16, v452);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v338, 16, v339);
+          syslog(3, "%lld %d AVE %s: kVTCompressionPropertyKey_MVHEVCViewIDs never received, setting default values", v312, 16, v313);
         }
       }
 
-      v346 = *(a1 + 10556);
-      *(a1 + 10560) = v346;
-      v336 = 1;
+      v318 = *(a1 + 10556);
+      *(a1 + 10560) = v318;
+      v310 = 1;
       *(a1 + 15639) = 1;
-      if (v346)
+      if (v318)
       {
-        v347 = 0;
+        v319 = 0;
         do
         {
-          *(a1 + 15640 + v347) = v347;
-          *(a1 + 11808 + v347) = v347;
-          ++v347;
+          *(a1 + 15640 + v319) = v319;
+          *(a1 + 11808 + v319) = v319;
+          ++v319;
         }
 
-        while (v346 > v347);
-        v336 = 1;
+        while (v318 > v319);
+        v310 = 1;
       }
     }
 
-    v348 = 0;
-    v349 = a1 + 11808;
-    v350 = 1;
+    v320 = 0;
+    v321 = a1 + 11808;
+    v322 = 1;
     while (2)
     {
-      v351 = 0;
-      v352 = v350;
-      while (*(v349 + v348) != *(a1 + 15640 + v351))
+      v323 = 0;
+      v324 = v322;
+      while (*(v321 + v320) != *(a1 + 15640 + v323))
       {
-        if (v336 < ++v351)
+        if (v310 < ++v323)
         {
           if (sub_160EF0(3u, 4))
           {
-            v457 = sub_160F34(3u);
-            v458 = sub_175AE4();
-            v459 = sub_160F68(4);
-            if (v457)
+            v422 = sub_160F34(3u);
+            v423 = sub_175AE4();
+            v424 = sub_160F68(4);
+            if (v422)
             {
-              printf("%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list\n", v458, 3, v459, "AVE_ValidateEncoderParameters", 4179, "bFound", *(v349 + v348));
-              v458 = sub_175AE4();
+              printf("%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list\n", v423, 3, v424, "AVE_ValidateEncoderParameters", 4179, "bFound", *(v321 + v320));
+              v423 = sub_175AE4();
               sub_160F68(4);
-              v460 = *(v349 + v348);
             }
 
-            else
-            {
-              v526 = *(v349 + v348);
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list", v458);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: LeftRightID %d not found in viewID list", v423);
           }
 
           return 4294965289;
         }
       }
 
-      v350 = 0;
-      v348 = 1;
-      if (v352)
+      v322 = 0;
+      v320 = 1;
+      if (v324)
       {
         continue;
       }
@@ -7299,207 +5965,206 @@ LABEL_498:
       break;
     }
 
-    *(v43 + 686) = 1;
-    v240 = a1 + 24248;
+    *(v34 + 686) = 1;
+    v219 = a1 + 24248;
   }
 
   if (*(v2 + 1836) >= 1)
   {
-    v353 = *(a1 + 11460);
-    if (v353 >= 1 && v353 < *(a1 + 1112))
+    v325 = *(a1 + 11460);
+    if (v325 >= 1 && v325 < *(a1 + 1112))
     {
-      goto LABEL_593;
+      goto LABEL_590;
     }
   }
 
   if (*(a1 + 1260) <= 2 || *(a1 + 1256) < 3)
   {
-    goto LABEL_642;
+    goto LABEL_639;
   }
 
-  v353 = *(a1 + 11460);
-  if (v353 < 1)
+  v325 = *(a1 + 11460);
+  if (v325 < 1)
   {
-    v357 = 1;
+    v329 = 1;
   }
 
   else
   {
-LABEL_593:
-    v354 = *(a1 + 1112);
-    v355 = -1;
+LABEL_590:
+    v326 = *(a1 + 1112);
+    v327 = -1;
     do
     {
-      v356 = v354 >> (v355++ + 2);
+      v328 = v326 >> (v327++ + 2);
     }
 
-    while (v356 >= v353);
-    v357 = v355 + 1;
-    if (v353 << v355 != v354)
+    while (v328 >= v325);
+    v329 = v327 + 1;
+    if (v325 << v327 != v326)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v358 = sub_160F34(0x10u);
-        v555 = sub_175AE4();
-        v359 = sub_160F68(5);
-        v360 = *(a1 + 16);
-        v361 = *(a1 + 1112);
-        v362 = *(a1 + 11460);
-        if (v358)
+        v330 = sub_160F34(0x10u);
+        v466 = sub_175AE4();
+        v331 = sub_160F68(5);
+        v332 = *(a1 + 16);
+        v333 = *(a1 + 11460);
+        if (v330)
         {
-          printf("%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d\n", v555, 16, v359, v360, *(a1 + 1112), v362);
-          v363 = sub_175AE4();
-          v364 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v363, 16, v364, *(a1 + 16), *(a1 + 1112), *(a1 + 11460));
+          printf("%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d\n", v466, 16, v331, v332, *(a1 + 1112), v333);
+          v334 = sub_175AE4();
+          v335 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v334, 16, v335, *(a1 + 16), *(a1 + 1112), *(a1 + 11460));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v555, 16, v359, v360, *(a1 + 1112), v362);
+          syslog(3, "%lld %d AVE %s: FIG: %p: ExpectedFrameRate %d is not multiple of BaseLayerFrameRate %d", v466, 16, v331, v332, *(a1 + 1112), v333);
         }
       }
 
-      v353 = *(a1 + 1112) >> v355;
-      *(a1 + 11460) = v353;
+      v325 = *(a1 + 1112) >> v327;
+      *(a1 + 11460) = v325;
     }
   }
 
-  v365 = *(a1 + 1288);
-  if (v365 > 1)
+  v336 = *(a1 + 1288);
+  if (v336 > 1)
   {
-    if (v353 <= 0)
+    if (v325 <= 0)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v366 = sub_160F34(0x10u);
-        v367 = sub_175AE4();
-        v368 = sub_160F68(5);
-        v369 = *(a1 + 1288);
-        if (v366)
+        v337 = sub_160F34(0x10u);
+        v338 = sub_175AE4();
+        v339 = sub_160F68(5);
+        v340 = *(a1 + 1288);
+        if (v337)
         {
-          printf("%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding\n", v367, 16, v368, v369);
-          v370 = sub_175AE4();
-          v487 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v370, 16, v487, *(a1 + 1288));
+          printf("%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding\n", v338, 16, v339, v340);
+          v341 = sub_175AE4();
+          v453 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v341, 16, v453, *(a1 + 1288));
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v367, 16, v368, v369);
+          syslog(3, "%lld %d AVE %s: FIG: NumOfTempLayer set to %d but BaseLayerFrameRate not specified. Encoder has to turn off hierarchical encoding", v338, 16, v339, v340);
         }
       }
 
-      v365 = 1;
+      v336 = 1;
       *(a1 + 1288) = 1;
     }
 
-    v371 = v365 == v357;
-    v365 = v357;
-    if (!v371)
+    v342 = v336 == v329;
+    v336 = v329;
+    if (!v342)
     {
-      v372 = sub_160EF0(0x10u, 5);
-      v365 = v357;
-      if (v372)
+      v343 = sub_160EF0(0x10u, 5);
+      v336 = v329;
+      if (v343)
       {
-        v373 = sub_160F34(0x10u);
-        v374 = sub_175AE4();
-        v375 = sub_160F68(5);
-        if (v373)
+        v344 = sub_160F34(0x10u);
+        v345 = sub_175AE4();
+        v346 = sub_160F68(5);
+        if (v344)
         {
-          printf("%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d\n", v374, 16, v375, v357);
-          v376 = sub_175AE4();
-          v488 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v376, 16, v488, v357);
+          printf("%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d\n", v345, 16, v346, v329);
+          v347 = sub_175AE4();
+          v454 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v347, 16, v454, v329);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v374, 16, v375, v357);
+          syslog(3, "%lld %d AVE %s: FIG: NumberOfTemporalLayers value is not optimal. Overriding with optimal value. calculatedNumTemporalLayers %d", v345, 16, v346, v329);
         }
 
-        v365 = v357;
+        v336 = v329;
       }
     }
   }
 
-  if (v365 <= v357)
+  if (v336 <= v329)
   {
-    v377 = v357;
+    v348 = v329;
   }
 
   else
   {
-    v377 = v365;
+    v348 = v336;
   }
 
-  *(a1 + 1288) = v377;
-  if (*(a1 + 10556) >= 2u && v377 >= 2)
+  *(a1 + 1288) = v348;
+  if (*(a1 + 10556) >= 2u && v348 >= 2)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v378 = sub_160F34(0x10u);
-      v379 = sub_175AE4();
-      v380 = sub_160F68(5);
-      v381 = *(a1 + 1288);
-      if (v378)
+      v349 = sub_160F34(0x10u);
+      v350 = sub_175AE4();
+      v351 = sub_160F68(5);
+      v352 = *(a1 + 1288);
+      if (v349)
       {
-        printf("%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1\n", v379, 16, v380, v381);
-        v382 = sub_175AE4();
-        v489 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v382, 16, v489, *(a1 + 1288));
+        printf("%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1\n", v350, 16, v351, v352);
+        v353 = sub_175AE4();
+        v455 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v353, 16, v455, *(a1 + 1288));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v379, 16, v380, v381);
+        syslog(3, "%lld %d AVE %s: NumberOfTemporalLayers is %d and we are encoding multiple layers. Setting NumberOfTemporalLayers to 1", v350, 16, v351, v352);
       }
     }
 
-    v377 = 1;
+    v348 = 1;
   }
 
   if (((*(v2 + 3080) | *(v2 + 3076)) & 0x400) == 0)
   {
-    v383 = *(a1 + 1240);
-    if ((v383 & 0x400) != 0 && v377 >= 3)
+    v354 = *(a1 + 1240);
+    if ((v354 & 0x400) != 0 && v348 >= 3)
     {
-      *(a1 + 1240) = v383 & 0xFFFFFBFF;
+      *(a1 + 1240) = v354 & 0xFFFFFBFF;
     }
   }
 
-  if (v377 >= 3)
+  if (v348 >= 3)
   {
-    v384 = 3;
+    v355 = 3;
   }
 
   else
   {
-    v384 = v377;
+    v355 = v348;
   }
 
   if ((*(a1 + 1444) * *(a1 + 1440)) > 0x7E8FFF)
   {
-    v377 = v384;
+    v348 = v355;
   }
 
-  if (v377 >= 4)
+  if (v348 >= 4)
   {
-    v377 = 4;
+    v348 = 4;
   }
 
-  *(a1 + 1288) = v377;
+  *(a1 + 1288) = v348;
   *(a1 + 39872) = 1;
-  *(v64 + 575) = 0;
-  v240 = a1 + 24248;
+  *(v54 + 575) = 0;
+  v219 = a1 + 24248;
   if (!*(a1 + 1256))
   {
     *(a1 + 1240) &= ~0x400u;
     if (*(a1 + 76) <= 3 && *(a1 + 692) == 1)
     {
-      *(v64 + 575) = 3;
+      *(v54 + 575) = 3;
     }
 
-    v240 = a1 + 24248;
+    v219 = a1 + 24248;
     if (*(a1 + 1112) == *(a1 + 11460))
     {
       *(a1 + 1288) = 1;
@@ -7507,21 +6172,21 @@ LABEL_593:
     }
   }
 
-LABEL_642:
-  v385 = *(a1 + 1288);
-  if (v385 >= 2 || (v385 = *(v2 + 2088), v385 >= 2))
+LABEL_639:
+  v356 = *(a1 + 1288);
+  if (v356 >= 2 || (v356 = *(v2 + 2088), v356 >= 2))
   {
-    v386 = v385 - 1;
-    *v240 = v386;
-    *(a1 + 12012) = v386;
+    v357 = v356 - 1;
+    *v219 = v357;
+    *(a1 + 12012) = v357;
   }
 
-  v387 = sub_FB108(*(v3 + 256), *(v2 + 3200), *(a1 + 68), *(a1 + 76), *(a1 + 64), 2, *(v240 + 440), *(v2 + 1524), *(a1 + 10892), *(a1 + 692), *(a1 + 1112) * ((*(a1 + 1440) + 15) >> 4) * ((*(a1 + 1444) + 15) >> 4), *(a1 + 1440), *(a1 + 1444));
-  *(a1 + 1368) = v387;
-  v388 = *(a1 + 76);
-  if (v388 >= 30)
+  v358 = sub_FB108(*(v3 + 256), *(v2 + 3200), *(a1 + 68), *(a1 + 76), *(a1 + 64), 2, *(v219 + 440), *(v2 + 1524), *(a1 + 10892), *(a1 + 692), *(a1 + 1112) * ((*(a1 + 1440) + 15) >> 4) * ((*(a1 + 1444) + 15) >> 4), *(a1 + 1440), *(a1 + 1444));
+  *(a1 + 1368) = v358;
+  v359 = *(a1 + 76);
+  if (v359 >= 30)
   {
-    *(v240 + 588) = 3;
+    *(v219 + 588) = 3;
     if (!*(a1 + 692) && *(v2 + 1524) >= 1)
     {
       *(a1 + 688) |= 0x100u;
@@ -7529,7 +6194,7 @@ LABEL_642:
       *(a1 + 1240) &= 0xFFFFFAFF;
     }
 
-    if ((v387 & 0xFFFFFFFE) == 2)
+    if ((v358 & 0xFFFFFFFE) == 2)
     {
       *(a1 + 39885) = 1;
     }
@@ -7542,8 +6207,8 @@ LABEL_642:
 
   if (*(a1 + 1288) == 1)
   {
-    *(v43 + 1848) = 1;
-    *(v240 + 4) = 1;
+    *(v34 + 1848) = 1;
+    *(v219 + 4) = 1;
   }
 
   if (!*(a1 + 1256))
@@ -7553,47 +6218,47 @@ LABEL_642:
 
   if (((*(v2 + 3080) | *(v2 + 3076)) & 0x400) == 0)
   {
-    v389 = *(a1 + 1240);
-    if ((v389 & 0x400) != 0 && (*(a1 + 1123) & 0x80) != 0)
+    v360 = *(a1 + 1240);
+    if ((v360 & 0x400) != 0 && (*(a1 + 1123) & 0x80) != 0)
     {
-      *(a1 + 1240) = v389 & 0xFFFFFBFF;
+      *(a1 + 1240) = v360 & 0xFFFFFBFF;
     }
   }
 
-  v390 = *(v3 + 257);
-  if (v390 <= 5)
+  v361 = *(v3 + 257);
+  if (v361 <= 5)
   {
-    *(v64 + 575) = 5 - v390;
+    *(v54 + 575) = 5 - v361;
   }
 
-  if (v388 <= 3)
+  if (v359 <= 3)
   {
-    if (*(v43 + 37) == 1)
+    if (*(v34 + 37) == 1)
     {
-      *(v43 + 37) = 0;
+      *(v34 + 37) = 0;
     }
 
-    *(v43 + 36) = 0;
+    *(v34 + 36) = 0;
   }
 
   else
   {
-    *(v43 + 37) = 1;
+    *(v34 + 37) = 1;
   }
 
-  v391 = *(a1 + 692);
-  if (v391 == 1)
+  v362 = *(a1 + 692);
+  if (v362 == 1)
   {
     *(a1 + 688) &= ~2u;
   }
 
-  if (*(a1 + 10804) == 1 && *(v43 + 681) == 1)
+  if (*(a1 + 10804) == 1 && *(v34 + 681) == 1)
   {
-    *(v43 + 681) = 0;
+    *(v34 + 681) = 0;
   }
 
-  v392 = *(a1 + 1120);
-  if ((v392 & 0x10) != 0)
+  v363 = *(a1 + 1120);
+  if ((v363 & 0x10) != 0)
   {
     *(a1 + 1112) = *(a1 + 11448);
     *(a1 + 1240) &= ~0x400u;
@@ -7601,20 +6266,20 @@ LABEL_642:
 
   if ((*(a1 + 716) & 0x3C0) == 0)
   {
-    goto LABEL_728;
+    goto LABEL_725;
   }
 
   *(a1 + 688) |= 0x100u;
   *(a1 + 1096) |= 0x4000000000uLL;
-  if (!*(v43 + 363))
+  if (!*(v34 + 363))
   {
-    *(v43 + 363) = 3;
+    *(v34 + 363) = 3;
   }
 
   *(a1 + 42028) = 0;
-  *(v64 + 669) = 0;
-  *(v43 + 4) = 1;
-  *(v43 + 362) = 1;
+  *(v54 + 669) = 0;
+  *(v34 + 4) = 1;
+  *(v34 + 362) = 1;
   if (*(a1 + 10552) == 1)
   {
     *(a1 + 1256) = 0x100000000;
@@ -7622,40 +6287,31 @@ LABEL_642:
     *(a1 + 1240) &= ~0x400u;
   }
 
-  if (v388 > 29 || v388 == 28)
+  if (v359 > 29 || v359 == 28)
   {
-    if (v388 > 0x1E)
+    if (v359 > 0x1E)
     {
       if (*(a1 + 24688))
       {
-LABEL_697:
-        if (v391 >= 1 && (v392 & 0x10) == 0)
+LABEL_694:
+        if (v362 >= 1 && (v363 & 0x10) == 0)
         {
-          v397 = vshr_n_u32(vadd_s32(*(a1 + 1440), 0x1F0000001FLL), 5uLL);
-          if ((*(a1 + 1112) * v397.i32[0] * v397.i32[1]) >= 0x45BA1)
+          v368 = vshr_n_u32(vadd_s32(*(a1 + 1440), 0x1F0000001FLL), 5uLL);
+          if ((*(a1 + 1112) * v368.i32[0] * v368.i32[1]) >= 0x45BA1)
           {
             if (sub_160EF0(0x10u, 5))
             {
-              v398 = sub_160F34(0x10u);
-              v399 = sub_175AE4();
-              v400 = sub_160F68(5);
-              v401 = *(a1 + 1444);
-              if (v398)
+              v369 = sub_160F34(0x10u);
+              v370 = sub_175AE4();
+              v371 = sub_160F68(5);
+              if (v369)
               {
-                printf("%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.\n", v399, 16, v400, "AVE_ValidateEncoderParameters", 4530, *(a1 + 1440), *(a1 + 1444), *(a1 + 1112));
-                v399 = sub_175AE4();
+                printf("%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.\n", v370, 16, v371, "AVE_ValidateEncoderParameters", 4530, *(a1 + 1440), *(a1 + 1444), *(a1 + 1112));
+                v370 = sub_175AE4();
                 sub_160F68(5);
-                v402 = *(a1 + 1440);
-                v519 = *(a1 + 1444);
-                v534 = *(a1 + 1112);
               }
 
-              else
-              {
-                v520 = *(a1 + 1444);
-              }
-
-              syslog(3, "%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.", v399);
+              syslog(3, "%lld %d AVE %s: %s:%d Disable B frames for encoding %dx%d frames at %dfps with MCTF to achieve realtime performance.", v370);
             }
 
             *(a1 + 1256) = 0;
@@ -7663,50 +6319,50 @@ LABEL_697:
           }
         }
 
-        v396 = *(a1 + 11812);
-        if (v396 < 0)
+        v367 = *(a1 + 11812);
+        if (v367 < 0)
         {
-          v396 = *(a1 + 10804) != 2 || *(a1 + 692) <= 0;
+          v367 = *(a1 + 10804) != 2 || *(a1 + 692) <= 0;
         }
 
-        *(a1 + 1392) = v396;
+        *(a1 + 1392) = v367;
         if (*(a1 + 1396) == -1 && *(a1 + 10804) == 2 && *(a1 + 692) >= 1)
         {
           *(a1 + 1396) = 5;
         }
 
-        goto LABEL_721;
+        goto LABEL_718;
       }
 
-LABEL_704:
+LABEL_701:
       if (!sub_160EF0(3u, 4))
       {
         return 4294966295;
       }
 
-      v403 = sub_160F34(3u);
-      v60 = sub_175AE4();
-      v404 = sub_160F68(4);
-      if (v403)
+      v372 = sub_160F34(3u);
+      v51 = sub_175AE4();
+      v373 = sub_160F68(4);
+      if (v372)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail\n", v60, 3, v404, "AVE_ValidateEncoderParameters", 4512, "false", *(v556 + 440));
-        v60 = sub_175AE4();
-        v404 = sub_160F68(4);
-        v494 = "false";
-        v508 = *(v556 + 440);
-        v493 = 4512;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail\n", v51, 3, v373, "AVE_ValidateEncoderParameters", 4512, "false", *(v467 + 440));
+        v51 = sub_175AE4();
+        v373 = sub_160F68(4);
+        v460 = "false";
+        v461 = *(v467 + 440);
+        v459 = 4512;
       }
 
       else
       {
-        v508 = *(v556 + 440);
-        v493 = 4512;
-        v494 = "false";
+        v461 = *(v467 + 440);
+        v459 = 4512;
+        v460 = "false";
       }
 
-      v467 = v404;
-      v63 = "%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail";
-      goto LABEL_157;
+      v433 = v373;
+      v53 = "%lld %d AVE %s: %s:%d %s | FIG: MCTF for ChromaFmt %d... not supported. Fail";
+      goto LABEL_155;
     }
   }
 
@@ -7714,12 +6370,12 @@ LABEL_704:
   {
     if (sub_160EF0(3u, 4))
     {
-      v393 = sub_160F34(3u);
-      v394 = sub_175AE4();
-      v395 = sub_160F68(4);
-      if (v393)
+      v364 = sub_160F34(3u);
+      v365 = sub_175AE4();
+      v366 = sub_160F68(4);
+      if (v364)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF unsupported for MV-HEVC. Fail\n", v394, 3, v395, "AVE_ValidateEncoderParameters", 4501, "false");
+        printf("%lld %d AVE %s: %s:%d %s | FIG: MCTF unsupported for MV-HEVC. Fail\n", v365, 3, v366, "AVE_ValidateEncoderParameters", 4501, "false");
         sub_175AE4();
         sub_160F68(4);
       }
@@ -7732,92 +6388,91 @@ LABEL_704:
 
   if (*(a1 + 24688) != 1)
   {
-    goto LABEL_704;
+    goto LABEL_701;
   }
 
-  if (v388 >= 30)
+  if (v359 >= 30)
   {
-    goto LABEL_697;
+    goto LABEL_694;
   }
 
-  v396 = *(a1 + 11812);
-  if (v396 < 0)
+  v367 = *(a1 + 11812);
+  if (v367 < 0)
   {
-    v396 = 1;
+    v367 = 1;
   }
 
-  *(a1 + 1392) = v396;
-  if (v388 != 28)
+  *(a1 + 1392) = v367;
+  if (v359 != 28)
   {
     *(a1 + 1448) &= ~0x2000000uLL;
   }
 
-LABEL_721:
-  if (*(a1 + 1396) >= 1 && v396 == 1)
+LABEL_718:
+  if (*(a1 + 1396) >= 1 && v367 == 1)
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v405 = sub_160F34(0x10u);
-      v406 = sub_175AE4();
-      v407 = sub_160F68(5);
-      v408 = *(a1 + 16);
-      v409 = *(a1 + 1392);
-      v410 = *(a1 + 1396);
-      if (v405)
+      v374 = sub_160F34(0x10u);
+      v375 = sub_175AE4();
+      v376 = sub_160F68(5);
+      v377 = *(a1 + 16);
+      v378 = *(a1 + 1396);
+      if (v374)
       {
-        printf("%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)\n", v406, 16, v407, v408, *(a1 + 1392), v410);
-        v411 = sub_175AE4();
-        v412 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v411, 16, v412, *(a1 + 16), *(a1 + 1392), *(a1 + 1396));
+        printf("%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)\n", v375, 16, v376, v377, *(a1 + 1392), v378);
+        v379 = sub_175AE4();
+        v380 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v379, 16, v380, *(a1 + 16), *(a1 + 1392), *(a1 + 1396));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v406, 16, v407, v408, *(a1 + 1392), v410);
+        syslog(3, "%lld %d AVE %s: FIG: %p: iMaxNextRefNum %d: Disabling iRampUpFrameNum (Currently %d)", v375, 16, v376, v377, *(a1 + 1392), v378);
       }
     }
 
     *(a1 + 1396) = -1;
   }
 
-LABEL_728:
-  v413 = *(a1 + 1120);
-  if ((v413 & 0x80000000) != 0 && *(a1 + 76) >= 9)
+LABEL_725:
+  v381 = *(a1 + 1120);
+  if ((v381 & 0x80000000) != 0 && *(a1 + 76) >= 9)
   {
-    *(v43 + 4) = 1;
-    *(v43 + 362) = 1;
+    *(v34 + 4) = 1;
+    *(v34 + 362) = 1;
   }
 
-  v414 = *(v43 + 4);
-  if (*(v43 + 4))
+  v382 = *(v34 + 4);
+  if (*(v34 + 4))
   {
-    v415 = 0x10000;
+    v383 = 0x10000;
   }
 
   else
   {
-    v415 = 0;
+    v383 = 0;
   }
 
-  *(a1 + 1240) = *(a1 + 1240) & 0xFFFEFFFF | v415;
-  if ((*(a1 + 1296) & 1) != 0 && (!v414 || *(a1 + 11476) > 0 || (v413 & 0x80000000) != 0 || *(a1 + 10556) > 1u || *(v2 + 28) || *(a1 + 1368) >= 5))
+  *(a1 + 1240) = *(a1 + 1240) & 0xFFFEFFFF | v383;
+  if ((*(a1 + 1296) & 1) != 0 && (!v382 || *(a1 + 11476) > 0 || (v381 & 0x80000000) != 0 || *(a1 + 10556) > 1u || *(v2 + 28) || *(a1 + 1368) >= 5))
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v416 = sub_160F34(0x10u);
-      v417 = sub_175AE4();
-      v418 = sub_160F68(5);
-      if (v416)
+      v384 = sub_160F34(0x10u);
+      v385 = sub_175AE4();
+      v386 = sub_160F68(5);
+      if (v384)
       {
-        printf("%lld %d AVE %s: FIG: Force to disable Weighted Prediction\n", v417, 16, v418);
-        v419 = sub_175AE4();
-        v490 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v419, 16, v490);
+        printf("%lld %d AVE %s: FIG: Force to disable Weighted Prediction\n", v385, 16, v386);
+        v387 = sub_175AE4();
+        v456 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v387, 16, v456);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v417, 16, v418);
+        syslog(3, "%lld %d AVE %s: FIG: Force to disable Weighted Prediction", v385, 16, v386);
       }
     }
 
@@ -7827,45 +6482,45 @@ LABEL_728:
     *(a1 + 48356) = 0;
   }
 
-  if (*(v43 + 80) == 1)
+  if (*(v34 + 80) == 1)
   {
-    v420 = *(v43 + 21);
-    if (v420 == 1)
+    v388 = *(v34 + 21);
+    if (v388 == 1)
     {
       if (sub_160EF0(0x10u, 5))
       {
-        v421 = sub_160F34(0x10u);
-        v422 = sub_175AE4();
-        v423 = sub_160F68(5);
-        if (v421)
+        v389 = sub_160F34(0x10u);
+        v390 = sub_175AE4();
+        v391 = sub_160F68(5);
+        if (v389)
         {
-          printf("%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode\n", v422, 16, v423);
-          v424 = sub_175AE4();
-          v491 = sub_160F68(5);
-          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v424, 16, v491);
+          printf("%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode\n", v390, 16, v391);
+          v392 = sub_175AE4();
+          v457 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v392, 16, v457);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v422, 16, v423);
+          syslog(3, "%lld %d AVE %s: FIG: Only one slice. Force to Frame Encoding Mode", v390, 16, v391);
         }
       }
 
-      *(v43 + 80) = 0;
-      v420 = *(v43 + 21);
+      *(v34 + 80) = 0;
+      v388 = *(v34 + 21);
     }
 
-    if (v420)
+    if (v388)
     {
-      v425 = 0;
-      v426 = (v420 - 1);
-      v427 = (a1 + 10260);
+      v393 = 0;
+      v394 = (v388 - 1);
+      v395 = (a1 + 10260);
       while (1)
       {
-        if (v426 == v425)
+        if (v394 == v393)
         {
-          v428 = *(a1 + 10260 + 8 * v426);
-          if (v428 < 96)
+          v396 = *(a1 + 10260 + 8 * v394);
+          if (v396 < 96)
           {
             break;
           }
@@ -7873,85 +6528,76 @@ LABEL_728:
 
         else
         {
-          v428 = *v427;
-          if (*v427 < 128)
+          v396 = *v395;
+          if (*v395 < 128)
           {
             break;
           }
         }
 
-        if ((v428 + *(v427 - 1)) > *(a1 + 1444))
+        if ((v396 + *(v395 - 1)) > *(a1 + 1444))
         {
           break;
         }
 
-        ++v425;
-        v427 += 2;
-        if (v420 == v425)
+        ++v393;
+        v395 += 2;
+        if (v388 == v393)
         {
-          goto LABEL_768;
+          goto LABEL_765;
         }
       }
 
       if (sub_160EF0(0x10u, 5))
       {
-        v429 = sub_160F34(0x10u);
-        v430 = sub_175AE4();
-        v431 = sub_160F68(5);
-        v432 = *v427;
-        if (v429)
+        v397 = sub_160F34(0x10u);
+        v398 = sub_175AE4();
+        v399 = sub_160F68(5);
+        if (v397)
         {
-          printf("%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding\n", v430, 16, v431, v425, *(v427 - 1), *v427, *(a1 + 1444));
-          v430 = sub_175AE4();
+          printf("%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding\n", v398, 16, v399, v393, *(v395 - 1), *v395, *(a1 + 1444));
+          v398 = sub_175AE4();
           sub_160F68(5);
-          v433 = *(v427 - 1);
-          v506 = *v427;
-          v521 = *(a1 + 1444);
         }
 
-        else
-        {
-          v507 = *v427;
-        }
-
-        syslog(3, "%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding", v430);
+        syslog(3, "%lld %d AVE %s: FIG: Slice Parameters Invalid. slice[%d] iY: %d, iHeight: %d, frame height: %d, Force to Frame Encoding", v398);
       }
 
-      *(v43 + 80) = 0;
-      *(v43 + 42) = 1;
+      *(v34 + 80) = 0;
+      *(v34 + 42) = 1;
       *(a1 + 10260) = *(a1 + 1444);
     }
   }
 
-LABEL_768:
-  v434 = *(a1 + 76);
-  if (v434 >= 9)
+LABEL_765:
+  v400 = *(a1 + 76);
+  if (v400 >= 9)
   {
-    v435 = 2;
-    if (v434 <= 0x1E && ((1 << v434) & 0x48821000) != 0)
+    v401 = 2;
+    if (v400 <= 0x1E && ((1 << v400) & 0x48821000) != 0)
     {
       if (*(a1 + 10892))
       {
-        v435 = 2;
+        v401 = 2;
       }
 
       else
       {
-        v435 = 5;
+        v401 = 5;
       }
     }
   }
 
   else
   {
-    v435 = 5;
+    v401 = 5;
   }
 
-  *(v43 + 396) = v435;
-  v436 = *(a1 + 1336);
-  if (v436)
+  *(v34 + 396) = v401;
+  v402 = *(a1 + 1336);
+  if (v402)
   {
-    *(a1 + 39886) = ((v43[345] & 1) == 0) | BYTE2(v436) & 1;
+    *(a1 + 39886) = ((v34[345] & 1) == 0) | BYTE2(v402) & 1;
   }
 
   else
@@ -7959,11 +6605,11 @@ LABEL_768:
     *(a1 + 39886) = 0;
   }
 
-  v437 = *(a1 + 716) | 0x3E;
-  *(a1 + 716) = v437;
-  if (!*(v43 + 363))
+  v403 = *(a1 + 716) | 0x3E;
+  *(a1 + 716) = v403;
+  if (!*(v34 + 363))
   {
-    *(a1 + 716) = v437 & 0xFFFFFFF7;
+    *(a1 + 716) = v403 & 0xFFFFFFF7;
   }
 
   *(a1 + 1096) = (*(v3 + 123) | *(a1 + 1096) & ~*(v2 + 3164)) & ~*(v3 + 124);
@@ -7971,18 +6617,17 @@ LABEL_768:
   {
     if (sub_160EF0(3u, 4))
     {
-      v438 = sub_160F34(3u);
-      v439 = sub_175AE4();
-      v440 = sub_160F68(4);
-      if (v438)
+      v404 = sub_160F34(3u);
+      v405 = sub_175AE4();
+      v406 = sub_160F68(4);
+      if (v404)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d\n", v439, 3, v440, "AVE_ValidateEncoderParameters", 4725, "false", *(a1 + 1144));
-        v439 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d\n", v405, 3, v406, "AVE_ValidateEncoderParameters", 4725, "false", *(a1 + 1144));
+        v405 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v522 = *(a1 + 1144);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d", v439);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpI %d", v405);
     }
 
     return 4294966295;
@@ -7992,18 +6637,17 @@ LABEL_768:
   {
     if (sub_160EF0(3u, 4))
     {
-      v441 = sub_160F34(3u);
-      v442 = sub_175AE4();
-      v443 = sub_160F68(4);
-      if (v441)
+      v407 = sub_160F34(3u);
+      v408 = sub_175AE4();
+      v409 = sub_160F68(4);
+      if (v407)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d\n", v442, 3, v443, "AVE_ValidateEncoderParameters", 4730, "false", *(a1 + 1148));
-        v442 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d\n", v408, 3, v409, "AVE_ValidateEncoderParameters", 4730, "false", *(a1 + 1148));
+        v408 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v523 = *(a1 + 1148);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d", v442);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpP %d", v408);
     }
 
     return 4294966295;
@@ -8013,43 +6657,38 @@ LABEL_768:
   {
     if (sub_160EF0(3u, 4))
     {
-      v444 = sub_160F34(3u);
-      v445 = sub_175AE4();
-      v446 = sub_160F68(4);
-      if (v444)
+      v410 = sub_160F34(3u);
+      v411 = sub_175AE4();
+      v412 = sub_160F68(4);
+      if (v410)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d\n", v445, 3, v446, "AVE_ValidateEncoderParameters", 4735, "false", *(a1 + 1152));
-        v445 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d\n", v411, 3, v412, "AVE_ValidateEncoderParameters", 4735, "false", *(a1 + 1152));
+        v411 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v524 = *(a1 + 1152);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d", v445);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: Invalid InitialQpB %d", v411);
     }
 
     return 4294966295;
   }
 
-  v447 = *(a1 + 1264) != 1 || *(a1 + 10560) != 1;
-  if (sub_14E248(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), v447))
+  v413 = *(a1 + 1264) != 1 || *(a1 + 10560) != 1;
+  if (sub_14E248(*(a1 + 68), 1, 2, *(a1 + 1440), *(a1 + 1444), v413))
   {
     if (sub_160EF0(3u, 4))
     {
-      v448 = sub_160F34(3u);
-      v449 = sub_175AE4();
-      v450 = sub_160F68(4);
-      v451 = *(a1 + 1444);
-      if (v448)
+      v414 = sub_160F34(3u);
+      v415 = sub_175AE4();
+      v416 = sub_160F68(4);
+      if (v414)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.\n", v449, 3, v450, "AVE_ValidateEncoderParameters", 4748, "false", *(a1 + 1440), *(a1 + 1444), *(a1 + 1264));
-        v449 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.\n", v415, 3, v416, "AVE_ValidateEncoderParameters", 4748, "false", *(a1 + 1440), *(a1 + 1444), *(a1 + 1264));
+        v415 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v535 = *(a1 + 1444);
-      v541 = *(a1 + 1264);
-      v525 = *(a1 + 1440);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.", v449, 3);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: dimensions (%dx%d) not supported %d.", v415, 3);
     }
 
     return 4294966295;
@@ -8059,20 +6698,20 @@ LABEL_768:
   {
     if (sub_160EF0(0x10u, 5))
     {
-      v452 = sub_160F34(0x10u);
-      v453 = sub_175AE4();
-      v454 = sub_160F68(5);
-      if (v452)
+      v417 = sub_160F34(0x10u);
+      v418 = sub_175AE4();
+      v419 = sub_160F68(5);
+      if (v417)
       {
-        printf("%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.\n", v453, 16, v454, "AVE_ValidateEncoderParameters", 4757);
-        v455 = sub_175AE4();
-        v492 = sub_160F68(5);
-        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v455, 16, v492, "AVE_ValidateEncoderParameters", 4757);
+        printf("%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.\n", v418, 16, v419, "AVE_ValidateEncoderParameters", 4757);
+        v420 = sub_175AE4();
+        v458 = sub_160F68(5);
+        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v420, 16, v458, "AVE_ValidateEncoderParameters", 4757);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v453, 16, v454, "AVE_ValidateEncoderParameters", 4757);
+        syslog(3, "%lld %d AVE %s: %s:%d entropy_coding_sync_enabled_flag has to be enabled.", v418, 16, v419, "AVE_ValidateEncoderParameters", 4757);
       }
     }
 
@@ -8084,21 +6723,21 @@ LABEL_768:
     return 0;
   }
 
-  v461 = *(a1 + 11460);
-  if (v461 < 1)
+  v425 = *(a1 + 11460);
+  if (v425 < 1)
   {
     return 0;
   }
 
-  v462 = *(a1 + 1112);
-  if (v461 > v462)
+  v426 = *(a1 + 1112);
+  if (v425 > v426)
   {
     return 0;
   }
 
   v19 = 0;
   *(a1 + 1248) = 0;
-  *(a1 + 1252) = v462 / v461;
+  *(a1 + 1252) = v426 / v425;
   *(a1 + 1256) = 0x200000000;
   *(a1 + 1288) = 1;
   return v19;
@@ -8115,8 +6754,8 @@ void sub_107808(uint64_t a1, __CVBuffer *a2)
     {
       printf("%lld %d AVE %s: FIG: ENTER AVE_PrepareVideoAndSequenceHeader\n", v5, 12, v6);
       v7 = sub_175AE4();
-      v304 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareVideoAndSequenceHeader", v7, 12, v304);
+      v286 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareVideoAndSequenceHeader", v7, 12, v286);
     }
 
     else
@@ -8142,48 +6781,48 @@ void sub_107808(uint64_t a1, __CVBuffer *a2)
       syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: imageBuffer = NULL.");
     }
 
-    goto LABEL_270;
+    goto LABEL_267;
   }
 
   v8 = *(a1 + 10808);
   v9 = *(a1 + 1336);
   v10 = a1 + 31332;
-  memset(v371, 0, sizeof(v371));
+  memset(v317, 0, sizeof(v317));
   if (v8 > 7)
   {
     if (v8 == 8)
     {
       if ((v9 & 0x8000000) != 0)
       {
-        v367 = xmmword_190EA0;
-        v368 = unk_190EB0;
-        v369 = xmmword_190EC0;
-        v370 = unk_190ED0;
-        v363 = xmmword_190E60;
-        v364 = unk_190E70;
-        v365 = xmmword_190E80;
-        v366 = unk_190E90;
-        v359 = xmmword_190E20;
-        v360 = unk_190E30;
-        v361 = xmmword_190E40;
-        v362 = unk_190E50;
+        v313 = xmmword_190EA0;
+        v314 = unk_190EB0;
+        v315 = xmmword_190EC0;
+        v316 = unk_190ED0;
+        v309 = xmmword_190E60;
+        v310 = unk_190E70;
+        v311 = xmmword_190E80;
+        v312 = unk_190E90;
+        v305 = xmmword_190E20;
+        v306 = unk_190E30;
+        v307 = xmmword_190E40;
+        v308 = unk_190E50;
         v14 = &unk_190EE0;
       }
 
       else
       {
-        v367 = xmmword_191860;
-        v368 = unk_191870;
-        v369 = xmmword_191880;
-        v370 = unk_191890;
-        v363 = xmmword_191820;
-        v364 = unk_191830;
-        v365 = xmmword_191840;
-        v366 = unk_191850;
-        v359 = xmmword_1917E0;
-        v360 = unk_1917F0;
-        v361 = xmmword_191800;
-        v362 = unk_191810;
+        v313 = xmmword_191860;
+        v314 = unk_191870;
+        v315 = xmmword_191880;
+        v316 = unk_191890;
+        v309 = xmmword_191820;
+        v310 = unk_191830;
+        v311 = xmmword_191840;
+        v312 = unk_191850;
+        v305 = xmmword_1917E0;
+        v306 = unk_1917F0;
+        v307 = xmmword_191800;
+        v308 = unk_191810;
         v14 = &unk_1918A0;
       }
 
@@ -8212,18 +6851,18 @@ LABEL_9:
     }
   }
 
-  v367 = xmmword_192220;
-  v368 = unk_192230;
-  v369 = xmmword_192240;
-  v370 = unk_192250;
-  v363 = xmmword_1921E0;
-  v364 = unk_1921F0;
-  v365 = xmmword_192200;
-  v366 = unk_192210;
-  v359 = xmmword_1921A0;
-  v360 = unk_1921B0;
-  v361 = xmmword_1921C0;
-  v362 = unk_1921D0;
+  v313 = xmmword_192220;
+  v314 = unk_192230;
+  v315 = xmmword_192240;
+  v316 = unk_192250;
+  v309 = xmmword_1921E0;
+  v310 = unk_1921F0;
+  v311 = xmmword_192200;
+  v312 = unk_192210;
+  v305 = xmmword_1921A0;
+  v306 = unk_1921B0;
+  v307 = xmmword_1921C0;
+  v308 = unk_1921D0;
   v14 = &unk_192260;
 LABEL_16:
   memcpy(__dst, v14, sizeof(__dst));
@@ -8262,7 +6901,7 @@ LABEL_16:
         v27 = *(v26 - 1);
         v28 = *v26;
         v26 += 2;
-        *(v371 + v24++) = *(&v359 + 16 * v21 + 16 * v19 + 4 * v28 + v27);
+        *(v317 + v24++) = *(&v305 + 16 * v21 + 16 * v19 + 4 * v28 + v27);
       }
 
       while (v24 != 16);
@@ -8270,7 +6909,7 @@ LABEL_16:
       v30 = 8;
       do
       {
-        v31 = *(v371 + v29);
+        v31 = *(v317 + v29);
         v32 = v31 - v30;
         if ((v31 - v30) <= 0)
         {
@@ -8342,12 +6981,6 @@ LABEL_16:
               printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v91, 3, v92, "AVE_HEVC_set_default_scaling_lists", 1746, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 0, v25, v29, *(v23 + 2 * v29));
               v91 = sub_175AE4();
               sub_160F68(4);
-              v351 = *(v23 + 2 * v29);
-            }
-
-            else
-            {
-              v352 = *(v23 + 2 * v29);
             }
 
             syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v91, 3);
@@ -8388,7 +7021,7 @@ LABEL_16:
         v44 = *(v43 - 1);
         v45 = *v43;
         v43 += 2;
-        *(v371 + v41++) = *&__dst[128 * v38 + 128 * v36 + 16 * v45 + 2 * v44];
+        *(v317 + v41++) = *&__dst[128 * v38 + 128 * v36 + 16 * v45 + 2 * v44];
       }
 
       while (v41 != 64);
@@ -8396,7 +7029,7 @@ LABEL_16:
       v47 = 8;
       do
       {
-        v48 = *(v371 + v46);
+        v48 = *(v317 + v46);
         v49 = v48 - v47;
         if ((v48 - v47) <= 0)
         {
@@ -8424,19 +7057,19 @@ LABEL_16:
             goto LABEL_107;
           }
 
-          v264 = sub_160F34(3u);
-          v265 = sub_175AE4();
-          v266 = sub_160F68(4);
-          if (v264)
+          v247 = sub_160F34(3u);
+          v248 = sub_175AE4();
+          v249 = sub_160F68(4);
+          if (v247)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v265, 3, v266, "AVE_HEVC_set_default_scaling_lists", 1783, "nextCoef == ScalingList[i]", v52, v46, v48);
-            v265 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v248, 3, v249, "AVE_HEVC_set_default_scaling_lists", 1783, "nextCoef == ScalingList[i]", v52, v46, v48);
+            v248 = sub_175AE4();
             sub_160F68(4);
           }
 
-LABEL_376:
-          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d", v265, 3);
-          goto LABEL_387;
+LABEL_373:
+          syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d", v248, 3);
+          goto LABEL_383;
         }
 
         if (v48 <= 5)
@@ -8447,19 +7080,19 @@ LABEL_376:
             goto LABEL_107;
           }
 
-          v267 = sub_160F34(3u);
-          v268 = sub_175AE4();
-          v269 = sub_160F68(4);
-          if (v267)
+          v250 = sub_160F34(3u);
+          v251 = sub_175AE4();
+          v252 = sub_160F68(4);
+          if (v250)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v268, 3, v269, "AVE_HEVC_set_default_scaling_lists", 1784, "(nextCoef >= 6 && nextCoef <= 255)", v48);
-            v270 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v251, 3, v252, "AVE_HEVC_set_default_scaling_lists", 1784, "(nextCoef >= 6 && nextCoef <= 255)", v48);
+            v253 = sub_175AE4();
             sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)", v270);
-            goto LABEL_387;
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)", v253);
+            goto LABEL_383;
           }
 
-          goto LABEL_396;
+          goto LABEL_392;
         }
 
         if (v49 != v49)
@@ -8467,21 +7100,19 @@ LABEL_376:
           v10 = a1 + 31332;
           if (sub_160EF0(3u, 4))
           {
-            v271 = sub_160F34(3u);
-            v272 = sub_175AE4();
-            v273 = sub_160F68(4);
-            if (!v271)
+            v254 = sub_160F34(3u);
+            v255 = sub_175AE4();
+            v256 = sub_160F68(4);
+            if (!v254)
             {
-              v354 = *(v40 + 2 * v46);
-              goto LABEL_386;
+              goto LABEL_382;
             }
 
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v272, 3, v273, "AVE_HEVC_set_default_scaling_lists", 1785, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 1, v42, v46, *(v40 + 2 * v46));
-            v274 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v255, 3, v256, "AVE_HEVC_set_default_scaling_lists", 1785, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 1, v42, v46, *(v40 + 2 * v46));
+            v257 = sub_175AE4();
             sub_160F68(4);
-            v353 = *(v40 + 2 * v46);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v274, 3);
-LABEL_387:
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v257, 3);
+LABEL_383:
             v10 = a1 + 31332;
           }
 
@@ -8521,23 +7152,23 @@ LABEL_387:
         v10 = a1 + 31332;
         if (sub_160EF0(3u, 4))
         {
-          v284 = sub_160F34(3u);
-          v285 = sub_175AE4();
-          v286 = sub_160F68(4);
-          if (v284)
+          v267 = sub_160F34(3u);
+          v268 = sub_175AE4();
+          v269 = sub_160F68(4);
+          if (v267)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d\n", v285, 3, v286, "AVE_HEVC_set_default_scaling_lists", 1807, "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]", v59, 1, v58, v60);
-            v287 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d\n", v268, 3, v269, "AVE_HEVC_set_default_scaling_lists", 1807, "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]", v59, 1, v58, v60);
+            v270 = sub_175AE4();
             sub_160F68(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d", v287, 3);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d", v270, 3);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d", v285, 3);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d", v268, 3);
           }
 
-          goto LABEL_387;
+          goto LABEL_383;
         }
 
         goto LABEL_107;
@@ -8551,19 +7182,19 @@ LABEL_387:
           goto LABEL_107;
         }
 
-        v288 = sub_160F34(3u);
-        v268 = sub_175AE4();
-        v289 = sub_160F68(4);
-        if (v288)
+        v271 = sub_160F34(3u);
+        v251 = sub_175AE4();
+        v272 = sub_160F68(4);
+        if (v271)
         {
-          printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v268, 3, v289, "AVE_HEVC_set_default_scaling_lists", 1808, "(nextCoef >= 6 && nextCoef <= 255)", v60);
-          v268 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v251, 3, v272, "AVE_HEVC_set_default_scaling_lists", 1808, "(nextCoef >= 6 && nextCoef <= 255)", v60);
+          v251 = sub_175AE4();
           sub_160F68(4);
         }
 
-LABEL_396:
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)", v268);
-        goto LABEL_387;
+LABEL_392:
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)", v251);
+        goto LABEL_383;
       }
 
       v61 = 0;
@@ -8573,13 +7204,13 @@ LABEL_396:
         v63 = *(v62 - 1);
         v64 = *v62;
         v62 += 2;
-        *(v371 + v61++) = *&__dst[128 * v58 + 768 + 16 * v64 + 2 * v63];
+        *(v317 + v61++) = *&__dst[128 * v58 + 768 + 16 * v64 + 2 * v63];
       }
 
       while (v61 != 64);
       for (j = 0; j != 64; ++j)
       {
-        v66 = *(v371 + j);
+        v66 = *(v317 + j);
         v67 = v66 - v60;
         if ((v66 - v60) <= 0)
         {
@@ -8606,18 +7237,18 @@ LABEL_396:
             goto LABEL_107;
           }
 
-          v275 = sub_160F34(3u);
-          v265 = sub_175AE4();
-          v276 = sub_160F68(4);
-          if (v275)
+          v258 = sub_160F34(3u);
+          v248 = sub_175AE4();
+          v259 = sub_160F68(4);
+          if (v258)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v265, 3, v276, "AVE_HEVC_set_default_scaling_lists", 1831, "nextCoef == ScalingList[i]", v69, j, v66);
-LABEL_391:
-            v265 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v248, 3, v259, "AVE_HEVC_set_default_scaling_lists", 1831, "nextCoef == ScalingList[i]", v69, j, v66);
+LABEL_387:
+            v248 = sub_175AE4();
             sub_160F68(4);
           }
 
-          goto LABEL_376;
+          goto LABEL_373;
         }
 
         if (v66 <= 5)
@@ -8628,18 +7259,18 @@ LABEL_391:
             goto LABEL_107;
           }
 
-          v277 = sub_160F34(3u);
-          v268 = sub_175AE4();
-          v278 = sub_160F68(4);
-          if (v277)
+          v260 = sub_160F34(3u);
+          v251 = sub_175AE4();
+          v261 = sub_160F68(4);
+          if (v260)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v268, 3, v278, "AVE_HEVC_set_default_scaling_lists", 1832, "(nextCoef >= 6 && nextCoef <= 255)", v66);
-LABEL_395:
-            v268 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v251, 3, v261, "AVE_HEVC_set_default_scaling_lists", 1832, "(nextCoef >= 6 && nextCoef <= 255)", v66);
+LABEL_391:
+            v251 = sub_175AE4();
             sub_160F68(4);
           }
 
-          goto LABEL_396;
+          goto LABEL_392;
         }
 
         if (v67 != v67)
@@ -8650,28 +7281,27 @@ LABEL_395:
             goto LABEL_107;
           }
 
-          v279 = sub_160F34(3u);
-          v280 = sub_175AE4();
-          v281 = sub_160F68(4);
-          if (v279)
+          v262 = sub_160F34(3u);
+          v263 = sub_175AE4();
+          v264 = sub_160F68(4);
+          if (v262)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v280, 3, v281, "AVE_HEVC_set_default_scaling_lists", 1833, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 2, v58, j, *(v57 + 2 * j));
-            v282 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v263, 3, v264, "AVE_HEVC_set_default_scaling_lists", 1833, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 2, v58, j, *(v57 + 2 * j));
+            v265 = sub_175AE4();
             sub_160F68(4);
-            v355 = *(v57 + 2 * j);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v282, 3);
-            goto LABEL_387;
+            syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v265, 3);
+            goto LABEL_383;
           }
 
-          v346 = j;
-          v350 = *(v57 + 2 * j);
-          v332 = 2;
-          v334 = v58;
-          v314 = 1833;
-          v317 = "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)";
-          v311 = v281;
-          v283 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)";
-          goto LABEL_403;
+          v302 = j;
+          v303 = *(v57 + 2 * j);
+          v299 = 2;
+          v301 = v58;
+          v295 = 1833;
+          v297 = "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)";
+          v293 = v264;
+          v266 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)";
+          goto LABEL_399;
         }
 
         LOWORD(v60) = v66;
@@ -8716,14 +7346,14 @@ LABEL_71:
         v77 = *(v76 - 1);
         v78 = *v76;
         v76 += 2;
-        *(v371 + v75++) = *&__dst[128 * v70 + 1536 + 16 * v78 + 2 * v77];
+        *(v317 + v75++) = *&__dst[128 * v70 + 1536 + 16 * v78 + 2 * v77];
       }
 
       while (v75 != 64);
       v79 = 0;
       while (1)
       {
-        v80 = *(v371 + v79);
+        v80 = *(v317 + v79);
         v81 = v80 - v74;
         if ((v80 - v74) <= 0)
         {
@@ -8750,16 +7380,16 @@ LABEL_71:
             goto LABEL_107;
           }
 
-          v290 = sub_160F34(3u);
-          v265 = sub_175AE4();
-          v291 = sub_160F68(4);
-          if (v290)
+          v273 = sub_160F34(3u);
+          v248 = sub_175AE4();
+          v274 = sub_160F68(4);
+          if (v273)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v265, 3, v291, "AVE_HEVC_set_default_scaling_lists", 1878, "nextCoef == ScalingList[i]", v83, v79, v80);
-            goto LABEL_391;
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingList[%d] %d\n", v248, 3, v274, "AVE_HEVC_set_default_scaling_lists", 1878, "nextCoef == ScalingList[i]", v83, v79, v80);
+            goto LABEL_387;
           }
 
-          goto LABEL_376;
+          goto LABEL_373;
         }
 
         if (v80 <= 5)
@@ -8770,16 +7400,16 @@ LABEL_71:
             goto LABEL_107;
           }
 
-          v292 = sub_160F34(3u);
-          v268 = sub_175AE4();
-          v293 = sub_160F68(4);
-          if (v292)
+          v275 = sub_160F34(3u);
+          v251 = sub_175AE4();
+          v276 = sub_160F68(4);
+          if (v275)
           {
-            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v268, 3, v293, "AVE_HEVC_set_default_scaling_lists", 1879, "(nextCoef >= 6 && nextCoef <= 255)", v80);
-            goto LABEL_395;
+            printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v251, 3, v276, "AVE_HEVC_set_default_scaling_lists", 1879, "(nextCoef >= 6 && nextCoef <= 255)", v80);
+            goto LABEL_391;
           }
 
-          goto LABEL_396;
+          goto LABEL_392;
         }
 
         if (v81 != v81)
@@ -8808,50 +7438,47 @@ LABEL_71:
         goto LABEL_107;
       }
 
-      v294 = a1 + (v70 << 7) + 27332;
-      v295 = sub_160F34(3u);
-      v272 = sub_175AE4();
-      v296 = sub_160F68(4);
-      if (v295)
+      v277 = sub_160F34(3u);
+      v255 = sub_175AE4();
+      v278 = sub_160F68(4);
+      if (v277)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v272, 3, v296, "AVE_HEVC_set_default_scaling_lists", 1880, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 3, v70, v79, *(v294 + 2 * v79));
-        v297 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)\n", v255, 3, v278, "AVE_HEVC_set_default_scaling_lists", 1880, "(sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] >= -128 && sps->scaling_list_data.scaling_list_delta_coef[sizeId][matrixId][i] <= 127)", 3, v70, v79, *(a1 + (v70 << 7) + 27332 + 2 * v79));
+        v279 = sub_175AE4();
         sub_160F68(4);
-        v356 = *(v294 + 2 * v79);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v297, 3);
-        goto LABEL_387;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v279, 3);
+        goto LABEL_383;
       }
 
-      v357 = *(v294 + 2 * v79);
-LABEL_386:
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v272, 3);
-      goto LABEL_387;
+LABEL_382:
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix scaling_list_delta_coef[%d][%d][%d] = (%d)", v255, 3);
+      goto LABEL_383;
     }
 
     v10 = a1 + 31332;
     if (sub_160EF0(3u, 4))
     {
-      v302 = sub_160F34(3u);
-      v280 = sub_175AE4();
-      v303 = sub_160F68(4);
-      if (v302)
+      v284 = sub_160F34(3u);
+      v263 = sub_175AE4();
+      v285 = sub_160F68(4);
+      if (v284)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v280, 3, v303, "AVE_HEVC_set_default_scaling_lists", 1855, "(nextCoef >= 6 && nextCoef <= 255)", v74);
-        v300 = sub_175AE4();
-        v318 = "(nextCoef >= 6 && nextCoef <= 255)";
-        v333 = v74;
-        v315 = 1855;
-        v312 = sub_160F68(4);
-        v301 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)";
-        goto LABEL_430;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)\n", v263, 3, v285, "AVE_HEVC_set_default_scaling_lists", 1855, "(nextCoef >= 6 && nextCoef <= 255)", v74);
+        v282 = sub_175AE4();
+        v298 = "(nextCoef >= 6 && nextCoef <= 255)";
+        v300 = v74;
+        v296 = 1855;
+        v294 = sub_160F68(4);
+        v283 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)";
+        goto LABEL_426;
       }
 
-      v317 = "(nextCoef >= 6 && nextCoef <= 255)";
-      v332 = v74;
-      v314 = 1855;
-      v311 = v303;
-      v283 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)";
-      goto LABEL_403;
+      v297 = "(nextCoef >= 6 && nextCoef <= 255)";
+      v299 = v74;
+      v295 = 1855;
+      v293 = v285;
+      v266 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d)";
+      goto LABEL_399;
     }
   }
 
@@ -8860,37 +7487,37 @@ LABEL_386:
     v10 = a1 + 31332;
     if (sub_160EF0(3u, 4))
     {
-      v298 = sub_160F34(3u);
-      v280 = sub_175AE4();
-      v299 = sub_160F68(4);
-      if (v298)
+      v280 = sub_160F34(3u);
+      v263 = sub_175AE4();
+      v281 = sub_160F68(4);
+      if (v280)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d\n", v280, 3, v299, "AVE_HEVC_set_default_scaling_lists", 1854, "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]", v72, 2, v70, v74);
-        v300 = sub_175AE4();
-        v346 = v70;
-        v350 = v74;
-        v333 = v72;
-        v334 = 2;
-        v315 = 1854;
-        v318 = "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]";
-        v312 = sub_160F68(4);
-        v301 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d";
-LABEL_430:
-        syslog(3, v301, v300, 3, v312, "AVE_HEVC_set_default_scaling_lists", v315, v318, v333, v334, v346, v350);
-        goto LABEL_387;
+        printf("%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d\n", v263, 3, v281, "AVE_HEVC_set_default_scaling_lists", 1854, "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]", v72, 2, v70, v74);
+        v282 = sub_175AE4();
+        v302 = v70;
+        v303 = v74;
+        v300 = v72;
+        v301 = 2;
+        v296 = 1854;
+        v298 = "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]";
+        v294 = sub_160F68(4);
+        v283 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d";
+LABEL_426:
+        syslog(3, v283, v282, 3, v294, "AVE_HEVC_set_default_scaling_lists", v296, v298, v300, v301, v302, v303);
+        goto LABEL_383;
       }
 
-      v346 = v70;
-      v350 = v74;
-      v332 = v72;
-      v334 = 2;
-      v314 = 1854;
-      v317 = "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]";
-      v311 = v299;
-      v283 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d";
-LABEL_403:
-      syslog(3, v283, v280, 3, v311, "AVE_HEVC_set_default_scaling_lists", v314, v317, v332, v334, v346, v350);
-      goto LABEL_387;
+      v302 = v70;
+      v303 = v74;
+      v299 = v72;
+      v301 = 2;
+      v295 = 1854;
+      v297 = "nextCoef == LocalExplicitScalingList[sizeId-1][matrixId][0]";
+      v293 = v281;
+      v266 = "%lld %d AVE %s: %s:%d %s | FIG: HEVC Scaling Matrix nextCoef (%d) != ScalingListDefault[%d][%d][0] %d";
+LABEL_399:
+      syslog(3, v266, v263, 3, v293, "AVE_HEVC_set_default_scaling_lists", v295, v297, v299, v301, v302, v303);
+      goto LABEL_383;
     }
   }
 
@@ -8943,7 +7570,6 @@ LABEL_107:
         printf("%lld %d AVE %s: FIG: video_full_range_flag %d\n", v105, 30, v106, *(v98 + 7) == 1);
         sub_175AE4();
         sub_160F68(6);
-        v313 = *(v98 + 7) == 1;
       }
 
       syslog(3, "%lld %d AVE %s: FIG: video_full_range_flag %d");
@@ -9016,8 +7642,8 @@ LABEL_107:
       {
         printf("%lld %d AVE %s: FIG: kCVImageBufferChromaLocationTopFieldKey found!\n", v114, 30, v115);
         v116 = sub_175AE4();
-        v305 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationTopFieldKey found!", v116, 30, v305);
+        v287 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationTopFieldKey found!", v116, 30, v287);
       }
 
       else
@@ -9058,20 +7684,20 @@ LABEL_139:
       {
         if (sub_160EF0(0x1Eu, 5))
         {
-          v256 = sub_160F34(0x1Eu);
-          v257 = sub_175AE4();
-          v258 = sub_160F68(5);
-          if (v256)
+          v239 = sub_160F34(0x1Eu);
+          v240 = sub_175AE4();
+          v241 = sub_160F68(5);
+          if (v239)
           {
-            printf("%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default\n", v257, 30, v258);
-            v259 = sub_175AE4();
-            v309 = sub_160F68(5);
-            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v259, 30, v309);
+            printf("%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default\n", v240, 30, v241);
+            v242 = sub_175AE4();
+            v291 = sub_160F68(5);
+            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v242, 30, v291);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v257, 30, v258);
+            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v240, 30, v241);
           }
         }
 
@@ -9088,126 +7714,124 @@ LABEL_139:
       v118 = sub_160F34(0x1Eu);
       v119 = sub_175AE4();
       v120 = sub_160F68(6);
-      v121 = *(v10 + 48);
-      v122 = *(v10 + 52);
+      v121 = *(v10 + 52);
       if (v118)
       {
-        printf("%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v119, 30, v120, *(v10 + 48), v122);
-        v123 = sub_175AE4();
-        v124 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v123, 30, v124, *(v10 + 48), *(v10 + 52));
+        printf("%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v119, 30, v120, *(v10 + 48), v121);
+        v122 = sub_175AE4();
+        v123 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v122, 30, v123, *(v10 + 48), *(v10 + 52));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v119, 30, v120, *(v10 + 48), v122);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v119, 30, v120, *(v10 + 48), v121);
       }
     }
 
     CFRelease(v112);
   }
 
-  v125 = CVBufferCopyAttachment(a2, kCVImageBufferChromaLocationBottomFieldKey, 0);
-  if (v125)
+  v124 = CVBufferCopyAttachment(a2, kCVImageBufferChromaLocationBottomFieldKey, 0);
+  if (v124)
   {
-    v126 = v125;
+    v125 = v124;
     if (sub_160EF0(0x1Eu, 6))
     {
-      v127 = sub_160F34(0x1Eu);
-      v128 = sub_175AE4();
-      v129 = sub_160F68(6);
-      if (v127)
+      v126 = sub_160F34(0x1Eu);
+      v127 = sub_175AE4();
+      v128 = sub_160F68(6);
+      if (v126)
       {
-        printf("%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!\n", v128, 30, v129);
-        v130 = sub_175AE4();
-        v306 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!", v130, 30, v306);
+        printf("%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!\n", v127, 30, v128);
+        v129 = sub_175AE4();
+        v288 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!", v129, 30, v288);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!", v128, 30, v129);
+        syslog(3, "%lld %d AVE %s: FIG: kCVImageBufferChromaLocationBottomFieldKey found!", v127, 30, v128);
       }
     }
 
-    if (CFEqual(v126, kCVImageBufferChromaLocation_Left))
+    if (CFEqual(v125, kCVImageBufferChromaLocation_Left))
     {
 LABEL_161:
-      v131 = 0;
+      v130 = 0;
     }
 
-    else if (CFEqual(v126, kCVImageBufferChromaLocation_Center))
+    else if (CFEqual(v125, kCVImageBufferChromaLocation_Center))
     {
-      v131 = 1;
+      v130 = 1;
     }
 
-    else if (CFEqual(v126, kCVImageBufferChromaLocation_TopLeft))
+    else if (CFEqual(v125, kCVImageBufferChromaLocation_TopLeft))
     {
-      v131 = 2;
+      v130 = 2;
     }
 
-    else if (CFEqual(v126, kCVImageBufferChromaLocation_Top))
+    else if (CFEqual(v125, kCVImageBufferChromaLocation_Top))
     {
-      v131 = 3;
+      v130 = 3;
     }
 
-    else if (CFEqual(v126, kCVImageBufferChromaLocation_BottomLeft))
+    else if (CFEqual(v125, kCVImageBufferChromaLocation_BottomLeft))
     {
-      v131 = 4;
+      v130 = 4;
     }
 
     else
     {
-      if (!CFEqual(v126, kCVImageBufferChromaLocation_Bottom))
+      if (!CFEqual(v125, kCVImageBufferChromaLocation_Bottom))
       {
         if (sub_160EF0(0x1Eu, 5))
         {
-          v260 = sub_160F34(0x1Eu);
-          v261 = sub_175AE4();
-          v262 = sub_160F68(5);
-          if (v260)
+          v243 = sub_160F34(0x1Eu);
+          v244 = sub_175AE4();
+          v245 = sub_160F68(5);
+          if (v243)
           {
-            printf("%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default\n", v261, 30, v262);
-            v263 = sub_175AE4();
-            v310 = sub_160F68(5);
-            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v263, 30, v310);
+            printf("%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default\n", v244, 30, v245);
+            v246 = sub_175AE4();
+            v292 = sub_160F68(5);
+            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v246, 30, v292);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v261, 30, v262);
+            syslog(3, "%lld %d AVE %s: AVE FIG WARNING: kCVImageBufferChromaLocationTopFieldKey with invalid value -> use default", v244, 30, v245);
           }
         }
 
         goto LABEL_161;
       }
 
-      v131 = 5;
+      v130 = 5;
     }
 
-    *(v10 + 52) = v131;
+    *(v10 + 52) = v130;
     if (sub_160EF0(0x1Eu, 6))
     {
-      v132 = sub_160F34(0x1Eu);
-      v133 = sub_175AE4();
-      v134 = sub_160F68(6);
-      v135 = *(v10 + 48);
-      v136 = *(v10 + 52);
-      if (v132)
+      v131 = sub_160F34(0x1Eu);
+      v132 = sub_175AE4();
+      v133 = sub_160F68(6);
+      v134 = *(v10 + 52);
+      if (v131)
       {
-        printf("%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v133, 30, v134, *(v10 + 48), v136);
-        v137 = sub_175AE4();
-        v138 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v137, 30, v138, *(v10 + 48), *(v10 + 52));
+        printf("%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v132, 30, v133, *(v10 + 48), v134);
+        v135 = sub_175AE4();
+        v136 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v135, 30, v136, *(v10 + 48), *(v10 + 52));
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v133, 30, v134, *(v10 + 48), v136);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v132, 30, v133, *(v10 + 48), v134);
       }
     }
 
-    CFRelease(v126);
+    CFRelease(v125);
   }
 
   if ((*(v10 + 48) || *(v10 + 52)) && (*(a1 + 1104) & 0x10) != 0)
@@ -9216,43 +7840,42 @@ LABEL_161:
     *(v10 + 44) = 1;
     if (sub_160EF0(0x1Eu, 6))
     {
-      v139 = sub_160F34(0x1Eu);
-      v140 = sub_175AE4();
-      v141 = sub_160F68(6);
-      if (v139)
+      v137 = sub_160F34(0x1Eu);
+      v138 = sub_175AE4();
+      v139 = sub_160F68(6);
+      if (v137)
       {
-        printf("%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE\n", v140, 30, v141);
-        v142 = sub_175AE4();
-        v307 = sub_160F68(6);
-        syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE", v142, 30, v307);
+        printf("%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE\n", v138, 30, v139);
+        v140 = sub_175AE4();
+        v289 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE", v140, 30, v289);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE", v140, 30, v141);
+        syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag TRUE", v138, 30, v139);
       }
     }
   }
 
   if (sub_160EF0(0x1Eu, 6))
   {
-    v143 = sub_160F34(0x1Eu);
-    v144 = sub_175AE4();
-    v145 = sub_160F68(6);
-    v146 = *(v10 + 44);
-    v147 = *(v10 + 48);
-    v148 = *(v10 + 52);
-    if (v143)
+    v141 = sub_160F34(0x1Eu);
+    v142 = sub_175AE4();
+    v143 = sub_160F68(6);
+    v144 = *(v10 + 44);
+    v145 = *(v10 + 52);
+    if (v141)
     {
-      printf("%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v144, 30, v145, v146, *(v10 + 48), v148);
-      v149 = sub_175AE4();
-      v150 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v149, 30, v150, *(v10 + 44), *(v10 + 48), *(v10 + 52));
+      printf("%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d\n", v142, 30, v143, v144, *(v10 + 48), v145);
+      v146 = sub_175AE4();
+      v147 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v146, 30, v147, *(v10 + 44), *(v10 + 48), *(v10 + 52));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v144, 30, v145, v146, *(v10 + 48), v148);
+      syslog(3, "%lld %d AVE %s: FIG: chroma_loc_info_present_flag %d , chroma_sample_loc_type_top_field %d, chroma_sample_loc_type_bottom_field %d", v142, 30, v143, v144, *(v10 + 48), v145);
     }
   }
 
@@ -9265,135 +7888,114 @@ LABEL_161:
 
   if (sub_160EF0(0x1Eu, 6))
   {
-    v151 = sub_160F34(0x1Eu);
-    v152 = sub_175AE4();
-    v153 = sub_160F68(6);
-    v154 = *(a1 + 104628);
-    if (v151)
+    v148 = sub_160F34(0x1Eu);
+    v149 = sub_175AE4();
+    v150 = sub_160F68(6);
+    if (v148)
     {
-      printf("%lld %d AVE %s: %s %d: pINS->eProfile=%d pINS->VPSHevcParams.PTL.eProfile=%d\n", v152, 30, v153, "AVE_PrepareVideoAndSequenceHeader", 2178, *(a1 + 104628), *(a1 + 12028));
-      v152 = sub_175AE4();
+      printf("%lld %d AVE %s: %s %d: pINS->eProfile=%d pINS->VPSHevcParams.PTL.eProfile=%d\n", v149, 30, v150, "AVE_PrepareVideoAndSequenceHeader", 2178, *(a1 + 104628), *(a1 + 12028));
+      v149 = sub_175AE4();
       sub_160F68(6);
-      v155 = *(a1 + 104628);
-      v319 = *(a1 + 12028);
     }
 
-    else
-    {
-      v316 = *(a1 + 104628);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s %d: pINS->eProfile=%d pINS->VPSHevcParams.PTL.eProfile=%d", v152);
+    syslog(3, "%lld %d AVE %s: %s %d: pINS->eProfile=%d pINS->VPSHevcParams.PTL.eProfile=%d", v149);
   }
 
-  v156 = *(a1 + 104628);
-  if (!v156)
+  v151 = *(a1 + 104628);
+  if (!v151)
   {
-    v156 = *(a1 + 12028);
+    v151 = *(a1 + 12028);
   }
 
-  if (v156 <= 5)
+  if (v151 <= 5)
   {
-    switch(v156)
+    switch(v151)
     {
       case 1:
-        v157 = (a1 + 24688);
         if (*(a1 + 24688) == 1)
         {
           *(a1 + 12033) = 257;
           *(a1 + 24269) = 257;
-          v158 = 1;
-          goto LABEL_277;
+          v152 = 1;
+          goto LABEL_274;
         }
 
         if (!sub_160EF0(3u, 4))
         {
-          goto LABEL_270;
+          goto LABEL_267;
         }
 
-        v177 = sub_160F34(3u);
-        v160 = sub_175AE4();
-        v178 = sub_160F68(4);
-        v179 = *v157;
-        if (!v177)
+        v166 = sub_160F34(3u);
+        v154 = sub_175AE4();
+        v167 = sub_160F68(4);
+        if (!v166)
         {
-          v326 = *v157;
-          v340 = *(a1 + 12028);
-          goto LABEL_269;
+          goto LABEL_266;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v178, "AVE_PrepareVideoAndSequenceHeader", 2199, "false", *v157, *(a1 + 12028));
+        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v167, "AVE_PrepareVideoAndSequenceHeader", 2199, "false", *(a1 + 24688), *(a1 + 12028));
         goto LABEL_255;
       case 2:
-        v157 = (a1 + 24688);
-        v158 = *(a1 + 24688);
-        if (v158 == 1)
+        v152 = *(a1 + 24688);
+        if (v152 == 1)
         {
           *(a1 + 12034) = 1;
           *(a1 + 24270) = 1;
-          goto LABEL_277;
+          goto LABEL_274;
         }
 
         if (!sub_160EF0(3u, 4))
         {
-          goto LABEL_270;
+          goto LABEL_267;
         }
 
-        v183 = sub_160F34(3u);
-        v160 = sub_175AE4();
-        v184 = sub_160F68(4);
-        v185 = *v157;
-        if (!v183)
+        v170 = sub_160F34(3u);
+        v154 = sub_175AE4();
+        v171 = sub_160F68(4);
+        if (!v170)
         {
-          v328 = *v157;
-          v342 = *(a1 + 12028);
-          goto LABEL_269;
+          goto LABEL_266;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v184, "AVE_PrepareVideoAndSequenceHeader", 2213, "false", *v157, *(a1 + 12028));
+        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v171, "AVE_PrepareVideoAndSequenceHeader", 2213, "false", *(a1 + 24688), *(a1 + 12028));
         goto LABEL_255;
       case 3:
         *(a1 + 13308) = 0;
         *(a1 + 24748) = 0;
-        v157 = (a1 + 24688);
-        v158 = *(a1 + 24688);
-        if (v158 == 1)
+        v152 = *(a1 + 24688);
+        if (v152 == 1)
         {
           *(a1 + 24271) = 1;
           *(a1 + 12033) = 1;
           *(a1 + 24269) = 257;
           *(a1 + 12034) = 257;
-          goto LABEL_277;
+          goto LABEL_274;
         }
 
         if (!sub_160EF0(3u, 4))
         {
-          goto LABEL_270;
+          goto LABEL_267;
         }
 
-        v180 = sub_160F34(3u);
-        v160 = sub_175AE4();
-        v181 = sub_160F68(4);
-        v182 = *v157;
-        if (!v180)
+        v168 = sub_160F34(3u);
+        v154 = sub_175AE4();
+        v169 = sub_160F68(4);
+        if (!v168)
         {
-          v327 = *v157;
-          v341 = *(a1 + 12028);
-          goto LABEL_269;
+          goto LABEL_266;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v181, "AVE_PrepareVideoAndSequenceHeader", 2235, "false", *v157, *(a1 + 12028));
+        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v169, "AVE_PrepareVideoAndSequenceHeader", 2235, "false", *(a1 + 24688), *(a1 + 12028));
         goto LABEL_255;
     }
 
     goto LABEL_231;
   }
 
-  if (v156 > 8)
+  if (v151 > 8)
   {
-    if (v156 == 9)
+    if (v151 == 9)
     {
-      v163 = (a1 + 24732);
       if (!*(a1 + 24732) && !*(a1 + 24736))
       {
         *(a1 + 12036) = 1;
@@ -9402,29 +8004,25 @@ LABEL_161:
         *(a1 + 24312) = 1;
         *(a1 + 24264) = 4;
         *(a1 + 12028) = 4;
-        v157 = (a1 + 24688);
-        v158 = *(a1 + 24688);
-        if ((v158 - 1) >= 3)
+        v152 = *(a1 + 24688);
+        if ((v152 - 1) >= 3)
         {
-          if (v158)
+          if (v152)
           {
             if (!sub_160EF0(3u, 4))
             {
-              goto LABEL_270;
+              goto LABEL_267;
             }
 
-            v253 = sub_160F34(3u);
-            v160 = sub_175AE4();
-            v254 = sub_160F68(4);
-            v255 = *v157;
-            if (!v253)
+            v237 = sub_160F34(3u);
+            v154 = sub_175AE4();
+            v238 = sub_160F68(4);
+            if (!v237)
             {
-              v331 = *v157;
-              v345 = *(a1 + 12028);
-              goto LABEL_269;
+              goto LABEL_266;
             }
 
-            printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v254, "AVE_PrepareVideoAndSequenceHeader", 2302, "false", *v157, *(a1 + 12028));
+            printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v238, "AVE_PrepareVideoAndSequenceHeader", 2302, "false", *(a1 + 24688), *(a1 + 12028));
             goto LABEL_255;
           }
 
@@ -9448,82 +8046,82 @@ LABEL_161:
           *(a1 + 24311) = 0;
         }
 
-LABEL_277:
-        v197 = (a1 + 15574);
+LABEL_274:
+        v181 = (a1 + 15574);
         if (*(a1 + 10928) != 1)
         {
-          goto LABEL_296;
+          goto LABEL_293;
         }
 
-        v198 = *(a1 + 1136);
-        if (v198)
+        v182 = *(a1 + 1136);
+        if (v182)
         {
-          v199 = -1;
-          v200 = 33;
+          v183 = -1;
+          v184 = 33;
           do
           {
-            v201 = v198 & (v199 >> 1);
-            v199 >>= 1;
-            --v200;
+            v185 = v182 & (v183 >> 1);
+            v183 >>= 1;
+            --v184;
           }
 
-          while (v201);
-          if (v200 < 8)
+          while (v185);
+          if (v184 < 8)
           {
             *(v10 + 104) = 0;
-            v202 = 6;
-            goto LABEL_288;
+            v186 = 6;
+            goto LABEL_285;
           }
 
-          v205 = -1;
-          v204 = 26;
+          v189 = -1;
+          v188 = 26;
           do
           {
-            v206 = v198 & (v205 >> 1);
-            v205 >>= 1;
-            --v204;
+            v190 = v182 & (v189 >> 1);
+            v189 >>= 1;
+            --v188;
           }
 
-          while (v206);
+          while (v190);
         }
 
         else
         {
-          v204 = 26;
+          v188 = 26;
         }
 
-        *(v10 + 104) = v204;
-        v202 = v204 + 6;
-        if (!v198)
+        *(v10 + 104) = v188;
+        v186 = v188 + 6;
+        if (!v182)
         {
-          v203 = 28;
-          goto LABEL_294;
+          v187 = 28;
+          goto LABEL_291;
         }
 
-LABEL_288:
-        v207 = -1;
-        v208 = 33;
+LABEL_285:
+        v191 = -1;
+        v192 = 33;
         do
         {
-          v209 = v198 & (v207 >> 1);
-          v207 >>= 1;
-          --v208;
+          v193 = v182 & (v191 >> 1);
+          v191 >>= 1;
+          --v192;
         }
 
-        while (v209);
-        if (v208 < 6)
+        while (v193);
+        if (v192 < 6)
         {
           *(v10 + 108) = 0;
-          v210 = 4;
-LABEL_295:
-          *(v10 + 132) = v198 / (1 << v202) - 1;
-          *(v10 + 136) = v198 / (1 << v210) - 1;
-LABEL_296:
-          v213 = *(a1 + 10556);
-          if (v213 < 2)
+          v194 = 4;
+LABEL_292:
+          *(v10 + 132) = v182 / (1 << v186) - 1;
+          *(v10 + 136) = v182 / (1 << v194) - 1;
+LABEL_293:
+          v197 = *(a1 + 10556);
+          if (v197 < 2)
           {
-            v225 = *(a1 + 10896);
-            if (v225 && !*(a1 + 10900))
+            v209 = *(a1 + 10896);
+            if (v209 && !*(a1 + 10900))
             {
               *(a1 + 12008) = 1;
               *(a1 + 14528) = 1;
@@ -9531,9 +8129,9 @@ LABEL_296:
               *(a1 + 14532) |= 8u;
               *(a1 + 14534) = 0;
               *(a1 + 14566) = 1;
-              *v197 = 1;
-              *(a1 + 15576) = v225;
-              *(a1 + 13392) = v225;
+              *v181 = 1;
+              *(a1 + 15576) = v209;
+              *(a1 + 13392) = v209;
               *(a1 + 15639) = 0;
               *(a1 + 19738) = 1;
               *(a1 + 19740) = 1;
@@ -9544,52 +8142,52 @@ LABEL_296:
               *(a1 + 23914) = *(a1 + 1440);
               *(a1 + 23916) = *(a1 + 1444);
               *(a1 + 23918) = 1;
-              v226 = *(a1 + 10916);
-              if (v226 == -1)
+              v210 = *(a1 + 10916);
+              if (v210 == -1)
               {
-                v226 = v158;
+                v210 = v152;
               }
 
-              *(a1 + 23920) = v226;
+              *(a1 + 23920) = v210;
               *(a1 + 23928) = 0;
-              v227 = *(a1 + 10908);
-              if (v227 == -1)
+              v211 = *(a1 + 10908);
+              if (v211 == -1)
               {
-                v228 = *(a1 + 24732);
-                v229 = *(a1 + 24736);
+                v212 = *(a1 + 24732);
+                v213 = *(a1 + 24736);
               }
 
               else
               {
-                v228 = v227 - 8;
-                v229 = v228;
+                v212 = v211 - 8;
+                v213 = v212;
               }
 
-              *(a1 + 23932) = v228;
-              *(a1 + 23940) = v229;
+              *(a1 + 23932) = v212;
+              *(a1 + 23940) = v213;
             }
 
-            if (v158 >= 1 && (*(a1 + 10904) & 1) != 0)
+            if (v152 >= 1 && (*(a1 + 10904) & 1) != 0)
             {
               *(v10 + 56) = 1;
             }
 
-            goto LABEL_270;
+            goto LABEL_267;
           }
 
-          v214 = *(a1 + 10900);
-          v215 = v213 - 1;
-          if (v214)
+          v198 = *(a1 + 10900);
+          v199 = v197 - 1;
+          if (v198)
           {
-            v216 = 3;
+            v200 = 3;
           }
 
           else
           {
-            v216 = v213 - 1;
+            v200 = v197 - 1;
           }
 
-          *(a1 + 12008) = v216;
+          *(a1 + 12008) = v200;
           *(a1 + 12012) = 0;
           *(a1 + 12016) = 1;
           memcpy((a1 + 12448), (a1 + 12020), 0x1ACuLL);
@@ -9598,104 +8196,104 @@ LABEL_296:
           *(a1 + 12884) = 5;
           *(a1 + 12889) = 0;
           *(a1 + 12894) = 1;
-          if (v214)
+          if (v198)
           {
-            v217 = *(a1 + 15575);
-            v218 = *(a1 + 15576);
-            v219 = *(a1 + 10896);
-            if (v217 <= v218)
+            v201 = *(a1 + 15575);
+            v202 = *(a1 + 15576);
+            v203 = *(a1 + 10896);
+            if (v201 <= v202)
             {
-              v220 = *(a1 + 15576);
+              v204 = *(a1 + 15576);
             }
 
             else
             {
-              v220 = *(a1 + 15575);
+              v204 = *(a1 + 15575);
             }
 
-            v221 = a1 + 13464;
-            *(v221 + v217) = 1;
-            *(v221 + v218) = 1;
-            v222 = a1 + 13528;
-            *(v222 + v219) = 1;
-            *(v222 + v214) = 1;
-            v223 = a1 + 13592;
-            *(a1 + 13592 + v217) = 1;
-            if (v219 <= v214)
+            v205 = a1 + 13464;
+            *(v205 + v201) = 1;
+            *(v205 + v202) = 1;
+            v206 = a1 + 13528;
+            *(v206 + v203) = 1;
+            *(v206 + v198) = 1;
+            v207 = a1 + 13592;
+            *(a1 + 13592 + v201) = 1;
+            if (v203 <= v198)
             {
-              LOBYTE(v224) = v214;
+              LOBYTE(v208) = v198;
             }
 
             else
             {
-              LOBYTE(v224) = v219;
+              LOBYTE(v208) = v203;
             }
 
-            *(v223 + v218) = 1;
-            if (v220 <= v224)
+            *(v207 + v202) = 1;
+            if (v204 <= v208)
             {
-              v224 = v224;
+              v208 = v208;
             }
 
             else
             {
-              v224 = v220;
+              v208 = v204;
             }
 
-            *(a1 + 13392) = v224;
+            *(a1 + 13392) = v208;
             *(a1 + 13396) = 3;
-            *(v223 + v219) = 1;
-            *(v223 + v214) = 1;
+            *(v207 + v203) = 1;
+            *(v207 + v198) = 1;
           }
 
           else
           {
-            v230 = 0;
-            v231 = *(a1 + 15575 + v215);
-            *(a1 + 13392) = v231;
-            *(a1 + 13396) = v215;
-            v232 = v231 + 1;
-            if ((v216 + 1) > 1)
+            v214 = 0;
+            v215 = *(a1 + 15575 + v199);
+            *(a1 + 13392) = v215;
+            *(a1 + 13396) = v199;
+            v216 = v215 + 1;
+            if ((v200 + 1) > 1)
             {
-              v233 = (v216 + 1);
+              v217 = (v200 + 1);
             }
 
             else
             {
-              v233 = 1;
+              v217 = 1;
             }
 
             do
             {
-              v234 = 0;
+              v218 = 0;
               do
               {
-                if (v234 == *(a1 + 15575 + v230))
+                if (v218 == *(a1 + 15575 + v214))
                 {
-                  *(a1 + 13464 + v234) = 1;
+                  *(a1 + 13464 + v218) = 1;
                 }
 
-                ++v234;
+                ++v218;
               }
 
-              while (v232 != v234);
-              ++v230;
+              while (v216 != v218);
+              ++v214;
             }
 
-            while (v230 != v233);
+            while (v214 != v217);
           }
 
           *(a1 + 14528) = 1;
-          v235 = *(a1 + 14532);
-          *(a1 + 14532) = v235 | 2;
+          v219 = *(a1 + 14532);
+          *(a1 + 14532) = v219 | 2;
           *(a1 + 14534) = 2;
-          *v197 = 1;
+          *v181 = 1;
           *(a1 + 14566) = 1;
           *(a1 + 15706) = 1;
-          if (!v214)
+          if (!v198)
           {
-            LOBYTE(v237) = *(a1 + 15576);
-LABEL_333:
+            LOBYTE(v221) = *(a1 + 15576);
+LABEL_330:
             *(a1 + 23920) = *(a1 + 24688);
             *(a1 + 23837) = 513;
             *(a1 + 14530) = 1;
@@ -9708,184 +8306,174 @@ LABEL_333:
             *(a1 + 23910) = 16777472;
             *(a1 + 24248) = 0;
             *(a1 + 24252) = 1;
-            v239 = *(v10 + 1156);
+            v223 = *(v10 + 1156);
             memcpy((v10 + 708), (a1 + 24236), 0x1E7CuLL);
-            *(v10 + 708) = v237;
+            *(v10 + 708) = v221;
             *(v10 + 709) = 7;
-            if (v239 <= 1)
+            if (v223 <= 1)
             {
-              v240 = 1;
+              v224 = 1;
             }
 
             else
             {
-              v240 = v239;
+              v224 = v223;
             }
 
-            *(v10 + 1156) = v240;
+            *(v10 + 1156) = v224;
             *(v10 + 712) = 0;
             *(a1 + 39304) = 1;
             *(a1 + 39306) = 1;
             *(a1 + 39153) = 0;
-            v241 = *(a1 + 10904);
-            if (v241 == 1)
+            v225 = *(a1 + 10904);
+            if (v225 == 1)
             {
-              v242 = *(a1 + 10924);
-              if (v242 != -1)
+              v226 = *(a1 + 10924);
+              if (v226 != -1)
               {
                 *(v10 + 710) = 1;
-                *(v10 + 711) = v242;
+                *(v10 + 711) = v226;
               }
             }
 
-            if (v214)
+            if (v198)
             {
-              v243 = 0;
-              v244 = 1;
+              v227 = 0;
+              v228 = 1;
               do
               {
-                v245 = v244;
-                v246 = *(a1 + 10916 + 4 * v243);
-                if (v246 != -1)
+                v229 = v228;
+                v230 = *(a1 + 10916 + 4 * v227);
+                if (v230 != -1)
                 {
-                  *(a1 + 23920 + 4 * v243) = v246;
+                  *(a1 + 23920 + 4 * v227) = v230;
                 }
 
-                v247 = *(a1 + 10908 + 4 * v243);
-                if (v247 != -1)
+                v231 = *(a1 + 10908 + 4 * v227);
+                if (v231 != -1)
                 {
-                  v248 = v247 - 8;
-                  *(a1 + 23932 + 4 * v243) = v248;
-                  *(a1 + 23940 + 4 * v243) = v248;
+                  v232 = v231 - 8;
+                  *(a1 + 23932 + 4 * v227) = v232;
+                  *(a1 + 23940 + 4 * v227) = v232;
                 }
 
-                v244 = 0;
-                v243 = 1;
+                v228 = 0;
+                v227 = 1;
               }
 
-              while ((v245 & 1) != 0);
+              while ((v229 & 1) != 0);
               if (*(a1 + 10920) != -1 && *(a1 + 10912) != -1)
               {
                 *(a1 + 23841) = 1;
               }
             }
 
-            if (v241)
+            if (v225)
             {
-              v249 = 0;
-              v250 = 1;
+              v233 = 0;
+              v234 = 1;
               do
               {
-                v251 = v250;
-                v252 = a1 + 24236 + 7804 * v249;
-                if (*(v252 + 452) >= 1)
+                v235 = v234;
+                v236 = a1 + 24236 + 7804 * v233;
+                if (*(v236 + 452) >= 1)
                 {
-                  *(v252 + 7152) = 1;
+                  *(v236 + 7152) = 1;
                 }
 
-                v250 = 0;
-                v249 = 1;
+                v234 = 0;
+                v233 = 1;
               }
 
-              while ((v251 & 1) != 0);
+              while ((v235 & 1) != 0);
             }
 
-            goto LABEL_270;
+            goto LABEL_267;
           }
 
-          v236 = *(a1 + 15576);
+          v220 = *(a1 + 15576);
           if (*(a1 + 15575))
           {
-            v237 = *(a1 + 10896);
-            v238 = (a1 + 19738);
+            v221 = *(a1 + 10896);
+            v222 = (a1 + 19738);
           }
 
           else
           {
-            v237 = *(a1 + 10896);
-            v238 = (a1 + 19738);
-            if (v236 == 1)
+            v221 = *(a1 + 10896);
+            v222 = (a1 + 19738);
+            if (v220 == 1)
             {
-              *(a1 + 15577) = v237;
-              *(a1 + 15578) = v214;
+              *(a1 + 15577) = v221;
+              *(a1 + 15578) = v198;
               *(a1 + 14582) = 256;
               *(a1 + 14598) = 257;
               *(a1 + 14567) = 0;
-              LOBYTE(v237) = 1;
+              LOBYTE(v221) = 1;
               *(a1 + 15836) = 1;
-LABEL_332:
-              *(a1 + 14532) = v235 | 0xA;
+LABEL_329:
+              *(a1 + 14532) = v219 | 0xA;
               *(a1 + 14535) = 2;
-              *v238 = 0;
+              *v222 = 0;
               *(a1 + 23839) = 0;
-              goto LABEL_333;
+              goto LABEL_330;
             }
           }
 
-          *(a1 + 15577) = v236;
-          *(a1 + 15576) = v237;
-          *(a1 + 15578) = v214;
+          *(a1 + 15577) = v220;
+          *(a1 + 15576) = v221;
+          *(a1 + 15578) = v198;
           *(a1 + 14566) = 256;
           *(a1 + 14582) = 1;
           *(a1 + 14598) = 257;
           *(a1 + 15706) = 0;
           *(a1 + 15770) = 1;
           *(a1 + 15835) = 1;
-          goto LABEL_332;
+          goto LABEL_329;
         }
 
-        v211 = -1;
-        v203 = 28;
+        v195 = -1;
+        v187 = 28;
         do
         {
-          v212 = v198 & (v211 >> 1);
-          v211 >>= 1;
-          --v203;
+          v196 = v182 & (v195 >> 1);
+          v195 >>= 1;
+          --v187;
         }
 
-        while (v212);
-LABEL_294:
-        *(v10 + 108) = v203;
-        v210 = v203 + 4;
-        goto LABEL_295;
+        while (v196);
+LABEL_291:
+        *(v10 + 108) = v187;
+        v194 = v187 + 4;
+        goto LABEL_292;
       }
 
       if (!sub_160EF0(3u, 4))
       {
-        goto LABEL_270;
+        goto LABEL_267;
       }
 
-      v164 = sub_160F34(3u);
-      v165 = sub_175AE4();
-      v166 = sub_160F68(4);
-      v167 = *v163;
-      v168 = (a1 + 24736);
-      if (v164)
+      v156 = sub_160F34(3u);
+      v157 = sub_175AE4();
+      v158 = sub_160F68(4);
+      if (v156)
       {
-        printf("%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)\n", v165, 3, v166, "AVE_PrepareVideoAndSequenceHeader", 2243, "((pINS->saSPS[0].bit_depth_luma_minus8 == 0) && (pINS->saSPS[0].bit_depth_chroma_minus8 == 0))", *(a1 + 12028), *v163, *(a1 + 24736));
+        printf("%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)\n", v157, 3, v158, "AVE_PrepareVideoAndSequenceHeader", 2243, "((pINS->saSPS[0].bit_depth_luma_minus8 == 0) && (pINS->saSPS[0].bit_depth_chroma_minus8 == 0))", *(a1 + 12028), *(a1 + 24732), *(a1 + 24736));
 LABEL_238:
-        v175 = sub_175AE4();
+        v164 = sub_175AE4();
         sub_160F68(4);
-        v335 = *v163;
-        v347 = *v168;
-        v321 = *(a1 + 12028);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)", v175, 3);
-        goto LABEL_270;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)", v164, 3);
+        goto LABEL_267;
       }
-
-      v338 = *v163;
-      v348 = *(a1 + 24736);
-      v324 = *(a1 + 12028);
     }
 
     else
     {
-      if (v156 != 10)
+      if (v151 != 10)
       {
         goto LABEL_231;
       }
 
-      v163 = (a1 + 24732);
       if (*(a1 + 24732) == 2 && *(a1 + 24736) == 2)
       {
         *(a1 + 12036) = 1;
@@ -9894,17 +8482,16 @@ LABEL_238:
         *(a1 + 24312) = 1;
         *(a1 + 24264) = 4;
         *(a1 + 12028) = 4;
-        v157 = (a1 + 24688);
-        v158 = *(a1 + 24688);
-        if (!v158)
+        v152 = *(a1 + 24688);
+        if (!v152)
         {
 LABEL_250:
           *(a1 + 12068) = 0x10101000001;
           *(a1 + 24304) = 0x10101000001;
-          goto LABEL_277;
+          goto LABEL_274;
         }
 
-        if (v158 == 3 || v158 == 1)
+        if (v152 == 3 || v152 == 1)
         {
           *(a1 + 12068) = 257;
           *(a1 + 12070) = 0;
@@ -9912,63 +8499,52 @@ LABEL_250:
           *(a1 + 24304) = 257;
           *(a1 + 24306) = 0;
           *(a1 + 24310) = 0;
-          goto LABEL_277;
+          goto LABEL_274;
         }
 
         if (!sub_160EF0(3u, 4))
         {
-          goto LABEL_270;
+          goto LABEL_267;
         }
 
-        v190 = sub_160F34(3u);
-        v160 = sub_175AE4();
-        v191 = sub_160F68(4);
-        v192 = *v157;
-        if (!v190)
+        v175 = sub_160F34(3u);
+        v154 = sub_175AE4();
+        v176 = sub_160F68(4);
+        if (!v175)
         {
-          v330 = *v157;
-          v344 = *(a1 + 12028);
-          goto LABEL_269;
+          goto LABEL_266;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v191, "AVE_PrepareVideoAndSequenceHeader", 2369, "false", *v157, *(a1 + 12028));
+        printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v176, "AVE_PrepareVideoAndSequenceHeader", 2369, "false", *(a1 + 24688), *(a1 + 12028));
 LABEL_255:
-        v189 = sub_175AE4();
+        v174 = sub_175AE4();
         sub_160F68(4);
-        v323 = *v157;
-        v337 = *(a1 + 12028);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported", v189);
-        goto LABEL_270;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported", v174);
+        goto LABEL_267;
       }
 
       if (!sub_160EF0(3u, 4))
       {
-        goto LABEL_270;
+        goto LABEL_267;
       }
 
-      v172 = sub_160F34(3u);
-      v165 = sub_175AE4();
-      v173 = sub_160F68(4);
-      v174 = *v163;
-      v168 = (a1 + 24736);
-      if (v172)
+      v162 = sub_160F34(3u);
+      v157 = sub_175AE4();
+      v163 = sub_160F68(4);
+      if (v162)
       {
-        printf("%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)\n", v165, 3, v173, "AVE_PrepareVideoAndSequenceHeader", 2311, "((pINS->saSPS[0].bit_depth_luma_minus8 == 2) && (pINS->saSPS[0].bit_depth_chroma_minus8 == 2))", *(a1 + 12028), *v163, *(a1 + 24736));
+        printf("%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)\n", v157, 3, v163, "AVE_PrepareVideoAndSequenceHeader", 2311, "((pINS->saSPS[0].bit_depth_luma_minus8 == 2) && (pINS->saSPS[0].bit_depth_chroma_minus8 == 2))", *(a1 + 12028), *(a1 + 24732), *(a1 + 24736));
         goto LABEL_238;
       }
-
-      v339 = *v163;
-      v349 = *(a1 + 24736);
-      v325 = *(a1 + 12028);
     }
 
-    syslog(3, "%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)", v165, 3);
-    goto LABEL_270;
+    syslog(3, "%lld %d AVE %s: %s:%d %s | profile (%d) bit_depth_luma_minus8 (%d) and bit_depth_chroma_minus8 (%d)", v157, 3);
+    goto LABEL_267;
   }
 
-  if ((v156 - 6) >= 2)
+  if ((v151 - 6) >= 2)
   {
-    if (v156 == 8)
+    if (v151 == 8)
     {
       *(a1 + 12036) = 1;
       *(a1 + 24272) = 1;
@@ -9976,60 +8552,55 @@ LABEL_255:
       *(a1 + 24312) = 1;
       *(a1 + 24264) = 4;
       *(a1 + 12028) = 4;
-      v157 = (a1 + 24688);
-      v158 = *(a1 + 24688);
-      if ((v158 - 1) < 2)
+      v152 = *(a1 + 24688);
+      if ((v152 - 1) < 2)
       {
         *(a1 + 12068) = 16777473;
         *(a1 + 12072) = 0;
         *(a1 + 24304) = 16777473;
         *(a1 + 24308) = 0;
-        goto LABEL_277;
+        goto LABEL_274;
       }
 
-      if (!v158)
+      if (!v152)
       {
         goto LABEL_250;
       }
 
       if (!sub_160EF0(3u, 4))
       {
-        goto LABEL_270;
+        goto LABEL_267;
       }
 
-      v186 = sub_160F34(3u);
-      v160 = sub_175AE4();
-      v187 = sub_160F68(4);
-      v188 = *v157;
-      if (!v186)
+      v172 = sub_160F34(3u);
+      v154 = sub_175AE4();
+      v173 = sub_160F68(4);
+      if (!v172)
       {
-        v329 = *v157;
-        v343 = *(a1 + 12028);
-        goto LABEL_269;
+        goto LABEL_266;
       }
 
-      printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v187, "AVE_PrepareVideoAndSequenceHeader", 2432, "false", *v157, *(a1 + 12028));
+      printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v173, "AVE_PrepareVideoAndSequenceHeader", 2432, "false", *(a1 + 24688), *(a1 + 12028));
       goto LABEL_255;
     }
 
 LABEL_231:
     if (sub_160EF0(3u, 4))
     {
-      v169 = sub_160F34(3u);
-      v170 = sub_175AE4();
-      v171 = sub_160F68(4);
-      if (v169)
+      v159 = sub_160F34(3u);
+      v160 = sub_175AE4();
+      v161 = sub_160F68(4);
+      if (v159)
       {
-        printf("%lld %d AVE %s: %s:%d %s | FIG: profile (%d) nit supported\n", v170, 3, v171, "AVE_PrepareVideoAndSequenceHeader", 2486, "false", *(a1 + 12028));
-        v170 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | FIG: profile (%d) nit supported\n", v160, 3, v161, "AVE_PrepareVideoAndSequenceHeader", 2486, "false", *(a1 + 12028));
+        v160 = sub_175AE4();
         sub_160F68(4);
       }
 
-      v320 = *(a1 + 12028);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: profile (%d) nit supported", v170);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: profile (%d) nit supported", v160);
     }
 
-    goto LABEL_270;
+    goto LABEL_267;
   }
 
   *(a1 + 12036) = 1;
@@ -10038,57 +8609,1922 @@ LABEL_231:
   *(a1 + 24312) = 1;
   *(a1 + 24264) = 4;
   *(a1 + 12028) = 4;
-  v157 = (a1 + 24688);
-  v158 = *(a1 + 24688);
-  if (!v158)
+  v152 = *(a1 + 24688);
+  if (!v152)
   {
     *(a1 + 12068) = 257;
-    v176 = v156 == 6;
-    *(a1 + 12070) = v176;
+    v165 = v151 == 6;
+    *(a1 + 12070) = v165;
     *(a1 + 12071) = 65793;
     *(a1 + 12075) = 0;
     *(a1 + 24304) = 257;
-    *(a1 + 24306) = v176;
+    *(a1 + 24306) = v165;
     *(a1 + 24307) = 65793;
     *(a1 + 24311) = 0;
-    goto LABEL_277;
+    goto LABEL_274;
   }
 
   if (sub_160EF0(3u, 4))
   {
-    v159 = sub_160F34(3u);
-    v160 = sub_175AE4();
-    v161 = sub_160F68(4);
-    v162 = *v157;
-    if (v159)
+    v153 = sub_160F34(3u);
+    v154 = sub_175AE4();
+    v155 = sub_160F68(4);
+    if (v153)
     {
-      printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v160, 3, v161, "AVE_PrepareVideoAndSequenceHeader", 2479, "false", *v157, *(a1 + 12028));
+      printf("%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported\n", v154, 3, v155, "AVE_PrepareVideoAndSequenceHeader", 2479, "false", *(a1 + 24688), *(a1 + 12028));
       goto LABEL_255;
     }
 
-    v322 = *v157;
-    v336 = *(a1 + 12028);
-LABEL_269:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported", v160);
+LABEL_266:
+    syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: chroma_format_idc (%d) and profile (%d) combination not supported", v154);
   }
 
-LABEL_270:
+LABEL_267:
   if (sub_160EF0(0xCu, 7))
   {
-    v193 = sub_160F34(0xCu);
-    v194 = sub_175AE4();
-    v195 = sub_160F68(7);
-    if (v193)
+    v177 = sub_160F34(0xCu);
+    v178 = sub_175AE4();
+    v179 = sub_160F68(7);
+    if (v177)
     {
-      printf("%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader\n", v194, 12, v195);
-      v196 = sub_175AE4();
-      v308 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader", v196, 12, v308);
+      printf("%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader\n", v178, 12, v179);
+      v180 = sub_175AE4();
+      v290 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader", v180, 12, v290);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader", v194, 12, v195);
+      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PrepareVideoAndSequenceHeader", v178, 12, v179);
     }
   }
+}
+
+void sub_10A354(_DWORD *a1)
+{
+  if (sub_160EF0(0xCu, 7))
+  {
+    v2 = sub_160F34(0xCu);
+    v3 = sub_175AE4();
+    v4 = sub_160F68(7);
+    if (v2)
+    {
+      printf("%lld %d AVE %s: FIG: ENTER AVE_PreparePictureHeader\n", v3, 12, v4);
+      v5 = sub_175AE4();
+      v23 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PreparePictureHeader", v5, 12, v23);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PreparePictureHeader", v3, 12, v4);
+    }
+  }
+
+  v6 = a1[2693];
+  if (v6 == 1)
+  {
+    goto LABEL_11;
+  }
+
+  if (v6 == 2)
+  {
+    a1[9970] = a1[286] - 26;
+    if (a1[6209] == 3)
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    a1[9972] = v7;
+LABEL_11:
+    v8 = a1[2639];
+    if (v8 >= 2)
+    {
+      v9 = a1 + 9961;
+      v10 = a1 + 15575;
+      v11 = 1;
+      v12 = 1;
+      do
+      {
+        v13 = &v9[2408 * v12];
+        v14 = *(v13 + 8);
+        memcpy(v13, v9, 0x25A0uLL);
+        *v13 = v10[v12];
+        v13[8512] = 1;
+        v13[8515] = 1;
+        v13[8517] = 1;
+        *(v13 + 1) = vbsl_s8(vceqz_s32(v14), vdup_n_s32(v11), v14);
+        v11 = ++v12;
+        *(v13 + 1) = 0;
+        v13[5] = 0;
+      }
+
+      while (v8 > v12);
+    }
+
+    goto LABEL_19;
+  }
+
+  if (sub_160EF0(3u, 4))
+  {
+    v15 = sub_160F34(3u);
+    v16 = sub_175AE4();
+    v17 = sub_160F68(4);
+    if (v15)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | FIG: encode type unrecognized\n", v16, 3, v17, "AVE_PreparePictureHeader", 1605, "false");
+      v18 = sub_175AE4();
+      v24 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: encode type unrecognized", v18, 3, v24, "AVE_PreparePictureHeader", 1605, "false");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: encode type unrecognized", v16, 3, v17, "AVE_PreparePictureHeader", 1605, "false");
+    }
+  }
+
+LABEL_19:
+  if (sub_160EF0(0xCu, 7))
+  {
+    v19 = sub_160F34(0xCu);
+    v20 = sub_175AE4();
+    v21 = sub_160F68(7);
+    if (v19)
+    {
+      printf("%lld %d AVE %s: FIG: EXIT AVE_PreparePictureHeader\n", v20, 12, v21);
+      v22 = sub_175AE4();
+      v25 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PreparePictureHeader", v22, 12, v25);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: FIG: EXIT AVE_PreparePictureHeader", v20, 12, v21);
+    }
+  }
+}
+
+uint64_t sub_10A628(uint64_t a1)
+{
+  if (sub_160EF0(0xCu, 7))
+  {
+    v2 = sub_160F34(0xCu);
+    v3 = sub_175AE4();
+    v4 = sub_160F68(7);
+    if (v2)
+    {
+      printf("%lld %d AVE %s: FIG: ENTER AVE_ManageSessionSettings\n", v3, 12, v4);
+      v5 = sub_175AE4();
+      v226 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ManageSessionSettings", v5, 12, v226);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_ManageSessionSettings", v3, 12, v4);
+    }
+  }
+
+  if (*(a1 + 1132) == 4 && !*(a1 + 10892))
+  {
+    *(a1 + 10892) = 10000;
+  }
+
+  if (sub_160EF0(0xCu, 7))
+  {
+    v6 = sub_160F34(0xCu);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(7);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: FIG: ENTER AVE_PrepareRealTimeParameters\n", v7, 12, v8);
+      v9 = sub_175AE4();
+      v227 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareRealTimeParameters", v9, 12, v227);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: FIG: ENTER AVE_PrepareRealTimeParameters", v7, 12, v8);
+    }
+  }
+
+  v10 = (a1 + 10168);
+  v11 = sub_1502C8();
+  v12 = v11[20];
+  if (v12 >= -1)
+  {
+    *(a1 + 692) = v12;
+  }
+
+  if (sub_160EF0(0x10u, 8))
+  {
+    v13 = sub_160F34(0x10u);
+    v14 = sub_175AE4();
+    v15 = sub_160F68(8);
+    if (v13)
+    {
+      printf("%lld %d AVE %s: %s:%d usageMode %d RealTime %d bRCModeSet %d eRCMode %d\n", v14, 16, v15, "AVE_PrepareRealTimeParameters", 2830, *(a1 + 10892), *(a1 + 692), *(a1 + 10784), *(a1 + 1132));
+      v14 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d usageMode %d RealTime %d bRCModeSet %d eRCMode %d", v14, 16);
+  }
+
+  if ((*(a1 + 1123) & 0x80) == 0 && *(a1 + 1132) == 8)
+  {
+    *(a1 + 10784) = 0;
+  }
+
+  if (*(a1 + 692) == 1)
+  {
+    if ((v16 = *(a1 + 1256)) == 0 && (v17 = *(a1 + 1132), v17 != 20) && v17 != 3 || *(a1 + 106464) > 0 || v16 >= 3 && *(a1 + 1260) >= 3)
+    {
+      if (*(a1 + 10752) != 2 && !*(a1 + 10892))
+      {
+        if ((*(a1 + 10784) & 1) == 0)
+        {
+          *(a1 + 1132) = 1;
+        }
+
+        *(a1 + 10764) = 1;
+        *(a1 + 1464) = 0;
+        v18 = *(a1 + 1336);
+        *(a1 + 1336) = v18 | 0x30;
+        v19 = *(a1 + 688);
+        v20 = v19 & 0xFFFFFFFD;
+        if (v11[190] < 1)
+        {
+          goto LABEL_46;
+        }
+
+        v21 = *(a1 + 1444) + 15;
+        v22 = v21 >> 4;
+        v23 = *(a1 + 1440) + 15;
+        v24 = (v23 >> 4) + 31;
+        v25 = v24 & 0x1FFFFFE0;
+        v26 = v19 & 0xFFFFFEFD;
+        v20 |= 0x100u;
+        if (*(a1 + 1112) * (v21 >> 4) * (v23 >> 4) <= 0xAFC80)
+        {
+          v20 = v26;
+        }
+
+        *(a1 + 688) = v20;
+        v27 = v18 | 0x70;
+        *(a1 + 1336) = v27;
+        if (v25 > 0x80 || v25 * v22 >= 0x2D01)
+        {
+          if (v21 > 0x44F || v23 >= 0x790)
+          {
+            v28 = ((((v23 >> 4) + 1) >> 1) + 31) >> 5;
+            v22 = (v22 + 1) >> 1;
+          }
+
+          else
+          {
+            v28 = v24 >> 5;
+          }
+
+          v29 = v28 * v22;
+          if (v21 <= 0xC0F && v25 <= 0x100 && v29 <= 0x120)
+          {
+LABEL_46:
+            *(a1 + 688) = v20 | 0x100;
+            goto LABEL_48;
+          }
+
+          *(a1 + 1336) = v27 & 0xFFFFFFBF;
+        }
+      }
+    }
+  }
+
+LABEL_48:
+  v30 = v11[19];
+  if (v30 >= 1)
+  {
+    *(a1 + 11968) = v30;
+  }
+
+  v31 = (*(a1 + 1336) | v11[237] & 0x30) & (~*(v11 + 952) | 0xFFFFFFCF);
+  *(a1 + 1336) = v31;
+  if ((*(v11 + 769) & 0x80) != 0)
+  {
+    v31 |= 0x8000u;
+    *(a1 + 1336) = v31;
+  }
+
+  if ((*(v11 + 777) & 0x80) != 0)
+  {
+    *(a1 + 1336) = v31 & 0xFFFF7FFF;
+  }
+
+  if (sub_160EF0(0xCu, 7))
+  {
+    v32 = sub_160F34(0xCu);
+    v33 = sub_175AE4();
+    v34 = sub_160F68(7);
+    if (v32)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v33, 12, v34, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1);
+      v35 = sub_175AE4();
+      v228 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v35, 12, v228, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v33, 12, v34, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1);
+    }
+  }
+
+  v239 = (a1 + 104624);
+  v36 = sub_1502C8();
+  v37 = sub_17D488(v36[186]);
+  if (v37)
+  {
+    *(a1 + 104628) = v37;
+  }
+
+  v38 = sub_17DA08(v36[187]);
+  if (v38)
+  {
+    *(a1 + 104632) = v38;
+  }
+
+  v238 = (a1 + 39884);
+  v237 = (a1 + 31332);
+  v39 = (a1 + 24252);
+  v40 = sub_17D614(v36[188]);
+  v41 = a1 + 104624;
+  if (v40)
+  {
+    *v239 = v40;
+  }
+
+  v42 = *(a1 + 104628);
+  if (!v42)
+  {
+LABEL_72:
+    if (*(a1 + 10772) == 2)
+    {
+      if (*v239)
+      {
+        if (sub_160EF0(0x1Eu, 6))
+        {
+          v53 = sub_160F34(0x1Eu);
+          v54 = sub_175AE4();
+          v55 = sub_160F68(6);
+          if (v53)
+          {
+            printf("%lld %d AVE %s: %s:%d tier %d -> change the default %d\n", v54, 30, v55, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", 5702, *v239, *(a1 + 24260));
+            v54 = sub_175AE4();
+            sub_160F68(6);
+            v41 = a1 + 104624;
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d tier %d -> change the default %d", v54);
+        }
+
+        *(a1 + 24260) = *v41;
+      }
+
+      v60 = vshr_n_u32(vadd_s32(*(a1 + 1440), 0xF0000000FLL), 4uLL);
+      if ((*(a1 + 1112) * v60.i32[0] * v60.i32[1]) >= 0x1DA9C0)
+      {
+        *(a1 + 24260) = 2;
+        *(a1 + 12024) = 2;
+      }
+    }
+
+    v61 = *(a1 + 1308) > 1 || *(a1 + 1256) || (*v10 & 0xFFFE) == 4 || *(a1 + 1324) > 1 || (*(a1 + 716) & 0x3C0) != 0;
+    *(a1 + 10173) = v61;
+    v62 = *(a1 + 1132);
+    if (v62 == 4 || v62 == 2)
+    {
+      v63 = *(a1 + 10892);
+      if (v63 == 37 || !v63)
+      {
+        *(a1 + 10892) = 10000;
+        *(a1 + 688) &= ~0x100u;
+        *(a1 + 10520) = 1;
+        *(a1 + 1464) = 0;
+        *(a1 + 1336) &= ~0x40u;
+      }
+    }
+
+    v64 = v36[395];
+    if (v64 <= 19)
+    {
+      if (!v64)
+      {
+        *(a1 + 10892) = 0;
+        goto LABEL_174;
+      }
+
+      if (v64 == 1)
+      {
+        *(a1 + 10892) = 1;
+LABEL_125:
+        *(a1 + 1336) = 0x10000;
+        *(a1 + 1132) = 20;
+        *(a1 + 10784) = 1;
+        *(a1 + 10764) = 0;
+        *(a1 + 10205) = 0;
+        *(a1 + 1240) &= ~0x100u;
+        if (*(a1 + 1256) >= 1)
+        {
+          *(a1 + 1256) = 0x200000001;
+          *(a1 + 13336) = 1;
+          *(a1 + 24776) = 1;
+          *(a1 + 48356) = 1;
+        }
+
+        *(a1 + 10808) = 0;
+        *(a1 + 42027) = 1;
+        *(a1 + 60061) = 1;
+        if (*(a1 + 1296))
+        {
+          *(a1 + 39957) = 1;
+        }
+
+        if ((*(a1 + 1104) & 0x80) != 0)
+        {
+          v74 = 1;
+          *v237 = 1;
+          *(a1 + 31474) = 257;
+          *(a1 + 31476) = 1;
+          *(a1 + 31480) = xmmword_185A30;
+          *(a1 + 31496) = 15;
+        }
+
+        else
+        {
+          v74 = 0;
+        }
+
+        v59 = 0;
+        *(a1 + 31473) = v74;
+        *(a1 + 1096) &= 0xFFFFFC40FFFFFCBFLL;
+        *(a1 + 39886) = 1;
+        goto LABEL_188;
+      }
+    }
+
+    else
+    {
+      switch(v64)
+      {
+        case 20:
+          *(a1 + 10892) = 20;
+          goto LABEL_132;
+        case 37:
+          *(a1 + 10892) = 37;
+LABEL_157:
+          if ((*(a1 + 1104) & 0x80) != 0)
+          {
+            *v237 = 1;
+            *(a1 + 31473) = 1;
+            *(a1 + 31475) = 1;
+            *(a1 + 31484) = xmmword_185A20;
+          }
+
+          *(a1 + 1112) = 60;
+          *(a1 + 1264) = 0x7FFFFFFFLL;
+          *(a1 + 1272) = 0xBFF0000000000000;
+          *(a1 + 1280) = 0xBFF0000000000000;
+          *(a1 + 1088) |= 2uLL;
+          *(a1 + 1336) &= ~0x40u;
+          *(a1 + 1296) |= 2u;
+          if (*(v41 + 1676) <= 0 && *(v41 + 16) == 1)
+          {
+            v83 = *(a1 + 1160);
+            if (v83 >= 1)
+            {
+              v84 = 0;
+              v85 = (a1 + 1176);
+              v86 = 0x7FFFFFFF;
+              do
+              {
+                if (v86 > (*(v85 - 1) * 8.0 / *v85))
+                {
+                  if (sub_160EF0(0x1Eu, 6))
+                  {
+                    v87 = sub_160F34(0x1Eu);
+                    v88 = sub_175AE4();
+                    v89 = sub_160F68(6);
+                    v90 = *(v85 - 1);
+                    v91 = *v85;
+                    if (v87)
+                    {
+                      printf("%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f\n", v88, 30, v89, v84, *(v85 - 1), v91);
+                      v88 = sub_175AE4();
+                      v89 = sub_160F68(6);
+                      v90 = *(v85 - 1);
+                      v91 = *v85;
+                    }
+
+                    syslog(3, "%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f", v88, 30, v89, v84, v90, v91);
+                    v41 = a1 + 104624;
+                  }
+
+                  v86 = (*(v85 - 1) * 8.0 / *v85);
+                  v83 = *(a1 + 1160);
+                }
+
+                ++v84;
+                v85 += 2;
+              }
+
+              while (v84 < v83);
+              if (v86 != 0x7FFFFFFF)
+              {
+                *(a1 + 1136) = v86;
+              }
+            }
+          }
+
+          v59 = 0;
+          *(a1 + 1240) &= ~0x100u;
+          goto LABEL_188;
+        case 10000:
+          *(a1 + 10892) = 10000;
+          goto LABEL_103;
+      }
+    }
+
+    v95 = *(a1 + 10892);
+    if (v95 <= 36)
+    {
+      if (v95 != 1)
+      {
+        if (v95 != 20)
+        {
+          goto LABEL_174;
+        }
+
+LABEL_132:
+        sub_11565C(a1);
+        if ((*(a1 + 1104) & 0x80) != 0)
+        {
+          *v237 = 1;
+          *(a1 + 31473) = 1;
+          *(a1 + 31475) = 1;
+          *(a1 + 31484) = xmmword_185A20;
+        }
+
+        *(a1 + 1296) &= ~2u;
+        *(a1 + 1464) = 0;
+        *(a1 + 1336) &= ~0x40u;
+        *(a1 + 10520) = 1;
+        *(a1 + 1240) &= ~0x100u;
+        *(a1 + 1088) = *(a1 + 1088) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(a1 + 692) == 1));
+        if (*(a1 + 1348) <= -13)
+        {
+          *(a1 + 1348) = 51;
+        }
+
+        if (*(a1 + 1236) <= -13)
+        {
+          *(a1 + 1236) = 51;
+        }
+
+        if (*(v41 + 1804) <= 0 && *(v41 + 1816) <= 0.0 && (*(v41 + 1808) & 0x80000000) != 0 && *(v41 + 1824) <= 0.0)
+        {
+          *(a1 + 1264) = 0x7FFFFFFFLL;
+          *(a1 + 1272) = 0xBFF0000000000000;
+          *(a1 + 1280) = 0xBFF0000000000000;
+        }
+
+        if (*(v41 + 1676) <= 0 && *(v41 + 16) == 1)
+        {
+          v75 = *(a1 + 1160);
+          if (v75 >= 1)
+          {
+            v76 = 0;
+            v77 = (a1 + 1176);
+            v68 = 0x7FFFFFFF;
+            do
+            {
+              if (v68 > (*(v77 - 1) * 8.0 / *v77))
+              {
+                if (sub_160EF0(0x1Eu, 6))
+                {
+                  v78 = sub_160F34(0x1Eu);
+                  v79 = sub_175AE4();
+                  v80 = sub_160F68(6);
+                  v81 = *(v77 - 1);
+                  v82 = *v77;
+                  if (v78)
+                  {
+                    printf("%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f\n", v79, 30, v80, v76, *(v77 - 1), v82);
+                    v79 = sub_175AE4();
+                    v80 = sub_160F68(6);
+                    v81 = *(v77 - 1);
+                    v82 = *v77;
+                  }
+
+                  syslog(3, "%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f", v79, 30, v80, v76, v81, v82);
+                  v41 = a1 + 104624;
+                }
+
+                v68 = (*(v77 - 1) * 8.0 / 1.5 / *v77);
+                v75 = *(a1 + 1160);
+              }
+
+              ++v76;
+              v77 += 2;
+            }
+
+            while (v76 < v75);
+LABEL_154:
+            if (v68 != 0x7FFFFFFF)
+            {
+              v59 = 0;
+              *(a1 + 1136) = v68;
+              goto LABEL_188;
+            }
+          }
+        }
+
+LABEL_181:
+        v59 = 0;
+        goto LABEL_188;
+      }
+
+      goto LABEL_125;
+    }
+
+    if (v95 != 37)
+    {
+      if (v95 == 10000)
+      {
+LABEL_103:
+        sub_11565C(a1);
+        *(a1 + 1296) &= ~2u;
+        *(a1 + 1464) = 0;
+        *(a1 + 1336) &= ~0x40u;
+        *(a1 + 10520) = 1;
+        *(a1 + 1240) &= ~0x100u;
+        *(a1 + 1088) = *(a1 + 1088) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(a1 + 692) == 1));
+        if (*(a1 + 1348) <= -13)
+        {
+          *(a1 + 1348) = 51;
+        }
+
+        if (*(a1 + 1236) <= -13)
+        {
+          *(a1 + 1236) = 51;
+        }
+
+        if (*(v41 + 1804) <= 0 && *(v41 + 1816) <= 0.0)
+        {
+          *(a1 + 1264) = 120;
+          *(a1 + 1272) = 0xBFF0000000000000;
+          *(a1 + 1280) = 0xBFF0000000000000;
+        }
+
+        if (*(v41 + 1676) <= 0 && *(v41 + 16) == 1)
+        {
+          v65 = *(a1 + 1160);
+          if (v65 >= 1)
+          {
+            v66 = 0;
+            v67 = (a1 + 1176);
+            v68 = 0x7FFFFFFF;
+            do
+            {
+              if (v68 > (*(v67 - 1) * 8.0 / *v67))
+              {
+                if (sub_160EF0(0x1Eu, 6))
+                {
+                  v69 = sub_160F34(0x1Eu);
+                  v70 = sub_175AE4();
+                  v71 = sub_160F68(6);
+                  v72 = *(v67 - 1);
+                  v73 = *v67;
+                  if (v69)
+                  {
+                    printf("%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f\n", v70, 30, v71, v66, *(v67 - 1), v73);
+                    v70 = sub_175AE4();
+                    v71 = sub_160F68(6);
+                    v72 = *(v67 - 1);
+                    v73 = *v67;
+                  }
+
+                  syslog(3, "%lld %d AVE %s: FIG: i = %d DataRateLimitsSize %f DataRateLimitsSeconds %f", v70, 30, v71, v66, v72, v73);
+                  v41 = a1 + 104624;
+                }
+
+                v68 = (*(v67 - 1) * 8.0 / 1.5 / *v67);
+                v65 = *(a1 + 1160);
+              }
+
+              ++v66;
+              v67 += 2;
+            }
+
+            while (v66 < v65);
+            goto LABEL_154;
+          }
+        }
+
+        goto LABEL_181;
+      }
+
+LABEL_174:
+      v92 = *(a1 + 76);
+      if (v92 <= 0x1D && ((1 << v92) & 0x2679CC00) != 0)
+      {
+        v93 = *(a1 + 10248);
+        *(a1 + 10172) = v93 ^ 1;
+        if ((v93 & 1) == 0)
+        {
+          *(a1 + 688) |= 0x100u;
+          v94 = *(a1 + 1296);
+          if ((v94 & 1) == 0 && (*(a1 + 1123) & 0x80) == 0)
+          {
+            *(a1 + 10200) = 1;
+            *(a1 + 1296) = v94 | 1;
+            *(a1 + 39957) = 1;
+            *(a1 + 48356) = 1;
+          }
+        }
+      }
+
+      sub_11565C(a1);
+      goto LABEL_181;
+    }
+
+    goto LABEL_157;
+  }
+
+  *(a1 + 10800) = v42;
+  if (sub_160EF0(0x1Eu, 6))
+  {
+    v43 = sub_160F34(0x1Eu);
+    v44 = sub_175AE4();
+    v45 = sub_160F68(6);
+    v46 = *(a1 + 24264);
+    if (v43)
+    {
+      printf("%lld %d AVE %s: profile = %d -> change the default %d\n", v44, 30, v45, *(a1 + 104628), v46);
+      v47 = sub_175AE4();
+      v48 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: profile = %d -> change the default %d", v47, 30, v48, *(a1 + 104628), *(a1 + 24264));
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: profile = %d -> change the default %d", v44, 30, v45, *(a1 + 104628), v46);
+    }
+  }
+
+  v49 = *(a1 + 104628) - 1;
+  if (v49 < 0xA && ((0x3E7u >> v49) & 1) != 0)
+  {
+    v50 = qword_185B90[v49];
+    v51 = dword_185BE0[v49];
+    v52 = qword_185C08[v49];
+    *(a1 + v50) = v51;
+    *(a1 + v52) = v51;
+    goto LABEL_72;
+  }
+
+  if (sub_160EF0(3u, 4))
+  {
+    v56 = sub_160F34(3u);
+    v57 = sub_175AE4();
+    v58 = sub_160F68(4);
+    if (v56)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_NewDefaultsBasedOnProfileUsageDefault failed. profile (%d) unrecognized\n", v57, 3, v58, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", 5689, "false", *(a1 + 104628));
+      v57 = sub_175AE4();
+      sub_160F68(4);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_NewDefaultsBasedOnProfileUsageDefault failed. profile (%d) unrecognized", v57);
+  }
+
+  v59 = -12902;
+LABEL_188:
+  if (sub_160EF0(0xCu, 7))
+  {
+    v96 = sub_160F34(0xCu);
+    v97 = sub_175AE4();
+    v98 = sub_160F68(7);
+    if (v96)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v97, 12, v98, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1, v59);
+      v99 = sub_175AE4();
+      v229 = sub_160F68(7);
+      v41 = a1 + 104624;
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v99, 12, v229, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1, v59);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v97, 12, v98, "AVE_SetNewEncoderDefaultBasedOnProfileUsagePropertiesPassed", a1, v59);
+    }
+  }
+
+  if (sub_160EF0(0xD1u, 6))
+  {
+    v100 = sub_160F34(0xD1u);
+    v101 = sub_175AE4();
+    v102 = sub_160F68(6);
+    if (v100)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v101, 209, v102, "AVE_PrepareHEVCLevel", a1);
+      v103 = sub_175AE4();
+      v230 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v103, 209, v230, "AVE_PrepareHEVCLevel", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v101, 209, v102, "AVE_PrepareHEVCLevel", a1);
+    }
+  }
+
+  if (sub_160EF0(0xD1u, 7))
+  {
+    v104 = sub_160F34(0xD1u);
+    v105 = sub_175AE4();
+    v106 = sub_160F68(7);
+    if (v104)
+    {
+      printf("%lld %d AVE %s: %s:%d starting with SPS profile %d SPS level %d profile %d level %d\n", v105, 209, v106, "AVE_PrepareHEVCLevel", 2970, *(a1 + 24264), *(a1 + 24316), *(v41 + 4), *(v41 + 8));
+      v105 = sub_175AE4();
+      sub_160F68(7);
+      v41 = a1 + 104624;
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d starting with SPS profile %d SPS level %d profile %d level %d", v105, 209);
+  }
+
+  if (sub_160EF0(0xD1u, 7))
+  {
+    v107 = sub_160F34(0xD1u);
+    v108 = sub_175AE4();
+    v109 = sub_160F68(7);
+    if (v107)
+    {
+      printf("%lld %d AVE %s: %s:%d starting with %dx%d bitrate %d (RCMode %d) FrameRate %d USAGE %d\n", v108, 209, v109, "AVE_PrepareHEVCLevel", 2974, *(a1 + 1440), *(a1 + 1444), *(a1 + 1136), *(a1 + 1132), *(a1 + 1112), *(a1 + 10892));
+      v110 = sub_175AE4();
+      v231 = sub_160F68(7);
+      v41 = a1 + 104624;
+      syslog(3, "%lld %d AVE %s: %s:%d starting with %dx%d bitrate %d (RCMode %d) FrameRate %d USAGE %d", v110, 209, v231);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d starting with %dx%d bitrate %d (RCMode %d) FrameRate %d USAGE %d", v108, 209, v109);
+    }
+  }
+
+  v111 = *(a1 + 1132);
+  if (v111 < 1)
+  {
+    v112 = 0;
+  }
+
+  else
+  {
+    v112 = 0;
+    if (v111 != 3 && v111 != 8)
+    {
+      v112 = *(a1 + 1136);
+    }
+  }
+
+  v113 = sub_17D77C(*(a1 + 24264), *(a1 + 24260), *(a1 + 1440), *(a1 + 1444), *(a1 + 1112), v112);
+  if (v113)
+  {
+    v114 = v113;
+    v115 = *(a1 + 24316);
+    if (v115 <= v113)
+    {
+      v115 = v113;
+    }
+
+    *(a1 + 24316) = v115;
+    *(a1 + 12080) = v115;
+    v116 = *(v41 + 8);
+    if (v116)
+    {
+      if (v116 < v115 && *(a1 + 1112) >= 1)
+      {
+        if (sub_160EF0(0xD1u, 5))
+        {
+          v117 = sub_160F34(0xD1u);
+          v118 = sub_175AE4();
+          v119 = sub_160F68(5);
+          if (v117)
+          {
+            printf("%lld %d AVE %s: %s:%d level %d incompatible with other settings (min should be %d)\n", v118, 209, v119, "AVE_PrepareHEVCLevel", 3005, *(v41 + 8), *(a1 + 24316));
+            v118 = sub_175AE4();
+            sub_160F68(5);
+            v41 = a1 + 104624;
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d level %d incompatible with other settings (min should be %d)", v118);
+        }
+
+        v124 = 4294966295;
+        goto LABEL_238;
+      }
+
+      if (v115 != v116)
+      {
+        if (sub_160EF0(0xD1u, 6))
+        {
+          v125 = sub_160F34(0xD1u);
+          v126 = sub_175AE4();
+          v127 = sub_160F68(6);
+          if (v125)
+          {
+            printf("%lld %d AVE %s: %s:%d level received (%d) is too high... consider lowering it with these settings (min should be %d)\n", v126, 209, v127, "AVE_PrepareHEVCLevel", 3013, *(v41 + 8), *(a1 + 24316));
+            v126 = sub_175AE4();
+            sub_160F68(6);
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d level received (%d) is too high... consider lowering it with these settings (min should be %d)", v126);
+        }
+
+        v124 = 0;
+        v128 = *(v41 + 8);
+        *(a1 + 24316) = v128;
+        *(a1 + 12080) = v128;
+        goto LABEL_239;
+      }
+    }
+
+    v124 = 0;
+LABEL_238:
+    v128 = *(a1 + 24316);
+LABEL_239:
+    if (v128 == 18)
+    {
+      *(a1 + 12024) = 2;
+      *(a1 + 24260) = 2;
+      *(a1 + 12120) = 16843009;
+      *(a1 + 12124) = 257;
+      *(a1 + 24356) = 16843009;
+      *(a1 + 24360) = 257;
+    }
+
+    if (sub_160EF0(0xD1u, 7))
+    {
+      v129 = sub_160F34(0xD1u);
+      v130 = sub_175AE4();
+      v131 = sub_160F68(7);
+      if (v129)
+      {
+        printf("%lld %d AVE %s: %s:%d end with level %d (min %d)\n", v130, 209, v131, "AVE_PrepareHEVCLevel", 3034, *(a1 + 24316), v114);
+        v130 = sub_175AE4();
+        sub_160F68(7);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d end with level %d (min %d)", v130);
+      v41 = a1 + 104624;
+    }
+
+    goto LABEL_245;
+  }
+
+  if (sub_160EF0(0xD1u, 4))
+  {
+    v120 = sub_160F34(0xD1u);
+    v121 = sub_175AE4();
+    v122 = sub_160F68(4);
+    if (v120)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | invalid level\n", v121, 209, v122, "AVE_PrepareHEVCLevel", 2990, "eLevel != HEVC_Level_Invalid");
+      v123 = sub_175AE4();
+      v232 = sub_160F68(4);
+      v41 = a1 + 104624;
+      syslog(3, "%lld %d AVE %s: %s:%d %s | invalid level", v123, 209, v232, "AVE_PrepareHEVCLevel", 2990, "eLevel != HEVC_Level_Invalid");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | invalid level", v121, 209, v122, "AVE_PrepareHEVCLevel", 2990, "eLevel != HEVC_Level_Invalid");
+    }
+  }
+
+  v124 = 4294966295;
+LABEL_245:
+  if (sub_160EF0(0xD1u, 6))
+  {
+    v132 = sub_160F34(0xD1u);
+    v133 = sub_175AE4();
+    v134 = sub_160F68(6);
+    if (v132)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v133, 209, v134, "AVE_PrepareHEVCLevel", a1, v124);
+      v135 = sub_175AE4();
+      v233 = sub_160F68(6);
+      v41 = a1 + 104624;
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v135, 209, v233, "AVE_PrepareHEVCLevel", a1, v124);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v133, 209, v134, "AVE_PrepareHEVCLevel", a1, v124);
+    }
+  }
+
+  if (v124)
+  {
+    if (sub_160EF0(3u, 4))
+    {
+      v136 = sub_160F34(3u);
+      v137 = sub_175AE4();
+      v138 = sub_160F68(4);
+      if (v136)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_PrepareHEVCLevel failed\n", v137, 3, v138, "AVE_ManageSessionSettings", 7340, "err == 0");
+        sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_PrepareHEVCLevel failed");
+    }
+
+    return v124;
+  }
+
+  v139 = sub_1502C8();
+  v140 = v139;
+  v141 = *(v139 + 224);
+  if ((v141 & 0x80000000) == 0)
+  {
+    *(a1 + 1264) = v141;
+    if (v141 == 1)
+    {
+      *(a1 + 1252) = 0;
+    }
+  }
+
+  v142 = *(v139 + 225);
+  if ((v142 & 0x80000000) == 0)
+  {
+    *(a1 + 1268) = v142;
+  }
+
+  v143 = v139[113];
+  if (v143 >= 0.0)
+  {
+    *(a1 + 1272) = v143;
+  }
+
+  v144 = v139[114];
+  if (v144 >= 0.0)
+  {
+    *(a1 + 1280) = v144;
+  }
+
+  v145 = *(a1 + 716);
+  v146 = *(v139 + 7);
+  v147 = *(a1 + 1456) | *(v139 + 6);
+  v149 = *(v139 + 4);
+  v148 = *(v139 + 5);
+  v150 = (*(a1 + 1448) | v149) & ~v148;
+  *(a1 + 1448) = v150;
+  *(a1 + 1456) = v147 & ~v146;
+  v151 = v150 | v149 & 0x20;
+  v152 = v150 & 0xFFFFFFFFFFFFFFDFLL;
+  if ((v148 & 0x20) == 0)
+  {
+    v152 = v151;
+  }
+
+  if (((v148 | v149) & 0x20) != 0)
+  {
+    *(a1 + 1448) = v152;
+  }
+
+  if ((v152 & 0x20) == 0)
+  {
+    v153 = v145;
+    if ((v148 & 0x20) == 0)
+    {
+      goto LABEL_282;
+    }
+
+LABEL_281:
+    *(a1 + 716) = v153 & 0xFFFFFC3F;
+    goto LABEL_282;
+  }
+
+  if (*(v139 + 1) == 1)
+  {
+    v154 = sub_1523E8(*(a1 + 68), *(a1 + 64), v145, *(a1 + 10772), *(v41 + 3376));
+    v155 = *(a1 + 716);
+    if (v154)
+    {
+      v153 = v155 & 0xFFFFFC3F;
+    }
+
+    else
+    {
+      v153 = v155 | 0x3C0;
+    }
+  }
+
+  else
+  {
+    v153 = v145 | 0x3C0;
+  }
+
+  *(a1 + 716) = v153;
+  v152 = *(a1 + 1448);
+  if ((v152 & 0x1000000) != 0)
+  {
+    *(a1 + 11810) = 1;
+  }
+
+  v148 = *(v140 + 5);
+  if ((v148 & 0x1000000) != 0)
+  {
+    *(a1 + 11810) = 0;
+    if ((v152 & 0x4000000) == 0)
+    {
+LABEL_279:
+      if ((v148 & 0x4000000) == 0)
+      {
+        goto LABEL_280;
+      }
+
+      goto LABEL_373;
+    }
+  }
+
+  else if ((v152 & 0x4000000) == 0)
+  {
+    goto LABEL_279;
+  }
+
+  *(a1 + 10552) = 1;
+  if ((v148 & 0x4000000) == 0)
+  {
+LABEL_280:
+    if ((v148 & 0x20) == 0)
+    {
+      goto LABEL_282;
+    }
+
+    goto LABEL_281;
+  }
+
+LABEL_373:
+  *(a1 + 10552) = 2;
+  if ((v148 & 0x20) != 0)
+  {
+    goto LABEL_281;
+  }
+
+LABEL_282:
+  v156 = *(v140 + 272);
+  if ((v156 & 0x80000000) == 0)
+  {
+    *(a1 + 11812) = v156;
+  }
+
+  v157 = *(v140 + 273);
+  if ((v157 & 0x80000000) == 0)
+  {
+    *(a1 + 1396) = v157;
+  }
+
+  if ((v152 & 0x40) != 0)
+  {
+    *v238 = 1;
+    if ((v148 & 0x40) == 0)
+    {
+LABEL_288:
+      if ((v152 & 0x200) == 0)
+      {
+        goto LABEL_289;
+      }
+
+      goto LABEL_328;
+    }
+  }
+
+  else if ((v148 & 0x40) == 0)
+  {
+    goto LABEL_288;
+  }
+
+  *v238 = 0;
+  if ((v152 & 0x200) == 0)
+  {
+LABEL_289:
+    if ((v148 & 0x200) == 0)
+    {
+      goto LABEL_290;
+    }
+
+    goto LABEL_329;
+  }
+
+LABEL_328:
+  *(a1 + 39959) = 1;
+  if ((v148 & 0x200) == 0)
+  {
+LABEL_290:
+    if ((v152 & 0x400) == 0)
+    {
+      goto LABEL_291;
+    }
+
+    goto LABEL_330;
+  }
+
+LABEL_329:
+  *(a1 + 39959) = 0;
+  if ((v152 & 0x400) == 0)
+  {
+LABEL_291:
+    if ((v148 & 0x400) == 0)
+    {
+      goto LABEL_292;
+    }
+
+    goto LABEL_331;
+  }
+
+LABEL_330:
+  *(a1 + 12016) = 1;
+  *v39 = 1;
+  if ((v148 & 0x400) == 0)
+  {
+LABEL_292:
+    if ((v152 & 0x20000) == 0)
+    {
+      goto LABEL_293;
+    }
+
+    goto LABEL_332;
+  }
+
+LABEL_331:
+  *(a1 + 12016) = 0;
+  *v39 = 0;
+  if ((v152 & 0x20000) == 0)
+  {
+LABEL_293:
+    if ((v148 & 0x20000) == 0)
+    {
+      goto LABEL_294;
+    }
+
+    goto LABEL_333;
+  }
+
+LABEL_332:
+  *(a1 + 10205) = 1;
+  if ((v148 & 0x20000) == 0)
+  {
+LABEL_294:
+    if ((v152 & 0x40000) == 0)
+    {
+      goto LABEL_295;
+    }
+
+    goto LABEL_334;
+  }
+
+LABEL_333:
+  *(a1 + 10205) = 0;
+  if ((v152 & 0x40000) == 0)
+  {
+LABEL_295:
+    if ((v148 & 0x40000) == 0)
+    {
+      goto LABEL_296;
+    }
+
+    goto LABEL_335;
+  }
+
+LABEL_334:
+  *(a1 + 10206) = 1;
+  if ((v148 & 0x40000) == 0)
+  {
+LABEL_296:
+    if ((v152 & 0x80000) == 0)
+    {
+      goto LABEL_297;
+    }
+
+    goto LABEL_336;
+  }
+
+LABEL_335:
+  *(a1 + 10206) = 0;
+  if ((v152 & 0x80000) == 0)
+  {
+LABEL_297:
+    if ((v148 & 0x80000) == 0)
+    {
+      goto LABEL_298;
+    }
+
+    goto LABEL_337;
+  }
+
+LABEL_336:
+  *(a1 + 1336) |= 0x200u;
+  if ((v148 & 0x80000) == 0)
+  {
+LABEL_298:
+    if ((v152 & 0x100000) == 0)
+    {
+      goto LABEL_299;
+    }
+
+    goto LABEL_338;
+  }
+
+LABEL_337:
+  *(a1 + 1336) &= ~0x200u;
+  if ((v152 & 0x100000) == 0)
+  {
+LABEL_299:
+    if ((v148 & 0x100000) == 0)
+    {
+      goto LABEL_301;
+    }
+
+    goto LABEL_300;
+  }
+
+LABEL_338:
+  *(a1 + 10855) = 1;
+  if ((v148 & 0x100000) != 0)
+  {
+LABEL_300:
+    *(a1 + 10855) = 0;
+  }
+
+LABEL_301:
+  v158 = *(v140 + 96);
+  v159 = *(v140 + 97);
+  *(a1 + 1120) = (*(a1 + 1120) | v158) & ~v159;
+  if ((v158 & 0x40) != 0)
+  {
+    *(a1 + 1476) = 1;
+    if ((v159 & 0x40) == 0)
+    {
+LABEL_303:
+      if ((v158 & 0x10000) == 0)
+      {
+        goto LABEL_304;
+      }
+
+      goto LABEL_342;
+    }
+  }
+
+  else if ((v159 & 0x40) == 0)
+  {
+    goto LABEL_303;
+  }
+
+  *(a1 + 1476) = 0;
+  if ((v158 & 0x10000) == 0)
+  {
+LABEL_304:
+    if ((v159 & 0x10000) == 0)
+    {
+      goto LABEL_305;
+    }
+
+    goto LABEL_343;
+  }
+
+LABEL_342:
+  *(a1 + 10847) = 1;
+  if ((v159 & 0x10000) == 0)
+  {
+LABEL_305:
+    if ((v158 & 0x40000) == 0)
+    {
+      goto LABEL_306;
+    }
+
+    goto LABEL_344;
+  }
+
+LABEL_343:
+  *(a1 + 10847) = 0;
+  if ((v158 & 0x40000) == 0)
+  {
+LABEL_306:
+    if ((v159 & 0x40000) == 0)
+    {
+      goto LABEL_307;
+    }
+
+    goto LABEL_345;
+  }
+
+LABEL_344:
+  *(a1 + 10851) = 1;
+  if ((v159 & 0x40000) == 0)
+  {
+LABEL_307:
+    if ((v158 & 0x80000) == 0)
+    {
+      goto LABEL_308;
+    }
+
+    goto LABEL_346;
+  }
+
+LABEL_345:
+  *(a1 + 10851) = 0;
+  if ((v158 & 0x80000) == 0)
+  {
+LABEL_308:
+    if ((v159 & 0x80000) == 0)
+    {
+      goto LABEL_309;
+    }
+
+    goto LABEL_347;
+  }
+
+LABEL_346:
+  *(a1 + 10852) = 1;
+  if ((v159 & 0x80000) == 0)
+  {
+LABEL_309:
+    if ((v158 & 0x100000) == 0)
+    {
+      goto LABEL_310;
+    }
+
+    goto LABEL_348;
+  }
+
+LABEL_347:
+  *(a1 + 10852) = 0;
+  if ((v158 & 0x100000) == 0)
+  {
+LABEL_310:
+    if ((v159 & 0x100000) == 0)
+    {
+      goto LABEL_311;
+    }
+
+    goto LABEL_349;
+  }
+
+LABEL_348:
+  *(a1 + 10853) = 1;
+  *(a1 + 10849) = 1;
+  if ((v159 & 0x100000) == 0)
+  {
+LABEL_311:
+    if ((v158 & 0x800000) == 0)
+    {
+      goto LABEL_312;
+    }
+
+LABEL_350:
+    *(a1 + 1336) |= 0x4000000u;
+    if ((v159 & 0x800000) == 0)
+    {
+      goto LABEL_314;
+    }
+
+    goto LABEL_313;
+  }
+
+LABEL_349:
+  *(a1 + 10853) = 0;
+  *(a1 + 10849) = 0;
+  if ((v158 & 0x800000) != 0)
+  {
+    goto LABEL_350;
+  }
+
+LABEL_312:
+  if ((v159 & 0x800000) != 0)
+  {
+LABEL_313:
+    *(a1 + 1336) &= ~0x4000000u;
+  }
+
+LABEL_314:
+  v160 = *(v140 + 242);
+  if (v160)
+  {
+    *(a1 + 1352) |= v160;
+  }
+
+  v161 = *(v140 + 243);
+  if (v161)
+  {
+    *(a1 + 1352) &= ~v161;
+  }
+
+  if ((v158 & 0x2000000) != 0)
+  {
+    *(a1 + 10846) = 1;
+  }
+
+  if ((v159 & 0x2000000) != 0)
+  {
+    *(a1 + 10846) = 0;
+  }
+
+  v162 = *(v140 + 230);
+  if (v162)
+  {
+    *(a1 + 10200) = 1;
+    *(a1 + 1296) |= 1u;
+    *(a1 + 39957) = 1;
+    *(a1 + 48356) = 1;
+  }
+
+  v163 = *(v140 + 231);
+  if (v163)
+  {
+    *(a1 + 10200) = 0;
+    v164 = *(a1 + 1296) & 0xFFFFFFFE;
+    *(a1 + 39957) = 0;
+    *(a1 + 48356) = 0;
+  }
+
+  else
+  {
+    v164 = *(a1 + 1296);
+  }
+
+  *(a1 + 1336) = ((*(a1 + 1336) | *(v140 + 237)) & ~*(v140 + 238) | *(v140 + 237) & 0x106) & (~*(v140 + 238) | 0xFFFFFEF9);
+  *(a1 + 1240) = (*(a1 + 1240) | *(v140 + 218)) & ~*(v140 + 219);
+  *(a1 + 1296) = (v164 | v162) & ~v163;
+  v166 = *(v140 + 16);
+  v165 = *(v140 + 17);
+  *(a1 + 688) = (*(a1 + 688) | v166) & ~v165;
+  if ((v166 & 0x400) != 0)
+  {
+    *(a1 + 10172) = 1;
+  }
+
+  if ((v165 & 0x400) != 0)
+  {
+    *(a1 + 10172) = 0;
+  }
+
+  if ((*(v140 + 412) & 8) != 0)
+  {
+    *(a1 + 1464) = 0x8000000;
+  }
+
+  v167 = *(v140 + 200);
+  if (v167 >= 1)
+  {
+    *(a1 + 1136) = v167;
+  }
+
+  v168 = *(v140 + 18);
+  if ((v168 - 1) <= 0x2F)
+  {
+    *(a1 + 11772) = v168;
+  }
+
+  v169 = *(v140 + 256);
+  if (v169 >= 1)
+  {
+    *(a1 + 1368) = v169;
+  }
+
+  v170 = *(v140 + 259);
+  if ((v170 & 0x80000000) == 0)
+  {
+    *(a1 + 10788) = v170;
+    if (v170 >= 5)
+    {
+      if (sub_160EF0(0x10u, 4))
+      {
+        v173 = sub_160F34(0x10u);
+        v174 = sub_175AE4();
+        v175 = sub_160F68(4);
+        if (v173)
+        {
+          printf("%lld %d AVE %s: FIG: SetProperty AVE_kVTCompressionPropertyKey_SAOMode not supported (%d)\n", v174, 16, v175, v170);
+          v176 = sub_175AE4();
+          v234 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: FIG: SetProperty AVE_kVTCompressionPropertyKey_SAOMode not supported (%d)", v176, 16, v234, v170);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: FIG: SetProperty AVE_kVTCompressionPropertyKey_SAOMode not supported (%d)", v174, 16, v175, v170);
+        }
+      }
+
+      LOBYTE(v171) = 0;
+      LOBYTE(v172) = 0;
+    }
+
+    else
+    {
+      v171 = 0x101000100uLL >> (8 * v170);
+      v172 = 0x101010000uLL >> (8 * v170);
+    }
+
+    *(a1 + 59393) = v171;
+    *(a1 + 59394) = v172;
+  }
+
+  v177 = *(v140 + 255);
+  if (sub_E71EC(*(a1 + 68), 1, 2, v177))
+  {
+    *v10 = v177;
+  }
+
+  v178 = *(v140 + 223);
+  if (v178 >= 1)
+  {
+    *(a1 + 1288) = v178;
+  }
+
+  if ((*v140 & 0x80000000) == 0)
+  {
+    *(a1 + 11460) = *v140;
+  }
+
+  v179 = *(v140 + 190);
+  if (v179 >= 1)
+  {
+    *(a1 + 1112) = v179;
+  }
+
+  v180 = *(v140 + 196);
+  if (v180 != -13)
+  {
+    *(a1 + 1232) = v180;
+  }
+
+  v181 = *(v140 + 197);
+  if (v181 != -13)
+  {
+    *(a1 + 1236) = v181;
+  }
+
+  v182 = *(v140 + 240);
+  if (v182 != -13)
+  {
+    *(a1 + 1344) = v182;
+  }
+
+  v183 = *(v140 + 241);
+  if (v183 != -13)
+  {
+    *(a1 + 1348) = v183;
+  }
+
+  v184 = *(v140 + 201);
+  if (v184 != -13)
+  {
+    *(a1 + 1144) = v184;
+  }
+
+  v185 = *(v140 + 202);
+  if (v185 != -13)
+  {
+    *(a1 + 1148) = v185;
+  }
+
+  v186 = *(v140 + 203);
+  if (v186 != -13)
+  {
+    *(a1 + 1152) = v186;
+  }
+
+  v187 = *(v140 + 260);
+  if (v187 <= 4)
+  {
+    *(a1 + 10860) = v187;
+  }
+
+  if (*(v140 + 262))
+  {
+    v188 = 0;
+    v189 = a1 + 10544;
+    v190 = 1;
+    do
+    {
+      v191 = v190;
+      v192 = *(v189 + 4 * v188);
+      v193 = (*(v140 + 262) / 100.0 + 1.0) * v192;
+      if (v193 >= 25.0 || v193 < 0.0)
+      {
+        v193 = v192;
+      }
+
+      *(v189 + 4 * v188) = v193;
+      v188 = 1;
+      v190 = 0;
+    }
+
+    while ((v191 & 1) != 0);
+  }
+
+  v195 = *(v140 + 261);
+  if ((v195 & 0x80000000) == 0)
+  {
+    *(a1 + 10544) = v195;
+    *(a1 + 10548) = v195;
+  }
+
+  v196 = *(v140 + 400);
+  if (v196 >= 1)
+  {
+    *(a1 + 11792) = v196;
+  }
+
+  v197 = *(v140 + 401);
+  if (v197 >= 1)
+  {
+    *(a1 + 11796) = v197;
+  }
+
+  v198 = *(v140 + 189);
+  if ((v198 & 0x80000000) == 0)
+  {
+    *(a1 + 10808) = v198;
+    *(a1 + 10845) = 1;
+  }
+
+  v199 = *(v140 + 254);
+  if (v199 >= 1)
+  {
+    *(a1 + 10252) = v199;
+  }
+
+  v200 = *(v140 + 258);
+  if (v200 <= 2)
+  {
+    *(a1 + 60062) = v200 != 0;
+  }
+
+  v201 = *(v140 + 123);
+  if (v201)
+  {
+    *(a1 + 1096) |= v201;
+  }
+
+  v202 = *(v140 + 124);
+  if (v202)
+  {
+    *(a1 + 1096) &= ~v202;
+  }
+
+  if (*(a1 + 1450))
+  {
+    *(a1 + 10928) = 1;
+    *(a1 + 14424) = 1;
+    *(a1 + 31408) = 1;
+    *(a1 + 1096) |= 0x1EuLL;
+  }
+
+  if ((v202 & 0x80000000) != 0)
+  {
+    *(a1 + 10928) = 0;
+    *(a1 + 1096) &= 0xFFFFFFFFFFFFFFE1;
+  }
+
+  v203 = *(v140 + 199);
+  if (v203 >= 1)
+  {
+    *(a1 + 1132) = v203;
+  }
+
+  v204 = *(v140 + 200);
+  if (v204 >= 1)
+  {
+    *(a1 + 1136) = v204;
+  }
+
+  v205 = *(v140 + 198);
+  if ((v205 & 0x80000000) == 0)
+  {
+    *(a1 + 1128) = v205;
+    *(a1 + 1120) |= 0x80000000uLL;
+  }
+
+  v206 = v140[102];
+  if (v206 >= 0.0)
+  {
+    *(a1 + 1200) = v206;
+  }
+
+  v207 = *(v140 + 397);
+  if (v207 >= 1)
+  {
+    *(a1 + 720) = v207;
+  }
+
+  v208 = *(a1 + 716);
+  if (v145 != v208)
+  {
+    v209 = *(a1 + 24732) + 8;
+    if (v209 <= *(a1 + 24736) + 8)
+    {
+      v209 = *(a1 + 24736) + 8;
+    }
+
+    if (sub_DDADC(*(a1 + 68), *(a1 + 64), v208, 2, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v209, 0, 0x1414C4C20, *(a1 + 16)) && sub_160EF0(0x1Eu, 4))
+    {
+      v210 = sub_160F34(0x1Eu);
+      v211 = sub_175AE4();
+      v212 = sub_160F68(4);
+      if (v210)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.\n", v211, 30, v212, "AVE_HEVC_ApplyDW", 6799, "ret == 0");
+        v213 = sub_175AE4();
+        v235 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v213, 30, v235, "AVE_HEVC_ApplyDW", 6799, "ret == 0");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed.", v211, 30, v212, "AVE_HEVC_ApplyDW", 6799, "ret == 0");
+      }
+    }
+  }
+
+  if ((*(a1 + 688) & 4) != 0)
+  {
+    v214 = *(a1 + 1112);
+    if (v214 >= 1)
+    {
+      v215 = v214;
+    }
+
+    else
+    {
+      v215 = 30.0;
+    }
+
+    if (sub_160EF0(0x1Eu, 6))
+    {
+      v216 = sub_160F34(0x1Eu);
+      v217 = sub_175AE4();
+      v218 = sub_160F68(6);
+      v219 = *(a1 + 1444);
+      v220 = *(a1 + 1136);
+      if (v216)
+      {
+        printf("%lld %d AVE %s: FIG: PrepareMemoryUsage - br %d, thr %f\n", v217, 30, v218, v220, v215 * ((v219 * *(a1 + 1440)) * 1.5) * 0.2);
+        v221 = sub_175AE4();
+        v236 = sub_160F68(6);
+        syslog(3, "%lld %d AVE %s: FIG: PrepareMemoryUsage - br %d, thr %f", v221, 30, v236, *(a1 + 1136), v215 * ((*(a1 + 1444) * *(a1 + 1440)) * 1.5) * 0.2);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: FIG: PrepareMemoryUsage - br %d, thr %f", v217, 30, v218, v220, v215 * ((v219 * *(a1 + 1440)) * 1.5) * 0.2);
+      }
+    }
+
+    if (v215 * ((*(a1 + 1444) * *(a1 + 1440)) * 1.5) * 0.2 > *(a1 + 1136))
+    {
+      *(a1 + 11804) = 50;
+    }
+  }
+
+  v124 = sub_102AD4(a1);
+  if (v124 && sub_160EF0(3u, 4))
+  {
+    v222 = sub_160F34(3u);
+    v223 = sub_175AE4();
+    v224 = sub_160F68(4);
+    if (v222)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed\n", v223, 3, v224, "AVE_ManageSessionSettings", 7360, "err == 0");
+      sub_175AE4();
+      sub_160F68(4);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %s | FIG: AVE_ValidateEncoderParameters failed");
+  }
+
+  return v124;
 }

@@ -58,7 +58,7 @@
 {
   resourceProxy = self->_resourceProxy;
   self->_resourceProxy = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, resourceProxy);
 }
 
 - (void)initWithExclusive:group:.cold.1()

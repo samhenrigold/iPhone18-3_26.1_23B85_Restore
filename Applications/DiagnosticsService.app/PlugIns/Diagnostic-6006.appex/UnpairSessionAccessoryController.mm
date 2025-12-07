@@ -12,7 +12,6 @@
   selfCopy = self;
   if ([responder respondsToSelector:"unpairSessionAccessoryOnTestCompletion"])
   {
-    v6 = *&selfCopy->DKDiagnosticController_opaque[OBJC_IVAR___UnpairSessionAccessoryController_accessoryResponder];
     *&selfCopy->DKDiagnosticController_opaque[OBJC_IVAR___UnpairSessionAccessoryController_accessoryResponder] = responder;
 
     swift_unknownObjectRelease();
@@ -27,7 +26,7 @@
 - (void)start
 {
   selfCopy = self;
-  sub_10000126C();
+  sub_10000126C(selfCopy, v2, v3);
 }
 
 - (UnpairSessionAccessoryController)init

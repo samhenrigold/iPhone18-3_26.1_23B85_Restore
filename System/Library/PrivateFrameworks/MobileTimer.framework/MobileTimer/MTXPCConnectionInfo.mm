@@ -88,15 +88,13 @@
 
 - (void)initWithMachServiceName:(NSObject *)a3 remoteObjectInterface:exportedObject:exportedObjectInterface:lifecycleNotification:requiredEntitlement:options:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 protocol];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_ERROR, "exportedObject: %{public}@ must conform to protocol: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1B1F9F000, a3, OS_LOG_TYPE_ERROR, "exportedObject: %{public}@ must conform to protocol: %{public}@", &v6, 0x16u);
 }
 
 @end

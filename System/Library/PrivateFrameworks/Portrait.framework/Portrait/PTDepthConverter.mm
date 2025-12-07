@@ -10,9 +10,9 @@
 - (PTDepthConverter)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v126.receiver = self;
-  v126.super_class = PTDepthConverter;
-  v6 = [(PTDepthConverter *)&v126 init];
+  v132.receiver = self;
+  v132.super_class = PTDepthConverter;
+  v6 = [(PTDepthConverter *)&v132 init];
   v7 = v6;
   if (v6)
   {
@@ -27,7 +27,7 @@
         v11 = objc_alloc_init(MEMORY[0x277CD6F78]);
         if (!v11)
         {
-          v12 = _PTLogSystem();
+          v12 = _PTLogSystem(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             [(PTDepthConverter *)v12 initWithMetalContext:v13, v14, v15, v16, v17, v18, v19];
@@ -40,23 +40,23 @@
         pipelineLibrary = [contextCopy pipelineLibrary];
         [v11 setPipelineLibrary:pipelineLibrary];
 
-        device = [contextCopy device];
-        v125 = 0;
-        v22 = [device newRenderPipelineStateWithDescriptor:v11 error:&v125];
-        v23 = v125;
+        v21 = objc_msgSend_device(contextCopy);
+        v131 = 0;
+        v22 = [v21 newRenderPipelineStateWithDescriptor:v11 error:&v131];
+        v23 = v131;
         disparityToDepth = v7->_disparityToDepth;
         v7->_disparityToDepth = v22;
 
         if (v7->_disparityToDepth)
         {
-          v25 = [contextCopy functionWithName:@"thresholdedDisparityToDepthFrag" withConstants:0];
+          v26 = [contextCopy functionWithName:@"thresholdedDisparityToDepthFrag" withConstants:0];
 
-          if (!v25)
+          if (!v26)
           {
-            v10 = _PTLogSystem();
+            v10 = _PTLogSystem(v27);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              [(PTDepthConverter *)v10 initWithMetalContext:v85, v86, v87, v88, v89, v90, v91];
+              [(PTDepthConverter *)v10 initWithMetalContext:v91, v92, v93, v94, v95, v96, v97];
             }
 
             goto LABEL_34;
@@ -64,21 +64,21 @@
 
           if (!v11)
           {
-            v26 = _PTLogSystem();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v28 = _PTLogSystem(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              [(PTDepthConverter *)v26 initWithMetalContext:v27, v28, v29, v30, v31, v32, v33];
+              [(PTDepthConverter *)v28 initWithMetalContext:v29, v30, v31, v32, v33, v34, v35];
             }
           }
 
-          [v11 setFragmentFunction:v25];
-          device2 = [contextCopy device];
-          v124 = v23;
-          v35 = [device2 newRenderPipelineStateWithDescriptor:v11 error:&v124];
-          v36 = v124;
+          [v11 setFragmentFunction:v26];
+          v36 = objc_msgSend_device(contextCopy);
+          v130 = v23;
+          v37 = [v36 newRenderPipelineStateWithDescriptor:v11 error:&v130];
+          v38 = v130;
 
           thresholdedDisparityToDepth = v7->_thresholdedDisparityToDepth;
-          v7->_thresholdedDisparityToDepth = v35;
+          v7->_thresholdedDisparityToDepth = v37;
 
           if (v7->_thresholdedDisparityToDepth)
           {
@@ -88,27 +88,27 @@
             {
               if (!v11)
               {
-                v38 = _PTLogSystem();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                v42 = _PTLogSystem(v41);
+                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                 {
-                  [(PTDepthConverter *)v38 initWithMetalContext:v39, v40, v41, v42, v43, v44, v45];
+                  [(PTDepthConverter *)v42 initWithMetalContext:v43, v44, v45, v46, v47, v48, v49];
                 }
               }
 
               [v11 setFragmentFunction:v10];
-              device3 = [contextCopy device];
-              v123 = v36;
-              v47 = [device3 newRenderPipelineStateWithDescriptor:v11 error:&v123];
-              v23 = v123;
+              v50 = objc_msgSend_device(contextCopy);
+              v129 = v38;
+              v51 = [v50 newRenderPipelineStateWithDescriptor:v11 error:&v129];
+              v23 = v129;
 
               segmentationToDepth = v7->_segmentationToDepth;
-              v7->_segmentationToDepth = v47;
+              v7->_segmentationToDepth = v51;
 
               if (v7->_segmentationToDepth)
               {
-                v49 = objc_opt_new();
+                v54 = objc_opt_new();
                 GBufferRenderPassDescriptor = v7->_GBufferRenderPassDescriptor;
-                v7->_GBufferRenderPassDescriptor = v49;
+                v7->_GBufferRenderPassDescriptor = v54;
 
                 depthAttachment = [(MTLRenderPassDescriptor *)v7->_GBufferRenderPassDescriptor depthAttachment];
                 [depthAttachment setClearDepth:1.0];
@@ -131,108 +131,108 @@
                 stencilAttachment4 = [(MTLRenderPassDescriptor *)v7->_GBufferRenderPassDescriptor stencilAttachment];
                 [stencilAttachment4 setTexture:0];
 
-                v58 = objc_opt_new();
-                [v58 setDepthCompareFunction:7];
-                [v58 setDepthWriteEnabled:1];
-                device4 = [contextCopy device];
-                v60 = [device4 newDepthStencilStateWithDescriptor:v58];
+                v63 = objc_opt_new();
+                [v63 setDepthCompareFunction:7];
+                [v63 setDepthWriteEnabled:1];
+                v64 = objc_msgSend_device(contextCopy);
+                v65 = [v64 newDepthStencilStateWithDescriptor:v63];
                 depthStencilState = v7->_depthStencilState;
-                v7->_depthStencilState = v60;
+                v7->_depthStencilState = v65;
 
                 if (v7->_depthStencilState)
                 {
-                  v62 = v7;
+                  v68 = v7;
                 }
 
                 else
                 {
-                  v114 = _PTLogSystem();
-                  if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+                  v120 = _PTLogSystem(v67);
+                  if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
                   {
-                    [(PTDepthConverter *)v114 initWithMetalContext:v115, v116, v117, v118, v119, v120, v121];
+                    [(PTDepthConverter *)v120 initWithMetalContext:v121, v122, v123, v124, v125, v126, v127];
                   }
 
-                  v62 = 0;
+                  v68 = 0;
                 }
 
                 goto LABEL_48;
               }
 
-              v77 = _PTLogSystem();
-              if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+              v83 = _PTLogSystem(v53);
+              if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
               {
-                [(PTDepthConverter *)v77 initWithMetalContext:v107, v108, v109, v110, v111, v112, v113];
+                [(PTDepthConverter *)v83 initWithMetalContext:v113, v114, v115, v116, v117, v118, v119];
               }
 
               goto LABEL_31;
             }
 
-            v10 = _PTLogSystem();
+            v10 = _PTLogSystem(v41);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              [(PTDepthConverter *)v10 initWithMetalContext:v100, v101, v102, v103, v104, v105, v106];
+              [(PTDepthConverter *)v10 initWithMetalContext:v106, v107, v108, v109, v110, v111, v112];
             }
 
-            v62 = 0;
+            v68 = 0;
           }
 
           else
           {
-            v92 = _PTLogSystem();
-            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+            v98 = _PTLogSystem(v40);
+            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
             {
-              [(PTDepthConverter *)v92 initWithMetalContext:v93, v94, v95, v96, v97, v98, v99];
+              [(PTDepthConverter *)v98 initWithMetalContext:v99, v100, v101, v102, v103, v104, v105];
             }
 
-            v62 = 0;
-            v10 = v25;
+            v68 = 0;
+            v10 = v26;
           }
 
-          v23 = v36;
+          v23 = v38;
           goto LABEL_48;
         }
 
-        v77 = _PTLogSystem();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        v83 = _PTLogSystem(v25);
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
-          [(PTDepthConverter *)v77 initWithMetalContext:v78, v79, v80, v81, v82, v83, v84];
+          [(PTDepthConverter *)v83 initWithMetalContext:v84, v85, v86, v87, v88, v89, v90];
         }
 
 LABEL_31:
 
 LABEL_34:
-        v62 = 0;
+        v68 = 0;
 LABEL_48:
 
         goto LABEL_49;
       }
 
-      v23 = _PTLogSystem();
+      v23 = _PTLogSystem(0);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(PTDepthConverter *)v23 initWithMetalContext:v70, v71, v72, v73, v74, v75, v76];
+        [(PTDepthConverter *)v23 initWithMetalContext:v76, v77, v78, v79, v80, v81, v82];
       }
     }
 
     else
     {
-      v23 = _PTLogSystem();
+      v23 = _PTLogSystem(0);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(PTDepthConverter *)v23 initWithMetalContext:v63, v64, v65, v66, v67, v68, v69];
+        [(PTDepthConverter *)v23 initWithMetalContext:v69, v70, v71, v72, v73, v74, v75];
       }
     }
 
-    v62 = 0;
+    v68 = 0;
 LABEL_49:
 
     goto LABEL_50;
   }
 
-  v62 = 0;
+  v68 = 0;
 LABEL_50:
 
-  return v62;
+  return v68;
 }
 
 - (int)disparityToDepth:(id)depth inBaseDisparity:(id)disparity outDepth:(id)outDepth depthNearFar:(float)far disparityBias:(BOOL)bias reverseZ:
@@ -371,6 +371,55 @@ LABEL_50:
   [v23 endEncoding];
 
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "pipelineStateDescriptor";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_depthStencilState";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_segmentationToDepth";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "fragmentFunction";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_thresholdedDisparityToDepth";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityToDepth";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "vertexFunction";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -191,6 +191,7 @@
 - (id)_preparedCellForItemAtIndexPath:(id)path withLayoutAttributes:(id)attributes applyAttributes:(BOOL)applyAttributes isFocused:(BOOL)focused notify:(BOOL)notify;
 - (id)_primaryFocusItemForFocusGroup:(id)group;
 - (id)_reorderedItemForView:(id)view;
+- (id)_restoreOrAdjustContentOffsetIfNecessaryWithInsets:(char)insets hasUpdatedVisibleCells:(double)cells isRecursive:(double)recursive;
 - (id)_reusableViewWithoutAttributesForElementCategory:(unint64_t)category kind:(id)kind indexPath:(id)path;
 - (id)_sceneActivationConfigurationForLocation:(CGPoint)location;
 - (id)_sectionContainerViewForSectionIndex:(int64_t)index createIfNecessary:(BOOL)necessary;
@@ -244,8 +245,6 @@
 - (int64_t)_totalItemCount;
 - (int64_t)highlightedGlobalItem;
 - (int64_t)maximumGlobalItemIndex;
-- (uint64_t)_applyLayoutAttributes:(void *)attributes toView:(int)view addingControlledSubview:(uint64_t)subview forced:;
-- (uint64_t)_restoreOrAdjustContentOffsetIfNecessaryWithInsets:(char)insets hasUpdatedVisibleCells:(double)cells isRecursive:(double)recursive;
 - (unint64_t)_createVisibleViewsForAttributes:(id)attributes fadeForBoundsChange:(BOOL)change notifyLayoutForVisibleCellsPass:(BOOL)pass;
 - (unint64_t)_edgesPropagatingSafeAreaInsetsToSubviews;
 - (unint64_t)_focusPrimaryScrollableAxis;
@@ -266,6 +265,7 @@
 - (void)_animateVisibleView:(id)view withLayoutAttributes:(id)attributes completionHandler:(id)handler;
 - (void)_applyAutomaticAdjustedContentOffset:(CGPoint)offset;
 - (void)_applyBlockToAllReusableViews:(id)views;
+- (void)_applyLayoutAttributes:(void *)attributes toView:(int)view addingControlledSubview:(uint64_t)subview forced:;
 - (void)_autoScrollAssistantUpdateContentOffset:(CGPoint)offset;
 - (void)_beginTypeSelectWithInput:(id)input;
 - (void)_beginUpdates;
@@ -824,7 +824,7 @@ LABEL_15:
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       _preferredBackgroundColor = ;
       goto LABEL_15;
@@ -832,7 +832,7 @@ LABEL_15:
   }
 }
 
-uint64_t __50__UICollectionView__updateBackgroundColorIfNeeded__block_invoke(uint64_t a1)
+void *__50__UICollectionView__updateBackgroundColorIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setBackgroundColor:*(a1 + 40)];
   *(*(a1 + 32) + 2728) &= ~0x8000000000uLL;
@@ -2323,7 +2323,7 @@ LABEL_10:
         v21[3] = &unk_1E70FF890;
         v21[4] = self;
         v21[5] = v26;
-        [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v17 options:v22 animations:v21 completion:?];
+        [UIView _animateCollectionTableAnimationWithDuration:v17 delay:v22 options:v21 animations:0.3 completion:0.0];
 
         _Block_object_dispose(v26, 8);
       }
@@ -2483,9 +2483,9 @@ LABEL_21:
               }
 
               targetIndexPath = [*(*(&v34 + 1) + 8 * i) targetIndexPath];
-              v15 = [targetIndexPath isEqual:v8];
+              isEqual = objc_msgSend_isEqual_(targetIndexPath);
 
-              if (v15)
+              if (isEqual)
               {
                 v16 = 1;
                 goto LABEL_16;
@@ -3349,7 +3349,7 @@ LABEL_16:
 
   [(UICollectionViewLayout *)self->_layout _collectionViewWillPerformPendingLayoutBeforeUpdate];
   [(UICollectionView *)self _updateVisibleCellsNow:0];
-  [(UICollectionViewData *)self->_collectionViewData _prepareToLoadData];
+  [(UICollectionViewData *)&self->_collectionViewData->super.isa _prepareToLoadData];
   *(p_collectionViewFlags + 1) |= 0x1000000000uLL;
   [(UICollectionView *)self _suspendReloads];
 }
@@ -3848,12 +3848,12 @@ void __36__UICollectionView__indexBarEntries__block_invoke(uint64_t a1, void *a2
   return WeakRetained;
 }
 
-uint64_t __79__UICollectionView__recomputePreferredAttributesForInvalidatedElementsIfNeeded__block_invoke_4(uint64_t result, uint64_t a2)
+void *__79__UICollectionView__recomputePreferredAttributesForInvalidatedElementsIfNeeded__block_invoke_4(void *result, uint64_t a2)
 {
-  v2 = *(*(*(result + 40) + 8) + 40);
+  v2 = *(*(*(result + 5) + 8) + 40);
   if (v2)
   {
-    return [*(result + 32) _updateAnimationDidStop:v2 finished:a2];
+    return [*(result + 4) _updateAnimationDidStop:v2 finished:a2];
   }
 
   return result;
@@ -3969,7 +3969,7 @@ void __33__UICollectionView_preparedCells__block_invoke(uint64_t a1, uint64_t a2
 - (void)_purgeReuseQueues
 {
   [(UICollectionView *)self _resetPrefetchState];
-  [(_UICollectionViewSubviewManager *)self->_subviewManager enumerateAllViewsInReuseQueueWithEnumerator:?];
+  [(_UICollectionViewSubviewManager *)&self->_subviewManager->super.isa enumerateAllViewsInReuseQueueWithEnumerator:?];
   subviewManager = self->_subviewManager;
   if (subviewManager)
   {
@@ -4435,7 +4435,7 @@ LABEL_96:
         v80 = v61[2];
         if (subviewManager)
         {
-          [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews setView:cell ofKind:v78 inCategory:v79 atIndexPath:v80];
+          [(_UICollectionViewSubviewCollection *)subviewManager[1] setView:cell ofKind:v78 inCategory:v79 atIndexPath:v80];
         }
 
         goto LABEL_108;
@@ -5122,7 +5122,7 @@ LABEL_8:
 
 - (void)_traitsConsumedByLayoutInvalidated
 {
-  if (dyld_program_sdk_at_least() && ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionViewAutomaticallyInvalidatesForTraitChanges, @"CollectionViewAutomaticallyInvalidatesForTraitChanges", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E234))
+  if (dyld_program_sdk_at_least() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionViewAutomaticallyInvalidatesForTraitChanges, @"CollectionViewAutomaticallyInvalidatesForTraitChanges", _UIInternalPreferenceUpdateBool) || byte_1EA95E234))
   {
     v3 = objc_alloc_init([objc_opt_class() invalidationContextClass]);
     [v3 _setIntent:14];
@@ -5169,7 +5169,7 @@ LABEL_8:
 
     v10[4] = self;
     v11 = v3;
-    [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v9 options:v10 animations:0 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v9 delay:v10 options:0 animations:0.3 completion:0.0];
   }
 }
 
@@ -6491,7 +6491,7 @@ void __42__UICollectionView_setPrefetchDataSource___block_invoke_272(uint64_t a1
   v8 = v7;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:v10];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v10];
     v8 = v11;
   }
 }
@@ -6685,7 +6685,7 @@ LABEL_14:
     v48 = *(&self->_collectionViewFlags + 4);
     *(&self->_collectionViewFlags + 4) = v48 | 0x100000;
     v21 = &OBJC_IVAR____UISystemBackgroundView__strokeView;
-    if (previous || (v22 = 2976, !-[UICollectionView _allowsEffectiveMultipleSelection](self, "_allowsEffectiveMultipleSelection")) && ((selectionController = self->_selectionController) == 0 ? (v24 = 0) : (v24 = -[NSMutableSet copy](selectionController->_selectedIndexPaths, "copy")), [v24 anyObject], v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v45) = objc_msgSend(v25, "isEqual:", path), v25, v24, v21 = &OBJC_IVAR____UISystemBackgroundView__strokeView, (v45 & 1) == 0))
+    if (previous || (v22 = 2976, !-[UICollectionView _allowsEffectiveMultipleSelection](self, "_allowsEffectiveMultipleSelection")) && ((selectionController = self->_selectionController) == 0 ? (v24 = 0) : (v24 = -[NSMutableSet copy](selectionController->_selectedIndexPaths, "copy")), [v24 anyObject], v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v45) = objc_msgSend_isEqual_(v25), v25, v24, v21 = &OBJC_IVAR____UISystemBackgroundView__strokeView, (v45 & 1) == 0))
     {
       [(UICollectionView *)self _deselectAllAnimated:animatedCopy notifyDelegate:delegateCopy, v45];
       v22 = v21[181];
@@ -7290,7 +7290,7 @@ void __94__UICollectionView__deselectItemsAtIndexPaths_animated_transitionCoordi
   p_collectionViewFlags = &self->_collectionViewFlags;
   if (((((*(&self->_collectionViewFlags + 9) & 0x20) == 0) ^ allowsMultipleSelection) & 1) == 0)
   {
-    [(_UICollectionViewSelectionController *)self->_selectionController setAllowsMultipleSelection:?];
+    [(_UICollectionViewSelectionController *)&self->_selectionController->super.isa setAllowsMultipleSelection:?];
     if (allowsMultipleSelection)
     {
       *(p_collectionViewFlags + 1) |= 0x2000uLL;
@@ -7535,7 +7535,7 @@ void __94__UICollectionView__deselectItemsAtIndexPaths_animated_transitionCoordi
   return _UITriStateToBool(v2, v4);
 }
 
-uint64_t __51__UICollectionView__shouldBecomeFocusedOnSelection__block_invoke(uint64_t a1)
+BOOL __51__UICollectionView__shouldBecomeFocusedOnSelection__block_invoke(uint64_t a1)
 {
   if (dyld_program_sdk_at_least())
   {
@@ -7991,7 +7991,7 @@ LABEL_57:
     v9 = _layoutAxis;
     *(model + 2736) |= 0x400000u;
     v10 = dyld_program_sdk_at_least();
-    if (!v3 || !v10 || !v3[21] || !-[_UICollectionViewSubviewManager hasVisibleCells](*(model + 2984)) || [model _isReordering])
+    if (!v3 || !v10 || !*&v3[21] || !-[_UICollectionViewSubviewManager hasVisibleCells](*(model + 2984)) || [model _isReordering])
     {
       v11 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED4923E8);
       if (*v11)
@@ -8603,7 +8603,7 @@ LABEL_35:
       self->_firstResponderView = 0;
 
       subviewManager = self->_subviewManager;
-      if ((!subviewManager || ([(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews containsView:?]& 1) == 0) && firstResponderView != self->_newContentView)
+      if ((!subviewManager || ([(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa containsView:?]& 1) == 0) && firstResponderView != self->_newContentView)
       {
         objc_opt_self();
         if ((__addingResponderToTree & 1) == 0 && ![(UICollectionReusableView *)firstResponderView _isInUpdateAnimation])
@@ -9053,10 +9053,10 @@ LABEL_12:
   return v13;
 }
 
-void __75__UICollectionView__sectionContainerViewForSectionIndex_createIfNecessary___block_invoke(uint64_t a1)
+void __75__UICollectionView__sectionContainerViewForSectionIndex_createIfNecessary___block_invoke(void *a1)
 {
   v2 = [_UICollectionSectionContainerView alloc];
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = 0.0;
   v5 = 0.0;
   v6 = 0.0;
@@ -9071,27 +9071,27 @@ void __75__UICollectionView__sectionContainerViewForSectionIndex_createIfNecessa
   }
 
   v9 = [(_UICollectionSectionContainerView *)v2 initWithFrame:v8, v5, v6, v7];
-  v10 = *(*(a1 + 48) + 8);
+  v10 = *(a1[6] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
 
-  [*(*(*(a1 + 48) + 8) + 40) frame];
-  [*(*(*(a1 + 48) + 8) + 40) setBounds:?];
-  v12 = *(a1 + 32);
+  [*(*(a1[6] + 8) + 40) frame];
+  [*(*(a1[6] + 8) + 40) setBounds:?];
+  v12 = a1[4];
   if (v12)
   {
     v4 = *(v12 + 48);
   }
 
-  v13 = [*(*(*(a1 + 48) + 8) + 40) layer];
+  v13 = [*(*(a1[6] + 8) + 40) layer];
   [v13 setCornerRadius:v4];
 
-  v14 = *(*(*(a1 + 48) + 8) + 40);
-  v15 = *(*(a1 + 40) + 3120);
-  v16 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 56)];
+  v14 = *(*(a1[6] + 8) + 40);
+  v15 = *(a1[5] + 3120);
+  v16 = [MEMORY[0x1E696AD98] numberWithInteger:a1[7]];
   [v15 setObject:v14 forKeyedSubscript:v16];
 
-  v17 = [(UICollectionView *)*(a1 + 40) subviewRouter];
+  v17 = [(UICollectionView *)a1[5] subviewRouter];
   [(_UICollectionViewSubviewRouter *)v17 addContainerView:?];
 }
 
@@ -9193,7 +9193,7 @@ void __48__UICollectionView__layoutSectionContainerViews__block_invoke(uint64_t 
     v19[4] = attribute;
     if (subviewManager)
     {
-      [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:v19];
+      [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v19];
     }
 
     v7 = self->_layout;
@@ -9621,7 +9621,7 @@ LABEL_34:
       [(UICollectionViewLayout *)self->_layout _invalidateLayoutUsingContext:v26];
       if ((dyld_program_sdk_at_least() & 1) == 0)
       {
-        collectionViewContentRect = [(UICollectionViewData *)self->_collectionViewData collectionViewContentRect];
+        collectionViewContentRect = [(UICollectionViewData *)&self->_collectionViewData->super.isa collectionViewContentRect];
       }
 
       if ((*(&self->_collectionViewFlags + 11) & 0x40) == 0 && ![(UIScrollView *)self isTracking]&& ![(UICollectionViewLayout *)self->_layout _estimatesSizes])
@@ -9638,7 +9638,7 @@ LABEL_34:
           v66.size.height = v52;
           if (!CGRectIsEmpty(v66))
           {
-            [(UICollectionViewData *)self->_collectionViewData collectionViewContentRect];
+            [(UICollectionViewData *)&self->_collectionViewData->super.isa collectionViewContentRect];
             [(UICollectionView *)self _contentOffsetForNewFrame:x oldFrame:y newContentSize:width andOldContentSize:height, v50, v49, v51, v52, v35, v36, *&v32, *&v33];
             [(UICollectionView *)self setContentOffset:?];
           }
@@ -10123,21 +10123,21 @@ LABEL_32:
     if (v10 && !*(_focusedItemState + 32))
     {
       v12 = *(_focusedItemState + 16);
-      v11 = [pathCopy isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(pathCopy);
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqual = 0;
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (void)setPrefetchingEnabled:(BOOL)prefetchingEnabled
@@ -10467,7 +10467,7 @@ LABEL_67:
 
 LABEL_4:
   firstResponderIndexPath = self->_firstResponderIndexPath;
-  if (firstResponderIndexPath && self->_firstResponderViewType == 1 && [(NSIndexPath *)firstResponderIndexPath isEqual:path])
+  if (firstResponderIndexPath && self->_firstResponderViewType == 1 && objc_msgSend_isEqual_(firstResponderIndexPath))
   {
     [(UICollectionView *)self _configureCachedCellForDisplay:self->_firstResponderView withIndexPath:path layoutAttributesToUpdate:attributes];
     cell = self->_firstResponderView;
@@ -10492,9 +10492,9 @@ LABEL_4:
     }
 
     v20 = v19;
-    v21 = [path isEqual:v20];
+    isEqual = objc_msgSend_isEqual_(path);
 
-    if ((v21 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
       _focusedItemState3 = [(UICollectionView *)self _focusedItemState];
@@ -10721,7 +10721,8 @@ LABEL_39:
   {
     _layoutAttributes = [v85[5] _layoutAttributes];
     __indexPath = [(UICollectionViewLayoutAttributes *)_layoutAttributes __indexPath];
-    LOBYTE(__indexPath) = [__indexPath isEqual:-[UICollectionViewLayoutAttributes __indexPath](attributes)];
+    [(UICollectionViewLayoutAttributes *)attributes __indexPath];
+    LOBYTE(__indexPath) = objc_msgSend_isEqual_(__indexPath);
 
     if ((__indexPath & 1) == 0)
     {
@@ -10865,7 +10866,7 @@ void __112__UICollectionView__createPreparedCellForItemAtIndexPath_withLayoutAtt
   }
 
   firstResponderIndexPath = self->_firstResponderIndexPath;
-  if (firstResponderIndexPath && self->_firstResponderViewType == 2 && [(NSIndexPath *)firstResponderIndexPath isEqual:path]&& [(NSString *)self->_firstResponderViewKind isEqual:kindCopy])
+  if (firstResponderIndexPath && self->_firstResponderViewType == 2 && objc_msgSend_isEqual_(firstResponderIndexPath) && objc_msgSend_isEqual_(self->_firstResponderViewKind))
   {
     v14 = self->_firstResponderView;
     goto LABEL_51;
@@ -10941,9 +10942,9 @@ void __112__UICollectionView__createPreparedCellForItemAtIndexPath_withLayoutAtt
 
 LABEL_30:
     _elementKind = [v79[5] _elementKind];
-    v32 = [_elementKind isEqualToString:v19];
+    isEqualToString = objc_msgSend_isEqualToString_(_elementKind);
 
-    if ((v32 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       if (dyld_program_sdk_at_least() && (_UIIsPrivateMainBundle() & 1) == 0)
       {
@@ -11477,7 +11478,7 @@ LABEL_10:
   [(UICollectionView *)selfCopy2 _setContentSize:v11 skipContentOffsetAdjustment:v9, v10];
 }
 
-- (uint64_t)_applyLayoutAttributes:(void *)attributes toView:(int)view addingControlledSubview:(uint64_t)subview forced:
+- (void)_applyLayoutAttributes:(void *)attributes toView:(int)view addingControlledSubview:(uint64_t)subview forced:
 {
   v21 = *MEMORY[0x1E69E9840];
   if (!result)
@@ -11593,9 +11594,9 @@ LABEL_6:
           }
 
           expectedCellIndexPath = [*(*(&v14 + 1) + 8 * i) expectedCellIndexPath];
-          v12 = [expectedCellIndexPath isEqual:pathCopy];
+          isEqual = objc_msgSend_isEqual_(expectedCellIndexPath);
 
-          if (v12)
+          if (isEqual)
           {
             LOBYTE(v8) = 1;
             goto LABEL_16;
@@ -11918,10 +11919,10 @@ LABEL_29:
         if (!v14)
         {
           _focusedItemState = [(UICollectionView *)self _focusedItemState];
-          if (!_focusedItemState || ((v16 = _focusedItemState, -[UICollectionView _focusedItemState](self, "_focusedItemState"), v17 = objc_claimAutoreleasedReturnValue(), (v18 = v17) == 0) ? (v19 = 0) : (v19 = *(v17 + 16)), v20 = v19, v21 = [v20 isEqual:indexPath], v20, v18, v16, v6 = &OBJC_IVAR____UISystemBackgroundView__strokeView, (v21 & 1) == 0))
+          if (!_focusedItemState || ((v16 = _focusedItemState, [(UICollectionView *)self _focusedItemState], v17 = objc_claimAutoreleasedReturnValue(), (v18 = v17) == 0) ? (v19 = 0) : (v19 = *(v17 + 16)), v20 = v19, isEqual = objc_msgSend_isEqual_(v20), v20, v18, v16, v6 = &OBJC_IVAR____UISystemBackgroundView__strokeView, (isEqual & 1) == 0))
           {
             firstResponderIndexPath = self->_firstResponderIndexPath;
-            if (!firstResponderIndexPath || ([(NSIndexPath *)firstResponderIndexPath isEqual:indexPath]& 1) == 0)
+            if (!firstResponderIndexPath || (objc_msgSend_isEqual_(firstResponderIndexPath) & 1) == 0)
             {
               v23 = v8 ? v8[2] : 0;
               v24 = v23;
@@ -13672,61 +13673,61 @@ BOOL __70__UICollectionView__rebaseContentOffsetAnchorOrScrollTargetForUpdate___
   return v4;
 }
 
-- (uint64_t)_restoreOrAdjustContentOffsetIfNecessaryWithInsets:(char)insets hasUpdatedVisibleCells:(double)cells isRecursive:(double)recursive
+- (id)_restoreOrAdjustContentOffsetIfNecessaryWithInsets:(char)insets hasUpdatedVisibleCells:(double)cells isRecursive:(double)recursive
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   if (!result)
   {
     return result;
   }
 
-  v9 = result;
-  result = [*(result + 2152) _estimatesSizes];
+  v11 = result;
+  result = [result[269] _estimatesSizes];
   if ((result & 1) == 0)
   {
-    [v9 _clearContentOffsetRestorationAnchor];
-    result = [v9 _clearTargetIndexPathForScrolling];
+    [v11 _clearContentOffsetRestorationAnchor];
+    result = [v11 _clearTargetIndexPathForScrolling];
   }
 
-  *(v9 + 2736) &= ~0x400000u;
-  v10 = *(v9 + 3024);
-  if (v10)
+  *(v11 + 684) &= ~0x400000u;
+  v12 = v11[378];
+  if (v12)
   {
-    if ([v9 _validateScrollingTargetIndexPath:v10 raisingExceptionIfNecessary:0])
+    if ([v11 _validateScrollingTargetIndexPath:v12 raisingExceptionIfNecessary:0])
     {
-      v11 = *(v9 + 3024);
-      if (!v11)
+      v13 = v11[378];
+      if (!v13)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel__contentOffsetForCurrentScrollingTargetWithContentInsets_ object:v9 file:@"UICollectionView.m" lineNumber:5378 description:{@"Invalid parameter not satisfying: %@", @"targetIndexPathForScrolling != nil"}];
+        [currentHandler handleFailureInMethod:sel__contentOffsetForCurrentScrollingTargetWithContentInsets_ object:v11 file:@"UICollectionView.m" lineNumber:5378 description:{@"Invalid parameter not satisfying: %@", @"targetIndexPathForScrolling != nil"}];
       }
 
-      v111.origin.x = [(UICollectionView *)v9 _frameOfElementAtScrollingTargetIndexPath:v11];
-      width = v111.size.width;
-      height = v111.size.height;
-      x = v111.origin.x;
-      y = v111.origin.y;
-      if (CGRectIsNull(v111))
+      v113.origin.x = [(UICollectionView *)v11 _frameOfElementAtScrollingTargetIndexPath:v13];
+      width = v113.size.width;
+      height = v113.size.height;
+      x = v113.origin.x;
+      y = v113.origin.y;
+      if (CGRectIsNull(v113))
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-        v70 = objc_opt_class();
-        _ui_shortDescription = [v11 _ui_shortDescription];
-        [currentHandler2 handleFailureInMethod:sel__contentOffsetForCurrentScrollingTargetWithContentInsets_ object:v9 file:@"UICollectionView.m" lineNumber:5381 description:{@"<%@ %p> received null frame for scrolling target at index path %@.\nCollection View: %@.\nLayout: %@", v70, v9, _ui_shortDescription, v9, *(v9 + 2152)}];
+        v72 = objc_opt_class();
+        _ui_shortDescription = [v13 _ui_shortDescription];
+        [currentHandler2 handleFailureInMethod:sel__contentOffsetForCurrentScrollingTargetWithContentInsets_ object:v11 file:@"UICollectionView.m" lineNumber:5381 description:{@"<%@ %p> received null frame for scrolling target at index path %@.\nCollection View: %@.\nLayout: %@", v72, v11, _ui_shortDescription, v11, v11[269]}];
       }
 
-      _layoutAxis = [*(v9 + 2152) _layoutAxis];
-      v15 = *(v9 + 3048);
-      v16 = *(v9 + 3056);
-      v17 = *(v9 + 3064);
-      v18 = *(v9 + 3072);
-      v19 = *(v9 + 3080);
-      if (_UISizeEqualToSizeWithPrecision(v18, v19, width, height, 0.0001))
+      _layoutAxis = [v11[269] _layoutAxis];
+      v17 = v11[381];
+      v18 = *(v11 + 382);
+      v19 = *(v11 + 383);
+      v20 = *(v11 + 384);
+      v21 = *(v11 + 385);
+      if (_UISizeEqualToSizeWithPrecision(v20, v21, width, height, 0.0001))
       {
-        [v9 contentOffset];
-        v21 = v20;
+        [v11 contentOffset];
         v23 = v22;
-        v24 = _UIPointValueForAxis(_layoutAxis, x, y);
-        v25 = v24 + _UIPointValueForAxis(_layoutAxis, *(v9 + 3032), *(v9 + 3040));
+        v25 = v24;
+        v26 = _UIPointValueForAxis(_layoutAxis, x, y);
+        v27 = v26 + _UIPointValueForAxis(_layoutAxis, *(v11 + 379), *(v11 + 380));
         if (_layoutAxis == 2)
         {
           recursiveCopy = cells;
@@ -13737,22 +13738,22 @@ BOOL __70__UICollectionView__rebaseContentOffsetAnchorOrScrollTargetForUpdate___
           recursiveCopy = recursive;
         }
 
-        v27 = _UISetPointValueForAxis(_layoutAxis, v21, v23, v25 - recursiveCopy);
-        v29 = *(v9 + 2272);
-        if (v29)
+        v29 = _UISetPointValueForAxis(_layoutAxis, v23, v25, v27 - recursiveCopy);
+        v31 = v11[284];
+        if (v31)
         {
-          v30 = *(v29 + 80);
-          v31 = *(v29 + 88);
+          v32 = v31[10];
+          v33 = v31[11];
         }
 
         else
         {
-          v31 = 0.0;
-          v30 = 0.0;
+          v33 = 0.0;
+          v32 = 0.0;
         }
 
-        v32 = [(UICollectionView *)v9 _clampedContentOffset:v9 forScrollableAreaGivenContentSize:v27 inScrollView:v28, v30, v31];
-        v34 = v33;
+        v34 = [(UICollectionView *)v11 _clampedContentOffset:v11 forScrollableAreaGivenContentSize:v29 inScrollView:v30, v32, v33];
+        v36 = v35;
       }
 
       else
@@ -13760,155 +13761,155 @@ BOOL __70__UICollectionView__rebaseContentOffsetAnchorOrScrollTargetForUpdate___
         CategoryCachedImpl = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492448);
         if (*CategoryCachedImpl)
         {
-          v74 = *(CategoryCachedImpl + 8);
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          v76 = *(CategoryCachedImpl + 8);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
           {
-            v75 = v74;
-            v118.origin.x = v16;
-            v118.origin.y = v17;
-            v118.size.width = v18;
-            v118.size.height = v19;
-            v76 = NSStringFromCGRect(v118);
-            v119.origin.x = x;
-            v119.origin.y = y;
-            v119.size.width = width;
-            v119.size.height = height;
-            v77 = NSStringFromCGRect(v119);
-            _ui_shortDescription2 = [v11 _ui_shortDescription];
+            v77 = v76;
+            v120.origin.x = v18;
+            v120.origin.y = v19;
+            v120.size.width = v20;
+            v120.size.height = v21;
+            v78 = NSStringFromCGRect(v120);
+            v121.origin.x = x;
+            v121.origin.y = y;
+            v121.size.width = width;
+            v121.size.height = height;
+            v79 = NSStringFromCGRect(v121);
+            _ui_shortDescription2 = [v13 _ui_shortDescription];
             *buf = 134218754;
-            v96 = v9;
-            v97 = 2112;
-            v98 = v76;
+            v98 = v11;
             v99 = 2112;
-            v100 = v77;
+            v100 = v78;
             v101 = 2112;
-            v102 = _ui_shortDescription2;
-            _os_log_impl(&dword_188A29000, v75, OS_LOG_TYPE_ERROR, "_contentOffsetForCurrentScrollingTarget: cv == %p; updating scrolling target info for change in size of target %@ from %@ to %@", buf, 0x2Au);
+            v102 = v79;
+            v103 = 2112;
+            v104 = _ui_shortDescription2;
+            _os_log_impl(&dword_188A29000, v77, OS_LOG_TYPE_ERROR, "_contentOffsetForCurrentScrollingTarget: cv == %p; updating scrolling target info for change in size of target %@ from %@ to %@", buf, 0x2Au);
           }
         }
 
-        [v9 _contentOffsetForScrollingToItemAtIndexPath:v11 atScrollPosition:v15 additionalInsets:{*(v9 + 3088), *(v9 + 3096), *(v9 + 3104), *(v9 + 3112)}];
-        v32 = v47;
-        v34 = v48;
-        [(UICollectionView *)v9 _storeScrollingTargetInfoForIndexPath:v11 frame:v15 scrollPosition:x additionalInsets:y, width, height, *(v9 + 3088), *(v9 + 3096), *(v9 + 3104), *(v9 + 3112)];
+        [v11 _contentOffsetForScrollingToItemAtIndexPath:v13 atScrollPosition:v17 additionalInsets:{*(v11 + 386), *(v11 + 387), *(v11 + 388), *(v11 + 389)}];
+        v34 = v49;
+        v36 = v50;
+        [(UICollectionView *)v11 _storeScrollingTargetInfoForIndexPath:v13 frame:v17 scrollPosition:x additionalInsets:y, width, height, *(v11 + 386), *(v11 + 387), *(v11 + 388), *(v11 + 389)];
       }
 
-      if ([v9 isScrollAnimating])
+      if ([v11 isScrollAnimating])
       {
-        v49 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492428);
-        if (*v49)
+        v51 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492428);
+        if (*v51)
         {
-          v79 = *(v49 + 8);
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+          v81 = *(v51 + 8);
+          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
           {
-            v80 = v79;
-            v109.x = v32;
-            v109.y = v34;
-            v81 = NSStringFromCGPoint(v109);
-            _ui_shortDescription3 = [*(v9 + 3024) _ui_shortDescription];
+            v82 = v81;
+            v111.x = v34;
+            v111.y = v36;
+            v83 = NSStringFromCGPoint(v111);
+            _ui_shortDescription3 = [v11[378] _ui_shortDescription];
             *buf = 134218498;
-            v96 = v9;
-            v97 = 2112;
-            v98 = v81;
+            v98 = v11;
             v99 = 2112;
-            v100 = _ui_shortDescription3;
-            _os_log_impl(&dword_188A29000, v80, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Updating scroll animation to target offset %@ for %@", buf, 0x20u);
+            v100 = v83;
+            v101 = 2112;
+            v102 = _ui_shortDescription3;
+            _os_log_impl(&dword_188A29000, v82, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Updating scroll animation to target offset %@ for %@", buf, 0x20u);
           }
         }
 
-        return [v9 _updateScrollAnimationForChangedTargetOffset:{v32, v34}];
+        return [v11 _updateScrollAnimationForChangedTargetOffset:{v34, v36}];
       }
 
-      v50 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492430);
-      if (*v50)
+      v52 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492430);
+      if (*v52)
       {
-        v83 = *(v50 + 8);
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+        v85 = *(v52 + 8);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
         {
-          v84 = v83;
-          v110.x = v32;
-          v110.y = v34;
-          v85 = NSStringFromCGPoint(v110);
-          _ui_shortDescription4 = [*(v9 + 3024) _ui_shortDescription];
+          v86 = v85;
+          v112.x = v34;
+          v112.y = v36;
+          v87 = NSStringFromCGPoint(v112);
+          _ui_shortDescription4 = [v11[378] _ui_shortDescription];
           *buf = 134218498;
-          v96 = v9;
-          v97 = 2112;
-          v98 = v85;
+          v98 = v11;
           v99 = 2112;
-          v100 = _ui_shortDescription4;
-          _os_log_impl(&dword_188A29000, v84, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Setting content offset to %@ for scrolling to %@", buf, 0x20u);
+          v100 = v87;
+          v101 = 2112;
+          v102 = _ui_shortDescription4;
+          _os_log_impl(&dword_188A29000, v86, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Setting content offset to %@ for scrolling to %@", buf, 0x20u);
         }
       }
 
-      v51 = *(v9 + 3352);
-      if (!v51)
+      v53 = v11[419];
+      if (!v53)
       {
 LABEL_35:
-        v59 = *(v9 + 2736);
-        *(v9 + 2736) = v59 | 0x80000;
-        result = [v9 setContentOffset:{v32, v34}];
-        *(v9 + 2736) = *(v9 + 2736) & 0xFFF7FFFF | (((v59 >> 19) & 1) << 19);
+        v61 = *(v11 + 684);
+        *(v11 + 684) = v61 | 0x80000;
+        result = [v11 setContentOffset:{v34, v36}];
+        *(v11 + 684) = v11[342] & 0xFFF7FFFF | (((v61 >> 19) & 1) << 19);
         return result;
       }
 
-      v52 = MEMORY[0x1E696AEC0];
-      [v9 contentOffset];
-      v44 = NSStringFromCGPoint(v105);
-      v106.x = v32;
-      v106.y = v34;
-      v53 = NSStringFromCGPoint(v106);
-      _ui_shortDescription5 = [*(v9 + 3024) _ui_shortDescription];
-      v55 = NSStringFromCGPoint(*(v9 + 3032));
-      [v9 _effectiveContentInset];
-      v56 = NSStringFromUIEdgeInsets(v114);
-      [v9 safeAreaInsets];
-      v57 = NSStringFromUIEdgeInsets(v115);
-      v58 = [v52 stringWithFormat:@"content offset changing from %@ to %@ for scrolling to %@ with offset %@ effectiveInsets: %@; safeAreaInsets: %@", v44, v53, _ui_shortDescription5, v55, v56, v57];;
-      [v51 recordGenericChangeWithMessage:v58];
+      v54 = MEMORY[0x1E696AEC0];
+      [v11 contentOffset];
+      v46 = NSStringFromCGPoint(v107);
+      v108.x = v34;
+      v108.y = v36;
+      v55 = NSStringFromCGPoint(v108);
+      _ui_shortDescription5 = [v11[378] _ui_shortDescription];
+      v57 = NSStringFromCGPoint(*(v11 + 379));
+      [v11 _effectiveContentInset];
+      v58 = NSStringFromUIEdgeInsets(v116);
+      [v11 safeAreaInsets];
+      v59 = NSStringFromUIEdgeInsets(v117);
+      v60 = [v54 stringWithFormat:@"content offset changing from %@ to %@ for scrolling to %@ with offset %@ effectiveInsets: %@; safeAreaInsets: %@", v46, v55, _ui_shortDescription5, v57, v58, v59];;
+      [v53 recordGenericChangeWithMessage:v60];
 
 LABEL_34:
       goto LABEL_35;
     }
 
-    v45 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492438);
-    if (*v45)
+    v47 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492438);
+    if (*v47)
     {
-      v72 = *(v45 + 8);
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      v74 = *(v47 + 8);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        v73 = *(v9 + 3024);
+        v75 = v11[378];
         *buf = 134218242;
-        v96 = v9;
-        v97 = 2112;
-        v98 = v73;
-        _os_log_impl(&dword_188A29000, v72, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Clearing invalid scrolling target %@", buf, 0x16u);
+        v98 = v11;
+        v99 = 2112;
+        v100 = v75;
+        _os_log_impl(&dword_188A29000, v74, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Clearing invalid scrolling target %@", buf, 0x16u);
       }
     }
 
-    return [v9 _clearTargetIndexPathForScrolling];
+    return [v11 _clearTargetIndexPathForScrolling];
   }
 
-  else if (*(v9 + 3000))
+  else if (v11[375])
   {
-    v94 = 0;
-    v35 = [(UICollectionView *)v9 _contentOffsetForRestoringPositionToCurrentRestorationAnchorWithContentInsets:cells shouldApply:recursive];
-    if (v94 == 1)
+    v96 = 0;
+    v37 = [(UICollectionView *)v11 _contentOffsetForRestoringPositionToCurrentRestorationAnchorWithContentInsets:cells shouldApply:recursive];
+    if (v96 == 1)
     {
-      v32 = v35;
-      v34 = v36;
-      v37 = *(v9 + 3352);
-      if (v37)
+      v34 = v37;
+      v36 = v38;
+      v39 = v11[419];
+      if (v39)
       {
-        v93 = MEMORY[0x1E696AEC0];
-        _ui_shortDescription6 = [*(v9 + 3000) _ui_shortDescription];
-        v39 = NSStringFromCGPoint(*(v9 + 3008));
-        v40 = [(UICollectionViewData *)*(v9 + 2272) layoutAttributesForItemAtIndexPath:?];
-        [v9 _effectiveContentInset];
-        v41 = NSStringFromUIEdgeInsets(v112);
-        [v9 safeAreaInsets];
-        v42 = NSStringFromUIEdgeInsets(v113);
-        v43 = [v93 stringWithFormat:@"Setting content offset for restoring relative scroll position to %@ with offset %@ attributes: %@; effectiveInsets: %@; safeAreaInsets: %@", _ui_shortDescription6, v39, v40, v41, v42];;
-        [v37 recordGenericChangeWithMessage:v43];
+        v95 = MEMORY[0x1E696AEC0];
+        _ui_shortDescription6 = [v11[375] _ui_shortDescription];
+        v41 = NSStringFromCGPoint(*(v11 + 188));
+        v42 = [(UICollectionViewData *)v11[284] layoutAttributesForItemAtIndexPath:?];
+        [v11 _effectiveContentInset];
+        v43 = NSStringFromUIEdgeInsets(v114);
+        [v11 safeAreaInsets];
+        v44 = NSStringFromUIEdgeInsets(v115);
+        v45 = [v95 stringWithFormat:@"Setting content offset for restoring relative scroll position to %@ with offset %@ attributes: %@; effectiveInsets: %@; safeAreaInsets: %@", _ui_shortDescription6, v41, v42, v43, v44];;
+        [v39 recordGenericChangeWithMessage:v45];
       }
 
       if (a2 & 1) != 0 || (insets)
@@ -13916,63 +13917,63 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      v44 = [MEMORY[0x1E695DFB8] orderedSetWithObject:*(v9 + 3000)];
-      [(UICollectionView *)v9 _addIndexPathsRequiringPreferredAttributes:v44];
+      v46 = [MEMORY[0x1E695DFB8] orderedSetWithObject:v11[375]];
+      [(UICollectionView *)v11 _addIndexPathsRequiringPreferredAttributes:v46];
       goto LABEL_34;
     }
 
-    v60 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492440);
-    if (*v60)
+    v62 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492440);
+    if (*v62)
     {
-      v87 = *(v60 + 8);
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+      v89 = *(v62 + 8);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
-        v88 = *(v9 + 3000);
-        v89 = v87;
-        _ui_shortDescription7 = [v88 _ui_shortDescription];
+        v90 = v11[375];
+        v91 = v89;
+        _ui_shortDescription7 = [v90 _ui_shortDescription];
         *buf = 134218242;
-        v96 = v9;
-        v97 = 2112;
-        v98 = _ui_shortDescription7;
-        _os_log_impl(&dword_188A29000, v89, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Clearing invalid restoration anchor %@", buf, 0x16u);
+        v98 = v11;
+        v99 = 2112;
+        v100 = _ui_shortDescription7;
+        _os_log_impl(&dword_188A29000, v91, OS_LOG_TYPE_ERROR, "_adjustContentOffset: cv == %p; Clearing invalid restoration anchor %@", buf, 0x16u);
       }
     }
 
-    return [v9 _clearContentOffsetRestorationAnchor];
+    return [v11 _clearContentOffsetRestorationAnchor];
   }
 
-  else if ((*(v9 + 2738) & 0x20) != 0)
+  else if ((*(v11 + 2738) & 0x20) != 0)
   {
-    result = [v9 isDragging];
+    result = [v11 isDragging];
     if ((result & 1) == 0)
     {
-      if ([v9 isDecelerating])
+      if ([v11 isDecelerating])
       {
-        [v9 contentOffset];
-        [v9 contentOffset];
+        [v11 contentOffset];
+        [v11 contentOffset];
 
-        return [v9 _updateDecelerationLastOffset:?];
+        return [v11 _updateDecelerationLastOffset:?];
       }
 
       else
       {
-        v61 = *(v9 + 3352);
-        if (v61)
+        v63 = v11[419];
+        if (v63)
         {
-          v62 = MEMORY[0x1E696AEC0];
-          [v9 contentOffset];
-          v63 = NSStringFromCGPoint(v107);
-          [v9 contentSize];
-          v64 = NSStringFromCGSize(v108);
-          [v9 _effectiveContentInset];
-          v65 = NSStringFromUIEdgeInsets(v116);
-          [v9 safeAreaInsets];
-          v66 = NSStringFromUIEdgeInsets(v117);
-          v67 = [v62 stringWithFormat:@"Adjusting content offset after layout. Current contentOffset: %@ contentSize: %@; effectiveInsets: %@; safeAreaInsets: %@.", v63, v64, v65, v66];;
-          [v61 recordGenericChangeWithMessage:v67];
+          v64 = MEMORY[0x1E696AEC0];
+          [v11 contentOffset];
+          v65 = NSStringFromCGPoint(v109);
+          [v11 contentSize];
+          v66 = NSStringFromCGSize(v110);
+          [v11 _effectiveContentInset];
+          v67 = NSStringFromUIEdgeInsets(v118);
+          [v11 safeAreaInsets];
+          v68 = NSStringFromUIEdgeInsets(v119);
+          v69 = [v64 stringWithFormat:@"Adjusting content offset after layout. Current contentOffset: %@ contentSize: %@; effectiveInsets: %@; safeAreaInsets: %@.", v65, v66, v67, v68];;
+          [v63 recordGenericChangeWithMessage:v69];
         }
 
-        return [v9 _adjustContentOffsetIfNecessary];
+        return [v11 _adjustContentOffsetIfNecessary];
       }
     }
   }
@@ -14028,7 +14029,7 @@ LABEL_34:
       else
       {
         v19 = *(self + 2272);
-        if (v19 && ([(UICollectionViewData *)v19 _isIndexPathValid:1 validateItemCounts:?]& 1) != 0)
+        if (v19 && [(UICollectionViewData *)v19 _isIndexPathValid:1 validateItemCounts:?])
         {
           v20 = [(UICollectionViewData *)*(self + 2272) layoutAttributesForItemAtIndexPath:?];
           [v20 frame];
@@ -14242,7 +14243,7 @@ LABEL_34:
 
 - (unint64_t)_updateVisibleCellsNow:(BOOL)now
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v157 = *MEMORY[0x1E69E9840];
   if (self->_reloadingSuspendedCount > 0)
   {
     return 0;
@@ -14258,19 +14259,19 @@ LABEL_34:
   CategoryCachedImpl = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492460);
   if (*CategoryCachedImpl)
   {
-    v112 = *(CategoryCachedImpl + 8);
-    if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+    v116 = *(CategoryCachedImpl + 8);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
     {
-      v113 = self->_updateVisibleCellsRecursionCount;
+      v117 = self->_updateVisibleCellsRecursionCount;
       [(UICollectionView *)self _visibleBounds];
-      v114 = NSStringFromCGRect(v154);
-      *v147 = 134218498;
+      v118 = NSStringFromCGRect(v158);
+      *v151 = 134218498;
       selfCopy8 = self;
-      v149 = 2048;
-      v150 = v113;
-      v151 = 2112;
-      v152 = v114;
-      _os_log_impl(&dword_188A29000, v112, OS_LOG_TYPE_ERROR, "_updateVisibleCellsNow: %p; recursionCount=%ld, _visibleBounds=%@", v147, 0x20u);
+      v153 = 2048;
+      v154 = v117;
+      v155 = 2112;
+      v156 = v118;
+      _os_log_impl(&dword_188A29000, v116, OS_LOG_TYPE_ERROR, "_updateVisibleCellsNow: %p; recursionCount=%ld, _visibleBounds=%@", v151, 0x20u);
     }
   }
 
@@ -14285,46 +14286,48 @@ LABEL_34:
   [(UIScrollView *)self _contentInsetIncludingDecorations];
   v9 = v8;
   v11 = v10;
+  v13 = v12;
+  v15 = v14;
   if (+[UIView _isInAnimationBlockWithAnimationsEnabled]&& (*(&self->_collectionViewFlags + 12) & 2) != 0)
   {
     _shouldFadeCellsForBoundChangeWhileRotating = [(UICollectionView *)self _shouldFadeCellsForBoundChangeWhileRotating];
-    v12 = 0x10000000;
+    v16 = 0x10000000;
     if (!_shouldFadeCellsForBoundChangeWhileRotating)
     {
-      v12 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v16 = 0;
   }
 
-  *(&self->_collectionViewFlags + 1) |= v12;
+  *(&self->_collectionViewFlags + 1) |= v16;
   [(UICollectionView *)self _suspendReloads];
-  v14 = *(&self->_collectionViewFlags + 1);
+  v18 = *(&self->_collectionViewFlags + 1);
   if (updateVisibleCellsRecursionCount <= 0)
   {
     didScrollNotificationSuspensionCount = self->_didScrollNotificationSuspensionCount;
     if (!didScrollNotificationSuspensionCount)
     {
       [(UIScrollView *)self contentOffset];
-      self->_contentOffsetWhenScrollNotificationsSuspended.x = v17;
-      self->_contentOffsetWhenScrollNotificationsSuspended.y = v18;
+      self->_contentOffsetWhenScrollNotificationsSuspended.x = v21;
+      self->_contentOffsetWhenScrollNotificationsSuspended.y = v22;
     }
 
     self->_didScrollNotificationSuspensionCount = didScrollNotificationSuspensionCount + 1;
-    if ((v14 & 0x10000000) != 0)
+    if ((v18 & 0x10000000) != 0)
     {
       goto LABEL_15;
     }
 
 LABEL_19:
-    [(UICollectionView *)self _restoreOrAdjustContentOffsetIfNecessaryWithInsets:updateVisibleCellsRecursionCount > 0 hasUpdatedVisibleCells:v9 isRecursive:v11];
+    [(UICollectionView *)&self->super.super.super.super.isa _restoreOrAdjustContentOffsetIfNecessaryWithInsets:updateVisibleCellsRecursionCount > 0 hasUpdatedVisibleCells:v9 isRecursive:v11, v13, v15];
     goto LABEL_20;
   }
 
-  if ((v14 & 0x10000000) == 0)
+  if ((v18 & 0x10000000) == 0)
   {
     goto LABEL_19;
   }
@@ -14339,158 +14342,158 @@ LABEL_15:
   [(UICollectionView *)self _delegateTargetOffsetForProposedContentOffset:?];
   [(UICollectionView *)self setContentOffset:?];
 LABEL_20:
-  v119 = *(&self->_collectionViewFlags + 1);
-  *(&self->_collectionViewFlags + 1) = v119 & 0xFFFFFEBFFFFFFFFFLL | 0x4000000000;
-  v19 = self->_subviewManager;
+  v123 = *(&self->_collectionViewFlags + 1);
+  *(&self->_collectionViewFlags + 1) = v123 & 0xFFFFFEBFFFFFFFFFLL | 0x4000000000;
+  v23 = self->_subviewManager;
   collectionViewData = self->_collectionViewData;
   [(UICollectionView *)self _visibleBounds];
-  v123 = [(UICollectionViewData *)collectionViewData layoutAttributesForElementsInRect:v21, v22, v23, v24];
+  v127 = [(UICollectionViewData *)collectionViewData layoutAttributesForElementsInRect:v25, v26, v27, v28];
   if (nowCopy)
   {
     *(&self->_collectionViewFlags + 1) &= 0xFFFFFFFFEFFFFBFFLL;
   }
 
-  [(UICollectionViewData *)self->_collectionViewData collectionViewContentRect];
-  [(UICollectionView *)self _setContentSizeFromLayout:updateVisibleCellsRecursionCount > 0 isRecursivelyUpdatingVisibleCells:v25, v26];
-  if ((v14 & 0x10000000) != 0)
+  [(UICollectionViewData *)&self->_collectionViewData->super.isa collectionViewContentRect];
+  [(UICollectionView *)self _setContentSizeFromLayout:updateVisibleCellsRecursionCount > 0 isRecursivelyUpdatingVisibleCells:v29, v30];
+  if ((v18 & 0x10000000) != 0)
   {
-    v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v134[0] = MEMORY[0x1E69E9820];
-    v134[1] = 3221225472;
-    v134[2] = __43__UICollectionView__updateVisibleCellsNow___block_invoke;
-    v134[3] = &unk_1E70FFC98;
-    v28 = v27;
-    v135 = v28;
-    if (v19)
+    v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v138[0] = MEMORY[0x1E69E9820];
+    v138[1] = 3221225472;
+    v138[2] = __43__UICollectionView__updateVisibleCellsNow___block_invoke;
+    v138[3] = &unk_1E70FFC98;
+    v32 = v31;
+    v139 = v32;
+    if (v23)
     {
-      [(_UICollectionViewSubviewCollection *)v19->_visibleViews enumerateAllViewsWithEnumerator:v134];
+      [(_UICollectionViewSubviewCollection *)&v23->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v138];
     }
 
-    [v28 sortUsingComparator:&__block_literal_global_116];
-    v29 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v123 copyItems:1];
-    v30 = self->_layout;
+    [v32 sortUsingComparator:&__block_literal_global_116];
+    v33 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v127 copyItems:1];
+    v34 = self->_layout;
     [(UIScrollView *)self contentOffset];
-    [(UICollectionViewLayout *)v30 _prepareToAnimateFromCollectionViewItems:v28 atContentOffset:v29 toItems:self->_lastLayoutOffset.x atContentOffset:self->_lastLayoutOffset.y, v31, v32];
+    [(UICollectionViewLayout *)v34 _prepareToAnimateFromCollectionViewItems:v32 atContentOffset:v33 toItems:self->_lastLayoutOffset.x atContentOffset:self->_lastLayoutOffset.y, v35, v36];
   }
 
   [(_UICollectionViewOrthogonalScrollerSectionController *)self->_orthogonalScrollerController layoutScrollViews];
   [(UICollectionView *)self _layoutSectionContainerViews];
-  v128 = v14;
-  v126 = updateVisibleCellsRecursionCount;
-  v125 = nowCopy;
-  p_isa = &v19->super.isa;
+  v132 = v18;
+  v130 = updateVisibleCellsRecursionCount;
+  v129 = nowCopy;
+  p_isa = &v23->super.isa;
   if (nowCopy)
   {
-    v33 = [(NSMutableOrderedSet *)self->_indexPathsRequiringPreferredAttributes copy];
+    v37 = [(NSMutableOrderedSet *)self->_indexPathsRequiringPreferredAttributes copy];
     indexPathsRequiringPreferredAttributes = self->_indexPathsRequiringPreferredAttributes;
     self->_indexPathsRequiringPreferredAttributes = 0;
 
-    v118 = v33;
+    v122 = v37;
     if ((*(&self->_collectionViewFlags + 11) & 0x40) != 0)
     {
-      v66 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492470);
-      if (*v66)
+      v70 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492470);
+      if (*v70)
       {
-        v116 = *(v66 + 8);
-        if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+        v120 = *(v70 + 8);
+        if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
         {
-          *v147 = 134217984;
+          *v151 = 134217984;
           selfCopy8 = self;
-          _os_log_impl(&dword_188A29000, v116, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; skipping because we need a reload", v147, 0xCu);
+          _os_log_impl(&dword_188A29000, v120, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; skipping because we need a reload", v151, 0xCu);
         }
       }
     }
 
     else
     {
-      v138 = 0u;
-      v139 = 0u;
-      v136 = 0u;
-      v137 = 0u;
-      v35 = v33;
-      v36 = [v35 countByEnumeratingWithState:&v136 objects:v147 count:16];
-      if (v36)
+      v142 = 0u;
+      v143 = 0u;
+      v140 = 0u;
+      v141 = 0u;
+      v39 = v37;
+      v40 = [v39 countByEnumeratingWithState:&v140 objects:v151 count:16];
+      if (v40)
       {
-        v37 = v36;
-        v38 = *v137;
-        v127 = v35;
+        v41 = v40;
+        v42 = *v141;
+        v131 = v39;
         do
         {
-          v39 = 0;
+          v43 = 0;
           do
           {
-            if (*v137 != v38)
+            if (*v141 != v42)
             {
-              objc_enumerationMutation(v35);
+              objc_enumerationMutation(v39);
             }
 
-            v40 = *(*(&v136 + 1) + 8 * v39);
-            if ([(UICollectionView *)self _indexPathIsValid:v40])
+            v44 = *(*(&v140 + 1) + 8 * v43);
+            if ([(UICollectionView *)self _indexPathIsValid:v44])
             {
-              v41 = [(UICollectionViewData *)self->_collectionViewData layoutAttributesForItemAtIndexPath:v40];
-              if (v41)
+              v45 = [(UICollectionViewData *)self->_collectionViewData layoutAttributesForItemAtIndexPath:v44];
+              if (v45)
               {
-                v42 = [(_UICollectionViewSubviewManager *)self->_subviewManager visibleCellAtIndexPath:v40];
-                if (v42)
+                v46 = [(_UICollectionViewSubviewManager *)self->_subviewManager visibleCellAtIndexPath:v44];
+                if (v46)
                 {
-                  v43 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492478);
-                  if (*v43)
+                  v47 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492478);
+                  if (*v47)
                   {
-                    v52 = *(v43 + 8);
-                    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+                    v56 = *(v47 + 8);
+                    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                     {
-                      v53 = v52;
-                      _ui_shortDescription = [v40 _ui_shortDescription];
+                      v57 = v56;
+                      _ui_shortDescription = [v44 _ui_shortDescription];
                       *buf = 134218498;
                       selfCopy7 = self;
-                      v143 = 2112;
-                      v144 = v42;
-                      v145 = 2112;
-                      v146 = _ui_shortDescription;
-                      _os_log_impl(&dword_188A29000, v53, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for existing cell: %@; index path: %@", buf, 0x20u);
+                      v147 = 2112;
+                      v148 = v46;
+                      v149 = 2112;
+                      v150 = _ui_shortDescription;
+                      _os_log_impl(&dword_188A29000, v57, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for existing cell: %@; index path: %@", buf, 0x20u);
                     }
                   }
 
-                  [(UICollectionView *)self _recomputePreferredAttributesForInvalidatedView:v42 originalAttributes:v41];
+                  [(UICollectionView *)self _recomputePreferredAttributesForInvalidatedView:v46 originalAttributes:v45];
                 }
 
                 else
                 {
-                  v44 = [(NSMutableDictionary *)self->_prefetchCacheItems objectForKeyedSubscript:v40];
-                  if (v44)
+                  v48 = [(NSMutableDictionary *)self->_prefetchCacheItems objectForKeyedSubscript:v44];
+                  if (v48)
                   {
-                    v45 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492480);
-                    if (*v45)
+                    v49 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492480);
+                    if (*v49)
                     {
-                      v55 = *(v45 + 8);
-                      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+                      v59 = *(v49 + 8);
+                      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 134218242;
                         selfCopy7 = self;
-                        v143 = 2112;
-                        v144 = v44;
-                        _os_log_impl(&dword_188A29000, v55, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for cell in prefetch cache: %@", buf, 0x16u);
+                        v147 = 2112;
+                        v148 = v48;
+                        _os_log_impl(&dword_188A29000, v59, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for cell in prefetch cache: %@", buf, 0x16u);
                       }
                     }
 
-                    *&v44->super.super._responderFlags |= 3u;
+                    *&v48->super.super._responderFlags |= 3u;
                   }
 
-                  else if ([(UICollectionView *)self _hasFocusedCellForIndexPath:v40 shouldUsePreUpdateData:0])
+                  else if ([(UICollectionView *)self _hasFocusedCellForIndexPath:v44 shouldUsePreUpdateData:0])
                   {
-                    v46 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492488);
-                    if (*v46)
+                    v50 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492488);
+                    if (*v50)
                     {
-                      v56 = *(v46 + 8);
-                      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                      v60 = *(v50 + 8);
+                      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                       {
-                        v57 = v56;
+                        v61 = v60;
                         _focusedItemState = [(UICollectionView *)self _focusedItemState];
                         *buf = 134218242;
                         selfCopy7 = self;
-                        v143 = 2112;
-                        v144 = _focusedItemState;
-                        _os_log_impl(&dword_188A29000, v57, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for focused cell: %@", buf, 0x16u);
+                        v147 = 2112;
+                        v148 = _focusedItemState;
+                        _os_log_impl(&dword_188A29000, v61, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for focused cell: %@", buf, 0x16u);
                       }
                     }
 
@@ -14500,24 +14503,24 @@ LABEL_20:
                     [cell _invalidatePreferredAttributes];
                   }
 
-                  else if (self->_firstResponderViewType == 1 && [(NSIndexPath *)self->_firstResponderIndexPath isEqual:v40])
+                  else if (self->_firstResponderViewType == 1 && objc_msgSend_isEqual_(self->_firstResponderIndexPath))
                   {
-                    v49 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492490);
-                    if (*v49)
+                    v53 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492490);
+                    if (*v53)
                     {
-                      v62 = *(v49 + 8);
-                      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+                      v66 = *(v53 + 8);
+                      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                       {
                         firstResponderView = self->_firstResponderView;
-                        v63 = v62;
-                        _ui_shortDescription2 = [v40 _ui_shortDescription];
+                        v67 = v66;
+                        _ui_shortDescription2 = [v44 _ui_shortDescription];
                         *buf = 134218498;
                         selfCopy7 = self;
-                        v143 = 2112;
-                        v144 = firstResponderView;
-                        v145 = 2112;
-                        v146 = _ui_shortDescription2;
-                        _os_log_impl(&dword_188A29000, v63, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for first responder cell: %@; index path: %@", buf, 0x20u);
+                        v147 = 2112;
+                        v148 = firstResponderView;
+                        v149 = 2112;
+                        v150 = _ui_shortDescription2;
+                        _os_log_impl(&dword_188A29000, v67, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; recomputing preferred attributes for first responder cell: %@; index path: %@", buf, 0x20u);
                       }
                     }
 
@@ -14526,100 +14529,100 @@ LABEL_20:
 
                   else
                   {
-                    v50 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492498);
-                    if (*v50)
+                    v54 = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492498);
+                    if (*v54)
                     {
-                      v59 = *(v50 + 8);
-                      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                      v63 = *(v54 + 8);
+                      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                       {
-                        v60 = v59;
-                        _ui_shortDescription3 = [v40 _ui_shortDescription];
+                        v64 = v63;
+                        _ui_shortDescription3 = [v44 _ui_shortDescription];
                         *buf = 134218242;
                         selfCopy7 = self;
-                        v143 = 2112;
-                        v144 = _ui_shortDescription3;
-                        _os_log_impl(&dword_188A29000, v60, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; creating cell for item at index path: %@", buf, 0x16u);
+                        v147 = 2112;
+                        v148 = _ui_shortDescription3;
+                        _os_log_impl(&dword_188A29000, v64, OS_LOG_TYPE_ERROR, "_processIndexPathsRequiringPreferredAttributes: cv == %p; creating cell for item at index path: %@", buf, 0x16u);
                       }
                     }
                   }
 
-                  v51 = [(UICollectionView *)self _preparedCellForItemAtIndexPath:v40 withLayoutAttributes:v41 applyAttributes:1 isFocused:0 notify:1];
-                  [(_UICollectionViewSubviewManager *)self->_subviewManager setVisibleCell:v51 atIndexPath:v40];
+                  v55 = [(UICollectionView *)self _preparedCellForItemAtIndexPath:v44 withLayoutAttributes:v45 applyAttributes:1 isFocused:0 notify:1];
+                  [(_UICollectionViewSubviewManager *)self->_subviewManager setVisibleCell:v55 atIndexPath:v44];
 
-                  v35 = v127;
+                  v39 = v131;
                 }
               }
             }
 
-            ++v39;
+            ++v43;
           }
 
-          while (v37 != v39);
-          v65 = [v35 countByEnumeratingWithState:&v136 objects:v147 count:16];
-          v37 = v65;
+          while (v41 != v43);
+          v69 = [v39 countByEnumeratingWithState:&v140 objects:v151 count:16];
+          v41 = v69;
         }
 
-        while (v65);
+        while (v69);
       }
 
-      v19 = p_isa;
-      v14 = v128;
+      v23 = p_isa;
+      v18 = v132;
     }
   }
 
-  allVisibleViewsSubviewCollection = [(_UICollectionViewSubviewManager *)v19 allVisibleViewsSubviewCollection];
+  allVisibleViewsSubviewCollection = [(_UICollectionViewSubviewManager *)v23 allVisibleViewsSubviewCollection];
   _currentPromiseFulfillmentCell = [(UICollectionView *)self _currentPromiseFulfillmentCell];
 
   if (_currentPromiseFulfillmentCell)
   {
     _currentPromiseFulfillmentCell2 = [(UICollectionView *)self _currentPromiseFulfillmentCell];
-    v70 = [(UICollectionView *)self _indexPathForCell:_currentPromiseFulfillmentCell2];
+    v74 = [(UICollectionView *)self _indexPathForCell:_currentPromiseFulfillmentCell2];
 
-    if (v70 && allVisibleViewsSubviewCollection)
+    if (v74 && allVisibleViewsSubviewCollection)
     {
-      [allVisibleViewsSubviewCollection[1] removeObjectForKey:v70];
+      [allVisibleViewsSubviewCollection[1] removeObjectForKey:v74];
     }
   }
 
-  v71 = [v123 count];
-  v72 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v71];
-  v130 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v73 = v123;
-  v74 = [v73 countByEnumeratingWithState:&v130 objects:v140 count:16];
-  if (v74)
+  v75 = [v127 count];
+  v76 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v75];
+  v134 = 0u;
+  v135 = 0u;
+  v136 = 0u;
+  v137 = 0u;
+  v77 = v127;
+  v78 = [v77 countByEnumeratingWithState:&v134 objects:v144 count:16];
+  if (v78)
   {
-    v75 = v74;
-    v76 = *v131;
+    v79 = v78;
+    v80 = *v135;
     do
     {
-      v77 = 0;
+      v81 = 0;
       do
       {
-        if (*v131 != v76)
+        if (*v135 != v80)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v77);
         }
 
-        v78 = *(*(&v130 + 1) + 8 * v77);
-        v79 = [(UICollectionView *)self _visibleViewForLayoutAttributes:v78];
-        if (v79)
+        v82 = *(*(&v134 + 1) + 8 * v81);
+        v83 = [(UICollectionView *)self _visibleViewForLayoutAttributes:v82];
+        if (v83)
         {
-          if (!v78)
+          if (!v82)
           {
-            v80 = 0;
+            v84 = 0;
             goto LABEL_82;
           }
 
-          if ((*(v78 + 288) & 1) == 0)
+          if ((*(v82 + 288) & 1) == 0)
           {
-            v80 = (*(v78 + 288) & 2) == 0;
+            v84 = (*(v82 + 288) & 2) == 0;
 LABEL_82:
-            _content = [(_UILabelConfiguration *)v78 _content];
-            __indexPath = [(UICollectionViewLayoutAttributes *)v78 __indexPath];
-            if (v80)
+            _content = [(_UILabelConfiguration *)v82 _content];
+            __indexPath = [(UICollectionViewLayoutAttributes *)v82 __indexPath];
+            if (v84)
             {
               [(_UICollectionViewSubviewCollection *)allVisibleViewsSubviewCollection removeViewForSupplementaryOfKind:_content atIndexPath:__indexPath];
             }
@@ -14629,45 +14632,45 @@ LABEL_82:
               [(_UICollectionViewSubviewCollection *)allVisibleViewsSubviewCollection removeViewForDecorationOfKind:_content atIndexPath:__indexPath];
             }
 
-            v14 = v128;
+            v18 = v132;
             goto LABEL_92;
           }
 
-          v83 = v79;
-          __indexPath2 = [(UICollectionViewLayoutAttributes *)v78 __indexPath];
+          v87 = v83;
+          __indexPath2 = [(UICollectionViewLayoutAttributes *)v82 __indexPath];
           if (allVisibleViewsSubviewCollection)
           {
             [allVisibleViewsSubviewCollection[1] removeObjectForKey:__indexPath2];
           }
 
-          [(UICollectionView *)self _notifyWillDisplayCellIfNeeded:v83 forIndexPath:[(UICollectionViewLayoutAttributes *)v78 __indexPath]];
+          [(UICollectionView *)self _notifyWillDisplayCellIfNeeded:v87 forIndexPath:[(UICollectionViewLayoutAttributes *)v82 __indexPath]];
         }
 
-        else if ((v14 & 0x10000000) != 0 || ([v78 isHidden] & 1) == 0)
+        else if ((v18 & 0x10000000) != 0 || ([v82 isHidden] & 1) == 0)
         {
-          [v72 addObject:v78];
+          [v76 addObject:v82];
         }
 
 LABEL_92:
-        ++v77;
+        ++v81;
       }
 
-      while (v75 != v77);
-      v85 = [v73 countByEnumeratingWithState:&v130 objects:v140 count:16];
-      v75 = v85;
+      while (v79 != v81);
+      v89 = [v77 countByEnumeratingWithState:&v134 objects:v144 count:16];
+      v79 = v89;
     }
 
-    while (v85);
+    while (v89);
   }
 
-  [(UICollectionView *)self _removeVisibleViews:allVisibleViewsSubviewCollection fadeForBoundsChange:(v14 >> 28) & 1];
-  v86 = *(&self->_collectionViewFlags + 1);
-  if ((v86 & 0x200) == 0)
+  [(UICollectionView *)self _removeVisibleViews:allVisibleViewsSubviewCollection fadeForBoundsChange:(v18 >> 28) & 1];
+  v90 = *(&self->_collectionViewFlags + 1);
+  if ((v90 & 0x200) == 0)
   {
-    *(&self->_collectionViewFlags + 1) = v86 & 0xFFFFFFFFFFFFF5FFLL;
+    *(&self->_collectionViewFlags + 1) = v90 & 0xFFFFFFFFFFFFF5FFLL;
   }
 
-  if ((v86 & 0x800) != 0 && [(UICollectionView *)self _useIdleObserverForCellPrefetching])
+  if ((v90 & 0x800) != 0 && [(UICollectionView *)self _useIdleObserverForCellPrefetching])
   {
     [(NSMutableDictionary *)self->_prefetchCacheItems enumerateKeysAndObjectsUsingBlock:&__block_literal_global_500];
   }
@@ -14676,17 +14679,17 @@ LABEL_92:
   {
     _focusedItemState3 = [(UICollectionView *)self _focusedItemState];
     [(UICollectionView *)self _setFocusedItemState:0];
-    v88 = __UILogGetCategoryCachedImpl("UICollectionViewCellLifeCycle", &qword_1ED492468);
-    if (*v88)
+    v92 = __UILogGetCategoryCachedImpl("UICollectionViewCellLifeCycle", &qword_1ED492468);
+    if (*v92)
     {
-      v115 = *(v88 + 8);
-      if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+      v119 = *(v92 + 8);
+      if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
       {
-        *v147 = 134218242;
+        *v151 = 134218242;
         selfCopy8 = self;
-        v149 = 2112;
-        v150 = _focusedItemState3;
-        _os_log_impl(&dword_188A29000, v115, OS_LOG_TYPE_ERROR, "[UICV %p] Handling updateFocusAfterLoadingCells. Item focused before reload: %@", v147, 0x16u);
+        v153 = 2112;
+        v154 = _focusedItemState3;
+        _os_log_impl(&dword_188A29000, v119, OS_LOG_TYPE_ERROR, "[UICV %p] Handling updateFocusAfterLoadingCells. Item focused before reload: %@", v151, 0x16u);
       }
     }
   }
@@ -14696,9 +14699,9 @@ LABEL_92:
     _focusedItemState3 = 0;
   }
 
-  if (v125)
+  if (v129)
   {
-    v3 = [(UICollectionView *)self _createVisibleViewsForAttributes:v72 fadeForBoundsChange:(v14 >> 28) & 1 notifyLayoutForVisibleCellsPass:_wantsUpdateVisibleCellsPassNotifications];
+    v3 = [(UICollectionView *)self _createVisibleViewsForAttributes:v76 fadeForBoundsChange:(v18 >> 28) & 1 notifyLayoutForVisibleCellsPass:_wantsUpdateVisibleCellsPassNotifications];
   }
 
   else
@@ -14706,8 +14709,8 @@ LABEL_92:
     v3 = 0;
   }
 
-  v89 = *(&self->_collectionViewFlags + 1);
-  if ((v89 & 0x200) != 0)
+  v93 = *(&self->_collectionViewFlags + 1);
+  if ((v93 & 0x200) != 0)
   {
     [(UICollectionView *)self performSelector:sel__resumeReloads withObject:0 afterDelay:0.0];
   }
@@ -14715,16 +14718,16 @@ LABEL_92:
   else
   {
     [(UICollectionView *)self _visibleBounds];
-    self->_visibleBounds.origin.x = v90;
-    self->_visibleBounds.origin.y = v91;
-    self->_visibleBounds.size.width = v92;
-    self->_visibleBounds.size.height = v93;
-    if ((v86 & 0x800) == 0 || ([(UICollectionView *)self _updateLayoutAttributesForExistingVisibleViewsFadingForBoundsChange:(v14 >> 28) & 1], dyld_program_sdk_at_least()))
+    self->_visibleBounds.origin.x = v94;
+    self->_visibleBounds.origin.y = v95;
+    self->_visibleBounds.size.width = v96;
+    self->_visibleBounds.size.height = v97;
+    if ((v90 & 0x800) == 0 || ([(UICollectionView *)self _updateLayoutAttributesForExistingVisibleViewsFadingForBoundsChange:(v18 >> 28) & 1], dyld_program_sdk_at_least()))
     {
       [(UICollectionView *)self _processViewSpecificInvalidationsForVisibleViews];
     }
 
-    if ((v128 & 0x10000000) != 0)
+    if ((v132 & 0x10000000) != 0)
     {
       [(UICollectionViewLayout *)self->_layout _finalizeCollectionViewItemAnimations];
       [(UICollectionViewLayout *)self->_layout finalizeAnimatedBoundsChange];
@@ -14739,8 +14742,8 @@ LABEL_92:
 
   *(&self->_collectionViewFlags + 1) &= ~0x200000000uLL;
   [(UIScrollView *)self contentOffset];
-  v95 = v94;
-  v97 = v96;
+  v99 = v98;
+  v101 = v100;
   x = self->_lastLayoutOffset.x;
   y = self->_lastLayoutOffset.y;
   window = [(UIView *)self window];
@@ -14749,12 +14752,12 @@ LABEL_92:
   if ((isRotating & 1) == 0)
   {
     [(UIScrollView *)self contentOffset];
-    self->_lastLayoutOffset.x = v102;
-    self->_lastLayoutOffset.y = v103;
+    self->_lastLayoutOffset.x = v106;
+    self->_lastLayoutOffset.y = v107;
   }
 
-  *(&self->_collectionViewFlags + 1) = *(&self->_collectionViewFlags + 1) & 0xFFFFFFBFFFFFFFFFLL | (((v119 >> 38) & 1) << 38);
-  if ((v89 & 0x200) == 0)
+  *(&self->_collectionViewFlags + 1) = *(&self->_collectionViewFlags + 1) & 0xFFFFFFBFFFFFFFFFLL | (((v123 >> 38) & 1) << 38);
+  if ((v93 & 0x200) == 0)
   {
     [(UICollectionView *)self _resumeReloads];
   }
@@ -14763,7 +14766,7 @@ LABEL_92:
   if (invalidationBlock)
   {
     invalidationBlock[2]();
-    v105 = self->_invalidationBlock;
+    v109 = self->_invalidationBlock;
     self->_invalidationBlock = 0;
   }
 
@@ -14771,42 +14774,42 @@ LABEL_92:
   [(UICollectionView *)self _updateFocusAfterLoadingVisibleCellsIfNeeded:_focusedItemState3];
   if (_wantsUpdateVisibleCellsPassNotifications)
   {
-    [(UICollectionViewLayout *)self->_layout _didPerformUpdateVisibleCellsPassWithLayoutOffset:v95 - x, v97 - y];
+    [(UICollectionViewLayout *)self->_layout _didPerformUpdateVisibleCellsPassWithLayoutOffset:v99 - x, v101 - y];
   }
 
-  [(UICollectionView *)self _restoreOrAdjustContentOffsetIfNecessaryWithInsets:v126 > 0 hasUpdatedVisibleCells:v9 isRecursive:v11];
-  if (v125 && (*(&self->_collectionViewFlags + 9) & 4) != 0)
+  [(UICollectionView *)&self->super.super.super.super.isa _restoreOrAdjustContentOffsetIfNecessaryWithInsets:v130 > 0 hasUpdatedVisibleCells:v9 isRecursive:v11, v13, v15];
+  if (v129 && (*(&self->_collectionViewFlags + 9) & 4) != 0)
   {
     [(UICollectionViewData *)self->_collectionViewData invalidate:?];
-    v106 = self->_updateVisibleCellsRecursionCount;
-    self->_updateVisibleCellsRecursionCount = v106 + 1;
-    if (v106 >= 15 && !self->_debugger)
+    v110 = self->_updateVisibleCellsRecursionCount;
+    self->_updateVisibleCellsRecursionCount = v110 + 1;
+    if (v110 >= 15 && !self->_debugger)
     {
-      v107 = objc_alloc_init(_UICollectionViewFeedbackLoopDebugger);
+      v111 = objc_alloc_init(_UICollectionViewFeedbackLoopDebugger);
       debugger = self->_debugger;
-      self->_debugger = v107;
+      self->_debugger = v111;
     }
 
     v3 += [(UICollectionView *)self _updateVisibleCellsNow:1];
     --self->_updateVisibleCellsRecursionCount;
-    v109 = self->_debugger;
-    if (v109)
+    v113 = self->_debugger;
+    if (v113)
     {
       self->_debugger = 0;
     }
   }
 
   [(UICollectionView *)self _clearContentOffsetRestorationAnchor];
-  v110 = *(&self->_collectionViewFlags + 4);
-  if ((v110 & 0x10000) != 0)
+  v114 = *(&self->_collectionViewFlags + 4);
+  if ((v114 & 0x10000) != 0)
   {
     [(UICollectionView *)self _clearTargetIndexPathForScrolling];
-    v110 = *(&self->_collectionViewFlags + 4);
+    v114 = *(&self->_collectionViewFlags + 4);
   }
 
-  *(&self->_collectionViewFlags + 4) = v110 & 0xFFDFFFFF;
+  *(&self->_collectionViewFlags + 4) = v114 & 0xFFDFFFFF;
   [(UICollectionView *)self _ensureFocusedViewIsNotHidden];
-  if (v126 <= 0)
+  if (v130 <= 0)
   {
     [(UICollectionView *)self _setUpCompletionHandlerForAnimationInterruptionIfNecessary];
     [(UICollectionView *)self _resumeDidScrollNotifications];
@@ -14816,13 +14819,13 @@ LABEL_92:
     }
   }
 
-  v129[0] = MEMORY[0x1E69E9820];
-  v129[1] = 3221225472;
-  v129[2] = __43__UICollectionView__updateVisibleCellsNow___block_invoke_505;
-  v129[3] = &unk_1E70FF0A0;
-  v129[4] = self;
-  v129[5] = a2;
-  [(_UICollectionViewSubviewManager *)p_isa removeAllDequeuedViewsWithEnumerator:v129];
+  v133[0] = MEMORY[0x1E69E9820];
+  v133[1] = 3221225472;
+  v133[2] = __43__UICollectionView__updateVisibleCellsNow___block_invoke_505;
+  v133[3] = &unk_1E70FF0A0;
+  v133[4] = self;
+  v133[5] = a2;
+  [(_UICollectionViewSubviewManager *)p_isa removeAllDequeuedViewsWithEnumerator:v133];
 
   return v3;
 }
@@ -14962,7 +14965,7 @@ void __79__UICollectionView__animateVisibleView_withLayoutAttributes_completionH
     v10 = *(a1 + 40);
     if (v10)
     {
-      [v10 transform3D];
+      objc_msgSend_transform3D(v10);
     }
 
     else
@@ -15476,18 +15479,18 @@ LABEL_14:
       _useIdleObserverForCellPrefetching = [(UICollectionView *)self _useIdleObserverForCellPrefetching];
       if (_useIdleObserverForCellPrefetching)
       {
-        v18 = [(UICollectionView *)self _updatePrefetchItemIfNeeded:v17 forIndexPath:__indexPath withLayoutAttributes:0 willDisplay:1];
+        isEqual = [(UICollectionView *)self _updatePrefetchItemIfNeeded:v17 forIndexPath:__indexPath withLayoutAttributes:0 willDisplay:1];
       }
 
       else
       {
         v28 = v17[2];
-        v18 = [v28 isEqual:v13];
+        isEqual = objc_msgSend_isEqual_(v28);
       }
 
       v29 = v17[3];
       [(NSMutableDictionary *)self->_prefetchCacheItems removeObjectForKey:__indexPath];
-      if (v18)
+      if (isEqual)
       {
         v19 = v29;
         if (v19)
@@ -15663,7 +15666,7 @@ LABEL_83:
         {
           peekNextItem = [(_UICollectionViewPrefetchingContext *)&self->_mainPrefetchingContext->super.isa peekNextItem];
           v35 = peekNextItem;
-          if (peekNextItem && (v36 = creationCopy, v37 = *(peekNextItem + 16), [v37 indexPath], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "isEqual:", v50), v38, v37, creationCopy = v36, retstr = v43, v39))
+          if (peekNextItem && (v36 = creationCopy, v37 = *(peekNextItem + 16), [v37 indexPath], v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend_isEqual_(v38), v38, v37, creationCopy = v36, retstr = v43, v39))
           {
             popNextItem = [(_UICollectionViewPrefetchingContext *)self->_mainPrefetchingContext popNextItem];
           }
@@ -15730,15 +15733,9 @@ LABEL_84:
   attributesCopy = attributes;
   if ([attributesCopy count])
   {
-    if (([(UICollectionViewLayout *)self->_layout _estimatesSizes]|| [(UICollectionViewLayout *)self->_layout _estimatesSupplementaryItems]) && dyld_program_sdk_at_least() && ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionViewLimitsCellsCreatedPerPass, @"CollectionViewLimitsCellsCreatedPerPass", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48AADC))
+    if (([(UICollectionViewLayout *)self->_layout _estimatesSizes]|| [(UICollectionViewLayout *)self->_layout _estimatesSupplementaryItems]) && dyld_program_sdk_at_least() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_CollectionViewLimitsCellsCreatedPerPass, @"CollectionViewLimitsCellsCreatedPerPass", _UIInternalPreferenceUpdateBool) || byte_1ED48AADC))
     {
       [(UICollectionView *)self _sortAttributesByDistanceToVisibleBoundsOrigin:attributesCopy];
-      v24 = 1;
-    }
-
-    else
-    {
-      v24 = 0;
     }
 
     v8 = 0;
@@ -15747,75 +15744,62 @@ LABEL_84:
     v11 = &OBJC_IVAR____UISystemBackgroundView__strokeView;
     do
     {
-      v25 = v9;
-      if (v9 == 2)
+      v23 = v9;
+      v24 = _createVisibleViewsForAttributes_fadeForBoundsChange_notifyLayoutForVisibleCellsPass__categories[v9];
+      v12 = [(UICollectionView *)self _layoutAttributes:attributesCopy filteredForCategory:?];
+      if ([v12 count])
       {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = v24;
-      }
-
-      v26 = _createVisibleViewsForAttributes_fadeForBoundsChange_notifyLayoutForVisibleCellsPass__categories[v9];
-      v13 = [(UICollectionView *)self _layoutAttributes:attributesCopy filteredForCategory:?];
-      if ([v13 count])
-      {
-        v27 = v12;
         do
         {
-          [(UICollectionView *)self _createVisibleViewsForSingleCategoryAttributes:v13 limitCreation:v12 fadeForBoundsChange:changeCopy];
-          v8 += v29;
-          if ((v30 & 1) == 0)
+          objc_msgSend__createVisibleViewsForSingleCategoryAttributes_limitCreation_fadeForBoundsChange_(self);
+          v8 += v26;
+          if ((v27 & 1) == 0)
           {
             break;
           }
 
-          v14 = v11[168];
-          v15 = *(p_responderFlags + v14);
-          if ((v15 & 0x200) == 0)
+          v13 = v11[168];
+          v14 = *(p_responderFlags + v13);
+          if ((v14 & 0x200) == 0)
           {
-            v16 = v15 & 0xFFFFFFFFFFFFF9FFLL;
-            *(p_responderFlags + v14) = v15 & 0xFFFFFFFFFFFFF9FFLL;
+            v15 = v14 & 0xFFFFFFFFFFFFF9FFLL;
+            *(p_responderFlags + v13) = v14 & 0xFFFFFFFFFFFFF9FFLL;
             if (passCopy)
             {
               [(UIScrollView *)self contentOffset];
-              [(UICollectionViewLayout *)self->_layout _didPerformUpdateVisibleCellsPassWithLayoutOffset:v17 - self->_lastLayoutOffset.x, v18 - self->_lastLayoutOffset.y];
-              v12 = v27;
+              [(UICollectionViewLayout *)self->_layout _didPerformUpdateVisibleCellsPassWithLayoutOffset:v16 - self->_lastLayoutOffset.x, v17 - self->_lastLayoutOffset.y];
               [(UICollectionViewLayout *)self->_layout _willPerformUpdateVisibleCellsPass];
-              v16 = *(p_responderFlags + v14);
+              v15 = *(p_responderFlags + v13);
             }
 
-            v15 = v16 | v15 & 0x400;
-            *(p_responderFlags + v14) = v15;
-            if ((v16 & 0x400) != 0)
+            v14 = v15 | v14 & 0x400;
+            *(p_responderFlags + v13) = v14;
+            if ((v15 & 0x400) != 0)
             {
               [(UICollectionView *)self _updatedNewlyAppearingLayoutAttributesForCurrentVisibleBounds:changeCopy];
-              v19 = changeCopy;
-              v21 = v20 = passCopy;
+              v18 = changeCopy;
+              v20 = v19 = passCopy;
 
-              v22 = [(UICollectionView *)self _layoutAttributes:v21 filteredForCategory:v26];
+              v21 = [(UICollectionView *)self _layoutAttributes:v20 filteredForCategory:v24];
 
-              v15 = *(p_responderFlags + v14);
-              v13 = v22;
-              attributesCopy = v21;
-              passCopy = v20;
-              changeCopy = v19;
-              v12 = v27;
+              v14 = *(p_responderFlags + v13);
+              v12 = v21;
+              attributesCopy = v20;
+              passCopy = v19;
+              changeCopy = v18;
             }
 
             v11 = &OBJC_IVAR____UISystemBackgroundView__strokeView;
           }
         }
 
-        while ((v15 & 0x200) == 0);
+        while ((v14 & 0x200) == 0);
       }
 
-      v9 = v25 + 1;
+      v9 = v23 + 1;
     }
 
-    while (v25 != 2);
+    while (v23 != 2);
   }
 
   else
@@ -16091,7 +16075,7 @@ LABEL_59:
           [(_UICollectionViewSubviewCollection *)&v46->_visibleViews->super.isa removeViewOfKind:v30 inCategory:v12 atIndexPath:__indexPath];
           if ([v6 _isInUpdateAnimation])
           {
-            [(_UICollectionViewSubviewCollection *)v46->_visibleViews setView:v6 ofKind:v30 inCategory:v12 atIndexPath:__indexPath];
+            [(_UICollectionViewSubviewCollection *)&v46->_visibleViews->super.isa setView:v6 ofKind:v30 inCategory:v12 atIndexPath:__indexPath];
             goto LABEL_60;
           }
         }
@@ -16428,11 +16412,11 @@ void __65__UICollectionView__updateFocusAfterLoadingVisibleCellsIfNeeded___block
   [v3 updateFocusIfNeeded];
 }
 
-uint64_t __78__UICollectionView__setUpCompletionHandlerForAnimationInterruptionIfNecessary__block_invoke(uint64_t result, char a2)
+id *__78__UICollectionView__setUpCompletionHandlerForAnimationInterruptionIfNecessary__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _setNeedsVisibleCellsUpdate:1 withLayoutAttributes:1];
+    return [result[4] _setNeedsVisibleCellsUpdate:1 withLayoutAttributes:1];
   }
 
   return result;
@@ -16930,7 +16914,7 @@ uint64_t __198__UICollectionView__viewAnimationsForView_startingLayoutAttributes
   v13 = viewCopy;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews setView:viewCopy ofKind:v10 inCategory:v9 atIndexPath:__indexPath];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa setView:viewCopy ofKind:v10 inCategory:v9 atIndexPath:__indexPath];
     v13 = viewCopy;
   }
 }
@@ -16949,7 +16933,7 @@ uint64_t __198__UICollectionView__viewAnimationsForView_startingLayoutAttributes
   v30 = v7;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:v29];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v29];
   }
 
   prefetchCacheItems = self->_prefetchCacheItems;
@@ -17218,7 +17202,7 @@ LABEL_47:
 
     v167 = [[UICollectionViewData alloc] initWithCollectionView:layoutCopy layout:?];
     [(UICollectionViewData *)v167 _prepareToLoadData];
-    [(UICollectionViewData *)self->_collectionViewData _prepareToLoadData];
+    [(UICollectionViewData *)&self->_collectionViewData->super.isa _prepareToLoadData];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -17567,7 +17551,7 @@ LABEL_89:
     v225 = v173;
     if (subviewManager)
     {
-      [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:v223];
+      [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v223];
     }
 
     [(UICollectionView *)selfCopy _updateBackgroundView];
@@ -17617,7 +17601,7 @@ LABEL_89:
     v113 = [(UIView *)v112 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
     [(UIView *)selfCopy addSubview:v113];
     v114 = selfCopy->_layout;
-    if (v167 && (v167[96] & 8) != 0)
+    if (v167 && (v167[12].i8[0] & 8) != 0)
     {
       if ([(UICollectionViewLayout *)v103 shouldInvalidateLayoutForBoundsChange:v77, v79, width, height]&& (v252.origin.x = v77, v252.origin.y = v79, v252.size.width = width, v252.size.height = height, v255.origin.x = v105, v255.origin.y = v107, v255.size.width = v109, v255.size.height = v111, !CGRectEqualToRect(v252, v255)))
       {
@@ -19112,7 +19096,7 @@ LABEL_15:
   v8 = viewCopy;
   v29[0] = v8;
   v29[1] = &v30;
-  if (!subviewManager || ([(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v28], !v31[5]))
+  if (!subviewManager || ([(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v28], !v31[5]))
   {
     if (dyld_program_sdk_at_least())
     {
@@ -19356,7 +19340,7 @@ void __45__UICollectionView__indexPathForView_ofType___block_invoke_4(uint64_t a
     else
     {
       firstResponderIndexPath = self->_firstResponderIndexPath;
-      if (firstResponderIndexPath && self->_firstResponderViewType == 1 && [(NSIndexPath *)firstResponderIndexPath isEqual:pathCopy]&& dyld_program_sdk_at_least())
+      if (firstResponderIndexPath && self->_firstResponderViewType == 1 && objc_msgSend_isEqual_(firstResponderIndexPath) && dyld_program_sdk_at_least())
       {
         v8 = self->_firstResponderView;
         goto LABEL_18;
@@ -19425,7 +19409,7 @@ LABEL_19:
   subviewManager = self->_subviewManager;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v6];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v6];
   }
 
   [(NSMutableDictionary *)self->_prefetchCacheItems enumerateKeysAndObjectsUsingBlock:v6];
@@ -20160,7 +20144,7 @@ LABEL_76:
   {
     if (viewCopy == self)
     {
-      [(UICollectionViewData *)self->_collectionViewData collectionViewContentRect];
+      [(UICollectionViewData *)&self->_collectionViewData->super.isa collectionViewContentRect];
     }
 
     else
@@ -20196,20 +20180,20 @@ BOOL __151__UICollectionView__contentOffsetForScrollingToItemAtIndexPath_atScrol
 
 - (void)_contentOffsetFromProposedOffset:(double)offset forScrollingToItemWithFrame:(CGFloat)frame atScrollPosition:(CGFloat)position additionalInsets:(CGFloat)insets containingScrollViewBounds:(CGFloat)bounds
 {
-  v28 = a13;
+  v25 = a13;
   if ([self _shouldReverseLayoutDirection])
   {
     if ([self _flipsHorizontalAxis])
     {
-      v29 = a13;
+      v26 = a13;
     }
 
     else
     {
-      v29 = a15;
+      v26 = a15;
     }
 
-    v28 = v29;
+    v25 = v26;
   }
 
   if (a9)
@@ -20219,11 +20203,11 @@ BOOL __151__UICollectionView__contentOffsetForScrollingToItemAtIndexPath_atScrol
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"attempt to use a scroll position with multiple vertical positioning styles"];
     }
 
-    v38.origin.x = frame;
-    v38.origin.y = position;
-    v38.size.width = insets;
-    v38.size.height = bounds;
-    CGRectGetMinY(v38);
+    v35.origin.x = frame;
+    v35.origin.y = position;
+    v35.size.width = insets;
+    v35.size.height = bounds;
+    CGRectGetMinY(v35);
   }
 
   else
@@ -20235,16 +20219,16 @@ BOOL __151__UICollectionView__contentOffsetForScrollingToItemAtIndexPath_atScrol
         [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"attempt to use a scroll position with multiple vertical positioning styles"];
       }
 
-      v40.origin.x = frame;
-      v40.origin.y = position;
-      v40.size.width = insets;
-      v40.size.height = bounds;
-      CGRectGetMidY(v40);
-      v41.origin.x = a16;
-      v41.origin.y = a17;
-      v41.size.width = a18;
-      v41.size.height = a19;
-      CGRectGetHeight(v41);
+      v37.origin.x = frame;
+      v37.origin.y = position;
+      v37.size.width = insets;
+      v37.size.height = bounds;
+      CGRectGetMidY(v37);
+      v38.origin.x = a16;
+      v38.origin.y = a17;
+      v38.size.width = a18;
+      v38.size.height = a19;
+      CGRectGetHeight(v38);
       if ((a9 & 8) != 0)
       {
         goto LABEL_23;
@@ -20255,16 +20239,16 @@ BOOL __151__UICollectionView__contentOffsetForScrollingToItemAtIndexPath_atScrol
 
     if ((a9 & 4) != 0)
     {
-      v36.origin.x = frame;
-      v36.origin.y = position;
-      v36.size.width = insets;
-      v36.size.height = bounds;
-      CGRectGetMaxY(v36);
-      v37.origin.x = a16;
-      v37.origin.y = a17;
-      v37.size.width = a18;
-      v37.size.height = a19;
-      CGRectGetHeight(v37);
+      v33.origin.x = frame;
+      v33.origin.y = position;
+      v33.size.width = insets;
+      v33.size.height = bounds;
+      CGRectGetMaxY(v33);
+      v34.origin.x = a16;
+      v34.origin.y = a17;
+      v34.size.width = a18;
+      v34.size.height = a19;
+      CGRectGetHeight(v34);
       if ((a9 & 8) != 0)
       {
         goto LABEL_23;
@@ -20282,11 +20266,11 @@ LABEL_23:
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"attempt to use a scroll position with multiple horizontal positioning styles"];
     }
 
-    v42.origin.x = frame;
-    v42.origin.y = position;
-    v42.size.width = insets;
-    v42.size.height = bounds;
-    CGRectGetMinX(v42);
+    v39.origin.x = frame;
+    v39.origin.y = position;
+    v39.size.width = insets;
+    v39.size.height = bounds;
+    CGRectGetMinX(v39);
     return;
   }
 
@@ -20298,119 +20282,119 @@ LABEL_15:
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"attempt to use a scroll position with multiple horizontal positioning styles"];
     }
 
-    v43.origin.x = frame;
-    v43.origin.y = position;
-    v43.size.width = insets;
-    v43.size.height = bounds;
-    CGRectGetMidX(v43);
-    v44.origin.x = a16;
-    v44.origin.y = a17;
-    v44.size.width = a18;
-    v44.size.height = a19;
-    CGRectGetWidth(v44);
+    v40.origin.x = frame;
+    v40.origin.y = position;
+    v40.size.width = insets;
+    v40.size.height = bounds;
+    CGRectGetMidX(v40);
+    v41.origin.x = a16;
+    v41.origin.y = a17;
+    v41.size.width = a18;
+    v41.size.height = a19;
+    CGRectGetWidth(v41);
   }
 
   else if ((a9 & 0x20) != 0)
   {
-    v45.origin.x = frame;
-    v45.origin.y = position;
-    v45.size.width = insets;
-    v45.size.height = bounds;
-    CGRectGetMaxX(v45);
-    v46.origin.x = a16;
-    v46.origin.y = a17;
-    v46.size.width = a18;
-    v46.size.height = a19;
-    CGRectGetWidth(v46);
+    v42.origin.x = frame;
+    v42.origin.y = position;
+    v42.size.width = insets;
+    v42.size.height = bounds;
+    CGRectGetMaxX(v42);
+    v43.origin.x = a16;
+    v43.origin.y = a17;
+    v43.size.width = a18;
+    v43.size.height = a19;
+    CGRectGetWidth(v43);
   }
 
   else if (!a9)
   {
-    v39.origin.x = a16;
-    v39.origin.y = a17;
-    v39.size.width = a18;
-    v39.size.height = a19;
-    v59.origin.x = frame;
-    v59.origin.y = position;
-    v59.size.width = insets;
-    v59.size.height = bounds;
-    if (!CGRectContainsRect(v39, v59))
+    v36.origin.x = a16;
+    v36.origin.y = a17;
+    v36.size.width = a18;
+    v36.size.height = a19;
+    v56.origin.x = frame;
+    v56.origin.y = position;
+    v56.size.width = insets;
+    v56.size.height = bounds;
+    if (!CGRectContainsRect(v36, v56))
     {
-      v47.origin.x = frame;
-      v47.origin.y = position;
-      v47.size.width = insets;
-      v47.size.height = bounds;
+      v44.origin.x = frame;
+      v44.origin.y = position;
+      v44.size.width = insets;
+      v44.size.height = bounds;
       frameCopy = frame;
-      v30 = CGRectGetMinY(v47) - a12;
-      v48.origin.x = a16;
-      v48.origin.y = a17;
-      v48.size.width = a18;
-      v48.size.height = a19;
-      if (v30 >= CGRectGetMinY(v48))
+      v27 = CGRectGetMinY(v44) - a12;
+      v45.origin.x = a16;
+      v45.origin.y = a17;
+      v45.size.width = a18;
+      v45.size.height = a19;
+      if (v27 >= CGRectGetMinY(v45))
       {
-        v31 = frameCopy;
-        v49.origin.x = frameCopy;
-        v49.origin.y = position;
-        v49.size.width = insets;
-        v49.size.height = bounds;
-        MaxY = CGRectGetMaxY(v49);
-        v50.origin.x = a16;
-        v50.origin.y = a17;
-        v50.size.width = a18;
-        v50.size.height = a19;
-        if (MaxY > CGRectGetMaxY(v50))
+        v28 = frameCopy;
+        v46.origin.x = frameCopy;
+        v46.origin.y = position;
+        v46.size.width = insets;
+        v46.size.height = bounds;
+        MaxY = CGRectGetMaxY(v46);
+        v47.origin.x = a16;
+        v47.origin.y = a17;
+        v47.size.width = a18;
+        v47.size.height = a19;
+        if (MaxY > CGRectGetMaxY(v47))
         {
-          v51.origin.x = frameCopy;
-          v51.origin.y = position;
-          v51.size.width = insets;
-          v51.size.height = bounds;
-          CGRectGetMaxY(v51);
-          v52.origin.x = a16;
-          v52.origin.y = a17;
-          v52.size.width = a18;
-          v52.size.height = a19;
-          CGRectGetHeight(v52);
+          v48.origin.x = frameCopy;
+          v48.origin.y = position;
+          v48.size.width = insets;
+          v48.size.height = bounds;
+          CGRectGetMaxY(v48);
+          v49.origin.x = a16;
+          v49.origin.y = a17;
+          v49.size.width = a18;
+          v49.size.height = a19;
+          CGRectGetHeight(v49);
           dyld_program_sdk_at_least();
         }
       }
 
       else
       {
-        v31 = frameCopy;
+        v28 = frameCopy;
       }
 
-      v53.origin.x = v31;
-      v53.origin.y = position;
-      v53.size.width = insets;
-      v53.size.height = bounds;
-      v32 = CGRectGetMinX(v53) - v28;
-      v54.origin.x = a16;
-      v54.origin.y = a17;
-      v54.size.width = a18;
-      v54.size.height = a19;
-      if (v32 >= CGRectGetMinX(v54))
+      v50.origin.x = v28;
+      v50.origin.y = position;
+      v50.size.width = insets;
+      v50.size.height = bounds;
+      v29 = CGRectGetMinX(v50) - v25;
+      v51.origin.x = a16;
+      v51.origin.y = a17;
+      v51.size.width = a18;
+      v51.size.height = a19;
+      if (v29 >= CGRectGetMinX(v51))
       {
-        v55.origin.x = v31;
-        v55.origin.y = position;
-        v55.size.width = insets;
-        v55.size.height = bounds;
-        MaxX = CGRectGetMaxX(v55);
-        v56.origin.x = a16;
-        v56.origin.y = a17;
-        v56.size.width = a18;
-        v56.size.height = a19;
-        if (MaxX > CGRectGetMaxX(v56))
+        v52.origin.x = v28;
+        v52.origin.y = position;
+        v52.size.width = insets;
+        v52.size.height = bounds;
+        MaxX = CGRectGetMaxX(v52);
+        v53.origin.x = a16;
+        v53.origin.y = a17;
+        v53.size.width = a18;
+        v53.size.height = a19;
+        if (MaxX > CGRectGetMaxX(v53))
         {
-          v57.origin.x = v31;
-          v57.origin.y = position;
-          v57.size.width = insets;
-          v57.size.height = bounds;
-          CGRectGetMaxX(v57);
-          v58.origin.x = a16;
-          v58.origin.y = a17;
-          v58.size.width = a18;
-          v58.size.height = a19;
-          CGRectGetWidth(v58);
+          v54.origin.x = v28;
+          v54.origin.y = position;
+          v54.size.width = insets;
+          v54.size.height = bounds;
+          CGRectGetMaxX(v54);
+          v55.origin.x = a16;
+          v55.origin.y = a17;
+          v55.size.width = a18;
+          v55.size.height = a19;
+          CGRectGetWidth(v55);
           dyld_program_sdk_at_least();
         }
       }
@@ -20453,7 +20437,7 @@ LABEL_15:
   }
 
   [(UICollectionView *)self _clearContentOffsetRestorationAnchor];
-  [(UICollectionViewData *)self->_collectionViewData _prepareToLoadData];
+  [(UICollectionViewData *)&self->_collectionViewData->super.isa _prepareToLoadData];
   orthogonalScrollerController = self->_orthogonalScrollerController;
   if (orthogonalScrollerController && [(_UICollectionViewOrthogonalScrollerSectionController *)orthogonalScrollerController isIndexPathInOrthogonalScrollingSection:pathCopy])
   {
@@ -21438,7 +21422,7 @@ LABEL_9:
   return v6;
 }
 
-void __50__UICollectionView__currentSectionIndexTitleIndex__block_invoke_2(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void __50__UICollectionView__currentSectionIndexTitleIndex__block_invoke_2(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   v7 = a2;
   v8 = a1[4];
@@ -21859,7 +21843,7 @@ LABEL_5:
     v22 = layer;
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else
@@ -22073,7 +22057,7 @@ LABEL_61:
       }
 
       reuseIdentifier = [v74[5] reuseIdentifier];
-      if ([reuseIdentifier length] && (objc_msgSend(reuseIdentifier, "isEqualToString:", identifierCopy) & 1) == 0)
+      if ([reuseIdentifier length] && (objc_msgSend_isEqualToString_(reuseIdentifier) & 1) == 0)
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler2 handleFailureInMethod:a2 object:self file:@"UICollectionView.m" lineNumber:9733 description:{@"view reuse identifier in nib (%@) does not match the identifier used to register the nib (%@)", reuseIdentifier, identifierCopy}];
@@ -22148,16 +22132,16 @@ LABEL_5:
   }
 
   reuseIdentifier2 = [(UICollectionReusableView *)cellBeingReconfigured reuseIdentifier];
-  v17 = [reuseIdentifier2 isEqualToString:identifierCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(reuseIdentifier2);
 
-  if ((v17 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
     reuseIdentifier3 = [(UICollectionReusableView *)self->_cellBeingReconfigured reuseIdentifier];
     [currentHandler4 handleFailureInMethod:a2 object:self file:@"UICollectionView.m" lineNumber:9698 description:{@"Attempted to dequeue a cell for a different registration or reuse identifier than the existing cell when reconfiguring an item, which is not allowed. You must dequeue a cell using the same registration or reuse identifier that was used to dequeue the cell originally to obtain the existing cell. Dequeued reuse identifier: %@; Original reuse identifier: %@; Existing cell: %@", identifierCopy, reuseIdentifier3, self->_cellBeingReconfigured}];
   }
 
-  if (([(NSIndexPath *)self->_indexPathBeingReconfigured isEqual:v65]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_indexPathBeingReconfigured) & 1) == 0)
   {
     currentHandler5 = [MEMORY[0x1E696AAA8] currentHandler];
     v53 = [(UICollectionView *)self dataSourceIndexPathForPresentationIndexPath:self->_indexPathBeingReconfigured];
@@ -22180,7 +22164,7 @@ void __88__UICollectionView__dequeueReusableViewOfKind_withIdentifier_forIndexPa
   *(v3 + 40) = v2;
 }
 
-uint64_t __88__UICollectionView__dequeueReusableViewOfKind_withIdentifier_forIndexPath_viewCategory___block_invoke_2(uint64_t a1)
+void *__88__UICollectionView__dequeueReusableViewOfKind_withIdentifier_forIndexPath_viewCategory___block_invoke_2(uint64_t a1)
 {
   if (dyld_program_sdk_at_least())
   {
@@ -22478,7 +22462,7 @@ LABEL_20:
   if (([(_UICollectionViewSubviewManager *)self->_subviewManager isViewInReuseQueue:cellCopy]& 1) == 0)
   {
     subviewManager = self->_subviewManager;
-    if (!subviewManager || ([(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews containsView:cellCopy]& 1) == 0)
+    if (!subviewManager || ([(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa containsView:cellCopy]& 1) == 0)
     {
       if (pathCopy && [(UICollectionView *)self _prefetchingAllowed]&& [(UICollectionView *)self _indexPathIsValid:pathCopy])
       {
@@ -23128,7 +23112,7 @@ LABEL_7:
   }
 }
 
-uint64_t __65__UICollectionView__updateRowsAtIndexPaths_updateAction_updates___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__65__UICollectionView__updateRowsAtIndexPaths_updateAction_updates___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _addUpdateToShadowControllerIfNeeded:a2];
   if ((result & 1) == 0)
@@ -23258,7 +23242,7 @@ LABEL_11:
     v11 = 4;
   }
 
-  [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v11 options:v9 animations:0 completion:?];
+  [UIView _animateCollectionTableAnimationWithDuration:v11 delay:v9 options:0 animations:0.3 completion:0.0];
   if ((v7 & 0x1000000000) == 0)
   {
     goto LABEL_11;
@@ -23608,7 +23592,7 @@ LABEL_118:
   v274 = v26;
   v31 = self->_collectionViewData;
   [(UICollectionView *)self _visibleBounds];
-  [(UICollectionViewData *)v31 validateLayoutInRectImmediatelyValidatingContentSizeIgnoringSpecificInvalidations:v32, v33, v34, v35];
+  [(UICollectionViewData *)&v31->super.isa validateLayoutInRectImmediatelyValidatingContentSizeIgnoringSpecificInvalidations:v32, v33, v34, v35];
   if (v31)
   {
     *&v31->_collectionViewDataFlags |= 0x10u;
@@ -23721,9 +23705,9 @@ LABEL_35:
 
             v57 = *(*(&v345 + 1) + 8 * v56);
             _indexPath2 = [(UICollectionViewUpdateItem *)v57 _indexPath];
-            v59 = [_indexPath2 isEqual:_indexPath];
+            isEqual = objc_msgSend_isEqual_(_indexPath2);
 
-            if (v59)
+            if (isEqual)
             {
               currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
               _indexPath3 = [(UICollectionViewUpdateItem *)v57 _indexPath];
@@ -25280,7 +25264,7 @@ LABEL_19:
 - (void)_prepareLayoutForUpdates:(BOOL)updates
 {
   updatesCopy = updates;
-  [(UICollectionViewData *)self->_collectionViewData _prepareToLoadData];
+  [(UICollectionViewData *)&self->_collectionViewData->super.isa _prepareToLoadData];
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = [(NSArray *)self->_originalDeleteItems sortedArrayUsingSelector:sel_compareIndexPaths_];
   [v9 addObjectsFromArray:v5];
@@ -25309,7 +25293,7 @@ LABEL_19:
     [currentHandler handleFailureInMethod:a2 object:self file:@"UICollectionView.m" lineNumber:11140 description:{@"UICollectionView internal inconsistency: attempted to generate view animations for an update which is not animated. Collection view: %@", self, animatorCopy}];
   }
 
-  allVisibleViewsHashTable = [(_UICollectionViewSubviewManager *)self->_subviewManager allVisibleViewsHashTable];
+  allVisibleViewsHashTable = [(_UICollectionViewSubviewManager *)&self->_subviewManager->super.isa allVisibleViewsHashTable];
   if ([(UICollectionViewLayout *)self->_layout _estimatesSizes]&& dyld_program_sdk_at_least())
   {
     [(UICollectionView *)self _updatePreferredAttributesForCurrentUpdate];
@@ -25385,7 +25369,7 @@ LABEL_19:
   subviewManager = self->_subviewManager;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:?];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:?];
   }
 
   [(UICollectionView *)self _updateOrderingOfViewsInDisappearingViewAnimations:v20 onScreenViewAnimations:v21];
@@ -25436,7 +25420,7 @@ void __120__UICollectionView__viewAnimationsForCurrentUpdateWithCollectionViewAn
   v15 = v11;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:v17];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:v17];
   }
 }
 
@@ -26090,7 +26074,7 @@ void __117__UICollectionView__createAndAppendViewAnimationsForInsertsInCurrentUp
   v31 = v23;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v28];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v28];
   }
 
   v26 = 0u;
@@ -26278,7 +26262,7 @@ void __107__UICollectionView__attributesForItemsVisibleDuringCurrentUpdateWithOl
             goto LABEL_11;
           }
 
-          if ([v101 isHidden] && (objc_msgSend(v102, "isHidden") & 1) != 0 || (-[_UICollectionViewDragAndDropController isCellPerformingLegacyReorderingAtIndexPath:](selfCopy->_dragAndDropController, v34) & 1) != 0 || (-[NSIndexPath isEqual:](selfCopy->_cancellingToIndexPath, "isEqual:", v34) & 1) != 0)
+          if ([v101 isHidden] && (objc_msgSend(v102, "isHidden") & 1) != 0 || (-[_UICollectionViewDragAndDropController isCellPerformingLegacyReorderingAtIndexPath:](selfCopy->_dragAndDropController, v34) & 1) != 0 || (objc_msgSend_isEqual_(selfCopy->_cancellingToIndexPath) & 1) != 0)
           {
             v33 = 0;
           }
@@ -26290,10 +26274,10 @@ void __107__UICollectionView__attributesForItemsVisibleDuringCurrentUpdateWithOl
             {
               [v71 indexPath];
               v73 = v72 = v31;
-              v74 = [v73 isEqual:v34];
+              isEqual = objc_msgSend_isEqual_(v73);
 
               v31 = v72;
-              if ((v74 & 1) == 0)
+              if ((isEqual & 1) == 0)
               {
                 [v71 setIndexPath:v34];
               }
@@ -26472,7 +26456,7 @@ LABEL_11:
   v130 = v15;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAuxillariesWithEnumerator:v128];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAuxillariesWithEnumerator:v128];
   }
 
   existingSupplementaryLayoutAttributes = [(UICollectionViewData *)self->_currentUpdate->_oldModel existingSupplementaryLayoutAttributes];
@@ -27798,7 +27782,7 @@ LABEL_41:
   v44 = v25;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v43];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v43];
   }
 
   CategoryCachedImpl = __UILogGetCategoryCachedImpl("UICollectionView", &qword_1ED492598);
@@ -28133,7 +28117,7 @@ LABEL_34:
     v39 = v29;
     if (subviewManager)
     {
-      [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateSupplementariesWithEnumerator:v38];
+      [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateSupplementariesWithEnumerator:v38];
       v29 = v39;
     }
   }
@@ -28796,7 +28780,7 @@ LABEL_33:
         v134 = 4;
       }
 
-      [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v134 options:v132 animations:v133 completion:?];
+      [UIView _animateCollectionTableAnimationWithDuration:v134 delay:v132 options:v133 animations:0.3 completion:0.0];
     }
 
     v103 = v155;
@@ -29069,7 +29053,7 @@ LABEL_98:
   }
 
   [(UICollectionView *)selfCopy18 _resumeDidScrollNotifications];
-  [(UICollectionViewData *)selfCopy18->_collectionViewData finalizeCollectionViewUpdates];
+  [(UICollectionViewData *)&selfCopy18->_collectionViewData->super.isa finalizeCollectionViewUpdates];
   [(UICollectionViewLayout *)selfCopy18->_layout _finalizeCollectionViewUpdate:selfCopy18->_currentUpdate];
   [(UICollectionView *)selfCopy18 _setNeedsVisibleCellsUpdate:1 withLayoutAttributes:1];
   v109 = _Block_copy(selfCopy18->_updateCompletionHandler);
@@ -29178,7 +29162,7 @@ id __102__UICollectionView__updateWithItems_tentativelyForReordering_propertyAni
   return v6;
 }
 
-uint64_t __102__UICollectionView__updateWithItems_tentativelyForReordering_propertyAnimator_collectionViewAnimator___block_invoke_929(uint64_t a1)
+void *__102__UICollectionView__updateWithItems_tentativelyForReordering_propertyAnimator_collectionViewAnimator___block_invoke_929(uint64_t a1)
 {
   [*(a1 + 32) contentOffset];
   v3 = v2;
@@ -29743,7 +29727,7 @@ void __118__UICollectionView__startViewAnimationsWithContext_oldVisibleViews_vie
   v19 = vabdd_f64(v5, v16) >= 0.0001 || v18;
   if (dyld_program_sdk_at_least() && v19 && ![(UIScrollView *)self isScrollAnimating])
   {
-    collectionViewContentRect = [(UICollectionViewData *)updateCopy[3] collectionViewContentRect];
+    collectionViewContentRect = [(UICollectionViewData *)*(updateCopy + 3) collectionViewContentRect];
     v57 = v5;
     v21 = v6;
     v23 = v22;
@@ -30047,7 +30031,7 @@ LABEL_20:
 
         self = selfCopy;
         v51 = selfCopy->_subviewManager;
-        if (v51 && [(_UICollectionViewSubviewCollection *)v51->_visibleViews containsView:view])
+        if (v51 && [(_UICollectionViewSubviewCollection *)&v51->_visibleViews->super.isa containsView:view])
         {
           if (dyld_program_sdk_at_least() && [v12 updateZIndexAfterAnimation])
           {
@@ -30468,7 +30452,7 @@ uint64_t __41__UICollectionView__invalidateWithBlock___block_invoke(uint64_t a1)
       subviewManager = self->_subviewManager;
       if (subviewManager)
       {
-        [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateAllViewsWithEnumerator:?];
+        [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateAllViewsWithEnumerator:?];
       }
 
       [(NSMutableDictionary *)self->_prefetchCacheItems enumerateKeysAndObjectsUsingBlock:&__block_literal_global_971];
@@ -30649,17 +30633,17 @@ void __49__UICollectionView__invalidateLayoutWithContext___block_invoke_4(uint64
   [(UICollectionViewData *)v1 invalidate:v2];
 }
 
-uint64_t __49__UICollectionView__invalidateLayoutWithContext___block_invoke_5(uint64_t a1)
+_BYTE *__49__UICollectionView__invalidateLayoutWithContext___block_invoke_5(void *a1)
 {
-  [(UICollectionViewData *)*(a1 + 32) invalidateItemsAtIndexPaths:?];
-  [(UICollectionViewData *)*(a1 + 32) invalidateSupplementaryIndexPaths:?];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 56);
+  [(UICollectionViewData *)a1[4] invalidateItemsAtIndexPaths:?];
+  [(UICollectionViewData *)a1[4] invalidateSupplementaryIndexPaths:?];
+  v2 = a1[4];
+  v3 = a1[7];
 
   return [(UICollectionViewData *)v2 invalidateDecorationIndexPaths:v3];
 }
 
-uint64_t __49__UICollectionView__invalidateLayoutWithContext___block_invoke_6(uint64_t a1)
+void *__49__UICollectionView__invalidateLayoutWithContext___block_invoke_6(uint64_t a1)
 {
   if ([*(a1 + 32) count])
   {
@@ -30947,10 +30931,10 @@ void __79__UICollectionView__recomputePreferredAttributesForInvalidatedElementsI
   selfCopy = self;
   [UIView performWithoutAnimation:&v30];
   [(UICollectionView *)self _incrementUpdateAnimationCountWithContext:v25, v30, v31, v32, v33];
-  allVisibleViewsHashTable = [(_UICollectionViewSubviewManager *)self->_subviewManager allVisibleViewsHashTable];
+  allVisibleViewsHashTable = [(_UICollectionViewSubviewManager *)&self->_subviewManager->super.isa allVisibleViewsHashTable];
   [(_UICollectionViewSubviewManager *)self->_subviewManager removeAllVisibleViews];
   [(UICollectionView *)self _startViewAnimationsWithContext:v25 oldVisibleViews:allVisibleViewsHashTable viewAnimator:0 viewAnimationsCompletedDispatchGroup:0];
-  [(UICollectionViewData *)self->_collectionViewData finalizeCollectionViewUpdates];
+  [(UICollectionViewData *)&self->_collectionViewData->super.isa finalizeCollectionViewUpdates];
   [(UICollectionViewLayout *)self->_layout _finalizeCollectionViewUpdate:self->_currentUpdate];
   v27 = self->_currentUpdate;
   self->_currentUpdate = 0;
@@ -31201,7 +31185,7 @@ LABEL_9:
                     }
 
                     v28 = *(*(&v37 + 1) + 8 * i);
-                    if (([v28 isEqual:*(&self->super.super.super.super.isa + v13)] & 1) == 0)
+                    if ((objc_msgSend_isEqual_(v28) & 1) == 0)
                     {
                       [(UICollectionView *)self _cellForItemAtIndexPath:v28];
                       v29 = v13;
@@ -32932,9 +32916,9 @@ LABEL_32:
           v14 = _focusedItemState ? *(_focusedItemState + 16) : 0;
           v15 = v14;
           v16 = [(UICollectionView *)self indexPathForCell:v10];
-          v17 = [v15 isEqual:v16];
+          isEqual = objc_msgSend_isEqual_(v15);
 
-          if (v17)
+          if (isEqual)
           {
             [v10 frame];
             v19 = v18;
@@ -33267,7 +33251,7 @@ uint64_t __46__UICollectionView__existingFocusItemsInRect___block_invoke(uint64_
             if (!v30)
             {
               newContentView = self->_newContentView;
-              if (!newContentView || (-[UICollectionReusableView _layoutAttributes](newContentView, "_layoutAttributes"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v32 isEqual:v18], v32, (v33 & 1) == 0))
+              if (!newContentView || ([(UICollectionReusableView *)newContentView _layoutAttributes], v32 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v32), v32, (isEqual & 1) == 0))
               {
                 selfCopy = self;
                 v35 = selfCopy;
@@ -33809,7 +33793,7 @@ LABEL_14:
         v22[4] = self;
         v23 = v17;
         v24 = v16;
-        [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v20 options:v22 animations:0 completion:?];
+        [UIView _animateCollectionTableAnimationWithDuration:v20 delay:v22 options:0 animations:0.3 completion:0.0];
       }
 
       else
@@ -33912,7 +33896,7 @@ void __52__UICollectionView__updateReorderingTargetPosition___block_invoke(uint6
   [v2 _performBatchUpdates:v5 completion:0 invalidationContext:*(a1 + 48) tentativelyForReordering:1];
 }
 
-uint64_t __52__UICollectionView__updateReorderingTargetPosition___block_invoke_2(uint64_t result)
+void *__52__UICollectionView__updateReorderingTargetPosition___block_invoke_2(void *result)
 {
   if (*(result + 48) == 1)
   {
@@ -33922,8 +33906,8 @@ uint64_t __52__UICollectionView__updateReorderingTargetPosition___block_invoke_2
     v4[1] = 3221225472;
     v4[2] = __52__UICollectionView__updateReorderingTargetPosition___block_invoke_3;
     v4[3] = &unk_1E70FF950;
-    v3 = *(result + 32);
-    v4[4] = *(result + 40);
+    v3 = result[4];
+    v4[4] = result[5];
     return [v3 enumerateKeysAndObjectsUsingBlock:v4];
   }
 
@@ -34105,7 +34089,7 @@ LABEL_75:
                     v26 = *(*(&v72 + 1) + 8 * v25);
                     originalIndexPath = [v26 originalIndexPath];
                     targetIndexPath = [v26 targetIndexPath];
-                    if (([originalIndexPath isEqual:targetIndexPath] & 1) == 0)
+                    if ((objc_msgSend_isEqual_(originalIndexPath) & 1) == 0)
                     {
                       if (sessionKind == 1)
                       {
@@ -34207,7 +34191,7 @@ LABEL_75:
 
                     cell = [*(*(&v65 + 1) + 8 * i) cell];
                     subviewManager = self->_subviewManager;
-                    if (subviewManager && [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews containsView:cell])
+                    if (subviewManager && [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa containsView:cell])
                     {
                       if ((dyld_program_sdk_at_least() & 1) == 0)
                       {
@@ -34265,7 +34249,7 @@ LABEL_75:
                 v46 = 4;
               }
 
-              [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v46 options:v44 animations:v45 completion:?];
+              [UIView _animateCollectionTableAnimationWithDuration:v46 delay:v44 options:v45 animations:0.3 completion:0.0];
               v20 = endReordering;
               if (endReordering)
               {
@@ -34409,9 +34393,9 @@ LABEL_32:
                 goto LABEL_32;
               }
 
-              v26 = [v23 isEqual:v24];
+              isEqual = objc_msgSend_isEqual_(v23);
 
-              if (v26)
+              if (isEqual)
               {
                 goto LABEL_30;
               }
@@ -34558,7 +34542,7 @@ LABEL_16:
   }
 }
 
-uint64_t __64__UICollectionView__completeInteractiveMovementWithDisposition___block_invoke_7(uint64_t a1)
+void *__64__UICollectionView__completeInteractiveMovementWithDisposition___block_invoke_7(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 2152) _estimatesSizes];
   if (result)
@@ -34922,7 +34906,7 @@ LABEL_22:
   subviewManager = self->_subviewManager;
   if (subviewManager)
   {
-    if (([(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews containsView:subviewCopy]& 1) != 0)
+    if (([(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa containsView:subviewCopy]& 1) != 0)
     {
       goto LABEL_22;
     }
@@ -35717,7 +35701,7 @@ LABEL_36:
   visibleCopy = visible;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v4];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v4];
   }
 }
 
@@ -35885,7 +35869,7 @@ LABEL_14:
   return v7;
 }
 
-uint64_t __96__UICollectionView__sectionIndexesAfterShadowUpdatesForSectionIndexes_allowingAppendingInserts___block_invoke(uint64_t a1, uint64_t a2)
+void *__96__UICollectionView__sectionIndexesAfterShadowUpdatesForSectionIndexes_allowingAppendingInserts___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 2856) sectionIndexAfterShadowUpdates:a2 allowingAppendingInserts:*(a1 + 48)];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -36108,7 +36092,7 @@ LABEL_19:
 
   v22 = [(UICollectionView *)self _targetIndexPathForMoveOfItemFromOriginalIndexPath:pathCopy atCurrentIndexPath:v21 toProposedIndexPath:indexPath];
 
-  if (v15 && ([v22 isEqual:indexPath] & 1) == 0)
+  if (v15 && (objc_msgSend_isEqual_(v22) & 1) == 0)
   {
     v23 = [(UICollectionViewLayout *)self->_layout _layoutAttributesForInsertionIndicatorAtTargetIndexPath:v22];
 
@@ -36147,9 +36131,9 @@ LABEL_20:
   v11 = pathCopy;
   v14 = v11;
   intentCopy = intent;
-  [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:v10 options:v13 animations:0 completion:?];
+  [UIView _animateCollectionTableAnimationWithDuration:v10 delay:v13 options:0 animations:0.3 completion:0.0];
   indexPathForOriginalReorderedItem = [(_UICollectionViewDragAndDropController *)self->_dragAndDropController indexPathForOriginalReorderedItem];
-  if (v11 && intent == 1 && attributesCopy && ([v11 isEqual:indexPathForOriginalReorderedItem] & 1) == 0)
+  if (v11 && intent == 1 && attributesCopy && (objc_msgSend_isEqual_(v11) & 1) == 0)
   {
     [(UICollectionView *)self _updateReorderDestinationViewWithLayoutAttributes:attributesCopy];
   }
@@ -36182,7 +36166,7 @@ void __100__UICollectionView__updateDropTargetAppearanceWithTargetIndexPath_inte
 {
   v7 = a2;
   v5 = a3;
-  if (*(a1 + 32) && *(a1 + 40) == 2 && ([v7 isEqual:?] & 1) != 0)
+  if (*(a1 + 32) && *(a1 + 40) == 2 && (objc_msgSend_isEqual_(v7) & 1) != 0)
   {
     v6 = 2;
   }
@@ -36200,7 +36184,7 @@ void __100__UICollectionView__updateDropTargetAppearanceWithTargetIndexPath_inte
   subviewManager = self->_subviewManager;
   if (subviewManager)
   {
-    [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:?];
+    [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:?];
   }
 }
 
@@ -36914,7 +36898,7 @@ LABEL_24:
                     }
 
                     v24 = *(*(&v32 + 1) + 8 * i);
-                    if (([v24 isEqual:{v8, v30}] & 1) == 0)
+                    if ((objc_msgSend_isEqual_(v24, v30) & 1) == 0)
                     {
                       v25 = [(UICollectionView *)self _identityTracker:1];
                       v26 = [(_UIIndexPathIdentityTracker *)v25 identifierForIndexPath:v24];
@@ -37458,7 +37442,7 @@ void __76__UICollectionView_contextMenuInteraction_willEndForConfiguration_anima
     v15 = v13;
     if (subviewManager)
     {
-      [(_UICollectionViewSubviewCollection *)subviewManager->_visibleViews enumerateCellsWithEnumerator:v18];
+      [(_UICollectionViewSubviewCollection *)&subviewManager->_visibleViews->super.isa enumerateCellsWithEnumerator:v18];
       v15 = v20;
     }
   }
@@ -37475,7 +37459,7 @@ void __76__UICollectionView_contextMenuInteraction_willEndForConfiguration_anima
     v14 = v17;
     if (v16)
     {
-      [(_UICollectionViewSubviewCollection *)v16->_visibleViews enumerateCellsWithEnumerator:v25];
+      [(_UICollectionViewSubviewCollection *)&v16->_visibleViews->super.isa enumerateCellsWithEnumerator:v25];
       v13 = v26;
     }
 
@@ -37847,9 +37831,9 @@ id __64__UICollectionView__configureSceneActivationInteractionIfNeeded__block_in
 
     if (v8)
     {
-      preview = [v8 preview];
+      v12 = objc_msgSend_preview(v8);
 
-      if (!preview)
+      if (!v12)
       {
         v13 = [(UICollectionView *)self cellForItemAtIndexPath:v6];
         window = [v13 window];
@@ -37885,9 +37869,9 @@ LABEL_17:
 - (id)valueForUndefinedKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"_cellReuseQueues"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
-    UIKVCAccessProhibited(keyCopy, @"UICollectionView");
+    UIKVCAccessProhibited(keyCopy, @"UICollectionView", 1179648);
 
     v5 = MEMORY[0x1E695E0F8];
   }

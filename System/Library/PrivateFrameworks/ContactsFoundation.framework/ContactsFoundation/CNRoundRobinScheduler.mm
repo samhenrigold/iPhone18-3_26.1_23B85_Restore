@@ -170,25 +170,20 @@
       goto LABEL_3;
     }
 
-LABEL_10:
+LABEL_8:
     __break(1u);
-    goto LABEL_11;
-  }
-
-  if (v3 < 0)
-  {
-    v11 = *(&self->super.isa + OBJC_IVAR___CNRoundRobinScheduler_schedulers);
+    goto LABEL_9;
   }
 
   if (!sub_185A7EBA4())
   {
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
 LABEL_3:
   if ((v3 & 0xC000000000000001) != 0)
   {
-LABEL_11:
+LABEL_9:
     selfCopy = self;
     v6 = MEMORY[0x1865FB090](0, v3);
     goto LABEL_6;

@@ -126,76 +126,76 @@ LABEL_13:
 - (BOOL)resolveSDOFStatusWithSampleBuffer:(opaqueCMSampleBuffer *)buffer frameStatisticsByPortType:(id)type sceneFlags:(unint64_t)flags flashOrTorchWillBeActive:(BOOL)active digitalFlashWillFire:(BOOL)fire thermalPressureLevel:(int)level peakPowerPressureLevel:(int)pressureLevel effectStatus:(int *)self0 stagePreviewStatus:(int *)self1
 {
   activeCopy = active;
-  v15 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  if (!v15)
+  v16 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+  if (!v16)
   {
-    return v15;
+    return v16;
   }
 
-  v16 = v15;
-  v17 = *off_1E798A0C0;
-  v87 = [type objectForKeyedSubscript:*off_1E798A0C0];
-  v18 = [type objectForKeyedSubscript:*off_1E798A0D8];
+  v17 = v16;
+  v18 = *off_1E798A0C0;
+  v89 = [type objectForKeyedSubscript:*off_1E798A0C0];
+  v19 = [type objectForKeyedSubscript:*off_1E798A0D8];
   invalidShiftRatioFiltered = self->_invalidShiftRatioFiltered;
   backgroundShiftSumFiltered = self->_backgroundShiftSumFiltered;
   if (self->_focusLocked)
   {
     numFramesSinceFocusLocked = self->_numFramesSinceFocusLocked;
     self->_numFramesSinceFocusLocked = numFramesSinceFocusLocked + 1;
-    v22 = numFramesSinceFocusLocked > 9;
+    v23 = numFramesSinceFocusLocked > 9;
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
   portraitSceneMonitoringRequiresStageThresholds = self->_portraitSceneMonitoringRequiresStageThresholds;
-  CMSetAttachment(buffer, @"SDOFFocusLocked", [MEMORY[0x1E696AD98] numberWithBool:v22], 1u);
+  CMSetAttachment(buffer, @"SDOFFocusLocked", [MEMORY[0x1E696AD98] numberWithBool:v23], 1u);
   subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart = self->_subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart;
   subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd = self->_subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd;
-  v25 = 1.0;
+  v26 = 1.0;
   if (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart < 1.0 && subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd > subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart)
   {
-    v27 = (invalidShiftRatioFiltered / (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart - subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd)) + (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd / (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd - subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart));
-    if (v27 <= 1.0)
+    v28 = (invalidShiftRatioFiltered / (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart - subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd)) + (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd / (subjectTooFarBackgroundShiftRollOffInvalidShiftRatioEnd - subjectTooFarBackgroundShiftRollOffInvalidShiftRatioStart));
+    if (v28 <= 1.0)
     {
-      v25 = v27;
+      v26 = v28;
     }
 
-    if (v25 < 0.0)
+    if (v26 < 0.0)
     {
-      v25 = 0.0;
+      v26 = 0.0;
     }
 
-    backgroundShiftSumFiltered = backgroundShiftSumFiltered * v25;
+    backgroundShiftSumFiltered = backgroundShiftSumFiltered * v26;
   }
 
-  v28 = [objc_msgSend(v16 objectForKeyedSubscript:{*off_1E798B730), "objectForKeyedSubscript:", v17}];
-  v29 = v28;
-  v30 = *off_1E798B0A8;
-  v85 = activeCopy;
-  if (v28)
+  v29 = [objc_msgSend(v17 objectForKeyedSubscript:{*off_1E798B730), "objectForKeyedSubscript:", v18}];
+  v30 = v29;
+  v31 = *off_1E798B0A8;
+  v87 = activeCopy;
+  if (v29)
   {
-    v31 = [objc_msgSend(v28 objectForKeyedSubscript:{v30), "intValue"}] != 4;
+    v32 = [objc_msgSend(v29 objectForKeyedSubscript:{v31), "intValue"}] != 4;
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
-  v32 = [objc_msgSend(v16 objectForKeyedSubscript:{v30), "intValue"}];
-  v33 = *off_1E798B320;
-  v34 = [objc_msgSend(v29 objectForKeyedSubscript:{*off_1E798B320), "intValue"}];
-  v35 = [objc_msgSend(v16 objectForKeyedSubscript:{v33), "intValue"}];
-  v36 = v32 != 4 || v31;
-  if (v36)
+  v33 = [objc_msgSend(v17 objectForKeyedSubscript:{v31), "intValue"}];
+  v34 = *off_1E798B320;
+  v35 = [objc_msgSend(v30 objectForKeyedSubscript:{*off_1E798B320), "intValue"}];
+  v36 = [objc_msgSend(v17 objectForKeyedSubscript:{v34), "intValue"}];
+  v37 = v33 != 4 || v32;
+  if (v37)
   {
-    v37 = 0;
-    v38 = v34 == 1 || v35 == 1;
-    v39 = v38;
-    if (v38)
+    v38 = 0;
+    v39 = v35 == 1 || v36 == 1;
+    v40 = v39;
+    if (v39)
     {
       lastFocusingMethod = 1;
     }
@@ -211,14 +211,14 @@ LABEL_13:
     lastFocusingMethod = self->_lastFocusingMethod;
     if (self->_focusAdjusting)
     {
-      v37 = 0;
-      v39 = 0;
+      v38 = 0;
+      v40 = 0;
     }
 
     else
     {
-      v39 = 0;
-      v37 = self->_numFramesSinceFocusBecameStable + 1;
+      v40 = 0;
+      v38 = self->_numFramesSinceFocusBecameStable + 1;
     }
   }
 
@@ -226,10 +226,10 @@ LABEL_13:
   {
     if (self->_focusStableAfterStartStreaming)
     {
-      self->_focusAdjusting = v36;
+      self->_focusAdjusting = v37;
       self->_lastFocusingMethod = lastFocusingMethod;
-      self->_numFramesSinceFocusBecameStable = v37;
-      if (v39)
+      self->_numFramesSinceFocusBecameStable = v38;
+      if (v40)
       {
         goto LABEL_156;
       }
@@ -237,44 +237,44 @@ LABEL_13:
       goto LABEL_57;
     }
 
-    v43 = 1;
-    if (!v36)
+    v44 = 1;
+    if (!v37)
     {
       goto LABEL_44;
     }
 
 LABEL_51:
-    v47 = [type frameCount] > 0x1F;
+    v48 = [type frameCount] > 0x1F;
     goto LABEL_56;
   }
 
-  v41 = [objc_msgSend(v29 objectForKeyedSubscript:{*off_1E798B078), "BOOLValue"}];
-  if ([v87 aeStable] && v41)
+  v42 = [objc_msgSend(v30 objectForKeyedSubscript:{*off_1E798B078), "BOOLValue"}];
+  if ([v89 aeStable] && v42)
   {
     numFramesSinceAEBecameStable = self->_numFramesSinceAEBecameStable;
     if (numFramesSinceAEBecameStable <= 4)
     {
-      v43 = [type frameCount] > 0x13;
+      v44 = [type frameCount] > 0x13;
       numFramesSinceAEBecameStable = self->_numFramesSinceAEBecameStable;
     }
 
     else
     {
-      v43 = 1;
+      v44 = 1;
     }
 
-    v45 = numFramesSinceAEBecameStable + 1;
+    v46 = numFramesSinceAEBecameStable + 1;
   }
 
   else
   {
     frameCount = [type frameCount];
-    v45 = 0;
-    v43 = frameCount > 0x13;
+    v46 = 0;
+    v44 = frameCount > 0x13;
   }
 
-  self->_numFramesSinceAEBecameStable = v45;
-  if (v36)
+  self->_numFramesSinceAEBecameStable = v46;
+  if (v37)
   {
     goto LABEL_51;
   }
@@ -282,35 +282,35 @@ LABEL_51:
 LABEL_44:
   if (lastFocusingMethod == 2)
   {
-    v46 = v37 <= 3;
+    v47 = v38 <= 3;
   }
 
   else if (lastFocusingMethod)
   {
-    v46 = v37 <= 1;
+    v47 = v38 <= 1;
   }
 
   else
   {
-    v46 = v37 <= 43;
+    v47 = v38 <= 43;
   }
 
-  v47 = !v46;
+  v48 = !v47;
 LABEL_56:
-  self->_focusAdjusting = v36;
+  self->_focusAdjusting = v37;
   self->_lastFocusingMethod = lastFocusingMethod;
-  self->_numFramesSinceFocusBecameStable = v37;
-  self->_aeStableAfterStartStreaming = v43;
-  self->_focusStableAfterStartStreaming = v47;
-  if (v39 & 1 | (!v43 || !v47))
+  self->_numFramesSinceFocusBecameStable = v38;
+  self->_aeStableAfterStartStreaming = v44;
+  self->_focusStableAfterStartStreaming = v48;
+  if (v40 & 1 | (!v44 || !v48))
   {
 LABEL_156:
-    LOBYTE(v15) = 0;
-    return v15;
+    LOBYTE(v16) = 0;
+    return v16;
   }
 
 LABEL_57:
-  if (lastFocusingMethod == 1 && v37 < 3)
+  if (lastFocusingMethod == 1 && v38 < 3)
   {
     goto LABEL_156;
   }
@@ -318,25 +318,25 @@ LABEL_57:
   if (self->_oneShotFocusScanInProgress)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v11, v86, v11, v87, v89, v90, v91);
     goto LABEL_156;
   }
 
-  if (!v22)
+  if (!v23)
   {
     if (self->_subjectTooCloseMonitoringEnabled)
     {
-      focusPosition = [v87 focusPosition];
+      focusPosition = [v89 focusPosition];
       subjectTooCloseLastWideFocusPosition = self->_subjectTooCloseLastWideFocusPosition;
-      self->_subjectTooCloseLastWideFocusPosition = [v87 focusPosition];
+      self->_subjectTooCloseLastWideFocusPosition = [v89 focusPosition];
       if (focusPosition != subjectTooCloseLastWideFocusPosition)
       {
         subjectIsTooClose = self->_subjectIsTooClose;
-        [v87 focusDistance];
+        [v89 focusDistance];
         subjectTooCloseWideFocusDistanceThreshold = self->_subjectTooCloseWideFocusDistanceThreshold;
         if (subjectIsTooClose)
         {
-          if (v61 >= (subjectTooCloseWideFocusDistanceThreshold + self->_subjectTooCloseWideFocusDistanceHysteresisLag))
+          if (v62 >= (subjectTooCloseWideFocusDistanceThreshold + self->_subjectTooCloseWideFocusDistanceHysteresisLag))
           {
             self->_subjectIsTooClose = 0;
             if (self->_lastSDOFEffectStatus == 4 && self->_sceneIsTooDark)
@@ -346,7 +346,7 @@ LABEL_57:
           }
         }
 
-        else if (v61 <= subjectTooCloseWideFocusDistanceThreshold)
+        else if (v62 <= subjectTooCloseWideFocusDistanceThreshold)
         {
           self->_subjectIsTooClose = 1;
         }
@@ -355,34 +355,34 @@ LABEL_57:
 
     if (self->_subjectTooFarMonitoringEnabled)
     {
-      v51 = [objc_msgSend(v16 objectForKeyedSubscript:{*off_1E798B208), "intValue"}];
+      v52 = [objc_msgSend(v17 objectForKeyedSubscript:{*off_1E798B208), "intValue"}];
       subjectTooFarLastTeleFocusPosition = self->_subjectTooFarLastTeleFocusPosition;
-      self->_subjectTooFarLastTeleFocusPosition = v51;
-      if (v51 != subjectTooFarLastTeleFocusPosition)
+      self->_subjectTooFarLastTeleFocusPosition = v52;
+      if (v52 != subjectTooFarLastTeleFocusPosition)
       {
         if (self->_subjectTooFarUseTeleForFocusDistance)
         {
-          v53 = v18;
+          v54 = v19;
         }
 
         else
         {
-          v53 = v87;
+          v54 = v89;
         }
 
-        [v53 focusDistance];
+        [v54 focusDistance];
         subjectTooFarFocusDistanceThreshold = self->_subjectTooFarFocusDistanceThreshold;
         if (self->_subjectTooFarDistanceThresholdReached)
         {
           subjectTooFarFocusDistanceHysteresisLag = self->_subjectTooFarFocusDistanceHysteresisLag;
-          v57 = subjectTooFarFocusDistanceThreshold - subjectTooFarFocusDistanceHysteresisLag;
-          v58 = self->_stageTooFarFocusDistanceThreshold - subjectTooFarFocusDistanceHysteresisLag;
-          if (v54 <= v57)
+          v58 = subjectTooFarFocusDistanceThreshold - subjectTooFarFocusDistanceHysteresisLag;
+          v59 = self->_stageTooFarFocusDistanceThreshold - subjectTooFarFocusDistanceHysteresisLag;
+          if (v55 <= v58)
           {
             self->_subjectTooFarDistanceThresholdReached = 0;
           }
 
-          if (v54 > v58)
+          if (v55 > v59)
           {
             goto LABEL_88;
           }
@@ -393,7 +393,7 @@ LABEL_57:
         else
         {
           stageTooFarFocusDistanceThreshold = self->_stageTooFarFocusDistanceThreshold;
-          if (v54 >= subjectTooFarFocusDistanceThreshold)
+          if (v55 >= subjectTooFarFocusDistanceThreshold)
           {
             self->_subjectTooFarDistanceThresholdReached = 1;
             if (self->_subjectTooFarBackgroundShiftSumIsTooLow)
@@ -402,7 +402,7 @@ LABEL_57:
             }
           }
 
-          if (v54 < stageTooFarFocusDistanceThreshold)
+          if (v55 < stageTooFarFocusDistanceThreshold)
           {
             goto LABEL_88;
           }
@@ -429,8 +429,8 @@ LABEL_88:
       {
         if (backgroundShiftSumFiltered > (subjectTooFarBackgroundShiftSumTooLowThreshold + self->_subjectTooFarBackgroundShiftSumTooLowHysteresisLag))
         {
-          [v18 focusDistance];
-          if (v65 < self->_subjectTooFarFocusDistanceInfinityThreshold || (subjectTooFarBackgroundShiftTooLowNumFrames = self->_subjectTooFarBackgroundShiftTooLowNumFrames, subjectTooFarBackgroundShiftTooLowNumFrames > 5))
+          [v19 focusDistance];
+          if (v66 < self->_subjectTooFarFocusDistanceInfinityThreshold || (subjectTooFarBackgroundShiftTooLowNumFrames = self->_subjectTooFarBackgroundShiftTooLowNumFrames, subjectTooFarBackgroundShiftTooLowNumFrames > 5))
           {
             self->_subjectTooFarBackgroundShiftSumIsTooLow = 0;
             self->_subjectTooFarBackgroundShiftTooLowNumFrames = 0;
@@ -457,8 +457,8 @@ LABEL_88:
     {
       if (backgroundShiftSumFiltered > (stageTooFarBackgroundShiftSumNoFacesThreshold + self->_subjectTooFarBackgroundShiftSumTooLowHysteresisLag))
       {
-        [v18 focusDistance];
-        if (v68 < self->_subjectTooFarFocusDistanceInfinityThreshold || (stageTooFarBackgroundShiftTooLowNumFrames = self->_stageTooFarBackgroundShiftTooLowNumFrames, stageTooFarBackgroundShiftTooLowNumFrames > 5))
+        [v19 focusDistance];
+        if (v69 < self->_subjectTooFarFocusDistanceInfinityThreshold || (stageTooFarBackgroundShiftTooLowNumFrames = self->_stageTooFarBackgroundShiftTooLowNumFrames, stageTooFarBackgroundShiftTooLowNumFrames > 5))
         {
           self->_stageTooFarBackgroundShiftSumNoFacesIsTooLow = 0;
           self->_stageTooFarBackgroundShiftTooLowNumFrames = 0;
@@ -482,20 +482,20 @@ LABEL_88:
     goto LABEL_127;
   }
 
-  [v18 integrationTime];
-  v71 = v70;
-  v72 = v71 <= 0.0 || llroundf(1.0 / v71) < 61;
-  [v18 gain];
+  [v19 integrationTime];
+  v72 = v71;
+  v73 = v72 <= 0.0 || llroundf(1.0 / v72) < 61;
+  [v19 gain];
   sceneTooDarkGainThreshold = self->_sceneTooDarkGainThreshold;
   if (self->_sceneTooDarkExposureThresholdReached)
   {
     sceneTooDarkGainThreshold = sceneTooDarkGainThreshold / self->_sceneTooDarkGainHysteresisLag;
   }
 
-  v75 = v73 >= sceneTooDarkGainThreshold && v72;
-  self->_sceneTooDarkExposureThresholdReached = v75;
+  v76 = v74 >= sceneTooDarkGainThreshold && v73;
+  self->_sceneTooDarkExposureThresholdReached = v76;
   p_sceneIsTooDark = &self->_sceneIsTooDark;
-  if (!v75)
+  if (!v76)
   {
     goto LABEL_126;
   }
@@ -508,21 +508,21 @@ LABEL_88:
       goto LABEL_126;
     }
 
-    v78 = 1;
+    v79 = 1;
   }
 
   else if (invalidShiftRatioFiltered <= sceneTooDarkInvalidShiftRatioThreshold)
   {
-    v78 = 0;
+    v79 = 0;
   }
 
   else
   {
-    v78 = 1;
+    v79 = 1;
     *p_sceneIsTooDark = 1;
   }
 
-  if (!v78 || !v85)
+  if (!v79 || !v87)
   {
     goto LABEL_127;
   }
@@ -540,75 +540,75 @@ LABEL_127:
     if ([(NSArray *)self->_stageMostRecentFaces count])
     {
       self->_stageFaceNumberOfFramesSinceLastFace = 0;
-      v79 = 1;
+      v80 = 1;
     }
 
     else
     {
       stageFaceNumberOfFramesSinceLastFace = self->_stageFaceNumberOfFramesSinceLastFace;
       self->_stageFaceNumberOfFramesSinceLastFace = stageFaceNumberOfFramesSinceLastFace + 1;
-      v79 = self->_stageFaceHasBeenSeen && stageFaceNumberOfFramesSinceLastFace < self->_stageFaceNumberOfFramesSinceLastFaceThreshold;
+      v80 = self->_stageFaceHasBeenSeen && stageFaceNumberOfFramesSinceLastFace < self->_stageFaceNumberOfFramesSinceLastFaceThreshold;
     }
 
-    self->_stageFaceDetected = v79;
+    self->_stageFaceDetected = v80;
   }
 
   if (self->_subjectIsTooClose)
   {
-    v81 = 0;
-    v82 = 4;
+    v82 = 0;
+    v83 = 4;
   }
 
   else if (self->_sceneIsTooDark)
   {
-    v81 = 0;
-    v82 = 5;
+    v82 = 0;
+    v83 = 5;
   }
 
   else if (self->_subjectTooFarDistanceThresholdReached && self->_subjectTooFarBackgroundShiftSumIsTooLow || portraitSceneMonitoringRequiresStageThresholds && !self->_stageFaceDetected && self->_stageTooFarBackgroundShiftSumNoFacesIsTooLow)
   {
-    v81 = 0;
-    v82 = 3;
+    v82 = 0;
+    v83 = 3;
   }
 
   else
   {
-    v81 = 1;
     v82 = 1;
+    v83 = 1;
   }
 
   if (self->_stageFaceMonitoringEnabled)
   {
-    if (v81 & self->_stageFaceDetected)
+    if (v82 & self->_stageFaceDetected)
     {
-      v83 = 2;
+      v84 = 2;
     }
 
     else
     {
       self->_stageFaceHasBeenSeen = 0;
-      v83 = 1;
+      v84 = 1;
     }
   }
 
   else
   {
-    v83 = 0;
+    v84 = 0;
   }
 
-  self->_lastSDOFEffectStatus = v82;
+  self->_lastSDOFEffectStatus = v83;
   if (status)
   {
-    *status = v82;
+    *status = v83;
   }
 
   if (previewStatus)
   {
-    *previewStatus = v83;
+    *previewStatus = v84;
   }
 
-  LOBYTE(v15) = 1;
-  return v15;
+  LOBYTE(v16) = 1;
+  return v16;
 }
 
 @end

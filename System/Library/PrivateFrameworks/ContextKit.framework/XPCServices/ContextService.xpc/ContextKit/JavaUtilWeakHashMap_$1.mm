@@ -11,58 +11,60 @@
 - (BOOL)removeWithId:(id)id
 {
   v5 = [(JavaUtilWeakHashMap_$1 *)self containsWithId:?];
+  v7 = v5;
   if (v5)
   {
-    v6 = self->this$0_;
-    v7 = JavaUtilMap_Entry_class_();
+    v8 = self->this$0_;
+    v9 = JavaUtilMap_Entry_class_(v5, v6);
     if (!id)
     {
       JreThrowNullPointerException();
     }
 
-    if (([v7 isInstance:id] & 1) == 0)
+    if (([v9 isInstance:id] & 1) == 0)
     {
       JreThrowClassCastException();
     }
 
-    -[JavaUtilWeakHashMap removeWithId:](v6, "removeWithId:", [id getKey]);
+    -[JavaUtilWeakHashMap removeWithId:](v8, "removeWithId:", [id getKey]);
   }
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)containsWithId:(id)id
 {
-  if (![JavaUtilMap_Entry_class_() isInstance:id])
+  v5 = [JavaUtilMap_Entry_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = self->this$0_;
-  v6 = JavaUtilMap_Entry_class_();
+  v7 = self->this$0_;
+  v8 = JavaUtilMap_Entry_class_(v5, v6);
   if (!id)
   {
     JreThrowNullPointerException();
   }
 
-  if (([v6 isInstance:id] & 1) == 0)
+  if (([v8 isInstance:id] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v7 = -[JavaUtilWeakHashMap getEntryWithId:](v5, "getEntryWithId:", [id getKey]);
-  if (!v7)
+  v9 = -[JavaUtilWeakHashMap getEntryWithId:](v7, "getEntryWithId:", [id getKey]);
+  if (!v9)
   {
     return 0;
   }
 
-  v8 = v7;
-  if (![v7 get] && v8[44] != 1)
+  v10 = v9;
+  if (![v9 get] && v10[44] != 1)
   {
     return 0;
   }
 
-  return [id isEqual:v8];
+  return [id isEqual:v10];
 }
 
 - (id)iterator

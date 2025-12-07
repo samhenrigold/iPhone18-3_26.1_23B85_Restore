@@ -574,7 +574,6 @@ LABEL_21:
   has = self->_has;
   if ((*&has & 0x1000) != 0)
   {
-    heRxtrigMyaid = self->_heRxtrigMyaid;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x80) == 0)
@@ -594,7 +593,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  heRxtrigBasic = self->_heRxtrigBasic;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -609,7 +607,6 @@ LABEL_4:
   }
 
 LABEL_33:
-  heRxtrigMurts = self->_heRxtrigMurts;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -624,7 +621,6 @@ LABEL_5:
   }
 
 LABEL_34:
-  heRxtrigBsrp = self->_heRxtrigBsrp;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -639,7 +635,6 @@ LABEL_6:
   }
 
 LABEL_35:
-  heRxtrigBfmCnt = self->_heRxtrigBfmCnt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -654,7 +649,6 @@ LABEL_7:
   }
 
 LABEL_36:
-  heRxtrigMubar = self->_heRxtrigMubar;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -669,7 +663,6 @@ LABEL_8:
   }
 
 LABEL_37:
-  heRxhemuppduCnt = self->_heRxhemuppduCnt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -684,7 +677,6 @@ LABEL_9:
   }
 
 LABEL_38:
-  heTxtbppdu = self->_heTxtbppdu;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -699,7 +691,6 @@ LABEL_10:
   }
 
 LABEL_39:
-  heRxhesuppduCnt = self->_heRxhesuppduCnt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -714,52 +705,47 @@ LABEL_11:
   }
 
 LABEL_40:
-  heNullZeroAgg = self->_heNullZeroAgg;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_12:
-    heMyAIDCnt = self->_heMyAIDCnt;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_13:
   if (self->_rxherus.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_rxherus.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_rxherus.count);
+    while (v5 < self->_rxherus.count);
   }
 
   if (self->_txherus.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_txherus.list[v8];
       PBDataWriterWriteUint32Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_txherus.count);
+    while (v6 < self->_txherus.count);
   }
 
-  v10 = self->_has;
-  if ((*&v10 & 0x4000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x4000) != 0)
   {
-    heTbppduNdlimCnt = self->_heTbppduNdlimCnt;
     PBDataWriterWriteUint32Field();
-    v10 = self->_has;
-    if ((*&v10 & 0x2000) == 0)
+    v7 = self->_has;
+    if ((*&v7 & 0x2000) == 0)
     {
 LABEL_21:
-      if ((*&v10 & 2) == 0)
+      if ((*&v7 & 2) == 0)
       {
         goto LABEL_22;
       }
@@ -768,18 +754,17 @@ LABEL_21:
     }
   }
 
-  else if ((*&v10 & 0x2000) == 0)
+  else if ((*&v7 & 0x2000) == 0)
   {
     goto LABEL_21;
   }
 
-  heTbppduDur = self->_heTbppduDur;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 2) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 2) == 0)
   {
 LABEL_22:
-    if ((*&v10 & 1) == 0)
+    if ((*&v7 & 1) == 0)
     {
       goto LABEL_23;
     }
@@ -788,13 +773,12 @@ LABEL_22:
   }
 
 LABEL_44:
-  dlMumimoPad = self->_dlMumimoPad;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 1) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 1) == 0)
   {
 LABEL_23:
-    if ((*&v10 & 0x20000) == 0)
+    if ((*&v7 & 0x20000) == 0)
     {
       goto LABEL_24;
     }
@@ -803,13 +787,12 @@ LABEL_23:
   }
 
 LABEL_45:
-  dlMumimoDur = self->_dlMumimoDur;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((*&v10 & 0x20000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x20000) == 0)
   {
 LABEL_24:
-    if ((*&v10 & 4) == 0)
+    if ((*&v7 & 4) == 0)
     {
       goto LABEL_25;
     }
@@ -818,13 +801,12 @@ LABEL_24:
   }
 
 LABEL_46:
-  ulAvgTxpwr = self->_ulAvgTxpwr;
   PBDataWriterWriteInt32Field();
-  v10 = self->_has;
-  if ((*&v10 & 4) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 4) == 0)
   {
 LABEL_25:
-    if ((*&v10 & 0x8000) == 0)
+    if ((*&v7 & 0x8000) == 0)
     {
       goto LABEL_27;
     }
@@ -833,12 +815,10 @@ LABEL_25:
   }
 
 LABEL_47:
-  heColormissCnt = self->_heColormissCnt;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_26:
-    heTxhesuppduCnt = self->_heTxhesuppduCnt;
     PBDataWriterWriteUint32Field();
   }
 

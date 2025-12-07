@@ -72,22 +72,22 @@ void __64___SFActivityViewController__extensionItemForExtensionActivity___block_
     v9 = [v8 entitlements];
     v10 = [v9 safari_BOOLForKey:@"com.apple.private.Safari.can-pass-extension-parameters"];
 
-    v11 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    v12 = v11;
+    v13 = WBS_LOG_CHANNEL_PREFIXExtensions(v11, v12);
+    v14 = v13;
     if (v10)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "Adding extraArguments to NSExtensionItem", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Adding extraArguments to NSExtensionItem", buf, 2u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __64___SFActivityViewController__extensionItemForExtensionActivity___block_invoke_cold_1((a1 + 32), v12);
+        __64___SFActivityViewController__extensionItemForExtensionActivity___block_invoke_cold_1((a1 + 32), v14);
       }
 
       v7 = 0;
@@ -95,14 +95,14 @@ void __64___SFActivityViewController__extensionItemForExtensionActivity___block_
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 1408));
-  v14 = [*(a1 + 32) identifier];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __64___SFActivityViewController__extensionItemForExtensionActivity___block_invoke_76;
-  v16[3] = &unk_1E8490C68;
+  v16 = [*(a1 + 32) identifier];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __64___SFActivityViewController__extensionItemForExtensionActivity___block_invoke_76;
+  v18[3] = &unk_1E8490C68;
+  v19 = v6;
   v17 = v6;
-  v15 = v6;
-  [WeakRetained runJavaScriptForSharingExtension:v14 extraArguments:v7 completion:v16];
+  [WeakRetained runJavaScriptForSharingExtension:v16 extraArguments:v7 completion:v18];
 }
 
 void __64___SFActivityViewController__extensionItemForExtensionActivity___block_invoke_76(uint64_t a1, void *a2, void *a3)

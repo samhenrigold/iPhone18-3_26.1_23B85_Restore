@@ -270,33 +270,36 @@
 {
   hintEligibleDate = self->_hintEligibleDate;
   self->_hintEligibleDate = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, hintEligibleDate);
 }
 
 - (void)addHintDisplayedDate:(id)date
 {
   dateCopy = date;
+  v5 = dateCopy;
   if (dateCopy)
   {
     hintDisplayedDates = self->_hintDisplayedDates;
-    v8 = dateCopy;
+    v9 = v5;
     if (!hintDisplayedDates)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v7 = self->_hintDisplayedDates;
+      v8 = self->_hintDisplayedDates;
       self->_hintDisplayedDates = array;
 
       hintDisplayedDates = self->_hintDisplayedDates;
     }
 
-    [(NSMutableArray *)hintDisplayedDates addObject:v8];
+    dateCopy = [(NSMutableArray *)hintDisplayedDates addObject:v9];
+    v5 = v9;
     if (self->_displayType == 1)
     {
-      [(TPSTipStatus *)self removeHintEligibleDateStatus];
+      dateCopy = [(TPSTipStatus *)self removeHintEligibleDateStatus];
+      v5 = v9;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](dateCopy, v5);
 }
 
 - (NSArray)hintDisplayedDates
@@ -340,23 +343,25 @@
 - (void)addHintNotDisplayedDueToFrequencyControlDate:(id)date
 {
   dateCopy = date;
+  v5 = dateCopy;
   if (dateCopy)
   {
     hintNotDisplayedDueToFrequencyControlDates = self->_hintNotDisplayedDueToFrequencyControlDates;
-    v8 = dateCopy;
+    v9 = v5;
     if (!hintNotDisplayedDueToFrequencyControlDates)
     {
       array = [MEMORY[0x1E695DF70] array];
-      v7 = self->_hintNotDisplayedDueToFrequencyControlDates;
+      v8 = self->_hintNotDisplayedDueToFrequencyControlDates;
       self->_hintNotDisplayedDueToFrequencyControlDates = array;
 
       hintNotDisplayedDueToFrequencyControlDates = self->_hintNotDisplayedDueToFrequencyControlDates;
     }
 
-    [(NSMutableArray *)hintNotDisplayedDueToFrequencyControlDates addObject:v8];
+    dateCopy = [(NSMutableArray *)hintNotDisplayedDueToFrequencyControlDates addObject:v9];
+    v5 = v9;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](dateCopy, v5);
 }
 
 - (NSArray)hintNotDisplayedDueToFrequencyControlDates
@@ -389,7 +394,7 @@
   hintNotDisplayedDueToFrequencyControlDates = self->_hintNotDisplayedDueToFrequencyControlDates;
   self->_hintNotDisplayedDueToFrequencyControlDates = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, hintNotDisplayedDueToFrequencyControlDates);
 }
 
 - (void)setHintDismissalDate:(id)date

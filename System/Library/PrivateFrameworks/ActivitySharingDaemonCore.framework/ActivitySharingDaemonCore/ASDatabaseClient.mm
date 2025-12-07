@@ -122,24 +122,21 @@ void __40__ASDatabaseClient_initWithHealthStore___block_invoke(uint64_t a1, uint
 
 void __40__ASDatabaseClient_initWithHealthStore___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Received yesterday summary updated notification", &v9, 0xCu);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Received yesterday summary updated notification", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _observerQueue_handleYesterdayActivitySummaryUpdate];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (ASDatabaseClient)initWithProfile:(id)profile
@@ -191,33 +188,33 @@ void __40__ASDatabaseClient_initWithHealthStore___block_invoke_2(uint64_t a1)
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(HKHealthStore *)self->_healthStore stopQuery:self->_currentActivitySummaryQuery];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSMutableDictionary *)self->_observerAnchoredObjectQueryMap allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(HKHealthStore *)self->_healthStore stopQuery:*(*(&v10 + 1) + 8 * v7++)];
+        [(HKHealthStore *)self->_healthStore stopQuery:*(*(&v9 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -228,10 +225,9 @@ void __40__ASDatabaseClient_initWithHealthStore___block_invoke_2(uint64_t a1)
     notify_cancel(self->_yesterdaySummaryDidUpdateToken);
   }
 
-  v9.receiver = self;
-  v9.super_class = ASDatabaseClient;
-  [(ASDatabaseClient *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ASDatabaseClient;
+  [(ASDatabaseClient *)&v8 dealloc];
 }
 
 - (void)performWhenDaemonReady:(id)ready
@@ -528,51 +524,12 @@ void __44__ASDatabaseClient_isProtectedDataAvailable__block_invoke_3(uint64_t a1
 
 uint64_t __74__ASDatabaseClient__handleProtectedDataAvailabilityDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(*(a1 + 32) + 64);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v10;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v10 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
-      }
-
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    }
-
-    while (v4);
-  }
-
-  result = [*(*(a1 + 32) + 64) removeAllObjects];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void __74__ASDatabaseClient__handleProtectedDataAvailabilityDidChangeNotification___block_invoke_2(uint64_t a1)
-{
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v2 = *(*(a1 + 32) + 72);
+  v2 = *(*(a1 + 32) + 64);
   v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
@@ -588,7 +545,8 @@ void __74__ASDatabaseClient__handleProtectedDataAvailabilityDidChangeNotificatio
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) database:0 protectedDataDidBecomeAvailable:{*(a1 + 40), v8}];
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
+        ++v6;
       }
 
       while (v4 != v6);
@@ -598,7 +556,41 @@ void __74__ASDatabaseClient__handleProtectedDataAvailabilityDidChangeNotificatio
     while (v4);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  return [*(*(a1 + 32) + 64) removeAllObjects];
+}
+
+void __74__ASDatabaseClient__handleProtectedDataAvailabilityDidChangeNotification___block_invoke_2(uint64_t a1)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v2 = *(*(a1 + 32) + 72);
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v8;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v8 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        [*(*(&v7 + 1) + 8 * v6++) database:0 protectedDataDidBecomeAvailable:{*(a1 + 40), v7}];
+      }
+
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+    }
+
+    while (v4);
+  }
 }
 
 - (id)yesterdayActivitySummary
@@ -781,43 +773,41 @@ void __40__ASDatabaseClient_todayActivitySummary__block_invoke_3(uint64_t a1, vo
 
 void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 80);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) currentActivitySummaryHelper:0 didUpdateTodayActivitySummary:*(a1 + 40) changedFields:{-1, v8}];
+        [*(*(&v7 + 1) + 8 * v6++) currentActivitySummaryHelper:0 didUpdateTodayActivitySummary:*(a1 + 40) changedFields:{-1, v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observerQueue_handleYesterdayActivitySummaryUpdate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_observerQueue);
   yesterdayActivitySummary = [(ASDatabaseClient *)self yesterdayActivitySummary];
   ASLoggingInitialize();
@@ -828,48 +818,46 @@ void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v20 = v7;
-    v21 = 2112;
-    v22 = yesterdayActivitySummary;
+    v19 = v7;
+    v20 = 2112;
+    v21 = yesterdayActivitySummary;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Notifying observers of yesterday summary update: %@", buf, 0x16u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = self->_activitySummaryObservers;
-  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) currentActivitySummaryHelper:0 didUpdateYesterdayActivitySummary:yesterdayActivitySummary changedFields:{-1, v14}];
+        [*(*(&v13 + 1) + 8 * v12++) currentActivitySummaryHelper:0 didUpdateYesterdayActivitySummary:yesterdayActivitySummary changedFields:{-1, v13}];
       }
 
       while (v10 != v12);
-      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)healthKitWorkoutsWithPredicate:(id)predicate anchor:(id *)anchor error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (self->_profile)
   {
     v8 = MEMORY[0x277D10980];
@@ -887,21 +875,19 @@ void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_
     v15 = MEMORY[0x277CCD8D8];
     predicateCopy2 = predicate;
     workoutType = [v15 workoutType];
-    v20[0] = workoutType;
-    healthDaemonPredicate = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = workoutType;
+    healthDaemonPredicate = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     healthKitPredicate = [predicateCopy2 healthKitPredicate];
 
     v14 = [ASDatabaseSampleEntity samplesOfTypes:healthDaemonPredicate predicate:healthKitPredicate healthStore:self->_healthStore anchor:anchor error:error];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)deletedHealthKitWorkoutsWithinLastNumberOfDays:(unint64_t)days maxBatchSize:(unint64_t)size anchor:(id *)anchor error:(id *)error
 {
-  v51[2] = *MEMORY[0x277D85DE8];
+  v50[2] = *MEMORY[0x277D85DE8];
   if (self->_profile)
   {
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
@@ -911,9 +897,9 @@ void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_
     v14 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10408] greaterThanOrEqualToValue:v13];
     v15 = HDDataEntityPredicateForType();
     v16 = MEMORY[0x277D10B20];
-    v51[0] = v14;
-    v51[1] = v15;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+    v50[0] = v14;
+    v50[1] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
     v18 = [v16 predicateMatchingAllPredicates:v17];
 
     v19 = MEMORY[0x277D10848];
@@ -923,47 +909,47 @@ void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_
     [v21 setPredicate:v18];
     [v21 setAnchor:*anchor];
     [v21 setLimitCount:size];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy_;
-    v49 = __Block_byref_object_dispose_;
-    v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy_;
+    v48 = __Block_byref_object_dispose_;
+    v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
     longValue = [*anchor longValue];
-    v29[5] = &v39;
-    v30 = 0;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke_333;
-    v29[3] = &unk_278C4B368;
-    v29[4] = &v45;
-    [v21 enumerateIncludingDeletedObjects:1 error:&v30 handler:v29];
-    v22 = v30;
-    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v40[3]];
+    v28[5] = &v38;
+    v29 = 0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke_333;
+    v28[3] = &unk_278C4B368;
+    v28[4] = &v44;
+    [v21 enumerateIncludingDeletedObjects:1 error:&v29 handler:v28];
+    v22 = v29;
+    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v39[3]];
     v23 = v22;
     *error = v22;
-    v24 = v46[5];
+    v24 = v45[5];
 
-    _Block_object_dispose(&v39, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v44, 8);
   }
 
   else
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy_;
-    v49 = __Block_byref_object_dispose_;
-    v50 = MEMORY[0x277CBEBF8];
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy_;
+    v48 = __Block_byref_object_dispose_;
+    v49 = MEMORY[0x277CBEBF8];
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
     longValue = __Block_byref_object_copy_;
-    v43 = __Block_byref_object_dispose_;
+    v42 = __Block_byref_object_dispose_;
     if (anchor)
     {
       v25 = *anchor;
@@ -974,44 +960,42 @@ void __50__ASDatabaseClient__handleCurrentActivitySummary___block_invoke(uint64_
       v25 = 0;
     }
 
-    v44 = v25;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy_;
-    v37 = __Block_byref_object_dispose_;
-    v38 = 0;
+    v43 = v25;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy_;
+    v36 = __Block_byref_object_dispose_;
+    v37 = 0;
     proxyProvider = self->_proxyProvider;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke;
-    v32[3] = &unk_278C4B318;
-    v32[7] = days;
-    v32[8] = size;
-    v32[4] = &v39;
-    v32[5] = &v45;
-    v32[6] = &v33;
     v31[0] = MEMORY[0x277D85DD0];
     v31[1] = 3221225472;
-    v31[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke_3;
-    v31[3] = &unk_278C4B340;
-    v31[4] = self;
-    v31[5] = &v33;
-    [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v32 errorHandler:v31];
+    v31[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke;
+    v31[3] = &unk_278C4B318;
+    v31[7] = days;
+    v31[8] = size;
+    v31[4] = &v38;
+    v31[5] = &v44;
+    v31[6] = &v32;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_error___block_invoke_3;
+    v30[3] = &unk_278C4B340;
+    v30[4] = self;
+    v30[5] = &v32;
+    [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v31 errorHandler:v30];
     if (anchor)
     {
-      *anchor = v40[5];
+      *anchor = v39[5];
     }
 
-    *error = v34[5];
-    v24 = v46[5];
-    _Block_object_dispose(&v33, 8);
+    *error = v33[5];
+    v24 = v45[5];
+    _Block_object_dispose(&v32, 8);
 
-    _Block_object_dispose(&v39, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v44, 8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -1086,7 +1070,7 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
 
 - (BOOL)enumerateActivitySharingSnapshotsWithPredicate:(id)predicate anchor:(id *)anchor error:(id *)error handler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_profile)
   {
@@ -1102,26 +1086,25 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
     v15 = MEMORY[0x277CCD8D8];
     predicateCopy2 = predicate;
     fitnessFriendActivitySnapshotType = [v15 fitnessFriendActivitySnapshotType];
-    v25[0] = fitnessFriendActivitySnapshotType;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = fitnessFriendActivitySnapshotType;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     healthKitPredicate = [predicateCopy2 healthKitPredicate];
 
     healthStore = self->_healthStore;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __88__ASDatabaseClient_enumerateActivitySharingSnapshotsWithPredicate_anchor_error_handler___block_invoke;
-    v23[3] = &unk_278C4B390;
-    v24 = handlerCopy;
-    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __88__ASDatabaseClient_enumerateActivitySharingSnapshotsWithPredicate_anchor_error_handler___block_invoke;
+    v22[3] = &unk_278C4B390;
+    v23 = handlerCopy;
+    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v22];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)enumerateActivitySharingWorkoutsWithPredicate:(id)predicate anchor:(id *)anchor error:(id *)error handler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_profile)
   {
@@ -1137,26 +1120,25 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
     v15 = MEMORY[0x277CCD8D8];
     predicateCopy2 = predicate;
     fitnessFriendWorkoutType = [v15 fitnessFriendWorkoutType];
-    v25[0] = fitnessFriendWorkoutType;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = fitnessFriendWorkoutType;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     healthKitPredicate = [predicateCopy2 healthKitPredicate];
 
     healthStore = self->_healthStore;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __87__ASDatabaseClient_enumerateActivitySharingWorkoutsWithPredicate_anchor_error_handler___block_invoke;
-    v23[3] = &unk_278C4B3B8;
-    v24 = handlerCopy;
-    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __87__ASDatabaseClient_enumerateActivitySharingWorkoutsWithPredicate_anchor_error_handler___block_invoke;
+    v22[3] = &unk_278C4B3B8;
+    v23 = handlerCopy;
+    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v22];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)enumerateActivitySharingAchievementsWithPredicate:(id)predicate anchor:(id *)anchor error:(id *)error handler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_profile)
   {
@@ -1172,83 +1154,81 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
     v15 = MEMORY[0x277CCD8D8];
     predicateCopy2 = predicate;
     fitnessFriendAchievementType = [v15 fitnessFriendAchievementType];
-    v25[0] = fitnessFriendAchievementType;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = fitnessFriendAchievementType;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     healthKitPredicate = [predicateCopy2 healthKitPredicate];
 
     healthStore = self->_healthStore;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __91__ASDatabaseClient_enumerateActivitySharingAchievementsWithPredicate_anchor_error_handler___block_invoke;
-    v23[3] = &unk_278C4B3E0;
-    v24 = handlerCopy;
-    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __91__ASDatabaseClient_enumerateActivitySharingAchievementsWithPredicate_anchor_error_handler___block_invoke;
+    v22[3] = &unk_278C4B3E0;
+    v23 = handlerCopy;
+    v14 = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v18 predicate:healthKitPredicate healthStore:healthStore anchor:anchor error:error handler:v22];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)enumerateAllActivitySharingSamplesWithPredicate:(id)predicate error:(id *)error handler:(id)handler
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = MEMORY[0x277CCD8D8];
   predicateCopy = predicate;
   fitnessFriendActivitySnapshotType = [v9 fitnessFriendActivitySnapshotType];
-  v22[0] = fitnessFriendActivitySnapshotType;
+  v21[0] = fitnessFriendActivitySnapshotType;
   fitnessFriendWorkoutType = [MEMORY[0x277CCD8D8] fitnessFriendWorkoutType];
-  v22[1] = fitnessFriendWorkoutType;
+  v21[1] = fitnessFriendWorkoutType;
   fitnessFriendAchievementType = [MEMORY[0x277CCD8D8] fitnessFriendAchievementType];
-  v22[2] = fitnessFriendAchievementType;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[2] = fitnessFriendAchievementType;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
 
   healthKitPredicate = [predicateCopy healthKitPredicate];
 
   healthStore = self->_healthStore;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __82__ASDatabaseClient_enumerateAllActivitySharingSamplesWithPredicate_error_handler___block_invoke;
-  v20[3] = &unk_278C4B408;
-  v21 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __82__ASDatabaseClient_enumerateAllActivitySharingSamplesWithPredicate_error_handler___block_invoke;
+  v19[3] = &unk_278C4B408;
+  v20 = handlerCopy;
   v17 = handlerCopy;
-  LOBYTE(error) = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v14 predicate:healthKitPredicate healthStore:healthStore anchor:0 error:error handler:v20];
+  LOBYTE(error) = [ASDatabaseSampleEntity enumerateSamplesOfTypes:v14 predicate:healthKitPredicate healthStore:healthStore anchor:0 error:error handler:v19];
 
-  v18 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (void)addSampleObserver:(id)observer sampleTypes:(id)types
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   typesCopy = types;
   v8 = typesCopy;
   if (self->_profile)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v9 = [typesCopy countByEnumeratingWithState:&v26 objects:v35 count:16];
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v9 = [typesCopy countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v9)
     {
-      v10 = *v27;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * i);
+          v12 = *(*(&v25 + 1) + 8 * i);
           dataManager = [(HDProfile *)self->_profile dataManager];
           [dataManager addObserver:observerCopy forDataType:v12];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v9);
@@ -1264,15 +1244,15 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
     [(HKHealthStore *)self->_healthStore stopQuery:v16];
     v17 = [v8 hk_map:&__block_literal_global];
     objc_initWeak(&location, self);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2;
-    v30[3] = &unk_278C4B478;
-    objc_copyWeak(&v33, &location);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2;
+    v29[3] = &unk_278C4B478;
+    objc_copyWeak(&v32, &location);
     v18 = observerCopy;
-    v31 = v18;
-    v32 = v8;
-    v19 = MEMORY[0x23EF0EB00](v30);
+    v30 = v18;
+    v31 = v8;
+    v19 = MEMORY[0x23EF0EB00](v29);
     v20 = objc_alloc(MEMORY[0x277CCCFF0]);
     latestAnchor = [MEMORY[0x277CCD840] latestAnchor];
     v22 = [v20 initWithQueryDescriptors:v17 anchor:latestAnchor limit:0 resultsHandler:v19];
@@ -1283,11 +1263,9 @@ uint64_t __93__ASDatabaseClient_deletedHealthKitWorkoutsWithinLastNumberOfDays_m
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "hash")}];
     [(NSMutableDictionary *)v23 setObject:v22 forKeyedSubscript:v24];
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&location);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -1306,19 +1284,19 @@ void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2(id *a
       __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2_cold_1(a1, v16, v15);
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_345;
-    v25[3] = &unk_278C4B450;
-    objc_copyWeak(&v28, a1 + 6);
-    v26 = a1[4];
-    v27 = a1[5];
-    v17 = MEMORY[0x23EF0EB00](v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_345;
+    v24[3] = &unk_278C4B450;
+    objc_copyWeak(&v27, a1 + 6);
+    v25 = a1[4];
+    v26 = a1[5];
+    v17 = MEMORY[0x23EF0EB00](v24);
     WeakRetained = objc_loadWeakRetained(a1 + 6);
     if (!WeakRetained)
     {
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
       goto LABEL_12;
     }
 
@@ -1329,20 +1307,16 @@ void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2(id *a
     block[2] = __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_346;
     block[3] = &unk_278C4B1B0;
     block[4] = WeakRetained;
-    v24 = v17;
+    v23 = v17;
     v21 = v17;
     dispatch_async(v20, block);
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
   }
 
-  if ([v13 count])
+  if ([v13 count] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v22 = a1[4];
-    if (objc_opt_respondsToSelector())
-    {
-      [a1[4] samplesOfTypesWereRemoved:v13 anchor:0];
-    }
+    [a1[4] samplesOfTypesWereRemoved:v13 anchor:0];
   }
 
   if ([v12 count])
@@ -1355,7 +1329,7 @@ LABEL_12:
 
 void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_345(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
@@ -1366,19 +1340,17 @@ void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_345(uin
     v6 = NSStringFromClass(v5);
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ retry create anchored object query; observer %{public}@ sampleTypes %{public}@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ retry create anchored object query; observer %{public}@ sampleTypes %{public}@", &v10, 0x20u);
   }
 
   v9 = objc_loadWeakRetained((a1 + 48));
   [v9 addSampleObserver:*(a1 + 32) sampleTypes:*(a1 + 40)];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_346(uint64_t a1)
@@ -1390,36 +1362,36 @@ void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_346(uin
 
 - (void)removeSampleObserver:(id)observer sampleTypes:(id)types
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   typesCopy = types;
   v8 = typesCopy;
   if (self->_profile)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v9 = [typesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v9 = [typesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           dataManager = [(HDProfile *)self->_profile dataManager];
           [dataManager removeObserver:observerCopy forDataType:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -1437,8 +1409,6 @@ void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_346(uin
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(observerCopy, "hash")}];
     [(NSMutableDictionary *)v18 setObject:0 forKeyedSubscript:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)insertDataObjects:(id)objects error:(id *)error
@@ -1527,51 +1497,28 @@ void __44__ASDatabaseClient_insertDataObjects_error___block_invoke_3(uint64_t a1
   {
     healthKitPredicate = [predicateCopy healthKitPredicate];
     v27 = [ASDatabaseSampleEntity deleteSamplesOfType:typeCopy predicate:healthKitPredicate healthStore:self->_healthStore deletedSampleCount:count error:error];
-LABEL_11:
+LABEL_8:
 
-    goto LABEL_12;
+    goto LABEL_9;
   }
 
-  v34 = objectsCopy;
+  v32 = objectsCopy;
   identifier = [typeCopy identifier];
   fitnessFriendAchievementType = [MEMORY[0x277CCD8D8] fitnessFriendAchievementType];
   identifier2 = [fitnessFriendAchievementType identifier];
 
-  if (identifier == identifier2)
+  if (identifier == identifier2 || ([typeCopy identifier], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCD8D8], "fitnessFriendActivitySnapshotType"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "identifier"), v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v21, v21 == v23) || (objc_msgSend(typeCopy, "identifier"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCD8D8], "fitnessFriendWorkoutType"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "identifier"), v26 = objc_claimAutoreleasedReturnValue(), v26, v25, v24, v24 == v26))
   {
-    v29 = 0x277D106F8;
-LABEL_10:
-    v30 = *v29;
-    v31 = objc_opt_class();
+    v29 = objc_opt_class();
     healthKitPredicate = [(HDProfile *)self->_profile dataManager];
     healthDaemonPredicate = [v17 healthDaemonPredicate];
-    v27 = [healthKitPredicate deleteDataObjectsOfClass:v31 predicate:healthDaemonPredicate limit:limit deletedSampleCount:count notifyObservers:observersCopy generateDeletedObjects:v34 recursiveDeleteAuthorizationBlock:0 error:error];
+    v27 = [healthKitPredicate deleteDataObjectsOfClass:v29 predicate:healthDaemonPredicate limit:limit deletedSampleCount:count notifyObservers:observersCopy generateDeletedObjects:v32 recursiveDeleteAuthorizationBlock:0 error:error];
 
-    goto LABEL_11;
-  }
-
-  identifier3 = [typeCopy identifier];
-  fitnessFriendActivitySnapshotType = [MEMORY[0x277CCD8D8] fitnessFriendActivitySnapshotType];
-  identifier4 = [fitnessFriendActivitySnapshotType identifier];
-
-  if (identifier3 == identifier4)
-  {
-    v29 = 0x277D10700;
-    goto LABEL_10;
-  }
-
-  identifier5 = [typeCopy identifier];
-  fitnessFriendWorkoutType = [MEMORY[0x277CCD8D8] fitnessFriendWorkoutType];
-  identifier6 = [fitnessFriendWorkoutType identifier];
-
-  if (identifier5 == identifier6)
-  {
-    v29 = 0x277D10708;
-    goto LABEL_10;
+    goto LABEL_8;
   }
 
   v27 = 0;
-LABEL_12:
+LABEL_9:
 
   return v27;
 }
@@ -2431,38 +2378,36 @@ void __68__ASDatabaseClient_isActivityAlertSuppressionEnabledWithCompletion___bl
 
 void __71__ASDatabaseClient__handleNanoAlertSuppressionInvalidatedNotification___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1[4] + 104);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) alertSuppressionInvalidatedForSuppressionId:a1[5] reason:{a1[6], v8}];
+        [*(*(&v7 + 1) + 8 * v6++) alertSuppressionInvalidatedForSuppressionId:a1[5] reason:{a1[6], v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerFitnessAppBadgeProvider
@@ -2552,7 +2497,7 @@ void __47__ASDatabaseClient_updateFitnessAppBadgeCount___block_invoke_2(uint64_t
 
 - (void)daemonReady:(id)ready
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   ASLoggingInitialize();
   v4 = *MEMORY[0x277CE8FE0];
@@ -2562,80 +2507,74 @@ void __47__ASDatabaseClient_updateFitnessAppBadgeCount___block_invoke_2(uint64_t
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138412546;
-    v20 = v7;
-    v21 = 2080;
-    v22 = "[ASDatabaseClient daemonReady:]";
+    v19 = v7;
+    v20 = 2080;
+    v21 = "[ASDatabaseClient daemonReady:]";
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "%@ received %s", buf, 0x16u);
   }
 
   self->_isDaemonReady = 1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = self->_queue_performWhenDaemonReadyBlocks;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+        (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   [(NSMutableArray *)self->_queue_performWhenDaemonReadyBlocks removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ASDatabaseClient_performWhenDaemonReady___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2(a1, a2);
-  v4 = OUTLINED_FUNCTION_3();
-  v5 = NSStringFromClass(v4);
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23E5E3000, v6, v7, "%{public}@ failed to get proxy: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_23E5E3000, v5, v6, "%{public}@ failed to get proxy: %{public}@", v7, v8, v9, v10);
 }
 
 void __50__ASDatabaseClient_addSampleObserver_sampleTypes___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);
-  v12 = 138544130;
-  v13 = v8;
-  v14 = 2114;
-  v15 = v9;
-  v16 = 2114;
-  v17 = v10;
-  v18 = 2114;
-  v19 = a3;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to create anchored object query; observer %{public}@ sampleTypes %{public}@ error %{public}@", &v12, 0x2Au);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138544130;
+  v12 = v8;
+  v13 = 2114;
+  v14 = v9;
+  v15 = 2114;
+  v16 = v10;
+  v17 = 2114;
+  v18 = a3;
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to create anchored object query; observer %{public}@ sampleTypes %{public}@ error %{public}@", &v11, 0x2Au);
 }
 
 @end

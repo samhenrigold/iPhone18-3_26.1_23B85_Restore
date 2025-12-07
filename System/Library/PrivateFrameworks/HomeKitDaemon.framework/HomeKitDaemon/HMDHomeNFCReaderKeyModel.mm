@@ -10,13 +10,13 @@
 
 - (HMDHomeNFCReaderKey)nfcReaderKey
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   encodedNfcReaderKey = [(HMDHomeNFCReaderKeyModel *)self encodedNfcReaderKey];
   if (encodedNfcReaderKey)
   {
-    v12 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:encodedNfcReaderKey error:&v12];
-    v4 = v12;
+    v11 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:encodedNfcReaderKey error:&v11];
+    v4 = v11;
     v5 = v4;
     if (v3)
     {
@@ -36,11 +36,11 @@
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v14 = v9;
-        v15 = 2112;
-        v16 = encodedNfcReaderKey;
-        v17 = 2112;
-        v18 = v5;
+        v13 = v9;
+        v14 = 2112;
+        v15 = encodedNfcReaderKey;
+        v16 = 2112;
+        v17 = v5;
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode nfc reader key set on model %@:%@", buf, 0x20u);
       }
 
@@ -53,18 +53,16 @@
     v3 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)setNfcReaderKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v12 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:keyCopy requiringSecureCoding:1 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:keyCopy requiringSecureCoding:1 error:&v11];
+  v6 = v11;
   if (v5)
   {
     [(HMDHomeNFCReaderKeyModel *)self setEncodedNfcReaderKey:v5];
@@ -79,18 +77,16 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2112;
-      v16 = keyCopy;
-      v17 = 2112;
-      v18 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = keyCopy;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to set encoded nfc reader key on model %@:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)defaultModelForHome:(id)home
@@ -131,15 +127,13 @@
 
 void __38__HMDHomeNFCReaderKeyModel_properties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"encodedNfcReaderKey";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"encodedNfcReaderKey";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = properties__properties_404;
   properties__properties_404 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

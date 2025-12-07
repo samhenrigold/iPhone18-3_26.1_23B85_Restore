@@ -38,9 +38,9 @@ LABEL_61:
 
     if (v8)
     {
-      v10 = [(__CFString *)v8 isEqualToString:@"title"];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (v10)
+      if (isEqualToString)
       {
 LABEL_6:
         v11 = 1;
@@ -60,7 +60,7 @@ LABEL_40:
           goto LABEL_47;
         }
 
-        v42 = [(__CFString *)v40 isEqualToString:@"primary"];
+        v42 = objc_msgSend_isEqualToString_(v40);
 
         if (v42)
         {
@@ -68,14 +68,14 @@ LABEL_40:
         }
 
         v44 = v41;
-        if (v44 == @"secondary" || (v45 = v44, v46 = [(__CFString *)v44 isEqualToString:@"secondary"], v45, (v46 & 1) != 0))
+        if (v44 == @"secondary" || (v45 = v44, v46 = objc_msgSend_isEqualToString_(v44), v45, (v46 & 1) != 0))
         {
           v43 = 2;
           goto LABEL_48;
         }
 
         v47 = v45;
-        if (v47 == @"accentColor" || (v48 = v47, v49 = [(__CFString *)v47 isEqualToString:@"accentColor"], v48, v49))
+        if (v47 == @"accentColor" || (v48 = v47, v49 = objc_msgSend_isEqualToString_(v47), v48, v49))
         {
           v43 = 3;
         }
@@ -152,63 +152,63 @@ LABEL_48:
       }
 
       v13 = v9;
-      if (v13 == @"title2" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"title2"], v14, (v15 & 1) != 0))
+      if (v13 == @"title2" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, (v15 & 1) != 0))
       {
         v11 = 2;
         goto LABEL_37;
       }
 
       v16 = v14;
-      if (v16 == @"title3" || (v17 = v16, v18 = [(__CFString *)v16 isEqualToString:@"title3"], v17, (v18 & 1) != 0))
+      if (v16 == @"title3" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(v16), v17, (v18 & 1) != 0))
       {
         v11 = 3;
         goto LABEL_37;
       }
 
       v19 = v17;
-      if (v19 == @"headline" || (v20 = v19, v21 = [(__CFString *)v19 isEqualToString:@"headline"], v20, (v21 & 1) != 0))
+      if (v19 == @"headline" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(v19), v20, (v21 & 1) != 0))
       {
         v11 = 4;
         goto LABEL_37;
       }
 
       v22 = v20;
-      if (v22 == @"subheadline" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"subheadline"], v23, (v24 & 1) != 0))
+      if (v22 == @"subheadline" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, (v24 & 1) != 0))
       {
         v11 = 5;
         goto LABEL_37;
       }
 
       v25 = v23;
-      if (v25 == @"body" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"body"], v26, (v27 & 1) != 0))
+      if (v25 == @"body" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, (v27 & 1) != 0))
       {
         v11 = 6;
         goto LABEL_37;
       }
 
       v28 = v26;
-      if (v28 == @"callout" || (v29 = v28, v30 = [(__CFString *)v28 isEqualToString:@"callout"], v29, (v30 & 1) != 0))
+      if (v28 == @"callout" || (v29 = v28, v30 = objc_msgSend_isEqualToString_(v28), v29, (v30 & 1) != 0))
       {
         v11 = 7;
         goto LABEL_37;
       }
 
       v31 = v29;
-      if (v31 == @"footnote" || (v32 = v31, v33 = [(__CFString *)v31 isEqualToString:@"footnote"], v32, (v33 & 1) != 0))
+      if (v31 == @"footnote" || (v32 = v31, v33 = objc_msgSend_isEqualToString_(v31), v32, (v33 & 1) != 0))
       {
         v11 = 8;
         goto LABEL_37;
       }
 
       v34 = v32;
-      if (v34 == @"caption" || (v35 = v34, v36 = [(__CFString *)v34 isEqualToString:@"caption"], v35, (v36 & 1) != 0))
+      if (v34 == @"caption" || (v35 = v34, v36 = objc_msgSend_isEqualToString_(v34), v35, (v36 & 1) != 0))
       {
         v11 = 9;
         goto LABEL_37;
       }
 
       v37 = v35;
-      if (v37 == @"caption2" || (v38 = v37, v39 = [(__CFString *)v37 isEqualToString:@"caption2"], v38, v39))
+      if (v37 == @"caption2" || (v38 = v37, v39 = objc_msgSend_isEqualToString_(v37), v38, v39))
       {
         v11 = 10;
         goto LABEL_37;
@@ -298,9 +298,9 @@ LABEL_62:
             goto LABEL_17;
           }
 
-          v11 = [(NSString *)v8 isEqualToString:v9];
+          isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             goto LABEL_18;
           }
@@ -344,7 +344,7 @@ LABEL_19:
 
         if (v8 && v14)
         {
-          v15 = [(NSString *)v8 isEqualToString:v14];
+          v15 = objc_msgSend_isEqualToString_(v8);
 
           if (!v15)
           {

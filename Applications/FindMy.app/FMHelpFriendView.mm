@@ -14,7 +14,7 @@
 
 - (void)handleLinkTap
 {
-  v0 = sub_10007EBC0(&unk_1006B0120);
+  v0 = sub_10007EBC0(&unk_1006B0120, &qword_100552B60);
   __chkstk_darwin(v0 - 8);
   v2 = &v20 - v1;
   v3 = type metadata accessor for URL();

@@ -50,19 +50,17 @@ uint64_t __33__CRBundleManager_sharedInstance__block_invoke(uint64_t a1)
 
 + (id)bundleDirectoryPath
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = CPSystemRootDirectory();
-  v12[0] = v4;
-  v12[1] = @"System";
+  v11[0] = v4;
+  v11[1] = @"System";
   v5 = MEMORY[0x277CCACA8];
   bundleDirectoryName = [self bundleDirectoryName];
   v7 = [v5 stringWithFormat:@"/Library/%@/Plugins", bundleDirectoryName];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   v9 = [v3 pathWithComponents:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -112,7 +110,7 @@ LABEL_6:
 
 - (void)_getBundlesOnCurrentQueueWithCompletion:(id)completion
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = completionCopy;
   if (!self->_bundles)
@@ -127,40 +125,40 @@ LABEL_6:
     if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v54 = bundleDirectoryPath;
+      v53 = bundleDirectoryPath;
       _os_log_impl(&dword_24327C000, v10, OS_LOG_TYPE_INFO, "Looking for plugins in %@", buf, 0xCu);
     }
 
     if ([defaultManager fileExistsAtPath:bundleDirectoryPath])
     {
-      v43 = defaultManager;
-      v44 = v5;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
+      v42 = defaultManager;
+      v43 = v5;
       v50 = 0u;
-      v48 = 0;
-      v11 = [defaultManager contentsOfDirectoryAtPath:bundleDirectoryPath error:&v48];
-      v42 = v48;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v47 = 0;
+      v11 = [defaultManager contentsOfDirectoryAtPath:bundleDirectoryPath error:&v47];
+      v41 = v47;
       obj = v11;
-      v12 = [v11 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v48 objects:v56 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v50;
+        v14 = *v49;
         v15 = @"bundle";
         do
         {
           v16 = 0;
-          v45 = v13;
+          v44 = v13;
           do
           {
-            if (*v50 != v14)
+            if (*v49 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v49 + 1) + 8 * v16);
+            v17 = *(*(&v48 + 1) + 8 * v16);
             v18 = [bundleDirectoryPath stringByAppendingPathComponent:v17];
             pathExtension = [v18 pathExtension];
             v20 = [pathExtension isEqualToString:v15];
@@ -174,7 +172,7 @@ LABEL_6:
               if (v22)
               {
                 *buf = 138412290;
-                v54 = v17;
+                v53 = v17;
                 _os_log_impl(&dword_24327C000, v21, OS_LOG_TYPE_INFO, "Found bundle: %@", buf, 0xCu);
               }
 
@@ -190,9 +188,9 @@ LABEL_6:
                   v30 = v28;
                   v31 = NSStringFromClass(bundleClass);
                   *buf = 138412546;
-                  v54 = v31;
-                  v55 = 2112;
-                  v56 = v17;
+                  v53 = v31;
+                  v54 = 2112;
+                  v55 = v17;
                   _os_log_impl(&dword_24327C000, v30, OS_LOG_TYPE_INFO, "Initializing a bundle of type %@ for plugin %@", buf, 0x16u);
                 }
               }
@@ -204,9 +202,9 @@ LABEL_6:
                   v32 = v28;
                   v33 = NSStringFromClass(bundleClass);
                   *buf = 138412546;
-                  v54 = v33;
-                  v55 = 2112;
-                  v56 = v17;
+                  v53 = v33;
+                  v54 = 2112;
+                  v55 = v17;
                   _os_log_impl(&dword_24327C000, v32, OS_LOG_TYPE_INFO, "Defaulting to bundle of type %@ for plugin %@", buf, 0x16u);
                 }
 
@@ -215,22 +213,22 @@ LABEL_6:
 
               self = selfCopy;
               v34 = [[bundleClass alloc] initWithPath:v18];
-              v47 = 0;
-              [v34 loadAndReturnError:&v47];
-              v35 = v47;
+              v46 = 0;
+              [v34 loadAndReturnError:&v46];
+              v35 = v46;
               v36 = v35;
               v37 = CRLogContextCards;
               bundleDirectoryPath = v24;
               if (!v34 || v35)
               {
                 v15 = v23;
-                v13 = v45;
+                v13 = v44;
                 if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v54 = v18;
-                  v55 = 2112;
-                  v56 = v36;
+                  v53 = v18;
+                  v54 = 2112;
+                  v55 = v36;
                   _os_log_error_impl(&dword_24327C000, v37, OS_LOG_TYPE_ERROR, "Error loading bundle at path %@: %@", buf, 0x16u);
                 }
               }
@@ -241,19 +239,19 @@ LABEL_6:
                 if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v54 = v34;
+                  v53 = v34;
                   _os_log_impl(&dword_24327C000, v37, OS_LOG_TYPE_INFO, "Registering bundle: %@", buf, 0xCu);
                 }
 
                 [(NSMutableSet *)self->_bundles addObject:v34];
-                v13 = v45;
+                v13 = v44;
               }
             }
 
             else if (v22)
             {
               *buf = 138412290;
-              v54 = v17;
+              v53 = v17;
               _os_log_impl(&dword_24327C000, v21, OS_LOG_TYPE_INFO, "File is not a bundle, continuing: %@", buf, 0xCu);
             }
 
@@ -261,18 +259,18 @@ LABEL_6:
           }
 
           while (v13 != v16);
-          v13 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v13 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
         while (v13);
       }
 
-      v38 = v42;
-      if (!v42)
+      v38 = v41;
+      if (!v41)
       {
-        defaultManager = v43;
-        v5 = v44;
-        if (!v44)
+        defaultManager = v42;
+        v5 = v43;
+        if (!v43)
         {
           goto LABEL_42;
         }
@@ -281,12 +279,12 @@ LABEL_6:
       }
 
       v39 = CRLogContextCards;
-      defaultManager = v43;
-      v5 = v44;
+      defaultManager = v42;
+      v5 = v43;
       if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_ERROR))
       {
-        [(CRBundleManager *)bundleDirectoryPath _getBundlesOnCurrentQueueWithCompletion:v42, v39];
-        if (!v44)
+        [(CRBundleManager *)bundleDirectoryPath _getBundlesOnCurrentQueueWithCompletion:v41, v39];
+        if (!v43)
         {
           goto LABEL_42;
         }
@@ -301,7 +299,7 @@ LABEL_6:
       if (os_log_type_enabled(CRLogContextCards, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v54 = bundleDirectoryPath;
+        v53 = bundleDirectoryPath;
         _os_log_impl(&dword_24327C000, v40, OS_LOG_TYPE_INFO, "Bundle directory doesn't exist at path %@", buf, 0xCu);
       }
 
@@ -326,19 +324,16 @@ LABEL_41:
   }
 
 LABEL_43:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getBundlesOnCurrentQueueWithCompletion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_24327C000, log, OS_LOG_TYPE_ERROR, "Error loading bundles at path %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_24327C000, log, OS_LOG_TYPE_ERROR, "Error loading bundles at path %@: %@", &v3, 0x16u);
 }
 
 @end

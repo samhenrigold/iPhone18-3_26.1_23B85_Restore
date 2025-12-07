@@ -231,7 +231,7 @@
   self->_existingSceneBackgroundView = backgroundView2;
 
   v15 = [_SBInCallProxySceneBackgroundView alloc];
-  [(SBApplicationSceneBackgroundView *)self->_existingSceneBackgroundView frame];
+  objc_msgSend_frame(self->_existingSceneBackgroundView);
   v16 = [(_SBInCallProxySceneBackgroundView *)v15 initWithFrame:self->_existingSceneBackgroundView proxyTarget:?];
   proxySceneBackgroundView = self->_proxySceneBackgroundView;
   self->_proxySceneBackgroundView = v16;

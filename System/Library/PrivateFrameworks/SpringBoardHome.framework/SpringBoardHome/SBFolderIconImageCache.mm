@@ -74,7 +74,7 @@
 {
   layoutCopy = layout;
   v5 = [SBHIconImageCache alloc];
-  [layoutCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(layoutCopy);
   v6 = [(SBHIconImageCache *)v5 initWithName:@"SBFolderIconImageCache" iconImageInfo:?];
   v7 = [(SBFolderIconImageCache *)self initWithListLayout:layoutCopy iconImageCache:v6];
 
@@ -102,7 +102,7 @@
 {
   defaultListLayout = [objc_opt_class() defaultListLayout];
   v4 = [SBHIconImageCache alloc];
-  [defaultListLayout iconImageInfo];
+  objc_msgSend_iconImageInfo(defaultListLayout);
   v5 = [(SBHIconImageCache *)v4 initWithName:@"default" iconImageInfo:?];
   v6 = [(SBFolderIconImageCache *)self initWithListLayout:defaultListLayout iconImageCache:v5];
 
@@ -230,7 +230,7 @@ LABEL_11:
   v19 = [folder listAtIndex:index];
   v20 = SBHIconListLayoutFolderIconGridCellSize(layoutCopy);
   v22 = v21;
-  [layoutCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(layoutCopy);
   v24 = v23;
   v26 = v25;
   v28 = v27;
@@ -521,7 +521,7 @@ uint64_t __59__SBFolderIconImageCache_gridCellImageOfSize_forIconImage___block_i
 - (void)rebuildImagesForFolderIcon:(id)icon
 {
   iconCopy = icon;
-  v5 = SBLogFolderIconImageCache();
+  v5 = SBLogFolderIconImageCache(iconCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBFolderIconImageCache rebuildImagesForFolderIcon:];
@@ -767,7 +767,7 @@ LABEL_11:
 {
   v13 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = SBLogFolderIconImageCache();
+  v5 = SBLogFolderIconImageCache(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     icons = [changeCopy icons];
@@ -790,7 +790,7 @@ LABEL_11:
 {
   v11 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
-  v5 = SBLogFolderIconImageCache();
+  v5 = SBLogFolderIconImageCache(invalidateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134218240;

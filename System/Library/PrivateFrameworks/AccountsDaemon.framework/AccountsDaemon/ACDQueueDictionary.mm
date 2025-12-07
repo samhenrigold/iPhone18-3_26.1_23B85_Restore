@@ -28,35 +28,35 @@
 
 - (BOOL)isEmpty
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allKeys = [(NSMutableDictionary *)selfCopy->_allQueuesByID allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        if (![(ACDQueueDictionary *)selfCopy isQueueEmptyForKey:*(*(&v10 + 1) + 8 * i)])
+        if (![(ACDQueueDictionary *)selfCopy isQueueEmptyForKey:*(*(&v9 + 1) + 8 * i)])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -70,7 +70,6 @@
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

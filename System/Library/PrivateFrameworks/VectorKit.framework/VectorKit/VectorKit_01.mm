@@ -112,12 +112,12 @@ void *std::__format::__output_buffer<char>::__copy[abi:nn200100]<char>(void *res
   v10 = result[2];
   do
   {
-    v11 = *(v4 + 8) - v10;
+    v11 = v4[1] - v10;
     if (v11 < v8 + 1)
     {
-      result = (*(v4 + 24))(v4, v8 + 2);
-      v10 = *(v4 + 16);
-      v11 = *(v4 + 8) - v10;
+      result = (v4[3])(v4, v8 + 2);
+      v10 = v4[2];
+      v11 = v4[1] - v10;
     }
 
     if (v11 >= v8)
@@ -133,11 +133,11 @@ void *std::__format::__output_buffer<char>::__copy[abi:nn200100]<char>(void *res
     if (v12)
     {
       result = memmove((*v4 + v10), __src, v12);
-      v10 = *(v4 + 16);
+      v10 = v4[2];
     }
 
     v10 += v12;
-    *(v4 + 16) = v10;
+    v4[2] = v10;
     __src += v12;
     v13 = v8 > v11;
     v8 -= v12;
@@ -202,7 +202,7 @@ uint64_t ecs2::BasicRegistry<void>::create(uint64_t a1)
       v6[3] = 0u;
       *v6 = 0u;
       v6[1] = 0u;
-      v7 = (v6 + 4);
+      v7 = v6 + 4;
     }
 
     *(a1 + 41024) = v7;
@@ -233,7 +233,7 @@ void ecs2::BasicRegistry<void>::add<ecs2::GraphHandle>(uint64_t a1, int a2, void
   ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,ecs2::GraphHandle>();
   v6 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,ecs2::GraphHandle>(void)::metadata;
   v7 = ecs2::BasicRegistry<void>::storage<ecs2::GraphHandle>(a1);
-  v9 = ecs2::sparse_set<ecs2::Entity,64ul>::insert(v7, &v37) - *(v7 + 32);
+  v9 = &ecs2::sparse_set<ecs2::Entity,64ul>::insert(v7, &v37)[-*(v7 + 32)];
   v10 = (v9 >> 2) >> 6;
   if ((v8 & 1) == 0)
   {
@@ -513,7 +513,7 @@ LABEL_8:
       else
       {
         *v4 = *(v4 - 1);
-        v10 = v4 + 8;
+        v10 = (v4 + 8);
       }
 
       a1[1] = v10;
@@ -818,15 +818,15 @@ void ecs2::BasicRegistry<void>::add<ecs2::TaskDescriptor>(uint64_t a1, int a2, u
   v8 = ecs2::BasicRegistry<void>::storage<ecs2::TaskDescriptor>(a1);
   v9 = ecs2::sparse_set<ecs2::Entity,64ul>::insert(v8, &v43);
   v11 = v10;
-  v12 = ((v9 - *(v8 + 32)) >> 2) & 0x3F;
-  v13 = ((v9 - *(v8 + 32)) >> 2) >> 6;
+  v12 = (&v9[-*(v8 + 32)] >> 2) & 0x3F;
+  v13 = (&v9[-*(v8 + 32)] >> 2) >> 6;
   if (v10)
   {
     v15 = *(v8 + 56);
     v14 = *(v8 + 64);
     if (v13 >= (v14 - v15) >> 3)
     {
-      v41 = ((v9 - *(v8 + 32)) >> 2) & 0x3F;
+      v41 = (&v9[-*(v8 + 32)] >> 2) & 0x3F;
       v42 = v7;
       v39 = v14 - v15;
       v16 = v13 + 1 - ((v14 - v15) >> 3);
@@ -1055,7 +1055,7 @@ uint64_t std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__
   return a1;
 }
 
-uint64_t std::vector<ecs2::ExecutionTaskDescriptor>::__init_with_size[abi:nn200100]<ecs2::ExecutionTaskDescriptor*,ecs2::ExecutionTaskDescriptor*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ecs2::ExecutionTaskDescriptor>::__init_with_size[abi:nn200100]<ecs2::ExecutionTaskDescriptor*,ecs2::ExecutionTaskDescriptor*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1098,14 +1098,12 @@ void std::vector<ecs2::ExecutionTaskDescriptor>::__destroy_vector::operator()[ab
   }
 }
 
-void *std::vector<gdc::TypeInfo>::reserve(void *result, unint64_t a2)
+void std::vector<gdc::TypeInfo>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(a2);
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<gdc::TypeInfo>>(unint64_t a1)
@@ -1301,20 +1299,20 @@ LABEL_37:
   a1[1] = v24;
 }
 
-void *std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::erq::EncodeRenderQueue>(md::erq::EncodeRenderQueue &&)::{lambda(void)#2},std::allocator<md::erq::EncodeRenderQueue &&>,std::vector<gdc::TypeInfo,ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::erq::EncodeRenderQueue>(md::erq::EncodeRenderQueue &&)::{lambda(void)#2}<gdc>> ()(void)>::operator()@<X0>(void *a1@<X8>)
+void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::erq::EncodeRenderQueue>(md::erq::EncodeRenderQueue &&)::{lambda(void)#2},std::allocator<md::erq::EncodeRenderQueue &&>,std::vector<gdc::TypeInfo,ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::erq::EncodeRenderQueue>(md::erq::EncodeRenderQueue &&)::{lambda(void)#2}<gdc>> ()(void)>::operator()(void *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<gdc::TypeInfo>::reserve(a1, 0);
+  std::vector<gdc::TypeInfo>::reserve(a1, 0);
 }
 
-void *gdc::typelist_as_vector<std::tuple<>>(void *a1)
+void gdc::typelist_as_vector<std::tuple<>>(void *a1)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<gdc::TypeInfo>::reserve(a1, 0);
+  std::vector<gdc::TypeInfo>::reserve(a1, 0);
 }
 
 void sub_1B276CDEC(_Unwind_Exception *exception_object)
@@ -1573,7 +1571,7 @@ void ecs2::BasicRegistry<void>::add<ecs2::TaskHandle>(uint64_t a1, int a2, void 
   ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,ecs2::TaskHandle>();
   v6 = ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,ecs2::TaskHandle>(void)::metadata;
   v7 = ecs2::BasicRegistry<void>::storage<ecs2::TaskHandle>(a1);
-  v9 = ecs2::sparse_set<ecs2::Entity,64ul>::insert(v7, &v37) - *(v7 + 32);
+  v9 = &ecs2::sparse_set<ecs2::Entity,64ul>::insert(v7, &v37)[-*(v7 + 32)];
   v10 = (v9 >> 2) >> 6;
   if ((v8 & 1) == 0)
   {
@@ -1853,7 +1851,7 @@ void std::__function::__func<md::EncodeModule,std::allocator<md::EncodeModule>,e
   operator new();
 }
 
-void std::vector<ecs2::UtilityTaskDescriptor>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<ecs2::UtilityTaskDescriptor>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -1871,20 +1869,20 @@ __n128 std::__function::__func<ecs2::ForwardToExecute<md::ita::BuildShadowFrameG
   return result;
 }
 
-void *std::vector<unsigned long>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned long>::vector[abi:nn200100](uint64_t *a1, uint64_t *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<gdc::Entity>::__vallocate[abi:nn200100](result, a3);
+    std::vector<gdc::Entity>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<gdc::Entity>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<gdc::Entity>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1894,18 +1892,18 @@ void std::vector<gdc::Entity>::__vallocate[abi:nn200100](uint64_t a1, unint64_t 
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-void *std::vector<gdc::Entity>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<gdc::Entity>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<gdc::Entity>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<gdc::Entity>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
 void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::ita::BuildSSAOFrameGraph>(md::ita::BuildSSAOFrameGraph &&)::{lambda(void)#1},std::allocator<md::ita::BuildSSAOFrameGraph &&>,std::vector<gdc::TypeInfo,ecs2::ExecutionTaskFunction::ExecutionTaskFunction<md::ita::BuildSSAOFrameGraph>(md::ita::BuildSSAOFrameGraph &&)::{lambda(void)#1}<gdc>> ()(void)>::operator()(const void **a1@<X8>)
@@ -2161,9 +2159,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x7216A09FEC0661A6;
-    v2[1] = "md::ls::PassShadowConfiguration]";
-    v2[2] = 31;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::PassShadowConfiguration]";
+    *(v2 + 2) = 31;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -3968,9 +3966,9 @@ void gdc::typelist_as_vector<std::tuple<md::ita::FrameHandle>>(void **a1)
   else
   {
     *v2 = 0x8004EB719AAADA5BLL;
-    v2[1] = "md::ita::FrameHandle]";
-    v2[2] = 20;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ita::FrameHandle]";
+    *(v2 + 2) = 20;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4045,9 +4043,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::FrameGraphBuilder>>(void **a1)
   else
   {
     *v2 = 0x9792F5BB2E6066F1;
-    v2[1] = "md::ls::FrameGraphBuilder]";
-    v2[2] = 25;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::FrameGraphBuilder]";
+    *(v2 + 2) = 25;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4209,7 +4207,7 @@ void std::__function::__func<md::MapEngineFrameModule,std::allocator<md::MapEngi
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v10 = 1;
+  LOWORD(v10) = 1;
   {
     {
       gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::getId<PrepareFrameForRender>(void)::localId = atomic_fetch_add(gdc::FamilyInfo<ecs2::internal::TaskIdFamily,unsigned short>::Counter::nextId(void)::counter, 1u);
@@ -4247,54 +4245,54 @@ void std::__function::__func<md::MapEngineFrameModule,std::allocator<md::MapEngi
 
 void sub_1B2796EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_objecta, void **a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, int a63)
 {
-  v80 = v75 + 288;
-  v81 = -312;
+  v74 = v69 + 288;
+  v75 = -312;
   do
   {
-    *(v79 - 224) = v80;
-    std::vector<ecs2::UtilityTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v79 - 224));
-    *(v79 - 224) = v80 - 24;
-    std::vector<ecs2::UtilityTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v79 - 224));
-    *(v79 - 224) = v80 - 48;
-    std::vector<std::vector<gdc::Registry *>>::__destroy_vector::operator()[abi:nn200100]((v79 - 224));
-    *(v79 - 224) = v80 - 72;
-    std::vector<ecs2::ExecutionTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v79 - 224));
-    v80 -= 104;
-    v81 += 104;
+    *(v73 - 224) = v74;
+    std::vector<ecs2::UtilityTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v73 - 224));
+    *(v73 - 224) = v74 - 24;
+    std::vector<ecs2::UtilityTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v73 - 224));
+    *(v73 - 224) = v74 - 48;
+    std::vector<std::vector<gdc::Registry *>>::__destroy_vector::operator()[abi:nn200100]((v73 - 224));
+    *(v73 - 224) = v74 - 72;
+    std::vector<ecs2::ExecutionTaskDescriptor>::__destroy_vector::operator()[abi:nn200100]((v73 - 224));
+    v74 -= 104;
+    v75 += 104;
   }
 
-  while (v81);
+  while (v75);
   if (a28 < 0)
   {
     operator delete(__p);
   }
 
-  std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](v73);
+  std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](v67);
   if (a47 < 0)
   {
     operator delete(a42);
   }
 
+  std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](v66);
   std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](v72);
-  std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](v78);
-  std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](v77);
-  if (a66 < 0)
+  std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](v71);
+  if (a65 < 0)
   {
     operator delete(a61);
   }
 
-  std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](v76);
+  std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](v70);
   std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](a13);
   std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](a14);
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a72);
+    operator delete(a66);
   }
 
   std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](a15);
   std::__function::__value_func<std::vector<gdc::TypeInfo> ()(void)>::~__value_func[abi:nn200100](a16);
   std::__function::__value_func<void ()(ecs2::Runtime &)>::~__value_func[abi:nn200100](a17);
-  STACK[0x208] = v74;
+  STACK[0x208] = v68;
   std::vector<ecs2::ExecutionDebugTaskDescriptor>::__destroy_vector::operator()[abi:nn200100](&STACK[0x208]);
   if (*(a12 + 31) < 0)
   {
@@ -4694,9 +4692,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xC3545FB0365E4B12;
-    v2[1] = "md::ls::MarkForEntityDeletion]";
-    v2[2] = 29;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::MarkForEntityDeletion]";
+    *(v2 + 2) = 29;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -6963,9 +6961,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x7D9191A7B57B7B35;
-    v2[1] = "md::ls::FlyoverCommonTransformConstantDataHandle]";
-    v2[2] = 48;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::FlyoverCommonTransformConstantDataHandle]";
+    *(v2 + 2) = 48;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9059,9 +9057,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xFA77EBF8E4CA45B8;
-    v2[1] = "md::ls::VisibilityGroupTest]";
-    v2[2] = 27;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::VisibilityGroupTest]";
+    *(v2 + 2) = 27;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9605,9 +9603,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::FunctionConstants>>(void **a1)
   else
   {
     *v2 = 0xC62D89929260CB56;
-    v2[1] = "md::ls::FunctionConstants]";
-    v2[2] = 25;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::FunctionConstants]";
+    *(v2 + 2) = 25;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9682,9 +9680,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x8261D2F258A435BBLL;
-    v2[1] = "md::ls::IsElevated]";
-    v2[2] = 18;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::IsElevated]";
+    *(v2 + 2) = 18;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9759,9 +9757,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE40027D1222182B5;
-    v2[1] = "md::ls::HasOverlayPatch]";
-    v2[2] = 23;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::HasOverlayPatch]";
+    *(v2 + 2) = 23;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9836,9 +9834,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x97E77A2C4FA4C0B5;
-    v2[1] = "md::ls::UseGlobeLighting]";
-    v2[2] = 24;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::UseGlobeLighting]";
+    *(v2 + 2) = 24;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;

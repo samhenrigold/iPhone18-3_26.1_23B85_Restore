@@ -9,7 +9,7 @@ void _CACAssertionFailed(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *
 
   v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:a1];
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:a2];
-  v19 = CACLogBugReporter();
+  v19 = CACLogBugReporter(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
   {
     *buf = 136316162;
@@ -192,17 +192,18 @@ void sub_26B35FF04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26B36108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B36108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void CACGetDeviceSupportsUserAttentionDetection(void *a1, void *a2)
@@ -284,16 +285,16 @@ id NumberWithLog2BucketForIntegerValue(uint64_t a1)
   return v3;
 }
 
-void sub_26B3710B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B3710B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26B3717BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26B3717BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -305,17 +306,18 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26B372024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B372024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 _BYTE *OUTLINED_FUNCTION_2(_BYTE *result, _BYTE *a2)
@@ -331,9 +333,9 @@ void OUTLINED_FUNCTION_3(void *a1, int a2, os_log_t log, const char *a4, uint8_t
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, a5, 2u);
 }
 
-void sub_26B37A668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B37A668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -345,25 +347,26 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26B37A968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26B37A968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
-void sub_26B37AB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B37AB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void _NotificationOverlayOptionsSettingsChanged()
@@ -447,16 +450,16 @@ void _NotificationLoggingPrivacyChanged()
   [v0 _notifyUserOfSensitiveLogging];
 }
 
-void sub_26B38C138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B38C138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26B38D3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B38D3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -466,6 +469,13 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_26B38DA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void RXRelease(const void *a1)
@@ -498,6 +508,13 @@ void __RXRelease_block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
 
   CFRelease(v2);
+}
+
+void sub_26B39E270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __CFString *CACStringForUserAttentionGainEvent(uint64_t a1)
@@ -547,10 +564,11 @@ void sub_26B3A44E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void _handleNotification(uint64_t a1, uint64_t a2, void *a3)
@@ -569,13 +587,13 @@ void ___handleNotification_block_invoke()
   [v0 _handleLanguageChanged];
 }
 
-BOOL utility_tool_connection_entitled()
+BOOL utility_tool_connection_entitled(uint64_t a1)
 {
-  v0 = xpc_connection_copy_entitlement_value();
-  v1 = v0;
-  if (v0)
+  v1 = xpc_connection_copy_entitlement_value();
+  v2 = v1;
+  if (v1)
   {
-    value = xpc_BOOL_get_value(v0);
+    value = xpc_BOOL_get_value(v1);
   }
 
   else
@@ -628,7 +646,7 @@ void __utility_tool_event_handler_block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    if (!utility_tool_connection_entitled())
+    if (!utility_tool_connection_entitled(v5))
     {
       v9 = CACCreateSerializedObject([MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{@"Unsupported client", @"ErrorString", 0}]);
       reply_to_event_with_object(v5, v6, v9);
@@ -1077,16 +1095,16 @@ void sub_26B3AF44C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id CACLogAccessibility()
+id CACLogAccessibility(uint64_t a1)
 {
   if (CACLogAccessibility_onceToken != -1)
   {
     CACLogAccessibility_cold_1();
   }
 
-  v1 = CACLogAccessibility_sLogAccessibility;
+  v2 = CACLogAccessibility_sLogAccessibility;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogAccessibility_block_invoke()
@@ -1096,16 +1114,16 @@ uint64_t __CACLogAccessibility_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogAudio()
+id CACLogAudio(uint64_t a1)
 {
   if (CACLogAudio_onceToken != -1)
   {
     CACLogAudio_cold_1();
   }
 
-  v1 = CACLogAudio_sLogAudio;
+  v2 = CACLogAudio_sLogAudio;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogAudio_block_invoke()
@@ -1115,16 +1133,16 @@ uint64_t __CACLogAudio_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogContext()
+id CACLogContext(uint64_t a1)
 {
   if (CACLogContext_onceToken != -1)
   {
     CACLogContext_cold_1();
   }
 
-  v1 = CACLogContext_sLogContext;
+  v2 = CACLogContext_sLogContext;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogContext_block_invoke()
@@ -1134,16 +1152,16 @@ uint64_t __CACLogContext_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogDictationCommands()
+id CACLogDictationCommands(uint64_t a1)
 {
   if (CACLogDictationCommands_onceToken != -1)
   {
     CACLogDictationCommands_cold_1();
   }
 
-  v1 = CACLogDictationCommands_sLogDictationCommands;
+  v2 = CACLogDictationCommands_sLogDictationCommands;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogDictationCommands_block_invoke()
@@ -1153,16 +1171,16 @@ uint64_t __CACLogDictationCommands_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogElementCollection()
+id CACLogElementCollection(uint64_t a1)
 {
   if (CACLogElementCollection_onceToken != -1)
   {
     CACLogElementCollection_cold_1();
   }
 
-  v1 = CACLogElementCollection_sLogElementCollection;
+  v2 = CACLogElementCollection_sLogElementCollection;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogElementCollection_block_invoke()
@@ -1172,16 +1190,16 @@ uint64_t __CACLogElementCollection_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogElementEvaluation()
+id CACLogElementEvaluation(uint64_t a1)
 {
   if (CACLogElementEvaluation_onceToken != -1)
   {
     CACLogElementEvaluation_cold_1();
   }
 
-  v1 = CACLogElementEvaluation_sLogElementEvaluation;
+  v2 = CACLogElementEvaluation_sLogElementEvaluation;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogElementEvaluation_block_invoke()
@@ -1191,16 +1209,16 @@ uint64_t __CACLogElementEvaluation_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogFindAndSelect()
+id CACLogFindAndSelect(uint64_t a1)
 {
   if (CACLogFindAndSelect_onceToken != -1)
   {
     CACLogFindAndSelect_cold_1();
   }
 
-  v1 = CACLogFindAndSelect_sLogFindAndSelect;
+  v2 = CACLogFindAndSelect_sLogFindAndSelect;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogFindAndSelect_block_invoke()
@@ -1210,16 +1228,16 @@ uint64_t __CACLogFindAndSelect_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogGeneral()
+id CACLogGeneral(uint64_t a1)
 {
   if (CACLogGeneral_onceToken != -1)
   {
     CACLogGeneral_cold_1();
   }
 
-  v1 = CACLogGeneral_sLogGeneral;
+  v2 = CACLogGeneral_sLogGeneral;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogGeneral_block_invoke()
@@ -1229,16 +1247,16 @@ uint64_t __CACLogGeneral_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogPreferences()
+id CACLogPreferences(uint64_t a1)
 {
   if (CACLogPreferences_onceToken != -1)
   {
     CACLogPreferences_cold_1();
   }
 
-  v1 = CACLogPreferences_sLogPreferences;
+  v2 = CACLogPreferences_sLogPreferences;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogPreferences_block_invoke()
@@ -1248,16 +1266,16 @@ uint64_t __CACLogPreferences_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogRecognition()
+id CACLogRecognition(uint64_t a1)
 {
   if (CACLogRecognition_onceToken != -1)
   {
     CACLogRecognition_cold_1();
   }
 
-  v1 = CACLogRecognition_sLogRecognition;
+  v2 = CACLogRecognition_sLogRecognition;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogRecognition_block_invoke()
@@ -1267,16 +1285,16 @@ uint64_t __CACLogRecognition_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogWordParse()
+id CACLogWordParse(uint64_t a1)
 {
   if (CACLogWordParse_onceToken != -1)
   {
     CACLogWordParse_cold_1();
   }
 
-  v1 = CACLogWordParse_sLogWordParse;
+  v2 = CACLogWordParse_sLogWordParse;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogWordParse_block_invoke()
@@ -1286,16 +1304,16 @@ uint64_t __CACLogWordParse_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogBugReporter()
+id CACLogBugReporter(uint64_t a1)
 {
   if (CACLogBugReporter_onceToken != -1)
   {
     CACLogBugReporter_cold_1();
   }
 
-  v1 = CACLogBugReporter_sLogBugReporter;
+  v2 = CACLogBugReporter_sLogBugReporter;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogBugReporter_block_invoke()
@@ -1305,16 +1323,16 @@ uint64_t __CACLogBugReporter_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogAttentionAware()
+id CACLogAttentionAware(uint64_t a1)
 {
   if (CACLogAttentionAware_onceToken != -1)
   {
     CACLogAttentionAware_cold_1();
   }
 
-  v1 = CACLogAttentionAware_sLogAttentionAware;
+  v2 = CACLogAttentionAware_sLogAttentionAware;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogAttentionAware_block_invoke()
@@ -1324,16 +1342,16 @@ uint64_t __CACLogAttentionAware_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogShortcuts()
+id CACLogShortcuts(uint64_t a1)
 {
   if (CACLogShortcuts_onceToken != -1)
   {
     CACLogShortcuts_cold_1();
   }
 
-  v1 = CACLogShortcuts_sLogShortcuts;
+  v2 = CACLogShortcuts_sLogShortcuts;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogShortcuts_block_invoke()
@@ -1343,16 +1361,16 @@ uint64_t __CACLogShortcuts_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogCorrections()
+id CACLogCorrections(uint64_t a1)
 {
   if (CACLogCorrections_onceToken != -1)
   {
     CACLogCorrections_cold_1();
   }
 
-  v1 = CACLogCorrections_sLogCorrections;
+  v2 = CACLogCorrections_sLogCorrections;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogCorrections_block_invoke()
@@ -1362,16 +1380,16 @@ uint64_t __CACLogCorrections_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogGrid()
+id CACLogGrid(uint64_t a1)
 {
   if (CACLogGrid_onceToken != -1)
   {
     CACLogGrid_cold_1();
   }
 
-  v1 = CACLogGrid_sLogGrid;
+  v2 = CACLogGrid_sLogGrid;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogGrid_block_invoke()
@@ -1381,16 +1399,16 @@ uint64_t __CACLogGrid_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogAssetDownload()
+id CACLogAssetDownload(uint64_t a1)
 {
   if (CACLogAssetDownload_onceToken != -1)
   {
     CACLogAssetDownload_cold_1();
   }
 
-  v1 = CACLogAssetDownload_sLogAssetDownload;
+  v2 = CACLogAssetDownload_sLogAssetDownload;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogAssetDownload_block_invoke()
@@ -1400,16 +1418,16 @@ uint64_t __CACLogAssetDownload_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogGestureRecording()
+id CACLogGestureRecording(uint64_t a1)
 {
   if (CACLogGestureRecording_onceToken != -1)
   {
     CACLogGestureRecording_cold_1();
   }
 
-  v1 = CACLogGestureRecording_sLogGestureRecording;
+  v2 = CACLogGestureRecording_sLogGestureRecording;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogGestureRecording_block_invoke()
@@ -1419,16 +1437,16 @@ uint64_t __CACLogGestureRecording_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id CACLogAdditionalLogging()
+id CACLogAdditionalLogging(uint64_t a1)
 {
   if (CACLogAdditionalLogging_onceToken != -1)
   {
     CACLogAdditionalLogging_cold_1();
   }
 
-  v1 = CACLogAdditionalLogging_sLogAdditionalLogging;
+  v2 = CACLogAdditionalLogging_sLogAdditionalLogging;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __CACLogAdditionalLogging_block_invoke()
@@ -1438,16 +1456,16 @@ uint64_t __CACLogAdditionalLogging_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id AXMRLogVoiceControl()
+id AXMRLogVoiceControl(uint64_t a1)
 {
   if (AXMRLogVoiceControl_onceToken != -1)
   {
     AXMRLogVoiceControl_cold_1();
   }
 
-  v1 = AXMRLogVoiceControl_sMRLogVoiceControl;
+  v2 = AXMRLogVoiceControl_sMRLogVoiceControl;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AXMRLogVoiceControl_block_invoke()
@@ -1457,7 +1475,7 @@ uint64_t __AXMRLogVoiceControl_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-double CACZOTMainScreenSize()
+double CACZOTMainScreenSize(uint64_t a1, uint64_t a2)
 {
   if (CACZOTMainScreenSize_onceToken != -1)
   {
@@ -2034,11 +2052,11 @@ __CFString *CACNonNilStringWithinLengthLimit(void *a1, uint64_t a2, unint64_t a3
   return v7;
 }
 
-void sub_26B3C69F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26B3C69F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2047,7 +2065,7 @@ void __CACNonNilStringWithinLengthLimit_block_invoke(uint64_t a1, uint64_t a2, u
   ++*(*(*(a1 + 48) + 8) + 24);
   v11 = *(a1 + 32);
   v12 = *(*(*(a1 + 56) + 8) + 40) + *(*(*(a1 + 56) + 8) + 32);
-  v13 = [*(a1 + 40) substringWithRange:{v12, a3 + a4 - v12}];
+  v13 = [*(a1 + 40) substringWithRange:{v12, a3 + a4 - v12, a5, a6}];
   [v11 appendString:v13];
 
   v14 = *(*(a1 + 56) + 8);
@@ -2066,9 +2084,16 @@ void sub_26B3C9A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26B3DD418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B3D4410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  va_start(va, a7);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26B3DD418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2140,7 +2165,7 @@ void _languageChanged(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t ___languageChanged_block_invoke(uint64_t a1)
 {
-  v2 = CACLogAssetDownload();
+  v2 = CACLogAssetDownload(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     ___languageChanged_block_invoke_cold_1(a1, v2);
@@ -2247,10 +2272,11 @@ LABEL_34:
   return v2;
 }
 
-void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 double CACViewRectFromPortraitUpRect(void *a1, double a2, double a3, double a4, double a5)
@@ -2471,13 +2497,13 @@ id static CACNetworkState.shared.getter()
   return v1;
 }
 
-id CACNetworkState.().init()()
+char *CACNetworkState.().init()()
 {
   v1 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v12 = *(v1 - 8);
-  v13 = v1;
+  v13 = *(v1 - 8);
+  v14 = v1;
   MEMORY[0x28223BE20](v1);
-  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for OS_dispatch_queue.Attributes();
   MEMORY[0x28223BE20](v4);
   v5 = type metadata accessor for DispatchQoS();
@@ -2487,43 +2513,44 @@ id CACNetworkState.().init()()
   swift_allocObject();
   *&v0[v6] = NWPathMonitor.init()();
   v0[OBJC_IVAR___CACNetworkState_satisfied] = 2;
-  v15.receiver = v0;
-  v15.super_class = CACNetworkState;
-  v7 = objc_msgSendSuper2(&v15, sel_init);
-  *(swift_allocObject() + 16) = v7;
-  v8 = v7;
+  v16.receiver = v0;
+  v16.super_class = CACNetworkState;
+  v7 = objc_msgSendSuper2(&v16, sel_init);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  v9 = v7;
 
-  outlined copy of (@escaping @callee_guaranteed @Sendable (@in_guaranteed NWPath) -> ())?(partial apply for closure #1 in CACNetworkState.().init());
+  outlined copy of (@escaping @callee_guaranteed @Sendable (@in_guaranteed NWPath) -> ())?(partial apply for closure #1 in CACNetworkState.().init(), v8);
   NWPathMonitor.pathUpdateHandler.setter();
 
-  type metadata accessor for CACNetworkState(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for CACNetworkState(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
 
   static DispatchQoS.unspecified.getter();
-  v14 = MEMORY[0x277D84F90];
+  v15 = MEMORY[0x277D84F90];
   lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v12 + 104))(v3, *MEMORY[0x277D85260], v13);
-  v9 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v13 + 104))(v3, *MEMORY[0x277D85260], v14);
+  v10 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   NWPathMonitor.start(queue:)();
 
-  return v8;
+  return v9;
 }
 
 uint64_t closure #1 in CACNetworkState.().init()(uint64_t a1, uint64_t a2)
 {
   v3 = type metadata accessor for NWPath.Status();
   v4 = *(v3 - 8);
-  v5 = (MEMORY[0x28223BE20])();
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
   v9 = &v13 - v8;
   NWPath.status.getter();
-  (*(v4 + 104))(v7, *MEMORY[0x277CD8F78], v3);
-  v10 = MEMORY[0x26D675A10](v9, v7);
+  (*(v4 + 104))(v6, *MEMORY[0x277CD8F78], v3);
+  v10 = MEMORY[0x26D675A10](v9, v6);
   v11 = *(v4 + 8);
-  v11(v7, v3);
+  v11(v6, v3);
   result = (v11)(v9, v3);
   *(a2 + OBJC_IVAR___CACNetworkState_satisfied) = v10 & 1;
   return result;
@@ -2554,7 +2581,7 @@ uint64_t sub_26B3E673C()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable (@in_guaranteed NWPath) -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable (@in_guaranteed NWPath) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2563,7 +2590,7 @@ uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable (@in_guarantee
   return result;
 }
 
-uint64_t type metadata accessor for CACNetworkState(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for CACNetworkState(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2589,7 +2616,7 @@ unint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attrib
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2606,7 +2633,7 @@ unint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attri
   result = lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A];
   if (!lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A]);
   }
@@ -2614,7 +2641,7 @@ unint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attri
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2655,15 +2682,15 @@ uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 id BorderStatusIndicatorBridge.init()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v24 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v24 - v8;
-  type metadata accessor for BorderStatusIndicatorData();
+  type metadata accessor for BorderStatusIndicatorData(0);
   v10 = swift_allocObject();
   v11 = OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl25BorderStatusIndicatorData__listeningState;
   v26 = 0;
@@ -2679,7 +2706,7 @@ id BorderStatusIndicatorBridge.init()()
   *&v1[OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl27BorderStatusIndicatorBridge_indicatorData] = v10;
   KeyPath = swift_getKeyPath();
   v15 = swift_getKeyPath();
-  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
   v16 = EnvironmentObject.init()();
   v18 = v17;
   v19 = *&v1[v13];
@@ -2699,7 +2726,7 @@ id BorderStatusIndicatorBridge.init()()
   v33 = v18;
   v34 = v20;
   v35 = v19;
-  v21 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCyAA15ModifiedContentVy34SpeechRecognitionCommandAndControl25BorderStatusIndicatorViewVAA30_EnvironmentKeyWritingModifierVyAF0lmN4DataCSgGGGMd));
+  v21 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCyAA15ModifiedContentVy34SpeechRecognitionCommandAndControl25BorderStatusIndicatorViewVAA30_EnvironmentKeyWritingModifierVyAF0lmN4DataCSgGGGMd, &_s7SwiftUI19UIHostingControllerCyAA15ModifiedContentVy34SpeechRecognitionCommandAndControl25BorderStatusIndicatorViewVAA30_EnvironmentKeyWritingModifierVyAF0lmN4DataCSgGGGMR));
   *&v1[OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl27BorderStatusIndicatorBridge_hostingController] = UIHostingController.init(rootView:)();
   v22 = type metadata accessor for BorderStatusIndicatorBridge();
   v25.receiver = v1;
@@ -2721,8 +2748,8 @@ uint64_t BorderStatusIndicatorView.init()@<X0>(uint64_t a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v3 = swift_getKeyPath();
-  type metadata accessor for BorderStatusIndicatorData();
-  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+  type metadata accessor for BorderStatusIndicatorData(0);
+  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
   result = EnvironmentObject.init()();
   *a1 = KeyPath;
   *(a1 + 8) = 0;
@@ -2740,11 +2767,11 @@ id BorderStatusIndicatorBridge.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance BorderStatusIndicatorBridge@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance BorderStatusIndicatorBridge@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for BorderStatusIndicatorBridge();
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -2764,7 +2791,7 @@ uint64_t BorderStatusIndicatorData.listeningState.getter()
   return v1;
 }
 
-uint64_t BorderStatusIndicatorData.listeningState.setter()
+uint64_t BorderStatusIndicatorData.listeningState.setter(uint64_t a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -2794,21 +2821,21 @@ uint64_t (*BorderStatusIndicatorData.listeningState.modify(uint64_t *a1))()
 
 uint64_t key path setter for BorderStatusIndicatorData.$listeningState : BorderStatusIndicatorData(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd);
-  MEMORY[0x28223BE20](v4);
-  v6 = &v9 - v5;
-  (*(v7 + 16))(&v9 - v5, a1);
-  return (*(**a2 + 136))(v6);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd, &_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMR);
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v10 - v6;
+  (*(v8 + 16))(&v10 - v6, a1, v5);
+  return (*(**a2 + 136))(v7);
 }
 
 uint64_t BorderStatusIndicatorData.$listeningState.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd, &_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMR);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  (*(v3 + 16))(&v6 - v4, a1, v2);
+  v4 = MEMORY[0x28223BE20](v2);
+  (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -2830,7 +2857,7 @@ uint64_t (*BorderStatusIndicatorData.$listeningState.modify(uint64_t *a1))()
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMd, &_s7Combine9PublishedV9PublisherVySo25CACMicStatusIndicatorTypeV_GMR);
   v5[10] = v6;
   v7 = *(v6 - 8);
   v5[11] = v7;
@@ -2853,7 +2880,7 @@ uint64_t (*BorderStatusIndicatorData.$listeningState.modify(uint64_t *a1))()
   v5[14] = v9;
   v5[15] = v10;
   swift_beginAccess();
-  v5[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  v5[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   Published.projectedValue.getter();
   swift_endAccess();
   return BorderStatusIndicatorData.$listeningState.modify;
@@ -2883,7 +2910,7 @@ double BorderStatusIndicatorData.hudOpacity.getter()
   return v1;
 }
 
-uint64_t BorderStatusIndicatorData.hudOpacity.setter()
+uint64_t BorderStatusIndicatorData.hudOpacity.setter(double a1)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -2921,29 +2948,29 @@ void BorderStatusIndicatorData.listeningState.modify(void *a1)
 
 uint64_t key path setter for BorderStatusIndicatorData.$hudOpacity : BorderStatusIndicatorData(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd);
-  MEMORY[0x28223BE20](v4);
-  v6 = &v9 - v5;
-  (*(v7 + 16))(&v9 - v5, a1);
-  return (*(**a2 + 208))(v6);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd, &_s7Combine9PublishedV9PublisherVySd_GMR);
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v10 - v6;
+  (*(v8 + 16))(&v10 - v6, a1, v5);
+  return (*(**a2 + 208))(v7);
 }
 
-uint64_t BorderStatusIndicatorData.$listeningState.getter(uint64_t a1, uint64_t *a2)
+uint64_t BorderStatusIndicatorData.$listeningState.getter(void *a1, uint64_t *a2, uint64_t *a3)
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
   Published.projectedValue.getter();
   return swift_endAccess();
 }
 
 uint64_t BorderStatusIndicatorData.$hudOpacity.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd, &_s7Combine9PublishedV9PublisherVySd_GMR);
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  (*(v3 + 16))(&v6 - v4, a1, v2);
+  v4 = MEMORY[0x28223BE20](v2);
+  (*(v3 + 16))(&v7 - v5, a1, v2, v4);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   Published.projectedValue.setter();
   swift_endAccess();
   return (*(v3 + 8))(a1, v2);
@@ -2965,7 +2992,7 @@ uint64_t (*BorderStatusIndicatorData.$hudOpacity.modify(uint64_t *a1))()
   v5 = v4;
   *a1 = v4;
   *(v4 + 72) = v1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySd_GMd, &_s7Combine9PublishedV9PublisherVySd_GMR);
   v5[10] = v6;
   v7 = *(v6 - 8);
   v5[11] = v7;
@@ -2988,7 +3015,7 @@ uint64_t (*BorderStatusIndicatorData.$hudOpacity.modify(uint64_t *a1))()
   v5[14] = v9;
   v5[15] = v10;
   swift_beginAccess();
-  v5[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  v5[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   Published.projectedValue.getter();
   swift_endAccess();
   return BorderStatusIndicatorData.$hudOpacity.modify;
@@ -3035,10 +3062,10 @@ void BorderStatusIndicatorData.$listeningState.modify(uint64_t a1, char a2)
 uint64_t BorderStatusIndicatorData.deinit()
 {
   v1 = OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl25BorderStatusIndicatorData__listeningState;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl25BorderStatusIndicatorData__hudOpacity;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
   return v0;
 }
@@ -3046,10 +3073,10 @@ uint64_t BorderStatusIndicatorData.deinit()
 uint64_t BorderStatusIndicatorData.__deallocating_deinit()
 {
   v1 = OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl25BorderStatusIndicatorData__listeningState;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtC34SpeechRecognitionCommandAndControl25BorderStatusIndicatorData__hudOpacity;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
   v5 = *(*v0 + 48);
   v6 = *(*v0 + 52);
@@ -3059,11 +3086,11 @@ uint64_t BorderStatusIndicatorData.__deallocating_deinit()
 
 uint64_t BorderStatusIndicatorData.init()()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySdGMd, &_s7Combine9PublishedVySdGMR);
   v2 = *(v1 - 8);
   MEMORY[0x28223BE20](v1);
   v4 = &v12 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMd, &_s7Combine9PublishedVySo25CACMicStatusIndicatorTypeVGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v12 - v7;
@@ -3080,11 +3107,11 @@ uint64_t BorderStatusIndicatorData.init()()
   return v0;
 }
 
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance BorderStatusIndicatorData@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance BorderStatusIndicatorData@<X0>(uint64_t *a2@<X8>)
 {
-  type metadata accessor for BorderStatusIndicatorData();
+  type metadata accessor for BorderStatusIndicatorData(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -3102,69 +3129,69 @@ double BorderStatusIndicatorShape.animatableData.modify(uint64_t a1)
   return result;
 }
 
-double BorderStatusIndicatorShape.path(in:)@<D0>(uint64_t a1@<X8>, double a2@<D4>)
+double BorderStatusIndicatorShape.path(in:)@<D0>(uint64_t a1@<X8>, double a6@<D4>)
 {
-  v4 = type metadata accessor for RoundedRectangle._Inset();
-  MEMORY[0x28223BE20](v4);
-  v6 = (&v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for RoundedRectangle._Inset();
+  MEMORY[0x28223BE20](v8);
+  v10 = (&v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   ContainerRelativeShape.path(in:)();
   if (Path.contains(_:eoFill:)(0, 0))
   {
     specialized BorderStatusIndicatorShape.deviceCornerRadius.getter();
-    if (v7 == 0.0)
+    if (v11 == 0.0)
     {
-      v8 = 74.5;
+      v12 = 74.5;
     }
 
     else
     {
-      v8 = v7;
+      v12 = v11;
     }
 
-    v9 = *(type metadata accessor for RoundedRectangle() + 20);
-    v10 = *MEMORY[0x277CE0120];
-    v11 = type metadata accessor for RoundedCornerStyle();
-    (*(*(v11 - 8) + 104))(v6 + v9, v10, v11);
-    *v6 = v8;
-    v6[1] = v8;
-    *(v6 + *(v4 + 20)) = a2;
+    v13 = *(type metadata accessor for RoundedRectangle() + 20);
+    v14 = *MEMORY[0x277CE0120];
+    v15 = type metadata accessor for RoundedCornerStyle();
+    (*(*(v15 - 8) + 104))(v10 + v13, v14, v15);
+    *v10 = v12;
+    v10[1] = v12;
+    *(v10 + *(v8 + 20)) = a6;
     RoundedRectangle._Inset.path(in:)();
     Path.subtracting(_:eoFill:)();
-    v15 = v19;
-    v16 = v20;
-    v12 = v21;
-    outlined destroy of Path(v17);
-    outlined destroy of Path(v18);
-    outlined destroy of RoundedRectangle._Inset(v6, MEMORY[0x277CDFBD0]);
+    v19 = v23;
+    v20 = v24;
+    v16 = v25;
+    outlined destroy of Path(v21);
+    outlined destroy of Path(v22);
+    outlined destroy of RoundedRectangle._Inset(v10, MEMORY[0x277CDFBD0]);
   }
 
   else
   {
     ContainerRelativeShape._Inset.path(in:)();
     Path.subtracting(_:eoFill:)();
-    v15 = v19;
-    v16 = v20;
-    v12 = v21;
-    outlined destroy of Path(v18);
-    outlined destroy of Path(v17);
+    v19 = v23;
+    v20 = v24;
+    v16 = v25;
+    outlined destroy of Path(v22);
+    outlined destroy of Path(v21);
   }
 
-  result = *&v15;
-  v14 = v16;
-  *a1 = v15;
-  *(a1 + 16) = v14;
-  *(a1 + 32) = v12;
+  result = *&v19;
+  v18 = v20;
+  *a1 = v19;
+  *(a1 + 16) = v18;
+  *(a1 + 32) = v16;
   return result;
 }
 
 double protocol witness for Shape.path(in:) in conformance BorderStatusIndicatorShape@<D0>(uint64_t a1@<X8>)
 {
-  BorderStatusIndicatorShape.path(in:)(v5, *v1);
-  result = *v5;
-  v4 = v5[1];
-  *a1 = v5[0];
-  *(a1 + 16) = v4;
-  *(a1 + 32) = v6;
+  BorderStatusIndicatorShape.path(in:)(v9, *v5);
+  result = *v9;
+  v8 = v9[1];
+  *a1 = v9[0];
+  *(a1 + 16) = v8;
+  *(a1 + 32) = v10;
   return result;
 }
 
@@ -3182,7 +3209,7 @@ double protocol witness for Animatable.animatableData.setter in conformance Bord
   return result;
 }
 
-uint64_t (*protocol witness for Animatable.animatableData.modify in conformance BorderStatusIndicatorShape(void *a1))()
+double (*protocol witness for Animatable.animatableData.modify in conformance BorderStatusIndicatorShape(void *a1))(uint64_t a1)
 {
   a1[1] = v1;
   *a1 = *v1;
@@ -3218,8 +3245,8 @@ uint64_t BorderStatusIndicatorView.indicatorData.getter()
 
   else
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -3231,8 +3258,8 @@ uint64_t BorderStatusIndicatorView.$indicatorData.getter()
 {
   v1 = *(v0 + 32);
   v2 = *(v0 + 40);
-  v3 = type metadata accessor for BorderStatusIndicatorData();
-  v4 = lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+  v3 = type metadata accessor for BorderStatusIndicatorData(0);
+  v4 = lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
 
   return MEMORY[0x282131558](v1, v2, v3, v4);
 }
@@ -3267,8 +3294,8 @@ uint64_t BorderStatusIndicatorView.borderColor.getter()
 
   else
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -3298,8 +3325,8 @@ uint64_t BorderStatusIndicatorView.imageName.getter()
 
   else
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -3331,8 +3358,8 @@ uint64_t BorderStatusIndicatorView.imageColor.getter()
 
   else
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -3352,13 +3379,13 @@ uint64_t BorderStatusIndicatorView.body.getter@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = static Alignment.center.getter();
   a1[1] = v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMR);
   return closure #1 in BorderStatusIndicatorView.body.getter(v1, a1 + *(v4 + 44));
 }
 
-uint64_t closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMR);
   v127 = *(v4 - 8);
   v128 = v4;
   MEMORY[0x28223BE20](v4);
@@ -3367,29 +3394,29 @@ uint64_t closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t a1@<X
   v113 = *(v114 - 8);
   MEMORY[0x28223BE20](v114);
   v111 = &v103 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd);
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMR);
   MEMORY[0x28223BE20](v108);
   v110 = &v103 - v7;
-  v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd);
+  v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMR);
   MEMORY[0x28223BE20](v109);
   v115 = &v103 - v8;
-  v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd);
+  v123 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR);
   MEMORY[0x28223BE20](v123);
   v112 = &v103 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
   v116 = &v103 - v11;
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorG0VAA5ColorVGAA011_BackgroundG8ModifierVyAnLGGAA010_AnimationS0VySdGGAGyAGyAGyAoQyAA8MaterialVALGGAA022_EnvironmentKeyWritingS0VyAA0Q6SchemeOGGAVG_GMd);
+  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorG0VAA5ColorVGAA011_BackgroundG8ModifierVyAnLGGAA010_AnimationS0VySdGGAGyAGyAGyAoQyAA8MaterialVALGGAA022_EnvironmentKeyWritingS0VyAA0Q6SchemeOGGAVG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAGyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorG0VAA5ColorVGAA011_BackgroundG8ModifierVyAnLGGAA010_AnimationS0VySdGGAGyAGyAGyAoQyAA8MaterialVALGGAA022_EnvironmentKeyWritingS0VyAA0Q6SchemeOGGAVG_GMR);
   MEMORY[0x28223BE20](v120);
   v121 = (&v103 - v12);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMR);
   MEMORY[0x28223BE20](v13 - 8);
   v124 = &v103 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v15);
   v126 = &v103 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMR);
   MEMORY[0x28223BE20](v17);
   v19 = (&v103 - v18);
-  v117 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
+  v117 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
   MEMORY[0x28223BE20](v117);
   v122 = &v103 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v21);
@@ -3403,7 +3430,7 @@ uint64_t closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t a1@<X
   v118 = *(v119 - 8);
   MEMORY[0x28223BE20](v119);
   v29 = &v103 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *(a1 + 32);
+  v30 = a1[4];
   if (v30)
   {
     v31 = *(*v30 + 104);
@@ -3412,7 +3439,7 @@ uint64_t closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t a1@<X
     {
       v107 = a2;
       v135 = *(a1 + 24);
-      v33 = *(a1 + 16);
+      v33 = a1[2];
       v134 = v33;
       if (v135 == 1)
       {
@@ -3430,7 +3457,7 @@ LABEL_11:
           *v42 = _Q0;
           *v19 = static Alignment.center.getter();
           v19[1] = v48;
-          v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAKyAA08ModifiedJ0VyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAWGAKyAwMyAOyAqA8MaterialVGAVGGG_AMyAMyAMyAMyAA5ImageVAA012_AspectRatioG0VGAVGAA30_EnvironmentKeyWritingModifierVyASSgGGAA023AccessibilityAttachmentX0VGtGGMd);
+          v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAKyAA08ModifiedJ0VyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAWGAKyAwMyAOyAqA8MaterialVGAVGGG_AMyAMyAMyAMyAA5ImageVAA012_AspectRatioG0VGAVGAA30_EnvironmentKeyWritingModifierVyASSgGGAA023AccessibilityAttachmentX0VGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAKyAA08ModifiedJ0VyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAWGAKyAwMyAOyAqA8MaterialVGAVGGG_AMyAMyAMyAMyAA5ImageVAA012_AspectRatioG0VGAVGAA30_EnvironmentKeyWritingModifierVyASSgGGAA023AccessibilityAttachmentX0VGtGGMR);
           v50 = closure #1 in closure #1 in BorderStatusIndicatorView.body.getter(a1, v42, v19 + *(v49 + 44));
           v51 = *(*v30 + 176);
           v52 = *v30 + 176;
@@ -3445,11 +3472,11 @@ LABEL_11:
           v106 = v52;
           v56 = v51(v55);
 
-          outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v19, v23, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMd);
+          outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v19, v23, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMd, &_s7SwiftUI15ModifiedContentVyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGMR);
           v57 = &v23[*(v117 + 36)];
           *v57 = v54;
           *(v57 + 1) = v56;
-          outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v23, v129, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
+          outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v23, v129, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
           v133 = *(a1 + 8);
           v58 = *a1;
           v132 = *a1;
@@ -3482,7 +3509,7 @@ LABEL_13:
               v68 = v110;
               v69 = &v110[*(v108 + 36)];
               static Material.ultraThin.getter();
-              v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd);
+              v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd, &_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMR);
               *&v69[*(v70 + 52)] = v34;
               *&v69[*(v70 + 56)] = 256;
               *v68 = v34;
@@ -3504,10 +3531,10 @@ LABEL_13:
               (*(v113 + 104))(v111, *v75, v114);
               v78 = v115;
               v79 = &v115[*(v109 + 36)];
-              v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd);
+              v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMR);
               (*(v74 + 32))(v79 + *(v80 + 28), v76, v77);
               *v79 = KeyPath;
-              v81 = outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v68, v78, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd);
+              v81 = outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v68, v78, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMR);
               v82 = v105;
               (v105)(v81);
 
@@ -3520,36 +3547,36 @@ LABEL_13:
 
               v86 = v78;
               v87 = v112;
-              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v86, v112, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd);
+              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v86, v112, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMR);
               v88 = (v87 + *(v123 + 36));
               *v88 = v83;
               *(v88 + 1) = v85;
               v89 = v116;
-              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v87, v116, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd);
-              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v89, v121, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd);
+              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v87, v116, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR);
+              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v89, v121, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR);
               swift_storeEnumTagMultiPayload();
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMR);
               lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMR, lazy protocol witness table accessor for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>);
               lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>);
               v60 = v126;
               _ConditionalContent<>.init(storage:)();
-              outlined destroy of Environment<Bool>(v89, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd);
+              outlined destroy of Environment<Bool>(v89, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR);
 LABEL_28:
               v97 = v129;
               v98 = v122;
-              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v129, v122, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
+              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v129, v122, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
               v99 = v124;
-              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v60, v124, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd);
+              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v60, v124, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMR);
               v100 = v125;
-              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v98, v125, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
-              v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyACyACyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GACyACyACyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtMd);
-              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v99, v100 + *(v101 + 48), &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd);
-              outlined destroy of Environment<Bool>(v60, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd);
-              outlined destroy of Environment<Bool>(v97, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
-              outlined destroy of Environment<Bool>(v99, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd);
-              outlined destroy of Environment<Bool>(v98, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd);
+              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v98, v125, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
+              v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyACyACyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GACyACyACyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyACyACyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GACyACyACyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtMR);
+              outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v99, v100 + *(v101 + 48), &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMR);
+              outlined destroy of Environment<Bool>(v60, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMR);
+              outlined destroy of Environment<Bool>(v97, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
+              outlined destroy of Environment<Bool>(v99, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAEyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorF0VAA5ColorVGAA011_BackgroundF8ModifierVyAlJGGAA010_AnimationR0VySdGGAEyAEyAEyAmOyAA8MaterialVAJGGAA022_EnvironmentKeyWritingR0VyAA0P6SchemeOGGATGGMR);
+              outlined destroy of Environment<Bool>(v98, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ZStackVyAA9TupleViewVyAA012_ConditionalD0VyAIyACyAA06_ShapeG0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsCyAKyAmA8MaterialVGARGGG_ACyACyACyACyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGGMR);
               v102 = v107;
-              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v100, v107, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMd);
+              outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(v100, v107, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMd, &_s7SwiftUI9TupleViewVyAA15ModifiedContentVyAEyAA6ZStackVyACyAA012_ConditionalF0VyAIyAEyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGASGAIyAsEyAKyAmA8MaterialVGARGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioN0VGARGAA30_EnvironmentKeyWritingModifierVyAOSgGGAA023AccessibilityAttachmentV0VGtGGAA14_OpacityEffectVGAA010_AnimationV0VySdGG_AIyAEyAEyAKy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorI0VAOGAA011_BackgroundiV0VyAOA24_GGA20_GAEyAEyAEyA25_A27_yAVA24_GGA6_yAA0L6SchemeOGGA20_GGtGMR);
               (*(v127 + 56))(v102, 0, 1, v128);
               return outlined destroy of RoundedRectangle._Inset(v130, MEMORY[0x277CDFC00]);
             }
@@ -3564,7 +3591,7 @@ LABEL_28:
 
             EnvironmentValues.init()();
             swift_getAtKeyPath();
-            outlined destroy of Environment<Bool>(&v132, &_s7SwiftUI11EnvironmentVySbGMd);
+            outlined destroy of Environment<Bool>(&v132, &_s7SwiftUI11EnvironmentVySbGMd, &_s7SwiftUI11EnvironmentVySbGMR);
             (*(v118 + 8))(v29, v119);
 
             v64 = v131;
@@ -3615,7 +3642,7 @@ LABEL_28:
           *(v96 + 6) = v93;
           v96[7] = v95;
           swift_storeEnumTagMultiPayload();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMR);
           lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGAA010_AnimationQ0VySdGGMR, lazy protocol witness table accessor for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>);
           lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGAA010_AnimationQ0VySdGGMR, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>);
           _ConditionalContent<>.init(storage:)();
@@ -3632,7 +3659,7 @@ LABEL_28:
 
         EnvironmentValues.init()();
         swift_getAtKeyPath();
-        outlined destroy of Environment<Bool>(&v134, &_s7SwiftUI11EnvironmentVySbGMd);
+        outlined destroy of Environment<Bool>(&v134, &_s7SwiftUI11EnvironmentVySbGMd, &_s7SwiftUI11EnvironmentVySbGMR);
         (*(v118 + 8))(v29, v119);
         v34 = 5.0;
         if (v132)
@@ -3653,8 +3680,8 @@ LABEL_28:
 
   else
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -3664,55 +3691,55 @@ LABEL_28:
 
 uint64_t closure #1 in closure #1 in BorderStatusIndicatorView.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v82 = a2;
-  v92 = a3;
+  v83 = a2;
+  v93 = a3;
   v4 = type metadata accessor for Image.ResizingMode();
-  v88 = *(v4 - 8);
-  v89 = v4;
+  v89 = *(v4 - 8);
+  v90 = v4;
   MEMORY[0x28223BE20](v4);
-  v86 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd);
+  v87 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v91 = &v73 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v92 = &v74 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
-  v90 = &v73 - v9;
-  v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd);
-  MEMORY[0x28223BE20](v80);
-  v76 = &v73 - v10;
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAGyAIyAkA8MaterialVGAPG_GMd);
-  MEMORY[0x28223BE20](v77);
-  v78 = &v73 - v11;
-  v12 = type metadata accessor for EnvironmentValues();
-  v74 = *(v12 - 8);
-  v75 = v12;
-  MEMORY[0x28223BE20](v12);
-  v73 = &v73 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd);
+  v91 = &v74 - v9;
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMR);
   MEMORY[0x28223BE20](v81);
-  v79 = &v73 - v14;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQGACyAqGyAIyAkA8MaterialVGAPGG_GMd);
-  MEMORY[0x28223BE20](v83);
-  v85 = &v73 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQ_GMd);
-  MEMORY[0x28223BE20](v16);
-  v18 = &v73 - v17;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd);
+  v77 = &v74 - v10;
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAGyAIyAkA8MaterialVGAPG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAGyAIyAkA8MaterialVGAPG_GMR);
+  MEMORY[0x28223BE20](v78);
+  v79 = &v74 - v11;
+  v12 = type metadata accessor for EnvironmentValues();
+  v75 = *(v12 - 8);
+  v76 = v12;
+  MEMORY[0x28223BE20](v12);
+  v74 = &v74 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMR);
+  MEMORY[0x28223BE20](v82);
+  v80 = &v74 - v14;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQGACyAqGyAIyAkA8MaterialVGAPGG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQGACyAqGyAIyAkA8MaterialVGAPGG_GMR);
   MEMORY[0x28223BE20](v84);
-  v20 = &v73 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
+  v86 = &v74 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQ_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAQ_GMR);
+  MEMORY[0x28223BE20](v16);
+  v18 = &v74 - v17;
+  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMR);
+  MEMORY[0x28223BE20](v85);
+  v20 = &v74 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
   MEMORY[0x28223BE20](v21);
-  v23 = &v73 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd);
+  v23 = &v74 - v22;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMR);
   MEMORY[0x28223BE20](v24 - 8);
-  v87 = &v73 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v88 = &v74 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v26);
-  v93 = &v73 - v27;
+  v94 = &v74 - v27;
   v28 = a1;
   v29 = a1[4];
   if (!v29)
   {
-    type metadata accessor for BorderStatusIndicatorData();
-    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+    type metadata accessor for BorderStatusIndicatorData(0);
+    lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
     result = EnvironmentObject.error()();
     __break(1u);
     return result;
@@ -3724,60 +3751,61 @@ uint64_t closure #1 in closure #1 in BorderStatusIndicatorView.body.getter@<X0>(
   if (v32 == 2)
   {
     v37 = static Color.blue.getter();
-    outlined init with copy of RoundedRectangle(v82, v23);
-    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd);
+    outlined init with copy of RoundedRectangle(v83, v23);
+    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMR);
     *&v23[*(v38 + 52)] = v37;
     *&v23[*(v38 + 56)] = 256;
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
     v39 = &v23[*(v21 + 36)];
-    v40 = v102;
-    *v39 = v101;
+    v40 = v103;
+    *v39 = v102;
     *(v39 + 1) = v40;
-    *(v39 + 2) = v103;
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v18, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
+    *(v39 + 2) = v104;
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v18, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
     goto LABEL_6;
   }
 
   if (v32 != 3)
   {
-    v108 = *(v28 + 8);
+    v107 = *(v28 + 8);
     v43 = *v28;
-    v107 = *v28;
-    if (v108 == 1)
+    v106 = *v28;
+    if (v107 == 1)
     {
-      v44 = v79;
+      v44 = v80;
       if ((v43 & 1) == 0)
       {
 LABEL_9:
-        v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMd);
-        v46 = v76;
+        v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMR);
+        v46 = v77;
         static Material.ultraThin.getter();
-        outlined init with copy of RoundedRectangle(v82, v46);
+        outlined init with copy of RoundedRectangle(v83, v46);
         *(v46 + *(v45 + 56)) = 256;
         static Alignment.center.getter();
         _FrameLayout.init(width:height:alignment:)();
-        v47 = (v46 + *(v80 + 36));
-        v48 = v102;
-        *v47 = v101;
+        v47 = (v46 + *(v81 + 36));
+        v48 = v103;
+        *v47 = v102;
         v47[1] = v48;
-        v47[2] = v103;
-        outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v46, v78, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd);
+        v47[2] = v104;
+        outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v46, v79, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMR);
         swift_storeEnumTagMultiPayload();
         lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
         lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
         _ConditionalContent<>.init(storage:)();
         v49 = v46;
         v50 = &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd;
+        v51 = &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMR;
 LABEL_12:
-        outlined destroy of Environment<Bool>(v49, v50);
-        v42 = v89;
-        outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v44, v85, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd);
+        outlined destroy of Environment<Bool>(v49, v50, v51);
+        v42 = v90;
+        outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v44, v86, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMR);
         swift_storeEnumTagMultiPayload();
         lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>();
         lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>();
         _ConditionalContent<>.init(storage:)();
-        v41 = outlined destroy of Environment<Bool>(v44, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd);
+        v41 = outlined destroy of Environment<Bool>(v44, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMR);
         goto LABEL_13;
       }
     }
@@ -3786,144 +3814,145 @@ LABEL_12:
     {
 
       static os_log_type_t.fault.getter();
-      v51 = static Log.runtimeIssuesLog.getter();
+      v52 = static Log.runtimeIssuesLog.getter();
       os_log(_:dso:log:_:_:)();
 
-      v52 = v73;
+      v53 = v74;
       EnvironmentValues.init()();
       swift_getAtKeyPath();
-      outlined destroy of Environment<Bool>(&v107, &_s7SwiftUI11EnvironmentVySbGMd);
-      (*(v74 + 8))(v52, v75);
-      v44 = v79;
-      if (LOBYTE(v97[0]) != 1)
+      outlined destroy of Environment<Bool>(&v106, &_s7SwiftUI11EnvironmentVySbGMd, &_s7SwiftUI11EnvironmentVySbGMR);
+      (*(v75 + 8))(v53, v76);
+      v44 = v80;
+      if (LOBYTE(v98[0]) != 1)
       {
         goto LABEL_9;
       }
     }
 
-    v53 = static Color.gray.getter();
-    outlined init with copy of RoundedRectangle(v82, v23);
-    v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd);
-    *&v23[*(v54 + 52)] = v53;
-    *&v23[*(v54 + 56)] = 256;
+    v54 = static Color.gray.getter();
+    outlined init with copy of RoundedRectangle(v83, v23);
+    v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMR);
+    *&v23[*(v55 + 52)] = v54;
+    *&v23[*(v55 + 56)] = 256;
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    v55 = &v23[*(v21 + 36)];
-    v56 = v102;
-    *v55 = v101;
-    *(v55 + 1) = v56;
-    *(v55 + 2) = v103;
-    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v78, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
+    v56 = &v23[*(v21 + 36)];
+    v57 = v103;
+    *v56 = v102;
+    *(v56 + 1) = v57;
+    *(v56 + 2) = v104;
+    outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v79, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
     v49 = v23;
     v50 = &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd;
+    v51 = &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR;
     goto LABEL_12;
   }
 
   v33 = static Color.red.getter();
-  outlined init with copy of RoundedRectangle(v82, v23);
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd);
+  outlined init with copy of RoundedRectangle(v83, v23);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMR);
   *&v23[*(v34 + 52)] = v33;
   *&v23[*(v34 + 56)] = 256;
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
   v35 = &v23[*(v21 + 36)];
-  v36 = v102;
-  *v35 = v101;
+  v36 = v103;
+  *v35 = v102;
   *(v35 + 1) = v36;
-  *(v35 + 2) = v103;
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v18, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
+  *(v35 + 2) = v104;
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v23, v18, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
 LABEL_6:
   swift_storeEnumTagMultiPayload();
   lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
   _ConditionalContent<>.init(storage:)();
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v20, v85, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v20, v86, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMR);
   swift_storeEnumTagMultiPayload();
   lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>();
   lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>();
   _ConditionalContent<>.init(storage:)();
-  outlined destroy of Environment<Bool>(v20, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd);
-  v41 = outlined destroy of Environment<Bool>(v23, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
-  v42 = v89;
+  outlined destroy of Environment<Bool>(v20, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMR);
+  v41 = outlined destroy of Environment<Bool>(v23, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
+  v42 = v90;
 LABEL_13:
-  v57 = *(*v29 + 104);
-  v57(v41);
+  v58 = *(*v29 + 104);
+  v58(v41);
   Image.init(_internalSystemName:)();
-  v58 = v88;
-  v59 = v86;
-  (*(v88 + 104))(v86, *MEMORY[0x277CE0FE8], v42);
-  v60 = Image.resizable(capInsets:resizingMode:)();
+  v59 = v89;
+  v60 = v87;
+  (*(v89 + 104))(v87, *MEMORY[0x277CE0FE8], v42);
+  v61 = Image.resizable(capInsets:resizingMode:)();
 
-  (*(v58 + 8))(v59, v42);
+  (*(v59 + 8))(v60, v42);
   static Alignment.center.getter();
-  v61 = _FrameLayout.init(width:height:alignment:)();
-  v100 = 1;
-  *&v99[6] = v104;
-  *&v99[22] = v105;
-  *&v99[38] = v106;
-  v62 = (v57)(v61);
+  v62 = _FrameLayout.init(width:height:alignment:)();
+  v101 = 1;
+  *&v100[6] = v105[0];
+  *&v100[22] = v105[1];
+  *&v100[38] = v105[2];
+  v63 = (v58)(v62);
 
-  if ((v62 & 0xFFFFFFFFFFFFFFFELL) == 2)
+  if ((v63 & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    v63 = static Color.white.getter();
+    v64 = static Color.white.getter();
   }
 
   else
   {
-    v63 = static Color.secondary.getter();
+    v64 = static Color.secondary.getter();
   }
 
-  v64 = v63;
+  v65 = v64;
   KeyPath = swift_getKeyPath();
-  v94 = v60;
-  LOWORD(v95[0]) = 1;
-  *(v95 + 2) = *v99;
-  *(&v95[1] + 2) = *&v99[16];
-  *(&v95[2] + 2) = *&v99[32];
-  *&v95[3] = *&v99[46];
-  *(&v95[3] + 1) = KeyPath;
-  v96 = v64;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+  v95 = v61;
+  LOWORD(v96[0]) = 1;
+  *(v96 + 2) = *v100;
+  *(&v96[1] + 2) = *&v100[16];
+  *(&v96[2] + 2) = *&v100[32];
+  *&v96[3] = *&v100[46];
+  *(&v96[3] + 1) = KeyPath;
+  v97 = v65;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>();
-  v66 = v90;
+  v67 = v91;
   View.accessibilityHidden(_:)();
-  v97[3] = v95[2];
-  v97[4] = v95[3];
-  v98 = v96;
-  v97[0] = v94;
-  v97[1] = v95[0];
-  v97[2] = v95[1];
-  outlined destroy of Environment<Bool>(v97, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
-  v67 = v93;
-  v68 = v87;
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v93, v87, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd);
-  v69 = v91;
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v66, v91, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd);
+  v98[3] = v96[2];
+  v98[4] = v96[3];
+  v99 = v97;
+  v98[0] = v95;
+  v98[1] = v96[0];
+  v98[2] = v96[1];
+  outlined destroy of Environment<Bool>(v98, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
+  v68 = v94;
+  v69 = v88;
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v94, v88, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMR);
   v70 = v92;
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v68, v92, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd);
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioL0VGANGAA30_EnvironmentKeyWritingModifierVyAKSgGGAA023AccessibilityAttachmentT0VGtMd);
-  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v69, v70 + *(v71 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd);
-  outlined destroy of Environment<Bool>(v66, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd);
-  outlined destroy of Environment<Bool>(v67, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd);
-  outlined destroy of Environment<Bool>(v69, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd);
-  return outlined destroy of Environment<Bool>(v68, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd);
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v67, v92, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMR);
+  v71 = v93;
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v69, v93, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMR);
+  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioL0VGANGAA30_EnvironmentKeyWritingModifierVyAKSgGGAA023AccessibilityAttachmentT0VGtMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGG_AEyAEyAEyAEyAA5ImageVAA012_AspectRatioL0VGANGAA30_EnvironmentKeyWritingModifierVyAKSgGGAA023AccessibilityAttachmentT0VGtMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(v70, v71 + *(v72 + 48), &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMR);
+  outlined destroy of Environment<Bool>(v67, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMR);
+  outlined destroy of Environment<Bool>(v68, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMR);
+  outlined destroy of Environment<Bool>(v70, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGAA023AccessibilityAttachmentM0VGMR);
+  return outlined destroy of Environment<Bool>(v69, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMd, &_s7SwiftUI19_ConditionalContentVyACyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGACyAoEyAGyAiA8MaterialVGANGGGMR);
 }
 
-uint64_t key path setter for EnvironmentValues.colorScheme : EnvironmentValues(uint64_t a1)
+uint64_t key path setter for EnvironmentValues.colorScheme : EnvironmentValues(uint64_t a1, __n128 a2)
 {
-  v2 = type metadata accessor for ColorScheme();
-  v3 = MEMORY[0x28223BE20](v2);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v3);
+  v3 = type metadata accessor for ColorScheme();
+  v4 = MEMORY[0x28223BE20](v3);
+  (*(v6 + 16))(&v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v4);
   return EnvironmentValues.colorScheme.setter();
 }
 
 uint64_t default argument 2 of BorderStatusIndicatorView.init(reduceTransparency:reduceMotion:indicatorData:)()
 {
-  type metadata accessor for BorderStatusIndicatorData();
-  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+  type metadata accessor for BorderStatusIndicatorData(0);
+  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
 
   return EnvironmentObject.init()();
 }
@@ -3939,24 +3968,24 @@ uint64_t BorderStatusIndicatorView.init(reduceTransparency:reduceMotion:indicato
   return result;
 }
 
-uint64_t protocol witness for View.body.getter in conformance BorderStatusIndicatorView@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for View.body.getter in conformance BorderStatusIndicatorView@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = v1[1];
-  v7[0] = *v1;
-  v7[1] = v3;
-  v7[2] = v1[2];
-  *a1 = static Alignment.center.getter();
-  a1[1] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMd);
-  return closure #1 in BorderStatusIndicatorView.body.getter(v7, a1 + *(v5 + 44));
+  v4 = v2[1];
+  v8[0] = *v2;
+  v8[1] = v4;
+  v8[2] = v2[2];
+  *a2 = static Alignment.center.getter();
+  a2[1] = v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAKyAA0F0VyAIyAA012_ConditionalJ0VyAOyAKyAA06_ShapeD0VyAA16RoundedRectangleVAA5ColorVGAA06_FrameG0VGAYGAOyAyKyAQyAsA8MaterialVGAXGGG_AKyAKyAKyAKyAA5ImageVAA012_AspectRatioG0VGAXGAA30_EnvironmentKeyWritingModifierVyAUSgGGAA023AccessibilityAttachmentX0VGtGGAA14_OpacityEffectVGAA010_AnimationX0VySdGG_AOyAKyAKyAQy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorL0VAUGAA011_BackgroundlX0VyAUA30_GGA26_GAKyAKyAKyA31_A33_yA0_A30_GGA12_yAA0O6SchemeOGGA26_GGtGSgGMR);
+  return closure #1 in BorderStatusIndicatorView.body.getter(v8, a2 + *(v6 + 44));
 }
 
 uint64_t closure #1 in static $s34SpeechRecognitionCommandAndControl0036BorderStatusIndicatorViewswift_tjBBlfMX215_0_33_226AA1D795B38D628E937C4119BBF19ALl7PreviewfMf_15PreviewRegistryfMu_.makePreview()@<X0>(uint64_t *a1@<X8>)
 {
   KeyPath = swift_getKeyPath();
   v3 = swift_getKeyPath();
-  type metadata accessor for BorderStatusIndicatorData();
-  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData);
+  type metadata accessor for BorderStatusIndicatorData(0);
+  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData, type metadata accessor for BorderStatusIndicatorData, &protocol conformance descriptor for BorderStatusIndicatorData);
   v4 = EnvironmentObject.init()();
   v6 = v5;
   a1[3] = &type metadata for BorderStatusIndicatorView;
@@ -4004,9 +4033,9 @@ uint64_t specialized static BorderStatusIndicatorBridge.setMicStatusListeningSta
   v28 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchTime();
   v7 = *(v6 - 8);
-  v8 = MEMORY[0x28223BE20](v6);
-  v10 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
   v12 = &v26 - v11;
   if (one-time initialization token for shared != -1)
   {
@@ -4034,7 +4063,7 @@ uint64_t specialized static BorderStatusIndicatorBridge.setMicStatusListeningSta
   v20 = *(v7 + 8);
   v26 = v6;
   v27 = v20;
-  v20(v10, v6);
+  v20(v9, v6);
   aBlock[4] = specialized closure #1 in static BorderStatusIndicatorBridge.setMicStatusListeningState(_:);
   aBlock[5] = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -4046,9 +4075,9 @@ uint64_t specialized static BorderStatusIndicatorBridge.setMicStatusListeningSta
   v22 = v28;
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   v23 = v29;
   v24 = v33;
   dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -4060,7 +4089,7 @@ uint64_t specialized static BorderStatusIndicatorBridge.setMicStatusListeningSta
   return v27(v12, v26);
 }
 
-uint64_t type metadata accessor for BorderStatusIndicatorData()
+uint64_t type metadata accessor for BorderStatusIndicatorData(uint64_t a1)
 {
   result = type metadata singleton initialization cache for BorderStatusIndicatorData;
   if (!type metadata singleton initialization cache for BorderStatusIndicatorData)
@@ -4134,24 +4163,24 @@ LABEL_9:
   MobileGestalt_get_deviceCornerRadius();
 }
 
-uint64_t specialized BorderStatusIndicatorView.reduceTransparency.getter(uint64_t a1, char a2)
+uint64_t specialized BorderStatusIndicatorView.reduceTransparency.getter(uint64_t a1, char a2, __n128 a3)
 {
-  v4 = type metadata accessor for EnvironmentValues();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = type metadata accessor for EnvironmentValues();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if ((a2 & 1) == 0)
   {
 
     static os_log_type_t.fault.getter();
-    v8 = static Log.runtimeIssuesLog.getter();
+    v9 = static Log.runtimeIssuesLog.getter();
     os_log(_:dso:log:_:_:)();
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
     outlined consume of Environment<Bool>.Content(a1, 0);
-    (*(v5 + 8))(v7, v4);
-    LOBYTE(a1) = v10[15];
+    (*(v6 + 8))(v8, v5);
+    LOBYTE(a1) = v11[15];
   }
 
   return a1 & 1;
@@ -4212,28 +4241,28 @@ double sub_26B3EB9F8(double *a1, void *a2)
   return result;
 }
 
-void type metadata completion function for BorderStatusIndicatorData()
+void type metadata completion function for BorderStatusIndicatorData(uint64_t a1)
 {
-  type metadata accessor for Published<CACMicStatusIndicatorType>();
-  if (v0 <= 0x3F)
+  type metadata accessor for Published<CACMicStatusIndicatorType>(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Published<Double>();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void type metadata accessor for Published<CACMicStatusIndicatorType>()
+void type metadata accessor for Published<CACMicStatusIndicatorType>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Published<CACMicStatusIndicatorType>)
   {
     type metadata accessor for CACMicStatusIndicatorType();
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Published<CACMicStatusIndicatorType>);
+      atomic_store(v1, &lazy cache variable for type metadata for Published<CACMicStatusIndicatorType>);
     }
   }
 }
@@ -4337,13 +4366,13 @@ uint64_t sub_26B3EBFC8()
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
 
-uint64_t outlined consume of Environment<Bool>.Content(uint64_t a1, char a2)
+uint64_t outlined consume of Environment<Bool>.Content(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>()
@@ -4351,9 +4380,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<BorderStatusIndicatorShape, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _BackgroundShapeModifier<Color, BorderStatusIndicatorShape> and conformance _BackgroundShapeModifier<A, B>, &_s7SwiftUI24_BackgroundShapeModifierVyAA5ColorV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAjHGGMR);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<BorderStatusIndicatorShape, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMR, MEMORY[0x277CDF398]);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _BackgroundShapeModifier<Color, BorderStatusIndicatorShape> and conformance _BackgroundShapeModifier<A, B>, &_s7SwiftUI24_BackgroundShapeModifierVyAA5ColorV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd, &_s7SwiftUI24_BackgroundShapeModifierVyAA5ColorV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMR, MEMORY[0x277CE0708]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4361,14 +4390,14 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Color, BorderStatusIndicatorShape>>, _AnimationModifier<Double>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _AnimationModifier<Double> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySdGMd);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _AnimationModifier<Double> and conformance _AnimationModifier<A>, &_s7SwiftUI18_AnimationModifierVySdGMd, &_s7SwiftUI18_AnimationModifierVySdGMR, MEMORY[0x277CE0198]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4381,9 +4410,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMd, &_s7SwiftUI15ModifiedContentVyACyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGAA022_EnvironmentKeyWritingQ0VyAA0O6SchemeOGGMR);
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ColorScheme> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ColorScheme> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ColorSchemeOGMR, MEMORY[0x277CE0870]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4396,9 +4425,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<BorderStatusIndicatorShape, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _BackgroundShapeModifier<Material, BorderStatusIndicatorShape> and conformance _BackgroundShapeModifier<A, B>, &_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorE0VAA5ColorVGAA011_BackgroundE8ModifierVyAA8MaterialVAHGGMR);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<BorderStatusIndicatorShape, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVy34SpeechRecognitionCommandAndControl021BorderStatusIndicatorC0VAA5ColorVGMR, MEMORY[0x277CDF398]);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _BackgroundShapeModifier<Material, BorderStatusIndicatorShape> and conformance _BackgroundShapeModifier<A, B>, &_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMd, &_s7SwiftUI24_BackgroundShapeModifierVyAA8MaterialV34SpeechRecognitionCommandAndControl021BorderStatusIndicatorD0VGMR, MEMORY[0x277CE0708]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4406,10 +4435,10 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   return result;
 }
 
-uint64_t outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of ModifiedContent<ZStack<TupleView<(_ConditionalContent<_ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>>, _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>>, AccessibilityAttachmentModifier>)>>, _OpacityEffect>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
@@ -4432,8 +4461,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<RoundedRectangle, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGMR);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<RoundedRectangle, Color> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGMR, MEMORY[0x277CDF398]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -4446,8 +4475,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ShapeVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd);
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<RoundedRectangle, Material> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGAA12_FrameLayoutVGMR);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _ShapeView<RoundedRectangle, Material> and conformance _ShapeView<A, B>, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMd, &_s7SwiftUI10_ShapeViewVyAA16RoundedRectangleVAA8MaterialVGMR, MEMORY[0x277CDF398]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -4460,7 +4489,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAOGMR);
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>);
@@ -4474,7 +4503,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout>, ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout>> and conformance <> _ConditionalContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA10_ShapeViewVyAA16RoundedRectangleVAA5ColorVGAA12_FrameLayoutVGAEyAGyAiA8MaterialVGANGGMR);
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Color>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<_ShapeView<RoundedRectangle, Material>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
@@ -4496,9 +4525,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGAA30_EnvironmentKeyWritingModifierVyAA5ColorVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Color?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ColorVSgGMd);
+    lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Color?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ColorVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA5ColorVSgGMR, MEMORY[0x277CE0870]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout>, _EnvironmentKeyWritingModifier<Color?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4511,7 +4540,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA06_FrameH0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<Image, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
@@ -4525,7 +4554,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Image, _
   result = lazy protocol witness table cache variable for type ModifiedContent<Image, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Image, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA18_AspectRatioLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA18_AspectRatioLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA18_AspectRatioLayoutVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Image, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -4533,17 +4562,17 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Image, _
   return result;
 }
 
-uint64_t outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<_ShapeView<BorderStatusIndicatorShape, Color>, _BackgroundShapeModifier<Material, BorderStatusIndicatorShape>>, _EnvironmentKeyWritingModifier<ColorScheme>>, _AnimationModifier<Double>>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of Environment<Bool>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of Environment<Bool>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -4567,7 +4596,7 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type BorderStatusIndicatorData and conformance BorderStatusIndicatorData(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4580,12 +4609,12 @@ uint64_t lazy protocol witness table accessor for type BorderStatusIndicatorData
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4672,7 +4701,7 @@ void protocol witness for Sequence.makeIterator() in conformance CACElementNumbe
   a1[1] = v6;
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance CACElementNumberGroup()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance CACElementNumberGroup()
 {
   v1 = *v0;
   v2 = specialized _copySequenceToContiguousArray<A>(_:)(*v0);
@@ -4798,15 +4827,6 @@ id static CACElementNumberStabilizer.shared.getter()
   return v1;
 }
 
-uint64_t CACElementNumberStabilizer.previouslyPresentedElements.getter()
-{
-  return CACElementNumberStabilizer.previouslyPresentedElements.getter();
-}
-
-{
-  swift_beginAccess();
-}
-
 uint64_t CACElementNumberStabilizer.previouslyPresentedElements.setter(uint64_t a1, uint64_t *a2)
 {
   v4 = *a2;
@@ -4829,7 +4849,7 @@ uint64_t CACElementNumberStabilizer.willPresentElementGroup(_:)(void *a1)
   return v3(v8, 0);
 }
 
-uint64_t CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t a1, void *a2, uint64_t a3)
+void *CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   v7 = _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSSg_SaySo023CACNumberedPresentationC0_p_SitGTt1g50108_s34SpeechRecognitionCommandAndControl26CACElementNumberStabilizerC10mergeLists3old3new12fixedNumbersSaySo30dec31_p_SitGAI_AISaySiGtFSSSgSoAH_p_T7_tXEfU_Tf1nc_nTf4g_nTm(v6);
@@ -4840,7 +4860,7 @@ uint64_t CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t a
 
   v10 = 0;
   v142[0] = v9;
-  v11 = v7 + 64;
+  v11 = v7 + 8;
   v12 = 1 << *(v7 + 32);
   v13 = -1;
   if (v12 < 64)
@@ -4848,7 +4868,7 @@ uint64_t CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t a
     v13 = ~(-1 << v12);
   }
 
-  v14 = v13 & *(v7 + 64);
+  v14 = v13 & v7[8];
   v15 = (v12 + 63) >> 6;
   v16 = MEMORY[0x277D84F90];
   v139 = MEMORY[0x277D84F90];
@@ -4873,7 +4893,7 @@ LABEL_121:
         break;
       }
 
-      v14 = *(v11 + 8 * v21);
+      v14 = v11[v21];
       ++v10;
       if (v14)
       {
@@ -5018,14 +5038,14 @@ LABEL_76:
               swift_unknownObjectRetain();
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+                v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
               }
 
               v93 = v57[2];
               v92 = v57[3];
               if (v93 >= v92 >> 1)
               {
-                v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v92 > 1), v93 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+                v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v92 > 1), v93 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
               }
 
               swift_unknownObjectRelease();
@@ -5047,14 +5067,14 @@ LABEL_76:
           swift_unknownObjectRetain();
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
           }
 
           v96 = v57[2];
           v95 = v57[3];
           if (v96 >= v95 >> 1)
           {
-            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v95 > 1), v96 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+            v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v95 > 1), v96 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
           }
 
           v57[2] = v96 + 1;
@@ -5170,14 +5190,14 @@ LABEL_117:
 LABEL_112:
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v57[2] + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
         }
 
         v117 = v57[2];
         v116 = v57[3];
         if (v117 >= v116 >> 1)
         {
-          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v116 > 1), v117 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+          v57 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v116 > 1), v117 + 1, 1, v57, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
         }
 
         v57[2] = v117 + 1;
@@ -5208,7 +5228,7 @@ LABEL_4:
     v17 = __clz(__rbit64(v14));
     v14 &= v14 - 1;
     v18 = v17 | (v10 << 6);
-    v19 = *(*(v7 + 56) + 8 * v18);
+    v19 = *(v7[7] + 8 * v18);
     v20 = *(v19 + 16);
     if (v20)
     {
@@ -5225,7 +5245,7 @@ LABEL_4:
   v121 = v11;
   v122 = v7;
   v123 = a3;
-  v22 = (*(v7 + 48) + 16 * v18);
+  v22 = (v7[6] + 16 * v18);
   v23 = v22[1];
   v131 = *v22;
   v132 = v19 + 32;
@@ -5275,14 +5295,14 @@ LABEL_22:
 LABEL_23:
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v139 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v139[2] + 1, 1, v139, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+      v139 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v139[2] + 1, 1, v139, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
     }
 
     v36 = v139[2];
     v35 = v139[3];
     if (v36 >= v35 >> 1)
     {
-      v139 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1, v139, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+      v139 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1, v139, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
     }
 
     v139[2] = v36 + 1;
@@ -5454,13 +5474,13 @@ LABEL_12:
   }
 
 LABEL_132:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
 }
 
-void *closure #3 in CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t *a1, uint64_t *a2)
+void *closure #3 in CACElementNumberStabilizer.mergeLists(old:new:fixedNumbers:)(uint64_t *a1, void *a2)
 {
   v23 = a1[1];
   v24 = *a1;
@@ -5511,7 +5531,7 @@ LABEL_31:
         v15 = v13;
       }
 
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v15, 1, v9, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v15, 1, v9, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
       v9 = result;
     }
 
@@ -5523,7 +5543,7 @@ LABEL_31:
         goto LABEL_30;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
       swift_arrayInitWithCopy();
 
       if (v12)
@@ -5590,7 +5610,7 @@ LABEL_31:
   return v22;
 }
 
-uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t result, uint64_t *a2)
+uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t result, void *a2)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -5929,14 +5949,14 @@ LABEL_59:
 
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v26[2] + 1, 1, v26, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMR, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd);
+            v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v26[2] + 1, 1, v26, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMR, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMR);
           }
 
           v36 = v26[2];
           v35 = v26[3];
           if (v36 >= v35 >> 1)
           {
-            v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1, v26, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMR, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd);
+            v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v35 > 1), v36 + 1, 1, v26, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p7element_Si5valuetGMR, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMR);
           }
 
           v26[2] = v36 + 1;
@@ -6062,8 +6082,8 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
     do
     {
       swift_unknownObjectRetain();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p7element_Si5valuetMd, &_sSo30CACNumberedPresentationElement_p7element_Si5valuetMR);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
       swift_dynamicCast();
       v6 = *(v11 + 16);
       v5 = *(v11 + 24);
@@ -6105,7 +6125,7 @@ id CACElementNumberGroup.__deallocating_deinit(uint64_t (*a1)(void))
   return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-uint64_t specialized _copySequenceToContiguousArray<A>(_:)(void *a1)
+void *specialized _copySequenceToContiguousArray<A>(_:)(void *a1)
 {
   v1 = (*((*MEMORY[0x277D85000] & *a1) + 0x60))();
   v2 = v1;
@@ -6202,7 +6222,7 @@ LABEL_37:
           v21 = v20;
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         v22 = swift_allocObject();
         v23 = _swift_stdlib_malloc_size(v22);
         v24 = v23 - 32;
@@ -6436,7 +6456,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6514,7 +6534,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6593,7 +6613,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_Sit3new_SoAC_p_Sit3oldtGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_Sit3new_SoAC_p_Sit3oldtGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_Sit3new_SoAC_p_Sit3oldtGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6623,7 +6643,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_Sit3new_SoAA_p_Sit3oldtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_Sit3new_SoAA_p_Sit3oldtMd, &_sSo30CACNumberedPresentationElement_p_Sit3new_SoAA_p_Sit3oldtMR);
     swift_arrayInitWithCopy();
   }
 
@@ -6670,7 +6690,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySDySSypGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySDySSypGGMd, &_ss23_ContiguousArrayStorageCySDySSypGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6700,77 +6720,77 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
     swift_arrayInitWithCopy();
   }
 
   return v10;
 }
 
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  if (v13)
+  if (v15)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 17;
+      v18 = v17 - 17;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 4);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 4);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v16 = MEMORY[0x277D84F90];
   }
 
-  if (v9)
+  if (v11)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[2 * v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[2 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 16 * v12);
+      memmove(v16 + 4, a4 + 4, 16 * v14);
     }
 
     a4[2] = 0;
@@ -6778,11 +6798,11 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5(uint64_t a1, uint64_t a2)
@@ -6802,7 +6822,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -6836,7 +6856,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -6880,12 +6900,13 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a
   return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMd);
-  v30 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMd, &_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMR);
+  v30 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -7023,9 +7044,10 @@ LABEL_36:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
-  v33 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
+  v33 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -7160,14 +7182,14 @@ LABEL_34:
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -7215,7 +7237,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7294,7 +7316,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7324,7 +7346,7 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
     swift_arrayInitWithCopy();
   }
 
@@ -7401,7 +7423,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 void *specialized _NativeDictionary.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMd, &_ss18_DictionaryStorageCySSSgSaySo30CACNumberedPresentationElement_p_SitGGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -7481,7 +7503,7 @@ LABEL_19:
 
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -7569,7 +7591,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t specialized Array.append<A>(contentsOf:)(unint64_t a1)
+int64_t specialized Array.append<A>(contentsOf:)(unint64_t a1)
 {
   v5 = v1;
   v7 = *v1;
@@ -7593,7 +7615,7 @@ uint64_t specialized Array.append<A>(contentsOf:)(unint64_t a1)
     v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(v8);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(v8, 1);
   v9 = *v1;
   v10 = *v1 & 0xFFFFFFFFFFFFFF8;
   v11 = *(v10 + 0x10);
@@ -7628,7 +7650,7 @@ uint64_t specialized Array.append<A>(contentsOf:)(unint64_t a1)
   }
 
   v20 = type metadata accessor for CACElementNumberGroup();
-  if (v20 != __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30CACNumberedPresentationElement_pGMd))
+  if (v20 != __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30CACNumberedPresentationElement_pGMd, &_sSaySo30CACNumberedPresentationElement_pGMR))
   {
     v2 = *(v10 + 16);
     result = v34;
@@ -7810,16 +7832,16 @@ LABEL_8:
   return result;
 }
 
-uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1)
+uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
@@ -7830,25 +7852,25 @@ uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(
     goto LABEL_8;
   }
 
-  if (v3 < 0 || (v3 & 0x4000000000000000) != 0)
+  if (v4 < 0 || (v4 & 0x4000000000000000) != 0)
   {
 LABEL_8:
-    if (v3 < 0)
+    if (v4 < 0)
     {
-      v5 = v3;
+      v6 = v4;
     }
 
     else
     {
-      v5 = v3 & 0xFFFFFFFFFFFFFF8;
+      v6 = v4 & 0xFFFFFFFFFFFFFF8;
     }
 
-    MEMORY[0x26D675F40](v5);
+    MEMORY[0x26D675F40](v6);
   }
 
 LABEL_12:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
@@ -8651,15 +8673,15 @@ LABEL_5:
   return result;
 }
 
-uint64_t specialized Array._copyToContiguousArray()(uint64_t a1)
+void *specialized Array._copyToContiguousArray()(unint64_t a1)
 {
   if (!(a1 >> 62))
   {
-    return a1 & 0xFFFFFFFFFFFFFF8;
+    return (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v2 = a1;
-  if (a1 >= 0)
+  if ((a1 & 0x8000000000000000) == 0)
   {
     a1 &= 0xFFFFFFFFFFFFFF8uLL;
   }
@@ -8742,10 +8764,10 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
       {
         if (v6 >= 1)
         {
-          lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type [CACElementNumberGroup] and conformance [A], &_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMd);
+          lazy protocol witness table accessor for type _ShapeView<BorderStatusIndicatorShape, ForegroundStyle> and conformance _ShapeView<A, B>(&lazy protocol witness table cache variable for type [CACElementNumberGroup] and conformance [A], &_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMd, &_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMR, MEMORY[0x277D83988]);
           for (i = 0; i != v6; ++i)
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMd, &_sSay34SpeechRecognitionCommandAndControl21CACElementNumberGroupCGMR);
             v10 = specialized protocol witness for Collection.subscript.read in conformance [A](v15, i, a3);
             v12 = *v11;
             (v10)(v15, 0);
@@ -8780,7 +8802,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSSg_SaySo023CACNumberedPresentationC0_p_SitGTt1g50108_s34SpeechRecognitionCommandAndControl26CACElementNumberStabilizerC10mergeLists3old3new12fixedNumbersSaySo30dec31_p_SitGAI_AISaySiGtFSSSgSoAH_p_T7_tXEfU_Tf1nc_nTf4g_nTm(uint64_t a1)
+void *_sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSSg_SaySo023CACNumberedPresentationC0_p_SitGTt1g50108_s34SpeechRecognitionCommandAndControl26CACElementNumberStabilizerC10mergeLists3old3new12fixedNumbersSaySo30dec31_p_SitGAI_AISaySiGtFSSSgSoAH_p_T7_tXEfU_Tf1nc_nTf4g_nTm(uint64_t a1)
 {
   v1 = MEMORY[0x277D84F98];
   v32 = MEMORY[0x277D84F98];
@@ -8842,7 +8864,7 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSS
       *(v20 + 8 * v13) = v21;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
         *(v20 + 8 * v13) = v21;
       }
 
@@ -8850,7 +8872,7 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSS
       v23 = v21[3];
       if (v24 >= v23 >> 1)
       {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v21, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd);
+        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v21, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR, &_sSo30CACNumberedPresentationElement_p_SitMd, &_sSo30CACNumberedPresentationElement_p_SitMR);
         *(v20 + 8 * v13) = v21;
       }
 
@@ -8863,7 +8885,7 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSS
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMd, &_ss23_ContiguousArrayStorageCySo30CACNumberedPresentationElement_p_SitGMR);
       v25 = swift_allocObject();
       *(v25 + 16) = xmmword_26B405970;
       *(v25 + 32) = v6;
@@ -8895,7 +8917,7 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSSS
 LABEL_21:
   __break(1u);
 LABEL_22:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
@@ -8922,7 +8944,7 @@ uint64_t sub_26B3F1F08@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_26B3F1F64(uint64_t a1, void **a2)
+uint64_t sub_26B3F1F64(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xA8);
 
@@ -8936,7 +8958,7 @@ uint64_t sub_26B3F1FC8@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_26B3F2024(uint64_t a1, void **a2)
+uint64_t sub_26B3F2024(void *a1, void **a2)
 {
   v2 = *((*MEMORY[0x277D85000] & **a2) + 0xC0);
 
@@ -9071,7 +9093,7 @@ void *static VCVocabularyObjC.arrayOfDictionaries(from:)(uint64_t a1)
       v42 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v44 = v43;
 
-      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
       *&v58 = v40;
       outlined init with take of Any(&v58, v57);
       v45 = swift_isUniquelyReferenced_nonNull_native();
@@ -9125,63 +9147,63 @@ void *static VCVocabularyObjC.visibleVocabularyEntriesForAllLocales()()
   return v2;
 }
 
-Class @objc static VCVocabularyObjC.visibleVocabularyEntriesForActiveLocale()(uint64_t a1, uint64_t a2, void (*a3)(void))
+Class @objc static VCVocabularyObjC.visibleVocabularyEntriesForActiveLocale()(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   swift_getObjCClassMetadata();
   a3();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
 }
 
-uint64_t static VCVocabularyObjC.addVocabularyEntry(with:)()
+uint64_t static VCVocabularyObjC.addVocabularyEntry(with:)(uint64_t a1, uint64_t a2)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
-  MEMORY[0x28223BE20](v0 - 8);
-  v2 = &v6 - v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v8 - v3;
   type metadata accessor for VCSettings();
-  v3 = static VCSettings.shared.getter();
-  v4 = type metadata accessor for Locale();
-  (*(*(v4 - 8) + 56))(v2, 1, 1, v4);
+  v5 = static VCSettings.shared.getter();
+  v6 = type metadata accessor for Locale();
+  (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
   VCSettings.addVocabularyEntry(text:pronunciations:locale:)();
 
-  return outlined destroy of Locale?(v2);
+  return outlined destroy of Locale?(v4);
 }
 
-uint64_t static VCVocabularyObjC.addVocabularyEntry(with:pronunciations:)()
+uint64_t static VCVocabularyObjC.addVocabularyEntry(with:pronunciations:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
-  MEMORY[0x28223BE20](v0 - 8);
-  v2 = &v6 - v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v9 - v4;
   type metadata accessor for VCSettings();
-  v3 = static VCSettings.shared.getter();
-  v4 = type metadata accessor for Locale();
-  (*(*(v4 - 8) + 56))(v2, 1, 1, v4);
+  v6 = static VCSettings.shared.getter();
+  v7 = type metadata accessor for Locale();
+  (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
   VCSettings.addVocabularyEntry(text:pronunciations:locale:)();
 
-  return outlined destroy of Locale?(v2);
+  return outlined destroy of Locale?(v5);
 }
 
-uint64_t static VCVocabularyObjC.removeVocabularyEntry(withText:localeIdentifier:)(uint64_t a1, uint64_t a2)
+uint64_t static VCVocabularyObjC.removeVocabularyEntry(withText:localeIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = type metadata accessor for Locale();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Locale();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for VCSettings();
-  v8 = static VCSettings.shared.getter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_26B405970;
-  *(v9 + 32) = a1;
-  *(v9 + 40) = a2;
+  v10 = static VCSettings.shared.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_26B405970;
+  *(v11 + 32) = a1;
+  *(v11 + 40) = a2;
 
   String.voiceControlLocaleIdentifier.getter();
   Locale.init(identifier:)();
   VCSettings.removeVocabularyEntries(texts:locale:)();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t static VCVocabularyObjC.deleteAllVocabularyForActiveLocale()()
@@ -9199,34 +9221,34 @@ uint64_t static VCVocabularyObjC.deleteAllVocabularyForActiveLocale()()
   return (*(v1 + 8))(v3, v0);
 }
 
-uint64_t static VCVocabularyObjC.setPronunciations(_:forText:)()
+uint64_t static VCVocabularyObjC.setPronunciations(_:forText:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for Locale();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Locale();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for VCSettings();
-  v4 = static VCSettings.shared.getter();
-  v5 = static VCSettings.shared.getter();
+  v7 = static VCSettings.shared.getter();
+  v8 = static VCSettings.shared.getter();
   VCSettings.activeLocale.getter();
 
   VCSettings.setPronunciations(pronunciations:forText:locale:)();
-  return (*(v1 + 8))(v3, v0);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t static VCVocabularyObjC.removePronunciations(fromText:)()
+uint64_t static VCVocabularyObjC.removePronunciations(fromText:)(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for Locale();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = type metadata accessor for Locale();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for VCSettings();
-  v4 = static VCSettings.shared.getter();
-  v5 = static VCSettings.shared.getter();
+  v6 = static VCSettings.shared.getter();
+  v7 = static VCSettings.shared.getter();
   VCSettings.activeLocale.getter();
 
   VCSettings.removePronunciations(fromText:locale:)();
-  return (*(v1 + 8))(v3, v0);
+  return (*(v3 + 8))(v5, v2);
 }
 
 VCVocabularyObjC __swiftcall VCVocabularyObjC.init()()
@@ -9315,7 +9337,7 @@ _OWORD *specialized _NativeDictionary._insert(at:key:value:)(unint64_t a1, uint6
 
 uint64_t outlined destroy of Locale?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9325,7 +9347,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
@@ -9377,14 +9399,14 @@ LABEL_10:
 
 uint64_t outlined init with copy of (String, Any)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -9544,30 +9566,30 @@ uint64_t one-time initialization function for luminance(uint64_t a1, uint64_t *a
   return MEMORY[0x26D6758B0](a3, a4, resourceBundle.super.isa);
 }
 
-uint64_t ImageResource.badgePlatterBordered.unsafeMutableAddressor(void *a1, uint64_t a2)
+uint64_t ImageResource.badgePlatterBordered.unsafeMutableAddressor(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for ImageResource();
+  v4 = type metadata accessor for ImageResource();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t static ImageResource.badgePlatterBordered.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static ImageResource.badgePlatterBordered.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for ImageResource();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for ImageResource();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)

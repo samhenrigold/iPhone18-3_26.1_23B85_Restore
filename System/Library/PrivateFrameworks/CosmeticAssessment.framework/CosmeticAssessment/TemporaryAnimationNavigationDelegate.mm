@@ -30,7 +30,7 @@
     MEMORY[0x28223BE20](v6);
     v8[2] = v4;
     v8[3] = selector;
-    v5 = sub_247C75F08(sub_247C768F0, v8, "CosmeticAssessment/UINavigationController+ForcedTransition.swift");
+    v5 = sub_247C75F08(sub_247C768F0, v8, "CosmeticAssessment/UINavigationController+ForcedTransition.swift", 64, 2, 23);
   }
 
   return v5 & 1;
@@ -41,7 +41,7 @@
   sub_247D1FEA8();
   v9[2] = self;
   selfCopy = self;
-  v5 = sub_247C760C0(sub_247C76880, v9, "CosmeticAssessment/UINavigationController+ForcedTransition.swift", 64);
+  v5 = sub_247C760C0(sub_247C76880, v9, "CosmeticAssessment/UINavigationController+ForcedTransition.swift", 64, 2, 30);
   if (v5)
   {
     v6 = v5;

@@ -50,56 +50,57 @@ uint64_t __49__SLDCollaborationHandshakeService_sharedService__block_invoke()
 
 - (SLDCollaborationHandshakeService)init
 {
-  v15.receiver = self;
-  v15.super_class = SLDCollaborationHandshakeService;
-  v2 = [(SLDCollaborationHandshakeService *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = SLDCollaborationHandshakeService;
+  v2 = [(SLDCollaborationHandshakeService *)&v16 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = SLDGlobalWorkloop();
-    v4 = dispatch_queue_create_with_target_V2("com.apple.sociallayerd.SLDCollaborationHandshakeService", 0, v3);
-    privateSerialQueue = v2->_privateSerialQueue;
-    v2->_privateSerialQueue = v4;
+    v4 = SLDGlobalWorkloop(v2);
+    v5 = dispatch_queue_create_with_target_V2("com.apple.sociallayerd.SLDCollaborationHandshakeService", 0, v4);
+    privateSerialQueue = v3->_privateSerialQueue;
+    v3->_privateSerialQueue = v5;
 
-    v6 = [[SLDTaskManager alloc] initWithSerialQueue:v2->_privateSerialQueue];
-    taskManager = v2->_taskManager;
-    v2->_taskManager = v6;
+    v7 = [[SLDTaskManager alloc] initWithSerialQueue:v3->_privateSerialQueue];
+    taskManager = v3->_taskManager;
+    v3->_taskManager = v7;
 
-    v8 = [[SLSWActionDispatcher alloc] initWithQueue:v2->_privateSerialQueue];
-    actionDispatcher = v2->_actionDispatcher;
-    v2->_actionDispatcher = v8;
+    v9 = [[SLSWActionDispatcher alloc] initWithQueue:v3->_privateSerialQueue];
+    actionDispatcher = v3->_actionDispatcher;
+    v3->_actionDispatcher = v9;
 
-    v10 = [[SLPersonIdentityGenerator alloc] initWithQueue:v2->_privateSerialQueue];
-    personIdentityGenerator = v2->_personIdentityGenerator;
-    v2->_personIdentityGenerator = v10;
+    v11 = [[SLPersonIdentityGenerator alloc] initWithQueue:v3->_privateSerialQueue];
+    personIdentityGenerator = v3->_personIdentityGenerator;
+    v3->_personIdentityGenerator = v11;
 
-    v12 = objc_alloc_init(SLDProcessVerifier);
-    processVerifier = v2->_processVerifier;
-    v2->_processVerifier = v12;
+    v13 = objc_alloc_init(SLDProcessVerifier);
+    processVerifier = v3->_processVerifier;
+    v3->_processVerifier = v13;
   }
 
-  return v2;
+  return v3;
 }
 
 - (BOOL)allowsConnection:(id)connection
 {
   connectionCopy = connection;
-  if (SLDConnectionIsEntitledForCollaborationHandshake(connectionCopy) & 1) != 0 || (SLDConnectionHasLegacyHighlightsEntitlement(connectionCopy))
+  if (SLDConnectionIsEntitledForCollaborationHandshake(connectionCopy) & 1) != 0 || (HasLegacyHighlightsEntitlement = SLDConnectionHasLegacyHighlightsEntitlement(connectionCopy), (HasLegacyHighlightsEntitlement))
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v5 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SLDaemonLogHandle(HasLegacyHighlightsEntitlement);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService allowsConnection:];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (void)setupInterface:(id)interface
@@ -118,52 +119,52 @@ uint64_t __49__SLDCollaborationHandshakeService_sharedService__block_invoke()
 
 - (id)generateProofForIdentity:(id)identity collaborationIdentifier:(id)identifier reply:(id)reply
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   identifierCopy = identifier;
   replyCopy = reply;
   if (identityCopy && ([identityCopy publicKeys], (v11 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(identityCopy, "publicKeys"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), v12, v11, v13))
   {
-    v41[0] = 0;
-    v41[1] = v41;
-    v41[2] = 0x2020000000;
-    v42 = 0;
+    v40[0] = 0;
+    v40[1] = v40;
+    v40[2] = 0x2020000000;
+    v41 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_2;
     aBlock[3] = &unk_278926780;
-    v40 = v41;
-    v39 = replyCopy;
+    v39 = v40;
+    v38 = replyCopy;
     v14 = _Block_copy(aBlock);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_3;
-    v36[3] = &unk_278926050;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_3;
+    v35[3] = &unk_278926050;
     v15 = v14;
-    v37 = v15;
-    v16 = _Block_copy(v36);
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_38;
-    v31 = &unk_2789260F0;
+    v36 = v15;
+    v16 = _Block_copy(v35);
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_38;
+    v30 = &unk_2789260F0;
     selfCopy = self;
-    v33 = identityCopy;
-    v34 = identifierCopy;
+    v32 = identityCopy;
+    v33 = identifierCopy;
     v17 = v15;
-    v35 = v17;
-    v18 = _Block_copy(&v28);
-    v19 = [(SLDCollaborationHandshakeService *)self taskManager:v28];
+    v34 = v17;
+    v18 = _Block_copy(&v27);
+    v19 = [(SLDCollaborationHandshakeService *)self taskManager:v27];
     v20 = [v19 startAggregateTask:v18 withTimeout:v16 cancellationHandler:15.0];
 
-    _Block_object_dispose(v41, 8);
+    _Block_object_dispose(v40, 8);
   }
 
   else
   {
     v21 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA068];
-    v47[0] = @"Cannot generate proof without an identity or public keys";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x277CCA068];
+    v46[0] = @"Cannot generate proof without an identity or public keys";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v23 = [v21 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v22];
 
     privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
@@ -171,15 +172,13 @@ uint64_t __49__SLDCollaborationHandshakeService_sharedService__block_invoke()
     block[1] = 3221225472;
     block[2] = __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke;
     block[3] = &unk_2789260C8;
-    v44 = v23;
-    v45 = replyCopy;
+    v43 = v23;
+    v44 = replyCopy;
     v25 = v23;
     dispatch_async(privateSerialQueue, block);
 
     v20 = objc_opt_new();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -198,7 +197,7 @@ uint64_t __91__SLDCollaborationHandshakeService_generateProofForIdentity_collabo
 
 void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_3(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -243,27 +242,27 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
   v13[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  (*(*(a1 + 32) + 16))();
+  v7 = (*(*(a1 + 32) + 16))();
   if (!v5 || v6)
   {
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SLDaemonLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_2_39_cold_1();
     }
 
     if (v6)
     {
-      v8 = v6;
+      v9 = v6;
     }
 
     else
     {
-      v9 = MEMORY[0x277CCA9B8];
+      v10 = MEMORY[0x277CCA9B8];
       v12 = *MEMORY[0x277CCA068];
       v13[0] = @"generating proof with SLPersonIdentityGenerator";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-      v8 = [v9 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v10];
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v9 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v11];
     }
 
     (*(*(a1 + 40) + 16))();
@@ -273,8 +272,6 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)verifySourceBundleIdentifierFromMetadata:(id)metadata reply:(id)reply
@@ -282,7 +279,7 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
   v49 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   replyCopy = reply;
-  v8 = SLDaemonLogHandle();
+  v8 = SLDaemonLogHandle(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -300,31 +297,31 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
   {
     processVerifier = [(SLDCollaborationHandshakeService *)self processVerifier];
     v40 = 0;
-    v13 = [processVerifier verifyData:sourceProcessData tag:v11 error:&v40];
-    v14 = v40;
+    v14 = [processVerifier verifyData:sourceProcessData tag:v11 error:&v40];
+    v15 = v40;
 
-    if (v13)
+    if (v14)
     {
       actionDispatcher = [(SLDCollaborationHandshakeService *)self actionDispatcher];
       v36 = 0;
-      v16 = [actionDispatcher bundleIDForProcess:v13 error:&v36];
-      v17 = v36;
+      v17 = [actionDispatcher bundleIDForProcess:v14 error:&v36];
+      v18 = v36;
 
-      v18 = 0;
-      if (!v16)
+      v19 = 0;
+      if (!v17)
       {
-        if (v17)
+        if (v18)
         {
-          v18 = v17;
+          v19 = v18;
         }
 
         else
         {
-          v25 = MEMORY[0x277CCA9B8];
+          v26 = MEMORY[0x277CCA9B8];
           v41 = *MEMORY[0x277CCA068];
           v42 = @"[SLDCollaborationHandshakeService] verifySourceBundleIdentifierFromMetadata: failed to verify source process.";
           v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-          v18 = [v25 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v31];
+          v19 = [v26 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v31];
         }
       }
 
@@ -333,52 +330,50 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
       v32[1] = 3221225472;
       v32[2] = __83__SLDCollaborationHandshakeService_verifySourceBundleIdentifierFromMetadata_reply___block_invoke_2;
       v32[3] = &unk_2789267D0;
-      v34 = v18;
+      v34 = v19;
       v35 = replyCopy;
-      v33 = v16;
-      v27 = v18;
-      v28 = v16;
+      v33 = v17;
+      v28 = v19;
+      v29 = v17;
       dispatch_async(privateSerialQueue, v32);
 
-      v24 = objc_opt_new();
+      v25 = objc_opt_new();
       goto LABEL_14;
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v19 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = SLDaemonLogHandle(v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [SLDCollaborationHandshakeService verifySourceBundleIdentifierFromMetadata:sourceProcessData reply:metadataCopy];
   }
 
-  v20 = MEMORY[0x277CCA9B8];
+  v21 = MEMORY[0x277CCA9B8];
   v43 = *MEMORY[0x277CCA068];
   v44 = @"[SLDCollaborationHandshakeService] verifySourceBundleIdentifierFromMetadata: failed to verify source process.";
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-  v22 = [v20 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v21];
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+  v23 = [v21 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v22];
 
   privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __83__SLDCollaborationHandshakeService_verifySourceBundleIdentifierFromMetadata_reply___block_invoke;
   block[3] = &unk_2789260C8;
-  v38 = v22;
+  v38 = v23;
   v39 = replyCopy;
-  v13 = v22;
+  v14 = v23;
   dispatch_async(privateSerialQueue2, block);
 
-  v24 = objc_opt_new();
-  v17 = v39;
+  v25 = objc_opt_new();
+  v18 = v39;
 LABEL_14:
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v25;
 }
 
 - (id)startCollaborationWithMetadata:(id)metadata participants:(id)participants reply:(id)reply
@@ -387,7 +382,7 @@ LABEL_14:
   metadataCopy = metadata;
   participantsCopy = participants;
   replyCopy = reply;
-  v9 = SLDaemonLogHandle();
+  v9 = SLDaemonLogHandle(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -407,10 +402,10 @@ LABEL_14:
   {
     processVerifier = [(SLDCollaborationHandshakeService *)self processVerifier];
     v63 = 0;
-    v13 = [processVerifier verifyData:sourceProcessData tag:v38 error:&v63];
+    v14 = [processVerifier verifyData:sourceProcessData tag:v38 error:&v63];
     v37 = v63;
 
-    if (v13)
+    if (v14)
     {
       *buf = 0;
       *&buf[8] = buf;
@@ -422,56 +417,56 @@ LABEL_14:
       aBlock[3] = &unk_2789267F8;
       v59 = buf;
       v58 = replyCopy;
-      v14 = _Block_copy(aBlock);
+      v15 = _Block_copy(aBlock);
       v55[0] = MEMORY[0x277D85DD0];
       v55[1] = 3221225472;
       v55[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3;
       v55[3] = &unk_278926050;
-      v15 = v14;
-      v56 = v15;
+      v16 = v15;
+      v56 = v16;
       v36 = _Block_copy(v55);
       v53[0] = MEMORY[0x277D85DD0];
       v53[1] = 3221225472;
       v53[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_52;
       v53[3] = &unk_278926870;
       v53[4] = self;
-      v16 = v15;
-      v54 = v16;
-      v17 = _Block_copy(v53);
+      v17 = v16;
+      v54 = v17;
+      v18 = _Block_copy(v53);
       v50[0] = MEMORY[0x277D85DD0];
       v50[1] = 3221225472;
       v50[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_57;
       v50[3] = &unk_2789268E8;
       v50[4] = self;
-      v18 = v16;
-      v51 = v18;
       v19 = v17;
-      v52 = v19;
-      v20 = _Block_copy(v50);
+      v51 = v19;
+      v20 = v18;
+      v52 = v20;
+      v21 = _Block_copy(v50);
       v47[0] = MEMORY[0x277D85DD0];
       v47[1] = 3221225472;
       v47[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_65;
       v47[3] = &unk_278926938;
       v47[4] = self;
       v48 = participantsCopy;
-      v21 = v20;
-      v49 = v21;
-      v22 = _Block_copy(v47);
+      v22 = v21;
+      v49 = v22;
+      v23 = _Block_copy(v47);
       v41[0] = MEMORY[0x277D85DD0];
       v41[1] = 3221225472;
       v41[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_70;
       v41[3] = &unk_2789269B0;
       v42 = metadataCopy;
-      v23 = v22;
-      v45 = v23;
-      v24 = v18;
-      v46 = v24;
+      v24 = v23;
+      v45 = v24;
+      v25 = v19;
+      v46 = v25;
       selfCopy = self;
-      v25 = v13;
-      v44 = v25;
-      v26 = _Block_copy(v41);
+      v26 = v14;
+      v44 = v26;
+      v27 = _Block_copy(v41);
       taskManager = [(SLDCollaborationHandshakeService *)self taskManager];
-      v28 = [taskManager startAggregateTask:v26 withTimeout:v36 cancellationHandler:15.0];
+      v29 = [taskManager startAggregateTask:v27 withTimeout:v36 cancellationHandler:15.0];
 
       _Block_object_dispose(buf, 8);
       goto LABEL_10;
@@ -483,34 +478,32 @@ LABEL_14:
     v37 = 0;
   }
 
-  v29 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v30 = SLDaemonLogHandle(v12);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [SLDCollaborationHandshakeService startCollaborationWithMetadata:sourceProcessData participants:metadataCopy reply:?];
   }
 
-  v30 = MEMORY[0x277CCA9B8];
+  v31 = MEMORY[0x277CCA9B8];
   v64 = *MEMORY[0x277CCA068];
   v65 = @"[SLDCollaborationHandshakeService] startCollaborationWithMetadata: failed to verify source process.";
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  v32 = [v30 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v31];
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+  v33 = [v31 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v32];
 
   privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke;
   block[3] = &unk_2789260C8;
-  v61 = v32;
+  v61 = v33;
   v62 = replyCopy;
-  v25 = v32;
+  v26 = v33;
   dispatch_async(privateSerialQueue, block);
 
-  v28 = objc_opt_new();
+  v29 = objc_opt_new();
 LABEL_10:
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v29;
 }
 
 uint64_t __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_2(uint64_t result)
@@ -527,7 +520,7 @@ uint64_t __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_p
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -578,7 +571,7 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_2_53(uint64_t a1)
 {
-  v2 = SLDaemonLogHandle();
+  v2 = SLDaemonLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -608,24 +601,22 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
 {
   if (a2)
   {
-    v3 = SLDaemonLogHandle();
+    v3 = SLDaemonLogHandle(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: success. Replying to client with shareURL and updatedMetadata", v8, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: success. Replying to client with shareURL and updatedMetadata", v6, 2u);
     }
 
     v4 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
-    v5 = *(a1 + 56);
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v6 = *(a1 + 64);
-    v7 = *(*(a1 + 64) + 16);
+    v5 = *(*(a1 + 64) + 16);
 
-    v7();
+    v5();
   }
 }
 
@@ -660,7 +651,7 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = SLDaemonLogHandle();
+  v10 = SLDaemonLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -689,52 +680,46 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_59(void *a1, void *a2, void *a3, void *a4)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v7 && v8 && !v9)
   {
-    v11 = SLDaemonLogHandle();
+    v11 = SLDaemonLogHandle(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithMetadata: Generated local identity.", v20, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithMetadata: Generated local identity.", v16, 2u);
     }
 
     (*(a1[9] + 16))();
     v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:a1[5]];
     [v10 setObject:v7 forKeyedSubscript:v8];
-    v12 = a1[4];
-    v13 = a1[6];
-    v14 = a1[7];
-    v15 = a1[8];
     (*(a1[11] + 16))();
   }
 
   else
   {
-    (*(a1[9] + 16))();
+    v12 = (*(a1[9] + 16))();
     if (!v10)
     {
-      v16 = MEMORY[0x277CCA9B8];
-      v21 = *MEMORY[0x277CCA068];
-      v22[0] = @"Could not generate person identities.";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-      v10 = [v16 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v17];
+      v13 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA068];
+      v18[0] = @"Could not generate person identities.";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v10 = [v13 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v14];
     }
 
-    v18 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v15 = SLDaemonLogHandle(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_59_cold_1(a1);
     }
 
     (*(a1[10] + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_65(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -785,22 +770,18 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
   [v10 _personIdentitiesForHandles:v11 documentIdentifier:v12 completion:v16];
 }
 
-void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3_67(void *a1, void *a2)
+void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3_67(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: Generated remote identities.", v9, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: Generated remote identities.", v5, 2u);
   }
 
-  (*(a1[8] + 16))();
-  v5 = a1[4];
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = a1[7];
-  (*(a1[9] + 16))();
+  (*(*(a1 + 64) + 16))();
+  (*(*(a1 + 72) + 16))();
 }
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_70(uint64_t a1, void *a2, void *a3, void *a4)
@@ -846,7 +827,7 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_72(void *a1, void *a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(*(a1[9] + 8) + 40) invalidate];
   objc_opt_class();
@@ -863,48 +844,46 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
   v5 = v4;
   if ([v5 success] && (objc_msgSend(v5, "updatedMetadata"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(v5, "url"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
   {
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: finished start action, moving on to adding participants.", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata: finished start action, moving on to adding participants.", v20, 2u);
     }
 
-    v10 = a1[6];
-    v11 = [v5 url];
-    v12 = [v5 updatedMetadata];
-    (*(v10 + 16))(v10, v11, v12, a1[4], a1[5]);
+    v11 = a1[6];
+    v12 = [v5 url];
+    v13 = [v5 updatedMetadata];
+    (*(v11 + 16))(v11, v12, v13, a1[4], a1[5]);
   }
 
   else
   {
     (*(a1[7] + 16))();
-    v13 = [v3 error];
-    v14 = v13;
-    if (v13)
+    v14 = [v3 error];
+    v15 = v14;
+    if (v14)
     {
-      v11 = v13;
+      v12 = v14;
     }
 
     else
     {
-      v15 = MEMORY[0x277CCA9B8];
-      v20 = *MEMORY[0x277CCA068];
-      v21[0] = @"startCollaborationWithMetadata start action failed.";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-      v11 = [v15 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v16];
+      v16 = MEMORY[0x277CCA9B8];
+      v21 = *MEMORY[0x277CCA068];
+      v22[0] = @"startCollaborationWithMetadata start action failed.";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v12 = [v16 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v17];
     }
 
-    v17 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = SLDaemonLogHandle(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_72_cold_1();
     }
 
     (*(a1[8] + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_78(void *a1, void *a2, void *a3)
@@ -922,37 +901,35 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
 
   else
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SLDaemonLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v6 isValid];
-      v10 = @"NO";
-      if (v9)
+      v10 = [v6 isValid];
+      v11 = @"NO";
+      if (v10)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
       v12 = 138412546;
       v13 = v6;
       v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] action dispatcher successfully sent the start collaboration action to the app. Waiting for our response handler to be called. Assertion: %@ isValid: %@", &v12, 0x16u);
+      v15 = v11;
+      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] action dispatcher successfully sent the start collaboration action to the app. Waiting for our response handler to be called. Assertion: %@ isValid: %@", &v12, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)startCollaborationWithFileURL:(id)l sandboxTokenData:(id)data metadata:(id)metadata participants:(id)participants reply:(id)reply
 {
-  v81[2] = *MEMORY[0x277D85DE8];
+  v80[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   dataCopy = data;
   metadataCopy = metadata;
   participantsCopy = participants;
   replyCopy = reply;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v13 = SLDaemonLogHandle();
+  v13 = SLDaemonLogHandle(currentConnection);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -960,7 +937,7 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
     *&buf[12] = 2112;
     *&buf[14] = metadataCopy;
     *&buf[22] = 2112;
-    v79 = participantsCopy;
+    v78 = participantsCopy;
     _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "%s metadata: %@ participants: %@", buf, 0x20u);
   }
 
@@ -969,17 +946,17 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v79 = __Block_byref_object_copy__9;
-  v80 = __Block_byref_object_dispose__9;
-  v81[0] = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v78 = __Block_byref_object_copy__9;
+  v79 = __Block_byref_object_dispose__9;
+  v80[0] = 0;
   v73 = 0;
-  v15 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&v73];
-  objc_storeStrong(v81, v73);
-  v77 = v15;
-  if (v75[3] == -1)
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v72 = 0;
+  v15 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&v72];
+  objc_storeStrong(v80, v72);
+  v76 = v15;
+  if (v74[3] == -1)
   {
     v33 = *&buf[8];
     v34 = *(*&buf[8] + 40);
@@ -1002,87 +979,85 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
     block[1] = 3221225472;
     block[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke;
     block[3] = &unk_278926610;
-    v71 = replyCopy;
-    v72 = buf;
+    v70 = replyCopy;
+    v71 = buf;
     dispatch_async(privateSerialQueue, block);
   }
 
   else
   {
-    v68[0] = 0;
-    v68[1] = v68;
-    v68[2] = 0x2020000000;
-    v69 = 0;
+    v67[0] = 0;
+    v67[1] = v67;
+    v67[2] = 0x2020000000;
+    v68 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_2;
     aBlock[3] = &unk_2789269D8;
     aBlock[4] = self;
-    v66 = &v74;
-    v67 = v68;
-    v65 = replyCopy;
+    v65 = &v73;
+    v66 = v67;
+    v64 = replyCopy;
     v16 = _Block_copy(aBlock);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3;
-    v62[3] = &unk_278926050;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3;
+    v61[3] = &unk_278926050;
     v17 = v16;
-    v63 = v17;
-    v18 = _Block_copy(v62);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_90;
-    v59[3] = &unk_278926A50;
-    v59[4] = self;
+    v62 = v17;
+    v18 = _Block_copy(v61);
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_90;
+    v58[3] = &unk_278926A50;
+    v58[4] = self;
     v19 = lCopy;
-    v60 = v19;
+    v59 = v19;
     v20 = v17;
-    v61 = v20;
-    v21 = _Block_copy(v59);
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_96;
-    v56[3] = &unk_2789268E8;
-    v56[4] = self;
+    v60 = v20;
+    v21 = _Block_copy(v58);
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_96;
+    v55[3] = &unk_2789268E8;
+    v55[4] = self;
     v22 = v20;
-    v57 = v22;
+    v56 = v22;
     v23 = v21;
-    v58 = v23;
-    v24 = _Block_copy(v56);
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_99;
-    v52[3] = &unk_278926AC8;
-    v52[4] = self;
-    v53 = participantsCopy;
+    v57 = v23;
+    v24 = _Block_copy(v55);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_99;
+    v51[3] = &unk_278926AC8;
+    v51[4] = self;
+    v52 = participantsCopy;
     v25 = v22;
-    v54 = v25;
+    v53 = v25;
     v26 = v24;
-    v55 = v26;
-    v27 = _Block_copy(v52);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_102;
-    v46[3] = &unk_278926B40;
-    v47 = metadataCopy;
-    v48 = v19;
+    v54 = v26;
+    v27 = _Block_copy(v51);
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_102;
+    v45[3] = &unk_278926B40;
+    v46 = metadataCopy;
+    v47 = v19;
     selfCopy = self;
     v28 = v27;
-    v50 = v28;
+    v49 = v28;
     v29 = v25;
-    v51 = v29;
-    v30 = _Block_copy(v46);
+    v50 = v29;
+    v30 = _Block_copy(v45);
     taskManager = [(SLDCollaborationHandshakeService *)self taskManager];
     v32 = [taskManager startAggregateTask:v30 withTimeout:v18 cancellationHandler:15.0];
 
-    _Block_object_dispose(v68, 8);
+    _Block_object_dispose(v67, 8);
     v14 = v32;
   }
 
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   _Block_object_dispose(buf, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1102,7 +1077,7 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -1156,7 +1131,7 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_2_91(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = SLDaemonLogHandle();
+  v6 = SLDaemonLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1184,20 +1159,19 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_92(uint64_t a1, int a2, void *a3)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  (*(*(a1 + 64) + 16))();
+  v6 = (*(*(a1 + 64) + 16))();
   if (a2)
   {
-    v6 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithFileURL: success. Replying with shareURL and updatedMetadata", v13, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] startCollaborationWithFileURL: success. Replying with shareURL and updatedMetadata", v12, 2u);
     }
 
-    v7 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
-    v8 = *(a1 + 56);
+    v8 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
     (*(*(a1 + 72) + 16))();
   }
 
@@ -1206,13 +1180,13 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
     if (!v5)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v14 = *MEMORY[0x277CCA068];
-      v15[0] = @"startCollaborationWithFileURL adding participants failed";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCA068];
+      v14[0] = @"startCollaborationWithFileURL adding participants failed";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v5 = [v9 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v10];
     }
 
-    v11 = SLDaemonLogHandle();
+    v11 = SLDaemonLogHandle(v6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_92_cold_1();
@@ -1220,8 +1194,6 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
     (*(*(a1 + 72) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_96(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -1255,7 +1227,7 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = SLDaemonLogHandle();
+  v10 = SLDaemonLogHandle(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1284,52 +1256,46 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_98(void *a1, void *a2, void *a3, void *a4)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v7 && v8 && !v9)
   {
-    v11 = SLDaemonLogHandle();
+    v11 = SLDaemonLogHandle(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated local identity.", v20, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated local identity.", v16, 2u);
     }
 
     (*(a1[9] + 16))();
     v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:a1[5]];
     [v10 setObject:v7 forKeyedSubscript:v8];
-    v12 = a1[4];
-    v13 = a1[6];
-    v14 = a1[7];
-    v15 = a1[8];
     (*(a1[11] + 16))();
   }
 
   else
   {
-    (*(a1[9] + 16))();
+    v12 = (*(a1[9] + 16))();
     if (!v10)
     {
-      v16 = MEMORY[0x277CCA9B8];
-      v21 = *MEMORY[0x277CCA068];
-      v22[0] = @"Could not generate person identities.";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-      v10 = [v16 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v17];
+      v13 = MEMORY[0x277CCA9B8];
+      v17 = *MEMORY[0x277CCA068];
+      v18[0] = @"Could not generate person identities.";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v10 = [v13 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v14];
     }
 
-    v18 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v15 = SLDaemonLogHandle(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_98_cold_1(a1);
     }
 
     (*(a1[10] + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_99(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -1383,50 +1349,45 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_101(void *a1, void *a2, void *a3)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([v5 count])
+  v7 = [v5 count];
+  if (v7)
   {
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SLDaemonLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated remote identities.", &v16, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated remote identities.", &v13, 2u);
     }
 
     (*(a1[8] + 16))();
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = a1[6];
-    v11 = a1[7];
     (*(a1[10] + 16))();
   }
 
   else
   {
-    (*(a1[8] + 16))();
+    v9 = (*(a1[8] + 16))();
     if (!v6)
     {
-      v12 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA068];
-      v19[0] = @"Could not generate person identities.";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      v6 = [v12 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v13];
+      v10 = MEMORY[0x277CCA9B8];
+      v15 = *MEMORY[0x277CCA068];
+      v16[0] = @"Could not generate person identities.";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v6 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v11];
     }
 
-    v14 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v12 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_231772000, v14, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL Failed to generate identities. Error: %@", &v16, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL Failed to generate identities. Error: %@", &v13, 0xCu);
     }
 
     (*(a1[9] + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_102(uint64_t a1, void *a2, void *a3)
@@ -1434,13 +1395,11 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CDC708] actionWithMetadata:*(a1 + 32)];
-  v8 = *(a1 + 40);
-  v11 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v12 = v5;
-  v14 = *(a1 + 64);
-  v9 = v6;
+  v11 = *(a1 + 56);
   v10 = v5;
+  v12 = *(a1 + 64);
+  v8 = v6;
+  v9 = v5;
   SWPerformActionForDocumentURL();
 }
 
@@ -1467,11 +1426,10 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   dispatch_async(v4, block);
 }
 
-void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_104(void *a1)
+void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_104(void *a1, uint64_t a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = (a1 + 4);
-  v2 = a1[4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1486,47 +1444,45 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   v5 = v4;
   if ([v5 success] && (objc_msgSend(v5, "url"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, objc_msgSend(v5, "updatedMetadata"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
   {
-    v9 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "_SWStartCollaborationAction returned a shareURL and updatedMetadata.", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_DEFAULT, "_SWStartCollaborationAction returned a shareURL and updatedMetadata.", v20, 2u);
     }
 
-    v10 = a1[7];
-    v11 = [v5 url];
-    v12 = [v5 updatedMetadata];
-    (*(v10 + 16))(v10, v11, v12, a1[5], a1[6]);
+    v11 = a1[7];
+    v12 = [v5 url];
+    v13 = [v5 updatedMetadata];
+    (*(v11 + 16))(v11, v12, v13, a1[5], a1[6]);
   }
 
   else
   {
-    v13 = [*v3 error];
-    v14 = v13;
-    if (v13)
+    v14 = [*v3 error];
+    v15 = v14;
+    if (v14)
     {
-      v11 = v13;
+      v12 = v14;
     }
 
     else
     {
-      v15 = MEMORY[0x277CCA9B8];
-      v20 = *MEMORY[0x277CCA068];
-      v21[0] = @"_SWStartCollaborationAction failed";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-      v11 = [v15 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v16];
+      v16 = MEMORY[0x277CCA9B8];
+      v21 = *MEMORY[0x277CCA068];
+      v22[0] = @"_SWStartCollaborationAction failed";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v12 = [v16 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v17];
     }
 
-    v17 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = SLDaemonLogHandle(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_104_cold_1(v3, v11, v17);
+      __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_104_cold_1(v3, v12, v19);
     }
 
     (*(a1[8] + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addParticipantHandles:(id)handles withMetadata:(id)metadata reply:(id)reply
@@ -1535,7 +1491,7 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   handlesCopy = handles;
   metadataCopy = metadata;
   replyCopy = reply;
-  v11 = SLDaemonLogHandle();
+  v11 = SLDaemonLogHandle(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -1550,29 +1506,29 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
     if (v13)
     {
-      v37 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = SLDaemonLogHandle(v14);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        [(SLDCollaborationHandshakeService *)v37 addParticipantHandles:v38 withMetadata:v39 reply:v40, v41, v42, v43, v44];
+        [(SLDCollaborationHandshakeService *)v38 addParticipantHandles:v39 withMetadata:v40 reply:v41, v42, v43, v44, v45];
       }
 
-      v45 = MEMORY[0x277CCA9B8];
+      v46 = MEMORY[0x277CCA9B8];
       v77 = *MEMORY[0x277CCA068];
       v78 = @"addParticipantHandles:withMetadata: cannot add participant handles because the metadata did not have a collaboration identifier";
-      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-      v47 = [v45 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v46];
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+      v48 = [v46 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v47];
 
       privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
       v68[0] = MEMORY[0x277D85DD0];
       v68[1] = 3221225472;
       v68[2] = __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_115;
       v68[3] = &unk_2789260C8;
-      v69 = v47;
+      v69 = v48;
       v70 = replyCopy;
-      v49 = v47;
+      v50 = v48;
       dispatch_async(privateSerialQueue, v68);
 
-      v23 = objc_opt_new();
+      v24 = objc_opt_new();
     }
 
     else
@@ -1587,22 +1543,22 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
       aBlock[3] = &unk_278926B68;
       p_buf = &buf;
       v66 = replyCopy;
-      v14 = _Block_copy(aBlock);
+      v15 = _Block_copy(aBlock);
       v63[0] = MEMORY[0x277D85DD0];
       v63[1] = 3221225472;
       v63[2] = __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_3;
       v63[3] = &unk_278926050;
-      v15 = v14;
-      v64 = v15;
-      v16 = _Block_copy(v63);
+      v16 = v15;
+      v64 = v16;
+      v17 = _Block_copy(v63);
       v61[0] = MEMORY[0x277D85DD0];
       v61[1] = 3221225472;
       v61[2] = __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_117;
       v61[3] = &unk_278926BB8;
       v61[4] = self;
-      v17 = v15;
-      v62 = v17;
-      v18 = _Block_copy(v61);
+      v18 = v16;
+      v62 = v18;
+      v19 = _Block_copy(v61);
       v52 = MEMORY[0x277D85DD0];
       v53 = 3221225472;
       v54 = __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_2_121;
@@ -1610,13 +1566,13 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
       selfCopy = self;
       v57 = handlesCopy;
       v58 = metadataCopy;
-      v19 = v18;
-      v59 = v19;
-      v20 = v17;
-      v60 = v20;
-      v21 = _Block_copy(&v52);
-      v22 = [(SLDCollaborationHandshakeService *)self taskManager:v52];
-      v23 = [v22 startAggregateTask:v21 withTimeout:v16 cancellationHandler:15.0];
+      v20 = v19;
+      v59 = v20;
+      v21 = v18;
+      v60 = v21;
+      v22 = _Block_copy(&v52);
+      v23 = [(SLDCollaborationHandshakeService *)self taskManager:v52];
+      v24 = [v23 startAggregateTask:v22 withTimeout:v17 cancellationHandler:15.0];
 
       _Block_object_dispose(&buf, 8);
     }
@@ -1624,34 +1580,32 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
 
   else
   {
-    v24 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(SLDCollaborationHandshakeService *)v24 addParticipantHandles:v25 withMetadata:v26 reply:v27, v28, v29, v30, v31];
+      [(SLDCollaborationHandshakeService *)v25 addParticipantHandles:v26 withMetadata:v27 reply:v28, v29, v30, v31, v32];
     }
 
-    v32 = MEMORY[0x277CCA9B8];
+    v33 = MEMORY[0x277CCA9B8];
     v79 = *MEMORY[0x277CCA068];
     v80[0] = @"addParticipantHandles:withMetadata: cannot add participant handles because no participants were provided.";
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
-    v34 = [v32 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v33];
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+    v35 = [v33 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v34];
 
     privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke;
     block[3] = &unk_2789260C8;
-    v72 = v34;
+    v72 = v35;
     v73 = replyCopy;
-    v36 = v34;
+    v37 = v35;
     dispatch_async(privateSerialQueue2, block);
 
-    v23 = objc_opt_new();
+    v24 = objc_opt_new();
   }
 
-  v50 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v24;
 }
 
 uint64_t __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_2(uint64_t result)
@@ -1668,7 +1622,7 @@ uint64_t __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetada
 
 void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_3(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = v4;
   if (a2)
   {
@@ -1717,7 +1671,7 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
 
 void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_2_118(uint64_t a1)
 {
-  v2 = SLDaemonLogHandle();
+  v2 = SLDaemonLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1746,16 +1700,15 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
 {
   if (a2)
   {
-    v5 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
+    v4 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -1785,49 +1738,45 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
 
 void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_3_122(void *a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([v5 count])
+  v7 = [v5 count];
+  if (v7)
   {
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SLDaemonLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addParticipantHandles:withMetadata: Generated remote identities.", &v15, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addParticipantHandles:withMetadata: Generated remote identities.", &v13, 2u);
     }
 
     (*(a1[7] + 16))();
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = a1[6];
     (*(a1[8] + 16))();
   }
 
   else
   {
-    (*(a1[7] + 16))();
+    v9 = (*(a1[7] + 16))();
     if (!v6)
     {
-      v11 = MEMORY[0x277CCA9B8];
-      v17 = *MEMORY[0x277CCA068];
-      v18[0] = @"Could not generate person identities.";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-      v6 = [v11 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v12];
+      v10 = MEMORY[0x277CCA9B8];
+      v15 = *MEMORY[0x277CCA068];
+      v16[0] = @"Could not generate person identities.";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v6 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v11];
     }
 
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addParticipantHandles:withMetadata: Failed to generate identities. Error: %@", &v15, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addParticipantHandles:withMetadata: Failed to generate identities. Error: %@", &v13, 0xCu);
     }
 
     (*(a1[9] + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addParticipantHandles:(id)handles withFileURL:(id)l sandboxTokenData:(id)data metadata:(id)metadata reply:(id)reply
@@ -1839,7 +1788,7 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
   metadataCopy = metadata;
   replyCopy = reply;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v17 = SLDaemonLogHandle();
+  v17 = SLDaemonLogHandle(currentConnection);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1852,28 +1801,29 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
   v18 = objc_opt_new();
   [v18 setTotalUnitCount:1];
   collaborationIdentifier = [metadataCopy collaborationIdentifier];
-  if (!collaborationIdentifier || ([metadataCopy collaborationIdentifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "length") == 0, v20, collaborationIdentifier, v21))
+  v20 = collaborationIdentifier;
+  if (!collaborationIdentifier || ([metadataCopy collaborationIdentifier], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "length") == 0, v21, v20, v22))
   {
-    v31 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v32 = SLDaemonLogHandle(collaborationIdentifier);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService addParticipantHandles:withFileURL:sandboxTokenData:metadata:reply:];
     }
 
-    v32 = MEMORY[0x277CCA9B8];
+    v33 = MEMORY[0x277CCA9B8];
     v89 = *MEMORY[0x277CCA068];
     v90[0] = @"Missing collaboration identifier on the provided metadata.";
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
-    v34 = [v32 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v33];
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v35 = [v33 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v34];
 
     privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke;
     block[3] = &unk_2789260C8;
-    v81 = v34;
+    v81 = v35;
     v82 = replyCopy;
-    v36 = v34;
+    v37 = v35;
     dispatch_async(privateSerialQueue, block);
   }
 
@@ -1889,25 +1839,25 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
     v74 = &v73;
     v75 = 0x2020000000;
     obj = 0;
-    v22 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&obj];
+    v23 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&obj];
     objc_storeStrong(&v86, obj);
-    v76 = v22;
+    v76 = v23;
     if (v74[3] == -1)
     {
-      v43 = *&buf[8];
-      v44 = *(*&buf[8] + 40);
-      if (v44)
+      v44 = *&buf[8];
+      v45 = *(*&buf[8] + 40);
+      if (v45)
       {
-        v45 = v44;
-        v46 = *(v43 + 40);
-        *(v43 + 40) = v45;
+        v46 = v45;
+        v47 = *(v44 + 40);
+        *(v44 + 40) = v46;
       }
 
       else
       {
-        v47 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:3 userInfo:0];
-        v46 = *(*&buf[8] + 40);
-        *(*&buf[8] + 40) = v47;
+        v48 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:3 userInfo:0];
+        v47 = *(*&buf[8] + 40);
+        *(*&buf[8] + 40) = v48;
       }
 
       privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
@@ -1934,13 +1884,13 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
       v65 = &v73;
       v66 = v67;
       v64 = replyCopy;
-      v23 = _Block_copy(aBlock);
+      v24 = _Block_copy(aBlock);
       v61[0] = MEMORY[0x277D85DD0];
       v61[1] = 3221225472;
       v61[2] = __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4;
       v61[3] = &unk_278926050;
-      v24 = v23;
-      v62 = v24;
+      v25 = v24;
+      v62 = v25;
       v51 = _Block_copy(v61);
       v58[0] = MEMORY[0x277D85DD0];
       v58[1] = 3221225472;
@@ -1948,9 +1898,9 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
       v58[3] = &unk_278926C58;
       v58[4] = self;
       v59 = lCopy;
-      v25 = v24;
-      v60 = v25;
-      v26 = _Block_copy(v58);
+      v26 = v25;
+      v60 = v26;
+      v27 = _Block_copy(v58);
       taskManager = [(SLDCollaborationHandshakeService *)self taskManager];
       v53[0] = MEMORY[0x277D85DD0];
       v53[1] = 3221225472;
@@ -1959,14 +1909,14 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
       v53[4] = self;
       v54 = handlesCopy;
       v55 = metadataCopy;
-      v28 = v26;
-      v56 = v28;
-      v29 = v25;
-      v57 = v29;
-      v30 = [taskManager startAggregateTask:v53 withTimeout:v51 cancellationHandler:15.0];
+      v29 = v27;
+      v56 = v29;
+      v30 = v26;
+      v57 = v30;
+      v31 = [taskManager startAggregateTask:v53 withTimeout:v51 cancellationHandler:15.0];
 
       _Block_object_dispose(v67, 8);
-      v18 = v30;
+      v18 = v31;
     }
 
     _Block_object_dispose(&v73, 8);
@@ -1975,30 +1925,28 @@ void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_r
 
   else
   {
-    v37 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService addParticipantHandles:withFileURL:sandboxTokenData:metadata:reply:];
     }
 
-    v38 = MEMORY[0x277CCA9B8];
+    v39 = MEMORY[0x277CCA9B8];
     v87 = *MEMORY[0x277CCA068];
     v88 = @"There were no provided hashes to remove";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-    v40 = [v38 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v39];
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+    v41 = [v39 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v40];
 
     privateSerialQueue3 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     v77[0] = MEMORY[0x277D85DD0];
     v77[1] = 3221225472;
     v77[2] = __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_129;
     v77[3] = &unk_2789260C8;
-    v78 = v40;
+    v78 = v41;
     v79 = replyCopy;
-    v42 = v40;
+    v43 = v41;
     dispatch_async(privateSerialQueue3, v77);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2017,7 +1965,7 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 
 void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -2067,7 +2015,7 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_2_131(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = SLDaemonLogHandle();
+  v6 = SLDaemonLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2096,15 +2044,15 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 {
   v14[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  (*(*(a1 + 56) + 16))();
+  v6 = (*(*(a1 + 56) + 16))();
   if (a2)
   {
-    v6 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [*(a1 + 32) _updateMetadata:*(a1 + 40) withNewIdentities:*(a1 + 48)];
+    v8 = SLDaemonLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addCollaborationParticipants: finished adding participants, and the full initiation flow.", v12, 2u);
+      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] addCollaborationParticipants: finished adding participants, and the full initiation flow.", v12, 2u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -2114,23 +2062,21 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
   {
     if (!v5)
     {
-      v8 = MEMORY[0x277CCA9B8];
+      v9 = MEMORY[0x277CCA9B8];
       v13 = *MEMORY[0x277CCA068];
       v14[0] = @"addCollaborationParticipants adding participants failed";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-      v5 = [v8 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v9];
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v5 = [v9 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v10];
     }
 
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_132_cold_1();
     }
 
     (*(*(a1 + 64) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_136(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2159,47 +2105,43 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 
 void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_2_137(void *a1, void *a2, void *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated identities.", v15, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL: Generated identities.", v13, 2u);
     }
 
     (*(a1[7] + 16))();
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = a1[6];
     (*(a1[8] + 16))();
   }
 
   else
   {
-    (*(a1[7] + 16))();
-    if (!v6)
+    v9 = (*(a1[7] + 16))();
+    if (!v7)
     {
-      v11 = MEMORY[0x277CCA9B8];
-      v16 = *MEMORY[0x277CCA068];
-      v17[0] = @"Could not generate person identities.";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-      v6 = [v11 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v12];
+      v10 = MEMORY[0x277CCA9B8];
+      v14 = *MEMORY[0x277CCA068];
+      v15[0] = @"Could not generate person identities.";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v7 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v11];
     }
 
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_2_137_cold_1();
     }
 
     (*(a1[9] + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeParticipantIdentities:(id)identities withMetadata:(id)metadata reply:(id)reply
@@ -2208,7 +2150,7 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
   identitiesCopy = identities;
   metadataCopy = metadata;
   replyCopy = reply;
-  v11 = SLDaemonLogHandle();
+  v11 = SLDaemonLogHandle(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -2223,29 +2165,29 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 
     if (v13)
     {
-      v34 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = SLDaemonLogHandle(v14);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        [(SLDCollaborationHandshakeService *)v34 removeParticipantIdentities:v35 withMetadata:v36 reply:v37, v38, v39, v40, v41];
+        [(SLDCollaborationHandshakeService *)v35 removeParticipantIdentities:v36 withMetadata:v37 reply:v38, v39, v40, v41, v42];
       }
 
-      v42 = MEMORY[0x277CCA9B8];
+      v43 = MEMORY[0x277CCA9B8];
       v67 = *MEMORY[0x277CCA068];
       v68 = @"removeParticipantIdentities:withMetadata: cannot remove participant handles because the metadata did not have a collaboration identifier";
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-      v44 = [v42 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v43];
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+      v45 = [v43 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v44];
 
       privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
       v58[0] = MEMORY[0x277D85DD0];
       v58[1] = 3221225472;
       v58[2] = __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_144;
       v58[3] = &unk_2789260C8;
-      v59 = v44;
+      v59 = v45;
       v60 = replyCopy;
-      v46 = v44;
+      v47 = v45;
       dispatch_async(privateSerialQueue, v58);
 
-      v20 = objc_opt_new();
+      v21 = objc_opt_new();
     }
 
     else
@@ -2260,14 +2202,14 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
       aBlock[3] = &unk_278926B68;
       p_buf = &buf;
       v56 = replyCopy;
-      v14 = _Block_copy(aBlock);
+      v15 = _Block_copy(aBlock);
       v53[0] = MEMORY[0x277D85DD0];
       v53[1] = 3221225472;
       v53[2] = __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_3;
       v53[3] = &unk_278926050;
-      v15 = v14;
-      v54 = v15;
-      v16 = _Block_copy(v53);
+      v16 = v15;
+      v54 = v16;
+      v17 = _Block_copy(v53);
       v49[0] = MEMORY[0x277D85DD0];
       v49[1] = 3221225472;
       v49[2] = __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_145;
@@ -2275,11 +2217,11 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
       v49[4] = self;
       v50 = metadataCopy;
       v51 = identitiesCopy;
-      v17 = v15;
-      v52 = v17;
-      v18 = _Block_copy(v49);
+      v18 = v16;
+      v52 = v18;
+      v19 = _Block_copy(v49);
       taskManager = [(SLDCollaborationHandshakeService *)self taskManager];
-      v20 = [taskManager startAggregateTask:v18 withTimeout:v16 cancellationHandler:15.0];
+      v21 = [taskManager startAggregateTask:v19 withTimeout:v17 cancellationHandler:15.0];
 
       _Block_object_dispose(&buf, 8);
     }
@@ -2287,34 +2229,32 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
 
   else
   {
-    v21 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(SLDCollaborationHandshakeService *)v21 removeParticipantIdentities:v22 withMetadata:v23 reply:v24, v25, v26, v27, v28];
+      [(SLDCollaborationHandshakeService *)v22 removeParticipantIdentities:v23 withMetadata:v24 reply:v25, v26, v27, v28, v29];
     }
 
-    v29 = MEMORY[0x277CCA9B8];
+    v30 = MEMORY[0x277CCA9B8];
     v69 = *MEMORY[0x277CCA068];
     v70[0] = @"removeParticipantIdentities:withMetadata: cannot remove participant handles because no participants were provided.";
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
-    v31 = [v29 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v30];
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
+    v32 = [v30 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:2 userInfo:v31];
 
     privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke;
     block[3] = &unk_2789260C8;
-    v62 = v31;
+    v62 = v32;
     v63 = replyCopy;
-    v33 = v31;
+    v34 = v32;
     dispatch_async(privateSerialQueue2, block);
 
-    v20 = objc_opt_new();
+    v21 = objc_opt_new();
   }
 
-  v47 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 uint64_t __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_2(uint64_t result)
@@ -2331,7 +2271,7 @@ uint64_t __83__SLDCollaborationHandshakeService_removeParticipantIdentities_with
 
 void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_3(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a2)
   {
@@ -2357,7 +2297,7 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
 
 void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_145(uint64_t a1)
 {
-  v2 = SLDaemonLogHandle();
+  v2 = SLDaemonLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2390,17 +2330,16 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) allObjects];
-    v7 = [v3 _removeIdentities:v4 fromMetadata:*(a1 + 48)];
+    v6 = [v3 _removeIdentities:v4 fromMetadata:*(a1 + 48)];
 
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v5 = *(a1 + 56);
-    v6 = *(*(a1 + 56) + 16);
+    v5 = *(*(a1 + 56) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -2413,7 +2352,7 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
   metadataCopy = metadata;
   replyCopy = reply;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v17 = SLDaemonLogHandle();
+  v17 = SLDaemonLogHandle(currentConnection);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -2426,28 +2365,29 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
   v18 = objc_opt_new();
   [v18 setTotalUnitCount:1];
   collaborationIdentifier = [metadataCopy collaborationIdentifier];
-  if (!collaborationIdentifier || ([metadataCopy collaborationIdentifier], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "length") == 0, v20, collaborationIdentifier, v21))
+  v20 = collaborationIdentifier;
+  if (!collaborationIdentifier || ([metadataCopy collaborationIdentifier], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "length") == 0, v21, v20, v22))
   {
-    v29 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = SLDaemonLogHandle(collaborationIdentifier);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService removeParticipantIdentities:withFileURL:sandboxTokenData:metadata:reply:];
     }
 
-    v30 = MEMORY[0x277CCA9B8];
+    v31 = MEMORY[0x277CCA9B8];
     v83 = *MEMORY[0x277CCA068];
     v84[0] = @"Missing collaboration identifier on the provided metadata.";
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:&v83 count:1];
-    v32 = [v30 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v31];
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:&v83 count:1];
+    v33 = [v31 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v32];
 
     privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke;
     block[3] = &unk_2789260C8;
-    v75 = v32;
+    v75 = v33;
     v76 = replyCopy;
-    v34 = v32;
+    v35 = v33;
     dispatch_async(privateSerialQueue, block);
   }
 
@@ -2463,25 +2403,25 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
     v68 = &v67;
     v69 = 0x2020000000;
     obj = 0;
-    v22 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&obj];
+    v23 = [(SLDCollaborationHandshakeService *)self _acquireSandboxHandleData:dataCopy ForFileProviderDocumentURL:lCopy clientConnection:currentConnection error:&obj];
     objc_storeStrong(&v80, obj);
-    v70 = v22;
+    v70 = v23;
     if (v68[3] == -1)
     {
-      v41 = *&buf[8];
-      v42 = *(*&buf[8] + 40);
-      if (v42)
+      v42 = *&buf[8];
+      v43 = *(*&buf[8] + 40);
+      if (v43)
       {
-        v43 = v42;
-        v44 = *(v41 + 40);
-        *(v41 + 40) = v43;
+        v44 = v43;
+        v45 = *(v42 + 40);
+        *(v42 + 40) = v44;
       }
 
       else
       {
-        v45 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:3 userInfo:0];
-        v44 = *(*&buf[8] + 40);
-        *(*&buf[8] + 40) = v45;
+        v46 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:3 userInfo:0];
+        v45 = *(*&buf[8] + 40);
+        *(*&buf[8] + 40) = v46;
       }
 
       privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
@@ -2508,14 +2448,14 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
       v59 = &v67;
       v60 = v61;
       v58 = replyCopy;
-      v23 = _Block_copy(aBlock);
+      v24 = _Block_copy(aBlock);
       v55[0] = MEMORY[0x277D85DD0];
       v55[1] = 3221225472;
       v55[2] = __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4;
       v55[3] = &unk_278926050;
-      v24 = v23;
-      v56 = v24;
-      v25 = _Block_copy(v55);
+      v25 = v24;
+      v56 = v25;
+      v26 = _Block_copy(v55);
       taskManager = [(SLDCollaborationHandshakeService *)self taskManager];
       v50[0] = MEMORY[0x277D85DD0];
       v50[1] = 3221225472;
@@ -2525,12 +2465,12 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
       v51 = lCopy;
       v52 = metadataCopy;
       v53 = identitiesCopy;
-      v27 = v24;
-      v54 = v27;
-      v28 = [taskManager startAggregateTask:v50 withTimeout:v25 cancellationHandler:15.0];
+      v28 = v25;
+      v54 = v28;
+      v29 = [taskManager startAggregateTask:v50 withTimeout:v26 cancellationHandler:15.0];
 
       _Block_object_dispose(v61, 8);
-      v18 = v28;
+      v18 = v29;
     }
 
     _Block_object_dispose(&v67, 8);
@@ -2539,30 +2479,28 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
 
   else
   {
-    v35 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v36 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService removeParticipantIdentities:withFileURL:sandboxTokenData:metadata:reply:];
     }
 
-    v36 = MEMORY[0x277CCA9B8];
+    v37 = MEMORY[0x277CCA9B8];
     v81 = *MEMORY[0x277CCA068];
     v82 = @"There were no provided hashes to remove";
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    v38 = [v36 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v37];
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+    v39 = [v37 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v38];
 
     privateSerialQueue3 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     v71[0] = MEMORY[0x277D85DD0];
     v71[1] = 3221225472;
     v71[2] = __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_147;
     v71[3] = &unk_2789260C8;
-    v72 = v38;
+    v72 = v39;
     v73 = replyCopy;
-    v40 = v38;
+    v41 = v39;
     dispatch_async(privateSerialQueue3, v71);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2581,7 +2519,7 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
 
 void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4(uint64_t a1, int a2)
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(a1);
   v5 = v4;
   if (a2)
   {
@@ -2609,7 +2547,7 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
 void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_148(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = SLDaemonLogHandle();
+  v6 = SLDaemonLogHandle(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2638,19 +2576,19 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
 {
   v16[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  (*(*(a1 + 56) + 16))();
+  v6 = (*(*(a1 + 56) + 16))();
   if (a2)
   {
-    v6 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
-      _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] removeParticipantIdentities:withFileURL: finished removing participants.", v14, 2u);
+      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[SLDCollaborationHandshakeService] removeParticipantIdentities:withFileURL: finished removing participants.", v14, 2u);
     }
 
-    v7 = *(a1 + 32);
-    v8 = [*(a1 + 40) allObjects];
-    v9 = [v7 _removeIdentities:v8 fromMetadata:*(a1 + 48)];
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) allObjects];
+    v10 = [v8 _removeIdentities:v9 fromMetadata:*(a1 + 48)];
 
     (*(*(a1 + 64) + 16))();
   }
@@ -2659,28 +2597,26 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
   {
     if (!v5)
     {
-      v10 = MEMORY[0x277CCA9B8];
+      v11 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277CCA068];
       v16[0] = @"removeParticipantIdentities:withFileURL: removing participants failed";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      v5 = [v10 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v11];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v5 = [v11 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v12];
     }
 
-    v12 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_149_cold_1();
     }
 
     (*(*(a1 + 64) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendActionUpdateParticipantsWithMetadata:(id)metadata addedIdentities:(id)identities removedIdentities:(id)removedIdentities completion:(id)completion
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v65[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   identitiesCopy = identities;
   removedIdentitiesCopy = removedIdentities;
@@ -2692,108 +2628,108 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
   if (sourceProcessData)
   {
     processVerifier = [(SLDCollaborationHandshakeService *)self processVerifier];
-    v55 = 0;
-    v17 = [processVerifier verifyData:sourceProcessData tag:v15 error:&v55];
-    v40 = v55;
+    v57 = 0;
+    v18 = [processVerifier verifyData:sourceProcessData tag:v15 error:&v57];
+    v42 = v57;
 
-    if (v17)
+    if (v18)
     {
       if ([identitiesCopy count] || objc_msgSend(removedIdentitiesCopy, "count"))
       {
-        if ([identitiesCopy count] && -[SLDCollaborationHandshakeService _doesMetadata:containAnyOf:](self, "_doesMetadata:containAnyOf:", metadataCopy, identitiesCopy))
+        if ([identitiesCopy count] && (v19 = -[SLDCollaborationHandshakeService _doesMetadata:containAnyOf:](self, "_doesMetadata:containAnyOf:", metadataCopy, identitiesCopy), v19))
         {
-          v18 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v20 = SLDaemonLogHandle(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithMetadata:identitiesCopy addedIdentities:metadataCopy removedIdentities:? completion:?];
           }
 
-          v19 = MEMORY[0x277CCA9B8];
-          v58 = *MEMORY[0x277CCA068];
-          v59 = @"_sendActionUpdateParticipantsWithMetadata: attempted to add identities which already exist in the metadata identity map.";
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-          v21 = [v19 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v20];
+          v21 = MEMORY[0x277CCA9B8];
+          v60 = *MEMORY[0x277CCA068];
+          v61 = @"_sendActionUpdateParticipantsWithMetadata: attempted to add identities which already exist in the metadata identity map.";
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+          v23 = [v21 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v22];
 
-          completionCopy[2](completionCopy, 0, v21);
+          completionCopy[2](completionCopy, 0, v23);
         }
 
-        else if ([removedIdentitiesCopy count] && !-[SLDCollaborationHandshakeService _doesMetadata:containAllOf:](self, "_doesMetadata:containAllOf:", metadataCopy, removedIdentitiesCopy))
+        else if ([removedIdentitiesCopy count] && (v27 = -[SLDCollaborationHandshakeService _doesMetadata:containAllOf:](self, "_doesMetadata:containAllOf:", metadataCopy, removedIdentitiesCopy), (v27 & 1) == 0))
         {
-          v31 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v34 = SLDaemonLogHandle(v27);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithMetadata:removedIdentitiesCopy addedIdentities:metadataCopy removedIdentities:? completion:?];
           }
 
-          v32 = MEMORY[0x277CCA9B8];
-          v56 = *MEMORY[0x277CCA068];
-          v57 = @"_sendActionUpdateParticipantsWithMetadata: attempted to remove some identities which do not exist in the metadata identity map.";
-          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v34 = [v32 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v33];
+          v35 = MEMORY[0x277CCA9B8];
+          v58 = *MEMORY[0x277CCA068];
+          v59 = @"_sendActionUpdateParticipantsWithMetadata: attempted to remove some identities which do not exist in the metadata identity map.";
+          v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v37 = [v35 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v36];
 
-          completionCopy[2](completionCopy, 0, v34);
+          completionCopy[2](completionCopy, 0, v37);
         }
 
         else
         {
-          v53[0] = 0;
-          v53[1] = v53;
-          v53[2] = 0x2020000000;
-          v54 = 0;
+          v55[0] = 0;
+          v55[1] = v55;
+          v55[2] = 0x2020000000;
+          v56 = 0;
           aBlock[0] = MEMORY[0x277D85DD0];
           aBlock[1] = 3221225472;
           aBlock[2] = __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke;
           aBlock[3] = &unk_278926C80;
-          v52 = v53;
-          v51 = completionCopy;
-          v25 = _Block_copy(aBlock);
-          v26 = [metadataCopy copy];
-          [v26 setHandleToIdentityMap:MEMORY[0x277CBEC10]];
-          v27 = [MEMORY[0x277CDC718] actionWithMetadata:v26 addedIdentities:identitiesCopy removedIdentites:removedIdentitiesCopy];
-          v48[0] = 0;
-          v48[1] = v48;
-          v48[2] = 0x3032000000;
-          v48[3] = __Block_byref_object_copy__9;
-          v48[4] = __Block_byref_object_dispose__9;
-          v49 = 0;
-          v45[0] = MEMORY[0x277D85DD0];
-          v45[1] = 3221225472;
-          v45[2] = __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_2;
-          v45[3] = &unk_278926CA8;
-          v47 = v48;
-          v28 = v25;
-          v46 = v28;
-          [v27 setResponseHandlerBlock:v45];
+          v54 = v55;
+          v53 = completionCopy;
+          v28 = _Block_copy(aBlock);
+          v29 = [metadataCopy copy];
+          [v29 setHandleToIdentityMap:MEMORY[0x277CBEC10]];
+          v30 = [MEMORY[0x277CDC718] actionWithMetadata:v29 addedIdentities:identitiesCopy removedIdentites:removedIdentitiesCopy];
+          v50[0] = 0;
+          v50[1] = v50;
+          v50[2] = 0x3032000000;
+          v50[3] = __Block_byref_object_copy__9;
+          v50[4] = __Block_byref_object_dispose__9;
+          v51 = 0;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_2;
+          v47[3] = &unk_278926CA8;
+          v49 = v50;
+          v31 = v28;
+          v48 = v31;
+          [v30 setResponseHandlerBlock:v47];
           actionDispatcher = [(SLDCollaborationHandshakeService *)self actionDispatcher];
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_169;
-          v42[3] = &unk_278926CD0;
-          v44 = v48;
-          v30 = v28;
-          v43 = v30;
-          [actionDispatcher dispatchAction:v27 withAssertionForProcess:v17 completion:v42];
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_169;
+          v44[3] = &unk_278926CD0;
+          v46 = v50;
+          v33 = v31;
+          v45 = v33;
+          [actionDispatcher dispatchAction:v30 withAssertionForProcess:v18 completion:v44];
 
-          _Block_object_dispose(v48, 8);
-          _Block_object_dispose(v53, 8);
+          _Block_object_dispose(v50, 8);
+          _Block_object_dispose(v55, 8);
         }
       }
 
       else
       {
-        v35 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v38 = SLDaemonLogHandle(0);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithMetadata:addedIdentities:removedIdentities:completion:];
         }
 
-        v36 = MEMORY[0x277CCA9B8];
-        v60 = *MEMORY[0x277CCA068];
-        v61 = @"_sendActionUpdateParticipantsWithMetadata: there were no provided identities to remove/add.";
-        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        v38 = [v36 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v37];
+        v39 = MEMORY[0x277CCA9B8];
+        v62 = *MEMORY[0x277CCA068];
+        v63 = @"_sendActionUpdateParticipantsWithMetadata: there were no provided identities to remove/add.";
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+        v41 = [v39 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v40];
 
-        completionCopy[2](completionCopy, 0, v38);
+        completionCopy[2](completionCopy, 0, v41);
       }
 
       goto LABEL_23;
@@ -2802,25 +2738,23 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
 
   else
   {
-    v40 = 0;
+    v42 = 0;
   }
 
-  v22 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v24 = SLDaemonLogHandle(v16);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithMetadata:sourceProcessData addedIdentities:metadataCopy removedIdentities:? completion:?];
   }
 
-  v23 = MEMORY[0x277CCA9B8];
-  v62 = *MEMORY[0x277CCA068];
-  v63[0] = @"_sendActionUpdateParticipantsWithMetadata: failed to verify source process.";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
-  v17 = [v23 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v24];
+  v25 = MEMORY[0x277CCA9B8];
+  v64 = *MEMORY[0x277CCA068];
+  v65[0] = @"_sendActionUpdateParticipantsWithMetadata: failed to verify source process.";
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+  v18 = [v25 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v26];
 
-  completionCopy[2](completionCopy, 0, v17);
+  completionCopy[2](completionCopy, 0, v18);
 LABEL_23:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke(uint64_t result)
@@ -2837,16 +2771,17 @@ uint64_t __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWi
 
 void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(*(*(a1 + 40) + 8) + 40) invalidate];
-  if ([v3 success])
+  v4 = [v3 success];
+  if (v4)
   {
-    v4 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SLDaemonLogHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_DEFAULT, "_sendActionUpdateParticipantsWithMetadata: successfully added participants", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_DEFAULT, "_sendActionUpdateParticipantsWithMetadata: successfully added participants", v13, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -2854,32 +2789,30 @@ void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMe
 
   else
   {
-    v5 = [v3 error];
-    v6 = v5;
-    if (v5)
+    v6 = [v3 error];
+    v7 = v6;
+    if (v6)
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     else
     {
-      v8 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA068];
-      v14[0] = @"_updateParticipantsWithMetadata adding participants failed";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-      v7 = [v8 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v9];
+      v9 = MEMORY[0x277CCA9B8];
+      v14 = *MEMORY[0x277CCA068];
+      v15[0] = @"_updateParticipantsWithMetadata adding participants failed";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v8 = [v9 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v10];
     }
 
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = SLDaemonLogHandle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_2_cold_1();
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_169(uint64_t a1, void *a2, void *a3)
@@ -2894,18 +2827,18 @@ void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMe
 
   else
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SLDaemonLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "_sendActionUpdateParticipantsWithMetadata: action dispatcher successfully sent the update participants action to the app. Waiting for our response handler to be called", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_DEFAULT, "_sendActionUpdateParticipantsWithMetadata: action dispatcher successfully sent the update participants action to the app. Waiting for our response handler to be called", v10, 2u);
     }
   }
 }
 
 - (void)_sendActionUpdateParticipantsWithFileURL:(id)l metadata:(id)metadata addedIdentities:(id)identities removedIdentities:(id)removedIdentities completion:(id)completion
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   metadataCopy = metadata;
   identitiesCopy = identities;
@@ -2913,68 +2846,75 @@ void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMe
   completionCopy = completion;
   if (![identitiesCopy count] && !objc_msgSend(removedIdentitiesCopy, "count"))
   {
-    v25 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithFileURL:metadata:addedIdentities:removedIdentities:completion:];
     }
 
-    v18 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA068];
-    v34[0] = @"_sendActionUpdateParticipantsWithFileURL: there were no provided identities to remove/add.";
-    v19 = MEMORY[0x277CBEAC0];
-    v20 = v34;
-    v21 = &v33;
+    v19 = MEMORY[0x277CCA9B8];
+    v34 = *MEMORY[0x277CCA068];
+    v35[0] = @"_sendActionUpdateParticipantsWithFileURL: there were no provided identities to remove/add.";
+    v20 = MEMORY[0x277CBEAC0];
+    v21 = v35;
+    v22 = &v34;
     goto LABEL_17;
   }
 
-  if ([identitiesCopy count] && -[SLDCollaborationHandshakeService _doesMetadata:containAnyOf:](self, "_doesMetadata:containAnyOf:", metadataCopy, identitiesCopy))
+  if ([identitiesCopy count])
   {
-    v17 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v17 = [(SLDCollaborationHandshakeService *)self _doesMetadata:metadataCopy containAnyOf:identitiesCopy];
+    if (v17)
     {
-      [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithFileURL:identitiesCopy metadata:metadataCopy addedIdentities:? removedIdentities:? completion:?];
-    }
+      v18 = SLDaemonLogHandle(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithFileURL:identitiesCopy metadata:metadataCopy addedIdentities:? removedIdentities:? completion:?];
+      }
 
-    v18 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA068];
-    v32 = @"_sendActionUpdateParticipantsWithFileURL: attempted to add identities which already exist in the metadata identity map.";
-    v19 = MEMORY[0x277CBEAC0];
-    v20 = &v32;
-    v21 = &v31;
+      v19 = MEMORY[0x277CCA9B8];
+      v32 = *MEMORY[0x277CCA068];
+      v33 = @"_sendActionUpdateParticipantsWithFileURL: attempted to add identities which already exist in the metadata identity map.";
+      v20 = MEMORY[0x277CBEAC0];
+      v21 = &v33;
+      v22 = &v32;
 LABEL_17:
-    v26 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
-    v23 = [v18 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v26];
+      v28 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
+      v25 = [v19 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v28];
 
-    completionCopy[2](completionCopy, 0, v23);
-    goto LABEL_18;
-  }
-
-  if ([removedIdentitiesCopy count] && -[SLDCollaborationHandshakeService _doesMetadata:containAllOf:](self, "_doesMetadata:containAllOf:", metadataCopy, removedIdentitiesCopy))
-  {
-    v22 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithFileURL:removedIdentitiesCopy metadata:metadataCopy addedIdentities:? removedIdentities:? completion:?];
+      completionCopy[2](completionCopy, 0, v25);
+      goto LABEL_18;
     }
-
-    v18 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA068];
-    v30 = @"_sendActionUpdateParticipantsWithFileURL: attempted to remove some identities which do not exist in the metadata identity map.";
-    v19 = MEMORY[0x277CBEAC0];
-    v20 = &v30;
-    v21 = &v29;
-    goto LABEL_17;
   }
 
-  v23 = [metadataCopy copy];
-  [v23 setHandleToIdentityMap:MEMORY[0x277CBEC10]];
-  v24 = [MEMORY[0x277CDC718] actionWithMetadata:v23 addedIdentities:identitiesCopy removedIdentites:removedIdentitiesCopy];
-  v28 = completionCopy;
+  if ([removedIdentitiesCopy count])
+  {
+    v23 = [(SLDCollaborationHandshakeService *)self _doesMetadata:metadataCopy containAllOf:removedIdentitiesCopy];
+    if (v23)
+    {
+      v24 = SLDaemonLogHandle(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        [SLDCollaborationHandshakeService _sendActionUpdateParticipantsWithFileURL:removedIdentitiesCopy metadata:metadataCopy addedIdentities:? removedIdentities:? completion:?];
+      }
+
+      v19 = MEMORY[0x277CCA9B8];
+      v30 = *MEMORY[0x277CCA068];
+      v31 = @"_sendActionUpdateParticipantsWithFileURL: attempted to remove some identities which do not exist in the metadata identity map.";
+      v20 = MEMORY[0x277CBEAC0];
+      v21 = &v31;
+      v22 = &v30;
+      goto LABEL_17;
+    }
+  }
+
+  v25 = [metadataCopy copy];
+  [v25 setHandleToIdentityMap:MEMORY[0x277CBEC10]];
+  v26 = [MEMORY[0x277CDC718] actionWithMetadata:v25 addedIdentities:identitiesCopy removedIdentites:removedIdentitiesCopy];
+  v29 = completionCopy;
   SWPerformActionForDocumentURL();
 
 LABEL_18:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFileURL_metadata_addedIdentities_removedIdentities_completion___block_invoke(uint64_t a1, void *a2)
@@ -2993,14 +2933,15 @@ void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFi
 
 void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFileURL_metadata_addedIdentities_removedIdentities_completion___block_invoke_2(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) success])
+  v13[1] = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) success];
+  if (v2)
   {
-    v2 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SLDaemonLogHandle(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_231772000, v2, OS_LOG_TYPE_DEFAULT, "_SWUpdateCollaborationParticipantsAction with a fileURL returned success.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "_SWUpdateCollaborationParticipantsAction with a fileURL returned success.", v11, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -3008,32 +2949,30 @@ void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFi
 
   else
   {
-    v3 = [*(a1 + 32) error];
-    v4 = v3;
-    if (v3)
+    v4 = [*(a1 + 32) error];
+    v5 = v4;
+    if (v4)
     {
-      v5 = v3;
+      v6 = v4;
     }
 
     else
     {
-      v6 = MEMORY[0x277CCA9B8];
-      v11 = *MEMORY[0x277CCA068];
-      v12[0] = @"_SWUpdateCollaborationParticipantsAction (with a fileURL) response was not successful.";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-      v5 = [v6 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v7];
+      v7 = MEMORY[0x277CCA9B8];
+      v12 = *MEMORY[0x277CCA068];
+      v13[0] = @"_SWUpdateCollaborationParticipantsAction (with a fileURL) response was not successful.";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v6 = [v7 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v8];
     }
 
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = SLDaemonLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFileURL_metadata_addedIdentities_removedIdentities_completion___block_invoke_2_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateMetadata:(id)metadata withNewIdentities:(id)identities
@@ -3066,40 +3005,40 @@ void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFi
 
 - (id)_removeIdentities:(id)identities fromMetadata:(id)metadata
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   metadataCopy = metadata;
   v7 = [metadataCopy copy];
   handleToIdentityMap = [metadataCopy handleToIdentityMap];
   v9 = [handleToIdentityMap mutableCopy];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = identitiesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [v9 allKeysForObject:{*(*(&v19 + 1) + 8 * i), v19}];
+        v15 = [v9 allKeysForObject:{*(*(&v18 + 1) + 8 * i), v18}];
         if ([v15 count])
         {
           [v9 removeObjectsForKeys:v15];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -3108,47 +3047,45 @@ void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFi
   v16 = [v9 copy];
   [v7 setHandleToIdentityMap:v16];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)_doesMetadata:(id)metadata containAllOf:(id)of
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   handleToIdentityMap = [metadata handleToIdentityMap];
   allValues = [handleToIdentityMap allValues];
 
   if ([allValues count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = ofCopy;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if (![allValues containsObject:{*(*(&v16 + 1) + 8 * i), v16}])
+          if (![allValues containsObject:{*(*(&v15 + 1) + 8 * i), v15}])
           {
             v13 = 0;
             goto LABEL_12;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -3167,43 +3104,42 @@ LABEL_12:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_doesMetadata:(id)metadata containAnyOf:(id)of
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   handleToIdentityMap = [metadata handleToIdentityMap];
   allValues = [handleToIdentityMap allValues];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = ofCopy;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        if ([allValues containsObject:{*(*(&v14 + 1) + 8 * i), v14}])
+        if ([allValues containsObject:{*(*(&v13 + 1) + 8 * i), v13}])
         {
           LOBYTE(v9) = 1;
           goto LABEL_11;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         continue;
@@ -3215,7 +3151,6 @@ LABEL_12:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3224,47 +3159,46 @@ LABEL_11:
   v23[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
-  if (identifierCopy && [identifierCopy length])
+  v8 = completionCopy;
+  if (identifierCopy && (completionCopy = [identifierCopy length]) != 0)
   {
     personIdentityGenerator = [(SLDCollaborationHandshakeService *)self personIdentityGenerator];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
     v17[2] = __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdentifier_completion___block_invoke_2;
     v17[3] = &unk_278926D20;
-    v18 = completionCopy;
-    v9 = completionCopy;
+    v18 = v8;
+    v10 = v8;
     [personIdentityGenerator generateLocalIdentityForDocumentIdentifier:identifierCopy completionHandler:v17];
 
-    v10 = v18;
+    v11 = v18;
   }
 
   else
   {
-    v11 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SLDaemonLogHandle(completionCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService _localPersonIdentityForDocumentIdentifier:completion:];
     }
 
-    v12 = MEMORY[0x277CCA9B8];
+    v13 = MEMORY[0x277CCA9B8];
     v22 = *MEMORY[0x277CCA068];
     v23[0] = @"Missing collaboration identifier.";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v14 = [v12 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v13];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v15 = [v13 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v14];
 
     privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdentifier_completion___block_invoke;
     block[3] = &unk_2789260C8;
-    v20 = v14;
-    v21 = completionCopy;
-    v10 = completionCopy;
-    v9 = v14;
+    v20 = v15;
+    v21 = v8;
+    v11 = v8;
+    v10 = v15;
     dispatch_async(privateSerialQueue, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdentifier_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -3296,7 +3230,8 @@ void __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdent
   handlesCopy = handles;
   identifierCopy = identifier;
   completionCopy = completion;
-  if (identifierCopy && [identifierCopy length])
+  v11 = completionCopy;
+  if (identifierCopy && (completionCopy = [identifierCopy length]) != 0)
   {
     v28[0] = 0;
     v28[1] = v28;
@@ -3304,16 +3239,16 @@ void __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdent
     v28[3] = __Block_byref_object_copy__9;
     v28[4] = __Block_byref_object_dispose__9;
     v29 = MEMORY[0x277CBEC10];
-    v11 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SLDaemonLogHandle(completionCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "_personIdentitiesForHandles invoking SLPersonIdentityGenerator to generate identity hashes", buf, 2u);
+      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "_personIdentitiesForHandles invoking SLPersonIdentityGenerator to generate identity hashes", buf, 2u);
     }
 
-    v12 = [SLPersonIdentityGenerator alloc];
+    v13 = [SLPersonIdentityGenerator alloc];
     privateSerialQueue = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
-    v14 = [(SLPersonIdentityGenerator *)v12 initWithQueue:privateSerialQueue];
+    v15 = [(SLPersonIdentityGenerator *)v13 initWithQueue:privateSerialQueue];
 
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
@@ -3322,87 +3257,86 @@ void __89__SLDCollaborationHandshakeService__localPersonIdentityForDocumentIdent
     v26 = v28;
     v23 = handlesCopy;
     selfCopy = self;
-    v25 = completionCopy;
-    [(SLPersonIdentityGenerator *)v14 generatePersonIdentitiesForHandles:v23 documentIdentifier:identifierCopy completionHandler:v22];
+    v25 = v11;
+    [(SLPersonIdentityGenerator *)v15 generatePersonIdentitiesForHandles:v23 documentIdentifier:identifierCopy completionHandler:v22];
 
     _Block_object_dispose(v28, 8);
   }
 
   else
   {
-    v15 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = SLDaemonLogHandle(completionCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService _personIdentitiesForHandles:documentIdentifier:completion:];
     }
 
-    v16 = MEMORY[0x277CCA9B8];
+    v17 = MEMORY[0x277CCA9B8];
     v33 = *MEMORY[0x277CCA068];
     v34[0] = @"Missing collaboration identifier on the provided metadata.";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-    v18 = [v16 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v17];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v19 = [v17 errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:1 userInfo:v18];
 
     privateSerialQueue2 = [(SLDCollaborationHandshakeService *)self privateSerialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke;
     block[3] = &unk_2789260C8;
-    v31 = v18;
-    v32 = completionCopy;
-    v20 = v18;
+    v31 = v19;
+    v32 = v11;
+    v21 = v19;
     dispatch_async(privateSerialQueue2, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke_185(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 count];
-  if (v4 != [*(a1 + 32) count])
+  v5 = [*(a1 + 32) count];
+  if (v4 != v5)
   {
-    v5 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SLDaemonLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke_185_cold_1(v3, (a1 + 32));
     }
   }
 
-  v6 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SLDaemonLogHandle(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_231772000, v6, OS_LOG_TYPE_DEFAULT, "_personIdentitiesForHandles received hashes from SLPersonIdentityGenerator", buf, 2u);
+    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "_personIdentitiesForHandles received hashes from SLPersonIdentityGenerator", buf, 2u);
   }
 
-  v7 = *(*(a1 + 56) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v3;
-  v9 = v3;
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v3;
+  v10 = v3;
 
-  v10 = [*(a1 + 40) privateSerialQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke_186;
-  v13[3] = &unk_278926610;
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  v14 = v11;
+  v11 = [*(a1 + 40) privateSerialQueue];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke_186;
+  v14[3] = &unk_278926610;
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
   v15 = v12;
-  dispatch_async(v10, v13);
+  v16 = v13;
+  dispatch_async(v11, v14);
 }
 
 - (int64_t)_acquireSandboxHandleData:(id)data ForFileProviderDocumentURL:(id)l clientConnection:(id)connection error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   connectionCopy = connection;
   if (![dataCopy length])
   {
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -3411,11 +3345,11 @@ void __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_document
   }
 
   buf[0] = 0;
-  [dataCopy getBytes:buf range:{objc_msgSend(dataCopy, "length") - 1, 1}];
+  v13 = [dataCopy getBytes:buf range:{objc_msgSend(dataCopy, "length") - 1, 1}];
   if (buf[0])
   {
-    v13 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SLDaemonLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -3423,8 +3357,8 @@ void __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_document
 LABEL_7:
 
 LABEL_8:
-    v14 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SLDaemonLogHandle(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SLDCloudDocsService _acquireSandboxHandleData:ForFileProviderDocumentURL:clientConnection:error:];
     }
@@ -3435,30 +3369,31 @@ LABEL_8:
     }
 
 LABEL_12:
-    v15 = -1;
+    v17 = -1;
     goto LABEL_13;
   }
 
   [dataCopy bytes];
-  v18 = sandbox_extension_consume();
-  if (v18 == -1)
+  v15 = sandbox_extension_consume();
+  if (v15 == -1)
   {
     goto LABEL_8;
   }
 
-  v15 = v18;
-  if (![(SLDCollaborationHandshakeService *)self _connection:connectionCopy hasPermissionForFileURL:lCopy])
+  v17 = v15;
+  v19 = [(SLDCollaborationHandshakeService *)self _connection:connectionCopy hasPermissionForFileURL:lCopy];
+  if ((v19 & 1) == 0)
   {
-    v23 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = SLDaemonLogHandle(v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = connectionCopy;
-      _os_log_error_impl(&dword_231772000, v23, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but the xpc connection (%@) does not have permission to access the file. Releasing sandbox handle.", buf, 0x20u);
+      v28 = 2112;
+      v29 = lCopy;
+      v30 = 2112;
+      v31 = connectionCopy;
+      _os_log_error_impl(&dword_231772000, v24, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but the xpc connection (%@) does not have permission to access the file. Releasing sandbox handle.", buf, 0x20u);
     }
 
     if (error)
@@ -3466,26 +3401,26 @@ LABEL_12:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:6 userInfo:0];
     }
 
-    [(SLDCollaborationHandshakeService *)self _releaseSandboxHandle:v15];
+    [(SLDCollaborationHandshakeService *)self _releaseSandboxHandle:v17];
     goto LABEL_12;
   }
 
-  v24 = 0;
-  v19 = [(SLDCollaborationHandshakeService *)self _fileURLHasFileProvider:lCopy error:&v24];
-  v20 = v24;
-  v21 = SLDaemonLogHandle();
-  v22 = v21;
-  if (!v19)
+  v25 = 0;
+  v20 = [(SLDCollaborationHandshakeService *)self _fileURLHasFileProvider:lCopy error:&v25];
+  v21 = v25;
+  v22 = SLDaemonLogHandle(v21);
+  v23 = v22;
+  if (!v20)
   {
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v27 = 2112;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = v20;
-      _os_log_error_impl(&dword_231772000, v22, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but could not find a valid FPItem for that file. This file might not be managed by a FileProvider. Releasing sandbox handle. FileProvider error: %@", buf, 0x20u);
+      v28 = 2112;
+      v29 = lCopy;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_error_impl(&dword_231772000, v23, OS_LOG_TYPE_ERROR, "[%p] _acquireSandboxHandleData: acquired a sandbox handle for a file (%@), but could not find a valid FPItem for that file. This file might not be managed by a FileProvider. Releasing sandbox handle. FileProvider error: %@", buf, 0x20u);
     }
 
     if (error)
@@ -3493,25 +3428,24 @@ LABEL_12:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.sociallayerd.SLDCollaborationHandshakeService" code:4 userInfo:0];
     }
 
-    [(SLDCollaborationHandshakeService *)self _releaseSandboxHandle:v15];
+    [(SLDCollaborationHandshakeService *)self _releaseSandboxHandle:v17];
 
     goto LABEL_12;
   }
 
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     selfCopy3 = self;
-    v27 = 2048;
-    v28 = v15;
-    v29 = 2112;
-    v30 = lCopy;
-    _os_log_impl(&dword_231772000, v22, OS_LOG_TYPE_DEFAULT, "[%p] _acquireSandboxHandleData: acquired a new handle: %llu for file: %@", buf, 0x20u);
+    v28 = 2048;
+    v29 = v17;
+    v30 = 2112;
+    v31 = lCopy;
+    _os_log_impl(&dword_231772000, v23, OS_LOG_TYPE_DEFAULT, "[%p] _acquireSandboxHandleData: acquired a new handle: %llu for file: %@", buf, 0x20u);
   }
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v17;
 }
 
 - (BOOL)_fileURLHasFileProvider:(id)provider error:(id *)error
@@ -3528,9 +3462,9 @@ LABEL_13:
 {
   _connectionCopy = _connection;
   lCopy = l;
-  if (_connectionCopy && ([_connectionCopy auditToken], objc_msgSend(lCopy, "isFileURL")) && (objc_msgSend(lCopy, "path"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8))
+  if (_connectionCopy && (objc_msgSend_auditToken(_connectionCopy), [lCopy isFileURL]) && (objc_msgSend(lCopy, "path"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8))
   {
-    [_connectionCopy auditToken];
+    objc_msgSend_auditToken(_connectionCopy);
     path = [lCopy path];
     [path fileSystemRepresentation];
     v10 = sandbox_check_by_audit_token() == 0;
@@ -3548,34 +3482,25 @@ LABEL_13:
 {
   v13 = *MEMORY[0x277D85DE8];
   v5 = sandbox_extension_release();
-  v6 = SLDaemonLogHandle();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v7 = SLDaemonLogHandle(v5);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationHandshakeService _releaseSandboxHandle:];
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218240;
     selfCopy = self;
     v11 = 2048;
     handleCopy = handle;
-    _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_DEFAULT, "[%p] _releaseSandboxHandle: released handle: %lld", &v9, 0x16u);
+    _os_log_impl(&dword_231772000, v8, OS_LOG_TYPE_DEFAULT, "[%p] _releaseSandboxHandle: released handle: %lld", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)allowsConnection:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] connection does not have the proper entitlement and will not be allowed to access the service: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_3_cold_1()
@@ -3585,42 +3510,20 @@ void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborati
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_3_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] generateIdentityProofForPublicKeys:collaborationIdentifier: timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__SLDCollaborationHandshakeService_generateProofForIdentity_collaborationIdentifier_reply___block_invoke_2_39_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] generateIdentityProofForPublicKeys:collaborationIdentifier: error generating proof with SLPersonIdentityGenerator. proof: %@ error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)verifySourceBundleIdentifierFromMetadata:(uint64_t)a1 reply:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 localIdentifier];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startCollaborationWithMetadata:(uint64_t)a1 participants:(void *)a2 reply:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 localIdentifier];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3_cold_1()
@@ -3630,31 +3533,12 @@ void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_parti
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_3_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] performStartCollaborationActionWithMetadata timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_59_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) collaborationIdentifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __86__SLDCollaborationHandshakeService_startCollaborationWithMetadata_participants_reply___block_invoke_72_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] startCollaborationWithMetadata failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_cold_1()
@@ -3664,71 +3548,35 @@ void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandb
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_92_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "startCollaborationWithFileURL adding participants failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_98_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) collaborationIdentifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SLDCollaborationHandshakeService_startCollaborationWithFileURL_sandboxTokenData_metadata_participants_reply___block_invoke_3_104_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "_SWStartCollaborationAction failed with response: %@. Error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, a2, a3, "_SWStartCollaborationAction failed with response: %@. Error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)addParticipantHandles:(uint64_t)a3 withMetadata:(uint64_t)a4 reply:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot add participant handles because the metadata did not have a collaboration identifier", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SLDCollaborationHandshakeService addParticipantHandles:withMetadata:reply:]";
+  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot add participant handles because the metadata did not have a collaboration identifier", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addParticipantHandles:(uint64_t)a3 withMetadata:(uint64_t)a4 reply:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot add participant handles because no participants were provided.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __77__SLDCollaborationHandshakeService_addParticipantHandles_withMetadata_reply___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] addParticipantHandles:withMetadata: timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addParticipantHandles:withFileURL:sandboxTokenData:metadata:reply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "removeCollaborationParticipantHashes:withFileURL: unable to create SWPersonIdentities from provided hashes, or there were no provided hashes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SLDCollaborationHandshakeService addParticipantHandles:withMetadata:reply:]";
+  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot add participant handles because no participants were provided.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addParticipantHandles:withFileURL:sandboxTokenData:metadata:reply:.cold.2()
@@ -3745,42 +3593,18 @@ void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_s
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] removeCollaborationParticipantHashes:withFileURL timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_132_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "addCollaborationParticipants adding participants failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __102__SLDCollaborationHandshakeService_addParticipantHandles_withFileURL_sandboxTokenData_metadata_reply___block_invoke_2_137_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] _startCollaborationWithFileURL Failed to generate identities. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)removeParticipantIdentities:(uint64_t)a3 withMetadata:(uint64_t)a4 reply:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot remove participant handles because the metadata did not have a collaboration identifier", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SLDCollaborationHandshakeService removeParticipantIdentities:withMetadata:reply:]";
+  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot remove participant handles because the metadata did not have a collaboration identifier", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)removeParticipantIdentities:(uint64_t)a3 withMetadata:(uint64_t)a4 reply:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot remove participants because no identities were provided.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SLDCollaborationHandshakeService removeParticipantIdentities:withMetadata:reply:]";
+  OUTLINED_FUNCTION_6(&dword_231772000, a1, a3, "%s cannot remove participants because no identities were provided.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_3_cold_1()
@@ -3788,14 +3612,6 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMetadata_reply___block_invoke_3_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] removeParticipantIdentities:withMetadata: timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeParticipantIdentities:withFileURL:sandboxTokenData:metadata:reply:.cold.1()
@@ -3812,42 +3628,24 @@ void __83__SLDCollaborationHandshakeService_removeParticipantIdentities_withMeta
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLDCollaborationHandshakeService] removeParticipantIdentities:withFileURL timeout timer fired after %f seconds", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFileURL_sandboxTokenData_metadata_reply___block_invoke_149_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "removeParticipantIdentities:withFileURL: removing participants failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_sendActionUpdateParticipantsWithMetadata:(uint64_t)a1 addedIdentities:(void *)a2 removedIdentities:completion:.cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = [a2 handleToIdentityMap];
-  v3 = [v2 allValues];
+  v3 = [a2 handleToIdentityMap];
+  v4 = [v3 allValues];
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = a1;
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_9(&dword_231772000, v4, v5, "_sendActionUpdateParticipantsWithMetadata: attempted to add identities which already exist in the metadata identity map. addedIdentities: %@ metadata identities: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_231772000, v5, v6, "_sendActionUpdateParticipantsWithMetadata: attempted to add identities which already exist in the metadata identity map. addedIdentities: %@ metadata identities: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_sendActionUpdateParticipantsWithMetadata:(uint64_t)a1 addedIdentities:(void *)a2 removedIdentities:completion:.cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = [a2 handleToIdentityMap];
-  v3 = [v2 allValues];
+  v3 = [a2 handleToIdentityMap];
+  v4 = [v3 allValues];
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = a1;
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_9(&dword_231772000, v4, v5, "_sendActionUpdateParticipantsWithMetadata: attempted to remove some identities which do not exist in the metadata identity map. removedIdentities: %@ metadata identities: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_9(&dword_231772000, v5, v6, "_sendActionUpdateParticipantsWithMetadata: attempted to remove some identities which do not exist in the metadata identity map. removedIdentities: %@ metadata identities: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_sendActionUpdateParticipantsWithMetadata:addedIdentities:removedIdentities:completion:.cold.3()
@@ -3859,45 +3657,28 @@ void __108__SLDCollaborationHandshakeService_removeParticipantIdentities_withFil
 
 - (void)_sendActionUpdateParticipantsWithMetadata:(uint64_t)a1 addedIdentities:(void *)a2 removedIdentities:completion:.cold.4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 localIdentifier];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMetadata_addedIdentities_removedIdentities_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "_sendActionUpdateParticipantsWithMetadata: adding participants failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendActionUpdateParticipantsWithFileURL:(uint64_t)a1 metadata:(void *)a2 addedIdentities:removedIdentities:completion:.cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a2 handleToIdentityMap];
   v3 = [v2 allValues];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendActionUpdateParticipantsWithFileURL:(uint64_t)a1 metadata:(void *)a2 addedIdentities:removedIdentities:completion:.cold.2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a2 handleToIdentityMap];
   v3 = [v2 allValues];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendActionUpdateParticipantsWithFileURL:metadata:addedIdentities:removedIdentities:completion:.cold.3()
@@ -3907,48 +3688,20 @@ void __123__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithMe
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __131__SLDCollaborationHandshakeService__sendActionUpdateParticipantsWithFileURL_metadata_addedIdentities_removedIdentities_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "_SWUpdateCollaborationParticipantsAction with a fileURL failed. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_localPersonIdentityForDocumentIdentifier:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "_localPersonIdentityForDocumentIdentifier: cannot generate local identity without a document identifier. DocID: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_personIdentitiesForHandles:documentIdentifier:completion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "_personIdentitiesForHandles: cannot generate identities without a document identifier or handles. DocID: %@ handles: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __94__SLDCollaborationHandshakeService__personIdentitiesForHandles_documentIdentifier_completion___block_invoke_185_cold_1(void *a1, id *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   [*a2 count];
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_releaseSandboxHandle:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  WORD2(v4) = 2048;
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%p] _releaseSandboxHandle: unable to release sandbox extension handle: %lld. Sandbox extensions are a limited resource and this should be investigated!", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  WORD2(v3) = 2048;
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%p] _releaseSandboxHandle: unable to release sandbox extension handle: %lld. Sandbox extensions are a limited resource and this should be investigated!", v2, v3);
 }
 
 @end

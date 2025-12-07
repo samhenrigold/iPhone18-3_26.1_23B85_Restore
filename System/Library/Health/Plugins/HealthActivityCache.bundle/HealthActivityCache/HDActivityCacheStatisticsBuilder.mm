@@ -69,7 +69,7 @@
     sub_179D8(self, 10, &v14);
     v13 = 10;
     v16 = &v13;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v13);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v13, &std::piecewise_construct, &v16);
     v11 = 0;
     v12 = 0;
     __p = 0;
@@ -106,7 +106,7 @@
     sub_179D8(self, 179, &v13);
     v12 = 179;
     v15 = &v12;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12, &std::piecewise_construct, &v15);
     v10 = 0;
     v11 = 0;
     __p = 0;
@@ -142,7 +142,7 @@
     sub_179D8(self, 8, &v14);
     v13 = 8;
     v16 = &v13;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v13);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v13, &std::piecewise_construct, &v16);
     v11 = 0;
     v12 = 0;
     __p = 0;
@@ -179,7 +179,7 @@
     sub_179D8(self, 12, &v13);
     v12 = 12;
     v15 = &v12;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12, &std::piecewise_construct, &v15);
     v10 = 0;
     v11 = 0;
     __p = 0;
@@ -215,7 +215,7 @@
     sub_179D8(self, 7, &v13);
     v12 = 7;
     v15 = &v12;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12, &std::piecewise_construct, &v15);
     v10 = 0;
     v11 = 0;
     __p = 0;
@@ -251,7 +251,7 @@
     sub_179D8(self, 101, &v13);
     v12 = 101;
     v15 = &v12;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12, &std::piecewise_construct, &v15);
     v10 = 0;
     v11 = 0;
     __p = 0;
@@ -302,7 +302,7 @@
     sub_179D8(self, 75, &v13);
     v12 = 75;
     v15 = &v12;
-    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12);
+    v4 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &v12, &std::piecewise_construct, &v15);
     v10 = 0;
     v11 = 0;
     __p = 0;
@@ -332,25 +332,24 @@
 
 - (void)addWorkouts:(const void *)workouts
 {
-  v5 = *workouts;
-  v6 = *(workouts + 1);
-  v7 = *workouts;
-  if (v6 != v7)
+  v5 = *(workouts + 1);
+  v6 = *workouts;
+  if (v5 != v6)
   {
-    v8 = (v6 - v7) >> 6;
+    v7 = (v5 - v6) >> 6;
     begin = self->_workouts.__begin_;
     end = self->_workouts.__end_;
-    v11 = end - begin;
+    v10 = end - begin;
     if (end == begin)
     {
-      sub_16A60(&self->_workouts.__begin_, begin, v7, v6, v8);
+      sub_16A60(&self->_workouts.__begin_, begin, v6, v5, v7);
     }
 
     else
     {
-      sub_169C0(&self->_workouts.__begin_, v8 + (v11 >> 6));
+      sub_169C0(&self->_workouts.__begin_, v7 + (v10 >> 6));
       sub_16A60(&self->_workouts.__begin_, self->_workouts.__end_, *workouts, *(workouts + 1), (*(workouts + 1) - *workouts) >> 6);
-      sub_16C90(self->_workouts.__begin_, self->_workouts.__begin_ + v11, self->_workouts.__end_, &v12);
+      sub_16C90(self->_workouts.__begin_, self->_workouts.__begin_ + v10, self->_workouts.__end_, &v11);
     }
 
     sub_21AA0(self);
@@ -397,7 +396,7 @@ LABEL_8:
 
     else
     {
-      sub_1CCAC(&self->_activationLogSamples.__begin_, v4 - 0x3333333333333333 * (v7 >> 3));
+      sub_1CCAC(&self->_activationLogSamples, v4 - 0x3333333333333333 * (v7 >> 3));
       sub_1CD88(&self->_activationLogSamples, self->_activationLogSamples.__end_, v8, v9, 0xCCCCCCCCCCCCCCCDLL * ((v9 - v8) >> 3));
       sub_1D270(self->_activationLogSamples.__begin_, (self->_activationLogSamples.__begin_ + v7), self->_activationLogSamples.__end_, &v10);
     }
@@ -416,15 +415,15 @@ LABEL_9:
   typeCopy = type;
   componentsCopy = components;
   calendarCopy = calendar;
-  v42[0] = [typeCopy code];
+  code = [typeCopy code];
   canonicalUnit = [typeCopy canonicalUnit];
   v11 = [NSDate dateWithTimeIntervalSinceReferenceDate:self->_builderStartTime];
   v12 = [calendarCopy dateByAddingComponents:componentsCopy toDate:v11 options:0];
   v36 = [NSDate dateWithTimeIntervalSinceReferenceDate:self->_builderEndTime];
   v13 = [[HKStatisticsCollection alloc] initWithAnchorDate:v11 statisticsInterval:componentsCopy];
-  sub_179D8(self, v42[0], &__p);
-  v42[2] = v42;
-  v14 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, v42);
+  sub_179D8(self, code, &__p);
+  v43 = &code;
+  v14 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &code, &std::piecewise_construct, &v43);
   v15 = v14;
   v16 = v14[7];
   if (v16)
@@ -569,7 +568,7 @@ LABEL_9:
           v15 = DWORD2(v24);
           if (SDWORD2(v24) >= SDWORD2(v12))
           {
-            v15 = DWORD2(*(v9 + 8));
+            v15 = *(v9 + 1);
           }
 
           DWORD2(v24) = v15;
@@ -696,26 +695,26 @@ LABEL_9:
 
 - (void)addDeviceSample:(HDActivityCacheStatisticsBuilderSample *)sample typeCode:(int64_t)code
 {
-  *&v10 = sub_1DD04(self, a2, sample, code, v4, v5, v6, v7, v14, v15).n128_u64[0];
-  v13 = sub_1DD24(v11, v12, &std::piecewise_construct, v10);
-  sub_18F18(v9, v16, v13 + 5, 0);
+  *&v10 = sub_1DD04(self, a2, sample, code, v4, v5, v6, v7, v16, v17).n128_u64[0];
+  v15 = sub_1DD24(v11, v12, &std::piecewise_construct, v13, v14, v10);
+  sub_18F18(v9, v18, v15 + 5, 0);
   sub_21910(v9, v8);
 }
 
 - (void)addDeviceSamples:(const void *)samples typeCode:(int64_t)code
 {
-  v8[0] = code;
-  v8[2] = v8;
-  v7 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, v8);
+  codeCopy = code;
+  v9 = &codeCopy;
+  v7 = sub_1CB64(&self->_sourceTotalsByIntervalIndexByTypeCode, &codeCopy, &std::piecewise_construct, &v9);
   sub_21C08(self, samples, v7 + 5, 0);
   sub_21910(self, code);
 }
 
 - (void)addWorkoutSample:(HDActivityCacheStatisticsBuilderSample *)sample typeCode:(int64_t)code
 {
-  *&v10 = sub_1DD04(self, a2, sample, code, v4, v5, v6, v7, v14, v15).n128_u64[0];
-  v13 = sub_1DD24(v11, v12, &std::piecewise_construct, v10);
-  sub_18F18(v9, v16, v13 + 5, 1);
+  *&v10 = sub_1DD04(self, a2, sample, code, v4, v5, v6, v7, v16, v17).n128_u64[0];
+  v15 = sub_1DD24(v11, v12, &std::piecewise_construct, v13, v14, v10);
+  sub_18F18(v9, v18, v15 + 5, 1);
   sub_21910(v9, v8);
 }
 

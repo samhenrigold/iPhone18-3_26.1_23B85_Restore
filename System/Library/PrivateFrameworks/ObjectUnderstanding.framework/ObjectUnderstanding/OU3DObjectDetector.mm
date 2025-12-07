@@ -12,7 +12,7 @@
 - (id)run;
 - (id)updateWithAccumulatePC:(__n128)c currentCameraPose:(__n128)pose;
 - (id)updateWithAccumulatePC:(id)c ouframe:(id)ouframe;
-- (uint64_t)assignIdentifiersForNewObjects:(uint64_t)objects withOldObjects:(uint64_t)oldObjects;
+- (uint64_t)assignIdentifiersForNewObjects:(uint64_t *)objects withOldObjects:(uint64_t)oldObjects;
 - (vector<unsigned)runwithinClassNMS:(OU3DObjectDetector *)self ids:(SEL)ids ori_iou:(const void *)ori_iou nms_iou:(void *)nms_iou;
 - (void)CopyObjectEmbedding:(id)embedding fromOldObjects:(id)objects;
 - (void)CopyRefineHistory:(id)history fromOldObjects:(id)objects;
@@ -29,7 +29,6 @@
 - (void)postprocess;
 - (void)regulateObjectCornerOrders:(id)orders withOldObjects:(id)objects;
 - (void)reviseObjectsUponParentId:(id)id;
-- (void)run;
 - (void)setObjectRepresentationEnabled:(BOOL)enabled;
 @end
 
@@ -40,7 +39,7 @@
   initCopy = init;
   v23 = *MEMORY[0x277D85DE8];
   self->isOnline_ = init;
-  v5 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
+  v5 = _OULoggingGetOSLogForCategoryObjectUnderstanding(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     isMainThread = [MEMORY[0x277CCACC8] isMainThread];
@@ -149,7 +148,7 @@
 
 - (id)generateOfflineObjects:(id)objects onlineObjects:(id)onlineObjects
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   onlineObjectsCopy = onlineObjects;
   v7 = OUVizTool::Get(onlineObjectsCopy);
@@ -161,96 +160,96 @@
       [(OU3DObjectDetector *)self OfflineModelInitialization];
     }
 
-    v45 = onlineObjectsCopy;
+    v48 = onlineObjectsCopy;
     selfCopy = self;
     v8 = objc_alloc_init(OUPointCloud);
-    v61 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
+    v63 = 0u;
     v9 = objectsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v59 objects:v67 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v62 objects:v70 count:16];
     if (v10)
     {
-      v11 = *v60;
+      v11 = *v63;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v60 != v11)
+          if (*v63 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = [v9 objectForKeyedSubscript:*(*(&v59 + 1) + 8 * i)];
+          v13 = [v9 objectForKeyedSubscript:*(*(&v62 + 1) + 8 * i)];
           pointsToWorld = [v13 pointsToWorld];
           pointsToWorld2 = [v13 pointsToWorld];
           v16 = [v13 count];
           *buf = 0;
-          v65 = 0;
-          v66 = 0;
+          v68 = 0;
+          v69 = 0;
           _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(buf, pointsToWorld, pointsToWorld2 + 16 * v16, (pointsToWorld2 + 16 * v16 - pointsToWorld) >> 4);
           v17 = [v13 count];
           -[OUPointCloud append:points:semanticLabels:semanticVotes:](v8, "append:points:semanticLabels:semanticVotes:", v17, *buf, [v13 semanticLabels], objc_msgSend(v13, "semanticVotes"));
           if (*buf)
           {
-            v65 = *buf;
+            v68 = *buf;
             operator delete(*buf);
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
       while (v10);
     }
 
     v18 = [(OUPointCloud *)v8 count];
-    v19 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    v20 = v19;
+    v20 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v18, v19);
+    v21 = v20;
     if (v18 > 0x3E7)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_25D1DB000, v20, OS_LOG_TYPE_INFO, "[3DOU] Running ios train pipeline.", buf, 2u);
+        _os_log_impl(&dword_25D1DB000, v21, OS_LOG_TYPE_INFO, "[3DOU] Running ios train pipeline.", buf, 2u);
       }
 
       ou3dod::OU3DODInterface::Process(selfCopy->offline_detector_.__ptr_, [(OUPointCloud *)v8 getCpp]);
       ptr = selfCopy->offline_detector_.__ptr_;
-      v65 = 0;
-      v66 = 0;
+      v68 = 0;
+      v69 = 0;
       *buf = 0;
       std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(buf, *(ptr + 1), *(ptr + 2), 0x6DB6DB6DB6DB6DB7 * ((*(ptr + 2) - *(ptr + 1)) >> 5));
-      ou3dod::OU3DODInterface::GetDetectedBoxes(selfCopy->offline_detector_.__ptr_, &cfstr_Cabinet.isa, v58);
+      ou3dod::OU3DODInterface::GetDetectedBoxes(v61, selfCopy->offline_detector_.__ptr_, &cfstr_Cabinet.isa);
       array = [MEMORY[0x277CBEB18] array];
-      v56 = 0u;
+      v59 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      v23 = v45;
-      v24 = [(OUVizTool *)v23 countByEnumeratingWithState:&v54 objects:v63 count:16];
-      if (v24)
+      v58 = 0u;
+      v24 = v48;
+      v25 = [(OUVizTool *)v24 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      if (v25)
       {
-        v25 = *v55;
+        v26 = *v58;
         do
         {
-          for (j = 0; j != v24; ++j)
+          for (j = 0; j != v25; ++j)
           {
-            if (*v55 != v25)
+            if (*v58 != v26)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            v27 = *(*(&v54 + 1) + 8 * j);
-            detection_source = [v27 detection_source];
+            v28 = *(*(&v57 + 1) + 8 * j);
+            detection_source = [v28 detection_source];
             if ([detection_source isEqualToString:@"online"])
             {
-              v29 = [v27 hasBoxesDict:@"raw_postprocess"];
+              v30 = [v28 hasBoxesDict:@"raw_postprocess"];
 
-              if (v29)
+              if (v30)
               {
-                [array addObject:v27];
+                [array addObject:v28];
               }
             }
 
@@ -259,125 +258,123 @@
             }
           }
 
-          v24 = [(OUVizTool *)v23 countByEnumeratingWithState:&v54 objects:v63 count:16];
+          v25 = [(OUVizTool *)v24 countByEnumeratingWithState:&v57 objects:v66 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      boxesFromObjects(array, @"raw_postprocess", 0, v53);
-      OU3DKitchenObjectMerger::SetDetectionAndPointCloud(&selfCopy->offline_merger_, v53, v58, ([(OUPointCloud *)v8 getCpp]+ 24));
-      OU3DKitchenObjectMerger::Merge(&selfCopy->offline_merger_);
-      OU3DKitchenObjectMerger::GetOutput(&selfCopy->offline_merger_, v52);
+      boxesFromObjects(array, @"raw_postprocess", 0, v56);
+      OU3DKitchenObjectMerger::SetDetectionAndPointCloud(&selfCopy->offline_merger_, v56, v61, ([(OUPointCloud *)v8 getCpp]+ 24));
+      OU3DKitchenObjectMerger::Merge(&selfCopy->offline_merger_, v31, v32, v33);
+      OU3DKitchenObjectMerger::GetOutput(&selfCopy->offline_merger_, v55);
       merger = selfCopy->merger;
       if (merger)
       {
-        [(OU3DObjectMerger *)merger removeLowHeightStairObjects:v52];
+        objc_msgSend_removeLowHeightStairObjects_(merger);
       }
 
       else
       {
-        memset(v51, 0, sizeof(v51));
+        memset(v54, 0, sizeof(v54));
       }
 
-      v31 = boxesToObjects(v51, @"rawdetection", 1u);
-      v44 = boxesToObjects(buf, @"raw_offline", 1u);
-      v32 = array;
-      updateObjectsWithBoxes(v53, v32, @"raw_online");
-      for (k = 0; [v32 count] > k; ++k)
+      v35 = boxesToObjects(v54, @"rawdetection", 1u);
+      v47 = boxesToObjects(buf, @"raw_offline", 1u);
+      v36 = array;
+      updateObjectsWithBoxes(v56, v36, @"raw_online");
+      for (k = 0; [v36 count] > k; ++k)
       {
-        v34 = [v32 objectAtIndexedSubscript:k];
-        corners_status = [v34 corners_status];
-        v36 = [corners_status copy];
-        v37 = [v32 objectAtIndexedSubscript:k];
-        [v37 setCorners_status:v36];
+        v38 = [v36 objectAtIndexedSubscript:k];
+        corners_status = [v38 corners_status];
+        v40 = [corners_status copy];
+        v41 = [v36 objectAtIndexedSubscript:k];
+        [v41 setCorners_status:v40];
       }
 
-      [(OU3DObjectDetector *)selfCopy assignIdentifiersForNewObjects:v31 withOldObjects:v32];
-      v38 = [v31 mutableCopy];
-      [v38 addObjectsFromArray:v32];
-      [v38 addObjectsFromArray:v44];
-      v39 = [(OU3DObjectDetector *)selfCopy combineBoxTypeAndEmbeddingByUUID:v38];
-      [(OU3DObjectDetector *)selfCopy assignParentId:v39 isOffline:1];
-      [(OU3DObjectDetector *)selfCopy reviseObjectsUponParentId:v39];
-      v40 = [(OU3DObjectDetector *)selfCopy MergeLShapeObjects:v39 isLastFrame:1];
+      [(OU3DObjectDetector *)selfCopy assignIdentifiersForNewObjects:v35 withOldObjects:v36];
+      v42 = [v35 mutableCopy];
+      [v42 addObjectsFromArray:v36];
+      [v42 addObjectsFromArray:v47];
+      v43 = [(OU3DObjectDetector *)selfCopy combineBoxTypeAndEmbeddingByUUID:v42];
+      [(OU3DObjectDetector *)selfCopy assignParentId:v43 isOffline:1];
+      [(OU3DObjectDetector *)selfCopy reviseObjectsUponParentId:v43];
+      v44 = [(OU3DObjectDetector *)selfCopy MergeLShapeObjects:v43 isLastFrame:1];
 
-      v21 = v40;
+      v22 = v44;
       if (selfCopy->_ObjectRepresentationEnabled)
       {
-        ou3dor::OU3DObjectRepresentation::AddObjectRepresentation(selfCopy->ou3dor_.__ptr_, v8, v40);
+        ou3dor::OU3DObjectRepresentation::AddObjectRepresentation(selfCopy->ou3dor_.__ptr_, v8, v44);
       }
 
-      v41 = OUVizTool::Get([(OUObjectAsset *)selfCopy->objectAsset_ setObjects:v40]);
+      v45 = OUVizTool::Get([(OUObjectAsset *)selfCopy->objectAsset_ setObjects:v44]);
       std::string::basic_string[abi:ne200100]<0>(__p, "offline_objects");
-      OUVizTool::SaveObjects(v41, __p, v40, @"rawdetection");
-      if (v50 < 0)
+      OUVizTool::SaveObjects(v45, __p, v44, @"rawdetection");
+      if (v53 < 0)
       {
         operator delete(__p[0]);
       }
 
-      CheckOutputValidation(v40);
+      CheckOutputValidation(v44);
 
-      __p[0] = v51;
+      __p[0] = v54;
       std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](__p);
-      v51[0] = v52;
-      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v51);
-      v52[0] = v53;
-      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v52);
+      v54[0] = v55;
+      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v54);
+      v55[0] = v56;
+      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v55);
 
-      v53[0] = v58;
-      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v53);
-      v58[0] = buf;
-      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v58);
+      v56[0] = v61;
+      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v56);
+      v61[0] = buf;
+      std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](v61);
     }
 
     else
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        [(OU3DObjectDetector *)buf generateOfflineObjects:v20 onlineObjects:?];
+        [(OU3DObjectDetector *)buf generateOfflineObjects:v21 onlineObjects:?];
       }
 
-      v21 = v45;
+      v22 = v48;
     }
 
-    onlineObjectsCopy = v45;
+    onlineObjectsCopy = v48;
   }
 
   else
   {
-    v21 = onlineObjectsCopy;
+    v22 = onlineObjectsCopy;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v22;
 }
 
 - (id)combineBoxTypeAndEmbeddingByUUID:(id)d
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v48 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
+  v48 = 0u;
   obj = dCopy;
-  v36 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-  if (v36)
+  v37 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+  if (v37)
   {
-    v35 = *v47;
+    v36 = *v48;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v47 != v35)
+        if (*v48 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v46 + 1) + 8 * i);
+        v4 = *(*(&v47 + 1) + 8 * i);
         identifier = [v4 identifier];
         v6 = [dictionary objectForKey:identifier];
         v7 = v6 == 0;
@@ -392,52 +389,52 @@
         identifier3 = [v4 identifier];
         identifier2 = [dictionary objectForKey:identifier3];
 
-        v44 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
+        v44 = 0u;
         boxesDict = [v4 boxesDict];
         allKeys = [boxesDict allKeys];
 
-        v12 = [allKeys countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v43 objects:v51 count:16];
         if (v12)
         {
-          v13 = *v43;
+          v13 = *v44;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v43 != v13)
+              if (*v44 != v13)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v15 = *(*(&v42 + 1) + 8 * j);
+              v15 = *(*(&v43 + 1) + 8 * j);
               boxesDict2 = [identifier2 boxesDict];
               v17 = [boxesDict2 objectForKey:v15];
               v18 = v17 == 0;
 
               if (v18)
               {
-                memset(v39, 0, sizeof(v39));
+                memset(v40, 0, sizeof(v40));
                 boxesDict3 = [v4 boxesDict];
-                v21 = [boxesDict3 objectForKeyedSubscript:v15];
-                box3dFromNSArray(v21, v39);
+                v23 = [boxesDict3 objectForKeyedSubscript:v15];
+                box3dFromNSArray(v23, v40);
 
-                [identifier2 addBoxesDict:v39 forDictKey:v15];
+                [identifier2 addBoxesDict:v40 forDictKey:v15];
               }
 
               else
               {
-                v19 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+                v21 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v19, v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
-                  [(OU3DObjectDetector *)&buf combineBoxTypeAndEmbeddingByUUID:v41, v19];
+                  [(OU3DObjectDetector *)&buf combineBoxTypeAndEmbeddingByUUID:v42, v21];
                 }
               }
             }
 
-            v12 = [allKeys countByEnumeratingWithState:&v42 objects:v50 count:16];
+            v12 = [allKeys countByEnumeratingWithState:&v43 objects:v51 count:16];
           }
 
           while (v12);
@@ -447,9 +444,9 @@
         if (![embedding2d count])
         {
           embedding2d2 = [v4 embedding2d];
-          v24 = [embedding2d2 count] == 0;
+          v26 = [embedding2d2 count] == 0;
 
-          if (v24)
+          if (v26)
           {
             goto LABEL_23;
           }
@@ -466,9 +463,9 @@ LABEL_23:
         }
 
         embedding3d2 = [v4 embedding3d];
-        v27 = [embedding3d2 count] == 0;
+        v29 = [embedding3d2 count] == 0;
 
-        if (!v27)
+        if (!v29)
         {
           embedding3d = [v4 embedding3d];
           [identifier2 setEmbedding3d:embedding3d];
@@ -479,9 +476,9 @@ LABEL_26:
         if (!cadModelName)
         {
           cadModelName2 = [v4 cadModelName];
-          v30 = cadModelName2 == 0;
+          v32 = cadModelName2 == 0;
 
-          if (v30)
+          if (v32)
           {
             goto LABEL_32;
           }
@@ -493,15 +490,13 @@ LABEL_26:
 LABEL_32:
       }
 
-      v36 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v37 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
-    while (v36);
+    while (v37);
   }
 
   allValues = [dictionary allValues];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
@@ -542,9 +537,9 @@ LABEL_32:
 
 - (void)OfflineModelInitialization
 {
-  v4 = *MEMORY[0x277D85DE8];
-  OU3DSSDConfig::OU3DSSDConfig(v3, 33, xmmword_25D279490, vdupq_n_s32(0x3E19999Au), xmmword_25D2794A0);
-  ou3dod::OU3DAnchorFreeDetector::createForOffline(v3, v2);
+  v3 = *MEMORY[0x277D85DE8];
+  OU3DSSDConfig::OU3DSSDConfig(v2, 0x21u, xmmword_25D279490, vdupq_n_s32(0x3E19999Au), xmmword_25D2794A0);
+  ou3dod::OU3DAnchorFreeDetector::createForOffline();
 }
 
 - (void)InitializeRGBRefinement:(id)refinement
@@ -595,24 +590,24 @@ LABEL_32:
 
 - (void)initialization
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (self->isOnline_)
   {
-    OU3DSSDConfig::OU3DSSDConfig(buf, 33, xmmword_25D2794B0, vdupq_n_s32(0x3E19999Au), xmmword_25D2794C0);
-    ou3dod::OU3DAnchorFreeDetector::createForOnline(buf, v2);
+    OU3DSSDConfig::OU3DSSDConfig(buf, 0x21u, xmmword_25D2794B0, vdupq_n_s32(0x3E19999Au), xmmword_25D2794C0);
+    ou3dod::OU3DAnchorFreeDetector::createForOnline();
   }
 
-  v3 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = _OULoggingGetOSLogForCategoryObjectUnderstanding(self, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *buf = 0;
-    _os_log_impl(&dword_25D1DB000, v3, OS_LOG_TYPE_INFO, "============ 3D Object Detector has been initialized. =========", buf, 2u);
+    buf[0].n128_u16[0] = 0;
+    _os_log_impl(&dword_25D1DB000, v2, OS_LOG_TYPE_INFO, "============ 3D Object Detector has been initialized. =========", buf, 2u);
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *buf = 0;
-    _os_log_impl(&dword_25D1DB000, v3, OS_LOG_TYPE_INFO, "Start to init 3D Object Representation.", buf, 2u);
+    buf[0].n128_u16[0] = 0;
+    _os_log_impl(&dword_25D1DB000, v2, OS_LOG_TYPE_INFO, "Start to init 3D Object Representation.", buf, 2u);
   }
 
   operator new();
@@ -620,7 +615,7 @@ LABEL_32:
 
 - (id)run
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v3 = kdebug_trace();
   v4 = OUVizTool::Get(v3);
   OUVizTool::StartNewFrame(v4);
@@ -631,15 +626,15 @@ LABEL_32:
 
   if (v7)
   {
-    v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [OU3DObjectDetector run];
     }
 
 LABEL_4:
 
-    v9 = selfCopy->allObjects;
+    v11 = selfCopy->allObjects;
     goto LABEL_11;
   }
 
@@ -647,12 +642,12 @@ LABEL_4:
   {
     [(OU3DObjectDetector *)selfCopy modelProcess];
     standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v11 = [standardUserDefaults2 BOOLForKey:@"3dod_earlyout_inference"];
+    v13 = [standardUserDefaults2 BOOLForKey:@"3dod_earlyout_inference"];
 
-    if (v11)
+    if (v13)
     {
-      v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v14, v15);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [OU3DObjectDetector run];
       }
@@ -662,12 +657,12 @@ LABEL_4:
 
     [(OU3DObjectDetector *)selfCopy postprocess];
     standardUserDefaults3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v15 = [standardUserDefaults3 BOOLForKey:@"3dod_earlyout_post_process"];
+    v18 = [standardUserDefaults3 BOOLForKey:@"3dod_earlyout_post_process"];
 
-    if (v15)
+    if (v18)
     {
-      v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v19, v20);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [OU3DObjectDetector run];
       }
@@ -676,47 +671,47 @@ LABEL_4:
     }
 
     array = [MEMORY[0x277CBEB18] array];
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v16 = selfCopy->allObjects;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v74 objects:v88 count:16];
-    if (v17)
+    v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v21 = selfCopy->allObjects;
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v81 objects:v95 count:16];
+    if (v22)
     {
-      v18 = *v75;
+      v23 = *v82;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v75 != v18)
+          if (*v82 != v23)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v21);
           }
 
-          v20 = *(*(&v74 + 1) + 8 * i);
-          if ([v20 hasBoxesDict:@"rawdetection"])
+          v25 = *(*(&v81 + 1) + 8 * i);
+          if ([v25 hasBoxesDict:@"rawdetection"])
           {
-            [array addObject:v20];
+            [array addObject:v25];
           }
         }
 
-        v17 = [(NSArray *)v16 countByEnumeratingWithState:&v74 objects:v88 count:16];
+        v22 = [(NSArray *)v21 countByEnumeratingWithState:&v81 objects:v95 count:16];
       }
 
-      while (v17);
+      while (v22);
     }
 
-    v21 = boxesToObjects(&selfCopy->merged_box3ds_, @"rawdetection", 1u);
-    v22 = packBoxesDict(v21, &selfCopy->merged_box3ds_, @"raw_postprocess");
+    v26 = boxesToObjects(&selfCopy->merged_box3ds_, @"rawdetection", 1u);
+    v27 = packBoxesDict(v26, &selfCopy->merged_box3ds_, @"raw_postprocess");
 
-    [(OU3DObjectDetector *)selfCopy assignIdentifiersForNewObjects:v22 withOldObjects:array];
-    v55 = [(OU3DObjectDetector *)selfCopy regulateObjectSize:v22 withOldObjects:array];
+    [(OU3DObjectDetector *)selfCopy assignIdentifiersForNewObjects:v27 withOldObjects:array];
+    v62 = [(OU3DObjectDetector *)selfCopy regulateObjectSize:v27 withOldObjects:array];
 
     [OU3DObjectDetector regulateObjectCornerOrders:selfCopy withOldObjects:"regulateObjectCornerOrders:withOldObjects:"];
     [OU3DObjectDetector CopyObjectEmbedding:selfCopy fromOldObjects:"CopyObjectEmbedding:fromOldObjects:"];
-    v24 = [MEMORY[0x277CBEB58] set];
-    if (selfCopy->_RgbRefinementEnabled && OU3DObjectRGBSizeRefiner::IsOUFrameValid(selfCopy->arframe_, v23))
+    v29 = [MEMORY[0x277CBEB58] set];
+    if (selfCopy->_RgbRefinementEnabled && OU3DObjectRGBSizeRefiner::IsOUFrameValid(selfCopy->arframe_, v28))
     {
       floor_height = *(selfCopy->online_detector_.__ptr_ + 40);
       if (floor_height >= selfCopy->floor_height_)
@@ -730,154 +725,153 @@ LABEL_4:
         [(OU3DObjectDetector *)selfCopy InitializeRGBRefinement:selfCopy->arframe_];
       }
 
-      v26 = selfCopy->pre_rgb_size_refined_;
-      v27 = [v55 copy];
+      v31 = selfCopy->pre_rgb_size_refined_;
+      v32 = [v62 copy];
       pre_rgb_size_refined = selfCopy->pre_rgb_size_refined_;
-      selfCopy->pre_rgb_size_refined_ = v27;
+      selfCopy->pre_rgb_size_refined_ = v32;
 
       [(OU3DObjectDetector *)selfCopy CopyRefineHistory:selfCopy->pre_rgb_size_refined_ fromOldObjects:array];
-      [(OU3DObjectDetector *)selfCopy CopyRefineHistory:v55 fromOldObjects:array];
-      [(OU3DObjectDetector *)selfCopy ResestObjectSizeHistoryIfSizeChange:v55 withOldObjects:array];
-      v29 = [(OU3DObjectDetector *)selfCopy FindNeedRefineBoxUUID:v55 withOldObjects:v26];
+      [(OU3DObjectDetector *)selfCopy CopyRefineHistory:v62 fromOldObjects:array];
+      [(OU3DObjectDetector *)selfCopy ResestObjectSizeHistoryIfSizeChange:v62 withOldObjects:array];
+      v34 = [(OU3DObjectDetector *)selfCopy FindNeedRefineBoxUUID:v62 withOldObjects:v31];
       ptr = selfCopy->object_rgb_size_refiner_.__ptr_;
       *(ptr + 352) = selfCopy->floor_height_;
-      v31 = OU3DObjectRGBSizeRefiner::RefineObjects(ptr, v55, selfCopy->arframe_, selfCopy->_anon_e0, selfCopy->_anon_e0, array, v29, v24);
+      v36 = OU3DObjectRGBSizeRefiner::RefineObjects(ptr, v62, selfCopy->arframe_, selfCopy->_anon_e0, selfCopy->_anon_e0, array, v34, v29);
 
-      v32 = selfCopy->pre_rgb_size_refined_;
-      OU3DObjectRGBSizeRefinerParams::OU3DObjectRGBSizeRefinerParams(&v61, (selfCopy->object_rgb_size_refiner_.__ptr_ + 40));
-      SmoothRefinedBoxes(v31, v32, &v61, v24, array, *(selfCopy->object_rgb_size_refiner_.__ptr_ + 49));
-      OU3DObjectRGBSizeRefinerParams::~OU3DObjectRGBSizeRefinerParams(&v61.var1);
+      v37 = selfCopy->pre_rgb_size_refined_;
+      OU3DObjectRGBSizeRefinerParams::OU3DObjectRGBSizeRefinerParams(&v68, (selfCopy->object_rgb_size_refiner_.__ptr_ + 40));
+      SmoothRefinedBoxes(v36, v37, &v68, v29, array, *(selfCopy->object_rgb_size_refiner_.__ptr_ + 49));
+      OU3DObjectRGBSizeRefinerParams::~OU3DObjectRGBSizeRefinerParams(&v68.var1);
       selfCopy->num_pre_key_frames_ = selfCopy->num_cur_key_frames_;
 
-      v55 = v31;
+      v62 = v36;
     }
 
     standardUserDefaults4 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v34 = [standardUserDefaults4 BOOLForKey:@"3dod_earlyout_size_refinement"];
+    v39 = [standardUserDefaults4 BOOLForKey:@"3dod_earlyout_size_refinement"];
 
     p_allObjects = &selfCopy->allObjects;
-    if (v34)
+    if (v39)
     {
-      v35 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v42 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v40, v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
         [OU3DObjectDetector run];
       }
 
-      v9 = *p_allObjects;
+      v11 = *p_allObjects;
     }
 
     else
     {
       kdebug_trace();
-      [(OUObjectCompleteness *)selfCopy->object_completeness_ updateRawCornersStatusNoTimer:v55 withOldObjects:array cameraPose:selfCopy->camera_ camera:*selfCopy->_anon_a0, *&selfCopy->_anon_a0[16], *&selfCopy->_anon_a0[32], *&selfCopy->_anon_a0[48]];
+      [(OUObjectCompleteness *)selfCopy->object_completeness_ updateRawCornersStatusNoTimer:v62 withOldObjects:array cameraPose:selfCopy->camera_ camera:*selfCopy->_anon_a0, *&selfCopy->_anon_a0[16], *&selfCopy->_anon_a0[32], *&selfCopy->_anon_a0[48]];
       kdebug_trace();
       array2 = [MEMORY[0x277CBEB18] array];
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v36 = selfCopy->pre_rgb_size_refined_;
-      v37 = [(NSArray *)v36 countByEnumeratingWithState:&v70 objects:v87 count:16];
-      if (v37)
+      v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v43 = selfCopy->pre_rgb_size_refined_;
+      v44 = [(NSArray *)v43 countByEnumeratingWithState:&v77 objects:&v94 count:16];
+      if (v44)
       {
-        v38 = *v71;
+        v45 = *v78;
         do
         {
-          for (j = 0; j != v37; ++j)
+          for (j = 0; j != v44; ++j)
           {
-            if (*v71 != v38)
+            if (*v78 != v45)
             {
-              objc_enumerationMutation(v36);
+              objc_enumerationMutation(v43);
             }
 
-            v40 = *(*(&v70 + 1) + 8 * j);
-            identifier = [v40 identifier];
-            v42 = [v24 containsObject:identifier];
+            v47 = *(*(&v77 + 1) + 8 * j);
+            identifier = [v47 identifier];
+            v49 = [v29 containsObject:identifier];
 
-            if (v42)
+            if (v49)
             {
-              boxesDict = [v40 boxesDict];
-              v44 = [boxesDict objectForKey:@"rawdetection"];
+              boxesDict = [v47 boxesDict];
+              v51 = [boxesDict objectForKey:@"rawdetection"];
 
-              if (v44)
+              if (v51)
               {
-                memset(v69, 0, sizeof(v69));
-                box3dFromNSArray(v44, v69);
-                type = [v40 type];
-                [v40 confidence];
-                v46 = v45;
-                identifier2 = [v40 identifier];
-                OUBox3d::OUBox3d(&v61, v69, &type, identifier2, v46);
+                memset(v76, 0, sizeof(v76));
+                box3dFromNSArray(v51, v76);
+                type = [v47 type];
+                [v47 confidence];
+                v53 = v52;
+                identifier2 = [v47 identifier];
+                OUBox3d::OUBox3d(&v68, v76, &type, identifier2, v53);
 
-                OUBox3d::OUBox3d(&v79, &v61);
-                memset(v59, 0, sizeof(v59));
-                std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d const*,OUBox3d const*>(v59, &v79, v87, 1uLL);
-                v48 = boxesToObjects(v59, @"others", 1u);
-                v49 = [v48 objectAtIndexedSubscript:0];
+                OUBox3d::OUBox3d(&v86, &v68);
+                memset(v66, 0, sizeof(v66));
+                std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d const*,OUBox3d const*>(v66, &v86, &v94, 1uLL);
+                v55 = boxesToObjects(v66, @"others", 1u);
+                v56 = [v55 objectAtIndexedSubscript:0];
 
-                v78 = v59;
-                std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v78);
+                v85 = v66;
+                std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v85);
 
                 if (__p)
                 {
                   operator delete(__p);
                 }
 
-                if (v83)
+                if (v90)
                 {
-                  v84 = v83;
-                  operator delete(v83);
+                  v91 = v90;
+                  operator delete(v90);
                 }
 
-                [array2 addObject:v49];
-                if (v67)
+                [array2 addObject:v56];
+                if (v74)
                 {
-                  operator delete(v67);
+                  operator delete(v74);
                 }
 
-                if (v65)
+                if (v72)
                 {
-                  v66 = v65;
-                  operator delete(v65);
+                  v73 = v72;
+                  operator delete(v72);
                 }
               }
             }
           }
 
-          v37 = [(NSArray *)v36 countByEnumeratingWithState:&v70 objects:v87 count:16];
+          v44 = [(NSArray *)v43 countByEnumeratingWithState:&v77 objects:&v94 count:16];
         }
 
-        while (v37);
+        while (v44);
       }
 
-      v50 = [array2 mutableCopy];
-      [v50 addObjectsFromArray:v55];
-      [(OU3DObjectDetector *)selfCopy assignParentId:v55 isOffline:0];
-      objc_storeStrong(p_allObjects, v55);
-      v51 = selfCopy;
+      v57 = [array2 mutableCopy];
+      [v57 addObjectsFromArray:v62];
+      [(OU3DObjectDetector *)selfCopy assignParentId:v62 isOffline:0];
+      objc_storeStrong(p_allObjects, v62);
+      v58 = selfCopy;
       [(OUInternalInfoDumper *)selfCopy->debug_dumper_ setFirstARFrame:selfCopy->arframe_];
-      [(OUInternalInfoDumper *)v51->debug_dumper_ dumpObjects:v51->allObjects];
-      v52 = [(OU3DObjectDetector *)v51 MergeLShapeObjects:v51->allObjects isLastFrame:0];
-      v53 = *p_allObjects;
-      *p_allObjects = v52;
+      [(OUInternalInfoDumper *)v58->debug_dumper_ dumpObjects:v58->allObjects];
+      v59 = [(OU3DObjectDetector *)v58 MergeLShapeObjects:v58->allObjects isLastFrame:0];
+      v60 = *p_allObjects;
+      *p_allObjects = v59;
 
       kdebug_trace();
       CheckOutputValidation(*p_allObjects);
-      v9 = *p_allObjects;
+      v11 = *p_allObjects;
     }
   }
 
   else
   {
     kdebug_trace();
-    v9 = MEMORY[0x277CBEBF8];
+    v11 = MEMORY[0x277CBEBF8];
   }
 
 LABEL_11:
-  v12 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)IsValidLShapePair:(const void *)pair l_shape_pair:(const void *)l_shape_pair
@@ -890,7 +884,7 @@ LABEL_11:
   {
     uUIDString = [*(v5 + 144) UUIDString];
     std::string::basic_string[abi:ne200100]<0>(__p, [uUIDString UTF8String]);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v15, __p);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v15, __p, __p);
     if (v14 < 0)
     {
       operator delete(__p[0]);
@@ -919,117 +913,116 @@ LABEL_11:
 - (id)MergeLShapeObjects:(id)objects isLastFrame:(BOOL)frame
 {
   frameCopy = frame;
-  v89[2] = *MEMORY[0x277D85DE8];
+  v88[2] = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v6 = MEMORY[0x277CBEB98];
-  v70 = frameCopy;
+  v69 = frameCopy;
   if (frameCopy)
   {
-    v89[0] = @"Table";
-    v89[1] = @"Cabinet";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
-    v59 = [v6 setWithArray:v7];
+    v88[0] = @"Table";
+    v88[1] = @"Cabinet";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
+    v58 = [v6 setWithArray:v7];
   }
 
   else
   {
-    v88[0] = @"Table";
-    v88[1] = @"Cabinet";
-    v88[2] = @"Sofa";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:3];
-    v59 = [v6 setWithArray:v7];
+    v87[0] = @"Table";
+    v87[1] = @"Cabinet";
+    v87[2] = @"Sofa";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:3];
+    v58 = [v6 setWithArray:v7];
   }
 
   {
-    v57 = MEMORY[0x277CBEB98];
-    v87 = @"Table";
-    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:{1, v59, objectsCopy}];
-    [OU3DObjectDetector MergeLShapeObjects:isLastFrame:]::kObjectTypesWithParentId = [v57 setWithArray:v58];
+    v56 = MEMORY[0x277CBEB98];
+    v86 = @"Table";
+    v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:{1, v58, objectsCopy}];
+    [OU3DObjectDetector MergeLShapeObjects:isLastFrame:]::kObjectTypesWithParentId = [v56 setWithArray:v57];
   }
 
-  LODWORD(v79) = 33;
-  v8 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(ou3dor::k3DORSupportedAttributeTypeMap, &v79);
+  LODWORD(v78) = 33;
+  v8 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(ou3dor::k3DORSupportedAttributeTypeMap, &v78);
   if (!v8)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v62 = v8[3];
+  v61 = v8[3];
   allValues = [(NSDictionary *)self->keyframesPointCloud_ allValues];
-  v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  rawBoxesFromObjects(objectsCopy, &v79);
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
+  v65 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  rawBoxesFromObjects(objectsCopy, &v78);
   v76 = 0u;
-  obj = v59;
-  v9 = [obj countByEnumeratingWithState:&v75 objects:v86 count:16];
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  obj = v58;
+  v9 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
   if (v9)
   {
-    v10 = *v76;
+    v10 = *v75;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v76 != v10)
+        if (*v75 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v75 + 1) + 8 * i);
-        ptr = self->l_shape_merger_.__ptr_;
-        v14 = MEMORY[0x277CBEB98];
-        v83 = v12;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
-        v16 = [v14 setWithArray:v15];
-        ou3dod::OU3DLShapeObjectMerger::MergeLShape(&v79, allValues, v16, v70, buf);
-        std::vector<OUBox3d>::__vdeallocate(&v79);
-        v79 = *buf;
-        v80 = v85;
-        v85 = 0;
+        v12 = *(*(&v74 + 1) + 8 * i);
+        v13 = MEMORY[0x277CBEB98];
+        v82 = v12;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
+        v15 = [v13 setWithArray:v14];
+        ou3dod::OU3DLShapeObjectMerger::MergeLShape(&v78, allValues, v15, v69, buf);
+        std::vector<OUBox3d>::__vdeallocate(&v78);
+        v78 = *buf;
+        v79 = v84;
+        v84 = 0;
         memset(buf, 0, sizeof(buf));
-        v81 = buf;
-        std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v81);
+        v80 = buf;
+        std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v80);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v75 objects:v86 count:16];
+      v9 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
     }
 
     while (v9);
   }
 
   LShapeMergeInfo = ou3dod::OU3DLShapeObjectMerger::GetLShapeMergeInfo(self->l_shape_merger_.__ptr_);
-  v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
+  v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding(LShapeMergeInfo, v16);
   oslog = v17;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [OU3DObjectDetector MergeLShapeObjects:isLastFrame:];
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v64 = objectsCopy;
-  v18 = [v64 countByEnumeratingWithState:&v71 objects:v82 count:16];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v63 = objectsCopy;
+  v18 = [v63 countByEnumeratingWithState:&v70 objects:v81 count:16];
   if (v18)
   {
-    v67 = *v72;
+    v66 = *v71;
     do
     {
-      v68 = v18;
-      for (j = 0; j != v68; ++j)
+      v67 = v18;
+      for (j = 0; j != v67; ++j)
       {
-        if (*v72 != v67)
+        if (*v71 != v66)
         {
-          objc_enumerationMutation(v64);
+          objc_enumerationMutation(v63);
         }
 
-        v20 = *(*(&v71 + 1) + 8 * j);
-        if ([v20 hasBoxesDict:{@"rawdetection", v59}])
+        v20 = *(*(&v70 + 1) + 8 * j);
+        if ([v20 hasBoxesDict:{@"rawdetection", v58}])
         {
-          v21 = *(&v79 + 1);
-          for (k = v79; k != v21; k += 224)
+          v21 = *(&v78 + 1);
+          for (k = v78; k != v21; k += 224)
           {
             identifier = [v20 identifier];
             uUIDString = [identifier UUIDString];
@@ -1041,7 +1034,7 @@ LABEL_11:
               [v20 addBoxesDict:k forDictKey:@"lshaped"];
               for (m = *(LShapeMergeInfo + 16); m; m = *m)
               {
-                if (*(m + 64) == 1 && [(OU3DObjectDetector *)self IsValidLShapePair:&v79 l_shape_pair:m + 2])
+                if (*(m + 64) == 1 && [(OU3DObjectDetector *)self IsValidLShapePair:&v78 l_shape_pair:m + 2])
                 {
                   identifier2 = [v20 identifier];
                   uUIDString3 = [identifier2 UUIDString];
@@ -1071,7 +1064,7 @@ LABEL_11:
                   v38 = [v36 initWithUTF8String:v37];
                   v39 = [uUIDString4 isEqualToString:v38];
 
-                  if ((v33 | v39) & 1) != 0 && (v70)
+                  if ((v33 | v39) & 1) != 0 && (v69)
                   {
                     type = [v20 type];
                     v41 = [type isEqualToString:@"Table"];
@@ -1090,7 +1083,7 @@ LABEL_11:
                         v42 = oslog;
                       }
 
-                      [v20 addObjectPartAttribute:v62];
+                      [v20 addObjectPartAttribute:v61];
                     }
 
                     if (v39)
@@ -1130,11 +1123,11 @@ LABEL_11:
         else
         {
 LABEL_47:
-          [v66 addObject:v20];
+          [v65 addObject:v20];
         }
       }
 
-      v18 = [v64 countByEnumeratingWithState:&v71 objects:v82 count:16];
+      v18 = [v63 countByEnumeratingWithState:&v70 objects:v81 count:16];
     }
 
     while (v18);
@@ -1142,31 +1135,29 @@ LABEL_47:
 
   v52 = OUVizTool::Get(v51);
   std::string::basic_string[abi:ne200100]<0>(buf, "before_l_shape");
-  OUVizTool::SaveObjects(v52, buf, v66, @"rawdetection");
-  if (SHIBYTE(v85) < 0)
+  OUVizTool::SaveObjects(v52, buf, v65, @"rawdetection");
+  if (SHIBYTE(v84) < 0)
   {
     operator delete(*buf);
   }
 
   v54 = OUVizTool::Get(v53);
   std::string::basic_string[abi:ne200100]<0>(buf, "after_l_shape");
-  OUVizTool::SaveObjects(v54, buf, v66, @"lshaped");
-  if (SHIBYTE(v85) < 0)
+  OUVizTool::SaveObjects(v54, buf, v65, @"lshaped");
+  if (SHIBYTE(v84) < 0)
   {
     operator delete(*buf);
   }
 
-  *buf = &v79;
+  *buf = &v78;
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](buf);
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v66;
+  return v65;
 }
 
 - (void)buildFrustumPointCloudFromWorldPointCloud
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   *&self->_anon_1c0[8] = *self->_anon_1c0;
   *&self->_anon_1c0[32] = *&self->_anon_1c0[24];
@@ -1175,29 +1166,29 @@ LABEL_47:
   OUPointCloudCpp::Reserve(self->_anon_1c0, 0x1ADB0uLL);
   [(OUPointCloud *)self->worldPointCloud reset];
   v3 = tan(self->frustumFOV * 0.5);
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   obj = self->keyframesPointCloud_;
-  v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v4)
   {
-    v55 = &self->_anon_1c0[72];
+    v54 = &self->_anon_1c0[72];
     v5 = v3;
-    v57 = *v59;
+    v56 = *v58;
     do
     {
       v6 = 0;
-      v56 = v4;
+      v55 = v4;
       do
       {
-        if (*v59 != v57)
+        if (*v58 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [(NSDictionary *)self->keyframesPointCloud_ objectForKey:*(*(&v58 + 1) + 8 * v6)];
+        v7 = [(NSDictionary *)self->keyframesPointCloud_ objectForKey:*(*(&v57 + 1) + 8 * v6)];
         v8 = [v7 count];
         semanticLabels = [v7 semanticLabels];
         points = [v7 points];
@@ -1333,13 +1324,13 @@ LABEL_47:
                 v42 = *&self->_anon_1c0[88];
                 if (v41 >= v42)
                 {
-                  v44 = (v41 - *v55) >> 3;
+                  v44 = (v41 - *v54) >> 3;
                   if ((v44 + 1) >> 61)
                   {
                     std::vector<float>::__throw_length_error[abi:ne200100]();
                   }
 
-                  v45 = v42 - *v55;
+                  v45 = v42 - *v54;
                   v46 = v45 >> 2;
                   if (v45 >> 2 <= (v44 + 1))
                   {
@@ -1358,7 +1349,7 @@ LABEL_47:
 
                   if (v47)
                   {
-                    _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v55, v47);
+                    _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v54, v47);
                   }
 
                   v48 = (8 * v44);
@@ -1386,7 +1377,7 @@ LABEL_47:
                 }
 
                 *&self->_anon_1c0[80] = v43;
-                v4 = v56;
+                v4 = v55;
               }
             }
 
@@ -1406,14 +1397,13 @@ LABEL_47:
       }
 
       while (v6 != v4);
-      v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v4 = [(NSDictionary *)obj countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
     while (v4);
   }
 
   kdebug_trace();
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)preprocess
@@ -1493,9 +1483,9 @@ LABEL_47:
     do
     {
       v9 = *detections + 224 * v8;
-      if ([*(v9 + 128) isEqualToString:@"Chair"] && (v10 = vsubq_f32(*(v9 + 16), *(v9 + 32)), sqrtf(vaddv_f32(*&vmulq_f32(v10, v10))) > 0.9))
+      if ([*(v9 + 128) isEqualToString:@"Chair"] && (v16 = vsubq_f32(*(v9 + 16), *(v9 + 32)), sqrtf(vaddv_f32(*&vmulq_f32(v16, v16))) > 0.9))
       {
-        std::swap[abi:ne200100]<OUBox3d>(*detections + 224 * v8, (*detections + 224 * v7--));
+        std::swap[abi:ne200100]<OUBox3d>((*detections + 224 * v8), (*detections + 224 * v7--), v10, v11, v12, v13, v14, v15);
       }
 
       else
@@ -1517,29 +1507,29 @@ LABEL_47:
   v73 = *MEMORY[0x277D85DE8];
   p_cur_box3ds = &self->cur_box3ds_;
   kdebug_trace();
-  [(OU3DObjectDetector *)self ValidateRawDetections:p_cur_box3ds];
-  v4 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = [(OU3DObjectDetector *)self ValidateRawDetections:p_cur_box3ds];
+  v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v5 = 0x6DB6DB6DB6DB6DB7 * ((self->cur_box3ds_.__end_ - self->cur_box3ds_.__begin_) >> 5);
+    v7 = 0x6DB6DB6DB6DB6DB7 * ((self->cur_box3ds_.__end_ - self->cur_box3ds_.__begin_) >> 5);
     LODWORD(buf.var1) = 134217984;
-    *(&buf.var1 + 4) = v5;
-    _os_log_impl(&dword_25D1DB000, v4, OS_LOG_TYPE_INFO, "[3DOD] Detected new objects: %zu", &buf, 0xCu);
+    *(&buf.var1 + 4) = v7;
+    _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "[3DOD] Detected new objects: %zu", &buf, 0xCu);
   }
 
   begin = self->cur_box3ds_.__begin_;
   end = self->cur_box3ds_.__end_;
   if (begin != end)
   {
-    v8 = *self->_anon_180;
-    v9 = *&self->_anon_180[16];
-    v10 = *&self->_anon_180[32];
-    v11 = *&self->_anon_180[48];
+    v10 = *self->_anon_180;
+    v11 = *&self->_anon_180[16];
+    v12 = *&self->_anon_180[32];
+    v13 = *&self->_anon_180[48];
     do
     {
       for (i = 0; i != 128; i += 16)
       {
-        *(&begin->var1 + i) = vaddq_f32(v11, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8, COERCE_FLOAT(*(&begin->var1 + i))), v9, *(&begin->var1 + i), 1), v10, *(&begin->var1 + i), 2));
+        *(&begin->var1 + i) = vaddq_f32(v13, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v10, COERCE_FLOAT(*(&begin->var1 + i))), v11, *(&begin->var1 + i), 1), v12, *(&begin->var1 + i), 2));
       }
 
       begin = (begin + 224);
@@ -1549,14 +1539,13 @@ LABEL_47:
   }
 
   sizeRevision(p_cur_box3ds);
-  v13 = *p_cur_box3ds;
-  v14 = p_cur_box3ds[1];
-  if (*p_cur_box3ds != v14)
+  v15 = p_cur_box3ds[1];
+  if (*p_cur_box3ds != v15)
   {
-    v15 = std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter<OUBox3d*>,std::__wrap_iter<OUBox3d*>>(&self->acc_box3ds_, self->acc_box3ds_.__end_, *p_cur_box3ds, v14, 0x6DB6DB6DB6DB6DB7 * ((v14 - *p_cur_box3ds) >> 5));
-    v16 = OUVizTool::Get(v15);
+    v16 = std::vector<OUBox3d>::__insert_with_size[abi:ne200100]<std::__wrap_iter<OUBox3d*>,std::__wrap_iter<OUBox3d*>>(&self->acc_box3ds_.__begin_, self->acc_box3ds_.__end_, *p_cur_box3ds, v15, 0x6DB6DB6DB6DB6DB7 * ((v15 - *p_cur_box3ds) >> 5));
+    v17 = OUVizTool::Get(v16);
     std::string::basic_string[abi:ne200100]<0>(&buf, "accumulatedBoxData");
-    OUVizTool::SaveBoxes(v16, &buf, &self->acc_box3ds_);
+    OUVizTool::SaveBoxes(v17, &buf, &self->acc_box3ds_);
     if (SHIBYTE(buf.var3) < 0)
     {
       operator delete(buf.var1);
@@ -1568,59 +1557,59 @@ LABEL_47:
     v57 = 0;
     v56 = 0uLL;
     std::vector<OUBox3d>::reserve(&v56, (v59 - v58) >> 3);
-    v18 = v58;
-    v19 = v59;
+    v19 = v58;
+    v20 = v59;
     memset(&v61, 0, sizeof(v61));
     std::vector<OUBox3d>::__init_with_size[abi:ne200100]<OUBox3d*,OUBox3d*>(&v61, self->acc_box3ds_.__begin_, self->acc_box3ds_.__end_, 0x6DB6DB6DB6DB6DB7 * ((self->acc_box3ds_.__end_ - self->acc_box3ds_.__begin_) >> 5));
-    for (; v18 != v19; ++v18)
+    for (; v19 != v20; ++v19)
     {
-      OUBox3d::OUBox3d(&buf, &v61.__begin_[56 * *v18]);
-      v20 = *(&v56 + 1);
+      OUBox3d::OUBox3d(&buf, &v61.__begin_[56 * *v19]);
+      v21 = *(&v56 + 1);
       if (*(&v56 + 1) >= v57)
       {
-        v30 = std::vector<OUBox3d>::__emplace_back_slow_path<OUBox3d>(&v56, &buf);
+        v31 = std::vector<OUBox3d>::__emplace_back_slow_path<OUBox3d>(&v56, &buf);
       }
 
       else
       {
-        v21 = *&buf.var1;
-        v22 = *&buf.var3;
-        v23 = *&buf.var5.var2;
+        v22 = *&buf.var1;
+        v23 = *&buf.var3;
+        v24 = *&buf.var5.var2;
         *(*(&v56 + 1) + 32) = *&buf.var5.var0;
-        *(v20 + 48) = v23;
-        *v20 = v21;
-        *(v20 + 16) = v22;
-        v24 = *&buf.var6.var1;
-        v25 = *&buf.var7;
-        v26 = v64;
-        *(v20 + 96) = v63;
-        *(v20 + 112) = v26;
-        *(v20 + 64) = v24;
-        *(v20 + 80) = v25;
-        v27 = v65;
+        *(v21 + 48) = v24;
+        *v21 = v22;
+        *(v21 + 16) = v23;
+        v25 = *&buf.var6.var1;
+        v26 = *&buf.var7;
+        v27 = v64;
+        *(v21 + 96) = v63;
+        *(v21 + 112) = v27;
+        *(v21 + 64) = v25;
+        *(v21 + 80) = v26;
+        v28 = v65;
         v65 = 0;
-        *(v20 + 128) = v27;
-        *(v20 + 136) = v66;
-        v28 = v67;
+        *(v21 + 128) = v28;
+        *(v21 + 136) = v66;
+        v29 = v67;
         v67 = 0u;
-        *(v20 + 176) = 0;
-        *(v20 + 144) = v28;
-        *(v20 + 160) = 0u;
-        *(v20 + 160) = *v68;
-        *(v20 + 176) = v69;
+        *(v21 + 176) = 0;
+        *(v21 + 144) = v29;
+        *(v21 + 160) = 0u;
+        *(v21 + 160) = *v68;
+        *(v21 + 176) = v69;
         *v68 = 0u;
         v69 = 0;
-        *(v20 + 184) = __p[0];
-        *(v20 + 192) = *&__p[1];
+        *(v21 + 184) = __p[0];
+        *(v21 + 192) = *&__p[1];
         memset(__p, 0, sizeof(__p));
-        v29 = v71;
+        v30 = v71;
         v71 = 0;
-        *(v20 + 208) = v29;
-        *(v20 + 216) = v72;
-        v30 = v20 + 224;
+        *(v21 + 208) = v30;
+        *(v21 + 216) = v72;
+        v31 = v21 + 224;
       }
 
-      *(&v56 + 1) = v30;
+      *(&v56 + 1) = v31;
 
       if (__p[0])
       {
@@ -1645,74 +1634,74 @@ LABEL_47:
     std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&buf);
     memset(&v61, 0, sizeof(v61));
     std::vector<int>::reserve(&v61, (v59 - v58) >> 3);
-    v31 = v58;
-    v32 = v59;
+    v32 = v58;
+    v33 = v59;
     memset(&buf, 0, 24);
     std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&buf, self->hist_kept_box_ids_.__begin_, self->hist_kept_box_ids_.__end_, self->hist_kept_box_ids_.__end_ - self->hist_kept_box_ids_.__begin_);
-    if (v31 != v32)
+    if (v32 != v33)
     {
-      v33 = v61.__end_;
+      v34 = v61.__end_;
       do
       {
-        v34 = *(buf.var1 + *v31);
-        if (v33 >= v61.__end_cap_.__value_)
+        v35 = *(buf.var1 + *v32);
+        if (v34 >= v61.__end_cap_.__value_)
         {
-          v35 = v61.__begin_;
-          v36 = v33 - v61.__begin_;
-          v37 = v33 - v61.__begin_;
-          v38 = v37 + 1;
-          if ((v37 + 1) >> 62)
+          v36 = v61.__begin_;
+          v37 = v34 - v61.__begin_;
+          v38 = v34 - v61.__begin_;
+          v39 = v38 + 1;
+          if ((v38 + 1) >> 62)
           {
             std::vector<float>::__throw_length_error[abi:ne200100]();
           }
 
-          v39 = v61.__end_cap_.__value_ - v61.__begin_;
-          if ((v61.__end_cap_.__value_ - v61.__begin_) >> 1 > v38)
+          v40 = v61.__end_cap_.__value_ - v61.__begin_;
+          if ((v61.__end_cap_.__value_ - v61.__begin_) >> 1 > v39)
           {
-            v38 = v39 >> 1;
+            v39 = v40 >> 1;
           }
 
-          if (v39 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v40 >= 0x7FFFFFFFFFFFFFFCLL)
           {
-            v40 = 0x3FFFFFFFFFFFFFFFLL;
+            v41 = 0x3FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v40 = v38;
+            v41 = v39;
           }
 
-          if (v40)
+          if (v41)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v61, v40);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v61, v41);
           }
 
-          v41 = v33 - v61.__begin_;
-          v42 = (4 * v37);
-          v43 = (4 * v37 - 4 * v41);
-          *v42 = v34;
-          v33 = v42 + 1;
-          memcpy(v43, v35, v36);
-          v44 = v61.__begin_;
-          v61.__begin_ = v43;
-          v61.__end_ = v33;
+          v42 = v34 - v61.__begin_;
+          v43 = (4 * v38);
+          v44 = (4 * v38 - 4 * v42);
+          *v43 = v35;
+          v34 = v43 + 1;
+          memcpy(v44, v36, v37);
+          v45 = v61.__begin_;
+          v61.__begin_ = v44;
+          v61.__end_ = v34;
           v61.__end_cap_.__value_ = 0;
-          if (v44)
+          if (v45)
           {
-            operator delete(v44);
+            operator delete(v45);
           }
         }
 
         else
         {
-          *v33++ = v34;
+          *v34++ = v35;
         }
 
-        v61.__end_ = v33;
-        ++v31;
+        v61.__end_ = v34;
+        ++v32;
       }
 
-      while (v31 != v32);
+      while (v32 != v33);
     }
 
     if (buf.var1)
@@ -1721,20 +1710,20 @@ LABEL_47:
       operator delete(buf.var1);
     }
 
-    v45 = p_hist_kept_box_ids->__begin_;
+    v46 = p_hist_kept_box_ids->__begin_;
     if (p_hist_kept_box_ids->__begin_)
     {
-      self->hist_kept_box_ids_.__end_ = v45;
-      operator delete(v45);
+      self->hist_kept_box_ids_.__end_ = v46;
+      operator delete(v46);
       p_hist_kept_box_ids->__begin_ = 0;
       self->hist_kept_box_ids_.__end_ = 0;
       self->hist_kept_box_ids_.__cap_ = 0;
     }
 
     self->hist_kept_box_ids_ = v61;
-    v46 = OUVizTool::Get(v45);
+    v47 = OUVizTool::Get(v46);
     std::string::basic_string[abi:ne200100]<0>(&buf, "withinClassNMSBoxData");
-    OUVizTool::SaveBoxes(v46, &buf, &self->acc_box3ds_);
+    OUVizTool::SaveBoxes(v47, &buf, &self->acc_box3ds_);
     if (SHIBYTE(buf.var3) < 0)
     {
       operator delete(buf.var1);
@@ -1743,7 +1732,7 @@ LABEL_47:
     merger = self->merger;
     if (merger)
     {
-      merger = [(OU3DObjectMerger *)merger mergeOtherObjects:&self->acc_box3ds_];
+      merger = objc_msgSend_mergeOtherObjects_(merger);
     }
 
     else
@@ -1751,18 +1740,18 @@ LABEL_47:
       memset(&buf, 0, 24);
     }
 
-    v48 = OUVizTool::Get(merger);
+    v49 = OUVizTool::Get(merger);
     std::string::basic_string[abi:ne200100]<0>(&v61, "mergeOtherObjectsBoxData");
-    OUVizTool::SaveBoxes(v48, &v61, &buf);
+    OUVizTool::SaveBoxes(v49, &v61, &buf);
     if (SHIBYTE(v61.__end_cap_.__value_) < 0)
     {
       operator delete(v61.__begin_);
     }
 
-    v49 = self->merger;
-    if (v49)
+    v50 = self->merger;
+    if (v50)
     {
-      [(OU3DObjectMerger *)v49 mergeCabinets:&buf iou_mat:v60];
+      objc_msgSend_mergeCabinets_iou_mat_(v50);
     }
 
     else
@@ -1776,18 +1765,18 @@ LABEL_47:
     memset(&v61, 0, sizeof(v61));
     *&v56 = &v61;
     std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v56);
-    v51 = OUVizTool::Get(v50);
+    v52 = OUVizTool::Get(v51);
     std::string::basic_string[abi:ne200100]<0>(&v61, "mergeCabinetsBoxData");
-    OUVizTool::SaveBoxes(v51, &v61, &buf);
+    OUVizTool::SaveBoxes(v52, &v61, &buf);
     if (SHIBYTE(v61.__end_cap_.__value_) < 0)
     {
       operator delete(v61.__begin_);
     }
 
-    v52 = self->merger;
-    if (v52)
+    v53 = self->merger;
+    if (v53)
     {
-      [(OU3DObjectMerger *)v52 crossClassNMS:&buf];
+      objc_msgSend_crossClassNMS_(v53);
     }
 
     else
@@ -1801,9 +1790,9 @@ LABEL_47:
     memset(&v61, 0, sizeof(v61));
     *&v56 = &v61;
     std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](&v56);
-    v54 = OUVizTool::Get(v53);
+    v55 = OUVizTool::Get(v54);
     std::string::basic_string[abi:ne200100]<0>(&v61, "crossClassNMSBoxData");
-    OUVizTool::SaveBoxes(v54, &v61, p_cur_box3ds + 6);
+    OUVizTool::SaveBoxes(v55, &v61, p_cur_box3ds + 6);
     if (SHIBYTE(v61.__end_cap_.__value_) < 0)
     {
       operator delete(v61.__begin_);
@@ -1822,58 +1811,57 @@ LABEL_47:
   }
 
   kdebug_trace();
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ResestObjectSizeHistoryIfSizeChange:(id)change withOldObjects:(id)objects
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   objectsCopy = objects;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = changeCopy;
-  v6 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v6 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v6)
   {
-    v27 = *v38;
+    v26 = *v37;
     do
     {
-      v28 = v6;
-      for (i = 0; i != v28; ++i)
+      v27 = v6;
+      for (i = 0; i != v27; ++i)
       {
-        if (*v38 != v27)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * i);
+        v7 = *(*(&v36 + 1) + 8 * i);
         refined_box_history = [v7 refined_box_history];
         v9 = [refined_box_history count] == 0;
 
         if (!v9)
         {
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           v10 = objectsCopy;
-          v11 = [v10 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v11)
           {
-            v12 = *v34;
+            v12 = *v33;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v34 != v12)
+                if (*v33 != v12)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                identifier = [*(*(&v33 + 1) + 8 * j) identifier];
+                identifier = [*(*(&v32 + 1) + 8 * j) identifier];
                 identifier2 = [v7 identifier];
                 v16 = [identifier isEqual:identifier2];
 
@@ -1881,31 +1869,31 @@ LABEL_47:
                 {
                   boxesDict = [v7 boxesDict];
                   v18 = [boxesDict objectForKeyedSubscript:@"rawdetection"];
-                  box3dFromNSArray(v18, v31);
-                  box3dToCentroidSizeAngle(v31, v32);
+                  box3dFromNSArray(v18, v30);
+                  box3dToCentroidSizeAngle(v31, v30);
 
                   refined_box_history2 = [v7 refined_box_history];
                   lastObject = [refined_box_history2 lastObject];
                   preRefinedBox = [lastObject preRefinedBox];
-                  box3dFromNSArray(preRefinedBox, v31);
-                  box3dToCentroidSizeAngle(v31, __p);
+                  box3dFromNSArray(preRefinedBox, v30);
+                  box3dToCentroidSizeAngle(__p, v30);
 
                   v22 = __p[0];
-                  if ((vabds_f32(*(v32[0] + 3), *(__p[0] + 3)) / *(__p[0] + 3)) <= 0.25 && (vabds_f32(*(v32[0] + 4), *(__p[0] + 4)) / *(__p[0] + 4)) <= 0.25 && (vabds_f32(*(v32[0] + 5), *(__p[0] + 5)) / *(__p[0] + 5)) <= 0.25 || (v23 = objc_opt_new(), [v7 setRefined_box_history:v23], v23, (v22 = __p[0]) != 0))
+                  if ((vabds_f32(*(v31[0] + 3), *(__p[0] + 3)) / *(__p[0] + 3)) <= 0.25 && (vabds_f32(*(v31[0] + 4), *(__p[0] + 4)) / *(__p[0] + 4)) <= 0.25 && (vabds_f32(*(v31[0] + 5), *(__p[0] + 5)) / *(__p[0] + 5)) <= 0.25 || (v23 = objc_opt_new(), [v7 setRefined_box_history:v23], v23, (v22 = __p[0]) != 0))
                   {
                     __p[1] = v22;
                     operator delete(v22);
                   }
 
-                  if (v32[0])
+                  if (v31[0])
                   {
-                    v32[1] = v32[0];
-                    operator delete(v32[0]);
+                    v31[1] = v31[0];
+                    operator delete(v31[0]);
                   }
                 }
               }
 
-              v11 = [v10 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v11);
@@ -1913,59 +1901,57 @@ LABEL_47:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v6 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)CopyRefineHistory:(id)history fromOldObjects:(id)objects
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   objectsCopy = objects;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = historyCopy;
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
-    v21 = *v29;
+    v20 = *v28;
     do
     {
-      v23 = v6;
-      for (i = 0; i != v23; ++i)
+      v22 = v6;
+      for (i = 0; i != v22; ++i)
       {
-        if (*v29 != v21)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v9 = objectsCopy;
-        v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v10)
         {
-          v11 = *v25;
+          v11 = *v24;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v25 != v11)
+              if (*v24 != v11)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v13 = *(*(&v24 + 1) + 8 * j);
+              v13 = *(*(&v23 + 1) + 8 * j);
               identifier = [v13 identifier];
               identifier2 = [v8 identifier];
               v16 = [identifier isEqual:identifier2];
@@ -1978,66 +1964,64 @@ LABEL_47:
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v10);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)CopyObjectEmbedding:(id)embedding fromOldObjects:(id)objects
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   embeddingCopy = embedding;
   objectsCopy = objects;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = embeddingCopy;
-  v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
-    v23 = *v31;
+    v22 = *v30;
     do
     {
-      v25 = v6;
-      for (i = 0; i != v25; ++i)
+      v24 = v6;
+      for (i = 0; i != v24; ++i)
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v9 = objectsCopy;
-        v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v10)
         {
-          v11 = *v27;
+          v11 = *v26;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v27 != v11)
+              if (*v26 != v11)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v13 = *(*(&v26 + 1) + 8 * j);
+              v13 = *(*(&v25 + 1) + 8 * j);
               identifier = [v13 identifier];
               identifier2 = [v8 identifier];
               v16 = [identifier isEqual:identifier2];
@@ -2054,20 +2038,18 @@ LABEL_47:
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v10);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v6);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)FindNeedRefineBoxUUID:(id)d withOldObjects:(id)objects
@@ -2116,8 +2098,8 @@ LABEL_11:
           {
             if ([*(v10 + 144) isEqual:v22[9].i64[0]])
             {
-              box3dToCentroidSizeAngle(v22, v32);
-              box3dToCentroidSizeAngle(v10, __p);
+              box3dToCentroidSizeAngle(v32, v22);
+              box3dToCentroidSizeAngle(__p, v10);
               v23 = 0;
               v24 = 0;
               v25 = __p[0];
@@ -2182,46 +2164,46 @@ LABEL_23:
 
 - (id)regulateObjectSize:(id)size withOldObjects:(id)objects
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   objectsCopy = objects;
   v6 = 0;
-  memset(v34, 0, sizeof(v34));
-  v35 = 1065353216;
-  v25 = @"rawdetection";
+  memset(v33, 0, sizeof(v33));
+  v34 = 1065353216;
+  v24 = @"rawdetection";
   while (1)
   {
-    v33 = v6;
+    v32 = v6;
     if ([sizeCopy count] <= v6)
     {
       break;
     }
 
-    v7 = [sizeCopy objectAtIndexedSubscript:v33];
+    v7 = [sizeCopy objectAtIndexedSubscript:v32];
     type = [v7 type];
     v9 = [type isEqualToString:@"Screen"];
 
     if (v9)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v10 = objectsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
       if (v11)
       {
-        v12 = *v30;
+        v12 = *v29;
 LABEL_6:
         v13 = 0;
         while (1)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * v13);
+          v14 = *(*(&v28 + 1) + 8 * v13);
           identifier = [v7 identifier];
           identifier2 = [v14 identifier];
           v17 = [identifier isEqual:identifier2];
@@ -2233,7 +2215,7 @@ LABEL_6:
 
           if (v11 == ++v13)
           {
-            v11 = [v10 countByEnumeratingWithState:&v29 objects:v36 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
             if (v11)
             {
               goto LABEL_6;
@@ -2249,15 +2231,15 @@ LABEL_6:
 LABEL_12:
 
         boxesDict = [v7 boxesDict];
-        v10 = [boxesDict objectForKey:v25];
+        v10 = [boxesDict objectForKey:v24];
 
         if (v10)
         {
-          memset(v28, 0, sizeof(v28));
-          box3dFromNSArray(v10, v28);
-          box3dToCentroidSizeAngle(v28, __p);
+          memset(v27, 0, sizeof(v27));
+          box3dFromNSArray(v10, v27);
+          box3dToCentroidSizeAngle(__p, v27);
           v19 = __p[0];
-          if (sqrtf((*(__p[0] + 5) * *(__p[0] + 5)) + (*(__p[0] + 3) * *(__p[0] + 3))) >= 0.94 || (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v34, &v33), (v19 = __p[0]) != 0))
+          if (sqrtf((*(__p[0] + 5) * *(__p[0] + 5)) + (*(__p[0] + 3) * *(__p[0] + 3))) >= 0.94 || (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v33, &v32, &v32), (v19 = __p[0]) != 0))
           {
             __p[1] = v19;
             operator delete(v19);
@@ -2266,28 +2248,26 @@ LABEL_12:
       }
     }
 
-    v6 = v33 + 1;
+    v6 = v32 + 1;
   }
 
   v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  for (i = 0; ; i = v28[0].i32[0] + 1)
+  for (i = 0; ; i = v27[0].i32[0] + 1)
   {
-    v28[0].i32[0] = i;
+    v27[0].i32[0] = i;
     if ([sizeCopy count] <= i)
     {
       break;
     }
 
-    if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v34, v28))
+    if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v33, v27))
     {
-      v22 = [sizeCopy objectAtIndexedSubscript:v28[0].i32[0]];
+      v22 = [sizeCopy objectAtIndexedSubscript:v27[0].i32[0]];
       [v20 addObject:v22];
     }
   }
 
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v34);
-
-  v23 = *MEMORY[0x277D85DE8];
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v33);
 
   return v20;
 }
@@ -2475,7 +2455,7 @@ LABEL_12:
 
 - (void)reviseObjectsUponParentId:(id)id
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idCopy = id;
   for (i = 0; i < [idCopy count]; ++i)
   {
@@ -2497,8 +2477,8 @@ LABEL_12:
             goto LABEL_25;
           }
 
-          v29 = [idCopy objectAtIndexedSubscript:j];
-          identifier = [v29 identifier];
+          v28 = [idCopy objectAtIndexedSubscript:j];
+          identifier = [v28 identifier];
           parent_id2 = [v8 parent_id];
           if ([identifier isEqual:parent_id2])
           {
@@ -2511,46 +2491,46 @@ LABEL_12:
             }
 
             v14 = [idCopy objectAtIndexedSubscript:j];
-            v38 = 0u;
-            memset(v37, 0, sizeof(v37));
-            v29 = v14;
+            v37 = 0u;
+            memset(v36, 0, sizeof(v36));
+            v28 = v14;
             boxesDict = [v14 boxesDict];
             v16 = [boxesDict objectForKey:@"rawdetection"];
-            box3dFromNSArray(v16, v37);
+            box3dFromNSArray(v16, v36);
 
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
             v34 = 0u;
+            v35 = 0u;
+            v32 = 0u;
+            v33 = 0u;
             boxesDict2 = [v8 boxesDict];
             allKeys = [boxesDict2 allKeys];
 
-            v19 = [allKeys countByEnumeratingWithState:&v33 objects:v39 count:16];
+            v19 = [allKeys countByEnumeratingWithState:&v32 objects:v38 count:16];
             if (v19)
             {
-              v20 = *v34;
+              v20 = *v33;
               do
               {
                 for (k = 0; k != v19; ++k)
                 {
-                  if (*v34 != v20)
+                  if (*v33 != v20)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v22 = *(*(&v33 + 1) + 8 * k);
+                  v22 = *(*(&v32 + 1) + 8 * k);
                   boxesDict3 = [v8 boxesDict];
                   v24 = [boxesDict3 objectForKey:v22];
-                  box3dFromNSArray(v24, v31);
-                  box3dToCentroidSizeAngle(v31, __p);
+                  box3dFromNSArray(v24, v30);
+                  box3dToCentroidSizeAngle(__p, v30);
 
                   v25 = __p[0];
                   *(__p[0] + 5) = 1028443341;
-                  v25[2] = *(&v38 + 2) + 0.025;
-                  memset(v31, 0, sizeof(v31));
-                  centroidSizeAngleToBox3d(__p, 1, v31);
+                  v25[2] = *(&v37 + 2) + 0.025;
+                  memset(v30, 0, sizeof(v30));
+                  centroidSizeAngleToBox3d(__p, 1, v30);
                   boxesDict4 = [v8 boxesDict];
-                  v27 = box3dToNSArray(v31);
+                  v27 = box3dToNSArray(v30);
                   [boxesDict4 setValue:v27 forKey:v22];
 
                   if (__p[0])
@@ -2560,7 +2540,7 @@ LABEL_12:
                   }
                 }
 
-                v19 = [allKeys countByEnumeratingWithState:&v33 objects:v39 count:16];
+                v19 = [allKeys countByEnumeratingWithState:&v32 objects:v38 count:16];
               }
 
               while (v19);
@@ -2580,22 +2560,21 @@ LABEL_12:
   }
 
 LABEL_25:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assignParentId:(id)id isOffline:(BOOL)offline
 {
   offlineCopy = offline;
-  v137 = *MEMORY[0x277D85DE8];
+  v147 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = [idCopy count];
-  v102 = [MEMORY[0x277CBEB98] setWithObjects:{@"Dishwasher", @"Washer", @"Oven", 0}];
-  v101 = [MEMORY[0x277CBEB98] setWithObjects:{@"Stove", @"Sink", 0}];
+  v112 = [MEMORY[0x277CBEB98] setWithObjects:{@"Dishwasher", @"Washer", @"Oven", 0}];
+  v7 = [MEMORY[0x277CBEB98] setWithObjects:{@"Stove", @"Sink", 0}];
+  v111 = v7;
   if (offlineCopy)
   {
-    v7 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [OU3DObjectDetector assignParentId:isOffline:];
     }
@@ -2604,90 +2583,90 @@ LABEL_25:
     {
       for (i = 0; i != v6; ++i)
       {
-        v9 = [idCopy objectAtIndexedSubscript:i];
-        [v9 setParent_id:0];
+        v11 = [idCopy objectAtIndexedSubscript:i];
+        [v11 setParent_id:0];
       }
 
 LABEL_9:
       for (j = 0; j != v6; ++j)
       {
-        v11 = [idCopy objectAtIndexedSubscript:j];
-        type = [v11 type];
+        v13 = [idCopy objectAtIndexedSubscript:j];
+        type = [v13 type];
         if ([type isEqualToString:@"Cabinet"])
         {
-          v13 = [idCopy objectAtIndexedSubscript:j];
-          v14 = [v13 hasBoxesDict:@"rawdetection"];
+          v15 = [idCopy objectAtIndexedSubscript:j];
+          v16 = [v15 hasBoxesDict:@"rawdetection"];
 
-          if (v14)
+          if (v16)
           {
-            v125 = 0u;
-            v126 = 0u;
-            v123 = 0u;
-            v124 = 0u;
-            v121 = 0u;
-            v122 = 0u;
-            v119 = 0u;
-            v120 = 0u;
-            v15 = [idCopy objectAtIndexedSubscript:j];
-            boxesDict = [v15 boxesDict];
-            v17 = [boxesDict objectForKeyedSubscript:@"rawdetection"];
-            box3dFromNSArray(v17, &v119);
+            v135 = 0u;
+            v136 = 0u;
+            v133 = 0u;
+            v134 = 0u;
+            v131 = 0u;
+            v132 = 0u;
+            v129 = 0u;
+            v130 = 0u;
+            v17 = [idCopy objectAtIndexedSubscript:j];
+            boxesDict = [v17 boxesDict];
+            v19 = [boxesDict objectForKeyedSubscript:@"rawdetection"];
+            box3dFromNSArray(v19, &v129);
 
             for (k = 0; k != v6; ++k)
             {
-              v19 = [idCopy objectAtIndexedSubscript:k];
-              type2 = [v19 type];
-              if ([v102 containsObject:type2])
+              v21 = [idCopy objectAtIndexedSubscript:k];
+              type2 = [v21 type];
+              if ([v112 containsObject:type2])
               {
-                v21 = [idCopy objectAtIndexedSubscript:k];
-                v22 = [v21 hasBoxesDict:@"rawdetection"];
+                v23 = [idCopy objectAtIndexedSubscript:k];
+                v24 = [v23 hasBoxesDict:@"rawdetection"];
 
-                if (v22)
+                if (v24)
                 {
-                  v117 = 0u;
-                  v118 = 0u;
-                  v115 = 0u;
-                  v116 = 0u;
-                  v113 = 0u;
+                  v127 = 0u;
+                  v128 = 0u;
+                  v125 = 0u;
+                  v126 = 0u;
+                  v123 = 0u;
+                  v124 = 0u;
+                  v121 = 0u;
+                  v122 = 0u;
+                  v25 = [idCopy objectAtIndexedSubscript:k];
+                  boxesDict2 = [v25 boxesDict];
+                  v27 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
+                  box3dFromNSArray(v27, &v121);
+
                   v114 = 0u;
-                  v111 = 0u;
-                  v112 = 0u;
-                  v23 = [idCopy objectAtIndexedSubscript:k];
-                  boxesDict2 = [v23 boxesDict];
-                  v25 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
-                  box3dFromNSArray(v25, &v111);
-
-                  v104 = 0u;
-                  v105 = 0u;
-                  v103 = 0u;
-                  box3dIou(&v119, &v111, 0, &v103);
-                  if (v103.f32[3] >= 0.8)
+                  v115 = 0u;
+                  v113 = 0u;
+                  box3dIou(&v113, &v129, &v121, 0, v28);
+                  if (v113.f32[3] >= 0.8)
                   {
-                    LODWORD(v26) = v104;
-                    if (*&v104 < *(&v104 + 1))
+                    LODWORD(v29) = v114;
+                    if (*&v114 < *(&v114 + 1))
                     {
-                      v27 = [idCopy objectAtIndexedSubscript:{j, v26}];
-                      identifier = [v27 identifier];
-                      v29 = [identifier copy];
-                      v30 = [idCopy objectAtIndexedSubscript:k];
-                      [v30 setParent_id:v29];
+                      v30 = [idCopy objectAtIndexedSubscript:{j, v29}];
+                      identifier = [v30 identifier];
+                      v32 = [identifier copy];
+                      v33 = [idCopy objectAtIndexedSubscript:k];
+                      [v33 setParent_id:v32];
 
-                      v31 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-                      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+                      v36 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v34, v35);
+                      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                       {
-                        v97 = [idCopy objectAtIndexedSubscript:k];
-                        type3 = [v97 type];
-                        v32 = [idCopy objectAtIndexedSubscript:j];
-                        type4 = [v32 type];
-                        v34 = [idCopy objectAtIndexedSubscript:k];
-                        parent_id = [v34 parent_id];
+                        v107 = [idCopy objectAtIndexedSubscript:k];
+                        type3 = [v107 type];
+                        v37 = [idCopy objectAtIndexedSubscript:j];
+                        type4 = [v37 type];
+                        v39 = [idCopy objectAtIndexedSubscript:k];
+                        parent_id = [v39 parent_id];
                         *buf = 138412802;
                         *&buf[4] = type3;
                         *&buf[12] = 2112;
                         *&buf[14] = type4;
                         *&buf[22] = 2112;
                         *&buf[24] = parent_id;
-                        _os_log_debug_impl(&dword_25D1DB000, v31, OS_LOG_TYPE_DEBUG, "%@ has parent object (%@) with parent_id: %@", buf, 0x20u);
+                        _os_log_debug_impl(&dword_25D1DB000, v36, OS_LOG_TYPE_DEBUG, "%@ has parent object (%@) with parent_id: %@", buf, 0x20u);
                       }
                     }
                   }
@@ -2708,93 +2687,93 @@ LABEL_9:
 
       for (m = 0; m != v6; ++m)
       {
-        v37 = [idCopy objectAtIndexedSubscript:m];
-        type5 = [v37 type];
-        v39 = type5;
+        v42 = [idCopy objectAtIndexedSubscript:m];
+        type5 = [v42 type];
+        v44 = type5;
         if (type5 == @"Cabinet")
         {
-          v40 = [idCopy objectAtIndexedSubscript:m];
-          v41 = [v40 hasBoxesDict:@"rawdetection"];
+          v45 = [idCopy objectAtIndexedSubscript:m];
+          v46 = [v45 hasBoxesDict:@"rawdetection"];
 
-          if (v41)
+          if (v46)
           {
             for (n = 0; n != v6; ++n)
             {
-              v43 = [idCopy objectAtIndexedSubscript:n];
-              type6 = [v43 type];
-              if ([v101 containsObject:type6])
+              v48 = [idCopy objectAtIndexedSubscript:n];
+              type6 = [v48 type];
+              if ([v111 containsObject:type6])
               {
-                v45 = [idCopy objectAtIndexedSubscript:n];
-                v46 = [v45 hasBoxesDict:@"rawdetection"];
+                v50 = [idCopy objectAtIndexedSubscript:n];
+                v51 = [v50 hasBoxesDict:@"rawdetection"];
 
-                if (v46)
+                if (v51)
                 {
+                  v135 = 0u;
+                  v136 = 0u;
+                  v133 = 0u;
+                  v134 = 0u;
+                  v131 = 0u;
+                  v132 = 0u;
+                  v129 = 0u;
+                  v130 = 0u;
+                  v52 = [idCopy objectAtIndexedSubscript:m];
+                  boxesDict3 = [v52 boxesDict];
+                  v54 = [boxesDict3 objectForKeyedSubscript:@"rawdetection"];
+                  box3dFromNSArray(v54, &v129);
+
+                  v127 = 0u;
+                  v128 = 0u;
                   v125 = 0u;
                   v126 = 0u;
                   v123 = 0u;
                   v124 = 0u;
                   v121 = 0u;
                   v122 = 0u;
+                  v55 = [idCopy objectAtIndexedSubscript:n];
+                  boxesDict4 = [v55 boxesDict];
+                  v57 = [boxesDict4 objectForKeyedSubscript:@"rawdetection"];
+                  box3dFromNSArray(v57, &v121);
+
                   v119 = 0u;
                   v120 = 0u;
-                  v47 = [idCopy objectAtIndexedSubscript:m];
-                  boxesDict3 = [v47 boxesDict];
-                  v49 = [boxesDict3 objectForKeyedSubscript:@"rawdetection"];
-                  box3dFromNSArray(v49, &v119);
-
                   v117 = 0u;
                   v118 = 0u;
                   v115 = 0u;
                   v116 = 0u;
                   v113 = 0u;
                   v114 = 0u;
-                  v111 = 0u;
-                  v112 = 0u;
-                  v50 = [idCopy objectAtIndexedSubscript:n];
-                  boxesDict4 = [v50 boxesDict];
-                  v52 = [boxesDict4 objectForKeyedSubscript:@"rawdetection"];
-                  box3dFromNSArray(v52, &v111);
-
-                  v109 = 0u;
-                  v110 = 0u;
-                  v107 = 0u;
-                  v108 = 0u;
-                  v105 = 0u;
-                  v106 = 0u;
-                  v103 = 0u;
-                  v104 = 0u;
-                  box3dEnlarge(&v111, 0, 0.0, 0.3, &v103);
-                  *v136 = 0u;
+                  box3dEnlarge(&v113, &v121, 0, 0.0, 0.3);
+                  *v146 = 0u;
                   memset(buf, 0, sizeof(buf));
-                  box3dIou(&v119, &v103, 0, buf);
+                  box3dIou(buf, &v129, &v113, 0, v58);
                   if (*buf >= 0.000001)
                   {
-                    *&v53 = v136[1];
-                    if (v136[1] >= 0.5)
+                    *&v59 = v146[1];
+                    if (v146[1] >= 0.5)
                     {
-                      v54 = [idCopy objectAtIndexedSubscript:{m, v53}];
-                      identifier2 = [v54 identifier];
-                      v56 = [identifier2 copy];
-                      v57 = [idCopy objectAtIndexedSubscript:n];
-                      [v57 setParent_id:v56];
+                      v60 = [idCopy objectAtIndexedSubscript:{m, v59}];
+                      identifier2 = [v60 identifier];
+                      v62 = [identifier2 copy];
+                      v63 = [idCopy objectAtIndexedSubscript:n];
+                      [v63 setParent_id:v62];
 
-                      v58 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-                      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+                      v66 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v64, v65);
+                      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
                       {
-                        v98 = [idCopy objectAtIndexedSubscript:n];
-                        type7 = [v98 type];
-                        v59 = [idCopy objectAtIndexedSubscript:m];
-                        type8 = [v59 type];
-                        v61 = [idCopy objectAtIndexedSubscript:n];
-                        [v61 parent_id];
-                        v62 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                        *v127 = 138412802;
-                        v128 = type7;
-                        v129 = 2112;
-                        v130 = type8;
-                        v131 = 2112;
-                        v132 = v62;
-                        _os_log_debug_impl(&dword_25D1DB000, v58, OS_LOG_TYPE_DEBUG, "%@ has parent object (%@) with parent_id: %@", v127, 0x20u);
+                        v108 = [idCopy objectAtIndexedSubscript:n];
+                        type7 = [v108 type];
+                        v67 = [idCopy objectAtIndexedSubscript:m];
+                        type8 = [v67 type];
+                        v69 = [idCopy objectAtIndexedSubscript:n];
+                        [v69 parent_id];
+                        v70 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                        *v137 = 138412802;
+                        v138 = type7;
+                        v139 = 2112;
+                        v140 = type8;
+                        v141 = 2112;
+                        v142 = v70;
+                        _os_log_debug_impl(&dword_25D1DB000, v66, OS_LOG_TYPE_DEBUG, "%@ has parent object (%@) with parent_id: %@", v137, 0x20u);
                       }
                     }
                   }
@@ -2813,128 +2792,128 @@ LABEL_9:
         }
       }
 
-      v63 = 0;
+      v71 = 0;
       while (1)
       {
-        v64 = [idCopy objectAtIndexedSubscript:v63];
-        type9 = [v64 type];
+        v72 = [idCopy objectAtIndexedSubscript:v71];
+        type9 = [v72 type];
         if (![type9 isEqualToString:@"Sink"])
         {
           goto LABEL_58;
         }
 
-        v66 = [idCopy objectAtIndexedSubscript:v63];
-        if (([v66 hasBoxesDict:@"rawdetection"] & 1) == 0)
+        v74 = [idCopy objectAtIndexedSubscript:v71];
+        if (([v74 hasBoxesDict:@"rawdetection"] & 1) == 0)
         {
           break;
         }
 
-        v67 = [idCopy objectAtIndexedSubscript:v63];
-        parent_id2 = [v67 parent_id];
-        v69 = parent_id2 == 0;
+        v75 = [idCopy objectAtIndexedSubscript:v71];
+        parent_id2 = [v75 parent_id];
+        v77 = parent_id2 == 0;
 
-        if (v69)
+        if (v77)
         {
-          v70 = 0;
+          v78 = 0;
           while (1)
           {
-            v71 = [idCopy objectAtIndexedSubscript:v70];
-            type10 = [v71 type];
+            v79 = [idCopy objectAtIndexedSubscript:v78];
+            type10 = [v79 type];
             if ([type10 isEqualToString:@"Cabinet"])
             {
               break;
             }
 
-            v73 = [idCopy objectAtIndexedSubscript:v70];
-            type11 = [v73 type];
-            v75 = [type11 isEqualToString:@"Table"];
+            v81 = [idCopy objectAtIndexedSubscript:v78];
+            type11 = [v81 type];
+            v83 = [type11 isEqualToString:@"Table"];
 
-            if (v75)
+            if (v83)
             {
               goto LABEL_48;
             }
 
 LABEL_55:
-            if (v6 == ++v70)
+            if (v6 == ++v78)
             {
               goto LABEL_59;
             }
           }
 
 LABEL_48:
-          v76 = [idCopy objectAtIndexedSubscript:v70];
-          v77 = [v76 hasBoxesDict:@"rawdetection"];
+          v84 = [idCopy objectAtIndexedSubscript:v78];
+          v85 = [v84 hasBoxesDict:@"rawdetection"];
 
-          if (v77)
+          if (v85)
           {
+            v135 = 0u;
+            v136 = 0u;
+            v133 = 0u;
+            v134 = 0u;
+            v131 = 0u;
+            v132 = 0u;
+            v129 = 0u;
+            v130 = 0u;
+            v86 = [idCopy objectAtIndexedSubscript:v71];
+            boxesDict5 = [v86 boxesDict];
+            v88 = [boxesDict5 objectForKeyedSubscript:@"rawdetection"];
+            box3dFromNSArray(v88, &v129);
+
+            v127 = 0u;
+            v128 = 0u;
             v125 = 0u;
             v126 = 0u;
             v123 = 0u;
             v124 = 0u;
             v121 = 0u;
             v122 = 0u;
+            v89 = [idCopy objectAtIndexedSubscript:v78];
+            boxesDict6 = [v89 boxesDict];
+            v91 = [boxesDict6 objectForKeyedSubscript:@"rawdetection"];
+            box3dFromNSArray(v91, &v121);
+
+            v92 = *(&v133 + 2);
+            v93 = *(&v125 + 2);
             v119 = 0u;
             v120 = 0u;
-            v78 = [idCopy objectAtIndexedSubscript:v63];
-            boxesDict5 = [v78 boxesDict];
-            v80 = [boxesDict5 objectForKeyedSubscript:@"rawdetection"];
-            box3dFromNSArray(v80, &v119);
-
             v117 = 0u;
             v118 = 0u;
             v115 = 0u;
             v116 = 0u;
             v113 = 0u;
             v114 = 0u;
-            v111 = 0u;
-            v112 = 0u;
-            v81 = [idCopy objectAtIndexedSubscript:v70];
-            boxesDict6 = [v81 boxesDict];
-            v83 = [boxesDict6 objectForKeyedSubscript:@"rawdetection"];
-            box3dFromNSArray(v83, &v111);
-
-            v84 = *(&v123 + 2);
-            v85 = *(&v115 + 2);
-            v109 = 0u;
-            v110 = 0u;
-            v107 = 0u;
-            v108 = 0u;
-            v105 = 0u;
-            v106 = 0u;
-            v103 = 0u;
-            v104 = 0u;
-            box3dEnlarge(&v119, 0, 0.0, 0.2, &v103);
-            *v136 = 0u;
+            box3dEnlarge(&v113, &v129, 0, 0.0, 0.2);
+            *v146 = 0u;
             memset(buf, 0, sizeof(buf));
-            box3dIou(&v103, &v111, 0, buf);
-            v86 = *buf;
-            if (*buf > 0.01 && v84 > v85)
+            box3dIou(buf, &v113, &v121, 0, v94);
+            v95 = *buf;
+            if (*buf > 0.01 && v92 > v93)
             {
-              *&v86 = v136[1];
-              if (v136[1] >= 0.5)
+              *&v95 = v146[1];
+              if (v146[1] >= 0.5)
               {
-                v87 = [idCopy objectAtIndexedSubscript:{v70, v86}];
-                identifier3 = [v87 identifier];
-                v89 = [identifier3 copy];
-                v90 = [idCopy objectAtIndexedSubscript:v63];
-                [v90 setParent_id:v89];
+                v96 = [idCopy objectAtIndexedSubscript:{v78, v95}];
+                identifier3 = [v96 identifier];
+                v98 = [identifier3 copy];
+                v99 = [idCopy objectAtIndexedSubscript:v71];
+                [v99 setParent_id:v98];
 
-                v91 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-                if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+                v102 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v100, v101);
+                if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
                 {
-                  v92 = [idCopy objectAtIndexedSubscript:v70];
-                  type12 = [v92 type];
-                  v94 = [idCopy objectAtIndexedSubscript:v63];
-                  parent_id3 = [v94 parent_id];
-                  *v127 = 138413058;
-                  v128 = type12;
-                  v129 = 2112;
-                  v130 = parent_id3;
-                  v131 = 2048;
-                  v132 = v136[0];
-                  v133 = 2048;
-                  v134 = v136[1];
-                  _os_log_debug_impl(&dword_25D1DB000, v91, OS_LOG_TYPE_DEBUG, "The sink has parent object (%@) with parent_id: %@, %f, %f", v127, 0x2Au);
+                  v103 = [idCopy objectAtIndexedSubscript:v78];
+                  type12 = [v103 type];
+                  v105 = [idCopy objectAtIndexedSubscript:v71];
+                  parent_id3 = [v105 parent_id];
+                  *v137 = 138413058;
+                  v138 = type12;
+                  v139 = 2112;
+                  v140 = parent_id3;
+                  v141 = 2048;
+                  v142 = v146[0];
+                  v143 = 2048;
+                  v144 = v146[1];
+                  _os_log_debug_impl(&dword_25D1DB000, v102, OS_LOG_TYPE_DEBUG, "The sink has parent object (%@) with parent_id: %@, %f, %f", v137, 0x2Au);
                 }
               }
             }
@@ -2944,7 +2923,7 @@ LABEL_48:
         }
 
 LABEL_59:
-        if (++v63 == v6)
+        if (++v71 == v6)
         {
           goto LABEL_60;
         }
@@ -2961,64 +2940,62 @@ LABEL_58:
   }
 
 LABEL_60:
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assignIdentifiersForNewObjects:(id)objects withOldObjects:(id)oldObjects
 {
-  v97[2] = *MEMORY[0x277D85DE8];
+  v101[2] = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   oldObjectsCopy = oldObjects;
   kdebug_trace();
-  rawBoxesFromObjects(objectsCopy, v93);
-  rawBoxesFromObjects(oldObjectsCopy, &v91);
+  rawBoxesFromObjects(objectsCopy, v97);
+  rawBoxesFromObjects(oldObjectsCopy, &v95);
   v6 = @"Cabinet";
-  v97[0] = v6;
-  v97[1] = @"Shelf";
-  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v90, v97, 2);
+  v101[0] = v6;
+  v101[1] = @"Shelf";
+  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v94, v101, 2);
   for (i = 1; i != -1; --i)
   {
   }
 
-  v96[0] = @"Sofa";
-  v96[1] = @"Chair";
-  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v89, v96, 2);
+  v100[0] = @"Sofa";
+  v100[1] = @"Chair";
+  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v93, v100, 2);
   for (j = 1; j != -1; --j)
   {
   }
 
-  v95[0] = @"Dishwasher";
-  v95[1] = @"Refrigerator";
-  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v88, v95, 2);
+  v99[0] = @"Dishwasher";
+  v99[1] = @"Refrigerator";
+  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v92, v99, 2);
   for (k = 1; k != -1; --k)
   {
   }
 
-  v94[0] = v6;
-  v94[1] = @"Table";
-  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v87, v94, 2);
+  v98[0] = v6;
+  v98[1] = @"Table";
+  std::set<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::set[abi:ne200100](v91, v98, 2);
   for (m = 1; m != -1; --m)
   {
   }
 
-  v12 = v93[0];
-  v11 = v93[1];
-  v13 = v91;
-  v60 = v92;
-  v14 = 0x6DB6DB6DB6DB6DB7 * ((v92 - v91) >> 5);
-  v69.i32[0] = -1082130432;
-  std::vector<float>::vector[abi:ne200100](__p, v14);
-  std::vector<std::vector<float>>::vector[abi:ne200100](&v85, 0x6DB6DB6DB6DB6DB7 * ((v11 - v12) >> 5));
-  v57 = 0x6DB6DB6DB6DB6DB7 * ((v11 - v12) >> 5);
+  v12 = v97[0];
+  v11 = v97[1];
+  v13 = v95;
+  v64 = v96;
+  v14 = 0x6DB6DB6DB6DB6DB7 * ((v96 - v95) >> 5);
+  v73.i32[0] = -1082130432;
+  std::vector<float>::vector[abi:ne200100](__p, v14, &v73);
+  std::vector<std::vector<float>>::vector[abi:ne200100](&v89, 0x6DB6DB6DB6DB6DB7 * ((v11 - v12) >> 5), __p);
+  v61 = 0x6DB6DB6DB6DB6DB7 * ((v11 - v12) >> 5);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  v55 = v12;
-  v56 = v11;
+  v59 = v12;
+  v60 = v11;
   if (v11 != v12)
   {
     v15 = 0;
@@ -3033,16 +3010,16 @@ LABEL_60:
     }
 
     v17 = 0x6DB6DB6DB6DB6DB7 * ((v11 - v12) >> 5);
-    if (v57 <= 1)
+    if (v61 <= 1)
     {
       v17 = 1;
     }
 
-    v59 = v17;
-    while (v60 == v13)
+    v63 = v17;
+    while (v64 == v13)
     {
 LABEL_40:
-      if (++v15 == v59)
+      if (++v15 == v63)
       {
         goto LABEL_41;
       }
@@ -3052,42 +3029,42 @@ LABEL_40:
     v19 = 0;
     while (1)
     {
-      v20 = [*(v93[0] + 224 * v15 + 128) isEqualToString:*(v91 + v18 + 128)];
-      v21 = v93[0] + 224 * v15;
+      v20 = [*(v97[0] + 224 * v15 + 128) isEqualToString:*(v95 + v18 + 128)];
+      v21 = v97[0] + 224 * v15;
       if (v20)
       {
         break;
       }
 
-      if (std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v90, (v21 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v90, (v91 + v18 + 128)))
+      if (std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v94, (v21 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v94, (v95 + v18 + 128)))
       {
-        box3dIou((v93[0] + 224 * v15), (v91 + v18), 0, __p);
-        *(*(v85 + 24 * v15) + 4 * v19) = __p[0];
+        box3dIou(__p, (v97[0] + 224 * v15), (v95 + v18), 0, v26);
+        *(*(v89 + 24 * v15) + 4 * v19) = __p[0];
       }
 
-      if (std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v89, (v93[0] + 224 * v15 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v89, (v91 + v18 + 128)) || std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v88, (v93[0] + 224 * v15 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v88, (v91 + v18 + 128)))
+      if (std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v93, (v97[0] + 224 * v15 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v93, (v95 + v18 + 128)) || std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v92, (v97[0] + 224 * v15 + 128)) && std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v92, (v95 + v18 + 128)))
       {
-        box3dIou((v93[0] + 224 * v15), (v91 + v18), 0, __p);
+        box3dIou(__p, (v97[0] + 224 * v15), (v95 + v18), 0, v27);
         if (*__p > 0.7)
         {
-          *(*(v85 + 24 * v15) + 4 * v19) = __p[0];
+          *(*(v89 + 24 * v15) + 4 * v19) = __p[0];
         }
       }
 
-      if (!std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v87, (v93[0] + 224 * v15 + 128)) || !std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v87, (v91 + v18 + 128)))
+      if (!std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v91, (v97[0] + 224 * v15 + 128)) || !std::__tree<NSString * {__strong},CompareNSString,std::allocator<NSString * {__strong}>>::__count_unique<NSString * {__strong}>(v91, (v95 + v18 + 128)))
       {
         goto LABEL_39;
       }
 
-      box3dIou((v93[0] + 224 * v15), (v91 + v18), 0, __p);
-      v22 = __p[0];
-      v23 = *(v85 + 24 * v15);
+      box3dIou(__p, (v97[0] + 224 * v15), (v95 + v18), 0, v28);
+      v24 = __p[0];
+      v25 = *(v89 + 24 * v15);
       if (*__p > 0.3)
       {
         goto LABEL_38;
       }
 
-      *(v23 + 4 * v19) = -1073741824;
+      *(v25 + 4 * v19) = -1073741824;
 LABEL_39:
       ++v19;
       v18 += 224;
@@ -3099,242 +3076,240 @@ LABEL_39:
 
     if ([*(v21 + 128) isEqualToString:@"Screen"])
     {
+      v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v81 = 0u;
+      *__p = 0u;
       v82 = 0u;
+      box3dEnlarge(__p, (v97[0] + 224 * v15), 0, 0.5, 0.0);
       v79 = 0u;
       v80 = 0u;
-      *__p = 0u;
+      v77 = 0u;
       v78 = 0u;
-      box3dEnlarge((v93[0] + 224 * v15), 0, 0.5, 0.0, __p);
       v75 = 0u;
       v76 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      box3dEnlarge((v91 + v18), 0, 0.5, 0.0, &v69);
-      box3dIou(__p, &v69, 0, v68);
-      v22 = v68[0];
+      box3dEnlarge(&v73, (v95 + v18), 0, 0.5, 0.0);
+      box3dIou(v72, __p, &v73, 0, v23);
+      v24 = v72[0];
     }
 
     else
     {
-      box3dIou((v93[0] + 224 * v15), (v91 + v18), 0, __p);
-      v22 = __p[0];
+      box3dIou(__p, (v97[0] + 224 * v15), (v95 + v18), 0, v22);
+      v24 = __p[0];
     }
 
-    v23 = *(v85 + 24 * v15);
+    v25 = *(v89 + 24 * v15);
 LABEL_38:
-    *(v23 + 4 * v19) = v22;
+    *(v25 + 4 * v19) = v24;
     goto LABEL_39;
   }
 
 LABEL_41:
-  std::vector<std::vector<int>>::vector[abi:ne200100](v68, v14);
-  v24 = v57;
-  std::vector<std::vector<int>>::vector[abi:ne200100](v67, v57);
+  std::vector<std::vector<int>>::vector[abi:ne200100](v72, v14);
+  v29 = v61;
+  std::vector<std::vector<int>>::vector[abi:ne200100](v71, v61);
   LODWORD(__p[0]) = 0;
-  if (v56 != v55)
+  if (v60 != v59)
   {
-    v25 = 0;
+    v30 = 0;
     do
     {
-      v69.i32[0] = 0;
-      if (v60 != v13)
+      v73.i32[0] = 0;
+      if (v64 != v13)
       {
-        v26 = 0;
-        v27 = 0;
+        v31 = 0;
+        v32 = 0;
         do
         {
-          if (*(*(v85 + 24 * SLODWORD(__p[0])) + 4 * v27) > 0.0)
+          if (*(*(v89 + 24 * SLODWORD(__p[0])) + 4 * v32) > 0.0)
           {
-            std::vector<int>::push_back[abi:ne200100]((v68[0] + 24 * v27), __p);
-            std::vector<int>::push_back[abi:ne200100]((v67[0] + 24 * SLODWORD(__p[0])), &v69);
-            v26 = v69.i32[0];
+            std::vector<int>::push_back[abi:ne200100]((v72[0] + 24 * v32), __p);
+            std::vector<int>::push_back[abi:ne200100]((v71[0] + 24 * SLODWORD(__p[0])), &v73);
+            v31 = v73.i32[0];
           }
 
-          v69.i32[0] = ++v26;
-          v27 = v26;
+          v73.i32[0] = ++v31;
+          v32 = v31;
         }
 
-        while (v14 > v26);
-        v25 = __p[0];
+        while (v14 > v31);
+        v30 = __p[0];
       }
 
-      LODWORD(__p[0]) = ++v25;
+      LODWORD(__p[0]) = ++v30;
     }
 
-    while (v57 > v25);
-    v28 = 0;
-    v29 = 0;
-    if (v57 <= 1)
+    while (v61 > v30);
+    v33 = 0;
+    v34 = 0;
+    if (v61 <= 1)
     {
-      v24 = 1;
+      v29 = 1;
     }
 
     do
     {
-      v30 = *(v67[0] + v28);
-      v31 = *(v67[0] + v28 + 8);
-      memset(v65, 0, sizeof(v65));
-      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v65, v85, v86, 0xAAAAAAAAAAAAAAABLL * ((v86 - v85) >> 3));
-      v32 = 126 - 2 * __clz((v31 - v30) >> 2);
-      v66 = v29;
-      if (v31 == v30)
+      v35 = *(v71[0] + v33);
+      v36 = *(v71[0] + v33 + 8);
+      memset(v69, 0, sizeof(v69));
+      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v69, v89, v90, 0xAAAAAAAAAAAAAAABLL * ((v90 - v89) >> 3));
+      v37 = 126 - 2 * __clz((v36 - v35) >> 2);
+      v70 = v34;
+      if (v36 == v35)
       {
-        v33 = 0;
+        v38 = 0;
       }
 
       else
       {
-        v33 = v32;
+        v38 = v37;
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,[OU3DObjectDetector assignIdentifiersForNewObjects:withOldObjects:]::$_0 &,int *,false>(v30, v31, v65, v33, 1);
-      __p[0] = v65;
+      std::__introsort<std::_ClassicAlgPolicy,[OU3DObjectDetector assignIdentifiersForNewObjects:withOldObjects:]::$_0 &,int *,false>(v35, v36, v69, v38, 1);
+      __p[0] = v69;
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-      ++v29;
-      v28 += 24;
+      ++v34;
+      v33 += 24;
     }
 
-    while (v24 != v29);
+    while (v29 != v34);
   }
 
-  if (v60 != v13)
+  if (v64 != v13)
   {
-    v34 = 0;
-    v35 = 0;
+    v39 = 0;
+    v40 = 0;
     if (v14 <= 1)
     {
-      v36 = 1;
+      v41 = 1;
     }
 
     else
     {
-      v36 = v14;
+      v41 = v14;
     }
 
     do
     {
-      v37 = *(v68[0] + v34);
-      v38 = *(v68[0] + v34 + 8);
-      memset(v63, 0, sizeof(v63));
-      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v63, v85, v86, 0xAAAAAAAAAAAAAAABLL * ((v86 - v85) >> 3));
-      v39 = 126 - 2 * __clz((v38 - v37) >> 2);
-      v64 = v35;
-      if (v38 == v37)
+      v42 = *(v72[0] + v39);
+      v43 = *(v72[0] + v39 + 8);
+      memset(v67, 0, sizeof(v67));
+      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v67, v89, v90, 0xAAAAAAAAAAAAAAABLL * ((v90 - v89) >> 3));
+      v44 = 126 - 2 * __clz((v43 - v42) >> 2);
+      v68 = v40;
+      if (v43 == v42)
       {
-        v40 = 0;
+        v45 = 0;
       }
 
       else
       {
-        v40 = v39;
+        v45 = v44;
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,[OU3DObjectDetector assignIdentifiersForNewObjects:withOldObjects:]::$_1 &,int *,false>(v37, v38, v63, v40, 1);
-      __p[0] = v63;
+      std::__introsort<std::_ClassicAlgPolicy,[OU3DObjectDetector assignIdentifiersForNewObjects:withOldObjects:]::$_1 &,int *,false>(v42, v43, v67, v45, 1);
+      __p[0] = v67;
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-      ++v35;
-      v34 += 24;
+      ++v40;
+      v39 += 24;
     }
 
-    while (v36 != v35);
+    while (v41 != v40);
   }
 
   *__p = 0u;
-  v78 = 0u;
-  LODWORD(v79) = 1065353216;
-  v69 = 0u;
-  v70 = 0u;
-  LODWORD(v71) = 1065353216;
-  v62 = 0;
-  if (v56 != v55)
+  v82 = 0u;
+  LODWORD(v83) = 1065353216;
+  v73 = 0u;
+  v74 = 0u;
+  LODWORD(v75) = 1065353216;
+  v66 = 0;
+  if (v60 != v59)
   {
-    v41 = 0;
-    v42 = 0;
+    v46 = 0;
+    v47 = 0;
     do
     {
-      v43 = v67[0] + 24 * v41;
-      if (*v43 != *(v43 + 8))
+      v48 = v71[0] + 24 * v46;
+      if (*v48 != *(v48 + 8))
       {
-        v61 = **v43;
-        if (**(v68[0] + 24 * v61) == v42)
+        v65 = **v48;
+        if (**(v72[0] + 24 * v65) == v47)
         {
-          v44 = [oldObjectsCopy objectAtIndexedSubscript:?];
-          identifier = [v44 identifier];
-          v46 = [objectsCopy objectAtIndexedSubscript:v62];
-          [v46 setIdentifier:identifier];
+          v49 = [oldObjectsCopy objectAtIndexedSubscript:?];
+          identifier = [v49 identifier];
+          v51 = [objectsCopy objectAtIndexedSubscript:v66];
+          [v51 setIdentifier:identifier];
 
-          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(__p, &v62);
-          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v69, &v61);
-          v42 = v62;
+          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(__p, &v66, &v66);
+          std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v73.f32, &v65, &v65);
+          v47 = v66;
         }
       }
 
-      v62 = ++v42;
-      v41 = v42;
+      v66 = ++v47;
+      v46 = v47;
     }
 
-    while (v57 > v42);
-    v62 = 0;
-    if (v56 != v55)
+    while (v61 > v47);
+    v66 = 0;
+    if (v60 != v59)
     {
       do
       {
-        if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(__p, &v62))
+        if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(__p, &v66))
         {
-          v48 = v67[0] + 24 * v62;
-          v49 = *v48;
-          v50 = *(v48 + 8);
-          while (v49 != v50)
+          v53 = v71[0] + 24 * v66;
+          v54 = *v53;
+          v55 = *(v53 + 8);
+          while (v54 != v55)
           {
-            v61 = *v49;
-            if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(&v69, &v61))
+            v65 = *v54;
+            if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(&v73, &v65))
             {
-              v51 = [oldObjectsCopy objectAtIndexedSubscript:v61];
-              identifier2 = [v51 identifier];
-              v53 = [objectsCopy objectAtIndexedSubscript:v62];
-              [v53 setIdentifier:identifier2];
+              v56 = [oldObjectsCopy objectAtIndexedSubscript:v65];
+              identifier2 = [v56 identifier];
+              v58 = [objectsCopy objectAtIndexedSubscript:v66];
+              [v58 setIdentifier:identifier2];
 
-              std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v69, &v61);
+              std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(v73.f32, &v65, &v65);
               break;
             }
 
-            ++v49;
+            ++v54;
           }
         }
 
-        v47 = ++v62;
+        v52 = ++v66;
       }
 
-      while (v57 > v47);
+      while (v61 > v52);
     }
   }
 
   kdebug_trace();
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&v69);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&v73);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(__p);
-  __p[0] = v67;
+  __p[0] = v71;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-  __p[0] = v68;
+  __p[0] = v72;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-  __p[0] = &v85;
+  __p[0] = &v89;
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](__p);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v87, v87[1]);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v88, v88[1]);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v89, v89[1]);
-  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v90, v90[1]);
-  __p[0] = &v91;
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v91, v91[1]);
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v92, v92[1]);
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v93, v93[1]);
+  std::__tree<std::__value_type<NSString * {__strong},float>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},float>,CompareNSString,true>,std::allocator<std::__value_type<NSString * {__strong},float>>>::destroy(v94, v94[1]);
+  __p[0] = &v95;
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](__p);
-  __p[0] = v93;
+  __p[0] = v97;
   std::vector<OUBox3d>::__destroy_vector::operator()[abi:ne200100](__p);
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectRepresentationEnabled:(BOOL)enabled
@@ -3415,7 +3390,7 @@ LABEL_41:
   return result;
 }
 
-- (uint64_t)assignIdentifiersForNewObjects:(uint64_t)objects withOldObjects:(uint64_t)oldObjects
+- (uint64_t)assignIdentifiersForNewObjects:(uint64_t *)objects withOldObjects:(uint64_t)oldObjects
 {
   v9 = result;
 LABEL_2:
@@ -3435,7 +3410,7 @@ LABEL_2:
       {
         v106 = *(a2 - 1);
         v107 = *v10;
-        if (*(*(*objects + 24 * v106) + 4 * *(objects + 24)) <= *(*(*objects + 24 * *v10) + 4 * *(objects + 24)))
+        if (*(*(*objects + 24 * v106) + 4 * *(objects + 6)) <= *(*(*objects + 24 * *v10) + 4 * *(objects + 6)))
         {
           return result;
         }
@@ -3466,24 +3441,24 @@ LABEL_173:
       v98 = *(a2 - 1);
       v99 = v10[3];
       v100 = *objects;
-      if (*(*(*objects + 24 * v98) + 4 * *(objects + 24)) > *(*(*objects + 24 * v99) + 4 * *(objects + 24)))
+      if (*(*(*objects + 24 * v98) + 4 * *(objects + 6)) > *(*(*objects + 24 * v99) + 4 * *(objects + 6)))
       {
         v10[3] = v98;
         *(a2 - 1) = v99;
         v102 = v10[2];
         v101 = v10[3];
         v103 = *(v100 + 24 * v101);
-        if (*(v103 + 4 * *(objects + 24)) > *(*(v100 + 24 * v102) + 4 * *(objects + 24)))
+        if (*(v103 + 4 * *(objects + 6)) > *(*(v100 + 24 * v102) + 4 * *(objects + 6)))
         {
           v10[2] = v101;
           v10[3] = v102;
           v104 = v10[1];
-          if (*(v103 + 4 * *(objects + 24)) > *(*(v100 + 24 * v104) + 4 * *(objects + 24)))
+          if (*(v103 + 4 * *(objects + 6)) > *(*(v100 + 24 * v104) + 4 * *(objects + 6)))
           {
             v10[1] = v101;
             v10[2] = v104;
             v105 = *v10;
-            if (*(v103 + 4 * *(objects + 24)) > *(*(v100 + 24 * *v10) + 4 * *(objects + 24)))
+            if (*(v103 + 4 * *(objects + 6)) > *(*(v100 + 24 * *v10) + 4 * *(objects + 6)))
             {
               *v10 = v101;
               v10[1] = v105;
@@ -3514,7 +3489,7 @@ LABEL_10:
               v119 = v118[1];
               v118 = v115;
               v121 = *(v117 + 24 * v119);
-              if (*(v121 + 4 * *(objects + 24)) > *(*(v117 + 24 * v120) + 4 * *(objects + 24)))
+              if (*(v121 + 4 * *(objects + 6)) > *(*(v117 + 24 * v120) + 4 * *(objects + 6)))
               {
                 v122 = v116;
                 while (1)
@@ -3527,7 +3502,7 @@ LABEL_10:
 
                   v120 = *(v10 + v122 - 4);
                   v122 -= 4;
-                  if (*(v121 + 4 * *(objects + 24)) <= *(*(v117 + 24 * v120) + 4 * *(objects + 24)))
+                  if (*(v121 + 4 * *(objects + 6)) <= *(*(v117 + 24 * v120) + 4 * *(objects + 6)))
                   {
                     v123 = (v10 + v122 + 4);
                     goto LABEL_126;
@@ -3561,7 +3536,7 @@ LABEL_126:
             v9 = v162;
             v166 = v165;
             v167 = *(v163 + 24 * v164);
-            if (*(v167 + 4 * *(objects + 24)) > *(*(v163 + 24 * v166) + 4 * *(objects + 24)))
+            if (*(v167 + 4 * *(objects + 6)) > *(*(v163 + 24 * v166) + 4 * *(objects + 6)))
             {
               v168 = v9;
               do
@@ -3571,7 +3546,7 @@ LABEL_126:
                 --v168;
               }
 
-              while (*(v167 + 4 * *(objects + 24)) > *(*(v163 + 24 * v166) + 4 * *(objects + 24)));
+              while (*(v167 + 4 * *(objects + 6)) > *(*(v163 + 24 * v166) + 4 * *(objects + 6)));
               *v168 = v164;
             }
 
@@ -3601,12 +3576,12 @@ LABEL_126:
             v129 = &v10[v128];
             if (2 * v127 + 2 >= v11)
             {
-              v130 = *(objects + 24);
+              v130 = *(objects + 6);
             }
 
             else
             {
-              v130 = *(objects + 24);
+              v130 = *(objects + 6);
               if (*(*(v125 + 24 * *v129) + 4 * v130) > *(*(v125 + 24 * v129[1]) + 4 * v130))
               {
                 ++v129;
@@ -3633,7 +3608,7 @@ LABEL_126:
                 v128 = (2 * v128) | 1;
                 v129 = &v10[v128];
                 v137 = v136 + 2;
-                v138 = *(objects + 24);
+                v138 = *(objects + 6);
                 if (v137 < v11 && *(*(v125 + 24 * *v129) + 4 * v138) > *(*(v125 + 24 * v129[1]) + 4 * v138))
                 {
                   ++v129;
@@ -3675,7 +3650,7 @@ LABEL_126:
               v150 = v146[2];
               v149 = v146 + 2;
               result = *(v143 + 24 * v150);
-              if (*(*(v143 + 24 * *(v149 - 1)) + 4 * *(objects + 24)) > *(result + 4 * *(objects + 24)))
+              if (*(*(v143 + 24 * *(v149 - 1)) + 4 * *(objects + 6)) > *(result + 4 * *(objects + 6)))
               {
                 v144 = v149;
                 v141 = v148;
@@ -3705,7 +3680,7 @@ LABEL_126:
               v156 = *v155;
               v157 = *v144;
               v158 = *(v143 + 24 * *v144);
-              if (*(*(v143 + 24 * *v155) + 4 * *(objects + 24)) > *(v158 + 4 * *(objects + 24)))
+              if (*(*(v143 + 24 * *v155) + 4 * *(objects + 6)) > *(v158 + 4 * *(objects + 6)))
               {
                 do
                 {
@@ -3719,7 +3694,7 @@ LABEL_126:
                   v154 = (v154 - 1) >> 1;
                   v155 = &v10[v154];
                   v156 = *v155;
-                  result = *(objects + 24);
+                  result = *(objects + 6);
                   v144 = v159;
                 }
 
@@ -3741,7 +3716,7 @@ LABEL_126:
     v12 = &v10[v11 >> 1];
     v13 = v12;
     v14 = *objects;
-    v15 = *(objects + 24);
+    v15 = *(objects + 6);
     v16 = *(a2 - 1);
     v17 = *(*(*objects + 24 * v16) + 4 * v15);
     if (v11 >= 0x81)
@@ -3757,7 +3732,7 @@ LABEL_126:
           *v12 = v16;
           *(a2 - 1) = v18;
           v26 = *v10;
-          if (*(*(v14 + 24 * *v12) + 4 * *(objects + 24)) > *(*(v14 + 24 * *v10) + 4 * *(objects + 24)))
+          if (*(*(v14 + 24 * *v12) + 4 * *(objects + 6)) > *(*(v14 + 24 * *v10) + 4 * *(objects + 6)))
           {
             *v10 = *v12;
             *v12 = v26;
@@ -3776,7 +3751,7 @@ LABEL_126:
         *v10 = v18;
         *v12 = v19;
         v28 = *(a2 - 1);
-        if (*(*(v14 + 24 * v28) + 4 * *(objects + 24)) > *(v21 + 4 * *(objects + 24)))
+        if (*(*(v14 + 24 * v28) + 4 * *(objects + 6)) > *(v21 + 4 * *(objects + 6)))
         {
           *v12 = v28;
 LABEL_27:
@@ -3787,7 +3762,7 @@ LABEL_27:
       v29 = v12 - 1;
       v30 = *(v12 - 1);
       v31 = v10[1];
-      v32 = *(objects + 24);
+      v32 = *(objects + 6);
       v33 = *(*(v14 + 24 * v30) + 4 * v32);
       v34 = *(v14 + 24 * v31);
       v35 = *(a2 - 2);
@@ -3799,7 +3774,7 @@ LABEL_27:
           *v29 = v35;
           *(a2 - 2) = v30;
           v37 = v10[1];
-          if (*(*(v14 + 24 * *v29) + 4 * *(objects + 24)) > *(*(v14 + 24 * v37) + 4 * *(objects + 24)))
+          if (*(*(v14 + 24 * *v29) + 4 * *(objects + 6)) > *(*(v14 + 24 * v37) + 4 * *(objects + 6)))
           {
             v10[1] = *v29;
             *v29 = v37;
@@ -3818,7 +3793,7 @@ LABEL_27:
         v10[1] = v30;
         *v29 = v31;
         v39 = *(a2 - 2);
-        if (*(*(v14 + 24 * v39) + 4 * *(objects + 24)) > *(v34 + 4 * *(objects + 24)))
+        if (*(*(v14 + 24 * v39) + 4 * *(objects + 6)) > *(v34 + 4 * *(objects + 6)))
         {
           *v29 = v39;
 LABEL_39:
@@ -3830,7 +3805,7 @@ LABEL_39:
       v40 = v12 + 1;
       v41 = v42;
       v43 = v10[2];
-      v44 = *(objects + 24);
+      v44 = *(objects + 6);
       v45 = *(*(v14 + 24 * v42) + 4 * v44);
       v46 = *(v14 + 24 * v43);
       v47 = *(a2 - 3);
@@ -3842,7 +3817,7 @@ LABEL_39:
           *v40 = v47;
           *(a2 - 3) = v41;
           v49 = v10[2];
-          if (*(*(v14 + 24 * *v40) + 4 * *(objects + 24)) > *(*(v14 + 24 * v49) + 4 * *(objects + 24)))
+          if (*(*(v14 + 24 * *v40) + 4 * *(objects + 6)) > *(*(v14 + 24 * v49) + 4 * *(objects + 6)))
           {
             v10[2] = *v40;
             *v40 = v49;
@@ -3861,7 +3836,7 @@ LABEL_39:
         v10[2] = v41;
         *v40 = v43;
         v50 = *(a2 - 3);
-        if (*(*(v14 + 24 * v50) + 4 * *(objects + 24)) > *(v46 + 4 * *(objects + 24)))
+        if (*(*(v14 + 24 * v50) + 4 * *(objects + 6)) > *(v46 + 4 * *(objects + 6)))
         {
           *v40 = v50;
 LABEL_48:
@@ -3871,7 +3846,7 @@ LABEL_48:
 
       v51 = *v13;
       v52 = *v29;
-      v53 = *(objects + 24);
+      v53 = *(objects + 6);
       v54 = *(*(v14 + 24 * *v13) + 4 * v53);
       v55 = *(v14 + 24 * *v29);
       v56 = *v40;
@@ -3886,7 +3861,7 @@ LABEL_48:
 
         *v13 = v56;
         *v40 = v51;
-        v62 = *(objects + 24);
+        v62 = *(objects + 6);
         v63 = *(v57 + 4 * v62);
         v64 = *(v55 + 4 * v62);
         v40 = v13;
@@ -3902,7 +3877,7 @@ LABEL_48:
       {
         *v29 = v51;
         *v13 = v52;
-        v59 = *(objects + 24);
+        v59 = *(objects + 6);
         v60 = *(v57 + 4 * v59);
         v61 = *(v55 + 4 * v59);
         v29 = v13;
@@ -3934,7 +3909,7 @@ LABEL_56:
         *v10 = v16;
         *(a2 - 1) = v22;
         v27 = *v13;
-        if (*(*(v14 + 24 * *v10) + 4 * *(objects + 24)) > *(*(v14 + 24 * *v13) + 4 * *(objects + 24)))
+        if (*(*(v14 + 24 * *v10) + 4 * *(objects + 6)) > *(*(v14 + 24 * *v13) + 4 * *(objects + 6)))
         {
           *v13 = *v10;
           *v10 = v27;
@@ -3955,7 +3930,7 @@ LABEL_36:
     *v13 = v22;
     *v10 = v23;
     v38 = *(a2 - 1);
-    if (*(*(v14 + 24 * v38) + 4 * *(objects + 24)) > *(v25 + 4 * *(objects + 24)))
+    if (*(*(v14 + 24 * v38) + 4 * *(objects + 6)) > *(v25 + 4 * *(objects + 6)))
     {
       *v10 = v38;
       goto LABEL_36;
@@ -3965,7 +3940,7 @@ LABEL_57:
     --oldObjects;
     v66 = *v10;
     v67 = *v10;
-    v68 = *(objects + 24);
+    v68 = *(objects + 6);
     if (a5)
     {
       v69 = *(v14 + 24 * v67);
@@ -4021,7 +3996,7 @@ LABEL_60:
         {
           *v79 = v77;
           *v80 = v78;
-          v81 = *(objects + 24);
+          v81 = *(objects + 6);
           v82 = *(v69 + 4 * v81);
           do
           {
@@ -4089,7 +4064,7 @@ LABEL_81:
 
       if (v70 <= *(*(v14 + 24 * *(a2 - 1)) + 4 * v68))
       {
-        v88 = v10 + 1;
+        v88 = (v10 + 1);
         do
         {
           v10 = v88;
@@ -4098,7 +4073,7 @@ LABEL_81:
             break;
           }
 
-          ++v88;
+          v88 += 4;
         }
 
         while (v70 <= *(*(v14 + 24 * *v10) + 4 * v68));
@@ -4135,7 +4110,7 @@ LABEL_81:
         {
           *v10 = v92;
           *v89 = v91;
-          v93 = *(objects + 24);
+          v93 = *(objects + 6);
           v94 = *(v69 + 4 * v93);
           do
           {
@@ -4171,7 +4146,7 @@ LABEL_81:
   v107 = *v10;
   v108 = v10[1];
   v109 = *objects;
-  v110 = *(objects + 24);
+  v110 = *(objects + 6);
   v111 = *(*(*objects + 24 * v108) + 4 * v110);
   v112 = *(*objects + 24 * *v10);
   v113 = *(a2 - 1);
@@ -4183,7 +4158,7 @@ LABEL_81:
       *v10 = v108;
       v10[1] = v107;
       v169 = *(a2 - 1);
-      if (*(*(v109 + 24 * v169) + 4 * *(objects + 24)) <= *(v112 + 4 * *(objects + 24)))
+      if (*(*(v109 + 24 * v169) + 4 * *(objects + 6)) <= *(v112 + 4 * *(objects + 6)))
       {
         return result;
       }
@@ -4205,7 +4180,7 @@ LABEL_81:
     *(a2 - 1) = v108;
     v161 = *v10;
     v160 = v10[1];
-    if (*(*(v109 + 24 * v160) + 4 * *(objects + 24)) > *(*(v109 + 24 * *v10) + 4 * *(objects + 24)))
+    if (*(*(v109 + 24 * v160) + 4 * *(objects + 6)) > *(*(v109 + 24 * *v10) + 4 * *(objects + 6)))
     {
       *v10 = v160;
       v10[1] = v161;
@@ -4227,14 +4202,6 @@ LABEL_81:
   *buf = 0;
   *a2 = 0;
   _os_log_debug_impl(&dword_25D1DB000, log, OS_LOG_TYPE_DEBUG, "[3DOD] WARNING: there shouldn't be duplicated object box type in the reference array.", buf, 2u);
-}
-
-- (void)run
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

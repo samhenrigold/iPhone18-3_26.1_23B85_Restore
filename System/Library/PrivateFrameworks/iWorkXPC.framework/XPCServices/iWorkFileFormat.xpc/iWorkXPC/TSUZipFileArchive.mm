@@ -469,24 +469,12 @@ LABEL_31:
   if (!self->_temporaryDirectoryURL)
   {
     v11 = lCopy;
-    if (!lCopy)
+    if (!lCopy || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v5 = objc_claimAutoreleasedReturnValue(), [v5 URLForDirectory:99 inDomain:1 appropriateForURL:v11 create:1 error:0], v6 = objc_claimAutoreleasedReturnValue(), v7 = self->_temporaryDirectoryURL, self->_temporaryDirectoryURL = v6, v7, v5, lCopy = v11, !self->_temporaryDirectoryURL))
     {
-      goto LABEL_4;
-    }
-
-    v5 = +[NSFileManager defaultManager];
-    v6 = [v5 URLForDirectory:99 inDomain:1 appropriateForURL:v11 create:1 error:0];
-    temporaryDirectoryURL = self->_temporaryDirectoryURL;
-    self->_temporaryDirectoryURL = v6;
-
-    lCopy = v11;
-    if (!self->_temporaryDirectoryURL)
-    {
-LABEL_4:
       v8 = [[TSUTemporaryDirectory alloc] initWithSignature:@"ZipFile" error:0];
       [(TSUTemporaryDirectory *)v8 leakTemporaryDirectory];
       v9 = [(TSUTemporaryDirectory *)v8 URL];
-      v10 = self->_temporaryDirectoryURL;
+      temporaryDirectoryURL = self->_temporaryDirectoryURL;
       self->_temporaryDirectoryURL = v9;
 
       lCopy = v11;

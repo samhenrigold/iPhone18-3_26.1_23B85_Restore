@@ -68,41 +68,41 @@
 {
   v3 = _Block_copy(banner);
   *(swift_allocObject() + 16) = v3;
-  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)(sub_10016D258);
+  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)();
 }
 
 - (void)bannerPresentationManagerUpdatedControlsManagerCallUUID:(id)d
 {
-  v4 = sub_10014EA98(&qword_1003AAB40);
-  __chkstk_darwin(v4 - 8, v5);
-  v7 = &v10 - v6;
+  v4 = sub_10014EA98(&qword_1003AAB40, &unk_1002FAAB0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v9 - v5;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = type metadata accessor for UUID();
-    v9 = 0;
+    v7 = type metadata accessor for UUID();
+    v8 = 0;
   }
 
   else
   {
-    v8 = type metadata accessor for UUID();
-    v9 = 1;
+    v7 = type metadata accessor for UUID();
+    v8 = 1;
   }
 
-  sub_100006848(v7, v9, 1, v8);
-  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)(v7);
-  sub_1000306A4(v7, &qword_1003AAB40);
+  sub_100006848(v6, v8, 1, v7);
+  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)();
+  sub_1000306A4(v6, &qword_1003AAB40, &unk_1002FAAB0);
 }
 
 - (void)bannerPresentationManagerBannerPresentationManagerAVUpgradedCallUUID:(id)d
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3, v5);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)(v7);
-  (*(v4 + 8))(v7, v3);
+  iPadAudioCallViewController.peoplePickerRequestedUnknownContactPopover(for:sourceView:sourceRect:)();
+  (*(v4 + 8))(v6, v3);
 }
 
 - (NSString)inCallSceneSessionIdentifier

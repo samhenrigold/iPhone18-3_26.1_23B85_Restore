@@ -206,30 +206,30 @@ LABEL_32:
     v12 = internal[4];
     internal[4] = v10;
 
-    objc_opt_class();
-    v13 = sub_10018E3FC(v5, "5");
-    v14 = v6->_internal;
-    v15 = v14[7];
-    v14[7] = v13;
+    v13 = objc_opt_class();
+    v14 = sub_10018E3FC(v5, "5", v13);
+    v15 = v6->_internal;
+    v16 = v15[7];
+    v15[7] = v14;
 
     *(v6->_internal + 6) = xpc_dictionary_get_uint64(v5, "6");
-    v16 = sub_10018E3C4(v5, "2");
+    v17 = sub_10018E3C4(v5, "2");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      self = v16;
+      self = v17;
       if (!self)
       {
         goto LABEL_17;
       }
 
 LABEL_12:
-      v19 = [[NSDecimalNumberHandler alloc] initWithRoundingMode:0 scale:2 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
-      v20 = [(SKProductDiscount *)self decimalNumberByRoundingAccordingToBehavior:v19];
-      v21 = v20;
-      if (v20)
+      v20 = [[NSDecimalNumberHandler alloc] initWithRoundingMode:0 scale:2 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
+      v21 = [(SKProductDiscount *)self decimalNumberByRoundingAccordingToBehavior:v20];
+      v22 = v21;
+      if (v21)
       {
-        selfCopy = v20;
+        selfCopy = v21;
       }
 
       else
@@ -245,9 +245,9 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = [NSDecimalNumber alloc];
-      stringValue = [(__CFDictionary *)v16 stringValue];
-      self = [v17 initWithString:stringValue];
+      v18 = [NSDecimalNumber alloc];
+      stringValue = [(__CFDictionary *)v17 stringValue];
+      self = [v18 initWithString:stringValue];
 
       if (self)
       {

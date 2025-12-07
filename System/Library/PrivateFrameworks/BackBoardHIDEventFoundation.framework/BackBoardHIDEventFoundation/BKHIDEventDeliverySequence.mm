@@ -101,32 +101,32 @@ void __64__BKHIDEventDeliverySequence_repostFirstEventToBufferedTargets___block_
 
 - (void)_resolveDispatchTargetsToBuffers:(int)buffers repostFirstEvent:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v6 = [*(self + 72) copy];
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v22;
+      v10 = *v20;
       *&v8 = 134218498;
-      v20 = v8;
+      v18 = v8;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           dispatchingTarget = [v12 dispatchingTarget];
           v14 = [v5 objectForKey:dispatchingTarget];
 
@@ -137,12 +137,12 @@ void __64__BKHIDEventDeliverySequence_repostFirstEventToBufferedTargets___block_
             v15 = BKLogEventDelivery();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v20;
+              *buf = v18;
               selfCopy2 = self;
-              v27 = 2114;
-              v28 = v12;
-              v29 = 2048;
-              v30 = v14;
+              v25 = 2114;
+              v26 = v12;
+              v27 = 2048;
+              v28 = v14;
               _os_log_debug_impl(&dword_223CBE000, v15, OS_LOG_TYPE_DEBUG, "sq:%p %{public}@ is now buffering to buf:%p", buf, 0x20u);
             }
 
@@ -151,14 +151,13 @@ void __64__BKHIDEventDeliverySequence_repostFirstEventToBufferedTargets___block_
               v16 = BKLogEventDelivery();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
-                v17 = *(self + 96);
-                v18 = BKSHIDEventGetConciseDescription();
-                *buf = v20;
+                v17 = BKSHIDEventGetConciseDescription();
+                *buf = v18;
                 selfCopy2 = self;
-                v27 = 2114;
-                v28 = v18;
-                v29 = 2048;
-                v30 = v14;
+                v25 = 2114;
+                v26 = v17;
+                v27 = 2048;
+                v28 = v14;
                 _os_log_debug_impl(&dword_223CBE000, v16, OS_LOG_TYPE_DEBUG, "sq:%p repost [%{public}@] to buf:%p", buf, 0x20u);
               }
 
@@ -168,24 +167,22 @@ void __64__BKHIDEventDeliverySequence_repostFirstEventToBufferedTargets___block_
           }
         }
 
-        v9 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
       }
 
       while (v9);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postEvent:(__IOHIDEvent *)event position:(int64_t)position additionalContext:(id)context fromBuffer:(id)buffer toResolution:(id)resolution
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   bufferCopy = buffer;
   resolutionCopy = resolution;
   dispatchingTarget = [resolutionCopy dispatchingTarget];
-  v32 = bufferCopy;
+  v31 = bufferCopy;
   v12 = [(NSMutableSet *)self->_repostedToBuffers containsObject:bufferCopy];
   v13 = v12;
   positionCopy = position;
@@ -194,12 +191,12 @@ void __64__BKHIDEventDeliverySequence_repostFirstEventToBufferedTargets___block_
     goto LABEL_19;
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v14 = [(NSMutableSet *)self->_resolutionsWithIncompleteSequences copy];
-  v15 = [v14 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v38 objects:v50 count:16];
   if (!v15)
   {
 
@@ -208,7 +205,7 @@ LABEL_19:
 LABEL_20:
     if (([v18 isEqual:resolutionCopy] & 1) == 0 && (positionCopy != 1 || (-[NSMutableSet containsObject:](self->_resolutionsWithIncompleteSequences, "containsObject:", resolutionCopy) & 1) == 0))
     {
-      if ([(NSMutableSet *)self->_buffersWithIncompleteSequences containsObject:v32])
+      if ([(NSMutableSet *)self->_buffersWithIncompleteSequences containsObject:v31])
       {
         [(NSMutableSet *)self->_currentResolutions addObject:resolutionCopy];
       }
@@ -216,15 +213,15 @@ LABEL_20:
       v28 = BKLogEventDelivery();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v30 = BKSHIDEventGetConciseDescription();
+        v29 = BKSHIDEventGetConciseDescription();
         *buf = 134218754;
         selfCopy2 = self;
-        v45 = 2048;
-        v46 = v32;
-        v47 = 2114;
-        v48 = v30;
-        v49 = 2114;
-        v50 = resolutionCopy;
+        v44 = 2048;
+        v45 = v31;
+        v46 = 2114;
+        v47 = v29;
+        v48 = 2114;
+        v49 = resolutionCopy;
         _os_log_debug_impl(&dword_223CBE000, v28, OS_LOG_TYPE_DEBUG, "sq:%p buf:%p post [%{public}@] to resolution:%{public}@", buf, 0x2Au);
       }
 
@@ -235,22 +232,22 @@ LABEL_20:
   }
 
   v17 = v15;
-  v34 = v13;
+  v33 = v13;
   v18 = 0;
-  v19 = *v40;
+  v19 = *v39;
   v20 = 1;
   *&v16 = 134218754;
-  v31 = v16;
+  v30 = v16;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v40 != v19)
+      if (*v39 != v19)
       {
         objc_enumerationMutation(v14);
       }
 
-      v22 = *(*(&v39 + 1) + 8 * i);
+      v22 = *(*(&v38 + 1) + 8 * i);
       dispatchingTarget2 = [v22 dispatchingTarget];
       v24 = [dispatchingTarget isEqual:dispatchingTarget2];
 
@@ -260,21 +257,21 @@ LABEL_20:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           v27 = BKSHIDEventGetConciseDescription();
-          *buf = v31;
+          *buf = v30;
           selfCopy2 = self;
-          v45 = 2048;
-          v46 = v32;
-          v47 = 2114;
-          v48 = v27;
-          v49 = 2114;
-          v50 = resolutionCopy;
+          v44 = 2048;
+          v45 = v31;
+          v46 = 2114;
+          v47 = v27;
+          v48 = 2114;
+          v49 = resolutionCopy;
           _os_log_debug_impl(&dword_223CBE000, v25, OS_LOG_TYPE_DEBUG, "sq:%p buf:%p unbuffer [%{public}@] to resolution:%{public}@", buf, 0x2Au);
         }
 
         [(BKHIDBufferedEventProcessor *)self->_processor postEvent:event withContext:contextCopy toResolution:v22 fromSequence:self];
         v26 = v22;
 
-        v20 = v34;
+        v20 = v33;
         if (positionCopy == 3)
         {
           [(NSMutableSet *)self->_resolutionsWithIncompleteSequences removeObject:v26];
@@ -284,7 +281,7 @@ LABEL_20:
       }
     }
 
-    v17 = [v14 countByEnumeratingWithState:&v39 objects:v51 count:16];
+    v17 = [v14 countByEnumeratingWithState:&v38 objects:v50 count:16];
   }
 
   while (v17);
@@ -295,13 +292,11 @@ LABEL_20:
   }
 
 LABEL_28:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postEvent:(__IOHIDEvent *)event position:(int64_t)position additionalContext:(id)context
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (self->_firstEvent)
   {
@@ -318,29 +313,29 @@ LABEL_28:
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = self->_currentBuffers;
-  v12 = [(NSMutableSet *)obj countByEnumeratingWithState:&v42 objects:v53 count:16];
-  v37 = contextCopy;
+  v12 = [(NSMutableSet *)obj countByEnumeratingWithState:&v41 objects:v52 count:16];
+  v36 = contextCopy;
   if (v12)
   {
     v14 = v12;
-    v15 = *v43;
+    v15 = *v42;
     *&v13 = 134218498;
-    v33 = v13;
+    v32 = v13;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v43 != v15)
+        if (*v42 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v42 + 1) + 8 * i);
+        v17 = *(*(&v41 + 1) + 8 * i);
         dispatchTarget = [v17 dispatchTarget];
         [v11 addObject:dispatchTarget];
 
@@ -348,15 +343,15 @@ LABEL_28:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           v20 = BKSHIDEventGetConciseDescription();
-          *buf = v33;
+          *buf = v32;
           selfCopy2 = self;
-          v49 = 2114;
-          v50 = v20;
-          v51 = 2048;
-          v52 = v17;
+          v48 = 2114;
+          v49 = v20;
+          v50 = 2048;
+          v51 = v17;
           _os_log_debug_impl(&dword_223CBE000, v19, OS_LOG_TYPE_DEBUG, "sq:%p append [%{public}@] to buf:%p", buf, 0x20u);
 
-          contextCopy = v37;
+          contextCopy = v36;
         }
 
         [v17 appendEvent:event sender:self->_senderInfo sequence:self additionalContext:contextCopy];
@@ -371,7 +366,7 @@ LABEL_28:
         }
       }
 
-      v14 = [(NSMutableSet *)obj countByEnumeratingWithState:&v42 objects:v53 count:16];
+      v14 = [(NSMutableSet *)obj countByEnumeratingWithState:&v41 objects:v52 count:16];
     }
 
     while (v14);
@@ -379,28 +374,28 @@ LABEL_28:
 
   v21 = [(NSMutableSet *)self->_currentResolutions mutableCopy];
   [v21 unionSet:self->_resolutionsWithIncompleteSequences];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obja = v21;
-  v22 = [obja countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v22 = [obja countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v22)
   {
     v24 = v22;
-    v25 = *v39;
+    v25 = *v38;
     *&v23 = 134218498;
-    v34 = v23;
+    v33 = v23;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v39 != v25)
+        if (*v38 != v25)
         {
           objc_enumerationMutation(obja);
         }
 
-        v27 = *(*(&v38 + 1) + 8 * j);
+        v27 = *(*(&v37 + 1) + 8 * j);
         dispatchingTarget = [v27 dispatchingTarget];
         v29 = [v11 containsObject:dispatchingTarget];
 
@@ -410,16 +405,16 @@ LABEL_28:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             v31 = BKSHIDEventGetConciseDescription();
-            *buf = v34;
+            *buf = v33;
             selfCopy2 = self;
-            v49 = 2114;
-            v50 = v31;
-            v51 = 2114;
-            v52 = v27;
+            v48 = 2114;
+            v49 = v31;
+            v50 = 2114;
+            v51 = v27;
             _os_log_debug_impl(&dword_223CBE000, v30, OS_LOG_TYPE_DEBUG, "sq:%p post [%{public}@] to resolution:%{public}@", buf, 0x20u);
           }
 
-          [(BKHIDBufferedEventProcessor *)self->_processor postEvent:event withContext:v37 toResolution:v27 fromSequence:self];
+          [(BKHIDBufferedEventProcessor *)self->_processor postEvent:event withContext:v36 toResolution:v27 fromSequence:self];
           if (position == 3)
           {
             [(NSMutableSet *)self->_resolutionsWithIncompleteSequences removeObject:v27];
@@ -432,13 +427,11 @@ LABEL_28:
         }
       }
 
-      v24 = [obja countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v24 = [obja countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v24);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description

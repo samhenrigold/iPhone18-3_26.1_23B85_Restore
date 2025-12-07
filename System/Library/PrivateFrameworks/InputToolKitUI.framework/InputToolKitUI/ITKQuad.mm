@@ -478,28 +478,32 @@
 - (ITKQuadSideLength)sideLength
 {
   [(ITKQuad *)self bottomLeft];
-  [(ITKQuad *)self topLeft];
-  ITKDistance();
   v4 = v3;
-  [(ITKQuad *)self bottomRight];
-  [(ITKQuad *)self topRight];
-  ITKDistance();
   v6 = v5;
   [(ITKQuad *)self topLeft];
-  [(ITKQuad *)self topRight];
-  ITKDistance();
-  v8 = v7;
-  [(ITKQuad *)self bottomLeft];
+  v7 = ITKDistance(v4, v6);
   [(ITKQuad *)self bottomRight];
-  ITKDistance();
-  v10 = v9;
-  v11 = v4;
-  v12 = v6;
-  v13 = v8;
-  result.var3 = v10;
-  result.var2 = v13;
-  result.var1 = v12;
-  result.var0 = v11;
+  v9 = v8;
+  v11 = v10;
+  [(ITKQuad *)self topRight];
+  v12 = ITKDistance(v9, v11);
+  [(ITKQuad *)self topLeft];
+  v14 = v13;
+  v16 = v15;
+  [(ITKQuad *)self topRight];
+  v17 = ITKDistance(v14, v16);
+  [(ITKQuad *)self bottomLeft];
+  v19 = v18;
+  v21 = v20;
+  [(ITKQuad *)self bottomRight];
+  v22 = ITKDistance(v19, v21);
+  v23 = v7;
+  v24 = v12;
+  v25 = v17;
+  result.var3 = v22;
+  result.var2 = v25;
+  result.var1 = v24;
+  result.var0 = v23;
   return result;
 }
 
@@ -1179,43 +1183,37 @@ uint64_t __37__ITKQuad_quadByAdjustingOrientation__block_invoke(uint64_t a1, voi
 - (id)quadFromAddingPoint:(CGPoint)point
 {
   [(ITKQuad *)self topLeft];
-  ITKAddPoints();
-  v5 = v4;
-  v7 = v6;
+  v4 = ITKAddPoints();
+  v6 = v5;
   [(ITKQuad *)self topRight];
-  ITKAddPoints();
+  v7 = ITKAddPoints();
   v9 = v8;
-  v11 = v10;
   [(ITKQuad *)self bottomRight];
-  ITKAddPoints();
-  v13 = v12;
-  v15 = v14;
+  v10 = ITKAddPoints();
+  v12 = v11;
   [(ITKQuad *)self bottomLeft];
-  ITKAddPoints();
-  v18 = [[ITKQuad alloc] initWithBottomLeft:v16 bottomRight:v17 topLeft:v13 topRight:v15, v5, v7, v9, v11];
+  v13 = ITKAddPoints();
+  v15 = [[ITKQuad alloc] initWithBottomLeft:v13 bottomRight:v14 topLeft:v10 topRight:v12, v4, v6, v7, v9];
 
-  return v18;
+  return v15;
 }
 
 - (id)quadFromSubtractingPoint:(CGPoint)point
 {
   [(ITKQuad *)self topLeft];
-  ITKSubtractPoints();
-  v5 = v4;
-  v7 = v6;
+  v4 = ITKSubtractPoints();
+  v6 = v5;
   [(ITKQuad *)self topRight];
-  ITKSubtractPoints();
+  v7 = ITKSubtractPoints();
   v9 = v8;
-  v11 = v10;
   [(ITKQuad *)self bottomRight];
-  ITKSubtractPoints();
-  v13 = v12;
-  v15 = v14;
+  v10 = ITKSubtractPoints();
+  v12 = v11;
   [(ITKQuad *)self bottomLeft];
-  ITKSubtractPoints();
-  v18 = [[ITKQuad alloc] initWithBottomLeft:v16 bottomRight:v17 topLeft:v13 topRight:v15, v5, v7, v9, v11];
+  v13 = ITKSubtractPoints();
+  v15 = [[ITKQuad alloc] initWithBottomLeft:v13 bottomRight:v14 topLeft:v10 topRight:v12, v4, v6, v7, v9];
 
-  return v18;
+  return v15;
 }
 
 - (id)quadMultipliedBySize:(CGSize)size
@@ -1601,8 +1599,7 @@ uint64_t __49__ITKQuad_quadFromRotatingAroundOriginWithAngle___block_invoke(floa
 {
   ITKNearestPointOnLineSegmentToPoint();
 
-  ITKDistance();
-  return result;
+  return ITKDistance(v4, v5);
 }
 
 - (CGPoint)topLeft

@@ -8,11 +8,11 @@
 
 + (void)setupFeldsparUserAgent
 {
-  v0 = objc_opt_class();
-  FCSwizzleClassMethods(v0, sel_fcRequestWithURL_, sel_requestWithURL_);
-  v1 = objc_opt_class();
+  v2 = objc_opt_class();
+  FCSwizzleClassMethods(v2, sel_fcRequestWithURL_, sel_requestWithURL_);
+  v3 = objc_opt_class();
 
-  FCSwizzleClassMethods(v1, sel_fcRequestWithURL_cachePolicy_timeoutInterval_, sel_requestWithURL_cachePolicy_timeoutInterval_);
+  FCSwizzleClassMethods(v3, sel_fcRequestWithURL_cachePolicy_timeoutInterval_, sel_requestWithURL_cachePolicy_timeoutInterval_);
 }
 
 + (id)fcRequestWithURL:()FCAdditions cachePolicy:timeoutInterval:

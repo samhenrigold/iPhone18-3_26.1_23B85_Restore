@@ -11,11 +11,11 @@
   allKeys = [jSONRepresentation allKeys];
   v7 = [v4 setWithArray:allKeys];
 
-  v8 = SXConditionTypes();
-  [v7 minusSet:v8];
+  v9 = SXConditionTypes(v8);
+  [v7 minusSet:v9];
 
-  LOBYTE(v8) = [v7 count] == 0;
-  return v8;
+  LOBYTE(v9) = [v7 count] == 0;
+  return v9;
 }
 
 @end

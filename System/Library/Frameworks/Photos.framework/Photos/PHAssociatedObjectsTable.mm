@@ -138,9 +138,12 @@ LABEL_4:
 
 uint64_t __44__PHAssociatedObjectsTable__entryForObject___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
+  v3 = [a2 objectForKey:*(a1 + 32)];
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (id)setAssociatedObjectIfNotSet:(id)set onObject:(id)object forKey:(id)key

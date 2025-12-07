@@ -83,9 +83,8 @@
 
 - (void)_close
 {
-  error = self->_error;
   (*(self->_handler + 2))();
-  objc_msgSend_close(self->_channel, v4, v5);
+  objc_msgSend_close(self->_channel, v3, v4);
   channel = self->_channel;
   self->_channel = 0;
 }

@@ -559,7 +559,7 @@ uint64_t __83__NTKCUpNextDataSourcesManager__dedupeAndSortFirstPartyDataSourcesF
   v22 = 0;
   v23 = 0;
   v24 = 0;
-  [(NTKCUpNextDataSourcesManager *)self watchVersion];
+  objc_msgSend_watchVersion(self);
   v7 = [MEMORY[0x277CBEB58] set];
   v18 = 0u;
   v19 = 0u;
@@ -583,7 +583,7 @@ uint64_t __83__NTKCUpNextDataSourcesManager__dedupeAndSortFirstPartyDataSourcesF
         v13 = *(*(&v18 + 1) + 8 * i);
         if (dataSourceCatalog)
         {
-          [dataSourceCatalog minimumSupportedSystemVersionForDataSourceWithIdentifier:v13];
+          objc_msgSend_minimumSupportedSystemVersionForDataSourceWithIdentifier_(dataSourceCatalog);
         }
 
         if (v22 >= 0 && ([v13 isEqualToString:@"com.apple.upnext.siri.sports"] & 1) == 0)
@@ -920,7 +920,7 @@ uint64_t __66__NTKCUpNextDataSourcesManager__prewarmRowBuildingWithCompletion___
   firstPartyDataSourceEntries = [(NTKCUpNextDataSourcesManager *)self firstPartyDataSourceEntries];
   [firstPartyIdentifiersDelegate manager:self didUpdateDataSourceEntries:firstPartyDataSourceEntries];
 
-  [(NTKCUpNextDataSourcesManager *)self watchVersion];
+  objc_msgSend_watchVersion(self);
   if (v8[5] >= 5)
   {
     v8[0] = MEMORY[0x277D85DD0];
@@ -963,35 +963,36 @@ void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_
 
 void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_3(uint64_t a1)
 {
-  if (WatchListKitLibraryCore())
+  if (WatchListKitLibraryCore(0))
   {
-    v9 = 0;
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x2020000000;
+    v10 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
     v2 = getWLKIsSportsEnabledSymbolLoc_ptr;
-    v14 = getWLKIsSportsEnabledSymbolLoc_ptr;
+    v15 = getWLKIsSportsEnabledSymbolLoc_ptr;
     if (!getWLKIsSportsEnabledSymbolLoc_ptr)
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __getWLKIsSportsEnabledSymbolLoc_block_invoke;
-      v10[3] = &unk_27877F258;
-      v10[4] = &v11;
-      __getWLKIsSportsEnabledSymbolLoc_block_invoke(v10);
-      v2 = v12[3];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __getWLKIsSportsEnabledSymbolLoc_block_invoke;
+      v11[3] = &unk_27877F258;
+      v11[4] = &v12;
+      __getWLKIsSportsEnabledSymbolLoc_block_invoke(v11);
+      v2 = v13[3];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v12, 8);
     if (!v2)
     {
-      v6 = __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_3_cold_2();
-      _Block_object_dispose(&v11, 8);
-      _Unwind_Resume(v6);
+      __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_3_cold_2();
+      v7 = v6;
+      _Block_object_dispose(&v12, 8);
+      _Unwind_Resume(v7);
     }
 
-    v3 = v2(&v9);
-    v4 = v9;
+    v3 = v2(&v10);
+    v4 = v10;
     if (v4)
     {
       v5 = _NTKLoggingObjectForDomain(27, "NTKLoggingDomainUpNext");
@@ -1008,13 +1009,13 @@ void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_
     v4 = 0;
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_155;
-  v7[3] = &unk_27877F7E8;
-  v7[4] = *(a1 + 32);
-  v8 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_155;
+  v8[3] = &unk_27877F7E8;
+  v8[4] = *(a1 + 32);
+  v9 = v3;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_155(uint64_t a1)
@@ -1072,11 +1073,11 @@ void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_
   _os_log_error_impl(&dword_22D9C5000, a2, OS_LOG_TYPE_ERROR, "Error checking sports: %@", &v2, 0xCu);
 }
 
-uint64_t __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_3_cold_2()
+void __57__NTKCUpNextDataSourcesManager__buildRowsAfterPrewarming__block_invoke_3_cold_2()
 {
-  dlerror();
-  abort_report_np();
-  return __getINAppInfoClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getINAppInfoClass_block_invoke_cold_1();
 }
 
 @end

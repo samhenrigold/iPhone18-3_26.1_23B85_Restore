@@ -9,7 +9,7 @@
 
 - (void)addSamples:(const void *)samples numSamples:(int64_t)numSamples
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (numSamples >= 1)
   {
     v4 = &buf[-((24 * self->inASBD.mChannelsPerFrame + 15) & 0x3FFFFFFFF0)];
@@ -41,15 +41,13 @@
       if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v14 = "[NviAudioFileWriter addSamples:numSamples:]";
-        v15 = 2050;
-        v16 = v10;
+        v13 = "[NviAudioFileWriter addSamples:numSamples:]";
+        v14 = 2050;
+        v15 = v10;
         _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s ::: Error writing to output wave file. : %{public}ld", buf, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAudio
@@ -71,11 +69,11 @@
 
 - (NviAudioFileWriter)initWithURL:(id)l inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v22.receiver = self;
-  v22.super_class = NviAudioFileWriter;
-  v10 = [(NviAudioFileWriter *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = NviAudioFileWriter;
+  v10 = [(NviAudioFileWriter *)&v21 init];
   v11 = v10;
   if (v10)
   {
@@ -88,11 +86,11 @@
       if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v24 = "[NviAudioFileWriter initWithURL:inputFormat:outputFormat:]";
-        v25 = 2114;
-        v26 = lCopy;
-        v27 = 1026;
-        v28 = v13;
+        v23 = "[NviAudioFileWriter initWithURL:inputFormat:outputFormat:]";
+        v24 = 2114;
+        v25 = lCopy;
+        v26 = 1026;
+        v27 = v13;
         _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_DEFAULT, "%s ::: Error creating output file %{public}@, err: %{public}d", buf, 0x1Cu);
       }
     }
@@ -121,7 +119,6 @@
     *&v11->outASBD.mBytesPerPacket = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

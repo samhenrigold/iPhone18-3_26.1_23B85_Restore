@@ -439,30 +439,29 @@ void capabilities::abs::logScratchPath(std::string *a1@<X8>)
 {
   if ((atomic_load_explicit(&qword_1ED7FCC78, memory_order_acquire) & 1) == 0)
   {
-    v3 = a1;
-    v4 = __cxa_guard_acquire(&qword_1ED7FCC78);
-    a1 = v3;
-    if (v4)
+    v2 = a1;
+    v3 = __cxa_guard_acquire(&qword_1ED7FCC78);
+    a1 = v2;
+    if (v3)
     {
-      memset(&xmmword_1ED7FCFF0, 170, 24);
-      std::string::basic_string[abi:ne200100]<0>(&xmmword_1ED7FCFF0, "/private/var/wireless/Library/Logs/AppleBasebandManager/");
-      __cxa_atexit(MEMORY[0x1E69E52C0], &xmmword_1ED7FCFF0, &dword_1CAE37000);
+      memset(byte_1ED7FCFF0, 170, sizeof(byte_1ED7FCFF0));
+      std::string::basic_string[abi:ne200100]<0>(byte_1ED7FCFF0, "/private/var/wireless/Library/Logs/AppleBasebandManager/");
+      __cxa_atexit(MEMORY[0x1E69E52C0], byte_1ED7FCFF0, &dword_1CAE37000);
       __cxa_guard_release(&qword_1ED7FCC78);
-      a1 = v3;
+      a1 = v2;
     }
   }
 
-  if (byte_1ED7FD007 < 0)
+  if (byte_1ED7FCFF0[23] < 0)
   {
-    v2 = xmmword_1ED7FCFF0;
+    v1 = *byte_1ED7FCFF0;
 
-    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
+    std::string::__init_copy_ctor_external(a1, v1, *(&v1 + 1));
   }
 
   else
   {
-    *&a1->__r_.__value_.__l.__data_ = xmmword_1ED7FCFF0;
-    a1->__r_.__value_.__r.__words[2] = unk_1ED7FD000;
+    *a1 = *byte_1ED7FCFF0;
   }
 }
 
@@ -470,30 +469,29 @@ void capabilities::abs::logSnapshotPath(std::string *a1@<X8>)
 {
   if ((atomic_load_explicit(&qword_1ED7FCC80, memory_order_acquire) & 1) == 0)
   {
-    v3 = a1;
-    v4 = __cxa_guard_acquire(&qword_1ED7FCC80);
-    a1 = v3;
-    if (v4)
+    v2 = a1;
+    v3 = __cxa_guard_acquire(&qword_1ED7FCC80);
+    a1 = v2;
+    if (v3)
     {
-      memset(&xmmword_1ED7FD008, 170, 24);
-      std::string::basic_string[abi:ne200100]<0>(&xmmword_1ED7FD008, "/private/var/wireless/Library/Logs/CrashReporter/Baseband/");
-      __cxa_atexit(MEMORY[0x1E69E52C0], &xmmword_1ED7FD008, &dword_1CAE37000);
+      memset(byte_1ED7FD008, 170, sizeof(byte_1ED7FD008));
+      std::string::basic_string[abi:ne200100]<0>(byte_1ED7FD008, "/private/var/wireless/Library/Logs/CrashReporter/Baseband/");
+      __cxa_atexit(MEMORY[0x1E69E52C0], byte_1ED7FD008, &dword_1CAE37000);
       __cxa_guard_release(&qword_1ED7FCC80);
-      a1 = v3;
+      a1 = v2;
     }
   }
 
-  if (byte_1ED7FD01F < 0)
+  if (byte_1ED7FD008[23] < 0)
   {
-    v2 = xmmword_1ED7FD008;
+    v1 = *byte_1ED7FD008;
 
-    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
+    std::string::__init_copy_ctor_external(a1, v1, *(&v1 + 1));
   }
 
   else
   {
-    *&a1->__r_.__value_.__l.__data_ = xmmword_1ED7FD008;
-    a1->__r_.__value_.__r.__words[2] = unk_1ED7FD018;
+    *a1 = *byte_1ED7FD008;
   }
 }
 
@@ -895,9 +893,9 @@ void capabilities::abs::radarComponentName(std::string *a1@<X8>)
 
   if (byte_1ED7FD037 < 0)
   {
-    v3 = xmmword_1ED7FD020;
+    v2 = xmmword_1ED7FD020;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1099,9 +1097,9 @@ void capabilities::abs::loggingSettingsPListName(std::string *a1@<X8>)
 
   if (byte_1ED7FD04F < 0)
   {
-    v3 = xmmword_1ED7FD038;
+    v2 = xmmword_1ED7FD038;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1111,7 +1109,7 @@ void capabilities::abs::loggingSettingsPListName(std::string *a1@<X8>)
   }
 }
 
-void *capabilities::abs::sLoggingSettingsPListName(void *a1, int a2)
+void *capabilities::abs::sLoggingSettingsPListName(void *a1, unsigned int a2)
 {
   memset(a1, 170, 24);
   result = std::string::basic_string[abi:ne200100]<0>(a1, &unk_1CAE5DA75);
@@ -1120,7 +1118,7 @@ void *capabilities::abs::sLoggingSettingsPListName(void *a1, int a2)
     if (a2 > 0x13)
     {
 LABEL_21:
-      if ((a2 - 7) < 2)
+      if (a2 - 7 < 2)
       {
         if (*(result + 23) < 0)
         {
@@ -1205,7 +1203,7 @@ LABEL_10:
     goto LABEL_14;
   }
 
-  if ((a2 - 1) < 3)
+  if (a2 - 1 < 3)
   {
     goto LABEL_10;
   }
@@ -1319,9 +1317,9 @@ void capabilities::abs::RFTestSettingsPListName(std::string *a1@<X8>)
 
   if (byte_1ED7FD067 < 0)
   {
-    v3 = xmmword_1ED7FD050;
+    v2 = xmmword_1ED7FD050;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1639,9 +1637,9 @@ void capabilities::abs::radarComponentVersion(std::string *a1@<X8>)
 
   if (byte_1ED7FD07F < 0)
   {
-    v3 = xmmword_1ED7FD068;
+    v2 = xmmword_1ED7FD068;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -1903,9 +1901,9 @@ void capabilities::abs::radarComponentID(std::string *a1@<X8>)
 
   if (byte_1ED7FD097 < 0)
   {
-    v3 = xmmword_1ED7FD080;
+    v2 = xmmword_1ED7FD080;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -2313,14 +2311,14 @@ uint64_t capabilities::abs::supportsETSBypass(capabilities::abs *this)
   if ((atomic_load_explicit(&qword_1ED7FCEB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ED7FCEB8))
   {
     Radio = TelephonyRadiosGetRadio();
-    byte_1ED7FCBFE = capabilities::abs::sSupportsETSBypass(Radio);
+    byte_1ED7FCBFE = capabilities::abs::sSupportsETSBypass(Radio, v3);
     __cxa_guard_release(&qword_1ED7FCEB8);
   }
 
   return byte_1ED7FCBFE;
 }
 
-uint64_t capabilities::abs::sSupportsETSBypass(int a1)
+uint64_t capabilities::abs::sSupportsETSBypass(uint64_t a1, uint64_t a2)
 {
   if ((a1 - 7) > 1)
   {
@@ -2335,7 +2333,7 @@ uint64_t capabilities::abs::sSupportsETSBypass(int a1)
   return TelephonyUtilIsInternalBuild();
 }
 
-uint64_t capabilities::abs::supportsETSBypassForRadio(int a1)
+uint64_t capabilities::abs::supportsETSBypassForRadio(uint64_t a1, uint64_t a2)
 {
   if ((a1 - 7) > 1)
   {
@@ -3174,7 +3172,7 @@ LABEL_6:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -3326,7 +3324,7 @@ LABEL_30:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -3380,7 +3378,7 @@ LABEL_6:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -3529,8 +3527,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = (v4 + 24);
   }
@@ -3538,33 +3535,32 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
   *(a1 + 8) = v7;
 }
 
-std::string *ctu::join<std::__wrap_iter<std::string *>>@<X0>(std::string *__str@<X0>, std::string *a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, std::string *a5@<X8>)
+std::string *ctu::join<std::__wrap_iter<std::string *>>@<X0>(std::string *__return_ptr a1@<X8>, std::string *__str@<X0>, std::string *a3@<X1>, const void *a4@<X2>, size_t a5@<X3>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
-  a5->__r_.__value_.__r.__words[2] = 0;
-  if (__str != a2)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  if (__str != a3)
   {
     v8 = __str;
-    __str = std::string::operator=(a5, __str);
-    if ((a4 | 7) == 0x17)
+    __str = std::string::operator=(a1, __str);
+    if ((a5 | 7) == 0x17)
     {
       v10 = 25;
     }
 
     else
     {
-      v10 = (a4 | 7) + 1;
+      v10 = (a5 | 7) + 1;
     }
 
     for (i = v8 + 1; ; ++i)
     {
-      if (i == a2)
+      if (i == a3)
       {
         return __str;
       }
 
-      if (!a3)
+      if (!a4)
       {
         v13 = 0;
         v14 = 0;
@@ -3575,32 +3571,32 @@ std::string *ctu::join<std::__wrap_iter<std::string *>>@<X0>(std::string *__str@
         goto LABEL_17;
       }
 
-      if (a4 >= 0x7FFFFFFFFFFFFFF8)
+      if (a5 >= 0x7FFFFFFFFFFFFFF8)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      if (a4 >= 0x17)
+      if (a5 >= 0x17)
       {
         p_dst = operator new(v10);
-        v22 = a4;
+        v22 = a5;
         v23 = v10 | 0x8000000000000000;
         __dst = p_dst;
       }
 
       else
       {
-        HIBYTE(v23) = a4;
+        HIBYTE(v23) = a5;
         p_dst = &__dst;
-        if (!a4)
+        if (!a5)
         {
           goto LABEL_16;
         }
       }
 
-      memmove(p_dst, a3, a4);
+      memmove(p_dst, a4, a5);
 LABEL_16:
-      *(p_dst + a4) = 0;
+      *(p_dst + a5) = 0;
       v15 = HIBYTE(v23);
       v14 = __dst;
       v13 = v22;
@@ -3625,7 +3621,7 @@ LABEL_17:
         v17 = v13;
       }
 
-      std::string::append(a5, v16, v17);
+      std::string::append(a1, v16, v17);
       if (SHIBYTE(v23) < 0)
       {
         operator delete(__dst);
@@ -3652,7 +3648,7 @@ LABEL_17:
         size = i->__r_.__value_.__l.__size_;
       }
 
-      __str = std::string::append(a5, v19, size);
+      __str = std::string::append(a1, v19, size);
     }
   }
 
@@ -4021,9 +4017,9 @@ void capabilities::updater::CALFileName(std::string *a1@<X8>)
 
   if (byte_1ED7FD487 < 0)
   {
-    v3 = xmmword_1ED7FD470;
+    v2 = xmmword_1ED7FD470;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -4112,9 +4108,9 @@ void capabilities::updater::PROVFileName(std::string *a1@<X8>)
 
   if (byte_1ED7FD49F < 0)
   {
-    v3 = xmmword_1ED7FD488;
+    v2 = xmmword_1ED7FD488;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -4180,9 +4176,9 @@ void capabilities::updater::PACFileName(std::string *a1@<X8>)
 
   if (byte_1ED7FD4B7 < 0)
   {
-    v3 = xmmword_1ED7FD4A0;
+    v2 = xmmword_1ED7FD4A0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -6755,7 +6751,7 @@ uint64_t capabilities::abs::wakeReasonDebugEnabled(capabilities::abs *this)
 
 uint64_t capabilities::abs::getCPMSVariant(capabilities::abs *this)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (qword_1ED7FD4C0 != -1)
   {
     dispatch_once(&qword_1ED7FD4C0, &__block_literal_global);
@@ -6774,112 +6770,108 @@ uint64_t capabilities::abs::getCPMSVariant(capabilities::abs *this)
       v2 = "false";
     }
 
-    v5 = 136315138;
-    v6 = v2;
-    _os_log_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Kernel CPMS Supported: %s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = v2;
+    _os_log_impl(&dword_1CAE37000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Kernel CPMS Supported: %s", &v4, 0xCu);
   }
 
   if (_MergedGlobals_2)
   {
-    result = 2;
+    return 2;
   }
 
   else
   {
-    result = capabilities::txpower::userSpaceCPMSVariant(v1);
+    return capabilities::txpower::userSpaceCPMSVariant(v1);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void ___ZL19_supportsKernelCPMSv_block_invoke()
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E696CD60];
   v1 = IOServiceNameMatching("baseband");
   MatchingService = IOServiceGetMatchingService(v0, v1);
-  if (MatchingService)
+  if (!MatchingService)
   {
-    v3 = MatchingService;
-    CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"supports-cpms-via-spmi", *MEMORY[0x1E695E480], 0);
-    if (CFProperty)
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = CFProperty;
-      v6 = CFGetTypeID(CFProperty);
-      if (v6 == CFDataGetTypeID())
-      {
-        *buffer = 0;
-        Length = CFDataGetLength(v5);
-        if (Length > 3)
-        {
-          v23.location = 0;
-          v23.length = 4;
-          CFDataGetBytes(v5, v23, buffer);
-          _MergedGlobals_2 = *buffer != 0;
-LABEL_16:
-          CFRelease(v5);
-          IOObjectRelease(v3);
-          goto LABEL_17;
-        }
-
-        v13 = Length;
-        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_16;
-        }
-
-        *buf = 136315650;
-        CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
-        v18 = 2048;
-        v19 = v13;
-        v20 = 2048;
-        v21 = 4;
-        v10 = MEMORY[0x1E69E9C10];
-        v11 = "%s: Returned data length %ld is less than %ld needed\n";
-        v12 = 32;
-      }
-
-      else
-      {
-        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_16;
-        }
-
-        *buf = 136315138;
-        CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
-        v10 = MEMORY[0x1E69E9C10];
-        v11 = "Property (%s) is not data type\n";
-        v12 = 12;
-      }
-
-      _os_log_impl(&dword_1CAE37000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, v12);
-      goto LABEL_16;
+      return;
     }
 
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
-      v8 = MEMORY[0x1E69E9C10];
-      v9 = "Failed to get property of %s\n";
-      goto LABEL_10;
-    }
-  }
-
-  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-  {
     *buf = 136315138;
     CStringPtr = "baseband";
     v8 = MEMORY[0x1E69E9C10];
     v9 = "Failed to get %s service\n";
 LABEL_10:
     _os_log_impl(&dword_1CAE37000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
+    return;
   }
 
-LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
+  v3 = MatchingService;
+  CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"supports-cpms-via-spmi", *MEMORY[0x1E695E480], 0);
+  if (!CFProperty)
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 136315138;
+    CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
+    v8 = MEMORY[0x1E69E9C10];
+    v9 = "Failed to get property of %s\n";
+    goto LABEL_10;
+  }
+
+  v5 = CFProperty;
+  v6 = CFGetTypeID(CFProperty);
+  if (v6 != CFDataGetTypeID())
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_16;
+    }
+
+    *buf = 136315138;
+    CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = "Property (%s) is not data type\n";
+    v12 = 12;
+LABEL_15:
+    _os_log_impl(&dword_1CAE37000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, v12);
+    goto LABEL_16;
+  }
+
+  *buffer = 0;
+  Length = CFDataGetLength(v5);
+  if (Length <= 3)
+  {
+    v13 = Length;
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_16;
+    }
+
+    *buf = 136315650;
+    CStringPtr = CFStringGetCStringPtr(@"supports-cpms-via-spmi", 0);
+    v17 = 2048;
+    v18 = v13;
+    v19 = 2048;
+    v20 = 4;
+    v10 = MEMORY[0x1E69E9C10];
+    v11 = "%s: Returned data length %ld is less than %ld needed\n";
+    v12 = 32;
+    goto LABEL_15;
+  }
+
+  v22.location = 0;
+  v22.length = 4;
+  CFDataGetBytes(v5, v22, buffer);
+  _MergedGlobals_2 = *buffer != 0;
+LABEL_16:
+  CFRelease(v5);
+  IOObjectRelease(v3);
 }
 
 uint64_t capabilities::updaterinternal::dynamicICENVMFSizeBytes(capabilities::updaterinternal *this)
@@ -7515,7 +7507,7 @@ LABEL_5:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -7909,14 +7901,14 @@ LABEL_30:
   return a1;
 }
 
-void sub_1CAE4A40C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1CAE4A40C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1CCAAA4A0](&a10);
+  MEMORY[0x1CCAAA4A0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -8670,9 +8662,9 @@ void capabilities::ct::minFirmwareVersion(std::string *a1@<X8>)
 
   if (byte_1ED7FDDB7 < 0)
   {
-    v3 = xmmword_1ED7FDDA0;
+    v2 = xmmword_1ED7FDDA0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -9691,9 +9683,9 @@ void capabilities::ct::fieldTestAppIdentifier(std::string *a1@<X8>)
 
   if (byte_1ED7FDDCF < 0)
   {
-    v3 = xmmword_1ED7FDDB8;
+    v2 = xmmword_1ED7FDDB8;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else

@@ -25,9 +25,9 @@ id __56___UITextFieldClearButton_setPointerInteractionEnabled___block_invoke(uin
   [v6 setShadowPath:v25];
 
   v26 = [UITargetedPreview alloc];
-  v27 = [v4 preview];
+  v27 = objc_msgSend_preview(v4);
   v28 = [v27 view];
-  v29 = [v4 preview];
+  v29 = objc_msgSend_preview(v4);
 
   v30 = [v29 target];
   v31 = [(UITargetedPreview *)v26 initWithView:v28 parameters:v6 target:v30];

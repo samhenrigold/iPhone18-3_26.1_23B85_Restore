@@ -56,7 +56,7 @@
 
 - (void)updatedCounter:(id)counter fromOldValue:(int64_t)value toNewValue:(int64_t)newValue
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   counterCopy = counter;
   os_unfair_lock_lock_with_options();
   activeThreshold = self->_activeThreshold;
@@ -81,15 +81,15 @@ LABEL_10:
   {
     v14 = HMFGetLogIdentifier();
     radarTitle = [(HMDCounterThresholdTTRTrigger *)selfCopy radarTitle];
-    v28 = 138544130;
-    v29 = v14;
-    v30 = 2114;
-    v31 = counterCopy;
-    v32 = 2114;
-    v33 = radarTitle;
-    v34 = 2048;
+    v27 = 138544130;
+    v28 = v14;
+    v29 = 2114;
+    v30 = counterCopy;
+    v31 = 2114;
+    v32 = radarTitle;
+    v33 = 2048;
     newValueCopy = newValue;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@TTR threshold trigger: eventName=%{public}@, radarTitle=%{public}@, value=%lu", &v28, 0x2Au);
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@TTR threshold trigger: eventName=%{public}@, radarTitle=%{public}@, value=%lu", &v27, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -111,15 +111,13 @@ LABEL_10:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     v26 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v26;
-    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Device needs to be primary, but is not; skipping TTR.", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v26;
+    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Device needs to be primary, but is not; skipping TTR.", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
 LABEL_15:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCounterThresholdTTRTrigger)initWithThreshold:(int64_t)threshold displayReason:(id)reason radarTitle:(id)title componentName:(id)name componentVersion:(id)version componentID:(int64_t)d radarInitiator:(id)initiator primaryOnly:(BOOL)self0 dataSource:(id)self1

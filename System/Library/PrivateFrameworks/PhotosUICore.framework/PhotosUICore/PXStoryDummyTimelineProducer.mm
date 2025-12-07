@@ -45,7 +45,7 @@
   }
 
   memset(&v54, 0, sizeof(v54));
-  [(PXStoryDummyTimelineProducer *)self fixedDuration];
+  objc_msgSend_fixedDuration(self);
   flags = v54.flags;
   numberOfDisplayAssetResources = [resourcesDataSource numberOfDisplayAssetResources];
   if (numberOfDisplayAssetResources >= 1)
@@ -57,7 +57,7 @@
     memset(&v53, 0, sizeof(v53));
     if (v15)
     {
-      [v15 defaultDisplayAssetPresentationDuration];
+      objc_msgSend_defaultDisplayAssetPresentationDuration(v15);
     }
 
     v20 = [[_PXStoryDummyDisplayAssetsFetchResult alloc] initWithResourcesDataSource:resourcesDataSource];
@@ -73,7 +73,7 @@
       [(_PXStoryDummyDisplayAssetsFetchResult *)v20 configureWithRange:v22, v26, v39, v40, v41, v42];
       if (v9)
       {
-        [(PXStoryDummyTimeline *)v9 timeRange];
+        objc_msgSend_timeRange(v9);
       }
 
       else
@@ -141,7 +141,7 @@ LABEL_18:
       {
         if (v9)
         {
-          [(PXStoryDummyTimeline *)v9 timeRange];
+          objc_msgSend_timeRange(v9);
         }
 
         else
@@ -202,7 +202,7 @@ LABEL_42:
   {
     if (v9)
     {
-      [(PXStoryDummyTimeline *)v9 timeRange];
+      objc_msgSend_timeRange(v9);
     }
 
     else

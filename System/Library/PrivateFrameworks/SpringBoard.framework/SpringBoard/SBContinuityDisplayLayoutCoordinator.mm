@@ -13,7 +13,7 @@
   publisherCopy = publisher;
   if (!publisherCopy)
   {
-    [SBContinuityDisplayLayoutCoordinator initWithRootPublisher:a2];
+    [(SBContinuityDisplayLayoutCoordinator *)a2 initWithRootPublisher:?];
   }
 
   v7 = publisherCopy;
@@ -31,14 +31,14 @@
 
 - (void)dealloc
 {
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"<SBContinuityDisplayLayoutCoordinator:%p> deallocated with active publisher=%@"];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"<SBContinuityDisplayLayoutCoordinator:%p> deallocated with active publisher=%@", self, a2];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a3);
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, self, a2, v15);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v4 UTF8String];
@@ -73,7 +73,7 @@
   publisherCopy = publisher;
   if (!publisherCopy)
   {
-    [SBContinuityDisplayLayoutCoordinator activateForPublisher:a2];
+    [(SBContinuityDisplayLayoutCoordinator *)a2 activateForPublisher:?];
   }
 
   v6 = publisherCopy;
@@ -108,37 +108,37 @@
   return v13;
 }
 
-void __61__SBContinuityDisplayLayoutCoordinator_activateForPublisher___block_invoke(uint64_t a1)
+void __61__SBContinuityDisplayLayoutCoordinator_activateForPublisher___block_invoke(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v3 = WeakRetained[3];
+    v4 = WeakRetained[3];
     WeakRetained[3] = 0;
-    v6 = WeakRetained;
+    v7 = WeakRetained;
 
-    v4 = [v6[1] suppressLayoutForReason:@"invalidated session"];
-    v5 = v6[2];
-    v6[2] = v4;
+    v5 = [v7[1] suppressLayoutForReason:@"invalidated session"];
+    v6 = v7[2];
+    v7[2] = v5;
 
-    WeakRetained = v6;
+    WeakRetained = v7;
   }
 }
 
-- (void)initWithRootPublisher:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithRootPublisher:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"rootPublisher"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"rootPublisher", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -149,20 +149,20 @@ void __61__SBContinuityDisplayLayoutCoordinator_activateForPublisher___block_inv
   [v8 handleFailureInMethod:a2 object:a3 file:@"SBContinuityDisplayLayoutCoordinator.m" lineNumber:55 description:{@"<SBContinuityDisplayLayoutCoordinator:%p> cannot remove suppression for %@ because it is already tracking %@", a3, a4, *a1}];
 }
 
-- (void)activateForPublisher:(const char *)a1 .cold.2(const char *a1)
+- (void)activateForPublisher:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"publisher"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"publisher", v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

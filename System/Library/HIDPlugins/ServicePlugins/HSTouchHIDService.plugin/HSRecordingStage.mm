@@ -161,28 +161,28 @@
 
 - (id)data
 {
-  HSUtil::ObjectLock::ObjectLock(v7, self);
-  LOBYTE(v6) = 0;
-  if ([(HSRecordingStage *)self _copyDataTo:&off_108FA0, &off_108FF8, &off_109018, &off_109030, off_109048, HSUtil::Buffer::_EmptyData, 0, 0, v6])
+  HSUtil::ObjectLock::ObjectLock(v8, self);
+  LOBYTE(v7) = 0;
+  if ([(HSRecordingStage *)self _copyDataTo:&off_108FA0, &off_108FF8, &off_109018, &off_109030, off_109048, HSUtil::Buffer::_EmptyData, 0, 0, v7])
   {
-    v3 = HSUtil::Buffer::getNSData(&v5);
+    v4 = HSUtil::Buffer::getNSData(&v6, v3);
   }
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingStage.mm", v8);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRecordingStage.mm", v9);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       [HSRecordingStage data];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  HSUtil::Buffer::~Buffer(&v5);
-  HSUtil::ObjectLock::~ObjectLock(v7);
+  HSUtil::Buffer::~Buffer(&v6);
+  HSUtil::ObjectLock::~ObjectLock(v8);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)copyDataTo:(Writable *)to
@@ -514,16 +514,18 @@ LABEL_9:
 
 - (void)data
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)copyDataTo:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_recordConsumeFrame:.cold.1()

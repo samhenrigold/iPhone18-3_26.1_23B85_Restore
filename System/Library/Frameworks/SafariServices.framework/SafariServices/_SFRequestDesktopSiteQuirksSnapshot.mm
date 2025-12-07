@@ -8,61 +8,61 @@
 - (_SFRequestDesktopSiteQuirksSnapshot)initWithSnapshotData:(id)data error:(id *)error
 {
   dataCopy = data;
-  v27.receiver = self;
-  v27.super_class = _SFRequestDesktopSiteQuirksSnapshot;
-  v7 = [(_SFRequestDesktopSiteQuirksSnapshot *)&v27 init];
+  v29.receiver = self;
+  v29.super_class = _SFRequestDesktopSiteQuirksSnapshot;
+  v7 = [(_SFRequestDesktopSiteQuirksSnapshot *)&v29 init];
   if (v7)
   {
     v8 = [MEMORY[0x1E695DF20] safari_dictionaryWithPropertyListData:dataCopy options:0];
-    v9 = v8;
+    v10 = v8;
     if (v8)
     {
-      v10 = [v8 safari_dictionaryForKey:@"RequestDesktopSiteQuirks"];
-      v11 = v10;
-      if (v10)
+      v11 = [v8 safari_dictionaryForKey:@"RequestDesktopSiteQuirks"];
+      v13 = v11;
+      if (v11)
       {
-        v23 = 0;
-        v24 = &v23;
-        v25 = 0x2020000000;
-        v26 = 1;
-        v17 = 0;
-        v18 = &v17;
-        v19 = 0x3032000000;
-        v20 = __Block_byref_object_copy__5;
-        v21 = __Block_byref_object_dispose__5;
-        v22 = 0;
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke;
-        v16[3] = &unk_1E84944D8;
-        v16[4] = &v17;
-        v16[5] = &v23;
-        [v10 enumerateKeysAndObjectsUsingBlock:v16];
-        if (v24[3])
+        v25 = 0;
+        v26 = &v25;
+        v27 = 0x2020000000;
+        v28 = 1;
+        v19 = 0;
+        v20 = &v19;
+        v21 = 0x3032000000;
+        v22 = __Block_byref_object_copy__5;
+        v23 = __Block_byref_object_dispose__5;
+        v24 = 0;
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke;
+        v18[3] = &unk_1E84944D8;
+        v18[4] = &v19;
+        v18[5] = &v25;
+        [v11 enumerateKeysAndObjectsUsingBlock:v18];
+        if (v26[3])
         {
-          objc_storeStrong(&v7->_requestDesktopSiteQuirks, v11);
-          v12 = v7;
+          objc_storeStrong(&v7->_requestDesktopSiteQuirks, v13);
+          v14 = v7;
         }
 
         else
         {
-          v12 = 0;
+          v14 = 0;
           if (error)
           {
-            *error = v18[5];
+            *error = v20[5];
           }
         }
 
-        _Block_object_dispose(&v17, 8);
+        _Block_object_dispose(&v19, 8);
 
-        _Block_object_dispose(&v23, 8);
+        _Block_object_dispose(&v25, 8);
         goto LABEL_16;
       }
 
-      v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(0, v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [_SFRequestDesktopSiteQuirksSnapshot initWithSnapshotData:v14 error:?];
+        [_SFRequestDesktopSiteQuirksSnapshot initWithSnapshotData:v16 error:?];
         if (error)
         {
           goto LABEL_12;
@@ -73,20 +73,20 @@
       {
 LABEL_12:
         [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:0];
-        *error = v12 = 0;
+        *error = v14 = 0;
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      v12 = 0;
+      v14 = 0;
       goto LABEL_16;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(0, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [_SFRequestDesktopSiteQuirksSnapshot initWithSnapshotData:v13 error:?];
+      [_SFRequestDesktopSiteQuirksSnapshot initWithSnapshotData:v15 error:?];
       if (error)
       {
         goto LABEL_9;
@@ -97,20 +97,20 @@ LABEL_16:
     {
 LABEL_9:
       [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:0];
-      *error = v12 = 0;
+      *error = v14 = 0;
 LABEL_17:
 
       goto LABEL_18;
     }
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_17;
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_18:
 
-  return v12;
+  return v14;
 }
 
 - (id)snapshotData

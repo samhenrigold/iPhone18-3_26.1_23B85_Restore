@@ -562,7 +562,7 @@ LABEL_45:
   v7 = [[VCMediaNegotiationBlob alloc] initWithData:v5];
   if (!v7)
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
@@ -609,7 +609,7 @@ LABEL_45:
   [(VCMediaNegotiator *)self saveRemoteBandwidthSettingsWithMediaBlob:v7];
   if ([(VCMediaNegotiationBlob *)v7 faceTimeSettings]&& ![(VCMediaNegotiator *)self negotiateFaceTimeSettings:[(VCMediaNegotiationBlob *)v7 faceTimeSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
@@ -620,49 +620,49 @@ LABEL_45:
 
   if ([(VCMediaNegotiationBlob *)v7 audioSettings]&& ![(VCMediaNegotiator *)self negotiateAudioSettings:[(VCMediaNegotiationBlob *)v7 audioSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 videoSettings]&& ![(VCMediaNegotiator *)self negotiateVideoSettings:[(VCMediaNegotiationBlob *)v7 videoSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 screenSettings]&& ![(VCMediaNegotiator *)self negotiateScreenSettings:[(VCMediaNegotiationBlob *)v7 screenSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 captionsSettings]&& ![(VCMediaNegotiator *)self negotiateCaptionsWithCaptionsSettings:[(VCMediaNegotiationBlob *)v7 captionsSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 momentsSettings]&& ![(VCMediaNegotiator *)self negotiateMomentsWithMomentsSettings:[(VCMediaNegotiationBlob *)v7 momentsSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(NSMutableArray *)[(VCMediaNegotiationBlob *)v7 multiwayAudioStreams] count]&& ![(VCMediaNegotiator *)self negotiateMultiwayAudioStreams:[(VCMediaNegotiationBlob *)v7 multiwayAudioStreams]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(NSMutableArray *)[(VCMediaNegotiationBlob *)v7 multiwayVideoStreams] count]&& ![(VCMediaNegotiator *)self negotiateMultiwayVideoStreams:[(VCMediaNegotiationBlob *)v7 multiwayVideoStreams]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 hasEncryptionSettings]&& ![(VCMediaNegotiator *)self negotiateMediaEncryptionWithRemoteSettings:[(VCMediaNegotiationBlobMediaEncryptionSettings *)[(VCMediaNegotiationBlob *)v7 encryptionSettings] mediaEncryptionSettings]])
   {
-    [(VCMediaNegotiator *)v6 processRemoteNegotiationData:v7, &v15, buf, &v16];
+    [VCMediaNegotiator processRemoteNegotiationData:];
     goto LABEL_45;
   }
 
@@ -707,7 +707,6 @@ LABEL_4:
 
 + (BOOL)addMediaConfigurationsToLocalConfiguration:(id)configuration withBlob:(id)blob
 {
-  v17 = *MEMORY[0x1E69E9840];
   videoSettings = [blob videoSettings];
   screenSettings = [blob screenSettings];
   v8 = [objc_msgSend(blob "audioSettings")];
@@ -746,7 +745,7 @@ LABEL_5:
   v10 = [objc_msgSend(blob "screenSettings")];
   if (!v10)
   {
-    [(VCMediaNegotiator *)videoSettings addMediaConfigurationsToLocalConfiguration:&v15 withBlob:&v16];
+    +[VCMediaNegotiator addMediaConfigurationsToLocalConfiguration:withBlob:];
     goto LABEL_14;
   }
 
@@ -1286,7 +1285,7 @@ LABEL_36:
   v7 = [[VCMediaNegotiationBlob alloc] initWithData:v5];
   if (!v7)
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:&v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
@@ -1324,43 +1323,43 @@ LABEL_36:
 
   if ([(VCMediaNegotiationBlob *)v7 audioSettings]&& ![(VCMediaNegotiator *)self setupAudioWithNegotiatedSettings:[(VCMediaNegotiationBlob *)v7 audioSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 videoSettings]&& ![(VCMediaNegotiator *)self setupVideoWithNegotiatedSettings:[(VCMediaNegotiationBlob *)v7 videoSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 screenSettings]&& ![(VCMediaNegotiator *)self setupScreenWithNegotiatedSettings:[(VCMediaNegotiationBlob *)v7 screenSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 captionsSettings]&& ![(VCMediaNegotiator *)self negotiateCaptionsWithCaptionsSettings:[(VCMediaNegotiationBlob *)v7 captionsSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 momentsSettings]&& ![(VCMediaNegotiator *)self negotiateMomentsWithMomentsSettings:[(VCMediaNegotiationBlob *)v7 momentsSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 faceTimeSettings]&& ![(VCMediaNegotiator *)self negotiateFaceTimeSettings:[(VCMediaNegotiationBlob *)v7 faceTimeSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
   if ([(VCMediaNegotiationBlob *)v7 hasEncryptionSettings]&& ![(VCMediaNegotiator *)self negotiateMediaEncryptionWithRemoteSettings:[(VCMediaNegotiationBlobMediaEncryptionSettings *)[(VCMediaNegotiationBlob *)v7 encryptionSettings] mediaEncryptionSettings]])
   {
-    [(VCMediaNegotiator *)v6 processResponseBlob:v7, &v13, &v14, buf];
+    [VCMediaNegotiator processResponseBlob:];
     goto LABEL_36;
   }
 
@@ -1462,7 +1461,7 @@ LABEL_18:
   return v19;
 }
 
-uint64_t __90__VCMediaNegotiator_negotiatedFeaturesStringWithLocalFeaturesString_remoteFeaturesString___block_invoke(uint64_t result, void *a2, uint64_t a3)
+id *__90__VCMediaNegotiator_negotiatedFeaturesStringWithLocalFeaturesString_remoteFeaturesString___block_invoke(id *result, void *a2, uint64_t a3)
 {
   if (a2)
   {
@@ -1470,10 +1469,10 @@ uint64_t __90__VCMediaNegotiator_negotiatedFeaturesStringWithLocalFeaturesString
     result = [a2 length];
     if (result)
     {
-      result = [*(v5 + 32) objectForKeyedSubscript:a2];
+      result = [v5[4] objectForKeyedSubscript:a2];
       if (result)
       {
-        v6 = *(v5 + 40);
+        v6 = v5[5];
 
         return [v6 addObject:a3];
       }
@@ -1719,7 +1718,7 @@ LABEL_9:
           {
             if (v11 < 4096)
             {
-              [v17 setConfiguration:{objc_msgSend(v17, "configuration") | v11}];
+              [v17 setConfiguration:objc_msgSend_configuration(v17) | v11];
             }
 
             else
@@ -1775,7 +1774,7 @@ LABEL_9:
     [(VCMediaNegotiationBlobBandwidthSettings *)v18 setMaxBandwidth:v6];
     if (v11 < 4096)
     {
-      [(VCMediaNegotiationBlobBandwidthSettings *)v19 setConfiguration:[(VCMediaNegotiationBlobBandwidthSettings *)v19 configuration]| v11];
+      [(VCMediaNegotiationBlobBandwidthSettings *)v19 setConfiguration:objc_msgSend_configuration(v19) | v11];
     }
 
     else
@@ -2828,7 +2827,7 @@ LABEL_14:
   return 1;
 }
 
-uint64_t __92__VCMediaNegotiator_processCustomResolution_cameraRuleCollections_videoNegotiationSettings___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__92__VCMediaNegotiator_processCustomResolution_cameraRuleCollections_videoNegotiationSettings___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   v28 = *MEMORY[0x1E69E9840];
   v24 = 0u;
@@ -2916,7 +2915,7 @@ LABEL_25:
           goto LABEL_25;
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v6 != v9);
@@ -4919,13 +4918,13 @@ LABEL_30:
     return 0;
   }
 
-  if ([stream metadata])
+  if (objc_msgSend_metadata(stream))
   {
     [(VCMediaNegotiator *)self newStreamConfigFromMultiwayVideoStream:stream];
     goto LABEL_30;
   }
 
-  if ([stream metadata] >= 2)
+  if (objc_msgSend_metadata(stream) >= 2)
   {
     [(VCMediaNegotiator *)self newStreamConfigFromMultiwayVideoStream:stream];
     goto LABEL_30;
@@ -4951,15 +4950,15 @@ LABEL_30:
   -[VCMediaNegotiatorStreamGroupStreamConfiguration setStreamID:](v5, "setStreamID:", [stream streamID]);
   if ([stream hasMetadata])
   {
-    metadata = [stream metadata];
+    v7 = objc_msgSend_metadata(stream);
   }
 
   else
   {
-    metadata = 0;
+    v7 = 0;
   }
 
-  [(VCMediaNegotiatorStreamGroupStreamConfiguration *)v5 setMetadata:metadata];
+  [(VCMediaNegotiatorStreamGroupStreamConfiguration *)v5 setMetadata:v7];
   -[VCMediaNegotiatorStreamGroupStreamConfiguration setQualityIndex:](v5, "setQualityIndex:", +[VCMediaNegotiator mappedRemoteQualityIndexForQualityIndex:](VCMediaNegotiator, "mappedRemoteQualityIndexForQualityIndex:", [stream qualityIndex]));
   if ([stream hasMaxNetworkBitrate])
   {
@@ -5902,7 +5901,7 @@ LABEL_13:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the invite blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create the invite blob", v2, v3, v4, v5);
 }
 
 - (void)processRemoteNegotiationData:.cold.1()
@@ -5912,6 +5911,199 @@ LABEL_13:
   OUTLINED_FUNCTION_9_1();
   OUTLINED_FUNCTION_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
+}
+
+- (void)processRemoteNegotiationData:.cold.2()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate FaceTime settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.3()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate audio settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.4()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate video settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.5()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate screen settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.6()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate captions settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.7()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate moments settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.8()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate multiway audio streams", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.9()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate multiway video streams", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.10()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate media encryption info", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_5_28();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processRemoteNegotiationData:.cold.11()
+{
+  OUTLINED_FUNCTION_37();
+  v4 = v3;
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_54_0(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to decode the media blob", v7, v8, v9, v10);
+    }
+  }
+
+  *v4 = 0;
+  *v1 = 0;
+  *v0 = v2;
+  OUTLINED_FUNCTION_36();
 }
 
 - (void)processRemoteNegotiationData:.cold.12()
@@ -6020,6 +6212,29 @@ LABEL_13:
   OUTLINED_FUNCTION_36();
 }
 
++ (void)addMediaConfigurationsToLocalConfiguration:withBlob:.cold.2()
+{
+  OUTLINED_FUNCTION_37();
+  v1 = v0;
+  v3 = v2;
+  v5 = v4;
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_54_0(&dword_1DB56E000, v6, v7, " [%s] %s:%d Failed to allocate screenConfiguration", v8, v9, v10, v11);
+    }
+  }
+
+  *v1 = 0;
+  *v3 = v5;
+  OUTLINED_FUNCTION_20();
+  OUTLINED_FUNCTION_36();
+}
+
 + (void)addMediaConfigurationsToLocalConfiguration:withBlob:.cold.3()
 {
   OUTLINED_FUNCTION_37();
@@ -6079,7 +6294,7 @@ LABEL_13:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid media negotiator state: The caller tried to create the response blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid media negotiator state: The caller tried to create the response blob", v2, v3, v4, v5);
 }
 
 - (void)processResponseBlob:.cold.1()
@@ -6110,6 +6325,161 @@ LABEL_13:
   OUTLINED_FUNCTION_9_1();
   OUTLINED_FUNCTION_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
+}
+
+- (void)processResponseBlob:.cold.3()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to parse audio rules from response blob", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.4()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to parse video rules from response blob", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.5()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to parse screen rules from response blob", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.6()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiation captions settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.7()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiation moments settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.8()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiation FaceTime settings", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.9()
+{
+  OUTLINED_FUNCTION_28_7();
+  OUTLINED_FUNCTION_34_1();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (OUTLINED_FUNCTION_40_2())
+    {
+      OUTLINED_FUNCTION_15_3();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_14_6(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate media encryption info", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_23();
+  OUTLINED_FUNCTION_29_8();
+}
+
+- (void)processResponseBlob:.cold.10()
+{
+  OUTLINED_FUNCTION_37();
+  v4 = v3;
+  OUTLINED_FUNCTION_30();
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_13_1();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_54_0(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to decode the media blob", v7, v8, v9, v10);
+    }
+  }
+
+  *v4 = 0;
+  *v1 = 0;
+  *v0 = v2;
+  OUTLINED_FUNCTION_36();
 }
 
 - (void)processResponseBlob:.cold.11()
@@ -6143,7 +6513,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to allocate dictionary for remote feature string", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to allocate dictionary for remote feature string", v2, v3, v4, v5);
     }
   }
 
@@ -6160,7 +6530,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to allocate dictionary for local feature string", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to allocate dictionary for local feature string", v2, v3, v4, v5);
     }
   }
 
@@ -6181,14 +6551,14 @@ LABEL_13:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unsupported audio substream !!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unsupported audio substream !!", v2, v3, v4, v5);
 }
 
 - (void)negotiateAudioDTXPayload:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d DTX payload not available!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d DTX payload not available!", v2, v3, v4, v5);
 }
 
 - (void)negotiateAudioSettings:.cold.1()
@@ -6410,7 +6780,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to retrieve negotiated pixel formats", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to retrieve negotiated pixel formats", v2, v3, v4, v5);
     }
   }
 
@@ -6427,7 +6797,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate HDR modes correctly", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate HDR modes correctly", v2, v3, v4, v5);
     }
   }
 
@@ -6444,7 +6814,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to set video parameter set", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to set video parameter set", v3, v4, v5, v6);
     }
   }
 
@@ -6462,7 +6832,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to extract the video rule collection from response", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to extract the video rule collection from response", v2, v3, v4, v5);
     }
   }
 
@@ -6564,7 +6934,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to retrieve negotiated pixel formats", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to retrieve negotiated pixel formats", v2, v3, v4, v5);
     }
   }
 
@@ -6581,7 +6951,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate HDR modes correctly", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate HDR modes correctly", v2, v3, v4, v5);
     }
   }
 
@@ -6598,7 +6968,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to set screen parameter set", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to set screen parameter set", v3, v4, v5, v6);
     }
   }
 
@@ -6616,7 +6986,7 @@ LABEL_13:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to extract the screen rule collection from response", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to extract the screen rule collection from response", v2, v3, v4, v5);
     }
   }
 
@@ -6748,7 +7118,7 @@ LABEL_13:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob stream group stream config", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate media blob stream group stream config", v2, v3, v4, v5);
 }
 
 - (void)negotiateMultiwayVideoStreams:.cold.2()
@@ -6862,7 +7232,7 @@ LABEL_13:
       return;
     }
 
-    [a2 metadata];
+    objc_msgSend_metadata(a2);
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_6_23();
@@ -6883,7 +7253,7 @@ LABEL_11:
     VRTraceErrorLogLevelToCSTR();
     if (OUTLINED_FUNCTION_31())
     {
-      [a2 metadata];
+      objc_msgSend_metadata(a2);
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_7_25();
@@ -7001,7 +7371,7 @@ LABEL_11:
       return;
     }
 
-    [a2 metadata];
+    objc_msgSend_metadata(a2);
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_6_23();
@@ -7022,7 +7392,7 @@ LABEL_11:
     VRTraceErrorLogLevelToCSTR();
     if (OUTLINED_FUNCTION_31())
     {
-      [a2 metadata];
+      objc_msgSend_metadata(a2);
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_7_25();
@@ -7124,7 +7494,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to unserialize the blob", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to unserialize the blob", v2, v3, v4, v5);
     }
   }
 
@@ -7141,7 +7511,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decompress the blob", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decompress the blob", v2, v3, v4, v5);
     }
   }
 
@@ -7152,70 +7522,70 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected number of media cipher suites", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected number of media cipher suites", v2, v3, v4, v5);
 }
 
 - (void)setUpMediaEncryptionForMediaBlob:isResponse:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected number of srtcp cipher suites", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected number of srtcp cipher suites", v2, v3, v4, v5);
 }
 
 - (void)setUpMediaEncryptionForMediaBlob:isResponse:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the media encryption blob settings", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the media encryption blob settings", v2, v3, v4, v5);
 }
 
 - (void)setUpMediaEncryptionForMediaBlob:isResponse:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing negotiated media encryption settings", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing negotiated media encryption settings", v2, v3, v4, v5);
 }
 
 - (void)setUpMediaEncryptionForMediaBlob:isResponse:.cold.5()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing local media encryption settings", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing local media encryption settings", v2, v3, v4, v5);
 }
 
 - (void)negotiateMediaEncryptionWithRemoteSettings:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate the SRTP cipher suite", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate the SRTP cipher suite", v2, v3, v4, v5);
 }
 
 - (void)negotiateMediaEncryptionWithRemoteSettings:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate the SRTCP cipher suite", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to negotiate the SRTCP cipher suite", v2, v3, v4, v5);
 }
 
 - (void)negotiateMediaEncryptionWithRemoteSettings:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No cipher suite found", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No cipher suite found", v2, v3, v4, v5);
 }
 
 - (void)negotiateMediaEncryptionWithRemoteSettings:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiated media encryption settings", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiated media encryption settings", v2, v3, v4, v5);
 }
 
 - (void)negotiateMediaEncryptionWithRemoteSettings:.cold.5()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing local encryption settings", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing local encryption settings", v2, v3, v4, v5);
 }
 
 @end

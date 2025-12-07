@@ -201,9 +201,9 @@ void __70__PXGHostingController__layoutQueue_performInitialEngineSetupIfNeeded__
       v8 = self->_layoutQueue_pendingRootLayoutPromise;
       self->_layoutQueue_pendingRootLayoutPromise = 0;
 
-      layout = [(PXGEngine *)v4 layout];
+      v9 = objc_msgSend_layout(v4);
       [(PXGConcreteEngineControllerConfiguration *)v3 referenceSize];
-      [layout hostingControllerDidChangeReferenceSize:?];
+      [v9 hostingControllerDidChangeReferenceSize:?];
     }
 
     viewEnvironment = [(PXGConcreteEngineControllerConfiguration *)v3 viewEnvironment];
@@ -220,9 +220,9 @@ void __70__PXGHostingController__layoutQueue_performInitialEngineSetupIfNeeded__
     }
 
     [(PXGPixelBufferMetalRenderDestination *)self->_layoutQueue_renderDestination setScale:v12];
-    layout2 = [(PXGEngine *)v4 layout];
+    v13 = objc_msgSend_layout(v4);
     [(PXGConcreteEngineControllerConfiguration *)v3 displayScale];
-    [layout2 setDisplayScale:?];
+    [v13 setDisplayScale:?];
     v14 = self->_layoutQueue_scrollController;
     [(PXGAsyncScrollController *)v14 referenceSize];
     v16 = v15;
@@ -240,7 +240,7 @@ void __70__PXGHostingController__layoutQueue_performInitialEngineSetupIfNeeded__
       PXGTungstenGetLog();
     }
 
-    [layout2 hostingControllerCanceledPreviouslyProposedReferenceSize];
+    [v13 hostingControllerCanceledPreviouslyProposedReferenceSize];
     v33 = ![(PXGHostingController *)self layoutQueue_isAppInactive]&& [(PXGConcreteEngineControllerConfiguration *)v3 isVisible];
     [(PXGAsyncScrollController *)v14 setIsActive:v33];
   }

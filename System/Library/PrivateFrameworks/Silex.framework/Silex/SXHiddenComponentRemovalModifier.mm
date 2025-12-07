@@ -76,7 +76,7 @@ uint64_t __54__SXHiddenComponentRemovalModifier_modifyDOM_context___block_invoke
     v8 = [*(a1 + 32) analysis];
     v9 = [v8 conditionalObjectAnalysis];
     v10 = [v6 identifier];
-    v11 = SXConditionTypes();
+    v11 = SXConditionTypes(v10);
     [v9 removeComponentIdentifier:v10 conditionTypes:v11];
   }
 

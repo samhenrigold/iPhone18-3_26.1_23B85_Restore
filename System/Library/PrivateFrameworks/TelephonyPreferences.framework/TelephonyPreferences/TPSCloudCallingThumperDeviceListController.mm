@@ -75,29 +75,29 @@
 
 - (void)setDeviceSwitchOn:(id)on specifier:(id)specifier
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TPSCloudCallingThumperDeviceListController;
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = TPSCloudCallingThumperDeviceListController;
   specifierCopy = specifier;
   onCopy = on;
-  [(TPSCloudCallingDeviceListController *)&v15 setDeviceSwitchOn:onCopy specifier:specifierCopy];
+  [(TPSCloudCallingDeviceListController *)&v16 setDeviceSwitchOn:onCopy specifier:specifierCopy];
   identifier = [specifierCopy identifier];
 
   bOOLValue = [onCopy BOOLValue];
-  v10 = TPSLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = TPSLog(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"Deactivating";
+    v13 = @"Deactivating";
     if (bOOLValue)
     {
-      v11 = @"Activating";
+      v13 = @"Activating";
     }
 
     *buf = 138412546;
-    v17 = v11;
-    v18 = 2112;
-    v19 = identifier;
-    _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "%@ Thumper for secondary device with identifier %@", buf, 0x16u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = identifier;
+    _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "%@ Thumper for secondary device with identifier %@", buf, 0x16u);
   }
 
   if ((bOOLValue & 1) == 0)
@@ -106,8 +106,6 @@
     subscriptionCapabilities = [thumperController subscriptionCapabilities];
     [subscriptionCapabilities setThumperCallingAllowed:0 onSecondaryDeviceWithID:identifier];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isMainSwitchOn:(id)on
@@ -122,32 +120,32 @@
 
 - (void)setMainSwitchOn:(id)on specifier:(id)specifier
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = TPSCloudCallingThumperDeviceListController;
+  v26 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = TPSCloudCallingThumperDeviceListController;
   onCopy = on;
-  [(TPSCloudCallingDeviceListController *)&v18 setMainSwitchOn:onCopy specifier:specifier];
+  [(TPSCloudCallingDeviceListController *)&v21 setMainSwitchOn:onCopy specifier:specifier];
   bOOLValue = [onCopy BOOLValue];
 
-  v8 = TPSLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = TPSLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     if (bOOLValue)
     {
-      v9 = @"Enabling";
+      v11 = @"Enabling";
     }
 
     else
     {
-      v9 = @"Disabling";
+      v11 = @"Disabling";
     }
 
     subscriptionContext = [(TPSListController *)self subscriptionContext];
     *buf = 138412546;
-    v20 = v9;
-    v21 = 2112;
-    v22 = subscriptionContext;
-    _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "%@ Thumper for subscription context %@", buf, 0x16u);
+    v23 = v11;
+    v24 = 2112;
+    v25 = subscriptionContext;
+    _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "%@ Thumper for subscription context %@", buf, 0x16u);
   }
 
   if (bOOLValue)
@@ -157,11 +155,11 @@
 
     if (shouldEnableCapability)
     {
-      v13 = TPSLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v17 = TPSLog(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B8E9000, v13, OS_LOG_TYPE_DEFAULT, "Thumper capability should be enabled, so enabling it directly now", buf, 2u);
+        _os_log_impl(&dword_21B8E9000, v17, OS_LOG_TYPE_DEFAULT, "Thumper capability should be enabled, so enabling it directly now", buf, 2u);
       }
 
       provisioningURLController2 = [(TPSCloudCallingThumperDeviceListController *)self provisioningURLController];
@@ -183,13 +181,11 @@
     subscriptionCapabilities = [provisioningURLController2 subscriptionCapabilities];
     [subscriptionCapabilities setThumperCallingEnabled:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeThumperCallingCapabilitiesForSenderIdentityWithUUID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   subscriptionContext = [(TPSListController *)self subscriptionContext];
   uuid = [subscriptionContext uuid];
@@ -197,23 +193,21 @@
 
   if (v7)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = subscriptionContext;
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Thumper calling cabilities changed for subscription context %@.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = subscriptionContext;
+      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Thumper calling cabilities changed for subscription context %@.", &v11, 0xCu);
     }
 
     [(TPSCloudCallingThumperDeviceListController *)self reloadSpecifiers];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeThumperCallingProvisionalURLForSenderIdentityWithUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   subscriptionContext = [(TPSListController *)self subscriptionContext];
   uuid = [subscriptionContext uuid];
@@ -221,12 +215,12 @@
 
   if (v7)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = subscriptionContext;
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Thumper calling provisioning URL changed for subscription context %@.", &v16, 0xCu);
+      v19 = 138412290;
+      v20 = subscriptionContext;
+      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Thumper calling provisioning URL changed for subscription context %@.", &v19, 0xCu);
     }
 
     presentedViewController = [(TPSCloudCallingThumperDeviceListController *)self presentedViewController];
@@ -236,13 +230,14 @@
       thumperController = [(TPSCloudCallingThumperDeviceListController *)self thumperController];
       subscriptionCapabilities = [thumperController subscriptionCapabilities];
 
-      if (![subscriptionCapabilities thumperCallingProvisioningStatus])
+      thumperCallingProvisioningStatus = [subscriptionCapabilities thumperCallingProvisioningStatus];
+      if (!thumperCallingProvisioningStatus)
       {
-        v12 = TPSLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v16 = TPSLog(thumperCallingProvisioningStatus, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "We have a presented view controller and Thumper provisioning status is not-allowed, updating the presented controller", &v16, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "We have a presented view controller and Thumper provisioning status is not-allowed, updating the presented controller", &v19, 2u);
         }
 
         provisioningURLController = [(TPSCloudCallingThumperDeviceListController *)self provisioningURLController];
@@ -251,8 +246,6 @@
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

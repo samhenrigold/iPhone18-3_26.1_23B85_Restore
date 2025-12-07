@@ -88,7 +88,7 @@
     v6 = [objc_alloc(MEMORY[0x1E69C4F68]) initWithAsset:outputVideo];
     if (v6)
     {
-      [(PIDisparitySampleJob *)self sampleTime];
+      objc_msgSend_sampleTime(self);
       if ([v6 startReadingFrames:2 atTime:buf error:render])
       {
         nextFrame = [v6 nextFrame];

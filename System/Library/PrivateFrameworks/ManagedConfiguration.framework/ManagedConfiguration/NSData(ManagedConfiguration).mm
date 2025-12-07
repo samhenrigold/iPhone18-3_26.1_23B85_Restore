@@ -10,13 +10,13 @@
 
 - (id)MCHexString
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = [self length];
   bytes = [self bytes];
-  v4 = v10 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
+  v4 = v9 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
   if (v2)
   {
-    v5 = v10 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
+    v5 = v9 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
     do
     {
       v6 = *bytes++;
@@ -32,7 +32,6 @@
 
   *v4 = 0;
   v7 = [MEMORY[0x1E696AEC0] stringWithCString:? encoding:?];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -109,30 +108,29 @@
 
 - (id)MCSHA256Hash
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CC_SHA256([self bytes], objc_msgSend(self, "length"), md);
   v1 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
 + (id)MCDataFromFile:()ManagedConfiguration
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a3;
-  v11 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3 options:0 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3 options:0 error:&v10];
+  v5 = v10;
   if (v5)
   {
     v6 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v13 = v3;
-      v14 = 2114;
-      v15 = v5;
+      v12 = v3;
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_1A795B000, v6, OS_LOG_TYPE_ERROR, "Could not read data from path %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -147,8 +145,6 @@
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

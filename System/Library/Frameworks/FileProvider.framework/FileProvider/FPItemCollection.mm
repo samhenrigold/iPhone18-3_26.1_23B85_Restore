@@ -81,21 +81,16 @@ void __30__FPItemCollection_initialize__block_invoke()
 
 - (void)_startRegathering
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)startObserving
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObserving
@@ -145,11 +140,9 @@ void __25__FPItemCollection_items__block_invoke(uint64_t a1)
 
 - (void)stopObserving
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelStartTime
@@ -199,7 +192,7 @@ void __40__FPItemCollection__flushPendingUpdates__block_invoke(uint64_t a1)
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_1(&v27);
+    __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_1();
   }
 
   v21 = 0;
@@ -308,11 +301,9 @@ void __40__FPItemCollection__flushPendingUpdates__block_invoke_187(uint64_t a1)
 
 - (void)_flushPendingUpdates
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_numberOfItems
@@ -334,7 +325,7 @@ void __40__FPItemCollection__flushPendingUpdates__block_invoke_187(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__FPItemCollection__numberOfItems__block_invoke(uint64_t a1)
+void *__34__FPItemCollection__numberOfItems__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -343,27 +334,27 @@ uint64_t __34__FPItemCollection__numberOfItems__block_invoke(uint64_t a1)
 
 + (void)refreshActiveCollectionsForDecorationChange
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   activeCollections = [self activeCollections];
-  v3 = [activeCollections countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [activeCollections countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(activeCollections);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         workingQueue = [v7 workingQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
@@ -373,13 +364,11 @@ uint64_t __34__FPItemCollection__numberOfItems__block_invoke(uint64_t a1)
         dispatch_async(workingQueue, block);
       }
 
-      v4 = [activeCollections countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [activeCollections countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)activeCollections
@@ -409,7 +398,7 @@ uint64_t __37__FPItemCollection_activeCollections__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (FPItemCollection)initWithPacing:(BOOL)pacing
@@ -564,30 +553,30 @@ LABEL_9:
 
 void __70__FPItemCollection_reachabilityMonitor_didChangeReachabilityStatusTo___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isRegatheringAfterSignal] & 1) == 0)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = [*(*(a1 + 32) + 24) allObjects];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v10 + 1) + 8 * i);
+          v8 = *(*(&v9 + 1) + 8 * i);
           [v8 setOffline:(*(a1 + 40) & 1) == 0];
           if (([v8 isDownloading] & 1) != 0 || objc_msgSend(v8, "isUploading"))
           {
@@ -595,7 +584,7 @@ void __70__FPItemCollection_reachabilityMonitor_didChangeReachabilityStatusTo___
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -606,8 +595,6 @@ void __70__FPItemCollection_reachabilityMonitor_didChangeReachabilityStatusTo___
       [*(a1 + 32) receivedBatchWithUpdatedItems:v2 deletedItemsIdentifiers:MEMORY[0x1E695E0F0]];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPItemCollection_startObserving__block_invoke_135(uint64_t a1)
@@ -650,7 +637,7 @@ void __34__FPItemCollection_startObserving__block_invoke_135(uint64_t a1)
   dispatch_async(updateQueue, v13);
 }
 
-uint64_t __71__FPItemCollection_dataSource_replaceContentsWithItems_hasMoreChanges___block_invoke(uint64_t a1)
+void *__71__FPItemCollection_dataSource_replaceContentsWithItems_hasMoreChanges___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __isUsingDataSource:*(a1 + 40)];
   if (result)
@@ -688,7 +675,7 @@ uint64_t __71__FPItemCollection_dataSource_replaceContentsWithItems_hasMoreChang
   dispatch_async(updateQueue, block);
 }
 
-uint64_t __80__FPItemCollection_dataSource_receivedUpdatedItems_deletedItems_hasMoreChanges___block_invoke(uint64_t a1)
+void *__80__FPItemCollection_dataSource_receivedUpdatedItems_deletedItems_hasMoreChanges___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __isUsingDataSource:*(a1 + 40)];
   if (result)
@@ -818,11 +805,9 @@ void __55__FPItemCollection_dataSource_wasInvalidatedWithError___block_invoke_2(
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reorderItemsWithSortDescriptors:(id)descriptors
@@ -848,7 +833,7 @@ void __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke(uint6
   v3 = fp_current_or_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke_cold_1(v2, a1);
+    __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke_cold_1();
   }
 
   if (([*(a1 + 40) isEqualToArray:v2] & 1) == 0)
@@ -902,7 +887,7 @@ void __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke(uint6
   return v7;
 }
 
-uint64_t __35__FPItemCollection__indexOfItemID___block_invoke(void *a1)
+void *__35__FPItemCollection__indexOfItemID___block_invoke(void *a1)
 {
   result = [*(a1[4] + 24) indexOfItemID:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -932,7 +917,7 @@ uint64_t __35__FPItemCollection__indexOfItemID___block_invoke(void *a1)
   return v7;
 }
 
-uint64_t __33__FPItemCollection__indexOfItem___block_invoke(void *a1)
+void *__33__FPItemCollection__indexOfItem___block_invoke(void *a1)
 {
   result = [*(a1[4] + 24) indexOfObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -965,7 +950,7 @@ uint64_t __33__FPItemCollection__indexOfItem___block_invoke(void *a1)
   return v7;
 }
 
-unint64_t __36__FPItemCollection_itemAtIndexPath___block_invoke(void *a1)
+void *__36__FPItemCollection_itemAtIndexPath___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = [*(a1[4] + 24) count];
@@ -976,7 +961,7 @@ unint64_t __36__FPItemCollection_itemAtIndexPath___block_invoke(void *a1)
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
@@ -1019,7 +1004,7 @@ uint64_t __37__FPItemCollection__itemsMutableCopy__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)_isUsingDataSource:(id)source
@@ -1046,7 +1031,7 @@ uint64_t __37__FPItemCollection__itemsMutableCopy__block_invoke(uint64_t a1)
   return sourceCopy;
 }
 
-uint64_t __39__FPItemCollection__isUsingDataSource___block_invoke(uint64_t a1)
+void *__39__FPItemCollection__isUsingDataSource___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) __isUsingDataSource:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1075,12 +1060,12 @@ uint64_t __39__FPItemCollection__isUsingDataSource___block_invoke(uint64_t a1)
 
 void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   section = __fp_create_section();
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_1(&section);
+    __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_1();
   }
 
   if ([*(a1 + 32) isRegatheringAfterSignal])
@@ -1094,28 +1079,28 @@ void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___blo
 
   else
   {
-    v25 = [*(a1 + 40) mutableCopy];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v24 = [*(a1 + 40) mutableCopy];
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v4 = *(a1 + 48);
-    v5 = [v4 countByEnumeratingWithState:&v28 objects:v39 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v27 objects:v38 count:16];
     if (v5)
     {
-      v7 = *v29;
+      v7 = *v28;
       *&v6 = 134218498;
-      v24 = v6;
+      v23 = v6;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v29 != v7)
+          if (*v28 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v28 + 1) + 8 * i);
+          v9 = *(*(&v27 + 1) + 8 * i);
           v10 = [v9 formerIdentifier];
           v11 = v10 == 0;
 
@@ -1128,12 +1113,12 @@ void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___blo
               if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
               {
                 v20 = [v9 formerIdentifier];
-                *buf = v24;
-                v34 = v12;
-                v35 = 2112;
-                v36 = v20;
-                v37 = 2112;
-                v38 = v9;
+                *buf = v23;
+                v33 = v12;
+                v34 = 2112;
+                v35 = v20;
+                v36 = 2112;
+                v37 = v9;
                 _os_log_debug_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] replacing placeholder at index %ld with ID %@ with %@", buf, 0x20u);
               }
 
@@ -1142,7 +1127,7 @@ void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___blo
                 v14 = fp_current_or_default_log();
                 if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
                 {
-                  __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_2(&v26, v27, v14);
+                  __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_2(&v25, v26, v14);
                 }
 
                 v15 = [*(*(a1 + 32) + 24) objectAtIndex:v12];
@@ -1157,29 +1142,28 @@ void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___blo
               }
 
               v19 = [v9 formerItemID];
-              [v25 removeObject:v19];
+              [v24 removeObject:v19];
             }
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v27 objects:v38 count:16];
       }
 
       while (v5);
     }
 
-    v21 = [v25 allObjects];
+    v21 = [v24 allObjects];
     v22 = [v21 arrayByAddingObjectsFromArray:*(a1 + 56)];
 
     ++*(*(a1 + 32) + 184);
     [*(a1 + 32) _receivedBatchWithUpdatedItems:*(a1 + 48) deletedItemsIdentifiers:v22 dropForReplacedPlaceholders:0];
     [*(a1 + 32) _flushPendingUpdates];
 
-    v3 = v25;
+    v3 = v24;
   }
 
   __fp_leave_section_Debug(&section);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateObservedItem:(id)item
@@ -1205,7 +1189,7 @@ void __40__FPItemCollection__updateObservedItem___block_invoke(uint64_t a1)
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __40__FPItemCollection__updateObservedItem___block_invoke_cold_1(a1);
+    __40__FPItemCollection__updateObservedItem___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 40) delegate];
@@ -1269,50 +1253,29 @@ void __40__FPItemCollection__updateObservedItem___block_invoke(uint64_t a1)
 
 void __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = __Block_byref_object_copy__17;
-  v14[3] = __Block_byref_object_dispose__17;
-  v15 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:*(a1 + 40)];
-  if (*(v14[0] + 40))
+  v18[1] = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__17;
+  v16 = __Block_byref_object_dispose__17;
+  v17 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:*(a1 + 40)];
+  if (v13[5] || (v3 = *(a1 + 32), v2 = *(a1 + 40), v4 = *(v3 + 40), block[0] = MEMORY[0x1E69E9820], block[1] = 3221225472, block[2] = __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2, block[3] = &unk_1E793A190, v11 = &v12, block[4] = v3, v10 = v2, dispatch_sync(v4, block), LOBYTE(v4) = v13[5] == 0, v10, (v4 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = *(v3 + 40);
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2;
-  block[3] = &unk_1E793A190;
-  v12 = &v13;
-  block[4] = v3;
-  v11 = v2;
-  dispatch_sync(v4, block);
-  LOBYTE(v4) = *(v14[0] + 40) == 0;
-
-  if ((v4 & 1) == 0)
-  {
-LABEL_3:
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_cold_1(v14);
+      __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_cold_1();
     }
 
     v6 = *(a1 + 32);
-    v7 = [*(v14[0] + 40) copy];
-    v16[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v7 = [v13[5] copy];
+    v18[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     [v6 _receivedBatchWithUpdatedItems:v8 deletedItemsIdentifiers:MEMORY[0x1E695E0F0]];
   }
 
-  _Block_object_dispose(&v13, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
 }
 
 uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(void *a1)
@@ -1322,14 +1285,14 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)_receivedBatchWithUpdatedItems:(id)items deletedItemsIdentifiers:(id)identifiers forceFlush:(BOOL)flush dropForReplacedPlaceholders:(BOOL)placeholders
 {
   placeholdersCopy = placeholders;
   flushCopy = flush;
-  v187 = *MEMORY[0x1E69E9840];
+  v186 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   identifiersCopy = identifiers;
   dispatch_assert_queue_V2(self->_updateQueue);
@@ -1337,7 +1300,7 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
   if (self->_observing)
   {
     v11 = [itemsCopy count];
-    v123 = identifiersCopy;
+    v122 = identifiersCopy;
     v12 = [identifiersCopy count];
     section = __fp_create_section();
     v13 = fp_current_or_default_log();
@@ -1345,22 +1308,22 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134219010;
-      *v180 = section;
-      *&v180[8] = 2048;
-      v181 = v14;
-      *v182 = 2048;
-      *&v182[2] = [identifiersCopy count];
-      v183 = 2112;
+      *v179 = section;
+      *&v179[8] = 2048;
+      v180 = v14;
+      *v181 = 2048;
+      *&v181[2] = [identifiersCopy count];
+      v182 = 2112;
       selfCopy = self;
-      v185 = 1024;
-      v186 = flushCopy;
+      v184 = 1024;
+      v185 = flushCopy;
       _os_log_debug_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx received %ld updates (deleted %ld) for %@ (forceFlush:%d)", buf, 0x30u);
     }
 
-    v121 = v14;
+    v120 = v14;
     selfCopy2 = self;
 
-    v133 = objc_opt_new();
+    v132 = objc_opt_new();
     selfCopy4 = self;
     if ([obj count] == 1 && !objc_msgSend(identifiersCopy, "count"))
     {
@@ -1375,7 +1338,7 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
       v16 = 0;
     }
 
-    v120 = v16;
+    v119 = v16;
     v17 = selfCopy4->_regathering && !v16;
     if (v17 || placeholdersCopy)
     {
@@ -1397,25 +1360,25 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
           v22 = allValues;
         }
 
-        v166 = 0u;
-        v167 = 0u;
-        v164 = 0u;
         v165 = 0u;
+        v166 = 0u;
+        v163 = 0u;
+        v164 = 0u;
         v25 = obj;
-        v26 = [v25 countByEnumeratingWithState:&v164 objects:v178 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v163 objects:v177 count:16];
         if (v26)
         {
-          v27 = *v165;
+          v27 = *v164;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v165 != v27)
+              if (*v164 != v27)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v29 = *(*(&v164 + 1) + 8 * i);
+              v29 = *(*(&v163 + 1) + 8 * i);
               v30 = [FPStitchingManager parentIdNameKeyForItem:v29];
               v31 = [allPlaceholderItemsByParentIdentifierAndName objectForKey:v30];
               v32 = v31 == 0;
@@ -1426,7 +1389,7 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
               }
             }
 
-            v26 = [v25 countByEnumeratingWithState:&v164 objects:v178 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v163 objects:v177 count:16];
           }
 
           while (v26);
@@ -1440,38 +1403,38 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
 
       if ([allDeletedIDs count])
       {
-        v35 = [v123 arrayByAddingObjectsFromArray:allDeletedIDs];
+        v35 = [v122 arrayByAddingObjectsFromArray:allDeletedIDs];
 
-        v123 = v35;
+        v122 = v35;
       }
     }
 
     if (placeholdersCopy)
     {
-      v137 = objc_opt_new();
+      v136 = objc_opt_new();
       v36 = +[FPStitchingManager sharedInstance];
       allPlaceholderReplacementsIDs = [v36 allPlaceholderReplacementsIDs];
 
       v38 = objc_opt_new();
-      v162 = 0u;
-      v163 = 0u;
-      v160 = 0u;
       v161 = 0u;
+      v162 = 0u;
+      v159 = 0u;
+      v160 = 0u;
       v39 = obj;
-      v40 = [v39 countByEnumeratingWithState:&v160 objects:v177 count:16];
+      v40 = [v39 countByEnumeratingWithState:&v159 objects:v176 count:16];
       if (v40)
       {
-        v41 = *v161;
+        v41 = *v160;
         do
         {
           for (j = 0; j != v40; ++j)
           {
-            if (*v161 != v41)
+            if (*v160 != v41)
             {
               objc_enumerationMutation(v39);
             }
 
-            v43 = *(*(&v160 + 1) + 8 * j);
+            v43 = *(*(&v159 + 1) + 8 * j);
             formerItemID = [v43 formerItemID];
             if (formerItemID)
             {
@@ -1486,31 +1449,31 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
             }
           }
 
-          v40 = [v39 countByEnumeratingWithState:&v160 objects:v177 count:16];
+          v40 = [v39 countByEnumeratingWithState:&v159 objects:v176 count:16];
         }
 
         while (v40);
       }
 
-      v158 = 0u;
-      v159 = 0u;
-      v156 = 0u;
       v157 = 0u;
+      v158 = 0u;
+      v155 = 0u;
+      v156 = 0u;
       v48 = v39;
-      v49 = [v48 countByEnumeratingWithState:&v156 objects:v176 count:16];
+      v49 = [v48 countByEnumeratingWithState:&v155 objects:v175 count:16];
       if (v49)
       {
-        v50 = *v157;
+        v50 = *v156;
         do
         {
           for (k = 0; k != v49; ++k)
           {
-            if (*v157 != v50)
+            if (*v156 != v50)
             {
               objc_enumerationMutation(v48);
             }
 
-            v52 = *(*(&v156 + 1) + 8 * k);
+            v52 = *(*(&v155 + 1) + 8 * k);
             itemID2 = [v52 itemID];
             v54 = [v38 containsObject:itemID2];
 
@@ -1520,24 +1483,24 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
               if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                *v180 = v52;
+                *v179 = v52;
                 _os_log_debug_impl(&dword_1AAAE1000, v55, OS_LOG_TYPE_DEBUG, "[DEBUG] Dropping placeholder %@ as it has already been replaced.", buf, 0xCu);
               }
             }
 
             else
             {
-              [v137 addObject:v52];
+              [v136 addObject:v52];
             }
           }
 
-          v49 = [v48 countByEnumeratingWithState:&v156 objects:v176 count:16];
+          v49 = [v48 countByEnumeratingWithState:&v155 objects:v175 count:16];
         }
 
         while (v49);
       }
 
-      obj = v137;
+      obj = v136;
     }
 
     v56 = +[FPStitchingManager sharedInstance];
@@ -1545,38 +1508,38 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
 
     v57 = +[FPStitchingManager sharedInstance];
     enumeratedItemID = [(FPItemCollection *)selfCopy2 enumeratedItemID];
-    v124 = [v57 stitchedItemsForParentID:enumeratedItemID];
+    v123 = [v57 stitchedItemsForParentID:enumeratedItemID];
 
-    if ([v124 count])
+    if ([v123 count])
     {
       v59 = fp_current_or_default_log();
       if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         enumeratedItemID2 = [(FPItemCollection *)selfCopy2 enumeratedItemID];
-        [FPItemCollection _receivedBatchWithUpdatedItems:enumeratedItemID2 deletedItemsIdentifiers:v124 forceFlush:v175 dropForReplacedPlaceholders:v59];
+        [FPItemCollection _receivedBatchWithUpdatedItems:enumeratedItemID2 deletedItemsIdentifiers:v123 forceFlush:v174 dropForReplacedPlaceholders:v59];
       }
 
       v61 = [MEMORY[0x1E695DF70] arrayWithArray:obj];
       fp_itemIDs = [obj fp_itemIDs];
-      v154 = 0u;
-      v155 = 0u;
-      v152 = 0u;
       v153 = 0u;
-      v63 = v124;
-      v64 = [v63 countByEnumeratingWithState:&v152 objects:v174 count:16];
+      v154 = 0u;
+      v151 = 0u;
+      v152 = 0u;
+      v63 = v123;
+      v64 = [v63 countByEnumeratingWithState:&v151 objects:v173 count:16];
       if (v64)
       {
-        v65 = *v153;
+        v65 = *v152;
         do
         {
           for (m = 0; m != v64; ++m)
           {
-            if (*v153 != v65)
+            if (*v152 != v65)
             {
               objc_enumerationMutation(v63);
             }
 
-            v67 = *(*(&v152 + 1) + 8 * m);
+            v67 = *(*(&v151 + 1) + 8 * m);
             itemID3 = [v67 itemID];
             v69 = [fp_itemIDs containsObject:itemID3];
 
@@ -1586,7 +1549,7 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
               if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                *v180 = v67;
+                *v179 = v67;
                 _os_log_debug_impl(&dword_1AAAE1000, v70, OS_LOG_TYPE_DEBUG, "[DEBUG] Dropping stitched item already in update: %@", buf, 0xCu);
               }
             }
@@ -1597,7 +1560,7 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
             }
           }
 
-          v64 = [v63 countByEnumeratingWithState:&v152 objects:v174 count:16];
+          v64 = [v63 countByEnumeratingWithState:&v151 objects:v173 count:16];
         }
 
         while (v64);
@@ -1611,77 +1574,77 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
       v71 = obj;
     }
 
-    v150 = 0u;
-    v151 = 0u;
-    v148 = 0u;
     v149 = 0u;
+    v150 = 0u;
+    v147 = 0u;
+    v148 = 0u;
     obj = v71;
-    v72 = [obj countByEnumeratingWithState:&v148 objects:v173 count:16];
+    v72 = [obj countByEnumeratingWithState:&v147 objects:v172 count:16];
     if (v72)
     {
-      v125 = 0;
-      v128 = *v149;
+      v124 = 0;
+      v127 = *v148;
       do
       {
         v73 = 0;
-        v138 = v125;
-        v125 += v72;
-        v130 = v72;
+        v137 = v124;
+        v124 += v72;
+        v129 = v72;
         do
         {
-          if (*v149 != v128)
+          if (*v148 != v127)
           {
             objc_enumerationMutation(obj);
           }
 
-          v136 = v73;
-          v74 = *(*(&v148 + 1) + 8 * v73);
+          v135 = v73;
+          v74 = *(*(&v147 + 1) + 8 * v73);
           context = objc_autoreleasePoolPush();
-          if (v138 <= 0x13)
+          if (v137 <= 0x13)
           {
             v75 = fp_current_or_default_log();
             if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              *v180 = v74;
+              *v179 = v74;
               _os_log_debug_impl(&dword_1AAAE1000, v75, OS_LOG_TYPE_DEBUG, "[DEBUG] updated item: %@", buf, 0xCu);
             }
           }
 
-          v146 = 0u;
-          v147 = 0u;
-          v144 = 0u;
           v145 = 0u;
+          v146 = 0u;
+          v143 = 0u;
+          v144 = 0u;
           itemID4 = [v74 itemID];
           v77 = [stitchedFieldsAndItemsByItemIDs objectForKeyedSubscript:itemID4];
 
-          v78 = [v77 countByEnumeratingWithState:&v144 objects:v172 count:16];
+          v78 = [v77 countByEnumeratingWithState:&v143 objects:v171 count:16];
           if (v78)
           {
-            v79 = *v145;
+            v79 = *v144;
             do
             {
               for (n = 0; n != v78; ++n)
               {
-                if (*v145 != v79)
+                if (*v144 != v79)
                 {
                   objc_enumerationMutation(v77);
                 }
 
-                v81 = *(*(&v144 + 1) + 8 * n);
+                v81 = *(*(&v143 + 1) + 8 * n);
                 v82 = [v81 objectForKeyedSubscript:@"FPStitchingSessionFields"];
                 v83 = [v81 objectForKeyedSubscript:@"FPStitchingSessionItemKey"];
                 v84 = fp_current_or_default_log();
                 if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
                 {
                   itemID5 = [v74 itemID];
-                  [FPItemCollection _receivedBatchWithUpdatedItems:itemID5 deletedItemsIdentifiers:v170 forceFlush:&v171 dropForReplacedPlaceholders:v84];
+                  [FPItemCollection _receivedBatchWithUpdatedItems:itemID5 deletedItemsIdentifiers:v169 forceFlush:&v170 dropForReplacedPlaceholders:v84];
                 }
 
                 [v74 overrideFields:v82 ofItem:v83];
               }
 
-              v78 = [v77 countByEnumeratingWithState:&v144 objects:v172 count:16];
+              v78 = [v77 countByEnumeratingWithState:&v143 objects:v171 count:16];
             }
 
             while (v78);
@@ -1690,14 +1653,14 @@ uint64_t __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_2(vo
           itemID6 = [v74 itemID];
           providerID = [itemID6 providerID];
 
-          v88 = [v133 objectForKeyedSubscript:providerID];
+          v88 = [v132 objectForKeyedSubscript:providerID];
           if (!v88)
           {
             v89 = MEMORY[0x1E696AD98];
             v90 = +[FPReachabilityMonitor sharedReachabilityMonitor];
             v88 = [v89 numberWithBool:{objc_msgSend(v90, "isNetworkReachableForBundle:", providerID)}];
 
-            [v133 setObject:v88 forKeyedSubscript:providerID];
+            [v132 setObject:v88 forKeyedSubscript:providerID];
           }
 
           [v74 setOffline:{objc_msgSend(v88, "BOOLValue") ^ 1}];
@@ -1715,33 +1678,33 @@ LABEL_96:
             itemID7 = [v74 itemID];
             v95 = selfCopy2;
             objc_sync_enter(v95);
-            v132 = selfCopy2->_itemFilteringPredicate;
-            v131 = selfCopy2->_additionalItemFilteringPredicate;
+            v131 = selfCopy2->_itemFilteringPredicate;
+            v130 = selfCopy2->_additionalItemFilteringPredicate;
             objc_sync_exit(v95);
 
             v96 = [(FPItemCollection *)v95 isCollectionValidForItem:v74];
-            if (v96 && (!v132 || [(NSPredicate *)v132 evaluateWithObject:v74]))
+            if (v96 && (!v131 || [(NSPredicate *)v131 evaluateWithObject:v74]))
             {
-              if (v131)
+              if (v130)
               {
-                HIDWORD(v127) = [(NSPredicate *)v131 evaluateWithObject:v74];
-                LODWORD(v127) = 1;
+                HIDWORD(v126) = [(NSPredicate *)v130 evaluateWithObject:v74];
+                LODWORD(v126) = 1;
               }
 
               else
               {
-                v127 = 0x100000001;
+                v126 = 0x100000001;
               }
             }
 
             else
             {
-              v127 = 0;
+              v126 = 0;
             }
 
             v97 = [(FPItemCollection *)v95 isHiddenItem:v74];
             formerItemID3 = [v74 formerItemID];
-            if ((v96 & v127 & HIDWORD(v127)) == 1 && (!v97 || selfCopy2->_showHiddenFiles))
+            if ((v96 & v126 & HIDWORD(v126)) == 1 && (!v97 || selfCopy2->_showHiddenFiles))
             {
               v99 = [(NSMutableDictionary *)selfCopy2->_formerItemsIdentifiers objectForKey:itemID7];
 
@@ -1751,7 +1714,7 @@ LABEL_96:
                 if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  *v180 = itemID7;
+                  *v179 = itemID7;
                   v101 = v100;
                   v102 = "[DEBUG] not interested in superseded itemID %@";
                   v103 = 12;
@@ -1782,13 +1745,13 @@ LABEL_96:
                 }
 
                 *buf = 67109888;
-                *v180 = v96;
-                *&v180[4] = 1024;
-                *&v180[6] = v127;
-                LOWORD(v181) = 1024;
-                *(&v181 + 2) = HIDWORD(v127);
-                HIWORD(v181) = 1024;
-                *v182 = v97;
+                *v179 = v96;
+                *&v179[4] = 1024;
+                *&v179[6] = v126;
+                LOWORD(v180) = 1024;
+                *(&v180 + 2) = HIDWORD(v126);
+                HIWORD(v180) = 1024;
+                *v181 = v97;
                 v101 = v100;
                 v102 = "[DEBUG] not interested in item (validForCollection: %{BOOL}d, predicate1: %{BOOL}d, predicate2: %{BOOL}d, hidden: %{BOOL}d)";
               }
@@ -1810,13 +1773,13 @@ LABEL_96:
                 }
 
                 *buf = 67109888;
-                *v180 = v96;
-                *&v180[4] = 1024;
-                *&v180[6] = v127;
-                LOWORD(v181) = 1024;
-                *(&v181 + 2) = HIDWORD(v127);
-                HIWORD(v181) = 1024;
-                *v182 = v97;
+                *v179 = v96;
+                *&v179[4] = 1024;
+                *&v179[6] = v126;
+                LOWORD(v180) = 1024;
+                *(&v180 + 2) = HIDWORD(v126);
+                HIWORD(v180) = 1024;
+                *v181 = v97;
                 v101 = v100;
                 v102 = "[DEBUG] removing item because it isn't not interesting anymore (validForCollection: %{BOOL}d, predicate1: %{BOOL}d, predicate2: %{BOOL}d, hidden: %{BOOL}d)";
               }
@@ -1848,36 +1811,36 @@ LABEL_116:
 LABEL_118:
 
           objc_autoreleasePoolPop(context);
-          ++v138;
-          v73 = v136 + 1;
+          ++v137;
+          v73 = v135 + 1;
         }
 
-        while (v136 + 1 != v130);
-        v72 = [obj countByEnumeratingWithState:&v148 objects:v173 count:16];
+        while (v135 + 1 != v129);
+        v72 = [obj countByEnumeratingWithState:&v147 objects:v172 count:16];
       }
 
       while (v72);
     }
 
-    v142 = 0u;
-    v143 = 0u;
-    v140 = 0u;
     v141 = 0u;
-    identifiersCopy = v123;
-    v104 = [identifiersCopy countByEnumeratingWithState:&v140 objects:v169 count:16];
+    v142 = 0u;
+    v139 = 0u;
+    v140 = 0u;
+    identifiersCopy = v122;
+    v104 = [identifiersCopy countByEnumeratingWithState:&v139 objects:v168 count:16];
     if (v104)
     {
-      v105 = *v141;
+      v105 = *v140;
       do
       {
         for (ii = 0; ii != v104; ++ii)
         {
-          if (*v141 != v105)
+          if (*v140 != v105)
           {
             objc_enumerationMutation(identifiersCopy);
           }
 
-          v107 = *(*(&v140 + 1) + 8 * ii);
+          v107 = *(*(&v139 + 1) + 8 * ii);
           v108 = objc_autoreleasePoolPush();
           [(NSMutableDictionary *)selfCopy2->_updatedItemsByIdentifiers removeObjectForKey:v107];
           [(NSMutableSet *)selfCopy2->_deletedItemsIdentifiers addObject:v107];
@@ -1885,7 +1848,7 @@ LABEL_118:
           if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            *v180 = v107;
+            *v179 = v107;
             _os_log_debug_impl(&dword_1AAAE1000, v109, OS_LOG_TYPE_DEBUG, "[DEBUG] deleted item: %@", buf, 0xCu);
           }
 
@@ -1898,7 +1861,7 @@ LABEL_118:
             if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              *v180 = v110;
+              *v179 = v110;
               _os_log_debug_impl(&dword_1AAAE1000, v111, OS_LOG_TYPE_DEBUG, "[DEBUG] deleted item: %@", buf, 0xCu);
             }
           }
@@ -1906,7 +1869,7 @@ LABEL_118:
           objc_autoreleasePoolPop(v108);
         }
 
-        v104 = [identifiersCopy countByEnumeratingWithState:&v140 objects:v169 count:16];
+        v104 = [identifiersCopy countByEnumeratingWithState:&v139 objects:v168 count:16];
       }
 
       while (v104);
@@ -1915,7 +1878,7 @@ LABEL_118:
     v112 = +[FPProgressManager defaultManager];
     [v112 attachProgressToItemsIfNeeded:obj];
 
-    v113 = v121 == 0 || v120;
+    v113 = v120 == 0 || v119;
     if (selfCopy2->_gathering)
     {
       v114 = !v113;
@@ -1957,7 +1920,7 @@ LABEL_151:
     v117 = fp_current_or_default_log();
     if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
     {
-      [FPItemCollection _receivedBatchWithUpdatedItems:flushCopy deletedItemsIdentifiers:selfCopy2 forceFlush:? dropForReplacedPlaceholders:?];
+      [FPItemCollection _receivedBatchWithUpdatedItems:deletedItemsIdentifiers:forceFlush:dropForReplacedPlaceholders:];
     }
 
     selfCopy2->_flushableRegatheringGeneration = selfCopy2->_regatheringGeneration;
@@ -1984,22 +1947,20 @@ LABEL_157:
   }
 
 LABEL_158:
-  v119 = *MEMORY[0x1E69E9840];
 }
 
 - (id)indexPathFromIndex:(int64_t)index
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if (index == 0x7FFFFFFFFFFFFFFFLL)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"FPItemCollection.m" lineNumber:1260 description:@"invalid index"];
   }
 
-  v10[0] = 0;
-  v10[1] = index;
-  v7 = [MEMORY[0x1E696AC88] indexPathWithIndexes:v10 length:2];
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = 0;
+  v9[1] = index;
+  v7 = [MEMORY[0x1E696AC88] indexPathWithIndexes:v9 length:2];
 
   return v7;
 }
@@ -2031,21 +1992,21 @@ void __43__FPItemCollection_indexPathsFromIndexSet___block_invoke(uint64_t a1, u
 
 + (id)_bouncedItem:(id)item withinItems:(id)items
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   itemsCopy = items;
   v7 = itemCopy;
   filename = [v7 filename];
-  v38 = 0;
-  v9 = [filename fp_stringByDeletingPathBounceNo:&v38 andPathExtension:0 isFolder:{objc_msgSend(v7, "isFolder")}];
-  v10 = v38;
+  v37 = 0;
+  v9 = [filename fp_stringByDeletingPathBounceNo:&v37 andPathExtension:0 isFolder:{objc_msgSend(v7, "isFolder")}];
+  v10 = v37;
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v11 = itemsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
   uRLByDeletingLastPathComponent = v11;
   v14 = v7;
   if (!v12)
@@ -2054,23 +2015,23 @@ void __43__FPItemCollection_indexPathsFromIndexSet___block_invoke(uint64_t a1, u
   }
 
   v15 = v12;
-  v32 = v10;
+  v31 = v10;
   v16 = 0;
-  v17 = *v35;
+  v17 = *v34;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v35 != v17)
+      if (*v34 != v17)
       {
         objc_enumerationMutation(v11);
       }
 
-      v19 = *(*(&v34 + 1) + 8 * i);
+      v19 = *(*(&v33 + 1) + 8 * i);
       filename2 = [v19 filename];
-      v33 = 0;
-      v21 = [filename2 fp_stringByDeletingPathBounceNo:&v33 andPathExtension:0 isFolder:{objc_msgSend(v19, "isFolder")}];
-      v22 = v33;
+      v32 = 0;
+      v21 = [filename2 fp_stringByDeletingPathBounceNo:&v32 andPathExtension:0 isFolder:{objc_msgSend(v19, "isFolder")}];
+      v22 = v32;
 
       if (![v9 localizedCaseInsensitiveCompare:v21])
       {
@@ -2092,13 +2053,13 @@ void __43__FPItemCollection_indexPathsFromIndexSet___block_invoke(uint64_t a1, u
       }
     }
 
-    v15 = [v11 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v15 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
   }
 
   while (v15);
 
   v14 = v7;
-  v10 = v32;
+  v10 = v31;
   if (v16)
   {
     v14 = [v7 copy];
@@ -2124,34 +2085,32 @@ LABEL_17:
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)_reorderWithPlaceholdersLast:(id)last
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   lastCopy = last;
-  v4 = [lastCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [lastCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(lastCopy);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) state])
+        if ([*(*(&v12 + 1) + 8 * i) state])
         {
 
           v9 = [lastCopy fp_filter:&__block_literal_global_172];
@@ -2162,7 +2121,7 @@ LABEL_17:
         }
       }
 
-      v5 = [lastCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [lastCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -2174,8 +2133,6 @@ LABEL_17:
 
   v8 = lastCopy;
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2232,7 +2189,7 @@ LABEL_9:
 
 - (id)computeIndexPathsBasedDiffsWithOldItems:(id)items futureItems:(id)futureItems
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   futureItemsCopy = futureItems;
   v6 = objc_opt_new();
@@ -2255,28 +2212,28 @@ LABEL_9:
   movedDestinationIndexPaths = [v6 movedDestinationIndexPaths];
   deletedIndexes = [v6 deletedIndexes];
   insertedIndexes = [v6 insertedIndexes];
-  v52 = v6;
+  v51 = v6;
   updatedIndexes = [v6 updatedIndexes];
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v12 = self->_deletedItemsIdentifiers;
-  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v70 objects:v76 count:16];
+  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v69 objects:v75 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v71;
+    v15 = *v70;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v71 != v15)
+        if (*v70 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v70 + 1) + 8 * i);
+        v17 = *(*(&v69 + 1) + 8 * i);
         v18 = objc_autoreleasePoolPush();
         v19 = [(FPItemCollection *)self _indexOfItemID:v17];
         if (v19 != 0x7FFFFFFFFFFFFFFFLL)
@@ -2289,32 +2246,32 @@ LABEL_9:
         objc_autoreleasePoolPop(v18);
       }
 
-      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v70 objects:v76 count:16];
+      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v69 objects:v75 count:16];
     }
 
     while (v14);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = [(NSMutableDictionary *)self->_updatedItemsByIdentifiers allValues];
-  v21 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+  v21 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v67;
+    v23 = *v66;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v67 != v23)
+        if (*v66 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v66 + 1) + 8 * j);
+        v25 = *(*(&v65 + 1) + 8 * j);
         v26 = objc_autoreleasePoolPush();
         itemID = [v25 itemID];
         [itemsCopy removeObjectWithID:itemID];
@@ -2359,32 +2316,32 @@ LABEL_23:
         objc_autoreleasePoolPop(v26);
       }
 
-      v22 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+      v22 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
     }
 
     while (v22);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   allObjects = [itemsCopy allObjects];
-  v36 = [allObjects countByEnumeratingWithState:&v62 objects:v74 count:16];
+  v36 = [allObjects countByEnumeratingWithState:&v61 objects:v73 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v63;
+    v38 = *v62;
     do
     {
       for (k = 0; k != v37; ++k)
       {
-        if (*v63 != v38)
+        if (*v62 != v38)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v40 = *(*(&v62 + 1) + 8 * k);
+        v40 = *(*(&v61 + 1) + 8 * k);
         v41 = objc_autoreleasePoolPush();
         v42 = [(FPItemCollection *)self _indexOfItem:v40];
         v43 = [futureItemsCopy indexOfObject:v40];
@@ -2420,15 +2377,13 @@ LABEL_23:
         objc_autoreleasePoolPop(v41);
       }
 
-      v37 = [allObjects countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v37 = [allObjects countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
     while (v37);
   }
 
-  v50 = *MEMORY[0x1E69E9840];
-
-  return v52;
+  return v51;
 }
 
 - (void)sendIndexPathBasedDiffs:(id)diffs
@@ -2477,44 +2432,43 @@ LABEL_23:
   }
 }
 
-uint64_t __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke(uint64_t a1)
+void *__44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if ([*(a1 + 32) count])
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v2 = fp_current_or_default_log();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_1(v2);
+      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_1();
     }
 
-    v5 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    v6 = [v4 indexPathsFromIndexSet:*(a1 + 32)];
-    [v5 collection:v4 didDeleteItemsAtIndexPaths:v6];
+    v4 = *(a1 + 40);
+    v3 = *(a1 + 48);
+    v5 = [v3 indexPathsFromIndexSet:*(a1 + 32)];
+    [v4 collection:v3 didDeleteItemsAtIndexPaths:v5];
   }
 
   if ([*(a1 + 56) count])
   {
-    v7 = fp_current_or_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_2((a1 + 56));
+      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_2();
     }
 
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = [v9 indexPathsFromIndexSet:*(a1 + 56)];
-    [v8 collection:v9 didInsertItemsAtIndexPaths:v10];
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = [v8 indexPathsFromIndexSet:*(a1 + 56)];
+    [v7 collection:v8 didInsertItemsAtIndexPaths:v9];
   }
 
   result = [*(a1 + 64) count];
   if (result)
   {
-    v12 = fp_current_or_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = fp_current_or_default_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_3((a1 + 64));
+      __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_3();
     }
 
     return [*(a1 + 40) collection:*(a1 + 48) didMoveItemsFromIndexPaths:*(a1 + 64) toIndexPaths:*(a1 + 72)];
@@ -2528,7 +2482,7 @@ void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207(void *a1)
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207_cold_1(a1);
+    __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207_cold_1();
   }
 
   v4 = a1[5];
@@ -2539,7 +2493,7 @@ void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207(void *a1)
 
 - (id)computeItemIDBasedDiffs
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   allObjects = [(NSMutableSet *)self->_deletedItemsIdentifiers allObjects];
   v5 = [allObjects mutableCopy];
@@ -2552,26 +2506,26 @@ void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207(void *a1)
   v8 = objc_opt_new();
   [v3 setReplacedItemsByFormerID:v8];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   allValues2 = [(NSMutableDictionary *)self->_updatedItemsByIdentifiers allValues];
-  v10 = [allValues2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [allValues2 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         formerItemID = [v14 formerItemID];
         if (formerItemID)
         {
@@ -2592,13 +2546,11 @@ void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207(void *a1)
         }
       }
 
-      v11 = [allValues2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [allValues2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -2633,41 +2585,14 @@ void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207(void *a1)
 - (BOOL)isHiddenItem:(id)item
 {
   itemCopy = item;
-  if (([itemCopy fileSystemFlags] & 8) != 0)
+  v12 = 1;
+  if (([itemCopy fileSystemFlags] & 8) == 0)
   {
-    goto LABEL_5;
-  }
-
-  creationDate = [itemCopy creationDate];
-  if (!creationDate)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = creationDate;
-  creationDate2 = [itemCopy creationDate];
-  [creationDate2 timeIntervalSinceNow];
-  v8 = fabs(v7);
-
-  if (v8 >= 10.0)
-  {
-    goto LABEL_6;
-  }
-
-  filename = [itemCopy filename];
-  pathExtension = [filename pathExtension];
-  v11 = [pathExtension hasPrefix:@"sb-"];
-
-  if (v11)
-  {
-LABEL_5:
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v12 = 0;
+    creationDate = [itemCopy creationDate];
+    if (!creationDate || (v5 = creationDate, [itemCopy creationDate], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSinceNow"), v8 = fabs(v7), v6, v5, v8 >= 10.0) || (objc_msgSend(itemCopy, "filename"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "pathExtension"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "hasPrefix:", @"sb-"), v10, v9, (v11 & 1) == 0))
+    {
+      v12 = 0;
+    }
   }
 
   return v12;
@@ -2675,122 +2600,118 @@ LABEL_6:
 
 + (void)consumeUpdates:(id)updates deletes:(id)deletes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   deletesCopy = deletes;
   section = __fp_create_section();
-  v24 = section;
+  v23 = section;
   v9 = fp_current_or_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v27 = section;
-    v28 = 2112;
-    v29 = updatesCopy;
-    v30 = 2112;
-    v31 = deletesCopy;
+    v26 = section;
+    v27 = 2112;
+    v28 = updatesCopy;
+    v29 = 2112;
+    v30 = deletesCopy;
     _os_log_debug_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx stitching notifications (updated:%@ deleted:%@)", buf, 0x20u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   activeCollections = [self activeCollections];
-  v11 = [activeCollections countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v11 = [activeCollections countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(activeCollections);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         updateQueue = [v14 updateQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __43__FPItemCollection_consumeUpdates_deletes___block_invoke;
         block[3] = &unk_1E7939090;
         block[4] = v14;
-        v18 = updatesCopy;
-        v19 = deletesCopy;
+        v17 = updatesCopy;
+        v18 = deletesCopy;
         dispatch_async(updateQueue, block);
       }
 
-      v11 = [activeCollections countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v11 = [activeCollections countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v11);
   }
 
-  __fp_leave_section_Debug(&v24);
-  v16 = *MEMORY[0x1E69E9840];
+  __fp_leave_section_Debug(&v23);
 }
 
-void __43__FPItemCollection_consumeUpdates_deletes___block_invoke(uint64_t *a1)
+void __43__FPItemCollection_consumeUpdates_deletes___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 4;
-  if ([a1[4] isRegatheringAfterSignal])
+  if ([*(a1 + 32) isRegatheringAfterSignal])
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v2 = fp_current_or_default_log();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __43__FPItemCollection_consumeUpdates_deletes___block_invoke_cold_1(v2);
+      __43__FPItemCollection_consumeUpdates_deletes___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
 
-    [v4 _receivedBatchWithUpdatedItems:v5 deletedItemsIdentifiers:v6 forceFlush:1 dropForReplacedPlaceholders:0];
+    [v3 _receivedBatchWithUpdatedItems:v4 deletedItemsIdentifiers:v5 forceFlush:1 dropForReplacedPlaceholders:0];
   }
 }
 
 + (void)replacePlaceholders:(id)placeholders withActualItems:(id)items deletedIDs:(id)ds
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   placeholdersCopy = placeholders;
   itemsCopy = items;
   dsCopy = ds;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   activeCollections = [self activeCollections];
-  v12 = [activeCollections countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [activeCollections countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(activeCollections);
         }
 
-        [*(*(&v17 + 1) + 8 * v15++) replacePlaceholders:placeholdersCopy withActualItems:itemsCopy deletedIDs:dsCopy];
+        [*(*(&v16 + 1) + 8 * v15++) replacePlaceholders:placeholdersCopy withActualItems:itemsCopy deletedIDs:dsCopy];
       }
 
       while (v13 != v15);
-      v13 = [activeCollections countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [activeCollections countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isEnumerationSuspended
@@ -2822,67 +2743,65 @@ void __44__FPItemCollection_suspendVendorEnumeration__block_invoke()
 
 + (void)resumeVendorEnumeration
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__17;
-  v23 = __Block_byref_object_dispose__17;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v25 = *MEMORY[0x1E69E9840];
   v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__17;
+  v22 = __Block_byref_object_dispose__17;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __43__FPItemCollection_resumeVendorEnumeration__block_invoke;
   block[3] = &unk_1E793CD20;
   block[6] = a2;
   block[7] = self;
-  block[4] = &v15;
-  block[5] = &v19;
+  block[4] = &v14;
+  block[5] = &v18;
   dispatch_sync(_collectionsQueue, block);
-  if (!v16[3])
+  if (!v15[3])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
-    v2 = v20[5];
-    v3 = [v2 countByEnumeratingWithState:&v10 objects:v25 count:16];
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v2 = v19[5];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v24 count:16];
     if (v3)
     {
-      v4 = *v11;
+      v4 = *v10;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v11 != v4)
+          if (*v10 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          v6 = *(*(&v10 + 1) + 8 * i);
+          v6 = *(*(&v9 + 1) + 8 * i);
           updateQueue = [v6 updateQueue];
-          v9[0] = MEMORY[0x1E69E9820];
-          v9[1] = 3221225472;
-          v9[2] = __43__FPItemCollection_resumeVendorEnumeration__block_invoke_220;
-          v9[3] = &unk_1E79399B0;
-          v9[4] = v6;
-          dispatch_sync(updateQueue, v9);
+          v8[0] = MEMORY[0x1E69E9820];
+          v8[1] = 3221225472;
+          v8[2] = __43__FPItemCollection_resumeVendorEnumeration__block_invoke_220;
+          v8[3] = &unk_1E79399B0;
+          v8[4] = v6;
+          dispatch_sync(updateQueue, v8);
         }
 
-        v3 = [v2 countByEnumeratingWithState:&v10 objects:v25 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v9 objects:v24 count:16];
       }
 
       while (v3);
     }
   }
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 void __43__FPItemCollection_resumeVendorEnumeration__block_invoke(void *a1)
@@ -2963,7 +2882,7 @@ void __40__FPItemCollection_addActiveCollection___block_invoke_2(uint64_t a1, vo
   dispatch_async(v3, block);
 }
 
-uint64_t __40__FPItemCollection_addActiveCollection___block_invoke_3(uint64_t a1)
+void *__40__FPItemCollection_addActiveCollection___block_invoke_3(uint64_t a1)
 {
   _isFetchingIndexingAssertion = 0;
   objc_storeStrong(&_indexingAssertion, *(a1 + 32));
@@ -2991,7 +2910,7 @@ uint64_t __40__FPItemCollection_addActiveCollection___block_invoke_3(uint64_t a1
   dispatch_sync(v4, block);
 }
 
-uint64_t __43__FPItemCollection_removeActiveCollection___block_invoke(uint64_t a1)
+void *__43__FPItemCollection_removeActiveCollection___block_invoke(uint64_t a1)
 {
   [_activeCollections removeObject:*(a1 + 32)];
   result = [_activeCollections count];
@@ -3072,7 +2991,7 @@ uint64_t __50__FPItemCollection__restartObservationWithReason___block_invoke(uin
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __50__FPItemCollection__restartObservationWithReason___block_invoke_cold_1(a1);
+    __50__FPItemCollection__restartObservationWithReason___block_invoke_cold_1();
   }
 
   return [*(a1 + 32) _restartObservation];
@@ -3087,11 +3006,9 @@ uint64_t __50__FPItemCollection__restartObservationWithReason___block_invoke(uin
 
 void __34__FPItemCollection_startObserving__block_invoke_135_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataSource:(uint64_t)a1 wasInvalidatedWithError:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -3100,26 +3017,18 @@ void __34__FPItemCollection_startObserving__block_invoke_135_cold_1()
   [v4 handleFailureInMethod:a1 object:a2 file:@"FPItemCollection.m" lineNumber:604 description:{@"Invalid parameter not satisfying: %@", @"error"}];
 }
 
-void __55__FPItemCollection_dataSource_wasInvalidatedWithError___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __55__FPItemCollection_dataSource_wasInvalidatedWithError___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = [*(a2 + 40) fp_prettyDescription];
+  v2 = [*(a2 + 40) fp_prettyDescription];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_8_1(&dword_1AAAE1000, v4, v5, "[ERROR] %@ received an error from data source: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_1(&dword_1AAAE1000, v3, v4, "[ERROR] %@ received an error from data source: %@", v5, v6, v7, v8);
 }
 
-void __55__FPItemCollection_dataSource_wasInvalidatedWithError___block_invoke_2_cold_2(uint64_t *a1, id *a2)
+void __55__FPItemCollection_dataSource_wasInvalidatedWithError___block_invoke_2_cold_2(uint64_t a1, id *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = [*a2 fp_prettyDescription];
+  v2 = [*a2 fp_prettyDescription];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_8_1(&dword_1AAAE1000, v4, v5, "[ERROR] %@ received a retriable error from data source: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_1(&dword_1AAAE1000, v3, v4, "[ERROR] %@ received a retriable error from data source: %@", v5, v6, v7, v8);
 }
 
 void __33__FPItemCollection_stopObserving__block_invoke_cold_1()
@@ -3129,24 +3038,19 @@ void __33__FPItemCollection_stopObserving__block_invoke_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __52__FPItemCollection_reorderItemsWithSortDescriptors___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 40);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_1(uint64_t *a1)
+void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 32);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___block_invoke_cold_2(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3163,24 +3067,19 @@ void __67__FPItemCollection_replacePlaceholders_withActualItems_deletedIDs___blo
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __40__FPItemCollection__updateObservedItem___block_invoke_cold_1(uint64_t a1)
+void __40__FPItemCollection__updateObservedItem___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_cold_1(uint64_t *a1)
+void __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_receivedBatchWithUpdatedItems:deletedItemsIdentifiers:forceFlush:dropForReplacedPlaceholders:.cold.1()
@@ -3221,24 +3120,19 @@ void __49__FPItemCollection_forceRefreshOfItemWithItemID___block_invoke_cold_1(u
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_receivedBatchWithUpdatedItems:(uint64_t)a1 deletedItemsIdentifiers:(uint64_t)a2 forceFlush:dropForReplacedPlaceholders:.cold.6(uint64_t a1, uint64_t a2)
+- (void)_receivedBatchWithUpdatedItems:deletedItemsIdentifiers:forceFlush:dropForReplacedPlaceholders:.cold.6()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 120);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_1(uint64_t *a1)
+void __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 32);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_2()
@@ -3257,100 +3151,83 @@ void __40__FPItemCollection__flushPendingUpdates__block_invoke_cold_3()
 
 void __40__FPItemCollection__flushPendingUpdates__block_invoke_187_cold_1(uint64_t *a1, uint64_t a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = *a1;
   v7 = [*(*(*a2 + 8) + 40) count];
   v8 = [*(*a1 + 24) count];
   v9 = *(*(*a2 + 8) + 40);
   v10 = *(*a1 + 24);
-  v12 = 138413314;
-  v13 = v6;
-  v14 = 1024;
-  v15 = v7;
-  v16 = 1024;
-  v17 = v8;
-  v18 = 2112;
-  v19 = v9;
-  v20 = 2112;
-  v21 = v10;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] calling delegates for %@ (old count=%d, new count=%d)\nold items: %@\nnew items: %@", &v12, 0x2Cu);
-  v11 = *MEMORY[0x1E69E9840];
+  v11 = 138413314;
+  v12 = v6;
+  v13 = 1024;
+  v14 = v7;
+  v15 = 1024;
+  v16 = v8;
+  v17 = 2112;
+  v18 = v9;
+  v19 = 2112;
+  v20 = v10;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] calling delegates for %@ (old count=%d, new count=%d)\nold items: %@\nnew items: %@", &v11, 0x2Cu);
 }
 
-void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_1(uint64_t *a1)
+void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_2(uint64_t *a1)
+void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_3(uint64_t *a1)
+void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 72);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207_cold_1(uint64_t a1)
+void __44__FPItemCollection_sendIndexPathBasedDiffs___block_invoke_207_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __43__FPItemCollection_consumeUpdates_deletes___block_invoke_cold_1(uint64_t *a1)
+void __43__FPItemCollection_consumeUpdates_deletes___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __44__FPItemCollection_suspendVendorEnumeration__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__FPItemCollection_resumeVendorEnumeration__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __50__FPItemCollection__restartObservationWithReason___block_invoke_cold_1(uint64_t a1)
+void __50__FPItemCollection__restartObservationWithReason___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_14_0();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

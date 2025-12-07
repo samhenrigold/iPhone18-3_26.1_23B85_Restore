@@ -28,12 +28,12 @@
 
 - (int64_t)sizeDelta
 {
-  v6 = objc_msgSend_replacement(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_length(v6, v7, v8, v9, v10);
-  objc_msgSend_range(self, v12, v13, v14, v15);
-  v17 = v11 - v16;
+  replacement = [(TTSStringTransformation *)self replacement];
+  v4 = [replacement length];
+  [(TTSStringTransformation *)self range];
+  v6 = v4 - v5;
 
-  return v17;
+  return v6;
 }
 
 - (_NSRange)range

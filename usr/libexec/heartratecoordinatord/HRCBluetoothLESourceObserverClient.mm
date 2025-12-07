@@ -12,7 +12,7 @@
 {
   proxyCopy = proxy;
   queueCopy = queue;
-  v8 = sub_10000132C();
+  v8 = sub_10000132C(queueCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -34,7 +34,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_10000132C();
+  v3 = sub_10000132C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     processName = self->_processName;
@@ -52,16 +52,16 @@
 {
   updateCopy = update;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [updateCopy count];
+    v7 = [updateCopy count];
     processName = self->_processName;
-    v8 = 134349314;
-    v9 = v6;
-    v10 = 2114;
-    v11 = processName;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "source list with count : %{public}lu being sent to client with processName : %{public}@", &v8, 0x16u);
+    v9 = 134349314;
+    v10 = v7;
+    v11 = 2114;
+    v12 = processName;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "source list with count : %{public}lu being sent to client with processName : %{public}@", &v9, 0x16u);
   }
 
   [(HRCFrontEndBluetoothLESourceObserverClient *)self->_remoteObjectProxy handleSourceListUpdate:updateCopy];
@@ -88,13 +88,13 @@
   dispatch_assert_queue_V2(queue);
   [(HRCBluetoothLESourceObserverClient *)self setProcessName:nameCopy];
 
-  v6 = sub_10000132C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sub_10000132C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     processName = self->_processName;
-    v8 = 138543362;
-    v9 = processName;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "HRCBluetoothLESourceObserverClient updated processName : %{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = processName;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "HRCBluetoothLESourceObserverClient updated processName : %{public}@", &v9, 0xCu);
   }
 }
 

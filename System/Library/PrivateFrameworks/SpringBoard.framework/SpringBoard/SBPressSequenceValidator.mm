@@ -41,34 +41,34 @@
 - (BOOL)pressEventIsValidInSequence:(id)sequence endingDownEvent:(BOOL)event duration:(double)duration
 {
   eventCopy = event;
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   sequenceCopy = sequence;
   v10 = [sequenceCopy count];
   v11 = v10;
   if (eventCopy)
   {
-    [(SBPressSequenceValidator *)self _pressDownBoundsForDesiredIndex:v10 sequence:sequenceCopy];
-    if (v12 <= duration && v13 >= duration)
+    v12 = [(SBPressSequenceValidator *)self _pressDownBoundsForDesiredIndex:v10 sequence:sequenceCopy];
+    if (v13 <= duration && v14 >= duration)
     {
 LABEL_18:
-      v24 = 1;
+      v26 = 1;
       goto LABEL_19;
     }
 
-    v15 = v12;
     v16 = v13;
-    v17 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v17 = v14;
+    v18 = SBLogButtonsCombo(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v26 = 134218496;
+      v28 = 134218496;
       durationCopy2 = duration;
-      v28 = 2048;
-      v29 = v15;
       v30 = 2048;
       v31 = v16;
-      v18 = "down press duration:%g out of bounds (%g - %g)";
+      v32 = 2048;
+      v33 = v17;
+      v19 = "down press duration:%g out of bounds (%g - %g)";
 LABEL_21:
-      _os_log_debug_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEBUG, v18, &v26, 0x20u);
+      _os_log_debug_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEBUG, v19, &v28, 0x20u);
     }
   }
 
@@ -79,32 +79,32 @@ LABEL_21:
       [SBPressSequenceValidator pressEventIsValidInSequence:a2 endingDownEvent:self duration:?];
     }
 
-    -[SBPressSequenceValidator _pressUpBoundsForDesiredIndex:sequence:](self, "_pressUpBoundsForDesiredIndex:sequence:", [sequenceCopy count] - 1, sequenceCopy);
-    if (v19 <= duration && v20 >= duration)
+    v20 = -[SBPressSequenceValidator _pressUpBoundsForDesiredIndex:sequence:](self, "_pressUpBoundsForDesiredIndex:sequence:", [sequenceCopy count] - 1, sequenceCopy);
+    if (v21 <= duration && v22 >= duration)
     {
       goto LABEL_18;
     }
 
-    v22 = v19;
-    v23 = v20;
-    v17 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v24 = v21;
+    v25 = v22;
+    v18 = SBLogButtonsCombo(v20);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v26 = 134218496;
+      v28 = 134218496;
       durationCopy2 = duration;
-      v28 = 2048;
-      v29 = v22;
       v30 = 2048;
-      v31 = v23;
-      v18 = "up press duration:%g out of bounds (%g - %g)";
+      v31 = v24;
+      v32 = 2048;
+      v33 = v25;
+      v19 = "up press duration:%g out of bounds (%g - %g)";
       goto LABEL_21;
     }
   }
 
-  v24 = 0;
+  v26 = 0;
 LABEL_19:
 
-  return v24;
+  return v26;
 }
 
 - (double)timeUntilNextPressEventIsInValidInSequence:(id)sequence lastPressEventInSequenceIsDown:(BOOL)down

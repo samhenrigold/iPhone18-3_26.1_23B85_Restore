@@ -49,7 +49,7 @@
     objc_storeWeak(&v21->_toUser, toUserCopy);
     objc_storeStrong(&v21->_encodedShareURL, l);
     objc_storeStrong(&v21->_shareToken, token);
-    v22 = [completionCopy copy];
+    v22 = objc_msgSend_copy(completionCopy);
     completion = v21->_completion;
     v21->_completion = v22;
   }

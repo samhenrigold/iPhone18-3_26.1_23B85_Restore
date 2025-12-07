@@ -1871,16 +1871,16 @@ LABEL_59:
   return v5;
 }
 
-void __51__PXProgrammaticNavigationDestination_initWithURL___block_invoke(uint64_t a1)
+void __51__PXProgrammaticNavigationDestination_initWithURL___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "destination URL is malformed: %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "destination URL is malformed: %@", &v5, 0xCu);
   }
 }
 

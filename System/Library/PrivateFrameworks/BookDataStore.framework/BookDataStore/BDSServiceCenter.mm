@@ -48,30 +48,30 @@
 
 + (void)setFinishedState:(BOOL)state assetIDs:(id)ds completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v10 = dsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         if ([v15 longLongValue])
         {
           v16 = v15 == 0;
@@ -90,7 +90,7 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v12);
@@ -99,20 +99,18 @@
   v19 = +[BCCloudAssetManager sharedManager];
   storeAssetManager = [v19 storeAssetManager];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_1E460B88C;
-  v25[3] = &unk_1E8759F70;
-  v27 = v10;
-  v28 = completionCopy;
-  v26 = v9;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1E460B88C;
+  v24[3] = &unk_1E8759F70;
+  v26 = v10;
+  v27 = completionCopy;
+  v25 = v9;
   stateCopy = state;
   v21 = v10;
   v22 = completionCopy;
   v23 = v9;
-  [storeAssetManager addStoreItems:v23 completion:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [storeAssetManager addStoreItems:v23 completion:v24];
 }
 
 + (void)_nextSortOrderForCollectionMemberManager:(id)manager collectionID:(id)d completion:(id)completion

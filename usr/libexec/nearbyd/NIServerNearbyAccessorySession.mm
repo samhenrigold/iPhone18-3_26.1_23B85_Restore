@@ -57,7 +57,7 @@
 
   if (managerCopy)
   {
-    [managerCopy protobufLogger];
+    objc_msgSend_protobufLogger(managerCopy);
     v12 = v48;
   }
 

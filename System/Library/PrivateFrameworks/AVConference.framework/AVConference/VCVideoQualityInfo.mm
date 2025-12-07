@@ -215,7 +215,7 @@ LABEL_20:
     if (videoIsExpected)
     {
       isVideoQualityDegraded = self->_isVideoQualityDegraded;
-      v7 = micro();
+      v7 = micro(self, a2);
       v8 = &OBJC_IVAR___VCVideoQualityInfo__lastGoodVideoQualityTime;
       if (isVideoQualityDegraded)
       {

@@ -41,11 +41,11 @@
 
 - (SoftwareUpdateSSO)initWithOptions:(id)options
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   optionsCopy = options;
-  v23.receiver = self;
-  v23.super_class = SoftwareUpdateSSO;
-  v5 = [(SoftwareUpdateSSO *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SoftwareUpdateSSO;
+  v5 = [(SoftwareUpdateSSO *)&v22 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -87,12 +87,12 @@
 
         else
         {
-          v22 = _MAClientLog(@"SSO");
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v21 = _MAClientLog(@"SSO");
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v25 = v17;
-            _os_log_impl(&dword_298222000, v22, OS_LOG_TYPE_ERROR, "Invalid interactivity level was passed in: %@", buf, 0xCu);
+            v24 = v17;
+            _os_log_impl(&dword_298222000, v21, OS_LOG_TYPE_ERROR, "Invalid interactivity level was passed in: %@", buf, 0xCu);
           }
         }
       }
@@ -113,7 +113,6 @@
     }
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -145,7 +144,7 @@
 
 - (void)copyTokenFromAuthenticatorResponse:(id)response error:(id)error
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   errorCopy = error;
   if (response)
   {
@@ -162,13 +161,13 @@
     [v9 setQuery:v10];
 
     queryItems = [v9 queryItems];
-    v37[0] = MEMORY[0x29EDCA5F8];
-    v37[1] = 3221225472;
-    v37[2] = __62__SoftwareUpdateSSO_copyTokenFromAuthenticatorResponse_error___block_invoke;
-    v37[3] = &unk_29EE8D358;
+    v36[0] = MEMORY[0x29EDCA5F8];
+    v36[1] = 3221225472;
+    v36[2] = __62__SoftwareUpdateSSO_copyTokenFromAuthenticatorResponse_error___block_invoke;
+    v36[3] = &unk_29EE8D358;
     v12 = v7;
-    v38 = v12;
-    [queryItems enumerateObjectsUsingBlock:v37];
+    v37 = v12;
+    [queryItems enumerateObjectsUsingBlock:v36];
 
     authenticator = [(SoftwareUpdateSSO *)self authenticator];
     otherParameters = [authenticator otherParameters];
@@ -238,16 +237,16 @@
       dawToken = [(SoftwareUpdateSSO *)self dawToken];
       v35 = @"Valid";
       *buf = 138412802;
-      v40 = userName2;
-      v41 = 2112;
+      v39 = userName2;
+      v40 = 2112;
       if (!dawToken)
       {
         v35 = @"Not present";
       }
 
-      v42 = personID3;
-      v43 = 2112;
-      v44 = v35;
+      v41 = personID3;
+      v42 = 2112;
+      v43 = v35;
       _os_log_impl(&dword_298222000, v30, OS_LOG_TYPE_ERROR, "Username :%@ personID: %@ token:%@", buf, 0x20u);
 
       if (personID2)
@@ -255,7 +254,7 @@
       }
     }
 
-    v22 = v38;
+    v22 = v37;
 LABEL_28:
 
     goto LABEL_29;
@@ -271,7 +270,7 @@ LABEL_28:
     {
       v23 = [errorCopy description];
       *buf = 138412290;
-      v40 = v23;
+      v39 = v23;
       _os_log_impl(&dword_298222000, v22, OS_LOG_TYPE_ERROR, "Failed to retrieve SSO token: %@\n", buf, 0xCu);
     }
 
@@ -280,8 +279,6 @@ LABEL_28:
 
 LABEL_29:
   dispatch_semaphore_signal(self->SoftwareUpdateSSOCompletionSemaphore);
-
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 void __62__SoftwareUpdateSSO_copyTokenFromAuthenticatorResponse_error___block_invoke(uint64_t a1, void *a2)
@@ -420,16 +417,16 @@ void __33__SoftwareUpdateSSO_copyUserInfo__block_invoke(uint64_t a1)
 
 void __32__SoftwareUpdateSSO_getDawToken__block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v2 = [*(a1 + 32) callerHasRequiredEntitlements];
   [*(a1 + 32) setDawToken:0];
   if (v2)
   {
     [*(a1 + 32) setupAuthenticator];
-    v11 = @"DAWRequest";
+    v10 = @"DAWRequest";
     v3 = [MEMORY[0x29EDB8EB0] stringValue];
-    v12[0] = v3;
-    v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v11[0] = v3;
+    v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v5 = [*(a1 + 32) authenticator];
     [v5 setOtherParameters:v4];
 
@@ -449,8 +446,8 @@ void __32__SoftwareUpdateSSO_getDawToken__block_invoke(uint64_t a1)
       v8 = _MAClientLog(@"SSO");
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_298222000, v8, OS_LOG_TYPE_ERROR, "getDawToken called in unsupported environment\n", v10, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_298222000, v8, OS_LOG_TYPE_ERROR, "getDawToken called in unsupported environment\n", v9, 2u);
       }
     }
   }
@@ -460,12 +457,10 @@ void __32__SoftwareUpdateSSO_getDawToken__block_invoke(uint64_t a1)
     v7 = _MAClientLog(@"SSO");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_298222000, v7, OS_LOG_TYPE_ERROR, "Process does not have permissions to read the sso token\n", v10, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_298222000, v7, OS_LOG_TYPE_ERROR, "Process does not have permissions to read the sso token\n", v9, 2u);
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)ssoIsSupported
@@ -508,21 +503,19 @@ void __32__SoftwareUpdateSSO_getDawToken__block_invoke(uint64_t a1)
 
 - (void)authenticator:(id)authenticator didCompleteWithError:(id)error
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   errorCopy = error;
   v6 = _MAClientLog(@"SSO");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = [errorCopy description];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "ExtensibleSSOAuthentication callback returned error: %@\n", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_298222000, v6, OS_LOG_TYPE_ERROR, "ExtensibleSSOAuthentication callback returned error: %@\n", &v9, 0xCu);
   }
 
   v8 = [(SoftwareUpdateSSO *)self buildSSOError:1 underlying:errorCopy description:@"Call to SSOAuthenticator Authenticate failed"];
   [(SoftwareUpdateSSO *)self copyTokenFromAuthenticatorResponse:0 error:v8];
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 @end

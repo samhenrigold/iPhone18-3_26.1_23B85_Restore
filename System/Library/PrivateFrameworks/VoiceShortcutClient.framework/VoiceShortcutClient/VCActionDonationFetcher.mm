@@ -1,7 +1,10 @@
 @interface VCActionDonationFetcher
++ (BOOL)shouldKeepAction:(id)action forAppWithBundleIdentifier:(id)identifier filteringForTopLevel:(BOOL)level;
 + (BOOL)shouldKeepActionWithAppBundleIdentifierForDisplay:(id)display;
 + (id)atxClient;
++ (id)donationFromEvent:(id)event filteringForTopLevel:(BOOL)level;
 + (id)donationWithUUID:(id)d;
++ (id)fetchDonationsWithPredicate:(id)predicate limit:(unint64_t)limit filteringForTopLevel:(BOOL)level directAccess:(BOOL)access;
 + (id)fetchEventsWithPredicate:(id)predicate limit:(unint64_t)limit directAccess:(BOOL)access;
 + (id)filterDonations:(id)donations forApplicationBundleIdentifier:(id)identifier;
 + (id)isEligibleForPredictionPredicate;
@@ -58,9 +61,11 @@ uint64_t __74__VCActionDonationFetcher_filterDonations_forApplicationBundleIdent
 
 uint64_t __74__VCActionDonationFetcher_filterDonations_forApplicationBundleIdentifier___block_invoke()
 {
-  filterDonations_forApplicationBundleIdentifier__bundleIdentifiersRequiringDisplayFilter = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.mobilephone", @"com.apple.facetime", @"com.apple.Passbook", @"com.apple.MobileSMS", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.mobilephone", @"com.apple.facetime", @"com.apple.Passbook", @"com.apple.MobileSMS", 0}];
+  v1 = filterDonations_forApplicationBundleIdentifier__bundleIdentifiersRequiringDisplayFilter;
+  filterDonations_forApplicationBundleIdentifier__bundleIdentifiersRequiringDisplayFilter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)isEligibleForPredictionPredicate
@@ -74,7 +79,7 @@ uint64_t __74__VCActionDonationFetcher_filterDonations_forApplicationBundleIdent
 
 + (id)donationWithUUID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [MEMORY[0x1E69979D0] predicateForObjectWithUUID:dCopy];
   v6 = [self fetchEventsWithPredicate:v5 limit:1];
@@ -108,12 +113,12 @@ LABEL_8:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       uUIDString = [dCopy UUIDString];
-      v23 = 136315650;
-      v24 = "+[VCActionDonationFetcher donationWithUUID:]";
-      v25 = 2112;
-      v26 = uUIDString;
-      v27 = 2112;
-      v28 = firstObject;
+      v22 = 136315650;
+      v23 = "+[VCActionDonationFetcher donationWithUUID:]";
+      v24 = 2112;
+      v25 = uUIDString;
+      v26 = 2112;
+      v27 = firstObject;
       v14 = "%s Event with uuid (%@) is not of a supported type: %@";
       v15 = v12;
       v16 = 32;
@@ -127,22 +132,20 @@ LABEL_8:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       uUIDString = [dCopy UUIDString];
-      v23 = 136315394;
-      v24 = "+[VCActionDonationFetcher donationWithUUID:]";
-      v25 = 2112;
-      v26 = uUIDString;
+      v22 = 136315394;
+      v23 = "+[VCActionDonationFetcher donationWithUUID:]";
+      v24 = 2112;
+      v25 = uUIDString;
       v14 = "%s Event with uuid (%@) not found";
       v15 = v12;
       v16 = 22;
 LABEL_11:
-      _os_log_impl(&dword_1B1DE3000, v15, OS_LOG_TYPE_ERROR, v14, &v23, v16);
+      _os_log_impl(&dword_1B1DE3000, v15, OS_LOG_TYPE_ERROR, v14, &v22, v16);
     }
   }
 
   v20 = 0;
 LABEL_13:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -198,12 +201,15 @@ void __99__VCActionDonationFetcher_getPredicateForIntentsWithApplicationBundleId
 uint64_t __99__VCActionDonationFetcher_getPredicateForIntentsWithApplicationBundleIdentifier_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x1E69979D0] predicateForEventsWithSourceID:@"intents" bundleID:a2];
+  v4 = v3;
   if (v3)
   {
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+    v6 = v3;
+    v3 = [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 + (void)getPredicateForUserActivitiesWithApplicationBundleIdentifier:(id)identifier filteringForIsEligibleForPrediction:(BOOL)prediction completionHandler:(id)handler
@@ -225,25 +231,25 @@ uint64_t __99__VCActionDonationFetcher_getPredicateForIntentsWithApplicationBund
 
 void __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplicationBundleIdentifier_filteringForIsEligibleForPrediction_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && [v3 count])
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__5659;
-    v17 = __Block_byref_object_dispose__5660;
-    v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplicationBundleIdentifier_filteringForIsEligibleForPrediction_completionHandler___block_invoke_2;
-    v12[3] = &unk_1E7B00B88;
-    v12[4] = &v13;
-    [v4 enumerateObjectsUsingBlock:v12];
-    v5 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:v14[5]];
-    _Block_object_dispose(&v13, 8);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__5659;
+    v16 = __Block_byref_object_dispose__5660;
+    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplicationBundleIdentifier_filteringForIsEligibleForPrediction_completionHandler___block_invoke_2;
+    v11[3] = &unk_1E7B00B88;
+    v11[4] = &v12;
+    [v4 enumerateObjectsUsingBlock:v11];
+    v5 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:v13[5]];
+    _Block_object_dispose(&v12, 8);
   }
 
   else
@@ -254,11 +260,11 @@ void __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplication
   if (*(a1 + 56) == 1 && [*(a1 + 48) shouldFilterDonationsForAppWithApplicationBundleIdentifier:*(a1 + 32)])
   {
     v6 = MEMORY[0x1E696AB28];
-    v19[0] = v5;
+    v18[0] = v5;
     v7 = *(a1 + 40);
     v8 = [*(a1 + 48) isEligibleForPredictionPredicate];
-    v19[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v10 = [v6 andPredicateWithSubpredicates:v9];
     (*(v7 + 16))(v7, v10);
   }
@@ -267,36 +273,37 @@ void __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplication
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplicationBundleIdentifier_filteringForIsEligibleForPrediction_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x1E69979D0] predicateForEventsWithStringValue:a2];
+  v4 = v3;
   if (v3)
   {
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+    v6 = v3;
+    v3 = [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 + (id)whitelistedDonationsWithOptions:(unint64_t)options
 {
-  v61[4] = *MEMORY[0x1E69E9840];
+  v60[4] = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   if (options)
   {
-    v60[0] = @"com.apple.mobilenotes";
-    v60[1] = @"com.apple.podcasts";
-    v61[0] = &unk_1F2931080;
-    v61[1] = &unk_1F2931098;
-    v60[2] = @"com.apple.Music";
-    v60[3] = @"com.apple.weather";
-    v61[2] = &unk_1F29310B0;
-    v61[3] = &unk_1F29310C8;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:4];
+    v59[0] = @"com.apple.mobilenotes";
+    v59[1] = @"com.apple.podcasts";
+    v60[0] = &unk_1F2931080;
+    v60[1] = &unk_1F2931098;
+    v59[2] = @"com.apple.Music";
+    v59[3] = @"com.apple.weather";
+    v60[2] = &unk_1F29310B0;
+    v60[3] = &unk_1F29310C8;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:4];
     if ((options & 2) != 0)
     {
       v7 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.mobilenotes"];
@@ -307,9 +314,9 @@ uint64_t __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplica
       v12 = [v8 predicateForObjectsWithMetadataKey:intentClass andStringValue:v11];
 
       v13 = MEMORY[0x1E696AB28];
-      v59[0] = v7;
-      v59[1] = v12;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
+      v58[0] = v7;
+      v58[1] = v12;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
       v15 = [v13 andPredicateWithSubpredicates:v14];
 
       v16 = MEMORY[0x1E69979D0];
@@ -317,9 +324,9 @@ uint64_t __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplica
       v18 = [v16 predicateForObjectsWithMetadataKey:activityType andStringValue:@"com.apple.notes.activity.edit-note"];
 
       v19 = MEMORY[0x1E696AB28];
-      v58[0] = v18;
-      v58[1] = v7;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+      v57[0] = v18;
+      v57[1] = v7;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
       v21 = [v19 andPredicateWithSubpredicates:v20];
 
       [v5 addObject:v15];
@@ -328,20 +335,20 @@ uint64_t __142__VCActionDonationFetcher_getPredicateForUserActivitiesWithApplica
 
     if ((options & 8) != 0)
     {
-      v35 = MEMORY[0x1E69979D0];
+      v34 = MEMORY[0x1E69979D0];
       intentClass2 = [MEMORY[0x1E6997990] intentClass];
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
-      v39 = [v35 predicateForObjectsWithMetadataKey:intentClass2 andStringValue:v38];
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
+      v38 = [v34 predicateForObjectsWithMetadataKey:intentClass2 andStringValue:v37];
 
-      v40 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.podcasts"];
-      v41 = MEMORY[0x1E696AB28];
-      v57[0] = v39;
-      v57[1] = v40;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
-      v43 = [v41 andPredicateWithSubpredicates:v42];
+      v39 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.podcasts"];
+      v40 = MEMORY[0x1E696AB28];
+      v56[0] = v38;
+      v56[1] = v39;
+      v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
+      v42 = [v40 andPredicateWithSubpredicates:v41];
 
-      [v5 addObject:v43];
+      [v5 addObject:v42];
       if ((options & 4) == 0)
       {
 LABEL_6:
@@ -352,13 +359,13 @@ LABEL_8:
           v30 = [self fetchDonationsWithPredicate:v29 limit:40 filteringForTopLevel:0 directAccess:0];
           array = [v30 array];
 
-          v53[0] = MEMORY[0x1E69E9820];
-          v53[1] = 3221225472;
-          v53[2] = __59__VCActionDonationFetcher_whitelistedDonationsWithOptions___block_invoke;
-          v53[3] = &unk_1E7B00B60;
-          v54 = v6;
+          v52[0] = MEMORY[0x1E69E9820];
+          v52[1] = 3221225472;
+          v52[2] = __59__VCActionDonationFetcher_whitelistedDonationsWithOptions___block_invoke;
+          v52[3] = &unk_1E7B00B60;
+          v53 = v6;
           v32 = v6;
-          [array enumerateObjectsUsingBlock:v53];
+          [array enumerateObjectsUsingBlock:v52];
 
           goto LABEL_10;
         }
@@ -370,9 +377,9 @@ LABEL_7:
 
         v25 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.weather"];
         v26 = MEMORY[0x1E696AB28];
-        v55[0] = v24;
-        v55[1] = v25;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+        v54[0] = v24;
+        v54[1] = v25;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
         v28 = [v26 andPredicateWithSubpredicates:v27];
 
         [v5 addObject:v28];
@@ -385,20 +392,20 @@ LABEL_7:
       goto LABEL_6;
     }
 
-    v44 = MEMORY[0x1E69979D0];
+    v43 = MEMORY[0x1E69979D0];
     intentClass4 = [MEMORY[0x1E6997990] intentClass];
-    v46 = objc_opt_class();
-    v47 = NSStringFromClass(v46);
-    v48 = [v44 predicateForObjectsWithMetadataKey:intentClass4 andStringValue:v47];
+    v45 = objc_opt_class();
+    v46 = NSStringFromClass(v45);
+    v47 = [v43 predicateForObjectsWithMetadataKey:intentClass4 andStringValue:v46];
 
-    v49 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.Music"];
-    v50 = MEMORY[0x1E696AB28];
-    v56[0] = v48;
-    v56[1] = v49;
-    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
-    v52 = [v50 andPredicateWithSubpredicates:v51];
+    v48 = [MEMORY[0x1E69979D0] predicateForEventsWithBundleID:@"com.apple.Music"];
+    v49 = MEMORY[0x1E696AB28];
+    v55[0] = v47;
+    v55[1] = v48;
+    v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+    v51 = [v49 andPredicateWithSubpredicates:v50];
 
-    [v5 addObject:v52];
+    [v5 addObject:v51];
     if ((options & 0x20) == 0)
     {
       goto LABEL_8;
@@ -410,8 +417,6 @@ LABEL_7:
   array = MEMORY[0x1E695E0F0];
 LABEL_10:
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
@@ -419,7 +424,7 @@ uint64_t __59__VCActionDonationFetcher_whitelistedDonationsWithOptions___block_i
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v13 = v3;
+  v15 = v3;
   v5 = [v3 sourceAppIdentifier];
   v6 = [v4 objectForKey:v5];
 
@@ -448,7 +453,7 @@ uint64_t __59__VCActionDonationFetcher_whitelistedDonationsWithOptions___block_i
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = [v13 interaction];
+    v10 = [v15 interaction];
     v11 = [v10 intent];
     [v11 setShortcutAvailability:v9];
   }
@@ -456,18 +461,21 @@ uint64_t __59__VCActionDonationFetcher_whitelistedDonationsWithOptions___block_i
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    v13 = v15;
+    if ((isKindOfClass & 1) == 0)
     {
       goto LABEL_11;
     }
 
-    v10 = [v13 userActivity];
+    v10 = [v15 userActivity];
     [v10 setShortcutAvailability:v9];
   }
 
+  v13 = v15;
 LABEL_11:
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](isKindOfClass, v13);
 }
 
 + (id)predicateForShortcutAvailabilityOptions:(unint64_t)options
@@ -528,110 +536,110 @@ LABEL_11:
 {
   predictionCopy = prediction;
   levelCopy = level;
-  v66[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
-  v27 = identifierCopy;
+  v26 = identifierCopy;
   if (identifierCopy)
   {
-    v66[0] = identifierCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
+    v65[0] = identifierCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
   }
 
   else
   {
     v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
     v12 = [MEMORY[0x1E69635F8] enumeratorWithOptions:0];
-    v13 = [v12 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v59 objects:v64 count:16];
     if (v13)
     {
-      v14 = *v61;
+      v14 = *v60;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v61 != v14)
+          if (*v60 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          bundleIdentifier = [*(*(&v60 + 1) + 8 * i) bundleIdentifier];
+          bundleIdentifier = [*(*(&v59 + 1) + 8 * i) bundleIdentifier];
           [v11 addObject:bundleIdentifier];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v59 objects:v64 count:16];
       }
 
       while (v13);
     }
   }
 
-  v58[0] = 0;
-  v58[1] = v58;
-  v58[2] = 0x3032000000;
-  v58[3] = __Block_byref_object_copy__5659;
-  v58[4] = __Block_byref_object_dispose__5660;
-  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = __Block_byref_object_copy__5659;
-  v56[4] = __Block_byref_object_dispose__5660;
-  v57 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x3032000000;
+  v57[3] = __Block_byref_object_copy__5659;
+  v57[4] = __Block_byref_object_dispose__5660;
+  v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x3032000000;
+  v55[3] = __Block_byref_object_copy__5659;
+  v55[4] = __Block_byref_object_dispose__5660;
+  v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E696AD10]);
   v31 = objc_alloc_init(MEMORY[0x1E696AD10]);
-  v32 = objc_alloc_init(MEMORY[0x1E696AD10]);
   v17 = dispatch_group_create();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = v11;
-  v18 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+  v18 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
   if (v18)
   {
-    v19 = *v53;
+    v19 = *v52;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v53 != v19)
+        if (*v52 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v52 + 1) + 8 * j);
+        v21 = *(*(&v51 + 1) + 8 * j);
         if (([v21 isEqualToString:@"com.apple.tv"] & 1) == 0)
         {
           if (!levelCopy || ([v21 hasPrefix:@"com.apple."] & 1) == 0)
           {
             dispatch_group_enter(v17);
-            v48[0] = MEMORY[0x1E69E9820];
-            v48[1] = 3221225472;
-            v48[2] = __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke;
-            v48[3] = &unk_1E7B00B08;
-            v49 = v31;
-            v51 = v58;
-            v50 = v17;
-            [self getPredicateForUserActivitiesWithApplicationBundleIdentifier:v21 filteringForIsEligibleForPrediction:predictionCopy completionHandler:v48];
+            v47[0] = MEMORY[0x1E69E9820];
+            v47[1] = 3221225472;
+            v47[2] = __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke;
+            v47[3] = &unk_1E7B00B08;
+            v48 = v30;
+            v50 = v57;
+            v49 = v17;
+            [self getPredicateForUserActivitiesWithApplicationBundleIdentifier:v21 filteringForIsEligibleForPrediction:predictionCopy completionHandler:v47];
           }
 
           dispatch_group_enter(v17);
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke_2;
-          v44[3] = &unk_1E7B00B08;
-          v45 = v32;
-          v47 = v56;
-          v46 = v17;
-          [self getPredicateForIntentsWithApplicationBundleIdentifier:v21 completionHandler:v44];
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke_2;
+          v43[3] = &unk_1E7B00B08;
+          v44 = v31;
+          v46 = v55;
+          v45 = v17;
+          [self getPredicateForIntentsWithApplicationBundleIdentifier:v21 completionHandler:v43];
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v18 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
     while (v18);
@@ -642,22 +650,20 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke_3;
   block[3] = &unk_1E7B00B30;
-  v38 = v58;
-  v39 = v56;
+  v37 = v57;
+  v38 = v55;
   recentCopy = recent;
   selfCopy = self;
   limitCopy = limit;
-  v43 = levelCopy;
-  v36 = v27;
-  v37 = completionCopy;
+  v42 = levelCopy;
+  v35 = v26;
+  v36 = completionCopy;
   v23 = completionCopy;
-  v24 = v27;
+  v24 = v26;
   dispatch_group_notify(v17, v22, block);
 
-  _Block_object_dispose(v56, 8);
-  _Block_object_dispose(v58, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(v57, 8);
 }
 
 void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke(uint64_t a1, void *a2)
@@ -688,13 +694,13 @@ void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier
 
 void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier_limit_filteringForTopLevel_filteringForIsEligibleForPrediction_filteringForRecent_completion___block_invoke_3(uint64_t a1)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:*(*(*(a1 + 48) + 8) + 40)];
   v3 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:*(*(*(a1 + 56) + 8) + 40)];
   v4 = MEMORY[0x1E696AB28];
-  v20[0] = v2;
-  v20[1] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v19[0] = v2;
+  v19[1] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
   v6 = [v4 orPredicateWithSubpredicates:v5];
 
   v7 = v6;
@@ -707,9 +713,9 @@ void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier
 
     v12 = [MEMORY[0x1E69979D0] predicateForEventsWithStartDateAfter:v11];
     v13 = MEMORY[0x1E696AB28];
-    v19[0] = v7;
-    v19[1] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = v7;
+    v18[1] = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v8 = [v13 andPredicateWithSubpredicates:v14];
   }
 
@@ -718,14 +724,129 @@ void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier
 
   v17 = [*(a1 + 64) filterDonations:v16 forApplicationBundleIdentifier:*(a1 + 32)];
   (*(*(a1 + 40) + 16))();
+}
 
-  v18 = *MEMORY[0x1E69E9840];
++ (id)fetchDonationsWithPredicate:(id)predicate limit:(unint64_t)limit filteringForTopLevel:(BOOL)level directAccess:(BOOL)access
+{
+  accessCopy = access;
+  levelCopy = level;
+  v50 = *MEMORY[0x1E69E9840];
+  predicateCopy = predicate;
+  v11 = getWFVoiceShortcutClientLogObject();
+  v12 = os_signpost_id_generate(v11);
+
+  v13 = getWFVoiceShortcutClientLogObject();
+  v14 = v13;
+  v35 = v12 - 1;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B1DE3000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "CoreDuetDonationFetch", "", buf, 2u);
+  }
+
+  spid = v12;
+
+  v36 = predicateCopy;
+  v15 = [self fetchEventsWithPredicate:predicateCopy limit:limit directAccess:accessCopy];
+  v38 = objc_opt_new();
+  v39 = objc_opt_new();
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  obj = v15;
+  v16 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v42;
+    v19 = 0x1E7AFE000uLL;
+    v37 = *v42;
+    do
+    {
+      for (i = 0; i != v17; ++i)
+      {
+        if (*v42 != v18)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v21 = *(*(&v41 + 1) + 8 * i);
+        v22 = objc_autoreleasePoolPush();
+        v23 = [self donationFromEvent:v21 filteringForTopLevel:levelCopy];
+        if (v23)
+        {
+          objc_opt_class();
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            goto LABEL_18;
+          }
+
+          selfCopy = self;
+          v25 = levelCopy;
+          v26 = v19;
+          interaction = [v23 interaction];
+          intent = [interaction intent];
+          intentId = [intent intentId];
+
+          if (![v38 containsObject:intentId])
+          {
+            if (intentId)
+            {
+              [v38 addObject:intentId];
+            }
+
+            v19 = v26;
+            levelCopy = v25;
+            self = selfCopy;
+            v18 = v37;
+LABEL_18:
+            [v39 addObject:v23];
+            goto LABEL_19;
+          }
+
+          v30 = getWFVoiceShortcutClientLogObject();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          {
+            *buf = 136315394;
+            v46 = "+[VCActionDonationFetcher fetchDonationsWithPredicate:limit:filteringForTopLevel:directAccess:]";
+            v47 = 2112;
+            v48 = intentId;
+            _os_log_impl(&dword_1B1DE3000, v30, OS_LOG_TYPE_INFO, "%s Ignoring duplicate donation for Intent Identifier %@", buf, 0x16u);
+          }
+
+          v19 = v26;
+          levelCopy = v25;
+          self = selfCopy;
+          v18 = v37;
+        }
+
+LABEL_19:
+
+        objc_autoreleasePoolPop(v22);
+      }
+
+      v17 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+    }
+
+    while (v17);
+  }
+
+  v31 = getWFVoiceShortcutClientLogObject();
+  v32 = v31;
+  if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B1DE3000, v32, OS_SIGNPOST_INTERVAL_END, spid, "CoreDuetDonationFetch", "", buf, 2u);
+  }
+
+  return v39;
 }
 
 + (id)fetchEventsWithPredicate:(id)predicate limit:(unint64_t)limit directAccess:(BOOL)access
 {
   accessCopy = access;
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (!predicateCopy)
   {
@@ -749,29 +870,29 @@ void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier
   v16 = MEMORY[0x1E6997968];
   streams = [self streams];
   v18 = [MEMORY[0x1E69979D0] startDateSortDescriptorAscending:0];
-  v39[0] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+  v38[0] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
   v20 = [v16 eventQueryWithPredicate:predicateCopy eventStreams:streams offset:0 limit:limit sortDescriptors:v19];
 
   if (accessCopy)
   {
     knowledgeStoreWithDirectReadOnlyAccess = [MEMORY[0x1E69979A0] knowledgeStoreWithDirectReadOnlyAccess];
     v22 = knowledgeStoreWithDirectReadOnlyAccess;
-    v34 = 0;
-    v23 = &v34;
-    v24 = &v34;
+    v33 = 0;
+    v23 = &v33;
+    v24 = &v33;
   }
 
   else
   {
     knowledgeStoreWithDirectReadOnlyAccess = [MEMORY[0x1E69979A0] knowledgeStore];
     v22 = knowledgeStoreWithDirectReadOnlyAccess;
-    v33 = 0;
-    v23 = &v33;
-    v24 = &v33;
+    v32 = 0;
+    v23 = &v32;
+    v24 = &v32;
   }
 
-  v25 = [knowledgeStoreWithDirectReadOnlyAccess executeQuery:v20 error:{v24, v33, v34}];
+  v25 = [knowledgeStoreWithDirectReadOnlyAccess executeQuery:v20 error:{v24, v32, v33}];
   v26 = *v23;
 
   v27 = getWFVoiceShortcutClientLogObject();
@@ -793,14 +914,12 @@ void __165__VCActionDonationFetcher_fetchDonationsForApplicationBundleIdentifier
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "+[VCActionDonationFetcher fetchEventsWithPredicate:limit:directAccess:]";
-      v37 = 2112;
-      v38 = v26;
+      v35 = "+[VCActionDonationFetcher fetchEventsWithPredicate:limit:directAccess:]";
+      v36 = 2112;
+      v37 = v26;
       _os_log_impl(&dword_1B1DE3000, v30, OS_LOG_TYPE_ERROR, "%s Failed to execute CoreDuet query: %@", buf, 0x16u);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -843,6 +962,20 @@ LABEL_7:
   return v6;
 }
 
++ (BOOL)shouldKeepAction:(id)action forAppWithBundleIdentifier:(id)identifier filteringForTopLevel:(BOOL)level
+{
+  levelCopy = level;
+  identifierCopy = identifier;
+  actionCopy = action;
+  atxClient = [self atxClient];
+  v11 = [atxClient shouldPredictAppBundleId:identifierCopy];
+
+  atxClient2 = [self atxClient];
+  LOBYTE(levelCopy) = [atxClient2 shouldPredictBundleIdForShortcuts:identifierCopy action:actionCopy forPrimaryShortcuts:levelCopy];
+
+  return v11 & levelCopy;
+}
+
 + (id)atxClient
 {
   if (atxClient_onceToken != -1)
@@ -857,28 +990,126 @@ LABEL_7:
 
 uint64_t __36__VCActionDonationFetcher_atxClient__block_invoke()
 {
-  atxClient_client = [(objc_class *)getATXClientClass() clientForConsumerType:13];
+  v0 = [(objc_class *)getATXClientClass() clientForConsumerType:13];
+  v1 = atxClient_client;
+  atxClient_client = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
++ (id)donationFromEvent:(id)event filteringForTopLevel:(BOOL)level
+{
+  levelCopy = level;
+  eventCopy = event;
+  stream = [eventCopy stream];
+  appIntentsStream = [MEMORY[0x1E69979E8] appIntentsStream];
+  v9 = [stream isEqual:appIntentsStream];
+
+  if (v9)
+  {
+    v10 = [[VCInteractionDonation alloc] initWithEvent:eventCopy];
+    sourceAppIdentifierForDisplay = [(VCInteractionDonation *)v10 sourceAppIdentifierForDisplay];
+    v12 = [self shouldKeepActionWithAppBundleIdentifierForDisplay:sourceAppIdentifierForDisplay];
+
+    if (v12)
+    {
+      interaction = [(VCInteractionDonation *)v10 interaction];
+      intent = [interaction intent];
+
+      metadata = [eventCopy metadata];
+      intentClass = [MEMORY[0x1E6997990] intentClass];
+      stringValue = [metadata objectForKeyedSubscript:intentClass];
+
+      source = [eventCopy source];
+      bundleID = [source bundleID];
+
+      v20 = MEMORY[0x1E695DFD8];
+      atxClient = [self atxClient];
+      approvedSiriKitIntents = [atxClient approvedSiriKitIntents];
+      v23 = [v20 setWithArray:approvedSiriKitIntents];
+
+      if (([intent _type] == 2 || objc_msgSend(v23, "containsObject:", stringValue)) && objc_msgSend(self, "shouldKeepAction:forAppWithBundleIdentifier:filteringForTopLevel:", stringValue, bundleID, levelCopy) && (-[VCInteractionDonation interaction](v10, "interaction"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "direction"), v24, v25 != 2))
+      {
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+        v26 = 0;
+        if (([intent isGenericIntent] & 1) == 0 && (isKindOfClass & 1) == 0)
+        {
+          v26 = v10;
+        }
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      goto LABEL_9;
+    }
+
+    goto LABEL_14;
+  }
+
+  stream2 = [eventCopy stream];
+  appActivityStream = [MEMORY[0x1E69979E8] appActivityStream];
+  v29 = [stream2 isEqual:appActivityStream];
+
+  if (v29)
+  {
+    v10 = [[VCUserActivityDonation alloc] initWithEvent:eventCopy];
+    sourceAppIdentifierForDisplay2 = [(VCInteractionDonation *)v10 sourceAppIdentifierForDisplay];
+    v31 = [self shouldKeepActionWithAppBundleIdentifierForDisplay:sourceAppIdentifierForDisplay2];
+
+    if (v31)
+    {
+      intent = [(VCInteractionDonation *)v10 userActivity];
+      value = [eventCopy value];
+      stringValue = [value stringValue];
+
+      bundleID = [intent activityType];
+      if ([self shouldKeepAction:bundleID forAppWithBundleIdentifier:stringValue filteringForTopLevel:levelCopy])
+      {
+        v10 = v10;
+        v26 = v10;
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+LABEL_9:
+
+LABEL_15:
+      goto LABEL_17;
+    }
+
+LABEL_14:
+    v26 = 0;
+    goto LABEL_15;
+  }
+
+  v26 = 0;
+LABEL_17:
+
+  return v26;
 }
 
 + (id)streams
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   appIntentsStream = [MEMORY[0x1E69979E8] appIntentsStream];
-  v7[0] = appIntentsStream;
+  v6[0] = appIntentsStream;
   appActivityStream = [MEMORY[0x1E69979E8] appActivityStream];
-  v7[1] = appActivityStream;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = appActivityStream;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (void)sourceAppIdentifierArrayForApplicationBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (([identifierCopy isEqualToString:@"com.apple.mobilephone"] & 1) != 0 || objc_msgSend(identifierCopy, "isEqualToString:", @"com.apple.facetime"))
@@ -888,35 +1119,33 @@ uint64_t __36__VCActionDonationFetcher_atxClient__block_invoke()
 
   else if ([identifierCopy isEqualToString:@"com.apple.Passbook"])
   {
-    v18[0] = @"com.apple.Passbook";
-    v18[1] = @"com.apple.MobileSMS";
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
-    handlerCopy[2](handlerCopy, v8);
+    v17[0] = @"com.apple.Passbook";
+    v17[1] = @"com.apple.MobileSMS";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    handlerCopy[2](handlerCopy, v7);
   }
 
   else if ([identifierCopy isEqualToString:@"com.apple.DocumentsApp"])
   {
-    v9 = MEMORY[0x1E696ABD0];
-    v10 = *MEMORY[0x1E696A2F8];
-    v15 = @"com.apple.fileprovider-nonui";
+    v8 = MEMORY[0x1E696ABD0];
+    v9 = *MEMORY[0x1E696A2F8];
+    v14 = @"com.apple.fileprovider-nonui";
+    v15 = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     v16 = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
-    v17 = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __100__VCActionDonationFetcher_sourceAppIdentifierArrayForApplicationBundleIdentifier_completionHandler___block_invoke;
-    v13[3] = &unk_1E7B026A8;
-    v14 = handlerCopy;
-    [v9 extensionsWithMatchingAttributes:v12 completion:v13];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __100__VCActionDonationFetcher_sourceAppIdentifierArrayForApplicationBundleIdentifier_completionHandler___block_invoke;
+    v12[3] = &unk_1E7B026A8;
+    v13 = handlerCopy;
+    [v8 extensionsWithMatchingAttributes:v11 completion:v12];
   }
 
   else
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __100__VCActionDonationFetcher_sourceAppIdentifierArrayForApplicationBundleIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)

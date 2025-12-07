@@ -12,13 +12,14 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_23BF3D468();
+  sub_23BF3D468(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_23BF3E00C(appear);
+  sub_23BF3E00C(appearCopy);
 }
 
 - (void)viewDidLayoutSubviews

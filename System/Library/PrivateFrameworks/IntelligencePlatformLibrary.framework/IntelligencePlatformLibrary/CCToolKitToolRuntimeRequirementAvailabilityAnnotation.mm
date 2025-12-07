@@ -274,9 +274,9 @@ LABEL_21:
         {
           v36 = [CCToolKitToolRuntimePlatformVersion alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v47 = 0;
-          v26 = [(CCItemMessage *)v36 initWithData:v25 error:&v47];
-          v10 = v47;
+          v45 = 0;
+          v26 = [(CCItemMessage *)v36 initWithData:v25 error:&v45];
+          v10 = v45;
           v27 = 32;
           goto LABEL_38;
         }
@@ -285,9 +285,9 @@ LABEL_21:
         {
           v28 = [CCToolKitToolRuntimePlatformVersion alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v46 = 0;
-          v26 = [(CCItemMessage *)v28 initWithData:v25 error:&v46];
-          v10 = v46;
+          v44 = 0;
+          v26 = [(CCItemMessage *)v28 initWithData:v25 error:&v44];
+          v10 = v44;
           v27 = 40;
           goto LABEL_38;
         }
@@ -350,9 +350,9 @@ LABEL_44:
         {
           v24 = [CCToolKitToolRuntimePlatformVersion alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v48 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v48];
-          v10 = v48;
+          v46 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v46];
+          v10 = v46;
           v27 = 24;
 LABEL_38:
           v37 = *(&self->super.super.isa + v27);
@@ -371,7 +371,6 @@ LABEL_39:
 
       v38 = objc_opt_class();
       v25 = NSStringFromClass(v38);
-      v39 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
       goto LABEL_39;
     }
@@ -389,23 +388,22 @@ LABEL_49:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v44 = 1;
+    v42 = 1;
     goto LABEL_53;
   }
 
 LABEL_50:
-  v40 = objc_opt_class();
-  v41 = NSStringFromClass(v40);
-  v42 = *&v6[*v9];
-  v43 = CCInvalidBufferErrorForMessage();
+  v39 = objc_opt_class();
+  v40 = NSStringFromClass(v39);
+  v41 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_51:
-  v44 = 0;
+  v42 = 0;
 LABEL_53:
 
-  return v44;
+  return v42;
 }
 
 - (CCToolKitToolRuntimeRequirementAvailabilityAnnotation)initWithPlatform:(unsigned int)platform introducingVersion:(id)version deprecatingVersion:(id)deprecatingVersion obsoletingVersion:(id)obsoletingVersion error:(id *)error

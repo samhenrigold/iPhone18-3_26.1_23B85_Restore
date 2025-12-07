@@ -21,8 +21,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -45,7 +45,7 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 1)
   {
     contentAsOPTTSBeginTextToSpeechStreamingResponse = [(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self contentAsOPTTSBeginTextToSpeechStreamingResponse];
-    LODWORD(v7) = [contentAsOPTTSBeginTextToSpeechStreamingResponse addObjectToBuffer:buffer];
+    LODWORD(v7) = [contentAsOPTTSBeginTextToSpeechStreamingResponse addObjectToBuffer:?];
 
     v7 = v7;
   }
@@ -58,7 +58,7 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 2)
   {
     contentAsOPTTSPartialTextToSpeechStreamingResponse = [(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self contentAsOPTTSPartialTextToSpeechStreamingResponse];
-    LODWORD(v9) = [contentAsOPTTSPartialTextToSpeechStreamingResponse addObjectToBuffer:buffer];
+    LODWORD(v9) = [contentAsOPTTSPartialTextToSpeechStreamingResponse addObjectToBuffer:?];
 
     v9 = v9;
   }
@@ -71,7 +71,7 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 3)
   {
     contentAsOPTTSFinalTextToSpeechStreamingResponse = [(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self contentAsOPTTSFinalTextToSpeechStreamingResponse];
-    v11 = [contentAsOPTTSFinalTextToSpeechStreamingResponse addObjectToBuffer:buffer];
+    v11 = [contentAsOPTTSFinalTextToSpeechStreamingResponse addObjectToBuffer:?];
 
     v12 = v11;
   }
@@ -109,24 +109,11 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
 {
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 3)
   {
-    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"content"];
+    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
     if (!v3)
     {
-      v4 = [OPTTSFinalTextToSpeechStreamingResponse alloc];
-      root = self->_root;
-      v6 = &root[-*root->var0];
-      if (*v6->var0 >= 7u && (v7 = *v6[6].var0) != 0)
-      {
-        v8 = &root[v7 + *root[v7].var0];
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v3 = [(OPTTSFinalTextToSpeechStreamingResponse *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-      [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"content"];
+      v3 = [OPTTSFinalTextToSpeechStreamingResponse initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
   }
 
@@ -142,24 +129,11 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
 {
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 2)
   {
-    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"content"];
+    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
     if (!v3)
     {
-      v4 = [OPTTSPartialTextToSpeechStreamingResponse alloc];
-      root = self->_root;
-      v6 = &root[-*root->var0];
-      if (*v6->var0 >= 7u && (v7 = *v6[6].var0) != 0)
-      {
-        v8 = &root[v7 + *root[v7].var0];
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v3 = [(OPTTSPartialTextToSpeechStreamingResponse *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-      [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"content"];
+      v3 = [OPTTSPartialTextToSpeechStreamingResponse initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
   }
 
@@ -175,24 +149,11 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
 {
   if ([(OPTTSTextToSpeechRouterStreamingStreamingResponse *)self content_type]== 1)
   {
-    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"content"];
+    v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
     if (!v3)
     {
-      v4 = [OPTTSBeginTextToSpeechStreamingResponse alloc];
-      root = self->_root;
-      v6 = &root[-*root->var0];
-      if (*v6->var0 >= 7u && (v7 = *v6[6].var0) != 0)
-      {
-        v8 = &root[v7 + *root[v7].var0];
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      v3 = [(OPTTSBeginTextToSpeechStreamingResponse *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-      [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"content"];
+      v3 = [OPTTSBeginTextToSpeechStreamingResponse initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
   }
 
@@ -250,7 +211,7 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
     bytes2 = [(NSData *)v10->_data bytes];
     v14 = [(NSData *)v10->_data length];
     root = v10->_root;
-    if (root < bytes2 || root > bytes2 + v14)
+    if (root < bytes2 || root > v14 + bytes2)
     {
       goto LABEL_40;
     }
@@ -277,7 +238,7 @@ flatbuffers::DetachedBuffer *__65__OPTTSTextToSpeechRouterStreamingStreamingResp
 
       v20 = (v19 - *v19);
       v21 = *v20;
-      if (v21 >= 5 && v20[2] && (v29 < 2 || v29 - 1 < v19 + v20[2] - v28))
+      if (v21 >= 5 && v20[2] && (v29 < 2 || v29 - 1 < (v19 + v20[2]) - v28))
       {
         goto LABEL_40;
       }

@@ -15,13 +15,11 @@
 
 + (id)messageHeadersWithXPCTimeoutDisabled:()HMXPC
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"HMXPCMessageHeaderKeyIsXPCTimeoutDisabled";
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"HMXPCMessageHeaderKeyIsXPCTimeoutDisabled";
   v0 = [MEMORY[0x1E696AD98] numberWithBool:?];
-  v5[0] = v0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x1E69E9840];
+  v4[0] = v0;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }

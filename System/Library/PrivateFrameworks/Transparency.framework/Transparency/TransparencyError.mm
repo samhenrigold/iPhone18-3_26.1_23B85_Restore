@@ -245,7 +245,7 @@ LABEL_18:
 
 + (id)diagnosticUserInfoValue:(id)value depth:(unint64_t)depth
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   array = 0;
   if (valueCopy && depth <= 5)
@@ -263,36 +263,36 @@ LABEL_6:
     if (objc_opt_isKindOfClass())
     {
       array = [MEMORY[0x1E695DF70] array];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v11 = valueCopy;
-      v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v12)
+      v10 = valueCopy;
+      v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v18;
+        v12 = v11;
+        v13 = *v17;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v18 != v14)
+            if (*v17 != v13)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v10);
             }
 
-            v16 = [self diagnosticUserInfoValue:*(*(&v17 + 1) + 8 * i) depth:{depth + 1, v17}];
-            if (v16)
+            v15 = [self diagnosticUserInfoValue:*(*(&v16 + 1) + 8 * i) depth:{depth + 1, v16}];
+            if (v15)
             {
-              [(__CFString *)array addObject:v16];
+              [(__CFString *)array addObject:v15];
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
     }
 
@@ -324,39 +324,37 @@ LABEL_6:
 
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)diagnosticUserInfo:(id)info depth:(unint64_t)depth
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   if (depth <= 5)
   {
     depthCopy = depth;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = infoCopy;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -366,7 +364,7 @@ LABEL_7:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -378,24 +376,22 @@ LABEL_7:
     dictionary = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 + (id)diagnosticError:(id)error depth:(unint64_t)depth
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (depth <= 5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v15[0] = @"domain";
+    v14[0] = @"domain";
     domain = [errorCopy domain];
-    v15[1] = @"code";
-    v16[0] = domain;
+    v14[1] = @"code";
+    v15[0] = domain;
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    v16[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v15[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     v10 = [v9 mutableCopy];
 
     userInfo = [errorCopy userInfo];
@@ -407,8 +403,6 @@ LABEL_7:
   {
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

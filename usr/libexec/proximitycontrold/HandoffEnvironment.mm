@@ -60,7 +60,7 @@
   *(self + 3) = v6;
   *(self + 4) = v4;
 
-  sub_10002689C(v7);
+  sub_10002689C(v7, v8);
 }
 
 - (id)interruptionHandler
@@ -106,7 +106,7 @@
   *(self + 5) = v6;
   *(self + 6) = v4;
 
-  sub_10002689C(v7);
+  sub_10002689C(v7, v8);
 }
 
 - (void)activateWithCompletion:(id)completion

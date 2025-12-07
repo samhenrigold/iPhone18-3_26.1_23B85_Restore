@@ -49,6 +49,7 @@
 - (void)_screenSaverStarted:(id)started;
 - (void)_screenSaverStopped:(id)stopped;
 - (void)_screenUnlocked:(id)unlocked;
+- (void)_setDataProtectionLockState:(int)state;
 - (void)_setIdleState:(BOOL)state;
 - (void)_setSystemLockState:(BOOL)state;
 - (void)_setSystemScreenState:(BOOL)state;
@@ -211,7 +212,7 @@
 
 - (BOOL)isSetup
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objc_msgSend__registerForSetupNotifications(self, a2, v2);
   v5 = objc_msgSend_sharedInstance(IMLockdownManager, v3, v4);
   isVendorInstall = objc_msgSend_isVendorInstall(v5, v6, v7);
@@ -244,49 +245,48 @@ LABEL_6:
       sub_1959D5444();
     }
 
-    v12 = off_1EAED87A8();
-    v13 = off_1EAED87A0();
-    v9 = (v13 | v12) ^ 1;
-    v16 = objc_msgSend_registration(IMRGLog, v14, v15);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v11 = off_1EAED87A8();
+    v12 = off_1EAED87A0();
+    v9 = (v12 | v11) ^ 1;
+    v15 = objc_msgSend_registration(IMRGLog, v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = @"YES";
-      if ((v13 | v12))
-      {
-        v18 = @"NO";
-      }
-
-      else
-      {
-        v18 = @"YES";
-      }
-
-      if (v13)
-      {
-        v19 = @"YES";
-      }
-
-      else
-      {
-        v19 = @"NO";
-      }
-
-      v20 = 138412802;
-      v21 = v18;
-      v22 = 2112;
-      v23 = v19;
-      if (v12)
+      v16 = @"YES";
+      if ((v12 | v11))
       {
         v17 = @"NO";
       }
 
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_195988000, v16, OS_LOG_TYPE_DEFAULT, "Done checking if device is setup {isSetup: %@, needsToRun: %@, tokenUpgradeDone: %@}", &v20, 0x20u);
+      else
+      {
+        v17 = @"YES";
+      }
+
+      if (v12)
+      {
+        v18 = @"YES";
+      }
+
+      else
+      {
+        v18 = @"NO";
+      }
+
+      v19 = 138412802;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v18;
+      if (v11)
+      {
+        v16 = @"NO";
+      }
+
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_195988000, v15, OS_LOG_TYPE_DEFAULT, "Done checking if device is setup {isSetup: %@, needsToRun: %@, tokenUpgradeDone: %@}", &v19, 0x20u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
@@ -315,7 +315,7 @@ LABEL_6:
     }
 
     v4 = CFNotificationCenterGetDarwinNotifyCenter();
-    v5 = sub_1959AF5E8();
+    v5 = sub_1959AF5E8(v4);
 
     CFNotificationCenterAddObserver(v4, self, sub_1959AF570, v5, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   }
@@ -496,33 +496,33 @@ LABEL_6:
 
 - (void)_deliverNotificationSelector:(SEL)selector
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isActive(self, a2, selector))
   {
     os_unfair_lock_lock(&self->_ivarLock);
     v7 = objc_msgSend_allObjects(self->_earlyListeners, v5, v6);
     os_unfair_lock_unlock(&self->_ivarLock);
     v8 = v7;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v28, v32, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v27, v31, 16);
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         v13 = 0;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * v13);
+          v14 = *(*(&v27 + 1) + 8 * v13);
           if (objc_opt_respondsToSelector())
           {
             objc_msgSend_performSelector_withObject_(v14, v15, selector, 0);
@@ -532,7 +532,7 @@ LABEL_6:
         }
 
         while (v11 != v13);
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v28, v32, 16);
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v27, v31, 16);
       }
 
       while (v11);
@@ -542,26 +542,26 @@ LABEL_6:
     v18 = objc_msgSend_allObjects(self->_listeners, v16, v17);
     os_unfair_lock_unlock(&self->_ivarLock);
     v19 = v18;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v28, v32, 16);
+    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v27, v31, 16);
     if (v21)
     {
       v22 = v21;
-      v23 = *v29;
+      v23 = *v28;
       do
       {
         v24 = 0;
         do
         {
-          if (*v29 != v23)
+          if (*v28 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v28 + 1) + 8 * v24);
+          v25 = *(*(&v27 + 1) + 8 * v24);
           if (objc_opt_respondsToSelector())
           {
             objc_msgSend_performSelector_withObject_(v25, v26, selector, 0);
@@ -571,14 +571,12 @@ LABEL_6:
         }
 
         while (v22 != v24);
-        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v26, &v28, v32, 16);
+        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v26, &v27, v31, 16);
       }
 
       while (v22);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_systemWillSleep
@@ -790,6 +788,57 @@ LABEL_6:
   if (objc_msgSend_intValue(v8, v9, v10) == 1)
   {
     objc_msgSend__notificationCenterDidDisappear_(self, v11, reasonCopy);
+  }
+}
+
+- (void)_setDataProtectionLockState:(int)state
+{
+  v3 = *&state;
+  os_unfair_lock_lock(&self->_ivarLock);
+  if (self->_underFirstLock)
+  {
+    Lock = objc_msgSend__deviceStillUnderFirstLock(self, v5, v6);
+    self->_underFirstLock = Lock;
+    os_unfair_lock_unlock(&self->_ivarLock);
+    if ((Lock & 1) == 0)
+    {
+      objc_msgSend__deliverNotificationSelector_(self, v8, sel_systemDidLeaveFirstDataProtectionLock);
+    }
+  }
+
+  else
+  {
+    os_unfair_lock_unlock(&self->_ivarLock);
+  }
+
+  os_unfair_lock_lock(&self->_ivarLock);
+  dataProtectionState = self->_dataProtectionState;
+  if (dataProtectionState == v3)
+  {
+
+    os_unfair_lock_unlock(&self->_ivarLock);
+  }
+
+  else
+  {
+    isUnderDataProtectionLockForState = objc_msgSend__isUnderDataProtectionLockForState_(self, v9, dataProtectionState);
+    self->_dataProtectionState = v3;
+    v13 = objc_msgSend__isUnderDataProtectionLockForState_(self, v12, v3);
+    os_unfair_lock_unlock(&self->_ivarLock);
+    if (isUnderDataProtectionLockForState != v13)
+    {
+      if (v13)
+      {
+        v15 = sel_systemDidEnterDataProtectionLock;
+      }
+
+      else
+      {
+        v15 = sel_systemDidLeaveDataProtectionLock;
+      }
+
+      objc_msgSend__deliverNotificationSelector_(self, v14, v15);
+    }
   }
 }
 
@@ -1216,7 +1265,7 @@ LABEL_5:
 - (void)_unregisterForRestoreNotifications
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-  v4 = sub_1959AF5E8();
+  v4 = sub_1959AF5E8(DarwinNotifyCenter);
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, v4, 0);
   v5 = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(v5, self, @"FaceTimeRegistrationRestoredFromBackupNotification", 0);
@@ -1229,7 +1278,7 @@ LABEL_5:
 
 - (void)_receivedMemoryNotification
 {
-  v3 = sub_1959AF938();
+  v3 = sub_1959AF938(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -21,7 +21,7 @@
   v4 = [OITSUFormatObject alloc];
   if (self)
   {
-    [(OITSUFormatObject *)self formatStruct];
+    objc_msgSend_formatStruct(self);
   }
 
   else

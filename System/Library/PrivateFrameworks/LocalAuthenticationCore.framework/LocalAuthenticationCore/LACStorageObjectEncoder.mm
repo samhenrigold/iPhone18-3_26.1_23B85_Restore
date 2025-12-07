@@ -1,4 +1,5 @@
 @interface LACStorageObjectEncoder
+- (id)_convertACMExclaveBatchToDictionary:(id)dictionary;
 - (id)_lastBioAuthDataToNumber:(id)number;
 - (id)encodeValue:(id)value forKey:(int64_t)key error:(id *)error;
 @end
@@ -104,6 +105,33 @@ LABEL_27:
 LABEL_28:
 
   return v15;
+}
+
+- (id)_convertACMExclaveBatchToDictionary:(id)dictionary
+{
+  v3 = *&dictionary.var0;
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  if (v3)
+  {
+    v5 = [MEMORY[0x1E696AD98] numberWithInteger:20];
+    [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:v5];
+  }
+
+  if ((v3 & 0xFF00) != 0)
+  {
+    v6 = [MEMORY[0x1E696AD98] numberWithInteger:18];
+    [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:v6];
+  }
+
+  if ((*&v3 & 0xFF0000) != 0)
+  {
+    v7 = [MEMORY[0x1E696AD98] numberWithInteger:19];
+    [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:v7];
+  }
+
+  v8 = [dictionary copy];
+
+  return v8;
 }
 
 - (id)_lastBioAuthDataToNumber:(id)number

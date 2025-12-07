@@ -88,7 +88,7 @@ void __47__NEAgentExtension_extension_didFailWithError___block_invoke(uint64_t a
 
 void __40__NEAgentExtension_handleExtensionExit___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) appsUpdateStarted])
   {
     v2 = ne_log_obj();
@@ -96,7 +96,7 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke(uint64_t a1)
     {
       v3 = *(a1 + 40);
       *buf = 138412290;
-      v16 = v3;
+      v15 = v3;
       _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "App updating - ignore extension failure/exit for %@", buf, 0xCu);
     }
   }
@@ -108,24 +108,22 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke(uint64_t a1)
     if (!v4)
     {
       v5 = [*(a1 + 32) queue];
-      v9 = MEMORY[0x1E69E9820];
-      v10 = 3221225472;
-      v11 = __40__NEAgentExtension_handleExtensionExit___block_invoke_8;
-      v12 = &unk_1E7F0A0E8;
+      v8 = MEMORY[0x1E69E9820];
+      v9 = 3221225472;
+      v10 = __40__NEAgentExtension_handleExtensionExit___block_invoke_8;
+      v11 = &unk_1E7F0A0E8;
       v6 = *(a1 + 40);
-      v13 = *(a1 + 32);
-      v14 = v6;
-      v7 = NECreateTimerSource(v5, 5, &v9);
-      [*(a1 + 32) setSendFailedTimer:{v7, v9, v10, v11, v12, v13}];
+      v12 = *(a1 + 32);
+      v13 = v6;
+      v7 = NECreateTimerSource(v5, 5, &v8);
+      [*(a1 + 32) setSendFailedTimer:{v7, v8, v9, v10, v11, v12}];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) sendFailedTimer];
 
   if (v2)
@@ -144,9 +142,9 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
     if (v6)
     {
       v7 = *(a1 + 40);
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "App updating - ignore extension failure/exit for %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "App updating - ignore extension failure/exit for %@", &v9, 0xCu);
     }
   }
 
@@ -155,15 +153,13 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
     if (v6)
     {
       v8 = *(a1 + 40);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "Extension exit timer expired for %@ - notify that extension failed", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEFAULT, "Extension exit timer expired for %@ - notify that extension failed", &v9, 0xCu);
     }
 
     [*(a1 + 32) sendExtensionFailed];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wakeup
@@ -188,7 +184,7 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
 
 - (void)startWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   handlerCopy = handler;
   sessionContext = [(NEAgentExtension *)self sessionContext];
@@ -196,18 +192,18 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
   if (sessionContext)
   {
     sessionContext2 = [(NEAgentExtension *)self sessionContext];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke;
-    v25[3] = &unk_1E7F0A200;
-    v10 = &v27;
-    v26 = configurationCopy;
-    v27 = handlerCopy;
-    v11 = &v26;
-    v25[4] = self;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke;
+    v24[3] = &unk_1E7F0A200;
+    v10 = &v26;
+    v25 = configurationCopy;
+    v26 = handlerCopy;
+    v11 = &v25;
+    v24[4] = self;
     v12 = configurationCopy;
     v13 = handlerCopy;
-    [sessionContext2 createWithCompletionHandler:v25];
+    [sessionContext2 createWithCompletionHandler:v24];
   }
 
   else
@@ -228,7 +224,7 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
       v16 = extension;
       identifier = [(NSExtension *)v16 identifier];
       *buf = 138412290;
-      v29 = identifier;
+      v28 = identifier;
       _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEFAULT, "Beginning extension request with extension %@", buf, 0xCu);
     }
 
@@ -242,21 +238,19 @@ void __40__NEAgentExtension_handleExtensionExit___block_invoke_8(uint64_t a1)
       v18 = 0;
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_34;
-    v22[3] = &unk_1E7F095B0;
-    v10 = &v24;
-    v23 = configurationCopy;
-    v24 = handlerCopy;
-    v11 = &v23;
-    v22[4] = self;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_34;
+    v21[3] = &unk_1E7F095B0;
+    v10 = &v23;
+    v22 = configurationCopy;
+    v23 = handlerCopy;
+    v11 = &v22;
+    v21[4] = self;
     v19 = configurationCopy;
     v20 = handlerCopy;
-    [(NSExtension *)v18 beginExtensionRequestWithInputItems:0 completion:v22];
+    [(NSExtension *)v18 beginExtensionRequestWithInputItems:0 completion:v21];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -278,7 +272,7 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_34(id *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = ne_log_obj();
@@ -293,9 +287,9 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
     v9 = v8;
     v10 = [v9 identifier];
     *buf = 138412546;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v5;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "Extension request with extension %@ started with identifier %@", buf, 0x16u);
   }
 
@@ -305,39 +299,37 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
   block[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_35;
   block[3] = &unk_1E7F0A228;
   v12 = a1[4];
-  v17 = v6;
-  v18 = v12;
-  v21 = a1[6];
-  v19 = v5;
-  v20 = a1[5];
+  v16 = v6;
+  v17 = v12;
+  v20 = a1[6];
+  v18 = v5;
+  v19 = a1[5];
   v13 = v5;
   v14 = v6;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_35(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 40);
-      if (v9)
+      v8 = *(a1 + 40);
+      if (v8)
       {
-        v9 = v9[12];
+        v8 = v8[12];
       }
 
-      v10 = v9;
-      v11 = [v10 identifier];
-      v12 = *(a1 + 32);
+      v9 = v8;
+      v10 = [v9 identifier];
+      v11 = *(a1 + 32);
       *buf = 138412546;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v11;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Failed to start extension %@: %@", buf, 0x16u);
     }
 
@@ -358,16 +350,16 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
 
     if (v6)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_36;
-      v16[3] = &unk_1E7F0ACD0;
-      v16[4] = *(a1 + 40);
-      v20 = *(a1 + 64);
-      v17 = *(a1 + 48);
-      v18 = v6;
-      v19 = *(a1 + 56);
-      [v18 validateWithCompletionHandler:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_36;
+      v15[3] = &unk_1E7F0ACD0;
+      v15[4] = *(a1 + 40);
+      v19 = *(a1 + 64);
+      v16 = *(a1 + 48);
+      v17 = v6;
+      v18 = *(a1 + 56);
+      [v17 validateWithCompletionHandler:v15];
     }
 
     else
@@ -375,24 +367,22 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
       v7 = ne_log_obj();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 40);
-        if (v13)
+        v12 = *(a1 + 40);
+        if (v12)
         {
-          v13 = v13[12];
+          v12 = v12[12];
         }
 
-        v14 = v13;
-        v15 = [v14 identifier];
+        v13 = v12;
+        v14 = [v13 identifier];
         *buf = 138412290;
-        v22 = v15;
+        v21 = v14;
         _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Failed to get the host context for extension %@", buf, 0xCu);
       }
 
       (*(*(a1 + 64) + 16))();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_36(id *a1, void *a2)
@@ -421,18 +411,18 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_2_37(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v8 = [*(a1 + 40) pluginType];
-      v9 = *(a1 + 32);
+      v7 = [*(a1 + 40) pluginType];
+      v8 = *(a1 + 32);
       *buf = 138412546;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Provider %@ validation failed: %@", buf, 0x16u);
     }
 
@@ -453,16 +443,14 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
 
     [*(a1 + 40) updateConfiguration:*(a1 + 64)];
     v6 = *(a1 + 40);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_38;
-    v10[3] = &unk_1E7F0A278;
-    v10[4] = v6;
-    v11 = *(a1 + 72);
-    [v6 handleExtensionStartedWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_38;
+    v9[3] = &unk_1E7F0A278;
+    v9[4] = v6;
+    v10 = *(a1 + 72);
+    [v6 handleExtensionStartedWithCompletionHandler:v9];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_38(uint64_t a1, uint64_t a2)
@@ -536,22 +524,21 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
   if (*(a1 + 56))
   {
     v2 = [*(a1 + 32) sessionContext];
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_3;
-    v5[3] = &unk_1E7F0A1B0;
-    v5[4] = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v6 = *(a1 + 40);
-    [v2 validateWithCompletionHandler:v5];
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_3;
+    v4[3] = &unk_1E7F0A1B0;
+    v4[4] = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v5 = *(a1 + 40);
+    [v2 validateWithCompletionHandler:v4];
   }
 
   else
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -574,18 +561,18 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 40) pluginType];
-      v7 = *(a1 + 32);
+      v5 = [*(a1 + 40) pluginType];
+      v6 = *(a1 + 32);
       *buf = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Provider %@ validation failed: %@", buf, 0x16u);
     }
 
@@ -596,17 +583,15 @@ void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_inv
   {
     [*(a1 + 40) updateConfiguration:*(a1 + 48)];
     v3 = *(a1 + 40);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_31;
-    v8[3] = &unk_1E7F0A278;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_31;
+    v7[3] = &unk_1E7F0A278;
     v4 = *(a1 + 56);
-    v8[4] = *(a1 + 40);
-    v9 = v4;
-    [v3 handleExtensionStartedWithCompletionHandler:v8];
+    v7[4] = *(a1 + 40);
+    v8 = v4;
+    [v3 handleExtensionStartedWithCompletionHandler:v7];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NEAgentExtension_startWithConfiguration_completionHandler___block_invoke_31(uint64_t a1, uint64_t a2)
@@ -670,16 +655,16 @@ LABEL_8:
 
 - (void)handleInitWithCompletionHandler:(id)handler
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   extensionIdentifier = [(NEAgentExtension *)self extensionIdentifier];
 
   if (extensionIdentifier)
   {
-    v23[0] = *MEMORY[0x1E696A2E0];
+    v22[0] = *MEMORY[0x1E696A2E0];
     extensionIdentifier2 = [(NEAgentExtension *)self extensionIdentifier];
-    v24[0] = extensionIdentifier2;
-    v23[1] = *MEMORY[0x1E696A2F8];
+    v23[0] = extensionIdentifier2;
+    v22[1] = *MEMORY[0x1E696A2F8];
     if (self)
     {
       extensionPointIdentifier = self->_extensionPointIdentifier;
@@ -690,10 +675,10 @@ LABEL_8:
       extensionPointIdentifier = 0;
     }
 
-    v24[1] = extensionPointIdentifier;
+    v23[1] = extensionPointIdentifier;
     v8 = MEMORY[0x1E695DF20];
     v9 = extensionPointIdentifier;
-    extensionIdentifier = [v8 dictionaryWithObjects:v24 forKeys:v23 count:2];
+    extensionIdentifier = [v8 dictionaryWithObjects:v23 forKeys:v22 count:2];
   }
 
   v10 = ne_log_obj();
@@ -712,23 +697,21 @@ LABEL_8:
     }
 
     *buf = 138412546;
-    v20 = extensionIdentifier3;
-    v21 = 2112;
-    v22 = v13;
+    v19 = extensionIdentifier3;
+    v20 = 2112;
+    v21 = v13;
     _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "Looking for an extension with identifier %@ and extension point %@", buf, 0x16u);
   }
 
   v14 = MEMORY[0x1E696ABD0];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke;
-  v17[3] = &unk_1E7F0B5B0;
-  v17[4] = self;
-  v18 = handlerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke;
+  v16[3] = &unk_1E7F0B5B0;
+  v16[4] = self;
+  v17 = handlerCopy;
   v15 = handlerCopy;
-  [v14 extensionsWithMatchingAttributes:extensionIdentifier completion:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v14 extensionsWithMatchingAttributes:extensionIdentifier completion:v16];
 }
 
 void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -753,7 +736,7 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke(uint6
 
 void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -767,11 +750,11 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
     }
 
     *buf = 134218498;
-    v33 = v3;
-    v34 = 2112;
-    v35 = v4;
-    v36 = 2112;
-    v37 = v6;
+    v32 = v3;
+    v33 = 2112;
+    v34 = v4;
+    v35 = 2112;
+    v36 = v6;
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Found %lu extension(s) with identifier %@ and extension point %@", buf, 0x20u);
   }
 
@@ -781,11 +764,11 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
     v14 = [*(a1 + 32) objectAtIndexedSubscript:0];
     [(NEAgentExtension *)*(a1 + 40) setExtension:v14];
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_13;
-    v30[3] = &unk_1E7F0A110;
-    objc_copyWeak(&v31, buf);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_13;
+    v29[3] = &unk_1E7F0A110;
+    objc_copyWeak(&v30, buf);
     v15 = *(a1 + 40);
     if (v15)
     {
@@ -793,13 +776,13 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
     }
 
     v16 = v15;
-    [v16 setRequestInterruptionBlock:v30];
+    [v16 setRequestInterruptionBlock:v29];
 
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_15;
-    v28[3] = &unk_1E7F0A138;
-    objc_copyWeak(&v29, buf);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_15;
+    v27[3] = &unk_1E7F0A138;
+    objc_copyWeak(&v28, buf);
     v17 = *(a1 + 40);
     if (v17)
     {
@@ -807,13 +790,13 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
     }
 
     v18 = v17;
-    [v18 setRequestCompletionBlock:v28];
+    [v18 setRequestCompletionBlock:v27];
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2_17;
-    v26[3] = &unk_1E7F0A160;
-    objc_copyWeak(&v27, buf);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2_17;
+    v25[3] = &unk_1E7F0A160;
+    objc_copyWeak(&v26, buf);
     v19 = *(a1 + 40);
     if (v19)
     {
@@ -821,12 +804,12 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
     }
 
     v20 = v19;
-    [v20 setRequestCancellationBlock:v26];
+    [v20 setRequestCancellationBlock:v25];
 
     (*(*(a1 + 56) + 16))();
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v29);
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
 
@@ -857,29 +840,27 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v22 = [*(a1 + 40) extensionIdentifier];
-        v23 = v22;
-        v24 = *(a1 + 40);
-        if (v24)
+        v21 = [*(a1 + 40) extensionIdentifier];
+        v22 = v21;
+        v23 = *(a1 + 40);
+        if (v23)
         {
-          v24 = *(v24 + 88);
+          v23 = *(v23 + 88);
         }
 
-        v25 = *(a1 + 48);
+        v24 = *(a1 + 48);
         *buf = 138412802;
-        v33 = v22;
-        v34 = 2112;
-        v35 = v24;
-        v36 = 2112;
-        v37 = v25;
+        v32 = v21;
+        v33 = 2112;
+        v34 = v23;
+        v35 = 2112;
+        v36 = v24;
         _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Failed to find an app extension with identifier %@ and extension point %@: %@", buf, 0x20u);
       }
 
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setExtension:(uint64_t)extension
@@ -892,7 +873,7 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_2(uin
 
 void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_13(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = ne_log_obj();
@@ -900,19 +881,19 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_13(ui
   {
     if (WeakRetained)
     {
-      v8 = WeakRetained[12];
+      v7 = WeakRetained[12];
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
-    v9 = v8;
-    v10 = [v9 identifier];
-    v11 = 138412290;
-    v12 = v10;
-    _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Extension %@ died unexpectedly", &v11, 0xCu);
+    v8 = v7;
+    v9 = [v8 identifier];
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Extension %@ died unexpectedly", &v10, 0xCu);
   }
 
   if (WeakRetained)
@@ -930,8 +911,6 @@ void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_13(ui
     [(NEAgentExtension *)WeakRetained handleExtensionExit:v3];
     [(NEAgentExtension *)WeakRetained cleanupExtensionWithRequestIdentifier:v3];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __52__NEAgentExtension_handleInitWithCompletionHandler___block_invoke_15(uint64_t a1, void *a2)
@@ -1077,36 +1056,13 @@ void __58__NEAgentExtension_cleanupExtensionWithRequestIdentifier___block_invoke
   v31.super_class = NEAgentExtension;
   v20 = [(NEAgentExtension *)&v31 init];
   v21 = v20;
-  if (!v20)
+  if (!v20 || (objc_storeWeak(&v20->_managerObjectFactory, factoryCopy), objc_storeStrong(&v21->_queue, queue), v22 = objc_alloc(MEMORY[0x1E695DEC8]), [identityCopy uuid], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "initWithObjects:", v23, 0), extensionUUIDs = v21->_extensionUUIDs, v21->_extensionUUIDs = v24, extensionUUIDs, v23, objc_storeStrong(&v21->_pluginType, type), objc_storeStrong(&v21->_extensionIdentifier, type), v26 = class - 2, (class - 2) <= 5) && ((0x2Bu >> v26) & 1) != 0 && (v27 = -[NEExtensionProviderHostContext initWithVendorEndpoint:processIdentity:delegate:](objc_alloc(*off_1E7F095D0[v26]), endpointCopy, identityCopy, v21), sessionContext = v21->_sessionContext, v21->_sessionContext = v27, sessionContext, v21->_sessionContext))
   {
-    goto LABEL_5;
-  }
-
-  objc_storeWeak(&v20->_managerObjectFactory, factoryCopy);
-  objc_storeStrong(&v21->_queue, queue);
-  v22 = objc_alloc(MEMORY[0x1E695DEC8]);
-  uuid = [identityCopy uuid];
-  v24 = [v22 initWithObjects:{uuid, 0}];
-  extensionUUIDs = v21->_extensionUUIDs;
-  v21->_extensionUUIDs = v24;
-
-  objc_storeStrong(&v21->_pluginType, type);
-  objc_storeStrong(&v21->_extensionIdentifier, type);
-  v26 = class - 2;
-  if ((class - 2) > 5)
-  {
-    goto LABEL_6;
-  }
-
-  if (((0x2Bu >> v26) & 1) != 0 && (v27 = [(NEExtensionProviderHostContext *)objc_alloc(*off_1E7F095D0[v26]) initWithVendorEndpoint:endpointCopy processIdentity:identityCopy delegate:v21], sessionContext = v21->_sessionContext, v21->_sessionContext = v27, sessionContext, v21->_sessionContext))
-  {
-LABEL_5:
     v29 = v21;
   }
 
   else
   {
-LABEL_6:
     v29 = 0;
   }
 
@@ -1157,48 +1113,48 @@ LABEL_6:
 
 + (BOOL)doesAppExtensionExist:(id)exist bundleIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   existCopy = exist;
   identifierCopy = identifier;
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = existCopy;
+    v28 = existCopy;
     _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "searching app ex with %@", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x1E6966CE8] extensionPointIdentifierQuery:existCopy];
   [v8 setIncludeUpdatingApps:1];
   [MEMORY[0x1E6966CF0] executeQuery:v8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = v27 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v9 = v26 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v10)
   {
-    v23 = existCopy;
-    v11 = *v25;
+    v22 = existCopy;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = ne_log_obj();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           bundleIdentifier = [v13 bundleIdentifier];
           extensionPointIdentifier = [v13 extensionPointIdentifier];
           *buf = 138412546;
-          v29 = bundleIdentifier;
-          v30 = 2112;
-          v31 = extensionPointIdentifier;
+          v28 = bundleIdentifier;
+          v29 = 2112;
+          v30 = extensionPointIdentifier;
           _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, "returned app extension: %@ - %@", buf, 0x16u);
         }
 
@@ -1213,9 +1169,9 @@ LABEL_6:
             bundleIdentifier3 = [v13 bundleIdentifier];
             extensionPointIdentifier2 = [v13 extensionPointIdentifier];
             *buf = 138412546;
-            v29 = bundleIdentifier3;
-            v30 = 2112;
-            v31 = extensionPointIdentifier2;
+            v28 = bundleIdentifier3;
+            v29 = 2112;
+            v30 = extensionPointIdentifier2;
             _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEFAULT, "Found updating app extension: %@ - %@", buf, 0x16u);
           }
 
@@ -1224,7 +1180,7 @@ LABEL_6:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v10)
       {
         continue;
@@ -1234,10 +1190,9 @@ LABEL_6:
     }
 
 LABEL_17:
-    existCopy = v23;
+    existCopy = v22;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

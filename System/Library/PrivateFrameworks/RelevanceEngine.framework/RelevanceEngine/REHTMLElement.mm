@@ -173,15 +173,13 @@
 
 - (id)elementByAddingClass:(id)class
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v4 = MEMORY[0x277CBEA60];
   classCopy2 = class;
   v6 = [v4 arrayWithObjects:&classCopy count:1];
 
-  v7 = [(REHTMLElement *)self elementByAddingClasses:v6, classCopy, v11];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(REHTMLElement *)self elementByAddingClasses:v6, classCopy, v10];
 
   return v7;
 }
@@ -199,17 +197,15 @@
 
 - (id)elementByAddingAtttibute:(id)atttibute value:(id)value
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   atttibuteCopy = atttibute;
-  v14[0] = value;
+  v13[0] = value;
   v6 = MEMORY[0x277CBEAC0];
   valueCopy = value;
   atttibuteCopy2 = atttibute;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&atttibuteCopy count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&atttibuteCopy count:1];
 
   v10 = [(REHTMLElement *)self elementByAddingAtttibutes:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -229,14 +225,14 @@
 
 - (id)append:(id)append
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (append)
   {
     appendCopy = append;
     v5 = [REHTMLContainerElement alloc];
-    v10[0] = self;
-    v10[1] = appendCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+    v9[0] = self;
+    v9[1] = appendCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
     selfCopy = [(REHTMLContainerElement *)v5 initWithElements:v6];
   }
@@ -246,14 +242,12 @@
     selfCopy = self;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)addChild:(id)child
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (child)
   {
     childCopy = child;
@@ -261,15 +255,13 @@
     childCopy2 = child;
     v6 = [v4 arrayWithObjects:&childCopy count:1];
 
-    selfCopy = [(REHTMLElement *)self addChildren:v6, childCopy, v11];
+    selfCopy = [(REHTMLElement *)self addChildren:v6, childCopy, v10];
   }
 
   else
   {
     selfCopy = self;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

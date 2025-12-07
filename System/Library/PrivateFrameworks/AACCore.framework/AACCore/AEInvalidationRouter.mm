@@ -64,19 +64,14 @@ void __43__AEInvalidationRouter_invalidationHandler__block_invoke_2(uint64_t a1)
 - (void)setRouterMode:(int64_t)mode
 {
   objc_initWeak(&location, self);
-  if (self)
-  {
-    queue = self->_queue;
-  }
-
   OUTLINED_FUNCTION_0_1();
-  v10 = 3221225472;
-  v11 = __38__AEInvalidationRouter_setRouterMode___block_invoke;
-  v12 = &unk_278BB6F38;
-  v8 = v7;
+  v8 = 3221225472;
+  v9 = __38__AEInvalidationRouter_setRouterMode___block_invoke;
+  v10 = &unk_278BB6F38;
+  v6 = v5;
   objc_copyWeak((v3 + 32), &location);
   modeCopy = mode;
-  dispatch_async(v8, block);
+  dispatch_async(v6, block);
 
   objc_destroyWeak((v3 + 32));
   objc_destroyWeak(&location);
@@ -126,20 +121,15 @@ void __38__AEInvalidationRouter_setRouterMode___block_invoke(uint64_t a1)
 {
   delegateCopy = delegate;
   objc_initWeak(&location, self);
-  if (self)
-  {
-    queue = self->_queue;
-  }
-
   OUTLINED_FUNCTION_0_1();
-  v11 = 3221225472;
-  v12 = __42__AEInvalidationRouter_setRouterDelegate___block_invoke;
-  v13 = &unk_278BB6F60;
-  v8 = v7;
+  v10 = 3221225472;
+  v11 = __42__AEInvalidationRouter_setRouterDelegate___block_invoke;
+  v12 = &unk_278BB6F60;
+  v7 = v6;
   objc_copyWeak((v3 + 40), &location);
-  v14 = delegateCopy;
-  v9 = delegateCopy;
-  dispatch_async(v8, block);
+  v13 = delegateCopy;
+  v8 = delegateCopy;
+  dispatch_async(v7, block);
 
   objc_destroyWeak((v3 + 40));
   objc_destroyWeak(&location);

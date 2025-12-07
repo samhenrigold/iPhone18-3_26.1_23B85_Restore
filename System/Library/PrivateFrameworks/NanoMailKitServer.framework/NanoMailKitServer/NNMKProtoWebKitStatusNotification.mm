@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    supportsWebKit = self->_supportsWebKit;
     PBDataWriterWriteBOOLField();
   }
 }

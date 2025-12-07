@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MediumAdLockupWithAlignedRegionBackgroundTodayCardCollectionViewCell();
+  v4.super_class = type metadata accessor for MediumAdLockupWithAlignedRegionBackgroundTodayCardCollectionViewCell(0);
   v2 = v4.receiver;
   [(BaseTodayCardCollectionViewCell *)&v4 layoutSubviews];
   v3 = sub_1001DB1E4();
@@ -19,7 +19,7 @@
 
 - (NSArray)accessibilityElements
 {
-  sub_10002849C(&qword_1009701B0);
+  sub_10002849C(&qword_1009701B0, qword_1007B1800);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1007B10D0;
   selfCopy = self;
@@ -50,7 +50,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for MediumAdLockupWithAlignedRegionBackgroundTodayCardCollectionViewCell();
+  v7.super_class = type metadata accessor for MediumAdLockupWithAlignedRegionBackgroundTodayCardCollectionViewCell(0);
   [(MediumAdLockupWithAlignedRegionBackgroundTodayCardCollectionViewCell *)&v7 setAccessibilityElements:v5.super.isa];
 }
 

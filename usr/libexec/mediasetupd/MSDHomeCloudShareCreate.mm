@@ -21,9 +21,9 @@
 - (MSDHomeCloudShareCreate)initWithHome:(id)home
 {
   homeCopy = home;
-  v10.receiver = self;
-  v10.super_class = MSDHomeCloudShareCreate;
-  v6 = [(MSDHomeCloudShareCreate *)&v10 self];
+  v11.receiver = self;
+  v11.super_class = MSDHomeCloudShareCreate;
+  v6 = [(MSDHomeCloudShareCreate *)&v11 self];
 
   if (!v6)
   {
@@ -34,27 +34,27 @@
   {
     objc_storeStrong(v6 + 1, home);
 LABEL_4:
-    v7 = v6;
+    v8 = v6;
     goto LABEL_8;
   }
 
-  v8 = sub_100030FE4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_100030FE4(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100010DAC();
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 + (void)acceptInvitation:(id)invitation completion:(id)completion
 {
   invitationCopy = invitation;
   completionCopy = completion;
-  v7 = sub_100030FE4();
+  v7 = sub_100030FE4(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     shareToken = [invitationCopy shareToken];
@@ -92,17 +92,17 @@ LABEL_8:
 {
   participantCopy = participant;
   completionCopy = completion;
-  v8 = sub_100030FE4();
+  v8 = sub_100030FE4(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     recordID = [participantCopy recordID];
     home = self->_home;
     *buf = 136315651;
-    v31 = "[MSDHomeCloudShareCreate setupShareForHomeParticipant:completion:]";
-    v32 = 2113;
-    v33 = recordID;
-    v34 = 2113;
-    v35 = home;
+    v34 = "[MSDHomeCloudShareCreate setupShareForHomeParticipant:completion:]";
+    v35 = 2113;
+    v36 = recordID;
+    v37 = 2113;
+    v38 = home;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s for recordID %{private}@ and home %{private}@", buf, 0x20u);
   }
 
@@ -113,49 +113,49 @@ LABEL_8:
     {
 
 LABEL_9:
-      v15 = [CKShare alloc];
+      v17 = [CKShare alloc];
       recordID2 = [participantCopy recordID];
       zoneID = [recordID2 zoneID];
-      v18 = [v15 initWithRecordZoneID:zoneID];
+      v20 = [v17 initWithRecordZoneID:zoneID];
 
-      v19 = sub_100030FE4();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100030FE4(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        recordID3 = [v18 recordID];
+        recordID3 = [v20 recordID];
         *buf = 138477827;
-        v31 = recordID3;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Created CKShare with recordID %{private}@", buf, 0xCu);
+        v34 = recordID3;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Created CKShare with recordID %{private}@", buf, 0xCu);
       }
 
-      v21 = +[CKContainer MSDCloudKitContainer];
-      privateCloudDatabase = [v21 privateCloudDatabase];
+      v24 = +[CKContainer MSDCloudKitContainer];
+      privateCloudDatabase = [v24 privateCloudDatabase];
 
-      v22 = objc_alloc_init(MSDFetchCKDataOptions);
-      [(MSDFetchCKDataOptions *)v22 setUserInitiatedRequest:0];
-      recordID4 = [v18 recordID];
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_100010298;
-      v26[3] = &unk_100051388;
-      v27 = v18;
+      v25 = objc_alloc_init(MSDFetchCKDataOptions);
+      [(MSDFetchCKDataOptions *)v25 setUserInitiatedRequest:0];
+      recordID4 = [v20 recordID];
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = sub_100010298;
+      v29[3] = &unk_100051388;
+      v30 = v20;
       selfCopy = self;
-      v29 = completionCopy;
-      v24 = v18;
-      [privateCloudDatabase fetchRecordWithID:recordID4 withOptions:v22 completion:v26];
+      v32 = completionCopy;
+      v27 = v20;
+      [privateCloudDatabase fetchRecordWithID:recordID4 withOptions:v25 completion:v29];
 
       goto LABEL_15;
     }
 
     recordType2 = [participantCopy recordType];
-    v14 = [recordType2 isEqualToString:MSDefaultServiceRecordType];
+    v15 = [recordType2 isEqualToString:MSDefaultServiceRecordType];
 
-    if (v14)
+    if (v15)
     {
       goto LABEL_9;
     }
 
-    v25 = sub_100030FE4();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v28 = sub_100030FE4(v16);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_100010EC8();
     }
@@ -166,7 +166,7 @@ LABEL_9:
 
   else
   {
-    privateCloudDatabase = sub_100030FE4();
+    privateCloudDatabase = sub_100030FE4(v11);
     if (os_log_type_enabled(privateCloudDatabase, OS_LOG_TYPE_ERROR))
     {
       sub_100010F04();
@@ -180,52 +180,53 @@ LABEL_15:
 {
   ownerCopy = owner;
   completionCopy = completion;
+  v8 = completionCopy;
   if (completionCopy)
   {
-    v8 = sub_100030FE4();
-    v9 = v8;
+    v9 = sub_100030FE4(completionCopy);
+    v10 = v9;
     if (ownerCopy)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         home = self->_home;
         *buf = 136315651;
-        v17 = "[MSDHomeCloudShareCreate shareRecordWithOwner:completion:]";
-        v18 = 2113;
-        v19 = ownerCopy;
-        v20 = 2113;
-        v21 = home;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s for record %{private}@ home %{private}@", buf, 0x20u);
+        v18 = "[MSDHomeCloudShareCreate shareRecordWithOwner:completion:]";
+        v19 = 2113;
+        v20 = ownerCopy;
+        v21 = 2113;
+        v22 = home;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s for record %{private}@ home %{private}@", buf, 0x20u);
       }
 
-      v11 = self->_home;
-      v12 = +[CKContainer MSDCloudKitContainer];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100010710;
-      v14[3] = &unk_1000513B0;
-      v15 = completionCopy;
-      [(HMHome *)v11 establishShareWithHomeOwner:ownerCopy container:v12 allowWriteAccess:1 completionHandler:v14];
+      v12 = self->_home;
+      v13 = +[CKContainer MSDCloudKitContainer];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100010710;
+      v15[3] = &unk_1000513B0;
+      v16 = v8;
+      [(HMHome *)v12 establishShareWithHomeOwner:ownerCopy container:v13 allowWriteAccess:1 completionHandler:v15];
 
-      v13 = v15;
+      v14 = v16;
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000110A4();
       }
 
-      v13 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, v13);
+      v14 = [NSError errorWithDomain:CKErrorDomain code:12 userInfo:0];
+      (v8)[2](v8, 0, v14);
     }
   }
 
   else
   {
-    v13 = sub_100030FE4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100030FE4(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000110E0();
     }
@@ -236,39 +237,40 @@ LABEL_15:
 {
   shareCopy = share;
   completionCopy = completion;
+  v8 = completionCopy;
   if (shareCopy)
   {
     participants = [shareCopy participants];
-    v9 = [participants na_firstObjectPassingTest:&stru_1000513F0];
+    v10 = [participants na_firstObjectPassingTest:&stru_1000513F0];
 
-    if (v9)
+    if (v10)
     {
-      permission = [v9 permission];
-      acceptanceStatus = [v9 acceptanceStatus];
-      v12 = sub_100030FE4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      permission = [v10 permission];
+      acceptanceStatus = [v10 acceptanceStatus];
+      v14 = sub_100030FE4(acceptanceStatus);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = CKStringFromParticipantAcceptanceStatus();
-        v14 = CKStringFromParticipantPermission();
-        v18 = 138412546;
-        v19 = v13;
-        v20 = 2112;
-        v21 = v14;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Current Participant status: Acceptance: %@ Permission: %@", &v18, 0x16u);
+        v15 = CKStringFromParticipantAcceptanceStatus();
+        v16 = CKStringFromParticipantPermission();
+        v21 = 138412546;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Current Participant status: Acceptance: %@ Permission: %@", &v21, 0x16u);
       }
 
       if (acceptanceStatus == 2 && permission == 3)
       {
-        v15 = sub_100030FE4();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100030FE4(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "All Participants in share have accepted with permission read/write", &v18, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "All Participants in share have accepted with permission read/write", &v21, 2u);
         }
 
-        if (completionCopy)
+        if (v8)
         {
-          (*(completionCopy + 2))(completionCopy, 0, 0);
+          v8[2](v8, 0, 0);
         }
 
         goto LABEL_21;
@@ -276,9 +278,9 @@ LABEL_15:
 
       if (permission == 2)
       {
-        [v9 setPermission:3];
-        [shareCopy addParticipant:v9];
-        [(MSDHomeCloudShareCreate *)self _saveRecordAndShare:shareCopy completion:completionCopy];
+        [v10 setPermission:3];
+        [shareCopy addParticipant:v10];
+        [(MSDHomeCloudShareCreate *)self _saveRecordAndShare:shareCopy completion:v8];
         goto LABEL_21;
       }
 
@@ -290,29 +292,29 @@ LABEL_15:
 
     else
     {
-      v17 = sub_100030FE4();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = sub_100030FE4(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_1000111D0();
       }
     }
 
-    [(MSDHomeCloudShareCreate *)self shareRecordWithOwner:shareCopy completion:completionCopy];
+    [(MSDHomeCloudShareCreate *)self shareRecordWithOwner:shareCopy completion:v8];
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v16 = sub_100030FE4();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v19 = sub_100030FE4(completionCopy);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     sub_10001120C();
   }
 
-  if (completionCopy)
+  if (v8)
   {
-    v9 = [NSError errorWithDomain:MSErrorDomain code:1 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v9);
+    v10 = [NSError errorWithDomain:MSErrorDomain code:1 userInfo:0];
+    (v8)[2](v8, 0, v10);
     goto LABEL_21;
   }
 

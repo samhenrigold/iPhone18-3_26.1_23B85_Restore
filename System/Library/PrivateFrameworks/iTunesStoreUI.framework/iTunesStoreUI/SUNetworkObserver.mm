@@ -111,15 +111,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -130,13 +136,12 @@
       v12 = objc_opt_class();
       v13 = 2112;
       identifierCopy = identifier;
-      LODWORD(v10) = 22;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Setting partner identifier: %@", &v11, 22);
+      if (v9)
       {
-        v9 = v8;
-        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v11, v10}];
-        free(v9);
+        v10 = v9;
+        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }
@@ -159,15 +164,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -178,13 +189,12 @@
       v13 = objc_opt_class();
       v14 = 1024;
       v15 = enabledCopy;
-      LODWORD(v11) = 18;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Setting partners enabled: %d", &v12, 18);
+      if (v9)
       {
-        v9 = v8;
-        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v12, v11}];
-        free(v9);
+        v10 = v9;
+        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }

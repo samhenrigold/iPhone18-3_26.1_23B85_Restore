@@ -31,7 +31,7 @@
 
 - (void)annotateWithPersonaSandboxIfNeeded:()Daemon
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v4 = a3;
   asFPItem = [self asFPItem];
   fileURL = [asFPItem fileURL];
@@ -45,7 +45,7 @@
     mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
     currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-    v40 = 0;
+    v39 = 0;
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
     nsDomain = [v9 nsDomain];
     personaIdentifier = [nsDomain personaIdentifier];
@@ -62,11 +62,11 @@
 
       if ((v18 & 1) == 0 && voucher_process_can_use_arbitrary_personas())
       {
-        v39 = 0;
-        v19 = [currentPersona copyCurrentPersonaContextWithError:&v39];
-        v20 = v39;
-        v21 = v40;
-        v40 = v19;
+        v38 = 0;
+        v19 = [currentPersona copyCurrentPersonaContextWithError:&v38];
+        v20 = v38;
+        v21 = v39;
+        v39 = v19;
 
         if (v20)
         {
@@ -90,8 +90,8 @@
             personaIdentifier4 = [nsDomain4 personaIdentifier];
             *buf = 138412546;
             *&buf[4] = personaIdentifier4;
-            v44 = 2112;
-            v45 = v25;
+            v43 = 2112;
+            v44 = v25;
             _os_log_error_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
           }
         }
@@ -126,40 +126,35 @@ LABEL_19:
     asFPItem3 = [self asFPItem];
     itemID2 = [asFPItem3 itemID];
     v32 = +[FPDRequest requestForSelf];
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __69__FPItemOperationLocator_Daemon__annotateWithPersonaSandboxIfNeeded___block_invoke;
-    v41[3] = &unk_1E83C0978;
-    v41[4] = self;
-    v42 = v28;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __69__FPItemOperationLocator_Daemon__annotateWithPersonaSandboxIfNeeded___block_invoke;
+    v40[3] = &unk_1E83C0978;
+    v40[4] = self;
+    v41 = v28;
     v25 = v28;
-    [defaultBackend URLForItemID:itemID2 creatingPlaceholderIfMissing:1 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v32 completionHandler:v41];
+    [defaultBackend URLForItemID:itemID2 creatingPlaceholderIfMissing:1 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v32 completionHandler:v40];
 
     dispatch_group_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
 LABEL_20:
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)annotateWithPersonaSandboxIfNeeded:()Daemon .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] won't restore persona: %@", &v2, 0xCu);
 }
 
 - (void)annotateWithPersonaSandboxIfNeeded:()Daemon .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 asFPItem];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Copied item %@ unexpectedly doesn't have a URL, fetching one", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Copied item %@ unexpectedly doesn't have a URL, fetching one", &v4, 0xCu);
 }
 
 @end

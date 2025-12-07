@@ -52,22 +52,22 @@ void __54__ATXBMBookmark_allowedClassesForBookmarkSecureCoding__block_invoke(uin
 
 + (id)bookmarkFromData:(id)data bookmarkLocation:(id)location versionNumber:(id)number
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   locationCopy = location;
   numberCopy = number;
   v11 = objc_autoreleasePoolPush();
-  v26 = 0;
-  v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v26];
-  v13 = v26;
+  v27 = 0;
+  v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v27];
+  v13 = v27;
   objc_autoreleasePoolPop(v11);
   if (v13 || !v12)
   {
-    v17 = __atxlog_handle_default();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    v19 = __atxlog_handle_default(v14);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
     if (!locationCopy)
     {
-      if (v18)
+      if (v20)
       {
         +[ATXBMBookmark bookmarkFromData:bookmarkLocation:versionNumber:];
       }
@@ -75,16 +75,16 @@ void __54__ATXBMBookmark_allowedClassesForBookmarkSecureCoding__block_invoke(uin
       goto LABEL_17;
     }
 
-    if (v18)
+    if (v20)
     {
-      v19 = NSStringFromClass(self);
+      v21 = NSStringFromClass(self);
       *buf = 138412802;
-      v28 = v19;
-      v29 = 2112;
-      v30 = locationCopy;
-      v31 = 2112;
-      v32 = v13;
-      _os_log_error_impl(&dword_226368000, v17, OS_LOG_TYPE_ERROR, "%@ - failed to unarchive bookmark at %@ with error: %@", buf, 0x20u);
+      v29 = v21;
+      v30 = 2112;
+      v31 = locationCopy;
+      v32 = 2112;
+      v33 = v13;
+      _os_log_error_impl(&dword_226368000, v19, OS_LOG_TYPE_ERROR, "%@ - failed to unarchive bookmark at %@ with error: %@", buf, 0x20u);
 LABEL_16:
     }
   }
@@ -92,54 +92,52 @@ LABEL_16:
   else
   {
     versionNumber = [v12 versionNumber];
-    v15 = [versionNumber isEqualToNumber:numberCopy];
+    v16 = [versionNumber isEqualToNumber:numberCopy];
 
-    if (v15)
+    if (v16)
     {
-      v16 = v12;
+      v18 = v12;
       goto LABEL_18;
     }
 
-    v17 = __atxlog_handle_default();
-    v20 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v19 = __atxlog_handle_default(v17);
+    v22 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if (locationCopy)
     {
-      if (v20)
+      if (v22)
       {
-        v19 = NSStringFromClass(self);
+        v21 = NSStringFromClass(self);
         *buf = 138412546;
-        v28 = v19;
-        v29 = 2112;
-        v30 = locationCopy;
-        v21 = "%@ - version number changed for bookmark at %@";
-        v22 = v17;
-        v23 = 22;
+        v29 = v21;
+        v30 = 2112;
+        v31 = locationCopy;
+        v23 = "%@ - version number changed for bookmark at %@";
+        v24 = v19;
+        v25 = 22;
 LABEL_15:
-        _os_log_impl(&dword_226368000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
+        _os_log_impl(&dword_226368000, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
         goto LABEL_16;
       }
     }
 
-    else if (v20)
+    else if (v22)
     {
-      v19 = NSStringFromClass(self);
+      v21 = NSStringFromClass(self);
       *buf = 138412290;
-      v28 = v19;
-      v21 = "%@ - version number changed for bookmark";
-      v22 = v17;
-      v23 = 12;
+      v29 = v21;
+      v23 = "%@ - version number changed for bookmark";
+      v24 = v19;
+      v25 = 12;
       goto LABEL_15;
     }
   }
 
 LABEL_17:
 
-  v16 = 0;
+  v18 = 0;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v18;
 }
 
 + (id)bookmarkFromURLPath:(id)path maxFileSize:(unint64_t)size versionNumber:(id)number
@@ -147,21 +145,23 @@ LABEL_18:
   pathCopy = path;
   numberCopy = number;
   path = [pathCopy path];
-  if ([self _fileExistsAtPath:path])
+  v11 = [self _fileExistsAtPath:path];
+  if (v11)
   {
-    if ([self _fileSizeWithinLimitsForPath:path maxFileSize:size])
+    v12 = [self _fileSizeWithinLimitsForPath:path maxFileSize:size];
+    if (v12)
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = [self _dataFromPath:path];
-      objc_autoreleasePoolPop(v11);
-      if (v12)
+      v13 = objc_autoreleasePoolPush();
+      v14 = [self _dataFromPath:path];
+      objc_autoreleasePoolPop(v13);
+      if (v14)
       {
-        v13 = [self bookmarkFromData:v12 bookmarkLocation:path versionNumber:numberCopy];
+        v16 = [self bookmarkFromData:v14 bookmarkLocation:path versionNumber:numberCopy];
         goto LABEL_13;
       }
 
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_default(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         +[ATXBMBookmark bookmarkFromURLPath:maxFileSize:versionNumber:];
       }
@@ -169,8 +169,8 @@ LABEL_18:
 
     else
     {
-      v12 = __atxlog_handle_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v14 = __atxlog_handle_default(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         +[ATXBMBookmark bookmarkFromURLPath:maxFileSize:versionNumber:];
       }
@@ -179,17 +179,17 @@ LABEL_18:
 
   else
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[ATXBMBookmark bookmarkFromURLPath:maxFileSize:versionNumber:];
     }
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_13:
 
-  return v13;
+  return v16;
 }
 
 - (ATXBMBookmark)initWithURLPath:(id)path versionNumber:(id)number bookmark:(id)bookmark metadata:(id)metadata
@@ -220,47 +220,47 @@ LABEL_13:
 - (id)serializeBookmark:(id *)bookmark
 {
   v5 = objc_autoreleasePoolPush();
-  v13 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v13];
-  v7 = v13;
+  v14 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v14];
+  v7 = v14;
   objc_autoreleasePoolPop(v5);
   if (v6)
   {
-    v8 = v7 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    v11 = v6;
+    v12 = v6;
   }
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_default(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXBMBookmark serializeBookmark:];
     }
 
     if (bookmark)
     {
-      v10 = v7;
-      v11 = 0;
+      v11 = v7;
+      v12 = 0;
       *bookmark = v7;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)saveBookmarkWithError:(id *)error
@@ -281,10 +281,10 @@ LABEL_13:
 
   else
   {
-    v7 = __atxlog_handle_default();
+    v7 = __atxlog_handle_default(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [ATXBMBookmark saveBookmarkWithError:];
+      [ATXBMBookmark saveBookmarkWithError:?];
     }
 
     return 0;
@@ -314,8 +314,8 @@ LABEL_13:
 
   if (!v8)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[ATXBMBookmark _fileSizeWithinLimitsForPath:maxFileSize:];
     }
@@ -325,44 +325,43 @@ LABEL_13:
 
   if (v9)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromClass(self);
+      v12 = NSStringFromClass(self);
       *buf = 138412802;
-      v20 = v11;
+      v20 = v12;
       v21 = 2112;
       v22 = pathCopy;
       v23 = 2112;
       v24 = v9;
-      _os_log_error_impl(&dword_226368000, v10, OS_LOG_TYPE_ERROR, "%@ - file manager error for path %@, err: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_226368000, v11, OS_LOG_TYPE_ERROR, "%@ - file manager error for path %@, err: %@", buf, 0x20u);
     }
 
 LABEL_7:
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
   fileSize = [v8 fileSize];
-  v14 = __atxlog_handle_default();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_default(fileSize);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = NSStringFromClass(self);
+    v16 = NSStringFromClass(self);
     *buf = 138412802;
-    v20 = v15;
+    v20 = v16;
     v21 = 2112;
     v22 = pathCopy;
     v23 = 2048;
     v24 = fileSize;
-    _os_log_impl(&dword_226368000, v14, OS_LOG_TYPE_DEFAULT, "%@ - file size on disk for path %@ is %llu", buf, 0x20u);
+    _os_log_impl(&dword_226368000, v15, OS_LOG_TYPE_DEFAULT, "%@ - file size on disk for path %@ is %llu", buf, 0x20u);
   }
 
-  v12 = fileSize <= size;
+  v13 = fileSize <= size;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 + (id)_dataFromPath:(id)path
@@ -392,7 +391,7 @@ LABEL_11:
 
     else
     {
-      v9 = __atxlog_handle_default();
+      v9 = __atxlog_handle_default(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         +[ATXBMBookmark _dataFromPath:];
@@ -404,7 +403,7 @@ LABEL_11:
 
   else
   {
-    v7 = __atxlog_handle_default();
+    v7 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -419,90 +418,91 @@ LABEL_11:
 
 + (BOOL)_saveData:(id)data toFileURL:(id)l outError:(id *)error
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
-  v9 = lCopy;
+  v10 = lCopy;
   if (lCopy)
   {
     if (dataCopy)
     {
       uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = __atxlog_handle_default(uRLByDeletingLastPathComponent);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138412546;
-        v39 = v13;
-        v40 = 2112;
-        v41 = uRLByDeletingLastPathComponent;
-        _os_log_impl(&dword_226368000, v11, OS_LOG_TYPE_DEFAULT, "%@ - attempting to save data with directoryURL: %@", buf, 0x16u);
+        v42 = v14;
+        v43 = 2112;
+        v44 = uRLByDeletingLastPathComponent;
+        _os_log_impl(&dword_226368000, v12, OS_LOG_TYPE_DEFAULT, "%@ - attempting to save data with directoryURL: %@", buf, 0x16u);
       }
 
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_default(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138412546;
-        v39 = v16;
-        v40 = 2112;
-        v41 = v9;
-        _os_log_impl(&dword_226368000, v14, OS_LOG_TYPE_DEFAULT, "%@ - attempting to save data with fileURL: %@", buf, 0x16u);
+        v42 = v18;
+        v43 = 2112;
+        v44 = v10;
+        _os_log_impl(&dword_226368000, v16, OS_LOG_TYPE_DEFAULT, "%@ - attempting to save data with fileURL: %@", buf, 0x16u);
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v37 = 0;
-      v18 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v37];
-      v19 = v37;
+      v40 = 0;
+      v20 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v40];
+      v21 = v40;
 
-      if (!v18 || v19)
+      if (!v20 || v21)
       {
-        v30 = __atxlog_handle_default();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v34 = __atxlog_handle_default(v22);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v34 = objc_opt_class();
-          v35 = NSStringFromClass(v34);
+          v37 = objc_opt_class();
+          v38 = NSStringFromClass(v37);
           *buf = 138412802;
-          v39 = v35;
-          v40 = 2112;
-          v41 = uRLByDeletingLastPathComponent;
-          v42 = 2112;
-          v43 = v19;
-          _os_log_error_impl(&dword_226368000, v30, OS_LOG_TYPE_ERROR, "%@ - could not create directory at path: %@ with err: %@", buf, 0x20u);
+          v42 = v38;
+          v43 = 2112;
+          v44 = uRLByDeletingLastPathComponent;
+          v45 = 2112;
+          v46 = v21;
+          _os_log_error_impl(&dword_226368000, v34, OS_LOG_TYPE_ERROR, "%@ - could not create directory at path: %@ with err: %@", buf, 0x20u);
         }
 
         if (error)
         {
-          v31 = v19;
-          v20 = 0;
-          *error = v19;
+          v35 = v21;
+          v23 = 0;
+          *error = v21;
         }
 
         else
         {
-          v20 = 0;
+          v23 = 0;
         }
       }
 
       else
       {
-        v36 = 0;
-        v20 = [dataCopy writeToURL:v9 options:1073741825 error:&v36];
-        v21 = v36;
-        if ((v20 & 1) == 0)
+        v39 = 0;
+        v23 = [dataCopy writeToURL:v10 options:1073741825 error:&v39];
+        v24 = v39;
+        v25 = v24;
+        if ((v23 & 1) == 0)
         {
-          v22 = __atxlog_handle_default();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v26 = __atxlog_handle_default(v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             +[ATXBMBookmark _saveData:toFileURL:outError:];
           }
 
           if (error)
           {
-            v23 = v21;
-            *error = v21;
+            v27 = v25;
+            *error = v25;
           }
         }
       }
@@ -510,55 +510,54 @@ LABEL_11:
       goto LABEL_31;
     }
 
-    v29 = __atxlog_handle_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v33 = __atxlog_handle_default(lCopy);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
-      +[ATXBMBookmark _saveData:toFileURL:outError:];
+      [ATXBMBookmark _saveData:self toFileURL:? outError:?];
     }
 
     if (error)
     {
-      v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v44 = *MEMORY[0x277CCA450];
-      v45 = @"_saveDatatoFileURL called without data";
-      v26 = MEMORY[0x277CBEAC0];
-      v27 = &v45;
-      v28 = &v44;
+      v29 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v47 = *MEMORY[0x277CCA450];
+      v48 = @"_saveDatatoFileURL called without data";
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v48;
+      v32 = &v47;
       goto LABEL_23;
     }
   }
 
   else
   {
-    v24 = __atxlog_handle_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v28 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
-      +[ATXBMBookmark _saveData:toFileURL:outError:];
+      [ATXBMBookmark _saveData:self toFileURL:? outError:?];
     }
 
     if (error)
     {
-      v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v46 = *MEMORY[0x277CCA450];
-      v47[0] = @"Attempting to save data without a path is forbidden.";
-      v26 = MEMORY[0x277CBEAC0];
-      v27 = v47;
-      v28 = &v46;
+      v29 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v49 = *MEMORY[0x277CCA450];
+      v50[0] = @"Attempting to save data without a path is forbidden.";
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = v50;
+      v32 = &v49;
 LABEL_23:
-      uRLByDeletingLastPathComponent = [v26 dictionaryWithObjects:v27 forKeys:v28 count:1];
-      v20 = 0;
-      *error = [v25 initWithDomain:@"ATXBMBookmark" code:-1 userInfo:uRLByDeletingLastPathComponent];
+      uRLByDeletingLastPathComponent = [v30 dictionaryWithObjects:v31 forKeys:v32 count:1];
+      v23 = 0;
+      *error = [v29 initWithDomain:@"ATXBMBookmark" code:-1 userInfo:uRLByDeletingLastPathComponent];
 LABEL_31:
 
       goto LABEL_32;
     }
   }
 
-  v20 = 0;
+  v23 = 0;
 LABEL_32:
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v23;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -653,7 +652,7 @@ LABEL_13:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"urlPath" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXBMBookmark" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -667,7 +666,7 @@ LABEL_13:
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"versionNumber" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXBMBookmark" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -677,15 +676,15 @@ LABEL_13:
     {
       v16 = MEMORY[0x277D42620];
       allowedClassesForBookmarkSecureCoding = [(ATXBMBookmark *)self allowedClassesForBookmarkSecureCoding];
-      v18 = __atxlog_handle_default();
+      v18 = __atxlog_handle_default(allowedClassesForBookmarkSecureCoding);
       v19 = [v16 robustDecodeObjectOfClasses:allowedClassesForBookmarkSecureCoding forKey:@"bookmark" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXBMBookmark" errorCode:-1 logHandle:v18];
 
       error3 = [coderCopy error];
 
       if (error3)
       {
-        v21 = __atxlog_handle_default();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = __atxlog_handle_default(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [ATXBMBookmark initWithCoder:];
         }
@@ -695,32 +694,32 @@ LABEL_13:
 
       else
       {
-        v35 = v19;
+        v37 = v19;
         context = objc_autoreleasePoolPush();
-        v33 = objc_alloc(MEMORY[0x277CBEB98]);
-        v22 = objc_opt_class();
+        v35 = objc_alloc(MEMORY[0x277CBEB98]);
         v23 = objc_opt_class();
         v24 = objc_opt_class();
         v25 = objc_opt_class();
         v26 = objc_opt_class();
-        v27 = [v33 initWithObjects:{v22, v23, v24, v25, v26, objc_opt_class(), 0}];
+        v27 = objc_opt_class();
+        v28 = [v35 initWithObjects:{v23, v24, v25, v26, v27, objc_opt_class(), 0}];
         objc_autoreleasePoolPop(context);
-        v28 = MEMORY[0x277D42620];
-        v29 = __atxlog_handle_default();
-        v30 = [v28 robustDecodeObjectOfClasses:v27 forKey:@"metadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXBMBookmark" errorCode:-1 logHandle:v29];
+        v29 = MEMORY[0x277D42620];
+        v31 = __atxlog_handle_default(v30);
+        v32 = [v29 robustDecodeObjectOfClasses:v28 forKey:@"metadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXBMBookmark" errorCode:-1 logHandle:v31];
 
         error4 = [coderCopy error];
 
         if (error4)
         {
           selfCopy = 0;
-          v19 = v35;
+          v19 = v37;
         }
 
         else
         {
-          v19 = v35;
-          self = [(ATXBMBookmark *)self initWithURLPath:v8 versionNumber:v14 bookmark:v35 metadata:v30];
+          v19 = v37;
+          self = [(ATXBMBookmark *)self initWithURLPath:v8 versionNumber:v14 bookmark:v37 metadata:v32];
           selfCopy = self;
         }
       }
@@ -733,140 +732,110 @@ LABEL_13:
 + (void)bookmarkFromData:bookmarkLocation:versionNumber:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - failed to unarchive bookmark with error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - failed to unarchive bookmark with error: %@", v4, v5, v6, v7);
 }
 
 + (void)bookmarkFromURLPath:maxFileSize:versionNumber:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - bookmark file doesn't exist at path %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - bookmark file doesn't exist at path %@", v4, v5, v6, v7);
 }
 
 + (void)bookmarkFromURLPath:maxFileSize:versionNumber:.cold.2()
 {
   OUTLINED_FUNCTION_4_1();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bookmarkFromURLPath:maxFileSize:versionNumber:.cold.3()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - could not read serialized data for bookmark at path %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - could not read serialized data for bookmark at path %@", v4, v5, v6, v7);
 }
 
 - (void)serializeBookmark:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)saveBookmarkWithError:.cold.1()
+- (void)saveBookmarkWithError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 + (void)_fileSizeWithinLimitsForPath:maxFileSize:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - failed to retrieve attributes for path %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - failed to retrieve attributes for path %@", v4, v5, v6, v7);
 }
 
 + (void)_dataFromPath:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_226368000, v1, OS_LOG_TYPE_ERROR, "Unable to read data from file handle %@ - %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_226368000, v1, OS_LOG_TYPE_ERROR, "Unable to read data from file handle %@ - %@", v2, 0x16u);
 }
 
 + (void)_saveData:toFileURL:outError:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - could not write data file with error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v2, v3, "%@ - could not write data file with error: %@", v4, v5, v6, v7);
 }
 
-+ (void)_saveData:toFileURL:outError:.cold.2()
++ (void)_saveData:(uint64_t)a1 toFileURL:outError:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-+ (void)_saveData:toFileURL:outError:.cold.3()
++ (void)_saveData:(uint64_t)a1 toFileURL:outError:.cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)initWithCoder:.cold.1()
 {
   OUTLINED_FUNCTION_4_1();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = NSStringFromClass(v1);
-  v10 = [v0 error];
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v3, v4, "%@ - failed to decode id<BMBookmark> with error: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [v0 error];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v4, v5, "%@ - failed to decode id<BMBookmark> with error: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

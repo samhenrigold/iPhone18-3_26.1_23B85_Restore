@@ -53,10 +53,10 @@
   clientModelId = [updateCopy clientModelId];
   [(NSMutableDictionary *)clientModelCacheUpdates setObject:updateCopy forKey:clientModelId];
 
-  v7 = __atxlog_handle_blending_ecosystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_blending_ecosystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [ATXProactiveSuggestionShadowLoggingContext updateWithClientModelCacheUpdate:];
+    [ATXProactiveSuggestionShadowLoggingContext updateWithClientModelCacheUpdate:?];
   }
 }
 
@@ -64,10 +64,10 @@
 {
   contextCopy = context;
   objc_storeStrong(&self->_context, context);
-  v6 = __atxlog_handle_blending_ecosystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = __atxlog_handle_blending_ecosystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [ATXProactiveSuggestionShadowLoggingContext updateWithContext:];
+    [ATXProactiveSuggestionShadowLoggingContext updateWithContext:?];
   }
 }
 
@@ -142,17 +142,17 @@ LABEL_9:
   v9 = [v6 initWithObjects:{v7, v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v5);
   v10 = MEMORY[0x277D42620];
-  v11 = __atxlog_handle_blending_ecosystem();
-  v12 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"clientCaches" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContext" errorCode:-1 logHandle:v11];
+  v12 = __atxlog_handle_blending_ecosystem(v11);
+  v13 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"clientCaches" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContext" errorCode:-1 logHandle:v12];
 
-  if (v12)
+  if (v13)
   {
-    v13 = MEMORY[0x277D42620];
-    v14 = objc_opt_class();
-    v15 = __atxlog_handle_blending_ecosystem();
-    v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"predictionContext" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContext" errorCode:-1 logHandle:v15];
+    v14 = MEMORY[0x277D42620];
+    v15 = objc_opt_class();
+    v16 = __atxlog_handle_blending_ecosystem(v15);
+    v17 = [v14 robustDecodeObjectOfClass:v15 forKey:@"predictionContext" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXProactiveSuggestionShadowLoggingContext" errorCode:-1 logHandle:v16];
 
-    self = [(ATXProactiveSuggestionShadowLoggingContext *)self initWithClientModelCacheUpdates:v12 context:v16];
+    self = [(ATXProactiveSuggestionShadowLoggingContext *)self initWithClientModelCacheUpdates:v13 context:v17];
     selfCopy = self;
   }
 
@@ -164,26 +164,20 @@ LABEL_9:
   return selfCopy;
 }
 
-- (void)updateWithClientModelCacheUpdate:.cold.1()
+- (void)updateWithClientModelCacheUpdate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated with new client model cache: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ - updated with new client model cache: %@", v5, v6, v7, v8);
 }
 
-- (void)updateWithContext:.cold.1()
+- (void)updateWithContext:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated with new context: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ - updated with new context: %@", v5, v6, v7, v8);
 }
 
 @end

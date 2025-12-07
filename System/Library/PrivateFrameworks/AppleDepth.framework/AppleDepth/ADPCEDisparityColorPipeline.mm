@@ -365,7 +365,7 @@ LABEL_3:
     {
       disparityOutput2 = [(ADEspressoPCEDisparityColorInferenceDescriptor *)self->_inferenceDesc disparityOutput];
       imageDescriptor2 = [disparityOutput2 imageDescriptor];
-      PixelBufferUtils::pixelFormatAsString([imageDescriptor2 pixelFormat], &__p);
+      PixelBufferUtils::pixelFormatAsString(&__p, [imageDescriptor2 pixelFormat]);
       v16 = SHIBYTE(v30);
       v17 = __p;
       pixelFormat2 = [inputCopy pixelFormat];
@@ -491,7 +491,7 @@ LABEL_5:
     {
       disparityInput = [(ADEspressoPCEDisparityColorInferenceDescriptor *)self->_inferenceDesc disparityInput];
       imageDescriptor2 = [disparityInput imageDescriptor];
-      PixelBufferUtils::pixelFormatAsString([imageDescriptor2 pixelFormat], buf);
+      PixelBufferUtils::pixelFormatAsString(buf, [imageDescriptor2 pixelFormat]);
       v39 = SHIBYTE(v48);
       v40 = *buf;
       pixelFormat4 = [outputCopy pixelFormat];

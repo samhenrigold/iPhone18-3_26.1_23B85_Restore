@@ -37,7 +37,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_1004894A4();
+  sub_1004894A4(selfCopy, v5, v6);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -62,7 +62,7 @@
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10007EBC0(&unk_1006C2670);
+  v10 = sub_10007EBC0(&unk_1006C2670, &qword_10055DDB0);
   __chkstk_darwin(v10 - 8);
   v12 = &v20 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();

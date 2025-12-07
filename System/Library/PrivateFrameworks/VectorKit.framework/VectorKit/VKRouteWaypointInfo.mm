@@ -54,7 +54,7 @@
   {
     waypoint = self->_waypoint;
 
-    [(GEOComposedWaypoint *)waypoint coordinate];
+    objc_msgSend_coordinate(waypoint);
   }
 
   result.var2 = v12;
@@ -121,10 +121,10 @@
     v4 = objc_alloc(MEMORY[0x1E69A1DB0]);
     artwork2 = [(GEOComposedWaypointDisplayInfo *)self->_displayInfo artwork];
     icon = [artwork2 icon];
-    styleAttributes = [icon styleAttributes];
-    v8 = [v4 initWithGEOStyleAttributes:styleAttributes];
+    v7 = objc_msgSend_styleAttributes(icon);
+    v8 = [v4 initWithGEOStyleAttributes:v7];
 LABEL_5:
-    styleAttributes5 = v8;
+    v11 = v8;
 
     goto LABEL_6;
   }
@@ -136,39 +136,39 @@ LABEL_5:
     v10 = objc_alloc(MEMORY[0x1E69A1DB0]);
     artwork2 = [(GEOComposedWaypoint *)self->_waypoint artwork];
     icon = [artwork2 iconDataSource];
-    styleAttributes = [icon styleAttributes];
-    v8 = [v10 initWithGEOStyleAttributes:styleAttributes];
+    v7 = objc_msgSend_styleAttributes(icon);
+    v8 = [v10 initWithGEOStyleAttributes:v7];
     goto LABEL_5;
   }
 
   _anchorpoint = [(VKRouteWaypointInfo *)self _anchorpoint];
-  styleAttributes2 = [_anchorpoint styleAttributes];
+  v14 = objc_msgSend_styleAttributes(_anchorpoint);
 
-  if (!styleAttributes2)
+  if (!v14)
   {
-    styleAttributes3 = [(GEOComposedWaypoint *)self->_waypoint styleAttributes];
+    v15 = objc_msgSend_styleAttributes(self->_waypoint);
 
-    if (styleAttributes3)
+    if (v15)
     {
-      styleAttributes4 = [(GEOComposedWaypoint *)self->_waypoint styleAttributes];
+      v16 = objc_msgSend_styleAttributes(self->_waypoint);
     }
 
     else
     {
-      styleAttributes4 = [objc_alloc(MEMORY[0x1E69A1DB0]) initWithAttributes:{5, 3, 6, 348, 0}];
+      v16 = [objc_alloc(MEMORY[0x1E69A1DB0]) initWithAttributes:{5, 3, 6, 348, 0}];
     }
 
-    styleAttributes5 = styleAttributes4;
+    v11 = v16;
     goto LABEL_7;
   }
 
   artwork2 = [(VKRouteWaypointInfo *)self _anchorpoint];
-  styleAttributes5 = [artwork2 styleAttributes];
+  v11 = objc_msgSend_styleAttributes(artwork2);
 LABEL_6:
 
 LABEL_7:
 
-  return styleAttributes5;
+  return v11;
 }
 
 - (VKRouteWaypointInfo)initWithWaypoint:(id)waypoint displayInfo:(id)info legIndex:(unint64_t)index routeCoordinate:(id)coordinate adjacentRouteCoordinate:(id)routeCoordinate polylineCoordinate:(PolylineCoordinate)polylineCoordinate waypointType:(unsigned __int8)type
@@ -252,12 +252,12 @@ LABEL_7:
   if (!chargingInfo)
   {
     v22 = waypointCopy;
-    styleAttributes = [v22 styleAttributes];
+    v23 = objc_msgSend_styleAttributes(v22);
 
-    if (styleAttributes)
+    if (v23)
     {
-      styleAttributes2 = [v22 styleAttributes];
-      featureStyleAttributes = [styleAttributes2 featureStyleAttributes];
+      v24 = objc_msgSend_styleAttributes(v22);
+      featureStyleAttributes = [v24 featureStyleAttributes];
       if (*(featureStyleAttributes + 33))
       {
         v26 = 0;

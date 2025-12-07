@@ -533,7 +533,7 @@ LABEL_12:
 
 - (void)addObject:(id)object
 {
-  v126[2] = *MEMORY[0x277D85DE8];
+  v122[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_msgSend_willModify(self, v4, v5);
   ++self->_mutations;
@@ -593,54 +593,51 @@ LABEL_23:
   {
     v12 = objc_msgSend_count(self->_segments, v19, v28) - 1;
     v30 = objc_msgSend_objectAtIndex_(self->_segments, v29, v12);
-    v125 = 0;
-    v32 = objc_msgSend_objectAndReturnError_(v30, v31, &v125);
-    v33 = v125;
+    v121 = 0;
+    v32 = objc_msgSend_objectAndReturnError_(v30, v31, &v121);
+    v33 = v121;
 
     if (!v32 && v33)
     {
-      v84 = objc_opt_class();
-      v85 = NSStringFromClass(v84);
-      v88 = objc_msgSend_domain(v33, v86, v87);
-      v91 = objc_msgSend_code(v33, v89, v90);
-      isRecoverable = objc_msgSend_tsp_isRecoverable(v33, v92, v93);
-      v97 = objc_msgSend_tsp_hintsDescription(v33, v95, v96);
-      v98 = v97;
+      v83 = objc_opt_class();
+      v84 = NSStringFromClass(v83);
+      v87 = objc_msgSend_domain(v33, v85, v86);
+      v90 = objc_msgSend_code(v33, v88, v89);
+      isRecoverable = objc_msgSend_tsp_isRecoverable(v33, v91, v92);
+      v96 = objc_msgSend_tsp_hintsDescription(v33, v94, v95);
+      v97 = v96;
       if (isRecoverable)
       {
-        v99 = @"recoverable=YES, ";
+        v98 = @"recoverable=YES, ";
       }
 
       else
       {
-        v99 = &stru_2885C9BB8;
+        v98 = &stru_2885C9BB8;
       }
 
-      v122 = v97;
-      v120 = v91;
-      v121 = v99;
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPAbstractMutableLargeArray addObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 589, v84, v87, v90, v98, v96, v33);
 
-      v100 = MEMORY[0x277D81150];
-      v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v101, "[TSPAbstractMutableLargeArray addObject:]", "[TSPAbstractMutableLargeArray addObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 589, v85, v88, v120, v121, v122, v33);
-      v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
-      v105 = objc_opt_class();
-      v106 = NSStringFromClass(v105);
-      v109 = objc_msgSend_domain(v33, v107, v108);
-      v112 = objc_msgSend_code(v33, v110, v111);
-      v115 = objc_msgSend_tsp_isRecoverable(v33, v113, v114);
-      v123 = objc_msgSend_tsp_hintsDescription(v33, v116, v117);
-      if (v115)
+      v99 = MEMORY[0x277D81150];
+      v101 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v100, "[TSPAbstractMutableLargeArray addObject:]");
+      v103 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
+      v104 = objc_opt_class();
+      v105 = NSStringFromClass(v104);
+      v108 = objc_msgSend_domain(v33, v106, v107);
+      v111 = objc_msgSend_code(v33, v109, v110);
+      v114 = objc_msgSend_tsp_isRecoverable(v33, v112, v113);
+      v119 = objc_msgSend_tsp_hintsDescription(v33, v115, v116);
+      if (v114)
       {
-        v119 = @"recoverable=YES, ";
+        v118 = @"recoverable=YES, ";
       }
 
       else
       {
-        v119 = &stru_2885C9BB8;
+        v118 = &stru_2885C9BB8;
       }
 
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v100, v118, v102, v104, 589, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v106, v109, v112, v119, v123, v33);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v99, v117, v101, v103, 589, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v105, v108, v111, v118, v119, v33);
 
       TSUCrashBreakpoint();
       abort();
@@ -688,9 +685,9 @@ LABEL_16:
     self->_bisectedSegmentIdentifier = objc_msgSend_tsp_identifier(v11, v62, v63);
     self->_bisectedSegmentIndex = objc_msgSend_count(self->_segments, v64, v65) - 1;
     v68 = objc_msgSend_count(v11, v66, v67);
-    v126[0] = v11;
-    v126[1] = v60;
-    v70 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v69, v126, 2);
+    v122[0] = v11;
+    v122[1] = v60;
+    v70 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v69, v122, 2);
     objc_msgSend_largeArraySegmentDidBisectAtIndex_segments_(self, v71, v68, v70);
 
     self->_bisectedSegmentIdentifier = 0;
@@ -698,12 +695,11 @@ LABEL_16:
   }
 
 LABEL_24:
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObjectsFromArray:(id)array
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   objc_msgSend_willModify(self, v4, v5);
   ++self->_mutations;
@@ -763,52 +759,49 @@ LABEL_26:
   {
     v12 = objc_msgSend_count(self->_segments, v19, v28) - 1;
     v30 = objc_msgSend_objectAtIndex_(self->_segments, v29, v12);
-    v120 = 0;
-    v32 = objc_msgSend_objectAndReturnError_(v30, v31, &v120);
-    v33 = v120;
+    v116 = 0;
+    v32 = objc_msgSend_objectAndReturnError_(v30, v31, &v116);
+    v33 = v116;
 
     if (!v32 && v33)
     {
-      v75 = objc_opt_class();
-      v76 = NSStringFromClass(v75);
-      v79 = objc_msgSend_domain(v33, v77, v78);
-      v82 = objc_msgSend_code(v33, v80, v81);
-      isRecoverable = objc_msgSend_tsp_isRecoverable(v33, v83, v84);
-      v88 = objc_msgSend_tsp_hintsDescription(v33, v86, v87);
-      v89 = v88;
+      v74 = objc_opt_class();
+      v75 = NSStringFromClass(v74);
+      v78 = objc_msgSend_domain(v33, v76, v77);
+      v81 = objc_msgSend_code(v33, v79, v80);
+      isRecoverable = objc_msgSend_tsp_isRecoverable(v33, v82, v83);
+      v87 = objc_msgSend_tsp_hintsDescription(v33, v85, v86);
+      v88 = v87;
       if (isRecoverable)
       {
-        v90 = @"recoverable=YES, ";
+        v89 = @"recoverable=YES, ";
       }
 
       else
       {
-        v90 = &stru_2885C9BB8;
+        v89 = &stru_2885C9BB8;
       }
 
-      v113 = v88;
-      v111 = v82;
-      v112 = v90;
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPAbstractMutableLargeArray addObjectsFromArray:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 661, v75, v78, v81, v89, v87, v33);
 
-      v91 = MEMORY[0x277D81150];
-      v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, "[TSPAbstractMutableLargeArray addObjectsFromArray:]", "[TSPAbstractMutableLargeArray addObjectsFromArray:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 661, v76, v79, v111, v112, v113, v33);
-      v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v94, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
-      v96 = objc_opt_class();
-      v97 = NSStringFromClass(v96);
-      v100 = objc_msgSend_domain(v33, v98, v99);
-      v103 = objc_msgSend_code(v33, v101, v102);
-      v114 = objc_msgSend_tsp_isRecoverable(v33, v104, v105);
-      v108 = objc_msgSend_tsp_hintsDescription(v33, v106, v107);
-      v110 = v108;
-      if (v114)
+      v90 = MEMORY[0x277D81150];
+      v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "[TSPAbstractMutableLargeArray addObjectsFromArray:]");
+      v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
+      v95 = objc_opt_class();
+      v96 = NSStringFromClass(v95);
+      v99 = objc_msgSend_domain(v33, v97, v98);
+      v102 = objc_msgSend_code(v33, v100, v101);
+      v110 = objc_msgSend_tsp_isRecoverable(v33, v103, v104);
+      v107 = objc_msgSend_tsp_hintsDescription(v33, v105, v106);
+      v109 = v107;
+      if (v110)
       {
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v91, v109, v93, v95, 661, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v97, v100, v103, @"recoverable=YES, ", v108, v33);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v108, v92, v94, 661, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v96, v99, v102, @"recoverable=YES, ", v107, v33);
       }
 
       else
       {
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v91, v109, v93, v95, 661, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v97, v100, v103, &stru_2885C9BB8, v108, v33);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v108, v92, v94, 661, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v96, v99, v102, &stru_2885C9BB8, v107, v33);
       }
 
       TSUCrashBreakpoint();
@@ -836,25 +829,25 @@ LABEL_16:
   v41 = MEMORY[0x277CBEB18];
   v42 = objc_msgSend_count(arrayCopy, v19, v20);
   v44 = objc_msgSend_arrayWithCapacity_(v41, v43, v42);
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
-  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
   v45 = arrayCopy;
-  v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v116, v121, 16);
+  v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v112, v117, 16);
   if (v48)
   {
-    v49 = *v117;
+    v49 = *v113;
     do
     {
       for (i = 0; i != v48; ++i)
       {
-        if (*v117 != v49)
+        if (*v113 != v49)
         {
           objc_enumerationMutation(v45);
         }
 
-        v53 = objc_msgSend_convertElementToSegmentElement_(self, v47, *(*(&v116 + 1) + 8 * i));
+        v53 = objc_msgSend_convertElementToSegmentElement_(self, v47, *(*(&v112 + 1) + 8 * i));
         if (!v53)
         {
           v53 = objc_msgSend_null(MEMORY[0x277CBEB68], v51, v52);
@@ -863,7 +856,7 @@ LABEL_16:
         objc_msgSend_addObject_(v44, v51, v53);
       }
 
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v116, v121, 16);
+      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v112, v117, 16);
     }
 
     while (v48);
@@ -878,7 +871,6 @@ LABEL_16:
   objc_msgSend_bisectSegmentIfNeeded_(self, v66, v12);
 
 LABEL_27:
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeLastObject
@@ -888,9 +880,9 @@ LABEL_27:
     objc_msgSend_willModify(self, v4, v5);
     ++self->_mutations;
     v8 = objc_msgSend_lastObject(self->_segments, v6, v7);
-    v81 = 0;
-    v10 = objc_msgSend_objectAndReturnError_(v8, v9, &v81);
-    v11 = v81;
+    v78 = 0;
+    v10 = objc_msgSend_objectAndReturnError_(v8, v9, &v78);
+    v11 = v78;
 
     if (v10)
     {
@@ -921,21 +913,18 @@ LABEL_27:
         v56 = &stru_2885C9BB8;
       }
 
-      v78 = v54;
-      v76 = v48;
-      v77 = v56;
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPAbstractMutableLargeArray removeLastObject]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 699, v42, v45, v48, v56, v54, v11);
 
       v57 = MEMORY[0x277D81150];
-      v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "[TSPAbstractMutableLargeArray removeLastObject]", "[TSPAbstractMutableLargeArray removeLastObject]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 699, v42, v45, v76, v77, v78, v11);
+      v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "[TSPAbstractMutableLargeArray removeLastObject]");
       v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
       v62 = objc_opt_class();
       v63 = NSStringFromClass(v62);
       v66 = objc_msgSend_domain(v11, v64, v65);
       v69 = objc_msgSend_code(v11, v67, v68);
-      v80 = objc_msgSend_tsp_isRecoverable(v11, v70, v71);
-      v79 = objc_msgSend_tsp_hintsDescription(v11, v72, v73);
-      if (v80)
+      v77 = objc_msgSend_tsp_isRecoverable(v11, v70, v71);
+      v76 = objc_msgSend_tsp_hintsDescription(v11, v72, v73);
+      if (v77)
       {
         v75 = @"recoverable=YES, ";
       }
@@ -945,7 +934,7 @@ LABEL_27:
         v75 = &stru_2885C9BB8;
       }
 
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v74, v59, v61, 699, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v63, v66, v69, v75, v79, v11);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v74, v59, v61, 699, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v63, v66, v69, v75, v76, v11);
 
       TSUCrashBreakpoint();
       abort();
@@ -1481,9 +1470,9 @@ LABEL_12:
 - (id)segmentAtIndex:(unint64_t)index
 {
   v4 = objc_msgSend_objectAtIndex_(self->_segments, a2, index);
-  v59 = 0;
-  v6 = objc_msgSend_objectAndReturnError_(v4, v5, &v59);
-  v7 = v59;
+  v56 = 0;
+  v6 = objc_msgSend_objectAndReturnError_(v4, v5, &v56);
+  v7 = v56;
 
   if (v6)
   {
@@ -1514,21 +1503,18 @@ LABEL_12:
       v34 = &stru_2885C9BB8;
     }
 
-    v56 = v32;
-    v54 = v26;
-    v55 = v34;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPAbstractMutableLargeArray segmentAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 1085, v20, v23, v26, v34, v32, v7);
 
     v35 = MEMORY[0x277D81150];
-    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSPAbstractMutableLargeArray segmentAtIndex:]", "[TSPAbstractMutableLargeArray segmentAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm", 1085, v20, v23, v54, v55, v56, v7);
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSPAbstractMutableLargeArray segmentAtIndex:]");
     v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPAbstractMutableLargeArray.mm");
     v40 = objc_opt_class();
     v41 = NSStringFromClass(v40);
     v44 = objc_msgSend_domain(v7, v42, v43);
     v47 = objc_msgSend_code(v7, v45, v46);
-    v58 = objc_msgSend_tsp_isRecoverable(v7, v48, v49);
-    v57 = objc_msgSend_tsp_hintsDescription(v7, v50, v51);
-    if (v58)
+    v55 = objc_msgSend_tsp_isRecoverable(v7, v48, v49);
+    v54 = objc_msgSend_tsp_hintsDescription(v7, v50, v51);
+    if (v55)
     {
       v53 = @"recoverable=YES, ";
     }
@@ -1538,7 +1524,7 @@ LABEL_12:
       v53 = &stru_2885C9BB8;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v52, v37, v39, 1085, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v41, v44, v47, v53, v57, v7);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v52, v37, v39, 1085, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v41, v44, v47, v53, v54, v7);
 
     TSUCrashBreakpoint();
     abort();
@@ -1745,7 +1731,7 @@ LABEL_12:
     {
       v31 = *(message + 15);
 LABEL_25:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 12, v31 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 48), v31 + 1);
       v29 = *(message + 8);
       v31 = *v29;
       goto LABEL_26;
@@ -1787,7 +1773,7 @@ LABEL_27:
     {
       v42 = *(message + 9);
 LABEL_35:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 6, v42 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 24), v42 + 1);
       v40 = *(message + 5);
       v42 = *v40;
       goto LABEL_36;

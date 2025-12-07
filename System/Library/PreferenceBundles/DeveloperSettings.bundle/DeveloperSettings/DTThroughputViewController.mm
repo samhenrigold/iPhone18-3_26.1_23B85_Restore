@@ -9,9 +9,27 @@
 - (void)startSpeedTest:(id)test;
 - (void)updateTestStatus:(int64_t)status;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DTThroughputViewController
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = DTThroughputViewController;
+  [(DTThroughputViewController *)&v6 viewWillDisappear:disappear];
+  testObject = [(DTThroughputViewController *)self testObject];
+
+  if (testObject)
+  {
+    testObject2 = [(DTThroughputViewController *)self testObject];
+    [testObject2 cancelAllNetworking];
+
+    [(DTThroughputViewController *)self setTestObject:0];
+    [(DTThroughputViewController *)self setTestStatus:0];
+  }
+}
 
 - (void)viewDidLoad
 {

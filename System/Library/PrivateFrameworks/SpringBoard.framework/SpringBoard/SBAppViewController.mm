@@ -68,12 +68,12 @@
   NSClassFromString(&cfstr_Sbapplications_8.isa);
   if (!entityCopy)
   {
-    [SBAppViewController initWithIdentifier:a2 andApplicationSceneEntity:?];
+    [SBAppViewController initWithIdentifier:a2 andApplicationSceneEntity:self];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBAppViewController initWithIdentifier:a2 andApplicationSceneEntity:?];
+    [SBAppViewController initWithIdentifier:a2 andApplicationSceneEntity:self];
   }
 
   v26.receiver = self;
@@ -366,7 +366,7 @@ id __74__SBAppViewController_viewWillTransitionToSize_withTransitionCoordinator_
   return v5;
 }
 
-uint64_t __74__SBAppViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
+void *__74__SBAppViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 1008) contentOrientation];
   result = [*(a1 + 32) bs_isAppearingOrAppeared];
@@ -620,11 +620,11 @@ uint64_t __66__SBAppViewController_setDisplayMode_animationFactory_completion___
       if ((v15 & 1) == 0)
       {
         ignoreOcclusionReasons3 = [settings ignoreOcclusionReasons];
-        v17 = [ignoreOcclusionReasons3 containsObject:self->_identifier];
+        v17 = objc_msgSend_containsObject_(ignoreOcclusionReasons3);
 
         if ((v17 & 1) == 0)
         {
-          [SBAppViewController sceneHandle:a2 didUpdateSettingsWithDiff:? previousSettings:?];
+          [SBAppViewController sceneHandle:a2 didUpdateSettingsWithDiff:self previousSettings:?];
         }
       }
     }
@@ -890,7 +890,7 @@ void __43__SBAppViewController__deactivateHostedApp__block_invoke_3(uint64_t a1,
 
   application = [(SBApplicationSceneHandle *)self->_sceneHandle application];
   bundleIdentifier = [application bundleIdentifier];
-  v7 = [v8 containsObject:bundleIdentifier];
+  v7 = objc_msgSend_containsObject_(v8);
 
   if (v7)
   {
@@ -958,7 +958,7 @@ void __43__SBAppViewController__deactivateHostedApp__block_invoke_3(uint64_t a1,
   v4 = [(SBAppViewController *)self _windowSceneFromSceneHandle:context];
   _FBSScene = [v4 _FBSScene];
   settings = [_FBSScene settings];
-  [settings frame];
+  objc_msgSend_frame(settings);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -1001,19 +1001,19 @@ void __43__SBAppViewController__deactivateHostedApp__block_invoke_3(uint64_t a1,
   return WeakRetained;
 }
 
-- (void)initWithIdentifier:(const char *)a1 andApplicationSceneEntity:.cold.1(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 andApplicationSceneEntity:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:SBApplicationSceneEntityClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:SBApplicationSceneEntityClass]", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1026,19 +1026,19 @@ void __43__SBAppViewController__deactivateHostedApp__block_invoke_3(uint64_t a1,
   [v1 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)initWithIdentifier:(const char *)a1 andApplicationSceneEntity:.cold.3(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 andApplicationSceneEntity:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1063,19 +1063,19 @@ void __43__SBAppViewController__deactivateHostedApp__block_invoke_3(uint64_t a1,
   [v12 handleFailureInMethod:a3 object:a1 file:@"SBAppViewController.m" lineNumber:450 description:{@"Something changed the scene's (%@) foreground status out from underneath us (current mode: %@, diff: %@, window: %@).", v6, v7, v8, v11}];
 }
 
-- (void)sceneHandle:(const char *)a1 didUpdateSettingsWithDiff:previousSettings:.cold.2(const char *a1)
+- (void)sceneHandle:(const char *)a1 didUpdateSettingsWithDiff:(uint64_t)a2 previousSettings:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[sceneSettings ignoreOcclusionReasons] containsObject:_identifier]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[[sceneSettings ignoreOcclusionReasons] containsObject:_identifier]", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

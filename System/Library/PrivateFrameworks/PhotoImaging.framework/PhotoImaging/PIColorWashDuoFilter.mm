@@ -220,7 +220,7 @@
         v59 = v59 + v61;
       }
 
-      [v4 extent];
+      objc_msgSend_extent(v4);
       v94 = v63;
       v65 = v64;
       v67 = v66;
@@ -272,7 +272,7 @@
 LABEL_39:
     imageByUnpremultiplyingAlpha2 = [v4 imageByUnpremultiplyingAlpha];
 
-    [imageByUnpremultiplyingAlpha2 extent];
+    objc_msgSend_extent(imageByUnpremultiplyingAlpha2);
     v85 = v84;
     v87 = v86;
     v89 = v88;
@@ -317,7 +317,7 @@ LABEL_39:
   }
 
   v30 = iptColorWashDuoFixedKernel;
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v32 = v31;
   v34 = v33;
   v36 = v35;

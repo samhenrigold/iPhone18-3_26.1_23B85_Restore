@@ -1,12 +1,12 @@
 @interface _UICollectionViewLayoutInteractionStateModule
 - (BOOL)_shouldAdjustLayoutToDrawTopSeparatorInSection:(uint64_t)section;
 - (_UICollectionViewLayoutInteractionStateModuleHost)host;
+- (id)itemAtIndexPathIsBeingReordered:(id *)result;
+- (id)swipeActionsStyleForSwipedItemAtIndexPath:(id *)path;
 - (uint64_t)_itemIsSelectedOrHighlightedAndHasBackgroundFillForGroupingAtIndexPath:(void *)path cellGroupingPreference:(_BYTE *)preference backgroundIsInset:;
 - (uint64_t)enumerateSectionsAfterSectionIndex:(void *)index enumerator:;
-- (uint64_t)itemAtIndexPathIsBeingReordered:(uint64_t)result;
 - (uint64_t)itemAtIndexPathIsSelected:(uint64_t)selected;
 - (uint64_t)selectionGroupingForItemAtIndexPath:(uint64_t)path;
-- (uint64_t)swipeActionsStyleForSwipedItemAtIndexPath:(uint64_t)path;
 - (void)_noteCellWillBeginProcessing:(void *)processing atIndexPath:;
 - (void)initWithHost:(void *)host;
 - (void)performPreferredAttributesProcessingBlock:(void *)block withLayoutAttributes:(void *)attributes forView:;
@@ -521,13 +521,13 @@ LABEL_11:
   return v8;
 }
 
-- (uint64_t)itemAtIndexPathIsBeingReordered:(uint64_t)result
+- (id)itemAtIndexPathIsBeingReordered:(id *)result
 {
   if (result)
   {
     v2 = result;
     v3 = a2;
-    WeakRetained = objc_loadWeakRetained((v2 + 24));
+    WeakRetained = objc_loadWeakRetained(v2 + 3);
     collectionView = [WeakRetained collectionView];
     v6 = [collectionView _isReorderingItemAtIndexPath:v3];
 
@@ -544,7 +544,7 @@ LABEL_11:
     return 0;
   }
 
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:sel__shouldAdjustLayoutToDrawTopSeparatorInSection_ object:section file:@"_UICollectionViewLayoutInteractionStateModule.m" lineNumber:213 description:{@"Invalid parameter not satisfying: %@", @"sectionIndex >= 0"}];
@@ -672,7 +672,7 @@ LABEL_18:
   return v11;
 }
 
-- (uint64_t)swipeActionsStyleForSwipedItemAtIndexPath:(uint64_t)path
+- (id)swipeActionsStyleForSwipedItemAtIndexPath:(id *)path
 {
   v3 = a2;
   v4 = v3;
@@ -684,7 +684,7 @@ LABEL_18:
       [currentHandler handleFailureInMethod:sel_swipeActionsStyleForSwipedItemAtIndexPath_ object:path file:@"_UICollectionViewLayoutInteractionStateModule.m" lineNumber:274 description:{@"Invalid parameter not satisfying: %@", @"indexPath != nil"}];
     }
 
-    WeakRetained = objc_loadWeakRetained((path + 24));
+    WeakRetained = objc_loadWeakRetained(path + 3);
     path = [WeakRetained _interactionStateModule:path swipeActionsStyleForSwipedItemAtIndexPath:v4];
   }
 

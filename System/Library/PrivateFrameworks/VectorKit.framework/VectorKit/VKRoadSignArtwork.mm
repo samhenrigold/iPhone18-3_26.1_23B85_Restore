@@ -3,8 +3,8 @@
 - (Box<float,)localRenderBounds;
 - (Box<float,)localSignBounds;
 - (Matrix<float,)offsetPixelForPixel:()Matrix<float;
-- (char)initWithFramesetter:(const void *)framesetter signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store;
-- (char)initWithLine:(const void *)line signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store;
+- (VKRoadSignArtwork)initWithFramesetter:(const void *)framesetter signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store;
+- (VKRoadSignArtwork)initWithLine:(const void *)line signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store;
 - (id).cxx_construct;
 - (id)image;
 - (void)addDebugPoint:(CGPoint)point color:()Color<float;
@@ -510,7 +510,7 @@ LABEL_41:
       v82 = 0;
     }
 
-    v11 = VKCreateRoadSignImageWithSignType(self + 32, self + 86, self + 1416, &v81);
+    v11 = VKCreateRoadSignImageWithSignType(self + 32, (self + 688), self + 1416, &v81);
     if (v82)
     {
       std::__shared_weak_count::__release_weak(v82);
@@ -523,7 +523,7 @@ LABEL_41:
       atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v12 = VKCreateRoadSignImageWithSignType(self + 32, self + 42, self + 1416, &v79);
+    v12 = VKCreateRoadSignImageWithSignType(self + 32, (self + 336), self + 1416, &v79);
     if (v80)
     {
       std::__shared_weak_count::__release_weak(v80);
@@ -536,7 +536,7 @@ LABEL_41:
       atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v13 = VKCreateRoadSignImageWithSignType(self + 32, self + 64, self + 1416, &v77);
+    v13 = VKCreateRoadSignImageWithSignType(self + 32, (self + 512), self + 1416, &v77);
     if (v78)
     {
       std::__shared_weak_count::__release_weak(v78);
@@ -589,7 +589,7 @@ LABEL_41:
           atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v46 = VKCreateRoadSignImageWithSignType(self + 32, self + 108, self + 1416, &v75);
+        v46 = VKCreateRoadSignImageWithSignType(self + 32, (self + 864), self + 1416, &v75);
         if (v76)
         {
           std::__shared_weak_count::__release_weak(v76);
@@ -746,7 +746,7 @@ LABEL_42:
   return v8;
 }
 
-- (char)initWithLine:(const void *)line signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store
+- (VKRoadSignArtwork)initWithLine:(const void *)line signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store
 {
   v58.receiver = self;
   v58.super_class = VKRoadSignArtwork;
@@ -778,8 +778,8 @@ LABEL_42:
     *(v15 + 13) = v25;
     *(v15 + 14) = v26;
     *(v15 + 12) = v24;
-    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=(v15 + 31, textMetrics + 7);
-    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=(v16 + 35, textMetrics + 11);
+    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=((v15 + 248), (textMetrics + 56));
+    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=((v16 + 280), (textMetrics + 88));
     v27 = *(textMetrics + 120);
     *(v16 + 164) = *(textMetrics + 68);
     *(v16 + 312) = v27;
@@ -801,11 +801,11 @@ LABEL_42:
       v36 = &coloring[4 * v32 + 5];
       do
       {
-        *(v35 + v33) = *(v36 + v33);
-        v33 += 8;
+        *(v35 + v33 * 8) = v36[v33];
+        ++v33;
       }
 
-      while (v33 != 32);
+      while (v33 != 4);
       v31 = 1;
       v32 = 1;
     }
@@ -908,7 +908,7 @@ LABEL_42:
   return v16;
 }
 
-- (char)initWithFramesetter:(const void *)framesetter signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store
+- (VKRoadSignArtwork)initWithFramesetter:(const void *)framesetter signMetrics:(_OWORD *)metrics textMetrics:(__int128 *)textMetrics signColoring:(void *)coloring glyph:(uint64_t *)glyph cgGlyph:(CGImage *)cgGlyph resourceStore:(uint64_t *)store
 {
   v58.receiver = self;
   v58.super_class = VKRoadSignArtwork;
@@ -940,8 +940,8 @@ LABEL_42:
     *(v15 + 13) = v25;
     *(v15 + 14) = v26;
     *(v15 + 12) = v24;
-    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=(v15 + 31, textMetrics + 7);
-    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=(v16 + 35, textMetrics + 11);
+    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=((v15 + 248), (textMetrics + 56));
+    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=((v16 + 280), (textMetrics + 88));
     v27 = *(textMetrics + 120);
     *(v16 + 164) = *(textMetrics + 68);
     *(v16 + 312) = v27;
@@ -963,11 +963,11 @@ LABEL_42:
       v36 = &coloring[4 * v32 + 5];
       do
       {
-        *(v35 + v33) = *(v36 + v33);
-        v33 += 8;
+        *(v35 + v33 * 8) = v36[v33];
+        ++v33;
       }
 
-      while (v33 != 32);
+      while (v33 != 4);
       v31 = 1;
       v32 = 1;
     }

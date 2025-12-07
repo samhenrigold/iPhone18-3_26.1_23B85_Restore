@@ -36,12 +36,15 @@
 
 + (double)itemHeightFitting:(CGSize)fitting inTraitEnvironment:(id)environment
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_getObjCClassMetadata();
-  v4 = swift_unknownObjectRetain();
-  static GKMultiplayerPickerNearbyInstructionCell.itemHeight(fitting:in:)(v4);
-  v6 = v5;
+  v6 = swift_unknownObjectRetain();
+  v7.n128_f64[0] = width;
+  static GKMultiplayerPickerNearbyInstructionCell.itemHeight(fitting:in:)(v6, v7, height);
+  v9 = v8;
   swift_unknownObjectRelease();
-  return v6;
+  return v9;
 }
 
 @end

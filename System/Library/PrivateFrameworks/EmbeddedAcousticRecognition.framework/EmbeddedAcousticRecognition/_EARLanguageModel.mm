@@ -23,7 +23,7 @@
   v9 = sourceCopy;
   v10 = v9;
   weightCopy = weight;
-  std::vector<std::pair<objc_object  {objcproto27_EARLanguageModelDataSource}* {__strong},float>>::push_back[abi:ne200100](&self->_dataSources.__begin_, &v10);
+  std::vector<std::pair<objc_object  {objcproto27_EARLanguageModelDataSource}* {__strong},float>>::push_back[abi:ne200100](&self->_dataSources, &v10);
 
   self->_totalWeight = self->_totalWeight + weight;
 }

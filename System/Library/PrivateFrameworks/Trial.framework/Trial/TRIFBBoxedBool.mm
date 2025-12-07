@@ -1,5 +1,6 @@
 @interface TRIFBBoxedBool
 - (BOOL)isEqual:(id)equal;
+- (TRIFBBoxedBool)initWithVal:(BOOL)val;
 - (id)init_;
 - (unint64_t)hash;
 @end
@@ -50,6 +51,18 @@
   }
 
   return v10;
+}
+
+- (TRIFBBoxedBool)initWithVal:(BOOL)val
+{
+  v4 = [[TRIFBMutableBoxedBool alloc] initWithVal:val];
+  p_super = &v4->super;
+  if (v4)
+  {
+    v4->_allowMutation = 0;
+  }
+
+  return p_super;
 }
 
 @end

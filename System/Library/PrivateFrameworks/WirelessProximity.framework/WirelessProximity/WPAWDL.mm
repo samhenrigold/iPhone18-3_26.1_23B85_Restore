@@ -4,9 +4,14 @@
 - (WPAWDL)initWithDelegate:(id)delegate queue:(id)queue machName:(id)name;
 - (WPAWDLDelegate)delegate;
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)deviceDiscovered:(id)discovered;
 - (void)invalidate;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)startConnectionlessAWDLServiceAdvertisingWithData:(id)data;
 - (void)startConnectionlessAWDLServiceScanning;
 - (void)stateDidChange:(int64_t)change;
@@ -81,7 +86,7 @@
 
 + (id)hashEmail:(id)email
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   emailCopy = email;
   if (!emailCopy)
   {
@@ -89,26 +94,24 @@
   }
 
   v6 = [emailCopy dataUsingEncoding:{4, 0, 0, 0, 0}];
-  CC_SHA256([v6 bytes], objc_msgSend(v6, "length"), &v10);
-  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v10 length:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  CC_SHA256([v6 bytes], objc_msgSend(v6, "length"), &v9);
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v9 length:3];
 
   return v7;
 }
 
 + (id)generateDataFromEmails:(id)emails
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   emailsCopy = emails;
   if (!emailsCopy)
   {
     [(WPAWDL *)a2 generateDataFromEmails:self];
   }
 
-  v20 = 0;
   v19 = 0;
-  v18 = 1;
+  v18 = 0;
+  v17 = 1;
   if ([emailsCopy count] > 2)
   {
     v6 = 3;
@@ -125,7 +128,7 @@
 
   v7 = 0;
   v8 = v6;
-  v9 = &v19 + 2;
+  v9 = &v18 + 2;
   do
   {
     v10 = [emailsCopy objectAtIndexedSubscript:v7];
@@ -150,37 +153,35 @@
 
   while (v8 != v7);
 LABEL_12:
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v18 length:10];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v17 length:10];
 
   return v15;
 }
 
 - (void)startConnectionlessAWDLServiceAdvertisingWithData:(id)data
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length] < 0x17)
   {
-    v19[0] = 0;
-    v19[1] = 0;
-    v20 = 0;
+    v18[0] = 0;
+    v18[1] = 0;
+    v19 = 0;
     v9 = 0;
     if (![(WPAWDL *)self useSmallerAirDrop])
     {
-      v19[0] = 0;
+      v18[0] = 0;
       v9 = 8;
     }
 
     bytes = [dataCopy bytes];
     if (![(WPAWDL *)self useSmallerAirDrop])
     {
-      *(v19 + v9) = *bytes;
+      *(v18 + v9) = *bytes;
       v9 |= 1u;
     }
 
-    v11 = v19 + v9;
+    v11 = v18 + v9;
     *v11 = bytes[1];
     v11[1] = bytes[2];
     v11[2] = bytes[3];
@@ -192,13 +193,13 @@ LABEL_12:
     v11[7] = bytes[8];
     if (![(WPAWDL *)self useSmallerAirDrop])
     {
-      *(v19 + v12) = bytes[9];
+      *(v18 + v12) = bytes[9];
       LODWORD(v12) = v9 + 9;
     }
 
     v8 = [WPAdvertisingRequest requestForClientType:5];
     [v8 setAdvertisingRate:48];
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:v12];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:v12];
     [v8 setAdvertisingData:v13];
 
     [v8 setUpdateTime:*&AdvertiseTimer];
@@ -211,13 +212,13 @@ LABEL_12:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_DEFAULT, "AWDL start advertising with data: %{public}@", buf, 0xCu);
     }
 
-    v16.receiver = self;
-    v16.super_class = WPAWDL;
-    [(WPClient *)&v16 startAdvertising:v8];
+    v15.receiver = self;
+    v15.super_class = WPAWDL;
+    [(WPClient *)&v15 startAdvertising:v8];
   }
 
   else
@@ -234,20 +235,18 @@ LABEL_12:
     }
 
     v6 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"WirelessProximity can't start advertising at this time.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = @"WirelessProximity can't start advertising at this time.";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v8 = [v6 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v7];
 
     [(WPAWDL *)self advertisingFailedToStart:v8 ofType:5];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   updateCopy = update;
   [requestCopy setUpdateTime:0.0];
@@ -260,14 +259,12 @@ LABEL_12:
   v7 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = requestCopy;
-    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "AWDL update advertising with data: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = requestCopy;
+    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "AWDL update advertising with data: %{public}@", &v8, 0xCu);
   }
 
   updateCopy[2](updateCopy, requestCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopConnectionlessAWDLServiceAdvertising
@@ -315,6 +312,42 @@ LABEL_12:
   }
 }
 
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAWDL *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAWDL *)self delegate];
+    [delegate2 awdlStartedAdvertising:self];
+  }
+}
+
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
+{
+  v5 = [(WPAWDL *)self delegate:type];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate = [(WPAWDL *)self delegate];
+    [delegate awdlStoppedAdvertising:self];
+  }
+}
+
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  delegate = [(WPAWDL *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAWDL *)self delegate];
+    [delegate2 awdlAdvertisingPending:self];
+  }
+}
+
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
 {
   startCopy = start;
@@ -325,6 +358,30 @@ LABEL_12:
   {
     delegate2 = [(WPAWDL *)self delegate];
     [delegate2 awdl:self failedToStartAdvertisingWithError:startCopy];
+  }
+}
+
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAWDL *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAWDL *)self delegate];
+    [delegate2 awdlStartedScanning:self];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAWDL *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAWDL *)self delegate];
+    [delegate2 awdlStoppedScanning:self];
   }
 }
 
@@ -343,7 +400,7 @@ LABEL_12:
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v5 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v6 = [v5 length];
@@ -379,10 +436,10 @@ LABEL_5:
   v8 = v6;
   if (v6 >= 8)
   {
-    v19 = 1;
-    v20 = *[v5 bytes];
-    v21 = 0;
-    v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v19 length:10];
+    v18 = 1;
+    v19 = *[v5 bytes];
+    v20 = 0;
+    v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v18 length:10];
     goto LABEL_5;
   }
 
@@ -398,8 +455,6 @@ LABEL_5:
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (WPAWDLDelegate)delegate
@@ -411,21 +466,19 @@ LABEL_13:
 
 - (void)initWithDelegate:(unsigned __int8 *)a1 queue:(NSObject *)a2 machName:.cold.2(unsigned __int8 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Using custom (smaller) AirDrop: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Using custom (smaller) AirDrop: %d", v3, 8u);
 }
 
 - (void)initWithDelegate:(os_log_t)log queue:machName:.cold.4(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = AdvertiseTimer;
-  _os_log_debug_impl(&dword_274327000, log, OS_LOG_TYPE_DEBUG, "Using custom AirDrop aggressive advertising timer of %f seconds", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = AdvertiseTimer;
+  _os_log_debug_impl(&dword_274327000, log, OS_LOG_TYPE_DEBUG, "Using custom AirDrop aggressive advertising timer of %f seconds", &v1, 0xCu);
 }
 
 + (void)hashEmail:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -442,22 +495,19 @@ LABEL_13:
 
 - (void)startConnectionlessAWDLServiceAdvertisingWithData:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 134217984;
-  v6 = [a2 length];
-  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "Adv payload length is too big: %lu", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [a2 length];
+  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "Adv payload length is too big: %lu", &v4, 0xCu);
 }
 
 - (void)deviceDiscovered:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_274327000, a2, OS_LOG_TYPE_ERROR, "AWDL: Minimum advertisement data length expected: 8, received: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_274327000, a2, OS_LOG_TYPE_ERROR, "AWDL: Minimum advertisement data length expected: 8, received: %lu", &v2, 0xCu);
 }
 
 @end

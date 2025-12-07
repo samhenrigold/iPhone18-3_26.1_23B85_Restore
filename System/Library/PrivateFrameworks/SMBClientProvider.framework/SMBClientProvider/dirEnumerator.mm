@@ -2,11 +2,13 @@
 - (dirEnumerator)initWithNode:(id)node;
 - (int)closeEnumeration;
 - (int)fillDirEntry:(char *)entry withBufLen:(unint64_t)len DirEntry:(id)dirEntry IsReadDirAttr:(BOOL)attr retBytesWritten:(unsigned int *)written;
+- (int)fillNextEntry:(char *)entry BufLen:(unint64_t)len IsReadDirAttr:(BOOL)attr BytesFilled:(unsigned int *)filled;
 - (int)openEnumeration;
 - (int)resetCurrentIndex:(unint64_t)index;
 - (int)restart_dir_enum;
 - (int)skipAnEntry;
 - (smbNode)dnp;
+- (void)_getEntriesInBuffer:(char *)buffer BufferLen:(unint64_t)len CookieIn:(unint64_t)in VerifyIn:(unint64_t)verifyIn IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler;
 - (void)close_dir_enum;
 - (void)getEntriesInBuffer:(char *)buffer BufferLen:(unint64_t)len CookieIn:(unint64_t)in VerifyIn:(unint64_t)verifyIn IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler;
 - (void)processNextEntry:(unsigned int)entry inbufPtr:(char *)ptr prevEntry:(void *)prevEntry inbufRemain:(unint64_t)remain bytesFilled:(unsigned int)filled IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler;
@@ -166,56 +168,55 @@
 
 - (int)skipAnEntry
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  p_entryIndex = &self->_entryIndex;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
   entryIndex = self->_entryIndex;
   if (entryIndex > 1)
   {
     tmpDent = [(dirEnumerator *)self tmpDent];
 
-    if (tmpDent || (v7 = objc_alloc_init(SMBDirEntry), [(dirEnumerator *)self setTmpDent:v7], v7, [(dirEnumerator *)self tmpDent], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+    if (tmpDent || (v6 = objc_alloc_init(SMBDirEntry), [(dirEnumerator *)self setTmpDent:v6], v6, [(dirEnumerator *)self tmpDent], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
     {
-      v9 = dispatch_group_create();
-      dispatch_group_enter(v9);
+      v8 = dispatch_group_create();
+      dispatch_group_enter(v8);
       deObj = [(dirEnumerator *)self deObj];
       tmpDent2 = [(dirEnumerator *)self tmpDent];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100002880;
-      v14[3] = &unk_10008C790;
-      v16 = &v17;
-      v14[4] = self;
-      v12 = v9;
-      v15 = v12;
-      [smb_subr enumDirNext:deObj DirEnt:tmpDent2 CompletionHandler:v14];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100002880;
+      v13[3] = &unk_10008C790;
+      v15 = &v16;
+      v13[4] = self;
+      v11 = v8;
+      v14 = v11;
+      [smb_subr enumDirNext:deObj DirEnt:tmpDent2 CompletionHandler:v13];
 
-      dispatch_group_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
-      v4 = *(v18 + 6);
+      dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
+      v3 = *(v17 + 6);
     }
 
     else
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10004BB54(p_entryIndex);
+        sub_10004BB54();
       }
 
-      v4 = 12;
-      *(v18 + 6) = 12;
+      v3 = 12;
+      *(v17 + 6) = 12;
     }
   }
 
   else
   {
-    v4 = 0;
-    *p_entryIndex = entryIndex + 1;
+    v3 = 0;
+    self->_entryIndex = entryIndex + 1;
   }
 
-  _Block_object_dispose(&v17, 8);
-  return v4;
+  _Block_object_dispose(&v16, 8);
+  return v3;
 }
 
 - (int)resetCurrentIndex:(unint64_t)index
@@ -309,24 +310,24 @@ LABEL_11:
   v13 = dirEntryCopy;
   if (dirEntryCopy)
   {
-    [dirEntryCopy attributes];
-    if (DWORD2(v95) == 1)
+    objc_msgSend_attributes(dirEntryCopy);
+    if (DWORD2(v88) == 1)
     {
       v14 = 1;
       v15 = 1;
       goto LABEL_12;
     }
 
-    [v13 attributes];
-    if (DWORD2(v80) == 2)
+    objc_msgSend_attributes(v13);
+    if (DWORD2(v73) == 2)
     {
       v14 = 0;
       v15 = 2;
       goto LABEL_12;
     }
 
-    [v13 attributes];
-    if (DWORD2(v65) == 5)
+    objc_msgSend_attributes(v13);
+    if (DWORD2(v58) == 5)
     {
       v14 = 0;
       v15 = 3;
@@ -336,13 +337,6 @@ LABEL_11:
 
   else
   {
-    v102 = 0u;
-    v101 = 0u;
-    v100 = 0u;
-    v99 = 0u;
-    v98 = 0u;
-    v97 = 0u;
-    v96 = 0u;
     v95 = 0u;
     v94 = 0u;
     v93 = 0u;
@@ -351,6 +345,20 @@ LABEL_11:
     v90 = 0u;
     v89 = 0u;
     v88 = 0u;
+    v87 = 0u;
+    v86 = 0u;
+    v85 = 0u;
+    v84 = 0u;
+    v83 = 0u;
+    v82 = 0u;
+    v81 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
@@ -359,20 +367,6 @@ LABEL_11:
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    v87 = 0u;
-    v72 = 0u;
-    v71 = 0u;
-    v70 = 0u;
-    v69 = 0u;
-    v68 = 0u;
-    v67 = 0u;
-    v66 = 0u;
     v65 = 0u;
     v64 = 0u;
     v63 = 0u;
@@ -381,6 +375,7 @@ LABEL_11:
     v60 = 0u;
     v59 = 0u;
     v58 = 0u;
+    memset(&v57[240], 0, 112);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -426,7 +421,7 @@ LABEL_12:
     *(entry + 3) = 0;
     if (v13)
     {
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       v23 = v56 & 1;
     }
 
@@ -443,10 +438,10 @@ LABEL_12:
 
     if (v13)
     {
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       if ((v55 & 0x40) != 0)
       {
-        [v13 attributes];
+        objc_msgSend_attributes(v13);
         v25 = sub_100032988(v54);
       }
 
@@ -457,22 +452,22 @@ LABEL_12:
 
       *(entry + 11) = v25;
       *(entry + 3) |= 2uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       *(entry + 8) = v53;
       *(entry + 3) |= 0x40uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       *(entry + 9) = v52;
       *(entry + 3) |= 0x80uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       *(entry + 10) = v51;
       *(entry + 3) |= 0x100uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       *(entry + 6) = v50;
       *(entry + 3) |= 0x400uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       *(entry + 7) = v49;
       *(entry + 3) |= 0x800uLL;
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       v27 = *(entry + 3);
     }
 
@@ -495,7 +490,7 @@ LABEL_12:
     memcpy(&entry[*(entry + 5)], uTF8String, v19);
     entry[*(entry + 5) + v19] = 0;
     *(entry + 15) = 0;
-    if (!v13 || ([v13 attributes], v47 != 2) && (objc_msgSend(v13, "attributes"), (v46 & 0x20) == 0))
+    if (!v13 || (objc_msgSend_attributes(v13), v47 != 2) && (objc_msgSend_attributes(v13), (v46 & 0x20) == 0))
     {
       *(entry + 15) |= 0x10000u;
     }
@@ -505,7 +500,7 @@ LABEL_12:
     v30 = v29;
     if (v29)
     {
-      [v29 shareInfo];
+      objc_msgSend_shareInfo(v29);
 
       if ((BYTE8(v32) & 0x10) != 0)
       {
@@ -538,24 +533,24 @@ LABEL_57:
       goto LABEL_58;
     }
 
-    [v13 attributes];
+    objc_msgSend_attributes(v13);
     if (v45 == 2)
     {
 LABEL_49:
-      [v13 attributes];
+      objc_msgSend_attributes(v13, v32);
       if ((v43 & 2) != 0)
       {
         *(entry + 15) |= 0x8000u;
       }
 
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       if ((v42 & 4) != 0)
       {
-        [v13 attributes];
+        objc_msgSend_attributes(v13);
         if (v41 == -2147483618)
         {
-          [v13 attributes];
-          if ((v40 & 0x40) != 0 || ([v13 attributes], (v39 & 0x12) != 0))
+          objc_msgSend_attributes(v13);
+          if ((v40 & 0x40) != 0 || (objc_msgSend_attributes(v13), (v39 & 0x12) != 0))
           {
             *(entry + 15) |= 0x40000000u;
           }
@@ -566,7 +561,7 @@ LABEL_49:
     }
 
 LABEL_47:
-    [v13 attributes];
+    objc_msgSend_attributes(v13, v32, v33, v34, v35, v36, v37);
     if (v44)
     {
       *(entry + 15) |= 2u;
@@ -580,7 +575,7 @@ LABEL_47:
     v20 = (v18 + 29) & 0xFFF8;
     if (v13)
     {
-      [v13 attributes];
+      objc_msgSend_attributes(v13);
       v21 = v38;
     }
 
@@ -607,6 +602,251 @@ LABEL_58:
   return v22;
 }
 
+- (int)fillNextEntry:(char *)entry BufLen:(unint64_t)len IsReadDirAttr:(BOOL)attr BytesFilled:(unsigned int *)filled
+{
+  attrCopy = attr;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
+  v71 = 0;
+  v67 = 0;
+  WeakRetained = objc_loadWeakRetained(&self->_dnp);
+  *(v69 + 6) = 0;
+  v11 = objc_alloc_init(SMBDirEntry);
+  if (!v11)
+  {
+    *(v69 + 6) = 12;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004BFF4();
+    }
+
+    goto LABEL_28;
+  }
+
+  if (!WeakRetained)
+  {
+    *(v69 + 6) = 22;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004BFB0();
+    }
+
+    goto LABEL_28;
+  }
+
+  if (attrCopy)
+  {
+    goto LABEL_11;
+  }
+
+  entryIndex = self->_entryIndex;
+  if (entryIndex != 1)
+  {
+    if (!entryIndex)
+    {
+      getSmbFattr = [WeakRetained getSmbFattr];
+      v14 = *getSmbFattr;
+      v15 = getSmbFattr[2];
+      *&buf[16] = getSmbFattr[1];
+      v73 = v15;
+      *buf = v14;
+      v16 = getSmbFattr[3];
+      v17 = getSmbFattr[4];
+      v18 = getSmbFattr[6];
+      v76 = getSmbFattr[5];
+      v77 = v18;
+      v74 = v16;
+      v75 = v17;
+      v19 = getSmbFattr[7];
+      v20 = getSmbFattr[8];
+      v21 = getSmbFattr[10];
+      v80 = getSmbFattr[9];
+      v81 = v21;
+      v78 = v19;
+      v79 = v20;
+      v22 = getSmbFattr[11];
+      v23 = getSmbFattr[12];
+      v24 = getSmbFattr[14];
+      v84 = getSmbFattr[13];
+      v85 = v24;
+      v82 = v22;
+      v83 = v23;
+      [v11 setAttributes:buf];
+      [v11 setName:@"."];
+      v25 = [(dirEnumerator *)self fillDirEntry:entry withBufLen:len DirEntry:v11 IsReadDirAttr:0 retBytesWritten:&v67];
+      v26 = v69;
+      *(v69 + 6) = v25;
+      if (!v25)
+      {
+        *filled = v67;
+        goto LABEL_29;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004BEC0();
+      }
+
+LABEL_28:
+      v26 = v69;
+LABEL_29:
+      v37 = *(v26 + 6);
+      goto LABEL_30;
+    }
+
+LABEL_11:
+    dentObjSave = [(dirEnumerator *)self dentObjSave];
+    v28 = dentObjSave == 0;
+
+    if (!v28)
+    {
+      dentObjSave2 = [(dirEnumerator *)self dentObjSave];
+      v30 = [(dirEnumerator *)self fillDirEntry:entry withBufLen:len DirEntry:dentObjSave2 IsReadDirAttr:attrCopy retBytesWritten:&v67];
+      *(v69 + 6) = v30;
+
+      if (*(v69 + 6))
+      {
+        v31 = &_os_log_default;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+        {
+          dentObjSave3 = [(dirEnumerator *)self dentObjSave];
+          name = [dentObjSave3 name];
+          v58 = name;
+          uTF8String = [name UTF8String];
+          v60 = *(v69 + 6);
+          *buf = 136315394;
+          *&buf[4] = uTF8String;
+          *&buf[12] = 1024;
+          *&buf[14] = v60;
+          _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "fillNextEntry: fattrSave- fillDirEntry for %s returned error: %d", buf, 0x12u);
+        }
+      }
+
+      else
+      {
+        *v62 = v67;
+        [(dirEnumerator *)self setDentObjSave:0];
+      }
+
+      goto LABEL_28;
+    }
+
+    v32 = dispatch_group_create();
+    dispatch_group_enter(v32);
+    deObj = [(dirEnumerator *)self deObj];
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_100003A48;
+    v64[3] = &unk_10008C740;
+    v66 = &v68;
+    v34 = v32;
+    v65 = v34;
+    [smb_subr enumDirNext:deObj DirEnt:v11 CompletionHandler:v64];
+
+    dispatch_group_wait(v34, 0xFFFFFFFFFFFFFFFFLL);
+    v35 = v69;
+    v36 = *(v69 + 6);
+    if (v36)
+    {
+      if (v36 == 2)
+      {
+        v37 = -1;
+LABEL_33:
+        *(v35 + 6) = v37;
+LABEL_42:
+
+        goto LABEL_30;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004BF38();
+      }
+
+      v55 = v69;
+    }
+
+    else
+    {
+      v54 = [(dirEnumerator *)self fillDirEntry:entry withBufLen:len DirEntry:v11 IsReadDirAttr:attrCopy retBytesWritten:&v67];
+      v55 = v69;
+      *(v69 + 6) = v54;
+      if (v54)
+      {
+        [(dirEnumerator *)self setDentObjSave:v11];
+        v35 = v69;
+        v37 = 55;
+        goto LABEL_33;
+      }
+
+      *v62 = v67;
+    }
+
+    v37 = *(v55 + 6);
+    goto LABEL_42;
+  }
+
+  parent = [WeakRetained parent];
+  if (!parent)
+  {
+    parent = objc_loadWeakRetained(&self->_dnp);
+  }
+
+  getSmbFattr2 = [parent getSmbFattr];
+  v40 = *getSmbFattr2;
+  v41 = getSmbFattr2[2];
+  *&buf[16] = getSmbFattr2[1];
+  v73 = v41;
+  *buf = v40;
+  v42 = getSmbFattr2[3];
+  v43 = getSmbFattr2[4];
+  v44 = getSmbFattr2[6];
+  v76 = getSmbFattr2[5];
+  v77 = v44;
+  v74 = v42;
+  v75 = v43;
+  v45 = getSmbFattr2[7];
+  v46 = getSmbFattr2[8];
+  v47 = getSmbFattr2[10];
+  v80 = getSmbFattr2[9];
+  v81 = v47;
+  v78 = v45;
+  v79 = v46;
+  v48 = getSmbFattr2[11];
+  v49 = getSmbFattr2[12];
+  v50 = getSmbFattr2[14];
+  v84 = getSmbFattr2[13];
+  v85 = v50;
+  v82 = v48;
+  v83 = v49;
+  [v11 setAttributes:buf];
+  [v11 setName:@".."];
+  v51 = [(dirEnumerator *)self fillDirEntry:entry withBufLen:len DirEntry:v11 IsReadDirAttr:0 retBytesWritten:&v67];
+  v52 = v69;
+  *(v69 + 6) = v51;
+  if (v51)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004BE48();
+    }
+
+    v52 = v69;
+  }
+
+  else
+  {
+    *v63 = v67;
+  }
+
+  v37 = *(v52 + 6);
+
+LABEL_30:
+  _Block_object_dispose(&v68, 8);
+  return v37;
+}
+
 - (void)getEntriesInBuffer:(char *)buffer BufferLen:(unint64_t)len CookieIn:(unint64_t)in VerifyIn:(unint64_t)verifyIn IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -624,6 +864,105 @@ LABEL_58:
   v18 = handlerCopy;
   v16 = handlerCopy;
   dispatch_async(dirEnumerationSyncQueue, block);
+}
+
+- (void)_getEntriesInBuffer:(char *)buffer BufferLen:(unint64_t)len CookieIn:(unint64_t)in VerifyIn:(unint64_t)verifyIn IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler
+{
+  attrCopy = attr;
+  handlerCopy = handler;
+  enumState = self->_enumState;
+  bufferCopy = buffer;
+  if (enumState != 2)
+  {
+    if (enumState)
+    {
+      v17 = 0;
+      openEnumeration = 0;
+      goto LABEL_15;
+    }
+
+    openEnumeration = [(dirEnumerator *)self openEnumeration];
+    if (openEnumeration && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10004C0F4();
+    }
+
+    goto LABEL_14;
+  }
+
+  if (!in)
+  {
+    self->_enumState = 0;
+    openEnumeration = [(dirEnumerator *)self openEnumeration];
+    if (openEnumeration && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10004C07C();
+    }
+
+LABEL_14:
+    v17 = 0;
+    goto LABEL_15;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10004C038();
+  }
+
+  openEnumeration = 4294966295;
+  v17 = 1;
+LABEL_15:
+  WeakRetained = objc_loadWeakRetained(&self->_dnp);
+  getReadDirVerifier = [WeakRetained getReadDirVerifier];
+
+  if (openEnumeration)
+  {
+    handlerCopy[2](handlerCopy, openEnumeration, getReadDirVerifier, 0, v17);
+    goto LABEL_29;
+  }
+
+  if (in && getReadDirVerifier != verifyIn)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004C16C();
+    }
+
+    handlerCopy[2](handlerCopy, 4294966296, getReadDirVerifier, 0, v17);
+    goto LABEL_29;
+  }
+
+  if (self->_entryIndex == in)
+  {
+LABEL_32:
+    [(dirEnumerator *)self processNextEntry:0 inbufPtr:bufferCopy prevEntry:0 inbufRemain:len bytesFilled:0 IsReadDirAttr:attrCopy CompletionHandler:handlerCopy];
+    goto LABEL_29;
+  }
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004C1F4();
+  }
+
+  v20 = [(dirEnumerator *)self resetCurrentIndex:in];
+  if (!v20)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10004C2F4();
+    }
+
+    goto LABEL_32;
+  }
+
+  v21 = v20;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004C27C();
+  }
+
+  handlerCopy[2](handlerCopy, v21, getReadDirVerifier, 0, v17);
+LABEL_29:
 }
 
 - (void)processNextEntry:(unsigned int)entry inbufPtr:(char *)ptr prevEntry:(void *)prevEntry inbufRemain:(unint64_t)remain bytesFilled:(unsigned int)filled IsReadDirAttr:(BOOL)attr CompletionHandler:(id)handler

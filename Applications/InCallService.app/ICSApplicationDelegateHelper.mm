@@ -30,7 +30,8 @@
   {
     v9 = [options objectForKey:_UIApplicationOpenURLOptionsSourceProcessHandleKey];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       provider = [necessaryCopy provider];
       if ([provider isSystemProvider])
@@ -45,21 +46,21 @@ LABEL_11:
       }
 
       featureFlags = [(ICSApplicationDelegateHelper *)self featureFlags];
-      v13 = TUDefaultAppsEnabled();
+      v14 = TUDefaultAppsEnabled();
 
-      if (v13)
+      if (v14)
       {
         goto LABEL_8;
       }
 
-      v11 = +[TUCallCenter sharedInstance];
-      [v11 launchAppForDialRequest:necessaryCopy completion:0];
+      v12 = +[TUCallCenter sharedInstance];
+      [v12 launchAppForDialRequest:necessaryCopy completion:0];
     }
 
     else
     {
-      v11 = sub_100004F84();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_100004F84(isKindOfClass);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1002561AC();
       }
@@ -109,7 +110,8 @@ LABEL_11:
 
 LABEL_12:
 
-  if (![necessaryCopy preferDefaultApp] || !v16)
+  preferDefaultApp = [necessaryCopy preferDefaultApp];
+  if (!preferDefaultApp || !v16)
   {
     if (+[PHDevice isGeminiCapable])
     {
@@ -120,89 +122,96 @@ LABEL_12:
 
         if (!localSenderIdentityAccountUUID)
         {
-          v21 = +[ICSApplicationServices sharedInstance];
-          contactGeminiManager = [v21 contactGeminiManager];
+          v22 = +[ICSApplicationServices sharedInstance];
+          contactGeminiManager = [v22 contactGeminiManager];
 
-          v23 = +[ICSApplicationServices sharedInstance];
-          contactStore = [v23 contactStore];
+          v24 = +[ICSApplicationServices sharedInstance];
+          contactStore = [v24 contactStore];
 
-          v25 = +[CNGeminiManager descriptorForRequiredKeys];
-          v52 = v25;
-          v26 = [NSArray arrayWithObjects:&v52 count:1];
+          v26 = +[CNGeminiManager descriptorForRequiredKeys];
+          v57 = v26;
+          v27 = [NSArray arrayWithObjects:&v57 count:1];
 
           contactIdentifier = [necessaryCopy contactIdentifier];
-          v46 = v26;
+          v29 = contactIdentifier;
+          v51 = v27;
           if (contactIdentifier)
           {
-            v28 = sub_100004F84();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v30 = sub_100004F84(contactIdentifier);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138739971;
-              v51 = contactIdentifier;
-              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Retrieving contact with identifier %{sensitive}@", buf, 0xCu);
+              v56 = v29;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Retrieving contact with identifier %{sensitive}@", buf, 0xCu);
             }
 
-            v49 = 0;
-            v29 = [contactStore unifiedContactWithIdentifier:contactIdentifier keysToFetch:v26 error:&v49];
-            v30 = v49;
-            cnHandle = v30;
-            if (!v29)
+            v54 = 0;
+            v31 = [contactStore unifiedContactWithIdentifier:v29 keysToFetch:v27 error:&v54];
+            v32 = v54;
+            cnHandle = v32;
+            if (!v31)
             {
-              if (!v30 || [v30 code]== 200)
+              if (!v32)
               {
                 goto LABEL_51;
               }
 
-              v44 = contactStore;
-              v33 = contactGeminiManager;
-              v34 = sub_100004F84();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              code = [v32 code];
+              if (code == 200)
+              {
+                goto LABEL_51;
+              }
+
+              v49 = contactStore;
+              v35 = contactGeminiManager;
+              v36 = sub_100004F84(code);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 sub_10025628C();
               }
 
-              v35 = cnHandle;
+              v37 = cnHandle;
               goto LABEL_43;
             }
 
-            v44 = contactStore;
-            v32 = sub_100004F84();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            v49 = contactStore;
+            v34 = sub_100004F84(v32);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138739971;
-              v51 = v29;
-              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Retrieving sender identity for contact %{sensitive}@", buf, 0xCu);
+              v56 = v31;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Retrieving sender identity for contact %{sensitive}@", buf, 0xCu);
             }
 
-            v48 = cnHandle;
-            v33 = contactGeminiManager;
-            v34 = [contactGeminiManager bestSenderIdentityForContact:v29 error:&v48];
-            v35 = v48;
+            v53 = cnHandle;
+            v35 = contactGeminiManager;
+            v36 = [contactGeminiManager bestSenderIdentityForContact:v31 error:&v53];
+            v37 = v53;
 
-            if (v34)
+            if (v36)
             {
-              accountUUID = [v34 accountUUID];
+              accountUUID = [v36 accountUUID];
               [necessaryCopy setLocalSenderIdentityAccountUUID:accountUUID];
             }
 
             else
             {
-              if (!v35)
+              if (!v37)
               {
 LABEL_43:
 
-                cnHandle = v35;
-                contactGeminiManager = v33;
-                contactStore = v44;
+                cnHandle = v37;
+                contactGeminiManager = v35;
+                contactStore = v49;
 LABEL_51:
 
                 goto LABEL_52;
               }
 
-              accountUUID = sub_100004F84();
+              accountUUID = sub_100004F84(v38);
               if (os_log_type_enabled(accountUUID, OS_LOG_TYPE_ERROR))
               {
-                sub_100256214(v35, accountUUID);
+                sub_100256214(v37, accountUUID);
               }
             }
 
@@ -212,42 +221,42 @@ LABEL_51:
           handle = [necessaryCopy handle];
           cnHandle = [handle cnHandle];
 
-          v29 = sub_100004F84();
-          v38 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+          v31 = sub_100004F84(v41);
+          v42 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
           if (cnHandle)
           {
-            if (v38)
+            if (v42)
             {
               *buf = 138739971;
-              v51 = cnHandle;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Retrieving sender identity for contact handle %{sensitive}@", buf, 0xCu);
+              v56 = cnHandle;
+              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Retrieving sender identity for contact handle %{sensitive}@", buf, 0xCu);
             }
 
-            v47 = 0;
-            handle2 = [contactGeminiManager bestSenderIdentityForHandle:cnHandle contactStore:contactStore error:&v47];
-            v40 = v47;
-            v29 = v40;
+            v52 = 0;
+            handle2 = [contactGeminiManager bestSenderIdentityForHandle:cnHandle contactStore:contactStore error:&v52];
+            v44 = v52;
+            v31 = v44;
             if (handle2)
             {
-              v45 = contactStore;
-              v41 = contactGeminiManager;
+              v50 = contactStore;
+              v45 = contactGeminiManager;
               accountUUID2 = [handle2 accountUUID];
               [necessaryCopy setLocalSenderIdentityAccountUUID:accountUUID2];
 LABEL_49:
 
-              contactGeminiManager = v41;
-              contactStore = v45;
+              contactGeminiManager = v45;
+              contactStore = v50;
               goto LABEL_50;
             }
 
-            if (v40)
+            if (v44)
             {
-              v45 = contactStore;
-              v41 = contactGeminiManager;
-              accountUUID2 = sub_100004F84();
+              v50 = contactStore;
+              v45 = contactGeminiManager;
+              accountUUID2 = sub_100004F84(v44);
               if (os_log_type_enabled(accountUUID2, OS_LOG_TYPE_ERROR))
               {
-                sub_1002562F4(v29, accountUUID2);
+                sub_1002562F4(v31, accountUUID2);
               }
 
               goto LABEL_49;
@@ -256,15 +265,15 @@ LABEL_49:
 
           else
           {
-            if (!v38)
+            if (!v42)
             {
               goto LABEL_51;
             }
 
             handle2 = [necessaryCopy handle];
             *buf = 138412290;
-            v51 = handle2;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Could not create a contact handle from dial request handle %@.", buf, 0xCu);
+            v56 = handle2;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Could not create a contact handle from dial request handle %@.", buf, 0xCu);
           }
 
 LABEL_50:
@@ -283,11 +292,11 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v18 = sub_100004F84();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004F84(preferDefaultApp);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Cannot proceed with dial request because user has 'None' selected as their default app", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Cannot proceed with dial request because user has 'None' selected as their default app", buf, 2u);
   }
 
   v17 = 1;

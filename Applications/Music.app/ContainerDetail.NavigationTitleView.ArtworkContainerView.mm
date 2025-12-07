@@ -9,17 +9,17 @@
 
 - (void)layoutSubviews
 {
-  v10.receiver = self;
-  v10.super_class = _s19NavigationTitleViewC20ArtworkContainerViewCMa(0);
-  v2 = v10.receiver;
-  [(ContainerDetail.NavigationTitleView.ArtworkContainerView *)&v10 layoutSubviews];
+  v11.receiver = self;
+  v11.super_class = _s19NavigationTitleViewC20ArtworkContainerViewCMa(0);
+  v2 = v11.receiver;
+  [(ContainerDetail.NavigationTitleView.ArtworkContainerView *)&v11 layoutSubviews];
   v3 = &v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_specs];
-  CGRect.centeringAlong(axes:in:)();
-  v4 = OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkView;
-  [*&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkView] setFrame:{v10.receiver, v10.super_class}];
-  v5 = *&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkShadowView];
-  [*&v2[v4] frame];
-  [v5 setFrame:{sub_100058728(v6, v7, v8, v9, v3[8], v3[9])}];
+  v4 = CGRect.centeringAlong(axes:in:)(0.0, 0.0, *&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_specs], *&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_specs + 8]);
+  v5 = OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkView;
+  [*&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkView] setFrame:{v4, v11.receiver, v11.super_class}];
+  v6 = *&v2[OBJC_IVAR____TtCCV5Music15ContainerDetail19NavigationTitleViewP33_43996391452D1F881F8D9F2EF57B4A6820ArtworkContainerView_artworkShadowView];
+  [*&v2[v5] frame];
+  [v6 setFrame:{sub_100058728(v7, v8, v9, v10, v3[8], v3[9])}];
 }
 
 - (CGSize)intrinsicContentSize

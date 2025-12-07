@@ -1,9 +1,18 @@
 @interface ComAppleContextkitCategoriesConstellation_Request_CategoryCountPQ
+- (ComAppleContextkitCategoriesConstellation_Request_CategoryCountPQ)initWithComAppleContextkitCategoriesConstellation_Request:(id)request withInt:(int)int;
 - (id)toArray;
 - (void)dealloc;
 @end
 
 @implementation ComAppleContextkitCategoriesConstellation_Request_CategoryCountPQ
+
+- (ComAppleContextkitCategoriesConstellation_Request_CategoryCountPQ)initWithComAppleContextkitCategoriesConstellation_Request:(id)request withInt:(int)int
+{
+  v4 = *&int;
+  JreStrongAssign(&self->this$0_, request);
+  OrgApacheLuceneUtilPriorityQueue_initWithInt_(self, v4, v6, v7, v8, v9, v10, v11);
+  return self;
+}
 
 - (id)toArray
 {

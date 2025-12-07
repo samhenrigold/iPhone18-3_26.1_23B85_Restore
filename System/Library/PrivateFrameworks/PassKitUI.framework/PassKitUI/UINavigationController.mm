@@ -25,23 +25,23 @@ uint64_t __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPayme
   return result;
 }
 
-void __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_4(uint64_t a1)
+void __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 64) + 8) + 24))
   {
-    v2 = objc_opt_respondsToSelector();
-    v3 = *(a1 + 32);
-    if (v2)
+    v3 = objc_opt_respondsToSelector();
+    v4 = *(a1 + 32);
+    if (v3)
     {
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 72);
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_72;
-      v38[3] = &unk_1E8010B50;
-      v39 = *(a1 + 56);
-      [v3 presentWithNavigationController:v4 animated:v5 completion:v38];
+      v5 = *(a1 + 40);
+      v6 = *(a1 + 72);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_72;
+      v39[3] = &unk_1E8010B50;
+      v40 = *(a1 + 56);
+      [v4 presentWithNavigationController:v5 animated:v6 completion:v39];
 
       return;
     }
@@ -51,79 +51,79 @@ void __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSe
       goto LABEL_33;
     }
 
-    v10 = [*(a1 + 32) onPresentationRemoveViewControllersAfterMarker];
-    if (!v10)
+    v11 = [*(a1 + 32) onPresentationRemoveViewControllersAfterMarker];
+    if (!v11)
     {
       goto LABEL_33;
     }
 
-    v11 = v10;
-    v12 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = v11;
+    v13 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138412546;
-      v43 = v14;
-      v44 = 2048;
-      v45 = v11;
-      _os_log_impl(&dword_1BD026000, v12, OS_LOG_TYPE_DEFAULT, "%@ asked to remove view controllers after marker: %lu", buf, 0x16u);
+      v44 = v15;
+      v45 = 2048;
+      v46 = v12;
+      _os_log_impl(&dword_1BD026000, v13, OS_LOG_TYPE_DEFAULT, "%@ asked to remove view controllers after marker: %lu", buf, 0x16u);
     }
 
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v15 = [*(a1 + 40) viewControllers];
-    v16 = [v15 countByEnumeratingWithState:&v34 objects:v41 count:16];
-    if (v16)
+    v36 = 0u;
+    v16 = [*(a1 + 40) viewControllers];
+    v17 = [v16 countByEnumeratingWithState:&v35 objects:v42 count:16];
+    if (v17)
     {
-      v17 = v16;
-      oslog = v12;
-      v18 = 0;
-      v19 = *v35;
+      v18 = v17;
+      oslog = v13;
+      v19 = 0;
+      v20 = *v36;
       while (2)
       {
-        v20 = 0;
-        v21 = v18;
-        v18 += v17;
+        v21 = 0;
+        v22 = v19;
+        v19 += v18;
         do
         {
-          if (*v35 != v19)
+          if (*v36 != v20)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v34 + 1) + 8 * v20);
-          if ((objc_opt_respondsToSelector() & 1) != 0 && v11 == [v22 paymentSetupMarker])
+          v23 = *(*(&v35 + 1) + 8 * v21);
+          if ((objc_opt_respondsToSelector() & 1) != 0 && v12 == [v23 paymentSetupMarker])
           {
-            if ((objc_opt_respondsToSelector() & 1) != 0 && [v22 paymentSetupMarkerRemovalIsInclusive])
+            if ((objc_opt_respondsToSelector() & 1) != 0 && [v23 paymentSetupMarkerRemovalIsInclusive])
             {
               if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v43 = v22;
+                v44 = v23;
                 _os_log_impl(&dword_1BD026000, oslog, OS_LOG_TYPE_DEFAULT, "Removal is inclusive of marked view controller: %@", buf, 0xCu);
               }
 
-              v18 = v21;
+              v19 = v22;
             }
 
             else
             {
-              v18 = v21 + 1;
+              v19 = v22 + 1;
             }
 
             goto LABEL_28;
           }
 
+          ++v22;
           ++v21;
-          ++v20;
         }
 
-        while (v17 != v20);
-        v17 = [v15 countByEnumeratingWithState:&v34 objects:v41 count:16];
-        if (v17)
+        while (v18 != v21);
+        v18 = [v16 countByEnumeratingWithState:&v35 objects:v42 count:16];
+        if (v18)
         {
           continue;
         }
@@ -133,20 +133,20 @@ void __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSe
 
 LABEL_28:
 
-      v12 = oslog;
-      if (v18)
+      v13 = oslog;
+      if (v19)
       {
-        v23 = [*(a1 + 40) viewControllers];
-        v24 = [v23 count];
+        v24 = [*(a1 + 40) viewControllers];
+        v25 = [v24 count];
 
-        if (v18 != v24)
+        if (v19 != v25)
         {
-          v27 = [*(a1 + 40) viewControllers];
-          v28 = [v27 subarrayWithRange:{0, v18}];
-          v29 = [v28 mutableCopy];
+          v28 = [*(a1 + 40) viewControllers];
+          v29 = [v28 subarrayWithRange:{0, v19}];
+          v30 = [v29 mutableCopy];
 
-          [v29 addObject:*(a1 + 32)];
-          [*(a1 + 40) setViewControllers:v29 animated:*(a1 + 72)];
+          [v30 addObject:*(a1 + 32)];
+          [*(a1 + 40) setViewControllers:v30 animated:*(a1 + 72)];
 
           goto LABEL_39;
         }
@@ -160,15 +160,15 @@ LABEL_28:
 LABEL_33:
         [*(a1 + 40) pushViewController:*(a1 + 32) animated:{*(a1 + 72), oslog}];
 LABEL_39:
-        v30 = [*(a1 + 40) transitionCoordinator];
-        if (v30)
+        v31 = [*(a1 + 40) transitionCoordinator];
+        if (v31)
         {
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_79;
-          v32[3] = &unk_1E8015D28;
-          v33 = *(a1 + 56);
-          [v30 animateAlongsideTransition:0 completion:v32];
+          v33[0] = MEMORY[0x1E69E9820];
+          v33[1] = 3221225472;
+          v33[2] = __132__UINavigationController_PKPaymentSetupProtocols___pk_presentPaymentSetupViewController_animated_performPreflight_delay_completion___block_invoke_79;
+          v33[3] = &unk_1E8015D28;
+          v34 = *(a1 + 56);
+          [v31 animateAlongsideTransition:0 completion:v33];
         }
 
         else
@@ -184,34 +184,34 @@ LABEL_39:
     {
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v12, OS_LOG_TYPE_DEFAULT, "No view controllers remain, setting new view controller as root", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v13, OS_LOG_TYPE_DEFAULT, "No view controllers remain, setting new view controller as root", buf, 2u);
     }
 
-    v25 = *(a1 + 40);
-    v40 = *(a1 + 32);
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-    [v25 setViewControllers:v26 animated:*(a1 + 72)];
+    v26 = *(a1 + 40);
+    v41 = *(a1 + 32);
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    [v26 setViewControllers:v27 animated:*(a1 + 72)];
 
     goto LABEL_39;
   }
 
-  v6 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 138412290;
-    v43 = v8;
-    _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "Error: Preflight failed for view controller: %@", buf, 0xCu);
+    v44 = v9;
+    _os_log_impl(&dword_1BD026000, v7, OS_LOG_TYPE_DEFAULT, "Error: Preflight failed for view controller: %@", buf, 0xCu);
   }
 
-  v9 = *(a1 + 48);
-  if (v9)
+  v10 = *(a1 + 48);
+  if (v10)
   {
-    (*(v9 + 16))(v9, 0);
+    (*(v10 + 16))(v10, 0);
   }
 }
 

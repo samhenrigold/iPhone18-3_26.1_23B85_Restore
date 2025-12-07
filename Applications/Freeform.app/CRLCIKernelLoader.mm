@@ -52,7 +52,7 @@ LABEL_15:
   }
 
   v9 = +[CRLCapabilities currentCapabilities];
-  v10 = sub_10016BB74();
+  v10 = sub_10016BB74(v9);
   v11 = [v9 metalCapabilitiesForDevice:v10];
   isCoreImageMetalCapable = [v11 isCoreImageMetalCapable];
 

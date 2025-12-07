@@ -35,7 +35,7 @@ void ___UIApplicationEndBackgroundTask_block_invoke(void *a1)
   [v6 decrementReferenceForObject:v8 invalidationHandler:v10];
 }
 
-uint64_t ___UIApplicationEndBackgroundTask_block_invoke_79(uint64_t a1)
+void *___UIApplicationEndBackgroundTask_block_invoke_79(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v2 = qword_1ED49E260;

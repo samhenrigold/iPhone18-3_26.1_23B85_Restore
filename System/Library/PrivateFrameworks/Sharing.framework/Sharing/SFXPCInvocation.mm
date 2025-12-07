@@ -34,12 +34,11 @@
 {
   if (*&self->name[OBJC_IVAR___SFXPCInvocation_name])
   {
-    v4 = *(&self->super.isa + OBJC_IVAR___SFXPCInvocation_name);
     coderCopy = coder;
     selfCopy = self;
+    v5 = sub_1A99767E0();
     v6 = sub_1A99767E0();
-    v7 = sub_1A99767E0();
-    [coderCopy encodeObject:v6 forKey:v7];
+    [coderCopy encodeObject:v5 forKey:v6];
   }
 }
 

@@ -61,33 +61,33 @@
 
 - (unint64_t)accessoryCount
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   options = [(HFActionNaturalLanguageExecution *)self options];
   accessoryCountType = [options accessoryCountType];
 
   if (accessoryCountType)
   {
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     allInvolvedObjects = [(HFActionNaturalLanguageExecution *)self allInvolvedObjects];
-    v6 = [allInvolvedObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [allInvolvedObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v20;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(allInvolvedObjects);
           }
 
-          hf_containedServices = [*(*(&v19 + 1) + 8 * i) hf_containedServices];
+          hf_containedServices = [*(*(&v17 + 1) + 8 * i) hf_containedServices];
           v12 = [hf_containedServices na_filter:&__block_literal_global_335];
 
           if ([v12 count])
@@ -103,7 +103,7 @@
           v8 += v13;
         }
 
-        v7 = [allInvolvedObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [allInvolvedObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -114,7 +114,6 @@
       v8 = 0;
     }
 
-    v18 = *MEMORY[0x277D85DE8];
     return v8;
   }
 
@@ -123,7 +122,6 @@
     allInvolvedObjects2 = [(HFActionNaturalLanguageExecution *)self allInvolvedObjects];
     v15 = [allInvolvedObjects2 count];
 
-    v16 = *MEMORY[0x277D85DE8];
     return v15;
   }
 }
@@ -196,7 +194,7 @@ uint64_t __65__HFActionNaturalLanguageExecution_executionWithActions_options___b
       if ([*(a1 + 32) ignoreOptionalCharacteristics])
       {
         v11 = [v10 characteristic];
-        v12 = [v11 service];
+        v12 = objc_msgSend_service(v11);
         v13 = [v12 serviceType];
 
         v14 = [MEMORY[0x277CD1D90] hf_requiredCharacteristicTypesForDisplayMetadataWithServiceType:v13];
@@ -227,7 +225,7 @@ LABEL_14:
 id __65__HFActionNaturalLanguageExecution_executionWithActions_options___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 hf_affectedCharacteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }
@@ -283,7 +281,7 @@ id __57__HFActionNaturalLanguageExecution_updateInvolvedObjects__block_invoke(ui
   {
     v4 = MEMORY[0x277CBEB98];
     v5 = [v2 hf_affectedCharacteristic];
-    v6 = [v5 service];
+    v6 = objc_msgSend_service(v5);
     v7 = [v4 setWithObject:v6];
 LABEL_5:
     v9 = v7;

@@ -29,38 +29,38 @@
 
 - (NLParameterTuner)initWithParameters:(id)parameters options:(id)options delegate:(id)delegate
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   optionsCopy = options;
   delegateCopy = delegate;
-  v36.receiver = self;
-  v36.super_class = NLParameterTuner;
-  v11 = [(NLParameterTuner *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = NLParameterTuner;
+  v11 = [(NLParameterTuner *)&v35 init];
   if (v11)
   {
-    v30 = optionsCopy;
+    v29 = optionsCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v31 = parametersCopy;
+    v30 = parametersCopy;
     v13 = parametersCopy;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v33;
+      v16 = *v32;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v33 != v16)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * i);
+          v18 = *(*(&v31 + 1) + 8 * i);
           name = [v18 name];
           v20 = [(NSArray *)array containsObject:name];
 
@@ -71,7 +71,7 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v15);
@@ -85,93 +85,90 @@
     v11->_parameterNames = array;
     v25 = array;
 
-    optionsCopy = v30;
-    v26 = [v30 copy];
+    optionsCopy = v29;
+    v26 = [v29 copy];
     options = v11->_options;
     v11->_options = v26;
 
     objc_storeWeak(&v11->_delegate, delegateCopy);
-    parametersCopy = v31;
+    parametersCopy = v30;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)_hyperTuneParameterArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   parameters = [(NLParameterTuner *)self parameters];
-  v5 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        _hyperTuneDictionary = [*(*(&v12 + 1) + 8 * i) _hyperTuneDictionary];
+        _hyperTuneDictionary = [*(*(&v11 + 1) + 8 * i) _hyperTuneDictionary];
         [array addObject:_hyperTuneDictionary];
       }
 
-      v6 = [parameters countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)tunedParameterBundleWithError:(id *)error
 {
-  v51[5] = *MEMORY[0x1E69E9840];
+  v50[5] = *MEMORY[0x1E69E9840];
   _hyperTuneParameterArray = [(NLParameterTuner *)self _hyperTuneParameterArray];
   options = [(NLParameterTuner *)self options];
-  v39 = [options objectForKey:@"Metadata"];
+  v38 = [options objectForKey:@"Metadata"];
   delegate = [(NLParameterTuner *)self delegate];
   objc_opt_respondsToSelector();
   v5 = options;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v51[0] = @"Algorithm";
-  v51[1] = @"MaximumIterations";
-  v51[2] = @"PreferLowerScore";
-  v51[3] = @"RandomSeed";
-  v51[4] = @"Metadata";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:5];
+  v50[0] = @"Algorithm";
+  v50[1] = @"MaximumIterations";
+  v50[2] = @"PreferLowerScore";
+  v50[3] = @"RandomSeed";
+  v50[4] = @"Metadata";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:5];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v45;
+    v11 = *v44;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v45 != v11)
+        if (*v44 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * i);
+        v13 = *(*(&v43 + 1) + 8 * i);
         if (([v7 containsObject:v13] & 1) == 0)
         {
           v14 = [v8 objectForKey:v13];
@@ -179,7 +176,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v10);
@@ -236,10 +233,10 @@
   }
 
   v25 = dictionary;
-  v42 = v39;
-  v43 = delegate;
-  v26 = v42;
-  v27 = v43;
+  v41 = v38;
+  v42 = delegate;
+  v26 = v41;
+  v27 = v42;
   v28 = HTTuneParameters();
   if (v28)
   {
@@ -256,17 +253,15 @@
     if (error)
     {
       v33 = MEMORY[0x1E696ABC0];
-      v48 = *MEMORY[0x1E696A578];
-      v49 = @"Failed to tune parameter bundle";
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v47 = *MEMORY[0x1E696A578];
+      v48 = @"Failed to tune parameter bundle";
+      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       v35 = [v33 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:9 userInfo:v34];
       *error = v35;
     }
 
     v32 = 0;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

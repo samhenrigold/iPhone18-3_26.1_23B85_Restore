@@ -62,19 +62,19 @@
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    CoreCECDeckControlModeString(mode);
-    LogPrintF();
+    v10 = CoreCECDeckControlModeString(mode);
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient deckControlCommandWithMode:target:error:]", 10, "CoreCECDevice %@ Deck Control Command MODE %@ To CoreCECDevice %@\n", self, v10, target);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __63__CoreCECDeviceClient_deckControlCommandWithMode_target_error___block_invoke;
-  v11[3] = &unk_278EA4500;
-  v11[4] = manager;
-  v11[5] = self;
-  v11[6] = target;
-  v11[7] = mode;
-  return CoreRCWaitForAsyncOperation(error, v11);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __63__CoreCECDeviceClient_deckControlCommandWithMode_target_error___block_invoke;
+  v12[3] = &unk_278EA4500;
+  v12[4] = manager;
+  v12[5] = self;
+  v12[6] = target;
+  v12[7] = mode;
+  return CoreRCWaitForAsyncOperation(error, v12);
 }
 
 - (BOOL)deckControlPlayWithMode:(unint64_t)mode target:(id)target error:(id *)error
@@ -87,19 +87,19 @@
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    CoreCECPlayModeString(mode);
-    LogPrintF();
+    v10 = CoreCECPlayModeString(mode);
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient deckControlPlayWithMode:target:error:]", 10, "CoreCECDevice %@ Deck Control Play MODE %@ To CoreCECDevice %@\n", self, v10, target);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __60__CoreCECDeviceClient_deckControlPlayWithMode_target_error___block_invoke;
-  v11[3] = &unk_278EA4500;
-  v11[4] = manager;
-  v11[5] = self;
-  v11[6] = target;
-  v11[7] = mode;
-  return CoreRCWaitForAsyncOperation(error, v11);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__CoreCECDeviceClient_deckControlPlayWithMode_target_error___block_invoke;
+  v12[3] = &unk_278EA4500;
+  v12[4] = manager;
+  v12[5] = self;
+  v12[6] = target;
+  v12[7] = mode;
+  return CoreRCWaitForAsyncOperation(error, v12);
 }
 
 - (BOOL)deckControlRefreshStatus:(id)status requestType:(unint64_t)type error:(id *)error
@@ -112,7 +112,7 @@
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient deckControlRefreshStatus:requestType:error:]", 10, "CoreCECDevice %@ Deck Control Refresh Status CoreCECDevice %@\n", self, status);
   }
 
   v11[0] = MEMORY[0x277D85DD0];
@@ -278,7 +278,7 @@
 
   if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECDeviceClient setAudioReturnChannelControlEnabled:error:];
+    [CoreCECDeviceClient setAudioReturnChannelControlEnabled:enabled error:?];
   }
 
   v9[0] = MEMORY[0x277D85DD0];
@@ -298,7 +298,7 @@
   {
     if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
     {
-      [CoreCECDeviceClient requestAudioReturnChannelStatusChangeTo:error:];
+      [CoreCECDeviceClient requestAudioReturnChannelStatusChangeTo:? error:?];
       if (error)
       {
         goto LABEL_10;
@@ -366,7 +366,7 @@ LABEL_10:
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreCECDeviceClient setAudioMuteStatus:error:];
+    [CoreCECDeviceClient setAudioMuteStatus:status error:?];
   }
 
   v9[0] = MEMORY[0x277D85DD0];
@@ -405,7 +405,7 @@ LABEL_10:
   {
     if (gLogCategory_CoreRCDevice <= 40 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
     {
-      [CoreCECDeviceClient setSupportedAudioFormats:formats->var0 count:? error:?];
+      [CoreCECDeviceClient setSupportedAudioFormats:formats->var0 count:v10 error:?];
     }
 
     v11 = (formats->var0[0] >> 3) & 0xF;
@@ -477,7 +477,7 @@ LABEL_13:
   {
     if (gLogCategory_CoreRCDevice <= 90 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
     {
-      [CoreCECDeviceClient requestSystemAudioModeStatusChangeTo:error:];
+      [CoreCECDeviceClient requestSystemAudioModeStatusChangeTo:? error:?];
       if (error)
       {
         goto LABEL_10;
@@ -528,7 +528,7 @@ LABEL_10:
   v4[5] = self;
   if ((CoreRCWaitForAsyncOperation(0, v4) & 1) == 0)
   {
-    [CoreCECDeviceClient removeFromBus];
+    [(CoreCECDeviceClient *)self removeFromBus];
   }
 }
 
@@ -661,12 +661,23 @@ LABEL_10:
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
 }
 
+- (uint64_t)setAudioReturnChannelControlEnabled:(char)a1 error:.cold.2(char a1)
+{
+  v1 = "NO";
+  if (a1)
+  {
+    v1 = "YES";
+  }
+
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient setAudioReturnChannelControlEnabled:error:]", 40, "setting ARC enable to: %s", v1);
+}
+
 - (uint64_t)requestAudioReturnChannelStatusChangeTo:error:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  CoreCECActivationStatusString(v0);
-  return LogPrintF();
+  v2 = objc_opt_class();
+  v3 = CoreCECActivationStatusString(v0);
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient requestAudioReturnChannelStatusChangeTo:error:]", 10, "%@ %@ requestAudioReturnChannelStatusChangeTo: %@\n", v2, v1, v3);
 }
 
 - (uint64_t)setAudioVolumeStatus:error:.cold.1()
@@ -680,8 +691,8 @@ LABEL_10:
 - (uint64_t)setAudioVolumeStatus:error:.cold.2()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  return LogPrintF();
+  v2 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient setAudioVolumeStatus:error:]", 40, "%@ %@ setAudioVolumeStatus: %lu\n", v2, v1, v0);
 }
 
 - (uint64_t)setAudioMuteStatus:error:.cold.1()
@@ -692,21 +703,24 @@ LABEL_10:
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
 }
 
+- (uint64_t)setAudioMuteStatus:(uint64_t)a1 error:(char)a2 .cold.2(uint64_t a1, char a2)
+{
+  v4 = objc_opt_class();
+  v5 = "NO";
+  if (a2)
+  {
+    v5 = "YES";
+  }
+
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient setAudioMuteStatus:error:]", 10, "%@ %@ setAudioMuteStatus: %s\n", v4, a1, v5);
+}
+
 - (uint64_t)setSupportedAudioFormats:count:error:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
   [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_0_6();
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
-}
-
-- (uint64_t)setSupportedAudioFormats:(uint64_t)a1 count:(unsigned __int8 *)a2 error:.cold.2(uint64_t a1, unsigned __int8 *a2)
-{
-  objc_opt_class();
-  v5 = a2[1];
-  v6 = a2[2];
-  v4 = *a2;
-  return LogPrintF();
 }
 
 - (uint64_t)setTrackAudioStatusEnabled:pressTimeout:pollInterval:error:.cold.1()
@@ -728,24 +742,25 @@ LABEL_10:
 - (uint64_t)requestSystemAudioModeStatusChangeTo:error:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  CoreCECActivationStatusString(v0);
-  return LogPrintF();
+  v2 = objc_opt_class();
+  v3 = CoreCECActivationStatusString(v0);
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreCECDeviceClient requestSystemAudioModeStatusChangeTo:error:]", 10, "%@ %@ requestSystemAudioModeStatusChangeTo: %@\n", v2, v1, v3);
 }
 
 - (uint64_t)removeFromBus
 {
   if (gLogCategory_CoreRCXPC <= 40)
   {
+    v1 = result;
     if (gLogCategory_CoreRCXPC != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_CoreRCXPC, "[CoreCECDeviceClient removeFromBus]", 40, "CoreCECDevice removeFromBus async operation failed %@\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_CoreRCXPC, "[CoreCECDeviceClient removeFromBus]", 40, "CoreCECDevice removeFromBus async operation failed %@\n", v1);
     }
   }
 

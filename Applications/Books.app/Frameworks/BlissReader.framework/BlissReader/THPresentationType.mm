@@ -49,8 +49,8 @@
     v6->_fontSize = 0;
     v6->_columnCount = 0;
     v6->_gutterWidth = 0.0;
-    v7 = *&TSDEdgeInsetsZero[2];
-    *&v6->_contentInsets.top = *TSDEdgeInsetsZero;
+    v7 = TSDEdgeInsetsZero[1];
+    *&v6->_contentInsets.top = TSDEdgeInsetsZero[0];
     *&v6->_contentInsets.bottom = v7;
     v6->_compactWidth = -1;
     v6->_compactHeight = -1;

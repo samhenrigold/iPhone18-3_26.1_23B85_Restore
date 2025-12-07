@@ -30,11 +30,11 @@
 - (void)ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier:(id)identifier completion:(id)completion;
 - (void)ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)ctcsRetrievePreferredNetworkInternallyWithCompletion:(id)completion;
+- (void)ctcsStoreThreadNetworkCredentialActiveDataSetInternally:(id)internally network:(id)network credentialsDataSet:(id)set waitForSync:(BOOL)sync completion:(id)completion;
 - (void)dealloc;
 - (void)deleteCredentialsForBorderAgent:(NSData *)borderAgentID completion:(void *)completion;
 - (void)handleXPCConnectionInterrupted;
 - (void)handleXPCConnectionInvalidated;
-- (void)init;
 - (void)invalidate;
 - (void)isPreferredNetworkAvailableWithCompletion:(void *)completion;
 - (void)pingXPCServiceWithClientProxy:(id)proxy completion:(id)completion;
@@ -44,6 +44,7 @@
 - (void)retrieveCredentialsForBorderAgent:(NSData *)borderAgentID completion:(void *)completion;
 - (void)retrieveCredentialsForExtendedPANID:(NSData *)extendedPANID completion:(void *)completion;
 - (void)retrieveCredentialsForUUID:(id)d completion:(id)completion;
+- (void)retrieveListOfPreferredNetworkEntriesInternally:(id)internally ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)completion;
 - (void)retrieveOrGeneratePreferredNetworkInternally:(id)internally;
 - (void)retrievePreferredCredentials:(void *)completion;
 - (void)retrievePreferredCredentialsInternally:(id)internally;
@@ -61,10 +62,10 @@
 
 - (THClient)init
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = THClient;
-  v2 = [(THClient *)&v10 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = THClient;
+  v2 = [(THClient *)&v9 init];
   v3 = v2;
   if (!v2)
   {
@@ -81,7 +82,7 @@ LABEL_5:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v12 = "[THClient init]";
+      v11 = "[THClient init]";
       _os_log_impl(&dword_23AAC8000, v6, OS_LOG_TYPE_INFO, "Client: %s - XPC Client Init done", buf, 0xCu);
     }
 
@@ -97,13 +98,12 @@ LABEL_5:
   v7 = 0;
 LABEL_9:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   xpcConnection = [(THClient *)self xpcConnection];
 
   if (xpcConnection)
@@ -116,7 +116,7 @@ LABEL_9:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[THClient dealloc]";
+    v9 = "[THClient dealloc]";
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_DEFAULT, "%s : Client: Connection - deallocated...", buf, 0xCu);
   }
 
@@ -129,23 +129,22 @@ LABEL_9:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[THClient dealloc]";
+    v9 = "[THClient dealloc]";
     _os_log_impl(&dword_23AAC8000, v6, OS_LOG_TYPE_DEFAULT, "%s : Client: thread safe property queue - deallocated...", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = THClient;
-  [(THClient *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = THClient;
+  [(THClient *)&v7 dealloc];
 }
 
 - (THClient)initWithKeychainAccessGroup:(id)group
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   groupCopy = group;
-  v13.receiver = self;
-  v13.super_class = THClient;
-  v5 = [(THClient *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = THClient;
+  v5 = [(THClient *)&v12 init];
   v6 = v5;
   if (!v5)
   {
@@ -162,7 +161,7 @@ LABEL_5:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "[THClient initWithKeychainAccessGroup:]";
+      v14 = "[THClient initWithKeychainAccessGroup:]";
       _os_log_impl(&dword_23AAC8000, v9, OS_LOG_TYPE_DEFAULT, "Client: %s - XPC Client Init done", buf, 0xCu);
     }
 
@@ -178,7 +177,6 @@ LABEL_5:
   v10 = 0;
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -269,17 +267,15 @@ void __53__THClient_pingXPCServiceWithClientProxy_completion___block_invoke(uint
 
 void __26__THClient_pingXPCService__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "clientProxyWithErrorHandler: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "clientProxyWithErrorHandler: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getTheProxyWithErrorParameterCompletion:(id)completion
@@ -595,14 +591,14 @@ void __42__THClient_handleXPCConnectionInvalidated__block_invoke(uint64_t a1)
 
 - (void)connectToXPCService
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = ThreadNetworkLoggingCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[THClient connectToXPCService]";
-    v21 = 1024;
-    v22 = 275;
+    v19 = "[THClient connectToXPCService]";
+    v20 = 1024;
+    v21 = 275;
     _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_DEFAULT, "Client: %s:%d", buf, 0x12u);
   }
 
@@ -619,21 +615,21 @@ void __42__THClient_handleXPCConnectionInvalidated__block_invoke(uint64_t a1)
     [xpcConnection2 setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __31__THClient_connectToXPCService__block_invoke;
-    v16[3] = &unk_278B6A9F0;
-    objc_copyWeak(&v17, &location);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __31__THClient_connectToXPCService__block_invoke;
+    v15[3] = &unk_278B6A9F0;
+    objc_copyWeak(&v16, &location);
     xpcConnection3 = [(THClient *)self xpcConnection];
-    [xpcConnection3 setInterruptionHandler:v16];
+    [xpcConnection3 setInterruptionHandler:v15];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __31__THClient_connectToXPCService__block_invoke_7;
-    v14[3] = &unk_278B6A9F0;
-    objc_copyWeak(&v15, &location);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __31__THClient_connectToXPCService__block_invoke_7;
+    v13[3] = &unk_278B6A9F0;
+    objc_copyWeak(&v14, &location);
     xpcConnection4 = [(THClient *)self xpcConnection];
-    [xpcConnection4 setInvalidationHandler:v14];
+    [xpcConnection4 setInvalidationHandler:v13];
 
     xpcConnection5 = [(THClient *)self xpcConnection];
     [xpcConnection5 resume];
@@ -642,16 +638,14 @@ void __42__THClient_handleXPCConnectionInvalidated__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v20 = "[THClient connectToXPCService]";
+      v19 = "[THClient connectToXPCService]";
       _os_log_impl(&dword_23AAC8000, v12, OS_LOG_TYPE_INFO, "Client: %s - connectToXPCService Connection resumed", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __31__THClient_connectToXPCService__block_invoke(uint64_t a1)
@@ -799,26 +793,24 @@ void __52__THClient_clientProxyWithErrorHandler_pingService___block_invoke(uint6
 
 void __52__THClient_clientProxyWithErrorHandler_pingService___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_INFO, "synchronousRemoteObjectProxyWithErrorHandler: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_INFO, "synchronousRemoteObjectProxyWithErrorHandler: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__THClient_clientProxyWithErrorHandler_pingService___block_invoke_8(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -828,27 +820,23 @@ void __52__THClient_clientProxyWithErrorHandler_pingService___block_invoke_8(uin
       v4 = @"YES";
     }
 
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "clientProxyWithErrorHandler connected=%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "clientProxyWithErrorHandler connected=%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__THClient_synchronousRemoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "synchronousRemoteObjectProxy - %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_INFO, "synchronousRemoteObjectProxy - %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)synchronousClientProxyWithErrorHandler:(id)handler
@@ -921,29 +909,29 @@ void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2(uint
 
 - (id)performXPCRequestBlock:(id)block timeout:(double)timeout error:(id *)error
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v8 = dispatch_semaphore_create(0);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy_;
-  v38 = __Block_byref_object_dispose_;
-  v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
   v33 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __49__THClient_performXPCRequestBlock_timeout_error___block_invoke;
-  v27[3] = &unk_278B6AAB0;
-  v27[4] = &v34;
-  v27[5] = &v28;
-  v27[6] = v8;
-  blockCopy[2](blockCopy, v27);
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy_;
+  v37 = __Block_byref_object_dispose_;
+  v38 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __49__THClient_performXPCRequestBlock_timeout_error___block_invoke;
+  v26[3] = &unk_278B6AAB0;
+  v26[4] = &v33;
+  v26[5] = &v27;
+  v26[6] = v8;
+  blockCopy[2](blockCopy, v26);
   if (timeout <= 0.0)
   {
     v9 = -1;
@@ -970,9 +958,9 @@ void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2(uint
   v12 = [v10 stringWithFormat:@"XPC method request timed out after %@ seconds", v11];
 
   v13 = MEMORY[0x277CCA9B8];
-  v42 = *MEMORY[0x277CCA450];
-  v43[0] = v12;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+  v41 = *MEMORY[0x277CCA450];
+  v42[0] = v12;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
   v15 = [v13 errorWithDomain:@"com.apple.ThreadNetwork" code:3 userInfo:v14];
 
   v16 = ThreadNetworkLoggingCategory(0);
@@ -980,7 +968,7 @@ void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2(uint
   {
     v17 = [v15 description];
     *buf = 138412290;
-    v41 = v17;
+    v40 = v17;
     _os_log_impl(&dword_23AAC8000, v16, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -989,21 +977,21 @@ void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2(uint
   {
     callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
     *buf = 138412290;
-    v41 = callStackSymbols;
+    v40 = callStackSymbols;
     _os_log_impl(&dword_23AAC8000, v18, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
   if (error)
   {
 LABEL_12:
-    v20 = v29[5];
+    v20 = v28[5];
     if (v20)
     {
       *error = v20;
       v21 = ThreadNetworkLoggingCategory(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v22 = [v29[5] description];
+        v22 = [v28[5] description];
         [THClient performXPCRequestBlock:v22 timeout:buf error:v21];
       }
     }
@@ -1016,12 +1004,10 @@ LABEL_12:
   }
 
 LABEL_17:
-  v24 = v35[5];
+  v24 = v34[5];
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
 
   return v24;
 }
@@ -1045,23 +1031,23 @@ void __49__THClient_performXPCRequestBlock_timeout_error___block_invoke(uint64_t
 
 - (BOOL)isConnected
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   threadSafePropertyQueue = self->_threadSafePropertyQueue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __23__THClient_isConnected__block_invoke;
-  v8[3] = &unk_278B6AAD8;
-  v8[4] = self;
-  v8[5] = &v9;
-  dispatch_sync(threadSafePropertyQueue, v8);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __23__THClient_isConnected__block_invoke;
+  v7[3] = &unk_278B6AAD8;
+  v7[4] = self;
+  v7[5] = &v8;
+  dispatch_sync(threadSafePropertyQueue, v7);
   v3 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    if (*(v10 + 24))
+    if (*(v9 + 24))
     {
       v4 = @"true";
     }
@@ -1072,13 +1058,12 @@ void __49__THClient_performXPCRequestBlock_timeout_error___block_invoke(uint64_t
     }
 
     *buf = 138412290;
-    v14 = v4;
+    v13 = v4;
     _os_log_impl(&dword_23AAC8000, v3, OS_LOG_TYPE_DEFAULT, "XPC Client - isConnected: %@", buf, 0xCu);
   }
 
-  v5 = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
   return v5;
 }
 
@@ -1096,7 +1081,7 @@ void __49__THClient_performXPCRequestBlock_timeout_error___block_invoke(uint64_t
 
 void __27__THClient_setIsConnected___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 32);
   if (v1 != *(v2 + 8))
@@ -1115,13 +1100,11 @@ void __27__THClient_setIsConnected___block_invoke(uint64_t a1)
         v5 = @"false";
       }
 
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_DEFAULT, "XPC Client - set connected: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_DEFAULT, "XPC Client - set connected: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getConnectionEntitlementValidity:(id)validity
@@ -1177,15 +1160,15 @@ void __44__THClient_getConnectionEntitlementValidity__block_invoke(uint64_t a1, 
 
 void __58__THClient_asynchronousRemoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [v3 description];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_INFO, "Connection failed while trying to get async remote object proxy (%@)\n", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_INFO, "Connection failed while trying to get async remote object proxy (%@)\n", &v7, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -1193,192 +1176,204 @@ void __58__THClient_asynchronousRemoteObjectProxyWithErrorHandler___block_invoke
   {
     (*(v6 + 16))(v6, v3);
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)ctcsStoreThreadNetworkCredentialActiveDataSetInternally:(id)internally network:(id)network credentialsDataSet:(id)set waitForSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  v25 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  setCopy = set;
+  networkCopy = network;
+  internallyCopy = internally;
+  v16 = ThreadNetworkLoggingCategory(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v22 = "[THClient ctcsStoreThreadNetworkCredentialActiveDataSetInternally:network:credentialsDataSet:waitForSync:completion:]";
+    v23 = 1024;
+    v24 = 519;
+    _os_log_impl(&dword_23AAC8000, v16, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
+  }
+
+  v17 = [(THClient *)self getTheProxyWithResultBlockCompletion:completionCopy];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __118__THClient_ctcsStoreThreadNetworkCredentialActiveDataSetInternally_network_credentialsDataSet_waitForSync_completion___block_invoke;
+  v19[3] = &unk_278B6AB28;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [v17 ctcsServerStoreThreadNetworkCredentialActiveDataSetInternally:internallyCopy network:networkCopy credentialsDataSet:setCopy waitForSync:syncCopy completion:v19];
 }
 
 - (void)ctcsDeleteActiveDataSetRecordWithUniqueIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   identifierCopy = identifier;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[THClient ctcsDeleteActiveDataSetRecordWithUniqueIdentifier:completion:]";
-    v16 = 1024;
-    v17 = 530;
+    v14 = "[THClient ctcsDeleteActiveDataSetRecordWithUniqueIdentifier:completion:]";
+    v15 = 1024;
+    v16 = 530;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v9 = [(THClient *)self getTheProxyWithErrorParameterCompletion:completionCopy];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__THClient_ctcsDeleteActiveDataSetRecordWithUniqueIdentifier_completion___block_invoke;
-  v12[3] = &unk_278B6A9C8;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __73__THClient_ctcsDeleteActiveDataSetRecordWithUniqueIdentifier_completion___block_invoke;
+  v11[3] = &unk_278B6A9C8;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [v9 ctcsServerDeleteActiveDataSetRecordWithUniqueIdentifier:identifierCopy completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v9 ctcsServerDeleteActiveDataSetRecordWithUniqueIdentifier:identifierCopy completion:v11];
 }
 
 - (void)ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   identifierCopy = identifier;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[THClient ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier:completion:]";
-    v16 = 1024;
-    v17 = 540;
+    v14 = "[THClient ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier:completion:]";
+    v15 = 1024;
+    v16 = 540;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v9 = [(THClient *)self getTheProxyWithRecordCompletion:completionCopy];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __75__THClient_ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier_completion___block_invoke;
-  v12[3] = &unk_278B6AB50;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __75__THClient_ctcsRetrieveActiveDataSetRecordWithUniqueIdentifier_completion___block_invoke;
+  v11[3] = &unk_278B6AB50;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [v9 ctcsServerRetrieveActiveDataSetRecordWithUniqueIdentifier:identifierCopy completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v9 ctcsServerRetrieveActiveDataSetRecordWithUniqueIdentifier:identifierCopy completion:v11];
 }
 
 - (void)ctcsRetrievePreferredNetworkInternallyWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient ctcsRetrievePreferredNetworkInternallyWithCompletion:]";
-    v13 = 1024;
-    v14 = 550;
+    v11 = "[THClient ctcsRetrievePreferredNetworkInternallyWithCompletion:]";
+    v12 = 1024;
+    v13 = 550;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithRecordCompletion:completionCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __65__THClient_ctcsRetrievePreferredNetworkInternallyWithCompletion___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__THClient_ctcsRetrievePreferredNetworkInternallyWithCompletion___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [v6 ctcsServerRetrievePreferredNetworkInternallyWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrievePreferredNetworkInternallyWithCompletion:v8];
 }
 
 - (void)ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:]";
-    v13 = 1024;
-    v14 = 560;
+    v11 = "[THClient ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:]";
+    v12 = 1024;
+    v13 = 560;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithRecordCompletion:completionCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __75__THClient_ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __75__THClient_ctcsRetrieveOrGeneratePreferredNetworkInternallyWithCompletion___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [v6 ctcsServerRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:v8];
 }
 
 - (void)ctcsDeletePreferredNetworkWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient ctcsDeletePreferredNetworkWithCompletion:]";
-    v13 = 1024;
-    v14 = 571;
+    v11 = "[THClient ctcsDeletePreferredNetworkWithCompletion:]";
+    v12 = 1024;
+    v13 = 571;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithErrorParameterCompletion:completionCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __53__THClient_ctcsDeletePreferredNetworkWithCompletion___block_invoke;
-  v9[3] = &unk_278B6A9C8;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __53__THClient_ctcsDeletePreferredNetworkWithCompletion___block_invoke;
+  v8[3] = &unk_278B6A9C8;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [v6 ctcsServerDeletePreferredNetworkWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerDeletePreferredNetworkWithCompletion:v8];
 }
 
 - (void)ctcsCleanPreferredAndFrozenThreadNetworksWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient ctcsCleanPreferredAndFrozenThreadNetworksWithCompletion:]";
-    v13 = 1024;
-    v14 = 582;
+    v11 = "[THClient ctcsCleanPreferredAndFrozenThreadNetworksWithCompletion:]";
+    v12 = 1024;
+    v13 = 582;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithErrorParameterCompletion:completionCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __68__THClient_ctcsCleanPreferredAndFrozenThreadNetworksWithCompletion___block_invoke;
-  v9[3] = &unk_278B6A9C8;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __68__THClient_ctcsCleanPreferredAndFrozenThreadNetworksWithCompletion___block_invoke;
+  v8[3] = &unk_278B6A9C8;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [v6 ctcsServerCleanPreferredAndFrozenThreadNetworksWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerCleanPreferredAndFrozenThreadNetworksWithCompletion:v8];
 }
 
 - (void)ctcsCleanKeychainThreadNetworksWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient ctcsCleanKeychainThreadNetworksWithCompletion:]";
-    v13 = 1024;
-    v14 = 592;
+    v11 = "[THClient ctcsCleanKeychainThreadNetworksWithCompletion:]";
+    v12 = 1024;
+    v13 = 592;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithErrorParameterCompletion:completionCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__THClient_ctcsCleanKeychainThreadNetworksWithCompletion___block_invoke;
-  v9[3] = &unk_278B6A9C8;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__THClient_ctcsCleanKeychainThreadNetworksWithCompletion___block_invoke;
+  v8[3] = &unk_278B6A9C8;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [v6 ctcsServerCleanKeychainThreadNetworksWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerCleanKeychainThreadNetworksWithCompletion:v8];
 }
 
 - (void)storeCredentialsForBorderAgentInternally:(id)internally networkName:(id)name extendedPANId:(id)id activeOperationalDataSet:(id)set completion:(id)completion
@@ -1416,16 +1411,16 @@ void __58__THClient_asynchronousRemoteObjectProxyWithErrorHandler___block_invoke
 
 - (void)retrieveActiveDataSetRecordInternallyForExtendedPANID:(id)d completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dCopy = d;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[THClient retrieveActiveDataSetRecordInternallyForExtendedPANID:completion:]";
-    v17 = 1024;
-    v18 = 633;
+    v15 = "[THClient retrieveActiveDataSetRecordInternallyForExtendedPANID:completion:]";
+    v16 = 1024;
+    v17 = 633;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
@@ -1436,15 +1431,13 @@ void __58__THClient_asynchronousRemoteObjectProxyWithErrorHandler___block_invoke
   }
 
   v10 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:completionCopy];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__THClient_retrieveActiveDataSetRecordInternallyForExtendedPANID_completion___block_invoke;
-  v13[3] = &unk_278B6AB50;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__THClient_retrieveActiveDataSetRecordInternallyForExtendedPANID_completion___block_invoke;
+  v12[3] = &unk_278B6AB50;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [v10 ctcsServerRetrieveActiveDataSetRecordInternallyWithXPANId:dCopy completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v10 ctcsServerRetrieveActiveDataSetRecordInternallyWithXPANId:dCopy completion:v12];
 }
 
 void __77__THClient_retrieveActiveDataSetRecordInternallyForExtendedPANID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1500,42 +1493,40 @@ void __77__THClient_retrieveActiveDataSetRecordInternallyForExtendedPANID_comple
 
 - (void)updatePreferredCredentialsInternally:(id)internally
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   internallyCopy = internally;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient updatePreferredCredentialsInternally:]";
-    v13 = 1024;
-    v14 = 664;
+    v11 = "[THClient updatePreferredCredentialsInternally:]";
+    v12 = 1024;
+    v13 = 664;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithBoolCompletion:internallyCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__THClient_updatePreferredCredentialsInternally___block_invoke;
-  v9[3] = &unk_278B6AB78;
-  v10 = internallyCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__THClient_updatePreferredCredentialsInternally___block_invoke;
+  v8[3] = &unk_278B6AB78;
+  v9 = internallyCopy;
   v7 = internallyCopy;
-  [v6 ctcsUpdatePreferredNetworkInternallyWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsUpdatePreferredNetworkInternallyWithCompletion:v8];
 }
 
 - (void)validateAODInternally:(id)internally completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   internallyCopy = internally;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[THClient validateAODInternally:completion:]";
-    v17 = 1024;
-    v18 = 675;
+    v15 = "[THClient validateAODInternally:completion:]";
+    v16 = 1024;
+    v17 = 675;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
@@ -1546,15 +1537,13 @@ void __77__THClient_retrieveActiveDataSetRecordInternallyForExtendedPANID_comple
   }
 
   v10 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:completionCopy];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __45__THClient_validateAODInternally_completion___block_invoke;
-  v13[3] = &unk_278B6AB50;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __45__THClient_validateAODInternally_completion___block_invoke;
+  v12[3] = &unk_278B6AB50;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [v10 ctcsValidateAODInternally:internallyCopy completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v10 ctcsValidateAODInternally:internallyCopy completion:v12];
 }
 
 void __45__THClient_validateAODInternally_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1608,131 +1597,160 @@ void __45__THClient_validateAODInternally_completion___block_invoke(uint64_t a1,
   }
 }
 
+- (void)retrieveListOfPreferredNetworkEntriesInternally:(id)internally ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)completion
+{
+  entryCopy = entry;
+  v28 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  dCopy = d;
+  nwSignatureCopy = nwSignature;
+  signatureCopy = signature;
+  internallyCopy = internally;
+  v19 = ThreadNetworkLoggingCategory(0);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v25 = "[THClient retrieveListOfPreferredNetworkEntriesInternally:ipV4NwSignature:ipv6NwSignature:wifiSSID:showCurrentEntry:completion:]";
+    v26 = 1024;
+    v27 = 710;
+    _os_log_impl(&dword_23AAC8000, v19, OS_LOG_TYPE_INFO, "Client: %s:%d - Read list of Preferred Network Entries", buf, 0x12u);
+  }
+
+  v20 = [(THClient *)self getTheProxyWithPrefEntryCompletion:completionCopy];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __129__THClient_retrieveListOfPreferredNetworkEntriesInternally_ipV4NwSignature_ipv6NwSignature_wifiSSID_showCurrentEntry_completion___block_invoke;
+  v22[3] = &unk_278B6ABA0;
+  v23 = completionCopy;
+  v21 = completionCopy;
+  [v20 ctcsServerRetrieveListOfPreferredNetworkEntriesInternallyWithCompletion:internallyCopy ipV4NwSignature:signatureCopy ipv6NwSignature:nwSignatureCopy wifiSSID:dCopy showCurrentEntry:entryCopy completion:v22];
+}
+
 void __129__THClient_retrieveListOfPreferredNetworkEntriesInternally_ipV4NwSignature_ipv6NwSignature_wifiSSID_showCurrentEntry_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && [v5 count])
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     v8 = v5;
-    v42 = [v8 countByEnumeratingWithState:&v67 objects:v71 count:16];
-    if (v42)
+    v41 = [v8 countByEnumeratingWithState:&v66 objects:v70 count:16];
+    if (v41)
     {
-      v40 = v7;
-      v41 = *v68;
-      v37 = v6;
-      v38 = v5;
-      v36 = a1;
-      v39 = v8;
+      v39 = v7;
+      v40 = *v67;
+      v36 = v6;
+      v37 = v5;
+      v35 = a1;
+      v38 = v8;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v68 != v41)
+          if (*v67 != v40)
           {
             objc_enumerationMutation(v8);
           }
 
-          v10 = *(*(&v67 + 1) + 8 * v9);
+          v10 = *(*(&v66 + 1) + 8 * v9);
           if (!v10)
           {
             v32 = [MEMORY[0x277CCA9B8] storeError:3 description:@"Failed to retrieve Preferred Network Entry"];
-            (*(*(v36 + 32) + 16))();
-            v5 = v38;
+            (*(*(v35 + 32) + 16))();
+            v5 = v37;
 LABEL_19:
 
-            v6 = v37;
+            v6 = v36;
             goto LABEL_20;
           }
 
-          v57 = v9;
+          v56 = v9;
           v11 = [v10 credentialsDataSetRecord];
 
           if (v11)
           {
             v12 = [THCredentials alloc];
-            v58 = [v10 network];
-            v64 = [v58 networkName];
-            v56 = [v10 network];
-            v62 = [v56 extendedPANID];
-            v55 = [v10 credentialsDataSetRecord];
-            v54 = [v55 borderAgent];
-            v60 = [v54 discriminatorId];
-            v53 = [v10 credentialsDataSetRecord];
-            v52 = [v53 credentialsDataSet];
-            v13 = [v52 dataSetArray];
-            v51 = [v10 credentialsDataSetRecord];
-            v50 = [v51 credentials];
-            v45 = [v50 PSKc];
-            v49 = [v10 credentialsDataSetRecord];
-            v48 = [v49 credentials];
-            v43 = [v48 masterKey];
-            v47 = [v10 credentialsDataSetRecord];
-            v46 = [v47 credentials];
-            v14 = [v46 channel];
-            v44 = [v10 credentialsDataSetRecord];
-            v15 = [v44 credentials];
+            v57 = [v10 network];
+            v63 = [v57 networkName];
+            v55 = [v10 network];
+            v61 = [v55 extendedPANID];
+            v54 = [v10 credentialsDataSetRecord];
+            v53 = [v54 borderAgent];
+            v59 = [v53 discriminatorId];
+            v52 = [v10 credentialsDataSetRecord];
+            v51 = [v52 credentialsDataSet];
+            v13 = [v51 dataSetArray];
+            v50 = [v10 credentialsDataSetRecord];
+            v49 = [v50 credentials];
+            v44 = [v49 PSKc];
+            v48 = [v10 credentialsDataSetRecord];
+            v47 = [v48 credentials];
+            v42 = [v47 masterKey];
+            v46 = [v10 credentialsDataSetRecord];
+            v45 = [v46 credentials];
+            v14 = [v45 channel];
+            v43 = [v10 credentialsDataSetRecord];
+            v15 = [v43 credentials];
             v16 = [v15 PANID];
             v17 = [v10 credentialsDataSetRecord];
             v18 = [v17 creationDate];
             v19 = [v10 credentialsDataSetRecord];
             v20 = [v19 lastModificationDate];
-            LOBYTE(v35) = v14;
-            v66 = [(THCredentials *)v12 initThreadCredentials:v64 extendedPANID:v62 borderAgentID:v60 activeOperationalDataSet:v13 PSKC:v45 networkKey:v43 channel:v35 panID:v16 creationDate:v18 lastModificationDate:v20];
+            LOBYTE(v34) = v14;
+            v65 = [(THCredentials *)v12 initThreadCredentials:v63 extendedPANID:v61 borderAgentID:v59 activeOperationalDataSet:v13 PSKC:v44 networkKey:v42 channel:v34 panID:v16 creationDate:v18 lastModificationDate:v20];
           }
 
           else
           {
-            v66 = 0;
+            v65 = 0;
           }
 
-          v59 = [THPreferredNetworkEntry alloc];
-          v65 = [v10 network];
-          v21 = [v65 networkName];
-          v63 = [v10 network];
-          v22 = [v63 extendedPANID];
-          v61 = [v10 networkSignature];
-          v23 = [v61 ipv4NwSignature];
+          v58 = [THPreferredNetworkEntry alloc];
+          v64 = [v10 network];
+          v21 = [v64 networkName];
+          v62 = [v10 network];
+          v22 = [v62 extendedPANID];
+          v60 = [v10 networkSignature];
+          v23 = [v60 ipv4NwSignature];
           v24 = [v10 networkSignature];
           v25 = [v24 ipv6NwSignature];
           v26 = [v10 networkSignature];
           v27 = [v26 wifiSSID];
           v28 = [v10 creationDate];
           v29 = [v10 lastModificationDate];
-          v30 = [(THPreferredNetworkEntry *)v59 initPrefEntry:v21 extendedPANID:v22 ipv4Signature:v23 ipv6Signature:v25 wifiSSID:v27 creationDate:v28 lastModificationDate:v29 credentialsRecord:v66];
+          v30 = [(THPreferredNetworkEntry *)v58 initPrefEntry:v21 extendedPANID:v22 ipv4Signature:v23 ipv6Signature:v25 wifiSSID:v27 creationDate:v28 lastModificationDate:v29 credentialsRecord:v65];
 
           if (!v30)
           {
             v33 = [MEMORY[0x277CCA9B8] storeError:3 description:@"Failed to retrieve record"];
-            (*(*(v36 + 32) + 16))();
+            (*(*(v35 + 32) + 16))();
 
-            v5 = v38;
-            v8 = v39;
-            v7 = v40;
-            v32 = v66;
+            v5 = v37;
+            v8 = v38;
+            v7 = v39;
+            v32 = v65;
             goto LABEL_19;
           }
 
-          v7 = v40;
-          [v40 addObject:v30];
+          v7 = v39;
+          [v39 addObject:v30];
 
-          v9 = v57 + 1;
-          v8 = v39;
+          v9 = v56 + 1;
+          v8 = v38;
         }
 
-        while (v42 != v57 + 1);
-        v6 = v37;
-        v5 = v38;
-        a1 = v36;
-        v42 = [v39 countByEnumeratingWithState:&v67 objects:v71 count:16];
-        if (v42)
+        while (v41 != v56 + 1);
+        v6 = v36;
+        v5 = v37;
+        a1 = v35;
+        v41 = [v38 countByEnumeratingWithState:&v66 objects:v70 count:16];
+        if (v41)
         {
           continue;
         }
@@ -1751,34 +1769,32 @@ LABEL_20:
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteCredentialsForBorderAgent:(NSData *)borderAgentID completion:(void *)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = borderAgentID;
   v7 = completion;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "[THClient deleteCredentialsForBorderAgent:completion:]";
-    v15 = 1024;
-    v16 = 756;
+    v13 = "[THClient deleteCredentialsForBorderAgent:completion:]";
+    v14 = 1024;
+    v15 = 756;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   if (v6)
   {
     v9 = [(THClient *)self getTheProxyWithErrorParameterCompletion:v7];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __55__THClient_deleteCredentialsForBorderAgent_completion___block_invoke;
-    v11[3] = &unk_278B6A9C8;
-    v12 = v7;
-    [v9 ctcsServerDeleteActiveDataSetRecordForThreadBorderAgent:v6 completion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __55__THClient_deleteCredentialsForBorderAgent_completion___block_invoke;
+    v10[3] = &unk_278B6A9C8;
+    v11 = v7;
+    [v9 ctcsServerDeleteActiveDataSetRecordForThreadBorderAgent:v6 completion:v10];
   }
 
   else
@@ -1786,8 +1802,6 @@ LABEL_20:
     v9 = [MEMORY[0x277CCA9B8] storeError:4 description:@"Invalid input parameter"];
     (*(v7 + 2))(v7, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeCredentialsForBorderAgent:(NSData *)borderAgentID activeOperationalDataSet:(NSData *)activeOperationalDataSet completion:(void *)completion
@@ -1858,114 +1872,83 @@ void __56__THClient_storeCachedAODasPreferredNetwork_completion___block_invoke(u
 
 - (void)retrieveAllCredentials:(void *)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrieveAllCredentials:]";
-    v13 = 1024;
-    v14 = 806;
+    v11 = "[THClient retrieveAllCredentials:]";
+    v12 = 1024;
+    v13 = 806;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithSetOfTHCredsParameterCompletion:v4];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __35__THClient_retrieveAllCredentials___block_invoke;
-  v9[3] = &unk_278B6ABA0;
-  v10 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __35__THClient_retrieveAllCredentials___block_invoke;
+  v8[3] = &unk_278B6ABA0;
+  v9 = v4;
   v7 = v4;
-  [v6 ctcsServerRetrieveAllActiveDataSetRecordsWithActiveFlag:0 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrieveAllActiveDataSetRecordsWithActiveFlag:0 completion:v8];
 }
 
 void __35__THClient_retrieveAllCredentials___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && [v5 count])
   {
-    v31 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v7 = v5;
-    v30 = [v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v30)
+    v29 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v29)
     {
       obj = v7;
-      v29 = *v44;
-      v26 = v6;
-      v27 = v5;
-      v25 = a1;
+      v28 = *v43;
+      v25 = v6;
+      v26 = v5;
+      v24 = a1;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v44 != v29)
+          if (*v43 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v43 + 1) + 8 * v8);
-          if (!v9)
+          v9 = *(*(&v42 + 1) + 8 * v8);
+          if (!v9 || (v10 = [THCredentials alloc], [v9 network], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "networkName"), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "network"), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "extendedPANID"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "borderAgent"), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "discriminatorId"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentialsDataSet"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "dataSetArray"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "PSKc"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "masterKey"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "channel"), objc_msgSend(v9, "credentials"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "PANID"), v34 = v8, v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "creationDate"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "lastModificationDate"), v18 = objc_claimAutoreleasedReturnValue(), LOBYTE(v23) = v14, v19 = -[THCredentials initThreadCredentials:extendedPANID:borderAgentID:activeOperationalDataSet:PSKC:networkKey:channel:panID:creationDate:lastModificationDate:](v10, "initThreadCredentials:extendedPANID:borderAgentID:activeOperationalDataSet:PSKC:networkKey:channel:panID:creationDate:lastModificationDate:", v41, v40, v32, v11, v12, v31, v23, v16, v17, v18), v18, v17, v16, v15, v13, v31, v33, v12, v35, v11, v36, v32, v37, v40, v38, v41, v39, !v19))
           {
-            goto LABEL_14;
-          }
-
-          v10 = [THCredentials alloc];
-          v40 = [v9 network];
-          v42 = [v40 networkName];
-          v39 = [v9 network];
-          v41 = [v39 extendedPANID];
-          v38 = [v9 borderAgent];
-          v33 = [v38 discriminatorId];
-          v37 = [v9 credentialsDataSet];
-          v11 = [v37 dataSetArray];
-          v36 = [v9 credentials];
-          v12 = [v36 PSKc];
-          v34 = [v9 credentials];
-          v32 = [v34 masterKey];
-          v13 = [v9 credentials];
-          v14 = [v13 channel];
-          v15 = [v9 credentials];
-          [v15 PANID];
-          v16 = v35 = v8;
-          v17 = [v9 creationDate];
-          v18 = [v9 lastModificationDate];
-          LOBYTE(v24) = v14;
-          v19 = [(THCredentials *)v10 initThreadCredentials:v42 extendedPANID:v41 borderAgentID:v33 activeOperationalDataSet:v11 PSKC:v12 networkKey:v32 channel:v24 panID:v16 creationDate:v17 lastModificationDate:v18];
-
-          if (!v19)
-          {
-LABEL_14:
             v22 = [MEMORY[0x277CCA9B8] storeError:3 description:@"Failed to retrieve record"];
-            (*(*(v25 + 32) + 16))();
+            (*(*(v24 + 32) + 16))();
 
-            v6 = v26;
-            v5 = v27;
+            v6 = v25;
+            v5 = v26;
             v21 = obj;
             goto LABEL_15;
           }
 
-          [v31 addObject:v19];
+          [v30 addObject:v19];
 
-          v8 = v35 + 1;
+          v8 = v34 + 1;
         }
 
-        while (v30 != v35 + 1);
+        while (v29 != v34 + 1);
         v7 = obj;
-        v6 = v26;
-        v5 = v27;
-        a1 = v25;
-        v30 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-        if (v30)
+        v6 = v25;
+        v5 = v26;
+        a1 = v24;
+        v29 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        if (v29)
         {
           continue;
         }
@@ -1975,7 +1958,7 @@ LABEL_14:
     }
 
     v20 = *(a1 + 32);
-    v21 = [MEMORY[0x277CBEB98] setWithArray:v31];
+    v21 = [MEMORY[0x277CBEB98] setWithArray:v30];
     (*(v20 + 16))(v20, v21, 0);
 LABEL_15:
   }
@@ -1984,22 +1967,20 @@ LABEL_15:
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveCredentialsForBorderAgent:(NSData *)borderAgentID completion:(void *)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = completion;
   v7 = borderAgentID;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[THClient retrieveCredentialsForBorderAgent:completion:]";
-    v18 = 1024;
-    v19 = 845;
+    v16 = "[THClient retrieveCredentialsForBorderAgent:completion:]";
+    v17 = 1024;
+    v18 = 845;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
@@ -2012,15 +1993,13 @@ LABEL_15:
   }
 
   v11 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:v6];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__THClient_retrieveCredentialsForBorderAgent_completion___block_invoke;
-  v14[3] = &unk_278B6AB50;
-  v15 = v6;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__THClient_retrieveCredentialsForBorderAgent_completion___block_invoke;
+  v13[3] = &unk_278B6AB50;
+  v14 = v6;
   v12 = v6;
-  [v11 ctcsServerRetrieveActiveDataSetRecordForThreadBorderAgent:v9 completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v11 ctcsServerRetrieveActiveDataSetRecordForThreadBorderAgent:v9 completion:v13];
 }
 
 void __57__THClient_retrieveCredentialsForBorderAgent_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2076,28 +2055,26 @@ void __57__THClient_retrieveCredentialsForBorderAgent_completion___block_invoke(
 
 - (void)retrievePreferredCredentials:(void *)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrievePreferredCredentials:]";
-    v13 = 1024;
-    v14 = 880;
+    v11 = "[THClient retrievePreferredCredentials:]";
+    v12 = 1024;
+    v13 = 880;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:v4];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __41__THClient_retrievePreferredCredentials___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __41__THClient_retrievePreferredCredentials___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = v4;
   v7 = v4;
-  [v6 ctcsServerRetrievePreferredNetworkWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrievePreferredNetworkWithCompletion:v8];
 }
 
 void __41__THClient_retrievePreferredCredentials___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2153,16 +2130,16 @@ void __41__THClient_retrievePreferredCredentials___block_invoke(uint64_t a1, voi
 
 - (void)retrieveCredentialsForExtendedPANID:(NSData *)extendedPANID completion:(void *)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = completion;
   v7 = extendedPANID;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[THClient retrieveCredentialsForExtendedPANID:completion:]";
-    v17 = 1024;
-    v18 = 904;
+    v15 = "[THClient retrieveCredentialsForExtendedPANID:completion:]";
+    v16 = 1024;
+    v17 = 904;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
@@ -2173,15 +2150,13 @@ void __41__THClient_retrievePreferredCredentials___block_invoke(uint64_t a1, voi
   }
 
   v10 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:v6];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __59__THClient_retrieveCredentialsForExtendedPANID_completion___block_invoke;
-  v13[3] = &unk_278B6AB50;
-  v14 = v6;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__THClient_retrieveCredentialsForExtendedPANID_completion___block_invoke;
+  v12[3] = &unk_278B6AB50;
+  v13 = v6;
   v11 = v6;
-  [v10 ctcsServerRetrieveActiveDataSetRecordWithXPANId:v7 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v10 ctcsServerRetrieveActiveDataSetRecordWithXPANId:v7 completion:v12];
 }
 
 void __59__THClient_retrieveCredentialsForExtendedPANID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2237,28 +2212,26 @@ void __59__THClient_retrieveCredentialsForExtendedPANID_completion___block_invok
 
 - (void)retrievePreferredNetworkInternallyOnMdnsAndSig:(id)sig
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sigCopy = sig;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrievePreferredNetworkInternallyOnMdnsAndSig:]";
-    v13 = 1024;
-    v14 = 934;
+    v11 = "[THClient retrievePreferredNetworkInternallyOnMdnsAndSig:]";
+    v12 = 1024;
+    v13 = 934;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithTHCredsAndUuidParametersCompletion:sigCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__THClient_retrievePreferredNetworkInternallyOnMdnsAndSig___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = sigCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__THClient_retrievePreferredNetworkInternallyOnMdnsAndSig___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = sigCopy;
   v7 = sigCopy;
-  [v6 ctcsServerRetrievePreferredNetworkInternallyOnMdnsAndSigWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrievePreferredNetworkInternallyOnMdnsAndSigWithCompletion:v8];
 }
 
 void __59__THClient_retrievePreferredNetworkInternallyOnMdnsAndSig___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2317,28 +2290,26 @@ void __59__THClient_retrievePreferredNetworkInternallyOnMdnsAndSig___block_invok
 
 - (void)retrieveOrGeneratePreferredNetworkInternally:(id)internally
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   internallyCopy = internally;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrieveOrGeneratePreferredNetworkInternally:]";
-    v13 = 1024;
-    v14 = 958;
+    v11 = "[THClient retrieveOrGeneratePreferredNetworkInternally:]";
+    v12 = 1024;
+    v13 = 958;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithTHCredsAndUuidParametersCompletion:internallyCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__THClient_retrieveOrGeneratePreferredNetworkInternally___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = internallyCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__THClient_retrieveOrGeneratePreferredNetworkInternally___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = internallyCopy;
   v7 = internallyCopy;
-  [v6 ctcsServerRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrieveOrGeneratePreferredNetworkInternallyWithCompletion:v8];
 }
 
 void __57__THClient_retrieveOrGeneratePreferredNetworkInternally___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2397,28 +2368,26 @@ void __57__THClient_retrieveOrGeneratePreferredNetworkInternally___block_invoke(
 
 - (void)retrievePreferredCredentialsInternally:(id)internally
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   internallyCopy = internally;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrievePreferredCredentialsInternally:]";
-    v13 = 1024;
-    v14 = 982;
+    v11 = "[THClient retrievePreferredCredentialsInternally:]";
+    v12 = 1024;
+    v13 = 982;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithTHCredsAndUuidParametersCompletion:internallyCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__THClient_retrievePreferredCredentialsInternally___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = internallyCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__THClient_retrievePreferredCredentialsInternally___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = internallyCopy;
   v7 = internallyCopy;
-  [v6 ctcsServerRetrievePreferredNetworkInternallyWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrievePreferredNetworkInternallyWithCompletion:v8];
 }
 
 void __51__THClient_retrievePreferredCredentialsInternally___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2477,16 +2446,16 @@ void __51__THClient_retrievePreferredCredentialsInternally___block_invoke(uint64
 
 - (void)retrieveCredentialsForUUID:(id)d completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dCopy = d;
   v8 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[THClient retrieveCredentialsForUUID:completion:]";
-    v17 = 1024;
-    v18 = 1006;
+    v15 = "[THClient retrieveCredentialsForUUID:completion:]";
+    v16 = 1024;
+    v17 = 1006;
     _os_log_impl(&dword_23AAC8000, v8, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
@@ -2497,15 +2466,13 @@ void __51__THClient_retrievePreferredCredentialsInternally___block_invoke(uint64
   }
 
   v10 = [(THClient *)self getTheProxyWithTHCredsParameterCompletion:completionCopy];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __50__THClient_retrieveCredentialsForUUID_completion___block_invoke;
-  v13[3] = &unk_278B6AB50;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__THClient_retrieveCredentialsForUUID_completion___block_invoke;
+  v12[3] = &unk_278B6AB50;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [v10 ctcsServerRetrieveActiveDataSetRecordWithUniqueIdentifier:dCopy completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v10 ctcsServerRetrieveActiveDataSetRecordWithUniqueIdentifier:dCopy completion:v12];
 }
 
 void __50__THClient_retrieveCredentialsForUUID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2587,10 +2554,10 @@ void __50__THClient_retrieveCredentialsForUUID_completion___block_invoke(uint64_
   }
 }
 
-uint64_t __72__THClient_checkPreferredNetworkForActiveOperationalDataset_completion___block_invoke(uint64_t a1)
+uint64_t __72__THClient_checkPreferredNetworkForActiveOperationalDataset_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ThreadNetworkLoggingCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = ThreadNetworkLoggingCategory(0);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __72__THClient_checkPreferredNetworkForActiveOperationalDataset_completion___block_invoke_cold_1();
   }
@@ -2676,114 +2643,83 @@ void __148__THClient_ctcsDeletePreferredNetworkForNetworkSignatureInternallyWith
 
 - (void)retrieveAllActiveCredentials:(void *)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrieveAllActiveCredentials:]";
-    v13 = 1024;
-    v14 = 1090;
+    v11 = "[THClient retrieveAllActiveCredentials:]";
+    v12 = 1024;
+    v13 = 1090;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithSetOfTHCredsParameterCompletion:v4];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __41__THClient_retrieveAllActiveCredentials___block_invoke;
-  v9[3] = &unk_278B6ABA0;
-  v10 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __41__THClient_retrieveAllActiveCredentials___block_invoke;
+  v8[3] = &unk_278B6ABA0;
+  v9 = v4;
   v7 = v4;
-  [v6 ctcsServerRetrieveAllActiveDataSetRecordsWithActiveFlag:1 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrieveAllActiveDataSetRecordsWithActiveFlag:1 completion:v8];
 }
 
 void __41__THClient_retrieveAllActiveCredentials___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5 && [v5 count])
   {
-    v31 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v7 = v5;
-    v30 = [v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v30)
+    v29 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v29)
     {
       obj = v7;
-      v29 = *v44;
-      v26 = v6;
-      v27 = v5;
-      v25 = a1;
+      v28 = *v43;
+      v25 = v6;
+      v26 = v5;
+      v24 = a1;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v44 != v29)
+          if (*v43 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v43 + 1) + 8 * v8);
-          if (!v9)
+          v9 = *(*(&v42 + 1) + 8 * v8);
+          if (!v9 || (v10 = [THCredentials alloc], [v9 network], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "networkName"), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "network"), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "extendedPANID"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "borderAgent"), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "discriminatorId"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentialsDataSet"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "dataSetArray"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "PSKc"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "masterKey"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "credentials"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "channel"), objc_msgSend(v9, "credentials"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "PANID"), v34 = v8, v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "creationDate"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "lastModificationDate"), v18 = objc_claimAutoreleasedReturnValue(), LOBYTE(v23) = v14, v19 = -[THCredentials initThreadCredentials:extendedPANID:borderAgentID:activeOperationalDataSet:PSKC:networkKey:channel:panID:creationDate:lastModificationDate:](v10, "initThreadCredentials:extendedPANID:borderAgentID:activeOperationalDataSet:PSKC:networkKey:channel:panID:creationDate:lastModificationDate:", v41, v40, v32, v11, v12, v31, v23, v16, v17, v18), v18, v17, v16, v15, v13, v31, v33, v12, v35, v11, v36, v32, v37, v40, v38, v41, v39, !v19))
           {
-            goto LABEL_14;
-          }
-
-          v10 = [THCredentials alloc];
-          v40 = [v9 network];
-          v42 = [v40 networkName];
-          v39 = [v9 network];
-          v41 = [v39 extendedPANID];
-          v38 = [v9 borderAgent];
-          v33 = [v38 discriminatorId];
-          v37 = [v9 credentialsDataSet];
-          v11 = [v37 dataSetArray];
-          v36 = [v9 credentials];
-          v12 = [v36 PSKc];
-          v34 = [v9 credentials];
-          v32 = [v34 masterKey];
-          v13 = [v9 credentials];
-          v14 = [v13 channel];
-          v15 = [v9 credentials];
-          [v15 PANID];
-          v16 = v35 = v8;
-          v17 = [v9 creationDate];
-          v18 = [v9 lastModificationDate];
-          LOBYTE(v24) = v14;
-          v19 = [(THCredentials *)v10 initThreadCredentials:v42 extendedPANID:v41 borderAgentID:v33 activeOperationalDataSet:v11 PSKC:v12 networkKey:v32 channel:v24 panID:v16 creationDate:v17 lastModificationDate:v18];
-
-          if (!v19)
-          {
-LABEL_14:
             v22 = [MEMORY[0x277CCA9B8] storeError:3 description:@"Failed to retrieve record"];
-            (*(*(v25 + 32) + 16))();
+            (*(*(v24 + 32) + 16))();
 
-            v6 = v26;
-            v5 = v27;
+            v6 = v25;
+            v5 = v26;
             v21 = obj;
             goto LABEL_15;
           }
 
-          [v31 addObject:v19];
+          [v30 addObject:v19];
 
-          v8 = v35 + 1;
+          v8 = v34 + 1;
         }
 
-        while (v30 != v35 + 1);
+        while (v29 != v34 + 1);
         v7 = obj;
-        v6 = v26;
-        v5 = v27;
-        a1 = v25;
-        v30 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-        if (v30)
+        v6 = v25;
+        v5 = v26;
+        a1 = v24;
+        v29 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        if (v29)
         {
           continue;
         }
@@ -2793,7 +2729,7 @@ LABEL_14:
     }
 
     v20 = *(a1 + 32);
-    v21 = [MEMORY[0x277CBEB98] setWithArray:v31];
+    v21 = [MEMORY[0x277CBEB98] setWithArray:v30];
     (*(v20 + 16))(v20, v21, 0);
 LABEL_15:
   }
@@ -2802,80 +2738,72 @@ LABEL_15:
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPreferredNetworkAvailableWithCompletion:(void *)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = completion;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient isPreferredNetworkAvailableWithCompletion:]";
-    v13 = 1024;
-    v14 = 1129;
+    v11 = "[THClient isPreferredNetworkAvailableWithCompletion:]";
+    v12 = 1024;
+    v13 = 1129;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithBoolCompletion:v4];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __54__THClient_isPreferredNetworkAvailableWithCompletion___block_invoke;
-  v9[3] = &unk_278B6AB78;
-  v10 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __54__THClient_isPreferredNetworkAvailableWithCompletion___block_invoke;
+  v8[3] = &unk_278B6AB78;
+  v9 = v4;
   v7 = v4;
-  [v6 ctcsServerRetrieveIsPreferredNetworkAvailable:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrieveIsPreferredNetworkAvailable:v8];
 }
 
 uint64_t __54__THClient_isPreferredNetworkAvailableWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "[THClient isPreferredNetworkAvailableWithCompletion:]_block_invoke";
-    v9 = 1024;
-    v10 = 1134;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d: - Response: isPreferredAvailable : %d", &v7, 0x18u);
+    v6 = 136315650;
+    v7 = "[THClient isPreferredNetworkAvailableWithCompletion:]_block_invoke";
+    v8 = 1024;
+    v9 = 1134;
+    v10 = 1024;
+    v11 = a2;
+    _os_log_impl(&dword_23AAC8000, v4, OS_LOG_TYPE_DEFAULT, "%s:%d: - Response: isPreferredAvailable : %d", &v6, 0x18u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)retrievePreferredNetworkWithNoScan:(id)scan
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   scanCopy = scan;
   v5 = ThreadNetworkLoggingCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[THClient retrievePreferredNetworkWithNoScan:]";
-    v13 = 1024;
-    v14 = 1141;
+    v11 = "[THClient retrievePreferredNetworkWithNoScan:]";
+    v12 = 1024;
+    v13 = 1141;
     _os_log_impl(&dword_23AAC8000, v5, OS_LOG_TYPE_INFO, "Client: %s:%d - Calling Server remoteObjectProxyWithErrorHandler", buf, 0x12u);
   }
 
   v6 = [(THClient *)self getTheProxyWithTHCredsAndUuidParametersCompletion:scanCopy];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __47__THClient_retrievePreferredNetworkWithNoScan___block_invoke;
-  v9[3] = &unk_278B6AB50;
-  v10 = scanCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__THClient_retrievePreferredNetworkWithNoScan___block_invoke;
+  v8[3] = &unk_278B6AB50;
+  v9 = scanCopy;
   v7 = scanCopy;
-  [v6 ctcsServerRetrievePreferredNetworkWithNoScanWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 ctcsServerRetrievePreferredNetworkWithNoScanWithCompletion:v8];
 }
 
 void __47__THClient_retrievePreferredNetworkWithNoScan___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2932,116 +2860,60 @@ void __47__THClient_retrievePreferredNetworkWithNoScan___block_invoke(uint64_t a
   }
 }
 
-- (void)init
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithKeychainAccessGroup:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __52__THClient_getTheProxyWithErrorParameterCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__THClient_getTheProxyWithTHCredsParameterCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__THClient_getTheProxyWithSetOfTHCredsParameterCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__THClient_getTheProxyWithTHCredsAndUuidParametersCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__THClient_getTheProxyWithResultBlockCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__THClient_getTheProxyWithRecordCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __42__THClient_getTheProxyWithBoolCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__THClient_getTheProxyWithPrefEntryCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __31__THClient_connectToXPCService__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __31__THClient_connectToXPCService__block_invoke_7_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performXPCRequestBlock:(void *)a1 timeout:(uint8_t *)buf error:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -3053,90 +2925,67 @@ void __51__THClient_synchronousClientProxyWithErrorHandler___block_invoke_2_cold
 
 void __45__THClient_getConnectionEntitlementValidity___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__THClient_getConnectionEntitlementValidity__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __79__THClient_storeCredentialsForBorderAgent_activeOperationalDataSet_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__THClient_storeCachedAODasPreferredNetwork_completion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315906;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315906;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_23AAC8000, v2, OS_LOG_TYPE_ERROR, "%s:%d: - Response: recordUniqueIdentifier %@ error %@", v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_23AAC8000, v2, OS_LOG_TYPE_ERROR, "%s:%d: - Response: recordUniqueIdentifier %@ error %@", v3, 0x26u);
 }
 
 - (void)checkPreferredNetworkForActiveOperationalDataset:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __72__THClient_checkPreferredNetworkForActiveOperationalDataset_completion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ctcsAddPreferredNetworkWithCompletionInternally:extendedPANId:borderAgentID:ipV4NwSignature:ipv6NwSignature:wifiSSID:wifiPassword:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __153__THClient_ctcsAddPreferredNetworkWithCompletionInternally_extendedPANId_borderAgentID_ipV4NwSignature_ipv6NwSignature_wifiSSID_wifiPassword_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __148__THClient_ctcsDeletePreferredNetworkForNetworkSignatureInternallyWithCompletion_extendedPANId_ipV4NwSignature_ipv6NwSignature_wifiSSID_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

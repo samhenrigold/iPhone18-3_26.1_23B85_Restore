@@ -10,9 +10,9 @@
 
 + (uint64_t)_characterSetWithPattern:()KSExtras
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  HIDWORD(v10) = 0;
+  HIDWORD(v9) = 0;
   v4 = [v3 length];
   if (v4 >= 0x7D0)
   {
@@ -32,48 +32,45 @@
   else
   {
     MEMORY[0x28223BE20]();
-    [v3 getCharacters:&v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v5}];
+    [v3 getCharacters:&v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v5}];
     v6 = uset_openPattern();
   }
 
-  if (SHIDWORD(v10) >= 1)
+  if (SHIDWORD(v9) >= 1)
   {
     NSLog(&cfstr_CouldnTCreateU.isa, v3);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)_contentsExclusivelyInCharacterSet:()KSExtras
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v2 = [self length];
-  if (v2 >= 0x7D0)
+  v9[1] = *MEMORY[0x277D85DE8];
+  v4 = [self length];
+  if (v4 >= 0x7D0)
   {
-    v3 = 2000;
+    v5 = 2000;
   }
 
   else
   {
-    v3 = v2;
+    v5 = v4;
   }
 
   if ([self _fastCharacterContents])
   {
-    v4 = uset_containsAllCodePoints();
+    v6 = uset_containsAllCodePoints();
   }
 
   else
   {
     MEMORY[0x28223BE20]();
-    [self getCharacters:v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v3}];
-    v4 = uset_containsAllCodePoints();
+    [self getCharacters:v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v5}];
+    v6 = uset_containsAllCodePoints();
   }
 
-  result = v4 != 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 != 0;
 }
 
 - (uint64_t)_containsCJKSymbolsAndPunctuation

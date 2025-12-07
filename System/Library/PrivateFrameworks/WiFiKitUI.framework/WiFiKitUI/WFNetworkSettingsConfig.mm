@@ -166,24 +166,8 @@
   }
 
   httpProxyServerAddress = [(WFNetworkSettingsConfig *)self httpProxyServerAddress];
-  if (!httpProxyServerAddress)
+  if (!httpProxyServerAddress || (v4 = httpProxyServerAddress, -[WFNetworkSettingsConfig httpProxyServerAddress](self, "httpProxyServerAddress"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 isEmpty], v5, v4, (v6 & 1) != 0) || (-[WFNetworkSettingsConfig httpProxyServerPort](self, "httpProxyServerPort"), (v7 = objc_claimAutoreleasedReturnValue()) == 0) || (v8 = v7, -[WFNetworkSettingsConfig httpProxyServerPort](self, "httpProxyServerPort"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEmpty"), v9, v8, (v10 & 1) != 0))
   {
-    goto LABEL_6;
-  }
-
-  v4 = httpProxyServerAddress;
-  httpProxyServerAddress2 = [(WFNetworkSettingsConfig *)self httpProxyServerAddress];
-  isEmpty = [httpProxyServerAddress2 isEmpty];
-
-  if (isEmpty)
-  {
-    goto LABEL_6;
-  }
-
-  httpProxyServerPort = [(WFNetworkSettingsConfig *)self httpProxyServerPort];
-  if (!httpProxyServerPort || (v8 = httpProxyServerPort, -[WFNetworkSettingsConfig httpProxyServerPort](self, "httpProxyServerPort"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 isEmpty], v9, v8, (v10 & 1) != 0))
-  {
-LABEL_6:
     LOBYTE(v11) = 0;
     return v11;
   }

@@ -30,21 +30,21 @@
   return v2;
 }
 
-void __46__SCSharingReminderPeerService_initConnection__block_invoke()
+void __46__SCSharingReminderPeerService_initConnection__block_invoke(uint64_t a1)
 {
-  v0 = SCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = SCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __49__SCSharingReminderFeatureService_initConnection__block_invoke_cold_1(v0);
+    __49__SCSharingReminderFeatureService_initConnection__block_invoke_cold_1(v1);
   }
 }
 
-void __46__SCSharingReminderPeerService_initConnection__block_invoke_1()
+void __46__SCSharingReminderPeerService_initConnection__block_invoke_1(uint64_t a1)
 {
-  v0 = SCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = SCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __49__SCSharingReminderFeatureService_initConnection__block_invoke_2_cold_1(v0);
+    __49__SCSharingReminderFeatureService_initConnection__block_invoke_2_cold_1(v1);
   }
 }
 

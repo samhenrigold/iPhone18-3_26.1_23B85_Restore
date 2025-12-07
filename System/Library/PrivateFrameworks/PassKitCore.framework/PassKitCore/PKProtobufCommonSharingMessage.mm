@@ -45,37 +45,37 @@
 - (int)StringAsStatus:(id)status
 {
   statusCopy = status;
-  if ([statusCopy isEqualToString:@"PENDING"])
+  if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 0;
   }
 
-  else if ([statusCopy isEqualToString:@"ACCEPTED"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 1;
   }
 
-  else if ([statusCopy isEqualToString:@"EXPIRED"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 2;
   }
 
-  else if ([statusCopy isEqualToString:@"REVOKED"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 3;
   }
 
-  else if ([statusCopy isEqualToString:@"CANCELLED"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 4;
   }
 
-  else if ([statusCopy isEqualToString:@"UNKNOWN"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 5;
   }
 
-  else if ([statusCopy isEqualToString:@"NOTSUPPORTED"])
+  else if (objc_msgSend_isEqualToString_(statusCopy))
   {
     v4 = 6;
   }

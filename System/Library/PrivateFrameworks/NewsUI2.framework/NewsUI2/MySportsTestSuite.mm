@@ -7,7 +7,7 @@
 
 - (void)setupTestWithContext:(id)context completion:(id)completion
 {
-  sub_218760638();
+  sub_218760638(0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = _Block_copy(completion);

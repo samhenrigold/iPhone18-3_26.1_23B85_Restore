@@ -425,7 +425,6 @@ LABEL_16:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -436,60 +435,55 @@ LABEL_16:
 
   if (self->_rtpPacketLossRateHistograms.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_rtpPacketLossRateHistograms.list[v5];
       PBDataWriterWriteUint32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_rtpPacketLossRateHistograms.count);
+    while (v4 < self->_rtpPacketLossRateHistograms.count);
   }
 
   if (self->_jitterBufferUnderflowRateHistograms.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_jitterBufferUnderflowRateHistograms.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_jitterBufferUnderflowRateHistograms.count);
+    while (v5 < self->_jitterBufferUnderflowRateHistograms.count);
   }
 
   if (self->_frameErasureRateHistograms.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_frameErasureRateHistograms.list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_frameErasureRateHistograms.count);
+    while (v6 < self->_frameErasureRateHistograms.count);
   }
 
   if (self->_jitterBufferResidencyTimeHistograms.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_jitterBufferResidencyTimeHistograms.list[v11];
       PBDataWriterWriteUint32Field();
-      ++v11;
+      ++v7;
     }
 
-    while (v11 < self->_jitterBufferResidencyTimeHistograms.count);
+    while (v7 < self->_jitterBufferResidencyTimeHistograms.count);
   }
 
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    rtpPacketLossRateMean = self->_rtpPacketLossRateMean;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -509,7 +503,6 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  jitterBufferUnderflowRateMean = self->_jitterBufferUnderflowRateMean;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -524,7 +517,6 @@ LABEL_20:
   }
 
 LABEL_31:
-  frameErasureRateMean = self->_frameErasureRateMean;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -539,7 +531,6 @@ LABEL_21:
   }
 
 LABEL_32:
-  jitterBufferResidencyTimeMean = self->_jitterBufferResidencyTimeMean;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -554,7 +545,6 @@ LABEL_22:
   }
 
 LABEL_33:
-  jitterBufferResidencyTimeMedian = self->_jitterBufferResidencyTimeMedian;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -569,7 +559,6 @@ LABEL_23:
   }
 
 LABEL_34:
-  jitterBufferResidencyTime95Percentile = self->_jitterBufferResidencyTime95Percentile;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -584,7 +573,6 @@ LABEL_24:
   }
 
 LABEL_35:
-  ratType = self->_ratType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -599,7 +587,6 @@ LABEL_25:
   }
 
 LABEL_36:
-  vocoderType = self->_vocoderType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -611,7 +598,6 @@ LABEL_26:
     }
 
 LABEL_38:
-    ulVocoderBitRate = self->_ulVocoderBitRate;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -622,7 +608,6 @@ LABEL_38:
   }
 
 LABEL_37:
-  vocoderSampleRate = self->_vocoderSampleRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) != 0)
@@ -637,7 +622,6 @@ LABEL_27:
   }
 
 LABEL_39:
-  dlVocoderBitRate = self->_dlVocoderBitRate;
 
   PBDataWriterWriteUint32Field();
 }

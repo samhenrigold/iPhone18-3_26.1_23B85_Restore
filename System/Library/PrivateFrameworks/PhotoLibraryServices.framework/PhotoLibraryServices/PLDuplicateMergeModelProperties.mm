@@ -74,7 +74,7 @@ LABEL_11:
       goto LABEL_6;
     }
 
-    v10 = [title2 isEqualToString:title] ^ 1;
+    v10 = objc_msgSend_isEqualToString_(title2) ^ 1;
     goto LABEL_11;
   }
 
@@ -200,9 +200,9 @@ LABEL_12:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = [propertyCopy isEqualToString:v7];
+        isEqualToString = objc_msgSend_isEqualToString_(propertyCopy);
 LABEL_13:
-        v9 = v8 ^ 1;
+        v9 = isEqualToString ^ 1;
         goto LABEL_15;
       }
     }
@@ -213,7 +213,7 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = [propertyCopy isEqualToDate:v7];
+        isEqualToString = [propertyCopy isEqualToDate:v7];
         goto LABEL_13;
       }
     }
@@ -224,7 +224,7 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = [propertyCopy isEqualToNumber:v7];
+        isEqualToString = [propertyCopy isEqualToNumber:v7];
         goto LABEL_13;
       }
     }
@@ -720,7 +720,7 @@ void __70__PLDuplicateMergeModelProperties__mergeAlbumRelationshipsFromSource___
   additionalAttributes = [asset additionalAttributes];
   keywords = [additionalAttributes keywords];
 
-  if ([keywords count])
+  if (objc_msgSend_count(keywords))
   {
     asset2 = [(PLDuplicateAsset *)self->_targetAsset asset];
     additionalAttributes2 = [asset2 additionalAttributes];
@@ -1059,7 +1059,7 @@ LABEL_8:
 {
   nameCopy = name;
   v6 = +[PLAssetDescription entityName];
-  v7 = [nameCopy isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
   if (object)
   {
@@ -1068,7 +1068,7 @@ LABEL_8:
 
   else
   {
-    return v7;
+    return isEqualToString;
   }
 }
 
@@ -1077,16 +1077,16 @@ LABEL_8:
   assetCopy = asset;
   nameCopy = name;
   v7 = +[PLManagedAsset entityName];
-  v8 = [nameCopy isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v8)
+  if (isEqualToString)
   {
     asset = [assetCopy asset];
     goto LABEL_9;
   }
 
   v10 = +[PLAdditionalAssetAttributes entityName];
-  v11 = [nameCopy isEqualToString:v10];
+  v11 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v11)
   {
@@ -1098,7 +1098,7 @@ LABEL_7:
   }
 
   v13 = +[PLAssetDescription entityName];
-  v14 = [nameCopy isEqualToString:v13];
+  v14 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v14)
   {
@@ -1121,11 +1121,11 @@ LABEL_9:
   nameCopy = name;
   propertyNameCopy = propertyName;
   v12 = +[PLManagedAsset entityName];
-  v13 = [nameCopy isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v13)
+  if (isEqualToString)
   {
-    if ([propertyNameCopy isEqualToString:@"dateCreated"])
+    if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       if (type)
       {
@@ -1141,10 +1141,10 @@ LABEL_9:
         [(PLDuplicateMergeModelProperties *)self _mergeDateFromSource:assetCopy];
       }
 
-      [propertyNameCopy isEqualToString:@"extendedAttributes"];
+      objc_msgSend_isEqualToString_(propertyNameCopy);
       v16 = type == 1;
 LABEL_16:
-      v20 = [propertyNameCopy isEqualToString:@"currentSleetCast"];
+      v20 = objc_msgSend_isEqualToString_(propertyNameCopy);
       if (v16 && v20)
       {
         [(PLDuplicateMergeModelProperties *)self _resourcePropertyCopyCurrentSleetCastFromSource:assetCopy];
@@ -1154,7 +1154,7 @@ LABEL_16:
     }
 
 LABEL_6:
-    v14 = [propertyNameCopy isEqualToString:@"extendedAttributes"];
+    v14 = objc_msgSend_isEqualToString_(propertyNameCopy);
     v15 = type == 1;
     v16 = type == 1;
     if (v15 && v14)
@@ -1167,11 +1167,11 @@ LABEL_6:
   }
 
   v17 = +[PLAdditionalAssetAttributes entityName];
-  v18 = [nameCopy isEqualToString:v17];
+  v18 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v18)
   {
-    v19 = [propertyNameCopy isEqualToString:@"mediaMetadataType"];
+    v19 = objc_msgSend_isEqualToString_(propertyNameCopy);
     if (type == 1)
     {
       if (v19)
@@ -1190,51 +1190,51 @@ LABEL_19:
   nameCopy = name;
   propertyNameCopy = propertyName;
   v10 = +[PLManagedAsset entityName];
-  v11 = [nameCopy isEqualToString:v10];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v11)
+  if (isEqualToString)
   {
-    if ([propertyNameCopy isEqualToString:@"favorite"])
+    if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeFavoriteFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"albums"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeAlbumRelationshipsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingRepresentativeAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoryBeingRepresentativeAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingCuratedAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoryBeingCuratedAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingExtendedCuratedAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoryBeingExtendedCuratedAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingMovieCuratedAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoriesBeingMovieCuratedAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingUserCuratedAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoriesBeingUserCuratedAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingCustomUserAssets"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoriesBeingCustomUserAssetsFromSource:assetCopy];
     }
 
-    else if ([propertyNameCopy isEqualToString:@"memoriesBeingKeyAsset"])
+    else if (objc_msgSend_isEqualToString_(propertyNameCopy))
     {
       [(PLDuplicateMergeModelProperties *)self _mergeMemoriesBeingKeyAssetFromSource:assetCopy];
     }
@@ -1243,37 +1243,37 @@ LABEL_19:
   else
   {
     v12 = +[PLAdditionalAssetAttributes entityName];
-    v13 = [nameCopy isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(nameCopy);
 
     if (v13)
     {
-      if ([propertyNameCopy isEqualToString:@"title"])
+      if (objc_msgSend_isEqualToString_(propertyNameCopy))
       {
         [(PLDuplicateMergeModelProperties *)self _mergeTitleFromSource:assetCopy];
       }
 
-      else if (([propertyNameCopy isEqualToString:@"timeZoneName"] & 1) != 0 || objc_msgSend(propertyNameCopy, "isEqualToString:", @"timeZoneOffset"))
+      else if ((objc_msgSend_isEqualToString_(propertyNameCopy) & 1) != 0 || objc_msgSend_isEqualToString_(propertyNameCopy))
       {
         [(PLDuplicateMergeModelProperties *)self _mergeTimezoneFromSource:assetCopy];
       }
 
-      else if ([propertyNameCopy isEqualToString:@"keywords"])
+      else if (objc_msgSend_isEqualToString_(propertyNameCopy))
       {
         [(PLDuplicateMergeModelProperties *)self _mergeKeywordsFromSource:assetCopy];
       }
 
       else
       {
-        [propertyNameCopy isEqualToString:@"editedIPTCAttributes"];
+        objc_msgSend_isEqualToString_(propertyNameCopy);
       }
     }
 
     else
     {
       v14 = +[PLAssetDescription entityName];
-      v15 = [nameCopy isEqualToString:v14];
+      v15 = objc_msgSend_isEqualToString_(nameCopy);
 
-      if (v15 && [propertyNameCopy isEqualToString:@"longDescription"])
+      if (v15 && objc_msgSend_isEqualToString_(propertyNameCopy))
       {
         [(PLDuplicateMergeModelProperties *)self _mergeCaptionFromSource:assetCopy];
       }

@@ -239,20 +239,20 @@ double __52__MFComposeHeaderView__labelTopPaddingSpecification__block_invoke(uin
   v17 = v16;
   v19 = v18;
   rect_8 = v5;
-  v47.origin.x = v5;
+  v49.origin.x = v5;
   rect_24 = v7;
-  v47.origin.y = v7;
+  v49.origin.y = v7;
   v20 = v9;
-  v47.size.width = v9;
-  v47.size.height = v11;
-  Width = CGRectGetWidth(v47);
+  v49.size.width = v9;
+  v49.size.height = v11;
+  Width = CGRectGetWidth(v49);
   rect = v13;
-  v48.origin.x = v13;
-  v48.origin.y = v15;
-  v48.size.width = v17;
+  v50.origin.x = v13;
+  v50.origin.y = v15;
+  v50.size.width = v17;
   rect_16 = v19;
-  v48.size.height = v19;
-  v22 = fmin(CGRectGetWidth(v48), Width);
+  v50.size.height = v19;
+  v22 = fmin(CGRectGetWidth(v50), Width);
   [(MFComposeHeaderView *)self labelTopPadding];
   v24 = v23;
   if ([(MFComposeHeaderView *)self _shouldEmbedLabelInTextView])
@@ -267,12 +267,12 @@ double __52__MFComposeHeaderView__labelTopPaddingSpecification__block_invoke(uin
     }
 
     v25 = rect_8;
-    v49.origin.x = rect_8;
+    v51.origin.x = rect_8;
     v26 = rect_24;
-    v49.origin.y = rect_24;
-    v49.size.width = v9;
-    v49.size.height = v11;
-    MaxX = CGRectGetWidth(v49);
+    v51.origin.y = rect_24;
+    v51.size.width = v9;
+    v51.size.height = v11;
+    MaxX = CGRectGetWidth(v51);
   }
 
   else
@@ -280,69 +280,69 @@ double __52__MFComposeHeaderView__labelTopPaddingSpecification__block_invoke(uin
     if (!userInterfaceLayoutDirection)
     {
       v25 = rect_8;
-      v52.origin.x = rect_8;
+      v54.origin.x = rect_8;
       v26 = rect_24;
-      v52.origin.y = rect_24;
-      v52.size.width = v9;
-      v52.size.height = v11;
-      MinX = CGRectGetMinX(v52);
+      v54.origin.y = rect_24;
+      v54.size.width = v9;
+      v54.size.height = v11;
+      MinX = CGRectGetMinX(v54);
       v29 = v19;
       goto LABEL_9;
     }
 
     v25 = rect_8;
-    v50.origin.x = rect_8;
+    v52.origin.x = rect_8;
     v26 = rect_24;
-    v50.origin.y = rect_24;
-    v50.size.width = v9;
-    v50.size.height = v11;
-    MaxX = CGRectGetMaxX(v50);
+    v52.origin.y = rect_24;
+    v52.size.width = v9;
+    v52.size.height = v11;
+    MaxX = CGRectGetMaxX(v52);
   }
 
   v28 = MaxX;
-  v51.origin.x = rect;
-  v51.origin.y = v24;
-  v51.size.width = v22;
+  v53.origin.x = rect;
+  v53.origin.y = v24;
+  v53.size.width = v22;
   v29 = rect_16;
-  v51.size.height = rect_16;
-  MinX = v28 - CGRectGetWidth(v51);
+  v53.size.height = rect_16;
+  MinX = v28 - CGRectGetWidth(v53);
 LABEL_9:
   labelView = self->_labelView;
   v32 = v24;
   v33 = v22;
   v34 = v29;
-  v53 = CGRectIntegral(*&MinX);
-  [(MFHeaderLabelView *)labelView setFrame:v53.origin.x, v53.origin.y, v53.size.width, v53.size.height];
-  [(MFComposeHeaderView *)self directionalLayoutMargins];
-  LOBYTE(labelView) = MFMarginIsGenerous(v35);
+  v55 = CGRectIntegral(*&MinX);
+  [(MFHeaderLabelView *)labelView setFrame:v55.origin.x, v55.origin.y, v55.size.width, v55.size.height];
+  directionalLayoutMargins = [(MFComposeHeaderView *)self directionalLayoutMargins];
+  LOBYTE(labelView) = MFMarginIsGenerous(directionalLayoutMargins, v36, v37);
   [(UIView *)self->_separator frame];
-  v37 = v36;
-  v54.origin.x = v25;
-  v54.origin.y = v26;
-  v54.size.width = v20;
-  v54.size.height = v11;
-  v38 = CGRectGetMinX(v54);
-  [(MFComposeHeaderView *)self frame];
-  Height = CGRectGetHeight(v55);
+  v39 = v38;
   v56.origin.x = v25;
   v56.origin.y = v26;
   v56.size.width = v20;
   v56.size.height = v11;
-  v40 = CGRectGetWidth(v56);
+  v40 = CGRectGetMinX(v56);
+  [(MFComposeHeaderView *)self frame];
+  Height = CGRectGetHeight(v57);
+  v58.origin.x = v25;
+  v58.origin.y = v26;
+  v58.size.width = v20;
+  v58.size.height = v11;
+  v42 = CGRectGetWidth(v58);
   if ((labelView & 1) == 0)
   {
     [(MFComposeHeaderView *)self directionalLayoutMargins];
-    v40 = v40 + v41;
+    v42 = v42 + v43;
     if ([(MFComposeHeaderView *)self _shouldReverseLayoutDirection])
     {
-      v38 = 0.0;
+      v40 = 0.0;
     }
   }
 
-  [(UIView *)self->_separator setFrame:v38, Height + -1.0, v40, v37, *&rect];
-  v46.receiver = self;
-  v46.super_class = MFComposeHeaderView;
-  [(MFComposeHeaderView *)&v46 layoutSubviews];
+  [(UIView *)self->_separator setFrame:v40, Height + -1.0, v42, v39, *&rect];
+  v48.receiver = self;
+  v48.super_class = MFComposeHeaderView;
+  [(MFComposeHeaderView *)&v48 layoutSubviews];
 }
 
 - (void)layoutMarginsDidChange

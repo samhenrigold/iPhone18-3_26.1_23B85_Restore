@@ -100,7 +100,7 @@
 
   selfCopy = self;
   CHUISControlInstancePicker.setState(_:completion:)(state, v6, v7);
-  sub_1D92E5F4C(v6);
+  sub_1D92E5F4C(v6, v7);
 }
 
 - (CHUISControlInstancePicker)initWithControl:(id)control

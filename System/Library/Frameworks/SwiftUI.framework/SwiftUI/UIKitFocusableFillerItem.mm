@@ -31,7 +31,7 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusEnvironment);
+  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusEnvironment, &protocolRef_UIFocusEnvironment);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

@@ -74,18 +74,17 @@ void __53__SHAMPConfigurationRequester_configurationEndpoint___block_invoke_2(ui
 void __53__SHAMPConfigurationRequester_configurationEndpoint___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) endpointURLWithHost:*(a1 + 40) path:*(a1 + 48) storefront:a2];
-  v8 = v4;
+  v7 = v4;
   if (*(a1 + 40) && a2 && *(a1 + 48) && v4)
   {
-    v5 = *(a1 + 56);
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v6 = *(a1 + 64);
-    v7 = [SHCoreError errorWithCode:401 underlyingError:0];
-    (*(v6 + 16))(v6, 0, v7);
+    v5 = *(a1 + 64);
+    v6 = [SHCoreError errorWithCode:401 underlyingError:0];
+    (*(v5 + 16))(v5, 0, v6);
   }
 }
 
@@ -215,39 +214,36 @@ void __78__SHAMPConfigurationRequester_fetchStreamingProvidersAtURL_completionHa
 
 void __77__SHAMPConfigurationRequester_fetchShazamAMPConfiguration_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v11 = 0;
-    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:0 error:&v11];
-    v4 = v11;
+    v9 = 0;
+    v3 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:0 error:&v9];
+    v4 = v9;
+    v5 = v4;
     if (v3)
     {
-      v5 = [[SHAMPConfiguration alloc] initWithResponse:v3];
+      v6 = [[SHAMPConfiguration alloc] initWithResponse:v3];
       (*(*(a1 + 32) + 16))();
     }
 
     else
     {
-      v9 = shcore_log_object();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = shcore_log_object(v4);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_impl(&dword_231025000, v9, OS_LOG_TYPE_ERROR, "Failed to parse the offer response %@", buf, 0xCu);
+        v11 = v5;
+        _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_ERROR, "Failed to parse the offer response %@", buf, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *(a1 + 32);
     v7 = *(*(a1 + 32) + 16);
-    v8 = *MEMORY[0x277D85DE8];
 
     v7();
   }

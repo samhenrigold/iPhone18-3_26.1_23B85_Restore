@@ -9,11 +9,11 @@
 
 - (id)initModelWithDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = DEDCloudKitBaseModel;
-  v5 = [(DEDCloudKitBaseModel *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = DEDCloudKitBaseModel;
+  v5 = [(DEDCloudKitBaseModel *)&v30 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CBC5A0]);
@@ -28,31 +28,31 @@
     v11 = objc_opt_new();
     [(DEDCloudKitBaseModel *)v5 setDependencies:v11];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v26 = dictionaryCopy;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v25 = dictionaryCopy;
     v12 = dictionaryCopy;
-    v13 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (!v13)
     {
       goto LABEL_14;
     }
 
     v14 = v13;
-    v15 = *v28;
+    v15 = *v27;
     while (1)
     {
       v16 = 0;
       do
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * v16);
+        v17 = *(*(&v26 + 1) + 8 * v16);
         cloudKitModel = [(DEDCloudKitBaseModel *)v5 cloudKitModel];
         v19 = [cloudKitModel objectForKey:v17];
         if (v19)
@@ -81,18 +81,17 @@ LABEL_12:
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (!v14)
       {
 LABEL_14:
 
-        dictionaryCopy = v26;
+        dictionaryCopy = v25;
         break;
       }
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -315,7 +315,7 @@
     height = v10;
   }
 
-  [(ICDrawing *)self orientationTransform];
+  objc_msgSend_orientationTransform(self);
   v13.origin.x = x;
   v13.origin.y = y;
   v13.size.width = width;
@@ -392,7 +392,7 @@ uint64_t __26__ICDrawing_sortCommands___block_invoke(uint64_t a1, void *a2, void
   v7 = v6;
   if (v6)
   {
-    [v6 commandID];
+    objc_msgSend_commandID(v6);
   }
 
   else
@@ -406,7 +406,7 @@ uint64_t __26__ICDrawing_sortCommands___block_invoke(uint64_t a1, void *a2, void
   v9 = v8;
   if (v8)
   {
-    [v8 commandID];
+    objc_msgSend_commandID(v8);
     v10 = v21;
     v11 = v25;
     if (v25 < v21)
@@ -457,7 +457,7 @@ LABEL_17:
   v14 = v13;
   if (v13)
   {
-    [v13 commandID];
+    objc_msgSend_commandID(v13);
   }
 
   else
@@ -471,7 +471,7 @@ LABEL_17:
   v17 = v16;
   if (v16)
   {
-    [v16 commandID];
+    objc_msgSend_commandID(v16);
     v18 = v22;
   }
 
@@ -519,7 +519,7 @@ LABEL_27:
     v13 = data;
     if (data)
     {
-      [data commandID];
+      objc_msgSend_commandID(data);
     }
 
     else
@@ -568,7 +568,7 @@ LABEL_27:
 - (void)setCommandIDForInsertion:(id)insertion
 {
   insertionCopy = insertion;
-  [(ICDrawing *)self commandIDForNewCommand];
+  objc_msgSend_commandIDForNewCommand(self);
   v6 = v9;
   v5 = v10;
   v7 = v5;
@@ -624,7 +624,7 @@ LABEL_27:
   v11 = data;
   if (data)
   {
-    [data commandID];
+    objc_msgSend_commandID(data);
     v12 = v20;
   }
 
@@ -638,7 +638,7 @@ LABEL_27:
   v14 = data2;
   if (data2)
   {
-    [data2 commandID];
+    objc_msgSend_commandID(data2);
     v15 = v19;
   }
 
@@ -908,7 +908,7 @@ LABEL_28:
   v4 = v3;
   [(ICDrawing *)self unrotatedSize];
   v6 = v5;
-  [(ICDrawing *)self orientationTransform];
+  objc_msgSend_orientationTransform(self);
   v8.origin.x = 0.0;
   v8.origin.y = 0.0;
   v8.size.width = v4;
@@ -1029,7 +1029,8 @@ LABEL_28:
 
   drawing::Drawing::Drawing(v16);
   bytes = [dataCopy bytes];
-  v11 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v16, bytes, v11))
   {
     v12 = [(ICDrawing *)self initWithArchive:v16 version:v6 replicaID:dCopy];
@@ -1153,7 +1154,7 @@ LABEL_9:
   sortedUUIDs = [timestamp2 sortedUUIDs];
 
   commands = [(ICDrawing *)self commands];
-  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 56, [commands count]);
+  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 14, [commands count]);
 
   v41 = 0u;
   v42 = 0u;
@@ -1181,7 +1182,7 @@ LABEL_9:
         {
           if (v19 == *(archive + 18))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 56, v19 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 14, v19 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<drawing::Command>::New();
@@ -1260,14 +1261,16 @@ LABEL_9:
 
 - (id)serializeWithPathData:(BOOL)data toVersion:(unsigned int *)version
 {
-  *version = [(ICDrawing *)self saveToArchive:v8 withPathData:data, drawing::Drawing::Drawing(v8)];
-  v4 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:drawing::Drawing::ByteSize(v8)];
-  mutableBytes = [v4 mutableBytes];
-  v6 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v4 length]);
-  google::protobuf::MessageLite::SerializeToArray(v8, mutableBytes, v6);
-  drawing::Drawing::~Drawing(v8);
+  *version = [(ICDrawing *)self saveToArchive:v10 withPathData:data, drawing::Drawing::Drawing(v10)];
+  v4 = objc_alloc(MEMORY[0x277CBEB28]);
+  v6 = [v4 initWithLength:{drawing::Drawing::ByteSize(v10, v5)}];
+  mutableBytes = [v6 mutableBytes];
+  [v6 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v10, mutableBytes, v8);
+  drawing::Drawing::~Drawing(v10);
 
-  return v4;
+  return v6;
 }
 
 @end

@@ -13,7 +13,7 @@
 {
   stringCopy = string;
   objectInternal = [(CRCameraReaderOutput *)self objectInternal];
-  [objectInternal setOverlayString:stringCopy];
+  [objectInternal setOverlayString:?];
 }
 
 - (NSAttributedString)overlayString
@@ -27,8 +27,7 @@
 - (void)setRotation:(float)rotation
 {
   objectInternal = [(CRCameraReaderOutput *)self objectInternal];
-  *&v4 = rotation;
-  [objectInternal setRotation:v4];
+  [objectInternal setRotation:?];
 }
 
 - (float)rotation
@@ -42,12 +41,8 @@
 
 - (void)setBoundingBox:(CGRect)box
 {
-  height = box.size.height;
-  width = box.size.width;
-  y = box.origin.y;
-  x = box.origin.x;
   objectInternal = [(CRCameraReaderOutput *)self objectInternal];
-  [objectInternal setBoundingBox:{x, y, width, height}];
+  [objectInternal setBoundingBox:?];
 }
 
 - (CGRect)boundingBox

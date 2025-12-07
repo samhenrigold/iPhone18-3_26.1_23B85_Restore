@@ -25,6 +25,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateSearchResultsForSearchController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSPrivacyPermissionsController
@@ -65,15 +66,15 @@
 
 - (void)viewDidLoad
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = DSPrivacyPermissionsController;
-  [(DSTableWelcomeController *)&v21 viewDidLoad];
+  v21[2] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = DSPrivacyPermissionsController;
+  [(DSTableWelcomeController *)&v20 viewDidLoad];
   v3 = DSUILocStringForKey(@"BY_APP");
-  v22[0] = v3;
+  v21[0] = v3;
   v4 = DSUILocStringForKey(@"BY_PERMISSION");
-  v22[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   searchController = [(DSTableWelcomeController *)self searchController];
   searchBar = [searchController searchBar];
   [searchBar setScopeButtonTitles:v5];
@@ -93,18 +94,16 @@
   v14 = self->_appSharing;
   allUserVisibleApps = [MEMORY[0x277D054D8] allUserVisibleApps];
   v16 = MEMORY[0x277D85CD0];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __45__DSPrivacyPermissionsController_viewDidLoad__block_invoke;
-  v18[3] = &unk_278F750C8;
-  objc_copyWeak(&v19, &location);
-  v18[4] = self;
-  [(DSAppSharing *)v14 collectPermissionsForApps:allUserVisibleApps queue:MEMORY[0x277D85CD0] handler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __45__DSPrivacyPermissionsController_viewDidLoad__block_invoke;
+  v17[3] = &unk_278F750C8;
+  objc_copyWeak(&v18, &location);
+  v17[4] = self;
+  [(DSAppSharing *)v14 collectPermissionsForApps:allUserVisibleApps queue:MEMORY[0x277D85CD0] handler:v17];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DSPrivacyPermissionsController_viewDidLoad__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -550,33 +549,33 @@ void __65__DSPrivacyPermissionsController_handleResetErrors_pushNextPane___block
 
 - (void)collectPermissionsByType
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_apps;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [MEMORY[0x277D05478] ensureApp:*(*(&v12 + 1) + 8 * v8++) inSensorDict:{v3, v12}];
+        [MEMORY[0x277D05478] ensureApp:*(*(&v11 + 1) + 8 * v8++) inSensorDict:{v3, v11}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -585,8 +584,6 @@ void __65__DSPrivacyPermissionsController_handleResetErrors_pushNextPane___block
   v9 = [MEMORY[0x277D05478] sortSensorDict:v3];
   sensors = self->_sensors;
   self->_sensors = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setApps:(id)apps
@@ -600,6 +597,14 @@ void __65__DSPrivacyPermissionsController_handleResetErrors_pushNextPane___block
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView reloadData];
 
+  [(DSPrivacyPermissionsController *)self _updateButton];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DSPrivacyPermissionsController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
   [(DSPrivacyPermissionsController *)self _updateButton];
 }
 
@@ -1092,88 +1097,82 @@ void __44__DSPrivacyPermissionsController_reloadData__block_invoke(uint64_t a1, 
 
 void __65__DSPrivacyPermissionsController_addUnsharedPermissions_andApps___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v8 = [*(a1 + 32) unsharedPermissions];
-    [v8 addObject:v5];
+    v7 = [*(a1 + 32) unsharedPermissions];
+    [v7 addObject:v5];
   }
 
-  v32 = 0u;
-  v33 = 0u;
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = v6;
-  v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v9)
+  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v31;
-    v12 = v27;
-    v13 = &unk_278F751E0;
+    v9 = v8;
+    v10 = *v28;
+    v11 = v24;
+    v12 = &unk_278F751E0;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v11)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
-        v16 = *(a1 + 32);
+        v14 = *(*(&v27 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          v17 = [*(a1 + 32) unsharedApps];
-          [v15 appID];
-          v18 = v10;
-          v19 = v12;
-          v20 = a1;
-          v21 = v11;
-          v22 = v5;
-          v24 = v23 = v13;
-          [v17 addObject:v24];
+          v15 = [*(a1 + 32) unsharedApps];
+          [v14 appID];
+          v16 = v9;
+          v17 = v11;
+          v18 = a1;
+          v19 = v10;
+          v20 = v5;
+          v22 = v21 = v12;
+          [v15 addObject:v22];
 
-          v13 = v23;
-          v5 = v22;
-          v11 = v21;
-          a1 = v20;
-          v12 = v19;
-          v10 = v18;
+          v12 = v21;
+          v5 = v20;
+          v10 = v19;
+          a1 = v18;
+          v11 = v17;
+          v9 = v16;
         }
 
-        v27[0] = __65__DSPrivacyPermissionsController_addUnsharedPermissions_andApps___block_invoke_2;
-        v27[1] = v13;
-        v28 = v5;
-        v29 = v15;
+        v24[0] = __65__DSPrivacyPermissionsController_addUnsharedPermissions_andApps___block_invoke_2;
+        v24[1] = v12;
+        v25 = v5;
+        v26 = v14;
         AnalyticsSendEventLazy();
       }
 
-      v10 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __65__DSPrivacyPermissionsController_addUnsharedPermissions_andApps___block_invoke_2(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"permission";
-  v7[1] = @"app";
-  v8[0] = v2;
+  v6[0] = @"permission";
+  v6[1] = @"app";
+  v7[0] = v2;
   v3 = [v1 appID];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

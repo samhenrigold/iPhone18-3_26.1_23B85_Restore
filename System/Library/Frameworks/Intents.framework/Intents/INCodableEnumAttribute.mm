@@ -75,31 +75,31 @@
 
 - (id)valueWithName:(id)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (nameCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     codableEnum = [(INCodableEnumAttribute *)self codableEnum];
     values = [codableEnum values];
 
-    v7 = [values countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(values);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           name = [v10 name];
           v12 = [name isEqualToString:nameCopy];
 
@@ -110,7 +110,7 @@
           }
         }
 
-        v7 = [values countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [values countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -127,8 +127,6 @@ LABEL_12:
   {
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -228,12 +226,12 @@ LABEL_8:
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v19[2] = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = INCodableEnumAttribute;
-  v4 = [(INCodableAttribute *)&v17 dictionaryRepresentationWithLocalizer:localizer];
+  v18[2] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = INCodableEnumAttribute;
+  v4 = [(INCodableAttribute *)&v16 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionEnumTypeNamespaceKey = [(INCodableEnumAttribute *)self __INCodableDescriptionEnumTypeNamespaceKey];
-  v18[0] = __INCodableDescriptionEnumTypeNamespaceKey;
+  v17[0] = __INCodableDescriptionEnumTypeNamespaceKey;
   enumNamespace = [(INCodableEnumAttribute *)self enumNamespace];
   null = enumNamespace;
   if (!enumNamespace)
@@ -241,9 +239,9 @@ LABEL_8:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
+  v18[0] = null;
   __INCodableDescriptionEnumTypeKey = [(INCodableEnumAttribute *)self __INCodableDescriptionEnumTypeKey];
-  v18[1] = __INCodableDescriptionEnumTypeKey;
+  v17[1] = __INCodableDescriptionEnumTypeKey;
   codableEnum = [(INCodableEnumAttribute *)self codableEnum];
   name = [codableEnum name];
   null2 = name;
@@ -252,8 +250,8 @@ LABEL_8:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v18[1] = null2;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v13 = [v4 if_dictionaryByAddingEntriesFromDictionary:v12];
 
   if (!name)
@@ -265,8 +263,6 @@ LABEL_8:
   }
 
   if_dictionaryWithNonEmptyValues = [v13 if_dictionaryWithNonEmptyValues];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

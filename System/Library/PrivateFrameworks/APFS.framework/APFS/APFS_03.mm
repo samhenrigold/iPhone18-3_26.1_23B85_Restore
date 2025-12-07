@@ -1,453 +1,4 @@
-uint64_t nx_checkpoint_find_valid_checkpoint(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int *a5)
-{
-  v48 = 0;
-  v49 = 0;
-  v47 = 0;
-  *a5 = -1;
-  v5 = *(a2 + 104) & 0x7FFFFFFF;
-  if (!v5)
-  {
-    return 2;
-  }
-
-  v6 = a5;
-  v11 = 0;
-  v12 = 0;
-  v46 = (a1 + 424);
-  while (1)
-  {
-    if (v11 && (*(a2 + 1264) & 2) != 0)
-    {
-      return 35;
-    }
-
-    v13 = (v5 + a3) % v5;
-    v50 = -1;
-    if (nx_checkpoint_desc_block_address(a1, v13, &v50) || dev_read(*(a1 + 384)))
-    {
-      v23 = *(a1 + 384) + 212;
-      log_err("%s:%d: %s couldn't read checkpoint descriptor block %d @ %lld: %d\n");
-      goto LABEL_8;
-    }
-
-    if (*(a4 + 24) != -2147483647)
-    {
-      goto LABEL_8;
-    }
-
-    if (nx_check_superblock(a4, *(a2 + 36), 1, v14, v15))
-    {
-      v24 = *(a1 + 384) + 212;
-      log_err("%s:%d: %s checkpoint superblock %d @ %lld: failed sanity check: %d\n");
-      goto LABEL_8;
-    }
-
-    v45 = v6;
-    v16 = *(a2 + 64);
-    if ((v16 & 0xFFFFFFFFFFFFFFFDLL) != 0)
-    {
-      break;
-    }
-
-    v6 = v45;
-    if (nx_superblock_agrees_with_main_superblock(a2, a4, "checkpoint"))
-    {
-      v17 = *(a4 + 140);
-      v18 = *(a2 + 104) & 0x7FFFFFFF;
-      if (v13 == (*(a4 + 136) + v17 - 1) % v18)
-      {
-        if (v17 <= v11 + v18)
-        {
-          if (nx_metadata_range_add(a1, 0, 1, 0, 1) || nx_metadata_range_add(a1, *(a4 + 112), *(a4 + 104) & 0x7FFFFFFF, *(a4 + 104) < 0, 0) || nx_metadata_range_add(a1, *(a4 + 120), *(a4 + 108) & 0x7FFFFFFF, *(a4 + 108) < 0, 0))
-          {
-            v41 = *(a4 + 136);
-            v27 = *(a1 + 384) + 212;
-            v35 = *(a4 + 16);
-            log_err("%s:%d: %s xid %lld at index %d failed to load checkpoint metadata ranges (overlap?): %d\n");
-          }
-
-          else if (nx_checkpoint_validate_checkpoint_map_blocks(a1, a4))
-          {
-            v42 = *(a4 + 136);
-            v28 = *(a1 + 384) + 212;
-            v36 = *(a4 + 16);
-            log_err("%s:%d: %s xid %lld validation failed for checkpoint at index %d: %d\n");
-          }
-
-          else
-          {
-            if (!nx_checkpoint_load_data(a1, a4, &v49, &v48))
-            {
-              memcpy(*(a1 + 376), a4, *(a2 + 36));
-              *(*(a1 + 392) + 400) = *(*(a1 + 376) + 88);
-              if (nx_checkpoint_traverse(a1, 0, 2))
-              {
-                v38 = *(a4 + 16);
-                v30 = *(a1 + 384) + 212;
-                log_err("%s:%d: %s xid %lld failed to fix up checkpoint data: %d\n");
-LABEL_37:
-                obj_cache_reset(*(a1 + 392), 0);
-                *(a1 + 408) = 0;
-                *(a1 + 736) = 0;
-                *v46 = 0u;
-                v46[1] = 0u;
-                v46[2] = 0u;
-                memcpy(*(a1 + 376), a2, *(a2 + 36));
-                *(*(a1 + 392) + 400) = *(*(a1 + 376) + 88);
-                goto LABEL_8;
-              }
-
-              if (*(a1 + 628) == 1)
-              {
-                v19 = *(a1 + 384) + 212;
-                if (*(a1 + 631) == 1)
-                {
-                  log_info("%s:%d: %s probe of external device... skipping recent sanity checks.\n", "nx_checkpoint_find_valid_checkpoint", 586, (*(a1 + 384) + 212));
-                }
-
-                else
-                {
-                  log_info("%s:%d: %s sanity checking all recently-changed container state... please be patient.\n", "nx_checkpoint_find_valid_checkpoint", 595, (*(a1 + 384) + 212));
-                  if (nx_check_recent_sanity(a1))
-                  {
-                    v39 = *(a4 + 16);
-                    v31 = *(a1 + 384) + 212;
-                    log_err("%s:%d: %s xid %lld sanity check of recently-changed structures failed: %d\n");
-                    goto LABEL_37;
-                  }
-                }
-              }
-
-              if (spaceman_get(a1, &v47))
-              {
-                v40 = *(a4 + 16);
-                v32 = *(a1 + 384) + 212;
-                log_err("%s:%d: %s xid %lld failed to get spaceman: %d\n");
-              }
-
-              else
-              {
-                v20 = nx_metadata_range_add(a1, *(v47[47] + 168), *(v47[47] + 164) & 0x7FFFFFFF, *(v47[47] + 164) < 0, 0);
-                if (v20)
-                {
-                  obj_release(v47);
-                }
-
-                else
-                {
-                  v20 = nx_metadata_range_add(a1, *(v47[47] + 176), *(v47[47] + 152), *(v47[47] + 152) < 0, 0);
-                  obj_release(v47);
-                  if (!v20)
-                  {
-                    v22 = *(*(a1 + 376) + 16);
-                    if (v22 < v49)
-                    {
-                      log_err("%s:%d: %s warning: best valid checkpoint xid %lld is less than max free queue oldest xid %lld seen in checkpoint %lld\n", "nx_checkpoint_find_valid_checkpoint", 633, (*(a1 + 384) + 212), v22, v49, v48);
-                    }
-
-                    result = 0;
-                    *v45 = v13;
-                    return result;
-                  }
-                }
-
-                log_err("%s:%d: %s xid %lld failed to load spaceman metadata ranges (overlap?): %d\n", "nx_checkpoint_find_valid_checkpoint", 626, (*(a1 + 384) + 212), *(a4 + 16), v20);
-                v6 = v45;
-              }
-
-              goto LABEL_37;
-            }
-
-            v43 = *(a4 + 136);
-            v29 = *(a1 + 384) + 212;
-            v37 = *(a4 + 16);
-            log_err("%s:%d: %s xid %lld data for checkpoint at index %d couldn't be loaded: %d\n");
-          }
-
-          obj_cache_reset(*(a1 + 392), 0);
-          *(a1 + 408) = 0;
-          *(a1 + 736) = 0;
-          *v46 = 0u;
-          v46[1] = 0u;
-          v46[2] = 0u;
-        }
-
-        else
-        {
-          v44 = *(a4 + 140);
-          v33 = *(a4 + 16);
-          v25 = *(a1 + 384) + 212;
-          log_err("%s:%d: %s xid %lld checkpoint superblock index %d doesn't fit in blocks remaining: %d > %d\n");
-        }
-      }
-
-      else
-      {
-        v26 = *(a1 + 384) + 212;
-        v34 = *(a4 + 16);
-        log_err("%s:%d: %s xid %lld checkpoint superblock index %d doesn't match index block was found at: %d\n");
-      }
-    }
-
-LABEL_8:
-    ++v12;
-    v5 = *(a2 + 104) & 0x7FFFFFFF;
-    --a3;
-    --v11;
-    if (v12 >= v5)
-    {
-      return 2 * (*v6 == -1);
-    }
-  }
-
-  log_err("%s:%d: %s unsupported nx_incompatible_features (0x%llx): unable to mount\n", "nx_checkpoint_find_valid_checkpoint", 497, (*(a1 + 384) + 212), v16 & 0xFFFFFFFFFFFFFFFDLL);
-  if ((v16 & 0x100) != 0)
-  {
-    log_err("%s:%d: %s Fusion is not supported anymore\n", "nx_checkpoint_find_valid_checkpoint", 499, (*(a1 + 384) + 212));
-  }
-
-  return 75;
-}
-
-uint64_t nx_checkpoint_validate_checkpoint_map_blocks(uint64_t a1, unsigned int *a2)
-{
-  v4 = _apfs_malloc_typed(a2[9], 0x9BA6ADA8uLL);
-  if (!v4)
-  {
-    return 12;
-  }
-
-  v5 = v4;
-  v12 = 0;
-  if (a2[35] == 1)
-  {
-LABEL_3:
-    v6 = 0;
-  }
-
-  else
-  {
-    v7 = 0;
-    while (1)
-    {
-      v8 = nx_checkpoint_desc_block_address(a1, (v7 + a2[34]) % (a2[26] & 0x7FFFFFFF), &v12);
-      if (v8)
-      {
-        break;
-      }
-
-      v8 = dev_read(*(a1 + 384));
-      if (v8)
-      {
-        break;
-      }
-
-      v8 = nx_check_checkpoint_map_block(a2, v5, v12, v7 == a2[35] - 2, v9, v10);
-      if (v8)
-      {
-        break;
-      }
-
-      if (++v7 >= a2[35] - 1)
-      {
-        goto LABEL_3;
-      }
-    }
-
-    v6 = v8;
-  }
-
-  _apfs_free(v5, a2[9]);
-  return v6;
-}
-
-uint64_t nx_checkpoint_load_data(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4)
-{
-  v49[0] = 0;
-  v6 = *(*(a1 + 376) + 36);
-  v46 = 0;
-  v7 = _apfs_malloc_typed(v6, 0xB5246107uLL);
-  if (v7)
-  {
-    v8 = v7;
-    v47 = 0;
-    v48 = 0;
-    v44 = 0;
-    v45 = 0;
-    if (*(a2 + 140) - 1 < 1)
-    {
-LABEL_28:
-      _apfs_free(v8, v6);
-      return 0;
-    }
-
-    else
-    {
-      v9 = 0;
-      v10 = *(a2 + 144);
-      v11 = *(a2 + 136);
-      v38 = v7 + 10;
-      v42 = v6 - 1;
-      v37 = *(a2 + 140) - 1;
-      while (1)
-      {
-        v45 = 0;
-        v12 = nx_checkpoint_desc_block_address(a1, v11, &v45);
-        if (v12 || (v12 = dev_read(*(a1 + 384)), v12) || (v12 = obj_checksum_verify_phys(v8, v6, v13, v14), v12))
-        {
-          v31 = v12;
-          v34 = *(a1 + 384) + 212;
-          log_err("%s:%d: %s couldn't read checkpoint descriptor map block %d @ %lld: %d\n");
-LABEL_39:
-          _apfs_free(v8, v6);
-LABEL_40:
-          obj_cache_reset(*(a1 + 392), 0);
-          *(a1 + 408) = 0;
-          *(a1 + 736) = 0;
-          *(a1 + 424) = 0u;
-          *(a1 + 440) = 0u;
-          *(a1 + 456) = 0u;
-          return v31;
-        }
-
-        v39 = v9;
-        v40 = v11;
-        if (v8[9])
-        {
-          break;
-        }
-
-LABEL_27:
-        v11 = (v40 + 1) % (*(a2 + 104) & 0x7FFFFFFFu);
-        v9 = v39 + 1;
-        if (v39 + 1 == v37)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      v15 = 0;
-      v16 = v38;
-      while (1)
-      {
-        v17 = v16[2];
-        v45 = 0;
-        v18 = nx_checkpoint_data_block_address(a1, v10, &v45, &v44);
-        if (v18)
-        {
-          v31 = v18;
-          log_err("%s:%d: %s couldn't read checkpoint data block %d @ %lld: %d\n", "nx_checkpoint_load_data", 387, (*(a1 + 384) + 212), v10, v45, v18);
-          goto LABEL_39;
-        }
-
-        if (v45 != *(v16 + 4))
-        {
-          break;
-        }
-
-        v19 = *(a2 + 144);
-        v20 = v10;
-        if (v10 < v19)
-        {
-          v20 = (*(a2 + 108) & 0x7FFFFFFF) + v10;
-        }
-
-        v21 = v20 - v19;
-        v22 = *(a2 + 148);
-        v23 = (v42 + v17) / v6;
-        if (v21 >= v22 || v21 + v23 > v22)
-        {
-          log_err("%s:%d: %s checkpoint mapping (%d,%d) extends beyond checkpoint data range: %d,%d\n", "nx_checkpoint_load_data", 403, (*(a1 + 384) + 212), v21, (v42 + v17) / v6, *(a2 + 144), v22);
-          goto LABEL_33;
-        }
-
-        v49[0] = 0;
-        v24 = obj_descriptor_and_flags_for_type(*v16, v49, &v47);
-        HIDWORD(v47) = v16[1];
-        LODWORD(v48) = v17;
-        if (v24)
-        {
-          v31 = v24;
-LABEL_38:
-          v35 = *(a1 + 384) + 212;
-          v36 = *v16;
-          log_err("%s:%d: %s failed to load checkpoint data of type 0x%x:0x%x @ %lld\n");
-          goto LABEL_39;
-        }
-
-        v25 = obj_checkpoint_get(*(a1 + 392), v49[0] | 0x80000000, *(v16 + 3), &v47, v45, v10, v44, *(a2 + 16), &v46);
-        if (v25)
-        {
-          v31 = v25;
-          v32 = v16[1];
-          goto LABEL_38;
-        }
-
-        if (a3)
-        {
-          v26 = v46;
-          if (!*a4)
-          {
-            v27 = obj_type(v46);
-            v26 = v46;
-            if (v27 == 5)
-            {
-              v28 = v46[7];
-              v29 = v28[32];
-              if (v29 <= v28[27])
-              {
-                v29 = v28[27];
-              }
-
-              *a3 = v29;
-              v30 = v28[37];
-              if (v30 <= v29)
-              {
-                v30 = v29;
-              }
-
-              *a3 = v30;
-              *a4 = *(a2 + 16);
-            }
-          }
-        }
-
-        else
-        {
-          v26 = v46;
-        }
-
-        obj_release(v26);
-        v10 = (v23 + v10) % (*(a2 + 108) & 0x7FFFFFFFu);
-        ++v15;
-        v16 += 10;
-        if (v15 >= v8[9])
-        {
-          goto LABEL_27;
-        }
-      }
-
-      log_err("%s:%d: %s unexpected checkpoint map entry address: 0x%llx, expected 0x%llx\n", "nx_checkpoint_load_data", 392, (*(a1 + 384) + 212), *(v16 + 4), v45);
-LABEL_33:
-      v31 = nx_corruption_detected_int(0);
-      _apfs_free(v8, v6);
-      if (v31)
-      {
-        goto LABEL_40;
-      }
-    }
-  }
-
-  else
-  {
-    log_err("%s:%d: %s couldn't allocate memory for checkpoint map block\n", "nx_checkpoint_load_data", 358, (*(a1 + 384) + 212));
-    return 12;
-  }
-
-  return v31;
-}
-
-uint64_t nx_dev_init(int *a1, int a2, int a3, char a4, uint64_t a5, const char **a6, unsigned int **a7)
+uint64_t nx_dev_init(int *a1, uint64_t a2, int a3, char a4, uint64_t a5, const char **a6, unsigned int **a7)
 {
   v22 = 0;
   if (a3)
@@ -582,17 +133,17 @@ LABEL_36:
 uint64_t nx_mount(int *a1, int *a2, uint64_t **a3)
 {
   v3 = a3;
-  v145 = *MEMORY[0x277D85DE8];
-  v143 = 0;
-  v141 = 0;
-  v142 = 0;
-  memset(v144, 0, sizeof(v144));
-  v139 = 0;
-  v140 = 0;
-  v138 = 0;
-  v137 = 0;
-  v136 = 0;
-  v135 = 0;
+  v121 = *MEMORY[0x277D85DE8];
+  v119 = 0;
+  v117 = 0;
+  v118 = 0;
+  memset(v120, 0, sizeof(v120));
+  v115 = 0;
+  v116 = 0;
+  v114 = 0;
+  v113 = 0;
+  v112 = 0;
+  v111 = 0;
   *a3 = 0;
   if (a2)
   {
@@ -615,12 +166,12 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v129 = (v5 >> 13) & 1;
-    v131 = (v5 >> 8) & 1;
+    v105 = (v5 >> 13) & 1;
+    v107 = (v5 >> 8) & 1;
     __src = (v5 >> 9) & 1;
     v10 = (*(a2 + 4) >> 1) & 1;
     v8 = (v5 >> 10) & 1;
-    v124 = (*(a2 + 4) >> 5) & 1;
+    v100 = (*(a2 + 4) >> 5) & 1;
     crc32c_init();
     if (v6)
     {
@@ -645,8 +196,8 @@ LABEL_9:
     }
 
     v11 = v18 | v17;
-    v127 = (v5 >> 2) & 1;
-    v125 = (v5 >> 12) & 1;
+    v103 = (v5 >> 2) & 1;
+    v101 = (v5 >> 12) & 1;
   }
 
   else
@@ -654,20 +205,20 @@ LABEL_9:
     crc32c_init();
     LOBYTE(v6) = 0;
     LOBYTE(v5) = 0;
-    v127 = 0;
-    v124 = 0;
-    v125 = 0;
+    v103 = 0;
+    v100 = 0;
+    v101 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v129 = 0;
-    v131 = 0;
+    v105 = 0;
+    v107 = 0;
     __src = 0;
     v11 = 34;
     v7 = 0xFFFFFFFFLL;
   }
 
-  v19 = nx_dev_init(a1, v11, v10, v8, 0, &v143, &v140);
+  v19 = nx_dev_init(a1, v11, v10, v8, 0, &v119, &v116);
   if (v19)
   {
     v14 = v19;
@@ -676,19 +227,29 @@ LABEL_9:
       log_err("%s:%d: device initialization failed: %d\n", "nx_mount", 1006, v19);
     }
 
-    goto LABEL_30;
+    return v14;
   }
 
-  v122 = v9;
-  v118 = v5;
-  v123 = v7;
-  v117 = v3;
-  v22 = v143;
-  v121 = dev_is_writable(v143) == 0;
-  is_external = dev_is_external(v22);
-  v119 = dev_real_block_size(v22);
-  v23 = v140;
-  v24 = v140[9];
+  v98 = v9;
+  v94 = v5;
+  v99 = v7;
+  v93 = v3;
+  v21 = v119;
+  v97 = dev_is_writable(v119) == 0;
+  is_external = dev_is_external(v21);
+  v95 = dev_real_block_size(v21);
+  v22 = v116;
+  v23 = v116[9];
+  if (__src)
+  {
+    v24 = 128;
+  }
+
+  else
+  {
+    v24 = 0x10000;
+  }
+
   if (__src)
   {
     v25 = 128;
@@ -696,7 +257,7 @@ LABEL_9:
 
   else
   {
-    v25 = 0x10000;
+    v25 = 0x8000;
   }
 
   if (__src)
@@ -706,7 +267,7 @@ LABEL_9:
 
   else
   {
-    v26 = 0x8000;
+    v26 = 0x10000;
   }
 
   if (__src)
@@ -716,51 +277,41 @@ LABEL_9:
 
   else
   {
-    v27 = 0x10000;
+    v27 = 0x8000;
   }
 
-  if (__src)
+  log_debug("%s:%d: %s initializing cache w/hash_size %u and cache size %u\n", "nx_mount", 1195, v21 + 212, v27, v26);
+  v28 = v25;
+  v12 = v23;
+  v29 = obj_cache_create(v28, v24, v23, &v118);
+  if (v29)
   {
-    v28 = 128;
-  }
-
-  else
-  {
-    v28 = 0x8000;
-  }
-
-  log_debug("%s:%d: %s initializing cache w/hash_size %u and cache size %u\n", "nx_mount", 1195, v22 + 212, v28, v27);
-  v29 = v26;
-  v12 = v24;
-  v30 = obj_cache_create(v29, v25, v24, &v142);
-  if (v30)
-  {
-    v31 = v30;
-    log_err("%s:%d: %s object cache initialization failed: %d\n", "nx_mount", 1199, v22 + 212, v30);
+    v30 = v29;
+    log_err("%s:%d: %s object cache initialization failed: %d\n", "nx_mount", 1199, v21 + 212, v29);
     v13 = 0;
-    v14 = v31;
+    v14 = v30;
     goto LABEL_10;
   }
 
-  __srca = v23;
-  v32 = v142;
-  if (v122)
+  __srca = v22;
+  v31 = v118;
+  if (v98)
   {
-    *&v142[14].__opaque[48] = 1;
+    *&v118[14].__opaque[48] = 1;
   }
 
-  memset(&v144[3] + 8, 0, 24);
-  *(&v144[2] + 8) = 0u;
-  memset(v144 + 8, 0, 32);
-  *&v144[0] = __PAIR64__(v24, v119);
-  *(&v144[0] + 1) = *(v23 + 5);
-  *(&v144[1] + 1) = v22;
-  *&v144[2] = 1;
-  DWORD2(v144[2]) = (v6 | v121) & 1;
-  HIDWORD(v144[2]) = is_external != 0;
-  *&v144[3] = __PAIR64__(v131, v127);
-  *(&v144[3] + 1) = __PAIR64__(v129, v125);
-  bootstrap = obj_create_bootstrap(v32, 0x80000000, 1uLL, &nx_desc, v144, v24, 1, &v141);
+  memset(&v120[3] + 8, 0, 24);
+  *(&v120[2] + 8) = 0u;
+  memset(v120 + 8, 0, 32);
+  *&v120[0] = __PAIR64__(v23, v95);
+  *(&v120[0] + 1) = *(v22 + 5);
+  *(&v120[1] + 1) = v21;
+  *&v120[2] = 1;
+  DWORD2(v120[2]) = (v6 | v97) & 1;
+  HIDWORD(v120[2]) = is_external != 0;
+  *&v120[3] = __PAIR64__(v107, v103);
+  *(&v120[3] + 1) = __PAIR64__(v105, v101);
+  bootstrap = obj_create_bootstrap(v31, 0x80000000, 1uLL, &nx_desc, v120, v23, 1, &v117);
   if (bootstrap)
   {
     v14 = bootstrap;
@@ -770,578 +321,548 @@ LABEL_49:
     goto LABEL_10;
   }
 
-  v34 = v141;
-  if (v124)
+  v33 = v117;
+  if (v100)
   {
-    *(v141 + 640) = 1;
+    *(v117 + 640) = 1;
   }
 
-  memcpy(v34[47], v23, v24);
-  v35 = v142;
-  v36 = v141[47];
-  v37 = *(v36 + 88);
-  *v142[6].__opaque = v141;
-  v35[25].i64[0] = v37;
+  memcpy(v33[47], v22, v23);
+  v34 = v118;
+  v35 = v117[47];
+  v36 = *(v35 + 88);
+  *v118[6].__opaque = v117;
+  v34[25].i64[0] = v36;
   __strlcpy_chk();
-  obj_mem_mgr_register(v142, v8 & (v122 ^ 1));
-  v142 = 0;
-  v143 = 0;
-  v38 = *(v36 + 104);
-  if (v38 < 0 && (v42 = nx_metadata_fragmented_sanity_check(v141, *(v36 + 112), v38 & 0x7FFFFFFF), v42) || (v39 = *(v36 + 108), v39 < 0) && (v42 = nx_metadata_fragmented_sanity_check(v141, *(v36 + 120), v39 & 0x7FFFFFFF), v42))
+  obj_mem_mgr_register(v118, v8 & (v98 ^ 1));
+  v118 = 0;
+  v119 = 0;
+  v37 = *(v35 + 104);
+  if (v37 < 0 && (v40 = nx_metadata_fragmented_sanity_check(v117, *(v35 + 112), v37 & 0x7FFFFFFF), v40) || (v38 = *(v35 + 108), v38 < 0) && (v40 = nx_metadata_fragmented_sanity_check(v117, *(v35 + 120), v38 & 0x7FFFFFFF), v40))
   {
-    v14 = v42;
-    v99 = v141[48] + 212;
+    v14 = v40;
     log_err("%s:%d: %s fragmented checkpoint area failed sanity check: %d\n");
     goto LABEL_49;
   }
 
-  v13 = _apfs_malloc_typed(v24, 0x286E03C4uLL);
+  v13 = _apfs_malloc_typed(v23, 0x286E03C4uLL);
   if (!v13)
   {
-    log_err("%s:%d: %s failed to allocate buffer for checkpoint superblock\n", "nx_mount", 1307, (v141[48] + 212));
+    log_err("%s:%d: %s failed to allocate buffer for checkpoint superblock\n", "nx_mount", 1307, (v117[48] + 212));
     v14 = 12;
     goto LABEL_10;
   }
 
-  if ((*(v36 + 1264) & 2) == 0)
+  if ((*(v35 + 1264) & 2) == 0)
   {
     goto LABEL_68;
   }
 
-  v40 = v141;
-  *(v141 + 626) = 1;
-  if (*(v40 + 628) == 1)
+  v39 = v117;
+  *(v117 + 626) = 1;
+  if (*(v39 + 628) == 1)
   {
-    v41 = v40[48] + 212;
     log_err("%s:%d: %s storage is untrusted. Container cleanly-unmounted flag ignored\n");
 LABEL_67:
-    *(v36 + 1264) &= ~2uLL;
-    *(v23 + 158) &= ~2uLL;
+    *(v35 + 1264) &= ~2uLL;
+    *(v22 + 158) &= ~2uLL;
     goto LABEL_68;
   }
 
-  if (!*(v36 + 140))
+  if (!*(v35 + 140))
   {
-    v44 = v40[48] + 212;
     log_err("%s:%d: %s checkpoint descriptor length is bad.  Container cleanly-unmounted flag ignored\n");
     goto LABEL_67;
   }
 
-  if (!*(v36 + 148))
+  if (!*(v35 + 148))
   {
-    v43 = v40[48] + 212;
     log_err("%s:%d: %s checkpoint data length is bad.  Container cleanly-unmounted flag ignored\n");
     goto LABEL_67;
   }
 
 LABEL_68:
-  v45 = v12;
-  v46 = 0;
-  v128 = 0;
-  v130 = 0;
-  v132 = 0;
+  v41 = v12;
+  v42 = 0;
+  v104 = 0;
+  v106 = 0;
+  v108 = 0;
   while (1)
   {
-    while (1)
-    {
-      v47 = v141;
-      if ((*(v36 + 1264) & 2) != 0)
-      {
-        log_info("%s:%d: %s container cleanly-unmounted flag set.\n", "nx_mount", 1341, (v141[48] + 212));
-        v47 = v141;
-        v48 = *(v141 + 633);
-      }
-
-      else
-      {
-        v48 = *(v141 + 633);
-        if ((v46 & v48 & 1) == 0)
-        {
-          highest_xid = nx_checkpoint_find_highest_xid(v141, &v136, &v137);
-          if (highest_xid)
-          {
-            v14 = highest_xid;
-            v100 = v141[48] + 212;
-            log_err("%s:%d: %s failed to scan checkpoint descriptor area for largest xid: %d\n");
-            goto LABEL_145;
-          }
-
-          goto LABEL_75;
-        }
-      }
-
-      v50 = *(v36 + 136) + *(v36 + 140) - 1;
-      v51 = *(v36 + 104) & 0x7FFFFFFF;
-      v52 = v50 % v51;
-      v136 = v50 % v51;
-      v137 = *(v36 + 16);
-      if (v46 & v48)
-      {
-        log_info("%s:%d: %s Attempting to load from temporary checkpoint (start xid %lld).\n", "nx_mount", 1346, (v47[48] + 212), *(v36 + 1408));
-        v57 = v52;
-        v58 = __srca;
-        if (!*(v36 + 1408))
-        {
-          log_err("%s:%d: %s No temporary checkpoint start xid!  Aborting!\n", "nx_mount", 1348, (v141[48] + 212));
-          v14 = 100;
-          goto LABEL_145;
-        }
-
-        goto LABEL_85;
-      }
-
-LABEL_75:
-      if ((v123 & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      v53 = __srca;
-      valid_checkpoint = nx_checkpoint_find_valid_checkpoint(v141, __srca, v136, v13, &v138);
-      v14 = valid_checkpoint;
-      if (valid_checkpoint != 35)
-      {
-        if (valid_checkpoint)
-        {
-LABEL_121:
-          log_err("%s:%d: %s failed to find valid checkpoint: %d\n", "nx_mount", 1508, (v141[48] + 212), valid_checkpoint);
-          goto LABEL_145;
-        }
-
-        v126 = v13[2];
-        log_debug("%s:%d: %s checkpoint search: largest xid %lld, best xid %lld @ %d\n", "nx_mount", 1512, (v141[48] + 212), v137, v126, v138);
-        v55 = *(__srca + 2);
-        v56 = v141;
-        if (v55 != v13[2])
-        {
-          log_err("%s:%d: %s reloading after unclean unmount, checkpoint xid %lld, superblock xid %lld\n", "nx_mount", 1514, (v141[48] + 212), v13[2], v55);
-          v56 = v141;
-          if ((*(v141 + 633) & 1) == 0)
-          {
-            v128 = 1;
-            *(v141 + 643) = 1;
-          }
-        }
-
-        goto LABEL_115;
-      }
-
-      if ((*(v36 + 1264) & 2) == 0)
-      {
-        goto LABEL_121;
-      }
-
-      log_err("%s:%d: %s Couldn't load checkpoint from cleanly-unmounted state.  Falling back to descriptor scan.\n", "nx_mount", 1503, (v141[48] + 212));
-      *(v36 + 1264) &= ~2uLL;
-      *(__srca + 158) &= ~2uLL;
-    }
-
-    v57 = v123;
-    v58 = __srca;
-LABEL_85:
-    v59 = *(v36 + 104) & 0x7FFFFFFF;
-    if (v57 >= v59)
-    {
-      log_err("%s:%d: %s checkpoint descriptor index %d out of range [0...%d]\n", "nx_mount", 1366, (v141[48] + 212), v57, v59 - 1);
-      v80 = v141;
-      goto LABEL_144;
-    }
-
-    v123 = v57;
-    v60 = nx_checkpoint_desc_block_address(v141, v57, &v135);
-    v61 = v141;
-    if (v60)
-    {
-      v14 = v60;
-LABEL_137:
-      v102 = v61[48] + 212;
-      log_err("%s:%d: %s couldn't read checkpoint descriptor block %d @ %lld: %d\n");
-      goto LABEL_10;
-    }
-
-    v62 = dev_read(v141[48]);
-    v14 = v62;
-    if (*(v141 + 633) == 1)
-    {
-      if (!v62 && v12)
-      {
-        v65 = 0;
-        while (!*(v13 + v65))
-        {
-          if (v12 == ++v65)
-          {
-            v14 = 0;
-            goto LABEL_95;
-          }
-        }
-
-        log_err("%s:%d: %s Attempt to load temporary checkpoint found unexpected data (0x%02x @ %d), checkpoint descriptor block %d @ %lld\n", "nx_mount", 1382, (v141[48] + 212), *(v13 + v65), v65, v123, v135);
-        v14 = 22;
-      }
-
-LABEL_95:
-      memcpy(v13, v58, v12);
-      obj_checksum_set_phys(v141, v13, v12, v66, v67);
-    }
-
-    if (v14)
-    {
-      v61 = v141;
-      goto LABEL_137;
-    }
-
-    if (*(v13 + 7) || *(v13 + 6) != -2147483647)
-    {
-      log_err("%s:%d: %s checkpoint descriptor block %d is not a valid superblock\n", "nx_mount", 1399, (v141[48] + 212), v123);
-      v80 = v141;
-LABEL_144:
-      v14 = nx_corruption_detected_int(v80);
-      goto LABEL_145;
-    }
-
-    v68 = nx_check_superblock(v13, *(v36 + 36), 1, v63, v64);
-    if (v68)
-    {
-      v14 = v68;
-      v103 = v141[48] + 212;
-      log_err("%s:%d: %s checkpoint descriptor block %d superblock failed sanity checks: %d\n");
-      goto LABEL_145;
-    }
-
-    v69 = *(v36 + 64);
-    if ((v69 & 0xFFFFFFFFFFFFFFFDLL) != 0)
-    {
-      log_err("%s:%d: %s unsupported nx_incompatible_features (0x%llx): unable to mount\n", "nx_mount", 1409, (v141[48] + 212), v69 & 0xFFFFFFFFFFFFFFFDLL);
-      if ((v69 & 0x100) != 0)
-      {
-        log_err("%s:%d: %s Fusion is not supported anymore\n", "nx_mount", 1411, (v141[48] + 212));
-      }
-
-      v14 = 75;
-      goto LABEL_10;
-    }
-
-    v53 = __srca;
-    if (!nx_superblock_agrees_with_main_superblock(__srca, v13, "checkpoint"))
-    {
-      log_err("%s:%d: %s checkpoint descriptor block %d doesn't agree with main superblock\n", "nx_mount", 1418, (v141[48] + 212), v123);
-      v14 = 22;
-LABEL_145:
-      LODWORD(v12) = v45;
-      goto LABEL_10;
-    }
-
-    v70 = (*(v13 + 34) + *(v13 + 35) - 1) % (*(v36 + 104) & 0x7FFFFFFFu);
-    if (v123 != v70)
-    {
-      log_err("%s:%d: %s checkpoint superblock index %d doesn't match index block was found at: %d\n", "nx_mount", 1425, (v141[48] + 212), v70, v123);
-      v80 = v141;
-      goto LABEL_144;
-    }
-
-    v71 = nx_metadata_range_add(v141, 0, 1, 0, 1);
-    if (v71 || (v71 = nx_metadata_range_add(v141, v13[14], v13[13] & 0x7FFFFFFF, *(v13 + 26) < 0, 0), v71) || (v71 = nx_metadata_range_add(v141, v13[15], *(v13 + 27) & 0x7FFFFFFF, *(v13 + 27) < 0, 0), v71))
-    {
-      v14 = v71;
-      log_err("%s:%d: %s xid %lld at index %d failed to load checkpoint metadata ranges (overlap?): %d\n", "nx_mount", 1442, (v141[48] + 212), v13[2], *(v13 + 34), v71);
-      goto LABEL_10;
-    }
-
-    v72 = nx_checkpoint_validate_checkpoint_map_blocks(v141, v13);
-    if (v72)
-    {
-      v14 = v72;
-      v113 = *(v13 + 34);
-      v104 = v141[48] + 212;
-      log_err("%s:%d: %s validation failed for checkpoint at index %d: %d\n");
-      goto LABEL_145;
-    }
-
-    v138 = v123;
-    v126 = v13[2];
-    log_debug("%s:%d: %s checkpoint: largest xid %lld, given checkpoint xid %lld @ %d\n", "nx_mount", 1453, (v141[48] + 212), v137, v126, v123);
-    v73 = v141;
-    if (*(__srca + 2) != v13[2])
-    {
-      log_err("%s:%d: %s loading older checkpoint, checkpoint xid %lld, superblock xid %lld\n", "nx_mount", 1455, (v141[48] + 212), v13[2], *(v36 + 16));
-      v73 = v141;
-      v128 = 1;
-      *(v141 + 643) = 1;
-    }
-
-    data = nx_checkpoint_load_data(v73, v13, 0, 0);
-    if (data)
-    {
-      v14 = data;
-      v114 = *(v13 + 34);
-      v105 = v141[48] + 212;
-      log_err("%s:%d: %s data for checkpoint at index %d couldn't be loaded: %d\n");
-      goto LABEL_145;
-    }
-
-    memcpy(v141[47], v13, v12);
-    v75 = v141;
-    *(v141[49] + 400) = *(v141[47] + 88);
-    v14 = nx_checkpoint_traverse(v75, 0, 2);
-    if (v14)
-    {
-      v106 = v141[48] + 212;
-      log_err("%s:%d: %s failed to fix up checkpoint data: %d\n");
-      goto LABEL_145;
-    }
-
-    v14 = spaceman_get(v141, &v139);
-    if (v14)
-    {
-      v115 = v13[2];
-      v107 = v141[48] + 212;
-      log_err("%s:%d: %s checkpoint xid %lld failed to get spaceman: %d\n");
-      goto LABEL_145;
-    }
-
-    v76 = nx_metadata_range_add(v141, *(v139[47] + 168), *(v139[47] + 164) & 0x7FFFFFFF, *(v139[47] + 164) < 0, 0);
-    if (v76)
-    {
-      v14 = v76;
-      obj_release(v139);
-LABEL_151:
-      v116 = v13[2];
-      v108 = v141[48] + 212;
-      log_err("%s:%d: %s checkpoint xid %lld failed to load spaceman metadata ranges (overlap?): %d\n");
-LABEL_10:
-      if (v140)
-      {
-        _apfs_free(v140, v140[9]);
-      }
-
-      if (v13)
-      {
-        _apfs_free(v13, v12);
-      }
-
-      v15 = v141;
-      if (v141)
-      {
-        *(v141 + 627) = 1;
-        nx_unmount_internal(v15, 0);
-      }
-
-      if (v142)
-      {
-        obj_cache_destroy(v142);
-      }
-
-      if (v143)
-      {
-        dev_close(v143);
-      }
-
-      goto LABEL_30;
-    }
-
-    v14 = nx_metadata_range_add(v141, *(v139[47] + 176), *(v139[47] + 152), *(v139[47] + 152) < 0, 0);
-    obj_release(v139);
-    if (v14)
-    {
-      goto LABEL_151;
-    }
-
-    v56 = v141;
-LABEL_115:
-    v77 = *(v56[47] + 56);
-    if (v77)
-    {
-      log_debug("%s:%d: %s unsupported nx_readonly_compatible_features (0x%llx): mount r/o\n", "nx_mount", 1525, (v56[48] + 212), v77);
-      v56 = v141;
-      *(v141 + 627) = 1;
-    }
-
-    obj_checkpoint_check_for_unknown(v56[49]);
-    v78 = v141;
-    v79 = *(v141 + 633);
-    if ((v46 & v79 & 1) == 0)
-    {
-      v130 = *(v13 + 36);
-      v132 = *(v13 + 34);
-      log_debug("%s:%d: %s stable checkpoint indices: desc %d data %d\n", "nx_mount", 1539, (v141[48] + 212), v132, v130);
-      v78 = v141;
-      v79 = *(v141 + 633);
-    }
-
-    if (v46 & 1 | ((v79 & 1) == 0))
+    v43 = v117;
+    if ((*(v35 + 1264) & 2) != 0)
     {
       break;
     }
 
-    obj_cache_reset(v78[49], 0);
-    v78[51] = 0;
-    v78[92] = 0;
-    *(v78 + 53) = 0u;
-    *(v78 + 55) = 0u;
-    *(v78 + 57) = 0u;
-    memcpy(v141[47], v53, v12);
-    v46 = 1;
-  }
-
-  if (*(v78 + 628) == 1 && ((*(v78 + 631) | v79) & 1) == 0 && (v78[79] & 1) == 0 && !*(v53 + 176))
-  {
-    *(v78 + 165) = (*(v13 + 34) + *(v13 + 35) - 1) % (v13[13] & 0x7FFFFFFFu);
-  }
-
-  *(v36 + 136) = 0;
-  *(v36 + 144) = 0;
-  *(v36 + 1264) &= ~2uLL;
-  nx_metadata_range_optimize(v78);
-  v81 = v141;
-  if (*(v141 + 629) == 1)
-  {
-    v14 = spaceman_get(v141, &v139);
-    if (v14)
+    v44 = *(v117 + 633);
+    if (v42 & v44)
     {
+      goto LABEL_74;
+    }
+
+    highest_xid = nx_checkpoint_find_highest_xid(v117, &v112, &v113);
+    if (highest_xid)
+    {
+      v14 = highest_xid;
+      log_err("%s:%d: %s failed to scan checkpoint descriptor area for largest xid: %d\n");
+LABEL_144:
+      LODWORD(v12) = v41;
+      goto LABEL_10;
+    }
+
+LABEL_75:
+    if ((v99 & 0x80000000) == 0)
+    {
+      v53 = v99;
+      v54 = __srca;
+      goto LABEL_85;
+    }
+
+    v49 = __srca;
+    valid_checkpoint = nx_checkpoint_find_valid_checkpoint(v117, __srca, v112, v13, &v114);
+    v14 = valid_checkpoint;
+    if (valid_checkpoint == 35)
+    {
+      if ((*(v35 + 1264) & 2) == 0)
+      {
+        goto LABEL_121;
+      }
+
+      log_err("%s:%d: %s Couldn't load checkpoint from cleanly-unmounted state.  Falling back to descriptor scan.\n", "nx_mount", 1503, (v117[48] + 212));
+      *(v35 + 1264) &= ~2uLL;
+      *(__srca + 158) &= ~2uLL;
+    }
+
+    else
+    {
+      if (valid_checkpoint)
+      {
+LABEL_121:
+        log_err("%s:%d: %s failed to find valid checkpoint: %d\n", "nx_mount", 1508, (v117[48] + 212), valid_checkpoint);
+        goto LABEL_144;
+      }
+
+      v102 = v13[2];
+      log_debug("%s:%d: %s checkpoint search: largest xid %lld, best xid %lld @ %d\n", "nx_mount", 1512, (v117[48] + 212), v113, v102, v114);
+      v51 = *(__srca + 2);
+      v52 = v117;
+      if (v51 != v13[2])
+      {
+        log_err("%s:%d: %s reloading after unclean unmount, checkpoint xid %lld, superblock xid %lld\n", "nx_mount", 1514, (v117[48] + 212), v13[2], v51);
+        v52 = v117;
+        if ((*(v117 + 633) & 1) == 0)
+        {
+          v104 = 1;
+          *(v117 + 643) = 1;
+        }
+      }
+
+LABEL_115:
+      v72 = *(v52[47] + 56);
+      if (v72)
+      {
+        log_debug("%s:%d: %s unsupported nx_readonly_compatible_features (0x%llx): mount r/o\n", "nx_mount", 1525, (v52[48] + 212), v72);
+        v52 = v117;
+        *(v117 + 627) = 1;
+      }
+
+      obj_checkpoint_check_for_unknown(v52[49]);
+      v73 = v117;
+      v74 = *(v117 + 633);
+      if ((v42 & v74 & 1) == 0)
+      {
+        v106 = *(v13 + 36);
+        v108 = *(v13 + 34);
+        log_debug("%s:%d: %s stable checkpoint indices: desc %d data %d\n", "nx_mount", 1539, (v117[48] + 212), v108, v106);
+        v73 = v117;
+        v74 = *(v117 + 633);
+      }
+
+      if (v42 & 1 | ((v74 & 1) == 0))
+      {
+        if (*(v73 + 628) == 1 && ((*(v73 + 631) | v74) & 1) == 0 && (v73[79] & 1) == 0 && !*(v49 + 176))
+        {
+          *(v73 + 165) = (*(v13 + 34) + *(v13 + 35) - 1) % (v13[13] & 0x7FFFFFFFu);
+        }
+
+        *(v35 + 136) = 0;
+        *(v35 + 144) = 0;
+        *(v35 + 1264) &= ~2uLL;
+        nx_metadata_range_optimize(v73);
+        v76 = v117;
+        if (*(v117 + 629) == 1)
+        {
+          v14 = spaceman_get(v117, &v115);
+          if (v14)
+          {
 LABEL_133:
-      v101 = v141[48] + 212;
-      log_err("%s:%d: %s failed to set up spaceman for demo mode: %d\n");
-      goto LABEL_145;
-    }
+            log_err("%s:%d: %s failed to set up spaceman for demo mode: %d\n");
+            goto LABEL_144;
+          }
 
-    obj_cache_lock_write(v141[49]);
-    v82 = v141;
-    v141[52] = 0;
-    v14 = obj_clone(v139, 0, v82 + 52, 0);
-    obj_cache_unlock_write(v141[49]);
-    if (v14)
-    {
-      obj_release(v139);
-      goto LABEL_133;
-    }
+          obj_cache_lock_write(v117[49]);
+          v77 = v117;
+          v117[52] = 0;
+          v14 = obj_clone(v115, 0, v77 + 52, 0);
+          obj_cache_unlock_write(v117[49]);
+          if (v14)
+          {
+            obj_release(v115);
+            goto LABEL_133;
+          }
 
-    obj_ephemeral_set_persistent(v141[52], 0);
-    obj_release(v139);
-    v81 = v141;
+          obj_ephemeral_set_persistent(v117[52], 0);
+          obj_release(v115);
+          v76 = v117;
+        }
+
+        v78 = v102 + 1;
+        v14 = tx_mgr_init(v76, v102 + 1, v76 + 50);
+        v79 = v117;
+        if (v14)
+        {
+          log_err("%s:%d: %s tx manager initialization failed: %d\n");
+          goto LABEL_144;
+        }
+
+        v80 = v117[50];
+        *(v80 + 104) = v108;
+        *(v80 + 108) = v106;
+        if ((v94 & 1) == 0)
+        {
+          log_info("%s:%d: %s sanity checking all container state... please be patient.\n", "nx_mount", 1602, (v79[48] + 212));
+          v14 = nx_check(v117, 0);
+          v79 = v117;
+          if (v14)
+          {
+            log_err("%s:%d: %s failed nx_check sanity: %d\n");
+            goto LABEL_144;
+          }
+        }
+
+        if ((*(v79 + 627) & 1) == 0)
+        {
+          if (*(v79 + 633) & 1) != 0 || *(v79 + 632) == 1 && (log_info("%s:%d: %s Enabling temporary checkpoints starting with xid %lld.\n", "nx_mount", 1614, (v79[48] + 212), v78), v79 = v117, *(v117[47] + 1408) = v78, (*(v79 + 633)))
+          {
+            if ((v79[79] & 1) == 0)
+            {
+              log_info("%s:%d: %s Making temporary checkpoint %lld permanent (start %lld).\n", "nx_mount", 1622, (v79[48] + 212), *(v79[47] + 16), *(v79[47] + 1408));
+              v13[176] = 0;
+              obj_checksum_set_phys(v117, v13, v12, v81, v82);
+              if (!v111)
+              {
+                v14 = 22;
+                goto LABEL_183;
+              }
+
+              v83 = dev_write(v117[48]);
+              if (v83 || (v83 = tx_barrier(v117, 16), v83))
+              {
+                v14 = v83;
+LABEL_183:
+                log_err("%s:%d: %s failed to write superblock to block %lld: %d\n");
+                goto LABEL_144;
+              }
+
+              v79 = v117;
+              *(v117[47] + 1408) = 0;
+              v104 = 1;
+            }
+          }
+
+          v84 = spaceman_allocation_init(v79);
+          if (v84)
+          {
+            log_err("%s:%d: %s failed to set up sm allocation metadata: %d\n", "nx_mount", 1648, (v117[48] + 212), v84);
+          }
+
+          if (v104)
+          {
+            obj_checksum_set(v117, v85, v86);
+            v87 = dev_write(v117[48]);
+            if (v87)
+            {
+              v14 = v87;
+              log_err("%s:%d: %s failed to write superblock to block 0: %d\n");
+              goto LABEL_144;
+            }
+          }
+
+          v88 = v117;
+          v89 = v117[47];
+          v90 = *(v89 + 1384);
+          v91 = apfs_source_version_val_full();
+          if (v90 < v91)
+          {
+            *(v89 + 1384) = v91;
+          }
+
+          nx_mount_initiate_free_space_trims(v88);
+          nx_reaper_check_for_work(v117);
+        }
+
+        _apfs_free(v13, v41);
+        v92 = v117;
+        if (*(v117[47] + 1248))
+        {
+          if ((*(v117 + 627) & 1) == 0)
+          {
+            v14 = nx_unblock_physical_range(v117);
+            v92 = v117;
+            if (v14)
+            {
+              log_err("%s:%d: %s nx_unblock_physical_range failed with error: %d\n", "nx_mount", 1706, (v117[48] + 212), v14);
+              v13 = 0;
+              goto LABEL_144;
+            }
+          }
+        }
+
+        *v93 = v92;
+        if (v116)
+        {
+          _apfs_free(v116, v116[9]);
+        }
+
+        return 0;
+      }
+
+      obj_cache_reset(v73[49], 0);
+      v73[51] = 0;
+      v73[92] = 0;
+      *(v73 + 53) = 0u;
+      *(v73 + 55) = 0u;
+      *(v73 + 57) = 0u;
+      memcpy(v117[47], v49, v12);
+      v42 = 1;
+    }
   }
 
-  v83 = v126 + 1;
-  v14 = tx_mgr_init(v81, v126 + 1, v81 + 50);
-  v84 = v141;
+  log_info("%s:%d: %s container cleanly-unmounted flag set.\n", "nx_mount", 1341, (v117[48] + 212));
+  v43 = v117;
+  v44 = *(v117 + 633);
+LABEL_74:
+  v46 = *(v35 + 136) + *(v35 + 140) - 1;
+  v47 = *(v35 + 104) & 0x7FFFFFFF;
+  v48 = v46 % v47;
+  v112 = v46 % v47;
+  v113 = *(v35 + 16);
+  if ((v42 & v44 & 1) == 0)
+  {
+    goto LABEL_75;
+  }
+
+  log_info("%s:%d: %s Attempting to load from temporary checkpoint (start xid %lld).\n", "nx_mount", 1346, (v43[48] + 212), *(v35 + 1408));
+  v53 = v48;
+  v54 = __srca;
+  if (!*(v35 + 1408))
+  {
+    log_err("%s:%d: %s No temporary checkpoint start xid!  Aborting!\n", "nx_mount", 1348, (v117[48] + 212));
+    v14 = 100;
+    goto LABEL_144;
+  }
+
+LABEL_85:
+  v55 = *(v35 + 104) & 0x7FFFFFFF;
+  if (v53 >= v55)
+  {
+    log_err("%s:%d: %s checkpoint descriptor index %d out of range [0...%d]\n", "nx_mount", 1366, (v117[48] + 212), v53, v55 - 1);
+    v75 = v117;
+LABEL_143:
+    v14 = nx_corruption_detected_int(v75);
+    goto LABEL_144;
+  }
+
+  v99 = v53;
+  v56 = nx_checkpoint_desc_block_address(v117, v53, &v111);
+  if (v56)
+  {
+    v14 = v56;
+LABEL_136:
+    log_err("%s:%d: %s couldn't read checkpoint descriptor block %d @ %lld: %d\n");
+    goto LABEL_10;
+  }
+
+  v57 = dev_read(v117[48]);
+  v14 = v57;
+  if (*(v117 + 633) == 1)
+  {
+    if (!v57 && v12)
+    {
+      v60 = 0;
+      while (!*(v13 + v60))
+      {
+        if (v12 == ++v60)
+        {
+          v14 = 0;
+          goto LABEL_95;
+        }
+      }
+
+      log_err("%s:%d: %s Attempt to load temporary checkpoint found unexpected data (0x%02x @ %d), checkpoint descriptor block %d @ %lld\n", "nx_mount", 1382, (v117[48] + 212), *(v13 + v60), v60, v99, v111);
+      v14 = 22;
+    }
+
+LABEL_95:
+    memcpy(v13, v54, v12);
+    obj_checksum_set_phys(v117, v13, v12, v61, v62);
+  }
+
   if (v14)
   {
-    v109 = v141[48] + 212;
-    log_err("%s:%d: %s tx manager initialization failed: %d\n");
-    goto LABEL_145;
+    goto LABEL_136;
   }
 
-  v85 = v141[50];
-  *(v85 + 104) = v132;
-  *(v85 + 108) = v130;
-  if ((v118 & 1) == 0)
+  if (*(v13 + 7) || *(v13 + 6) != -2147483647)
   {
-    log_info("%s:%d: %s sanity checking all container state... please be patient.\n", "nx_mount", 1602, (v84[48] + 212));
-    v14 = nx_check(v141, 0);
-    v84 = v141;
+    log_err("%s:%d: %s checkpoint descriptor block %d is not a valid superblock\n", "nx_mount", 1399, (v117[48] + 212), v99);
+    v75 = v117;
+    goto LABEL_143;
+  }
+
+  v63 = nx_check_superblock(v13, *(v35 + 36), 1, v58, v59);
+  if (v63)
+  {
+    v14 = v63;
+    log_err("%s:%d: %s checkpoint descriptor block %d superblock failed sanity checks: %d\n");
+    goto LABEL_144;
+  }
+
+  v64 = *(v35 + 64);
+  if ((v64 & 0xFFFFFFFFFFFFFFFDLL) != 0)
+  {
+    log_err("%s:%d: %s unsupported nx_incompatible_features (0x%llx): unable to mount\n", "nx_mount", 1409, (v117[48] + 212), v64 & 0xFFFFFFFFFFFFFFFDLL);
+    if ((v64 & 0x100) != 0)
+    {
+      log_err("%s:%d: %s Fusion is not supported anymore\n", "nx_mount", 1411, (v117[48] + 212));
+    }
+
+    v14 = 75;
+    goto LABEL_10;
+  }
+
+  v49 = __srca;
+  if (!nx_superblock_agrees_with_main_superblock(__srca, v13, "checkpoint"))
+  {
+    log_err("%s:%d: %s checkpoint descriptor block %d doesn't agree with main superblock\n", "nx_mount", 1418, (v117[48] + 212), v99);
+    v14 = 22;
+    goto LABEL_144;
+  }
+
+  v65 = (*(v13 + 34) + *(v13 + 35) - 1) % (*(v35 + 104) & 0x7FFFFFFFu);
+  if (v99 != v65)
+  {
+    log_err("%s:%d: %s checkpoint superblock index %d doesn't match index block was found at: %d\n", "nx_mount", 1425, (v117[48] + 212), v65, v99);
+    v75 = v117;
+    goto LABEL_143;
+  }
+
+  v66 = nx_metadata_range_add(v117, 0, 1, 0, 1);
+  if (v66 || (v66 = nx_metadata_range_add(v117, v13[14], v13[13] & 0x7FFFFFFF, *(v13 + 26) < 0, 0), v66) || (v66 = nx_metadata_range_add(v117, v13[15], *(v13 + 27) & 0x7FFFFFFF, *(v13 + 27) < 0, 0), v66))
+  {
+    v14 = v66;
+    log_err("%s:%d: %s xid %lld at index %d failed to load checkpoint metadata ranges (overlap?): %d\n", "nx_mount", 1442, (v117[48] + 212), v13[2], *(v13 + 34), v66);
+    goto LABEL_10;
+  }
+
+  v67 = nx_checkpoint_validate_checkpoint_map_blocks(v117, v13);
+  if (v67)
+  {
+    v14 = v67;
+    log_err("%s:%d: %s validation failed for checkpoint at index %d: %d\n");
+    goto LABEL_144;
+  }
+
+  v114 = v99;
+  v102 = v13[2];
+  log_debug("%s:%d: %s checkpoint: largest xid %lld, given checkpoint xid %lld @ %d\n", "nx_mount", 1453, (v117[48] + 212), v113, v102, v99);
+  v68 = v117;
+  if (*(__srca + 2) != v13[2])
+  {
+    log_err("%s:%d: %s loading older checkpoint, checkpoint xid %lld, superblock xid %lld\n", "nx_mount", 1455, (v117[48] + 212), v13[2], *(v35 + 16));
+    v68 = v117;
+    v104 = 1;
+    *(v117 + 643) = 1;
+  }
+
+  data = nx_checkpoint_load_data(v68, v13, 0, 0);
+  if (data)
+  {
+    v14 = data;
+    log_err("%s:%d: %s data for checkpoint at index %d couldn't be loaded: %d\n");
+    goto LABEL_144;
+  }
+
+  memcpy(v117[47], v13, v12);
+  v70 = v117;
+  *(v117[49] + 400) = *(v117[47] + 88);
+  v14 = nx_checkpoint_traverse(v70, 0, 2);
+  if (v14)
+  {
+    log_err("%s:%d: %s failed to fix up checkpoint data: %d\n");
+    goto LABEL_144;
+  }
+
+  v14 = spaceman_get(v117, &v115);
+  if (v14)
+  {
+    log_err("%s:%d: %s checkpoint xid %lld failed to get spaceman: %d\n");
+    goto LABEL_144;
+  }
+
+  v71 = nx_metadata_range_add(v117, *(v115[47] + 168), *(v115[47] + 164) & 0x7FFFFFFF, *(v115[47] + 164) < 0, 0);
+  if (!v71)
+  {
+    v14 = nx_metadata_range_add(v117, *(v115[47] + 176), *(v115[47] + 152), *(v115[47] + 152) < 0, 0);
+    obj_release(v115);
     if (v14)
     {
-      v110 = v141[48] + 212;
-      log_err("%s:%d: %s failed nx_check sanity: %d\n");
-      goto LABEL_145;
+      goto LABEL_150;
     }
+
+    v52 = v117;
+    goto LABEL_115;
   }
 
-  if ((*(v84 + 627) & 1) == 0)
+  v14 = v71;
+  obj_release(v115);
+LABEL_150:
+  log_err("%s:%d: %s checkpoint xid %lld failed to load spaceman metadata ranges (overlap?): %d\n");
+LABEL_10:
+  if (v116)
   {
-    if (*(v84 + 633) & 1) != 0 || *(v84 + 632) == 1 && (log_info("%s:%d: %s Enabling temporary checkpoints starting with xid %lld.\n", "nx_mount", 1614, (v84[48] + 212), v83), v84 = v141, *(v141[47] + 1408) = v83, (*(v84 + 633)))
-    {
-      if ((v84[79] & 1) == 0)
-      {
-        log_info("%s:%d: %s Making temporary checkpoint %lld permanent (start %lld).\n", "nx_mount", 1622, (v84[48] + 212), *(v84[47] + 16), *(v84[47] + 1408));
-        v13[176] = 0;
-        obj_checksum_set_phys(v141, v13, v12, v86, v87);
-        if (!v135)
-        {
-          v14 = 22;
-          goto LABEL_184;
-        }
-
-        v88 = dev_write(v141[48]);
-        if (v88 || (v88 = tx_barrier(v141, 16), v88))
-        {
-          v14 = v88;
-LABEL_184:
-          v112 = v141[48] + 212;
-          log_err("%s:%d: %s failed to write superblock to block %lld: %d\n");
-          goto LABEL_145;
-        }
-
-        v84 = v141;
-        *(v141[47] + 1408) = 0;
-        v128 = 1;
-      }
-    }
-
-    v89 = spaceman_allocation_init(v84);
-    if (v89)
-    {
-      log_err("%s:%d: %s failed to set up sm allocation metadata: %d\n", "nx_mount", 1648, (v141[48] + 212), v89);
-    }
-
-    if (v128)
-    {
-      obj_checksum_set(v141, v90, v91);
-      v92 = v141[47];
-      v93 = dev_write(v141[48]);
-      if (v93)
-      {
-        v14 = v93;
-        v111 = v141[48] + 212;
-        log_err("%s:%d: %s failed to write superblock to block 0: %d\n");
-        goto LABEL_145;
-      }
-    }
-
-    v94 = v141;
-    v95 = v141[47];
-    v96 = *(v95 + 1384);
-    v97 = apfs_source_version_val_full();
-    if (v96 < v97)
-    {
-      *(v95 + 1384) = v97;
-    }
-
-    nx_mount_initiate_free_space_trims(v94);
-    nx_reaper_check_for_work(v141);
+    _apfs_free(v116, v116[9]);
   }
 
-  _apfs_free(v13, v45);
-  v98 = v141;
-  if (*(v141[47] + 1248))
+  if (v13)
   {
-    if ((*(v141 + 627) & 1) == 0)
-    {
-      v14 = nx_unblock_physical_range(v141);
-      v98 = v141;
-      if (v14)
-      {
-        log_err("%s:%d: %s nx_unblock_physical_range failed with error: %d\n", "nx_mount", 1706, (v141[48] + 212), v14);
-        v13 = 0;
-        goto LABEL_145;
-      }
-    }
+    _apfs_free(v13, v12);
   }
 
-  *v117 = v98;
-  if (v140)
+  v15 = v117;
+  if (v117)
   {
-    _apfs_free(v140, v140[9]);
+    *(v117 + 627) = 1;
+    nx_unmount_internal(v15, 0);
   }
 
-  v14 = 0;
-LABEL_30:
-  v20 = *MEMORY[0x277D85DE8];
+  if (v118)
+  {
+    obj_cache_destroy(v118);
+  }
+
+  if (v119)
+  {
+    dev_close(v119);
+  }
+
   return v14;
 }
 
-void nx_mount_initiate_free_space_trims(uint64_t *a1)
+void nx_mount_initiate_free_space_trims(void *a1)
 {
-  v2 = spaceman_scan_free_blocks(a1, 0, 1u);
+  v2 = spaceman_scan_free_blocks(a1, 0, 1u, 1);
   if (v2)
   {
     log_err("%s:%d: %s *** trim'ing free blocks returned: %d\n", "nx_mount_initiate_free_space_trims", 856, (a1[48] + 212), v2);
@@ -1451,19 +972,15 @@ uint64_t media_dev_read(uint64_t a1, unint64_t a2, unint64_t a3)
     return 6;
   }
 
-  v10 = *(a1 + 84);
   if (v4())
   {
     return 5;
   }
 
-  else
-  {
-    return 0;
-  }
+  return 0;
 }
 
-uint64_t media_dev_close(void **a1)
+uint64_t media_dev_close(void **a1, uint64_t a2, uint64_t a3)
 {
   _apfs_free(a1[2], 16);
   a1[2] = 0;
@@ -1471,18 +988,18 @@ uint64_t media_dev_close(void **a1)
   return 0;
 }
 
-__CFDictionary *APFSContainerGetFreespaceInfo(const __CFString *a1, const __CFString *a2)
+__CFDictionary *APFSContainerGetFreespaceInfo(const __CFString *a1, unsigned int (*a2)(const __CFString *, uint64_t, void **))
 {
-  v28 = 0;
-  v26 = 0;
+  v31 = 0;
+  v29 = 0;
+  v30 = 0;
   v27 = 0;
-  v24 = 0;
+  v28 = 0;
   v25 = 0;
-  v22 = 0;
-  v23 = 0;
-  parse_nx_mount_options(0, &v22);
-  LODWORD(v22) = v22 | 1;
-  LOWORD(v23) = v23 | 1;
+  v26 = 0;
+  parse_nx_mount_options(0, &v25);
+  LODWORD(v25) = v25 | 1;
+  LOWORD(v26) = v26 | 1;
   apfs_log_level = 3;
   if (a2)
   {
@@ -1497,8 +1014,8 @@ __CFDictionary *APFSContainerGetFreespaceInfo(const __CFString *a1, const __CFSt
     }
 
     *value = 0u;
-    v30 = 0u;
-    if ((a2)(a1, 2, value))
+    v33 = 0u;
+    if (a2(a1, 2, value))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -1514,8 +1031,8 @@ LABEL_12:
       goto LABEL_14;
     }
 
-    v11 = _apfs_calloc_typed(1uLL, 0x10uLL, 0x80040803F642BuLL);
-    if (!v11)
+    v14 = _apfs_calloc_typed(1uLL, 0x10uLL, 0x80040803F642BuLL);
+    if (!v14)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -1525,11 +1042,11 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v12 = v11;
-    v13 = _apfs_calloc_typed(1uLL, 0xD8uLL, 0x10E004000813811uLL);
-    if (!v13)
+    v15 = v14;
+    v16 = _apfs_calloc_typed(1uLL, 0xD8uLL, 0x10E004000813811uLL);
+    if (!v16)
     {
-      _apfs_free(v12, 16);
+      _apfs_free(v15, 16);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         APFSContainerGetFreespaceInfo_cold_3();
@@ -1538,20 +1055,20 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    *v13 = -1;
-    v13[25] = 0;
-    *v12 = a1;
-    v12[1] = a2;
-    *(v13 + 2) = v12;
-    *(v13 + 9) = apfs_userio_media;
-    v14 = value[0];
-    v13[20] = value[0];
-    v13[21] = v14;
-    *(v13 + 14) = value[1];
-    *(v13 + 11) = v30;
-    v13[24] = DWORD2(v30) == 0;
-    LOWORD(v23) = v23 | 2;
-    if (nx_mount(v13, &v22, &v25))
+    *v16 = -1;
+    v16[25] = 0;
+    *v15 = a1;
+    v15[1] = a2;
+    *(v16 + 2) = v15;
+    *(v16 + 9) = apfs_userio_media;
+    v17 = value[0];
+    v16[20] = value[0];
+    v16[21] = v17;
+    *(v16 + 14) = value[1];
+    *(v16 + 11) = v33;
+    v16[24] = DWORD2(v33) == 0;
+    LOWORD(v26) = v26 | 2;
+    if (nx_mount(v16, &v25, &v28))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -1575,7 +1092,7 @@ LABEL_12:
       goto LABEL_14;
     }
 
-    if (nx_mount(CStringPtr, &v22, &v25))
+    if (nx_mount(CStringPtr, &v25, &v28))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -1586,30 +1103,30 @@ LABEL_12:
     }
   }
 
-  if (spaceman_info(v25, &v28, &v27, 0, 0, 0, 0))
+  if (spaceman_info(v28, &v31, &v30, 0, 0, 0, 0))
   {
 LABEL_14:
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
     Mutable = 0;
 LABEL_15:
-    v9 = 0;
+    v12 = 0;
     goto LABEL_16;
   }
 
-  v15 = *MEMORY[0x277CBECE8];
+  v18 = *MEMORY[0x277CBECE8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
 LABEL_62:
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
     goto LABEL_15;
   }
 
-  if (spaceman_iterate_free_extents(v25, freeExtentInfoCallback, Mutable))
+  if (spaceman_iterate_free_extents(v28, freeExtentInfoCallback, Mutable))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1619,17 +1136,17 @@ LABEL_62:
     goto LABEL_62;
   }
 
-  v34.length = CFArrayGetCount(Mutable);
-  v34.location = 0;
-  CFArraySortValues(Mutable, v34, freeExtentInfoComparator, 0);
-  v16 = v27;
+  v37.length = CFArrayGetCount(Mutable);
+  v37.location = 0;
+  CFArraySortValues(Mutable, v37, freeExtentInfoComparator, 0);
+  v19 = v30;
   Count = CFArrayGetCount(Mutable);
   if (Count)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(Mutable, Count - 1);
-    if (!ValueAtIndex || (v19 = ValueAtIndex, value[0] = 0, valuePtr = 0, v33 = 0, v31 = 0, !CFDictionaryGetValueIfPresent(ValueAtIndex, @"com.apple.apfs.container.extaddr", value)) || !CFDictionaryGetValueIfPresent(v19, @"com.apple.apfs.container.extlen", &v33) || !CFNumberGetValue(value[0], kCFNumberLongLongType, &valuePtr) || !CFNumberGetValue(v33, kCFNumberLongLongType, &v31))
+    if (!ValueAtIndex || (v22 = ValueAtIndex, value[0] = 0, valuePtr = 0, v36 = 0, v34 = 0, !CFDictionaryGetValueIfPresent(ValueAtIndex, @"com.apple.apfs.container.extaddr", value)) || !CFDictionaryGetValueIfPresent(v22, @"com.apple.apfs.container.extlen", &v36) || !CFNumberGetValue(value[0], kCFNumberLongLongType, &valuePtr) || !CFNumberGetValue(v36, kCFNumberLongLongType, &v34))
     {
-      v26 = -1;
+      v29 = -1;
 LABEL_60:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -1639,47 +1156,47 @@ LABEL_60:
       goto LABEL_62;
     }
 
-    if ((v16 <= valuePtr || v31 >= v16 - valuePtr) && valuePtr < v16)
+    if ((v19 <= valuePtr || v34 >= v19 - valuePtr) && valuePtr < v19)
     {
-      v16 = valuePtr;
+      v19 = valuePtr;
     }
   }
 
-  v26 = v16;
-  if (v16 < 0)
+  v29 = v19;
+  if (v19 < 0)
   {
     goto LABEL_60;
   }
 
-  v6 = CFNumberCreate(v15, kCFNumberIntType, &v28);
-  v7 = CFNumberCreate(v15, kCFNumberLongLongType, &v27);
-  v20 = CFNumberCreate(v15, kCFNumberLongLongType, &v26);
-  v5 = v20;
-  v9 = 0;
-  if (v6)
+  v9 = CFNumberCreate(v18, kCFNumberIntType, &v31);
+  v10 = CFNumberCreate(v18, kCFNumberLongLongType, &v30);
+  v23 = CFNumberCreate(v18, kCFNumberLongLongType, &v29);
+  v8 = v23;
+  v12 = 0;
+  if (v9)
   {
-    if (v7)
+    if (v10)
     {
-      if (v20)
+      if (v23)
       {
-        v21 = CFDictionaryCreateMutable(v15, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v9 = v21;
-        if (v21)
+        v24 = CFDictionaryCreateMutable(v18, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v12 = v24;
+        if (v24)
         {
-          CFDictionaryAddValue(v21, @"com.apple.apfs.container.fstype", @"APFS");
-          CFDictionaryAddValue(v9, @"com.apple.apfs.container.blksize", v6);
-          CFDictionaryAddValue(v9, @"com.apple.apfs.container.size", v7);
-          CFDictionaryAddValue(v9, @"com.apple.apfs.container.tidemark", v5);
-          CFDictionaryAddValue(v9, @"com.apple.apfs.container.extlist", Mutable);
+          CFDictionaryAddValue(v24, @"com.apple.apfs.container.fstype", @"APFS");
+          CFDictionaryAddValue(v12, @"com.apple.apfs.container.blksize", v9);
+          CFDictionaryAddValue(v12, @"com.apple.apfs.container.size", v10);
+          CFDictionaryAddValue(v12, @"com.apple.apfs.container.tidemark", v8);
+          CFDictionaryAddValue(v12, @"com.apple.apfs.container.extlist", Mutable);
         }
       }
     }
   }
 
 LABEL_16:
-  if (v25)
+  if (v28)
   {
-    nx_unmount(v25);
+    nx_unmount(v28, v5, v6, v7);
   }
 
   if (Mutable)
@@ -1687,23 +1204,23 @@ LABEL_16:
     CFRelease(Mutable);
   }
 
-  if (v6)
+  if (v9)
   {
-    CFRelease(v6);
+    CFRelease(v9);
   }
 
-  if (v7)
+  if (v10)
   {
-    CFRelease(v7);
+    CFRelease(v10);
   }
 
-  if (v5)
+  if (v8)
   {
-    CFRelease(v5);
+    CFRelease(v8);
   }
 
   apfs_log_level = 5;
-  return v9;
+  return v12;
 }
 
 uint64_t freeExtentInfoCallback(__CFArray *a1, uint64_t a2, uint64_t a3)
@@ -2331,55 +1848,51 @@ LABEL_60:
 
 uint64_t _APFSVolumeOperation(char *a1, uint32_t a2, int a3, mach_timespec_t *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   outputStructCnt = 0;
   service = 0;
-  if (a1 && (a2 - 27 <= 0x28 && ((1 << (a2 - 27)) & 0x18A00000001) != 0 || a2 == 1))
+  if (!a1 || (a2 - 27 > 0x28 || ((1 << (a2 - 27)) & 0x18A00000001) == 0) && a2 != 1)
   {
-    v15 = 0;
-    bzero(inputStruct, 0x978uLL);
-    if (a3)
-    {
-      p_service = &service;
-    }
+    return 49174;
+  }
 
-    else
-    {
-      p_service = 0;
-    }
-
-    v9 = apfs_container_iouc(a1, inputStruct, &v15, p_service, 0);
-    if (!v9)
-    {
-      v9 = IOConnectCallStructMethod(v15, a2, inputStruct, 4uLL, 0, &outputStructCnt);
-      if (service)
-      {
-        if (v9 && IOServiceWaitQuiet(service, a4) == -536870186 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315906;
-          v17 = "_APFSVolumeOperation";
-          v18 = 1024;
-          v19 = 1032;
-          v20 = 1024;
-          v21 = a2;
-          v22 = 2080;
-          v23 = a1;
-          _os_log_impl(&dword_23D23F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d: timed out waiting for container quiet after op %d on volume %s\n", buf, 0x22u);
-        }
-
-        IOObjectRelease(service);
-      }
-
-      IOServiceClose(v15);
-    }
+  v14 = 0;
+  bzero(inputStruct, 0x978uLL);
+  if (a3)
+  {
+    p_service = &service;
   }
 
   else
   {
-    v9 = 49174;
+    p_service = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = apfs_container_iouc(a1, inputStruct, &v14, p_service, 0);
+  if (!v9)
+  {
+    v9 = IOConnectCallStructMethod(v14, a2, inputStruct, 4uLL, 0, &outputStructCnt);
+    if (service)
+    {
+      if (v9 && IOServiceWaitQuiet(service, a4) == -536870186 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315906;
+        v16 = "_APFSVolumeOperation";
+        v17 = 1024;
+        v18 = 1032;
+        v19 = 1024;
+        v20 = a2;
+        v21 = 2080;
+        v22 = a1;
+        _os_log_impl(&dword_23D23F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d: timed out waiting for container quiet after op %d on volume %s\n", buf, 0x22u);
+      }
+
+      IOObjectRelease(service);
+    }
+
+    IOServiceClose(v14);
+  }
+
   return v9;
 }
 
@@ -2430,19 +1943,19 @@ uint64_t APFSVolumeGetSpaceInfo(char *a1, void *a2, void *a3)
 
 uint64_t APFSVolumeRoleFind(char *a1, int a2, __CFArray **a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v21 = *MEMORY[0x277D85DE8];
   v19 = 0;
+  v18 = 0;
   memset(location, 0, sizeof(location));
   bzero(outputStruct, 0x978uLL);
-  v17 = 2;
+  v16 = 2;
   *a3 = 0;
-  if (!apfs_container_iouc(a1, 0, &v20 + 1, &v19, 0) || (v6 = apfs_container_iouc(a1, outputStruct, &v20 + 1, &v19, 0), !v6))
+  if (!apfs_container_iouc(a1, 0, &v19 + 1, &v18, 0) || (v6 = apfs_container_iouc(a1, outputStruct, &v19 + 1, &v18, 0), !v6))
   {
-    v6 = MEMORY[0x23EEDB610](v19, "IOService", &v20);
+    v6 = MEMORY[0x23EEDB610](v18, "IOService", &v19);
     if (!v6)
     {
-      v7 = IOIteratorNext(v20);
+      v7 = IOIteratorNext(v19);
       if (v7)
       {
         v8 = v7;
@@ -2455,7 +1968,7 @@ uint64_t APFSVolumeRoleFind(char *a1, int a2, __CFArray **a3)
             {
               outputStruct[0] = strtol(location, 0, 0) - 1;
               outputStruct[1] = 0;
-              if (!IOConnectCallStructMethod(HIDWORD(v20), 9u, outputStruct, 8uLL, outputStruct, &v17) && LOWORD(outputStruct[0]) == a2)
+              if (!IOConnectCallStructMethod(HIDWORD(v19), 9u, outputStruct, 8uLL, outputStruct, &v16) && LOWORD(outputStruct[0]) == a2)
               {
                 CFProperty = IORegistryEntryCreateCFProperty(v8, @"BSD Name", v9, 0);
                 if (CFProperty)
@@ -2482,13 +1995,13 @@ uint64_t APFSVolumeRoleFind(char *a1, int a2, __CFArray **a3)
           }
 
           IOObjectRelease(v8);
-          v8 = IOIteratorNext(v20);
+          v8 = IOIteratorNext(v19);
         }
 
         while (v8);
       }
 
-      IOObjectRelease(v20);
+      IOObjectRelease(v19);
       if (*a3)
       {
         v6 = 0;
@@ -2500,110 +2013,101 @@ uint64_t APFSVolumeRoleFind(char *a1, int a2, __CFArray **a3)
       }
     }
 
-    IOObjectRelease(v19);
-    IOServiceClose(HIDWORD(v20));
+    IOObjectRelease(v18);
+    IOServiceClose(HIDWORD(v19));
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t APFSVolumePayloadGet(uint64_t a1, uint64_t a2)
+uint64_t APFSVolumePayloadGet(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 2052;
-  if (v5)
+  v1 = MEMORY[0x28223BE20](a1);
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 2052;
+  if (!v4)
   {
-    v6 = v5;
-    v7 = v4;
-    v8 = v3;
-    v9 = v2;
-    connection = 0;
-    bzero(&outputStruct, 0x1178uLL);
-    v10 = apfs_container_iouc(v9, &outputStruct, &connection, 0, 0);
-    if (!v10)
+    return 49174;
+  }
+
+  v5 = v4;
+  v6 = v3;
+  v7 = v2;
+  v8 = v1;
+  connection = 0;
+  bzero(&outputStruct, 0x1178uLL);
+  v9 = apfs_container_iouc(v8, &outputStruct, &connection, 0, 0);
+  if (!v9)
+  {
+    v16[0] = v7;
+    v16[1] = 1;
+    v17 = 2048;
+    v9 = IOConnectCallStructMethod(connection, 0xAu, &outputStruct, 0xCuLL, &outputStruct, &v13);
+    if (!v9)
     {
-      v18[0] = v8;
-      v18[1] = 1;
-      v19 = 2048;
-      v10 = IOConnectCallStructMethod(connection, 0xAu, &outputStruct, 0xCuLL, &outputStruct, &v15);
-      if (!v10)
+      v10 = outputStruct;
+      if (v6)
       {
-        v11 = outputStruct;
-        if (v7)
+        if (*v5 >= outputStruct)
         {
-          if (*v6 >= outputStruct)
-          {
-            v12 = outputStruct;
-          }
-
-          else
-          {
-            v12 = *v6;
-          }
-
-          memcpy(v7, v18, v12);
+          v11 = outputStruct;
         }
 
-        *v6 = v11;
+        else
+        {
+          v11 = *v5;
+        }
+
+        memcpy(v6, v16, v11);
       }
 
-      IOServiceClose(connection);
+      *v5 = v10;
     }
+
+    IOServiceClose(connection);
   }
 
-  else
-  {
-    v10 = 49174;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
-uint64_t APFSVolumePayloadSet(uint64_t a1, uint64_t a2)
+uint64_t APFSVolumePayloadSet(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  v18 = *MEMORY[0x277D85DE8];
-  v12 = 4;
-  if (v8)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 4;
+  if (v7)
   {
-    if (v3 <= 0x800)
+    if (v2 <= 0x800)
     {
       goto LABEL_3;
     }
 
-LABEL_6:
-    v9 = 49174;
-    goto LABEL_7;
+    return 49174;
   }
 
-  if (v3)
+  if (v2)
   {
-    goto LABEL_6;
+    return 49174;
   }
 
 LABEL_3:
   connection = 0;
   bzero(&outputStruct, 0x1178uLL);
-  v9 = apfs_container_iouc(v7, &outputStruct, &connection, 0, 0);
-  if (!v9)
+  v8 = apfs_container_iouc(v6, &outputStruct, &connection, 0, 0);
+  if (!v8)
   {
-    v15 = v6;
-    v16 = 2;
-    v17 = v4;
+    v13 = v5;
+    v14 = 2;
+    v15 = v3;
     __memcpy_chk();
-    v9 = IOConnectCallStructMethod(connection, 0xAu, &outputStruct, v4 + 12, &outputStruct, &v12);
+    v8 = IOConnectCallStructMethod(connection, 0xAu, &outputStruct, v3 + 12, &outputStruct, &v10);
     IOServiceClose(connection);
   }
 
-LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v8;
 }
 
 uint64_t APFSVolumeGetVEKState(char *a1, _BYTE *a2, _BYTE *a3)
@@ -2671,8 +2175,8 @@ uint64_t APFSVolumeGetSiDPState(char *a1, _BYTE *a2, _BYTE *a3, _BYTE *a4)
 
 uint64_t APFSVolumeGetWVEK(char *a1, CFDataRef *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v8 = 520;
+  v11 = *MEMORY[0x277D85DE8];
+  v7 = 520;
   result = 22;
   if (a1 && a2)
   {
@@ -2686,18 +2190,17 @@ uint64_t APFSVolumeGetWVEK(char *a1, CFDataRef *a2)
 
     else
     {
-      v6 = IOConnectCallStructMethod(connection, 0x39u, &outputStruct, 4uLL, &outputStruct, &v8);
+      v6 = IOConnectCallStructMethod(connection, 0x39u, &outputStruct, 4uLL, &outputStruct, &v7);
       IOServiceClose(connection);
       if (!v6)
       {
-        *a2 = CFDataCreate(*MEMORY[0x277CBECE8], v11, outputStruct);
+        *a2 = CFDataCreate(*MEMORY[0x277CBECE8], v10, outputStruct);
       }
     }
 
-    result = v6 & 0x3FFF;
+    return v6 & 0x3FFF;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2734,41 +2237,40 @@ uint64_t APFSVolumeEnableUserProtectionWithOptions(char *a1, unsigned __int8 *uu
 
 uint64_t _APFSVolumeGetUnlockRecordOrHint(char *a1, unsigned __int8 *uu, int a3, CFDataRef *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 520;
-  if (a1)
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 520;
+  if (!a1)
   {
-    is_null = uuid_is_null(uu);
-    result = 22;
-    if ((a3 - 5) >= 0xFFFFFFFE && !is_null)
-    {
-      connection = 0;
-      bzero(&outputStruct, 0xB78uLL);
-      v10 = apfs_container_iouc(a1, &outputStruct, &connection, 0, 0);
-      if (!v10)
-      {
-        uuid_copy(&outputStruct + 4, uu);
-        v17 = a3;
-        v11 = IOConnectCallStructMethod(connection, 0xDu, &outputStruct, 0x18uLL, &outputStruct, &v13);
-        v10 = v11;
-        if (a4 && !v11)
-        {
-          *a4 = CFDataCreate(*MEMORY[0x277CBECE8], v16, outputStruct);
-        }
+    return 22;
+  }
 
-        IOServiceClose(connection);
+  is_null = uuid_is_null(uu);
+  result = 22;
+  if ((a3 - 5) >= 0xFFFFFFFE && !is_null)
+  {
+    connection = 0;
+    bzero(&outputStruct, 0xB78uLL);
+    v10 = apfs_container_iouc(a1, &outputStruct, &connection, 0, 0);
+    if (!v10)
+    {
+      uuid_copy(&outputStruct + 4, uu);
+      v16 = a3;
+      v11 = IOConnectCallStructMethod(connection, 0xDu, &outputStruct, 0x18uLL, &outputStruct, &v12);
+      v10 = v11;
+      if (a4)
+      {
+        if (!v11)
+        {
+          *a4 = CFDataCreate(*MEMORY[0x277CBECE8], v15, outputStruct);
+        }
       }
 
-      result = rc_to_errno(v10);
+      IOServiceClose(connection);
     }
+
+    return rc_to_errno(v10);
   }
 
-  else
-  {
-    result = 22;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2781,125 +2283,123 @@ uint64_t APFSVolumeListUUIDsOfUnlockRecords(char *a1, __CFArray **a2)
 
 uint64_t _APFSVolumeGetUUIDsOfUnlockRecords(char *a1, __CFArray **a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   result = 22;
   if (a1 && a2)
   {
-    if (CFStringGetTypeID() != a3 && CFUUIDGetTypeID() != a3)
+    if (CFStringGetTypeID() == a3 || CFUUIDGetTypeID() == a3)
     {
-      result = 22;
-      goto LABEL_10;
-    }
-
-    v21 = 0;
-    bzero(outputStruct, 0x978uLL);
-    v19 = 0;
-    *a2 = 0;
-    v7 = apfs_container_iouc(a1, &v19, &v21, 0, 0);
-    if (v7)
-    {
-      goto LABEL_8;
-    }
-
-    LODWORD(outputStruct[0]) = v19;
-    v18 = 8;
-    v7 = IOConnectCallStructMethod(v21, 0x37u, outputStruct, 4uLL, outputStruct, &v18);
-    if (v7)
-    {
-LABEL_7:
-      IOServiceClose(v21);
-LABEL_8:
-      result = rc_to_errno(v7);
-      goto LABEL_10;
-    }
-
-    if (outputStruct[0])
-    {
-      v9 = (16 * outputStruct[0]) | 8;
-      v10 = _apfs_malloc_typed(v9, 0x3CE2C6F3uLL);
-      if (!v10)
+      v20 = 0;
+      bzero(outputStruct, 0x978uLL);
+      v18 = 0;
+      *a2 = 0;
+      v7 = apfs_container_iouc(a1, &v18, &v20, 0, 0);
+      if (v7)
       {
-        v7 = 12;
+        return rc_to_errno(v7);
+      }
+
+      LODWORD(outputStruct[0]) = v18;
+      v17 = 8;
+      v7 = IOConnectCallStructMethod(v20, 0x37u, outputStruct, 4uLL, outputStruct, &v17);
+      if (v7)
+      {
+LABEL_7:
+        IOServiceClose(v20);
+        return rc_to_errno(v7);
+      }
+
+      if (outputStruct[0])
+      {
+        v8 = (16 * outputStruct[0]) | 8;
+        v9 = _apfs_malloc_typed(v8, 0x3CE2C6F3uLL);
+        if (!v9)
+        {
+          v7 = 12;
+          goto LABEL_7;
+        }
+
+        v10 = v9;
+        *v9 = v18;
+        *(v9 + 1) = outputStruct[0];
+        v17 = (16 * outputStruct[0]) | 8;
+        v7 = IOConnectCallStructMethod(v20, 0xEu, v10, 8uLL, v10, &v17);
+        if (!v7)
+        {
+          v7 = *v10;
+          v11 = *MEMORY[0x277CBECE8];
+          Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], *v10, MEMORY[0x277CBF128]);
+          *a2 = Mutable;
+          if (!Mutable)
+          {
+LABEL_28:
+            v7 = 12;
+            goto LABEL_29;
+          }
+
+          if (v7)
+          {
+            v13 = (v10 + 1);
+            while (1)
+            {
+              memset(out, 0, 37);
+              if (CFStringGetTypeID() == a3)
+              {
+                uuid_unparse(&v13->byte0, out);
+                v14 = CFStringCreateWithCString(v11, out, 0x8000100u);
+              }
+
+              else
+              {
+                v14 = CFUUIDCreateFromUUIDBytes(v11, *v13);
+              }
+
+              v15 = v14;
+              v16 = *a2;
+              if (!v15)
+              {
+                break;
+              }
+
+              CFArrayAppendValue(v16, v15);
+              CFRelease(v15);
+              ++v13;
+              if (!--v7)
+              {
+                goto LABEL_29;
+              }
+            }
+
+            CFRelease(v16);
+            *a2 = 0;
+            goto LABEL_28;
+          }
+        }
+
+LABEL_29:
+        _apfs_free(v10, v8);
         goto LABEL_7;
       }
 
-      v11 = v10;
-      *v10 = v19;
-      *(v10 + 1) = outputStruct[0];
-      v18 = (16 * outputStruct[0]) | 8;
-      v7 = IOConnectCallStructMethod(v21, 0xEu, v11, 8uLL, v11, &v18);
-      if (!v7)
+      *a2 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+      IOServiceClose(v20);
+      if (*a2)
       {
-        v7 = *v11;
-        v12 = *MEMORY[0x277CBECE8];
-        Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], *v11, MEMORY[0x277CBF128]);
-        *a2 = Mutable;
-        if (!Mutable)
-        {
-LABEL_28:
-          v7 = 12;
-          goto LABEL_29;
-        }
-
-        if (v7)
-        {
-          v14 = (v11 + 1);
-          while (1)
-          {
-            memset(out, 0, 37);
-            if (CFStringGetTypeID() == a3)
-            {
-              uuid_unparse(&v14->byte0, out);
-              v15 = CFStringCreateWithCString(v12, out, 0x8000100u);
-            }
-
-            else
-            {
-              v15 = CFUUIDCreateFromUUIDBytes(v12, *v14);
-            }
-
-            v16 = v15;
-            v17 = *a2;
-            if (!v16)
-            {
-              break;
-            }
-
-            CFArrayAppendValue(v17, v16);
-            CFRelease(v16);
-            ++v14;
-            if (!--v7)
-            {
-              goto LABEL_29;
-            }
-          }
-
-          CFRelease(v17);
-          *a2 = 0;
-          goto LABEL_28;
-        }
+        return 0;
       }
 
-LABEL_29:
-      _apfs_free(v11, v9);
-      goto LABEL_7;
-    }
-
-    *a2 = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-    IOServiceClose(v21);
-    if (*a2)
-    {
-      result = 0;
+      else
+      {
+        return 12;
+      }
     }
 
     else
     {
-      result = 12;
+      return 22;
     }
   }
 
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2970,22 +2470,18 @@ uint64_t _APFSVolumeUnlockVerifyUnlockRecord(char *a1, unsigned __int8 *uu, cons
 
 uint64_t APFSVolumeUnlockAnyUnlockRecord(char *a1, const void *a2, unsigned __int8 *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
-  result = _APFSVolumeUnlockVerifyUnlockRecord(a1, uu, a2, a3, 0, 0);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return _APFSVolumeUnlockVerifyUnlockRecord(a1, uu, a2, a3, 0, 0);
 }
 
 uint64_t APFSVolumeUnlockAnyUnlockRecordWithOptions(char *a1, const void *a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
-  result = _APFSVolumeUnlockVerifyUnlockRecord(a1, uu, a2, a3, a4, 0);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return _APFSVolumeUnlockVerifyUnlockRecord(a1, uu, a2, a3, a4, 0);
 }
 
 uint64_t APFSVolumeUnlockGetUnlockRecordState(char *a1, unsigned __int8 *uu, __CFDictionary **a3)
@@ -3000,9 +2496,9 @@ uint64_t APFSVolumeUnlockGetUnlockRecordState(char *a1, unsigned __int8 *uu, __C
   result = 22;
   if (a3 && !is_null)
   {
-    v22 = 0;
+    v21 = 0;
     bzero(&outputStruct, 0x978uLL);
-    v8 = apfs_container_iouc(a1, &outputStruct, &v22, 0, 0);
+    v8 = apfs_container_iouc(a1, &outputStruct, &v21, 0, 0);
     if (v8)
     {
       v9 = v8;
@@ -3010,35 +2506,34 @@ uint64_t APFSVolumeUnlockGetUnlockRecordState(char *a1, unsigned __int8 *uu, __C
 
     else
     {
-      uuid_copy(v21, uu);
-      v9 = IOConnectCallStructMethod(v22, 0x20u, &outputStruct, 0x14uLL, &outputStruct, &outputStructCnt);
-      IOServiceClose(v22);
+      uuid_copy(v20, uu);
+      v9 = IOConnectCallStructMethod(v21, 0x20u, &outputStruct, 0x14uLL, &outputStruct, &outputStructCnt);
+      IOServiceClose(v21);
       if (!v9)
       {
-        v18 = outputStruct;
+        v17 = outputStruct;
         v10 = *MEMORY[0x277CBECE8];
-        v11 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongType, &v18);
+        v11 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberLongType, &v17);
         if (v11)
         {
           v12 = v11;
-          v13 = v21[0];
+          v13 = v20[0];
           Mutable = CFDictionaryCreateMutable(v10, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
           if (Mutable)
           {
             v15 = Mutable;
-            v16 = *MEMORY[0x277CBED28];
             if (v13)
             {
-              v17 = *MEMORY[0x277CBED28];
+              v16 = *MEMORY[0x277CBED28];
             }
 
             else
             {
-              v17 = *MEMORY[0x277CBED10];
+              v16 = *MEMORY[0x277CBED10];
             }
 
             CFDictionaryAddValue(Mutable, @"Backoff", v12);
-            CFDictionaryAddValue(v15, @"LockedOut", v17);
+            CFDictionaryAddValue(v15, @"LockedOut", v16);
             v9 = 0;
             *a3 = v15;
           }
@@ -3066,12 +2561,31 @@ uint64_t APFSVolumeUnlockGetUnlockRecordState(char *a1, unsigned __int8 *uu, __C
 
 uint64_t _APFSVolumeAddUnlockRecordsOrHints(char *a1, unsigned __int8 *uu, const void *a3, const void *a4, int a5, uint64_t a6)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   outputStructCnt = 0;
-  if (!a1 || uuid_is_null(uu) || a4 && (v14 = CFGetTypeID(a4), v14 != CFDictionaryGetTypeID()) || (v15 = CFGetTypeID(a3), v15 != CFDataGetTypeID()))
+  if (!a1)
   {
-    result = 22;
-    goto LABEL_4;
+    return 22;
+  }
+
+  if (uuid_is_null(uu))
+  {
+    return 22;
+  }
+
+  if (a4)
+  {
+    v13 = CFGetTypeID(a4);
+    if (v13 != CFDictionaryGetTypeID())
+    {
+      return 22;
+    }
+  }
+
+  v14 = CFGetTypeID(a3);
+  if (v14 != CFDataGetTypeID())
+  {
+    return 22;
   }
 
   if (a5 != 5 || (result = _APFSVolumeUnlockVerifyUnlockRecord(a1, uu, a3, 0, a6, 1), !result))
@@ -3079,157 +2593,155 @@ uint64_t _APFSVolumeAddUnlockRecordsOrHints(char *a1, unsigned __int8 *uu, const
     connection = 0;
     bzero(context, 0x978uLL);
     memset(out, 0, 37);
-    memset(v57, 0, 37);
+    memset(v56, 0, 37);
+    v37 = 0;
     v38 = 0;
     v39 = 0;
-    v40 = 0;
-    v32 = apfs_container_iouc(a1, context, &connection, 0, 0);
-    if (!v32)
+    v31 = apfs_container_iouc(a1, context, &connection, 0, 0);
+    if (!v31)
     {
       context[1] = a5;
-      uuid_copy(v35, uu);
+      uuid_copy(v34, uu);
       BytePtr = CFDataGetBytePtr(a3);
       Length = CFDataGetLength(a3);
-      v41 = a6;
+      v40 = a6;
       if (a4)
       {
         Count = CFDictionaryGetCount(a4);
-        v39 = _apfs_malloc_typed(16 * Count, 0x1000040451B5BE8uLL);
-        if (!v39 || (v17 = CFDictionaryGetCount(a4), (v40 = _apfs_calloc_typed(v17, 8uLL, 0x2004093837F09uLL)) == 0))
+        v38 = _apfs_malloc_typed(16 * Count, 0x1000040451B5BE8uLL);
+        if (!v38 || (v16 = CFDictionaryGetCount(a4), (v39 = _apfs_calloc_typed(v16, 8uLL, 0x2004093837F09uLL)) == 0))
         {
 LABEL_20:
-          v21 = 12;
+          v20 = 12;
 LABEL_21:
-          v32 = v21;
+          v31 = v20;
           goto LABEL_22;
         }
 
         if (CFDictionaryGetCount(a4) >= 1)
         {
-          v18 = 0;
+          v17 = 0;
           do
           {
-            v19 = _apfs_malloc_typed(0x10uLL, 0x1080040FC6463CFuLL);
-            v40[v18] = v19;
-            if (!v40[v18])
+            v18 = _apfs_malloc_typed(0x10uLL, 0x1080040FC6463CFuLL);
+            v39[v17] = v18;
+            if (!v39[v17])
             {
               goto LABEL_20;
             }
           }
 
-          while (CFDictionaryGetCount(a4) > ++v18);
+          while (CFDictionaryGetCount(a4) > ++v17);
         }
 
         CFDictionaryApplyFunction(a4, records_callback, context);
-        v20 = v38;
-        if (CFDictionaryGetCount(a4) != v20)
+        v19 = v37;
+        if (CFDictionaryGetCount(a4) != v19)
         {
-          v21 = 22;
+          v20 = 22;
           goto LABEL_21;
         }
       }
 
-      v32 = IOConnectCallStructMethod(connection, 0x10u, context, 0x48uLL, 0, &outputStructCnt);
+      v31 = IOConnectCallStructMethod(connection, 0x10u, context, 0x48uLL, 0, &outputStructCnt);
       IOServiceClose(connection);
     }
 
 LABEL_22:
     uuid_unparse(uu, out);
-    if (v38)
+    if (v37)
     {
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
-      v24 = MEMORY[0x277D86220];
+      v23 = MEMORY[0x277D86220];
       do
       {
-        uuid_unparse(&v39[v22], v57);
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        uuid_unparse(&v38[v21], v56);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = rc_to_errno(v32);
+          v24 = rc_to_errno(v31);
           *buf = 136316674;
-          v44 = "_APFSVolumeAddUnlockRecordsOrHints";
-          v45 = 1024;
-          v46 = 1788;
-          v47 = 1024;
-          v48 = a5;
-          v49 = 2080;
-          v50 = out;
-          v51 = 2080;
-          v52 = v57;
-          v53 = 2080;
-          v54 = a1;
-          v55 = 1024;
-          v56 = v25;
-          _os_log_impl(&dword_23D23F000, v24, OS_LOG_TYPE_DEFAULT, "%s:%d: UR_ADD_UPDATE_SET [ OP = %u, SRC UUID = %s, DST UUID = %s, VOLUME = %s, ret = %d ]\n", buf, 0x3Cu);
+          v43 = "_APFSVolumeAddUnlockRecordsOrHints";
+          v44 = 1024;
+          v45 = 1788;
+          v46 = 1024;
+          v47 = a5;
+          v48 = 2080;
+          v49 = out;
+          v50 = 2080;
+          v51 = v56;
+          v52 = 2080;
+          v53 = a1;
+          v54 = 1024;
+          v55 = v24;
+          _os_log_impl(&dword_23D23F000, v23, OS_LOG_TYPE_DEFAULT, "%s:%d: UR_ADD_UPDATE_SET [ OP = %u, SRC UUID = %s, DST UUID = %s, VOLUME = %s, ret = %d ]\n", buf, 0x3Cu);
         }
 
-        ++v23;
-        v22 += 16;
+        ++v22;
+        v21 += 16;
       }
 
-      while (v23 < v38);
+      while (v22 < v37);
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v26 = rc_to_errno(v32);
+      v25 = rc_to_errno(v31);
       *buf = 136316418;
-      v44 = "_APFSVolumeAddUnlockRecordsOrHints";
-      v45 = 1024;
-      v46 = 1784;
-      v47 = 1024;
-      v48 = a5;
-      v49 = 2080;
-      v50 = out;
-      v51 = 2080;
-      v52 = a1;
-      v53 = 1024;
-      LODWORD(v54) = v26;
+      v43 = "_APFSVolumeAddUnlockRecordsOrHints";
+      v44 = 1024;
+      v45 = 1784;
+      v46 = 1024;
+      v47 = a5;
+      v48 = 2080;
+      v49 = out;
+      v50 = 2080;
+      v51 = a1;
+      v52 = 1024;
+      LODWORD(v53) = v25;
       _os_log_impl(&dword_23D23F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d: UR_ADD_UPDATE_SET [ OP = %u, UUID = %s, VOLUME = %s, ret = %d ]\n", buf, 0x32u);
     }
 
-    if (v39)
+    if (v38)
     {
-      _apfs_free(v39, 16 * v38);
+      _apfs_free(v38, 16 * v37);
     }
 
-    v27 = v40;
-    if (v40)
+    v26 = v39;
+    if (v39)
     {
-      v28 = v38;
-      if (v38)
+      v27 = v37;
+      if (v37)
       {
-        v29 = 0;
+        v28 = 0;
         do
         {
-          v30 = v40[v29];
-          if (v30)
+          v29 = v39[v28];
+          if (v29)
           {
-            _apfs_free(v30, 16);
-            v28 = v38;
+            _apfs_free(v29, 16);
+            v27 = v37;
           }
 
-          ++v29;
+          ++v28;
         }
 
-        while (v29 < v28);
-        v27 = v40;
-        v31 = 8 * v28;
+        while (v28 < v27);
+        v26 = v39;
+        v30 = 8 * v27;
       }
 
       else
       {
-        v31 = 0;
+        v30 = 0;
       }
 
-      _apfs_free(v27, v31);
+      _apfs_free(v26, v30);
     }
 
-    result = rc_to_errno(v32);
+    return rc_to_errno(v31);
   }
 
-LABEL_4:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3267,78 +2779,91 @@ uint64_t APFSVolumeSetUnlockRecord(char *a1, unsigned __int8 *uu, const __CFData
 
 uint64_t APFSVolumeResetUnlockRecordWithOptions(char *a1, unsigned __int8 *uu, const __CFData *a3, const unsigned __int8 *a4, const __CFData *a5, uint64_t a6)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   outputStructCnt = 0;
   if (!a1 || uuid_is_null(uu))
   {
-    goto LABEL_3;
+    return 22;
   }
 
   is_null = uuid_is_null(a4);
   result = 22;
   if (a5 && a3 && !is_null)
   {
-    if (!CFDataGetLength(a3) || !CFDataGetLength(a5) || (v15 = CFGetTypeID(a3), v15 != CFDataGetTypeID()) || (v16 = CFGetTypeID(a5), v16 != CFDataGetTypeID()))
+    if (!CFDataGetLength(a3))
     {
-LABEL_3:
-      result = 22;
-      goto LABEL_4;
+      return 22;
     }
 
-    v30 = 0;
+    if (!CFDataGetLength(a5))
+    {
+      return 22;
+    }
+
+    v14 = CFGetTypeID(a3);
+    if (v14 != CFDataGetTypeID())
+    {
+      return 22;
+    }
+
+    v15 = CFGetTypeID(a5);
+    if (v15 != CFDataGetTypeID())
+    {
+      return 22;
+    }
+
+    v29 = 0;
     bzero(inputStruct, 0x978uLL);
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
     memset(out, 0, 37);
-    memset(v45, 0, 37);
-    v17 = apfs_container_iouc(a1, inputStruct, &v30, 0, 0);
-    if (!v17)
+    memset(v44, 0, 37);
+    v16 = apfs_container_iouc(a1, inputStruct, &v29, 0, 0);
+    if (!v16)
     {
       inputStruct[1] = 3;
-      uuid_copy(v23, uu);
+      uuid_copy(v22, uu);
       BytePtr = CFDataGetBytePtr(a3);
       Length = CFDataGetLength(a3);
-      v26 = 1;
-      v27 = _apfs_malloc_typed(0x10uLL, 0x1000040451B5BE8uLL);
-      uuid_copy(v27, a4);
-      v19 = CFDataGetBytePtr(a5);
-      v20 = CFDataGetLength(a5);
-      v28 = _apfs_malloc_typed(8uLL, 0x2004093837F09uLL);
-      *v28 = &v19;
-      v29 = a6;
-      v17 = IOConnectCallStructMethod(v30, 0x10u, inputStruct, 0x48uLL, 0, &outputStructCnt);
-      _apfs_free(v28, 8);
-      _apfs_free(v27, 16);
-      IOServiceClose(v30);
+      v25 = 1;
+      v26 = _apfs_malloc_typed(0x10uLL, 0x1000040451B5BE8uLL);
+      uuid_copy(v26, a4);
+      v18 = CFDataGetBytePtr(a5);
+      v19 = CFDataGetLength(a5);
+      v27 = _apfs_malloc_typed(8uLL, 0x2004093837F09uLL);
+      *v27 = &v18;
+      v28 = a6;
+      v16 = IOConnectCallStructMethod(v29, 0x10u, inputStruct, 0x48uLL, 0, &outputStructCnt);
+      _apfs_free(v27, 8);
+      _apfs_free(v26, 16);
+      IOServiceClose(v29);
     }
 
     uuid_unparse(uu, out);
-    uuid_unparse(a4, v45);
+    uuid_unparse(a4, v44);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = rc_to_errno(v17);
+      v17 = rc_to_errno(v16);
       *buf = 136316674;
-      v32 = "APFSVolumeResetUnlockRecordWithOptions";
-      v33 = 1024;
-      v34 = 1891;
-      v35 = 1024;
-      v36 = 3;
-      v37 = 2080;
-      v38 = out;
-      v39 = 2080;
-      v40 = v45;
-      v41 = 2080;
-      v42 = a1;
-      v43 = 1024;
-      v44 = v18;
+      v31 = "APFSVolumeResetUnlockRecordWithOptions";
+      v32 = 1024;
+      v33 = 1891;
+      v34 = 1024;
+      v35 = 3;
+      v36 = 2080;
+      v37 = out;
+      v38 = 2080;
+      v39 = v44;
+      v40 = 2080;
+      v41 = a1;
+      v42 = 1024;
+      v43 = v17;
       _os_log_impl(&dword_23D23F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d: UR_RESET_UPDATE [ OP = %u, SRC UUID = %s, DST UUID = %s, VOLUME = %s, ret = %d ]\n", buf, 0x3Cu);
     }
 
-    result = rc_to_errno(v17);
+    return rc_to_errno(v16);
   }
 
-LABEL_4:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3354,26 +2879,26 @@ uint64_t APFSVolumeRemoveHint(char *a1, unsigned __int8 *uu)
 
 uint64_t _APFSVolumeRemoveUnlockRecordsOrHint(char *a1, const unsigned __int8 *a2, int a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   bzero(&inputStruct, 0x978uLL);
   outputStructCnt = 0;
-  v17 = a3;
-  v6 = apfs_container_iouc(a1, &inputStruct, &v18, 0, 0);
+  v16 = a3;
+  v6 = apfs_container_iouc(a1, &inputStruct, &v17, 0, 0);
   if (!v6)
   {
     if (uuid_is_null(a2))
     {
-      uuid_clear(v16);
+      uuid_clear(v15);
     }
 
     else
     {
-      uuid_copy(v16, a2);
+      uuid_copy(v15, a2);
     }
 
-    v6 = IOConnectCallStructMethod(v18, 0x11u, &inputStruct, 0x18uLL, 0, &outputStructCnt);
-    IOServiceClose(v18);
+    v6 = IOConnectCallStructMethod(v17, 0x11u, &inputStruct, 0x18uLL, 0, &outputStructCnt);
+    IOServiceClose(v17);
   }
 
   if (uuid_is_null(a2))
@@ -3382,13 +2907,13 @@ uint64_t _APFSVolumeRemoveUnlockRecordsOrHint(char *a1, const unsigned __int8 *a
     {
       v7 = rc_to_errno(v6);
       *buf = 136315906;
-      v20 = "_APFSVolumeRemoveUnlockRecordsOrHint";
-      v21 = 1024;
-      v22 = 1930;
-      v23 = 2080;
-      v24 = a1;
-      v25 = 1024;
-      v26 = v7;
+      v19 = "_APFSVolumeRemoveUnlockRecordsOrHint";
+      v20 = 1024;
+      v21 = 1930;
+      v22 = 2080;
+      v23 = a1;
+      v24 = 1024;
+      v25 = v7;
       v8 = MEMORY[0x277D86220];
       v9 = "%s:%d: UR_WIPE [ VOLUME = %s, ret = %d ]\n";
       v10 = 34;
@@ -3405,17 +2930,17 @@ LABEL_11:
     {
       v11 = rc_to_errno(v6);
       *buf = 136316418;
-      v20 = "_APFSVolumeRemoveUnlockRecordsOrHint";
-      v21 = 1024;
-      v22 = 1934;
-      v23 = 2080;
-      v24 = out;
-      v25 = 1024;
-      v26 = a3;
-      v27 = 2080;
-      v28 = a1;
-      v29 = 1024;
-      v30 = v11;
+      v19 = "_APFSVolumeRemoveUnlockRecordsOrHint";
+      v20 = 1024;
+      v21 = 1934;
+      v22 = 2080;
+      v23 = out;
+      v24 = 1024;
+      v25 = a3;
+      v26 = 2080;
+      v27 = a1;
+      v28 = 1024;
+      v29 = v11;
       v8 = MEMORY[0x277D86220];
       v9 = "%s:%d: UR_REMOVE [ UUID = %s, tag = %d, VOLUME = %s, ret = %d ]\n";
       v10 = 50;
@@ -3423,9 +2948,7 @@ LABEL_11:
     }
   }
 
-  result = rc_to_errno(v6);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return rc_to_errno(v6);
 }
 
 uint64_t APFSVolumeRemoveUnlockRecord(char *a1, unsigned __int8 *uu)
@@ -3583,177 +3106,171 @@ uint64_t APFSVolumeBindNewKEKToVEKWithOptions(char *a1, unsigned __int8 *uu, con
 
 uint64_t APFSContainerGetBootDevice(void *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v28 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    existing = 0;
-    v2 = IOServiceMatching("AppleAPFSVolume");
-    if (v2)
+    return 49174;
+  }
+
+  existing = 0;
+  v2 = IOServiceMatching("AppleAPFSVolume");
+  if (v2)
+  {
+    MatchingServices = IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v2, &existing);
+    if (!MatchingServices)
     {
-      MatchingServices = IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v2, &existing);
-      if (!MatchingServices)
+      v5 = IOIteratorNext(existing);
+      if (v5)
       {
-        v5 = IOIteratorNext(existing);
-        if (v5)
+        v6 = v5;
+        v4 = 0;
+        v7 = 0;
+        v8 = *MEMORY[0x277CBECE8];
+        v9 = MEMORY[0x277D86220];
+        do
         {
-          v6 = v5;
-          v4 = 0;
-          v7 = 0;
-          v8 = *MEMORY[0x277CBECE8];
-          v9 = MEMORY[0x277D86220];
-          do
+          entry = 0;
+          parent = 0;
+          v17 = 0;
+          entryID = 0;
+          IORegistryEntryGetRegistryEntryID(v6, &entryID);
+          CFProperty = IORegistryEntryCreateCFProperty(v6, @"Role", v8, 0);
+          if (CFProperty)
           {
-            entry = 0;
-            parent = 0;
-            v18 = 0;
-            entryID = 0;
-            IORegistryEntryGetRegistryEntryID(v6, &entryID);
-            CFProperty = IORegistryEntryCreateCFProperty(v6, @"Role", v8, 0);
-            if (CFProperty)
+            v11 = CFProperty;
+            v12 = CFGetTypeID(CFProperty);
+            if (v12 == CFArrayGetTypeID())
             {
-              v11 = CFProperty;
-              v12 = CFGetTypeID(CFProperty);
-              if (v12 == CFArrayGetTypeID())
+              context = 0;
+              v29.length = CFArrayGetCount(v11);
+              v29.location = 0;
+              CFArrayApplyFunction(v11, v29, is_system_role, &context);
+              if (context == 1)
               {
-                context = 0;
-                v30.length = CFArrayGetCount(v11);
-                v30.location = 0;
-                CFArrayApplyFunction(v11, v30, is_system_role, &context);
-                if (context == 1)
+                ParentEntry = IORegistryEntryGetParentEntry(v6, "IOService", &parent);
+                if (ParentEntry)
                 {
-                  ParentEntry = IORegistryEntryGetParentEntry(v6, "IOService", &parent);
-                  if (ParentEntry)
+                  v4 = ParentEntry;
+                  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
                   {
-                    v4 = ParentEntry;
+                    *buf = 136315650;
+                    v23 = "APFSContainerGetBootDevice";
+                    v24 = 1024;
+                    v25 = 2866;
+                    v26 = 2048;
+                    v27 = entryID;
+                    _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to get parent for volume 0x%llx\n", buf, 0x1Cu);
+                  }
+                }
+
+                else
+                {
+                  IORegistryEntryGetRegistryEntryID(parent, &v17);
+                  v4 = IORegistryEntryGetParentEntry(parent, "IOService", &entry);
+                  if (v4)
+                  {
                     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136315650;
-                      v24 = "APFSContainerGetBootDevice";
-                      v25 = 1024;
-                      v26 = 2866;
-                      v27 = 2048;
-                      v28 = entryID;
-                      _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to get parent for volume 0x%llx\n", buf, 0x1Cu);
+                      v23 = "APFSContainerGetBootDevice";
+                      v24 = 1024;
+                      v25 = 2873;
+                      v26 = 2048;
+                      v27 = v17;
+                      _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to get parent for container 0x%llx\n", buf, 0x1Cu);
                     }
+
+                    v14 = parent;
                   }
 
                   else
                   {
-                    IORegistryEntryGetRegistryEntryID(parent, &v18);
-                    v4 = IORegistryEntryGetParentEntry(parent, "IOService", &entry);
-                    if (v4)
+                    v7 = IORegistryEntryCreateCFProperty(entry, @"BSD Name", v8, 0);
+                    if (!v7)
                     {
                       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136315650;
-                        v24 = "APFSContainerGetBootDevice";
-                        v25 = 1024;
-                        v26 = 2873;
-                        v27 = 2048;
-                        v28 = v18;
-                        _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to get parent for container 0x%llx\n", buf, 0x1Cu);
+                        v23 = "APFSContainerGetBootDevice";
+                        v24 = 1024;
+                        v25 = 2880;
+                        v26 = 2048;
+                        v27 = v17;
+                        _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to create bsd name for container: %llx\n", buf, 0x1Cu);
                       }
 
-                      v14 = parent;
+                      v4 = 49164;
                     }
 
-                    else
-                    {
-                      v7 = IORegistryEntryCreateCFProperty(entry, @"BSD Name", v8, 0);
-                      if (!v7)
-                      {
-                        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-                        {
-                          *buf = 136315650;
-                          v24 = "APFSContainerGetBootDevice";
-                          v25 = 1024;
-                          v26 = 2880;
-                          v27 = 2048;
-                          v28 = v18;
-                          _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: failed to create bsd name for container: %llx\n", buf, 0x1Cu);
-                        }
-
-                        v4 = 49164;
-                      }
-
-                      IOObjectRelease(parent);
-                      v14 = entry;
-                    }
-
-                    IOObjectRelease(v14);
+                    IOObjectRelease(parent);
+                    v14 = entry;
                   }
+
+                  IOObjectRelease(v14);
                 }
               }
-
-              else
-              {
-                if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136315394;
-                  v24 = "APFSContainerGetBootDevice";
-                  v25 = 1024;
-                  v26 = 2850;
-                  _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: volume roles property isnt of correct type. Expected CFArray\n", buf, 0x12u);
-                }
-
-                v4 = 49174;
-              }
-
-              CFRelease(v11);
             }
 
-            IOObjectRelease(v6);
-            v6 = IOIteratorNext(existing);
+            else
+            {
+              if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 136315394;
+                v23 = "APFSContainerGetBootDevice";
+                v24 = 1024;
+                v25 = 2850;
+                _os_log_error_impl(&dword_23D23F000, v9, OS_LOG_TYPE_ERROR, "%s:%d: volume roles property isnt of correct type. Expected CFArray\n", buf, 0x12u);
+              }
+
+              v4 = 49174;
+            }
+
+            CFRelease(v11);
           }
 
-          while (v6);
-          IOObjectRelease(existing);
-          if (v7)
-          {
-            *a1 = v7;
-            goto LABEL_39;
-          }
-
-          if (v4)
-          {
-            goto LABEL_39;
-          }
+          IOObjectRelease(v6);
+          v6 = IOIteratorNext(existing);
         }
 
-        else
+        while (v6);
+        IOObjectRelease(existing);
+        if (v7)
         {
-          IOObjectRelease(existing);
+          *a1 = v7;
+          return v4;
         }
 
-        v4 = 49154;
-        goto LABEL_39;
+        if (v4)
+        {
+          return v4;
+        }
       }
 
-      v4 = MatchingServices;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      else
       {
-        APFSContainerGetBootDevice_cold_1(v4);
+        IOObjectRelease(existing);
       }
+
+      return 49154;
     }
 
-    else
+    v4 = MatchingServices;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        APFSContainerGetBootDevice_cold_2();
-      }
-
-      v4 = 49164;
+      APFSContainerGetBootDevice_cold_1(v4);
     }
   }
 
   else
   {
-    v4 = 49174;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      APFSContainerGetBootDevice_cold_2();
+    }
+
+    return 49164;
   }
 
-LABEL_39:
-  v15 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3775,32 +3292,31 @@ CFTypeID is_system_role(const __CFString *a1, _BYTE *a2)
 
 uint64_t APFSSetupMetadataRollingMediaKey(char *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   theArray = 0;
   if (!a1)
   {
-    v2 = 22;
-    goto LABEL_8;
+    return 22;
   }
 
   v2 = 0;
   if (keygen_nvram_prop(0))
   {
-    v24 = 0u;
-    memset(v25, 0, sizeof(v25));
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    memset(v24, 0, sizeof(v24));
     v21 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v17 = 0u;
+    v20 = 0u;
     v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    *buffer = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    *buffer = 0u;
+    v11 = 0u;
     v3 = APFSVolumeRoleFind(a1, 64, &theArray);
     if (v3)
     {
@@ -3810,42 +3326,39 @@ uint64_t APFSSetupMetadataRollingMediaKey(char *a1)
         APFSSetupMetadataRollingMediaKey_cold_1(v4);
       }
 
-      v2 = rc_to_errno(v4);
-      goto LABEL_8;
+      return rc_to_errno(v4);
     }
 
-    v7 = theArray;
+    v6 = theArray;
     if (CFArrayGetCount(theArray) >= 2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         APFSSetupMetadataRollingMediaKey_cold_3();
-        if (!v7)
+        if (!v6)
         {
-          goto LABEL_13;
+          return 45;
         }
       }
 
-      else if (!v7)
+      else if (!v6)
       {
-LABEL_13:
-        v2 = 45;
-        goto LABEL_8;
+        return 45;
       }
 
-      CFRelease(v7);
-      goto LABEL_13;
+      CFRelease(v6);
+      return 45;
     }
 
-    ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
+    ValueAtIndex = CFArrayGetValueAtIndex(v6, 0);
     CFStringGetCString(ValueAtIndex, buffer, 32, 0x8000100u);
-    if (v7)
+    if (v6)
     {
-      CFRelease(v7);
+      CFRelease(v6);
     }
 
-    v9 = _APFSVolumeOperation(buffer, 0x3Cu, 0, 0);
-    v2 = rc_to_errno(v9);
+    v8 = _APFSVolumeOperation(buffer, 0x3Cu, 0, 0);
+    v2 = rc_to_errno(v8);
     if (v2)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -3860,8 +3373,6 @@ LABEL_13:
     }
   }
 
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -4132,11 +3643,11 @@ uint64_t get_free_extent_hist(mach_port_t a1, __CFDictionary *a2)
 
 uint64_t APFSStatisticsProcessContainer(uint64_t a1, int a2, __CFDictionary *a3, CFTypeRef *a4)
 {
-  v71[2] = *MEMORY[0x277D85DE8];
+  v70[2] = *MEMORY[0x277D85DE8];
   free_extent_hist = 49174;
   if (!a1 || !a3 || !IOObjectConformsTo(a1, "AppleAPFSContainer"))
   {
-    goto LABEL_64;
+    return free_extent_hist;
   }
 
   *parent = 0;
@@ -4149,7 +3660,7 @@ uint64_t APFSStatisticsProcessContainer(uint64_t a1, int a2, __CFDictionary *a3,
   free_extent_hist = IOServiceOpen(a1, *MEMORY[0x277D85F48], 0, parent);
   if (free_extent_hist)
   {
-    goto LABEL_64;
+    return free_extent_hist;
   }
 
   if (a2)
@@ -4193,14 +3704,14 @@ uint64_t APFSStatisticsProcessContainer(uint64_t a1, int a2, __CFDictionary *a3,
     }
 
     v16 = CFProperty;
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
-    v65 = 0u;
+    v69 = 0u;
     v66 = 0u;
-    *buffer = 0u;
+    v67 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    *buffer = 0u;
+    v63 = 0u;
     bzero(&outputStruct, 0x978uLL);
     outputStructCnt = 64;
     SystemEncoding = CFStringGetSystemEncoding();
@@ -4258,13 +3769,13 @@ LABEL_23:
     }
 
     v22 = Mutable;
-    add_number(Mutable, @"Number of files", kCFNumberSInt64Type, &v48);
-    add_number(v22, @"Number of directories", kCFNumberSInt64Type, &v49);
-    add_number(v22, @"Number of snapshots", kCFNumberSInt64Type, &v50);
-    add_number(v22, @"Object mapping tree node count", kCFNumberSInt64Type, &v51);
-    add_number(v22, @"Root tree node count", kCFNumberSInt64Type, &v53);
-    add_number(v22, @"Extentref tree node count", kCFNumberSInt64Type, &v52);
-    add_number(v22, @"Number of extents", kCFNumberSInt64Type, &v54);
+    add_number(Mutable, @"Number of files", kCFNumberSInt64Type, &v47);
+    add_number(v22, @"Number of directories", kCFNumberSInt64Type, &v48);
+    add_number(v22, @"Number of snapshots", kCFNumberSInt64Type, &v49);
+    add_number(v22, @"Object mapping tree node count", kCFNumberSInt64Type, &v50);
+    add_number(v22, @"Root tree node count", kCFNumberSInt64Type, &v52);
+    add_number(v22, @"Extentref tree node count", kCFNumberSInt64Type, &v51);
+    add_number(v22, @"Number of extents", kCFNumberSInt64Type, &v53);
     if (!a2)
     {
       goto LABEL_57;
@@ -4276,20 +3787,20 @@ LABEL_23:
       goto LABEL_57;
     }
 
-    v62 = 0u;
     v61 = 0u;
     v60 = 0u;
     v59 = 0u;
     v58 = 0u;
+    v57 = 0u;
     memset(buf, 0, sizeof(buf));
-    memset(v56, 0, sizeof(v56));
-    v71[1] = 0;
-    v71[0] = strndup(v23, 0x400uLL);
-    v24 = fts_open(v71, 80, 0);
-    v43 = v9;
+    memset(v55, 0, sizeof(v55));
+    v70[1] = 0;
+    v70[0] = strndup(v23, 0x400uLL);
+    v24 = fts_open(v70, 80, 0);
+    v42 = v9;
     if (!v24)
     {
-      free(v71[0]);
+      free(v70[0]);
 LABEL_47:
       __error();
       goto LABEL_48;
@@ -4314,7 +3825,7 @@ LABEL_47:
         }
 
         v29 = ilog10(i);
-        v32 = v56;
+        v32 = v55;
 LABEL_40:
         if (v29 >= 0xF)
         {
@@ -4351,7 +3862,7 @@ LABEL_40:
     }
 
     v34 = *__error();
-    free(v71[0]);
+    free(v70[0]);
     fts_close(v25);
     if (v34)
     {
@@ -4378,14 +3889,14 @@ LABEL_48:
       v39 = v38;
       for (k = 0; k != 16; ++k)
       {
-        CFArraySetValueAtIndex(v39, k, *(v56 + k));
+        CFArraySetValueAtIndex(v39, k, *(v55 + k));
       }
 
       CFDictionaryAddValue(v22, @"Histogram for number of files per directory, number of buckets is", v39);
       CFRelease(v39);
     }
 
-    v9 = v43;
+    v9 = v42;
 LABEL_57:
     CFDictionaryAddValue(a3, v16, v22);
     CFRelease(v22);
@@ -4405,8 +3916,6 @@ LABEL_62:
   free_extent_hist = 0;
 LABEL_63:
   IOServiceClose(parent[0]);
-LABEL_64:
-  v41 = *MEMORY[0x277D85DE8];
   return free_extent_hist;
 }
 
@@ -4948,7 +4457,7 @@ uint64_t APFSStreamRestorePrepare(char *a1, _BYTE *a2, unint64_t a3, _BOOL8 a4, 
   return v5;
 }
 
-uint64_t APFSStreamRestoreWrite(uint64_t a1, char *a2, unint64_t a3, _BYTE *a4)
+uint64_t APFSStreamRestoreWrite(uint64_t a1, char *a2, size_t a3, _BYTE *a4)
 {
   v4 = 3758097090;
   if (a1)
@@ -5181,7 +4690,7 @@ uint64_t APFSStreamFingerprintPrepare(uint64_t a1, pthread_mutex_t **a2)
   return result;
 }
 
-uint64_t APFSStreamFingerprintWrite(uint64_t a1, char *a2, unint64_t a3, char *a4)
+uint64_t APFSStreamFingerprintWrite(uint64_t a1, char *a2, size_t a3, char *a4)
 {
   v4 = 3758097090;
   if (a1)
@@ -5390,18 +4899,18 @@ uint64_t _APFSStreamFingerprintCallback(uint64_t __src, CC_LONG len, uint64_t a3
 
 uint64_t APFSStreamFingerprintFinish(pthread_mutex_t *a1, char **a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v25 = *MEMORY[0x277D85DE8];
+  v24 = 0;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
-  *dst = 0u;
-  v15 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  *dst = 0u;
+  v14 = 0u;
+  v15 = 0u;
   *md = 0u;
   if (a1 && a2)
   {
@@ -5410,19 +4919,19 @@ uint64_t APFSStreamFingerprintFinish(pthread_mutex_t *a1, char **a2)
     {
       if (LOBYTE(a1[1].__sig) == 1)
       {
-        v25 = 0;
-        v23 = 0uLL;
-        v24 = 0uLL;
-        v21 = 0uLL;
+        v24 = 0;
         v22 = 0uLL;
-        v19 = 0uLL;
+        v23 = 0uLL;
         v20 = 0uLL;
+        v21 = 0uLL;
+        v18 = 0uLL;
+        v19 = 0uLL;
         *dst = 0uLL;
         uuid_copy(dst, &a1[32771].__opaque[1]);
         v5 = *&a1[32780].__opaque[12];
-        v19 = *(&a1[32780].__sig + 4);
-        v20 = v5;
-        *&v21 = *&a1[32779].__opaque[44] & 9;
+        v18 = *(&a1[32780].__sig + 4);
+        v19 = v5;
+        *&v20 = *&a1[32779].__opaque[44] & 9;
         CC_SHA512_Update(&a1[32788].__opaque[40], dst, 0x78u);
         CC_SHA512_Final(md, &a1[32788].__opaque[40]);
         v6 = malloc_type_malloc(0x81uLL, 0x6098F9FDuLL);
@@ -5474,15 +4983,13 @@ uint64_t APFSStreamFingerprintFinish(pthread_mutex_t *a1, char **a2)
     v4 = 3758097090;
     if (!a1)
     {
-      goto LABEL_17;
+      return v4;
     }
   }
 
   free_lock(a1);
   bzero(a1, 0x200600uLL);
   free(a1);
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -5573,7 +5080,7 @@ uint64_t APFSGetFragmentationHistogram(char *a1, __CFArray **a2)
   return result;
 }
 
-uint64_t APFSContainerWriteBurstStats(char *a1, __CFDictionary **a2)
+uint64_t APFSContainerWriteBurstStats(char *a1, CFMutableDictionaryRef *a2)
 {
   valuePtr = 0;
   v19 = 0;
@@ -5685,14 +5192,25 @@ BOOL add_number(__CFDictionary *a1, const void *a2, CFNumberType theType, void *
   return v6 != 0;
 }
 
-uint64_t APFSVolumeSetOtiLockerData(char *a1, unsigned __int8 *uu, __int16 a3, uint64_t a4, uint64_t a5)
+uint64_t APFSVolumeSetOtiLockerData(char *a1, unsigned __int8 *uu, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (!a4 || !a5 || uuid_is_null(uu))
+  if (!a4)
   {
     return 22;
   }
 
-  return _APFSVolumeOtiRequestHelper(a1, uu, a3, a4, a5, 2, 0);
+  if (!a5)
+  {
+    return 22;
+  }
+
+  v7 = a3;
+  if (uuid_is_null(uu))
+  {
+    return 22;
+  }
+
+  return _APFSVolumeOtiRequestHelper(a1, uu, v7, a4, a5, 2, 0);
 }
 
 uint64_t _APFSVolumeOtiRequestHelper(char *a1, const unsigned __int8 *a2, __int16 a3, uint64_t a4, uint64_t a5, int a6, void *a7)
@@ -5995,7 +5513,7 @@ LABEL_16:
   return v7;
 }
 
-uint64_t APFSCaptureFinishCaptureForFile(const char *a1, const std::__fs::filesystem::path *a2)
+uint64_t APFSCaptureFinishCaptureForFile(const std::__fs::filesystem::path *a1, const std::__fs::filesystem::path *a2)
 {
   v3 = a1;
   memset(&v20, 0, sizeof(v20));
@@ -6229,18 +5747,18 @@ uint64_t APFSCaptureDeletePreallocFile(const char *a1)
 
 uint64_t APFSContainerCommitTemporaryCheckpoint(int *a1)
 {
+  v13 = 0;
   v10 = 0;
-  v7 = 0;
-  v8 = 0;
-  v9 = 0;
-  parse_nx_mount_options(0, &v7);
-  LOWORD(v8) = v8 & 0xEFFE | 1;
+  v11 = 0;
+  v12 = 0;
+  parse_nx_mount_options(0, &v10);
+  LOWORD(v11) = v11 & 0xEFFE | 1;
   if (enhanced_apfs_enabled())
   {
-    LOWORD(v8) = v8 | 0x2000;
+    LOWORD(v11) = v11 | 0x2000;
   }
 
-  v2 = nx_mount(a1, &v7, &v10);
+  v2 = nx_mount(a1, &v10, &v13);
   if (v2)
   {
     v3 = v2;
@@ -6252,8 +5770,8 @@ uint64_t APFSContainerCommitTemporaryCheckpoint(int *a1)
 
   else
   {
-    v6 = 0;
-    v4 = tx_enter(v10, &v6);
+    v9 = 0;
+    v4 = tx_enter(v13, &v9);
     if (v4)
     {
       v3 = v4;
@@ -6265,14 +5783,14 @@ uint64_t APFSContainerCommitTemporaryCheckpoint(int *a1)
 
     else
     {
-      v3 = tx_leave(v10, v6, 5);
+      v3 = tx_leave(v13, v9, 5);
       if (v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         APFSContainerCommitTemporaryCheckpoint_cold_3();
       }
     }
 
-    nx_unmount(v10);
+    nx_unmount(v13, v5, v6, v7);
   }
 
   return v3;
@@ -6427,46 +5945,44 @@ uint64_t APFSGetExclavePath(int a1, char *a2)
 {
   v4 = 0;
   v5 = 0;
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = 0;
   v6 = 3;
   v7 = MEMORY[0x277D86220];
   while (1)
   {
-    v16 = 0;
-    if (fsctl("/", 0xC010411BuLL, &v15, 0))
+    v15 = 0;
+    if (fsctl("/", 0xC010411BuLL, &v14, 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         APFSGetExclavePath_cold_1();
       }
 
-      goto LABEL_24;
+      return *__error() | 0xC000u;
     }
 
-    v8 = v15;
-    if (!v15)
+    v8 = v14;
+    if (!v14)
     {
-      goto LABEL_20;
+      return 49154;
     }
 
-    if (v15 > v5)
+    if (v14 > v5)
     {
       break;
     }
 
 LABEL_7:
-    v16 = v4;
-    if (!fsctl("/", 0xC010411BuLL, &v15, 0))
+    v15 = v4;
+    if (!fsctl("/", 0xC010411BuLL, &v14, 0))
     {
-      v10 = v15;
-      if (!v15)
+      v10 = v14;
+      if (!v14)
       {
 LABEL_19:
         free(v4);
-LABEL_20:
-        result = 49154;
-        goto LABEL_33;
+        return 49154;
       }
 
       v11 = v4 + 2;
@@ -6482,20 +5998,17 @@ LABEL_20:
       if ((fsgetpath(a2, 0x400uLL, (v11 - 12), *v11) & 0x8000000000000000) == 0)
       {
         free(v4);
-        result = 0;
-        goto LABEL_33;
+        return 0;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        APFSGetExclavePath_cold_4(v11);
+        APFSGetExclavePath_cold_4();
       }
 
 LABEL_23:
       free(v4);
-LABEL_24:
-      result = *__error() | 0xC000u;
-      goto LABEL_33;
+      return *__error() | 0xC000u;
     }
 
     if (*__error() != 28)
@@ -6511,9 +6024,9 @@ LABEL_24:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "APFSGetExclavePath";
-      v19 = 1024;
-      v20 = 6424;
+      v17 = "APFSGetExclavePath";
+      v18 = 1024;
+      v19 = 6424;
       _os_log_error_impl(&dword_23D23F000, v7, OS_LOG_TYPE_ERROR, "%s:%d: fsctl failed with ENOSPC, retrying...", buf, 0x12u);
     }
 
@@ -6525,8 +6038,7 @@ LABEL_24:
       }
 
       free(v4);
-      result = 49180;
-      goto LABEL_33;
+      return 49180;
     }
   }
 
@@ -6544,10 +6056,7 @@ LABEL_24:
     APFSGetExclavePath_cold_5();
   }
 
-  result = 49164;
-LABEL_33:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 49164;
 }
 
 uint64_t APFSContainerWaitForReaper(char *a1)
@@ -6655,7 +6164,7 @@ LABEL_20:
   return 0;
 }
 
-uint64_t (*tree_key_compare_function_for_type(unsigned __int16 a1))(uint64_t a1, void *a2, int a3, void *a4, int a5, int *a6)
+uint64_t (*tree_key_compare_function_for_type(unsigned __int16 a1))()
 {
   v1 = spaceman_free_queue_key_cmp;
   if (a1 <= 0x1Eu)
@@ -7213,7 +6722,7 @@ uint64_t gbitmap_reap(void *a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64
     v40 = v18;
     v38 = 0;
     memset(v37, 0, sizeof(v37));
-    bt_iterator_init(v37, v41, 0, 0, &v40, 8, 8u, &v39, 8u);
+    bt_iterator_init(v37, v41, 0, 0, &v40, 8, 8, &v39, 8u);
     v20 = v19;
     v35 = (v10 + 4040);
     v21 = 1023;
@@ -7317,7 +6826,7 @@ LABEL_41:
   return v30;
 }
 
-uint64_t gbitmap_get_tree(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t gbitmap_get_tree(void *a1, unint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a1[1])
   {
@@ -7378,17 +6887,18 @@ const char *log_err(const char *result, ...)
   return result;
 }
 
-uint64_t log_corrupt(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t log_corrupt(uint64_t a1, const char *a2, ...)
 {
+  va_start(va, a2);
   if (apfs_log_level >= 1)
   {
-    return vfprintf(*MEMORY[0x277D85DF8], a2, &a9);
+    return vfprintf(*MEMORY[0x277D85DF8], a2, va);
   }
 
   return result;
 }
 
-void jobj_release(uint64_t a1, unsigned __int8 *a2)
+void jobj_release(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a2)
   {
@@ -7398,21 +6908,21 @@ void jobj_release(uint64_t a1, unsigned __int8 *a2)
         _apfs_free(*(a2 + 9), *(a2 + 32));
         goto LABEL_21;
       case 2u:
-        v4 = a2;
-        v3 = 40;
+        v5 = a2;
+        v4 = 40;
         goto LABEL_27;
       case 3u:
         if ((*(a2 + 48) & 0xF000) == 0xA000)
         {
-          v5 = *(a2 + 44);
-          if (v5)
+          v6 = *(a2 + 44);
+          if (v6)
           {
-            _apfs_free(v5, *(a2 + 90));
+            _apfs_free(v6, *(a2 + 90));
             *(a2 + 44) = 0;
           }
         }
 
-        xf_release((a2 + 408));
+        xf_release((a2 + 408), a2, a3);
         if ((a2[117] & 0x10) != 0)
         {
           free_rwlock((a2 + 448));
@@ -7429,58 +6939,58 @@ void jobj_release(uint64_t a1, unsigned __int8 *a2)
         goto LABEL_3;
       case 6u:
       case 0xCu:
-        v4 = a2;
-        v3 = 24;
+        v5 = a2;
+        v4 = 24;
         goto LABEL_27;
       case 8u:
-        v4 = a2;
-        v3 = 56;
+        v5 = a2;
+        v4 = 56;
         goto LABEL_27;
       case 9u:
-        xf_release((a2 + 32));
+        xf_release((a2 + 32), a2, a3);
         _apfs_free(*(a2 + 8), *(a2 + 31));
         goto LABEL_26;
       case 0xAu:
       case 0x12u:
-        xf_release((a2 + 64));
-        v4 = a2;
-        v3 = 96;
+        xf_release((a2 + 64), a2, a3);
+        v5 = a2;
+        v4 = 96;
         goto LABEL_27;
       case 0xDu:
-        v6 = a2[16];
-        if (v6 == 2)
+        v7 = a2[16];
+        if (v7 == 2)
         {
           goto LABEL_20;
         }
 
-        if (v6 != 1)
+        if (v7 != 1)
         {
           return;
         }
 
 LABEL_3:
-        v3 = *(a2 + 1);
-        v4 = a2;
+        v4 = *(a2 + 1);
+        v5 = a2;
 LABEL_27:
 
-        _apfs_free(v4, v3);
+        _apfs_free(v5, v4);
         break;
       case 0x10u:
 LABEL_20:
-        xf_release((a2 + 56));
+        xf_release((a2 + 56), a2, a3);
 LABEL_21:
-        v4 = a2;
-        v3 = 80;
+        v5 = a2;
+        v4 = 80;
         goto LABEL_27;
       case 0x11u:
-        v4 = a2;
-        v3 = 32;
+        v5 = a2;
+        v4 = 32;
         goto LABEL_27;
       case 0x13u:
-        xf_release((a2 + 48));
+        xf_release((a2 + 48), a2, a3);
 LABEL_26:
-        v4 = a2;
-        v3 = 72;
+        v5 = a2;
+        v4 = 72;
         goto LABEL_27;
       default:
         log_err("%s:%d: *** Can't release unknown obj type %d\n", "jobj_release", 2834, *a2);
@@ -7508,9 +7018,7 @@ uint64_t make_jkey_from_jobj(uint64_t result, unsigned __int8 *a2, uint64_t a3, 
     if ((*(*(result + 376) + 57) & 2) == 0)
     {
       is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(*(result + 392));
-      v41 = *a2;
-      v43 = *(a2 + 1);
-      result = log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s ***: expanded obj type %d (obj_id %llu) found on unsupported volume\n", v14, v15, v16, v17, v18, v19, "make_jkey_from_jobj");
+      result = log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s ***: expanded obj type %d (obj_id %llu) found on unsupported volume\n", "make_jkey_from_jobj", 1209, (v7 + 4040), *a2, *(a2 + 1));
       *a4 = 0;
       return result;
     }
@@ -7522,10 +7030,8 @@ uint64_t make_jkey_from_jobj(uint64_t result, unsigned __int8 *a2, uint64_t a3, 
 
     else
     {
-      v20 = nx_is_panic_on_corruption_enabled(*(result + 392));
-      v42 = *a2;
-      v44 = *(a2 + 1);
-      result = log_corrupt(v20, "%s:%d: %s Cannot make large jkey from unknown type %d (obj_id %llu)\n", v21, v22, v23, v24, v25, v26, "make_large_jkey_header_from_jobj");
+      v14 = nx_is_panic_on_corruption_enabled(*(result + 392));
+      result = log_corrupt(v14, "%s:%d: %s Cannot make large jkey from unknown type %d (obj_id %llu)\n", "make_large_jkey_header_from_jobj", 1186, (v7 + 4040), *a2, *(a2 + 1));
       v9 = *a2;
     }
   }
@@ -7533,45 +7039,45 @@ uint64_t make_jkey_from_jobj(uint64_t result, unsigned __int8 *a2, uint64_t a3, 
   switch(v9)
   {
     case 4u:
-      v38 = *(a2 + 10);
-      *(a3 + 8) = v38;
-      result = memcpy((a3 + 10), a2 + 24, v38);
-      v39 = *(a2 + 10);
+      v20 = *(a2 + 10);
+      *(a3 + 8) = v20;
+      result = memcpy((a3 + 10), a2 + 24, v20);
+      v21 = *(a2 + 10);
       goto LABEL_23;
     case 5u:
     case 8u:
       *(a3 + 8) = *(a2 + 2);
-      v27 = 16;
+      v15 = 16;
       goto LABEL_26;
     case 9u:
-      v35 = *(a2 + 31);
+      v17 = *(a2 + 31);
       if ((*(*(v7 + 376) + 56) & 9) != 0)
       {
         *(a3 + 8) = *(a2 + 31) & 0x3FF | (*(a2 + 14) << 10);
-        v36 = 12;
-        v37 = 12;
+        v18 = 12;
+        v19 = 12;
       }
 
       else
       {
-        *(a3 + 8) = v35;
-        v36 = 10;
-        v37 = 10;
+        *(a3 + 8) = v17;
+        v18 = 10;
+        v19 = 10;
       }
 
-      result = memcpy((a3 + v36), *(a2 + 8), v35);
-      v27 = v37 + *(a2 + 31);
+      result = memcpy((a3 + v18), *(a2 + 8), v17);
+      v15 = v19 + *(a2 + 31);
       goto LABEL_26;
     case 0xAu:
-      v27 = 96;
+      v15 = 96;
       goto LABEL_26;
     case 0xBu:
-      v40 = *(a2 + 12);
-      *(a3 + 8) = v40;
-      result = memcpy((a3 + 10), a2 + 26, v40);
-      v39 = *(a2 + 12);
+      v22 = *(a2 + 12);
+      *(a3 + 8) = v22;
+      result = memcpy((a3 + 10), a2 + 26, v22);
+      v21 = *(a2 + 12);
 LABEL_23:
-      v27 = v39 + 10;
+      v15 = v21 + 10;
       goto LABEL_26;
     case 0xDu:
       *a4 = 16;
@@ -7579,24 +7085,24 @@ LABEL_23:
       return result;
     case 0xEu:
       *a4 = 0;
-      v28 = nx_is_panic_on_corruption_enabled(*(v7 + 392));
-      return log_corrupt(v28, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", v29, v30, v31, v32, v33, v34, "make_jkey_from_jobj");
+      v16 = nx_is_panic_on_corruption_enabled(*(v7 + 392));
+      return log_corrupt(v16, "%s:%d: %s ***: expanded type seen on in-memory obj!\n", "make_jkey_from_jobj", 1324, (v7 + 4040));
     case 0x10u:
     case 0x13u:
       *(a3 + 12) = *(a2 + 1);
-      v27 = 28;
+      v15 = 28;
       goto LABEL_26;
     case 0x11u:
       *(a3 + 12) = *(a2 + 2);
-      v27 = 20;
+      v15 = 20;
       goto LABEL_26;
     case 0x12u:
-      v27 = 12;
+      v15 = 12;
       goto LABEL_26;
     default:
-      v27 = 8;
+      v15 = 8;
 LABEL_26:
-      *a4 = v27;
+      *a4 = v15;
       break;
   }
 
@@ -7801,12 +7307,11 @@ uint64_t jobj_validate_large_key_val(uint64_t a1, uint64_t a2, unint64_t a3, uin
 {
   if ((*(*(a1 + 376) + 57) & 2) == 0)
   {
-    log_err("%s:%d: %s ***: expanded obj type found on unsupported volume\n");
+    log_err("%s:%d: %s ***: expanded obj type found on unsupported volume\n", a2, a3, a4, a5);
     return 22;
   }
 
   v7 = *(a2 + 8);
-  v8 = *a2 & 0xFFFFFFFFFFFFFFFLL;
   if (v7 > 0x11)
   {
     if (v7 == 18)
@@ -7814,7 +7319,7 @@ uint64_t jobj_validate_large_key_val(uint64_t a1, uint64_t a2, unint64_t a3, uin
       v5 = 0;
       if (a4 && a5 <= 0x33)
       {
-        log_err("%s:%d: %s value size (%zu) on dir stats (%llu) is too small\n");
+        log_err("%s:%d: %s value size (%zu) on dir stats (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
@@ -7825,14 +7330,14 @@ uint64_t jobj_validate_large_key_val(uint64_t a1, uint64_t a2, unint64_t a3, uin
     {
       if (a3 <= 0x1B)
       {
-        log_err("%s:%d: %s key size (%zu) on clone mapping (%llu) is too small\n");
+        log_err("%s:%d: %s key size (%zu) on clone mapping (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
       v5 = 0;
       if (a4 && a5 <= 7)
       {
-        log_err("%s:%d: %s value size (%zu) on clone mapping (%llu) is too small\n");
+        log_err("%s:%d: %s value size (%zu) on clone mapping (%llu) is too small\n", a2, a3, a4, a5);
         return 22;
       }
 
@@ -7843,7 +7348,7 @@ LABEL_14:
     v5 = 0;
     if (a4 && a5 <= 3)
     {
-      log_err("%s:%d: %s value size (%zu) on unknown record (%llu) is too small\n");
+      log_err("%s:%d: %s value size (%zu) on unknown record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
@@ -7854,14 +7359,14 @@ LABEL_14:
   {
     if (a3 <= 0x1B)
     {
-      log_err("%s:%d: %s key size (%zu) on purgeable record (%llu) is too small\n");
+      log_err("%s:%d: %s key size (%zu) on purgeable record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
     v5 = 0;
     if (a4 && a5 <= 0x17)
     {
-      log_err("%s:%d: %s value size (%zu) on purgeable record (%llu) is too small\n");
+      log_err("%s:%d: %s value size (%zu) on purgeable record (%llu) is too small\n", a2, a3, a4, a5);
       return 22;
     }
 
@@ -7875,14 +7380,14 @@ LABEL_14:
 
   if (a3 <= 0x13)
   {
-    log_err("%s:%d: %s key size (%zu) on purgeable tombstone (%llu) is too small\n");
+    log_err("%s:%d: %s key size (%zu) on purgeable tombstone (%llu) is too small\n", a2, a3, a4, a5);
     return 22;
   }
 
   v5 = 0;
   if (a4 && a5 <= 7)
   {
-    log_err("%s:%d: %s value size (%zu) on purgeable tombstone (%llu) is too small\n");
+    log_err("%s:%d: %s value size (%zu) on purgeable tombstone (%llu) is too small\n", a2, a3, a4, a5);
     return 22;
   }
 
@@ -8244,9 +7749,9 @@ LABEL_9:
   return v6;
 }
 
-uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, unint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, uint64_t a3, unint64_t a4, uint64_t *a5)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   doc_id_tree = 22;
   if (a2 > 4)
   {
@@ -8297,7 +7802,7 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, unint64_t a3, uint64_t a4, ui
 
       if (a2 != 8)
       {
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
       if (*(a1 + 440) != a4 || (v14 = *(a1 + 3576)) == 0)
@@ -8316,7 +7821,7 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, unint64_t a3, uint64_t a4, ui
           }
         }
 
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
       obj_retain(*(a1 + 3576));
@@ -8325,7 +7830,7 @@ uint64_t jfs_get_tree_in_snap(uint64_t a1, int a2, unint64_t a3, uint64_t a4, ui
 LABEL_72:
         doc_id_tree = 0;
         *a5 = v14;
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
 LABEL_51:
@@ -8334,7 +7839,7 @@ LABEL_51:
       {
         doc_id_tree = v24;
         obj_release(v14);
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
       goto LABEL_72;
@@ -8377,17 +7882,17 @@ LABEL_109:
 
         v35 = *(v34 + 1044);
         v36 = *(v34 + 1048);
+        v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v52 = 0;
-        v50 = 0u;
-        v51 = 0u;
+        v51 = 0;
         v49 = 0u;
-        v46 = pfkur_tree_key_cmp;
-        DWORD2(v47) = 32;
+        v50 = 0u;
+        v48 = 0u;
+        v45 = pfkur_tree_key_cmp;
+        DWORD2(v46) = 32;
         if (v35 == 2)
         {
-          extended = btree_get_extended(a1, v35 & 0xFFFF0000, v36, a4, a3 != 0, &v46, a3, a5);
+          extended = btree_get_extended(a1, v35 & 0xFFFF0000, v36, a4, a3 != 0, &v45, a3, a5);
           v38 = extended;
           if (a3 && !extended)
           {
@@ -8416,22 +7921,19 @@ LABEL_109:
         goto LABEL_109;
       }
 
-LABEL_41:
-      doc_id_tree = 45;
-      goto LABEL_111;
+      return 45;
     }
 
     v20 = *(a1 + 376);
     if ((*(v20 + 56) & 0x20) == 0)
     {
-      goto LABEL_41;
+      return 45;
     }
 
     v26 = *(v20 + 1040);
     if (a3 && *(a1 + 448))
     {
-      doc_id_tree = 30;
-      goto LABEL_111;
+      return 30;
     }
 
     pthread_mutex_lock((a1 + 1536));
@@ -8487,17 +7989,17 @@ LABEL_105:
 
 LABEL_98:
     v40 = *(v33 + 1040);
-    *&v47 = 0;
-    v48 = 0u;
-    v52 = 0;
-    v50 = 0u;
-    v51 = 0u;
+    *&v46 = 0;
+    v47 = 0u;
+    v51 = 0;
     v49 = 0u;
-    v46 = fext_tree_key_cmp;
-    *(&v47 + 1) = 0x20000001FLL;
+    v50 = 0u;
+    v48 = 0u;
+    v45 = fext_tree_key_cmp;
+    *(&v46 + 1) = 0x20000001FLL;
     if (v40 == 2)
     {
-      v41 = btree_get_extended(a1, v40 & 0xFFFF0000, v32, a4, a3 != 0, &v46, a3, a5);
+      v41 = btree_get_extended(a1, v40 & 0xFFFF0000, v32, a4, a3 != 0, &v45, a3, a5);
       doc_id_tree = v41;
       if (a3 && !v41)
       {
@@ -8571,7 +8073,7 @@ LABEL_28:
           }
         }
 
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
       obj_retain(*(a1 + 3568));
@@ -8579,7 +8081,7 @@ LABEL_28:
       {
         if (doc_id_tree)
         {
-          goto LABEL_111;
+          return doc_id_tree;
         }
 
         goto LABEL_72;
@@ -8633,7 +8135,7 @@ LABEL_86:
         v21 = (a1 + 1408);
 LABEL_110:
         pthread_mutex_unlock(v21);
-        goto LABEL_111;
+        return doc_id_tree;
       }
 
       *(*(a1 + 376) + 144) = obj_oid(v11);
@@ -8644,12 +8146,10 @@ LABEL_110:
     goto LABEL_86;
   }
 
-LABEL_111:
-  v44 = *MEMORY[0x277D85DE8];
   return doc_id_tree;
 }
 
-uint64_t match_jobj_type_to_tree_type(uint64_t a1, int a2, int a3)
+uint64_t match_jobj_type_to_tree_type(uint64_t a1, unsigned int a2, int a3)
 {
   if (a2 >= 0x10)
   {
@@ -8692,7 +8192,7 @@ uint64_t match_jobj_type_to_tree_type(uint64_t a1, int a2, int a3)
     return a3;
   }
 
-  if ((a2 - 6) < 2)
+  if (a2 - 6 < 2)
   {
     goto LABEL_18;
   }
@@ -8747,7 +8247,7 @@ LABEL_18:
   return 5;
 }
 
-unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5)
+unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t *a2, unint64_t a3, unsigned __int16 *a4, unint64_t a5)
 {
   if (jobj_validate_key_val(a1, a2, a3, a4, a5))
   {
@@ -8777,7 +8277,7 @@ unsigned __int16 *key_val_to_jobj(uint64_t a1, uint64_t a2, unint64_t a3, unsign
         return 0;
       }
 
-      v14 = *(a2 + 8) + a4[1] + 24;
+      v14 = *(a2 + 4) + a4[1] + 24;
       goto LABEL_32;
     case 5:
       if (!a4)
@@ -8816,24 +8316,24 @@ LABEL_19:
     case 9:
       if ((*(*(a1 + 376) + 56) & 9) != 0)
       {
-        LODWORD(v13) = (*(a2 + 8) & 0x3FF) + 72;
+        LODWORD(v13) = (a2[1] & 0x3FF) + 72;
         goto LABEL_36;
       }
 
-      v14 = *(a2 + 8) + 72;
+      v14 = *(a2 + 4) + 72;
 LABEL_32:
       LODWORD(v13) = v14;
       if (v14 >> 16)
       {
-        v24 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v24 = v14 == 0;
+        v19 = v14 == 0;
       }
 
-      if (!v24)
+      if (!v19)
       {
         goto LABEL_36;
       }
@@ -8843,7 +8343,7 @@ LABEL_32:
       LODWORD(v13) = 96;
       goto LABEL_36;
     case 11:
-      v14 = *(a2 + 8) + 32;
+      v14 = *(a2 + 4) + 32;
       goto LABEL_32;
     case 13:
       if (!a4)
@@ -8869,21 +8369,21 @@ LABEL_32:
 
       goto LABEL_36;
     case 14:
-      if ((*(a2 + 8) & 0xFC) != 0x10)
+      v17 = *(a2 + 2);
+      if ((a2[1] & 0xFC) != 0x10)
       {
         is_panic_on_corruption_enabled = nx_is_panic_on_corruption_enabled(*(a1 + 392));
-        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s *** unknown expanded obj type %hhu\n", v18, v19, v20, v21, v22, v23, "jobj_size_for_large_key_val");
+        log_corrupt(is_panic_on_corruption_enabled, "%s:%d: %s *** unknown expanded obj type %hhu\n", "jobj_size_for_large_key_val", 2464, (a1 + 4040), v17);
         return 0;
       }
 
-      v13 = (0x48006000200050uLL >> (16 * (*(a2 + 8) & 0xFu))) & 0x78;
+      v13 = (0x48006000200050uLL >> (16 * (v17 & 0xFu))) & 0x78;
 LABEL_36:
       if (v12 == 14)
       {
-        LODWORD(v25) = *(a2 + 8);
-        if (v25 <= 0xF)
+        LODWORD(v20) = *(a2 + 8);
+        if (v20 <= 0xF)
         {
-          v73 = *(a2 + 8);
           log_err("%s:%d: unknown expanded type (%hhu) on record (%u)\n");
           return 0;
         }
@@ -8891,10 +8391,10 @@ LABEL_36:
 
       else
       {
-        v25 = *a2 >> 60;
+        v20 = *a2 >> 60;
       }
 
-      switch(v25)
+      switch(v20)
       {
         case 1:
           v10 = _apfs_calloc_typed(1uLL, 0x50uLL, 0x10100406569770FuLL);
@@ -8903,41 +8403,41 @@ LABEL_36:
             return v10;
           }
 
-          v32 = _apfs_calloc_typed(1uLL, v13 - 80, 0xDA2D0A4CuLL);
-          *(v10 + 9) = v32;
-          if (v32)
+          v27 = _apfs_calloc_typed(1uLL, v13 - 80, 0xDA2D0A4CuLL);
+          *(v10 + 9) = v27;
+          if (v27)
           {
             goto LABEL_73;
           }
 
-          v33 = v10;
-          v34 = 80;
+          v28 = v10;
+          v29 = 80;
           goto LABEL_66;
         case 2:
-          v26 = 0x10000407607B2BCLL;
-          v27 = 40;
+          v21 = 0x10000407607B2BCLL;
+          v22 = 40;
           goto LABEL_71;
         case 3:
-          v35 = _apfs_zalloc(2u);
+          v30 = _apfs_zalloc(2u);
           goto LABEL_72;
         case 4:
-          v29 = v13;
-          v30 = -753538664;
+          v24 = v13;
+          v25 = -753538664;
           goto LABEL_59;
         case 5:
-          v29 = v13;
-          v30 = -2067986874;
+          v24 = v13;
+          v25 = -2067986874;
           goto LABEL_59;
         case 6:
-          v31 = 887226456;
+          v26 = 887226456;
           goto LABEL_51;
         case 7:
-          v29 = v13;
-          v30 = -1260340143;
+          v24 = v13;
+          v25 = -1260340143;
           goto LABEL_59;
         case 8:
-          v26 = 0x1000040C6EC63FFLL;
-          v27 = 56;
+          v21 = 0x1000040C6EC63FFLL;
+          v22 = 56;
           goto LABEL_71;
         case 9:
           v10 = _apfs_calloc_typed(1uLL, 0x48uLL, 0x10B004060F4C5C5uLL);
@@ -8946,94 +8446,93 @@ LABEL_36:
             return v10;
           }
 
-          v37 = _apfs_malloc_typed(v13 - 72, 0xEA9F5E2EuLL);
-          *(v10 + 8) = v37;
-          if (v37)
+          v32 = _apfs_malloc_typed(v13 - 72, 0xEA9F5E2EuLL);
+          *(v10 + 8) = v32;
+          if (v32)
           {
             goto LABEL_73;
           }
 
-          v33 = v10;
-          v34 = 72;
+          v28 = v10;
+          v29 = 72;
 LABEL_66:
-          _apfs_free(v33, v34);
+          _apfs_free(v28, v29);
           return 0;
         case 10:
         case 18:
-          v26 = 0x10A004019B037CALL;
-          v27 = 96;
+          v21 = 0x10A004019B037CALL;
+          v22 = 96;
           goto LABEL_71;
         case 11:
-          v29 = v13;
-          v30 = 173046394;
+          v24 = v13;
+          v25 = 173046394;
           goto LABEL_59;
         case 12:
-          v31 = -753538664;
+          v26 = -753538664;
 LABEL_51:
-          v26 = v31 | 0x100004000000000;
-          v27 = 24;
+          v21 = v26 | 0x100004000000000;
+          v22 = 24;
           goto LABEL_71;
         case 13:
-          v28 = HIBYTE(*(a2 + 8));
-          if (v28 == 2)
+          v23 = HIBYTE(a2[1]);
+          if (v23 == 2)
           {
-            v36 = 1202085462;
+            v31 = 1202085462;
 LABEL_70:
-            v26 = v36 | 0x10A004000000000;
-            v27 = 80;
+            v21 = v31 | 0x10A004000000000;
+            v22 = 80;
 LABEL_71:
-            v35 = _apfs_calloc_typed(1uLL, v27, v26);
+            v30 = _apfs_calloc_typed(1uLL, v22, v21);
           }
 
           else
           {
-            if (v28 != 1)
+            if (v23 != 1)
             {
-              v75 = HIBYTE(*(a2 + 8));
               log_err("%s:%d: *** Unknown file info type %llu\n");
               return 0;
             }
 
-            v29 = v13;
-            v30 = 130634920;
+            v24 = v13;
+            v25 = 130634920;
 LABEL_59:
-            v35 = _apfs_malloc_typed(v29, v30 | 0x100004000000000);
+            v30 = _apfs_malloc_typed(v24, v25 | 0x100004000000000);
           }
 
 LABEL_72:
-          v10 = v35;
-          if (!v35)
+          v10 = v30;
+          if (!v30)
           {
             return v10;
           }
 
 LABEL_73:
-          v38 = *a2;
-          v39 = *a2 & 0xFFFFFFFFFFFFFFFLL;
-          *(v10 + 1) = v39;
-          v38 >>= 60;
-          *v10 = v38;
+          v33 = *a2;
+          v34 = *a2 & 0xFFFFFFFFFFFFFFFLL;
+          *(v10 + 1) = v34;
+          v33 >>= 60;
+          *v10 = v33;
           *(v10 + 1) = 1;
           v10[1] = v13;
-          switch(v38)
+          switch(v33)
           {
             case 1:
               *(v10 + 1) = *a4;
               *(v10 + 2) = *(a4 + 1);
               *(v10 + 6) = *(a4 + 4);
               *(v10 + 7) = *(a4 + 5);
-              v40 = a4[24];
-              v10[32] = v40;
-              v41 = *(v10 + 9);
-              v42 = (a4 + 25);
+              v35 = a4[24];
+              v10[32] = v35;
+              v36 = *(v10 + 9);
+              v37 = a4 + 25;
               goto LABEL_78;
             case 2:
-              v52 = *(a4 + 1);
-              v53 = *a4 & 0xFFFFFFFFFFFFFFFLL;
+              v47 = *(a4 + 1);
+              v48 = *a4 & 0xFFFFFFFFFFFFFFFLL;
               *(v10 + 1) = *a4 >> 60;
               *(v10 + 8) = *(a4 + 4);
-              *(v10 + 2) = v53;
-              *(v10 + 3) = v52;
+              *(v10 + 2) = v48;
+              *(v10 + 3) = v47;
               return v10;
             case 3:
               *(v10 + 2) = *a4;
@@ -9059,88 +8558,87 @@ LABEL_73:
 
               if (xf_init_with_blob(v10 + 204, a4 + 46, a5 - 92))
               {
-                v74 = *(v10 + 1);
                 log_debug("%s:%d: failed to init extended fields on inode %lld from blob (xfret %d).\n");
                 return v10;
               }
 
-              v63 = v10[204];
+              v58 = v10[204];
               if (!v10[204])
               {
                 return v10;
               }
 
-              v64 = 0;
-              v65 = (*(v10 + 52) + 2);
+              v59 = 0;
+              v60 = (*(v10 + 52) + 2);
               break;
             case 4:
-              v50 = *(a2 + 8);
-              v10[10] = v50;
-              strlcpy(v10 + 24, (a2 + 10), v50);
+              v45 = *(a2 + 4);
+              v10[10] = v45;
+              strlcpy(v10 + 24, a2 + 10, v45);
               *(v10 + 4) = *a4;
-              v47 = a4[1];
-              v10[11] = v47;
-              v48 = v10 + v10[10] + 24;
-              v49 = a4 + 2;
+              v42 = a4[1];
+              v10[11] = v42;
+              v43 = v10 + v10[10] + 24;
+              v44 = a4 + 2;
               goto LABEL_98;
             case 5:
-              v44 = *a4;
-              *(v10 + 2) = *(a2 + 8);
-              *(v10 + 3) = v44;
-              v40 = a4[4];
-              v10[16] = v40;
-              v41 = (v10 + 17);
-              v42 = (a4 + 5);
+              v39 = *a4;
+              *(v10 + 2) = a2[1];
+              *(v10 + 3) = v39;
+              v35 = a4[4];
+              v10[16] = v35;
+              v36 = (v10 + 17);
+              v37 = a4 + 5;
 LABEL_78:
-              strlcpy(v41, v42, v40);
+              strlcpy(v36, v37, v35);
               return v10;
             case 6:
               *(v10 + 4) = *a4;
               return v10;
             case 7:
               *(v10 + 4) = *a4;
-              LODWORD(v55) = a4[11];
-              v57 = a4[2];
-              v56 = a4 + 2;
-              if (v57 == 6)
+              LODWORD(v51) = a4[11];
+              v53 = a4[2];
+              v52 = a4 + 2;
+              if (v53 == 6)
               {
-                v55 = (v55 >> 8) + v55;
+                v51 = (v51 >> 8) + v51;
               }
 
               else
               {
-                v55 = v55;
+                v51 = v51;
               }
 
-              v48 = (v10 + 10);
-              v47 = v55 + 20;
-              v49 = v56;
+              v43 = (v10 + 10);
+              v42 = v51 + 20;
+              v44 = v52;
               goto LABEL_98;
             case 8:
-              *(v10 + 2) = *(a2 + 8);
-              v51 = *a4;
+              *(v10 + 2) = a2[1];
+              v46 = *a4;
               *(v10 + 5) = *a4 & 0xFFFFFFFFFFFFFFLL;
               *(v10 + 12) = *(a4 + 4);
-              *(v10 + 48) = HIBYTE(v51);
+              *(v10 + 48) = HIBYTE(v46);
               return v10;
             case 9:
               if ((*(*(a1 + 376) + 56) & 9) != 0)
               {
-                v58 = *(a2 + 8);
-                *(v10 + 14) = v58 >> 10;
-                v59 = v58 & 0x3FF;
-                v60 = 12;
+                v54 = *(a2 + 2);
+                *(v10 + 14) = v54 >> 10;
+                v55 = v54 & 0x3FF;
+                v56 = 12;
               }
 
               else
               {
                 *(v10 + 14) = 0;
-                v59 = *(a2 + 8);
-                v60 = 10;
+                v55 = *(a2 + 4);
+                v56 = 10;
               }
 
-              v10[31] = v59;
-              strlcpy(*(v10 + 8), (a2 + v60), v59);
+              v10[31] = v55;
+              strlcpy(*(v10 + 8), a2 + v56, v55);
               *(v10 + 2) = *a4;
               *(v10 + 3) = *(a4 + 1);
               v10[30] = a4[8];
@@ -9151,7 +8649,6 @@ LABEL_78:
 
               else if (xf_init_with_blob(v10 + 16, a4 + 9, a5 - 18))
               {
-                v76 = *(v10 + 1);
                 log_debug("%s:%d: failed to init extended fields on drec %lld from blob.\n");
               }
 
@@ -9161,21 +8658,21 @@ LABEL_78:
               *(v10 + 3) = vextq_s8(*(a4 + 1), *(a4 + 1), 8uLL);
               return v10;
             case 11:
-              v43 = *(a2 + 8);
-              v10[12] = v43;
-              strlcpy(v10 + 26, (a2 + 10), v43);
+              v38 = *(a2 + 4);
+              v10[12] = v38;
+              strlcpy(v10 + 26, a2 + 10, v38);
               goto LABEL_76;
             case 12:
 LABEL_76:
               *(v10 + 2) = *a4;
               return v10;
             case 13:
-              v45 = *(a2 + 8);
-              *(v10 + 16) = HIBYTE(v45);
-              *(&v46 + 1) = *(a2 + 8);
-              *&v46 = v45;
-              *(v10 + 2) = v46 >> 56;
-              if (HIBYTE(v45) == 2)
+              v40 = a2[1];
+              *(v10 + 16) = HIBYTE(v40);
+              *(&v41 + 1) = a2[1];
+              *&v41 = v40;
+              *(v10 + 2) = v41 >> 56;
+              if (HIBYTE(v40) == 2)
               {
                 *(v10 + 3) = *a4;
                 *(v10 + 4) = *(a4 + 1);
@@ -9187,54 +8684,52 @@ LABEL_76:
                   return v10;
                 }
 
-                v61 = xf_init_with_blob(v10 + 28, a4 + 13, a5 - 26);
-                if (v61)
+                v57 = xf_init_with_blob(v10 + 28, a4 + 13, a5 - 26);
+                if (v57)
                 {
-                  v62 = *(v10 + 1);
-                  strerror(v61);
+                  strerror(v57);
                   log_debug("%s:%d: failed to init extended fields on attribution tag record with objid <%lld> from blob due to error <%d> %s\n");
                   return v10;
                 }
 
-                v67 = v10[28];
+                v62 = v10[28];
                 if (v10[28])
                 {
-                  v68 = 0;
+                  v63 = 0;
                   for (i = (*(v10 + 8) + 2); ; i += 2)
                   {
-                    v70 = *i;
+                    v65 = *i;
                     if (*(i - 2) == 1)
                     {
                       break;
                     }
 
-                    v68 += (v70 + 7) & 0x1FFF8;
-                    if (!--v67)
+                    v63 += (v65 + 7) & 0x1FFF8;
+                    if (!--v62)
                     {
                       return v10;
                     }
                   }
 
-                  if (v70 > 0)
+                  if (v65 > 0)
                   {
-                    v71 = *(v10 + 9) + (v68 + v70);
+                    v66 = *(v10 + 9) + (v63 + v65);
                     goto LABEL_126;
                   }
 
-                  v77 = *(v10 + 2) >> 8;
                   log_err("%s:%d: %s size (%d) of FILE_INFO_TAG_EXT_TYPE_SIGNING_ID in attribution tag record with s_hash <%llu> <= 0 \n");
                 }
               }
 
-              else if (HIBYTE(v45) == 1)
+              else if (HIBYTE(v40) == 1)
               {
                 v10[12] = *a4;
-                v47 = *(a4 + 2);
-                *(v10 + 26) = v47;
-                v48 = v10 + 27;
-                v49 = (a4 + 3);
+                v42 = *(a4 + 2);
+                *(v10 + 26) = v42;
+                v43 = v10 + 27;
+                v44 = (a4 + 3);
 LABEL_98:
-                memcpy(v48, v49, v47);
+                memcpy(v43, v44, v42);
               }
 
               return v10;
@@ -9249,10 +8744,10 @@ LABEL_98:
                 return v10;
               }
 
-              v39 = *(v10 + 1);
+              v34 = *(v10 + 1);
 LABEL_93:
-              v54 = log_err("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", "key_val_to_jobj", 4935, (a1 + 4040), v39);
-              jobj_release(v54, v10);
+              v49 = log_err("%s:%d: %s cannot translate key-val (%llu) into valid jobj\n", "key_val_to_jobj", 4935, (a1 + 4040), v34);
+              jobj_release(v49, v10, v50);
               return 0;
             default:
               return v10;
@@ -9260,15 +8755,15 @@ LABEL_93:
 
           break;
         case 16:
-          v36 = -624060581;
+          v31 = -624060581;
           goto LABEL_70;
         case 17:
-          v26 = 0x100004089CA3EB1;
-          v27 = 32;
+          v21 = 0x100004089CA3EB1;
+          v22 = 32;
           goto LABEL_71;
         case 19:
-          v26 = 0x10A0040D41B49CCLL;
-          v27 = 72;
+          v21 = 0x10A0040D41B49CCLL;
+          v22 = 72;
           goto LABEL_71;
         default:
           log_err("%s:%d: *** Can't allocate unknown obj type %d\n");
@@ -9277,41 +8772,40 @@ LABEL_93:
 
       break;
     default:
-      v72 = *a2 >> 60;
       log_err("%s:%d: *** unknown obj type %d\n");
       return 0;
   }
 
   while (1)
   {
-    v66 = *v65;
-    if (*(v65 - 2) != 4)
+    v61 = *v60;
+    if (*(v60 - 2) != 4)
     {
-      v66 = (v66 + 7) & 0x1FFF8;
+      v61 = (v61 + 7) & 0x1FFF8;
       goto LABEL_116;
     }
 
-    if (*v65)
+    if (*v60)
     {
       break;
     }
 
 LABEL_116:
-    v65 += 2;
-    v64 += v66;
-    if (!--v63)
+    v60 += 2;
+    v59 += v61;
+    if (!--v58)
     {
       return v10;
     }
   }
 
-  v71 = *(v10 + 53) + (v64 + v66);
+  v66 = *(v10 + 53) + (v59 + v61);
 LABEL_126:
-  *(v71 - 1) = 0;
+  *(v66 - 1) = 0;
   return v10;
 }
 
-void *large_key_val_to_jobj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
+uint64_t large_key_val_to_jobj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5)
 {
   v5 = *(a3 + 8);
   if (v5 <= 0xF)
@@ -9341,7 +8835,6 @@ void *large_key_val_to_jobj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4,
     {
       if (xf_init_with_blob((a2 + 56), a4 + 12, a5 - 24))
       {
-        v11 = v6[1];
         log_err("%s:%d: %s failed to init extended fields on purgeable %llu from blob\n");
       }
 
@@ -9371,7 +8864,6 @@ LABEL_20:
 
     if (xf_init_with_blob((a2 + 64), a4 + 26, a5 - 52))
     {
-      v12 = v6[1];
       log_err("%s:%d: %s failed to init extended fields on dir-stats %llu from blob\n");
     }
   }
@@ -9394,8 +8886,6 @@ LABEL_20:
 
     if (xf_init_with_blob((a2 + 48), a4 + 4, a5 - 8))
     {
-      v10 = v6[2];
-      v13 = v6[3];
       log_err("%s:%d: %s failed to init extended fields on clone mapping <%llu/%llu> from blob\n");
     }
   }
@@ -9403,7 +8893,7 @@ LABEL_20:
   return v6;
 }
 
-uint64_t lookup_jobj_in_snap(uint64_t a1, int a2, uint64_t *a3, unsigned __int8 *a4, uint64_t a5, unsigned __int16 **a6)
+uint64_t lookup_jobj_in_snap(uint64_t a1, int a2, uint64_t *a3, unsigned __int8 *a4, unint64_t a5, unsigned __int16 **a6)
 {
   matched = match_jobj_type_to_tree_type(a1, *a4, a2);
   v12 = _apfs_zalloc(3u);
@@ -9426,14 +8916,14 @@ LABEL_6:
     return v15;
   }
 
-  v15 = bt_lookup_variant(v17, a5, v13, &v18, 0x340u, (v13 + 832), &v19, 0, 0, a3);
+  v15 = bt_lookup_variant(v17, a5, v13, &v18, 832, v13 + 832, &v19, 0, 0, a3);
   obj_release(v17);
   if (v15)
   {
     goto LABEL_6;
   }
 
-  *a6 = key_val_to_jobj(a1, v13, v18, (v13 + 832), v19);
+  *a6 = key_val_to_jobj(a1, v13, v18, v13 + 416, v19);
   _apfs_zfree(v13, 3u);
   if (*a6)
   {
@@ -9446,38 +8936,38 @@ LABEL_6:
   }
 }
 
-uint64_t initialize_phys_range_lock_state(uint64_t a1, unsigned int a2)
+uint64_t initialize_phys_range_lock_state(uint64_t *a1, unsigned int a2)
 {
-  *(a1 + 96) = 0;
-  *(a1 + 64) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
+  a1[12] = 0;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   v4 = a2;
-  *(a1 + 92) = a2;
+  *(a1 + 23) = a2;
   v5 = _apfs_calloc_typed(a2, 0x10uLL, 0x1000040451B5BE8uLL);
   *a1 = v5;
   if (v5)
   {
     v6 = (a2 + 63) >> 6;
-    *(a1 + 88) = v6;
+    *(a1 + 22) = v6;
     v7 = _apfs_calloc_typed(v6, 8uLL, 0x100004000313F17uLL);
-    *(a1 + 72) = v7;
+    a1[9] = v7;
     if (v7)
     {
-      v8 = _apfs_calloc_typed(*(a1 + 88), 8uLL, 0x100004000313F17uLL);
-      *(a1 + 80) = v8;
+      v8 = _apfs_calloc_typed(*(a1 + 22), 8uLL, 0x100004000313F17uLL);
+      a1[10] = v8;
       if (v8)
       {
-        new_lock((a1 + 8));
+        new_lock((a1 + 1));
         return 0;
       }
 
       _apfs_free(*a1, 16 * v4);
-      v10 = *(a1 + 72);
-      v11 = 8 * *(a1 + 88);
+      v10 = a1[9];
+      v11 = 8 * *(a1 + 22);
     }
 
     else
@@ -9492,7 +8982,7 @@ uint64_t initialize_phys_range_lock_state(uint64_t a1, unsigned int a2)
   return 12;
 }
 
-uint64_t release_phys_range_lock_state(uint64_t a1)
+uint64_t release_phys_range_lock_state(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   _apfs_free(*a1, 16 * *(a1 + 92));
   _apfs_free(*(a1 + 72), 8 * *(a1 + 88));
@@ -9612,7 +9102,7 @@ uint64_t evict_mapping_key_compare(uint64_t a1, void *a2, uint64_t a3, void *a4,
   return 0;
 }
 
-uint64_t apfs_free_data_blocks(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t apfs_free_data_blocks(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
   if (*(a1 + 504))
   {
@@ -9744,7 +9234,7 @@ LABEL_11:
     return result;
   }
 
-  v13 = 4 * v6;
+  v13 = 2 * v6;
   *(a1 + 1) = _apfs_malloc_typed(4 * v6, 0x100004052888210uLL);
   v14 = _apfs_malloc_typed(a1[3], 0x8CB4D706uLL);
   *(a1 + 2) = v14;
@@ -9758,7 +9248,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v17 = (a2 + 2);
+  v17 = a2 + 2;
   memcpy(v15, v17, 4 * v16);
   memcpy(*(a1 + 2), &v17[v13], a1[2]);
   bzero((*(a1 + 2) + a1[2]), a1[3] - a1[2]);
@@ -9819,4 +9309,2269 @@ uint64_t xf_get_from_blob(unsigned __int16 *a1, unint64_t a2, int a3, _DWORD *a4
   }
 
   return 2;
+}
+
+uint64_t xf_release(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  _apfs_free(*(a1 + 8), 4 * *(a1 + 2));
+  _apfs_free(*(a1 + 16), *(a1 + 6));
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  return 0;
+}
+
+pthread_cond_t *free_cv(pthread_cond_t *result)
+{
+  if (result)
+  {
+    return pthread_cond_destroy(result);
+  }
+
+  return result;
+}
+
+uint64_t cv_wait(pthread_cond_t *a1, pthread_mutex_t *a2, uint64_t a3, uint64_t a4, timespec *a5)
+{
+  if (a5)
+  {
+    v14.tv_sec = 0;
+    v14.tv_nsec = 0;
+    clock_gettime(_CLOCK_REALTIME, &v14);
+    v8 = __OFADD__(a5->tv_sec, v14.tv_sec);
+    v9 = a5->tv_sec + v14.tv_sec;
+    a5->tv_sec = v9;
+    if (v8)
+    {
+      return 35;
+    }
+
+    else
+    {
+      tv_nsec = a5->tv_nsec;
+      v8 = __OFADD__(tv_nsec, v14.tv_nsec);
+      v12 = tv_nsec + v14.tv_nsec;
+      if (v8)
+      {
+        v12 = 999999999;
+      }
+
+      a5->tv_nsec = v12;
+      if (v12 > 0x3B9ACA00)
+      {
+        v13 = v12 - 1000000000;
+        a5->tv_sec = v9 + (v13 - 1) / 0x3B9ACA00 + 1;
+        a5->tv_nsec = v13 - 1000000000 * ((v13 - 1) / 0x3B9ACA00);
+      }
+
+      LODWORD(result) = pthread_cond_timedwait(a1, a2, a5);
+      if (result == 60)
+      {
+        return 35;
+      }
+
+      else
+      {
+        return result;
+      }
+    }
+  }
+
+  else
+  {
+
+    return pthread_cond_wait(a1, a2);
+  }
+}
+
+uint64_t btree_node_space_stats(void *a1, _DWORD *a2, _DWORD *a3, int *a4)
+{
+  v5 = a1[7];
+  *a2 = (a1[50] >> 27) & 0x1F000;
+  LODWORD(v5) = v5[25] + v5[23] + v5[27];
+  *a3 = v5;
+  v6 = *a2 >= v5;
+  v7 = *a2 - v5;
+  if (v6)
+  {
+    result = 0;
+  }
+
+  else
+  {
+    v11 = a1[1];
+    if (v11)
+    {
+      v12 = (v11 + 4040);
+    }
+
+    else
+    {
+      v12 = (*(*(*a1 + 392) + 384) + 212);
+    }
+
+    v14 = obj_oid(a1);
+    log_err("%s:%d: %s oid 0x%llx (level %d): freespace %u larger than nodespace %u\n", "btree_node_space_stats", 52, v12, v14, *(a1[7] + 34), *a3, *a2);
+    v7 = 0;
+    result = 22;
+  }
+
+  *a4 = v7;
+  return result;
+}
+
+uint64_t btree_node_debug_stats(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
+{
+  v7 = a2[7];
+  if ((*(v7 + 32) & 2) != 0)
+  {
+    ++*(a4 + 4);
+    *(a4 + 16) += *(v7 + 36);
+  }
+
+  else
+  {
+    ++*a4;
+    *(a4 + 12) += *(v7 + 36);
+  }
+
+  if (*(a4 + 8) < a3)
+  {
+    *(a4 + 8) = a3;
+  }
+
+  v8 = *(v7 + 34);
+  if (v8 <= 0xF)
+  {
+    ++*(a4 + 4 * v8 + 216);
+  }
+
+  v9 = btree_node_sanity_check(a2, 0);
+  if (!v9)
+  {
+    v32 = 0;
+    v31 = 0;
+    v9 = btree_node_space_stats(a2, &v32 + 1, &v32, &v31);
+    v10 = v31;
+    v11 = HIDWORD(v32);
+    v12 = 5 * v31 / HIDWORD(v32);
+    ++*(a4 + 4 * v12 + 20);
+    v13 = *(a4 + 56) + v10;
+    *(a4 + 48) += v11;
+    *(a4 + 56) = v13;
+    if ((*(a2[7] + 32) & 2) != 0)
+    {
+      ++*(a4 + 4 * v12 + 104);
+      v15 = *(a4 + 136);
+      *(a4 + 128) += v11;
+      *(a4 + 136) = v15 + v10;
+      if (*(v7 + 36))
+      {
+        v16 = 0;
+        do
+        {
+          v17 = btree_node_key_len(a2, v16);
+          v18 = btree_node_val_len(a2, v16);
+          v19 = *(a1 + 392);
+          if (*(v19 + 16) < v17)
+          {
+            if (v9)
+            {
+              v9 = v9;
+            }
+
+            else
+            {
+              v9 = 22;
+            }
+
+            v20 = a2[1];
+            if (v20)
+            {
+              v21 = (v20 + 4040);
+            }
+
+            else
+            {
+              v21 = (*(*(*a2 + 392) + 384) + 212);
+            }
+
+            v22 = obj_oid(a2);
+            log_err("%s:%d: %s oid 0x%llx (level %d): index %d key length %d longer than tree longest %d\n", "btree_node_debug_stats", 110, v21, v22, *(a2[7] + 34), v16, v17, *(*(a1 + 392) + 16));
+            v19 = *(a1 + 392);
+            v17 = *(v19 + 16);
+          }
+
+          if (v18 == 65534 || *(v19 + 20) < v18 && (v9 ? (v9 = v9) : (v9 = 22), (v23 = a2[1]) == 0 ? (v24 = (*(*(*a2 + 392) + 384) + 212)) : (v24 = (v23 + 4040)), v25 = obj_oid(a2), log_err("%s:%d: %s oid 0x%llx (level %d): index %d val length %d longer than tree longest %d\n", "btree_node_debug_stats", 115, v24, v25, *(a2[7] + 34), v16, v18, *(*(a1 + 392) + 20)), v19 = *(a1 + 392), v18 = *(v19 + 20), v18 == 65534))
+          {
+            v18 = 0;
+          }
+
+          if (*(a4 + 208) < v17)
+          {
+            *(a4 + 208) = v17;
+          }
+
+          if (*(a4 + 212) < v18)
+          {
+            *(a4 + 212) = v18;
+          }
+
+          *(a4 + 144) += v17;
+          v26 = *(v19 + 16);
+          v27 = (a4 + 180);
+          if (v26)
+          {
+            v27 = (a4 + 160 + 4 * (5 * v17 / v26));
+          }
+
+          ++*v27;
+          *(a4 + 152) += v18;
+          v28 = *(v19 + 20);
+          v29 = (a4 + 204);
+          if (v28)
+          {
+            v29 = (a4 + 184 + 4 * (5 * v18 / v28));
+          }
+
+          ++*v29;
+          ++v16;
+        }
+
+        while (v16 < *(v7 + 36));
+      }
+    }
+
+    else
+    {
+      ++*(a4 + 4 * v12 + 64);
+      v14 = *(a4 + 96) + v10;
+      *(a4 + 88) += v11;
+      *(a4 + 96) = v14;
+    }
+  }
+
+  return v9;
+}
+
+uint64_t btree_node_check(void *a1, unint64_t a2, _BYTE *a3, uint64_t a4, void *a5, unsigned int a6, uint64_t a7, int a8, uint64_t a9, char a10, unsigned __int8 a11)
+{
+  v294[1] = *MEMORY[0x277D85DE8];
+  if (!a5 || (v12 = a5[7]) == 0)
+  {
+    v19 = a5[1];
+    if (v19)
+    {
+      v20 = (v19 + 4040);
+    }
+
+    else
+    {
+      v20 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    log_err("%s:%d: %s btree_node is null\n", "btree_node_check", 152, v20);
+    return 22;
+  }
+
+  v15 = a6;
+  v16 = a1;
+  v284 = a2;
+  v285 = a4;
+  v287 = a3;
+  v17 = a5[1];
+  if (!v17)
+  {
+    v17 = *(*a5 + 392);
+  }
+
+  v286 = v17;
+  if (a9)
+  {
+    a1 = btree_node_debug_stats(a1, a5, a6, a9);
+    v18 = a1;
+    if (a1)
+    {
+      return v18;
+    }
+  }
+
+  if (!v16 && (a5[4] & 1) == 0)
+  {
+    return 0;
+  }
+
+  v282 = a9;
+  v281 = a11;
+  v283 = v15;
+  if (a11)
+  {
+LABEL_17:
+    v293 = 0;
+    v294[0] = 0;
+    v291 = 0;
+    v292 = 0;
+    v22 = a5[7];
+    v23 = v287;
+    v24 = v285;
+    if (v287 && *(v22 + 36))
+    {
+      v25 = btree_node_key_ptr(v287, v285, v294, &v292 + 1);
+      if (v25)
+      {
+        v18 = v25;
+        obj_oid(v287);
+LABEL_249:
+        log_err("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n");
+        return v18;
+      }
+
+      v33 = btree_node_key_ptr(a5, 0, &v293, &v292);
+      if (v33)
+      {
+        v18 = v33;
+        obj_oid(a5);
+        goto LABEL_249;
+      }
+
+      a1 = (a5[52])(v286, v294[0], HIWORD(v292), v293, v292, &v291);
+      if (a1)
+      {
+        v18 = a1;
+        obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): minkey compare error: %d\n");
+        return v18;
+      }
+
+      if (v291 >= 1)
+      {
+        obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): minkey not correct\n");
+        return 22;
+      }
+
+      if (v291)
+      {
+        obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): minkey not in sync\n");
+        return 22;
+      }
+
+      v22 = a5[7];
+      v23 = v287;
+      v24 = v285;
+    }
+
+    v81 = *(v22 + 36);
+    if (v81 >= 2)
+    {
+      v279 = a7;
+      v280 = a8;
+      v18 = 0;
+      for (i = 1; i < v81; ++i)
+      {
+        a1 = btree_node_key_off(a5, (i - 1));
+        if (a1 != 0xFFFF)
+        {
+          a1 = btree_node_key_off(a5, i);
+          if (a1 != 0xFFFF)
+          {
+            v83 = btree_node_key_ptr(a5, (i - 1), v294, &v292 + 1);
+            if (v83)
+            {
+              v84 = v83;
+              if (v18)
+              {
+                v18 = v18;
+              }
+
+              else
+              {
+                v18 = v83;
+              }
+
+              v85 = a5[1];
+              if (v85)
+              {
+                v86 = (v85 + 4040);
+              }
+
+              else
+              {
+                v86 = (*(*(*a5 + 392) + 384) + 212);
+              }
+
+              v87 = obj_oid(a5);
+              a1 = log_err("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 536, v86, v87, *(a5[7] + 34), i - 1, v84);
+            }
+
+            else
+            {
+              a1 = btree_node_key_ptr(a5, i, &v293, &v292);
+              if (a1)
+              {
+                v88 = a1;
+                if (v18)
+                {
+                  v18 = v18;
+                }
+
+                else
+                {
+                  v18 = a1;
+                }
+
+                v89 = a5[1];
+                if (v89)
+                {
+                  v90 = (v89 + 4040);
+                }
+
+                else
+                {
+                  v90 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v91 = obj_oid(a5);
+                a1 = log_err("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 543, v90, v91, *(a5[7] + 34), i, v88);
+              }
+            }
+
+            if (!v18)
+            {
+              a1 = (a5[52])(v286, v294[0], HIWORD(v292), v293, v292, &v291);
+              if (a1)
+              {
+                v18 = a1;
+                v92 = a5[1];
+                if (v92)
+                {
+                  v93 = (v92 + 4040);
+                }
+
+                else
+                {
+                  v93 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v94 = obj_oid(a5);
+                a1 = log_err("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n", "btree_node_check", 547, v93, v94, *(a5[7] + 34), i, v18);
+              }
+
+              else if (v291 < 0)
+              {
+                v18 = 0;
+              }
+
+              else
+              {
+                v95 = a5[1];
+                if (v95)
+                {
+                  v96 = (v95 + 4040);
+                }
+
+                else
+                {
+                  v96 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v97 = obj_oid(a5);
+                a1 = log_err("%s:%d: %s oid 0x%llx (level %d): keys out of order: %d\n", "btree_node_check", 550, v96, v97, *(a5[7] + 34), i);
+                v18 = 22;
+              }
+            }
+          }
+        }
+
+        v81 = *(a5[7] + 36);
+      }
+
+      a8 = v280;
+      a7 = v279;
+      v15 = v283;
+      if (v18)
+      {
+        return v18;
+      }
+
+      v23 = v287;
+      v24 = v285;
+    }
+
+    if (!v23)
+    {
+      goto LABEL_203;
+    }
+
+    a1 = btree_node_key_ptr(a5, (v81 - 1), v294, &v292 + 1);
+    if (a1)
+    {
+      v98 = a1;
+      v99 = a5[1];
+      if (v99)
+      {
+        v100 = (v99 + 4040);
+      }
+
+      else
+      {
+        v100 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v101 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 559, v100, v101, *(a5[7] + 34), *(a5[7] + 36) - 1, v98);
+      return 22;
+    }
+
+    if (*(*(v23 + 56) + 36) - 1 <= v24)
+    {
+      v293 = a7;
+      LOWORD(v292) = a8;
+      v102 = a8;
+      v103 = a7;
+    }
+
+    else
+    {
+      a1 = btree_node_key_ptr(v23, (v24 + 1), &v293, &v292);
+      if (a1)
+      {
+        v18 = a1;
+        obj_oid(v287);
+        goto LABEL_249;
+      }
+
+      v103 = v293;
+      v102 = v292;
+    }
+
+    if (!v103 || !v102 || !HIWORD(v292))
+    {
+      goto LABEL_203;
+    }
+
+    a1 = (a5[52])(v286, v294[0]);
+    if (a1)
+    {
+      v18 = a1;
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n");
+      return v18;
+    }
+
+    if (v291 < 0)
+    {
+LABEL_203:
+      if (v16)
+      {
+        v104 = a5[7];
+        if ((*(v104 + 32) & 2) != 0 || *(v104 + 36))
+        {
+          v18 = 0;
+        }
+
+        else
+        {
+          v122 = a5[1];
+          if (v122)
+          {
+            v123 = (v122 + 4040);
+          }
+
+          else
+          {
+            v123 = (*(*(*a5 + 392) + 384) + 212);
+          }
+
+          v124 = obj_oid(a5);
+          a1 = log_err("%s:%d: %s oid 0x%llx (level %d): non-leaf node has no children?\n", "btree_node_check", 595, v123, v124, *(a5[7] + 34));
+          v18 = 22;
+        }
+
+        if ((*(a5[7] + 32) & 2) == 0 && (a10 & 1) == 0)
+        {
+          v287 = v268;
+          MEMORY[0x28223BE20](a1);
+          v106 = &v268[-v105];
+          bzero(&v268[-v105], v107);
+          if (*(a5[7] + 36))
+          {
+            v280 = a8;
+            v108 = v15;
+            v109 = 0;
+            LODWORD(v286) = v108 + 1;
+            while (1)
+            {
+              if (btree_node_key_off(a5, v109) != 0xFFFF && btree_node_val_off(a5, v109) != 0xFFFF)
+              {
+                v110 = btree_node_child_val(a5, v109, v106);
+                if (v110)
+                {
+                  v111 = v110;
+                  v112 = a7;
+                  if (v18)
+                  {
+                    v18 = v18;
+                  }
+
+                  else
+                  {
+                    v18 = 22;
+                  }
+
+                  v113 = a5[1];
+                  if (v113)
+                  {
+                    v114 = (v113 + 4040);
+                  }
+
+                  else
+                  {
+                    v114 = (*(*(*a5 + 392) + 384) + 212);
+                  }
+
+                  v115 = obj_oid(a5);
+                  log_err("%s:%d: %s oid 0x%llx (level %d): can't get child %d oid: %d\n", "btree_node_check", 606, v114, v115, *(a5[7] + 34), v109, v111);
+                  a7 = v112;
+                }
+
+                else if (*v106)
+                {
+                  v289 = a7;
+                  v290 = 0;
+                  v288 = v280;
+                  v116 = a5[7];
+                  if (v109 < *(v116 + 36) - 1)
+                  {
+                    v117 = btree_node_key_ptr(a5, (v109 + 1), &v289, &v288);
+                    if (v117)
+                    {
+                      v137 = v117;
+                      if (v18)
+                      {
+                        v18 = v18;
+                      }
+
+                      else
+                      {
+                        v18 = 22;
+                      }
+
+                      v138 = a5[1];
+                      if (v138)
+                      {
+                        v139 = (v138 + 4040);
+                      }
+
+                      else
+                      {
+                        v139 = (*(*(*a5 + 392) + 384) + 212);
+                      }
+
+                      v159 = obj_oid(a5);
+                      log_err("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 625, v139, v159, *(a5[7] + 34), v109 + 1, v137);
+                      return v18;
+                    }
+
+                    v116 = a5[7];
+                  }
+
+                  v118 = v284;
+                  if (btree_node_get(v16, v106, v284, 0x202u, *(v116 + 34) - 1, 0, &v290))
+                  {
+                    v119 = 1;
+                  }
+
+                  else
+                  {
+                    v119 = v290 == 0;
+                  }
+
+                  if (v119)
+                  {
+                    if (v18)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = 22;
+                    }
+
+                    obj_oid(a5);
+                    log_err("%s:%d: %s oid 0x%llx (level %d): can't get child: 0x%llx\n");
+                  }
+
+                  else
+                  {
+                    v120 = btree_node_check(v16, v118, a5, v109, v290, v286, v289, v288, v282, 0, v281);
+                    if (v18)
+                    {
+                      v121 = 1;
+                    }
+
+                    else
+                    {
+                      v121 = v120 == 0;
+                    }
+
+                    if (v121)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = v120;
+                    }
+
+                    obj_unlock(v290, 1);
+                    obj_release(v290);
+                  }
+                }
+
+                else
+                {
+                  if (v18)
+                  {
+                    v18 = v18;
+                  }
+
+                  else
+                  {
+                    v18 = 22;
+                  }
+
+                  obj_oid(a5);
+                  log_err("%s:%d: %s oid 0x%llx (level %d): invalid child oid: 0x%llx\n");
+                }
+              }
+
+              if (++v109 >= *(a5[7] + 36))
+              {
+                return v18;
+              }
+            }
+          }
+        }
+
+        return v18;
+      }
+
+      return 0;
+    }
+
+    obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): node's max key is not less than next sibling's entry in parent\n");
+    return 22;
+  }
+
+  v18 = 0;
+  if (v287 && (*(v12 + 32) & 1) != 0)
+  {
+    v26 = a5[1];
+    if (v26)
+    {
+      v27 = (v26 + 4040);
+    }
+
+    else
+    {
+      v27 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v28 = obj_oid(a5);
+    v29 = *(a5[7] + 34);
+    v30 = obj_oid(v287);
+    log_err("%s:%d: %s oid 0x%llx (level %d): root node has a parent 0x%llx (level %d)\n", "btree_node_check", 183, v27, v28, v29, v30, *(*(v287 + 7) + 34));
+    v18 = 22;
+    v15 = v283;
+  }
+
+  if ((*(v12 + 32) & 2) != 0 && *(v12 + 34))
+  {
+    v31 = a5[1];
+    if (v31)
+    {
+      v32 = (v31 + 4040);
+    }
+
+    else
+    {
+      v32 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v34 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): leaf node has non-zero level\n", "btree_node_check", 186, v32, v34, *(v12 + 34));
+    v18 = 22;
+  }
+
+  if (v16)
+  {
+    if (*(a5[7] + 34) > *(v16[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v35 = a5[1];
+      if (v35)
+      {
+        v36 = (v35 + 4040);
+      }
+
+      else
+      {
+        v36 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v37 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): node level greater than root level %d\n", "btree_node_check", 189, v36, v37, *(v12 + 34), *(v16[7] + 34));
+    }
+
+    v38 = v15 - 1;
+    if (*(v16[7] + 34) - (v15 - 1) != *(a5[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v39 = a5[1];
+      if (v39)
+      {
+        v40 = (v39 + 4040);
+      }
+
+      else
+      {
+        v40 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v41 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): node level should be %d\n", "btree_node_check", 192, v40, v41, *(v12 + 34), *(v16[7] + 34) - v38);
+    }
+  }
+
+  if (*(v12 + 32))
+  {
+    v42 = -96;
+  }
+
+  else
+  {
+    v42 = -56;
+  }
+
+  v43 = v42 + ((a5[50] >> 27) & 0xF000);
+  if (*(v12 + 40))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v44 = a5[1];
+    if (v44)
+    {
+      v45 = (v44 + 4040);
+    }
+
+    else
+    {
+      v45 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v46 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): invalid table space offset\n", "btree_node_check", 203, v45, v46, *(a5[7] + 34));
+  }
+
+  if (*(v12 + 42) > v43)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v47 = a5[1];
+    if (v47)
+    {
+      v48 = (v47 + 4040);
+    }
+
+    else
+    {
+      v48 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v49 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): table space length larger than available data space\n", "btree_node_check", 206, v48, v49, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    v50 = *(v12 + 42);
+    if (v50 < 8 * btree_node_toc_entry_size(a5))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): table space length smaller than minimum\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v51 = (v43 - *(v12 + 42));
+  if (*(v12 + 44) <= (v43 - *(v12 + 42)))
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v52 = a5[1];
+    if (v52)
+    {
+      v53 = (v52 + 4040);
+    }
+
+    else
+    {
+      v53 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v54 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): free space offset too large\n", "btree_node_check", 218, v53, v54, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 46) + *(v12 + 44) > v51)
+  {
+    v55 = a5[1];
+    if (v55)
+    {
+      v56 = (v55 + 4040);
+    }
+
+    else
+    {
+      v56 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v57 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): free space extends beyond end of node\n", "btree_node_check", 221, v56, v57, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v278 = *(v12 + 44);
+  v58 = *(v12 + 46);
+  if (*(v12 + 36) > v51)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v59 = a5[1];
+    if (v59)
+    {
+      v60 = (v59 + 4040);
+    }
+
+    else
+    {
+      v60 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v61 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): key count larger than possible\n", "btree_node_check", 228, v60, v61, *(a5[7] + 34));
+  }
+
+  v62 = *(v12 + 36);
+  v277 = v51;
+  if (v62 > v278 && (*(v12 + 32) & 0x80000000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v63 = a5[1];
+    if (v63)
+    {
+      v64 = (v63 + 4040);
+    }
+
+    else
+    {
+      v64 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v65 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): key count larger than gross key space\n", "btree_node_check", 231, v64, v65, *(a5[7] + 34));
+  }
+
+  v66 = *(v12 + 36);
+  v67 = *(v12 + 42);
+  if (v66 > v67 / btree_node_toc_entry_size(a5))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): key count larger than TOC space\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  if (a5[47] == v12 + 56)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v68 = a5[1];
+    if (v68)
+    {
+      v69 = (v68 + 4040);
+    }
+
+    else
+    {
+      v69 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v70 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): invalid TOC[] pointer\n", "btree_node_check", 242, v69, v70, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (a5[48] != v12 + 56 + *(v12 + 42))
+  {
+    v71 = a5[1];
+    if (v71)
+    {
+      v72 = (v71 + 4040);
+    }
+
+    else
+    {
+      v72 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v73 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): invalid keys[] pointer\n", "btree_node_check", 245, v72, v73, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 1) != 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000) - 40)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v74 = a5[1];
+    if (v74)
+    {
+      v75 = (v74 + 4040);
+    }
+
+    else
+    {
+      v75 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v76 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n", "btree_node_check", 248, v75, v76, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 1) == 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v77 = v278 + v58;
+  if (*(v12 + 50) <= v278)
+  {
+    v18 = 0;
+    v80 = v277;
+  }
+
+  else
+  {
+    v78 = a5[1];
+    if (v78)
+    {
+      v79 = (v78 + 4040);
+    }
+
+    else
+    {
+      v79 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v80 = v277;
+    v125 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): key free list space larger than key space available\n", "btree_node_check", 259, v79, v125, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v126 = v80 - v77;
+  v127 = *(v12 + 48);
+  if (v127 != 0xFFFF && v278 - 4 < v127)
+  {
+    v128 = a5[1];
+    if (v128)
+    {
+      v129 = (v128 + 4040);
+    }
+
+    else
+    {
+      v129 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v130 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): key free list head beyond key space available\n", "btree_node_check", 263, v129, v130, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 54) > v126)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v131 = a5[1];
+    if (v131)
+    {
+      v132 = (v131 + 4040);
+    }
+
+    else
+    {
+      v132 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v133 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): val free list space larger than val space available\n", "btree_node_check", 266, v132, v133, *(a5[7] + 34));
+  }
+
+  v134 = *(v12 + 52);
+  if (v134 != 0xFFFF)
+  {
+    if (v134 > v126)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v135 = a5[1];
+      if (v135)
+      {
+        v136 = (v135 + 4040);
+      }
+
+      else
+      {
+        v136 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v140 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list head beyond val space available\n", "btree_node_check", 270, v136, v140, *(a5[7] + 34));
+      v134 = *(v12 + 52);
+    }
+
+    if (v134 <= 3)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list head beyond end of node\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v276 = v278 - 4;
+  v141 = _apfs_calloc_typed((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v142 = _apfs_calloc_typed((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v274 = (v277 + 63) >> 6;
+  v275 = v142;
+  if (!v141 || !v142)
+  {
+    v156 = a5[1];
+    if (v156)
+    {
+      v157 = (v156 + 4040);
+    }
+
+    else
+    {
+      v157 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v158 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): couldn't allocate bitmap to check btree node space usage\n", "btree_node_check", 286, v157, v158, *(a5[7] + 34));
+    v18 = 12;
+    goto LABEL_343;
+  }
+
+  v273 = v126;
+  v279 = a7;
+  v280 = a8;
+  bitmap_set_range(v141, *(v12 + 44), *(v12 + 46), v143);
+  v144 = 0;
+  LOWORD(v145) = *(v12 + 48);
+  v146 = v141;
+  while (1)
+  {
+    v147 = v145;
+    if (v145 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v145 >= v278 || v276 < v145)
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entry starts beyond key space available\n");
+LABEL_341:
+      v18 = 22;
+      goto LABEL_342;
+    }
+
+    v148 = (a5[48] + v145);
+    v149 = v148[1];
+    if (v149 <= 3)
+    {
+LABEL_339:
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entry len value too small\n");
+      goto LABEL_341;
+    }
+
+    v150 = v149 + v145;
+    if (v150 > v278)
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entry extends beyond key space available\n");
+      goto LABEL_341;
+    }
+
+    if (!bitmap_range_is_clear(v141, v147, v149, v150))
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    bitmap_set_range(v141, v147, v148[1], v151);
+    v144 += v148[1];
+    v152 = *(v12 + 50);
+    if (v144 <= v152)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v153 = a5[1];
+      if (v153)
+      {
+        v154 = (v153 + 4040);
+      }
+
+      else
+      {
+        v154 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v155 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entries total space exceeds free list space\n", "btree_node_check", 326, v154, v155, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v145 = *v148;
+    if (v147 == v145)
+    {
+LABEL_340:
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): key free list entry points to itself\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v144 > v152)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  v160 = 0;
+  LOWORD(v161) = *(v12 + 52);
+  while (1)
+  {
+    v162 = v161;
+    if (v161 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v161 <= 3u)
+    {
+      v163 = a5[1];
+      if (v163)
+      {
+        v164 = (v163 + 4040);
+      }
+
+      else
+      {
+        v164 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v165 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list entry beyond end of node\n", "btree_node_check", 342, v164, v165, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    if (v162 > v273)
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list entry starts beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v162 < 4)
+    {
+      goto LABEL_343;
+    }
+
+    v166 = (a5[49] - v162);
+    v167 = v166[1];
+    if (v167 <= 3)
+    {
+      goto LABEL_339;
+    }
+
+    if (v162 < v167)
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list entry extends beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v168 = v277 - v162;
+    v169 = v168;
+    if (!bitmap_range_is_clear(v146, v168, v167, v168))
+    {
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    bitmap_set_range(v146, v169, v166[1], v170);
+    v160 += v166[1];
+    v171 = *(v12 + 54);
+    if (v160 <= v171)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v172 = a5[1];
+      if (v172)
+      {
+        v173 = (v172 + 4040);
+      }
+
+      else
+      {
+        v173 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v174 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val free list entries total space exceeds free list space\n", "btree_node_check", 372, v173, v174, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v161 = *v166;
+    if (v162 == v161)
+    {
+      goto LABEL_340;
+    }
+
+    v141 = v146;
+    if (v160 > v171)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5 + 401) & 0x7FFE) == 0)
+  {
+    v177 = a5[1];
+    if (v177)
+    {
+      v178 = (v177 + 4040);
+    }
+
+    else
+    {
+      v178 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v179 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says key size is variable\n", "btree_node_check", 387, v178, v179, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if ((*(a5[7] + 32) & 2) == 0 && (*(a5 + 401) & 0x7FFE) != 0 && (*(v12 + 32) & 4) == 0)
+  {
+    v175 = a5[1];
+    if (v175)
+    {
+      v176 = (v175 + 4040);
+    }
+
+    else
+    {
+      v176 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v180 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): tree says key size is fixed, but node says kv size is variable\n", "btree_node_check", 390, v176, v180, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5[7] + 32) & 2) != 0 && (*(a5 + 401) & 0x7FFF8000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v181 = a5[1];
+    if (v181)
+    {
+      v182 = (v181 + 4040);
+    }
+
+    else
+    {
+      v182 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v183 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says val size is variable\n", "btree_node_check", 393, v182, v183, *(a5[7] + 34));
+  }
+
+  v184 = a5[7];
+  v185 = *(v184 + 32);
+  if ((v185 & 2) != 0)
+  {
+    v229 = a5[50];
+    if ((v229 & 0x7FFF800000) != 0 && (v229 & 4) == 0 && (v229 & 0x7FFE00) != 0 && (*(v12 + 32) & 4) == 0)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): tree says kv sizes are fixed, but leaf says kv size is variable\n");
+      goto LABEL_342;
+    }
+  }
+
+  v141 = v146;
+  if (v18)
+  {
+    goto LABEL_343;
+  }
+
+  v186 = a5[47];
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    if (*(v184 + 36))
+    {
+      v187 = 0;
+      v188 = (v186 + 4);
+      while (1)
+      {
+        v189 = *(v188 - 2);
+        v276 = *v188;
+        v190 = v188[1];
+        if (v189 == 0xFFFF)
+        {
+          if ((*(v12 + 32) & 0x80000000) == 0)
+          {
+            obj_oid(a5);
+            goto LABEL_577;
+          }
+
+          v18 = 0;
+        }
+
+        else
+        {
+          v191 = *(v188 - 1);
+          v192 = *(v184 + 32);
+          if ((v192 & 2) != 0 && (v16 && *(v16[49] + 16) < v191 || (v192 & 1) != 0 && *(a5[49] + 16) < v191))
+          {
+            v193 = a5[1];
+            if (v193)
+            {
+              v194 = (v193 + 4040);
+            }
+
+            else
+            {
+              v194 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v195 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 475, v194, v195, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          else
+          {
+            v18 = 0;
+          }
+
+          if (v189 >= v278)
+          {
+            v196 = a5[1];
+            if (v196)
+            {
+              v197 = (v196 + 4040);
+            }
+
+            else
+            {
+              v197 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v198 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 475, v197, v198, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v199 = (v191 + v189);
+          if (v199 <= v278)
+          {
+            if (!v18)
+            {
+              if (bitmap_range_is_clear(v146, v189, v191, v199))
+              {
+                v18 = 0;
+              }
+
+              else
+              {
+                v204 = a5[1];
+                if (v204)
+                {
+                  v205 = (v204 + 4040);
+                }
+
+                else
+                {
+                  v205 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v206 = obj_oid(a5);
+                log_err("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 475, v205, v206, *(a5[7] + 34));
+                v18 = 22;
+              }
+
+              if (!bitmap_range_is_clear(v275, v189, v191, v202))
+              {
+                v207 = a5[1];
+                if (v207)
+                {
+                  v208 = (v207 + 4040);
+                }
+
+                else
+                {
+                  v208 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v209 = obj_oid(a5);
+                log_err("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 475, v208, v209, *(a5[7] + 34));
+                v18 = 22;
+              }
+
+              v210 = a5[50];
+              if ((v210 & 0x40) != 0)
+              {
+                v211 = v191;
+              }
+
+              else
+              {
+                v211 = (v191 + 7) & 0x1FFF8;
+              }
+
+              bitmap_set_range(v275, v189, v211, v210);
+            }
+          }
+
+          else
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v200 = a5[1];
+            if (v200)
+            {
+              v201 = (v200 + 4040);
+            }
+
+            else
+            {
+              v201 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v203 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 475, v201, v203, *(a5[7] + 34));
+          }
+        }
+
+        if (v276 > 0xFFFD)
+        {
+          if (v190 && v190 != 65534)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): invalid val offset has non-zero length\n");
+            goto LABEL_342;
+          }
+        }
+
+        else
+        {
+          v212 = *(a5[7] + 32);
+          if ((v212 & 2) != 0 && (v16 && *(v16[49] + 20) < v190 || (v212 & 1) != 0 && *(a5[49] + 20) < v190))
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v213 = a5[1];
+            if (v213)
+            {
+              v214 = (v213 + 4040);
+            }
+
+            else
+            {
+              v214 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v215 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 478, v214, v215, *(a5[7] + 34));
+          }
+
+          if (v276 > v273)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v216 = a5[1];
+            if (v216)
+            {
+              v217 = (v216 + 4040);
+            }
+
+            else
+            {
+              v217 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v218 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 478, v217, v218, *(a5[7] + 34));
+          }
+
+          if (v276 < v190)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            obj_oid(a5);
+            goto LABEL_576;
+          }
+
+          v141 = v146;
+          if (v18)
+          {
+            goto LABEL_343;
+          }
+
+          v219 = v277 - v276;
+          if (bitmap_range_is_clear(v146, v277 - v276, v190, v277))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v221 = a5[1];
+            if (v221)
+            {
+              v222 = (v221 + 4040);
+            }
+
+            else
+            {
+              v222 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v223 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 478, v222, v223, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!bitmap_range_is_clear(v275, v219, v190, v220))
+          {
+            v224 = a5[1];
+            if (v224)
+            {
+              v225 = (v224 + 4040);
+            }
+
+            else
+            {
+              v225 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v226 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 478, v225, v226, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v227 = a5[50];
+          if ((v227 & 0x40) != 0)
+          {
+            v228 = v190;
+          }
+
+          else
+          {
+            v228 = (v190 + 7) & 0x1FFF8;
+          }
+
+          bitmap_set_range(v275, v219, v228, v227);
+        }
+
+        v141 = v146;
+        if (v18)
+        {
+          goto LABEL_343;
+        }
+
+        v188 += 4;
+        ++v187;
+        v184 = a5[7];
+        if (v187 >= *(v184 + 36))
+        {
+          goto LABEL_561;
+        }
+      }
+    }
+
+    goto LABEL_561;
+  }
+
+  v230 = a5[50];
+  if ((v185 & 2) != 0)
+  {
+    v231 = v230 >> 23;
+  }
+
+  else
+  {
+    v231 = 8;
+  }
+
+  if (!*(v184 + 36))
+  {
+LABEL_561:
+    _apfs_free(v146, 8 * v274);
+    _apfs_free(v275, 8 * v274);
+    a8 = v280;
+    a7 = v279;
+    v15 = v283;
+    goto LABEL_17;
+  }
+
+  v232 = 0;
+  v272 = (v230 >> 9) & 0x3FFF;
+  v269 = (v272 + 7) & 0x7FF8;
+  v271 = v231;
+  v270 = (v231 + 7) & 0x1FFF8;
+  v233 = (v186 + 2);
+  while (1)
+  {
+    v234 = *(v233 - 1);
+    v276 = *v233;
+    if (v234 == 0xFFFF)
+    {
+      if ((*(v12 + 32) & 0x80000000) == 0)
+      {
+        obj_oid(a5);
+LABEL_577:
+        log_err("%s:%d: %s oid 0x%llx (level %d): invalid key offset\n");
+        goto LABEL_341;
+      }
+
+      v18 = 0;
+    }
+
+    else
+    {
+      v235 = *(v184 + 32);
+      if ((v235 & 2) != 0 && (v16 && *(v16[49] + 16) < v272 || (v235 & 1) != 0 && *(a5[49] + 16) < v272))
+      {
+        v236 = a5[1];
+        if (v236)
+        {
+          v237 = (v236 + 4040);
+        }
+
+        else
+        {
+          v237 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v238 = obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 452, v237, v238, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      if (v234 >= v278)
+      {
+        v239 = a5[1];
+        if (v239)
+        {
+          v240 = (v239 + 4040);
+        }
+
+        else
+        {
+          v240 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v241 = obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 452, v240, v241, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      if (v272 + v234 <= v278)
+      {
+        if (!v18)
+        {
+          if (bitmap_range_is_clear(v146, v234, v272, &v295))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v245 = a5[1];
+            if (v245)
+            {
+              v246 = (v245 + 4040);
+            }
+
+            else
+            {
+              v246 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v247 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 452, v246, v247, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!bitmap_range_is_clear(v275, v234, v272, &v295))
+          {
+            v248 = a5[1];
+            if (v248)
+            {
+              v249 = (v248 + 4040);
+            }
+
+            else
+            {
+              v249 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v250 = obj_oid(a5);
+            log_err("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 452, v249, v250, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if ((a5[50] & 0x40) != 0)
+          {
+            v251 = v272;
+          }
+
+          else
+          {
+            v251 = v269;
+          }
+
+          bitmap_set_range(v275, v234, v251, v269);
+        }
+      }
+
+      else
+      {
+        v18 = v18 ? v18 : 22;
+        v242 = a5[1];
+        v243 = (v242 ? v242 + 4040 : *(*(*a5 + 392) + 384) + 212);
+        v244 = obj_oid(a5);
+        log_err("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 452, v243, v244, *(a5[7] + 34));
+      }
+    }
+
+    if (v276 <= 0xFFFD)
+    {
+      break;
+    }
+
+LABEL_559:
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v233 += 2;
+    ++v232;
+    v184 = a5[7];
+    if (v232 >= *(v184 + 36))
+    {
+      goto LABEL_561;
+    }
+  }
+
+  v252 = *(a5[7] + 32);
+  if ((v252 & 2) != 0 && (v16 && *(v16[49] + 20) < v271 || (v252 & 1) != 0 && *(a5[49] + 20) < v271))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v253 = a5[1];
+    if (v253)
+    {
+      v254 = (v253 + 4040);
+    }
+
+    else
+    {
+      v254 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v255 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 455, v254, v255, *(a5[7] + 34));
+  }
+
+  if (v276 > v273)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v256 = a5[1];
+    if (v256)
+    {
+      v257 = (v256 + 4040);
+    }
+
+    else
+    {
+      v257 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v258 = obj_oid(a5);
+    log_err("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 455, v257, v258, *(a5[7] + 34));
+  }
+
+  if (v276 >= v231)
+  {
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v259 = v277 - v276;
+    if (bitmap_range_is_clear(v146, v277 - v276, v231, v277))
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v261 = a5[1];
+      if (v261)
+      {
+        v262 = (v261 + 4040);
+      }
+
+      else
+      {
+        v262 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v263 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 455, v262, v263, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if (!bitmap_range_is_clear(v275, v259, v231, v260))
+    {
+      v264 = a5[1];
+      if (v264)
+      {
+        v265 = (v264 + 4040);
+      }
+
+      else
+      {
+        v265 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v266 = obj_oid(a5);
+      log_err("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 455, v265, v266, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if ((a5[50] & 0x40) != 0)
+    {
+      v267 = v271;
+    }
+
+    else
+    {
+      v267 = v270;
+    }
+
+    bitmap_set_range(v275, v259, v267, v271);
+    goto LABEL_559;
+  }
+
+  if (v18)
+  {
+    v18 = v18;
+  }
+
+  else
+  {
+    v18 = 22;
+  }
+
+  obj_oid(a5);
+LABEL_576:
+  log_err("%s:%d: %s oid 0x%llx (level %d): val location extends beyond val space\n");
+LABEL_342:
+  v141 = v146;
+LABEL_343:
+  if (v141)
+  {
+    _apfs_free(v141, (8 * v274));
+  }
+
+  if (v275)
+  {
+    _apfs_free(v275, (8 * v274));
+  }
+
+  return v18;
 }

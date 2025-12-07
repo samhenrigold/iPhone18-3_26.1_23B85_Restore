@@ -1,13 +1,13 @@
-id ISAppleIDPluginLogConfig()
+id ISAppleIDPluginLogConfig(uint64_t a1)
 {
   if (qword_C798 != -1)
   {
     sub_4BC8();
   }
 
-  v1 = qword_C790;
+  v2 = qword_C790;
 
-  return v1;
+  return v2;
 }
 
 void sub_F64(id a1)
@@ -93,7 +93,7 @@ void sub_1A94(uint64_t a1)
 void sub_1D3C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = ISAppleIDPluginLogConfig();
+  v3 = ISAppleIDPluginLogConfig(WeakRetained);
   if (!v3)
   {
     v3 = +[SSLogConfig sharedConfig];
@@ -102,38 +102,41 @@ void sub_1D3C(uint64_t a1)
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v7 = *(a1 + 32);
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v8 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = 138543362;
+  v10 = objc_opt_class();
+  v7 = v10;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_0, v6, 0, "%{public}@: Setting up Home Sharing.", &v9, 12);
 
-  if (v9)
+  if (v8)
   {
-    v6 = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
-    free(v9);
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [WeakRetained _setupHomeSharingWithParameters:*(a1 + 40)];
@@ -142,7 +145,7 @@ LABEL_11:
 void sub_1ED4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = ISAppleIDPluginLogConfig();
+  v3 = ISAppleIDPluginLogConfig(WeakRetained);
   if (!v3)
   {
     v3 = +[SSLogConfig sharedConfig];
@@ -151,38 +154,41 @@ void sub_1ED4(uint64_t a1)
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v7 = *(a1 + 32);
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v8 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v9 = 138543362;
+  v10 = objc_opt_class();
+  v7 = v10;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_0, v6, 0, "%{public}@: Setting up iTunes Match.", &v9, 12);
 
-  if (v9)
+  if (v8)
   {
-    v6 = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
-    free(v9);
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [WeakRetained _setupITunesMatchWithParameters:*(a1 + 40)];
@@ -191,7 +197,7 @@ LABEL_11:
 void sub_206C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = ISAppleIDPluginLogConfig();
+  v3 = ISAppleIDPluginLogConfig(WeakRetained);
   if (!v3)
   {
     v3 = +[SSLogConfig sharedConfig];
@@ -200,40 +206,43 @@ void sub_206C(uint64_t a1)
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v7 = *(a1 + 32);
-    LODWORD(v11) = 138543362;
-    *(&v11 + 4) = objc_opt_class();
-    v8 = *(&v11 + 4);
-    LODWORD(v10) = 12;
-    v9 = _os_log_send_and_compose_impl();
+    v9 = 138543362;
+    v10 = objc_opt_class();
+    v7 = v10;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_0, v6, 0, "%{public}@: Setting up iTunes Biometrics.", &v9, 12);
 
-    if (!v9)
+    if (!v8)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v6 = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
-    free(v9);
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   if ([*(a1 + 40) isActive])
   {
     [WeakRetained _setupiTunesBiometricsWithParameters:*(a1 + 48)];
@@ -243,7 +252,7 @@ LABEL_12:
 void sub_2210(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = ISAppleIDPluginLogConfig();
+  v3 = ISAppleIDPluginLogConfig(WeakRetained);
   if (!v3)
   {
     v3 = +[SSLogConfig sharedConfig];
@@ -252,46 +261,49 @@ void sub_2210(uint64_t a1)
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v7 = *(a1 + 32);
-    LODWORD(v13) = 138543362;
-    *(&v13 + 4) = objc_opt_class();
-    v8 = *(&v13 + 4);
-    LODWORD(v12) = 12;
-    v9 = _os_log_send_and_compose_impl();
+    v11 = 138543362;
+    v12 = objc_opt_class();
+    v7 = v12;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_0, v6, 0, "%{public}@: Service setups are complete. Calling the completion handler.", &v11, 12);
 
-    if (!v9)
+    if (!v8)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    v6 = [NSString stringWithCString:v9 encoding:4, &v13, v12, v13];
-    free(v9);
+    v6 = [NSString stringWithCString:v8 encoding:4];
+    free(v8);
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   kdebug_trace();
-  v10 = [WeakRetained handler];
-  v11 = v10;
-  if (v10)
+  v9 = [WeakRetained handler];
+  v10 = v9;
+  if (v9)
   {
-    (*(v10 + 16))(v10, *(a1 + 56), *(a1 + 40));
+    (*(v9 + 16))(v9, *(a1 + 56), *(a1 + 40));
   }
 }
 
@@ -304,58 +316,58 @@ void sub_23E8(uint64_t a1, void *a2, void *a3)
 
   if (!v8)
   {
-    v9 = ISAppleIDPluginLogConfig();
-    if (!v9)
+    v10 = ISAppleIDPluginLogConfig(v9);
+    if (!v10)
     {
-      v9 = +[SSLogConfig sharedConfig];
+      v10 = +[SSLogConfig sharedConfig];
     }
 
-    v10 = [v9 shouldLog];
-    if ([v9 shouldLogToDisk])
+    v11 = [v10 shouldLog];
+    if ([v10 shouldLogToDisk])
     {
-      v11 = v10 | 2;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    v12 = [v9 OSLogObject];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      v13 = v11;
+      v12 = v11 | 2;
     }
 
     else
     {
-      v13 = v11 & 2;
+      v12 = v11;
     }
 
-    if (v13)
+    v13 = [v10 OSLogObject];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = *(a1 + 32);
-      v16 = v14;
-      v17 = [v15 accountName];
-      SSHashIfNeeded();
-      v20 = 138543874;
-      v21 = v14;
-      v23 = v22 = 2114;
-      v24 = 2112;
-      v25 = v5;
-      LODWORD(v19) = 32;
-      v18 = _os_log_send_and_compose_impl();
+      v14 = v12;
+    }
 
-      if (!v18)
+    else
+    {
+      v14 = v12 & 2;
+    }
+
+    if (v14)
+    {
+      v15 = objc_opt_class();
+      v16 = *(a1 + 32);
+      v17 = v15;
+      v18 = [v16 accountName];
+      v19 = SSHashIfNeeded();
+      v21 = 138543874;
+      v22 = v15;
+      v23 = 2114;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v5;
+      v20 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_0, v13, 16, "%{public}@: Failed to authenticate %{public}@. The account won't have all needed tokens. error = %@", &v21, 32);
+
+      if (!v20)
       {
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      v12 = [NSString stringWithCString:v18 encoding:4, &v20, v19];
-      free(v18);
+      v13 = [NSString stringWithCString:v20 encoding:4];
+      free(v20);
       SSFileLog();
     }
 
@@ -363,7 +375,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  (*(*(a1 + 40) + 16))();
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 void sub_3740(uint64_t a1)
@@ -395,167 +407,179 @@ void sub_3740(uint64_t a1)
   }
 
   [v2 setPassword:v6];
-  if (([v2 canDetermineGroupID] & 1) == 0)
+  v7 = [v2 canDetermineGroupID];
+  if ((v7 & 1) == 0)
   {
     dispatch_semaphore_signal(*(a1 + 40));
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v7 = ISAppleIDPluginLogConfig();
-  if (!v7)
+  v8 = ISAppleIDPluginLogConfig(v7);
+  if (!v8)
   {
-    v7 = +[SSLogConfig sharedConfig];
+    v8 = +[SSLogConfig sharedConfig];
   }
 
-  v8 = [v7 shouldLog];
-  if ([v7 shouldLogToDisk])
+  v9 = [v8 shouldLog];
+  if ([v8 shouldLogToDisk])
   {
-    v9 = v8 | 2;
+    LODWORD(v10) = v9 | 2;
   }
 
   else
   {
-    v9 = v8;
+    LODWORD(v10) = v9;
   }
 
-  v10 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = [v8 OSLogObject];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v9 &= 2u;
+    v10 = v10;
   }
 
-  if (!v9)
+  else
   {
-    goto LABEL_18;
+    v10 &= 2u;
   }
 
-  v11 = *(a1 + 48);
-  v17 = 138543362;
-  v18 = objc_opt_class();
-  v12 = v18;
-  LODWORD(v14) = 12;
-  v13 = _os_log_send_and_compose_impl();
+  if (!v10)
+  {
+    goto LABEL_19;
+  }
+
+  v16 = 138543362;
+  v17 = objc_opt_class();
+  v12 = v17;
+  v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_0, v11, 0, "%{public}@: Determining Home Sharing group ID.", &v16, 12);
 
   if (v13)
   {
-    v10 = [NSString stringWithCString:v13 encoding:4, &v17, v14];
+    v11 = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
-LABEL_18:
+LABEL_19:
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_39E0;
-  v15[3] = &unk_8450;
-  v16 = *(a1 + 40);
-  [v2 determineGroupIDWithCompletionHandler:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_39E0;
+  v14[3] = &unk_8450;
+  v15 = *(a1 + 40);
+  [v2 determineGroupIDWithCompletionHandler:v14];
 
-LABEL_21:
+LABEL_22:
 }
 
 void sub_4008(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = a3;
-  v6 = ISAppleIDPluginLogConfig();
-  v7 = v6;
+  v4 = a3;
+  v5 = ISAppleIDPluginLogConfig(v4);
+  v6 = v5;
   if (a2)
   {
-    if (!v6)
+    if (!v5)
     {
-      v7 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    v8 = [v7 shouldLog];
-    if ([v7 shouldLogToDisk])
+    v7 = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v8) = v7;
     }
 
-    v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = [v6 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 &= 2u;
+      v8 = v8;
     }
 
-    if (!v9)
+    else
+    {
+      v8 &= 2u;
+    }
+
+    if (!v8)
     {
 
-      goto LABEL_24;
+      goto LABEL_26;
     }
 
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = v12;
-    [NSNumber numberWithInteger:a2];
-    v22 = 138543874;
+    v10 = objc_opt_class();
+    v11 = v10;
+    v12 = [NSNumber numberWithInteger:a2];
+    v20 = 138543874;
+    v21 = v10;
+    v22 = 2114;
     v23 = v12;
-    v25 = v24 = 2114;
-    v26 = 2114;
-    v27 = v5;
-    LODWORD(v21) = 32;
-    v14 = _os_log_send_and_compose_impl();
+    v24 = 2114;
+    v25 = v4;
+    v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_0, v9, 0, "%{public}@: Failed to fetch new Touch ID token, status = %{public}@ | error = %{public}@", &v20, 32);
 
-    if (!v14)
+    if (!v13)
     {
-      goto LABEL_24;
+      goto LABEL_26;
     }
 
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
-  if (!v6)
+  if (!v5)
   {
-    v7 = +[SSLogConfig sharedConfig];
+    v6 = +[SSLogConfig sharedConfig];
   }
 
-  v15 = [v7 shouldLog];
-  if ([v7 shouldLogToDisk])
+  v14 = [v6 shouldLog];
+  if ([v6 shouldLogToDisk])
   {
-    v16 = v15 | 2;
+    LODWORD(v15) = v14 | 2;
   }
 
   else
   {
-    v16 = v15;
+    LODWORD(v15) = v14;
   }
 
-  v17 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v16 = [v6 OSLogObject];
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 &= 2u;
+    v15 = v15;
   }
 
-  if (!v16)
+  else
   {
-    goto LABEL_22;
+    v15 &= 2u;
   }
 
-  v18 = *(a1 + 32);
-  v19 = objc_opt_class();
-  v20 = v19;
-  [NSNumber numberWithInteger:0];
-  v22 = 138543618;
+  if (!v15)
+  {
+    goto LABEL_24;
+  }
+
+  v17 = objc_opt_class();
+  v18 = v17;
+  v19 = [NSNumber numberWithInteger:0];
+  v20 = 138543618;
+  v21 = v17;
+  v22 = 2114;
   v23 = v19;
-  v25 = v24 = 2114;
-  LODWORD(v21) = 22;
-  v14 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_0, v16, 0, "%{public}@: Finished fetching new Touch ID token, status = %{public}@", &v20, 22);
 
-  if (v14)
+  if (v13)
   {
-LABEL_21:
-    v17 = [NSString stringWithCString:v14 encoding:4, &v22, v21];
-    free(v14);
+LABEL_23:
+    v16 = [NSString stringWithCString:v13 encoding:4];
+    free(v13);
     SSFileLog();
-LABEL_22:
+LABEL_24:
   }
 
-LABEL_24:
+LABEL_26:
 }
 
 void sub_495C(uint64_t a1, void *a2)
@@ -565,65 +589,69 @@ void sub_495C(uint64_t a1, void *a2)
   {
     v4 = [v3 objectForKey:@"library-daap"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-LABEL_15:
+LABEL_16:
 
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    v5 = ISAppleIDPluginLogConfig();
-    if (!v5)
+    v6 = ISAppleIDPluginLogConfig(isKindOfClass);
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    v6 = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    v7 = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = v6 | 2;
+      LODWORD(v8) = v7 | 2;
     }
 
     else
     {
-      v7 = v6;
+      LODWORD(v8) = v7;
     }
 
-    v8 = [v5 OSLogObject];
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = [v6 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v7 &= 2u;
+      v8 = v8;
     }
 
-    if (v7)
+    else
     {
-      v9 = *(a1 + 32);
-      *v14 = 138543618;
-      *&v14[4] = objc_opt_class();
-      *&v14[12] = 2112;
-      *&v14[14] = v4;
-      v10 = *&v14[4];
-      LODWORD(v13) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v8 &= 2u;
+    }
+
+    if (v8)
+    {
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2112;
+      v16 = v4;
+      v10 = v14;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_0, v9, 0, "%{public}@: library-daap dictionary: %@", &v13, 22);
 
       if (!v11)
       {
-LABEL_14:
+LABEL_15:
 
         v12 = [v4 objectForKey:@"base-url"];
         *(*(*(a1 + 48) + 8) + 24) = v12 != 0;
 
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      v8 = [NSString stringWithCString:v11 encoding:4, v14, v13, *v14, *&v14[16]];
+      v9 = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-LABEL_16:
+LABEL_17:
   dispatch_semaphore_signal(*(a1 + 40));
 }

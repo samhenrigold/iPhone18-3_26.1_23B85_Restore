@@ -20,7 +20,7 @@
 
 - (uint64_t)sruif_hasExternalDomainsForStringWithFormat:()SiriUIFoundationAdditions shouldRedactLog:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = [objc_opt_class() _domainsForStringWithFormat:v6];
   if (v7)
@@ -40,31 +40,30 @@
   {
     if (v11)
     {
-      v15 = 136315651;
-      v16 = "[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) sruif_hasExternalDomainsForStringWithFormat:shouldRedactLog:]";
-      v17 = 2117;
-      v18 = v6;
-      v19 = 1024;
-      v20 = v9;
+      v14 = 136315651;
+      v15 = "[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) sruif_hasExternalDomainsForStringWithFormat:shouldRedactLog:]";
+      v16 = 2117;
+      v17 = v6;
+      v18 = 1024;
+      v19 = v9;
       v12 = "%s Format string: %{sensitive}@ has external domains: %d";
 LABEL_9:
-      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_INFO, v12, &v15, 0x1Cu);
+      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_INFO, v12, &v14, 0x1Cu);
     }
   }
 
   else if (v11)
   {
-    v15 = 136315650;
-    v16 = "[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) sruif_hasExternalDomainsForStringWithFormat:shouldRedactLog:]";
-    v17 = 2112;
-    v18 = v6;
-    v19 = 1024;
-    v20 = v9;
+    v14 = 136315650;
+    v15 = "[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) sruif_hasExternalDomainsForStringWithFormat:shouldRedactLog:]";
+    v16 = 2112;
+    v17 = v6;
+    v18 = 1024;
+    v19 = v9;
     v12 = "%s Format string: %@ has external domains: %d";
     goto LABEL_9;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -137,13 +136,12 @@ LABEL_9:
 
 + (void)_domainsForStringWithFormat:()SiriUIFoundationAdditions .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) _domainsForStringWithFormat:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s Malformed parse for format string: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[AFSpeakableUtteranceParser(SiriUIFoundationAdditions) _domainsForStringWithFormat:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s Malformed parse for format string: %@", &v2, 0x16u);
 }
 
 @end

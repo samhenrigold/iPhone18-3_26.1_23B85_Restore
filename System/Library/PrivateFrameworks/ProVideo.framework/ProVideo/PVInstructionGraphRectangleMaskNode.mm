@@ -72,121 +72,119 @@
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v12 = v6;
-  HGTraceGuard::HGTraceGuard(v43, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphRectangleMaskNode hgNodeForTime:...]");
+  v9 = v6;
+  HGTraceGuard::HGTraceGuard(v38, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphRectangleMaskNode hgNodeForTime:...]");
   inputNode = [(PVInstructionGraphRectangleMaskNode *)self inputNode];
-  v42 = *time;
-  v14 = *context.m_Obj;
-  v41 = v14;
-  if (v14)
+  v37 = *context.m_Obj;
+  if (*context.m_Obj)
   {
-    (*(*v14 + 16))(v14);
+    (*(**context.m_Obj + 16))(*context.m_Obj);
   }
 
   if (inputNode)
   {
-    [inputNode hgNodeForTime:&v42 trackInputs:inputs renderer:renderer igContext:&v41];
+    objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(inputNode);
   }
 
   else
   {
-    *v12 = 0;
+    *v9 = 0;
   }
 
-  if (v41)
+  if (v37)
   {
-    (*(*v41 + 24))(v41);
+    (*(*v37 + 24))(v37);
   }
 
-  v15 = (*(**context.m_Obj + 40))();
-  v17 = v16;
-  v18 = (*(**context.m_Obj + 48))().n128_f32[0];
-  v19 = v15 * v18;
-  v20 = v17 * v18;
-  [(PVInstructionGraphRectangleMaskNode *)self denormalizedMaskRectInSize:v19, v17 * v18];
+  v11 = (*(**context.m_Obj + 40))();
+  v13 = v12;
+  v14 = (*(**context.m_Obj + 48))().n128_f32[0];
+  v15 = v11 * v14;
+  v16 = v13 * v14;
+  [(PVInstructionGraphRectangleMaskNode *)self denormalizedMaskRectInSize:v15, v13 * v14];
+  v18 = v17;
+  v20 = v19;
   v22 = v21;
   v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v29 = HGObject::operator new(0x280uLL);
-  HGHWMultiBlend::HGHWMultiBlend(v29);
-  (*(*v29 + 96))(v29, 0, 9.0, 0.0, 0.0, 0.0);
-  (*(*v29 + 120))(v29, 0, *v12);
-  v30 = *v12;
-  if (*v12 != v29)
+  v25 = HGObject::operator new(0x280uLL);
+  HGHWMultiBlend::HGHWMultiBlend(v25);
+  (*(*v25 + 96))(v25, 0, 9.0, 0.0, 0.0, 0.0);
+  (*(*v25 + 120))(v25, 0, *v9);
+  v26 = *v9;
+  if (*v9 != v25)
   {
-    if (v30)
+    if (v26)
     {
-      (*(*v30 + 24))(v30);
+      (*(*v26 + 24))(v26);
     }
 
-    *v12 = v29;
-    (*(*v29 + 16))(v29);
+    *v9 = v25;
+    (*(*v25 + 16))(v25);
   }
 
   if ([(PVInstructionGraphRectangleMaskNode *)self isInverted])
+  {
+    v27 = HGObject::operator new(0x1A0uLL);
+    HGSolidColor::HGSolidColor(v27);
+  }
+
+  v40.origin.x = v18;
+  v40.origin.y = v20;
+  v40.size.width = v22;
+  v40.size.height = v24;
+  MinX = CGRectGetMinX(v40);
+  v41.origin.x = v18;
+  v41.origin.y = v20;
+  v41.size.width = v22;
+  v41.size.height = v24;
+  CGRectGetMaxX(v41);
+  v42.origin.x = v18;
+  v42.origin.y = v20;
+  v42.size.width = v22;
+  v42.size.height = v24;
+  MaxX = CGRectGetMaxX(v42);
+  v43.origin.x = v18;
+  v43.origin.y = v20;
+  v43.size.width = v22;
+  v43.size.height = v24;
+  CGRectGetMaxY(v43);
+  v44.origin.x = v18;
+  v44.origin.y = v20;
+  v44.size.width = v22;
+  v44.size.height = v24;
+  MaxY = CGRectGetMaxY(v44);
+  v45.origin.x = v18;
+  v45.origin.y = v20;
+  v45.size.width = v22;
+  v45.size.height = v24;
+  MinY = CGRectGetMinY(v45);
+  if (MinX > 0.0 && v16 > 0.0)
   {
     v31 = HGObject::operator new(0x1A0uLL);
     HGSolidColor::HGSolidColor(v31);
   }
 
-  v45.origin.x = v22;
-  v45.origin.y = v24;
-  v45.size.width = v26;
-  v45.size.height = v28;
-  MinX = CGRectGetMinX(v45);
-  v46.origin.x = v22;
-  v46.origin.y = v24;
-  v46.size.width = v26;
-  v46.size.height = v28;
-  CGRectGetMaxX(v46);
-  v47.origin.x = v22;
-  v47.origin.y = v24;
-  v47.size.width = v26;
-  v47.size.height = v28;
-  MaxX = CGRectGetMaxX(v47);
-  v48.origin.x = v22;
-  v48.origin.y = v24;
-  v48.size.width = v26;
-  v48.size.height = v28;
-  CGRectGetMaxY(v48);
-  v49.origin.x = v22;
-  v49.origin.y = v24;
-  v49.size.width = v26;
-  v49.size.height = v28;
-  MaxY = CGRectGetMaxY(v49);
-  v50.origin.x = v22;
-  v50.origin.y = v24;
-  v50.size.width = v26;
-  v50.size.height = v28;
-  MinY = CGRectGetMinY(v50);
-  if (MinX > 0.0 && v20 > 0.0)
+  if (v15 - MaxX > 0.0 && v16 > 0.0)
   {
-    v35 = HGObject::operator new(0x1A0uLL);
-    HGSolidColor::HGSolidColor(v35);
+    v32 = HGObject::operator new(0x1A0uLL);
+    HGSolidColor::HGSolidColor(v32);
   }
 
-  if (v19 - MaxX > 0.0 && v20 > 0.0)
+  if (v15 > 0.0 && v16 - MaxY > 0.0)
   {
-    v36 = HGObject::operator new(0x1A0uLL);
-    HGSolidColor::HGSolidColor(v36);
+    v33 = HGObject::operator new(0x1A0uLL);
+    HGSolidColor::HGSolidColor(v33);
   }
 
-  if (v19 > 0.0 && v20 - MaxY > 0.0)
+  if (v15 > 0.0 && MinY > 0.0)
   {
-    v37 = HGObject::operator new(0x1A0uLL);
-    HGSolidColor::HGSolidColor(v37);
+    v34 = HGObject::operator new(0x1A0uLL);
+    HGSolidColor::HGSolidColor(v34);
   }
 
-  if (v19 > 0.0 && MinY > 0.0)
-  {
-    v38 = HGObject::operator new(0x1A0uLL);
-    HGSolidColor::HGSolidColor(v38);
-  }
-
-  (*(*v29 + 24))(v29);
-  HGTraceGuard::~HGTraceGuard(v43);
-  return v39;
+  (*(*v25 + 24))(v25);
+  HGTraceGuard::~HGTraceGuard(v38);
+  return v35;
 }
 
 - (id)requiredSourceTrackIDs

@@ -165,7 +165,7 @@ LABEL_27:
 
 - (id)jsonDictionary
 {
-  v26[7] = *MEMORY[0x1E69E9840];
+  v25[7] = *MEMORY[0x1E69E9840];
   _addressLinesJSONArray = [(BMWalletPaymentsCommerceClassicOrderAddress *)self _addressLinesJSONArray];
   locality = [(BMWalletPaymentsCommerceClassicOrderAddress *)self locality];
   subLocality = [(BMWalletPaymentsCommerceClassicOrderAddress *)self subLocality];
@@ -173,68 +173,68 @@ LABEL_27:
   subAdministrativeArea = [(BMWalletPaymentsCommerceClassicOrderAddress *)self subAdministrativeArea];
   postalCode = [(BMWalletPaymentsCommerceClassicOrderAddress *)self postalCode];
   countryCode = [(BMWalletPaymentsCommerceClassicOrderAddress *)self countryCode];
-  v25[0] = @"addressLines";
+  v24[0] = @"addressLines";
   null = _addressLinesJSONArray;
   if (!_addressLinesJSONArray)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v26[0] = null;
-  v25[1] = @"locality";
+  v21 = null;
+  v25[0] = null;
+  v24[1] = @"locality";
   null2 = locality;
   if (!locality)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = _addressLinesJSONArray;
-  v21 = null2;
-  v26[1] = null2;
-  v25[2] = @"subLocality";
+  v23 = _addressLinesJSONArray;
+  v20 = null2;
+  v25[1] = null2;
+  v24[2] = @"subLocality";
   null3 = subLocality;
   if (!subLocality)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = locality;
-  v20 = null3;
-  v26[2] = null3;
-  v25[3] = @"administrativeArea";
+  v22 = locality;
+  v19 = null3;
+  v25[2] = null3;
+  v24[3] = @"administrativeArea";
   null4 = administrativeArea;
   if (!administrativeArea)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25[4] = @"subAdministrativeArea";
+  v25[3] = null4;
+  v24[4] = @"subAdministrativeArea";
   null5 = subAdministrativeArea;
   if (!subAdministrativeArea)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"postalCode";
+  v25[4] = null5;
+  v24[5] = @"postalCode";
   null6 = postalCode;
   if (!postalCode)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v25[6] = @"countryCode";
+  v25[5] = null6;
+  v24[6] = @"countryCode";
   null7 = countryCode;
   if (!countryCode)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null7;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null7;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (countryCode)
   {
     if (postalCode)
@@ -283,9 +283,9 @@ LABEL_19:
   {
   }
 
-  if (v23)
+  if (v22)
   {
-    if (v24)
+    if (v23)
     {
       goto LABEL_23;
     }
@@ -294,64 +294,61 @@ LABEL_19:
   else
   {
 
-    if (v24)
+    if (v23)
     {
       goto LABEL_23;
     }
   }
 
 LABEL_23:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)_addressLinesJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   addressLines = [(BMWalletPaymentsCommerceClassicOrderAddress *)self addressLines];
-  v5 = [addressLines countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [addressLines countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(addressLines);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [addressLines countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [addressLines countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMWalletPaymentsCommerceClassicOrderAddress)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v89[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"addressLines"];
   null = [MEMORY[0x1E695DFB0] null];
   v9 = [v7 isEqual:null];
 
-  v67 = dictionaryCopy;
+  v66 = dictionaryCopy;
   if (v9)
   {
     selfCopy2 = self;
@@ -359,29 +356,29 @@ LABEL_23:
     v7 = 0;
 LABEL_6:
     v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
     v7 = v7;
-    v11 = [v7 countByEnumeratingWithState:&v68 objects:v88 count:16];
+    v11 = [v7 countByEnumeratingWithState:&v67 objects:v87 count:16];
     if (!v11)
     {
       goto LABEL_15;
     }
 
     v12 = v11;
-    v13 = *v69;
+    v13 = *v68;
 LABEL_8:
     v14 = 0;
     while (1)
     {
-      if (*v69 != v13)
+      if (*v68 != v13)
       {
         objc_enumerationMutation(v7);
       }
 
-      v15 = *(*(&v68 + 1) + 8 * v14);
+      v15 = *(*(&v67 + 1) + 8 * v14);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -395,10 +392,10 @@ LABEL_8:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v84 = *MEMORY[0x1E696A578];
+          v83 = *MEMORY[0x1E696A578];
           v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"addressLines"];
-          v85 = v16;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+          v84 = v16;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
           v21 = v23;
           v22 = v24;
           goto LABEL_25;
@@ -410,7 +407,7 @@ LABEL_8:
       [v10 addObject:v15];
       if (v12 == ++v14)
       {
-        v12 = [v7 countByEnumeratingWithState:&v68 objects:v88 count:16];
+        v12 = [v7 countByEnumeratingWithState:&v67 objects:v87 count:16];
         if (v12)
         {
           goto LABEL_8;
@@ -418,7 +415,7 @@ LABEL_8:
 
 LABEL_15:
 
-        v16 = [v67 objectForKeyedSubscript:@"locality"];
+        v16 = [v66 objectForKeyedSubscript:@"locality"];
         if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           v17 = 0;
@@ -430,8 +427,8 @@ LABEL_15:
         {
           v17 = v16;
 LABEL_18:
-          v18 = [v67 objectForKeyedSubscript:@"subLocality"];
-          v64 = v18;
+          v18 = [v66 objectForKeyedSubscript:@"subLocality"];
+          v63 = v18;
           if (v18)
           {
             objc_opt_class();
@@ -452,10 +449,10 @@ LABEL_18:
             {
               v39 = objc_alloc(MEMORY[0x1E696ABC0]);
               v40 = *MEMORY[0x1E698F240];
-              v80 = *MEMORY[0x1E696A578];
+              v79 = *MEMORY[0x1E696A578];
               v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subLocality"];
-              v81 = v41;
-              v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+              v80 = v41;
+              v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
               v42 = [v39 initWithDomain:v40 code:2 userInfo:v29];
               v18 = 0;
               v25 = 0;
@@ -473,14 +470,14 @@ LABEL_74:
           }
 
 LABEL_33:
-          v29 = [v67 objectForKeyedSubscript:@"administrativeArea"];
+          v29 = [v66 objectForKeyedSubscript:@"administrativeArea"];
           if (!v29 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v57 = v18;
-            v58 = 0;
+            v56 = v18;
+            v57 = 0;
 LABEL_36:
-            v30 = [v67 objectForKeyedSubscript:@"subAdministrativeArea"];
-            v59 = v30;
+            v30 = [v66 objectForKeyedSubscript:@"subAdministrativeArea"];
+            v58 = v30;
             if (v30)
             {
               v31 = v30;
@@ -490,7 +487,7 @@ LABEL_36:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v63 = v31;
+                  v62 = v31;
                   goto LABEL_39;
                 }
 
@@ -498,86 +495,86 @@ LABEL_36:
                 {
                   v45 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v46 = *MEMORY[0x1E698F240];
-                  v76 = *MEMORY[0x1E696A578];
-                  v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subAdministrativeArea"];
-                  v77 = v60;
-                  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-                  v63 = 0;
+                  v75 = *MEMORY[0x1E696A578];
+                  v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subAdministrativeArea"];
+                  v76 = v59;
+                  v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+                  v62 = 0;
                   v25 = 0;
                   *error = [v45 initWithDomain:v46 code:2 userInfo:?];
-                  v18 = v57;
-                  error = v58;
+                  v18 = v56;
+                  error = v57;
                   goto LABEL_70;
                 }
 
-                v63 = 0;
+                v62 = 0;
                 v25 = 0;
-                error = v58;
-                v44 = v59;
-                v18 = v57;
+                error = v57;
+                v44 = v58;
+                v18 = v56;
                 goto LABEL_71;
               }
             }
 
-            v63 = 0;
+            v62 = 0;
 LABEL_39:
-            v32 = [v67 objectForKeyedSubscript:@"postalCode"];
-            v18 = v57;
-            v56 = v32;
+            v32 = [v66 objectForKeyedSubscript:@"postalCode"];
+            v18 = v56;
+            v55 = v32;
             if (v32 && (v33 = v32, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
-              v55 = v29;
+              v54 = v29;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v60 = v33;
+                v59 = v33;
                 goto LABEL_42;
               }
 
               if (!error)
               {
-                v60 = 0;
+                v59 = 0;
                 v25 = 0;
-                error = v58;
+                error = v57;
                 goto LABEL_70;
               }
 
-              v62 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v61 = objc_alloc(MEMORY[0x1E696ABC0]);
               v47 = *MEMORY[0x1E698F240];
-              v74 = *MEMORY[0x1E696A578];
+              v73 = *MEMORY[0x1E696A578];
               v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"postalCode"];
-              v75 = v35;
-              v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-              v48 = [v62 initWithDomain:v47 code:2 userInfo:v34];
-              v60 = 0;
+              v74 = v35;
+              v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+              v48 = [v61 initWithDomain:v47 code:2 userInfo:v34];
+              v59 = 0;
               v25 = 0;
               *error = v48;
             }
 
             else
             {
-              v60 = 0;
+              v59 = 0;
 LABEL_42:
-              v34 = [v67 objectForKeyedSubscript:@"countryCode"];
+              v34 = [v66 objectForKeyedSubscript:@"countryCode"];
               if (!v34 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
                 v35 = 0;
                 goto LABEL_45;
               }
 
-              v55 = v29;
+              v54 = v29;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v35 = v34;
 LABEL_45:
-                error = v58;
-                v25 = [(BMWalletPaymentsCommerceClassicOrderAddress *)selfCopy2 initWithAddressLines:v10 locality:v17 subLocality:v57 administrativeArea:v58 subAdministrativeArea:v63 postalCode:v60 countryCode:v35];
+                error = v57;
+                v25 = [(BMWalletPaymentsCommerceClassicOrderAddress *)selfCopy2 initWithAddressLines:v10 locality:v17 subLocality:v56 administrativeArea:v57 subAdministrativeArea:v62 postalCode:v59 countryCode:v35];
                 selfCopy2 = v25;
 LABEL_69:
 
 LABEL_70:
-                v44 = v59;
+                v44 = v58;
 LABEL_71:
 
 LABEL_72:
@@ -586,42 +583,42 @@ LABEL_72:
 
               if (error)
               {
-                v54 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v53 = *MEMORY[0x1E698F240];
-                v72 = *MEMORY[0x1E696A578];
+                v53 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v52 = *MEMORY[0x1E698F240];
+                v71 = *MEMORY[0x1E696A578];
                 v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"countryCode"];
-                v73 = v49;
-                v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-                *error = [v54 initWithDomain:v53 code:2 userInfo:v50];
+                v72 = v49;
+                v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+                *error = [v53 initWithDomain:v52 code:2 userInfo:v50];
               }
 
               v35 = 0;
               v25 = 0;
             }
 
-            v29 = v55;
-            error = v58;
+            v29 = v54;
+            error = v57;
             goto LABEL_69;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v57 = v18;
-            v58 = v29;
+            v56 = v18;
+            v57 = v29;
             goto LABEL_36;
           }
 
           if (error)
           {
-            v61 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v60 = objc_alloc(MEMORY[0x1E696ABC0]);
             v43 = *MEMORY[0x1E698F240];
-            v78 = *MEMORY[0x1E696A578];
-            v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"administrativeArea"];
-            v79 = v63;
-            v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+            v77 = *MEMORY[0x1E696A578];
+            v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"administrativeArea"];
+            v78 = v62;
+            v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
             v25 = 0;
-            *error = [v61 initWithDomain:v43 code:2 userInfo:v44];
+            *error = [v60 initWithDomain:v43 code:2 userInfo:v44];
             error = 0;
             goto LABEL_71;
           }
@@ -634,10 +631,10 @@ LABEL_72:
         {
           v36 = objc_alloc(MEMORY[0x1E696ABC0]);
           v37 = *MEMORY[0x1E698F240];
-          v82 = *MEMORY[0x1E696A578];
+          v81 = *MEMORY[0x1E696A578];
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"locality"];
-          v83 = v18;
-          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+          v82 = v18;
+          v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
           v38 = [v36 initWithDomain:v37 code:2 userInfo:?];
           v17 = 0;
           v25 = 0;
@@ -662,10 +659,10 @@ LABEL_77:
     {
       v19 = objc_alloc(MEMORY[0x1E696ABC0]);
       v20 = *MEMORY[0x1E698F240];
-      v86 = *MEMORY[0x1E696A578];
+      v85 = *MEMORY[0x1E696A578];
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"addressLines"];
-      v87 = v16;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+      v86 = v16;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
       v21 = v19;
       v22 = v20;
 LABEL_25:
@@ -691,10 +688,10 @@ LABEL_26:
   {
     v26 = objc_alloc(MEMORY[0x1E696ABC0]);
     v27 = *MEMORY[0x1E698F240];
-    v89 = *MEMORY[0x1E696A578];
+    v88 = *MEMORY[0x1E696A578];
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"addressLines"];
-    v90[0] = v10;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v89[0] = v10;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
     v28 = [v26 initWithDomain:v27 code:2 userInfo:v17];
     v25 = 0;
     *error = v28;
@@ -704,7 +701,6 @@ LABEL_26:
   v25 = 0;
 LABEL_78:
 
-  v51 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -719,35 +715,34 @@ LABEL_78:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v5 = self->_addressLines;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -782,8 +777,6 @@ LABEL_78:
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -992,30 +985,28 @@ LABEL_42:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"addressLines" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"locality" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subLocality" number:3 type:13 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"administrativeArea" number:4 type:13 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subAdministrativeArea" number:5 type:13 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"postalCode" number:6 type:13 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"countryCode" number:7 type:13 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"addressLines_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_353_91654];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"locality" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subLocality" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -1023,27 +1014,25 @@ LABEL_42:
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subAdministrativeArea" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"postalCode" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"countryCode" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __54__BMWalletPaymentsCommerceClassicOrderAddress_columns__block_invoke(uint64_t a1, void *a2)
+id __54__BMWalletPaymentsCommerceClassicOrderAddress_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _addressLinesJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _addressLinesJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

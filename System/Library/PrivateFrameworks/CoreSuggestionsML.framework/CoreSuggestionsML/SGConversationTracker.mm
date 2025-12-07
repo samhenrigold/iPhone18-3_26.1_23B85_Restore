@@ -11,7 +11,7 @@
 
 - (id)addMessage:(id)message
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   senderID = [messageCopy senderID];
 
@@ -23,22 +23,22 @@
 
     if (v8)
     {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x3032000000;
-      v21 = __Block_byref_object_copy__1085;
-      v22 = __Block_byref_object_dispose__1086;
-      v23 = 0;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __36__SGConversationTracker_addMessage___block_invoke;
-      v15[3] = &unk_278EB83A0;
-      v16 = messageCopy;
-      v17 = &v18;
-      [v8 runWithLockAcquired:v15];
-      v9 = v19[5];
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x3032000000;
+      v20 = __Block_byref_object_copy__1085;
+      v21 = __Block_byref_object_dispose__1086;
+      v22 = 0;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __36__SGConversationTracker_addMessage___block_invoke;
+      v14[3] = &unk_278EB83A0;
+      v15 = messageCopy;
+      v16 = &v17;
+      [v8 runWithLockAcquired:v14];
+      v9 = v18[5];
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v17, 8);
     }
 
     else
@@ -55,25 +55,23 @@
 
   else
   {
-    v24[0] = messageCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = messageCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void __36__SGConversationTracker_addMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __36__SGConversationTracker_addMessage___block_invoke_2;
-  v14[3] = &unk_278EB8378;
-  v15 = *(a1 + 32);
-  v4 = [v3 indexOfObjectWithOptions:2 passingTest:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __36__SGConversationTracker_addMessage___block_invoke_2;
+  v13[3] = &unk_278EB8378;
+  v14 = *(a1 + 32);
+  v4 = [v3 indexOfObjectWithOptions:2 passingTest:v13];
   if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     [v3 addObject:*(a1 + 32)];
@@ -91,9 +89,9 @@ void __36__SGConversationTracker_addMessage___block_invoke(uint64_t a1, void *a2
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [*(a1 + 32) senderID];
+      v12 = [*(a1 + 32) senderID];
       *buf = 138412290;
-      v17 = v13;
+      v16 = v12;
       _os_log_debug_impl(&dword_24799E000, v7, OS_LOG_TYPE_DEBUG, "Added message id already in conversation. conversation id = %@", buf, 0xCu);
     }
 
@@ -105,8 +103,6 @@ void __36__SGConversationTracker_addMessage___block_invoke(uint64_t a1, void *a2
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)conversationForSenderID:(id)d
@@ -150,10 +146,7 @@ void __36__SGConversationTracker_addMessage___block_invoke(uint64_t a1, void *a2
 
 uint64_t __49__SGConversationTracker_conversationForSenderID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 copy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -228,18 +221,8 @@ uint64_t __49__SGConversationTracker_conversationForSenderID___block_invoke(uint
         v27 = senderID;
         v28 = [senderID2 isEqualToString:senderID];
 
-        if (!v28)
+        if (!v28 || ([v24 timestamp], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(timestamp, "timeIntervalSinceDate:", v29), v31 = v30, v29, v31 > seconds) || (objc_msgSend(v24, "text"), v32 = objc_claimAutoreleasedReturnValue(), v25 += v22 + objc_msgSend(v32, "length"), v32, v25 > lengthCopy))
         {
-          goto LABEL_16;
-        }
-
-        timestamp2 = [v24 timestamp];
-        [timestamp timeIntervalSinceDate:timestamp2];
-        v31 = v30;
-
-        if (v31 > seconds || ([v24 text], v32 = objc_claimAutoreleasedReturnValue(), v25 += v22 + objc_msgSend(v32, "length"), v32, v25 > lengthCopy))
-        {
-LABEL_16:
           length = lengthCopy;
           goto LABEL_18;
         }

@@ -202,7 +202,7 @@
       {
         *buf = 67109120;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "unlockedSinceBoot:%d", buf, 8u);
-        _MBLog();
+        _MBLog(@"Df", "unlockedSinceBoot:%d", 0);
       }
 
       v19 = *(v5 + 3);
@@ -224,7 +224,7 @@
           v45 = 2048;
           v46 = v22;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to register for %s notification: %lu", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to register for %s notification: %lu", "com.apple.mobile.keybagd.first_unlock", v22);
         }
       }
 
@@ -303,7 +303,7 @@
       *buf = 67109120;
       v10 = 1;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "unlockedSinceBoot:%d", buf, 8u);
-      _MBLog();
+      _MBLog(@"Df", "unlockedSinceBoot:%d", 1);
     }
   }
 
@@ -367,9 +367,9 @@ LABEL_6:
         goto LABEL_12;
       }
 
-      v34 = 0;
-      v12 = [currentPersona copyCurrentPersonaContextWithError:&v34];
-      v23 = v34;
+      v32 = 0;
+      v12 = [currentPersona copyCurrentPersonaContextWithError:&v32];
+      v23 = v32;
       if (v12)
       {
         v24 = [currentPersona createPersonaContextForBackgroundProcessingWithPersonaUniqueString:personaIdentifier];
@@ -384,10 +384,9 @@ LABEL_6:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v36 = personaIdentifier;
+            v34 = personaIdentifier;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Adopted persona %{public}@", buf, 0xCu);
-            v31 = personaIdentifier;
-            _MBLog();
+            _MBLog(@"Df", "Adopted persona %{public}@", personaIdentifier);
           }
 
           goto LABEL_6;
@@ -397,18 +396,16 @@ LABEL_6:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v36 = personaIdentifier;
-          v37 = 2114;
-          v38 = v24;
+          v34 = personaIdentifier;
+          v35 = 2114;
+          v36 = v24;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to adopt persona %{public}@: %{public}@", buf, 0x16u);
-          v31 = personaIdentifier;
-          v32 = v24;
-          _MBLog();
+          _MBLog(@"E ", "Failed to adopt persona %{public}@: %{public}@", personaIdentifier, v24);
         }
 
         v23 = v24;
 LABEL_27:
-        v27 = [MBError sanitizedError:v23, v31, v32];
+        v27 = [MBError sanitizedError:v23];
         [v5 setReplyError:v27];
 
         [v5 sendReply];
@@ -423,13 +420,11 @@ LABEL_28:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v36 = userPersonaUniqueString;
-        v37 = 2114;
-        v38 = v23;
+        v34 = userPersonaUniqueString;
+        v35 = 2114;
+        v36 = v23;
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to copy the persona context for persona %{public}@: %{public}@", buf, 0x16u);
-        v31 = userPersonaUniqueString;
-        v32 = v23;
-        _MBLog();
+        _MBLog(@"E ", "Failed to copy the persona context for persona %{public}@: %{public}@", userPersonaUniqueString, v23);
       }
 
       if (v23)
@@ -479,9 +474,9 @@ LABEL_29:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v36 = v11;
+            v34 = v11;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Restored saved persona %{public}@", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "Restored saved persona %{public}@", v11);
           }
 
           goto LABEL_28;
@@ -490,11 +485,11 @@ LABEL_29:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v36 = v11;
-          v37 = 2114;
-          v38 = v21;
+          v34 = v11;
+          v35 = 2114;
+          v36 = v21;
           _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to restore persona context for persona %{public}@: %{public}@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to restore persona context for persona %{public}@: %{public}@", v11, v21);
         }
 
         v30 = [[MBException alloc] initWithCode:1 format:{@"Failed to restore persona context for persona %@: %@", v11, v21}];
@@ -502,13 +497,13 @@ LABEL_29:
 
       else
       {
-        v30 = [[MBException alloc] initWithCode:1 format:{@"Protocol command (%@) not in map", v16, v33}];
+        v30 = [[MBException alloc] initWithCode:1 format:{@"Protocol command (%@) not in map", v16, v31}];
       }
     }
 
     else
     {
-      v30 = [[MBException alloc] initWithCode:1 format:{@"Unknown protocol command %@", 0, v33}];
+      v30 = [[MBException alloc] initWithCode:1 format:{@"Unknown protocol command %@", 0, v31}];
     }
 
     objc_exception_throw(v30);
@@ -520,11 +515,11 @@ LABEL_29:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v36 = personaIdentifier;
-    v37 = 2112;
-    v38 = currentPersona;
+    v34 = personaIdentifier;
+    v35 = 2112;
+    v36 = currentPersona;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Device has not yet been unlocked. Ignoring request: %@ from %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Device has not yet been unlocked. Ignoring request: %@ from %@", personaIdentifier, currentPersona);
   }
 
   v14 = [MBError errorWithCode:13 description:@"Device has not yet been unlocked. Ignoring request."];
@@ -555,9 +550,9 @@ LABEL_30:
   listsCopy = lists;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v19];
-  v8 = v19;
+  v18 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v18];
+  v8 = v18;
 
   if (v7)
   {
@@ -568,9 +563,9 @@ LABEL_30:
     v12 = [arguments2 objectAtIndexedSubscript:1];
 
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v8;
-    v14 = [serviceManager synchronizeFileListsWithDeviceUUID:v10 commitID:v12 account:v7 error:&v18];
-    v15 = v18;
+    v17 = v8;
+    v14 = [serviceManager synchronizeFileListsWithDeviceUUID:v10 commitID:v12 account:v7 error:&v17];
+    v15 = v17;
 
     [listsCopy setReply:v14];
     v8 = v15;
@@ -582,16 +577,15 @@ LABEL_30:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed synchronize file lists due to nil account: %{public}@", buf, 0xCu);
-      v17 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed synchronize file lists due to nil account: %{public}@", v8);
     }
 
     [listsCopy setReply:0];
   }
 
-  [listsCopy setReplyError:{v8, v17}];
+  [listsCopy setReplyError:v8];
   [listsCopy sendReply];
 }
 
@@ -635,16 +629,16 @@ LABEL_30:
   lastObject = [arguments lastObject];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager setupBackupWithPasscode:lastObject account:v10 connection:connection error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager setupBackupWithPasscode:lastObject account:v10 connection:connection error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -655,10 +649,9 @@ LABEL_30:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to set up backup due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set up backup due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -685,16 +678,16 @@ LABEL_30:
 
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager startBackupWithOptions:firstObject reason:1 xpcActivity:0 account:v10 connection:connection error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager startBackupWithOptions:firstObject reason:1 xpcActivity:0 account:v10 connection:connection error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -705,10 +698,9 @@ LABEL_30:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start backup due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start backup due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -733,9 +725,9 @@ LABEL_30:
   firstObject = [arguments firstObject];
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v14 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v14];
-  v10 = v14;
+  v13 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v13];
+  v10 = v13;
 
   if (v9)
   {
@@ -751,10 +743,9 @@ LABEL_30:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to signal prebuddy due to nil account: %{public}@", buf, 0xCu);
-      v13 = v10;
-      _MBLog();
+      _MBLog(@"E ", "Failed to signal prebuddy due to nil account: %{public}@", v10);
     }
   }
 
@@ -787,7 +778,7 @@ LABEL_30:
       *buf = 138543362;
       v15 = v8;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to update prebuddy follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to update prebuddy follow up due to nil account: %{public}@", v8);
     }
 
     v12 = [NSNumber numberWithBool:0];
@@ -830,7 +821,7 @@ LABEL_30:
       *buf = 138543362;
       v18 = v8;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to cancel prebuddy due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to cancel prebuddy due to nil account: %{public}@", v8);
     }
 
     v15 = [NSNumber numberWithBool:0];
@@ -874,7 +865,7 @@ LABEL_30:
       *buf = 138543362;
       v19 = v10;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to begin prebuddy backup due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to begin prebuddy backup due to nil account: %{public}@", v10);
     }
 
     v16 = [NSNumber numberWithBool:0];
@@ -922,7 +913,7 @@ LABEL_30:
       *buf = 138543362;
       v14 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to fetch is initial mega backup completed due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch is initial mega backup completed due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -971,7 +962,7 @@ LABEL_30:
       *buf = 138543362;
       v17 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to fetch was backup enabled for mega backup due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch was backup enabled for mega backup due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -1035,7 +1026,7 @@ LABEL_30:
       *buf = 138543362;
       v16 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to restore previous settings enabled for mega backup due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to restore previous settings enabled for mega backup due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -1078,7 +1069,7 @@ LABEL_30:
       *buf = 138543362;
       v18 = v8;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_ERROR, "Failed to request mega backup expiration date due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to request mega backup expiration date due to nil account: %{public}@", v8);
     }
 
     v12 = 0;
@@ -1117,7 +1108,7 @@ LABEL_30:
       *buf = 138543362;
       v15 = v8;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_ERROR, "Failed to update mega backup expiration date due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to update mega backup expiration date due to nil account: %{public}@", v8);
     }
   }
 
@@ -1151,7 +1142,7 @@ LABEL_30:
       *buf = 138543362;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to exit mega backup mode due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to exit mega backup mode due to nil account: %{public}@", v8);
     }
   }
 
@@ -1185,7 +1176,7 @@ LABEL_30:
       *buf = 138543362;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to respond to prebuddy backup deleted due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to respond to prebuddy backup deleted due to nil account: %{public}@", v8);
     }
   }
 
@@ -1218,7 +1209,7 @@ LABEL_30:
       v19 = 2112;
       v20 = lastObject;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Setting %{public}@ to: %@", @"MegaBackupTurnOniCloudBackup", lastObject);
     }
 
     persona = [(MBServiceAccount *)v7 persona];
@@ -1238,7 +1229,7 @@ LABEL_30:
       v19 = 2114;
       v20 = v8;
       _os_log_impl(&_mh_execute_header, lastObject, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ due to nil account: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@ due to nil account: %{public}@", @"MegaBackupTurnOniCloudBackup", v8);
     }
   }
 
@@ -1273,7 +1264,7 @@ LABEL_30:
       v19 = 2112;
       v20 = lastObject;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Setting %{public}@ to: %@", @"MegaBackupTurnOnAllAppsSync", lastObject);
     }
 
     persona = [(MBServiceAccount *)v7 persona];
@@ -1293,7 +1284,7 @@ LABEL_30:
       v19 = 2114;
       v20 = v8;
       _os_log_impl(&_mh_execute_header, lastObject, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ due to nil account: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@ due to nil account: %{public}@", @"MegaBackupTurnOnAllAppsSync", v8);
     }
   }
 
@@ -1314,9 +1305,9 @@ LABEL_30:
   v7 = [arguments objectAtIndexedSubscript:1];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v30 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v30];
-  v11 = v30;
+  v28 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v28];
+  v11 = v28;
 
   v12 = MBGetDefaultLog();
   v13 = v12;
@@ -1326,13 +1317,11 @@ LABEL_30:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v32 = v6;
-      v33 = 2114;
-      v34 = v7;
+      v30 = v6;
+      v31 = 2114;
+      v32 = v7;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to %{public}@", buf, 0x16u);
-      v26 = v6;
-      v27 = v7;
-      _MBLog();
+      _MBLog(@"Df", "Setting %{public}@ to %{public}@", v6, v7);
     }
 
     persona = [(MBServiceAccount *)v10 persona];
@@ -1344,7 +1333,7 @@ LABEL_30:
     if (v13 && !v16)
     {
       persona3 = [(MBServiceAccount *)v10 persona];
-      v28 = arguments;
+      v26 = arguments;
       v18 = v11;
       v19 = v7;
       v20 = +[NSDate now];
@@ -1354,23 +1343,23 @@ LABEL_30:
 
       v7 = v19;
       v11 = v18;
-      arguments = v28;
+      arguments = v26;
     }
 
-    v23 = [(MBXPCServer *)selfCopy serviceManager:v26];
-    [v23 submitMegaLifeCycleTelemetriesWithAccount:v10];
+    serviceManager = [(MBXPCServer *)selfCopy serviceManager];
+    [serviceManager submitMegaLifeCycleTelemetriesWithAccount:v10];
   }
 
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543874;
-    v32 = v6;
+    v30 = v6;
+    v31 = 2114;
+    v32 = v7;
     v33 = 2114;
-    v34 = v7;
-    v35 = 2114;
-    v36 = v11;
+    v34 = v11;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ : %{public}@ due to nil account: %{public}@", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"E ", "Failed to set %{public}@ : %{public}@ due to nil account: %{public}@", v6, v7, v11);
   }
 
   v24 = [NSNumber numberWithBool:v10 != 0];
@@ -1391,9 +1380,9 @@ LABEL_30:
 
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v24 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v24];
-  v11 = v24;
+  v22 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v22];
+  v11 = v22;
 
   v12 = MBGetDefaultLog();
   v13 = v12;
@@ -1402,13 +1391,11 @@ LABEL_30:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v26 = @"MegaBackupEntryPoint";
-      v27 = 2048;
-      v28 = integerValue;
+      v24 = @"MegaBackupEntryPoint";
+      v25 = 2048;
+      v26 = integerValue;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to: %ld", buf, 0x16u);
-      v22 = @"MegaBackupEntryPoint";
-      v23 = integerValue;
-      _MBLog();
+      _MBLog(@"Df", "Setting %{public}@ to: %ld", @"MegaBackupEntryPoint", integerValue);
     }
 
     persona = [(MBServiceAccount *)v10 persona];
@@ -1421,9 +1408,9 @@ LABEL_30:
       [persona2 setPreferencesValue:v16 forKey:@"MegaBackupFlowStartDate"];
     }
 
-    v17 = [(MBServiceAccount *)v10 persona:v22];
+    persona3 = [(MBServiceAccount *)v10 persona];
     v18 = [NSNumber numberWithInteger:integerValue];
-    [v17 setPreferencesValue:v18 forKey:@"MegaBackupEntryPoint"];
+    [persona3 setPreferencesValue:v18 forKey:@"MegaBackupEntryPoint"];
 
     serviceManager = [(MBXPCServer *)self serviceManager];
     [serviceManager submitMegaLifeCycleTelemetriesWithAccount:v10];
@@ -1432,13 +1419,13 @@ LABEL_30:
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543874;
-    v26 = @"MegaBackupEntryPoint";
-    v27 = 2048;
-    v28 = integerValue;
-    v29 = 2114;
-    v30 = v11;
+    v24 = @"MegaBackupEntryPoint";
+    v25 = 2048;
+    v26 = integerValue;
+    v27 = 2114;
+    v28 = v11;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ to %ld due to nil account: %{public}@", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"E ", "Failed to set %{public}@ to %ld due to nil account: %{public}@", @"MegaBackupEntryPoint", integerValue, v11);
   }
 
   v20 = [NSNumber numberWithBool:v10 != 0];
@@ -1474,7 +1461,7 @@ LABEL_30:
       v21 = 2048;
       v22 = integerValue;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to: %ld", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Setting %{public}@ to: %ld", @"PrebuddyFlowStep", integerValue);
     }
 
     persona = [(MBServiceAccount *)v10 persona];
@@ -1494,7 +1481,7 @@ LABEL_30:
     v23 = 2114;
     v24 = v11;
     _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ to %ld due to nil account: %{public}@", buf, 0x20u);
-    _MBLog();
+    _MBLog(@"E ", "Failed to set %{public}@ to %ld due to nil account: %{public}@", @"PrebuddyFlowStep", integerValue, v11);
   }
 
   v16 = [NSNumber numberWithBool:v10 != 0];
@@ -1530,7 +1517,7 @@ LABEL_30:
       *buf = 138543362;
       v13 = v9;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to cancel due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to cancel due to nil account: %{public}@", v9);
     }
   }
 
@@ -1560,7 +1547,7 @@ LABEL_30:
       *buf = 138543362;
       v12 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to finish AirTraffic restore due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to finish AirTraffic restore due to nil account: %{public}@", v8);
     }
   }
 
@@ -1575,16 +1562,16 @@ LABEL_30:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager deleteBackupUDID:v7 disableIfCurrentDevice:1 account:v10 connection:connection error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager deleteBackupUDID:v7 disableIfCurrentDevice:1 account:v10 connection:connection error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -1595,10 +1582,9 @@ LABEL_30:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to delete backup due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to delete backup due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -1629,9 +1615,9 @@ LABEL_30:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v17];
+  v11 = v17;
 
   if (!v10)
   {
@@ -1639,10 +1625,9 @@ LABEL_30:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to fetch backup list due to nil account: %{public}@", buf, 0xCu);
-      v16 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch backup list due to nil account: %{public}@", v11);
     }
 
     v14 = v11;
@@ -1650,15 +1635,15 @@ LABEL_30:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v17 = v11;
-  v13 = [serviceManager getBackupListWithFiltering:objc_msgSend(v7 account:"BOOLValue") connection:v10 error:{connection, &v17}];
-  v14 = v17;
+  v16 = v11;
+  v13 = [serviceManager getBackupListWithFiltering:objc_msgSend(v7 account:"BOOLValue") connection:v10 error:{connection, &v16}];
+  v14 = v16;
 
   if (!v13)
   {
     v11 = v14;
 LABEL_10:
-    v13 = [MBError sanitizedError:v11, v16];
+    v13 = [MBError sanitizedError:v11];
     [listCopy setReplyError:v13];
     goto LABEL_11;
   }
@@ -1674,9 +1659,9 @@ LABEL_11:
   enabledCopy = enabled;
   v4 = [MBServiceAccount alloc];
   v5 = +[UMUserPersona currentPersona];
-  v13 = 0;
-  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v12];
+  v7 = v12;
 
   if (!v6)
   {
@@ -1684,10 +1669,9 @@ LABEL_11:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to check if backup is enabled due to nil account: %@", buf, 0xCu);
-      v12 = v7;
-      _MBLog();
+      _MBLog(@"E ", "Failed to check if backup is enabled due to nil account: %@", v7);
     }
   }
 
@@ -1696,9 +1680,9 @@ LABEL_11:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v15) = isEnabledForBackup;
+    LODWORD(v14) = isEnabledForBackup;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "isBackupEnabled:%d", buf, 8u);
-    _MBLog();
+    _MBLog(@"Df", "isBackupEnabled:%d", isEnabledForBackup);
   }
 
   v11 = [NSNumber numberWithBool:isEnabledForBackup];
@@ -1733,7 +1717,7 @@ LABEL_11:
       *buf = 138412290;
       v15 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to enable backup due to nil account: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to enable backup due to nil account: %@", v11);
     }
   }
 
@@ -1777,7 +1761,7 @@ LABEL_11:
       v26 = 2114;
       v27 = v7;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to fetch %{public}@ due to nil account: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch %{public}@ due to nil account: %{public}@", @"EnableBackupOnCellular", v7);
     }
   }
 
@@ -1793,15 +1777,15 @@ LABEL_11:
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "isBackupOnCellularEnabled: %@", buf, 0xCu);
     }
 
-    v15 = [NSNumber numberWithBool:*(v21 + 24)];
-    _MBLog();
+    v13 = [NSNumber numberWithBool:*(v21 + 24)];
+    _MBLog(@"Df", "isBackupOnCellularEnabled: %@", v13);
   }
 
-  v13 = [NSNumber numberWithBool:*(v21 + 24)];
-  [enabledCopy setReply:v13];
+  v14 = [NSNumber numberWithBool:*(v21 + 24)];
+  [enabledCopy setReply:v14];
 
-  v14 = [MBError sanitizedError:v7];
-  [enabledCopy setError:v14];
+  v15 = [MBError sanitizedError:v7];
+  [enabledCopy setError:v15];
 
   [enabledCopy sendReply];
   _Block_object_dispose(&v20, 8);
@@ -1843,7 +1827,7 @@ LABEL_11:
       v22 = 2114;
       v23 = v8;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to set %{public}@ due to nil account: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@ due to nil account: %{public}@", @"EnableBackupOnCellular", v8);
     }
   }
 
@@ -1880,7 +1864,7 @@ LABEL_11:
       *buf = 138543362;
       v13 = v9;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to sync backup enabled due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to sync backup enabled due to nil account: %{public}@", v9);
     }
   }
 
@@ -1914,7 +1898,7 @@ LABEL_3:
       {
         *v10 = 0;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "No local backup password set", v10, 2u);
-        _MBLog();
+        _MBLog(@"I ", "No local backup password set");
       }
     }
 
@@ -1934,15 +1918,15 @@ LABEL_3:
 - (void)_unsetLocalBackupPassword:(id)password
 {
   passwordCopy = password;
-  v15 = 0;
-  v4 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [MBKeychainManager fetchLocalBackupPasswordAndReturnError:&v14];
+  v5 = v14;
 
   if (v4)
   {
-    v14 = v5;
-    v6 = [MBKeychainManager removeLocalBackupPasswordAndReturnError:&v14];
-    v7 = v14;
+    v13 = v5;
+    v6 = [MBKeychainManager removeLocalBackupPasswordAndReturnError:&v13];
+    v7 = v13;
 
     v8 = MBGetDefaultLog();
     v9 = v8;
@@ -1952,7 +1936,7 @@ LABEL_3:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Local backup password successfully removed", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Local backup password successfully removed");
       }
 
       v9 = +[MBLockdown connect];
@@ -1966,10 +1950,9 @@ LABEL_3:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v7;
+        v16 = v7;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to remove local backup password: %@", buf, 0xCu);
-        v13 = v7;
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove local backup password: %@", v7);
       }
 
       v10 = 0;
@@ -1995,7 +1978,7 @@ LABEL_3:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "No local backup password set", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "No local backup password set");
     }
 
     v7 = v5;
@@ -2005,12 +1988,12 @@ LABEL_3:
   if (v7)
   {
 LABEL_14:
-    v11 = [MBError sanitizedError:v5, v13];
+    v11 = [MBError sanitizedError:v5];
     [passwordCopy setReplyError:v11];
   }
 
 LABEL_15:
-  v12 = [NSNumber numberWithBool:v10, v13];
+  v12 = [NSNumber numberWithBool:v10];
   [passwordCopy setReply:v12];
 
   [passwordCopy sendReply];
@@ -2030,9 +2013,9 @@ LABEL_15:
   stateCopy = state;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v12 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v11];
+  v8 = v11;
 
   if (!v7)
   {
@@ -2040,10 +2023,9 @@ LABEL_15:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the last backup date due to nil account: %{public}@", buf, 0xCu);
-      v11 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the last backup date due to nil account: %{public}@", v8);
     }
 
     goto LABEL_6;
@@ -2067,16 +2049,16 @@ LABEL_6:
   connection = [backupCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v15];
+  v9 = v15;
 
   if (v8)
   {
     scheduler = [(MBXPCServer *)self scheduler];
-    v15 = v9;
-    v11 = [scheduler dateOfLastBackupWithAccount:v8 connection:connection error:&v15];
-    v12 = v15;
+    v14 = v9;
+    v11 = [scheduler dateOfLastBackupWithAccount:v8 connection:connection error:&v14];
+    v12 = v14;
 
     if (!v11)
     {
@@ -2093,10 +2075,9 @@ LABEL_6:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch the last backup date due to nil account: %{public}@", buf, 0xCu);
-      v14 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the last backup date due to nil account: %{public}@", v9);
     }
   }
 
@@ -2117,16 +2098,16 @@ LABEL_7:
   connection = [backupCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v15];
+  v9 = v15;
 
   if (v8)
   {
     scheduler = [(MBXPCServer *)self scheduler];
-    v15 = v9;
-    v11 = [scheduler dateOfNextScheduledBackupWithAccount:v8 connection:connection error:&v15];
-    v12 = v15;
+    v14 = v9;
+    v11 = [scheduler dateOfNextScheduledBackupWithAccount:v8 connection:connection error:&v14];
+    v12 = v14;
 
     if (!v11)
     {
@@ -2143,10 +2124,9 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch the next backup date due to nil account: %{public}@", buf, 0xCu);
-      v14 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the next backup date due to nil account: %{public}@", v9);
     }
   }
 
@@ -2187,7 +2167,7 @@ LABEL_7:
       *buf = 138543362;
       v15 = v8;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to fetch the next backup size due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the next backup size due to nil account: %{public}@", v8);
     }
 
     v11 = [MBError sanitizedError:v8];
@@ -2221,7 +2201,7 @@ LABEL_7:
       *buf = 138543362;
       v14 = v8;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch the next backup size info due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the next backup size info due to nil account: %{public}@", v8);
     }
 
     serviceManager = [MBError sanitizedError:v8];
@@ -2239,9 +2219,9 @@ LABEL_7:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v17];
+  v11 = v17;
 
   if (!v10)
   {
@@ -2249,10 +2229,9 @@ LABEL_7:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to fetch last modified date from journal due to nil account: %{public}@", buf, 0xCu);
-      v16 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch last modified date from journal due to nil account: %{public}@", v11);
     }
 
     v14 = v11;
@@ -2260,15 +2239,15 @@ LABEL_7:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v17 = v11;
-  v13 = [serviceManager journalLastModifiedForBackupUUID:v7 account:v10 connection:connection error:&v17];
-  v14 = v17;
+  v16 = v11;
+  v13 = [serviceManager journalLastModifiedForBackupUUID:v7 account:v10 connection:connection error:&v16];
+  v14 = v16;
 
   if (!v13)
   {
     v11 = v14;
 LABEL_8:
-    v13 = [MBError sanitizedError:v11, v16];
+    v13 = [MBError sanitizedError:v11];
     [dCopy setReplyError:v13];
     goto LABEL_9;
   }
@@ -2287,9 +2266,9 @@ LABEL_9:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v17];
+  v11 = v17;
 
   if (!v10)
   {
@@ -2297,10 +2276,9 @@ LABEL_9:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to fetch journal due to nil account: %{public}@", buf, 0xCu);
-      v16 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch journal due to nil account: %{public}@", v11);
     }
 
     v14 = v11;
@@ -2308,15 +2286,15 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v17 = v11;
-  v13 = [serviceManager journalForBackupUUID:v7 account:v10 connection:connection error:&v17];
-  v14 = v17;
+  v16 = v11;
+  v13 = [serviceManager journalForBackupUUID:v7 account:v10 connection:connection error:&v16];
+  v14 = v16;
 
   if (!v13)
   {
     v11 = v14;
 LABEL_8:
-    v13 = [MBError sanitizedError:v11, v16];
+    v13 = [MBError sanitizedError:v11];
     [dCopy setReplyError:v13];
     goto LABEL_9;
   }
@@ -2338,9 +2316,9 @@ LABEL_9:
   v9 = [arguments objectAtIndexedSubscript:1];
   v10 = [MBServiceAccount alloc];
   v11 = +[UMUserPersona currentPersona];
-  v20 = 0;
-  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v19];
+  v13 = v19;
 
   if (!v12)
   {
@@ -2348,10 +2326,9 @@ LABEL_9:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to list snapshot files due to nil account: %{public}@", buf, 0xCu);
-      v18 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Failed to list snapshot files due to nil account: %{public}@", v13);
     }
 
     v16 = v13;
@@ -2359,15 +2336,15 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v19 = v13;
-  v15 = [serviceManager filesForSnapshotID:integerValue backupUDID:v9 account:v12 connection:connection error:&v19];
-  v16 = v19;
+  v18 = v13;
+  v15 = [serviceManager filesForSnapshotID:integerValue backupUDID:v9 account:v12 connection:connection error:&v18];
+  v16 = v18;
 
   if (!v15)
   {
     v13 = v16;
 LABEL_8:
-    v15 = [MBError sanitizedError:v13, v18];
+    v15 = [MBError sanitizedError:v13];
     [filesCopy setReplyError:v15];
     goto LABEL_9;
   }
@@ -2387,16 +2364,16 @@ LABEL_9:
   v8 = [arguments subarrayWithRange:{1, objc_msgSend(arguments, "count") - 1}];
   v9 = [MBServiceAccount alloc];
   v10 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v11 = [(MBServiceAccount *)v9 initWithPersona:v10 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [(MBServiceAccount *)v9 initWithPersona:v10 error:&v17];
+  v12 = v17;
 
   if (v11)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v17 = v12;
-    [serviceManager mergeSnapshots:v8 backupUUID:v7 account:v11 connection:connection error:&v17];
-    v14 = v17;
+    v16 = v12;
+    [serviceManager mergeSnapshots:v8 backupUUID:v7 account:v11 connection:connection error:&v16];
+    v14 = v16;
 
     v12 = v14;
   }
@@ -2407,10 +2384,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to merge snapshots due to nil account: %{public}@", buf, 0xCu);
-      v16 = v12;
-      _MBLog();
+      _MBLog(@"E ", "Failed to merge snapshots due to nil account: %{public}@", v12);
     }
   }
 
@@ -2439,16 +2415,16 @@ LABEL_9:
   v9 = [arguments objectAtIndexedSubscript:1];
   v10 = [MBServiceAccount alloc];
   v11 = +[UMUserPersona currentPersona];
-  v21 = 0;
-  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v20];
+  v13 = v20;
 
   if (v12)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v20 = v13;
-    v15 = [serviceManager pinSnapshotID:unsignedIntegerValue backupUDID:v9 account:v12 connection:connection error:&v20];
-    v16 = v20;
+    v19 = v13;
+    v15 = [serviceManager pinSnapshotID:unsignedIntegerValue backupUDID:v9 account:v12 connection:connection error:&v19];
+    v16 = v19;
 
     v13 = v16;
   }
@@ -2459,10 +2435,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v23 = v13;
+      v22 = v13;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to pin snapshot due to nil account: %{public}@", buf, 0xCu);
-      v19 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Failed to pin snapshot due to nil account: %{public}@", v13);
     }
 
     v15 = 0;
@@ -2491,16 +2466,16 @@ LABEL_9:
   v9 = [arguments objectAtIndexedSubscript:1];
   v10 = [MBServiceAccount alloc];
   v11 = +[UMUserPersona currentPersona];
-  v21 = 0;
-  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v20];
+  v13 = v20;
 
   if (v12)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v20 = v13;
-    v15 = [serviceManager unpinSnapshotID:unsignedIntegerValue backupUDID:v9 account:v12 connection:connection error:&v20];
-    v16 = v20;
+    v19 = v13;
+    v15 = [serviceManager unpinSnapshotID:unsignedIntegerValue backupUDID:v9 account:v12 connection:connection error:&v19];
+    v16 = v19;
 
     v13 = v16;
   }
@@ -2511,10 +2486,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v23 = v13;
+      v22 = v13;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to unpin snapshot due to nil account: %{public}@", buf, 0xCu);
-      v19 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Failed to unpin snapshot due to nil account: %{public}@", v13);
     }
 
     v15 = 0;
@@ -2541,9 +2515,9 @@ LABEL_9:
 
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v17 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v17];
-  v10 = v17;
+  v15 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v15];
+  v10 = v15;
 
   if (!v9)
   {
@@ -2551,28 +2525,26 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v10;
+      v17 = v6;
+      v18 = 2114;
+      v19 = v10;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch the app bundle IDs for snapshot %{public}@ due to nil account: %{public}@", buf, 0x16u);
-      v14 = v6;
-      v15 = v10;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the app bundle IDs for snapshot %{public}@ due to nil account: %{public}@", v6, v10);
     }
 
     v12 = v10;
     goto LABEL_8;
   }
 
-  v16 = v10;
-  v11 = MBFetchAppBundleIDsInSnapshot(v6, v9, connection, &v16);
-  v12 = v16;
+  v14 = v10;
+  v11 = MBFetchAppBundleIDsInSnapshot(v6, v9, connection, &v14);
+  v12 = v14;
 
   if (!v11)
   {
     v10 = v12;
 LABEL_8:
-    v11 = [MBError sanitizedError:v10, v14, v15];
+    v11 = [MBError sanitizedError:v10];
     [dsCopy setReplyError:v11];
     goto LABEL_9;
   }
@@ -2589,9 +2561,9 @@ LABEL_9:
   connection = [snapshotsCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v15];
+  v9 = v15;
 
   if (!v8)
   {
@@ -2599,10 +2571,9 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch the restorable snapshots due to nil account: %{public}@", buf, 0xCu);
-      v14 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the restorable snapshots due to nil account: %{public}@", v9);
     }
 
     v12 = v9;
@@ -2610,15 +2581,15 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v15 = v9;
-  v11 = [serviceManager fetchRestorableSnapshotsForAccount:v8 connection:connection error:&v15];
-  v12 = v15;
+  v14 = v9;
+  v11 = [serviceManager fetchRestorableSnapshotsForAccount:v8 connection:connection error:&v14];
+  v12 = v14;
 
   if (!v11)
   {
     v9 = v12;
 LABEL_8:
-    v11 = [MBError sanitizedError:v9, v14];
+    v11 = [MBError sanitizedError:v9];
     [snapshotsCopy setReplyError:v11];
     goto LABEL_9;
   }
@@ -2648,9 +2619,9 @@ LABEL_9:
   connection = [serviceCopy connection];
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v15];
+  v10 = v15;
 
   if (v9)
   {
@@ -2667,10 +2638,9 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to set the restore qos due to nil account: %{public}@", buf, 0xCu);
-      v15 = v10;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set the restore qos due to nil account: %{public}@", v10);
     }
 
     [serviceCopy setReplyError:v10];
@@ -2687,16 +2657,16 @@ LABEL_9:
 
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v17];
+  v10 = v17;
 
   if (v9)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v17 = v10;
-    v12 = [serviceManager saveBackgroundRestoreCellularAccess:firstObject account:v9 error:&v17];
-    v13 = v17;
+    v16 = v10;
+    v12 = [serviceManager saveBackgroundRestoreCellularAccess:firstObject account:v9 error:&v16];
+    v13 = v16;
 
     v10 = v13;
   }
@@ -2707,10 +2677,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to save background restore cellular access due to nil account: %{public}@", buf, 0xCu);
-      v16 = v10;
-      _MBLog();
+      _MBLog(@"E ", "Failed to save background restore cellular access due to nil account: %{public}@", v10);
     }
 
     v12 = 0;
@@ -2733,16 +2702,16 @@ LABEL_9:
   accessCopy = access;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v15 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v14];
+  v8 = v14;
 
   if (v7)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v14 = v8;
-    v10 = [serviceManager fetchBackgroundRestoreCellularAccessForAccount:v7 error:&v14];
-    v11 = v14;
+    v13 = v8;
+    v10 = [serviceManager fetchBackgroundRestoreCellularAccessForAccount:v7 error:&v13];
+    v11 = v13;
 
     [accessCopy setReply:v10];
     v8 = v11;
@@ -2754,10 +2723,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to fetch background restore cellular access due to nil account: %{public}@", buf, 0xCu);
-      v13 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch background restore cellular access due to nil account: %{public}@", v8);
     }
   }
 
@@ -2775,9 +2743,9 @@ LABEL_9:
   restoreCopy = restore;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v20 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v19];
+  v8 = v19;
 
   if (v7)
   {
@@ -2791,9 +2759,9 @@ LABEL_9:
 
     serviceManager = [(MBXPCServer *)self serviceManager];
     connection = [restoreCopy connection];
-    v19 = v8;
-    v14 = [serviceManager startRestoreForSnapshot:v10 options:v11 account:v7 connection:connection error:&v19];
-    v15 = v19;
+    v18 = v8;
+    v14 = [serviceManager startRestoreForSnapshot:v10 options:v11 account:v7 connection:connection error:&v18];
+    v15 = v18;
 
     v8 = v15;
   }
@@ -2804,10 +2772,9 @@ LABEL_9:
     if (os_log_type_enabled(arguments, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v8;
+      v21 = v8;
       _os_log_impl(&_mh_execute_header, arguments, OS_LOG_TYPE_ERROR, "Failed to start restore due to nil account: %{public}@", buf, 0xCu);
-      v18 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start restore due to nil account: %{public}@", v8);
     }
 
     v14 = 0;
@@ -2838,16 +2805,16 @@ LABEL_9:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager inheritSnapshotWithAccount:v10 fromSnapshot:v7 fromDevice:v6 error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager inheritSnapshotWithAccount:v10 fromSnapshot:v7 fromDevice:v6 error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -2858,10 +2825,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to inherit backup due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to inherit backup due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -2902,7 +2868,7 @@ LABEL_9:
       *buf = 138543362;
       v14 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to cancel the restore due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to cancel the restore due to nil account: %{public}@", v8);
     }
 
     serviceManager = [MBError sanitizedError:v8];
@@ -2923,16 +2889,16 @@ LABEL_9:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager restoreFileWithPath:v7 context:connection account:v10 error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager restoreFileWithPath:v7 context:connection account:v10 error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -2943,10 +2909,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start file restore due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start file restore due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -2972,16 +2937,16 @@ LABEL_9:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager restoreFilesWithPaths:v7 context:connection account:v10 error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager restoreFilesWithPaths:v7 context:connection account:v10 error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -2992,10 +2957,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start files restore due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start files restore due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -3021,16 +2985,16 @@ LABEL_9:
   firstObject = [arguments firstObject];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager restoreBookWithPath:firstObject context:connection account:v10 error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager restoreBookWithPath:firstObject context:connection account:v10 error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -3041,10 +3005,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start the book restore due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start the book restore due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -3074,16 +3037,16 @@ LABEL_9:
   v10 = [arguments objectAtIndexedSubscript:2];
   v11 = [MBServiceAccount alloc];
   v12 = +[UMUserPersona currentPersona];
-  v22 = 0;
-  v13 = [(MBServiceAccount *)v11 initWithPersona:v12 error:&v22];
-  v14 = v22;
+  v21 = 0;
+  v13 = [(MBServiceAccount *)v11 initWithPersona:v12 error:&v21];
+  v14 = v21;
 
   if (v13)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v21 = v14;
-    v16 = [serviceManager restoreApplicationWithBundleID:v7 failed:bOOLValue qos:v10 context:connection account:v13 error:&v21];
-    v17 = v21;
+    v20 = v14;
+    v16 = [serviceManager restoreApplicationWithBundleID:v7 failed:bOOLValue qos:v10 context:connection account:v13 error:&v20];
+    v17 = v20;
 
     v14 = v17;
   }
@@ -3094,10 +3057,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v24 = v14;
+      v23 = v14;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start the app restore due to nil account: %{public}@", buf, 0xCu);
-      v20 = v14;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start the app restore due to nil account: %{public}@", v14);
     }
 
     v16 = 0;
@@ -3179,7 +3141,7 @@ LABEL_3:
     *buf = 138543362;
     v16 = v7;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to fetch restore state due to nil persona: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "Failed to fetch restore state due to nil persona: %{public}@", v7);
   }
 
   v9 = [MBError sanitizedError:v7];
@@ -3193,9 +3155,9 @@ LABEL_8:
 {
   stateCopy = state;
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v11 = 0;
-  v6 = [serviceManager restoreStateWithError:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [serviceManager restoreStateWithError:&v10];
+  v7 = v10;
 
   if (v6)
   {
@@ -3208,10 +3170,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch restore state: %{public}@", buf, 0xCu);
-      v10 = v7;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch restore state: %{public}@", v7);
     }
 
     v9 = [MBError sanitizedError:v7];
@@ -3226,9 +3187,9 @@ LABEL_8:
   infoCopy = info;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v12 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v11];
+  v8 = v11;
 
   if (!v7)
   {
@@ -3236,10 +3197,9 @@ LABEL_8:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the background restore info due to nil account: %{public}@", buf, 0xCu);
-      v11 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the background restore info due to nil account: %{public}@", v8);
     }
 
     goto LABEL_6;
@@ -3280,7 +3240,7 @@ LABEL_6:
       *buf = 138543362;
       v12 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to clear the restore session due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to clear the restore session due to nil account: %{public}@", v8);
     }
   }
 
@@ -3293,16 +3253,16 @@ LABEL_6:
   arguments = [failureCopy arguments];
   v5 = [arguments objectAtIndexedSubscript:0];
   v6 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v7 = [MBPersona personaWithUMPersona:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [MBPersona personaWithUMPersona:v6 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
     v9 = +[MBRestoreFailuresManager sharedManager];
-    v15 = v8;
-    v10 = [v9 recordRestoreFailure:v5 persona:v7 error:&v15];
-    v11 = v15;
+    v14 = v8;
+    v10 = [v9 recordRestoreFailure:v5 persona:v7 error:&v14];
+    v11 = v14;
 
     v8 = v11;
   }
@@ -3313,10 +3273,9 @@ LABEL_6:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to load persona when reporting restore failures: %@", buf, 0xCu);
-      v14 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to load persona when reporting restore failures: %@", v8);
     }
 
     v10 = 0;
@@ -3413,7 +3372,7 @@ LABEL_6:
 {
   filesCopy = files;
   arguments = [filesCopy arguments];
-  v24 = [arguments objectAtIndexedSubscript:0];
+  v23 = [arguments objectAtIndexedSubscript:0];
   v6 = [arguments objectAtIndexedSubscript:1];
   v7 = +[NSNull null];
   if (v6 == v7)
@@ -3437,9 +3396,9 @@ LABEL_6:
 
   v15 = [MBServiceAccount alloc];
   v16 = +[UMUserPersona currentPersona];
-  v26 = 0;
-  v17 = [(MBServiceAccount *)v15 initWithPersona:v16 error:&v26];
-  v18 = v26;
+  v25 = 0;
+  v17 = [(MBServiceAccount *)v15 initWithPersona:v16 error:&v25];
+  v18 = v25;
 
   if (!v17)
   {
@@ -3447,10 +3406,9 @@ LABEL_6:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v28 = v18;
+      v27 = v18;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to fetch files for domain due to nil account: %{public}@", buf, 0xCu);
-      v23 = v18;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch files for domain due to nil account: %{public}@", v18);
     }
 
     v21 = v18;
@@ -3458,15 +3416,15 @@ LABEL_6:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v25 = v18;
-  v20 = [serviceManager restoreFilesForDomain:v24 relativePath:v8 pendingOnly:bOOLValue range:unsignedIntegerValue account:unsignedIntegerValue2 error:{v17, &v25}];
-  v21 = v25;
+  v24 = v18;
+  v20 = [serviceManager restoreFilesForDomain:v23 relativePath:v8 pendingOnly:bOOLValue range:unsignedIntegerValue account:unsignedIntegerValue2 error:{v17, &v24}];
+  v21 = v24;
 
   if (!v20)
   {
     v18 = v21;
 LABEL_11:
-    v20 = [MBError sanitizedError:v18, v23];
+    v20 = [MBError sanitizedError:v18];
     [filesCopy setReplyError:v20];
     goto LABEL_12;
   }
@@ -3502,7 +3460,7 @@ LABEL_12:
       *buf = 138543362;
       v14 = v10;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to prioritize restore for file due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to prioritize restore for file due to nil account: %{public}@", v10);
     }
   }
 
@@ -3514,9 +3472,9 @@ LABEL_12:
   restoreCopy = restore;
   v4 = [MBServiceAccount alloc];
   v5 = +[UMUserPersona currentPersona];
-  v10 = 0;
-  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v10];
-  v7 = v10;
+  v9 = 0;
+  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v9];
+  v7 = v9;
 
   if (v6)
   {
@@ -3529,10 +3487,9 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to post insufficient free space to restore notification due to nil account: %{public}@", buf, 0xCu);
-      v9 = v7;
-      _MBLog();
+      _MBLog(@"E ", "Failed to post insufficient free space to restore notification due to nil account: %{public}@", v7);
     }
   }
 
@@ -3544,9 +3501,9 @@ LABEL_12:
   restoreCopy = restore;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v15];
+  v8 = v15;
 
   if (!v7)
   {
@@ -3554,10 +3511,9 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to prepare for restore due to nil account: %{public}@", buf, 0xCu);
-      v14 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to prepare for restore due to nil account: %{public}@", v8);
     }
 
     v11 = v8;
@@ -3565,15 +3521,15 @@ LABEL_12:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v15 = v8;
-  v10 = [serviceManager prepareForBackgroundRestoreWithAccount:v7 error:&v15];
-  v11 = v15;
+  v14 = v8;
+  v10 = [serviceManager prepareForBackgroundRestoreWithAccount:v7 error:&v14];
+  v11 = v14;
 
   if (!v10)
   {
     v8 = v11;
 LABEL_8:
-    v13 = [MBError sanitizedError:v8, v14];
+    v13 = [MBError sanitizedError:v8];
     [restoreCopy setReplyError:v13];
 
     goto LABEL_9;
@@ -3612,7 +3568,7 @@ LABEL_9:
       *buf = 138543362;
       v16 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to boost background restore due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to boost background restore due to nil account: %{public}@", v8);
     }
 
     v11 = [MBError sanitizedError:v8];
@@ -3688,16 +3644,16 @@ LABEL_9:
 
   v12 = [MBServiceAccount alloc];
   v13 = +[UMUserPersona currentPersona];
-  v23 = 0;
-  v14 = [(MBServiceAccount *)v12 initWithPersona:v13 error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [(MBServiceAccount *)v12 initWithPersona:v13 error:&v22];
+  v15 = v22;
 
   if (v14)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v22 = v15;
-    v17 = [serviceManager acquireLockWithBackupUDID:v7 account:v14 owner:v8 timeout:connection connection:&v22 error:v11];
-    v18 = v22;
+    v21 = v15;
+    v17 = [serviceManager acquireLockWithBackupUDID:v7 account:v14 owner:v8 timeout:connection connection:&v21 error:v11];
+    v18 = v21;
 
     v15 = v18;
   }
@@ -3708,10 +3664,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v15;
+      v24 = v15;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to acquire lock due to nil account: %{public}@", buf, 0xCu);
-      v21 = v15;
-      _MBLog();
+      _MBLog(@"E ", "Failed to acquire lock due to nil account: %{public}@", v15);
     }
 
     v17 = 0;
@@ -3738,16 +3693,16 @@ LABEL_9:
   v8 = [arguments objectAtIndexedSubscript:1];
   v9 = [MBServiceAccount alloc];
   v10 = +[UMUserPersona currentPersona];
-  v20 = 0;
-  v11 = [(MBServiceAccount *)v9 initWithPersona:v10 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [(MBServiceAccount *)v9 initWithPersona:v10 error:&v19];
+  v12 = v19;
 
   if (v11)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v19 = v12;
-    v14 = [serviceManager releaseLockWithBackupUDID:v7 account:v11 owner:v8 connection:connection error:&v19];
-    v15 = v19;
+    v18 = v12;
+    v14 = [serviceManager releaseLockWithBackupUDID:v7 account:v11 owner:v8 connection:connection error:&v18];
+    v15 = v18;
 
     v12 = v15;
   }
@@ -3758,10 +3713,9 @@ LABEL_9:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v12;
+      v21 = v12;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to release lock due to nil account: %{public}@", buf, 0xCu);
-      v18 = v12;
-      _MBLog();
+      _MBLog(@"E ", "Failed to release lock due to nil account: %{public}@", v12);
     }
 
     v14 = 0;
@@ -3785,9 +3739,9 @@ LABEL_9:
   connection = [infosCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v15];
+  v9 = v15;
 
   if (!v8)
   {
@@ -3795,10 +3749,9 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch device lock info due to nil account: %{public}@", buf, 0xCu);
-      v14 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch device lock info due to nil account: %{public}@", v9);
     }
 
     v12 = v9;
@@ -3806,15 +3759,15 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v15 = v9;
-  v11 = [serviceManager deviceLockInfosWithAccount:v8 connection:connection error:&v15];
-  v12 = v15;
+  v14 = v9;
+  v11 = [serviceManager deviceLockInfosWithAccount:v8 connection:connection error:&v14];
+  v12 = v14;
 
   if (!v11)
   {
     v9 = v12;
 LABEL_8:
-    v11 = [MBError sanitizedError:v9, v14];
+    v11 = [MBError sanitizedError:v9];
     [infosCopy setReplyError:v11];
     goto LABEL_9;
   }
@@ -3832,9 +3785,9 @@ LABEL_9:
   v6 = [arguments objectAtIndexedSubscript:0];
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v18 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v17];
+  v10 = v17;
 
   if (v9)
   {
@@ -3856,17 +3809,16 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to check for file existence due to nil account: %{public}@", buf, 0xCu);
-      v17 = v10;
-      _MBLog();
+      _MBLog(@"E ", "Failed to check for file existence due to nil account: %{public}@", v10);
     }
 
     v15 = [NSNumber numberWithBool:0];
     [existsCopy setReply:v15];
   }
 
-  v16 = [MBError sanitizedError:v10, v17];
+  v16 = [MBError sanitizedError:v10];
   [existsCopy setReplyError:v16];
 
 LABEL_8:
@@ -3898,7 +3850,7 @@ LABEL_8:
       *buf = 138543362;
       v20 = v10;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to check for data existence due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to check for data existence due to nil account: %{public}@", v10);
     }
 
     v12 = 0;
@@ -3922,16 +3874,16 @@ LABEL_8:
   v7 = [arguments objectAtIndexedSubscript:0];
   v8 = [MBServiceAccount alloc];
   v9 = +[UMUserPersona currentPersona];
-  v19 = 0;
-  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [(MBServiceAccount *)v8 initWithPersona:v9 error:&v18];
+  v11 = v18;
 
   if (v10)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v18 = v11;
-    v13 = [serviceManager removeDomainName:v7 account:v10 connection:connection error:&v18];
-    v14 = v18;
+    v17 = v11;
+    v13 = [serviceManager removeDomainName:v7 account:v10 connection:connection error:&v17];
+    v14 = v17;
 
     v11 = v14;
   }
@@ -3942,10 +3894,9 @@ LABEL_8:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to remove domain due to nil account: %{public}@", buf, 0xCu);
-      v17 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Failed to remove domain due to nil account: %{public}@", v11);
     }
 
     v13 = 0;
@@ -3970,9 +3921,9 @@ LABEL_8:
   v5 = [arguments objectAtIndexedSubscript:0];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v17 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
+  v9 = v16;
 
   if (!v8)
   {
@@ -3980,10 +3931,9 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch domain info due to nil account: %{public}@", buf, 0xCu);
-      v15 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch domain info due to nil account: %{public}@", v9);
     }
 
     [infoCopy setReply:0];
@@ -3992,16 +3942,16 @@ LABEL_8:
   }
 
   connection = [infoCopy connection];
-  v16 = v9;
-  v11 = MBCalculateQuotaForDomain(v5, v8, connection, &v16);
-  v12 = v16;
+  v15 = v9;
+  v11 = MBCalculateQuotaForDomain(v5, v8, connection, &v15);
+  v12 = v15;
 
   [infoCopy setReply:v11];
   v9 = v12;
   if (!v11)
   {
 LABEL_7:
-    v14 = [MBError sanitizedError:v9, v15];
+    v14 = [MBError sanitizedError:v9];
     [infoCopy setReplyError:v14];
 
     v11 = 0;
@@ -4015,9 +3965,9 @@ LABEL_7:
   listCopy = list;
   v4 = [MBServiceAccount alloc];
   v5 = +[UMUserPersona currentPersona];
-  v15 = 0;
-  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [(MBServiceAccount *)v4 initWithPersona:v5 error:&v14];
+  v7 = v14;
 
   if (!v6)
   {
@@ -4025,10 +3975,9 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch domain infos list due to nil account: %{public}@", buf, 0xCu);
-      v13 = v7;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch domain infos list due to nil account: %{public}@", v7);
     }
 
     [listCopy setReply:0];
@@ -4037,16 +3986,16 @@ LABEL_7:
   }
 
   connection = [listCopy connection];
-  v14 = v7;
-  v9 = MBCalculateQuotaForDomainsInCurrentDevice(v6, connection, &v14);
-  v10 = v14;
+  v13 = v7;
+  v9 = MBCalculateQuotaForDomainsInCurrentDevice(v6, connection, &v13);
+  v10 = v13;
 
   [listCopy setReply:v9];
   v7 = v10;
   if (!v9)
   {
 LABEL_7:
-    v12 = [MBError sanitizedError:v7, v13];
+    v12 = [MBError sanitizedError:v7];
     [listCopy setReplyError:v12];
 
     v9 = 0;
@@ -4078,7 +4027,7 @@ LABEL_7:
       *buf = 138543362;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to set domain enabled/disabled due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set domain enabled/disabled due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -4113,7 +4062,7 @@ LABEL_7:
       *buf = 138543362;
       v16 = v10;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to set domain enabled/disabled due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set domain enabled/disabled due to nil account: %{public}@", v10);
     }
 
     v12 = 0;
@@ -4153,7 +4102,7 @@ LABEL_7:
       *buf = 138543362;
       v16 = v12;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to set domain enabled/disabled due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set domain enabled/disabled due to nil account: %{public}@", v12);
     }
   }
 
@@ -4196,9 +4145,9 @@ LABEL_7:
 
   v10 = [MBServiceAccount alloc];
   v11 = +[UMUserPersona currentPersona];
-  v20 = 0;
-  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v19];
+  v13 = v19;
 
   if (!v12)
   {
@@ -4206,10 +4155,9 @@ LABEL_7:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to fetch Buddy data due to nil account: %{public}@", buf, 0xCu);
-      v18 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch Buddy data due to nil account: %{public}@", v13);
     }
 
     v16 = v13;
@@ -4217,15 +4165,15 @@ LABEL_7:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v19 = v13;
-  v15 = [serviceManager getBuddyDataStashForBackupUDID:v7 snapshotID:unsignedIntegerValue account:v12 connection:connection error:&v19];
-  v16 = v19;
+  v18 = v13;
+  v15 = [serviceManager getBuddyDataStashForBackupUDID:v7 snapshotID:unsignedIntegerValue account:v12 connection:connection error:&v18];
+  v16 = v18;
 
   if (!v15)
   {
     v13 = v16;
 LABEL_8:
-    v15 = [MBError sanitizedError:v13, v18];
+    v15 = [MBError sanitizedError:v13];
     [dataCopy setReplyError:v15];
     goto LABEL_9;
   }
@@ -4247,9 +4195,9 @@ LABEL_9:
 
   v10 = [MBServiceAccount alloc];
   v11 = +[UMUserPersona currentPersona];
-  v25 = 0;
-  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v25];
-  v13 = v25;
+  v24 = 0;
+  v12 = [(MBServiceAccount *)v10 initWithPersona:v11 error:&v24];
+  v13 = v24;
 
   if (!v12)
   {
@@ -4257,10 +4205,9 @@ LABEL_9:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v13;
+      v26 = v13;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to fetch the apple IDs map due to nil account: %{public}@", buf, 0xCu);
-      v22 = v13;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the apple IDs map due to nil account: %{public}@", v13);
     }
 
     v16 = 0;
@@ -4269,17 +4216,17 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v23 = v13;
-  v24 = 0;
-  v15 = [serviceManager getAppleIDsMapForBackupUDID:v7 account:v12 snapshotID:unsignedIntegerValue activeAppleID:&v24 connection:connection error:&v23];
-  v16 = v24;
-  v17 = v23;
+  v22 = v13;
+  v23 = 0;
+  v15 = [serviceManager getAppleIDsMapForBackupUDID:v7 account:v12 snapshotID:unsignedIntegerValue activeAppleID:&v23 connection:connection error:&v22];
+  v16 = v23;
+  v17 = v22;
 
   if (!v15)
   {
     v13 = v17;
 LABEL_9:
-    v15 = [MBError sanitizedError:v13, v22];
+    v15 = [MBError sanitizedError:v13];
     [mapCopy setReplyError:v15];
     goto LABEL_12;
   }
@@ -4308,16 +4255,16 @@ LABEL_12:
   accountCopy = account;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v15 = v8;
-    v10 = [serviceManager deleteAccountWithServiceAccount:v7 error:&v15];
-    v11 = v15;
+    v14 = v8;
+    v10 = [serviceManager deleteAccountWithServiceAccount:v7 error:&v14];
+    v11 = v14;
 
     v8 = v11;
   }
@@ -4328,10 +4275,9 @@ LABEL_12:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to delete account due to nil account: %{public}@", buf, 0xCu);
-      v14 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to delete account due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -4398,7 +4344,7 @@ LABEL_12:
   connection = [logsCopy connection];
   xpcConnection = [connection xpcConnection];
   *__argv = 0u;
-  v26 = 0u;
+  v25 = 0u;
   xpc_connection_get_audit_token();
   memset(&token, 0, sizeof(token));
   v7 = SecTaskCreateWithAuditToken(0, &token);
@@ -4436,8 +4382,7 @@ LABEL_13:
         token.val[0] = 138412290;
         *&token.val[1] = error;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Unable to get identifier for client task. Error: %@", &token, 0xCu);
-        v23 = error;
-        _MBLog();
+        _MBLog(@"E ", "Unable to get identifier for client task. Error: %@", error);
       }
 
       v12 = error;
@@ -4452,7 +4397,7 @@ LABEL_13:
   {
     LOWORD(token.val[0]) = 0;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unable to create security task from audit token.", &token, 2u);
-    _MBLog();
+    _MBLog(@"E ", "Unable to create security task from audit token.");
   }
 
   v10 = 0;
@@ -4472,10 +4417,10 @@ LABEL_15:
         token.val[0] = 0;
         __argv[0] = "backupctl";
         __argv[1] = "diagnose";
-        *&v26 = "--skipsysdiag";
-        *(&v26 + 1) = "-f";
-        v27 = v21;
-        v28 = 0;
+        *&v25 = "--skipsysdiag";
+        *(&v25 + 1) = "-f";
+        v26 = v21;
+        v27 = 0;
         LODWORD(v20) = posix_spawn(&token, "/usr/local/bin/backupctl", 0, 0, __argv, 0);
         free(v21);
         if (!v20)
@@ -4508,7 +4453,7 @@ LABEL_15:
     v17 = &off_1003E0E40;
   }
 
-  [logsCopy setReply:{v17, v23}];
+  [logsCopy setReply:v17];
 LABEL_26:
   [logsCopy sendReply];
 }
@@ -4539,16 +4484,16 @@ LABEL_26:
   scanCopy = scan;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v15 = v8;
-    v10 = [serviceManager startScanWithAccount:v7 error:&v15];
-    v11 = v15;
+    v14 = v8;
+    v10 = [serviceManager startScanWithAccount:v7 error:&v14];
+    v11 = v14;
 
     v8 = v11;
   }
@@ -4559,10 +4504,9 @@ LABEL_26:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to start scan due to nil account: %{public}@", buf, 0xCu);
-      v14 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to start scan due to nil account: %{public}@", v8);
     }
 
     v10 = 0;
@@ -4587,9 +4531,9 @@ LABEL_26:
   firstObject = [arguments firstObject];
   v7 = [MBServiceAccount alloc];
   v8 = +[UMUserPersona currentPersona];
-  v22 = 0;
-  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v22];
-  v10 = v22;
+  v21 = 0;
+  v9 = [(MBServiceAccount *)v7 initWithPersona:v8 error:&v21];
+  v10 = v21;
 
   if (v9)
   {
@@ -4600,17 +4544,16 @@ LABEL_26:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to find a service account: %{public}@", buf, 0xCu);
-    v19 = v10;
-    _MBLog();
+    _MBLog(@"E ", "Failed to find a service account: %{public}@", v10);
   }
 
   if ([MBError isError:v10 withCode:210])
   {
-    v21 = v10;
-    v15 = [MBPersona personalPersonaWithError:&v21];
-    v16 = v21;
+    v20 = v10;
+    v15 = [MBPersona personalPersonaWithError:&v20];
+    v16 = v20;
 
     if (v15)
     {
@@ -4621,9 +4564,9 @@ LABEL_26:
         v10 = v16;
 LABEL_2:
         serviceManager = [(MBXPCServer *)self serviceManager];
-        v20 = v10;
-        v12 = [serviceManager startScanForBundleIDs:firstObject account:v9 error:&v20];
-        v13 = v20;
+        v19 = v10;
+        v12 = [serviceManager startScanForBundleIDs:firstObject account:v9 error:&v19];
+        v13 = v19;
 
         v10 = v13;
         goto LABEL_13;
@@ -4637,10 +4580,9 @@ LABEL_2:
   if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&_mh_execute_header, &v9->super, OS_LOG_TYPE_ERROR, "Failed to start scan for bundle IDs due to nil account: %{public}@", buf, 0xCu);
-    v19 = v10;
-    _MBLog();
+    _MBLog(@"E ", "Failed to start scan for bundle IDs due to nil account: %{public}@", v10);
   }
 
   v12 = 0;
@@ -4805,16 +4747,16 @@ LABEL_13:
   connection = [quotaCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v17 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
+  v9 = v16;
 
   if (v8)
   {
     serviceManager = [(MBXPCServer *)self serviceManager];
-    v16 = v9;
-    v11 = [serviceManager discountCameraRollQuotaWithAccount:v8 connection:connection error:&v16];
-    v12 = v16;
+    v15 = v9;
+    v11 = [serviceManager discountCameraRollQuotaWithAccount:v8 connection:connection error:&v15];
+    v12 = v15;
 
     v9 = v12;
   }
@@ -4825,10 +4767,9 @@ LABEL_13:
     if (os_log_type_enabled(serviceManager, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&_mh_execute_header, serviceManager, OS_LOG_TYPE_ERROR, "Failed to discount camera roll quota due to nil account: %{public}@", buf, 0xCu);
-      v15 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to discount camera roll quota due to nil account: %{public}@", v9);
     }
 
     v11 = 0;
@@ -4852,9 +4793,9 @@ LABEL_13:
   connection = [listCopy connection];
   v6 = [MBServiceAccount alloc];
   v7 = +[UMUserPersona currentPersona];
-  v16 = 0;
-  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(MBServiceAccount *)v6 initWithPersona:v7 error:&v15];
+  v9 = v15;
 
   if (!v8)
   {
@@ -4862,10 +4803,9 @@ LABEL_13:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to fetch the reserved backup size info due to nil account: %{public}@", buf, 0xCu);
-      v14 = v9;
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the reserved backup size info due to nil account: %{public}@", v9);
     }
 
     v12 = v9;
@@ -4873,15 +4813,15 @@ LABEL_13:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v15 = v9;
-  v11 = [serviceManager reservedBackupSizeListWithAccount:v8 connection:connection error:&v15];
-  v12 = v15;
+  v14 = v9;
+  v11 = [serviceManager reservedBackupSizeListWithAccount:v8 connection:connection error:&v14];
+  v12 = v14;
 
   if (!v11)
   {
     v9 = v12;
 LABEL_8:
-    v11 = [MBError sanitizedError:v9, v14];
+    v11 = [MBError sanitizedError:v9];
     [listCopy setReplyError:v11];
     goto LABEL_9;
   }
@@ -4897,9 +4837,9 @@ LABEL_9:
   deviceCopy = device;
   v5 = [MBServiceAccount alloc];
   v6 = +[UMUserPersona currentPersona];
-  v15 = 0;
-  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [(MBServiceAccount *)v5 initWithPersona:v6 error:&v14];
+  v8 = v14;
 
   if (!v7)
   {
@@ -4907,10 +4847,9 @@ LABEL_9:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to get the pending snapshot due to nil account: %{public}@", buf, 0xCu);
-      v13 = v8;
-      _MBLog();
+      _MBLog(@"E ", "Failed to get the pending snapshot due to nil account: %{public}@", v8);
     }
 
     v11 = v8;
@@ -4918,15 +4857,15 @@ LABEL_9:
   }
 
   serviceManager = [(MBXPCServer *)self serviceManager];
-  v14 = v8;
-  v10 = [serviceManager pendingSnapshotForCurrentDeviceAndAccount:v7 error:&v14];
-  v11 = v14;
+  v13 = v8;
+  v10 = [serviceManager pendingSnapshotForCurrentDeviceAndAccount:v7 error:&v13];
+  v11 = v13;
 
   if (!v10)
   {
     v8 = v11;
 LABEL_8:
-    v10 = [MBError sanitizedError:v8, v13];
+    v10 = [MBError sanitizedError:v8];
     [deviceCopy setReplyError:v10];
     goto LABEL_9;
   }
@@ -5291,9 +5230,9 @@ LABEL_9:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = @"kMBMessageDidFinishDeviceTransfer";
+    v22 = @"kMBMessageDidFinishDeviceTransfer";
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Sending %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Sending %{public}@", @"kMBMessageDidFinishDeviceTransfer");
   }
 
   v9 = [MBMessage messageWithName:@"kMBMessageDidFinishDeviceTransfer" arguments:0];
@@ -5303,13 +5242,13 @@ LABEL_9:
     [(__CFString *)v9 setError:v10];
   }
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1001617B4;
-  v16[3] = &unk_1003BC0B0;
+  v16 = _NSConcreteStackBlock;
+  v17 = 3221225472;
+  v18 = sub_1001617B4;
+  v19 = &unk_1003BC0B0;
   v11 = dispatch_semaphore_create(0);
-  v17 = v11;
-  [connectionCopy sendMessage:v9 barrierBlock:v16];
+  v20 = v11;
+  [connectionCopy sendMessage:v9 barrierBlock:&v16];
   v12 = dispatch_time(0, 600000000000);
   v13 = dispatch_semaphore_wait(v11, v12);
   v14 = MBGetDefaultLog();
@@ -5319,19 +5258,18 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v9;
+      v22 = v9;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Timed out sending XPC message: %@", buf, 0xCu);
-LABEL_11:
-      _MBLog();
+      _MBLog(@"E ", "Timed out sending XPC message: %@", v9, v16, v17, v18, v19);
     }
   }
 
   else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = @"kMBMessageDidFinishDeviceTransfer";
+    v22 = @"kMBMessageDidFinishDeviceTransfer";
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Sent %{public}@", buf, 0xCu);
-    goto LABEL_11;
+    _MBLog(@"Df", "Sent %{public}@", @"kMBMessageDidFinishDeviceTransfer", v16, v17, v18, v19);
   }
 }
 
@@ -5368,17 +5306,17 @@ LABEL_11:
   {
     [v7 progress];
     *buf = 134217984;
-    v14 = v9;
+    v15 = v9;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "p:%.2f", buf, 0xCu);
     [v7 progress];
-    _MBLog();
+    _MBLog(@"Df", "p:%.2f", v10);
   }
 
-  v12 = v7;
-  v10 = [NSArray arrayWithObjects:&v12 count:1];
-  v11 = [MBMessage messageWithName:@"kMBMessageDidUpdateDeviceTransferProgress" arguments:v10];
+  v13 = v7;
+  v11 = [NSArray arrayWithObjects:&v13 count:1];
+  v12 = [MBMessage messageWithName:@"kMBMessageDidUpdateDeviceTransferProgress" arguments:v11];
 
-  [connectionCopy sendMessage:v11];
+  [connectionCopy sendMessage:v12];
 }
 
 - (void)connection:(id)connection didUpdateDeviceTransferConnectionInfo:(id)info
@@ -5561,7 +5499,7 @@ LABEL_11:
     *buf = 138543362;
     v8 = userPersonaUniqueString;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "personalPersonaIdentifier: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "personalPersonaIdentifier: %{public}@", userPersonaUniqueString);
   }
 
   [identifierCopy setReply:userPersonaUniqueString];
@@ -5607,7 +5545,7 @@ LABEL_11:
       *buf = 138543362;
       v21 = v13;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to post the follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to post the follow up due to nil account: %{public}@", v13);
     }
 
     v18 = [NSNumber numberWithBool:0];
@@ -5646,7 +5584,7 @@ LABEL_11:
       *buf = 138543362;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to post the follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to post the follow up due to nil account: %{public}@", v7);
     }
 
     v12 = [NSNumber numberWithBool:0];
@@ -5689,7 +5627,7 @@ LABEL_11:
       *buf = 138543362;
       v15 = v8;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_ERROR, "Failed to post the follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to post the follow up due to nil account: %{public}@", v8);
     }
   }
 
@@ -5726,7 +5664,7 @@ LABEL_11:
       *buf = 138543362;
       v16 = v7;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to post the follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to post the follow up due to nil account: %{public}@", v7);
     }
   }
 
@@ -5762,7 +5700,7 @@ LABEL_11:
       *buf = 138543362;
       v15 = v8;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_ERROR, "Failed to post the follow up due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to post the follow up due to nil account: %{public}@", v8);
     }
   }
 
@@ -5798,7 +5736,7 @@ LABEL_11:
       *buf = 138543362;
       v14 = v7;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to clear the follow ups due to nil account: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to clear the follow ups due to nil account: %{public}@", v7);
     }
 
     v11 = [NSNumber numberWithBool:0];
@@ -5868,7 +5806,7 @@ LABEL_11:
         *buf = 138412290;
         v18 = v9;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Cannot %@ without AppleInternal", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"F ", "Cannot %@ without AppleInternal", v9);
       }
 
       [MBError errorWithCode:305 format:@"%@ is AppleInternal only", v9];
@@ -5884,7 +5822,7 @@ LABEL_11:
       *buf = 138412290;
       v18 = v9;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "Attempting %@ without backupctl entitlement", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"F ", "Attempting %@ without backupctl entitlement", v9);
     }
 
     v13 = 0;

@@ -114,11 +114,12 @@ LABEL_11:
   if (v19)
   {
     v21 = RCJSONIntegerValue(v19, @"user_segmentation_foreground_refresh_rate", v6);
-    v18 = RCJSONIntegerValue(v20, @"user_segmentation_refresh_rate", v21);
-    v6 = v18;
+    v19 = RCJSONIntegerValue(v20, @"user_segmentation_refresh_rate", v21);
+    v18 = v19;
+    v6 = v19;
   }
 
-  v22 = RCSharedLog();
+  v22 = RCSharedLog(v19);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
@@ -132,8 +133,8 @@ LABEL_11:
     _os_log_impl(&dword_2179FC000, v22, OS_LOG_TYPE_DEFAULT, "creating user segmentation config with foreground refresh rate: %lu background refresh rate: %lu modMax: %lu modThreshold: %lu", buf, 0x2Au);
   }
 
-  v23 = RCSharedLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = RCSharedLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     v35 = v29;
@@ -141,13 +142,12 @@ LABEL_11:
     v37 = v8;
     v38 = 2112;
     v39 = v14;
-    _os_log_impl(&dword_2179FC000, v23, OS_LOG_TYPE_DEFAULT, "creating user segmentation config with endpointURL: %@ widgetEndpointURL: %@ todayEndpointURL: %@", buf, 0x20u);
+    _os_log_impl(&dword_2179FC000, v24, OS_LOG_TYPE_DEFAULT, "creating user segmentation config with endpointURL: %@ widgetEndpointURL: %@ todayEndpointURL: %@", buf, 0x20u);
   }
 
-  v24 = [[RCUserSegmentationConfiguration alloc] initWithForegroundRefreshRate:v6 backgroundRefreshRate:v18 modThreshold:v17 modMax:v28 endpointURLString:v29 widgetEndpointURLString:v8 todayEndpointURLString:v14];
-  v25 = *MEMORY[0x277D85DE8];
+  v25 = [[RCUserSegmentationConfiguration alloc] initWithForegroundRefreshRate:v6 backgroundRefreshRate:v18 modThreshold:v17 modMax:v28 endpointURLString:v29 widgetEndpointURLString:v8 todayEndpointURLString:v14];
 
-  return v24;
+  return v25;
 }
 
 - (RCUserSegmentationConfiguration)initWithForegroundRefreshRate:(unint64_t)rate backgroundRefreshRate:(unint64_t)refreshRate modThreshold:(unint64_t)threshold modMax:(unint64_t)max endpointURLString:(id)string widgetEndpointURLString:(id)lString todayEndpointURLString:(id)rLString

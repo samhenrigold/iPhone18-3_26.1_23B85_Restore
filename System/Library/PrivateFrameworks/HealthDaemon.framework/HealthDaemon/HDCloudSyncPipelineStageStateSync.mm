@@ -7,36 +7,36 @@
 - (void)main
 {
   selfCopy = self;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     profile = [(HDCloudSyncOperation *)selfCopy profile];
     daemon = [profile daemon];
     cloudSyncCoordinator = [daemon cloudSyncCoordinator];
     stateSyncEntityClasses = [cloudSyncCoordinator stateSyncEntityClasses];
 
     obj = stateSyncEntityClasses;
-    v8 = [stateSyncEntityClasses countByEnumeratingWithState:&v55 objects:buf count:16];
+    v8 = [stateSyncEntityClasses countByEnumeratingWithState:&v54 objects:buf count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v56;
+      v10 = *v55;
       v11 = &selRef_remote_saveDataObjects_skipInsertionFilter_transactionIdentifier_final_handler_;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v56 != v10)
+          if (*v55 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v55 + 1) + 8 * i);
+          v13 = *(*(&v54 + 1) + 8 * i);
           if ([v13 conformsToProtocol:v11[326]])
           {
             v14 = MEMORY[0x277CBC5F8];
@@ -59,7 +59,7 @@
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v55 objects:buf count:16];
+        v9 = [obj countByEnumeratingWithState:&v54 objects:buf count:16];
       }
 
       while (v9);
@@ -112,18 +112,18 @@
       [(HDCloudSyncCompoundOperation *)v26 addOperation:v48 transitionHandler:0];
     }
 
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __41__HDCloudSyncPipelineStageStateSync_main__block_invoke;
-    v54[3] = &unk_278613088;
-    v54[4] = v30;
-    [(HDCloudSyncOperation *)v26 setOnError:v54];
     v53[0] = MEMORY[0x277D85DD0];
     v53[1] = 3221225472;
-    v53[2] = __41__HDCloudSyncPipelineStageStateSync_main__block_invoke_302;
-    v53[3] = &unk_278613060;
+    v53[2] = __41__HDCloudSyncPipelineStageStateSync_main__block_invoke;
+    v53[3] = &unk_278613088;
     v53[4] = v30;
-    [(HDCloudSyncOperation *)v26 setOnSuccess:v53];
+    [(HDCloudSyncOperation *)v26 setOnError:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __41__HDCloudSyncPipelineStageStateSync_main__block_invoke_302;
+    v52[3] = &unk_278613060;
+    v52[4] = v30;
+    [(HDCloudSyncOperation *)v26 setOnSuccess:v52];
     [(HDCloudSyncCompoundOperation *)v26 start];
 
     v3 = obja;
@@ -141,29 +141,25 @@
 
     [(HDCloudSyncOperation *)selfCopy finishWithSuccess:1 error:0];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HDCloudSyncPipelineStageStateSync_main__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v7;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform state sync push %{public}@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform state sync push %{public}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

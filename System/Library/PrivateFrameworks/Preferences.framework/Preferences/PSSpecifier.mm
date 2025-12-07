@@ -97,10 +97,11 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v5 = _PSLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _PSLoggingFacility(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(PSSpecifier *)name identifier];
     }
@@ -429,26 +430,27 @@ LABEL_9:
 
 - (void)performSetterWithValue:(id)value
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   valueCopy = value;
-  if ([(PSSpecifier *)self hasValidSetter])
+  hasValidSetter = [(PSSpecifier *)self hasValidSetter];
+  if (hasValidSetter)
   {
     WeakRetained = objc_loadWeakRetained(&self->target);
-    v6 = SFPerformSelector2();
+    v7 = SFPerformSelector2();
   }
 
   else
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(hasValidSetter);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_loadWeakRetained(&self->target);
+      v9 = objc_loadWeakRetained(&self->target);
       Name = sel_getName(self->setter);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 2080;
-      v13 = Name;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no setter, or does not respond to setter %s", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2080;
+      v14 = Name;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no setter, or does not respond to setter %s", &v11, 0x16u);
     }
   }
 }
@@ -472,36 +474,37 @@ LABEL_9:
 
 - (id)performGetter
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if ([(PSSpecifier *)self hasValidGetter])
+  v14 = *MEMORY[0x1E69E9840];
+  hasValidGetter = [(PSSpecifier *)self hasValidGetter];
+  if (hasValidGetter)
   {
     WeakRetained = objc_loadWeakRetained(&self->target);
-    v4 = SFPerformSelector();
+    v5 = SFPerformSelector();
   }
 
   else
   {
-    v5 = _PSLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _PSLoggingFacility(hasValidGetter);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_loadWeakRetained(&self->target);
+      v7 = objc_loadWeakRetained(&self->target);
       Name = sel_getName(self->getter);
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2080;
-      v12 = Name;
-      _os_log_impl(&dword_18B008000, v5, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no getter, or does not respond to getter %s", &v9, 0x16u);
+      v10 = 138412546;
+      v11 = v7;
+      v12 = 2080;
+      v13 = Name;
+      _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no getter, or does not respond to getter %s", &v10, 0x16u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)performLegacyAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->action)
@@ -511,8 +514,8 @@ LABEL_9:
 
     if (v6)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v7 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v8 = SFPerformSelector();
 
       return;
     }
@@ -522,33 +525,33 @@ LABEL_9:
   {
   }
 
-  v8 = _PSLoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _PSLoggingFacility(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = objc_loadWeakRetained(&self->target);
+    v10 = objc_loadWeakRetained(&self->target);
     Name = sel_getName(self->action);
     *buf = 138412546;
-    v13 = v9;
-    v14 = 2080;
-    v15 = Name;
-    _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no action, or does not respond to action %s", buf, 0x16u);
+    v14 = v10;
+    v15 = 2080;
+    v16 = Name;
+    _os_log_impl(&dword_18B008000, v9, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no action, or does not respond to action %s", buf, 0x16u);
   }
 }
 
 - (void)performControllerLoadAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->_controllerLoadAction)
   {
     v5 = objc_loadWeakRetained(&self->target);
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v10 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v11 = SFPerformSelector();
 
       return;
     }
@@ -558,10 +561,10 @@ LABEL_9:
   {
   }
 
-  v6 = _PSLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PSLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->target);
+    v8 = objc_loadWeakRetained(&self->target);
     if (self->_controllerLoadAction)
     {
       controllerLoadAction = self->_controllerLoadAction;
@@ -573,27 +576,27 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2080;
+    v14 = v8;
+    v15 = 2080;
     Name = sel_getName(controllerLoadAction);
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no controllerLoadAction, or does not respond to controllerLoadAction %s", buf, 0x16u);
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no controllerLoadAction, or does not respond to controllerLoadAction %s", buf, 0x16u);
   }
 }
 
 - (void)performButtonAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->_buttonAction)
   {
     v5 = objc_loadWeakRetained(&self->target);
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v10 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v11 = SFPerformSelector();
 
       return;
     }
@@ -603,10 +606,10 @@ LABEL_9:
   {
   }
 
-  v6 = _PSLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PSLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->target);
+    v8 = objc_loadWeakRetained(&self->target);
     if (self->_buttonAction)
     {
       buttonAction = self->_buttonAction;
@@ -618,27 +621,27 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2080;
+    v14 = v8;
+    v15 = 2080;
     Name = sel_getName(buttonAction);
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no buttonAction, or does not respond to buttonAction %s", buf, 0x16u);
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no buttonAction, or does not respond to buttonAction %s", buf, 0x16u);
   }
 }
 
 - (void)performConfirmationAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->_confirmationAction)
   {
     v5 = objc_loadWeakRetained(&self->target);
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v10 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v11 = SFPerformSelector();
 
       return;
     }
@@ -648,10 +651,10 @@ LABEL_9:
   {
   }
 
-  v6 = _PSLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PSLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->target);
+    v8 = objc_loadWeakRetained(&self->target);
     if (self->_confirmationAction)
     {
       confirmationAction = self->_confirmationAction;
@@ -663,27 +666,27 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2080;
+    v14 = v8;
+    v15 = 2080;
     Name = sel_getName(confirmationAction);
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationAction, or does not respond to confirmationAction %s", buf, 0x16u);
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationAction, or does not respond to confirmationAction %s", buf, 0x16u);
   }
 }
 
 - (void)performConfirmationAlternateAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->_confirmationAlternateAction)
   {
     v5 = objc_loadWeakRetained(&self->target);
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v10 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v11 = SFPerformSelector();
 
       return;
     }
@@ -693,10 +696,10 @@ LABEL_9:
   {
   }
 
-  v6 = _PSLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PSLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->target);
+    v8 = objc_loadWeakRetained(&self->target);
     if (self->_confirmationAlternateAction)
     {
       confirmationAlternateAction = self->_confirmationAlternateAction;
@@ -708,27 +711,27 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2080;
+    v14 = v8;
+    v15 = 2080;
     Name = sel_getName(confirmationAlternateAction);
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationAltAction, or does not respond to confirmationAlternateAction %s", buf, 0x16u);
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationAltAction, or does not respond to confirmationAlternateAction %s", buf, 0x16u);
   }
 }
 
 - (void)performConfirmationCancelAction
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->target);
   v4 = WeakRetained;
   if (WeakRetained && self->_confirmationCancelAction)
   {
     v5 = objc_loadWeakRetained(&self->target);
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v11 = objc_loadWeakRetained(&self->target);
-      v10 = SFPerformSelector();
+      v12 = objc_loadWeakRetained(&self->target);
+      v11 = SFPerformSelector();
 
       return;
     }
@@ -738,10 +741,10 @@ LABEL_9:
   {
   }
 
-  v6 = _PSLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _PSLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_loadWeakRetained(&self->target);
+    v8 = objc_loadWeakRetained(&self->target);
     if (self->_confirmationCancelAction)
     {
       confirmationCancelAction = self->_confirmationCancelAction;
@@ -753,10 +756,10 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2080;
+    v14 = v8;
+    v15 = 2080;
     Name = sel_getName(confirmationCancelAction);
-    _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationCancelAction, or does not respond to confirmationCancelAction %s", buf, 0x16u);
+    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "target %@ is nil, has no confirmationCancelAction, or does not respond to confirmationCancelAction %s", buf, 0x16u);
   }
 }
 
@@ -1354,7 +1357,7 @@ LABEL_13:
 {
   if (!__listControllerClass_0)
   {
-    v3 = PSPreferencesFrameworkBundle();
+    v3 = PSPreferencesFrameworkBundle(self);
     __listControllerClass_0 = [v3 classNamed:@"PSListController"];
   }
 

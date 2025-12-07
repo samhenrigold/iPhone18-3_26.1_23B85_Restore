@@ -119,7 +119,7 @@
 
 - (id)viewForProcess:(id)process
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   processCopy = process;
   selfCopy = self;
   if ([(NSMutableDictionary *)selfCopy->_processMemoryRegions count])
@@ -136,29 +136,29 @@
     v9 = objc_alloc_init(FPMemoryObject);
 
     v9->_ownerPid = selfCopy->_ownerPid;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          sub_297E33A08(v9, *(*(&v19 + 1) + 8 * i), 0);
+          sub_297E33A08(v9, *(*(&v18 + 1) + 8 * i), 0);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -196,40 +196,38 @@
 LABEL_19:
   v16 = selfCopy;
 
-  v17 = *MEMORY[0x29EDCA608];
-
   return v16;
 }
 
 - (BOOL)containsFakeRegion
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_memoryRegions;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isFake])
+        if ([*(*(&v7 + 1) + 8 * i) isFake])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -241,7 +239,6 @@ LABEL_19:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x29EDCA608];
   return v3;
 }
 

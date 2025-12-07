@@ -90,14 +90,12 @@
 
 - (void)prepareForArchiving
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [a2 localizedDescription];
-  v6 = 138543362;
-  v7 = localizedDescription;
-  _os_log_error_impl(&dword_25B19F000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to read attachment url to prepare for archiving: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = localizedDescription;
+  _os_log_error_impl(&dword_25B19F000, selfCopy, OS_LOG_TYPE_ERROR, "Unable to read attachment url to prepare for archiving: %{public}@", &v5, 0xCu);
 }
 
 @end

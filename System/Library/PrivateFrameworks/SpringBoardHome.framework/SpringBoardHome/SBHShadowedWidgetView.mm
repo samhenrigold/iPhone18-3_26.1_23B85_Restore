@@ -66,7 +66,7 @@
   v6.receiver = self;
   v6.super_class = SBHShadowedWidgetView;
   [(SBHShadowedWidgetView *)&v6 layoutSubviews];
-  [(SBHShadowedWidgetView *)self bounds];
+  objc_msgSend_bounds(self);
   UIRectGetCenter();
   [(UIView *)self->_contentView setCenter:?];
   contentView = self->_contentView;
@@ -190,7 +190,7 @@
 
 - (void)_layoutShadowView
 {
-  [(SBHShadowedWidgetView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;

@@ -15,6 +15,7 @@
 - (void)_layoutContinueButtonOcclusionMaterialViewIfNecessary;
 - (void)_layoutPackageViewIfNecessary;
 - (void)_layoutTitleLabelIfNecessary;
+- (void)_performNextAnimationForPackageViewAnimated:(BOOL)animated;
 - (void)_setContent:(id)content;
 - (void)_setTitle:(id)title;
 - (void)_toggleContinueButtonOcclusionMaterialViewVisibilityIsVisible:(BOOL)visible animated:(BOOL)animated;
@@ -26,9 +27,9 @@
 
 - (AMUIOnboardingView)initWithFrame:(CGRect)frame
 {
-  v10.receiver = self;
-  v10.super_class = AMUIOnboardingView;
-  v3 = [(AMUIOnboardingView *)&v10 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v11.receiver = self;
+  v11.super_class = AMUIOnboardingView;
+  v3 = [(AMUIOnboardingView *)&v11 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   v4 = v3;
   if (v3)
   {
@@ -36,9 +37,9 @@
     _onboardingTitle = [(AMUIOnboardingView *)v4 _onboardingTitle];
     [(AMUIOnboardingView *)v4 _setTitle:_onboardingTitle];
 
-    v6 = AMUIAmbientUIFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"ONBOARDING_DESCRIPTION" value:&stru_28518E9B8 table:0];
-    [(AMUIOnboardingView *)v4 _setContent:v7];
+    v7 = AMUIAmbientUIFrameworkBundle(v6);
+    v8 = [v7 localizedStringForKey:@"ONBOARDING_DESCRIPTION" value:&stru_28518E9B8 table:0];
+    [(AMUIOnboardingView *)v4 _setContent:v8];
 
     layer = [(AMUIOnboardingView *)v4 layer];
     [layer setAllowsGroupOpacity:1];
@@ -98,9 +99,9 @@
 - (id)_onboardingTitle
 {
   v2 = MEMORY[0x277CCACA8];
-  v3 = AMUIAmbientUIFrameworkBundle();
+  v3 = AMUIAmbientUIFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"ONBOARDING_TITLE" value:&stru_28518E9B8 table:0];
-  v5 = AMUIAmbientUIFrameworkBundle();
+  v5 = AMUIAmbientUIFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:@"FEATURE_NAME" value:&stru_28518E9B8 table:0];
   v7 = [v2 stringWithFormat:v4, v6];
 
@@ -190,7 +191,7 @@
 
 - (void)_configureContinueButtonIfNecessary
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (!self->_continueButton)
   {
     filledButtonConfiguration = [MEMORY[0x277D75230] filledButtonConfiguration];
@@ -198,11 +199,11 @@
     v5 = [preferredFontProvider preferredFontForTextStyle:*MEMORY[0x277D76918] hiFontStyle:4];
 
     v6 = objc_alloc(MEMORY[0x277CCA898]);
-    v7 = AMUIAmbientUIFrameworkBundle();
+    v7 = AMUIAmbientUIFrameworkBundle(v6);
     v8 = [v7 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_28518E9B8 table:0];
-    v20 = *MEMORY[0x277D740A8];
-    v21[0] = v5;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277D740A8];
+    v20[0] = v5;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v10 = [v6 initWithString:v8 attributes:v9];
 
     [filledButtonConfiguration setAttributedTitle:v10];
@@ -210,22 +211,20 @@
     objc_initWeak(&location, self);
     v11 = MEMORY[0x277D75220];
     v12 = MEMORY[0x277D750C8];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __57__AMUIOnboardingView__configureContinueButtonIfNecessary__block_invoke;
-    v17[3] = &unk_278C75D38;
-    objc_copyWeak(&v18, &location);
-    v13 = [v12 actionWithHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __57__AMUIOnboardingView__configureContinueButtonIfNecessary__block_invoke;
+    v16[3] = &unk_278C75D38;
+    objc_copyWeak(&v17, &location);
+    v13 = [v12 actionWithHandler:v16];
     v14 = [v11 buttonWithConfiguration:filledButtonConfiguration primaryAction:v13];
     continueButton = self->_continueButton;
     self->_continueButton = v14;
 
     [(AMUIOnboardingView *)self addSubview:self->_continueButton];
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __57__AMUIOnboardingView__configureContinueButtonIfNecessary__block_invoke(uint64_t a1)
@@ -491,24 +490,56 @@ void __57__AMUIOnboardingView__configureContinueButtonIfNecessary__block_invoke(
   }
 }
 
+- (void)_performNextAnimationForPackageViewAnimated:(BOOL)animated
+{
+  if (self->_packageView)
+  {
+    animatedCopy = animated;
+    v5 = [&unk_28519CD20 objectAtIndexedSubscript:self->_packageViewStateIndex];
+    [(BSUICAPackageView *)self->_packageView setState:v5 animated:animatedCopy transitionSpeed:0 completion:1.0];
+    objc_initWeak(&location, self);
+    if (animatedCopy)
+    {
+      v6 = 2200000000;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    v7 = dispatch_time(0, v6);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __66__AMUIOnboardingView__performNextAnimationForPackageViewAnimated___block_invoke;
+    v8[3] = &unk_278C75D88;
+    objc_copyWeak(&v9, &location);
+    dispatch_after(v7, MEMORY[0x277D85CD0], v8);
+    objc_destroyWeak(&v9);
+    objc_destroyWeak(&location);
+  }
+}
+
 uint64_t __66__AMUIOnboardingView__performNextAnimationForPackageViewAnimated___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WeakRetained[54] + 1;
-    WeakRetained[54] = v2;
-    v5 = WeakRetained;
-    v3 = [&unk_28519CD38 count];
-    if (v2 >= v3)
+    v3 = WeakRetained[54] + 1;
+    WeakRetained[54] = v3;
+    v6 = WeakRetained;
+    v4 = [&unk_28519CD38 count];
+    if (v3 >= v4)
     {
-      v5[54] = 0;
+      v6[54] = 0;
     }
 
-    [v5 _performNextAnimationForPackageViewAnimated:v2 < v3];
+    WeakRetained = [v6 _performNextAnimationForPackageViewAnimated:v3 < v4];
+    v2 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 - (void)_toggleContinueButtonOcclusionMaterialViewVisibilityIsVisible:(BOOL)visible animated:(BOOL)animated

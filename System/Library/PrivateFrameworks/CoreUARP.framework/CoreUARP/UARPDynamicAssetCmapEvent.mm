@@ -18,15 +18,15 @@
 
 - (UARPDynamicAssetCmapEvent)initWithSectionName:(id)name decoderId:(unsigned int)id inputDictionary:(id)dictionary
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
-  v34.receiver = self;
-  v34.super_class = UARPDynamicAssetCmapEvent;
-  v10 = [(UARPDynamicAssetCmapEvent *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = UARPDynamicAssetCmapEvent;
+  v10 = [(UARPDynamicAssetCmapEvent *)&v33 init];
   if (v10)
   {
-    v29 = nameCopy;
+    v28 = nameCopy;
     v11 = [nameCopy copy];
     sectionName = v10->_sectionName;
     v10->_sectionName = v11;
@@ -40,26 +40,26 @@
     input = v10->_input;
     v10->_input = v15;
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     allKeys = [dictionaryCopy allKeys];
-    v18 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v18 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -70,7 +70,7 @@
             }
 
             v25 = 0;
-            nameCopy = v29;
+            nameCopy = v28;
             goto LABEL_15;
           }
 
@@ -79,7 +79,7 @@
           [(NSMutableDictionary *)v23 setValue:v24 forKey:v22];
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v19)
         {
           continue;
@@ -89,13 +89,12 @@
       }
     }
 
-    nameCopy = v29;
+    nameCopy = v28;
   }
 
   v25 = v10;
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -170,11 +169,10 @@ LABEL_15:
 
 - (void)initWithSectionName:(os_log_t)log decoderId:inputDictionary:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[UARPDynamicAssetCmapEvent initWithSectionName:decoderId:inputDictionary:]";
-  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: Input Dictionary is not type String", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[UARPDynamicAssetCmapEvent initWithSectionName:decoderId:inputDictionary:]";
+  _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "%s: Input Dictionary is not type String", &v1, 0xCu);
 }
 
 @end

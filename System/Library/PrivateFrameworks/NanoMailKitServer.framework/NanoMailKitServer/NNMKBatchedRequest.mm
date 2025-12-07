@@ -22,13 +22,13 @@
 
 - (id)diffFromMessages:(id)messages maxMessagesToAdd:(unint64_t)add
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   latestFetchRequest = [(NNMKBatchedRequest *)self latestFetchRequest];
   currentMessageIdsAndStatus = [latestFetchRequest currentMessageIdsAndStatus];
   decompressedData = [currentMessageIdsAndStatus decompressedData];
 
-  v51 = decompressedData;
+  v50 = decompressedData;
   v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:decompressedData encoding:4];
   v11 = v10;
   v12 = &stru_286C69F68;
@@ -40,7 +40,7 @@
   v13 = v12;
 
   addCopy = add;
-  v50 = v13;
+  v49 = v13;
   if ([(__CFString *)v13 length])
   {
     [(__CFString *)v13 componentsSeparatedByString:@"\n"];
@@ -53,30 +53,30 @@
   v14 = ;
   v15 = MEMORY[0x277CBEB58];
   allKeys = [messagesCopy allKeys];
-  v54 = [v15 setWithArray:allKeys];
+  v53 = [v15 setWithArray:allKeys];
 
+  v51 = [MEMORY[0x277CBEB58] set];
   v52 = [MEMORY[0x277CBEB58] set];
-  v53 = [MEMORY[0x277CBEB58] set];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v17 = v14;
-  v18 = [v17 countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v58 objects:v63 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v60;
+    v20 = *v59;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v60 != v20)
+        if (*v59 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v59 + 1) + 8 * i);
+        v22 = *(*(&v58 + 1) + 8 * i);
         if ([v22 length])
         {
           v23 = [v22 componentsSeparatedByString:@"|"];
@@ -91,90 +91,88 @@
             v28 = [messagesCopy objectForKeyedSubscript:v26];
             if ([v28 status] != integerValue)
             {
-              [v52 addObject:v26];
+              [v51 addObject:v26];
             }
 
-            [v54 removeObject:v26];
+            [v53 removeObject:v26];
           }
 
           else
           {
-            [v53 addObject:v26];
+            [v52 addObject:v26];
           }
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v58 objects:v63 count:16];
     }
 
     while (v19);
   }
 
   v29 = objc_alloc_init(NNMKDiffMessageResult);
-  v30 = v54;
-  [(NNMKDiffMessageResult *)v29 setMessageIdsToAddToWatch:v54];
-  [(NNMKDiffMessageResult *)v29 setMessageIdsToUpdateOnWatch:v52];
-  [(NNMKDiffMessageResult *)v29 setMessageIdsToDeleteFromWatch:v53];
+  v30 = v53;
+  [(NNMKDiffMessageResult *)v29 setMessageIdsToAddToWatch:v53];
+  [(NNMKDiffMessageResult *)v29 setMessageIdsToUpdateOnWatch:v51];
+  [(NNMKDiffMessageResult *)v29 setMessageIdsToDeleteFromWatch:v52];
   messageIdsToAddToWatch = [(NNMKDiffMessageResult *)v29 messageIdsToAddToWatch];
   v32 = [messageIdsToAddToWatch count];
 
   if (v32 > addCopy)
   {
-    v48 = v29;
+    v47 = v29;
     array = [MEMORY[0x277CBEB18] array];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v34 = v54;
-    v35 = [v34 countByEnumeratingWithState:&v55 objects:v63 count:16];
+    v34 = v53;
+    v35 = [v34 countByEnumeratingWithState:&v54 objects:v62 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v56;
+      v37 = *v55;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v56 != v37)
+          if (*v55 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = [messagesCopy objectForKeyedSubscript:*(*(&v55 + 1) + 8 * j)];
+          v39 = [messagesCopy objectForKeyedSubscript:*(*(&v54 + 1) + 8 * j)];
           if (v39)
           {
             [array insertObject:v39 atIndex:{objc_msgSend(array, "indexOfObject:inSortedRange:options:usingComparator:", v39, 0, objc_msgSend(array, "count"), 1024, &__block_literal_global_4)}];
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v54 objects:v62 count:16];
       }
 
       while (v36);
     }
 
     v40 = [array subarrayWithRange:{0, addCopy}];
-    v29 = v48;
-    [(NNMKDiffMessageResult *)v48 setMessageToAddToWatch:v40];
+    v29 = v47;
+    [(NNMKDiffMessageResult *)v47 setMessageToAddToWatch:v40];
 
-    messageToAddToWatch = [(NNMKDiffMessageResult *)v48 messageToAddToWatch];
+    messageToAddToWatch = [(NNMKDiffMessageResult *)v47 messageToAddToWatch];
     v42 = [messageToAddToWatch nnmk_map:&__block_literal_global_15];
 
     v43 = [MEMORY[0x277CBEB58] setWithArray:v42];
-    [(NNMKDiffMessageResult *)v48 setMessageIdsToAddToWatch:v43];
+    [(NNMKDiffMessageResult *)v47 setMessageIdsToAddToWatch:v43];
 
-    messageIdsToUpdateOnWatch = [(NNMKDiffMessageResult *)v48 messageIdsToUpdateOnWatch];
+    messageIdsToUpdateOnWatch = [(NNMKDiffMessageResult *)v47 messageIdsToUpdateOnWatch];
     [messageIdsToUpdateOnWatch removeAllObjects];
 
-    messageIdsToDeleteFromWatch = [(NNMKDiffMessageResult *)v48 messageIdsToDeleteFromWatch];
+    messageIdsToDeleteFromWatch = [(NNMKDiffMessageResult *)v47 messageIdsToDeleteFromWatch];
     [messageIdsToDeleteFromWatch removeAllObjects];
 
-    [(NNMKDiffMessageResult *)v48 setTrimed:1];
-    v30 = v54;
+    [(NNMKDiffMessageResult *)v47 setTrimed:1];
+    v30 = v53;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

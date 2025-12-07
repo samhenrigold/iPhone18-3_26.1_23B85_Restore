@@ -23,109 +23,109 @@
 
 - (VCPHandPoseImageRequest)initWithOptions:(id)options
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(optionsCopy);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPHandPoseImageRequest_initWithOptions", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPHandPoseImageRequest_initWithOptions", "", buf, 2u);
   }
 
-  v33.receiver = self;
-  v33.super_class = VCPHandPoseImageRequest;
-  v8 = [(VCPRequest *)&v33 initWithOptions:optionsCopy];
-  v10 = v8;
-  v11 = &OBJC_IVAR___VCPMovieAssetWriter__livePhotoInfoQueue;
-  if (v8)
+  v34.receiver = self;
+  v34.super_class = VCPHandPoseImageRequest;
+  v9 = [(VCPRequest *)&v34 initWithOptions:optionsCopy];
+  v11 = v9;
+  v12 = &OBJC_IVAR___VCPMovieAssetWriter__livePhotoInfoQueue;
+  if (v9)
   {
-    width = v8->super._width;
-    if (width < 1 || (height = v8->super._height, height < 1))
+    width = v9->super._width;
+    if (width < 1 || (height = v9->super._height, height < 1))
     {
-      v31 = 0;
+      v32 = 0;
     }
 
     else
     {
-      *&v9 = width / height;
-      v31 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+      *&v10 = width / height;
+      v32 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
     }
 
-    maxNumHands = v10->super._maxNumHands;
+    maxNumHands = v11->super._maxNumHands;
     if (maxNumHands <= 0)
     {
       maxNumHands = 6;
     }
 
-    v10->super._maxNumHands = maxNumHands;
-    if (v10->super._enableHandPoseLite)
+    v11->super._maxNumHands = maxNumHands;
+    if (v11->super._enableHandPoseLite)
     {
-      v15 = @"hand_keypoint_detector_lite.espresso.net";
+      v16 = @"hand_keypoint_detector_lite.espresso.net";
     }
 
     else
     {
-      v15 = @"hand_keypoint_detector_acc_v2.espresso.net";
+      v16 = @"hand_keypoint_detector_acc_v2.espresso.net";
     }
 
-    v16 = v15;
+    v17 = v16;
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      revision = v10->super._revision;
-      enableHandDetection = v10->super._enableHandDetection;
+      revision = v11->super._revision;
+      enableHandDetection = v11->super._enableHandDetection;
       *buf = 67109634;
-      v35 = revision;
-      v36 = 1024;
-      v37 = enableHandDetection;
-      v38 = 2112;
-      v39 = v16;
+      v36 = revision;
+      v37 = 1024;
+      v38 = enableHandDetection;
+      v39 = 2112;
+      v40 = v17;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "VCPHandPoseImageRequest options: _revision = %d, enable detection = %d, model name = %@", buf, 0x18u);
     }
 
-    v19 = [VCPImageHandsAnalyzer alloc];
-    LODWORD(v30) = v10->super._revision;
-    HIDWORD(v28) = v10->super._width;
-    LODWORD(v29) = v10->super._height;
-    LOBYTE(v28) = v10->super._enableHandPoseLite;
-    v20 = [(VCPImageHandsAnalyzer *)v19 initWithKeypointsOption:v10->super._maxNumHands forceCPU:v10->super._useCPUOnly sharedModel:0 enableHandDetection:v10->super._enableHandDetection enableANSTHandDetection:v10->super._enableANSTHandDetection enableRejectHandsNearBoundaries:v10->super._enableRejectHandsNearBoundaries enableHandObject:v28 sourceWidth:v29 sourceHeight:v16 modelName:v30 revision:optionsCopy options:?];
-    analyzer = v10->_analyzer;
-    v10->_analyzer = v20;
+    v20 = [VCPImageHandsAnalyzer alloc];
+    LODWORD(v31) = v11->super._revision;
+    HIDWORD(v29) = v11->super._width;
+    LODWORD(v30) = v11->super._height;
+    LOBYTE(v29) = v11->super._enableHandPoseLite;
+    v21 = [(VCPImageHandsAnalyzer *)v20 initWithKeypointsOption:v11->super._maxNumHands forceCPU:v11->super._useCPUOnly sharedModel:0 enableHandDetection:v11->super._enableHandDetection enableANSTHandDetection:v11->super._enableANSTHandDetection enableRejectHandsNearBoundaries:v11->super._enableRejectHandsNearBoundaries enableHandObject:v29 sourceWidth:v30 sourceHeight:v17 modelName:v31 revision:optionsCopy options:?];
+    analyzer = v11->_analyzer;
+    v11->_analyzer = v21;
 
-    v22 = v10->_analyzer;
-    if (v22)
+    v23 = v11->_analyzer;
+    if (v23)
     {
-      [(VCPImageHandsAnalyzer *)v22 setOptimizeForDistance:v10->super._optimizeForDistance];
-      [(VCPImageHandsAnalyzer *)v10->_analyzer preferredInputFormat:&v10->_preferredWidth height:&v10->_preferredHeight format:&v10->_preferredFormat];
+      [(VCPImageHandsAnalyzer *)v23 setOptimizeForDistance:v11->super._optimizeForDistance];
+      [(VCPImageHandsAnalyzer *)v11->_analyzer preferredInputFormat:&v11->_preferredWidth height:&v11->_preferredHeight format:&v11->_preferredFormat];
     }
 
-    v11 = &OBJC_IVAR___VCPMovieAssetWriter__livePhotoInfoQueue;
+    v12 = &OBJC_IVAR___VCPMovieAssetWriter__livePhotoInfoQueue;
   }
 
-  v23 = VCPSignPostLog();
-  v24 = v23;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v24 = VCPSignPostLog(v9);
+  v25 = v24;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v5, "VCPHandPoseImageRequest_initWithOptions", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v5, "VCPHandPoseImageRequest_initWithOptions", "", buf, 2u);
   }
 
-  if (*(&v10->super.super.isa + v11[962]))
+  if (*(&v11->super.super.isa + v12[962]))
   {
-    v25 = v10;
+    v26 = v11;
   }
 
   else
   {
-    v25 = 0;
+    v26 = 0;
   }
 
-  v26 = v25;
+  v27 = v26;
 
-  return v26;
+  return v27;
 }
 
 - (int)parseResults:(id)results observations:(id)observations
@@ -291,34 +291,34 @@ LABEL_31:
 - (id)processImage:(__CVBuffer *)image withOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(optionsCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPHandPoseImageRequest_processImage", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPHandPoseImageRequest_processImage", "", buf, 2u);
   }
 
-  v12 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"handObjects"];
+  v13 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"handObjects"];
 
-  if (v12)
+  if (v13)
   {
-    v13 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"handObjects"];
+    v14 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"handObjects"];
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"rotationInDegrees"];
+  v15 = [(NSDictionary *)optionsCopy objectForKeyedSubscript:@"rotationInDegrees"];
 
-  if (v14)
+  if (v15)
   {
-    v14 = [MEMORY[0x1E696AD98] numberWithInt:getRotationInDegrees(optionsCopy)];
+    v15 = [MEMORY[0x1E696AD98] numberWithInt:getRotationInDegrees(optionsCopy)];
   }
 
   array = [MEMORY[0x1E695DF70] array];
@@ -326,59 +326,59 @@ LABEL_31:
   analyzer = self->_analyzer;
   if (!analyzer)
   {
-    v20 = 0;
-    v18 = -18;
+    v21 = 0;
+    v19 = -18;
 LABEL_18:
     if (error)
     {
-      [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v18 userInfo:0];
-      *error = v25 = 0;
+      [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v19 userInfo:0];
+      *error = v27 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
 
     goto LABEL_21;
   }
 
-  [(VCPImageHandsAnalyzer *)analyzer setHandObjects:v13];
-  v17 = self->_analyzer;
-  v29 = 0;
-  v18 = [(VCPImageHandsAnalyzer *)v17 analyzePixelBuffer:image rotationInDegrees:v14 flags:buf results:&v29 cancel:&__block_literal_global_84];
-  v19 = v29;
-  v20 = v19;
-  if (v18)
+  [(VCPImageHandsAnalyzer *)analyzer setHandObjects:v14];
+  v18 = self->_analyzer;
+  v31 = 0;
+  v19 = [(VCPImageHandsAnalyzer *)v18 analyzePixelBuffer:image rotationInDegrees:v15 flags:buf results:&v31 cancel:&__block_literal_global_84];
+  v20 = v31;
+  v21 = v20;
+  if (v19)
   {
     goto LABEL_18;
   }
 
-  v21 = [v19 objectForKeyedSubscript:@"HandsResults"];
+  v22 = [v20 objectForKeyedSubscript:@"HandsResults"];
 
-  if (v21)
+  if (v22)
   {
-    v22 = [v20 objectForKeyedSubscript:@"HandsResults"];
-    v18 = [(VCPHandPoseImageRequest *)self parseResults:v22 observations:array];
+    v24 = [v21 objectForKeyedSubscript:@"HandsResults"];
+    v19 = [(VCPHandPoseImageRequest *)self parseResults:v24 observations:array];
 
-    if (v18)
+    if (v19)
     {
       goto LABEL_18;
     }
   }
 
-  v23 = VCPSignPostLog();
-  v24 = v23;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v25 = VCPSignPostLog(v23);
+  v26 = v25;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    *v28 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v9, "VCPHandPoseImageRequest_processImage", "", v28, 2u);
+    *v30 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v9, "VCPHandPoseImageRequest_processImage", "", v30, 2u);
   }
 
-  v25 = array;
+  v27 = array;
 LABEL_21:
 
-  return v25;
+  return v27;
 }
 
 - (BOOL)updateWithOptions:(id)options error:(id *)error

@@ -14,8 +14,6 @@
 
 - (NSString)description
 {
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC15audioaccessoryd17BTUserTransaction_name);
-  v9 = *&self->name[OBJC_IVAR____TtC15audioaccessoryd17BTUserTransaction_name];
 
   selfCopy = self;
   sub_1000EE870(&qword_1002F94C0, qword_100227A98);

@@ -1,8 +1,8 @@
-void sub_22EB0B9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22EB0B9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -27,32 +27,32 @@ void sub_22EB0CDE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22EB0D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22EB0D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getACAccountStoreClass_block_invoke(uint64_t a1)
 {
-  v5[9] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v4[9] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!AppleAccountLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __AppleAccountLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v5[7] = 0;
-    v5[8] = 0;
-    v5[6] = "/System/Library/PrivateFrameworks/AppleAccount.framework/AppleAccount";
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __AppleAccountLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v4[7] = 0;
+    v4[8] = 0;
+    v4[6] = "/System/Library/PrivateFrameworks/AppleAccount.framework/AppleAccount";
     AppleAccountLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppleAccountLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -60,7 +60,7 @@ Class __getACAccountStoreClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -71,21 +71,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ACAccountStore");
   }
 
   getACAccountStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AppleAccountLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleAccountLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -96,17 +92,14 @@ void sub_22EB0EC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CloudServicesLibraryCore()
+uint64_t CloudServicesLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!CloudServicesLibraryCore_frameworkLibrary)
   {
     CloudServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = CloudServicesLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return CloudServicesLibraryCore_frameworkLibrary;
 }
 
 uint64_t getSecureBackupIsGuitarfishEnabledSymbolLoc()
@@ -131,37 +124,45 @@ uint64_t getSecureBackupIsGuitarfishEnabledSymbolLoc()
   return v0;
 }
 
-void sub_22EB0EDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EB0EDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t soft_SecureBackupIsGuitarfishEnabled()
+void soft_SecureBackupIsGuitarfishEnabled()
 {
   IsGuitarfishEnabledSymbolLoc = getSecureBackupIsGuitarfishEnabledSymbolLoc();
   if (IsGuitarfishEnabledSymbolLoc)
   {
 
-    return IsGuitarfishEnabledSymbolLoc();
+    IsGuitarfishEnabledSymbolLoc();
   }
 
   else
   {
-    dlerror();
-    v2 = abort_report_np();
-    return __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(v2);
+    v1 = dlerror();
+    v2 = abort_report_np("%s", v1);
+    __49__KCPairingChannel_acceptorThirdPacket_complete___block_invoke_293(v2, v3, v4);
   }
 }
 
 void *__getSecureBackupIsGuitarfishEnabledSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = CloudServicesLibraryCore();
+  v5 = 0;
+  v2 = CloudServicesLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "SecureBackupIsGuitarfishEnabled");
@@ -172,11 +173,8 @@ void *__getSecureBackupIsGuitarfishEnabledSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __CloudServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CloudServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -189,31 +187,33 @@ void sub_22EB0F870(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22EB10590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_22EB10590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
-  objc_destroyWeak((v58 + 88));
-  _Block_object_dispose(&a58, 8);
-  _Block_object_dispose((v59 - 176), 8);
-  _Block_object_dispose((v59 - 232), 8);
-  objc_destroyWeak((v59 - 200));
+  va_start(va, a57);
+  objc_destroyWeak((v57 + 88));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v58 - 176), 8);
+  _Block_object_dispose((v58 - 232), 8);
+  objc_destroyWeak((v58 - 200));
   _Unwind_Resume(a1);
 }
 
-void sub_22EB1198C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_22EB1198C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 64));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 64));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_22EB12D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v68 - 192), 8);
+  _Block_object_dispose((v65 - 192), 8);
   _Block_object_dispose(&a64, 8);
-  _Block_object_dispose(&a68, 8);
-  objc_destroyWeak((v68 - 232));
+  _Block_object_dispose(&a65, 8);
+  objc_destroyWeak((v65 - 232));
   _Unwind_Resume(a1);
 }
 
@@ -238,32 +238,35 @@ void sub_22EB16C58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22EB17DD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_22EB17DD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  objc_destroyWeak((v34 + 80));
+  va_start(va, a33);
+  objc_destroyWeak((v33 + 80));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v35 - 168), 8);
-  _Block_object_dispose((v35 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 168), 8);
+  _Block_object_dispose((v34 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22EB18E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22EB18E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  objc_destroyWeak((v26 + 72));
+  va_start(va, a25);
+  objc_destroyWeak((v25 + 72));
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v27 - 120), 8);
-  objc_destroyWeak((v27 - 88));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 120), 8);
+  objc_destroyWeak((v26 - 88));
   _Unwind_Resume(a1);
 }
 
-void sub_22EB196A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_22EB196A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  objc_destroyWeak((v31 + 64));
-  _Block_object_dispose(&a31, 8);
-  objc_destroyWeak((v32 - 136));
+  va_start(va, a30);
+  objc_destroyWeak((v30 + 64));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v31 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -526,11 +529,11 @@ uint64_t __Block_byref_object_copy__377(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22EB242B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22EB242B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -598,11 +601,11 @@ uint64_t sizeof_seq_string_data(void *a1, void *a2)
   return v4;
 }
 
-uint64_t encode_seq_string_data(void *a1, void *a2, void *a3, uint64_t a4)
+uint64_t encode_seq_string_data(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v7 = a1;
-  v8 = kcder_encode_data(a2);
-  kcder_encode_string(v7, a3, a4, v8);
+  v9 = a1;
+  v11 = kcder_encode_data(a2, v10, a4, a5);
+  kcder_encode_string(v9, a3, a4, v11);
 
   return ccder_encode_constructed_tl();
 }
@@ -629,26 +632,26 @@ uint64_t sizeof_seq_data_data(void *a1, void *a2)
   return v4;
 }
 
-uint64_t encode_seq_data_data(void *a1, void *a2)
+uint64_t encode_seq_data_data(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = a1;
-  kcder_encode_data(a2);
-  kcder_encode_data(v3);
+  v8 = a1;
+  v10 = kcder_encode_data(a2, v9, a4, a5);
+  kcder_encode_data(v8, v11, a4, v10);
 
   return ccder_encode_constructed_tl();
 }
 
 id extractStartFromInitialMessage(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = [v9 bytes];
   v11 = [v9 length];
 
   v12 = v10 + v11;
-  v33 = 0;
-  v13 = decode_initialmessage(&v33, a5, v10, v12);
-  v14 = v33;
+  v32 = 0;
+  v13 = decode_initialmessage(&v32, a5, v10, v12);
+  v14 = v32;
   v15 = v14;
   if (!v13)
   {
@@ -658,17 +661,17 @@ id extractStartFromInitialMessage(void *a1, void *a2, void *a3, void *a4, void *
 
   if (v13 != v12)
   {
-    v31 = 0;
-    v32 = 0;
     v30 = 0;
-    v16 = decode_version2(v14, &v31, &v30, &v32, a5, v13, v12);
-    v17 = v31;
-    v18 = v30;
+    v31 = 0;
+    v29 = 0;
+    v16 = decode_version2(v14, &v30, &v29, &v31, a5, v13, v12);
+    v17 = v30;
+    v18 = v29;
     v19 = v18;
     if (v16)
     {
-      v20 = v32;
-      switch(v32)
+      v20 = v31;
+      switch(v31)
       {
         case 0:
           *a2 = 0;
@@ -710,7 +713,7 @@ LABEL_14:
       }
 
       *buf = 134217984;
-      v35 = v32;
+      v34 = v31;
       v25 = "decoding piggybacking message failed for version (%llu)";
       v26 = v24;
       v27 = 12;
@@ -723,8 +726,6 @@ LABEL_14:
 LABEL_16:
   v23 = v15;
 LABEL_17:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -756,9 +757,9 @@ unint64_t decode_initialmessage(void *a1, void *a2, uint64_t a3, unint64_t a4)
   return 0;
 }
 
-unint64_t decode_version2(uint64_t a1, uint64_t a2, id *a3, void *a4, void *a5, uint64_t a6, unint64_t a7)
+unint64_t decode_version2(uint64_t a1, void *a2, id *a3, void *a4, void *a5, uint64_t a6, unint64_t a7)
 {
-  v11 = decode_version1(a1, a2, a4, a5, a6);
+  v11 = decode_version1(a1, a2, a4, a5, a6, a7);
   if (!v11)
   {
     v14 = secLogObjForScope("SecError");
@@ -824,7 +825,7 @@ LABEL_17:
   return v12;
 }
 
-uint64_t decode_version1(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t decode_version1(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   if (!a5)
   {
@@ -833,18 +834,18 @@ uint64_t decode_version1(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64
 
   if (ccder_decode_uint64())
   {
-    v14 = 0;
-    v12 = @"Bad version: %llu";
-    v13 = 8;
+    v15 = 0;
+    v13 = @"Bad version: %llu";
+    v14 = 8;
   }
 
   else
   {
-    v12 = @"Version mising";
-    v13 = 1;
+    v13 = @"Version mising";
+    v14 = 1;
   }
 
-  KCJoiningErrorCreate(v13, a4, v12, v6, v7, v8, v9, v10, v14);
+  KCJoiningErrorCreate(v14, a4, v13, v7, v8, v9, v10, v11, v15);
   return 0;
 }
 
@@ -869,9 +870,9 @@ uint64_t sizeof_initialmessage(void *a1)
   return v2;
 }
 
-uint64_t encode_initialmessage(void *a1)
+uint64_t encode_initialmessage(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  kcder_encode_data(a1);
+  kcder_encode_data(a1, a2, a3, a4);
   ccder_encode_uint64();
 
   return ccder_encode_constructed_tl();
@@ -934,27 +935,27 @@ LABEL_7:
   return v6;
 }
 
-uint64_t encode_initialmessage_version1(void *a1, void *a2)
+uint64_t encode_initialmessage_version1(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = a1;
-  kcder_encode_data(a2);
-  ccder_encode_uint64();
-  kcder_encode_data(v3);
+  v9 = a1;
+  kcder_encode_data(a2, v10, a5, a6);
+  v11 = ccder_encode_uint64();
+  kcder_encode_data(v9, v12, a5, v11);
 
   ccder_encode_uint64();
 
   return ccder_encode_constructed_tl();
 }
 
-uint64_t encode_initialmessage_version2(void *a1, void *a2, void *a3)
+uint64_t encode_initialmessage_version2(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5 = a2;
-  v6 = a1;
-  kcder_encode_data(a3);
-  kcder_encode_data(v5);
+  v10 = a2;
+  v11 = a1;
+  v13 = kcder_encode_data(a3, v12, a5, a6);
+  kcder_encode_data(v10, v14, a5, v13);
 
-  ccder_encode_uint64();
-  kcder_encode_data(v6);
+  v15 = ccder_encode_uint64();
+  kcder_encode_data(v11, v16, a5, v15);
 
   ccder_encode_uint64();
 
@@ -1206,7 +1207,7 @@ uint64_t kcder_encode_data_optional(void *a1, uint64_t a2, uint64_t a3, uint64_t
 {
   if (a1)
   {
-    return kcder_encode_data(a1);
+    return kcder_encode_data(a1, a2, a3, a4);
   }
 
   else
@@ -1215,12 +1216,12 @@ uint64_t kcder_encode_data_optional(void *a1, uint64_t a2, uint64_t a3, uint64_t
   }
 }
 
-uint64_t kcder_encode_data(void *a1)
+uint64_t kcder_encode_data(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = a1;
-  [v1 length];
-  [v1 length];
-  [v1 bytes];
+  v4 = a1;
+  [v4 length];
+  [v4 length];
+  [v4 bytes];
 
   ccder_encode_body();
 
@@ -1291,21 +1292,22 @@ uint64_t kcder_encode_string(void *a1, void *a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t kcder_encode_raw_octet_space(uint64_t a1, uint64_t *a2)
+uint64_t kcder_encode_raw_octet_space(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = ccder_encode_body_nocopy();
-  if (a2 && v3)
+  v5 = ccder_encode_body_nocopy();
+  if (a2 && v5)
   {
-    *a2 = v3;
+    *a2 = v5;
   }
 
   return ccder_encode_tl();
 }
 
-void sub_22EB2885C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_22EB2885C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 160), 8);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1316,16 +1318,17 @@ uint64_t __Block_byref_object_copy__915(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22EB2A61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22EB2A61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 176), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22EB2A940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EB2A940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1566,16 +1569,14 @@ LABEL_29:
 
 id UserInfoFromVA(void *a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = *MEMORY[0x277CCA450];
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277CCA450];
   v3 = MEMORY[0x277CCACA8];
   v4 = a1;
   v5 = [[v3 alloc] initWithFormat:v4 arguments:a2];
 
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }
@@ -1894,8 +1895,9 @@ void __CopyCurrentScopePlist_block_invoke_3(uint64_t a1, const void *a2, CFTypeR
   }
 }
 
-void ApplyScopeDictionaryForID(const __CFDictionary *a1, int a2)
+void ApplyScopeDictionaryForID(const __CFDictionary *a1, uint64_t a2)
 {
+  v2 = a2;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   context[0] = MEMORY[0x277D85DD0];
   context[1] = 0x40000000;
@@ -1905,7 +1907,7 @@ void ApplyScopeDictionaryForID(const __CFDictionary *a1, int a2)
   CFDictionaryApplyFunction(a1, apply_block_2, context);
   if (CFDictionaryGetCount(Mutable) >= 1)
   {
-    SetNthScopeSet(a2, Mutable);
+    SetNthScopeSet(v2, Mutable);
   }
 
   if (Mutable)
@@ -2270,7 +2272,7 @@ LABEL_9:
   }
 }
 
-void ApplyScopeByTypeForID(const __CFString *a1, int a2)
+void ApplyScopeByTypeForID(const __CFString *a1, uint64_t a2)
 {
   if (a1)
   {
@@ -2392,51 +2394,51 @@ const void *secLogObjForScope(const char *a1)
   return secLogObjForCFScope(0);
 }
 
-__CFString *SecLogAPICreate(int a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+__CFString *SecLogAPICreate(int a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v12 = *MEMORY[0x277CBECE8];
+  va_start(va, a8);
+  v23 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CBECE8];
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  v14 = Mutable;
+  v13 = Mutable;
   if (a1)
   {
-    v15 = "ENTER";
+    v14 = "ENTER";
   }
 
   else
   {
-    v15 = "RETURN";
+    v14 = "RETURN";
   }
 
   CFStringAppend(Mutable, @"SecAPITrace ");
-  CFStringAppendCString(v14, a2, 0x600u);
-  CFStringAppendCString(v14, v15, 0x600u);
+  CFStringAppendCString(v13, a2, 0x600u);
+  CFStringAppendCString(v13, v14, 0x600u);
   if (a3)
   {
-    v16 = CFStringCreateWithFormatAndArguments(v12, 0, a3, &a9);
-    CFStringAppend(v14, v16);
-    if (v16)
+    v15 = CFStringCreateWithFormatAndArguments(v11, 0, a3, va);
+    CFStringAppend(v13, v15);
+    if (v15)
     {
-      CFRelease(v16);
+      CFRelease(v15);
     }
   }
 
   if (a1)
   {
-    *&v17 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = v17;
-    v24 = v17;
-    v21 = v17;
-    v22 = v17;
-    *__str = v17;
+    *&v16 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v21 = v16;
+    v22 = v16;
+    v19 = v16;
+    v20 = v16;
+    *__str = v16;
     snprintf(__str, 0x50uLL, "C%p F%p", vars0[1], *vars0);
-    CFStringAppend(v14, @"CALLER ");
-    CFStringAppendCString(v14, __str, 0x600u);
+    CFStringAppend(v13, @"CALLER ");
+    CFStringAppendCString(v13, __str, 0x600u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t SecGetDebugDescriptionFormatOptions()
@@ -2461,7 +2463,6 @@ CFDictionaryRef __SecGetDebugDescriptionFormatOptions_block_invoke(uint64_t a1)
   keys[0] = kSecDebugFormatOption;
   result = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   **(a1 + 32) = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2517,7 +2518,7 @@ void CFStringSetPerformWithDescription(const __CFSet *a1, uint64_t a2)
     v8.length = CFArrayGetCount(Mutable);
     v8.location = 0;
     CFArraySortValues(Mutable, v8, compare, 0);
-    CFStringArrayPerformWithDelimiterWithDescription(Mutable, @"{("), CFSTR(")}", a2);
+    CFStringArrayPerformWithDelimiterWithDescription(Mutable, @"{("), @"}", a2);
     if (Mutable)
     {
 
@@ -2690,7 +2691,7 @@ void CFStringPerformWithUTF8CFData(const __CFString *a1, uint64_t a2)
   }
 }
 
-CFStringRef CFStringCreateByTrimmingCharactersInSet(const __CFString *a1, const __CFCharacterSet *a2)
+__CFString *CFStringCreateByTrimmingCharactersInSet(const __CFString *a1, const __CFCharacterSet *a2)
 {
   Length = CFStringGetLength(a1);
   theString = a1;
@@ -2868,7 +2869,7 @@ LABEL_13:
   return CFStringCreateWithSubstring(0, a1, v44);
 }
 
-CFStringRef CFDictionaryCopyCompactDescription(const __CFDictionary *a1)
+__CFString *CFDictionaryCopyCompactDescription(const __CFDictionary *a1)
 {
   if (a1)
   {
@@ -2942,7 +2943,7 @@ void __CFDictionaryCopyCompactDescription_block_invoke(uint64_t a1, uint64_t a2,
   }
 }
 
-CFStringRef CFDictionaryCopySuperCompactDescription(const __CFDictionary *a1)
+__CFString *CFDictionaryCopySuperCompactDescription(const __CFDictionary *a1)
 {
   if (a1)
   {
@@ -3171,7 +3172,7 @@ uint64_t __withShortDateFormatter_block_invoke(uint64_t a1)
   return v3(v1, ShortDateFormatter);
 }
 
-BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecKernError(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a2)
@@ -3184,7 +3185,7 @@ BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-uint64_t SecCFCreateErrorWithFormatAndArguments(CFIndex a1, const __CFString *a2, __CFError *cf, CFTypeRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
+uint64_t SecCFCreateErrorWithFormatAndArguments(CFIndex a1, const __CFString *a2, __CFError *cf, CFErrorRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -3325,27 +3326,35 @@ LABEL_41:
   return 0;
 }
 
-BOOL SecCheckErrno(int a1, CFTypeRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+BOOL SecCheckErrno(int a1, CFErrorRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a1)
   {
     if (a2)
     {
-      v12 = *__error();
-      v13 = *a2;
+      v11 = *__error();
+      v12 = *a2;
       *a2 = 0;
-      v14 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a3, &a9);
-      v15 = *MEMORY[0x277CBEE48];
-      strerror(v12);
-      SecCFCreateErrorWithFormat(v12, v15, v13, a2, 0, @"%@: [%d] %s", v16, v17, v14);
-      if (v14)
+      v13 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a3, va);
+      v14 = *MEMORY[0x277CBEE48];
+      v15 = strerror(v11);
+      SecCFCreateErrorWithFormat(v11, v14, v12, a2, 0, @"%@: [%d] %s", v16, v17, v13, v11, v15, va);
+      if (v13)
       {
-        CFRelease(v14);
+        CFRelease(v13);
       }
     }
   }
 
   return a1 == 0;
+}
+
+uint64_t SecCFCreateErrorWithFormat(CFIndex a1, const __CFString *a2, __CFError *a3, CFErrorRef *a4, const __CFDictionary *a5, const __CFString *a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  SecCFCreateErrorWithFormatAndArguments(a1, a2, a3, a4, a5, a6, va);
+  return 0;
 }
 
 BOOL SecError(int a1, __CFError **a2, CFStringRef format, ...)
@@ -3376,7 +3385,7 @@ BOOL SecError(int a1, __CFError **a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-uint64_t SecRequirementError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+uint64_t SecRequirementError(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a2 && (a1 & 1) == 0)
@@ -3389,7 +3398,7 @@ uint64_t SecRequirementError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...
   return a1;
 }
 
-BOOL SecAllocationError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecAllocationError(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (!a1 && a2)
@@ -3424,7 +3433,7 @@ dispatch_queue_t __GetKeybagAssertionQueue_block_invoke(uint64_t a1)
   return result;
 }
 
-BOOL SecAKSKeybagHoldLockAssertion(int a1, uint64_t a2, CFTypeRef *a3)
+BOOL SecAKSKeybagHoldLockAssertion(int a1, uint64_t a2, CFErrorRef *a3)
 {
   v11 = 0;
   v12 = &v11;
@@ -3447,20 +3456,18 @@ BOOL SecAKSKeybagHoldLockAssertion(int a1, uint64_t a2, CFTypeRef *a3)
 uint64_t __SecAKSKeybagHoldLockAssertion_block_invoke(uint64_t result)
 {
   v1 = result;
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (!count)
   {
     v2 = secLogObjForScope("lockassertions");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(v1 + 40);
-      v7 = 134217984;
-      v8 = v3;
-      _os_log_impl(&dword_22EB09000, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v7, 0xCu);
+      v4 = 134217984;
+      v5 = v3;
+      _os_log_impl(&dword_22EB09000, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v4, 0xCu);
     }
 
-    v4 = *(v1 + 48);
-    v5 = *(v1 + 40);
     result = aks_assert_hold();
     *(*(*(v1 + 32) + 8) + 24) = result;
   }
@@ -3470,11 +3477,10 @@ uint64_t __SecAKSKeybagHoldLockAssertion_block_invoke(uint64_t result)
     ++count;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-BOOL SecAKSKeybagDropLockAssertion(int a1, CFTypeRef *a2)
+BOOL SecAKSKeybagDropLockAssertion(int a1, CFErrorRef *a2)
 {
   v9 = 0;
   v10 = &v9;
@@ -3501,17 +3507,16 @@ uint64_t __SecAKSKeybagDropLockAssertion_block_invoke(uint64_t result)
     --count;
     if (v3 == 1)
     {
-      v8 = v1;
-      v9 = v2;
+      v7 = v1;
+      v8 = v2;
       v4 = result;
       v5 = secLogObjForScope("lockassertions");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_22EB09000, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v7, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_22EB09000, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v6, 2u);
       }
 
-      v6 = *(v4 + 40);
       result = aks_assert_drop();
       *(*(*(v4 + 32) + 8) + 24) = result;
     }
@@ -3520,7 +3525,7 @@ uint64_t __SecAKSKeybagDropLockAssertion_block_invoke(uint64_t result)
   return result;
 }
 
-BOOL SecAKSDoWithKeybagLockAssertion(int a1, CFTypeRef *a2, uint64_t a3)
+BOOL SecAKSDoWithKeybagLockAssertion(int a1, CFErrorRef *a2, uint64_t a3)
 {
   result = SecAKSKeybagHoldLockAssertion(a1, 60, a2);
   if (result)
@@ -3535,7 +3540,7 @@ BOOL SecAKSDoWithKeybagLockAssertion(int a1, CFTypeRef *a2, uint64_t a3)
 
 uint64_t SecAKSDoWithKeybagLockAssertionSoftly(int a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   cf = 0;
   if (SecAKSKeybagHoldLockAssertion(a1, 60, &cf))
   {
@@ -3555,9 +3560,9 @@ uint64_t SecAKSDoWithKeybagLockAssertionSoftly(int a1, uint64_t a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v11 = a1;
-      v12 = 2112;
-      v13 = cf;
+      v10 = a1;
+      v11 = 2112;
+      v12 = cf;
       _os_log_impl(&dword_22EB09000, v5, OS_LOG_TYPE_DEFAULT, "SecAKSDoWithKeybagLockAssertionSoftly: failed to get assertion for %d proceeding bravely: %@", buf, 0x12u);
     }
 
@@ -3571,67 +3576,69 @@ uint64_t SecAKSDoWithKeybagLockAssertionSoftly(int a1, uint64_t a2)
     (*(a2 + 16))(a2);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
-CFDataRef SecAKSCopyBackupBagWithSecret(unint64_t a1, int a2, CFTypeRef *a3)
+CFDataRef SecAKSCopyBackupBagWithSecret(unint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a1 >> 31;
   SecRequirementError(a1 >> 31 == 0, a3, @"Invalid size: %zu", a1);
-  if (!v4 && (bag = aks_create_bag(), SecKernError(bag, a3, @"bag allocation failed: %d", bag)) && (v6 = aks_save_bag(), SecKernError(v6, a3, @"save bag failed: %d", v6)))
+  if (v4)
   {
-    v7 = aks_unload_bag();
-    if (v7)
+    return 0;
+  }
+
+  bag = aks_create_bag();
+  if (!SecKernError(bag, a3, @"bag allocation failed: %d", bag))
+  {
+    return 0;
+  }
+
+  v6 = aks_save_bag();
+  if (!SecKernError(v6, a3, @"save bag failed: %d", v6))
+  {
+    return 0;
+  }
+
+  v7 = aks_unload_bag();
+  if (v7)
+  {
+    v8 = v7;
+    v9 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v7;
-      v9 = secLogObjForScope("SecError");
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 67109120;
-        v14 = v8;
-        _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "unload bag failed: %d", buf, 8u);
-      }
+      *buf = 67109120;
+      v13 = v8;
+      _os_log_impl(&dword_22EB09000, v9, OS_LOG_TYPE_DEFAULT, "unload bag failed: %d", buf, 8u);
     }
-
-    v10 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
-    SecAllocationError(v10, a3, @"Bag CFData Allocation Failed");
   }
 
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
+  SecAllocationError(v10, a3, @"Bag CFData Allocation Failed");
   return v10;
 }
 
 uint64_t SecAKSSanitizedKeyclass(uint64_t a1)
 {
   v1 = a1;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a1 < 32)
   {
-    v2 = a1;
+    return a1;
   }
 
-  else
+  v2 = a1 & 0x1F;
+  v3 = secLogObjForScope("SanitizeKeyclass");
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v2 = a1 & 0x1F;
-    v3 = secLogObjForScope("SanitizeKeyclass");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-      v6[0] = 67109376;
-      v6[1] = v1;
-      v7 = 1024;
-      v8 = v2;
-      _os_log_debug_impl(&dword_22EB09000, v3, OS_LOG_TYPE_DEBUG, "sanitizing request for keyclass %d to keyclass %d", v6, 0xEu);
-    }
+    v5[0] = 67109376;
+    v5[1] = v1;
+    v6 = 1024;
+    v7 = v2;
+    _os_log_debug_impl(&dword_22EB09000, v3, OS_LOG_TYPE_DEBUG, "sanitizing request for keyclass %d to keyclass %d", v5, 0xEu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3657,7 +3664,7 @@ uint64_t SecSupportsEnhancedApfs()
 
 void __SecSharedDataVolumeBootArgSet_block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   __len = 1023;
   bzero(__big, 0x400uLL);
   if (!sysctlbyname("kern.bootargs", __big, &__len, 0, 0) && strnstr(__big, "-apfs_shared_datavolume", __len))
@@ -3669,11 +3676,9 @@ void __SecSharedDataVolumeBootArgSet_block_invoke()
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v4 = SecSharedDataVolumeBootArgSet_boot_arg_set;
+    v3 = SecSharedDataVolumeBootArgSet_boot_arg_set;
     _os_log_impl(&dword_22EB09000, v0, OS_LOG_TYPE_DEFAULT, "eapfs boot-arg set to %{BOOL}d", buf, 8u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SecIsEduMode()
@@ -3727,7 +3732,7 @@ uint64_t SecSeparateUserKeychain()
 
 void __SecSeparateUserKeychain_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   SecSeparateUserKeychain_ffSeparateUserKeychain = _os_feature_enabled_impl();
   v0 = secLogObjForScope("keychain");
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
@@ -3742,12 +3747,10 @@ void __SecSeparateUserKeychain_block_invoke()
       v1 = "disabled";
     }
 
-    v3 = 136315138;
-    v4 = v1;
-    _os_log_impl(&dword_22EB09000, v0, OS_LOG_TYPE_DEFAULT, "SeparateUserKeychain set via feature flag to %s", &v3, 0xCu);
+    v2 = 136315138;
+    v3 = v1;
+    _os_log_impl(&dword_22EB09000, v0, OS_LOG_TYPE_DEFAULT, "SeparateUserKeychain set via feature flag to %s", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 CFURLRef SecCopyURLForFileInBaseDirectory(int a1, const __CFString *a2, uint64_t a3)
@@ -3844,7 +3847,7 @@ CFURLRef SecCopyURLForFileInManagedPreferencesDirectory(uint64_t a1)
 
 void WithPathInDirectory(const __CFURL *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     memset(__b, 170, sizeof(__b));
@@ -3852,8 +3855,6 @@ void WithPathInDirectory(const __CFURL *a1, uint64_t a2)
     (*(a2 + 16))(a2, __b);
     CFRelease(a1);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void WithPathInKeychainDirectory(uint64_t a1, uint64_t a2)
@@ -3906,35 +3907,31 @@ void SetCustomHomePath(char *cStr)
 
 void PerformWithBuffer(size_t size, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if (size)
   {
-    if (size <= 0x800)
+    if (size > 0x800)
+    {
+      v5 = malloc_type_malloc(size, 0x2B51245EuLL);
+      (*(a2 + 16))(a2, size, v5);
+      if (v5)
+      {
+
+        free(v5);
+      }
+    }
+
+    else
     {
       MEMORY[0x28223BE20]();
-      memset(v9 - ((size + 15) & 0xFFFFFFFFFFFFFFF0), 170, size);
-      (*(a2 + 16))(a2, size, v9 - ((size + 15) & 0xFFFFFFFFFFFFFFF0));
-LABEL_11:
-      v8 = *MEMORY[0x277D85DE8];
-      return;
+      memset(v6 - ((size + 15) & 0xFFFFFFFFFFFFFFF0), 170, size);
+      (*(a2 + 16))(a2, size, v6 - ((size + 15) & 0xFFFFFFFFFFFFFFF0));
     }
-
-    v6 = malloc_type_malloc(size, 0x2B51245EuLL);
-    (*(a2 + 16))(a2, size, v6);
-    if (!v6)
-    {
-      goto LABEL_11;
-    }
-
-    v7 = *MEMORY[0x277D85DE8];
-
-    free(v6);
   }
 
   else
   {
     v4 = *(a2 + 16);
-    v5 = *MEMORY[0x277D85DE8];
 
     v4(a2, 0, 0);
   }
@@ -4007,7 +4004,7 @@ double gotLoadHelper_x8__kAAFFlowIdString(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_AAAFoundation(double a1)
+double dlopenHelper_AAAFoundation(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/AAAFoundation.framework/AAAFoundation", 0);
   atomic_store(1u, &dlopenHelperFlag_AAAFoundation);

@@ -32,7 +32,7 @@
 - (void)prepareForReuse
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SearchResultCollectionViewCell();
+  v8.super_class = type metadata accessor for SearchResultCollectionViewCell(0);
   v2 = v8.receiver;
   [(SearchResultCollectionViewCell *)&v8 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC20ProductPageExtension30SearchResultCollectionViewCell_resultContents];

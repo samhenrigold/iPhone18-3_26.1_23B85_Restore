@@ -30,7 +30,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   accessory = [(HMDAccessoryMetric *)self accessory];
   accessoryMetricTimer = [(HMDAccessoryMetric *)self accessoryMetricTimer];
@@ -52,7 +52,7 @@
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v52 = v12;
+        v51 = v12;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Accessory disappeared, stopping accessory metric timer", buf, 0xCu);
       }
 
@@ -71,30 +71,30 @@
     v17 = 0;
     if (previousDiagnosticMetrics && collectMetric)
     {
-      v42 = accessory;
-      v43 = fireCopy;
+      v41 = accessory;
+      v42 = fireCopy;
       v17 = [collectMetric mutableCopy];
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
       obj = [(HMDAccessoryMetric *)self deltaCounters];
-      v18 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v18 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       if (v18)
       {
         v19 = v18;
-        v45 = *v47;
+        v44 = *v46;
         do
         {
           for (i = 0; i != v19; ++i)
           {
             v21 = v17;
-            if (*v47 != v45)
+            if (*v46 != v44)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v46 + 1) + 8 * i);
+            v22 = *(*(&v45 + 1) + 8 * i);
             v23 = [collectMetric objectForKeyedSubscript:v22];
             [(HMDAccessoryMetric *)self previousDiagnosticMetrics];
             v25 = v24 = self;
@@ -110,14 +110,14 @@
             [v21 setObject:v31 forKeyedSubscript:v22];
           }
 
-          v19 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+          v19 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
         }
 
         while (v19);
       }
 
-      accessory = v42;
-      fireCopy = v43;
+      accessory = v41;
+      fireCopy = v42;
     }
 
     [(HMDAccessoryMetric *)self setPreviousDiagnosticMetrics:collectMetric];
@@ -139,8 +139,6 @@
       [diagnosticsMetric4 setMetricCollectionStartTime:date];
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitMetricAndStop
@@ -154,32 +152,32 @@
 
 - (void)_initDiagnosticCounters
 {
-  v20[16] = *MEMORY[0x277D85DE8];
+  v19[16] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D17BC0];
-  v20[0] = *MEMORY[0x277D17BB8];
-  v20[1] = v3;
+  v19[0] = *MEMORY[0x277D17BB8];
+  v19[1] = v3;
   v4 = *MEMORY[0x277D17C20];
-  v20[2] = *MEMORY[0x277D17C18];
-  v20[3] = v4;
+  v19[2] = *MEMORY[0x277D17C18];
+  v19[3] = v4;
   v5 = *MEMORY[0x277D17C38];
-  v20[4] = *MEMORY[0x277D17C30];
-  v20[5] = v5;
+  v19[4] = *MEMORY[0x277D17C30];
+  v19[5] = v5;
   v6 = *MEMORY[0x277D17C48];
-  v20[6] = *MEMORY[0x277D17C40];
-  v20[7] = v6;
+  v19[6] = *MEMORY[0x277D17C40];
+  v19[7] = v6;
   v7 = *MEMORY[0x277D17BE8];
-  v20[8] = *MEMORY[0x277D17C50];
-  v20[9] = v7;
+  v19[8] = *MEMORY[0x277D17C50];
+  v19[9] = v7;
   v8 = *MEMORY[0x277D17BE0];
-  v20[10] = *MEMORY[0x277D17BD8];
-  v20[11] = v8;
+  v19[10] = *MEMORY[0x277D17BD8];
+  v19[11] = v8;
   v9 = *MEMORY[0x277D17BF8];
-  v20[12] = *MEMORY[0x277D17BF0];
-  v20[13] = v9;
+  v19[12] = *MEMORY[0x277D17BF0];
+  v19[13] = v9;
   v10 = *MEMORY[0x277D17C08];
-  v20[14] = *MEMORY[0x277D17C00];
-  v20[15] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:16];
+  v19[14] = *MEMORY[0x277D17C00];
+  v19[15] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:16];
   deltaCounters = self->_deltaCounters;
   self->_deltaCounters = v11;
 
@@ -196,17 +194,15 @@
     diagnosticsMetric2 = [(HMDAccessoryMetric *)self diagnosticsMetric];
     [diagnosticsMetric2 setMetricCollectionStartTime:date];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessoryMetric)initWithAccessory:(id)accessory
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
-  v25.receiver = self;
-  v25.super_class = HMDAccessoryMetric;
-  v5 = [(HMDAccessoryMetric *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = HMDAccessoryMetric;
+  v5 = [(HMDAccessoryMetric *)&v24 init];
   if (v5)
   {
     v6 = dispatch_queue_create("Session Metrics", 0);
@@ -253,16 +249,15 @@
       v21 = HMFGetLogIdentifier();
       timerInterval = v5->_timerInterval;
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2048;
-      v29 = timerInterval;
+      v26 = v21;
+      v27 = 2048;
+      v28 = timerInterval;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@[AccessoryMetric] Initialized session metric for accessory with submission interval: %f", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -280,10 +275,9 @@
 
 void __33__HMDAccessoryMetric_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_101182;
-  logCategory__hmf_once_v5_101182 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_101182;
+  logCategory__hmf_once_v5_101182 = v0;
 }
 
 @end

@@ -22,7 +22,7 @@
   sub_2442A6C94(inited + 32);
   type metadata accessor for SBIconLocation(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EDDD820, &qword_2442B78C0);
-  sub_2442A6C4C(&qword_27EDDD168, type metadata accessor for SBIconLocation);
+  sub_2442A6C4C(&qword_27EDDD168, type metadata accessor for SBIconLocation, &unk_2442B76E0);
   v9 = sub_2442B4818();
 
   v10 = [(SBHCustomIconListLayoutProvider *)self initWithListLayouts:v9];
@@ -34,7 +34,7 @@
 {
   type metadata accessor for SBIconLocation(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EDDD820, &qword_2442B78C0);
-  sub_2442A6C4C(&qword_27EDDD168, type metadata accessor for SBIconLocation);
+  sub_2442A6C4C(&qword_27EDDD168, type metadata accessor for SBIconLocation, &unk_2442B76E0);
   sub_2442B4828();
   swift_unknownObjectRetain();
   v6 = sub_2442B4818();

@@ -36,12 +36,9 @@
   objc_initWeak(&location, self);
   dataSource = [(HMIRemoveFaceCropsOperation *)self dataSource];
   faceCropUUIDs = [(HMIRemoveFaceCropsOperation *)self faceCropUUIDs];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __56__HMIRemoveFaceCropsOperation_mainInsideAutoreleasePool__block_invoke;
-  v5[3] = &unk_2787528E0;
+  v5 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v6, &location);
-  [dataSource removeFaceCropsWithUUIDs:faceCropUUIDs completion:v5];
+  [dataSource removeFaceCropsWithUUIDs:v5 completion:{3221225472, __56__HMIRemoveFaceCropsOperation_mainInsideAutoreleasePool__block_invoke, &unk_2787528E0}];
 
   objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
@@ -74,7 +71,7 @@ void __56__HMIRemoveFaceCropsOperation_mainInsideAutoreleasePool__block_invoke(u
       }
 
       objc_autoreleasePoolPop(v5);
-      [v6 cancelWithError:v3];
+      [v6 cancelWithError:?];
     }
 
     else

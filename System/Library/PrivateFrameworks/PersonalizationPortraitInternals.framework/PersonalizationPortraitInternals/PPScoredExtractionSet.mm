@@ -2,6 +2,7 @@
 - (id)description;
 - (id)numberOfExtractions;
 - (unint64_t)_donateLocationsWithContextualNamedEntities:(id)entities;
+- (void)addLocation:(id)location algorithm:(unsigned __int16)algorithm;
 - (void)flushWrites;
 - (void)writeSynchronous;
 @end
@@ -10,7 +11,7 @@
 
 - (void)writeSynchronous
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_entities count])
   {
     v3 = +[PPLocalNamedEntityStore defaultStore];
@@ -19,9 +20,9 @@
     entityAlgorithm = self->_entityAlgorithm;
     cloudSync = self->_cloudSync;
     sentimentScore = self->_sentimentScore;
-    v44 = 0;
-    v9 = [v3 donateNamedEntities:entities source:source algorithm:entityAlgorithm cloudSync:cloudSync sentimentScore:&v44 error:sentimentScore];
-    v10 = v44;
+    v43 = 0;
+    v9 = [v3 donateNamedEntities:entities source:source algorithm:entityAlgorithm cloudSync:cloudSync sentimentScore:&v43 error:sentimentScore];
+    v10 = v43;
 
     if ((v9 & 1) == 0)
     {
@@ -29,7 +30,7 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v46 = v10;
+        v45 = v10;
         _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "PPScoredExtractionSet failed to donate named entities: %@", buf, 0xCu);
       }
     }
@@ -50,9 +51,9 @@
     v16 = self->_sentimentScore;
     topics = self->_topics;
     topicsExactMatchesInSourceText = self->_topicsExactMatchesInSourceText;
-    v43 = 0;
-    v19 = [v12 donateTopics:topics source:v13 algorithm:topicAlgorithm cloudSync:v15 sentimentScore:topicsExactMatchesInSourceText exactMatchesInSourceText:&v43 error:v16];
-    v10 = v43;
+    v42 = 0;
+    v19 = [v12 donateTopics:topics source:v13 algorithm:topicAlgorithm cloudSync:v15 sentimentScore:topicsExactMatchesInSourceText exactMatchesInSourceText:&v42 error:v16];
+    v10 = v42;
 
     if ((v19 & 1) == 0)
     {
@@ -60,7 +61,7 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v46 = v10;
+        v45 = v10;
         _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPScoredExtractionSet failed to donate topics: %@", buf, 0xCu);
       }
     }
@@ -69,21 +70,21 @@
   v21 = objc_opt_new();
   v22 = objc_autoreleasePoolPush();
   v23 = self->_entities;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __41__PPScoredExtractionSet_writeSynchronous__block_invoke;
-  v41[3] = &unk_278978540;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __41__PPScoredExtractionSet_writeSynchronous__block_invoke;
+  v40[3] = &unk_278978540;
   v24 = v21;
-  v42 = v24;
-  [(NSArray *)v23 enumerateObjectsUsingBlock:v41];
+  v41 = v24;
+  [(NSArray *)v23 enumerateObjectsUsingBlock:v40];
   locations = self->_locations;
-  v36 = MEMORY[0x277D85DD0];
-  v37 = 3221225472;
-  v38 = __41__PPScoredExtractionSet_writeSynchronous__block_invoke_2;
-  v39 = &unk_278978590;
+  v35 = MEMORY[0x277D85DD0];
+  v36 = 3221225472;
+  v37 = __41__PPScoredExtractionSet_writeSynchronous__block_invoke_2;
+  v38 = &unk_278978590;
   v26 = v24;
-  v40 = v26;
-  [(NSMutableDictionary *)locations enumerateKeysAndObjectsUsingBlock:&v36];
+  v39 = v26;
+  [(NSMutableDictionary *)locations enumerateKeysAndObjectsUsingBlock:&v35];
   if ([v26 count] >= 0xB)
   {
 
@@ -102,32 +103,30 @@
     v33 = [(NSArray *)self->_entities count];
     v34 = [(NSArray *)self->_topics count];
     *buf = 138413826;
-    v46 = documentId;
-    v47 = 2112;
-    v48 = bundleId;
-    v49 = 2048;
-    v50 = v32;
-    v51 = 2048;
-    v52 = v31;
-    v53 = 2048;
-    v54 = v33;
-    v55 = 2048;
-    v56 = v34;
-    v57 = 2048;
-    v58 = v27;
+    v45 = documentId;
+    v46 = 2112;
+    v47 = bundleId;
+    v48 = 2048;
+    v49 = v32;
+    v50 = 2048;
+    v51 = v31;
+    v52 = 2048;
+    v53 = v33;
+    v54 = 2048;
+    v55 = v34;
+    v56 = 2048;
+    v57 = v27;
     _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEFAULT, "PPScoredExtractionSet(%@:%@ alg:%tu/%tu) wrote %tu entities, %tu topics, and %tu locations", buf, 0x48u);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushWrites
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = +[PPLocalNamedEntityStore defaultStore];
-  v14 = 0;
-  v3 = [v2 flushDonationsWithError:&v14];
-  v4 = v14;
+  v13 = 0;
+  v3 = [v2 flushDonationsWithError:&v13];
+  v4 = v13;
 
   v5 = pp_default_log_handle();
   v6 = v5;
@@ -143,14 +142,14 @@
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v4;
+    v15 = v4;
     _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPScoredExtractionSet failed to flush named entity donations: %@", buf, 0xCu);
   }
 
   v7 = +[PPLocalTopicStore defaultStore];
-  v13 = 0;
-  v8 = [v7 flushDonationsWithError:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [v7 flushDonationsWithError:&v12];
+  v9 = v12;
 
   v10 = pp_default_log_handle();
   v11 = v10;
@@ -166,11 +165,9 @@
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = v9;
+    v15 = v9;
     _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "PPScoredExtractionSet failed to flush topic donations: %@", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)numberOfExtractions
@@ -225,6 +222,37 @@ void __41__PPScoredExtractionSet_writeSynchronous__block_invoke_3(uint64_t a1, v
   }
 }
 
+- (void)addLocation:(id)location algorithm:(unsigned __int16)algorithm
+{
+  algorithmCopy = algorithm;
+  locationCopy = location;
+  locations = self->_locations;
+  if (!locations)
+  {
+    v7 = objc_opt_new();
+    v8 = self->_locations;
+    self->_locations = v7;
+
+    locations = self->_locations;
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:algorithmCopy];
+  v10 = [(NSMutableDictionary *)locations objectForKeyedSubscript:v9];
+
+  if (!v10)
+  {
+    v11 = objc_opt_new();
+    v12 = self->_locations;
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:algorithmCopy];
+    [(NSMutableDictionary *)v12 setObject:v11 forKeyedSubscript:v13];
+  }
+
+  v14 = self->_locations;
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:algorithmCopy];
+  v16 = [(NSMutableDictionary *)v14 objectForKeyedSubscript:v15];
+  [v16 addObject:locationCopy];
+}
+
 - (unint64_t)_donateLocationsWithContextualNamedEntities:(id)entities
 {
   entitiesCopy = entities;
@@ -265,7 +293,7 @@ void __41__PPScoredExtractionSet_writeSynchronous__block_invoke_3(uint64_t a1, v
 
 void __69__PPScoredExtractionSet__donateLocationsWithContextualNamedEntities___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 32) containsObject:v5] & 1) == 0)
@@ -278,9 +306,9 @@ void __69__PPScoredExtractionSet__donateLocationsWithContextualNamedEntities___b
 
     v13 = [*(*(a1 + 40) + 48) bundleId];
     *buf = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v5;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v5;
     _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "PPScoredExtractionSet: Suppressing donation from %@ using algorithm %@ as it is not enabled.", buf, 0x16u);
 LABEL_8:
 
@@ -292,9 +320,9 @@ LABEL_8:
   v9 = *(*(a1 + 40) + 48);
   v10 = [v5 intValue];
   v11 = *(*(a1 + 40) + 8);
-  v15 = 0;
-  LOBYTE(v9) = [v7 donateLocations:v6 source:v9 contextualNamedEntities:v8 algorithm:v10 cloudSync:v11 error:&v15];
-  v12 = v15;
+  v14 = 0;
+  LOBYTE(v9) = [v7 donateLocations:v6 source:v9 contextualNamedEntities:v8 algorithm:v10 cloudSync:v11 error:&v14];
+  v12 = v14;
 
   if ((v9 & 1) == 0)
   {
@@ -302,7 +330,7 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v12;
+      v16 = v12;
       _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPScoredExtractionSet failed to donate derived locations: %@", buf, 0xCu);
     }
 
@@ -311,8 +339,6 @@ LABEL_8:
 
   *(*(*(a1 + 56) + 8) + 24) += [v6 count];
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

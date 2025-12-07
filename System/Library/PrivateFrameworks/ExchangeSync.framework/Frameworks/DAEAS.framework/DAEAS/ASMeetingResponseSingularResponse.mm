@@ -125,13 +125,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = ASMeetingResponseSingularResponse;
-  v4 = [(ASMeetingResponseSingularResponse *)&v8 description];
-  status = self->_status;
-  v6 = [v3 stringWithFormat:@"%@: RequestId %@ status %@ eventId %@", v4, self->_requestId, status, self->_eventId];
+  v7.receiver = self;
+  v7.super_class = ASMeetingResponseSingularResponse;
+  v4 = [(ASMeetingResponseSingularResponse *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@: RequestId %@ status %@ eventId %@", v4, self->_requestId, self->_status, self->_eventId];
 
-  return v6;
+  return v5;
 }
 
 @end

@@ -275,7 +275,7 @@ void __47__VCPBlastdoorVideoProcessor_analyzeWithError___block_invoke(uint64_t a
 
       sampleBufferOut = 0;
       v37 = v8;
-      [v15 timestamp];
+      objc_msgSend_timestamp(v15);
       CMTimeMakeWithSeconds(&v42, v18, 1000);
       formatDescriptionOut = 0;
       if (CMVideoFormatDescriptionCreateForImageBuffer(0, v17, &formatDescriptionOut))

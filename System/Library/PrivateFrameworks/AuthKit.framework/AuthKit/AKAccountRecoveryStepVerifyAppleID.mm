@@ -152,7 +152,6 @@
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAccountRecoveryStepVerifyAppleID__verifyAppleIDWithModel_completion___block_invoke(void *a1, void *a2, void *a3, void *a4)

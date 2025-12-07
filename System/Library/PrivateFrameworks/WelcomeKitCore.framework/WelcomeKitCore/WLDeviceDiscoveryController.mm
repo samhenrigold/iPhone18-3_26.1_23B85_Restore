@@ -18,6 +18,7 @@
 - (void)deviceDiscoverySocketHandler:(id)handler didFinishHandshakeWithSourceDevice:(id)device;
 - (void)enableSoftAPWithSSID:(id)d password:(id)password channels:(id)channels secret:(id)secret srp:(id)srp completion:(id)completion;
 - (void)importLocalContent;
+- (void)listenerDidStart:(int)start srp:(id)srp;
 - (void)setNextIncomingConnectionHandler:(id)handler;
 - (void)softAPDidStart:(BOOL)start ssid:(id)ssid psk:(id)psk secret:(id)secret srp:(id)srp channel:(id)channel error:(id)error completion:(id)self0;
 - (void)startWiFiAndDeviceDiscoveryWithPreGeneratedCode:(id)code completion:(id)completion;
@@ -309,9 +310,9 @@ void __130__WLDeviceDiscoveryController__enableSoftAPWithSSID_password_channels_
   WeakRetained = objc_loadWeakRetained((a1 + 96));
   if ((!*(a1 + 112) || *(a1 + 32)) && [*(a1 + 40) count])
   {
-    v6 = *(a1 + 48);
+    v5 = *(a1 + 48);
     _WLLog();
-    [WeakRetained enableSoftAPWithSSID:*(a1 + 56) password:*(a1 + 64) channels:*(a1 + 40) secret:*(a1 + 72) srp:*(a1 + 80) completion:{*(a1 + 88), WeakRetained, v6}];
+    [WeakRetained enableSoftAPWithSSID:*(a1 + 56) password:*(a1 + 64) channels:*(a1 + 40) secret:*(a1 + 72) srp:*(a1 + 80) completion:{*(a1 + 88), WeakRetained, v5}];
   }
 
   else
@@ -324,22 +325,21 @@ void __130__WLDeviceDiscoveryController__enableSoftAPWithSSID_password_channels_
 
     else
     {
-      v7 = *(a1 + 104);
+      v6 = *(a1 + 104);
       _WLLog();
-      v3 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 104), WeakRetained, v7}];
+      v3 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 104), WeakRetained, v6}];
 
       v4 = WeakRetained;
       v2 = v3;
     }
 
-    v5 = *(a1 + 32);
-    [v4 softAPDidStart:*(a1 + 112) ssid:*(a1 + 56) psk:*(a1 + 64) secret:*(a1 + 72) srp:*(a1 + 80) channel:v2 error:v5 completion:*(a1 + 88)];
+    [v4 softAPDidStart:*(a1 + 112) ssid:*(a1 + 56) psk:*(a1 + 64) secret:*(a1 + 72) srp:*(a1 + 80) channel:v2 error:*(a1 + 32) completion:*(a1 + 88)];
   }
 }
 
 - (void)softAPDidStart:(BOOL)start ssid:(id)ssid psk:(id)psk secret:(id)secret srp:(id)srp channel:(id)channel error:(id)error completion:(id)self0
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   ssidCopy = ssid;
   pskCopy = psk;
   secretCopy = secret;
@@ -369,14 +369,14 @@ void __130__WLDeviceDiscoveryController__enableSoftAPWithSSID_password_channels_
           objc_sync_enter(selfCopy);
           v26 = selfCopy;
           listenerSocket = self->_listenerSocket;
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v40[2] = __91__WLDeviceDiscoveryController_softAPDidStart_ssid_psk_secret_srp_channel_error_completion___block_invoke;
-          v40[3] = &unk_279EB5390;
+          v39[0] = MEMORY[0x277D85DD0];
+          v39[1] = 3221225472;
+          v39[2] = __91__WLDeviceDiscoveryController_softAPDidStart_ssid_psk_secret_srp_channel_error_completion___block_invoke;
+          v39[3] = &unk_279EB5390;
           v28 = v26;
-          v41 = v28;
-          v42 = srpCopy;
-          v29 = [(WLDeviceDiscoveryController *)v28 listenForConnectionOnSocket:listenerSocket withConnectionHandler:v40];
+          v40 = v28;
+          v41 = srpCopy;
+          v29 = [(WLDeviceDiscoveryController *)v28 listenForConnectionOnSocket:listenerSocket withConnectionHandler:v39];
           incomingConnSource = v28->_incomingConnSource;
           v28->_incomingConnSource = v29;
 
@@ -399,9 +399,9 @@ void __130__WLDeviceDiscoveryController__enableSoftAPWithSSID_password_channels_
       selfCopy2 = self;
       _WLLog();
       v34 = MEMORY[0x277CCA9B8];
-      v43 = *MEMORY[0x277CCA450];
-      v44 = @"a new SSID was already requested.";
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:{1, selfCopy2}];
+      v42 = *MEMORY[0x277CCA450];
+      v43 = @"a new SSID was already requested.";
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:{1, selfCopy2}];
       v36 = [v34 errorWithDomain:*MEMORY[0x277D7B8F8] code:1 userInfo:v35];
 
       (v23)[2](v23, 0, 0, 0, 0, -1, v36);
@@ -413,15 +413,62 @@ void __130__WLDeviceDiscoveryController__enableSoftAPWithSSID_password_channels_
     selfCopy3 = self;
     _WLLog();
     v31 = MEMORY[0x277CCA9B8];
-    v45 = *MEMORY[0x277CCA450];
-    v46[0] = @"it is being stopped.";
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:{1, selfCopy3}];
+    v44 = *MEMORY[0x277CCA450];
+    v45[0] = @"it is being stopped.";
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:{1, selfCopy3}];
     v33 = [v31 errorWithDomain:*MEMORY[0x277D7B8F8] code:1 userInfo:v32];
 
     (v23)[2](v23, 0, 0, 0, 0, -1, v33);
   }
+}
 
-  v37 = *MEMORY[0x277D85DE8];
+- (void)listenerDidStart:(int)start srp:(id)srp
+{
+  v4 = *&start;
+  srpCopy = srp;
+  v6 = [(WLDeviceDiscoveryController *)self acceptIncomingConnectionWithListenerSocket:v4 nonBlocking:1];
+  v13 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+  _WLLog();
+
+  if (v6 != -1)
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v14 = MEMORY[0x2743DF630](selfCopy->_nextIncomingConnectionHandler);
+    _WLLog();
+
+    nextIncomingConnectionHandler = selfCopy->_nextIncomingConnectionHandler;
+    if (nextIncomingConnectionHandler)
+    {
+      nextIncomingConnectionHandler[2](nextIncomingConnectionHandler, v6, 0);
+      v9 = selfCopy->_nextIncomingConnectionHandler;
+      selfCopy->_nextIncomingConnectionHandler = 0;
+
+      objc_sync_exit(selfCopy);
+    }
+
+    else
+    {
+      objc_sync_exit(selfCopy);
+
+      v10 = [[WLDeviceDiscoverySocketHandler alloc] initWithSocket:v6 srpPassword:srpCopy delegate:selfCopy, selfCopy, v14];
+      v11 = selfCopy->_socketHandlers;
+      objc_sync_enter(v11);
+      [(NSMutableArray *)selfCopy->_socketHandlers addObject:v10];
+      objc_sync_exit(v11);
+
+      v12 = selfCopy;
+      objc_sync_enter(v12);
+      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12->_countOfPairingAttemptsWithCurrentSecret];
+      _WLLog();
+
+      ++v12->_countOfPairingAttemptsWithCurrentSecret;
+      objc_sync_exit(v12);
+
+      [(WLDeviceDiscoverySocketHandler *)v10 resume:v12];
+      selfCopy = v10;
+    }
+  }
 }
 
 - (void)stopDeviceDiscoveryWithCompletion:(id)completion
@@ -509,15 +556,14 @@ void __72__WLDeviceDiscoveryController_stopWiFiAndDeviceDiscoveryWithCompletion_
 
 void __72__WLDeviceDiscoveryController_stopWiFiAndDeviceDiscoveryWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = a3;
-  v5 = *(a1 + 32);
-  v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
+  v7 = a3;
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:a2];
   _WLLog();
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v6 + 16))(v6, a2, v8);
+    (*(v5 + 16))(v5, a2, v7);
   }
 }
 
@@ -638,22 +684,21 @@ void __72__WLDeviceDiscoveryController_stopWiFiAndDeviceDiscoveryWithCompletion_
 - (int)createListenerSocketOnPort:(unint64_t)port
 {
   portCopy = port;
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = socket(2, 1, 0);
-  v8 = 1;
-  setsockopt(v4, 0xFFFF, 4130, &v8, 4u);
-  *&v9.sa_len = 528;
-  *v9.sa_data = bswap32(portCopy) >> 16;
-  *&v9.sa_data[2] = 0;
-  *&v9.sa_data[10] = 0;
   v7 = 1;
-  if (setsockopt(v4, 0xFFFF, 4, &v7, 4u) < 0 || bind(v4, &v9, 0x10u) < 0 || listen(v4, 128) < 0)
+  setsockopt(v4, 0xFFFF, 4130, &v7, 4u);
+  *&v8.sa_len = 528;
+  *v8.sa_data = bswap32(portCopy) >> 16;
+  *&v8.sa_data[2] = 0;
+  *&v8.sa_data[10] = 0;
+  v6 = 1;
+  if (setsockopt(v4, 0xFFFF, 4, &v6, 4u) < 0 || bind(v4, &v8, 0x10u) < 0 || listen(v4, 128) < 0)
   {
     _WLLog();
-    v4 = -1;
+    return -1;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -688,22 +733,20 @@ uint64_t __81__WLDeviceDiscoveryController_listenForConnectionOnSocket_withConne
 - (int)acceptIncomingConnectionWithListenerSocket:(int)socket nonBlocking:(BOOL)blocking
 {
   blockingCopy = blocking;
-  v27 = *MEMORY[0x277D85DE8];
-  *&v26.sa_len = 0;
-  *&v26.sa_data[6] = 0;
-  v24 = 16;
-  v6 = accept(socket, &v26, &v24);
+  v25 = *MEMORY[0x277D85DE8];
+  *&v24.sa_len = 0;
+  *&v24.sa_data[6] = 0;
+  v22 = 16;
+  v6 = accept(socket, &v24, &v22);
   v7 = v6;
   if (v6 == -1)
   {
     _WLLog();
-LABEL_19:
-    v7 = -1;
-    goto LABEL_20;
+    return -1;
   }
 
-  v23 = 1;
-  setsockopt(v6, 0xFFFF, 4130, &v23, 4u);
+  v21 = 1;
+  setsockopt(v6, 0xFFFF, 4130, &v21, 4u);
   v8 = fcntl(v7, 3, 0) & 0xFFFFFFFB;
   if (blockingCopy)
   {
@@ -718,22 +761,22 @@ LABEL_19:
   if (fcntl(v7, 4, v8 | v9) == -1)
   {
     _WLLog();
-    goto LABEL_19;
+    return -1;
   }
 
-  *&v25.sa_len = 0;
-  *&v25.sa_data[6] = 0;
-  v22 = 16;
-  if (getpeername(v7, &v25, &v22) == -1)
+  *&v23.sa_len = 0;
+  *&v23.sa_data[6] = 0;
+  v20 = 16;
+  if (getpeername(v7, &v23, &v20) == -1)
   {
     _WLLog();
-    goto LABEL_19;
+    return -1;
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v11 = objc_alloc(MEMORY[0x277CCACA8]);
-  v12.s_addr = *&v25.sa_data[2];
+  v12.s_addr = *&v23.sa_data[2];
   v13 = [v11 initWithCString:inet_ntoa(v12) encoding:4];
   v14 = +[WLWiFiController sharedInstance];
   v15 = [v14 isIPAddressInRange:v13];
@@ -755,9 +798,8 @@ LABEL_19:
   if (![(NSString *)allowedAddress isEqualToString:v13])
   {
 LABEL_15:
-    v17.s_addr = *&v25.sa_data[2];
+    v17.s_addr = *&v23.sa_data[2];
     inet_ntoa(v17);
-    v21 = selfCopy->_allowedAddress;
     _WLLog();
     close(v7);
     v7 = -1;
@@ -768,14 +810,12 @@ LABEL_17:
   objc_sync_exit(selfCopy);
   if (v7 == -1)
   {
-    goto LABEL_19;
+    return -1;
   }
 
-  v18.s_addr = *&v25.sa_data[2];
+  v18.s_addr = *&v23.sa_data[2];
   inet_ntoa(v18);
   _WLLog();
-LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -783,9 +823,8 @@ LABEL_20:
 {
   obj = self;
   objc_sync_enter(obj);
-  allowedAddress = obj->_allowedAddress;
   _WLLog();
-  v2 = obj->_allowedAddress;
+  allowedAddress = obj->_allowedAddress;
   obj->_allowedAddress = 0;
 
   objc_sync_exit(obj);
@@ -858,10 +897,9 @@ LABEL_20:
 
 void __101__WLDeviceDiscoveryController_deviceDiscoverySocketHandler_didFailToHandshakeWithSourceDevice_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = MEMORY[0x277CCABB0];
-  v6 = a3;
-  v7 = [v5 numberWithBool:a2];
+  v4 = MEMORY[0x277CCABB0];
+  v5 = a3;
+  v6 = [v4 numberWithBool:a2];
   _WLLog();
 }
 

@@ -42,19 +42,18 @@
 
 - (void)setPlaceholderText:(id)text
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AAB0];
   textCopy = text;
   v6 = [v4 alloc];
-  v12 = *MEMORY[0x1E69DB648];
+  v11 = *MEMORY[0x1E69DB648];
   mEMORY[0x1E696F200] = [MEMORY[0x1E696F200] sharedManager];
   bodyFont = [mEMORY[0x1E696F200] bodyFont];
-  v13[0] = bodyFont;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = bodyFont;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v10 = [v6 initWithString:textCopy attributes:v9];
 
   [(UITextView *)self->_valueTextField setAttributedPlaceholder:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)textViewDidChange:(id)change
@@ -135,56 +134,54 @@
 
 - (void)_setupConstraints
 {
-  v39[11] = *MEMORY[0x1E69E9840];
-  v26 = MEMORY[0x1E696ACD8];
+  v38[11] = *MEMORY[0x1E69E9840];
+  v25 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MULabelViewProtocol *)self->_titleLabel leadingAnchor];
   leadingAnchor2 = [(UILayoutGuide *)self->_titleValueLayoutGuide leadingAnchor];
-  v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v39[0] = v36;
+  v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v38[0] = v35;
   topAnchor = [(MULabelViewProtocol *)self->_titleLabel topAnchor];
   topAnchor2 = [(UILayoutGuide *)self->_titleValueLayoutGuide topAnchor];
-  v33 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v39[1] = v33;
+  v32 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v38[1] = v32;
   trailingAnchor = [(MULabelViewProtocol *)self->_titleLabel trailingAnchor];
   trailingAnchor2 = [(UILayoutGuide *)self->_titleValueLayoutGuide trailingAnchor];
-  v30 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v39[2] = v30;
+  v29 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v38[2] = v29;
   bottomAnchor = [(MULabelViewProtocol *)self->_titleLabel bottomAnchor];
   topAnchor3 = [(UITextView *)self->_valueTextField topAnchor];
-  v27 = [bottomAnchor constraintEqualToAnchor:topAnchor3];
-  v39[3] = v27;
+  v26 = [bottomAnchor constraintEqualToAnchor:topAnchor3];
+  v38[3] = v26;
   leadingAnchor3 = [(UITextView *)self->_valueTextField leadingAnchor];
   leadingAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide leadingAnchor];
-  v23 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v39[4] = v23;
+  v22 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v38[4] = v22;
   trailingAnchor3 = [(UITextView *)self->_valueTextField trailingAnchor];
   trailingAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide trailingAnchor];
-  v20 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v39[5] = v20;
+  v19 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v38[5] = v19;
   bottomAnchor2 = [(UITextView *)self->_valueTextField bottomAnchor];
   bottomAnchor3 = [(UILayoutGuide *)self->_titleValueLayoutGuide bottomAnchor];
-  v17 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v39[6] = v17;
+  v16 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v38[6] = v16;
   leadingAnchor5 = [(UILayoutGuide *)self->_titleValueLayoutGuide leadingAnchor];
   leadingAnchor6 = [(MULabeledValueActionTextFieldRowView *)self leadingAnchor];
-  v14 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:20.0];
-  v39[7] = v14;
+  v13 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:20.0];
+  v38[7] = v13;
   trailingAnchor5 = [(UILayoutGuide *)self->_titleValueLayoutGuide trailingAnchor];
   trailingAnchor6 = [(MULabeledValueActionTextFieldRowView *)self trailingAnchor];
   v5 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6 constant:-20.0];
-  v39[8] = v5;
+  v38[8] = v5;
   topAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide topAnchor];
   topAnchor5 = [(MULabeledValueActionTextFieldRowView *)self topAnchor];
   v8 = [topAnchor4 constraintEqualToAnchor:topAnchor5 constant:12.0];
-  v39[9] = v8;
+  v38[9] = v8;
   bottomAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide bottomAnchor];
   bottomAnchor5 = [(MULabeledValueActionTextFieldRowView *)self bottomAnchor];
   v11 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5 constant:-12.0];
-  v39[10] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:11];
-  [v26 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v38[10] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:11];
+  [v25 activateConstraints:v12];
 }
 
 - (void)_setupSubviews

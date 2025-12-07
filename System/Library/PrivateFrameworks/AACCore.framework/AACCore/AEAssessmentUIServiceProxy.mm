@@ -180,16 +180,11 @@ void __67__AEAssessmentUIServiceProxy_activateWithConfiguration_completion___blo
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_activateWithConfiguration:(void *)configuration completion:
@@ -214,16 +209,11 @@ void __54__AEAssessmentUIServiceProxy_animateInWithCompletion___block_invoke(uin
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_animateInWithCompletion:(uint64_t)completion
@@ -231,13 +221,12 @@ void __54__AEAssessmentUIServiceProxy_animateInWithCompletion___block_invoke(uin
   v4 = a2;
   if (completion)
   {
-    v5 = *(completion + 8);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_6();
-    v6 = v4;
-    v7 = OUTLINED_FUNCTION_2_0();
-    v9 = [(AEXPCProxy *)v7 remoteObjectProxyWithErrorHandler:v8];
-    [v9 animateInWithCompletion:v2];
+    v5 = v4;
+    v6 = OUTLINED_FUNCTION_2_0();
+    v8 = [(AEXPCProxy *)v6 remoteObjectProxyWithErrorHandler:v7];
+    [v8 animateInWithCompletion:v2];
   }
 }
 
@@ -245,16 +234,11 @@ void __55__AEAssessmentUIServiceProxy_animateOutWithCompletion___block_invoke(ui
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_animateOutWithCompletion:(uint64_t)completion
@@ -262,13 +246,12 @@ void __55__AEAssessmentUIServiceProxy_animateOutWithCompletion___block_invoke(ui
   v4 = a2;
   if (completion)
   {
-    v5 = *(completion + 8);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_6();
-    v6 = v4;
-    v7 = OUTLINED_FUNCTION_2_0();
-    v9 = [(AEXPCProxy *)v7 remoteObjectProxyWithErrorHandler:v8];
-    [v9 animateOutWithCompletion:v2];
+    v5 = v4;
+    v6 = OUTLINED_FUNCTION_2_0();
+    v8 = [(AEXPCProxy *)v6 remoteObjectProxyWithErrorHandler:v7];
+    [v8 animateOutWithCompletion:v2];
   }
 }
 
@@ -276,16 +259,11 @@ void __55__AEAssessmentUIServiceProxy_deactivateWithCompletion___block_invoke(ui
 {
   v4 = a2;
   OUTLINED_FUNCTION_5();
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = *(a1 + 40);
-  v7 = v2;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v14 = *(a1 + 40);
+  v5 = v2;
+  OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_deactivateWithCompletion:(uint64_t)completion
@@ -293,13 +271,12 @@ void __55__AEAssessmentUIServiceProxy_deactivateWithCompletion___block_invoke(ui
   v4 = a2;
   if (completion)
   {
-    v5 = *(completion + 8);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_6();
-    v6 = v4;
-    v7 = OUTLINED_FUNCTION_2_0();
-    v9 = [(AEXPCProxy *)v7 remoteObjectProxyWithErrorHandler:v8];
-    [v9 deactivateWithCompletion:v2];
+    v5 = v4;
+    v6 = OUTLINED_FUNCTION_2_0();
+    v8 = [(AEXPCProxy *)v6 remoteObjectProxyWithErrorHandler:v7];
+    [v8 deactivateWithCompletion:v2];
   }
 }
 

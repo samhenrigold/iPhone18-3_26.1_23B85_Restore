@@ -1273,7 +1273,7 @@ double __57__UICollectionViewListCell__updateAccessoryLayoutMetrics__block_invok
   if (attributesCopy && (attributesCopy[36] & 3) == 0)
   {
     _content = [(_UILabelConfiguration *)attributesCopy _content];
-    if ([_content isEqualToString:@"UICollectionElementKindSectionFooter"])
+    if (objc_msgSend_isEqualToString_(_content))
     {
       v13 = 16;
     }
@@ -1521,7 +1521,7 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __111__UICollectionViewListCell__updateSeparatorConfigurationForPreferredAttributes_bounds_isAnimatingExistingView___block_invoke_2(uint64_t a1)
+void *__111__UICollectionViewListCell__updateSeparatorConfigurationForPreferredAttributes_bounds_isAnimatingExistingView___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setBounds:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   if (*(*(*(a1 + 40) + 8) + 24))
@@ -1752,39 +1752,39 @@ LABEL_25:
 - (id)_defaultBackgroundView
 {
   v3 = objc_alloc_init(_UICollectionViewListCellBackgroundView);
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   _constants = [(UICollectionViewListCell *)self _constants];
-  _tableStyle = [(UICollectionViewListCell *)self _tableStyle];
-  v6 = [UICellConfigurationState _readonlyCellState:?];
+  [(UICollectionViewListCell *)self _tableStyle];
+  v5 = [UICellConfigurationState _readonlyCellState:?];
   traitCollection = [(UIView *)self traitCollection];
   if (_constants)
   {
-    [_constants defaultCellBackgroundPropertiesForTableViewStyle:_tableStyle state:v6 traitCollection:traitCollection];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(_constants);
   }
 
   else
   {
-    v17 = 0;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
+    v16 = 0;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
   }
 
-  [(UIView *)v3 setBackgroundColor:*(&v9 + 1)];
-  __destructor_8_s8_s16_s24_s80(&v9);
+  [(UIView *)v3 setBackgroundColor:*(&v8 + 1)];
+  __destructor_8_s8_s16_s24_s80(&v8);
 
   return v3;
 }
@@ -1799,9 +1799,9 @@ LABEL_25:
   else
   {
     v3 = objc_alloc_init(_UICollectionViewListCellSelectedBackgroundView);
-    v18 = 0;
+    v17 = 0;
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     if ([(UICollectionViewCell *)self isFocused])
     {
       v4 = 12;
@@ -1812,36 +1812,36 @@ LABEL_25:
       v4 = 4;
     }
 
-    v14 = 0uLL;
-    v15 = 0uLL;
-    v12 = 0uLL;
     v13 = 0uLL;
-    *(&v10 + 1) = 0;
+    v14 = 0uLL;
     v11 = 0uLL;
+    v12 = 0uLL;
+    *(&v9 + 1) = 0;
+    v10 = 0uLL;
     _constants = [(UICollectionViewListCell *)self _constants];
-    _tableStyle = [(UICollectionViewListCell *)self _tableStyle];
-    v7 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:v4];
+    [(UICollectionViewListCell *)self _tableStyle];
+    v6 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:v4];
     traitCollection = [(UIView *)self traitCollection];
     if (_constants)
     {
-      [_constants defaultCellBackgroundPropertiesForTableViewStyle:_tableStyle state:v7 traitCollection:traitCollection];
+      objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(_constants);
     }
 
     else
     {
-      v18 = 0;
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
+      v17 = 0;
       v15 = 0u;
-      v12 = 0u;
+      v16 = 0u;
       v13 = 0u;
-      v10 = 0u;
+      v14 = 0u;
       v11 = 0u;
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
     }
 
-    [(UIView *)v3 setBackgroundColor:*(&v10 + 1)];
-    __destructor_8_s8_s16_s24_s80(&v10);
+    [(UIView *)v3 setBackgroundColor:*(&v9 + 1)];
+    __destructor_8_s8_s16_s24_s80(&v9);
   }
 
   return v3;
@@ -3588,9 +3588,9 @@ LABEL_19:
 
     if (v9 && v8)
     {
-      v11 = [(NSArray *)v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (v11)
+      if (isEqual)
       {
         goto LABEL_32;
       }
@@ -3614,9 +3614,9 @@ LABEL_19:
     v16 = [v13 objectAtIndexedSubscript:i];
     _identifier = [v15 _identifier];
     _identifier2 = [v16 _identifier];
-    v19 = [_identifier isEqualToString:_identifier2];
+    isEqualToString = objc_msgSend_isEqualToString_(_identifier);
 
-    if ((v19 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_25;
     }
@@ -3632,7 +3632,7 @@ LABEL_19:
 
     if (v20 && v21)
     {
-      v23 = [v20 isEqual:v21];
+      v23 = objc_msgSend_isEqual_(v20);
 
       if (v23)
       {
@@ -3731,9 +3731,9 @@ void __43__UICollectionViewListCell_setAccessories___block_invoke(uint64_t a1, v
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v10 copyItems:1];
@@ -3771,9 +3771,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v10 copyItems:1];
@@ -3811,9 +3811,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v10 copyItems:1];
@@ -3851,9 +3851,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v10 copyItems:1];
@@ -3966,9 +3966,9 @@ LABEL_9:
         v13 = *(*(&v21 + 1) + 8 * i);
         identifier = [v13 identifier];
         _identifier = [accessoryCopy _identifier];
-        v16 = [identifier isEqualToString:_identifier];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v16)
+        if (isEqualToString)
         {
           view = [v13 view];
           v17 = objc_opt_class();
@@ -4359,9 +4359,9 @@ LABEL_14:
   }
 
   currentConfigurationIdentifier = [(UICellAccessoryManager *)self->_accessoryManager currentConfigurationIdentifier];
-  v10 = [currentConfigurationIdentifier isEqualToString:0x1EFBA01F0];
+  isEqualToString = objc_msgSend_isEqualToString_(currentConfigurationIdentifier);
 
-  if (v10)
+  if (isEqualToString)
   {
     leadingEditingAccessoryConfigurations = self->_leadingEditingAccessoryConfigurations;
     leadingAccessories2 = [currentConfiguration leadingAccessories];

@@ -28,16 +28,14 @@
 
 - (id)hd_relatedJournalEntriesWithProfile:()HDDataEntity
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   objects = [self objects];
   allObjects = [objects allObjects];
   v7 = [HDAssociationEntity journalEntryForAssociation:self objects:allObjects profile:v4];
 
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   return v8;
 }

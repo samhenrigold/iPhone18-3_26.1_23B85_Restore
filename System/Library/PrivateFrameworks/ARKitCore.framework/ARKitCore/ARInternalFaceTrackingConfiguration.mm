@@ -44,27 +44,28 @@
 
 - (void)setCameraPosition:(int64_t)position
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if ([ARKitUserDefaults BOOLForKey:@"com.apple.arkit.faceTracking.backCamera.allowed"])
+  v20 = *MEMORY[0x1E69E9840];
+  v5 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.faceTracking.backCamera.allowed"];
+  if (v5)
   {
-    if (position && (-[ARConfiguration videoFormat](self, "videoFormat"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 captureDevicePosition], v5, v6 != position))
+    if (position && (-[ARConfiguration videoFormat](self, "videoFormat"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 captureDevicePosition], v6, v7 != position))
     {
-      v14.receiver = self;
-      v14.super_class = ARInternalFaceTrackingConfiguration;
-      [(ARConfiguration *)&v14 setCameraPosition:position];
+      v15.receiver = self;
+      v15.super_class = ARInternalFaceTrackingConfiguration;
+      [(ARConfiguration *)&v15 setCameraPosition:position];
     }
 
     else
     {
       supportedVideoFormats = [objc_opt_class() supportedVideoFormats];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __57__ARInternalFaceTrackingConfiguration_setCameraPosition___block_invoke;
-      v13[3] = &__block_descriptor_40_e30_B32__0__ARVideoFormat_8Q16_B24l;
-      v13[4] = position;
-      v8 = [supportedVideoFormats ar_firstObjectPassingTest:v13];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __57__ARInternalFaceTrackingConfiguration_setCameraPosition___block_invoke;
+      v14[3] = &__block_descriptor_40_e30_B32__0__ARVideoFormat_8Q16_B24l;
+      v14[4] = position;
+      v9 = [supportedVideoFormats ar_firstObjectPassingTest:v14];
       videoFormat = self->super._videoFormat;
-      self->super._videoFormat = v8;
+      self->super._videoFormat = v9;
 
       self->super._cameraPosition = position;
     }
@@ -72,16 +73,16 @@
 
   else
   {
-    v10 = _ARLogGeneral_12();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _ARLogGeneral_12(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2048;
+      v17 = v13;
+      v18 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: setCameraPosition failed: The camera position for face tracking cannot be changed.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: setCameraPosition failed: The camera position for face tracking cannot be changed.", buf, 0x16u);
     }
   }
 }
@@ -127,7 +128,7 @@ LABEL_4:
 
 - (void)setMaximumNumberOfTrackedFaces:(int64_t)faces
 {
-  if (ARLinkedOnOrAfterYukon())
+  if (ARLinkedOnOrAfterYukon(self, a2))
   {
     v5 = +[ARFaceTrackingConfiguration supportedNumberOfTrackedFaces];
     if ((faces & 0x8000000000000000) == 0)

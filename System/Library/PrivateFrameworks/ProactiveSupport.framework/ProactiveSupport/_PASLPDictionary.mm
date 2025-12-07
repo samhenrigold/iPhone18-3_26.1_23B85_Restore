@@ -60,7 +60,6 @@
 
 - (id)_pas_overrideUnlazyDictionary
 {
-  reader = self->_reader;
   if (objc_opt_respondsToSelector())
   {
     DeepCopy = [(_PASLPReaderProtocol *)self->_reader unlazyCopyForDictionaryWithContext:self->_context];

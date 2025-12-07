@@ -8,10 +8,10 @@
 
 - (WFLSMScoreNormalizedMap)initWithMap:(__LSMMap *)map
 {
-  *&v42[5] = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = WFLSMScoreNormalizedMap;
-  v3 = [(WFLSMMap *)&v30 initWithMap:map];
+  *&v41[5] = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = WFLSMScoreNormalizedMap;
+  v3 = [(WFLSMMap *)&v29 initWithMap:map];
   v4 = v3;
   if (v3)
   {
@@ -37,9 +37,9 @@
         do
         {
           v11 = [WFWebPageToTrainingText signatureForCategory:v10];
-          v29.receiver = v4;
-          v29.super_class = WFLSMScoreNormalizedMap;
-          v12 = [(WFLSMMap *)&v29 evaluate:v11];
+          v28.receiver = v4;
+          v28.super_class = WFLSMScoreNormalizedMap;
+          v12 = [(WFLSMMap *)&v28 evaluate:v11];
           if ([v12 bestMatchingCategory] == v10)
           {
             [v12 scoreForCategory:v10];
@@ -71,7 +71,7 @@
             v20 = __WFDefaultLog();
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              [(WFLSMScoreNormalizedMap *)v41 initWithMap:v4, v42, v20];
+              [(WFLSMScoreNormalizedMap *)v40 initWithMap:v4, v41, v20];
             }
           }
 
@@ -90,15 +90,15 @@
             v25 = v4->minScore[v22];
             v26 = v4->maxScore[v22];
             *buf = 138413314;
-            v32 = v24;
-            v33 = 1024;
-            v34 = v22;
-            v35 = 2048;
-            v36 = v25;
-            v37 = 2048;
-            v38 = v26;
-            v39 = 2048;
-            v40 = (v26 - v25);
+            v31 = v24;
+            v32 = 1024;
+            v33 = v22;
+            v34 = 2048;
+            v35 = v25;
+            v36 = 2048;
+            v37 = v26;
+            v38 = 2048;
+            v39 = (v26 - v25);
             _os_log_impl(&dword_272D73000, v23, OS_LOG_TYPE_INFO, "%@ category:%d min:%f max:%f scope:%f", buf, 0x30u);
           }
 
@@ -110,7 +110,6 @@
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

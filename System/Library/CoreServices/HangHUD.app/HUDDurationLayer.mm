@@ -28,10 +28,10 @@
   hangDuration = self->_hangDuration;
   if (hangDuration == duration)
   {
-    v6 = sub_100002F0C();
+    v6 = sub_100002F0C(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_100018314(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_100018314(v6, v7, v8, v9, v10, v11, v12, v13, duration);
     }
   }
 
@@ -42,35 +42,35 @@
       v15 = sub_100001120(hangDuration);
       [(HUDDurationLayer *)self setString:v15];
 
-      v16 = sub_100002F0C();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v17 = sub_100002F0C(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000181F4(self, v16, duration);
+        sub_1000181F4(self, v17, duration);
       }
 
-      v17 = +[HUDAnimator sharedAnimator];
-      v18 = self->_hangDuration;
+      v18 = +[HUDAnimator sharedAnimator];
+      v19 = self->_hangDuration;
       updateInterval = self->_updateInterval;
-      v42[0] = _NSConcreteStackBlock;
-      v42[1] = 3221225472;
-      v42[2] = sub_100001504;
-      v42[3] = &unk_100030640;
-      v42[4] = self;
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_100001600;
-      v41[3] = &unk_100030690;
-      v41[4] = self;
-      v20 = [v17 beginAnimationFromValue:v42 toValue:v41 duration:v18 updateBlock:duration completionBlock:updateInterval];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_100001504;
+      v44[3] = &unk_100030640;
+      v44[4] = self;
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_100001600;
+      v43[3] = &unk_100030690;
+      v43[4] = self;
+      v21 = [v18 beginAnimationFromValue:v44 toValue:v43 duration:v19 updateBlock:duration completionBlock:updateInterval];
       currentAnimation = self->_currentAnimation;
-      self->_currentAnimation = v20;
+      self->_currentAnimation = v21;
     }
 
     self->_hangDuration = duration;
-    v22 = sub_100002F0C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = sub_100002F0C(self);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000182A4(v22, v23, v24, v25, v26, v27, v28, v29);
+      sub_1000182A4(v23, v24, v25, v26, v27, v28, v29, v30, duration);
     }
 
     v6 = +[HUDAnimator sharedAnimator];
@@ -80,19 +80,19 @@
   else
   {
     self->_hangDuration = duration;
-    v30 = self->_currentAnimation;
-    if (v30)
+    v31 = self->_currentAnimation;
+    if (v31)
     {
       self->_currentAnimation = 0;
-      v31 = v30;
+      v32 = v31;
 
-      v32 = +[HUDAnimator sharedAnimator];
-      [v32 endAnimation:v31];
+      v33 = +[HUDAnimator sharedAnimator];
+      [v33 endAnimation:v32];
 
-      v33 = sub_100002F0C();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v35 = sub_100002F0C(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
-        sub_100018184(v33, v34, v35, v36, v37, v38, v39, v40);
+        sub_100018184(v35, v36, v37, v38, v39, v40, v41, v42, duration);
       }
     }
 

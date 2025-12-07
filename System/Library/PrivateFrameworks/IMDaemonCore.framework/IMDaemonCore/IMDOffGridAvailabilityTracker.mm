@@ -40,7 +40,7 @@
 
 - (void)startTrackingHandle:(id)handle
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v5 = [handleCopy ID];
   if ([v5 length])
@@ -55,9 +55,9 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v13 = 138412290;
-          v14 = v5;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Tracking handle %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v5;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Tracking handle %@", &v12, 0xCu);
         }
       }
 
@@ -72,13 +72,11 @@
       [(IMDOffGridAvailabilityTracker *)self _startTimer];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingHandle:(id)handle
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v5 = [handleCopy ID];
   if ([v5 length])
@@ -94,9 +92,9 @@
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = [handleCopy ID];
-          v14 = 138412290;
-          v15 = v9;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping tracking of handle %@", &v14, 0xCu);
+          v13 = 138412290;
+          v14 = v9;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping tracking of handle %@", &v13, 0xCu);
         }
       }
 
@@ -112,8 +110,6 @@
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimer

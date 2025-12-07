@@ -108,7 +108,7 @@ void __62__HKDeviceQuery_clientRemote_deliverDevices_done_reset_query___block_in
 {
   resultsHandler = self->_resultsHandler;
   self->_resultsHandler = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, resultsHandler);
 }
 
 + (void)configureClientInterface:(id)interface

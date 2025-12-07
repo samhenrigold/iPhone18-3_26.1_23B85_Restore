@@ -1,5 +1,6 @@
 @interface MTRBaseDevice
 + (MTRBaseDevice)deviceWithNodeID:(NSNumber *)nodeID controller:(MTRDeviceController *)controller;
++ (PacketBufferHandle)_responseDataForCommand:(id)command clusterID:(unsigned int)d commandID:(unsigned int)iD error:(id *)error;
 + (id)eventReportForHeader:(const EventHeader *)header andData:(id)data;
 - (MTRBaseDevice)initWithNodeID:(id)d controller:(id)controller;
 - (MTRBaseDevice)initWithPASEDevice:(void *)device controller:(id)controller;
@@ -23,6 +24,7 @@
 - (void)subscribeToAttributePaths:(NSArray *)attributePaths eventPaths:(NSArray *)eventPaths params:(MTRSubscribeParams *)params queue:(dispatch_queue_t)queue reportHandler:(MTRDeviceResponseHandler)reportHandler subscriptionEstablished:(MTRSubscriptionEstablishedHandler)subscriptionEstablished resubscriptionScheduled:(MTRDeviceResubscriptionScheduledHandler)resubscriptionScheduled;
 - (void)subscribeToAttributesWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID attributeID:(NSNumber *)attributeID params:(MTRSubscribeParams *)params queue:(dispatch_queue_t)queue reportHandler:(MTRDeviceResponseHandler)reportHandler subscriptionEstablished:(MTRSubscriptionEstablishedHandler)subscriptionEstablished;
 - (void)subscribeToEventsWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID eventID:(NSNumber *)eventID params:(MTRSubscribeParams *)params queue:(dispatch_queue_t)queue reportHandler:(MTRDeviceResponseHandler)reportHandler subscriptionEstablished:(MTRSubscriptionEstablishedHandler)subscriptionEstablished;
+- (void)subscribeWithQueue:(dispatch_queue_t)queue minInterval:(uint16_t)minInterval maxInterval:(uint16_t)maxInterval params:(MTRSubscribeParams *)params cacheContainer:(MTRAttributeCacheContainer *)attributeCacheContainer attributeReportHandler:(MTRDeviceReportHandler)attributeReportHandler eventReportHandler:(MTRDeviceReportHandler)eventReportHandler errorHandler:(MTRDeviceErrorHandler)errorHandler subscriptionEstablished:(dispatch_block_t)subscriptionEstablishedHandler resubscriptionScheduled:(MTRDeviceResubscriptionScheduledHandler)resubscriptionScheduledHandler;
 - (void)subscribeWithQueue:(dispatch_queue_t)queue params:(MTRSubscribeParams *)params clusterStateCacheContainer:(MTRClusterStateCacheContainer *)clusterStateCacheContainer attributeReportHandler:(MTRDeviceReportHandler)attributeReportHandler eventReportHandler:(MTRDeviceReportHandler)eventReportHandler errorHandler:(MTRDeviceErrorHandler)errorHandler subscriptionEstablished:(MTRSubscriptionEstablishedHandler)subscriptionEstablished resubscriptionScheduled:(MTRDeviceResubscriptionScheduledHandler)resubscriptionScheduled;
 - (void)writeAttributeWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID attributeID:(NSNumber *)attributeID value:(id)value timedWriteTimeout:(NSNumber *)timeoutMs queue:(dispatch_queue_t)queue completion:(MTRDeviceResponseHandler)completion;
 @end
@@ -108,7 +110,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Unable to determine session transport type for MTRBaseDevice created with an XPC controller");
     }
 
     v5 = MTRTransportTypeUndefined;
@@ -139,7 +141,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Unable invalidate CASE session for MTRBaseDevice created with an XPC controller");
       }
     }
   }
@@ -205,7 +207,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Unable to create subscription for MTRBaseDevice created with an XPC controller");
       }
 
       v40[0] = MEMORY[0x277D85DD0];
@@ -255,7 +257,7 @@
 
 - (void)readAttributePaths:(NSArray *)attributePaths eventPaths:(NSArray *)eventPaths params:(MTRReadParams *)params queue:(dispatch_queue_t)queue completion:(MTRDeviceResponseHandler)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v12 = attributePaths;
   v13 = eventPaths;
   v14 = params;
@@ -266,24 +268,19 @@
   {
     *buf = 138412802;
     selfCopy = self;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2112;
-    v27 = v13;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
     _os_log_impl(&dword_238DAE000, v17, OS_LOG_TYPE_DEFAULT, "%@ readAttributePaths: %@, eventPaths: %@", buf, 0x20u);
   }
 
   if (sub_2393D5398(2u))
   {
-    v20 = v12;
-    v21 = v13;
-    selfCopy2 = self;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ readAttributePaths: %@, eventPaths: %@", self, v12, v13);
   }
 
-  [(MTRBaseDevice *)self readAttributePaths:v12 eventPaths:v13 params:v14 includeDataVersion:0 queue:v15 completion:v16, selfCopy2, v20, v21];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(MTRBaseDevice *)self readAttributePaths:v12 eventPaths:v13 params:v14 includeDataVersion:0 queue:v15 completion:v16];
 }
 
 - (void)readAttributePaths:(id)paths eventPaths:(id)eventPaths params:(id)params includeDataVersion:(BOOL)version queue:(id)queue completion:(id)completion
@@ -341,7 +338,7 @@ LABEL_10:
 
 - (void)writeAttributeWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID attributeID:(NSNumber *)attributeID value:(id)value timedWriteTimeout:(NSNumber *)timeoutMs queue:(dispatch_queue_t)queue completion:(MTRDeviceResponseHandler)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v15 = endpointID;
   v16 = clusterID;
   v17 = attributeID;
@@ -354,30 +351,23 @@ LABEL_10:
   {
     *buf = 138413314;
     selfCopy = self;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2048;
+    v25 = 2112;
+    v26 = v15;
+    v27 = 2048;
     unsignedLongLongValue = [(NSNumber *)v16 unsignedLongLongValue];
-    v35 = 2048;
+    v29 = 2048;
     unsignedLongLongValue2 = [(NSNumber *)v17 unsignedLongLongValue];
-    v37 = 2112;
-    v38 = v18;
+    v31 = 2112;
+    v32 = v18;
     _os_log_impl(&dword_238DAE000, v22, OS_LOG_TYPE_DEFAULT, "%@ write %@ 0x%llx 0x%llx: %@", buf, 0x34u);
   }
 
   if (sub_2393D5398(2u))
   {
-    unsignedLongLongValue3 = [(NSNumber *)v16 unsignedLongLongValue];
-    unsignedLongLongValue4 = [(NSNumber *)v17 unsignedLongLongValue];
-    v28 = v18;
-    v25 = v15;
-    v26 = unsignedLongLongValue3;
-    sub_2393D5320(0, 2);
+    sub_2393D5320(0, 2, "%@ write %@ 0x%llx 0x%llx: %@", self, v15, [(NSNumber *)v16 unsignedLongLongValue], [(NSNumber *)v17 unsignedLongLongValue], v18);
   }
 
-  [(MTRBaseDevice *)self _writeAttributeWithEndpointID:v15 clusterID:v16 attributeID:v17 value:v18 timedWriteTimeout:v19 queue:v20 completion:v21, v25, v26, unsignedLongLongValue4, v28];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(MTRBaseDevice *)self _writeAttributeWithEndpointID:v15 clusterID:v16 attributeID:v17 value:v18 timedWriteTimeout:v19 queue:v20 completion:v21];
 }
 
 - (void)_writeAttributeWithEndpointID:(id)d clusterID:(id)iD attributeID:(id)attributeID value:(id)value timedWriteTimeout:(id)timeout queue:(id)queue completion:(id)completion
@@ -394,7 +384,7 @@ LABEL_10:
 
 - (void)_invokeCommandWithEndpointID:(id)d clusterID:(id)iD commandID:(id)commandID commandFields:(id)fields timedInvokeTimeout:(id)timeout serverSideProcessingTimeout:(id)processingTimeout logCall:(BOOL)call queue:(id)self0 completion:(id)self1
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   commandIDCopy = commandID;
@@ -458,28 +448,28 @@ LABEL_10:
       v31 = MTRRequestCommandNameForID([iDCopy unsignedLongLongValue], objc_msgSend(commandIDCopy, "unsignedLongLongValue"));
       *buf = 138413826;
       selfCopy = self;
-      v38 = 2112;
-      v39 = dCopy;
-      v40 = 2048;
-      v41 = unsignedLongLongValue;
-      v42 = 2112;
-      v43 = v29;
-      v44 = 2048;
-      v45 = unsignedLongLongValue2;
-      v46 = 2112;
-      v47 = v31;
+      v40 = 2112;
+      v41 = dCopy;
+      v42 = 2048;
+      v43 = unsignedLongLongValue;
+      v44 = 2112;
+      v45 = v29;
+      v46 = 2048;
+      v47 = unsignedLongLongValue2;
       v48 = 2112;
-      v49 = fieldsCopy;
+      v49 = v31;
+      v50 = 2112;
+      v51 = fieldsCopy;
       _os_log_impl(&dword_238DAE000, v28, OS_LOG_TYPE_DEFAULT, "%@ invoke %@ 0x%llx (%@) 0x%llx (%@): %@", buf, 0x48u);
     }
 
     if (sub_2393D5398(2u))
     {
-      [iDCopy unsignedLongLongValue];
-      v32 = MTRClusterNameForID([iDCopy unsignedLongLongValue]);
-      [commandIDCopy unsignedLongLongValue];
-      v33 = MTRRequestCommandNameForID([iDCopy unsignedLongLongValue], objc_msgSend(commandIDCopy, "unsignedLongLongValue"));
-      sub_2393D5320(0, 2);
+      unsignedLongLongValue3 = [iDCopy unsignedLongLongValue];
+      v33 = MTRClusterNameForID([iDCopy unsignedLongLongValue]);
+      unsignedLongLongValue4 = [commandIDCopy unsignedLongLongValue];
+      v35 = MTRRequestCommandNameForID([iDCopy unsignedLongLongValue], objc_msgSend(commandIDCopy, "unsignedLongLongValue"));
+      sub_2393D5320(0, 2, "%@ invoke %@ 0x%llx (%@) 0x%llx (%@): %@", self, dCopy, unsignedLongLongValue3, v33, unsignedLongLongValue4, v35, fieldsCopy);
     }
   }
 
@@ -596,7 +586,7 @@ LABEL_10:
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Unable to create subscription for MTRBaseDevice created with an XPC controller");
       }
 
       v40[0] = MEMORY[0x277D85DD0];
@@ -693,7 +683,7 @@ LABEL_23:
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Unexpected call to deregister report handlers");
   }
 
   deviceController = [(MTRBaseDevice *)self deviceController];
@@ -738,15 +728,15 @@ LABEL_23:
 
 - (void)_openCommissioningWindowWithSetupPasscode:(id)passcode discriminator:(id)discriminator duration:(id)duration queue:(id)queue completion:(id)completion
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   passcodeCopy = passcode;
   discriminatorCopy = discriminator;
   durationCopy = duration;
   queueCopy = queue;
   completionCopy = completion;
   *buf = 0;
-  *&v54[4] = "dwnfw_open_pairing_window";
-  v55 = 0;
+  *&v53[4] = "dwnfw_open_pairing_window";
+  v54 = 0;
   sub_23948BD20(buf);
   if (![(MTRBaseDevice *)self isPASEDevice])
   {
@@ -762,16 +752,16 @@ LABEL_23:
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Can't open a commissioning window via MTRBaseDevice created with an XPC controller");
       }
 
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = sub_238EECA3C;
-      v49[3] = &unk_278A72B88;
-      v23 = &v50;
-      v50 = completionCopy;
-      v24 = v49;
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = sub_238EECA3C;
+      v48[3] = &unk_278A72B88;
+      v23 = &v49;
+      v49 = completionCopy;
+      v24 = v48;
       goto LABEL_25;
     }
 
@@ -782,22 +772,22 @@ LABEL_23:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        *v54 = unsignedLongLongValue;
+        *v53 = unsignedLongLongValue;
         _os_log_impl(&dword_238DAE000, v26, OS_LOG_TYPE_ERROR, "Error: Duration %llu is too large.", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error: Duration %llu is too large.", unsignedLongLongValue);
       }
 
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = sub_238EECAE0;
-      v47[3] = &unk_278A72B88;
-      v23 = &v48;
-      v48 = completionCopy;
-      v24 = v47;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = sub_238EECAE0;
+      v46[3] = &unk_278A72B88;
+      v23 = &v47;
+      v47 = completionCopy;
+      v24 = v46;
       goto LABEL_25;
     }
 
@@ -808,24 +798,24 @@ LABEL_23:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v54 = unsignedLongLongValue2;
-        *&v54[8] = 1024;
-        *&v54[10] = 4095;
+        *v53 = unsignedLongLongValue2;
+        *&v53[8] = 1024;
+        *&v53[10] = 4095;
         _os_log_impl(&dword_238DAE000, v22, OS_LOG_TYPE_ERROR, "Error: Discriminator %llu is too large. Max value %d", buf, 0x12u);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error: Discriminator %llu is too large. Max value %d", unsignedLongLongValue2, 4095);
       }
 
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = sub_238EECB88;
-      v45[3] = &unk_278A72B88;
-      v23 = &v46;
-      v46 = completionCopy;
-      v24 = v45;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = sub_238EECB88;
+      v44[3] = &unk_278A72B88;
+      v23 = &v45;
+      v45 = completionCopy;
+      v24 = v44;
 LABEL_25:
       dispatch_async(queueCopy, v24);
 LABEL_26:
@@ -838,64 +828,64 @@ LABEL_26:
       unsignedLongLongValue3 = [passcodeCopy unsignedLongLongValue];
       if (HIDWORD(unsignedLongLongValue3) || (sub_23948FB60(unsignedLongLongValue3) & 1) == 0)
       {
-        v28 = sub_2393D9044(0);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v27 = sub_2393D9044(0);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          *v54 = unsignedLongLongValue3;
-          _os_log_impl(&dword_238DAE000, v28, OS_LOG_TYPE_ERROR, "Error: Setup passcode %llu is not valid", buf, 0xCu);
+          *v53 = unsignedLongLongValue3;
+          _os_log_impl(&dword_238DAE000, v27, OS_LOG_TYPE_ERROR, "Error: Setup passcode %llu is not valid", buf, 0xCu);
         }
 
         if (sub_2393D5398(1u))
         {
-          sub_2393D5320(0, 1);
+          sub_2393D5320(0, 1, "Error: Setup passcode %llu is not valid", unsignedLongLongValue3);
         }
 
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = sub_238EECC30;
-        v43[3] = &unk_278A72B88;
-        v23 = &v44;
-        v44 = completionCopy;
-        v24 = v43;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = sub_238EECC30;
+        v42[3] = &unk_278A72B88;
+        v23 = &v43;
+        v43 = completionCopy;
+        v24 = v42;
         goto LABEL_25;
       }
 
-      v31 = 1;
+      v30 = 1;
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
       LODWORD(unsignedLongLongValue3) = v20;
     }
 
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3321888768;
-    v36[2] = sub_238EECCD8;
-    v36[3] = &unk_284BA9A50;
-    v30 = queueCopy;
-    v37[0] = v30;
-    v29 = completionCopy;
-    v37[1] = self;
-    v38 = v29;
-    v39 = unsignedLongLongValue;
-    v40 = unsignedLongLongValue2;
-    v41 = v31;
-    if (v31)
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3321888768;
+    v35[2] = sub_238EECCD8;
+    v35[3] = &unk_284BA9A50;
+    v29 = queueCopy;
+    v36[0] = v29;
+    v28 = completionCopy;
+    v36[1] = self;
+    v37 = v28;
+    v38 = unsignedLongLongValue;
+    v39 = unsignedLongLongValue2;
+    v40 = v30;
+    if (v30)
     {
-      v42 = unsignedLongLongValue3;
+      v41 = unsignedLongLongValue3;
     }
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = sub_238EED50C;
-    v33[3] = &unk_278A72D20;
-    v34 = v30;
-    v35 = v29;
-    [concreteController asyncGetCommissionerOnMatterQueue:v36 errorHandler:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = sub_238EED50C;
+    v32[3] = &unk_278A72D20;
+    v33 = v29;
+    v34 = v28;
+    [concreteController asyncGetCommissionerOnMatterQueue:v35 errorHandler:v32];
 
-    v23 = v37;
+    v23 = v36;
     goto LABEL_26;
   }
 
@@ -908,19 +898,17 @@ LABEL_26:
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "Can't open a commissioning window over PASE");
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_238EEC998;
   block[3] = &unk_278A72B88;
-  v52 = completionCopy;
+  v51 = completionCopy;
   dispatch_async(queueCopy, block);
-  concreteController = v52;
+  concreteController = v51;
 LABEL_27:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readEventsWithEndpointID:(NSNumber *)endpointID clusterID:(NSNumber *)clusterID eventID:(NSNumber *)eventID params:(MTRReadParams *)params queue:(dispatch_queue_t)queue completion:(MTRDeviceResponseHandler)completion
@@ -950,7 +938,7 @@ LABEL_27:
 
 + (id)eventReportForHeader:(const EventHeader *)header andData:(id)data
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = [[MTREventPath alloc] initWithPath:header];
   if (!dataCopy)
@@ -959,21 +947,21 @@ LABEL_27:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = v6;
+      v30 = v6;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "%@ could not decode event data", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ could not decode event data", v6);
     }
 
-    v36[0] = @"eventPath";
-    v36[1] = @"error";
-    v37[0] = v6;
+    v33[0] = @"eventPath";
+    v33[1] = @"error";
+    v34[0] = v6;
     v12 = sub_23921C1E4(MTRError, 0x8680000002FLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseDevice.mm");
-    v37[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v34[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
     goto LABEL_23;
   }
 
@@ -992,24 +980,23 @@ LABEL_27:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = v6;
-      v34 = 1024;
-      v35 = var0;
+      v30 = v6;
+      v31 = 1024;
+      v32 = var0;
       _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "%@ Unsupported event timestamp type %u - ignoring", buf, 0x12u);
     }
 
     if (sub_2393D5398(1u))
     {
-      v24 = header->var3.var0;
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unsupported event timestamp type %u - ignoring", v6, header->var3.var0);
     }
 
-    v30[0] = @"eventPath";
-    v30[1] = @"error";
-    v31[0] = v6;
+    v27[0] = @"eventPath";
+    v27[1] = @"error";
+    v28[0] = v6;
     v12 = sub_23921C1E4(MTRError, 0x8790000006CLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseDevice.mm");
-    v31[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v28[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 LABEL_23:
     v19 = v13;
     goto LABEL_30;
@@ -1026,36 +1013,35 @@ LABEL_11:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = v6;
-      v34 = 1024;
-      v35 = var2;
+      v30 = v6;
+      v31 = 1024;
+      v32 = var2;
       _os_log_impl(&dword_238DAE000, v21, OS_LOG_TYPE_ERROR, "%@ Unsupported event priority %u - ignoring", buf, 0x12u);
     }
 
     if (sub_2393D5398(1u))
     {
-      v25 = header->var2;
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@ Unsupported event priority %u - ignoring", v6, header->var2);
     }
 
-    v28[0] = @"eventPath";
-    v28[1] = @"error";
-    v29[0] = v6;
+    v25[0] = @"eventPath";
+    v25[1] = @"error";
+    v26[0] = v6;
     v15 = sub_23921C1E4(MTRError, 0x87E0000006CLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseDevice.mm");
-    v29[1] = v15;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v26[1] = v15;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   }
 
   else
   {
-    v26[0] = @"eventPath";
-    v26[1] = @"data";
-    v27[0] = v6;
-    v27[1] = dataCopy;
-    v26[2] = @"eventNumber";
+    v23[0] = @"eventPath";
+    v23[1] = @"data";
+    v24[0] = v6;
+    v24[1] = dataCopy;
+    v23[2] = @"eventNumber";
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:header->var1];
-    v27[2] = v15;
-    v26[3] = @"eventPriority";
+    v24[2] = v15;
+    v23[3] = @"eventPriority";
     v16 = 1;
     if (header->var2 != 1)
     {
@@ -1073,20 +1059,115 @@ LABEL_11:
     }
 
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-    v27[3] = v18;
-    v27[4] = v10;
-    v26[4] = @"eventTimeType";
-    v26[5] = v8;
-    v27[5] = v9;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
+    v24[3] = v18;
+    v24[4] = v10;
+    v23[4] = @"eventTimeType";
+    v23[5] = v8;
+    v24[5] = v9;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:6];
   }
 
   v12 = v9;
 LABEL_30:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v19;
+}
+
++ (PacketBufferHandle)_responseDataForCommand:(id)command clusterID:(unsigned int)d commandID:(unsigned int)iD error:(id *)error
+{
+  v8 = *&iD;
+  v9 = *&d;
+  v10 = v6;
+  commandCopy = command;
+  v12 = objc_opt_class();
+  if (sub_238EEE250(commandCopy, @"commandPath", v12, @"response-value command path is not an MTRCommandPath.", error))
+  {
+    v13 = [commandCopy objectForKeyedSubscript:@"commandPath"];
+    cluster = [v13 cluster];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
+    v16 = [cluster isEqualToNumber:v15];
+
+    if (v16)
+    {
+      command = [v13 command];
+      v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
+      v19 = [command isEqualToNumber:v18];
+
+      if (v19)
+      {
+        v20 = objc_opt_class();
+        if (sub_238EEE250(commandCopy, @"data", v20, @"response-value data is not a data-value dictionary.", error))
+        {
+          v21 = [commandCopy objectForKeyedSubscript:@"data"];
+          sub_2393D9C18(0x62FuLL, 0, &v38);
+          if (v38)
+          {
+            sub_2393C7B90(v33);
+            v35 = 0;
+            v36 = 0;
+            v34 = &unk_284BB83A8;
+            v37 = 0;
+            sub_238EA16C4(&v34, &v38, 0);
+            sub_2393C7BF0(v33, &v34, 0xFFFFFFFF);
+            v23 = sub_238EE7070(v21, v33, 0x100uLL);
+            if (v23 || (v23 = sub_238DD2EFC(v33, &v38), v23))
+            {
+              sub_238EEE54C(@"Unable to encode data-value to TLV", v23, v22, error);
+              *v10 = 0;
+            }
+
+            else
+            {
+              *v10 = v38;
+              v38 = 0;
+            }
+
+            v34 = &unk_284BB83A8;
+            sub_238EA1758(&v36);
+            sub_238EA1758(&v35);
+          }
+
+          else
+          {
+            sub_238EEE54C(@"Unable to allocate encoding buffer", 0x8AC0000000BLL, "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRBaseDevice.mm", error);
+            *v10 = 0;
+          }
+
+          sub_238EA1758(&v38);
+
+          goto LABEL_12;
+        }
+      }
+
+      else
+      {
+        v28 = MEMORY[0x277CCACA8];
+        command2 = [v13 command];
+        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
+        v31 = [v28 stringWithFormat:@"Expected command id %@ but got %@", command2, v30];
+        sub_238EEE368(v31, 13, error);
+      }
+    }
+
+    else
+    {
+      v24 = MEMORY[0x277CCACA8];
+      cluster2 = [v13 cluster];
+      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
+      v27 = [v24 stringWithFormat:@"Expected cluster id %@ but got %@", cluster2, v26];
+      sub_238EEE368(v27, 13, error);
+    }
+
+    *v10 = 0;
+LABEL_12:
+
+    goto LABEL_13;
+  }
+
+  *v10 = 0;
+LABEL_13:
+
+  return v32;
 }
 
 - (void)downloadLogOfType:(int64_t)type timeout:(double)timeout queue:(id)queue completion:(id)completion
@@ -1111,7 +1192,7 @@ LABEL_30:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Can't download logs via MTRBaseDevice created with an XPC controller");
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -1132,6 +1213,39 @@ LABEL_30:
   v7 = [v3 stringWithFormat:@"<%@: %p, node: %016llX-%016llX (%llu)>", v5, self, objc_msgSend(compressedFabricID, "unsignedLongLongValue"), self->_nodeID, self->_nodeID];
 
   return v7;
+}
+
+- (void)subscribeWithQueue:(dispatch_queue_t)queue minInterval:(uint16_t)minInterval maxInterval:(uint16_t)maxInterval params:(MTRSubscribeParams *)params cacheContainer:(MTRAttributeCacheContainer *)attributeCacheContainer attributeReportHandler:(MTRDeviceReportHandler)attributeReportHandler eventReportHandler:(MTRDeviceReportHandler)eventReportHandler errorHandler:(MTRDeviceErrorHandler)errorHandler subscriptionEstablished:(dispatch_block_t)subscriptionEstablishedHandler resubscriptionScheduled:(MTRDeviceResubscriptionScheduledHandler)resubscriptionScheduledHandler
+{
+  v15 = maxInterval;
+  v16 = minInterval;
+  v29 = queue;
+  v30 = attributeCacheContainer;
+  v17 = attributeReportHandler;
+  v18 = eventReportHandler;
+  v19 = errorHandler;
+  v20 = subscriptionEstablishedHandler;
+  v21 = resubscriptionScheduledHandler;
+  v22 = [(MTRSubscribeParams *)params copy];
+  if (v22)
+  {
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v16];
+    [(MTRSubscribeParams *)v22 setMinInterval:v23];
+
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v15];
+    [(MTRSubscribeParams *)v22 setMaxInterval:v24];
+  }
+
+  else
+  {
+    v25 = [MTRSubscribeParams alloc];
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v16];
+    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v15];
+    v22 = [(MTRSubscribeParams *)v25 initWithMinInterval:v24 maxInterval:v26];
+  }
+
+  realContainer = [(MTRAttributeCacheContainer *)v30 realContainer];
+  [(MTRBaseDevice *)self subscribeWithQueue:v29 params:v22 clusterStateCacheContainer:realContainer attributeReportHandler:v17 eventReportHandler:v18 errorHandler:v19 subscriptionEstablished:v20 resubscriptionScheduled:v21];
 }
 
 - (void)subscribeAttributeWithEndpointId:(NSNumber *)endpointId clusterId:(NSNumber *)clusterId attributeId:(NSNumber *)attributeId minInterval:(NSNumber *)minInterval maxInterval:(NSNumber *)maxInterval params:(MTRSubscribeParams *)params clientQueue:(dispatch_queue_t)clientQueue reportHandler:(MTRDeviceResponseHandler)reportHandler subscriptionEstablished:(dispatch_block_t)subscriptionEstablishedHandler

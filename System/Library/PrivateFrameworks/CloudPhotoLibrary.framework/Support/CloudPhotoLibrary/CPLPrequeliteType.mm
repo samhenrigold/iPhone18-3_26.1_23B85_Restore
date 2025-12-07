@@ -107,36 +107,32 @@
 - (id)_bindableValueForValue:(id)value
 {
   valueCopy = value;
-  if (valueCopy)
+  if (valueCopy && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    objcClass = self->_objcClass;
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if ((_CPLSilentLogging & 1) == 0)
     {
-      if ((_CPLSilentLogging & 1) == 0)
+      v7 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          v9 = self->_objcClass;
-          *buf = 138413058;
-          selfCopy = self;
-          v15 = 2112;
-          v16 = v9;
-          v17 = 2112;
-          v18 = objc_opt_class();
-          v19 = 2112;
-          v20 = valueCopy;
-          v10 = v18;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Invalid value for %@ (%@): %@ '%@'", buf, 0x2Au);
-        }
+        objcClass = self->_objcClass;
+        *buf = 138413058;
+        selfCopy = self;
+        v14 = 2112;
+        v15 = objcClass;
+        v16 = 2112;
+        v17 = objc_opt_class();
+        v18 = 2112;
+        v19 = valueCopy;
+        v9 = v17;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Invalid value for %@ (%@): %@ '%@'", buf, 0x2Au);
       }
-
-      v11 = +[NSAssertionHandler currentHandler];
-      v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
-      [v11 handleFailureInMethod:a2 object:self file:v12 lineNumber:108 description:{@"Invalid value for %@ (%@): %@ '%@'", self, self->_objcClass, objc_opt_class(), valueCopy}];
-
-      abort();
     }
+
+    v10 = +[NSAssertionHandler currentHandler];
+    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
+    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:108 description:{@"Invalid value for %@ (%@): %@ '%@'", self, self->_objcClass, objc_opt_class(), valueCopy}];
+
+    abort();
   }
 
   return valueCopy;
@@ -145,36 +141,32 @@
 - (id)_valueForBindableValue:(id)value
 {
   valueCopy = value;
-  if (valueCopy)
+  if (valueCopy && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    objcClass = self->_objcClass;
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if ((_CPLSilentLogging & 1) == 0)
     {
-      if ((_CPLSilentLogging & 1) == 0)
+      v7 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          v9 = self->_objcClass;
-          *buf = 138413058;
-          selfCopy = self;
-          v15 = 2112;
-          v16 = v9;
-          v17 = 2112;
-          v18 = objc_opt_class();
-          v19 = 2112;
-          v20 = valueCopy;
-          v10 = v18;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Invalid value for %@ (%@): %@ '%@'", buf, 0x2Au);
-        }
+        objcClass = self->_objcClass;
+        *buf = 138413058;
+        selfCopy = self;
+        v14 = 2112;
+        v15 = objcClass;
+        v16 = 2112;
+        v17 = objc_opt_class();
+        v18 = 2112;
+        v19 = valueCopy;
+        v9 = v17;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Invalid value for %@ (%@): %@ '%@'", buf, 0x2Au);
       }
-
-      v11 = +[NSAssertionHandler currentHandler];
-      v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
-      [v11 handleFailureInMethod:a2 object:self file:v12 lineNumber:113 description:{@"Invalid value for %@ (%@): %@ '%@'", self, self->_objcClass, objc_opt_class(), valueCopy}];
-
-      abort();
     }
+
+    v10 = +[NSAssertionHandler currentHandler];
+    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
+    [v10 handleFailureInMethod:a2 object:self file:v11 lineNumber:113 description:{@"Invalid value for %@ (%@): %@ '%@'", self, self->_objcClass, objc_opt_class(), valueCopy}];
+
+    abort();
   }
 
   return valueCopy;

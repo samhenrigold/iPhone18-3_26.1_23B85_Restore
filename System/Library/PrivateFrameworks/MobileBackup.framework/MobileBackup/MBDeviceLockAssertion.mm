@@ -27,7 +27,7 @@
     WORD2(v18[0]) = 1024;
     *(v18 + 6) = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MKBDeviceUnlockedSinceBoot=%d, MKBGetDeviceLockState=%d", buf, 0xEu);
-    _MBLog();
+    _MBLog(@"Df", "MKBDeviceUnlockedSinceBoot=%d, MKBGetDeviceLockState=%d", v5, v6);
   }
 
   v15 = @"MKBAssertionKey";
@@ -42,7 +42,7 @@
       *buf = 134217984;
       v18[0] = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Acquired the device lock assertion (%p)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Acquired the device lock assertion (%p)", v9);
     }
 
     self->_assertion = v9;
@@ -56,7 +56,7 @@
       *buf = 138412290;
       v18[0] = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to acquire the device lock assertion: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to acquire the device lock assertion: %@", 0);
     }
 
     v12 = [MBError errorWithCode:208 error:0 format:@"Failed to acquire the device lock assertion"];
@@ -83,7 +83,7 @@
       *buf = 134217984;
       v5 = assertion;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Releasing the device lock assertion (%p)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Releasing the device lock assertion (%p)", assertion);
     }
 
     CFRelease(assertion);

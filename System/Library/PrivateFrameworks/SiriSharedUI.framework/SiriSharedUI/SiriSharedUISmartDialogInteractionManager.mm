@@ -19,7 +19,7 @@
   swift_getObjectType();
   commandCopy = command;
   selfCopy = self;
-  sub_21E4A6EF0(commandCopy);
+  sub_21E4A6EF0(commandCopy, selfCopy);
 }
 
 - (void)performSFCommand:(id)command
@@ -37,8 +37,10 @@
   v8 = sub_21E4DB5B8();
   v10 = v9;
 
-  sub_21E4DCF78();
-  sub_21E4A5E40();
+  v11 = sub_21E4DCF78();
+  v13 = v12;
+
+  sub_21E4A5E40(v8, v10, v11, v13);
 
   sub_21E424920(v8, v10);
 }
@@ -85,7 +87,7 @@
 
 - (void)emitInstrumentationEvent:(id)event viewId:(id)id
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278, &unk_21E4E6570);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v15 - v7;
   v9 = sub_21E4DB698();
@@ -99,13 +101,13 @@
   selfCopy = self;
   sub_21E4A6FD0(eventCopy, v8);
 
-  sub_21E424BC0(v8, &qword_27CEC5278);
+  sub_21E424BC0(v8, &qword_27CEC5278, &unk_21E4E6570);
   (*(v10 + 8))(v12, v9);
 }
 
 - (void)emitInstrumentationEvent:(id)event
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278, &unk_21E4E6570);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   v8 = sub_21E4DB698();
@@ -114,7 +116,7 @@
   selfCopy = self;
   sub_21E4A6FD0(eventCopy, v7);
 
-  sub_21E424BC0(v7, &qword_27CEC5278);
+  sub_21E424BC0(v7, &qword_27CEC5278, &unk_21E4E6570);
 }
 
 - (_TtC12SiriSharedUI41SiriSharedUISmartDialogInteractionManager)init

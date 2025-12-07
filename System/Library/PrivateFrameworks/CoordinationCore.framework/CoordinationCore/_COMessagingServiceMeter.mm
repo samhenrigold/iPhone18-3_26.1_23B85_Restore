@@ -13,16 +13,16 @@
 
 - (_COMessagingServiceMeter)init
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v50.receiver = self;
-  v50.super_class = _COMessagingServiceMeter;
-  val = [(_COMessagingServiceMeter *)&v50 init];
+  v52 = *MEMORY[0x277D85DE8];
+  v49.receiver = self;
+  v49.super_class = _COMessagingServiceMeter;
+  val = [(_COMessagingServiceMeter *)&v49 init];
   if (val)
   {
     val->_lock._os_unfair_lock_opaque = 0;
-    v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v38 setObject:&unk_2857C88C8 forKey:@"com.apple.homepodsettingsd"];
-    [v38 setObject:&unk_2857C88E0 forKey:@"com.apple.coordinated"];
+    v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v37 setObject:&unk_2857C88C8 forKey:@"com.apple.homepodsettingsd"];
+    [v37 setObject:&unk_2857C88E0 forKey:@"com.apple.coordinated"];
     processInfo = [MEMORY[0x277CCAC38] processInfo];
     arguments = [processInfo arguments];
 
@@ -33,25 +33,25 @@
       v5 = [v4 componentsSeparatedByString:{@", "}];
 
       whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v8)
       {
-        v9 = *v47;
+        v9 = *v46;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v47 != v9)
+            if (*v46 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = [*(*(&v46 + 1) + 8 * i) stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+            v11 = [*(*(&v45 + 1) + 8 * i) stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
             if ([v11 length])
             {
               v12 = [v11 componentsSeparatedByString:@"="];
@@ -71,7 +71,7 @@
                     if (integerValue >= 1)
                     {
                       v18 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-                      [v38 setObject:v18 forKey:v14];
+                      [v37 setObject:v18 forKey:v14];
                     }
                   }
                 }
@@ -79,7 +79,7 @@
             }
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v46 objects:v52 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v45 objects:v51 count:16];
         }
 
         while (v8);
@@ -97,34 +97,34 @@
       v23 = [v22 componentsSeparatedByString:{@", "}];
 
       whitespaceAndNewlineCharacterSet2 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v25 = v23;
-      v26 = [v25 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v26)
       {
-        v27 = *v43;
+        v27 = *v42;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v43 != v27)
+            if (*v42 != v27)
             {
               objc_enumerationMutation(v25);
             }
 
-            v29 = *(*(&v42 + 1) + 8 * j);
+            v29 = *(*(&v41 + 1) + 8 * j);
             v30 = [v29 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
             if ([v30 length])
             {
               [(NSMutableDictionary *)val->_peaks setObject:&unk_2857C88F8 forKey:v29];
-              [v38 setObject:&unk_2857C8910 forKey:v29];
+              [v37 setObject:&unk_2857C8910 forKey:v29];
             }
           }
 
-          v26 = [v25 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v41 objects:v50 count:16];
         }
 
         while (v26);
@@ -136,19 +136,18 @@
       handler[1] = 3221225472;
       handler[2] = __32___COMessagingServiceMeter_init__block_invoke;
       handler[3] = &unk_278E18388;
-      objc_copyWeak(&v40, &location);
+      objc_copyWeak(&v39, &location);
       notify_register_dispatch("com.apple.CoordinationCore.COMessagingServiceMeter", &val->_registration, v31, handler);
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(&location);
     }
 
-    v32 = [v38 copy];
+    v32 = [v37 copy];
     limits = val->_limits;
     val->_limits = v32;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return val;
 }
 

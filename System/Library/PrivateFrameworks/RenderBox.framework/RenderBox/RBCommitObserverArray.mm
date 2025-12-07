@@ -1,6 +1,6 @@
 @interface RBCommitObserverArray
 - (id).cxx_construct;
-- (uint64_t)get:(uint64_t *)get;
+- (uint64_t)get:(void *)get;
 @end
 
 @implementation RBCommitObserverArray
@@ -13,7 +13,7 @@
   return self;
 }
 
-- (uint64_t)get:(uint64_t *)get
+- (uint64_t)get:(void *)get
 {
   if (!get)
   {

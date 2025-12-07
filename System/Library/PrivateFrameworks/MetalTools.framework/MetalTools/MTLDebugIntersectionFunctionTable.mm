@@ -122,11 +122,9 @@
       [MTLDebugIntersectionFunctionTable setFunction:function atIndex:&self->_stage];
     }
 
-    pipelineState = self->_pipelineState;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = self->_pipelineState;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -134,10 +132,9 @@
       }
     }
 
-    v10 = self->_pipelineState;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v12 = self->_pipelineState;
+    pipelineState = self->_pipelineState;
     if (isKindOfClass)
     {
       goto LABEL_13;
@@ -146,9 +143,9 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = self->_pipelineState;
+      pipelineState = self->_pipelineState;
 LABEL_13:
-      [(MTLToolsObject *)v12 validateHandleForSetFunction:function, indexCopy, functionCount];
+      [(MTLToolsObject *)pipelineState validateHandleForSetFunction:function, indexCopy, functionCount];
     }
   }
 
@@ -160,18 +157,18 @@ LABEL_13:
   function = [function function];
   if (function)
   {
-    v14 = function;
+    v11 = function;
     if (([function intersectionFunctionSignature] & 0x100) != 0)
     {
-      [MTLDebugIntersectionFunctionTable setFunction:v14 atIndex:?];
+      [MTLDebugIntersectionFunctionTable setFunction:v11 atIndex:?];
     }
   }
 
 LABEL_19:
-  v15 = [(MTLToolsObject *)self baseObject:indexCopy];
+  v12 = [(MTLToolsObject *)self baseObject:indexCopy];
   baseObject = [function baseObject];
 
-  [v15 setFunction:baseObject atIndex:index];
+  [v12 setFunction:baseObject atIndex:index];
 }
 
 - (void)setFunctions:(const void *)functions withRange:(_NSRange)range
@@ -266,18 +263,16 @@ LABEL_19:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = MTLDebugIntersectionFunctionTable;
-  v6 = [(MTLToolsObject *)&v9 description];
-  v10[0] = v4;
-  v10[1] = @"functionCount =";
-  v10[2] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_functionCount];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v10, 3), "componentsJoinedByString:", @" "];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8.receiver = self;
+  v8.super_class = MTLDebugIntersectionFunctionTable;
+  v6 = [(MTLToolsObject *)&v8 description];
+  v9[0] = v4;
+  v9[1] = @"functionCount =";
+  v9[2] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_functionCount];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 3), "componentsJoinedByString:", @" "];
 }
 
 - (uint64_t)setFunction:(void *)a1 atIndex:(unint64_t *)a2 .cold.1(void *a1, unint64_t *a2)

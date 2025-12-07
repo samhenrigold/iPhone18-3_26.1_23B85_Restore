@@ -229,7 +229,7 @@ uint64_t __55__SBDisplayManager_beginMonitoringForExternalDisplays___block_invok
 
   [SBDisplayManager registerDisplayControllerProvider:];
 LABEL_3:
-  if ([(NSHashTable *)self->_factories containsObject:providerCopy])
+  if (objc_msgSend_containsObject_(self->_factories))
   {
     [SBDisplayManager registerDisplayControllerProvider:];
   }
@@ -298,7 +298,7 @@ LABEL_3:
   observerCopy = observer;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  if ([(NSHashTable *)self->_lock_observers containsObject:observerCopy])
+  if (objc_msgSend_containsObject_(self->_lock_observers))
   {
     [SBDisplayManager addObserver:];
   }
@@ -672,7 +672,7 @@ LABEL_26:
 LABEL_63:
 }
 
-uint64_t __79__SBDisplayManager__connectToIdentity_withConfiguration_forDisplayManagerInit___block_invoke(uint64_t a1)
+void *__79__SBDisplayManager__connectToIdentity_withConfiguration_forDisplayManagerInit___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
@@ -1320,14 +1320,14 @@ LABEL_22:
     }
   }
 
-  v8 = SBLogDisplayControlling();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = SBLogDisplayControlling();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [SBDisplayManager _setPowerLogEntry:forDisplay:];
+    [SBDisplayManager _setPowerLogEntry:a2 forDisplay:?];
   }
 
-  v9 = [(FBDisplayManager *)self->_displayManager configurationForIdentity:displayCopy];
-  entryCopy = [SBDisplayPowerLogEntry forDisplay:v9 mode:0 zoom:0];
+  v10 = [(FBDisplayManager *)self->_displayManager configurationForIdentity:displayCopy];
+  entryCopy = [SBDisplayPowerLogEntry forDisplay:v10 mode:0 zoom:0];
 
 LABEL_6:
   [(SBDisplayPowerLogReporter *)self->_powerLogReporter reportPowerLogEntry:entryCopy];
@@ -2162,11 +2162,11 @@ void __64__SBDisplayManager__setDisplayContentMirroringState_forDisplay___block_
   [v0 handleFailureInMethod:@"[rootIdentity isRootIdentity]" object:? file:? lineNumber:? description:?];
 }
 
-- (void)_setPowerLogEntry:forDisplay:.cold.2()
+- (void)_setPowerLogEntry:(uint64_t)a1 forDisplay:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v4 = _SBFLoggingMethodProem();
+  v6 = _SBFLoggingMethodProem();
   OUTLINED_FUNCTION_6_13();
-  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0xCu);
+  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
 }
 
 - (void)_setCloneMirroringMode:forDisplay:.cold.1()

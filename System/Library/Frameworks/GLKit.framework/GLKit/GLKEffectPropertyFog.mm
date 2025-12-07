@@ -307,12 +307,8 @@
     v6 = @"GLKFogModeExp";
   }
 
-  *&v12.x = [v3 appendFormat:@"\tmode =    %@\n", v6];
-  x = self->_color.x;
-  y = self->_color.y;
-  z = self->_color.z;
-  w = self->_color.w;
-  [v3 appendFormat:@"\tcolor =   %@\n", NSStringFromGLKVector4(v12)];
+  *&v8.x = [v3 appendFormat:@"\tmode =    %@\n", v6];
+  [v3 appendFormat:@"\tcolor =   %@\n", NSStringFromGLKVector4(v8)];
   [v3 appendFormat:@"\tdensity = %6.4f\n", self->_density];
   [v3 appendFormat:@"\tstart =   %6.4f\n", self->_start];
   [v3 appendFormat:@"\tend =     %6.4f\n", self->_end];
@@ -329,10 +325,6 @@
 
 - (GLKVector4)color
 {
-  x = self->_color.x;
-  y = self->_color.y;
-  z = self->_color.z;
-  w = self->_color.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;

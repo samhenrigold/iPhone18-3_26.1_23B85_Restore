@@ -131,7 +131,6 @@
     if (!overrideDate)
     {
       v12 = +[NTKDate faceDate];
-      calendar = self->_calendar;
       NTKHourMinuteSecondAnglesForTime();
 
       v7 = 0.0 / 6.2832;
@@ -202,84 +201,81 @@ LABEL_9:
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   dateCopy = date;
-  overrideDate = self->_overrideDate;
   if ((NTKEqualObjects() & 1) == 0)
   {
-    v9 = +[NTKDate faceDate];
-    v10 = v9;
-    v11 = self->_overrideDate;
-    if (!v11)
+    v8 = +[NTKDate faceDate];
+    v9 = v8;
+    overrideDate = self->_overrideDate;
+    if (!overrideDate)
     {
-      v11 = v9;
+      overrideDate = v8;
     }
 
-    v12 = v11;
+    v11 = overrideDate;
     if (dateCopy)
     {
-      v13 = dateCopy;
+      v12 = dateCopy;
     }
 
     else
     {
-      v13 = [v10 dateByAddingTimeInterval:duration];
+      v12 = [v9 dateByAddingTimeInterval:duration];
     }
 
-    v14 = v13;
-    v15 = CACurrentMediaTime();
-    self->_startOverrideTime = v15;
-    self->_endOverrideTime = v15 + duration;
+    v13 = v12;
+    v14 = CACurrentMediaTime();
+    self->_startOverrideTime = v14;
+    self->_endOverrideTime = v14 + duration;
     objc_storeStrong(&self->_overrideDate, date);
-    calendar = self->_calendar;
     NTKHourMinuteSecondAnglesForTime();
-    v17 = (0.0 / 6.2832) - floor((0.0 / 6.2832));
-    self->_startSecondAngle = v17;
-    self->_startMinuteAngle = v17;
-    self->_startHourAngle = v17;
-    v18 = self->_calendar;
+    v15 = (0.0 / 6.2832) - floor((0.0 / 6.2832));
+    self->_startSecondAngle = v15;
+    self->_startMinuteAngle = v15;
+    self->_startHourAngle = v15;
     NTKHourMinuteSecondAnglesForTime();
-    v19 = (0.0 / 6.2832) - floor((0.0 / 6.2832));
-    self->_endSecondAngle = v19;
-    self->_endMinuteAngle = v19;
-    self->_endHourAngle = v19;
+    v16 = (0.0 / 6.2832) - floor((0.0 / 6.2832));
+    self->_endSecondAngle = v16;
+    self->_endMinuteAngle = v16;
+    self->_endHourAngle = v16;
     startSecondAngle = self->_startSecondAngle;
     endSecondAngle = self->_endSecondAngle;
     if (vabds_f32(startSecondAngle, endSecondAngle) > 0.5)
     {
-      v22 = startSecondAngle <= 0.5;
-      v23 = -1.0;
-      if (!v22)
+      v19 = startSecondAngle <= 0.5;
+      v20 = -1.0;
+      if (!v19)
       {
-        v23 = 1.0;
+        v20 = 1.0;
       }
 
-      self->_endSecondAngle = endSecondAngle + v23;
+      self->_endSecondAngle = endSecondAngle + v20;
     }
 
     startMinuteAngle = self->_startMinuteAngle;
     endMinuteAngle = self->_endMinuteAngle;
     if (vabds_f32(startMinuteAngle, endMinuteAngle) > 0.5)
     {
-      v26 = -1.0;
+      v23 = -1.0;
       if (startMinuteAngle > 0.5)
       {
-        v26 = 1.0;
+        v23 = 1.0;
       }
 
-      self->_endMinuteAngle = endMinuteAngle + v26;
+      self->_endMinuteAngle = endMinuteAngle + v23;
     }
 
     startHourAngle = self->_startHourAngle;
     endHourAngle = self->_endHourAngle;
     if (vabds_f32(startHourAngle, endHourAngle) > 0.5)
     {
-      v22 = startHourAngle <= 0.5;
-      v29 = -1.0;
-      if (!v22)
+      v19 = startHourAngle <= 0.5;
+      v26 = -1.0;
+      if (!v19)
       {
-        v29 = 1.0;
+        v26 = 1.0;
       }
 
-      self->_endHourAngle = endHourAngle + v29;
+      self->_endHourAngle = endHourAngle + v26;
     }
   }
 }

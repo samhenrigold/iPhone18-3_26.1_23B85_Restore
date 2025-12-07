@@ -12,8 +12,8 @@
 
   if (v5)
   {
-    layout = [(_PXCuratedLibraryNavigateToNextZoomLevelActionPerformer *)self layout];
-    rootLayout = [layout rootLayout];
+    v6 = objc_msgSend_layout(self);
+    rootLayout = [v6 rootLayout];
 
     if (rootLayout)
     {

@@ -41,46 +41,46 @@
 
 - (void)enumerateWorkoutsForDateInterval:(id)interval handler:(id)handler errorHandler:(id)errorHandler
 {
-  *(&v62[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v61[1] + 4) = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   handlerCopy = handler;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__14;
-  v56 = __Block_byref_object_dispose__14;
-  v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__14;
-  v50 = __Block_byref_object_dispose__14;
   v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__14;
+  v55 = __Block_byref_object_dispose__14;
+  v56 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__14;
+  v49 = __Block_byref_object_dispose__14;
+  v50 = 0;
   errorHandlerCopy = errorHandler;
-  v27 = *MEMORY[0x277CCA450];
+  v26 = *MEMORY[0x277CCA450];
   do
   {
     v8 = dispatch_semaphore_create(0);
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = __Block_byref_object_copy__14;
-    v44 = __Block_byref_object_dispose__14;
-    v45 = MEMORY[0x277CBEBF8];
-    v9 = v47[5];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHandler___block_invoke;
-    v35[3] = &unk_278491B20;
-    v37 = &v40;
-    v38 = &v52;
-    v39 = &v46;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__14;
+    v43 = __Block_byref_object_dispose__14;
+    v44 = MEMORY[0x277CBEBF8];
+    v9 = v46[5];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHandler___block_invoke;
+    v34[3] = &unk_278491B20;
+    v36 = &v39;
+    v37 = &v51;
+    v38 = &v45;
     v10 = v8;
-    v36 = v10;
-    [(ACHWorkoutIterator *)self _runQueryForDateInterval:intervalCopy lastCursor:v9 completion:v35];
+    v35 = v10;
+    [(ACHWorkoutIterator *)self _runQueryForDateInterval:intervalCopy lastCursor:v9 completion:v34];
     v11 = dispatch_time(0, 60000000000);
     v12 = dispatch_semaphore_wait(v10, v11);
-    v13 = v53[5] | v12;
+    v13 = v52[5] | v12;
     v14 = v13 == 0;
     if (v13)
     {
@@ -89,54 +89,54 @@
         v19 = ACHLogWorkouts();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [ACHWorkoutIterator enumerateWorkoutsForDateInterval:buf handler:v62 errorHandler:v19];
+          [ACHWorkoutIterator enumerateWorkoutsForDateInterval:buf handler:v61 errorHandler:v19];
         }
 
         v20 = MEMORY[0x277CCA9B8];
-        v59 = v27;
-        v60 = @"Semaphore wait timeout in workout iterator";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+        v58 = v26;
+        v59 = @"Semaphore wait timeout in workout iterator";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
         v22 = [v20 errorWithDomain:@"com.apple.ActivityAchievements.WorkoutIterator" code:10 userInfo:v21];
-        v23 = v53[5];
-        v53[5] = v22;
+        v23 = v52[5];
+        v52[5] = v22;
       }
 
-      v24 = v47[5];
-      v47[5] = 0;
+      v24 = v46[5];
+      v46[5] = 0;
 
-      errorHandlerCopy[2](errorHandlerCopy, v53[5]);
+      errorHandlerCopy[2](errorHandlerCopy, v52[5]);
     }
 
     else
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v15 = v41[5];
-      v16 = [v15 countByEnumeratingWithState:&v31 objects:v58 count:16];
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v15 = v40[5];
+      v16 = [v15 countByEnumeratingWithState:&v30 objects:v57 count:16];
       if (v16)
       {
-        v17 = *v32;
+        v17 = *v31;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v32 != v17)
+            if (*v31 != v17)
             {
               objc_enumerationMutation(v15);
             }
 
-            if ((handlerCopy[2](handlerCopy, *(*(&v31 + 1) + 8 * i)) & 1) == 0)
+            if ((handlerCopy[2](handlerCopy, *(*(&v30 + 1) + 8 * i)) & 1) == 0)
             {
-              v25 = v47[5];
-              v47[5] = 0;
+              v25 = v46[5];
+              v46[5] = 0;
 
               goto LABEL_18;
             }
           }
 
-          v16 = [v15 countByEnumeratingWithState:&v31 objects:v58 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v30 objects:v57 count:16];
           if (v16)
           {
             continue;
@@ -149,14 +149,13 @@
 LABEL_18:
     }
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
-  while (v14 && v47[5]);
-  _Block_object_dispose(&v46, 8);
+  while (v14 && v46[5]);
+  _Block_object_dispose(&v45, 8);
 
-  _Block_object_dispose(&v52, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
 }
 
 void __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -190,7 +189,7 @@ void __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHand
 
 - (void)_runQueryForDateInterval:(id)interval lastCursor:(id)cursor completion:(id)completion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   cursorCopy = cursor;
   completionCopy = completion;
@@ -198,16 +197,16 @@ void __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHand
   v11 = MEMORY[0x277CCD838];
   startDate = [intervalCopy startDate];
   endDate = [intervalCopy endDate];
-  v27 = [v11 predicateForSamplesWithStartDate:startDate endDate:endDate options:1];
+  v26 = [v11 predicateForSamplesWithStartDate:startDate endDate:endDate options:1];
 
   objc_initWeak(&location, self);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__ACHWorkoutIterator__runQueryForDateInterval_lastCursor_completion___block_invoke;
   aBlock[3] = &unk_278491B48;
-  objc_copyWeak(&v30, &location);
+  objc_copyWeak(&v29, &location);
   v14 = completionCopy;
-  v29 = v14;
+  v28 = v14;
   v15 = _Block_copy(aBlock);
   if (cursorCopy)
   {
@@ -218,25 +217,24 @@ void __76__ACHWorkoutIterator_enumerateWorkoutsForDateInterval_handler_errorHand
   {
     v17 = objc_alloc(MEMORY[0x277CCD848]);
     workoutType = [MEMORY[0x277CCD8D8] workoutType];
-    v19 = [v17 initWithSampleType:workoutType predicate:v27];
+    v19 = [v17 initWithSampleType:workoutType predicate:v26];
 
     v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
     v21 = objc_alloc(MEMORY[0x277CCD8B8]);
-    v33[0] = v19;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
-    v32 = v20;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v32[0] = v19;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31 = v20;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     v16 = [v21 initWithQueryDescriptors:v22 sortDescriptors:v23 followingAnchor:0 upToAndIncludingAnchor:0 distinctByKeyPaths:0 limit:-[ACHWorkoutIterator batchSize](self resultsHandler:{"batchSize"), v15}];
   }
 
   healthStore = [(ACHWorkoutIterator *)self healthStore];
   [healthStore executeQuery:v16];
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ACHWorkoutIterator__runQueryForDateInterval_lastCursor_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)

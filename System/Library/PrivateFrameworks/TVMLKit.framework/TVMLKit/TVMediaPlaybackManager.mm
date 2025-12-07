@@ -302,11 +302,11 @@ void __44__TVMediaPlaybackManager__processStateEnter__block_invoke(uint64_t a1)
   [v3 transitionToForeground:v2 animated:1];
 }
 
-uint64_t __44__TVMediaPlaybackManager__processStateEnter__block_invoke_2(uint64_t result, int a2)
+id *__44__TVMediaPlaybackManager__processStateEnter__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _onTimeout];
+    return [result[4] _onTimeout];
   }
 
   return result;

@@ -76,56 +76,55 @@
 
 void __86__HDHealthRecordConstructMedicalRecordsTask__collectMedicalRecordPropertiesWithError___block_invoke(void *a1, uint64_t a2, _BYTE *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v5 = [*(a1[4] + 8) extractedClinicalItemsForClinicalType:a2];
-  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v6)
   {
     goto LABEL_20;
   }
 
   v7 = v6;
-  v8 = *v30;
+  v8 = *v26;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v30 != v8)
+      if (*v26 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v29 + 1) + 8 * i);
-      v11 = a1[4];
+      v10 = *(*(&v25 + 1) + 8 * i);
       if ([objc_opt_class() _extractKeyPathsWithClinicalItem:v10 ruleset:a1[5]])
       {
-        v12 = a1[4];
-        v13 = a1[5];
-        v14 = *(a1[6] + 8);
+        v11 = a1[4];
+        v12 = a1[5];
+        v13 = *(a1[6] + 8);
         obj = 0;
-        v15 = [v12 _medicalRecordWithClinicalItem:v10 clinicalType:a2 ruleset:v13 error:&obj];
-        objc_storeStrong((v14 + 40), obj);
-        if ([v15 enteredInError] & 1) == 0 && ((v16 = a1[4], (objc_msgSend(objc_opt_class(), "_unsupportedModifierExtensionsPresentInClinicalItem:", v10)) || (v17 = a1[4], objc_msgSend(objc_opt_class(), "_unresolvableReferencesPresentInClinicalItem:", v10))))
+        v14 = [v11 _medicalRecordWithClinicalItem:v10 clinicalType:a2 ruleset:v12 error:&obj];
+        objc_storeStrong((v13 + 40), obj);
+        if (([v14 enteredInError] & 1) == 0 && ((objc_msgSend(objc_opt_class(), "_unsupportedModifierExtensionsPresentInClinicalItem:", v10) & 1) != 0 || objc_msgSend(objc_opt_class(), "_unresolvableReferencesPresentInClinicalItem:", v10)))
         {
         }
 
-        else if (v15)
+        else if (v14)
         {
           goto LABEL_14;
         }
       }
 
-      v18 = a1[4];
-      v19 = a1[5];
-      v20 = *(a1[6] + 8);
-      v27 = 0;
-      v15 = [v18 _unknownMedicalRecordWithClinicalItem:v10 ruleset:v19 error:&v27];
-      objc_storeStrong((v20 + 40), v27);
-      if (!v15)
+      v15 = a1[4];
+      v16 = a1[5];
+      v17 = *(a1[6] + 8);
+      v23 = 0;
+      v14 = [v15 _unknownMedicalRecordWithClinicalItem:v10 ruleset:v16 error:&v23];
+      objc_storeStrong((v17 + 40), v23);
+      if (!v14)
       {
         *(*(a1[7] + 8) + 24) = 0;
         *a3 = 1;
@@ -133,15 +132,15 @@ void __86__HDHealthRecordConstructMedicalRecordsTask__collectMedicalRecordProper
       }
 
 LABEL_14:
-      [v10 assignExtractedMedicalRecord:v15];
-      v21 = *(a1[4] + 8);
-      v22 = [v10 representedResource];
-      v23 = *(a1[6] + 8);
-      v26 = *(v23 + 40);
-      LOBYTE(v21) = [v21 didProcessMedicalRecord:v15 forResource:v22 error:&v26];
-      objc_storeStrong((v23 + 40), v26);
+      [v10 assignExtractedMedicalRecord:v14];
+      v18 = *(a1[4] + 8);
+      v19 = [v10 representedResource];
+      v20 = *(a1[6] + 8);
+      v22 = *(v20 + 40);
+      LOBYTE(v18) = [v18 didProcessMedicalRecord:v14 forResource:v19 error:&v22];
+      objc_storeStrong((v20 + 40), v22);
 
-      if ((v21 & 1) == 0)
+      if ((v18 & 1) == 0)
       {
         *(*(a1[7] + 8) + 24) = 0;
         *a3 = 1;
@@ -150,7 +149,7 @@ LABEL_14:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v7)
     {
       continue;
@@ -160,13 +159,11 @@ LABEL_14:
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_unsupportedModifierExtensionsPresentInClinicalItem:(id)item
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   representedResource = [itemCopy representedResource];
 
@@ -176,18 +173,18 @@ LABEL_20:
     representedResource2 = [itemCopy representedResource];
     v8 = [(HDFHIRExtensionProcessor *)v6 initWithResource:representedResource2];
 
-    v39 = 0;
-    v9 = [(HDFHIRExtensionProcessor *)v8 findUnsupportedModifierExtensions:&v39];
-    v10 = v39;
+    v38 = 0;
+    v9 = [(HDFHIRExtensionProcessor *)v8 findUnsupportedModifierExtensions:&v38];
+    v10 = v38;
     if (v9)
     {
       if ([v9 count])
       {
-        v30 = *MEMORY[0x277D122E8];
+        v29 = *MEMORY[0x277D122E8];
         v11 = [itemCopy medicalRecordPropertyValueForKey:*MEMORY[0x277D122E8] expectedClass:objc_opt_class() isArray:0 error:0];
         v12 = v11;
-        v33 = itemCopy;
-        v32 = v10;
+        v32 = itemCopy;
+        v31 = v10;
         if (v11)
         {
           v13 = v11;
@@ -200,27 +197,27 @@ LABEL_20:
 
         v17 = v13;
 
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
-        v31 = v9;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        v30 = v9;
         obj = v9;
-        v18 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v18 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v36;
+          v20 = *v35;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v36 != v20)
+              if (*v35 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v35 + 1) + 8 * i);
+              v22 = *(*(&v34 + 1) + 8 * i);
               keyPath = [v22 keyPath];
               extensionElement = [v22 extensionElement];
               v25 = [extensionElement URI];
@@ -230,18 +227,18 @@ LABEL_20:
               [v17 addFailureRecord:v27];
             }
 
-            v19 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+            v19 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
           }
 
           while (v19);
         }
 
-        itemCopy = v33;
-        [v33 setMedicalRecordPropertyValue:v17 forKey:v30];
+        itemCopy = v32;
+        [v32 setMedicalRecordPropertyValue:v17 forKey:v29];
 
         v15 = 1;
-        v10 = v32;
-        v9 = v31;
+        v10 = v31;
+        v9 = v30;
         goto LABEL_21;
       }
     }
@@ -272,7 +269,6 @@ LABEL_21:
   v15 = 0;
 LABEL_22:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -336,70 +332,70 @@ LABEL_11:
 
 + (BOOL)_extractKeyPathsWithClinicalItem:(id)item ruleset:(id)ruleset
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   rulesetCopy = ruleset;
   v6 = [rulesetCopy rulesetForClinicalType:{objc_msgSend(itemCopy, "type")}];
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x277D12388]);
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     medicalRecordProperties = [v6 medicalRecordProperties];
     allKeys = [medicalRecordProperties allKeys];
 
     obj = allKeys;
-    v52 = [allKeys countByEnumeratingWithState:&v63 objects:v70 count:16];
-    if (v52)
+    v51 = [allKeys countByEnumeratingWithState:&v62 objects:v69 count:16];
+    if (v51)
     {
-      v51 = *v64;
-      v50 = v6;
-      v56 = v7;
+      v50 = *v63;
+      v49 = v6;
+      v55 = v7;
       do
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v51; ++i)
         {
-          if (*v64 != v51)
+          if (*v63 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v63 + 1) + 8 * i);
+          v11 = *(*(&v62 + 1) + 8 * i);
           medicalRecordProperties2 = [v6 medicalRecordProperties];
-          v57 = v11;
+          v56 = v11;
           v13 = [medicalRecordProperties2 objectForKeyedSubscript:v11];
 
           if (v13)
           {
-            v54 = i;
-            v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v53 = i;
+            v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v58 = 0u;
             v59 = 0u;
             v60 = 0u;
             v61 = 0u;
-            v62 = 0u;
-            v53 = v13;
+            v52 = v13;
             v14 = v13;
-            v15 = [v14 countByEnumeratingWithState:&v59 objects:v69 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v58 objects:v68 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v60;
+              v17 = *v59;
               do
               {
                 for (j = 0; j != v16; ++j)
                 {
-                  if (*v60 != v17)
+                  if (*v59 != v17)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  v19 = *(*(&v59 + 1) + 8 * j);
+                  v19 = *(*(&v58 + 1) + 8 * j);
                   v20 = objc_autoreleasePoolPush();
-                  v58 = 0;
-                  v21 = [itemCopy candidateValueForKeyPath:v19 error:&v58];
-                  v22 = v58;
+                  v57 = 0;
+                  v21 = [itemCopy candidateValueForKeyPath:v19 error:&v57];
+                  v22 = v57;
                   v23 = v22;
                   if (v21)
                   {
@@ -415,7 +411,7 @@ LABEL_11:
                   {
                     if (v21)
                     {
-                      [v55 addObject:v21];
+                      [v54 addObject:v21];
                     }
                   }
 
@@ -427,12 +423,12 @@ LABEL_11:
                     if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v68 = v23;
+                      v67 = v23;
                       _os_log_error_impl(&dword_251CC8000, v26, OS_LOG_TYPE_ERROR, "ConstructMedicalRecordsTask keypath extraction error %{public}@", buf, 0xCu);
                     }
 
-                    v28 = [MEMORY[0x277D12390] extractionFailureRecordWithCode:4 propertyName:v57 resourceKeyPath:v19];
-                    [v56 addFailureRecord:v28];
+                    v28 = [MEMORY[0x277D12390] extractionFailureRecordWithCode:4 propertyName:v56 resourceKeyPath:v19];
+                    [v55 addFailureRecord:v28];
 
                     itemCopy = v25;
                   }
@@ -440,38 +436,38 @@ LABEL_11:
                   objc_autoreleasePoolPop(v20);
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v59 objects:v69 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v58 objects:v68 count:16];
               }
 
               while (v16);
             }
 
-            v7 = v56;
-            if ([v55 count] >= 2)
+            v7 = v55;
+            if ([v54 count] >= 2)
             {
-              v29 = [MEMORY[0x277D12390] extractionFailureRecordWithCode:5 propertyName:v57 resourceKeyPath:0];
-              [v56 addFailureRecord:v29];
+              v29 = [MEMORY[0x277D12390] extractionFailureRecordWithCode:5 propertyName:v56 resourceKeyPath:0];
+              [v55 addFailureRecord:v29];
             }
 
-            failureRecords = [v56 failureRecords];
+            failureRecords = [v55 failureRecords];
             v31 = [failureRecords count];
 
-            v6 = v50;
+            v6 = v49;
             if (!v31)
             {
-              firstObject = [v55 firstObject];
-              [itemCopy setMedicalRecordPropertyValue:firstObject forKey:v57];
+              firstObject = [v54 firstObject];
+              [itemCopy setMedicalRecordPropertyValue:firstObject forKey:v56];
             }
 
-            v13 = v53;
-            i = v54;
+            v13 = v52;
+            i = v53;
           }
         }
 
-        v52 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+        v51 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
       }
 
-      while (v52);
+      while (v51);
     }
 
     failureRecords2 = [v7 failureRecords];
@@ -516,7 +512,6 @@ LABEL_11:
     v35 = 0;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -642,7 +637,7 @@ LABEL_23:
       v29 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        [HDHealthRecordConstructMedicalRecordsTask _unknownMedicalRecordWithClinicalItem:v29 ruleset:? error:?];
+        [HDHealthRecordConstructMedicalRecordsTask _unknownMedicalRecordWithClinicalItem:v29 ruleset:self error:jSONObject];
       }
 
       v27 = &unk_28641A290;
@@ -685,30 +680,28 @@ LABEL_23:
 
   v35 = [MEMORY[0x277CCDAC8] medicalRecordFromClinicalItem:itemCopy error:error];
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (id)_medicalRecordWithClinicalItem:(id)item clinicalType:(int64_t)type ruleset:(id)ruleset error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   rulesetCopy = ruleset;
-  v47 = 0;
+  v46 = 0;
   v11 = [objc_msgSend(itemCopy "medicalRecordClass")];
-  v12 = v47;
+  v12 = v46;
   if (v11)
   {
     v13 = v11;
     goto LABEL_26;
   }
 
-  v40 = rulesetCopy;
-  v36 = *MEMORY[0x277D122E8];
+  v39 = rulesetCopy;
+  v35 = *MEMORY[0x277D122E8];
   v14 = [itemCopy medicalRecordPropertyValueForKey:*MEMORY[0x277D122E8] expectedClass:objc_opt_class() isArray:0 error:0];
   v15 = v14;
-  v41 = itemCopy;
+  v40 = itemCopy;
   selfCopy = self;
   errorCopy = error;
   if (v14)
@@ -723,30 +716,30 @@ LABEL_23:
 
   v17 = v16;
 
-  v37 = v12;
+  v36 = v12;
   userInfo = [v12 userInfo];
   v19 = [userInfo objectForKeyedSubscript:@"conversionErrors"];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = v19;
-  v20 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+  v20 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v44;
+    v22 = *v43;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v44 != v22)
+        if (*v43 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v43 + 1) + 8 * i);
+        v24 = *(*(&v42 + 1) + 8 * i);
         userInfo2 = [v24 userInfo];
         v26 = [userInfo2 objectForKeyedSubscript:@"propertyName"];
 
@@ -786,7 +779,7 @@ LABEL_23:
           if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v49 = v24;
+            v48 = v24;
             _os_log_error_impl(&dword_251CC8000, v32, OS_LOG_TYPE_ERROR, "ConstructMedicalRecordsTask medical record creation, unexpected error %{public}@", buf, 0xCu);
           }
         }
@@ -797,22 +790,20 @@ LABEL_23:
         [v17 addFailureRecord:v33];
       }
 
-      v21 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v21 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
     }
 
     while (v21);
   }
 
-  itemCopy = v41;
-  [v41 setMedicalRecordPropertyValue:v17 forKey:v36];
-  rulesetCopy = v40;
-  v13 = [(HDHealthRecordConstructMedicalRecordsTask *)selfCopy _unknownMedicalRecordWithClinicalItem:v41 ruleset:v40 error:errorCopy];
+  itemCopy = v40;
+  [v40 setMedicalRecordPropertyValue:v17 forKey:v35];
+  rulesetCopy = v39;
+  v13 = [(HDHealthRecordConstructMedicalRecordsTask *)selfCopy _unknownMedicalRecordWithClinicalItem:v40 ruleset:v39 error:errorCopy];
 
-  v12 = v37;
+  v12 = v36;
   v11 = 0;
 LABEL_26:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

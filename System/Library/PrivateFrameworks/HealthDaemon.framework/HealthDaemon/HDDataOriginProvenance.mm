@@ -35,24 +35,24 @@
   v23 = objc_alloc_init(HDDataOriginProvenance);
   v23->_syncProvenance = provenance;
   v23->_syncIdentity = identity;
-  v24 = [typeCopy copy];
+  v24 = objc_msgSend_copy(typeCopy);
 
   productType = v23->_productType;
   v23->_productType = v24;
 
-  v26 = [buildCopy copy];
+  v26 = objc_msgSend_copy(buildCopy);
   systemBuild = v23->_systemBuild;
   v23->_systemBuild = v26;
 
   v28 = *&version->var0;
   v23->_operatingSystemVersion.patchVersion = version->var2;
   *&v23->_operatingSystemVersion.majorVersion = v28;
-  v29 = [sourceVersionCopy copy];
+  v29 = objc_msgSend_copy(sourceVersionCopy);
 
   sourceVersion = v23->_sourceVersion;
   v23->_sourceVersion = v29;
 
-  v31 = [nameCopy copy];
+  v31 = objc_msgSend_copy(nameCopy);
   timeZoneName = v23->_timeZoneName;
   v23->_timeZoneName = v31;
 
@@ -64,7 +64,7 @@
   v23->_deviceID = iDCopy;
   v36 = iDCopy;
 
-  v37 = [referenceCopy copy];
+  v37 = objc_msgSend_copy(referenceCopy);
   contributorReference = v23->_contributorReference;
   v23->_contributorReference = v37;
 
@@ -75,59 +75,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_28;
-  }
-
-  if (self->_syncProvenance != equalCopy[1])
-  {
-    goto LABEL_28;
-  }
-
-  if (self->_syncIdentity != equalCopy[2])
-  {
-    goto LABEL_28;
-  }
-
-  sourceID = self->_sourceID;
-  v6 = equalCopy[7];
-  if (sourceID != v6 && (!v6 || ![(NSNumber *)sourceID isEqual:?]))
-  {
-    goto LABEL_28;
-  }
-
-  deviceID = self->_deviceID;
-  v8 = equalCopy[8];
-  if (deviceID != v8 && (!v8 || ![(NSNumber *)deviceID isEqual:?]))
-  {
-    goto LABEL_28;
-  }
-
-  contributorReference = self->_contributorReference;
-  v10 = equalCopy[9];
-  if (contributorReference != v10 && (!v10 || ![(HDContributorReference *)contributorReference isEqual:?]))
-  {
-    goto LABEL_28;
-  }
-
-  productType = self->_productType;
-  v12 = equalCopy[3];
-  if (productType != v12 && (!v12 || ![(NSString *)productType isEqualToString:?]))
-  {
-    goto LABEL_28;
-  }
-
-  if (((systemBuild = self->_systemBuild, v14 = equalCopy[4], systemBuild == v14) || v14 && [(NSString *)systemBuild isEqualToString:?]) && ((sourceVersion = self->_sourceVersion, v16 = equalCopy[5], sourceVersion == v16) || v16 && [(NSString *)sourceVersion isEqualToString:?]) && ((timeZoneName = self->_timeZoneName, v18 = equalCopy[6], timeZoneName == v18) || v18 && [(NSString *)timeZoneName isEqualToString:?]) && self->_operatingSystemVersion.majorVersion == equalCopy[10] && self->_operatingSystemVersion.minorVersion == equalCopy[11])
-  {
-    v19 = self->_operatingSystemVersion.patchVersion == equalCopy[12];
-  }
-
-  else
-  {
-LABEL_28:
-    v19 = 0;
-  }
+  v19 = (objc_opt_isKindOfClass() & 1) != 0 && self->_syncProvenance == equalCopy[1] && self->_syncIdentity == equalCopy[2] && ((sourceID = self->_sourceID, v6 = equalCopy[7], sourceID == v6) || v6 && [(NSNumber *)sourceID isEqual:?]) && ((deviceID = self->_deviceID, v8 = equalCopy[8], deviceID == v8) || v8 && [(NSNumber *)deviceID isEqual:?]) && ((contributorReference = self->_contributorReference, v10 = equalCopy[9], contributorReference == v10) || v10 && [(HDContributorReference *)contributorReference isEqual:?]) && ((productType = self->_productType, v12 = equalCopy[3], productType == v12) || v12 && [(NSString *)productType isEqualToString:?]) && ((systemBuild = self->_systemBuild, v14 = equalCopy[4], systemBuild == v14) || v14 && [(NSString *)systemBuild isEqualToString:?]) && ((sourceVersion = self->_sourceVersion, v16 = equalCopy[5], sourceVersion == v16) || v16 && [(NSString *)sourceVersion isEqualToString:?]) && ((timeZoneName = self->_timeZoneName, v18 = equalCopy[6], timeZoneName == v18) || v18 && [(NSString *)timeZoneName isEqualToString:?]) && self->_operatingSystemVersion.majorVersion == equalCopy[10] && self->_operatingSystemVersion.minorVersion == equalCopy[11] && self->_operatingSystemVersion.patchVersion == equalCopy[12];
 
   return v19;
 }
@@ -227,7 +175,6 @@ LABEL_28:
   v9 = *&self->_deviceID;
   v10 = *&self->_timeZoneName;
   sourceVersion = self->_sourceVersion;
-  operatingSystemVersion = self->_operatingSystemVersion;
   v6 = HKNSOperatingSystemVersionString();
   v7 = [v3 stringWithFormat:@"<%@:%p syncProvenance=%ld, syncIdentity=%ld, productType=%@, systemBuild=%@, timeZone=%@, sourceID=%@, deviceID=%@, contributorReference=%@, sourceVersion=%@ operatingSystemVersion=%@>", v4, self, v12, v11, v10, v9, sourceVersion, v6, 0];
 

@@ -22,13 +22,13 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_22073A080(appear);
+  sub_22073A080(appear, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_22073A47C(disappear);
+  sub_22073A47C(disappear, selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

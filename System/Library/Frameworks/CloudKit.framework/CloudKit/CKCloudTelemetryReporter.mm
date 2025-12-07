@@ -28,7 +28,7 @@
 
   else
   {
-    if (__sTestOverridesAvailable[0])
+    if (__sTestOverridesAvailable)
     {
       v18 = 0;
     }

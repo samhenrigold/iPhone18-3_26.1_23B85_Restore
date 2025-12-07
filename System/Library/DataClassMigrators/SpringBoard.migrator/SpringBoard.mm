@@ -1,7 +1,15 @@
-void sub_263C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_263C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_2EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_2F14(uint64_t a1)
@@ -70,9 +78,9 @@ void sub_36F4(id a1, NSURL *a2, unint64_t a3, BOOL *a4)
   }
 }
 
-void sub_4394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -110,9 +118,9 @@ void sub_445C(id a1, SBDataMigratorCleanuppableDataStore *a2, unint64_t a3, BOOL
   }
 }
 
-void sub_54C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_54C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -228,7 +236,7 @@ LABEL_22:
 LABEL_23:
 }
 
-uint64_t SBLayoutSupportsSideLayoutRole()
+uint64_t SBLayoutSupportsSideLayoutRole(uint64_t a1, uint64_t a2)
 {
   if (qword_1D968 != -1)
   {
@@ -259,7 +267,14 @@ double SBLayoutDefaultSideLayoutElementWidth(uint64_t a1)
   v6 = v5;
   if (v5)
   {
-    if (SBFEffectiveDeviceClass() != 2 || SBFEffectiveHomeButtonType() != 2)
+    v7 = SBFEffectiveDeviceClass();
+    if (v7 != 2)
+    {
+      goto LABEL_10;
+    }
+
+    v7 = SBFEffectiveHomeButtonType();
+    if (v7 != 2)
     {
       goto LABEL_10;
     }
@@ -275,9 +290,9 @@ double SBLayoutDefaultSideLayoutElementWidth(uint64_t a1)
     }
   }
 
-  v7 = __sb__runningInSpringBoard();
-  v8 = v7;
-  if (v7)
+  v8 = __sb__runningInSpringBoard();
+  v9 = v8;
+  if (v8)
   {
     __sb__mainScreenReferenceBounds();
   }
@@ -288,16 +303,17 @@ double SBLayoutDefaultSideLayoutElementWidth(uint64_t a1)
     [v2 _referenceBounds];
   }
 
-  BSSizeRoundForScale();
-  v10 = SBDisplayMetrics[43];
-  v12 = v11 >= v10;
-  if (v11 >= v10)
+  v7 = BSSizeRoundForScale();
+  v11 = SBDisplayMetrics[43];
+  v13 = v12 >= v11;
+  if (v12 >= v11)
   {
-    v13 = __sb__runningInSpringBoard();
-    v14 = v13;
-    if (v13)
+    v14 = __sb__runningInSpringBoard();
+    v15 = v14;
+    if (v14)
     {
-      if (SBFEffectiveDeviceClass() != 2)
+      v7 = SBFEffectiveDeviceClass();
+      if (v7 != 2)
       {
         goto LABEL_27;
       }
@@ -305,21 +321,21 @@ double SBLayoutDefaultSideLayoutElementWidth(uint64_t a1)
 
     else
     {
-      v15 = +[UIDevice currentDevice];
-      if ([v15 userInterfaceIdiom] != &dword_0 + 1)
+      v16 = +[UIDevice currentDevice];
+      if ([v16 userInterfaceIdiom] != &dword_0 + 1)
       {
-        v12 = 1;
+        v13 = 1;
 LABEL_26:
 
         goto LABEL_27;
       }
 
-      v20 = v15;
+      v21 = v16;
     }
 
-    v16 = __sb__runningInSpringBoard();
-    v17 = v16;
-    if (v16)
+    v17 = __sb__runningInSpringBoard();
+    v18 = v17;
+    if (v17)
     {
       __sb__mainScreenReferenceBounds();
     }
@@ -330,37 +346,37 @@ LABEL_26:
       [v3 _referenceBounds];
     }
 
-    BSSizeRoundForScale();
-    v12 = v18 < SBDisplayMetrics[35];
-    if ((v17 & 1) == 0)
+    v7 = BSSizeRoundForScale();
+    v13 = v19 < SBDisplayMetrics[35];
+    if ((v18 & 1) == 0)
     {
     }
 
-    if ((v14 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v15 = v20;
+      v16 = v21;
       goto LABEL_26;
     }
   }
 
 LABEL_27:
-  if ((v8 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
   }
 
   if (v6)
   {
-    if (v12)
+    if (v13)
     {
       goto LABEL_33;
     }
 
 LABEL_10:
-    *&result = SBPhoneOnPadFallbackLaunchSize().n128_u64[0];
+    *&result = SBPhoneOnPadFallbackLaunchSize(v7).n128_u64[0];
     return result;
   }
 
-  if (!v12)
+  if (!v13)
   {
     goto LABEL_10;
   }
@@ -368,47 +384,47 @@ LABEL_10:
 LABEL_33:
   if ((a1 - 1) >= 2)
   {
-    v19 = &SBDisplayMetrics[4];
+    v20 = &SBDisplayMetrics[4];
   }
 
   else
   {
-    v19 = SBDisplayMetrics;
+    v20 = SBDisplayMetrics;
   }
 
-  return *v19;
+  return *v20;
 }
 
-__n128 SBPhoneOnPadFallbackLaunchSize()
+__n128 SBPhoneOnPadFallbackLaunchSize(uint64_t a1)
 {
-  v2 = __sb__runningInSpringBoard();
-  v3 = v2;
-  if (v2)
+  v3 = __sb__runningInSpringBoard();
+  v4 = v3;
+  if (v3)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      return *&SBDisplayMetrics;
+      return *SBDisplayMetrics;
     }
 
 LABEL_5:
-    v5 = __sb__runningInSpringBoard();
-    v6 = v5;
-    if (v5)
+    v6 = __sb__runningInSpringBoard();
+    v7 = v6;
+    if (v6)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v1 = +[UIScreen mainScreen];
-      [v1 _referenceBounds];
+      v2 = +[UIScreen mainScreen];
+      [v2 _referenceBounds];
     }
 
     BSSizeRoundForScale();
-    if (v7 >= *(&SBDisplayMetrics + 35))
+    if (v8 >= SBDisplayMetrics[35])
     {
-      result = *(&SBDisplayMetrics + 2);
-      if (v6)
+      result = *&SBDisplayMetrics[4];
+      if (v7)
       {
         goto LABEL_14;
       }
@@ -416,11 +432,11 @@ LABEL_5:
 
     else
     {
-      result = *&SBDisplayMetrics;
-      if (v6)
+      result = *SBDisplayMetrics;
+      if (v7)
       {
 LABEL_14:
-        if (v3)
+        if (v4)
         {
           return result;
         }
@@ -429,35 +445,35 @@ LABEL_14:
       }
     }
 
-    v8 = result;
+    v9 = result;
 
-    result = v8;
+    result = v9;
     goto LABEL_14;
   }
 
-  v0 = +[UIDevice currentDevice];
-  if ([v0 userInterfaceIdiom] == &dword_0 + 1)
+  v1 = +[UIDevice currentDevice];
+  if ([v1 userInterfaceIdiom] == &dword_0 + 1)
   {
     goto LABEL_5;
   }
 
-  result = *&SBDisplayMetrics;
+  result = *SBDisplayMetrics;
 LABEL_15:
-  v9 = result;
+  v10 = result;
 
-  return v9;
+  return v10;
 }
 
-id SBLogStartup()
+id SBLogStartup(uint64_t a1)
 {
   if (qword_1D978 != -1)
   {
     sub_E7CC();
   }
 
-  v1 = qword_1D970;
+  v2 = qword_1D970;
 
-  return v1;
+  return v2;
 }
 
 void sub_69B8(id a1)
@@ -467,16 +483,16 @@ void sub_69B8(id a1)
   _objc_release_x1();
 }
 
-id SBLogAccessory()
+id SBLogAccessory(uint64_t a1)
 {
   if (qword_1D988 != -1)
   {
     sub_E7E0();
   }
 
-  v1 = qword_1D980;
+  v2 = qword_1D980;
 
-  return v1;
+  return v2;
 }
 
 void sub_6A44(id a1)
@@ -486,16 +502,16 @@ void sub_6A44(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppResize()
+id SBLogAppResize(uint64_t a1)
 {
   if (qword_1D998 != -1)
   {
     sub_E7F4();
   }
 
-  v1 = qword_1D990;
+  v2 = qword_1D990;
 
-  return v1;
+  return v2;
 }
 
 void sub_6AD0(id a1)
@@ -505,16 +521,16 @@ void sub_6AD0(id a1)
   _objc_release_x1();
 }
 
-id SBLogCharging()
+id SBLogCharging(uint64_t a1)
 {
   if (qword_1D9A8 != -1)
   {
     sub_E808();
   }
 
-  v1 = qword_1D9A0;
+  v2 = qword_1D9A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6B5C(id a1)
@@ -524,16 +540,16 @@ void sub_6B5C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSceneResize()
+id SBLogSceneResize(uint64_t a1)
 {
   if (qword_1D9B8 != -1)
   {
     sub_E81C();
   }
 
-  v1 = qword_1D9B0;
+  v2 = qword_1D9B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6BE8(id a1)
@@ -543,16 +559,16 @@ void sub_6BE8(id a1)
   _objc_release_x1();
 }
 
-id SBLogScreenTime()
+id SBLogScreenTime(uint64_t a1)
 {
   if (qword_1D9C8 != -1)
   {
     sub_E830();
   }
 
-  v1 = qword_1D9C0;
+  v2 = qword_1D9C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6C74(id a1)
@@ -562,16 +578,16 @@ void sub_6C74(id a1)
   _objc_release_x1();
 }
 
-id SBLogLockScreenHint()
+id SBLogLockScreenHint(uint64_t a1)
 {
   if (qword_1D9D8 != -1)
   {
     sub_E844();
   }
 
-  v1 = qword_1D9D0;
+  v2 = qword_1D9D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6D00(id a1)
@@ -581,16 +597,16 @@ void sub_6D00(id a1)
   _objc_release_x1();
 }
 
-id SBLogIcon()
+id SBLogIcon(uint64_t a1)
 {
   if (qword_1D9E8 != -1)
   {
     sub_E858();
   }
 
-  v1 = qword_1D9E0;
+  v2 = qword_1D9E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6D8C(id a1)
@@ -600,16 +616,16 @@ void sub_6D8C(id a1)
   _objc_release_x1();
 }
 
-id SBLogAlarm()
+id SBLogAlarm(uint64_t a1)
 {
   if (qword_1D9F8 != -1)
   {
     sub_E86C();
   }
 
-  v1 = qword_1D9F0;
+  v2 = qword_1D9F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_6E18(id a1)
@@ -619,16 +635,16 @@ void sub_6E18(id a1)
   _objc_release_x1();
 }
 
-id SBLogDock()
+id SBLogDock(uint64_t a1)
 {
   if (qword_1DA08 != -1)
   {
     sub_E880();
   }
 
-  v1 = qword_1DA00;
+  v2 = qword_1DA00;
 
-  return v1;
+  return v2;
 }
 
 void sub_6EA4(id a1)
@@ -638,16 +654,16 @@ void sub_6EA4(id a1)
   _objc_release_x1();
 }
 
-id SBLogBanner()
+id SBLogBanner(uint64_t a1)
 {
   if (qword_1DA18 != -1)
   {
     sub_E894();
   }
 
-  v1 = qword_1DA10;
+  v2 = qword_1DA10;
 
-  return v1;
+  return v2;
 }
 
 void sub_6F30(id a1)
@@ -657,16 +673,16 @@ void sub_6F30(id a1)
   _objc_release_x1();
 }
 
-id SBLogSound()
+id SBLogSound(uint64_t a1)
 {
   if (qword_1DA28 != -1)
   {
     sub_E8A8();
   }
 
-  v1 = qword_1DA20;
+  v2 = qword_1DA20;
 
-  return v1;
+  return v2;
 }
 
 void sub_6FBC(id a1)
@@ -676,16 +692,16 @@ void sub_6FBC(id a1)
   _objc_release_x1();
 }
 
-id SBLogUserSession()
+id SBLogUserSession(uint64_t a1)
 {
   if (qword_1DA38 != -1)
   {
     sub_E8BC();
   }
 
-  v1 = qword_1DA30;
+  v2 = qword_1DA30;
 
-  return v1;
+  return v2;
 }
 
 void sub_7048(id a1)
@@ -695,16 +711,16 @@ void sub_7048(id a1)
   _objc_release_x1();
 }
 
-id SBLogBacklight()
+id SBLogBacklight(uint64_t a1)
 {
   if (qword_1DA48 != -1)
   {
     sub_E8D0();
   }
 
-  v1 = qword_1DA40;
+  v2 = qword_1DA40;
 
-  return v1;
+  return v2;
 }
 
 void sub_70D4(id a1)
@@ -714,16 +730,16 @@ void sub_70D4(id a1)
   _objc_release_x1();
 }
 
-id SBLogAlertItems()
+id SBLogAlertItems(uint64_t a1)
 {
   if (qword_1DA58 != -1)
   {
     sub_E8E4();
   }
 
-  v1 = qword_1DA50;
+  v2 = qword_1DA50;
 
-  return v1;
+  return v2;
 }
 
 void sub_7160(id a1)
@@ -733,16 +749,16 @@ void sub_7160(id a1)
   _objc_release_x1();
 }
 
-id SBLogAlertItemStack()
+id SBLogAlertItemStack(uint64_t a1)
 {
   if (qword_1DA68 != -1)
   {
     sub_E8F8();
   }
 
-  v1 = qword_1DA60;
+  v2 = qword_1DA60;
 
-  return v1;
+  return v2;
 }
 
 void sub_71EC(id a1)
@@ -752,16 +768,16 @@ void sub_71EC(id a1)
   _objc_release_x1();
 }
 
-id SBLogLiftToWake()
+id SBLogLiftToWake(uint64_t a1)
 {
   if (qword_1DA78 != -1)
   {
     sub_E90C();
   }
 
-  v1 = qword_1DA70;
+  v2 = qword_1DA70;
 
-  return v1;
+  return v2;
 }
 
 void sub_7278(id a1)
@@ -771,16 +787,16 @@ void sub_7278(id a1)
   _objc_release_x1();
 }
 
-id SBLogProximitySensor()
+id SBLogProximitySensor(uint64_t a1)
 {
   if (qword_1DA88 != -1)
   {
     sub_E920();
   }
 
-  v1 = qword_1DA80;
+  v2 = qword_1DA80;
 
-  return v1;
+  return v2;
 }
 
 void sub_7304(id a1)
@@ -790,16 +806,16 @@ void sub_7304(id a1)
   _objc_release_x1();
 }
 
-id SBLogThermal()
+id SBLogThermal(uint64_t a1)
 {
   if (qword_1DA98 != -1)
   {
     sub_E934();
   }
 
-  v1 = qword_1DA90;
+  v2 = qword_1DA90;
 
-  return v1;
+  return v2;
 }
 
 void sub_7390(id a1)
@@ -809,16 +825,16 @@ void sub_7390(id a1)
   _objc_release_x1();
 }
 
-id SBLogHomeAffordance()
+id SBLogHomeAffordance(uint64_t a1)
 {
   if (qword_1DAA8 != -1)
   {
     sub_E948();
   }
 
-  v1 = qword_1DAA0;
+  v2 = qword_1DAA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_741C(id a1)
@@ -828,16 +844,16 @@ void sub_741C(id a1)
   _objc_release_x1();
 }
 
-id SBLogTopAffordance()
+id SBLogTopAffordance(uint64_t a1)
 {
   if (qword_1DAB8 != -1)
   {
     sub_E95C();
   }
 
-  v1 = qword_1DAB0;
+  v2 = qword_1DAB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_74A8(id a1)
@@ -847,16 +863,16 @@ void sub_74A8(id a1)
   _objc_release_x1();
 }
 
-id SBLogAffordancePresenceController()
+id SBLogAffordancePresenceController(uint64_t a1)
 {
   if (qword_1DAC8 != -1)
   {
     sub_E970();
   }
 
-  v1 = qword_1DAC0;
+  v2 = qword_1DAC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7534(id a1)
@@ -866,16 +882,16 @@ void sub_7534(id a1)
   _objc_release_x1();
 }
 
-id SBLogContinuity()
+id SBLogContinuity(uint64_t a1)
 {
   if (qword_1DAD8 != -1)
   {
     sub_E984();
   }
 
-  v1 = qword_1DAD0;
+  v2 = qword_1DAD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_75C0(id a1)
@@ -885,16 +901,16 @@ void sub_75C0(id a1)
   _objc_release_x1();
 }
 
-id SBLogTelemetrySignposts()
+id SBLogTelemetrySignposts(uint64_t a1)
 {
   if (qword_1DAE8 != -1)
   {
     sub_E998();
   }
 
-  v1 = qword_1DAE0;
+  v2 = qword_1DAE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_764C(id a1)
@@ -904,16 +920,16 @@ void sub_764C(id a1)
   _objc_release_x1();
 }
 
-id SBLogDataReset()
+id SBLogDataReset(uint64_t a1)
 {
   if (qword_1DAF8 != -1)
   {
     sub_E9AC();
   }
 
-  v1 = qword_1DAF0;
+  v2 = qword_1DAF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_76D8(id a1)
@@ -923,16 +939,16 @@ void sub_76D8(id a1)
   _objc_release_x1();
 }
 
-id SBLogUIController()
+id SBLogUIController(uint64_t a1)
 {
   if (qword_1DB08 != -1)
   {
     sub_E9C0();
   }
 
-  v1 = qword_1DB00;
+  v2 = qword_1DB00;
 
-  return v1;
+  return v2;
 }
 
 void sub_7764(id a1)
@@ -942,16 +958,16 @@ void sub_7764(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppSwitcher()
+id SBLogAppSwitcher(uint64_t a1)
 {
   if (qword_1DB18 != -1)
   {
     sub_E9D4();
   }
 
-  v1 = qword_1DB10;
+  v2 = qword_1DB10;
 
-  return v1;
+  return v2;
 }
 
 void sub_77F0(id a1)
@@ -961,16 +977,16 @@ void sub_77F0(id a1)
   _objc_release_x1();
 }
 
-id SBLogAudioControl()
+id SBLogAudioControl(uint64_t a1)
 {
   if (qword_1DB28 != -1)
   {
     sub_E9E8();
   }
 
-  v1 = qword_1DB20;
+  v2 = qword_1DB20;
 
-  return v1;
+  return v2;
 }
 
 void sub_787C(id a1)
@@ -980,16 +996,16 @@ void sub_787C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSwitcherSnapshotCache()
+id SBLogSwitcherSnapshotCache(uint64_t a1)
 {
   if (qword_1DB38 != -1)
   {
     sub_E9FC();
   }
 
-  v1 = qword_1DB30;
+  v2 = qword_1DB30;
 
-  return v1;
+  return v2;
 }
 
 void sub_7908(id a1)
@@ -999,16 +1015,16 @@ void sub_7908(id a1)
   _objc_release_x1();
 }
 
-id SBLogIconController()
+id SBLogIconController(uint64_t a1)
 {
   if (qword_1DB48 != -1)
   {
     sub_EA10();
   }
 
-  v1 = qword_1DB40;
+  v2 = qword_1DB40;
 
-  return v1;
+  return v2;
 }
 
 void sub_7994(id a1)
@@ -1018,16 +1034,16 @@ void sub_7994(id a1)
   _objc_release_x1();
 }
 
-id SBLogElasticHUD()
+id SBLogElasticHUD(uint64_t a1)
 {
   if (qword_1DB58 != -1)
   {
     sub_EA24();
   }
 
-  v1 = qword_1DB50;
+  v2 = qword_1DB50;
 
-  return v1;
+  return v2;
 }
 
 void sub_7A20(id a1)
@@ -1037,16 +1053,16 @@ void sub_7A20(id a1)
   _objc_release_x1();
 }
 
-id SBLogBrightnessHUD()
+id SBLogBrightnessHUD(uint64_t a1)
 {
   if (qword_1DB68 != -1)
   {
     sub_EA38();
   }
 
-  v1 = qword_1DB60;
+  v2 = qword_1DB60;
 
-  return v1;
+  return v2;
 }
 
 void sub_7AAC(id a1)
@@ -1056,16 +1072,16 @@ void sub_7AAC(id a1)
   _objc_release_x1();
 }
 
-id SBLogVolumeHUD()
+id SBLogVolumeHUD(uint64_t a1)
 {
   if (qword_1DB78 != -1)
   {
     sub_EA4C();
   }
 
-  v1 = qword_1DB70;
+  v2 = qword_1DB70;
 
-  return v1;
+  return v2;
 }
 
 void sub_7B38(id a1)
@@ -1075,16 +1091,16 @@ void sub_7B38(id a1)
   _objc_release_x1();
 }
 
-id SBLogRingerHUD()
+id SBLogRingerHUD(uint64_t a1)
 {
   if (qword_1DB88 != -1)
   {
     sub_EA60();
   }
 
-  v1 = qword_1DB80;
+  v2 = qword_1DB80;
 
-  return v1;
+  return v2;
 }
 
 void sub_7BC4(id a1)
@@ -1094,16 +1110,16 @@ void sub_7BC4(id a1)
   _objc_release_x1();
 }
 
-id SBLogFlashlightHUD()
+id SBLogFlashlightHUD(uint64_t a1)
 {
   if (qword_1DB98 != -1)
   {
     sub_EA74();
   }
 
-  v1 = qword_1DB90;
+  v2 = qword_1DB90;
 
-  return v1;
+  return v2;
 }
 
 void sub_7C50(id a1)
@@ -1113,16 +1129,16 @@ void sub_7C50(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppStatusBars()
+id SBLogAppStatusBars(uint64_t a1)
 {
   if (qword_1DBA8 != -1)
   {
     sub_EA88();
   }
 
-  v1 = qword_1DBA0;
+  v2 = qword_1DBA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7CDC(id a1)
@@ -1132,16 +1148,16 @@ void sub_7CDC(id a1)
   _objc_release_x1();
 }
 
-id SBLogAVSystemControllerCache()
+id SBLogAVSystemControllerCache(uint64_t a1)
 {
   if (qword_1DBB8 != -1)
   {
     sub_EA9C();
   }
 
-  v1 = qword_1DBB0;
+  v2 = qword_1DBB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7D68(id a1)
@@ -1151,16 +1167,16 @@ void sub_7D68(id a1)
   _objc_release_x1();
 }
 
-id SBLogGreen()
+id SBLogGreen(uint64_t a1)
 {
   if (qword_1DBC8 != -1)
   {
     sub_EAB0();
   }
 
-  v1 = qword_1DBC0;
+  v2 = qword_1DBC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7DF4(id a1)
@@ -1170,16 +1186,16 @@ void sub_7DF4(id a1)
   _objc_release_x1();
 }
 
-id SBLogChrono()
+id SBLogChrono(uint64_t a1)
 {
   if (qword_1DBD8 != -1)
   {
     sub_EAC4();
   }
 
-  v1 = qword_1DBD0;
+  v2 = qword_1DBD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7E80(id a1)
@@ -1189,16 +1205,16 @@ void sub_7E80(id a1)
   _objc_release_x1();
 }
 
-id SBLogChronoVerbose()
+id SBLogChronoVerbose(uint64_t a1)
 {
   if (qword_1DBE8 != -1)
   {
     sub_EAD8();
   }
 
-  v1 = qword_1DBE0;
+  v2 = qword_1DBE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7F0C(id a1)
@@ -1208,16 +1224,16 @@ void sub_7F0C(id a1)
   _objc_release_x1();
 }
 
-id SBLogProactiveHome()
+id SBLogProactiveHome(uint64_t a1)
 {
   if (qword_1DBF8 != -1)
   {
     sub_EAEC();
   }
 
-  v1 = qword_1DBF0;
+  v2 = qword_1DBF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_7F98(id a1)
@@ -1227,16 +1243,16 @@ void sub_7F98(id a1)
   _objc_release_x1();
 }
 
-id SBLogProactiveAppLibrary()
+id SBLogProactiveAppLibrary(uint64_t a1)
 {
   if (qword_1DC08 != -1)
   {
     sub_EB00();
   }
 
-  v1 = qword_1DC00;
+  v2 = qword_1DC00;
 
-  return v1;
+  return v2;
 }
 
 void sub_8024(id a1)
@@ -1246,16 +1262,16 @@ void sub_8024(id a1)
   _objc_release_x1();
 }
 
-id SBLogClassicMode()
+id SBLogClassicMode(uint64_t a1)
 {
   if (qword_1DC18 != -1)
   {
     sub_EB14();
   }
 
-  v1 = qword_1DC10;
+  v2 = qword_1DC10;
 
-  return v1;
+  return v2;
 }
 
 void sub_80B0(id a1)
@@ -1265,16 +1281,16 @@ void sub_80B0(id a1)
   _objc_release_x1();
 }
 
-id SBLogHUD()
+id SBLogHUD(uint64_t a1)
 {
   if (qword_1DC28 != -1)
   {
     sub_EB28();
   }
 
-  v1 = qword_1DC20;
+  v2 = qword_1DC20;
 
-  return v1;
+  return v2;
 }
 
 void sub_813C(id a1)
@@ -1284,16 +1300,16 @@ void sub_813C(id a1)
   _objc_release_x1();
 }
 
-id SBLogWebClip()
+id SBLogWebClip(uint64_t a1)
 {
   if (qword_1DC38 != -1)
   {
     sub_EB3C();
   }
 
-  v1 = qword_1DC30;
+  v2 = qword_1DC30;
 
-  return v1;
+  return v2;
 }
 
 void sub_81C8(id a1)
@@ -1303,16 +1319,16 @@ void sub_81C8(id a1)
   _objc_release_x1();
 }
 
-id SBLogPencilSqueeze()
+id SBLogPencilSqueeze(uint64_t a1)
 {
   if (qword_1DC48 != -1)
   {
     sub_EB50();
   }
 
-  v1 = qword_1DC40;
+  v2 = qword_1DC40;
 
-  return v1;
+  return v2;
 }
 
 void sub_8254(id a1)
@@ -1322,16 +1338,16 @@ void sub_8254(id a1)
   _objc_release_x1();
 }
 
-id SBLogPointer()
+id SBLogPointer(uint64_t a1)
 {
   if (qword_1DC58 != -1)
   {
     sub_EB64();
   }
 
-  v1 = qword_1DC50;
+  v2 = qword_1DC50;
 
-  return v1;
+  return v2;
 }
 
 void sub_82E0(id a1)
@@ -1341,16 +1357,16 @@ void sub_82E0(id a1)
   _objc_release_x1();
 }
 
-id SBLogHIDKeyboardEvents()
+id SBLogHIDKeyboardEvents(uint64_t a1)
 {
   if (qword_1DC68 != -1)
   {
     sub_EB78();
   }
 
-  v1 = qword_1DC60;
+  v2 = qword_1DC60;
 
-  return v1;
+  return v2;
 }
 
 void sub_836C(id a1)
@@ -1360,16 +1376,16 @@ void sub_836C(id a1)
   _objc_release_x1();
 }
 
-id SBLogReachability()
+id SBLogReachability(uint64_t a1)
 {
   if (qword_1DC78 != -1)
   {
     sub_EB8C();
   }
 
-  v1 = qword_1DC70;
+  v2 = qword_1DC70;
 
-  return v1;
+  return v2;
 }
 
 void sub_83F8(id a1)
@@ -1379,16 +1395,16 @@ void sub_83F8(id a1)
   _objc_release_x1();
 }
 
-id SBLogSmartCover()
+id SBLogSmartCover(uint64_t a1)
 {
   if (qword_1DC88 != -1)
   {
     sub_EBA0();
   }
 
-  v1 = qword_1DC80;
+  v2 = qword_1DC80;
 
-  return v1;
+  return v2;
 }
 
 void sub_8484(id a1)
@@ -1398,16 +1414,16 @@ void sub_8484(id a1)
   _objc_release_x1();
 }
 
-id SBLogInteractiveScreenshot()
+id SBLogInteractiveScreenshot(uint64_t a1)
 {
   if (qword_1DC98 != -1)
   {
     sub_EBB4();
   }
 
-  v1 = qword_1DC90;
+  v2 = qword_1DC90;
 
-  return v1;
+  return v2;
 }
 
 void sub_8510(id a1)
@@ -1417,16 +1433,16 @@ void sub_8510(id a1)
   _objc_release_x1();
 }
 
-id SBLogPPT()
+id SBLogPPT(uint64_t a1)
 {
   if (qword_1DCA8 != -1)
   {
     sub_EBC8();
   }
 
-  v1 = qword_1DCA0;
+  v2 = qword_1DCA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_859C(id a1)
@@ -1436,16 +1452,16 @@ void sub_859C(id a1)
   _objc_release_x1();
 }
 
-id SBLogDodging()
+id SBLogDodging(uint64_t a1)
 {
   if (qword_1DCB8 != -1)
   {
     sub_EBDC();
   }
 
-  v1 = qword_1DCB0;
+  v2 = qword_1DCB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8628(id a1)
@@ -1455,16 +1471,16 @@ void sub_8628(id a1)
   _objc_release_x1();
 }
 
-id SBLogShelfLiveContent()
+id SBLogShelfLiveContent(uint64_t a1)
 {
   if (qword_1DCC8 != -1)
   {
     sub_EBF0();
   }
 
-  v1 = qword_1DCC0;
+  v2 = qword_1DCC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_86B4(id a1)
@@ -1474,16 +1490,16 @@ void sub_86B4(id a1)
   _objc_release_x1();
 }
 
-id SBLogLegibility()
+id SBLogLegibility(uint64_t a1)
 {
   if (qword_1DCD8 != -1)
   {
     sub_EC04();
   }
 
-  v1 = qword_1DCD0;
+  v2 = qword_1DCD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8740(id a1)
@@ -1493,16 +1509,16 @@ void sub_8740(id a1)
   _objc_release_x1();
 }
 
-id SBLogWorkspace()
+id SBLogWorkspace(uint64_t a1)
 {
   if (qword_1DCE8 != -1)
   {
     sub_EC18();
   }
 
-  v1 = qword_1DCE0;
+  v2 = qword_1DCE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_87CC(id a1)
@@ -1512,16 +1528,16 @@ void sub_87CC(id a1)
   _objc_release_x1();
 }
 
-id SBLogTransaction()
+id SBLogTransaction(uint64_t a1)
 {
   if (qword_1DCF8 != -1)
   {
     sub_EC2C();
   }
 
-  v1 = qword_1DCF0;
+  v2 = qword_1DCF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8858(id a1)
@@ -1531,16 +1547,16 @@ void sub_8858(id a1)
   _objc_release_x1();
 }
 
-id SBLogTransactionVerbose()
+id SBLogTransactionVerbose(uint64_t a1)
 {
   if (qword_1DD08 != -1)
   {
     sub_EC40();
   }
 
-  v1 = qword_1DD00;
+  v2 = qword_1DD00;
 
-  return v1;
+  return v2;
 }
 
 void sub_88E4(id a1)
@@ -1550,16 +1566,16 @@ void sub_88E4(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraActivation()
+id SBLogCameraActivation(uint64_t a1)
 {
   if (qword_1DD18 != -1)
   {
     sub_EC54();
   }
 
-  v1 = qword_1DD10;
+  v2 = qword_1DD10;
 
-  return v1;
+  return v2;
 }
 
 void sub_8970(id a1)
@@ -1569,16 +1585,16 @@ void sub_8970(id a1)
   _objc_release_x1();
 }
 
-id SBLogSiri()
+id SBLogSiri(uint64_t a1)
 {
   if (qword_1DD28 != -1)
   {
     sub_EC68();
   }
 
-  v1 = qword_1DD20;
+  v2 = qword_1DD20;
 
-  return v1;
+  return v2;
 }
 
 void sub_89FC(id a1)
@@ -1588,16 +1604,16 @@ void sub_89FC(id a1)
   _objc_release_x1();
 }
 
-id SBLogActivity()
+id SBLogActivity(uint64_t a1)
 {
   if (qword_1DD38 != -1)
   {
     sub_EC7C();
   }
 
-  v1 = qword_1DD30;
+  v2 = qword_1DD30;
 
-  return v1;
+  return v2;
 }
 
 void sub_8A88(id a1)
@@ -1607,16 +1623,16 @@ void sub_8A88(id a1)
   _objc_release_x1();
 }
 
-id SBLogShellSceneKit()
+id SBLogShellSceneKit(uint64_t a1)
 {
   if (qword_1DD48 != -1)
   {
     sub_EC90();
   }
 
-  v1 = qword_1DD40;
+  v2 = qword_1DD40;
 
-  return v1;
+  return v2;
 }
 
 void sub_8B14(id a1)
@@ -1626,16 +1642,16 @@ void sub_8B14(id a1)
   _objc_release_x1();
 }
 
-id SBLogMenuBar()
+id SBLogMenuBar(uint64_t a1)
 {
   if (qword_1DD58 != -1)
   {
     sub_ECA4();
   }
 
-  v1 = qword_1DD50;
+  v2 = qword_1DD50;
 
-  return v1;
+  return v2;
 }
 
 void sub_8BA0(id a1)
@@ -1645,16 +1661,16 @@ void sub_8BA0(id a1)
   _objc_release_x1();
 }
 
-id SBLogVideoOut()
+id SBLogVideoOut(uint64_t a1)
 {
   if (qword_1DD68 != -1)
   {
     sub_ECB8();
   }
 
-  v1 = qword_1DD60;
+  v2 = qword_1DD60;
 
-  return v1;
+  return v2;
 }
 
 void sub_8C2C(id a1)
@@ -1664,16 +1680,16 @@ void sub_8C2C(id a1)
   _objc_release_x1();
 }
 
-id SBLogStreamBuddy()
+id SBLogStreamBuddy(uint64_t a1)
 {
   if (qword_1DD78 != -1)
   {
     sub_ECCC();
   }
 
-  v1 = qword_1DD70;
+  v2 = qword_1DD70;
 
-  return v1;
+  return v2;
 }
 
 void sub_8CB8(id a1)
@@ -1683,16 +1699,16 @@ void sub_8CB8(id a1)
   _objc_release_x1();
 }
 
-id SBLogScreenLongevityController()
+id SBLogScreenLongevityController(uint64_t a1)
 {
   if (qword_1DD88 != -1)
   {
     sub_ECE0();
   }
 
-  v1 = qword_1DD80;
+  v2 = qword_1DD80;
 
-  return v1;
+  return v2;
 }
 
 void sub_8D44(id a1)
@@ -1702,16 +1718,16 @@ void sub_8D44(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppLibrary()
+id SBLogAppLibrary(uint64_t a1)
 {
   if (qword_1DD98 != -1)
   {
     sub_ECF4();
   }
 
-  v1 = qword_1DD90;
+  v2 = qword_1DD90;
 
-  return v1;
+  return v2;
 }
 
 void sub_8DD0(id a1)
@@ -1721,16 +1737,16 @@ void sub_8DD0(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppPlaceholder()
+id SBLogAppPlaceholder(uint64_t a1)
 {
   if (qword_1DDA8 != -1)
   {
     sub_ED08();
   }
 
-  v1 = qword_1DDA0;
+  v2 = qword_1DDA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8E5C(id a1)
@@ -1740,16 +1756,16 @@ void sub_8E5C(id a1)
   _objc_release_x1();
 }
 
-id SBLogIconStyle()
+id SBLogIconStyle(uint64_t a1)
 {
   if (qword_1DDB8 != -1)
   {
     sub_ED1C();
   }
 
-  v1 = qword_1DDB0;
+  v2 = qword_1DDB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8EE8(id a1)
@@ -1759,16 +1775,16 @@ void sub_8EE8(id a1)
   _objc_release_x1();
 }
 
-id SBLogShellScene()
+id SBLogShellScene(uint64_t a1)
 {
   if (qword_1DDC8 != -1)
   {
     sub_ED30();
   }
 
-  v1 = qword_1DDC0;
+  v2 = qword_1DDC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_8F74(id a1)
@@ -1778,16 +1794,16 @@ void sub_8F74(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGesture()
+id SBLogSystemGesture(uint64_t a1)
 {
   if (qword_1DDD8 != -1)
   {
     sub_ED44();
   }
 
-  v1 = qword_1DDD0;
+  v2 = qword_1DDD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_9000(id a1)
@@ -1797,16 +1813,16 @@ void sub_9000(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureDetail()
+id SBLogSystemGestureDetail(uint64_t a1)
 {
   if (qword_1DDE8 != -1)
   {
     sub_ED58();
   }
 
-  v1 = qword_1DDE0;
+  v2 = qword_1DDE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_908C(id a1)
@@ -1816,16 +1832,16 @@ void sub_908C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureControlCenter()
+id SBLogSystemGestureControlCenter(uint64_t a1)
 {
   if (qword_1DDF8 != -1)
   {
     sub_ED6C();
   }
 
-  v1 = qword_1DDF0;
+  v2 = qword_1DDF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_9118(id a1)
@@ -1835,16 +1851,16 @@ void sub_9118(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureCoverSheet()
+id SBLogSystemGestureCoverSheet(uint64_t a1)
 {
   if (qword_1DE08 != -1)
   {
     sub_ED80();
   }
 
-  v1 = qword_1DE00;
+  v2 = qword_1DE00;
 
-  return v1;
+  return v2;
 }
 
 void sub_91A4(id a1)
@@ -1854,16 +1870,16 @@ void sub_91A4(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureBannerDismiss()
+id SBLogSystemGestureBannerDismiss(uint64_t a1)
 {
   if (qword_1DE18 != -1)
   {
     sub_ED94();
   }
 
-  v1 = qword_1DE10;
+  v2 = qword_1DE10;
 
-  return v1;
+  return v2;
 }
 
 void sub_9230(id a1)
@@ -1873,16 +1889,16 @@ void sub_9230(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureScrunch()
+id SBLogSystemGestureScrunch(uint64_t a1)
 {
   if (qword_1DE28 != -1)
   {
     sub_EDA8();
   }
 
-  v1 = qword_1DE20;
+  v2 = qword_1DE20;
 
-  return v1;
+  return v2;
 }
 
 void sub_92BC(id a1)
@@ -1892,16 +1908,16 @@ void sub_92BC(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureAppSwitcher()
+id SBLogSystemGestureAppSwitcher(uint64_t a1)
 {
   if (qword_1DE38 != -1)
   {
     sub_EDBC();
   }
 
-  v1 = qword_1DE30;
+  v2 = qword_1DE30;
 
-  return v1;
+  return v2;
 }
 
 void sub_9348(id a1)
@@ -1911,16 +1927,16 @@ void sub_9348(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureSwitchApp()
+id SBLogSystemGestureSwitchApp(uint64_t a1)
 {
   if (qword_1DE48 != -1)
   {
     sub_EDD0();
   }
 
-  v1 = qword_1DE40;
+  v2 = qword_1DE40;
 
-  return v1;
+  return v2;
 }
 
 void sub_93D4(id a1)
@@ -1930,16 +1946,16 @@ void sub_93D4(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGestureHome()
+id SBLogSystemGestureHome(uint64_t a1)
 {
   if (qword_1DE58 != -1)
   {
     sub_EDE4();
   }
 
-  v1 = qword_1DE50;
+  v2 = qword_1DE50;
 
-  return v1;
+  return v2;
 }
 
 void sub_9460(id a1)
@@ -1949,16 +1965,16 @@ void sub_9460(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemGesturePencilSqueeze()
+id SBLogSystemGesturePencilSqueeze(uint64_t a1)
 {
   if (qword_1DE68 != -1)
   {
     sub_EDF8();
   }
 
-  v1 = qword_1DE60;
+  v2 = qword_1DE60;
 
-  return v1;
+  return v2;
 }
 
 void sub_94EC(id a1)
@@ -1968,16 +1984,16 @@ void sub_94EC(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppSwitcherDrag()
+id SBLogAppSwitcherDrag(uint64_t a1)
 {
   if (qword_1DE78 != -1)
   {
     sub_EE0C();
   }
 
-  v1 = qword_1DE70;
+  v2 = qword_1DE70;
 
-  return v1;
+  return v2;
 }
 
 void sub_9578(id a1)
@@ -1987,16 +2003,16 @@ void sub_9578(id a1)
   _objc_release_x1();
 }
 
-id SBLogWidgetDiscoverability()
+id SBLogWidgetDiscoverability(uint64_t a1)
 {
   if (qword_1DE88 != -1)
   {
     sub_EE20();
   }
 
-  v1 = qword_1DE80;
+  v2 = qword_1DE80;
 
-  return v1;
+  return v2;
 }
 
 void sub_9604(id a1)
@@ -2006,16 +2022,16 @@ void sub_9604(id a1)
   _objc_release_x1();
 }
 
-id SBLogWidgetIntent()
+id SBLogWidgetIntent(uint64_t a1)
 {
   if (qword_1DE98 != -1)
   {
     sub_EE34();
   }
 
-  v1 = qword_1DE90;
+  v2 = qword_1DE90;
 
-  return v1;
+  return v2;
 }
 
 void sub_9690(id a1)
@@ -2025,16 +2041,16 @@ void sub_9690(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionCoaching()
+id SBLogSystemActionCoaching(uint64_t a1)
 {
   if (qword_1DEA8 != -1)
   {
     sub_EE48();
   }
 
-  v1 = qword_1DEA0;
+  v2 = qword_1DEA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_971C(id a1)
@@ -2044,16 +2060,16 @@ void sub_971C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionControl()
+id SBLogSystemActionControl(uint64_t a1)
 {
   if (qword_1DEB8 != -1)
   {
     sub_EE5C();
   }
 
-  v1 = qword_1DEB0;
+  v2 = qword_1DEB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_97A8(id a1)
@@ -2063,16 +2079,16 @@ void sub_97A8(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionDataSource()
+id SBLogSystemActionDataSource(uint64_t a1)
 {
   if (qword_1DEC8 != -1)
   {
     sub_EE70();
   }
 
-  v1 = qword_1DEC0;
+  v2 = qword_1DEC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_9834(id a1)
@@ -2082,16 +2098,16 @@ void sub_9834(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionExecution()
+id SBLogSystemActionExecution(uint64_t a1)
 {
   if (qword_1DED8 != -1)
   {
     sub_EE84();
   }
 
-  v1 = qword_1DED0;
+  v2 = qword_1DED0;
 
-  return v1;
+  return v2;
 }
 
 void sub_98C0(id a1)
@@ -2101,16 +2117,16 @@ void sub_98C0(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionPreviewing()
+id SBLogSystemActionPreviewing(uint64_t a1)
 {
   if (qword_1DEE8 != -1)
   {
     sub_EE98();
   }
 
-  v1 = qword_1DEE0;
+  v2 = qword_1DEE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_994C(id a1)
@@ -2120,16 +2136,16 @@ void sub_994C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemActionSuppression()
+id SBLogSystemActionSuppression(uint64_t a1)
 {
   if (qword_1DEF8 != -1)
   {
     sub_EEAC();
   }
 
-  v1 = qword_1DEF0;
+  v2 = qword_1DEF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_99D8(id a1)
@@ -2139,16 +2155,16 @@ void sub_99D8(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureController()
+id SBLogSystemApertureController(uint64_t a1)
 {
   if (qword_1DF08 != -1)
   {
     sub_EEC0();
   }
 
-  v1 = qword_1DF00;
+  v2 = qword_1DF00;
 
-  return v1;
+  return v2;
 }
 
 void sub_9A64(id a1)
@@ -2158,16 +2174,16 @@ void sub_9A64(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureContainer()
+id SBLogSystemApertureContainer(uint64_t a1)
 {
   if (qword_1DF18 != -1)
   {
     sub_EED4();
   }
 
-  v1 = qword_1DF10;
+  v2 = qword_1DF10;
 
-  return v1;
+  return v2;
 }
 
 void sub_9AF0(id a1)
@@ -2177,16 +2193,16 @@ void sub_9AF0(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureDebuggingUtility()
+id SBLogSystemApertureDebuggingUtility(uint64_t a1)
 {
   if (qword_1DF28 != -1)
   {
     sub_EEE8();
   }
 
-  v1 = qword_1DF20;
+  v2 = qword_1DF20;
 
-  return v1;
+  return v2;
 }
 
 void sub_9B7C(id a1)
@@ -2196,16 +2212,16 @@ void sub_9B7C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureNotice()
+id SBLogSystemApertureNotice(uint64_t a1)
 {
   if (qword_1DF38 != -1)
   {
     sub_EEFC();
   }
 
-  v1 = qword_1DF30;
+  v2 = qword_1DF30;
 
-  return v1;
+  return v2;
 }
 
 void sub_9C08(id a1)
@@ -2215,16 +2231,16 @@ void sub_9C08(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePills()
+id SBLogSystemAperturePills(uint64_t a1)
 {
   if (qword_1DF48 != -1)
   {
     sub_EF10();
   }
 
-  v1 = qword_1DF40;
+  v2 = qword_1DF40;
 
-  return v1;
+  return v2;
 }
 
 void sub_9C94(id a1)
@@ -2234,16 +2250,16 @@ void sub_9C94(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureLocalElement()
+id SBLogSystemApertureLocalElement(uint64_t a1)
 {
   if (qword_1DF58 != -1)
   {
     sub_EF24();
   }
 
-  v1 = qword_1DF50;
+  v2 = qword_1DF50;
 
-  return v1;
+  return v2;
 }
 
 void sub_9D20(id a1)
@@ -2253,16 +2269,16 @@ void sub_9D20(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureLockElement()
+id SBLogSystemApertureLockElement(uint64_t a1)
 {
   if (qword_1DF68 != -1)
   {
     sub_EF38();
   }
 
-  v1 = qword_1DF60;
+  v2 = qword_1DF60;
 
-  return v1;
+  return v2;
 }
 
 void sub_9DAC(id a1)
@@ -2272,16 +2288,16 @@ void sub_9DAC(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureMediation()
+id SBLogSystemApertureMediation(uint64_t a1)
 {
   if (qword_1DF78 != -1)
   {
     sub_EF4C();
   }
 
-  v1 = qword_1DF70;
+  v2 = qword_1DF70;
 
-  return v1;
+  return v2;
 }
 
 void sub_9E38(id a1)
@@ -2291,16 +2307,16 @@ void sub_9E38(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureOrientation()
+id SBLogSystemApertureOrientation(uint64_t a1)
 {
   if (qword_1DF88 != -1)
   {
     sub_EF60();
   }
 
-  v1 = qword_1DF80;
+  v2 = qword_1DF80;
 
-  return v1;
+  return v2;
 }
 
 void sub_9EC4(id a1)
@@ -2310,16 +2326,16 @@ void sub_9EC4(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureAccessibility()
+id SBLogSystemApertureAccessibility(uint64_t a1)
 {
   if (qword_1DF98 != -1)
   {
     sub_EF74();
   }
 
-  v1 = qword_1DF90;
+  v2 = qword_1DF90;
 
-  return v1;
+  return v2;
 }
 
 void sub_9F50(id a1)
@@ -2329,16 +2345,16 @@ void sub_9F50(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemApertureSecureFlipBookElements()
+id SBLogSystemApertureSecureFlipBookElements(uint64_t a1)
 {
   if (qword_1DFA8 != -1)
   {
     sub_EF88();
   }
 
-  v1 = qword_1DFA0;
+  v2 = qword_1DFA0;
 
-  return v1;
+  return v2;
 }
 
 void sub_9FDC(id a1)
@@ -2348,16 +2364,16 @@ void sub_9FDC(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStack()
+id SBLogSystemAperturePreferencesStack(uint64_t a1)
 {
   if (qword_1DFB8 != -1)
   {
     sub_EF9C();
   }
 
-  v1 = qword_1DFB0;
+  v2 = qword_1DFB0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A068(id a1)
@@ -2367,16 +2383,16 @@ void sub_A068(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackMutation()
+id SBLogSystemAperturePreferencesStackMutation(uint64_t a1)
 {
   if (qword_1DFC8 != -1)
   {
     sub_EFB0();
   }
 
-  v1 = qword_1DFC0;
+  v2 = qword_1DFC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A0F4(id a1)
@@ -2386,16 +2402,16 @@ void sub_A0F4(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackSettling()
+id SBLogSystemAperturePreferencesStackSettling(uint64_t a1)
 {
   if (qword_1DFD8 != -1)
   {
     sub_EFC4();
   }
 
-  v1 = qword_1DFD0;
+  v2 = qword_1DFD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A180(id a1)
@@ -2405,16 +2421,16 @@ void sub_A180(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackElements()
+id SBLogSystemAperturePreferencesStackElements(uint64_t a1)
 {
   if (qword_1DFE8 != -1)
   {
     sub_EFD8();
   }
 
-  v1 = qword_1DFE0;
+  v2 = qword_1DFE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A20C(id a1)
@@ -2424,16 +2440,16 @@ void sub_A20C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackRenderingCloning()
+id SBLogSystemAperturePreferencesStackRenderingCloning(uint64_t a1)
 {
   if (qword_1DFF8 != -1)
   {
     sub_EFEC();
   }
 
-  v1 = qword_1DFF0;
+  v2 = qword_1DFF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A298(id a1)
@@ -2443,16 +2459,16 @@ void sub_A298(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackMitosis()
+id SBLogSystemAperturePreferencesStackMitosis(uint64_t a1)
 {
   if (qword_1E008 != -1)
   {
     sub_F000();
   }
 
-  v1 = qword_1E000;
+  v2 = qword_1E000;
 
-  return v1;
+  return v2;
 }
 
 void sub_A324(id a1)
@@ -2462,16 +2478,16 @@ void sub_A324(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackSequencedBehaviors()
+id SBLogSystemAperturePreferencesStackSequencedBehaviors(uint64_t a1)
 {
   if (qword_1E018 != -1)
   {
     sub_F014();
   }
 
-  v1 = qword_1E010;
+  v2 = qword_1E010;
 
-  return v1;
+  return v2;
 }
 
 void sub_A3B0(id a1)
@@ -2481,16 +2497,16 @@ void sub_A3B0(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackGestures()
+id SBLogSystemAperturePreferencesStackGestures(uint64_t a1)
 {
   if (qword_1E028 != -1)
   {
     sub_F028();
   }
 
-  v1 = qword_1E020;
+  v2 = qword_1E020;
 
-  return v1;
+  return v2;
 }
 
 void sub_A43C(id a1)
@@ -2500,16 +2516,16 @@ void sub_A43C(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackPruning()
+id SBLogSystemAperturePreferencesStackPruning(uint64_t a1)
 {
   if (qword_1E038 != -1)
   {
     sub_F03C();
   }
 
-  v1 = qword_1E030;
+  v2 = qword_1E030;
 
-  return v1;
+  return v2;
 }
 
 void sub_A4C8(id a1)
@@ -2519,16 +2535,16 @@ void sub_A4C8(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackDynamicsAnimations()
+id SBLogSystemAperturePreferencesStackDynamicsAnimations(uint64_t a1)
 {
   if (qword_1E048 != -1)
   {
     sub_F050();
   }
 
-  v1 = qword_1E040;
+  v2 = qword_1E040;
 
-  return v1;
+  return v2;
 }
 
 void sub_A554(id a1)
@@ -2538,16 +2554,16 @@ void sub_A554(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackIndicator()
+id SBLogSystemAperturePreferencesStackIndicator(uint64_t a1)
 {
   if (qword_1E058 != -1)
   {
     sub_F064();
   }
 
-  v1 = qword_1E050;
+  v2 = qword_1E050;
 
-  return v1;
+  return v2;
 }
 
 void sub_A5E0(id a1)
@@ -2557,16 +2573,16 @@ void sub_A5E0(id a1)
   _objc_release_x1();
 }
 
-id SBLogSystemAperturePreferencesStackSecureFlipBookElements()
+id SBLogSystemAperturePreferencesStackSecureFlipBookElements(uint64_t a1)
 {
   if (qword_1E068 != -1)
   {
     sub_F078();
   }
 
-  v1 = qword_1E060;
+  v2 = qword_1E060;
 
-  return v1;
+  return v2;
 }
 
 void sub_A66C(id a1)
@@ -2576,16 +2592,16 @@ void sub_A66C(id a1)
   _objc_release_x1();
 }
 
-id SBLogCoverGesture()
+id SBLogCoverGesture(uint64_t a1)
 {
   if (qword_1E078 != -1)
   {
     sub_F08C();
   }
 
-  v1 = qword_1E070;
+  v2 = qword_1E070;
 
-  return v1;
+  return v2;
 }
 
 void sub_A6F8(id a1)
@@ -2595,16 +2611,16 @@ void sub_A6F8(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsHome()
+id SBLogButtonsHome(uint64_t a1)
 {
   if (qword_1E088 != -1)
   {
     sub_F0A0();
   }
 
-  v1 = qword_1E080;
+  v2 = qword_1E080;
 
-  return v1;
+  return v2;
 }
 
 void sub_A784(id a1)
@@ -2614,16 +2630,16 @@ void sub_A784(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsLock()
+id SBLogButtonsLock(uint64_t a1)
 {
   if (qword_1E098 != -1)
   {
     sub_F0B4();
   }
 
-  v1 = qword_1E090;
+  v2 = qword_1E090;
 
-  return v1;
+  return v2;
 }
 
 void sub_A80C(id a1)
@@ -2633,16 +2649,16 @@ void sub_A80C(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsVolume()
+id SBLogButtonsVolume(uint64_t a1)
 {
   if (qword_1E0A8 != -1)
   {
     sub_F0C8();
   }
 
-  v1 = qword_1E0A0;
+  v2 = qword_1E0A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A894(id a1)
@@ -2652,16 +2668,16 @@ void sub_A894(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsAction()
+id SBLogButtonsAction(uint64_t a1)
 {
   if (qword_1E0B8 != -1)
   {
     sub_F0DC();
   }
 
-  v1 = qword_1E0B0;
+  v2 = qword_1E0B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A91C(id a1)
@@ -2671,16 +2687,16 @@ void sub_A91C(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsCombo()
+id SBLogButtonsCombo(uint64_t a1)
 {
   if (qword_1E0C8 != -1)
   {
     sub_F0F0();
   }
 
-  v1 = qword_1E0C0;
+  v2 = qword_1E0C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_A9A4(id a1)
@@ -2690,16 +2706,16 @@ void sub_A9A4(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsInteraction()
+id SBLogButtonsInteraction(uint64_t a1)
 {
   if (qword_1E0D8 != -1)
   {
     sub_F104();
   }
 
-  v1 = qword_1E0D0;
+  v2 = qword_1E0D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_AA2C(id a1)
@@ -2709,16 +2725,16 @@ void sub_AA2C(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsCamera()
+id SBLogButtonsCamera(uint64_t a1)
 {
   if (qword_1E0E8 != -1)
   {
     sub_F118();
   }
 
-  v1 = qword_1E0E0;
+  v2 = qword_1E0E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_AAB4(id a1)
@@ -2728,16 +2744,16 @@ void sub_AAB4(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonsCapture()
+id SBLogButtonsCapture(uint64_t a1)
 {
   if (qword_1E0F8 != -1)
   {
     sub_F12C();
   }
 
-  v1 = qword_1E0F0;
+  v2 = qword_1E0F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_AB3C(id a1)
@@ -2747,16 +2763,16 @@ void sub_AB3C(id a1)
   _objc_release_x1();
 }
 
-id SBLogStationaryMotionDetector()
+id SBLogStationaryMotionDetector(uint64_t a1)
 {
   if (qword_1E108 != -1)
   {
     sub_F140();
   }
 
-  v1 = qword_1E100;
+  v2 = qword_1E100;
 
-  return v1;
+  return v2;
 }
 
 void sub_ABC4(id a1)
@@ -2766,16 +2782,16 @@ void sub_ABC4(id a1)
   _objc_release_x1();
 }
 
-id SBLogButtonHintingUI()
+id SBLogButtonHintingUI(uint64_t a1)
 {
   if (qword_1E118 != -1)
   {
     sub_F154();
   }
 
-  v1 = qword_1E110;
+  v2 = qword_1E110;
 
-  return v1;
+  return v2;
 }
 
 void sub_AC50(id a1)
@@ -2785,16 +2801,16 @@ void sub_AC50(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureLaunch()
+id SBLogCameraCaptureLaunch(uint64_t a1)
 {
   if (qword_1E128 != -1)
   {
     sub_F168();
   }
 
-  v1 = qword_1E120;
+  v2 = qword_1E120;
 
-  return v1;
+  return v2;
 }
 
 void sub_ACDC(id a1)
@@ -2804,16 +2820,16 @@ void sub_ACDC(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureSuppression()
+id SBLogCameraCaptureSuppression(uint64_t a1)
 {
   if (qword_1E138 != -1)
   {
     sub_F17C();
   }
 
-  v1 = qword_1E130;
+  v2 = qword_1E130;
 
-  return v1;
+  return v2;
 }
 
 void sub_AD68(id a1)
@@ -2823,16 +2839,16 @@ void sub_AD68(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureButtonScanMode()
+id SBLogCameraCaptureButtonScanMode(uint64_t a1)
 {
   if (qword_1E148 != -1)
   {
     sub_F190();
   }
 
-  v1 = qword_1E140;
+  v2 = qword_1E140;
 
-  return v1;
+  return v2;
 }
 
 void sub_ADF4(id a1)
@@ -2842,16 +2858,16 @@ void sub_ADF4(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureOverlay()
+id SBLogCameraCaptureOverlay(uint64_t a1)
 {
   if (qword_1E158 != -1)
   {
     sub_F1A4();
   }
 
-  v1 = qword_1E150;
+  v2 = qword_1E150;
 
-  return v1;
+  return v2;
 }
 
 void sub_AE80(id a1)
@@ -2861,16 +2877,16 @@ void sub_AE80(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureLaunchAnimation()
+id SBLogCameraCaptureLaunchAnimation(uint64_t a1)
 {
   if (qword_1E168 != -1)
   {
     sub_F1B8();
   }
 
-  v1 = qword_1E160;
+  v2 = qword_1E160;
 
-  return v1;
+  return v2;
 }
 
 void sub_AF0C(id a1)
@@ -2880,16 +2896,16 @@ void sub_AF0C(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureRestriction()
+id SBLogCameraCaptureRestriction(uint64_t a1)
 {
   if (qword_1E178 != -1)
   {
     sub_F1CC();
   }
 
-  v1 = qword_1E170;
+  v2 = qword_1E170;
 
-  return v1;
+  return v2;
 }
 
 void sub_AF98(id a1)
@@ -2899,16 +2915,16 @@ void sub_AF98(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureStudyLogs()
+id SBLogCameraCaptureStudyLogs(uint64_t a1)
 {
   if (qword_1E188 != -1)
   {
     sub_F1E0();
   }
 
-  v1 = qword_1E180;
+  v2 = qword_1E180;
 
-  return v1;
+  return v2;
 }
 
 void sub_B024(id a1)
@@ -2918,16 +2934,16 @@ void sub_B024(id a1)
   _objc_release_x1();
 }
 
-id SBLogCameraCaptureSessionLogs()
+id SBLogCameraCaptureSessionLogs(uint64_t a1)
 {
   if (qword_1E198 != -1)
   {
     sub_F1F4();
   }
 
-  v1 = qword_1E190;
+  v2 = qword_1E190;
 
-  return v1;
+  return v2;
 }
 
 void sub_B0B0(id a1)
@@ -2937,16 +2953,16 @@ void sub_B0B0(id a1)
   _objc_release_x1();
 }
 
-id SBLogAmbientPresentation()
+id SBLogAmbientPresentation(uint64_t a1)
 {
   if (qword_1E1A8 != -1)
   {
     sub_F208();
   }
 
-  v1 = qword_1E1A0;
+  v2 = qword_1E1A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B13C(id a1)
@@ -2956,16 +2972,16 @@ void sub_B13C(id a1)
   _objc_release_x1();
 }
 
-id SBLogAmbientChargerConnection()
+id SBLogAmbientChargerConnection(uint64_t a1)
 {
   if (qword_1E1B8 != -1)
   {
     sub_F21C();
   }
 
-  v1 = qword_1E1B0;
+  v2 = qword_1E1B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B1C8(id a1)
@@ -2975,16 +2991,16 @@ void sub_B1C8(id a1)
   _objc_release_x1();
 }
 
-id SBLogAmbientIdleTimer()
+id SBLogAmbientIdleTimer(uint64_t a1)
 {
   if (qword_1E1C8 != -1)
   {
     sub_F230();
   }
 
-  v1 = qword_1E1C0;
+  v2 = qword_1E1C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B254(id a1)
@@ -2994,16 +3010,16 @@ void sub_B254(id a1)
   _objc_release_x1();
 }
 
-id SBLogAmbientAuthentication()
+id SBLogAmbientAuthentication(uint64_t a1)
 {
   if (qword_1E1D8 != -1)
   {
     sub_F244();
   }
 
-  v1 = qword_1E1D0;
+  v2 = qword_1E1D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B2E0(id a1)
@@ -3013,16 +3029,16 @@ void sub_B2E0(id a1)
   _objc_release_x1();
 }
 
-id SBLogAmbientDeviceState()
+id SBLogAmbientDeviceState(uint64_t a1)
 {
   if (qword_1E1E8 != -1)
   {
     sub_F258();
   }
 
-  v1 = qword_1E1E0;
+  v2 = qword_1E1E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B36C(id a1)
@@ -3032,16 +3048,16 @@ void sub_B36C(id a1)
   _objc_release_x1();
 }
 
-id SBLogBiome()
+id SBLogBiome(uint64_t a1)
 {
   if (qword_1E1F8 != -1)
   {
     sub_F26C();
   }
 
-  v1 = qword_1E1F0;
+  v2 = qword_1E1F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_B3F8(id a1)
@@ -3051,16 +3067,16 @@ void sub_B3F8(id a1)
   _objc_release_x1();
 }
 
-id SBLogContinuityDisplay()
+id SBLogContinuityDisplay(uint64_t a1)
 {
   if (qword_1E208 != -1)
   {
     sub_F280();
   }
 
-  v1 = qword_1E200;
+  v2 = qword_1E200;
 
-  return v1;
+  return v2;
 }
 
 void sub_B484(id a1)
@@ -3070,16 +3086,16 @@ void sub_B484(id a1)
   _objc_release_x1();
 }
 
-id SBLogContinuitySession()
+id SBLogContinuitySession(uint64_t a1)
 {
   if (qword_1E218 != -1)
   {
     sub_F294();
   }
 
-  v1 = qword_1E210;
+  v2 = qword_1E210;
 
-  return v1;
+  return v2;
 }
 
 void sub_B510(id a1)
@@ -3089,16 +3105,16 @@ void sub_B510(id a1)
   _objc_release_x1();
 }
 
-id SBLogAppProtection()
+id SBLogAppProtection(uint64_t a1)
 {
   if (qword_1E228 != -1)
   {
     sub_F2A8();
   }
 
-  v1 = qword_1E220;
+  v2 = qword_1E220;
 
-  return v1;
+  return v2;
 }
 
 void sub_B59C(id a1)
@@ -3108,16 +3124,16 @@ void sub_B59C(id a1)
   _objc_release_x1();
 }
 
-id SBLogCaptureApplication()
+id SBLogCaptureApplication(uint64_t a1)
 {
   if (qword_1E238 != -1)
   {
     sub_F2BC();
   }
 
-  v1 = qword_1E230;
+  v2 = qword_1E230;
 
-  return v1;
+  return v2;
 }
 
 void sub_B628(id a1)
@@ -3127,16 +3143,16 @@ void sub_B628(id a1)
   _objc_release_x1();
 }
 
-id SBLogCaptureViewfinderMonitor()
+id SBLogCaptureViewfinderMonitor(uint64_t a1)
 {
   if (qword_1E248 != -1)
   {
     sub_F2D0();
   }
 
-  v1 = qword_1E240;
+  v2 = qword_1E240;
 
-  return v1;
+  return v2;
 }
 
 void sub_B6B4(id a1)
@@ -3146,16 +3162,16 @@ void sub_B6B4(id a1)
   _objc_release_x1();
 }
 
-id SBLogPrototyping()
+id SBLogPrototyping(uint64_t a1)
 {
   if (qword_1E258 != -1)
   {
     sub_F2E4();
   }
 
-  v1 = qword_1E250;
+  v2 = qword_1E250;
 
-  return v1;
+  return v2;
 }
 
 void sub_B740(id a1)
@@ -3165,16 +3181,16 @@ void sub_B740(id a1)
   _objc_release_x1();
 }
 
-id SBLogSceneRelevancy()
+id SBLogSceneRelevancy(uint64_t a1)
 {
   if (qword_1E268 != -1)
   {
     sub_F2F8();
   }
 
-  v1 = qword_1E260;
+  v2 = qword_1E260;
 
-  return v1;
+  return v2;
 }
 
 void sub_B7CC(id a1)
@@ -3239,28 +3255,28 @@ void sub_DCCC(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error loading current icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error loading current icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_DD50(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error saving migrated current icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error saving migrated current icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_DDD4(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error loading desired icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error loading desired icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_DE58(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error saving migrated desired icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[CalendarWidgetMigrator] Error saving migrated desired icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_DEDC()
@@ -3369,28 +3385,28 @@ void sub_E564(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error loading current icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error loading current icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_E5E8(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error saving migrated current icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error saving migrated current icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_E66C(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error loading desired icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error loading desired icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_E6F0(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_265C();
-  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error saving migrated desired icon state: %{public}@", v4, v5, v6, v7, v8);
+  sub_263C(&dword_0, v2, v3, "[NewsIconStateMigration] Error saving migrated desired icon state: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_F30C(uint64_t a1, uint64_t a2)

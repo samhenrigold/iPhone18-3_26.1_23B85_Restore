@@ -66,7 +66,7 @@
 
 - (id)hrefsAsFullURLs
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   hrefs = [(CoreDAVItemWithHrefChildren *)self hrefs];
 
   if (hrefs)
@@ -75,28 +75,28 @@
     hrefs2 = [(CoreDAVItemWithHrefChildren *)self hrefs];
     hrefs = [v4 initWithCapacity:{objc_msgSend(hrefs2, "count")}];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     hrefs3 = [(CoreDAVItemWithHrefChildren *)self hrefs];
-    v7 = [hrefs3 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v7 = [hrefs3 countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v21;
+      v10 = *v20;
       *&v8 = 138412290;
-      v19 = v8;
+      v18 = v8;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(hrefs3);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           payloadAsFullURL = [v12 payloadAsFullURL];
           if (payloadAsFullURL)
           {
@@ -110,53 +110,51 @@
             v16 = v15;
             if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v19;
-              v25 = v12;
+              *buf = v18;
+              v24 = v12;
               _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_DEFAULT, "omitting nil URL from href '%@'", buf, 0xCu);
             }
           }
         }
 
-        v9 = [hrefs3 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v9 = [hrefs3 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v9);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return hrefs;
 }
 
 - (id)hrefsAsOriginalURLs
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   hrefs = [(CoreDAVItemWithHrefChildren *)self hrefs];
   if (hrefs)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(hrefs, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = hrefs;
+    v15 = hrefs;
     v4 = hrefs;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           payloadAsOriginalURL = [v9 payloadAsOriginalURL];
           if (payloadAsOriginalURL)
           {
@@ -171,19 +169,19 @@
             if (v12 && os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v22 = v9;
+              v21 = v9;
               _os_log_impl(&dword_2452FB000, v13, OS_LOG_TYPE_DEFAULT, "omitting nil URL from href '%@'", buf, 0xCu);
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v6);
     }
 
-    hrefs = v16;
+    hrefs = v15;
   }
 
   else
@@ -191,39 +189,37 @@
     v3 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)hrefsAsStrings
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   hrefs = [(CoreDAVItemWithHrefChildren *)self hrefs];
   if (hrefs)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(hrefs, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = hrefs;
+    v15 = hrefs;
     v4 = hrefs;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           payloadAsString = [v9 payloadAsString];
           if (payloadAsString)
           {
@@ -238,27 +234,25 @@
             if (v12 && os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v22 = v9;
+              v21 = v9;
               _os_log_impl(&dword_2452FB000, v13, OS_LOG_TYPE_DEFAULT, "omitting nil URL from href '%@'", buf, 0xCu);
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v6);
     }
 
-    hrefs = v16;
+    hrefs = v15;
   }
 
   else
   {
     v3 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

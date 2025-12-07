@@ -236,42 +236,42 @@ void __92__PHImageManager_Properties___requestImagePropertiesFromFileForAsset_op
   [v19 exportAsynchronouslyWithCompletionHandler:v20];
 }
 
-void __85__PHImageManager_VideoUtilities__startExportSession_assetUuid_signpostId_completion___block_invoke(uint64_t a1)
+void __85__PHImageManager_VideoUtilities__startExportSession_assetUuid_signpostId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = PLImageManagerGetLog();
-  v3 = v2;
-  v4 = *(a1 + 56);
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = PLImageManagerGetLog();
+  v4 = v3;
+  v5 = *(a1 + 56);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    LOWORD(v11) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19C86F000, v3, OS_SIGNPOST_INTERVAL_END, v4, "com.apple.photos.backend.adpExportVideoFileTimeRange.exportSession", byte_19CB567AE, &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19C86F000, v4, OS_SIGNPOST_INTERVAL_END, v5, "com.apple.photos.backend.adpExportVideoFileTimeRange.exportSession", byte_19CB567AE, &v12, 2u);
   }
 
-  v5 = [*(a1 + 32) status];
-  if (v5 == 3)
+  v6 = [*(a1 + 32) status];
+  if (v6 == 3)
   {
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = v5;
-    v7 = [*(a1 + 32) error];
-    v8 = PLImageManagerGetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = v6;
+    v8 = [*(a1 + 32) error];
+    v9 = PLImageManagerGetLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 40);
-      v10 = [*(a1 + 32) outputURL];
-      v11 = 138413058;
-      v12 = v9;
-      v13 = 2048;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_19C86F000, v8, OS_LOG_TYPE_ERROR, "ADP time range export session completed unsuccessfully for asset %@: status=%td, error: %@, output URL: %@", &v11, 0x2Au);
+      v10 = *(a1 + 40);
+      v11 = [*(a1 + 32) outputURL];
+      v12 = 138413058;
+      v13 = v10;
+      v14 = 2048;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_19C86F000, v9, OS_LOG_TYPE_ERROR, "ADP time range export session completed unsuccessfully for asset %@: status=%td, error: %@, output URL: %@", &v12, 0x2Au);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -725,7 +725,7 @@ void __98__PHImageManager_VideoUtilities__buildAVPlayerItemFromVideoURL_infoDict
   {
     if (optionsCopy)
     {
-      [optionsCopy timeRange];
+      objc_msgSend_timeRange(optionsCopy);
     }
 
     else
@@ -3530,7 +3530,7 @@ void __88__PHImageManager_requestLivePhotoForAsset_targetSize_contentMode_option
       v19 = v18;
       if (v18)
       {
-        [v18 photoIrisStillDisplayTime];
+        objc_msgSend_photoIrisStillDisplayTime(v18);
       }
 
       else
@@ -3629,7 +3629,7 @@ LABEL_14:
   v13 = v12;
   if (v12)
   {
-    [v12 photoIrisStillDisplayTime];
+    objc_msgSend_photoIrisStillDisplayTime(v12);
   }
 
   else
@@ -3745,7 +3745,7 @@ void __88__PHImageManager_requestLivePhotoForAsset_targetSize_contentMode_option
       v16 = @"N";
     }
 
-    [PHImageManagerRequestTracer traceMessageForRequestID:v13 message:@"[RM]: %@ live photo request finished with live photo: %@, error: %@, isDegraded: %@", v14, v5, v6, v16, *buf];
+    [PHImageManagerRequestTracer traceMessageForRequestID:v13 message:@"[RM]: %@ live photo request finished with live photo: %@, error: %@, isDegraded: %@", v14, v5, v6, v16, *buf, *&buf[8]];
   }
 
   [*(a1 + 40) setErrorIfNone:v6];

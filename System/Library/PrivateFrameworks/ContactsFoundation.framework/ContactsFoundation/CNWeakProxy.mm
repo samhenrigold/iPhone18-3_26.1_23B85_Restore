@@ -40,18 +40,16 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   methodSignature = [invocationCopy methodSignature];
   methodReturnLength = [methodSignature methodReturnLength];
   if (methodReturnLength)
   {
-    v6 = v8 - ((methodReturnLength + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v7 - ((methodReturnLength + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v6, methodReturnLength);
     [invocationCopy setReturnValue:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)respondsToSelector:(SEL)selector

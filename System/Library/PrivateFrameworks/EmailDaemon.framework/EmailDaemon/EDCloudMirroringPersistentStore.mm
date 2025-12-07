@@ -3,6 +3,8 @@
 - (EDCloudMirroringPersistentStore)init;
 - (id)_schedulerForKind:(int)kind;
 - (id)_wrapCompletion:(id)completion forRequestKind:(int)kind;
+- (void)_executeRequestWithKind:(int)kind completionBlock:(id)block;
+- (void)_requestWithKind:(int)kind completionBlock:(id)block;
 - (void)_setupCoreDataStack;
 - (void)performBlock:(id)block;
 - (void)performBlockAndWait:(id)wait;
@@ -62,16 +64,15 @@ void __38__EDCloudMirroringPersistentStore_log__block_invoke(uint64_t a1)
 
 - (void)_setupCoreDataStack
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Failed to locate momd bundle in application. %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Failed to locate momd bundle in application. %@", &v1, 0xCu);
 }
 
 void __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
@@ -79,11 +80,9 @@ void __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v3 ef_publicDescription];
-      __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke_cold_1(v5, v7);
+      __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke_cold_1(v5, v6);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlock:(id)block
@@ -114,6 +113,31 @@ void __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke(uin
   v10 = v6;
   v7 = managedObjectContext;
   [v7 performBlockAndWait:v8];
+}
+
+- (void)_requestWithKind:(int)kind completionBlock:(id)block
+{
+  v4 = *&kind;
+  blockCopy = block;
+  v7 = [(EDCloudMirroringPersistentStore *)self _schedulerForKind:v4];
+  objc_initWeak(&location, self);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__EDCloudMirroringPersistentStore__requestWithKind_completionBlock___block_invoke;
+  v11[3] = &unk_1E8251B20;
+  objc_copyWeak(&v13, &location);
+  v14 = v4;
+  v12 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__EDCloudMirroringPersistentStore__requestWithKind_completionBlock___block_invoke_2;
+  v9[3] = &unk_1E8251B48;
+  v8 = v12;
+  v10 = v8;
+  [v7 scheduleTask:v11 canceledCallback:v9];
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
 }
 
 void __68__EDCloudMirroringPersistentStore__requestWithKind_completionBlock___block_invoke(uint64_t a1)
@@ -149,46 +173,52 @@ uint64_t __68__EDCloudMirroringPersistentStore__requestWithKind_completionBlock_
   return v3;
 }
 
+- (void)_executeRequestWithKind:(int)kind completionBlock:(id)block
+{
+  v4 = *&kind;
+  blockCopy = block;
+  v7 = [(EDCloudMirroringPersistentStore *)self _wrapCompletion:blockCopy forRequestKind:v4];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke;
+  v9[3] = &unk_1E8251B70;
+  v11 = v4;
+  v10 = v7;
+  v8 = v7;
+  [(EDCloudMirroringPersistentStore *)self performBlockAndWait:v9];
+}
+
 void __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = 0x1E695D588;
-  if (*(a1 + 40))
-  {
-    v4 = 0x1E695D580;
-  }
-
-  v5 = *v4;
-  v6 = objc_opt_class();
-  v7 = [[v6 alloc] initWithOptions:0 completionBlock:*(a1 + 32)];
-  v14 = 0;
-  v8 = [v3 executeRequest:v7 error:&v14];
-  v9 = v14;
-  if (!v8)
+  v4 = objc_opt_class();
+  v5 = [[v4 alloc] initWithOptions:0 completionBlock:*(a1 + 32)];
+  v11 = 0;
+  v6 = [v3 executeRequest:v5 error:&v11];
+  v7 = v11;
+  if (!v6)
   {
     if (*(a1 + 40))
     {
-      v10 = +[EDCloudMirroringPersistentStore log];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = +[EDCloudMirroringPersistentStore log];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v9 ef_publicDescription];
-        __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke_cold_1(v11, v15);
+        v9 = [v7 ef_publicDescription];
+        __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke_cold_1(v9, v12);
       }
     }
 
     else
     {
-      v10 = +[EDCloudMirroringPersistentStore log];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = +[EDCloudMirroringPersistentStore log];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v12 = [v9 ef_publicDescription];
-        __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke_cold_2(v12, v15);
+        v10 = [v7 ef_publicDescription];
+        __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlock___block_invoke_cold_2(v10, v12);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_wrapCompletion:(id)completion forRequestKind:(int)kind
@@ -213,7 +243,7 @@ void __75__EDCloudMirroringPersistentStore__executeRequestWithKind_completionBlo
 
 void __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [v3 success];
@@ -228,7 +258,7 @@ void __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___bloc
         goto LABEL_11;
       }
 
-      LOWORD(v30) = 0;
+      LOWORD(v29) = 0;
       v8 = "Successfully exported CloudKit content.";
     }
 
@@ -240,11 +270,11 @@ void __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___bloc
         goto LABEL_11;
       }
 
-      LOWORD(v30) = 0;
+      LOWORD(v29) = 0;
       v8 = "Successfully imported CloudKit content.";
     }
 
-    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, v8, &v30, 2u);
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, v8, &v29, 2u);
 LABEL_11:
 
     v10 = *(a1 + 32);
@@ -290,7 +320,7 @@ LABEL_11:
       {
         v21 = [v3 error];
         v22 = [v21 ef_publicDescription];
-        __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___block_invoke_cold_3(v22, &v30, v20, v21);
+        __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___block_invoke_cold_3(v22, &v29, v20, v21);
       }
     }
 
@@ -301,7 +331,7 @@ LABEL_11:
       {
         v24 = [v3 error];
         v25 = [v24 ef_publicDescription];
-        __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___block_invoke_cold_4(v25, &v30, v20, v24);
+        __66__EDCloudMirroringPersistentStore__wrapCompletion_forRequestKind___block_invoke_cold_4(v25, &v29, v20, v24);
       }
     }
 
@@ -321,11 +351,11 @@ LABEL_11:
       {
         v18 = [v3 error];
         v19 = [v18 ef_publicDescription];
-        v30 = 134218242;
-        v31 = v15;
-        v32 = 2114;
-        v33 = v19;
-        _os_log_error_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_ERROR, "Failed to export CloudKit content. Rescheduling (%g). %{public}@", &v30, 0x16u);
+        v29 = 134218242;
+        v30 = v15;
+        v31 = 2114;
+        v32 = v19;
+        _os_log_error_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_ERROR, "Failed to export CloudKit content. Rescheduling (%g). %{public}@", &v29, 0x16u);
       }
     }
 
@@ -334,13 +364,13 @@ LABEL_11:
       v17 = +[EDCloudMirroringPersistentStore log];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v28 = [v3 error];
-        v29 = [v28 ef_publicDescription];
-        v30 = 134218242;
-        v31 = v15;
-        v32 = 2114;
-        v33 = v29;
-        _os_log_error_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_ERROR, "Failed to import CloudKit content. Rescheduling (%g). %{public}@", &v30, 0x16u);
+        v27 = [v3 error];
+        v28 = [v27 ef_publicDescription];
+        v29 = 134218242;
+        v30 = v15;
+        v31 = 2114;
+        v32 = v28;
+        _os_log_error_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_ERROR, "Failed to import CloudKit content. Rescheduling (%g). %{public}@", &v29, 0x16u);
       }
     }
 
@@ -349,8 +379,6 @@ LABEL_11:
   }
 
 LABEL_29:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __54__EDCloudMirroringPersistentStore__setupCoreDataStack__block_invoke_cold_1(void *a1, uint64_t a2)

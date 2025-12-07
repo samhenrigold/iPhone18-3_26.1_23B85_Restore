@@ -766,11 +766,12 @@ const char *uarpLoggingCategoryToString(unsigned int a1)
   }
 }
 
-void *uarpProcessPayloadTLVInternal(void *result, uint64_t a2, uint64_t a3, signed int a4, size_t __size, unsigned int *a6)
+void *uarpProcessPayloadTLVInternal(void *result, uint64_t a2, uint64_t a3, uint64_t a4, size_t __size, unsigned __int16 *a6)
 {
   v10 = result;
   if (a4 != -858619624)
   {
+    v11 = a4;
     if (a4 == -858619625)
     {
       if (__size == 2)
@@ -808,9 +809,9 @@ LABEL_11:
       result = UARPLayer2HashUpdate(v10, *(a3 + 76), *(a3 + 80), a6, __size);
     }
 
-    if (a4 > -858619631)
+    if (v11 > -858619631)
     {
-      if (a4 == -858619630)
+      if (v11 == -858619630)
       {
         if (__size == 2)
         {
@@ -822,7 +823,7 @@ LABEL_11:
 
       else
       {
-        if (a4 != -858619623)
+        if (v11 != -858619623)
         {
           return result;
         }
@@ -836,7 +837,7 @@ LABEL_11:
       }
     }
 
-    else if (a4 == -858619641)
+    else if (v11 == -858619641)
     {
       *(a3 + 72) = __size;
       if (!UARPLayer2RequestBuffer(v10, (a3 + 64), __size, 34952, 966))
@@ -851,7 +852,7 @@ LABEL_11:
 
     else
     {
-      if (a4 != -858619636)
+      if (v11 != -858619636)
       {
         return result;
       }
@@ -1089,8 +1090,9 @@ void *uarpAllocateTransmitBuffer2(uint64_t a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-void *uarpAllocPrepareTransmitBuffer2(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
+void *uarpAllocPrepareTransmitBuffer2(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
+  v7 = a3;
   v10 = *(a2 + 104);
   if (v10)
   {
@@ -1129,7 +1131,7 @@ LABEL_6:
   *(v10 + 39) = v13;
   *(v10 + 32) = *(a2 + 16);
   bzero(v10[3], v11);
-  v14 = uarpHtons(a3);
+  v14 = uarpHtons(v7);
   v15 = v10[3];
   *v15 = v14;
   v15[1] = a4 - 6;
@@ -1192,11 +1194,11 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v20[11] = v2;
-  v20[12] = v3;
+  v15[11] = v2;
+  v15[12] = v3;
   UARPLayer2WatchdogCancel(a1, a2);
-  v20[0] = 0;
-  v6 = UARPLayer2MonotonicClockTime(a1, v20);
+  v15[0] = 0;
+  v6 = UARPLayer2MonotonicClockTime(a1, v15);
   v7 = *(a2 + 112);
   if (!v7)
   {
@@ -1224,7 +1226,7 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
 
       else
       {
-        uarpLogError(6u, "%s: ESPRESSO Corrupt Entry ? pBuffer = %p, pMsg = %p", "uarpTransmitEntryIsValidToSend", v7[1], 0);
+        uarpLogError(6, "%s: ESPRESSO Corrupt Entry ? pBuffer = %p, pMsg = %p", "uarpTransmitEntryIsValidToSend", v7[1], 0);
       }
 
       goto LABEL_5;
@@ -1236,8 +1238,6 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
       break;
     }
 
-    v12 = v7[3];
-    v13 = *(v7 + 18);
     v6 = UARPLayer2VendorSpecificCheckValidToSend(a1, a2);
     if (v6)
     {
@@ -1246,7 +1246,7 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
 
 LABEL_5:
     *(v7 + 38) = *(v7 + 39) + 1;
-    v7[7] = v20[0];
+    v7[7] = v15[0];
 LABEL_6:
     v7 = *v7;
     if (!v7)
@@ -1266,25 +1266,23 @@ LABEL_6:
   }
 
 LABEL_17:
-  v14 = v20[0];
-  if (v20[0] && v20[0] - v7[7] < ((8389 * (*(v7 + 32) >> 3)) >> 20))
+  v12 = v15[0];
+  if (v15[0] && v15[0] - v7[7] < ((8389 * (*(v7 + 32) >> 3)) >> 20))
   {
     goto LABEL_6;
   }
 
-  v15 = *(v7 + 38);
-  if (v15 >= *(v7 + 39))
+  v13 = *(v7 + 38);
+  if (v13 >= *(v7 + 39))
   {
     goto LABEL_6;
   }
 
-  *(v7 + 38) = v15 + 1;
-  v7[7] = v14;
+  *(v7 + 38) = v13 + 1;
+  v7[7] = v12;
   *(v7[3] + 4) = uarpHtons(*(a2 + 62));
   ++*(a2 + 62);
   UARPLayer2SendMessage(a1, a2, v7[1], *(a2 + 30) + *(v7 + 18));
-  v16 = v7[3];
-  v17 = *(v7 + 18);
   v6 = UARPLayer2LogPacket(a1, a2);
   if (*(v7 + 40) == 1)
   {
@@ -1300,7 +1298,6 @@ LABEL_26:
   uarpTransmitQueueReclaimEntries(v6, a2);
   if (v8 >= 1 && v9 == 1)
   {
-    v18 = *(a2 + 16);
     UARPLayer2WatchdogSet(a1, a2);
   }
 
@@ -1571,11 +1568,12 @@ uint64_t uarpPlatformDarwinHashFinal(uint64_t result, CC_SHA512_CTX *a2, unsigne
   return result;
 }
 
-void uarpLogError(unsigned int a1, char *__format, ...)
+void uarpLogError(uint64_t a1, char *__format, ...)
 {
   va_start(va, __format);
+  v2 = a1;
   vsnprintf(byte_1000D3850, 0x200uLL, __format, va);
-  v3 = sub_10002D8D0(a1);
+  v3 = sub_10002D8D0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100081C68(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1636,45 +1634,49 @@ void uarpLogFault(unsigned int a1, char *__format, ...)
   }
 }
 
-void uarpPlatformDarwinLogError(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogError(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(byte_1000D4050, 0x200uLL, a3, &a9);
-  v10 = sub_10002D8D0(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  va_start(va, a8);
+  vsnprintf(byte_1000D4050, 0x200uLL, a3, va);
+  v9 = sub_10002D8D0(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_100081DDC(v10, v11, v12, v13, v14, v15, v16, v17);
+    sub_100081DDC(v9, v10, v11, v12, v13, v14, v15, v16);
   }
 }
 
-void uarpPlatformDarwinLogInfo(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogInfo(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(byte_1000D4250, 0x200uLL, a3, &a9);
-  v10 = sub_10002D8D0(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  va_start(va, a8);
+  vsnprintf(byte_1000D4250, 0x200uLL, a3, va);
+  v9 = sub_10002D8D0(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = byte_1000D4250;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s\n", buf, 0xCu);
+    v11 = byte_1000D4250;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s\n", buf, 0xCu);
   }
 }
 
-void uarpPlatformDarwinLogDebug(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogDebug(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(byte_1000D4450, 0x200uLL, a3, &a9);
-  v10 = sub_10002D8D0(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  va_start(va, a8);
+  vsnprintf(byte_1000D4450, 0x200uLL, a3, va);
+  v9 = sub_10002D8D0(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_100081E54(v10);
+    sub_100081E54(v9);
   }
 }
 
-void uarpPlatformDarwinLogFault(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogFault(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(byte_1000D4650, 0x200uLL, a3, &a9);
-  v10 = sub_10002D8D0(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  va_start(va, a8);
+  vsnprintf(byte_1000D4650, 0x200uLL, a3, va);
+  v9 = sub_10002D8D0(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    sub_100081ED8(v10);
+    sub_100081ED8(v9);
   }
 }
 
@@ -1982,8 +1984,9 @@ uint64_t UARPSuperBinaryAddPayloadMetaData(uint64_t a1, uint64_t a2, int a3, uns
   return result;
 }
 
-uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
+uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
+  v7 = a3;
   v10 = 0;
   while (a5)
   {
@@ -1997,7 +2000,7 @@ uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, int a3, ui
       v11 = a5;
     }
 
-    result = UARPSuperBinaryAddPayloadData(a1, a2, a3, a4 + v10, v11);
+    result = UARPSuperBinaryAddPayloadData(a1, a2, v7, a4 + v10, v11);
     v10 += v11;
     a5 -= v11;
     if (result)
@@ -2576,7 +2579,7 @@ LABEL_8:
       }
 
       v17 = 0;
-      v18 = a2 + 632;
+      v18 = (a2 + 632);
       do
       {
         v19 = *v18;
@@ -2620,7 +2623,7 @@ LABEL_8:
           v8 = *(a2 + 448);
         }
 
-        v18 = v19 + 176;
+        v18 = (v19 + 176);
         ++v17;
       }
 
@@ -2784,7 +2787,7 @@ void uarpPlatformEndpointDeinit(uint64_t a1)
   uarpPlatformCleanupAssets(a1);
 }
 
-uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t uarpPlatformRemoteEndpointAdd(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
 {
   result = 30;
   if (a1)
@@ -2795,20 +2798,20 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
       {
         *(a2 + 40) = a4;
         v7 = *a1;
-        v8 = *(a1 + 16);
-        *(a2 + 32) = *(a1 + 32);
+        v8 = a1[1];
+        *(a2 + 32) = *(a1 + 4);
         *a2 = v7;
         *(a2 + 16) = v8;
         if (!a3 || (v10 = *a3, v9 = a3[1], *(a2 + 32) = *(a3 + 4), *a2 = v10, *(a2 + 16) = v9, (v11 = *(a2 + 4)) != 0) && *a2 && *(a2 + 8) >= v11)
         {
           if (!*(a2 + 12))
           {
-            *(a2 + 12) = *(a1 + 12);
+            *(a2 + 12) = *(a1 + 6);
           }
 
           *(a2 + 48) = 0;
-          v12 = *(a1 + 648);
-          *(a1 + 648) = v12 + 1;
+          v12 = *(a1 + 162);
+          *(a1 + 162) = v12 + 1;
           *(a2 + 56) = v12;
           *(a2 + 60) = 1;
           *(a2 + 62) = 1;
@@ -2825,7 +2828,7 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
             result = uarpAllocateTransmitBuffers(a1, a2);
             if (!result)
             {
-              if ((*(a1 + 616) - 1) > 1)
+              if ((*(a1 + 154) - 1) > 1)
               {
                 return 0;
               }
@@ -2879,9 +2882,9 @@ uint64_t uarpPlatformRemoteEndpointRemove(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a1 && a2 && a3 - 13 >= 0xFFFFFFF4)
+  if (a1 && a2 && (a3 - 13) >= 0xFFFFFFF4)
   {
     return uarpSendInformationRequest(a1, a2, a3);
   }
@@ -3375,9 +3378,9 @@ uint64_t uarpPlatformEndpointAssetSetPayloadIndex2(void *a1, uint64_t a2, int a3
               *(a2 + 592) = v15;
               *(a2 + 608) = v16;
               *(a2 + 576) = v14;
-              for (i = *(v6 + 21); i; i = *(i + 16))
+              for (i = *(v6 + 21); i; i = *(i + 2))
               {
-                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, *(i + 4), *(i + 8));
+                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, i[1], *(i + 1));
               }
 
               v18 = *(v6 + 19);
@@ -3566,7 +3569,7 @@ uint64_t uarpPlatformEndpointAssetFullyStaged(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1u);
+    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1);
   }
 
   else
@@ -3604,8 +3607,7 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
       *(a3 + 408) = v9;
       *(a3 + 424) = v10;
       *(a3 + 392) = v8;
-      *(a3 + 452) = *(a2 + 113);
-      *(a3 + 456) = *(a2 + 114);
+      *(a3 + 452) = *(a2 + 452);
       v11 = a2[29];
       v12 = a2[31];
       *(a3 + 480) = a2[30];
@@ -3654,19 +3656,19 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
   return result;
 }
 
-void uarpPlatformEndpointCleanupAssets(uint64_t a1)
+void uarpPlatformEndpointCleanupAssets(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, 0, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, 0, 0);
   }
 }
 
-void uarpPlatformEndpointCleanupAssets2(uint64_t a1, uint64_t a2)
+void uarpPlatformEndpointCleanupAssets2(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, a2, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, a2, 0);
   }
 }
 
@@ -3875,7 +3877,7 @@ uint64_t uarpPlatformEndpointRescindAllAssets(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetRescind(a1, a2, 0xFFFFu);
+    return uarpAssetRescind(a1, a2, 0xFFFFLL);
   }
 
   else
@@ -3889,7 +3891,7 @@ uint64_t uarpPlatformEndpointApplyStagedAssets(uint64_t a1, uint64_t a2)
   result = 30;
   if (a1 && a2)
   {
-    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xAu, 6u, 1);
+    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 10, 6u, 1);
     if (v5)
     {
 
@@ -3966,7 +3968,7 @@ uint64_t uarpPlatformEndpointSolicitDynamicAsset(uint64_t a1, uint64_t a2, _DWOR
   return uarpSolicitDynamicAsset(a1, a2, a3);
 }
 
-uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, unsigned int a4, const void *a5, unsigned int a6)
+uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, const void *a5, unsigned int a6)
 {
   if (a1 && a2 && a3 && a5)
   {
@@ -4087,7 +4089,7 @@ uint64_t uarpPlatformDelegateForDownstreamID(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Du, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 29, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -4098,7 +4100,7 @@ uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Fu, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 31, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -4109,7 +4111,7 @@ uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformQueryEndpointComponentDiscovery(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x21u, 8u, 1);
+  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 33, 8u, 1);
   if (!v6)
   {
     return 11;
@@ -4137,7 +4139,7 @@ uint64_t uarpPlatformEndpointBulkInfoQuery(uint64_t a1, uint64_t a2, unsigned in
           v11 = a6;
           if (a6)
           {
-            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x23u, (4 * a5 + 16) & 0xFFFC, 1);
+            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 35, (4 * a5 + 16) & 0xFFFC, 1);
             if (v13)
             {
               v14 = v13;
@@ -4268,7 +4270,7 @@ uint64_t uarpPlatformEndpointBulkInfoResponse(uint64_t a1, uint64_t a2, unsigned
   result = 30;
   if (a1 && a2 && a4 && a5 && a6)
   {
-    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x25u, (a6 + 12), 1);
+    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 37, (a6 + 12), 1);
     if (v13)
     {
       v14 = v13;
@@ -4831,22 +4833,24 @@ uint64_t sub_100035ACC(void *a1, uint64_t a2, void *a3, uint64_t a4, unsigned in
   return v14;
 }
 
-uint64_t sub_100035B88(void *a1, uint64_t a2, void *a3, int a4)
+uint64_t sub_100035B88(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = a3;
   v7 = a1;
-  v8 = [NSString stringWithFormat:@"%s", uarpStageStatusToString(a4)];
-  [v7 assetProcessingCompleted:sub_100035CFC(a4) flagsDescription:v8 asset:v6];
+  v8 = [NSString stringWithFormat:@"%s", uarpStageStatusToString(v4)];
+  [v7 assetProcessingCompleted:sub_100035CFC(v4) flagsDescription:v8 asset:v6];
 
   return 0;
 }
 
-uint64_t sub_100035C40(void *a1, uint64_t a2, void *a3, int a4)
+uint64_t sub_100035C40(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = a3;
   v7 = a1;
-  v8 = [NSString stringWithFormat:@"%s", uarpStageStatusToString(a4)];
-  [v7 assetPreProcessing:sub_100035CFC(a4) flagsDescription:v8 asset:v6];
+  v8 = [NSString stringWithFormat:@"%s", uarpStageStatusToString(v4)];
+  [v7 assetPreProcessing:sub_100035CFC(v4) flagsDescription:v8 asset:v6];
 
   return 0;
 }
@@ -5658,44 +5662,48 @@ void sub_10003EBCC(void *a1, uint64_t a2, uint64_t a3, char *a4, unsigned int a5
   [v16 layer2CallbackBulkInfoQuery:a3 componentTag:v10 infoProperties:v15];
 }
 
-void sub_10003ECD8(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10003ECD8(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = a1;
-  v12 = calloc(0x200uLL, 1uLL);
-  vsnprintf(v12, 0x200uLL, a3, &a9);
-  v13 = [[NSString alloc] initWithUTF8String:v12];
-  free(v12);
-  [v11 layer2CallbackLogError:a2 logMsg:v13];
+  va_start(va, a8);
+  v10 = a1;
+  v11 = calloc(0x200uLL, 1uLL);
+  vsnprintf(v11, 0x200uLL, a3, va);
+  v12 = [[NSString alloc] initWithUTF8String:v11];
+  free(v11);
+  [v10 layer2CallbackLogError:a2 logMsg:v12];
 }
 
-void sub_10003ED74(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10003ED74(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = a1;
-  v12 = calloc(0x200uLL, 1uLL);
-  vsnprintf(v12, 0x200uLL, a3, &a9);
-  v13 = [[NSString alloc] initWithUTF8String:v12];
-  free(v12);
-  [v11 layer2CallbackLogInfo:a2 logMsg:v13];
+  va_start(va, a8);
+  v10 = a1;
+  v11 = calloc(0x200uLL, 1uLL);
+  vsnprintf(v11, 0x200uLL, a3, va);
+  v12 = [[NSString alloc] initWithUTF8String:v11];
+  free(v11);
+  [v10 layer2CallbackLogInfo:a2 logMsg:v12];
 }
 
-void sub_10003EE10(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10003EE10(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = a1;
-  v12 = calloc(0x200uLL, 1uLL);
-  vsnprintf(v12, 0x200uLL, a3, &a9);
-  v13 = [[NSString alloc] initWithUTF8String:v12];
-  free(v12);
-  [v11 layer2CallbackLogDebug:a2 logMsg:v13];
+  va_start(va, a8);
+  v10 = a1;
+  v11 = calloc(0x200uLL, 1uLL);
+  vsnprintf(v11, 0x200uLL, a3, va);
+  v12 = [[NSString alloc] initWithUTF8String:v11];
+  free(v11);
+  [v10 layer2CallbackLogDebug:a2 logMsg:v12];
 }
 
-void sub_10003EEAC(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10003EEAC(void *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = a1;
-  v12 = calloc(0x200uLL, 1uLL);
-  vsnprintf(v12, 0x200uLL, a3, &a9);
-  v13 = [[NSString alloc] initWithUTF8String:v12];
-  free(v12);
-  [v11 layer2CallbackLogFault:a2 logMsg:v13];
+  va_start(va, a8);
+  v10 = a1;
+  v11 = calloc(0x200uLL, 1uLL);
+  vsnprintf(v11, 0x200uLL, a3, va);
+  v12 = [[NSString alloc] initWithUTF8String:v11];
+  free(v11);
+  [v10 layer2CallbackLogFault:a2 logMsg:v12];
 }
 
 uint64_t sub_10003EFA0(void *a1, uint64_t a2, void *a3, uint64_t a4, unsigned int a5)
@@ -7540,7 +7548,7 @@ const __CFString *UARPLayer3UARPLayer3AssetTypeDescription(unint64_t a1)
   }
 }
 
-NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t *a3)
+NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2;
@@ -7573,7 +7581,7 @@ NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t 
           v20 = v6;
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_100082920(v5, a3);
+            sub_100082920(v5);
           }
 
           v18 = 0;
@@ -7594,7 +7602,7 @@ NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t 
       v17 = v6;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_1000827C4(v5, a3);
+        sub_1000827C4(v5);
       }
     }
 
@@ -7607,7 +7615,7 @@ LABEL_15:
   v13 = v6;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_10008270C(v5, a3);
+    sub_10008270C(v5);
   }
 
   v18 = 0;
@@ -8283,9 +8291,9 @@ void sub_100054B0C(id a1)
   [v440 setObject:v439 forKeyedSubscript:v441];
 }
 
-void sub_100057420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100057420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8470,33 +8478,32 @@ void sub_100061F84(uint64_t a1)
 
 void sub_100062638(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v3 = uarpPlatformEndpointRequestInfoProperty(*(*(a1 + 32) + 8), *(*(a1 + 32) + 24), *(a1 + 40));
-  if (v3)
+  v2 = uarpPlatformEndpointRequestInfoProperty(*(*(a1 + 32) + 8), *(*(a1 + 32) + 24), *(a1 + 40));
+  if (v2)
   {
-    uarpStatusCodeToString(v3);
+    uarpStatusCodeToString(v2);
     if (os_log_type_enabled(*(*(a1 + 32) + 1024), OS_LOG_TYPE_DEBUG))
     {
-      sub_100083F14(v2);
+      sub_100083F14();
     }
   }
 }
 
 void sub_100062728(uint64_t a1)
 {
-  v2 = (a1 + 40);
+  v2 = a1 + 40;
   v8 = uarpHtonl(*(a1 + 40));
-  v3 = *(v2 - 1);
+  v3 = *(v2 - 8);
   v4 = *(v3 + 8);
   v5 = *(v3 + 24);
   v6 = uarpOuiAppleGenericFeatures();
-  v7 = uarpPlatformEndpointSendVendorSpecific(v4, v5, v6, 0x20u, &v8, 4u);
+  v7 = uarpPlatformEndpointSendVendorSpecific(v4, v5, v6, 32, &v8, 4u);
   if (v7)
   {
     uarpStatusCodeToString(v7);
     if (os_log_type_enabled(*(*(a1 + 32) + 1024), OS_LOG_TYPE_DEBUG))
     {
-      sub_100083F88(v2);
+      sub_100083F88();
     }
   }
 }
@@ -9111,29 +9118,4 @@ uint64_t sub_10006425C(uint64_t a1)
   }
 
   return uarpPlatformEndpointRescindAllAssets(*(*(a1 + 32) + 8), *(*(a1 + 32) + 24));
-}
-
-id sub_1000643AC(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 1024);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    v5 = 136315138;
-    v6 = "[UARPEndpointLayer3 acceptLayer3Asset:]_block_invoke";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s: Transfer Asset", &v5, 0xCu);
-  }
-
-  result = uarpPlatformEndpointAssetAccept(*(*(a1 + 32) + 8), *(*(a1 + 32) + 24), [*(a1 + 40) layer2Context], *(a1 + 40), (*(a1 + 32) + 632));
-  if (result)
-  {
-    v4 = *(*(a1 + 32) + 1024);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_100084144(v4);
-    }
-
-    return [*(a1 + 32) assetFullyStaged:*(a1 + 40) status:28];
-  }
-
-  return result;
 }

@@ -87,20 +87,6 @@ void sub_1EA4(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "MAAutoAsset not unlocked: %@", &v2, 0xCu);
 }
 
-void sub_1F1C(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_1E6C();
-  sub_1E84(&dword_0, v3, v4, "copying a file at location %@ failed. Error %@");
-}
-
-void sub_1F88(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_1E6C();
-  sub_1E84(&dword_0, v3, v4, "replacing a file at location %@ failed. Error %@");
-}
-
 void sub_1FF4(uint64_t *a1, NSObject *a2)
 {
   v2 = *a1;
@@ -147,11 +133,10 @@ void sub_2250()
 void sub_2308()
 {
   sub_1E4C();
-  [*v2 assetType];
-  [*v1 assetSpecifier];
-  v8 = *v0;
+  [*v1 assetType];
+  [*v0 assetSpecifier];
   sub_1E3C();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_23BC(void *a1)

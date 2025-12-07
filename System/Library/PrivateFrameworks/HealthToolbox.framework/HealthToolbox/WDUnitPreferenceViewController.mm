@@ -10,6 +10,7 @@
 - (void)viewControllerDidLeaveAdaptiveModal;
 - (void)viewControllerWillEnterAdaptiveModal;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDUnitPreferenceViewController
@@ -69,45 +70,43 @@ void __75__WDUnitPreferenceViewController_initWithUnits_displayType_unitControll
 
 - (id)_sortedUnitPreferenceRows
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_units;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = objc_alloc_init(_WDUnitPreferenceViewControllerRow);
-        [(_WDUnitPreferenceViewControllerRow *)v10 setUnit:v9, v15];
+        [(_WDUnitPreferenceViewControllerRow *)v10 setUnit:v9, v14];
         v11 = [(HKUnitPreferenceController *)self->_unitController localizedDisplayNameForUnit:v9 value:0 nameContext:2];
         [(_WDUnitPreferenceViewControllerRow *)v10 setLocalizedDisplayName:v11];
 
         [v3 addObject:v10];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [v3 sortedArrayUsingComparator:&__block_literal_global_6];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -148,6 +147,34 @@ uint64_t __59__WDUnitPreferenceViewController__sortedUnitPreferenceRows__block_i
   v4 = HKUIJoinStringsForAutomationIdentifier();
   tableView2 = [(WDUnitPreferenceViewController *)self tableView];
   [tableView2 setAccessibilityIdentifier:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = WDUnitPreferenceViewController;
+  [(WDUnitPreferenceViewController *)&v12 viewWillAppear:appear];
+  if ([(WDUnitPreferenceViewController *)self requiresChangeConfirmation])
+  {
+    v4 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__cancelButtonTapped_];
+    cancelButton = self->_cancelButton;
+    self->_cancelButton = v4;
+
+    v6 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel__doneButtonTapped_];
+    doneButton = self->_doneButton;
+    self->_doneButton = v6;
+
+    [(UIBarButtonItem *)self->_doneButton setEnabled:self->_selectedRowIndex != self->_originalSelectedRowIndex];
+    navigationItem = [(WDUnitPreferenceViewController *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:self->_cancelButton];
+
+    navigationItem2 = [(WDUnitPreferenceViewController *)self navigationItem];
+    [navigationItem2 setRightBarButtonItem:self->_doneButton];
+
+    localization = [(HKDisplayType *)self->_displayType localization];
+    displayName = [localization displayName];
+    [(WDUnitPreferenceViewController *)self setTitle:displayName];
+  }
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -251,7 +278,7 @@ uint64_t __52__WDUnitPreferenceViewController__doneButtonTapped___block_invoke(u
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
@@ -261,12 +288,12 @@ uint64_t __52__WDUnitPreferenceViewController__doneButtonTapped___block_invoke(u
     v9 = [pathCopy row];
     self->_selectedRowIndex = v9;
     [(UIBarButtonItem *)self->_doneButton setEnabled:v9 != self->_originalSelectedRowIndex];
-    v16[0] = pathCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = pathCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [viewCopy reloadRowsAtIndexPaths:v10 withRowAnimation:100];
 
-    v15 = v8;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = v8;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     [viewCopy reloadRowsAtIndexPaths:v11 withRowAnimation:5];
 
     if (![(WDUnitPreferenceViewController *)self requiresChangeConfirmation])
@@ -276,8 +303,6 @@ uint64_t __52__WDUnitPreferenceViewController__doneButtonTapped___block_invoke(u
       [(WDUnitPreferenceViewController *)self _updateCurrentUnit:unit];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section

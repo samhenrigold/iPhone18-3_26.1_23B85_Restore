@@ -39,9 +39,9 @@
 - (id)readLine
 {
   v4 = 0;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   *&v2 = 136315394;
-  v31 = v2;
+  v30 = v2;
   while (1)
   {
     while (1)
@@ -107,10 +107,10 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         maxLineSize2 = [(BCSLineReader *)self maxLineSize];
-        *buf = v31;
-        v33 = "[BCSLineReader readLine]";
-        v34 = 2048;
-        v35 = maxLineSize2;
+        *buf = v30;
+        v32 = "[BCSLineReader readLine]";
+        v33 = 2048;
+        v34 = maxLineSize2;
         _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "%s Dropping line since it exceeds max size limit of %ld", buf, 0x16u);
       }
 
@@ -155,7 +155,6 @@
 
   [(BCSLineReader *)self setBeginLine:[(BCSLineReader *)self endLine]+ 1];
 LABEL_23:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

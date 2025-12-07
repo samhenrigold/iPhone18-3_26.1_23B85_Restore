@@ -43,7 +43,7 @@
   v6.super_class = SBCenterWindowPagePresentationSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v6 transitionWillBegin];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -56,7 +56,7 @@
   if ([(SBTransitionSwitcherModifier *)self isInterrupted])
   {
     v4 = objc_alloc_init(SBCancelWindowMorphingSwitcherEventResponse);
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionDidEnd);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v5;
   }

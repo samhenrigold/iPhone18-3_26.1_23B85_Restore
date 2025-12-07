@@ -171,7 +171,7 @@
       bytes = [decodeDataObject bytes];
       v10 = 0;
       v11 = [v8 length];
-      AXRLogicalImageList::AXRLogicalImageList(&v4[2], &bytes, &v11, &v10, 2, v9);
+      AXRLogicalImageList::AXRLogicalImageList(&v4[2], &bytes, &v11, &v10, axr_flags_print_debug_info, v9);
       if (!v10)
       {
         goto LABEL_5;

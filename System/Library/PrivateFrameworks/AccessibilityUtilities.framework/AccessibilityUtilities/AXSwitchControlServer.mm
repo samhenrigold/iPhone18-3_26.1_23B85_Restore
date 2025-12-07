@@ -35,9 +35,11 @@
 
 uint64_t __31__AXSwitchControlServer_server__block_invoke()
 {
-  server_Server_1 = objc_alloc_init(AXSwitchControlServer);
+  v0 = objc_alloc_init(AXSwitchControlServer);
+  v1 = server_Server_1;
+  server_Server_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_connectIfNecessary
@@ -55,19 +57,25 @@ uint64_t __31__AXSwitchControlServer_server__block_invoke()
 - (void)_didConnectToClient
 {
   _serviceName = [self _serviceName];
-  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ did connect", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = _serviceName;
+  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ did connect", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_wasDisconnectedFromClient
 {
   _serviceName = [self _serviceName];
-  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ was disconnected", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = _serviceName;
+  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ was disconnected", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_willClearServer
 {
   _serviceName = [self _serviceName];
-  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ will clear server info", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = _serviceName;
+  OUTLINED_FUNCTION_0_1(&dword_18B15E000, v2, v3, "%@ will clear server info", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (BOOL)_triggerAutomationCommand:(int64_t)command

@@ -9,6 +9,7 @@
 - (void)listItemSelected:(id)selected;
 - (void)setParentController:(id)controller;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantMultilingualDetailController
@@ -26,6 +27,17 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AssistantMultilingualDetailController;
+  [(AssistantDetailListController *)&v4 viewWillAppear:appear];
+  if (*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]))
+  {
+    [(AssistantMultilingualDetailController *)self _syncSelectionToPrefs];
+  }
 }
 
 - (void)setParentController:(id)controller

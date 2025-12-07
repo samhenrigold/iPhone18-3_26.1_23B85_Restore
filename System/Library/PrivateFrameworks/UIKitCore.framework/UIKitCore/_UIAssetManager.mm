@@ -9,7 +9,7 @@
 + (id)sharedRuntimeCatalog;
 + (int64_t)_userInterfaceIdiomForDeviceClass:(unint64_t)class;
 + (void)_clearAllCachedImagesAndAssets;
-+ (void)_convertTraitCollection:(double *)collection toCUIScale:(void *)scale CUIIdiom:(unint64_t *)idiom UIKitIdiom:(uint64_t *)kitIdiom UIKitUserInterfaceStyle:(uint64_t *)style subtype:(uint64_t *)subtype CUIDisplayGamut:(uint64_t *)gamut UIKitLayoutDirection:(uint64_t *)self0 CUILayoutDirection:;
++ (void)_convertTraitCollection:(double *)collection toCUIScale:(void *)scale CUIIdiom:(unint64_t *)idiom UIKitIdiom:(uint64_t *)kitIdiom UIKitUserInterfaceStyle:(uint64_t *)style subtype:(uint64_t *)subtype CUIDisplayGamut:(void *)gamut UIKitLayoutDirection:(uint64_t *)self0 CUILayoutDirection:;
 + (void)_executeUnitTestWithAssetManagerCache:(id)cache;
 + (void)_saveAssetManager:(id)manager forBundle:(id)bundle lock:(BOOL)lock;
 + (void)clearSharedRuntimeAssetMapForUnitTests;
@@ -511,7 +511,7 @@
 
   os_unfair_lock_unlock(&stru_1ED4A261C);
   null = [MEMORY[0x1E695DFB0] null];
-  if ([v8 isEqual:null])
+  if (objc_msgSend_isEqual_(v8))
   {
     v12 = 0;
   }
@@ -673,7 +673,7 @@ LABEL_21:
   return v19;
 }
 
-+ (void)_convertTraitCollection:(double *)collection toCUIScale:(void *)scale CUIIdiom:(unint64_t *)idiom UIKitIdiom:(uint64_t *)kitIdiom UIKitUserInterfaceStyle:(uint64_t *)style subtype:(uint64_t *)subtype CUIDisplayGamut:(uint64_t *)gamut UIKitLayoutDirection:(uint64_t *)self0 CUILayoutDirection:
++ (void)_convertTraitCollection:(double *)collection toCUIScale:(void *)scale CUIIdiom:(unint64_t *)idiom UIKitIdiom:(uint64_t *)kitIdiom UIKitUserInterfaceStyle:(uint64_t *)style subtype:(uint64_t *)subtype CUIDisplayGamut:(void *)gamut UIKitLayoutDirection:(uint64_t *)self0 CUILayoutDirection:
 {
   v29 = a2;
   v16 = objc_opt_self();
@@ -1393,9 +1393,9 @@ LABEL_39:
 - (void)_clearCachedResources:(id)resources
 {
   name = [resources name];
-  v5 = [name isEqualToString:@"UIApplicationDidEnterBackgroundNotification"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v5)
+  if (isEqualToString)
   {
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;

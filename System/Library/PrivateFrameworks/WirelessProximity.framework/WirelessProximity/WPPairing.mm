@@ -6,6 +6,8 @@
 - (void)ignoreDeviceUntilNextUnlock:(id)unlock ignoreDevice:(BOOL)device;
 - (void)invalidate;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)startProximityPairingServiceScanningWithRSSI:(id)i duplicates:(BOOL)duplicates scanMode:(int64_t)mode;
 - (void)stateDidChange:(int64_t)change;
 - (void)stopProximityPairingServiceScanning;
@@ -116,7 +118,7 @@
 - (void)startProximityPairingServiceScanningWithRSSI:(id)i duplicates:(BOOL)duplicates scanMode:(int64_t)mode
 {
   duplicatesCopy = duplicates;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   iCopy = i;
   v9 = 300;
   if ((mode - 1) < 2)
@@ -148,7 +150,7 @@
   v13 = objc_opt_new();
   *&buf = v12;
   *(&buf + 1) = v12;
-  v18 = 30;
+  v17 = 30;
   [v13 setScanningRates:&buf];
   [v13 setAllowDuplicates:isBubbleTestClient | duplicatesCopy];
   [v13 setClientType:7];
@@ -170,56 +172,54 @@
     _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_DEFAULT, "ProximityPairing start scanning with data: %{public}@", &buf, 0xCu);
   }
 
-  v16.receiver = self;
-  v16.super_class = WPPairing;
-  [(WPClient *)&v16 startScanning:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = WPPairing;
+  [(WPClient *)&v15 startScanning:v13];
 }
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v29[6] = *MEMORY[0x277D85DE8];
+  v28[6] = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v5 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v6 = [discoveredCopy objectForKeyedSubscript:@"kDevicePeripheralUUID"];
   v7 = [discoveredCopy objectForKeyedSubscript:@"kDeviceRSSI"];
   v8 = [discoveredCopy objectForKeyedSubscript:@"kDeviceName"];
-  v27 = [discoveredCopy objectForKeyedSubscript:@"kDevicePaired"];
-  v26 = [discoveredCopy objectForKeyedSubscript:@"kDeviceChannel"];
-  v25 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
+  v26 = [discoveredCopy objectForKeyedSubscript:@"kDevicePaired"];
+  v25 = [discoveredCopy objectForKeyedSubscript:@"kDeviceChannel"];
+  v24 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
   v9 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAddress"];
   v10 = [discoveredCopy objectForKeyedSubscript:@"kDeviceProxPairingStatusDecrypted"];
   v11 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAccessoryStatusDecrypted"];
 
   if ([v5 length] > 6)
   {
-    v24 = v6;
+    v23 = v6;
     delegate = [(WPPairing *)self delegate];
     v15 = objc_opt_respondsToSelector();
 
     if (v15)
     {
-      v28[0] = @"WPPairingKeyName";
-      v28[1] = @"WPPairingKeyPaired";
+      v27[0] = @"WPPairingKeyName";
+      v27[1] = @"WPPairingKeyPaired";
       v12 = v8;
-      v29[0] = v8;
-      v29[1] = v27;
-      v28[2] = @"WPPairingKeyAdvertisingChannel";
-      v28[3] = @"WPPairingKeyRSSI";
-      v29[2] = v26;
-      v29[3] = v7;
-      v28[4] = @"WPPairingKeyDeviceTime";
-      v28[5] = @"WPPairingKeyDeviceAddress";
+      v28[0] = v8;
+      v28[1] = v26;
+      v27[2] = @"WPPairingKeyAdvertisingChannel";
+      v27[3] = @"WPPairingKeyRSSI";
+      v28[2] = v25;
+      v28[3] = v7;
+      v27[4] = @"WPPairingKeyDeviceTime";
+      v27[5] = @"WPPairingKeyDeviceAddress";
       data = v9;
-      v29[4] = v25;
+      v28[4] = v24;
       if (!v9)
       {
         data = [MEMORY[0x277CBEA90] data];
       }
 
-      v29[5] = data;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
+      v28[5] = data;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
       delegate4 = [v17 mutableCopy];
 
       if (!v9)
@@ -238,9 +238,9 @@
 
       delegate2 = [(WPPairing *)self delegate];
       v20 = [delegate4 copy];
-      [delegate2 pairing:self foundDevice:v24 payload:v5 rssi:v7 peerInfo:v20];
+      [delegate2 pairing:self foundDevice:v23 payload:v5 rssi:v7 peerInfo:v20];
 
-      v6 = v24;
+      v6 = v23;
     }
 
     else
@@ -249,14 +249,14 @@
       delegate3 = [(WPPairing *)self delegate];
       v22 = objc_opt_respondsToSelector();
 
-      v6 = v24;
+      v6 = v23;
       if ((v22 & 1) == 0)
       {
         goto LABEL_19;
       }
 
       delegate4 = [(WPPairing *)self delegate];
-      delegate2 = [v24 UUIDString];
+      delegate2 = [v23 UUIDString];
       [delegate4 pairing:self foundDevice:delegate2 payload:v5 rssi:v7];
     }
 
@@ -276,8 +276,18 @@
   }
 
 LABEL_19:
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPPairing *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPPairing *)self delegate];
+    [delegate2 pairingStartedScanning:self];
+  }
 }
 
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
@@ -312,6 +322,18 @@ LABEL_19:
   v5.receiver = self;
   v5.super_class = WPPairing;
   [(WPClient *)&v5 stopScanning:v3];
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  delegate = [(WPPairing *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPPairing *)self delegate];
+    [delegate2 pairingStoppedScanning:self];
+  }
 }
 
 - (void)ignoreDeviceUntilNextUnlock:(id)unlock ignoreDevice:(BOOL)device
@@ -350,23 +372,20 @@ LABEL_19:
 
 - (void)initWithDelegate:(unsigned __int8 *)a1 queue:(NSObject *)a2 machName:.cold.2(unsigned __int8 *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Using allow screen off scanning for prox pairing: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Using allow screen off scanning for prox pairing: %d", v3, 8u);
 }
 
 - (void)deviceDiscovered:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 134217984;
-  v6 = [a2 length];
-  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "ProximityPairing minimum advertisement data length expected: 7, received: %lu", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [a2 length];
+  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "ProximityPairing minimum advertisement data length expected: 7, received: %lu", &v4, 0xCu);
 }
 
 @end

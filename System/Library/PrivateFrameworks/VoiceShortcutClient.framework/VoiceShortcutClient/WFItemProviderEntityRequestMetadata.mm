@@ -60,22 +60,22 @@
 
 - (void)fetchLinkMetadataWithCompletion:(id)completion
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MEMORY[0x1E69ACE68];
   metadata = [(WFItemProviderEntityRequestMetadata *)self metadata];
   v7 = [v5 policyWithEntityMetadata:metadata];
 
-  v22 = 0;
-  v8 = [v7 connectionWithError:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [v7 connectionWithError:&v21];
+  v9 = v21;
   if (v8)
   {
     v10 = objc_alloc(MEMORY[0x1E69ACF00]);
     entity = [(WFItemProviderEntityRequestMetadata *)self entity];
     identifier = [entity identifier];
-    v23[0] = identifier;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = identifier;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     v14 = [v10 initWithEntityIdentifiers:v13];
 
     v15 = objc_alloc(MEMORY[0x1E69ACFC8]);
@@ -83,20 +83,18 @@
     v17 = [v15 initWithEntityMetadata:metadata2];
 
     v18 = [objc_alloc(MEMORY[0x1E69ACE08]) initWithQueryType:v14 target:v17 options:0];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion___block_invoke;
-    v20[3] = &unk_1E7B00D90;
-    v21 = completionCopy;
-    [v8 performConfigurableQuery:v18 completionHandler:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion___block_invoke;
+    v19[3] = &unk_1E7B00D90;
+    v20 = completionCopy;
+    [v8 performConfigurableQuery:v18 completionHandler:v19];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, v9);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -123,23 +121,23 @@ void __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion__
 
     else
     {
-      v14 = [v6 descriptionText];
-      v15 = [v14 localizedStringForLocaleIdentifier:0];
-      [v7 setSummary:v15];
+      v13 = [v6 descriptionText];
+      v14 = [v13 localizedStringForLocaleIdentifier:0];
+      [v7 setSummary:v14];
     }
 
-    v16 = [v6 image];
-    v17 = [v16 inImage];
+    v15 = [v6 image];
+    v16 = [v15 inImage];
 
-    if (v17)
+    if (v16)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion___block_invoke_2;
-      v18[3] = &unk_1E7B00D68;
-      v19 = v7;
-      v20 = *(a1 + 32);
-      [v17 _retrieveImageDataWithReply:v18];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion___block_invoke_2;
+      v17[3] = &unk_1E7B00D68;
+      v18 = v7;
+      v19 = *(a1 + 32);
+      [v16 _retrieveImageDataWithReply:v17];
     }
 
     else
@@ -150,10 +148,9 @@ void __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion__
 
   else
   {
-    v12 = *(a1 + 32);
-    v13 = *(*(a1 + 32) + 16);
+    v12 = *(*(a1 + 32) + 16);
 
-    v13();
+    v12();
   }
 }
 
@@ -162,24 +159,24 @@ void __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion__
   v5 = a2;
   v6 = a3;
   v7 = [v5 _isSystem];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2050000000;
   v8 = getUIImageClass_softClass;
-  v25 = getUIImageClass_softClass;
+  v24 = getUIImageClass_softClass;
   if (!getUIImageClass_softClass)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getUIImageClass_block_invoke;
-    v20 = &unk_1E7B02C60;
-    v21 = &v22;
-    __getUIImageClass_block_invoke(&v17);
-    v8 = v23[3];
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __getUIImageClass_block_invoke;
+    v19 = &unk_1E7B02C60;
+    v20 = &v21;
+    __getUIImageClass_block_invoke(&v16);
+    v8 = v22[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   v10 = v9;
   if (v7)
   {
@@ -196,29 +193,28 @@ void __71__WFItemProviderEntityRequestMetadata_fetchLinkMetadataWithCompletion__
 
   if (v12)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2050000000;
     v13 = getLPImageClass_softClass;
-    v25 = getLPImageClass_softClass;
+    v24 = getLPImageClass_softClass;
     if (!getLPImageClass_softClass)
     {
-      v17 = MEMORY[0x1E69E9820];
-      v18 = 3221225472;
-      v19 = __getLPImageClass_block_invoke;
-      v20 = &unk_1E7B02C60;
-      v21 = &v22;
-      __getLPImageClass_block_invoke(&v17);
-      v13 = v23[3];
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __getLPImageClass_block_invoke;
+      v19 = &unk_1E7B02C60;
+      v20 = &v21;
+      __getLPImageClass_block_invoke(&v16);
+      v13 = v22[3];
     }
 
     v14 = v13;
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
     v15 = [[v13 alloc] initWithPlatformImage:v12];
     [*(a1 + 32) setImage:v15];
   }
 
-  v16 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 

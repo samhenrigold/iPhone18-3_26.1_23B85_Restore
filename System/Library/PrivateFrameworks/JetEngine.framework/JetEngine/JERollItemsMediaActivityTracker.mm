@@ -16,7 +16,7 @@
   dataCopy = data;
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     dataCopy = sub_1AB460954();
   }
 
@@ -32,7 +32,7 @@
   dataCopy = data;
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     dataCopy = sub_1AB460954();
   }
 
@@ -48,7 +48,7 @@
   dataCopy = data;
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     dataCopy = sub_1AB460954();
   }
 
@@ -67,7 +67,7 @@
   dataCopy = data;
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     dataCopy = sub_1AB460954();
   }
 
@@ -83,7 +83,7 @@
   dataCopy = data;
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     dataCopy = sub_1AB460954();
   }
 
@@ -99,7 +99,7 @@
 
 - (void)updateEventData:(id)data
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
   *(&self->super.isa + OBJC_IVAR___JERollItemsMediaActivityTracker_trackerEventData) = sub_1AB460954();
 }
 
@@ -107,7 +107,7 @@
 {
   if (data)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB436B70, &unk_1AB4D6790);
     v4 = sub_1AB460954();
   }
 

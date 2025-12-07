@@ -433,8 +433,8 @@ LABEL_3:
 - (void)seekToDate:(id)date
 {
   memset(&v6, 0, sizeof(v6));
-  [(HUCameraTimelapseController *)self cmTimeFromDate:date];
-  [(HUCameraTimelapseController *)self chaseTime];
+  objc_msgSend_cmTimeFromDate_(self, a2, date);
+  objc_msgSend_chaseTime(self);
   v4 = v6;
   if (CMTimeCompare(&v4, &time2))
   {
@@ -547,7 +547,7 @@ LABEL_18:
   [(HUCameraTimelapseController *)self setSeekInProgress:1];
   v13 = 0uLL;
   v14 = 0;
-  [(HUCameraTimelapseController *)self chaseTime];
+  objc_msgSend_chaseTime(self);
   player = [(HUCameraTimelapseController *)self player];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
@@ -572,7 +572,7 @@ void __49__HUCameraTimelapseController_actuallySeekToTime__block_invoke(uint64_t
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 chaseTime];
+    objc_msgSend_chaseTime(v4);
   }
 
   else

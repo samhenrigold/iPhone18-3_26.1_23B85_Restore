@@ -31,55 +31,56 @@
 
 - (MISManager)init
 {
-  v14.receiver = self;
-  v14.super_class = MISManager;
-  v2 = [(MISManager *)&v14 init];
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  v15.receiver = self;
+  v15.super_class = MISManager;
+  v2 = [(MISManager *)&v15 init];
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
-    v3 = WMSLogComponent();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WMSLogComponent(isMainThread);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(MISManager *)v3 init];
+      [(MISManager *)v4 init];
     }
   }
 
   v2->_netClient = 0;
   *&v2->_state = 1020;
   v2->_needStateUpdate = 1;
-  v13.version = 0;
-  memset(&v13.retain, 0, 24);
-  v4 = v2;
-  v13.info = v4;
-  v5 = objc_alloc_init(MEMORY[0x277CEC5D0]);
-  radioPrefs = v4->_radioPrefs;
-  v4->_radioPrefs = v5;
+  v14.version = 0;
+  memset(&v14.retain, 0, 24);
+  v5 = v2;
+  v14.info = v5;
+  v6 = objc_alloc_init(MEMORY[0x277CEC5D0]);
+  radioPrefs = v5->_radioPrefs;
+  v5->_radioPrefs = v6;
 
-  v7 = SCDynamicStoreCreate(0, @"com.apple.wirelessmodemsettings.MISManager", __SCDynamicStoreCallback, &v13);
-  v4->_scDynamicStore = v7;
-  if (v7)
+  v8 = SCDynamicStoreCreate(0, @"com.apple.wirelessmodemsettings.MISManager", __SCDynamicStoreCallback, &v14);
+  v5->_scDynamicStore = v8;
+  if (v8)
   {
-    v8 = WMSLogComponent();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WMSLogComponent(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(MISManager *)v8 init];
+      [(MISManager *)v9 init];
     }
 
     SCDynamicStoreAddWatchedKey();
-    v4->_scRunLoopSource = SCDynamicStoreCreateRunLoopSource(0, v4->_scDynamicStore, 0);
+    v5->_scRunLoopSource = SCDynamicStoreCreateRunLoopSource(0, v5->_scDynamicStore, 0);
     Current = CFRunLoopGetCurrent();
-    CFRunLoopAddSource(Current, v4->_scRunLoopSource, *MEMORY[0x277CBF048]);
+    CFRunLoopAddSource(Current, v5->_scRunLoopSource, *MEMORY[0x277CBF048]);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter addObserver:v4 selector:sel_applicationDidBecomeActive_ name:@"UIApplicationDidBecomeActiveNotification" object:0];
+  [defaultCenter addObserver:v5 selector:sel_applicationDidBecomeActive_ name:@"UIApplicationDidBecomeActiveNotification" object:0];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 addObserver:v4 selector:sel_applicationWillResignActive_ name:@"UIApplicationWillResignActiveNotification" object:0];
+  [defaultCenter2 addObserver:v5 selector:sel_applicationWillResignActive_ name:@"UIApplicationWillResignActiveNotification" object:0];
 
   CTTelephonyCenterGetDefault();
   CTTelephonyCenterAddObserver();
-  [(MISManager *)v4 attachMIS];
-  return v4;
+  [(MISManager *)v5 attachMIS];
+  return v5;
 }
 
 - (void)attachMIS
@@ -88,7 +89,7 @@
   {
     v9 = v2;
     v10 = v3;
-    v5 = WMSLogComponent();
+    v5 = WMSLogComponent(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [MISManager attachMIS];
@@ -109,7 +110,7 @@ uint64_t __23__MISManager_attachMIS__block_invoke(int a1, int a2, xpc_object_t x
 {
   if (a2 == 1001 && xpc_dictionary_get_uint64(xdict, *MEMORY[0x277D2C988]) == 5002)
   {
-    v3 = WMSLogComponent();
+    v3 = WMSLogComponent(5002);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __23__MISManager_attachMIS__block_invoke_cold_1();
@@ -124,19 +125,20 @@ uint64_t __23__MISManager_attachMIS__block_invoke(int a1, int a2, xpc_object_t x
 
 void __23__MISManager_attachMIS__block_invoke_22(uint64_t a1)
 {
-  *(*(a1 + 32) + 24) = _NETRBClientCreate();
-  v2 = *(*(a1 + 32) + 24);
-  v3 = WMSLogComponent();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
-  if (v2)
+  v2 = _NETRBClientCreate();
+  *(*(a1 + 32) + 24) = v2;
+  v3 = *(*(a1 + 32) + 24);
+  v4 = WMSLogComponent(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       __23__MISManager_attachMIS__block_invoke_22_cold_1();
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
     __23__MISManager_attachMIS__block_invoke_22_cold_2();
   }
@@ -146,7 +148,7 @@ void __23__MISManager_attachMIS__block_invoke_22(uint64_t a1)
 {
   if (self->_netClient)
   {
-    v3 = WMSLogComponent();
+    v3 = WMSLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [MISManager detachMIS];
@@ -161,7 +163,7 @@ void __23__MISManager_attachMIS__block_invoke_22(uint64_t a1)
 {
   if (self->_netClient)
   {
-    v2 = WMSLogComponent();
+    v2 = WMSLogComponent(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [MISManager stopService];
@@ -192,7 +194,7 @@ void __23__MISManager_attachMIS__block_invoke_22(uint64_t a1)
 
   if (self->_netClient)
   {
-    v5 = WMSLogComponent();
+    v5 = WMSLogComponent(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(MISManager *)state == 1023 setState:v5];

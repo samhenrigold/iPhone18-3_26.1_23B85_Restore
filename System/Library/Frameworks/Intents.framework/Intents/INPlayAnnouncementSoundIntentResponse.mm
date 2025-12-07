@@ -16,8 +16,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v9 = @"code";
+  v9[1] = *MEMORY[0x1E69E9840];
+  v8 = @"code";
   code = [(INPlayAnnouncementSoundIntentResponse *)self code];
   v3 = code;
   if (code < 6)
@@ -32,13 +32,11 @@
     v5 = 0;
   }
 
-  v10[0] = null;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = null;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   if (v3 >= 6)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -132,7 +130,7 @@
 
 - (INPlayAnnouncementSoundIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -150,21 +148,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INPlayAnnouncementSoundIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INPlayAnnouncementSoundIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INPlayAnnouncementSoundIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INPlayAnnouncementSoundIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -4,6 +4,7 @@
 - (BOOL)startWiFiNetworkScan;
 - (DiagExtWifiScanner)initWithDelegate:(id)delegate;
 - (DiagExtWifiScannerDelegate)delegate;
+- (int)scanAndGetWifiAvailability:(unsigned int)availability;
 - (void)dealloc;
 - (void)disableAutoJoin;
 - (void)enableAutoJoin;
@@ -101,14 +102,13 @@ LABEL_4:
       {
         self->fWifiDeviceRef = v6;
         CFRetain(v6);
-        v7 = self->fWifiManagerRef;
         [(DiagExtWifiScanner *)self fServerRunLoopRef];
         WiFiManagerClientScheduleWithRunLoop();
         Current = CFRunLoopGetCurrent();
         CFRunLoopWakeUp(Current);
-        v9 = 1;
-        v10 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v8 = 1;
+        v9 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_17;
         }
@@ -119,54 +119,54 @@ LABEL_4:
 
     else
     {
-      v11 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v15) = 0;
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: No device available", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: No device available", &v14, 2u);
       }
     }
 
-    v9 = 0;
-    v10 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v8 = 0;
+    v9 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_17:
 
-      LOBYTE(fWifiManagerRef) = v9;
+      LOBYTE(fWifiManagerRef) = v8;
       return fWifiManagerRef;
     }
 
 LABEL_13:
     if (self->fWifiDeviceRef)
     {
-      v12 = "Success";
+      v11 = "Success";
     }
 
     else
     {
-      v12 = "Failed";
+      v11 = "Failed";
     }
 
-    v15 = 136315138;
-    v16 = v12;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: setup device client %s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: setup device client %s", &v14, 0xCu);
     goto LABEL_17;
   }
 
   if (self->fWifiManagerRef)
   {
-    v13 = "Success";
+    v12 = "Success";
   }
 
   else
   {
-    v13 = "Failed";
+    v12 = "Failed";
   }
 
-  v15 = 136315138;
-  v16 = v13;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: setup manager client %s", &v15, 0xCu);
+  v14 = 136315138;
+  v15 = v12;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: setup manager client %s", &v14, 0xCu);
   fWifiManagerRef = self->fWifiManagerRef;
   if (fWifiManagerRef)
   {
@@ -213,8 +213,8 @@ LABEL_13:
     v3 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Device is already scanning for networks", v7, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Device is already scanning for networks", v5, 2u);
     }
   }
 
@@ -227,11 +227,61 @@ LABEL_13:
     }
 
     [(DiagExtWifiScanner *)self fScanIntervalInSec];
-    v5 = [NSTimer scheduledTimerWithTimeInterval:self target:"startWiFiNetworkScan" selector:0 userInfo:0 repeats:?];
-    v6 = self->fScanTimer;
-    self->fScanTimer = v5;
+    self->fScanTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"startWiFiNetworkScan" selector:0 userInfo:0 repeats:?];
 
     _objc_release_x1();
+  }
+}
+
+- (int)scanAndGetWifiAvailability:(unsigned int)availability
+{
+  if (self->fIsMonitoring)
+  {
+
+    return [(DiagExtWifiScanner *)self fAvailabilityState];
+  }
+
+  else
+  {
+    [(DiagExtWifiScanner *)self setFScanRepeatRequired:0];
+    if ([(DiagExtWifiScanner *)self startWiFiNetworkScan])
+    {
+      [(DiagExtWifiScanner *)self setFWaitForResult:dispatch_semaphore_create(0)];
+      fWaitForResult = [(DiagExtWifiScanner *)self fWaitForResult];
+      v7 = dispatch_time(0, 1000000000 * availability);
+      if (dispatch_semaphore_wait(fWaitForResult, v7))
+      {
+        [(DiagExtWifiScanner *)self stopWiFiNetworkScan];
+        v8 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+        fAvailabilityState = 0;
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          *v11 = 0;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Failed to get wifi scan reseult in time", v11, 2u);
+          fAvailabilityState = 0;
+        }
+      }
+
+      else
+      {
+        fAvailabilityState = [(DiagExtWifiScanner *)self fAvailabilityState];
+      }
+
+      [(DiagExtWifiScanner *)self setFWaitForResult:0];
+      return fAvailabilityState;
+    }
+
+    else
+    {
+      v10 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Failed to start", buf, 2u);
+      }
+
+      return 0;
+    }
   }
 }
 
@@ -446,13 +496,13 @@ LABEL_5:
     v3 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Scanning already in progress", &v27, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Scanning already in progress", &v23, 2u);
     }
 
 LABEL_24:
-    LOBYTE(v23) = 1;
-    return v23;
+    LOBYTE(v19) = 1;
+    return v19;
   }
 
   if (self->fWifiDeviceRef)
@@ -468,109 +518,105 @@ LABEL_24:
     v6 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v27 = 67109120;
-      v28 = v5;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v27, 8u);
+      v23 = 67109120;
+      v24 = v5;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v23, 8u);
     }
 
     [NSThread sleepForTimeInterval:2.0];
-    fWifiDeviceRef = self->fWifiDeviceRef;
     +[NSDictionary dictionary];
-    v8 = WiFiDeviceClientScanAsync();
-    if (!v8)
+    v7 = WiFiDeviceClientScanAsync();
+    if (!v7)
     {
       goto LABEL_21;
     }
 
-    v9 = v8;
-    v10 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = v7;
+    v9 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v27 = 67109120;
-      v28 = v9;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v27, 8u);
+      v23 = 67109120;
+      v24 = v8;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v23, 8u);
     }
 
     [NSThread sleepForTimeInterval:2.0];
-    v11 = self->fWifiDeviceRef;
     +[NSDictionary dictionary];
-    v12 = WiFiDeviceClientScanAsync();
-    if (!v12)
+    v10 = WiFiDeviceClientScanAsync();
+    if (!v10)
     {
       goto LABEL_21;
     }
 
-    v13 = v12;
-    v14 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v11 = v10;
+    v12 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v27 = 67109120;
-      v28 = v13;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v27, 8u);
+      v23 = 67109120;
+      v24 = v11;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v23, 8u);
     }
 
     [NSThread sleepForTimeInterval:2.0];
-    v15 = self->fWifiDeviceRef;
+    +[NSDictionary dictionary];
+    v13 = WiFiDeviceClientScanAsync();
+    if (!v13)
+    {
+      goto LABEL_21;
+    }
+
+    v14 = v13;
+    v15 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v23 = 67109120;
+      v24 = v14;
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v23, 8u);
+    }
+
+    [NSThread sleepForTimeInterval:2.0];
     +[NSDictionary dictionary];
     v16 = WiFiDeviceClientScanAsync();
     if (!v16)
     {
-      goto LABEL_21;
-    }
-
-    v17 = v16;
-    v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      v27 = 67109120;
-      v28 = v17;
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v27, 8u);
-    }
-
-    [NSThread sleepForTimeInterval:2.0];
-    v19 = self->fWifiDeviceRef;
-    +[NSDictionary dictionary];
-    v20 = WiFiDeviceClientScanAsync();
-    if (!v20)
-    {
 LABEL_21:
-      v24 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v20 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Start wifi scanning", &v27, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "DiagExtWifiScanner: Start wifi scanning", &v23, 2u);
       }
 
       [(DiagExtWifiScanner *)self setFIsScanning:1];
       goto LABEL_24;
     }
 
-    v21 = v20;
-    v22 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v17 = v16;
+    v18 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v27 = 67109120;
-      v28 = v21;
-      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v27, 8u);
+      v23 = 67109120;
+      v24 = v17;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: Scan request returned error %d", &v23, 8u);
     }
 
     [NSThread sleepForTimeInterval:2.0];
-    LOBYTE(v23) = 0;
+    LOBYTE(v19) = 0;
   }
 
   else
   {
-    v25 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
-    v23 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-    if (v23)
+    v21 = +[ABMDiagnosticExtensionLogging getOSLogHandler];
+    v19 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+    if (v19)
     {
-      LOWORD(v27) = 0;
-      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: no client", &v27, 2u);
-      LOBYTE(v23) = 0;
+      LOWORD(v23) = 0;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "DiagExtWifiScanner: no client", &v23, 2u);
+      LOBYTE(v19) = 0;
     }
   }
 
-  return v23;
+  return v19;
 }
 
 - (void)disableAutoJoin

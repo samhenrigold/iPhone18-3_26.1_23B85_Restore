@@ -8,10 +8,10 @@
 
 - (MKContainerMigrator)init
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = MKContainerMigrator;
-  v2 = [(MKMigrator *)&v21 init];
+  v23[1] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = MKContainerMigrator;
+  v2 = [(MKMigrator *)&v20 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -31,19 +31,18 @@
 
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v10 encoding:4];
     v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v12 encoding:4];
-    v22 = v14;
-    v23 = v13;
+    v21 = v14;
+    v22 = v13;
     v15 = MEMORY[0x277CBEB98];
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     v17 = [v15 setWithArray:v16];
-    v24[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v23[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     [(MKContainerMigrator *)v2 setSignatures:v18];
 
     [(MKMigrator *)v2 setType:7];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -65,7 +64,7 @@
 
 - (void)import:(id)import signature:(id)signature chunk:(id)chunk filename:(id)filename offset:(unint64_t)offset length:(unint64_t)length total:(unint64_t)total required:(BOOL)self0 excludedFromBackup:(BOOL)self1 complete:(BOOL)self2
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   importCopy = import;
   signatureCopy = signature;
   chunkCopy = chunk;
@@ -77,8 +76,8 @@
       if (signatureCopy)
       {
         date = [MEMORY[0x277CBEAA8] date];
-        v66 = [(NSDictionary *)self->_signatures objectForKey:importCopy];
-        if ([v66 containsObject:signatureCopy])
+        v65 = [(NSDictionary *)self->_signatures objectForKey:importCopy];
+        if ([v65 containsObject:signatureCopy])
         {
           v23 = [(NSMutableDictionary *)self->_containers objectForKey:importCopy];
           if (v23)
@@ -96,32 +95,32 @@
             if (container)
             {
 LABEL_6:
-              v65 = [v23 stringByAppendingPathComponent:{filenameCopy, v23}];
-              stringByDeletingLastPathComponent = [v65 stringByDeletingLastPathComponent];
+              v64 = [v23 stringByAppendingPathComponent:{filenameCopy, v23}];
+              stringByDeletingLastPathComponent = [v64 stringByDeletingLastPathComponent];
               v24 = +[MKLog log];
               if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
               {
                 *buf = 138413058;
-                v72 = v65;
-                v73 = 2048;
-                *v74 = offset;
-                *&v74[8] = 2048;
-                *&v74[10] = length;
-                v75 = 2048;
+                v71 = v64;
+                v72 = 2048;
+                *v73 = offset;
+                *&v73[8] = 2048;
+                *&v73[10] = length;
+                v74 = 2048;
                 totalCopy = total;
                 _os_log_impl(&dword_2592D2000, v24, OS_LOG_TYPE_INFO, "file=%@, offset=%lld, length=%lld, total=%lld", buf, 0x2Au);
               }
 
               defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-              if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) != 0 || (v70 = 0, objc_msgSend(defaultManager, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v70), (v62 = v70) == 0))
+              if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) != 0 || (v69 = 0, objc_msgSend(defaultManager, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v69), (v61 = v69) == 0))
               {
-                v62 = 0;
+                v61 = 0;
                 if (offset)
                 {
 LABEL_13:
-                  v67 = 0;
-                  v26 = [defaultManager attributesOfItemAtPath:v65 error:&v67];
-                  v27 = v67;
+                  v66 = 0;
+                  v26 = [defaultManager attributesOfItemAtPath:v64 error:&v66];
+                  v27 = v66;
                   if (v27)
                   {
                     v28 = v27;
@@ -140,7 +139,7 @@ LABEL_13:
 
                   if (unsignedLongLongValue == offset)
                   {
-                    v38 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v65];
+                    v38 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v64];
                     [v38 seekToEndOfFile];
                     [v38 writeData:chunkCopy];
                     [v38 synchronizeFile];
@@ -150,7 +149,7 @@ LABEL_13:
                     {
                       v40 = [chunkCopy length];
                       *buf = 134217984;
-                      v72 = v40;
+                      v71 = v40;
                       _os_log_impl(&dword_2592D2000, v39, OS_LOG_TYPE_INFO, "appended some bytes to a file. bytes=%ld", buf, 0xCu);
                     }
                   }
@@ -176,7 +175,7 @@ LABEL_58:
                   objc_sync_exit(v26);
 LABEL_59:
 
-                  v31 = v61;
+                  v31 = v60;
                   goto LABEL_60;
                 }
               }
@@ -195,9 +194,9 @@ LABEL_59:
                 }
               }
 
-              if ([defaultManager fileExistsAtPath:v65])
+              if ([defaultManager fileExistsAtPath:v64])
               {
-                if (![defaultManager isDeletableFileAtPath:v65])
+                if (![defaultManager isDeletableFileAtPath:v64])
                 {
                   v49 = +[MKLog log];
                   v26 = v49;
@@ -210,23 +209,23 @@ LABEL_59:
                   goto LABEL_59;
                 }
 
-                v69 = 0;
-                [defaultManager removeItemAtPath:v65 error:&v69];
-                v32 = v69;
+                v68 = 0;
+                [defaultManager removeItemAtPath:v64 error:&v68];
+                v32 = v68;
                 if (v32)
                 {
                   v26 = v32;
                   v33 = +[MKLog log];
                   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                   {
-                    [MKContainerMigrator import:v65 signature:v26 chunk:v33 filename:? offset:? length:? total:? required:? excludedFromBackup:? complete:?];
+                    [MKContainerMigrator import:v64 signature:v26 chunk:v33 filename:? offset:? length:? total:? required:? excludedFromBackup:? complete:?];
                   }
 
                   goto LABEL_59;
                 }
               }
 
-              v41 = [chunkCopy writeToFile:v65 atomically:1];
+              v41 = [chunkCopy writeToFile:v64 atomically:1];
               v42 = +[MKLog log];
               v43 = os_log_type_enabled(v42, OS_LOG_TYPE_INFO);
               if (v41)
@@ -234,38 +233,38 @@ LABEL_59:
                 if (v43)
                 {
                   *buf = 138412290;
-                  v72 = v65;
+                  v71 = v64;
                   _os_log_impl(&dword_2592D2000, v42, OS_LOG_TYPE_INFO, "created a file. file=%@", buf, 0xCu);
                 }
 
-                v26 = [MEMORY[0x277CBEBC0] fileURLWithPath:v65];
+                v26 = [MEMORY[0x277CBEBC0] fileURLWithPath:v64];
                 v44 = [MEMORY[0x277CCABB0] numberWithBool:backup];
                 v45 = *MEMORY[0x277CBE878];
-                v68 = v62;
-                [v26 setResourceValue:v44 forKey:v45 error:&v68];
-                v46 = v68;
+                v67 = v61;
+                [v26 setResourceValue:v44 forKey:v45 error:&v67];
+                v46 = v67;
 
                 if (v46)
                 {
                   v47 = +[MKLog log];
                   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                   {
-                    v60 = [v46 description];
+                    v59 = [v46 description];
                     *buf = 138412802;
-                    v72 = v65;
-                    v73 = 1024;
-                    *v74 = backup;
-                    *&v74[4] = 2112;
-                    *&v74[6] = v60;
+                    v71 = v64;
+                    v72 = 1024;
+                    *v73 = backup;
+                    *&v73[4] = 2112;
+                    *&v73[6] = v59;
                     _os_log_error_impl(&dword_2592D2000, v47, OS_LOG_TYPE_ERROR, "could not set a resource value. file=%@, is_excluded_from_backup=%d, error=%@", buf, 0x1Cu);
                   }
 
-                  v62 = v46;
+                  v61 = v46;
                   goto LABEL_59;
                 }
 
                 [(MKMigrator *)self migratorDidImport];
-                v62 = 0;
+                v61 = 0;
               }
 
               else
@@ -273,7 +272,7 @@ LABEL_59:
                 if (v43)
                 {
                   *buf = 138412290;
-                  v72 = v65;
+                  v71 = v64;
                   _os_log_impl(&dword_2592D2000, v42, OS_LOG_TYPE_INFO, "could not create a file. file=%@", buf, 0xCu);
                 }
 
@@ -348,8 +347,6 @@ LABEL_60:
   }
 
 LABEL_61:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 @end

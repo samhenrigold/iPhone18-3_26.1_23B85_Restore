@@ -31,25 +31,22 @@
 
 void __99__HDCountryMonitorControlServer_remote_fetchCurrentISOCountryCodeAndNotifyObserversWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   if ((a2 & 1) == 0)
   {
     _HKInitializeLogging();
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = HKLogInfrastructure();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v5;
-      v9 = v11;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Error performing immediate download: %{public}@", &v10, 0x16u);
+      v7 = 138543618;
+      v8 = objc_opt_class();
+      v9 = 2114;
+      v10 = v4;
+      v6 = v8;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Error performing immediate download: %{public}@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error
@@ -78,10 +75,9 @@ void __99__HDCountryMonitorControlServer_remote_fetchCurrentISOCountryCodeAndNot
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

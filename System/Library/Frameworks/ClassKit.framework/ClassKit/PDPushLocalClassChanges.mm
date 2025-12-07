@@ -472,9 +472,9 @@ LABEL_23:
 - (void)prepare
 {
   selfCopy = self;
-  v71.receiver = self;
-  v71.super_class = PDPushLocalClassChanges;
-  [(PDAsyncOperation *)&v71 prepare];
+  v69.receiver = self;
+  v69.super_class = PDPushLocalClassChanges;
+  [(PDAsyncOperation *)&v69 prepare];
   context = objc_autoreleasePoolPush();
   v3 = objc_opt_new();
   database = [(PDOperation *)selfCopy database];
@@ -500,100 +500,98 @@ LABEL_23:
     v13 = 0;
   }
 
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_100158B94;
-  v67[3] = &unk_100206410;
-  v67[4] = selfCopy;
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_100158B94;
+  v65[3] = &unk_100206410;
+  v65[4] = selfCopy;
   v14 = database;
-  v68 = v14;
-  v51 = v3;
-  v69 = v51;
+  v66 = v14;
+  v49 = v3;
+  v67 = v49;
   v15 = v7;
-  v70 = v15;
-  [v14 selectAll:v10 where:@"entity != ?" orderBy:@"rowid asc limit:position asc offset:state desc bindings:syncOrder asc" block:{v13, 0, &off_10021BA78, v67}];
+  v68 = v15;
+  [v14 selectAll:v10 where:@"entity != ?" orderBy:@"rowid asc limit:position asc offset:state desc bindings:syncOrder asc" block:{v13, 0, &off_10021BA78, v65}];
 
   if ([*(&selfCopy->_beingPushedSyncableCLSAssetItems + 3) count])
   {
-    v49 = v15;
-    v50 = v14;
-    v53 = objc_opt_new();
+    v47 = v15;
+    v48 = v14;
+    v51 = objc_opt_new();
+    v61 = 0u;
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
     obj = *(&selfCopy->_beingPushedSyncableOtherItems + 3);
-    v16 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
+    v16 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v64;
-      v19 = &CLSLogAsset_ptr;
-      v54 = *v64;
-      v55 = selfCopy;
+      v18 = *v62;
+      v52 = *v62;
+      v53 = selfCopy;
       do
       {
-        v20 = 0;
-        v56 = v17;
+        v19 = 0;
+        v54 = v17;
         do
         {
-          if (*v64 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v63 + 1) + 8 * v20);
-          syncableItem = [v21 syncableItem];
+          v20 = *(*(&v61 + 1) + 8 * v19);
+          syncableItem = [v20 syncableItem];
           if (syncableItem)
           {
-            syncItem = [v21 syncItem];
+            syncItem = [v20 syncItem];
             entity = [syncItem entity];
 
-            v25 = v19[90];
-            v26 = objc_opt_self();
-            LODWORD(entity) = [entity isSubclassOfClass:v26];
+            v24 = objc_opt_self();
+            LODWORD(entity) = [entity isSubclassOfClass:v24];
 
             if (entity)
             {
-              v58 = v20;
-              v61 = 0u;
-              v62 = 0u;
+              v56 = v19;
               v59 = 0u;
               v60 = 0u;
-              v27 = *(&selfCopy->_beingPushedSyncableCLSAssetItems + 3);
-              v28 = [v27 countByEnumeratingWithState:&v59 objects:v74 count:16];
-              if (v28)
+              v57 = 0u;
+              v58 = 0u;
+              v25 = *(&selfCopy->_beingPushedSyncableCLSAssetItems + 3);
+              v26 = [v25 countByEnumeratingWithState:&v57 objects:v72 count:16];
+              if (v26)
               {
-                v29 = v28;
-                v30 = *v60;
+                v27 = v26;
+                v28 = *v58;
 LABEL_13:
-                v31 = 0;
+                v29 = 0;
                 while (1)
                 {
-                  if (*v60 != v30)
+                  if (*v58 != v28)
                   {
-                    objc_enumerationMutation(v27);
+                    objc_enumerationMutation(v25);
                   }
 
-                  v32 = *(*(&v59 + 1) + 8 * v31);
-                  syncableItem2 = [v32 syncableItem];
-                  v34 = syncableItem2;
+                  v30 = *(*(&v57 + 1) + 8 * v29);
+                  syncableItem2 = [v30 syncableItem];
+                  v32 = syncableItem2;
                   if (syncableItem2)
                   {
                     parentObjectID = [syncableItem2 parentObjectID];
                     objectID = [syncableItem objectID];
-                    v37 = [parentObjectID isEqualToString:objectID];
+                    v35 = [parentObjectID isEqualToString:objectID];
 
-                    if (v37)
+                    if (v35)
                     {
                       break;
                     }
                   }
 
-                  if (v29 == ++v31)
+                  if (v27 == ++v29)
                   {
-                    v29 = [v27 countByEnumeratingWithState:&v59 objects:v74 count:16];
-                    if (v29)
+                    v27 = [v25 countByEnumeratingWithState:&v57 objects:v72 count:16];
+                    if (v27)
                     {
                       goto LABEL_13;
                     }
@@ -602,33 +600,32 @@ LABEL_13:
                   }
                 }
 
-                v38 = v32;
+                v36 = v30;
 
-                if (!v38)
+                if (!v36)
                 {
                   goto LABEL_26;
                 }
 
-                [v53 addObject:v38];
-                selfCopy = v55;
-                [*(&v55->_beingPushedSyncableCLSAssetItems + 3) removeObject:v38];
+                [v51 addObject:v36];
+                selfCopy = v53;
+                [*(&v53->_beingPushedSyncableCLSAssetItems + 3) removeObject:v36];
                 CLSInitLog();
-                v39 = CLSLogDefault;
-                v17 = v56;
-                v19 = &CLSLogAsset_ptr;
-                v20 = v58;
+                v37 = CLSLogDefault;
+                v17 = v54;
+                v19 = v56;
                 if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEFAULT))
                 {
-                  v40 = v39;
-                  syncableItem3 = [v38 syncableItem];
+                  v38 = v37;
+                  syncableItem3 = [v36 syncableItem];
                   objectID2 = [syncableItem3 objectID];
                   *buf = 138412290;
-                  v73 = objectID2;
-                  _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: remove CLSAsset sync item (%@) from _toBePushedSyncableNewCLSAssetItems", buf, 0xCu);
+                  v71 = objectID2;
+                  _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: remove CLSAsset sync item (%@) from _toBePushedSyncableNewCLSAssetItems", buf, 0xCu);
                 }
 
-                v18 = v54;
-                if (![*(&v55->_beingPushedSyncableCLSAssetItems + 3) count])
+                v18 = v52;
+                if (![*(&v53->_beingPushedSyncableCLSAssetItems + 3) count])
                 {
 
                   goto LABEL_30;
@@ -639,22 +636,21 @@ LABEL_13:
               {
 LABEL_20:
 
-                v38 = 0;
+                v36 = 0;
 LABEL_26:
-                v18 = v54;
-                selfCopy = v55;
-                v17 = v56;
-                v19 = &CLSLogAsset_ptr;
-                v20 = v58;
+                v18 = v52;
+                selfCopy = v53;
+                v17 = v54;
+                v19 = v56;
               }
             }
           }
 
-          v20 = v20 + 1;
+          v19 = v19 + 1;
         }
 
-        while (v20 != v17);
-        v17 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
+        while (v19 != v17);
+        v17 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
       }
 
       while (v17);
@@ -662,40 +658,40 @@ LABEL_26:
 
 LABEL_30:
 
-    [*(&selfCopy->_beingPushedSyncableOtherItems + 3) addObjectsFromArray:v53];
+    [*(&selfCopy->_beingPushedSyncableOtherItems + 3) addObjectsFromArray:v51];
     CLSInitLog();
-    v43 = CLSLogDefault;
+    v41 = CLSLogDefault;
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = v43;
-      v45 = [v53 count];
+      v42 = v41;
+      v43 = [v51 count];
       *buf = 134217984;
-      v73 = v45;
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: insert %lu CLSAsset to _toBePushedSyncableOtherItems", buf, 0xCu);
+      v71 = v43;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: insert %lu CLSAsset to _toBePushedSyncableOtherItems", buf, 0xCu);
     }
 
-    [v53 removeAllObjects];
+    [v51 removeAllObjects];
 
-    v15 = v49;
-    v14 = v50;
+    v15 = v47;
+    v14 = v48;
   }
 
   [*(&selfCopy->_beingPushedSyncableOtherItems + 3) addObjectsFromArray:v15];
   CLSInitLog();
-  v46 = CLSLogDefault;
+  v44 = CLSLogDefault;
   if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v47 = v46;
-    v48 = [v15 count];
+    v45 = v44;
+    v46 = [v15 count];
     *buf = 134217984;
-    v73 = v48;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: add %lu toBePushedSyncableOtherCLSAssetItems to _toBePushedSyncableOtherItems", buf, 0xCu);
+    v71 = v46;
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "PDPushLocalClassChanges: add %lu toBePushedSyncableOtherCLSAssetItems to _toBePushedSyncableOtherItems", buf, 0xCu);
   }
 
   [v15 removeAllObjects];
-  if ([v51 count])
+  if ([v49 count])
   {
-    [(PDPushLocalClassChanges *)selfCopy _deleteSyncItemsWithIDs:v51];
+    [(PDPushLocalClassChanges *)selfCopy _deleteSyncItemsWithIDs:v49];
   }
 
   objc_autoreleasePoolPop(context);

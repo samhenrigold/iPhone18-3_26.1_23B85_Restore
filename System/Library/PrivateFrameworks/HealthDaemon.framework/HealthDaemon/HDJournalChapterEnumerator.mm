@@ -38,7 +38,7 @@
   v5 = [(HDJournalChapterEnumerator *)&v9 init];
   if (v5)
   {
-    v6 = [lCopy copy];
+    v6 = objc_msgSend_copy(lCopy);
     URL = v5->_URL;
     v5->_URL = v6;
 
@@ -90,7 +90,7 @@
 
 - (void)closeJournalChapters
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
@@ -100,31 +100,31 @@
     _os_log_debug_impl(&dword_228986000, v3, OS_LOG_TYPE_DEBUG, "%@ closing all open journal chapters", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_openJournalChapters;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v12 + 1) + 8 * v8++) close];
+        [*(*(&v11 + 1) + 8 * v8++) close];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -138,12 +138,11 @@
 
   self->_hasLoadedPersistedJournalNames = 0;
   self->_totalJournalChapterCount = 0;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)loadSortedJournalChaptersWithError:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = [HDJournalChapterEnumerator _journalChaptersForURL:1 sorted:error error:?];
   if (v4)
   {
@@ -162,71 +161,70 @@
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
   {
     URL = self->_URL;
-    v11 = v7;
+    v10 = v7;
     path = [(NSURL *)URL path];
-    v13 = 138413058;
+    v12 = 138413058;
     selfCopy = self;
-    v15 = 2112;
-    v16 = path;
-    v17 = 2048;
-    v18 = [v4 count];
-    v19 = 1024;
-    v20 = v4 != 0;
-    _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "%@ for path:%@ loaded (%lu) journal chapter names with success:%{BOOL}d", &v13, 0x26u);
+    v14 = 2112;
+    v15 = path;
+    v16 = 2048;
+    v17 = [v4 count];
+    v18 = 1024;
+    v19 = v4 != 0;
+    _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "%@ for path:%@ loaded (%lu) journal chapter names with success:%{BOOL}d", &v12, 0x26u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4 != 0;
 }
 
 + (id)_journalChaptersForURL:(int)l sorted:(void *)sorted error:
 {
-  v42[3] = *MEMORY[0x277D85DE8];
-  v27 = a2;
+  v41[3] = *MEMORY[0x277D85DE8];
+  v26 = a2;
   objc_opt_self();
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = *MEMORY[0x277CBE868];
   v7 = *MEMORY[0x277CBE838];
-  v42[0] = *MEMORY[0x277CBE868];
-  v42[1] = v7;
-  v42[2] = *MEMORY[0x277CBE7B0];
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__89;
-  v39 = __Block_byref_object_dispose__89;
-  v40 = 0;
+  v41[0] = *MEMORY[0x277CBE868];
+  v41[1] = v7;
+  v41[2] = *MEMORY[0x277CBE7B0];
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__89;
+  v38 = __Block_byref_object_dispose__89;
+  v39 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __66__HDJournalChapterEnumerator__journalChaptersForURL_sorted_error___block_invoke;
-  v34[3] = &unk_278620680;
-  v34[4] = &v35;
-  v9 = [defaultManager enumeratorAtURL:v27 includingPropertiesForKeys:v28 options:5 errorHandler:v34];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __66__HDJournalChapterEnumerator__journalChaptersForURL_sorted_error___block_invoke;
+  v33[3] = &unk_278620680;
+  v33[4] = &v34;
+  v9 = [defaultManager enumeratorAtURL:v26 includingPropertiesForKeys:v27 options:5 errorHandler:v33];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
   if (v11)
   {
-    v12 = *v31;
+    v12 = *v30;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
-        v29 = 0;
-        v15 = [v14 getResourceValue:&v29 forKey:v6 error:sorted];
-        v16 = v29;
+        v14 = *(*(&v29 + 1) + 8 * i);
+        v28 = 0;
+        v15 = [v14 getResourceValue:&v28 forKey:v6 error:sorted];
+        v16 = v28;
         v17 = v16;
         if ((v15 & 1) == 0)
         {
@@ -248,7 +246,7 @@
         [v5 addObject:v18];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
       if (v11)
       {
         continue;
@@ -263,7 +261,7 @@
     [v5 sortUsingComparator:&__block_literal_global_324_3];
   }
 
-  v19 = v36[5];
+  v19 = v35[5];
   v20 = v19;
   if (v19)
   {
@@ -279,7 +277,7 @@
     }
   }
 
-  if (v36[5])
+  if (v35[5])
   {
     v23 = 0;
   }
@@ -292,15 +290,14 @@
   v22 = v23;
 LABEL_23:
 
-  _Block_object_dispose(&v35, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
 
   return v22;
 }
 
 - (id)nextOpenJournalChapterError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (!self->_hasLoadedPersistedJournalNames)
   {
     v5 = *MEMORY[0x277CCC2A0];
@@ -338,18 +335,18 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
     {
       openJournalChapters = self->_openJournalChapters;
-      v30 = v9;
+      v29 = v9;
       *buf = 138412546;
       selfCopy2 = self;
-      v34 = 2048;
-      v35 = [(NSMutableArray *)openJournalChapters count];
-      _os_log_debug_impl(&dword_228986000, v30, OS_LOG_TYPE_DEBUG, "%@ Closing journal chapter at index 0. Current open count is %ld", buf, 0x16u);
+      v33 = 2048;
+      v34 = [(NSMutableArray *)openJournalChapters count];
+      _os_log_debug_impl(&dword_228986000, v29, OS_LOG_TYPE_DEBUG, "%@ Closing journal chapter at index 0. Current open count is %ld", buf, 0x16u);
     }
   }
 
   if (!self->_cachedError)
   {
-    v31 = 0;
+    v30 = 0;
     if ([(NSMutableArray *)self->_remainingJournalChapters count]&& (v10 = [(HDJournalChapterEnumerator *)self maxAllowedOpenJournalChapterCount], v11 = v10 - [(NSMutableArray *)self->_openJournalChapters count], v11 >= 1))
     {
       v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v11];
@@ -374,23 +371,23 @@ LABEL_7:
       if (unitTestDelegate)
       {
         unitTestDelegate2 = [(HDJournalChapterEnumerator *)self unitTestDelegate];
-        v17 = [unitTestDelegate2 _unitTest_openJournalChapters:v12 error:&v31];
+        v17 = [unitTestDelegate2 _unitTest_openJournalChapters:v12 error:&v30];
       }
 
       else
       {
-        v17 = [(HDJournalChapterEnumerator *)self _openJournalChapters:v12 error:&v31];
+        v17 = [(HDJournalChapterEnumerator *)self _openJournalChapters:v12 error:&v30];
       }
 
       v19 = [v17 count];
       v20 = [v12 count];
       [(NSMutableArray *)self->_openJournalChapters addObjectsFromArray:v17];
 
-      v21 = v31;
+      v21 = v30;
       v18 = v21;
       if (v19 != v20)
       {
-        v22 = [v21 copy];
+        v22 = objc_msgSend_copy(v21);
         cachedError = self->_cachedError;
         self->_cachedError = v22;
       }
@@ -434,13 +431,12 @@ LABEL_7:
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v34 = 2112;
-    v35 = firstObject3;
+    v33 = 2112;
+    v34 = firstObject3;
     _os_log_debug_impl(&dword_228986000, v26, OS_LOG_TYPE_DEBUG, "%@ next journal chapter is %@", buf, 0x16u);
   }
 
 LABEL_36:
-  v27 = *MEMORY[0x277D85DE8];
 
   return firstObject3;
 }
@@ -471,45 +467,45 @@ LABEL_36:
 
 - (id)_openJournalChapters:(id)chapters error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   chaptersCopy = chapters;
   _HKInitializeLogging();
   v7 = MEMORY[0x277CCC2A0];
   v8 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v8;
+    v19 = v8;
     *buf = 138412546;
     selfCopy2 = self;
-    v30 = 2048;
-    v31 = [chaptersCopy count];
-    _os_log_debug_impl(&dword_228986000, v20, OS_LOG_TYPE_DEBUG, "%@: Will open %ld journal chapters", buf, 0x16u);
+    v29 = 2048;
+    v30 = [chaptersCopy count];
+    _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "%@: Will open %ld journal chapters", buf, 0x16u);
   }
 
   if ([chaptersCopy count])
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(chaptersCopy, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v10 = chaptersCopy;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
-          if (![v15 openForReadingWithError:{error, v23}])
+          v15 = *(*(&v22 + 1) + 8 * i);
+          if (![v15 openForReadingWithError:{error, v22}])
           {
 
             v17 = 0;
@@ -519,7 +515,7 @@ LABEL_36:
           [v9 addObject:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -533,13 +529,13 @@ LABEL_36:
     v16 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEBUG))
     {
-      v21 = v16;
-      v22 = [v9 count];
+      v20 = v16;
+      v21 = [v9 count];
       *buf = 138412546;
       selfCopy2 = self;
-      v30 = 2048;
-      v31 = v22;
-      _os_log_debug_impl(&dword_228986000, v21, OS_LOG_TYPE_DEBUG, "%@: Did open %ld journal chapters", buf, 0x16u);
+      v29 = 2048;
+      v30 = v21;
+      _os_log_debug_impl(&dword_228986000, v20, OS_LOG_TYPE_DEBUG, "%@: Did open %ld journal chapters", buf, 0x16u);
     }
 
     v17 = v9;
@@ -552,29 +548,27 @@ LABEL_16:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)journalChaptersForURL:(id)l error:(id *)error
 {
   v4 = [(HDJournalChapterEnumerator *)self _journalChaptersForURL:l sorted:0 error:error];
-  v5 = [v4 copy];
+  v5 = objc_msgSend_copy(v4);
 
   return v5;
 }
 
 + (id)nextJournalChapterNameForURL:(id)l
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [(HDJournalChapterEnumerator *)self _lightweightDirectoryEnumeratorForURL:lCopy];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
   if (!v6)
   {
     v17 = 0;
@@ -584,18 +578,18 @@ LABEL_25:
   }
 
   v7 = v6;
-  v8 = *v23;
+  v8 = *v22;
   v9 = 0xFFFFFFFF80000000;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v23 != v8)
+      if (*v22 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      uRLByDeletingPathExtension = [*(*(&v22 + 1) + 8 * i) URLByDeletingPathExtension];
+      uRLByDeletingPathExtension = [*(*(&v21 + 1) + 8 * i) URLByDeletingPathExtension];
       lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
 
       if ([lastPathComponent length])
@@ -627,7 +621,7 @@ LABEL_25:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v22 objects:v29 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v21 objects:v28 count:16];
   }
 
   while (v7);
@@ -650,43 +644,41 @@ LABEL_25:
   v15 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
   {
-    v20 = v15;
+    v19 = v15;
     path = [lCopy path];
     *buf = 134218242;
     *&buf[4] = v9;
-    v27 = 2114;
-    v28 = path;
-    _os_log_fault_impl(&dword_228986000, v20, OS_LOG_TYPE_FAULT, "Encountered journal index %ld in %{public}@; dropping changes", buf, 0x16u);
+    v26 = 2114;
+    v27 = path;
+    _os_log_fault_impl(&dword_228986000, v19, OS_LOG_TYPE_FAULT, "Encountered journal index %ld in %{public}@; dropping changes", buf, 0x16u);
   }
 
   v16 = 0;
 LABEL_26:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (int64_t)journalChapterCountForURL:(id)l
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [(HDJournalChapterEnumerator *)self _lightweightDirectoryEnumeratorForURL:l];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = v5;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
@@ -696,7 +688,7 @@ LABEL_26:
 
       while (v8);
       v6 += v5;
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -707,27 +699,25 @@ LABEL_26:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __68__HDJournalChapterEnumerator__lightweightDirectoryEnumeratorForURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Error enumerating journal chapter /'%@/': %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Error enumerating journal chapter /'%@/': %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

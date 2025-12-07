@@ -9,34 +9,32 @@
 
 + (id)_eventClassToTypeMap
 {
-  v14[8] = *MEMORY[0x1E69E9840];
+  v13[8] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_self();
-  v13[0] = v2;
-  v14[0] = &unk_1F3ABF9F0;
+  v12[0] = v2;
+  v13[0] = &unk_1F3ABF9F0;
   v3 = objc_opt_self();
-  v13[1] = v3;
-  v14[1] = &unk_1F3ABFA08;
+  v12[1] = v3;
+  v13[1] = &unk_1F3ABFA08;
   v4 = objc_opt_self();
-  v13[2] = v4;
-  v14[2] = &unk_1F3ABFA20;
+  v12[2] = v4;
+  v13[2] = &unk_1F3ABFA20;
   v5 = objc_opt_self();
-  v13[3] = v5;
-  v14[3] = &unk_1F3ABFA38;
+  v12[3] = v5;
+  v13[3] = &unk_1F3ABFA38;
   v6 = objc_opt_self();
-  v13[4] = v6;
-  v14[4] = &unk_1F3ABF9F0;
+  v12[4] = v6;
+  v13[4] = &unk_1F3ABF9F0;
   v7 = objc_opt_self();
-  v13[5] = v7;
-  v14[5] = &unk_1F3ABFA08;
+  v12[5] = v7;
+  v13[5] = &unk_1F3ABFA08;
   v8 = objc_opt_self();
-  v13[6] = v8;
-  v14[6] = &unk_1F3ABFA20;
+  v12[6] = v8;
+  v13[6] = &unk_1F3ABFA20;
   v9 = objc_opt_self();
-  v13[7] = v9;
-  v14[7] = &unk_1F3ABFA38;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[7] = v9;
+  v13[7] = &unk_1F3ABFA38;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
 
   return v10;
 }

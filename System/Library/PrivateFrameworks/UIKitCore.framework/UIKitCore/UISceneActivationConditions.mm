@@ -69,7 +69,7 @@
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = canActivateForTargetContentIdentifierPredicate;
-  if (([(NSPredicate *)self->_canActivatePredicate isEqual:v5]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_canActivatePredicate) & 1) == 0)
   {
     v6 = objc_alloc_init(_UITargetContentIdentifierPredicateValidator);
     v15 = 0;
@@ -119,7 +119,7 @@
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = prefersToActivateForTargetContentIdentifierPredicate;
-  if (([(NSPredicate *)self->_prefersPredicate isEqual:v5]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_prefersPredicate) & 1) == 0)
   {
     v6 = objc_alloc_init(_UITargetContentIdentifierPredicateValidator);
     v15 = 0;
@@ -167,7 +167,8 @@
   }
 
   v5 = objc_opt_class();
-  if (![v5 isEqual:objc_opt_class()])
+  objc_opt_class();
+  if (!objc_msgSend_isEqual_(v5))
   {
     goto LABEL_10;
   }
@@ -179,7 +180,7 @@
   }
 
   prefersPredicate = self->_prefersPredicate;
-  if (prefersPredicate != equalCopy->_prefersPredicate && (!prefersPredicate || ![(NSPredicate *)prefersPredicate isEqual:?]))
+  if (prefersPredicate != equalCopy->_prefersPredicate && (!prefersPredicate || !objc_msgSend_isEqual_(prefersPredicate)))
   {
     goto LABEL_10;
   }
@@ -188,21 +189,21 @@
   if (canActivatePredicate == equalCopy->_canActivatePredicate)
   {
 LABEL_11:
-    v9 = 1;
+    isEqual = 1;
     goto LABEL_12;
   }
 
   if (!canActivatePredicate)
   {
 LABEL_10:
-    v9 = 0;
+    isEqual = 0;
     goto LABEL_12;
   }
 
-  v9 = [(NSPredicate *)canActivatePredicate isEqual:?];
+  isEqual = objc_msgSend_isEqual_(canActivatePredicate);
 LABEL_12:
 
-  return v9;
+  return isEqual;
 }
 
 - (id)description

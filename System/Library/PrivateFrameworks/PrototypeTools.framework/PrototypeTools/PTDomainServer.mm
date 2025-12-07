@@ -38,10 +38,10 @@
 
 - (PTDomainServer)init
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = PTDomainServer;
-  v3 = [(PTDomainServer *)&v35 init];
+  v42 = *MEMORY[0x277D85DE8];
+  v37.receiver = self;
+  v37.super_class = PTDomainServer;
+  v3 = [(PTDomainServer *)&v37 init];
   if (v3)
   {
     if (__listener)
@@ -78,44 +78,44 @@
     dirtyDomainIDs = v3->_dirtyDomainIDs;
     v3->_dirtyDomainIDs = v16;
 
-    v18 = _PTReadDomainInfo();
+    v19 = _PTReadDomainInfo(v18);
     domainInfoByID = v3->_domainInfoByID;
-    v3->_domainInfoByID = v18;
+    v3->_domainInfoByID = v19;
 
-    v20 = _PTReadTestRecipeInfo();
+    v22 = _PTReadTestRecipeInfo(v21);
     testRecipeInfoByID = v3->_testRecipeInfoByID;
-    v3->_testRecipeInfoByID = v20;
+    v3->_testRecipeInfoByID = v22;
 
-    v22 = PTLogObjectForTopic(2);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = PTLogObjectForTopic(2);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [(NSMutableDictionary *)v3->_domainInfoByID count];
-      v24 = [(NSMutableDictionary *)v3->_testRecipeInfoByID count];
+      v25 = [(NSMutableDictionary *)v3->_domainInfoByID count];
+      v26 = [(NSMutableDictionary *)v3->_testRecipeInfoByID count];
       *buf = 67109376;
-      v37 = v23;
-      v38 = 1024;
-      v39 = v24;
-      _os_log_impl(&dword_21E61D000, v22, OS_LOG_TYPE_DEFAULT, "PTDomainServer found %d registered domains and %d registered test recipes", buf, 0xEu);
+      v39 = v25;
+      v40 = 1024;
+      v41 = v26;
+      _os_log_impl(&dword_21E61D000, v24, OS_LOG_TYPE_DEFAULT, "PTDomainServer found %d registered domains and %d registered test recipes", buf, 0xEu);
     }
 
-    v25 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.PrototypeTools.domainserver"];
-    v26 = __listener;
-    __listener = v25;
+    v27 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.PrototypeTools.domainserver"];
+    v28 = __listener;
+    __listener = v27;
 
     [__listener setDelegate:v3];
     [__listener resume];
-    v27 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.PrototypeTools.debugserver"];
-    v28 = __debugServerListener;
-    __debugServerListener = v27;
+    v29 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.PrototypeTools.debugserver"];
+    v30 = __debugServerListener;
+    __debugServerListener = v29;
 
     [__debugServerListener setDelegate:v3];
     [__debugServerListener resume];
-    v29 = +[PTDefaults sharedInstance];
-    v30 = [v29 observeTestRecipeDefaultsOnQueue:MEMORY[0x277D85CD0] withBlock:&__block_literal_global_9];
+    v31 = +[PTDefaults sharedInstance];
+    v32 = [v31 observeTestRecipeDefaultsOnQueue:MEMORY[0x277D85CD0] withBlock:&__block_literal_global_9];
 
-    v31 = objc_alloc_init(PTParameterRecordsPersistenceManager);
+    v33 = objc_alloc_init(PTParameterRecordsPersistenceManager);
     parameterRecordsPersistenceManager = v3->_parameterRecordsPersistenceManager;
-    v3->_parameterRecordsPersistenceManager = v31;
+    v3->_parameterRecordsPersistenceManager = v33;
 
     createParameterRecordsFromArchiveDictionary = [(PTParameterRecordsPersistenceManager *)v3->_parameterRecordsPersistenceManager createParameterRecordsFromArchiveDictionary];
     [(PTDomainServer *)v3 setParameterRecordsOfTunedSettings:createParameterRecordsFromArchiveDictionary];
@@ -752,7 +752,7 @@ LABEL_11:
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_42);
   }
 
-  v8 = [a1[5] _queue_archiveForDomainID:{v2, *v11}];
+  v8 = [a1[5] _queue_archiveForDomainID:{v2, *v11, *&v11[8]}];
   v9 = [a1[6] remoteObjectProxy];
   v10 = v9;
   if (v8)

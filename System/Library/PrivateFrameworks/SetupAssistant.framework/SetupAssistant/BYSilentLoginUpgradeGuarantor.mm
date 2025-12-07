@@ -79,36 +79,35 @@ uint64_t __47__BYSilentLoginUpgradeGuarantor_sharedInstance__block_invoke()
   objc_sync_exit(selfCopy);
 }
 
-void __72__BYSilentLoginUpgradeGuarantor__ensureQueuesAndStartSilentLoginUpgrade__block_invoke(uint64_t a1)
+void __72__BYSilentLoginUpgradeGuarantor__ensureQueuesAndStartSilentLoginUpgrade__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Daemon did finish silent upgrade. Resuming completion queue.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Daemon did finish silent upgrade. Resuming completion queue.", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) silentLoginUpgradeCompletionQueue];
-  dispatch_resume(v3);
+  v4 = [*(a1 + 32) silentLoginUpgradeCompletionQueue];
+  dispatch_resume(v4);
 }
 
-void __72__BYSilentLoginUpgradeGuarantor__ensureQueuesAndStartSilentLoginUpgrade__block_invoke_5(uint64_t a1)
+void __72__BYSilentLoginUpgradeGuarantor__ensureQueuesAndStartSilentLoginUpgrade__block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Daemon did finish short lived token upgrade. Resuming completion queue.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Daemon did finish short lived token upgrade. Resuming completion queue.", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) shortLivedTokenUpgradeCompletionQueue];
-  dispatch_resume(v3);
+  v4 = [*(a1 + 32) shortLivedTokenUpgradeCompletionQueue];
+  dispatch_resume(v4);
 }
 
 - (void)blockUntilSilentLoginUpgradeCompletesForNonLoginUser
 {
-  [(BYSilentLoginUpgradeGuarantor *)self _ensureQueuesAndStartSilentLoginUpgrade];
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility([(BYSilentLoginUpgradeGuarantor *)self _ensureQueuesAndStartSilentLoginUpgrade]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -119,13 +118,13 @@ void __72__BYSilentLoginUpgradeGuarantor__ensureQueuesAndStartSilentLoginUpgrade
   dispatch_sync(silentLoginUpgradeCompletionQueue, &__block_literal_global_7);
 }
 
-void __85__BYSilentLoginUpgradeGuarantor_blockUntilSilentLoginUpgradeCompletesForNonLoginUser__block_invoke()
+void __85__BYSilentLoginUpgradeGuarantor_blockUntilSilentLoginUpgradeCompletesForNonLoginUser__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "blockUntilSilentLoginUpgradeCompletesForNonLoginUser returning.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "blockUntilSilentLoginUpgradeCompletesForNonLoginUser returning.", v3, 2u);
   }
 }
 
@@ -160,8 +159,7 @@ void __85__BYSilentLoginUpgradeGuarantor_blockUntilSilentLoginUpgradeCompletesFo
 
   else
   {
-    [(BYSilentLoginUpgradeGuarantor *)self _ensureQueuesAndStartSilentLoginUpgrade];
-    v5 = _BYLoggingFacility();
+    v5 = _BYLoggingFacility([(BYSilentLoginUpgradeGuarantor *)self _ensureQueuesAndStartSilentLoginUpgrade]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -173,13 +171,13 @@ void __85__BYSilentLoginUpgradeGuarantor_blockUntilSilentLoginUpgradeCompletesFo
   }
 }
 
-void __74__BYSilentLoginUpgradeGuarantor_blockUntilShortLivedTokenUpgradeCompletes__block_invoke()
+void __74__BYSilentLoginUpgradeGuarantor_blockUntilShortLivedTokenUpgradeCompletes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B862F000, v0, OS_LOG_TYPE_DEFAULT, "blockUntilShortLivedTokenUpgradeCompletes returning.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "blockUntilShortLivedTokenUpgradeCompletes returning.", v3, 2u);
   }
 }
 

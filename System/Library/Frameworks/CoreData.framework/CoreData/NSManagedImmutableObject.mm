@@ -122,7 +122,7 @@ LABEL_14:
 
 + (id)allocWithEntity:(id)entity
 {
-  v5 = _PFFastEntityClass(entity);
+  v5 = _PFFastEntityClass(entity, a2);
   if (v5)
   {
     v6 = v5;
@@ -183,13 +183,13 @@ LABEL_14:
 + (Class)classForEntity:(id)entity
 {
   entityCopy = entity;
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(entity "name")];
   if (!v5 || (v6 = v5, !*v5))
   {
-    v89 = MEMORY[0x1E695DF30];
-    v90 = *MEMORY[0x1E695D940];
-    v91 = @"Entity name must not be nil.";
+    v88 = MEMORY[0x1E695DF30];
+    v89 = *MEMORY[0x1E695D940];
+    v90 = @"Entity name must not be nil.";
     goto LABEL_71;
   }
 
@@ -210,7 +210,7 @@ LABEL_14:
   os_unfair_lock_lock(&_MergedGlobals_82);
   v9 = 0;
   v10 = 2;
-  v92 = entityCopy;
+  v91 = entityCopy;
   while (1)
   {
     Class = objc_getClass(__str);
@@ -295,7 +295,7 @@ LABEL_14:
     v36[6] = v9;
     if (objc_opt_class() != self)
     {
-      v93 = v9;
+      v92 = v9;
       v40 = objc_opt_class();
       MethodImplementation = class_getMethodImplementation(v40, sel_willAccessValueForKey_);
       v42 = class_getMethodImplementation(self, sel_willAccessValueForKey_);
@@ -361,8 +361,8 @@ LABEL_14:
       }
 
       *(v36 + 18) = v69 | v36[9] & 0xFFFFFFFB;
-      entityCopy = v92;
-      v9 = v93;
+      entityCopy = v91;
+      v9 = v92;
     }
 
     v70 = [objc_msgSend(entityCopy "properties")];
@@ -382,9 +382,9 @@ LABEL_14:
 
       if (v72 > 0x4000)
       {
-        v89 = MEMORY[0x1E695DF30];
-        v90 = *MEMORY[0x1E695D930];
-        v91 = @"Incorrect ivar generation";
+        v88 = MEMORY[0x1E695DF30];
+        v89 = *MEMORY[0x1E695D930];
+        v90 = @"Incorrect ivar generation";
       }
 
       else
@@ -404,13 +404,13 @@ LABEL_14:
           goto LABEL_48;
         }
 
-        v89 = MEMORY[0x1E695DF30];
-        v90 = *MEMORY[0x1E695D930];
-        v91 = @"class_addIvar failed";
+        v88 = MEMORY[0x1E695DF30];
+        v89 = *MEMORY[0x1E695D930];
+        v90 = @"class_addIvar failed";
       }
 
 LABEL_71:
-      objc_exception_throw([v89 exceptionWithName:v90 reason:v91 userInfo:0]);
+      objc_exception_throw([v88 exceptionWithName:v89 reason:v90 userInfo:0]);
     }
 
     objc_registerClassPair(v12);
@@ -474,7 +474,6 @@ LABEL_58:
 
   objc_opt_self();
   __dmb(0xBu);
-  v85 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

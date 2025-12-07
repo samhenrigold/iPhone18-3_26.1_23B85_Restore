@@ -20,10 +20,10 @@
 
 - (BOOL)isSupported
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v2 = [(DCAppAttestController *)self isSupportedWithError:&v9];
-  v3 = v9;
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v2 = [(DCAppAttestController *)self isSupportedWithError:&v8];
+  v3 = v8;
   if (v3)
   {
     if (DCLogSystem_onceToken != -1)
@@ -37,16 +37,15 @@
       v5 = v4;
       localizedDescription = [v3 localizedDescription];
       *buf = 136315650;
-      v11 = "DCAppAttestController.m";
-      v12 = 1024;
-      v13 = 75;
-      v14 = 2112;
-      v15 = localizedDescription;
+      v10 = "DCAppAttestController.m";
+      v11 = 1024;
+      v12 = 75;
+      v13 = 2112;
+      v14 = localizedDescription;
       _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to check if AppAttest is supported. { error=%@ }", buf, 0x1Cu);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -99,7 +98,7 @@
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = dispatch_get_current_queue();
-  v9 = clientProcessingQueue();
+  v9 = clientProcessingQueue(v8);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke;
@@ -116,7 +115,7 @@
 
 void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -126,7 +125,7 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     *buf = 136315650;
     *&buf[4] = "DCAppAttestController.m";
     *&buf[12] = 1024;
@@ -140,34 +139,34 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
+  v23 = __Block_byref_object_dispose_;
+  v24 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
   v5 = *(*&buf[8] + 40);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_21;
-  v21[3] = &unk_278A45EB8;
-  v22 = *(a1 + 56);
-  v6 = [v5 remoteObjectProxy:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_21;
+  v20[3] = &unk_278A45EB8;
+  v21 = *(a1 + 56);
+  v6 = [v5 remoteObjectProxy:v20];
   v7 = [*(a1 + 32) loadAppUUID];
   if (![*(a1 + 32) appAttestType])
   {
     v12 = +[DCAnalytics shared];
     [v12 sendPerformanceForCategory:6 eventType:0];
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_2;
-    v17[3] = &unk_278A45F08;
-    v17[4] = *(a1 + 32);
-    v18 = v7;
-    v20[0] = *(a1 + 56);
-    v20[1] = buf;
-    v19 = *(a1 + 40);
-    [v6 appAttestationCreateKey:v18 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_2;
+    v16[3] = &unk_278A45F08;
+    v16[4] = *(a1 + 32);
+    v17 = v7;
+    v19[0] = *(a1 + 56);
+    v19[1] = buf;
+    v18 = *(a1 + 40);
+    [v6 appAttestationCreateKey:v17 completion:v16];
 
-    v10 = &v18;
-    v11 = v20;
+    v10 = &v17;
+    v11 = v19;
     goto LABEL_9;
   }
 
@@ -177,22 +176,21 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
     [v8 sendPerformanceForCategory:6 eventType:0];
 
     v9 = *(a1 + 48);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_4;
-    v14[3] = &unk_278A45F30;
-    v14[4] = *(a1 + 32);
-    v15 = v7;
-    v16[0] = *(a1 + 56);
-    v16[1] = buf;
-    [v6 appAttestationCreateKeyWithTeamIdentifier:v9 appUUID:v15 completion:v14];
-    v10 = &v15;
-    v11 = v16;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_4;
+    v13[3] = &unk_278A45F30;
+    v13[4] = *(a1 + 32);
+    v14 = v7;
+    v15[0] = *(a1 + 56);
+    v15[1] = buf;
+    [v6 appAttestationCreateKeyWithTeamIdentifier:v9 appUUID:v14 completion:v13];
+    v10 = &v14;
+    v11 = v15;
 LABEL_9:
   }
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_21(uint64_t a1)
@@ -229,33 +227,30 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
 
 void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_3(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) rewrapAsDCError:*(a1 + 40)];
   v3 = +[DCAnalytics shared];
   [v3 sendPerformanceForCategory:6 eventType:1];
 
-  v10[0] = @"appUUIDLoaded";
+  v8[0] = @"appUUIDLoaded";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48) != 0];
-  v10[1] = @"serviceType";
-  v11[0] = v4;
-  v11[1] = @"default";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8[1] = @"serviceType";
+  v9[0] = v4;
+  v9[1] = @"default";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   v6 = +[DCAnalytics shared];
   [v6 sendPayload:v5 forEvent:@"com.apple.devicecheck.appattest.generateKey" withError:v2];
 
   [*(a1 + 32) saveAppUUID:*(a1 + 56)];
-  v7 = *(a1 + 64);
   (*(*(a1 + 72) + 16))();
-  v8 = [*(*(*(a1 + 80) + 8) + 40) connection];
-  [v8 invalidate];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = [*(*(*(a1 + 80) + 8) + 40) connection];
+  [v7 invalidate];
 }
 
 void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
   v8 = a4;
   v9 = a3;
@@ -264,12 +259,12 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
   v12 = +[DCAnalytics shared];
   [v12 sendPerformanceForCategory:6 eventType:1];
 
-  v20[0] = @"appUUIDLoaded";
+  v19[0] = @"appUUIDLoaded";
   v13 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-  v20[1] = @"serviceType";
-  v21[0] = v13;
-  v21[1] = @"priv";
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[1] = @"serviceType";
+  v20[0] = v13;
+  v20[1] = @"priv";
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   v15 = +[DCAnalytics shared];
   [v15 sendPayload:v14 forEvent:@"com.apple.devicecheck.appattest.generateKey" withError:v11];
@@ -281,8 +276,6 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
   (*(v16 + 16))(v16, v9, v17);
   v18 = [*(*(*(a1 + 56) + 8) + 40) connection];
   [v18 invalidate];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attestKey:(id)key teamIdentifier:(id)identifier clientDataHash:(id)hash completionHandler:(id)handler
@@ -292,7 +285,7 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
   hashCopy = hash;
   handlerCopy = handler;
   v14 = dispatch_get_current_queue();
-  v15 = clientProcessingQueue();
+  v15 = clientProcessingQueue(v14);
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke;
@@ -313,7 +306,7 @@ void __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___bloc
 
 void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -323,7 +316,7 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     *buf = 136315650;
     *&buf[4] = "DCAppAttestController.m";
     *&buf[12] = 1024;
@@ -337,15 +330,15 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy_;
-  v42 = __Block_byref_object_dispose_;
-  v43 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
+  v41 = __Block_byref_object_dispose_;
+  v42 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
   v5 = *(*&buf[8] + 40);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_41;
-  v35[3] = &unk_278A45EB8;
-  v36 = *(a1 + 72);
-  v6 = [v5 remoteObjectProxy:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_41;
+  v34[3] = &unk_278A45EB8;
+  v35 = *(a1 + 72);
+  v6 = [v5 remoteObjectProxy:v34];
   v7 = [*(a1 + 32) loadAppUUID];
   if (!v7)
   {
@@ -357,11 +350,11 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
     v8 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      v38 = "DCAppAttestController.m";
-      v39 = 1024;
-      v40 = 166;
-      _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch App UUID.", v37, 0x12u);
+      *v36 = 136315394;
+      v37 = "DCAppAttestController.m";
+      v38 = 1024;
+      v39 = 166;
+      _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch App UUID.", v36, 0x12u);
     }
   }
 
@@ -378,19 +371,19 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
     v10 = *(a1 + 64);
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_3;
-    v25 = &unk_278A45FD0;
-    v26 = *(a1 + 32);
-    v27 = v7;
-    v28 = *(a1 + 48);
-    v29[0] = *(a1 + 72);
-    v29[1] = buf;
-    [v6 appAttestationAttestKeyWithTeamIdentifier:v10 appUUID:v27 keyId:v11 clientDataHash:v12 completion:&v22];
-    v13 = &v27;
-    v14 = &v28;
-    v15 = v29;
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_3;
+    v24 = &unk_278A45FD0;
+    v25 = *(a1 + 32);
+    v26 = v7;
+    v27 = *(a1 + 48);
+    v28[0] = *(a1 + 72);
+    v28[1] = buf;
+    [v6 appAttestationAttestKeyWithTeamIdentifier:v10 appUUID:v26 keyId:v11 clientDataHash:v12 completion:&v21];
+    v13 = &v26;
+    v14 = &v27;
+    v15 = v28;
   }
 
   else
@@ -400,21 +393,21 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
 
     v17 = *(a1 + 40);
     v18 = *(a1 + 48);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_42;
-    v30[3] = &unk_278A45FA8;
-    v30[4] = *(a1 + 32);
-    v31 = v7;
-    v32 = *(a1 + 48);
-    v34[0] = *(a1 + 72);
-    v34[1] = buf;
-    v33 = *(a1 + 56);
-    [v6 appAttestationAttestKey:v31 keyId:v17 clientDataHash:v18 completion:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_42;
+    v29[3] = &unk_278A45FA8;
+    v29[4] = *(a1 + 32);
+    v30 = v7;
+    v31 = *(a1 + 48);
+    v33[0] = *(a1 + 72);
+    v33[1] = buf;
+    v32 = *(a1 + 56);
+    [v6 appAttestationAttestKey:v30 keyId:v17 clientDataHash:v18 completion:v29];
 
-    v13 = &v31;
-    v14 = &v32;
-    v15 = v34;
+    v13 = &v30;
+    v14 = &v31;
+    v15 = v33;
   }
 
 LABEL_15:
@@ -428,11 +421,11 @@ LABEL_15:
     v19 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      v38 = "DCAppAttestController.m";
-      v39 = 1024;
-      v40 = 217;
-      _os_log_impl(&dword_238044000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeWeb.", v37, 0x12u);
+      *v36 = 136315394;
+      v37 = "DCAppAttestController.m";
+      v38 = 1024;
+      v39 = 217;
+      _os_log_impl(&dword_238044000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeWeb.", v36, 0x12u);
     }
   }
 
@@ -446,16 +439,15 @@ LABEL_15:
     v20 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      v38 = "DCAppAttestController.m";
-      v39 = 1024;
-      v40 = 218;
-      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeDevice.", v37, 0x12u);
+      *v36 = 136315394;
+      v37 = "DCAppAttestController.m";
+      v38 = 1024;
+      v39 = 218;
+      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeDevice.", v36, 0x12u);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_41(uint64_t a1)
@@ -491,56 +483,53 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
 
 void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) rewrapAsDCError:*(a1 + 40)];
   v3 = +[DCAnalytics shared];
   [v3 sendPerformanceForCategory:8 eventType:1];
 
-  v12[0] = @"appUUIDLoaded";
+  v10[0] = @"appUUIDLoaded";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48) != 0];
-  v13[0] = v4;
-  v12[1] = @"clientDataHashValid";
+  v11[0] = v4;
+  v10[1] = @"clientDataHashValid";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 56) != 0];
-  v13[1] = v5;
-  v12[2] = @"attestedKey";
+  v11[1] = v5;
+  v10[2] = @"attestedKey";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 64) != 0];
-  v12[3] = @"serviceType";
-  v13[2] = v6;
-  v13[3] = @"default";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v10[3] = @"serviceType";
+  v11[2] = v6;
+  v11[3] = @"default";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   v8 = +[DCAnalytics shared];
   [v8 sendPayload:v7 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v2];
 
-  v9 = *(a1 + 64);
   (*(*(a1 + 72) + 16))();
-  v10 = [*(*(*(a1 + 80) + 8) + 40) connection];
-  [v10 invalidate];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = [*(*(*(a1 + 80) + 8) + 40) connection];
+  [v9 invalidate];
 }
 
 void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_completionHandler___block_invoke_3(void *a1, void *a2, uint64_t a3)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = a2;
   v7 = [v5 rewrapAsDCError:a3];
   v8 = +[DCAnalytics shared];
   [v8 sendPerformanceForCategory:8 eventType:1];
 
-  v16[0] = @"appUUIDLoaded";
+  v15[0] = @"appUUIDLoaded";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:a1[5] != 0];
-  v17[0] = v9;
-  v16[1] = @"clientDataHashValid";
+  v16[0] = v9;
+  v15[1] = @"clientDataHashValid";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:a1[6] != 0];
-  v17[1] = v10;
-  v16[2] = @"attestedKey";
+  v16[1] = v10;
+  v15[2] = @"attestedKey";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:v6 != 0];
-  v16[3] = @"serviceType";
-  v17[2] = v11;
-  v17[3] = @"priv";
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v15[3] = @"serviceType";
+  v16[2] = v11;
+  v16[3] = @"priv";
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   v13 = +[DCAnalytics shared];
   [v13 sendPayload:v12 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v7];
@@ -548,8 +537,6 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
   (*(a1[7] + 16))();
   v14 = [*(*(a1[8] + 8) + 40) connection];
   [v14 invalidate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attestKey:(id)key keyAttributes:(id)attributes clientDataHash:(id)hash authData:(id)data options:(id)options completionHandler:(id)handler
@@ -559,7 +546,7 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
   dataCopy = data;
   optionsCopy = options;
   handlerCopy = handler;
-  v18 = clientProcessingQueue();
+  v18 = clientProcessingQueue(handlerCopy);
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
   v24[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke;
@@ -580,7 +567,7 @@ void __83__DCAppAttestController_attestKey_teamIdentifier_clientDataHash_complet
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -590,24 +577,24 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     label = dispatch_queue_get_label(v4);
     *buf = 136315650;
-    v43 = "DCAppAttestController.m";
-    v44 = 1024;
-    v45 = 225;
-    v46 = 2080;
-    v47 = label;
+    v42 = "DCAppAttestController.m";
+    v43 = 1024;
+    v44 = 225;
+    v45 = 2080;
+    v46 = label;
     _os_log_impl(&dword_238044000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Dispatching attest key onto client processing queue. { label=%s }", buf, 0x1Cu);
   }
 
   v6 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_50;
-  v40[3] = &unk_278A45EB8;
-  v41 = *(a1 + 72);
-  v7 = [(DCDeviceMetadataDaemonConnection *)v6 remoteObjectProxy:v40];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_50;
+  v39[3] = &unk_278A45EB8;
+  v40 = *(a1 + 72);
+  v7 = [(DCDeviceMetadataDaemonConnection *)v6 remoteObjectProxy:v39];
   if ([*(a1 + 32) appAttestType] == 2)
   {
     v8 = +[DCAnalytics shared];
@@ -616,21 +603,21 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2;
-    v36[3] = &unk_278A46090;
-    v12 = &v37;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2;
+    v35[3] = &unk_278A46090;
+    v12 = &v36;
     v13 = v9;
-    v37 = v13;
-    v14 = v38;
+    v36 = v13;
+    v14 = v37;
     v15 = *(a1 + 48);
     v16 = *(a1 + 32);
-    v38[0] = v15;
-    v38[1] = v16;
-    v17 = &v39;
-    v39 = *(a1 + 72);
-    [v7 appAttestationWebAttestKey:v13 clientDataHash:v10 authData:v11 completion:v36];
+    v37[0] = v15;
+    v37[1] = v16;
+    v17 = &v38;
+    v38 = *(a1 + 72);
+    [v7 appAttestationWebAttestKey:v13 clientDataHash:v10 authData:v11 completion:v35];
   }
 
   else
@@ -646,22 +633,22 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
     v19 = *(a1 + 40);
     v20 = *(a1 + 48);
     v21 = *(a1 + 64);
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_66;
-    v31 = &unk_278A46108;
-    v12 = &v32;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_66;
+    v30 = &unk_278A46108;
+    v12 = &v31;
     v22 = v19;
-    v32 = v22;
-    v35 = 0;
-    v14 = v33;
+    v31 = v22;
+    v34 = 0;
+    v14 = v32;
     v23 = *(a1 + 48);
     v24 = *(a1 + 32);
-    v33[0] = v23;
-    v33[1] = v24;
-    v17 = &v34;
-    v34 = *(a1 + 72);
-    [v7 appAttestationDeviceAttestKey:v22 useSystemKeychain:0 clientDataHash:v20 options:v21 completion:&v28];
+    v32[0] = v23;
+    v32[1] = v24;
+    v17 = &v33;
+    v33 = *(a1 + 72);
+    [v7 appAttestationDeviceAttestKey:v22 useSystemKeychain:0 clientDataHash:v20 options:v21 completion:&v27];
   }
 
 LABEL_10:
@@ -676,9 +663,9 @@ LABEL_10:
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v43 = "DCAppAttestController.m";
-      v44 = 1024;
-      v45 = 380;
+      v42 = "DCAppAttestController.m";
+      v43 = 1024;
+      v44 = 380;
       _os_log_impl(&dword_238044000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypePriv.", buf, 0x12u);
     }
   }
@@ -694,14 +681,12 @@ LABEL_10:
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v43 = "DCAppAttestController.m";
-      v44 = 1024;
-      v45 = 381;
+      v42 = "DCAppAttestController.m";
+      v43 = 1024;
+      v44 = 381;
       _os_log_impl(&dword_238044000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeDefault.", buf, 0x12u);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_50(uint64_t a1)
@@ -713,59 +698,59 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v32 = a3;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_3;
-  v43[3] = &unk_278A46020;
-  v44 = *(a1 + 32);
-  v31 = MEMORY[0x2383E6220](v43);
+  v58 = *MEMORY[0x277D85DE8];
+  v31 = a3;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_3;
+  v42[3] = &unk_278A46020;
+  v43 = *(a1 + 32);
+  v30 = MEMORY[0x2383E6220](v42);
   if (a2 < 1)
   {
     v25 = +[DCAnalytics shared];
     [v25 sendPerformanceForCategory:10 eventType:1];
 
-    v46[0] = @"2";
-    v45[0] = @"appUUIDLoaded";
-    v45[1] = @"clientDataHashValid";
+    v45[0] = @"2";
+    v44[0] = @"appUUIDLoaded";
+    v44[1] = @"clientDataHashValid";
     v26 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-    v46[1] = v26;
-    v46[2] = &unk_284AE94C8;
-    v45[2] = @"attestedKey";
-    v45[3] = @"serviceType";
-    v46[3] = @"web";
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+    v45[1] = v26;
+    v45[2] = &unk_284AE94C8;
+    v44[2] = @"attestedKey";
+    v44[3] = @"serviceType";
+    v45[3] = @"web";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
 
     v28 = +[DCAnalytics shared];
-    v29 = [*(a1 + 48) rewrapAsDCError:v32];
+    v29 = [*(a1 + 48) rewrapAsDCError:v31];
     [v28 sendPayload:v27 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v29];
 
     (*(*(a1 + 56) + 16))();
     goto LABEL_25;
   }
 
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = 0;
   allocator = *MEMORY[0x277CBECE8];
-  v33 = a1;
+  v32 = a1;
   do
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%d", *(a1 + 32), @"cert", v4];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_56;
-    v40[3] = &unk_278A46048;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_56;
+    v39[3] = &unk_278A46048;
     v6 = v5;
-    v41 = v6;
-    v42 = *(a1 + 32);
-    v7 = MEMORY[0x2383E6220](v40);
-    v39 = -1;
-    v38 = 0;
-    v8 = copy_keychain_data(@"appattest-webauthn", v6, &v39, &v38);
-    v9 = v38;
+    v40 = v6;
+    v41 = *(a1 + 32);
+    v7 = MEMORY[0x2383E6220](v39);
+    v38 = -1;
+    v37 = 0;
+    v8 = copy_keychain_data(@"appattest-webauthn", v6, &v38, &v37);
+    v9 = v37;
     v10 = v9;
-    if (v8 && !v39 && !v9)
+    if (v8 && !v38 && !v9)
     {
       goto LABEL_11;
     }
@@ -780,15 +765,15 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
     {
       v12 = [v10 localizedDescription];
       *buf = 136316162;
-      v50 = "DCAppAttestController.m";
-      v51 = 1024;
-      v52 = 258;
-      v53 = 2112;
-      v54 = v12;
-      v55 = 1024;
-      v56 = v39;
-      v57 = 2112;
-      v58 = v6;
+      v49 = "DCAppAttestController.m";
+      v50 = 1024;
+      v51 = 258;
+      v52 = 2112;
+      v53 = v12;
+      v54 = 1024;
+      v55 = v38;
+      v56 = 2112;
+      v57 = v6;
       _os_log_impl(&dword_238044000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to copy certificate data. { error=%@, err=%d, label=%@ }", buf, 0x2Cu);
     }
 
@@ -796,12 +781,12 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
     {
 LABEL_11:
       v13 = SecCertificateCreateWithData(allocator, v8);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_57;
-      v37[3] = &__block_descriptor_40_e5_v8__0l;
-      v37[4] = v13;
-      v14 = MEMORY[0x2383E6220](v37);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_57;
+      v36[3] = &__block_descriptor_40_e5_v8__0l;
+      v36[4] = v13;
+      v14 = MEMORY[0x2383E6220](v36);
       if (v13)
       {
         if (DCLogSystem_onceToken != -1)
@@ -816,11 +801,11 @@ LABEL_11:
         }
 
         *buf = 136315650;
-        v50 = "DCAppAttestController.m";
-        v51 = 1024;
-        v52 = 265;
-        v53 = 2112;
-        v54 = v6;
+        v49 = "DCAppAttestController.m";
+        v50 = 1024;
+        v51 = 265;
+        v52 = 2112;
+        v53 = v6;
         v16 = v15;
         v17 = "%25s:%-5d Created cert. { label=%@ }";
       }
@@ -839,20 +824,20 @@ LABEL_11:
         }
 
         *buf = 136315650;
-        v50 = "DCAppAttestController.m";
-        v51 = 1024;
-        v52 = 264;
-        v53 = 2112;
-        v54 = v6;
+        v49 = "DCAppAttestController.m";
+        v50 = 1024;
+        v51 = 264;
+        v52 = 2112;
+        v53 = v6;
         v16 = v18;
         v17 = "%25s:%-5d Failed to create cert. { label=%@ }";
       }
 
       _os_log_impl(&dword_238044000, v16, OS_LOG_TYPE_DEBUG, v17, buf, 0x1Cu);
 LABEL_21:
-      [v35 addObject:v13];
+      [v34 addObject:v13];
       v14[2](v14);
-      a1 = v33;
+      a1 = v32;
     }
 
     v7[2](v7);
@@ -863,36 +848,34 @@ LABEL_21:
   v19 = +[DCAnalytics shared];
   [v19 sendPerformanceForCategory:10 eventType:1];
 
-  v48[0] = @"2";
-  v47[0] = @"appUUIDLoaded";
-  v47[1] = @"clientDataHashValid";
+  v47[0] = @"2";
+  v46[0] = @"appUUIDLoaded";
+  v46[1] = @"clientDataHashValid";
   v20 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-  v48[1] = v20;
-  v47[2] = @"attestedKey";
-  v21 = [MEMORY[0x277CCABB0] numberWithInt:v35 != 0];
-  v47[3] = @"serviceType";
-  v48[2] = v21;
-  v48[3] = @"web";
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:4];
+  v47[1] = v20;
+  v46[2] = @"attestedKey";
+  v21 = [MEMORY[0x277CCABB0] numberWithInt:v34 != 0];
+  v46[3] = @"serviceType";
+  v47[2] = v21;
+  v47[3] = @"web";
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:4];
 
   v23 = +[DCAnalytics shared];
-  v24 = [*(a1 + 48) rewrapAsDCError:v32];
+  v24 = [*(a1 + 48) rewrapAsDCError:v31];
   [v23 sendPayload:v22 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v24];
 
   (*(*(a1 + 56) + 16))();
 LABEL_25:
-  v31[2]();
-
-  v30 = *MEMORY[0x277D85DE8];
+  v30[2]();
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v12 = 0;
-  v3 = delete_keychain_item(@"appattest-webauthn", v2, &v12);
-  v4 = v12;
+  v11 = 0;
+  v3 = delete_keychain_item(@"appattest-webauthn", v2, &v11);
+  v4 = v11;
   v5 = v4;
   if (!v3 || v4 != 0)
   {
@@ -908,27 +891,25 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       v9 = v7;
       v10 = [v5 localizedDescription];
       *buf = 136315906;
-      v14 = "DCAppAttestController.m";
-      v15 = 1024;
-      v16 = 240;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v10;
+      v13 = "DCAppAttestController.m";
+      v14 = 1024;
+      v15 = 240;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_238044000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete key from keychain. { keyId=%@, error=%@ }", buf, 0x26u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_56(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v12 = 0;
-  v3 = delete_keychain_item(@"appattest-webauthn", v2, &v12);
-  v4 = v12;
+  v11 = 0;
+  v3 = delete_keychain_item(@"appattest-webauthn", v2, &v11);
+  v4 = v11;
   v5 = v4;
   if (!v3 || v4 != 0)
   {
@@ -944,18 +925,16 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       v9 = v7;
       v10 = [v5 localizedDescription];
       *buf = 136315906;
-      v14 = "DCAppAttestController.m";
-      v15 = 1024;
-      v16 = 252;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v10;
+      v13 = "DCAppAttestController.m";
+      v14 = 1024;
+      v15 = 252;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_238044000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete cert from keychain. { keyId=%@, error=%@ }", buf, 0x26u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_57(uint64_t a1)
@@ -969,62 +948,62 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_66(uint64_t a1, int a2, void *a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v29 = a3;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2_67;
-  v40[3] = &unk_278A460B8;
-  v41 = *(a1 + 32);
-  v42 = *(a1 + 64);
-  v28 = MEMORY[0x2383E6220](v40);
+  v56 = *MEMORY[0x277D85DE8];
+  v28 = a3;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2_67;
+  v39[3] = &unk_278A460B8;
+  v40 = *(a1 + 32);
+  v41 = *(a1 + 64);
+  v27 = MEMORY[0x2383E6220](v39);
   if (a2 < 1)
   {
     v22 = +[DCAnalytics shared];
     [v22 sendPerformanceForCategory:11 eventType:1];
 
-    v44[0] = @"2";
-    v43[0] = @"appUUIDLoaded";
-    v43[1] = @"clientDataHashValid";
+    v43[0] = @"2";
+    v42[0] = @"appUUIDLoaded";
+    v42[1] = @"clientDataHashValid";
     v23 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-    v44[1] = v23;
-    v43[2] = @"attestedKey";
-    v43[3] = @"serviceType";
-    v44[2] = &unk_284AE94C8;
-    v44[3] = @"device";
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+    v43[1] = v23;
+    v42[2] = @"attestedKey";
+    v42[3] = @"serviceType";
+    v43[2] = &unk_284AE94C8;
+    v43[3] = @"device";
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
 
     v25 = +[DCAnalytics shared];
-    v26 = [*(a1 + 48) rewrapAsDCError:v29];
+    v26 = [*(a1 + 48) rewrapAsDCError:v28];
     [v25 sendPayload:v24 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v26];
 
-    v28[2]();
+    v27[2]();
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v4 = 0;
     allocator = *MEMORY[0x277CBECE8];
     do
     {
       v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%d", *(a1 + 32), @"cert", v4];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_68;
-      v36[3] = &unk_278A460E0;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_68;
+      v35[3] = &unk_278A460E0;
       v6 = v5;
-      v37 = v6;
-      v39 = *(a1 + 64);
-      v38 = *(a1 + 32);
-      v7 = MEMORY[0x2383E6220](v36);
-      v35 = -1;
-      v34 = 0;
-      v8 = copy_keychain_data(@"appattest-device", v6, &v35, &v34);
-      v9 = v34;
+      v36 = v6;
+      v38 = *(a1 + 64);
+      v37 = *(a1 + 32);
+      v7 = MEMORY[0x2383E6220](v35);
+      v34 = -1;
+      v33 = 0;
+      v8 = copy_keychain_data(@"appattest-device", v6, &v34, &v33);
+      v9 = v33;
       v10 = v9;
-      if (v8 && !v35 && !v9)
+      if (v8 && !v34 && !v9)
       {
         goto LABEL_11;
       }
@@ -1039,15 +1018,15 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       {
         v12 = [v10 localizedDescription];
         *buf = 136316162;
-        v48 = "DCAppAttestController.m";
-        v49 = 1024;
-        v50 = 333;
-        v51 = 2112;
-        v52 = v12;
-        v53 = 1024;
-        v54 = v35;
-        v55 = 2112;
-        v56 = v6;
+        v47 = "DCAppAttestController.m";
+        v48 = 1024;
+        v49 = 333;
+        v50 = 2112;
+        v51 = v12;
+        v52 = 1024;
+        v53 = v34;
+        v54 = 2112;
+        v55 = v6;
         _os_log_impl(&dword_238044000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to copy certificate data. { error=%@, err=%d, label=%@ }", buf, 0x2Cu);
       }
 
@@ -1055,12 +1034,12 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       {
 LABEL_11:
         v13 = SecCertificateCreateWithData(allocator, v8);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_69;
-        v33[3] = &__block_descriptor_40_e5_v8__0l;
-        v33[4] = v13;
-        v14 = MEMORY[0x2383E6220](v33);
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_69;
+        v32[3] = &__block_descriptor_40_e5_v8__0l;
+        v32[4] = v13;
+        v14 = MEMORY[0x2383E6220](v32);
         if (!v13)
         {
           if (DCLogSystem_onceToken != -1)
@@ -1072,16 +1051,16 @@ LABEL_11:
           if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v48 = "DCAppAttestController.m";
-            v49 = 1024;
-            v50 = 339;
-            v51 = 2112;
-            v52 = v6;
+            v47 = "DCAppAttestController.m";
+            v48 = 1024;
+            v49 = 339;
+            v50 = 2112;
+            v51 = v6;
             _os_log_impl(&dword_238044000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to create cert. { label=%@ }", buf, 0x1Cu);
           }
         }
 
-        [v31 addObject:v13];
+        [v30 addObject:v13];
         v14[2](v14);
       }
 
@@ -1093,37 +1072,35 @@ LABEL_11:
     v16 = +[DCAnalytics shared];
     [v16 sendPerformanceForCategory:11 eventType:1];
 
-    v46[0] = @"2";
-    v45[0] = @"appUUIDLoaded";
-    v45[1] = @"clientDataHashValid";
+    v45[0] = @"2";
+    v44[0] = @"appUUIDLoaded";
+    v44[1] = @"clientDataHashValid";
     v17 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-    v46[1] = v17;
-    v45[2] = @"attestedKey";
-    v18 = [MEMORY[0x277CCABB0] numberWithInt:v31 != 0];
-    v46[2] = v18;
-    v45[3] = @"serviceType";
-    v46[3] = @"device";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+    v45[1] = v17;
+    v44[2] = @"attestedKey";
+    v18 = [MEMORY[0x277CCABB0] numberWithInt:v30 != 0];
+    v45[2] = v18;
+    v44[3] = @"serviceType";
+    v45[3] = @"device";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
 
     v20 = +[DCAnalytics shared];
-    v21 = [*(a1 + 48) rewrapAsDCError:v29];
+    v21 = [*(a1 + 48) rewrapAsDCError:v28];
     [v20 sendPayload:v19 forEvent:@"com.apple.devicecheck.appattest.attestKey" withError:v21];
 
-    v28[2]();
+    v27[2]();
     (*(*(a1 + 56) + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_2_67(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v13 = 0;
-  v4 = delete_keychain_item_for_system_keychain(@"appattest-device", v2, v3, &v13);
-  v5 = v13;
+  v12 = 0;
+  v4 = delete_keychain_item_for_system_keychain(@"appattest-device", v2, v3, &v12);
+  v5 = v12;
   v6 = v5;
   if (!v4 || v5 != 0)
   {
@@ -1139,28 +1116,26 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       v10 = v8;
       v11 = [v6 localizedDescription];
       *buf = 136315906;
-      v15 = "DCAppAttestController.m";
-      v16 = 1024;
-      v17 = 315;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v11;
+      v14 = "DCAppAttestController.m";
+      v15 = 1024;
+      v16 = 315;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v11;
       _os_log_impl(&dword_238044000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete key from keychain. { keyId=%@, error=%@ }", buf, 0x26u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_68(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
-  v13 = 0;
-  v4 = delete_keychain_item_for_system_keychain(@"appattest-device", v2, v3, &v13);
-  v5 = v13;
+  v12 = 0;
+  v4 = delete_keychain_item_for_system_keychain(@"appattest-device", v2, v3, &v12);
+  v5 = v12;
   v6 = v5;
   if (!v4 || v5 != 0)
   {
@@ -1176,18 +1151,16 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
       v10 = v8;
       v11 = [v6 localizedDescription];
       *buf = 136315906;
-      v15 = "DCAppAttestController.m";
-      v16 = 1024;
-      v17 = 327;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v11;
+      v14 = "DCAppAttestController.m";
+      v15 = 1024;
+      v16 = 327;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v11;
       _os_log_impl(&dword_238044000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete cert from keychain. { keyId=%@, error=%@ }", buf, 0x26u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData_options_completionHandler___block_invoke_69(uint64_t a1)
@@ -1206,7 +1179,7 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
   hashCopy = hash;
   handlerCopy = handler;
   v14 = dispatch_get_current_queue();
-  v15 = clientProcessingQueue();
+  v15 = clientProcessingQueue(v14);
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke;
@@ -1227,7 +1200,7 @@ void __99__DCAppAttestController_attestKey_keyAttributes_clientDataHash_authData
 
 void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -1237,7 +1210,7 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     *buf = 136315650;
     *&buf[4] = "DCAppAttestController.m";
     *&buf[12] = 1024;
@@ -1251,15 +1224,15 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy_;
-  v44 = __Block_byref_object_dispose_;
-  v45 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
+  v43 = __Block_byref_object_dispose_;
+  v44 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
   v5 = *(*&buf[8] + 40);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_73;
-  v37[3] = &unk_278A45EB8;
-  v38 = *(a1 + 72);
-  v6 = [v5 remoteObjectProxy:v37];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_73;
+  v36[3] = &unk_278A45EB8;
+  v37 = *(a1 + 72);
+  v6 = [v5 remoteObjectProxy:v36];
   v7 = [*(a1 + 32) loadAppUUID];
   if ([*(a1 + 32) appAttestType])
   {
@@ -1274,21 +1247,21 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
     v9 = *(a1 + 64);
     v10 = *(a1 + 40);
     v11 = *(a1 + 48);
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_4;
-    v25 = &unk_278A46180;
-    v26 = *(a1 + 32);
-    v27 = v7;
-    v28 = *(a1 + 40);
-    v29 = *(a1 + 48);
-    v30[0] = *(a1 + 72);
-    v30[1] = buf;
-    [v6 appAttestationAssertWithTeamIdentifier:v9 appUUID:v27 keyId:v10 clientDataHash:v11 completion:&v22];
-    v12 = &v27;
-    v13 = &v28;
-    v14 = &v29;
-    v15 = v30;
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_4;
+    v24 = &unk_278A46180;
+    v25 = *(a1 + 32);
+    v26 = v7;
+    v27 = *(a1 + 40);
+    v28 = *(a1 + 48);
+    v29[0] = *(a1 + 72);
+    v29[1] = buf;
+    [v6 appAttestationAssertWithTeamIdentifier:v9 appUUID:v26 keyId:v10 clientDataHash:v11 completion:&v21];
+    v12 = &v26;
+    v13 = &v27;
+    v14 = &v28;
+    v15 = v29;
   }
 
   else
@@ -1298,23 +1271,23 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
 
     v17 = *(a1 + 40);
     v18 = *(a1 + 48);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_2;
-    v31[3] = &unk_278A46158;
-    v31[4] = *(a1 + 32);
-    v32 = v7;
-    v33 = *(a1 + 40);
-    v34 = *(a1 + 48);
-    v36[0] = *(a1 + 72);
-    v36[1] = buf;
-    v35 = *(a1 + 56);
-    [v6 appAttestationAssert:v32 keyId:v17 clientDataHash:v18 completion:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_2;
+    v30[3] = &unk_278A46158;
+    v30[4] = *(a1 + 32);
+    v31 = v7;
+    v32 = *(a1 + 40);
+    v33 = *(a1 + 48);
+    v35[0] = *(a1 + 72);
+    v35[1] = buf;
+    v34 = *(a1 + 56);
+    [v6 appAttestationAssert:v31 keyId:v17 clientDataHash:v18 completion:v30];
 
-    v12 = &v32;
-    v13 = &v33;
-    v14 = &v34;
-    v15 = v36;
+    v12 = &v31;
+    v13 = &v32;
+    v14 = &v33;
+    v15 = v35;
   }
 
 LABEL_10:
@@ -1328,11 +1301,11 @@ LABEL_10:
     v19 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 136315394;
-      v40 = "DCAppAttestController.m";
-      v41 = 1024;
-      v42 = 453;
-      _os_log_impl(&dword_238044000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeWeb.", v39, 0x12u);
+      *v38 = 136315394;
+      v39 = "DCAppAttestController.m";
+      v40 = 1024;
+      v41 = 453;
+      _os_log_impl(&dword_238044000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeWeb.", v38, 0x12u);
     }
   }
 
@@ -1346,16 +1319,15 @@ LABEL_10:
     v20 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v39 = 136315394;
-      v40 = "DCAppAttestController.m";
-      v41 = 1024;
-      v42 = 454;
-      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeDevice.", v39, 0x12u);
+      *v38 = 136315394;
+      v39 = "DCAppAttestController.m";
+      v40 = 1024;
+      v41 = 454;
+      _os_log_impl(&dword_238044000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid usage, cannot use this method for AppAttestTypeDevice.", v38, 0x12u);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_73(uint64_t a1)
@@ -1392,26 +1364,26 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
 
 void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) rewrapAsDCError:*(a1 + 40)];
   v3 = +[DCAnalytics shared];
   [v3 sendPerformanceForCategory:12 eventType:1];
 
-  v15[0] = @"appUUIDLoaded";
+  v14[0] = @"appUUIDLoaded";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48) != 0];
-  v16[0] = v4;
-  v15[1] = @"keyIdValid";
+  v15[0] = v4;
+  v14[1] = @"keyIdValid";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 56) != 0];
-  v16[1] = v5;
-  v15[2] = @"clientDataHashValid";
+  v15[1] = v5;
+  v14[2] = @"clientDataHashValid";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 64) != 0];
-  v16[2] = v6;
-  v15[3] = @"generatedAssertion";
+  v15[2] = v6;
+  v14[3] = @"generatedAssertion";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 72) != 0];
-  v15[4] = @"serviceType";
-  v16[3] = v7;
-  v16[4] = @"default";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v14[4] = @"serviceType";
+  v15[3] = v7;
+  v15[4] = @"default";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
 
   v9 = +[DCAnalytics shared];
   [v9 sendPayload:v8 forEvent:@"com.apple.devicecheck.appattest.generateAssertion" withError:v2];
@@ -1423,13 +1395,11 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
 
   v13 = [*(*(*(a1 + 88) + 8) + 40) connection];
   [v13 invalidate];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = a3;
   v7 = a2;
@@ -1437,21 +1407,21 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
   v9 = +[DCAnalytics shared];
   [v9 sendPerformanceForCategory:13 eventType:1];
 
-  v20[0] = @"appUUIDLoaded";
+  v19[0] = @"appUUIDLoaded";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-  v21[0] = v10;
-  v20[1] = @"keyIdValid";
+  v20[0] = v10;
+  v19[1] = @"keyIdValid";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48) != 0];
-  v21[1] = v11;
-  v20[2] = @"clientDataHashValid";
+  v20[1] = v11;
+  v19[2] = @"clientDataHashValid";
   v12 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 56) != 0];
-  v21[2] = v12;
-  v20[3] = @"generatedAssertion";
+  v20[2] = v12;
+  v19[3] = @"generatedAssertion";
   v13 = [MEMORY[0x277CCABB0] numberWithInt:v7 != 0];
-  v20[4] = @"serviceType";
-  v21[3] = v13;
-  v21[4] = @"priv";
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:5];
+  v19[4] = @"serviceType";
+  v20[3] = v13;
+  v20[4] = @"priv";
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
 
   v15 = +[DCAnalytics shared];
   [v15 sendPayload:v14 forEvent:@"com.apple.devicecheck.appattest.generateAssertion" withError:v8];
@@ -1462,8 +1432,6 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
   (*(v16 + 16))(v16, v7, v17);
   v18 = [*(*(*(a1 + 72) + 8) + 40) connection];
   [v18 invalidate];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sign:(id)sign withKey:(id)key teamIdentifier:(id)identifier completionHandler:(id)handler
@@ -1472,7 +1440,7 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
   keyCopy = key;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v14 = clientProcessingQueue();
+  v14 = clientProcessingQueue(handlerCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke;
@@ -1491,7 +1459,7 @@ void __91__DCAppAttestController_generateAssertion_teamIdentifier_clientDataHash
 
 void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -1501,7 +1469,7 @@ void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler__
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     *buf = 136315650;
     *&buf[4] = "DCAppAttestController.m";
     *&buf[12] = 1024;
@@ -1515,15 +1483,15 @@ void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler__
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   *&buf[24] = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
+  v23 = __Block_byref_object_dispose_;
+  v24 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
   v5 = *(*&buf[8] + 40);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke_80;
-  v17[3] = &unk_278A45EB8;
-  v18 = *(a1 + 64);
-  v6 = [v5 remoteObjectProxy:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke_80;
+  v16[3] = &unk_278A45EB8;
+  v17 = *(a1 + 64);
+  v6 = [v5 remoteObjectProxy:v16];
   v7 = [*(a1 + 32) loadAppUUID];
   if (!v7)
   {
@@ -1535,29 +1503,28 @@ void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler__
     v8 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
-      *v19 = 136315394;
-      v20 = "DCAppAttestController.m";
-      v21 = 1024;
-      v22 = 469;
-      _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch App UUID.", v19, 0x12u);
+      *v18 = 136315394;
+      v19 = "DCAppAttestController.m";
+      v20 = 1024;
+      v21 = 469;
+      _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch App UUID.", v18, 0x12u);
     }
   }
 
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke_81;
-  v14[3] = &unk_278A461A8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke_81;
+  v13[3] = &unk_278A461A8;
   v11 = *(a1 + 56);
   v12 = *(a1 + 64);
-  v14[4] = *(a1 + 32);
-  v15 = v12;
-  v16 = buf;
-  [v6 appAttestationSign:v9 appUUID:v7 keyId:v10 teamId:v11 completion:v14];
+  v13[4] = *(a1 + 32);
+  v14 = v12;
+  v15 = buf;
+  [v6 appAttestationSign:v9 appUUID:v7 keyId:v10 teamId:v11 completion:v13];
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler___block_invoke_80(uint64_t a1)
@@ -1584,7 +1551,7 @@ void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler__
   idCopy = id;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v11 = clientProcessingQueue();
+  v11 = clientProcessingQueue(handlerCopy);
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke;
@@ -1601,7 +1568,7 @@ void __71__DCAppAttestController_sign_withKey_teamIdentifier_completionHandler__
 
 void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (DCLogSystem_onceToken != -1)
   {
     __66__DCAppAttestController_generateKeyWithTeamIdentifier_completion___block_invoke_cold_1();
@@ -1611,23 +1578,23 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
   if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v2;
-    v4 = clientProcessingQueue();
+    v4 = clientProcessingQueue(v3);
     *buf = 136315650;
-    v17 = "DCAppAttestController.m";
-    v18 = 1024;
-    v19 = 481;
-    v20 = 2080;
+    v16 = "DCAppAttestController.m";
+    v17 = 1024;
+    v18 = 481;
+    v19 = 2080;
     label = dispatch_queue_get_label(v4);
     _os_log_impl(&dword_238044000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Dispatching get properties for key onto client processing queue. { label=%s }", buf, 0x1Cu);
   }
 
   v5 = objc_alloc_init(DCDeviceMetadataDaemonConnection);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_82;
-  v14[3] = &unk_278A45EB8;
-  v15 = *(a1 + 56);
-  v6 = [(DCDeviceMetadataDaemonConnection *)v5 remoteObjectProxy:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_82;
+  v13[3] = &unk_278A45EB8;
+  v14 = *(a1 + 56);
+  v6 = [(DCDeviceMetadataDaemonConnection *)v5 remoteObjectProxy:v13];
   v7 = [*(a1 + 32) loadAppUUID];
   if (!v7)
   {
@@ -1640,24 +1607,22 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "DCAppAttestController.m";
-      v18 = 1024;
-      v19 = 489;
+      v16 = "DCAppAttestController.m";
+      v17 = 1024;
+      v18 = 489;
       _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch App UUID.", buf, 0x12u);
     }
   }
 
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_83;
-  v12[3] = &unk_278A461F8;
-  v12[4] = *(a1 + 32);
-  v13 = *(a1 + 56);
-  [v6 getKeyProxyEndpoint:v7 keyId:v9 teamIdentifier:v10 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_83;
+  v11[3] = &unk_278A461F8;
+  v11[4] = *(a1 + 32);
+  v12 = *(a1 + 56);
+  [v6 getKeyProxyEndpoint:v7 keyId:v9 teamIdentifier:v10 completion:v11];
 }
 
 void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_82(uint64_t a1)
@@ -1669,7 +1634,7 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
 
 void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completionHandler___block_invoke_83(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1685,11 +1650,11 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
       v8 = v7;
       v9 = [v6 localizedDescription];
       *buf = 136315650;
-      v21 = "DCAppAttestController.m";
-      v22 = 1024;
-      v23 = 493;
-      v24 = 2112;
-      v25 = v9;
+      v20 = "DCAppAttestController.m";
+      v21 = 1024;
+      v22 = 493;
+      v23 = 2112;
+      v24 = v9;
       _os_log_impl(&dword_238044000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to get key proxy endpoint. { error=%@ }", buf, 0x1Cu);
     }
 
@@ -1708,17 +1673,17 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v21 = "DCAppAttestController.m";
-      v22 = 1024;
-      v23 = 499;
-      v24 = 2112;
-      v25 = v5;
+      v20 = "DCAppAttestController.m";
+      v21 = 1024;
+      v22 = 499;
+      v23 = 2112;
+      v24 = v5;
       _os_log_impl(&dword_238044000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Received key proxy endpoint. { endpoint=%@ }", buf, 0x1Cu);
     }
 
-    v19 = 0;
-    v12 = [MEMORY[0x277CDBD80] createKeyFromEndpoint:v5 error:&v19];
-    v10 = v19;
+    v18 = 0;
+    v12 = [MEMORY[0x277CDBD80] createKeyFromEndpoint:v5 error:&v18];
+    v10 = v18;
     if (v12)
     {
       v13 = SecKeyCopyAttributes(v12);
@@ -1731,13 +1696,13 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
       if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v21 = "DCAppAttestController.m";
-        v22 = 1024;
-        v23 = 510;
-        v24 = 2112;
-        v25 = v5;
-        v26 = 2112;
-        v27 = v13;
+        v20 = "DCAppAttestController.m";
+        v21 = 1024;
+        v22 = 510;
+        v23 = 2112;
+        v24 = v5;
+        v25 = 2112;
+        v26 = v13;
         _os_log_impl(&dword_238044000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetched key properties. { endpoint=%@, properties=%@ }", buf, 0x26u);
       }
 
@@ -1755,11 +1720,11 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
       if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v21 = "DCAppAttestController.m";
-        v22 = 1024;
-        v23 = 504;
-        v24 = 2112;
-        v25 = v5;
+        v20 = "DCAppAttestController.m";
+        v21 = 1024;
+        v22 = 504;
+        v23 = 2112;
+        v24 = v5;
         _os_log_impl(&dword_238044000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create key from key proxy endpoint. { endpoint=%@ }", buf, 0x1Cu);
       }
 
@@ -1770,8 +1735,6 @@ void __80__DCAppAttestController_getPropertiesForKeyId_teamIdentifier_completion
 
     v15();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSupportedWithError:(id *)error
@@ -1875,7 +1838,7 @@ LABEL_10:
 
 void __46__DCAppAttestController_isSupportedWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1889,13 +1852,13 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke(uint64_t a1
     {
       v5 = v4;
       v6 = [v3 localizedDescription];
-      v10 = 136315650;
-      v11 = "DCAppAttestController.m";
-      v12 = 1024;
-      v13 = 527;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to setup synchronous remote object proxy to daemon. { error=%@ }", &v10, 0x1Cu);
+      v9 = 136315650;
+      v10 = "DCAppAttestController.m";
+      v11 = 1024;
+      v12 = 527;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_238044000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to setup synchronous remote object proxy to daemon. { error=%@ }", &v9, 0x1Cu);
     }
   }
 
@@ -1903,23 +1866,21 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke(uint64_t a1
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v3;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DCAppAttestController_isSupportedWithError___block_invoke_86(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[DCAnalytics shared];
   [v6 sendPerformanceForCategory:2 eventType:1];
 
-  v15[0] = @"isSupported";
+  v14[0] = @"isSupported";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = @"serviceType";
-  v16[0] = v7;
-  v16[1] = @"default";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = @"serviceType";
+  v15[0] = v7;
+  v15[1] = @"default";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v9 = +[DCAnalytics shared];
   [v9 sendPayload:v8 forEvent:@"com.apple.devicecheck.appattest.isSupported" withError:v5];
@@ -1933,22 +1894,21 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_86(uint64_t
   v13 = [*(a1 + 32) connection];
 
   [v13 invalidate];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DCAppAttestController_isSupportedWithError___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[DCAnalytics shared];
   [v6 sendPerformanceForCategory:3 eventType:1];
 
-  v15[0] = @"isSupported";
+  v14[0] = @"isSupported";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = @"serviceType";
-  v16[0] = v7;
-  v16[1] = @"priv";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = @"serviceType";
+  v15[0] = v7;
+  v15[1] = @"priv";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v9 = +[DCAnalytics shared];
   [v9 sendPayload:v8 forEvent:@"com.apple.devicecheck.appattest.isSupported" withError:v5];
@@ -1962,22 +1922,21 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_2(uint64_t 
   v13 = [*(a1 + 32) connection];
 
   [v13 invalidate];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DCAppAttestController_isSupportedWithError___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[DCAnalytics shared];
   [v6 sendPerformanceForCategory:4 eventType:1];
 
-  v15[0] = @"isSupported";
+  v14[0] = @"isSupported";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = @"serviceType";
-  v16[0] = v7;
-  v16[1] = @"web";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = @"serviceType";
+  v15[0] = v7;
+  v15[1] = @"web";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v9 = +[DCAnalytics shared];
   [v9 sendPayload:v8 forEvent:@"com.apple.devicecheck.appattest.isSupported" withError:v5];
@@ -1991,22 +1950,21 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_3(uint64_t 
   v13 = [*(a1 + 32) connection];
 
   [v13 invalidate];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[DCAnalytics shared];
   [v6 sendPerformanceForCategory:5 eventType:1];
 
-  v15[0] = @"isSupported";
+  v14[0] = @"isSupported";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-  v15[1] = @"serviceType";
-  v16[0] = v7;
-  v16[1] = @"device";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = @"serviceType";
+  v15[0] = v7;
+  v15[1] = @"device";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v9 = +[DCAnalytics shared];
   [v9 sendPayload:v8 forEvent:@"com.apple.devicecheck.appattest.isSupported" withError:v5];
@@ -2020,12 +1978,11 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
   v13 = [*(a1 + 32) connection];
 
   [v13 invalidate];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadAppUUID
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   legacyUserDefaults = [(DCAppAttestController *)self legacyUserDefaults];
   v4 = [legacyUserDefaults stringForKey:@"com.apple.DC.AppAttestAppUUID"];
 
@@ -2042,11 +1999,11 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     v7 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "DCAppAttestController.m";
-      v15 = 1024;
-      v16 = 640;
-      _os_log_impl(&dword_238044000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetched UUID from legacy suite, transferring value to new suite.", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "DCAppAttestController.m";
+      v14 = 1024;
+      v15 = 640;
+      _os_log_impl(&dword_238044000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetched UUID from legacy suite, transferring value to new suite.", &v12, 0x12u);
     }
 
     [(DCAppAttestController *)self saveAppUUID:v4];
@@ -2067,8 +2024,6 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -2086,7 +2041,7 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
 
 - (id)rewrapAsDCError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = errorCopy;
   if (errorCopy)
@@ -2096,7 +2051,7 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
 
     if (v6 && (v7 = [v4 code], (v7 + 7) <= 5))
     {
-      v8 = *(&unk_23804FDF8 + v7 + 7);
+      v8 = qword_23804FDF8[v7 + 7];
     }
 
     else
@@ -2113,15 +2068,15 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     v10 = DCLogSystem_log;
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315906;
-      v14 = "DCAppAttestController.m";
-      v15 = 1024;
-      v16 = 703;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v4;
-      _os_log_impl(&dword_238044000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Re-mapped error. { mapped=%@, internal=%@ }", &v13, 0x26u);
+      v12 = 136315906;
+      v13 = "DCAppAttestController.m";
+      v14 = 1024;
+      v15 = 703;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v4;
+      _os_log_impl(&dword_238044000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Re-mapped error. { mapped=%@, internal=%@ }", &v12, 0x26u);
     }
   }
 
@@ -2130,14 +2085,12 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)dispatchCompletionHandler:(id)handler ontoQueue:(id)queue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   queueCopy = queue;
   v7 = copy_current_process_name();
@@ -2160,11 +2113,11 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     if (os_log_type_enabled(DCLogSystem_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v16 = "DCAppAttestController.m";
-      v17 = 1024;
-      v18 = 726;
-      v19 = 2080;
-      v20 = label;
+      v15 = "DCAppAttestController.m";
+      v16 = 1024;
+      v17 = 726;
+      v18 = 2080;
+      v19 = label;
       _os_log_impl(&dword_238044000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Dispatching completion handler onto calling queue. { queueLabel=%s }", buf, 0x1Cu);
     }
 
@@ -2172,7 +2125,7 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
     block[1] = 3221225472;
     block[2] = __61__DCAppAttestController_dispatchCompletionHandler_ontoQueue___block_invoke;
     block[3] = &unk_278A46270;
-    v14 = handlerCopy;
+    v13 = handlerCopy;
     dispatch_async(queueCopy, block);
   }
 
@@ -2180,8 +2133,6 @@ void __46__DCAppAttestController_isSupportedWithError___block_invoke_4(uint64_t 
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

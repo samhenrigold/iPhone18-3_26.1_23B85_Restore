@@ -28,8 +28,8 @@
         goto LABEL_20;
       }
 
-      indexPath = [viewModel2 indexPath];
-      coordinateSystem = [assetsDataSource assetReferenceAtIndexPath:indexPath];
+      v13 = objc_msgSend_indexPath(viewModel2);
+      coordinateSystem = [assetsDataSource assetReferenceAtIndexPath:v13];
 
       v15 = [viewModel assetViewModelForAssetReference:coordinateSystem];
       [v15 contentOffset];
@@ -42,11 +42,11 @@
       v25 = v24;
       [viewModel2 size];
       v27 = v26;
-      v72.origin.x = v19;
-      v72.origin.y = v21;
-      v72.size.width = v23;
-      v72.size.height = v25;
-      v28 = v27 - (v17 + CGRectGetMaxY(v72));
+      v71.origin.x = v19;
+      v71.origin.y = v21;
+      v71.size.width = v23;
+      v71.size.height = v25;
+      v28 = v27 - (v17 + CGRectGetMaxY(v71));
       [viewModel2 minimumVisibleHeight];
       if (v28 >= v29)
       {
@@ -66,17 +66,17 @@
       v38 = v37;
       if (viewModel2)
       {
-        [viewModel2 transform];
+        objc_msgSend_transform(viewModel2);
       }
 
       else
       {
-        v69 = 0u;
-        v70 = 0u;
-        v68 = 0u;
+        v68 = 0;
+        v69 = 0;
+        v67 = 0;
       }
 
-      v60 = [viewModel2 layoutInfoWithCenter:&v68 size:v32 alpha:v34 transform:{v36, v38, 0.0}];
+      v60 = [viewModel2 layoutInfoWithCenter:&v67 size:v32 alpha:v34 transform:{v36, v38, 0.0}];
 LABEL_19:
       v61 = v60;
 
@@ -105,8 +105,8 @@ LABEL_20:
 
       if (v43)
       {
-        indexPath2 = [disappearanceCopy indexPath];
-        assetsDataSource = [viewModel assetReferenceAtIndexPath:indexPath2];
+        v44 = objc_msgSend_indexPath(disappearanceCopy);
+        assetsDataSource = [viewModel assetReferenceAtIndexPath:v44];
 
         v45 = [viewModel2 assetViewModelForAssetReference:assetsDataSource];
         [v45 contentOffset];
@@ -116,41 +116,41 @@ LABEL_20:
         v49 = v48 - v47;
         [disappearanceCopy center];
         v51 = v50;
-        v69 = 0u;
-        v70 = 0u;
+        v68 = 0;
+        v69 = 0;
         v53 = v52 + v49;
-        v68 = 0u;
+        v67 = 0;
         if (disappearanceCopy)
         {
-          [disappearanceCopy transform];
+          objc_msgSend_transform(disappearanceCopy);
         }
 
-        v64[0] = v68;
-        v64[1] = v69;
-        v64[2] = v70;
-        [(PUDefaultTileTransitionCoordinator *)self _adjustDefaultDisappearanceTransform:v64];
+        v63[1] = v67;
+        v63[2] = v68;
+        v63[3] = v69;
+        objc_msgSend__adjustDefaultDisappearanceTransform_(self);
+        v67 = v64;
         v68 = v65;
         v69 = v66;
-        v70 = v67;
         [disappearanceCopy size];
         v55 = v54;
         v57 = v56;
         [disappearanceCopy zPosition];
         v59 = v58;
         coordinateSystem = [disappearanceCopy coordinateSystem];
+        v64 = v67;
         v65 = v68;
         v66 = v69;
-        v67 = v70;
-        v60 = [disappearanceCopy layoutInfoWithCenter:&v65 size:coordinateSystem alpha:v51 transform:v53 zPosition:v55 coordinateSystem:{v57, 0.0, v59}];
+        v60 = [disappearanceCopy layoutInfoWithCenter:&v64 size:coordinateSystem alpha:v51 transform:v53 zPosition:v55 coordinateSystem:{v57, 0.0, v59}];
         goto LABEL_19;
       }
     }
   }
 
 LABEL_21:
-  v63.receiver = self;
-  v63.super_class = PUDefaultAccessoryViewVisibilityChangeTileTransitionCoordinator;
-  v61 = [(PUDefaultTileTransitionCoordinator *)&v63 _layoutInfoWithDefaultDisappearance:disappearanceCopy];
+  v63[0].receiver = self;
+  v63[0].super_class = PUDefaultAccessoryViewVisibilityChangeTileTransitionCoordinator;
+  v61 = [(objc_super *)v63 _layoutInfoWithDefaultDisappearance:disappearanceCopy];
 LABEL_22:
 
   return v61;

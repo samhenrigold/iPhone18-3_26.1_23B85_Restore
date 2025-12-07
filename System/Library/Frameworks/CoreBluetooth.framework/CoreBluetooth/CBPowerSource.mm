@@ -6,7 +6,9 @@
 - (CBPowerSource)init;
 - (CBPowerSource)initWithCoder:(id)coder;
 - (CBPowerSource)initWithDictionary:(id)dictionary error:(id *)error;
+- (CBPowerSource)initWithPowerSourceDetails:(id)details internalFlags:(unsigned int)flags;
 - (CBPowerSource)initWithXPCObject:(id)object error:(id *)error;
+- (id)componentWithPartID:(unsigned __int16)d;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)publish;
@@ -18,9 +20,11 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)encodeWithXPCObject:(id)object;
 - (void)invalidate;
+- (void)invalidateComponentWithPartID:(unsigned __int16)d;
 - (void)releaseSource;
 - (void)removeBatteryInfo;
 - (void)removeFlags;
+- (void)setInternalFlags:(unsigned int)flags;
 - (void)updatePartID;
 @end
 
@@ -52,22 +56,22 @@
     partName = self->_partName;
     self->_partName = v3;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v3, partName);
   }
 }
 
 - (id)description
 {
   internalFlags = self->_internalFlags;
-  v100 = 0;
-  NSAppendPrintF();
-  v4 = 0;
+  v103[0] = 0;
+  NSAppendPrintF(v103, "CBPowerSource");
+  v4 = v103[0];
   v5 = v4;
   if ((internalFlags & 8) != 0)
   {
-    v99 = v4;
-    NSAppendPrintF_safe();
-    v6 = v99;
+    v102 = v4;
+    NSAppendPrintF_safe(&v102, " Mock");
+    v6 = v102;
 
     v5 = v6;
   }
@@ -76,10 +80,9 @@
   v8 = v7;
   if (v7)
   {
-    v98 = v5;
-    v77 = v7;
-    NSAppendPrintF_safe();
-    v9 = v5;
+    v101 = v5;
+    NSAppendPrintF_safe(&v101, " Nm '%@'", v7);
+    v9 = v101;
 
     v5 = v9;
   }
@@ -87,10 +90,9 @@
   sourceID = self->_sourceID;
   if (sourceID)
   {
-    v97 = v5;
-    v77 = sourceID;
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v100 = v5;
+    NSAppendPrintF_safe(&v100, ", SID %ld", sourceID);
+    v11 = v100;
 
     v5 = v11;
   }
@@ -98,7 +100,7 @@
   accessoryCategory = self->_accessoryCategory;
   if (self->_accessoryCategory)
   {
-    v96 = v5;
+    v99 = v5;
     if (accessoryCategory > 0xC)
     {
       v13 = @"Unknown";
@@ -109,9 +111,8 @@
       v13 = *(&off_1E811DF98 + accessoryCategory - 1);
     }
 
-    v77 = v13;
-    NSAppendPrintF_safe();
-    v14 = v96;
+    NSAppendPrintF_safe(&v99, ", AcCa %@", v13);
+    v14 = v99;
 
     v5 = v14;
   }
@@ -120,10 +121,9 @@
   v16 = v15;
   if (v15)
   {
-    v95 = v5;
-    v77 = v15;
-    NSAppendPrintF_safe();
-    v17 = v5;
+    v98 = v5;
+    NSAppendPrintF_safe(&v98, ", AcID %@", v15);
+    v17 = v98;
 
     v5 = v17;
   }
@@ -132,10 +132,9 @@
   v19 = v18;
   if (v18)
   {
-    v94 = v5;
-    v77 = v18;
-    NSAppendPrintF_safe();
-    v20 = v5;
+    v97 = v5;
+    NSAppendPrintF_safe(&v97, ", GID %@", v18);
+    v20 = v97;
 
     v5 = v20;
   }
@@ -143,10 +142,9 @@
   familyCode = self->_familyCode;
   if (familyCode)
   {
-    v93 = v5;
-    v77 = familyCode;
-    NSAppendPrintF_safe();
-    v22 = v5;
+    v96 = v5;
+    NSAppendPrintF_safe(&v96, ", FC %ld", familyCode);
+    v22 = v96;
 
     v5 = v22;
   }
@@ -154,7 +152,7 @@
   partID = self->_partID;
   if (self->_partID)
   {
-    v92 = v5;
+    v95 = v5;
     if (partID > 6)
     {
       v24 = 0;
@@ -165,9 +163,8 @@
       v24 = off_1E811E028[partID - 1];
     }
 
-    v77 = v24;
-    NSAppendPrintF_safe();
-    v25 = v92;
+    NSAppendPrintF_safe(&v95, ", PaID %@", v24);
+    v25 = v95;
 
     v5 = v25;
   }
@@ -175,7 +172,7 @@
   productID = self->_productID;
   if (productID)
   {
-    v91 = v5;
+    v94 = v5;
     if (productID <= 21759)
     {
       switch(productID)
@@ -340,13 +337,13 @@
       {
         switch(productID)
         {
-          case 0x7413:
+          case 29715:
             v27 = "AudioAccessory5,1";
             goto LABEL_89;
-          case 0xFFFD:
+          case 65533:
             v27 = "HeGn";
             goto LABEL_89;
-          case 0xFFFE:
+          case 65534:
             v27 = "ApGn";
             goto LABEL_89;
         }
@@ -372,19 +369,17 @@
     {
       switch(productID)
       {
-        case 0x6F04:
+        case 28420:
           v27 = "AppleTV5,3";
           goto LABEL_89;
-        case 0x7108:
+        case 28936:
           v27 = "AppleTV6,2";
           goto LABEL_89;
-        case 0x710F:
+        case 28943:
           v27 = "AudioAccessory1,1";
 LABEL_89:
-          v77 = productID;
-          v79 = v27;
-          NSAppendPrintF_safe();
-          v28 = v91;
+          NSAppendPrintF_safe(&v94, ", PID 0x%04X (%s)", productID, v27);
+          v28 = v94;
 
           v5 = v28;
           goto LABEL_90;
@@ -403,7 +398,7 @@ LABEL_90:
     goto LABEL_106;
   }
 
-  v90 = v5;
+  v93 = v5;
   v30 = "Apple";
   if (vendorID > 300)
   {
@@ -450,10 +445,8 @@ LABEL_104:
   }
 
 LABEL_105:
-  v77 = vendorID;
-  v79 = v30;
-  NSAppendPrintF_safe();
-  v31 = v90;
+  NSAppendPrintF_safe(&v93, ", VID 0x%04X (%s)", vendorID, v30);
+  v31 = v93;
 
   v5 = v31;
 LABEL_106:
@@ -476,10 +469,9 @@ LABEL_106:
       v34 = v33;
     }
 
-    v89 = v5;
-    v77 = v34;
-    NSAppendPrintF_safe();
-    v35 = v5;
+    v92 = v5;
+    NSAppendPrintF_safe(&v92, ", VIDSrc %s", v34);
+    v35 = v92;
 
     v5 = v35;
   }
@@ -487,10 +479,9 @@ LABEL_106:
   temperature = self->_temperature;
   if (temperature)
   {
-    v88 = v5;
-    v77 = temperature;
-    NSAppendPrintF_safe();
-    v37 = v5;
+    v91 = v5;
+    NSAppendPrintF_safe(&v91, ", Temp %ld", temperature);
+    v37 = v91;
 
     v5 = v37;
   }
@@ -499,10 +490,9 @@ LABEL_106:
   v39 = v38;
   if (v38)
   {
-    v87 = v5;
-    v77 = v38;
-    NSAppendPrintF_safe();
-    v40 = v5;
+    v90 = v5;
+    NSAppendPrintF_safe(&v90, ", Type '%@'", v38);
+    v40 = v90;
 
     v5 = v40;
   }
@@ -511,112 +501,106 @@ LABEL_106:
   v42 = v41;
   if (v41)
   {
-    v86 = v5;
-    v77 = v41;
-    NSAppendPrintF_safe();
-    v43 = v5;
+    v89 = v5;
+    NSAppendPrintF_safe(&v89, ", TPT %@", v41);
+    v43 = v89;
 
     v5 = v43;
   }
 
   if (self->_changeFlags)
   {
-    v85 = v5;
-    v77 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v44 = v5;
-
-    v5 = v44;
-  }
-
-  if (self->_internalFlags)
-  {
-    v84 = v5;
-    v77 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v45 = v5;
+    v88 = v5;
+    v44 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v88, ", CF %@", v44);
+    v45 = v88;
 
     v5 = v45;
   }
 
+  if (self->_internalFlags)
+  {
+    v87 = v5;
+    v46 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v87, ", IF %@", v46);
+    v47 = v87;
+
+    v5 = v47;
+  }
+
   if (self->_accessoryID)
   {
-    v83 = v5;
+    v86 = v5;
     if (self->_present)
     {
-      v46 = "yes";
+      v48 = "yes";
     }
 
     else
     {
-      v46 = "no";
+      v48 = "no";
     }
 
-    v77 = v46;
-    NSAppendPrintF_safe();
-    v47 = v83;
+    NSAppendPrintF_safe(&v86, ", Present %s", v48);
+    v49 = v86;
 
-    v5 = v47;
+    v5 = v49;
   }
 
   maxCapacity = self->_maxCapacity;
   if (maxCapacity)
   {
-    v82[2] = v5;
-    v77 = maxCapacity;
-    NSAppendPrintF_safe();
-    v49 = v5;
+    v85 = v5;
+    NSAppendPrintF_safe(&v85, ", MaxC %hhu%%", maxCapacity);
+    v51 = v85;
 
-    v5 = v49;
+    v5 = v51;
   }
 
-  if ([(CBPowerSource *)self isAggregateComponent:v77])
+  if ([(CBPowerSource *)self isAggregateComponent])
   {
-    v82[1] = v5;
-    [(CBPowerSource *)self isAggregateComponent];
-    NSAppendPrintF_safe();
-    v50 = v5;
-
-    v5 = v50;
-  }
-
-  batteryInfo = self->_batteryInfo;
-  if (self->_batteryInfo)
-  {
-    v52 = ((batteryInfo & 0x7F) / 100.0) * 100.0;
-    v53 = (batteryInfo >> 8) & 7;
-    if (v53 - 1 > 1)
+    v84 = v5;
+    if ([(CBPowerSource *)self isAggregateComponent])
     {
-      v81 = v5;
-      if (v53 > 5)
-      {
-        v55 = "?";
-      }
-
-      else
-      {
-        v55 = off_1E811DFF8[v53];
-      }
-
-      v80 = v55;
-      v54 = &v81;
+      v52 = "yes";
     }
 
     else
     {
-      v82[0] = v5;
-      v80 = v52;
-      v54 = v82;
+      v52 = "no";
     }
 
-    NSAppendPrintF_safe();
-    v56 = *v54;
+    NSAppendPrintF_safe(&v84, ", AggC %s", v52);
+    v53 = v84;
+
+    v5 = v53;
+  }
+
+  if (self->_batteryInfo)
+  {
+    v54 = HIBYTE(self->_batteryInfo) & 7;
+    if ((v54 - 1) > 1)
+    {
+      v82 = v5;
+      v55 = &v82;
+      NSAppendPrintF_safe(&v82, ", Battery %u%% (%s)");
+    }
+
+    else
+    {
+      v83 = v5;
+      v55 = &v83;
+      NSAppendPrintF_safe(&v83, ", Battery %s%u%%");
+    }
+
+    v56 = *v55;
 
     v5 = v56;
   }
 
   if (self->_partID == 1)
   {
+    v81 = v5;
     hasAllComponents = [(CBPowerSource *)self hasAllComponents];
     v58 = @"N";
     if (hasAllComponents)
@@ -624,9 +608,8 @@ LABEL_106:
       v58 = @"Y";
     }
 
-    v78 = v58;
-    NSAppendPrintF_safe();
-    v59 = v5;
+    NSAppendPrintF_safe(&v81, ", Components (%@):", v58);
+    v59 = v81;
 
     v60 = 0;
     v61 = 1;
@@ -634,63 +617,64 @@ LABEL_106:
     do
     {
       componentMap = self->_componentMap;
-      v64 = v61;
-      v65 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{v61, v78, v80}];
-      v66 = [(NSMutableDictionary *)componentMap objectForKeyedSubscript:v65];
+      v65 = v61;
+      v66 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v61];
+      v67 = [(NSMutableDictionary *)componentMap objectForKeyedSubscript:v66];
 
-      if (v66)
+      if (v67)
       {
         if (v60)
         {
-          NSAppendPrintF();
-          v67 = v5;
+          v80 = v5;
+          NSAppendPrintF(&v80, ",");
+          v68 = v80;
 
-          v5 = v67;
+          v5 = v68;
         }
 
-        batteryInfo = [v66 batteryInfo];
+        batteryInfo = [v67 batteryInfo];
         if (batteryInfo)
         {
-          v69 = (batteryInfo >> 8) & 7;
-          v70 = "";
-          if (v69 == 2)
+          v70 = (batteryInfo >> 8) & 7;
+          v71 = "";
+          if (v70 == 2)
           {
-            v70 = "-";
+            v71 = "-";
           }
 
-          v71 = v69 == 1;
-          v72 = "+";
-          if (!v71)
+          v72 = v70 == 1;
+          v73 = "+";
+          if (!v72)
           {
-            v72 = v70;
+            v73 = v71;
           }
 
+          v79 = v5;
           if (v61 > 6u)
           {
-            v73 = 0;
+            v74 = 0;
           }
 
           else
           {
-            v73 = off_1E811E028[v61 - 1];
+            v74 = off_1E811E028[v61 - 1];
           }
 
-          v80 = v72;
-          v78 = v73;
-          NSAppendPrintF_safe();
-          v74 = v5;
+          NSAppendPrintF_safe(&v79, " %@ %s%u%%", v74, v73, (((batteryInfo & 0x7F) / 100.0) * 100.0));
+          v75 = v79;
 
-          v5 = v74;
+          v5 = v75;
         }
 
-        if ([v66 changeFlags])
+        if ([v67 changeFlags])
         {
-          v78 = CUPrintFlags32();
-          NSAppendPrintF_safe();
-          v62 = v5;
+          v78 = v5;
+          v62 = CUPrintFlags32();
+          NSAppendPrintF_safe(&v78, ", CF %@", v62);
+          v63 = v78;
 
           v60 = 1;
-          v5 = v62;
+          v5 = v63;
         }
 
         else
@@ -702,54 +686,52 @@ LABEL_106:
       ++v61;
     }
 
-    while (v64 < 6);
+    while (v65 < 6);
   }
 
-  v75 = v5;
+  v76 = v5;
 
   return v5;
 }
 
 - (void)removeFlags
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = self->_internalFlags & 8;
   self->_changeFlags = 0;
   self->_internalFlags = v2;
   if (self->_partID == 1)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     allValues = [(NSMutableDictionary *)self->_componentMap allValues];
-    v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v9 + 1) + 8 * v7++) removeFlags];
+          [*(*(&v8 + 1) + 8 * v7++) removeFlags];
         }
 
         while (v5 != v7);
-        v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -762,65 +744,65 @@ LABEL_106:
 
 - (void)invalidate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(CBPowerSource *)selfCopy releaseSource];
   if (selfCopy->_partID == 1)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     allKeys = [(NSMutableDictionary *)selfCopy->_componentMap allKeys];
-    v5 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v5 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v5)
     {
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           unsignedIntValue = [v8 unsignedIntValue];
           [v3 addObject:v8];
           [(CBPowerSource *)selfCopy invalidateComponentWithPartID:unsignedIntValue];
         }
 
-        v5 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v5 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v5);
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v10 = v3;
-    v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v11)
     {
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         for (j = 0; j != v11; ++j)
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(NSMutableDictionary *)selfCopy->_componentMap setObject:0 forKeyedSubscript:*(*(&v15 + 1) + 8 * j), v15];
+          [(NSMutableDictionary *)selfCopy->_componentMap setObject:0 forKeyedSubscript:*(*(&v14 + 1) + 8 * j), v14];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v14 objects:v22 count:16];
       }
 
       while (v11);
@@ -828,8 +810,6 @@ LABEL_106:
   }
 
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)releaseSource
@@ -844,7 +824,6 @@ LABEL_106:
       LogPrintF_safe();
     }
 
-    psID = obj->_psID;
     IOPSReleasePowerSource();
     v2 = obj;
     obj->_psID = 0;
@@ -1018,21 +997,20 @@ LABEL_106:
 
 - (CBPowerSource)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:5];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:5];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"cbPS"];
 
   v9 = [(CBPowerSource *)self initWithDictionary:v8 error:0];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1066,6 +1044,451 @@ LABEL_106:
   if (dictionaryRepresentation)
   {
     [coderCopy encodeObject:dictionaryRepresentation forKey:@"cbPS"];
+  }
+}
+
+- (CBPowerSource)initWithPowerSourceDetails:(id)details internalFlags:(unsigned int)flags
+{
+  v4 = *&flags;
+  v73 = *MEMORY[0x1E69E9840];
+  detailsCopy = details;
+  if (!self)
+  {
+    v71.receiver = 0;
+    v71.super_class = CBPowerSource;
+    self = [(CBPowerSource *)&v71 init];
+  }
+
+  v7 = v4 & 4;
+  v8 = 2 * v7;
+  CFStringGetTypeID();
+  v9 = CFDictionaryGetTypedValue();
+  v10 = v9;
+  if (v9)
+  {
+    self->_partID = CBPowerSourcePartIDFromString(v9);
+    v8 |= 1u;
+  }
+
+  CFStringGetTypeID();
+  v11 = CFDictionaryGetTypedValue();
+  if (v11)
+  {
+    objc_storeStrong(&self->_accessoryID, v11);
+    v8 |= 1u;
+  }
+
+  CFStringGetTypeID();
+  v12 = CFDictionaryGetTypedValue();
+  if (!v12)
+  {
+
+    accessoryCategory = self->_accessoryCategory;
+    if (accessoryCategory <= 6)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_20:
+    if (accessoryCategory <= 9)
+    {
+      if (accessoryCategory == 7)
+      {
+        v14 = 24;
+        goto LABEL_32;
+      }
+
+      if (accessoryCategory == 8)
+      {
+        v14 = 25;
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      switch(accessoryCategory)
+      {
+        case 10:
+          v14 = 19;
+          goto LABEL_32;
+        case 11:
+          v14 = 49;
+          goto LABEL_32;
+        case 12:
+          v14 = 42;
+          goto LABEL_32;
+      }
+    }
+
+    goto LABEL_31;
+  }
+
+  v15 = v12;
+  self->_accessoryCategory = CBPowerSourceAccessoryCategoryFromString(v12);
+  v8 |= 1u;
+
+  accessoryCategory = self->_accessoryCategory;
+  if (accessoryCategory > 6)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_9:
+  if (accessoryCategory <= 3)
+  {
+    if (!accessoryCategory)
+    {
+      goto LABEL_33;
+    }
+
+    if (accessoryCategory == 3)
+    {
+      v14 = 26;
+      goto LABEL_32;
+    }
+
+LABEL_31:
+    v14 = 0;
+    goto LABEL_32;
+  }
+
+  if (accessoryCategory == 4)
+  {
+    v14 = 20;
+    goto LABEL_32;
+  }
+
+  if (accessoryCategory == 5)
+  {
+    v14 = 16;
+    goto LABEL_32;
+  }
+
+  if (accessoryCategory != 6)
+  {
+    goto LABEL_31;
+  }
+
+  v14 = 51;
+LABEL_32:
+  self->_deviceType = v14;
+  v8 |= 1u;
+LABEL_33:
+  CFStringGetTypeID();
+  v16 = CFDictionaryGetTypedValue();
+  if (v16)
+  {
+    objc_storeStrong(&self->_groupID, v16);
+    v8 |= 1u;
+  }
+
+  [(CBPowerSource *)self setInternalFlags:v4];
+  v17 = NSDictionaryGetNSNumber();
+  v18 = v17;
+  if (v17)
+  {
+    self->_lowWarnLevel = [v17 integerValue];
+    v8 |= 1u;
+  }
+
+  CFDictionaryGetDouble();
+  v20 = v19;
+  maxCapacity = self->_maxCapacity;
+  v22 = v20 != maxCapacity;
+  if (v20 == maxCapacity)
+  {
+    if (maxCapacity > 0.0)
+    {
+      goto LABEL_43;
+    }
+  }
+
+  else
+  {
+    maxCapacity = v20;
+  }
+
+  if (maxCapacity <= 0.0)
+  {
+    maxCapacity = 100.0;
+  }
+
+  self->_maxCapacity = maxCapacity;
+LABEL_43:
+  CFStringGetTypeID();
+  v23 = CFDictionaryGetTypedValue();
+  if (v23)
+  {
+    objc_storeStrong(&self->_name, v23);
+    v24 = v8 | 1;
+  }
+
+  else
+  {
+    v24 = v8 | v22;
+  }
+
+  CFStringGetTypeID();
+  v25 = CFDictionaryGetTypedValue();
+  if (v25)
+  {
+    objc_storeStrong(&self->_partName, v25);
+    v24 |= 1u;
+  }
+
+  if (!self->_partName)
+  {
+    [(CBPowerSource *)self _setPartName];
+  }
+
+  self->_present = 1;
+  v26 = NSDictionaryGetNSNumber();
+  v27 = v26;
+  if (v26)
+  {
+    self->_productID = [v26 int64ValueSafe];
+    v24 |= 1u;
+  }
+
+  v28 = NSDictionaryGetNSNumber();
+  v29 = v28;
+  if (v28)
+  {
+    self->_sourceID = [v28 integerValue];
+    v24 |= 1u;
+  }
+
+  v30 = NSDictionaryGetNSNumber();
+  v31 = v30;
+  if (v30)
+  {
+    self->_temperature = [v30 integerValue];
+    v24 |= 1u;
+  }
+
+  CFStringGetTypeID();
+  v32 = CFDictionaryGetTypedValue();
+  if (v32)
+  {
+    objc_storeStrong(&self->_transportType, v32);
+    v24 |= 1u;
+  }
+
+  transportType = self->_transportType;
+  if (transportType)
+  {
+    v34 = transportType;
+    if (v34 == @"USB" || (v35 = v34, v36 = [(__CFString *)v34 isEqual:@"USB"], v35, v36))
+    {
+      self->_vendorIDSource = 2;
+      v37 = 1;
+      goto LABEL_64;
+    }
+  }
+
+  else
+  {
+    self->_transportType = @"Bluetooth";
+  }
+
+  v37 = 0;
+LABEL_64:
+  CFStringGetTypeID();
+  v38 = CFDictionaryGetTypedValue();
+  if (v38)
+  {
+    objc_storeStrong(&self->_type, v38);
+    v24 |= 1u;
+  }
+
+  v39 = NSDictionaryGetNSNumber();
+  v40 = v39;
+  if (v39)
+  {
+    self->_vendorID = [v39 int64ValueSafe];
+    v24 |= 1u;
+  }
+
+  v41 = NSDictionaryGetNSNumber();
+  v42 = v41;
+  if (v41)
+  {
+    self->_vendorIDSource = [v41 int64ValueSafe];
+    v24 |= 1u;
+  }
+
+  CFDictionaryGetDouble();
+  if (v20 <= 0.0)
+  {
+    v44 = 0;
+  }
+
+  else
+  {
+    v44 = (v43 / v20 * 100.0);
+  }
+
+  if (v44 >= 100)
+  {
+    v45 = 100;
+  }
+
+  else
+  {
+    v45 = v44;
+  }
+
+  v46 = v45 & ~(v45 >> 31);
+  if (self->_partID != 1)
+  {
+    if (CFDictionaryGetInt64())
+    {
+      v47 = 3;
+    }
+
+    else
+    {
+      v47 = v37;
+    }
+
+    if (CFDictionaryGetInt64())
+    {
+      v47 = 1;
+    }
+
+    if (CFDictionaryGetInt64())
+    {
+      v47 = 5;
+    }
+
+    if (CFDictionaryGetInt64())
+    {
+      v37 = 4;
+    }
+
+    else
+    {
+      v37 = v47;
+    }
+
+    if (v44 >= 1)
+    {
+      if (!v37)
+      {
+        LOWORD(v37) = 2;
+      }
+
+      if (![(CBPowerSource *)self isAggregateComponent])
+      {
+        CFStringGetTypeID();
+        v48 = CFDictionaryGetTypedValue();
+        v49 = v48;
+        if (v48 == @"USB" || v48 && (v50 = [(__CFString *)v48 isEqual:@"USB"], v49, v50))
+        {
+          LOWORD(v37) = 1;
+        }
+      }
+    }
+  }
+
+  self->_batteryInfo = v46 | (v37 << 8);
+  v51 = v24 | 2;
+  if (self->_partID == 1)
+  {
+    if (!self->_componentMap)
+    {
+      v52 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      componentMap = self->_componentMap;
+      self->_componentMap = v52;
+    }
+
+    CFArrayGetTypeID();
+    v54 = CFDictionaryGetTypedValue();
+    selfCopy = v54;
+    if (v54)
+    {
+      v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v56 = [(CBPowerSource *)v54 countByEnumeratingWithState:&v67 objects:v72 count:16];
+      if (v56)
+      {
+        v57 = v56;
+        v66 = v24 | 2;
+        v58 = *v68;
+        do
+        {
+          for (i = 0; i != v57; ++i)
+          {
+            if (*v68 != v58)
+            {
+              objc_enumerationMutation(selfCopy);
+            }
+
+            v60 = [[CBPowerSource alloc] initWithPowerSourceDetails:*(*(&v67 + 1) + 8 * i) internalFlags:2];
+            v61 = self->_componentMap;
+            v62 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[CBPowerSource partID](v60, "partID")}];
+            [(NSMutableDictionary *)v61 setObject:v60 forKeyedSubscript:v62];
+          }
+
+          v57 = [(CBPowerSource *)selfCopy countByEnumeratingWithState:&v67 objects:v72 count:16];
+        }
+
+        while (v57);
+        v51 = v66;
+      }
+    }
+  }
+
+  else
+  {
+    if (!v7 || ![(CBPowerSource *)self isAggregateComponent])
+    {
+      goto LABEL_112;
+    }
+
+    selfCopy = self;
+    self = objc_alloc_init(CBPowerSource);
+    [(CBPowerSource *)self setPartID:1];
+    v63 = [(CBPowerSource *)self _updateAggregateWithComponent:selfCopy];
+
+    v51 |= v63;
+  }
+
+LABEL_112:
+  if (v7)
+  {
+    v64 = v51;
+  }
+
+  else
+  {
+    v64 = 0;
+  }
+
+  self->_changeFlags = v64;
+
+  return self;
+}
+
+- (void)invalidateComponentWithPartID:(unsigned __int16)d
+{
+  if (self->_partID == 1 && self->_componentMap)
+  {
+    dCopy = d;
+    v6 = [(CBPowerSource *)self componentWithPartID:?];
+    if (v6)
+    {
+      v9 = v6;
+      [v6 invalidate];
+      componentMap = self->_componentMap;
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:dCopy];
+      [(NSMutableDictionary *)componentMap setObject:0 forKeyedSubscript:v8];
+
+      v6 = v9;
+    }
   }
 }
 
@@ -1134,6 +1557,45 @@ LABEL_106:
   return v11;
 }
 
+- (void)setInternalFlags:(unsigned int)flags
+{
+  v14 = *MEMORY[0x1E69E9840];
+  self->_internalFlags = flags;
+  if (self->_partID == 1)
+  {
+    v3 = *&flags;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    allValues = [(NSMutableDictionary *)self->_componentMap allValues];
+    v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v10;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v10 != v7)
+          {
+            objc_enumerationMutation(allValues);
+          }
+
+          [*(*(&v9 + 1) + 8 * v8++) setInternalFlags:v3];
+        }
+
+        while (v6 != v8);
+        v6 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+      }
+
+      while (v6);
+    }
+  }
+}
+
 - (BOOL)isAppleDevice
 {
   vendorID = self->_vendorID;
@@ -1152,42 +1614,40 @@ LABEL_106:
 
 - (void)removeBatteryInfo
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   self->_batteryInfo = 0;
   if (self->_partID == 1)
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     allValues = [(NSMutableDictionary *)self->_componentMap allValues];
-    v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v8 + 1) + 8 * v6++) setBatteryInfo:0];
+          [*(*(&v7 + 1) + 8 * v6++) setBatteryInfo:0];
         }
 
         while (v4 != v6);
-        v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePartID
@@ -1287,7 +1747,6 @@ LABEL_39:
       LogPrintF_safe();
     }
 
-    psID = selfCopy->_psID;
     v13 = IOPSSetPowerSourceDetails();
     if (v13 && gLogCategory_CBPowerSource <= 30 && (gLogCategory_CBPowerSource != -1 || _LogCategory_Initialize()))
     {
@@ -1303,7 +1762,7 @@ LABEL_40:
 
 - (id)dictionaryRepresentation
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   batteryInfo = self->_batteryInfo;
   if (self->_batteryInfo)
   {
@@ -1412,28 +1871,27 @@ LABEL_16:
         v17 = v16;
         if (v16)
         {
-          v56 = 0u;
-          v57 = 0u;
+          v53 = 0u;
           v54 = 0u;
-          v55 = 0u;
-          v18 = [v16 countByEnumeratingWithState:&v54 objects:v59 count:16];
+          v51 = 0u;
+          v52 = 0u;
+          v18 = [v16 countByEnumeratingWithState:&v51 objects:v56 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v55;
+            v20 = *v52;
             LODWORD(v21) = 100;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v55 != v20)
+                if (*v52 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v23 = *(*(&v54 + 1) + 8 * i);
-                v24 = NSDictionaryGetNSNumber();
-                intValue = [v24 intValue];
+                v23 = NSDictionaryGetNSNumber();
+                intValue = [v23 intValue];
                 if (intValue >= v21)
                 {
                   v21 = v21;
@@ -1445,7 +1903,7 @@ LABEL_16:
                 }
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v54 objects:v59 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v51 objects:v56 count:16];
             }
 
             while (v19);
@@ -1462,11 +1920,11 @@ LABEL_16:
           v21 = (((batteryInfo & 0x7F) / 100.0) * 100.0);
         }
 
-        v26 = [MEMORY[0x1E696AD98] numberWithInt:v21];
-        [v5 setObject:v26 forKeyedSubscript:@"Current Capacity"];
+        v25 = [MEMORY[0x1E696AD98] numberWithInt:v21];
+        [v5 setObject:v25 forKeyedSubscript:@"Current Capacity"];
 
-        v27 = [MEMORY[0x1E696AD98] numberWithInt:v15 == 5];
-        [v5 setObject:v27 forKeyedSubscript:@"Dynamic End of Charging Engaged"];
+        v26 = [MEMORY[0x1E696AD98] numberWithInt:v15 == 5];
+        [v5 setObject:v26 forKeyedSubscript:@"Dynamic End of Charging Engaged"];
 
         groupID = self->_groupID;
         if (groupID)
@@ -1474,32 +1932,32 @@ LABEL_16:
           [v5 setObject:groupID forKeyedSubscript:@"Group Identifier"];
         }
 
-        v30 = v15 == 1 || v15 == 4;
-        v31 = [MEMORY[0x1E696AD98] numberWithInt:v30];
-        [v5 setObject:v31 forKeyedSubscript:@"Is Charging"];
+        v29 = v15 == 1 || v15 == 4;
+        v30 = [MEMORY[0x1E696AD98] numberWithInt:v29];
+        [v5 setObject:v30 forKeyedSubscript:@"Is Charging"];
 
         maxCapacity = self->_maxCapacity;
         if (maxCapacity <= 0.0)
         {
-          v33 = v21 == 100;
+          v32 = v21 == 100;
         }
 
         else
         {
-          v33 = maxCapacity == v21;
+          v32 = maxCapacity == v21;
         }
 
-        v34 = [MEMORY[0x1E696AD98] numberWithBool:v33];
-        [v5 setObject:v34 forKeyedSubscript:@"Is Charged"];
+        v33 = [MEMORY[0x1E696AD98] numberWithBool:v32];
+        [v5 setObject:v33 forKeyedSubscript:@"Is Charged"];
 
-        v35 = [MEMORY[0x1E696AD98] numberWithBool:self->_present];
-        [v5 setObject:v35 forKeyedSubscript:@"Is Present"];
+        v34 = [MEMORY[0x1E696AD98] numberWithBool:self->_present];
+        [v5 setObject:v34 forKeyedSubscript:@"Is Present"];
 
-        v36 = [MEMORY[0x1E696AD98] numberWithInteger:self->_lowWarnLevel];
-        [v5 setObject:v36 forKeyedSubscript:@"Low Warn Level"];
+        v35 = [MEMORY[0x1E696AD98] numberWithInteger:self->_lowWarnLevel];
+        [v5 setObject:v35 forKeyedSubscript:@"Low Warn Level"];
 
-        v37 = [MEMORY[0x1E696AD98] numberWithDouble:self->_maxCapacity];
-        [v5 setObject:v37 forKeyedSubscript:@"Max Capacity"];
+        v36 = [MEMORY[0x1E696AD98] numberWithDouble:self->_maxCapacity];
+        [v5 setObject:v36 forKeyedSubscript:@"Max Capacity"];
 
         if ((self->_internalFlags & 8) != 0)
         {
@@ -1512,10 +1970,10 @@ LABEL_16:
           [v5 setObject:name forKeyedSubscript:@"Name"];
         }
 
-        v39 = [MEMORY[0x1E696AD98] numberWithInt:v15 == 4];
-        [v5 setObject:v39 forKeyedSubscript:@"Optimized Battery Charging Engaged"];
+        v38 = [MEMORY[0x1E696AD98] numberWithInt:v15 == 4];
+        [v5 setObject:v38 forKeyedSubscript:@"Optimized Battery Charging Engaged"];
 
-        v40 = 0;
+        v39 = 0;
         partID = self->_partID;
         if (partID <= 2)
         {
@@ -1526,12 +1984,12 @@ LABEL_16:
 
           if (partID == 1)
           {
-            v40 = @"Combined";
+            v39 = @"Combined";
           }
 
           else if (partID == 2)
           {
-            v40 = @"Left";
+            v39 = @"Left";
           }
         }
 
@@ -1539,26 +1997,26 @@ LABEL_16:
         {
           if (partID == 5)
           {
-            v40 = @"Other";
+            v39 = @"Other";
           }
 
           else if (partID == 6)
           {
-            v40 = @"Single";
+            v39 = @"Single";
           }
         }
 
         else if (partID == 3)
         {
-          v40 = @"Right";
+          v39 = @"Right";
         }
 
         else if (partID == 4)
         {
-          v40 = @"Case";
+          v39 = @"Case";
         }
 
-        [v5 setObject:v40 forKeyedSubscript:@"Part Identifier"];
+        [v5 setObject:v39 forKeyedSubscript:@"Part Identifier"];
 LABEL_80:
         partName = self->_partName;
         if (partName)
@@ -1568,32 +2026,32 @@ LABEL_80:
 
         if (self->_productID)
         {
-          v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-          [v5 setObject:v43 forKeyedSubscript:@"Product ID"];
+          v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+          [v5 setObject:v42 forKeyedSubscript:@"Product ID"];
         }
 
         if (self->_sourceID)
         {
-          v44 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-          [v5 setObject:v44 forKeyedSubscript:@"Power Source ID"];
+          v43 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+          [v5 setObject:v43 forKeyedSubscript:@"Power Source ID"];
         }
 
         if (((v15 == 1) & ![(CBPowerSource *)self isAggregateComponent]) != 0)
         {
-          v45 = @"AC Power";
+          v44 = @"AC Power";
         }
 
         else
         {
-          v45 = @"Battery Power";
+          v44 = @"Battery Power";
         }
 
-        [v5 setObject:v45 forKeyedSubscript:@"Power Source State"];
+        [v5 setObject:v44 forKeyedSubscript:@"Power Source State"];
         [v5 setObject:&unk_1F40209C0 forKeyedSubscript:@"Time to Full Charge"];
         if (self->_temperature)
         {
-          v46 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-          [v5 setObject:v46 forKeyedSubscript:@"Temperature"];
+          v45 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+          [v5 setObject:v45 forKeyedSubscript:@"Temperature"];
         }
 
         transportType = self->_transportType;
@@ -1610,17 +2068,16 @@ LABEL_80:
 
         if (self->_vendorID)
         {
-          v49 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:?];
-          [v5 setObject:v49 forKeyedSubscript:@"Vendor ID"];
+          v48 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:?];
+          [v5 setObject:v48 forKeyedSubscript:@"Vendor ID"];
         }
 
         if (self->_vendorIDSource)
         {
-          v50 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:?];
-          [v5 setObject:v50 forKeyedSubscript:@"Vendor ID Source"];
+          v49 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:?];
+          [v5 setObject:v49 forKeyedSubscript:@"Vendor ID Source"];
         }
 
-        v51 = *MEMORY[0x1E69E9840];
         break;
     }
   }
@@ -1628,8 +2085,7 @@ LABEL_80:
   else
   {
     [(CBPowerSource *)self dictionaryRepresentation];
-    v5 = v58;
-    v53 = *MEMORY[0x1E69E9840];
+    v5 = v55;
   }
 
   return v5;
@@ -1637,7 +2093,7 @@ LABEL_80:
 
 - (unsigned)updateWithCBPowerSource:(id)source
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   changeFlags = self->_changeFlags;
   if (![sourceCopy isAggregateComponent] || self->_partID != 1)
@@ -1733,8 +2189,8 @@ LABEL_55:
 LABEL_32:
                     lowWarnLevel = [sourceCopy lowWarnLevel];
                     lowWarnLevel = self->_lowWarnLevel;
-                    v91 = v19;
-                    v92 = v10;
+                    v90 = v19;
+                    v91 = v10;
                     if (lowWarnLevel)
                     {
                       if (lowWarnLevel == lowWarnLevel)
@@ -1937,7 +2393,7 @@ LABEL_97:
                                             v67 = v66;
                                             if (v65 != v66)
                                             {
-                                              v89 = v42;
+                                              v88 = v42;
                                               v68 = v33;
                                               v69 = v54;
                                               if (v66)
@@ -1949,7 +2405,7 @@ LABEL_97:
 LABEL_107:
                                                   v54 = v69;
                                                   v33 = v68;
-                                                  v42 = v89;
+                                                  v42 = v88;
                                                   v71 = self->_type;
                                                   if (!v71)
                                                   {
@@ -1999,31 +2455,31 @@ LABEL_111:
 
                                                   if ([sourceCopy partID] == 1 && self->_partID == 1)
                                                   {
-                                                    v87 = v54;
-                                                    v88 = v33;
-                                                    v90 = v42;
-                                                    v95 = 0u;
-                                                    v96 = 0u;
-                                                    v93 = 0u;
+                                                    v86 = v54;
+                                                    v87 = v33;
+                                                    v89 = v42;
                                                     v94 = 0u;
+                                                    v95 = 0u;
+                                                    v92 = 0u;
+                                                    v93 = 0u;
                                                     components = [sourceCopy components];
                                                     allValues = [components allValues];
 
-                                                    v76 = [allValues countByEnumeratingWithState:&v93 objects:v97 count:16];
+                                                    v76 = [allValues countByEnumeratingWithState:&v92 objects:v96 count:16];
                                                     if (v76)
                                                     {
                                                       v77 = v76;
-                                                      v78 = *v94;
+                                                      v78 = *v93;
                                                       do
                                                       {
                                                         for (i = 0; i != v77; ++i)
                                                         {
-                                                          if (*v94 != v78)
+                                                          if (*v93 != v78)
                                                           {
                                                             objc_enumerationMutation(allValues);
                                                           }
 
-                                                          v80 = *(*(&v93 + 1) + 8 * i);
+                                                          v80 = *(*(&v92 + 1) + 8 * i);
                                                           v81 = -[CBPowerSource componentWithPartID:](self, "componentWithPartID:", [v80 partID]);
                                                           v82 = v81;
                                                           if (v81)
@@ -2034,17 +2490,17 @@ LABEL_111:
                                                           v6 |= [(CBPowerSource *)self _updateAggregateWithComponent:v80];
                                                         }
 
-                                                        v77 = [allValues countByEnumeratingWithState:&v93 objects:v97 count:16];
+                                                        v77 = [allValues countByEnumeratingWithState:&v92 objects:v96 count:16];
                                                       }
 
                                                       while (v77);
                                                     }
 
-                                                    v84 = v91;
-                                                    v83 = v92;
-                                                    v33 = v88;
-                                                    v42 = v90;
-                                                    v54 = v87;
+                                                    v84 = v90;
+                                                    v83 = v91;
+                                                    v33 = v87;
+                                                    v42 = v89;
+                                                    v54 = v86;
                                                     self->_changeFlags = v6;
                                                     self->_present = (v6 & 0x10) == 0;
                                                     if (!v6)
@@ -2055,8 +2511,8 @@ LABEL_111:
 
                                                   else
                                                   {
-                                                    v84 = v91;
-                                                    v83 = v92;
+                                                    v84 = v90;
+                                                    v83 = v91;
                                                     self->_changeFlags = v6;
                                                     self->_present = (v6 & 0x10) == 0;
                                                     if (!v6)
@@ -2199,17 +2655,16 @@ LABEL_23:
   v6 = [(CBPowerSource *)self _updateAggregateWithComponent:sourceCopy];
 LABEL_136:
 
-  v85 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (CBPowerSource)initWithXPCObject:(id)object error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v33.receiver = self;
-  v33.super_class = CBPowerSource;
-  v13 = [(CBPowerSource *)&v33 init];
+  v88.receiver = self;
+  v88.super_class = CBPowerSource;
+  v13 = [(CBPowerSource *)&v88 init];
   if (!v13)
   {
     if (!error)
@@ -2217,10 +2672,10 @@ LABEL_136:
       goto LABEL_59;
     }
 
-    v30 = "CBPowerSource super init failed";
+    v73 = "CBPowerSource super init failed";
 LABEL_58:
-    CBErrorF(-6756, v30, v7, v8, v9, v10, v11, v12, v31);
-    *error = v27 = 0;
+    CBErrorF(-6756, v73, v7, v8, v9, v10, v11, v12, v74);
+    *error = v71 = 0;
     goto LABEL_52;
   }
 
@@ -2231,114 +2686,114 @@ LABEL_58:
       goto LABEL_59;
     }
 
-    v30 = "XPC non-dict";
+    v73 = "XPC non-dict";
     goto LABEL_58;
   }
 
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v14 = OUTLINED_FUNCTION_4_0();
-  if (v14 == 6)
-  {
-    v13->_accessoryCategory = v34;
-  }
-
-  else if (v14 == 5)
-  {
-    goto LABEL_59;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_59;
-  }
-
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v15 = CUXPCDecodeUInt64RangedEx();
-  if (v15 == 6)
-  {
-    v13->_appearanceValue = v34;
-  }
-
-  else if (v15 == 5)
-  {
-    goto LABEL_59;
-  }
-
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v16 = OUTLINED_FUNCTION_4_0();
-  if (v16 == 6)
-  {
-    v13->_batteryInfo = v34;
-    goto LABEL_13;
-  }
-
-  if (v16 == 5)
-  {
-LABEL_59:
-    v27 = 0;
-    goto LABEL_52;
-  }
-
-LABEL_13:
-  v32 = 0;
-  objc_opt_class();
-  CUXPCDecodeNSArrayOfClass();
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v17 = CUXPCDecodeUInt64RangedEx();
-  if (v17 == 6)
-  {
-    v13->_deviceType = v34;
-  }
-
-  else if (v17 == 5)
-  {
-    goto LABEL_53;
-  }
-
-  v34 = 0;
-  v18 = OUTLINED_FUNCTION_2_2();
-  if (v18 == 6)
-  {
-    v13->_familyCode = v34;
-  }
-
-  else if (v18 == 5)
-  {
-    goto LABEL_53;
-  }
-
-  OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeNSString())
-  {
-    goto LABEL_53;
-  }
-
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v19 = CUXPCDecodeUInt64RangedEx();
+  v89 = 0;
+  v14 = OUTLINED_FUNCTION_1_1();
+  v19 = OUTLINED_FUNCTION_4_0(v14, v15, v16, v17, v18);
   if (v19 == 6)
   {
-    v13->_internalFlags = v34;
+    v13->_accessoryCategory = v89;
   }
 
   else if (v19 == 5)
   {
-    goto LABEL_53;
+    goto LABEL_59;
   }
 
-  v34 = 0;
-  v20 = OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_59;
+  }
+
+  v89 = 0;
+  OUTLINED_FUNCTION_1_1();
+  v20 = CUXPCDecodeUInt64RangedEx();
   if (v20 == 6)
   {
-    v13->_lowWarnLevel = v34;
+    v13->_appearanceValue = v89;
   }
 
   else if (v20 == 5)
+  {
+    goto LABEL_59;
+  }
+
+  v89 = 0;
+  v21 = OUTLINED_FUNCTION_1_1();
+  v26 = OUTLINED_FUNCTION_4_0(v21, v22, v23, v24, v25);
+  if (v26 == 6)
+  {
+    v13->_batteryInfo = v89;
+    goto LABEL_13;
+  }
+
+  if (v26 == 5)
+  {
+LABEL_59:
+    v71 = 0;
+    goto LABEL_52;
+  }
+
+LABEL_13:
+  v87 = 0;
+  objc_opt_class();
+  CUXPCDecodeNSArrayOfClass();
+  v89 = 0;
+  OUTLINED_FUNCTION_1_1();
+  v27 = CUXPCDecodeUInt64RangedEx();
+  if (v27 == 6)
+  {
+    v13->_deviceType = v89;
+  }
+
+  else if (v27 == 5)
+  {
+    goto LABEL_53;
+  }
+
+  v89 = 0;
+  v34 = OUTLINED_FUNCTION_2_2(v27, "famC", v28, v29, v30, v31, v32, v33, v74, v78, v82, v83, v84, v85, v86);
+  if (v34 == 6)
+  {
+    v13->_familyCode = v89;
+  }
+
+  else if (v34 == 5)
+  {
+    goto LABEL_53;
+  }
+
+  OUTLINED_FUNCTION_1_0();
+  if (!CUXPCDecodeNSString())
+  {
+    goto LABEL_53;
+  }
+
+  v89 = 0;
+  OUTLINED_FUNCTION_1_1();
+  v35 = CUXPCDecodeUInt64RangedEx();
+  if (v35 == 6)
+  {
+    v13->_internalFlags = v89;
+  }
+
+  else if (v35 == 5)
+  {
+    goto LABEL_53;
+  }
+
+  v89 = 0;
+  v42 = OUTLINED_FUNCTION_2_2(v35, "lwLv", v36, v37, v38, v39, v40, v41, v75, v79, v82, v83, v84, v85, v86);
+  if (v42 == 6)
+  {
+    v13->_lowWarnLevel = v89;
+  }
+
+  else if (v42 == 5)
   {
     goto LABEL_53;
   }
@@ -2355,15 +2810,15 @@ LABEL_13:
     goto LABEL_53;
   }
 
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v21 = OUTLINED_FUNCTION_4_0();
-  if (v21 == 6)
+  v89 = 0;
+  v43 = OUTLINED_FUNCTION_1_1();
+  v48 = OUTLINED_FUNCTION_4_0(v43, v44, v45, v46, v47);
+  if (v48 == 6)
   {
-    v13->_partID = v34;
+    v13->_partID = v89;
   }
 
-  else if (v21 == 5)
+  else if (v48 == 5)
   {
     goto LABEL_53;
   }
@@ -2380,39 +2835,39 @@ LABEL_13:
     goto LABEL_53;
   }
 
-  v34 = 0;
+  v89 = 0;
   OUTLINED_FUNCTION_1_1();
-  v22 = CUXPCDecodeUInt64RangedEx();
-  if (v22 == 6)
+  v49 = CUXPCDecodeUInt64RangedEx();
+  if (v49 == 6)
   {
-    v13->_productID = v34;
+    v13->_productID = v89;
   }
 
-  else if (v22 == 5)
-  {
-    goto LABEL_53;
-  }
-
-  v34 = 0;
-  v23 = OUTLINED_FUNCTION_2_2();
-  if (v23 == 6)
-  {
-    v13->_sourceID = v34;
-  }
-
-  else if (v23 == 5)
+  else if (v49 == 5)
   {
     goto LABEL_53;
   }
 
-  v34 = 0;
-  v24 = OUTLINED_FUNCTION_2_2();
-  if (v24 == 6)
+  v89 = 0;
+  v56 = OUTLINED_FUNCTION_2_2(v49, "psID", v50, v51, v52, v53, v54, v55, v76, v80, v82, v83, v84, v85, v86);
+  if (v56 == 6)
   {
-    v13->_temperature = v34;
+    v13->_sourceID = v89;
   }
 
-  else if (v24 == 5)
+  else if (v56 == 5)
+  {
+    goto LABEL_53;
+  }
+
+  v89 = 0;
+  v63 = OUTLINED_FUNCTION_2_2(v56, "pTmp", v57, v58, v59, v60, v61, v62, v77, v81, v82, v83, v84, v85, v86);
+  if (v63 == 6)
+  {
+    v13->_temperature = v89;
+  }
+
+  else if (v63 == 5)
   {
     goto LABEL_53;
   }
@@ -2429,42 +2884,41 @@ LABEL_13:
     goto LABEL_53;
   }
 
-  v34 = 0;
-  OUTLINED_FUNCTION_1_1();
-  v25 = OUTLINED_FUNCTION_4_0();
-  if (v25 == 6)
+  v89 = 0;
+  v64 = OUTLINED_FUNCTION_1_1();
+  v69 = OUTLINED_FUNCTION_4_0(v64, v65, v66, v67, v68);
+  if (v69 == 6)
   {
-    v13->_vendorID = v34;
+    v13->_vendorID = v89;
   }
 
-  else if (v25 == 5)
+  else if (v69 == 5)
   {
     goto LABEL_53;
   }
 
-  v34 = 0;
+  v89 = 0;
   OUTLINED_FUNCTION_1_1();
-  v26 = CUXPCDecodeUInt64RangedEx();
-  if (v26 != 6)
+  v70 = CUXPCDecodeUInt64RangedEx();
+  if (v70 != 6)
   {
-    if (v26 != 5)
+    if (v70 != 5)
     {
       goto LABEL_50;
     }
 
 LABEL_53:
-    v27 = 0;
+    v71 = 0;
     goto LABEL_51;
   }
 
-  v13->_vendorIDSource = v34;
+  v13->_vendorIDSource = v89;
 LABEL_50:
-  v27 = v13;
+  v71 = v13;
 LABEL_51:
 
 LABEL_52:
-  v28 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v71;
 }
 
 - (BOOL)combinedPublish
@@ -2534,14 +2988,26 @@ LABEL_10:
   return v12 < 10.0 && v13;
 }
 
+- (id)componentWithPartID:(unsigned __int16)d
+{
+  componentMap = self->_componentMap;
+  if (componentMap)
+  {
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:d];
+    componentMap = [componentMap objectForKeyedSubscript:v4];
+  }
+
+  return componentMap;
+}
+
 - (unsigned)_updateAggregateWithComponent:(id)component
 {
-  v159 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   componentCopy = component;
   if (self->_partID != 1)
   {
-    v108 = 0;
-    goto LABEL_189;
+    v101 = 0;
+    goto LABEL_185;
   }
 
   if (!self->_componentMap)
@@ -2559,8 +3025,8 @@ LABEL_10:
       LogPrintF_safe();
     }
 
-    v108 = 0;
-    goto LABEL_188;
+    v101 = 0;
+    goto LABEL_184;
   }
 
   [v7 updatePartID];
@@ -2598,8 +3064,8 @@ LABEL_10:
   }
 
   accessoryID = [v7 accessoryID];
-  v115 = v15;
-  v114 = accessoryID;
+  v107 = v15;
+  v106 = accessoryID;
   if (accessoryID)
   {
     v20 = accessoryID;
@@ -2622,7 +3088,7 @@ LABEL_10:
 
       v23 = OUTLINED_FUNCTION_8_0();
 
-      v20 = v114;
+      v20 = v106;
       if ((v23 & 1) == 0)
       {
 LABEL_23:
@@ -2634,15 +3100,15 @@ LABEL_23:
 
 LABEL_24:
   appearanceValue = [v7 appearanceValue];
-  v116 = v7;
+  v108 = v7;
   if (appearanceValue && appearanceValue != self->_appearanceValue)
   {
     self->_appearanceValue = appearanceValue;
     changeFlags |= 1u;
   }
 
-  v112 = v11;
-  v113 = componentCopy;
+  v104 = v11;
+  v105 = componentCopy;
   v25 = OUTLINED_FUNCTION_7_0(self->_batteryInfo & 0x7F);
   if (v25 >= 100)
   {
@@ -2664,26 +3130,26 @@ LABEL_24:
     v27 = 100;
   }
 
-  v147 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v150 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   allValues = [(NSMutableDictionary *)self->_componentMap allValues];
-  v29 = [allValues countByEnumeratingWithState:&v147 objects:v158 count:16];
+  v29 = [allValues countByEnumeratingWithState:&v118 objects:v129 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v148;
+    v31 = *v119;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v148 != v31)
+        if (*v119 != v31)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v13 = *(*(&v147 + 1) + 8 * i);
+        v13 = *(*(&v118 + 1) + 8 * i);
         if (([(NSMutableDictionary *)v13 changeFlags]& 0x10) == 0)
         {
           v33 = ((([(NSMutableDictionary *)v13 batteryInfo]& 0x7F) / 100.0) * 100.0);
@@ -2694,7 +3160,7 @@ LABEL_24:
         }
       }
 
-      v30 = [allValues countByEnumeratingWithState:&v147 objects:v158 count:16];
+      v30 = [allValues countByEnumeratingWithState:&v118 objects:v129 count:16];
     }
 
     while (v30);
@@ -2702,7 +3168,7 @@ LABEL_24:
 
   if (v27 == v25)
   {
-    v7 = v116;
+    v7 = v108;
     v34 = changeFlags;
   }
 
@@ -2720,7 +3186,7 @@ LABEL_24:
 
     self->_batteryInfo = self->_batteryInfo & 0x700 | v35 & ~(v35 >> 31);
     v34 = changeFlags | 1;
-    v7 = v116;
+    v7 = v108;
   }
 
   deviceType = [v7 deviceType];
@@ -2730,10 +3196,10 @@ LABEL_24:
     v34 |= 1u;
   }
 
-  v118 = v34;
+  v110 = v34;
   groupID = [v7 groupID];
   location = self;
-  v111 = groupID;
+  v103 = groupID;
   if (!groupID)
   {
     goto LABEL_78;
@@ -2766,33 +3232,29 @@ LABEL_24:
 
     objc_storeStrong(&self->_groupID, v38);
     OUTLINED_FUNCTION_0_4();
-    v145 = 0u;
-    v146 = 0u;
-    v143 = 0u;
-    v144 = 0u;
+    memset(v117, 0, sizeof(v117));
     allValues2 = [(NSMutableDictionary *)self->_componentMap allValues];
-    v43 = [(NSMutableDictionary *)allValues2 countByEnumeratingWithState:&v143 objects:v157 count:16];
+    v43 = [(NSMutableDictionary *)allValues2 countByEnumeratingWithState:v117 objects:v128 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v144;
       while (1)
       {
         for (j = 0; j != v44; ++j)
         {
-          OUTLINED_FUNCTION_4_2(v144);
+          OUTLINED_FUNCTION_4_2();
           if (!v17)
           {
             objc_enumerationMutation(allValues2);
           }
 
-          v47 = *(*(&v143 + 1) + 8 * j);
-          changeFlags = [v47 changeFlags];
+          v46 = *(*(&v117[0] + 1) + 8 * j);
+          changeFlags = [v46 changeFlags];
           if ((changeFlags & 0x10) == 0)
           {
-            allValues = [v47 groupID];
+            allValues = [v46 groupID];
             v13 = v40;
-            v50 = allValues;
+            v49 = allValues;
             OUTLINED_FUNCTION_5_2();
             if (v17)
             {
@@ -2804,25 +3266,25 @@ LABEL_24:
             {
 
 LABEL_71:
-              [v47 setGroupID:v13];
-              changeFlags = [v47 setChangeFlags:{objc_msgSend(v47, "changeFlags") | 1}];
+              [v46 setGroupID:v13];
+              changeFlags = [v46 setChangeFlags:{objc_msgSend(v46, "changeFlags") | 1}];
               continue;
             }
 
-            v51 = OUTLINED_FUNCTION_8_0();
+            v50 = OUTLINED_FUNCTION_8_0();
 
-            if ((v51 & 1) == 0)
+            if ((v50 & 1) == 0)
             {
               goto LABEL_71;
             }
           }
         }
 
-        v44 = OUTLINED_FUNCTION_9(changeFlags, v49, &v143, v157);
+        v44 = OUTLINED_FUNCTION_9(changeFlags, v48, v117, v128);
         if (!v44)
         {
           v40 = allValues2;
-          v7 = v116;
+          v7 = v108;
           goto LABEL_76;
         }
       }
@@ -2835,23 +3297,19 @@ LABEL_76:
 
 LABEL_78:
   internalFlags = [v7 internalFlags];
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
-  v142 = 0u;
+  memset(v116, 0, sizeof(v116));
   allValues3 = [(NSMutableDictionary *)self->_componentMap allValues];
-  if ([allValues3 countByEnumeratingWithState:&v139 objects:v156 count:16])
+  if ([allValues3 countByEnumeratingWithState:v116 objects:v127 count:16])
   {
-    v54 = *v140;
     do
     {
-      OUTLINED_FUNCTION_4_2(v140);
+      OUTLINED_FUNCTION_4_2();
       if (!v17)
       {
         objc_enumerationMutation(allValues3);
       }
 
-      if ((OUTLINED_FUNCTION_10(*(&v139 + 1)) & 0x10) == 0)
+      if ((OUTLINED_FUNCTION_10(*(&v116[0] + 1)) & 0x10) == 0)
       {
         internalFlags = [(NSMutableDictionary *)v13 internalFlags]| internalFlags;
       }
@@ -2859,7 +3317,7 @@ LABEL_78:
       OUTLINED_FUNCTION_6_0();
     }
 
-    while (!v17 || OUTLINED_FUNCTION_9(v55, v56, &v139, v156));
+    while (!v17 || OUTLINED_FUNCTION_9(v53, v54, v116, v127));
   }
 
   if (internalFlags != self->_internalFlags)
@@ -2868,23 +3326,19 @@ LABEL_78:
   }
 
   lowWarnLevel = [v7 lowWarnLevel];
-  v135 = 0u;
-  v136 = 0u;
-  v137 = 0u;
-  v138 = 0u;
+  memset(v115, 0, sizeof(v115));
   allValues4 = [(NSMutableDictionary *)self->_componentMap allValues];
-  if ([allValues4 countByEnumeratingWithState:&v135 objects:v155 count:16])
+  if ([allValues4 countByEnumeratingWithState:v115 objects:v126 count:16])
   {
-    v59 = *v136;
     do
     {
-      OUTLINED_FUNCTION_4_2(v136);
+      OUTLINED_FUNCTION_4_2();
       if (!v17)
       {
         objc_enumerationMutation(allValues4);
       }
 
-      if ((OUTLINED_FUNCTION_10(*(&v135 + 1)) & 0x10) == 0 && [(NSMutableDictionary *)v13 lowWarnLevel]< lowWarnLevel)
+      if ((OUTLINED_FUNCTION_10(*(&v115[0] + 1)) & 0x10) == 0 && [(NSMutableDictionary *)v13 lowWarnLevel]< lowWarnLevel)
       {
         lowWarnLevel = [(NSMutableDictionary *)v13 lowWarnLevel];
       }
@@ -2892,7 +3346,7 @@ LABEL_78:
       OUTLINED_FUNCTION_6_0();
     }
 
-    while (!v17 || OUTLINED_FUNCTION_9(v60, v61, &v135, v155));
+    while (!v17 || OUTLINED_FUNCTION_9(v57, v58, v115, v126));
   }
 
   lowWarnLevel = self->_lowWarnLevel;
@@ -2910,41 +3364,37 @@ LABEL_78:
     self->_lowWarnLevel = 20;
   }
 
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
-  v132 = 0u;
+  memset(v114, 0, sizeof(v114));
   allValues5 = [(NSMutableDictionary *)self->_componentMap allValues];
-  if ([allValues5 countByEnumeratingWithState:&v131 objects:v154 count:16])
+  if ([allValues5 countByEnumeratingWithState:v114 objects:v125 count:16])
   {
-    v64 = *v132;
-    v65 = 2.22507386e-308;
+    v61 = 2.22507386e-308;
     do
     {
-      OUTLINED_FUNCTION_4_2(v132);
+      OUTLINED_FUNCTION_4_2();
       if (!v17)
       {
         objc_enumerationMutation(allValues5);
       }
 
-      if ((OUTLINED_FUNCTION_10(*(&v131 + 1)) & 0x10) == 0)
+      if ((OUTLINED_FUNCTION_10(*(&v114[0] + 1)) & 0x10) == 0)
       {
         [(NSMutableDictionary *)v13 maxCapacity];
-        if (v65 <= v66)
+        if (v61 <= v62)
         {
           [(NSMutableDictionary *)v13 maxCapacity];
-          v65 = v67;
+          v61 = v63;
         }
       }
 
       OUTLINED_FUNCTION_6_0();
     }
 
-    while (!v17 || [allValues5 countByEnumeratingWithState:&v131 objects:v154 count:16]);
+    while (!v17 || [allValues5 countByEnumeratingWithState:v114 objects:v125 count:16]);
 
-    if (v65 != 2.22507386e-308 && v65 != self->_maxCapacity)
+    if (v61 != 2.22507386e-308 && v61 != self->_maxCapacity)
     {
-      self->_maxCapacity = v65;
+      self->_maxCapacity = v61;
       OUTLINED_FUNCTION_0_4();
     }
   }
@@ -2954,67 +3404,63 @@ LABEL_78:
   }
 
   name = [v7 name];
-  v70 = name;
-  if (!name)
-  {
-    goto LABEL_127;
-  }
-
-  name = self->_name;
+  v66 = name;
   if (!name)
   {
     goto LABEL_125;
   }
 
-  if (v115 == 2)
+  name = self->_name;
+  if (!name)
+  {
+    goto LABEL_123;
+  }
+
+  if (v107 == 2)
   {
     v13 = name;
-    v72 = name;
+    v68 = name;
     OUTLINED_FUNCTION_5_2();
     if (v17)
     {
 
-      goto LABEL_126;
+      goto LABEL_124;
     }
 
-    v73 = OUTLINED_FUNCTION_8_0();
+    v69 = OUTLINED_FUNCTION_8_0();
 
-    if ((v73 & 1) == 0)
+    if ((v69 & 1) == 0)
     {
-LABEL_125:
-      objc_storeStrong(&self->_name, v70);
+LABEL_123:
+      objc_storeStrong(&self->_name, v66);
       OUTLINED_FUNCTION_0_4();
     }
   }
 
-LABEL_126:
-  v7 = v116;
-LABEL_127:
+LABEL_124:
+  v7 = v108;
+LABEL_125:
   if (self->_partID != 1)
   {
     self->_partID = 1;
     OUTLINED_FUNCTION_0_4();
   }
 
-  v129 = 0u;
-  v130 = 0u;
-  v127 = 0u;
-  v128 = 0u;
+  memset(v113, 0, sizeof(v113));
   allValues6 = [(NSMutableDictionary *)self->_componentMap allValues];
-  v75 = [allValues6 countByEnumeratingWithState:&v127 objects:v153 count:16];
-  v76 = v75;
-  if (v75)
+  v71 = [allValues6 countByEnumeratingWithState:v113 objects:v124 count:16];
+  v72 = v71;
+  if (v71)
   {
-    v77 = *v128;
     while (1)
     {
-      OUTLINED_FUNCTION_4_2(v128);
+      OUTLINED_FUNCTION_4_2();
       if (!v17)
       {
         objc_enumerationMutation(allValues6);
       }
 
-      if (([**(&v127 + 1) changeFlags] & 0x10) == 0)
+      if (([**(&v113[0] + 1) changeFlags] & 0x10) == 0)
       {
         break;
       }
@@ -3022,23 +3468,23 @@ LABEL_127:
       OUTLINED_FUNCTION_6_0();
       if (v17)
       {
-        v80 = OUTLINED_FUNCTION_9(v78, v79, &v127, v153);
-        v76 = v80;
-        if (!v80)
+        v75 = OUTLINED_FUNCTION_9(v73, v74, v113, v124);
+        v72 = v75;
+        if (!v75)
         {
-          goto LABEL_139;
+          goto LABEL_136;
         }
       }
     }
 
-    v76 = 1;
+    v72 = 1;
   }
 
-LABEL_139:
+LABEL_136:
 
-  if (self->_present != v76)
+  if (self->_present != v72)
   {
-    self->_present = v76;
+    self->_present = v72;
     OUTLINED_FUNCTION_0_4();
   }
 
@@ -3057,23 +3503,19 @@ LABEL_139:
 
   if (self->_sourceID)
   {
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
+    memset(v112, 0, sizeof(v112));
     allValues7 = [(NSMutableDictionary *)self->_componentMap allValues];
-    if ([allValues7 countByEnumeratingWithState:&v123 objects:v152 count:16])
+    if ([allValues7 countByEnumeratingWithState:v112 objects:v123 count:16])
     {
-      v83 = *v124;
       do
       {
-        OUTLINED_FUNCTION_4_2(v124);
+        OUTLINED_FUNCTION_4_2();
         if (!v17)
         {
           objc_enumerationMutation(allValues7);
         }
 
-        if ((OUTLINED_FUNCTION_10(*(&v123 + 1)) & 0x10) == 0 && ([(NSMutableDictionary *)v13 partID]== 2 || [(NSMutableDictionary *)v13 partID]== 3))
+        if ((OUTLINED_FUNCTION_10(*(&v112[0] + 1)) & 0x10) == 0 && ([(NSMutableDictionary *)v13 partID]== 2 || [(NSMutableDictionary *)v13 partID]== 3))
         {
           [(NSMutableDictionary *)v13 setSourceID:0];
         }
@@ -3081,86 +3523,86 @@ LABEL_139:
         OUTLINED_FUNCTION_6_0();
       }
 
-      while (!v17 || OUTLINED_FUNCTION_9(v84, v85, &v123, v152));
+      while (!v17 || OUTLINED_FUNCTION_9(v78, v79, v112, v123));
     }
   }
 
   transportType = [v7 transportType];
-  v87 = transportType;
+  v81 = transportType;
   if (!transportType)
   {
-    goto LABEL_165;
+    goto LABEL_161;
   }
 
   transportType = self->_transportType;
   p_transportType = &self->_transportType;
-  v88 = transportType;
+  v82 = transportType;
   if (!transportType)
   {
-    goto LABEL_163;
+    goto LABEL_159;
   }
 
-  if (v115 == 2)
+  if (v107 == 2)
   {
-    v91 = transportType;
-    v92 = v88;
+    v85 = transportType;
+    v86 = v82;
     OUTLINED_FUNCTION_5_2();
     if (v17)
     {
 
-      goto LABEL_164;
+      goto LABEL_160;
+    }
+
+    v87 = OUTLINED_FUNCTION_8_0();
+
+    if ((v87 & 1) == 0)
+    {
+LABEL_159:
+      objc_storeStrong(p_transportType, v81);
+      OUTLINED_FUNCTION_0_4();
+    }
+  }
+
+LABEL_160:
+  v7 = v108;
+LABEL_161:
+  type = [v7 type];
+  v89 = type;
+  if (!type)
+  {
+    goto LABEL_168;
+  }
+
+  type = location->_type;
+  if (!type)
+  {
+    goto LABEL_166;
+  }
+
+  if (v107 == 2)
+  {
+    v91 = type;
+    v92 = type;
+    OUTLINED_FUNCTION_5_2();
+    if (v17)
+    {
+
+      goto LABEL_167;
     }
 
     v93 = OUTLINED_FUNCTION_8_0();
 
     if ((v93 & 1) == 0)
     {
-LABEL_163:
-      objc_storeStrong(p_transportType, v87);
+LABEL_166:
+      objc_storeStrong(&location->_type, v89);
       OUTLINED_FUNCTION_0_4();
     }
   }
 
-LABEL_164:
-  v7 = v116;
-LABEL_165:
-  type = [v7 type];
-  v95 = type;
-  if (!type)
-  {
-    goto LABEL_172;
-  }
-
-  type = location->_type;
-  if (!type)
-  {
-    goto LABEL_170;
-  }
-
-  if (v115 == 2)
-  {
-    v97 = type;
-    v98 = type;
-    OUTLINED_FUNCTION_5_2();
-    if (v17)
-    {
-
-      goto LABEL_171;
-    }
-
-    v99 = OUTLINED_FUNCTION_8_0();
-
-    if ((v99 & 1) == 0)
-    {
-LABEL_170:
-      objc_storeStrong(&location->_type, v95);
-      OUTLINED_FUNCTION_0_4();
-    }
-  }
-
-LABEL_171:
-  v7 = v116;
-LABEL_172:
+LABEL_167:
+  v7 = v108;
+LABEL_168:
   vendorID = [v7 vendorID];
   if (vendorID && vendorID != location->_vendorID)
   {
@@ -3175,50 +3617,45 @@ LABEL_172:
     OUTLINED_FUNCTION_0_4();
   }
 
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
-  v120 = 0u;
+  memset(v111, 0, sizeof(v111));
   allValues8 = [(NSMutableDictionary *)location->_componentMap allValues];
-  v103 = [allValues8 countByEnumeratingWithState:&v119 objects:v151 count:16];
-  if (v103)
+  v97 = [allValues8 countByEnumeratingWithState:v111 objects:v122 count:16];
+  if (v97)
   {
-    v104 = v103;
-    v105 = *v120;
+    v98 = v97;
     do
     {
-      for (k = 0; k != v104; ++k)
+      for (k = 0; k != v98; ++k)
       {
-        OUTLINED_FUNCTION_4_2(v120);
+        OUTLINED_FUNCTION_4_2();
         if (!v17)
         {
           objc_enumerationMutation(allValues8);
         }
 
-        v12 |= [*(*(&v119 + 1) + 8 * k) changeFlags];
+        v12 |= [*(*(&v111[0] + 1) + 8 * k) changeFlags];
       }
 
-      v104 = [allValues8 countByEnumeratingWithState:&v119 objects:v151 count:16];
+      v98 = [allValues8 countByEnumeratingWithState:v111 objects:v122 count:16];
     }
 
-    while (v104);
+    while (v98);
   }
 
-  v107 = v118 | 4;
+  v100 = v110 | 4;
   if ((v12 & 0x18) == 0)
   {
-    v107 = v118;
+    v100 = v110;
   }
 
-  v108 = v107 | v12 & 0x1E;
-  location->_changeFlags = v108;
+  v101 = v100 | v12 & 0x1E;
+  location->_changeFlags = v101;
 
-  componentCopy = v113;
-LABEL_188:
+  componentCopy = v105;
+LABEL_184:
 
-LABEL_189:
-  v109 = *MEMORY[0x1E69E9840];
-  return v108;
+LABEL_185:
+  return v101;
 }
 
 - (uint64_t)dictionaryRepresentation

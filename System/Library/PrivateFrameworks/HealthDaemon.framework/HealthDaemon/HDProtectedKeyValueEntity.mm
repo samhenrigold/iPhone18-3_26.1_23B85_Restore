@@ -10,7 +10,7 @@
 
 + (id)userCharacteristicForType:(id)type profile:(id)profile entity:(id *)entity error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   profileCopy = profile;
   v12 = [(HDProtectedKeyValueEntity *)self _keyForDataType:typeCopy error:error];
@@ -68,17 +68,15 @@ LABEL_14:
     v18 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v21 = v18;
+      v20 = v18;
       *buf = 134217984;
       code2 = [typeCopy code];
-      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Unexpected characteristic type %ld", buf, 0xCu);
+      _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Unexpected characteristic type %ld", buf, 0xCu);
     }
   }
 
   v16 = 0;
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -171,14 +169,14 @@ LABEL_29:
 
 + (id)modificationDateForCharacteristicWithType:(id)type profile:(id)profile error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v9 = [(HDProtectedKeyValueEntity *)self _keyForDataType:type error:error];
   v10 = v9;
   if (v9)
   {
-    v16[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v12 = [self modificationDatesForKeys:v11 domain:&stru_283BF39C8 category:101 profile:profileCopy error:error];
 
     v13 = [v12 objectForKeyedSubscript:v10];
@@ -189,14 +187,12 @@ LABEL_29:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (BOOL)setUserCharacteristic:(id)characteristic forType:(id)type profile:(id)profile error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   typeCopy = type;
   profileCopy = profile;
@@ -264,10 +260,10 @@ LABEL_18:
     v21 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v24 = v21;
+      v23 = v21;
       *buf = 134217984;
       code2 = [typeCopy code];
-      _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "Unexpected characteristic type %ld", buf, 0xCu);
+      _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Unexpected characteristic type %ld", buf, 0xCu);
     }
 
     goto LABEL_20;
@@ -286,7 +282,6 @@ LABEL_18:
   v18 = 0;
 LABEL_22:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

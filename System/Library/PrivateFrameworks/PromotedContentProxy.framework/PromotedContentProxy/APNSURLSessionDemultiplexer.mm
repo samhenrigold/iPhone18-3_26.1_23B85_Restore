@@ -64,7 +64,7 @@
 
 - (id)dataTaskWithRequest:(id)request delegate:(id)delegate modes:(id)modes
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   delegateCopy = delegate;
   modesCopy = modes;
@@ -81,7 +81,7 @@ LABEL_11:
     }
 
     *buf = 136642819;
-    v93 = "[APNSURLSessionDemultiplexer dataTaskWithRequest:delegate:modes:]";
+    v92 = "[APNSURLSessionDemultiplexer dataTaskWithRequest:delegate:modes:]";
     v20 = "%{sensitive}s -- The current session is already marked for invalidation. No further requests possible.";
     v21 = v19;
     v22 = 12;
@@ -95,8 +95,8 @@ LABEL_4:
     atomic_fetch_add(&self->_requestCount, 1uLL);
     if (!objc_msgSend_count(modesCopy, v24, v25, v26, v27))
     {
-      v91 = *MEMORY[0x277CBE640];
-      v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v33, &v91, 1, v36);
+      v90 = *MEMORY[0x277CBE640];
+      v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v33, &v90, 1, v36);
 
       modesCopy = v37;
     }
@@ -118,24 +118,24 @@ LABEL_4:
     goto LABEL_11;
   }
 
-  v76 = objc_msgSend_requestCount(self, v24, v25, v26, v27);
-  if (v76 == objc_msgSend_maximumRequestCount(self, v77, v78, v79, v80))
+  v75 = objc_msgSend_requestCount(self, v24, v25, v26, v27);
+  if (v75 == objc_msgSend_maximumRequestCount(self, v76, v77, v78, v79))
   {
-    objc_msgSend_invalidateSession(self, v81, v82, v83, v84);
+    objc_msgSend_invalidateSession(self, v80, v81, v82, v83);
     v19 = APLogForCategory();
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       goto LABEL_5;
     }
 
-    v89 = objc_msgSend_maximumRequestCount(self, v85, v86, v87, v88);
+    v88 = objc_msgSend_maximumRequestCount(self, v84, v85, v86, v87);
     identifier = self->_identifier;
     *buf = 136643331;
-    v93 = "[APNSURLSessionDemultiplexer dataTaskWithRequest:delegate:modes:]";
-    v94 = 2048;
-    v95 = v89;
-    v96 = 2112;
-    v97 = identifier;
+    v92 = "[APNSURLSessionDemultiplexer dataTaskWithRequest:delegate:modes:]";
+    v93 = 2048;
+    v94 = v88;
+    v95 = 2112;
+    v96 = identifier;
     v20 = "%{sensitive}s -- Maximum request count reached: %ld for creative: %@. Session will be invalidated.";
     v21 = v19;
     v22 = 32;
@@ -144,8 +144,6 @@ LABEL_4:
 
   v23 = 0;
 LABEL_12:
-
-  v74 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

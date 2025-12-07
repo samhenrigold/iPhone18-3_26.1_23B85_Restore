@@ -66,125 +66,125 @@
 - (id)goalCompletionStringWithUnitStyle:(unint64_t)style decimalTrimmingMode:(unint64_t)mode formattingManager:(id)manager textCase:(unint64_t)case
 {
   selfCopy = self;
-  v54 = a2;
+  v60 = a2;
   styleCopy = style;
   modeCopy = mode;
   location = 0;
   objc_storeStrong(&location, manager);
   caseCopy = case;
-  v49 = MEMORY[0x277D82BE0](&stru_28225A4E8);
-  v48 = 0;
+  v55 = MEMORY[0x277D82BE0](&stru_28225A4E8);
+  v54 = 0;
   goal = [(NLWorkoutAlertGoalProgress *)selfCopy goal];
   goalTypeIdentifier = [(NLSessionActivityGoal *)goal goalTypeIdentifier];
-  MEMORY[0x277D82BD8](goal);
+  v6 = MEMORY[0x277D82BD8](goal).n128_u64[0];
   if (goalTypeIdentifier)
   {
     switch(goalTypeIdentifier)
     {
       case 1:
-        v37 = location;
+        v43 = location;
         [(NLWorkoutAlertGoalProgress *)selfCopy currentValue];
-        v36 = v6;
+        v42 = v7;
         unitManager = [location unitManager];
-        v7 = [unitManager userDistanceUnitForDistanceType:selfCopy->_distanceType];
-        v8 = [v37 localizedStringWithDistanceInMeters:v7 distanceUnit:0 unitStyle:3 decimalPrecision:4 roundingMode:modeCopy decimalTrimmingMode:v36];
-        v9 = v49;
-        v49 = v8;
-        MEMORY[0x277D82BD8](v9);
-        MEMORY[0x277D82BD8](unitManager);
+        v8 = [unitManager userDistanceUnitForDistanceType:selfCopy->_distanceType];
+        v9 = [v43 localizedStringWithDistanceInMeters:v8 distanceUnit:0 unitStyle:3 decimalPrecision:4 roundingMode:modeCopy decimalTrimmingMode:v42];
+        v10 = v55;
+        v55 = v9;
+        MEMORY[0x277D82BD8](v10);
+        *&v11 = MEMORY[0x277D82BD8](unitManager).n128_u64[0];
         unitManager2 = [location unitManager];
-        v40 = [unitManager2 userDistanceUnitForDistanceType:selfCopy->_distanceType];
-        MEMORY[0x277D82BD8](unitManager2);
-        v47 = v40;
+        v46 = [unitManager2 userDistanceUnitForDistanceType:selfCopy->_distanceType];
+        *&v12 = MEMORY[0x277D82BD8](unitManager2).n128_u64[0];
+        v53 = v46;
         if (styleCopy == 3)
         {
-          v31 = MEMORY[0x277CCD7E8];
+          v37 = MEMORY[0x277CCD7E8];
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
-          v46 = [v31 quantityWithUnit:selfCopy->_currentValue doubleValue:?];
-          MEMORY[0x277D82BD8](meterUnit);
-          v33 = v46;
-          v34 = MEMORY[0x20F2E8320](v47);
-          [v33 doubleValueForUnit:?];
-          v35 = v10;
-          MEMORY[0x277D82BD8](v34);
-          v45[1] = v35;
-          v11 = [location localizedLongUnitStringForDistanceUnit:v47 distanceInUnit:caseCopy textCase:*&v35];
-          v12 = v48;
-          v48 = v11;
-          MEMORY[0x277D82BD8](v12);
-          objc_storeStrong(&v46, 0);
+          v52 = [v37 quantityWithUnit:selfCopy->_currentValue doubleValue:?];
+          v13 = MEMORY[0x277D82BD8](meterUnit);
+          v39 = v52;
+          v40 = MEMORY[0x20F2E8320](v53, v13);
+          [v39 doubleValueForUnit:?];
+          v41 = v14;
+          MEMORY[0x277D82BD8](v40);
+          v51[1] = v41;
+          v15 = [location localizedLongUnitStringForDistanceUnit:v53 distanceInUnit:caseCopy textCase:*&v41];
+          v16 = v54;
+          v54 = v15;
+          MEMORY[0x277D82BD8](v16);
+          objc_storeStrong(&v52, 0);
         }
 
         else
         {
-          v13 = [location localizedShortUnitStringForDistanceUnit:v47 textCase:caseCopy];
-          v14 = v48;
-          v48 = v13;
-          MEMORY[0x277D82BD8](v14);
+          v17 = [location localizedShortUnitStringForDistanceUnit:v53 textCase:{caseCopy, v12}];
+          v18 = v54;
+          v54 = v17;
+          v6 = MEMORY[0x277D82BD8](v18).n128_u64[0];
         }
 
         break;
       case 2:
         if (styleCopy == 3)
         {
-          v30 = location;
+          v36 = location;
           [(NLWorkoutAlertGoalProgress *)selfCopy currentValue];
-          v15 = [v30 stringWithDuration:6 durationFormat:?];
+          v19 = [v36 stringWithDuration:6 durationFormat:?];
         }
 
         else
         {
-          v29 = location;
+          v35 = location;
           [(NLWorkoutAlertGoalProgress *)selfCopy currentValue];
-          v15 = [v29 stringWithDuration:2 durationFormat:?];
+          v19 = [v35 stringWithDuration:2 durationFormat:?];
         }
 
-        v16 = v49;
-        v49 = v15;
-        MEMORY[0x277D82BD8](v16);
+        v20 = v55;
+        v55 = v19;
+        v6 = MEMORY[0x277D82BD8](v20).n128_u64[0];
         break;
       case 3:
-        v27 = MEMORY[0x277CCD7E8];
+        v33 = MEMORY[0x277CCD7E8];
         kilocalorieUnit = [MEMORY[0x277CCDAB0] kilocalorieUnit];
         [(NLWorkoutAlertGoalProgress *)selfCopy currentValue];
-        v45[0] = [v27 quantityWithUnit:kilocalorieUnit doubleValue:?];
-        MEMORY[0x277D82BD8](kilocalorieUnit);
-        v17 = [location localizedStringWithActiveEnergy:v45[0] unitStyle:0];
-        v18 = v49;
-        v49 = v17;
-        MEMORY[0x277D82BD8](v18);
+        v51[0] = [v33 quantityWithUnit:kilocalorieUnit doubleValue:?];
+        *&v21 = MEMORY[0x277D82BD8](kilocalorieUnit).n128_u64[0];
+        v22 = [location localizedStringWithActiveEnergy:v51[0] unitStyle:{0, v21}];
+        v23 = v55;
+        v55 = v22;
+        *&v24 = MEMORY[0x277D82BD8](v23).n128_u64[0];
         if (styleCopy == 3)
         {
-          v19 = [location localizedLongActiveEnergyUnitStringWithTextCase:caseCopy];
-          v20 = v48;
-          v48 = v19;
-          MEMORY[0x277D82BD8](v20);
+          v25 = [location localizedLongActiveEnergyUnitStringWithTextCase:{caseCopy, v24}];
+          v26 = v54;
+          v54 = v25;
+          MEMORY[0x277D82BD8](v26);
         }
 
         else
         {
-          v25 = location;
+          v31 = location;
           localizedShortActiveEnergyUnitString = [location localizedShortActiveEnergyUnitString];
-          v21 = [v25 applyTextCase:caseCopy toString:?];
-          v22 = v48;
-          v48 = v21;
-          MEMORY[0x277D82BD8](v22);
+          v27 = [v31 applyTextCase:caseCopy toString:?];
+          v28 = v54;
+          v54 = v27;
+          MEMORY[0x277D82BD8](v28);
           MEMORY[0x277D82BD8](localizedShortActiveEnergyUnitString);
         }
 
-        objc_storeStrong(v45, 0);
+        objc_storeStrong(v51, 0);
         break;
     }
   }
 
-  v44 = [NLWorkoutAlertUnitAnnotatedString stringWithValueString:v49 unitString:v48];
-  v24 = MEMORY[0x277D82BE0](v44);
-  objc_storeStrong(&v44, 0);
-  objc_storeStrong(&v48, 0);
-  objc_storeStrong(&v49, 0);
+  v50 = [NLWorkoutAlertUnitAnnotatedString stringWithValueString:v55 unitString:v54, *&v6];
+  v30 = MEMORY[0x277D82BE0](v50);
+  objc_storeStrong(&v50, 0);
+  objc_storeStrong(&v54, 0);
+  objc_storeStrong(&v55, 0);
   objc_storeStrong(&location, 0);
 
-  return v24;
+  return v30;
 }
 
 - (id)_localizedDescriptionForProModeWithUnitStyle:(unint64_t)style formattingManager:(id)manager

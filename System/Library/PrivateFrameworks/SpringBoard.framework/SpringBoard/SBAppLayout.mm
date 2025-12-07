@@ -400,13 +400,13 @@ void __41__SBAppLayout_succinctDescriptionBuilder__block_invoke(uint64_t a1, uin
     }
   }
 
-  if (([itemsCopy containsObject:{itemCopy, itemCopy}] & 1) == 0)
+  if ((objc_msgSend_containsObject_(itemsCopy, itemCopy) & 1) == 0)
   {
     [SBAppLayout initWithItems:centerItem:floatingItem:configuration:centerConfiguration:environment:hidden:preferredDisplayOrdinal:];
   }
 
 LABEL_5:
-  if (floatingItemCopy && ([itemsCopy containsObject:floatingItemCopy] & 1) == 0)
+  if (floatingItemCopy && (objc_msgSend_containsObject_(itemsCopy) & 1) == 0)
   {
     [SBAppLayout initWithItems:centerItem:floatingItem:configuration:centerConfiguration:environment:hidden:preferredDisplayOrdinal:];
   }
@@ -562,7 +562,7 @@ void __130__SBAppLayout_initWithItems_centerItem_floatingItem_configuration_cent
   if (v4)
   {
     v6 = v4;
-    v5 = [*(*(*(a1 + 32) + 8) + 40) containsObject:v4];
+    v5 = objc_msgSend_containsObject_(*(*(*(a1 + 32) + 8) + 40), v4, v4);
     v4 = v6;
     if ((v5 & 1) == 0)
     {
@@ -614,8 +614,8 @@ void __34__SBAppLayout_appLibraryAppLayout__block_invoke(uint64_t a1)
 - (id)itemForLayoutRole:(int64_t)role
 {
   v5 = [(NSArray *)self->_itemsWithoutCenterOrFloatingItems count];
-  v6 = SBLayoutRoleMax();
-  if (role < 1 || v6 < role)
+  v7 = SBLayoutRoleMax(v5, v6);
+  if (role < 1 || v7 < role)
   {
     goto LABEL_6;
   }
@@ -626,9 +626,9 @@ void __34__SBAppLayout_appLibraryAppLayout__block_invoke(uint64_t a1)
       if (v5)
       {
         itemsWithoutCenterOrFloatingItems = self->_itemsWithoutCenterOrFloatingItems;
-        v10 = 0;
+        v11 = 0;
 LABEL_13:
-        v8 = [(NSArray *)itemsWithoutCenterOrFloatingItems objectAtIndex:v10];
+        v9 = [(NSArray *)itemsWithoutCenterOrFloatingItems objectAtIndex:v11];
         goto LABEL_19;
       }
 
@@ -637,12 +637,12 @@ LABEL_13:
       if (v5 >= 2)
       {
         itemsWithoutCenterOrFloatingItems = self->_itemsWithoutCenterOrFloatingItems;
-        v10 = 1;
+        v11 = 1;
         goto LABEL_13;
       }
 
 LABEL_6:
-      v8 = 0;
+      v9 = 0;
       goto LABEL_19;
     case 3:
       floatingItem = self->_floatingItem;
@@ -651,7 +651,7 @@ LABEL_6:
       floatingItem = self->_centerItem;
       break;
     default:
-      v10 = role - 3;
+      v11 = role - 3;
       if (v5 >= role - 2)
       {
         itemsWithoutCenterOrFloatingItems = self->_itemsWithoutCenterOrFloatingItems;
@@ -661,10 +661,10 @@ LABEL_6:
       goto LABEL_6;
   }
 
-  v8 = floatingItem;
+  v9 = floatingItem;
 LABEL_19:
 
-  return v8;
+  return v9;
 }
 
 - (void)enumerate:(id)enumerate
@@ -733,7 +733,7 @@ LABEL_3:
           objc_enumerationMutation(v5);
         }
 
-        if ([setCopy containsObject:{*(*(&v10 + 1) + 8 * i), v10}])
+        if (objc_msgSend_containsObject_(setCopy, v10))
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
@@ -778,7 +778,7 @@ LABEL_11:
           objc_enumerationMutation(v6);
         }
 
-        if ([allItems containsObject:{*(*(&v11 + 1) + 8 * i), v11}])
+        if (objc_msgSend_containsObject_(allItems, v11))
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
@@ -839,7 +839,7 @@ LABEL_11:
             objc_enumerationMutation(v9);
           }
 
-          if (![allItems containsObject:{*(*(&v15 + 1) + 8 * i), v15}])
+          if (!objc_msgSend_containsObject_(allItems, v15))
           {
             v8 = 0;
             goto LABEL_13;
@@ -872,7 +872,7 @@ LABEL_13:
 {
   itemCopy = item;
   allItems = [(SBAppLayout *)self allItems];
-  v6 = [allItems containsObject:itemCopy];
+  v6 = objc_msgSend_containsObject_(allItems);
 
   return v6;
 }
@@ -1269,7 +1269,7 @@ void __29__SBAppLayout_leafAppLayouts__block_invoke(uint64_t a1)
     [SBAppLayout appLayoutByInsertingItem:];
   }
 
-  if ([(NSArray *)self->_items containsObject:itemCopy])
+  if (objc_msgSend_containsObject_(self->_items))
   {
     selfCopy = self;
   }
@@ -1311,7 +1311,7 @@ void __29__SBAppLayout_leafAppLayouts__block_invoke(uint64_t a1)
   v11 = [(NSArray *)self->_itemsWithoutCenterOrFloatingItems mutableCopy];
   v12 = self->_centerItem;
   v13 = self->_floatingItem;
-  if ([v11 containsObject:itemCopy])
+  if (objc_msgSend_containsObject_(v11))
   {
     [v11 removeObject:itemCopy];
     if ([v11 count])
@@ -1826,7 +1826,7 @@ void __53__SBAppLayout_hasSameItemsInLayoutRoles_asAppLayout___block_invoke(uint
 
     if (self->_centerItem)
     {
-      v7 = [v27[5] containsObject:?];
+      v7 = objc_msgSend_containsObject_(v27[5]);
     }
 
     else
@@ -1836,7 +1836,7 @@ void __53__SBAppLayout_hasSameItemsInLayoutRoles_asAppLayout___block_invoke(uint
 
     if (self->_floatingItem)
     {
-      v9 = [v27[5] containsObject:?];
+      v9 = objc_msgSend_containsObject_(v27[5]);
     }
 
     else

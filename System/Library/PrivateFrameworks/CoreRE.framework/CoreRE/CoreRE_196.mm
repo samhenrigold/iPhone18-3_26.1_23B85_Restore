@@ -1,4998 +1,1624 @@
-double re::makeMeshAssetDataFromGeomScene@<D0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t re::PSOToolManager::serializeRuntimeCompilationStatisticsToURL(id *this, std::string *__src)
 {
-  memset(v7, 0, sizeof(v7));
-  v8 = 0u;
-  memset(v9, 0, sizeof(v9));
-  DWORD1(v8) = 0x7FFFFFFF;
-  v10 = 0;
-  v11 = 0x7FFFFFFFLL;
-  v6[0] = *a2;
-  *(v6 + 7) = *(a2 + 7);
-  re::HashTable<re::DynamicString,re::MeshAttributeCompressionOption,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=(v7, (a2 + 2));
-  re::makeMeshAssetDataFromGeomScene(a1, v6, a3);
-  re::HashTable<re::DynamicString,re::MeshCompileOptions,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v9);
-  return re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v7);
-}
-
-void *re::createMeshCollectionFromMeshAsset@<X0>(re *this@<X0>, const re::mtl::Device *a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = a2;
-  v115 = *MEMORY[0x1E69E9840];
-  *(a3 + 32) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 24) = 0;
-  v7 = *(a2 + 2);
-  v72 = re::globalAllocators(this)[2];
-  *a3 = v72;
-  v69 = v7;
-  re::DynamicArray<re::MeshModel>::setCapacity(a3, v7);
-  v66 = a3;
-  ++*(a3 + 24);
-  v75 = 0;
-  v76 = 0;
-  v77 = 0;
-  v8 = *(v5 + 12);
-  if (v8)
+  v20 = *MEMORY[0x1E69E9840];
+  memset(&__dst, 0, sizeof(__dst));
+  v3 = (__src - 1);
+  do
   {
-    re::FixedArray<re::BufferSlice>::init<>(&v75, v72, *(v5 + 12));
-    v9 = 0;
-    v10 = 0;
-    v11 = 32;
-    do
-    {
-      v12 = *(v5 + 12);
-      if (v12 <= v10)
-      {
-        goto LABEL_95;
-      }
-
-      v13 = [*this newBufferWithBytes:*(*(v5 + 14) + v9 + 104) length:*(*(v5 + 14) + v9 + 96) << 6 options:0];
-      *&v92[0] = v13;
-      DWORD2(v92[1]) = 0;
-      LODWORD(v92[2]) = 0;
-      DWORD1(v92[2]) = [v13 length];
-      v4 = v76;
-      if (v76 <= v10)
-      {
-LABEL_96:
-        *v90 = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        LODWORD(v112[0]) = 136315906;
-        *(v112 + 4) = "operator[]";
-        WORD6(v112[0]) = 1024;
-        *(v112 + 14) = 468;
-        WORD1(v112[1]) = 2048;
-        *(&v112[1] + 4) = v10;
-        WORD6(v112[1]) = 2048;
-        *(&v112[1] + 14) = v4;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_97:
-        *&v112[0] = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        LODWORD(v92[0]) = 136315906;
-        *(v92 + 4) = "operator[]";
-        WORD6(v92[0]) = 1024;
-        *(v92 + 14) = 797;
-        WORD1(v92[1]) = 2048;
-        *(&v92[1] + 4) = v11;
-        WORD6(v92[1]) = 2048;
-        *(&v92[1] + 14) = v10;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_98:
-        re::internal::assertLog(4, v57, "assertion failure: '%s' (%s:line %i) Cannot copy from a Slice of a different size", "m_size == other.size()", "copy", 378);
-        _os_crash();
-        __break(1u);
-      }
-
-      v4 = (v77 + v11);
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v77 + v11 - 32, v92);
-      *v4 = *&v92[2];
-      if (DWORD2(v92[1]) != -1)
-      {
-        (off_1F5D0BCB8[DWORD2(v92[1])])(&v79, v92);
-      }
-
-      DWORD2(v92[1]) = -1;
-      if (v13)
-      {
-      }
-
-      ++v10;
-      v11 += 40;
-      v9 += 112;
-    }
-
-    while (v8 != v10);
+    v4 = v3->__r_.__value_.__s.__data_[1];
+    v3 = (v3 + 1);
   }
 
-  v14 = this;
-  if (v69)
+  while (v4);
+  std::string::append[abi:nn200100]<char const*,0>(&__dst.__pn_, __src, v3);
+  std::__fs::filesystem::__status(&__dst, 0);
+  v5 = v13;
+  if (SHIBYTE(__dst.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    v11 = 0;
-    v15 = &v79;
-    v16.i64[0] = 0x7F0000007FLL;
-    v16.i64[1] = 0x7F0000007FLL;
-    v68 = vnegq_f32(v16);
-    v67 = v5;
-    while (1)
-    {
-      v10 = *(v5 + 2);
-      if (v10 <= v11)
-      {
-        goto LABEL_97;
-      }
-
-      v17 = 0;
-      v18 = *(v5 + 4);
-      *&v79 = 0;
-      *(&v79 + 1) = &str_67;
-      *&v19 = 0x7F0000007FLL;
-      *(&v19 + 1) = 0x7F0000007FLL;
-      v80 = v68;
-      v81 = v19;
-      *&v83 = 0;
-      v82 = 0uLL;
-      v84 = v68;
-      v85 = v19;
-      v87 = 0;
-      v88 = 0;
-      v86 = 0;
-      do
-      {
-        v20 = &v79 + v17;
-        *(v20 + 18) = 0;
-        *(v20 + 22) = 0;
-        v17 += 40;
-      }
-
-      while (v17 != 720);
-      v70 = v11;
-      v12 = v18 + (v11 << 9);
-      v21 = re::StringID::operator=(&v79, v12);
-      v22 = *(v12 + 208);
-      v73 = v22;
-      v4 = *(v12 + 128);
-      if (v4)
-      {
-        break;
-      }
-
-LABEL_20:
-      if (*(v12 + 168) && v76)
-      {
-        *&v92[2] = 0;
-        *&v94 = 0;
-        v93 = 0uLL;
-        DWORD2(v94) = 0;
-        v95 = 0;
-        v96 = 0;
-        DWORD2(v92[2]) = 1;
-        v97 = 1;
-        v99 = 0;
-        v100 = 0;
-        v98 = 0;
-        v101 = 0;
-        *&v92[0] = v72;
-        *(&v92[0] + 1) = v77;
-        v92[1] = v76;
-        re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::init(&v92[1] + 8, v72, 1uLL);
-        re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::init(&v95, v72, 1uLL);
-        if (v73 && *(v12 + 168))
-        {
-          v26 = 0;
-          v27 = 1;
-          do
-          {
-            v28 = (*(v12 + 184) + v26);
-            v11 = *v28;
-            v30 = v28[2];
-            v29 = v28[3];
-            v32 = v28[5];
-            v31 = v28[6];
-            v33 = v28[9];
-            v74 = v28[8];
-            v34 = re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::addUninitialized(&v92[1] + 8);
-            *v34 = v11;
-            *(v34 + 8) = v29;
-            *(v34 + 16) = v30;
-            *(v34 + 24) = v31;
-            *(v34 + 32) = v32;
-            *(v34 + 40) = v33;
-            *(v34 + 48) = v74;
-            if (v27 >= v73)
-            {
-              break;
-            }
-
-            v26 += 144;
-          }
-
-          while (v27++ < *(v12 + 168));
-        }
-
-        v15 = &v79;
-        v14 = this;
-        re::SkinningModelBuilder::buildDeformationModel(v92, this, &v89);
-        re::BucketArray<re::SkinningModelBuilder::PreparedSkinnedMeshPartData,4ul>::deinit(&v95);
-        if (v95)
-        {
-          v36 = v97;
-          if ((v97 & 1) == 0)
-          {
-            (*(*v95 + 40))();
-            v36 = v97;
-          }
-
-          v95 = 0;
-          v96 = 0;
-          v97 = (v36 | 1) + 2;
-        }
-
-        re::BucketArray<re::SkinningModelBuilder::RawSkinnedMeshPartData,4ul>::deinit(&v92[1] + 8);
-        inited = *(&v92[1] + 1);
-        v5 = v67;
-        if (*(&v92[1] + 1) && (BYTE8(v92[2]) & 1) == 0)
-        {
-          inited = (*(**(&v92[1] + 1) + 40))();
-        }
-      }
-
-      v4 = *(v12 + 408);
-      if (v4)
-      {
-        re::WrapDeformerModelBuilder::WrapDeformerModelBuilder(v90, v72, v14, v73, *(v12 + 408), &v89);
-        v25 = 0;
-        v37 = 64;
-        do
-        {
-          v10 = *(v12 + 408);
-          if (v10 <= v25)
-          {
-            goto LABEL_85;
-          }
-
-          v38 = *(v12 + 424) + v37;
-          v11 = *(v38 + 40);
-          v39 = strlen(*(v38 - 56));
-          *&v92[0] = *(v38 - 56);
-          *(&v92[0] + 1) = v39;
-          v40 = *(v38 - 24);
-          *&v92[1] = *(v38 - 16);
-          *(&v92[1] + 1) = v40;
-          v41 = *v38;
-          *&v92[2] = *(v38 + 8);
-          *(&v92[2] + 1) = v41;
-          v42 = *(v38 + 24);
-          *&v93 = *(v38 + 32);
-          *(&v93 + 1) = v42;
-          re::WrapDeformerModelBuilder::addWrapTarget(v90, v11, v25, v92);
-          inited = re::WrapDeformerModelBuilder::setEnvelopeBufferName(v90, *(v38 + 40), v25++, (v38 - 48));
-          v37 += 112;
-        }
-
-        while (v4 != v25);
-        v5 = v67;
-      }
-
-      v4 = *(v12 + 328);
-      if (v4)
-      {
-        re::ContactDeformerModelBuilder::ContactDeformerModelBuilder(v90, v72, v14, v73, *(v12 + 328), &v89);
-        v25 = 0;
-        do
-        {
-          v10 = *(v12 + 328);
-          if (v10 <= v25)
-          {
-            goto LABEL_86;
-          }
-
-          v11 = *(v12 + 344) + 48 * v25;
-          inited = re::ContactDeformerModelBuilder::initTargetsForMeshPart(v90, *(v11 + 40), v25, *(v11 + 24), v11);
-          v43 = *(v11 + 24);
-          if (v43)
-          {
-            v44 = *(v11 + 32);
-            v45 = &v44[4 * v43];
-            do
-            {
-              v92[0] = *v44;
-              *&v92[1] = 0;
-              v46 = v44[2];
-              *(&v92[0] + 1) = v44[3];
-              *&v92[1] = v46;
-              re::ContactDeformerModelBuilder::addContactTarget(v90, v25, v92);
-              v44 += 4;
-            }
-
-            while (v44 != v45);
-          }
-        }
-
-        while (++v25 != v4);
-      }
-
-      v4 = *(v12 + 368);
-      if (v4)
-      {
-        re::SmoothDeformerModelBuilder::SmoothDeformerModelBuilder(v105, v72, v73, *(v12 + 368), &v89);
-        v47 = 0;
-        v25 = 0;
-        do
-        {
-          v10 = *(v12 + 368);
-          if (v10 <= v25)
-          {
-            goto LABEL_87;
-          }
-
-          inited = re::SmoothDeformerModelBuilder::setEnvelopeBufferName(v105, *(*(v12 + 384) + v47 + 16), v25++, (*(v12 + 384) + v47));
-          v47 += 24;
-        }
-
-        while (v4 != v25);
-      }
-
-      v48 = *(v12 + 488);
-      v4 = &str_67;
-      if (v48)
-      {
-        re::JiggleDeformerModelBuilder::JiggleDeformerModelBuilder(v105, v72, v73, *(v12 + 488), &v89);
-        v25 = 0;
-        v10 = 0;
-        do
-        {
-          v11 = *(v12 + 488);
-          if (v11 <= v10)
-          {
-            goto LABEL_88;
-          }
-
-          v49 = *(v12 + 504) + v25;
-          inited = re::JiggleDeformerModelBuilder::setData(v105, *(v49 + 40), v10++, v49, (v49 + 16), *(v49 + 32), *(v49 + 36));
-          v25 += 48;
-        }
-
-        while (v48 != v10);
-      }
-
-      v25 = *(v12 + 448);
-      if (v25)
-      {
-        re::OffsetsDeformerModelBuilder::OffsetsDeformerModelBuilder(v105, v72, v73, *(v12 + 448), &v89);
-        v50 = 0;
-        v15 = 0;
-        do
-        {
-          v10 = *(v12 + 448);
-          if (v10 <= v15)
-          {
-            goto LABEL_89;
-          }
-
-          inited = re::OffsetsDeformerModelBuilder::setEnvelopeBufferName(v105, *(*(v12 + 464) + v50 + 16), v15++, (*(v12 + 464) + v50));
-          v50 += 24;
-        }
-
-        while (v25 != v15);
-      }
-
-      v10 = *(v12 + 208);
-      if (*(v12 + 168))
-      {
-        if (v10)
-        {
-          v15 = 0;
-          v11 = 1;
-          while (1)
-          {
-            v25 = *(v12 + 208);
-            if (v25 <= v15)
-            {
-              break;
-            }
-
-            v25 = *(v12 + 168);
-            if (v25 <= v15)
-            {
-              goto LABEL_91;
-            }
-
-            v25 = *(&v82 + 1);
-            if (*(&v82 + 1) <= v15)
-            {
-              goto LABEL_92;
-            }
-
-            v51 = re::MeshPart::operator=(v83 + 544 * v15, v92);
-            if (v103)
-            {
-              if (v103)
-              {
-              }
-            }
-
-            v104 = &str_67;
-            v103 = 0;
-            re::FixedArray<re::StringID>::deinit(v102);
-            re::AttributeTable::~AttributeTable(v92);
-            v15 = v11;
-            v52 = v10 > v11;
-            v11 = (v11 + 1);
-            if (!v52)
-            {
-              goto LABEL_78;
-            }
-          }
-
-LABEL_90:
-          *v90 = 0;
-          v94 = 0u;
-          v93 = 0u;
-          memset(v92, 0, sizeof(v92));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v112[0]) = 136315906;
-          *(v112 + 4) = "operator[]";
-          WORD6(v112[0]) = 1024;
-          *(v112 + 14) = 797;
-          WORD1(v112[1]) = 2048;
-          *(&v112[1] + 4) = v15;
-          WORD6(v112[1]) = 2048;
-          *(&v112[1] + 14) = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_91:
-          *v105 = 0;
-          v113 = 0u;
-          v114 = 0u;
-          memset(v112, 0, sizeof(v112));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v90 = 136315906;
-          *&v90[4] = "operator[]";
-          *&v90[12] = 1024;
-          *&v90[14] = 797;
-          *&v90[18] = 2048;
-          *&v90[20] = v15;
-          *&v90[28] = 2048;
-          *&v90[30] = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_92:
-          *v105 = 0;
-          v113 = 0u;
-          v114 = 0u;
-          memset(v112, 0, sizeof(v112));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v90 = 136315906;
-          *&v90[4] = "operator[]";
-          *&v90[12] = 1024;
-          *&v90[14] = 468;
-          *&v90[18] = 2048;
-          *&v90[20] = v15;
-          *&v90[28] = 2048;
-          *&v90[30] = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_93;
-        }
-      }
-
-      else
-      {
-        *v90 = xmmword_1E3047670;
-        *&v90[16] = xmmword_1E3047680;
-        *&v90[32] = xmmword_1E30476A0;
-        v91 = xmmword_1E30474D0;
-        if (v10)
-        {
-          v15 = 0;
-          v11 = 1;
-          while (1)
-          {
-            v25 = *(v12 + 208);
-            if (v25 <= v15)
-            {
-              break;
-            }
-
-            v25 = *(&v82 + 1);
-            if (*(&v82 + 1) <= v15)
-            {
-              goto LABEL_94;
-            }
-
-            v53 = re::MeshPart::operator=(v83 + 544 * v15, v92);
-            if (v103)
-            {
-              if (v103)
-              {
-              }
-            }
-
-            v104 = &str_67;
-            v103 = 0;
-            re::FixedArray<re::StringID>::deinit(v102);
-            re::AttributeTable::~AttributeTable(v92);
-            v15 = v11;
-            v52 = v10 > v11;
-            v11 = (v11 + 1);
-            if (!v52)
-            {
-              goto LABEL_78;
-            }
-          }
-
-LABEL_93:
-          *v105 = 0;
-          v94 = 0u;
-          v93 = 0u;
-          memset(v92, 0, sizeof(v92));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v112[0]) = 136315906;
-          *(v112 + 4) = "operator[]";
-          WORD6(v112[0]) = 1024;
-          *(v112 + 14) = 797;
-          WORD1(v112[1]) = 2048;
-          *(&v112[1] + 4) = v15;
-          WORD6(v112[1]) = 2048;
-          *(&v112[1] + 14) = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_94:
-          v78 = 0;
-          v113 = 0u;
-          v114 = 0u;
-          memset(v112, 0, sizeof(v112));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v105 = 136315906;
-          *&v105[4] = "operator[]";
-          v106 = 1024;
-          v107 = 468;
-          v108 = 2048;
-          v109 = v15;
-          v110 = 2048;
-          v111 = v25;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_95:
-          *&v112[0] = 0;
-          v82 = 0u;
-          v83 = 0u;
-          v80 = 0u;
-          v81 = 0u;
-          v79 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v92[0]) = 136315906;
-          *(v92 + 4) = "operator[]";
-          WORD6(v92[0]) = 1024;
-          *(v92 + 14) = 797;
-          WORD1(v92[1]) = 2048;
-          *(&v92[1] + 4) = v10;
-          WORD6(v92[1]) = 2048;
-          *(&v92[1] + 14) = v12;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_96;
-        }
-      }
-
-LABEL_78:
-      v54 = *(v12 + 32);
-      v15 = &v79;
-      v80 = *(v12 + 16);
-      v81 = v54;
-      v55 = *(v12 + 32);
-      v84 = *(v12 + 16);
-      v85 = v55;
-      v56 = *(v12 + 288);
-      v58 = *(v12 + 288);
-      if (v87 != v58)
-      {
-        goto LABEL_98;
-      }
-
-      if (v58)
-      {
-        v59 = *(v12 + 304);
-        v60 = &v59[6 * v58];
-        v61 = v88;
-        v62 = v59;
-        v63 = v88;
-        do
-        {
-          v64 = *v62;
-          v62 += 6;
-          *v63 = v64;
-          v63 += 6;
-          re::DynamicArray<unsigned long long>::operator=((v61 + 1), v59 + 1);
-          v61 = v63;
-          v59 = v62;
-        }
-
-        while (v62 != v60);
-      }
-
-      re::DynamicArray<re::MeshModel>::add(v66, &v79);
-      re::MeshModel::~MeshModel(&v79);
-      v11 = v70 + 1;
-      if (v70 + 1 == v69)
-      {
-        return re::FixedArray<re::BufferSlice>::deinit(&v75);
-      }
-    }
-
-    re::BlendShapeModelBuilder::BlendShapeModelBuilder(v90, v72, v14, v22, *(v12 + 128), &v89);
-    v24 = 0;
-    v25 = 0;
-    while (1)
-    {
-      v10 = *(v12 + 128);
-      if (v10 <= v25)
-      {
-        break;
-      }
-
-      re::BlendShapeModelBuilder::addBlendShapeGroup(v90, *(v12 + 144) + v24, *(*(v12 + 144) + v24 + 48), v25++, 0);
-      v24 += 56;
-      if (v4 == v25)
-      {
-
-        goto LABEL_20;
-      }
-    }
-
-    *v105 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v25;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_85:
-    *v105 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v25;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_86:
-    *v105 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v25;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_87:
-    *v90 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v25;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_88:
-    *v90 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v10;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_89:
-    *v90 = 0;
-    v94 = 0u;
-    v93 = 0u;
-    memset(v92, 0, sizeof(v92));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v112[0]) = 136315906;
-    *(v112 + 4) = "operator[]";
-    WORD6(v112[0]) = 1024;
-    *(v112 + 14) = 797;
-    WORD1(v112[1]) = 2048;
-    *(&v112[1] + 4) = v15;
-    WORD6(v112[1]) = 2048;
-    *(&v112[1] + 14) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_90;
+    operator delete(__dst.__pn_.__r_.__value_.__l.__data_);
   }
 
-  return re::FixedArray<re::BufferSlice>::deinit(&v75);
-}
-
-uint64_t re::makeMeshAssetDataFromDescriptor@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X8>)
-{
-  v4 = a2;
-  v87 = *MEMORY[0x1E69E9840];
-  v7 = &v55;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0;
-  memset(v40, 0, sizeof(v40));
-  v41 = 0x7FFFFFFFLL;
-  v8 = a1[2];
-  v24 = v8;
-  if (!v8)
+  if (v5 != 2)
   {
-LABEL_50:
-    v20 = a1[12];
-    if (v8 >= v20)
-    {
-      if (!v20)
-      {
-LABEL_67:
-        re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::operator=(&v40[8], (a1 + 15));
-        v21 = a1[7];
-        if (v35 >= v21)
-        {
-          if (!v21)
-          {
-LABEL_73:
-            re::makeMeshAssetDataFromGeomScene(&v31, v4, a3);
-            goto LABEL_74;
-          }
-        }
-
-        else
-        {
-          re::DynamicArray<re::RigSplineIKJoint>::setCapacity(&v34 + 1, a1[7]);
-        }
-
-        v9 = 0;
-        while (1)
-        {
-          v10 = a1[7];
-          if (v10 <= v9)
-          {
-            goto LABEL_82;
-          }
-
-          re::DynamicArray<re::GeomInstance>::add((&v34 + 8), *(a1[9] + 8 * v9++) + 32);
-          if (v21 == v9)
-          {
-            goto LABEL_73;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      re::DynamicArray<re::GeomSkeleton>::setCapacity(&v37 + 1, a1[12]);
-    }
-
-    v9 = 0;
-    while (1)
-    {
-      v10 = a1[12];
-      if (v10 <= v9)
-      {
-        break;
-      }
-
-      re::DynamicArray<re::GeomSkeleton>::add((&v37 + 8), (*(a1[14] + 8 * v9++) + 24));
-      if (v20 == v9)
-      {
-        goto LABEL_67;
-      }
-    }
-
-LABEL_81:
-    *&v82 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v55) = 136315906;
-    *(v7 + 4) = "operator[]";
-    v57 = 1024;
-    *(v7 + 14) = 797;
-    WORD1(v58) = 2048;
-    *(v7 + 20) = v9;
-    v59 = 2048;
-    *(v7 + 30) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_82:
-    *&v82 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v55) = 136315906;
-    *(v7 + 4) = "operator[]";
-    v57 = 1024;
-    *(v7 + 14) = 797;
-    WORD1(v58) = 2048;
-    *(v7 + 20) = v9;
-    v59 = 2048;
-    *(v7 + 30) = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_83:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = v4;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_84:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = v4;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_85:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = a3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_86:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = a3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_87:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = a3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_88:
-    *(v30 + 40) = v25;
-    *(v30 + 48) = v27;
-    *(v30 + 24) = v26;
-    *(v30 + 32) = v28;
-    *v30 = v29;
-    *v75 = 0;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    memset(v43, 0, sizeof(v43));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v82) = 136315906;
-    *(v7 + 212) = "operator[]";
-    WORD6(v82) = 1024;
-    *(v7 + 222) = 797;
-    WORD1(v83) = 2048;
-    *(v7 + 228) = v3;
-    WORD6(v83) = 2048;
-    *(v7 + 238) = a3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v3 = 0;
-  v9 = v43;
-  v10 = &v43[1] + 8;
-  v29 = *a3;
-  v25 = *(a3 + 40);
-  v26 = *(a3 + 24);
-  v30 = a3;
-  v27 = *(a3 + 48);
-  v28 = *(a3 + 32);
-  while (1)
-  {
-    re::GeomModelWithLods::GeomModelWithLods(&v55);
-    v4 = a1[2];
-    if (v4 <= v3)
-    {
-      goto LABEL_83;
-    }
-
-    a3 = *(a1[4] + 152 * v3 + 48);
-    if (v61 < a3)
-    {
-      break;
-    }
-
-    if (a3)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_32:
-    if (v4 <= v3)
-    {
-      goto LABEL_84;
-    }
-
-    re::DynamicString::operator=(&v55, (a1[4] + 152 * v3));
-    a3 = a1[2];
-    if (a3 <= v3)
-    {
-      goto LABEL_85;
-    }
-
-    re::DynamicArray<float>::resize(&v70, *(a1[4] + 152 * v3 + 128));
-    a3 = a1[2];
-    if (a3 <= v3)
-    {
-      goto LABEL_86;
-    }
-
-    re::DynamicArray<float>::resize(&v65, *(a1[4] + 152 * v3 + 88));
-    a3 = a1[2];
-    if (a3 <= v3)
-    {
-      goto LABEL_87;
-    }
-
-    memcpy(__dst, *(a1[4] + 152 * v3 + 144), 4 * *(a1[4] + 152 * v3 + 128));
-    a3 = a1[2];
-    if (a3 <= v3)
-    {
-      goto LABEL_88;
-    }
-
-    memcpy(v69, *(a1[4] + 152 * v3 + 104), 4 * *(a1[4] + 152 * v3 + 88));
-    v19.n128_f64[0] = re::DynamicArray<re::GeomModelWithLods>::add(&v31, &v55);
-    if (v70)
-    {
-      if (__dst)
-      {
-        (*(*v70 + 40))(v19.n128_f64[0]);
-      }
-
-      __dst = 0;
-      v71 = 0;
-      v72 = 0;
-      v70 = 0;
-      ++v73;
-    }
-
-    if (v65)
-    {
-      if (v69)
-      {
-        (*(*v65 + 40))(v19);
-      }
-
-      v69 = 0;
-      v66 = 0;
-      v67 = 0;
-      v65 = 0;
-      ++v68;
-    }
-
-    re::DynamicArray<re::GeomModel>::deinit(&v60);
-    if (v55 && (v56 & 1) != 0)
-    {
-      (*(*v55 + 40))();
-    }
-
-    if (++v3 == v24)
-    {
-      a3 = v30;
-      *(v30 + 40) = v25;
-      *(v30 + 48) = v27;
-      *(v30 + 24) = v26;
-      *(v30 + 32) = v28;
-      *v30 = v29;
-      v8 = v38;
-      v4 = a2;
-      goto LABEL_50;
-    }
-  }
-
-  re::DynamicArray<re::GeomModel>::setCapacity(&v60, *(a1[4] + 152 * v3 + 48));
-LABEL_7:
-  v7 = 0;
-  while (1)
-  {
-    v4 = a1[2];
-    if (v4 <= v3)
-    {
-      *(v30 + 40) = v25;
-      *(v30 + 48) = v27;
-      *(v30 + 24) = v26;
-      *(v30 + 32) = v28;
-      *v30 = v29;
-      v42 = 0;
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
-      v84 = 0u;
-      v82 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v75 = 136315906;
-      *&v75[4] = "operator[]";
-      v76 = 1024;
-      v77 = 797;
-      v78 = 2048;
-      v79 = v3;
-      v80 = 2048;
-      v81 = v4;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_80:
-      *(v30 + 40) = v25;
-      *(v30 + 48) = v27;
-      *(v30 + 24) = v26;
-      *(v30 + 32) = v28;
-      *v30 = v29;
-      v42 = 0;
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
-      v84 = 0u;
-      v82 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v75 = 136315906;
-      *&v75[4] = "operator[]";
-      v76 = 1024;
-      v77 = 797;
-      v78 = 2048;
-      v79 = v7;
-      v80 = 2048;
-      v81 = v4;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_81;
-    }
-
-    v11 = a1[4] + 152 * v3;
-    v4 = *(v11 + 48);
-    if (v4 <= v7)
-    {
-      goto LABEL_80;
-    }
-
-    re::makeGeomModelFromModelDescriptor((*(*(v11 + 64) + 8 * v7) + 24), v43);
-    v12 = LOBYTE(v43[0]);
-    if (LOBYTE(v43[0]) == 1)
-    {
-      v13 = v62;
-      if (v62 >= v61)
-      {
-        re::DynamicArray<re::GeomModel>::growCapacity(&v60, v62 + 1);
-        v13 = v62;
-      }
-
-      v14 = (v64 + 248 * v13);
-      re::DynamicString::DynamicString(v14, (v43 + 8));
-      re::DynamicArray<re::GeomMesh>::DynamicArray(v14 + 32, &v44 + 1);
-      re::DynamicArray<float>::DynamicArray(v14 + 72, v47);
-      v15 = v50;
-      *(v14 + 112) = v50;
-      if (v15 == 1)
-      {
-        re::DynamicArray<re::GeomIndexMap>::DynamicArray(v14 + 120, v51);
-      }
-
-      v16 = v52;
-      *(v14 + 160) = v52;
-      if (v16 == 1)
-      {
-        re::DynamicArray<re::GeomIndexMap>::DynamicArray(v14 + 168, v53);
-      }
-
-      re::DynamicArray<re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::DynamicArray(v14 + 208, v54);
-      ++v62;
-      ++v63;
-    }
-
-    else
-    {
-      v82 = *(v43 + 8);
-      re::DynamicString::DynamicString(&v83, (&v43[1] + 8));
-      v29 = 0;
-      *(v30 + 8) = v82;
-      v25 = v84;
-      v26 = v83;
-      v27 = *(&v84 + 1);
-      v28 = *(&v83 + 1);
-    }
-
-    v17 = (&v43[1] + 8);
-    if (LOBYTE(v43[0]) == 1)
-    {
-      re::DynamicArray<re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::deinit(v54);
-      if (v52 == 1)
-      {
-        re::DynamicArray<re::GeomIndexMap>::deinit(v53);
-      }
-
-      if (v50 == 1)
-      {
-        re::DynamicArray<re::GeomIndexMap>::deinit(v51);
-      }
-
-      if (v47[0])
-      {
-        if (v49)
-        {
-          (*(*v47[0] + 40))();
-        }
-
-        v49 = 0;
-        memset(v47, 0, sizeof(v47));
-        ++v48;
-      }
-
-      re::DynamicArray<re::GeomMesh>::deinit(&v44 + 8);
-      v17 = (v43 + 8);
-    }
-
-    v18.n128_f64[0] = re::DynamicString::deinit(v17);
-    if (!v12)
-    {
-      break;
-    }
-
-    v7 = (v7 + 1);
-    if (a3 == v7)
-    {
-      v4 = a1[2];
-      v7 = &v55;
-      goto LABEL_32;
-    }
-  }
-
-  *(v30 + 40) = v25;
-  *(v30 + 48) = v27;
-  *(v30 + 24) = v26;
-  *(v30 + 32) = v28;
-  *v30 = v29;
-  if (v70)
-  {
-    if (__dst)
-    {
-      (*(*v70 + 40))(v18.n128_f64[0]);
-    }
-
-    __dst = 0;
-    v71 = 0;
-    v72 = 0;
-    v70 = 0;
-    ++v73;
-  }
-
-  if (v65)
-  {
-    if (v69)
-    {
-      (*(*v65 + 40))(v18);
-    }
-
-    v69 = 0;
-    v66 = 0;
-    v67 = 0;
-    v65 = 0;
-    ++v68;
-  }
-
-  re::DynamicArray<re::GeomModel>::deinit(&v60);
-  if (v55 && (v56 & 1) != 0)
-  {
-    (*(*v55 + 40))();
-  }
-
-LABEL_74:
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(&v40[8]);
-  re::DynamicArray<re::GeomSkeleton>::deinit(&v37 + 8);
-  if (*(&v34 + 1))
-  {
-    if (v37)
-    {
-      (*(**(&v34 + 1) + 40))();
-    }
-
-    *&v37 = 0;
-    v35 = 0uLL;
-    *(&v34 + 1) = 0;
-    ++v36;
-  }
-
-  return re::DynamicArray<re::GeomModelWithLods>::deinit(&v31);
-}
-
-uint64_t re::DynamicArray<re::GeomSkeleton>::add(_anonymous_namespace_ *this, StringID *a2)
-{
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
-  {
-    re::DynamicArray<re::GeomSkeleton>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
-  }
-
-  v5 = (*(this + 4) + 160 * v4);
-  re::StringID::StringID(v5, a2);
-  re::FixedArray<re::StringID>::FixedArray(v5 + 2, &a2[1]);
-  re::FixedArray<unsigned int>::FixedArray(v5 + 5, &a2[2].var1);
-  re::FixedArray<re::GenericSRT<float>>::FixedArray(v5 + 8, &a2[4]);
-  re::FixedArray<re::Matrix4x4<float>>::FixedArray(v5 + 11, &a2[5].var1);
-  result = re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::HashTable((v5 + 14), &a2[7]);
-  ++*(this + 2);
-  ++*(this + 6);
-  return result;
-}
-
-uint64_t re::makeMeshAssetDataWithGeomModel@<X0>(re::DynamicString *a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X8>)
-{
-  re::GeomScene::makeSceneWithSingleInstanceModel(a1, v13);
-  if (a2)
-  {
-    v7 = *(a2 + 16);
-    *&v10 = *(a2 + 32);
-    *(&v10 + 1) = v7;
-    re::GeomScene::setSkeletons(v13, &v10);
-  }
-
-  LODWORD(v10) = 16842752;
-  BYTE4(v10) = 1;
-  *(&v10 + 5) = 0;
-  *(&v10 + 9) = 0;
-  *(&v10 + 11) = 65793;
-  v12 = 0u;
-  memset(v11, 0, sizeof(v11));
-  DWORD1(v12) = 0x7FFFFFFF;
-  if (a3)
-  {
-    v8 = a3;
-  }
-
-  else
-  {
-    v8 = &v10;
-  }
-
-  re::makeMeshAssetDataFromGeomScene(v13, v8, a4);
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v11);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v20);
-  re::DynamicArray<re::GeomSkeleton>::deinit(&v19);
-  if (v14)
-  {
-    if (v18)
-    {
-      (*(*v14 + 40))();
-    }
-
-    v18 = 0;
-    v15 = 0;
+    v15 = 0u;
+    v14 = 0u;
     v16 = 0;
-    v14 = 0;
-    ++v17;
-  }
-
-  return re::DynamicArray<re::GeomModelWithLods>::deinit(v13);
-}
-
-uint64_t re::GeomScene::makeSceneWithSingleInstanceModel@<X0>(re::DynamicString *a1@<X0>, uint64_t a2@<X8>)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  re::GeomModelWithLods::GeomModelWithLods(&v6);
-  re::DynamicString::operator=(&v6, a1);
-  re::DynamicArray<re::GeomModel>::add(v8, a1);
-  *(a2 + 24) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0u;
-  *(a2 + 88) = 0u;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = 0u;
-  *(a2 + 128) = 0u;
-  *(a2 + 140) = 0u;
-  *(a2 + 156) = 0x7FFFFFFFLL;
-  re::DynamicArray<re::GeomModelWithLods>::add(a2, &v6);
-  v19[0] = xmmword_1E3047670;
-  v19[1] = xmmword_1E3047680;
-  v19[2] = xmmword_1E30476A0;
-  v19[3] = xmmword_1E30474D0;
-  v20 = 0;
-  v4 = re::DynamicArray<re::GeomInstance>::add((a2 + 40), v19);
-  if (v14)
-  {
-    if (v18)
-    {
-      (*(*v14 + 40))(v4);
-    }
-
+    v17 = 1024;
     v18 = 0;
-    v15 = 0;
-    v16 = 0;
-    v14 = 0;
-    ++v17;
+    v19 = 0;
+    operator new();
   }
 
-  if (v9)
-  {
-    if (v13)
-    {
-      (*(*v9 + 40))(v4);
-    }
-
-    v13 = 0;
-    v10 = 0;
-    v11 = 0;
-    v9 = 0;
-    ++v12;
-  }
-
-  re::DynamicArray<re::GeomModel>::deinit(v8);
-  result = v6;
-  if (v6)
-  {
-    if (v7)
-    {
-      return (*(*v6 + 40))();
-    }
-  }
-
-  return result;
+  v6 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5300], "provided url ", 13);
+  v7 = strlen(__src);
+  v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, __src, v7);
+  v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v8, " is a directory", 15);
+  std::ios_base::getloc((v9 + *(*v9 - 24)));
+  v10 = std::locale::use_facet(&__dst, MEMORY[0x1E69E5318]);
+  (v10->__vftable[2].~facet_0)(v10, 10);
+  std::locale::~locale(&__dst);
+  std::ostream::put();
+  return std::ostream::flush();
 }
 
-uint64_t re::makeMeshAssetDataWithGeomMeshArray@<X0>(_anonymous_namespace_ *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, uint64_t a5@<X8>)
+unint64_t re::HashTable<MTL::FunctionType,re::DynamicArray<re::DynamicString>,re::Hash<MTL::FunctionType>,re::EqualTo<MTL::FunctionType>,true,false>::operator[](uint64_t a1, unint64_t a2)
 {
-  v13 = 0;
-  v14 = 0;
-  v15 = 0;
+  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
+  re::HashTable<unsigned long long,re::Function<void ()(void)>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v5, a1, a2, v3 ^ (v3 >> 31));
+  return *(a1 + 16) + (v6 << 6) + 16;
+}
+
+__n128 re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addOrReplace(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v11 = 0;
   v12 = 0;
-  re::makeMeshAssetDataWithGeomMeshArray(a1, a2, v15, v14, a3, a4, a5);
-  result = v13;
-  if (v13)
+  v13 = 0;
+  re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::findEntry<unsigned long>(&v11, a1, *a2, *a2);
+  v6 = HIDWORD(v12);
+  if (HIDWORD(v12) == 0x7FFFFFFF)
   {
-    v11 = v14 == 0;
+    v7 = v11;
+    v8 = v12;
+
+    re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addInternal<unsigned long const&,re::FunctionVariantDescriptor const&>(a1, v7, v8, a2, a3);
   }
 
   else
   {
-    v11 = 1;
-  }
-
-  if (!v11)
-  {
-    return (*(*v13 + 40))();
+    ++*(a1 + 40);
+    v10 = *(a1 + 16) + 200 * v6;
+    re::DynamicArray<re::TechniqueFunctionConstant>::operator=(v10 + 16, a3);
+    re::DynamicString::operator=((v10 + 56), (a3 + 40));
+    re::DynamicString::operator=((v10 + 88), (a3 + 72));
+    re::DynamicString::operator=((v10 + 120), (a3 + 104));
+    re::DynamicString::operator=((v10 + 152), (a3 + 136));
+    result = *(a3 + 168);
+    *(v10 + 184) = result;
   }
 
   return result;
 }
 
-uint64_t re::makeMeshAssetDataWithGeomMeshArray@<X0>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, int *a6@<X5>, uint64_t a7@<X8>)
+_DWORD *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(uint64_t a1, _DWORD *a2)
 {
-  v65[5] = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v38 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v40 = 0;
-  v43 = 0;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0;
-  memset(v47, 0, sizeof(v47));
-  v48 = 0x7FFFFFFFLL;
-  re::GeomModelWithLods::GeomModelWithLods(&v25);
-  re::GeomModel::GeomModel(&v53);
-  re::DynamicArray<re::GeomModel>::add(v27, &v53);
-  re::DynamicArray<re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::deinit(v65);
-  if (v63[40] == 1)
+  v8 = 0;
+  v9 = "total";
+  v6 = 0;
+  v7 = 0;
+  v4 = re::Hash<re::DynamicString>::operator()(&v10, "total");
+  result = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v9, v4, &v6);
+  if (HIDWORD(v7) == 0x7FFFFFFF)
   {
-    re::DynamicArray<re::GeomIndexMap>::deinit(&v64);
+    return re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addInternal<char const*&,int const&>(a1, &v6, &v9, a2);
   }
 
-  if (v62 == 1)
-  {
-    re::DynamicArray<re::GeomIndexMap>::deinit(v63);
-  }
-
-  if (*(&v57 + 1))
-  {
-    if (v61)
-    {
-      (*(**(&v57 + 1) + 40))();
-    }
-
-    v61 = 0;
-    v58 = 0;
-    v59 = 0;
-    *(&v57 + 1) = 0;
-    ++v60;
-  }
-
-  re::DynamicArray<re::GeomMesh>::deinit(&v55);
-  if (v53 && (BYTE8(v53) & 1) != 0)
-  {
-    (*(*v53 + 40))();
-  }
-
-  re::DynamicArray<re::GeomModelWithLods>::add(&v38, &v25);
-  if (!v39)
-  {
-LABEL_51:
-    v49 = 0;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v53 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v50 = 136315906;
-    *v51 = "operator[]";
-    *&v51[8] = 1024;
-    *&v51[10] = 789;
-    *&v51[14] = 2048;
-    *&v51[16] = 0;
-    *&v51[24] = 2048;
-    *&v51[26] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_52:
-    v49 = 0;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v53 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v50 = 136315906;
-    *v51 = "operator[]";
-    *&v51[8] = 1024;
-    *&v51[10] = 789;
-    *&v51[14] = 2048;
-    *&v51[16] = 0;
-    *&v51[24] = 2048;
-    *&v51[26] = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (!*(v41 + 48))
-  {
-    goto LABEL_52;
-  }
-
-  v14 = *(v41 + 64);
-  v15 = a2;
-  if (v14[5] < a2)
-  {
-    re::DynamicArray<re::GeomMesh>::setCapacity(v14 + 4, a2);
-  }
-
-  LODWORD(v53) = 0;
-  re::DynamicArray<unsigned int>::resize(v14 + 9, a2, &v53);
-  if (a2)
-  {
-    v16 = 736 * a2;
-    do
-    {
-      re::DynamicArray<re::GeomMesh>::add((v14 + 4), a1);
-      a1 += 92;
-      v16 -= 736;
-    }
-
-    while (v16);
-  }
-
-  if (a4)
-  {
-    for (i = 0; a4 != i; ++i)
-    {
-      if (i < v15)
-      {
-        v18 = v14[11];
-        if (v18 <= i)
-        {
-          v49 = 0;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
-          v55 = 0u;
-          v53 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v50 = 136315906;
-          *v51 = "operator[]";
-          *&v51[8] = 1024;
-          *&v51[10] = 789;
-          *&v51[14] = 2048;
-          *&v51[16] = i;
-          *&v51[24] = 2048;
-          *&v51[26] = v18;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_51;
-        }
-
-        *(v14[13] + 4 * i) = *(a3 + 4 * i);
-      }
-    }
-  }
-
-  if (a5)
-  {
-    v19 = *(a5 + 32);
-    v20 = *(a5 + 16);
-    if (v45 < v20)
-    {
-      re::DynamicArray<re::GeomSkeleton>::setCapacity(&v44 + 1, v20);
-      goto LABEL_29;
-    }
-
-    if (v20)
-    {
-LABEL_29:
-      v21 = 160 * v20;
-      do
-      {
-        re::DynamicArray<re::GeomSkeleton>::add((&v44 + 8), v19);
-        LODWORD(v53) = DWORD2(v45) - 1;
-        re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(&v47[8], v19, &v53);
-        v19 += 10;
-        v21 -= 160;
-      }
-
-      while (v21);
-    }
-  }
-
-  v53 = xmmword_1E3047670;
-  v54 = xmmword_1E3047680;
-  v55 = xmmword_1E30476A0;
-  v56 = xmmword_1E30474D0;
-  LODWORD(v57) = 0;
-  re::DynamicArray<re::GeomInstance>::add((&v41 + 8), &v53);
-  v50 = 16842752;
-  v51[0] = 1;
-  *&v51[1] = 0;
-  *&v51[5] = 0;
-  *&v51[7] = 65793;
-  v52 = 0u;
-  memset(&v51[12], 0, 32);
-  DWORD1(v52) = 0x7FFFFFFF;
-  if (a6)
-  {
-    v22 = a6;
-  }
-
-  else
-  {
-    v22 = &v50;
-  }
-
-  re::makeMeshAssetDataFromGeomScene(&v38, v22, a7);
-  v23.n128_f64[0] = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v51[12]);
-  if (v33)
-  {
-    if (v37)
-    {
-      (*(*v33 + 40))(v23.n128_f64[0]);
-    }
-
-    v37 = 0;
-    v34 = 0;
-    v35 = 0;
-    v33 = 0;
-    ++v36;
-  }
-
-  if (v28)
-  {
-    if (v32)
-    {
-      (*(*v28 + 40))(v23);
-    }
-
-    v32 = 0;
-    v29 = 0;
-    v30 = 0;
-    v28 = 0;
-    ++v31;
-  }
-
-  re::DynamicArray<re::GeomModel>::deinit(v27);
-  if (v25 && (v26 & 1) != 0)
-  {
-    (*(*v25 + 40))();
-  }
-
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(&v47[8]);
-  re::DynamicArray<re::GeomSkeleton>::deinit(&v44 + 8);
-  if (*(&v41 + 1))
-  {
-    if (v44)
-    {
-      (*(**(&v41 + 1) + 40))();
-    }
-
-    *&v44 = 0;
-    v42 = 0uLL;
-    *(&v41 + 1) = 0;
-    ++v43;
-  }
-
-  return re::DynamicArray<re::GeomModelWithLods>::deinit(&v38);
+  return result;
 }
 
-void re::anonymous namespace::populateAssetPartFromGeomMesh(unint64_t a1, uint64_t **a2, uint64_t *a3, uint64_t *a4, __int16 a5, uint64_t a6, uint64_t a7, re::UniqueNameGenerator *a8, uint64_t *a9, unint64_t a10)
-{
-  v250 = *MEMORY[0x1E69E9840];
-  re::GeomMesh::GeomMesh(&v214, 0);
-  v181 = (a2 + 5);
-  v17 = *(a2 + 2) == *(a2 + 10) && *(a2 + 106) == 0;
-  v175 = a5;
-  if (!v17 || (*a1 & 1) != 0 || (*(a1 + 8) & 1) != 0 || (*(a1 + 1) & 1) != 0 || (*(a1 + 2) & 1) != 0 || (*(a1 + 3) & 1) != 0 || (v18 = re::internal::GeomAttributeManager::attributeByName((a2 + 8), "vertexNormal")) == 0 || *(v18 + 16) != 1 || (v19 = re::internal::GeomAttributeManager::attributeByName((a2 + 8), "vertexTangent")) == 0 || *(v19 + 16) != 1)
-  {
-    v20 = (a2 + 8);
-  }
-
-  else
-  {
-    v20 = (a2 + 8);
-    v21 = re::internal::GeomAttributeManager::attributeByName((a2 + 8), "vertexBitangent");
-    if (!v21 || *(v21 + 16) == 1)
-    {
-      v22 = v21 != 0;
-      goto LABEL_20;
-    }
-  }
-
-  v22 = 0;
-LABEL_20:
-  v209 = *a3;
-  v210 = *(a3 + 2);
-  v211 = *(a3 + 12);
-  if (v211 == 2)
-  {
-    re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrown(v212, (a3 + 2));
-  }
-
-  else if (v211 == 1)
-  {
-    re::DynamicArray<float>::DynamicArray(v212, a3 + 2);
-  }
-
-  else
-  {
-    if (v211)
-    {
-      re::internal::assertLog(4, v16, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "GeomIndexMap", 433);
-      _os_crash();
-      __break(1u);
-      goto LABEL_472;
-    }
-
-    LODWORD(v212[0]) = *(a3 + 4);
-  }
-
-  v204 = *a4;
-  v205 = *(a4 + 2);
-  v206 = *(a4 + 12);
-  switch(v206)
-  {
-    case 2:
-      re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrown(v207, (a4 + 2));
-      break;
-    case 1:
-      re::DynamicArray<float>::DynamicArray(v207, a4 + 2);
-      break;
-    case 0:
-      LODWORD(v207[0]) = *(a4 + 4);
-      break;
-    default:
-LABEL_472:
-      re::internal::assertLog(4, v16, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "GeomIndexMap", 433);
-      _os_crash();
-      __break(1u);
-      goto LABEL_473;
-  }
-
-  v199 = *a3;
-  v200 = *(a3 + 2);
-  v201 = *(a3 + 12);
-  if (v201 == 2)
-  {
-    re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrown(v202, (a3 + 2));
-    goto LABEL_38;
-  }
-
-  if (v201 == 1)
-  {
-    re::DynamicArray<float>::DynamicArray(v202, a3 + 2);
-    goto LABEL_38;
-  }
-
-  if (v201)
-  {
-LABEL_473:
-    re::internal::assertLog(4, v16, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "GeomIndexMap", 433);
-    _os_crash();
-    __break(1u);
-    goto LABEL_474;
-  }
-
-  LODWORD(v202[0]) = *(a3 + 4);
-LABEL_38:
-  v178 = a2;
-  v173 = a8;
-  v174 = a2 + 2;
-  if (v22)
-  {
-    v176 = (a2 + 1);
-    v172 = (a2 + 2);
-    v23 = v20;
-  }
-
-  else
-  {
-    *buf = 0xFFFFFFFF00000000;
-    *&buf[8] = -1;
-    buf[12] = 0;
-    LODWORD(v246) = 0;
-    re::makeConditionedMeshForGPU(a2, a1, &v214, &v199, buf, v226);
-    re::remapIndexMap(&v199, a3, v233);
-    re::GeomIndexMap::operator=(&v209, v233);
-    if (v233[12])
-    {
-      if (v233[12] == 2)
-      {
-        re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(&v233[16]);
-      }
-
-      else
-      {
-        if (v233[12] != 1)
-        {
-          goto LABEL_477;
-        }
-
-        if (*&v233[16] && *(&v234 + 1))
-        {
-          (*(**&v233[16] + 40))();
-        }
-      }
-    }
-
-    re::remapIndexMap(buf, a4, v233);
-    re::GeomIndexMap::operator=(&v204, v233);
-    if (v233[12])
-    {
-      if (v233[12] == 2)
-      {
-        v26.n128_f64[0] = re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(&v233[16]);
-      }
-
-      else
-      {
-        if (v233[12] != 1)
-        {
-          goto LABEL_478;
-        }
-
-        if (*&v233[16])
-        {
-          v25 = *(&v234 + 1);
-          if (*(&v234 + 1))
-          {
-            (*(**&v233[16] + 40))();
-          }
-        }
-      }
-    }
-
-    if (v226[0] & 1) == 0 && *(&v226[1] + 1) && (v227)
-    {
-      (*(**(&v226[1] + 1) + 40))(v26);
-    }
-
-    if (buf[12])
-    {
-      if (buf[12] == 2)
-      {
-        re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(&v246);
-      }
-
-      else
-      {
-        if (buf[12] != 1)
-        {
-          goto LABEL_479;
-        }
-
-        if (v246 && v248)
-        {
-          (*(*v246 + 40))(v26);
-        }
-      }
-    }
-
-    v172 = &v216;
-    v23 = &v218;
-    v181 = &v217;
-    v176 = &v215;
-    a2 = &v214;
-  }
-
-  v184 = *(a2 + 4);
-  v186 = a2;
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v220, 4508, v23[144]);
-  v191[0] = 0;
-  v189 = 0uLL;
-  v187 = v23;
-  v188 = 0;
-  v190 = 0;
-  v27 = *(v23 + 72);
-  v182 = a1;
-  if (v27)
-  {
-    re::DynamicArray<re::MeshAssetBuffer>::setCapacity(&v188, v27);
-    v28 = 0;
-    v20 = "skinnedAnimationRemappedJointIndices";
-    while (1)
-    {
-      v29 = re::internal::GeomAttributeManager::attributeByIndex(v23, v28);
-      v30 = *(v29 + 8);
-      if (strcmp("skinnedAnimationGeometryBindTransform", v30))
-      {
-        if (strcmp("skinnedAnimationWeights", v30) && strcmp("skinnedAnimationJointIndices", v30) && strcmp("skinnedAnimationRemappedJointIndices", v30) && strcmp("skinnedAnimationInfluenceEndIndices", v30) && strcmp("skeletonPath", v30))
-        {
-          break;
-        }
-      }
-
-LABEL_247:
-      if (++v28 == v27)
-      {
-        goto LABEL_248;
-      }
-    }
-
-    *&v226[0] = v30;
-    v31 = re::Hash<re::DynamicString>::operator()(buf, v30);
-    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1 + 16, v226, v31, buf);
-    LODWORD(v20) = *&buf[12];
-    a1 = *(a1 + 32) + 56 * *&buf[12] + 40;
-    v32 = *(v29 + 16);
-    v33 = (*(*v29 + 16))(v29);
-    LODWORD(v183) = v33;
-    v35 = *(v29 + 17);
-    LOBYTE(v36) = 30;
-    if (v35 <= 4)
-    {
-      if (*(v29 + 17) <= 1u)
-      {
-        if (*(v29 + 17))
-        {
-          if (v20 != 0x7FFFFFFF)
-          {
-            v41 = *re::pipelineLogObjects(v33);
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 0;
-              _os_log_impl(&dword_1E1C61000, v41, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kUInt16 is not supported for compression.", buf, 2u);
-            }
-          }
-
-          LOBYTE(v36) = 49;
-        }
-
-        else
-        {
-          if (v20 != 0x7FFFFFFF)
-          {
-            v42 = *re::pipelineLogObjects(v33);
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 0;
-              _os_log_impl(&dword_1E1C61000, v42, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kInt16 is not supported for compression.", buf, 2u);
-            }
-          }
-
-          LOBYTE(v36) = 50;
-        }
-
-        goto LABEL_131;
-      }
-
-      if (v35 == 2)
-      {
-        if (v20 != 0x7FFFFFFF)
-        {
-          v46 = *re::pipelineLogObjects(v33);
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_1E1C61000, v46, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kInt32 is not supported for compression.", buf, 2u);
-          }
-        }
-
-        LOBYTE(v36) = 32;
-        goto LABEL_131;
-      }
-
-      if (v35 == 3)
-      {
-        if (v20 != 0x7FFFFFFF)
-        {
-          v43 = *re::pipelineLogObjects(v33);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_1E1C61000, v43, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kUInt32 is not supported for compression.", buf, 2u);
-          }
-        }
-
-        LOBYTE(v36) = 36;
-        goto LABEL_131;
-      }
-
-      if (v35 != 4)
-      {
-        goto LABEL_131;
-      }
-
-      if (v20 != 0x7FFFFFFF)
-      {
-        if (*a1)
-        {
-          LOBYTE(v36) = 28;
-        }
-
-        else
-        {
-          LOBYTE(v36) = 53;
-        }
-
-        goto LABEL_131;
-      }
-    }
-
-    else
-    {
-      if (*(v29 + 17) > 7u)
-      {
-        switch(v35)
-        {
-          case 8u:
-            if (v20 != 0x7FFFFFFF)
-            {
-              v48 = *a1;
-              if (v48 < 3)
-              {
-                v38 = 8 * (v48 & 0x1F);
-                v39 = 788763;
-                goto LABEL_128;
-              }
-            }
-
-            LOBYTE(v36) = 31;
-            break;
-          case 9u:
-            if (v20 != 0x7FFFFFFF)
-            {
-              v45 = *re::pipelineLogObjects(v33);
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 0;
-                _os_log_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kUInt8 is not supported for compression.", buf, 2u);
-              }
-            }
-
-            LOBYTE(v36) = 45;
-            break;
-          case 0xAu:
-            if (v20 != 0x7FFFFFFF)
-            {
-              v40 = *re::pipelineLogObjects(v33);
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 0;
-                _os_log_impl(&dword_1E1C61000, v40, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kInt8 is not supported for compression.", buf, 2u);
-              }
-            }
-
-            LOBYTE(v36) = 46;
-            break;
-        }
-
-LABEL_131:
-        v227 = 0;
-        memset(v226, 0, 28);
-        v49 = re::sizeFromVertexFormat(v36, v34);
-        LODWORD(v50) = v49;
-        if (v32 == 1)
-        {
-          v51 = (v49 + 3) & 0x1FC;
-        }
-
-        else
-        {
-          v51 = v49;
-        }
-
-        re::DynamicArray<BOOL>::resize(v226, v183 * v51);
-        v53 = *(v29 + 17);
-        v179 = v36;
-        v180 = v32;
-        if (v20 == 0x7FFFFFFF)
-        {
-          if (*(v29 + 17) > 4u)
-          {
-            if (*(v29 + 17) <= 7u)
-            {
-              v54 = v51;
-              if (v53 != 5)
-              {
-                if (v53 == 6)
-                {
-                  v72 = v227;
-                  if ((*(*v29 + 16))(v29))
-                  {
-                    if (!*(v29 + 40))
-                    {
-                      goto LABEL_470;
-                    }
-
-                    v20 = *(v29 + 56);
-                    v56 = (*(*v29 + 16))(v29);
-                  }
-
-                  else
-                  {
-                    v56 = 0;
-                    v20 = 0;
-                  }
-
-                  v52 = (*(*v29 + 16))(v29);
-                  if (v52)
-                  {
-                    v85 = 0;
-                    v86 = v54;
-                    v87 = v52;
-                    do
-                    {
-                      if (v56 == v85)
-                      {
-                        goto LABEL_459;
-                      }
-
-                      v52 = memcpy(v72, (v20 + 8 * v85++), v50);
-                      v72 = (v72 + v86);
-                    }
-
-                    while (v87 != v85);
-                  }
-                }
-
-                else
-                {
-                  v55 = v227;
-                  if ((*(*v29 + 16))(v29))
-                  {
-                    if (!*(v29 + 40))
-                    {
-                      goto LABEL_469;
-                    }
-
-                    v20 = *(v29 + 56);
-                    v183 = (*(*v29 + 16))(v29);
-                  }
-
-                  else
-                  {
-                    v183 = 0;
-                    v20 = 0;
-                  }
-
-                  v52 = (*(*v29 + 16))(v29);
-                  if (v52)
-                  {
-                    v88 = v183;
-                    v56 = v52;
-                    do
-                    {
-                      if (!v88)
-                      {
-                        goto LABEL_458;
-                      }
-
-                      v52 = memcpy(v55, v20, v50);
-                      v55 = (v55 + v54);
-                      v20 += 16;
-                      --v88;
-                      --v56;
-                    }
-
-                    while (v56);
-                  }
-                }
-
-                goto LABEL_240;
-              }
-
-              goto LABEL_146;
-            }
-
-            if (v53 != 8)
-            {
-LABEL_168:
-              if (v53 == 9)
-              {
-                a1 = v227;
-                if ((*(*v29 + 16))(v29))
-                {
-                  if (!*(v29 + 40))
-                  {
-                    goto LABEL_468;
-                  }
-
-                  v71 = v51;
-                  v20 = *(v29 + 56);
-                  v56 = (*(*v29 + 16))(v29);
-                }
-
-                else
-                {
-                  v71 = v51;
-                  v56 = 0;
-                  v20 = 0;
-                }
-
-                v52 = (*(*v29 + 16))(v29);
-                if (v52)
-                {
-                  v32 = 0;
-                  v50 = v50;
-                  v84 = v71;
-                  v54 = v52;
-                  do
-                  {
-                    if (v56 == v32)
-                    {
-                      goto LABEL_450;
-                    }
-
-                    v52 = memcpy(a1, (v20 + v32++), v50);
-                    a1 += v84;
-                  }
-
-                  while (v54 != v32);
-                }
-              }
-
-              else
-              {
-                v64 = v51;
-                if (v53 == 10)
-                {
-                  a1 = v227;
-                  if ((*(*v29 + 16))(v29))
-                  {
-                    if (!*(v29 + 40))
-                    {
-                      goto LABEL_465;
-                    }
-
-                    v20 = *(v29 + 56);
-                    v56 = (*(*v29 + 16))(v29);
-                  }
-
-                  else
-                  {
-                    v56 = 0;
-                    v20 = 0;
-                  }
-
-                  v52 = (*(*v29 + 16))(v29);
-                  if (v52)
-                  {
-                    v32 = 0;
-                    v50 = v50;
-                    v80 = v64;
-                    v54 = v52;
-                    do
-                    {
-                      if (v56 == v32)
-                      {
-                        goto LABEL_451;
-                      }
-
-                      v52 = memcpy(a1, (v20 + v32++), v50);
-                      a1 += v80;
-                    }
-
-                    while (v54 != v32);
-                  }
-                }
-              }
-
-              goto LABEL_240;
-            }
-
-            v20 = v227;
-            v73 = re::GeomAttribute::accessValues<int>(v29);
-            v75 = v74;
-            v52 = (*(*v29 + 16))(v29);
-            if (v52)
-            {
-              v76 = v51;
-              v54 = v75;
-              v77 = v52;
-              v56 = v54;
-              do
-              {
-                if (!v56)
-                {
-                  goto LABEL_457;
-                }
-
-                v52 = memcpy(v20, v73, v50);
-                v20 += v76;
-                v73 += 16;
-                --v56;
-                --v77;
-              }
-
-              while (v77);
-            }
-
-LABEL_240:
-            *&v233[32] = *&v226[0];
-            v234 = *(v226 + 8);
-            v236 = v227;
-            v235 = 1;
-            LOBYTE(v237) = v179;
-            HIBYTE(v237) = v180 == 1;
-            v89.n128_f64[0] = re::DynamicArray<re::MeshAssetBuffer>::add(&v188, v233);
-            a1 = v182;
-            v23 = v187;
-            v20 = "skinnedAnimationRemappedJointIndices";
-            if (*&v233[32])
-            {
-              if (v236)
-              {
-                (*(**&v233[32] + 40))(v89.n128_f64[0]);
-              }
-
-              v236 = 0;
-              v234 = 0uLL;
-              *&v233[32] = 0;
-              ++v235;
-            }
-
-            if (*v233 && (v233[8] & 1) != 0)
-            {
-              (*(**v233 + 40))(v89);
-            }
-
-            goto LABEL_247;
-          }
-
-          if (*(v29 + 17) > 1u)
-          {
-            if (v53 != 2)
-            {
-              LOBYTE(v54) = v51;
-              if (v53 != 3)
-              {
-                v20 = v227;
-                v57 = re::GeomAttribute::accessValues<int>(v29);
-                v59 = v58;
-                v52 = (*(*v29 + 16))(v29);
-                if (v52)
-                {
-                  v60 = v51;
-                  v54 = v59;
-                  v61 = v52;
-                  v56 = v54;
-                  do
-                  {
-                    if (!v56)
-                    {
-                      goto LABEL_456;
-                    }
-
-                    v52 = memcpy(v20, v57, v50);
-                    v20 += v60;
-                    v57 += 4;
-                    --v56;
-                    --v61;
-                  }
-
-                  while (v61);
-                }
-
-                goto LABEL_240;
-              }
-
-              goto LABEL_176;
-            }
-
-LABEL_181:
-            v20 = v227;
-            a1 = re::GeomAttribute::accessValues<int>(v29);
-            v69 = v68;
-            v52 = (*(*v29 + 16))(v29);
-            if (v52)
-            {
-              v50 = v50;
-              v70 = v51;
-              v54 = v69;
-              v32 = v52;
-              v56 = v54;
-              do
-              {
-                if (!v56)
-                {
-                  goto LABEL_447;
-                }
-
-                v52 = memcpy(v20, a1, v50);
-                v20 += v70;
-                a1 += 4;
-                --v56;
-                --v32;
-              }
-
-              while (v32);
-            }
-
-            goto LABEL_240;
-          }
-
-LABEL_164:
-          if (*(v29 + 17))
-          {
-            a1 = v227;
-            if ((*(*v29 + 16))(v29))
-            {
-              v20 = re::internal::GeomTypedAttribute<unsigned short>::operator[](v29);
-              v54 = (*(*v29 + 16))(v29);
-            }
-
-            else
-            {
-              v54 = 0;
-              v20 = 0;
-            }
-
-            v52 = (*(*v29 + 16))(v29);
-            if (v52)
-            {
-              v50 = v50;
-              v32 = v51;
-              v79 = v54;
-              v56 = v52;
-              do
-              {
-                if (!v79)
-                {
-                  goto LABEL_448;
-                }
-
-                v52 = memcpy(a1, v20, v50);
-                a1 += v32;
-                v20 += 2;
-                --v79;
-                --v56;
-              }
-
-              while (v56);
-            }
-          }
-
-          else
-          {
-            a1 = v227;
-            if ((*(*v29 + 16))(v29))
-            {
-              if (!*(v29 + 40))
-              {
-                goto LABEL_466;
-              }
-
-              v20 = *(v29 + 56);
-              v54 = (*(*v29 + 16))(v29);
-            }
-
-            else
-            {
-              v54 = 0;
-              v20 = 0;
-            }
-
-            v52 = (*(*v29 + 16))(v29);
-            if (v52)
-            {
-              v50 = v50;
-              v32 = v51;
-              v78 = v54;
-              v56 = v52;
-              do
-              {
-                if (!v78)
-                {
-                  goto LABEL_452;
-                }
-
-                v52 = memcpy(a1, v20, v50);
-                a1 += v32;
-                v20 += 2;
-                --v78;
-                --v56;
-              }
-
-              while (v56);
-            }
-          }
-
-          goto LABEL_240;
-        }
-
-        if (*(v29 + 17) <= 4u)
-        {
-          if (*(v29 + 17) <= 1u)
-          {
-            goto LABEL_164;
-          }
-
-          if (v53 == 2)
-          {
-            goto LABEL_181;
-          }
-
-          LOBYTE(v54) = v51;
-          if (v53 == 3)
-          {
-LABEL_176:
-            v20 = v227;
-            a1 = re::GeomAttribute::accessValues<int>(v29);
-            v66 = v65;
-            v52 = (*(*v29 + 16))(v29);
-            if (v52)
-            {
-              v50 = v50;
-              v67 = v54;
-              v54 = v66;
-              v32 = v52;
-              v56 = v54;
-              do
-              {
-                if (!v56)
-                {
-                  goto LABEL_449;
-                }
-
-                v52 = memcpy(v20, a1, v50);
-                v20 += v67;
-                a1 += 4;
-                --v56;
-                --v32;
-              }
-
-              while (v32);
-            }
-
-            goto LABEL_240;
-          }
-        }
-
-        else
-        {
-          if (*(v29 + 17) > 8u)
-          {
-            goto LABEL_168;
-          }
-
-          v54 = v51;
-          if ((v53 - 6) >= 3)
-          {
-            if (v53 == 5)
-            {
-LABEL_146:
-              v52 = (*(*v29 + 16))(v29);
-              if (v52)
-              {
-                if (!*(v29 + 40))
-                {
-                  goto LABEL_467;
-                }
-
-                v56 = *(v29 + 56);
-                v52 = (*(*v29 + 16))(v29);
-                v50 = v52;
-              }
-
-              else
-              {
-                v50 = 0;
-                v56 = 0;
-              }
-
-              if (v183)
-              {
-                v81 = 0;
-                v82 = v227;
-                do
-                {
-                  if (v50 == v81)
-                  {
-                    goto LABEL_453;
-                  }
-
-                  v83 = *(v56 + 8 * v81);
-                  *v82 = v83;
-                  ++v81;
-                  v82 = (v82 + v54);
-                }
-
-                while (v183 != v81);
-              }
-
-              goto LABEL_240;
-            }
-
-            goto LABEL_240;
-          }
-        }
-
-        v62 = *(a1 + 4);
-        v63 = *a1;
-        if (v63 == 2)
-        {
-          v52 = re::fillStreamSN8(v29, v227, v54, 0, v62);
-        }
-
-        else if (v63 == 1)
-        {
-          v52 = re::fillStreamUN8(v29, v227, v54, 0, v62);
-        }
-
-        else if (!*a1)
-        {
-          v52 = re::fillStreamFP16(v29, v227, v54, 0, v62);
-        }
-
-        goto LABEL_240;
-      }
-
-      if (v35 != 5)
-      {
-        if (v35 != 6)
-        {
-          if (v35 != 7)
-          {
-            goto LABEL_131;
-          }
-
-          if (v20 == 0x7FFFFFFF)
-          {
-            goto LABEL_131;
-          }
-
-          v37 = *a1;
-          if (v37 >= 3)
-          {
-            goto LABEL_131;
-          }
-
-          v38 = 8 * (v37 & 0x1F);
-          v39 = 722970;
-          goto LABEL_128;
-        }
-
-        if (v20 != 0x7FFFFFFF)
-        {
-          v44 = *a1;
-          if (v44 < 3)
-          {
-            v38 = 8 * (v44 & 0x1F);
-            v39 = 657177;
-LABEL_128:
-            v36 = v39 >> v38;
-            goto LABEL_131;
-          }
-        }
-
-        LOBYTE(v36) = 29;
-        goto LABEL_131;
-      }
-
-      if (v20 != 0x7FFFFFFF)
-      {
-        v47 = *re::pipelineLogObjects(v33);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_1E1C61000, v47, OS_LOG_TYPE_DEFAULT, "Mesh attribute type kDouble is not supported for compression.", buf, 2u);
-        }
-      }
-    }
-
-    LOBYTE(v36) = 28;
-    goto LABEL_131;
-  }
-
-LABEL_248:
-  v90 = a9;
-  re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v220);
-  v54 = v181;
-  if (&v188 != a9)
-  {
-    v92 = *a9;
-    if (*a9 && v188 && v92 != v188)
-    {
-LABEL_464:
-      re::internal::assertLog(4, v91, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 503);
-      _os_crash();
-      __break(1u);
-LABEL_465:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_466:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_467:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_468:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_469:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_470:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 797;
-      *&v223[18] = 2048;
-      *&v223[20] = 0;
-      v224 = 2048;
-      *v225 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    *a9 = v188;
-    v188 = v92;
-    v93 = *(a9 + 1);
-    *(a9 + 1) = v189;
-    v189 = v93;
-    v94 = a9[4];
-    a9[4] = v191[0];
-    v191[0] = v94;
-    ++v190;
-    ++*(a9 + 6);
-  }
-
-  re::DynamicArray<re::MeshAssetBuffer>::deinit(&v188);
-  v95 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=((a9 + 25), a7);
-  v96 = v176;
-  if (v211 && v209)
-  {
-    if (v248)
-    {
-      v97.n128_f64[0] = re::DynamicArray<re::MeshAssetBuffer>::add(a9, buf);
-    }
-
-    if (v247)
-    {
-      if (v249)
-      {
-        (*(*v247 + 40))(v97);
-      }
-
-      *&v249 = 0;
-      *&v248 = 0;
-      v247 = 0uLL;
-      ++DWORD2(v248);
-    }
-
-    v95 = *buf;
-    if (*buf && (buf[8] & 1) != 0)
-    {
-      v95 = (*(**buf + 40))(v97);
-    }
-  }
-
-  v98 = v186;
-  if (v206 && v204)
-  {
-    if (v248)
-    {
-      v99.n128_f64[0] = re::DynamicArray<re::MeshAssetBuffer>::add(a9, buf);
-    }
-
-    if (v247)
-    {
-      if (v249)
-      {
-        (*(*v247 + 40))(v99);
-      }
-
-      *&v249 = 0;
-      *&v248 = 0;
-      v247 = 0uLL;
-      ++DWORD2(v248);
-    }
-
-    v95 = *buf;
-    if (*buf && (buf[8] & 1) != 0)
-    {
-      v95 = (*(**buf + 40))(v99);
-    }
-  }
-
-  if (v201 && v199)
-  {
-    if (v248)
-    {
-      v100.n128_f64[0] = re::DynamicArray<re::MeshAssetBuffer>::add(a9, buf);
-    }
-
-    if (v247)
-    {
-      if (v249)
-      {
-        (*(*v247 + 40))(v100);
-      }
-
-      *&v249 = 0;
-      *&v248 = 0;
-      v247 = 0uLL;
-      ++DWORD2(v248);
-    }
-
-    v95 = *buf;
-    if (*buf && (buf[8] & 1) != 0)
-    {
-      v95 = (*(**buf + 40))(v100);
-    }
-  }
-
-  v32 = *v181;
-  v56 = (3 * *v176);
-  v196 = 0;
-  v197 = 0;
-  v198 = 0;
-  if (v32 <= 0)
-  {
-    v50 = v197;
-    v54 = v198;
-    goto LABEL_295;
-  }
-
-  v101 = 0;
-  v102 = 0;
-  v103 = *v181;
-  v50 = v197;
-  do
-  {
-    if (v102 == v103)
-    {
-      goto LABEL_433;
-    }
-
-    v226[0] = *(*(v186 + 7) + 16 * v102);
-    v104 = v226;
-    v54 = v198;
-    v20 = v101;
-    v105 = 3;
-    do
-    {
-      if (v50 <= v20)
-      {
-        v188 = 0;
-        v248 = 0u;
-        v249 = 0u;
-        v246 = 0u;
-        v247 = 0u;
-        *buf = 0u;
-        v90 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v233 = 136315906;
-        *&v233[4] = "operator[]";
-        *&v233[12] = 1024;
-        *&v233[14] = 468;
-        *&v233[18] = 2048;
-        *&v233[20] = v20;
-        *&v233[28] = 2048;
-        *&v233[30] = v50;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_339;
-      }
-
-      v106 = *v104++;
-      *(v54 + 4 * v20++) = v106;
-      --v105;
-    }
-
-    while (v105);
-    ++v102;
-    v101 += 3;
-  }
-
-  while (v102 != (v32 & 0x7FFFFFFF));
-LABEL_295:
-  v107 = 1;
-  *&v247 = 0;
-  if (HIWORD(v184))
-  {
-    v107 = 2;
-  }
-
-  *&v246 = 0;
-  memset(buf, 0, sizeof(buf));
-  DWORD2(v246) = 0;
-  re::DynamicArray<BOOL>::resize(buf, ((v50 << v107) + 3) & 0xFFFFFFFFFFFFFFFCLL);
-  v109 = v247;
-  if (HIWORD(v184))
-  {
-    for (; v50; --v50)
-    {
-      v110 = *v54;
-      v54 += 4;
-      *v109++ = v110;
-    }
-
-    v111 = 36;
-  }
-
-  else
-  {
-    for (; v50; --v50)
-    {
-      v112 = *v54;
-      v54 += 4;
-      *v109 = v112;
-      v109 = (v109 + 2);
-    }
-
-    v111 = 49;
-  }
-
-  re::DynamicArray<BOOL>::DynamicArray(v191, buf);
-  v194 = v111;
-  v195 = 0;
-  if (*buf && v247)
-  {
-    (*(**buf + 40))();
-  }
-
-  v113 = re::DynamicArray<re::MeshAssetBuffer>::add(a9, &v188);
-  *(a9 + 10) = v56;
-  *(a9 + 44) = HIWORD(v184) != 0;
-  *(a9 + 12) = v184;
-  *(a9 + 15) = *v174;
-  *(a9 + 28) = v175;
-  if ((*(a1 + 9) & 1) == 0)
-  {
-    goto LABEL_360;
-  }
-
-  v50 = *v172;
-  v114 = v197;
-  memset(v233, 0, 32);
-  v54 = v233;
-  re::DynamicString::setCapacity(v233, 0);
-  v236 = 0;
-  *&v233[32] = 0;
-  v234 = 0uLL;
-  v235 = 0;
-  v237 = 256;
-  *buf = "tension";
-  *&buf[8] = 7;
-  re::DynamicString::operator=(v233, buf);
-  v237 = 284;
-  re::DynamicArray<BOOL>::resize(&v233[32], 4 * v50);
-  re::DynamicArray<re::MeshAssetBuffer>::add(a9, v233);
-  if (!re::internal::GeomAttributeManager::attributeByName(v187, "vertexAdjacencies"))
-  {
-    goto LABEL_353;
-  }
-
-  v115 = re::internal::GeomAttributeManager::attributeByName(v187, "accumulatedVertexValence");
-  if (!v115)
-  {
-    goto LABEL_353;
-  }
-
-  memset(v226, 0, sizeof(v226));
-  v32 = v226;
-  re::DynamicString::setCapacity(v226, 0);
-  __dst = 0;
-  __n = 0;
-  v227 = 0;
-  v228 = 0;
-  v230 = 0;
-  v232 = 256;
-  *buf = "adjacentFaceArea";
-  *&buf[8] = 16;
-  re::DynamicString::operator=(v226, buf);
-  v232 = 284;
-  re::DynamicArray<BOOL>::resize(&v227, 4 * v50);
-  *&v225[2] = 0;
-  memset(v223, 0, sizeof(v223));
-  v116 = *v176;
-  if (v116)
-  {
-    re::DynamicArray<int>::setCapacity(v223, v116);
-  }
-
-  v117 = re::GeomMesh::accessVertexPositions(v186);
-  if (v114)
-  {
-    v20 = v117;
-    v103 = v118;
-    v56 = 0;
-    while (1)
-    {
-      a1 = v197;
-      if (v197 <= v56)
-      {
-        goto LABEL_439;
-      }
-
-      v54 = *(v198 + v56);
-      if (v54 >= v103)
-      {
-        break;
-      }
-
-      v96 = v56 + 1;
-      if (v197 <= v56 + 1)
-      {
-        goto LABEL_441;
-      }
-
-      v119 = v198 + 4 * v56;
-      v96 = *(v119 + 1);
-      if (v96 >= v103)
-      {
-        goto LABEL_442;
-      }
-
-      v32 = v56 + 2;
-      if (v197 <= v56 + 2)
-      {
-        goto LABEL_443;
-      }
-
-      a1 = *(v119 + 2);
-      if (a1 >= v103)
-      {
-        goto LABEL_444;
-      }
-
-      v120 = *(v20 + 16 * v54);
-      v121 = vsubq_f32(*(v20 + 16 * v96), v120);
-      v122 = vsubq_f32(*(v20 + 16 * a1), v120);
-      v123 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v122, v122), v122, 0xCuLL), vnegq_f32(v121)), v122, vextq_s8(vuzp1q_s32(v121, v121), v121, 0xCuLL));
-      v124 = vmulq_f32(v123, v123);
-      *buf = sqrtf(v124.f32[1] + (v124.f32[2] + v124.f32[0])) * 0.5;
-      re::DynamicArray<float>::add(v223, buf);
-      v56 += 3;
-      if (v56 >= v114)
-      {
-        goto LABEL_321;
-      }
-    }
-
-LABEL_440:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 613;
-    *&v220[18] = 2048;
-    *&v220[20] = v54;
-    v221 = 2048;
-    *v222 = v103;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_441:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 476;
-    *&v220[18] = 2048;
-    *&v220[20] = v96;
-    v221 = 2048;
-    *v222 = a1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_442:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 613;
-    *&v220[18] = 2048;
-    *&v220[20] = v96;
-    v221 = 2048;
-    *v222 = v103;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_443:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 476;
-    *&v220[18] = 2048;
-    *&v220[20] = v32;
-    v221 = 2048;
-    *v222 = a1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_444:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 613;
-    *&v220[18] = 2048;
-    *&v220[20] = a1;
-    v221 = 2048;
-    *v222 = v103;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_445;
-  }
-
-LABEL_321:
-  v125 = re::internal::GeomAttributeManager::attributeByName(v187, "vertexAdjacencies");
-  v185 = re::GeomAttribute::accessValues<int>(v125);
-  v103 = v126;
-  v127 = re::internal::GeomAttributeManager::attributeByName(v187, "accumulatedVertexValence");
-  v128 = re::GeomAttribute::accessValues<int>(v127);
-  *&v222[2] = 0;
-  memset(v220, 0, sizeof(v220));
-  if (!v50)
-  {
-LABEL_339:
-    v136 = 0;
-    goto LABEL_340;
-  }
-
-  v98 = v128;
-  LODWORD(a1) = v129;
-  v32 = v238;
-  re::DynamicArray<int>::setCapacity(v220, v50);
-  v56 = 0;
-  a1 = a1;
-  do
-  {
-    if (v56)
-    {
-      v54 = v56 - 1;
-      if (v56 - 1 >= a1)
-      {
-        goto LABEL_455;
-      }
-
-      v130 = *(v98 + 4 * v54);
-    }
-
-    else
-    {
-      v130 = 0;
-    }
-
-    if (v56 == a1)
-    {
-      goto LABEL_454;
-    }
-
-    v131 = *(v98 + 4 * v56);
-    v132 = 0.0;
-    v133 = v131 - v130;
-    if (v131 > v130)
-    {
-      v96 = *&v223[16];
-      if (v130 <= v103)
-      {
-        v54 = v103;
-      }
-
-      else
-      {
-        v54 = v130;
-      }
-
-      v134 = (v185 + 4 * v130);
-      v135 = (v54 - v130);
-      while (v135)
-      {
-        v20 = *v134;
-        if (*&v223[16] <= v20)
-        {
-          goto LABEL_432;
-        }
-
-        v132 = v132 + *(*&v225[2] + 4 * v20);
-        ++v134;
-        ++v130;
-        --v135;
-        if (v131 <= v130)
-        {
-          goto LABEL_336;
-        }
-      }
-
-      v219 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v238 = 136315906;
-      *&v238[4] = "operator[]";
-      v239 = 1024;
-      v240 = 613;
-      v241 = 2048;
-      v242 = v54;
-      v243 = 2048;
-      v244 = v103;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_432:
-      v219 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v238 = 136315906;
-      *&v238[4] = "operator[]";
-      v239 = 1024;
-      v240 = 789;
-      v241 = 2048;
-      v242 = v20;
-      v243 = 2048;
-      v244 = v96;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_433:
-      *&v226[0] = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v233 = 136315906;
-      *&v233[4] = "operator[]";
-      *&v233[12] = 1024;
-      *&v233[14] = 797;
-      *&v233[18] = 2048;
-      *&v233[20] = v103;
-      *&v233[28] = 2048;
-      *&v233[30] = v103;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_434;
-    }
-
-LABEL_336:
-    *buf = v132 / v133;
-    re::DynamicArray<float>::add(v220, buf);
-    ++v56;
-  }
-
-  while (v56 != v50);
-  v136 = *&v222[2];
-LABEL_340:
-  memcpy(__dst, v136, __n);
-  re::DynamicArray<re::MeshAssetBuffer>::add(v90, v226);
-  a1 = v182;
-  if (*v220 && *&v222[2])
-  {
-    (*(**v220 + 40))(*v220, *&v222[2]);
-  }
-
-  if (*v223 && *&v225[2])
-  {
-    (*(**v223 + 40))(*v223, *&v225[2]);
-  }
-
-  if (v227)
-  {
-    if (__dst)
-    {
-      (*(*v227 + 40))(v227, __dst);
-    }
-
-    __dst = 0;
-    v228 = 0;
-    __n = 0;
-    v227 = 0;
-    ++v230;
-  }
-
-  if (*&v226[0] && (BYTE8(v226[0]) & 1) != 0)
-  {
-    (*(**&v226[0] + 40))(*&v226[0], *&v226[1]);
-  }
-
-LABEL_353:
-  v98 = v186;
-  if (*&v233[32])
-  {
-    if (v236)
-    {
-      (*(**&v233[32] + 40))(*&v233[32], v236);
-    }
-
-    v236 = 0;
-    v234 = 0uLL;
-    *&v233[32] = 0;
-    ++v235;
-  }
-
-  if (*v233 && (v233[8] & 1) != 0)
-  {
-    (*(**v233 + 40))(*v233, *&v233[16]);
-  }
-
-LABEL_360:
-  v56 = a10;
-  re::UniqueNameGenerator::uniqueName(v173, *v178, "MeshPart", buf);
-  v137 = re::StringID::operator=((v90 + 9), buf);
-  if (buf[0])
-  {
-    if (buf[0])
-    {
-    }
-  }
-
-  if (!a10 || !re::meshHasSkinningData(v98, v138))
-  {
-    goto LABEL_397;
-  }
-
-  v140 = re::internal::GeomAttributeManager::attributeByName(v187, "skeletonPath");
-  v20 = re::internal::GeomAttributeManager::attributeByName(v187, "skinnedAnimationGeometryBindTransform");
-  v141 = re::internal::GeomAttributeManager::attributeByName(v187, "skinnedAnimationWeights");
-  v142 = re::internal::GeomAttributeManager::attributeByName(v187, "skinnedAnimationJointIndices");
-  v50 = re::internal::GeomAttributeManager::attributeByName(v187, "skinnedAnimationInfluenceEndIndices");
-  v143 = re::internal::GeomTypedAttribute<unsigned short>::operator[](v140);
-  *v233 = 0;
-  *&v233[8] = &str_67;
-  v144 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((*v233 >> 31) ^ (*v233 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((*v233 >> 31) ^ (*v233 >> 1))) >> 27));
-  v32 = a6;
-  v145 = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a6, v233, v144 ^ (v144 >> 31), buf);
-  if (*&buf[12] == 0x7FFFFFFF)
-  {
-    if (v233[0])
-    {
-      if (v233[0])
-      {
-      }
-    }
-
-    v146 = 0;
-  }
-
-  else
-  {
-    v32 = *(a6 + 16) + 32 * *&buf[12];
-    if (v233[0])
-    {
-      if (v233[0])
-      {
-      }
-    }
-
-    v146 = *(v32 + 24);
-  }
-
-  *a10 = v146;
-  v147 = re::GeomAttribute::accessValues<int>(v20);
-  LOBYTE(v20) = v148;
-  if (!v148)
-  {
-    goto LABEL_460;
-  }
-
-  if (v148 == 1)
-  {
-LABEL_461:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = 1;
-    *&v233[28] = 2048;
-    *&v233[30] = 1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_462;
-  }
-
-  if (v148 <= 2)
-  {
-LABEL_462:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = 2;
-    *&v233[28] = 2048;
-    *&v233[30] = v20 & 3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_463;
-  }
-
-  if (v148 == 3)
-  {
-LABEL_463:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = 3;
-    *&v233[28] = 2048;
-    *&v233[30] = 3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_464;
-  }
-
-  v149 = v147[1];
-  v150 = v147[2];
-  v151 = v147[3];
-  *(a10 + 80) = *v147;
-  *(a10 + 96) = v149;
-  *(a10 + 112) = v150;
-  *(a10 + 128) = v151;
-  v96 = (*(*v141 + 16))(v141);
-  (*(*v142 + 16))(v142);
-  v54 = re::GeomAttribute::accessValues<int>(v141);
-  LODWORD(v98) = v152;
-  v103 = re::GeomAttribute::accessValues<int>(v142);
-  LODWORD(a1) = v153;
-  v20 = v96;
-  if (v96)
-  {
-    v154 = 0;
-    v96 = *(a10 + 16);
-    v98 = v98;
-    a1 = a1;
-    v155 = (*(a10 + 24) + 4);
-    while (v98 != v154)
-    {
-      if (a1 == v154)
-      {
-        goto LABEL_435;
-      }
-
-      if (v96 == v154)
-      {
-        goto LABEL_436;
-      }
-
-      v156 = *(v54 + 4 * v154);
-      *(v155 - 1) = *(v103 + 4 * v154);
-      *v155 = v156;
-      v155 += 2;
-      if (v20 == ++v154)
-      {
-        goto LABEL_384;
-      }
-    }
-
-LABEL_434:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = v98;
-    *&v233[28] = 2048;
-    *&v233[30] = v98;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_435:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = a1;
-    *&v233[28] = 2048;
-    *&v233[30] = a1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_436:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 468;
-    *&v233[18] = 2048;
-    *&v233[20] = v96;
-    *&v233[28] = 2048;
-    *&v233[30] = v96;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_437:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 613;
-    *&v233[18] = 2048;
-    *&v233[20] = v20;
-    *&v233[28] = 2048;
-    *&v233[30] = v20;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_438:
-    *&v226[0] = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v233 = 136315906;
-    *&v233[4] = "operator[]";
-    *&v233[12] = 1024;
-    *&v233[14] = 468;
-    *&v233[18] = 2048;
-    *&v233[20] = v98;
-    *&v233[28] = 2048;
-    *&v233[30] = v98;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_439:
-    *v238 = 0;
-    v248 = 0u;
-    v249 = 0u;
-    v246 = 0u;
-    v247 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v220 = 136315906;
-    *&v220[4] = "operator[]";
-    *&v220[12] = 1024;
-    *&v220[14] = 476;
-    *&v220[18] = 2048;
-    *&v220[20] = v56;
-    v221 = 2048;
-    *v222 = a1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_440;
-  }
-
-LABEL_384:
-  v157 = (*(*v50 + 16))(v50);
-  v54 = re::GeomAttribute::accessValues<int>(v50);
-  LODWORD(v20) = v158;
-  v103 = v157;
-  a1 = v182;
-  if (v157)
-  {
-    v159 = 0;
-    v98 = *(a10 + 40);
-    v160 = *(a10 + 48);
-    v20 = v20;
-    while (v20 != v159)
-    {
-      if (v98 == v159)
-      {
-        goto LABEL_438;
-      }
-
-      *(v160 + 4 * v159) = *(v54 + 4 * v159);
-      v159 = (v159 + 1);
-      if (v103 == v159)
-      {
-        goto LABEL_389;
-      }
-    }
-
-    goto LABEL_437;
-  }
-
-LABEL_389:
-  v161 = re::internal::GeomAttributeManager::attributeByName(v187, "skinnedAnimationRemappedJointIndices");
-  if (v161)
-  {
-    v162 = v161;
-    v163 = (*(*v161 + 16))(v161);
-    v50 = re::GeomAttribute::accessValues<int>(v162);
-    LODWORD(v54) = v164;
-    v32 = v163;
-    v98 = v186;
-    if (v163)
-    {
-      v165 = 0;
-      v103 = *(a10 + 64);
-      v166 = *(a10 + 72);
-      v54 = v54;
-      while (v54 != v165)
-      {
-        if (v103 == v165)
-        {
-          goto LABEL_446;
-        }
-
-        *(v166 + 4 * v165) = *(v50 + 4 * v165);
-        if (v32 == ++v165)
-        {
-          goto LABEL_397;
-        }
-      }
-
-LABEL_445:
-      *&v226[0] = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v233 = 136315906;
-      *&v233[4] = "operator[]";
-      *&v233[12] = 1024;
-      *&v233[14] = 613;
-      *&v233[18] = 2048;
-      *&v233[20] = v54;
-      *&v233[28] = 2048;
-      *&v233[30] = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_446:
-      *&v226[0] = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v233 = 136315906;
-      *&v233[4] = "operator[]";
-      *&v233[12] = 1024;
-      *&v233[14] = 468;
-      *&v233[18] = 2048;
-      *&v233[20] = v103;
-      *&v233[28] = 2048;
-      *&v233[30] = v103;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_447:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_448:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_449:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_450:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v56;
-      v224 = 2048;
-      *v225 = v56;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_451:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v56;
-      v224 = 2048;
-      *v225 = v56;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_452:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_453:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v50;
-      v224 = 2048;
-      *v225 = v50;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_454:
-      v219 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v238 = 136315906;
-      *(v32 + 4) = "operator[]";
-      v239 = 1024;
-      *(v32 + 14) = 613;
-      v241 = 2048;
-      *(v32 + 20) = a1;
-      v243 = 2048;
-      *(v32 + 30) = a1;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_455:
-      v219 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v238 = 136315906;
-      *(v32 + 4) = "operator[]";
-      v239 = 1024;
-      *(v32 + 14) = 613;
-      v241 = 2048;
-      *(v32 + 20) = v54;
-      v243 = 2048;
-      *(v32 + 30) = a1;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_456:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_457:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v54;
-      v224 = 2048;
-      *v225 = v54;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_458:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v183;
-      v224 = 2048;
-      *v225 = v183;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_459:
-      *v238 = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v223 = 136315906;
-      *&v223[4] = "operator[]";
-      *&v223[12] = 1024;
-      *&v223[14] = 613;
-      *&v223[18] = 2048;
-      *&v223[20] = v56;
-      v224 = 2048;
-      *v225 = v56;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_460:
-      *&v226[0] = 0;
-      v248 = 0u;
-      v249 = 0u;
-      v246 = 0u;
-      v247 = 0u;
-      *buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v233 = 136315906;
-      *&v233[4] = "operator[]";
-      *&v233[12] = 1024;
-      *&v233[14] = 613;
-      *&v233[18] = 2048;
-      *&v233[20] = 0;
-      *&v233[28] = 2048;
-      *&v233[30] = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_461;
-    }
-  }
-
-  else
-  {
-    *(a10 + 64) = 0;
-    v98 = v186;
-  }
-
-LABEL_397:
-  if (*(a1 + 6) == 1)
-  {
-    re::internal::makeOpenSubdivAssetBuffersAndAppendToAssetPart(v178, v90, v139);
-  }
-
-  re::computeAABB(v98, buf);
-  v167 = v246;
-  *(v90 + 6) = *buf;
-  *(v90 + 7) = v167;
-  re::computeOrientedBoundingBox(v98, buf);
-  v169 = v246;
-  *(v90 + 8) = *buf;
-  *(v90 + 9) = v169;
-  v170 = v248;
-  *(v90 + 10) = v247;
-  *(v90 + 11) = v170;
-  if (v191[0])
-  {
-    v168 = v193;
-    if (v193)
-    {
-      (*(*v191[0] + 40))(v191[0], v193);
-    }
-
-    v193 = 0;
-    memset(v191, 0, sizeof(v191));
-    ++v192;
-  }
-
-  if (v188 && (v189 & 1) != 0)
-  {
-    (*(*v188 + 40))(v188, *(&v189 + 1));
-  }
-
-  if (v196 && v197)
-  {
-    (*(*v196 + 40))(v196, v198);
-  }
-
-  if (v201)
-  {
-    if (v201 == 2)
-    {
-      re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(v202);
-      goto LABEL_416;
-    }
-
-    if (v201 == 1)
-    {
-      if (v202[0])
-      {
-        v168 = v203;
-        if (v203)
-        {
-          (*(*v202[0] + 40))(v202[0], v203);
-        }
-      }
-
-      goto LABEL_416;
-    }
-
-LABEL_474:
-    re::internal::assertLog(4, v168, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-LABEL_475:
-    re::internal::assertLog(4, v168, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-LABEL_476:
-    re::internal::assertLog(4, v168, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-LABEL_477:
-    re::internal::assertLog(4, v24, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-LABEL_478:
-    re::internal::assertLog(4, v25, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-LABEL_479:
-    re::internal::assertLog(4, v25, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "~GeomIndexMap", 625);
-    _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_416:
-    if (v206)
-    {
-      if (v206 == 2)
-      {
-        re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(v207);
-      }
-
-      else
-      {
-        if (v206 != 1)
-        {
-          goto LABEL_475;
-        }
-
-        if (v207[0])
-        {
-          v168 = v208;
-          if (v208)
-          {
-            (*(*v207[0] + 40))(v207[0], v208);
-          }
-        }
-      }
-    }
-
-    if (v211)
-    {
-      if (v211 == 2)
-      {
-        re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(v212);
-      }
-
-      else
-      {
-        if (v211 != 1)
-        {
-          goto LABEL_476;
-        }
-
-        if (v212[0])
-        {
-          if (v213)
-          {
-            (*(*v212[0] + 40))(v212[0], v213);
-          }
-        }
-      }
-    }
-
-    re::GeomMesh::~GeomMesh(&v214);
-  }
-}
-
-uint64_t re::DynamicArray<re::MeshAssetBuffer>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
+uint64_t re::DynamicArray<re::PSOToolComputeDescriptor>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
 {
   v4 = *(this + 2);
   if (v4 >= *(this + 1))
   {
-    re::DynamicArray<re::MeshAssetBuffer>::growCapacity(this, v4 + 1);
+    re::DynamicArray<re::PSOToolComputeDescriptor>::growCapacity(this, v4 + 1);
     v4 = *(this + 2);
   }
 
-  v5 = (*(this + 4) + 80 * v4);
+  v5 = (*(this + 4) + 136 * v4);
   re::DynamicString::DynamicString(v5, a2);
-  result = re::DynamicArray<BOOL>::DynamicArray(v5 + 32, a2 + 4);
-  *(v5 + 36) = *(a2 + 36);
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v5 + 32, a2 + 32);
+  result = re::HashTable<re::DynamicString,re::DynamicArray<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v5 + 80, a2 + 80);
+  *(v5 + 128) = *(a2 + 128);
   ++*(this + 2);
   ++*(this + 6);
   return result;
 }
 
-uint64_t re::internal::GeomTypedAttribute<unsigned short>::operator[](uint64_t a1)
+uint64_t re::DynamicArray<re::PSOToolTileDescriptor>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
 {
-  if (!*(a1 + 40))
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    re::DynamicArray<re::PSOToolTileDescriptor>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
   }
 
-  return *(a1 + 56);
+  v5 = (*(this + 4) + 176 * v4);
+  re::DynamicString::DynamicString(v5, a2);
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v5 + 32, a2 + 32);
+  re::HashTable<re::DynamicString,re::DynamicArray<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v5 + 80, a2 + 80);
+  *(v5 + 16) = *(a2 + 16);
+  result = re::DynamicArray<re::ShaderAPIFlags::Values>::DynamicArray(v5 + 136, a2 + 17);
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
 }
 
+__n128 re::DynamicArray<re::PSOToolCustomClearDescriptor>::add(_anonymous_namespace_ *this, __n128 *a2)
 {
-  if (!*(a1 + 40))
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    re::DynamicArray<re::PSOToolCustomClearDescriptor>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
   }
 
-  return *(a1 + 56);
+  v5 = (*(this + 4) + 96 * v4);
+  re::DynamicArray<float>::DynamicArray(v5, a2);
+  re::DynamicArray<float>::DynamicArray(&v5[2].n128_i64[1], &a2[2].n128_i64[1]);
+  result = a2[5];
+  v5[5] = result;
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
 }
 
-void re::anonymous namespace::anonymous namespace::makePartToModelIndexMappingHelper(uint64_t a1, uint64_t a2, char a3, unsigned int *a4)
+uint64_t re::DynamicArray<re::PSOToolCustomRenderDescriptor>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  re::DynamicString::setCapacity(a1, 0);
-  *(a1 + 64) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 72) = 256;
-  v15[0] = *(a2 + 8);
-  v15[1] = strlen(v15[0]);
-  re::DynamicString::operator=(a1, v15);
-  re::DynamicArray<BOOL>::resize(a1 + 32, 4 * *a4);
-  *(a1 + 73) = a3;
-  *(a1 + 72) = 36;
-  v9 = *a4;
-  if (v9)
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    v10 = 0;
-    v11 = *(a1 + 64);
-    do
-    {
-      LODWORD(v15[0]) = v10;
-      v12 = *(a4 + 12);
-      if (v12 == 2)
-      {
-        v14 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find(a4 + 2, v15);
-        if (v14 == -1)
-        {
-LABEL_13:
-          v13 = -1;
-          goto LABEL_14;
-        }
-
-        v13 = *(*(a4 + 3) + 8 * v14 + 4);
-      }
-
-      else if (v12 == 1)
-      {
-        if (*(a4 + 4) <= v10)
-        {
-          goto LABEL_13;
-        }
-
-        v13 = *(*(a4 + 6) + 4 * v10);
-      }
-
-      else
-      {
-        if (*(a4 + 12))
-        {
-          re::internal::assertLog(4, v8, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680, v15[0]);
-          _os_crash();
-          __break(1u);
-          return;
-        }
-
-        if (v10 >= a4[4])
-        {
-          v13 = -1;
-        }
-
-        else
-        {
-          v13 = v10;
-        }
-      }
-
-LABEL_14:
-      *(v11 + 4 * v10++) = v13;
-    }
-
-    while (v9 != v10);
+    re::DynamicArray<re::PSOToolCustomRenderDescriptor>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
   }
+
+  v5 = *(this + 4) + 104 * v4;
+  re::DynamicString::DynamicString(v5, a2);
+  re::DynamicString::DynamicString((v5 + 32), (a2 + 32));
+  result = re::DynamicArray<re::ShaderAPIFlags::Values>::DynamicArray(v5 + 64, a2 + 8);
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
 }
 
-uint64_t re::anonymous namespace::loadMeshPartFromAssetPart(_anonymous_namespace_ *a1, id *a2, uint64_t a3, __int128 *a4, uint64_t a5)
+re::DynamicString *re::DynamicArray<re::PSOToolCustomJSONRenderDescriptor>::add(_anonymous_namespace_ *this, re::DynamicString *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v8 = *(a3 + 16);
-  v34 = 0;
-  v31[1] = 0;
-  v32 = 0;
-  v31[0] = 0;
-  v33 = 0;
-  memset(v30, 0, sizeof(v30));
-  v9 = v8 + *(a3 + 228);
-  if (v9)
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    re::DynamicArray<re::NamedVertexBuffer>::setCapacity(v31, v9);
+    re::DynamicArray<re::PSOToolCustomJSONRenderDescriptor>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
   }
 
-  if (v8)
+  v5 = *(this + 4) + 96 * v4;
+  re::DynamicString::DynamicString(v5, a2);
+  re::DynamicString::DynamicString((v5 + 32), (a2 + 32));
+  result = re::DynamicString::DynamicString((v5 + 64), (a2 + 64));
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+uint64_t re::MaterialFile::MaterialFile(uint64_t a1, uint64_t a2)
+{
+  v4 = re::DynamicString::DynamicString(a1, a2);
+  re::AssetHandle::AssetHandle((v4 + 32), (a2 + 32));
+  re::MaterialParameterData::MaterialParameterData(a1 + 56, a2 + 56);
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(a1 + 296, a2 + 296);
+  v5 = *(a2 + 344);
+  *(a1 + 344) = v5;
+  if (v5 == 1)
   {
-    v10 = 0;
-    v11 = 0;
-    while (1)
-    {
-      v12 = *(a3 + 16);
-      if (v12 <= v11)
-      {
-        v35 = 0;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v42 = 136315906;
-        v43 = "operator[]";
-        v44 = 1024;
-        v45 = 797;
-        v46 = 2048;
-        v47 = v11;
-        v48 = 2048;
-        v49 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_49:
-        v35 = 0;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v42 = 136315906;
-        v43 = "operator[]";
-        v44 = 1024;
-        v45 = 797;
-        v46 = 2048;
-        v47 = 0;
-        v48 = 2048;
-        v49 = 0;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_50:
-        v35 = 0;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v36 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v42 = 136315906;
-        v43 = "operator[]";
-        v44 = 1024;
-        v45 = 789;
-        v46 = 2048;
-        v47 = v5;
-        v48 = 2048;
-        v49 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v12 = *(a3 + 32) + v10;
-      v5 = *(v12 + 48);
-      v13 = [*a2 newBufferWithLength:v5 options:0];
-      v14 = [v13 contents];
-      if (!*(v12 + 48))
-      {
-        goto LABEL_49;
-      }
-
-      memcpy(v14, *(v12 + 64), v5);
-      re::DynamicString::DynamicString(&v36, v12);
-      LOWORD(v38) = *(v12 + 72);
-      *(&v38 + 1) = v13;
-      LODWORD(v40) = 0;
-      DWORD2(v40) = 0;
-      HIDWORD(v40) = [v13 length];
-      v41 = 0xFFFFFFFF00000000;
-      re::DynamicArray<re::NamedVertexBuffer>::add(v31, &v36);
-      if (v40 != -1)
-      {
-        (off_1F5D0BCB8[v40])(&v42, &v38 + 8);
-      }
-
-      LODWORD(v40) = -1;
-      if (v36 && (BYTE8(v36) & 1) != 0)
-      {
-        (*(*v36 + 40))();
-      }
-
-      *&v36 = v11;
-      if (re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::find(v30, v12) == -1)
-      {
-        break;
-      }
-
-      if (v13)
-      {
-        goto LABEL_14;
-      }
-
-LABEL_15:
-      ++v11;
-      v10 += 80;
-      if (v8 == v11)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::internalAdd(v30, v12, &v36);
-    if (!v13)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_14:
-
-    goto LABEL_15;
+    *(a1 + 345) = *(a2 + 345);
   }
 
-LABEL_19:
-  v15 = *(a3 + 232);
+  v6 = *(a2 + 346);
+  *(a1 + 346) = v6;
+  if (v6 == 1)
+  {
+    *(a1 + 347) = *(a2 + 347);
+  }
+
+  v7 = *(a2 + 348);
+  *(a1 + 348) = v7;
+  if (v7 == 1)
+  {
+    *(a1 + 349) = *(a2 + 349);
+  }
+
+  v8 = *(a2 + 350);
+  *(a1 + 350) = v8;
+  if (v8 == 1)
+  {
+    *(a1 + 351) = *(a2 + 351);
+  }
+
+  v9 = *(a2 + 352);
+  *(a1 + 352) = v9;
+  if (v9 == 1)
+  {
+    *(a1 + 353) = *(a2 + 353);
+  }
+
+  v10 = *(a2 + 354);
+  *(a1 + 354) = v10;
+  if (v10 == 1)
+  {
+    *(a1 + 355) = *(a2 + 355);
+  }
+
+  v11 = *(a2 + 356);
+  *(a1 + 356) = v11;
+  if (v11 == 1)
+  {
+    *(a1 + 357) = *(a2 + 357);
+  }
+
+  v12 = *(a2 + 358);
+  *(a1 + 358) = v12;
+  if (v12 == 1)
+  {
+    *(a1 + 359) = *(a2 + 359);
+  }
+
+  v13 = *(a2 + 360);
+  *(a1 + 360) = v13;
+  if (v13 == 1)
+  {
+    *(a1 + 361) = *(a2 + 361);
+  }
+
+  v14 = *(a2 + 362);
+  *(a1 + 362) = v14;
+  if (v14 == 1)
+  {
+    *(a1 + 363) = *(a2 + 363);
+  }
+
+  *(a1 + 400) = 0;
+  *(a1 + 376) = 0;
+  *(a1 + 384) = 0;
+  *(a1 + 368) = 0;
+  *(a1 + 392) = 0;
+  v15 = *(a2 + 368);
   if (v15)
   {
-    v16 = 0;
-    v17 = *(a3 + 216);
-    while (1)
+    v16 = *(a2 + 384);
+    *(a1 + 368) = v15;
+    re::DynamicArray<re::FunctionLink>::setCapacity((a1 + 368), v16);
+    ++*(a1 + 392);
+    re::DynamicArray<re::FunctionLink>::copy((a1 + 368), a2 + 368);
+  }
+
+  *(a1 + 408) = *(a2 + 408);
+  return a1;
+}
+
+uint64_t re::MaterialParameterData::MaterialParameterData(uint64_t a1, uint64_t a2)
+{
+  v4 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(a1, a2);
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v4 + 48, a2 + 48);
+  v5 = 0uLL;
+  *(a1 + 96) = 0u;
+  *(a1 + 128) = 0;
+  *(a1 + 112) = 0u;
+  v6 = *(a2 + 96);
+  *(a1 + 132) = 0x7FFFFFFFLL;
+  if (v6)
+  {
+    if (*(a2 + 124) <= 3u)
     {
-      v18 = *v17;
-      v17 += 20;
-      if (v18 < 0)
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = *(a2 + 124);
+    }
+
+    re::HashTable<re::StringID,re::RigDataTypeClass,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(a1 + 96, v6, v7);
+    re::HashTable<re::DynamicString,re::MaterialTextureParam,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy((a1 + 96), a2 + 96);
+    v5 = 0uLL;
+  }
+
+  *(a1 + 144) = v5;
+  *(a1 + 176) = 0;
+  *(a1 + 160) = v5;
+  v8 = *(a2 + 144);
+  *(a1 + 180) = 0x7FFFFFFFLL;
+  if (v8)
+  {
+    if (*(a2 + 172) <= 3u)
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = *(a2 + 172);
+    }
+
+    re::HashTable<re::DynamicString,re::MaterialTextureBlockData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a1 + 144, v8, v9);
+    re::HashTable<re::DynamicString,re::MaterialTextureBlockData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy((a1 + 144), a2 + 144);
+  }
+
+  *(a1 + 192) = 0u;
+  *(a1 + 224) = 0;
+  *(a1 + 208) = 0u;
+  v10 = *(a2 + 192);
+  *(a1 + 228) = 0x7FFFFFFFLL;
+  if (v10)
+  {
+    if (*(a2 + 220) <= 3u)
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = *(a2 + 220);
+    }
+
+    re::HashTable<re::DynamicString,re::OptionalMaterialSamplerData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a1 + 192, v10, v11);
+    re::HashTable<re::DynamicString,re::OptionalMaterialSamplerData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy((a1 + 192), a2 + 192);
+  }
+
+  return a1;
+}
+
+{
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 36) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap(a1, a2);
+  *(a1 + 80) = 0;
+  *(a1 + 64) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 84) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((a1 + 48), (a2 + 48));
+  *(a1 + 128) = 0;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 132) = 0x7FFFFFFFLL;
+  *(a1 + 96) = *(a2 + 96);
+  *(a2 + 96) = 0;
+  v4 = *(a1 + 104);
+  *(a1 + 104) = *(a2 + 104);
+  *(a2 + 104) = v4;
+  v5 = *(a1 + 112);
+  *(a1 + 112) = *(a2 + 112);
+  *(a2 + 112) = v5;
+  *(a1 + 120) = *(a2 + 120);
+  *(a2 + 120) = 0;
+  LODWORD(v5) = *(a1 + 124);
+  *(a1 + 124) = *(a2 + 124);
+  *(a2 + 124) = v5;
+  LODWORD(v5) = *(a1 + 128);
+  *(a1 + 128) = *(a2 + 128);
+  *(a2 + 128) = v5;
+  LODWORD(v5) = *(a1 + 132);
+  *(a1 + 132) = *(a2 + 132);
+  *(a2 + 132) = v5;
+  ++*(a1 + 136);
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0;
+  *(a1 + 180) = 0x7FFFFFFFLL;
+  *(a1 + 144) = *(a2 + 144);
+  *(a2 + 144) = 0;
+  v6 = *(a1 + 152);
+  *(a1 + 152) = *(a2 + 152);
+  *(a2 + 152) = v6;
+  v7 = *(a1 + 160);
+  *(a1 + 160) = *(a2 + 160);
+  *(a2 + 160) = v7;
+  *(a1 + 168) = *(a2 + 168);
+  *(a2 + 168) = 0;
+  LODWORD(v7) = *(a1 + 172);
+  *(a1 + 172) = *(a2 + 172);
+  *(a2 + 172) = v7;
+  LODWORD(v7) = *(a1 + 176);
+  *(a1 + 176) = *(a2 + 176);
+  *(a2 + 176) = v7;
+  LODWORD(v7) = *(a1 + 180);
+  *(a1 + 180) = *(a2 + 180);
+  *(a2 + 180) = v7;
+  ++*(a1 + 184);
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0;
+  *(a1 + 228) = 0x7FFFFFFFLL;
+  *(a1 + 192) = *(a2 + 192);
+  *(a2 + 192) = 0;
+  v8 = *(a1 + 200);
+  *(a1 + 200) = *(a2 + 200);
+  *(a2 + 200) = v8;
+  v9 = *(a1 + 208);
+  *(a1 + 208) = *(a2 + 208);
+  *(a2 + 208) = v9;
+  *(a1 + 216) = *(a2 + 216);
+  *(a2 + 216) = 0;
+  LODWORD(v9) = *(a1 + 220);
+  *(a1 + 220) = *(a2 + 220);
+  *(a2 + 220) = v9;
+  LODWORD(v9) = *(a1 + 224);
+  *(a1 + 224) = *(a2 + 224);
+  *(a2 + 224) = v9;
+  LODWORD(v9) = *(a1 + 228);
+  *(a1 + 228) = *(a2 + 228);
+  *(a2 + 228) = v9;
+  ++*(a1 + 232);
+  return a1;
+}
+
+re::MaterialDefinitionFile *re::MaterialDefinitionFile::MaterialDefinitionFile(re::MaterialDefinitionFile *this, const re::MaterialDefinitionFile *a2)
+{
+  v4 = re::DynamicString::DynamicString(this, a2);
+  re::DynamicString::DynamicString((v4 + 32), (a2 + 32));
+  re::DynamicString::DynamicString((this + 64), (a2 + 64));
+  re::AssetHandle::AssetHandle((this + 96), (a2 + 96));
+  re::AssetHandle::AssetHandle((this + 120), (a2 + 120));
+  re::MaterialParameterData::MaterialParameterData(this + 144, a2 + 144);
+  *(this + 52) = 0;
+  *(this + 49) = 0;
+  *(this + 50) = 0;
+  *(this + 48) = 0;
+  *(this + 102) = 0;
+  v5 = *(a2 + 48);
+  if (v5)
+  {
+    v6 = *(a2 + 50);
+    *(this + 48) = v5;
+    re::DynamicArray<re::MaterialTechniqueData>::setCapacity(this + 48, v6);
+    ++*(this + 102);
+    re::DynamicArray<re::MaterialTechniqueData>::copy((this + 384), a2 + 384);
+  }
+
+  *(this + 57) = 0;
+  *(this + 54) = 0;
+  *(this + 55) = 0;
+  *(this + 53) = 0;
+  *(this + 112) = 0;
+  v7 = *(a2 + 53);
+  if (v7)
+  {
+    v8 = *(a2 + 55);
+    *(this + 53) = v7;
+    re::DynamicArray<re::MaterialTechniqueGroupData>::setCapacity(this + 53, v8);
+    ++*(this + 112);
+    re::DynamicArray<re::MaterialTechniqueGroupData>::copy(this + 424, a2 + 424);
+  }
+
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(this + 464, a2 + 464);
+  re::HashTable<re::DynamicString,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(this + 512, a2 + 512);
+  *(this + 74) = 0;
+  *(this + 70) = 0;
+  *(this + 72) = 0;
+  *(this + 71) = 0;
+  *(this + 146) = 0;
+  v9 = *(a2 + 70);
+  if (v9)
+  {
+    v10 = *(a2 + 72);
+    *(this + 70) = v9;
+    re::DynamicArray<re::DebugMapping>::setCapacity(this + 70, v10);
+    ++*(this + 146);
+    re::DynamicArray<re::DebugMapping>::copy(this + 560, a2 + 560);
+  }
+
+  *(this + 79) = 0x7FFFFFFF00000000;
+  *(this + 600) = 0u;
+  *(this + 616) = 0u;
+  *(this + 160) = 0;
+  v11 = *(a2 + 75);
+  if (v11)
+  {
+    if (*(a2 + 157) <= 3u)
+    {
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = *(a2 + 157);
+    }
+
+    re::HashTable<re::DynamicString,re::OptionalMaterialParameterProperties,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(this + 600, v11, v12);
+    re::HashTable<re::DynamicString,re::OptionalMaterialParameterProperties,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy((this + 600), a2 + 600);
+  }
+
+  *(this + 85) = 0;
+  *(this + 81) = 0;
+  *(this + 83) = 0;
+  *(this + 82) = 0;
+  *(this + 168) = 0;
+  v13 = *(a2 + 81);
+  if (v13)
+  {
+    v14 = *(a2 + 83);
+    *(this + 81) = v13;
+    re::DynamicArray<re::MaterialTechniqueQualityLevelSetData>::setCapacity(this + 81, v14);
+    ++*(this + 168);
+    re::DynamicArray<re::MaterialTechniqueQualityLevelSetData>::copy(this + 81, a2 + 648);
+  }
+
+  re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(this + 688, a2 + 688);
+  return this;
+}
+
+re::MaterialTechniqueData *re::DynamicArray<re::MaterialTechniqueData>::copy(re::MaterialTechniqueData *result, uint64_t a2)
+{
+  v3 = result;
+  v4 = *(a2 + 16);
+  v5 = *(result + 2);
+  if (v4 >= v5)
+  {
+    result = re::DynamicArray<re::MaterialTechniqueData>::setCapacity(result, *(a2 + 16));
+    v11 = *(a2 + 32);
+    v12 = *(v3 + 2);
+    v13 = *(v3 + 4);
+    if (v12)
+    {
+      v14 = 664 * v12;
+      do
       {
-        break;
+        result = re::MaterialTechniqueData::operator=(v13, v11);
+        v11 += 664;
+        v13 += 664;
+        v14 -= 664;
       }
 
-      if (v15 == ++v16)
+      while (v14);
+      v13 = *(v3 + 4);
+      v12 = *(v3 + 2);
+      v11 = *(a2 + 32);
+    }
+
+    if (v12 != v4)
+    {
+      v15 = 664 * v12;
+      v16 = (v11 + v15);
+      result = (v13 + v15);
+      v17 = 664 * v4 - v15;
+      do
       {
-        LODWORD(v16) = *(a3 + 232);
-        break;
+        v18 = re::MaterialTechniqueData::MaterialTechniqueData(result, v16);
+        v16 = (v16 + 664);
+        result = (v18 + 664);
+        v17 -= 664;
       }
+
+      while (v17);
     }
   }
 
   else
   {
-    LODWORD(v16) = 0;
-  }
-
-  if (v16 != v15)
-  {
-    v19 = *(a3 + 216);
-    do
+    v6 = *(result + 4);
+    if (v4)
     {
-      v20 = v19 + 80 * v16;
-      v21 = re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::find(v30, v20 + 40);
-      if (v21 != -1)
+      v7 = *(a2 + 32);
+      v8 = 664 * v4;
+      do
       {
-        v5 = *(*(&v30[0] + 1) + 40 * v21 + 32);
-        if (v5 < v8)
-        {
-          v12 = v32;
-          if (v32 <= v5)
-          {
-            goto LABEL_50;
-          }
-
-          v22 = v34 + 88 * v5;
-          re::DynamicString::DynamicString(&v36, (v20 + 8));
-          LOWORD(v38) = *(v22 + 32);
-          BYTE8(v38) = 0;
-          LODWORD(v40) = -1;
-          std::__variant_detail::__ctor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(&v38 + 8, v22 + 40);
-          *(&v40 + 1) = *(v22 + 72);
-          v41 = 0xFFFFFFFF00000000;
-          re::DynamicArray<re::NamedVertexBuffer>::add(v31, &v36);
-          if (v40 != -1)
-          {
-            (off_1F5D0BCB8[v40])(&v42, &v38 + 8);
-          }
-
-          LODWORD(v40) = -1;
-          if (v36 && (BYTE8(v36) & 1) != 0)
-          {
-            (*(*v36 + 40))();
-          }
-        }
+        result = re::MaterialTechniqueData::operator=(v6, v7);
+        v7 += 664;
+        v6 += 664;
+        v8 -= 664;
       }
 
-      if (*(a3 + 232) <= (v16 + 1))
+      while (v8);
+      v6 = *(v3 + 4);
+      v5 = *(v3 + 2);
+    }
+
+    if (v4 != v5)
+    {
+      result = (v6 + 664 * v4);
+      v9 = 664 * v5 - 664 * v4;
+      do
       {
-        v23 = v16 + 1;
+        re::MaterialTechniqueData::~MaterialTechniqueData(result);
+        result = (v10 + 664);
+        v9 -= 664;
       }
 
-      else
-      {
-        v23 = *(a3 + 232);
-      }
-
-      v19 = *(a3 + 216);
-      while (v23 - 1 != v16)
-      {
-        LODWORD(v16) = v16 + 1;
-        if ((*(v19 + 80 * v16) & 0x80000000) != 0)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      LODWORD(v16) = v23;
-LABEL_43:
-      ;
-    }
-
-    while (v16 != v15);
-  }
-
-  re::StringID::StringID(v29, (a3 + 72));
-  v24 = re::MeshPart::MeshPart(a1, v29, *(a3 + 56), v34, v32, *(a3 + 40), *(a3 + 48), *(a3 + 52), (a3 + 96), a5, a4, (a3 + 192), *(a3 + 60), *(a3 + 64));
-  if (v29[0])
-  {
-    if (v29[0])
-    {
+      while (v9);
     }
   }
 
-  v29[0] = 0;
-  v29[1] = &str_67;
-  re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::deinit(v30);
-  return re::DynamicArray<re::NamedVertexBuffer>::deinit(v31);
-}
-
-uint64_t re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::find(uint64_t *a1, uint64_t a2)
-{
-  if (!a1[7] || a1[2] < 0x10 || !a1[3])
-  {
-    return -1;
-  }
-
-  v4 = re::Hash<re::DynamicString>::operator()(&v15, a2) % (a1[2] >> 4);
-  while (1)
-  {
-    v5 = *a1;
-    v6 = re::Hash<re::DynamicString>::operator()(&v16, a2);
-    v14 = *(v5 + 16 * v4);
-    v7 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(vdupq_n_s8(v6 & 0x7F), v14), xmmword_1E304FAD0)))), 0x3830282018100800);
-    v8 = __clz(__rbit64(v7));
-    if (v8 <= 0x3F)
-    {
-      break;
-    }
-
-LABEL_10:
-    v12.i64[0] = -1;
-    v12.i64[1] = -1;
-    if (vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(v14, v12), xmmword_1E304FAD0)))), 0x3830282018100800))
-    {
-      return -1;
-    }
-
-    if (++v4 == a1[2] >> 4)
-    {
-      v4 = 0;
-    }
-
-    v11 = -1;
-    if (v4 == re::Hash<re::DynamicString>::operator()(&v17, a2) % (a1[2] >> 4))
-    {
-      return v11;
-    }
-  }
-
-  v9 = 16 * v4;
-  v10 = a1[1];
-  while (1)
-  {
-    v11 = v8 + v9;
-    if (re::DynamicString::operator==(a2, v10 + 40 * (v8 + v9)))
-    {
-      return v11;
-    }
-
-    if (v8 <= 0x3E)
-    {
-      v8 = __clz(__rbit64((-2 << v8) & v7));
-      if (v8 < 0x40)
-      {
-        continue;
-      }
-    }
-
-    goto LABEL_10;
-  }
-}
-
-unint64_t re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::internalAdd(uint64_t a1, const re::DynamicString *a2, void *a3)
-{
-  if (!*(a1 + 56))
-  {
-  }
-
-  v6 = *(a1 + 32);
-  if (!v6 || *(a1 + 16) > (8 * v6))
-  {
-    re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::resize(a1);
-  }
-
-  v7 = re::Hash<re::DynamicString>::operator()(&v19, a2) % (*(a1 + 16) >> 4);
-  v8 = *a1;
-  v9 = re::Hash<re::DynamicString>::operator()(&v20, a2);
-  v10 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v8 + 16 * v7)), xmmword_1E304FAD0)))), 0x3830282018100800)));
-  if (v10 >= 0x40)
-  {
-    do
-    {
-      if (v7 + 1 == *(a1 + 16) >> 4)
-      {
-        v7 = 0;
-      }
-
-      else
-      {
-        ++v7;
-      }
-
-      v8 = *a1;
-      v9 = re::Hash<re::DynamicString>::operator()(&v20, a2);
-      v10 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v8 + 16 * v7)), xmmword_1E304FAD0)))), 0x3830282018100800)));
-    }
-
-    while (v10 > 0x3F);
-  }
-
-  v11 = v8 + 16 * v7;
-  v12 = *(v11 + v10);
-  *(v11 + v10) = v9 & 0x7F;
-  v13 = v10 + 16 * v7;
-  v14 = 5 * v13;
-  re::DynamicString::DynamicString((*(a1 + 8) + 40 * v13), a2);
-  v15 = *(a1 + 8) + 8 * v14;
-  *(v15 + 32) = *a3;
-  if (v12 == 255)
-  {
-    v16 = -1;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17.i64[0] = vdupq_n_s64(1uLL).u64[0];
-  v17.i64[1] = v16;
-  *(a1 + 24) = vaddq_s64(*(a1 + 24), v17);
-  result = re::Hash<re::DynamicString>::operator()(&v21, v15);
-  *(a1 + 40) ^= result;
+  *(v3 + 2) = v4;
   return result;
 }
 
-double re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::resize(uint64_t a1)
+void re::DynamicArray<re::MaterialTechniqueGroupData>::copy(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24) + 1;
-  v4 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
-  if (v4 > v2)
+  v4 = *(a2 + 16);
+  if (v4 >= *(a1 + 16))
   {
-    v5 = 3 * v2;
-    v6 = v5 << 6;
-    v7 = (v5 >> 1) & 0x1FFFFFFFFFFFFFFLL;
-    if (v4 > v6 >> 7)
+    re::DynamicArray<re::MaterialTechniqueGroupData>::setCapacity(a1, *(a2 + 16));
+    std::__copy_impl::operator()[abi:nn200100]<re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *>(&v15, *(a2 + 32), (*(a2 + 32) + 72 * *(a1 + 16)), *(a1 + 32));
+    v9 = *(a1 + 16);
+    if (v9 != v4)
     {
-      v7 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
-    }
+      v10 = 9 * v9;
+      v11 = (*(a2 + 32) + 8 * v10);
+      v12 = (*(a1 + 32) + 8 * v10);
+      v13 = 72 * v4 - 8 * v10;
+      do
+      {
+        re::DynamicString::DynamicString(v12, v11);
+        re::DynamicArray<re::DynamicString>::DynamicArray(v12 + 32, v11 + 4);
+        v11 += 9;
+        v12 = (v12 + 72);
+        v13 -= 72;
+      }
 
-    v3 = (v7 << 7) / 0x97;
+      while (v13);
+    }
   }
 
-  v8 = *(a1 + 56);
-  memset(v27, 0, sizeof(v27));
-  re::HashBrown<re::WeakStringID,re::WeakParameterBinding,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::WeakParameterBinding>,false>::init(v27, v8, v3);
-  v25[0] = a1;
-  v10 = *(a1 + 16);
-  if (v10 >= 0x10)
+  else
   {
-    v11 = 0;
-    v12 = *a1;
-    v13 = v10 >> 4;
-    v14 = xmmword_1E304FAD0;
-    v9.n128_u64[0] = 0x3830282018100800;
+    std::__copy_impl::operator()[abi:nn200100]<re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *>(&v14, *(a2 + 32), (*(a2 + 32) + 72 * v4), *(a1 + 32));
+    v5 = *(a1 + 16);
+    if (v4 != v5)
+    {
+      v6 = *(a1 + 32);
+      v7 = (v6 + 72 * v5);
+      v8 = (v6 + 72 * v4);
+      do
+      {
+        re::MaterialTechniqueGroupData::deinit(v8);
+        re::DynamicArray<re::DynamicString>::deinit((v8 + 4));
+        re::DynamicString::deinit(v8);
+        v8 += 9;
+      }
+
+      while (v8 != v7);
+    }
+  }
+
+  *(a1 + 16) = v4;
+}
+
+re::DynamicString *std::__copy_impl::operator()[abi:nn200100]<re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *,re::MaterialTechniqueGroupData *>(int a1, re::DynamicString *a2, re::DynamicString *a3, re::DynamicString *this)
+{
+  v5 = a2;
+  if (a2 != a3)
+  {
+    do
+    {
+      re::DynamicString::operator=(this, v5);
+      re::DynamicArray<re::DynamicString>::operator=(this + 32, v5 + 4);
+      v5 += 9;
+      this = (this + 72);
+    }
+
+    while (v5 != a3);
+    return a3;
+  }
+
+  return v5;
+}
+
+void re::DynamicArray<re::DebugMapping>::copy(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  if (v4 >= *(a1 + 16))
+  {
+    re::DynamicArray<re::DebugMapping>::setCapacity(a1, *(a2 + 16));
+    std::__copy_impl::operator()[abi:nn200100]<re::DebugMapping *,re::DebugMapping *,re::DebugMapping *>(&v14, *(a2 + 32), (*(a2 + 32) + 80 * *(a1 + 16)), *(a1 + 32));
+    v8 = *(a1 + 16);
+    if (v8 != v4)
+    {
+      v9 = 5 * v8;
+      v10 = (*(a2 + 32) + 16 * v9);
+      v11 = (*(a1 + 32) + 16 * v9);
+      v12 = 80 * v4 - 16 * v9;
+      do
+      {
+        re::DynamicString::DynamicString(v11, v10);
+        re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::HashTable(v11 + 32, v10 + 32);
+        v10 = (v10 + 80);
+        v11 = (v11 + 80);
+        v12 -= 80;
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    std::__copy_impl::operator()[abi:nn200100]<re::DebugMapping *,re::DebugMapping *,re::DebugMapping *>(&v13, *(a2 + 32), (*(a2 + 32) + 80 * v4), *(a1 + 32));
+    v5 = *(a1 + 16);
+    if (v4 != v5)
+    {
+      v6 = (*(a1 + 32) + 80 * v4);
+      v7 = 80 * v5 - 80 * v4;
+      do
+      {
+        re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v6 + 4);
+        re::DynamicString::deinit(v6);
+        v6 += 10;
+        v7 -= 80;
+      }
+
+      while (v7);
+    }
+  }
+
+  *(a1 + 16) = v4;
+}
+
+re::DynamicString *std::__copy_impl::operator()[abi:nn200100]<re::DebugMapping *,re::DebugMapping *,re::DebugMapping *>(int a1, re::DynamicString *a2, re::DynamicString *a3, re::DynamicString *this)
+{
+  v5 = a2;
+  if (a2 != a3)
+  {
+    do
+    {
+      re::DynamicString::operator=(this, v5);
+      re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=(this + 32, v5 + 32);
+      v5 = (v5 + 80);
+      this = (this + 80);
+    }
+
+    while (v5 != a3);
+    return a3;
+  }
+
+  return v5;
+}
+
+uint64_t re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    if (*a1)
+    {
+      re::HashTable<re::DynamicString,unsigned long long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::clear(a1);
+      if (*a2)
+      {
+        v4 = *(a2 + 28);
+        if (*(a1 + 24) < v4)
+        {
+          re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::setCapacity(a1, v4);
+        }
+
+        re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy(a1, a2);
+        ++*(a1 + 40);
+      }
+    }
+
+    else
+    {
+      v5 = *a2;
+      if (*a2)
+      {
+        if (*(a2 + 28) <= 3u)
+        {
+          v6 = 3;
+        }
+
+        else
+        {
+          v6 = *(a2 + 28);
+        }
+
+        re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a1, v5, v6);
+        re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy(a1, a2);
+      }
+    }
+  }
+
+  return a1;
+}
+
+re::DynamicString *re::HashTable<re::DynamicString,re::OptionalMaterialParameterProperties,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::copy(re::DynamicString *result, uint64_t a2)
+{
+  if (*(a2 + 32))
+  {
+    v3 = result;
+    v4 = 0;
+    v5 = 0;
+    do
+    {
+      v6 = *(a2 + 16);
+      if ((*(v6 + v4) & 0x80000000) != 0)
+      {
+        v7 = re::HashTable<re::DynamicString,re::OptionalMaterialParameterProperties,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(v3, *(v6 + v4 + 88) % *(v3 + 6), *(v6 + v4 + 88));
+        result = re::DynamicString::DynamicString((v7 + 8), (*(a2 + 16) + v4 + 8));
+        v8 = *(a2 + 16);
+        v9 = v8 + v4;
+        v10 = *(v8 + v4 + 40);
+        v7[40] = v10;
+        if (v10 == 1)
+        {
+          result = re::DynamicString::DynamicString((v7 + 48), (v9 + 48));
+        }
+
+        v11 = *(v9 + 80);
+        v7[80] = v11;
+        if (v11 == 1)
+        {
+          v7[81] = *(v8 + v4 + 81);
+        }
+      }
+
+      ++v5;
+      v4 += 96;
+    }
+
+    while (v5 < *(a2 + 32));
+  }
+
+  return result;
+}
+
+re::DynamicString **re::DynamicArray<re::MaterialTechniqueQualityLevelSetData>::copy(re::DynamicString **result, uint64_t a2)
+{
+  v3 = result;
+  v4 = *(a2 + 16);
+  v5 = result[2];
+  if (v4 >= v5)
+  {
+    result = re::DynamicArray<re::MaterialTechniqueQualityLevelSetData>::setCapacity(result, *(a2 + 16));
+    v11 = *(a2 + 32);
+    v12 = *(v3 + 2);
+    v13 = *(v3 + 4);
+    if (v12)
+    {
+      v14 = 104 * v12;
+      do
+      {
+        result = re::MaterialTechniqueQualityLevelSetData::operator=(v13, v11);
+        v11 += 13;
+        v13 = (v13 + 104);
+        v14 -= 104;
+      }
+
+      while (v14);
+      v13 = *(v3 + 4);
+      v12 = *(v3 + 2);
+      v11 = *(a2 + 32);
+    }
+
+    if (v12 != v4)
+    {
+      v15 = 104 * v12;
+      v16 = &v11[v15 / 8];
+      result = (v13 + v15);
+      v17 = 104 * v4 - v15;
+      do
+      {
+        v18 = re::MaterialTechniqueQualityLevelSetData::MaterialTechniqueQualityLevelSetData(result, v16);
+        v16 = (v16 + 104);
+        result = (v18 + 104);
+        v17 -= 104;
+      }
+
+      while (v17);
+    }
+  }
+
+  else
+  {
+    v6 = result[4];
+    if (v4)
+    {
+      v7 = *(a2 + 32);
+      v8 = 104 * v4;
+      do
+      {
+        result = re::MaterialTechniqueQualityLevelSetData::operator=(v6, v7);
+        v7 += 13;
+        v6 = (v6 + 104);
+        v8 -= 104;
+      }
+
+      while (v8);
+      v6 = *(v3 + 4);
+      v5 = *(v3 + 2);
+    }
+
+    if (v4 != v5)
+    {
+      result = (v6 + 104 * v4);
+      v9 = 104 * v5 - 104 * v4;
+      do
+      {
+        re::MaterialTechniqueQualityLevelSetData::~MaterialTechniqueQualityLevelSetData(result);
+        result = (v10 + 104);
+        v9 -= 104;
+      }
+
+      while (v9);
+    }
+  }
+
+  *(v3 + 2) = v4;
+  return result;
+}
+
+uint64_t re::DynamicArray<re::TechniqueFunctionConstant>::operator=(uint64_t a1, uint64_t *a2)
+{
+  if (a1 != a2)
+  {
+    v4 = *a2;
+    if (*a1)
+    {
+      if (v4)
+      {
+        re::DynamicArray<re::TechniqueFunctionConstant>::copy(a1, a2);
+        ++*(a1 + 24);
+      }
+
+      else
+      {
+        re::DynamicArray<re::TechniqueFunctionConstant>::clear(a1);
+      }
+    }
+
+    else if (v4)
+    {
+      v5 = a2[2];
+      *a1 = v4;
+      re::DynamicArray<re::TechniqueFunctionConstant>::setCapacity(a1, v5);
+      ++*(a1 + 24);
+      re::DynamicArray<re::TechniqueFunctionConstant>::copy(a1, a2);
+    }
+  }
+
+  return a1;
+}
+
+uint64_t re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::addInternal<unsigned long const&,re::FunctionVariantDescriptor const&>(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, uint64_t a5)
+{
+  v8 = re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::allocEntry(a1, a3, a2);
+  *(v8 + 8) = *a4;
+  re::DynamicArray<re::TechniqueFunctionConstant>::DynamicArray(v8 + 16, a5);
+  re::DynamicString::DynamicString((v8 + 56), (a5 + 40));
+  re::DynamicString::DynamicString((v8 + 88), (a5 + 72));
+  re::DynamicString::DynamicString((v8 + 120), (a5 + 104));
+  re::DynamicString::DynamicString((v8 + 152), (a5 + 136));
+  *(v8 + 184) = *(a5 + 168);
+  ++*(a1 + 40);
+  return v8 + 16;
+}
+
+uint64_t re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::findEntry<unsigned long>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = *a2;
+  v5 = 0x7FFFFFFF;
+  if (!*a2)
+  {
+    goto LABEL_5;
+  }
+
+  v4 = a4 % *(a2 + 24);
+  v6 = *(*(a2 + 8) + 4 * v4);
+  if (v6 == 0x7FFFFFFF)
+  {
+    goto LABEL_5;
+  }
+
+  v7 = *(a2 + 16);
+  if (*(v7 + 200 * v6 + 8) == a3)
+  {
+    v5 = *(*(a2 + 8) + 4 * v4);
+LABEL_5:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_6;
+  }
+
+  v8 = *(v7 + 200 * v6) & 0x7FFFFFFF;
+  v5 = 0x7FFFFFFF;
+  if (v8 != 0x7FFFFFFF)
+  {
+    v5 = 0x7FFFFFFF;
     while (1)
     {
-      v15 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v12), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
-      v25[1] = v15 ^ 0xFFFFLL;
-      if (v15 != 0xFFFFLL)
+      v9 = v8;
+      if (*(v7 + 200 * v8 + 8) == a3)
       {
         break;
       }
 
-      v11 -= 16;
-      ++v12;
-      if (!--v13)
+      v8 = *(v7 + 200 * v8) & 0x7FFFFFFF;
+      v6 = v9;
+      if (v8 == 0x7FFFFFFF)
       {
-        goto LABEL_13;
+        v6 = v9;
+        goto LABEL_6;
       }
     }
 
-    v16 = __clz(__rbit64(v15 ^ 0xFFFFLL));
-    v17 = v16 - v11;
-    v26 = v16 - v11;
-    if (v16 + 1 != v11)
+    v5 = v8;
+  }
+
+LABEL_6:
+  *result = a4;
+  *(result + 8) = v4;
+  *(result + 12) = v5;
+  *(result + 16) = v6;
+  return result;
+}
+
+uint64_t re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v4 = *(a1 + 36);
+  if (v4 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 32);
+    v5 = v4;
+    if (v4 == *(a1 + 24))
     {
-      do
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
       {
-        re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::internalAdd(v27, *(v25[0] + 8) + 40 * v17, *(v25[0] + 8) + 40 * v17 + 32, v14, v9);
-        re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v25);
-        v17 = v26;
+        if (v8)
+        {
+          v10 = v4 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v46, 0, 36);
+          *&v46[36] = 0x7FFFFFFFLL;
+          re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::init(v46, v9, v8);
+          v11 = *v46;
+          *v46 = *a1;
+          *a1 = v11;
+          v12 = *&v46[16];
+          *&v46[16] = *(a1 + 16);
+          *(a1 + 16) = v12;
+          v14 = *&v46[24];
+          *&v46[24] = *(a1 + 24);
+          v13 = *&v46[32];
+          *(a1 + 24) = v14;
+          ++*&v46[40];
+          v15 = v13;
+          if (v13)
+          {
+            v16 = 0;
+            v17 = 96;
+            do
+            {
+              v18 = *&v46[16] + v17;
+              if ((*(*&v46[16] + v17 - 96) & 0x80000000) != 0)
+              {
+                v19 = re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::allocEntry(a1, *(v18 - 88) % *(a1 + 24), *(v18 - 88));
+                v20 = *(v18 - 88);
+                *(v19 + 48) = 0;
+                *(v19 + 40) = 0;
+                *(v19 + 24) = 0;
+                *(v19 + 32) = 0;
+                *(v19 + 8) = v20;
+                *(v19 + 16) = 0;
+                v21 = *(v18 - 72);
+                *(v19 + 16) = *(v18 - 80);
+                *(v19 + 24) = v21;
+                *(v18 - 80) = 0;
+                *(v18 - 72) = 0;
+                v22 = *(v19 + 32);
+                *(v19 + 32) = *(v18 - 64);
+                *(v18 - 64) = v22;
+                v23 = *(v19 + 48);
+                *(v19 + 48) = *(v18 - 48);
+                *(v18 - 48) = v23;
+                ++*(v18 - 56);
+                ++*(v19 + 40);
+                *(v19 + 72) = 0u;
+                *(v19 + 56) = 0u;
+                *(v19 + 80) = *(v18 - 16);
+                v24 = *(v18 - 32);
+                *(v19 + 56) = *(v18 - 40);
+                *(v18 - 40) = 0;
+                v25 = *(v18 - 24);
+                *(v18 - 16) = 0;
+                v27 = *(v19 + 64);
+                v26 = *(v19 + 72);
+                *(v19 + 64) = v24;
+                *(v19 + 72) = v25;
+                *(v18 - 32) = v27;
+                *(v18 - 24) = v26;
+                *(v19 + 104) = 0u;
+                *(v19 + 88) = 0u;
+                *(v19 + 112) = *(v18 + 16);
+                v28 = *v18;
+                *(v19 + 88) = *(v18 - 8);
+                *(v18 - 8) = 0;
+                v29 = *(v18 + 8);
+                *(v18 + 16) = 0;
+                v31 = *(v19 + 96);
+                v30 = *(v19 + 104);
+                *(v19 + 96) = v28;
+                *(v19 + 104) = v29;
+                *v18 = v31;
+                *(v18 + 8) = v30;
+                *(v19 + 136) = 0u;
+                *(v19 + 120) = 0u;
+                *(v19 + 144) = *(v18 + 48);
+                v32 = *(v18 + 32);
+                *(v19 + 120) = *(v18 + 24);
+                *(v18 + 24) = 0;
+                v33 = *(v18 + 40);
+                *(v18 + 48) = 0;
+                v35 = *(v19 + 128);
+                v34 = *(v19 + 136);
+                *(v19 + 128) = v32;
+                *(v19 + 136) = v33;
+                *(v18 + 32) = v35;
+                *(v18 + 40) = v34;
+                *(v19 + 168) = 0u;
+                *(v19 + 152) = 0u;
+                *(v19 + 176) = *(v18 + 80);
+                v36 = *(v18 + 64);
+                *(v19 + 152) = *(v18 + 56);
+                *(v18 + 56) = 0;
+                v37 = *(v18 + 72);
+                *(v18 + 80) = 0;
+                v39 = *(v19 + 160);
+                v38 = *(v19 + 168);
+                *(v19 + 160) = v36;
+                *(v19 + 168) = v37;
+                *(v18 + 64) = v39;
+                *(v18 + 72) = v38;
+                *(v19 + 184) = *(v18 + 88);
+                v15 = *&v46[32];
+              }
+
+              ++v16;
+              v17 += 200;
+            }
+
+            while (v16 < v15);
+          }
+
+          re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(v46);
+        }
       }
 
-      while (v26 != -1);
-      v10 = *(a1 + 16);
+      else
+      {
+        if (v8)
+        {
+          v42 = 2 * v7;
+        }
+
+        else
+        {
+          v42 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v5 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v5 + 1;
+    v40 = *(a1 + 16);
+    v41 = *(v40 + 200 * v4);
+  }
+
+  else
+  {
+    v40 = *(a1 + 16);
+    v41 = *(v40 + 200 * v4);
+    *(a1 + 36) = v41 & 0x7FFFFFFF;
+  }
+
+  v43 = 200 * v4;
+  *(v40 + v43) = v41 | 0x80000000;
+  v44 = *(a1 + 8);
+  *(v40 + v43) = *(v44 + 4 * a2) | 0x80000000;
+  *(v44 + 4 * a2) = v4;
+  ++*(a1 + 28);
+  return v40 + 200 * v4;
+}
+
+void re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::init(uint64_t a1, uint64_t a2, signed int a3)
+{
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
+  {
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
+    {
+      v5 = v8;
+    }
+
+    else
+    {
+      v4 = v6;
     }
   }
 
-LABEL_13:
-  v18 = *(&v27[3] + 1);
-  *(&v27[3] + 1) = *(a1 + 56);
-  v19 = v27[0];
-  v20 = v27[1];
-  v27[0] = *a1;
-  *&v27[1] = v10;
-  v21 = v27[2];
-  v22 = *(a1 + 40);
-  *(a1 + 48) = *&v27[3];
-  *(a1 + 56) = v18;
-  *(&v27[2] + 8) = v22;
-  v23 = *(a1 + 24);
-  *a1 = v19;
-  *(a1 + 16) = v20;
-  *(a1 + 32) = v21;
-  *(&v27[1] + 8) = v23;
-  return re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::deinit(v27);
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 200 * v10, 16);
+  if (v12)
+  {
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &unk_1E304C660, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
+  }
+
+  else
+  {
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
+  }
 }
 
-double re::HashBrown<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::deinit(uint64_t a1)
+uint64_t rapidjson::internal::Stack<rapidjson::CrtAllocator>::Destroy(uint64_t a1)
 {
-  if (*(a1 + 56))
+  free(*(a1 + 16));
+  result = *(a1 + 8);
+  if (result)
+  {
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v5 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v60, 0, 36);
+          *&v60[36] = 0x7FFFFFFFLL;
+          re::HashTable<unsigned long long,re::SkyboxSystem::updateSceneInternal(re::ecs2::Scene *,re::ecs2::System::UpdateContext)::SkyboxData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(v60, v9, v8);
+          v11 = *v60;
+          *v60 = *a1;
+          *a1 = v11;
+          v12 = *&v60[16];
+          *&v60[16] = *(a1 + 16);
+          *(a1 + 16) = v12;
+          v14 = *&v60[24];
+          *&v60[24] = *(a1 + 24);
+          v13 = *&v60[32];
+          *(a1 + 24) = v14;
+          ++*&v60[40];
+          v15 = v13;
+          if (v13)
+          {
+            v16 = 0;
+            v17 = 424;
+            do
+            {
+              v18 = *&v60[16] + v17;
+              if ((*(*&v60[16] + v17 - 424) & 0x80000000) != 0)
+              {
+                v19 = re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(v18 + 352) % *(a1 + 24), *(v18 + 352));
+                *(v19 + 24) = 0u;
+                *(v19 + 8) = 0u;
+                *(v19 + 8) = *(v18 - 416);
+                *(v18 - 416) = 0;
+                v20 = *(v18 - 400);
+                *(v19 + 32) = *(v18 - 392);
+                *(v18 - 392) = 0;
+                v22 = *(v19 + 16);
+                v21 = *(v19 + 24);
+                v23 = *(v18 - 408);
+                *(v19 + 24) = v20;
+                *(v18 - 400) = v21;
+                *(v19 + 16) = v23;
+                *(v18 - 408) = v22;
+                *(v19 + 40) = 0u;
+                *(v19 + 56) = 0u;
+                *(v19 + 40) = *(v18 - 384);
+                *(v18 - 384) = 0;
+                v24 = *(v18 - 368);
+                *(v19 + 64) = *(v18 - 360);
+                *(v18 - 360) = 0;
+                v26 = *(v19 + 48);
+                v25 = *(v19 + 56);
+                v27 = *(v18 - 376);
+                *(v19 + 56) = v24;
+                *(v18 - 368) = v25;
+                *(v19 + 48) = v27;
+                *(v18 - 376) = v26;
+                *(v19 + 88) = 0u;
+                *(v19 + 72) = 0u;
+                *(v19 + 72) = *(v18 - 352);
+                *(v18 - 352) = 0;
+                v28 = *(v18 - 336);
+                *(v19 + 96) = *(v18 - 328);
+                *(v18 - 328) = 0;
+                v30 = *(v19 + 80);
+                v29 = *(v19 + 88);
+                v31 = *(v18 - 344);
+                *(v19 + 88) = v28;
+                *(v18 - 336) = v29;
+                *(v19 + 80) = v31;
+                *(v18 - 344) = v30;
+                *(v19 + 120) = 0u;
+                *(v19 + 104) = 0u;
+                *(v19 + 104) = *(v18 - 320);
+                *(v18 - 320) = 0;
+                v32 = *(v18 - 304);
+                *(v19 + 128) = *(v18 - 296);
+                *(v18 - 296) = 0;
+                v34 = *(v19 + 112);
+                v33 = *(v19 + 120);
+                v35 = *(v18 - 312);
+                *(v19 + 120) = v32;
+                *(v18 - 304) = v33;
+                *(v19 + 112) = v35;
+                *(v18 - 312) = v34;
+                *(v19 + 136) = 0;
+                *(v19 + 144) = 0;
+                *(v19 + 152) = 0;
+                *(v19 + 144) = *(v18 - 280);
+                *(v18 - 280) = 0;
+                v36 = *(v19 + 136);
+                *(v19 + 136) = 0;
+                *(v19 + 136) = *(v18 - 288);
+                *(v18 - 288) = v36;
+                v37 = *(v19 + 152);
+                *(v19 + 152) = *(v18 - 272);
+                *(v18 - 272) = v37;
+                *(v19 + 160) = 0;
+                *(v19 + 168) = 0;
+                *(v19 + 176) = 0;
+                *(v19 + 168) = *(v18 - 256);
+                *(v18 - 256) = 0;
+                v38 = *(v19 + 160);
+                *(v19 + 160) = 0;
+                *(v19 + 160) = *(v18 - 264);
+                *(v18 - 264) = v38;
+                v39 = *(v19 + 176);
+                *(v19 + 176) = *(v18 - 248);
+                *(v18 - 248) = v39;
+                re::MaterialParameterData::MaterialParameterData(v19 + 184, v18 - 240);
+                *(v19 + 456) = 0;
+                *(v19 + 448) = 0;
+                *(v19 + 432) = 0;
+                *(v19 + 440) = 0;
+                *(v19 + 424) = 0;
+                v40 = *(v18 + 8);
+                *(v19 + 424) = *v18;
+                *(v19 + 432) = v40;
+                *v18 = 0;
+                *(v18 + 8) = 0;
+                v41 = *(v19 + 440);
+                *(v19 + 440) = *(v18 + 16);
+                *(v18 + 16) = v41;
+                v42 = *(v19 + 456);
+                *(v19 + 456) = *(v18 + 32);
+                *(v18 + 32) = v42;
+                ++*(v18 + 24);
+                ++*(v19 + 448);
+                *(v19 + 496) = 0;
+                *(v19 + 472) = 0;
+                *(v19 + 480) = 0;
+                *(v19 + 464) = 0;
+                *(v19 + 488) = 0;
+                v43 = *(v18 + 48);
+                *(v19 + 464) = *(v18 + 40);
+                *(v19 + 472) = v43;
+                *(v18 + 40) = 0;
+                *(v18 + 48) = 0;
+                v44 = *(v19 + 480);
+                *(v19 + 480) = *(v18 + 56);
+                *(v18 + 56) = v44;
+                v45 = *(v19 + 496);
+                *(v19 + 496) = *(v18 + 72);
+                *(v18 + 72) = v45;
+                ++*(v18 + 64);
+                ++*(v19 + 488);
+                *(v19 + 504) = 0u;
+                *(v19 + 520) = 0u;
+                *(v19 + 536) = 0;
+                *(v19 + 540) = 0x7FFFFFFFLL;
+                re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((v19 + 504), (v18 + 80));
+                *(v19 + 552) = 0u;
+                *(v19 + 568) = 0u;
+                *(v19 + 584) = 0x7FFFFFFF00000000;
+                *(v19 + 592) = 0;
+                re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((v19 + 552), (v18 + 128));
+                *(v19 + 632) = 0;
+                *(v19 + 624) = 0;
+                *(v19 + 616) = 0;
+                *(v19 + 608) = 0;
+                *(v19 + 600) = 0;
+                v46 = *(v18 + 184);
+                *(v19 + 600) = *(v18 + 176);
+                *(v19 + 608) = v46;
+                *(v18 + 176) = 0;
+                *(v18 + 184) = 0;
+                v47 = *(v19 + 616);
+                *(v19 + 616) = *(v18 + 192);
+                *(v18 + 192) = v47;
+                v48 = *(v19 + 632);
+                *(v19 + 632) = *(v18 + 208);
+                *(v18 + 208) = v48;
+                ++*(v18 + 200);
+                ++*(v19 + 624);
+                *(v19 + 672) = 0;
+                *(v19 + 640) = 0u;
+                *(v19 + 656) = 0u;
+                *(v19 + 676) = 0x7FFFFFFFLL;
+                *(v19 + 640) = *(v18 + 216);
+                *(v18 + 216) = 0;
+                v49 = *(v19 + 648);
+                *(v19 + 648) = *(v18 + 224);
+                *(v18 + 224) = v49;
+                v50 = *(v19 + 656);
+                *(v19 + 656) = *(v18 + 232);
+                *(v18 + 232) = v50;
+                *(v19 + 664) = *(v18 + 240);
+                *(v18 + 240) = 0;
+                LODWORD(v50) = *(v19 + 668);
+                *(v19 + 668) = *(v18 + 244);
+                *(v18 + 244) = v50;
+                LODWORD(v50) = *(v19 + 672);
+                *(v19 + 672) = *(v18 + 248);
+                *(v18 + 248) = v50;
+                LODWORD(v50) = *(v19 + 676);
+                *(v19 + 676) = *(v18 + 252);
+                *(v18 + 252) = v50;
+                ++*(v19 + 680);
+                *(v19 + 720) = 0;
+                *(v19 + 688) = 0;
+                *(v19 + 704) = 0;
+                *(v19 + 696) = 0;
+                *(v19 + 712) = 0;
+                v51 = *(v18 + 272);
+                *(v19 + 688) = *(v18 + 264);
+                *(v19 + 696) = v51;
+                *(v18 + 264) = 0;
+                *(v18 + 272) = 0;
+                v52 = *(v19 + 704);
+                *(v19 + 704) = *(v18 + 280);
+                *(v18 + 280) = v52;
+                v53 = *(v19 + 720);
+                *(v19 + 720) = *(v18 + 296);
+                *(v18 + 296) = v53;
+                ++*(v18 + 288);
+                ++*(v19 + 712);
+                *(v19 + 728) = 0u;
+                *(v19 + 744) = 0u;
+                *(v19 + 760) = 0;
+                *(v19 + 764) = 0x7FFFFFFFLL;
+                re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((v19 + 728), (v18 + 304));
+                v15 = *&v60[32];
+              }
+
+              ++v16;
+              v17 += 784;
+            }
+
+            while (v16 < v15);
+          }
+
+          re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v60);
+        }
+      }
+
+      else
+      {
+        if (v8)
+        {
+          v56 = 2 * v7;
+        }
+
+        else
+        {
+          v56 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v54 = *(a1 + 16);
+    v55 = *(v54 + 784 * v5);
+  }
+
+  else
+  {
+    v54 = *(a1 + 16);
+    v55 = *(v54 + 784 * v5);
+    *(a1 + 36) = v55 & 0x7FFFFFFF;
+  }
+
+  v57 = v54 + 784 * v5;
+  *v57 = v55 | 0x80000000;
+  v58 = *(a1 + 8);
+  *v57 = *(v58 + 4 * a2) | 0x80000000;
+  *(v58 + 4 * a2) = v5;
+  *(v57 + 776) = a3;
+  ++*(a1 + 28);
+  return v54 + 784 * v5;
+}
+
+double re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
   {
     if (*(a1 + 8))
     {
-      v10[0] = a1;
-      v2 = *(a1 + 16);
-      if (v2 >= 0x10)
+      v3 = 0;
+      v4 = 0;
+      do
       {
-        v3 = 0;
-        v4 = *a1;
-        v5 = v2 >> 4;
-        while (1)
-        {
-          v6 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v4), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
-          v10[1] = v6 ^ 0xFFFFLL;
-          if (v6 != 0xFFFFLL)
-          {
-            break;
-          }
-
-          v3 -= 16;
-          ++v4;
-          if (!--v5)
-          {
-            goto LABEL_10;
-          }
-        }
-
-        v7 = __clz(__rbit64(v6 ^ 0xFFFFLL));
-        v8 = v7 - v3;
-        v11 = v7 - v3;
-        if (v7 + 1 != v3)
-        {
-          do
-          {
-            re::DynamicString::deinit((*(a1 + 8) + 40 * v8));
-            re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v10);
-            v8 = v11;
-          }
-
-          while (v11 != -1);
-        }
+        re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free((a1[2] + v3));
+        ++v4;
+        v3 += 784;
       }
 
-LABEL_10:
-      *(a1 + 8) = 0;
+      while (v4 < *(a1 + 8));
+      v2 = *a1;
     }
 
-    if (*a1)
-    {
-      (*(**(a1 + 56) + 40))(*(a1 + 56));
-      *a1 = 0;
-    }
-
-    result = 0.0;
-    *(a1 + 32) = 0u;
-    *(a1 + 48) = 0u;
-    *(a1 + 16) = 0u;
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
   }
 
   return result;
 }
 
-BOOL re::HashTable<re::DynamicString,re::MeshCompileOptions,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(_BOOL8 result, uint64_t a2, uint64_t a3, unint64_t a4)
+void re::HashTable<re::DynamicString,re::MaterialDefinitionFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(_DWORD *a1)
+{
+  if ((*a1 & 0x80000000) != 0)
+  {
+    *a1 &= ~0x80000000;
+    v2 = (a1 + 10);
+    re::DynamicString::deinit((a1 + 2));
+
+    re::MaterialDefinitionFile::~MaterialDefinitionFile(v2);
+  }
+}
+
+BOOL re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(_BOOL8 result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v5 = result;
   v6 = 0x7FFFFFFF;
@@ -5012,14 +1638,14 @@ LABEL_6:
   }
 
   v10 = *(a2 + 16);
-  result = re::DynamicString::operator==(v10 + 112 * v8 + 8, a3);
+  result = re::DynamicString::operator==(v10 + 464 * v8 + 8, a3);
   if (result)
   {
     v6 = v8;
     goto LABEL_6;
   }
 
-  v11 = *(v10 + 112 * v8) & 0x7FFFFFFF;
+  v11 = *(v10 + 464 * v8) & 0x7FFFFFFF;
   v6 = 0x7FFFFFFF;
   if (v11 != 0x7FFFFFFF)
   {
@@ -5027,13 +1653,13 @@ LABEL_6:
     while (1)
     {
       v12 = v11;
-      result = re::DynamicString::operator==(v10 + 112 * v11 + 8, a3);
+      result = re::DynamicString::operator==(v10 + 464 * v11 + 8, a3);
       if (result)
       {
         break;
       }
 
-      v11 = *(v10 + 112 * v12) & 0x7FFFFFFF;
+      v11 = *(v10 + 464 * v12) & 0x7FFFFFFF;
       v8 = v12;
       if (v11 == 0x7FFFFFFF)
       {
@@ -5053,1042 +1679,475 @@ LABEL_7:
   return result;
 }
 
-void re::gatherMaterialConstants(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t *a1, unsigned int a2, unint64_t a3)
 {
-  v9 = a2;
-  v10 = a3;
-  v11 = [MEMORY[0x1E69DED88] USDPreviewSurfaceDefaults];
-  v12 = [v11 objectForKeyedSubscript:@"opacityThreshold"];
-  [v12 floatValue];
-  HIDWORD(v94) = v13;
-
-  v14 = [v11 objectForKeyedSubscript:@"emissiveColor"];
-  [v14 float3Value];
-  v97 = v15;
-
-  v16 = [v11 objectForKeyedSubscript:@"metallic"];
-  [v16 floatValue];
-  HIDWORD(v96) = v17;
-
-  v18 = [v11 objectForKeyedSubscript:@"roughness"];
-  [v18 floatValue];
-  LODWORD(v96) = v19;
-
-  v20 = [v11 objectForKeyedSubscript:@"clearcoat"];
-  [v20 floatValue];
-  HIDWORD(v95) = v21;
-
-  v22 = [v11 objectForKeyedSubscript:@"clearcoatRoughness"];
-  [v22 floatValue];
-  LODWORD(v95) = v23;
-
-  v24 = [v11 objectForKeyedSubscript:@"textureFallback"];
-  [v24 float4Value];
-  v73 = v25;
-
-  v26 = [v11 objectForKeyedSubscript:@"ior"];
-  [v26 floatValue];
-  LODWORD(v94) = v27;
-
-  re::DynamicString::appendf(&v91, "[%f, %f, %f, %f, srgb]", BaseColorTintAndOpacity.n128_f32[0], BaseColorTintAndOpacity.n128_f32[1], BaseColorTintAndOpacity.n128_f32[2], BaseColorTintAndOpacity.n128_f32[3]);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "baseColorTint", &v91);
-  v30 = [v9 path];
-  v31 = [v30 stringValue];
-  v32 = [v31 hash];
-  v90.__x_[0] = v32;
-  for (i = 1; i != 624; ++i)
+  v5 = *(a1 + 9);
+  if (v5 == 0x7FFFFFFF)
   {
-    v32 = i + 1812433253 * (v32 ^ (v32 >> 30));
-    v90.__x_[i] = v32;
-  }
-
-  v90.__i_ = 0;
-
-  v35 = (vcvts_n_f32_u32(std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v90), 0x20uLL) + 0.0);
-  v36 = (vcvts_n_f32_u32(std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v90), 0x20uLL) + 0.0);
-  v37 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v90);
-  re::DynamicString::appendf(&v88, "[%f, %f, %f, srgb]", v35, v36, (vcvts_n_f32_u32(v37, 0x20uLL) + 0.0));
-  v38 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "partDebugColor", &v88);
-  if (re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a4, "textureEmissive"))
-  {
-    v39 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a4, "textureEmissive");
-    v40 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a5, "textureEmissive");
-    TextureScaleFloat3 = re::getTextureScaleFloat3(v39, v40, v73);
-    v42 = re::DynamicString::appendf(&v86, "[%f, %f, %f, 1.0]", TextureScaleFloat3.n128_f32[0], TextureScaleFloat3.n128_f32[1], TextureScaleFloat3.n128_f32[2]);
-  }
-
-  else
-  {
-    re::getConstantFloat3(v10, @"inputs:emissiveColor", &v97);
-    re::DynamicString::appendf(&v84, "[%f, %f, %f, srgb]", *&v97, *(&v97 + 1), *(&v97 + 2));
-    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "emissiveColor", &v84);
-    re::DynamicString::appendf(&v86, "[1,1,1,1]");
-    v42 = v84;
-    if (v84 && (v85 & 1) != 0)
+    v5 = *(a1 + 8);
+    v6 = v5;
+    if (v5 == *(a1 + 6))
     {
-      v42 = (*(*v84 + 40))();
-    }
-  }
-
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addNew<void>(a1, "emissiveScale", &v84);
-  if (v84 && (v85 & 1) != 0)
-  {
-    (*(*v84 + 40))();
-  }
-
-  v44 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "emissiveScaleRGBA", &v86);
-  v47 = v46;
-  v48 = v84;
-  if (v84 && (v85 & 1) != 0)
-  {
-    v48 = (*(*v84 + 40))();
-  }
-
-  if (v45)
-  {
-    LODWORD(v50) = re::getTextureScaleFloat(v45, v47 & 1, v73).n128_u32[0];
-  }
-
-  else
-  {
-    re::getConstantFloat(v10, @"inputs:metallic", (&v96 + 4), v49);
-    v50 = *(&v96 + 1);
-  }
-
-  re::DynamicString::appendf(&v84, "%f", v50);
-  v51 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "metallicScale", &v84);
-  v54 = v53;
-  v55 = v82;
-  if (v82 && (v83 & 1) != 0)
-  {
-    v55 = (*(*v82 + 40))();
-  }
-
-  if (v52)
-  {
-    LODWORD(v57) = re::getTextureScaleFloat(v52, v54 & 1, v73).n128_u32[0];
-  }
-
-  else
-  {
-    re::getConstantFloat(v10, @"inputs:roughness", &v96, v56);
-    v57 = *&v96;
-  }
-
-  re::DynamicString::appendf(&v82, "%f", v57);
-  v58 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "roughnessScale", &v82);
-  if (re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a4, "textureClearcoat"))
-  {
-    v60 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a4, "textureClearcoat");
-    v61 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a5, "textureClearcoat");
-    LODWORD(v62) = re::getTextureScaleFloat(v60, v61, v73).n128_u32[0];
-  }
-
-  else
-  {
-    re::getConstantFloat(v10, @"inputs:clearcoat", (&v95 + 4), v59);
-    v62 = *(&v95 + 1);
-  }
-
-  re::DynamicString::appendf(&v80, "%f", v62);
-  v63 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "clearcoatScale", &v80);
-  if (re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a4, "textureClearcoatRoughness"))
-  {
-    v65 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a4, "textureClearcoatRoughness");
-    v66 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a5, "textureClearcoatRoughness");
-    LODWORD(v67) = re::getTextureScaleFloat(v65, v66, v73).n128_u32[0];
-  }
-
-  else
-  {
-    re::getConstantFloat(v10, @"inputs:clearcoatRoughness", &v95, v64);
-    v67 = *&v95;
-  }
-
-  re::DynamicString::appendf(&v78, "%f", v67);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "clearcoatRoughnessScale", &v78);
-  ConstantFloat = re::getConstantFloat(v10, @"inputs:opacityThreshold", (&v94 + 4), v68);
-  re::DynamicString::appendf(&v76, "%f", *(&v94 + 1));
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "opacityThreshold", &v76);
-  v71 = re::getConstantFloat(v10, @"inputs:ior", &v94, v70);
-  if (((((1.0 - *&v94) / (*&v94 + 1.0)) * ((1.0 - *&v94) / (*&v94 + 1.0))) / 0.08) <= 1.0)
-  {
-    v72 = (((1.0 - *&v94) / (*&v94 + 1.0)) * ((1.0 - *&v94) / (*&v94 + 1.0))) / 0.08;
-  }
-
-  else
-  {
-    v72 = 1.0;
-  }
-
-  re::DynamicString::appendf(&v74, "%f", v72);
-  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a1, "specularScale", &v74);
-  if (v74 && (v75 & 1) != 0)
-  {
-    (*(*v74 + 40))();
-  }
-
-  if (v76 && (v77 & 1) != 0)
-  {
-    (*(*v76 + 40))();
-  }
-
-  if (v78 && (v79 & 1) != 0)
-  {
-    (*(*v78 + 40))();
-  }
-
-  if (v80 && (v81 & 1) != 0)
-  {
-    (*(*v80 + 40))();
-  }
-
-  if (v82 && (v83 & 1) != 0)
-  {
-    (*(*v82 + 40))();
-  }
-
-  if (v84 && (v85 & 1) != 0)
-  {
-    (*(*v84 + 40))();
-  }
-
-  if (v86 && (v87 & 1) != 0)
-  {
-    (*(*v86 + 40))();
-  }
-
-  if (v88 && (v89 & 1) != 0)
-  {
-    (*(*v88 + 40))();
-  }
-
-  if (v91 && (v92 & 1) != 0)
-  {
-    (*(*v91 + 40))(v91, v93);
-  }
-}
-
-__n128 re::anonymous namespace::getBaseColorTintAndOpacity(void *a1, uint64_t a2, uint64_t a3)
-{
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *&v34[4] = _Q0;
-  v10 = MEMORY[0x1E69DED88];
-  v11 = a1;
-  v12 = [v10 USDPreviewSurfaceDefaults];
-  v13 = [v12 objectForKeyedSubscript:@"diffuseColor"];
-  [v13 float3Value];
-  v35 = v14;
-
-  v15 = [v12 objectForKeyedSubscript:@"opacity"];
-  [v15 floatValue];
-  *v34 = v16;
-
-  v17 = [v12 objectForKeyedSubscript:@"textureFallback"];
-  [v17 float4Value];
-  v31 = v18;
-
-  re::getConstantFloat3(v11, @"inputs:diffuseColor", &v35);
-  re::getConstantFloat(v11, @"inputs:opacity", v34, v19);
-  re::getConstantFloat3(v11, @"inputs:realitykit:tint", &v34[4]);
-
-  v30 = *&v34[4];
-  v32 = vmulq_f32(*&v34[4], v35);
-  if (!re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureBaseColor") && !re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureOpacity"))
-  {
-    v26 = v32;
-LABEL_11:
-    v26.i32[3] = *v34;
-    v33 = v26;
-    goto LABEL_12;
-  }
-
-  if (!re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureBaseColor") && re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureOpacity"))
-  {
-    goto LABEL_8;
-  }
-
-  if (re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureBaseColor") && !re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureOpacity"))
-  {
-    v27 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a2, "textureBaseColor");
-    v28 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a3, "textureBaseColor");
-    v26 = vmulq_f32(v30, re::getTextureScaleFloat3(v27, v28, v31));
-    goto LABEL_11;
-  }
-
-  v20 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a2, "textureBaseColor");
-  v21 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a3, "textureBaseColor");
-  v32 = vmulq_f32(v30, re::getTextureScaleFloat3(v20, v21, v31));
-LABEL_8:
-  v22 = *re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(a2, "textureOpacity");
-  v23 = re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a3, "textureOpacity");
-  v24 = re::getTextureScaleFloat(v22, v23, v31).n128_u32[0];
-  v25 = v32;
-  v25.i32[3] = v24;
-  v33 = v25;
-LABEL_12:
-
-  return v33;
-}
-
-void re::getConstantFloat3(void *a1, uint64_t a2, _OWORD *a3)
-{
-  v4 = [a1 objectForKey:a2];
-  if (v4)
-  {
-    v8 = v4;
-    v5 = [v4 type];
-    v6 = *MEMORY[0x1E69DEDC8];
-
-    v4 = v8;
-    if (v5 == v6)
-    {
-      [v8 float3Value];
-      v4 = v8;
-      *a3 = v7;
-    }
-  }
-}
-
-__n128 re::getTextureScaleFloat3(void *a1, int a2, __n128 a3)
-{
-  v4 = a1;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  PropertyValueWithOutputProperty = re::getPropertyValueWithOutputProperty(v4, @"inputs:scale", _Q0);
-  v11 = re::getDataComponentWithPropertyOutput(&v24, PropertyValueWithOutputProperty);
-  if (v24)
-  {
-    if (BYTE8(v24))
-    {
-      (*(*v24 + 40))(v24, v25);
-    }
-
-    v24 = 0u;
-    v25 = 0u;
-  }
-
-  if (a2)
-  {
-    [v11 float3Value];
-    v20 = v12;
-  }
-
-  else
-  {
-    v21 = re::getPropertyValueWithOutputProperty(v4, @"inputs:fallback", a3);
-    v14 = re::getDataComponentWithPropertyOutput(v23, v21);
-    if (*&v23[0])
-    {
-      if (BYTE8(v23[0]))
+      v7 = *(a1 + 7);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
       {
-        (*(**&v23[0] + 40))();
-      }
+        if (v8)
+        {
+          v10 = v5 == v8;
+        }
 
-      memset(v23, 0, sizeof(v23));
-    }
+        else
+        {
+          v10 = 1;
+        }
 
-    [v11 float3Value];
-    v22 = v15;
-    [v14 float3Value];
-    v20 = vmulq_f32(v22, v16);
-  }
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v56, 0, 36);
+          *&v56[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(v56, v9, v8);
+          v11 = *v56;
+          *v56 = *a1;
+          *a1 = v11;
+          v12 = *&v56[16];
+          v13 = a1[2];
+          *&v56[16] = v13;
+          a1[2] = v12;
+          v15 = *&v56[24];
+          *&v56[24] = *(a1 + 3);
+          v14 = *&v56[32];
+          *(a1 + 3) = v15;
+          ++*&v56[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = 0;
+            v18 = 0;
+            do
+            {
+              if ((*(v13 + v17) & 0x80000000) != 0)
+              {
+                v19 = (v13 + v17);
+                v20 = re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, v19[57] % *(a1 + 6), v19[57]);
+                *(v20 + 24) = 0u;
+                *(v20 + 8) = 0u;
+                *(v20 + 32) = v19[4];
+                v21 = v19[2];
+                *(v20 + 8) = v19[1];
+                v19[1] = 0;
+                v22 = v19[3];
+                v19[4] = 0;
+                v24 = *(v20 + 16);
+                v23 = *(v20 + 24);
+                *(v20 + 16) = v21;
+                *(v20 + 24) = v22;
+                v19[2] = v24;
+                v19[3] = v23;
+                v13 = *&v56[16];
+                v25 = *&v56[16] + v17;
+                *(v20 + 56) = 0u;
+                *(v20 + 40) = 0u;
+                *(v20 + 64) = *(v25 + 64);
+                v26 = *(v25 + 48);
+                *(v20 + 40) = *(v25 + 40);
+                *(v25 + 40) = 0;
+                v27 = *(v25 + 56);
+                *(v25 + 64) = 0;
+                v29 = *(v20 + 48);
+                v28 = *(v20 + 56);
+                *(v20 + 48) = v26;
+                *(v20 + 56) = v27;
+                *(v25 + 48) = v29;
+                *(v25 + 56) = v28;
+                *(v20 + 72) = 0;
+                *(v20 + 80) = 0;
+                *(v20 + 88) = 0;
+                *(v20 + 80) = *(v25 + 80);
+                *(v25 + 80) = 0;
+                v30 = *(v20 + 72);
+                *(v20 + 72) = 0;
+                *(v20 + 72) = *(v25 + 72);
+                *(v25 + 72) = v30;
+                v31 = *(v20 + 88);
+                *(v20 + 88) = *(v25 + 88);
+                *(v25 + 88) = v31;
+                re::MaterialParameterData::MaterialParameterData(v20 + 96, v25 + 96);
+                *(v20 + 336) = 0u;
+                *(v20 + 352) = 0u;
+                *(v20 + 368) = 0x7FFFFFFF00000000;
+                *(v20 + 376) = 0;
+                re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((v20 + 336), (v25 + 336));
+                v32 = *(v25 + 384);
+                *(v20 + 384) = v32;
+                if (v32 == 1)
+                {
+                  *(v20 + 385) = *(v25 + 385);
+                }
 
-  return v20;
-}
+                v33 = *(v25 + 386);
+                *(v20 + 386) = v33;
+                if (v33 == 1)
+                {
+                  *(v20 + 387) = *(v13 + v17 + 387);
+                }
 
-uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[]<void>(uint64_t a1, char *a2)
-{
-  v6 = a2;
-  v3 = re::Hash<re::DynamicString>::operator()(v5, a2);
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v6, v3, v5);
-  return *(a1 + 16) + 56 * v5[3] + 40;
-}
+                v34 = v13 + v17;
+                v35 = *(v13 + v17 + 388);
+                *(v20 + 388) = v35;
+                if (v35 == 1)
+                {
+                  *(v20 + 389) = *(v34 + 389);
+                }
 
-id re::anonymous namespace::resolveTextureConnection(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v7 = a4;
-  v8 = re::Hash<re::DynamicString>::operator()(v13, a3);
-  re::HashTable<re::DynamicString,std::__list_iterator<re::Pair<re::DynamicString,re::Pair<re::SharedPtr<re::RealityFile>,unsigned int,true>,true>,void *>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(v13, a1, a3, v8);
-  if (v14 == 0x7FFFFFFF)
-  {
-    if (v7 && re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a1, "textureRMAS"))
-    {
-      v9 = v7;
-      re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureRMAS");
-    }
+                v36 = *(v34 + 390);
+                *(v20 + 390) = v36;
+                if (v36 == 1)
+                {
+                  *(v20 + 391) = *(v13 + v17 + 391);
+                }
 
-    else
-    {
-      v9 = 0;
-    }
-  }
+                v37 = v13 + v17;
+                v38 = *(v13 + v17 + 392);
+                *(v20 + 392) = v38;
+                if (v38 == 1)
+                {
+                  *(v20 + 393) = *(v37 + 393);
+                }
 
-  else
-  {
-    v10 = re::Hash<re::DynamicString>::operator()(v13, a3);
-    re::HashTable<re::DynamicString,std::__list_iterator<re::Pair<re::DynamicString,re::Pair<re::SharedPtr<re::RealityFile>,unsigned int,true>,true>,void *>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(v13, a1, a3, v10);
-    v9 = *(*(a1 + 16) + 56 * v14 + 40);
-    v11 = re::Hash<re::DynamicString>::operator()(v13, a3);
-    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(a2, a3, v11, v13);
-  }
+                v39 = *(v37 + 394);
+                *(v20 + 394) = v39;
+                if (v39 == 1)
+                {
+                  *(v20 + 395) = *(v13 + v17 + 395);
+                }
 
-  return v9;
-}
+                v40 = v13 + v17;
+                v41 = *(v13 + v17 + 396);
+                *(v20 + 396) = v41;
+                if (v41 == 1)
+                {
+                  *(v20 + 397) = *(v40 + 397);
+                }
 
-uint64_t re::getConstantFloat(re *this, NSDictionary *a2, NSString *a3, float *a4)
-{
-  v5 = [(re *)this objectForKey:a2, a4];
-  v6 = v5;
-  if (v5 && ([v5 type], v7 = objc_claimAutoreleasedReturnValue(), v8 = *MEMORY[0x1E69DEDB8], v7, v7 == v8))
-  {
-    [v6 floatValue];
-    *a3 = v10;
-    v9 = 1;
-  }
+                v42 = *(v40 + 398);
+                *(v20 + 398) = v42;
+                if (v42 == 1)
+                {
+                  *(v20 + 399) = *(v13 + v17 + 399);
+                }
 
-  else
-  {
-    v9 = 0;
-  }
+                v43 = v13 + v17;
+                v44 = *(v13 + v17 + 400);
+                *(v20 + 400) = v44;
+                if (v44 == 1)
+                {
+                  *(v20 + 401) = *(v43 + 401);
+                }
 
-  return v9;
-}
+                v45 = *(v43 + 402);
+                *(v20 + 402) = v45;
+                if (v45 == 1)
+                {
+                  *(v20 + 403) = *(v13 + v17 + 403);
+                }
 
-__n128 re::getTextureScaleFloat(void *a1, int a2, __n128 a3)
-{
-  v42 = *MEMORY[0x1E69E9840];
-  v4 = a1;
-  __asm { FMOV            V0.4S, #1.0 }
+                v46 = v13 + v17;
+                *(v20 + 440) = 0;
+                *(v20 + 416) = 0;
+                *(v20 + 424) = 0;
+                *(v20 + 408) = 0;
+                *(v20 + 432) = 0;
+                v47 = *(v13 + v17 + 416);
+                *(v20 + 408) = *(v13 + v17 + 408);
+                *(v20 + 416) = v47;
+                *(v46 + 408) = 0;
+                *(v46 + 416) = 0;
+                v48 = *(v20 + 424);
+                *(v20 + 424) = *(v13 + v17 + 424);
+                *(v46 + 424) = v48;
+                v49 = *(v20 + 440);
+                *(v20 + 440) = *(v13 + v17 + 440);
+                *(v46 + 440) = v49;
+                *(v46 + 432) = *(v13 + v17 + 432) + 1;
+                ++*(v20 + 432);
+                *(v20 + 448) = *(v13 + v17 + 448);
+              }
 
-  PropertyValueWithOutputProperty = re::getPropertyValueWithOutputProperty(v4, @"inputs:scale", _Q0);
-  v10 = [v4 name];
-  v11 = [v10 stringValue];
-  v12 = [v11 componentsSeparatedByString:@":"];
+              ++v18;
+              v17 += 464;
+            }
 
-  v13 = [v12 lastObject];
-  v14 = [v13 UTF8String];
+            while (v18 < v16);
+          }
 
-  if (v36)
-  {
-    v16 = v39;
-  }
-
-  else
-  {
-    v16 = &v37;
-  }
-
-  v17 = *v16;
-  if (v17 > 102)
-  {
-    if (v17 != 103 && v17 != 114)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (v17 != 97 && v17 != 98)
-  {
-    goto LABEL_14;
-  }
-
-  if (v36)
-  {
-    v18 = v39 + 1;
-  }
-
-  else
-  {
-    v18 = v38;
-  }
-
-  if (*v18)
-  {
-LABEL_14:
-    v19 = *re::pipelineLogObjects(v15);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      if (v36)
-      {
-        v20 = v39;
+          re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v56);
+        }
       }
 
       else
       {
-        v20 = &v37;
+        if (v8)
+        {
+          v52 = 2 * v7;
+        }
+
+        else
+        {
+          v52 = 3;
+        }
       }
 
-      *buf = 136315138;
-      v41 = v20;
-      _os_log_error_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_ERROR, "Invalid USD texture shader node output %s for single texture component.", buf, 0xCu);
+      a2 = a3 % *(a1 + 6);
+      v6 = *(a1 + 8);
     }
 
-    goto LABEL_31;
-  }
-
-  re::DynamicString::DynamicString(&v33, &v35);
-  v21 = re::getDataComponentWithPropertyOutput(&v33, PropertyValueWithOutputProperty);
-  if (v33)
-  {
-    if (BYTE8(v33))
-    {
-      (*(*v33 + 40))(v33, v34);
-    }
-
-    v33 = 0u;
-    v34 = 0u;
-  }
-
-  if (a2)
-  {
-    [v21 floatValue];
-    PropertyValueWithOutputProperty = v22;
+    *(a1 + 8) = v6 + 1;
+    v50 = a1[2];
+    v51 = *(v50 + 464 * v5);
   }
 
   else
   {
-    v31 = re::getPropertyValueWithOutputProperty(v4, @"inputs:fallback", a3);
-    re::DynamicString::DynamicString(v32, &v35);
-    v23 = re::getDataComponentWithPropertyOutput(v32, v31);
-    if (*&v32[0])
-    {
-      if (BYTE8(v32[0]))
-      {
-        (*(**&v32[0] + 40))();
-      }
-
-      memset(v32, 0, sizeof(v32));
-    }
-
-    [v21 floatValue];
-    v25 = v24;
-    [v23 floatValue];
-    v27.n128_f32[0] = v25 * v26;
-    PropertyValueWithOutputProperty = v27;
+    v50 = a1[2];
+    v51 = *(v50 + 464 * v5);
+    *(a1 + 9) = v51 & 0x7FFFFFFF;
   }
 
-LABEL_31:
-  if (v35 && (v36 & 1) != 0)
-  {
-    (*(*v35 + 40))();
-  }
-
-  return PropertyValueWithOutputProperty;
+  v53 = v50 + 464 * v5;
+  *v53 = v51 | 0x80000000;
+  v54 = a1[1];
+  *v53 = *(v54 + 4 * a2) | 0x80000000;
+  *(v54 + 4 * a2) = v5;
+  *(v53 + 456) = a3;
+  ++*(a1 + 7);
+  return v50 + 464 * v5;
 }
 
-void re::gatherMaterialTextureProperties(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(uint64_t a1, uint64_t a2, signed int a3)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E69DED88] textureMaterialPropertiesWithMaterial:a1];
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 36) = 0x7FFFFFFF;
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0;
-  v72 = [v3 objectForKey:@"inputs:diffuseColor"];
-  v58 = v72;
-  if (v72)
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
   {
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureBaseColor", &v72);
-  }
-
-  v71 = [v3 objectForKey:@"inputs:normal"];
-  v59 = v71;
-  if (v71)
-  {
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureNormal", &v71);
-  }
-
-  v4 = [v3 objectForKey:@"inputs:metallic"];
-  v70 = v4;
-  v5 = [v3 objectForKey:@"inputs:roughness"];
-  v69 = v5;
-  v6 = [v3 objectForKey:@"inputs:specularColor"];
-  v68 = v6;
-  v63 = [v3 objectForKey:@"inputs:occlusion"];
-  v67 = v63;
-  if (v4)
-  {
-    v7 = [v4 parentNode];
-    v8 = [v7 property:@"inputs:file"];
-    v9 = [v8 stringValue];
-
-    if (v5)
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
     {
-      goto LABEL_7;
-    }
-
-LABEL_10:
-    v12 = 0;
-    if (v6)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_11;
-  }
-
-  v9 = 0;
-  if (!v5)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_7:
-  v10 = [v5 parentNode];
-  v11 = [v10 property:@"inputs:file"];
-  v12 = [v11 stringValue];
-
-  if (v6)
-  {
-LABEL_8:
-    v13 = [v6 parentNode];
-    v14 = [v13 property:@"inputs:file"];
-    v15 = [v14 stringValue];
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  v15 = 0;
-LABEL_12:
-  v62 = v6;
-  if (v63)
-  {
-    v16 = [v63 parentNode];
-    v17 = [v16 property:@"inputs:file"];
-    v18 = [v17 stringValue];
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  v19 = v9;
-  v20 = v19;
-  if (!v19)
-  {
-    v21 = v12;
-    if (!v21)
-    {
-      v21 = v15;
-      if (!v21)
-      {
-        v21 = v18;
-      }
-    }
-
-    v20 = v21;
-  }
-
-  if (v18 && ([v18 isEqualToString:v20] & 1) == 0)
-  {
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureAmbientOcclusion", &v67);
-    v67 = 0;
-
-    v63 = 0;
-    v18 = 0;
-  }
-
-  v22 = [MEMORY[0x1E695DFA8] set];
-  v60 = v5;
-  v61 = v4;
-  if (v19 && [v19 isEqualToString:v20])
-  {
-    v23 = [v4 name];
-    v24 = [v23 stringValue];
-    [v22 addObject:v24];
-
-    v5 = v60;
-    v4 = v61;
-  }
-
-  if (v12 && [v12 isEqualToString:v20])
-  {
-    v25 = [v5 name];
-    v26 = [v25 stringValue];
-    [v22 addObject:v26];
-
-    v5 = v60;
-    v4 = v61;
-  }
-
-  if (v15 && [v15 isEqualToString:v20])
-  {
-    v27 = [v62 name];
-    v28 = [v27 stringValue];
-    [v22 addObject:v28];
-
-    v5 = v60;
-    v4 = v61;
-  }
-
-  if (v18 && [v18 isEqualToString:v20])
-  {
-    v29 = [v63 name];
-    v30 = [v29 stringValue];
-    [v22 addObject:v30];
-
-    v5 = v60;
-    v4 = v61;
-  }
-
-  if ([v22 count] < 2 || v19 && !objc_msgSend(v19, "isEqualToString:", v20) || v12 && !objc_msgSend(v12, "isEqualToString:", v20))
-  {
-    goto LABEL_52;
-  }
-
-  if (v15)
-  {
-    v31 = [v15 isEqualToString:v20];
-    if (!v18 || (v31 & 1) == 0)
-    {
-      if (!v31)
-      {
-        goto LABEL_52;
-      }
-
-      goto LABEL_47;
-    }
-  }
-
-  else if (!v18)
-  {
-    goto LABEL_47;
-  }
-
-  if (([v18 isEqualToString:v20] & 1) == 0)
-  {
-LABEL_52:
-    if (v4)
-    {
-      re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureMetallic", &v70);
-    }
-
-    if (v5)
-    {
-      re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureRoughness", &v69);
-    }
-
-    if (v62)
-    {
-      re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureSpecular", &v68);
-    }
-
-    if (v63)
-    {
-      re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureAmbientOcclusion", &v67);
-    }
-
-    goto LABEL_60;
-  }
-
-LABEL_47:
-  v57 = v15;
-  v32 = v4;
-  v33 = v32;
-  *buf = v32;
-  if (!v4)
-  {
-    v32 = v5;
-    *buf = v32;
-    if (!v5)
-    {
-      v32 = v62;
-      *buf = v32;
-      if (!v62)
-      {
-        v32 = v63;
-        *buf = v32;
-      }
-    }
-  }
-
-  v56 = v32;
-  re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureRMAS", buf);
-  v34 = v5;
-  v35 = v33;
-  v55 = v63;
-  v36 = v62;
-  v37 = *(a2 + 48);
-  *(a2 + 48) = v34;
-  v4 = v61;
-
-  v38 = *(a2 + 56);
-  *(a2 + 56) = v35;
-  v5 = v60;
-
-  v39 = *(a2 + 64);
-  *(a2 + 64) = v55;
-
-  v40 = *(a2 + 72);
-  *(a2 + 72) = v36;
-
-  v15 = v57;
-LABEL_60:
-
-  v41 = [v3 objectForKey:@"inputs:emissiveColor"];
-  v66 = v41;
-  if (v41)
-  {
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureEmissive", &v66);
-  }
-
-  v42 = v58;
-  v43 = [v3 objectForKey:@"inputs:opacity"];
-  v65 = v43;
-  if (v43)
-  {
-    v44 = re::gatherMaterialTextureProperties(USKNode *)::$_0::operator()(v42, v43);
-    *(a2 + 80) = v44;
-    if ((v44 & 1) == 0)
-    {
-      re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureOpacity", &v65);
-    }
-  }
-
-  v45 = [v3 objectForKey:{@"inputs:realitykit:tintMask", v55}];
-  if (v45)
-  {
-    v46 = re::gatherMaterialTextureProperties(USKNode *)::$_0::operator()(v42, v45);
-    if (v46)
-    {
-      *(a2 + 81) = 1;
+      v5 = v8;
     }
 
     else
     {
-      v47 = *re::pipelineLogObjects(v46);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-      {
-        v51 = v47;
-        v52 = [v45 objectPath];
-        v53 = [v52 stringValue];
-        v54 = [v53 UTF8String];
-        *buf = 136315138;
-        *&buf[4] = v54;
-        _os_log_error_impl(&dword_1E1C61000, v51, OS_LOG_TYPE_ERROR, "Unsupported connection to the tintMask at %s: only connections to the alpha channel of the diffuseColor texture are supported.", buf, 0xCu);
-
-        v4 = v61;
-        v5 = v60;
-      }
+      v4 = v6;
     }
   }
 
-  v48 = [v3 objectForKey:@"inputs:clearcoatRoughness"];
-  *buf = v48;
-  if (v48)
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 464 * v10, 16);
+  if (v12)
   {
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureClearcoatRoughness", buf);
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &unk_1E304C660, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
   }
 
-  v49 = [v3 objectForKey:@"inputs:clearcoat"];
-  v64 = v49;
-  if (v49)
+  else
   {
-    v50 = v49;
-    re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(a2, "textureClearcoat", &v64);
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
   }
 }
 
-id re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(uint64_t a1, char *a2, id *a3)
+double re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
 {
-  v11 = 0;
-  v12 = a2;
-  v9 = 0;
-  v10 = 0;
-  v5 = re::Hash<re::DynamicString>::operator()(&v13, a2);
-  result = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<char const*>(a1, &v12, v5, &v9);
-  if (HIDWORD(v10) == 0x7FFFFFFF)
+  v2 = *a1;
+  if (v2)
   {
-    v7 = re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, v10, v9);
-    v8 = v12;
-    result = *a3;
-    v7[5] = result;
-    ++*(a1 + 40);
+    if (*(a1 + 8))
+    {
+      v3 = 0;
+      v4 = 0;
+      do
+      {
+        re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(a1[2] + v3);
+        ++v4;
+        v3 += 464;
+      }
+
+      while (v4 < *(a1 + 8));
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
   }
 
   return result;
 }
 
-uint64_t re::gatherMaterialTextureProperties(USKNode *)::$_0::operator()(void *a1, void *a2)
+double re::HashTable<re::DynamicString,re::MaterialFile,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(uint64_t a1)
 {
-  if (!a1)
+  if ((*a1 & 0x80000000) != 0)
   {
-    return 0;
+    *a1 &= ~0x80000000;
+    v3 = (a1 + 72);
+    re::DynamicString::deinit((a1 + 8));
+    re::DynamicArray<re::FunctionLink>::deinit(a1 + 408);
+    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 336));
+    re::HashTable<re::DynamicString,re::OptionalMaterialSamplerData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 288));
+    re::HashTable<re::DynamicString,re::MaterialTextureBlockData,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 240));
+    re::HashTable<re::DynamicString,re::MaterialTextureParam,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 192));
+    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 144));
+    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit((a1 + 96));
+    re::AssetHandle::~AssetHandle(v3);
+
+    return re::DynamicString::deinit((a1 + 40));
   }
 
-  v3 = a2;
-  v4 = [a1 parentNode];
-  v5 = [v4 property:@"inputs:file"];
-  v6 = [v5 stringValue];
-
-  v7 = [v3 parentNode];
-  v8 = [v7 property:@"inputs:file"];
-  v9 = [v8 stringValue];
-
-  LODWORD(v7) = [v6 isEqualToString:v9];
-  v10 = [v3 name];
-
-  v11 = [v10 stringValue];
-  v12 = [v11 isEqualToString:@"outputs:a"];
-
-  v13 = v7 & v12;
-  return v13;
+  return result;
 }
 
-uint64_t re::isMaterialTransparent(void *a1, uint64_t a2, uint64_t a3)
+uint64_t re::HashTable<re::DynamicString,re::MaterialDefinitionFile *,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
 {
-  v5 = a1;
-  if (*(a2 + 80) != 1 || !re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureBaseColor"))
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
   {
-    if (re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a2, "textureOpacity") && re::HashTable<re::DynamicString,re::SharedPtr<re::AssetProvider>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::containsKey<void>(a3, "textureOpacity"))
-    {
-      goto LABEL_8;
-    }
-
-LABEL_9:
-    goto LABEL_10;
-  }
-
-  v6 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(a3, "textureBaseColor");
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  v8 = *v6;
-  if (!v8)
-  {
-LABEL_8:
-    HaveAlpha = 1;
-    goto LABEL_10;
-  }
-
-  HaveAlpha = re::TextureProvider::canHaveAlpha(v8, v7);
-LABEL_10:
-
-  return HaveAlpha;
-}
-
-uint64_t re::isMaterialAlphaCutout(re *this, NSDictionary *a2, uint64_t a3, float *a4)
-{
-  LODWORD(var4) = 0;
-  LODWORD(result) = re::getConstantFloat(this, @"inputs:opacityThreshold", &var4, a4);
-  if (*&var4 > 0.0)
-  {
-    return result;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-__n128 re::getPropertyValueWithOutputProperty(void *a1, void *a2, __n128 a3)
-{
-  v4 = a2;
-  if (a1)
-  {
-    v5 = [a1 parentNode];
+    v5 = *(a1 + 32);
     v6 = v5;
-    if (v5)
+    if (v5 == *(a1 + 24))
     {
-      v7 = [v5 property:v4];
-      v8 = v7;
-      if (v7)
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
       {
-        v9 = [v7 data];
-
-        if (v9)
+        if (v8)
         {
-          [v8 float4Value];
-          a3 = v10;
+          v10 = v5 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v31, 0, 36);
+          *&v31[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(v31, v9, v8);
+          v11 = *v31;
+          *v31 = *a1;
+          *a1 = v11;
+          v12 = *&v31[16];
+          v13 = *(a1 + 16);
+          *&v31[16] = v13;
+          *(a1 + 16) = v12;
+          v15 = *&v31[24];
+          *&v31[24] = *(a1 + 24);
+          v14 = *&v31[32];
+          *(a1 + 24) = v15;
+          ++*&v31[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = 0;
+            v18 = 0;
+            do
+            {
+              if ((*(v13 + v17) & 0x80000000) != 0)
+              {
+                v19 = (v13 + v17);
+                v20 = re::HashTable<re::DynamicString,re::MaterialDefinitionFile *,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(v13 + v17 + 48) % *(a1 + 24), *(v13 + v17 + 48));
+                *(v20 + 24) = 0u;
+                *(v20 + 8) = 0u;
+                *(v20 + 32) = v19[4];
+                v21 = v19[2];
+                *(v20 + 8) = v19[1];
+                v19[1] = 0;
+                v22 = v19[3];
+                v19[4] = 0;
+                v24 = *(v20 + 16);
+                v23 = *(v20 + 24);
+                *(v20 + 16) = v21;
+                *(v20 + 24) = v22;
+                v19[2] = v24;
+                v19[3] = v23;
+                v13 = *&v31[16];
+                *(v20 + 40) = *(*&v31[16] + v17 + 40);
+              }
+
+              ++v18;
+              v17 += 56;
+            }
+
+            while (v18 < v16);
+          }
+
+          re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v31);
         }
       }
-    }
-  }
 
-  return a3;
-}
-
-id re::getDataComponentWithPropertyOutput(uint64_t a1, __n128 a2)
-{
-  if (*(a1 + 8))
-  {
-    v2 = *(a1 + 16);
-  }
-
-  else
-  {
-    v2 = (a1 + 9);
-  }
-
-  v3 = *v2;
-  if (v3 > 0x66)
-  {
-    if (v3 == 103)
-    {
-      if (!v2[1])
+      else
       {
-        v4 = objc_alloc(MEMORY[0x1E69DED58]);
-        HIDWORD(v5) = a2.n128_u32[1];
-        LODWORD(v5) = a2.n128_u32[1];
-        goto LABEL_20;
+        if (v8)
+        {
+          v27 = 2 * v7;
+        }
+
+        else
+        {
+          v27 = 3;
+        }
       }
+
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
     }
 
-    else if (v3 == 114 && !v2[1])
-    {
-      v4 = objc_alloc(MEMORY[0x1E69DED58]);
-      v5 = a2.n128_u64[0];
-      goto LABEL_20;
-    }
-  }
-
-  else if (v3 == 97)
-  {
-    if (!v2[1])
-    {
-      v4 = objc_alloc(MEMORY[0x1E69DED58]);
-      v5 = __PAIR64__(a2.n128_u32[1], a2.n128_u32[3]);
-      goto LABEL_20;
-    }
-  }
-
-  else if (v3 == 98 && !v2[1])
-  {
-    v4 = objc_alloc(MEMORY[0x1E69DED58]);
-    v5 = __PAIR64__(a2.n128_u32[1], a2.n128_u32[2]);
-LABEL_20:
-    v8 = [v4 initWithFloat:{*&v5, *&a2}];
-    goto LABEL_21;
-  }
-
-  v6 = strcmp(v2, "rgb");
-  v7 = objc_alloc(MEMORY[0x1E69DED58]);
-  if (v6)
-  {
-    v8 = [v7 initWithFloat4:a2.n128_f64[0]];
+    *(a1 + 32) = v6 + 1;
+    v25 = *(a1 + 16);
+    v26 = *(v25 + 56 * v5);
   }
 
   else
   {
-    v8 = [v7 initWithFloat3:a2.n128_f64[0]];
+    v25 = *(a1 + 16);
+    v26 = *(v25 + 56 * v5);
+    *(a1 + 36) = v26 & 0x7FFFFFFF;
   }
 
-LABEL_21:
-
-  return v8;
+  v28 = v25 + 56 * v5;
+  *v28 = v26 | 0x80000000;
+  v29 = *(a1 + 8);
+  *v28 = *(v29 + 4 * a2) | 0x80000000;
+  *(v29 + 4 * a2) = v5;
+  *(v28 + 48) = a3;
+  ++*(a1 + 28);
+  return v25 + 56 * v5;
 }
 
-uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+uint64_t re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
 {
   v5 = *(a1 + 36);
   if (v5 == 0x7FFFFFFF)
@@ -6139,7 +2198,7 @@ uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::D
               if ((*(v13 + v17) & 0x80000000) != 0)
               {
                 v19 = (v13 + v17);
-                v20 = re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(v13 + v17 + 48) % *(a1 + 24));
+                v20 = re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(v13 + v17 + 48) % *(a1 + 24), *(v13 + v17 + 48));
                 *(v20 + 24) = 0u;
                 *(v20 + 8) = 0u;
                 *(v20 + 32) = v19[4];
@@ -6155,9 +2214,9 @@ uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::D
                 v19[2] = v24;
                 v19[3] = v23;
                 v13 = *&v32[16];
-                v25 = *(*&v32[16] + v17 + 40);
-                *(*&v32[16] + v17 + 40) = 0;
-                *(v20 + 40) = v25;
+                v25 = *&v32[16] + v17;
+                *(v20 + 40) = *(*&v32[16] + v17 + 40);
+                *(v25 + 40) = 0;
               }
 
               ++v18;
@@ -6167,7 +2226,7 @@ uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::D
             while (v18 < v16);
           }
 
-          re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v32);
+          re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v32);
         }
       }
 
@@ -6210,3208 +2269,53 @@ uint64_t re::HashTable<re::DynamicString,USKProperty * {__strong},re::Hash<re::D
   return v26 + 56 * v5;
 }
 
-void **re::internal::makeOpenSubdivAssetBuffersAndAppendToAssetPartInternal(re::internal *this, const re::GeomMesh *a2, MeshAssetPart *a3)
+double re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(uint64_t *a1)
 {
-  v6 = this;
-  v132 = *MEMORY[0x1E69E9840];
-  result = re::internal::GeomAttributeManager::attributeByName((this + 64), "osdSubdivisionScheme");
-  if (result)
+  v2 = *a1;
+  if (v2)
   {
-    if (!result[5])
+    if (*(a1 + 8))
     {
-      goto LABEL_114;
-    }
-
-    if (*result[7] == 1)
-    {
-      v101 = 0;
-      v99 = 0;
-      v98[0] = 0;
-      v98[1] = 0;
-      v100 = 0;
-      v8 = *(v6 + 200);
-      if (v8)
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          result = re::internal::GeomAttributeContainer::attributeByIndex((v6 + 176), i);
-          if (*(result + 17) == 6)
-          {
-            v111[0] = result[1];
-            result = re::DynamicArray<re::TransitionCondition *>::add(v98, v111);
-          }
-        }
-      }
-
-      v4 = v111;
-      v10 = *(v6 + 424);
-      if (v10)
-      {
-        for (j = 0; j != v10; ++j)
-        {
-          v12 = re::internal::GeomAttributeContainer::attributeByIndex((v6 + 400), j);
-          result = re::internal::accessFaceVaryingAttributeSubmesh(v12, v13);
-          if (*(result + 6) == *(v6 + 40) && *(v12 + 17) == 6)
-          {
-            v111[0] = *(v12 + 8);
-            result = re::DynamicArray<re::TransitionCondition *>::add(v98, v111);
-          }
-        }
-      }
-
-      v90 = v101;
-      v5 = v99;
-      v113 = 0u;
-      memset(&__src[8], 0, 64);
-      v88 = (v6 + 16);
-      v14 = *(v6 + 40);
-      LODWORD(v111[0]) = *(v6 + 16);
-      HIDWORD(v111[0]) = v14;
-      v106 = 0;
-      v105 = 0;
-      v107 = 0;
-      if (v14 >= 1)
-      {
-        v16 = 0;
-        LODWORD(v17) = 0;
-        v18 = *(v6 + 40);
-        v3 = v106;
-        v19 = v107;
-        v20 = v14 & 0x7FFFFFFF;
-        if ((v14 & 0x7FFFFFFE) == 0)
-        {
-          v20 = 1;
-        }
-
-        v21 = (*(v6 + 56) + 12);
-        while (1)
-        {
-          if (v18 == v16)
-          {
-            goto LABEL_101;
-          }
-
-          if (v3 == v16)
-          {
-            break;
-          }
-
-          v22 = *v21;
-          v21 += 4;
-          if (v22 == -1)
-          {
-            v23 = 3;
-          }
-
-          else
-          {
-            v23 = 4;
-          }
-
-          v19[v16] = v23;
-          v17 = (v23 + v17);
-          v16 = v16 + 1;
-          if (v20 == v16)
-          {
-            goto LABEL_27;
-          }
-        }
-
-LABEL_102:
-        v102 = 0;
-        v130 = 0u;
-        v131 = 0u;
-        memset(v129, 0, sizeof(v129));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v114 = 136315906;
-        *(v4 + 196) = "operator[]";
-        v115 = 1024;
-        *(v4 + 206) = 468;
-        v117 = 2048;
-        *(v4 + 212) = v3;
-        v119 = 2048;
-        *(v4 + 222) = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_103:
-        *&v109 = 0;
-        v130 = 0u;
-        v131 = 0u;
-        memset(v129, 0, sizeof(v129));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v114 = 136315906;
-        *(v4 + 196) = "operator[]";
-        v115 = 1024;
-        *(v4 + 206) = 797;
-        v117 = 2048;
-        *(v4 + 212) = v18;
-        v119 = 2048;
-        *(v4 + 222) = v18;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        *v114 = 0;
-        memset(__src, 0, 64);
-        *v111 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        LODWORD(v129[0]) = 136315906;
-        *(v129 + 4) = "operator[]";
-        WORD6(v129[0]) = 1024;
-        *(v129 + 14) = 468;
-        WORD1(v129[1]) = 2048;
-        *(&v129[1] + 4) = v3;
-        WORD6(v129[1]) = 2048;
-        *(&v129[1] + 14) = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        v105 = 0;
-        v130 = 0u;
-        v131 = 0u;
-        memset(v129, 0, sizeof(v129));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v114 = 136315906;
-        *&v114[4] = "operator[]";
-        v115 = 1024;
-        v116 = 789;
-        v117 = 2048;
-        v118 = v18;
-        v119 = 2048;
-        v120 = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        v108 = 0;
-        v130 = 0u;
-        v131 = 0u;
-        memset(v129, 0, sizeof(v129));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v121 = 136315906;
-        v122 = "operator[]";
-        v123 = 1024;
-        v124 = 797;
-        v125 = 2048;
-        v126 = 0;
-        v127 = 2048;
-        v128 = 0;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_104;
-      }
-
-      v17 = 0;
-LABEL_27:
-      v103 = 0;
-      v102 = 0;
-      v104 = 0;
-      if (!v14)
-      {
-        v29 = v104;
-        goto LABEL_39;
-      }
-
-      v25 = 0;
-      v26 = 0;
-      v18 = *(v6 + 40);
-      v27 = *(v6 + 56);
-      v28 = v103;
-      do
-      {
-        if (v25 == v18)
-        {
-          goto LABEL_103;
-        }
-
-        v109 = *(v27 + 16 * v25);
-        v29 = v104;
-        if (HIDWORD(v109) == -1)
-        {
-          v30 = 3;
-        }
-
-        else
-        {
-          v30 = 4;
-        }
-
-        v31 = &v109;
-        do
-        {
-          v3 = v26;
-          if (v28 <= v26)
-          {
-            *&v96 = 0;
-            v130 = 0u;
-            v131 = 0u;
-            memset(v129, 0, sizeof(v129));
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v114 = 136315906;
-            *&v114[4] = "operator[]";
-            v115 = 1024;
-            v116 = 468;
-            v117 = 2048;
-            v118 = v3;
-            v119 = 2048;
-            v120 = v28;
-            _os_log_send_and_compose_impl();
-            v55 = _os_crash_msg();
-            __break(1u);
-            v4 = v18;
-            v3 = 0;
-            v14 = 0;
-LABEL_64:
-            v18 = 0;
-            DWORD1(v113) = v5;
-            *(&v113 + 1) = v3;
-            while (1)
-            {
-              if (v18 == v5)
-              {
-                goto LABEL_115;
-              }
-
-              v59 = v3;
-              v60 = re::internal::GeomAttributeManager::attributeByName((v6 + 64), *(v90 + v18));
-              v62 = v88;
-              if (*(v60 + 16) == 3)
-              {
-                v60 = re::internal::accessFaceVaryingAttributeSubmesh(v60, v61);
-                v62 = v60;
-              }
-
-              if (v18 == v4)
-              {
-                goto LABEL_116;
-              }
-
-              v5 = (v14 + 24 * v18);
-              v63 = 4 * (*(v62 + 3) & 0x3FFFFFFFLL);
-              v64 = HIDWORD(v111[0]);
-              if (!HIDWORD(v111[0]))
-              {
-                v71 = v5[2];
-                goto LABEL_81;
-              }
-
-              v65 = 0;
-              v66 = 0;
-              v6 = *(v62 + 3);
-              do
-              {
-                if (v65 == v6)
-                {
-                  *&v109 = 0;
-                  v130 = 0u;
-                  v131 = 0u;
-                  memset(v129, 0, sizeof(v129));
-                  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                  *v114 = 136315906;
-                  *&v114[4] = "operator[]";
-                  v115 = 1024;
-                  v116 = 797;
-                  v117 = 2048;
-                  v118 = v6;
-                  v119 = 2048;
-                  v120 = v6;
-                  _os_log_send_and_compose_impl();
-                  _os_crash_msg();
-                  __break(1u);
-LABEL_101:
-                  v102 = 0;
-                  v130 = 0u;
-                  v131 = 0u;
-                  memset(v129, 0, sizeof(v129));
-                  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                  *v114 = 136315906;
-                  *(v4 + 196) = "operator[]";
-                  v115 = 1024;
-                  *(v4 + 206) = 797;
-                  v117 = 2048;
-                  *(v4 + 212) = v18;
-                  v119 = 2048;
-                  *(v4 + 222) = v18;
-                  _os_log_send_and_compose_impl();
-                  _os_crash_msg();
-                  __break(1u);
-                  goto LABEL_102;
-                }
-
-                v109 = *(*(v62 + 5) + 16 * v65);
-                v3 = v5[1];
-                if (HIDWORD(v109) == -1)
-                {
-                  v67 = 3;
-                }
-
-                else
-                {
-                  v67 = 4;
-                }
-
-                v68 = &v109;
-                do
-                {
-                  v69 = v66;
-                  if (v3 <= v66)
-                  {
-                    *&v96 = 0;
-                    v130 = 0u;
-                    v131 = 0u;
-                    memset(v129, 0, sizeof(v129));
-                    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                    *v114 = 136315906;
-                    *&v114[4] = "operator[]";
-                    v115 = 1024;
-                    v116 = 468;
-                    v117 = 2048;
-                    v118 = v69;
-                    v119 = 2048;
-                    v120 = v3;
-                    _os_log_send_and_compose_impl();
-                    _os_crash_msg();
-                    __break(1u);
-                    goto LABEL_84;
-                  }
-
-                  v70 = *v68++;
-                  v71 = v5[2];
-                  *(v71 + 4 * v66++) = v70;
-                  --v67;
-                }
-
-                while (v67);
-                v65 = (v65 + 1);
-              }
-
-              while (v65 != v64);
-LABEL_81:
-              v3 = v59;
-              v72 = v59 + 16 * v18;
-              *v72 = *v62;
-              *(v72 + 8) = v71;
-              ++v18;
-              v6 = v91;
-              v5 = v89;
-              if (v18 == v4)
-              {
-                goto LABEL_46;
-              }
-            }
-          }
-
-          v32 = *v31++;
-          *(v29 + 4 * v26++) = v32;
-          --v30;
-        }
-
-        while (v30);
-        v25 = v25 + 1;
-      }
-
-      while (v25 != v14);
-LABEL_39:
-      v111[1] = v107;
-      *__src = v29;
-      v91 = v6;
-      v89 = v5;
-      if (v5)
-      {
-        if (v33)
-        {
-          v3 = v33;
-          v35 = v5 - 1;
-          if (v5 == 1)
-          {
-            *v33 = 0;
-            v36 = (v33 + 8);
-          }
-
-          else
-          {
-            v36 = (v33 + 8);
-            do
-            {
-              *(v36 - 2) = 0;
-              *v36 = 0;
-              v36 += 2;
-              --v35;
-            }
-
-            while (v35);
-            *(v36 - 2) = 0;
-          }
-
-          *v36 = 0;
-          if (v57)
-          {
-            v14 = v57;
-            v58 = v57;
-            v4 = v5;
-            if (v5 != 1)
-            {
-              bzero(v57, 24 * v5 - 24);
-              v58 = (v14 + 24 * v5 - 24);
-            }
-
-            *v58 = 0;
-            v58[1] = 0;
-            v58[2] = 0;
-            goto LABEL_64;
-          }
-
-LABEL_118:
-          re::internal::assertLog(4, v56, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-          _os_crash();
-          __break(1u);
-        }
-
-LABEL_117:
-        re::internal::assertLog(4, v34, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-        _os_crash();
-        __break(1u);
-        goto LABEL_118;
-      }
-
+      v3 = 0;
       v4 = 0;
-      v3 = 0;
-LABEL_46:
-      v37 = re::internal::GeomAttributeManager::attributeByName((v6 + 64), "osdEdgeCreaseIndices");
-      v38 = re::internal::GeomAttributeManager::attributeByName((v6 + 64), "osdEdgeCreaseWeights");
-      v109 = 0uLL;
-      *&v110 = 0;
-      v96 = 0uLL;
-      *&v97 = 0;
-      if (v38 && v37)
-      {
-        v39 = v38;
-        v40 = (*(*v38 + 16))(v38);
-        v41 = v40;
-        *&__src[8] = v40;
-        v42 = v40;
-        v5 = re::GeomAttribute::accessValues<int>(v37);
-        v45 = v44;
-        v46 = re::GeomAttribute::accessValues<int>(v39);
-        v48 = v97;
-        if (v41)
-        {
-          v49 = 0;
-          v18 = 0;
-          v14 = *(&v96 + 1);
-          v50 = *(&v109 + 1);
-          v51 = v110;
-          v52 = v45;
-          v6 = v47;
-          v53 = (v97 + 4);
-          v54 = v5 + 1;
-          while (((v45 + 1) >> 1) != v49)
-          {
-            if (v14 <= v18)
-            {
-              goto LABEL_108;
-            }
-
-            *(v53 - 1) = *(v54 - 1);
-            v3 = v18 + 1;
-            if ((v45 >> 1) == v49)
-            {
-              goto LABEL_110;
-            }
-
-            if (v14 <= v3)
-            {
-              goto LABEL_111;
-            }
-
-            *v53 = *v54;
-            if (v47 == v49)
-            {
-              goto LABEL_112;
-            }
-
-            if (v50 == v49)
-            {
-              goto LABEL_113;
-            }
-
-            *(v51 + 4 * v49) = *(v46 + 4 * v49);
-            v49 = (v49 + 1);
-            v18 += 2;
-            v53 += 2;
-            v54 += 2;
-            if (v41 == v49)
-            {
-              goto LABEL_85;
-            }
-          }
-
-          goto LABEL_106;
-        }
-
-LABEL_84:
-        v51 = v110;
-LABEL_85:
-        *&__src[24] = v51;
-        *&__src[16] = v48;
-      }
-
-      v73 = re::internal::GeomAttributeManager::attributeByName((v91 + 64), "osdVertexCreaseIndices");
-      v74 = re::internal::GeomAttributeManager::attributeByName((v91 + 64), "osdVertexCreaseWeights");
-      v94 = 0uLL;
-      *&v95 = 0;
-      v92 = 0uLL;
-      *&v93 = 0;
-      if (v74 && v73)
-      {
-        v6 = v74;
-        v75 = (*(*v74 + 16))(v74);
-        v76 = v75;
-        *&__src[32] = v75;
-        v77 = v75;
-        v79 = re::GeomAttribute::accessValues<int>(v73);
-        v81 = v80;
-        v82 = re::GeomAttribute::accessValues<int>(v6);
-        v84 = v93;
-        if (v76)
-        {
-          v85 = 0;
-          v3 = *(&v92 + 1);
-          v18 = v81;
-          v14 = v83;
-          v86 = v76;
-          v5 = *(&v94 + 1);
-          v87 = v95;
-          while (v81 != v85)
-          {
-            if (v3 == v85)
-            {
-              goto LABEL_105;
-            }
-
-            *(v84 + 4 * v85) = *(v79 + 4 * v85);
-            if (v83 == v85)
-            {
-              goto LABEL_107;
-            }
-
-            if (v5 == v85)
-            {
-              goto LABEL_109;
-            }
-
-            *(v87 + 4 * v85) = *(v82 + 4 * v85);
-            v85 = (v85 + 1);
-            if (v86 == v85)
-            {
-              goto LABEL_97;
-            }
-          }
-
-LABEL_104:
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 613;
-          v117 = 2048;
-          v118 = v18;
-          v119 = 2048;
-          v120 = v18;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_105:
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = v3;
-          v119 = 2048;
-          v120 = v3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_106:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          v3 = v52;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 613;
-          v117 = 2048;
-          v118 = v18;
-          v119 = 2048;
-          v120 = v3;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_107:
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 613;
-          v117 = 2048;
-          v118 = v14;
-          v119 = 2048;
-          v120 = v14;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_108:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = v18;
-          v119 = 2048;
-          v120 = v14;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_109:
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = v5;
-          v119 = 2048;
-          v120 = v5;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_110:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          v18 = v52;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 613;
-          v117 = 2048;
-          v118 = v3;
-          v119 = 2048;
-          v120 = v18;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_111:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = (v18 + 1);
-          v119 = 2048;
-          v120 = v14;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_112:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          v50 = MEMORY[0x1E69E9C10];
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 613;
-          v117 = 2048;
-          v118 = v6;
-          v119 = 2048;
-          v120 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_113:
-          *&v94 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = v50;
-          v119 = 2048;
-          v120 = v50;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_114:
-          *v114 = 0;
-          memset(__src, 0, 64);
-          *v111 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v129[0]) = 136315906;
-          *(v129 + 4) = "operator[]";
-          WORD6(v129[0]) = 1024;
-          *(v129 + 14) = 797;
-          WORD1(v129[1]) = 2048;
-          *(&v129[1] + 4) = 0;
-          WORD6(v129[1]) = 2048;
-          *(&v129[1] + 14) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_115:
-          re::internal::assertLog(6, v56, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v5, v5);
-          _os_crash();
-          __break(1u);
-LABEL_116:
-          *&v109 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 468;
-          v117 = 2048;
-          v118 = v4;
-          v119 = 2048;
-          v120 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          v105 = 0;
-          v130 = 0u;
-          v131 = 0u;
-          memset(v129, 0, sizeof(v129));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v114 = 136315906;
-          *&v114[4] = "operator[]";
-          v115 = 1024;
-          v116 = 789;
-          v117 = 2048;
-          v118 = 0;
-          v119 = 2048;
-          v120 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_117;
-        }
-
-        v87 = v95;
-LABEL_97:
-        *&__src[48] = v87;
-        *&__src[40] = v84;
-      }
-
-      operator new();
-    }
-  }
-
-  return result;
-}
-
-void re::internal::makeOpenSubdivAssetBuffersAndAppendToAssetPart(uint64_t **this, const re::GeomMesh *a2, MeshAssetPart *a3)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  if (!re::internal::GeomAttributeManager::attributeByName((this + 8), "vertexUV"))
-  {
-    v17 = 0;
-    v18 = 0;
-    bzero(v19, 0x2C8uLL);
-    re::internal::GeomBaseMesh::GeomBaseMesh(v19);
-    v19[89] = 0;
-    re::GeomMesh::copy(this, &v17);
-    v7 = re::addVertexUVs(&v17, v6);
-    v8 = re::GeomMesh::accessVertexPositions(this);
-    v10 = v9;
-    if ((*(*v7 + 16))(v7))
-    {
-      if (!v7[5])
-      {
-        goto LABEL_17;
-      }
-
-      v12 = v7[7];
-      v13 = (*(*v7 + 16))(v7);
-    }
-
-    else
-    {
-      v13 = 0;
-      v12 = 0;
-    }
-
-    v14 = *(this + 4);
-    if (!v14)
-    {
-LABEL_14:
-      re::internal::makeOpenSubdivAssetBuffersAndAppendToAssetPartInternal(&v17, a2, v11);
-      re::GeomMesh::~GeomMesh(&v17);
-      return;
-    }
-
-    v15 = 0;
-    while (v10 != v15)
-    {
-      if (v13 == v15)
-      {
-        goto LABEL_16;
-      }
-
-      v16 = *v8;
-      v8 += 2;
-      *(v12 + 8 * v15++) = v16;
-      if (v14 == v15)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    v20 = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v21 = 136315906;
-    v22 = "operator[]";
-    v23 = 1024;
-    v24 = 613;
-    v25 = 2048;
-    v26 = v10;
-    v27 = 2048;
-    v28 = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_16:
-    v20 = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v21 = 136315906;
-    v22 = "operator[]";
-    v23 = 1024;
-    v24 = 621;
-    v25 = 2048;
-    v26 = v13;
-    v27 = 2048;
-    v28 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_17:
-    v20 = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v29 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v21 = 136315906;
-    v22 = "operator[]";
-    v23 = 1024;
-    v24 = 789;
-    v25 = 2048;
-    v26 = 0;
-    v27 = 2048;
-    v28 = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  re::internal::makeOpenSubdivAssetBuffersAndAppendToAssetPartInternal(this, a2, v5);
-}
-
-uint64_t re::ASTCCompressor::initializeContext@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, int a4@<W3>, uint64_t a5@<X8>)
-{
-  v7 = result;
-  v9 = (result + 32);
-  if (!*(result + 32))
-  {
-    if (!a3)
-    {
-      v10 = "Invalid input ASTC pixel format";
-      goto LABEL_9;
-    }
-
-    if (!*(a2 + 4))
-    {
-      v10 = "Invalid ASTC mode";
-      goto LABEL_9;
-    }
-
-    if (!*a2)
-    {
-      v10 = "Invalid ASTC block size";
-      goto LABEL_9;
-    }
-
-    *result = a3;
-    *(result + 4) = a4;
-    *(result + 16) = *a2;
-    v14 = *(a2 + 4);
-    if (v14 != 1)
-    {
-      if (v14 == 3)
-      {
-        if (a3 - 6 >= 5)
-        {
-          v15 = 0;
-          v14 = 3;
-LABEL_30:
-          if ((a4 - 3) >= 2)
-          {
-            v16 = v15;
-          }
-
-          else
-          {
-            v16 = v15 | 8;
-          }
-
-          v17 = re::blockToSize(*a2);
-          v33 = 0;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
-          v28 = 0u;
-          v26 = 0u;
-          v18 = astcenc_config_init(v14, SLODWORD(v17), SHIDWORD(v17), 1u, v16, &v26, *(a2 + 12));
-          DWORD1(v27) = 1065353216;
-          v20 = 1.0;
-          if (isSingleChannel)
-          {
-            v21 = 0.0;
-          }
-
-          else
-          {
-            v21 = 1.0;
-          }
-
-          *(&v27 + 2) = v21;
-          *(&v27 + 3) = v21;
-          if (a3 - 6 >= 5)
-          {
-            v20 = 0.0;
-          }
-
-          *&v28 = v20;
-          if (v18)
-          {
-            LODWORD(result) = v18;
-          }
-
-          else
-          {
-            result = astcenc_context_alloc(&v26, *(v7 + 8));
-            if (!result)
-            {
-LABEL_43:
-              *a5 = 1;
-              return result;
-            }
-
-            *v9 = 0;
-          }
-
-          error_string = astcenc_get_error_string(result);
-          v11 = v23;
-          v12 = v24;
-          v13 = v25;
-          goto LABEL_10;
-        }
-
-        v14 = 2;
-LABEL_26:
-        if (*(a2 + 8))
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-          v15 = 4;
-        }
-
-        goto LABEL_30;
-      }
-
-      if (v14 != 2)
-      {
-        re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "initializeContext", 204);
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v14 = 0;
-    }
-
-    if (a3 - 6 > 4)
-    {
-      v15 = 0;
-      goto LABEL_30;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (*a2 == *(result + 16) && *(a2 + 4) == *(result + 20) && *(a2 + 8) == *(result + 24) && *(a2 + 12) == *(result + 28) && *result == a3 && *(result + 4) == a4)
-  {
-    goto LABEL_43;
-  }
-
-  v10 = "ASTCCompressor::initializeContext cannot be called with different options";
-LABEL_9:
-  v11 = v26;
-  v13 = *(&v27 + 1);
-  v12 = v27;
-LABEL_10:
-  *a5 = 0;
-  *(a5 + 8) = v11;
-  *(a5 + 24) = v12;
-  *(a5 + 32) = v13;
-  return result;
-}
-
-double re::blockToSize(int a1)
-{
-  *&result = 0x400000004;
-  switch(a1)
-  {
-    case 0:
-      result = 0.0;
-      break;
-    case 2:
-      *&result = 0x400000005;
-      break;
-    case 3:
-      *&result = 0x500000005;
-      break;
-    case 4:
-      *&result = 0x500000006;
-      break;
-    case 5:
-      *&result = 0x600000006;
-      break;
-    case 6:
-      *&result = 0x500000008;
-      break;
-    case 7:
-      *&result = 0x600000008;
-      break;
-    case 8:
-      *&result = 0x800000008;
-      break;
-    case 9:
-      *&result = 0x50000000ALL;
-      break;
-    case 10:
-      *&result = 0x60000000ALL;
-      break;
-    case 11:
-      *&result = 0x80000000ALL;
-      break;
-    case 12:
-      *&result = 0xA0000000ALL;
-      break;
-    case 13:
-      *&result = 0xA0000000CLL;
-      break;
-    case 14:
-      *&result = 0xC0000000CLL;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t re::ASTCCompressor::compress@<X0>(re::ASTCCompressor *this@<X0>, const vImage_Buffer *a2@<X1>, unsigned __int8 *a3@<X2>, uint64_t a4@<X8>)
-{
-  v8 = *this;
-  if (*this <= 8)
-  {
-    if (v8 == 2 || v8 == 5)
-    {
-      v11 = isSingleChannel ^ 1;
-      if (isSingleChannel)
-      {
-        v12 = 0;
-      }
-
-      else
-      {
-        v12 = 2;
-      }
-
-      v13 = 1;
-      goto LABEL_11;
-    }
-
-LABEL_16:
-    v13 = 0;
-    v11 = v18 ^ 1;
-    if (v18)
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      v12 = 2;
-    }
-
-    v14 = 3;
-    if (v8 - 6 < 2)
-    {
-      v15 = 0;
-      goto LABEL_24;
-    }
-
-    if (v8 == 8)
-    {
-LABEL_23:
-      v15 = v12;
-      v12 = 0;
-      goto LABEL_24;
-    }
-
-LABEL_11:
-    v14 = 5;
-    if (((v8 - 4) & 0xFFFFFFFB) != 0)
-    {
-      v15 = 0;
-LABEL_24:
-      v43 = v13;
-      if (v8 != 10 && v8 != 7)
-      {
-        goto LABEL_27;
-      }
-
-      goto LABEL_26;
-    }
-
-    goto LABEL_23;
-  }
-
-  if (v8 != 10)
-  {
-    if (v8 == 9)
-    {
-      p_width = &a2->width;
-      width = a2->width;
-      v40 = 0;
-      v41 = 3;
-      v11 = 1;
-      v42 = 2;
-      v43 = 1;
-LABEL_31:
-      v21 = 8;
-      goto LABEL_36;
-    }
-
-    goto LABEL_16;
-  }
-
-  v15 = 0;
-  v14 = 3;
-  v43 = 1;
-  v12 = 2;
-  v11 = 1;
-LABEL_26:
-  v19 = v11;
-  v20 = v12;
-  v12 = v14;
-  v11 = v20;
-  v14 = v15;
-  v15 = v19;
-LABEL_27:
-  p_width = &a2->width;
-  width = a2->width;
-  v21 = 1;
-  v41 = v14;
-  v42 = v12;
-  v40 = v15;
-  if (v8 > 0xA)
-  {
-    goto LABEL_34;
-  }
-
-  if (((1 << v8) & 0x1D8) != 0)
-  {
-    v21 = 4;
-    goto LABEL_36;
-  }
-
-  if (((1 << v8) & 0x620) != 0)
-  {
-    goto LABEL_31;
-  }
-
-  if (v8 == 2)
-  {
-    v21 = 2;
-  }
-
-  else
-  {
-LABEL_34:
-    if (!v8)
-    {
-      v21 = 0;
-    }
-  }
-
-LABEL_36:
-  v22 = v21 * width;
-  v64 = 0;
-  v63 = 0;
-  data = a2->data;
-  height = a2->height;
-  v61 = a2->data;
-  memset(v62, 0, sizeof(v62));
-  if (a2->rowBytes != v21 * width)
-  {
-    re::DynamicArray<BOOL>::resize(v62, height * v22);
-    v25 = v64;
-    if (a2->height)
-    {
-      v39 = v11;
-      v26 = a3;
-      v27 = a4;
-      v28 = 0;
       do
       {
-        memcpy(v25, data, v22);
-        v25 += v22;
-        data += a2->rowBytes;
-        ++v28;
-        height = a2->height;
+        re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(a1[2] + v3);
+        ++v4;
+        v3 += 56;
       }
 
-      while (v28 < height);
-      v25 = v64;
-      a4 = v27;
-      a3 = v26;
-      v11 = v39;
+      while (v4 < *(a1 + 8));
+      v2 = *a1;
     }
 
-    else
-    {
-      height = 0;
-    }
-
-    v61 = v25;
-    width = *p_width;
-  }
-
-  v29 = re::blockToSize(*(this + 4));
-  v60 = 0;
-  v59[0] = 0;
-  v59[1] = v59;
-  v59[2] = 0x2020000000;
-  v59[3] = &v60;
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3221225472;
-  aBlock[2] = ___ZN2re14ASTCCompressor8compressERK13vImage_BufferPh_block_invoke;
-  aBlock[3] = &unk_1E87214C8;
-  v48 = width;
-  v49 = height;
-  v50 = 1;
-  v51 = v43;
-  v55 = v40;
-  v56 = v11;
-  v57 = v42;
-  v58 = v41;
-  v52 = &v61;
-  v53 = a3;
-  v54 = 16 * (width + LODWORD(v29) - 1) / LODWORD(v29) * ((height + HIDWORD(v29) - 1) / HIDWORD(v29));
-  aBlock[4] = v59;
-  aBlock[5] = this;
-  v30 = _Block_copy(aBlock);
-  v31 = *(this + 1);
-  if (v31 < 2)
-  {
-    v30[2](v30, 0);
-  }
-
-  else
-  {
-    dispatch_apply(v31, *(this + 5), v30);
-  }
-
-  astcenc_compress_reset(*(this + 4));
-  if (atomic_load(&v60))
-  {
-    v33 = atomic_load(&v60);
-    error_string = astcenc_get_error_string(v33);
-    v35 = v44;
-    v36 = v45;
-    v37 = v46;
-    *a4 = 0;
-    *(a4 + 8) = v35;
-    *(a4 + 24) = v36;
-    *(a4 + 32) = v37;
-  }
-
-  else
-  {
-    *a4 = 1;
-  }
-
-  _Block_object_dispose(v59, 8);
-  result = v62[0];
-  if (v62[0])
-  {
-    if (v64)
-    {
-      return (*(*v62[0] + 40))(v62[0]);
-    }
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
   }
 
   return result;
 }
 
-uint64_t ___ZN2re14ASTCCompressor8compressERK13vImage_BufferPh_block_invoke(uint64_t a1)
+void re::HashTable<re::DynamicString,NS::SharedPtr<MTL::Function>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::EntryBase::free(uint64_t a1)
 {
-  result = astcenc_compress_image(*(*(a1 + 40) + 32));
-  if (result)
+  if ((*a1 & 0x80000000) != 0)
   {
-    atomic_store(result, *(*(*(a1 + 32) + 8) + 24));
-  }
+    *a1 &= ~0x80000000;
+    re::DynamicString::deinit((a1 + 8));
+    v2 = *(a1 + 40);
+    if (v2)
+    {
 
-  return result;
-}
-
-uint64_t re::getASTCBlockSize(int a1)
-{
-  if ((a1 - 186) > 0x32)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return dword_1E30FF998[a1 - 186];
+      *(a1 + 40) = 0;
+    }
   }
 }
 
-uint64_t re::getASTCDefaultMode(int a1)
-{
-  if (re::isHDR(a1))
-  {
-    return 3;
-  }
-
-  MTLPixelFormatGetInfoForDevice();
-  return 1;
-}
-
-uint64_t re::getMTLPixelFormat(unsigned int a1, int a2)
-{
-  if (a2 == 3)
-  {
-    if (a1 <= 0xE)
-    {
-      v2 = &unk_1E30FFADC;
-      return v2[a1];
-    }
-  }
-
-  else if (a2 == 2)
-  {
-    if (a1 < 0xF)
-    {
-      v2 = &unk_1E30FFAA0;
-      return v2[a1];
-    }
-  }
-
-  else if (a2 == 1 && a1 < 0xF)
-  {
-    v2 = &unk_1E30FFA64;
-    return v2[a1];
-  }
-
-  return 0;
-}
-
-uint64_t re::MTLToASTCPixelFormat(int a1, int a2)
-{
-  if (a1 <= 69)
-  {
-    if ((a1 - 10) < 2)
-    {
-      return 1;
-    }
-
-    if (a1 == 25)
-    {
-      return 2;
-    }
-
-    return 0;
-  }
-
-  if ((a1 - 70) >= 2)
-  {
-    if (a1 != 115)
-    {
-      return 0;
-    }
-
-    v3 = a2 == 0;
-    v4 = 5;
-    v5 = 9;
-  }
-
-  else
-  {
-    v3 = a2 == 0;
-    v4 = 3;
-    v5 = 6;
-  }
-
-  if (v3)
-  {
-    return v4;
-  }
-
-  else
-  {
-    return v5;
-  }
-}
-
-void re::internalLogTextureCompressionInfo(re *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned int *a9)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  if (a7 != 7)
-  {
-    a5 = a4;
-  }
-
-  if (a7 == 5)
-  {
-    v15 = 6;
-  }
-
-  else
-  {
-    v15 = a5;
-  }
-
-  v16 = *re::pipelineLogObjects(a1);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-  {
-    if (a8 > 69)
-    {
-      if ((a8 - 70) < 2)
-      {
-        v17 = "rgba8";
-        goto LABEL_18;
-      }
-
-      if (a8 == 115)
-      {
-        v17 = "rgbaFloat16";
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-      if ((a8 - 10) < 2)
-      {
-        v17 = "r8";
-LABEL_18:
-        v18 = *(a9 + 8);
-        v19 = *a9;
-        if (v19 > 0xE)
-        {
-          v20 = "4x4";
-        }
-
-        else
-        {
-          v20 = off_1E87214E8[v19];
-        }
-
-        v21 = 136316930;
-        v22 = a1;
-        v23 = 1024;
-        v24 = a2;
-        v25 = 1024;
-        v26 = a3;
-        v27 = 1024;
-        v28 = v15;
-        v29 = 1024;
-        v30 = a6;
-        v31 = 2080;
-        v32 = v17;
-        v33 = 1024;
-        v34 = v18;
-        v35 = 2080;
-        v36 = v20;
-        _os_log_debug_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_DEBUG, "%s - Texture compression requested on texture import:\nInput: %ux%ux%u. mips: %u, texel format: %s, premult if alpha: %d, block format: %s", &v21, 0x3Eu);
-        return;
-      }
-
-      if (a8 == 25)
-      {
-        v17 = "rFloat16";
-        goto LABEL_18;
-      }
-    }
-
-    v17 = "Invalid";
-    goto LABEL_18;
-  }
-}
-
-void re::logTextureCompressionInfo(re *a1, re::TextureData *this, unsigned int *a3)
-{
-  v6 = re::TextureData::width(this);
-  v7 = re::TextureData::height(this);
-  v8 = re::TextureData::arrayLength(this);
-  v9 = re::TextureData::depth(this);
-  v10 = re::TextureData::mipmapLevelCount(this);
-  v11 = re::TextureData::textureType(this);
-  v12 = re::TextureData::pixelFormat(this);
-  re::internalLogTextureCompressionInfo(a1, v6, v7, v8, v9, v10, v11, v12, a3);
-}
-
-void *re::parseAnimationBVH@<X0>(re *this@<X0>, uint64_t a2@<X8>)
-{
-  v118 = *MEMORY[0x1E69E9840];
-  v95 = 0.0;
-  v96 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v108 = this;
-  v109[64] = v109;
-  v109[65] = v109;
-  v94 = 0;
-  v91[1] = 0;
-  v92 = 0;
-  v91[0] = 0;
-  v93 = 0;
-  v6 = 0;
-  v7 = v5 - NextToken;
-  if (v5 != NextToken)
-  {
-    v8 = 0;
-    if (v7 <= 1)
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = v5 - NextToken;
-    }
-
-    while (v8 != 9)
-    {
-      if (aHierarchy[v8] != *(NextToken + v8))
-      {
-        goto LABEL_41;
-      }
-
-      if (v6 == ++v8)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v6 = 9;
-  }
-
-LABEL_10:
-  if (v6 != v7)
-  {
-    goto LABEL_41;
-  }
-
-  if (!NextToken)
-  {
-    goto LABEL_41;
-  }
-
-  __endptr[0].n128_u64[0] = 0;
-  memset(&__endptr[1], 0, 32);
-  __endptr[0].n128_u64[1] = &str_67;
-  *v105 = 0;
-  *&v105[8] = 0xFFFFFFFFLL;
-  v10 = __endptr[2].n128_u64[0];
-  if (__endptr[2].n128_u64[0] && __endptr[2].n128_u64[1])
-  {
-    v10 = (*(*__endptr[2].n128_u64[0] + 40))(v9);
-  }
-
-  if (__endptr[0].n128_u8[0])
-  {
-  }
-
-  v11 = v94;
-  v12 = v92;
-  v14 = v13 - NextToken;
-  if (v13 == NextToken)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v16 = 0;
-    v15 = v14 <= 1 ? 1 : v13 - NextToken;
-    while (v16 != 4)
-    {
-      if (aRoot_1[v16] != *(NextToken + v16))
-      {
-        goto LABEL_41;
-      }
-
-      if (v15 == ++v16)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    v15 = 4;
-  }
-
-LABEL_27:
-  {
-LABEL_41:
-    v34 = "Unable to parse hierarchy.";
-LABEL_42:
-    v35 = __endptr[0];
-    v36 = __endptr[1];
-    *a2 = 0;
-    *(a2 + 8) = 100;
-    *(a2 + 16) = re::AssetErrorCategory(void)::instance;
-    *(a2 + 24) = v35;
-    *(a2 + 40) = v36;
-LABEL_43:
-    v37 = v91[0];
-    if (v91[0])
-    {
-      v38 = v94;
-      if (v94)
-      {
-        if (v92)
-        {
-          v39 = v92 << 6;
-          v40 = v94;
-          do
-          {
-            v41 = *(v40 + 4);
-            if (v41)
-            {
-              if (*(v40 + 5))
-              {
-                (*(*v41 + 40))(v41, *(v40 + 6));
-                *(v40 + 5) = 0;
-                *(v40 + 6) = 0;
-              }
-
-              *(v40 + 4) = 0;
-            }
-
-            re::StringID::destroyString(v40);
-            v40 = (v40 + 64);
-            v39 -= 64;
-          }
-
-          while (v39);
-        }
-
-        (*(*v37 + 40))(v37, v38);
-      }
-    }
-
-    re::FixedArray<re::FixedArray<unsigned int>>::deinit(&v100 + 1);
-    if (v99)
-    {
-      if (*(&v99 + 1))
-      {
-        (*(*v99 + 40))(v99, v100);
-        *(&v99 + 1) = 0;
-        *&v100 = 0;
-      }
-
-      *&v99 = 0;
-    }
-
-    if (*(&v97 + 1))
-    {
-      if (v98)
-      {
-        (*(**(&v97 + 1) + 40))(*(&v97 + 1), *(&v98 + 1));
-        v98 = 0uLL;
-      }
-
-      *(&v97 + 1) = 0;
-    }
-
-    return re::FixedArray<re::StringID>::deinit(&v96);
-  }
-
-  v21 = 0;
-  v22 = 0;
-  v23 = v94;
-  v24 = v94;
-  do
-  {
-    v25 = *(&v96 + 1);
-    if (*(&v96 + 1) <= v22)
-    {
-      v102.i64[0] = 0;
-      memset(v105, 0, 32);
-      memset(__endptr, 0, sizeof(__endptr));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v110 = 136315906;
-      v111 = "operator[]";
-      v112 = 1024;
-      v113 = 468;
-      v114 = 2048;
-      v115 = v22;
-      v116 = 2048;
-      v117 = v25;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_89:
-      v102.i64[0] = 0;
-      memset(v105, 0, 32);
-      memset(__endptr, 0, sizeof(__endptr));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v110 = 136315906;
-      v111 = "operator[]";
-      v112 = 1024;
-      v113 = 468;
-      v114 = 2048;
-      v115 = v22;
-      v116 = 2048;
-      v117 = v25;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_90:
-      v102.i64[0] = 0;
-      memset(v105, 0, 32);
-      memset(__endptr, 0, sizeof(__endptr));
-      a2 = MEMORY[0x1E69E9C10];
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v110 = 136315906;
-      v111 = "operator[]";
-      v112 = 1024;
-      v113 = 468;
-      v114 = 2048;
-      v115 = v24;
-      v116 = 2048;
-      v117 = v22;
-      _os_log_send_and_compose_impl();
-      v30 = _os_crash_msg();
-      __break(1u);
-      goto LABEL_91;
-    }
-
-    v26 = re::StringID::operator=((v97 + v21), v24);
-    v25 = v98;
-    if (v98 <= v22)
-    {
-      goto LABEL_89;
-    }
-
-    *(*(&v98 + 1) + 4 * v22++) = *(v24 + 14);
-    v24 = (v24 + 64);
-    v21 += 16;
-  }
-
-  while (v19 != v22);
-  v25 = &v95;
-  v24 = 0;
-  v27 = (v23 + 16);
-  v28 = 32;
-  do
-  {
-    v22 = *(&v99 + 1);
-    if (*(&v99 + 1) <= v24)
-    {
-      goto LABEL_90;
-    }
-
-    v29 = *v27;
-    v27 += 4;
-    *(v100 + v28) = v29;
-    v24 = (v24 + 1);
-    v28 += 48;
-  }
-
-  while (v19 != v24);
-  v32 = v31 - v30;
-  if (v31 == v30)
-  {
-    v33 = 0;
-  }
-
-  else
-  {
-    v43 = 0;
-    if (v32 <= 1)
-    {
-      v33 = 1;
-    }
-
-    else
-    {
-      v33 = v31 - v30;
-    }
-
-    while (v43 != 6)
-    {
-      if (aMotion[v43] != *(v30 + v43))
-      {
-        goto LABEL_166;
-      }
-
-      if (v33 == ++v43)
-      {
-        goto LABEL_70;
-      }
-    }
-
-    v33 = 6;
-  }
-
-LABEL_70:
-  if (v33 != v32)
-  {
-    goto LABEL_166;
-  }
-
-  if (!v30)
-  {
-    goto LABEL_166;
-  }
-
-  v45 = v44 - v30;
-  if (v44 == v30)
-  {
-    v46 = 0;
-  }
-
-  else
-  {
-    v47 = 0;
-    v46 = v45 <= 1 ? 1 : v44 - v30;
-    while (v47 != 7)
-    {
-      if (aFrames[v47] != *(v30 + v47))
-      {
-        goto LABEL_166;
-      }
-
-      if (v46 == ++v47)
-      {
-        goto LABEL_82;
-      }
-    }
-
-    v46 = 7;
-  }
-
-LABEL_82:
-  if (v46 != v45)
-  {
-    goto LABEL_166;
-  }
-
-  if (v48 == v30)
-  {
-    goto LABEL_166;
-  }
-
-  v49 = v48;
-  __endptr[0].n128_u64[0] = 0;
-  v30 = strtol(v30, __endptr, 10);
-  if (__endptr[0].n128_u64[0] != v49)
-  {
-    goto LABEL_166;
-  }
-
-  LODWORD(v24) = v30;
-  if (!v30)
-  {
-    goto LABEL_166;
-  }
-
-  v51 = v50 - v30;
-  if (v50 == v30)
-  {
-    v52 = 0;
-    goto LABEL_99;
-  }
-
-LABEL_91:
-  v53 = 0;
-  v52 = v51 <= 1 ? 1 : v51;
-  while (v53 != 5)
-  {
-    if (aFrame[v53] != *(v30 + v53))
-    {
-      goto LABEL_166;
-    }
-
-    if (v52 == ++v53)
-    {
-      goto LABEL_99;
-    }
-  }
-
-  v52 = 5;
-LABEL_99:
-  if (v52 != v51)
-  {
-    goto LABEL_166;
-  }
-
-  v55 = v54 - v30;
-  if (v54 == v30)
-  {
-    v56 = 0;
-  }
-
-  else
-  {
-    v57 = 0;
-    v56 = v55 <= 1 ? 1 : v54 - v30;
-    while (v57 != 5)
-    {
-      if (aTime_0[v57] != *(v30 + v57))
-      {
-        goto LABEL_166;
-      }
-
-      if (v56 == ++v57)
-      {
-        goto LABEL_110;
-      }
-    }
-
-    v56 = 5;
-  }
-
-LABEL_110:
-  {
-LABEL_166:
-    v34 = "Unable to parse motion frames.";
-    goto LABEL_42;
-  }
-
-  if (v24 < 1)
-  {
-LABEL_157:
-    __endptr[0].n128_f32[0] = v95;
-    re::FixedArray<re::StringID>::FixedArray(&__endptr[0].n128_u64[1], &v96);
-    re::FixedArray<unsigned int>::FixedArray(&__endptr[2], &v97 + 8);
-    re::FixedArray<re::GenericSRT<float>>::FixedArray(&v105[8], (v25 + 14));
-    re::FixedArray<re::FixedArray<re::GenericSRT<float>>>::FixedArray(&v105[32], &v100 + 8);
-    *a2 = 1;
-    *(a2 + 8) = __endptr[0].n128_u32[0];
-    v82 = __endptr[1].n128_u64[0];
-    *(a2 + 16) = __endptr[0].n128_u64[1];
-    *(a2 + 24) = v82;
-    *(a2 + 32) = *(&__endptr[1] + 8);
-    memset(&__endptr[0].n128_i8[8], 0, 32);
-    *(a2 + 48) = __endptr[2].n128_u64[1];
-    __endptr[2].n128_u64[1] = 0;
-    *(a2 + 56) = *v105;
-    *v105 = 0u;
-    *(a2 + 72) = *&v105[16];
-    *(a2 + 80) = *&v105[24];
-    memset(&v105[16], 0, 24);
-    v83 = v107;
-    *(a2 + 96) = v106;
-    *(a2 + 104) = v83;
-    v106 = 0;
-    v107 = 0;
-    re::FixedArray<re::FixedArray<unsigned int>>::deinit(&v105[32]);
-    if (*&v105[8])
-    {
-      if (*&v105[16])
-      {
-        (*(**&v105[8] + 40))(*&v105[8], *&v105[24]);
-        *&v105[16] = 0uLL;
-      }
-
-      *&v105[8] = 0;
-    }
-
-    if (__endptr[2].n128_u64[0])
-    {
-      if (__endptr[2].n128_u64[1])
-      {
-        (*(*__endptr[2].n128_u64[0] + 40))(__endptr[2].n128_u64[0], *v105);
-        __endptr[2].n128_u64[1] = 0;
-        *v105 = 0;
-      }
-
-      __endptr[2].n128_u64[0] = 0;
-    }
-
-    re::FixedArray<re::StringID>::deinit(&__endptr[0].n128_u64[1]);
-    goto LABEL_43;
-  }
-
-  v86 = 0;
-  v84 = v24 & 0x7FFFFFFF;
-  v85 = vdupq_n_s32(0x3C8EFA35u);
-  v60 = v19;
-  while (1)
-  {
-    i = v101;
-    if (v101 <= v86)
-    {
-      goto LABEL_170;
-    }
-
-    v62 = (*(&v101 + 1) + 24 * v86);
-    v89 = v62;
-    if (v60)
-    {
-      break;
-    }
-
-LABEL_155:
-    if ((v30 & 1) == 0)
-    {
-      goto LABEL_166;
-    }
-
-    if (++v86 == v84)
-    {
-      goto LABEL_157;
-    }
-  }
-
-  v90 = 0;
-  while (1)
-  {
-    i = v89[1];
-    if (i <= v90)
-    {
-      break;
-    }
-
-    v63 = v23 + 64 * v90;
-    *(v89[2] + 48 * v90 + 32) = *(v63 + 1);
-    if (v90 == v19)
-    {
-      goto LABEL_169;
-    }
-
-    if (*(v63 + 5))
-    {
-      for (i = 0; i < *(v63 + 5); ++i)
-      {
-        if (v64 == v30)
-        {
-          goto LABEL_166;
-        }
-
-        v65 = v64;
-        __endptr[0].n128_u64[0] = 0;
-        v66.f32[0] = strtof(v30, __endptr);
-        v88 = v66;
-        if (__endptr[0].n128_u64[0] != v65)
-        {
-          goto LABEL_166;
-        }
-
-        if (v67 == v30)
-        {
-          goto LABEL_166;
-        }
-
-        v68 = v67;
-        __endptr[0].n128_u64[0] = 0;
-        v69.f32[0] = strtof(v30, __endptr);
-        v87 = v69;
-        if (__endptr[0].n128_u64[0] != v68)
-        {
-          goto LABEL_166;
-        }
-
-        if (v70 == v30)
-        {
-          goto LABEL_166;
-        }
-
-        v71 = v70;
-        __endptr[0].n128_u64[0] = 0;
-        v73.f32[0] = strtof(v30, __endptr);
-        if (__endptr[0].n128_u64[0] != v71)
-        {
-          goto LABEL_166;
-        }
-
-        v60 = *(v63 + 5);
-        if (v60 <= i)
-        {
-          v102.i64[0] = 0;
-          memset(v105, 0, 32);
-          memset(__endptr, 0, sizeof(__endptr));
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v110 = 136315906;
-          v111 = "operator[]";
-          v112 = 1024;
-          v113 = 476;
-          v114 = 2048;
-          v115 = i;
-          v116 = 2048;
-          v117 = v60;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_168;
-        }
-
-        v74 = *(*(v63 + 6) + 4 * i);
-        if (v74 <= 2)
-        {
-          switch(v74)
-          {
-            case 0:
-              v60 = v89[1];
-              if (v60 <= v90)
-              {
-                goto LABEL_173;
-              }
-
-              v76 = v88;
-              v76.i32[1] = v87.i32[0];
-              v76.i32[2] = v73.i32[0];
-              *(v89[2] + 48 * v90 + 32) = v76;
-              continue;
-            case 1:
-              v77 = v88;
-              v77.i32[1] = v87.i32[0];
-              v77.i32[2] = v73.i32[0];
-              v102 = vmulq_f32(v77, v85);
-              __endptr[0] = xmmword_1E30474D0;
-              re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 0, __endptr, 1);
-              v60 = v89[1];
-              if (v60 <= v90)
-              {
-                goto LABEL_174;
-              }
-
-              break;
-            case 2:
-              v73.i32[1] = v88.i32[0];
-              v73.i32[2] = v87.i32[0];
-              v102 = vmulq_f32(v73, v85);
-              __endptr[0] = xmmword_1E30474D0;
-              re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 1, __endptr, 1);
-              v60 = v89[1];
-              if (v60 <= v90)
-              {
-                goto LABEL_172;
-              }
-
-              break;
-            default:
-              goto LABEL_178;
-          }
-        }
-
-        else if (v74 > 4)
-        {
-          if (v74 == 5)
-          {
-            v79 = v87;
-            v79.i32[1] = v88.i32[0];
-            v79.i32[2] = v73.i32[0];
-            v102 = vmulq_f32(v79, v85);
-            __endptr[0] = xmmword_1E30474D0;
-            re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 4, __endptr, 1);
-            v60 = v89[1];
-            if (v60 <= v90)
-            {
-              goto LABEL_177;
-            }
-          }
-
-          else
-          {
-            if (v74 != 6)
-            {
-              goto LABEL_178;
-            }
-
-            v73.i32[1] = v87.i32[0];
-            v73.i32[2] = v88.i32[0];
-            v102 = vmulq_f32(v73, v85);
-            __endptr[0] = xmmword_1E30474D0;
-            re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 5, __endptr, 1);
-            v60 = v89[1];
-            if (v60 <= v90)
-            {
-              goto LABEL_175;
-            }
-          }
-        }
-
-        else if (v74 == 3)
-        {
-          v78 = v87;
-          v78.i32[1] = v73.i32[0];
-          v78.i32[2] = v88.i32[0];
-          v102 = vmulq_f32(v78, v85);
-          __endptr[0] = xmmword_1E30474D0;
-          re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 2, __endptr, 1);
-          v60 = v89[1];
-          if (v60 <= v90)
-          {
-            goto LABEL_176;
-          }
-        }
-
-        else
-        {
-          v75 = v88;
-          v75.i32[1] = v87.i32[0];
-          v75.i32[2] = v73.i32[0];
-          v102 = vmulq_f32(v75, v85);
-          __endptr[0] = xmmword_1E30474D0;
-          re::convertIntrinsicEulersToQuaternions<float>(&v102, 1, 3, __endptr, 1);
-          v60 = v89[1];
-          if (v60 <= v90)
-          {
-            goto LABEL_171;
-          }
-        }
-
-        v80 = __endptr[0].n128_u64[1];
-        v81 = v89[2] + 48 * v90;
-        *(v81 + 16) = __endptr[0].n128_u64[0];
-        *(v81 + 24) = v80;
-      }
-    }
-
-    if (++v90 == v19)
-    {
-      v60 = v19;
-      goto LABEL_155;
-    }
-  }
-
-LABEL_168:
-  v102.i64[0] = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = i;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_169:
-  v102.i64[0] = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 797;
-  v114 = 2048;
-  v115 = v19;
-  v116 = 2048;
-  v117 = v19;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_170:
-  v102.i64[0] = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v86;
-  v116 = 2048;
-  v117 = i;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_171:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_172:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_173:
-  v102.i64[0] = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_174:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_175:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_176:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_177:
-  v103 = 0;
-  memset(v105, 0, 32);
-  memset(__endptr, 0, sizeof(__endptr));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v110 = 136315906;
-  v111 = "operator[]";
-  v112 = 1024;
-  v113 = 468;
-  v114 = 2048;
-  v115 = v90;
-  v116 = 2048;
-  v117 = v60;
-  _os_log_send_and_compose_impl();
-  _os_crash_msg();
-  __break(1u);
-LABEL_178:
-  re::internal::assertLog(4, v72, "assertion failure: '%s' (%s:line %i) Invalid Joint Channel value.", "!Unreachable code", "parseFrameNumbersLine", 507);
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-__n128 re::DynamicArray<re::anonymous namespace::BVHJointData>::add(uint64_t a1, __n128 *a2)
-{
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = v5 + 1;
-  if (v5 >= v4 && v4 < v6)
-  {
-    if (*a1)
-    {
-      v13 = 2 * v4;
-      v14 = v4 == 0;
-      v15 = 8;
-      if (!v14)
-      {
-        v15 = v13;
-      }
-
-      if (v15 <= v6)
-      {
-        v16 = v6;
-      }
-
-      else
-      {
-        v16 = v15;
-      }
-    }
-
-    else
-    {
-      ++*(a1 + 24);
-    }
-  }
-
-  v8 = (*(a1 + 32) + (*(a1 + 16) << 6));
-  v9 = a2->n128_u64[0];
-  v8->n128_u64[0] = v8->n128_u64[0] & 0xFFFFFFFFFFFFFFFELL | a2->n128_u64[0] & 1;
-  v8->n128_u64[0] = a2->n128_u64[0] & 0xFFFFFFFFFFFFFFFELL | v9 & 1;
-  v8->n128_u64[1] = a2->n128_u64[1];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = &str_67;
-  result = a2[1];
-  v8[1] = result;
-  v8[2].n128_u64[1] = 0;
-  v8[3].n128_u64[0] = 0;
-  v8[2].n128_u64[0] = 0;
-  v11 = a2[2].n128_u64[1];
-  v8[2].n128_u64[0] = a2[2].n128_u64[0];
-  v8[2].n128_u64[1] = v11;
-  a2[2].n128_u64[0] = 0;
-  a2[2].n128_u64[1] = 0;
-  v12 = v8[3].n128_u64[0];
-  v8[3].n128_u64[0] = a2[3].n128_u64[0];
-  a2[3].n128_u64[0] = v12;
-  v8[3].n128_u32[2] = a2[3].n128_u32[2];
-  ++*(a1 + 16);
-  ++*(a1 + 24);
-  return result;
-}
-
-uint64_t re::anonymous namespace::parseJointDescription(re::_anonymous_namespace_::TokenStream *a1, int a2, uint64_t a3)
-{
-  v86 = *MEMORY[0x1E69E9840];
-  {
-    return 0;
-  }
-
-  v7 = *(a3 + 32);
-  v8 = *(a3 + 16);
-  v11 = v10 - NextToken;
-  if (v10 == NextToken)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v13 = 0;
-    v12 = v11 <= 1 ? 1 : v10 - NextToken;
-    while (v13 != 8)
-    {
-      if (aChannels[v13] != NextToken[v13])
-      {
-        return 0;
-      }
-
-      if (v12 == ++v13)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    v12 = 8;
-  }
-
-LABEL_13:
-  if (v12 != v11)
-  {
-    return 0;
-  }
-
-  if (v15 == v14)
-  {
-    return 0;
-  }
-
-  v17 = v15;
-  __endptr[0].n128_u64[0] = 0;
-  v18 = strtol(v14, __endptr, 10);
-  if (__endptr[0].n128_u64[0] != v17)
-  {
-    return 0;
-  }
-
-  v19 = v18;
-  if (v18 < 1)
-  {
-    return 0;
-  }
-
-  v20 = v18 / 3uLL;
-  if (v18 % 3)
-  {
-    return 0;
-  }
-
-  v21 = v7 + (v8 << 6);
-  *(v21 - 24) = v20;
-  if (v19 > 2)
-  {
-    v37 = 4 * v20;
-    *(v21 - 16) = v38;
-    if (v38)
-    {
-      v40 = v38;
-      if (v19 - 3 >= 3)
-      {
-        bzero(v38, v37 - 4);
-        v40 = (v40 + v37 - 4);
-      }
-
-      v3 = 0;
-      *v40 = 0;
-      if (v20 <= 1)
-      {
-        v41 = 1;
-      }
-
-      else
-      {
-        v41 = v20;
-      }
-
-      while (1)
-      {
-        v44 = v43 - v42;
-        if ((v43 - v42 + 1) > 0x20)
-        {
-          return 0;
-        }
-
-        memcpy(__endptr, v42, v44);
-        __endptr[0].n128_u8[v44] = 0;
-        v47 = v46 - v45;
-        if ((v46 - v45 + 1) > 0x20)
-        {
-          return 0;
-        }
-
-        memcpy(&v69, v45, v47);
-        *(&v69 + v47) = 0;
-        v50 = v49 - v48;
-        if ((v49 - v48 + 1) > 0x20)
-        {
-          return 0;
-        }
-
-        memcpy(v72, v48, v50);
-        v72[v50] = 0;
-        v51 = *(v21 - 24);
-        if (v51 <= v3)
-        {
-          break;
-        }
-
-        v52 = 0;
-        *(*(v21 - 16) + 4 * v3) = -1;
-        v20 = off_1E8721570;
-        while (strcmp(__endptr, *(v20 - 16)) || strcmp(&v69, *(v20 - 8)) || strcmp(v72, *v20))
-        {
-          ++v52;
-          v20 += 24;
-          if (v52 == 7)
-          {
-            goto LABEL_66;
-          }
-        }
-
-        v20 = *(v21 - 24);
-        if (v20 <= v3)
-        {
-          goto LABEL_115;
-        }
-
-        *(*(v21 - 16) + 4 * v3) = v52;
-LABEL_66:
-        v51 = *(v21 - 24);
-        if (v51 <= v3)
-        {
-          goto LABEL_113;
-        }
-
-        if (*(*(v21 - 16) + 4 * v3) == -1)
-        {
-          return 0;
-        }
-
-        if (++v3 == v41)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v81 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v73 = 136315906;
-      v74 = "operator[]";
-      v75 = 1024;
-      v76 = 468;
-      v77 = 2048;
-      v78 = v3;
-      v79 = 2048;
-      v80 = v51;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_113:
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v81 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v73 = 136315906;
-      v74 = "operator[]";
-      v75 = 1024;
-      v76 = 468;
-      v77 = 2048;
-      v78 = v3;
-      v79 = 2048;
-      v80 = v51;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    re::internal::assertLog(4, v39, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
-    __break(1u);
-LABEL_115:
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v81 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v73 = 136315906;
-    v74 = "operator[]";
-    v75 = 1024;
-    v76 = 468;
-    v77 = 2048;
-    v78 = v3;
-    v79 = 2048;
-    v80 = v20;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-LABEL_20:
-  {
-    return 0;
-  }
-
-  while (1)
-  {
-    v24 = v23 - v22;
-    if (v23 == v22)
-    {
-      v25 = 0;
-    }
-
-    else
-    {
-      v26 = 0;
-      v25 = v24 <= 1 ? 1 : v23 - v22;
-      while (v26 != 5)
-      {
-        if (aJoint_0[v26] != v22[v26])
-        {
-          goto LABEL_72;
-        }
-
-        if (v25 == ++v26)
-        {
-          goto LABEL_31;
-        }
-      }
-
-      v25 = 5;
-    }
-
-LABEL_31:
-    if (v25 != v24)
-    {
-      break;
-    }
-
-    __endptr[0].n128_u64[0] = 0;
-    __endptr[0].n128_u64[1] = &str_67;
-    __endptr[1] = 0u;
-    v69 = 0u;
-    v70 = 0;
-    v71 = a2;
-    if (v69)
-    {
-      if (*(&v69 + 1))
-      {
-        (*(*v69 + 40))(v27);
-        *(&v69 + 1) = 0;
-        v70 = 0;
-      }
-
-      *&v69 = 0;
-    }
-
-    re::StringID::destroyString(__endptr);
-    v28 = *(a3 + 32);
-    v29 = *(a3 + 16);
-    v32 = v31 - v30;
-    if (v31 == v30)
-    {
-      v33 = 0;
-    }
-
-    else
-    {
-      v34 = 0;
-      if (v32 <= 1)
-      {
-        v33 = 1;
-      }
-
-      else
-      {
-        v33 = v31 - v30;
-      }
-
-      while (v34 != 5)
-      {
-        if (aJoint_0[v34] != v30[v34])
-        {
-          return 0;
-        }
-
-        if (v33 == ++v34)
-        {
-          goto LABEL_46;
-        }
-      }
-
-      v33 = 5;
-    }
-
-LABEL_46:
-    if (v33 == v32)
-    {
-      {
-        {
-          continue;
-        }
-      }
-    }
-
-    return 0;
-  }
-
-LABEL_72:
-  v55 = v54 - v53;
-  if (v54 == v53)
-  {
-    v56 = 0;
-  }
-
-  else
-  {
-    v57 = 0;
-    v56 = v55 <= 1 ? 1 : v54 - v53;
-    while (v57 != 3)
-    {
-      if (aEnd_0[v57] != v53[v57])
-      {
-        goto LABEL_109;
-      }
-
-      if (v56 == ++v57)
-      {
-        goto LABEL_82;
-      }
-    }
-
-    v56 = 3;
-  }
-
-LABEL_82:
-  if (v56 == v55)
-  {
-    v60 = v59 - v58;
-    if (v59 == v58)
-    {
-      v61 = 0;
-    }
-
-    else
-    {
-      v62 = 0;
-      v61 = v60 <= 1 ? 1 : v59 - v58;
-      while (v62 != 3)
-      {
-        if (aEnd_0[v62] != v58[v62])
-        {
-          return 0;
-        }
-
-        if (v61 == ++v62)
-        {
-          goto LABEL_93;
-        }
-      }
-
-      v61 = 3;
-    }
-
-LABEL_93:
-    if (v61 != v60)
-    {
-      return 0;
-    }
-
-    v65 = v64 - v63;
-    if (v64 == v63)
-    {
-      v66 = 0;
-    }
-
-    else
-    {
-      v67 = 0;
-      v66 = v65 <= 1 ? 1 : v64 - v63;
-      while (v67 != 4)
-      {
-        if (aSite[v67] != v63[v67])
-        {
-          return 0;
-        }
-
-        if (v66 == ++v67)
-        {
-          goto LABEL_104;
-        }
-      }
-
-      v66 = 4;
-    }
-
-LABEL_104:
-    {
-      return 0;
-    }
-  }
-
-LABEL_109:
-}
-
-char *re::anonymous namespace::TokenStream::getNextToken(re::_anonymous_namespace_::TokenStream *this, char a2)
-{
-  v4 = *(this + 65);
-  v5 = *(this + 66);
-  if (v4 < v5)
-  {
-    v6 = MEMORY[0x1E69E9830];
-    do
-    {
-      v7 = *v4;
-      if ((v7 & 0x80000000) != 0)
-      {
-        v8 = __maskrune(v7, 0x4000uLL);
-        v5 = *(this + 66);
-        if (!v8)
-        {
-          break;
-        }
-      }
-
-      else if ((*(v6 + 4 * v7 + 60) & 0x4000) == 0)
-      {
-        break;
-      }
-
-      ++v4;
-    }
-
-    while (v4 < v5);
-  }
-
-  if (v4 >= v5)
-  {
-    v10 = v4;
-  }
-
-  else
-  {
-    v9 = MEMORY[0x1E69E9830];
-    v10 = v4;
-    do
-    {
-      v11 = *v10;
-      if ((v11 & 0x80000000) != 0)
-      {
-        v12 = __maskrune(v11, 0x4000uLL);
-        v5 = *(this + 66);
-        if (v12)
-        {
-          break;
-        }
-      }
-
-      else if ((*(v9 + 4 * v11 + 60) & 0x4000) != 0)
-      {
-        break;
-      }
-
-      ++v10;
-    }
-
-    while (v10 < v5);
-  }
-
-  if (v10 == v5)
-  {
-    v4 = *(this + 65);
-    v13 = *(this + 66);
-    v14 = MEMORY[0x1E69E9830];
-    while (v4 < v13)
-    {
-      v15 = *v4;
-      if ((v15 & 0x80000000) != 0)
-      {
-        v16 = __maskrune(v15, 0x4000uLL);
-        v13 = *(this + 66);
-        if (!v16)
-        {
-          break;
-        }
-      }
-
-      else if ((*(v14 + 4 * v15 + 60) & 0x4000) == 0)
-      {
-        break;
-      }
-
-      ++v4;
-    }
-
-    v10 = v4;
-    if (v4 < v13)
-    {
-      do
-      {
-        v17 = *v10;
-        if ((v17 & 0x80000000) != 0)
-        {
-          if (__maskrune(v17, 0x4000uLL))
-          {
-            break;
-          }
-        }
-
-        else if ((*(v14 + 4 * v17 + 60) & 0x4000) != 0)
-        {
-          break;
-        }
-
-        ++v10;
-      }
-
-      while (v10 < *(this + 66));
-    }
-  }
-
-  if ((a2 & 1) == 0)
-  {
-    *(this + 65) = v10;
-  }
-
-  return v4;
-}
-
-uint64_t re::anonymous namespace::TokenStream::endLine(re::_anonymous_namespace_::TokenStream *this)
-{
-  v2 = *(this + 65);
-  v3 = MEMORY[0x1E69E9830];
-  do
-  {
-    while (1)
-    {
-      v4 = *(this + 66);
-      if (v2 >= v4)
-      {
-        break;
-      }
-
-      v5 = *v2;
-      if ((v5 & 0x80000000) != 0)
-      {
-        v7 = __maskrune(v5, 0x4000uLL);
-        v2 = *(this + 65);
-        if (v7)
-        {
-          goto LABEL_5;
-        }
-
-LABEL_8:
-        v4 = *(this + 66);
-        break;
-      }
-
-      if ((*(v3 + 4 * v5 + 60) & 0x4000) == 0)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_5:
-      v6 = *v2++;
-      *(this + 65) = v2;
-      if (v6 == 10)
-      {
-        return 1;
-      }
-    }
-
-    if (v2 != v4)
-    {
-      break;
-    }
-
-    v2 = *(this + 65);
-  }
-
-  while (v2 < *(this + 66));
-  return 0;
-}
-
-uint64_t re::anonymous namespace::TokenStream::readFromStream(re::_anonymous_namespace_::TokenStream *this)
-{
-  v2 = *(this + 66);
-  v3 = *(this + 65);
-  v4 = v2 - v3;
-  v5 = this + 8;
-  if (v3 != this + 8)
-  {
-    memmove(this + 8, v3, v2 - v3);
-    *(this + 65) = v5;
-    *(this + 66) = &v5[v4];
-  }
-
-  result = (*(**this + 16))(*this, &v5[v4], 512 - v4);
-  *(this + 66) += result;
-  return result;
-}
-
-void *re::DynamicArray<re::anonymous namespace::BVHJointData>::setCapacity(void *result, unint64_t a2)
+void *re::DynamicArray<re::PSOToolRenderDescriptor>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
@@ -9422,37 +2326,38 @@ void *re::DynamicArray<re::anonymous namespace::BVHJointData>::setCapacity(void 
       result = *result;
       if (!*v5)
       {
+        result = re::DynamicArray<re::PSOToolRenderDescriptor>::setCapacity(v5, a2);
         ++*(v5 + 6);
         return result;
       }
 
       if (a2)
       {
-        if (a2 >> 58)
+        if (is_mul_ok(a2, 0xE8uLL))
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 64, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        else
-        {
-          v2 = a2 << 6;
-          result = (*(*result + 32))(result, a2 << 6, 16);
+          v2 = 232 * a2;
+          result = (*(*result + 32))(result, 232 * a2, 8);
           if (result)
           {
             v7 = result;
             if (!v5[1])
             {
-              goto LABEL_18;
+              goto LABEL_16;
             }
 
             goto LABEL_11;
           }
         }
 
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 232, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v12, v14);
+          __break(1u);
+        }
+
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v13, v15);
         __break(1u);
         return result;
       }
@@ -9460,7 +2365,7 @@ void *re::DynamicArray<re::anonymous namespace::BVHJointData>::setCapacity(void 
       v7 = 0;
       if (!v3)
       {
-LABEL_18:
+LABEL_16:
         v5[4] = v7;
         v5[1] = a2;
         return result;
@@ -9471,38 +2376,18 @@ LABEL_11:
       v9 = v5[2];
       if (v9)
       {
-        v10 = v9 << 6;
+        v10 = 232 * v9;
         v11 = v7;
         do
         {
-          v12 = *v8;
-          *v11 = *v11 & 0xFFFFFFFFFFFFFFFELL | *v8 & 1;
-          *v11 = *v8 & 0xFFFFFFFFFFFFFFFELL | v12 & 1;
-          v11[1] = v8[1];
-          *v8 = 0;
-          v8[1] = &str_67;
-          *(v11 + 1) = *(v8 + 1);
-          v11[5] = 0;
-          v11[6] = 0;
-          v11[4] = 0;
-          v13 = v8[5];
-          v11[4] = v8[4];
-          v11[5] = v13;
-          v8[4] = 0;
-          v8[5] = 0;
-          v14 = v11[6];
-          v11[6] = v8[6];
-          v8[6] = v14;
-          *(v11 + 14) = *(v8 + 14);
-          if (v8[4])
-          {
-            v8[4] = 0;
-          }
-
-          re::StringID::destroyString(v8);
-          v8 += 8;
-          v11 += 8;
-          v10 -= 64;
+          re::PSOToolRenderDescriptor::PSOToolRenderDescriptor(v11, v8);
+          re::DynamicArray<unsigned long>::deinit(v8 + 192);
+          re::DynamicArray<unsigned long>::deinit(v8 + 152);
+          re::DynamicString::deinit((v8 + 112));
+          re::DynamicArray<unsigned long>::deinit(v8 + 72);
+          v8 += 232;
+          v11 += 232;
+          v10 -= 232;
         }
 
         while (v10);
@@ -9510,378 +2395,7993 @@ LABEL_11:
       }
 
       result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_18;
+      goto LABEL_16;
     }
   }
 
   return result;
 }
 
-uint64_t re::anonymous namespace::Token::getSID(re::_anonymous_namespace_::Token *this, re::StringID *a2, _anonymous_namespace_ *a3)
+double re::PSOToolRenderDescriptor::PSOToolRenderDescriptor(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = a2 - this;
-  if (a2 == this)
+  *a1 = *a2;
+  v2 = *(a2 + 16);
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 48);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 32) = v3;
+  *(a1 + 48) = v4;
+  *(a1 + 16) = v2;
+  v5 = *(a2 + 68);
+  *(a1 + 68) = v5;
+  if (v5 == 1)
   {
-    return a2 != this;
+    *(a1 + 69) = *(a2 + 69);
   }
 
-  if (v5 + 1 < 0x81)
-  {
-    v7 = memcpy(__dst, this, v5);
-    __dst[v5] = 0;
-    v11 = 0;
-    v12 = &str_67;
-    v8 = strlen(__dst);
-    v9 = re::StringID::operator=(a3, &v11);
-    if (v11)
-    {
-      if (v11)
-      {
-      }
-    }
-
-    return a2 != this;
-  }
-
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "getString(buffer, sizeof(buffer))", "getSID", 156);
-  result = _os_crash();
-  __break(1u);
+  *(a1 + 104) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 96) = 0;
+  v6 = *(a2 + 80);
+  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 80) = v6;
+  *(a2 + 72) = 0;
+  *(a2 + 80) = 0;
+  v7 = *(a1 + 88);
+  *(a1 + 88) = *(a2 + 88);
+  *(a2 + 88) = v7;
+  v8 = *(a1 + 104);
+  *(a1 + 104) = *(a2 + 104);
+  *(a2 + 104) = v8;
+  ++*(a2 + 96);
+  ++*(a1 + 96);
+  result = 0.0;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 136) = *(a2 + 136);
+  v10 = *(a2 + 120);
+  *(a1 + 112) = *(a2 + 112);
+  *(a2 + 112) = 0;
+  v11 = *(a2 + 128);
+  *(a2 + 136) = 0;
+  v13 = *(a1 + 120);
+  v12 = *(a1 + 128);
+  *(a1 + 120) = v10;
+  *(a1 + 128) = v11;
+  *(a2 + 120) = v13;
+  *(a2 + 128) = v12;
+  LOWORD(v11) = *(a2 + 144);
+  *(a1 + 146) = *(a2 + 146);
+  *(a1 + 144) = v11;
+  *(a1 + 184) = 0;
+  *(a1 + 176) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 168) = 0;
+  *(a1 + 152) = 0;
+  v14 = *(a2 + 160);
+  *(a1 + 152) = *(a2 + 152);
+  *(a1 + 160) = v14;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  v15 = *(a1 + 168);
+  *(a1 + 168) = *(a2 + 168);
+  *(a2 + 168) = v15;
+  v16 = *(a1 + 184);
+  *(a1 + 184) = *(a2 + 184);
+  *(a2 + 184) = v16;
+  ++*(a2 + 176);
+  ++*(a1 + 176);
+  *(a1 + 224) = 0;
+  *(a1 + 200) = 0;
+  *(a1 + 208) = 0;
+  *(a1 + 192) = 0;
+  *(a1 + 216) = 0;
+  v17 = *(a2 + 200);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 200) = v17;
+  *(a2 + 192) = 0;
+  *(a2 + 200) = 0;
+  v18 = *(a1 + 208);
+  *(a1 + 208) = *(a2 + 208);
+  *(a2 + 208) = v18;
+  v19 = *(a1 + 224);
+  *(a1 + 224) = *(a2 + 224);
+  *(a2 + 224) = v19;
+  ++*(a2 + 216);
+  ++*(a1 + 216);
   return result;
 }
 
-uint64_t re::anonymous namespace::parseLeftBraceLine(re::_anonymous_namespace_::TokenStream *a1)
+void *re::DynamicArray<re::PSOToolLinkedFunctionDescriptor>::setCapacity(void *result, unint64_t a2)
 {
-  if (v3 == NextToken)
+  v3 = result[1];
+  if (v3 != a2)
   {
-    v4 = 0;
-  }
-
-  else
-  {
-    if (*NextToken != 123)
+    v5 = result;
+    if (result[2] <= a2)
     {
-      return 0;
-    }
-
-    v4 = 1;
-  }
-
-  if (v4 != v3 - NextToken)
-  {
-    return 0;
-  }
-}
-
-uint64_t re::anonymous namespace::parseOffsetLine(re::_anonymous_namespace_::TokenStream *a1, float *a2)
-{
-  v6 = v5 - NextToken;
-  if (v5 == NextToken)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v8 = 0;
-    if (v6 <= 1)
-    {
-      v7 = 1;
-    }
-
-    else
-    {
-      v7 = v5 - NextToken;
-    }
-
-    while (v8 != 6)
-    {
-      if (aOffset_0[v8] != NextToken[v8])
+      result = *result;
+      if (!*v5)
       {
-        return 0;
+        result = re::DynamicArray<re::PSOToolLinkedFunctionDescriptor>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
       }
 
-      if (v7 == ++v8)
+      if (a2)
       {
-        goto LABEL_11;
-      }
-    }
-
-    v7 = 6;
-  }
-
-LABEL_11:
-  {
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t re::anonymous namespace::parseRightBraceLine(re::_anonymous_namespace_::TokenStream *a1)
-{
-  if (v3 == NextToken)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    if (*NextToken != 125)
-    {
-      return 0;
-    }
-
-    v4 = 1;
-  }
-
-  if (v4 != v3 - NextToken)
-  {
-    return 0;
-  }
-}
-
-uint64_t re::fillStreamFP16(re *this, const re::GeomAttribute *a2, char *a3, uint64_t a4, float a5)
-{
-  v6 = a3;
-  v7 = (a2 + a4);
-  v8 = *(this + 17);
-  if (v8 <= 5)
-  {
-    if (v8 == 4)
-    {
-      v55 = re::GeomAttribute::accessValues<int>(this);
-      v25 = v56;
-      if (v56)
-      {
-        _S1 = *v55;
-        __asm
+        if (is_mul_ok(a2, 0x28uLL))
         {
-          FCVT            H0, S1
-          FCVT            S2, H0
-        }
-
-        v60 = vabds_f32(*v55, _S2);
-        if (*v55 == _S2 || v60 <= a5)
-        {
-          v31 = 0;
-          while (1)
+          v2 = 40 * a2;
+          result = (*(*result + 32))(result, 40 * a2, 8);
+          if (result)
           {
-            *v7 = _H0;
-            if (v56 - 1 == v31)
+            v7 = result;
+            if (!v5[1])
             {
-              goto LABEL_54;
+              goto LABEL_16;
             }
 
-            v7 = (v7 + v6);
-            _S1 = v55[v31 + 1];
-            __asm
-            {
-              FCVT            H0, S1
-              FCVT            S2, H0
-            }
-
-            v64 = vabds_f32(_S1, _S2);
-            ++v31;
-            if (_S1 != _S2 && v64 > a5)
-            {
-              return v31 >= v25;
-            }
+            goto LABEL_11;
           }
         }
 
-        return 0;
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 40, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v16, v18);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = v8 + 40 * v9;
+        v11 = v7;
+        do
+        {
+          *v11 = 0u;
+          *(v11 + 1) = 0u;
+          v11[3] = *(v8 + 24);
+          v12 = *(v8 + 8);
+          *v11 = *v8;
+          *v8 = 0;
+          v13 = *(v8 + 16);
+          *(v8 + 24) = 0;
+          v15 = v11[1];
+          v14 = v11[2];
+          v11[1] = v12;
+          v11[2] = v13;
+          *(v8 + 8) = v15;
+          *(v8 + 16) = v14;
+          *(v11 + 16) = *(v8 + 32);
+          re::DynamicString::deinit(v8);
+          v8 += 40;
+          v11 += 5;
+        }
+
+        while (v8 != v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+void *rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::SetStringRaw(_WORD *__dst, uint64_t a2, uint64_t a3)
+{
+  v4 = __dst;
+  if (*(a2 + 8) > 0x15u)
+  {
+    __dst[11] = 3077;
+    v5 = *(a2 + 8);
+    *__dst = v5;
+    v6 = rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(a3, (v5 + 1));
+    v4[1] = v6;
+    v4 = v6;
+  }
+
+  else
+  {
+    __dst[11] = 7173;
+    *(__dst + 21) = 21 - *(a2 + 8);
+  }
+
+  result = memcpy(v4, *a2, *(a2 + 8));
+  *(v4 + *(a2 + 8)) = 0;
+  return result;
+}
+
+uint64_t rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(uint64_t a1, uint64_t a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v4 = **(a1 + 16);
+  v5 = v4[1];
+  v6 = v5 + v3;
+  if (v5 + v3 <= *v4)
+  {
+LABEL_3:
+    result = v4 + v5 + 24;
+    v4[1] = v6;
+    return result;
+  }
+
+  if (*a1 <= v3)
+  {
+    v8 = (a2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  }
+
+  else
+  {
+    v8 = *a1;
+  }
+
+  if (rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::AddChunk(a1, v8))
+  {
+    v4 = **(a1 + 16);
+    v5 = v4[1];
+    v6 = v5 + v3;
+    goto LABEL_3;
+  }
+
+  return 0;
+}
+
+size_t rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::AddChunk(uint64_t a1, uint64_t a2)
+{
+  if (!*(a1 + 8))
+  {
+    operator new();
+  }
+
+  result = a2 + 24;
+  if (a2 != -24)
+  {
+    result = malloc_type_malloc(result, 0x61671F57uLL);
+    if (result)
+    {
+      *result = a2;
+      *(result + 8) = 0;
+      v5 = *(a1 + 16);
+      *(result + 16) = *v5;
+      *v5 = result;
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+__n128 rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::DoAddMember(unsigned int *a1, __int128 *a2, __n128 *a3, uint64_t a4)
+{
+  v7 = *a1;
+  v8 = a1[1];
+  if (*a1 >= v8)
+  {
+    if (v8)
+    {
+      v9 = v8 + ((v8 + 1) >> 1);
+    }
+
+    else
+    {
+      v9 = 16;
+    }
+
+    if (v8 < v9)
+    {
+      *(a1 + 1) = rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Realloc(a4, *(a1 + 1), 48 * v8, 48 * v9);
+      a1[1] = v9;
+      v7 = *a1;
+    }
+  }
+
+  v10 = *(a1 + 1) + 48 * v7;
+  v11 = *a2;
+  *(v10 + 16) = *(a2 + 2);
+  *v10 = v11;
+  *(a2 + 11) = 0;
+  result = *a3;
+  *(v10 + 40) = a3[1].n128_u64[0];
+  *(v10 + 24) = result;
+  a3[1].n128_u16[3] = 0;
+  ++*a1;
+  return result;
+}
+
+char *rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Realloc(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
+{
+  if (a2)
+  {
+    if (a4)
+    {
+      v4 = a2;
+      v5 = (a3 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v6 = (a4 + 7) & 0xFFFFFFFFFFFFFFF8;
+      if (v6 <= v5)
+      {
+        return v4;
+      }
+
+      v7 = **(a1 + 16);
+      v8 = v7[1];
+      if (v7 + v8 - v5 + 24 == v4)
+      {
+        v9 = v8 + v6 - v5;
+        if (v9 <= *v7)
+        {
+          v7[1] = v9;
+          return v4;
+        }
+      }
+
+      v10 = rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(a1, v6);
+      if (v10)
+      {
+        if (v5)
+        {
+
+          return memcpy(v10, v4, v5);
+        }
+
+        return v10;
+      }
+    }
+
+    return 0;
+  }
+
+  return rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(a1, a4);
+}
+
+uint64_t std::__introsort<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,false>(uint64_t result, uint64_t a2, char *a3, uint64_t a4, char a5)
+{
+  v6 = a3;
+  v7 = result;
+  v231 = *MEMORY[0x1E69E9840];
+LABEL_2:
+  v8 = a2;
+  v214 = a2 - 104;
+  v9 = v7;
+  while (1)
+  {
+    v7 = v9;
+    v10 = v8 - v9;
+    v11 = 0x4EC4EC4EC4EC4EC5 * (v10 >> 3);
+    v12 = v11 - 2;
+    if (v11 > 2)
+    {
+      switch(v11)
+      {
+        case 3:
+          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v7 + 104, v214, v6);
+        case 4:
+          return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v7 + 104, v7 + 208, v214, v6);
+        case 5:
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v7 + 104, v7 + 208, v7 + 312, v214, v6);
       }
     }
 
     else
     {
-      if (v8 != 5)
+      if (v11 < 2)
       {
-        goto LABEL_57;
+        return result;
       }
 
-      v23 = re::GeomAttribute::accessValues<int>(this);
-      v25 = v24;
-      if (v24)
+      v8 = a2;
+      if (v11 == 2)
       {
-        _D1 = *v23;
-        __asm { FCVT            H0, D1 }
-
-        *&_D1 = *v23;
-        __asm { FCVT            S2, H0 }
-
-        v29 = vabds_f32(*&_D1, _S2);
-        if (*&_D1 == _S2 || v29 <= a5)
+        if (*v6 == 1)
         {
-          v31 = 0;
+          if (*(a2 - 96))
+          {
+            v81 = *(a2 - 88);
+          }
+
+          else
+          {
+            v81 = (a2 - 95);
+          }
+
+          if (*(v7 + 8))
+          {
+            v82 = *(v7 + 16);
+          }
+
+          else
+          {
+            v82 = (v7 + 9);
+          }
+
+          result = strcmp(v81, v82);
+          if ((result & 0x80000000) == 0)
+          {
+            return result;
+          }
+        }
+
+        else if (*(a2 - 70) >= *(v7 + 34))
+        {
+          return result;
+        }
+
+        return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v214);
+      }
+    }
+
+    if (v10 <= 2495)
+    {
+      if (a5)
+      {
+        if (v7 == v8)
+        {
+          return result;
+        }
+
+        v83 = v7 + 104;
+        if (v7 + 104 == a2)
+        {
+          return result;
+        }
+
+        v84 = 0;
+        v85 = v7;
+LABEL_187:
+        v86 = v85;
+        v85 = v83;
+        if (*v6 == 1)
+        {
+          if (*(v86 + 112))
+          {
+            v87 = *(v86 + 120);
+          }
+
+          else
+          {
+            v87 = (v86 + 113);
+          }
+
+          if (*(v86 + 8))
+          {
+            v88 = *(v86 + 16);
+          }
+
+          else
+          {
+            v88 = (v86 + 9);
+          }
+
+          result = strcmp(v87, v88);
+          if ((result & 0x80000000) == 0)
+          {
+            goto LABEL_215;
+          }
+        }
+
+        else if (*(v86 + 138) >= *(v86 + 34))
+        {
+          goto LABEL_215;
+        }
+
+        v224 = 0u;
+        v225 = 0u;
+        v89 = *(v86 + 104);
+        *(v86 + 104) = 0;
+        v90 = v225;
+        v91 = *(v85 + 24);
+        *&v225 = *(v85 + 16);
+        *(v85 + 16) = v90;
+        *(&v225 + 1) = v91;
+        *(v85 + 24) = 0;
+        v92 = *(v85 + 8);
+        *&v224 = v89;
+        *(&v224 + 1) = v92;
+        *(v85 + 8) = 0;
+        v93 = *(v86 + 136);
+        v230 = *(v86 + 200);
+        v94 = *(v86 + 184);
+        v228 = *(v86 + 168);
+        v229 = v94;
+        v95 = *(v86 + 152);
+        v226 = v93;
+        v227 = v95;
+        re::DynamicString::operator=(v85, v86);
+        v96 = v86 + 32;
+        v97 = *(v86 + 80);
+        *(v85 + 64) = *(v86 + 64);
+        *(v85 + 80) = v97;
+        *(v85 + 96) = *(v86 + 96);
+        v98 = *(v86 + 48);
+        *(v85 + 32) = *(v86 + 32);
+        *(v85 + 48) = v98;
+        if (v86 != v7)
+        {
+          v99 = v84;
+          do
+          {
+            v100 = v7 + v99;
+            if (*v6 == 1)
+            {
+              if (BYTE8(v224))
+              {
+                v101 = v225;
+              }
+
+              else
+              {
+                v101 = &v224 + 9;
+              }
+
+              if (*(v100 - 96))
+              {
+                v102 = *(v100 - 88);
+              }
+
+              else
+              {
+                v102 = (v100 - 95);
+              }
+
+              if ((strcmp(v101, v102) & 0x80000000) == 0)
+              {
+                v86 = v7 + v99;
+                v96 = v7 + v99 + 32;
+LABEL_212:
+                re::DynamicString::operator=(v86, &v224);
+                *v96 = v226;
+                v106 = v227;
+                v107 = v228;
+                v108 = v229;
+                *(v96 + 64) = v230;
+                *(v96 + 32) = v107;
+                *(v96 + 48) = v108;
+                *(v96 + 16) = v106;
+                result = v224;
+                if (v224 && (BYTE8(v224) & 1) != 0)
+                {
+                  result = (*(*v224 + 40))();
+                }
+
+LABEL_215:
+                v83 = v85 + 104;
+                v84 += 104;
+                if (v85 + 104 == a2)
+                {
+                  return result;
+                }
+
+                goto LABEL_187;
+              }
+            }
+
+            else if (WORD1(v226) >= *(v100 - 70))
+            {
+              goto LABEL_212;
+            }
+
+            re::DynamicString::operator=((v7 + v99), (v100 - 104));
+            v103 = v7 + v99;
+            v96 = v86 - 72;
+            v104 = *(v7 + v99 - 56);
+            v105 = *(v7 + v99 - 24);
+            *(v103 + 64) = *(v7 + v99 - 40);
+            *(v103 + 80) = v105;
+            *(v103 + 96) = *(v7 + v99 - 8);
+            *(v103 + 32) = *(v7 + v99 - 72);
+            *(v103 + 48) = v104;
+            v86 -= 104;
+            v6 = a3;
+            v99 -= 104;
+          }
+
+          while (v99);
+          v96 = v7 + 32;
+        }
+
+        v86 = v7;
+        goto LABEL_212;
+      }
+
+      if (v7 == v8)
+      {
+        return result;
+      }
+
+      v192 = v7 + 104;
+      if (v7 + 104 == a2)
+      {
+        return result;
+      }
+
+      v193 = v7 + 136;
+      while (2)
+      {
+        v194 = v7;
+        v7 = v192;
+        if (*v6 == 1)
+        {
+          if (*(v194 + 112))
+          {
+            v195 = *(v194 + 120);
+          }
+
+          else
+          {
+            v195 = (v194 + 113);
+          }
+
+          if (*(v194 + 8))
+          {
+            v196 = *(v194 + 16);
+          }
+
+          else
+          {
+            v196 = (v194 + 9);
+          }
+
+          result = strcmp(v195, v196);
+          v197 = a2;
+          if ((result & 0x80000000) == 0)
+          {
+            goto LABEL_356;
+          }
+        }
+
+        else
+        {
+          v197 = a2;
+          if (*(v194 + 138) >= *(v194 + 34))
+          {
+            goto LABEL_356;
+          }
+        }
+
+        v224 = 0u;
+        v225 = 0u;
+        *&v224 = *v7;
+        *v7 = 0;
+        v198 = v225;
+        v199 = *(v7 + 24);
+        *&v225 = *(v7 + 16);
+        *(v7 + 16) = v198;
+        *(&v225 + 1) = v199;
+        *(v7 + 24) = 0;
+        *(&v224 + 1) = *(v7 + 8);
+        *(v7 + 8) = 0;
+        v200 = *(v194 + 152);
+        v201 = *(v194 + 184);
+        v228 = *(v194 + 168);
+        v229 = v201;
+        v230 = *(v194 + 200);
+        v226 = *(v194 + 136);
+        v227 = v200;
+        v202 = v193;
+LABEL_341:
+        re::DynamicString::operator=((v202 - 32), (v202 - 136));
+        v203 = *(v202 - 104);
+        *(v202 + 64) = *(v202 - 40);
+        v204 = *(v202 - 56);
+        *(v202 + 32) = *(v202 - 72);
+        *(v202 + 48) = v204;
+        v205 = *(v202 - 88);
+        *v202 = v203;
+        *(v202 + 16) = v205;
+        if (*v6 == 1)
+        {
+          if (BYTE8(v224))
+          {
+            v206 = v225;
+          }
+
+          else
+          {
+            v206 = &v224 + 9;
+          }
+
+          if (*(v202 - 232))
+          {
+            v207 = *(v202 - 224);
+          }
+
+          else
+          {
+            v207 = (v202 - 231);
+          }
+
+          if ((strcmp(v206, v207) & 0x80000000) == 0)
+          {
+            goto LABEL_352;
+          }
+        }
+
+        else if (WORD1(v226) >= *(v202 - 206))
+        {
+LABEL_352:
+          re::DynamicString::operator=((v202 - 136), &v224);
+          *(v202 - 104) = v226;
+          v208 = v227;
+          v209 = v228;
+          v210 = v229;
+          *(v202 - 40) = v230;
+          *(v202 - 56) = v210;
+          *(v202 - 72) = v209;
+          *(v202 - 88) = v208;
+          result = v224;
+          if (v224 && (BYTE8(v224) & 1) != 0)
+          {
+            result = (*(*v224 + 40))();
+          }
+
+          v197 = a2;
+LABEL_356:
+          v192 = v7 + 104;
+          v193 += 104;
+          if (v7 + 104 == v197)
+          {
+            return result;
+          }
+
+          continue;
+        }
+
+        break;
+      }
+
+      v202 -= 104;
+      goto LABEL_341;
+    }
+
+    if (!a4)
+    {
+      break;
+    }
+
+    v13 = v11 >> 1;
+    v14 = v7 + 104 * (v11 >> 1);
+    if (v10 < 0x3401)
+    {
+      v6 = a3;
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v14, v7, v214, a3);
+    }
+
+    else
+    {
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v14, v214, a3);
+      v15 = 104 * v13;
+      v16 = v15 + v7 - 104;
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7 + 104, v16, a2 - 208, a3);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v7 + 208, v7 + 104 + v15, a2 - 312, a3);
+      v17 = v7 + 104 + v15;
+      v6 = a3;
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(v16, v14, v17, a3);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v14);
+    }
+
+    v18 = *v6;
+    v212 = a4 - 1;
+    if ((a5 & 1) == 0)
+    {
+      if (*v6)
+      {
+        if (*(v7 - 96))
+        {
+          v19 = *(v7 - 88);
+        }
+
+        else
+        {
+          v19 = (v7 - 95);
+        }
+
+        if (*(v7 + 8))
+        {
+          v20 = *(v7 + 16);
+        }
+
+        else
+        {
+          v20 = (v7 + 9);
+        }
+
+        if ((strcmp(v19, v20) & 0x80000000) == 0)
+        {
+LABEL_94:
+          v224 = 0u;
+          v225 = 0u;
+          *&v224 = *v7;
+          *v7 = 0;
+          v51 = v225;
+          v52 = *(v7 + 24);
+          *&v225 = *(v7 + 16);
+          *(v7 + 16) = v51;
+          *(&v225 + 1) = v52;
+          *(v7 + 24) = 0;
+          *(&v224 + 1) = *(v7 + 8);
+          *(v7 + 8) = 0;
+          v226 = *(v7 + 32);
+          v53 = *(v7 + 48);
+          v54 = *(v7 + 64);
+          v55 = *(v7 + 80);
+          v230 = *(v7 + 96);
+          v228 = v54;
+          v229 = v55;
+          v227 = v53;
+          if (v18)
+          {
+            v56 = v225;
+            v57 = BYTE8(v224) & 1;
+            if (BYTE8(v224))
+            {
+              v58 = v225;
+            }
+
+            else
+            {
+              v58 = &v224 + 9;
+            }
+
+            if (*(v8 - 96))
+            {
+              v59 = *(v8 - 88);
+            }
+
+            else
+            {
+              v59 = (a2 - 95);
+            }
+
+            if (strcmp(v58, v59) < 0)
+            {
+              v60 = WORD1(v226);
+              goto LABEL_105;
+            }
+
+LABEL_117:
+            v9 = v7 + 104;
+            if (v7 + 104 < v8)
+            {
+              v63 = WORD1(v226);
+              if (BYTE8(v224))
+              {
+                v64 = v225;
+              }
+
+              else
+              {
+                v64 = &v224 + 9;
+              }
+
+              do
+              {
+                if (v18)
+                {
+                  if (*(v9 + 8))
+                  {
+                    v65 = *(v9 + 16);
+                  }
+
+                  else
+                  {
+                    v65 = (v9 + 9);
+                  }
+
+                  if (strcmp(v64, v65) < 0)
+                  {
+                    break;
+                  }
+                }
+
+                else if (v63 < *(v9 + 34))
+                {
+                  break;
+                }
+
+                v9 += 104;
+              }
+
+              while (v9 < v8);
+            }
+          }
+
+          else
+          {
+            v60 = WORD1(v226);
+            if (WORD1(v226) >= *(v8 - 70))
+            {
+              goto LABEL_117;
+            }
+
+            v56 = v225;
+            v57 = BYTE8(v224) & 1;
+LABEL_105:
+            if (v57)
+            {
+              v61 = v56;
+            }
+
+            else
+            {
+              v61 = &v224 + 9;
+            }
+
+            v9 = v7 + 104;
+            if ((v18 & 1) == 0)
+            {
+              goto LABEL_114;
+            }
+
+            while (1)
+            {
+              v62 = (*(v9 + 8) & 1) != 0 ? *(v9 + 16) : (v9 + 9);
+              if (strcmp(v61, v62) < 0)
+              {
+                break;
+              }
+
+              while (1)
+              {
+                v9 += 104;
+                if (v18)
+                {
+                  break;
+                }
+
+LABEL_114:
+                if (v60 < *(v9 + 34))
+                {
+                  goto LABEL_129;
+                }
+              }
+            }
+          }
+
+LABEL_129:
+          v66 = v8;
+          if (v9 < v8)
+          {
+            v67 = WORD1(v226);
+            if (BYTE8(v224))
+            {
+              v68 = v225;
+            }
+
+            else
+            {
+              v68 = &v224 + 9;
+            }
+
+            v66 = a2 - 104;
+            if ((v18 & 1) == 0)
+            {
+              goto LABEL_139;
+            }
+
+            while (1)
+            {
+              v69 = (*(v66 + 8) & 1) != 0 ? *(v66 + 16) : (v66 + 9);
+              if ((strcmp(v68, v69) & 0x80000000) == 0)
+              {
+                break;
+              }
+
+              while (1)
+              {
+                v66 -= 104;
+                if (v18)
+                {
+                  break;
+                }
+
+LABEL_139:
+                if (v67 >= *(v66 + 34))
+                {
+                  goto LABEL_142;
+                }
+              }
+            }
+          }
+
+LABEL_142:
+          if (v9 >= v66)
+          {
+            v6 = a3;
+          }
+
+          else
+          {
+            v6 = a3;
+            do
+            {
+              std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v9, v66);
+              v70 = *a3;
+              v71 = WORD1(v226);
+              if (BYTE8(v224))
+              {
+                v72 = v225;
+              }
+
+              else
+              {
+                v72 = &v224 + 9;
+              }
+
+              do
+              {
+                while (1)
+                {
+                  v9 += 104;
+                  if (v70)
+                  {
+                    break;
+                  }
+
+                  if (v71 < *(v9 + 34))
+                  {
+                    goto LABEL_156;
+                  }
+                }
+
+                if (*(v9 + 8))
+                {
+                  v73 = *(v9 + 16);
+                }
+
+                else
+                {
+                  v73 = (v9 + 9);
+                }
+              }
+
+              while ((strcmp(v72, v73) & 0x80000000) == 0);
+              do
+              {
+LABEL_156:
+                while (1)
+                {
+                  v66 -= 104;
+                  if (v70)
+                  {
+                    break;
+                  }
+
+                  if (v71 >= *(v66 + 34))
+                  {
+                    goto LABEL_161;
+                  }
+                }
+
+                if (*(v66 + 8))
+                {
+                  v74 = *(v66 + 16);
+                }
+
+                else
+                {
+                  v74 = (v66 + 9);
+                }
+              }
+
+              while (strcmp(v72, v74) < 0);
+LABEL_161:
+              ;
+            }
+
+            while (v9 < v66);
+          }
+
+          if (v9 - 104 != v7)
+          {
+            re::DynamicString::operator=(v7, (v9 - 104));
+            *(v7 + 32) = *(v9 - 72);
+            v75 = *(v9 - 56);
+            v76 = *(v9 - 40);
+            v77 = *(v9 - 24);
+            *(v7 + 96) = *(v9 - 8);
+            *(v7 + 64) = v76;
+            *(v7 + 80) = v77;
+            *(v7 + 48) = v75;
+          }
+
+          re::DynamicString::operator=((v9 - 104), &v224);
+          *(v9 - 72) = v226;
+          v78 = v227;
+          v79 = v228;
+          v80 = v229;
+          *(v9 - 8) = v230;
+          *(v9 - 24) = v80;
+          *(v9 - 40) = v79;
+          *(v9 - 56) = v78;
+          result = v224;
+          a4 = v212;
+          if (v224 && (BYTE8(v224) & 1) != 0)
+          {
+            result = (*(*v224 + 40))();
+          }
+
+LABEL_93:
+          a5 = 0;
+          continue;
+        }
+
+        v18 = 1;
+      }
+
+      else
+      {
+        if (*(v7 - 70) >= *(v7 + 34))
+        {
+          goto LABEL_94;
+        }
+
+        v18 = 0;
+      }
+    }
+
+    v21 = 0;
+    v224 = 0u;
+    v225 = 0u;
+    *&v224 = *v7;
+    *v7 = 0;
+    v22 = v225;
+    v23 = *(v7 + 24);
+    *&v225 = *(v7 + 16);
+    *(v7 + 16) = v22;
+    *(&v225 + 1) = v23;
+    *(v7 + 24) = 0;
+    *(&v224 + 1) = *(v7 + 8);
+    *(v7 + 8) = 0;
+    LODWORD(v22) = *(v7 + 96);
+    v25 = *(v7 + 64);
+    v24 = *(v7 + 80);
+    v227 = *(v7 + 48);
+    v228 = v25;
+    v229 = v24;
+    v230 = v22;
+    v226 = *(v7 + 32);
+    v26 = WORD1(v226);
+    if (BYTE8(v224))
+    {
+      v27 = v225;
+    }
+
+    else
+    {
+      v27 = &v224 + 9;
+    }
+
+    while (1)
+    {
+      v28 = v7 + v21;
+      if (v18)
+      {
+        break;
+      }
+
+      if (*(v28 + 138) >= v26)
+      {
+        goto LABEL_38;
+      }
+
+LABEL_37:
+      v21 += 104;
+    }
+
+    v29 = *(v28 + 112);
+    v30 = *(v28 + 120);
+    v31 = (v28 + 113);
+    if (v29)
+    {
+      v32 = v30;
+    }
+
+    else
+    {
+      v32 = v31;
+    }
+
+    if (strcmp(v32, v27) < 0)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_38:
+    v33 = v7 + v21 + 104;
+    v34 = a2 - 104;
+    if (!v21)
+    {
+      v34 = v8;
+      if (v33 >= v8)
+      {
+        goto LABEL_62;
+      }
+
+      v34 = a2 - 104;
+      if ((v18 & 1) == 0)
+      {
+        goto LABEL_56;
+      }
+
+      while (1)
+      {
+        if (*(v34 + 8))
+        {
+          v36 = *(v34 + 16);
+        }
+
+        else
+        {
+          v36 = (v34 + 9);
+        }
+
+        if (strcmp(v36, v27) < 0 || v33 >= v34)
+        {
+          goto LABEL_62;
+        }
+
+        while (1)
+        {
+          v34 -= 104;
+          if (v18)
+          {
+            break;
+          }
+
+LABEL_56:
+          if (*(v34 + 34) < v26 || v33 >= v34)
+          {
+            goto LABEL_62;
+          }
+        }
+      }
+    }
+
+    if (v18)
+    {
+      goto LABEL_40;
+    }
+
+    while (*(v34 + 34) >= v26)
+    {
+      while (1)
+      {
+        v34 -= 104;
+        if ((v18 & 1) == 0)
+        {
+          break;
+        }
+
+LABEL_40:
+        if (*(v34 + 8))
+        {
+          v35 = *(v34 + 16);
+        }
+
+        else
+        {
+          v35 = (v34 + 9);
+        }
+
+        if (strcmp(v35, v27) < 0)
+        {
+          goto LABEL_62;
+        }
+      }
+    }
+
+LABEL_62:
+    if (v33 >= v34)
+    {
+      v9 = v7 + v21 + 104;
+    }
+
+    else
+    {
+      v38 = v34;
+      v9 = v7 + v21 + 104;
+      do
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v9, v38);
+        v39 = *v6;
+        v40 = WORD1(v226);
+        if (BYTE8(v224))
+        {
+          v41 = v225;
+        }
+
+        else
+        {
+          v41 = &v224 + 9;
+        }
+
+        do
+        {
           while (1)
           {
-            *v7 = _H0;
-            if (v24 - 1 == v31)
+            v9 += 104;
+            if (v39)
             {
               break;
             }
 
-            v7 = (v7 + v6);
-            _D1 = v23[v31 + 1];
-            __asm { FCVT            H0, D1 }
-
-            *&_D1 = _D1;
-            __asm { FCVT            S2, H0 }
-
-            v34 = vabds_f32(*&_D1, _S2);
-            ++v31;
-            if (*&_D1 != _S2 && v34 > a5)
+            if (*(v9 + 34) >= v40)
             {
-              return v31 >= v25;
+              goto LABEL_76;
             }
           }
 
-LABEL_54:
-          v31 = v25;
-          return v31 >= v25;
+          if (*(v9 + 8))
+          {
+            v42 = *(v9 + 16);
+          }
+
+          else
+          {
+            v42 = (v9 + 9);
+          }
         }
 
-        return 0;
+        while (strcmp(v42, v41) < 0);
+        do
+        {
+LABEL_76:
+          while (1)
+          {
+            v38 -= 104;
+            if (v39)
+            {
+              break;
+            }
+
+            if (*(v38 + 34) < v40)
+            {
+              goto LABEL_81;
+            }
+          }
+
+          if (*(v38 + 8))
+          {
+            v43 = *(v38 + 16);
+          }
+
+          else
+          {
+            v43 = (v38 + 9);
+          }
+        }
+
+        while ((strcmp(v43, v41) & 0x80000000) == 0);
+LABEL_81:
+        ;
       }
+
+      while (v9 < v38);
+    }
+
+    if (v9 - 104 != v7)
+    {
+      re::DynamicString::operator=(v7, (v9 - 104));
+      *(v7 + 32) = *(v9 - 72);
+      v44 = *(v9 - 56);
+      v45 = *(v9 - 40);
+      v46 = *(v9 - 24);
+      *(v7 + 96) = *(v9 - 8);
+      *(v7 + 64) = v45;
+      *(v7 + 80) = v46;
+      *(v7 + 48) = v44;
+    }
+
+    re::DynamicString::operator=((v9 - 104), &v224);
+    *(v9 - 72) = v226;
+    v47 = v227;
+    v48 = v228;
+    v49 = v229;
+    *(v9 - 8) = v230;
+    *(v9 - 24) = v49;
+    *(v9 - 40) = v48;
+    *(v9 - 56) = v47;
+    v8 = a2;
+    a4 = v212;
+    if (v224 && (BYTE8(v224) & 1) != 0)
+    {
+      (*(*v224 + 40))();
+    }
+
+    if (v33 < v34)
+    {
+LABEL_92:
+      result = std::__introsort<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,false>(v7, v9 - 104, v6, v212, a5 & 1);
+      goto LABEL_93;
+    }
+
+    v50 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *>(v7, v9 - 104, v6);
+    result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *>(v9, a2, v6);
+    if (result)
+    {
+      a2 = v9 - 104;
+      if (v50)
+      {
+        return result;
+      }
+
+      goto LABEL_2;
+    }
+
+    if (!v50)
+    {
+      goto LABEL_92;
+    }
+  }
+
+  if (v7 == v8)
+  {
+    return result;
+  }
+
+  v109 = v12 >> 1;
+  v110 = v12 >> 1;
+  while (2)
+  {
+    v111 = v110;
+    if (v109 < v110)
+    {
+      goto LABEL_274;
+    }
+
+    v112 = v7 + 104 * v110;
+    v113 = (2 * v110) | 1;
+    v114 = v7 + 104 * v113;
+    v213 = v110;
+    if (2 * v110 + 2 >= v11)
+    {
+      if (*v6)
+      {
+        goto LABEL_232;
+      }
+
+LABEL_242:
+      v6 = a3;
+      if (*(v114 + 34) < *(v112 + 34))
+      {
+        goto LABEL_274;
+      }
+
+LABEL_243:
+      v224 = 0u;
+      v225 = 0u;
+      *&v224 = *v112;
+      *v112 = 0;
+      v119 = v225;
+      *&v225 = *(v112 + 16);
+      *(v112 + 16) = v119;
+      *(&v225 + 1) = *(v112 + 24);
+      *(v112 + 24) = 0;
+      v120 = *(&v224 + 1);
+      *(&v224 + 1) = *(v112 + 8);
+      *(v112 + 8) = v120;
+      v121 = *(v112 + 48);
+      v122 = *(v112 + 64);
+      v123 = *(v112 + 80);
+      v230 = *(v112 + 96);
+      v228 = v122;
+      v229 = v123;
+      v227 = v121;
+      v226 = *(v112 + 32);
+      re::DynamicString::operator=(v112, v114);
+      v124 = v114 + 32;
+      *(v112 + 32) = *(v114 + 32);
+      v125 = *(v114 + 48);
+      v126 = *(v114 + 64);
+      v127 = *(v114 + 80);
+      *(v112 + 96) = *(v114 + 96);
+      *(v112 + 64) = v126;
+      *(v112 + 80) = v127;
+      *(v112 + 48) = v125;
+      if (v109 < v113)
+      {
+LABEL_244:
+        v128 = v114;
+LABEL_270:
+        re::DynamicString::operator=(v128, &v224);
+        *v124 = v226;
+        v137 = v227;
+        v138 = v228;
+        v139 = v229;
+        *(v124 + 64) = v230;
+        *(v124 + 32) = v138;
+        *(v124 + 48) = v139;
+        *(v124 + 16) = v137;
+        if (v224 && (BYTE8(v224) & 1) != 0)
+        {
+          (*(*v224 + 40))();
+        }
+
+        v6 = a3;
+        v111 = v213;
+        goto LABEL_274;
+      }
+
+      while (1)
+      {
+        v129 = (2 * v113) | 1;
+        v128 = v7 + 104 * v129;
+        v113 = 2 * v113 + 2;
+        if (v113 >= v11)
+        {
+          v113 = v129;
+          if ((*a3 & 1) == 0)
+          {
+            goto LABEL_268;
+          }
+        }
+
+        else
+        {
+          if ((*a3 & 1) == 0)
+          {
+            if (*(v128 + 34) < *(v128 + 138))
+            {
+              v128 += 104;
+            }
+
+            else
+            {
+              v113 = v129;
+            }
+
+LABEL_268:
+            if (*(v128 + 34) < WORD1(v226))
+            {
+              goto LABEL_244;
+            }
+
+            goto LABEL_269;
+          }
+
+          if (*(v128 + 8))
+          {
+            v130 = *(v128 + 16);
+          }
+
+          else
+          {
+            v130 = (v128 + 9);
+          }
+
+          if (*(v128 + 112))
+          {
+            v131 = *(v128 + 120);
+          }
+
+          else
+          {
+            v131 = (v128 + 113);
+          }
+
+          if (strcmp(v130, v131) < 0)
+          {
+            v128 += 104;
+          }
+
+          else
+          {
+            v113 = v129;
+          }
+        }
+
+        if (*(v128 + 8))
+        {
+          v132 = *(v128 + 16);
+        }
+
+        else
+        {
+          v132 = (v128 + 9);
+        }
+
+        if (BYTE8(v224))
+        {
+          v133 = v225;
+        }
+
+        else
+        {
+          v133 = &v224 + 9;
+        }
+
+        if (strcmp(v132, v133) < 0)
+        {
+          goto LABEL_244;
+        }
+
+LABEL_269:
+        re::DynamicString::operator=(v114, v128);
+        v124 = v128 + 32;
+        *(v114 + 32) = *(v128 + 32);
+        v134 = *(v128 + 48);
+        v135 = *(v128 + 64);
+        v136 = *(v128 + 80);
+        *(v114 + 96) = *(v128 + 96);
+        *(v114 + 64) = v135;
+        *(v114 + 80) = v136;
+        *(v114 + 48) = v134;
+        v114 = v128;
+        if (v109 < v113)
+        {
+          goto LABEL_270;
+        }
+      }
+    }
+
+    if ((*v6 & 1) == 0)
+    {
+      if (*(v114 + 34) < *(v114 + 138))
+      {
+        v113 = 2 * v110 + 2;
+        v114 += 104;
+      }
+
+      goto LABEL_242;
+    }
+
+    if (*(v114 + 8))
+    {
+      v115 = *(v114 + 16);
+    }
+
+    else
+    {
+      v115 = (v114 + 9);
+    }
+
+    if (*(v114 + 112))
+    {
+      v116 = *(v114 + 120);
+    }
+
+    else
+    {
+      v116 = (v114 + 113);
+    }
+
+    if (strcmp(v115, v116) < 0)
+    {
+      v113 = 2 * v111 + 2;
+      v114 += 104;
+    }
+
+LABEL_232:
+    if (*(v114 + 8))
+    {
+      v117 = *(v114 + 16);
+    }
+
+    else
+    {
+      v117 = (v114 + 9);
+    }
+
+    if (*(v112 + 8))
+    {
+      v118 = *(v112 + 16);
+    }
+
+    else
+    {
+      v118 = (v112 + 9);
+    }
+
+    v6 = a3;
+    if ((strcmp(v117, v118) & 0x80000000) == 0)
+    {
+      goto LABEL_243;
+    }
+
+LABEL_274:
+    v110 = v111 - 1;
+    if (v111)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+  v140 = 0x4EC4EC4EC4EC4EC5 * (v10 >> 3);
+  while (2)
+  {
+    v141 = 0;
+    v217 = 0u;
+    v218 = 0u;
+    *&v217 = *v7;
+    *v7 = 0;
+    v142 = v218;
+    v143 = *(v7 + 24);
+    *&v218 = *(v7 + 16);
+    *(v7 + 16) = v142;
+    *(&v218 + 1) = v143;
+    *(v7 + 24) = 0;
+    *(&v217 + 1) = *(v7 + 8);
+    *(v7 + 8) = 0;
+    v144 = *(v7 + 48);
+    v145 = *(v7 + 64);
+    v146 = *(v7 + 80);
+    v223 = *(v7 + 96);
+    v221 = v145;
+    v222 = v146;
+    v220 = v144;
+    v219 = *(v7 + 32);
+    v147 = v7;
+    while (2)
+    {
+      v148 = v147;
+      v149 = v147 + 104 * v141;
+      v147 = v149 + 104;
+      v150 = 2 * v141;
+      v141 = (2 * v141) | 1;
+      v151 = v150 + 2;
+      if (v150 + 2 < v140)
+      {
+        if (*a3 == 1)
+        {
+          if (*(v149 + 112))
+          {
+            v152 = *(v149 + 120);
+          }
+
+          else
+          {
+            v152 = (v149 + 113);
+          }
+
+          if (*(v149 + 216))
+          {
+            v153 = *(v149 + 224);
+          }
+
+          else
+          {
+            v153 = (v149 + 217);
+          }
+
+          if ((strcmp(v152, v153) & 0x80000000) == 0)
+          {
+            goto LABEL_289;
+          }
+        }
+
+        else if (*(v149 + 138) >= *(v149 + 242))
+        {
+          goto LABEL_289;
+        }
+
+        v147 = v149 + 208;
+        v141 = v151;
+      }
+
+LABEL_289:
+      re::DynamicString::operator=(v148, v147);
+      *(v148 + 32) = *(v147 + 32);
+      v154 = *(v147 + 48);
+      v155 = *(v147 + 64);
+      v156 = *(v147 + 80);
+      *(v148 + 96) = *(v147 + 96);
+      *(v148 + 64) = v155;
+      *(v148 + 80) = v156;
+      *(v148 + 48) = v154;
+      if (v141 <= ((v140 - 2) >> 1))
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    if (v147 == a2 - 104)
+    {
+      re::DynamicString::operator=(v147, &v217);
+      *(v147 + 32) = v219;
+      v169 = v220;
+      v170 = v221;
+      v171 = v222;
+      *(v147 + 96) = v223;
+      *(v147 + 64) = v170;
+      *(v147 + 80) = v171;
+      *(v147 + 48) = v169;
+    }
+
+    else
+    {
+      re::DynamicString::operator=(v147, (a2 - 104));
+      *(v147 + 32) = *(a2 - 72);
+      v157 = *(a2 - 56);
+      v158 = *(a2 - 40);
+      v159 = *(a2 - 24);
+      *(v147 + 96) = *(a2 - 8);
+      *(v147 + 64) = v158;
+      *(v147 + 80) = v159;
+      *(v147 + 48) = v157;
+      re::DynamicString::operator=((a2 - 104), &v217);
+      *(a2 - 72) = v219;
+      v160 = v220;
+      v161 = v221;
+      v162 = v222;
+      *(a2 - 8) = v223;
+      *(a2 - 24) = v162;
+      *(a2 - 40) = v161;
+      *(a2 - 56) = v160;
+      v163 = v147 - v7 + 104;
+      if (v163 >= 105)
+      {
+        v164 = 0x4EC4EC4EC4EC4EC5 * (v163 >> 3) - 2;
+        v165 = v164 >> 1;
+        v166 = v7 + 104 * (v164 >> 1);
+        if (*a3 == 1)
+        {
+          if (*(v166 + 8))
+          {
+            v167 = *(v166 + 16);
+          }
+
+          else
+          {
+            v167 = (v166 + 9);
+          }
+
+          if (*(v147 + 8))
+          {
+            v168 = *(v147 + 16);
+          }
+
+          else
+          {
+            v168 = (v147 + 9);
+          }
+
+          if (strcmp(v167, v168) < 0)
+          {
+LABEL_309:
+            v224 = 0u;
+            v225 = 0u;
+            *&v224 = *v147;
+            *v147 = 0;
+            v173 = v225;
+            v174 = *(v147 + 24);
+            *&v225 = *(v147 + 16);
+            *(v147 + 16) = v173;
+            *(&v225 + 1) = v174;
+            *(v147 + 24) = 0;
+            *(&v224 + 1) = *(v147 + 8);
+            *(v147 + 8) = 0;
+            v175 = *(v147 + 48);
+            v176 = *(v147 + 64);
+            v177 = *(v147 + 80);
+            v230 = *(v147 + 96);
+            v228 = v176;
+            v229 = v177;
+            v227 = v175;
+            v226 = *(v147 + 32);
+            re::DynamicString::operator=(v147, (v7 + 104 * (v164 >> 1)));
+            v178 = v166 + 32;
+            *(v147 + 32) = *(v166 + 32);
+            v179 = *(v166 + 48);
+            v180 = *(v166 + 64);
+            v181 = *(v166 + 80);
+            *(v147 + 96) = *(v166 + 96);
+            *(v147 + 64) = v180;
+            *(v147 + 80) = v181;
+            *(v147 + 48) = v179;
+            if (v164 >= 2)
+            {
+              while (1)
+              {
+                v183 = v165 - 1;
+                v165 = (v165 - 1) >> 1;
+                v182 = v7 + 104 * v165;
+                if (*a3 == 1)
+                {
+                  if (*(v182 + 8))
+                  {
+                    v184 = *(v182 + 16);
+                  }
+
+                  else
+                  {
+                    v184 = (v182 + 9);
+                  }
+
+                  if (BYTE8(v224))
+                  {
+                    v185 = v225;
+                  }
+
+                  else
+                  {
+                    v185 = &v224 + 9;
+                  }
+
+                  if ((strcmp(v184, v185) & 0x80000000) == 0)
+                  {
+                    break;
+                  }
+                }
+
+                else if (*(v182 + 34) >= WORD1(v226))
+                {
+                  break;
+                }
+
+                re::DynamicString::operator=(v166, (v7 + 104 * v165));
+                v178 = v182 + 32;
+                *(v166 + 32) = *(v182 + 32);
+                v186 = *(v182 + 48);
+                v187 = *(v182 + 64);
+                v188 = *(v182 + 80);
+                *(v166 + 96) = *(v182 + 96);
+                *(v166 + 64) = v187;
+                *(v166 + 80) = v188;
+                *(v166 + 48) = v186;
+                v166 = v7 + 104 * v165;
+                if (v183 <= 1)
+                {
+                  goto LABEL_322;
+                }
+              }
+            }
+
+            v182 = v166;
+LABEL_322:
+            re::DynamicString::operator=(v182, &v224);
+            *v178 = v226;
+            v189 = v227;
+            v190 = v228;
+            v191 = v229;
+            *(v178 + 64) = v230;
+            *(v178 + 32) = v190;
+            *(v178 + 48) = v191;
+            *(v178 + 16) = v189;
+            if (v224 && (BYTE8(v224) & 1) != 0)
+            {
+              (*(*v224 + 40))();
+            }
+          }
+        }
+
+        else if (*(v166 + 34) < *(v147 + 34))
+        {
+          goto LABEL_309;
+        }
+      }
+    }
+
+    a2 -= 104;
+    result = v217;
+    if (v217 && (BYTE8(v217) & 1) != 0)
+    {
+      result = (*(*v217 + 40))();
+    }
+
+    if (v140-- > 2)
+    {
+      continue;
+    }
+
+    return result;
+  }
+}
+
+uint64_t std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(uint64_t a1, uint64_t a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v12 = *a1;
+  v14 = *(a1 + 24);
+  v13 = *(a1 + 8);
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  v3 = *(a1 + 80);
+  v17 = *(a1 + 64);
+  v18 = v3;
+  v19 = *(a1 + 96);
+  v4 = *(a1 + 48);
+  v15 = *(a1 + 32);
+  v16 = v4;
+  v5 = re::DynamicString::operator=(a1, a2);
+  *(v5 + 2) = *(a2 + 32);
+  v6 = *(a2 + 48);
+  v7 = *(a2 + 64);
+  v8 = *(a2 + 80);
+  *(v5 + 24) = *(a2 + 96);
+  *(v5 + 4) = v7;
+  *(v5 + 5) = v8;
+  *(v5 + 3) = v6;
+  re::DynamicString::operator=(a2, &v12);
+  v9 = v18;
+  *(a2 + 64) = v17;
+  *(a2 + 80) = v9;
+  *(a2 + 96) = v19;
+  v10 = v16;
+  *(a2 + 32) = v15;
+  *(a2 + 48) = v10;
+  result = v12;
+  if (v12)
+  {
+    if (v13)
+    {
+      return (*(*v12 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
+{
+  v7 = result;
+  if (*a4 == 1)
+  {
+    if (*(a2 + 8))
+    {
+      v8 = *(a2 + 16);
+    }
+
+    else
+    {
+      v8 = (a2 + 9);
+    }
+
+    if (*(result + 8))
+    {
+      v9 = *(result + 16);
+    }
+
+    else
+    {
+      v9 = (result + 9);
+    }
+
+    v10 = strcmp(v8, v9);
+    if (*(a3 + 8))
+    {
+      v11 = *(a3 + 16);
+    }
+
+    else
+    {
+      v11 = (a3 + 9);
+    }
+
+    result = strcmp(v11, v8);
+    if (v10 < 0)
+    {
+      if ((result & 0x80000000) == 0)
+      {
+LABEL_13:
+        result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, a2);
+        if (*a4 == 1)
+        {
+          if (*(a3 + 8))
+          {
+            v12 = *(a3 + 16);
+          }
+
+          else
+          {
+            v12 = (a3 + 9);
+          }
+
+          if (*(a2 + 8))
+          {
+            v13 = *(a2 + 16);
+          }
+
+          else
+          {
+            v13 = (a2 + 9);
+          }
+
+          result = strcmp(v12, v13);
+          if ((result & 0x80000000) == 0)
+          {
+            return result;
+          }
+        }
+
+        else if (*(a3 + 34) >= *(a2 + 34))
+        {
+          return result;
+        }
+
+        v16 = a2;
+        goto LABEL_39;
+      }
+
+LABEL_24:
+      v16 = v7;
+LABEL_39:
+      v19 = a3;
+LABEL_42:
+
+      return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v16, v19);
+    }
+
+    if ((result & 0x80000000) == 0)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    v14 = *(a2 + 34);
+    v15 = *(a3 + 34);
+    if (v14 < *(result + 34))
+    {
+      if (v15 >= v14)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_24;
+    }
+
+    if (v15 >= v14)
+    {
+      return result;
+    }
+  }
+
+  result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a2, a3);
+  if (*a4 != 1)
+  {
+    if (*(a2 + 34) >= *(v7 + 34))
+    {
+      return result;
+    }
+
+    goto LABEL_41;
+  }
+
+  if (*(a2 + 8))
+  {
+    v17 = *(a2 + 16);
+  }
+
+  else
+  {
+    v17 = (a2 + 9);
+  }
+
+  if (*(v7 + 8))
+  {
+    v18 = *(v7 + 16);
+  }
+
+  else
+  {
+    v18 = (v7 + 9);
+  }
+
+  result = strcmp(v17, v18);
+  if ((result & 0x80000000) != 0)
+  {
+LABEL_41:
+    v16 = v7;
+    v19 = a2;
+    goto LABEL_42;
+  }
+
+  return result;
+}
+
+uint64_t std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+{
+  result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a2, a3, a5);
+  if (*a5 != 1)
+  {
+    if (*(a4 + 34) >= *(a3 + 34))
+    {
+      return result;
+    }
+
+LABEL_11:
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a3, a4);
+    if (*a5 == 1)
+    {
+      if (*(a3 + 8))
+      {
+        v13 = *(a3 + 16);
+      }
+
+      else
+      {
+        v13 = (a3 + 9);
+      }
+
+      if (*(a2 + 8))
+      {
+        v14 = *(a2 + 16);
+      }
+
+      else
+      {
+        v14 = (a2 + 9);
+      }
+
+      result = strcmp(v13, v14);
+      if ((result & 0x80000000) == 0)
+      {
+        return result;
+      }
+    }
+
+    else if (*(a3 + 34) >= *(a2 + 34))
+    {
+      return result;
+    }
+
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a2, a3);
+    if (*a5 == 1)
+    {
+      if (*(a2 + 8))
+      {
+        v15 = *(a2 + 16);
+      }
+
+      else
+      {
+        v15 = (a2 + 9);
+      }
+
+      if (*(a1 + 8))
+      {
+        v16 = *(a1 + 16);
+      }
+
+      else
+      {
+        v16 = (a1 + 9);
+      }
+
+      result = strcmp(v15, v16);
+      if ((result & 0x80000000) == 0)
+      {
+        return result;
+      }
+    }
+
+    else if (*(a2 + 34) >= *(a1 + 34))
+    {
+      return result;
+    }
+
+    return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, a2);
+  }
+
+  if (*(a4 + 8))
+  {
+    v11 = *(a4 + 16);
+  }
+
+  else
+  {
+    v11 = (a4 + 9);
+  }
+
+  if (*(a3 + 8))
+  {
+    v12 = *(a3 + 16);
+  }
+
+  else
+  {
+    v12 = (a3 + 9);
+  }
+
+  result = strcmp(v11, v12);
+  if ((result & 0x80000000) != 0)
+  {
+    goto LABEL_11;
+  }
+
+  return result;
+}
+
+uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+{
+  result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a2, a3, a4, a6);
+  if (*a6 != 1)
+  {
+    if (*(a5 + 34) >= *(a4 + 34))
+    {
+      return result;
+    }
+
+LABEL_11:
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a4, a5);
+    if (*a6 == 1)
+    {
+      if (*(a4 + 8))
+      {
+        v15 = *(a4 + 16);
+      }
+
+      else
+      {
+        v15 = (a4 + 9);
+      }
+
+      if (*(a3 + 8))
+      {
+        v16 = *(a3 + 16);
+      }
+
+      else
+      {
+        v16 = (a3 + 9);
+      }
+
+      result = strcmp(v15, v16);
+      if ((result & 0x80000000) == 0)
+      {
+        return result;
+      }
+    }
+
+    else if (*(a4 + 34) >= *(a3 + 34))
+    {
+      return result;
+    }
+
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a3, a4);
+    if (*a6 == 1)
+    {
+      if (*(a3 + 8))
+      {
+        v17 = *(a3 + 16);
+      }
+
+      else
+      {
+        v17 = (a3 + 9);
+      }
+
+      if (*(a2 + 8))
+      {
+        v18 = *(a2 + 16);
+      }
+
+      else
+      {
+        v18 = (a2 + 9);
+      }
+
+      result = strcmp(v17, v18);
+      if ((result & 0x80000000) == 0)
+      {
+        return result;
+      }
+    }
+
+    else if (*(a3 + 34) >= *(a2 + 34))
+    {
+      return result;
+    }
+
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a2, a3);
+    if (*a6 == 1)
+    {
+      if (*(a2 + 8))
+      {
+        v19 = *(a2 + 16);
+      }
+
+      else
+      {
+        v19 = (a2 + 9);
+      }
+
+      if (*(a1 + 8))
+      {
+        v20 = *(a1 + 16);
+      }
+
+      else
+      {
+        v20 = (a1 + 9);
+      }
+
+      result = strcmp(v19, v20);
+      if ((result & 0x80000000) == 0)
+      {
+        return result;
+      }
+    }
+
+    else if (*(a2 + 34) >= *(a1 + 34))
+    {
+      return result;
+    }
+
+    return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, a2);
+  }
+
+  if (*(a5 + 8))
+  {
+    v13 = *(a5 + 16);
+  }
+
+  else
+  {
+    v13 = (a5 + 9);
+  }
+
+  if (*(a4 + 8))
+  {
+    v14 = *(a4 + 16);
+  }
+
+  else
+  {
+    v14 = (a4 + 9);
+  }
+
+  result = strcmp(v13, v14);
+  if ((result & 0x80000000) != 0)
+  {
+    goto LABEL_11;
+  }
+
+  return result;
+}
+
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *>(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  v4 = a2;
+  v47 = *MEMORY[0x1E69E9840];
+  v6 = 0x4EC4EC4EC4EC4EC5 * ((a2 - a1) >> 3);
+  if (v6 > 2)
+  {
+    switch(v6)
+    {
+      case 3:
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a1 + 104, a2 - 104, a3);
+        return 1;
+      case 4:
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a1 + 104, a1 + 208, a2 - 104, a3);
+        return 1;
+      case 5:
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a1 + 104, a1 + 208, a1 + 312, a2 - 104, a3);
+        return 1;
+    }
+  }
+
+  else
+  {
+    if (v6 < 2)
+    {
+      return 1;
+    }
+
+    if (v6 == 2)
+    {
+      if (*a3 == 1)
+      {
+        if (*(a2 - 96))
+        {
+          v7 = *(a2 - 88);
+        }
+
+        else
+        {
+          v7 = (a2 - 95);
+        }
+
+        if (*(a1 + 8))
+        {
+          v8 = *(a1 + 16);
+        }
+
+        else
+        {
+          v8 = (a1 + 9);
+        }
+
+        if ((strcmp(v7, v8) & 0x80000000) == 0)
+        {
+          return 1;
+        }
+      }
+
+      else if (*(a2 - 70) >= *(a1 + 34))
+      {
+        return 1;
+      }
+
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, v4 - 104);
+      return 1;
+    }
+  }
+
+  v9 = a1 + 208;
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,generateJSONForFunctionVariant(re::FunctionVariantDescriptor const&,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator> &,re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false> const&,BOOL)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, a1 + 104, a1 + 208, a3);
+  v10 = a1 + 312;
+  if (a1 + 312 == v4)
+  {
+    return 1;
+  }
+
+  v11 = 0;
+  v12 = 0;
+  v36 = v4;
+  while (2)
+  {
+    if (*a3 == 1)
+    {
+      v13 = *(v10 + 8);
+      v14 = *(v10 + 16);
+      if (v13)
+      {
+        v15 = *(v10 + 16);
+      }
+
+      else
+      {
+        v15 = (v10 + 9);
+      }
+
+      if (*(v9 + 8))
+      {
+        v16 = *(v9 + 16);
+      }
+
+      else
+      {
+        v16 = (v9 + 9);
+      }
+
+      if ((strcmp(v15, v16) & 0x80000000) == 0)
+      {
+        goto LABEL_49;
+      }
+
+      v37 = v12;
+    }
+
+    else
+    {
+      if (*(v10 + 34) >= *(v9 + 34))
+      {
+        goto LABEL_49;
+      }
+
+      v37 = v12;
+      v13 = *(v10 + 8);
+      v14 = *(v10 + 16);
+    }
+
+    v17 = *v10;
+    v18 = *(v10 + 24);
+    v40 = v14;
+    v41 = v18;
+    v38 = v17;
+    v39 = v13;
+    *(v10 + 16) = 0;
+    *(v10 + 24) = 0;
+    *v10 = 0;
+    *(v10 + 8) = 0;
+    v19 = *(v10 + 80);
+    v44 = *(v10 + 64);
+    v45 = v19;
+    v46 = *(v10 + 96);
+    v20 = *(v10 + 48);
+    v42 = *(v10 + 32);
+    v43 = v20;
+    re::DynamicString::operator=(v10, v9);
+    v21 = v9 + 32;
+    v22 = *(v9 + 80);
+    *(v10 + 64) = *(v9 + 64);
+    *(v10 + 80) = v22;
+    *(v10 + 96) = *(v9 + 96);
+    v23 = *(v9 + 48);
+    *(v10 + 32) = *(v9 + 32);
+    *(v10 + 48) = v23;
+    v24 = v11;
+    while (1)
+    {
+      v25 = a1 + v24;
+      if (*a3 == 1)
+      {
+        if (v39)
+        {
+          v26 = v40;
+        }
+
+        else
+        {
+          v26 = &v39 + 1;
+        }
+
+        if (*(v25 + 112))
+        {
+          v27 = *(v25 + 120);
+        }
+
+        else
+        {
+          v27 = (v25 + 113);
+        }
+
+        if ((strcmp(v26, v27) & 0x80000000) == 0)
+        {
+          goto LABEL_45;
+        }
+
+        goto LABEL_42;
+      }
+
+      if (WORD1(v42) >= *(v25 + 138))
+      {
+        break;
+      }
+
+LABEL_42:
+      re::DynamicString::operator=((v25 + 208), (v25 + 104));
+      v28 = a1 + v24;
+      v21 = v9 - 72;
+      v29 = *(a1 + v24 + 152);
+      v30 = *(a1 + v24 + 184);
+      *(v28 + 272) = *(a1 + v24 + 168);
+      *(v28 + 288) = v30;
+      *(v28 + 304) = *(a1 + v24 + 200);
+      *(v28 + 240) = *(a1 + v24 + 136);
+      *(v28 + 256) = v29;
+      v24 -= 104;
+      v9 -= 104;
+      if (v24 == -208)
+      {
+        v21 = a1 + 32;
+        v9 = a1;
+        goto LABEL_45;
+      }
+    }
+
+    v21 = a1 + v24 + 240;
+    v9 = a1 + v24 + 208;
+LABEL_45:
+    re::DynamicString::operator=(v9, &v38);
+    *v21 = v42;
+    v31 = v43;
+    v32 = v44;
+    v33 = v45;
+    *(v21 + 64) = v46;
+    *(v21 + 32) = v32;
+    *(v21 + 48) = v33;
+    *(v21 + 16) = v31;
+    v12 = v37 + 1;
+    v4 = v36;
+    if (v37 != 7)
+    {
+      if (v38 && (v39 & 1) != 0)
+      {
+        (*(*v38 + 40))();
+      }
+
+LABEL_49:
+      v9 = v10;
+      v11 += 104;
+      v10 += 104;
+      if (v10 == v4)
+      {
+        return 1;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v34 = v10 + 104 == v36;
+  if (v38 && (v39 & 1) != 0)
+  {
+    (*(*v38 + 40))();
+  }
+
+  return v34;
+}
+
+uint64_t re::DynamicArray<re::DynamicString>::DynamicArray(uint64_t a1, re::DynamicString *a2, unint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  if (a3)
+  {
+    re::DynamicArray<re::DynamicString>::setCapacity(a1, a3);
+    ++*(a1 + 24);
+    re::DynamicArray<re::DynamicString>::copy(a1, 0, a2, a3);
+  }
+
+  return a1;
+}
+
+uint64_t re::HashTable<re::DynamicString,re::DynamicArray<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addInternal<char const*&,re::DynamicArray<re::DynamicString> const&>(uint64_t a1, uint64_t a2, const char **a3, uint64_t *a4)
+{
+  v7 = re::HashTable<re::DynamicString,re::DynamicArray<re::DynamicString>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(a2 + 8), *a2);
+  v8 = *a3;
+  re::DynamicArray<re::DynamicString>::DynamicArray(v7 + 40, a4);
+  ++*(a1 + 40);
+  return v7 + 40;
+}
+
+void *rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::MemoryPoolAllocator(void *a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = a2;
+  if (!a3)
+  {
+    operator new();
+  }
+
+  a1[1] = a3;
+  v4 = malloc_type_malloc(0x38uLL, 0x61671F57uLL);
+  a1[2] = v4;
+  v4[4] = 0;
+  *v4 = v4 + 4;
+  v4[1] = 0;
+  v4[5] = 0;
+  v4[6] = 0;
+  *(v4 + 24) = 1;
+  v4[2] = 1;
+  return a1;
+}
+
+void *rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::~GenericDocument(void *a1)
+{
+  if (a1[4])
+  {
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+
+  rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Destroy(a1);
+  rapidjson::internal::Stack<rapidjson::CrtAllocator>::Destroy((a1 + 5));
+  return a1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Destroy(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::~MemoryPoolAllocator(result);
+
+    JUMPOUT(0x1E6906520);
+  }
+
+  return result;
+}
+
+uint64_t rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::~MemoryPoolAllocator(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    v3 = *(v2 + 16);
+    if (v3 < 2)
+    {
+      rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Clear(a1);
+      v4 = *(a1 + 16);
+      v5 = *(v4 + 8);
+      if (*(v4 + 24) == 1)
+      {
+        free(v4);
+      }
+
+      if (v5)
+      {
+        MEMORY[0x1E6906520](v5, 0xC400A2AC0F1);
+      }
+    }
+
+    else
+    {
+      *(v2 + 16) = v3 - 1;
+    }
+  }
+
+  return a1;
+}
+
+void *rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Clear(uint64_t a1)
+{
+  for (i = *(a1 + 16); ; i = *(a1 + 16))
+  {
+    result = *i;
+    v4 = *(*i + 16);
+    if (!v4)
+    {
+      break;
+    }
+
+    *i = v4;
+    free(result);
+  }
+
+  result[1] = 0;
+  return result;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ParseStream<0u,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(uint64_t a1, int8x16_t **a2)
+{
+  v4 = (a1 + 40);
+  v17 = *(a1 + 40);
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 256;
+  v22 = 2;
+  LODWORD(v21) = 0;
+  *(&v21 + 1) = 0;
+  rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+  v7 = *a2;
+  if (!(*a2)->i8[0])
+  {
+    v15 = 1;
+LABEL_10:
+    v16 = v7 - a2[1];
+    LODWORD(v21) = v15;
+    *(&v21 + 1) = v16;
+    goto LABEL_4;
+  }
+
+  rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(&v17, a2, a1, v5, v6);
+  if (!v21)
+  {
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+    v7 = *a2;
+    if ((*a2)->i8[0])
+    {
+      v15 = 2;
+      goto LABEL_10;
+    }
+  }
+
+LABEL_4:
+  *&v19 = *(&v18 + 1);
+  v8 = v21;
+  *(a1 + 88) = v21;
+  if (!v8)
+  {
+    v9 = *(a1 + 64);
+    v10 = (v9 - 24);
+    *(a1 + 64) = v9 - 24;
+    if (v9 - 24 != a1)
+    {
+      v11 = *(v9 - 2);
+      *(v9 - 2) = 0;
+      v12 = *v10;
+      v13 = *(v9 - 8);
+      *(a1 + 20) = *(v10 + 10);
+      *(a1 + 16) = v13;
+      *a1 = v12;
+      *(a1 + 22) = v11;
+    }
+  }
+
+  *(a1 + 64) = *(a1 + 56);
+  rapidjson::internal::Stack<rapidjson::CrtAllocator>::ShrinkToFit(v4);
+  rapidjson::internal::Stack<rapidjson::CrtAllocator>::Destroy(&v17);
+  return a1;
+}
+
+int8x16_t **rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(int8x16_t **result)
+{
+  v1 = *result;
+  v2 = (*result)->u8[0];
+  v3 = v2 > 0x20;
+  v4 = (1 << v2) & 0x100002600;
+  if (v3 || v4 == 0)
+  {
+    v6 = *result;
+  }
+
+  else
+  {
+    v6 = &v1->i8[1];
+    v7 = &v1[1] & 0xFFFFFFFFFFFFFFF0;
+    if (v6 == v7)
+    {
+LABEL_12:
+      v11.i64[0] = 0xFBFBFBFBFBFBFBFBLL;
+      v11.i64[1] = 0xFBFBFBFBFBFBFBFBLL;
+      v12.i64[0] = 0x2020202020202020;
+      v12.i64[1] = 0x2020202020202020;
+      v13.i64[0] = 0xA0A0A0A0A0A0A0ALL;
+      v13.i64[1] = 0xA0A0A0A0A0A0A0ALL;
+      v14.i64[0] = 0x909090909090909;
+      v14.i64[1] = 0x909090909090909;
+      while (1)
+      {
+        v15 = vrev64q_s8(vbicq_s8(vbicq_s8(vmvnq_s8(vceqq_s8(*v6, v12)), vceqq_s8(*v6, v13)), vceqq_s8(vandq_s8(*v6, v11), v14)));
+        if (v15.i64[0])
+        {
+          v6 = (v6 + (__clz(v15.u64[0]) >> 3));
+          goto LABEL_19;
+        }
+
+        if (v15.i64[1])
+        {
+          break;
+        }
+
+        ++v6;
+      }
+
+      v6 = (v6 + (__clz(v15.u64[1]) >> 3) + 8);
+    }
+
+    else
+    {
+      while (1)
+      {
+        v8 = v6->u8[0];
+        v3 = v8 > 0x20;
+        v9 = (1 << v8) & 0x100002600;
+        if (v3 || v9 == 0)
+        {
+          break;
+        }
+
+        v6 = (v6 + 1);
+        if (v6 == v7)
+        {
+          v6 = v7;
+          goto LABEL_12;
+        }
+      }
+    }
+  }
+
+LABEL_19:
+  *result = v6;
+  return result;
+}
+
+void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(uint64_t result, int8x16_t **a2, uint64_t *a3, __n128 a4, __n128 a5)
+{
+  v8 = *a2;
+  v9 = (*a2)->u8[0];
+  if (v9 > 0x6D)
+  {
+    if (v9 != 123)
+    {
+      if (v9 == 116)
+      {
+        v10 = &v8->i8[1];
+        *a2 = &v8->i8[1];
+        if (v8->i8[1] == 114)
+        {
+          v10 = &v8->i8[2];
+          *a2 = &v8->i16[1];
+          if (v8->i8[2] == 117)
+          {
+            v10 = &v8->i8[3];
+            *a2 = (v8->i32 + 3);
+            if (v8->i8[3] == 101)
+            {
+              *a2 = (v8->i64 + 4);
+              v11 = a3[8];
+              if (a3[9] - v11 <= 23)
+              {
+                rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5, 1);
+                v11 = a3[8];
+              }
+
+              a3[8] = v11 + 24;
+              *(v11 + 8) = 0;
+              *(v11 + 16) = 0;
+              *v11 = 0;
+              v12 = 10;
+              goto LABEL_52;
+            }
+          }
+        }
+
+        goto LABEL_128;
+      }
+
+      if (v9 != 110)
+      {
+        goto LABEL_28;
+      }
+
+      v10 = &v8->i8[1];
+      *a2 = &v8->i8[1];
+      if (v8->i8[1] != 117 || (v10 = &v8->i8[2], *a2 = &v8->i16[1], v8->i8[2] != 108) || (v10 = &v8->i8[3], *a2 = (v8->i32 + 3), v8->i8[3] != 108))
+      {
+LABEL_128:
+        v50 = v10 - a2[1];
+        v51 = 3;
+LABEL_129:
+        *(result + 48) = v51;
+        *(result + 56) = v50;
+        return;
+      }
+
+      *a2 = (v8->i64 + 4);
+      v13 = a3[8];
+      if (a3[9] - v13 <= 23)
+      {
+        rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5, 1);
+        v13 = a3[8];
+      }
+
+      a3[8] = (v13 + 3);
+      *v13 = 0;
+      v13[1] = 0;
+      v13[2] = 0;
+      return;
+    }
+
+    *a2 = &v8->i8[1];
+    if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::StartObject(a3))
+    {
+      rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+      if (*(result + 48))
+      {
+        return;
+      }
+
+      if ((*a2)->i8[0] == 125)
+      {
+        *a2 = (*a2 + 1);
+        v14 = a3[8];
+        v15 = 3;
+LABEL_45:
+        *(v14 - 2) = v15;
+        *(v14 - 24) = 0;
+        *(v14 - 16) = 0;
+        return;
+      }
+
+      for (i = 1; ; ++i)
+      {
+        if ((*a2)->i8[0] != 34)
+        {
+          v50 = *a2 - a2[1];
+          v51 = 4;
+          goto LABEL_129;
+        }
+
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3);
+        if (*(result + 48))
+        {
+          return;
+        }
+
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+        if (*(result + 48))
+        {
+          return;
+        }
+
+        v53 = *a2;
+        if ((*a2)->i8[0] != 58)
+        {
+          v50 = v53 - a2[1];
+          v51 = 5;
+          goto LABEL_129;
+        }
+
+        *a2 = &v53->i8[1];
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+        if (*(result + 48))
+        {
+          return;
+        }
+
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3, v54, v55);
+        if (*(result + 48))
+        {
+          return;
+        }
+
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+        if (*(result + 48))
+        {
+          return;
+        }
+
+        v56 = *a2;
+        v57 = (*a2)->u8[0];
+        if (v57 != 44)
+        {
+          break;
+        }
+
+        *a2 = &v56->i8[1];
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+        if (*(result + 48))
+        {
+          return;
+        }
+      }
+
+      if (v57 != 125)
+      {
+        v50 = v56 - a2[1];
+        v51 = 6;
+        goto LABEL_129;
+      }
+
+      *a2 = &v56->i8[1];
+      if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndObject(a3, i))
+      {
+        return;
+      }
+    }
+
+LABEL_167:
+    v50 = *a2 - a2[1];
+    v51 = 16;
+    goto LABEL_129;
+  }
+
+  if (v9 == 34)
+  {
+
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3);
+    return;
+  }
+
+  if (v9 != 91)
+  {
+    if (v9 == 102)
+    {
+      v10 = &v8->i8[1];
+      *a2 = &v8->i8[1];
+      if (v8->i8[1] == 97)
+      {
+        v10 = &v8->i8[2];
+        *a2 = &v8->i16[1];
+        if (v8->i8[2] == 108)
+        {
+          v10 = &v8->i8[3];
+          *a2 = (v8->i32 + 3);
+          if (v8->i8[3] == 115)
+          {
+            v10 = &v8->i8[4];
+            *a2 = (v8->i64 + 4);
+            if (v8->i8[4] == 101)
+            {
+              *a2 = &v8->u8[5];
+              v11 = a3[8];
+              if (a3[9] - v11 <= 23)
+              {
+                rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5, 1);
+                v11 = a3[8];
+              }
+
+              a3[8] = v11 + 24;
+              *(v11 + 8) = 0;
+              *(v11 + 16) = 0;
+              *v11 = 0;
+              v12 = 9;
+LABEL_52:
+              *(v11 + 22) = v12;
+              return;
+            }
+          }
+        }
+      }
+
+      goto LABEL_128;
+    }
+
+LABEL_28:
+    v16 = a2[1];
+    if (v9 == 45)
+    {
+      v18 = &v8->i8[1];
+      v17 = v8->u8[1];
+    }
+
+    else
+    {
+      v17 = (*a2)->u8[0];
+      v18 = *a2;
+    }
+
+    LODWORD(v19) = v17 - 48;
+    if (v17 == 48)
+    {
+      v30 = 0;
+      v24 = 0;
+      v32 = 0;
+      v33 = 0;
+      v23 = 0.0;
+      v20 = v18->u8[1];
+      v21 = &v18->u8[1];
+    }
+
+    else
+    {
+      if ((v17 - 49) > 8)
+      {
+        v48 = 3;
+        goto LABEL_173;
+      }
+
+      v20 = v18->u8[1];
+      v21 = &v18->u8[1];
+      v22 = v20 - 48;
+      v23 = 0.0;
+      if (v9 == 45)
+      {
+        if (v22 <= 9)
+        {
+          v24 = 0;
+          v25 = 214748364;
+          while (1)
+          {
+            if (v19 > 0xCCCCCCB)
+            {
+              if (v19 != 214748364)
+              {
+                goto LABEL_127;
+              }
+
+              if (v20 > 0x38)
+              {
+                break;
+              }
+            }
+
+            v26 = *++v21;
+            LODWORD(v19) = v20 + 10 * v19 - 48;
+            ++v24;
+            v20 = v26;
+            if (v26 - 48 >= 0xA)
+            {
+              goto LABEL_67;
+            }
+          }
+
+          v20 = 57;
+LABEL_60:
+          v30 = v25;
+          if (v9 == 45)
+          {
+            while (v30 <= 0xCCCCCCCCCCCCCCBLL || v20 <= 0x38 && v30 == 0xCCCCCCCCCCCCCCCLL)
+            {
+              v31 = *++v21;
+              v30 = (v20 & 0xF) + 10 * v30;
+              ++v24;
+              v20 = v31;
+              if (v31 - 48 >= 0xA)
+              {
+                goto LABEL_77;
+              }
+            }
+          }
+
+          else
+          {
+            while (v30 <= 0x1999999999999998 || v20 <= 0x35 && v30 == 0x1999999999999999)
+            {
+              v34 = *++v21;
+              v30 = (v20 & 0xF) + 10 * v30;
+              ++v24;
+              v20 = v34;
+              if (v34 - 48 >= 0xA)
+              {
+LABEL_77:
+                v32 = 0;
+                v23 = 0.0;
+                goto LABEL_78;
+              }
+            }
+          }
+
+          v23 = v30;
+          do
+          {
+            v35 = v20 - 48;
+            v36 = *++v21;
+            v20 = v36;
+            v23 = v35 + v23 * 10.0;
+          }
+
+          while (v36 - 48 < 0xA);
+          v32 = 1;
+LABEL_78:
+          v33 = 1;
+          LODWORD(v19) = v25;
+          goto LABEL_79;
+        }
+      }
+
+      else if (v22 <= 9)
+      {
+        v24 = 0;
+        v25 = 429496729;
+        while (1)
+        {
+          if (v19 > 0x19999998)
+          {
+            if (v19 != 429496729)
+            {
+LABEL_127:
+              v25 = v19;
+              goto LABEL_60;
+            }
+
+            if (v20 > 0x35)
+            {
+              goto LABEL_60;
+            }
+          }
+
+          v29 = *++v21;
+          LODWORD(v19) = v20 + 10 * v19 - 48;
+          ++v24;
+          v20 = v29;
+          if (v29 - 48 >= 0xA)
+          {
+LABEL_67:
+            v30 = 0;
+            goto LABEL_68;
+          }
+        }
+      }
+
+      v30 = 0;
+      v24 = 0;
+LABEL_68:
+      v32 = 0;
+      v33 = 0;
+    }
+
+LABEL_79:
+    if (v20 == 46)
+    {
+      v20 = v21[1];
+      v18 = (v21 + 1);
+      if (v20 - 58 < 0xFFFFFFF6)
+      {
+        v48 = 14;
+        goto LABEL_173;
+      }
+
+      v37 = 0;
+      if ((v32 & 1) == 0)
+      {
+        if (!v33)
+        {
+          v30 = v19;
+        }
+
+        while (v20 <= 0x39 && !(v30 >> 53))
+        {
+          v39 = v18->i8[1];
+          v18 = (v18 + 1);
+          v38 = v39;
+          v30 = v20 - 48 + 10 * v30;
+          --v37;
+          if (v30)
+          {
+            ++v24;
+          }
+
+          v20 = v38;
+          if (v38 <= 47)
+          {
+            v40 = 0;
+            v23 = v30;
+            v21 = v18;
+            goto LABEL_98;
+          }
+        }
+
+        v23 = v30;
+      }
+
+      v21 = v18;
+      while (v20 <= 0x39)
+      {
+        if (v24 <= 16)
+        {
+          v23 = (v20 - 48) + v23 * 10.0;
+          --v37;
+          if (v23 > 0.0)
+          {
+            ++v24;
+          }
+        }
+
+        v41 = *++v21;
+        v20 = v41;
+        if (v41 <= 47)
+        {
+          goto LABEL_97;
+        }
+      }
+
+      v32 = 1;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+    if (v20 != 101 && v20 != 69)
+    {
+      if ((v32 & 1) == 0)
+      {
+        if (v33)
+        {
+          if (v9 == 45)
+          {
+            if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int64(a3, -v30))
+            {
+              goto LABEL_125;
+            }
+          }
+
+          else if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Uint64(a3, v30))
+          {
+            goto LABEL_125;
+          }
+        }
+
+        else if (v9 == 45)
+        {
+          if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int(a3, -v19))
+          {
+            goto LABEL_125;
+          }
+        }
+
+        else if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Uint(a3, v19))
+        {
+          goto LABEL_125;
+        }
+
+        goto LABEL_180;
+      }
+
+LABEL_97:
+      v40 = 0;
+LABEL_98:
+      v42 = v37 + v40;
+      if (v42 > -309)
+      {
+        if ((v42 & 0x80000000) == 0)
+        {
+          v43 = v23 * rapidjson::internal::Pow10(int)::e[v42];
+          goto LABEL_118;
+        }
+
+        v44 = -v42;
+      }
+
+      else
+      {
+        v43 = 0.0;
+        if (v42 < 0xFFFFFD98)
+        {
+LABEL_122:
+          v49 = -v43;
+          if (v9 != 45)
+          {
+            v49 = v43;
+          }
+
+          if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Double(a3, v49))
+          {
+            goto LABEL_125;
+          }
+
+LABEL_180:
+          v48 = 16;
+          goto LABEL_120;
+        }
+
+        v23 = v23 / 1.0e308;
+        v44 = -308 - v42;
+      }
+
+      v43 = v23 / rapidjson::internal::Pow10(int)::e[v44];
+LABEL_118:
+      if (v43 > 1.79769313e308)
+      {
+LABEL_119:
+        v48 = 13;
+LABEL_120:
+        v18 = v8;
+LABEL_121:
+        *(result + 48) = v48;
+        *(result + 56) = v18 - v16;
+LABEL_125:
+        *a2 = v21;
+        a2[1] = v16;
+        return;
+      }
+
+      goto LABEL_122;
+    }
+
+    v18 = (v21 + 1);
+    v45 = v21[1];
+    v19 = v19;
+    if (v33)
+    {
+      v19 = v30;
+    }
+
+    if (!v32)
+    {
+      v23 = v19;
+    }
+
+    if (v45 == 43)
+    {
+      v18 = (v21 + 2);
+      v45 = v21[2];
+      if ((v45 - 48) < 0xA)
+      {
+        v46 = 3;
+        goto LABEL_110;
+      }
+    }
+
+    else if (v45 == 45)
+    {
+      v18 = (v21 + 2);
+      v61 = v21[2] - 48;
+      if (v61 < 0xA)
+      {
+        v63 = v21[3];
+        v21 += 3;
+        v62 = v63;
+        if ((v63 - 48) <= 9)
+        {
+          while (1)
+          {
+            v61 = v62 + 10 * v61 - 48;
+            if (v61 > (v37 + 2147483639) / 10)
+            {
+              break;
+            }
+
+            v64 = *++v21;
+            v62 = v64;
+            if ((v64 - 48) >= 0xA)
+            {
+              goto LABEL_164;
+            }
+          }
+
+          do
+          {
+            v65 = *++v21;
+          }
+
+          while ((v65 - 48) < 0xA);
+        }
+
+LABEL_164:
+        v40 = -v61;
+        goto LABEL_98;
+      }
+    }
+
+    else if ((v45 - 48) < 0xA)
+    {
+      v46 = 2;
+LABEL_110:
+      v21 += v46;
+      v40 = v45 - 48;
+      while (1)
+      {
+        v47 = *v21;
+        if ((v47 - 48) > 9)
+        {
+          goto LABEL_98;
+        }
+
+        ++v21;
+        v40 = v47 + 10 * v40 - 48;
+        if (v40 > 308 - v37)
+        {
+          goto LABEL_119;
+        }
+      }
+    }
+
+    v48 = 15;
+LABEL_173:
+    v21 = v18;
+    goto LABEL_121;
+  }
+
+  *a2 = &v8->i8[1];
+  if ((rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::StartArray(a3) & 1) == 0)
+  {
+    goto LABEL_167;
+  }
+
+  rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+  if (*(result + 48))
+  {
+    return;
+  }
+
+  if ((*a2)->i8[0] == 93)
+  {
+    *a2 = (*a2 + 1);
+    v14 = a3[8];
+    v15 = 4;
+    goto LABEL_45;
+  }
+
+  v58 = 1;
+  do
+  {
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3, v27, v28);
+    if (*(result + 48))
+    {
+      break;
+    }
+
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+    if (*(result + 48))
+    {
+      break;
+    }
+
+    v59 = *a2;
+    v60 = (*a2)->u8[0];
+    if (v60 != 44)
+    {
+      if (v60 != 93)
+      {
+        v50 = v59 - a2[1];
+        v51 = 7;
+        goto LABEL_129;
+      }
+
+      *a2 = &v59->i8[1];
+      if (rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndArray(a3, v58))
+      {
+        return;
+      }
+
+      goto LABEL_167;
+    }
+
+    *a2 = &v59->i8[1];
+    rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::SkipWhitespaceAndComments<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a2);
+    ++v58;
+  }
+
+  while (!*(result + 48));
+}
+
+double rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(uint64_t a1, _OWORD *a2, void *a3)
+{
+  v51 = *a2;
+  v5 = (v51 + 1);
+  v52 = a2;
+  *&v51 = v51 + 1;
+  *v49 = a1;
+  v50 = 0;
+  v6.i64[0] = 0x2222222222222222;
+  v6.i64[1] = 0x2222222222222222;
+  v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+  v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+  v8.i64[0] = 0x2020202020202020;
+  v8.i64[1] = 0x2020202020202020;
+  while (1)
+  {
+    while (1)
+    {
+      v9 = (&v5->u64[1] + 7) & 0xFFFFFFFFFFFFFFF0;
+      while (v5 != v9)
+      {
+        v10 = v5->u8[0];
+        if (v10 == 34 || v10 == 92 || v10 < 0x20)
+        {
+          goto LABEL_24;
+        }
+
+        v11 = *v49;
+        v12 = *(*v49 + 24);
+        if ((*(*v49 + 32) - v12) <= 0)
+        {
+          rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, 1);
+          v8.i64[0] = 0x2020202020202020;
+          v8.i64[1] = 0x2020202020202020;
+          v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+          v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+          v6.i64[0] = 0x2222222222222222;
+          v6.i64[1] = 0x2222222222222222;
+          v12 = *(v11 + 24);
+        }
+
+        v5 = (v5 + 1);
+        *(v11 + 24) = v12 + 1;
+        *v12 = v10;
+        ++v50;
+      }
+
+      while (1)
+      {
+        v15 = *v5;
+        v16 = vrev64q_s8(vorrq_s8(vorrq_s8(vceqq_s8(*v5, v6), vceqq_s8(*v5, v7)), vcgtq_u8(v8, *v5)));
+        if (v16.i64[0])
+        {
+          break;
+        }
+
+        if (v16.i64[1])
+        {
+          v17 = (__clz(v16.u64[1]) >> 3) | 8;
+          goto LABEL_18;
+        }
+
+        v50 += 16;
+        v13 = *v49;
+        v14 = *(*v49 + 24);
+        if ((*(*v49 + 32) - v14) <= 15)
+        {
+          v47 = v15;
+          rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, 16);
+          v15 = v47;
+          v8.i64[0] = 0x2020202020202020;
+          v8.i64[1] = 0x2020202020202020;
+          v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+          v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+          v6.i64[0] = 0x2222222222222222;
+          v6.i64[1] = 0x2222222222222222;
+          v14 = v13[3];
+        }
+
+        v13[3] = v14[1].i64;
+        *v14 = v15;
+        ++v5;
+      }
+
+      if (HIBYTE(v16.i64[0]))
+      {
+        goto LABEL_24;
+      }
+
+      v17 = __clz(v16.u64[0]) >> 3;
+LABEL_18:
+      v50 += v17;
+      v18 = *v49;
+      v19 = v17;
+      v20 = *(*v49 + 24);
+      if (*(*v49 + 32) - v20 < v17)
+      {
+        rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, v17);
+        v8.i64[0] = 0x2020202020202020;
+        v8.i64[1] = 0x2020202020202020;
+        v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+        v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+        v6.i64[0] = 0x2222222222222222;
+        v6.i64[1] = 0x2222222222222222;
+        v20 = v18[3];
+      }
+
+      v18[3] = v20 + v19;
+      if (v19)
+      {
+        for (i = 0; i != v19; ++i)
+        {
+          *(v20 + i) = v5->i8[i];
+        }
+      }
+
+      v5 = (v5 + v19);
+LABEL_24:
+      *&v51 = v5;
+      v22 = v5->u8[0];
+      if (v22 != 92)
+      {
+        break;
+      }
+
+      *&v51 = v5->i64 + 1;
+      v27 = v5->u8[1];
+      v28 = rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseStringToStream<0u,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::StackStream<char>>(rapidjson::GenericStringStream<rapidjson::UTF8<char>> &,rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::StackStream<char> &)::escape[v27];
+      if (v28)
+      {
+        v5 = (v5 + 2);
+        *&v51 = v5;
+        v29 = *v49;
+        v30 = *(*v49 + 24);
+        if ((*(*v49 + 32) - v30) <= 0)
+        {
+          rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, 1);
+          v8.i64[0] = 0x2020202020202020;
+          v8.i64[1] = 0x2020202020202020;
+          v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+          v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+          v6.i64[0] = 0x2222222222222222;
+          v6.i64[1] = 0x2222222222222222;
+          v30 = v29[3];
+        }
+
+        v29[3] = (v30 + 1);
+        *v30 = v28;
+        ++v50;
+      }
+
+      else
+      {
+        v31 = v5->i64 - *(&v51 + 1);
+        if (v27 != 117)
+        {
+          *(a1 + 48) = 10;
+          *(a1 + 56) = v31;
+          goto LABEL_54;
+        }
+
+        *&v51 = v5->i64 + 2;
+        v48 = v5->i64 - *(&v51 + 1);
+        v32 = rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseHex4<rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a1, &v51, v31);
+        if (*(a1 + 48))
+        {
+          goto LABEL_54;
+        }
+
+        v33 = v32;
+        if (v32 >> 11 != 27)
+        {
+          goto LABEL_37;
+        }
+
+        if (v32 >> 10 > 0x36)
+        {
+          goto LABEL_56;
+        }
+
+        v34 = v51;
+        if (*v51 != 92)
+        {
+          goto LABEL_56;
+        }
+
+        v35 = *(v51 + 1);
+        *&v51 = v51 + 1;
+        if (v35 != 117)
+        {
+          goto LABEL_56;
+        }
+
+        v36 = v32;
+        *&v51 = v34 + 2;
+        v37 = rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseHex4<rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(a1, &v51, v48);
+        if (*(a1 + 48))
+        {
+          goto LABEL_54;
+        }
+
+        if ((v37 - 57344) <= 0xFFFFFBFF)
+        {
+LABEL_56:
+          *(a1 + 48) = 9;
+          v43 = v48;
+          goto LABEL_49;
+        }
+
+        v33 = v37 + (v36 << 10) - 56613888;
+LABEL_37:
+        rapidjson::UTF8<char>::Encode<rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::StackStream<char>>(v49, v33);
+        v5 = v51;
+        v6.i64[0] = 0x2222222222222222;
+        v6.i64[1] = 0x2222222222222222;
+        v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+        v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+        v8.i64[0] = 0x2020202020202020;
+        v8.i64[1] = 0x2020202020202020;
+      }
+    }
+
+    if (v22 == 34)
+    {
+      break;
+    }
+
+    if (v22 <= 0x1F)
+    {
+      v44 = &v5->i8[-*(&v51 + 1)];
+      if (v5->i8[0])
+      {
+        v45 = 12;
+      }
+
+      else
+      {
+        v45 = 11;
+      }
+
+      *(a1 + 48) = v45;
+      *(a1 + 56) = v44;
+      goto LABEL_54;
+    }
+
+    v23 = &v5->i8[1];
+    *&v51 = v5->i64 + 1;
+    v24 = v5->i8[0];
+    v25 = *v49;
+    v26 = *(*v49 + 24);
+    if ((*(*v49 + 32) - v26) <= 0)
+    {
+      rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, 1);
+      v8.i64[0] = 0x2020202020202020;
+      v8.i64[1] = 0x2020202020202020;
+      v7.i64[0] = 0x5C5C5C5C5C5C5C5CLL;
+      v7.i64[1] = 0x5C5C5C5C5C5C5C5CLL;
+      v6.i64[0] = 0x2222222222222222;
+      v6.i64[1] = 0x2222222222222222;
+      v26 = v25[3];
+    }
+
+    v25[3] = (v26 + 1);
+    *v26 = v24;
+    ++v50;
+    v5 = v23;
+  }
+
+  *&v51 = v5->i64 + 1;
+  v38 = *v49;
+  v39 = *(*v49 + 24);
+  if ((*(*v49 + 32) - v39) <= 0)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v49, 1);
+    v39 = v38[3];
+  }
+
+  v38[3] = (v39 + 1);
+  *v39 = 0;
+  v40 = v50;
+  v41 = ++v50;
+  if (!*(a1 + 48))
+  {
+    v42 = (*(*v49 + 24) - v41);
+    *(*v49 + 24) = v42;
+    if ((rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::String(a3, v42, v40, 1) & 1) == 0)
+    {
+      v43 = v5->i64 - *(&v51 + 1) + 1;
+      *(a1 + 48) = 16;
+LABEL_49:
+      *(a1 + 56) = v43;
+    }
+  }
+
+LABEL_54:
+  result = *&v51;
+  *v52 = v51;
+  return result;
+}
+
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(uint64_t *a1, uint64_t a2)
+{
+  v2 = a1[2];
+  if (v2)
+  {
+    v3 = a1[4] - v2 + ((a1[4] - v2 + 1) >> 1);
+  }
+
+  else
+  {
+    if (!*a1)
+    {
+      operator new();
+    }
+
+    v2 = 0;
+    v3 = a1[5];
+  }
+
+  v4 = 24 * a2 - v2 + a1[3];
+  if (v3 <= v4)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = v3;
+  }
+
+  return rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(a1, v5);
+}
+
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(void *a1, size_t size)
+{
+  v4 = a1[2];
+  v5 = a1[3];
+  if (size)
+  {
+    result = malloc_type_realloc(v4, size, 0xD5BB006EuLL);
+  }
+
+  else
+  {
+    free(v4);
+    result = 0;
+  }
+
+  a1[2] = result;
+  a1[3] = &result[v5 - v4];
+  a1[4] = &result[size];
+  return result;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::String(void *a1, void *a2, int a3, int a4)
+{
+  v8 = a1 + 8;
+  v7 = a1[8];
+  v9 = v8[1] - v7;
+  if (a4)
+  {
+    if (v9 <= 23)
+    {
+      rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+      v7 = a1[8];
+    }
+
+    a1[8] = v7 + 24;
+    v10 = a1[3];
+    *v7 = 0;
+    *(v7 + 8) = 0;
+    *(v7 + 16) = 0;
+    v11 = &rapidjson::GenericStringRef<char>::emptyString;
+    if (a2)
+    {
+      v11 = a2;
+    }
+
+    v14 = v11;
+    v15 = a3;
+    rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::SetStringRaw(v7, &v14, v10);
+  }
+
+  else
+  {
+    if (v9 <= 23)
+    {
+      rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+      v7 = a1[8];
+    }
+
+    a1[8] = v7 + 24;
+    *(v7 + 16) = 0;
+    v12 = &rapidjson::GenericStringRef<char>::emptyString;
+    *(v7 + 22) = 1029;
+    if (a2)
+    {
+      v12 = a2;
+    }
+
+    *v7 = 0;
+    *(v7 + 8) = v12;
+    *v7 = a3;
+  }
+
+  return 1;
+}
+
+uint64_t rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseHex4<rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(uint64_t result, void *a2, uint64_t a3)
+{
+  v3 = result;
+  LODWORD(result) = 0;
+  v4 = *a2 + 1;
+  v5 = 4;
+  while (1)
+  {
+    v6 = *(v4 - 1);
+    if ((v6 - 48) >= 0xA)
+    {
+      break;
+    }
+
+    v7 = -48;
+LABEL_8:
+    result = (v6 + 16 * result + v7);
+    *a2 = v4++;
+    if (!--v5)
+    {
+      return result;
+    }
+  }
+
+  if (*(v4 - 1) - 65 < 6)
+  {
+    v7 = -55;
+    goto LABEL_8;
+  }
+
+  if (*(v4 - 1) - 97 < 6)
+  {
+    v7 = -87;
+    goto LABEL_8;
+  }
+
+  result = 0;
+  *(v3 + 48) = 8;
+  *(v3 + 56) = a3;
+  return result;
+}
+
+char *rapidjson::UTF8<char>::Encode<rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::StackStream<char>>(char *result, unsigned int a2)
+{
+  v3 = result;
+  if (a2 <= 0x7F)
+  {
+    v4 = *result;
+    v5 = *(*result + 24);
+    if ((*(*result + 32) - v5) <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*result, 1);
+      v5 = *(v4 + 24);
+    }
+
+    *(v4 + 24) = v5 + 1;
+    *v5 = a2;
+    v6 = v3 + 8;
+    goto LABEL_27;
+  }
+
+  if (a2 <= 0x7FF)
+  {
+    v7 = (a2 >> 6) | 0xFFFFFFC0;
+    v8 = *result;
+    v9 = *(*result + 24);
+    if ((*(*result + 32) - v9) <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*result, 1);
+      v9 = v8[3];
+    }
+
+    v8[3] = (v9 + 1);
+    *v9 = v7;
+    v6 = v3 + 8;
+    ++*(v3 + 2);
+LABEL_24:
+    v27 = *v3;
+    v28 = v27[3];
+    if (v27[4] - v28 <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v27, 1);
+      v28 = v27[3];
+    }
+
+    v27[3] = (v28 + 1);
+    *v28 = a2 & 0x3F | 0x80;
+    goto LABEL_27;
+  }
+
+  v10 = *result;
+  v11 = *(*result + 24);
+  v12 = *(*result + 32) - v11;
+  if (HIWORD(a2))
+  {
+    v20 = (a2 >> 18) | 0xFFFFFFF0;
+    if (v12 <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*result, 1);
+      v11 = v10[3];
+    }
+
+    v10[3] = (v11 + 1);
+    *v11 = v20;
+    v6 = v3 + 8;
+    ++*(v3 + 2);
+    v21 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
+    v22 = *v3;
+    v23 = *(*v3 + 24);
+    if ((*(*v3 + 32) - v23) <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v3, 1);
+      v21 = (a2 >> 12) & 0x3F | 0xFFFFFF80;
+      v23 = v22[3];
+    }
+
+    v22[3] = (v23 + 1);
+    *v23 = v21;
+    ++*(v3 + 2);
+    v24 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+    v25 = *v3;
+    v26 = *(*v3 + 24);
+    if ((*(*v3 + 32) - v26) <= 0)
+    {
+      result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v3, 1);
+      v24 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+      v26 = v25[3];
+    }
+
+    v25[3] = (v26 + 1);
+    *v26 = v24;
+    ++*(v3 + 2);
+    goto LABEL_24;
+  }
+
+  v13 = (a2 >> 12) | 0xFFFFFFE0;
+  if (v12 <= 0)
+  {
+    result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*result, 1);
+    v11 = v10[3];
+  }
+
+  v10[3] = (v11 + 1);
+  *v11 = v13;
+  v6 = v3 + 8;
+  ++*(v3 + 2);
+  v14 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+  v15 = *v3;
+  v16 = *(*v3 + 24);
+  if ((*(*v3 + 32) - v16) <= 0)
+  {
+    result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(*v3, 1);
+    v14 = (a2 >> 6) & 0x3F | 0xFFFFFF80;
+    v16 = v15[3];
+  }
+
+  v15[3] = (v16 + 1);
+  *v16 = v14;
+  ++*(v3 + 2);
+  v17 = a2 & 0x3F | 0x80;
+  v18 = *v3;
+  v19 = v18[3];
+  if (v18[4] - v19 <= 0)
+  {
+    result = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(v18, 1);
+    v17 = a2 & 0x3F | 0x80;
+    v19 = v18[3];
+  }
+
+  v18[3] = (v19 + 1);
+  *v19 = v17;
+LABEL_27:
+  ++*v6;
+  return result;
+}
+
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<char>(uint64_t *a1, uint64_t a2)
+{
+  v2 = a1[2];
+  if (v2)
+  {
+    v3 = a1[4] - v2 + ((a1[4] - v2 + 1) >> 1);
+  }
+
+  else
+  {
+    if (!*a1)
+    {
+      operator new();
+    }
+
+    v2 = 0;
+    v3 = a1[5];
+  }
+
+  v4 = a2 - v2 + a1[3];
+  if (v3 <= v4)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = v3;
+  }
+
+  return rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(a1, v5);
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::StartObject(uint64_t *a1)
+{
+  v2 = a1[8];
+  if (a1[9] - v2 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v2 = a1[8];
+  }
+
+  a1[8] = v2 + 24;
+  *(v2 + 8) = 0;
+  *(v2 + 16) = 0;
+  *v2 = 0;
+  *(v2 + 22) = 3;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndObject(uint64_t a1, unsigned int a2)
+{
+  v3 = (*(a1 + 64) - 48 * a2);
+  *(a1 + 64) = v3;
+  v4 = *(a1 + 24);
+  *(v3 - 1) = 3;
+  if (a2)
+  {
+    v5 = 48 * a2;
+    v6 = rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(v4, v5);
+    *(v3 - 2) = v6;
+    memcpy(v6, v3, v5);
+  }
+
+  else
+  {
+    *(v3 - 2) = 0;
+  }
+
+  *(v3 - 6) = a2;
+  *(v3 - 5) = a2;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::StartArray(uint64_t *a1)
+{
+  v2 = a1[8];
+  if (a1[9] - v2 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v2 = a1[8];
+  }
+
+  a1[8] = v2 + 24;
+  *(v2 + 8) = 0;
+  *(v2 + 16) = 0;
+  *v2 = 0;
+  *(v2 + 22) = 4;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndArray(uint64_t a1, unsigned int a2)
+{
+  v3 = (*(a1 + 64) - 24 * a2);
+  *(a1 + 64) = v3;
+  v4 = *(a1 + 24);
+  *(v3 - 1) = 4;
+  if (a2)
+  {
+    v5 = 24 * a2;
+    v6 = rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>::Malloc(v4, v5);
+    *(v3 - 2) = v6;
+    memcpy(v6, v3, v5);
+  }
+
+  else
+  {
+    *(v3 - 2) = 0;
+  }
+
+  *(v3 - 6) = a2;
+  *(v3 - 5) = a2;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Double(uint64_t *a1, double a2)
+{
+  v4 = a1[8];
+  if (a1[9] - v4 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v4 = a1[8];
+  }
+
+  a1[8] = v4 + 24;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 0;
+  *v4 = a2;
+  *(v4 + 22) = 534;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int64(uint64_t *a1, unint64_t a2)
+{
+  v4 = a1[8];
+  if (a1[9] - v4 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v4 = a1[8];
+  }
+
+  a1[8] = v4 + 24;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 0;
+  *v4 = a2;
+  *(v4 + 22) = 150;
+  if ((a2 & 0x8000000000000000) == 0)
+  {
+    if (HIDWORD(a2))
+    {
+      v5 = 406;
+    }
+
+    else
+    {
+      v5 = 470;
+    }
+
+    if (!(a2 >> 31))
+    {
+      v5 = 502;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (a2 >= 0xFFFFFFFF80000000)
+  {
+    v5 = 182;
+LABEL_12:
+    *(v4 + 22) = v5;
+  }
+
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Uint64(uint64_t *a1, unint64_t a2)
+{
+  v4 = a1[8];
+  if (a1[9] - v4 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v4 = a1[8];
+  }
+
+  a1[8] = v4 + 24;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 0;
+  *v4 = a2;
+  if ((a2 & 0x8000000000000000) != 0)
+  {
+    v5 = 278;
+  }
+
+  else
+  {
+    v5 = 406;
+  }
+
+  if (a2 >> 31)
+  {
+    v6 = 470;
+  }
+
+  else
+  {
+    v6 = 502;
+  }
+
+  if (!HIDWORD(a2))
+  {
+    v5 = v6;
+  }
+
+  *(v4 + 22) = v5;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int(uint64_t *a1, int a2)
+{
+  v4 = a1[8];
+  if (a1[9] - v4 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v4 = a1[8];
+  }
+
+  a1[8] = v4 + 24;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 0;
+  *v4 = a2;
+  if (a2 < 0)
+  {
+    v5 = 182;
+  }
+
+  else
+  {
+    v5 = 502;
+  }
+
+  *(v4 + 22) = v5;
+  return 1;
+}
+
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Uint(uint64_t *a1, unsigned int a2)
+{
+  v4 = a1[8];
+  if (a1[9] - v4 <= 23)
+  {
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a1 + 5, 1);
+    v4 = a1[8];
+  }
+
+  a1[8] = v4 + 24;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 0;
+  *v4 = a2;
+  if ((a2 & 0x80000000) != 0)
+  {
+    v5 = 470;
+  }
+
+  else
+  {
+    v5 = 502;
+  }
+
+  *(v4 + 22) = v5;
+  return 1;
+}
+
+void rapidjson::internal::Stack<rapidjson::CrtAllocator>::ShrinkToFit(void *a1)
+{
+  v3 = a1[2];
+  v4 = a1[3];
+  v5 = a1 + 2;
+  if (v4 == v3)
+  {
+    free(v3);
+    *v5 = 0;
+    v5[1] = 0;
+    v5[2] = 0;
+  }
+
+  else
+  {
+
+    rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(a1, v4 - v3);
+  }
+}
+
+uint64_t rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Bool(uint64_t **a1, int a2)
+{
+  rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
+  if (!a2)
+  {
+    std::ostream::put();
+  }
+
+  std::ostream::put();
+  std::ostream::put();
+  std::ostream::put();
+  result = std::ostream::put();
+  if (a1[4] == a1[3])
+  {
+
+    return std::ostream::flush();
+  }
+
+  return result;
+}
+
+uint64_t rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::String(uint64_t **a1, uint64_t a2, unsigned int a3)
+{
+  rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
+  std::ostream::put();
+  if (a3)
+  {
+    v6 = 0;
+    v7 = a3;
+    do
+    {
+      v8 = rapidjson::Writer<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(char const*,unsigned int)::escape[*(a2 + v6)];
+      if (rapidjson::Writer<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(char const*,unsigned int)::escape[*(a2 + v6)])
+      {
+        std::ostream::put();
+        std::ostream::put();
+        if (v8 != 117)
+        {
+          goto LABEL_5;
+        }
+
+        std::ostream::put();
+        std::ostream::put();
+        std::ostream::put();
+      }
+
+      std::ostream::put();
+LABEL_5:
+      ++v6;
+    }
+
+    while (v6 < v7);
+  }
+
+  result = std::ostream::put();
+  if (a1[4] == a1[3])
+  {
+
+    return std::ostream::flush();
+  }
+
+  return result;
+}
+
+char *rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint(uint64_t **a1, rapidjson::internal *a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
+  result = rapidjson::internal::u32toa(a2, v8, v4);
+  if (v8 != result)
+  {
+    v6 = result;
+    v7 = v8;
+    do
+    {
+      ++v7;
+      result = std::ostream::put();
+    }
+
+    while (v7 != v6);
+  }
+
+  if (a1[4] == a1[3])
+  {
+
+    return std::ostream::flush();
+  }
+
+  return result;
+}
+
+char *rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Int64(uint64_t **a1, int64_t a2)
+{
+  *&v10[20] = *MEMORY[0x1E69E9840];
+  rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
+  if (a2 < 0)
+  {
+    v5 = v10;
+    v9 = 45;
+    a2 = -a2;
+  }
+
+  else
+  {
+    v5 = &v9;
+  }
+
+  result = rapidjson::internal::u64toa(a2, v5, v4);
+  if (&v9 != result)
+  {
+    v7 = result;
+    v8 = &v9;
+    do
+    {
+      ++v8;
+      result = std::ostream::put();
+    }
+
+    while (v8 != v7);
+  }
+
+  if (a1[4] == a1[3])
+  {
+
+    return std::ostream::flush();
+  }
+
+  return result;
+}
+
+char *rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Uint64(uint64_t **a1, unint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a1);
+  result = rapidjson::internal::u64toa(a2, v8, v4);
+  if (v8 != result)
+  {
+    v6 = result;
+    v7 = v8;
+    do
+    {
+      ++v7;
+      result = std::ostream::put();
+    }
+
+    while (v7 != v6);
+  }
+
+  if (a1[4] == a1[3])
+  {
+
+    return std::ostream::flush();
+  }
+
+  return result;
+}
+
+uint64_t **rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(uint64_t **result)
+{
+  v1 = result;
+  v2 = result[4];
+  if (v2 == result[3])
+  {
+    *(result + 60) = 1;
+    return result;
+  }
+
+  v3 = *(v2 - 2);
+  if (*(v2 - 8) == 1)
+  {
+    if (v3)
+    {
+      result = std::ostream::put();
+      if (*(v1 + 68))
+      {
+        result = std::ostream::put();
+      }
+    }
+
+    if (*(v1 + 68))
+    {
+      goto LABEL_13;
+    }
+
+    std::ostream::put();
+  }
+
+  else
+  {
+    if (v3)
+    {
+      std::ostream::put();
+    }
+
+    result = std::ostream::put();
+    if (*(v2 - 2))
+    {
+      goto LABEL_13;
+    }
+  }
+
+  result = rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(v1);
+LABEL_13:
+  ++*(v2 - 2);
+  return result;
+}
+
+uint64_t rapidjson::PrettyWriter<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteIndent(uint64_t result)
+{
+  for (i = ((*(result + 32) - *(result + 24)) >> 4) * *(result + 64); i; --i)
+  {
+    result = std::ostream::put();
+  }
+
+  return result;
+}
+
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::Writer<rapidjson::BasicOStreamWrapper<std::ostream>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::Level>(uint64_t *a1)
+{
+  v1 = a1[2];
+  if (v1)
+  {
+    v2 = a1[4] - v1 + ((a1[4] - v1 + 1) >> 1);
+  }
+
+  else
+  {
+    if (!*a1)
+    {
+      operator new();
+    }
+
+    v1 = 0;
+    v2 = a1[5];
+  }
+
+  v3 = a1[3] - v1 + 16;
+  if (v2 <= v3)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v2;
+  }
+
+  return rapidjson::internal::Stack<rapidjson::CrtAllocator>::Resize(a1, v4);
+}
+
+double re::HashTable<MTL::FunctionType,re::DynamicArray<re::DynamicString>,re::Hash<MTL::FunctionType>,re::EqualTo<MTL::FunctionType>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::DynamicArray<re::DynamicString>::deinit(v6 + v4 + 16);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 64;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<MTL::FunctionType,re::DynamicArray<re::DynamicString>,re::Hash<MTL::FunctionType>,re::EqualTo<MTL::FunctionType>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v5 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v29, 0, 36);
+          *&v29[36] = 0x7FFFFFFFLL;
+          re::HashTable<unsigned long long,re::Function<void ()(void)>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(v29, v9, v8);
+          v11 = *v29;
+          *v29 = *a1;
+          *a1 = v11;
+          v12 = *&v29[16];
+          v13 = *(a1 + 16);
+          *&v29[16] = v13;
+          *(a1 + 16) = v12;
+          v15 = *&v29[24];
+          *&v29[24] = *(a1 + 24);
+          v14 = *&v29[32];
+          *(a1 + 24) = v15;
+          ++*&v29[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = v13 + 32;
+            do
+            {
+              if ((*(v17 - 32) & 0x80000000) != 0)
+              {
+                v18 = re::HashTable<MTL::FunctionType,re::DynamicArray<re::DynamicString>,re::Hash<MTL::FunctionType>,re::EqualTo<MTL::FunctionType>,true,false>::allocEntry(a1, *(v17 + 24) % *(a1 + 24), *(v17 + 24));
+                v19 = *(v17 - 24);
+                *(v18 + 48) = 0;
+                *(v18 + 40) = 0;
+                *(v18 + 24) = 0;
+                *(v18 + 32) = 0;
+                *(v18 + 8) = v19;
+                *(v18 + 16) = 0;
+                v20 = *(v17 - 8);
+                *(v18 + 16) = *(v17 - 16);
+                *(v18 + 24) = v20;
+                *(v17 - 16) = 0;
+                *(v17 - 8) = 0;
+                v21 = *(v18 + 32);
+                *(v18 + 32) = *v17;
+                *v17 = v21;
+                v22 = *(v18 + 48);
+                *(v18 + 48) = *(v17 + 16);
+                *(v17 + 16) = v22;
+                ++*(v17 + 8);
+                ++*(v18 + 40);
+              }
+
+              v17 += 64;
+              --v16;
+            }
+
+            while (v16);
+          }
+
+          re::HashTable<MTL::FunctionType,re::DynamicArray<re::DynamicString>,re::Hash<MTL::FunctionType>,re::EqualTo<MTL::FunctionType>,true,false>::deinit(v29);
+        }
+      }
+
+      else
+      {
+        if (v8)
+        {
+          v25 = 2 * v7;
+        }
+
+        else
+        {
+          v25 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v23 = *(a1 + 16);
+    v24 = *(v23 + (v5 << 6));
+  }
+
+  else
+  {
+    v23 = *(a1 + 16);
+    v24 = *(v23 + (v5 << 6));
+    *(a1 + 36) = v24 & 0x7FFFFFFF;
+  }
+
+  v26 = v23 + (v5 << 6);
+  *v26 = v24 | 0x80000000;
+  v27 = *(a1 + 8);
+  *v26 = *(v27 + 4 * a2) | 0x80000000;
+  *(v26 + 56) = a3;
+  *(v27 + 4 * a2) = v5;
+  ++*(a1 + 28);
+  return v23 + (v5 << 6);
+}
+
+unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,false>(unint64_t result, re::DynamicString *a2, uint64_t a3, char a4)
+{
+  v7 = result;
+LABEL_2:
+  v8 = v7;
+  v9 = v7 - 32;
+  while (1)
+  {
+    v10 = (a2 - v8) >> 5;
+    v11 = v10 - 2;
+    if (v10 > 2)
+    {
+      break;
+    }
+
+    if (v10 < 2)
+    {
+      return result;
+    }
+
+    if (v10 == 2)
+    {
+      v53 = (a2 - 32);
+      result = re::DynamicString::operator<(v53, v8);
+      if (result)
+      {
+        v52 = v8;
+        v51 = v53;
+        return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v52, v51);
+      }
+
+      return result;
+    }
+
+LABEL_10:
+    if (v10 <= 23)
+    {
+      v54 = (v8 + 32);
+      v56 = v8 == a2 || v54 == a2;
+      if (a4)
+      {
+        if (!v56)
+        {
+          v57 = 0;
+          v58 = v8;
+          do
+          {
+            v59 = v58;
+            v58 = v54;
+            result = re::DynamicString::operator<(v54, v59);
+            if (result)
+            {
+              v99 = *v58;
+              *v58 = 0;
+              v60 = v58[3];
+              v101 = v58[2];
+              v58[2] = 0;
+              v102 = v60;
+              v58[3] = 0;
+              v100 = v58[1];
+              v58[1] = 0;
+              v61 = v57;
+              while (1)
+              {
+                v62 = v8 + v61;
+                re::DynamicString::operator=((v8 + v61 + 32), (v8 + v61));
+                if (!v61)
+                {
+                  break;
+                }
+
+                if (v100)
+                {
+                  v63 = v101;
+                }
+
+                else
+                {
+                  v63 = &v100 + 1;
+                }
+
+                if (*(v62 - 3))
+                {
+                  v64 = *(v62 - 2);
+                }
+
+                else
+                {
+                  v64 = v62 - 23;
+                }
+
+                v61 -= 32;
+                if ((strcmp(v63, v64) & 0x80000000) == 0)
+                {
+                  v65 = (v8 + v61 + 32);
+                  goto LABEL_116;
+                }
+              }
+
+              v65 = v8;
+LABEL_116:
+              re::DynamicString::operator=(v65, &v99);
+              result = v99;
+              if (v99 && (v100 & 1) != 0)
+              {
+                result = (*(*v99 + 40))();
+              }
+            }
+
+            v54 = (v58 + 4);
+            v57 += 32;
+          }
+
+          while (v58 + 4 != a2);
+        }
+      }
+
+      else if (!v56)
+      {
+        do
+        {
+          v90 = v54;
+          result = re::DynamicString::operator<(v54, v8);
+          if (result)
+          {
+            v99 = *v90;
+            *v90 = 0;
+            v91 = v90[3];
+            v101 = v90[2];
+            v90[2] = 0;
+            v102 = v91;
+            v90[3] = 0;
+            v100 = v90[1];
+            v90[1] = 0;
+            do
+            {
+              re::DynamicString::operator=((v8 + 32), v8);
+              v92 = (v8 - 32);
+              if (v100)
+              {
+                v93 = v101;
+              }
+
+              else
+              {
+                v93 = &v100 + 1;
+              }
+
+              if (*(v8 - 3))
+              {
+                v94 = *(v8 - 2);
+              }
+
+              else
+              {
+                v94 = v8 - 23;
+              }
+
+              v8 = (v8 - 32);
+            }
+
+            while (strcmp(v93, v94) < 0);
+            re::DynamicString::operator=((v92 + 4), &v99);
+            result = v99;
+            if (v99)
+            {
+              if (v100)
+              {
+                result = (*(*v99 + 40))();
+              }
+            }
+          }
+
+          v54 = (v90 + 4);
+          v8 = v90;
+        }
+
+        while (v90 + 4 != a2);
+      }
+
+      return result;
+    }
+
+    if (!a3)
+    {
+      if (v8 != a2)
+      {
+        v66 = v11 >> 1;
+        v67 = v11 >> 1;
+        do
+        {
+          v68 = v67;
+          if (v66 >= v67)
+          {
+            v69 = (2 * v67) | 1;
+            v70 = (v8 + 32 * v69);
+            if (2 * v67 + 2 < v10 && re::DynamicString::operator<(v8 + 32 * v69, v70 + 32))
+            {
+              v70 = (v70 + 32);
+              v69 = 2 * v68 + 2;
+            }
+
+            v71 = (v8 + 32 * v68);
+            if ((re::DynamicString::operator<(v70, v71) & 1) == 0)
+            {
+              v99 = *v71;
+              *v71 = 0;
+              v101 = v71[2];
+              v71[2] = 0;
+              v102 = v71[3];
+              v71[3] = 0;
+              v100 = v71[1];
+              v71[1] = 0;
+              do
+              {
+                v72 = v70;
+                re::DynamicString::operator=(v71, v70);
+                if (v66 < v69)
+                {
+                  break;
+                }
+
+                v73 = (2 * v69) | 1;
+                v70 = (v8 + 32 * v73);
+                v74 = 2 * v69 + 2;
+                if (v74 < v10 && re::DynamicString::operator<(v8 + 32 * v73, v70 + 32))
+                {
+                  v70 = (v70 + 32);
+                  v73 = v74;
+                }
+
+                v71 = v72;
+                v69 = v73;
+              }
+
+              while (!re::DynamicString::operator<(v70, &v99));
+              re::DynamicString::operator=(v72, &v99);
+              if (v99 && (v100 & 1) != 0)
+              {
+                (*(*v99 + 40))();
+              }
+            }
+          }
+
+          v67 = v68 - 1;
+        }
+
+        while (v68);
+        do
+        {
+          v75 = 0;
+          v95 = *v8;
+          *v8 = 0;
+          v76 = *(v8 + 3);
+          v97 = *(v8 + 2);
+          *(v8 + 2) = 0;
+          v98 = v76;
+          *(v8 + 3) = 0;
+          v96 = *(v8 + 1);
+          *(v8 + 1) = 0;
+          v77 = v8;
+          do
+          {
+            v78 = v77 + 32 * v75;
+            v79 = (v78 + 32);
+            v80 = (2 * v75) | 1;
+            v81 = 2 * v75 + 2;
+            if (v81 < v10)
+            {
+              v82 = (v78 + 64);
+              if (re::DynamicString::operator<((v78 + 32), (v78 + 64)))
+              {
+                v79 = v82;
+                v80 = v81;
+              }
+            }
+
+            re::DynamicString::operator=(v77, v79);
+            v77 = v79;
+            v75 = v80;
+          }
+
+          while (v80 <= ((v10 - 2) >> 1));
+          a2 = (a2 - 32);
+          if (v79 == a2)
+          {
+            re::DynamicString::operator=(v79, &v95);
+          }
+
+          else
+          {
+            re::DynamicString::operator=(v79, a2);
+            re::DynamicString::operator=(a2, &v95);
+            v83 = (v79 - v8 + 32) >> 5;
+            v84 = v83 < 2;
+            v85 = v83 - 2;
+            if (!v84)
+            {
+              v86 = v85 >> 1;
+              v87 = (v8 + 32 * (v85 >> 1));
+              if (re::DynamicString::operator<(v87, v79))
+              {
+                v99 = *v79;
+                *v79 = 0;
+                v88 = *(v79 + 3);
+                v101 = *(v79 + 2);
+                *(v79 + 2) = 0;
+                v102 = v88;
+                *(v79 + 3) = 0;
+                v100 = *(v79 + 1);
+                *(v79 + 1) = 0;
+                do
+                {
+                  v89 = v87;
+                  re::DynamicString::operator=(v79, v87);
+                  if (!v86)
+                  {
+                    break;
+                  }
+
+                  v86 = (v86 - 1) >> 1;
+                  v87 = (v8 + 32 * v86);
+                  v79 = v89;
+                }
+
+                while ((re::DynamicString::operator<(v87, &v99) & 1) != 0);
+                re::DynamicString::operator=(v89, &v99);
+                if (v99)
+                {
+                  if (v100)
+                  {
+                    (*(*v99 + 40))();
+                  }
+                }
+              }
+            }
+          }
+
+          result = v95;
+          if (v95 && (v96 & 1) != 0)
+          {
+            result = (*(*v95 + 40))();
+          }
+
+          v84 = v10-- <= 2;
+        }
+
+        while (!v84);
+      }
+
+      return result;
+    }
+
+    v12 = (v8 + 32 * (v10 >> 1));
+    v13 = (a2 - 32);
+    if (v10 < 0x81)
+    {
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>((v8 + 32 * (v10 >> 1)), v8, v13);
+    }
+
+    else
+    {
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(v8, (v8 + 32 * (v10 >> 1)), v13);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>((v8 + 32), (v12 - 4), (a2 - 64));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>((v8 + 64), (v12 + 4), (a2 - 96));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>((v12 - 4), (v8 + 32 * (v10 >> 1)), (v12 + 4));
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v8, (v8 + 32 * (v10 >> 1)));
+    }
+
+    --a3;
+    if ((a4 & 1) == 0 && (re::DynamicString::operator<(v9, v8) & 1) == 0)
+    {
+      v99 = *v8;
+      *v8 = 0;
+      v22 = *(v8 + 2);
+      v23 = *(v8 + 3);
+      v101 = v22;
+      *(v8 + 2) = 0;
+      v102 = v23;
+      *(v8 + 3) = 0;
+      v100 = *(v8 + 1);
+      LOBYTE(v23) = v100;
+      *(v8 + 1) = 0;
+      if (v23)
+      {
+        v24 = v22;
+      }
+
+      else
+      {
+        v24 = &v100 + 1;
+      }
+
+      if (*(a2 - 3))
+      {
+        v25 = *(a2 - 2);
+      }
+
+      else
+      {
+        v25 = a2 - 23;
+      }
+
+      if (strcmp(v24, v25) < 0)
+      {
+        v26 = v8;
+        do
+        {
+          v7 = v26 + 32;
+          v27 = *(v26 + 5);
+          v28 = *(v26 + 6);
+          v29 = v26 + 41;
+          if (v27)
+          {
+            v30 = v28;
+          }
+
+          else
+          {
+            v30 = v29;
+          }
+
+          v31 = strcmp(v24, v30);
+          v26 = v7;
+        }
+
+        while ((v31 & 0x80000000) == 0);
+      }
+
+      else
+      {
+        v32 = v8 + 32;
+        do
+        {
+          v7 = v32;
+          if (v32 >= a2)
+          {
+            break;
+          }
+
+          v33 = (*(v32 + 8) & 1) != 0 ? *(v32 + 16) : (v32 + 9);
+          v34 = strcmp(v24, v33);
+          v32 = v7 + 32;
+        }
+
+        while ((v34 & 0x80000000) == 0);
+      }
+
+      v35 = a2;
+      if (v7 < a2)
+      {
+        v36 = a2;
+        do
+        {
+          v35 = (v36 - 32);
+          v37 = *(v36 - 3);
+          v38 = *(v36 - 2);
+          v39 = v36 - 23;
+          if (v37)
+          {
+            v40 = v38;
+          }
+
+          else
+          {
+            v40 = v39;
+          }
+
+          v41 = strcmp(v24, v40);
+          v36 = v35;
+        }
+
+        while (v41 < 0);
+      }
+
+      while (v7 < v35)
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v7, v35);
+        do
+        {
+          v42 = *(v7 + 40);
+          v43 = *(v7 + 48);
+          v44 = (v7 + 41);
+          v7 += 32;
+          if (v42)
+          {
+            v45 = v43;
+          }
+
+          else
+          {
+            v45 = v44;
+          }
+        }
+
+        while ((strcmp(v24, v45) & 0x80000000) == 0);
+        do
+        {
+          v46 = *(v35 - 3);
+          v47 = *(v35 - 2);
+          v48 = v35 - 23;
+          v35 = (v35 - 32);
+          if (v46)
+          {
+            v49 = v47;
+          }
+
+          else
+          {
+            v49 = v48;
+          }
+        }
+
+        while (strcmp(v24, v49) < 0);
+      }
+
+      if ((v7 - 32) != v8)
+      {
+        re::DynamicString::operator=(v8, (v7 - 32));
+      }
+
+      re::DynamicString::operator=((v7 - 32), &v99);
+      result = v99;
+      if (v99 && (v100 & 1) != 0)
+      {
+        result = (*(*v99 + 40))();
+      }
+
+      a4 = 0;
+      goto LABEL_2;
+    }
+
+    v14 = 0;
+    v99 = *v8;
+    *v8 = 0;
+    v15 = *(v8 + 3);
+    v101 = *(v8 + 2);
+    *(v8 + 2) = 0;
+    v102 = v15;
+    *(v8 + 3) = 0;
+    v100 = *(v8 + 1);
+    *(v8 + 1) = 0;
+    do
+    {
+      v14 += 32;
+    }
+
+    while ((re::DynamicString::operator<(v8 + v14, &v99) & 1) != 0);
+    v16 = (v8 + v14);
+    v17 = a2;
+    if (v14 == 32)
+    {
+      v17 = a2;
+      do
+      {
+        if (v16 >= v17)
+        {
+          break;
+        }
+
+        v17 = (v17 - 32);
+      }
+
+      while ((re::DynamicString::operator<(v17, &v99) & 1) == 0);
+    }
+
+    else
+    {
+      do
+      {
+        v17 = (v17 - 32);
+      }
+
+      while (!re::DynamicString::operator<(v17, &v99));
+    }
+
+    if (v16 >= v17)
+    {
+      v20 = (v16 - 32);
+    }
+
+    else
+    {
+      v18 = v8 + v14;
+      v19 = v17;
+      do
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v18, v19);
+        do
+        {
+          v18 += 32;
+        }
+
+        while ((re::DynamicString::operator<(v18, &v99) & 1) != 0);
+        do
+        {
+          v19 = (v19 - 32);
+        }
+
+        while (!re::DynamicString::operator<(v19, &v99));
+      }
+
+      while (v18 < v19);
+      v20 = (v18 - 32);
+    }
+
+    if (v20 != v8)
+    {
+      re::DynamicString::operator=(v8, v20);
+    }
+
+    re::DynamicString::operator=(v20, &v99);
+    if (v99 && (v100 & 1) != 0)
+    {
+      (*(*v99 + 40))();
+    }
+
+    if (v16 < v17)
+    {
+      goto LABEL_43;
+    }
+
+    v21 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *>(v8, v20);
+    v7 = v20 + 32;
+    result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *>(v20 + 32, a2);
+    if (!result)
+    {
+      if (v21)
+      {
+        goto LABEL_2;
+      }
+
+LABEL_43:
+      result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,false>(v8, v20, a3, a4 & 1);
+      a4 = 0;
+      v7 = v20 + 32;
+      goto LABEL_2;
+    }
+
+    a2 = v20;
+    if (v21)
+    {
+      return result;
+    }
+  }
+
+  if (v10 == 3)
+  {
+    return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(v8, (v8 + 32), (a2 - 32));
+  }
+
+  if (v10 != 4)
+  {
+    if (v10 == 5)
+    {
+      return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(v8, (v8 + 32), (v8 + 64), (v8 + 96), (a2 - 32));
+    }
+
+    goto LABEL_10;
+  }
+
+  v50 = (a2 - 32);
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(v8, (v8 + 32), (v8 + 64));
+  result = re::DynamicString::operator<(v50, v8 + 64);
+  if (result)
+  {
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v8 + 64, v50);
+    result = re::DynamicString::operator<(v8 + 64, v8 + 32);
+    if (result)
+    {
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v8 + 32, (v8 + 64));
+      result = re::DynamicString::operator<(v8 + 32, v8);
+      if (result)
+      {
+        v51 = (v8 + 32);
+        v52 = v8;
+        return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v52, v51);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(uint64_t a1, re::DynamicString *a2)
+{
+  v4 = *a1;
+  v6 = *(a1 + 24);
+  v5 = *(a1 + 8);
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  re::DynamicString::operator=(a1, a2);
+  re::DynamicString::operator=(a2, &v4);
+  result = v4;
+  if (v4)
+  {
+    if (v5)
+    {
+      return (*(*v4 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(re::DynamicString *a1, re::DynamicString *a2, re::DynamicString *a3)
+{
+  v6 = re::DynamicString::operator<(a2, a1);
+  result = re::DynamicString::operator<(a3, a2);
+  if (v6)
+  {
+    if (result)
+    {
+      v8 = a1;
+    }
+
+    else
+    {
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a1, a2);
+      result = re::DynamicString::operator<(a3, a2);
+      if (!result)
+      {
+        return result;
+      }
+
+      v8 = a2;
+    }
+
+    v9 = a3;
+  }
+
+  else
+  {
+    if (!result)
+    {
+      return result;
+    }
+
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a2, a3);
+    result = re::DynamicString::operator<(a2, a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    v8 = a1;
+    v9 = a2;
+  }
+
+  return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v8, v9);
+}
+
+uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(re::DynamicString *a1, re::DynamicString *a2, re::DynamicString *a3, re::DynamicString *a4, re::DynamicString *a5)
+{
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(a1, a2, a3);
+  if (re::DynamicString::operator<(a4, a3))
+  {
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a3, a4);
+    if (re::DynamicString::operator<(a3, a2))
+    {
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a2, a3);
+      if (re::DynamicString::operator<(a2, a1))
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a1, a2);
+      }
+    }
+  }
+
+  result = re::DynamicString::operator<(a5, a4);
+  if (result)
+  {
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a4, a5);
+    result = re::DynamicString::operator<(a4, a3);
+    if (result)
+    {
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a3, a4);
+      result = re::DynamicString::operator<(a3, a2);
+      if (result)
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a2, a3);
+        result = re::DynamicString::operator<(a2, a1);
+        if (result)
+        {
+
+          return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a1, a2);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *>(uint64_t a1, uint64_t a2)
+{
+  v4 = (a2 - a1) >> 5;
+  if (v4 > 2)
+  {
+    switch(v4)
+    {
+      case 3:
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(a1, (a1 + 32), (a2 - 32));
+        return 1;
+      case 4:
+        v17 = (a2 - 32);
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(a1, (a1 + 32), (a1 + 64));
+        if (!re::DynamicString::operator<(v17, a1 + 64))
+        {
+          return 1;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a1 + 64, v17);
+        if (!re::DynamicString::operator<(a1 + 64, a1 + 32))
+        {
+          return 1;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(a1 + 32, (a1 + 64));
+        if (!re::DynamicString::operator<(a1 + 32, a1))
+        {
+          return 1;
+        }
+
+        v7 = (a1 + 32);
+        v6 = a1;
+        goto LABEL_6;
+      case 5:
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), (a2 - 32));
+        return 1;
+    }
+  }
+
+  else
+  {
+    if (v4 < 2)
+    {
+      return 1;
+    }
+
+    if (v4 == 2)
+    {
+      v5 = (a2 - 32);
+      if (re::DynamicString::operator<(a2 - 32, a1))
+      {
+        v6 = a1;
+        v7 = v5;
+LABEL_6:
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v6, v7);
+      }
+
+      return 1;
+    }
+  }
+
+  v8 = a1 + 64;
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,re::DynamicString *,0>(a1, (a1 + 32), (a1 + 64));
+  v9 = a1 + 96;
+  if (a1 + 96 == a2)
+  {
+    return 1;
+  }
+
+  v10 = 0;
+  v11 = 0;
+  while (!re::DynamicString::operator<(v9, v8))
+  {
+LABEL_30:
+    v8 = v9;
+    v10 += 32;
+    v9 += 32;
+    if (v9 == a2)
+    {
+      return 1;
+    }
+  }
+
+  v20 = *v9;
+  v22 = *(v9 + 24);
+  v21 = *(v9 + 8);
+  *(v9 + 16) = 0;
+  *(v9 + 24) = 0;
+  *v9 = 0;
+  *(v9 + 8) = 0;
+  v12 = v10;
+  while (1)
+  {
+    v13 = a1 + v12;
+    re::DynamicString::operator=((a1 + v12 + 96), (a1 + v12 + 64));
+    if (v12 == -64)
+    {
+      break;
+    }
+
+    if (v21)
+    {
+      v14 = *(&v21 + 1);
+    }
+
+    else
+    {
+      v14 = &v21 + 1;
+    }
+
+    if (*(v13 + 40))
+    {
+      v15 = *(v13 + 48);
+    }
+
+    else
+    {
+      v15 = (v13 + 41);
+    }
+
+    v12 -= 32;
+    if ((strcmp(v14, v15) & 0x80000000) == 0)
+    {
+      v16 = (a1 + v12 + 96);
+      goto LABEL_26;
+    }
+  }
+
+  v16 = a1;
+LABEL_26:
+  re::DynamicString::operator=(v16, &v20);
+  if (++v11 != 8)
+  {
+    if (v20 && (v21 & 1) != 0)
+    {
+      (*(*v20 + 40))();
+    }
+
+    goto LABEL_30;
+  }
+
+  v18 = v9 + 32 == a2;
+  if (v20 && (v21 & 1) != 0)
+  {
+    (*(*v20 + 40))();
+  }
+
+  return v18;
+}
+
+uint64_t std::__introsort<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,false>(uint64_t result, unsigned __int16 *a2, uint64_t a3, char a4)
+{
+  v7 = result;
+  v205 = *MEMORY[0x1E69E9840];
+LABEL_2:
+  v189 = a2 - 139;
+  v190 = a2 - 52;
+  v8 = v7;
+  while (1)
+  {
+    v7 = v8;
+    v9 = a2 - v8;
+    v10 = 0x4EC4EC4EC4EC4EC5 * ((a2 - v8) >> 3);
+    v11 = v10 - 2;
+    if (v10 <= 2)
+    {
+      if (v10 < 2)
+      {
+        return result;
+      }
+
+      if (v10 == 2)
+      {
+        if (*(a2 - 35) >= *(v7 + 34))
+        {
+          return result;
+        }
+
+LABEL_119:
+        v83 = v7;
+LABEL_120:
+        v84 = a2 - 52;
+        return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v83, v84);
+      }
+
+      goto LABEL_10;
+    }
+
+    if (v10 == 3)
+    {
+      break;
+    }
+
+    if (v10 == 4)
+    {
+      return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v7 + 104, v7 + 208, v190);
+    }
+
+    if (v10 == 5)
+    {
+      result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,0>(v7, v7 + 104, v7 + 208, v7 + 312);
+      if (*(a2 - 35) >= *(v7 + 346))
+      {
+        return result;
+      }
+
+      result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7 + 312, v190);
+      if (*(v7 + 346) >= *(v7 + 242))
+      {
+        return result;
+      }
+
+      result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7 + 208, v7 + 312);
+      if (*(v7 + 242) >= *(v7 + 138))
+      {
+        return result;
+      }
+
+      v79 = v7 + 104;
+      v80 = (v7 + 208);
+      goto LABEL_187;
+    }
+
+LABEL_10:
+    if (v9 <= 2495)
+    {
+      if (a4)
+      {
+        if (v7 != a2)
+        {
+          v85 = (v7 + 104);
+          if ((v7 + 104) != a2)
+          {
+            v86 = 0;
+            v87 = v7;
+            do
+            {
+              v88 = v85;
+              if (*(v87 + 69) < *(v87 + 17))
+              {
+                v198 = 0u;
+                v199 = 0u;
+                *&v198 = *v85;
+                *v85 = 0;
+                v89 = v199;
+                v90 = v88[3];
+                *&v199 = v88[2];
+                v88[2] = v89;
+                *(&v199 + 1) = v90;
+                v88[3] = 0;
+                *(&v198 + 1) = v88[1];
+                v88[1] = 0;
+                v91 = *(v87 + 19);
+                v92 = *(v87 + 23);
+                v202 = *(v87 + 21);
+                v203 = v92;
+                v204 = *(v87 + 50);
+                v200 = *(v87 + 17);
+                v201 = v91;
+                v93 = v86;
+                while (1)
+                {
+                  v94 = v7 + v93;
+                  re::DynamicString::operator=((v7 + v93 + 104), (v7 + v93));
+                  v95 = *(v7 + v93 + 32);
+                  *(v94 + 152) = *(v94 + 48);
+                  v96 = *(v7 + v93 + 80);
+                  *(v94 + 168) = *(v94 + 64);
+                  *(v94 + 184) = v96;
+                  *(v94 + 200) = *(v94 + 96);
+                  *(v94 + 136) = v95;
+                  if (!v93)
+                  {
+                    break;
+                  }
+
+                  v93 -= 104;
+                  if (WORD1(v200) >= *(v94 - 70))
+                  {
+                    v97 = (v7 + v93 + 104);
+                    goto LABEL_133;
+                  }
+                }
+
+                v97 = v7;
+LABEL_133:
+                re::DynamicString::operator=(v97, &v198);
+                *(v94 + 32) = v200;
+                v98 = v201;
+                v99 = v202;
+                v100 = v203;
+                *(v94 + 96) = v204;
+                *(v94 + 64) = v99;
+                *(v94 + 80) = v100;
+                *(v94 + 48) = v98;
+                result = v198;
+                if (v198 && (BYTE8(v198) & 1) != 0)
+                {
+                  result = (*(*v198 + 40))();
+                }
+              }
+
+              v85 = v88 + 13;
+              v86 += 104;
+              v87 = v88;
+            }
+
+            while (v88 + 13 != a2);
+          }
+        }
+      }
+
+      else if (v7 != a2)
+      {
+        v172 = (v7 + 104);
+        if ((v7 + 104) != a2)
+        {
+          do
+          {
+            v173 = v172;
+            if (*(v7 + 138) < *(v7 + 34))
+            {
+              v198 = 0u;
+              v199 = 0u;
+              *&v198 = *v172;
+              *v172 = 0;
+              v174 = v199;
+              v175 = v173[3];
+              *&v199 = v173[2];
+              v173[2] = v174;
+              *(&v199 + 1) = v175;
+              v173[3] = 0;
+              *(&v198 + 1) = v173[1];
+              v173[1] = 0;
+              v176 = *(v7 + 152);
+              v177 = *(v7 + 184);
+              v202 = *(v7 + 168);
+              v203 = v177;
+              v204 = *(v7 + 200);
+              v200 = *(v7 + 136);
+              v201 = v176;
+              v178 = v173;
+              do
+              {
+                v179 = (v178 - 104);
+                v180 = re::DynamicString::operator=(v178, (v178 - 104));
+                v181 = *(v180 - 72);
+                *(v180 + 24) = *(v180 - 2);
+                v182 = *(v180 - 24);
+                *(v180 + 4) = *(v180 - 40);
+                *(v180 + 5) = v182;
+                v183 = *(v180 - 56);
+                *(v180 + 2) = v181;
+                *(v180 + 3) = v183;
+                v184 = *(v180 - 87);
+                v178 = v179;
+              }
+
+              while (WORD1(v200) < v184);
+              v185 = re::DynamicString::operator=(v179, &v198);
+              *(v185 + 2) = v200;
+              v186 = v201;
+              v187 = v202;
+              v188 = v203;
+              *(v185 + 24) = v204;
+              *(v185 + 4) = v187;
+              *(v185 + 5) = v188;
+              *(v185 + 3) = v186;
+              result = v198;
+              if (v198)
+              {
+                if (BYTE8(v198))
+                {
+                  result = (*(*v198 + 40))();
+                }
+              }
+            }
+
+            v172 = v173 + 13;
+            v7 = v173;
+          }
+
+          while (v173 + 13 != a2);
+        }
+      }
+
+      return result;
+    }
+
+    if (!a3)
+    {
+      if (v7 != a2)
+      {
+        v101 = v11 >> 1;
+        v102 = v11 >> 1;
+        do
+        {
+          v103 = v102;
+          if (v101 >= v102)
+          {
+            v104 = (2 * v102) | 1;
+            v105 = (v7 + 104 * v104);
+            if (2 * v103 + 2 < v10)
+            {
+              v106 = v105[17];
+              v107 = v105[69];
+              v108 = v106 >= v107;
+              v109 = v106 >= v107 ? 0 : 104;
+              v105 = (v105 + v109);
+              if (!v108)
+              {
+                v104 = 2 * v103 + 2;
+              }
+            }
+
+            v110 = v7 + 104 * v103;
+            if (v105[17] >= *(v110 + 34))
+            {
+              v198 = 0u;
+              v199 = 0u;
+              *&v198 = *v110;
+              *v110 = 0;
+              v111 = v199;
+              *&v199 = *(v110 + 16);
+              *(v110 + 16) = v111;
+              *(&v199 + 1) = *(v110 + 24);
+              *(v110 + 24) = 0;
+              v112 = *(&v198 + 1);
+              *(&v198 + 1) = *(v110 + 8);
+              *(v110 + 8) = v112;
+              v113 = *(v110 + 48);
+              v114 = *(v110 + 64);
+              v115 = *(v110 + 80);
+              v204 = *(v110 + 96);
+              v202 = v114;
+              v203 = v115;
+              v201 = v113;
+              v200 = *(v110 + 32);
+              do
+              {
+                v116 = v105;
+                v117 = re::DynamicString::operator=(v110, v105);
+                *(v117 + 2) = *(v116 + 2);
+                v118 = *(v116 + 3);
+                v119 = *(v116 + 4);
+                v120 = *(v116 + 5);
+                *(v117 + 24) = *(v116 + 24);
+                *(v117 + 4) = v119;
+                *(v117 + 5) = v120;
+                *(v117 + 3) = v118;
+                if (v101 < v104)
+                {
+                  break;
+                }
+
+                v121 = (2 * v104) | 1;
+                v105 = (v7 + 104 * v121);
+                if (2 * v104 + 2 < v10)
+                {
+                  v122 = v105[17];
+                  v123 = v105[69];
+                  v124 = v122 >= v123;
+                  v125 = v122 >= v123 ? 0 : 104;
+                  v105 = (v105 + v125);
+                  if (!v124)
+                  {
+                    v121 = 2 * v104 + 2;
+                  }
+                }
+
+                v110 = v116;
+                v104 = v121;
+              }
+
+              while (v105[17] >= WORD1(v200));
+              re::DynamicString::operator=(v116, &v198);
+              *(v116 + 2) = v200;
+              v126 = v201;
+              v127 = v202;
+              v128 = v203;
+              *(v116 + 24) = v204;
+              *(v116 + 4) = v127;
+              *(v116 + 5) = v128;
+              *(v116 + 3) = v126;
+              if (v198 && (BYTE8(v198) & 1) != 0)
+              {
+                (*(*v198 + 40))();
+              }
+            }
+          }
+
+          v102 = v103 - 1;
+        }
+
+        while (v103);
+        v129 = 0x4EC4EC4EC4EC4EC5 * (v9 >> 3);
+        do
+        {
+          v130 = 0;
+          v191 = 0u;
+          v192 = 0u;
+          *&v191 = *v7;
+          *v7 = 0;
+          v131 = v192;
+          v132 = *(v7 + 24);
+          *&v192 = *(v7 + 16);
+          v133 = a2;
+          *(v7 + 16) = v131;
+          *(&v192 + 1) = v132;
+          *(v7 + 24) = 0;
+          *(&v191 + 1) = *(v7 + 8);
+          *(v7 + 8) = 0;
+          v134 = *(v7 + 48);
+          v135 = *(v7 + 64);
+          v136 = *(v7 + 80);
+          v197 = *(v7 + 96);
+          v195 = v135;
+          v196 = v136;
+          v194 = v134;
+          v193 = *(v7 + 32);
+          v137 = v7;
+          do
+          {
+            v138 = v137 + 104 * v130;
+            v139 = (v138 + 104);
+            if (2 * v130 + 2 >= v129)
+            {
+              v130 = (2 * v130) | 1;
+            }
+
+            else
+            {
+              v140 = *(v138 + 69);
+              v141 = *(v138 + 121);
+              v142 = v138 + 208;
+              if (v140 >= v141)
+              {
+                v130 = (2 * v130) | 1;
+              }
+
+              else
+              {
+                v139 = v142;
+                v130 = 2 * v130 + 2;
+              }
+            }
+
+            v143 = re::DynamicString::operator=(v137, v139);
+            *(v143 + 2) = *(v139 + 2);
+            v144 = *(v139 + 3);
+            v145 = *(v139 + 4);
+            v146 = *(v139 + 5);
+            *(v143 + 24) = *(v139 + 24);
+            *(v143 + 4) = v145;
+            *(v143 + 5) = v146;
+            *(v143 + 3) = v144;
+            v137 = v139;
+          }
+
+          while (v130 <= ((v129 - 2) >> 1));
+          a2 -= 52;
+          if (v139 == v133 - 52)
+          {
+            re::DynamicString::operator=(v139, &v191);
+            *(v139 + 2) = v193;
+            v168 = v194;
+            v169 = v195;
+            v170 = v196;
+            *(v139 + 24) = v197;
+            *(v139 + 4) = v169;
+            *(v139 + 5) = v170;
+            *(v139 + 3) = v168;
+          }
+
+          else
+          {
+            re::DynamicString::operator=(v139, (v133 - 52));
+            *(v139 + 2) = *(v133 - 36);
+            v147 = *(v133 - 28);
+            v148 = *(v133 - 20);
+            v149 = *(v133 - 12);
+            *(v139 + 24) = *(v133 - 2);
+            *(v139 + 4) = v148;
+            *(v139 + 5) = v149;
+            *(v139 + 3) = v147;
+            re::DynamicString::operator=((v133 - 52), &v191);
+            *(v133 - 36) = v193;
+            v150 = v194;
+            v151 = v195;
+            v152 = v196;
+            *(v133 - 2) = v197;
+            *(v133 - 12) = v152;
+            *(v133 - 20) = v151;
+            *(v133 - 28) = v150;
+            v153 = v139 - v7 + 104;
+            if (v153 >= 105)
+            {
+              v154 = (0x4EC4EC4EC4EC4EC5 * (v153 >> 3) - 2) >> 1;
+              v155 = (v7 + 104 * v154);
+              if (v155[17] < v139[17])
+              {
+                v198 = 0u;
+                v199 = 0u;
+                *&v198 = *v139;
+                *v139 = 0;
+                v156 = v199;
+                v157 = *(v139 + 3);
+                *&v199 = *(v139 + 2);
+                *(v139 + 2) = v156;
+                *(&v199 + 1) = v157;
+                *(v139 + 3) = 0;
+                *(&v198 + 1) = *(v139 + 1);
+                *(v139 + 1) = 0;
+                v158 = *(v139 + 3);
+                v159 = *(v139 + 4);
+                v160 = *(v139 + 5);
+                v204 = *(v139 + 24);
+                v202 = v159;
+                v203 = v160;
+                v201 = v158;
+                v200 = *(v139 + 2);
+                do
+                {
+                  v161 = v155;
+                  re::DynamicString::operator=(v139, v155);
+                  *(v139 + 2) = *(v161 + 2);
+                  v162 = *(v161 + 3);
+                  v163 = *(v161 + 4);
+                  v164 = *(v161 + 5);
+                  *(v139 + 24) = *(v161 + 24);
+                  *(v139 + 4) = v163;
+                  *(v139 + 5) = v164;
+                  *(v139 + 3) = v162;
+                  if (!v154)
+                  {
+                    break;
+                  }
+
+                  v154 = (v154 - 1) >> 1;
+                  v155 = (v7 + 104 * v154);
+                  v139 = v161;
+                }
+
+                while (v155[17] < WORD1(v200));
+                re::DynamicString::operator=(v161, &v198);
+                *(v161 + 2) = v200;
+                v165 = v201;
+                v166 = v202;
+                v167 = v203;
+                *(v161 + 24) = v204;
+                *(v161 + 4) = v166;
+                *(v161 + 5) = v167;
+                *(v161 + 3) = v165;
+                if (v198)
+                {
+                  if (BYTE8(v198))
+                  {
+                    (*(*v198 + 40))();
+                  }
+                }
+              }
+            }
+          }
+
+          result = v191;
+          if (v191 && (BYTE8(v191) & 1) != 0)
+          {
+            result = (*(*v191 + 40))();
+          }
+        }
+
+        while (v129-- > 2);
+      }
+
+      return result;
+    }
+
+    v12 = v10 >> 1;
+    v13 = v7 + 104 * (v10 >> 1);
+    v14 = *(a2 - 35);
+    if (v9 >= 0x3401)
+    {
+      v15 = *(v13 + 34);
+      if (v15 >= *(v7 + 34))
+      {
+        if (v14 < v15)
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v13, v190);
+          if (*(v13 + 34) < *(v7 + 34))
+          {
+            v16 = v7;
+            v17 = v13;
+            goto LABEL_26;
+          }
+        }
+      }
+
+      else
+      {
+        v16 = v7;
+        if (v14 < v15)
+        {
+          goto LABEL_17;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v13);
+        if (*(a2 - 35) < *(v13 + 34))
+        {
+          v16 = v13;
+LABEL_17:
+          v17 = a2 - 52;
+LABEL_26:
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v16, v17);
+        }
+      }
+
+      v21 = v7 + 104 * v12;
+      v22 = v21 - 104;
+      v23 = *(v21 - 70);
+      v24 = *(a2 - 87);
+      if (v23 >= *(v7 + 138))
+      {
+        if (v24 < v23)
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v22, (a2 - 104));
+          if (*(v22 + 34) < *(v7 + 138))
+          {
+            v25 = v7 + 104;
+            v26 = v22;
+            goto LABEL_39;
+          }
+        }
+      }
+
+      else
+      {
+        v25 = v7 + 104;
+        if (v24 < v23)
+        {
+          goto LABEL_31;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v25, v22);
+        if (*(a2 - 87) < *(v22 + 34))
+        {
+          v25 = v22;
+LABEL_31:
+          v26 = a2 - 104;
+LABEL_39:
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v25, v26);
+        }
+      }
+
+      v27 = v7 + 104 * v12;
+      v28 = *(v27 + 138);
+      v29 = *v189;
+      if (v28 >= *(v7 + 242))
+      {
+        if (v29 < v28)
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v27 + 104, (a2 - 156));
+          if (*(v27 + 138) < *(v7 + 242))
+          {
+            v30 = v7 + 208;
+            v31 = (v27 + 104);
+            goto LABEL_48;
+          }
+        }
+      }
+
+      else
+      {
+        v30 = v7 + 208;
+        if (v29 < v28)
+        {
+          goto LABEL_44;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v30, v27 + 104);
+        if (*v189 < *(v27 + 138))
+        {
+          v30 = v27 + 104;
+LABEL_44:
+          v31 = a2 - 156;
+LABEL_48:
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v30, v31);
+        }
+      }
+
+      v32 = *(v13 + 34);
+      v33 = *(v27 + 138);
+      if (v32 >= *(v22 + 34))
+      {
+        if (v33 < v32)
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v13, v27 + 104);
+          if (*(v13 + 34) < *(v22 + 34))
+          {
+            v35 = v22;
+            v34 = v13;
+            goto LABEL_57;
+          }
+        }
+      }
+
+      else
+      {
+        if (v33 < v32)
+        {
+          v34 = v27 + 104;
+          v35 = v22;
+          goto LABEL_57;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v22, v13);
+        if (*(v27 + 138) < *(v13 + 34))
+        {
+          v34 = v27 + 104;
+          v35 = v13;
+LABEL_57:
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v35, v34);
+        }
+      }
+
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v13);
+      goto LABEL_59;
+    }
+
+    v18 = *(v7 + 34);
+    if (v18 >= *(v13 + 34))
+    {
+      if (v14 >= v18)
+      {
+        goto LABEL_59;
+      }
+
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v190);
+      if (*(v7 + 34) >= *(v13 + 34))
+      {
+        goto LABEL_59;
+      }
+
+      v19 = v13;
+      v20 = v7;
+    }
+
+    else
+    {
+      v19 = v13;
+      if (v14 >= v18)
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v13, v7);
+        if (*(a2 - 35) >= *(v7 + 34))
+        {
+          goto LABEL_59;
+        }
+
+        v19 = v7;
+      }
+
+      v20 = a2 - 52;
+    }
+
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v19, v20);
+LABEL_59:
+    --a3;
+    if ((a4 & 1) != 0 || *(v7 - 70) < *(v7 + 34))
+    {
+      v36 = 0;
+      v198 = 0u;
+      v199 = 0u;
+      *&v198 = *v7;
+      *v7 = 0;
+      v37 = v199;
+      v38 = *(v7 + 24);
+      *&v199 = *(v7 + 16);
+      *(v7 + 16) = v37;
+      *(&v199 + 1) = v38;
+      *(v7 + 24) = 0;
+      *(&v198 + 1) = *(v7 + 8);
+      *(v7 + 8) = 0;
+      v39 = *(v7 + 48);
+      v40 = *(v7 + 64);
+      v41 = *(v7 + 80);
+      v204 = *(v7 + 96);
+      v202 = v40;
+      v203 = v41;
+      v201 = v39;
+      v200 = *(v7 + 32);
+      do
+      {
+        v42 = *(v7 + v36 + 138);
+        v36 += 104;
+      }
+
+      while (v42 < WORD1(v200));
+      v43 = v7 + v36;
+      v44 = a2;
+      if (v36 == 104)
+      {
+        v47 = a2;
+        while (v43 < v47)
+        {
+          v45 = v47 - 52;
+          v48 = *(v47 - 35);
+          v47 -= 52;
+          if (v48 < WORD1(v200))
+          {
+            goto LABEL_71;
+          }
+        }
+
+        v45 = v47;
+      }
+
+      else
+      {
+        do
+        {
+          v45 = v44 - 52;
+          v46 = *(v44 - 35);
+          v44 -= 52;
+        }
+
+        while (v46 >= WORD1(v200));
+      }
+
+LABEL_71:
+      if (v43 >= v45)
+      {
+        v8 = v43;
+      }
+
+      else
+      {
+        v49 = v45;
+        v8 = v43;
+        do
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v8, v49);
+          do
+          {
+            v50 = *(v8 + 138);
+            v8 += 104;
+          }
+
+          while (v50 < WORD1(v200));
+          do
+          {
+            v51 = *(v49 - 70);
+            v49 -= 104;
+          }
+
+          while (v51 >= WORD1(v200));
+        }
+
+        while (v8 < v49);
+      }
+
+      if (v8 - 104 != v7)
+      {
+        re::DynamicString::operator=(v7, (v8 - 104));
+        *(v7 + 32) = *(v8 - 72);
+        v52 = *(v8 - 56);
+        v53 = *(v8 - 40);
+        v54 = *(v8 - 24);
+        *(v7 + 96) = *(v8 - 8);
+        *(v7 + 64) = v53;
+        *(v7 + 80) = v54;
+        *(v7 + 48) = v52;
+      }
+
+      re::DynamicString::operator=((v8 - 104), &v198);
+      *(v8 - 72) = v200;
+      v55 = v201;
+      v56 = v202;
+      v57 = v203;
+      *(v8 - 8) = v204;
+      *(v8 - 24) = v57;
+      *(v8 - 40) = v56;
+      *(v8 - 56) = v55;
+      if (v198)
+      {
+        if (BYTE8(v198))
+        {
+          (*(*v198 + 40))();
+        }
+      }
+
+      if (v43 < v45)
+      {
+        goto LABEL_87;
+      }
+
+      v58 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *>(v7, (v8 - 104));
+      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *>(v8, a2);
+      if (result)
+      {
+        a2 = (v8 - 104);
+        if (!v58)
+        {
+          goto LABEL_2;
+        }
+
+        return result;
+      }
+
+      if (!v58)
+      {
+LABEL_87:
+        result = std::__introsort<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,false>(v7, (v8 - 104), a3, a4 & 1);
+        goto LABEL_88;
+      }
+    }
+
+    else
+    {
+      v198 = 0u;
+      v199 = 0u;
+      *&v198 = *v7;
+      *v7 = 0;
+      v59 = v199;
+      v60 = *(v7 + 24);
+      *&v199 = *(v7 + 16);
+      *(v7 + 16) = v59;
+      *(&v199 + 1) = v60;
+      *(v7 + 24) = 0;
+      *(&v198 + 1) = *(v7 + 8);
+      *(v7 + 8) = 0;
+      v61 = *(v7 + 48);
+      v62 = *(v7 + 64);
+      v63 = *(v7 + 80);
+      v204 = *(v7 + 96);
+      v202 = v62;
+      v203 = v63;
+      v201 = v61;
+      v200 = *(v7 + 32);
+      if (WORD1(v200) >= *(a2 - 35))
+      {
+        v66 = v7 + 104;
+        do
+        {
+          v8 = v66;
+          if (v66 >= a2)
+          {
+            break;
+          }
+
+          v67 = *(v66 + 34);
+          v66 += 104;
+        }
+
+        while (WORD1(v200) >= v67);
+      }
+
+      else
+      {
+        v64 = v7;
+        do
+        {
+          v8 = v64 + 104;
+          v65 = *(v64 + 138);
+          v64 += 104;
+        }
+
+        while (WORD1(v200) >= v65);
+      }
+
+      v68 = a2;
+      if (v8 < a2)
+      {
+        v69 = a2;
+        do
+        {
+          v68 = v69 - 52;
+          v70 = *(v69 - 35);
+          v69 -= 52;
+        }
+
+        while (WORD1(v200) < v70);
+      }
+
+      while (v8 < v68)
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v8, v68);
+        do
+        {
+          v71 = *(v8 + 138);
+          v8 += 104;
+        }
+
+        while (WORD1(v200) >= v71);
+        do
+        {
+          v72 = *(v68 - 35);
+          v68 -= 52;
+        }
+
+        while (WORD1(v200) < v72);
+      }
+
+      if (v8 - 104 != v7)
+      {
+        re::DynamicString::operator=(v7, (v8 - 104));
+        *(v7 + 32) = *(v8 - 72);
+        v73 = *(v8 - 56);
+        v74 = *(v8 - 40);
+        v75 = *(v8 - 24);
+        *(v7 + 96) = *(v8 - 8);
+        *(v7 + 64) = v74;
+        *(v7 + 80) = v75;
+        *(v7 + 48) = v73;
+      }
+
+      re::DynamicString::operator=((v8 - 104), &v198);
+      *(v8 - 72) = v200;
+      v76 = v201;
+      v77 = v202;
+      v78 = v203;
+      *(v8 - 8) = v204;
+      *(v8 - 24) = v78;
+      *(v8 - 40) = v77;
+      *(v8 - 56) = v76;
+      result = v198;
+      if (v198 && (BYTE8(v198) & 1) != 0)
+      {
+        result = (*(*v198 + 40))();
+      }
+
+LABEL_88:
+      a4 = 0;
+    }
+  }
+
+  v81 = *(v7 + 138);
+  v82 = *(a2 - 35);
+  if (v81 < *(v7 + 34))
+  {
+    if (v82 < v81)
+    {
+      goto LABEL_119;
+    }
+
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, v7 + 104);
+    if (*(a2 - 35) < *(v7 + 138))
+    {
+      v83 = v7 + 104;
+      goto LABEL_120;
+    }
+
+    return result;
+  }
+
+  if (v82 >= v81)
+  {
+    return result;
+  }
+
+  v79 = v7 + 104;
+  v80 = a2 - 52;
+LABEL_187:
+  result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v79, v80);
+  if (*(v7 + 138) < *(v7 + 34))
+  {
+    v84 = (v7 + 104);
+    v83 = v7;
+    return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v83, v84);
+  }
+
+  return result;
+}
+
+uint64_t std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,0>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = result;
+  v8 = *(a2 + 34);
+  v9 = *(a3 + 34);
+  if (v8 >= *(result + 34))
+  {
+    if (v9 < v8)
+    {
+      result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a2, a3);
+      if (*(a2 + 34) < *(v7 + 34))
+      {
+        result = v7;
+        v10 = a2;
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+    if (v9 < v8)
+    {
+LABEL_5:
+      v10 = a3;
+LABEL_9:
+      result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(result, v10);
+      goto LABEL_10;
+    }
+
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(result, a2);
+    if (*(a3 + 34) < *(a2 + 34))
+    {
+      result = a2;
+      goto LABEL_5;
+    }
+  }
+
+LABEL_10:
+  if (*(a4 + 34) < *(a3 + 34))
+  {
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a3, a4);
+    if (*(a3 + 34) < *(a2 + 34))
+    {
+      result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a2, a3);
+      if (*(a2 + 34) < *(v7 + 34))
+      {
+
+        return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v7, a2);
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *>(char *a1, unsigned __int16 *a2)
+{
+  v3 = a1;
+  v36 = *MEMORY[0x1E69E9840];
+  v4 = 0x4EC4EC4EC4EC4EC5 * ((a2 - a1) >> 3);
+  if (v4 > 2)
+  {
+    switch(v4)
+    {
+      case 3:
+        v8 = *(a1 + 69);
+        v9 = *(a2 - 35);
+        if (v8 < *(a1 + 17))
+        {
+          if (v9 >= v8)
+          {
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, (a1 + 104));
+            if (*(a2 - 35) >= v3[69])
+            {
+              return 1;
+            }
+
+            a1 = (v3 + 52);
+          }
+
+          v5 = a2 - 52;
+          goto LABEL_31;
+        }
+
+        if (v9 >= v8)
+        {
+          return 1;
+        }
+
+        v6 = (a1 + 104);
+        v7 = a2 - 52;
+        break;
+      case 4:
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, (a1 + 104), (a1 + 208), (a2 - 52));
+        return 1;
+      case 5:
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_0 &,re::TechniqueFunctionConstant *,0>(a1, (a1 + 104), (a1 + 208), (a1 + 312));
+        if (*(a2 - 35) >= v3[173])
+        {
+          return 1;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>((v3 + 156), (a2 - 52));
+        if (v3[173] >= v3[121])
+        {
+          return 1;
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>((v3 + 104), (v3 + 156));
+        if (v3[121] >= v3[69])
+        {
+          return 1;
+        }
+
+        v6 = v3 + 52;
+        v7 = v3 + 104;
+        break;
+      default:
+        goto LABEL_16;
+    }
+
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(v6, v7);
+    if (v3[69] < v3[17])
+    {
+      v5 = v3 + 52;
+      goto LABEL_24;
     }
 
     return 1;
   }
 
-  switch(v8)
+  if (v4 < 2)
   {
-    case 6u:
-      v38 = re::GeomAttribute::accessValues<int>(this);
-      if (v39)
-      {
-        v12 = 0;
-        v41 = (a2 + a4 + 2);
-        v42 = 1;
-        v43 = v39;
-        do
-        {
-          _D1.i32[0] = v38->i32[0];
-          __asm { FCVT            H1, S1 }
-
-          *(v41 - 1) = _D1.i16[0];
-          _S2 = v38->i32[1];
-          __asm { FCVT            H2, S2 }
-
-          *v41 = _S2;
-          _D1.i16[1] = _S2;
-          v45 = vsub_f32(*v38, *&vcvtq_f32_f16(_D1));
-          _D1 = vmul_f32(v45, v45);
-          if (vaddv_f32(_D1) > (a5 * a5))
-          {
-            break;
-          }
-
-          v12 = v42++ >= v39;
-          ++v38;
-          v41 = (v41 + v6);
-          --v43;
-        }
-
-        while (v43);
-        return v12;
-      }
-
-      return 1;
-    case 7u:
-      v46 = re::GeomAttribute::accessValues<int>(this);
-      if (v47)
-      {
-        v48 = 0;
-        v12 = 0;
-        v49 = v46;
-        do
-        {
-          v50 = 0;
-          v67 = 0uLL;
-          do
-          {
-            _S2 = *(v49 + 4 * v50);
-            __asm
-            {
-              FCVT            H2, S2
-              FCVT            S3, H2
-            }
-
-            v67.i32[v50] = _S3;
-            v7[v50++] = _S2;
-          }
-
-          while (v50 != 3);
-          v53 = vsubq_f32(*(v46 + 16 * v48), v67);
-          v54 = vmulq_f32(v53, v53);
-          if ((v54.f32[2] + vaddv_f32(*v54.f32)) > (a5 * a5))
-          {
-            break;
-          }
-
-          ++v48;
-          v7 = (v7 + v6);
-          v49 += 16;
-          v12 = v48 >= v47;
-        }
-
-        while (v48 != v47);
-        return v12;
-      }
-
-      return 1;
-    case 8u:
-      v9 = re::GeomAttribute::accessValues<int>(this);
-      if (v10)
-      {
-        v11 = 0;
-        v12 = 0;
-        v13 = v9;
-        do
-        {
-          v14 = 0;
-          v67 = 0uLL;
-          do
-          {
-            _S1 = *(v13 + 4 * v14);
-            __asm
-            {
-              FCVT            H1, S1
-              FCVT            S2, H1
-            }
-
-            v67.i32[v14] = _S2;
-            v7[v14++] = _S1;
-          }
-
-          while (v14 != 4);
-          v21 = vsubq_f32(*(v9 + 16 * v11), v67);
-          v22 = vmulq_f32(v21, v21);
-          if (vaddv_f32(vadd_f32(*v22.i8, *&vextq_s8(v22, v22, 8uLL))) > (a5 * a5))
-          {
-            break;
-          }
-
-          ++v11;
-          v7 = (v7 + v6);
-          v13 += 16;
-          v12 = v11 >= v10;
-        }
-
-        while (v11 != v10);
-        return v12;
-      }
-
-      return 1;
+    return 1;
   }
 
-LABEL_57:
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempt to convert a non-numeric type into a half-float stream.", "!Unreachable code", "fillStreamFP16", 215);
-  result = _os_crash();
-  __break(1u);
+  if (v4 == 2)
+  {
+    if (*(a2 - 35) < *(a1 + 17))
+    {
+      v5 = a2 - 52;
+LABEL_24:
+      a1 = v3;
+LABEL_31:
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, v5);
+      return 1;
+    }
+
+    return 1;
+  }
+
+LABEL_16:
+  v10 = (a1 + 208);
+  v11 = *(a1 + 69);
+  v12 = *(a1 + 121);
+  if (v11 >= *(a1 + 17))
+  {
+    if (v12 >= v11)
+    {
+      goto LABEL_36;
+    }
+
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>((a1 + 104), (a1 + 208));
+    if (v3[69] >= v3[17])
+    {
+      goto LABEL_36;
+    }
+
+    v13 = (v3 + 52);
+    a1 = v3;
+    goto LABEL_35;
+  }
+
+  if (v12 < v11)
+  {
+LABEL_34:
+    v13 = (v3 + 104);
+LABEL_35:
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, v13);
+    goto LABEL_36;
+  }
+
+  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::TechniqueFunctionConstant *&,re::TechniqueFunctionConstant *&>(a1, (a1 + 104));
+  if (v3[121] < v3[69])
+  {
+    a1 = (v3 + 52);
+    goto LABEL_34;
+  }
+
+LABEL_36:
+  v14 = v3 + 156;
+  if (v3 + 156 == a2)
+  {
+    return 1;
+  }
+
+  v15 = 0;
+  v16 = 0;
+  while (v14[17] >= v10[17])
+  {
+LABEL_48:
+    v10 = v14;
+    v15 += 104;
+    v14 += 52;
+    if (v14 == a2)
+    {
+      return 1;
+    }
+  }
+
+  v28 = *v14;
+  v30 = *(v14 + 3);
+  v29 = *(v14 + 4);
+  *(v14 + 2) = 0;
+  *(v14 + 3) = 0;
+  *v14 = 0;
+  *(v14 + 1) = 0;
+  v17 = *(v14 + 5);
+  v33 = *(v14 + 4);
+  v34 = v17;
+  v35 = *(v14 + 24);
+  v18 = *(v14 + 3);
+  v19 = v15;
+  v31 = *(v14 + 2);
+  v32 = v18;
+  while (1)
+  {
+    v20 = v3 + v19;
+    re::DynamicString::operator=((v3 + v19 + 312), (v3 + v19 + 208));
+    v21 = *(v3 + v19 + 288);
+    *(v20 + 376) = *(v20 + 17);
+    *(v20 + 392) = v21;
+    *(v20 + 102) = *(v20 + 76);
+    v22 = *(v3 + v19 + 256);
+    *(v20 + 344) = *(v20 + 15);
+    *(v20 + 360) = v22;
+    if (v19 == -208)
+    {
+      break;
+    }
+
+    v19 -= 104;
+    if (WORD1(v31) >= *(v20 + 69))
+    {
+      v23 = (v3 + v19 + 312);
+      goto LABEL_44;
+    }
+  }
+
+  v23 = v3;
+LABEL_44:
+  re::DynamicString::operator=(v23, &v28);
+  v24 = v34;
+  *(v20 + 17) = v33;
+  *(v20 + 18) = v24;
+  *(v20 + 76) = v35;
+  v25 = v32;
+  *(v20 + 15) = v31;
+  *(v20 + 16) = v25;
+  if (++v16 != 8)
+  {
+    if (v28 && (v29 & 1) != 0)
+    {
+      (*(*v28 + 40))();
+    }
+
+    goto LABEL_48;
+  }
+
+  v26 = v14 + 52 == a2;
+  if (v28 && (v29 & 1) != 0)
+  {
+    (*(*v28 + 40))();
+  }
+
+  return v26;
+}
+
+double re::HashTable<unsigned long,re::FunctionVariantDescriptor,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          v9 = (v6 + v4 + 56);
+          re::DynamicString::deinit((v6 + v4 + 152));
+          re::DynamicString::deinit((v8 + 120));
+          re::DynamicString::deinit((v8 + 88));
+          re::DynamicString::deinit(v9);
+          re::DynamicArray<re::TechniqueFunctionConstant>::deinit(v8 + 16);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 200;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
   return result;
+}
+
+_DWORD *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addInternal<char const*&,int const&>(uint64_t a1, uint64_t a2, const char **a3, _DWORD *a4)
+{
+  v7 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, *(a2 + 8), *a2);
+  v8 = *a3;
+  v7[10] = *a4;
+  ++*(a1 + 40);
+  return v7 + 10;
+}
+
+uint64_t std::__introsort<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,false>(uint64_t result, char *a2, uint64_t *a3, uint64_t a4, char a5)
+{
+  v7 = result;
+  while (2)
+  {
+    v8 = a2;
+    v174 = (a2 - 32);
+    while (1)
+    {
+      while (1)
+      {
+        v9 = v7;
+        v10 = (v8 - v7) >> 5;
+        v11 = v10 - 2;
+        if (v10 > 2)
+        {
+          switch(v10)
+          {
+            case 3:
+              return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>(v9, (v9 + 32), v174, a3);
+            case 4:
+              return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>(v9, (v9 + 32), (v9 + 64), v174, a3);
+            case 5:
+              return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>(v9, (v9 + 32), (v9 + 64), (v9 + 96), v174, a3);
+          }
+        }
+
+        else
+        {
+          if (v10 < 2)
+          {
+            return result;
+          }
+
+          v8 = a2;
+          if (v10 == 2)
+          {
+            v74 = *a3;
+            v75 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v74 + 600, v174);
+            v76 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v74 + 552, v174) + 10 * v75);
+            v77 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v74 + 600, v9);
+            result = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v74 + 552, v9);
+            if (v76 > (5 * *result + 10 * v77))
+            {
+              return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v9, v174);
+            }
+
+            return result;
+          }
+        }
+
+        if (v10 <= 23)
+        {
+          v78 = v9 + 32;
+          v79 = v9 == v8 || v78 == v8;
+          v80 = v79;
+          if (a5)
+          {
+            if ((v80 & 1) == 0)
+            {
+              v81 = 0;
+              v82 = v9;
+              do
+              {
+                v83 = v82;
+                v82 = v78;
+                v84 = *a3;
+                v85 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v78);
+                v86 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v84 + 552, v82) + 10 * v85);
+                v87 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v84 + 600, v83);
+                result = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v84 + 552, v83);
+                if (v86 > (5 * *result + 10 * v87))
+                {
+                  v182 = 0u;
+                  v183 = 0u;
+                  *&v182 = *v82;
+                  *v82 = 0;
+                  v88 = v183;
+                  v89 = *(v82 + 3);
+                  *&v183 = *(v82 + 2);
+                  *(v82 + 2) = v88;
+                  *(&v183 + 1) = v89;
+                  *(v82 + 3) = 0;
+                  *(&v182 + 1) = *(v82 + 1);
+                  *(v82 + 1) = 0;
+                  v90 = v81;
+                  while (1)
+                  {
+                    re::DynamicString::operator=((v9 + v90 + 32), (v9 + v90));
+                    if (!v90)
+                    {
+                      break;
+                    }
+
+                    v90 -= 32;
+                    v91 = *a3;
+                    v92 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+                    v93 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v91 + 552, &v182) + 10 * v92);
+                    v94 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v91 + 600, (v9 + v90));
+                    if (v93 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v91 + 552, (v9 + v90)) + 10 * v94))
+                    {
+                      v95 = (v9 + v90 + 32);
+                      goto LABEL_85;
+                    }
+                  }
+
+                  v95 = v9;
+LABEL_85:
+                  re::DynamicString::operator=(v95, &v182);
+                  result = v182;
+                  if (v182 && (BYTE8(v182) & 1) != 0)
+                  {
+                    result = (*(*v182 + 40))();
+                  }
+                }
+
+                v78 = v82 + 32;
+                v81 += 32;
+              }
+
+              while (v82 + 32 != a2);
+            }
+          }
+
+          else if ((v80 & 1) == 0)
+          {
+            do
+            {
+              v161 = v78;
+              v162 = *a3;
+              v163 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v78);
+              v164 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v162 + 552, v161) + 10 * v163);
+              v165 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v162 + 600, v9);
+              result = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v162 + 552, v9);
+              if (v164 > (5 * *result + 10 * v165))
+              {
+                v182 = 0u;
+                v183 = 0u;
+                *&v182 = *v161;
+                *v161 = 0;
+                v166 = v183;
+                v167 = *(v161 + 3);
+                *&v183 = *(v161 + 2);
+                *(v161 + 2) = v166;
+                *(&v183 + 1) = v167;
+                *(v161 + 3) = 0;
+                *(&v182 + 1) = *(v161 + 1);
+                *(v161 + 1) = 0;
+                do
+                {
+                  re::DynamicString::operator=((v9 + 32), v9);
+                  v9 = (v9 - 32);
+                  v168 = *a3;
+                  v169 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+                  v170 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v168 + 552, &v182) + 10 * v169);
+                  v171 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v168 + 600, v9);
+                }
+
+                while (v170 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v168 + 552, v9) + 10 * v171));
+                re::DynamicString::operator=((v9 + 32), &v182);
+                result = v182;
+                if (v182)
+                {
+                  if (BYTE8(v182))
+                  {
+                    result = (*(*v182 + 40))();
+                  }
+                }
+              }
+
+              v78 = v161 + 32;
+              v9 = v161;
+            }
+
+            while (v161 + 32 != a2);
+          }
+
+          return result;
+        }
+
+        v179 = v9;
+        if (!a4)
+        {
+          if (v9 != v8)
+          {
+            v96 = v11 >> 1;
+            v97 = v11 >> 1;
+            do
+            {
+              v98 = v97;
+              if (v96 >= v97)
+              {
+                v99 = (2 * v97) | 1;
+                v100 = (v9 + 32 * v99);
+                v101 = 2 * v97 + 2;
+                v173 = v97;
+                if (v101 < v10)
+                {
+                  v102 = *a3;
+                  v175 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v9 + 4 * v99);
+                  v103 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v102 + 552, v9 + 4 * v99) + 10 * v175);
+                  v176 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v102 + 600, v100 + 4);
+                  v104 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v102 + 552, v100 + 4);
+                  v98 = v173;
+                  if (v103 > (5 * *v104 + 10 * v176))
+                  {
+                    v100 = (v100 + 32);
+                    v99 = v101;
+                  }
+                }
+
+                v105 = (v9 + 32 * v98);
+                v106 = *a3;
+                v107 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v100);
+                v108 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v106 + 552, v100) + 10 * v107);
+                v109 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v106 + 600, v105);
+                v110 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v106 + 552, v105);
+                v98 = v173;
+                if (v108 <= (5 * *v110 + 10 * v109))
+                {
+                  v182 = 0u;
+                  v183 = 0u;
+                  *&v182 = *v105;
+                  *v105 = 0;
+                  v111 = v183;
+                  *&v183 = *(v105 + 2);
+                  *(v105 + 2) = v111;
+                  *(&v183 + 1) = *(v105 + 3);
+                  *(v105 + 3) = 0;
+                  v112 = *(&v182 + 1);
+                  *(&v182 + 1) = *(v105 + 1);
+                  *(v105 + 1) = v112;
+                  do
+                  {
+                    v113 = v100;
+                    re::DynamicString::operator=(v105, v100);
+                    if (v96 < v99)
+                    {
+                      break;
+                    }
+
+                    v114 = 2 * v99;
+                    v99 = (2 * v99) | 1;
+                    v100 = (v9 + 32 * v99);
+                    v115 = v114 + 2;
+                    if (v114 + 2 < v10)
+                    {
+                      v116 = *a3;
+                      v177 = v99;
+                      v117 = v96;
+                      v118 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v100);
+                      v119 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v116 + 552, v100) + 10 * v118);
+                      v120 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v116 + 600, v100 + 4);
+                      v9 = v179;
+                      v121 = 5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v116 + 552, v100 + 4) + 10 * v120;
+                      v96 = v117;
+                      v99 = v177;
+                      if (v119 > v121)
+                      {
+                        v100 = (v100 + 32);
+                        v99 = v115;
+                      }
+                    }
+
+                    v122 = *a3;
+                    v123 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v100);
+                    v124 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v122 + 552, v100) + 10 * v123);
+                    v125 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v122 + 600, &v182);
+                    v126 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v122 + 552, &v182);
+                    v105 = v113;
+                  }
+
+                  while (v124 <= (5 * *v126 + 10 * v125));
+                  re::DynamicString::operator=(v113, &v182);
+                  if (v182 && (BYTE8(v182) & 1) != 0)
+                  {
+                    (*(*v182 + 40))();
+                  }
+
+                  v98 = v173;
+                }
+              }
+
+              v97 = v98 - 1;
+            }
+
+            while (v98);
+            do
+            {
+              v127 = 0;
+              v180 = 0u;
+              v181 = 0u;
+              *&v180 = *v9;
+              *v9 = 0;
+              v128 = v181;
+              v129 = *(v9 + 3);
+              *&v181 = *(v9 + 2);
+              *(v9 + 2) = v128;
+              *(&v181 + 1) = v129;
+              *(v9 + 3) = 0;
+              *(&v180 + 1) = *(v9 + 1);
+              *(v9 + 1) = 0;
+              v130 = (v10 - 2) >> 1;
+              v131 = v9;
+              do
+              {
+                v132 = v131;
+                v133 = &v131[32 * v127];
+                v131 = v133 + 32;
+                v134 = 2 * v127;
+                v127 = (2 * v127) | 1;
+                v135 = v134 + 2;
+                if (v134 + 2 < v10)
+                {
+                  v136 = v133 + 64;
+                  v137 = *a3;
+                  v138 = v10;
+                  v139 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v133 + 4);
+                  v140 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v137 + 552, v131) + 10 * v139);
+                  v141 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v137 + 600, v136);
+                  v142 = 5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v137 + 552, v136) + 10 * v141;
+                  v10 = v138;
+                  if (v140 > v142)
+                  {
+                    v131 = v136;
+                    v127 = v135;
+                  }
+                }
+
+                re::DynamicString::operator=(v132, v131);
+              }
+
+              while (v127 <= v130);
+              v143 = (a2 - 32);
+              v79 = v131 == a2 - 32;
+              a2 -= 32;
+              if (v79)
+              {
+                re::DynamicString::operator=(v131, &v180);
+                v9 = v179;
+              }
+
+              else
+              {
+                re::DynamicString::operator=(v131, v143);
+                re::DynamicString::operator=(v143, &v180);
+                v9 = v179;
+                v144 = (v131 - v179 + 32) >> 5;
+                v145 = v144 < 2;
+                v146 = v144 - 2;
+                if (!v145)
+                {
+                  v147 = v146 >> 1;
+                  v148 = (v179 + 32 * (v146 >> 1));
+                  v149 = *a3;
+                  v150 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v148);
+                  v151 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v149 + 552, v148) + 10 * v150);
+                  v152 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v149 + 600, v131);
+                  if (v151 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v149 + 552, v131) + 10 * v152))
+                  {
+                    v182 = 0u;
+                    v183 = 0u;
+                    *&v182 = *v131;
+                    *v131 = 0;
+                    v153 = v183;
+                    v154 = *(v131 + 3);
+                    *&v183 = *(v131 + 2);
+                    *(v131 + 2) = v153;
+                    *(&v183 + 1) = v154;
+                    *(v131 + 3) = 0;
+                    *(&v182 + 1) = *(v131 + 1);
+                    *(v131 + 1) = 0;
+                    do
+                    {
+                      v155 = v148;
+                      re::DynamicString::operator=(v131, v148);
+                      if (!v147)
+                      {
+                        break;
+                      }
+
+                      v147 = (v147 - 1) >> 1;
+                      v148 = (v179 + 32 * v147);
+                      v156 = *a3;
+                      v157 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v148);
+                      v158 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v156 + 552, v148) + 10 * v157);
+                      v159 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v156 + 600, &v182);
+                      v160 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v156 + 552, &v182);
+                      v131 = v155;
+                    }
+
+                    while (v158 > (5 * *v160 + 10 * v159));
+                    re::DynamicString::operator=(v155, &v182);
+                    if (v182)
+                    {
+                      if (BYTE8(v182))
+                      {
+                        (*(*v182 + 40))();
+                      }
+                    }
+                  }
+                }
+              }
+
+              result = v180;
+              if (v180 && (BYTE8(v180) & 1) != 0)
+              {
+                result = (*(*v180 + 40))();
+              }
+
+              v145 = v10-- <= 2;
+            }
+
+            while (!v145);
+          }
+
+          return result;
+        }
+
+        v12 = v10 >> 1;
+        v13 = (v9 + 32 * (v10 >> 1));
+        if (v10 < 0x81)
+        {
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>((v9 + 32 * (v10 >> 1)), v9, v174, a3);
+        }
+
+        else
+        {
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>(v9, (v9 + 32 * (v10 >> 1)), v174, a3);
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>((v9 + 32), (v13 - 32), (a2 - 64), a3);
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>((v9 + 64), (v9 + 32 * v12 + 32), (a2 - 96), a3);
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,0>((v13 - 32), v13, (v9 + 32 * v12 + 32), a3);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v9, v13);
+        }
+
+        --a4;
+        if (a5)
+        {
+          break;
+        }
+
+        v14 = *a3;
+        v15 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v9 - 4);
+        v16 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v14 + 552, v9 - 4) + 10 * v15);
+        v17 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v14 + 600, v9);
+        if (v16 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v14 + 552, v9) + 10 * v17))
+        {
+          break;
+        }
+
+        v182 = 0u;
+        v183 = 0u;
+        *&v182 = *v9;
+        *v9 = 0;
+        v45 = v183;
+        v46 = *(v9 + 3);
+        *&v183 = *(v9 + 2);
+        *(v9 + 2) = v45;
+        *(&v183 + 1) = v46;
+        *(v9 + 3) = 0;
+        *(&v182 + 1) = *(v9 + 1);
+        *(v9 + 1) = 0;
+        v47 = *a3;
+        v48 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+        v49 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v47 + 552, &v182) + 10 * v48);
+        v50 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v47 + 600, v174);
+        if (v49 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v47 + 552, v174) + 10 * v50))
+        {
+          v55 = v9 + 32;
+          v8 = a2;
+          do
+          {
+            v7 = v55;
+            if (v55 >= a2)
+            {
+              break;
+            }
+
+            v56 = *a3;
+            v57 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+            v58 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v56 + 552, &v182) + 10 * v57);
+            v59 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v56 + 600, v7);
+            v60 = re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v56 + 552, v7);
+            v55 = v7 + 32;
+          }
+
+          while (v58 <= (5 * *v60 + 10 * v59));
+        }
+
+        else
+        {
+          v7 = v9;
+          v8 = a2;
+          do
+          {
+            v7 = (v7 + 32);
+            v51 = *a3;
+            v52 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+            v53 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v51 + 552, &v182) + 10 * v52);
+            v54 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v51 + 600, v7);
+          }
+
+          while (v53 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v51 + 552, v7) + 10 * v54));
+        }
+
+        v61 = v8;
+        if (v7 < v8)
+        {
+          v61 = v8;
+          do
+          {
+            v61 -= 32;
+            v62 = *a3;
+            v63 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+            v64 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v62 + 552, &v182) + 10 * v63);
+            v65 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v62 + 600, v61);
+          }
+
+          while (v64 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v62 + 552, v61) + 10 * v65));
+        }
+
+        while (v7 < v61)
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v7, v61);
+          do
+          {
+            v7 = (v7 + 32);
+            v66 = *a3;
+            v67 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+            v68 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v66 + 552, &v182) + 10 * v67);
+            v69 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v66 + 600, v7);
+          }
+
+          while (v68 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v66 + 552, v7) + 10 * v69));
+          do
+          {
+            v61 -= 32;
+            v70 = *a3;
+            v71 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, &v182);
+            v72 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v70 + 552, &v182) + 10 * v71);
+            v73 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v70 + 600, v61);
+          }
+
+          while (v72 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v70 + 552, v61) + 10 * v73));
+        }
+
+        if ((v7 - 32) != v9)
+        {
+          re::DynamicString::operator=(v9, (v7 - 32));
+        }
+
+        re::DynamicString::operator=((v7 - 32), &v182);
+        result = v182;
+        if (v182 && (BYTE8(v182) & 1) != 0)
+        {
+          result = (*(*v182 + 40))();
+        }
+
+LABEL_42:
+        a5 = 0;
+      }
+
+      v18 = 0;
+      v182 = 0u;
+      v183 = 0u;
+      *&v182 = *v9;
+      *v9 = 0;
+      v19 = v183;
+      v20 = *(v9 + 3);
+      *&v183 = *(v9 + 2);
+      *(v9 + 2) = v19;
+      *(&v183 + 1) = v20;
+      *(v9 + 3) = 0;
+      *(&v182 + 1) = *(v9 + 1);
+      *(v9 + 1) = 0;
+      do
+      {
+        v18 += 32;
+        v21 = *a3;
+        v22 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, (v9 + v18));
+        v23 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v21 + 552, (v9 + v18)) + 10 * v22);
+        v24 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v21 + 600, &v182);
+      }
+
+      while (v23 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v21 + 552, &v182) + 10 * v24));
+      v25 = (v9 + v18);
+      v26 = a2;
+      if (v18 == 32)
+      {
+        v26 = a2;
+        do
+        {
+          if (v25 >= v26)
+          {
+            break;
+          }
+
+          v26 -= 32;
+          v31 = *a3;
+          v32 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v26);
+          v33 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v31 + 552, v26) + 10 * v32);
+          v34 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v31 + 600, &v182);
+        }
+
+        while (v33 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v31 + 552, &v182) + 10 * v34));
+      }
+
+      else
+      {
+        do
+        {
+          v26 -= 32;
+          v27 = *a3;
+          v28 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v26);
+          v29 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v27 + 552, v26) + 10 * v28);
+          v30 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v27 + 600, &v182);
+        }
+
+        while (v29 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v27 + 552, &v182) + 10 * v30));
+      }
+
+      if (v25 >= v26)
+      {
+        v7 = v25;
+      }
+
+      else
+      {
+        v35 = v26;
+        v7 = v25;
+        do
+        {
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<re::DynamicString *&,re::DynamicString *&>(v7, v35);
+          do
+          {
+            v7 = (v7 + 32);
+            v36 = *a3;
+            v37 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v7);
+            v38 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v36 + 552, v7) + 10 * v37);
+            v39 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v36 + 600, &v182);
+          }
+
+          while (v38 > (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v36 + 552, &v182) + 10 * v39));
+          do
+          {
+            v35 = (v35 - 32);
+            v40 = *a3;
+            v41 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](*a3 + 600, v35);
+            v42 = (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v40 + 552, v35) + 10 * v41);
+            v43 = *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v40 + 600, &v182);
+          }
+
+          while (v42 <= (5 * *re::HashTable<re::DynamicString,int,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator[](v40 + 552, &v182) + 10 * v43));
+        }
+
+        while (v7 < v35);
+      }
+
+      if ((v7 - 32) != v9)
+      {
+        re::DynamicString::operator=(v9, (v7 - 32));
+      }
+
+      re::DynamicString::operator=((v7 - 32), &v182);
+      v8 = a2;
+      if (v182 && (BYTE8(v182) & 1) != 0)
+      {
+        (*(*v182 + 40))();
+      }
+
+      if (v25 < v26)
+      {
+LABEL_41:
+        result = std::__introsort<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *,false>(v9, v7 - 32, a3, a4, a5 & 1);
+        goto LABEL_42;
+      }
+
+      v44 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *>(v9, v7 - 32, a3);
+      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::PSOToolManager::generateStatistics(void)::$_1 &,re::DynamicString *>(v7, a2, a3);
+      if (result)
+      {
+        break;
+      }
+
+      if (!v44)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    a2 = v7 - 32;
+    v7 = v9;
+    if (!v44)
+    {
+      continue;
+    }
+
+    return result;
+  }
 }

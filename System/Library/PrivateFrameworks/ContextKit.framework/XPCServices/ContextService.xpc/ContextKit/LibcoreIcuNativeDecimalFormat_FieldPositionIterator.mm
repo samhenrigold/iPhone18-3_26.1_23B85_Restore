@@ -43,7 +43,7 @@
 
   if (position)
   {
-    v6 = sub_1001F01D8(position);
+    v6 = sub_1001F01D8(position, a2, iterator);
     if (v6 != -1)
     {
       v7 = v6;
@@ -168,76 +168,77 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[0] = JavaTextNumberFormat_Field_INTEGER_;
+    v6[0] = JavaTextNumberFormat_Field_INTEGER_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[1] = JavaTextNumberFormat_Field_FRACTION_;
+    v6[1] = JavaTextNumberFormat_Field_FRACTION_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[2] = JavaTextNumberFormat_Field_DECIMAL_SEPARATOR_;
+    v6[2] = JavaTextNumberFormat_Field_DECIMAL_SEPARATOR_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[3] = JavaTextNumberFormat_Field_EXPONENT_SYMBOL_;
+    v6[3] = JavaTextNumberFormat_Field_EXPONENT_SYMBOL_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[4] = JavaTextNumberFormat_Field_EXPONENT_SIGN_;
+    v6[4] = JavaTextNumberFormat_Field_EXPONENT_SIGN_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[5] = JavaTextNumberFormat_Field_EXPONENT_;
+    v6[5] = JavaTextNumberFormat_Field_EXPONENT_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[6] = JavaTextNumberFormat_Field_GROUPING_SEPARATOR_;
+    v6[6] = JavaTextNumberFormat_Field_GROUPING_SEPARATOR_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[7] = JavaTextNumberFormat_Field_CURRENCY_;
+    v6[7] = JavaTextNumberFormat_Field_CURRENCY_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[8] = JavaTextNumberFormat_Field_PERCENT_;
+    v6[8] = JavaTextNumberFormat_Field_PERCENT_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[9] = JavaTextNumberFormat_Field_PERMILLE_;
+    v6[9] = JavaTextNumberFormat_Field_PERMILLE_;
     if ((atomic_load_explicit(JavaTextNumberFormat_Field__initialized, memory_order_acquire) & 1) == 0)
     {
-      sub_1001F08C8();
+      v3 = sub_1001F08C8();
     }
 
-    v3[10] = JavaTextNumberFormat_Field_SIGN_;
-    v2 = [IOSObjectArray newArrayWithObjects:v3 count:11 type:JavaTextFormat_Field_class_()];
-    JreStrongAssignAndConsume(&qword_100554F60, v2);
+    v6[10] = JavaTextNumberFormat_Field_SIGN_;
+    v5 = [IOSObjectArray newArrayWithObjects:v6 count:11 type:JavaTextFormat_Field_class_(v3, v4)];
+    JreStrongAssignAndConsume(&qword_100554F60, v5);
     atomic_store(1u, LibcoreIcuNativeDecimalFormat_FieldPositionIterator__initialized);
   }
 }

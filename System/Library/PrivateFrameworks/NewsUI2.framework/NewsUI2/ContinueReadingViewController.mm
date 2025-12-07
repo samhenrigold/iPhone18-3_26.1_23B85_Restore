@@ -90,9 +90,11 @@
 
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  sub_218A57B64();
+  sub_218A57B64(controllerCopy, width, height);
 }
 
 - (void)messageViewController:(id)controller didFailWithError:(id)error

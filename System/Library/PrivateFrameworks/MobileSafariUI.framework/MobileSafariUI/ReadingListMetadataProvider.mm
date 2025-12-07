@@ -53,49 +53,49 @@
 void __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x277D4A788] unpackMetadataFromResponse:a2];
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
-    v5 = [v3 image];
-    v6 = v5;
-    if (v5)
+    v6 = [v3 image];
+    v7 = v6;
+    if (v6)
     {
-      v7 = MEMORY[0x277D4A780];
-      v8 = [v5 platformImage];
-      v9 = [v7 readingListThumbnailDataFromImage:v8];
+      v8 = MEMORY[0x277D4A780];
+      v9 = [v6 platformImage];
+      v10 = [v8 readingListThumbnailDataFromImage:v9];
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke_2;
-    v12[3] = &unk_2781D7C70;
-    v15 = *(a1 + 40);
-    v13 = v4;
-    v14 = v9;
-    v11 = v9;
-    dispatch_async(MEMORY[0x277D85CD0], v12);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke_2;
+    v13[3] = &unk_2781D7C70;
+    v16 = *(a1 + 40);
+    v14 = v5;
+    v15 = v10;
+    v12 = v10;
+    dispatch_async(MEMORY[0x277D85CD0], v13);
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXReadingList();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXReadingList(0, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke_cold_1(a1, v10);
+      __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke_cold_1(a1, v11);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __67__ReadingListMetadataProvider_fetchMetadataForBookmark_completion___block_invoke_17;
     block[3] = &unk_2781D4D90;
-    v17 = *(a1 + 40);
+    v18 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v6 = v17;
+    v7 = v18;
   }
 }
 

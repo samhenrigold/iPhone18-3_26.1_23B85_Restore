@@ -1,4 +1,6 @@
 @interface CBUserController
++ (BOOL)writePrefKey:(id)key value:(id)value source:(unsigned int)source error:(id *)error;
++ (id)readPrefKeys:(id)keys source:(unsigned int)source error:(id *)error;
 - (BOOL)_ensureXPCStarted;
 - (CBUserController)init;
 - (void)_activate;
@@ -109,63 +111,47 @@
 - (void)dealloc
 {
   v3 = MEMORY[0x1C68DF720](self->_invalidationHandler, a2);
-  if (self->_invalidateCalled)
+  if (!self->_invalidateCalled)
   {
-    goto LABEL_13;
-  }
-
-  self->_invalidateCalled = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    self->_invalidateCalled = 1;
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF_safe();
     }
 
-    clientID = self->_clientID;
-    LogPrintF_safe();
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v6 = selfCopy->_xpcCnx;
+    v7 = v6;
+    if (v6)
+    {
+      [(NSXPCConnection *)v6 invalidate];
+    }
+
+    objc_sync_exit(selfCopy);
+    ucat = self->_ucat;
+    if (ucat && (ucat->var3 & 0x40000) != 0)
+    {
+      LogCategory_Remove();
+      self->_ucat = 0;
+    }
+
+    interruptionHandler = selfCopy->_interruptionHandler;
+    selfCopy->_interruptionHandler = 0;
+
+    invalidationHandler = self->_invalidationHandler;
+    self->_invalidationHandler = 0;
+
+    if (v3)
+    {
+      v3[2](v3);
+    }
   }
 
-LABEL_6:
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = selfCopy->_xpcCnx;
-  v7 = v6;
-  if (v6)
-  {
-    [(NSXPCConnection *)v6 invalidate];
-  }
-
-  objc_sync_exit(selfCopy);
-  v8 = self->_ucat;
-  if (v8 && (v8->var3 & 0x40000) != 0)
-  {
-    LogCategory_Remove();
-    self->_ucat = 0;
-  }
-
-  interruptionHandler = selfCopy->_interruptionHandler;
-  selfCopy->_interruptionHandler = 0;
-
-  invalidationHandler = self->_invalidationHandler;
-  self->_invalidationHandler = 0;
-
-  if (v3)
-  {
-    v3[2](v3);
-  }
-
-LABEL_13:
-
-  v13.receiver = self;
-  v13.super_class = CBUserController;
-  [(CBUserController *)&v13 dealloc];
+  v11.receiver = self;
+  v11.super_class = CBUserController;
+  [(CBUserController *)&v11 dealloc];
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -196,49 +182,39 @@ LABEL_13:
 {
   if (self->_invalidateCalled)
   {
-    v11 = NSErrorF();
+    v9 = NSErrorF(@"CBErrorDomain", 4294896148, "Activate after invalidate");
     var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (var0 == -1)
-      {
-        ucat = self->_ucat;
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_9;
-        }
-
-        v9 = self->_ucat;
-      }
-
-      v10 = CUPrintNSError();
+      v8 = CUPrintNSError();
       LogPrintF_safe();
     }
 
-LABEL_9:
-    v5 = MEMORY[0x1C68DF720](self->_activateCompletion);
+    v4 = MEMORY[0x1C68DF720](self->_activateCompletion);
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v5)
+    if (v4)
     {
-      (v5)[2](v5, v11);
+      (v4)[2](v4, v9);
     }
 
     else
     {
-      v7 = MEMORY[0x1C68DF720](self->_errorHandler);
-      v8 = v7;
-      if (v7)
+      v6 = MEMORY[0x1C68DF720](self->_errorHandler);
+      v7 = v6;
+      if (v6)
       {
-        (*(v7 + 16))(v7, v11);
+        (*(v6 + 16))(v6, v9);
       }
     }
-
-    return;
   }
 
-  [(CBUserController *)self _activateXPCStart:0];
+  else
+  {
+
+    [(CBUserController *)self _activateXPCStart:0];
+  }
 }
 
 - (void)_activateXPCStart:(BOOL)start
@@ -246,47 +222,33 @@ LABEL_9:
   var0 = self->_ucat->var0;
   if (start)
   {
-    if (var0 <= 30)
+    if (var0 > 30)
     {
-      if (var0 != -1)
-      {
-LABEL_7:
-        selfCopy = self;
-        LogPrintF_safe();
-        self = selfCopy;
+      goto LABEL_11;
+    }
 
-        goto LABEL_9;
-      }
-
-      selfCopy2 = self;
-      ucat = self->_ucat;
-      v7 = _LogCategory_Initialize();
-      self = selfCopy2;
-      if (v7)
+    if (var0 == -1)
+    {
+      selfCopy = self;
+      v6 = _LogCategory_Initialize();
+      self = selfCopy;
+      if (!v6)
       {
-        v12 = selfCopy2->_ucat;
-        goto LABEL_7;
+        goto LABEL_11;
       }
     }
   }
 
-  else if (var0 <= 30)
+  else if (var0 > 30 || var0 == -1 && (v7 = self, v8 = _LogCategory_Initialize(), self = v7, !v8))
   {
-    if (var0 != -1)
-    {
-      goto LABEL_7;
-    }
+LABEL_11:
 
-    selfCopy3 = self;
-    v9 = self->_ucat;
-    v10 = _LogCategory_Initialize();
-    self = selfCopy3;
-    if (v10)
-    {
-      v11 = selfCopy3->_ucat;
-      goto LABEL_7;
-    }
+    goto LABEL_9;
   }
+
+  selfCopy2 = self;
+  LogPrintF_safe();
+  self = selfCopy2;
 
 LABEL_9:
   [(CBUserController *)self _ensureXPCStarted];
@@ -341,9 +303,9 @@ LABEL_6:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__CBUserController_invalidate__block_invoke(uint64_t result)
+void *__30__CBUserController_invalidate__block_invoke(void *result)
 {
-  v5 = *(result + 32);
+  v5 = result[4];
   if (*(v5 + 24))
   {
     return result;
@@ -352,10 +314,10 @@ uint64_t __30__CBUserController_invalidate__block_invoke(uint64_t result)
   v9 = v1;
   v6 = result;
   *(v5 + 24) = 1;
-  if ((*(*(result + 32) + 25) & 1) == 0 && gLogCategory_CBUserController <= 30 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
+  if ((*(result[4] + 25) & 1) == 0 && gLogCategory_CBUserController <= 30 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
     __30__CBUserController_invalidate__block_invoke_cold_1();
-    v7 = *(v6 + 32);
+    v7 = v6[4];
     v8 = v7[5];
     if (!v8)
     {
@@ -365,13 +327,13 @@ uint64_t __30__CBUserController_invalidate__block_invoke(uint64_t result)
     goto LABEL_7;
   }
 
-  v7 = *(v6 + 32);
+  v7 = v6[4];
   v8 = v7[5];
   if (v8)
   {
 LABEL_7:
     [v8 invalidate];
-    v7 = *(v6 + 32);
+    v7 = v6[4];
   }
 
 LABEL_8:
@@ -502,40 +464,31 @@ LABEL_6:
 
 uint64_t __46__CBUserController_diagnosticShow_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)appleAudioAccessoryLimitedLoggingWithCompletion:(id)completion
@@ -614,40 +567,31 @@ LABEL_6:
 
 uint64_t __68__CBUserController_appleAudioAccessoryLimitedLoggingWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)setAppleAudioAccessoryLimitedLogging:(BOOL)logging completion:(id)completion
@@ -717,40 +661,31 @@ void __68__CBUserController_setAppleAudioAccessoryLimitedLogging_completion___bl
 
 uint64_t __68__CBUserController_setAppleAudioAccessoryLimitedLogging_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)getDistributedLoggingStatusWithCompletion:(id)completion
@@ -819,40 +754,31 @@ void __62__CBUserController_getDistributedLoggingStatusWithCompletion___block_in
 
 uint64_t __62__CBUserController_getDistributedLoggingStatusWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)setDistributedLoggingStatus:(unsigned int)status completion:(id)completion
@@ -922,40 +848,31 @@ void __59__CBUserController_setDistributedLoggingStatus_completion___block_invok
 
 uint64_t __59__CBUserController_setDistributedLoggingStatus_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)getCurrentUserGivenNameWithCompletion:(id)completion
@@ -1024,40 +941,31 @@ void __58__CBUserController_getCurrentUserGivenNameWithCompletion___block_invoke
 
 uint64_t __58__CBUserController_getCurrentUserGivenNameWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)getControllerInfoForDevice:(id)device completion:(id)completion
@@ -1127,41 +1035,23 @@ void __58__CBUserController_getControllerInfoForDevice_completion___block_invoke
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __58__CBUserController_getControllerInfoForDevice_completion___block_invoke_2(void *a1)
+uint64_t __58__CBUserController_getControllerInfoForDevice_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 48) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v4 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    v8 = CUPrintNSError();
-    v9 = a1[4];
-    LogPrintF_safe();
+    v3 = *(*(a1 + 40) + 16);
 
-    v2 = a1[6];
+    return v3();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(a1[5] + 16);
-
-  return v6();
+  return result;
 }
 
 - (void)storeControllerInfo:(id)info completion:(id)completion
@@ -1233,40 +1123,31 @@ void __51__CBUserController_storeControllerInfo_completion___block_invoke(uint64
 
 uint64_t __51__CBUserController_storeControllerInfo_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)getCloudPairedDevicesWithCompletionHandler:(id)handler
@@ -1335,40 +1216,31 @@ void __63__CBUserController_getCloudPairedDevicesWithCompletionHandler___block_i
 
 uint64_t __63__CBUserController_getCloudPairedDevicesWithCompletionHandler___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)deleteControllerInfoForDevice:(id)device completion:(id)completion
@@ -1440,40 +1312,31 @@ void __61__CBUserController_deleteControllerInfoForDevice_completion___block_inv
 
 uint64_t __61__CBUserController_deleteControllerInfoForDevice_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  if (*(*(*(result + 40) + 8) + 40))
   {
-    return result;
-  }
-
-  if (gLogCategory_CBUserController <= 90)
-  {
-    v2 = result;
-    if (gLogCategory_CBUserController == -1)
+    if (gLogCategory_CBUserController <= 90)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      v1 = result;
+      if (gLogCategory_CBUserController != -1 || _LogCategory_Initialize())
       {
-        result = v2;
-        goto LABEL_8;
+        v3 = CUPrintNSError();
+        LogPrintF_safe();
+
+        result = v1;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      else
+      {
+        result = v1;
+      }
     }
 
-    v7 = CUPrintNSError();
-    LogPrintF_safe();
+    v2 = *(*(result + 32) + 16);
 
-    result = v2;
-    v1 = *(v2 + 40);
+    return v2();
   }
 
-LABEL_8:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(result + 32) + 16);
-
-  return v5();
+  return result;
 }
 
 - (void)recordEventWithDeviceIdentifier:(id)identifier initiator:(BOOL)initiator starting:(BOOL)starting useCase:(unsigned int)case
@@ -1533,22 +1396,9 @@ void __79__CBUserController_recordEventWithDeviceIdentifier_initiator_starting_u
 
 void __79__CBUserController_recordEventWithDeviceIdentifier_initiator_starting_useCase___block_invoke_2(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_CBUserController == -1)
-    {
-      v2 = a1;
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      a1 = v2;
-      v3 = *(*(*(v2 + 40) + 8) + 40);
-    }
-
-    v1 = *(a1 + 32);
-    v4 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
 }
@@ -1606,22 +1456,9 @@ void __52__CBUserController_recordEventWithStarting_useCase___block_invoke(uint6
 
 void __52__CBUserController_recordEventWithStarting_useCase___block_invoke_2(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && gLogCategory_CBUserController <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_CBUserController == -1)
-    {
-      v2 = a1;
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      a1 = v2;
-      v3 = *(*(*(v2 + 32) + 8) + 40);
-    }
-
-    v1 = *(a1 + 40);
-    v4 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
 }
@@ -1693,22 +1530,9 @@ void __51__CBUserController_readPrefKeys_source_completion___block_invoke(uint64
 
 void __51__CBUserController_readPrefKeys_source_completion___block_invoke_2(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_CBUserController == -1)
-    {
-      v2 = a1;
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      a1 = v2;
-      v3 = *(*(*(v2 + 40) + 8) + 40);
-    }
-
-    v1 = *(a1 + 32);
-    v4 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
 }
@@ -1784,22 +1608,9 @@ void __57__CBUserController_writePrefKey_value_source_completion___block_invoke(
 
 void __57__CBUserController_writePrefKey_value_source_completion___block_invoke_2(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_CBUserController == -1)
-    {
-      v2 = a1;
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      a1 = v2;
-      v3 = *(*(*(v2 + 40) + 8) + 40);
-    }
-
-    v1 = *(a1 + 32);
-    v4 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
 }
@@ -1869,89 +1680,164 @@ void __53__CBUserController_userNotificationEvent_completion___block_invoke(id *
 
 void __53__CBUserController_userNotificationEvent_completion___block_invoke_2(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_CBUserController == -1)
-    {
-      v2 = a1;
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      a1 = v2;
-      v3 = *(*(*(v2 + 40) + 8) + 40);
-    }
-
-    v1 = *(a1 + 32);
-    v4 = CUPrintNSError();
+    v1 = CUPrintNSError();
     LogPrintF_safe();
   }
+}
+
++ (id)readPrefKeys:(id)keys source:(unsigned int)source error:(id *)error
+{
+  v6 = *&source;
+  keysCopy = keys;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy_;
+  v24[4] = __Block_byref_object_dispose_;
+  v25 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __46__CBUserController_readPrefKeys_source_error___block_invoke;
+  v20[3] = &unk_1E811D4B8;
+  v22 = v24;
+  v8 = keysCopy;
+  v21 = v8;
+  errorCopy = error;
+  v9 = MEMORY[0x1C68DF720](v20);
+  v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v11 = dispatch_queue_create("CBUserController-ReadPrefs", v10);
+
+  v12 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.bluetoothuser.xpc" options:0];
+  [v12 _setQueue:v11];
+  v13 = CBUserControllerXPCInterface();
+  [v12 setExportedInterface:v13];
+
+  v14 = CBUserControllerXPCInterface();
+  [v12 setRemoteObjectInterface:v14];
+
+  [v12 resume];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __46__CBUserController_readPrefKeys_source_error___block_invoke_2;
+  v19[3] = &unk_1E811D3A0;
+  v19[4] = v24;
+  v15 = [v12 synchronousRemoteObjectProxyWithErrorHandler:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __46__CBUserController_readPrefKeys_source_error___block_invoke_3;
+  v18[3] = &unk_1E811D4E0;
+  v18[4] = &v26;
+  [v15 readPrefKeys:v8 source:v6 completion:v18];
+
+  [v12 invalidate];
+  v16 = v27[5];
+
+  v9[2](v9);
+  _Block_object_dispose(v24, 8);
+
+  _Block_object_dispose(&v26, 8);
+
+  return v16;
 }
 
 void __46__CBUserController_readPrefKeys_source_error___block_invoke(uint64_t a1)
 {
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    if (gLogCategory_CBUserController > 90)
+    if (gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_6;
+      v2 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    if (gLogCategory_CBUserController == -1)
+    if (*(a1 + 48))
     {
-      if (!_LogCategory_Initialize())
-      {
-LABEL_6:
-        if (*(a1 + 48))
-        {
-          **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
-        }
-
-        return;
-      }
-
-      v2 = *(*(*(a1 + 40) + 8) + 40);
+      **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
     }
-
-    v3 = CUPrintNSError();
-    v4 = *(a1 + 32);
-    LogPrintF_safe();
-
-    goto LABEL_6;
   }
+}
+
++ (BOOL)writePrefKey:(id)key value:(id)value source:(unsigned int)source error:(id *)error
+{
+  v7 = *&source;
+  keyCopy = key;
+  valueCopy = value;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x3032000000;
+  v30[3] = __Block_byref_object_copy_;
+  v30[4] = __Block_byref_object_dispose_;
+  v31 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __52__CBUserController_writePrefKey_value_source_error___block_invoke;
+  v22[3] = &unk_1E811D4B8;
+  v24 = v30;
+  v11 = keyCopy;
+  v23 = v11;
+  errorCopy = error;
+  v12 = MEMORY[0x1C68DF720](v22);
+  v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v14 = dispatch_queue_create("CBUserController-WritePrefs", v13);
+
+  v15 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.bluetoothuser.xpc" options:0];
+  [v15 _setQueue:v14];
+  v16 = CBUserControllerXPCInterface();
+  [v15 setExportedInterface:v16];
+
+  v17 = CBUserControllerXPCInterface();
+  [v15 setRemoteObjectInterface:v17];
+
+  [v15 resume];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __52__CBUserController_writePrefKey_value_source_error___block_invoke_2;
+  v21[3] = &unk_1E811D3A0;
+  v21[4] = v30;
+  v18 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __52__CBUserController_writePrefKey_value_source_error___block_invoke_3;
+  v20[3] = &unk_1E811D3A0;
+  v20[4] = &v26;
+  [v18 writePrefKey:v11 value:valueCopy source:v7 completion:v20];
+
+  [v15 invalidate];
+  LOBYTE(v7) = *(v27 + 24);
+
+  v12[2](v12);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(v30, 8);
+
+  return v7;
 }
 
 void __52__CBUserController_writePrefKey_value_source_error___block_invoke(uint64_t a1)
 {
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    if (gLogCategory_CBUserController > 90)
+    if (gLogCategory_CBUserController <= 90 && (gLogCategory_CBUserController != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_6;
+      v2 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    if (gLogCategory_CBUserController == -1)
+    if (*(a1 + 48))
     {
-      if (!_LogCategory_Initialize())
-      {
-LABEL_6:
-        if (*(a1 + 48))
-        {
-          **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
-        }
-
-        return;
-      }
-
-      v3 = *(*(*(a1 + 40) + 8) + 40);
+      **(a1 + 48) = *(*(*(a1 + 40) + 8) + 40);
     }
-
-    v2 = *(a1 + 32);
-    v4 = CUPrintNSError();
-    LogPrintF_safe();
-
-    goto LABEL_6;
   }
 }
 

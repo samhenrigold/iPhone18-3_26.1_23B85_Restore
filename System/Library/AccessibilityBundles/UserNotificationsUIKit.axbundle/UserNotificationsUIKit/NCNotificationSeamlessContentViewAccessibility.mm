@@ -135,16 +135,14 @@ uint64_t __71__NCNotificationSeamlessContentViewAccessibility_accessibilityActiv
 
 - (id)_accessibilitySupportGesturesAttributes
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v6[0] = @"AXSupportedGestureTypeKey";
-  v6[1] = @"AXOrbGestureMode";
-  v7[0] = &unk_2A2395558;
-  v7[1] = &unk_2A2395570;
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v8[0] = v2;
-  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
-
-  v4 = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
+  v5[0] = @"AXSupportedGestureTypeKey";
+  v5[1] = @"AXOrbGestureMode";
+  v6[0] = &unk_2A2395558;
+  v6[1] = &unk_2A2395570;
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v7[0] = v2;
+  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
 
   return v3;
 }

@@ -449,7 +449,7 @@ void __283__TPPeerStableInfo_initWithClock_frozenPolicyVersion_flexiblePolicyVer
 
 + (id)policySecretsFromPb:(id)pb
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pbCopy = pb;
   policySecrets = [pbCopy policySecrets];
   v5 = [policySecrets count];
@@ -460,32 +460,32 @@ void __283__TPPeerStableInfo_initWithClock_frozenPolicyVersion_flexiblePolicyVer
     policySecrets2 = [pbCopy policySecrets];
     v8 = [v6 dictionaryWithCapacity:{objc_msgSend(policySecrets2, "count")}];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     policySecrets3 = [pbCopy policySecrets];
-    v10 = [policySecrets3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [policySecrets3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(policySecrets3);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           secret = [v14 secret];
           name = [v14 name];
           [v8 setObject:secret forKeyedSubscript:name];
         }
 
-        v11 = [policySecrets3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [policySecrets3 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -496,8 +496,6 @@ void __283__TPPeerStableInfo_initWithClock_frozenPolicyVersion_flexiblePolicyVer
   {
     v8 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

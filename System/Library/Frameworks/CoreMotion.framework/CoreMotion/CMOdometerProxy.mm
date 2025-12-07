@@ -52,43 +52,39 @@
 
 - (void)_startDaemonConnection
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  fLocationdConnection = self->fLocationdConnection;
+  v7[1] = *MEMORY[0x1E69E9840];
   CLConnectionClient::setDefaultMessageHandler();
-  v4 = self->fLocationdConnection;
-  sub_19B428B50(&v7, "kCLConnectionMessageOdometerGpsAvailability");
+  sub_19B428B50(&v4, "kCLConnectionMessageOdometerGpsAvailability");
   CLConnectionClient::setHandlerForMessage();
-  if (v8 < 0)
+  if (v5 < 0)
   {
-    operator delete(v7);
+    operator delete(v4);
   }
 
-  v5 = self->fLocationdConnection;
   CLConnectionClient::setInterruptionHandler();
   CLConnectionClient::start(self->fLocationdConnection);
-  v9 = @"kCLConnectionMessageSubscribeKey";
-  v10[0] = MEMORY[0x1E695E118];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v10, &v9, 1);
+  v6 = @"kCLConnectionMessageSubscribeKey";
+  v7[0] = MEMORY[0x1E695E118];
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v3, v7, &v6, 1);
   sub_19B627DE4();
 }
 
 - (void)_startOdometerUpdatesWithHandler:(id)handler
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   objc_msgSend_setTotalDistance_(self, a2, handler, -1.0);
 
   self->fHandler = objc_msgSend_copy(handler, v5, v6);
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageStartOdometerUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v10 < 0)
+  if (v9 < 0)
   {
     operator delete(__p);
   }
 
-  v11 = @"kCLConnectionMessageSubscribeKey";
-  v12[0] = MEMORY[0x1E695E118];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v12, &v11, 1);
+  v10 = @"kCLConnectionMessageSubscribeKey";
+  v11[0] = MEMORY[0x1E695E118];
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v11, &v10, 1);
   sub_19B5D379C();
 }
 
@@ -112,29 +108,34 @@
 
 - (void)_startCyclingWorkoutDistanceUpdatesWithHandler:(id)handler
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   objc_msgSend_setTotalCyclingDistance_(self, a2, handler, -1.0);
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageCyclingWorkoutDistanceUpdate");
+  v6[1] = MEMORY[0x1E69E9820];
+  v6[2] = 3221225472;
+  v6[3] = sub_19B626E8C;
+  v6[4] = &unk_1E7532BB8;
+  v6[5] = self;
+  v6[6] = handler;
   CLConnectionClient::setHandlerForMessage();
-  if (v7 < 0)
+  if (v8 < 0)
   {
     operator delete(__p);
   }
 
-  v8 = @"kCLConnectionMessageSubscribeKey";
-  v9[0] = MEMORY[0x1E695E118];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v9, &v8, 1);
-  sub_19B627F28();
+  v9 = @"kCLConnectionMessageSubscribeKey";
+  v10[0] = MEMORY[0x1E695E118];
+  v6[0] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v10, &v9, 1);
+  sub_19B627F28(&__p, v6);
 }
 
 - (void)_stopCyclingWorkoutDistanceUpdates
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"kCLConnectionMessageSubscribeKey";
-  v4[0] = MEMORY[0x1E695E110];
-  __p = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v4, &v3, 1);
-  sub_19B627F28();
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"kCLConnectionMessageSubscribeKey";
+  v5[0] = MEMORY[0x1E695E110];
+  __p = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, &v4, 1);
+  sub_19B627F28(&v3, &__p);
 }
 
 @end

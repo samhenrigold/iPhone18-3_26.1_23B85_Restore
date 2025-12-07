@@ -34,7 +34,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -61,15 +61,15 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = HMFGetLogIdentifier();
-      v34 = 138544130;
-      v35 = v19;
-      v36 = 2112;
-      v37 = v15;
-      v38 = 2112;
-      v39 = pathCopy;
-      v40 = 2112;
-      v41 = changeCopy;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Received notification operation '%@' property '%@' updated to: %@", &v34, 0x2Au);
+      v33 = 138544130;
+      v34 = v19;
+      v35 = 2112;
+      v36 = v15;
+      v37 = 2112;
+      v38 = pathCopy;
+      v39 = 2112;
+      v40 = changeCopy;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Received notification operation '%@' property '%@' updated to: %@", &v33, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -81,9 +81,9 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
-        v34 = 138543362;
-        v35 = v23;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Disabling syncing", &v34, 0xCu);
+        v33 = 138543362;
+        v34 = v23;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Disabling syncing", &v33, 0xCu);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -105,9 +105,9 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           v32 = HMFGetLogIdentifier();
-          v34 = 138543362;
-          v35 = v32;
-          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Enabling syncing", &v34, 0xCu);
+          v33 = 138543362;
+          v34 = v32;
+          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Enabling syncing", &v33, 0xCu);
         }
 
         objc_autoreleasePoolPop(v26);
@@ -120,13 +120,13 @@
         {
           v30 = HMFGetLogIdentifier();
           error2 = [v15 error];
-          v34 = 138543874;
-          v35 = v30;
-          v36 = 2112;
-          v37 = v15;
-          v38 = 2112;
-          v39 = error2;
-          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Operation '%@' failed, resetting syncing: %@", &v34, 0x20u);
+          v33 = 138543874;
+          v34 = v30;
+          v35 = 2112;
+          v36 = v15;
+          v37 = 2112;
+          v38 = error2;
+          _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Operation '%@' failed, resetting syncing: %@", &v33, 0x20u);
         }
 
         objc_autoreleasePoolPop(v26);
@@ -136,13 +136,11 @@
       [v15 removeObserver:v27 forKeyPath:pathCopy];
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOperation:(id)operation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
@@ -152,11 +150,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = operationCopy;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Adding operation: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = operationCopy;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Adding operation: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -168,9 +166,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v12;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for state change notifications", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v12;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for state change notifications", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -180,8 +178,6 @@
 
     [(NSOperationQueue *)selfCopy->_queue addOperation:operationCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)operationForMessage:(id)message error:(id *)error
@@ -246,14 +242,14 @@ LABEL_14:
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   if ([(HMDHomeAdministratorHandler *)self shouldRelayMessages])
   {
-    v19 = 0;
-    v8 = [(HMDHomeAdministratorHandler *)self operationForMessage:messageCopy error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [(HMDHomeAdministratorHandler *)self operationForMessage:messageCopy error:&v18];
+    v9 = v18;
     if (v8)
     {
       [(HMDHomeAdministratorHandler *)self addOperation:v8];
@@ -268,9 +264,9 @@ LABEL_14:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v15;
-        v22 = 2112;
-        v23 = v9;
+        v20 = v15;
+        v21 = 2112;
+        v22 = v9;
         _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to create home administrator configuration operation: %@", buf, 0x16u);
       }
 
@@ -296,8 +292,6 @@ LABEL_14:
       (*(v10 + 2))(v10, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRelayMessages
@@ -382,13 +376,13 @@ LABEL_10:
 
       [v26 setUserPrivilege:4];
       [v26 setRequiresRemoteAccess:0];
-      v29 = [v26 copy];
+      v29 = objc_msgSend_copy(v26);
       [v24 replaceObjectAtIndex:v27 withObject:v29];
 
       selector = v33;
     }
 
-    v18 = [v24 copy];
+    v18 = objc_msgSend_copy(v24);
     objc_autoreleasePoolPop(context);
 
     v30 = __HMDHomeAdministratorHandlerGetOrCreateReceiver(selfCopy, v15);
@@ -490,12 +484,11 @@ LABEL_10:
 
 uint64_t __42__HMDHomeAdministratorHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_169764;
-  logCategory__hmf_once_v14_169764 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_169764;
+  logCategory__hmf_once_v14_169764 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

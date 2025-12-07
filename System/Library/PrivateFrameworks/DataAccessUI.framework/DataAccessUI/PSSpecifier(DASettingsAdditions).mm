@@ -23,22 +23,15 @@
   v9 = a3;
   v10 = a4;
   v11 = a6;
-  v12 = 0x277D3FAD8;
+  v12 = [objc_opt_class() preferenceSpecifierNamed:v9 target:v10 set:0 get:0 detail:0 cell:13 edit:0];
+  v13 = v12;
+  *&v12[*MEMORY[0x277D3FC80]] = a5;
   if (v11)
   {
-    v12 = 0x277D3F9C8;
+    [v12 setupWithDictionary:v11];
   }
 
-  v13 = *v12;
-  v14 = [objc_opt_class() preferenceSpecifierNamed:v9 target:v10 set:0 get:0 detail:0 cell:13 edit:0];
-  v15 = v14;
-  *&v14[*MEMORY[0x277D3FC80]] = a5;
-  if (v11)
-  {
-    [v14 setupWithDictionary:v11];
-  }
-
-  return v15;
+  return v13;
 }
 
 @end

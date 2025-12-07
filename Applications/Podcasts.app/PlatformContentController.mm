@@ -68,7 +68,7 @@
 {
   uuidCopy = uuid;
   selfCopy = self;
-  sub_100286960();
+  sub_100286960(uuidCopy);
 }
 
 @end

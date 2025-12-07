@@ -151,7 +151,7 @@ id __49__SBDashBoardIdleTimerProvider_initWithDelegate___block_invoke(uint64_t a
 {
   v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if ([(NSMutableSet *)self->_disabledIdleTimerAssertions containsObject:reasonCopy])
+  if (objc_msgSend_containsObject_(self->_disabledIdleTimerAssertions))
   {
     v5 = SBLogIdleTimer();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -214,7 +214,7 @@ LABEL_9:
 {
   v19 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if (([(NSMutableSet *)self->_disabledIdleTimerAssertions containsObject:reasonCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_disabledIdleTimerAssertions) & 1) == 0)
   {
     v7 = SBLogIdleTimer();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))

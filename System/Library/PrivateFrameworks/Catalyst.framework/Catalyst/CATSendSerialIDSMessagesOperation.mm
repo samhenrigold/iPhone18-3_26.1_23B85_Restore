@@ -46,37 +46,37 @@
 
 - (void)sendMessages
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = __Block_byref_object_copy__0;
-  v22[4] = __Block_byref_object_dispose__0;
-  v23 = 0;
+  v24 = *MEMORY[0x277D85DE8];
   v21[0] = 0;
   v21[1] = v21;
-  v21[2] = 0x2020000000;
-  v21[3] = [(NSArray *)self->mMessages count];
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__0;
+  v21[4] = __Block_byref_object_dispose__0;
+  v22 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = [(NSArray *)self->mMessages count];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = self->mMessages;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v17 objects:v24 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v23 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     do
     {
       v5 = 0;
       do
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * v5);
+        v6 = *(*(&v16 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = [[CATIDSMessagePayload alloc] initWithMessage:v6];
         mPrimitives = self->mPrimitives;
@@ -84,30 +84,28 @@
         mDestinationAddress = self->mDestinationAddress;
         mSourceAppleID = self->mSourceAppleID;
         mOptions = self->mOptions;
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __49__CATSendSerialIDSMessagesOperation_sendMessages__block_invoke;
-        v16[3] = &unk_278DA7738;
-        v16[4] = self;
-        v16[5] = v21;
-        v16[6] = v22;
-        [(CATIDSPrimitives *)mPrimitives sendMessage:dictionaryValue toAddress:mDestinationAddress fromID:mSourceAppleID options:mOptions completion:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __49__CATSendSerialIDSMessagesOperation_sendMessages__block_invoke;
+        v15[3] = &unk_278DA7738;
+        v15[4] = self;
+        v15[5] = v20;
+        v15[6] = v21;
+        [(CATIDSPrimitives *)mPrimitives sendMessage:dictionaryValue toAddress:mDestinationAddress fromID:mSourceAppleID options:mOptions completion:v15];
 
         objc_autoreleasePoolPop(v7);
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)obj countByEnumeratingWithState:&v17 objects:v24 count:16];
+      v3 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v23 count:16];
     }
 
     while (v3);
   }
 
+  _Block_object_dispose(v20, 8);
   _Block_object_dispose(v21, 8);
-  _Block_object_dispose(v22, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__CATSendSerialIDSMessagesOperation_sendMessages__block_invoke(uint64_t a1, void *a2)

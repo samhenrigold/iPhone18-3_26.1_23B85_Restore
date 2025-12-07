@@ -76,7 +76,7 @@
 - (void)pushAndPostUpdates
 {
   selfCopy = self;
-  v87 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!atomic_load(&selfCopy->_updatesDisabled))
   {
@@ -91,7 +91,7 @@
     if (!v11)
     {
       v4 = SPLogForSPLogCategoryDefault();
-      v57 = *MEMORY[0x277D4BF50];
+      v55 = *MEMORY[0x277D4BF50];
       if (!os_log_type_enabled(&v4->super, ((*MEMORY[0x277D4BF50] & 1) == 0)))
       {
         goto LABEL_56;
@@ -99,7 +99,7 @@
 
       *buf = 0;
       v7 = "pushAndPostUpdates - nothing to post";
-      v8 = (v57 & 1) == 0;
+      v8 = (v55 & 1) == 0;
       p_super = &v4->super;
       v10 = 2;
       goto LABEL_4;
@@ -130,19 +130,19 @@
     if (!queryUnderstandingOutput)
     {
 LABEL_46:
-      v58 = v11[3];
-      [(SPQueryResponse *)v4 setState:v58, v66];
-      selfCopy->_state = v58;
-      v59 = *(v11 + 16);
-      v60 = SPLogForSPLogCategoryDefault();
-      v61 = *MEMORY[0x277D4BF50];
-      v62 = os_log_type_enabled(v60, ((*MEMORY[0x277D4BF50] & 1) == 0));
-      if (v59 == 1)
+      v56 = v11[3];
+      [(SPQueryResponse *)v4 setState:v56, v63];
+      selfCopy->_state = v56;
+      v57 = *(v11 + 16);
+      v58 = SPLogForSPLogCategoryDefault();
+      v59 = *MEMORY[0x277D4BF50];
+      v60 = os_log_type_enabled(v58, ((*MEMORY[0x277D4BF50] & 1) == 0));
+      if (v57 == 1)
       {
-        if (v62)
+        if (v60)
         {
           *buf = 0;
-          _os_log_impl(&dword_26B71B000, v60, ((v61 & 1) == 0), "Post clear", buf, 2u);
+          _os_log_impl(&dword_26B71B000, v58, ((v59 & 1) == 0), "Post clear", buf, 2u);
         }
 
         WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
@@ -153,10 +153,10 @@ LABEL_46:
 
       else
       {
-        if (v62)
+        if (v60)
         {
           *buf = 0;
-          _os_log_impl(&dword_26B71B000, v60, ((v61 & 1) == 0), "Post updates", buf, 2u);
+          _os_log_impl(&dword_26B71B000, v58, ((v59 & 1) == 0), "Post updates", buf, 2u);
         }
 
         [(SPQueryResponse *)v4 setKind:*(v11 + 32)];
@@ -188,7 +188,6 @@ LABEL_55:
 
     v26 = v25;
 
-    v27 = 0x277CBE000uLL;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -197,144 +196,142 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v67 = selfCopy;
-    v68 = v11;
-    v66 = v26;
-    v28 = v26;
-    v69 = v4;
-    [(SPQueryResponse *)v4 setEcrGroundedOutput:v28];
-    v29 = v28;
-    v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v64 = selfCopy;
+    v65 = v11;
+    v63 = v26;
+    v27 = v26;
+    v66 = v4;
+    [(SPQueryResponse *)v4 setEcrGroundedOutput:v27];
+    v28 = v27;
+    v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v77 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v31 = v29;
-    v32 = [v31 countByEnumeratingWithState:&v80 objects:buf count:16];
-    if (v32)
+    v30 = v28;
+    v31 = [v30 countByEnumeratingWithState:&v77 objects:buf count:16];
+    if (v31)
     {
-      v33 = v32;
-      v34 = *v81;
-      v70 = *v81;
-      v71 = v31;
+      v32 = v31;
+      v33 = *v78;
+      v67 = *v78;
+      v68 = v30;
       do
       {
-        v35 = 0;
-        v72 = v33;
+        v34 = 0;
+        v69 = v32;
         do
         {
-          if (*v81 != v34)
+          if (*v78 != v33)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v30);
           }
 
-          v36 = *(*(&v80 + 1) + 8 * v35);
-          v37 = [v31 objectForKey:{v36, v66}];
-          v38 = *(v27 + 2752);
+          v35 = *(*(&v77 + 1) + 8 * v34);
+          v36 = [v30 objectForKey:{v35, v63}];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v39 = v37;
-            v40 = v39;
-            if (v39)
+            v37 = v36;
+            v38 = v37;
+            if (v37)
             {
-              v74 = v37;
-              v75 = v35;
-              v41 = [v39 objectForKey:@"rawQueryToken"];
-              v73 = v40;
-              v42 = [v40 objectForKey:@"personRelationMap"];
-              v43 = v42;
-              if (v42)
+              v71 = v36;
+              v72 = v34;
+              v39 = [v37 objectForKey:@"rawQueryToken"];
+              v70 = v38;
+              v40 = [v38 objectForKey:@"personRelationMap"];
+              v41 = v40;
+              if (v40)
               {
-                v78 = 0u;
-                v79 = 0u;
+                v75 = 0u;
                 v76 = 0u;
-                v77 = 0u;
-                v44 = [v42 countByEnumeratingWithState:&v76 objects:v84 count:16];
-                if (v44)
+                v73 = 0u;
+                v74 = 0u;
+                v42 = [v40 countByEnumeratingWithState:&v73 objects:v81 count:16];
+                if (v42)
                 {
-                  v45 = v44;
-                  v46 = *v77;
+                  v43 = v42;
+                  v44 = *v74;
                   do
                   {
-                    for (i = 0; i != v45; ++i)
+                    for (i = 0; i != v43; ++i)
                     {
-                      if (*v77 != v46)
+                      if (*v74 != v44)
                       {
-                        objc_enumerationMutation(v43);
+                        objc_enumerationMutation(v41);
                       }
 
-                      v48 = *(*(&v76 + 1) + 8 * i);
-                      v49 = [v43 objectForKey:v48];
-                      if (v49)
+                      v46 = *(*(&v73 + 1) + 8 * i);
+                      v47 = [v41 objectForKey:v46];
+                      if (v47)
                       {
-                        v50 = [objc_alloc(MEMORY[0x277D65858]) initWithName:v48 relationLabel:v49 ecrToken:v36 queryRawToken:v41];
-                        [v30 addObject:v50];
+                        v48 = [objc_alloc(MEMORY[0x277D65858]) initWithName:v46 relationLabel:v47 ecrToken:v35 queryRawToken:v39];
+                        [v29 addObject:v48];
                       }
                     }
 
-                    v45 = [v43 countByEnumeratingWithState:&v76 objects:v84 count:16];
+                    v43 = [v41 countByEnumeratingWithState:&v73 objects:v81 count:16];
                   }
 
-                  while (v45);
+                  while (v43);
                 }
               }
 
-              v34 = v70;
-              v31 = v71;
-              v27 = 0x277CBE000;
-              v33 = v72;
-              v40 = v73;
-              v37 = v74;
-              v35 = v75;
+              v33 = v67;
+              v30 = v68;
+              v32 = v69;
+              v38 = v70;
+              v36 = v71;
+              v34 = v72;
             }
           }
 
-          ++v35;
+          ++v34;
         }
 
-        while (v35 != v33);
-        v33 = [v31 countByEnumeratingWithState:&v80 objects:buf count:16];
+        while (v34 != v32);
+        v32 = [v30 countByEnumeratingWithState:&v77 objects:buf count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v4 = v69;
-    [(SPQueryResponse *)v69 setEcrGroundedPersons:v30];
+    v4 = v66;
+    [(SPQueryResponse *)v66 setEcrGroundedPersons:v29];
 
-    ecrGroundedOutput = [(SPQueryResponse *)v69 ecrGroundedOutput];
-    v52 = [ecrGroundedOutput count];
+    ecrGroundedOutput = [(SPQueryResponse *)v66 ecrGroundedOutput];
+    v50 = [ecrGroundedOutput count];
 
-    v53 = SPLogForSPLogCategoryDefault();
-    v54 = *MEMORY[0x277D4BF50];
-    v55 = os_log_type_enabled(v53, ((*MEMORY[0x277D4BF50] & 1) == 0));
-    if (v52)
+    v51 = SPLogForSPLogCategoryDefault();
+    v52 = *MEMORY[0x277D4BF50];
+    v53 = os_log_type_enabled(v51, ((*MEMORY[0x277D4BF50] & 1) == 0));
+    if (v50)
     {
-      selfCopy = v67;
-      v11 = v68;
-      if (v55)
+      selfCopy = v64;
+      v11 = v65;
+      if (v53)
       {
         *buf = 0;
-        v56 = "Added non empty ecrGroundedOutput to spqueryrespone";
+        v54 = "Added non empty ecrGroundedOutput to spqueryrespone";
 LABEL_43:
-        _os_log_impl(&dword_26B71B000, v53, ((v54 & 1) == 0), v56, buf, 2u);
+        _os_log_impl(&dword_26B71B000, v51, ((v52 & 1) == 0), v54, buf, 2u);
       }
     }
 
     else
     {
-      selfCopy = v67;
-      v11 = v68;
-      if (v55)
+      selfCopy = v64;
+      v11 = v65;
+      if (v53)
       {
         *buf = 0;
-        v56 = "Added empty ecrGroundedOutput to spqueryrespone";
+        v54 = "Added empty ecrGroundedOutput to spqueryrespone";
         goto LABEL_43;
       }
     }
 
-    v26 = v66;
+    v26 = v63;
     goto LABEL_45;
   }
 
@@ -344,7 +341,7 @@ LABEL_43:
   {
     v6 = atomic_load(&selfCopy->_updatesDisabled);
     *buf = 67109120;
-    v86 = v6;
+    v83 = v6;
     v7 = "Skip posting; updates disabled %d.";
     v8 = (v5 & 1) == 0;
     p_super = &v4->super;
@@ -354,8 +351,6 @@ LABEL_4:
   }
 
 LABEL_56:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableUpdates
@@ -371,7 +366,7 @@ LABEL_56:
 
 uint64_t __28__SPQueryTask_enableUpdates__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = atomic_load((*(a1 + 32) + 8));
   if (v1 <= 0)
   {
@@ -384,14 +379,12 @@ uint64_t __28__SPQueryTask_enableUpdates__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v3, ((*MEMORY[0x277D4BF50] & 1) == 0)))
   {
     v5 = atomic_load((*(a1 + 32) + 8));
-    v8[0] = 67109120;
-    v8[1] = v5;
-    _os_log_impl(&dword_26B71B000, v3, ((v4 & 1) == 0), "Enable updates %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v5;
+    _os_log_impl(&dword_26B71B000, v3, ((v4 & 1) == 0), "Enable updates %d", v7, 8u);
   }
 
-  result = [*(a1 + 32) pushAndPostUpdates];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) pushAndPostUpdates];
 }
 
 - (void)disableUpdates
@@ -407,19 +400,17 @@ uint64_t __28__SPQueryTask_enableUpdates__block_invoke(uint64_t a1)
 
 void __29__SPQueryTask_disableUpdates__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   atomic_fetch_add((*(a1 + 32) + 8), 1u);
   v2 = SPLogForSPLogCategoryDefault();
   v3 = *MEMORY[0x277D4BF50];
   if (os_log_type_enabled(v2, ((*MEMORY[0x277D4BF50] & 1) == 0)))
   {
     v4 = atomic_load((*(a1 + 32) + 8));
-    v6[0] = 67109120;
-    v6[1] = v4;
-    _os_log_impl(&dword_26B71B000, v2, ((v3 & 1) == 0), "Disable updates %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v4;
+    _os_log_impl(&dword_26B71B000, v2, ((v3 & 1) == 0), "Disable updates %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postSearchAgentUpdatedResultsToDelegate:(id)delegate

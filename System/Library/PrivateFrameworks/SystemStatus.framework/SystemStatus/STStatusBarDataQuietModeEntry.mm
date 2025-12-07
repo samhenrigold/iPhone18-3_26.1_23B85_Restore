@@ -1,4 +1,5 @@
 @interface STStatusBarDataQuietModeEntry
++ (STStatusBarDataQuietModeEntry)entryWithFocusName:(id)name imageNamed:(id)named BOOLValue:(BOOL)value;
 - (STStatusBarDataQuietModeEntry)initWithBSXPCCoder:(id)coder;
 - (STStatusBarDataQuietModeEntry)initWithCoder:(id)coder;
 - (id)_equalsBuilderWithObject:(id)object;
@@ -9,6 +10,19 @@
 @end
 
 @implementation STStatusBarDataQuietModeEntry
+
++ (STStatusBarDataQuietModeEntry)entryWithFocusName:(id)name imageNamed:(id)named BOOLValue:(BOOL)value
+{
+  valueCopy = value;
+  nameCopy = name;
+  v9 = [self entryWithImageNamed:named BOOLValue:valueCopy];
+  v10 = [nameCopy copy];
+
+  v11 = v9[4];
+  v9[4] = v10;
+
+  return v9;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

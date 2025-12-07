@@ -8,18 +8,18 @@
 
 - (CKSQLiteTOCImageInfoEntry)initWithSharedCache
 {
-  v15[2] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = CKSQLiteTOCImageInfoEntry;
-  v2 = [(CKSQLiteTOCImageInfoEntry *)&v14 init];
+  v14[2] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = CKSQLiteTOCImageInfoEntry;
+  v2 = [(CKSQLiteTOCImageInfoEntry *)&v13 init];
   if (v2)
   {
-    v15[0] = 0;
-    v15[1] = 0;
+    v14[0] = 0;
+    v14[1] = 0;
     if (_dyld_get_shared_cache_uuid())
     {
       v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-      v5 = objc_msgSend_initWithUUIDBytes_(v3, v4, v15);
+      v5 = objc_msgSend_initWithUUIDBytes_(v3, v4, v14);
       uuid = v2->_uuid;
       v2->_uuid = v5;
 
@@ -37,7 +37,6 @@
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

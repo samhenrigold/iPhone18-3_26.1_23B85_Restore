@@ -43,17 +43,17 @@ uint64_t __41__PBBridgeIDSReachability_sharedInstance__block_invoke(uint64_t a1)
 
 - (PBBridgeIDSReachability)init
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = PBBridgeIDSReachability;
-  v2 = [(PBBridgeIDSReachability *)&v13 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = PBBridgeIDSReachability;
+  v2 = [(PBBridgeIDSReachability *)&v12 init];
   if (v2)
   {
     v3 = pbb_bridge_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v15 = "[PBBridgeIDSReachability init]";
+      v14 = "[PBBridgeIDSReachability init]";
       _os_log_impl(&dword_25DE64000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
 
@@ -71,11 +71,10 @@ uint64_t __41__PBBridgeIDSReachability_sharedInstance__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __31__PBBridgeIDSReachability_init__block_invoke;
     block[3] = &unk_2799F4468;
-    v12 = v2;
+    v11 = v2;
     dispatch_async(v8, block);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -94,29 +93,29 @@ void __31__PBBridgeIDSReachability_init__block_invoke(uint64_t a1)
 
 + (id)nrDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = PBGetSetupCompletedDevicesWeShouldList();
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        bluetoothIdentifier = [*(*(&v14 + 1) + 8 * i) bluetoothIdentifier];
+        bluetoothIdentifier = [*(*(&v13 + 1) + 8 * i) bluetoothIdentifier];
         if (bluetoothIdentifier)
         {
           mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
@@ -125,41 +124,39 @@ void __31__PBBridgeIDSReachability_init__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)deviceStatusFromIDSDevices:(id)devices nrDevices:(id)nrDevices
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   nrDevicesCopy = nrDevices;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = devicesCopy;
-  nsuuid = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  nsuuid = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (nsuuid)
   {
-    v9 = *v19;
+    v9 = *v18;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v19 != v9)
+      if (*v18 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * v10);
+      v11 = *(*(&v17 + 1) + 8 * v10);
       if ([v11 isDefaultPairedDevice])
       {
         break;
@@ -167,7 +164,7 @@ LABEL_3:
 
       if (nsuuid == ++v10)
       {
-        nsuuid = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        nsuuid = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (nsuuid)
         {
           goto LABEL_3;
@@ -218,8 +215,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return nsuuid;
 }
@@ -328,7 +323,7 @@ LABEL_12:
 
 - (void)_processDevices:(id)devices
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   nrDevices = [objc_opt_class() nrDevices];
   v6 = [(PBBridgeIDSReachability *)self getDeviceStatusChangeFromIDSDevices:devicesCopy nrDevices:nrDevices];
@@ -338,50 +333,48 @@ LABEL_12:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v6;
+      v20 = v6;
       _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "IDSDevice status change: %@", buf, 0xCu);
     }
 
     os_unfair_lock_lock(&self->_lock);
     v8 = [(NSMutableOrderedSet *)self->_observers copy];
     os_unfair_lock_unlock(&self->_lock);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) fireReachability:self deviceStatus:v6 devices:{nrDevices, v15}];
+          [*(*(&v14 + 1) + 8 * v13++) fireReachability:self deviceStatus:v6 devices:{nrDevices, v14}];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v5 = pbb_bridge_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -389,11 +382,11 @@ LABEL_12:
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 136315650;
-    v16 = "[PBBridgeIDSReachability addObserver:]";
-    v17 = 2112;
-    v18 = v7;
-    v19 = 2048;
-    v20 = observerCopy;
+    v15 = "[PBBridgeIDSReachability addObserver:]";
+    v16 = 2112;
+    v17 = v7;
+    v18 = 2048;
+    v19 = observerCopy;
     _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "%s %@[%p]", buf, 0x20u);
   }
 
@@ -411,17 +404,14 @@ LABEL_12:
     block[2] = __39__PBBridgeIDSReachability_addObserver___block_invoke;
     block[3] = &unk_2799F4738;
     block[4] = self;
-    v13 = v8;
-    v14 = v9;
+    v12 = v8;
+    v13 = v9;
     dispatch_async(queue, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void __39__PBBridgeIDSReachability_addObserver___block_invoke(void *a1)
+void __39__PBBridgeIDSReachability_addObserver___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v6 = [objc_opt_class() nrDevices];
   v4 = a1[4];
   v3 = a1[5];
@@ -431,37 +421,37 @@ void __39__PBBridgeIDSReachability_addObserver___block_invoke(void *a1)
 
 - (void)removeObserver:(id)observer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v5 = pbb_bridge_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v22 = "[PBBridgeIDSReachability removeObserver:]";
+    v21 = "[PBBridgeIDSReachability removeObserver:]";
     _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = [(NSMutableOrderedSet *)self->_observers copy];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         observer = [v11 observer];
         if (observer)
         {
@@ -477,104 +467,98 @@ void __39__PBBridgeIDSReachability_addObserver___block_invoke(void *a1)
         [(NSMutableOrderedSet *)self->_observers removeObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service nearbyDevicesChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = pbb_bridge_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[PBBridgeIDSReachability service:nearbyDevicesChanged:]";
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[PBBridgeIDSReachability service:nearbyDevicesChanged:]";
+    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v8, 0xCu);
   }
 
   pb_mineTinkerDevices = [serviceCopy pb_mineTinkerDevices];
 
   [(PBBridgeIDSReachability *)self _processDevices:pb_mineTinkerDevices];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = pbb_bridge_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[PBBridgeIDSReachability service:connectedDevicesChanged:]";
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[PBBridgeIDSReachability service:connectedDevicesChanged:]";
+    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v8, 0xCu);
   }
 
   pb_mineTinkerDevices = [serviceCopy pb_mineTinkerDevices];
 
   [(PBBridgeIDSReachability *)self _processDevices:pb_mineTinkerDevices];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = pbb_bridge_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[PBBridgeIDSReachability service:activeAccountsChanged:]";
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[PBBridgeIDSReachability service:activeAccountsChanged:]";
+    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v8, 0xCu);
   }
 
   pb_mineTinkerDevices = [serviceCopy pb_mineTinkerDevices];
 
   [(PBBridgeIDSReachability *)self _processDevices:pb_mineTinkerDevices];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service linkedDevicesChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = pbb_bridge_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[PBBridgeIDSReachability service:linkedDevicesChanged:]";
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[PBBridgeIDSReachability service:linkedDevicesChanged:]";
+    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v8, 0xCu);
   }
 
   pb_mineTinkerDevices = [serviceCopy pb_mineTinkerDevices];
 
   [(PBBridgeIDSReachability *)self _processDevices:pb_mineTinkerDevices];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v6 = pbb_bridge_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446210;
-    v10 = "[PBBridgeIDSReachability service:devicesChanged:]";
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v9, 0xCu);
+    v8 = 136446210;
+    v9 = "[PBBridgeIDSReachability service:devicesChanged:]";
+    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s", &v8, 0xCu);
   }
 
   pb_mineTinkerDevices = [serviceCopy pb_mineTinkerDevices];
 
   [(PBBridgeIDSReachability *)self _processDevices:pb_mineTinkerDevices];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

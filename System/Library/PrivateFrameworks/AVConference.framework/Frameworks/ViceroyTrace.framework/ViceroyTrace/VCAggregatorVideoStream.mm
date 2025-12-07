@@ -5,6 +5,7 @@
 - (id)aggregatedSessionReport;
 - (id)dispatchedAggregatedSessionReport;
 - (void)dealloc;
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)flushCurrentSegment;
 - (void)processBitratesWithPayload:(id)payload;
 - (void)processPoorConnection:(id)connection;
@@ -61,7 +62,91 @@ LABEL_6:
   }
 }
 
-uint64_t __75__VCAggregatorVideoStream_dispatchedProcessEventWithCategory_type_payload___block_invoke(uint64_t a1, void *a2)
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  typeCopy = type;
+  categoryCopy = category;
+  dispatch_assert_queue_V2(self->super._stateQueue);
+  v16.receiver = self;
+  v16.super_class = VCAggregatorVideoStream;
+  [(VCAggregator *)&v16 dispatchedProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+  [(VCAggregator *)self microFromPayload:payload];
+  v10 = v9;
+  if (categoryCopy <= 200)
+  {
+    if (categoryCopy > 157)
+    {
+      if (categoryCopy != 158)
+      {
+        if (categoryCopy != 180)
+        {
+          return;
+        }
+
+        goto LABEL_13;
+      }
+
+LABEL_20:
+      [(VCAggregatorVideoStream *)self processVideoDegraded:payload time:v10];
+      return;
+    }
+
+    if (categoryCopy != 8)
+    {
+      if (categoryCopy == 34)
+      {
+        [(VCAggregatorVideoStream *)self updateTotalConnectionTime:payload];
+      }
+
+      return;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (categoryCopy <= 202)
+  {
+    if (categoryCopy != 201)
+    {
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v13 = __75__VCAggregatorVideoStream_dispatchedProcessEventWithCategory_type_payload___block_invoke;
+      v14 = &unk_278BD4E38;
+      selfCopy = self;
+      v11 = [payload objectForKeyedSubscript:@"VCMSEndReason"];
+      if (v11)
+      {
+        v13(v12, v11);
+      }
+
+      return;
+    }
+
+    [(VCAggregator *)self startNewSegment];
+    goto LABEL_18;
+  }
+
+  switch(categoryCopy)
+  {
+    case 0xCB:
+LABEL_18:
+      if (typeCopy != 5 || !payload)
+      {
+        return;
+      }
+
+      goto LABEL_20;
+    case 0xD6:
+      ++self->_rtcpTimeoutCount;
+      return;
+    case 0xF0:
+LABEL_13:
+      [(VCAggregatorVideoStream *)self processRTEvent:payload];
+      break;
+  }
+}
+
+void *__75__VCAggregatorVideoStream_dispatchedProcessEventWithCategory_type_payload___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 unsignedIntValue];
   *(*(a1 + 32) + 1456) = result;
@@ -98,7 +183,7 @@ uint64_t __75__VCAggregatorVideoStream_dispatchedProcessEventWithCategory_type_p
   return v4;
 }
 
-uint64_t __51__VCAggregatorVideoStream_aggregatedSegmentReport___block_invoke(uint64_t a1)
+void *__51__VCAggregatorVideoStream_aggregatedSegmentReport___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedAggregatedSegmentReport:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -107,25 +192,25 @@ uint64_t __51__VCAggregatorVideoStream_aggregatedSegmentReport___block_invoke(ui
 
 - (id)aggregatedCallReports
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3052000000;
-  v10 = __Block_byref_object_copy__10;
-  v11 = __Block_byref_object_dispose__10;
-  v12 = 0;
+  v12[1] = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3052000000;
+  v9 = __Block_byref_object_copy__10;
+  v10 = __Block_byref_object_dispose__10;
+  v11 = 0;
   stateQueue = self->super._stateQueue;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __48__VCAggregatorVideoStream_aggregatedCallReports__block_invoke;
-  v6[3] = &unk_278BD4C10;
-  v6[4] = self;
-  v6[5] = &v7;
-  dispatch_sync(stateQueue, v6);
-  if (v8[5])
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __48__VCAggregatorVideoStream_aggregatedCallReports__block_invoke;
+  v5[3] = &unk_278BD4C10;
+  v5[4] = self;
+  v5[5] = &v6;
+  dispatch_sync(stateQueue, v5);
+  if (v7[5])
   {
-    v13[0] = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:?];
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:?];
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -133,12 +218,11 @@ uint64_t __51__VCAggregatorVideoStream_aggregatedSegmentReport___block_invoke(ui
     v3 = 0;
   }
 
-  _Block_object_dispose(&v7, 8);
-  v4 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v6, 8);
   return v3;
 }
 
-uint64_t __48__VCAggregatorVideoStream_aggregatedCallReports__block_invoke(uint64_t a1)
+void *__48__VCAggregatorVideoStream_aggregatedCallReports__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedAggregatedCallReport];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -166,7 +250,7 @@ uint64_t __48__VCAggregatorVideoStream_aggregatedCallReports__block_invoke(uint6
   return v3;
 }
 
-uint64_t __50__VCAggregatorVideoStream_aggregatedSessionReport__block_invoke(uint64_t a1)
+void *__50__VCAggregatorVideoStream_aggregatedSessionReport__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedAggregatedSessionReport];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -383,7 +467,7 @@ uint64_t __50__VCAggregatorVideoStream_aggregatedSessionReport__block_invoke(uin
 
 - (void)updateTotalConnectionTime:(id)time
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([time objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithUTF8String:", &unk_23D59AAE5)}])
   {
     self->_totalConnectionTime = [objc_msgSend(time objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithUTF8String:", &unk_23D59AAE5)), "unsignedIntValue"}];
@@ -395,54 +479,50 @@ uint64_t __50__VCAggregatorVideoStream_aggregatedSessionReport__block_invoke(uin
       {
         v7 = [time objectForKeyedSubscript:@"VCMSStreamToken"];
         totalConnectionTime = self->_totalConnectionTime;
-        v10 = 136316162;
-        v11 = v5;
-        v12 = 2080;
-        v13 = "[VCAggregatorVideoStream updateTotalConnectionTime:]";
-        v14 = 1024;
-        v15 = 263;
-        v16 = 2112;
-        v17 = v7;
-        v18 = 1024;
-        v19 = totalConnectionTime;
-        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Connection timing for streamToken=%@, TotalConnectionTime=%d", &v10, 0x2Cu);
+        v9 = 136316162;
+        v10 = v5;
+        v11 = 2080;
+        v12 = "[VCAggregatorVideoStream updateTotalConnectionTime:]";
+        v13 = 1024;
+        v14 = 263;
+        v15 = 2112;
+        v16 = v7;
+        v17 = 1024;
+        v18 = totalConnectionTime;
+        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Connection timing for streamToken=%@, TotalConnectionTime=%d", &v9, 0x2Cu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDelegate:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to create poor connection histogram", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d Failed to create poor connection histogram", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDelegate:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v0 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d failed to super initialize", v3, v4, v5, v6, 2u);
+      OUTLINED_FUNCTION_1_1(&dword_23D4DF000, v1, v2, " [%s] %s:%d failed to super initialize", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

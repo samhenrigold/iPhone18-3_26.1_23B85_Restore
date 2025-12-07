@@ -46,16 +46,16 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  DBIconModel.environment.setter();
+  DBIconModel.environment.setter(environment);
 }
 
 - (_TtC9DashBoard11DBIconModel)initWithStore:(id)store carApplicationDataSource:(id)source
 {
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v5 = sub_2483618F8(store);
+  v6 = sub_2483618F8(store, source);
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (id)exportIconLayoutState

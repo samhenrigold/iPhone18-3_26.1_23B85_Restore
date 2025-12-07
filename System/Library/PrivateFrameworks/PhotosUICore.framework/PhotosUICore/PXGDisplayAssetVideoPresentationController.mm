@@ -83,9 +83,9 @@
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(PXGDisplayAssetVideoPresentationController *)self beginningTime];
+  objc_msgSend_beginningTime(self);
   memset(&v13, 0, sizeof(v13));
-  [(PXGDisplayAssetVideoPresentationController *)self actualTime];
+  objc_msgSend_actualTime(self);
   memset(&v12, 0, sizeof(v12));
   lhs = v13;
   v11 = buf;
@@ -355,10 +355,8 @@ uint64_t __60__PXGDisplayAssetVideoPresentationController_becomeVisible___block_
   if (v6)
   {
     delegate2 = [(PXGDisplayAssetVideoPresentationController *)self delegate];
-    v8 = *&time->var0;
-    var3 = time->var3;
-    [(PXGDisplayAssetVideoPresentationController *)self _timeConvertedFromVideoSessionTime:&v8];
-    [delegate2 assetVideoPresentationController:self didReachTime:v10];
+    objc_msgSend__timeConvertedFromVideoSessionTime_(self, time->var0, *&time->var1, time->var3);
+    [delegate2 assetVideoPresentationController:self didReachTime:v8];
   }
 }
 
@@ -366,7 +364,7 @@ uint64_t __60__PXGDisplayAssetVideoPresentationController_becomeVisible___block_
 {
   v4 = MEMORY[0x1E696B098];
   v13 = *time;
-  [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeConvertedFromTime:&v13];
+  objc_msgSend__videoSessionTimeConvertedFromTime_(self, a2, &v13);
   v5 = [v4 valueWithCMTime:v14];
   timeObserversByTime = [(PXGDisplayAssetVideoPresentationController *)self timeObserversByTime];
   v7 = [timeObserversByTime objectForKeyedSubscript:v5];
@@ -393,7 +391,7 @@ uint64_t __60__PXGDisplayAssetVideoPresentationController_becomeVisible___block_
   v27[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696B098];
   v25 = *time;
-  [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeConvertedFromTime:&v25];
+  objc_msgSend__videoSessionTimeConvertedFromTime_(self, a2, &v25);
   v6 = [v5 valueWithCMTime:location];
   timeObserversByTime = [(PXGDisplayAssetVideoPresentationController *)self timeObserversByTime];
   v8 = [timeObserversByTime objectForKeyedSubscript:v6];
@@ -440,9 +438,9 @@ void __73__PXGDisplayAssetVideoPresentationController_startObservingBoundaryTime
 {
   if ([(PXGDisplayAssetVideoPresentationController *)self isPendingSeekScheduled])
   {
-    [(PXGDisplayAssetVideoPresentationController *)self pendingSeekTime];
-    [(PXGDisplayAssetVideoPresentationController *)self pendingSeekToleranceBefore];
-    [(PXGDisplayAssetVideoPresentationController *)self pendingSeekToleranceAfter];
+    objc_msgSend_pendingSeekTime(self);
+    objc_msgSend_pendingSeekToleranceBefore(self);
+    objc_msgSend_pendingSeekToleranceAfter(self);
     [(PXGDisplayAssetVideoPresentationController *)self _performSeekToTime:v5 toleranceBefore:v4 toleranceAfter:v3];
   }
 }
@@ -452,7 +450,7 @@ void __73__PXGDisplayAssetVideoPresentationController_startObservingBoundaryTime
   sourceCopy = source;
   memset(&v7[1], 0, sizeof($3CC8671D27C23BF42ADDB32F2B5E48AE));
   v7[0] = *time;
-  [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeConvertedFromTime:v7];
+  objc_msgSend__videoSessionTimeConvertedFromTime_(self, a2, v7);
   videoSession = [(PXGDisplayAssetVideoPresentationController *)self videoSession];
   v7[0] = v7[1];
   [videoSession seekToExactTime:v7 updatePixelBuffer:sourceCopy waitUntilComplete:1];
@@ -465,7 +463,7 @@ void __73__PXGDisplayAssetVideoPresentationController_startObservingBoundaryTime
   {
     v15 = *&time->var0;
     var3 = time->var3;
-    [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeConvertedFromTime:&v15];
+    objc_msgSend__videoSessionTimeConvertedFromTime_(self);
     *&time->var0 = v17;
     v10 = v18;
     time->var3 = v18;
@@ -530,8 +528,8 @@ void __73__PXGDisplayAssetVideoPresentationController_startObservingBoundaryTime
 - (void)seekToBeginning
 {
   memset(&v6, 0, sizeof(v6));
-  [(PXGDisplayAssetVideoPresentationController *)self beginningTime];
-  [(PXGDisplayAssetVideoPresentationController *)self actualTime];
+  objc_msgSend_beginningTime(self, a2);
+  objc_msgSend_actualTime(self);
   time1 = v6;
   if (CMTimeCompare(&time1, &time2))
   {
@@ -547,11 +545,11 @@ void __73__PXGDisplayAssetVideoPresentationController_startObservingBoundaryTime
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
-  result = [(PXGDisplayAssetVideoPresentationController *)self playbackStartTime];
+  result = objc_msgSend_playbackStartTime(self, a3);
   var2 = retstr->var2;
   if ((var2 & 1) == 0)
   {
-    result = [(PXGDisplayAssetVideoPresentationController *)self playbackTimeRange];
+    result = objc_msgSend_playbackTimeRange(self);
     *&retstr->var0 = v8;
     retstr->var3 = v9;
     var2 = retstr->var2;
@@ -1062,12 +1060,12 @@ void __68__PXGDisplayAssetVideoPresentationController__performPrerollAtRate___bl
   v19 = 0;
   if (videoSession)
   {
-    [videoSession currentTime];
+    objc_msgSend_currentTime(videoSession);
   }
 
   v14 = v18;
   v15 = v19;
-  [(PXGDisplayAssetVideoPresentationController *)self _timeConvertedFromVideoSessionTime:&v14];
+  objc_msgSend__timeConvertedFromVideoSessionTime_(self);
   v18 = v16;
   v19 = v17;
   isAtEnd = [videoSession isAtEnd];
@@ -1075,7 +1073,7 @@ void __68__PXGDisplayAssetVideoPresentationController__performPrerollAtRate___bl
   v17 = 0;
   if (videoSession)
   {
-    [videoSession videoDuration];
+    objc_msgSend_videoDuration(videoSession);
   }
 
   accessQueue = [(PXGDisplayAssetVideoPresentationController *)self accessQueue];
@@ -1131,25 +1129,24 @@ void __80__PXGDisplayAssetVideoPresentationController__updatePresentationControl
   {
     desiredPlayState = self->_desiredPlayState;
     isVisible = [(PXGDisplayAssetVideoPresentationController *)self isVisible];
-    v18 = 0u;
-    v19 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v6 = desiredPlayState == 1 && isVisible;
-    v17 = 0uLL;
-    [(PXGDisplayAssetVideoPresentationController *)self playbackTimeRange];
-    v16[0] = v17;
-    v16[1] = v18;
-    v16[2] = v19;
-    [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeRangeConvertedFromTimeRange:v16];
-    v17 = v16[3];
-    v18 = v16[4];
-    v19 = v16[5];
+    objc_msgSend_playbackTimeRange(self);
+    v16 = 0uLL;
+    v17 = v21;
+    v18 = v22;
+    objc_msgSend__videoSessionTimeRangeConvertedFromTimeRange_(self);
+    v20 = v19[0];
+    v21 = v19[1];
+    v22 = v19[2];
     isLoopingEnabled = [(PXGDisplayAssetVideoPresentationController *)self isLoopingEnabled];
-    if (BYTE12(v17))
+    if (BYTE12(v19[0]))
     {
       v8 = 0;
-      if ((BYTE4(v19) & 1) != 0 && !*(&v19 + 1))
+      if ((BYTE4(v22) & 1) != 0 && !*(&v22 + 1))
       {
-        v8 = v18 >= 0;
+        v8 = v21 >= 0;
       }
     }
 
@@ -1165,9 +1162,9 @@ void __80__PXGDisplayAssetVideoPresentationController__updatePresentationControl
     v10[3] = &unk_1E7747E40;
     v10[4] = self;
     v10[5] = v6;
-    v11 = v17;
-    v12 = v18;
-    v13 = v19;
+    v11 = v20;
+    v12 = v21;
+    v13 = v22;
     v14 = isLoopingEnabled;
     v15 = v8;
     [videoSession2 performChanges:v10 withPresentationContext:0 presenter:self->_videoSessionPresenter];
@@ -1238,7 +1235,7 @@ LABEL_6:
   {
     memset(&v11, 0, sizeof(v11));
     start = a4->var0;
-    [(PXGDisplayAssetVideoPresentationController *)self _videoSessionTimeConvertedFromTime:&start];
+    objc_msgSend__videoSessionTimeConvertedFromTime_(self);
     start = v11;
     var1 = a4->var1;
     return CMTimeRangeMake(retstr, &start, &var1);
@@ -1262,7 +1259,7 @@ LABEL_6:
   {
     memset(&v11, 0, sizeof(v11));
     start = a4->var0;
-    [(PXGDisplayAssetVideoPresentationController *)self _timeConvertedFromVideoSessionTime:&start];
+    objc_msgSend__timeConvertedFromVideoSessionTime_(self);
     start = v11;
     var1 = a4->var1;
     return CMTimeRangeMake(retstr, &start, &var1);
@@ -1288,7 +1285,7 @@ LABEL_6:
     v9 = videoSession;
     if (videoSession)
     {
-      [videoSession segmentTimeRangeOfOriginalVideo];
+      objc_msgSend_segmentTimeRangeOfOriginalVideo(videoSession);
     }
 
     else
@@ -1305,7 +1302,7 @@ LABEL_6:
       v12 = videoSession2;
       if (videoSession2)
       {
-        [videoSession2 segmentTimeRangeOfOriginalVideo];
+        objc_msgSend_segmentTimeRangeOfOriginalVideo(videoSession2);
       }
 
       else
@@ -1326,7 +1323,7 @@ LABEL_6:
       v14 = videoSession3;
       if (videoSession3)
       {
-        [videoSession3 segmentTimeRangeOfOriginalVideo];
+        objc_msgSend_segmentTimeRangeOfOriginalVideo(videoSession3);
       }
 
       else
@@ -1358,7 +1355,7 @@ LABEL_6:
     v9 = videoSession;
     if (videoSession)
     {
-      [videoSession segmentTimeRangeOfOriginalVideo];
+      objc_msgSend_segmentTimeRangeOfOriginalVideo(videoSession);
     }
 
     else
@@ -1404,8 +1401,8 @@ LABEL_6:
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    options = [(PXGDisplayAssetVideoPresentationController *)self options];
-    strategies = [options strategies];
+    v6 = objc_msgSend_options(self, 0);
+    strategies = [v6 strategies];
 
     v8 = [strategies countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
@@ -1472,8 +1469,8 @@ LABEL_6:
   {
     videoSessionManager = [(PXGDisplayAssetVideoPresentationController *)self videoSessionManager];
     displayAsset = [(PXGDisplayAssetVideoPresentationController *)self displayAsset];
-    options = [(PXGDisplayAssetVideoPresentationController *)self options];
-    v12 = [videoSessionManager videoSessionForAsset:displayAsset withOptions:options mediaProvider:providerCopy];
+    v11 = objc_msgSend_options(self);
+    v12 = [videoSessionManager videoSessionForAsset:displayAsset withOptions:v11 mediaProvider:providerCopy];
 
     v13 = [(PXGDisplayAssetVideoPresentationController *)self log];
     v14 = os_signpost_id_make_with_pointer(v13, self);
@@ -1522,7 +1519,7 @@ LABEL_6:
           v26 = *(*(&v27 + 1) + 8 * i);
           if (v26)
           {
-            [v26 CMTimeValue];
+            objc_msgSend_CMTimeValue(v26);
           }
 
           else

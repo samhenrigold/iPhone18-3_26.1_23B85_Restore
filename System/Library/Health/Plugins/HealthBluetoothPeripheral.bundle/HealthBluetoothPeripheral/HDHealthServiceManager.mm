@@ -35,6 +35,7 @@
 - (void)servicesInvalidatedForDevice:(id)device withError:(id)error;
 - (void)stopDiscoveryWithIdentifier:(unint64_t)identifier;
 - (void)unpairHealthServiceIfNecessary:(id)necessary;
+- (void)writeCharacteristic:(id)characteristic onSession:(unint64_t)session expectResponse:(BOOL)response completion:(id)completion;
 @end
 
 @implementation HDHealthServiceManager
@@ -1168,6 +1169,68 @@ LABEL_16:
     v19 = [NSError hk_error:304 format:@"Cannot find peripheral for session %@", v20];
 
     (*(completionCopy + 2))(completionCopy, operationCopy, 0, v19);
+  }
+
+  _Block_object_dispose(buf, 8);
+}
+
+- (void)writeCharacteristic:(id)characteristic onSession:(unint64_t)session expectResponse:(BOOL)response completion:(id)completion
+{
+  responseCopy = response;
+  characteristicCopy = characteristic;
+  completionCopy = completion;
+  _HKInitializeLogging();
+  v13 = HKLogServices;
+  if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
+    *buf = 138544386;
+    *&buf[4] = self;
+    *&buf[12] = 2114;
+    *&buf[14] = v15;
+    *&buf[22] = 2114;
+    v24 = characteristicCopy;
+    LOWORD(v25) = 2048;
+    *(&v25 + 2) = session;
+    WORD5(v25) = 1024;
+    HIDWORD(v25) = responseCopy;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: characteristic: %{public}@, sessionId: %lu, expectResponse: %{BOOL}d", buf, 0x30u);
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x3032000000;
+  v24 = sub_1BE14;
+  *&v25 = sub_1BE24;
+  *(&v25 + 1) = 0;
+  connectionLock = self->_connectionLock;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_224A8;
+  v22[3] = &unk_5C7D8;
+  v22[5] = buf;
+  v22[6] = session;
+  v22[4] = self;
+  [(NSLock *)connectionLock hk_withLock:v22];
+  v17 = *(*&buf[8] + 40);
+  if (v17)
+  {
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_22544;
+    v20[3] = &unk_5D790;
+    v21 = completionCopy;
+    [v17 writeCharacteristic:characteristicCopy expectResponse:responseCopy completion:v20];
+    v18 = v21;
+  }
+
+  else
+  {
+    v19 = [NSNumber numberWithUnsignedInteger:session];
+    v18 = [NSError hk_error:304 format:@"Cannot find peripheral for session %@", v19];
+
+    (*(completionCopy + 2))(completionCopy, 0, v18);
   }
 
   _Block_object_dispose(buf, 8);

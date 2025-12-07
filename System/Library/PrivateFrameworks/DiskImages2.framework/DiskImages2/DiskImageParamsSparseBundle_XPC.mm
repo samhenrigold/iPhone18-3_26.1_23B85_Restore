@@ -10,7 +10,7 @@
   backendXPC = [(DiskImageParamsXPC *)self backendXPC];
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
     v4 = v6;
     v5 = v7;
   }
@@ -31,7 +31,7 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
     backendXPC = v8;
   }
 

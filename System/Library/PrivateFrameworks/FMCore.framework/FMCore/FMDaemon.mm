@@ -59,7 +59,7 @@
 
 - (id)verifyLaunchEventsConfiguration:(id)configuration withExclusions:(id)exclusions
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v7 = [MEMORY[0x277CBEB98] setWithArray:exclusions];
   v8 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:configurationCopy];
@@ -67,32 +67,32 @@
   if (v8)
   {
     selfCopy = self;
-    v53 = v8;
-    v54 = v7;
+    v52 = v8;
+    v53 = v7;
     v10 = [v8 objectForKeyedSubscript:@"LaunchEvents"];
     v11 = [v10 objectForKeyedSubscript:@"com.apple.notifyd.matching"];
 
     v12 = [MEMORY[0x277CBEB58] set];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v64 objects:v69 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v63 objects:v68 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v65;
+      v16 = *v64;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v65 != v16)
+          if (*v64 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v64 + 1) + 8 * i);
+          v18 = *(*(&v63 + 1) + 8 * i);
           [v12 addObject:v18];
           v19 = [v13 objectForKeyedSubscript:v18];
           v20 = [v19 objectForKeyedSubscript:@"Notification"];
@@ -101,13 +101,13 @@
           {
             v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Darwin event key %@ does not match with its notification name %@", v18, v20];
             xpcDarwinEventHandlers = v13;
-            v9 = v53;
-            v7 = v54;
+            v9 = v52;
+            v7 = v53;
             goto LABEL_37;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v63 objects:v68 count:16];
         if (v15)
         {
           continue;
@@ -117,18 +117,18 @@
       }
     }
 
-    v7 = v54;
-    [v12 minusSet:v54];
+    v7 = v53;
+    [v12 minusSet:v53];
     xpcDarwinEventHandlers = [(FMDaemon *)selfCopy xpcDarwinEventHandlers];
     v22 = [MEMORY[0x277CBEB58] set];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __59__FMDaemon_verifyLaunchEventsConfiguration_withExclusions___block_invoke;
-    v62[3] = &unk_278FD97A8;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __59__FMDaemon_verifyLaunchEventsConfiguration_withExclusions___block_invoke;
+    v61[3] = &unk_278FD97A8;
     v20 = v22;
-    v63 = v20;
-    [xpcDarwinEventHandlers enumerateKeysAndObjectsUsingBlock:v62];
-    [v20 minusSet:v54];
+    v62 = v20;
+    [xpcDarwinEventHandlers enumerateKeysAndObjectsUsingBlock:v61];
+    [v20 minusSet:v53];
     string = [MEMORY[0x277CCAB68] string];
     v24 = [v12 mutableCopy];
     [v24 minusSet:v20];
@@ -139,13 +139,13 @@
 
     v25 = [v20 mutableCopy];
     [v25 minusSet:v12];
-    v9 = v53;
+    v9 = v52;
     if ([v25 count])
     {
       [string appendFormat:@"launchd plist does not have these darwin notifications but, they have a handler defined in code: %@\n", v25];
     }
 
-    v50 = v25;
+    v49 = v25;
     if ([string length])
     {
       v26 = string;
@@ -153,35 +153,35 @@
 
     else
     {
-      v46 = v24;
-      v47 = string;
-      v48 = xpcDarwinEventHandlers;
-      v49 = configurationCopy;
-      v27 = [v53 objectForKeyedSubscript:@"LaunchEvents"];
+      v45 = v24;
+      v46 = string;
+      v47 = xpcDarwinEventHandlers;
+      v48 = configurationCopy;
+      v27 = [v52 objectForKeyedSubscript:@"LaunchEvents"];
       v28 = [v27 objectForKeyedSubscript:@"com.apple.distnoted.matching"];
 
-      v55 = [MEMORY[0x277CBEB58] set];
+      v54 = [MEMORY[0x277CBEB58] set];
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       v29 = v28;
-      v30 = [v29 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v57 objects:v67 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v59;
+        v32 = *v58;
         while (2)
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v59 != v32)
+            if (*v58 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v58 + 1) + 8 * j);
-            [v55 addObject:v34];
+            v34 = *(*(&v57 + 1) + 8 * j);
+            [v54 addObject:v34];
             v35 = [v29 objectForKeyedSubscript:v34];
             v36 = [v35 objectForKeyedSubscript:@"Name"];
 
@@ -189,13 +189,13 @@
             {
               v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Distributed event key %@ does not match with its notification name %@", v34, v36];
               v42 = v29;
-              v7 = v54;
-              v24 = v46;
+              v7 = v53;
+              v24 = v45;
               goto LABEL_35;
             }
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v58 objects:v68 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v57 objects:v67 count:16];
           if (v31)
           {
             continue;
@@ -205,36 +205,36 @@
         }
       }
 
-      v7 = v54;
-      [v55 minusSet:v54];
+      v7 = v53;
+      [v54 minusSet:v53];
       xpcDistributedEventHandlers = [(FMDaemon *)selfCopy xpcDistributedEventHandlers];
       v38 = [MEMORY[0x277CBEB58] set];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __59__FMDaemon_verifyLaunchEventsConfiguration_withExclusions___block_invoke_2;
-      v56[3] = &unk_278FD97A8;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __59__FMDaemon_verifyLaunchEventsConfiguration_withExclusions___block_invoke_2;
+      v55[3] = &unk_278FD97A8;
       v36 = v38;
-      v57 = v36;
-      v52 = xpcDistributedEventHandlers;
-      [xpcDistributedEventHandlers enumerateKeysAndObjectsUsingBlock:v56];
-      [v36 minusSet:v54];
+      v56 = v36;
+      v51 = xpcDistributedEventHandlers;
+      [xpcDistributedEventHandlers enumerateKeysAndObjectsUsingBlock:v55];
+      [v36 minusSet:v53];
       string2 = [MEMORY[0x277CCAB68] string];
-      v40 = [v55 mutableCopy];
+      v40 = [v54 mutableCopy];
       [v40 minusSet:v36];
       if ([v40 count])
       {
         [string2 appendFormat:@"launchd plist has these distributed notifications that don't have a handler defined in code: %@\n", v40];
       }
 
-      v45 = v40;
+      v44 = v40;
       v41 = [v36 mutableCopy];
-      [v41 minusSet:v55];
+      [v41 minusSet:v54];
       if ([v41 count])
       {
         [string2 appendFormat:@"launchd plist does not have these distributed notifications but, they have a handler defined in code: %@\n", v41];
       }
 
-      v24 = v46;
+      v24 = v45;
       if ([string2 length])
       {
         v26 = string2;
@@ -245,13 +245,13 @@
         v26 = 0;
       }
 
-      v42 = v52;
+      v42 = v51;
 LABEL_35:
 
-      xpcDarwinEventHandlers = v48;
-      configurationCopy = v49;
-      v9 = v53;
-      string = v47;
+      xpcDarwinEventHandlers = v47;
+      configurationCopy = v48;
+      v9 = v52;
+      string = v46;
     }
 
 LABEL_37:
@@ -261,8 +261,6 @@ LABEL_37:
   {
     v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not load %@", 0];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

@@ -83,7 +83,7 @@
 
   else
   {
-    sub_1000CBF40();
+    sub_1000CBF40(0);
     v7 = 0;
   }
 
@@ -97,14 +97,14 @@
   v8 = keyCopy;
   if (!objectCopy || !keyCopy)
   {
-    selfCopy = sub_100063A54();
+    selfCopy = sub_100063A54(keyCopy);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136446210;
-      v17 = "[MSDPreferencesFile setObject:forKey:]";
-      v14 = "%{public}s - Both object and key must be non-nil.";
+      v18 = 136446210;
+      v19 = "[MSDPreferencesFile setObject:forKey:]";
+      v16 = "%{public}s - Both object and key must be non-nil.";
 LABEL_13:
-      _os_log_impl(&_mh_execute_header, &selfCopy->super, OS_LOG_TYPE_DEFAULT, v14, &v16, 0xCu);
+      _os_log_impl(&_mh_execute_header, &selfCopy->super, OS_LOG_TYPE_DEFAULT, v16, &v18, 0xCu);
     }
 
 LABEL_14:
@@ -113,36 +113,38 @@ LABEL_14:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    selfCopy = sub_100063A54();
+    selfCopy = sub_100063A54(isKindOfClass);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136446210;
-      v17 = "[MSDPreferencesFile setObject:forKey:]";
-      v14 = "%{public}s - Key must be of type NSString.";
+      v18 = 136446210;
+      v19 = "[MSDPreferencesFile setObject:forKey:]";
+      v16 = "%{public}s - Key must be of type NSString.";
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  if (![NSPropertyListSerialization propertyList:objectCopy isValidForFormat:100])
+  v10 = [NSPropertyListSerialization propertyList:objectCopy isValidForFormat:100];
+  if ((v10 & 1) == 0)
   {
-    [(MSDPreferencesFile *)self raiseInvalidPropertyListObjectExceptionForObject:objectCopy];
+    v10 = [(MSDPreferencesFile *)self raiseInvalidPropertyListObjectExceptionForObject:objectCopy];
   }
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100063A54(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000CBFE0(v8, objectCopy, v9);
+    sub_1000CBFE0(v8, objectCopy, v11);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   cache = [(MSDPreferencesFile *)selfCopy cache];
-  v12 = [(MSDPreferencesFile *)selfCopy deepCopy:objectCopy];
-  [cache setObject:v12 forKey:v8];
+  v14 = [(MSDPreferencesFile *)selfCopy deepCopy:objectCopy];
+  [cache setObject:v14 forKey:v8];
 
   saveCache = [(MSDPreferencesFile *)selfCopy saveCache];
   objc_sync_exit(selfCopy);
@@ -167,7 +169,7 @@ LABEL_15:
 
   else
   {
-    sub_1000CC068();
+    sub_1000CC068(0);
     saveCache = 0;
   }
 
@@ -190,7 +192,7 @@ LABEL_15:
 
   else
   {
-    sub_1000CC108();
+    sub_1000CC108(0);
     saveCache = 0;
   }
 
@@ -208,30 +210,30 @@ LABEL_7:
   }
 
   v3 = +[MSDPreferencesFile preferencesFileUrl];
-  v9 = 0;
-  v4 = [NSDictionary dictionaryWithContentsOfURL:v3 error:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [NSDictionary dictionaryWithContentsOfURL:v3 error:&v10];
+  v5 = v10;
 
   if (!v4)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = +[MSDPreferencesFile preferencesFilePath];
+      v9 = +[MSDPreferencesFile preferencesFilePath];
       *buf = 136446722;
-      v11 = "[MSDPreferencesFile populateCache]";
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to read preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
+      v12 = "[MSDPreferencesFile populateCache]";
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to read preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
     }
 
     goto LABEL_7;
   }
 
-  v6 = [NSMutableDictionary dictionaryWithDictionary:v4];
-  [(MSDPreferencesFile *)self setCache:v6];
+  v7 = [NSMutableDictionary dictionaryWithDictionary:v4];
+  [(MSDPreferencesFile *)self setCache:v7];
 
 LABEL_8:
 }
@@ -240,23 +242,23 @@ LABEL_8:
 {
   cache = [(MSDPreferencesFile *)self cache];
   v3 = +[MSDPreferencesFile preferencesFileUrl];
-  v9 = 0;
-  v4 = [cache writeToURL:v3 error:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [cache writeToURL:v3 error:&v10];
+  v5 = v10;
 
   if ((v4 & 1) == 0)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = +[MSDPreferencesFile preferencesFilePath];
+      v8 = +[MSDPreferencesFile preferencesFilePath];
       *buf = 136446722;
-      v11 = "[MSDPreferencesFile saveCache]";
-      v12 = 2114;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to save preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
+      v12 = "[MSDPreferencesFile saveCache]";
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - Failed to save preferences file:  %{public}@ - Error:  %{public}@", buf, 0x20u);
     }
   }
 
@@ -269,7 +271,7 @@ LABEL_8:
   v4 = [NSString stringWithFormat:@"Object %@ of type %@ is not a valid property list object.", objectCopy, objc_opt_class()];
 
   v5 = [NSException exceptionWithName:@"InvalidPropertyListObject" reason:v4 userInfo:0];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;

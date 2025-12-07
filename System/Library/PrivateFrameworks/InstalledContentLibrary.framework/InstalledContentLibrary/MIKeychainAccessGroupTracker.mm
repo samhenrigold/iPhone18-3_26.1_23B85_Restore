@@ -29,7 +29,7 @@
   return v2;
 }
 
-uint64_t __45__MIKeychainAccessGroupTracker_sharedTracker__block_invoke()
+uint64_t __45__MIKeychainAccessGroupTracker_sharedTracker__block_invoke(uint64_t a1)
 {
   sharedTracker_sharedInstance = objc_alloc_init(objc_opt_class());
 

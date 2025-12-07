@@ -45,7 +45,7 @@
 
 - (BOOL)enqueueCloudScopedIdentifiersToCheck:(id)check error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   checkCopy = check;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -58,7 +58,7 @@
     if (os_log_type_enabled(__CPLStorageOSLogDomain_result_14638, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = checkCopy;
+      v28 = checkCopy;
       _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Will need to check these records in the cloud:\n%@", buf, 0xCu);
     }
   }
@@ -72,26 +72,26 @@
     engineStore = [(CPLEngineStorage *)self engineStore];
     scopes = [engineStore scopes];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v13 = checkCopy;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          scopeIdentifier = [*(*(&v23 + 1) + 8 * i) scopeIdentifier];
+          scopeIdentifier = [*(*(&v22 + 1) + 8 * i) scopeIdentifier];
           if (([v10 containsObject:scopeIdentifier] & 1) == 0)
           {
             [v10 addObject:scopeIdentifier];
@@ -105,7 +105,7 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -124,7 +124,6 @@ LABEL_21:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

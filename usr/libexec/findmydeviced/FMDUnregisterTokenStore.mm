@@ -59,20 +59,20 @@
   v3 = [v2 contextKeysForType:@"AccessoryUnregisterToken" enumerationOption:2];
 
   v4 = [v3 count];
-  v5 = sub_100002880();
+  v5 = sub_100002880(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 67109120;
-    LODWORD(v9) = v4 != 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore accessoriesNeedUnregister %i", &v8, 8u);
+    v9 = 67109120;
+    LODWORD(v10) = v4 != 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore accessoriesNeedUnregister %i", &v9, 8u);
   }
 
-  v6 = sub_10017DFC4();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10017DFC4(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Watch Migration: Stored token count %lu", &v8, 0xCu);
+    v9 = 134217984;
+    v10 = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Watch Migration: Stored token count %lu", &v9, 0xCu);
   }
 
   return v4 != 0;
@@ -81,45 +81,46 @@
 - (id)unregisterTokenForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = sub_10000AB94;
-  v42 = sub_100002B94;
-  v43 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_10000AB94;
+  v50 = sub_100002B94;
+  v51 = 0;
   v5 = [objc_opt_class() tokenKeyForIdentifier:identifierCopy];
   v6 = [objc_opt_class() keychainLookupKeyForIdentifier:identifierCopy];
+  v7 = v6;
   if (v6 && v5)
   {
-    v7 = +[FMDProtectedContextManager sharedManager];
-    v37 = 0;
-    v8 = [v7 contextForKey:v5 contextUUID:0 error:&v37];
-    v9 = v37;
+    v8 = +[FMDProtectedContextManager sharedManager];
+    v45 = 0;
+    v9 = [v8 contextForKey:v5 contextUUID:0 error:&v45];
+    v10 = v45;
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100002880(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not fetch unregister token %@", buf, 0xCu);
+        v53 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not fetch unregister token %@", buf, 0xCu);
       }
 
-      bundleIdentifier = sub_10017DFC4();
+      bundleIdentifier = sub_10017DFC4(v13);
       if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = identifierCopy;
+        v53 = identifierCopy;
         _os_log_impl(&_mh_execute_header, bundleIdentifier, OS_LOG_TYPE_DEFAULT, "Watch Migration: could not fetch unregister token for %@", buf, 0xCu);
       }
 
       goto LABEL_42;
     }
 
-    if (!v8)
+    if (!v9)
     {
-      bundleIdentifier = sub_100002880();
+      bundleIdentifier = sub_100002880(v11);
       if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_DEBUG))
       {
         sub_10022FF24();
@@ -129,62 +130,64 @@
     }
 
     bundleIdentifier = [(FMDUnregisterTokenStore *)self bundleIdentifier];
-    v12 = +[FMKeychainManager sharedInstance];
-    v36 = 0;
-    v13 = [v12 itemForAccount:v6 service:bundleIdentifier error:&v36];
-    v14 = v36;
+    v15 = +[FMKeychainManager sharedInstance];
+    v44 = 0;
+    v16 = [v15 itemForAccount:v7 service:bundleIdentifier error:&v44];
+    v17 = v44;
 
-    if (v14)
+    if (v17)
     {
-      v15 = sub_100002880();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100002880(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v45 = identifierCopy;
-        v46 = 2112;
-        v47 = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read keychain item for %@ %@", buf, 0x16u);
+        v53 = identifierCopy;
+        v54 = 2112;
+        v55 = v17;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read keychain item for %@ %@", buf, 0x16u);
       }
 
-      v16 = sub_10017DFC4();
-      if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10017DFC4(v20);
+      if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, &v16->super, OS_LOG_TYPE_DEFAULT, "Watch Migration: could not read keychain item for %@", buf, 0xCu);
+        v53 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, &v21->super, OS_LOG_TYPE_DEFAULT, "Watch Migration: could not read keychain item for %@", buf, 0xCu);
       }
 
       goto LABEL_41;
     }
 
-    v16 = [[FMDCipherKeychainItemAdaptor alloc] initWithKeychainItem:v13];
-    cipher = [(FMDCipherKeychainItemAdaptor *)v16 cipher];
+    v21 = [[FMDCipherKeychainItemAdaptor alloc] initWithKeychainItem:v16];
+    cipher = [(FMDCipherKeychainItemAdaptor *)v21 cipher];
     if (cipher)
     {
-      if ([(FMDUnregisterTokenStore *)self isTokenDictionaryValid:v8 error:0])
+      v22 = [(FMDUnregisterTokenStore *)self isTokenDictionaryValid:v9 error:0];
+      if (v22)
       {
-        v30 = [v8 objectForKeyedSubscript:@"encryptedToken"];
-        if (v30)
+        v38 = [v9 objectForKeyedSubscript:@"encryptedToken"];
+        if (v38)
         {
-          v29 = [[NSData alloc] initWithBase64EncodedString:v30 options:0];
-          if (v29)
+          v37 = [[NSData alloc] initWithBase64EncodedString:v38 options:0];
+          if (v37)
           {
-            v17 = [[FMSynchronizer alloc] initWithDescription:@"FMDUnregisterTokenStore-Decryption" andTimeout:10.0];
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_1001EAC60;
-            v32[3] = &unk_1002D15F8;
-            v35 = &v38;
-            v33 = identifierCopy;
-            v18 = v17;
-            v34 = v18;
-            [v29 decryptWithCipher:cipher completion:v32];
-            [v18 wait];
-            v28 = v18;
-            if ([v18 timeoutOccurred])
+            v23 = [[FMSynchronizer alloc] initWithDescription:@"FMDUnregisterTokenStore-Decryption" andTimeout:10.0];
+            v40[0] = _NSConcreteStackBlock;
+            v40[1] = 3221225472;
+            v40[2] = sub_1001EAC60;
+            v40[3] = &unk_1002D15F8;
+            v43 = &v46;
+            v41 = identifierCopy;
+            v24 = v23;
+            v42 = v24;
+            [v37 decryptWithCipher:cipher completion:v40];
+            [v24 wait];
+            timeoutOccurred = [v24 timeoutOccurred];
+            v36 = v24;
+            if (timeoutOccurred)
             {
-              v19 = sub_100002880();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v26 = sub_100002880(timeoutOccurred);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 sub_10022FE54();
               }
@@ -193,8 +196,8 @@
 
           else
           {
-            v28 = sub_100002880();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v36 = sub_100002880(0);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               sub_10022FEBC();
             }
@@ -203,21 +206,21 @@
 
         else
         {
-          v25 = sub_100002880();
-          v29 = v25;
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v33 = sub_100002880(0);
+          v37 = v33;
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read unregister token - FMDUnregisterTokenStoreRecordEncryptedTokenKey", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read unregister token - FMDUnregisterTokenStoreRecordEncryptedTokenKey", buf, 2u);
           }
         }
 
-        v21 = v30;
+        v29 = v38;
         goto LABEL_40;
       }
 
-      v21 = sub_100002880();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_100002880(v22);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_40:
 
@@ -228,52 +231,52 @@ LABEL_42:
       }
 
       *buf = 0;
-      v22 = "FMDUnregisterTokenStore token was not valid - expired.";
-      v23 = v21;
-      v24 = 2;
+      v30 = "FMDUnregisterTokenStore token was not valid - expired.";
+      v31 = v29;
+      v32 = 2;
     }
 
     else
     {
-      v20 = sub_100002880();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100002880(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = v16;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read cipher from keychain %@", buf, 0xCu);
+        v53 = v21;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore could not read cipher from keychain %@", buf, 0xCu);
       }
 
-      v21 = sub_10017DFC4();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_10017DFC4(v28);
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_40;
       }
 
       *buf = 138412290;
-      v45 = identifierCopy;
-      v22 = "Watch Migration: could not decode keychain item for %@";
-      v23 = v21;
-      v24 = 12;
+      v53 = identifierCopy;
+      v30 = "Watch Migration: could not decode keychain item for %@";
+      v31 = v29;
+      v32 = 12;
     }
 
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
     goto LABEL_40;
   }
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v45 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore no token keys for %@", buf, 0xCu);
+    v53 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore no token keys for %@", buf, 0xCu);
   }
 
 LABEL_43:
 
-  v26 = v39[5];
-  _Block_object_dispose(&v38, 8);
+  v34 = v47[5];
+  _Block_object_dispose(&v46, 8);
 
-  return v26;
+  return v34;
 }
 
 - (void)removeUnregisterTokenForIdentifier:(id)identifier
@@ -283,12 +286,12 @@ LABEL_43:
   [(FMDUnregisterTokenStore *)self removeUnregisterTokenForKey:v5];
   v6 = [objc_opt_class() keychainLookupKeyForIdentifier:identifierCopy];
 
-  v7 = sub_100002880();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100002880(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore deleting keychain item : %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore deleting keychain item : %@", &v9, 0xCu);
   }
 
   [(FMDUnregisterTokenStore *)self removeKeychainItemForKey:v6];
@@ -299,7 +302,7 @@ LABEL_43:
   identifierCopy = identifier;
   dateCopy = date;
   tokenCopy = token;
-  v11 = sub_10017DFC4();
+  v11 = sub_10017DFC4(tokenCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -344,7 +347,7 @@ LABEL_43:
   [tokensCopy enumerateObjectsUsingBlock:v22];
 
   allTokenKeys = [(FMDUnregisterTokenStore *)self allTokenKeys];
-  v10 = sub_100002880();
+  v10 = sub_100002880(allTokenKeys);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -396,22 +399,23 @@ LABEL_43:
   if (valid)
   {
     v5 = [valid objectForKeyedSubscript:@"expiryDate"];
+    v6 = v5;
     if (v5)
     {
-      v6 = sub_10017DFC4();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_10017DFC4(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134217984;
-        fm_epoch = [v5 fm_epoch];
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Watch Migration: Found Token Expiry %lli", &v15, 0xCu);
+        v17 = 134217984;
+        fm_epoch = [v6 fm_epoch];
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Watch Migration: Found Token Expiry %lli", &v17, 0xCu);
       }
 
-      v7 = +[NSDate date];
-      [v5 timeIntervalSinceReferenceDate];
-      v9 = v8;
-      [v7 timeIntervalSinceReferenceDate];
-      v11 = v9 > v10;
-      if (error && v9 <= v10)
+      v8 = +[NSDate date];
+      [v6 timeIntervalSinceReferenceDate];
+      v10 = v9;
+      [v8 timeIntervalSinceReferenceDate];
+      v12 = v10 > v11;
+      if (error && v10 <= v11)
       {
         *error = [NSError errorWithDomain:@"com.apple.icloud.findmydeviced.FMDUnregisterTokenStore" code:2 userInfo:0];
       }
@@ -419,44 +423,44 @@ LABEL_43:
 
     else
     {
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100002880(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_100230070(v12);
+        sub_100230070(v13);
       }
 
-      v13 = sub_10017DFC4();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10017DFC4(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Watch Migration: Invalid token. No expiry date found.", &v15, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Watch Migration: Invalid token. No expiry date found.", &v17, 2u);
       }
 
       if (error)
       {
         [NSError errorWithDomain:@"com.apple.icloud.findmydeviced.FMDUnregisterTokenStore" code:1 userInfo:0];
-        *error = v11 = 0;
+        *error = v12 = 0;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
     }
   }
 
   else
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100002880(self);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_1002300B4(v5);
+      sub_1002300B4(v6);
     }
 
-    v11 = 1;
+    v12 = 1;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)removeKeychainItemForKey:(id)key
@@ -470,53 +474,53 @@ LABEL_43:
 
     if (v7)
     {
-      v8 = sub_10017DFC4();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_10017DFC4(v8);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      v12 = 138412290;
-      v13 = keyCopy;
-      v9 = "Watch Migration: Deleted Keychain Item %@";
+      v15 = 138412290;
+      v16 = keyCopy;
+      v10 = "Watch Migration: Deleted Keychain Item %@";
     }
 
     else
     {
-      v11 = sub_100002880();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = sub_100002880(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1002300F8();
       }
 
-      v8 = sub_10017DFC4();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_10017DFC4(v14);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_14;
       }
 
-      v12 = 138412290;
-      v13 = keyCopy;
-      v9 = "Watch Migration: Failed to delete keychain item %@";
+      v15 = 138412290;
+      v16 = keyCopy;
+      v10 = "Watch Migration: Failed to delete keychain item %@";
     }
 
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, &v12, 0xCu);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, &v15, 0xCu);
     goto LABEL_14;
   }
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = sub_100002880(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_100230160(v10);
+    sub_100230160(v11);
   }
 
-  bundleIdentifier = sub_10017DFC4();
+  bundleIdentifier = sub_10017DFC4(v12);
   if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&_mh_execute_header, bundleIdentifier, OS_LOG_TYPE_DEFAULT, "Watch Migration: Failed to delete keychain, programmer error. Nil key.", &v12, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&_mh_execute_header, bundleIdentifier, OS_LOG_TYPE_DEFAULT, "Watch Migration: Failed to delete keychain, programmer error. Nil key.", &v15, 2u);
   }
 
 LABEL_15:
@@ -525,24 +529,24 @@ LABEL_15:
 - (void)removeUnregisterTokenForKey:(id)key
 {
   keyCopy = key;
-  v4 = sub_100002880();
+  v4 = sub_100002880(keyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = keyCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore deleting token : %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = keyCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDUnregisterTokenStore deleting token : %@", &v8, 0xCu);
   }
 
-  v5 = sub_10017DFC4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10017DFC4(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = keyCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Watch Migration: Deleting token from disk %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = keyCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Watch Migration: Deleting token from disk %@", &v8, 0xCu);
   }
 
-  v6 = +[FMDProtectedContextManager sharedManager];
-  [v6 cleanupAllContextsForKey:keyCopy];
+  v7 = +[FMDProtectedContextManager sharedManager];
+  [v7 cleanupAllContextsForKey:keyCopy];
 }
 
 - (id)allTokenKeys

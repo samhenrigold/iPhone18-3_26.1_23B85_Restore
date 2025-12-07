@@ -119,7 +119,7 @@
 
   v6 = sub_20CFE828C(v8);
 
-  sub_20CEF928C(v8, &qword_27C81BF00);
+  sub_20CEF928C(v8, &qword_27C81BF00, &qword_20D5BCC40);
   return v6 & 1;
 }
 
@@ -432,13 +432,13 @@
 
 - (BOOL)shouldHideAccessoryRepresentable:(id)representable
 {
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_20CFECCC8(representable, selfCopy);
+  LOBYTE(ObjectType) = sub_20CFECCC8(representable, selfCopy, ObjectType);
   swift_unknownObjectRelease();
 
-  return v6 & 1;
+  return ObjectType & 1;
 }
 
 - (BOOL)shouldHideHomeKitObject:(id)object
@@ -464,7 +464,7 @@
 - (BOOL)shouldCreateModule:(Class)module
 {
   swift_getObjCClassMetadata();
-  sub_20CECF940(0, &unk_28111FED8);
+  sub_20CECF940(0, &unk_28111FED8, off_277DAFF88);
   if (!swift_dynamicCastMetatype())
   {
     return 1;

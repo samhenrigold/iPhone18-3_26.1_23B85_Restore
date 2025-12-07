@@ -19,16 +19,15 @@
 - (MSAnonymousCredential)initWithAnonymousId:(id)id mapsToken:(id)token mapsTokenCreatedAt:(id)at mapsTokenTTL:(int64_t)l positionIndex:(int64_t)index
 {
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v13 = *(*(v12 - 8) + 64);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = &v30 - v14;
+  v14 = &v29 - v13;
   if (id)
   {
     tokenCopy = token;
     atCopy = at;
     idCopy = id;
     id = sub_1B63BE924();
-    v20 = v19;
+    v19 = v18;
 
     if (token)
     {
@@ -36,30 +35,30 @@
     }
 
 LABEL_6:
-    v21 = 0;
-    v23 = 0xF000000000000000;
+    v20 = 0;
+    v22 = 0xF000000000000000;
     if (at)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v27 = sub_1B63BE994();
-    (*(*(v27 - 8) + 56))(v15, 1, 1, v27);
+    v26 = sub_1B63BE994();
+    (*(*(v26 - 8) + 56))(v14, 1, 1, v26);
     goto LABEL_8;
   }
 
   tokenCopy2 = token;
   atCopy2 = at;
-  v20 = 0xF000000000000000;
+  v19 = 0xF000000000000000;
   if (!token)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v21 = sub_1B63BE924();
-  v23 = v22;
+  v20 = sub_1B63BE924();
+  v22 = v21;
 
   if (!at)
   {
@@ -69,30 +68,29 @@ LABEL_3:
 LABEL_4:
   sub_1B63BE974();
 
-  v24 = sub_1B63BE994();
-  (*(*(v24 - 8) + 56))(v15, 0, 1, v24);
+  v23 = sub_1B63BE994();
+  (*(*(v23 - 8) + 56))(v14, 0, 1, v23);
 LABEL_8:
-  v28 = sub_1B62B7F34(id, v20, v21, v23, v15, l, index);
-  sub_1B6284F64(v21, v23);
-  sub_1B6284F64(id, v20);
-  return v28;
+  v27 = sub_1B62B7F34(id, v19, v20, v22, v14, l, index);
+  sub_1B6284F64(v20, v22);
+  sub_1B6284F64(id, v19);
+  return v27;
 }
 
 - (MSAnonymousCredential)initWithStore:(id)store anonymousId:(id)id mapsToken:(id)token mapsTokenCreatedAt:(id)at mapsTokenTTL:(int64_t)l positionIndex:(int64_t)index
 {
   indexCopy = index;
   v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v16 = &v33 - v15;
+  v15 = &v32 - v14;
   if (id)
   {
     storeCopy = store;
     tokenCopy = token;
     atCopy = at;
     idCopy = id;
-    v21 = sub_1B63BE924();
-    v23 = v22;
+    v20 = sub_1B63BE924();
+    v22 = v21;
 
     if (token)
     {
@@ -100,32 +98,32 @@ LABEL_8:
     }
 
 LABEL_6:
-    v24 = 0;
-    v26 = 0xF000000000000000;
+    v23 = 0;
+    v25 = 0xF000000000000000;
     if (at)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v31 = sub_1B63BE994();
-    (*(*(v31 - 8) + 56))(v16, 1, 1, v31);
-    return AnonymousCredential.init(store:anonymousId:mapsToken:mapsTokenCreatedAt:mapsTokenTTL:positionIndex:)(store, v21, v23, v24, v26, v16, l, indexCopy);
+    v30 = sub_1B63BE994();
+    (*(*(v30 - 8) + 56))(v15, 1, 1, v30);
+    return AnonymousCredential.init(store:anonymousId:mapsToken:mapsTokenCreatedAt:mapsTokenTTL:positionIndex:)(store, v20, v22, v23, v25, v15, l, indexCopy);
   }
 
   storeCopy2 = store;
   tokenCopy2 = token;
   atCopy2 = at;
-  v21 = 0;
-  v23 = 0xF000000000000000;
+  v20 = 0;
+  v22 = 0xF000000000000000;
   if (!token)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v24 = sub_1B63BE924();
-  v26 = v25;
+  v23 = sub_1B63BE924();
+  v25 = v24;
 
   if (!at)
   {
@@ -135,24 +133,22 @@ LABEL_3:
 LABEL_4:
   sub_1B63BE974();
 
-  v27 = sub_1B63BE994();
-  (*(*(v27 - 8) + 56))(v16, 0, 1, v27);
-  return AnonymousCredential.init(store:anonymousId:mapsToken:mapsTokenCreatedAt:mapsTokenTTL:positionIndex:)(store, v21, v23, v24, v26, v16, l, indexCopy);
+  v26 = sub_1B63BE994();
+  (*(*(v26 - 8) + 56))(v15, 0, 1, v26);
+  return AnonymousCredential.init(store:anonymousId:mapsToken:mapsTokenCreatedAt:mapsTokenTTL:positionIndex:)(store, v20, v22, v23, v25, v15, l, indexCopy);
 }
 
 - (void)flushChanges
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.super.isa + v3);
-  v5 = MEMORY[0x1E69E7CC0];
+  v4 = MEMORY[0x1E69E7CC0];
   *(&self->super.super.isa + v3) = MEMORY[0x1E69E7CC0];
   selfCopy = self;
 
-  v7 = OBJC_IVAR___MSAnonymousCredential__reviewedPlaceChanges;
+  v6 = OBJC_IVAR___MSAnonymousCredential__reviewedPlaceChanges;
   swift_beginAccess();
-  v8 = *(&selfCopy->super.super.isa + v7);
-  *(&selfCopy->super.super.isa + v7) = v5;
+  *(&selfCopy->super.super.isa + v6) = v4;
 }
 
 + (Class)managedClass
@@ -172,47 +168,45 @@ LABEL_4:
 - (NSDate)mapsTokenCreatedAt
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1B62B4FA8(v6);
+  sub_1B62B4FA8(v5);
 
-  v8 = sub_1B63BE994();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1B63BE994();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B63BE954();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B63BE954();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setMapsTokenCreatedAt:(id)at
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (at)
   {
     sub_1B63BE974();
-    v9 = sub_1B63BE994();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B63BE994();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B63BE994();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B63BE994();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1B62B55A8(v8);
+  sub_1B62B55A8(v7);
 }
 
 - (void)setMapsTokenTTL:(int64_t)l
@@ -232,7 +226,7 @@ LABEL_4:
   selfCopy = self;
   sub_1B62B64C0();
 
-  type metadata accessor for ReviewedPlace();
+  type metadata accessor for ReviewedPlace(0);
   v3 = sub_1B63BEC94();
 
   return v3;

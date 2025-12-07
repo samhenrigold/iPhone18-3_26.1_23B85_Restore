@@ -191,7 +191,7 @@ LABEL_17:
 
 - (id)objc_initWithMentions:(id)mentions
 {
-  sub_1D41766C0(0, &qword_1EC7CB660);
+  sub_1D41766C0(0, &qword_1EC7CB660, 0x1E69B7778);
   v3 = sub_1D4419E44();
   return ICActivityStreamSelection.init(mentions:)(v3);
 }
@@ -202,7 +202,7 @@ LABEL_17:
   v4 = sub_1D4417264();
   v6 = v5;
 
-  v7 = _sSo25ICActivityStreamSelectionC7NotesUIE4from4dataABSg10Foundation4DataV_tFZ_0();
+  v7 = _sSo25ICActivityStreamSelectionC7NotesUIE4from4dataABSg10Foundation4DataV_tFZ_0(v4, v6);
   sub_1D4342814(v4, v6);
 
   return v7;
@@ -210,7 +210,7 @@ LABEL_17:
 
 - (id)objc_encodedData
 {
-  v3 = type metadata accessor for ICActivityStreamSelection.Model();
+  v3 = type metadata accessor for ICActivityStreamSelection.Model(0);
   MEMORY[0x1EEE9AC00](v3);
   v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_1D4416DA4();
@@ -236,7 +236,7 @@ LABEL_17:
   displayDate = [(ICActivityStreamSelection *)v7 displayDate];
   sub_1D44173F4();
 
-  sub_1D43EC5F0(&qword_1EC7CC428, type metadata accessor for ICActivityStreamSelection.Model);
+  sub_1D43EC5F0(&qword_1EC7CC428, type metadata accessor for ICActivityStreamSelection.Model, &protocol conformance descriptor for ICActivityStreamSelection.Model);
   v13 = sub_1D4416D84();
   v15 = v14;
 

@@ -247,9 +247,9 @@
     dispatch_once(&_MergedGlobals_23, &__block_literal_global_0);
   }
 
-  v0 = qword_1ED90D438;
+  v1 = qword_1ED90D438;
 
-  return v0;
+  return v1;
 }
 
 + (id)queryWithPredicate:(id)predicate onPairedDevice:(id)device
@@ -359,7 +359,7 @@ uint64_t __23__ASDAppQuery_observer__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v4);
 }
 
 - (void)setObserver:(id)observer
@@ -401,14 +401,14 @@ uint64_t __27__ASDAppQuery_setObserver___block_invoke(uint64_t a1)
 {
   handlerCopy = handler;
   predicateCopy = predicate;
-  v7 = +[ASDAppQuery _defaultExecutor];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __50__ASDAppQuery_anyWithPredicate_withResultHandler___block_invoke;
-  v9[3] = &unk_1E7CDB7A8;
-  v10 = handlerCopy;
-  v8 = handlerCopy;
-  [v7 executeQueryWithPredicate:predicateCopy onPairedDevice:0 remoteDeviceID:0 withResultHandler:v9];
+  v8 = +[(ASDAppQuery *)self];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __50__ASDAppQuery_anyWithPredicate_withResultHandler___block_invoke;
+  v10[3] = &unk_1E7CDB7A8;
+  v11 = handlerCopy;
+  v9 = handlerCopy;
+  [v8 executeQueryWithPredicate:predicateCopy onPairedDevice:0 remoteDeviceID:0 withResultHandler:v10];
 }
 
 void __50__ASDAppQuery_anyWithPredicate_withResultHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -541,45 +541,43 @@ void __45__ASDAppQuery_executeQueryWithResultHandler___block_invoke_2(uint64_t a
 
 - (void)_handleQueryOptionsWithResults:(uint64_t)results
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (results)
   {
     if (*(results + 88))
     {
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
       v11 = 0u;
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v11;
+        v7 = *v10;
         do
         {
           v8 = 0;
           do
           {
-            if (*v11 != v7)
+            if (*v10 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            [*(*(&v10 + 1) + 8 * v8++) loadUpdateMetadataIfNecessary];
+            [*(*(&v9 + 1) + 8 * v8++) loadUpdateMetadataIfNecessary];
           }
 
           while (v6 != v8);
-          v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
         }
 
         while (v6);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_executeQueryWithPredicate:(void *)predicate onPairedDevice:(void *)device withCompletion:
@@ -635,38 +633,35 @@ void __45__ASDAppQuery_executeQueryWithResultHandler___block_invoke_2(uint64_t a
 
 void __56__ASDAppQuery_notificationCenter_receivedNotifications___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (*(v2 + 16))
+  v8 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 32);
+  if (*(v1 + 16))
   {
-    v3 = *(a1 + 40);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __56__ASDAppQuery_notificationCenter_receivedNotifications___block_invoke_41;
-    v8[3] = &unk_1E7CDB908;
-    v8[4] = v2;
-    [v3 enumerateObjectsUsingBlock:v8];
+    v2 = *(a1 + 40);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __56__ASDAppQuery_notificationCenter_receivedNotifications___block_invoke_41;
+    v5[3] = &unk_1E7CDB908;
+    v5[4] = v1;
+    [v2 enumerateObjectsUsingBlock:v5];
   }
 
   else
   {
-    v4 = ASDLogHandleForCategory(13);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v3 = ASDLogHandleForCategory(13);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
       *buf = 138543362;
-      v10 = objc_opt_class();
-      v6 = v10;
-      _os_log_impl(&dword_1B8220000, v4, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring notifications until query has been run at least once", buf, 0xCu);
+      v7 = objc_opt_class();
+      v4 = v7;
+      _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring notifications until query has been run at least once", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __56__ASDAppQuery_notificationCenter_receivedNotifications___block_invoke_41(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 userInfo];
   v5 = [v3 name];
@@ -678,56 +673,54 @@ void __56__ASDAppQuery_notificationCenter_receivedNotifications___block_invoke_4
     if (!v7)
     {
 LABEL_8:
-      v11 = [v4 objectForKeyedSubscript:{@"AC", *v42, *&v42[16], v43}];
+      v11 = [v4 objectForKeyedSubscript:{@"AC", *v33, *&v33[8], v34}];
       if ([v11 isEqualToString:@"RD"])
       {
-        v15 = ASDLogHandleForCategory(13);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v14 = ASDLogHandleForCategory(13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v16 = *(a1 + 32);
-          v17 = objc_opt_class();
-          *v42 = 138543362;
-          *&v42[4] = v17;
-          v18 = v17;
-          _os_log_impl(&dword_1B8220000, v15, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps registered notification", v42, 0xCu);
+          v15 = objc_opt_class();
+          *v33 = 138543362;
+          *&v33[4] = v15;
+          v16 = v15;
+          _os_log_impl(&dword_1B8220000, v14, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps registered notification", v33, 0xCu);
         }
 
-        v19 = *(a1 + 32);
-        if (!v19)
+        v17 = *(a1 + 32);
+        if (!v17)
         {
           goto LABEL_35;
         }
 
-        v20 = [v4 objectForKeyedSubscript:@"AP"];
-        if ([v20 count])
+        v18 = [v4 objectForKeyedSubscript:@"AP"];
+        if ([v18 count])
         {
-          [(ASDAppQuery *)v19 _handleAppsUpdatedWithResults:v20];
+          [(ASDAppQuery *)v17 _handleAppsUpdatedWithResults:v18];
         }
       }
 
       else if ([v11 isEqualToString:@"UR"])
       {
-        v22 = ASDLogHandleForCategory(13);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v19 = ASDLogHandleForCategory(13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v23 = *(a1 + 32);
-          v24 = objc_opt_class();
-          *v42 = 138543362;
-          *&v42[4] = v24;
-          v25 = v24;
-          _os_log_impl(&dword_1B8220000, v22, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps unregistered notification", v42, 0xCu);
+          v20 = objc_opt_class();
+          *v33 = 138543362;
+          *&v33[4] = v20;
+          v21 = v20;
+          _os_log_impl(&dword_1B8220000, v19, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps unregistered notification", v33, 0xCu);
         }
 
-        v26 = *(a1 + 32);
-        if (!v26)
+        v22 = *(a1 + 32);
+        if (!v22)
         {
           goto LABEL_35;
         }
 
-        v20 = [v4 objectForKeyedSubscript:@"BI"];
-        if ([v20 count])
+        v18 = [v4 objectForKeyedSubscript:@"BI"];
+        if ([v18 count])
         {
-          [(ASDAppQuery *)v26 _handleAppsRemovedWithBundleIDs:v20];
+          [(ASDAppQuery *)v22 _handleAppsRemovedWithBundleIDs:v18];
         }
       }
 
@@ -735,52 +728,49 @@ LABEL_8:
       {
         if ([v11 isEqualToString:@"RL"])
         {
-          v29 = ASDLogHandleForCategory(13);
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v24 = ASDLogHandleForCategory(13);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v30 = *(a1 + 32);
-            v31 = objc_opt_class();
-            *v42 = 138543362;
-            *&v42[4] = v31;
-            v32 = v31;
-            _os_log_impl(&dword_1B8220000, v29, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps refreshed notification", v42, 0xCu);
+            v25 = objc_opt_class();
+            *v33 = 138543362;
+            *&v33[4] = v25;
+            v26 = v25;
+            _os_log_impl(&dword_1B8220000, v24, OS_LOG_TYPE_INFO, "[%{public}@]: Handling apps refreshed notification", v33, 0xCu);
           }
 
           [(ASDAppQuery *)*(a1 + 32) _handleNotificationRefreshWithUserInfo:v4];
           goto LABEL_35;
         }
 
-        v33 = [v11 isEqualToString:@"ER"];
-        v34 = ASDLogHandleForCategory(13);
-        v20 = v34;
-        if (v33)
+        v27 = [v11 isEqualToString:@"ER"];
+        v28 = ASDLogHandleForCategory(13);
+        v18 = v28;
+        if (v27)
         {
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            v35 = *(a1 + 32);
-            v36 = objc_opt_class();
-            *v42 = 138543618;
-            *&v42[4] = v36;
-            *&v42[12] = 2114;
-            *&v42[14] = v3;
-            v37 = v36;
-            _os_log_impl(&dword_1B8220000, v20, OS_LOG_TYPE_INFO, "[%{public}@]: Handling app error notification action: %{public}@", v42, 0x16u);
+            v29 = objc_opt_class();
+            *v33 = 138543618;
+            *&v33[4] = v29;
+            *&v33[12] = 2114;
+            *&v33[14] = v3;
+            v30 = v29;
+            _os_log_impl(&dword_1B8220000, v18, OS_LOG_TYPE_INFO, "[%{public}@]: Handling app error notification action: %{public}@", v33, 0x16u);
           }
 
           [(ASDAppQuery *)*(a1 + 32) _handleNotificationErrorWithUserInfo:v4];
           goto LABEL_35;
         }
 
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v39 = *(a1 + 32);
-          v40 = objc_opt_class();
-          *v42 = 138543618;
-          *&v42[4] = v40;
-          *&v42[12] = 2114;
-          *&v42[14] = v3;
-          v41 = v40;
-          _os_log_error_impl(&dword_1B8220000, v20, OS_LOG_TYPE_ERROR, "[%{public}@]: Received unhandled action: %{public}@", v42, 0x16u);
+          v31 = objc_opt_class();
+          *v33 = 138543618;
+          *&v33[4] = v31;
+          *&v33[12] = 2114;
+          *&v33[14] = v3;
+          v32 = v31;
+          _os_log_error_impl(&dword_1B8220000, v18, OS_LOG_TYPE_ERROR, "[%{public}@]: Received unhandled action: %{public}@", v33, 0x16u);
         }
       }
 
@@ -800,13 +790,12 @@ LABEL_35:
       {
         if (v12)
         {
-          v27 = *(a1 + 32);
-          *v42 = 138543618;
-          *&v42[4] = objc_opt_class();
-          *&v42[12] = 2114;
-          *&v42[14] = v7;
-          v28 = *&v42[4];
-          _os_log_impl(&dword_1B8220000, v11, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring notification for unmatched device: %{public}@", v42, 0x16u);
+          *v33 = 138543618;
+          *&v33[4] = objc_opt_class();
+          *&v33[12] = 2114;
+          *&v33[14] = v7;
+          v23 = *&v33[4];
+          _os_log_impl(&dword_1B8220000, v11, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring notification for unmatched device: %{public}@", v33, 0x16u);
         }
 
         goto LABEL_35;
@@ -814,13 +803,12 @@ LABEL_35:
 
       if (v12)
       {
-        v13 = *(a1 + 32);
-        *v42 = 138543618;
-        *&v42[4] = objc_opt_class();
-        *&v42[12] = 2114;
-        *&v42[14] = v7;
-        v14 = *&v42[4];
-        _os_log_impl(&dword_1B8220000, v11, OS_LOG_TYPE_INFO, "[%{public}@]: Handling device specific notification: %{public}@", v42, 0x16u);
+        *v33 = 138543618;
+        *&v33[4] = objc_opt_class();
+        *&v33[12] = 2114;
+        *&v33[14] = v7;
+        v13 = *&v33[4];
+        _os_log_impl(&dword_1B8220000, v11, OS_LOG_TYPE_INFO, "[%{public}@]: Handling device specific notification: %{public}@", v33, 0x16u);
       }
 
       goto LABEL_8;
@@ -832,25 +820,22 @@ LABEL_35:
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      *v42 = 138543618;
-      *&v42[4] = objc_opt_class();
-      *&v42[12] = 2114;
-      *&v42[14] = v3;
-      v11 = *&v42[4];
-      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@]: Received unexpected notification: %{public}@", v42, 0x16u);
+      *v33 = 138543618;
+      *&v33[4] = objc_opt_class();
+      *&v33[12] = 2114;
+      *&v33[14] = v3;
+      v11 = *&v33[4];
+      _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@]: Received unexpected notification: %{public}@", v33, 0x16u);
       goto LABEL_35;
     }
   }
 
 LABEL_36:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleNotificationRefreshWithUserInfo:(uint64_t)info
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if (info)
   {
     v3 = [a2 objectForKeyedSubscript:@"BI"];
@@ -859,9 +844,9 @@ LABEL_36:
       v4 = MEMORY[0x1E696AB28];
       v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"bundleID IN %@", v3];
       v6 = *(info + 96);
-      v14[0] = v5;
-      v14[1] = v6;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+      v13[0] = v5;
+      v13[1] = v6;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
       v8 = [v4 andPredicateWithSubpredicates:v7];
     }
 
@@ -871,17 +856,15 @@ LABEL_36:
     }
 
     v9 = *(info + 80);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke;
-    v12[3] = &unk_1E7CDBA48;
-    v12[4] = info;
-    v13 = v3;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke;
+    v11[3] = &unk_1E7CDBA48;
+    v11[4] = info;
+    v12 = v3;
     v10 = v3;
-    [(ASDAppQuery *)info _executeQueryWithPredicate:v8 onPairedDevice:v9 withCompletion:v12];
+    [(ASDAppQuery *)info _executeQueryWithPredicate:v8 onPairedDevice:v9 withCompletion:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleNotificationErrorWithUserInfo:(uint64_t)info
@@ -912,40 +895,40 @@ LABEL_36:
 
 void __51__ASDAppQuery_notificationCenter_receivedProgress___block_invoke(uint64_t a1)
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16))
   {
     v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
-    v94 = 0u;
-    v95 = 0u;
-    v96 = 0u;
-    v97 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     obj = *(a1 + 40);
-    v3 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
+    v3 = [obj countByEnumeratingWithState:&v86 objects:v97 count:16];
     if (!v3)
     {
       goto LABEL_47;
     }
 
     v5 = v3;
-    v6 = *v95;
-    v91 = *MEMORY[0x1E696A898];
+    v6 = *v87;
+    v83 = *MEMORY[0x1E696A898];
     *&v4 = 138543874;
-    v87 = v4;
+    v79 = v4;
     v7 = 0x1E696A000uLL;
-    v92 = v2;
+    v84 = v2;
     while (1)
     {
       v8 = 0;
-      v89 = v5;
+      v81 = v5;
       do
       {
-        if (*v95 != v6)
+        if (*v87 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v94 + 1) + 8 * v8);
+        v9 = *(*(&v86 + 1) + 8 * v8);
         v10 = *(*(a1 + 32) + 56);
         v11 = [v9 bundleID];
         v12 = [v10 objectForKeyedSubscript:v11];
@@ -957,34 +940,33 @@ void __51__ASDAppQuery_notificationCenter_receivedProgress___block_invoke(uint64
             goto LABEL_15;
           }
 
-          v18 = ASDLogHandleForCategory(13);
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          v17 = ASDLogHandleForCategory(13);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            v19 = *(a1 + 32);
-            v20 = objc_opt_class();
-            v21 = v20;
-            v22 = [v9 bundleID];
+            v18 = objc_opt_class();
+            v19 = v18;
+            v20 = [v9 bundleID];
             *buf = 138543618;
-            v99 = v20;
-            v100 = 2114;
-            v101 = v22;
-            _os_log_impl(&dword_1B8220000, v18, OS_LOG_TYPE_INFO, "[%{public}@]: Found untracked progress for remote install: %{public}@", buf, 0x16u);
+            v91 = v18;
+            v92 = 2114;
+            v93 = v20;
+            _os_log_impl(&dword_1B8220000, v17, OS_LOG_TYPE_INFO, "[%{public}@]: Found untracked progress for remote install: %{public}@", buf, 0x16u);
           }
 
-          v23 = [ASDApp alloc];
-          v24 = [v9 bundleID];
-          v25 = [(ASDApp *)v23 initWithBundleID:v24];
+          v21 = [ASDApp alloc];
+          v22 = [v9 bundleID];
+          v23 = [(ASDApp *)v21 initWithBundleID:v22];
 
-          [(ASDApp *)v25 setStatus:1];
-          [(ASDApp *)v25 setRemoteProgress:v9];
-          v26 = *(a1 + 32);
-          v104 = v25;
-          v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
-          [(ASDAppQuery *)v26 _updateCachedResultsWithResults:v27];
+          [(ASDApp *)v23 setStatus:1];
+          [(ASDApp *)v23 setRemoteProgress:v9];
+          v24 = *(a1 + 32);
+          v96 = v23;
+          v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
+          [(ASDAppQuery *)v24 _updateCachedResultsWithResults:v25];
 
-          v28 = *(*(a1 + 32) + 56);
-          v29 = [v9 bundleID];
-          v12 = [v28 objectForKeyedSubscript:v29];
+          v26 = *(*(a1 + 32) + 56);
+          v27 = [v9 bundleID];
+          v12 = [v26 objectForKeyedSubscript:v27];
 
           v7 = 0x1E696A000;
           if (!v12)
@@ -996,14 +978,13 @@ LABEL_15:
               goto LABEL_45;
             }
 
-            v30 = *(a1 + 32);
-            v31 = objc_opt_class();
-            v13 = v31;
-            v32 = [v9 bundleID];
+            v28 = objc_opt_class();
+            v13 = v28;
+            v29 = [v9 bundleID];
             *buf = 138543618;
-            v99 = v31;
-            v100 = 2114;
-            v101 = v32;
+            v91 = v28;
+            v92 = 2114;
+            v93 = v29;
             _os_log_impl(&dword_1B8220000, v12, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring untracked progress for: %{public}@", buf, 0x16u);
 
             goto LABEL_17;
@@ -1015,14 +996,13 @@ LABEL_15:
           v13 = ASDLogHandleForCategory(13);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v14 = *(a1 + 32);
-            v15 = objc_opt_class();
-            v16 = v15;
-            v17 = [v9 bundleID];
+            v14 = objc_opt_class();
+            v15 = v14;
+            v16 = [v9 bundleID];
             *buf = 138543618;
-            v99 = v15;
-            v100 = 2114;
-            v101 = v17;
+            v91 = v14;
+            v92 = 2114;
+            v93 = v16;
             _os_log_impl(&dword_1B8220000, v13, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring progress for installed: %{public}@", buf, 0x16u);
 
             v7 = 0x1E696A000;
@@ -1033,162 +1013,160 @@ LABEL_17:
           goto LABEL_45;
         }
 
-        v33 = [v12 progress];
-        if (!v33)
+        v30 = [v12 progress];
+        if (!v30)
         {
-          v50 = ASDLogHandleForCategory(13);
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+          v47 = ASDLogHandleForCategory(13);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
-            v51 = *(a1 + 32);
-            v52 = objc_opt_class();
+            v48 = objc_opt_class();
             *buf = 138543618;
-            v99 = v52;
-            v100 = 2114;
-            v101 = v12;
-            v53 = v52;
-            _os_log_impl(&dword_1B8220000, v50, OS_LOG_TYPE_INFO, "[%{public}@]: Progress started for: %{public}@", buf, 0x16u);
+            v91 = v48;
+            v92 = 2114;
+            v93 = v12;
+            v49 = v48;
+            _os_log_impl(&dword_1B8220000, v47, OS_LOG_TYPE_INFO, "[%{public}@]: Progress started for: %{public}@", buf, 0x16u);
           }
 
-          v34 = [ASDAppQuery _newProgressForApp:v12 fromRemoteProgress:v9 usingServiceBroker:?];
-          [v12 setProgress:v34];
-          v54 = [(ASDAppQuery *)*(a1 + 32) _downloadProgressForApp:v12 fromRemoteProgress:v9];
-          [v12 setDownloadProgress:v54];
+          v31 = [ASDAppQuery _newProgressForApp:v12 fromRemoteProgress:v9 usingServiceBroker:?];
+          [v12 setProgress:v31];
+          v50 = [(ASDAppQuery *)*(a1 + 32) _downloadProgressForApp:v12 fromRemoteProgress:v9];
+          [v12 setDownloadProgress:v50];
 
-          v55 = [ASDAppQuery _installProgressForApp:v9 fromRemoteProgress:?];
-          [v12 setInstallProgress:v55];
+          v51 = [ASDAppQuery _installProgressForApp:v9 fromRemoteProgress:?];
+          [v12 setInstallProgress:v51];
 
           -[NSObject setProgressPhase:](v12, "setProgressPhase:", [v9 phase]);
-          v56 = [(ASDAppQuery *)*(a1 + 32) _postProcessProgressForApp:v12 fromRemoteProgress:v9];
-          [v12 setPostProcessProgress:v56];
+          v52 = [(ASDAppQuery *)*(a1 + 32) _postProcessProgressForApp:v12 fromRemoteProgress:v9];
+          [v12 setPostProcessProgress:v52];
 LABEL_39:
 
           goto LABEL_40;
         }
 
-        v34 = v33;
-        [v33 setCompletedUnitCount:{objc_msgSend(v9, "completedUnitCount")}];
-        v35 = ASDLogHandleForCategory(13);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v31 = v30;
+        [v30 setCompletedUnitCount:{objc_msgSend(v9, "completedUnitCount")}];
+        v32 = ASDLogHandleForCategory(13);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          v80 = *(a1 + 32);
-          v81 = objc_opt_class();
-          v82 = v81;
-          [v34 fractionCompleted];
-          *buf = v87;
-          v99 = v81;
+          v75 = objc_opt_class();
+          v76 = v75;
+          [v31 fractionCompleted];
+          *buf = v79;
+          v91 = v75;
           v7 = 0x1E696A000;
-          v100 = 2048;
-          v101 = v83;
-          v102 = 2114;
-          v103 = v12;
-          _os_log_debug_impl(&dword_1B8220000, v35, OS_LOG_TYPE_DEBUG, "[%{public}@]: Setting %.2f for: %{public}@", buf, 0x20u);
+          v92 = 2048;
+          v93 = v77;
+          v94 = 2114;
+          v95 = v12;
+          _os_log_debug_impl(&dword_1B8220000, v32, OS_LOG_TYPE_DEBUG, "[%{public}@]: Setting %.2f for: %{public}@", buf, 0x20u);
         }
 
-        v36 = [v12 downloadProgress];
+        v33 = [v12 downloadProgress];
 
-        if (!v36)
+        if (!v33)
         {
-          v37 = [(ASDAppQuery *)*(a1 + 32) _downloadProgressForApp:v12 fromRemoteProgress:v9];
-          [v12 setDownloadProgress:v37];
+          v34 = [(ASDAppQuery *)*(a1 + 32) _downloadProgressForApp:v12 fromRemoteProgress:v9];
+          [v12 setDownloadProgress:v34];
         }
 
-        v38 = [v9 downloadCompletedUnitCount];
-        v39 = [v12 downloadProgress];
-        [v39 setCompletedUnitCount:v38];
+        v35 = [v9 downloadCompletedUnitCount];
+        v36 = [v12 downloadProgress];
+        [v36 setCompletedUnitCount:v35];
 
-        v40 = [v9 downloadTotalUnitCount];
-        v41 = [v12 downloadProgress];
-        [v41 setTotalUnitCount:v40];
+        v37 = [v9 downloadTotalUnitCount];
+        v38 = [v12 downloadProgress];
+        [v38 setTotalUnitCount:v37];
 
         if ([v9 phase] == 2)
         {
-          v42 = *(v7 + 3480);
+          v39 = *(v7 + 3480);
           [v9 throughput];
-          v43 = [v42 numberWithDouble:?];
-          v44 = [v12 downloadProgress];
-          [v44 setThroughput:v43];
+          v40 = [v39 numberWithDouble:?];
+          v41 = [v12 downloadProgress];
+          [v41 setThroughput:v40];
 
-          v45 = [v12 downloadProgress];
-          v46 = *(v7 + 3480);
+          v42 = [v12 downloadProgress];
+          v43 = *(v7 + 3480);
           [v9 throughput];
-          v47 = [v46 numberWithDouble:?];
-          [v45 setUserInfoObject:v47 forKey:v91];
+          v44 = [v43 numberWithDouble:?];
+          [v42 setUserInfoObject:v44 forKey:v83];
 
-          v48 = [v9 secondsRemaining];
-          if (v48 < 0)
+          v45 = [v9 secondsRemaining];
+          if (v45 < 0)
           {
-            v49 = 0;
+            v46 = 0;
           }
 
           else
           {
-            v49 = [*(v7 + 3480) numberWithInteger:{objc_msgSend(v9, "secondsRemaining")}];
-            v88 = v49;
+            v46 = [*(v7 + 3480) numberWithInteger:{objc_msgSend(v9, "secondsRemaining")}];
+            v80 = v46;
           }
 
-          v57 = [v12 downloadProgress];
-          [v57 setEstimatedTimeRemaining:v49];
+          v53 = [v12 downloadProgress];
+          [v53 setEstimatedTimeRemaining:v46];
 
-          if ((v48 & 0x8000000000000000) == 0)
+          if ((v45 & 0x8000000000000000) == 0)
           {
           }
 
           v7 = 0x1E696A000uLL;
         }
 
-        v58 = [v9 installCompletedUnitCount];
-        v59 = [v12 installProgress];
-        [v59 setCompletedUnitCount:v58];
+        v54 = [v9 installCompletedUnitCount];
+        v55 = [v12 installProgress];
+        [v55 setCompletedUnitCount:v54];
 
-        v60 = [v9 installTotalUnitCount];
-        v61 = [v12 installProgress];
-        [v61 setTotalUnitCount:v60];
+        v56 = [v9 installTotalUnitCount];
+        v57 = [v12 installProgress];
+        [v57 setTotalUnitCount:v56];
 
         -[NSObject setProgressPhase:](v12, "setProgressPhase:", [v9 phase]);
-        v62 = [v9 postProcessCompletedUnitCount];
-        v63 = [v12 postProcessProgress];
-        [v63 setCompletedUnitCount:v62];
+        v58 = [v9 postProcessCompletedUnitCount];
+        v59 = [v12 postProcessProgress];
+        [v59 setCompletedUnitCount:v58];
 
-        v64 = [v9 postProcessTotalUnitCount];
-        v65 = [v12 postProcessProgress];
-        [v65 setTotalUnitCount:v64];
+        v60 = [v9 postProcessTotalUnitCount];
+        v61 = [v12 postProcessProgress];
+        [v61 setTotalUnitCount:v60];
 
         if ([v9 phase] == 5)
         {
-          v66 = v6;
+          v62 = v6;
+          v63 = *(v7 + 3480);
+          [v9 throughput];
+          v64 = [v63 numberWithDouble:?];
+          v65 = [v12 postProcessProgress];
+          [v65 setThroughput:v64];
+
+          v66 = [v12 postProcessProgress];
           v67 = *(v7 + 3480);
           [v9 throughput];
           v68 = [v67 numberWithDouble:?];
-          v69 = [v12 postProcessProgress];
-          [v69 setThroughput:v68];
+          [v66 setUserInfoObject:v68 forKey:v83];
 
-          v70 = [v12 postProcessProgress];
-          v71 = *(v7 + 3480);
-          [v9 throughput];
-          v72 = [v71 numberWithDouble:?];
-          [v70 setUserInfoObject:v72 forKey:v91];
-
-          v73 = [v9 secondsRemaining];
-          if (v73 < 0)
+          v69 = [v9 secondsRemaining];
+          if (v69 < 0)
           {
-            v74 = 0;
-            v56 = v90;
+            v70 = 0;
+            v52 = v82;
           }
 
           else
           {
-            v56 = [*(v7 + 3480) numberWithInteger:{objc_msgSend(v9, "secondsRemaining")}];
-            v74 = v56;
+            v52 = [*(v7 + 3480) numberWithInteger:{objc_msgSend(v9, "secondsRemaining")}];
+            v70 = v52;
           }
 
-          v75 = [v12 postProcessProgress];
-          [v75 setEstimatedTimeRemaining:v74];
+          v71 = [v12 postProcessProgress];
+          [v71 setEstimatedTimeRemaining:v70];
 
-          v90 = v56;
-          v2 = v92;
-          v6 = v66;
-          v5 = v89;
-          if (v73 < 0)
+          v82 = v52;
+          v2 = v84;
+          v6 = v62;
+          v5 = v81;
+          if (v69 < 0)
           {
             goto LABEL_40;
           }
@@ -1196,25 +1174,24 @@ LABEL_39:
           goto LABEL_39;
         }
 
-        v2 = v92;
+        v2 = v84;
 LABEL_40:
         -[NSObject setHasPostProcessing:](v12, "setHasPostProcessing:", [v9 hasPostProcessing]);
         -[NSObject setEssentialBackgroundAssetDownloadEstimate:](v12, "setEssentialBackgroundAssetDownloadEstimate:", [v9 essentialBackgroundAssetDownloadEstimate]);
-        if ([v34 isFinished])
+        if ([v31 isFinished])
         {
-          v76 = ASDLogHandleForCategory(13);
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+          v72 = ASDLogHandleForCategory(13);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
           {
-            v77 = *(a1 + 32);
-            v78 = objc_opt_class();
+            v73 = objc_opt_class();
             *buf = 138543618;
-            v99 = v78;
-            v100 = 2114;
-            v101 = v12;
-            v79 = v78;
-            _os_log_impl(&dword_1B8220000, v76, OS_LOG_TYPE_INFO, "[%{public}@]: Progress complete for: %{public}@", buf, 0x16u);
+            v91 = v73;
+            v92 = 2114;
+            v93 = v12;
+            v74 = v73;
+            _os_log_impl(&dword_1B8220000, v72, OS_LOG_TYPE_INFO, "[%{public}@]: Progress complete for: %{public}@", buf, 0x16u);
 
-            v2 = v92;
+            v2 = v84;
           }
         }
 
@@ -1227,7 +1204,7 @@ LABEL_45:
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v94 objects:v105 count:16];
+      v5 = [obj countByEnumeratingWithState:&v86 objects:v97 count:16];
       if (!v5)
       {
 LABEL_47:
@@ -1241,49 +1218,46 @@ LABEL_47:
   v2 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v84 = *(a1 + 32);
     *buf = 138543362;
-    v99 = objc_opt_class();
-    v85 = v99;
+    v91 = objc_opt_class();
+    v78 = v91;
     _os_log_impl(&dword_1B8220000, v2, OS_LOG_TYPE_INFO, "[%{public}@]: Ignoring progress until query has been run at least once", buf, 0xCu);
   }
 
 LABEL_50:
-
-  v86 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCachedResultsWithResults:(uint64_t)results
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   obj = a2;
   if (results)
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v3 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v3 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v3)
     {
       v5 = v3;
-      v6 = *v58;
-      v54 = *MEMORY[0x1E696A898];
+      v6 = *v57;
+      v53 = *MEMORY[0x1E696A898];
       *&v4 = 138543618;
-      v50 = v4;
-      v55 = *v58;
+      v49 = v4;
+      v54 = *v57;
       do
       {
         v7 = 0;
-        v52 = v5;
+        v51 = v5;
         do
         {
-          if (*v58 != v6)
+          if (*v57 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v57 + 1) + 8 * v7);
+          v8 = *(*(&v56 + 1) + 8 * v7);
           bundleID = [v8 bundleID];
           if (bundleID)
           {
@@ -1330,7 +1304,7 @@ LABEL_50:
                 v22 = MEMORY[0x1E696AD98];
                 [v13 throughput];
                 v23 = [v22 numberWithDouble:?];
-                [downloadProgress4 setUserInfoObject:v23 forKey:v54];
+                [downloadProgress4 setUserInfoObject:v23 forKey:v53];
 
                 secondsRemaining = [v13 secondsRemaining];
                 if (secondsRemaining < 0)
@@ -1341,7 +1315,7 @@ LABEL_50:
                 else
                 {
                   v25 = [MEMORY[0x1E696AD98] numberWithInteger:{-[NSObject secondsRemaining](v13, "secondsRemaining")}];
-                  v51 = v25;
+                  v50 = v25;
                 }
 
                 downloadProgress5 = [v8 downloadProgress];
@@ -1381,13 +1355,13 @@ LABEL_50:
                 v44 = MEMORY[0x1E696AD98];
                 [v13 throughput];
                 v45 = [v44 numberWithDouble:?];
-                [postProcessProgress4 setUserInfoObject:v45 forKey:v54];
+                [postProcessProgress4 setUserInfoObject:v45 forKey:v53];
 
                 secondsRemaining2 = [v13 secondsRemaining];
                 if (secondsRemaining2 < 0)
                 {
                   v47 = 0;
-                  v30 = v53;
+                  v30 = v52;
                 }
 
                 else
@@ -1399,8 +1373,8 @@ LABEL_50:
                 postProcessProgress5 = [v8 postProcessProgress];
                 [postProcessProgress5 setEstimatedTimeRemaining:v47];
 
-                v53 = v30;
-                v5 = v52;
+                v52 = v30;
+                v5 = v51;
                 if ((secondsRemaining2 & 0x8000000000000000) == 0)
                 {
 LABEL_26:
@@ -1410,7 +1384,7 @@ LABEL_26:
               [v8 setHasPostProcessing:{-[NSObject hasPostProcessing](v13, "hasPostProcessing")}];
               [v8 setEssentialBackgroundAssetDownloadEstimate:{-[NSObject essentialBackgroundAssetDownloadEstimate](v13, "essentialBackgroundAssetDownloadEstimate")}];
               [v8 setProgress:progress];
-              v6 = v55;
+              v6 = v54;
 LABEL_28:
             }
 
@@ -1428,10 +1402,10 @@ LABEL_28:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             v26 = objc_opt_class();
-            *buf = v50;
-            v62 = v26;
-            v63 = 2114;
-            v64 = v8;
+            *buf = v49;
+            v61 = v26;
+            v62 = 2114;
+            v63 = v8;
             v27 = v26;
             _os_log_fault_impl(&dword_1B8220000, v13, OS_LOG_TYPE_FAULT, "[%{public}@]: Encountered result with no bundleID: %{public}@", buf, 0x16u);
           }
@@ -1442,14 +1416,12 @@ LABEL_30:
         }
 
         while (v5 != v7);
-        v5 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v5 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v5);
     }
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_newProgressForApp:(uint64_t)app fromRemoteProgress:(void *)progress usingServiceBroker:(void *)broker
@@ -1691,51 +1663,46 @@ void __31__ASDAppQuery__defaultExecutor__block_invoke()
 
 void __51__ASDAppQuery__handleBrokerConnectionNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16) == 1)
   {
     v2 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v6 = 138543362;
-      v7 = objc_opt_class();
-      v4 = v7;
-      _os_log_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Forcing query refresh following broker connection", &v6, 0xCu);
+      v4 = 138543362;
+      v5 = objc_opt_class();
+      v3 = v5;
+      _os_log_impl(&dword_1B8220000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Forcing query refresh following broker connection", &v4, 0xCu);
     }
 
     [(ASDAppQuery *)*(a1 + 32) _handleNotificationRefreshWithUserInfo:?];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __34__ASDAppQuery__debugReceivedApps___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = 134218754;
-    v11 = v8;
-    v12 = 2048;
-    v13 = a3 + 1;
-    v14 = 2048;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "%p app %lu of %lu: %@", &v10, 0x2Au);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v9 = 134218754;
+    v10 = v7;
+    v11 = 2048;
+    v12 = a3 + 1;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_debug_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEBUG, "%p app %lu of %lu: %@", &v9, 0x2Au);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePauseForApp:(uint64_t)app
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (app)
   {
@@ -1743,43 +1710,41 @@ void __34__ASDAppQuery__debugReceivedApps___block_invoke(uint64_t a1, void *a2, 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Requesting pause: %{public}@", buf, 0xCu);
     }
 
     v5 = *(app + 64);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke;
-    v7[3] = &unk_1E7CDB9A8;
-    v8 = v3;
-    [v5 getLibraryServiceWithCompletionHandler:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke;
+    v6[3] = &unk_1E7CDB9A8;
+    v7 = v3;
+    [v5 getLibraryServiceWithCompletionHandler:v6];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __34__ASDAppQuery__handlePauseForApp___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke_2;
-    v13[3] = &unk_1E7CDB980;
-    v14 = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke_2;
+    v12[3] = &unk_1E7CDB980;
+    v13 = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v12];
     v7 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke_50;
-    v11[3] = &unk_1E7CDB980;
-    v12 = v7;
-    [v6 pauseApp:v12 withReplyHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __34__ASDAppQuery__handlePauseForApp___block_invoke_50;
+    v10[3] = &unk_1E7CDB980;
+    v11 = v7;
+    [v6 pauseApp:v11 withReplyHandler:v10];
 
-    v8 = v14;
+    v8 = v13;
   }
 
   else
@@ -1787,39 +1752,35 @@ void __34__ASDAppQuery__handlePauseForApp___block_invoke(uint64_t a1, void *a2, 
     v8 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v5;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v5;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to pause: %{public}@ error: %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __34__ASDAppQuery__handlePauseForApp___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to pause: %{public}@ error: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to pause: %{public}@ error: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __34__ASDAppQuery__handlePauseForApp___block_invoke_50(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   v5 = v4;
@@ -1828,28 +1789,26 @@ void __34__ASDAppQuery__handlePauseForApp___block_invoke_50(uint64_t a1, void *a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to pause: %{public}@ error: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to pause: %{public}@ error: %{public}@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Completed pause: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Completed pause: %{public}@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleResumeForApp:(uint64_t)app
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (app)
   {
@@ -1857,43 +1816,41 @@ void __34__ASDAppQuery__handlePauseForApp___block_invoke_50(uint64_t a1, void *a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_impl(&dword_1B8220000, v4, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Requesting resume: %{public}@", buf, 0xCu);
     }
 
     v5 = *(app + 64);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke;
-    v7[3] = &unk_1E7CDB9A8;
-    v8 = v3;
-    [v5 getLibraryServiceWithCompletionHandler:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke;
+    v6[3] = &unk_1E7CDB9A8;
+    v7 = v3;
+    [v5 getLibraryServiceWithCompletionHandler:v6];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __35__ASDAppQuery__handleResumeForApp___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke_2;
-    v13[3] = &unk_1E7CDB980;
-    v14 = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke_2;
+    v12[3] = &unk_1E7CDB980;
+    v13 = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v12];
     v7 = *(a1 + 32);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke_52;
-    v11[3] = &unk_1E7CDB980;
-    v12 = v7;
-    [v6 resumeApp:v12 withReplyHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __35__ASDAppQuery__handleResumeForApp___block_invoke_52;
+    v10[3] = &unk_1E7CDB980;
+    v11 = v7;
+    [v6 resumeApp:v11 withReplyHandler:v10];
 
-    v8 = v14;
+    v8 = v13;
   }
 
   else
@@ -1901,39 +1858,35 @@ void __35__ASDAppQuery__handleResumeForApp___block_invoke(uint64_t a1, void *a2,
     v8 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v5;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v5;
       _os_log_error_impl(&dword_1B8220000, v8, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to resume: %{public}@ error: %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __35__ASDAppQuery__handleResumeForApp___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to resume: %{public}@ error: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to resume: %{public}@ error: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __35__ASDAppQuery__handleResumeForApp___block_invoke_52(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   v5 = v4;
@@ -1942,28 +1895,26 @@ void __35__ASDAppQuery__handleResumeForApp___block_invoke_52(uint64_t a1, void *
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to resume: %{public}@ error: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[ASDAppQuery]: Failed to resume: %{public}@ error: %{public}@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Completed resume: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Completed resume: %{public}@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCancelForApp:(char)app reportRemotely:
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -1971,27 +1922,25 @@ void __35__ASDAppQuery__handleResumeForApp___block_invoke_52(uint64_t a1, void *
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEFAULT, "[ASDAppQuery]: Requesting cancelation: %{public}@", buf, 0xCu);
     }
 
     v7 = *(self + 64);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke;
-    v9[3] = &unk_1E7CDB9F8;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke;
+    v8[3] = &unk_1E7CDB9F8;
     appCopy = app;
-    v9[4] = self;
-    v10 = v5;
-    [v7 getLibraryServiceWithCompletionHandler:v9];
+    v8[4] = self;
+    v9 = v5;
+    [v7 getLibraryServiceWithCompletionHandler:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -2001,69 +1950,69 @@ void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke(uint64_
       goto LABEL_7;
     }
 
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2050000000;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2050000000;
     v7 = qword_1ED90D440;
-    v35 = qword_1ED90D440;
+    v34 = qword_1ED90D440;
     if (!qword_1ED90D440)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getNRPairedDeviceRegistryClass_block_invoke;
-      v37 = &unk_1E7CDBA78;
-      v38 = &v32;
+      v36 = &unk_1E7CDBA78;
+      v37 = &v31;
       __getNRPairedDeviceRegistryClass_block_invoke(buf);
-      v7 = v33[3];
+      v7 = v32[3];
     }
 
     v8 = v7;
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
     v9 = [v7 sharedInstance];
     v10 = [v9 getActivePairedDevice];
     v11 = [v10 pairingID];
 
     if (v11)
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_2;
-      v30[3] = &unk_1E7CDB9D0;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_2;
+      v29[3] = &unk_1E7CDB9D0;
       v13 = *(a1 + 32);
       v12 = a1 + 32;
-      v30[4] = v13;
-      v31 = *(v12 + 8);
-      v14 = [v5 remoteObjectProxyWithErrorHandler:v30];
+      v29[4] = v13;
+      v30 = *(v12 + 8);
+      v14 = [v5 remoteObjectProxyWithErrorHandler:v29];
       v15 = *(v12 + 8);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_53;
-      v28[3] = &unk_1E7CDB9D0;
-      v28[4] = *v12;
-      v29 = v15;
-      [v14 cancelApp:v29 onPairedDevice:v11 withReplyHandler:v28];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_53;
+      v27[3] = &unk_1E7CDB9D0;
+      v27[4] = *v12;
+      v28 = v15;
+      [v14 cancelApp:v28 onPairedDevice:v11 withReplyHandler:v27];
     }
 
     else
     {
 LABEL_7:
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_54;
-      v26[3] = &unk_1E7CDB9D0;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_54;
+      v25[3] = &unk_1E7CDB9D0;
       v17 = *(a1 + 32);
       v16 = a1 + 32;
-      v26[4] = v17;
-      v27 = *(v16 + 8);
-      v18 = [v5 remoteObjectProxyWithErrorHandler:v26];
+      v25[4] = v17;
+      v26 = *(v16 + 8);
+      v18 = [v5 remoteObjectProxyWithErrorHandler:v25];
       v19 = *(v16 + 8);
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_55;
-      v24[3] = &unk_1E7CDB9D0;
-      v24[4] = *v16;
-      v25 = v19;
-      [v18 cancelApp:v25 withReplyHandler:v24];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_55;
+      v23[3] = &unk_1E7CDB9D0;
+      v23[4] = *v16;
+      v24 = v19;
+      [v18 cancelApp:v24 withReplyHandler:v23];
     }
   }
 
@@ -2072,45 +2021,41 @@ LABEL_7:
     v20 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = *(a1 + 32);
-      v23 = *(a1 + 40);
+      v21 = *(a1 + 32);
+      v22 = *(a1 + 40);
       *buf = 138543874;
-      *&buf[4] = v22;
+      *&buf[4] = v21;
       *&buf[12] = 2114;
-      *&buf[14] = v23;
+      *&buf[14] = v22;
       *&buf[22] = 2114;
-      v37 = v6;
+      v36 = v6;
       _os_log_error_impl(&dword_1B8220000, v20, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel: %{public}@ error: %{public}@", buf, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel remote: %{public}@ error: %{public}@", &v8, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel remote: %{public}@ error: %{public}@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_53(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   v5 = v4;
@@ -2120,13 +2065,13 @@ void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_53(uint
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel remote: %{public}@ error: %{public}@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel remote: %{public}@ error: %{public}@", &v10, 0x20u);
     }
   }
 
@@ -2134,40 +2079,36 @@ void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_53(uint
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Completed remote cancelation: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Completed remote cancelation: %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_54(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel: %{public}@ error: %{public}@", &v8, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel: %{public}@ error: %{public}@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_55(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   v5 = v4;
@@ -2177,13 +2118,13 @@ void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_55(uint
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel: %{public}@ error: %{public}@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to cancel: %{public}@ error: %{public}@", &v10, 0x20u);
     }
   }
 
@@ -2191,14 +2132,12 @@ void __50__ASDAppQuery__handleCancelForApp_reportRemotely___block_invoke_55(uint
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Completed cancelation: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Completed cancelation: %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ASDAppQuery__downloadProgressForApp_fromRemoteProgress___block_invoke_3(uint64_t a1)
@@ -2230,30 +2169,30 @@ void __72__ASDAppQuery__newProgressForApp_fromRemoteProgress_usingServiceBroker_
 
 - (id)_removeCachedResultsForBundleIDs:(uint64_t)ds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = [*(ds + 56) objectForKeyedSubscript:{v10, v19}];
+        v10 = *(*(&v18 + 1) + 8 * i);
+        v11 = [*(ds + 56) objectForKeyedSubscript:{v10, v18}];
         v12 = v11;
         if (v11)
         {
@@ -2275,7 +2214,7 @@ void __72__ASDAppQuery__newProgressForApp_fromRemoteProgress_usingServiceBroker_
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -2283,8 +2222,6 @@ void __72__ASDAppQuery__newProgressForApp_fromRemoteProgress_usingServiceBroker_
 
   [*(ds + 56) removeObjectsForKeys:v5];
   v16 = [v4 copy];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -2330,7 +2267,7 @@ void __72__ASDAppQuery__newProgressForApp_fromRemoteProgress_usingServiceBroker_
 
 void __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -2342,8 +2279,8 @@ void __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke(uin
     block[2] = __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke_2;
     block[3] = &unk_1E7CDBA20;
     block[4] = v7;
-    v14 = v5;
-    v15 = *(a1 + 40);
+    v12 = v5;
+    v13 = *(a1 + 40);
     dispatch_async(v8, block);
   }
 
@@ -2352,17 +2289,14 @@ void __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke(uin
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v6;
-      v12 = v17;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v6;
+      v10 = v15;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@]: Received refresh notification but refresh failed: %{public}@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ASDAppQuery__handleNotificationRefreshWithUserInfo___block_invoke_2(uint64_t a1)

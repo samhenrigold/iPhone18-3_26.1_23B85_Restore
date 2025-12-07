@@ -1,6 +1,7 @@
 @interface _DKNotificationScreenLockMonitor
 + (id)_BMEventWithState:(id)state;
 + (id)_eventWithState:(id)state;
++ (void)setIsLocked:(BOOL)locked;
 - (void)dealloc;
 - (void)receiveNotificationEvent:(id)event;
 - (void)start;
@@ -37,6 +38,14 @@
   v3.receiver = self;
   v3.super_class = _DKNotificationScreenLockMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
++ (void)setIsLocked:(BOOL)locked
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForDeviceLockStatus = [MEMORY[0x277CFE338] keyPathForDeviceLockStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForDeviceLockStatus];
 }
 
 + (id)_eventWithState:(id)state

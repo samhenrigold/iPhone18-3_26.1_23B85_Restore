@@ -19,9 +19,9 @@
     +[NSUserDefaults(Email) em_userDefaults];
   }
 
-  v1 = em_userDefaults_userDefaults;
+  v2 = em_userDefaults_userDefaults;
 
-  return v1;
+  return v2;
 }
 
 + (void)em_migrateDefault:()Email

@@ -26,6 +26,7 @@
 - (void)_pollLatestRevisionWithReason:(int64_t)reason completion:(id)completion;
 - (void)_preProcessResponse:(id)response error:(id)error responseBlock:(id)block;
 - (void)_sendHandlers:(id)handlers success:(BOOL)success;
+- (void)_sendSetupConfigurationHandlersWithSuccess:(BOOL)success;
 - (void)_shouldMakeRequest:(id)request;
 - (void)_updateVersionAfterHideRequest:(id)request;
 - (void)appRefreshesOnLaunchWithCompletionHandler:(id)handler;
@@ -171,47 +172,47 @@
 
 - (id)_dataForArtRequest:(BOOL)request
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   v4 = +[BLJaliscoServerSource sharedSource];
   newManagedObjectContext = [v4 newManagedObjectContext];
 
   v5 = +[BLJaliscoServerSource sharedSource];
   dsid = [(BLPurchaseDAAPServer *)self dsid];
-  v55[0] = dsid;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
-  v39 = [v5 itemsFetchRequestForDSIDs:v7];
+  v54[0] = dsid;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+  v38 = [v5 itemsFetchRequestForDSIDs:v7];
 
-  v54[0] = @"storeID";
-  v54[1] = @"cloudID";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
-  [v39 setPropertiesToFetch:v8];
+  v53[0] = @"storeID";
+  v53[1] = @"cloudID";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+  [v38 setPropertiesToFetch:v8];
 
-  v49 = 0;
-  v9 = [newManagedObjectContext executeFetchRequest:v39 error:&v49];
-  v35 = v9;
-  v36 = v49;
+  v48 = 0;
+  v9 = [newManagedObjectContext executeFetchRequest:v38 error:&v48];
+  v34 = v9;
+  v35 = v48;
   if (v9)
   {
-    v40 = [MEMORY[0x277CBEB18] arrayWithArray:{v9, v9}];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v39 = [MEMORY[0x277CBEB18] arrayWithArray:{v9, v9}];
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v11)
     {
-      v12 = *v46;
+      v12 = *v45;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v46 != v12)
+          if (*v45 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * i);
+          v14 = *(*(&v44 + 1) + 8 * i);
           storeID = [v14 storeID];
           if (!request)
           {
@@ -221,20 +222,20 @@
 
             if (v18)
             {
-              [v40 removeObject:v14];
+              [v39 removeObject:v14];
             }
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v11);
     }
 
-    if ([v40 count])
+    if ([v39 count])
     {
-      v19 = [v40 count];
+      v19 = [v39 count];
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSince1970];
       v22 = v21;
@@ -247,31 +248,31 @@
       -[BLDAAPBuffer appendUInt32:withCode:](v23, "appendUInt32:withCode:", [sessionID unsignedIntValue], 1835821412);
 
       [(BLDAAPBuffer *)v23 appendHeader:1835623521 size:v24];
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
-      v26 = v40;
-      v27 = [v26 countByEnumeratingWithState:&v41 objects:v52 count:16];
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v26 = v39;
+      v27 = [v26 countByEnumeratingWithState:&v40 objects:v51 count:16];
       if (v27)
       {
-        v28 = *v42;
+        v28 = *v41;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v42 != v28)
+            if (*v41 != v28)
             {
               objc_enumerationMutation(v26);
             }
 
-            cloudID = [*(*(&v41 + 1) + 8 * j) cloudID];
+            cloudID = [*(*(&v40 + 1) + 8 * j) cloudID];
             unsignedLongLongValue = [cloudID unsignedLongLongValue];
 
             [(BLDAAPBuffer *)v23 appendUInt64:unsignedLongLongValue withCode:1835625572];
           }
 
-          v27 = [v26 countByEnumeratingWithState:&v41 objects:v52 count:16];
+          v27 = [v26 countByEnumeratingWithState:&v40 objects:v51 count:16];
         }
 
         while (v27);
@@ -287,14 +288,12 @@
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v51 = v36;
+    v50 = v35;
     _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "Art Request: Couldn't find items to refresh artwork with.  %@", buf, 0xCu);
   }
 
   data = 0;
 LABEL_25:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -302,7 +301,7 @@ LABEL_25:
 - (void)updateItemImageURLsIgnoringCache:(BOOL)cache completion:(id)completion
 {
   cacheCopy = cache;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = BLJaliscoLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -310,48 +309,47 @@ LABEL_25:
     dsid = [(BLPurchaseDAAPServer *)self dsid];
     LODWORD(buf) = 67109378;
     HIDWORD(buf) = cacheCopy;
-    v16 = 2112;
-    v17 = dsid;
+    v15 = 2112;
+    v16 = dsid;
     _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_DEBUG, "Art Request: updateItemImageURLsIgnoringCache %d dsid:%@", &buf, 0x12u);
   }
 
   objc_initWeak(&buf, self);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_241D6319C;
-  v11[3] = &unk_278D18350;
-  v11[4] = self;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_241D6319C;
+  v10[3] = &unk_278D18350;
+  v10[4] = self;
   v9 = completionCopy;
-  v12 = v9;
-  v14 = cacheCopy;
-  objc_copyWeak(&v13, &buf);
-  [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v11];
-  objc_destroyWeak(&v13);
+  v11 = v9;
+  v13 = cacheCopy;
+  objc_copyWeak(&v12, &buf);
+  [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v10];
+  objc_destroyWeak(&v12);
 
   objc_destroyWeak(&buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForHideItemsRequestWithStoreIDs:(id)ds
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v4 = +[BLJaliscoServerSource sharedSource];
   newManagedObjectContext = [v4 newManagedObjectContext];
 
   v5 = +[BLJaliscoServerSource sharedSource];
   dsid = [(BLPurchaseDAAPServer *)self dsid];
-  v40[0] = dsid;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+  v39[0] = dsid;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
   v8 = [v5 fetchRequestForStoreIDs:dsCopy dsids:v7];
 
-  v39 = @"cloudID";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+  v38 = @"cloudID";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
   [v8 setPropertiesToFetch:v9];
 
-  v37 = 0;
-  v10 = [newManagedObjectContext executeFetchRequest:v8 error:&v37];
-  v30 = v37;
+  v36 = 0;
+  v10 = [newManagedObjectContext executeFetchRequest:v8 error:&v36];
+  v29 = v36;
   if ([v10 count])
   {
     v11 = +[BLJaliscoServerSource sharedSource];
@@ -374,31 +372,31 @@ LABEL_25:
     -[BLDAAPBuffer appendUInt32:withCode:](v18, "appendUInt32:withCode:", [v13 unsignedIntValue], 1836413810);
     [(BLDAAPBuffer *)v18 appendUInt8:2 withCode:1835625316];
     [(BLDAAPBuffer *)v18 appendHeader:1835623521 size:v19];
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v21 = v10;
-    v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v22)
     {
-      v23 = *v34;
+      v23 = *v33;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v34 != v23)
+          if (*v33 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          cloudID = [*(*(&v33 + 1) + 8 * i) cloudID];
+          cloudID = [*(*(&v32 + 1) + 8 * i) cloudID];
           unsignedLongLongValue = [cloudID unsignedLongLongValue];
 
           [(BLDAAPBuffer *)v18 appendUInt64:unsignedLongLongValue withCode:1835625572];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v22);
@@ -413,14 +411,12 @@ LABEL_25:
     data = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
 - (void)_updateVersionAfterHideRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [request objectForKey:@"dmap.serverrevision"];
   v5 = +[BLJaliscoServerSource sharedSource];
   newManagedObjectContext = [v5 newManagedObjectContext];
@@ -437,9 +433,9 @@ LABEL_25:
     goto LABEL_8;
   }
 
-  v12 = 0;
-  v7 = [(BLPurchaseDAAPServer *)self _updatePersistentServerRevision:v4 moc:newManagedObjectContext error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(BLPurchaseDAAPServer *)self _updatePersistentServerRevision:v4 moc:newManagedObjectContext error:&v11];
+  v8 = v11;
   if (v8)
   {
     v9 = v8;
@@ -447,19 +443,17 @@ LABEL_25:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "Error saving server version after hiding.  %@", buf, 0xCu);
     }
 
 LABEL_8:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideItemsWithStoreIDs:(id)ds completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
   v8 = BLJaliscoLog();
@@ -467,28 +461,27 @@ LABEL_8:
   {
     dsid = [(BLPurchaseDAAPServer *)self dsid];
     *buf = 138412546;
-    v18 = dsid;
-    v19 = 2112;
-    v20 = dsCopy;
+    v17 = dsid;
+    v18 = 2112;
+    v19 = dsCopy;
     _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "HideItems: dsid:%@ storeIDS:%@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_241D6475C;
-  v13[3] = &unk_278D183C8;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_241D6475C;
+  v12[3] = &unk_278D183C8;
+  v12[4] = self;
   v10 = completionCopy;
-  v15 = v10;
+  v14 = v10;
   v11 = dsCopy;
-  v14 = v11;
-  objc_copyWeak(&v16, buf);
-  [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v13];
-  objc_destroyWeak(&v16);
+  v13 = v11;
+  objc_copyWeak(&v15, buf);
+  [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v12];
+  objc_destroyWeak(&v15);
 
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupWithReason:(int64_t)reason queue:(id)queue completion:(id)completion
@@ -510,7 +503,7 @@ LABEL_8:
 
 - (void)fetchAllItemsPolitely:(BOOL)politely reason:(int64_t)reason queue:(id)queue completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   completionCopy = completion;
   v12 = BLJaliscoLog();
@@ -524,23 +517,22 @@ LABEL_8:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x2020000000;
+  v22 = 0x2020000000;
   reasonCopy = reason;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_241D65AD4;
   block[3] = &unk_278D18698;
   block[4] = self;
-  v18 = queueCopy;
+  v17 = queueCopy;
   politelyCopy = politely;
-  v19 = completionCopy;
+  v18 = completionCopy;
   p_buf = &buf;
   v14 = completionCopy;
   v15 = queueCopy;
   dispatch_async(v15, block);
 
   _Block_object_dispose(&buf, 8);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BLPurchaseDAAPServer)initWithDSID:(id)d delegate:(id)delegate privacyInfo:(id)info
@@ -642,7 +634,7 @@ LABEL_8:
 
 - (id)_localServerDatabaseRevisionInMoc:(id)moc
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mocCopy = moc;
   mEMORY[0x277CF32F0] = [MEMORY[0x277CF32F0] sharedProvider];
   isUserSignedInToiTunes = [mEMORY[0x277CF32F0] isUserSignedInToiTunes];
@@ -651,9 +643,9 @@ LABEL_8:
   {
     v7 = +[BLJaliscoServerSource sharedSource];
     dsid = [(BLPurchaseDAAPServer *)self dsid];
-    v17 = 0;
-    v9 = [v7 serverInfoForDSID:dsid fromManagedObjectContext:mocCopy error:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [v7 serverInfoForDSID:dsid fromManagedObjectContext:mocCopy error:&v16];
+    v10 = v16;
 
     if (v9)
     {
@@ -670,7 +662,7 @@ LABEL_8:
       {
         dsid2 = [(BLPurchaseDAAPServer *)self dsid];
         *buf = 138412290;
-        v19 = dsid2;
+        v18 = dsid2;
         _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "Error fetching local info for %@", buf, 0xCu);
       }
 
@@ -680,8 +672,6 @@ LABEL_8:
 
   v12 = [MEMORY[0x277CCABB0] numberWithInt:0];
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -814,10 +804,10 @@ LABEL_10:
 
 - (id)_updatePersistentItems:(id)items moc:(id)moc database:(id)database error:(id *)error
 {
-  v143[1] = *MEMORY[0x277D85DE8];
+  v142[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   mocCopy = moc;
-  v102 = itemsCopy;
+  v101 = itemsCopy;
   databaseCopy = database;
   if (!itemsCopy)
   {
@@ -827,7 +817,7 @@ LABEL_10:
     }
 
     v96 = BLJaliscoLog();
-    v104 = v96;
+    v103 = v96;
     if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -838,24 +828,24 @@ LABEL_10:
     goto LABEL_76;
   }
 
-  v104 = [itemsCopy objectForKey:@"dmap.listing"];
-  v100 = [itemsCopy objectForKey:@"dmap.deletedidlisting"];
+  v103 = [itemsCopy objectForKey:@"dmap.listing"];
+  v99 = [itemsCopy objectForKey:@"dmap.deletedidlisting"];
   v10 = +[BLJaliscoServerSource sharedSource];
   dsid = [(BLPurchaseDAAPServer *)self dsid];
-  v143[0] = dsid;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:1];
+  v142[0] = dsid;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:1];
   v13 = [v10 allItemsFetchRequestForDSIDs:v12];
-  v136 = 0;
-  v109 = [mocCopy executeFetchRequest:v13 error:&v136];
-  v101 = v136;
+  v135 = 0;
+  v108 = [mocCopy executeFetchRequest:v13 error:&v135];
+  v100 = v135;
 
-  if (!v109)
+  if (!v108)
   {
     if (error)
     {
-      v97 = v101;
+      v97 = v100;
       items = 0;
-      *error = v101;
+      *error = v100;
     }
 
     else
@@ -866,36 +856,36 @@ LABEL_10:
     goto LABEL_75;
   }
 
-  v105 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v104, "count")}];
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
+  v104 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v103, "count")}];
   v133 = 0u;
-  obj = v104;
-  v108 = [obj countByEnumeratingWithState:&v132 objects:v142 count:16];
-  if (!v108)
+  v134 = 0u;
+  v131 = 0u;
+  v132 = 0u;
+  obj = v103;
+  v107 = [obj countByEnumeratingWithState:&v131 objects:v141 count:16];
+  if (!v107)
   {
     goto LABEL_55;
   }
 
-  v107 = *v133;
+  v106 = *v132;
   do
   {
-    for (i = 0; i != v108; ++i)
+    for (i = 0; i != v107; ++i)
     {
-      if (*v133 != v107)
+      if (*v132 != v106)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v132 + 1) + 8 * i);
+      v14 = *(*(&v131 + 1) + 8 * i);
       v15 = [v14 objectForKey:@"com.apple.itunes.itms-songid"];
       v16 = MEMORY[0x277CCAC30];
-      v110 = v15;
+      v109 = v15;
       stringValue = [v15 stringValue];
-      v114 = [v16 predicateWithFormat:@"storeID = %@", stringValue];
+      v113 = [v16 predicateWithFormat:@"storeID = %@", stringValue];
 
-      v18 = [v109 filteredArrayUsingPredicate:v114];
+      v18 = [v108 filteredArrayUsingPredicate:v113];
       lastObject = [v18 lastObject];
 
       v20 = lastObject;
@@ -944,9 +934,9 @@ LABEL_17:
         v20 = lastObject;
       }
 
-      v111 = [v14 objectForKey:@"com.apple.itunes.extended-media-kind"];
-      v119 = v20;
-      unsignedIntegerValue = [v111 unsignedIntegerValue];
+      v110 = [v14 objectForKey:@"com.apple.itunes.extended-media-kind"];
+      v118 = v20;
+      unsignedIntegerValue = [v110 unsignedIntegerValue];
       if (unsignedIntegerValue == 8 && ![(BLPurchaseDAAPServer *)self isPrimaryAccount])
       {
         [v20 bl_setNumberIfDifferent:@"needsImport" value:MEMORY[0x277CBEC38]];
@@ -1021,29 +1011,29 @@ LABEL_17:
       dsid2 = [(BLPurchaseDAAPServer *)self dsid];
       [v20 bl_setNumberIfDifferent:@"storeAccountID" value:dsid2];
 
-      v112 = [v14 objectForKey:@"booklets"];
+      v111 = [v14 objectForKey:@"booklets"];
       booklets = [v20 booklets];
       allObjects = [booklets allObjects];
 
-      v130 = 0u;
-      v131 = 0u;
-      v128 = 0u;
       v129 = 0u;
-      v118 = v112;
-      v59 = [v118 countByEnumeratingWithState:&v128 objects:v141 count:16];
+      v130 = 0u;
+      v127 = 0u;
+      v128 = 0u;
+      v117 = v111;
+      v59 = [v117 countByEnumeratingWithState:&v127 objects:v140 count:16];
       if (v59)
       {
-        v60 = *v129;
+        v60 = *v128;
         do
         {
           for (j = 0; j != v59; ++j)
           {
-            if (*v129 != v60)
+            if (*v128 != v60)
             {
-              objc_enumerationMutation(v118);
+              objc_enumerationMutation(v117);
             }
 
-            v62 = *(*(&v128 + 1) + 8 * j);
+            v62 = *(*(&v127 + 1) + 8 * j);
             v63 = [v62 objectForKey:@"com.apple.itunes.store.booklet-item-store-id"];
             stringValue5 = [v63 stringValue];
 
@@ -1066,35 +1056,35 @@ LABEL_17:
             v70 = [v62 objectForKey:@"com.apple.itunes.store.booklet-item-size"];
             [lastObject3 bl_setNumberIfDifferent:@"size" value:v70];
 
-            [lastObject3 setParentItem:v119];
+            [lastObject3 setParentItem:v118];
           }
 
-          v59 = [v118 countByEnumeratingWithState:&v128 objects:v141 count:16];
+          v59 = [v117 countByEnumeratingWithState:&v127 objects:v140 count:16];
         }
 
         while (v59);
       }
 
       v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v126 = 0u;
-      v127 = 0u;
-      v124 = 0u;
       v125 = 0u;
+      v126 = 0u;
+      v123 = 0u;
+      v124 = 0u;
       additionalAudiobookInfoKeys = [(BLPurchaseDAAPServer *)self additionalAudiobookInfoKeys];
-      v73 = [additionalAudiobookInfoKeys countByEnumeratingWithState:&v124 objects:v140 count:16];
+      v73 = [additionalAudiobookInfoKeys countByEnumeratingWithState:&v123 objects:v139 count:16];
       if (v73)
       {
-        v74 = *v125;
+        v74 = *v124;
         do
         {
           for (k = 0; k != v73; ++k)
           {
-            if (*v125 != v74)
+            if (*v124 != v74)
             {
               objc_enumerationMutation(additionalAudiobookInfoKeys);
             }
 
-            v76 = *(*(&v124 + 1) + 8 * k);
+            v76 = *(*(&v123 + 1) + 8 * k);
             v77 = [v14 objectForKey:v76];
             if ([v76 isEqualToString:@"daap.songtime"])
             {
@@ -1109,7 +1099,7 @@ LABEL_17:
             }
           }
 
-          v73 = [additionalAudiobookInfoKeys countByEnumeratingWithState:&v124 objects:v140 count:16];
+          v73 = [additionalAudiobookInfoKeys countByEnumeratingWithState:&v123 objects:v139 count:16];
         }
 
         while (v73);
@@ -1118,26 +1108,26 @@ LABEL_17:
       if ([v71 count])
       {
         v79 = [v71 copy];
-        [v119 bl_setDictionaryIfDifferent:@"additionalAudiobookInfo" value:v79];
+        [v118 bl_setDictionaryIfDifferent:@"additionalAudiobookInfo" value:v79];
       }
 
       v80 = BLJaliscoLog();
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v139 = v119;
+        v138 = v118;
         _os_log_impl(&dword_241D1F000, v80, OS_LOG_TYPE_DEBUG, "[BLPurchaseDAAPServer] Setup item:%@", buf, 0xCu);
       }
 
-      purchasedTokenCode = [v119 purchasedTokenCode];
+      purchasedTokenCode = [v118 purchasedTokenCode];
       if ([purchasedTokenCode length])
       {
-        storeID = [v119 storeID];
+        storeID = [v118 storeID];
         v83 = [storeID length] == 0;
 
         if (!v83)
         {
-          [v105 addObject:v119];
+          [v104 addObject:v118];
           goto LABEL_53;
         }
       }
@@ -1150,58 +1140,58 @@ LABEL_17:
       if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v139 = v119;
+        v138 = v118;
         _os_log_impl(&dword_241D1F000, v84, OS_LOG_TYPE_ERROR, "ERROR: No token/adam id for %@", buf, 0xCu);
       }
 
 LABEL_53:
     }
 
-    v108 = [obj countByEnumeratingWithState:&v132 objects:v142 count:16];
+    v107 = [obj countByEnumeratingWithState:&v131 objects:v141 count:16];
   }
 
-  while (v108);
+  while (v107);
 LABEL_55:
 
-  [databaseCopy addItems:v105];
+  [databaseCopy addItems:v104];
   v85 = BLJaliscoLog();
   if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v139 = v105;
+    v138 = v104;
     _os_log_impl(&dword_241D1F000, v85, OS_LOG_TYPE_DEFAULT, "[BLPurchaseDAAPServer] Adding items to db:%@ ", buf, 0xCu);
   }
 
-  if ([v100 count])
+  if ([v99 count])
   {
     v86 = MEMORY[0x277CCAC30];
-    v87 = [v100 valueForKey:@"stringValue"];
+    v87 = [v99 valueForKey:@"stringValue"];
     v88 = [v86 predicateWithFormat:@"cloudID IN %@", v87];
 
-    [v109 filteredArrayUsingPredicate:v88];
+    [v108 filteredArrayUsingPredicate:v88];
+    v121 = 0u;
     v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
-    v89 = v121 = 0u;
-    v90 = [v89 countByEnumeratingWithState:&v120 objects:v137 count:16];
+    v119 = 0u;
+    v89 = v120 = 0u;
+    v90 = [v89 countByEnumeratingWithState:&v119 objects:v136 count:16];
     if (v90)
     {
-      v91 = *v121;
+      v91 = *v120;
       do
       {
         for (m = 0; m != v90; ++m)
         {
-          if (*v121 != v91)
+          if (*v120 != v91)
           {
             objc_enumerationMutation(v89);
           }
 
-          v93 = *(*(&v120 + 1) + 8 * m);
+          v93 = *(*(&v119 + 1) + 8 * m);
           managedObjectContext = [v93 managedObjectContext];
           [managedObjectContext deleteObject:v93];
         }
 
-        v90 = [v89 countByEnumeratingWithState:&v120 objects:v137 count:16];
+        v90 = [v89 countByEnumeratingWithState:&v119 objects:v136 count:16];
       }
 
       while (v90);
@@ -1213,45 +1203,55 @@ LABEL_55:
 LABEL_75:
 LABEL_76:
 
-  v98 = *MEMORY[0x277D85DE8];
-
   return items;
 }
 
 - (void)_sendHandlers:(id)handlers success:(BOOL)success
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   handlersCopy = handlers;
-  v5 = [handlersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [handlersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(handlersCopy);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [handlersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [handlersCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)_sendSetupConfigurationHandlersWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  [(BLPurchaseDAAPServer *)self setIsServerSetupPending:0];
+  [(BLPurchaseDAAPServer *)self setIsServerSetup:successCopy];
+  setupCompletionHandlers = self->_setupCompletionHandlers;
+  if (setupCompletionHandlers)
+  {
+    [(BLPurchaseDAAPServer *)self _sendHandlers:setupCompletionHandlers success:successCopy];
+    v6 = self->_setupCompletionHandlers;
+    self->_setupCompletionHandlers = 0;
+  }
 }
 
 - (BOOL)_isGDPRPrivacyAcknowledgementRequired
@@ -1325,7 +1325,7 @@ LABEL_76:
 
 - (id)_processResponse:(id)response
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = [BLPurchaseDAAPParser decodeData:responseCopy];
   objc_opt_class();
@@ -1347,9 +1347,9 @@ LABEL_76:
         v9 = BLJaliscoLog();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v13 = 138412290;
-          v14 = v8;
-          _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_INFO, "DAAP reconnect %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v8;
+          _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_INFO, "DAAP reconnect %@", &v12, 0xCu);
         }
       }
 
@@ -1358,9 +1358,9 @@ LABEL_76:
         v10 = BLJaliscoLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v13 = 138412290;
-          v14 = v5;
-          _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "Unrecognized DAAP Response: %@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v5;
+          _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "Unrecognized DAAP Response: %@", &v12, 0xCu);
         }
       }
 
@@ -1372,8 +1372,6 @@ LABEL_76:
   {
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1392,49 +1390,42 @@ LABEL_76:
 
 - (BOOL)_canMakeDAAPRequest
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (!self->_clientExpired)
+  v12 = *MEMORY[0x277D85DE8];
+  if (self->_clientExpired)
   {
-    DAAPReconnectAt = self->_DAAPReconnectAt;
-    if (DAAPReconnectAt)
-    {
-      date = [MEMORY[0x277CBEAA8] date];
-      v5 = [(NSDate *)DAAPReconnectAt compare:date];
-
-      if (v5 != -1)
-      {
-        v6 = BLJaliscoLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-        {
-          v7 = self->_DAAPReconnectAt;
-          v11 = 138412290;
-          v12 = v7;
-          _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "Throttling request until %@", &v11, 0xCu);
-        }
-
-        goto LABEL_7;
-      }
-
-      v9 = self->_DAAPReconnectAt;
-      self->_DAAPReconnectAt = 0;
-    }
-
-    result = 1;
-    goto LABEL_10;
+    return 0;
   }
 
-LABEL_7:
-  result = 0;
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  DAAPReconnectAt = self->_DAAPReconnectAt;
+  if (DAAPReconnectAt)
+  {
+    date = [MEMORY[0x277CBEAA8] date];
+    v5 = [(NSDate *)DAAPReconnectAt compare:date];
+
+    if (v5 != -1)
+    {
+      v6 = BLJaliscoLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = self->_DAAPReconnectAt;
+        v10 = 138412290;
+        v11 = v7;
+        _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "Throttling request until %@", &v10, 0xCu);
+      }
+
+      return 0;
+    }
+
+    v9 = self->_DAAPReconnectAt;
+    self->_DAAPReconnectAt = 0;
+  }
+
+  return 1;
 }
 
 - (void)setDAAPReconnectToTimeIntervalSinceNow:(double)now
 {
-  v4 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:now];
-  DAAPReconnectAt = self->_DAAPReconnectAt;
-  self->_DAAPReconnectAt = v4;
+  self->_DAAPReconnectAt = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:now];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1496,7 +1487,7 @@ LABEL_10:
 
 - (void)_fetchDatabaseWithReason:(int64_t)reason localServerRevision:(id)revision latestVersion:(id)version completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   revisionCopy = revision;
   versionCopy = version;
   handlerCopy = handler;
@@ -1517,17 +1508,17 @@ LABEL_10:
     {
       dsid2 = [(BLPurchaseDAAPServer *)self dsid];
       sessionID2 = [(BLPurchaseDAAPServer *)self sessionID];
-      v23 = 138413314;
-      v24 = dsid2;
-      v25 = 2048;
+      v22 = 138413314;
+      v23 = dsid2;
+      v24 = 2048;
       reasonCopy = reason;
-      v27 = 2114;
-      v28 = sessionID2;
-      v29 = 2114;
-      v30 = versionCopy;
-      v31 = 2114;
-      v32 = revisionCopy;
-      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "DAAP DB Fetch: Missing a parameter type. dsid:(%@) reason:(%ld) sessionID: %{public}@ revisionNumber:%{public}@ delta:%{public}@", &v23, 0x34u);
+      v26 = 2114;
+      v27 = sessionID2;
+      v28 = 2114;
+      v29 = versionCopy;
+      v30 = 2114;
+      v31 = revisionCopy;
+      _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_ERROR, "DAAP DB Fetch: Missing a parameter type. dsid:(%@) reason:(%ld) sessionID: %{public}@ revisionNumber:%{public}@ delta:%{public}@", &v22, 0x34u);
     }
 
     v20 = MEMORY[0x245CFF560](handlerCopy);
@@ -1537,29 +1528,27 @@ LABEL_10:
       (*(v20 + 16))(v20, 0, 0);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchDatabaseWithRequest:(id)request completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   v8 = handlerCopy;
   if (requestCopy)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_241D6CC50;
-    v13[3] = &unk_278D188A0;
-    v14 = @"DB Fetch:";
-    v17 = handlerCopy;
-    v15 = requestCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_241D6CC50;
+    v12[3] = &unk_278D188A0;
+    v13 = @"DB Fetch:";
+    v16 = handlerCopy;
+    v14 = requestCopy;
     selfCopy = self;
-    [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v13];
+    [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v12];
 
-    v9 = v14;
+    v9 = v13;
   }
 
   else
@@ -1568,7 +1557,7 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = @"DB Fetch:";
+      v18 = @"DB Fetch:";
       _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "%@ No server revision or databaseRequest to fetch databases from.", buf, 0xCu);
     }
 
@@ -1579,13 +1568,11 @@ LABEL_10:
       (*(v11 + 16))(v11, 0, 0);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)daapQueryFilterString
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   if ([(BLPurchaseDAAPServer *)self isPrimaryAccount])
   {
@@ -1595,31 +1582,31 @@ LABEL_10:
   [v3 addObject:&unk_2853F21D0];
   v4 = [@"com.apple.itunes.extended-media-kind" stringByReplacingOccurrencesOfString:@"-" withString:@"\\-"];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
         v10 = MEMORY[0x277CCACA8];
-        intValue = [*(*(&v17 + 1) + 8 * i) intValue];
-        v12 = [v10 stringWithFormat:@"'%@:%d'", v4, intValue, v17];
+        intValue = [*(*(&v16 + 1) + 8 * i) intValue];
+        v12 = [v10 stringWithFormat:@"'%@:%d'", v4, intValue, v16];
         [v5 addObject:v12];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -1627,8 +1614,6 @@ LABEL_10:
 
   v13 = [v5 componentsJoinedByString:{@", "}];
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@)", v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1662,7 +1647,7 @@ LABEL_10:
 
 - (void)_fetchItemsWithLocalVersion:(id)version serverVersion:(id)serverVersion reason:(int64_t)reason tokenPairs:(id)pairs completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   serverVersionCopy = serverVersion;
   pairsCopy = pairs;
@@ -1672,10 +1657,10 @@ LABEL_10:
   {
     dsid = [(BLPurchaseDAAPServer *)self dsid];
     *buf = 138412802;
-    v33 = dsid;
-    v34 = 2112;
-    v35 = serverVersionCopy;
-    v36 = 2048;
+    v32 = dsid;
+    v33 = 2112;
+    v34 = serverVersionCopy;
+    v35 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_DEFAULT, "[BLPurchaseDAAPServer] _fetchItemsWithLocalVersion dsid:%@ serverVersion:%@ reason:%ld", buf, 0x20u);
   }
@@ -1699,23 +1684,21 @@ LABEL_10:
 
   else
   {
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_241D6DEBC;
-    v24[3] = &unk_278D189B8;
-    v25 = @"Fetch items";
-    v30 = handlerCopy;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_241D6DEBC;
+    v23[3] = &unk_278D189B8;
+    v24 = @"Fetch items";
+    v29 = handlerCopy;
     selfCopy = self;
-    v27 = versionCopy;
-    v28 = serverVersionCopy;
-    v29 = pairsCopy;
+    v26 = versionCopy;
+    v27 = serverVersionCopy;
+    v28 = pairsCopy;
     reasonCopy2 = reason;
-    [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v24];
+    [(BLPurchaseDAAPServer *)self _shouldMakeRequest:v23];
 
-    v20 = v25;
+    v20 = v24;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BLPurchaseDAAPServerDelegate)delegate

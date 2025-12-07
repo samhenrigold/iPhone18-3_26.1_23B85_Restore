@@ -60,14 +60,14 @@
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notifications();
+  v7 = __atxlog_handle_notifications(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"startDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXModeEvent" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_notifications();
+    v13 = __atxlog_handle_notifications(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"endDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXModeEvent" errorCode:-1 logHandle:v13];
 
     if (v14 && ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
@@ -92,14 +92,13 @@
 
 - (id)jsonRawData
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"startDate";
-  v6[1] = @"endDate";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"startDate";
+  v5[1] = @"endDate";
   endDate = self->_endDate;
-  v7[0] = self->_startDate;
-  v7[1] = endDate;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = self->_startDate;
+  v6[1] = endDate;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

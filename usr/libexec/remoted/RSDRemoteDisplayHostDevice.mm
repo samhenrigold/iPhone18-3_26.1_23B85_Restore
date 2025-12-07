@@ -58,7 +58,7 @@
     if (initWithGeneratedName)
     {
       v12 = [NSString stringWithCString:[(RSDRemoteDevice *)initWithGeneratedName device_name] encoding:4];
-      [qword_1000645C8 setObject:v12 forKeyedSubscript:numberCopy];
+      objc_msgSend_setObject_forKeyedSubscript_(qword_1000645C8);
     }
   }
 

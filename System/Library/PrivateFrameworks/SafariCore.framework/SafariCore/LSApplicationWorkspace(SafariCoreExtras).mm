@@ -8,47 +8,46 @@
 
 - (void)safari_setDefaultURLHandlerForScheme:()SafariCoreExtras toApplicationWithBundleIdentifier:completionHandler:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
-  v11 = WBS_LOG_CHANNEL_PREFIXOther();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXOther(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_INFO, "Attempting to set default URL handler for scheme %@ to bundle ID %@", buf, 0x16u);
+    v24 = v8;
+    v25 = 2112;
+    v26 = v9;
+    _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_INFO, "Attempting to set default URL handler for scheme %@ to bundle ID %@", buf, 0x16u);
   }
 
-  v20 = 0;
-  v12 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v9 allowPlaceholder:0 error:&v20];
-  v13 = v20;
-  if (v12)
+  v22 = 0;
+  v13 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v9 allowPlaceholder:0 error:&v22];
+  v14 = v22;
+  v16 = v14;
+  if (v13)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __133__LSApplicationWorkspace_SafariCoreExtras__safari_setDefaultURLHandlerForScheme_toApplicationWithBundleIdentifier_completionHandler___block_invoke;
-    v16[3] = &unk_1E7CF23A0;
-    v17 = v8;
-    v18 = v9;
-    v19 = v10;
-    [self setDefaultURLHandlerForScheme:v17 to:v12 completion:v16];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __133__LSApplicationWorkspace_SafariCoreExtras__safari_setDefaultURLHandlerForScheme_toApplicationWithBundleIdentifier_completionHandler___block_invoke;
+    v18[3] = &unk_1E7CF23A0;
+    v19 = v8;
+    v20 = v9;
+    v21 = v10;
+    [self setDefaultURLHandlerForScheme:v19 to:v13 completion:v18];
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXOther(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [LSApplicationWorkspace(SafariCoreExtras) safari_setDefaultURLHandlerForScheme:v9 toApplicationWithBundleIdentifier:v14 completionHandler:v13];
+      [LSApplicationWorkspace(SafariCoreExtras) safari_setDefaultURLHandlerForScheme:v9 toApplicationWithBundleIdentifier:v17 completionHandler:v16];
     }
 
-    (*(v10 + 2))(v10, 0, v13);
+    (*(v10 + 2))(v10, 0, v16);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safari_setDefaultOTPAuthURLHandlerToApplicationWithBundleIdentifier:()SafariCoreExtras shouldFallBackToSystemHandlerIfNeeded:completionHandler:
@@ -81,16 +80,14 @@
 
 - (void)safari_setDefaultURLHandlerForScheme:()SafariCoreExtras toApplicationWithBundleIdentifier:completionHandler:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 safari_privacyPreservingDescription];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_1B8447000, v5, OS_LOG_TYPE_ERROR, "Failed to load application record for bundle ID %@; error=%{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_1B8447000, v5, OS_LOG_TYPE_ERROR, "Failed to load application record for bundle ID %@; error=%{public}@", &v7, 0x16u);
 }
 
 @end

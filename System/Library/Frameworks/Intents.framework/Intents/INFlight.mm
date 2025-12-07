@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v28[6] = *MEMORY[0x1E69E9840];
-  v22 = @"airline";
+  v27[6] = *MEMORY[0x1E69E9840];
+  v21 = @"airline";
   airline = self->_airline;
   null = airline;
   if (!airline)
@@ -23,9 +23,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v28[0] = null;
-  v23 = @"flightNumber";
+  v20 = null;
+  v27[0] = null;
+  v22 = @"flightNumber";
   flightNumber = self->_flightNumber;
   null2 = flightNumber;
   if (!flightNumber)
@@ -33,9 +33,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v28[1] = null2;
-  v24 = @"boardingTime";
+  v19 = null2;
+  v27[1] = null2;
+  v23 = @"boardingTime";
   boardingTime = self->_boardingTime;
   null3 = boardingTime;
   if (!boardingTime)
@@ -43,9 +43,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null3;
-  v28[2] = null3;
-  v25 = @"flightDuration";
+  v17 = null3;
+  v27[2] = null3;
+  v24 = @"flightDuration";
   flightDuration = self->_flightDuration;
   null4 = flightDuration;
   if (!flightDuration)
@@ -53,8 +53,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[3] = null4;
-  v26 = @"departureAirportGate";
+  v27[3] = null4;
+  v25 = @"departureAirportGate";
   departureAirportGate = self->_departureAirportGate;
   null5 = departureAirportGate;
   if (!departureAirportGate)
@@ -62,8 +62,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[4] = null5;
-  v27 = @"arrivalAirportGate";
+  v27[4] = null5;
+  v26 = @"arrivalAirportGate";
   arrivalAirportGate = self->_arrivalAirportGate;
   null6 = arrivalAirportGate;
   if (!arrivalAirportGate)
@@ -71,8 +71,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v22 count:{6, v18}];
+  v27[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v21 count:{6, v17}];
   if (arrivalAirportGate)
   {
     if (departureAirportGate)
@@ -143,7 +143,6 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

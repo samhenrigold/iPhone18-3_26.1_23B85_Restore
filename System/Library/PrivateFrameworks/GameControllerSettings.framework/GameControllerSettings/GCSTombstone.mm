@@ -93,20 +93,18 @@
 
 - (GCSJSONObject)jsonObject
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   identifier = self->_identifier;
   creationDate = self->_creationDate;
-  v11[0] = identifier;
-  v10[0] = @"identifier";
-  v10[1] = @"creationDate";
+  v10[0] = identifier;
+  v9[0] = @"identifier";
+  v9[1] = @"creationDate";
   jsonObject = [(NSDate *)creationDate jsonObject];
-  v11[1] = jsonObject;
-  v10[2] = @"recordType";
+  v10[1] = jsonObject;
+  v9[2] = @"recordType";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:self->_recordType];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

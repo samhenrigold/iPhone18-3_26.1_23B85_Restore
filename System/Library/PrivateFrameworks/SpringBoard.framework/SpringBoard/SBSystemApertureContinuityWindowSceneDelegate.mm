@@ -10,7 +10,7 @@
   v39 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   sessionCopy = session;
-  v10 = SBLogContinuityDisplay();
+  v10 = SBLogContinuityDisplay(sessionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [sceneCopy _sceneIdentifier];
@@ -142,7 +142,7 @@ LABEL_27:
 {
   v20 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  v6 = SBLogContinuityDisplay();
+  v6 = SBLogContinuityDisplay(disconnectCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     _sceneIdentifier = [disconnectCopy _sceneIdentifier];

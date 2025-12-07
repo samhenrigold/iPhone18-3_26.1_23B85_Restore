@@ -1,5 +1,6 @@
 @interface CloudExtensionDevice
 + (CloudExtensionDevice)cloudExtensionDeviceWithCKRecord:(id)record;
++ (CloudExtensionDevice)cloudExtensionDeviceWithDeviceUUIDString:(id)string deviceName:(id)name lastModifiedDate:(id)date newTabPageComposedIdentifier:(id)identifier newTabPageSetByUserGesture:(BOOL)gesture newTabPageLastModifiedDate:(id)modifiedDate encodedSystemFieldsData:(id)data cloudExtensionsRecordZoneID:(id)self0;
 + (CloudExtensionDevice)cloudExtensionDeviceWithDictionaryRepresentation:(id)representation extensionSettingsDictionaryForDevice:(id)device cloudExtensionsRecordZoneID:(id)d;
 + (id)_valueTransformerForDeviceName;
 - (BOOL)wasNewTabPageSetByUserGesture;
@@ -79,6 +80,21 @@
   }
 
   return v4;
+}
+
++ (CloudExtensionDevice)cloudExtensionDeviceWithDeviceUUIDString:(id)string deviceName:(id)name lastModifiedDate:(id)date newTabPageComposedIdentifier:(id)identifier newTabPageSetByUserGesture:(BOOL)gesture newTabPageLastModifiedDate:(id)modifiedDate encodedSystemFieldsData:(id)data cloudExtensionsRecordZoneID:(id)self0
+{
+  gestureCopy = gesture;
+  dCopy = d;
+  dataCopy = data;
+  modifiedDateCopy = modifiedDate;
+  identifierCopy = identifier;
+  dateCopy = date;
+  nameCopy = name;
+  stringCopy = string;
+  v23 = [[CloudExtensionDevice alloc] _initWithDeviceUUIDString:stringCopy deviceName:nameCopy lastModifiedDate:dateCopy newTabPageComposedIdentifier:identifierCopy newTabPageSetByUserGesture:gestureCopy newTabPageLastModifiedDate:modifiedDateCopy encodedSystemFieldsData:dataCopy cloudExtensionsRecordZoneID:dCopy];
+
+  return v23;
 }
 
 - (id)_initWithDeviceUUIDString:(id)string deviceName:(id)name lastModifiedDate:(id)date newTabPageComposedIdentifier:(id)identifier newTabPageSetByUserGesture:(BOOL)gesture newTabPageLastModifiedDate:(id)modifiedDate encodedSystemFieldsData:(id)data cloudExtensionsRecordZoneID:(id)self0

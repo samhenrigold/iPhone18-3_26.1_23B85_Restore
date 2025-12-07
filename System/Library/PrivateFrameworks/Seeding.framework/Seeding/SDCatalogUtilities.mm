@@ -9,7 +9,7 @@
 
 + (void)_setCatalog:(id)catalog
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   catalogCopy = catalog;
   v4 = +[SDSeedingLogging fwHandle];
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -20,7 +20,7 @@
       goto LABEL_7;
     }
 
-    v12 = 136315138;
+    v11 = 136315138;
     uTF8String = [catalogCopy UTF8String];
     v6 = "Seeding: Setting catalog URL: %s";
     v7 = v4;
@@ -34,13 +34,13 @@
       goto LABEL_7;
     }
 
-    LOWORD(v12) = 0;
+    LOWORD(v11) = 0;
     v6 = "Seeding: Clearing catalog URL";
     v7 = v4;
     v8 = 2;
   }
 
-  _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_DEFAULT, v6, &v12, v8);
+  _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_DEFAULT, v6, &v11, v8);
 LABEL_7:
 
   _currentCatalog = [objc_opt_class() _currentCatalog];
@@ -59,19 +59,17 @@ LABEL_7:
     CFPreferencesAppSynchronize(@"com.apple.SoftwareUpdate");
     notify_post("com.apple.SoftwareUpdate.CheckForCatalogChange");
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setAudience:(id)audience
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   audienceCopy = audience;
   v4 = +[SDSeedingLogging fwHandle];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = audienceCopy;
+    v9 = audienceCopy;
     _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "will set mobile asset audience [%{public}@]", buf, 0xCu);
   }
 
@@ -82,7 +80,7 @@ LABEL_7:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_22E41E000, v6, OS_LOG_TYPE_DEFAULT, "did set mobile asset audience with result [%lld]", buf, 0xCu);
     }
 
@@ -98,30 +96,26 @@ LABEL_7:
       _os_log_impl(&dword_22E41E000, v7, OS_LOG_TYPE_INFO, "Failed to set audience: given value is nil", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_resetAssetAudience
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[SDSeedingLogging fwHandle];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_22E41E000, v2, OS_LOG_TYPE_DEFAULT, "will reset mobile asset audience", &v6, 2u);
+    LOWORD(v5) = 0;
+    _os_log_impl(&dword_22E41E000, v2, OS_LOG_TYPE_DEFAULT, "will reset mobile asset audience", &v5, 2u);
   }
 
   v3 = MASetPallasAudience();
   v4 = +[SDSeedingLogging fwHandle];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "did reset mobile asset audience with result [%lld]", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_22E41E000, v4, OS_LOG_TYPE_DEFAULT, "did reset mobile asset audience with result [%lld]", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_currentCatalog

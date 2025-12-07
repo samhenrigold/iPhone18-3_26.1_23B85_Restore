@@ -39,13 +39,13 @@
 
 - (uint64_t)initWithCurrentLocaleFullThoroughfare:()RTExtensions subLocality:locality:subAdministrativeArea:administrativeArea:postalCode:country:countryCode:
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v35 = a3;
-  v34 = a4;
-  v33 = a5;
-  v32 = a6;
-  v31 = a7;
-  v30 = a8;
+  v39 = *MEMORY[0x1E69E9840];
+  v34 = a3;
+  v33 = a4;
+  v32 = a5;
+  v31 = a6;
+  v30 = a7;
+  v29 = a8;
   v17 = a9;
   v18 = a10;
   preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
@@ -59,23 +59,22 @@
     v23 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
-      v28 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v27 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v37 = v27;
-      v38 = 2112;
-      v39 = v28;
+      v36 = v26;
+      v37 = 2112;
+      v38 = v27;
       _os_log_error_impl(&dword_1BF1C4000, v23, OS_LOG_TYPE_ERROR, "%@, %@, [NSLocale currentLocale] failed for NSLocaleCountryCode", buf, 0x16u);
     }
 
     v17 = &stru_1F3DD00E8;
   }
 
-  v29 = [self initWithFullThoroughfare:v35 subLocality:v34 locality:v33 subAdministrativeArea:v32 administrativeArea:v31 postalCode:v30 country:v17 countryCode:v18 language:firstObject countryLocale:v22 phoneticLocale:firstObject];
+  v28 = [self initWithFullThoroughfare:v34 subLocality:v33 locality:v32 subAdministrativeArea:v31 administrativeArea:v30 postalCode:v29 country:v17 countryCode:v18 language:firstObject countryLocale:v22 phoneticLocale:firstObject];
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v28;
 }
 
 @end

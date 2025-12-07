@@ -11,11 +11,14 @@
 - (SOAuthorizationParameters)init;
 - (int64_t)responseCode;
 - (void)setAuditTokenData:(id)data;
+- (void)setCFNetworkInterception:(BOOL)interception;
 - (void)setHttpBody:(id)body;
 - (void)setHttpHeaders:(id)headers;
 - (void)setOperation:(id)operation;
 - (void)setResponseCode:(int64_t)code;
+- (void)setShowOnCoverScreen:(BOOL)screen;
 - (void)setUrl:(id)url;
+- (void)setUseInternalExtensions:(BOOL)extensions;
 @end
 
 @implementation SOAuthorizationParameters
@@ -146,6 +149,13 @@
   return useInternalExtensions;
 }
 
+- (void)setUseInternalExtensions:(BOOL)extensions
+{
+  extensionsCopy = extensions;
+  authorizationParametersCore = [(SOAuthorizationParameters *)self authorizationParametersCore];
+  [authorizationParametersCore setUseInternalExtensions:extensionsCopy];
+}
+
 - (int64_t)responseCode
 {
   authorizationParametersCore = [(SOAuthorizationParameters *)self authorizationParametersCore];
@@ -168,12 +178,26 @@
   return isCFNetworkInterception;
 }
 
+- (void)setCFNetworkInterception:(BOOL)interception
+{
+  interceptionCopy = interception;
+  authorizationParametersCore = [(SOAuthorizationParameters *)self authorizationParametersCore];
+  [authorizationParametersCore setCfNetworkInterception:interceptionCopy];
+}
+
 - (BOOL)canShowOnCoverScreen
 {
   authorizationParametersCore = [(SOAuthorizationParameters *)self authorizationParametersCore];
   canShowOnCoverScreen = [authorizationParametersCore canShowOnCoverScreen];
 
   return canShowOnCoverScreen;
+}
+
+- (void)setShowOnCoverScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  authorizationParametersCore = [(SOAuthorizationParameters *)self authorizationParametersCore];
+  [authorizationParametersCore setShowOnCoverScreen:screenCopy];
 }
 
 @end

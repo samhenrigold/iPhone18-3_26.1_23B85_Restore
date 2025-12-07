@@ -231,7 +231,7 @@ void __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_in
 
   else
   {
-    v13 = LogSubsystem();
+    v13 = LogSubsystem(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_invoke_cold_1(v13);
@@ -263,7 +263,7 @@ void __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_in
 
   else
   {
-    v7 = LogSubsystem();
+    v7 = LogSubsystem(v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_invoke_59_cold_1(a1, v7);
@@ -332,19 +332,17 @@ void __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_in
 
 void __69__ICSHeaderSpecifierProvider__startObservingQuotaChangeNotifications__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _ICQGetLogSystem();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = @"QuotaDidChange";
-    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"QuotaDidChange";
+    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _fetchStorageSummary:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingQuotaChangeNotifications
@@ -368,12 +366,11 @@ void __69__ICSHeaderSpecifierProvider__startObservingQuotaChangeNotifications__b
 
 void __62__ICSHeaderSpecifierProvider__fetchStorageSummary_completion___block_invoke_59_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch iCloudHome data w/ error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch iCloudHome data w/ error: %@", &v3, 0xCu);
 }
 
 @end

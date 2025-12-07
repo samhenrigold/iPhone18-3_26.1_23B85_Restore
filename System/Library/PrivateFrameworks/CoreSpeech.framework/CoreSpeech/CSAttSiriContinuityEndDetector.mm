@@ -60,45 +60,41 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[CSAttSiriContinuityEndDetector _deliverRecognitionCompletionWithStatistics:requestId:endpointMode:error:]";
+    v26 = "[CSAttSiriContinuityEndDetector _deliverRecognitionCompletionWithStatistics:requestId:endpointMode:error:]";
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   recognitionTaskCompletionReceivers = [(CSAttSiriContinuityEndDetector *)self recognitionTaskCompletionReceivers];
-  v15 = [recognitionTaskCompletionReceivers countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v15 = [recognitionTaskCompletionReceivers countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       v18 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(recognitionTaskCompletionReceivers);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * v18);
-        if (v19)
+        v19 = *(*(&v20 + 1) + 8 * v18);
+        if (v19 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v20 = *(*(&v21 + 1) + 8 * v18);
-          if (objc_opt_respondsToSelector())
-          {
-            [v19 didCompleteRecognitionTaskWithStatistics:statisticsCopy requestId:idCopy endpointMode:mode error:errorCopy];
-          }
+          [v19 didCompleteRecognitionTaskWithStatistics:statisticsCopy requestId:idCopy endpointMode:mode error:errorCopy];
         }
 
         v18 = v18 + 1;
       }
 
       while (v16 != v18);
-      v16 = [recognitionTaskCompletionReceivers countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v16 = [recognitionTaskCompletionReceivers countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v16);

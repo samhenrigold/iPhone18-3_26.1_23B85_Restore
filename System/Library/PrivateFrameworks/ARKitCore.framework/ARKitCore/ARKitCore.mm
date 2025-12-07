@@ -11,44 +11,45 @@ uint64_t ARDeviceSupported()
 void __ARDeviceSupported_block_invoke()
 {
   v0 = MGCopyAnswer();
-  ARDeviceSupported_supported = [v0 BOOLValue];
-  if ((ARDeviceSupported_supported & 1) == 0)
+  v1 = [v0 BOOLValue];
+  ARDeviceSupported_supported = v1;
+  if ((v1 & 1) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_57 != -1)
     {
       ARVersionStringForIdentifier_cold_2();
     }
 
-    v1 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v2 = _ARLogGeneral_52();
-    v3 = v2;
-    if (v1 == 1)
+    v2 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v3 = _ARLogGeneral_52(v1);
+    v4 = v3;
+    if (v2 == 1)
     {
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v9 = 0;
-        v4 = "ARKit is not supported on this device (via MobileGestalt).";
-        v5 = &v9;
-        v6 = v3;
-        v7 = OS_LOG_TYPE_ERROR;
+        v10 = 0;
+        v5 = "ARKit is not supported on this device (via MobileGestalt).";
+        v6 = &v10;
+        v7 = v4;
+        v8 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v6, v7, v4, v5, 2u);
+        _os_log_impl(&dword_1C241C000, v7, v8, v5, v6, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = 0;
-      v4 = "Error: ARKit is not supported on this device (via MobileGestalt).";
-      v5 = &v8;
-      v6 = v3;
-      v7 = OS_LOG_TYPE_INFO;
+      v9 = 0;
+      v5 = "Error: ARKit is not supported on this device (via MobileGestalt).";
+      v6 = &v9;
+      v7 = v4;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
 }
 
-uint64_t ARDeviceHasGPSCapability()
+uint64_t ARDeviceHasGPSCapability(uint64_t a1, uint64_t a2)
 {
   if (ARDeviceHasGPSCapability_onceToken != -1)
   {
@@ -81,28 +82,336 @@ uint64_t ARAppleNeuralEngine()
   return s_deviceSupportsANE;
 }
 
-id _ARLogGeneral()
+id _ARLogGeneral(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken != -1)
   {
     _ARLogGeneral_cold_1();
   }
 
-  v1 = _ARLogGeneral_logObj;
+  v2 = _ARLogGeneral_logObj;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSensor()
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+{
+  if (_ARLogGeneral(void)::onceToken != -1)
+  {
+    _ARLogGeneral();
+  }
+
+  v2 = _ARLogGeneral(void)::logObj;
+
+  return v2;
+}
+
+id _ARLogSensor(uint64_t a1)
 {
   if (_ARLogSensor_onceToken != -1)
   {
     _ARLogSensor_cold_1();
   }
 
-  v1 = _ARLogSensor_logObj;
+  v2 = _ARLogSensor_logObj;
 
-  return v1;
+  return v2;
+}
+
+{
+  if (_ARLogSensor(void)::onceToken != -1)
+  {
+    _ARLogSensor();
+  }
+
+  v2 = _ARLogSensor(void)::logObj;
+
+  return v2;
 }
 
 void sub_1C24208A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, int a10, __int16 a11, __int16 a12, uint64_t a13, __int16 a14, __int128 a15)
@@ -110,57 +419,58 @@ void sub_1C24208A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v17 = objc_begin_catch(exception_object);
+    v18 = v17;
     if (ARShouldUseLogTypeError_onceToken != -1)
     {
       [ARDepthSensorSettings initWithVideoFormat:];
     }
 
-    v18 = ARShouldUseLogTypeError_internalOSVersion;
-    v19 = _ARLogSensor();
-    v20 = v19;
-    if (v18 == 1)
+    v19 = ARShouldUseLogTypeError_internalOSVersion;
+    v20 = _ARLogSensor(v17);
+    v21 = v20;
+    if (v19 == 1)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v23 = [v16 logPrefix];
-        v24 = [v15 timeOfFlightProjectorMode];
-        v25 = [v17 reason];
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        v24 = [v16 logPrefix];
+        v25 = [v15 timeOfFlightProjectorMode];
+        v26 = [v18 reason];
         LODWORD(a9) = 138544642;
-        *(&a9 + 4) = v22;
+        *(&a9 + 4) = v23;
         WORD6(a9) = 2048;
         *(&a9 + 14) = v16;
         a12 = 2112;
-        a13 = v23;
+        a13 = v24;
         a14 = 2112;
         WORD1(a15) = 2048;
-        *(&a15 + 4) = v24;
+        *(&a15 + 4) = v25;
         WORD6(a15) = 2112;
-        *(&a15 + 14) = v25;
-        _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set projector mode to %@. Current projector mode of the device: %ld. Exception: %@", &a9, 0x3Eu);
+        *(&a15 + 14) = v26;
+        _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set projector mode to %@. Current projector mode of the device: %ld. Exception: %@", &a9, 0x3Eu);
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
-      v28 = [v16 logPrefix];
-      v29 = [v15 timeOfFlightProjectorMode];
-      v30 = [v17 reason];
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = [v16 logPrefix];
+      v30 = [v15 timeOfFlightProjectorMode];
+      v31 = [v18 reason];
       LODWORD(a9) = 138544642;
-      *(&a9 + 4) = v27;
+      *(&a9 + 4) = v28;
       WORD6(a9) = 2048;
       *(&a9 + 14) = v16;
       a12 = 2112;
-      a13 = v28;
+      a13 = v29;
       a14 = 2112;
       WORD1(a15) = 2048;
-      *(&a15 + 4) = v29;
+      *(&a15 + 4) = v30;
       WORD6(a15) = 2112;
-      *(&a15 + 14) = v30;
-      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set projector mode to %@. Current projector mode of the device: %ld. Exception: %@", &a9, 0x3Eu);
+      *(&a15 + 14) = v31;
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set projector mode to %@. Current projector mode of the device: %ld. Exception: %@", &a9, 0x3Eu);
     }
 
     objc_end_catch();
@@ -271,16 +581,16 @@ LABEL_6:
   return v4;
 }
 
-id _ARLogSensor_0()
+id _ARLogSensor_0(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_0 != -1)
   {
     _ARLogSensor_cold_1_0();
   }
 
-  v1 = _ARLogSensor_logObj_0;
+  v2 = _ARLogSensor_logObj_0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C2421EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -313,18 +623,6 @@ void sub_1C2422B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id _ARLogSensor(void)
-{
-  if (_ARLogSensor(void)::onceToken != -1)
-  {
-    _ARLogSensor();
-  }
-
-  v1 = _ARLogSensor(void)::logObj;
-
-  return v1;
-}
-
 void ___ZL12_ARLogSensorv_block_invoke()
 {
   v0 = os_log_create("com.apple.ARKit", "Sensor");
@@ -339,28 +637,39 @@ uint64_t ___ZL23ARShouldUseLogTypeErrorv_block_invoke()
   return result;
 }
 
-id _ARLogSensor_1()
+id _ARLogSensor_1(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_1 != -1)
   {
     _ARLogSensor_cold_1_1();
   }
 
-  v1 = _ARLogSensor_logObj_1;
+  v2 = _ARLogSensor_logObj_1;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSession()
+id _ARLogSession(uint64_t a1)
 {
   if (_ARLogSession_onceToken != -1)
   {
     _ARLogSession_cold_1();
   }
 
-  v1 = _ARLogSession_logObj;
+  v2 = _ARLogSession_logObj;
 
-  return v1;
+  return v2;
+}
+
+{
+  if (_ARLogSession(void)::onceToken != -1)
+  {
+    _ARLogSession();
+  }
+
+  v2 = _ARLogSession(void)::logObj;
+
+  return v2;
 }
 
 void sub_1C242BB00(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 buf, int a14, __int16 a15, __int16 a16, id a17, __int128 a18)
@@ -368,69 +677,70 @@ void sub_1C242BB00(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v20 = objc_begin_catch(a1);
+    v21 = v20;
     if (qword_1EBF41CA8 != -1)
     {
       [ARImageSensor reconfigure:];
     }
 
-    v21 = _MergedGlobals;
-    v22 = _ARLogSensor_1();
-    v23 = v22;
-    if (v21 == 1)
+    v22 = _MergedGlobals;
+    v23 = _ARLogSensor_1(v20);
+    v24 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_opt_class();
-        v21 = NSStringFromClass(v24);
-        v25 = [v18 logPrefix];
-        v26 = [v20 reason];
+        v25 = objc_opt_class();
+        v22 = NSStringFromClass(v25);
+        v26 = [v18 logPrefix];
+        v27 = [v21 reason];
         LODWORD(buf) = 138544130;
-        *(&buf + 4) = v21;
+        *(&buf + 4) = v22;
         WORD6(buf) = 2048;
         *(&buf + 14) = v18;
         a16 = 2112;
-        a17 = v25;
+        a17 = v26;
         LOWORD(a18) = 2112;
-        *(&a18 + 2) = v26;
-        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set capture device active format: %@", &buf, 0x2Au);
+        *(&a18 + 2) = v27;
+        _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set capture device active format: %@", &buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v21 = NSStringFromClass(v27);
-      v28 = [v18 logPrefix];
-      v29 = [v20 reason];
+      v28 = objc_opt_class();
+      v22 = NSStringFromClass(v28);
+      v29 = [v18 logPrefix];
+      v30 = [v21 reason];
       LODWORD(buf) = 138544130;
-      *(&buf + 4) = v21;
+      *(&buf + 4) = v22;
       WORD6(buf) = 2048;
       *(&buf + 14) = v18;
       a16 = 2112;
-      a17 = v28;
+      a17 = v29;
       LOWORD(a18) = 2112;
-      *(&a18 + 2) = v29;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set capture device active format: %@", &buf, 0x2Au);
+      *(&a18 + 2) = v30;
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set capture device active format: %@", &buf, 0x2Au);
     }
 
-    v30 = [v20 reason];
-    if (v30)
+    v31 = [v21 reason];
+    if (v31)
     {
       a11 = *MEMORY[0x1E696A588];
-      v21 = [v20 reason];
-      a12 = v21;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a12 forKeys:&a11 count:1];
+      v22 = [v21 reason];
+      a12 = v22;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a12 forKeys:&a11 count:1];
     }
 
     else
     {
-      v31 = MEMORY[0x1E695E0F8];
+      v32 = MEMORY[0x1E695E0F8];
     }
 
-    ARErrorWithCodeAndUserInfo(102, v31);
+    ARErrorWithCodeAndUserInfo(102, v32);
     objc_claimAutoreleasedReturnValue();
 
-    if (v30)
+    if (v31)
     {
     }
 
@@ -446,53 +756,54 @@ void sub_1C242C0FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v32 = objc_begin_catch(exception_object);
+    v33 = v32;
     if (qword_1EBF41CA8 != -1)
     {
       [ARImageSensor reconfigure:];
     }
 
-    v33 = _MergedGlobals;
-    v34 = _ARLogSensor_1();
-    v35 = v34;
-    if (v33 == 1)
+    v34 = _MergedGlobals;
+    v35 = _ARLogSensor_1(v32);
+    v36 = v35;
+    if (v34 == 1)
     {
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v38 = [v30 logPrefix];
-        v39 = [v32 reason];
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
+        v39 = [v30 logPrefix];
+        v40 = [v33 reason];
         LODWORD(buf) = 138544386;
-        *(&buf + 4) = v37;
+        *(&buf + 4) = v38;
         WORD6(buf) = 2048;
         *(&buf + 14) = v30;
         a28 = 2112;
-        a29 = v38;
+        a29 = v39;
         LOWORD(a30) = 2048;
         *(&a30 + 2) = v31;
         WORD5(a30) = 2112;
-        *(&a30 + 12) = v39;
-        _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set image sensor depth rate to %f: %@", &buf, 0x34u);
+        *(&a30 + 12) = v40;
+        _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set image sensor depth rate to %f: %@", &buf, 0x34u);
       }
     }
 
-    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
-      v42 = [v30 logPrefix];
-      v43 = [v32 reason];
+      v41 = objc_opt_class();
+      v42 = NSStringFromClass(v41);
+      v43 = [v30 logPrefix];
+      v44 = [v33 reason];
       LODWORD(buf) = 138544386;
-      *(&buf + 4) = v41;
+      *(&buf + 4) = v42;
       WORD6(buf) = 2048;
       *(&buf + 14) = v30;
       a28 = 2112;
-      a29 = v42;
+      a29 = v43;
       LOWORD(a30) = 2048;
       *(&a30 + 2) = v31;
       WORD5(a30) = 2112;
-      *(&a30 + 12) = v43;
-      _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set image sensor depth rate to %f: %@", &buf, 0x34u);
+      *(&a30 + 12) = v44;
+      _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set image sensor depth rate to %f: %@", &buf, 0x34u);
     }
 
     objc_end_catch();
@@ -509,30 +820,31 @@ void sub_1C242D34C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   if (a2 == 1)
   {
     v31 = objc_begin_catch(a1);
+    v32 = v31;
     if (qword_1EBF41CA8 != -1)
     {
       [ARImageSensor reconfigure:];
     }
 
-    v32 = _MergedGlobals;
-    v33 = _ARLogSensor_1();
-    v34 = v33;
-    if (v32 == 1)
+    v33 = _MergedGlobals;
+    v34 = _ARLogSensor_1(v31);
+    v35 = v34;
+    if (v33 == 1)
     {
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
-        v37 = [v24 logPrefix];
+        v36 = objc_opt_class();
+        v37 = NSStringFromClass(v36);
+        v38 = [v24 logPrefix];
         [v23 maxWhiteBalanceGain];
-        v39 = v38;
-        v40 = [v31 reason];
+        v40 = v39;
+        v41 = [v32 reason];
         LODWORD(location) = 138545154;
-        *(&location + 4) = v36;
+        *(&location + 4) = v37;
         WORD6(location) = 2048;
         *(&location + 14) = v24;
         a18 = 2112;
-        a19 = v37;
+        a19 = v38;
         a20.n128_u16[0] = 2048;
         *(a20.n128_f64 + 2) = v26;
         a20.n128_u16[5] = 2048;
@@ -540,27 +852,27 @@ void sub_1C242D34C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
         a21.n128_u16[2] = 2048;
         *(a21.n128_f64 + 6) = v28;
         a21.n128_u16[7] = 2048;
-        *&a22 = v39;
+        *&a22 = v40;
         LOWORD(a23) = 2112;
-        *(&a23 + 2) = v40;
-        _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set custom white balance gains %.2f, %.2f, %.2f, valid range is [1.0-%.1f] : %@", &location, 0x52u);
+        *(&a23 + 2) = v41;
+        _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set custom white balance gains %.2f, %.2f, %.2f, valid range is [1.0-%.1f] : %@", &location, 0x52u);
       }
     }
 
-    else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v43 = [v24 logPrefix];
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
+      v44 = [v24 logPrefix];
       [v23 maxWhiteBalanceGain];
-      v45 = v44;
-      v46 = [v31 reason];
+      v46 = v45;
+      v47 = [v32 reason];
       LODWORD(location) = 138545154;
-      *(&location + 4) = v42;
+      *(&location + 4) = v43;
       WORD6(location) = 2048;
       *(&location + 14) = v24;
       a18 = 2112;
-      a19 = v43;
+      a19 = v44;
       a20.n128_u16[0] = 2048;
       *(a20.n128_f64 + 2) = v26;
       a20.n128_u16[5] = 2048;
@@ -568,10 +880,10 @@ void sub_1C242D34C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       a21.n128_u16[2] = 2048;
       *(a21.n128_f64 + 6) = v28;
       a21.n128_u16[7] = 2048;
-      *&a22 = v45;
+      *&a22 = v46;
       LOWORD(a23) = 2112;
-      *(&a23 + 2) = v46;
-      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set custom white balance gains %.2f, %.2f, %.2f, valid range is [1.0-%.1f] : %@", &location, 0x52u);
+      *(&a23 + 2) = v47;
+      _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set custom white balance gains %.2f, %.2f, %.2f, valid range is [1.0-%.1f] : %@", &location, 0x52u);
     }
 
     objc_end_catch();
@@ -590,49 +902,50 @@ void sub_1C242DD68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v28 = objc_begin_catch(a1);
+    v29 = v28;
     if (qword_1EBF41CA8 != -1)
     {
       [ARImageSensor reconfigure:];
     }
 
-    v29 = _MergedGlobals;
-    v30 = _ARLogSensor_1();
-    v31 = v30;
-    if (v29 == 1)
+    v30 = _MergedGlobals;
+    v31 = _ARLogSensor_1(v28);
+    v32 = v31;
+    if (v30 == 1)
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v32 = objc_opt_class();
-        v33 = NSStringFromClass(v32);
-        v34 = [v24 logPrefix];
-        v35 = [v28 reason];
+        v33 = objc_opt_class();
+        v34 = NSStringFromClass(v33);
+        v35 = [v24 logPrefix];
+        v36 = [v29 reason];
         LODWORD(buf) = 138544130;
-        *(&buf + 4) = v33;
+        *(&buf + 4) = v34;
         WORD6(buf) = 2048;
         *(&buf + 14) = v24;
         a22 = 2112;
-        a23 = v34;
+        a23 = v35;
         LOWORD(a24) = 2112;
-        *(&a24 + 2) = v35;
-        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set fixed lens position: %@", &buf, 0x2Au);
+        *(&a24 + 2) = v36;
+        _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to set fixed lens position: %@", &buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      v38 = [v24 logPrefix];
-      v39 = [v28 reason];
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
+      v39 = [v24 logPrefix];
+      v40 = [v29 reason];
       LODWORD(buf) = 138544130;
-      *(&buf + 4) = v37;
+      *(&buf + 4) = v38;
       WORD6(buf) = 2048;
       *(&buf + 14) = v24;
       a22 = 2112;
-      a23 = v38;
+      a23 = v39;
       LOWORD(a24) = 2112;
-      *(&a24 + 2) = v39;
-      _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set fixed lens position: %@", &buf, 0x2Au);
+      *(&a24 + 2) = v40;
+      _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to set fixed lens position: %@", &buf, 0x2Au);
     }
 
     objc_end_catch();
@@ -647,68 +960,69 @@ void sub_1C242F6AC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v30 = objc_begin_catch(a1);
+    v31 = v30;
     if (qword_1EBF41CA8 != -1)
     {
       [ARImageSensor reconfigure:];
     }
 
-    v31 = _MergedGlobals;
-    v32 = _ARLogSensor_1();
-    v33 = v32;
-    if (v31 == 1)
+    v32 = _MergedGlobals;
+    v33 = _ARLogSensor_1(v30);
+    v34 = v33;
+    if (v32 == 1)
     {
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v34 = objc_opt_class();
-        v31 = NSStringFromClass(v34);
-        v35 = [v28 logPrefix];
-        v36 = [v30 reason];
+        v35 = objc_opt_class();
+        v32 = NSStringFromClass(v35);
+        v36 = [v28 logPrefix];
+        v37 = [v31 reason];
         LODWORD(buf) = 138544130;
-        *(&buf + 4) = v31;
+        *(&buf + 4) = v32;
         WORD6(buf) = 2048;
         *(&buf + 14) = v28;
         a26 = 2112;
-        a27 = v35;
+        a27 = v36;
         a28 = 2112;
-        *(v29 + 34) = v36;
-        _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to setup vision data parameters: %@", &buf, 0x2Au);
+        *(v29 + 34) = v37;
+        _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: %@ Unable to setup vision data parameters: %@", &buf, 0x2Au);
       }
     }
 
-    else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v37 = objc_opt_class();
-      v31 = NSStringFromClass(v37);
-      v38 = [v28 logPrefix];
-      v39 = [v30 reason];
+      v38 = objc_opt_class();
+      v32 = NSStringFromClass(v38);
+      v39 = [v28 logPrefix];
+      v40 = [v31 reason];
       LODWORD(buf) = 138544130;
-      *(&buf + 4) = v31;
+      *(&buf + 4) = v32;
       WORD6(buf) = 2048;
       *(&buf + 14) = v28;
       a26 = 2112;
-      a27 = v38;
+      a27 = v39;
       a28 = 2112;
-      *(v29 + 34) = v39;
-      _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to setup vision data parameters: %@", &buf, 0x2Au);
+      *(v29 + 34) = v40;
+      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: %@ Unable to setup vision data parameters: %@", &buf, 0x2Au);
     }
 
-    v40 = [v30 reason];
-    if (v40)
+    v41 = [v31 reason];
+    if (v41)
     {
       a21 = *MEMORY[0x1E696A588];
-      v31 = [v30 reason];
-      a22 = v31;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a22 forKeys:&a21 count:1];
+      v32 = [v31 reason];
+      a22 = v32;
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a22 forKeys:&a21 count:1];
     }
 
     else
     {
-      v41 = MEMORY[0x1E695E0F8];
+      v42 = MEMORY[0x1E695E0F8];
     }
 
-    ARErrorWithCodeAndUserInfo(102, v41);
+    ARErrorWithCodeAndUserInfo(102, v42);
     objc_claimAutoreleasedReturnValue();
-    if (v40)
+    if (v41)
     {
     }
 
@@ -872,16 +1186,16 @@ LABEL_5:
 LABEL_6:
 }
 
-id _ARLogSensor_2()
+id _ARLogSensor_2(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_3 != -1)
   {
     _ARLogSensor_cold_1_2();
   }
 
-  v1 = _ARLogSensor_logObj_3;
+  v2 = _ARLogSensor_logObj_3;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_2()
@@ -915,16 +1229,16 @@ uint64_t rawMagnetometerCallback(uint64_t a1, void *a2)
   return kdebug_trace();
 }
 
-id _ARLogSensor_3()
+id _ARLogSensor_3(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_4 != -1)
   {
     _ARLogSensor_cold_1_3();
   }
 
-  v1 = _ARLogSensor_logObj_4;
+  v2 = _ARLogSensor_logObj_4;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_3()
@@ -934,35 +1248,35 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_3()
   return result;
 }
 
-id _ARLogSensor_4()
+id _ARLogSensor_4(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_5 != -1)
   {
     _ARLogSensor_cold_1_4();
   }
 
-  v1 = _ARLogSensor_logObj_5;
+  v2 = _ARLogSensor_logObj_5;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_0()
+id _ARLogGeneral_0(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_0 != -1)
   {
     _ARLogGeneral_cold_1_0();
   }
 
-  v1 = _ARLogGeneral_logObj_0;
+  v2 = _ARLogGeneral_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C24381C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C24381C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  os_unfair_lock_unlock(v7 + 6);
+  os_unfair_lock_unlock(v13 + 6);
   _Unwind_Resume(a1);
 }
 
@@ -1039,92 +1353,93 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_4()
 
 id ARReplaySensorClassForMovieURL(void *a1, void *a2)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
-  if (!v3 || ([v3 isFileURL] & 1) == 0)
+  if (!v3 || (v3 = [v3 isFileURL], (v3 & 1) == 0))
   {
     if (!a2)
     {
-      v9 = 0;
+      v10 = 0;
       goto LABEL_15;
     }
 
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = ARKitCoreBundle();
-    v12 = [v11 localizedStringForKey:@"Replay URL is missing or not a fileURL: %@" value:&stru_1F4208A80 table:@"Localizable"];
-    v7 = [v10 stringWithFormat:v12, v4];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = ARKitCoreBundle(v3);
+    v13 = [v12 localizedStringForKey:@"Replay URL is missing or not a fileURL: %@" value:&stru_1F4208A80 table:@"Localizable"];
+    v7 = [v11 stringWithFormat:v13, v4];
 
-    v13 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
-    v32[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-    [v13 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v8];
-    *a2 = v9 = 0;
+    v14 = MEMORY[0x1E696ABC0];
+    v32 = *MEMORY[0x1E696A578];
+    v33[0] = v7;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    [v14 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v9];
+    *a2 = v10 = 0;
     goto LABEL_9;
   }
 
-  v26 = 0;
-  v5 = [v4 getResourceValue:&v26 forKey:*MEMORY[0x1E695DBB0] error:a2];
-  v6 = v26;
+  v27 = 0;
+  v5 = [v4 getResourceValue:&v27 forKey:*MEMORY[0x1E695DBB0] error:a2];
+  v6 = v27;
   v7 = v6;
   if (!v5)
   {
     goto LABEL_13;
   }
 
-  if (([v6 BOOLValue] & 1) == 0)
+  v8 = [v6 BOOLValue];
+  if ((v8 & 1) == 0)
   {
     if (a2)
     {
-      v14 = MEMORY[0x1E696AEC0];
-      v15 = ARKitCoreBundle();
-      v16 = [v15 localizedStringForKey:@"Replay URL is not readable: %@" value:&stru_1F4208A80 table:@"Localizable"];
-      v8 = [v14 stringWithFormat:v16, v4];
+      v15 = MEMORY[0x1E696AEC0];
+      v16 = ARKitCoreBundle(v8);
+      v17 = [v16 localizedStringForKey:@"Replay URL is not readable: %@" value:&stru_1F4208A80 table:@"Localizable"];
+      v9 = [v15 stringWithFormat:v17, v4];
 
-      v17 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A578];
-      v30 = v8;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      *a2 = [v17 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v18];
+      v18 = MEMORY[0x1E696ABC0];
+      v30 = *MEMORY[0x1E696A578];
+      v31 = v9;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      *a2 = [v18 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v19];
 
 LABEL_20:
-      v9 = 0;
+      v10 = 0;
       goto LABEL_9;
     }
 
 LABEL_13:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_14;
   }
 
-  v8 = [MEMORY[0x1E6988168] assetWithURL:v4];
-  if (!v8)
+  v9 = [MEMORY[0x1E6988168] assetWithURL:v4];
+  if (!v9)
   {
     if (a2)
     {
-      v20 = MEMORY[0x1E696AEC0];
-      v21 = ARKitCoreBundle();
-      v22 = [v21 localizedStringForKey:@"Replay URL is not valid AVURLAsset: %@" value:&stru_1F4208A80 table:@"Localizable"];
-      v23 = [v20 stringWithFormat:v22, v4];
+      v21 = MEMORY[0x1E696AEC0];
+      v22 = ARKitCoreBundle(0);
+      v23 = [v22 localizedStringForKey:@"Replay URL is not valid AVURLAsset: %@" value:&stru_1F4208A80 table:@"Localizable"];
+      v24 = [v21 stringWithFormat:v23, v4];
 
-      v24 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
-      v28 = v23;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      *a2 = [v24 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v25];
+      v25 = MEMORY[0x1E696ABC0];
+      v28 = *MEMORY[0x1E696A578];
+      v29 = v24;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      *a2 = [v25 errorWithDomain:@"com.apple.arkit.error" code:102 userInfo:v26];
     }
 
     goto LABEL_20;
   }
 
-  v9 = objc_opt_class();
+  v10 = objc_opt_class();
 LABEL_9:
 
 LABEL_14:
 LABEL_15:
 
-  return v9;
+  return v10;
 }
 
 uint64_t replayModeByApplyingUserDefaultOverrides(uint64_t a1)
@@ -1166,28 +1481,28 @@ __CFString *NSStringFromARReplayMode(uint64_t a1)
   }
 }
 
-id _ARLogSensor_5()
+id _ARLogSensor_5(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_6 != -1)
   {
     _ARLogSensor_cold_1_5();
   }
 
-  v1 = _ARLogSensor_logObj_6;
+  v2 = _ARLogSensor_logObj_6;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_1()
+id _ARLogGeneral_1(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_1 != -1)
   {
     _ARLogGeneral_cold_1_1();
   }
 
-  v1 = _ARLogGeneral_logObj_1;
+  v2 = _ARLogGeneral_logObj_1;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_5()
@@ -1195,304 +1510,6 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_5()
   result = os_variant_has_internal_content();
   ARShouldUseLogTypeError_internalOSVersion_4 = result;
   return result;
-}
-
-id _ARLogGeneral(void)
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
-}
-
-{
-  if (_ARLogGeneral(void)::onceToken != -1)
-  {
-    _ARLogGeneral();
-  }
-
-  v1 = _ARLogGeneral(void)::logObj;
-
-  return v1;
 }
 
 void sub_1C24462F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50)
@@ -1510,19 +1527,17 @@ void sub_1C24462F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(result, a2);
+      _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_t a1, void *a2)
@@ -1629,17 +1644,17 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C2446850(_Unwind_Exception *exception_object)
@@ -1654,7 +1669,7 @@ void sub_1C2446850(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1716,16 +1731,27 @@ BOOL ___ZL18ARSkipCrashOnCrashv_block_invoke_0()
   return result;
 }
 
-id _ARLogTechnique(void)
+id _ARLogTechnique(uint64_t a1)
 {
   if (_ARLogTechnique(void)::onceToken != -1)
   {
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
+}
+
+{
+  if (_ARLogTechnique_onceToken != -1)
+  {
+    _ARLogTechnique_cold_1();
+  }
+
+  v2 = _ARLogTechnique_logObj;
+
+  return v2;
 }
 
 {
@@ -1734,9 +1760,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1745,9 +1771,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1756,9 +1782,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1767,9 +1793,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1778,9 +1804,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1789,9 +1815,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1800,9 +1826,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1811,9 +1837,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1822,9 +1848,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1833,9 +1859,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1844,9 +1870,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1855,9 +1881,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -1866,9 +1892,9 @@ id _ARLogTechnique(void)
     _ARLogTechnique();
   }
 
-  v1 = _ARLogTechnique(void)::logObj;
+  v2 = _ARLogTechnique(void)::logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t anonymous namespace::FillRegistrationDataFrom(uint64_t result, uint64_t a2, uint64_t a3, _OWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8)
@@ -1993,7 +2019,7 @@ void ___ZL15_ARLogTechniquev_block_invoke()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2015,7 +2041,7 @@ void sub_1C2449EE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2066,125 +2092,114 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-id _ARLogGeneral_2()
+id _ARLogGeneral_2(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_2 != -1)
   {
     _ARLogGeneral_cold_1_2();
   }
 
-  v1 = _ARLogGeneral_logObj_2;
+  v2 = _ARLogGeneral_logObj_2;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogTechnique()
+void AppClipCodeUpdateCallbackHandler(void *a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  if (_ARLogTechnique_onceToken != -1)
-  {
-    _ARLogTechnique_cold_1();
-  }
-
-  v1 = _ARLogTechnique_logObj;
-
-  return v1;
-}
-
-void AppClipCodeUpdateCallbackHandler(void *a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
-{
-  v134 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v11 = a1;
+  v12 = v11;
   if (!a8)
   {
-    *&v125 = 0.0;
+    *&v132 = 0.0;
     NumberOfTrackingData = AppC3DTrackingResultGetNumberOfTrackingData();
     kdebug_trace();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v133 = 0;
-    v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:NumberOfTrackingData];
-    v20 = v19;
+    v140 = 0;
+    v20 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:NumberOfTrackingData];
+    v21 = v20;
     if (!NumberOfTrackingData)
     {
 LABEL_116:
-      v96 = objc_opt_new();
-      [v96 setTrackedAppClipCodes:v20];
-      v97 = *(v11 + 16);
+      v103 = objc_opt_new();
+      [v103 setTrackedAppClipCodes:v21];
+      v104 = *(v12 + 16);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __AppClipCodeUpdateCallbackHandler_block_invoke_34;
       block[3] = &unk_1E817C240;
-      v115 = v11;
-      v98 = v96;
-      v116 = v98;
-      v117 = a2;
-      dispatch_async(v97, block);
-      [v20 count];
+      v122 = v12;
+      v105 = v103;
+      v123 = v105;
+      v124 = a3;
+      dispatch_async(v104, block);
+      [v21 count];
       kdebug_trace();
 
       _Block_object_dispose(buf, 8);
       goto LABEL_117;
     }
 
-    v21 = 0.0;
-    v102 = v19;
+    v22 = 0.0;
+    v109 = v20;
     while (1)
     {
-      *&v125 = 0.0;
-      AppC3DTrackingResultCopyTransform();
-      log = v23;
-      theData = v22;
-      obj = v25;
-      v107 = v24;
-      v26 = *&v125;
-      if (*&v125 == 0.0)
+      *&v132 = 0.0;
+      v23 = AppC3DTrackingResultCopyTransform();
+      log = v25;
+      theData = v24;
+      obj = v27;
+      v114 = v26;
+      v28 = *&v132;
+      if (*&v132 == 0.0)
       {
         Id = AppC3DTrackingResultGetId();
-        v26 = *&v125;
-        if (*&v125 == 0.0)
+        v28 = *&v132;
+        if (*&v132 == 0.0)
         {
           [MEMORY[0x1E696AD98] numberWithUnsignedLong:Id];
-          v26 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          v39 = [v20 objectForKey:*&v26];
+          v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          v41 = [v21 objectForKey:*&v28];
 
-          if (v39)
+          if (v41)
           {
             if (ARShouldUseLogTypeError_onceToken_5 != -1)
             {
               [ARAppClipCodeTechnique prepare:];
             }
 
-            v40 = ARShouldUseLogTypeError_internalOSVersion_5;
-            v41 = _ARLogTechnique();
-            v42 = v41;
-            if (v40 == 1)
+            v43 = ARShouldUseLogTypeError_internalOSVersion_5;
+            v44 = _ARLogTechnique(v42);
+            v45 = v44;
+            if (v43 == 1)
             {
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
               {
-                *v126 = 138412546;
-                v127 = v26;
-                v128 = 2048;
-                v129 = a2;
-                v43 = v42;
-                v44 = OS_LOG_TYPE_ERROR;
-                v45 = "ARAppClipCodeTechnique: Duplicate instance ID %@ detected at time %F";
+                *v133 = 138412546;
+                v134 = v28;
+                v135 = 2048;
+                v136 = a3;
+                v46 = v45;
+                v47 = OS_LOG_TYPE_ERROR;
+                v48 = "ARAppClipCodeTechnique: Duplicate instance ID %@ detected at time %F";
                 goto LABEL_50;
               }
             }
 
-            else if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
             {
-              *v126 = 138412546;
-              v127 = v26;
-              v128 = 2048;
-              v129 = a2;
-              v43 = v42;
-              v44 = OS_LOG_TYPE_INFO;
-              v45 = "Error: ARAppClipCodeTechnique: Duplicate instance ID %@ detected at time %F";
+              *v133 = 138412546;
+              v134 = v28;
+              v135 = 2048;
+              v136 = a3;
+              v46 = v45;
+              v47 = OS_LOG_TYPE_INFO;
+              v48 = "Error: ARAppClipCodeTechnique: Duplicate instance ID %@ detected at time %F";
 LABEL_50:
-              _os_log_impl(&dword_1C241C000, v43, v44, v45, v126, 0x16u);
+              _os_log_impl(&dword_1C241C000, v46, v47, v48, v133, 0x16u);
             }
 
 LABEL_87:
@@ -2192,243 +2207,245 @@ LABEL_87:
             goto LABEL_40;
           }
 
-          AppC3DTrackingResultGetConfidence();
-          v42 = v125;
-          if (*&v125 != 0.0)
+          Confidence = AppC3DTrackingResultGetConfidence();
+          v45 = v132;
+          if (*&v132 != 0.0)
           {
             if (ARShouldUseLogTypeError_onceToken_5 != -1)
             {
               [ARAppClipCodeTechnique prepare:];
             }
 
-            v48 = ARShouldUseLogTypeError_internalOSVersion_5;
-            v49 = _ARLogTechnique();
-            v50 = v49;
-            if (v48 == 1)
+            v52 = ARShouldUseLogTypeError_internalOSVersion_5;
+            v53 = _ARLogTechnique(Confidence);
+            v54 = v53;
+            if (v52 == 1)
             {
-              v20 = v102;
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+              v21 = v109;
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
               {
-                *v126 = 134218498;
-                v127 = a2;
-                v128 = 2048;
-                v129 = v21;
-                v130 = 2112;
-                v131 = v42;
-                v51 = v50;
-                v52 = OS_LOG_TYPE_ERROR;
-                v53 = "ARAppClipCodeTechnique: Could not retrieve confidence at time %F index:%lu Error: %@";
+                *v133 = 134218498;
+                v134 = a3;
+                v135 = 2048;
+                v136 = v22;
+                v137 = 2112;
+                v138 = v45;
+                v55 = v54;
+                v56 = OS_LOG_TYPE_ERROR;
+                v57 = "ARAppClipCodeTechnique: Could not retrieve confidence at time %F index:%lu Error: %@";
                 goto LABEL_55;
               }
             }
 
             else
             {
-              v20 = v102;
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+              v21 = v109;
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
               {
-                *v126 = 134218498;
-                v127 = a2;
-                v128 = 2048;
-                v129 = v21;
-                v130 = 2112;
-                v131 = v42;
-                v51 = v50;
-                v52 = OS_LOG_TYPE_INFO;
-                v53 = "Error: ARAppClipCodeTechnique: Could not retrieve confidence at time %F index:%lu Error: %@";
+                *v133 = 134218498;
+                v134 = a3;
+                v135 = 2048;
+                v136 = v22;
+                v137 = 2112;
+                v138 = v45;
+                v55 = v54;
+                v56 = OS_LOG_TYPE_INFO;
+                v57 = "Error: ARAppClipCodeTechnique: Could not retrieve confidence at time %F index:%lu Error: %@";
 LABEL_55:
-                _os_log_impl(&dword_1C241C000, v51, v52, v53, v126, 0x20u);
+                _os_log_impl(&dword_1C241C000, v55, v56, v57, v133, 0x20u);
               }
             }
 
 LABEL_86:
 
-            v79 = [v42 code];
-            *(*&buf[8] + 24) = v79;
+            v86 = [v45 code];
+            *(*&buf[8] + 24) = v86;
             goto LABEL_87;
           }
 
-          v54 = v47;
+          v58 = v51;
           if (+[ARAppClipCodeTechnique shouldRunCameraOrScannerPerformanceTestingMode])
           {
-            v55 = 1;
+            v59 = 1;
           }
 
           else
           {
             IsScaleReliable = AppC3DTrackingResultIsScaleReliable();
-            v42 = v125;
-            if (*&v125 != 0.0)
+            v45 = v132;
+            if (*&v132 != 0.0)
             {
               if (ARShouldUseLogTypeError_onceToken_5 != -1)
               {
                 [ARAppClipCodeTechnique prepare:];
               }
 
-              v57 = ARShouldUseLogTypeError_internalOSVersion_5;
-              v58 = _ARLogTechnique();
-              v50 = v58;
-              if (v57 == 1)
+              v61 = ARShouldUseLogTypeError_internalOSVersion_5;
+              v62 = _ARLogTechnique(IsScaleReliable);
+              v54 = v62;
+              if (v61 == 1)
               {
-                v20 = v102;
-                if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+                v21 = v109;
+                if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_86;
                 }
 
-                *v126 = 134218498;
-                v127 = a2;
-                v128 = 2048;
-                v129 = v21;
-                v130 = 2112;
-                v131 = v42;
-                v59 = v50;
-                v60 = OS_LOG_TYPE_ERROR;
-                v61 = "ARAppClipCodeTechnique: Could not determine scale reliability at time %F index:%lu Error: %@";
+                *v133 = 134218498;
+                v134 = a3;
+                v135 = 2048;
+                v136 = v22;
+                v137 = 2112;
+                v138 = v45;
+                v63 = v54;
+                v64 = OS_LOG_TYPE_ERROR;
+                v65 = "ARAppClipCodeTechnique: Could not determine scale reliability at time %F index:%lu Error: %@";
               }
 
               else
               {
-                v20 = v102;
-                if (!os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+                v21 = v109;
+                if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_86;
                 }
 
-                *v126 = 134218498;
-                v127 = a2;
-                v128 = 2048;
-                v129 = v21;
-                v130 = 2112;
-                v131 = v42;
-                v59 = v50;
-                v60 = OS_LOG_TYPE_INFO;
-                v61 = "Error: ARAppClipCodeTechnique: Could not determine scale reliability at time %F index:%lu Error: %@";
+                *v133 = 134218498;
+                v134 = a3;
+                v135 = 2048;
+                v136 = v22;
+                v137 = 2112;
+                v138 = v45;
+                v63 = v54;
+                v64 = OS_LOG_TYPE_INFO;
+                v65 = "Error: ARAppClipCodeTechnique: Could not determine scale reliability at time %F index:%lu Error: %@";
               }
 
-              _os_log_impl(&dword_1C241C000, v59, v60, v61, v126, 0x20u);
+              _os_log_impl(&dword_1C241C000, v63, v64, v65, v133, 0x20u);
               goto LABEL_86;
             }
 
-            v55 = IsScaleReliable;
+            v59 = IsScaleReliable;
           }
 
-          AppC3DTrackingResultGetSize();
-          v42 = v125;
-          if (*&v125 != 0.0)
+          Size = AppC3DTrackingResultGetSize();
+          v45 = v132;
+          if (*&v132 != 0.0)
           {
             if (ARShouldUseLogTypeError_onceToken_5 != -1)
             {
               [ARAppClipCodeTechnique prepare:];
             }
 
-            v64 = ARShouldUseLogTypeError_internalOSVersion_5;
-            v65 = _ARLogTechnique();
-            v50 = v65;
-            if (v64 == 1)
+            v69 = ARShouldUseLogTypeError_internalOSVersion_5;
+            v70 = _ARLogTechnique(Size);
+            v54 = v70;
+            if (v69 == 1)
             {
-              v20 = v102;
-              if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+              v21 = v109;
+              if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_86;
               }
 
-              *v126 = 134218498;
-              v127 = a2;
-              v128 = 2048;
-              v129 = v21;
-              v130 = 2112;
-              v131 = v42;
-              v66 = v50;
-              v67 = OS_LOG_TYPE_ERROR;
-              v68 = "ARAppClipCodeTechnique: Could not retrieve size at time %F index:%lu Error: %@";
+              *v133 = 134218498;
+              v134 = a3;
+              v135 = 2048;
+              v136 = v22;
+              v137 = 2112;
+              v138 = v45;
+              v71 = v54;
+              v72 = OS_LOG_TYPE_ERROR;
+              v73 = "ARAppClipCodeTechnique: Could not retrieve size at time %F index:%lu Error: %@";
             }
 
             else
             {
-              v20 = v102;
-              if (!os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+              v21 = v109;
+              if (!os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
               {
                 goto LABEL_86;
               }
 
-              *v126 = 134218498;
-              v127 = a2;
-              v128 = 2048;
-              v129 = v21;
-              v130 = 2112;
-              v131 = v42;
-              v66 = v50;
-              v67 = OS_LOG_TYPE_INFO;
-              v68 = "Error: ARAppClipCodeTechnique: Could not retrieve size at time %F index:%lu Error: %@";
+              *v133 = 134218498;
+              v134 = a3;
+              v135 = 2048;
+              v136 = v22;
+              v137 = 2112;
+              v138 = v45;
+              v71 = v54;
+              v72 = OS_LOG_TYPE_INFO;
+              v73 = "Error: ARAppClipCodeTechnique: Could not retrieve size at time %F index:%lu Error: %@";
             }
 
-            _os_log_impl(&dword_1C241C000, v66, v67, v68, v126, 0x20u);
+            _os_log_impl(&dword_1C241C000, v71, v72, v73, v133, 0x20u);
             goto LABEL_86;
           }
 
-          v69 = v62;
-          v70 = v63;
-          v42 = objc_opt_new();
-          [v42 setCodeToWorldVisionTransform:theData, log, v107, obj];
-          [v42 setSize:v69, v70];
-          LODWORD(v71) = v54;
-          [v42 setConfidence:v71];
-          [v42 setIsScaleReliable:v55];
-          [v42 setUrlDecodingStateInternal:0];
-          [v20 setObject:v42 forKey:*&v26];
-          theDataa = AppC3DTrackingResultCreateData();
-          v72 = v125;
-          if (*&v125 == 0.0 && theDataa)
+          v74 = v67;
+          v75 = v68;
+          v45 = objc_opt_new();
+          [v45 setCodeToWorldVisionTransform:theData, log, v114, obj];
+          [v45 setSize:v74, v75];
+          LODWORD(v76) = v58;
+          [v45 setConfidence:v76];
+          [v45 setIsScaleReliable:v59];
+          [v45 setUrlDecodingStateInternal:0];
+          [v21 setObject:v45 forKey:*&v28];
+          Data = AppC3DTrackingResultCreateData();
+          theDataa = Data;
+          v78 = v132;
+          if (*&v132 == 0.0 && Data)
           {
-            if (CFDataGetLength(theDataa))
+            Data = CFDataGetLength(Data);
+            if (Data)
             {
-              AppC3DTrackingResultGetMetadata();
-              loga = v125;
-              if (*&v125 != 0.0)
+              Metadata = AppC3DTrackingResultGetMetadata();
+              loga = v132;
+              if (*&v132 != 0.0)
               {
                 if (ARShouldUseLogTypeError_onceToken_5 != -1)
                 {
                   [ARAppClipCodeTechnique prepare:];
                 }
 
-                v73 = ARShouldUseLogTypeError_internalOSVersion_5;
-                v74 = _ARLogTechnique();
-                v75 = v74;
-                if (v73 == 1)
+                v80 = ARShouldUseLogTypeError_internalOSVersion_5;
+                v81 = _ARLogTechnique(Metadata);
+                v82 = v81;
+                if (v80 == 1)
                 {
-                  v20 = v102;
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                  v21 = v109;
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
                   {
-                    *v126 = 134218498;
-                    v127 = a2;
-                    v128 = 2048;
-                    v129 = v21;
-                    v130 = 2112;
-                    v131 = loga;
-                    v76 = v75;
-                    v77 = OS_LOG_TYPE_ERROR;
-                    v78 = "ARAppClipCodeTechnique: Could not access result metadata at time %F index:%lu Error: %@";
+                    *v133 = 134218498;
+                    v134 = a3;
+                    v135 = 2048;
+                    v136 = v22;
+                    v137 = 2112;
+                    v138 = loga;
+                    v83 = v82;
+                    v84 = OS_LOG_TYPE_ERROR;
+                    v85 = "ARAppClipCodeTechnique: Could not access result metadata at time %F index:%lu Error: %@";
                     goto LABEL_103;
                   }
                 }
 
                 else
                 {
-                  v20 = v102;
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+                  v21 = v109;
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
                   {
-                    *v126 = 134218498;
-                    v127 = a2;
-                    v128 = 2048;
-                    v129 = v21;
-                    v130 = 2112;
-                    v131 = loga;
-                    v76 = v75;
-                    v77 = OS_LOG_TYPE_INFO;
-                    v78 = "Error: ARAppClipCodeTechnique: Could not access result metadata at time %F index:%lu Error: %@";
+                    *v133 = 134218498;
+                    v134 = a3;
+                    v135 = 2048;
+                    v136 = v22;
+                    v137 = 2112;
+                    v138 = loga;
+                    v83 = v82;
+                    v84 = OS_LOG_TYPE_INFO;
+                    v85 = "Error: ARAppClipCodeTechnique: Could not access result metadata at time %F index:%lu Error: %@";
 LABEL_103:
-                    _os_log_impl(&dword_1C241C000, v76, v77, v78, v126, 0x20u);
+                    _os_log_impl(&dword_1C241C000, v83, v84, v85, v133, 0x20u);
                   }
                 }
 
@@ -2436,60 +2453,60 @@ LABEL_103:
               }
 
               DataVersion = AppC3DTrackingResultGetDataVersion();
-              loga = v125;
-              if (*&v125 == 0.0)
+              loga = v132;
+              if (*&v132 == 0.0)
               {
-                v88 = DataVersion;
-                [v42 setUrlEncodingVersion:DataVersion];
-                v101 = v88;
-                loga = [MEMORY[0x1E696AD98] numberWithLong:v88];
-                obja = *(v11 + 13);
+                v95 = DataVersion;
+                [v45 setUrlEncodingVersion:DataVersion];
+                v108 = v95;
+                loga = [MEMORY[0x1E696AD98] numberWithLong:v95];
+                obja = *(v12 + 13);
                 objc_sync_enter(obja);
-                v89 = [*(v11 + 13) objectForKeyedSubscript:theDataa];
-                v108 = [v89 objectForKeyedSubscript:loga];
+                v96 = [*(v12 + 13) objectForKeyedSubscript:theDataa];
+                v115 = [v96 objectForKeyedSubscript:loga];
 
                 objc_sync_exit(obja);
-                if (v108)
+                if (v115)
                 {
-                  v90 = [v108 url];
-                  [v42 setUrl:v90];
+                  v97 = [v115 url];
+                  [v45 setUrl:v97];
 
-                  -[NSObject setUrlDecodingStateInternal:](v42, "setUrlDecodingStateInternal:", [v108 urlDecodingStateInternal]);
+                  -[NSObject setUrlDecodingStateInternal:](v45, "setUrlDecodingStateInternal:", [v115 urlDecodingStateInternal]);
                 }
 
                 else
                 {
-                  v99 = *(v11 + 13);
-                  objc_sync_enter(v99);
-                  v91 = [*(v11 + 13) objectForKeyedSubscript:theDataa];
-                  v92 = v91 == 0;
+                  v106 = *(v12 + 13);
+                  objc_sync_enter(v106);
+                  v98 = [*(v12 + 13) objectForKeyedSubscript:theDataa];
+                  v99 = v98 == 0;
 
-                  if (v92)
+                  if (v99)
                   {
-                    v93 = objc_opt_new();
-                    [*(v11 + 13) setObject:v93 forKeyedSubscript:theDataa];
+                    v100 = objc_opt_new();
+                    [*(v12 + 13) setObject:v100 forKeyedSubscript:theDataa];
                   }
 
                   objb = objc_opt_new();
                   [objb setUrlDecodingStateInternal:2];
-                  v94 = [*(v11 + 13) objectForKeyedSubscript:theDataa];
-                  [v94 setObject:objb forKeyedSubscript:loga];
+                  v101 = [*(v12 + 13) objectForKeyedSubscript:theDataa];
+                  [v101 setObject:objb forKeyedSubscript:loga];
 
-                  objc_sync_exit(v99);
-                  objc = *(v11 + 14);
-                  v100 = [v11 ignoreURLLimitation];
-                  v118[0] = MEMORY[0x1E69E9820];
-                  v118[1] = 3221225472;
-                  v118[2] = __AppClipCodeUpdateCallbackHandler_block_invoke;
-                  v118[3] = &unk_1E817C218;
-                  v123 = a2;
-                  v124 = v21;
-                  v122 = buf;
-                  v119 = v11;
-                  v95 = theDataa;
-                  v120 = v95;
-                  v121 = loga;
-                  [objc decodeURLWithEncodedData:v95 codingVersion:v101 requiresAuthorization:v100 ^ 1u completionHandler:v118];
+                  objc_sync_exit(v106);
+                  objc = *(v12 + 14);
+                  v107 = [v12 ignoreURLLimitation];
+                  v125[0] = MEMORY[0x1E69E9820];
+                  v125[1] = 3221225472;
+                  v125[2] = __AppClipCodeUpdateCallbackHandler_block_invoke;
+                  v125[3] = &unk_1E817C218;
+                  v130 = a3;
+                  v131 = v22;
+                  v129 = buf;
+                  v126 = v12;
+                  v102 = theDataa;
+                  v127 = v102;
+                  v128 = loga;
+                  [objc decodeURLWithEncodedData:v102 codingVersion:v108 requiresAuthorization:v107 ^ 1u completionHandler:v125];
                 }
               }
 
@@ -2500,77 +2517,77 @@ LABEL_103:
                   [ARAppClipCodeTechnique prepare:];
                 }
 
-                v82 = ARShouldUseLogTypeError_internalOSVersion_5;
-                v83 = _ARLogTechnique();
-                v75 = v83;
-                if (v82 == 1)
+                v89 = ARShouldUseLogTypeError_internalOSVersion_5;
+                v90 = _ARLogTechnique(DataVersion);
+                v82 = v90;
+                if (v89 == 1)
                 {
-                  v20 = v102;
-                  if (!os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+                  v21 = v109;
+                  if (!os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                   {
                     goto LABEL_104;
                   }
 
-                  *v126 = 134218498;
-                  v127 = a2;
-                  v128 = 2048;
-                  v129 = v21;
-                  v130 = 2112;
-                  v131 = loga;
-                  v84 = v75;
-                  v85 = OS_LOG_TYPE_ERROR;
-                  v86 = "ARAppClipCodeTechnique: Could not get URL coding version from result metadata at time %F index:%lu Error: %@";
+                  *v133 = 134218498;
+                  v134 = a3;
+                  v135 = 2048;
+                  v136 = v22;
+                  v137 = 2112;
+                  v138 = loga;
+                  v91 = v82;
+                  v92 = OS_LOG_TYPE_ERROR;
+                  v93 = "ARAppClipCodeTechnique: Could not get URL coding version from result metadata at time %F index:%lu Error: %@";
                 }
 
                 else
                 {
-                  v20 = v102;
-                  if (!os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+                  v21 = v109;
+                  if (!os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
                   {
                     goto LABEL_104;
                   }
 
-                  *v126 = 134218498;
-                  v127 = a2;
-                  v128 = 2048;
-                  v129 = v21;
-                  v130 = 2112;
-                  v131 = loga;
-                  v84 = v75;
-                  v85 = OS_LOG_TYPE_INFO;
-                  v86 = "Error: ARAppClipCodeTechnique: Could not get URL coding version from result metadata at time %F index:%lu Error: %@";
+                  *v133 = 134218498;
+                  v134 = a3;
+                  v135 = 2048;
+                  v136 = v22;
+                  v137 = 2112;
+                  v138 = loga;
+                  v91 = v82;
+                  v92 = OS_LOG_TYPE_INFO;
+                  v93 = "Error: ARAppClipCodeTechnique: Could not get URL coding version from result metadata at time %F index:%lu Error: %@";
                 }
 
-                _os_log_impl(&dword_1C241C000, v84, v85, v86, v126, 0x20u);
+                _os_log_impl(&dword_1C241C000, v91, v92, v93, v133, 0x20u);
 LABEL_104:
 
-                v87 = [loga code];
-                *(*&buf[8] + 24) = v87;
-                [v42 setUrlDecodingStateInternal:1];
+                v94 = [loga code];
+                *(*&buf[8] + 24) = v94;
+                [v45 setUrlDecodingStateInternal:1];
               }
 
               goto LABEL_87;
             }
 
-            v72 = v125;
+            v78 = v132;
           }
 
-          if (v72)
+          if (v78)
           {
-            logb = _ARLogTechnique();
+            logb = _ARLogTechnique(Data);
             if (os_log_type_enabled(logb, OS_LOG_TYPE_INFO))
             {
-              *v126 = 134218498;
-              v127 = a2;
-              v128 = 2048;
-              v129 = v21;
-              v130 = 2112;
-              v131 = v72;
-              _os_log_impl(&dword_1C241C000, logb, OS_LOG_TYPE_INFO, "ARAppClipCodeTechnique: Could not create decoded data at time %F index:%lu Error: %@", v126, 0x20u);
+              *v133 = 134218498;
+              v134 = a3;
+              v135 = 2048;
+              v136 = v22;
+              v137 = 2112;
+              v138 = v78;
+              _os_log_impl(&dword_1C241C000, logb, OS_LOG_TYPE_INFO, "ARAppClipCodeTechnique: Could not create decoded data at time %F index:%lu Error: %@", v133, 0x20u);
             }
 
-            v80 = [v72 code];
-            *(*&buf[8] + 24) = v80;
+            v87 = [v78 code];
+            *(*&buf[8] + 24) = v87;
           }
 
           if (theDataa)
@@ -2586,38 +2603,38 @@ LABEL_104:
           [ARAppClipCodeTechnique prepare:];
         }
 
-        v34 = ARShouldUseLogTypeError_internalOSVersion_5;
-        v35 = _ARLogTechnique();
-        v29 = v35;
-        if (v34 == 1)
+        v36 = ARShouldUseLogTypeError_internalOSVersion_5;
+        v37 = _ARLogTechnique(Id);
+        v31 = v37;
+        if (v36 == 1)
         {
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            *v126 = 134218498;
-            v127 = a2;
-            v128 = 2048;
-            v129 = v21;
-            v130 = 2112;
-            v131 = *&v26;
-            v36 = v29;
-            v37 = OS_LOG_TYPE_ERROR;
-            v38 = "ARAppClipCodeTechnique: Could not get id at time %F index:%lu Error: %@";
+            *v133 = 134218498;
+            v134 = a3;
+            v135 = 2048;
+            v136 = v22;
+            v137 = 2112;
+            v138 = *&v28;
+            v38 = v31;
+            v39 = OS_LOG_TYPE_ERROR;
+            v40 = "ARAppClipCodeTechnique: Could not get id at time %F index:%lu Error: %@";
 LABEL_38:
-            _os_log_impl(&dword_1C241C000, v36, v37, v38, v126, 0x20u);
+            _os_log_impl(&dword_1C241C000, v38, v39, v40, v133, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
-          *v126 = 134218498;
-          v127 = a2;
-          v128 = 2048;
-          v129 = v21;
-          v130 = 2112;
-          v131 = *&v26;
-          v36 = v29;
-          v37 = OS_LOG_TYPE_INFO;
-          v38 = "Error: ARAppClipCodeTechnique: Could not get id at time %F index:%lu Error: %@";
+          *v133 = 134218498;
+          v134 = a3;
+          v135 = 2048;
+          v136 = v22;
+          v137 = 2112;
+          v138 = *&v28;
+          v38 = v31;
+          v39 = OS_LOG_TYPE_INFO;
+          v40 = "Error: ARAppClipCodeTechnique: Could not get id at time %F index:%lu Error: %@";
           goto LABEL_38;
         }
       }
@@ -2629,47 +2646,47 @@ LABEL_38:
           [ARAppClipCodeTechnique prepare:];
         }
 
-        v27 = ARShouldUseLogTypeError_internalOSVersion_5;
-        v28 = _ARLogTechnique();
-        v29 = v28;
-        if (v27 == 1)
+        v29 = ARShouldUseLogTypeError_internalOSVersion_5;
+        v30 = _ARLogTechnique(v23);
+        v31 = v30;
+        if (v29 == 1)
         {
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            *v126 = 134218498;
-            v127 = a2;
-            v128 = 2048;
-            v129 = v21;
-            v130 = 2112;
-            v131 = *&v26;
-            v30 = v29;
-            v31 = OS_LOG_TYPE_ERROR;
-            v32 = "ARAppClipCodeTechnique: Could not copy tranform at time %F index:%lu Error: %@";
+            *v133 = 134218498;
+            v134 = a3;
+            v135 = 2048;
+            v136 = v22;
+            v137 = 2112;
+            v138 = *&v28;
+            v32 = v31;
+            v33 = OS_LOG_TYPE_ERROR;
+            v34 = "ARAppClipCodeTechnique: Could not copy tranform at time %F index:%lu Error: %@";
 LABEL_28:
-            _os_log_impl(&dword_1C241C000, v30, v31, v32, v126, 0x20u);
+            _os_log_impl(&dword_1C241C000, v32, v33, v34, v133, 0x20u);
           }
         }
 
-        else if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
-          *v126 = 134218498;
-          v127 = a2;
-          v128 = 2048;
-          v129 = v21;
-          v130 = 2112;
-          v131 = *&v26;
-          v30 = v29;
-          v31 = OS_LOG_TYPE_INFO;
-          v32 = "Error: ARAppClipCodeTechnique: Could not copy tranform at time %F index:%lu Error: %@";
+          *v133 = 134218498;
+          v134 = a3;
+          v135 = 2048;
+          v136 = v22;
+          v137 = 2112;
+          v138 = *&v28;
+          v32 = v31;
+          v33 = OS_LOG_TYPE_INFO;
+          v34 = "Error: ARAppClipCodeTechnique: Could not copy tranform at time %F index:%lu Error: %@";
           goto LABEL_28;
         }
       }
 
-      v46 = [*&v26 code];
-      *(*&buf[8] + 24) = v46;
+      v49 = [*&v28 code];
+      *(*&buf[8] + 24) = v49;
 LABEL_40:
 
-      if (NumberOfTrackingData == ++*&v21)
+      if (NumberOfTrackingData == ++*&v22)
       {
         goto LABEL_116;
       }
@@ -2681,38 +2698,38 @@ LABEL_40:
     AppClipCodeUpdateCallbackHandler_cold_1();
   }
 
-  v12 = ARShouldUseLogTypeError_internalOSVersion_5;
-  v13 = _ARLogTechnique();
-  v14 = v13;
-  if (v12 == 1)
+  v13 = ARShouldUseLogTypeError_internalOSVersion_5;
+  v14 = _ARLogTechnique(v11);
+  v15 = v14;
+  if (v13 == 1)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      *&buf[4] = a2;
+      *&buf[4] = a3;
       *&buf[12] = 2112;
       *&buf[14] = a8;
-      v15 = "ARAppClipCodeTechnique: Error during app clip code tracking at time %F, Error: %@";
-      v16 = v14;
-      v17 = OS_LOG_TYPE_ERROR;
+      v16 = "ARAppClipCodeTechnique: Error during app clip code tracking at time %F, Error: %@";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v16, v17, v15, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v17, v18, v16, buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
-    *&buf[4] = a2;
+    *&buf[4] = a3;
     *&buf[12] = 2112;
     *&buf[14] = a8;
-    v15 = "Error: ARAppClipCodeTechnique: Error during app clip code tracking at time %F, Error: %@";
-    v16 = v14;
-    v17 = OS_LOG_TYPE_INFO;
+    v16 = "Error: ARAppClipCodeTechnique: Error during app clip code tracking at time %F, Error: %@";
+    v17 = v15;
+    v18 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
-  [v11 pushResultData:MEMORY[0x1E695E0F0] forTimestamp:a2];
+  [v12 pushResultData:MEMORY[0x1E695E0F0] forTimestamp:a3];
   [a8 code];
   kdebug_trace();
 
@@ -2728,24 +2745,25 @@ void sub_1C244CD20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __AppClipCodeUpdateCallbackHandler_block_invoke(void *a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v6)
   {
     if (v5)
     {
-      v15 = *(a1[4] + 104);
-      objc_sync_enter(v15);
-      v16 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
-      v17 = [v16 objectForKeyedSubscript:a1[6]];
-      [v17 setUrl:v5];
+      v16 = *(a1[4] + 104);
+      objc_sync_enter(v16);
+      v17 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
+      v18 = [v17 objectForKeyedSubscript:a1[6]];
+      [v18 setUrl:v5];
 
-      v18 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
-      v19 = [v18 objectForKeyedSubscript:a1[6]];
-      [v19 setUrlDecodingStateInternal:8];
+      v19 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
+      v20 = [v19 objectForKeyedSubscript:a1[6]];
+      [v20 setUrlDecodingStateInternal:8];
 
-      objc_sync_exit(v15);
+      objc_sync_exit(v16);
       goto LABEL_33;
     }
 
@@ -2754,48 +2772,48 @@ void __AppClipCodeUpdateCallbackHandler_block_invoke(void *a1, void *a2, void *a
       AppClipCodeUpdateCallbackHandler_cold_1();
     }
 
-    v23 = ARShouldUseLogTypeError_internalOSVersion_5;
-    v24 = _ARLogTechnique();
-    v25 = v24;
-    if (v23 == 1)
+    v24 = ARShouldUseLogTypeError_internalOSVersion_5;
+    v25 = _ARLogTechnique(v6);
+    v26 = v25;
+    if (v24 == 1)
     {
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v26 = a1[8];
-        v27 = a1[9];
-        v39 = 134218240;
-        v40 = v26;
-        v41 = 2048;
-        v42 = v27;
-        v28 = "ARAppClipCodeTechnique: Decoded URL at time %F index:%lu is nil.";
-        v29 = v25;
-        v30 = OS_LOG_TYPE_ERROR;
+        v27 = a1[8];
+        v28 = a1[9];
+        v40 = 134218240;
+        v41 = v27;
+        v42 = 2048;
+        v43 = v28;
+        v29 = "ARAppClipCodeTechnique: Decoded URL at time %F index:%lu is nil.";
+        v30 = v26;
+        v31 = OS_LOG_TYPE_ERROR;
 LABEL_27:
-        _os_log_impl(&dword_1C241C000, v29, v30, v28, &v39, 0x16u);
+        _os_log_impl(&dword_1C241C000, v30, v31, v29, &v40, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v31 = a1[8];
-      v32 = a1[9];
-      v39 = 134218240;
-      v40 = v31;
-      v41 = 2048;
-      v42 = v32;
-      v28 = "Error: ARAppClipCodeTechnique: Decoded URL at time %F index:%lu is nil.";
-      v29 = v25;
-      v30 = OS_LOG_TYPE_INFO;
+      v32 = a1[8];
+      v33 = a1[9];
+      v40 = 134218240;
+      v41 = v32;
+      v42 = 2048;
+      v43 = v33;
+      v29 = "Error: ARAppClipCodeTechnique: Decoded URL at time %F index:%lu is nil.";
+      v30 = v26;
+      v31 = OS_LOG_TYPE_INFO;
       goto LABEL_27;
     }
 
-    v33 = *(a1[4] + 104);
-    objc_sync_enter(v33);
-    v34 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
-    v35 = [v34 objectForKeyedSubscript:a1[6]];
-    [v35 setUrlDecodingStateInternal:7];
+    v34 = *(a1[4] + 104);
+    objc_sync_enter(v34);
+    v35 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
+    v36 = [v35 objectForKeyedSubscript:a1[6]];
+    [v36 setUrlDecodingStateInternal:7];
 
-    objc_sync_exit(v33);
+    objc_sync_exit(v34);
     goto LABEL_33;
   }
 
@@ -2804,86 +2822,86 @@ LABEL_27:
     AppClipCodeUpdateCallbackHandler_cold_1();
   }
 
-  v7 = ARShouldUseLogTypeError_internalOSVersion_5;
-  v8 = _ARLogTechnique();
-  v9 = v8;
-  if (v7 == 1)
+  v8 = ARShouldUseLogTypeError_internalOSVersion_5;
+  v9 = _ARLogTechnique(v6);
+  v10 = v9;
+  if (v8 == 1)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[8];
-      v11 = a1[9];
-      v39 = 134218498;
-      v40 = v10;
-      v41 = 2048;
-      v42 = v11;
-      v43 = 2112;
-      v44 = v6;
-      v12 = "ARAppClipCodeTechnique: Could not decode URL at time %F index:%lu Error: %@";
-      v13 = v9;
-      v14 = OS_LOG_TYPE_ERROR;
+      v11 = a1[8];
+      v12 = a1[9];
+      v40 = 134218498;
+      v41 = v11;
+      v42 = 2048;
+      v43 = v12;
+      v44 = 2112;
+      v45 = v7;
+      v13 = "ARAppClipCodeTechnique: Could not decode URL at time %F index:%lu Error: %@";
+      v14 = v10;
+      v15 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-      _os_log_impl(&dword_1C241C000, v13, v14, v12, &v39, 0x20u);
+      _os_log_impl(&dword_1C241C000, v14, v15, v13, &v40, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v20 = a1[8];
-    v21 = a1[9];
-    v39 = 134218498;
-    v40 = v20;
-    v41 = 2048;
-    v42 = v21;
-    v43 = 2112;
-    v44 = v6;
-    v12 = "Error: ARAppClipCodeTechnique: Could not decode URL at time %F index:%lu Error: %@";
-    v13 = v9;
-    v14 = OS_LOG_TYPE_INFO;
+    v21 = a1[8];
+    v22 = a1[9];
+    v40 = 134218498;
+    v41 = v21;
+    v42 = 2048;
+    v43 = v22;
+    v44 = 2112;
+    v45 = v7;
+    v13 = "Error: ARAppClipCodeTechnique: Could not decode URL at time %F index:%lu Error: %@";
+    v14 = v10;
+    v15 = OS_LOG_TYPE_INFO;
     goto LABEL_11;
   }
 
-  *(*(a1[7] + 8) + 24) = [v6 code];
-  if ([v6 code])
+  *(*(a1[7] + 8) + 24) = [v7 code];
+  if ([v7 code])
   {
-    if ([v6 code] == 1)
+    if ([v7 code] == 1)
     {
-      v22 = 3;
+      v23 = 3;
     }
 
-    else if ([v6 code] == 2)
+    else if ([v7 code] == 2)
     {
-      v22 = 4;
+      v23 = 4;
     }
 
-    else if ([v6 code] == 3)
+    else if ([v7 code] == 3)
     {
-      v22 = 5;
+      v23 = 5;
     }
 
-    else if ([v6 code] == 4)
+    else if ([v7 code] == 4)
     {
-      v22 = 6;
+      v23 = 6;
     }
 
     else
     {
-      v22 = 7;
+      v23 = 7;
     }
   }
 
   else
   {
-    v22 = 7;
+    v23 = 7;
   }
 
-  v36 = *(a1[4] + 104);
-  objc_sync_enter(v36);
-  v37 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
-  v38 = [v37 objectForKeyedSubscript:a1[6]];
-  [v38 setUrlDecodingStateInternal:v22];
+  v37 = *(a1[4] + 104);
+  objc_sync_enter(v37);
+  v38 = [*(a1[4] + 104) objectForKeyedSubscript:a1[5]];
+  v39 = [v38 objectForKeyedSubscript:a1[6]];
+  [v39 setUrlDecodingStateInternal:v23];
 
-  objc_sync_exit(v36);
+  objc_sync_exit(v37);
 LABEL_33:
 }
 
@@ -2930,10 +2948,10 @@ void sub_1C244DDC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C244DF20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C244DF20(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARDepthEstimationTechnique;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2958,27 +2976,27 @@ void ___ZL15_ARLogTechniquev_block_invoke_0()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-id _ARLogTechnique_0()
+id _ARLogTechnique_0(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_0 != -1)
   {
     _ARLogTechnique_cold_1_0();
   }
 
-  v1 = _ARLogTechnique_logObj_0;
+  v2 = _ARLogTechnique_logObj_0;
 
-  return v1;
+  return v2;
 }
 
-id textureForSizeWithPixelFormatAndMetalDevice(int a1, void *a2, double a3, double a4)
+id textureForSizeWithPixelFormatAndMetalDevice(uint64_t a1, void *a2, double a3, double a4)
 {
   v7 = MEMORY[0x1E69741C0];
   v8 = a2;
-  v9 = [v7 texture2DDescriptorWithPixelFormat:getMTLPixelFormat(a1) width:a3 height:a4 mipmapped:0];
-  [v9 setUsage:19];
-  v10 = [v8 newTextureWithDescriptor:v9];
+  v10 = [v7 texture2DDescriptorWithPixelFormat:getMTLPixelFormat(a1 width:v9) height:a3 mipmapped:a4, 0];
+  [v10 setUsage:19];
+  v11 = [v8 newTextureWithDescriptor:v10];
 
-  return v10;
+  return v11;
 }
 
 __IOSurface *bindPixelBufferToMTL2DTextureWithMetalDevice(__CVBuffer *a1, void *a2)
@@ -2988,14 +3006,14 @@ __IOSurface *bindPixelBufferToMTL2DTextureWithMetalDevice(__CVBuffer *a1, void *
   if (IOSurface)
   {
     PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-    MTLPixelFormat = getMTLPixelFormat(PixelFormatType);
+    MTLPixelFormat = getMTLPixelFormat(PixelFormatType, v6);
     WidthOfPlane = IOSurfaceGetWidthOfPlane(IOSurface, 0);
-    v8 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:MTLPixelFormat width:WidthOfPlane height:IOSurfaceGetHeightOfPlane(IOSurface mipmapped:0), 0];
-    v9 = v8;
-    if (v8)
+    v9 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:MTLPixelFormat width:WidthOfPlane height:IOSurfaceGetHeightOfPlane(IOSurface mipmapped:0), 0];
+    v10 = v9;
+    if (v9)
     {
-      [v8 setUsage:23];
-      IOSurface = [v3 newTextureWithDescriptor:v9 iosurface:IOSurface plane:0];
+      [v9 setUsage:23];
+      IOSurface = [v3 newTextureWithDescriptor:v10 iosurface:IOSurface plane:0];
     }
 
     else
@@ -3007,21 +3025,21 @@ __IOSurface *bindPixelBufferToMTL2DTextureWithMetalDevice(__CVBuffer *a1, void *
   return IOSurface;
 }
 
-id _ARLogGeneral_3()
+id _ARLogGeneral_3(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_3 != -1)
   {
     _ARLogGeneral_cold_1_3();
   }
 
-  v1 = _ARLogGeneral_logObj_3;
+  v2 = _ARLogGeneral_logObj_3;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C24536E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, void (*a58)(char *))
+void sub_1C24536E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void (*a58)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  a58(&a56);
+  a58(&a56, a2, a3, a4, a5, a6, a7, a8);
   (STACK[0x278])(&STACK[0x268]);
   _Block_object_dispose(&STACK[0x298], 8);
   _Block_object_dispose(&STACK[0x2B8], 8);
@@ -3057,7 +3075,7 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_7()
   return result;
 }
 
-uint64_t getMTLPixelFormat(int a1)
+uint64_t getMTLPixelFormat(uint64_t a1, uint64_t a2)
 {
   if (a1 <= 1278226487)
   {
@@ -3076,46 +3094,46 @@ uint64_t getMTLPixelFormat(int a1)
   {
     switch(a1)
     {
-      case 1278226488:
+      case 0x4C303038:
         return 10;
-      case 1380411457:
+      case 0x52476841:
         return 115;
-      case 1380401729:
+      case 0x52474241:
         return 70;
     }
   }
 
-  v13 = v1;
   v14 = v2;
+  v15 = v3;
   if (ARShouldUseLogTypeError_onceToken_6 != -1)
   {
     [ARDepthTechnique initWithPrioritization:temporalSmoothing:];
   }
 
-  v4 = ARShouldUseLogTypeError_internalOSVersion_6;
-  v5 = _ARLogGeneral_3();
-  v6 = v5;
-  if (v4 == 1)
+  v5 = ARShouldUseLogTypeError_internalOSVersion_6;
+  v6 = _ARLogGeneral_3(a1);
+  v7 = v6;
+  if (v5 == 1)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = 0;
-      v7 = "error unsupported pixelformat";
-      v8 = &v12;
-      v9 = v6;
-      v10 = OS_LOG_TYPE_ERROR;
+      v13 = 0;
+      v8 = "error unsupported pixelformat";
+      v9 = &v13;
+      v10 = v7;
+      v11 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-      _os_log_impl(&dword_1C241C000, v9, v10, v7, v8, 2u);
+      _os_log_impl(&dword_1C241C000, v10, v11, v8, v9, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 0;
-    v7 = "Error: error unsupported pixelformat";
-    v8 = &v11;
-    v9 = v6;
-    v10 = OS_LOG_TYPE_INFO;
+    v12 = 0;
+    v8 = "Error: error unsupported pixelformat";
+    v9 = &v12;
+    v10 = v7;
+    v11 = OS_LOG_TYPE_INFO;
     goto LABEL_19;
   }
 
@@ -3141,15 +3159,15 @@ void std::vector<ARTexturedPlane>::__destroy_vector::operator()[abi:ne200100](vo
   }
 }
 
-void std::vector<ARTexturedPlane>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<ARTexturedPlane>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; i -= 224)
+  for (i = *(result + 8); i != a2; i -= 224)
   {
 
     std::__tree<std::array<unsigned char,16ul>>::destroy(i - 32, *(i - 24));
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::__tree<std::array<unsigned char,16ul>>::destroy(uint64_t a1, void *a2)
@@ -3217,9 +3235,9 @@ void sub_1C2456164(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C24563D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
+void sub_1C24563D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
 {
-  MEMORY[0x1C691A790](v24, 0x1020C405A8B1BAELL);
+  MEMORY[0x1C691A790](v24, 0x1020C405A8B1BAELL, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -3228,19 +3246,17 @@ void sub_1C24563D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<arkit::Landmark>::reserve(void *result, unint64_t a2)
+void std::vector<arkit::Landmark>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      std::allocator<arkit::Landmark>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<arkit::Landmark>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 void sub_1C2456508(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -3442,16 +3458,16 @@ void ___ZL15_ARLogTechniquev_block_invoke_1()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-id _ARLogTechnique_1()
+id _ARLogTechnique_1(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_1 != -1)
   {
     _ARLogTechnique_cold_1_1();
   }
 
-  v1 = _ARLogTechnique_logObj_1;
+  v2 = _ARLogTechnique_logObj_1;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_8()
@@ -3461,28 +3477,28 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_8()
   return result;
 }
 
-id _ARLogTechnique_2()
+id _ARLogTechnique_2(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_3 != -1)
   {
     _ARLogTechnique_cold_1_2();
   }
 
-  v1 = _ARLogTechnique_logObj_3;
+  v2 = _ARLogTechnique_logObj_3;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogTechnique_3()
+id _ARLogTechnique_3(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_4 != -1)
   {
     _ARLogTechnique_cold_1_3();
   }
 
-  v1 = _ARLogTechnique_logObj_4;
+  v2 = _ARLogTechnique_logObj_4;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_9()
@@ -3525,7 +3541,7 @@ uint64_t ___ZL23ARShouldUseLogTypeErrorv_block_invoke_5()
   return result;
 }
 
-void std::__shared_ptr_emplace<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>::__shared_ptr_emplace[abi:ne200100]<int,std::allocator<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>,0>(void *a1)
+void std::__shared_ptr_emplace<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>::__shared_ptr_emplace[abi:ne200100]<int,std::allocator<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>,0>(void *a1, int *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3541,11 +3557,11 @@ void std::__shared_ptr_emplace<arkit::KeyMapBuffer<void const*,std::vector<unsig
   JUMPOUT(0x1C691A790);
 }
 
-uint64_t std::__shared_ptr_emplace<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>::__on_zero_shared(uint64_t a1)
+void **std::__shared_ptr_emplace<arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>>::__on_zero_shared(uint64_t a1)
 {
   std::deque<void const*>::~deque[abi:ne200100]((a1 + 64));
 
-  return std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::~__hash_table(a1 + 24);
+  return std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::~__hash_table((a1 + 24));
 }
 
 uint64_t std::deque<void const*>::~deque[abi:ne200100](void *a1)
@@ -3612,9 +3628,9 @@ uint64_t std::__split_buffer<void const**>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -3682,10 +3698,10 @@ void sub_1C2466084(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C2466108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C2466108(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARUndistortionMapping;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3699,12 +3715,12 @@ void sub_1C2466340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C24663C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C24663C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ARImageDistortionCorrectionTechnique;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3769,7 +3785,7 @@ void std::vector<float>::__append(std::vector<int> *this, std::vector<int>::size
   }
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3791,29 +3807,17 @@ void sub_1C24682C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1C2468338(_Unwind_Exception *exception_object)
@@ -3842,16 +3846,16 @@ uint64_t ___ZL23ARShouldUseLogTypeErrorv_block_invoke_6()
   return result;
 }
 
-id _ARLogTechnique_4()
+id _ARLogTechnique_4(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_5 != -1)
   {
     _ARLogTechnique_cold_1_4();
   }
 
-  v1 = _ARLogTechnique_logObj_5;
+  v2 = _ARLogTechnique_logObj_5;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_10()
@@ -3861,16 +3865,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_10()
   return result;
 }
 
-id _ARLogTechnique_5()
+id _ARLogTechnique_5(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_6 != -1)
   {
     _ARLogTechnique_cold_1_5();
   }
 
-  v1 = _ARLogTechnique_logObj_6;
+  v2 = _ARLogTechnique_logObj_6;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_11()
@@ -3880,42 +3884,42 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_11()
   return result;
 }
 
-id _ARLogTechnique_6()
+id _ARLogTechnique_6(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_7 != -1)
   {
     _ARLogTechnique_cold_1_6();
   }
 
-  v1 = _ARLogTechnique_logObj_7;
+  v2 = _ARLogTechnique_logObj_7;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C246C5C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C246C5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void (*)(uint64_t *));
-  v7 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void (*)(uint64_t *, uint64_t));
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v12 = va_arg(va2, void);
   v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   va_copy(va3, va2);
-  v16 = va_arg(va3, void);
-  v18 = va_arg(va3, void);
+  v17 = va_arg(va3, void);
   v19 = va_arg(va3, void);
   v20 = va_arg(va3, void);
-  v6(va);
+  v21 = va_arg(va3, void);
+  v7(va, a2);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
   _Block_object_dispose(va3, 8);
@@ -3929,43 +3933,43 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_12()
   return result;
 }
 
-void sub_1C246EFEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C246EFEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARMLImageProcessingTechnique;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void std::vector<espresso_buffer_t>::resize(void *a1, unint64_t a2)
+void std::vector<espresso_buffer_t>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCF3CF3CF3CF3CF3DLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<espresso_buffer_t>::__append(a1, v4);
+    std::vector<espresso_buffer_t>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 168 * a2;
+    result[1] = *result + 168 * a2;
   }
 }
 
-void std::vector<__CVPixelBufferPool *>::resize(void *a1, unint64_t a2)
+void std::vector<__CVPixelBufferPool *>::resize(void *result, unint64_t a2, __n128 a3)
 {
-  v2 = (a1[1] - *a1) >> 3;
-  if (a2 <= v2)
+  v3 = (result[1] - *result) >> 3;
+  if (a2 <= v3)
   {
-    if (a2 < v2)
+    if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<__CVPixelBufferPool *>::__append(a1, a2 - v2);
+    std::vector<__CVPixelBufferPool *>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -4075,65 +4079,65 @@ void std::allocator<espresso_buffer_t>::allocate_at_least[abi:ne200100](uint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<__CVPixelBufferPool *>::__append(uint64_t a1, unint64_t a2)
+void std::vector<__CVPixelBufferPool *>::__append(uint64_t a1, unint64_t a2, __n128 a3)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (a2 <= (v4 - v5) >> 3)
+  v6 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (a2 <= (v5 - v6) >> 3)
   {
     if (a2)
     {
       bzero(*(a1 + 8), 8 * a2);
-      v5 += 8 * a2;
+      v6 += 8 * a2;
     }
 
-    *(a1 + 8) = v5;
+    *(a1 + 8) = v6;
   }
 
   else
   {
-    v6 = v5 - *a1;
-    v7 = a2 + (v6 >> 3);
-    if (v7 >> 61)
+    v7 = v6 - *a1;
+    v8 = a2 + (v7 >> 3);
+    if (v8 >> 61)
     {
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v8 = v4 - *a1;
-    if (v8 >> 2 > v7)
+    v9 = v5 - *a1;
+    if (v9 >> 2 > v8)
     {
-      v7 = v8 >> 2;
+      v8 = v9 >> 2;
     }
 
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v9 = 0x1FFFFFFFFFFFFFFFLL;
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    if (v9)
+    if (v10)
     {
-      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v9);
+      std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](a1, v10);
     }
 
-    v10 = (8 * (v6 >> 3));
-    bzero(v10, 8 * a2);
-    v11 = &v10[8 * a2];
-    v12 = *(a1 + 8) - *a1;
-    v13 = &v10[-v12];
-    memcpy(&v10[-v12], *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v11;
+    v11 = (8 * (v7 >> 3));
+    bzero(v11, 8 * a2);
+    v12 = &v11[8 * a2];
+    v13 = *(a1 + 8) - *a1;
+    v14 = &v11[-v13];
+    memcpy(&v11[-v13], *a1, v13);
+    v15 = *a1;
+    *a1 = v14;
+    *(a1 + 8) = v12;
     *(a1 + 16) = 0;
-    if (v14)
+    if (v15)
     {
 
-      operator delete(v14);
+      operator delete(v15);
     }
   }
 }
@@ -4148,16 +4152,16 @@ void std::allocator<__CVPixelBufferPool *>::allocate_at_least[abi:ne200100](uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-id _ARLogTechnique_7()
+id _ARLogTechnique_7(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_8 != -1)
   {
     _ARLogTechnique_cold_1_7();
   }
 
-  v1 = _ARLogTechnique_logObj_8;
+  v2 = _ARLogTechnique_logObj_8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_13()
@@ -4195,40 +4199,40 @@ void ___ZL13_ARLogGeneralv_block_invoke_6()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogTechnique_8()
+id _ARLogTechnique_8(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_9 != -1)
   {
     _ARLogTechnique_cold_1_8();
   }
 
-  v1 = _ARLogTechnique_logObj_9;
+  v2 = _ARLogTechnique_logObj_9;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogTechnique_9()
+id _ARLogTechnique_9(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_10 != -1)
   {
     _ARLogTechnique_cold_1_9();
   }
 
-  v1 = _ARLogTechnique_logObj_10;
+  v2 = _ARLogTechnique_logObj_10;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_4()
+id _ARLogGeneral_4(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_4 != -1)
   {
     _ARLogGeneral_cold_1_4();
   }
 
-  v1 = _ARLogGeneral_logObj_4;
+  v2 = _ARLogGeneral_logObj_4;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_14()
@@ -4238,7 +4242,7 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_14()
   return result;
 }
 
-void arkit::computeBoundingBoxes(uint64_t a1, void *a2, uint64x2_t **a3, uint64_t *a4, uint64x2_t *a5)
+void arkit::computeBoundingBoxes(uint64_t a1, void *a2, uint64x2_t **a3, uint64x2_t ***a4, uint64x2_t *a5)
 {
   v75 = *MEMORY[0x1E69E9840];
   v9 = a2;
@@ -4544,22 +4548,20 @@ void sub_1C247BAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<arkit::IntRect>::reserve(void *result, unint64_t a2)
+void std::vector<arkit::IntRect>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      std::allocator<arkit::IntRect>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<arkit::IntRect>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
-void *std::vector<arkit::BoundingBoxGroup>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<arkit::BoundingBoxGroup>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 6)
   {
@@ -4574,26 +4576,24 @@ void *std::vector<arkit::BoundingBoxGroup>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1C247BCBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C247BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<arkit::BoundingBoxGroup>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<arkit::BoundingBoxGroup::Element>::reserve(void *result, unint64_t a2)
+void std::vector<arkit::BoundingBoxGroup::Element>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 4) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x24924924924924ALL)
     {
-      std::allocator<arkit::BoundingBoxGroup::Element>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<arkit::BoundingBoxGroup::Element>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 int8x16_t arkit::BoundingBoxGroup::append(uint64_t a1, uint64x2_t *a2)
@@ -4712,10 +4712,10 @@ uint64_t std::vector<arkit::BoundingBoxGroup>::push_back[abi:ne200100](uint64_t 
   return result;
 }
 
-void sub_1C247C17C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C247C17C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARPersonOcclusionTechnique;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5274,9 +5274,9 @@ uint64_t std::vector<arkit::BoundingBoxGroup>::__emplace_back_slow_path<arkit::B
   return v15;
 }
 
-void sub_1C247F03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C247F03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<arkit::BoundingBoxGroup>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5410,20 +5410,20 @@ void std::__destroy_at[abi:ne200100]<arkit::RobustExpFilter<float>,0>(uint64_t a
   }
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
@@ -5556,28 +5556,28 @@ void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x
   }
 }
 
-id _ARLogTechnique_10()
+id _ARLogTechnique_10(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_11 != -1)
   {
     _ARLogTechnique_cold_1_10();
   }
 
-  v1 = _ARLogTechnique_logObj_11;
+  v2 = _ARLogTechnique_logObj_11;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_5()
+id _ARLogGeneral_5(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_5 != -1)
   {
     _ARLogGeneral_cold_1_5();
   }
 
-  v1 = _ARLogGeneral_logObj_5;
+  v2 = _ARLogGeneral_logObj_5;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_15()
@@ -5601,20 +5601,20 @@ void sub_1C2480C54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C2481A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1C2481A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void (*a44)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  (a44)(&a42);
+  a44(&a42, a2, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
-    a69 = __p;
+    a66 = __p;
     operator delete(__p);
   }
 
-  v73 = *(v71 - 168);
-  if (v73)
+  v70 = *(v68 - 168);
+  if (v70)
   {
-    *(v71 - 160) = v73;
-    operator delete(v73);
+    *(v68 - 160) = v70;
+    operator delete(v70);
   }
 
   _Unwind_Resume(a1);
@@ -5627,17 +5627,17 @@ void ___ZL15_ARLogTechniquev_block_invoke_7()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-void *std::vector<CV3DSurfaceDetectionPoint3D>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CV3DSurfaceDetectionPoint3D>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CV3DSurfaceDetectionPoint3D>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CV3DSurfaceDetectionPoint3D>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C2481C80(_Unwind_Exception *exception_object)
@@ -5652,7 +5652,7 @@ void sub_1C2481C80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CV3DSurfaceDetectionPoint3D>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CV3DSurfaceDetectionPoint3D>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5861,18 +5861,18 @@ __n128 ARVideoTransformForDeviceOrientation@<Q0>(uint64_t a1@<X0>, uint64_t a2@<
   {
     if (a1 == 4)
     {
-      v2 = &ARVideoTransformLandscapeRight;
+      v2 = ARVideoTransformLandscapeRight;
       goto LABEL_9;
     }
 
 LABEL_7:
-    v2 = &ARVideoTransformLandscapeLeft;
+    v2 = ARVideoTransformLandscapeLeft;
     goto LABEL_9;
   }
 
   if (a1 == 1)
   {
-    v2 = &ARVideoTransformPortrait;
+    v2 = ARVideoTransformPortrait;
     goto LABEL_9;
   }
 
@@ -5881,12 +5881,12 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v2 = &ARVideoTransformPortraitUpsideDown;
+  v2 = ARVideoTransformPortraitUpsideDown;
 LABEL_9:
-  v3 = v2[1];
+  v3 = *(v2 + 1);
   *a2 = *v2;
   *(a2 + 16) = v3;
-  result = v2[2];
+  result = *(v2 + 2);
   *(a2 + 32) = result;
   return result;
 }
@@ -5952,16 +5952,16 @@ LABEL_12:
   return v4;
 }
 
-id _ARLogTechnique_11()
+id _ARLogTechnique_11(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_12 != -1)
   {
     _ARLogTechnique_cold_1_11();
   }
 
-  v1 = _ARLogTechnique_logObj_12;
+  v2 = _ARLogTechnique_logObj_12;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_16()
@@ -5971,29 +5971,29 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_16()
   return result;
 }
 
-id _ARLogTechnique_12()
+id _ARLogTechnique_12(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_13 != -1)
   {
     _ARLogTechnique_cold_1_12();
   }
 
-  v1 = _ARLogTechnique_logObj_13;
+  v2 = _ARLogTechnique_logObj_13;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C2489634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, void (*a29)(char *), uint64_t a30, uint64_t a31, char a32, uint64_t a33, void (*a34)(char *), uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_1C2489634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void (*a29)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void (*a34)(char *), uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  a29(&a27);
+  a29(&a27, a2, a3, a4, a5, a6, a7, a8);
   a34(&a32);
   _Block_object_dispose(&a41, 8);
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&STACK[0x290], 8);
-  _Block_object_dispose((v71 - 208), 8);
+  _Block_object_dispose((v65 - 208), 8);
   a64(&a62);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Block_object_dispose(&STACK[0x230], 8);
   _Block_object_dispose(&STACK[0x250], 8);
@@ -6038,16 +6038,16 @@ id _createResamplingError(int a1)
   return v3;
 }
 
-id _ARLogGeneral_6()
+id _ARLogGeneral_6(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_6 != -1)
   {
     _ARLogGeneral_cold_1_6();
   }
 
-  v1 = _ARLogGeneral_logObj_6;
+  v2 = _ARLogGeneral_logObj_6;
 
-  return v1;
+  return v2;
 }
 
 id _createPoolAllocationError(int a1)
@@ -6069,10 +6069,10 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_17()
   return result;
 }
 
-void sub_1C248AE90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C248AE90(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARSIPersonDetectionTechnique;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6104,37 +6104,38 @@ BOOL ___ZL18ARSkipCrashOnCrashv_block_invoke_1()
   return result;
 }
 
-id _ARLogTechnique_13()
+id _ARLogTechnique_13(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_14 != -1)
   {
     _ARLogTechnique_cold_1_13();
   }
 
-  v1 = _ARLogTechnique_logObj_14;
+  v2 = _ARLogTechnique_logObj_14;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_7()
+id _ARLogGeneral_7(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_7 != -1)
   {
     _ARLogGeneral_cold_1_7();
   }
 
-  v1 = _ARLogGeneral_logObj_7;
+  v2 = _ARLogGeneral_logObj_7;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C248C984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, void (*a14)(char *), uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1C248C984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void (*a14)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  a14(&a12);
+  va_start(va, a31);
+  a14(&a12, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6152,16 +6153,16 @@ BOOL __ARSkipCrashOnCrash_block_invoke_0()
   return result;
 }
 
-id _ARLogTechnique_14()
+id _ARLogTechnique_14(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_15 != -1)
   {
     _ARLogTechnique_cold_1_14();
   }
 
-  v1 = _ARLogTechnique_logObj_15;
+  v2 = _ARLogTechnique_logObj_15;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_19()
@@ -6171,9 +6172,9 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_19()
   return result;
 }
 
-void sub_1C248EA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C248EA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6185,42 +6186,42 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C248ED58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C248ED58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C248F0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C248F0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _ARLogTechnique_15()
+id _ARLogTechnique_15(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_16 != -1)
   {
     _ARLogTechnique_cold_1_15();
   }
 
-  v1 = _ARLogTechnique_logObj_16;
+  v2 = _ARLogTechnique_logObj_16;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSensor_6()
+id _ARLogSensor_6(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_7 != -1)
   {
     _ARLogSensor_cold_1_6();
   }
 
-  v1 = _ARLogSensor_logObj_7;
+  v2 = _ARLogSensor_logObj_7;
 
-  return v1;
+  return v2;
 }
 
 double simd_matrix4x4(float32x4_t a1)
@@ -6254,7 +6255,7 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_20()
   return result;
 }
 
-uint64_t GetCV3DSLAMCameraModelType(void)
+uint64_t GetCV3DSLAMCameraModelType(uint64_t a1, uint64_t a2)
 {
   if (GetCV3DSLAMCameraModelType(void)::onceToken != -1)
   {
@@ -6271,16 +6272,16 @@ uint64_t ___Z26GetCV3DSLAMCameraModelTypev_block_invoke()
   return result;
 }
 
-uint64_t IsCV3DVIOVideoModeSupported(uint64_t a1)
+uint64_t IsCV3DVIOVideoModeSupported(uint64_t a1, uint64_t a2)
 {
   if (GetCV3DSLAMCameraModelType(void)::onceToken != -1)
   {
     GetCV3DSLAMCameraModelType();
   }
 
-  v2 = GetCV3DSLAMCameraModelType(void)::cameraModelType;
+  v3 = GetCV3DSLAMCameraModelType(void)::cameraModelType;
 
-  return MEMORY[0x1EEDECDB0](v2, a1);
+  return MEMORY[0x1EEDECDB0](v3, a1);
 }
 
 void sub_1C24938F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -6299,9 +6300,9 @@ void sub_1C2493DAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C2496F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, void (*a19)(char *), uint64_t a20, uint64_t a21, char a22, uint64_t a23, void (*a24)(char *), uint64_t a25, uint64_t a26, char a27, uint64_t a28, void (*a29)(char *))
+void sub_1C2496F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void (*a19)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void (*a24)(char *), uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void (*a29)(char *))
 {
-  a19(&a17);
+  a19(&a17, a2, a3, a4, a5, a6, a7, a8);
   a24(&a22);
   a29(&a27);
 
@@ -6327,7 +6328,7 @@ void sub_1C2498F90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C2499CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, void (*a26)(char *), uint64_t a27, uint64_t a28, char a29, uint64_t a30, void (*a31)(char *))
+void sub_1C2499CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void (*a26)(char *), uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void (*a31)(char *))
 {
   a26(&a24);
   a31(&a29);
@@ -6342,17 +6343,17 @@ void sub_1C249C4C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C249E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1C249E39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void (*a53)(uint64_t *), uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void (*a60)(uint64_t *), uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v67 + 32));
+  objc_destroyWeak((v66 + 32));
   objc_destroyWeak(&location);
 
   objc_destroyWeak(&a36);
   objc_destroyWeak(a9);
   objc_destroyWeak(&a48);
-  (a53)(&a51);
-  (a60)(&a58);
-  (a66)(&a64);
+  a53(&a51);
+  a60(&a58);
+  (a65)(&a64);
 
   _Unwind_Resume(a1);
 }
@@ -6397,7 +6398,7 @@ double ARCascadeTransform(double *a1, double *a2, simd_float4x3 a3, const double
   return result;
 }
 
-void sub_1C24A1818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, void (*a20)(char *), uint64_t a21, uint64_t a22, char a23, uint64_t a24, void (*a25)(char *))
+void sub_1C24A1818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void (*a20)(char *), uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void (*a25)(char *))
 {
   a20(&a18);
   a25(&a23);
@@ -6446,7 +6447,7 @@ void *___ZL19AudioToolboxLibraryv_block_invoke()
   return result;
 }
 
-void *std::__shared_ptr_emplace<RaycastSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,void({block_pointer} {__strong}&)(CV3DRaycastResultMap const*),BOOL,std::allocator<RaycastSession>,0>(void *a1, void *a2, void *a3, unsigned __int8 *a4)
+void *std::__shared_ptr_emplace<RaycastSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,void({block_pointer} {__strong}&)(CV3DRaycastResultMap const*),BOOL,std::allocator<RaycastSession>,0>(void *a1, uint64_t *a2, void **a3, unsigned __int8 *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6463,7 +6464,7 @@ void std::__shared_ptr_emplace<RaycastSession>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x1C691A790);
 }
 
-void *std::__shared_ptr_emplace<PlaneDetectionSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,PlaneDetectionConfiguration const&,void({block_pointer} {__strong}&)(CV3DPlaneDetectionPlaneList const*),void({block_pointer} {__strong}&)(CV3DPlaneDetectionSingleShotPlaneList const*),std::allocator<PlaneDetectionSession>,0>(void *a1, void *a2, uint64_t a3, void *a4, void *a5)
+void *std::__shared_ptr_emplace<PlaneDetectionSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,PlaneDetectionConfiguration const&,void({block_pointer} {__strong}&)(CV3DPlaneDetectionPlaneList const*),void({block_pointer} {__strong}&)(CV3DPlaneDetectionSingleShotPlaneList const*),std::allocator<PlaneDetectionSession>,0>(void *a1, uint64_t *a2, const PlaneDetectionConfiguration *a3, void **a4, void **a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6480,7 +6481,7 @@ void std::__shared_ptr_emplace<PlaneDetectionSession>::~__shared_ptr_emplace(std
   JUMPOUT(0x1C691A790);
 }
 
-void *std::__shared_ptr_emplace<PlaneDetectionSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,PlaneDetectionConfiguration const&,void({block_pointer} {__strong}&)(CV3DPlaneDetectionPlaneList const*),std::allocator<PlaneDetectionSession>,0>(void *a1, void *a2, uint64_t a3, void *a4)
+void *std::__shared_ptr_emplace<PlaneDetectionSession>::__shared_ptr_emplace[abi:ne200100]<CV3DSLAMSession *&,PlaneDetectionConfiguration const&,void({block_pointer} {__strong}&)(CV3DPlaneDetectionPlaneList const*),std::allocator<PlaneDetectionSession>,0>(void *a1, uint64_t *a2, const PlaneDetectionConfiguration *a3, void **a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6489,48 +6490,48 @@ void *std::__shared_ptr_emplace<PlaneDetectionSession>::__shared_ptr_emplace[abi
   return a1;
 }
 
-void *std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6556,12 +6557,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6575,22 +6576,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -6624,13 +6625,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6672,18 +6673,18 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *keys<std::array<unsigned char,16ul>,ARTexturedPlane>@<X0>(void *result@<X0>, void *a2@<X8>)
+void *keys<std::array<unsigned char,16ul>,ARTexturedPlane>@<X0>(void *result@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   v3 = (result + 1);
   v4 = *result;
   if (*result != result + 1)
   {
     do
     {
-      result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a2, v4 + 32);
+      result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a2, v4 + 32, v4 + 2);
       v5 = *(v4 + 1);
       if (v5)
       {
@@ -6717,11 +6718,11 @@ void *keys<std::array<unsigned char,16ul>,ARTexturedPlane>@<X0>(void *result@<X0
   return result;
 }
 
-uint64_t notInLeftButRight<std::array<unsigned char,16ul>>@<X0>(uint64_t result@<X0>, void *a2@<X1>, void *a3@<X8>)
+uint64_t notInLeftButRight<std::array<unsigned char,16ul>>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t **a3@<X8>)
 {
   a3[2] = 0;
   a3[1] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   v4 = (a2 + 1);
   v5 = *a2;
   if (*a2 != a2 + 1)
@@ -6733,7 +6734,7 @@ uint64_t notInLeftButRight<std::array<unsigned char,16ul>>@<X0>(uint64_t result@
       result = std::__tree<std::array<unsigned char,16ul>>::find<std::array<unsigned char,16ul>>(v6, v5 + 25);
       if (v7 == result)
       {
-        result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a3, v5 + 25);
+        result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a3, v5 + 25, v5 + 25);
       }
 
       v8 = *(v5 + 1);
@@ -6769,11 +6770,11 @@ uint64_t notInLeftButRight<std::array<unsigned char,16ul>>@<X0>(uint64_t result@
   return result;
 }
 
-void *intersect<std::array<unsigned char,16ul>>@<X0>(void *result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void *intersect<std::array<unsigned char,16ul>>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t **a3@<X8>)
 {
   a3[2] = 0;
   a3[1] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   v4 = (result + 1);
   v5 = *result;
   if (*result != result + 1)
@@ -6784,7 +6785,7 @@ void *intersect<std::array<unsigned char,16ul>>@<X0>(void *result@<X0>, uint64_t
       result = std::__tree<std::array<unsigned char,16ul>>::find<std::array<unsigned char,16ul>>(a2, v5 + 25);
       if (v7 != result)
       {
-        result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a3, v5 + 25);
+        result = std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(a3, v5 + 25, v5 + 25);
       }
 
       v8 = *(v5 + 1);
@@ -6827,15 +6828,15 @@ void ___ZL13_ARLogGeneralv_block_invoke_9()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-uint64_t **std::__tree<std::array<unsigned char,16ul>>::__assign_multi<std::__tree_const_iterator<std::array<unsigned char,16ul>,std::__tree_node<std::array<unsigned char,16ul>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::array<unsigned char,16ul>>::__assign_multi<std::__tree_const_iterator<std::array<unsigned char,16ul>,std::__tree_node<std::array<unsigned char,16ul>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6909,23 +6910,23 @@ uint64_t **std::__tree<std::array<unsigned char,16ul>>::__assign_multi<std::__tr
 
   if (a2 != a3)
   {
-    std::__tree<std::array<unsigned char,16ul>>::__emplace_multi<std::array<unsigned char,16ul> const&>();
+    std::__tree<std::array<unsigned char,16ul>>::__emplace_multi<std::array<unsigned char,16ul> const&>(v5, (a2 + 25));
   }
 
   return result;
 }
 
-void sub_1C24A86E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C24A86E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::array<unsigned char,16ul>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::array<unsigned char,16ul>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::array<unsigned char,16ul>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     while (2)
@@ -6979,7 +6980,7 @@ LABEL_9:
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
   }
 
 LABEL_12:
@@ -7074,7 +7075,7 @@ uint64_t std::set<std::array<unsigned char,16ul>>::insert[abi:ne200100]<std::__t
     v5 = result;
     do
     {
-      result = std::__tree<std::array<unsigned char,16ul>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(v5, v5 + 1, v4 + 25);
+      result = std::__tree<std::array<unsigned char,16ul>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(v5, (v5 + 8), v4 + 25, v4 + 25);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -7108,15 +7109,15 @@ uint64_t std::set<std::array<unsigned char,16ul>>::insert[abi:ne200100]<std::__t
   return result;
 }
 
-uint64_t std::__tree<std::array<unsigned char,16ul>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(void *a1, void *a2, unsigned __int8 *a3)
+uint64_t std::__tree<std::array<unsigned char,16ul>>::__emplace_hint_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(uint64_t **a1, void *a2, unsigned __int8 *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::array<unsigned char,16ul>>::__find_equal<std::array<unsigned char,16ul>>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::array<unsigned char,16ul>>::__find_equal<std::array<unsigned char,16ul>>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::array<unsigned char,16ul>>::__find_equal<std::array<unsigned char,16ul>>(void *a1, void *a2, void *a3, void *a4, unsigned __int8 *a5)
@@ -7400,15 +7401,15 @@ void std::vector<ARTexturedPlane>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::piecewise_construct_t const&,std::tuple<std::array<unsigned char,16ul> const&>,std::tuple<>>(uint64_t **a1, unsigned __int8 *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::__map_value_compare<std::array<unsigned char,16ul>,std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>,std::less<std::array<unsigned char,16ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,16ul>,ARTexturedPlane>>>::__find_equal<std::array<unsigned char,16ul>>(uint64_t a1, void *a2, unsigned __int8 *a3)
@@ -7497,15 +7498,15 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(uint64_t a1, unsigned __int8 *a2)
+uint64_t std::__tree<std::array<unsigned char,16ul>>::__emplace_unique_key_args<std::array<unsigned char,16ul>,std::array<unsigned char,16ul> const&>(uint64_t **a1, unsigned __int8 *a2, _OWORD *a3)
 {
-  v2 = *std::__tree<std::array<unsigned char,16ul>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::array<unsigned char,16ul>>::__find_equal<std::array<unsigned char,16ul>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::array<unsigned char,16ul>>::find<std::array<unsigned char,16ul>>(uint64_t a1, unsigned __int8 *a2)
@@ -7574,14 +7575,14 @@ LABEL_10:
   return v5;
 }
 
-void sub_1C24A9334(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C24A9334(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ARFaceTrackingManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1C24A98EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, void *a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
+void sub_1C24A98EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, void *a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
 {
   _Block_object_dispose(&a37, 8);
 
@@ -7616,16 +7617,16 @@ void ___ZL15_ARLogTechniquev_block_invoke_10()
   _ARLogTechnique(void)::logObj = v0;
 }
 
-id _ARLogGeneral_8()
+id _ARLogGeneral_8(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_8 != -1)
   {
     _ARLogGeneral_cold_1_8();
   }
 
-  v1 = _ARLogGeneral_logObj_8;
+  v2 = _ARLogGeneral_logObj_8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_21()
@@ -7633,18 +7634,6 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_21()
   result = os_variant_has_internal_content();
   ARShouldUseLogTypeError_internalOSVersion_20 = result;
   return result;
-}
-
-id _ARLogSession(void)
-{
-  if (_ARLogSession(void)::onceToken != -1)
-  {
-    _ARLogSession();
-  }
-
-  v1 = _ARLogSession(void)::logObj;
-
-  return v1;
 }
 
 uint64_t anonymous namespace::_CV3DODTCreateWithOptionsConfigAndModel(_anonymous_namespace_ *this, CV3DODTContext **a2, const __CFDictionary *a3, CV3DMLModel *a4)
@@ -7755,7 +7744,7 @@ void **std::vector<std::shared_ptr<CV3DSLAMStateContext const>>::push_back[abi:n
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -7801,7 +7790,7 @@ void std::vector<std::shared_ptr<CV3DSLAMStateContext const>>::clear[abi:ne20010
   a1[1] = v2;
 }
 
-void sub_1C24AFCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, void (*a28)(char *), uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
+void sub_1C24AFCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void (*a28)(char *), uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, id a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, id a50)
 {
   a28(&a26);
 
@@ -7841,7 +7830,7 @@ void sub_1C24B02D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C24B1BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, void *a25, char a26, uint64_t a27, void (*a28)(char *))
+void sub_1C24B1BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, void (*a28)(char *))
 {
   a28(&a26);
   (*(v29 - 184))(v29 - 200);
@@ -7849,14 +7838,14 @@ void sub_1C24B1BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C24B2450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, void (*a12)(char *))
+void sub_1C24B2450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void (*a12)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  a12(&a10);
+  a12(&a10, a2, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C24B2A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1C24B2A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7870,18 +7859,18 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C24B2CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1C24B2CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C24B2E10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, objc_super a10)
+void sub_1C24B2E10(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, objc_super a10)
 {
   a10.super_class = ARSceneReconstructionHandler;
-  [(_Unwind_Exception *)&a10 dealloc];
+  [(_Unwind_Exception *)&a10 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7960,16 +7949,16 @@ void std::vector<std::shared_ptr<CV3DSLAMStateContext const>>::__destroy_vector:
   }
 }
 
-id _ARLogSession_0()
+id _ARLogSession_0(uint64_t a1)
 {
   if (_ARLogSession_onceToken_1 != -1)
   {
     _ARLogSession_cold_1_0();
   }
 
-  v1 = _ARLogSession_logObj_1;
+  v2 = _ARLogSession_logObj_1;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C24B3CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -8075,21 +8064,21 @@ uint64_t ARTimerFramesPerSecond(void *a1, void *a2)
   return v6;
 }
 
-id _ARLogGeneral_9()
+id _ARLogGeneral_9(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_9 != -1)
   {
     _ARLogGeneral_cold_1_9();
   }
 
-  v1 = _ARLogGeneral_logObj_9;
+  v2 = _ARLogGeneral_logObj_9;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C24C4398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C24C4398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8115,12 +8104,13 @@ void sub_1C24C85A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C24C90F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1C24C90F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   objc_destroyWeak(&location);
   objc_destroyWeak(&a40);
-  _Block_object_dispose(&a41, 8);
-  objc_destroyWeak((v41 - 256));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v40 - 256));
   _Unwind_Resume(a1);
 }
 
@@ -8131,9 +8121,9 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_22()
   return result;
 }
 
-void sub_1C24CB4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C24CB4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8192,28 +8182,28 @@ double simd_quaternion(simd_float3x3 a1)
   return *&v20;
 }
 
-id _ARLogGeneral_10()
+id _ARLogGeneral_10(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_10 != -1)
   {
     _ARLogGeneral_cold_1_10();
   }
 
-  v1 = _ARLogGeneral_logObj_10;
+  v2 = _ARLogGeneral_logObj_10;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSensor_7()
+id _ARLogSensor_7(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_9 != -1)
   {
     _ARLogSensor_cold_1_7();
   }
 
-  v1 = _ARLogSensor_logObj_9;
+  v2 = _ARLogSensor_logObj_9;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_23()
@@ -8407,16 +8397,16 @@ __CFString *NSStringFromARSceneReconstruction(uint64_t a1)
   return v6;
 }
 
-id _ARLogGeneral_11()
+id _ARLogGeneral_11(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_11 != -1)
   {
     _ARLogGeneral_cold_1_11();
   }
 
-  v1 = _ARLogGeneral_logObj_11;
+  v2 = _ARLogGeneral_logObj_11;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C24D0034(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, int a12, __int16 a13, __int16 a14, void *a15)
@@ -8424,41 +8414,42 @@ void sub_1C24D0034(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v15 = objc_begin_catch(a1);
+    v16 = v15;
     if (ARShouldUseLogTypeError_onceToken_23 != -1)
     {
       [ARConfiguration initPrivate];
     }
 
-    v16 = ARShouldUseLogTypeError_internalOSVersion_23;
-    v17 = _ARLogGeneral_11();
-    v18 = v17;
-    if (v16 == 1)
+    v17 = ARShouldUseLogTypeError_internalOSVersion_23;
+    v18 = _ARLogGeneral_11(v15);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v21 = [v15 reason];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = [v16 reason];
         LODWORD(buf) = 138543874;
-        *(&buf + 4) = v20;
+        *(&buf + 4) = v21;
         WORD6(buf) = 2048;
         a14 = 2112;
-        a15 = v21;
-        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to decode jasper framerate values: %@", &buf, 0x20u);
+        a15 = v22;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to decode jasper framerate values: %@", &buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v24 = [v15 reason];
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = [v16 reason];
       LODWORD(buf) = 138543874;
-      *(&buf + 4) = v23;
+      *(&buf + 4) = v24;
       WORD6(buf) = 2048;
       a14 = 2112;
-      a15 = v24;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to decode jasper framerate values: %@", &buf, 0x20u);
+      a15 = v25;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to decode jasper framerate values: %@", &buf, 0x20u);
     }
 
     objc_end_catch();
@@ -8497,7 +8488,7 @@ void _ARAddScalingTechniquesToTechniques(void *a1, uint64_t a2, int a3, double a
   [v9 addObject:v13];
 }
 
-id _ARParentTechniqueForDepthTechnique(void *a1, int a2)
+ARParentTechnique *_ARParentTechniqueForDepthTechnique(void *a1, int a2)
 {
   v10[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -8525,58 +8516,58 @@ id _ARParentTechniqueForDepthTechnique(void *a1, int a2)
 
 void ARAddNonJasperSemanticsToParent(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
-  v26 = a1;
+  v36[1] = *MEMORY[0x1E69E9840];
+  v31 = a1;
   v6 = MEMORY[0x1E695DFA8];
-  v27 = a2;
+  v32 = a2;
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v28 = [v6 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
+  v33 = [v6 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
   v10 = [MEMORY[0x1E695DF70] array];
   v11 = [[ARMLImageDownScalingTechnique alloc] initWithSize:256.0 requiredTimeInterval:192.0, 0.002];
-  [(ARMLImageDownScalingTechnique *)v11 setResizeUltraWideImage:ARDeviceSupportsUltraWideCamera()];
+  [(ARMLImageDownScalingTechnique *)v11 setResizeUltraWideImage:ARDeviceSupportsUltraWideCamera(v11, v12)];
   [(ARMLImageDownScalingTechnique *)v11 setWideRotationStrategy:&__block_literal_global_50];
   [(ARMLImageDownScalingTechnique *)v11 setUltrawideRotationStrategy:&__block_literal_global_50];
-  v12 = [ARParentTechnique alloc];
-  v31[0] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-  v14 = [(ARParentTechnique *)v12 initWithTechniques:v13];
+  v13 = [ARParentTechnique alloc];
+  v36[0] = v11;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+  v15 = [(ARParentTechnique *)v13 initWithTechniques:v14];
 
-  [v10 addObject:v14];
-  if (ARDeviceSupportsUltraWideCamera())
+  v16 = [v10 addObject:v15];
+  if (ARDeviceSupportsUltraWideCamera(v16, v17))
   {
-    v15 = [[ARImageDistortionCorrectionTechnique alloc] initWithImageSize:256.0, 192.0];
-    [v10 addObject:v15];
+    v18 = [[ARImageDistortionCorrectionTechnique alloc] initWithImageSize:256.0, 192.0];
+    [v10 addObject:v18];
   }
 
-  v16 = [ARParentTechnique alloc];
-  v17 = [[ARSISemanticSegmentationTechnique alloc] initLegacyAlgorithmUsingSynchronizedUltrawideWhenAvailable:a4];
-  v30 = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-  v19 = [(ARParentTechnique *)v16 initWithParallelTechniques:v18];
+  v19 = [ARParentTechnique alloc];
+  v20 = [[ARSISemanticSegmentationTechnique alloc] initLegacyAlgorithmUsingSynchronizedUltrawideWhenAvailable:a4];
+  v35 = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v22 = [(ARParentTechnique *)v19 initWithParallelTechniques:v21];
 
-  [v10 addObject:v19];
-  v20 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v28];
-  v21 = [[ARParentTechnique alloc] initWithTechniques:v10 delegate:v20];
-  v29 = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-  [v26 setSplitTechniques:v22];
+  [v10 addObject:v22];
+  v23 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v33];
+  v24 = [[ARParentTechnique alloc] initWithTechniques:v10 delegate:v23];
+  v34 = v24;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  [v31 setSplitTechniques:v25];
 
-  if (ARDeviceSupportsUltraWideCamera() && a4)
+  if (ARDeviceSupportsUltraWideCamera(v26, v27) && a4)
   {
-    v23 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a3];
+    v28 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a3];
   }
 
   else
   {
-    v23 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
+    v28 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
   }
 
-  v24 = v23;
-  [v26 setSplitTechniqueFowardingStrategy:v23];
+  v29 = v28;
+  [v31 setSplitTechniqueFowardingStrategy:v28];
 
-  [v27 insertObject:v20 atIndex:0];
+  [v32 insertObject:v23 atIndex:0];
 }
 
 void __ARAddNonJasperSemanticsToParent_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -8593,7 +8584,7 @@ void __ARAddNonJasperSemanticsToParent_block_invoke(uint64_t a1, uint64_t a2, ui
 
 void ARAddJasperTechniquesToParent(void *a1, void *a2, int a3, unsigned int a4, uint64_t a5)
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   v6 = a1;
   v7 = a2;
   v8 = [MEMORY[0x1E695DF70] array];
@@ -8620,28 +8611,28 @@ LABEL_4:
 LABEL_5:
   if (a3)
   {
-    v55 = v6;
+    v60 = v6;
     v15 = MEMORY[0x1E695DFA8];
     v16 = objc_opt_class();
     v17 = objc_opt_class();
     v18 = objc_opt_class();
     v19 = objc_opt_class();
-    v54 = [v15 setWithObjects:{v16, v17, v18, v19, objc_opt_class(), 0}];
+    v59 = [v15 setWithObjects:{v16, v17, v18, v19, objc_opt_class(), 0}];
 
     [v8 removeAllObjects];
     if (v14)
     {
       v20 = [[ARMLImageDownScalingTechnique alloc] initWithSize:256.0 requiredTimeInterval:192.0, 0.002];
       v21 = [ARParentTechnique alloc];
-      v61[0] = v20;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
+      v66[0] = v20;
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
       v23 = [(ARParentTechnique *)v21 initWithTechniques:v22];
 
       [v8 addObject:v23];
       v24 = [ARDepthTechnique sceneDepthTechniqueForPrioritization:1 temporalSmoothing:a4];
       v25 = [ARParentTechnique alloc];
-      v60 = v24;
-      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v60 count:1];
+      v65 = v24;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
       v27 = [(ARParentTechnique *)v25 initWithParallelTechniques:v26];
 
       [v8 addObject:v27];
@@ -8653,73 +8644,73 @@ LABEL_5:
     }
 
     v28 = objc_opt_new();
-    [v8 addObject:v28];
-    if (ARDeviceSupportsUltraWideCamera())
+    v29 = [v8 addObject:v28];
+    if (ARDeviceSupportsUltraWideCamera(v29, v30))
     {
-      v29 = [[ARImageDistortionCorrectionTechnique alloc] initWithImageSize:256.0, 192.0];
-      [v8 addObject:v29];
+      v31 = [[ARImageDistortionCorrectionTechnique alloc] initWithImageSize:256.0, 192.0];
+      [v8 addObject:v31];
       [(ARMLImageDownScalingTechnique *)v20 setResizeUltraWideImage:1];
       [(ARMLImageDownScalingTechnique *)v20 setUltrawideRotationStrategy:&__block_literal_global_474];
     }
 
-    v30 = [ARParentTechnique alloc];
-    v31 = objc_opt_new();
-    v59 = v31;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-    v33 = [(ARParentTechnique *)v30 initWithParallelTechniques:v32];
+    v32 = [ARParentTechnique alloc];
+    v33 = objc_opt_new();
+    v64 = v33;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+    v35 = [(ARParentTechnique *)v32 initWithParallelTechniques:v34];
 
-    [v8 addObject:v33];
-    v13 = v54;
-    v6 = v55;
+    [v8 addObject:v35];
+    v13 = v59;
+    v6 = v60;
   }
 
   if (v13)
   {
     if (v14)
     {
-      v34 = v6;
+      v36 = v6;
     }
 
     else
     {
-      v34 = v10;
-    }
-
-    v35 = v34;
-    if ([v8 count])
-    {
-      v36 = [[ARParentTechnique alloc] initWithTechniques:v8];
-    }
-
-    else
-    {
-      v36 = objc_opt_new();
+      v36 = v10;
     }
 
     v37 = v36;
-    v38 = v6;
-    v39 = [v35 splitTechniques];
-    v40 = [v39 arrayByAddingObject:v37];
-    [v35 setSplitTechniques:v40];
-
-    if (ARDeviceSupportsUltraWideCamera())
+    if ([v8 count])
     {
-      v41 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
+      v38 = [[ARParentTechnique alloc] initWithTechniques:v8];
     }
 
     else
     {
-      v41 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
+      v38 = objc_opt_new();
     }
 
-    v42 = v41;
-    [v35 setSplitTechniqueFowardingStrategy:v41];
+    v39 = v38;
+    v40 = v6;
+    v41 = [v37 splitTechniques];
+    v42 = [v41 arrayByAddingObject:v39];
+    [v37 setSplitTechniques:v42];
 
-    v43 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v13];
-    [(ARTechnique *)v37 setDelegate:v43];
-    [v7 insertObject:v43 atIndex:0];
+    if (ARDeviceSupportsUltraWideCamera(v43, v44))
+    {
+      v45 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
+    }
 
-    v6 = v38;
+    else
+    {
+      v45 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
+    }
+
+    v46 = v45;
+    [v37 setSplitTechniqueFowardingStrategy:v45];
+
+    v47 = [[ARSplitTechniqueSynchronizerTechnique alloc] initWithSynchronizedResultDataClasses:v13];
+    [(ARTechnique *)v39 setDelegate:v47];
+    [v7 insertObject:v47 atIndex:0];
+
+    v6 = v40;
   }
 
   if (a3)
@@ -8727,45 +8718,45 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v44 = v10;
-      v45 = ARDeviceSupportsUltraWideCamera();
-      v46 = [v44 splitTechniqueFowardingStrategy];
-      v47 = v46;
-      if (v45)
+      v48 = v10;
+      v50 = ARDeviceSupportsUltraWideCamera(v48, v49);
+      v51 = [v48 splitTechniqueFowardingStrategy];
+      v52 = v51;
+      if (v50)
       {
-        if (!v46)
+        if (!v51)
         {
-          v48 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
+          v53 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
 LABEL_32:
-          v49 = v48;
+          v54 = v53;
 
-          [v44 setDepthTechniqueProcessingStrategy:v49];
-          v50 = [v44 splitTechniqueFowardingStrategy];
-          v51 = v50;
-          if (v50)
+          [v48 setDepthTechniqueProcessingStrategy:v54];
+          v55 = [v48 splitTechniqueFowardingStrategy];
+          v56 = v55;
+          if (v55)
           {
-            v52 = v50;
+            v57 = v55;
           }
 
           else
           {
-            v52 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
+            v57 = [[ARSyncedUltraWideForwardingStrategy alloc] initWithMaxFrameRate:a5];
           }
 
-          v53 = v52;
+          v58 = v57;
 
-          [v44 setDepthTechniqueProcessingStrategy:v53];
+          [v48 setDepthTechniqueProcessingStrategy:v58];
           goto LABEL_36;
         }
       }
 
-      else if (!v46)
+      else if (!v51)
       {
-        v48 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
+        v53 = [[ARFrameRateLimitingStrategy alloc] initWithFrameRate:10];
         goto LABEL_32;
       }
 
-      v48 = v46;
+      v53 = v51;
       goto LABEL_32;
     }
   }
@@ -8799,11 +8790,12 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_24()
   return result;
 }
 
-void sub_1C24D38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1C24D38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8814,16 +8806,16 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _ARLogGeneral_12()
+id _ARLogGeneral_12(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_13 != -1)
   {
     _ARLogGeneral_cold_1_12();
   }
 
-  v1 = _ARLogGeneral_logObj_13;
+  v2 = _ARLogGeneral_logObj_13;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_25()
@@ -8833,11 +8825,11 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_25()
   return result;
 }
 
-void sub_1C24D67AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C24D67AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8848,24 +8840,25 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _ARLogGeneral_13()
+id _ARLogGeneral_13(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_14 != -1)
   {
     _ARLogGeneral_cold_1_13();
   }
 
-  v1 = _ARLogGeneral_logObj_14;
+  v2 = _ARLogGeneral_logObj_14;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C24D713C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1C24D713C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8876,28 +8869,28 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_26()
   return result;
 }
 
-id _ARLogSensor_8()
+id _ARLogSensor_8(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_12 != -1)
   {
     _ARLogSensor_cold_1_8();
   }
 
-  v1 = _ARLogSensor_logObj_12;
+  v2 = _ARLogSensor_logObj_12;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogGeneral_14()
+id _ARLogGeneral_14(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_15 != -1)
   {
     _ARLogGeneral_cold_1_14();
   }
 
-  v1 = _ARLogGeneral_logObj_15;
+  v2 = _ARLogGeneral_logObj_15;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_27()
@@ -8907,28 +8900,28 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_27()
   return result;
 }
 
-id _ARLogGeneral_15()
+id _ARLogGeneral_15(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_16 != -1)
   {
     _ARLogGeneral_cold_1_15();
   }
 
-  v1 = _ARLogGeneral_logObj_16;
+  v2 = _ARLogGeneral_logObj_16;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSensor_9()
+id _ARLogSensor_9(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_13 != -1)
   {
     _ARLogSensor_cold_1_9();
   }
 
-  v1 = _ARLogSensor_logObj_13;
+  v2 = _ARLogSensor_logObj_13;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_28()
@@ -8948,20 +8941,20 @@ void sub_1C24E28E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -9630,17 +9623,17 @@ LABEL_20:
   return v15;
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C24E45F4(_Unwind_Exception *exception_object)

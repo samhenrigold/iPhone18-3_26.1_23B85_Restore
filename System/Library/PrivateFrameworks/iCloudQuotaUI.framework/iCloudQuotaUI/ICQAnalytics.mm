@@ -15,7 +15,10 @@
 
 + (void)logInAppBannerImpressionWithAppIdentifier:(id)identifier
 {
-  _s13iCloudQuotaUI9AnalyticsC3logyyAC5EventVFZ_0();
+  v3[0] = 0xD000000000000017;
+  v3[1] = 0x80000002757B9620;
+  memset(&v3[2], 0, 24);
+  _s13iCloudQuotaUI9AnalyticsC3logyyAC5EventVFZ_0(v3);
 }
 
 - (ICQAnalytics)init
@@ -96,7 +99,10 @@
 
 + (void)logInAppBannerViewWithAppIdentifier:(id)identifier
 {
-  _s13iCloudQuotaUI9AnalyticsC3logyyAC5EventVFZ_0();
+  v3[0] = 0xD000000000000011;
+  v3[1] = 0x80000002757B9640;
+  memset(&v3[2], 0, 24);
+  _s13iCloudQuotaUI9AnalyticsC3logyyAC5EventVFZ_0(v3);
 }
 
 @end

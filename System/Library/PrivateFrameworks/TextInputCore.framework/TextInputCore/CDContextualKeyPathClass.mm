@@ -15,7 +15,7 @@ Class __get_CDContextualKeyPathClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "_CDContextualKeyPath");
     return __get_CDClientContextClass_block_invoke(v3);
   }
 

@@ -133,22 +133,23 @@
     v10 = objc_autoreleasePoolPush();
     v11 = v7;
     apple::aiml::flatbuffers2::FlatBufferBuilder::Finish([self fbb], objc_msgSend(v11, "unsignedIntValue"), "RECA", 0);
-    BufferPointer = apple::aiml::flatbuffers2::FlatBufferBuilder::GetBufferPointer([self fbb]);
-    v13 = [self fbb];
-    v14 = v13[8];
-    v15 = v13[12];
-    v16 = v13[10];
-    apple::aiml::flatbuffers2::FlatBufferBuilder::Release([self fbb], v22);
-    apple::aiml::flatbuffers2::DetachedBuffer::~DetachedBuffer(v22);
-    v21 = 0;
-    v9 = [self finalizeWithSelector:a2 allocatorBufferAddr:BufferPointer size:(v14 - v15 + v16) error:&v21];
-    v17 = v21;
+    v12 = [self fbb];
+    BufferPointer = apple::aiml::flatbuffers2::FlatBufferBuilder::GetBufferPointer(v12, v13);
+    v15 = [self fbb];
+    v16 = v15[8];
+    v17 = v15[12];
+    v18 = v15[10];
+    apple::aiml::flatbuffers2::FlatBufferBuilder::Release([self fbb], v24);
+    apple::aiml::flatbuffers2::DetachedBuffer::~DetachedBuffer(v24);
+    v23 = 0;
+    v9 = [self finalizeWithSelector:a2 allocatorBufferAddr:BufferPointer size:(v16 - v17 + v18) error:&v23];
+    v19 = v23;
 
     objc_autoreleasePoolPop(v10);
     if (a4)
     {
-      v18 = v17;
-      *a4 = v17;
+      v20 = v19;
+      *a4 = v19;
     }
   }
 

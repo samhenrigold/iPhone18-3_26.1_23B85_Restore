@@ -260,7 +260,7 @@
           }
 
           v18 = v11;
-          if (sub_100008CFC(v3, v17 - 4, 608135816) != *(v3 + v17 - 4))
+          if (sub_100008CFC(v3, v17 - 4, 0x243F6A88u) != *(v3 + v17 - 4))
           {
             v34 = logForCSLogCategoryDefault();
             v10 = v41;

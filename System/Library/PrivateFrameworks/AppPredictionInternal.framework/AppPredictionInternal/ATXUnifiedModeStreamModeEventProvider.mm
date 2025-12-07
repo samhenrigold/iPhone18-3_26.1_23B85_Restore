@@ -41,7 +41,7 @@ BOOL __68__ATXUnifiedModeStreamModeEventProvider_biomePublisherWithBookmark___bl
 
 - (id)aggregationEventsFromEvent:(id)event
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([(ATXUnifiedModeStreamModeEventProvider *)self isEventFromProvider:eventCopy])
   {
@@ -53,8 +53,8 @@ BOOL __68__ATXUnifiedModeStreamModeEventProvider_biomePublisherWithBookmark___bl
       endDate = [v5 endDate];
       v9 = [(ATXModeEvent *)v6 initWithStartDate:startDate endDate:endDate];
 
-      v13[0] = v9;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      v12[0] = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     }
 
     else
@@ -67,8 +67,6 @@ BOOL __68__ATXUnifiedModeStreamModeEventProvider_biomePublisherWithBookmark___bl
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

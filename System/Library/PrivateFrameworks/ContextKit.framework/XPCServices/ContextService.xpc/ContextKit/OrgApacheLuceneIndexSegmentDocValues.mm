@@ -16,14 +16,14 @@
     goto LABEL_6;
   }
 
-  v12 = [(JavaUtilMap *)genDVProducers getWithId:JavaLangLong_valueOfWithLong_(long)];
-  v13 = v12;
-  if (!v12)
+  v13 = [(JavaUtilMap *)genDVProducers getWithId:JavaLangLong_valueOfWithLong_(long, v11)];
+  v15 = v13;
+  if (!v13)
   {
-    v14 = JavaLangLong_valueOfWithLong_(long);
-    v13 = sub_10001D23C(self, info, directory, v14, infos);
-    [(JavaUtilMap *)self->genDVProducers_ putWithId:JavaLangLong_valueOfWithLong_(long) withId:v13];
-    if (v13)
+    v16 = JavaLangLong_valueOfWithLong_(long, v14);
+    v15 = sub_10001D23C(self, info, directory, v16, infos);
+    [(JavaUtilMap *)self->genDVProducers_ putWithId:JavaLangLong_valueOfWithLong_(long withId:v17), v15];
+    if (v15)
     {
       goto LABEL_5;
     }
@@ -32,11 +32,11 @@ LABEL_6:
     JreThrowNullPointerException();
   }
 
-  [(OrgApacheLuceneUtilRefCount *)v12 incRef];
+  [(OrgApacheLuceneUtilRefCount *)v13 incRef];
 LABEL_5:
-  v15 = [(OrgApacheLuceneUtilRefCount *)v13 get];
+  v18 = [(OrgApacheLuceneUtilRefCount *)v15 get];
   objc_sync_exit(self);
-  return v15;
+  return v18;
 }
 
 - (void)decRefWithJavaUtilList:(id)list

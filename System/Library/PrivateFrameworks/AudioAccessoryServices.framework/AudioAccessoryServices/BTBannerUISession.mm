@@ -40,7 +40,7 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __29__BTBannerUISession_activate__block_invoke(uint64_t result)
+void *__29__BTBannerUISession_activate__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_BTBannerUISession <= 50)
@@ -51,11 +51,11 @@ uint64_t __29__BTBannerUISession_activate__block_invoke(uint64_t result)
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = v1[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     *(v2 + 8) = 1;
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _activate];
   }
@@ -312,11 +312,10 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
 
     else
     {
-      v15 = *MEMORY[0x277CCA590];
-      v6 = NSErrorF();
+      v6 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "XPC event error");
     }
 
-    v16 = v6;
+    v15 = v6;
 
     if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
     {
@@ -329,7 +328,7 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_4();
+    OUTLINED_FUNCTION_1_4(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendMessage]");
   }
 }
 
@@ -381,14 +380,14 @@ void __31__BTBannerUISession_invalidate__block_invoke(uint64_t a1)
         [BTBannerUISession _xpcConnectionMessage:];
       }
 
-      v15 = MEMORY[0x245CE9060](self->_actionHandler);
-      v7 = v15;
-      if (!v15)
+      v13 = MEMORY[0x245CE9060](self->_actionHandler);
+      v7 = v13;
+      if (!v13)
       {
         goto LABEL_32;
       }
 
-      v8 = *(v15 + 16);
+      v8 = *(v13 + 16);
     }
 
     else
@@ -453,9 +452,8 @@ LABEL_31:
       goto LABEL_33;
     }
 
-    v12 = *MEMORY[0x277CCA590];
-    v13 = NSErrorF();
-    [(BTBannerUISession *)self _xpcSendReplyError:v13 request:messageCopy, 0];
+    v12 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "Unknown message type: %lld", 0);
+    [(BTBannerUISession *)self _xpcSendReplyError:v12 request:messageCopy];
   }
 
 LABEL_21:
@@ -468,10 +466,8 @@ LABEL_21:
   v11 = messageCopy;
   if (v10)
   {
-    v14 = *MEMORY[0x277CCA590];
-    v16 = v5;
-    v7 = NSErrorF();
-    [(BTBannerUISession *)self _xpcSendReplyError:v7 request:messageCopy, v16];
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960561, "Unknown message type: %lld", v5);
+    [(BTBannerUISession *)self _xpcSendReplyError:v7 request:messageCopy];
 LABEL_32:
 
     v11 = messageCopy;
@@ -512,7 +508,7 @@ LABEL_33:
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_4();
+    OUTLINED_FUNCTION_1_4(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendReplyError:request:]");
   }
 }
 
@@ -520,7 +516,7 @@ LABEL_33:
 {
   if (gLogCategory_BTBannerUISession <= 90 && (gLogCategory_BTBannerUISession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_4();
+    OUTLINED_FUNCTION_1_4(&gLogCategory_BTBannerUISession, "[BTBannerUISession _xpcSendReplyError:request:]");
   }
 }
 

@@ -105,38 +105,39 @@
       [v8 addObject:?];
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v10 = self->_children;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * v14);
-          if (objc_opt_respondsToSelector())
+          v15 = *(*(&v18 + 1) + 8 * v14);
+          v16 = objc_opt_respondsToSelector();
+          if (v16)
           {
             [v15 appendObjectsWithProtocol:&OBJC_PROTOCOL___TUIImageModel toArray:v8];
           }
 
           else
           {
-            v16 = TUIDefaultLog();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v17 = TUIDefaultLog(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              sub_19BBB0(v21, v15, &v22, v16);
+              sub_19BBB0(v22, v15, &v23, v17);
             }
           }
 
@@ -144,7 +145,7 @@
         }
 
         while (v12 != v14);
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v12);

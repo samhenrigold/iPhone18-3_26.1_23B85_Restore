@@ -289,18 +289,16 @@ uint64_t __61__ERAttentionAwarenessClient__pollForDistanceWithCompletion___block
 
 id __70__ERAttentionAwarenessClient_reportAnalyticsFaceDetectAttentionEvent___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"aw_distance";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"aw_distance";
   v2 = MEMORY[0x277CCABB0];
   [*(a1 + 32) distance];
   v4 = [v2 numberWithDouble:v3 * 0.1];
-  v9[1] = @"aw_face_state";
-  v10[0] = v4;
+  v8[1] = @"aw_face_state";
+  v9[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(a1 + 32), "faceState")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }

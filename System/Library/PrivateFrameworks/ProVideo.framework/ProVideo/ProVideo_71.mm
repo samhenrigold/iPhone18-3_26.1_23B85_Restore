@@ -1,47 +1,3 @@
-void LiGroup::removeChild(LiGroup *this@<X0>, int a2@<W1>, PCSharedCount *a3@<X8>)
-{
-  LODWORD(v3) = a2;
-  if (a2 < 0 || *(this + 145) <= a2)
-  {
-    PCArray_base::badIndex(this);
-  }
-
-  v5 = (*(this + 73) + 16 * a2);
-  a3->var0 = v5->var0;
-  PCSharedCount::PCSharedCount(a3 + 1, v5 + 1);
-  LODWORD(v6) = *(this + 145) - 1;
-  if (v6 > v3)
-  {
-    v3 = v3;
-    v7 = 16 * v3;
-    do
-    {
-      v8 = *(this + 73) + v7;
-      *v8 = *(v8 + 16);
-      PCSharedCount::PCSharedCount(&v10, (v8 + 24));
-      PCSharedCount::operator=((v8 + 8), &v10);
-      ++v3;
-      PCSharedCount::~PCSharedCount(&v10);
-      v6 = *(this + 145) - 1;
-      v7 += 16;
-    }
-
-    while (v3 < v6);
-  }
-
-  if (*(this + 144) < v6)
-  {
-    v9 = 2 * v6 + 1;
-  }
-
-  else
-  {
-    v9 = *(this + 144);
-  }
-
-  PCArray<PCPtr<LiImageFilter>,PCArray_Traits<PCPtr<LiImageFilter>>>::resize(this + 568, v6, v9);
-}
-
 void LiGroup::removeChild(LiGroup *this, LiSceneObject *a2)
 {
   v3 = a2;
@@ -114,19 +70,19 @@ uint64_t PCArray<PCPtr<LiSceneObject>,PCArray_Traits<PCPtr<LiSceneObject>>>::rem
   return v6;
 }
 
-double LiGroup::viewProjectionTransform@<D0>(LiGroup *this@<X0>, uint64_t a2@<X8>)
+double LiGroup::viewProjectionTransform@<D0>(uint64_t *__return_ptr a1@<X8>, LiGroup *this@<X0>)
 {
-  *(a2 + 120) = 0x3FF0000000000000;
-  *(a2 + 80) = 0x3FF0000000000000;
-  *(a2 + 40) = 0x3FF0000000000000;
-  *a2 = 0x3FF0000000000000;
-  *(a2 + 8) = 0u;
-  *(a2 + 24) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 88) = 0u;
-  *(a2 + 104) = 0u;
-  return LiGroup::viewProjectionTransform(this, a2);
+  a1[15] = 0x3FF0000000000000;
+  a1[10] = 0x3FF0000000000000;
+  a1[5] = 0x3FF0000000000000;
+  *a1 = 0x3FF0000000000000;
+  *(a1 + 1) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 11) = 0u;
+  *(a1 + 13) = 0u;
+  return LiGroup::viewProjectionTransform(this, a1);
 }
 
 double LiGroup::viewProjectionTransform(uint64_t a1, uint64_t a2)
@@ -1014,16 +970,16 @@ uint64_t LiLightFilter::filteredEdges(LiLightFilter *this)
   return v2();
 }
 
-uint64_t LiLightFilter::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, void *a3@<X8>)
+uint64_t *LiLightFilter::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, uint64_t *a3@<X8>)
 {
   if (!*(this + 13))
   {
-    return LiAgent::getHelium(a2, this[2], a3);
+    return LiAgent::getHelium(a3, a2, this[2]);
   }
 
-  if (LiAgent::haveROI(a2) && ((LiAgent::getROI(a2, &v7), (v7.n128_u32[2] & 0x80000000) != 0) || (v7.n128_u32[3] & 0x80000000) != 0 || !(v7.n128_u32[3] * v7.n128_u32[2])))
+  if (LiAgent::haveROI(a2) && ((LiAgent::getROI(&v7, a2), (v7.n128_u32[2] & 0x80000000) != 0) || (v7.n128_u32[3] & 0x80000000) != 0 || !(v7.n128_u32[3] * v7.n128_u32[2])))
   {
-    return LiAgent::getHelium(a2, this[2], a3);
+    return LiAgent::getHelium(a3, a2, this[2]);
   }
 
   else
@@ -1032,14 +988,14 @@ uint64_t LiLightFilter::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X
   }
 }
 
-void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a3@<X8>)
+void LiLightFilter::heRender(LiLightFilter *this@<X0>, __n128 *a2@<X1>, LiHeLightProgramSurfaceFinalPass **a3@<X8>)
 {
-  *(a2 + 8) = 2;
+  a2[2].n128_u32[0] = 2;
   LiAgent::passROI(a2);
-  LiAgent::getHelium(a2, *(this + 2), &v95);
+  LiAgent::getHelium(&v95, a2, *(this + 2));
   if (v95)
   {
-    v6 = **(a2 + 6);
+    v6 = *a2[3].n128_u64[0];
     v93 = 0u;
     v94 = 0u;
     *&v92[40] = 0x3FF0000000000000;
@@ -1156,11 +1112,11 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
       v69[2] = v75[2];
       v69[3] = v75[3];
       PCMatrix44Tmpl<double>::invert(v69, v69, 0.0);
-      LiAgent::getObjectToPixelTransform(a2, &v60);
+      LiAgent::getObjectToPixelTransform(&v60, a2);
       PCMatrix44Tmpl<double>::operator*(&v60, v69, v68);
       if (LiAgent::haveROI(a2))
       {
-        LiAgent::getROI(a2, &v59);
+        LiAgent::getROI(&v59, a2);
       }
 
       else
@@ -1181,7 +1137,7 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
       v62 = *(this + 504);
       v63 = v30;
       PCMatrix44Tmpl<double>::operator*(&v86, (this + 600), v58);
-      v31 = *(a2 + 20);
+      v31 = a2[10].n128_i64[0];
       LiAgent::getFilmToImageTransform(a2, v56);
       PCMatrix44Tmpl<double>::operator*(v31, v56, v57);
       if (*(this + 13) >= 1)
@@ -1190,7 +1146,7 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
         v33 = 0;
         do
         {
-          LiLight::mapShadows(*(this + 7) + v32, this + 600);
+          LiLight::mapShadows(*(this + 7) + v32, this + 75);
           ++v33;
           v32 += 944;
         }
@@ -1220,7 +1176,7 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
       PCMatrix44Tmpl<double>::operator*(this + 600, &v60, v55);
       LiAgent::getPixelToObjectTransform(a2, &v40);
       PCMatrix44Tmpl<double>::operator*(v55, &v40, v56);
-      LiLightFilter::genObjectToScreenBlurMap(**(a2 + 6), (this + 344), v58, v57, v55);
+      LiLightFilter::genObjectToScreenBlurMap(*a2[3].n128_u64[0], (this + 344), v58, v57, v55);
       v38 = (*(*v6 + 576))(v6);
       *&v40 = v95;
       if (v95)
@@ -1243,7 +1199,7 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
       v52 = v26;
       v53 = v38;
       v54 = 0x3FF0000000000000;
-      LiLightSet::getHeliumGraph(this + 40, &v40);
+      LiLightSet::getHeliumGraph((this + 40), &v40, a3);
       PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(&v40);
       if (v95)
       {
@@ -1258,14 +1214,14 @@ void LiLightFilter::heRender(LiLightFilter *this@<X0>, LiAgent *a2@<X1>, void *a
   }
 }
 
-void sub_25FF950F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FF950F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(va);
-  v7 = *(v5 - 88);
-  if (v7)
+  v11 = *(v9 - 88);
+  if (v11)
   {
-    (*(*v7 + 24))(v7);
+    (*(*v11 + 24))(v11);
   }
 
   _Unwind_Resume(a1);
@@ -1309,10 +1265,17 @@ void LiLightFilter::genObjectToScreenBlurMap(uint64_t a1@<X1>, __int128 *a2@<X2>
     v17 = fmin(v17, -20.0);
   }
 
-  LiCamera::localToFilmMatrix(v18, v13);
+  LiCamera::localToFilmMatrix(v13, v18);
   PCMatrix44Tmpl<double>::operator*(a4, v13, &v14);
   PCMatrix44Tmpl<double>::operator*(&v14, v16, a5);
   LiSimpleCamera::~LiSimpleCamera(v18, v12);
+}
+
+void sub_25FF95318(_Unwind_Exception *a1, const PCString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
+{
+  va_start(va, a57);
+  LiSimpleCamera::~LiSimpleCamera(va, a2);
+  _Unwind_Resume(a1);
 }
 
 double PCMatrix33Tmpl<double>::transformNormal<double>@<D0>(uint64_t a1@<X0>, double *a2@<X1>, float64x2_t *a3@<X8>, double a4@<D2>, int64x2_t a5@<Q3>)
@@ -1418,10 +1381,10 @@ void LiNodeDrawer::draw(LiNodeDrawer *this, LiBlender *a2)
   LiImagePolygon::~LiImagePolygon(v9);
 }
 
-void sub_25FF957CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF957CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  PCSharedCount::~PCSharedCount(v3 + 1);
+  va_start(va, a5);
+  PCSharedCount::~PCSharedCount(v5 + 1);
   LiImagePolygon::~LiImagePolygon(va);
   _Unwind_Resume(a1);
 }
@@ -1440,24 +1403,24 @@ uint64_t LiNodeDrawer::isPlanar(LiNodeDrawer *this)
   }
 }
 
-void LiNodeDrawer::setPlane(float64x2_t *this, float64x2_t *a2)
+void LiNodeDrawer::setPlane(LiNodeDrawer *a1, _OWORD *a2)
 {
   v2 = a2[1];
-  this[10] = *a2;
-  this[11] = v2;
-  LiNodeDrawer::projectBoundsToPlane(this);
+  *(a1 + 10) = *a2;
+  *(a1 + 11) = v2;
+  LiNodeDrawer::projectBoundsToPlane(a1);
 }
 
-void LiNodeDrawer::projectBoundsToPlane(float64x2_t *this)
+void LiNodeDrawer::projectBoundsToPlane(LiNodeDrawer *this)
 {
-  if ((*(*&this->f64[0] + 40))(this))
+  if ((*(*this + 40))(this))
   {
-    if (((*&this[8].f64[0] - *&this[7].f64[1]) & 0x1FFFFFFFE0) != 0)
+    if (((*(this + 16) - *(this + 15)) & 0x1FFFFFFFE0) != 0)
     {
       v2[0] = 0.0;
       v2[1] = 0.0;
       v2[2] = 1.0;
-      LiPolygon::projectToPlane(&this[3].f64[1], this + 10, v2);
+      LiPolygon::projectToPlane(this + 7, this + 10, v2);
     }
   }
 }
@@ -1821,7 +1784,7 @@ BOOL PCVector4<double>::normalize(float64x2_t *a1, double a2)
   return v7;
 }
 
-void LiPlanarGroupSet::LiPlanarGroupSet(void *a1)
+void LiPlanarGroupSet::LiPlanarGroupSet(void *a1, _OWORD *a2, uint64_t a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1950,15 +1913,15 @@ void LiPlanarGroupSet::~LiPlanarGroupSet(LiPlanarGroupSet *this)
   *(this + 2) = 0;
 }
 
-unsigned int *PCPtrArray<LiPlanarGroup>::deleteAll(unsigned int *result)
+PCArray_base *PCPtrArray<LiPlanarGroup>::deleteAll(PCArray_base *result)
 {
   v1 = result;
-  v2 = result[3];
+  v2 = *(result + 3);
   if (v2 >= 1)
   {
     for (i = 0; i != v2; ++i)
     {
-      if (i >= v1[3])
+      if (i >= *(v1 + 3))
       {
         PCArray_base::badIndex(result);
       }
@@ -2022,7 +1985,7 @@ unsigned int *PCPtrArray<LiPlanarGroup>::deleteAll(unsigned int *result)
         result = MEMORY[0x2666E9F00](v4, 0x1080C402A14C379);
       }
 
-      if (i >= v1[3])
+      if (i >= *(v1 + 3))
       {
         PCArray_base::badIndex(result);
       }
@@ -2031,7 +1994,7 @@ unsigned int *PCPtrArray<LiPlanarGroup>::deleteAll(unsigned int *result)
     }
   }
 
-  v11 = v1[2];
+  v11 = *(v1 + 2);
   if (v11 < 0)
   {
     v12 = 1;
@@ -2044,7 +2007,7 @@ unsigned int *PCPtrArray<LiPlanarGroup>::deleteAll(unsigned int *result)
 
   if (v12 == v11)
   {
-    v13 = v1[3];
+    v13 = *(v1 + 3);
     if ((v13 & 0x80000000) != 0)
     {
       do
@@ -2073,8 +2036,8 @@ unsigned int *PCPtrArray<LiPlanarGroup>::deleteAll(unsigned int *result)
     *(v1 + 2) = 0;
   }
 
-  v1[2] = v12;
-  v1[3] = 0;
+  *(v1 + 2) = v12;
+  *(v1 + 3) = 0;
   return result;
 }
 
@@ -2093,7 +2056,7 @@ void LiPlanarGroupSet::transform(_BOOL8 this, const LiPlaneTransform *a2)
 
       v5 = v3 - 1;
       v6 = *(*(v2 + 16) + 8 * v3 - 8);
-      LiPlaneTransform::operator()(a2, v6->f64, v6);
+      LiPlaneTransform::operator()(a2, v6->f64, v6->f64);
       this = LiPlanarGroup::normalize(v6);
       v3 = v5;
     }
@@ -2548,34 +2511,34 @@ LABEL_31:
   return result;
 }
 
-void sub_25FF96D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FF96D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   PCPtrArray<LiPlanarGroup>::~PCPtrArray(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *LiPlanarGroupSet::gatherDrawers(unsigned int *result, uint64_t a2, uint64_t a3)
+PCArray_base *LiPlanarGroupSet::gatherDrawers(PCArray_base *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = result[3];
-  if (v3 >= 1)
+  v4 = *(result + 3);
+  if (v4 >= 1)
   {
-    v6 = result;
-    v7 = 0;
+    v7 = result;
+    v8 = 0;
     while (1)
     {
-      if (v7 >= v6[3])
+      if (v8 >= *(v7 + 3))
       {
         PCArray_base::badIndex(result);
       }
 
-      v8 = *(*(v6 + 2) + 8 * v7);
-      v9 = *(v8 + 44);
-      v10 = *(v8 + 16);
-      v15[0] = *v8;
-      v15[1] = v10;
-      result = PCPlaneType(v15);
-      v11 = a3;
+      v9 = *(*(v7 + 2) + 8 * v8);
+      v10 = *(v9 + 44);
+      v11 = *(v9 + 16);
+      v16[0] = *v9;
+      v16[1] = v11;
+      result = PCPlaneType(v16);
+      v12 = a3;
       if (!result)
       {
         goto LABEL_8;
@@ -2587,40 +2550,40 @@ unsigned int *LiPlanarGroupSet::gatherDrawers(unsigned int *result, uint64_t a2,
       }
 
 LABEL_18:
-      if (v3 == ++v7)
+      if (v4 == ++v8)
       {
         return result;
       }
     }
 
-    v11 = a2;
+    v12 = a2;
 LABEL_8:
-    if (v9)
+    if (v10)
     {
-      if (v9 != 1)
+      if (v10 != 1)
       {
         operator new();
       }
 
-      if (*(v8 + 44) <= 0)
+      if (*(v9 + 44) <= 0)
       {
         PCArray_base::badIndex(result);
       }
 
-      v12 = **(v8 + 48);
-      v13 = *(v11 + 12);
-      if (*(v11 + 8) <= v13)
+      v13 = **(v9 + 48);
+      v14 = *(v12 + 12);
+      if (*(v12 + 8) <= v14)
       {
-        v14 = 2 * (v13 + 1) + 1;
+        v15 = 2 * (v14 + 1) + 1;
       }
 
       else
       {
-        v14 = *(v11 + 8);
+        v15 = *(v12 + 8);
       }
 
-      result = PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(v11, v13 + 1, v14);
-      *(*(v11 + 16) + 8 * *(v11 + 12) - 8) = v12;
+      result = PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(v12, v14 + 1, v15);
+      *(*(v12 + 16) + 8 * *(v12 + 12) - 8) = v13;
     }
 
     goto LABEL_18;
@@ -2661,9 +2624,8 @@ void LiPlanarGroupHerd::~LiPlanarGroupHerd(LiPlanarGroupHerd *this)
   std::deque<unsigned long>::~deque[abi:ne200100](this);
 }
 
-void *std::deque<LiPlanarGroupSet *>::push_back(void *result, void *a2)
+void std::deque<LiPlanarGroupSet *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -2680,15 +2642,14 @@ void *std::deque<LiPlanarGroupSet *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<LiPlanarGroupSet *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<LiPlanarGroupSet *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 uint64_t LiPlanarGroupHerd::condense(int64x2_t *this)
@@ -2756,19 +2717,18 @@ LABEL_11:
   return v7;
 }
 
-const void **std::deque<LiPlanarGroupSet *>::push_front(const void **result, void *a2)
+void std::deque<LiPlanarGroupSet *>::push_front(uint64_t result, void *a2)
 {
-  v3 = result;
-  v4 = result[4];
+  v4 = *(result + 32);
   if (!v4)
   {
-    result = std::deque<LiPlanarGroupSet *>::__add_front_capacity(result);
-    v4 = v3[4];
+    std::deque<LiPlanarGroupSet *>::__add_front_capacity(result);
+    v4 = *(result + 32);
   }
 
-  v5 = v3[1];
-  v6 = &v5[8 * (v4 >> 9)];
-  if (v3[2] == v5)
+  v5 = *(result + 8);
+  v6 = (v5 + 8 * (v4 >> 9));
+  if (*(result + 16) == v5)
   {
     v7 = 0;
   }
@@ -2784,10 +2744,9 @@ const void **std::deque<LiPlanarGroupSet *>::push_front(const void **result, voi
   }
 
   *(v7 - 8) = *a2;
-  v8 = v3[5] + 1;
-  v3[4] = (v4 - 1);
-  v3[5] = v8;
-  return result;
+  v8 = *(result + 40) + 1;
+  *(result + 32) = v4 - 1;
+  *(result + 40) = v8;
 }
 
 void PCPtrArray<LiPlanarGroup>::~PCPtrArray(uint64_t a1)
@@ -2848,19 +2807,19 @@ void PCPtrArray<LiPlanarGroup>::~PCPtrArray(uint64_t a1)
   JUMPOUT(0x2666E9F00);
 }
 
-void *std::deque<LiPlanarGroupSet *>::__add_back_capacity(void *a1)
+void std::deque<LiPlanarGroupSet *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2868,25 +2827,25 @@ void *std::deque<LiPlanarGroupSet *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(a1, &v9);
 }
 
 void sub_25FF975C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2900,10 +2859,10 @@ void sub_25FF975C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::deque<LiPlanarGroupSet *>::__add_front_capacity(uint64_t a1)
+void std::deque<LiPlanarGroupSet *>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -2915,15 +2874,15 @@ const void **std::deque<LiPlanarGroupSet *>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -2931,24 +2890,24 @@ const void **std::deque<LiPlanarGroupSet *>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **>(a1, v11);
+  a1[4] = (v5 + 512);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **>(a1, v10);
 }
 
 void sub_25FF9780C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -3148,7 +3107,7 @@ double LiInterval<double>::closest(double *a1, double *a2)
   return result;
 }
 
-uint64_t LiChannelT<LiDrawer *>::append(uint64_t a1, void *a2)
+void *LiChannelT<LiDrawer *>::append(uint64_t a1, void *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -3205,7 +3164,7 @@ uint64_t LiChannelT<LiDrawer *>::append(uint64_t a1, void *a2)
   }
 
   *(a1 + 8) = v6;
-  return v6 - 8;
+  return (v6 - 8);
 }
 
 void LiPlaneSplit::LiPlaneSplit(LiPlaneSplit *this)
@@ -3252,70 +3211,70 @@ void LiPlaneSplit::compute(LiPlaneSplit *this)
   if (!v2)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(v59, "_pivot");
-    PCException::PCException(exception, v59);
+    PCString::PCString(v40, "_pivot");
+    PCException::PCException(exception, v40);
     *exception = &unk_2872DE188;
   }
 
   if (!*(this + 2))
   {
-    v44 = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(v59, "_target");
-    PCException::PCException(v44, v59);
-    *v44 = &unk_2872DE188;
+    v36 = __cxa_allocate_exception(0x40uLL);
+    PCString::PCString(v40, "_target");
+    PCException::PCException(v36, v40);
+    *v36 = &unk_2872DE188;
   }
 
   if (((*(*v2 + 40))(v2) & 1) == 0)
   {
-    v45 = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(v59, "no pivot plane");
-    PCException::PCException(v45, v59);
-    *v45 = &unk_2872DE188;
+    v37 = __cxa_allocate_exception(0x40uLL);
+    PCString::PCString(v40, "no pivot plane");
+    PCException::PCException(v37, v40);
+    *v37 = &unk_2872DE188;
   }
 
-  v75 = 0.0;
-  v76 = 0.0;
-  v77 = 0.0;
-  v72 = 0.0;
-  v73 = 0.0;
-  v74 = 0.0;
-  v70 = 0;
-  v71 = 0;
-  v66 = 0;
-  v67 = 0;
-  v68 = 0;
-  v69 = 0;
+  v56 = 0.0;
+  v57 = 0.0;
+  v58 = 0.0;
+  v53 = 0.0;
+  v54 = 0.0;
+  v55 = 0.0;
+  v51 = 0;
+  v52 = 0;
+  v47 = 0;
+  v48 = 0;
+  v49 = 0;
+  v50 = 0;
   v3 = (*(**(this + 1) + 32))(*(this + 1));
   v4 = (*(**(this + 2) + 32))(*(this + 2));
-  (*(**(this + 1) + 48))(&v63);
-  (*(**(this + 2) + 48))(&v60);
-  memset(v59, 0, sizeof(v59));
-  memset(v58, 0, sizeof(v58));
-  v5 = vaddvq_f64(vmulq_f64(v63, v63)) + v64 * v64;
+  (*(**(this + 1) + 48))(&v44);
+  (*(**(this + 2) + 48))(&v41);
+  memset(v40, 0, sizeof(v40));
+  memset(v39, 0, sizeof(v39));
+  v5 = vaddvq_f64(vmulq_f64(v44, v44)) + v45 * v45;
   if (fabs(v5) >= 1.0e-24)
   {
-    *(&v59[1] + 8) = v63;
-    *(&v59[2] + 1) = v64;
-    v59[0] = vdivq_f64(vmulq_n_f64(v63, -v65), vdupq_lane_s64(*&v5, 0));
-    *&v59[1] = -(v65 * v64) / v5;
+    *(&v40[1] + 8) = v44;
+    *(&v40[2] + 1) = v45;
+    v40[0] = vdivq_f64(vmulq_n_f64(v44, -v46), vdupq_lane_s64(*&v5, 0));
+    *&v40[1] = -(v46 * v45) / v5;
   }
 
-  v6 = vaddvq_f64(vmulq_f64(v60, v60)) + v61 * v61;
+  v6 = vaddvq_f64(vmulq_f64(v41, v41)) + v42 * v42;
   if (fabs(v6) >= 1.0e-24)
   {
-    *(&v58[1] + 8) = v60;
-    *(&v58[2] + 1) = v61;
-    v58[0] = vdivq_f64(vmulq_n_f64(v60, -v62), vdupq_lane_s64(*&v6, 0));
-    *&v58[1] = -(v62 * v61) / v6;
+    *(&v39[1] + 8) = v41;
+    *(&v39[2] + 1) = v42;
+    v39[0] = vdivq_f64(vmulq_n_f64(v41, -v43), vdupq_lane_s64(*&v6, 0));
+    *&v39[1] = -(v43 * v42) / v6;
   }
 
   *(this + 32) = 0;
-  if (PCPlane<double>::operator==(v58, v59))
+  if (PCPlane<double>::operator==(v39, v40))
   {
     goto LABEL_9;
   }
 
-  *(this + 32) = liPolygonPlaneSplit(v4 + 88, &v63, &v75, &v72, &v69, &v66, 0, this + 28, 0.1);
+  *(this + 32) = liPolygonPlaneSplit();
   v7 = *(this + 7);
   if (*(this + 25) == 1)
   {
@@ -3330,211 +3289,177 @@ void LiPlaneSplit::compute(LiPlaneSplit *this)
 
   if (v7 == 3)
   {
-    if (!planeIntersection<double>(v58, &v58[1] + 8, v59, &v59[1] + 8, this + 5, this + 4))
+    if (!planeIntersection<double>(v39, &v39[1] + 8, v40, &v40[1] + 8, this + 5, this + 4))
     {
       *(this + 32) = 0;
 LABEL_9:
       *(this + 7) = 2;
-      goto LABEL_57;
+      goto LABEL_53;
     }
 
-    v57 = 0uLL;
-    v10 = *(v3 + 88);
-    v9 = v3 + 88;
-    if (((v10[1] - *v10) >> 5) < 1)
+    v38 = 0uLL;
+    if (((*(*(v3 + 88) + 8) - **(v3 + 88)) >> 5) < 1)
     {
-      *(this + 32) = liClipLineToPolygon(this + 5, (v4 + 88), &v57.f64[1], v57.f64) - 1 < 3;
-      if (v57.f64[1] <= v57.f64[0])
+      *(this + 32) = liClipLineToPolygon(this + 5, (v4 + 88), &v38.f64[1], v38.f64) - 1 < 3;
+      if (v38.f64[1] <= v38.f64[0])
       {
-        v23 = v57.f64[1];
+        v15 = v38.f64[1];
       }
 
       else
       {
-        v23 = v57.f64[0];
+        v15 = v38.f64[0];
       }
 
-      if (v57.f64[1] >= v57.f64[0])
+      if (v38.f64[1] >= v38.f64[0])
       {
-        v24 = v57.f64[1];
+        v16 = v38.f64[1];
       }
 
       else
       {
-        v24 = v57.f64[0];
+        v16 = v38.f64[0];
       }
     }
 
     else
     {
-      v55 = 0uLL;
-      v56 = 0.0;
-      v53 = 0uLL;
-      v54 = 0.0;
-      v50 = 0;
-      v51 = 0;
-      v52 = 0;
-      __p = 0;
-      v48 = 0;
-      v49 = 0;
-      v46 = 0;
-      v11 = liPolygonPlaneSplit(v9, &v60, &v55, &v53, &v50, &__p, 0, &v46, 0.1);
-      *(this + 32) = v11;
-      if (v11)
+      v9 = liPolygonPlaneSplit();
+      *(this + 32) = v9;
+      if (v9)
       {
-        *&v12.f64[0] = v55;
-        v13 = (this + 56);
-        *&v14.f64[0] = v53;
-        v15.f64[0] = v54;
-        v16 = *(this + 40);
-        v17 = *(this + 4);
-        v14.f64[1] = *(&v55 + 1);
-        v12.f64[1] = *(&v53 + 1);
-        v18 = vsubq_f64(v14, v16);
-        v19 = vsubq_f64(v12, v16);
-        v15.f64[1] = v56;
-        v20 = vld1q_dup_f64(v13);
-        v21 = vmulq_f64(v19, v17);
-        v22 = vdivq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v18, v17), vextq_s8(v21, v21, 8uLL)), vmulq_n_f64(vsubq_f64(v15, v20), *(this + 10))), vdupq_lane_s64(COERCE__INT64(vaddvq_f64(vmulq_f64(v17, v17)) + *(this + 10) * *(this + 10)), 0));
-        v57 = v22;
-        if (v22.f64[1] <= v22.f64[0])
+        v10 = (this + 56);
+        v11 = *(this + 4);
+        v12 = vld1q_dup_f64(v10);
+        v13 = vmulq_f64(vsubq_f64(0, *(this + 40)), v11);
+        v14 = vdivq_f64(vaddq_f64(vaddq_f64(v13, vextq_s8(v13, v13, 8uLL)), vmulq_n_f64(vsubq_f64(0, v12), *(this + 10))), vdupq_lane_s64(COERCE__INT64(vaddvq_f64(vmulq_f64(v11, v11)) + *(this + 10) * *(this + 10)), 0));
+        v38 = v14;
+        if (v14.f64[1] <= v14.f64[0])
         {
-          v23 = v22.f64[1];
+          v15 = v14.f64[1];
         }
 
         else
         {
-          v23 = v22.f64[0];
+          v15 = v14.f64[0];
         }
 
-        if (v22.f64[1] >= v22.f64[0])
+        if (v14.f64[1] >= v14.f64[0])
         {
-          v24 = v22.f64[1];
+          v16 = v14.f64[1];
         }
 
         else
         {
-          v24 = v22.f64[0];
+          v16 = v14.f64[0];
         }
       }
 
       else
       {
-        v24 = 0.0;
-        v23 = 1.0;
-      }
-
-      if (__p)
-      {
-        v48 = __p;
-        operator delete(__p);
-      }
-
-      if (v50)
-      {
-        v51 = v50;
-        operator delete(v50);
+        v16 = 0.0;
+        v15 = 1.0;
       }
     }
 
-    v25.f64[0] = v75;
-    v26 = (this + 56);
-    v27.f64[0] = v72;
-    v28.f64[0] = v74;
-    v29 = *(this + 40);
-    v30 = *(this + 4);
-    v27.f64[1] = v76;
-    v31 = vsubq_f64(v27, v29);
-    v25.f64[1] = v73;
-    v32 = vsubq_f64(v25, v29);
-    v28.f64[1] = v77;
-    v33 = vld1q_dup_f64(v26);
-    v34 = vmulq_f64(v32, v30);
-    v35 = vdivq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v31, v30), vextq_s8(v34, v34, 8uLL)), vmulq_n_f64(vsubq_f64(v28, v33), *(this + 10))), vdupq_lane_s64(COERCE__INT64(vaddvq_f64(vmulq_f64(v30, v30)) + *(this + 10) * *(this + 10)), 0));
-    v57 = v35;
-    if (v35.f64[1] <= v35.f64[0])
+    v17.f64[0] = v56;
+    v18 = (this + 56);
+    v19.f64[0] = v53;
+    v20.f64[0] = v55;
+    v21 = *(this + 40);
+    v22 = *(this + 4);
+    v19.f64[1] = v57;
+    v23 = vsubq_f64(v19, v21);
+    v17.f64[1] = v54;
+    v24 = vsubq_f64(v17, v21);
+    v20.f64[1] = v58;
+    v25 = vld1q_dup_f64(v18);
+    v26 = vmulq_f64(v24, v22);
+    v27 = vdivq_f64(vaddq_f64(vaddq_f64(vmulq_f64(v23, v22), vextq_s8(v26, v26, 8uLL)), vmulq_n_f64(vsubq_f64(v20, v25), *(this + 10))), vdupq_lane_s64(COERCE__INT64(vaddvq_f64(vmulq_f64(v22, v22)) + *(this + 10) * *(this + 10)), 0));
+    v38 = v27;
+    if (v27.f64[1] <= v27.f64[0])
     {
-      v36 = v35.f64[1];
+      v28 = v27.f64[1];
     }
 
     else
     {
-      v36 = v35.f64[0];
+      v28 = v27.f64[0];
     }
 
-    if (v35.f64[1] >= v35.f64[0])
+    if (v27.f64[1] >= v27.f64[0])
     {
-      v35.f64[0] = v35.f64[1];
+      v27.f64[0] = v27.f64[1];
     }
 
-    if (v24 >= v23)
+    if (v16 >= v15)
     {
-      if (v35.f64[0] >= v36)
+      if (v27.f64[0] >= v28)
       {
-        if (v23 < v36)
+        if (v15 < v28)
         {
-          v23 = v36;
+          v15 = v28;
         }
 
-        if (v24 > v35.f64[0])
+        if (v16 > v27.f64[0])
         {
-          v24 = v35.f64[0];
+          v16 = v27.f64[0];
         }
       }
 
       else
       {
-        v24 = v35.f64[0];
-        v23 = v36;
+        v16 = v27.f64[0];
+        v15 = v28;
       }
     }
 
-    *(this + 11) = v23;
-    *(this + 12) = v24;
-    if (v24 < v23 || v24 - v23 < 0.100000001)
+    *(this + 11) = v15;
+    *(this + 12) = v16;
+    if (v16 < v15 || v16 - v15 < 0.100000001)
     {
       *(this + 32) = 0;
       *(this + 88) = xmmword_2603426F0;
     }
 
-    v37 = 0;
-    v38 = 1;
+    v29 = 0;
+    v30 = 1;
     do
     {
-      v39 = v38;
-      if (v38)
+      v31 = v30;
+      if (v30)
       {
-        v40 = &v66;
+        v32 = &v47;
       }
 
       else
       {
-        v40 = &v69;
+        v32 = &v50;
       }
 
-      v41 = (this + 112 * v37 + 104);
-      v42 = *(this + 1);
-      *v41 = *(this + 2);
-      v41[1] = 0;
-      LiShard::build(v41, (v4 + 88), this + 40, this + 64, v40, &v75, &v72, this + 11, v57.f64[1], v57.f64[0], 0.100000001, v42);
-      v38 = 0;
-      v37 = 1;
+      v33 = (this + 112 * v29 + 104);
+      v34 = *(this + 1);
+      *v33 = *(this + 2);
+      v33[1] = 0;
+      LiShard::build(v33, (v4 + 88), this + 40, this + 64, v32, &v56, &v53, this + 11, v38.f64[1], v38.f64[0], 0.100000001, v34);
+      v30 = 0;
+      v29 = 1;
     }
 
-    while ((v39 & 1) != 0);
+    while ((v31 & 1) != 0);
   }
 
-LABEL_57:
-  if (v66)
+LABEL_53:
+  if (v47)
   {
-    v67 = v66;
-    operator delete(v66);
+    v48 = v47;
+    operator delete(v47);
   }
 
-  if (v69)
+  if (v50)
   {
-    v70 = v69;
-    operator delete(v69);
+    v51 = v50;
+    operator delete(v50);
   }
 }
 
@@ -3571,201 +3496,201 @@ BOOL PCPlane<double>::operator==(double *a1, double *a2)
   }
 }
 
-uint64_t LiPlaneSplit::store(LiPlaneSplit *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t LiPlaneSplit::store(LiPlaneSplit *this)
 {
-  v36 = 0;
-  v37 = 0;
-  v9 = *this;
-  v34 = *(this + 1);
-  v35 = &unk_2872635B8;
-  v38 = v9;
-  v10 = *(this + 7);
-  if (v10 <= 1)
+  v29 = 0;
+  v30 = 0;
+  v2 = *this;
+  v27 = *(this + 1);
+  v28 = &unk_2872635B8;
+  v31 = v2;
+  v3 = *(this + 7);
+  if (v3 <= 1)
   {
-    if (v10 == -1)
+    if (v3 == -1)
     {
-      v26 = *(this + 85);
-      if (*(this + 84) <= v26)
+      v19 = *(this + 85);
+      if (*(this + 84) <= v19)
       {
-        v27 = 2 * (v26 + 1) + 1;
+        v20 = 2 * (v19 + 1) + 1;
       }
 
       else
       {
-        v27 = *(this + 84);
+        v20 = *(this + 84);
       }
 
-      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 328, v26 + 1, v27);
-      v13 = this + 340;
-      v14 = 344;
+      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 328, v19 + 1, v20);
+      v6 = this + 340;
+      v7 = 344;
       goto LABEL_32;
     }
 
-    if (v10 == 1)
+    if (v3 == 1)
     {
-      v11 = *(this + 91);
-      if (*(this + 90) <= v11)
+      v4 = *(this + 91);
+      if (*(this + 90) <= v4)
       {
-        v12 = 2 * (v11 + 1) + 1;
+        v5 = 2 * (v4 + 1) + 1;
       }
 
       else
       {
-        v12 = *(this + 90);
+        v5 = *(this + 90);
       }
 
-      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 352, v11 + 1, v12);
-      v13 = this + 364;
-      v14 = 368;
+      PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 352, v4 + 1, v5);
+      v6 = this + 364;
+      v7 = 368;
 LABEL_32:
-      v23 = *(this + 2);
+      v16 = *(this + 2);
 LABEL_33:
-      *(*(this + v14) + 8 * *v13 - 8) = v23;
+      *(*(this + v7) + 8 * *v6 - 8) = v16;
       goto LABEL_34;
     }
 
 LABEL_23:
-    PCPrint("File %s, line %d should not have been reached:\n\t", a2, a3, a4, a5, a6, a7, a8, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/LiPlaneSplit.cpp");
+    PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/LiPlaneSplit.cpp", 607);
     pcAbortImpl();
   }
 
-  if (v10 == 2)
+  if (v3 == 2)
   {
-    v28 = *(this + 97);
-    if (*(this + 96) <= v28)
-    {
-      v29 = 2 * (v28 + 1) + 1;
-    }
-
-    else
-    {
-      v29 = *(this + 96);
-    }
-
-    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 376, v28 + 1, v29);
-    v13 = this + 388;
-    v14 = 392;
-    goto LABEL_32;
-  }
-
-  if (v10 != 3)
-  {
-    goto LABEL_23;
-  }
-
-  HIDWORD(v36) = 0;
-  PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v35, 1, 3);
-  v15 = this + 104;
-  v16 = v36;
-  v17 = HIDWORD(v36);
-  *(v37 + 8 * SHIDWORD(v36) - 8) = this + 104;
-  if (v16 <= v17)
-  {
-    v18 = 2 * (v17 + 1) + 1;
-  }
-
-  else
-  {
-    v18 = v16;
-  }
-
-  PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v35, v17 + 1, v18);
-  *(v37 + 8 * SHIDWORD(v36) - 8) = this + 216;
-  (*(**(this + 2) + 80))(*(this + 2), &v34);
-  v19 = *(this + 25);
-  v20 = *&v15[112 * *(this + 25) + 8];
-  if (v20)
-  {
-    v21 = *(this + 85);
-    if (*(this + 84) <= v21)
+    v21 = *(this + 97);
+    if (*(this + 96) <= v21)
     {
       v22 = 2 * (v21 + 1) + 1;
     }
 
     else
     {
-      v22 = *(this + 84);
+      v22 = *(this + 96);
     }
 
-    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 328, v21 + 1, v22);
-    *(*(this + 43) + 8 * *(this + 85) - 8) = v20;
-    v19 = *(this + 25);
+    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 376, v21 + 1, v22);
+    v6 = this + 388;
+    v7 = 392;
+    goto LABEL_32;
   }
 
-  v23 = *&v15[112 * (v19 ^ 1) + 8];
-  if (v23)
+  if (v3 != 3)
   {
-    v24 = *(this + 91);
-    if (*(this + 90) <= v24)
+    goto LABEL_23;
+  }
+
+  HIDWORD(v29) = 0;
+  PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v28, 1, 3);
+  v8 = this + 104;
+  v9 = v29;
+  v10 = HIDWORD(v29);
+  *(v30 + 8 * SHIDWORD(v29) - 8) = this + 104;
+  if (v9 <= v10)
+  {
+    v11 = 2 * (v10 + 1) + 1;
+  }
+
+  else
+  {
+    v11 = v9;
+  }
+
+  PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(&v28, v10 + 1, v11);
+  *(v30 + 8 * SHIDWORD(v29) - 8) = this + 216;
+  (*(**(this + 2) + 80))(*(this + 2), &v27);
+  v12 = *(this + 25);
+  v13 = *&v8[112 * *(this + 25) + 8];
+  if (v13)
+  {
+    v14 = *(this + 85);
+    if (*(this + 84) <= v14)
     {
-      v25 = 2 * (v24 + 1) + 1;
+      v15 = 2 * (v14 + 1) + 1;
     }
 
     else
     {
-      v25 = *(this + 90);
+      v15 = *(this + 84);
     }
 
-    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 352, v24 + 1, v25);
-    v13 = this + 364;
-    v14 = 368;
+    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 328, v14 + 1, v15);
+    *(*(this + 43) + 8 * *(this + 85) - 8) = v13;
+    v12 = *(this + 25);
+  }
+
+  v16 = *&v8[112 * (v12 ^ 1) + 8];
+  if (v16)
+  {
+    v17 = *(this + 91);
+    if (*(this + 90) <= v17)
+    {
+      v18 = 2 * (v17 + 1) + 1;
+    }
+
+    else
+    {
+      v18 = *(this + 90);
+    }
+
+    PCArray<ProShade::ProgramVar *,PCArray_Traits<ProShade::ProgramVar *>>::resize(this + 352, v17 + 1, v18);
+    v6 = this + 364;
+    v7 = 368;
     goto LABEL_33;
   }
 
 LABEL_34:
-  v35 = &unk_287263608;
-  if (v36 < 0)
+  v28 = &unk_287263608;
+  if (v29 < 0)
   {
-    v30 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v30 = v36 & ~(v36 >> 31);
+    v23 = v29 & ~(v29 >> 31);
   }
 
-  if (v30 == v36)
+  if (v23 == v29)
   {
-    v31 = SHIDWORD(v36);
-    if (v36 < 0)
+    v24 = SHIDWORD(v29);
+    if (v29 < 0)
     {
       do
       {
-        *(v37 + 8 * v31) = 0;
+        *(v30 + 8 * v24) = 0;
       }
 
-      while (!__CFADD__(v31++, 1));
+      while (!__CFADD__(v24++, 1));
     }
   }
 
   else
   {
-    if (v30)
+    if (v23)
     {
       operator new[]();
     }
 
-    if (v37)
+    if (v30)
     {
-      MEMORY[0x2666E9ED0](v37, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v30, 0x1000C8077774924);
     }
 
-    v37 = 0;
+    v30 = 0;
   }
 
-  v36 = v30;
-  result = v37;
-  if (v37)
+  v29 = v23;
+  result = v30;
+  if (v30)
   {
-    return MEMORY[0x2666E9ED0](v37, 0x1000C8077774924);
+    return MEMORY[0x2666E9ED0](v30, 0x1000C8077774924);
   }
 
   return result;
 }
 
-void sub_25FF989F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FF989F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   LiIntersection::~LiIntersection(va);
   _Unwind_Resume(a1);
 }
@@ -4114,7 +4039,7 @@ void LiGrid::~LiGrid(OZChannelBase *this)
 {
   this->var0 = &unk_287263630;
   this->var11 = &unk_2872636F8;
-  v1 = OZChannelBase::setRangeName(this, &off_287263718);
+  OZChannelBase::setRangeName(this, &off_287263718);
   *(v1 + 88) = &unk_2872DEA38;
   *(v1 + 104) = 0;
   PCWeakCount::~PCWeakCount((v1 + 96));
@@ -4139,53 +4064,53 @@ void virtual thunk toLiGrid::~LiGrid(LiGrid *this)
 
 void LiGrid::getHelium(LiGrid *this, LiAgent *a2)
 {
-  v16 = 0x3FF0000000000000;
-  v13 = 0x3FF0000000000000;
-  v10 = 0x3FF0000000000000;
-  v7 = 0x3FF0000000000000;
-  v8 = 0u;
+  v17 = 0x3FF0000000000000;
+  v14 = 0x3FF0000000000000;
+  v11 = 0x3FF0000000000000;
+  v8 = 0x3FF0000000000000;
   v9 = 0u;
-  v11 = 0u;
+  v10 = 0u;
   v12 = 0u;
-  v14 = 0u;
+  v13 = 0u;
   v15 = 0u;
-  LiAgent::getInversePixelTransform(a2, 0.00001, &v6);
+  v16 = 0u;
+  LiAgent::getInversePixelTransform(a2, 0.00001, &v7);
   for (i = 0; i != 128; i += 32)
   {
-    v3 = (&v7 + i);
-    v4 = *(&v6 + i + 16);
-    *v3 = *(&v6 + i);
-    v3[1] = v4;
+    v4 = (&v8 + i);
+    v5 = *(&v7 + i + 16);
+    *v4 = *(&v7 + i);
+    v4[1] = v5;
   }
 
-  v5 = HGObject::operator new(0x1A0uLL);
-  *v5 = 0u;
-  *(v5 + 1) = 0u;
-  *(v5 + 2) = 0u;
-  *(v5 + 3) = 0u;
-  *(v5 + 4) = 0u;
-  *(v5 + 5) = 0u;
-  *(v5 + 6) = 0u;
-  *(v5 + 7) = 0u;
-  *(v5 + 8) = 0u;
-  *(v5 + 9) = 0u;
-  *(v5 + 10) = 0u;
-  *(v5 + 11) = 0u;
-  *(v5 + 12) = 0u;
-  *(v5 + 13) = 0u;
-  *(v5 + 14) = 0u;
-  *(v5 + 15) = 0u;
-  *(v5 + 16) = 0u;
-  *(v5 + 17) = 0u;
-  *(v5 + 18) = 0u;
-  *(v5 + 19) = 0u;
-  *(v5 + 20) = 0u;
-  *(v5 + 21) = 0u;
-  *(v5 + 22) = 0u;
-  *(v5 + 23) = 0u;
-  *(v5 + 24) = 0u;
-  *(v5 + 25) = 0u;
-  LiHeGridShader::LiHeGridShader(v5);
+  v6 = HGObject::operator new(0x1A0uLL);
+  *v6 = 0u;
+  *(v6 + 1) = 0u;
+  *(v6 + 2) = 0u;
+  *(v6 + 3) = 0u;
+  *(v6 + 4) = 0u;
+  *(v6 + 5) = 0u;
+  *(v6 + 6) = 0u;
+  *(v6 + 7) = 0u;
+  *(v6 + 8) = 0u;
+  *(v6 + 9) = 0u;
+  *(v6 + 10) = 0u;
+  *(v6 + 11) = 0u;
+  *(v6 + 12) = 0u;
+  *(v6 + 13) = 0u;
+  *(v6 + 14) = 0u;
+  *(v6 + 15) = 0u;
+  *(v6 + 16) = 0u;
+  *(v6 + 17) = 0u;
+  *(v6 + 18) = 0u;
+  *(v6 + 19) = 0u;
+  *(v6 + 20) = 0u;
+  *(v6 + 21) = 0u;
+  *(v6 + 22) = 0u;
+  *(v6 + 23) = 0u;
+  *(v6 + 24) = 0u;
+  *(v6 + 25) = 0u;
+  LiHeGridShader::LiHeGridShader(v6);
 }
 
 uint64_t LiHeGrid::setInversePixelTransform(uint64_t a1, double *a2)
@@ -4474,9 +4399,9 @@ LABEL_69:
   return v4;
 }
 
-void sub_25FF99B50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF99B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCArray<int,PCArray_Traits<int>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -4860,31 +4785,31 @@ LABEL_69:
   return v4;
 }
 
-void sub_25FF9A1EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF9A1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCArray<int,PCArray_Traits<int>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::UnaryOp<ProShade::Negate>::unary(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
-  if (v1)
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  if (v2)
   {
-    if (v2)
+    if (v3)
     {
-      ProShade::UnaryOp<ProShade::Negate>::computeUnary(v2);
+      ProShade::UnaryOp<ProShade::Negate>::computeUnary(v3);
     }
   }
 
   operator new();
 }
 
-void sub_25FF9A3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FF9A3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -4929,11 +4854,11 @@ void ProShade::BinaryOp<ProShade::Add>::binary(const PCSharedCount *a1@<X0>, con
   v17[2].var0 = v12;
   PCSharedCount::PCSharedCount(v18, a1 + 3);
   v13 = a2[2].var0;
-  v15[0] = &unk_28725E328;
-  v15[2] = v13;
+  v15[0].var0 = &unk_28725E328;
+  v15[2].var0 = v13;
   PCSharedCount::PCSharedCount(v16, a2 + 3);
   v14 = ProShade::Add::simplify(v17, v15, &v19);
-  v15[0] = &unk_28725E328;
+  v15[0].var0 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(v16);
   v17[0].var0 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(v18);
@@ -5063,17 +4988,17 @@ void ProShade::BinaryOp<ProShade::Multiply>::binary(const PCSharedCount *a1@<X0>
   v21 = 0;
   PCSharedCount::PCSharedCount(v22);
   v12 = a1[2].var0;
-  v17[0] = &unk_28725E328;
-  v17[2] = v12;
+  v17[0].var0 = &unk_28725E328;
+  v17[2].var0 = v12;
   PCSharedCount::PCSharedCount(v18, a1 + 3);
   v13 = a2[2].var0;
-  v15[0] = &unk_28725E328;
-  v15[2] = v13;
+  v15[0].var0 = &unk_28725E328;
+  v15[2].var0 = v13;
   PCSharedCount::PCSharedCount(v16, a2 + 3);
   v14 = ProShade::Multiply::simplify(v17, v15, &v19);
-  v15[0] = &unk_28725E328;
+  v15[0].var0 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(v16);
-  v17[0] = &unk_28725E328;
+  v17[0].var0 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(v18);
   if (!v14)
   {
@@ -5165,23 +5090,23 @@ void sub_25FF9B19C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::operator==(const PCSharedCount *a1, uint64_t a2)
+void ProShade::operator==(const PCSharedCount *a1, const PCSharedCount *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (ProShade::VarT<ProShade::Node>::width(a1, a2) == 1)
   {
     operator new();
   }
 
   var0 = a1[2].var0;
-  v8[0] = &unk_28725E328;
-  v8[2] = var0;
-  PCSharedCount::PCSharedCount(v9, a1 + 3);
-  v5 = *(a2 + 16);
-  v6[0] = &unk_28725E328;
-  v6[2] = v5;
-  PCSharedCount::PCSharedCount(&v7, (a2 + 24));
-  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::eval(v8, v6);
+  v9[0] = &unk_28725E328;
+  v9[2] = var0;
+  PCSharedCount::PCSharedCount(v10, a1 + 3);
+  v6 = a2[2].var0;
+  v7[0] = &unk_28725E328;
+  v7[2] = v6;
+  PCSharedCount::PCSharedCount(&v8, a2 + 3);
+  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::eval(v9, v7);
 }
 
 void sub_25FF9B38C(_Unwind_Exception *a1)
@@ -5191,7 +5116,7 @@ void sub_25FF9B38C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Equals>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::Equals>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -5238,23 +5163,23 @@ void sub_25FF9B4FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::operator>(const PCSharedCount *a1, uint64_t a2)
+void ProShade::operator>(const PCSharedCount *a1, const PCSharedCount *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (ProShade::VarT<ProShade::Node>::width(a1, a2) == 1)
   {
     operator new();
   }
 
   var0 = a1[2].var0;
-  v8[0] = &unk_28725E328;
-  v8[2] = var0;
-  PCSharedCount::PCSharedCount(v9, a1 + 3);
-  v5 = *(a2 + 16);
-  v6[0] = &unk_28725E328;
-  v6[2] = v5;
-  PCSharedCount::PCSharedCount(&v7, (a2 + 24));
-  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>>::eval(v8, v6);
+  v9[0] = &unk_28725E328;
+  v9[2] = var0;
+  PCSharedCount::PCSharedCount(v10, a1 + 3);
+  v6 = a2[2].var0;
+  v7[0] = &unk_28725E328;
+  v7[2] = v6;
+  PCSharedCount::PCSharedCount(&v8, a2 + 3);
+  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>>::eval(v9, v7);
 }
 
 void sub_25FF9B708(_Unwind_Exception *a1)
@@ -5264,7 +5189,7 @@ void sub_25FF9B708(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::GreaterThan>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::GreaterThan>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -5311,23 +5236,23 @@ void sub_25FF9B878(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ProShade::operator<=(const PCSharedCount *a1, uint64_t a2)
+void ProShade::operator<=(const PCSharedCount *a1, const PCSharedCount *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (ProShade::VarT<ProShade::Node>::width(a1, a2) == 1)
   {
     operator new();
   }
 
   var0 = a1[2].var0;
-  v8[0] = &unk_28725E328;
-  v8[2] = var0;
-  PCSharedCount::PCSharedCount(v9, a1 + 3);
-  v5 = *(a2 + 16);
-  v6[0] = &unk_28725E328;
-  v6[2] = v5;
-  PCSharedCount::PCSharedCount(&v7, (a2 + 24));
-  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>>::eval(v8, v6);
+  v9[0] = &unk_28725E328;
+  v9[2] = var0;
+  PCSharedCount::PCSharedCount(v10, a1 + 3);
+  v6 = a2[2].var0;
+  v7[0] = &unk_28725E328;
+  v7[2] = v6;
+  PCSharedCount::PCSharedCount(&v8, a2 + 3);
+  ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>>::eval(v9, v7);
 }
 
 void sub_25FF9BA84(_Unwind_Exception *a1)
@@ -5337,7 +5262,7 @@ void sub_25FF9BA84(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::LessThanEquals>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::LessThanEquals>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -5386,78 +5311,78 @@ void sub_25FF9BBF4(_Unwind_Exception *a1)
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::eval(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 16);
-  if (v3)
+  v8[1] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 16);
+  if (v4)
   {
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *(a2 + 16);
-  if (v5)
+  v6 = *(a2 + 16);
+  if (v6)
   {
-    if (v4)
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>::compute(v4, v6);
+        ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>::compute(v5, v7);
       }
     }
   }
 
-  PCSharedCount::PCSharedCount(v7);
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_25FF9BE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FF9BE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>::compute(uint64_t a1, uint64_t a2)
 {
-  v8[18] = *MEMORY[0x277D85DE8];
+  v9[18] = *MEMORY[0x277D85DE8];
+  ProShade::Value::Value(v9);
   ProShade::Value::Value(v8);
-  ProShade::Value::Value(v7);
-  ProShade::Value::Value(&v6);
-  (*(*a1 + 224))(a1, v8);
-  (*(*a2 + 224))(a2, v7);
-  if (SLODWORD(v8[0]) > 1)
+  ProShade::Value::Value(&v7);
+  (*(*a1 + 224))(a1, v9);
+  (*(*a2 + 224))(a2, v8);
+  if (SLODWORD(v9[0]) > 1)
   {
-    if (LODWORD(v8[0]) != 2)
+    if (LODWORD(v9[0]) != 2)
     {
       goto LABEL_8;
     }
 
-    v4 = v7[0];
+    v5 = v8[0];
   }
 
   else
   {
-    v4 = v7[0];
-    if (SLODWORD(v7[0]) < 2)
+    v5 = v8[0];
+    if (SLODWORD(v8[0]) < 2)
     {
-      ProShade::eval_type<ProShade::equal_traits,BOOL>(v8, v7, &v6);
+      ProShade::eval_type<ProShade::equal_traits,BOOL>(v9, v8, &v7);
       goto LABEL_9;
     }
   }
 
-  if (v4 <= 2)
+  if (v5 <= 2)
   {
-    ProShade::eval_type<ProShade::equal_traits,int>(v8, v7, &v6);
+    ProShade::eval_type<ProShade::equal_traits,int>(v9, v8, &v7);
     goto LABEL_9;
   }
 
 LABEL_8:
-  ProShade::eval_type<ProShade::equal_traits,double>(v8, v7, &v6);
+  ProShade::eval_type<ProShade::equal_traits,double>(v9, v8, &v7);
 LABEL_9:
-  ProShade::Const::create(&v6, v5);
+  ProShade::Const::create(&v7, v6);
 }
 
 PCSharedCount *ProShade::VarT<ProShade::Const>::~VarT(PCSharedCount *a1)
@@ -5467,7 +5392,7 @@ PCSharedCount *ProShade::VarT<ProShade::Const>::~VarT(PCSharedCount *a1)
   return a1;
 }
 
-uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::Func(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::Func(uint64_t a1, PCShared_base *a2, PC_Sp_counted_base *a3)
 {
   v14[1] = *MEMORY[0x277D85DE8];
   *(a1 + 72) = &unk_2872DEA38;
@@ -5681,7 +5606,7 @@ void sub_25FF9C700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-PCSharedCount *ProShade::VarT<ProShade::Const>::VarT(PCSharedCount *a1, PCShared_base *a2)
+PCSharedCount *ProShade::VarT<ProShade::Const>::VarT(PCSharedCount *a1, PC_Sp_counted_base *a2)
 {
   a1->var0 = &unk_287263B40;
   a1[2].var0 = a2;
@@ -5995,10 +5920,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>
   return result;
 }
 
-void sub_25FF9CFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF9CFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -6071,9 +5996,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::e
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -6204,81 +6129,81 @@ void sub_25FF9D6B8(_Unwind_Exception *a1)
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>>::eval(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 16);
-  if (v3)
+  v8[1] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 16);
+  if (v4)
   {
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *(a2 + 16);
-  if (v5)
+  v6 = *(a2 + 16);
+  if (v6)
   {
-    if (v4)
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>::compute(v4, v6);
+        ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>::compute(v5, v7);
       }
     }
   }
 
-  PCSharedCount::PCSharedCount(v7);
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_25FF9D8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FF9D8D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>::compute(uint64_t a1, uint64_t a2)
 {
-  v8[18] = *MEMORY[0x277D85DE8];
+  v9[18] = *MEMORY[0x277D85DE8];
+  ProShade::Value::Value(v9);
   ProShade::Value::Value(v8);
-  ProShade::Value::Value(v7);
-  ProShade::Value::Value(&v6);
-  (*(*a1 + 224))(a1, v8);
-  (*(*a2 + 224))(a2, v7);
-  if (SLODWORD(v8[0]) > 1)
+  ProShade::Value::Value(&v7);
+  (*(*a1 + 224))(a1, v9);
+  (*(*a2 + 224))(a2, v8);
+  if (SLODWORD(v9[0]) > 1)
   {
-    if (LODWORD(v8[0]) != 2)
+    if (LODWORD(v9[0]) != 2)
     {
       goto LABEL_8;
     }
 
-    v4 = v7[0];
+    v5 = v8[0];
   }
 
   else
   {
-    v4 = v7[0];
-    if (SLODWORD(v7[0]) < 2)
+    v5 = v8[0];
+    if (SLODWORD(v8[0]) < 2)
     {
-      ProShade::eval_type<ProShade::greaterThan_traits,BOOL>(v8, v7, &v6);
+      ProShade::eval_type<ProShade::greaterThan_traits,BOOL>(v9, v8, &v7);
       goto LABEL_9;
     }
   }
 
-  if (v4 <= 2)
+  if (v5 <= 2)
   {
-    ProShade::eval_type<ProShade::greaterThan_traits,int>(v8, v7, &v6);
+    ProShade::eval_type<ProShade::greaterThan_traits,int>(v9, v8, &v7);
     goto LABEL_9;
   }
 
 LABEL_8:
-  ProShade::eval_type<ProShade::greaterThan_traits,double>(v8, v7, &v6);
+  ProShade::eval_type<ProShade::greaterThan_traits,double>(v9, v8, &v7);
 LABEL_9:
-  ProShade::Const::create(&v6, v5);
+  ProShade::Const::create(&v7, v6);
 }
 
-uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>>::Func(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_traits>>::Func(uint64_t a1, PCShared_base *a2, PC_Sp_counted_base *a3)
 {
   v14[1] = *MEMORY[0x277D85DE8];
   *(a1 + 72) = &unk_2872DEA38;
@@ -6690,10 +6615,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::greaterThan_t
   return result;
 }
 
-void sub_25FF9E6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF9E6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -6766,9 +6691,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::g
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -6824,81 +6749,81 @@ void sub_25FF9EC00(_Unwind_Exception *a1)
 
 void ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>>::eval(uint64_t a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 16);
-  if (v3)
+  v8[1] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 16);
+  if (v4)
   {
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *(a2 + 16);
-  if (v5)
+  v6 = *(a2 + 16);
+  if (v6)
   {
-    if (v4)
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>::compute(v4, v6);
+        ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>::compute(v5, v7);
       }
     }
   }
 
-  PCSharedCount::PCSharedCount(v7);
+  PCSharedCount::PCSharedCount(v8);
   operator new();
 }
 
-void sub_25FF9EE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FF9EE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
 
 void ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>::compute(uint64_t a1, uint64_t a2)
 {
-  v8[18] = *MEMORY[0x277D85DE8];
+  v9[18] = *MEMORY[0x277D85DE8];
+  ProShade::Value::Value(v9);
   ProShade::Value::Value(v8);
-  ProShade::Value::Value(v7);
-  ProShade::Value::Value(&v6);
-  (*(*a1 + 224))(a1, v8);
-  (*(*a2 + 224))(a2, v7);
-  if (SLODWORD(v8[0]) > 1)
+  ProShade::Value::Value(&v7);
+  (*(*a1 + 224))(a1, v9);
+  (*(*a2 + 224))(a2, v8);
+  if (SLODWORD(v9[0]) > 1)
   {
-    if (LODWORD(v8[0]) != 2)
+    if (LODWORD(v9[0]) != 2)
     {
       goto LABEL_8;
     }
 
-    v4 = v7[0];
+    v5 = v8[0];
   }
 
   else
   {
-    v4 = v7[0];
-    if (SLODWORD(v7[0]) < 2)
+    v5 = v8[0];
+    if (SLODWORD(v8[0]) < 2)
     {
-      ProShade::eval_type<ProShade::lessThanEqual_traits,BOOL>(v8, v7, &v6);
+      ProShade::eval_type<ProShade::lessThanEqual_traits,BOOL>(v9, v8, &v7);
       goto LABEL_9;
     }
   }
 
-  if (v4 <= 2)
+  if (v5 <= 2)
   {
-    ProShade::eval_type<ProShade::lessThanEqual_traits,int>(v8, v7, &v6);
+    ProShade::eval_type<ProShade::lessThanEqual_traits,int>(v9, v8, &v7);
     goto LABEL_9;
   }
 
 LABEL_8:
-  ProShade::eval_type<ProShade::lessThanEqual_traits,double>(v8, v7, &v6);
+  ProShade::eval_type<ProShade::lessThanEqual_traits,double>(v9, v8, &v7);
 LABEL_9:
-  ProShade::Const::create(&v6, v5);
+  ProShade::Const::create(&v7, v6);
 }
 
-uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>>::Func(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual_traits>>::Func(uint64_t a1, PCShared_base *a2, PC_Sp_counted_base *a3)
 {
   v14[1] = *MEMORY[0x277D85DE8];
   *(a1 + 72) = &unk_2872DEA38;
@@ -7308,10 +7233,10 @@ uint64_t ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::lessThanEqual
   return result;
 }
 
-void sub_25FF9FC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF9FC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x2666E9F00](v3, 0x10B1C40241F72B2);
+  va_start(va, a5);
+  MEMORY[0x2666E9F00](v5, 0x10B1C40241F72B2, a3);
   PCArray<ProShade::VarT<ProShade::Node>,PCArray_Traits<ProShade::VarT<ProShade::Node>>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
@@ -7384,9 +7309,9 @@ void virtual thunk toProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::l
 
 {
   v1 = a1 + *(*a1 - 24);
-  *(v1 + 72) = &unk_2872DEA38;
-  *(v1 + 88) = 0;
-  PCWeakCount::~PCWeakCount((v1 + 80));
+  *(v1 + 9) = &unk_2872DEA38;
+  v1[88] = 0;
+  PCWeakCount::~PCWeakCount(v1 + 10);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -7730,114 +7655,115 @@ void PCArray<BOOL,PCArray_Traits<BOOL>>::resize(uint64_t a1, int a2, int a3)
 
 void ProShade::UnaryOp<ProShade::Negate>::computeUnary(_DWORD *a1)
 {
-  v1 = a1[6];
-  if (v1 <= 1)
+  v2 = a1[6];
+  if (v2 <= 1)
   {
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
+    v16 = 0;
+    v17 = &unk_287264320;
+    v14 = &unk_287264320;
     v15 = 0;
-    v16 = &unk_287264320;
-    v13 = &unk_287264320;
-    v14 = 0;
-    (*(*a1 + 200))(a1, &v16);
-    if (SHIDWORD(v17) < 1)
+    (*(*a1 + 200))(a1, &v17);
+    if (SHIDWORD(v18) < 1)
     {
-      ProShade::Const::create();
+      ProShade::Const::create(&v14);
     }
 
-    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v2);
+    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v3);
   }
 
-  if (v1 == 2)
+  if (v2 == 2)
   {
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
+    v16 = 0;
+    v17 = &unk_2871F25E0;
+    v14 = &unk_2871F25E0;
     v15 = 0;
-    v16 = &unk_2871F25E0;
-    v13 = &unk_2871F25E0;
-    v14 = 0;
-    v3 = (*(*a1 + 208))(a1, &v16);
-    v4 = HIDWORD(v17);
-    if (SHIDWORD(v17) >= 1)
+    v4 = (*(*a1 + 208))(a1, &v17);
+    v5 = HIDWORD(v18);
+    if (SHIDWORD(v18) >= 1)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (v5 >= SHIDWORD(v17))
+        if (v6 >= SHIDWORD(v18))
         {
-          PCArray_base::badIndex(v3);
+          PCArray_base::badIndex(v4);
         }
 
-        v6 = *(v18 + 4 * v5);
-        if (v14 <= SHIDWORD(v14))
+        v7 = *(v19 + 4 * v6);
+        if (v15 <= SHIDWORD(v15))
         {
-          v7 = 2 * (HIDWORD(v14) + 1) + 1;
+          v8 = 2 * (HIDWORD(v15) + 1) + 1;
         }
 
         else
         {
-          v7 = v14;
+          v8 = v15;
         }
 
-        PCArray<int,PCArray_Traits<int>>::resize(&v13, HIDWORD(v14) + 1, v7);
-        *(v15 + 4 * SHIDWORD(v14) - 4) = -v6;
-        ++v5;
+        PCArray<int,PCArray_Traits<int>>::resize(&v14, HIDWORD(v15) + 1, v8);
+        *(v16 + 4 * SHIDWORD(v15) - 4) = -v7;
+        ++v6;
       }
 
-      while (v4 != v5);
+      while (v5 != v6);
     }
 
-    ProShade::Const::create();
+    ProShade::Const::create(&v14);
   }
 
-  v17 = 0;
   v18 = 0;
+  v19 = 0;
+  v16 = 0;
+  v17 = &unk_2872642E8;
+  v14 = &unk_2872642E8;
   v15 = 0;
-  v16 = &unk_2872642E8;
-  v13 = &unk_2872642E8;
-  v14 = 0;
-  v8 = (*(*a1 + 216))(a1, &v16);
-  v9 = HIDWORD(v17);
-  if (SHIDWORD(v17) >= 1)
+  v9 = (*(*a1 + 216))(a1, &v17);
+  v10 = HIDWORD(v18);
+  if (SHIDWORD(v18) >= 1)
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      if (v10 >= SHIDWORD(v17))
+      if (v11 >= SHIDWORD(v18))
       {
-        PCArray_base::badIndex(v8);
+        PCArray_base::badIndex(v9);
       }
 
-      v11 = *(v18 + 8 * v10);
-      if (v14 <= SHIDWORD(v14))
+      v12 = *(v19 + 8 * v11);
+      if (v15 <= SHIDWORD(v15))
       {
-        v12 = 2 * (HIDWORD(v14) + 1) + 1;
+        v13 = 2 * (HIDWORD(v15) + 1) + 1;
       }
 
       else
       {
-        v12 = v14;
+        v13 = v15;
       }
 
-      PCArray<double,PCArray_Traits<double>>::resize(&v13, HIDWORD(v14) + 1, v12);
-      *(v15 + 8 * SHIDWORD(v14) - 8) = -v11;
-      ++v10;
+      PCArray<double,PCArray_Traits<double>>::resize(&v14, HIDWORD(v15) + 1, v13);
+      *(v16 + 8 * SHIDWORD(v15) - 8) = -v12;
+      ++v11;
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
   }
 
-  ProShade::Const::create();
+  ProShade::Const::create(&v14);
 }
 
-void sub_25FFA0DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_25FFA0DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   PCArray<double,PCArray_Traits<double>>::~PCArray(&a9);
-  PCArray<double,PCArray_Traits<double>>::~PCArray(&a12);
+  PCArray<double,PCArray_Traits<double>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::UnaryOp<ProShade::Negate>::UnaryOp(uint64_t a1, PCShared_base *a2)
+uint64_t ProShade::UnaryOp<ProShade::Negate>::UnaryOp(uint64_t a1, PC_Sp_counted_base *a2)
 {
   *(a1 + 80) = &unk_2872DEA38;
   *(a1 + 88) = 0;
@@ -8048,11 +7974,11 @@ uint64_t ProShade::UnaryOp<ProShade::Negate>::inputs(const PCSharedCount *a1, ui
   return ProShade::VarT<ProShade::Node>::operator=(v7, a1 + 6);
 }
 
-void ProShade::UnaryOp<ProShade::Negate>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::UnaryOp<ProShade::Negate>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v6[1] = *MEMORY[0x277D85DE8];
   (**a2)(v5, a2, a1 + 48);
-  if (v5[2] != *(a1 + 8))
+  if (v5[2] != *(a1 + 64))
   {
     operator new();
   }
@@ -8062,10 +7988,10 @@ void ProShade::UnaryOp<ProShade::Negate>::apply(PCShared_base *a1@<X0>, void (**
   PCSharedCount::~PCSharedCount(v6);
 }
 
-void sub_25FFA1638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFA1638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x2666E9F00](v5, 0x10B1C40515157B5);
+  va_start(va, a9);
+  MEMORY[0x2666E9F00](v9, 0x10B1C40515157B5, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -8114,7 +8040,7 @@ void virtual thunk toProShade::UnaryOp<ProShade::Negate>::~UnaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::UnaryOp<ProShade::Negate>::UnaryOp(uint64_t a1, PCShared_base *a2, int a3)
+uint64_t ProShade::UnaryOp<ProShade::Negate>::UnaryOp(uint64_t a1, PC_Sp_counted_base *a2, int a3)
 {
   *(a1 + 80) = &unk_2872DEA38;
   *(a1 + 88) = 0;
@@ -8193,23 +8119,23 @@ void ***ProShade::UnaryOp<ProShade::Negate>::computeUnary(const PCString *a1, PC
 
 void ***ProShade::computeUnaryType<ProShade::Negate,BOOL>(const PCString *a1, PCString *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
-  v5 = Size;
+  v8 = Size;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 1)
   {
-    MEMORY[0x28223BE20](Size);
-    v8 = v12 - v7;
-    bzero(v12 - v7, v9);
-    ProShade::copyData(var0_low, a1 + 2, 1, v8, v5);
+    MEMORY[0x28223BE20](Size, Size, v5, v6, v7);
+    v11 = v15 - v10;
+    bzero(v15 - v10, v12);
+    ProShade::copyData(var0_low, a1 + 2, 1, v11, v8);
   }
 
   ProShade::Value::set(a2, 1, HIDWORD(a1->var0));
   result = OZChannelBase::getSerializer(a2);
-  if (v5 > 0)
+  if (v8 > 0)
   {
-    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v11);
+    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v14);
   }
 
   return result;
@@ -8217,34 +8143,33 @@ void ***ProShade::computeUnaryType<ProShade::Negate,BOOL>(const PCString *a1, PC
 
 void ***ProShade::computeUnaryType<ProShade::Negate,int>(const PCString *a1, PCString *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
-  v5 = Size;
+  v8 = Size;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 2)
   {
-    MEMORY[0x28223BE20](Size);
-    v8 = v14 - v7;
-    bzero(v14 - v7, v9);
-    ProShade::copyData(var0_low, a1 + 2, 2, v8, v5);
+    MEMORY[0x28223BE20](Size, 4 * Size, v5, v6, v7);
+    v11 = v17 - v10;
+    bzero(v17 - v10, v12);
+    ProShade::copyData(var0_low, a1 + 2, 2, v11, v8);
   }
 
   ProShade::Value::set(a2, 2, HIDWORD(a1->var0));
   result = OZChannelBase::getSerializer(a2);
-  if (v5 >= 1)
+  if (v8 >= 1)
   {
-    v11 = a1 + 2;
-    v12 = v5;
+    v14 = &a1[2];
+    v15 = v8;
     do
     {
-      var0 = v11->var0;
-      v11 = (v11 + 4);
-      *result = -var0;
+      v16 = *v14++;
+      *result = -v16;
       result = (result + 4);
-      --v12;
+      --v15;
     }
 
-    while (v12);
+    while (v15);
   }
 
   return result;
@@ -8252,32 +8177,32 @@ void ***ProShade::computeUnaryType<ProShade::Negate,int>(const PCString *a1, PCS
 
 void ***ProShade::computeUnaryType<ProShade::Negate,double>(const PCString *a1, PCString *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
-  v5 = Size;
+  v8 = Size;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 3)
   {
-    MEMORY[0x28223BE20](Size);
-    v8 = v14 - v7;
-    bzero(v14 - v7, v9);
-    ProShade::copyData(var0_low, a1 + 2, 3, v8, v5);
+    MEMORY[0x28223BE20](Size, 8 * Size, v5, v6, v7);
+    v11 = v17 - v10;
+    bzero(v17 - v10, v12);
+    ProShade::copyData(var0_low, a1 + 2, 3, v11, v8);
   }
 
   ProShade::Value::set(a2, 3, HIDWORD(a1->var0));
   result = OZChannelBase::getSerializer(a2);
-  if (v5 >= 1)
+  if (v8 >= 1)
   {
-    v11 = &a1[2];
-    v12 = v5;
+    v14 = &a1[2];
+    v15 = v8;
     do
     {
-      v13 = *v11++;
-      *result++ = -v13;
-      --v12;
+      v16 = *v14++;
+      *result++ = -v16;
+      --v15;
     }
 
-    while (v12);
+    while (v15);
   }
 
   return result;
@@ -8314,7 +8239,7 @@ double ProShade::BinaryOp<ProShade::Add>::computeBinary(const PCString *a1, cons
   return ProShade::computeBinaryType<ProShade::Add,double>(a1, a2, a3);
 }
 
-BOOL ProShade::Add::simplify(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ProShade::Add::simplify(const PCSharedCount *a1, const PCSharedCount *a2, uint64_t a3)
 {
   v5 = a1;
   if (ProShade::isZero(a1))
@@ -8335,7 +8260,7 @@ BOOL ProShade::Add::simplify(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Add>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::Add>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -8390,26 +8315,26 @@ void sub_25FFA20F4(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::Add,BOOL>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
   v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
-  v10 = v8;
+  v13 = v8;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v13 = &v24 - v12;
-    bzero(&v24 - v12, v14);
-    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v13, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v16 = &v27 - v15;
+    bzero(&v27 - v15, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v16, Size);
   }
 
-  v15 = LODWORD(a2->var0);
-  if (v15 != 1)
+  v18 = LODWORD(a2->var0);
+  if (v18 != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v17 = &v24 - v16;
-    bzero(&v24 - v16, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v17, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v20 = &v27 - v19;
+    bzero(&v27 - v19, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v20, v13);
   }
 
   var0_high = HIDWORD(a1->var0);
@@ -8420,19 +8345,19 @@ BOOL ProShade::computeBinaryType<ProShade::Add,BOOL>(const PCString *a1, const P
 
   ProShade::Value::set(a3, 1, var0_high);
   result = ProShade::shapeIsVector(HIDWORD(a1->var0));
-  v22 = HIDWORD(a1->var0) == 1 || result;
-  if (v22 != 1)
+  v25 = HIDWORD(a1->var0) == 1 || result;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v26, "not implemented yet");
-    PCString::PCString(&v25, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v26, &v25, 426);
+    PCString::PCString(&v29, "not implemented yet");
+    PCString::PCString(&v28, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v29, &v28, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("+ operator doesn't apply to BOOL", v21);
+    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("+ operator doesn't apply to BOOL", v24);
   }
 
   return result;
@@ -8450,74 +8375,74 @@ void sub_25FFA23A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL ProShade::computeBinaryType<ProShade::Add,int>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+BOOL ProShade::computeBinaryType<ProShade::Add,int>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  Size = ProShade::shapeGetSize(a1[1], a2);
-  v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 2)
+  v34 = *MEMORY[0x277D85DE8];
+  Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
+  v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
+  v13 = v8;
+  var0_low = LODWORD(a1->var0);
+  if (var0_low == 2)
   {
-    v12 = (a1 + 4);
+    v15 = &a1[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 2, v12, Size);
+    MEMORY[0x28223BE20](v8, 4 * Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 2, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 2)
+  v18 = LODWORD(a2->var0);
+  if (v18 == 2)
   {
-    v16 = (a2 + 4);
+    v19 = &a2[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 2, v16, v10);
+    MEMORY[0x28223BE20](v8, 4 * v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 2, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  var0_high = HIDWORD(a1->var0);
+  if (var0_high != HIDWORD(a2->var0))
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 2, v19);
-  result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  ProShade::Value::set(a3, 2, var0_high);
+  result = ProShade::shapeIsVector(HIDWORD(a1->var0));
+  v24 = HIDWORD(a1->var0) == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 4;
-      v24 = v25;
-      v26 = *v16;
-      v16 += 4;
-      *v22++ = v26 + v24;
-      --v23;
+      v28 = *v15;
+      v15 += 4;
+      v27 = v28;
+      v29 = *v19;
+      v19 += 4;
+      *v25++ = v29 + v27;
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -8537,73 +8462,73 @@ void sub_25FFA262C(_Unwind_Exception *a1)
 
 double ProShade::computeBinaryType<ProShade::Add,double>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 3)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 3)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v29 - v13;
-    bzero(&v29 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 3, v12, Size);
+    MEMORY[0x28223BE20](v8, 8 * Size, v10, v11, v12);
+    v15 = &v32 - v16;
+    bzero(&v32 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 3, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 3)
+  v18 = *a2;
+  if (v18 == 3)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v29 - v17;
-    bzero(&v29 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 3, v16, v10);
+    MEMORY[0x28223BE20](v8, 8 * v13, v10, v11, v12);
+    v19 = &v32 - v20;
+    bzero(&v32 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 3, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 3, v19);
+  ProShade::Value::set(a3, 3, v22);
   IsVector = ProShade::shapeIsVector(a1[1]);
-  v22 = a1[1] == 1 || IsVector;
-  if (v22 != 1)
+  v25 = a1[1] == 1 || IsVector;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v31, "not implemented yet");
-    PCString::PCString(&v30, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v31, &v30, 426);
+    PCString::PCString(&v34, "not implemented yet");
+    PCString::PCString(&v33, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v34, &v33, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v23 = (a3 + 16);
-    v24 = Size;
+    v26 = (a3 + 16);
+    v27 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 8;
-      v26 = v25;
-      v27 = *v16;
-      v16 += 8;
-      result = v26 + v27;
-      *v23++ = result;
-      --v24;
+      v28 = *v15;
+      v15 += 8;
+      v29 = v28;
+      v30 = *v19;
+      v19 += 8;
+      result = v29 + v30;
+      *v26++ = result;
+      --v27;
     }
 
-    while (v24);
+    while (v27);
   }
 
   return result;
@@ -8968,12 +8893,12 @@ uint64_t ProShade::BinaryOp<ProShade::Add>::inputs(const PCSharedCount *a1, uint
   return ProShade::VarT<ProShade::Node>::operator=(v9, a1 + 10);
 }
 
-void ProShade::BinaryOp<ProShade::Add>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::Add>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -8985,17 +8910,17 @@ void ProShade::BinaryOp<ProShade::Add>::apply(PCShared_base *a1@<X0>, void (***a
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFA3444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFA3444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -9055,7 +8980,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::Add>::~BinaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Add>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::Add>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -9195,7 +9120,7 @@ BOOL ProShade::Subtract::simplify(const PCSharedCount *a1, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -9250,26 +9175,26 @@ void sub_25FFA3E24(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::Subtract,BOOL>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
   v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
-  v10 = v8;
+  v13 = v8;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v13 = &v24 - v12;
-    bzero(&v24 - v12, v14);
-    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v13, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v16 = &v27 - v15;
+    bzero(&v27 - v15, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v16, Size);
   }
 
-  v15 = LODWORD(a2->var0);
-  if (v15 != 1)
+  v18 = LODWORD(a2->var0);
+  if (v18 != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v17 = &v24 - v16;
-    bzero(&v24 - v16, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v17, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v20 = &v27 - v19;
+    bzero(&v27 - v19, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v20, v13);
   }
 
   var0_high = HIDWORD(a1->var0);
@@ -9280,19 +9205,19 @@ BOOL ProShade::computeBinaryType<ProShade::Subtract,BOOL>(const PCString *a1, co
 
   ProShade::Value::set(a3, 1, var0_high);
   result = ProShade::shapeIsVector(HIDWORD(a1->var0));
-  v22 = HIDWORD(a1->var0) == 1 || result;
-  if (v22 != 1)
+  v25 = HIDWORD(a1->var0) == 1 || result;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v26, "not implemented yet");
-    PCString::PCString(&v25, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v26, &v25, 426);
+    PCString::PCString(&v29, "not implemented yet");
+    PCString::PCString(&v28, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v29, &v28, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v21);
+    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("- operator doesn't apply to BOOL", v24);
   }
 
   return result;
@@ -9310,74 +9235,74 @@ void sub_25FFA40D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL ProShade::computeBinaryType<ProShade::Subtract,int>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+BOOL ProShade::computeBinaryType<ProShade::Subtract,int>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  Size = ProShade::shapeGetSize(a1[1], a2);
-  v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 2)
+  v34 = *MEMORY[0x277D85DE8];
+  Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
+  v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
+  v13 = v8;
+  var0_low = LODWORD(a1->var0);
+  if (var0_low == 2)
   {
-    v12 = (a1 + 4);
+    v15 = &a1[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 2, v12, Size);
+    MEMORY[0x28223BE20](v8, 4 * Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 2, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 2)
+  v18 = LODWORD(a2->var0);
+  if (v18 == 2)
   {
-    v16 = (a2 + 4);
+    v19 = &a2[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 2, v16, v10);
+    MEMORY[0x28223BE20](v8, 4 * v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 2, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  var0_high = HIDWORD(a1->var0);
+  if (var0_high != HIDWORD(a2->var0))
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 2, v19);
-  result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  ProShade::Value::set(a3, 2, var0_high);
+  result = ProShade::shapeIsVector(HIDWORD(a1->var0));
+  v24 = HIDWORD(a1->var0) == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 4;
-      v24 = v25;
-      v26 = *v16;
-      v16 += 4;
-      *v22++ = v24 - v26;
-      --v23;
+      v28 = *v15;
+      v15 += 4;
+      v27 = v28;
+      v29 = *v19;
+      v19 += 4;
+      *v25++ = v27 - v29;
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -9397,73 +9322,73 @@ void sub_25FFA435C(_Unwind_Exception *a1)
 
 double ProShade::computeBinaryType<ProShade::Subtract,double>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 3)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 3)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v29 - v13;
-    bzero(&v29 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 3, v12, Size);
+    MEMORY[0x28223BE20](v8, 8 * Size, v10, v11, v12);
+    v15 = &v32 - v16;
+    bzero(&v32 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 3, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 3)
+  v18 = *a2;
+  if (v18 == 3)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v29 - v17;
-    bzero(&v29 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 3, v16, v10);
+    MEMORY[0x28223BE20](v8, 8 * v13, v10, v11, v12);
+    v19 = &v32 - v20;
+    bzero(&v32 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 3, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 3, v19);
+  ProShade::Value::set(a3, 3, v22);
   IsVector = ProShade::shapeIsVector(a1[1]);
-  v22 = a1[1] == 1 || IsVector;
-  if (v22 != 1)
+  v25 = a1[1] == 1 || IsVector;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v31, "not implemented yet");
-    PCString::PCString(&v30, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v31, &v30, 426);
+    PCString::PCString(&v34, "not implemented yet");
+    PCString::PCString(&v33, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v34, &v33, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v23 = (a3 + 16);
-    v24 = Size;
+    v26 = (a3 + 16);
+    v27 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 8;
-      v26 = v25;
-      v27 = *v16;
-      v16 += 8;
-      result = v26 - v27;
-      *v23++ = result;
-      --v24;
+      v28 = *v15;
+      v15 += 8;
+      v29 = v28;
+      v30 = *v19;
+      v19 += 8;
+      result = v29 - v30;
+      *v26++ = result;
+      --v27;
     }
 
-    while (v24);
+    while (v27);
   }
 
   return result;
@@ -9755,12 +9680,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::Subtract>::computeHash(uint64_t a1, int8x
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::Subtract>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::Subtract>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -9772,17 +9697,17 @@ void ProShade::BinaryOp<ProShade::Subtract>::apply(PCShared_base *a1@<X0>, void 
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFA5044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFA5044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -9842,7 +9767,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::Subtract>::~BinaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -9883,4 +9808,75 @@ uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1, PCShared_
   *(a1 + 44) = a4;
   ProShade::BinaryOp<ProShade::Add>::setFrequency(a1);
   return a1;
+}
+
+void sub_25FFA5584(_Unwind_Exception *a1)
+{
+  *(v1 + 48) = &unk_28725E328;
+  PCSharedCount::~PCSharedCount((v1 + 72));
+  ProShade::Node::~Node(v1, (v4 + 8));
+  *(v1 + 112) = v2;
+  *(v1 + 128) = 0;
+  PCWeakCount::~PCWeakCount(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1)
+{
+  *(a1 + 112) = &unk_2872DEA38;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = 1;
+  ProShade::Node::Node(a1, &off_287264928);
+  *a1 = &unk_287264850;
+  *(a1 + 112) = &unk_287264908;
+  *(a1 + 48) = &unk_28725E328;
+  *(a1 + 64) = 0;
+  PCSharedCount::PCSharedCount((a1 + 72));
+  *(a1 + 80) = &unk_28725E328;
+  *(a1 + 96) = 0;
+  PCSharedCount::PCSharedCount((a1 + 104));
+  return a1;
+}
+
+void sub_25FFA5718(_Unwind_Exception *a1)
+{
+  v7 = v4;
+  *v6 = v7;
+  PCSharedCount::~PCSharedCount((v1 + 72));
+  ProShade::Node::~Node(v1, (v5 + 8));
+  *(v1 + 112) = v2;
+  *(v1 + 128) = 0;
+  PCWeakCount::~PCWeakCount(v3);
+  _Unwind_Resume(a1);
+}
+
+double ProShade::BinaryOp<ProShade::Multiply>::computeBinary(unsigned int *a1, unsigned int *a2, uint64_t a3)
+{
+  if (*a1 > 1)
+  {
+    if (*a1 != 2)
+    {
+      return ProShade::computeBinaryType<ProShade::Multiply,double>(a1, a2, a3);
+    }
+
+    v3 = *a2;
+  }
+
+  else
+  {
+    v3 = *a2;
+    if (*a2 < 2)
+    {
+      ProShade::computeBinaryType<ProShade::Multiply,BOOL>(a1, a2, a3);
+      return result;
+    }
+  }
+
+  if (v3 <= 2)
+  {
+    ProShade::computeBinaryType<ProShade::Multiply,int>(a1, a2, a3);
+    return result;
+  }
+
+  return ProShade::computeBinaryType<ProShade::Multiply,double>(a1, a2, a3);
 }

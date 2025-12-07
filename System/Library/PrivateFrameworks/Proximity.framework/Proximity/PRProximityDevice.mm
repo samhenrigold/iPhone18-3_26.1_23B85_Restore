@@ -68,9 +68,9 @@ LABEL_6:
 
 - (void)estimateProximity
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_230EB5000, self, a3, "%s - estimatedProximity: PRDeviceProximityFar", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[PRProximityDevice estimateProximity]";
+  OUTLINED_FUNCTION_0_1(&dword_230EB5000, self, a3, "%s - estimatedProximity: PRDeviceProximityFar", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id).cxx_construct

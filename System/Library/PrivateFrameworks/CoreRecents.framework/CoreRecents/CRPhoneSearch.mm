@@ -75,11 +75,10 @@
 
 - (id)_copyInterpretationsForPhoneNumber:(id)number
 {
-  v4 = [objc_opt_class() copyNormalizedPhoneNumber:number countryCode:self->_countryCode];
-  countryCode = self->_countryCode;
-  v6 = _PNCopyIndexStringsForAddressBookSearch();
+  v3 = [objc_opt_class() copyNormalizedPhoneNumber:number countryCode:self->_countryCode];
+  v4 = _PNCopyIndexStringsForAddressBookSearch();
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isEqualToPhoneNumber:(id)number

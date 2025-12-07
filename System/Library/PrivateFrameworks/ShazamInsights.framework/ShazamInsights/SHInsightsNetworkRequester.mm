@@ -86,7 +86,7 @@ void __76__SHInsightsNetworkRequester_downloadResourceFromRequest_completionHand
 
 - (id)response:(id)response data:(id)data error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dataCopy = data;
   errorCopy = error;
@@ -119,15 +119,13 @@ void __76__SHInsightsNetworkRequester_downloadResourceFromRequest_completionHand
     v14 = shcore_log_object();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412546;
-      v18 = responseCopy;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_265F78000, v14, OS_LOG_TYPE_ERROR, "Network call: %@ failed with bad server response: %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = responseCopy;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_265F78000, v14, OS_LOG_TYPE_ERROR, "Network call: %@ failed with bad server response: %@", &v16, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

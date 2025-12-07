@@ -309,7 +309,7 @@ LABEL_9:
 
 - (BOOL)_import:(id)_import
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   _importCopy = _import;
   v4 = [[MKMessage alloc] initWithData:_importCopy];
   v5 = v4;
@@ -350,23 +350,23 @@ LABEL_9:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v57 = handles;
+      v56 = handles;
       _os_log_impl(&dword_2592D2000, v12, OS_LOG_TYPE_INFO, "handles : %@", buf, 0xCu);
     }
 
     if ([handles count])
     {
       oslog = [(MKMessageMigrator *)self handleIDs:handles];
-      v48 = [oslog sortedArrayUsingComparator:&__block_literal_global_3];
-      v45 = [v48 componentsJoinedByString:{@", "}];
+      v47 = [oslog sortedArrayUsingComparator:&__block_literal_global_3];
+      v44 = [v47 componentsJoinedByString:{@", "}];
       if ([(MKMessage *)v5 isSent])
       {
-        v47 = &unk_286AACEA8;
+        v46 = &unk_286AACEA8;
       }
 
       else
       {
-        v47 = [oslog objectAtIndexedSubscript:0];
+        v46 = [oslog objectAtIndexedSubscript:0];
       }
 
       if (oslog)
@@ -378,27 +378,27 @@ LABEL_9:
         {
           v15 = self->_groups;
           objc_sync_enter(v15);
-          v16 = [(NSMutableDictionary *)self->_groups objectForKey:v45];
+          v16 = [(NSMutableDictionary *)self->_groups objectForKey:v44];
           if (!v16)
           {
             v16 = objc_alloc_init(MKMessageGroup);
-            [(NSMutableDictionary *)self->_groups setObject:v16 forKey:v45];
+            [(NSMutableDictionary *)self->_groups setObject:v16 forKey:v44];
           }
 
-          v46 = v16;
+          v45 = v16;
           objc_sync_exit(v15);
         }
 
         else
         {
-          v46 = 0;
+          v45 = 0;
         }
 
         v19 = +[MKLog log];
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v57 = oslog;
+          v56 = oslog;
           _os_log_impl(&dword_2592D2000, v19, OS_LOG_TYPE_INFO, "handle ids : %@", buf, 0xCu);
         }
 
@@ -406,67 +406,67 @@ LABEL_9:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v57 = v47;
+          v56 = v46;
           _os_log_impl(&dword_2592D2000, v20, OS_LOG_TYPE_INFO, "sender handle id : %@", buf, 0xCu);
         }
 
         v21 = +[MKLog log];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v22 = [(MKMessageGroup *)v46 ID];
+          v22 = [(MKMessageGroup *)v45 ID];
           *buf = 138412290;
-          v57 = v22;
+          v56 = v22;
           _os_log_impl(&dword_2592D2000, v21, OS_LOG_TYPE_INFO, "group id : %@", buf, 0xCu);
         }
 
         v23 = +[MKLog log];
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          roomName = [(MKMessageGroup *)v46 roomName];
+          roomName = [(MKMessageGroup *)v45 roomName];
           *buf = 138412290;
-          v57 = roomName;
+          v56 = roomName;
           _os_log_impl(&dword_2592D2000, v23, OS_LOG_TYPE_INFO, "group room name : %@", buf, 0xCu);
         }
 
-        v25 = [(MKMessageMigrator *)self insertMessage:v5 forHandleID:v47 withGroup:v46];
+        v25 = [(MKMessageMigrator *)self insertMessage:v5 forHandleID:v46 withGroup:v45];
         v26 = +[MKLog log];
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v57 = v25;
+          v56 = v25;
           _os_log_impl(&dword_2592D2000, v26, OS_LOG_TYPE_INFO, "message id : %@", buf, 0xCu);
         }
 
         if (v25)
         {
-          v53 = 0u;
-          v54 = 0u;
-          v51 = 0u;
           v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
           attachments2 = [(MKMessage *)v5 attachments];
-          v28 = [attachments2 countByEnumeratingWithState:&v51 objects:v55 count:16];
+          v28 = [attachments2 countByEnumeratingWithState:&v50 objects:v54 count:16];
           if (v28)
           {
-            v30 = *v52;
+            v30 = *v51;
             *&v29 = 138412290;
-            v44 = v29;
+            v43 = v29;
             while (2)
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v52 != v30)
+                if (*v51 != v30)
                 {
                   objc_enumerationMutation(attachments2);
                 }
 
-                v32 = *(*(&v51 + 1) + 8 * i);
+                v32 = *(*(&v50 + 1) + 8 * i);
                 [v32 write];
                 v33 = [(MKMessageMigrator *)self insertAttachment:v32 withMessage:v5];
                 v34 = +[MKLog log];
                 if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
                 {
-                  *buf = v44;
-                  v57 = v33;
+                  *buf = v43;
+                  v56 = v33;
                   _os_log_impl(&dword_2592D2000, v34, OS_LOG_TYPE_INFO, "attachment id : %@", buf, 0xCu);
                 }
 
@@ -494,7 +494,7 @@ LABEL_9:
                 }
               }
 
-              v28 = [attachments2 countByEnumeratingWithState:&v51 objects:v55 count:16];
+              v28 = [attachments2 countByEnumeratingWithState:&v50 objects:v54 count:16];
               if (v28)
               {
                 continue;
@@ -504,12 +504,12 @@ LABEL_9:
             }
           }
 
-          attachments2 = [(MKMessageMigrator *)self chatIDForMessage:v5 forHandleIDs:v48 withGroup:v46];
+          attachments2 = [(MKMessageMigrator *)self chatIDForMessage:v5 forHandleIDs:v47 withGroup:v45];
           v36 = +[MKLog log];
           if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v57 = attachments2;
+            v56 = attachments2;
             _os_log_impl(&dword_2592D2000, v36, OS_LOG_TYPE_INFO, "chat id : %@", buf, 0xCu);
           }
 
@@ -558,7 +558,7 @@ LABEL_67:
           v8 = 0;
         }
 
-        p_super = &v46->super;
+        p_super = &v45->super;
       }
 
       else
@@ -604,7 +604,6 @@ LABEL_67:
 
 LABEL_78:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -623,29 +622,29 @@ LABEL_78:
 
 - (id)handleIDs:(id)ds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(MKMessageMigrator *)self handleID:*(*(&v16 + 1) + 8 * i), v16];
+        v11 = [(MKMessageMigrator *)self handleID:*(*(&v15 + 1) + 8 * i), v15];
         if (!v11)
         {
 
@@ -657,7 +656,7 @@ LABEL_78:
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -669,8 +668,6 @@ LABEL_78:
 
   v13 = v5;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -708,7 +705,7 @@ LABEL_7:
 
 - (id)insertHandle:(id)handle
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(&unk_286AAD380, "count")}];
   if ([&unk_286AAD380 count])
@@ -777,14 +774,12 @@ LABEL_7:
   v14 = 0;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)insertMessage:(id)message forHandleID:(id)d withGroup:(id)group
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   groupCopy = group;
@@ -838,8 +833,8 @@ LABEL_17:
 
   else
   {
-    v41 = v19;
-    v42 = groupCopy;
+    v40 = v19;
+    v41 = groupCopy;
     v22 = *buf;
     uUID = [messageCopy UUID];
     sqlite3_bind_text(v22, 1, [uUID UTF8String], -1, 0);
@@ -849,7 +844,7 @@ LABEL_17:
     sqlite3_bind_text(v24, 2, [body UTF8String], -1, 0);
 
     sqlite3_bind_null(*buf, 3);
-    v43 = dCopy;
+    v42 = dCopy;
     sqlite3_bind_int64(*buf, 4, [dCopy longLongValue]);
     sqlite3_bind_null(*buf, 5);
     sqlite3_bind_null(*buf, 6);
@@ -884,10 +879,10 @@ LABEL_17:
     sqlite3_bind_int(*buf, 16, 1);
     sqlite3_bind_int(*buf, 17, [messageCopy isSent]);
     v34 = *buf;
-    groupCopy = v42;
-    if (v42)
+    groupCopy = v41;
+    if (v41)
     {
-      roomName = [v42 roomName];
+      roomName = [v41 roomName];
       sqlite3_bind_text(v34, 18, [roomName UTF8String], -1, 0);
     }
 
@@ -896,11 +891,11 @@ LABEL_17:
       sqlite3_bind_null(*buf, 18);
     }
 
-    dCopy = v43;
+    dCopy = v42;
     sqlite3_bind_int(*buf, 19, 1);
     sqlite3_bind_int(*buf, 20, 0);
     sqlite3_bind_null(*buf, 21);
-    sqlite3_bind_int(*buf, 22, v41);
+    sqlite3_bind_int(*buf, 22, v40);
     sqlite3_bind_int(*buf, 23, 1);
     if (sqlite3_step(*buf) == 101)
     {
@@ -927,8 +922,6 @@ LABEL_17:
 
   v37 = 0;
 LABEL_26:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -1031,7 +1024,7 @@ LABEL_15:
 
 - (id)chatIDForMessage:(id)message forHandleIDs:(id)ds withGroup:(id)group
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dsCopy = ds;
   groupCopy = group;
@@ -1080,57 +1073,55 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v27 = messageCopy;
+  v26 = messageCopy;
   v16 = [MEMORY[0x277CCABB0] numberWithLongLong:v15];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v26 = dsCopy;
+  v25 = dsCopy;
   v17 = dsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v31;
+    v20 = *v30;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v31 != v20)
+        if (*v30 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [(MKMessageMigrator *)self joinChat:v16 handle:*(*(&v30 + 1) + 8 * i)];
+        v22 = [(MKMessageMigrator *)self joinChat:v16 handle:*(*(&v29 + 1) + 8 * i)];
         if (!v22)
         {
           v23 = +[MKLog log];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [MKMessageMigrator chatIDForMessage:v29 forHandleIDs:v23 withGroup:?];
+            [MKMessageMigrator chatIDForMessage:v28 forHandleIDs:v23 withGroup:?];
           }
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v19);
   }
 
-  dsCopy = v26;
-  messageCopy = v27;
+  dsCopy = v25;
+  messageCopy = v26;
 LABEL_24:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)insertChatForMessage:(id)message forHandleIDs:(id)ds withGroup:(id)group
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dsCopy = ds;
   groupCopy = group;
@@ -1185,18 +1176,18 @@ LABEL_24:
   }
 
   v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"P:%@", v16];
-  v49 = sender2;
+  v48 = sender2;
   if (groupCopy)
   {
     roomName = [groupCopy roomName];
-    v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"SMS+;%@", roomName];;
+    v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"SMS+;%@", roomName];;
     uUIDString = [groupCopy ID];
   }
 
   else
   {
     roomName = sender;
-    v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"SMS-;%@", roomName];;
+    v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"SMS-;%@", roomName];;
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
   }
@@ -1207,7 +1198,7 @@ LABEL_24:
   v22 = [v19 stringWithFormat:@"INSERT INTO chat (%@) VALUES (%@)", v20, v21];
 
   ppStmt = 0;
-  v43 = v22;
+  v42 = v22;
   if (sqlite3_prepare(self->_database, [v22 UTF8String], -1, &ppStmt, 0))
   {
     v23 = +[MKLog log];
@@ -1231,7 +1222,7 @@ LABEL_24:
     v26 = 45;
   }
 
-  sqlite3_bind_text(ppStmt, 1, [v47 UTF8String], -1, 0);
+  sqlite3_bind_text(ppStmt, 1, [v46 UTF8String], -1, 0);
   sqlite3_bind_int(ppStmt, 2, v26);
   sqlite3_bind_int(ppStmt, 3, 3);
   sqlite3_bind_text(ppStmt, 4, [(NSString *)self->_accountGUID UTF8String], -1, 0);
@@ -1251,7 +1242,7 @@ LABEL_24:
   }
 
   sqlite3_bind_text(ppStmt, 9, [v17 UTF8String], -1, 0);
-  sqlite3_bind_text(ppStmt, 10, [(__CFString *)v49 UTF8String], -1, 0);
+  sqlite3_bind_text(ppStmt, 10, [(__CFString *)v48 UTF8String], -1, 0);
   sqlite3_bind_text(ppStmt, 11, [&stru_286A8E730 UTF8String], -1, 0);
   v25 = uUIDString;
   sqlite3_bind_text(ppStmt, 12, [uUIDString UTF8String], -1, 0);
@@ -1279,53 +1270,51 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v41 = sender;
-  v42 = messageCopy;
+  v40 = sender;
+  v41 = messageCopy;
   v24 = [MEMORY[0x277CCABB0] numberWithLongLong:insert_rowid];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v30 = dsCopy;
-  v31 = [v30 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v53;
+    v33 = *v52;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v53 != v33)
+        if (*v52 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = [(MKMessageMigrator *)self joinChat:v24 handle:*(*(&v52 + 1) + 8 * i)];
+        v35 = [(MKMessageMigrator *)self joinChat:v24 handle:*(*(&v51 + 1) + 8 * i)];
         if (!v35)
         {
           v36 = +[MKLog log];
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            [MKMessageMigrator chatIDForMessage:v51 forHandleIDs:v36 withGroup:?];
+            [MKMessageMigrator chatIDForMessage:v50 forHandleIDs:v36 withGroup:?];
           }
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v32);
   }
 
-  sender = v41;
-  messageCopy = v42;
+  sender = v40;
+  messageCopy = v41;
   v13 = groupCopy;
   v37 = dsCopy;
   v25 = uUIDString;
 LABEL_47:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

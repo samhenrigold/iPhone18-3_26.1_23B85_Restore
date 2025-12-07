@@ -23,27 +23,25 @@
 
 void __57__GKFriendRecommendationInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v6.receiver = *(a1 + 32);
-  v6.super_class = &OBJC_METACLASS___GKFriendRecommendationInternal;
-  v1 = objc_msgSendSuper2(&v6, sel_secureCodedPropertyKeys);
+  v7[4] = *MEMORY[0x277D85DE8];
+  v5.receiver = *(a1 + 32);
+  v5.super_class = &OBJC_METACLASS___GKFriendRecommendationInternal;
+  v1 = objc_msgSendSuper2(&v5, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v7[0] = @"reason";
-  v8[0] = objc_opt_class();
-  v7[1] = @"reason2";
-  v8[1] = objc_opt_class();
-  v7[2] = @"rid";
-  v8[2] = objc_opt_class();
-  v7[3] = @"source";
-  v8[3] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v6[0] = @"reason";
+  v7[0] = objc_opt_class();
+  v6[1] = @"reason2";
+  v7[1] = objc_opt_class();
+  v6[2] = @"rid";
+  v7[2] = objc_opt_class();
+  v6[3] = @"source";
+  v7[3] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   [v2 addEntriesFromDictionary:v3];
 
   v4 = secureCodedPropertyKeys_sSecureCodedKeys_653;
   secureCodedPropertyKeys_sSecureCodedKeys_653 = v2;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

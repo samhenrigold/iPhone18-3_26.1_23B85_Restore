@@ -13,7 +13,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -36,7 +36,7 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v9;
+      v25 = v9;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Timer expired - reporting results", buf, 0xCu);
     }
 
@@ -44,10 +44,10 @@
     if (self)
     {
       [(HMFTimer *)selfCopy->_executionTimer suspend];
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       pendingCommands = selfCopy->_pendingCommands;
     }
 
@@ -55,24 +55,24 @@
     {
       [0 suspend];
       pendingCommands = 0;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
     }
 
     v11 = pendingCommands;
-    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
@@ -87,22 +87,20 @@
             v16 = 0;
           }
 
-          v17 = [(NSMutableDictionary *)v16 objectForKey:*(*(&v20 + 1) + 8 * v15), v20];
+          v17 = [(NSMutableDictionary *)v16 objectForKey:*(*(&v19 + 1) + 8 * v15), v19];
           [v17 timeoutAndReportResults];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v18 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v18 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
         v13 = v18;
       }
 
       while (v18);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_command
@@ -114,7 +112,7 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   newValue = completion;
   if (!self)
   {
@@ -130,7 +128,7 @@
     block[1] = 3221225472;
     block[2] = __53__HMDAssistantCommandExecutor_performWithCompletion___block_invoke;
     block[3] = &unk_278688B80;
-    v75 = newValue;
+    v74 = newValue;
     dispatch_async(workQueue, block);
 
     goto LABEL_50;
@@ -153,9 +151,9 @@
       v13 = self->_initialCommand;
       timeout = [(HMDAssistantCommand *)v13 timeout];
       *buf = 138543618;
-      v89 = v12;
-      v90 = 2112;
-      v91 = timeout;
+      v88 = v12;
+      v89 = 2112;
+      v90 = timeout;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Timeout %@ specified by Siri Command is below threshold, falling back to default timeout", buf, 0x16u);
     }
 
@@ -192,9 +190,9 @@
       if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
         v57 = HMFGetLogIdentifier();
-        *v92 = 138543362;
-        v93 = v57;
-        _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@No actions to perform", v92, 0xCu);
+        *v91 = 138543362;
+        v92 = v57;
+        _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@No actions to perform", v91, 0xCu);
       }
 
       objc_autoreleasePoolPop(v54);
@@ -212,44 +210,44 @@ LABEL_48:
     }
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   actionRequests2 = [(HMDAssistantCommand *)self->_initialCommand actionRequests];
-  v24 = [actionRequests2 countByEnumeratingWithState:&v80 objects:buf count:16];
+  v24 = [actionRequests2 countByEnumeratingWithState:&v79 objects:buf count:16];
   if (v24)
   {
-    v25 = *v81;
+    v25 = *v80;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v81 != v25)
+        if (*v80 != v25)
         {
           objc_enumerationMutation(actionRequests2);
         }
 
-        v27 = *(*(&v80 + 1) + 8 * i);
+        v27 = *(*(&v79 + 1) + 8 * i);
+        v75 = 0u;
         v76 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v79 = 0u;
         actions2 = [v27 actions];
-        v29 = [actions2 countByEnumeratingWithState:&v76 objects:v87 count:16];
+        v29 = [actions2 countByEnumeratingWithState:&v75 objects:v86 count:16];
         if (v29)
         {
-          v30 = *v77;
+          v30 = *v76;
           while (2)
           {
             for (j = 0; j != v29; ++j)
             {
-              if (*v77 != v30)
+              if (*v76 != v30)
               {
                 objc_enumerationMutation(actions2);
               }
 
-              aceId = [*(*(&v76 + 1) + 8 * j) aceId];
+              aceId = [*(*(&v75 + 1) + 8 * j) aceId];
               v33 = aceId == 0;
 
               if (v33)
@@ -259,7 +257,7 @@ LABEL_48:
               }
             }
 
-            v29 = [actions2 countByEnumeratingWithState:&v76 objects:v87 count:16];
+            v29 = [actions2 countByEnumeratingWithState:&v75 objects:v86 count:16];
             if (v29)
             {
               continue;
@@ -270,7 +268,7 @@ LABEL_48:
         }
       }
 
-      v24 = [actionRequests2 countByEnumeratingWithState:&v80 objects:buf count:16];
+      v24 = [actionRequests2 countByEnumeratingWithState:&v79 objects:buf count:16];
     }
 
     while (v24);
@@ -303,48 +301,48 @@ LABEL_49:
   }
 
   homeManager = [(HMDAssistantCommand *)self->_initialCommand homeManager];
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   obj = [(HMDAssistantCommand *)self->_initialCommand actionRequests];
-  v64 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
-  if (v64)
+  v63 = [obj countByEnumeratingWithState:&v69 objects:v85 count:16];
+  if (v63)
   {
-    v63 = *v71;
+    v62 = *v70;
     do
     {
       v40 = 0;
       do
       {
-        if (*v71 != v63)
+        if (*v70 != v62)
         {
           v41 = v40;
           objc_enumerationMutation(obj);
           v40 = v41;
         }
 
-        v65 = v40;
-        v42 = *(*(&v70 + 1) + 8 * v40);
+        v64 = v40;
+        v42 = *(*(&v69 + 1) + 8 * v40);
+        v65 = 0u;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
         actions4 = [v42 actions];
-        v44 = [actions4 countByEnumeratingWithState:&v66 objects:v85 count:16];
+        v44 = [actions4 countByEnumeratingWithState:&v65 objects:v84 count:16];
         if (v44)
         {
-          v45 = *v67;
+          v45 = *v66;
           do
           {
             for (k = 0; k != v44; ++k)
             {
-              if (*v67 != v45)
+              if (*v66 != v45)
               {
                 objc_enumerationMutation(actions4);
               }
 
-              v47 = *(*(&v66 + 1) + 8 * k);
+              v47 = *(*(&v65 + 1) + 8 * k);
               _command = [(HMDAssistantCommandExecutor *)self _command];
               serverValidity2 = [(HMDAssistantCommand *)self->_initialCommand serverValidity];
               [_command setServerValidity:serverValidity2];
@@ -352,8 +350,8 @@ LABEL_49:
               filter = [v42 filter];
               [_command setFilter:filter];
 
-              v84 = v47;
-              v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
+              v83 = v47;
+              v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
               [_command setActions:v51];
 
               [_command setHomeManager:homeManager];
@@ -364,24 +362,23 @@ LABEL_49:
               [(HMDAssistantCommandExecutor *)&self->super.isa _executeCommand:_command];
             }
 
-            v44 = [actions4 countByEnumeratingWithState:&v66 objects:v85 count:16];
+            v44 = [actions4 countByEnumeratingWithState:&v65 objects:v84 count:16];
           }
 
           while (v44);
         }
 
-        v40 = v65 + 1;
+        v40 = v64 + 1;
       }
 
-      while (v65 + 1 != v64);
-      v64 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
+      while (v64 + 1 != v63);
+      v63 = [obj countByEnumeratingWithState:&v69 objects:v85 count:16];
     }
 
-    while (v64);
+    while (v63);
   }
 
 LABEL_50:
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDAssistantCommandExecutor_performWithCompletion___block_invoke(uint64_t a1)
@@ -430,7 +427,7 @@ void __53__HMDAssistantCommandExecutor_performWithCompletion___block_invoke(uint
 
 void __47__HMDAssistantCommandExecutor__executeCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -450,11 +447,11 @@ void __47__HMDAssistantCommandExecutor__executeCommand___block_invoke(uint64_t a
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v30 = 138543618;
-        v31 = v12;
-        v32 = 2112;
-        v33 = v8;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Nil response for action %@", &v30, 0x16u);
+        v29 = 138543618;
+        v30 = v12;
+        v31 = 2112;
+        v32 = v8;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Nil response for action %@", &v29, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -510,7 +507,7 @@ void __47__HMDAssistantCommandExecutor__executeCommand___block_invoke(uint64_t a
         v25 = objc_alloc_init(MEMORY[0x277D47350]);
         [v25 setCommandOutcome:v24];
 
-        v26 = [*(v5 + 32) copy];
+        v26 = objc_msgSend_copy(*(v5 + 32));
         [v25 setActionResults:v26];
 
         v27 = [*(v5 + 8) serverValidity];
@@ -527,13 +524,11 @@ void __47__HMDAssistantCommandExecutor__executeCommand___block_invoke(uint64_t a
       [(HMDAssistantCommandExecutor *)v5 _sendResponse:v3];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendResponse:(uint64_t)response
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_assert_queue_V2(*(response + 24));
   v4 = *(response + 64);
@@ -552,15 +547,13 @@ void __47__HMDAssistantCommandExecutor__executeCommand___block_invoke(uint64_t a
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Results already reported for Siri command - aborting report", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Results already reported for Siri command - aborting report", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAssistantCommandExecutor)initWithCommand:(id)command workQueue:(id)queue messageDispatcher:(id)dispatcher

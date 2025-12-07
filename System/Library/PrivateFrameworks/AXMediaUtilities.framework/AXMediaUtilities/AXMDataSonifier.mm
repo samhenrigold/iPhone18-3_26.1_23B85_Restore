@@ -2113,7 +2113,7 @@ uint64_t __31__AXMDataSonifier_endScrubbing__block_invoke_2(uint64_t a1)
 {
   v14 = 0;
   memset(v13, 0, sizeof(v13));
-  [(AXMDataSonifier *)self _audioFormat];
+  objc_msgSend__audioFormat(self, a2);
   v3 = [objc_alloc(MEMORY[0x1E6958418]) initWithStreamDescription:v13];
   objc_initWeak(&location, self);
   v4 = objc_alloc(MEMORY[0x1E6958490]);
@@ -2249,7 +2249,7 @@ LABEL_10:
       do
       {
         v49 = &a5[4 * v48 + 2];
-        v50 = *(v49 + 4);
+        v50 = *(v49 + 1);
         v51 = objc_loadWeakRetained((a1 + 32));
         v52 = [v51 scrubbingMixerDataSource];
         v53 = [v52 length];
@@ -2306,7 +2306,7 @@ LABEL_10:
           begin = v55->__begin_;
         }
 
-        memcpy(*(v49 + 8), begin, 4 * v56);
+        memcpy(v49[1], begin, 4 * v56);
         v70 = objc_loadWeakRetained((a1 + 32));
         v71 = [v70 scrubbingMixerDataSource];
         v72 = [v71 currentSampleIndex];

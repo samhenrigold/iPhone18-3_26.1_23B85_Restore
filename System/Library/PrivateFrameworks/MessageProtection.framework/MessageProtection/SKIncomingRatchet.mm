@@ -1,9 +1,24 @@
 @interface SKIncomingRatchet
 - (_TtC17MessageProtection17SKIncomingRatchet)init;
+- (_TtC17MessageProtection17SKIncomingRatchet)initWithKey:(id)key index:(unsigned __int16)index signingKey:(id)signingKey error:(id *)error;
 - (id)openStatusWithIndex:(unint64_t)index encryptedMessage:(id)message authenticating:(id)authenticating signature:(id)signature error:(id *)error;
 @end
 
 @implementation SKIncomingRatchet
+
+- (_TtC17MessageProtection17SKIncomingRatchet)initWithKey:(id)key index:(unsigned __int16)index signingKey:(id)signingKey error:(id *)error
+{
+  indexCopy = index;
+  keyCopy = key;
+  signingKeyCopy = signingKey;
+  v10 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
+
+  v13 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v15 = v14;
+
+  return SKIncomingRatchet.init(key:index:signingKey:)(v10, v12, indexCopy, v13, v15);
+}
 
 - (id)openStatusWithIndex:(unint64_t)index encryptedMessage:(id)message authenticating:(id)authenticating signature:(id)signature error:(id *)error
 {

@@ -97,7 +97,6 @@
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&accessibleBundleInformation, 0);
   objc_storeStrong(v20, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -108,6 +108,7 @@
 - (void)setAccountProperty:(id)property forKey:(id)key;
 - (void)setAccountType:(ACAccountType *)accountType;
 - (void)setActive:(BOOL)active;
+- (void)setAuthenticated:(BOOL)authenticated;
 - (void)setAuthenticationType:(id)type;
 - (void)setCreationDate:(id)date;
 - (void)setCredential:(ACAccountCredential *)credential;
@@ -128,6 +129,7 @@
 - (void)setProvisionedDataclasses:(id)dataclasses;
 - (void)setSecCertificates:(id)certificates;
 - (void)setSecIdentity:(__SecIdentity *)identity;
+- (void)setSupportsAuthentication:(BOOL)authentication;
 - (void)setUsername:(NSString *)username;
 - (void)setVisible:(BOOL)visible;
 - (void)setWarmingUp:(BOOL)up;
@@ -138,14 +140,13 @@
 
 + (id)keypathsRequiredForInitialization
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"accountType";
-  v5[1] = @"customProperties";
-  v5[2] = @"parent";
-  v5[3] = @"enabledDataclasses";
-  v5[4] = @"provisionedDataclasses";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"accountType";
+  v4[1] = @"customProperties";
+  v4[2] = @"parent";
+  v4[3] = @"enabledDataclasses";
+  v4[4] = @"provisionedDataclasses";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
 
   return v2;
 }
@@ -471,8 +472,8 @@
 
   if (v7)
   {
-    v8 = _ACPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _ACPLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [ACAccount isDataSeparatedAccount];
     }
@@ -740,37 +741,38 @@ LABEL_10:
       host = [v12 host];
     }
 
-    if ([host length])
+    v13 = [host length];
+    if (v13)
     {
-      v13 = _ACLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = _ACLogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [ACAccount qualifiedUsername];
       }
 
-      v14 = host;
-      v3 = v14;
+      v15 = host;
+      v3 = v15;
     }
   }
 
   if ([v3 length])
   {
-    v15 = MEMORY[0x1E696AEC0];
+    v16 = MEMORY[0x1E696AEC0];
     username = [(ACAccount *)self username];
-    v17 = [v15 stringWithFormat:@"%@@%@", username, v3];
+    v18 = [v16 stringWithFormat:@"%@@%@", username, v3];
 
     goto LABEL_25;
   }
 
-  v18 = [(ACAccount *)self objectForKeyedSubscript:@"IdentityEmailAddress"];
-  if ([v18 length])
+  v19 = [(ACAccount *)self objectForKeyedSubscript:@"IdentityEmailAddress"];
+  if ([v19 length])
   {
     username2 = [(ACAccount *)self username];
-    v20 = [username2 containsString:@"@"];
+    v21 = [username2 containsString:@"@"];
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      v21 = @"IdentityEmailAddress";
+      v22 = @"IdentityEmailAddress";
       goto LABEL_22;
     }
   }
@@ -779,23 +781,23 @@ LABEL_10:
   {
   }
 
-  v22 = [(ACAccount *)self objectForKeyedSubscript:@"DAAccountEmailAddress"];
-  v23 = [v22 length];
+  v23 = [(ACAccount *)self objectForKeyedSubscript:@"DAAccountEmailAddress"];
+  v24 = [v23 length];
 
-  if (!v23)
+  if (!v24)
   {
     username3 = [(ACAccount *)self username];
     goto LABEL_24;
   }
 
-  v21 = @"DAAccountEmailAddress";
+  v22 = @"DAAccountEmailAddress";
 LABEL_22:
-  username3 = [(ACAccount *)self objectForKeyedSubscript:v21];
+  username3 = [(ACAccount *)self objectForKeyedSubscript:v22];
 LABEL_24:
-  v17 = username3;
+  v18 = username3;
 LABEL_25:
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)isWarmingUp
@@ -908,32 +910,33 @@ LABEL_25:
 
 - (ACAccount)initWithManagedAccount:(id)account
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   accountCopy = account;
-  v67.receiver = self;
-  v67.super_class = ACAccount;
-  v4 = [(ACAccount *)&v67 init];
+  v68.receiver = self;
+  v68.super_class = ACAccount;
+  v4 = [(ACAccount *)&v68 init];
   if (!v4)
   {
 LABEL_21:
     v4 = v4;
-    v55 = v4;
+    v57 = v4;
     goto LABEL_25;
   }
 
   accountType = [accountCopy accountType];
+  v6 = accountType;
   if (accountType)
   {
     identifier = [accountCopy identifier];
-    v7 = identifier == 0;
+    v8 = identifier == 0;
 
-    if (!v7)
+    if (!v8)
     {
-      v8 = [ACAccountType alloc];
+      v9 = [ACAccountType alloc];
       accountType2 = [accountCopy accountType];
-      v10 = [(ACAccountType *)v8 initWithManagedAccountType:accountType2];
+      v11 = [(ACAccountType *)v9 initWithManagedAccountType:accountType2];
       accountType = v4->_accountType;
-      v4->_accountType = v10;
+      v4->_accountType = v11;
 
       identifier2 = [accountCopy identifier];
       identifier = v4->_identifier;
@@ -991,98 +994,98 @@ LABEL_21:
       modificationID = v4->_modificationID;
       v4->_modificationID = modificationID;
 
-      v38 = accountCopy;
+      v39 = accountCopy;
       parentAccount = [accountCopy parentAccount];
       if (parentAccount)
       {
-        v39 = [[ACAccount alloc] initWithManagedAccount:parentAccount];
+        v40 = [[ACAccount alloc] initWithManagedAccount:parentAccount];
         parentAccount = v4->_parentAccount;
-        v4->_parentAccount = v39;
+        v4->_parentAccount = v40;
 
-        v38 = accountCopy;
+        v39 = accountCopy;
       }
 
-      dataclassProperties = [v38 dataclassProperties];
-      v42 = [dataclassProperties mutableCopy];
+      dataclassProperties = [v39 dataclassProperties];
+      v43 = [dataclassProperties mutableCopy];
       dataclassProperties = v4->_dataclassProperties;
-      v4->_dataclassProperties = v42;
+      v4->_dataclassProperties = v43;
 
-      v44 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v65 = 0u;
+      v45 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
+      v65 = 0u;
       customProperties = [accountCopy customProperties];
-      v46 = [customProperties countByEnumeratingWithState:&v63 objects:v68 count:16];
-      if (v46)
+      v47 = [customProperties countByEnumeratingWithState:&v64 objects:v69 count:16];
+      if (v47)
       {
-        v47 = *v64;
+        v48 = *v65;
         do
         {
-          for (i = 0; i != v46; ++i)
+          for (i = 0; i != v47; ++i)
           {
-            if (*v64 != v47)
+            if (*v65 != v48)
             {
               objc_enumerationMutation(customProperties);
             }
 
-            v49 = *(*(&v63 + 1) + 8 * i);
-            value = [v49 value];
-            if (!value || ([v49 key], v51 = objc_claimAutoreleasedReturnValue(), v52 = v51 == 0, v51, v52))
+            v50 = *(*(&v64 + 1) + 8 * i);
+            value = [v50 value];
+            v52 = value;
+            if (!value || ([v50 key], v53 = objc_claimAutoreleasedReturnValue(), v54 = v53 == 0, v53, v54))
             {
-              v53 = _ACLogSystem();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+              v55 = _ACLogSystem(value);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                v54 = [v49 key];
+                v56 = [v50 key];
                 *buf = 138412546;
-                v70 = value;
-                v71 = 2112;
-                *v72 = v54;
-                _os_log_error_impl(&dword_1AC3CD000, v53, OS_LOG_TYPE_ERROR, "Unexpecteed nil value for property %@ or key %@", buf, 0x16u);
+                v71 = v52;
+                v72 = 2112;
+                *v73 = v56;
+                _os_log_error_impl(&dword_1AC3CD000, v55, OS_LOG_TYPE_ERROR, "Unexpecteed nil value for property %@ or key %@", buf, 0x16u);
               }
             }
 
             else
             {
-              v53 = [v49 key];
-              [v44 setObject:value forKey:v53];
+              v55 = [v50 key];
+              [v45 setObject:v52 forKey:v55];
             }
           }
 
-          v46 = [customProperties countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v47 = [customProperties countByEnumeratingWithState:&v64 objects:v69 count:16];
         }
 
-        while (v46);
+        while (v47);
       }
 
-      if ([v44 count])
+      if ([v45 count])
       {
-        objc_storeStrong(&v4->_properties, v44);
+        objc_storeStrong(&v4->_properties, v45);
       }
 
       goto LABEL_21;
     }
   }
 
-  v56 = _ACLogSystem();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+  v58 = _ACLogSystem(accountType);
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
   {
     accountType3 = [accountCopy accountType];
     identifier3 = [accountCopy identifier];
     *buf = 138412802;
-    v70 = accountCopy;
-    v71 = 1024;
-    *v72 = accountType3 != 0;
-    *&v72[4] = 1024;
-    *&v72[6] = identifier3 != 0;
-    _os_log_error_impl(&dword_1AC3CD000, v56, OS_LOG_TYPE_ERROR, "ACAccount initializer just ran into an account (%@) missing required properties: accountType:%d identifier:%d", buf, 0x18u);
+    v71 = accountCopy;
+    v72 = 1024;
+    *v73 = accountType3 != 0;
+    *&v73[4] = 1024;
+    *&v73[6] = identifier3 != 0;
+    _os_log_error_impl(&dword_1AC3CD000, v58, OS_LOG_TYPE_ERROR, "ACAccount initializer just ran into an account (%@) missing required properties: accountType:%d identifier:%d", buf, 0x18u);
   }
 
-  v55 = 0;
+  v57 = 0;
 LABEL_25:
 
-  v57 = *MEMORY[0x1E69E9840];
-  return v55;
+  return v57;
 }
 
 - (ACAccount)initWithCoder:(id)coder
@@ -1314,7 +1317,7 @@ void __47__ACAccount__installCredentialsChangedObserver__block_invoke(uint64_t a
 
 - (void)encodeWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1336,37 +1339,37 @@ void __47__ACAccount__installCredentialsChangedObserver__block_invoke(uint64_t a
     accountPropertiesTransformer2 = [(ACAccount *)selfCopy accountPropertiesTransformer];
     v10 = (accountPropertiesTransformer2)[2](accountPropertiesTransformer2, accountProperties);
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     accountProperties = v10;
-    v11 = [accountProperties countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [accountProperties countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         v13 = 0;
         do
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(accountProperties);
           }
 
-          [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v22 + 1) + 8 * v13++), v22];
+          [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v21 + 1) + 8 * v13++), v21];
         }
 
         while (v11 != v13);
-        v11 = [accountProperties countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [accountProperties countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
     }
   }
 
-  [coderCopy encodeObject:accountProperties forKey:{@"accountProperties", v22}];
+  [coderCopy encodeObject:accountProperties forKey:{@"accountProperties", v21}];
   v14 = [MEMORY[0x1E696AD98] numberWithBool:selfCopy->_authenticated];
   [coderCopy encodeObject:v14 forKey:@"authenticated"];
 
@@ -1425,7 +1428,6 @@ void __47__ACAccount__installCredentialsChangedObserver__block_invoke(uint64_t a
   }
 
   objc_sync_exit(selfCopy);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithProtobuf:(id)protobuf
@@ -1999,7 +2001,7 @@ void __47__ACAccount__installCredentialsChangedObserver__block_invoke(uint64_t a
 
 - (void)markAllPropertiesDirty
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   dirtyProperties = selfCopy->_dirtyProperties;
@@ -2038,37 +2040,36 @@ void __47__ACAccount__installCredentialsChangedObserver__block_invoke(uint64_t a
     selfCopy->_dirtyAccountProperties = v6;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v8 = selfCopy->_properties;
-  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(NSMutableSet *)selfCopy->_dirtyAccountProperties addObject:*(*(&v13 + 1) + 8 * v11++), v13];
+        [(NSMutableSet *)selfCopy->_dirtyAccountProperties addObject:*(*(&v12 + 1) + 8 * v11++), v12];
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDirty:(BOOL)dirty forProperty:(id)property
@@ -2456,34 +2457,34 @@ LABEL_8:
 
 - (void)setAccountProperties:(id)properties
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = selfCopy->_properties;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v21 + 1) + 8 * v9++)];
+        [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v20 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
@@ -2496,37 +2497,36 @@ LABEL_8:
 
   [(ACAccount *)selfCopy didChangeValueForKey:@"accountProperties"];
   [(ACAccount *)selfCopy _unsafe_markPropertyDirty:@"accountProperties"];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v12 = selfCopy->_properties;
-  v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v13)
   {
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v17 + 1) + 8 * v15++), v17];
+        [(ACAccount *)selfCopy _markAccountPropertyDirty:*(*(&v16 + 1) + 8 * v15++), v16];
       }
 
       while (v13 != v15);
-      v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)accountPropertyForKey:(id)key
@@ -2567,6 +2567,30 @@ LABEL_8:
   }
 
   objc_sync_exit(selfCopy);
+}
+
+- (void)setAuthenticated:(BOOL)authenticated
+{
+  authenticatedCopy = authenticated;
+  if ([(ACAccount *)self _useParentForCredentials])
+  {
+    obj = [(ACAccount *)self parentAccount];
+    [(ACAccount *)obj setAuthenticated:authenticatedCopy];
+  }
+
+  else
+  {
+    obj = self;
+    objc_sync_enter(obj);
+    obj->_authenticated = authenticatedCopy;
+    [(ACAccount *)obj _unsafe_markPropertyDirty:@"authenticated"];
+    if (authenticatedCopy)
+    {
+      [(ACAccount *)obj setLastCredentialRenewalRejectionDate:0];
+    }
+
+    objc_sync_exit(obj);
+  }
 }
 
 - (void)setLastCredentialRenewalRejectionDate:(id)date
@@ -2610,7 +2634,7 @@ LABEL_8:
 {
   if (location > 1)
   {
-    v4 = _ACLogSystem();
+    v4 = _ACLogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [ACAccount setCredentialLocation:];
@@ -2664,6 +2688,25 @@ LABEL_8:
   return supportsAuthentication;
 }
 
+- (void)setSupportsAuthentication:(BOOL)authentication
+{
+  authenticationCopy = authentication;
+  if ([(ACAccount *)self _useParentForCredentials])
+  {
+    obj = [(ACAccount *)self parentAccount];
+    [(ACAccount *)obj setSupportsAuthentication:authenticationCopy];
+  }
+
+  else
+  {
+    obj = self;
+    objc_sync_enter(obj);
+    obj->_supportsAuthentication = authenticationCopy;
+    [(ACAccount *)obj _unsafe_markPropertyDirty:@"supportsAuthentication"];
+    objc_sync_exit(obj);
+  }
+}
+
 - (BOOL)supportsPush
 {
   selfCopy = self;
@@ -2701,7 +2744,7 @@ LABEL_8:
 
 - (void)setParentAccount:(id)account
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   identifier = [accountCopy identifier];
   identifier2 = [(ACAccount *)self identifier];
@@ -2709,14 +2752,14 @@ LABEL_8:
 
   if (v7)
   {
-    v10 = MEMORY[0x1E695DF30];
-    v15 = @"account";
-    v16[0] = accountCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v12 = [v10 exceptionWithName:*MEMORY[0x1E695D940] reason:@"ACAccount can't be its own parent" userInfo:v11];
-    v13 = v12;
+    v9 = MEMORY[0x1E695DF30];
+    v14 = @"account";
+    v15[0] = accountCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v11 = [v9 exceptionWithName:*MEMORY[0x1E695D940] reason:@"ACAccount can't be its own parent" userInfo:v10];
+    v12 = v11;
 
-    objc_exception_throw(v12);
+    objc_exception_throw(v11);
   }
 
   selfCopy = self;
@@ -2724,8 +2767,6 @@ LABEL_8:
   objc_storeStrong(&selfCopy->_parentAccount, account);
   [(ACAccount *)selfCopy _unsafe_markPropertyDirty:@"parent"];
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetParentAccount:(id)account
@@ -2787,7 +2828,7 @@ LABEL_8:
 
 - (id)childAccountsWithAccountTypeIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2795,25 +2836,25 @@ LABEL_8:
   {
     obj = selfCopy;
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = selfCopy->_childAccounts;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           accountType = [v11 accountType];
           identifier = [accountType identifier];
           v14 = [identifier isEqualToString:identifierCopy];
@@ -2824,7 +2865,7 @@ LABEL_8:
           }
         }
 
-        v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
@@ -2841,8 +2882,6 @@ LABEL_8:
     accountStore = [(ACAccount *)selfCopy accountStore];
     v6 = [accountStore childAccountsForAccount:selfCopy withTypeIdentifier:identifierCopy];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2976,7 +3015,7 @@ LABEL_8:
 - (void)setProvisionedDataclasses:(id)dataclasses
 {
   dataclassesCopy = dataclasses;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(dataclassesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ACAccount setProvisionedDataclasses:];
@@ -3009,15 +3048,15 @@ LABEL_8:
 - (void)setProvisioned:(BOOL)provisioned forDataclass:(id)dataclass
 {
   dataclassCopy = dataclass;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __41__ACAccount_setProvisioned_forDataclass___block_invoke;
-  v18[3] = &unk_1E7976B98;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __41__ACAccount_setProvisioned_forDataclass___block_invoke;
+  v19[3] = &unk_1E7976B98;
   provisionedCopy = provisioned;
   v7 = dataclassCopy;
-  v19 = v7;
+  v20 = v7;
   selfCopy = self;
-  v8 = MEMORY[0x1AC5B3C70](v18);
+  v8 = MEMORY[0x1AC5B3C70](v19);
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
   if (selfCopy2->_trackedProvisionedDataclasses)
@@ -3031,39 +3070,39 @@ LABEL_8:
     objc_sync_exit(selfCopy2);
 
     accountStore = [(ACAccount *)selfCopy2 accountStore];
-    v17 = 0;
-    v11 = [accountStore provisionedDataclassesForAccount:selfCopy2 error:&v17];
-    v12 = v17;
+    v18 = 0;
+    v11 = [accountStore provisionedDataclassesForAccount:selfCopy2 error:&v18];
+    v12 = v18;
 
     if (v12)
     {
-      v13 = _ACLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _ACLogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [ACAccount _unsafe_loadProvisionedDataclasses];
       }
     }
 
-    v14 = selfCopy2;
-    objc_sync_enter(v14);
+    v15 = selfCopy2;
+    objc_sync_enter(v15);
     if (!selfCopy2->_trackedProvisionedDataclasses)
     {
       if (v11)
       {
-        v15 = [(ACTrackedSet *)[ACMutableTrackedSet alloc] initWithSet:v11];
+        v16 = [(ACTrackedSet *)[ACMutableTrackedSet alloc] initWithSet:v11];
       }
 
       else
       {
-        v15 = objc_alloc_init(ACMutableTrackedSet);
+        v16 = objc_alloc_init(ACMutableTrackedSet);
       }
 
       trackedProvisionedDataclasses = selfCopy2->_trackedProvisionedDataclasses;
-      selfCopy2->_trackedProvisionedDataclasses = v15;
+      selfCopy2->_trackedProvisionedDataclasses = v16;
     }
 
     (v8[2])(v8, selfCopy2->_trackedProvisionedDataclasses);
-    objc_sync_exit(v14);
+    objc_sync_exit(v15);
 
     selfCopy2 = v12;
   }
@@ -3148,21 +3187,21 @@ uint64_t __41__ACAccount_setProvisioned_forDataclass___block_invoke(uint64_t a1,
     [(ACAccount *)a2 setEnabledDataclasses:?];
   }
 
-  v7 = _ACLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ACAccount setEnabledDataclasses:];
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v9 = objc_alloc_init(ACMutableTrackedSet);
+  v10 = objc_alloc_init(ACMutableTrackedSet);
   trackedEnabledDataclasses = selfCopy->_trackedEnabledDataclasses;
-  selfCopy->_trackedEnabledDataclasses = v9;
+  selfCopy->_trackedEnabledDataclasses = v10;
 
-  v11 = selfCopy->_trackedEnabledDataclasses;
+  v12 = selfCopy->_trackedEnabledDataclasses;
   allObjects = [dataclassesCopy allObjects];
-  [(ACMutableTrackedSet *)v11 addObjectsFromArray:allObjects];
+  [(ACMutableTrackedSet *)v12 addObjectsFromArray:allObjects];
 
   selfCopy->_wasEnabledDataclassesReset = 1;
   [(ACAccount *)selfCopy _unsafe_markPropertyDirty:@"enabledDataclasses"];
@@ -3172,19 +3211,20 @@ uint64_t __41__ACAccount_setProvisioned_forDataclass___block_invoke(uint64_t a1,
 - (BOOL)isEnabledForDataclass:(id)dataclass
 {
   dataclassCopy = dataclass;
-  if ([dataclassCopy isEqualToString:@"com.apple.Dataclass.DeviceLocator"])
+  v5 = [dataclassCopy isEqualToString:@"com.apple.Dataclass.DeviceLocator"];
+  if (v5)
   {
-    v5 = _ACLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [ACAccount isEnabledForDataclass:];
     }
   }
 
   enabledDataclasses = [(ACAccount *)self enabledDataclasses];
-  v7 = [enabledDataclasses containsObject:dataclassCopy];
+  v8 = [enabledDataclasses containsObject:dataclassCopy];
 
-  return v7;
+  return v8;
 }
 
 - (void)setEnabled:(BOOL)enabled forDataclass:(id)dataclass
@@ -3197,15 +3237,15 @@ uint64_t __41__ACAccount_setProvisioned_forDataclass___block_invoke(uint64_t a1,
     [ACAccount setEnabled:a2 forDataclass:self];
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __37__ACAccount_setEnabled_forDataclass___block_invoke;
-  v20[3] = &unk_1E7976B98;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __37__ACAccount_setEnabled_forDataclass___block_invoke;
+  v21[3] = &unk_1E7976B98;
   enabledCopy = enabled;
   v9 = dataclassCopy;
-  v21 = v9;
+  v22 = v9;
   selfCopy = self;
-  v10 = MEMORY[0x1AC5B3C70](v20);
+  v10 = MEMORY[0x1AC5B3C70](v21);
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
   if (selfCopy2->_trackedEnabledDataclasses)
@@ -3219,39 +3259,39 @@ uint64_t __41__ACAccount_setProvisioned_forDataclass___block_invoke(uint64_t a1,
     objc_sync_exit(selfCopy2);
 
     accountStore = [(ACAccount *)selfCopy2 accountStore];
-    v19 = 0;
-    v13 = [accountStore enabledDataclassesForAccount:selfCopy2 error:&v19];
-    v14 = v19;
+    v20 = 0;
+    v13 = [accountStore enabledDataclassesForAccount:selfCopy2 error:&v20];
+    v14 = v20;
 
     if (v14)
     {
-      v15 = _ACLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _ACLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [ACAccount _unsafe_loadEnabledDataclasses];
       }
     }
 
-    v16 = selfCopy2;
-    objc_sync_enter(v16);
+    v17 = selfCopy2;
+    objc_sync_enter(v17);
     if (!selfCopy2->_trackedEnabledDataclasses)
     {
       if (v13)
       {
-        v17 = [(ACTrackedSet *)[ACMutableTrackedSet alloc] initWithSet:v13];
+        v18 = [(ACTrackedSet *)[ACMutableTrackedSet alloc] initWithSet:v13];
       }
 
       else
       {
-        v17 = objc_alloc_init(ACMutableTrackedSet);
+        v18 = objc_alloc_init(ACMutableTrackedSet);
       }
 
       trackedEnabledDataclasses = selfCopy2->_trackedEnabledDataclasses;
-      selfCopy2->_trackedEnabledDataclasses = v17;
+      selfCopy2->_trackedEnabledDataclasses = v18;
     }
 
     (v10[2])(v10, selfCopy2->_trackedEnabledDataclasses);
-    objc_sync_exit(v16);
+    objc_sync_exit(v17);
 
     selfCopy2 = v14;
   }
@@ -3295,64 +3335,64 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
 
 - (void)setDataclassProperties:(id)properties
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = [propertiesCopy mutableCopy];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = selfCopy->_dataclassProperties;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(ACAccount *)selfCopy _markDataclassPropertyDirty:*(*(&v20 + 1) + 8 * v10++)];
+        [(ACAccount *)selfCopy _markDataclassPropertyDirty:*(*(&v19 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v8);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = propertiesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(ACAccount *)selfCopy _markDataclassPropertyDirty:*(*(&v16 + 1) + 8 * v14++), v16];
+        [(ACAccount *)selfCopy _markDataclassPropertyDirty:*(*(&v15 + 1) + 8 * v14++), v15];
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
@@ -3364,7 +3404,6 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
   [(ACAccount *)selfCopy _unsafe_markPropertyDirty:@"dataclassProperties"];
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)propertiesForDataclass:(id)dataclass
@@ -3675,7 +3714,7 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
 
 - (void)refresh
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   dirtyProperties = [(ACAccount *)self dirtyProperties];
   v4 = [dirtyProperties count];
 
@@ -3683,15 +3722,15 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
   {
     accountStore = [(ACAccount *)self accountStore];
     identifier = [(ACAccount *)self identifier];
-    v79 = [accountStore accountWithIdentifier:identifier];
+    v77 = [accountStore accountWithIdentifier:identifier];
 
-    if (v79)
+    if (v77)
     {
       selfCopy = self;
       objc_sync_enter(selfCopy);
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"accountDescription"]& 1) == 0)
       {
-        accountDescription = [v79 accountDescription];
+        accountDescription = [v77 accountDescription];
         v9 = [accountDescription copy];
         accountDescription = selfCopy->_accountDescription;
         selfCopy->_accountDescription = v9;
@@ -3699,72 +3738,72 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"username"]& 1) == 0)
       {
-        username = [v79 username];
+        username = [v77 username];
         v12 = [username copy];
         username = selfCopy->_username;
         selfCopy->_username = v12;
       }
 
       [(ACAccount *)selfCopy willChangeValueForKey:@"accountProperties"];
-      accountProperties = [v79 accountProperties];
+      accountProperties = [v77 accountProperties];
       allKeys = [accountProperties allKeys];
 
-      v94 = 0u;
-      v95 = 0u;
       v92 = 0u;
       v93 = 0u;
+      v90 = 0u;
+      v91 = 0u;
       v16 = allKeys;
-      v17 = [v16 countByEnumeratingWithState:&v92 objects:v99 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v90 objects:v97 count:16];
       if (v17)
       {
-        v18 = *v93;
+        v18 = *v91;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v93 != v18)
+            if (*v91 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = *(*(&v92 + 1) + 8 * i);
+            v20 = *(*(&v90 + 1) + 8 * i);
             dirtyAccountProperties = [(ACAccount *)selfCopy dirtyAccountProperties];
             v22 = [dirtyAccountProperties containsObject:v20];
 
             if ((v22 & 1) == 0)
             {
-              v23 = [v79 objectForKeyedSubscript:v20];
+              v23 = [v77 objectForKeyedSubscript:v20];
               [(NSMutableDictionary *)selfCopy->_properties setObject:v23 forKeyedSubscript:v20];
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v92 objects:v99 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v90 objects:v97 count:16];
         }
 
         while (v17);
       }
 
-      v90 = 0u;
-      v91 = 0u;
       v88 = 0u;
       v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       accountProperties2 = [(ACAccount *)selfCopy accountProperties];
       allKeys2 = [accountProperties2 allKeys];
 
-      v26 = [allKeys2 countByEnumeratingWithState:&v88 objects:v98 count:16];
+      v26 = [allKeys2 countByEnumeratingWithState:&v86 objects:v96 count:16];
       if (v26)
       {
-        v27 = *v89;
+        v27 = *v87;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v89 != v27)
+            if (*v87 != v27)
             {
               objc_enumerationMutation(allKeys2);
             }
 
-            v29 = *(*(&v88 + 1) + 8 * j);
+            v29 = *(*(&v86 + 1) + 8 * j);
             dirtyAccountProperties2 = [(ACAccount *)selfCopy dirtyAccountProperties];
             v31 = [dirtyAccountProperties2 containsObject:v29];
 
@@ -3774,7 +3813,7 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
             }
           }
 
-          v26 = [allKeys2 countByEnumeratingWithState:&v88 objects:v98 count:16];
+          v26 = [allKeys2 countByEnumeratingWithState:&v86 objects:v96 count:16];
         }
 
         while (v26);
@@ -3783,73 +3822,73 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
       [(ACAccount *)selfCopy didChangeValueForKey:@"accountProperties"];
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"owningBundleID"]& 1) == 0)
       {
-        owningBundleID = [v79 owningBundleID];
+        owningBundleID = [v77 owningBundleID];
         v33 = [owningBundleID copy];
         owningBundleID = selfCopy->_owningBundleID;
         selfCopy->_owningBundleID = v33;
       }
 
       [(ACAccount *)selfCopy willChangeValueForKey:@"dataclassProperties"];
-      dataclassProperties = [v79 dataclassProperties];
+      dataclassProperties = [v77 dataclassProperties];
       allKeys3 = [dataclassProperties allKeys];
 
-      v86 = 0u;
-      v87 = 0u;
       v84 = 0u;
       v85 = 0u;
+      v82 = 0u;
+      v83 = 0u;
       v37 = allKeys3;
-      v38 = [v37 countByEnumeratingWithState:&v84 objects:v97 count:16];
+      v38 = [v37 countByEnumeratingWithState:&v82 objects:v95 count:16];
       if (v38)
       {
-        v39 = *v85;
+        v39 = *v83;
         do
         {
           for (k = 0; k != v38; ++k)
           {
-            if (*v85 != v39)
+            if (*v83 != v39)
             {
               objc_enumerationMutation(v37);
             }
 
-            v41 = *(*(&v84 + 1) + 8 * k);
+            v41 = *(*(&v82 + 1) + 8 * k);
             dirtyDataclassProperties = [(ACAccount *)selfCopy dirtyDataclassProperties];
             v43 = [dirtyDataclassProperties containsObject:v41];
 
             if ((v43 & 1) == 0)
             {
-              dataclassProperties2 = [v79 dataclassProperties];
+              dataclassProperties2 = [v77 dataclassProperties];
               v45 = [dataclassProperties2 objectForKeyedSubscript:v41];
               [(NSMutableDictionary *)selfCopy->_dataclassProperties setObject:v45 forKeyedSubscript:v41];
             }
           }
 
-          v38 = [v37 countByEnumeratingWithState:&v84 objects:v97 count:16];
+          v38 = [v37 countByEnumeratingWithState:&v82 objects:v95 count:16];
         }
 
         while (v38);
       }
 
-      v82 = 0u;
-      v83 = 0u;
       v80 = 0u;
       v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       accountProperties3 = [(ACAccount *)selfCopy accountProperties];
       allKeys4 = [accountProperties3 allKeys];
 
-      v48 = [allKeys4 countByEnumeratingWithState:&v80 objects:v96 count:16];
+      v48 = [allKeys4 countByEnumeratingWithState:&v78 objects:v94 count:16];
       if (v48)
       {
-        v49 = *v81;
+        v49 = *v79;
         do
         {
           for (m = 0; m != v48; ++m)
           {
-            if (*v81 != v49)
+            if (*v79 != v49)
             {
               objc_enumerationMutation(allKeys4);
             }
 
-            v51 = *(*(&v80 + 1) + 8 * m);
+            v51 = *(*(&v78 + 1) + 8 * m);
             dirtyDataclassProperties2 = [(ACAccount *)selfCopy dirtyDataclassProperties];
             v53 = [dirtyDataclassProperties2 containsObject:v51];
 
@@ -3859,7 +3898,7 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
             }
           }
 
-          v48 = [allKeys4 countByEnumeratingWithState:&v80 objects:v96 count:16];
+          v48 = [allKeys4 countByEnumeratingWithState:&v78 objects:v94 count:16];
         }
 
         while (v48);
@@ -3868,7 +3907,7 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
       [(ACAccount *)selfCopy didChangeValueForKey:@"dataclassProperties"];
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"dataclassProperties"]& 1) == 0)
       {
-        dataclassProperties3 = [v79 dataclassProperties];
+        dataclassProperties3 = [v77 dataclassProperties];
         v55 = [dataclassProperties3 mutableCopy];
         dataclassProperties = selfCopy->_dataclassProperties;
         selfCopy->_dataclassProperties = v55;
@@ -3876,34 +3915,34 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"authenticated"]& 1) == 0)
       {
-        selfCopy->_authenticated = [v79 isAuthenticated];
+        selfCopy->_authenticated = [v77 isAuthenticated];
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"lastCredentialRenewalRejectionDate"]& 1) == 0)
       {
-        lastCredentialRenewalRejectionDate = [v79 lastCredentialRenewalRejectionDate];
+        lastCredentialRenewalRejectionDate = [v77 lastCredentialRenewalRejectionDate];
         lastCredentialRenewalRejectionDate = selfCopy->_lastCredentialRenewalRejectionDate;
         selfCopy->_lastCredentialRenewalRejectionDate = lastCredentialRenewalRejectionDate;
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"active"]& 1) == 0)
       {
-        selfCopy->_active = [v79 isActive];
+        selfCopy->_active = [v77 isActive];
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"warmingUp"]& 1) == 0)
       {
-        selfCopy->_warmingUp = [v79 isWarmingUp];
+        selfCopy->_warmingUp = [v77 isWarmingUp];
       }
 
-      objectID = [v79 objectID];
+      objectID = [v77 objectID];
       v60 = [objectID copy];
       objectID = selfCopy->_objectID;
       selfCopy->_objectID = v60;
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"accountType"]& 1) == 0)
       {
-        accountType = [v79 accountType];
+        accountType = [v77 accountType];
         accountType = selfCopy->_accountType;
         selfCopy->_accountType = accountType;
       }
@@ -3916,28 +3955,28 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"authenticationType"]& 1) == 0)
       {
-        authenticationType = [v79 authenticationType];
+        authenticationType = [v77 authenticationType];
         authenticationType = selfCopy->_authenticationType;
         selfCopy->_authenticationType = authenticationType;
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"credentialType"]& 1) == 0)
       {
-        credentialType = [v79 credentialType];
+        credentialType = [v77 credentialType];
         credentialType = selfCopy->_credentialType;
         selfCopy->_credentialType = credentialType;
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"parent"]& 1) == 0)
       {
-        parentAccount = [v79 parentAccount];
+        parentAccount = [v77 parentAccount];
         parentAccount = selfCopy->_parentAccount;
         selfCopy->_parentAccount = parentAccount;
       }
 
       if (([(NSMutableSet *)selfCopy->_dirtyProperties containsObject:@"modificationID"]& 1) == 0)
       {
-        modificationID = [v79 modificationID];
+        modificationID = [v77 modificationID];
         v72 = [modificationID copy];
         modificationID = selfCopy->_modificationID;
         selfCopy->_modificationID = v72;
@@ -3965,13 +4004,10 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
       selfCopy->_haveCheckedForChildAccounts = 0;
       objc_sync_exit(selfCopy);
     }
-
-    v77 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v78 = *MEMORY[0x1E69E9840];
 
     [(ACAccount *)self reload];
   }
@@ -3993,11 +4029,10 @@ uint64_t __37__ACAccount_setEnabled_forDataclass___block_invoke(uint64_t a1, voi
   if (accountPropertiesTransformer)
   {
     selfCopy = [(ACAccount *)self copy];
+    v5 = (*(selfCopy->_accountPropertiesTransformer + 2))();
+    v6 = [v5 mutableCopy];
     properties = selfCopy->_properties;
-    v6 = (*(selfCopy->_accountPropertiesTransformer + 2))();
-    v7 = [v6 mutableCopy];
-    v8 = selfCopy->_properties;
-    selfCopy->_properties = v7;
+    selfCopy->_properties = v6;
   }
 
   else
@@ -4159,70 +4194,68 @@ LABEL_15:
 
 void __51__ACAccount_defaultAutodiscoverDomainForChildType___block_invoke(uint64_t a1)
 {
-  v35[7] = *MEMORY[0x1E69E9840];
-  v30 = *(a1 + 32);
-  v31 = *(a1 + 40);
-  v33[0] = @"gmail.com";
-  v33[1] = @"apidata.googleusercontent.com";
-  v32 = *(a1 + 56);
-  v33[2] = @"www.googleapis.com";
-  v33[3] = @"google.com";
-  v34[0] = @"com.apple.account.Google";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v30 count:4];
-  v35[0] = v2;
-  v34[1] = @"com.apple.account.aol";
-  v27 = *(a1 + 40);
-  v29[0] = @"caldav.aol.com";
-  v29[1] = @"carddav.aol.com";
-  v28 = *(a1 + 56);
-  v29[2] = @"aol.com";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v27 count:3];
-  v35[1] = v3;
-  v34[2] = @"com.apple.account.Yahoo";
-  v24 = *(a1 + 40);
-  v26[0] = @"caldav.calendar.yahoo.com";
-  v26[1] = @"carddav.address.yahoo.com";
-  v25 = *(a1 + 56);
-  v26[2] = @"yahoo.com";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v24 count:3];
-  v35[2] = v4;
-  v34[3] = @"com.apple.facebook";
-  v21 = *(a1 + 40);
-  v23[0] = @"webdav.facebook.com";
-  v23[1] = @"webdav.facebook.com";
-  v22 = *(a1 + 56);
-  v23[2] = @"facebook.com";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v21 count:3];
-  v35[3] = v5;
-  v34[4] = @"com.apple.account.qq";
-  v18 = *(a1 + 40);
-  v20[0] = @"dav.qq.com";
-  v20[1] = @"dav.qq.com";
-  v19 = *(a1 + 56);
-  v20[2] = @"qq.com";
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v18 count:3];
-  v35[4] = v6;
-  v34[5] = @"com.apple.account.126";
-  v15 = *(a1 + 40);
-  v17[0] = @"caldav.126.com";
-  v17[1] = @"contacts.126.com";
-  v16 = *(a1 + 56);
-  v17[2] = @"126.com";
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v15 count:3];
-  v35[5] = v7;
-  v34[6] = @"com.apple.account.163";
-  v12 = *(a1 + 40);
-  v14[0] = @"caldav.163.com";
-  v14[1] = @"contacts.163.com";
-  v13 = *(a1 + 56);
-  v14[2] = @"163.com";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v12 count:3];
-  v35[6] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:7];
+  v34[7] = *MEMORY[0x1E69E9840];
+  v29 = *(a1 + 32);
+  v30 = *(a1 + 40);
+  v32[0] = @"gmail.com";
+  v32[1] = @"apidata.googleusercontent.com";
+  v31 = *(a1 + 56);
+  v32[2] = @"www.googleapis.com";
+  v32[3] = @"google.com";
+  v33[0] = @"com.apple.account.Google";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v29 count:4];
+  v34[0] = v2;
+  v33[1] = @"com.apple.account.aol";
+  v26 = *(a1 + 40);
+  v28[0] = @"caldav.aol.com";
+  v28[1] = @"carddav.aol.com";
+  v27 = *(a1 + 56);
+  v28[2] = @"aol.com";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v26 count:3];
+  v34[1] = v3;
+  v33[2] = @"com.apple.account.Yahoo";
+  v23 = *(a1 + 40);
+  v25[0] = @"caldav.calendar.yahoo.com";
+  v25[1] = @"carddav.address.yahoo.com";
+  v24 = *(a1 + 56);
+  v25[2] = @"yahoo.com";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v23 count:3];
+  v34[2] = v4;
+  v33[3] = @"com.apple.facebook";
+  v20 = *(a1 + 40);
+  v22[0] = @"webdav.facebook.com";
+  v22[1] = @"webdav.facebook.com";
+  v21 = *(a1 + 56);
+  v22[2] = @"facebook.com";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v20 count:3];
+  v34[3] = v5;
+  v33[4] = @"com.apple.account.qq";
+  v17 = *(a1 + 40);
+  v19[0] = @"dav.qq.com";
+  v19[1] = @"dav.qq.com";
+  v18 = *(a1 + 56);
+  v19[2] = @"qq.com";
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v17 count:3];
+  v34[4] = v6;
+  v33[5] = @"com.apple.account.126";
+  v14 = *(a1 + 40);
+  v16[0] = @"caldav.126.com";
+  v16[1] = @"contacts.126.com";
+  v15 = *(a1 + 56);
+  v16[2] = @"126.com";
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v14 count:3];
+  v34[5] = v7;
+  v33[6] = @"com.apple.account.163";
+  v11 = *(a1 + 40);
+  v13[0] = @"caldav.163.com";
+  v13[1] = @"contacts.163.com";
+  v12 = *(a1 + 56);
+  v13[2] = @"163.com";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v11 count:3];
+  v34[6] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:7];
   v10 = defaultAutodiscoverDomainForChildType__domainMap;
   defaultAutodiscoverDomainForChildType__domainMap = v9;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)dirtyAccountProperties
@@ -4258,92 +4291,92 @@ void __51__ACAccount_defaultAutodiscoverDomainForChildType___block_invoke(uint64
 
 - (void)_applyDirtyStateFromAccount:(id)account
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   dirtyProperties = [accountCopy dirtyProperties];
-  v7 = [dirtyProperties countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v7 = [dirtyProperties countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v7)
   {
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       v9 = 0;
       do
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(dirtyProperties);
         }
 
-        [(ACAccount *)selfCopy _unsafe_markPropertyDirty:*(*(&v39 + 1) + 8 * v9++)];
+        [(ACAccount *)selfCopy _unsafe_markPropertyDirty:*(*(&v38 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [dirtyProperties countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v7 = [dirtyProperties countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v7);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   dirtyAccountProperties = [accountCopy dirtyAccountProperties];
-  v11 = [dirtyAccountProperties countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v11 = [dirtyAccountProperties countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v11)
   {
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       v13 = 0;
       do
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(dirtyAccountProperties);
         }
 
-        [(ACAccount *)selfCopy _unsafe_markAccountPropertyDirty:*(*(&v35 + 1) + 8 * v13++)];
+        [(ACAccount *)selfCopy _unsafe_markAccountPropertyDirty:*(*(&v34 + 1) + 8 * v13++)];
       }
 
       while (v11 != v13);
-      v11 = [dirtyAccountProperties countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v11 = [dirtyAccountProperties countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v11);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   dirtyDataclassProperties = [accountCopy dirtyDataclassProperties];
-  v15 = [dirtyDataclassProperties countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v15 = [dirtyDataclassProperties countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v15)
   {
-    v16 = *v32;
+    v16 = *v31;
     do
     {
       v17 = 0;
       do
       {
-        if (*v32 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(dirtyDataclassProperties);
         }
 
-        [(ACAccount *)selfCopy _unsafe_markDataclassPropertyDirty:*(*(&v31 + 1) + 8 * v17++)];
+        [(ACAccount *)selfCopy _unsafe_markDataclassPropertyDirty:*(*(&v30 + 1) + 8 * v17++)];
       }
 
       while (v15 != v17);
-      v15 = [dirtyDataclassProperties countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v15 = [dirtyDataclassProperties countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v15);
@@ -4362,12 +4395,12 @@ void __51__ACAccount_defaultAutodiscoverDomainForChildType___block_invoke(uint64
   }
 
   trackedEnabledDataclasses3 = [accountCopy trackedEnabledDataclasses];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __41__ACAccount__applyDirtyStateFromAccount___block_invoke;
-  v30[3] = &unk_1E7976BE8;
-  v30[4] = selfCopy;
-  [trackedEnabledDataclasses3 enumerateModificationsUsingBlock:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __41__ACAccount__applyDirtyStateFromAccount___block_invoke;
+  v29[3] = &unk_1E7976BE8;
+  v29[4] = selfCopy;
+  [trackedEnabledDataclasses3 enumerateModificationsUsingBlock:v29];
 
   trackedProvisionedDataclasses = [accountCopy trackedProvisionedDataclasses];
   if (trackedProvisionedDataclasses)
@@ -4382,19 +4415,18 @@ void __51__ACAccount_defaultAutodiscoverDomainForChildType___block_invoke(uint64
   }
 
   trackedProvisionedDataclasses3 = [accountCopy trackedProvisionedDataclasses];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __41__ACAccount__applyDirtyStateFromAccount___block_invoke_2;
-  v29[3] = &unk_1E7976BE8;
-  v29[4] = selfCopy;
-  [trackedProvisionedDataclasses3 enumerateModificationsUsingBlock:v29];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __41__ACAccount__applyDirtyStateFromAccount___block_invoke_2;
+  v28[3] = &unk_1E7976BE8;
+  v28[4] = selfCopy;
+  [trackedProvisionedDataclasses3 enumerateModificationsUsingBlock:v28];
 
   internalCredential = [accountCopy internalCredential];
   credential = selfCopy->_credential;
   selfCopy->_credential = internalCredential;
 
   objc_sync_exit(selfCopy);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ACAccount__applyDirtyStateFromAccount___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4429,7 +4461,7 @@ void __41__ACAccount__applyDirtyStateFromAccount___block_invoke_2(uint64_t a1, v
 
 - (BOOL)_isDifferentFrom:(id)from
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -4438,26 +4470,26 @@ void __41__ACAccount__applyDirtyStateFromAccount___block_invoke_2(uint64_t a1, v
     dirtyProperties = [fromCopy dirtyProperties];
     v7 = [dirtyProperties copy];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v9)
     {
-      v10 = *v48;
+      v10 = *v47;
       do
       {
         v11 = 0;
         do
         {
-          if (*v48 != v10)
+          if (*v47 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v47 + 1) + 8 * v11);
+          v12 = *(*(&v46 + 1) + 8 * v11);
           if ([v12 isEqualToString:@"lastCredentialRenewalRejectionDate"])
           {
             lastCredentialRenewalRejectionDate = selfCopy->_lastCredentialRenewalRejectionDate;
@@ -4643,9 +4675,9 @@ LABEL_48:
           identifier2 = [(ACAccountType *)selfCopy->_accountType identifier];
           accountType = [fromCopy accountType];
           identifier3 = [accountType identifier];
-          v45 = ACIsEqualOrNil(identifier2, identifier3);
+          v44 = ACIsEqualOrNil(identifier2, identifier3);
 
-          if ((v45 & 1) == 0)
+          if ((v44 & 1) == 0)
           {
             goto LABEL_61;
           }
@@ -4655,7 +4687,7 @@ LABEL_38:
         }
 
         while (v9 != v11);
-        v41 = [v8 countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v41 = [v8 countByEnumeratingWithState:&v46 objects:v50 count:16];
         v9 = v41;
       }
 
@@ -4673,7 +4705,6 @@ LABEL_62:
 
   objc_sync_exit(selfCopy);
 
-  v43 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
@@ -4686,18 +4717,20 @@ LABEL_62:
     CFDictionaryAddValue(Mutable, *MEMORY[0x1E697B320], *MEMORY[0x1E695E4D0]);
     result = 0;
     v6 = SecItemAdd(Mutable, &result);
+    v7 = v6;
     if (v6 == -25299)
     {
       v6 = SecItemCopyMatching(Mutable, &result);
+      v7 = v6;
     }
 
-    v7 = result;
-    if (!result || v6)
+    v8 = result;
+    if (!result || v7)
     {
-      v7 = _ACLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ACLogSystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [ACAccount setSecIdentity:v6];
+        [ACAccount setSecIdentity:v7];
       }
     }
 
@@ -4734,7 +4767,7 @@ LABEL_62:
   if (v4)
   {
     v5 = v4;
-    v6 = _ACLogSystem();
+    v6 = _ACLogSystem(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [ACAccount setSecIdentity:v5];
@@ -4772,23 +4805,25 @@ LABEL_62:
         CFDictionaryAddValue(Mutable, v8, v11);
         CFDictionaryAddValue(Mutable, v9, v10);
         v13 = SecItemAdd(Mutable, &result);
+        v14 = v13;
         if (v13 == -25299)
         {
           v13 = SecItemCopyMatching(Mutable, &result);
+          v14 = v13;
         }
 
-        if (v13)
+        if (v14)
         {
-          v14 = _ACLogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = _ACLogSystem(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            [(ACAccount *)&v21 setSecCertificates:v13, v22];
+            [(ACAccount *)&v21 setSecCertificates:v14, v22];
           }
         }
 
         else
         {
-          v14 = result;
+          v15 = result;
           [v18 addObject:result];
         }
 
@@ -4809,13 +4844,11 @@ LABEL_62:
   {
     [(ACAccount *)self setObject:0 forKeyedSubscript:@"SecCertificatePersistentRefs"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)secCertificates
 {
-  *&v27[5] = *MEMORY[0x1E69E9840];
+  *&v26[5] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695E480];
   theArray = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   v4 = [(ACAccount *)self objectForKeyedSubscript:@"SecCertificatePersistentRefs"];
@@ -4848,10 +4881,10 @@ LABEL_62:
         v16 = v15;
         if (!result || v15)
         {
-          v17 = _ACLogSystem();
+          v17 = _ACLogSystem(v15);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            [(ACAccount *)&v26 setSecCertificates:v16, v27];
+            [(ACAccount *)&v25 setSecCertificates:v16, v26];
           }
 
           self = selfCopy;
@@ -4891,8 +4924,6 @@ LABEL_12:
     theArray = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return theArray;
 }
 
@@ -4910,8 +4941,8 @@ LABEL_12:
 
   if (v9)
   {
-    v10 = _ACPLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _ACPLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ACAccount isDataSeparatedAccount];
     }
@@ -4941,15 +4972,15 @@ LABEL_3:
 
       if ([enterprisePersonaUID2 isEqualToString:v4])
       {
-        v12 = 1;
+        v13 = 1;
 LABEL_14:
 
-        return v12;
+        return v13;
       }
 
 LABEL_13:
       guestPersonasUIDs = [v5 guestPersonasUIDs];
-      v12 = [guestPersonasUIDs containsObject:v4];
+      v13 = [guestPersonasUIDs containsObject:v4];
 
       goto LABEL_14;
     }
@@ -4965,7 +4996,8 @@ LABEL_13:
 
   if ([currentPersona isEnterprisePersona])
   {
-    if ([(ACAccount *)self isDataSeparatedAccount])
+    isDataSeparatedAccount = [(ACAccount *)self isDataSeparatedAccount];
+    if (isDataSeparatedAccount)
     {
       goto LABEL_12;
     }
@@ -4974,12 +5006,13 @@ LABEL_13:
   }
 
   isGuestPersona = [currentPersona isGuestPersona];
-  if ([(ACAccount *)self isDataSeparatedAccount])
+  isDataSeparatedAccount = [(ACAccount *)self isDataSeparatedAccount];
+  if (isDataSeparatedAccount)
   {
     if ((isGuestPersona & 1) == 0)
     {
-      v6 = _ACPLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = _ACPLogSystem(isDataSeparatedAccount);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [(ACAccount *)self correctPersonaScopedForAccount];
       }
@@ -4988,7 +5021,7 @@ LABEL_13:
     }
 
 LABEL_12:
-    v7 = 1;
+    v8 = 1;
     goto LABEL_13;
   }
 
@@ -4998,18 +5031,18 @@ LABEL_12:
   }
 
 LABEL_9:
-  v6 = _ACPLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _ACPLogSystem(isDataSeparatedAccount);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(ACAccount *)self correctPersonaScopedForAccount];
   }
 
 LABEL_11:
 
-  v7 = 0;
+  v8 = 0;
 LABEL_13:
 
-  return v7;
+  return v8;
 }
 
 - (id)childCardDAVAccountIdentifier
@@ -5061,8 +5094,8 @@ LABEL_7:
 
   if (parentAccount)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ACAccount setManagingOwnerIdentifier:];
     }
@@ -5099,8 +5132,8 @@ LABEL_7:
 
   if (parentAccount)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ACAccount setManagingSourceName:];
     }
@@ -5118,34 +5151,10 @@ LABEL_7:
   [v4 handleFailureInMethod:a1 object:a2 file:@"ACAccount.m" lineNumber:495 description:{@"Invalid parameter not satisfying: %@", @"data.length != 0"}];
 }
 
-- (void)setCredentialLocation:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Invalid ACAccountCredentialStorageOption %lu, falling back to qualified username", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setProvisionedDataclasses:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)setEnabledDataclasses:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"ACAccount.m" lineNumber:1569 description:@"You can't enable dataclasses on child accounts"];
-}
-
-- (void)setEnabledDataclasses:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isEnabledForDataclass:.cold.1()
@@ -5163,22 +5172,17 @@ LABEL_7:
 
 - (void)qualifiedUsername
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSecIdentity:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithInt:a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSecCertificates:(void *)a3 .cold.1(_DWORD *a1, uint64_t a2, void *a3)
@@ -5198,12 +5202,10 @@ LABEL_7:
 
 - (void)correctPersonaScopedForAccount
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a2 userPersonaType];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

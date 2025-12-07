@@ -33,19 +33,19 @@
     v12->_rightNavigationDocument = v15;
 
     v17 = [elementCopy getAttribute:@"displayMode"];
-    if ([v17 isEqualToString:@"all"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 2;
     }
 
-    else if ([v17 isEqualToString:@"hidden"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 1;
     }
 
     else
     {
-      if (![v17 isEqualToString:@"overlay"])
+      if (!objc_msgSend_isEqualToString_(v17))
       {
         v12->_preferredDisplayMode = 0;
         goto LABEL_13;

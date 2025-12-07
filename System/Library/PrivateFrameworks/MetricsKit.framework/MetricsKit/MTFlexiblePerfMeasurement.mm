@@ -3,6 +3,7 @@
 - (void)mark:(id)mark;
 - (void)mark:(id)mark date:(id)date;
 - (void)mark:(id)mark time:(int64_t)time;
+- (void)setXpSamplingForced:(BOOL)forced;
 - (void)setXpSamplingPercentage:(double)percentage;
 @end
 
@@ -31,6 +32,13 @@
   v9 = [v6 numberWithLongLong:time];
   timestamps = [(MTPerfBaseMeasurement *)self timestamps];
   [timestamps setObject:v9 forKeyedSubscript:markCopy];
+}
+
+- (void)setXpSamplingForced:(BOOL)forced
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:forced];
+  measurementSpecificData = [(MTPerfBaseMeasurement *)self measurementSpecificData];
+  [measurementSpecificData setObject:v5 forKeyedSubscript:@"xpSamplingForced"];
 }
 
 - (void)setXpSamplingPercentage:(double)percentage

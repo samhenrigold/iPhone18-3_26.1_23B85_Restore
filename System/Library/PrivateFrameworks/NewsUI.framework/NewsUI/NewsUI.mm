@@ -1,13 +1,13 @@
-id NUTranslationAnimationTimingFunction()
+id NUTranslationAnimationTimingFunction(uint64_t a1)
 {
   if (NUTranslationAnimationTimingFunction_onceToken != -1)
   {
     NUTranslationAnimationTimingFunction_cold_1();
   }
 
-  v1 = NUTranslationAnimationTimingFunction_timingFunction;
+  v2 = NUTranslationAnimationTimingFunction_timingFunction;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUTranslationAnimationTimingFunction_block_invoke(double a1, double a2, double a3, double a4)
@@ -21,16 +21,16 @@ uint64_t __NUTranslationAnimationTimingFunction_block_invoke(double a1, double a
   return MEMORY[0x2821F96F8]();
 }
 
-id NUSharedLog()
+id NUSharedLog(uint64_t a1)
 {
   if (NUSharedLog_once != -1)
   {
     NUSharedLog_cold_1();
   }
 
-  v1 = NUSharedLog_result;
+  v2 = NUSharedLog_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUSharedLog_block_invoke()
@@ -40,16 +40,16 @@ uint64_t __NUSharedLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id NURSSLog()
+id NURSSLog(uint64_t a1)
 {
   if (NURSSLog_once != -1)
   {
     NURSSLog_cold_1();
   }
 
-  v1 = NURSSLog_result;
+  v2 = NURSSLog_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NURSSLog_block_invoke()
@@ -59,16 +59,16 @@ uint64_t __NURSSLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id NUNowPlayingLog()
+id NUNowPlayingLog(uint64_t a1)
 {
   if (NUNowPlayingLog_once != -1)
   {
     NUNowPlayingLog_cold_1();
   }
 
-  v1 = NUNowPlayingLog_result;
+  v2 = NUNowPlayingLog_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUNowPlayingLog_block_invoke()
@@ -78,16 +78,16 @@ uint64_t __NUNowPlayingLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id NUArticleLoadLog()
+id NUArticleLoadLog(uint64_t a1)
 {
   if (NUArticleLoadLog_once != -1)
   {
     NUArticleLoadLog_cold_1();
   }
 
-  v1 = NUArticleLoadLog_result;
+  v2 = NUArticleLoadLog_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUArticleLoadLog_block_invoke()
@@ -147,16 +147,16 @@ void sub_25C2DC878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id NUBundle()
+id NUBundle(uint64_t a1)
 {
   if (NUBundle_onceToken != -1)
   {
     NUBundle_cold_1();
   }
 
-  v1 = NUBundle_bundle;
+  v2 = NUBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUBundle_block_invoke()
@@ -166,9 +166,9 @@ uint64_t __NUBundle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_25C2DF9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25C2DF9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -262,16 +262,16 @@ BOOL NUDeviceIsScreenSizeLessThanOrEqualToPadPro(double a1, double a2, double a3
   return v4 == 1366.0;
 }
 
-id NUDeviceTraitLookup()
+id NUDeviceTraitLookup(uint64_t a1)
 {
   if (NUDeviceTraitLookup_onceToken != -1)
   {
     NUDeviceTraitLookup_cold_1();
   }
 
-  v1 = NUDeviceTraitLookup_deviceTrait;
+  v2 = NUDeviceTraitLookup_deviceTrait;
 
-  return v1;
+  return v2;
 }
 
 void __NUDeviceTraitLookup_block_invoke()
@@ -408,9 +408,9 @@ void _NUCrawlView(void *a1, uint64_t a2, void *a3)
   _Block_object_dispose(v15, 8);
 }
 
-void sub_25C2E7E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25C2E7E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -481,9 +481,9 @@ id NUFirstViewPassing(void *a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void sub_25C2E869C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C2E869C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -637,9 +637,9 @@ id NUFirstViewControllerPassing(void *a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void sub_25C2E9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C2E9170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -788,9 +788,9 @@ void sub_25C2EC4FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25C2EE8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C2EE8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -902,9 +902,9 @@ void sub_25C2FE088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25C2FE27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C2FE27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -970,11 +970,12 @@ LABEL_11:
   return v5;
 }
 
-void sub_25C302250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_25C302250(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
-  objc_destroyWeak((v25 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v24 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1008,30 +1009,66 @@ void sub_25C3062CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __NUDeviceTraitLookup_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Case not implemented"];
-  v2 = 136315906;
-  v3 = "id<NUDeviceTrait> NUDeviceTraitLookup()_block_invoke";
-  v4 = 2080;
-  v5 = "NUDeviceTrait.m";
-  v6 = 1024;
+  v1 = 136315906;
+  v2 = "id<NUDeviceTrait> NUDeviceTraitLookup()_block_invoke";
+  v3 = 2080;
+  v4 = "NUDeviceTrait.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 void __NUDeviceTraitLookup_block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Case not implemented"];
-  v2 = 136315906;
-  v3 = "id<NUDeviceTrait> NUDeviceTraitLookup()_block_invoke";
-  v4 = 2080;
-  v5 = "NUDeviceTrait.m";
-  v6 = 1024;
+  v1 = 136315906;
+  v2 = "id<NUDeviceTrait> NUDeviceTraitLookup()_block_invoke";
+  v3 = 2080;
+  v4 = "NUDeviceTrait.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
+  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
+}
 
-  v1 = *MEMORY[0x277D85DE8];
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
+}
+
+CGRect CGRectIntegral(CGRect rect)
+{
+  MEMORY[0x2821115D0](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v4;
+  result.size.width = v3;
+  result.origin.y = v2;
+  result.origin.x = v1;
+  return result;
+}
+
+CGRect CGRectIntersection(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2821115D8](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x282111618](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

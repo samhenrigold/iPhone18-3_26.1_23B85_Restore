@@ -7,50 +7,45 @@
 
 - (uint64_t)initWithCPLArchiver:()CPLArchiver
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = v4[2];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         archiverContext = [v4 archiverContext];
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v15 = v4[2];
-        v16 = objc_opt_class();
-        v17 = v4[2];
+        v14 = v4[2];
         *buf = 138413058;
-        v30 = archiverContext;
-        v31 = 2112;
-        v32 = v14;
-        v33 = 2112;
-        v34 = v16;
-        v35 = 2112;
-        v36 = v17;
-        v18 = v16;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@: Incorrect string for %@. Found %@: '%@'", buf, 0x2Au);
+        v25 = archiverContext;
+        v26 = 2112;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v13;
+        v30 = 2112;
+        v31 = v14;
+        v15 = v13;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@: Incorrect string for %@. Found %@: '%@'", buf, 0x2Au);
       }
     }
 
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = v4[2];
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
     objc_opt_class();
-    v28 = v4[2];
-    _CPLArchiverFailure(v4, @"Incorrect string for %@. Found %@: '%@'", v22, v23, v24, v25, v26, v27, v20);
+    _CPLArchiverFailure(v4, @"Incorrect string for %@. Found %@: '%@'", v18, v19, v20, v21, v22, v23, v17);
   }
 
-  v6 = objc_opt_class();
-  v7 = [(CPLArchiver *)v4 _decodeKey:v6 class:v4[2] inDictionary:?];
-  v8 = [self initWithData:v7];
+  v5 = objc_opt_class();
+  v6 = [(CPLArchiver *)v4 _decodeKey:v5 class:v4[2] inDictionary:?];
+  v7 = [self initWithData:v6];
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v7;
 }
 
 - (id)plistArchiveWithCPLArchiver:()CPLArchiver

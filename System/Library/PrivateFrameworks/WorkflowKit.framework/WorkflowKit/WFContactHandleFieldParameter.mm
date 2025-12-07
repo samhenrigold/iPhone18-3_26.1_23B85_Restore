@@ -16,11 +16,10 @@
 
 - (id)supportedContactProperties
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"Email";
-  v5[1] = @"Phone";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"Email";
+  v4[1] = @"Phone";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }

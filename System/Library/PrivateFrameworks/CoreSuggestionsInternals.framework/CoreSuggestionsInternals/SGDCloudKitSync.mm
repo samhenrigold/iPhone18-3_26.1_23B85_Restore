@@ -93,7 +93,7 @@ void __38__SGDCloudKitSync_processStateChanges__block_invoke_2(uint64_t a1)
 
 - (id)shouldRemoveEventsFromEventKit
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = +[SGAccountsAdapter sharedInstance];
   primaryICloudCalendarAccount = [v3 primaryICloudCalendarAccount];
@@ -110,16 +110,16 @@ void __38__SGDCloudKitSync_processStateChanges__block_invoke_2(uint64_t a1)
 
     accountInfo = [(SGDCloudKitSync *)self accountInfo];
     v8 = MEMORY[0x277D01FE8];
-    v17[0] = accountInfo;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __49__SGDCloudKitSync_shouldRemoveEventsFromEventKit__block_invoke;
-    v14[3] = &unk_27894E910;
-    v14[4] = self;
-    v15 = accountInfo;
+    v16[0] = accountInfo;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __49__SGDCloudKitSync_shouldRemoveEventsFromEventKit__block_invoke;
+    v13[3] = &unk_27894E910;
+    v13[4] = self;
+    v14 = accountInfo;
     v10 = accountInfo;
-    v11 = [v8 createAfter:v9 onCreate:v14];
+    v11 = [v8 createAfter:v9 onCreate:v13];
   }
 
   else
@@ -132,8 +132,6 @@ void __38__SGDCloudKitSync_processStateChanges__block_invoke_2(uint64_t a1)
 
     v11 = [MEMORY[0x277D01FE8] createWithImmediateResult:MEMORY[0x277CBEC38] error:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -158,7 +156,7 @@ void __23__SGDCloudKitSync_init__block_invoke_2(uint64_t a1)
 
 - (void)processStateChanges
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_processingStateChanges)
   {
@@ -166,23 +164,23 @@ void __23__SGDCloudKitSync_init__block_invoke_2(uint64_t a1)
     accountInfo = [(SGDCloudKitSync *)self accountInfo];
     shouldRemoveEventsFromEventKit = [(SGDCloudKitSync *)self shouldRemoveEventsFromEventKit];
     v9 = MEMORY[0x277D01FE8];
-    v18[0] = shouldRemoveEventsFromEventKit;
-    v18[1] = accountInfo;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke;
-    v13[3] = &unk_278954C50;
-    v13[4] = self;
-    v14 = accountInfo;
-    v15 = shouldRemoveEventsFromEventKit;
-    v16 = a2;
+    v17[0] = shouldRemoveEventsFromEventKit;
+    v17[1] = accountInfo;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke;
+    v12[3] = &unk_278954C50;
+    v12[4] = self;
+    v13 = accountInfo;
+    v14 = shouldRemoveEventsFromEventKit;
+    v15 = a2;
     v11 = shouldRemoveEventsFromEventKit;
     v5 = accountInfo;
-    [v9 waitForFuturesToComplete:v10 withCallback:v13];
+    [v9 waitForFuturesToComplete:v10 withCallback:v12];
 
 LABEL_6:
-    goto LABEL_10;
+    return;
   }
 
   pendingProcessStateChanges = self->_pendingProcessStateChanges;
@@ -206,13 +204,11 @@ LABEL_6:
   }
 
   self->_pendingProcessStateChanges = 1;
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountInfo
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_accountInfoFuture)
   {
@@ -230,29 +226,29 @@ LABEL_10:
   {
     v5 = objc_opt_new();
     [v5 setTargetQueue:self->_queue useAfterCompletion:0];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __30__SGDCloudKitSync_accountInfo__block_invoke;
-    v20[3] = &unk_27894E8C0;
-    v20[4] = self;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __30__SGDCloudKitSync_accountInfo__block_invoke;
+    v19[3] = &unk_27894E8C0;
+    v19[4] = self;
     v6 = v5;
-    v21 = v6;
-    v7 = [v20 copy];
+    v20 = v6;
+    v7 = [v19 copy];
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       if (self->_accountInfoInFlight)
       {
-        v17 = @"YES";
+        v16 = @"YES";
       }
 
       else
       {
-        v17 = @"NO";
+        v16 = @"NO";
       }
 
       *buf = 138412290;
-      v23 = v17;
+      v22 = v16;
       _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - Scheduling call to CloudKit (already one in flight: %@)", buf, 0xCu);
     }
 
@@ -269,14 +265,14 @@ LABEL_10:
     v10 = dispatch_time(0, v9);
     self->_accountInfoInFlight = 0;
     queue = self->_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __30__SGDCloudKitSync_accountInfo__block_invoke_268;
-    v18[3] = &unk_278955EE8;
-    v18[4] = self;
-    v19 = v7;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __30__SGDCloudKitSync_accountInfo__block_invoke_268;
+    v17[3] = &unk_278955EE8;
+    v17[4] = self;
+    v18 = v7;
     v12 = v7;
-    dispatch_after(v10, queue, v18);
+    dispatch_after(v10, queue, v17);
     accountInfoFuture = self->_accountInfoFuture;
     self->_accountInfoFuture = v6;
     v14 = v6;
@@ -284,28 +280,26 @@ LABEL_10:
     v4 = self->_accountInfoFuture;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 void __38__SGDCloudKitSync_processStateChanges__block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(*(a1 + 32) + 56));
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LODWORD(v47) = 0;
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_2;
-  v45[3] = &unk_278954E28;
+  LODWORD(v46) = 0;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_2;
+  v44[3] = &unk_278954E28;
   v2 = *(a1 + 56);
-  v45[5] = buf;
-  v45[6] = v2;
-  v45[4] = *(a1 + 32);
-  v3 = MEMORY[0x2383809F0](v45);
+  v44[5] = buf;
+  v44[6] = v2;
+  v44[4] = *(a1 + 32);
+  v3 = MEMORY[0x2383809F0](v44);
   v4 = MEMORY[0x2383809F0]();
 
   _Block_object_dispose(buf, 8);
@@ -425,32 +419,32 @@ LABEL_31:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v47 = __Block_byref_object_copy__262;
-  v48 = __Block_byref_object_dispose__263;
-  v49 = 0;
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x2020000000;
-  v44 = 0;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_264;
-  v42[3] = &unk_278953F60;
+  v46 = __Block_byref_object_copy__262;
+  v47 = __Block_byref_object_dispose__263;
+  v48 = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x2020000000;
+  v43 = 0;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_264;
+  v41[3] = &unk_278953F60;
   v23 = *(a1 + 32);
   v22 = (a1 + 32);
-  v42[4] = v23;
-  v42[5] = v43;
-  v42[6] = buf;
-  v24 = MEMORY[0x2383809F0](v42);
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_265;
-  v39[3] = &unk_27894E898;
+  v41[4] = v23;
+  v41[5] = v42;
+  v41[6] = buf;
+  v24 = MEMORY[0x2383809F0](v41);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __38__SGDCloudKitSync_processStateChanges__block_invoke_265;
+  v38[3] = &unk_27894E898;
   v25 = *v22;
-  v41 = v43;
-  v39[4] = v25;
-  v40 = v4;
-  v26 = MEMORY[0x2383809F0](v39);
+  v40 = v42;
+  v38[4] = v25;
+  v39 = v4;
+  v26 = MEMORY[0x2383809F0](v38);
   v27 = *(*&buf[8] + 40);
   *(*&buf[8] + 40) = v26;
 
@@ -459,8 +453,8 @@ LABEL_31:
     v28 = sgLogHandle();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_231E60000, v28, OS_LOG_TYPE_INFO, "SGCK About to hop on to background queue to invoke _deleteAllSyncedItemsCallback", v38, 2u);
+      *v37 = 0;
+      _os_log_impl(&dword_231E60000, v28, OS_LOG_TYPE_INFO, "SGCK About to hop on to background queue to invoke _deleteAllSyncedItemsCallback", v37, 2u);
     }
 
     v29 = +[SGDCloudKitSync _callbackQueue];
@@ -469,21 +463,20 @@ LABEL_31:
 
   else
   {
-    v37 = sgLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v36 = sgLogHandle();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_231E60000, v37, OS_LOG_TYPE_INFO, "SGCK Skipping background queue block because _readyForNewEntities is false.", v38, 2u);
+      *v37 = 0;
+      _os_log_impl(&dword_231E60000, v36, OS_LOG_TYPE_INFO, "SGCK Skipping background queue block because _readyForNewEntities is false.", v37, 2u);
     }
 
     (*(*(*&buf[8] + 40) + 16))();
   }
 
-  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v42, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_32:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failSalt
@@ -497,94 +490,86 @@ LABEL_32:
 
 - (void)connectionDidReconnect:(id)reconnect
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   reconnectCopy = reconnect;
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = reconnectCopy;
-    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK connectionDidReconnect:%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = reconnectCopy;
+    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK connectionDidReconnect:%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
 {
   statusCopy = status;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = sgLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = @"NO";
+    v7 = @"NO";
     if (statusCopy)
     {
-      v8 = @"YES";
+      v7 = @"YES";
     }
 
-    v9 = 138412546;
-    v10 = connectionCopy;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didChangeConnectedStatus:%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = connectionCopy;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didChangeConnectedStatus:%@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didFailToSendOutgoingMessage:(id)message error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   messageCopy = message;
   errorCopy = error;
   v10 = sgLogHandle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412802;
-    v13 = connectionCopy;
-    v14 = 2112;
-    v15 = messageCopy;
-    v16 = 2112;
-    v17 = errorCopy;
-    _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didFailToSendOutgoingMessage:%@ error:%@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = connectionCopy;
+    v13 = 2112;
+    v14 = messageCopy;
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didFailToSendOutgoingMessage:%@ error:%@", &v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didSendOutgoingMessage:(id)message
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   messageCopy = message;
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = connectionCopy;
-    v11 = 2112;
-    v12 = messageCopy;
-    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didSendOutgoingMessage:%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = connectionCopy;
+    v10 = 2112;
+    v11 = messageCopy;
+    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didSendOutgoingMessage:%@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   messageCopy = message;
   v9 = sgLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v18 = connectionCopy;
-    v19 = 2112;
-    v20 = messageCopy;
+    v17 = connectionCopy;
+    v18 = 2112;
+    v19 = messageCopy;
     _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didReceiveIncomingMessage:%@", buf, 0x16u);
   }
 
@@ -609,8 +594,6 @@ LABEL_32:
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SGDCloudKitSync_connection_didReceiveIncomingMessage___block_invoke(uint64_t a1)
@@ -643,25 +626,23 @@ void __56__SGDCloudKitSync_connection_didReceiveIncomingMessage___block_invoke(u
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = connectionCopy;
-    v11 = 2112;
-    v12 = tokenCopy;
-    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didReceivePublicToken:%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = connectionCopy;
+    v10 = 2112;
+    v11 = tokenCopy;
+    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didReceivePublicToken:%@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   topicCopy = topic;
@@ -669,18 +650,16 @@ void __56__SGDCloudKitSync_connection_didReceiveIncomingMessage___block_invoke(u
   v13 = sgLogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138413058;
-    v16 = connectionCopy;
-    v17 = 2112;
-    v18 = tokenCopy;
-    v19 = 2112;
-    v20 = topicCopy;
-    v21 = 2112;
-    v22 = identifierCopy;
-    _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didReceiveToken:%@ forTopic:%@ identifier:%@", &v15, 0x2Au);
+    v14 = 138413058;
+    v15 = connectionCopy;
+    v16 = 2112;
+    v17 = tokenCopy;
+    v18 = 2112;
+    v19 = topicCopy;
+    v20 = 2112;
+    v21 = identifierCopy;
+    _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "SGCK connection:%@ didReceiveToken:%@ forTopic:%@ identifier:%@", &v14, 0x2Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)privacySalt
@@ -839,7 +818,7 @@ void __30__SGDCloudKitSync_privacySalt__block_invoke_333(void *a1)
 
 void __30__SGDCloudKitSync_privacySalt__block_invoke_337(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(*(a1 + 32) + 56);
   v7 = a2;
@@ -849,44 +828,42 @@ void __30__SGDCloudKitSync_privacySalt__block_invoke_337(uint64_t a1, void *a2, 
   v9 = sgLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = @"0-length";
-    v12 = @"nil";
+    v10 = @"0-length";
+    v11 = @"nil";
     if (!v7)
     {
-      v11 = @"nil";
+      v10 = @"nil";
     }
 
     if (v8)
     {
-      v11 = @"successful";
+      v10 = @"successful";
     }
 
     if (v5)
     {
-      v12 = v5;
+      v11 = v5;
     }
 
-    v13 = 138412546;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK privacySalt outcome: %@ result, %@ error", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK privacySalt outcome: %@ result, %@ error", &v12, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SGDCloudKitSync_privacySalt__block_invoke_334(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 56));
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v18) = 0;
-    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK privacySalt finished waiting on accountInfoFuture", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK privacySalt finished waiting on accountInfoFuture", &v17, 2u);
   }
 
   if (v6)
@@ -894,9 +871,9 @@ void __30__SGDCloudKitSync_privacySalt__block_invoke_334(uint64_t a1, void *a2, 
     v8 = sgLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412290;
-      v19 = v6;
-      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGCK privacySalt error retrieving account info: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v6;
+      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGCK privacySalt error retrieving account info: %@", &v17, 0xCu);
     }
 
     [*(*(*(a1 + 40) + 8) + 40) fail:v6];
@@ -908,10 +885,10 @@ void __30__SGDCloudKitSync_privacySalt__block_invoke_334(uint64_t a1, void *a2, 
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v10 = "SGCK privacySalt resolving to empty data because iCloud account is restricted (parental controls, etc)";
 LABEL_21:
-      _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, v10, &v18, 2u);
+      _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, v10, &v17, 2u);
       goto LABEL_22;
     }
 
@@ -923,7 +900,7 @@ LABEL_21:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v10 = "SGCK privacySalt resolving to empty data because there is no iCloud account";
       goto LABEL_21;
     }
@@ -939,7 +916,7 @@ LABEL_22:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v10 = "SGCK privacySalt resolving to empty data because device-to-device encryption is not supported";
       goto LABEL_21;
     }
@@ -955,8 +932,8 @@ LABEL_25:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v18) = 0;
-      _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK privacySalt resolving to empty data because no salt has been generated yet", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK privacySalt resolving to empty data because no salt has been generated yet", &v17, 2u);
     }
 
     goto LABEL_22;
@@ -972,8 +949,8 @@ LABEL_25:
   v13 = sgLogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v18) = 0;
-    _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "SGCK privacySalt succeeded (using existing known salt)", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "SGCK privacySalt succeeded (using existing known salt)", &v17, 2u);
   }
 
   v14 = *(a1 + 32);
@@ -982,7 +959,6 @@ LABEL_25:
   [v15 succeed:v16];
 
 LABEL_23:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SGDCloudKitSync_privacySalt__block_invoke_335(uint64_t a1)
@@ -1235,7 +1211,7 @@ uint64_t __42__SGDCloudKitSync_setNewEntitiesCallback___block_invoke(uint64_t a1
 
 void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -1249,9 +1225,9 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       v3 = @"NO";
     }
 
-    v17 = 138412290;
-    v18 = v3;
-    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "SGCK setReadyForNewEntities:%@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v3;
+    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "SGCK setReadyForNewEntities:%@", &v16, 0xCu);
   }
 
   v4 = *(a1 + 40);
@@ -1261,8 +1237,8 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGCK ignoring because readyForNewEntities == _readyForNewEntities", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGCK ignoring because readyForNewEntities == _readyForNewEntities", &v16, 2u);
     }
   }
 
@@ -1280,8 +1256,8 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       {
         if (v10)
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, "SGCK processing deferred state changes...", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, "SGCK processing deferred state changes...", &v16, 2u);
         }
 
         [*(*(a1 + 32) + 104) setHasDeferredProcessStateChanges:MEMORY[0x277CBEC28]];
@@ -1292,8 +1268,8 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       {
         if (v10)
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, "SGCK no deferred state changes", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, "SGCK no deferred state changes", &v16, 2u);
         }
       }
 
@@ -1306,8 +1282,8 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       {
         if (v14)
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "SGCK processing deferred sync...", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "SGCK processing deferred sync...", &v16, 2u);
         }
 
         [*(*(a1 + 32) + 104) setHasDeferredSync:MEMORY[0x277CBEC28]];
@@ -1318,25 +1294,23 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       {
         if (v14)
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "SGCK no deferred sync", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_INFO, "SGCK no deferred sync", &v16, 2u);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteGroupId:(id)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = idCopy;
+    v16 = idCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "SGCK deleteGroupId:%@", buf, 0xCu);
   }
 
@@ -1345,17 +1319,17 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
     recordZoneId = [(SGDCloudKitSync *)self recordZoneId];
     v7 = [SGXpcTransaction transactionWithName:"com.apple.suggestions.sgckDeleteGroupId"];
     queue = self->_queue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__SGDCloudKitSync_deleteGroupId___block_invoke;
-    v12[3] = &unk_2789560E0;
-    v12[4] = self;
-    v13 = idCopy;
-    v14 = recordZoneId;
-    v15 = v7;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __33__SGDCloudKitSync_deleteGroupId___block_invoke;
+    v11[3] = &unk_2789560E0;
+    v11[4] = self;
+    v12 = idCopy;
+    v13 = recordZoneId;
+    v14 = v7;
     v9 = v7;
     v10 = recordZoneId;
-    dispatch_async(queue, v12);
+    dispatch_async(queue, v11);
   }
 
   else
@@ -1367,8 +1341,6 @@ void __42__SGDCloudKitSync_setReadyForNewEntities___block_invoke(uint64_t a1)
       _os_log_impl(&dword_231E60000, v10, OS_LOG_TYPE_INFO, "SGCK deleteGroupId: passed nil groupId...returning...", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __33__SGDCloudKitSync_deleteGroupId___block_invoke(id *a1)
@@ -1388,44 +1360,43 @@ void __33__SGDCloudKitSync_deleteGroupId___block_invoke(id *a1)
 
   else
   {
-    v5 = *(a1[4] + 25);
-    v6 = getCTGreenTeaOsLogHandle();
-    v7 = v6;
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = getCTGreenTeaOsLogHandle();
+    v6 = v5;
+    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Begin: Transmitting Confirm/Reject Of Calendar Event", buf, 2u);
+      _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "Begin: Transmitting Confirm/Reject Of Calendar Event", buf, 2u);
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __33__SGDCloudKitSync_deleteGroupId___block_invoke_315;
-    v20[3] = &unk_27894EA78;
-    v8 = a1[4];
-    v21 = a1[5];
-    v22 = a1[6];
-    v9 = [v8 addWriteOperationForRecordGetter:0 deleteGetter:v20 withRetries:3];
-    v10 = objc_autoreleasePoolPush();
-    v11 = MEMORY[0x277CCA8C8];
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __33__SGDCloudKitSync_deleteGroupId___block_invoke_2;
-    v17 = &unk_278955830;
-    v18 = a1[4];
-    v19 = a1[7];
-    v12 = [v11 blockOperationWithBlock:&v14];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __33__SGDCloudKitSync_deleteGroupId___block_invoke_315;
+    v19[3] = &unk_27894EA78;
+    v7 = a1[4];
+    v20 = a1[5];
+    v21 = a1[6];
+    v8 = [v7 addWriteOperationForRecordGetter:0 deleteGetter:v19 withRetries:3];
+    v9 = objc_autoreleasePoolPush();
+    v10 = MEMORY[0x277CCA8C8];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __33__SGDCloudKitSync_deleteGroupId___block_invoke_2;
+    v16 = &unk_278955830;
+    v17 = a1[4];
+    v18 = a1[7];
+    v11 = [v10 blockOperationWithBlock:&v13];
 
-    objc_autoreleasePoolPop(v10);
-    [v12 addDependency:{v9, v14, v15, v16, v17, v18}];
-    v13 = [a1[4] addOperation:v12];
+    objc_autoreleasePoolPop(v9);
+    [v11 addDependency:{v8, v13, v14, v15, v16, v17}];
+    v12 = [a1[4] addOperation:v11];
 
-    v4 = v21;
+    v4 = v20;
   }
 }
 
 id __33__SGDCloudKitSync_deleteGroupId___block_invoke_315(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = [*(a1 + 32) dataUsingEncoding:4];
@@ -1436,23 +1407,20 @@ id __33__SGDCloudKitSync_deleteGroupId___block_invoke_315(uint64_t a1, void *a2)
   v8 = [v6 base64EncodedStringWithOptions:0];
   v9 = [v7 initWithRecordName:v8 zoneID:*(a1 + 40)];
 
-  v13[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   return v10;
 }
 
 uint64_t __33__SGDCloudKitSync_deleteGroupId___block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 200);
-  v3 = getCTGreenTeaOsLogHandle();
-  v4 = v3;
-  if (v3 && os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = getCTGreenTeaOsLogHandle();
+  v3 = v2;
+  if (v2 && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "End: Transmitting Confirm/Reject Of Calendar Event", v6, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "End: Transmitting Confirm/Reject Of Calendar Event", v5, 2u);
   }
 
   return [*(a1 + 40) done];
@@ -1460,7 +1428,7 @@ uint64_t __33__SGDCloudKitSync_deleteGroupId___block_invoke_2(uint64_t a1)
 
 - (void)addEnrichment:(id)enrichment withParentEntity:(id)entity
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   enrichmentCopy = enrichment;
   entityCopy = entity;
   duplicateKey = [enrichmentCopy duplicateKey];
@@ -1481,9 +1449,9 @@ uint64_t __33__SGDCloudKitSync_deleteGroupId___block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v25 = entityKey;
-    v26 = 2112;
-    v27 = groupId;
+    v24 = entityKey;
+    v25 = 2112;
+    v26 = groupId;
     _os_log_debug_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEBUG, "SGCK addEntity:%@ %@", buf, 0x16u);
   }
 
@@ -1492,19 +1460,19 @@ uint64_t __33__SGDCloudKitSync_deleteGroupId___block_invoke_2(uint64_t a1)
     recordZoneId = [(SGDCloudKitSync *)self recordZoneId];
     v13 = [SGXpcTransaction transactionWithName:"com.apple.suggestions.sgckAddEntity"];
     queue = self->_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke;
-    v18[3] = &unk_27894EA50;
-    v18[4] = self;
-    v19 = groupId;
-    v20 = recordZoneId;
-    v21 = enrichmentCopy;
-    v22 = entityCopy;
-    v23 = v13;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke;
+    v17[3] = &unk_27894EA50;
+    v17[4] = self;
+    v18 = groupId;
+    v19 = recordZoneId;
+    v20 = enrichmentCopy;
+    v21 = entityCopy;
+    v22 = v13;
     v15 = v13;
     v16 = recordZoneId;
-    dispatch_async(queue, v18);
+    dispatch_async(queue, v17);
   }
 
   else
@@ -1516,8 +1484,6 @@ uint64_t __33__SGDCloudKitSync_deleteGroupId___block_invoke_2(uint64_t a1)
       _os_log_debug_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEBUG, "SGCK addEntity: - ignoring because groupId is nil", buf, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke(id *a1)
@@ -1537,52 +1503,51 @@ void __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke(id *a1)
 
   else
   {
-    v5 = *(a1[4] + 25);
-    v6 = getCTGreenTeaOsLogHandle();
-    v7 = v6;
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = getCTGreenTeaOsLogHandle();
+    v6 = v5;
+    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Begin: Transmitting Calendar Event", buf, 2u);
+      _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "Begin: Transmitting Calendar Event", buf, 2u);
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_308;
-    v26[3] = &unk_27894EA28;
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = a1[6];
-    v11 = a1[7];
-    v12 = a1[8];
-    *&v13 = v11;
-    *(&v13 + 1) = v12;
-    *&v14 = v9;
-    *(&v14 + 1) = v10;
-    v27 = v14;
-    v28 = v13;
-    v15 = [v8 addWriteOperationForRecordGetter:v26 deleteGetter:0 withRetries:3];
-    v16 = objc_autoreleasePoolPush();
-    v17 = MEMORY[0x277CCA8C8];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2;
-    v23 = &unk_278955830;
-    v24 = a1[4];
-    v25 = a1[9];
-    v18 = [v17 blockOperationWithBlock:&v20];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_308;
+    v25[3] = &unk_27894EA28;
+    v7 = a1[4];
+    v8 = a1[5];
+    v9 = a1[6];
+    v10 = a1[7];
+    v11 = a1[8];
+    *&v12 = v10;
+    *(&v12 + 1) = v11;
+    *&v13 = v8;
+    *(&v13 + 1) = v9;
+    v26 = v13;
+    v27 = v12;
+    v14 = [v7 addWriteOperationForRecordGetter:v25 deleteGetter:0 withRetries:3];
+    v15 = objc_autoreleasePoolPush();
+    v16 = MEMORY[0x277CCA8C8];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2;
+    v22 = &unk_278955830;
+    v23 = a1[4];
+    v24 = a1[9];
+    v17 = [v16 blockOperationWithBlock:&v19];
 
-    objc_autoreleasePoolPop(v16);
-    [v18 addDependency:{v15, v20, v21, v22, v23, v24}];
-    v19 = [a1[4] addOperation:v18];
+    objc_autoreleasePoolPop(v15);
+    [v17 addDependency:{v14, v19, v20, v21, v22, v23}];
+    v18 = [a1[4] addOperation:v17];
 
-    v4 = v27;
+    v4 = v26;
   }
 }
 
 id __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_308(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1602,23 +1567,20 @@ id __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_308(uint6
   v17 = [v16 initWithRecordID:v6 action:*MEMORY[0x277CBC070]];
   [v15 setObject:v17 forKeyedSubscript:@"r"];
 
-  v21[0] = v15;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[0] = v15;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
 
   return v18;
 }
 
 uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 200);
-  v3 = getCTGreenTeaOsLogHandle();
-  v4 = v3;
-  if (v3 && os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = getCTGreenTeaOsLogHandle();
+  v3 = v2;
+  if (v2 && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "End: Transmitting Calendar Event", v6, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "End: Transmitting Calendar Event", v5, 2u);
   }
 
   return [*(a1 + 40) done];
@@ -1626,7 +1588,7 @@ uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(u
 
 - (void)setDatabase:(id)database
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   if (self->_database)
   {
@@ -1648,11 +1610,11 @@ uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(u
   v9 = sgLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v22 = self->_container;
+    v21 = self->_container;
     *buf = 138412546;
-    v35 = databaseCopy;
-    v36 = 2112;
-    v37 = v22;
+    v34 = databaseCopy;
+    v35 = 2112;
+    v36 = v21;
     _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGCK Got database: %@, container: %@", buf, 0x16u);
   }
 
@@ -1668,15 +1630,15 @@ uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(u
   if (self->_container)
   {
     v11 = [SGDCloudKitSync apsEnvironmentStringForContainer:?];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_289;
-    v30[3] = &unk_27894E9D8;
-    v30[4] = self;
-    objc_copyWeak(&v31, &location);
-    [v11 wait:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_289;
+    v29[3] = &unk_27894E9D8;
+    v29[4] = self;
+    objc_copyWeak(&v30, &location);
+    [v11 wait:v29];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
   }
 
   else
@@ -1685,7 +1647,7 @@ uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(u
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = databaseCopy;
+      v34 = databaseCopy;
       _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "CloudKit database %@ has nil container, therefore cannot get APS environment strong and APNS will not work.", buf, 0xCu);
     }
   }
@@ -1693,35 +1655,34 @@ uint64_t __50__SGDCloudKitSync_addEnrichment_withParentEntity___block_invoke_2(u
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel_accountChanged_ name:*MEMORY[0x277CBBF00] object:0];
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_302;
-  v29[3] = &unk_278954A30;
-  v29[4] = self;
-  v14 = [v29 copy];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_302;
+  v28[3] = &unk_278954A30;
+  v28[4] = self;
+  v14 = [v28 copy];
   kvoHandler = self->_kvoHandler;
   v16 = NSStringFromSelector(sel_primaryICloudCalendarAccount);
   v17 = +[SGAccountsAdapter sharedInstance];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_303;
-  v27[3] = &unk_27894EA00;
-  v27[4] = self;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_303;
+  v26[3] = &unk_27894EA00;
+  v26[4] = self;
   v18 = v14;
-  v28 = v18;
-  [(_PASKVOHandler *)kvoHandler reactAfterChangesToKeyPath:v16 ofObject:v17 usingBlock:v27];
+  v27 = v18;
+  [(_PASKVOHandler *)kvoHandler reactAfterChangesToKeyPath:v16 ofObject:v17 usingBlock:v26];
 
   v19 = self->_queue;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_2_305;
-  v25[3] = &unk_27894E850;
-  v26 = v18;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __31__SGDCloudKitSync_setDatabase___block_invoke_2_305;
+  v24[3] = &unk_27894E850;
+  v25 = v18;
   v20 = v18;
-  dispatch_async(v19, v25);
+  dispatch_async(v19, v24);
 
   objc_destroyWeak(&location);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SGDCloudKitSync_setDatabase___block_invoke(uint64_t a1)
@@ -1771,7 +1732,7 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_289(uint64_t a1, void *a2,
 
 void __31__SGDCloudKitSync_setDatabase___block_invoke_302(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 104) primaryICloudCalendarAccount];
   v3 = +[SGAccountsAdapter sharedInstance];
   v4 = [v3 primaryICloudCalendarAccount];
@@ -1781,11 +1742,11 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_302(uint64_t a1)
     v5 = sgLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412546;
-      v9 = v2;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "SGCK Handling primary iCloud Calendar account change (%@ --> %@)", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v2;
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "SGCK Handling primary iCloud Calendar account change (%@ --> %@)", &v7, 0x16u);
     }
 
     [*(*(a1 + 32) + 104) setSyncToken:0];
@@ -1794,13 +1755,11 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_302(uint64_t a1)
     [*(*(a1 + 32) + 104) setPrimaryICloudCalendarAccount:v4];
     [*(a1 + 32) processStateChanges];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SGDCloudKitSync_setDatabase___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = sgLogHandle();
   v4 = v3;
@@ -1810,7 +1769,7 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_2(uint64_t a1)
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v15 = v5;
+      v14 = v5;
       _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "SGCK Error getting APS environment string -- APNS will not work!: %@", buf, 0xCu);
     }
   }
@@ -1819,9 +1778,9 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_2(uint64_t a1)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 40);
+      v11 = *(a1 + 40);
       *buf = 138412290;
-      v15 = v12;
+      v14 = v11;
       _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK APS (APNS) Environment: %@", buf, 0xCu);
     }
 
@@ -1834,12 +1793,10 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_2(uint64_t a1)
     [*(*(a1 + 48) + 48) setDelegate:WeakRetained];
 
     v4 = [@"com.apple.icloud-container." stringByAppendingString:@"com.apple.suggestd"];
-    v13 = v4;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+    v12 = v4;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
     [*(*(a1 + 48) + 48) _setEnabledTopics:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SGDCloudKitSync_setDatabase___block_invoke_288(uint64_t a1, void *a2)
@@ -1906,7 +1863,7 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_288(uint64_t a1, void *a2)
 
 - (void)createSubscriptionWithRetries:(unint64_t)retries
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   [v5 setRecordType:@"com_apple_suggestions_ck_event"];
   v6 = objc_opt_new();
@@ -1920,15 +1877,13 @@ void __31__SGDCloudKitSync_setDatabase___block_invoke_288(uint64_t a1, void *a2)
   }
 
   database = self->_database;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke;
-  v10[3] = &unk_27894E988;
-  v10[4] = self;
-  v10[5] = retries;
-  [(CKDatabase *)database saveSubscription:v5 completionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke;
+  v9[3] = &unk_27894E988;
+  v9[4] = self;
+  v9[5] = retries;
+  [(CKDatabase *)database saveSubscription:v5 completionHandler:v9];
 }
 
 void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1950,7 +1905,7 @@ void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke(uint64_t
 
 void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) getUnderlyingError:?];
@@ -1973,7 +1928,7 @@ void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_2(uint64
       if (v5)
       {
         *buf = 138412290;
-        v17 = v2;
+        v16 = v2;
         _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "SGCK Error while attempting to create subscription: %@", buf, 0xCu);
       }
 
@@ -1986,15 +1941,15 @@ void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_2(uint64
           _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGCK Will re-attempt subscription creation", buf, 2u);
         }
 
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_280;
-        v13[3] = &unk_278955468;
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_280;
+        v12[3] = &unk_278955468;
         v8 = *(a1 + 48);
-        v14 = *(a1 + 40);
-        v9 = v14;
-        v15 = v8;
-        v10 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v13];
+        v13 = *(a1 + 40);
+        v9 = v13;
+        v14 = v8;
+        v10 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v12];
         v11 = [v9 addOperation:v10];
       }
     }
@@ -2011,8 +1966,6 @@ void __49__SGDCloudKitSync_createSubscriptionWithRetries___block_invoke_2(uint64
 
     [*(*(a1 + 40) + 104) setHasSubscription:MEMORY[0x277CBEC38]];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SGDCloudKitSync_shouldRemoveEventsFromEventKit__block_invoke(uint64_t a1, void *a2)
@@ -2054,21 +2007,19 @@ void __49__SGDCloudKitSync_shouldRemoveEventsFromEventKit__block_invoke(uint64_t
 
 void __49__SGDCloudKitSync_shouldRemoveEventsFromEventKit__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 56));
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Received account info, decision on whether to remove events from EK: %@ (error: %@)", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Received account info, decision on whether to remove events from EK: %@ (error: %@)", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SGDCloudKitSync_accountInfo__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2106,17 +2057,17 @@ uint64_t __30__SGDCloudKitSync_accountInfo__block_invoke_268(uint64_t a1)
 
 void __30__SGDCloudKitSync_accountInfo__block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    v17 = 138412546;
-    v18 = v13;
-    v19 = 2112;
-    v20 = v14;
-    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - %@, %@", &v17, 0x16u);
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 40);
+    v16 = 138412546;
+    v17 = v12;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - %@, %@", &v16, 0x16u);
   }
 
   if (!*(a1 + 32) || *(a1 + 40))
@@ -2124,13 +2075,13 @@ void __30__SGDCloudKitSync_accountInfo__block_invoke_2(uint64_t a1)
     v3 = sgLogHandle();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = *(a1 + 40);
-      v17 = 138412546;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v16;
-      _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "SGCK accountInfo - completionHandler - received error and/or failed to get account info: %@, %@", &v17, 0x16u);
+      v14 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v16 = 138412546;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v15;
+      _os_log_error_impl(&dword_231E60000, v3, OS_LOG_TYPE_ERROR, "SGCK accountInfo - completionHandler - received error and/or failed to get account info: %@, %@", &v16, 0x16u);
     }
   }
 
@@ -2142,8 +2093,8 @@ void __30__SGDCloudKitSync_accountInfo__block_invoke_2(uint64_t a1)
   {
     if (v7)
     {
-      LOWORD(v17) = 0;
-      _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - completing future", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - completing future", &v16, 2u);
     }
 
     *(*(a1 + 56) + 96) = 0;
@@ -2171,11 +2122,9 @@ void __30__SGDCloudKitSync_accountInfo__block_invoke_2(uint64_t a1)
 
   else if (v7)
   {
-    LOWORD(v17) = 0;
-    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - ignoring result because a newer request is in flight", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK accountInfo - completionHandler - ignoring result because a newer request is in flight", &v16, 2u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountChanged:(id)changed
@@ -2194,14 +2143,14 @@ void __30__SGDCloudKitSync_accountInfo__block_invoke_2(uint64_t a1)
 
 uint64_t __34__SGDCloudKitSync_accountChanged___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(a1 + 32);
-    v15 = 138412290;
-    v16 = v14;
-    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK accountChanged:%@", &v15, 0xCu);
+    v13 = *(a1 + 32);
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK accountChanged:%@", &v14, 0xCu);
   }
 
   v3 = *(a1 + 40);
@@ -2212,8 +2161,8 @@ uint64_t __34__SGDCloudKitSync_accountChanged___block_invoke(uint64_t a1)
       v4 = sgLogHandle();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v15) = 0;
-        _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK accountChanged: - existing future is complete. Setting to nil.", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK accountChanged: - existing future is complete. Setting to nil.", &v14, 2u);
       }
 
       v5 = *(a1 + 40);
@@ -2222,7 +2171,7 @@ uint64_t __34__SGDCloudKitSync_accountChanged___block_invoke(uint64_t a1)
 LABEL_12:
 
       v3 = *(a1 + 40);
-      goto LABEL_13;
+      return [v3 processStateChanges];
     }
 
     v3 = *(a1 + 40);
@@ -2231,8 +2180,8 @@ LABEL_12:
       v7 = sgLogHandle();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v15) = 0;
-        _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK accountChanged: - existing future is in-flight. Creating a new request...", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK accountChanged: - existing future is in-flight. Creating a new request...", &v14, 2u);
       }
 
       v8 = *(a1 + 40);
@@ -2248,10 +2197,7 @@ LABEL_12:
     }
   }
 
-LABEL_13:
-  result = [v3 processStateChanges];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v3 processStateChanges];
 }
 
 void __38__SGDCloudKitSync_processStateChanges__block_invoke_264(void *a1)
@@ -2320,11 +2266,10 @@ uint64_t __38__SGDCloudKitSync_processStateChanges__block_invoke_265(void *a1)
 
 - (void)dealloc
 {
-  greenTeaLogger = self->_greenTeaLogger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = SGDCloudKitSync;
-  [(SGDCloudKitSync *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SGDCloudKitSync;
+  [(SGDCloudKitSync *)&v3 dealloc];
 }
 
 - (SGDCloudKitSync)init
@@ -2465,7 +2410,7 @@ LABEL_13:
 
 - (id)addOperation:(id)operation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   dispatch_assert_queue_V2(self->_queue);
   objc_opt_class();
@@ -2478,13 +2423,13 @@ LABEL_13:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK Will add CK operation to queue: %@", buf, 0xCu);
     }
   }
 
   [(NSMutableArray *)self->_operationsToAddToOpQueue addObject:operationCopy];
-  if ([(NSMutableArray *)self->_operationsToAddToOpQueue count]== 1)
+  if (objc_msgSend_count(self->_operationsToAddToOpQueue) == 1)
   {
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -2495,30 +2440,26 @@ LABEL_13:
     dispatch_async(queue, block);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return operationCopy;
 }
 
 uint64_t __32__SGDCloudKitSync_addOperation___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 64) addOperations:*(*(a1 + 32) + 72) waitUntilFinished:0];
   v2 = sgLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = [*(*(a1 + 32) + 72) count];
-    v6 = [*(*(a1 + 32) + 64) operationCount];
-    v7 = 134218240;
-    v8 = v5;
-    v9 = 2048;
-    v10 = v6;
-    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK added %lu operations to queue (pending operation count: %lu)", &v7, 0x16u);
+    v4 = objc_msgSend_count(*(*(a1 + 32) + 72));
+    v5 = [*(*(a1 + 32) + 64) operationCount];
+    v6 = 134218240;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_debug_impl(&dword_231E60000, v2, OS_LOG_TYPE_DEBUG, "SGCK added %lu operations to queue (pending operation count: %lu)", &v6, 0x16u);
   }
 
-  result = [*(*(a1 + 32) + 72) removeAllObjects];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 72) removeAllObjects];
 }
 
 - (id)addWriteOperationForRecordGetter:(id)getter deleteGetter:(id)deleteGetter withRetries:(unint64_t)retries isFirstTry:(BOOL)try
@@ -2590,12 +2531,12 @@ uint64_t __32__SGDCloudKitSync_addOperation___block_invoke(uint64_t a1)
 
 void __88__SGDCloudKitSync_addWriteOperationForRecordGetter_deleteGetter_withRetries_isFirstTry___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (!WeakRetained)
   {
-    v30 = [MEMORY[0x277CCA890] currentHandler];
-    [v30 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:1055 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
+    v29 = [MEMORY[0x277CCA890] currentHandler];
+    [v29 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:1055 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
   }
 
   v3 = *(a1 + 32);
@@ -2677,14 +2618,14 @@ LABEL_5:
           v23 = sgLogHandle();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
-            v28 = sgMapSelector();
-            v29 = *(a1 + 72);
+            v27 = sgMapSelector();
+            v28 = *(a1 + 72);
             *buf = 138412802;
-            v38 = v28;
-            v39 = 2112;
-            v40 = v22;
-            v41 = 2048;
-            v42 = v29;
+            v37 = v27;
+            v38 = 2112;
+            v39 = v22;
+            v40 = 2048;
+            v41 = v28;
             _os_log_debug_impl(&dword_231E60000, v23, OS_LOG_TYPE_DEBUG, "SGCK Will write entity records: %@, delete entity records: %@, retries remaining: %lu", buf, 0x20u);
           }
 
@@ -2692,26 +2633,26 @@ LABEL_5:
           [v8 setRecordIDsToDelete:v22];
           [v8 setAtomic:0];
           [v8 setSavePolicy:2];
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __88__SGDCloudKitSync_addWriteOperationForRecordGetter_deleteGetter_withRetries_isFirstTry___block_invoke_225;
-          v31[3] = &unk_27894E800;
-          objc_copyWeak(v36, (a1 + 56));
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __88__SGDCloudKitSync_addWriteOperationForRecordGetter_deleteGetter_withRetries_isFirstTry___block_invoke_225;
+          v30[3] = &unk_27894E800;
+          objc_copyWeak(v35, (a1 + 56));
           v24 = *(a1 + 32);
-          v36[1] = *(a1 + 64);
-          v31[4] = v24;
+          v35[1] = *(a1 + 64);
+          v30[4] = v24;
           v9 = v17;
-          v32 = v9;
+          v31 = v9;
           v25 = v22;
           v26 = *(a1 + 72);
-          v33 = v25;
-          v36[2] = v26;
-          v34 = *(a1 + 40);
-          v35 = *(a1 + 48);
-          [v8 setModifyRecordsCompletionBlock:v31];
+          v32 = v25;
+          v35[2] = v26;
+          v33 = *(a1 + 40);
+          v34 = *(a1 + 48);
+          [v8 setModifyRecordsCompletionBlock:v30];
           [WeakRetained addDependency:v8];
 
-          objc_destroyWeak(v36);
+          objc_destroyWeak(v35);
         }
 
         else
@@ -2739,24 +2680,22 @@ LABEL_5:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v38 = v8;
+    v37 = v8;
     _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGCK Failing to write entity due to unrecoverable error: %@", buf, 0xCu);
   }
 
 LABEL_26:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SGDCloudKitSync_addWriteOperationForRecordGetter_deleteGetter_withRetries_isFirstTry___block_invoke_225(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   if (!WeakRetained)
   {
-    v34 = [MEMORY[0x277CCA890] currentHandler];
-    [v34 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:1112 description:{@"Invalid parameter not satisfying: %@", @"muscularEndOperation"}];
+    v33 = [MEMORY[0x277CCA890] currentHandler];
+    [v33 handleFailureInMethod:*(a1 + 80) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:1112 description:{@"Invalid parameter not satisfying: %@", @"muscularEndOperation"}];
 
     if (!v5)
     {
@@ -2764,27 +2703,27 @@ void __88__SGDCloudKitSync_addWriteOperationForRecordGetter_deleteGetter_withRet
     }
 
 LABEL_3:
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v7 = *(a1 + 40);
-    v8 = [v7 countByEnumeratingWithState:&v39 objects:v46 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v38 objects:v45 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v40;
+      v10 = *v39;
 LABEL_5:
       v11 = 0;
       while (1)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
         v12 = *(a1 + 32);
-        v13 = [*(*(&v39 + 1) + 8 * v11) recordID];
+        v13 = [*(*(&v38 + 1) + 8 * v11) recordID];
         v14 = [v12 ckErrorForRecordId:v13 inError:v5];
 
         if (v14)
@@ -2794,7 +2733,7 @@ LABEL_5:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v39 objects:v46 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v38 objects:v45 count:16];
           if (v9)
           {
             goto LABEL_5;
@@ -2809,26 +2748,26 @@ LABEL_5:
     {
 LABEL_11:
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v7 = *(a1 + 48);
-      v15 = [v7 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v15 = [v7 countByEnumeratingWithState:&v34 objects:v44 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v36;
+        v17 = *v35;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v36 != v17)
+            if (*v35 != v17)
             {
               objc_enumerationMutation(v7);
             }
 
-            v19 = [*(a1 + 32) ckErrorForRecordId:*(*(&v35 + 1) + 8 * i) inError:v5];
+            v19 = [*(a1 + 32) ckErrorForRecordId:*(*(&v34 + 1) + 8 * i) inError:v5];
             if (v19)
             {
               v14 = v19;
@@ -2836,7 +2775,7 @@ LABEL_11:
             }
           }
 
-          v16 = [v7 countByEnumeratingWithState:&v35 objects:v45 count:16];
+          v16 = [v7 countByEnumeratingWithState:&v34 objects:v44 count:16];
           if (v16)
           {
             continue;
@@ -2874,16 +2813,16 @@ LABEL_49:
       {
         if (v14)
         {
-          v33 = v14;
+          v32 = v14;
         }
 
         else
         {
-          v33 = v22;
+          v32 = v22;
         }
 
         *buf = 138412290;
-        v44 = v33;
+        v43 = v32;
         _os_log_error_impl(&dword_231E60000, v23, OS_LOG_TYPE_ERROR, "SGCK Will recreate zone and salt and try to write record again (error: %@)", buf, 0xCu);
       }
 
@@ -2953,7 +2892,7 @@ LABEL_50:
       goto LABEL_50;
     }
 
-    v28 = [*(a1 + 40) count];
+    v28 = objc_msgSend_count(*(a1 + 40));
     v21 = sgLogHandle();
     v29 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
     if (!v28)
@@ -2982,8 +2921,6 @@ LABEL_50:
   }
 
 LABEL_51:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addWriteOperationForRecordGetter:(id)getter deleteGetter:(id)deleteGetter withRetries:(unint64_t)retries
@@ -3069,11 +3006,11 @@ LABEL_51:
   v8 = objc_opt_new();
   [v8 setPreviousServerChangeToken:syncToken];
   v9 = objc_alloc(MEMORY[0x277CBC3B8]);
-  v36 = recordZoneId;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v34 = recordZoneId;
-  v35 = v8;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+  v35 = recordZoneId;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v33 = recordZoneId;
+  v34 = v8;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
   v12 = [v9 initWithRecordZoneIDs:v10 configurationsByRecordZoneID:v11];
   v13 = [(SGDCloudKitSync *)self addOperation:v12];
 
@@ -3085,38 +3022,36 @@ LABEL_51:
 
   [v13 setConfiguration:v14];
   v16 = objc_opt_new();
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___block_invoke;
-  v32[3] = &unk_27894E788;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___block_invoke;
+  v31[3] = &unk_27894E788;
+  v31[4] = self;
   v17 = v16;
-  v33 = v17;
-  [v13 setRecordChangedBlock:v32];
+  v32 = v17;
+  [v13 setRecordChangedBlock:v31];
   v18 = objc_opt_new();
   [addOperation2 addDependency:v18];
   objc_initWeak(location, addOperation2);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___block_invoke_213;
-  v27[3] = &unk_27894E7D8;
-  objc_copyWeak(v31, location);
-  v31[1] = a2;
-  v27[4] = self;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___block_invoke_213;
+  v26[3] = &unk_27894E7D8;
+  objc_copyWeak(v30, location);
+  v30[1] = a2;
+  v26[4] = self;
   v19 = v18;
-  v28 = v19;
+  v27 = v19;
   v20 = v17;
-  v29 = v20;
-  v31[2] = retries;
+  v28 = v20;
+  v30[2] = retries;
   v21 = recordZoneId;
-  v30 = v21;
-  [v13 setRecordZoneFetchCompletionBlock:v27];
+  v29 = v21;
+  [v13 setRecordZoneFetchCompletionBlock:v26];
   [addOperation2 addDependency:v13];
 
-  objc_destroyWeak(v31);
+  objc_destroyWeak(v30);
   objc_destroyWeak(location);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return addOperation2;
 }
@@ -3146,7 +3081,7 @@ void __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___bloc
     {
       v9 = [SGPipelineEntity fromCloudKitRecord:v3];
       v10 = [v9 enrichments];
-      v11 = [v10 count];
+      v11 = objc_msgSend_count(v10);
 
       if (v11)
       {
@@ -3217,21 +3152,21 @@ void __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___bloc
 
 void __66__SGDCloudKitSync_addFetchNewEntitiesAttemptOperationWithRetries___block_invoke_215(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   if (!WeakRetained)
   {
-    v32 = [MEMORY[0x277CCA890] currentHandler];
-    [v32 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:926 description:{@"Invalid parameter not satisfying: %@", @"muscularEndOperation"}];
+    v31 = [MEMORY[0x277CCA890] currentHandler];
+    [v31 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:926 description:{@"Invalid parameter not satisfying: %@", @"muscularEndOperation"}];
   }
 
   [WeakRetained removeDependency:*(a1 + 40)];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v3 = *(a1 + 48);
-  v4 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (!v4)
   {
 LABEL_11:
@@ -3247,9 +3182,9 @@ LABEL_11:
           v17 = sgLogHandle();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v27 = *v10;
+            v26 = *v10;
             *buf = 138412290;
-            v39 = v27;
+            v38 = v26;
             _os_log_error_impl(&dword_231E60000, v17, OS_LOG_TYPE_ERROR, "SGCK Giving up on fetching new changes because out of retries for error: %@", buf, 0xCu);
           }
 
@@ -3277,14 +3212,14 @@ LABEL_20:
       {
         if (v20)
         {
-          v29 = v17;
+          v28 = v17;
           if (!v17)
           {
-            v29 = *v10;
+            v28 = *v10;
           }
 
           *buf = 138412290;
-          v39 = v29;
+          v38 = v28;
           _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "SGCK Giving up on fetching changes due to unrecoverable error %@", buf, 0xCu);
         }
 
@@ -3293,14 +3228,14 @@ LABEL_20:
 
       if (v20)
       {
-        v28 = v17;
+        v27 = v17;
         if (!v17)
         {
-          v28 = *v10;
+          v27 = *v10;
         }
 
         *buf = 138412290;
-        v39 = v28;
+        v38 = v27;
         _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "SGCK Change token expired (error: %@)", buf, 0xCu);
       }
 
@@ -3337,8 +3272,8 @@ LABEL_39:
 
     if ((v23 & 1) == 0)
     {
-      v33 = [MEMORY[0x277CCA890] currentHandler];
-      [v33 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:972 description:{@"Invalid parameter not satisfying: %@", @"[recordZoneID isEqual:[self recordZoneId]]"}];
+      v32 = [MEMORY[0x277CCA890] currentHandler];
+      [v32 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:972 description:{@"Invalid parameter not satisfying: %@", @"[recordZoneID isEqual:[self recordZoneId]]"}];
     }
 
     [*(*(a1 + 32) + 104) setSyncToken:*(a1 + 80)];
@@ -3357,26 +3292,26 @@ LABEL_39:
     v25 = sgLogHandle();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v30 = @"NO";
+      v29 = @"NO";
       if (*(a1 + 112))
-      {
-        v31 = @"YES";
-      }
-
-      else
-      {
-        v31 = @"NO";
-      }
-
-      if (*(*(a1 + 32) + 160))
       {
         v30 = @"YES";
       }
 
+      else
+      {
+        v30 = @"NO";
+      }
+
+      if (*(*(a1 + 32) + 160))
+      {
+        v29 = @"YES";
+      }
+
       *buf = 138412546;
-      v39 = v31;
-      v40 = 2112;
-      v41 = v30;
+      v38 = v30;
+      v39 = 2112;
+      v40 = v29;
       _os_log_debug_impl(&dword_231E60000, v25, OS_LOG_TYPE_DEBUG, "SGCK Fetching more entities from server for these reasons: [%@] Server indicated more entities are coming, [%@] Client was asked again to fetch more entities while this request was already in-flight", buf, 0x16u);
     }
 
@@ -3389,17 +3324,17 @@ LABEL_36:
   }
 
   v5 = v4;
-  v6 = *v35;
+  v6 = *v34;
 LABEL_5:
   v7 = 0;
   while (1)
   {
-    if (*v35 != v6)
+    if (*v34 != v6)
     {
       objc_enumerationMutation(v3);
     }
 
-    v8 = [*(*(&v34 + 1) + 8 * v7) result];
+    v8 = [*(*(&v33 + 1) + 8 * v7) result];
     v9 = [v8 BOOLValue];
 
     if (!v9)
@@ -3409,7 +3344,7 @@ LABEL_5:
 
     if (v5 == ++v7)
     {
-      v5 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
       if (v5)
       {
         goto LABEL_5;
@@ -3436,13 +3371,11 @@ LABEL_5:
   }
 
 LABEL_40:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addFetchNewEntitiesOperation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_disabledBecauseOutOfDateSoftware)
   {
@@ -3490,24 +3423,24 @@ LABEL_13:
     }
 
     [(SGDCloudKitSync *)self clearErrors];
-    v14 = objc_autoreleasePoolPush();
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __47__SGDCloudKitSync_addFetchNewEntitiesOperation__block_invoke_201;
-    v20[3] = &unk_278954A30;
-    v20[4] = self;
-    v15 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v20];
-    v16 = [(SGDCloudKitSync *)self addOperation:v15];
+    v13 = objc_autoreleasePoolPush();
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __47__SGDCloudKitSync_addFetchNewEntitiesOperation__block_invoke_201;
+    v19[3] = &unk_278954A30;
+    v19[4] = self;
+    v14 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v19];
+    v15 = [(SGDCloudKitSync *)self addOperation:v14];
 
-    objc_autoreleasePoolPop(v14);
-    v17 = self->_inProgressFetchNewEntitiesOperation;
-    self->_inProgressFetchNewEntitiesOperation = v16;
+    objc_autoreleasePoolPop(v13);
+    v16 = self->_inProgressFetchNewEntitiesOperation;
+    self->_inProgressFetchNewEntitiesOperation = v15;
 
     addOperation = [(SGDCloudKitSync *)self addOperation];
-    v18 = [(SGDCloudKitSync *)self addFetchNewEntitiesAttemptOperationWithRetries:3];
-    [(SGDCloudKitSync *)self _addDependency:addOperation toTrain:v18];
+    v17 = [(SGDCloudKitSync *)self addFetchNewEntitiesAttemptOperationWithRetries:3];
+    [(SGDCloudKitSync *)self _addDependency:addOperation toTrain:v17];
     [(SGDCloudKitSync *)self _coupleOperationTrainWithStart:addOperation end:self->_inProgressFetchNewEntitiesOperation];
-    [(NSOperation *)self->_inProgressFetchNewEntitiesOperation addDependency:v18];
+    [(NSOperation *)self->_inProgressFetchNewEntitiesOperation addDependency:v17];
     v9 = self->_inProgressFetchNewEntitiesOperation;
 
     goto LABEL_13;
@@ -3517,23 +3450,22 @@ LABEL_13:
   {
     if (self->_requestedFetchNewEntitiesWhileRequestAlreadyInFlight)
     {
-      v19 = @"YES";
+      v18 = @"YES";
     }
 
     else
     {
-      v19 = @"NO";
+      v18 = @"NO";
     }
 
     *buf = 138412290;
-    v22 = v19;
+    v21 = v18;
     _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK addFetchNewEntitiesOperation - Returning operation already in flight, changing value of _requestedFetchNewEntitiesWhileRequestAlreadyInFlight from %@ to YES", buf, 0xCu);
   }
 
   self->_requestedFetchNewEntitiesWhileRequestAlreadyInFlight = 1;
   v9 = self->_inProgressFetchNewEntitiesOperation;
 LABEL_14:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3584,7 +3516,7 @@ void __47__SGDCloudKitSync_addFetchNewEntitiesOperation__block_invoke_201(uint64
     recordZoneId = [(SGDCloudKitSync *)self recordZoneId];
     v14 = [v11 initWithRecordName:v12 zoneID:recordZoneId];
 
-    v30 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"salt_atomic_reference" recordID:v14];
+    v29 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"salt_atomic_reference" recordID:v14];
     v15 = SGRandomDataOfLength(0x20uLL);
     v16 = objc_alloc(MEMORY[0x277CBC5D0]);
     recordZoneId2 = [(SGDCloudKitSync *)self recordZoneId];
@@ -3602,42 +3534,40 @@ void __47__SGDCloudKitSync_addFetchNewEntitiesOperation__block_invoke_201(uint64
     v23 = [(SGDCloudKitSync *)self addOperation:v22];
 
     [v23 addDependency:addOperation];
-    v35[0] = v19;
-    v35[1] = v30;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = v19;
+    v34[1] = v29;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     [v23 setRecordsToSave:v24];
 
     [v23 setAtomic:1];
     [v23 setSavePolicy:0];
     objc_initWeak(location, addOperation2);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __61__SGDCloudKitSync_addProcureSaltAttemptOperationWithRetries___block_invoke;
-    v32[3] = &unk_27894E760;
-    objc_copyWeak(v34, location);
-    v34[1] = a2;
-    v32[4] = self;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __61__SGDCloudKitSync_addProcureSaltAttemptOperationWithRetries___block_invoke;
+    v31[3] = &unk_27894E760;
+    objc_copyWeak(v33, location);
+    v33[1] = a2;
+    v31[4] = self;
     v25 = v19;
-    v33 = v25;
-    v34[2] = retries;
-    [v23 setModifyRecordsCompletionBlock:v32];
+    v32 = v25;
+    v33[2] = retries;
+    [v23 setModifyRecordsCompletionBlock:v31];
     [addOperation2 addDependency:v23];
 
-    objc_destroyWeak(v34);
+    objc_destroyWeak(v33);
     objc_destroyWeak(location);
   }
 
   retries = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"ProcureSalt operation attempt completion [retries: %lu]", retries];
   [addOperation2 setName:retries];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return addOperation2;
 }
 
 void __61__SGDCloudKitSync_addProcureSaltAttemptOperationWithRetries___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -3653,29 +3583,29 @@ void __61__SGDCloudKitSync_addProcureSaltAttemptOperationWithRetries___block_inv
     }
 
 LABEL_48:
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v13 = v7;
-    v36 = [(__CFString *)v13 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v36 = [(__CFString *)v13 countByEnumeratingWithState:&v57 objects:v65 count:16];
     if (v36)
     {
       v37 = v36;
-      v56 = WeakRetained;
-      v57 = v8;
+      v55 = WeakRetained;
+      v56 = v8;
       v38 = v7;
-      v39 = *v59;
+      v39 = *v58;
       while (2)
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v59 != v39)
+          if (*v58 != v39)
           {
             objc_enumerationMutation(v13);
           }
 
-          v41 = *(*(&v58 + 1) + 8 * i);
+          v41 = *(*(&v57 + 1) + 8 * i);
           v42 = [v41 recordType];
           v43 = [v42 isEqualToString:@"salt"];
 
@@ -3684,13 +3614,13 @@ LABEL_48:
             v25 = v41;
             v17 = 0;
             v7 = v38;
-            WeakRetained = v56;
-            v8 = v57;
+            WeakRetained = v55;
+            v8 = v56;
             goto LABEL_58;
           }
         }
 
-        v37 = [(__CFString *)v13 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v37 = [(__CFString *)v13 countByEnumeratingWithState:&v57 objects:v65 count:16];
         if (v37)
         {
           continue;
@@ -3701,8 +3631,8 @@ LABEL_48:
 
       v17 = 0;
       v7 = v38;
-      WeakRetained = v56;
-      v8 = v57;
+      WeakRetained = v55;
+      v8 = v56;
     }
 
     else
@@ -3771,7 +3701,7 @@ LABEL_72:
       }
 
       *buf = 138412290;
-      v63 = v33;
+      v62 = v33;
       _os_log_error_impl(&dword_231E60000, v18, OS_LOG_TYPE_ERROR, "SGCK Will recreate zone and try to procure salt again (error: %@)", buf, 0xCu);
     }
 
@@ -3807,7 +3737,7 @@ LABEL_72:
       }
 
       *buf = 138412290;
-      v63 = v32;
+      v62 = v32;
       _os_log_error_impl(&dword_231E60000, v26, OS_LOG_TYPE_ERROR, "SGCK Zone missing while procuring salt: %@", buf, 0xCu);
     }
 
@@ -3850,7 +3780,7 @@ LABEL_72:
         }
 
         *buf = 138412290;
-        v63 = v34;
+        v62 = v34;
         _os_log_error_impl(&dword_231E60000, v30, OS_LOG_TYPE_ERROR, "SGCK Unrecoverable error while procuring salt: %@", buf, 0xCu);
       }
 
@@ -3902,16 +3832,16 @@ LABEL_58:
     {
       if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
       {
-        v55 = @"non-nil";
+        v54 = @"non-nil";
         if (!v45)
         {
-          v55 = 0;
+          v54 = 0;
         }
 
         *buf = 138412546;
-        v63 = v55;
-        v64 = 2112;
-        v65 = v46;
+        v62 = v54;
+        v63 = 2112;
+        v64 = v46;
         _os_log_fault_impl(&dword_231E60000, v48, OS_LOG_TYPE_FAULT, "SGCK procuredSaltRecord missing critical fields (se=%@, a=%@)! This should not be possible and no recovery path is implemented. CloudKit writes will fail.", buf, 0x16u);
       }
 
@@ -3926,7 +3856,7 @@ LABEL_58:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v63 = v46;
+        v62 = v46;
         _os_log_impl(&dword_231E60000, v48, OS_LOG_TYPE_INFO, "SGCK Successfully procured Manatee salt with atomic reference name %@", buf, 0xCu);
       }
 
@@ -3944,8 +3874,6 @@ LABEL_58:
   }
 
 LABEL_73:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_ckErrorForId:(id)id inError:(id)error
@@ -4043,7 +3971,7 @@ LABEL_10:
 
 void __42__SGDCloudKitSync_addProcureSaltOperation__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 184);
   v3 = sgLogHandle();
   v4 = v3;
@@ -4052,28 +3980,26 @@ void __42__SGDCloudKitSync_addProcureSaltOperation__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v5 = *(*(a1 + 32) + 184);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "SGCK addProcureSaltOperation - Operation completed with error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "SGCK addProcureSaltOperation - Operation completed with error: %@", &v8, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v9) = 0;
-    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK addProcureSaltOperation - Operation completed successfully", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK addProcureSaltOperation - Operation completed successfully", &v8, 2u);
   }
 
   v6 = *(a1 + 32);
   v7 = *(v6 + 128);
   *(v6 + 128) = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addManateeSanityCheckOperation
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   disabledBecauseOutOfDateSoftware = self->_disabledBecauseOutOfDateSoftware;
   v5 = sgLogHandle();
@@ -4102,40 +4028,38 @@ void __42__SGDCloudKitSync_addProcureSaltOperation__block_invoke(uint64_t a1)
     [(SGDCloudKitSync *)self _coupleOperationTrainWithStart:addOperation2 end:addOperation];
     v9 = objc_alloc(MEMORY[0x277CBC3D0]);
     recordZoneId = [(SGDCloudKitSync *)self recordZoneId];
-    v19[0] = recordZoneId;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = recordZoneId;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v12 = [v9 initWithRecordZoneIDs:v11];
     v13 = [(SGDCloudKitSync *)self addOperation:v12];
 
     [v13 addDependency:addOperation2];
     [addOperation addDependency:v13];
     objc_initWeak(buf, addOperation);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke;
-    v16[3] = &unk_27894E738;
-    objc_copyWeak(v17, buf);
-    v17[1] = a2;
-    v16[4] = self;
-    [v13 setFetchRecordZonesCompletionBlock:v16];
-    objc_destroyWeak(v17);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke;
+    v15[3] = &unk_27894E738;
+    objc_copyWeak(v16, buf);
+    v16[1] = a2;
+    v15[4] = self;
+    [v13 setFetchRecordZonesCompletionBlock:v15];
+    objc_destroyWeak(v16);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return addOperation;
 }
 
 void __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v13 = [MEMORY[0x277CCA890] currentHandler];
-    [v13 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:653 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
+    v12 = [MEMORY[0x277CCA890] currentHandler];
+    [v12 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:653 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
   }
 
   v6 = sgLogHandle();
@@ -4145,7 +4069,7 @@ void __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke(uint64_t
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v4;
+      v14 = v4;
       _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGCK Operation error during Manatee sanity check: %@", buf, 0xCu);
     }
 
@@ -4159,7 +4083,7 @@ void __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke(uint64_t
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v7;
+        v14 = v7;
         _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "SGCK Missing Manatee identity detected during sanity check. Deleting-and-then-re-creating zone... (record zone error: %@)", buf, 0xCu);
       }
 
@@ -4173,8 +4097,6 @@ void __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke(uint64_t
     *buf = 0;
     _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Manatee health check returned without errors", buf, 2u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addCreateZoneAttemptOperationWithRetries:(unint64_t)retries
@@ -4208,36 +4130,34 @@ void __49__SGDCloudKitSync_addManateeSanityCheckOperation__block_invoke(uint64_t
     v14 = [(SGDCloudKitSync *)self addOperation:v13];
 
     [v14 addDependency:addOperation];
-    v21 = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     [v14 setRecordZonesToSave:v15];
 
     objc_initWeak(location, addOperation2);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __60__SGDCloudKitSync_addCreateZoneAttemptOperationWithRetries___block_invoke;
-    v19[3] = &unk_27894E710;
-    objc_copyWeak(v20, location);
-    v20[1] = a2;
-    v20[2] = retries;
-    v19[4] = self;
-    [v14 setModifyRecordZonesCompletionBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__SGDCloudKitSync_addCreateZoneAttemptOperationWithRetries___block_invoke;
+    v18[3] = &unk_27894E710;
+    objc_copyWeak(v19, location);
+    v19[1] = a2;
+    v19[2] = retries;
+    v18[4] = self;
+    [v14 setModifyRecordZonesCompletionBlock:v18];
     [addOperation2 addDependency:v14];
-    objc_destroyWeak(v20);
+    objc_destroyWeak(v19);
     objc_destroyWeak(location);
   }
 
   retries = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CreateZone operation attempt completion [retries: %lu]", retries];
   [addOperation2 setName:retries];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return addOperation2;
 }
 
 void __60__SGDCloudKitSync_addCreateZoneAttemptOperationWithRetries___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -4298,7 +4218,7 @@ LABEL_16:
         }
 
         *buf = 138412290;
-        v24 = v6;
+        v23 = v6;
         v16 = "SGCK aborting create zone because out of retries for retry-able error: %@";
       }
 
@@ -4320,7 +4240,7 @@ LABEL_18:
         }
 
         *buf = 138412290;
-        v24 = v6;
+        v23 = v6;
         v16 = "SGCK Unrecoverable error for create zone operation: %@";
       }
 
@@ -4332,16 +4252,14 @@ LABEL_18:
   v20 = sgLogHandle();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v22 = *(a1 + 56);
+    v21 = *(a1 + 56);
     *buf = 134217984;
-    v24 = v22;
+    v23 = v21;
     _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "SGCK addCreateZoneAttemptOperationWithRetries:%lu - SUCCESS (zone created or already exists)", buf, 0xCu);
   }
 
   *(*(a1 + 32) + 120) = 0;
 LABEL_25:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addCreateZoneOperation
@@ -4411,7 +4329,7 @@ LABEL_13:
 
 void __41__SGDCloudKitSync_addCreateZoneOperation__block_invoke_157(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 168);
   v3 = sgLogHandle();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
@@ -4420,19 +4338,19 @@ void __41__SGDCloudKitSync_addCreateZoneOperation__block_invoke_157(uint64_t a1)
     if (v4)
     {
       v5 = *(*(a1 + 32) + 168);
-      v12 = 138412290;
-      v13 = v5;
+      v11 = 138412290;
+      v12 = v5;
       v6 = "SGCK addCreateZoneOperation - Operation completed with error: %@";
       v7 = v3;
       v8 = 12;
 LABEL_7:
-      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, v6, &v12, v8);
+      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, v6, &v11, v8);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v12) = 0;
+    LOWORD(v11) = 0;
     v6 = "SGCK addCreateZoneOperation - Operation completed successfully";
     v7 = v3;
     v8 = 2;
@@ -4442,8 +4360,6 @@ LABEL_7:
   v9 = *(a1 + 32);
   v10 = *(v9 + 136);
   *(v9 + 136) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addDeleteZoneAttemptOperationWithRetries:(unint64_t)retries
@@ -4465,42 +4381,40 @@ LABEL_7:
 
   [v10 addDependency:addOperation];
   recordZoneId = [(SGDCloudKitSync *)self recordZoneId];
-  v23 = recordZoneId;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = recordZoneId;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   [v10 setRecordZoneIDsToDelete:v12];
 
   objc_initWeak(location, addOperation2);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __60__SGDCloudKitSync_addDeleteZoneAttemptOperationWithRetries___block_invoke;
-  v20 = &unk_27894E710;
-  objc_copyWeak(v22, location);
-  v22[1] = a2;
-  v22[2] = retries;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __60__SGDCloudKitSync_addDeleteZoneAttemptOperationWithRetries___block_invoke;
+  v19 = &unk_27894E710;
+  objc_copyWeak(v21, location);
+  v21[1] = a2;
+  v21[2] = retries;
   selfCopy = self;
-  [v10 setModifyRecordZonesCompletionBlock:&v17];
+  [v10 setModifyRecordZonesCompletionBlock:&v16];
   v13 = objc_alloc(MEMORY[0x277CCACA8]);
-  v14 = [v13 initWithFormat:@"DeleteZone operation attempt completion [retries: %lu]", retries, v17, v18, v19, v20];
+  v14 = [v13 initWithFormat:@"DeleteZone operation attempt completion [retries: %lu]", retries, v16, v17, v18, v19];
   [addOperation2 setName:v14];
 
   [addOperation2 addDependency:v10];
-  objc_destroyWeak(v22);
+  objc_destroyWeak(v21);
   objc_destroyWeak(location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return addOperation2;
 }
 
 void __60__SGDCloudKitSync_addDeleteZoneAttemptOperationWithRetries___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v17 = [MEMORY[0x277CCA890] currentHandler];
-    [v17 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:482 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"SGDCloudKitSync.m" lineNumber:482 description:{@"Invalid parameter not satisfying: %@", @"strongEndOperation"}];
   }
 
   v8 = *(a1 + 32);
@@ -4539,7 +4453,7 @@ LABEL_13:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v6;
+        v18 = v6;
         v15 = "SGCK Ran out of retries for delete zone operation with network failure: %@";
         goto LABEL_21;
       }
@@ -4558,7 +4472,7 @@ LABEL_13:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v6;
+        v18 = v6;
         v15 = "SGCK Unrecoverable error for delete zone operation: %@";
 LABEL_21:
         _os_log_error_impl(&dword_231E60000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
@@ -4572,8 +4486,6 @@ LABEL_21:
   [v8[13] setSyncToken:0];
   [*(a1 + 32) failSalt];
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addDeleteZoneOperation
@@ -4645,7 +4557,7 @@ LABEL_13:
 
 void __41__SGDCloudKitSync_addDeleteZoneOperation__block_invoke_146(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 176);
   v3 = sgLogHandle();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
@@ -4654,19 +4566,19 @@ void __41__SGDCloudKitSync_addDeleteZoneOperation__block_invoke_146(uint64_t a1)
     if (v4)
     {
       v5 = *(*(a1 + 32) + 176);
-      v12 = 138412290;
-      v13 = v5;
+      v11 = 138412290;
+      v12 = v5;
       v6 = "SGCK addDeleteZoneOperation - Operation completed with error: %@";
       v7 = v3;
       v8 = 12;
 LABEL_7:
-      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, v6, &v12, v8);
+      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, v6, &v11, v8);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v12) = 0;
+    LOWORD(v11) = 0;
     v6 = "SGCK addDeleteZoneOperation - Operation completed successfully";
     v7 = v3;
     v8 = 2;
@@ -4676,13 +4588,11 @@ LABEL_7:
   v9 = *(a1 + 32);
   v10 = *(v9 + 144);
   *(v9 + 144) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)pauseIfNeededAndReturnRetryEligibilityForError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = [(SGDCloudKitSync *)self getUnderlyingError:error];
   if ([v4 code] == 111 || objc_msgSend(v4, "code") == 5008)
   {
@@ -4698,18 +4608,18 @@ LABEL_7:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v20 = __Block_byref_object_copy__19227;
-    v21 = __Block_byref_object_dispose__19228;
-    v22 = 0;
+    v19 = __Block_byref_object_copy__19227;
+    v20 = __Block_byref_object_dispose__19228;
+    v21 = 0;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v7 = *MEMORY[0x277CBBF90];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __66__SGDCloudKitSync_pauseIfNeededAndReturnRetryEligibilityForError___block_invoke;
-    v18[3] = &unk_27894E6E8;
-    v18[4] = self;
-    v18[5] = buf;
-    v8 = [defaultCenter addObserverForName:v7 object:0 queue:0 usingBlock:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __66__SGDCloudKitSync_pauseIfNeededAndReturnRetryEligibilityForError___block_invoke;
+    v17[3] = &unk_27894E6E8;
+    v17[4] = self;
+    v17[5] = buf;
+    v8 = [defaultCenter addObserverForName:v7 object:0 queue:0 usingBlock:v17];
     v9 = *(*&buf[8] + 40);
     *(*&buf[8] + 40) = v8;
 
@@ -4720,19 +4630,19 @@ LABEL_7:
   {
     userInfo = [v4 userInfo];
 
-    if (userInfo && ([v4 userInfo], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectForKeyedSubscript:", *MEMORY[0x277CBBF68]), v15 = objc_claimAutoreleasedReturnValue(), v14, v15))
+    if (userInfo && ([v4 userInfo], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "objectForKeyedSubscript:", *MEMORY[0x277CBBF68]), v14 = objc_claimAutoreleasedReturnValue(), v13, v14))
     {
-      v16 = sgLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = sgLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        *&buf[4] = v15;
+        *&buf[4] = v14;
         *&buf[12] = 2112;
         *&buf[14] = v4;
-        _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "SGCK Delaying for %@ seconds (error: %@)", buf, 0x16u);
+        _os_log_error_impl(&dword_231E60000, v15, OS_LOG_TYPE_ERROR, "SGCK Delaying for %@ seconds (error: %@)", buf, 0x16u);
       }
 
-      [v15 doubleValue];
+      [v14 doubleValue];
       [(SGDCloudKitSync *)self suspendAndResumeAfter:?];
     }
 
@@ -4744,12 +4654,12 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      v17 = sgLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = sgLogHandle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v4;
-        _os_log_error_impl(&dword_231E60000, v17, OS_LOG_TYPE_ERROR, "SGCK CloudKit framework recommends retry without delay for error: %@", buf, 0xCu);
+        _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "SGCK CloudKit framework recommends retry without delay for error: %@", buf, 0xCu);
       }
     }
   }
@@ -4757,7 +4667,6 @@ LABEL_7:
   v10 = 1;
 LABEL_7:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4814,7 +4723,7 @@ void __66__SGDCloudKitSync_pauseIfNeededAndReturnRetryEligibilityForError___bloc
 
 - (void)suspendAndResumeAfter:(double)after
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -4826,13 +4735,12 @@ void __66__SGDCloudKitSync_pauseIfNeededAndReturnRetryEligibilityForError___bloc
 
   [(SGDCloudKitSync *)self suspend];
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __41__SGDCloudKitSync_suspendAndResumeAfter___block_invoke;
-  v8[3] = &unk_278954A30;
-  v8[4] = self;
-  [MEMORY[0x277D425A0] runAsyncOnQueue:queue afterDelaySeconds:v8 block:after];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __41__SGDCloudKitSync_suspendAndResumeAfter___block_invoke;
+  v7[3] = &unk_278954A30;
+  v7[4] = self;
+  [MEMORY[0x277D425A0] runAsyncOnQueue:queue afterDelaySeconds:v7 block:after];
 }
 
 - (void)suspend
@@ -4953,37 +4861,35 @@ LABEL_7:
 
 void __52__SGDCloudKitSync_apsEnvironmentStringForContainer___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v10 = 138412802;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Got APS environment string: %@ (error: %@, container: %@)", &v10, 0x20u);
+    v8 = *(a1 + 32);
+    v9 = 138412802;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Got APS environment string: %@ (error: %@, container: %@)", &v9, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SGDCloudKitSync_apsEnvironmentStringForContainer___block_invoke_274(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGCK Error when getting preferred push env. Defaulting to prod instead. Error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGCK Error when getting preferred push env. Defaulting to prod instead. Error: %@", &v9, 0xCu);
     }
 
     v7 = *(a1 + 32);
@@ -4997,8 +4903,6 @@ void __52__SGDCloudKitSync_apsEnvironmentStringForContainer___block_invoke_274(u
   }
 
   [v7 succeed:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setSharedInstanceConfigurationBlock:(id)block
@@ -5067,48 +4971,48 @@ void __55__SGDCloudKitSync_setSharedInstanceConfigurationBlock___block_invoke(ui
   return v3;
 }
 
-void __33__SGDCloudKitSync_sharedInstance__block_invoke()
+void __33__SGDCloudKitSync_sharedInstance__block_invoke(uint64_t a1)
 {
   if (!_SGDCloudKitSyncSharedInstance)
   {
-    v0 = sgLogHandle();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v1 = sgLogHandle();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_231E60000, v0, OS_LOG_TYPE_DEBUG, "SGCK Instantiating +[SGCK sharedInstance]", buf, 2u);
+      _os_log_debug_impl(&dword_231E60000, v1, OS_LOG_TYPE_DEBUG, "SGCK Instantiating +[SGCK sharedInstance]", buf, 2u);
     }
 
-    v1 = objc_opt_new();
-    v2 = _SGDCloudKitSyncSharedInstance;
-    _SGDCloudKitSyncSharedInstance = v1;
+    v2 = objc_opt_new();
+    v3 = _SGDCloudKitSyncSharedInstance;
+    _SGDCloudKitSyncSharedInstance = v2;
 
-    v3 = _SGDCloudKitSyncSharedInstanceConfigurationBlock;
-    v4 = sgLogHandle();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-    if (v3)
+    v4 = _SGDCloudKitSyncSharedInstanceConfigurationBlock;
+    v5 = sgLogHandle();
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+    if (v4)
     {
-      if (v5)
+      if (v6)
       {
-        *v9 = 0;
-        _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK Running configuration block via +[SGCK sharedInstance] (the configuration block was specified prior to sharedInstance being called for the first time)", v9, 2u);
+        *v10 = 0;
+        _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "SGCK Running configuration block via +[SGCK sharedInstance] (the configuration block was specified prior to sharedInstance being called for the first time)", v10, 2u);
       }
 
       (*(_SGDCloudKitSyncSharedInstanceConfigurationBlock + 16))(_SGDCloudKitSyncSharedInstanceConfigurationBlock, _SGDCloudKitSyncSharedInstance);
-      v6 = sgLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = sgLogHandle();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        *v8 = 0;
-        _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "SGCK Configuration block has completed from within +[SGCK sharedInstance]'s first invocation. Setting the block to nil.", v8, 2u);
+        *v9 = 0;
+        _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGCK Configuration block has completed from within +[SGCK sharedInstance]'s first invocation. Setting the block to nil.", v9, 2u);
       }
 
-      v4 = _SGDCloudKitSyncSharedInstanceConfigurationBlock;
+      v5 = _SGDCloudKitSyncSharedInstanceConfigurationBlock;
       _SGDCloudKitSyncSharedInstanceConfigurationBlock = 0;
     }
 
-    else if (v5)
+    else if (v6)
     {
-      *v7 = 0;
-      _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGCK No configuration block has been specified before the first invocation of +[SGCK sharedInstance]. If a configuration block is set later on, it will be run immediately.", v7, 2u);
+      *v8 = 0;
+      _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "SGCK No configuration block has been specified before the first invocation of +[SGCK sharedInstance]. If a configuration block is set later on, it will be run immediately.", v8, 2u);
     }
   }
 }

@@ -135,13 +135,13 @@
 
 - (void)setReturnToAppTimeout:(double)timeout
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = cslprf_sessions_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 67109120;
+    v11 = 67109120;
     timeoutCopy3 = timeout;
-    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_INFO, "setting returnToAppTimeout to %d", &v12, 8u);
+    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_INFO, "setting returnToAppTimeout to %d", &v11, 8u);
   }
 
   v6 = fabs(timeout);
@@ -158,12 +158,10 @@
   v10 = cslprf_sessions_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v12 = 67109120;
+    v11 = 67109120;
     timeoutCopy3 = timeout;
-    _os_log_impl(&dword_22CE92000, v10, OS_LOG_TYPE_INFO, "_hasCustomReturnToAppTimeout = %{BOOL}u", &v12, 8u);
+    _os_log_impl(&dword_22CE92000, v10, OS_LOG_TYPE_INFO, "_hasCustomReturnToAppTimeout = %{BOOL}u", &v11, 8u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (CSLPRFReturnToAppSettings)init

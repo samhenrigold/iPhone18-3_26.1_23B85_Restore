@@ -2,6 +2,7 @@
 + (id)_extensionAuxiliaryHostProtocol;
 + (id)_extensionAuxiliaryVendorProtocol;
 - (void)commitContentEditingOutput:(id)output withCompletionHandler:(id)handler;
+- (void)setHideNavigationController:(BOOL)controller;
 @end
 
 @implementation PUEditingExtensionHostContext
@@ -46,6 +47,18 @@ uint64_t __66__PUEditingExtensionHostContext__extensionAuxiliaryVendorProtocol__
   _extensionAuxiliaryVendorProtocol___interface_1439 = v0;
 
   return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
+- (void)setHideNavigationController:(BOOL)controller
+{
+  controllerCopy = controller;
+  hideNavigationControllerHandler = [(PUEditingExtensionHostContext *)self hideNavigationControllerHandler];
+
+  if (hideNavigationControllerHandler)
+  {
+    hideNavigationControllerHandler2 = [(PUEditingExtensionHostContext *)self hideNavigationControllerHandler];
+    hideNavigationControllerHandler2[2](hideNavigationControllerHandler2, controllerCopy);
+  }
 }
 
 - (void)commitContentEditingOutput:(id)output withCompletionHandler:(id)handler

@@ -132,7 +132,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -152,12 +151,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  date = self->_date;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    swimmingStrokeStyle = self->_swimmingStrokeStyle;
     PBDataWriterWriteInt64Field();
   }
 
@@ -169,7 +166,6 @@ LABEL_5:
 
   if ((*&self->_has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -495,7 +491,7 @@ LABEL_5:
     }
 
     v9 = v5;
-    [(HDCodableMetadataDictionary *)metadataDictionary mergeFrom:?];
+    metadataDictionary = [(HDCodableMetadataDictionary *)metadataDictionary mergeFrom:?];
   }
 
   else
@@ -506,7 +502,7 @@ LABEL_5:
     }
 
     v9 = v5;
-    [(HDCodableWorkoutEvent *)self setMetadataDictionary:?];
+    metadataDictionary = [(HDCodableWorkoutEvent *)self setMetadataDictionary:?];
   }
 
   v5 = v9;
@@ -517,23 +513,22 @@ LABEL_14:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](metadataDictionary, v5);
 }
 
 - (id)decodedDateIntervalStartDate
 {
   if ([(HDCodableWorkoutEvent *)self hasDate])
   {
-    date = self->_date;
-    v4 = HDDecodeDateForValue();
+    v2 = HDDecodeDateForValue();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 @end

@@ -25,7 +25,7 @@
   v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   CatalogWorkoutDetail.workout.getter();
-  v8 = type metadata accessor for CatalogWorkoutBridge();
+  v8 = type metadata accessor for CatalogWorkoutBridge(0);
   v9 = objc_allocWithZone(v8);
   (*(v4 + 16))(&v9[OBJC_IVAR___SMCatalogWorkout_workout], v6, v3);
   v9[OBJC_IVAR___SMCatalogWorkout_isPartOfAStack] = 0;
@@ -49,9 +49,9 @@
 - (NSNumber)mediaTypeRawValue
 {
   selfCopy = self;
-  v3 = CatalogWorkoutDetailBridge.mediaTypeRawValue.getter();
+  v4 = CatalogWorkoutDetailBridge.mediaTypeRawValue.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (SMCatalogWorkoutDetail)init

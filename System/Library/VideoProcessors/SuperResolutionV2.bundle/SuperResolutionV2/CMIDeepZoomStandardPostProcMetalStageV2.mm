@@ -21,21 +21,11 @@
     v14.super_class = CMIDeepZoomStandardPostProcMetalStageV2;
     v9 = [(CMIDeepZoomStandardPostProcMetalStageV2 *)&v14 init];
     self = v9;
-    if (!v9)
+    if (!v9 || ((objc_storeStrong(&v9->_metalContext, context), self->_metalContext) || (+[NSBundle bundleForClass:](NSBundle, "bundleForClass:", objc_opt_class()), v10 = objc_claimAutoreleasedReturnValue(), v11 = [[FigMetalContext alloc] initWithbundle:v10 andOptionalCommandQueue:0], metalContext = self->_metalContext, self->_metalContext = v11, metalContext, v10, self->_metalContext)) && !sub_7B9C(self) && !sub_86F4(self, *configuration, *(configuration + 1)))
     {
-      goto LABEL_9;
-    }
-
-    objc_storeStrong(&v9->_metalContext, context);
-    if (self->_metalContext || (+[NSBundle bundleForClass:](NSBundle, "bundleForClass:", objc_opt_class()), v10 = objc_claimAutoreleasedReturnValue(), v11 = [[FigMetalContext alloc] initWithbundle:v10 andOptionalCommandQueue:0], metalContext = self->_metalContext, self->_metalContext = v11, metalContext, v10, self->_metalContext))
-    {
-      if (!sub_7B9C(self) && !sub_86F4(self, *configuration, *(configuration + 1)))
-      {
-LABEL_9:
-        self = self;
-        selfCopy = self;
-        goto LABEL_10;
-      }
+      self = self;
+      selfCopy = self;
+      goto LABEL_10;
     }
 
 LABEL_11:

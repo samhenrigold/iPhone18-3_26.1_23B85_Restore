@@ -226,14 +226,16 @@ LABEL_9:
 - (void)configureMutableSceneSettings:(id)settings
 {
   settingsCopy = settings;
-  if ([settingsCopy isUISubclass])
+  isUISubclass = [settingsCopy isUISubclass];
+  v5 = settingsCopy;
+  if (isUISubclass)
   {
-    v4 = MEMORY[0x277D75DA0];
-    v5 = settingsCopy;
-    _applicationKeyWindow = [v4 _applicationKeyWindow];
+    v6 = MEMORY[0x277D75DA0];
+    v7 = settingsCopy;
+    _applicationKeyWindow = [v6 _applicationKeyWindow];
     interfaceOrientation = [_applicationKeyWindow interfaceOrientation];
 
-    if (-[FBSDisplayConfiguration isCarDisplay](self->_displayConfiguration, "isCarDisplay") || ([MEMORY[0x277D75418] currentDevice], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "userInterfaceIdiom"), v8, v9 == 2))
+    if (-[FBSDisplayConfiguration isCarDisplay](self->_displayConfiguration, "isCarDisplay") || ([MEMORY[0x277D75418] currentDevice], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "userInterfaceIdiom"), v10, v11 == 2))
     {
       x = self->_bounds.origin.x;
       y = self->_bounds.origin.y;
@@ -244,24 +246,26 @@ LABEL_9:
     else
     {
       [(FBSDisplayConfiguration *)self->_displayConfiguration bounds];
-      x = v14;
-      y = v15;
-      width = v16;
-      height = v17;
+      x = v16;
+      y = v17;
+      width = v18;
+      height = v19;
     }
 
-    [v5 setForeground:self->_foreground];
-    [v5 setDisplayConfiguration:self->_displayConfiguration];
-    [v5 setLevel:0.0];
-    [v5 setDeviceOrientationEventsEnabled:0];
-    [v5 setFrame:{x, y, width, height}];
-    [v5 setInterfaceOrientation:interfaceOrientation];
-    [v5 setUserInterfaceStyle:self->_userInterfaceStyle];
-    [v5 setSafeAreaInsetsPortrait:{self->_initialSafeAreaInsets.top, self->_initialSafeAreaInsets.left, self->_initialSafeAreaInsets.bottom, self->_initialSafeAreaInsets.right}];
-    [v5 setDeactivationReasons:self->_deactivationReasonMask];
+    [v7 setForeground:self->_foreground];
+    [v7 setDisplayConfiguration:self->_displayConfiguration];
+    [v7 setLevel:0.0];
+    [v7 setDeviceOrientationEventsEnabled:0];
+    [v7 setFrame:{x, y, width, height}];
+    [v7 setInterfaceOrientation:interfaceOrientation];
+    [v7 setUserInterfaceStyle:self->_userInterfaceStyle];
+    [v7 setSafeAreaInsetsPortrait:{self->_initialSafeAreaInsets.top, self->_initialSafeAreaInsets.left, self->_initialSafeAreaInsets.bottom, self->_initialSafeAreaInsets.right}];
+    [v7 setDeactivationReasons:self->_deactivationReasonMask];
+
+    v5 = settingsCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isUISubclass, v5);
 }
 
 + (id)stringForInvalidationReason:(unint64_t)reason

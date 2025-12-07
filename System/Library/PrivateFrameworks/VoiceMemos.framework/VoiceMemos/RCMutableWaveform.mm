@@ -36,10 +36,10 @@
   if ([v8 count])
   {
     v9 = [v8 objectAtIndex:0];
-    [v9 timeRange];
+    objc_msgSend_timeRange(v9);
     if (v10 > 0.0)
     {
-      [v9 timeRange];
+      objc_msgSend_timeRange(v9);
       v12 = [RCWaveformSegment segmentsByShiftingSegments:v8 byTimeOffset:-v11];
 
       v8 = v12;

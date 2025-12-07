@@ -39,6 +39,7 @@
 - (void)_updatePAFEvent:(id)event withSharedListeningInfoFromCursor:(id)cursor;
 - (void)_updatePAFEvent:(id)event withVocalAttenuationInfoForEndEvent:(id)endEvent cursor:(id)cursor;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCPlayActivityFeedEventConsumer
@@ -5070,6 +5071,13 @@ LABEL_26:
   v5 = [userInfo objectForKey:*MEMORY[0x1E69E4358]];
 
   [(MPCPlayActivityFeedEventConsumer *)self _updateAllowedBundleIdsIfNecessary:v5];
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream

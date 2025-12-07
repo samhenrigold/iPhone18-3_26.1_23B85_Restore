@@ -38,25 +38,8 @@
   v12.super_class = WAXPCConnection;
   v6 = [(WAXPCConnection *)&v12 init];
   v7 = v6;
-  if (!connectionCopy)
+  if (!connectionCopy || !v6 || (objc_storeStrong(&v6->_connection, connection), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v8 = objc_claimAutoreleasedReturnValue(), v9 = dispatch_queue_create("com.apple.wifianalytics.xpc-connection", v8), queue = v7->_queue, v7->_queue = v9, queue, v8, !v7->_queue))
   {
-    goto LABEL_4;
-  }
-
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  objc_storeStrong(&v6->_connection, connection);
-  v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v9 = dispatch_queue_create("com.apple.wifianalytics.xpc-connection", v8);
-  queue = v7->_queue;
-  v7->_queue = v9;
-
-  if (!v7->_queue)
-  {
-LABEL_4:
 
     v7 = 0;
   }
@@ -613,24 +596,23 @@ void __59__WAXPCConnection_getDeviceAnalyticsConfigurationAndReply___block_invok
 
 void __57__WAXPCConnection_signalPotentialNewIORChannelsAndReply___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v4 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136446466;
-    v8 = "[WAXPCConnection signalPotentialNewIORChannelsAndReply:]_block_invoke";
-    v9 = 1024;
-    v10 = 207;
-    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Calling signalPotentialNewIORChannels: on strongSelf.delegate", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[WAXPCConnection signalPotentialNewIORChannelsAndReply:]_block_invoke";
+    v8 = 1024;
+    v9 = 207;
+    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Calling signalPotentialNewIORChannels: on strongSelf.delegate", &v6, 0x12u);
   }
 
   v5 = [WeakRetained delegate];
   [v5 xpcConnection:WeakRetained signalPotentialNewIORChannelsAndReply:*(a1 + 32)];
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRoamPoliciesForSourceBssid:(id)bssid andUpdateRoamCache:(BOOL)cache andReply:(id)reply
@@ -657,24 +639,23 @@ void __57__WAXPCConnection_signalPotentialNewIORChannelsAndReply___block_invoke(
 
 void __80__WAXPCConnection_updateRoamPoliciesForSourceBssid_andUpdateRoamCache_andReply___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v4 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136446466;
-    v8 = "[WAXPCConnection updateRoamPoliciesForSourceBssid:andUpdateRoamCache:andReply:]_block_invoke";
-    v9 = 1024;
-    v10 = 216;
-    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Calling updateRoamPoliciesForSourceBssid: on strongSelf.delegate", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[WAXPCConnection updateRoamPoliciesForSourceBssid:andUpdateRoamCache:andReply:]_block_invoke";
+    v8 = 1024;
+    v9 = 216;
+    _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Calling updateRoamPoliciesForSourceBssid: on strongSelf.delegate", &v6, 0x12u);
   }
 
   v5 = [WeakRetained delegate];
   [v5 xpcConnection:WeakRetained updateRoamPoliciesForSourceBssid:*(a1 + 32) andUpdateRoamCache:*(a1 + 56) andReply:*(a1 + 40)];
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRoamPoliciesAndSummarizeAnalyticsForNetwork:(id)network maxAgeInDays:(unint64_t)days andReply:(id)reply

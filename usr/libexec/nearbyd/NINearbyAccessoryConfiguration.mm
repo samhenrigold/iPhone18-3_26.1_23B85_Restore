@@ -37,7 +37,7 @@
   __p = 0;
   v37 = 0;
   v38 = 0;
-  sub_1000069DC(&__p, bytes, bytes + v11, v11);
+  sub_1000069DC(&__p, bytes, &v11[bytes], v11);
   v12 = v37 - __p;
   if ((v37 - __p) < 0x14)
   {

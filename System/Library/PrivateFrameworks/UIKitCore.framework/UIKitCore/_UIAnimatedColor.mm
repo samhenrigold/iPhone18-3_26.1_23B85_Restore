@@ -147,7 +147,7 @@
   v12 = objc_opt_class();
   if (v12)
   {
-    [v12 _patternCallbacks];
+    objc_msgSend__patternCallbacks(v12);
   }
 
   else

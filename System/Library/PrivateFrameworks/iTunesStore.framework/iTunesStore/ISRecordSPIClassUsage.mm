@@ -5,20 +5,19 @@
 
 id ____ISRecordSPIClassUsage_block_invoke(uint64_t a1)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = v4;
-  v6 = @"No Class";
-  if (v4)
+  v23[4] = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = v3;
+  v5 = @"No Class";
+  if (v3)
   {
-    v6 = v4;
+    v5 = v3;
   }
 
-  v7 = v6;
+  v6 = v5;
 
-  v8 = __ISCurrentProcessName();
+  v8 = __ISCurrentProcessName(v7);
   v9 = v8;
   v10 = @"No Client";
   if (v8)
@@ -51,17 +50,15 @@ id ____ISRecordSPIClassUsage_block_invoke(uint64_t a1)
     v19 = @"No Location";
   }
 
-  v23[0] = @"Client";
-  v23[1] = @"Class";
-  v24[0] = v11;
-  v24[1] = v7;
-  v23[2] = @"Selector";
-  v23[3] = @"Location";
-  v24[2] = v15;
-  v24[3] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v22[0] = @"Client";
+  v22[1] = @"Class";
+  v23[0] = v11;
+  v23[1] = v6;
+  v22[2] = @"Selector";
+  v22[3] = @"Location";
+  v23[2] = v15;
+  v23[3] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
 
   return v20;
 }

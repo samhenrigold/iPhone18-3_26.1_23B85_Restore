@@ -10,6 +10,8 @@
 - (id)endpointForToken:(id)token;
 - (id)keepAlive;
 - (void)acquireTokenWithInstanceID:(id)d reply:(id)reply;
+- (void)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage reply:(id)reply;
+- (void)auditAuthOperation:(id)operation auditToken:(id *)token success:(BOOL)success;
 - (void)configureWithReply:(id)reply;
 - (void)dealloc;
 - (void)getTokenWithAttributes:(id)attributes reply:(id)reply;
@@ -21,9 +23,8 @@
 
 + (id)createDriver
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   gotLoadHelper_x19__OBJC_CLASS___PKService(v3);
-  v6 = *(v2 + 2728);
   if (!objc_opt_class())
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:@"Token plugins are not supported without PlugInKit"];
@@ -33,29 +34,30 @@
   solePersonality = [defaultService solePersonality];
 
   plugInDictionary = [solePersonality plugInDictionary];
-  v10 = [plugInDictionary objectForKey:@"NSExtensionAttributes"];
+  v9 = [plugInDictionary objectForKey:@"NSExtensionAttributes"];
 
-  v11 = [v10 objectForKeyedSubscript:@"com.apple.ctk.driver-class"];
-  v12 = TK_LOG_token();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v10 = [v9 objectForKeyedSubscript:@"com.apple.ctk.driver-class"];
+  v11 = TK_LOG_token(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[(TKTokenDriver *)solePersonality];
   }
 
-  v13 = -[objc_class init](-[objc_class alloc](objc_getClass([v11 UTF8String]), "alloc"), "init");
+  v12 = -[objc_class init](-[objc_class alloc](objc_getClass([v10 UTF8String]), "alloc"), "init");
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v14 = TK_LOG_token();
+    v14 = TK_LOG_token(isKindOfClass);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       identifier = [solePersonality identifier];
       *buf = 138543874;
-      v22 = identifier;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2048;
-      v26 = v13;
+      v21 = identifier;
+      v22 = 2114;
+      v23 = v10;
+      v24 = 2048;
+      v25 = v12;
       _os_log_fault_impl(&dword_1DF413000, v14, OS_LOG_TYPE_FAULT, "extension %{public}@: cannot instantiate TKTokenDriver-based class '%{public}@' (%p)", buf, 0x20u);
     }
   }
@@ -65,28 +67,23 @@
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     identifier2 = [solePersonality identifier];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"TKToken.m" lineNumber:112 description:{@"extension %@: cannot instantiate TKTokenDriver-based class '%@' (%p)", identifier2, v11, v13}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TKToken.m" lineNumber:112 description:{@"extension %@: cannot instantiate TKTokenDriver-based class '%@' (%p)", identifier2, v10, v12}];
   }
 
-  [(objc_class *)v13 setExtensionAttributes:v10];
-  v15 = TK_LOG_token();
+  v15 = TK_LOG_token([(objc_class *)v12 setExtensionAttributes:v9]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     +[TKTokenDriver createDriver];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (TKTokenDriver)init
@@ -147,8 +144,8 @@
 
   if (v9)
   {
-    v10 = TK_LOG_token();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = TK_LOG_token(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [TKTokenDriver endpointForToken:];
     }
@@ -156,12 +153,12 @@
     [v9 invalidate];
   }
 
-  v11 = [[TKTokenConnection alloc] initWithToken:tokenCopy];
+  v12 = [[TKTokenConnection alloc] initWithToken:tokenCopy];
 
   tokenConnections3 = [(TKTokenDriver *)self tokenConnections];
-  [tokenConnections3 setObject:v11 forKeyedSubscript:instanceID];
+  [tokenConnections3 setObject:v12 forKeyedSubscript:instanceID];
 
-  listener = [(TKTokenConnection *)v11 listener];
+  listener = [(TKTokenConnection *)v12 listener];
   endpoint = [listener endpoint];
 
   objc_sync_exit(tokenConnections);
@@ -197,14 +194,14 @@
     if (v19)
     {
       [beginTransaction commit];
-      v21 = [(TKTokenDriver *)self endpointForToken:v19];
-      replyCopy[2](replyCopy, v21, 0);
+      v22 = [(TKTokenDriver *)self endpointForToken:v19];
+      replyCopy[2](replyCopy, v22, 0);
     }
 
     else
     {
-      v24 = TK_LOG_token();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v25 = TK_LOG_token(v21);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         [TKTokenDriver acquireTokenWithInstanceID:reply:];
       }
@@ -219,19 +216,17 @@
     v29 = *MEMORY[0x1E697AEC8];
     stringRepresentation = [(TKTokenID *)v10 stringRepresentation];
     v30[0] = stringRepresentation;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v26[0] = MEMORY[0x1E69E9820];
     v26[1] = 3221225472;
     v26[2] = __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke;
     v26[3] = &unk_1E86B6E30;
     v26[4] = self;
     v27 = replyCopy;
-    [(TKTokenDriver *)self getTokenWithAttributes:v23 reply:v26];
+    [(TKTokenDriver *)self getTokenWithAttributes:v24 reply:v26];
 
     v20 = v27;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_t a1, uint64_t a2)
@@ -252,6 +247,36 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
   }
 }
 
+- (void)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage reply:(id)reply
+{
+  usageCopy = usage;
+  v18 = 0;
+  replyCopy = reply;
+  v11 = [(TKTokenDriver *)self createTokenWithSlot:slot AID:d proprietaryCardUsage:usageCopy error:&v18];
+  v12 = v18;
+  v13 = v12;
+  if (v11)
+  {
+    v14 = [(TKTokenDriver *)self endpointForToken:v11];
+    tokenID = [v11 tokenID];
+    instanceID = [tokenID instanceID];
+    replyCopy[2](replyCopy, v14, instanceID, 0);
+
+    replyCopy = v14;
+  }
+
+  else
+  {
+    v17 = TK_LOG_token(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    {
+      [TKTokenDriver acquireTokenWithSlot:AID:proprietaryCardUsage:reply:];
+    }
+
+    (replyCopy)[2](replyCopy, 0, 0, v13);
+  }
+}
+
 - (void)releaseTokenWithInstanceID:(id)d
 {
   dCopy = d;
@@ -263,8 +288,8 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
   if (v7)
   {
     tokenConnections3 = [(TKTokenDriver *)self tokenConnections];
-    v9 = [tokenConnections3 objectForKeyedSubscript:dCopy];
-    [v9 invalidate];
+    v10 = [tokenConnections3 objectForKeyedSubscript:dCopy];
+    [v10 invalidate];
 
     tokenConnections4 = [(TKTokenDriver *)self tokenConnections];
     [tokenConnections4 removeObjectForKey:dCopy];
@@ -272,7 +297,7 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
 
   else
   {
-    tokenConnections4 = TK_LOG_token();
+    tokenConnections4 = TK_LOG_token(v8);
     if (os_log_type_enabled(tokenConnections4, OS_LOG_TYPE_ERROR))
     {
       [TKTokenDriver releaseTokenWithInstanceID:];
@@ -305,66 +330,63 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
 
 - (id)createTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"token driver does not implement any way to create new slot-based token instances";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"token driver does not implement any way to create new slot-based token instances";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     *error = [v7 errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)getTokenWithAttributes:(id)attributes reply:(id)reply
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A578];
-  v12[0] = @"token driver does not implement any way to create new token instances";
+  v10 = *MEMORY[0x1E696A578];
+  v11[0] = @"token driver does not implement any way to create new token instances";
   v6 = MEMORY[0x1E695DF20];
   replyCopy = reply;
-  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v8 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v5 errorWithDomain:@"CryptoTokenKit" code:-7 userInfo:v8];
   (*(reply + 2))(replyCopy, 0, v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)terminate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   tokenConnections = [(TKTokenDriver *)self tokenConnections];
   objc_sync_enter(tokenConnections);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   tokenConnections2 = [(TKTokenDriver *)self tokenConnections];
   allValues = [tokenConnections2 allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) invalidate];
+        [*(*(&v10 + 1) + 8 * v8++) invalidate];
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -374,70 +396,80 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
   [tokenConnections3 removeAllObjects];
 
   objc_sync_exit(tokenConnections);
-  v10 = *MEMORY[0x1E69E9840];
+}
+
+- (void)auditAuthOperation:(id)operation auditToken:(id *)token success:(BOOL)success
+{
+  successCopy = success;
+  operationCopy = operation;
+  context = [(TKTokenDriver *)self context];
+  v10 = *&token->var0[4];
+  v11[0] = *token->var0;
+  v11[1] = v10;
+  [context auditAuthOperation:operationCopy auditToken:v11 success:successCopy];
 }
 
 - (NSArray)tokenSessions
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   obj = [(TKTokenDriver *)self tokenConnections];
   objc_sync_enter(obj);
   v3 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   tokenConnections = [(TKTokenDriver *)self tokenConnections];
   allValues = [tokenConnections allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
-    v20 = allValues;
-    v21 = *v27;
+    v19 = allValues;
+    v20 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v21)
+        if (*v26 != v20)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v19);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         sessions = [v8 sessions];
-        v10 = [sessions countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [sessions countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
-          v11 = *v23;
+          v11 = *v22;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v23 != v11)
+              if (*v22 != v11)
               {
                 objc_enumerationMutation(sessions);
               }
 
-              v13 = *(*(&v22 + 1) + 8 * j);
+              v13 = *(*(&v21 + 1) + 8 * j);
               sessions2 = [v8 sessions];
               v15 = [sessions2 objectForKey:v13];
               [v3 addObject:v15];
             }
 
-            v10 = [sessions countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v10 = [sessions countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v10);
         }
       }
 
-      allValues = v20;
-      v6 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      allValues = v19;
+      v6 = [v19 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
@@ -445,8 +477,6 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
 
   v16 = [v3 copy];
   objc_sync_exit(obj);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -467,47 +497,39 @@ void __50__TKTokenDriver_acquireTokenWithInstanceID_reply___block_invoke(uint64_
 
 + (void)createDriver
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endpointForToken:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireTokenWithInstanceID:reply:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1DF413000, v1, OS_LOG_TYPE_DEBUG, "failed to instantiate token with instanceID %@, error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1DF413000, v1, OS_LOG_TYPE_DEBUG, "failed to instantiate token with instanceID %@, error: %@", v2, 0x16u);
 }
 
 - (void)acquireTokenWithSlot:AID:proprietaryCardUsage:reply:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)releaseTokenWithInstanceID:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "An attempt to release nonexistent token with instanceID=%{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "An attempt to release nonexistent token with instanceID=%{public}@", v1, 0xCu);
 }
 
 @end

@@ -254,7 +254,7 @@ LABEL_11:
   request2 = [(NSURLProtocol *)self request];
   if (response)
   {
-    [response handleReceivedRequest:request2];
+    objc_msgSend_handleReceivedRequest_(response);
   }
 
   else

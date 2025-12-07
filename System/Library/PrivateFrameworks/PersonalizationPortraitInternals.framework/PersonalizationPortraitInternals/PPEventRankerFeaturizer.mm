@@ -65,9 +65,9 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
 
 + (id)scoreFeatureSchema:(id)schema
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
   v4 = objc_autoreleasePoolPush();
   allKeys = [schemaCopy allKeys];
   v6 = [allKeys sortedArrayUsingSelector:?];
@@ -79,11 +79,11 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
     v8 = 0;
     v9 = 0.0;
     v10 = 0.0;
-    v36 = v6;
+    v35 = v6;
     do
     {
-      v37 = v8;
-      v38 = v7;
+      v36 = v8;
+      v37 = v7;
       v11 = [v6 objectAtIndexedSubscript:v8];
       v12 = objc_autoreleasePoolPush();
       v13 = [schemaCopy objectForKeyedSubscript:v11];
@@ -91,27 +91,27 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
       v15 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
       objc_autoreleasePoolPop(v12);
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
       v18 = 0.0;
       if (v17)
       {
         v19 = v17;
-        v20 = *v41;
+        v20 = *v40;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v41 != v20)
+            if (*v40 != v20)
             {
               objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v40 + 1) + 8 * i);
+            v22 = *(*(&v39 + 1) + 8 * i);
             v23 = [schemaCopy objectForKeyedSubscript:v11];
             v24 = [v23 objectForKeyedSubscript:v22];
             v25 = [v24 objectForKeyedSubscript:@"Value"];
@@ -120,14 +120,14 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
             v27 = [v26 objectForKeyedSubscript:v22];
             v28 = [v27 objectForKeyedSubscript:@"Weight"];
 
-            [v39 addObject:v25];
+            [v38 addObject:v25];
             [v25 doubleValue];
             v30 = v29;
             [v28 doubleValue];
             v18 = v18 + v30 * v31;
           }
 
-          v19 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v19 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v19);
@@ -140,17 +140,17 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
         v9 = v18;
       }
 
-      v7 = v38;
+      v7 = v37;
       if (!v32)
       {
-        v7 = v37;
+        v7 = v36;
       }
 
-      v8 = v37 + 1;
-      v6 = v36;
+      v8 = v36 + 1;
+      v6 = v35;
     }
 
-    while (v37 + 1 < [v36 count]);
+    while (v36 + 1 < [v35 count]);
   }
 
   else
@@ -158,9 +158,7 @@ uint64_t __40__PPEventRankerFeaturizer_featureSchema__block_invoke()
     v10 = 0.0;
   }
 
-  v33 = [[PPEventFeatureScore alloc] initWithFeatureValues:v39 weightedScore:v7 prominentFeature:v10];
-
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = [[PPEventFeatureScore alloc] initWithFeatureValues:v38 weightedScore:v7 prominentFeature:v10];
 
   return v33;
 }

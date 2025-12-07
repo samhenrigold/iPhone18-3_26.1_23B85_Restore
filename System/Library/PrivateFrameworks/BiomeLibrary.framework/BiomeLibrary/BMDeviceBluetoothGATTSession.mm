@@ -17,22 +17,20 @@
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"serviceUUID_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_72_52174];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionType" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionState" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"supportsBackgrounding" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"supportsStateRestoration" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
@@ -136,7 +134,7 @@ LABEL_28:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   bundleID = [(BMDeviceBluetoothGATTSession *)self bundleID];
   _serviceUUIDJSONArray = [(BMDeviceBluetoothGATTSession *)self _serviceUUIDJSONArray];
   sessionType = [(BMDeviceBluetoothGATTSession *)self sessionType];
@@ -161,58 +159,58 @@ LABEL_28:
     v8 = 0;
   }
 
-  v22[0] = @"bundleID";
+  v21[0] = @"bundleID";
   null = bundleID;
   if (!bundleID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v21 = bundleID;
-  v23[0] = null;
-  v22[1] = @"serviceUUID";
+  v19 = null;
+  v20 = bundleID;
+  v22[0] = null;
+  v21[1] = @"serviceUUID";
   null2 = _serviceUUIDJSONArray;
   if (!_serviceUUIDJSONArray)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v23[1] = null2;
-  v22[2] = @"sessionType";
+  v17 = null2;
+  v22[1] = null2;
+  v21[2] = @"sessionType";
   null3 = sessionType;
   if (!sessionType)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v22[3] = @"sessionState";
+  v22[2] = null3;
+  v21[3] = @"sessionState";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"supportsBackgrounding";
+  v22[3] = null4;
+  v21[4] = @"supportsBackgrounding";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"supportsStateRestoration";
+  v22[4] = null5;
+  v21[5] = @"supportsStateRestoration";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (v8)
   {
     if (v7)
@@ -270,55 +268,51 @@ LABEL_23:
 LABEL_33:
 
 LABEL_24:
-  if (!v21)
+  if (!v20)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)_serviceUUIDJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   serviceUUID = [(BMDeviceBluetoothGATTSession *)self serviceUUID];
-  v5 = [serviceUUID countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [serviceUUID countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(serviceUUID);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [serviceUUID countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [serviceUUID countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMDeviceBluetoothGATTSession)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v83[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
   errorCopy = error;
@@ -331,10 +325,10 @@ LABEL_24:
       {
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         v31 = *MEMORY[0x1E698F240];
-        v83 = *MEMORY[0x1E696A578];
+        v82 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
-        v84[0] = v9;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:&v83 count:1];
+        v83[0] = v9;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:&v82 count:1];
         v12 = v32 = error;
         v8 = 0;
         v29 = 0;
@@ -359,7 +353,7 @@ LABEL_24:
   null = [MEMORY[0x1E695DFB0] null];
   v11 = [v9 isEqual:null];
 
-  v61 = v7;
+  v60 = v7;
   if (v11)
   {
     selfCopy2 = self;
@@ -378,10 +372,10 @@ LABEL_24:
         {
           v33 = objc_alloc(MEMORY[0x1E696ABC0]);
           v34 = *MEMORY[0x1E698F240];
-          v81 = *MEMORY[0x1E696A578];
+          v80 = *MEMORY[0x1E696A578];
           v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"serviceUUID"];
-          v82 = v12;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+          v81 = v12;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
           v29 = 0;
           *errorCopy = [v33 initWithDomain:v34 code:2 userInfo:v21];
           goto LABEL_59;
@@ -396,31 +390,31 @@ LABEL_24:
   }
 
   v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v9 = v9;
-  v13 = [v9 countByEnumeratingWithState:&v64 objects:v80 count:16];
+  v13 = [v9 countByEnumeratingWithState:&v63 objects:v79 count:16];
   if (!v13)
   {
     goto LABEL_18;
   }
 
   v14 = v13;
-  v15 = *v65;
+  v15 = *v64;
   while (2)
   {
     v16 = dictionaryCopy;
     v17 = v8;
     for (i = 0; i != v14; ++i)
     {
-      if (*v65 != v15)
+      if (*v64 != v15)
       {
         objc_enumerationMutation(v9);
       }
 
-      v19 = *(*(&v64 + 1) + 8 * i);
+      v19 = *(*(&v63 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -428,10 +422,10 @@ LABEL_24:
         {
           v23 = objc_alloc(MEMORY[0x1E696ABC0]);
           v24 = *MEMORY[0x1E698F240];
-          v78 = *MEMORY[0x1E696A578];
+          v77 = *MEMORY[0x1E696A578];
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"serviceUUID"];
-          v79 = v20;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+          v78 = v20;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
           v25 = v23;
           v26 = v24;
 LABEL_30:
@@ -459,10 +453,10 @@ LABEL_31:
         {
           v27 = objc_alloc(MEMORY[0x1E696ABC0]);
           v28 = *MEMORY[0x1E698F240];
-          v76 = *MEMORY[0x1E696A578];
+          v75 = *MEMORY[0x1E696A578];
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"serviceUUID"];
-          v77 = v20;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+          v76 = v20;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
           v25 = v27;
           v26 = v28;
           goto LABEL_30;
@@ -474,7 +468,7 @@ LABEL_31:
       [v12 addObject:v19];
     }
 
-    v14 = [v9 countByEnumeratingWithState:&v64 objects:v80 count:16];
+    v14 = [v9 countByEnumeratingWithState:&v63 objects:v79 count:16];
     v8 = v17;
     dictionaryCopy = v16;
     if (v14)
@@ -503,10 +497,10 @@ LABEL_18:
     {
       v38 = objc_alloc(MEMORY[0x1E696ABC0]);
       v39 = *MEMORY[0x1E698F240];
-      v74 = *MEMORY[0x1E696A578];
+      v73 = *MEMORY[0x1E696A578];
       v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sessionType"];
-      v75 = v22;
-      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v74 = v22;
+      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
       v40 = [v38 initWithDomain:v39 code:2 userInfo:?];
       v21 = 0;
       v29 = 0;
@@ -524,12 +518,12 @@ LABEL_18:
   dictionaryCopy = v35;
 LABEL_21:
   v22 = [dictionaryCopy objectForKeyedSubscript:@"sessionState"];
-  v58 = v22;
+  v57 = v22;
   if (!v22)
   {
 LABEL_47:
     v41 = [dictionaryCopy objectForKeyedSubscript:@"supportsBackgrounding"];
-    v56 = v41;
+    v55 = v41;
     if (v41 && (v42 = v41, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -537,32 +531,32 @@ LABEL_47:
       {
         if (!errorCopy)
         {
-          v59 = 0;
+          v58 = 0;
           v29 = 0;
 LABEL_55:
 
           goto LABEL_56;
         }
 
-        v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v47 = *MEMORY[0x1E698F240];
-        v70 = *MEMORY[0x1E696A578];
+        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v46 = *MEMORY[0x1E698F240];
+        v69 = *MEMORY[0x1E696A578];
         v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"supportsBackgrounding"];
-        v71 = v44;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-        v48 = [v60 initWithDomain:v47 code:2 userInfo:v43];
-        v59 = 0;
+        v70 = v44;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+        v47 = [v59 initWithDomain:v46 code:2 userInfo:v43];
+        v58 = 0;
         v29 = 0;
-        *errorCopy = v48;
+        *errorCopy = v47;
         goto LABEL_54;
       }
 
-      v59 = v42;
+      v58 = v42;
     }
 
     else
     {
-      v59 = 0;
+      v58 = 0;
     }
 
     v43 = [dictionaryCopy objectForKeyedSubscript:@"supportsStateRestoration"];
@@ -573,13 +567,13 @@ LABEL_55:
       {
         if (errorCopy)
         {
-          v55 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v54 = *MEMORY[0x1E698F240];
-          v68 = *MEMORY[0x1E696A578];
-          v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"supportsStateRestoration"];
-          v69 = v49;
-          v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-          *errorCopy = [v55 initWithDomain:v54 code:2 userInfo:v50];
+          v54 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v53 = *MEMORY[0x1E698F240];
+          v67 = *MEMORY[0x1E696A578];
+          v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"supportsStateRestoration"];
+          v68 = v48;
+          v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+          *errorCopy = [v54 initWithDomain:v53 code:2 userInfo:v49];
         }
 
         v44 = 0;
@@ -595,11 +589,11 @@ LABEL_55:
       v44 = 0;
     }
 
-    v29 = -[BMDeviceBluetoothGATTSession initWithBundleID:serviceUUID:sessionType:sessionState:supportsBackgrounding:supportsStateRestoration:](selfCopy2, "initWithBundleID:serviceUUID:sessionType:sessionState:supportsBackgrounding:supportsStateRestoration:", v8, v12, v21, [v22 intValue], v59, v44);
+    v29 = -[BMDeviceBluetoothGATTSession initWithBundleID:serviceUUID:sessionType:sessionState:supportsBackgrounding:supportsStateRestoration:](selfCopy2, "initWithBundleID:serviceUUID:sessionType:sessionState:supportsBackgrounding:supportsStateRestoration:", v8, v12, v21, [v22 intValue], v58, v44);
     selfCopy2 = v29;
 LABEL_54:
 
-    v42 = v56;
+    v42 = v55;
     goto LABEL_55;
   }
 
@@ -631,18 +625,18 @@ LABEL_46:
 
   if (errorCopy)
   {
-    v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v57 = *MEMORY[0x1E698F240];
-    v72 = *MEMORY[0x1E696A578];
-    v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sessionState"];
-    v73 = v59;
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-    v53 = [v51 initWithDomain:v57 code:2 userInfo:v52];
+    v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v56 = *MEMORY[0x1E698F240];
+    v71 = *MEMORY[0x1E696A578];
+    v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sessionState"];
+    v72 = v58;
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+    v52 = [v50 initWithDomain:v56 code:2 userInfo:v51];
     v22 = 0;
     v29 = 0;
-    *errorCopy = v53;
+    *errorCopy = v52;
     dictionaryCopy = v35;
-    v42 = v52;
+    v42 = v51;
     goto LABEL_55;
   }
 
@@ -659,13 +653,12 @@ LABEL_58:
   self = selfCopy2;
 LABEL_59:
 
-  v7 = v61;
+  v7 = v60;
 LABEL_60:
 
 LABEL_61:
 LABEL_62:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -680,40 +673,39 @@ LABEL_62:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_serviceUUID;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -724,21 +716,16 @@ LABEL_62:
     PBDataWriterWriteStringField();
   }
 
-  sessionState = self->_sessionState;
   PBDataWriterWriteUint32Field();
   if (self->_hasSupportsBackgrounding)
   {
-    supportsBackgrounding = self->_supportsBackgrounding;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasSupportsStateRestoration)
   {
-    supportsStateRestoration = self->_supportsStateRestoration;
     PBDataWriterWriteBOOLField();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1074,33 +1061,31 @@ LABEL_71:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleID" number:1 type:13 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"serviceUUID" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionType" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionState" number:4 type:4 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"supportsBackgrounding" number:5 type:12 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"supportsStateRestoration" number:6 type:12 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __39__BMDeviceBluetoothGATTSession_columns__block_invoke(uint64_t a1, void *a2)
+id __39__BMDeviceBluetoothGATTSession_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _serviceUUIDJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _serviceUUIDJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

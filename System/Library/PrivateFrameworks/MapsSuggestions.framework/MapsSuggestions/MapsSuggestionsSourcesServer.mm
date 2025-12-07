@@ -11,9 +11,9 @@
 - (MapsSuggestionsSourcesServer)initWithMemory:(id)memory
 {
   objc_initWeak(&location, memory);
-  v56.receiver = self;
-  v56.super_class = MapsSuggestionsSourcesServer;
-  v4 = [(MapsSuggestionsSourcesServer *)&v56 init];
+  v58.receiver = self;
+  v58.super_class = MapsSuggestionsSourcesServer;
+  v4 = [(MapsSuggestionsSourcesServer *)&v58 init];
   if (v4)
   {
     v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -25,19 +25,19 @@
     v9 = v8;
     if (!v8)
     {
-      v41 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v43 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v73 = "MapsSuggestionsSourcesServer.m";
-        v74 = 1026;
-        v75 = 312;
-        v76 = 2082;
-        v77 = "[MapsSuggestionsSourcesServer initWithMemory:]";
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongMemory went away in %{public}s", buf, 0x1Cu);
+        v75 = "MapsSuggestionsSourcesServer.m";
+        v76 = 1026;
+        v77 = 312;
+        v78 = 2082;
+        v79 = "[MapsSuggestionsSourcesServer initWithMemory:]";
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongMemory went away in %{public}s", buf, 0x1Cu);
       }
 
-      v40 = 0;
+      v42 = 0;
       goto LABEL_55;
     }
 
@@ -57,167 +57,167 @@
     peers = v4->_peers;
     v4->_peers = v16;
 
-    if (!MapsSuggestionsIsDestinationGraphEnabled())
+    if (!MapsSuggestionsIsDestinationGraphEnabled(v18, v19))
     {
 LABEL_48:
-      v45 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.maps.destinationd.sources"];
+      v47 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.maps.destinationd.sources"];
       listener = v4->_listener;
-      v4->_listener = v45;
+      v4->_listener = v47;
 
       [(NSXPCListener *)v4->_listener setDelegate:v4];
-      v47 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+      v49 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "Sources Listener created.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "Sources Listener created.", buf, 2u);
       }
 
       [(NSXPCListener *)v4->_listener resume];
-      v48 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Sources Listener resumed.", buf, 2u);
-      }
-
-      v49 = [(MapsSuggestionsLocationUpdater *)v4->_locationUpdater startLocationUpdatesForDelegate:v4];
       v50 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "LocationUpdater started.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEBUG, "Sources Listener resumed.", buf, 2u);
       }
 
-      v40 = v4;
+      v51 = [(MapsSuggestionsLocationUpdater *)v4->_locationUpdater startLocationUpdatesForDelegate:v4];
+      v52 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "LocationUpdater started.", buf, 2u);
+      }
+
+      v42 = v4;
 LABEL_55:
 
       goto LABEL_56;
     }
 
-    v18 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Preloading Graph.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Preloading Graph.", buf, 2u);
     }
 
-    v19 = v4->_graph;
+    v21 = v4->_graph;
     source = [(MapsSuggestionsSourceWrapper *)v4->_wrapper source];
-    v21 = v19;
-    v22 = source;
-    v23 = v22;
-    if (v21)
+    v23 = v21;
+    v24 = source;
+    v25 = v24;
+    if (v23)
     {
-      if (v22)
+      if (v24)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v54 = v23;
+          v56 = v25;
           context = objc_autoreleasePoolPush();
-          v55 = MapsSuggestionsCurrentBestLocation();
-          if (!v55)
+          v57 = MapsSuggestionsCurrentBestLocation();
+          if (!v57)
           {
-            v24 = GEOFindOrCreateLog();
-            if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_ERROR))
+            v26 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(&v26->super, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v73 = "_rebuildGraph";
-              _os_log_impl(&_mh_execute_header, &v24->super, OS_LOG_TYPE_ERROR, "Got no current location to work with in %s", buf, 0xCu);
+              v75 = "_rebuildGraph";
+              _os_log_impl(&_mh_execute_header, &v26->super, OS_LOG_TYPE_ERROR, "Got no current location to work with in %s", buf, 0xCu);
             }
 
             goto LABEL_46;
           }
 
-          v24 = [[MapsSuggestionsDestinationGraphUpdater alloc] initWithDestinationGraph:v21];
+          v26 = [[MapsSuggestionsDestinationGraphUpdater alloc] initWithDestinationGraph:v23];
+          v70 = 0u;
+          v71 = 0u;
           v68 = 0u;
           v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          children = [v54 children];
-          v26 = [children countByEnumeratingWithState:&v66 objects:buf count:16];
-          if (v26)
+          children = [v56 children];
+          v28 = [children countByEnumeratingWithState:&v68 objects:buf count:16];
+          if (v28)
           {
-            v52 = v21;
-            v27 = 0;
-            v28 = *v67;
+            v54 = v23;
+            v29 = 0;
+            v30 = *v69;
             do
             {
-              for (i = 0; i != v26; i = i + 1)
+              for (i = 0; i != v28; i = i + 1)
               {
-                if (*v67 != v28)
+                if (*v69 != v30)
                 {
                   objc_enumerationMutation(children);
                 }
 
-                v30 = *(*(&v66 + 1) + 8 * i);
-                if ([v30 conformsToProtocol:&OBJC_PROTOCOL___MapsSuggestionsPreloadableSource])
+                v32 = *(*(&v68 + 1) + 8 * i);
+                if ([v32 conformsToProtocol:&OBJC_PROTOCOL___MapsSuggestionsPreloadableSource])
                 {
-                  [(MapsSuggestionsDestinationGraphUpdater *)v24 addPreloadableSource:v30];
-                  v27 = 1;
+                  [(MapsSuggestionsDestinationGraphUpdater *)v26 addPreloadableSource:v32];
+                  v29 = 1;
                 }
               }
 
-              v26 = [children countByEnumeratingWithState:&v66 objects:buf count:16];
+              v28 = [children countByEnumeratingWithState:&v68 objects:buf count:16];
             }
 
-            while (v26);
+            while (v28);
 
-            v21 = v52;
-            if (v27)
+            v23 = v54;
+            if (v29)
             {
-              v64[0] = 0;
-              v64[1] = v64;
-              v64[2] = 0x2020000000;
-              v65 = 0;
-              v31 = [NSDateInterval alloc];
-              v32 = MapsSuggestionsNow();
+              v66[0] = 0;
+              v66[1] = v66;
+              v66[2] = 0x2020000000;
+              v67 = 0;
+              v33 = [NSDateInterval alloc];
+              v34 = MapsSuggestionsNow();
               GEOConfigGetDouble();
-              v33 = [v31 initWithStartDate:v32 duration:?];
+              v35 = [v33 initWithStartDate:v34 duration:?];
 
-              v34 = dispatch_semaphore_create(0);
-              *v58 = _NSConcreteStackBlock;
-              v59 = 3221225472;
-              v60 = sub_10002A97C;
-              v61 = &unk_100075C48;
-              v63 = v64;
-              v35 = v34;
-              v62 = v35;
-              if (([(MapsSuggestionsDestinationGraphUpdater *)v24 rebuildForPeriod:v33 location:v55 handler:v58]& 1) != 0)
+              v36 = dispatch_semaphore_create(0);
+              *v60 = _NSConcreteStackBlock;
+              v61 = 3221225472;
+              v62 = sub_10002A97C;
+              v63 = &unk_100075C48;
+              v65 = v66;
+              v37 = v36;
+              v64 = v37;
+              if (([(MapsSuggestionsDestinationGraphUpdater *)v26 rebuildForPeriod:v35 location:v57 handler:v60]& 1) != 0)
               {
                 GEOConfigGetDouble();
-                v37 = dispatch_time(0, (v36 * 1000000000.0));
-                if (!dispatch_semaphore_wait(v35, v37))
+                v39 = dispatch_time(0, (v38 * 1000000000.0));
+                if (!dispatch_semaphore_wait(v37, v39))
                 {
 LABEL_45:
 
-                  _Block_object_dispose(v64, 8);
+                  _Block_object_dispose(v66, 8);
 LABEL_46:
 
                   objc_autoreleasePoolPop(context);
-                  v42 = v54;
+                  v44 = v56;
                   goto LABEL_47;
                 }
 
-                v38 = GEOFindOrCreateLog();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                v40 = GEOFindOrCreateLog();
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                 {
-                  *v70 = 136315138;
-                  v71 = "_rebuildGraph";
-                  v39 = "Timeout on %s";
+                  *v72 = 136315138;
+                  v73 = "_rebuildGraph";
+                  v41 = "Timeout on %s";
 LABEL_43:
-                  _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, v39, v70, 0xCu);
+                  _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, v72, 0xCu);
                 }
               }
 
               else
               {
-                v38 = GEOFindOrCreateLog();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                v40 = GEOFindOrCreateLog();
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
                 {
-                  *v70 = 136315138;
-                  v71 = "_rebuildGraph";
-                  v39 = "DestinationGraphUpdater did not like our input in %s";
+                  *v72 = 136315138;
+                  v73 = "_rebuildGraph";
+                  v41 = "DestinationGraphUpdater did not like our input in %s";
                   goto LABEL_43;
                 }
               }
@@ -230,28 +230,28 @@ LABEL_43:
           {
           }
 
-          v44 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v46 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            *v58 = 0;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Our DestinationGraphUpdater doesn't have any Sources to preload", v58, 2u);
+            *v60 = 0;
+            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Our DestinationGraphUpdater doesn't have any Sources to preload", v60, 2u);
           }
 
           goto LABEL_46;
         }
 
-        v42 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+        v44 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
         {
           *buf = 136446978;
-          v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
-          v74 = 1024;
-          v75 = 34;
-          v76 = 2082;
-          v77 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+          v75 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
+          v76 = 1024;
+          v77 = 34;
           v78 = 2082;
-          v79 = "! [source isKindOfClass:[MapsSuggestionsCompositeSource class]]";
-          v43 = "At %{public}s:%d, %{public}s forbids: %{public}s. Only supports CompositeSource at the moment";
+          v79 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+          v80 = 2082;
+          v81 = "! [source isKindOfClass:[MapsSuggestionsCompositeSource class]]";
+          v45 = "At %{public}s:%d, %{public}s forbids: %{public}s. Only supports CompositeSource at the moment";
           goto LABEL_34;
         }
 
@@ -260,52 +260,52 @@ LABEL_47:
         goto LABEL_48;
       }
 
-      v42 = GEOFindOrCreateLog();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+      v44 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_47;
       }
 
       *buf = 136446978;
-      v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
-      v74 = 1024;
-      v75 = 33;
-      v76 = 2082;
-      v77 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+      v75 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
+      v76 = 1024;
+      v77 = 33;
       v78 = 2082;
-      v79 = "nil == (source)";
-      v43 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source";
+      v79 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+      v80 = 2082;
+      v81 = "nil == (source)";
+      v45 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a source";
     }
 
     else
     {
-      v42 = GEOFindOrCreateLog();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+      v44 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_47;
       }
 
       *buf = 136446978;
-      v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
-      v74 = 1024;
-      v75 = 32;
-      v76 = 2082;
-      v77 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+      v75 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
+      v76 = 1024;
+      v77 = 32;
       v78 = 2082;
-      v79 = "nil == (graph)";
-      v43 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a destination graph";
+      v79 = "BOOL _rebuildGraph(MapsSuggestionsDestinationGraph *__strong, __strong id<MapsSuggestionsSource>)";
+      v80 = 2082;
+      v81 = "nil == (graph)";
+      v45 = "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a destination graph";
     }
 
 LABEL_34:
-    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, v43, buf, 0x26u);
+    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, v45, buf, 0x26u);
     goto LABEL_47;
   }
 
-  v40 = 0;
+  v42 = 0;
 LABEL_56:
   objc_destroyWeak(&location);
 
-  return v40;
+  return v42;
 }
 
 - (void)dealloc

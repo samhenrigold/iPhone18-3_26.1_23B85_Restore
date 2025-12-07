@@ -89,125 +89,122 @@
 
 - (void)clearPredictionsForAnchor:(id)anchor
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(anchorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = anchorCopy;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Scheduler clearing predictions for anchor %@.", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = anchorCopy;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Scheduler clearing predictions for anchor %@.", &v6, 0xCu);
   }
 
   [(ATXAnchorModelPredictionScheduler *)self schedulePredictions:MEMORY[0x277CBEBF8] anchor:anchorCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)schedulePredictions:(id)predictions anchor:(id)anchor
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   anchorCopy = anchor;
-  v8 = __atxlog_handle_anchor();
+  v8 = __atxlog_handle_anchor(anchorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", buf, 2u);
   }
 
-  v9 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_anchor(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [predictionsCopy count];
+    v11 = [predictionsCopy count];
     *buf = 134218242;
-    v39 = v10;
-    v40 = 2112;
-    v41 = anchorCopy;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Scheduler received %lu predictions for anchor %@. Predictions:", buf, 0x16u);
+    v42 = v11;
+    v43 = 2112;
+    v44 = anchorCopy;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Scheduler received %lu predictions for anchor %@. Predictions:", buf, 0x16u);
   }
 
-  v11 = [predictionsCopy mutableCopy];
-  v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-  v37 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  [v11 sortUsingDescriptors:v13];
+  v12 = [predictionsCopy mutableCopy];
+  v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
+  v40 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  [v12 sortUsingDescriptors:v14];
 
-  v14 = v11;
-  v15 = v14;
-  if ([v14 count] > self->_maxPredictions)
+  v15 = v12;
+  v16 = v15;
+  if ([v15 count] > self->_maxPredictions)
   {
-    v15 = [v14 subarrayWithRange:0];
+    v16 = [v15 subarrayWithRange:0];
 
-    v16 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = __atxlog_handle_anchor(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [v15 count];
+      v19 = [v16 count];
       *buf = 134217984;
-      v39 = v17;
-      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Scheduler clipping anchor model predictions to the top scoring %lu predictions.", buf, 0xCu);
+      v42 = v19;
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Scheduler clipping anchor model predictions to the top scoring %lu predictions.", buf, 0xCu);
     }
   }
 
-  v29 = v14;
-  v30 = anchorCopy;
+  v32 = v15;
+  v33 = anchorCopy;
   selfCopy = self;
-  v34 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v18 = v15;
-  v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v19)
+  v36 = 0u;
+  v20 = v16;
+  v21 = [v20 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = *v33;
+    v22 = v21;
+    v23 = *v36;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v33 != v21)
+        if (*v36 != v23)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * i);
-        v24 = objc_autoreleasePoolPush();
-        v25 = __atxlog_handle_anchor();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v25 = *(*(&v35 + 1) + 8 * i);
+        v26 = objc_autoreleasePoolPush();
+        v27 = __atxlog_handle_anchor(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v39 = v23;
-          _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+          v42 = v25;
+          _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v24);
+        objc_autoreleasePoolPop(v26);
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 
-  v26 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v29 = __atxlog_handle_anchor(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "Scheduling...", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "Scheduling...", buf, 2u);
   }
 
-  v27 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v31 = __atxlog_handle_anchor(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", buf, 2u);
   }
 
-  [(ATXAnchorModelPredictionScheduler *)selfCopy persistPredictions:v18 anchor:v30];
+  [(ATXAnchorModelPredictionScheduler *)selfCopy persistPredictions:v20 anchor:v33];
   [(ATXAnchorModelPredictionScheduler *)selfCopy forwardPredictionUpdates];
-  [(ATXAnchorModelPredictionScheduler *)selfCopy logPredictionsGeneratedMetricsWithAnchorModelPredictions:v18];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [(ATXAnchorModelPredictionScheduler *)selfCopy logPredictionsGeneratedMetricsWithAnchorModelPredictions:v20];
 }
 
 - (void)persistPredictions:(id)predictions anchor:(id)anchor
@@ -248,7 +245,7 @@ void __63__ATXAnchorModelPredictionScheduler_persistPredictions_anchor___block_i
   v3 = [appPredictionCacheDirectory stringByAppendingPathComponent:@"anchorModelSchedulerCurrentPredictions"];
 
   v4 = objc_alloc(MEMORY[0x277CEBC68]);
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(v4);
   v6 = [v4 initWithCacheFilePath:v3 loggingHandle:v5 debugName:@"cached anchor model predictions"];
 
   return v6;
@@ -262,28 +259,28 @@ void __63__ATXAnchorModelPredictionScheduler_persistPredictions_anchor___block_i
 
 - (id)dateOfSoonestUpcomingPredictionChange
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = [(ATXAnchorModelPredictionScheduler *)self predictions];
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v19 = *v21;
+    v18 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v19)
+        if (*v20 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v19 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         dateIntervalForPrediction = [v7 dateIntervalForPrediction];
         startDate = [dateIntervalForPrediction startDate];
@@ -298,13 +295,11 @@ void __63__ATXAnchorModelPredictionScheduler_persistPredictions_anchor___block_i
         objc_autoreleasePoolPop(v8);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return distantFuture;
 }
@@ -363,39 +358,37 @@ void __63__ATXAnchorModelPredictionScheduler_persistPredictions_anchor___block_i
 
 void __48__ATXAnchorModelPredictionScheduler_predictions__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _readPredictionsFromCache];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = [v2 allValues];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 40) addObjectsFromArray:*(*(&v9 + 1) + 8 * v7++)];
+        [*(a1 + 40) addObjectsFromArray:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_readPredictionsFromCache
@@ -435,24 +428,22 @@ void __48__ATXAnchorModelPredictionScheduler_predictions__block_invoke(uint64_t 
 
   if (v6)
   {
-    v7 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = __atxlog_handle_anchor(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v10 = 138412290;
       v11 = dateCopy;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "Scheduler scheduling next update on %@", &v10, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "Scheduler scheduling next update on %@", &v10, 0xCu);
     }
 
-    v8 = [(ATXAnchorModelPredictionScheduler *)self criteriaForJobOnDate:dateCopy];
-    [(ATXAnchorModelPredictionScheduler *)self registerXPCActivityForPredictionUpdateWithCriteria:v8];
+    v9 = [(ATXAnchorModelPredictionScheduler *)self criteriaForJobOnDate:dateCopy];
+    [(ATXAnchorModelPredictionScheduler *)self registerXPCActivityForPredictionUpdateWithCriteria:v9];
   }
 
   else
   {
     [(ATXAnchorModelPredictionScheduler *)self forwardPredictionUpdates];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerXPCActivityForPredictionUpdateWithCriteria:(id)criteria
@@ -468,18 +459,22 @@ void __48__ATXAnchorModelPredictionScheduler_predictions__block_invoke(uint64_t 
 void __88__ATXAnchorModelPredictionScheduler_registerXPCActivityForPredictionUpdateWithCriteria___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (xpc_activity_get_state(v3) == 2 && ([MEMORY[0x277D42598] isClassCLocked] & 1) == 0)
+  if (xpc_activity_get_state(v3) == 2)
   {
-    v4 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = [MEMORY[0x277D42598] isClassCLocked];
+    if ((v4 & 1) == 0)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Forwarding Anchor Model prediction updates due to scheduled update.", v6, 2u);
-    }
+      v5 = __atxlog_handle_anchor(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *v7 = 0;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Forwarding Anchor Model prediction updates due to scheduled update.", v7, 2u);
+      }
 
-    v5 = objc_autoreleasePoolPush();
-    [*(a1 + 32) forwardPredictionUpdates];
-    objc_autoreleasePoolPop(v5);
+      v6 = objc_autoreleasePoolPush();
+      [*(a1 + 32) forwardPredictionUpdates];
+      objc_autoreleasePoolPop(v6);
+    }
   }
 }
 
@@ -504,8 +499,7 @@ void __88__ATXAnchorModelPredictionScheduler_registerXPCActivityForPredictionUpd
 - (void)forwardPredictionUpdates
 {
   predictionsValidNow = [(ATXAnchorModelPredictionScheduler *)self predictionsValidNow];
-  [(ATXAnchorModelPredictionForwarderProtocol *)self->_predictionForwarder forwardPredictions:predictionsValidNow];
-  v4 = __atxlog_handle_anchor();
+  v4 = __atxlog_handle_anchor([(ATXAnchorModelPredictionForwarderProtocol *)self->_predictionForwarder forwardPredictions:predictionsValidNow]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -517,7 +511,7 @@ void __88__ATXAnchorModelPredictionScheduler_registerXPCActivityForPredictionUpd
 
 - (id)predictionsValidNow
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   predictionsWithTimeIntervalOverlappingWithCurrentTime = [(ATXAnchorModelPredictionScheduler *)self predictionsWithTimeIntervalOverlappingWithCurrentTime];
   v4 = [predictionsWithTimeIntervalOverlappingWithCurrentTime mutableCopy];
 
@@ -525,13 +519,11 @@ void __88__ATXAnchorModelPredictionScheduler_registerXPCActivityForPredictionUpd
   v6 = [v5 mutableCopy];
 
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"score" ascending:0];
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [v6 sortUsingDescriptors:v8];
 
   v9 = [(ATXAnchorModelPredictionScheduler *)self deduplicatedPredictions:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -582,21 +574,21 @@ uint64_t __78__ATXAnchorModelPredictionScheduler_predictionsAfterFilteringInacti
   v5 = objc_opt_new();
 
   v6 = [objc_opt_class() isActive];
+  v7 = v6;
   if ((v6 & 1) == 0)
   {
-    v7 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_anchor(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
       v11 = v3;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Filtering out Anchor Model prediction because the anchor is no longer active. Prediction %@", &v10, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Filtering out Anchor Model prediction because the anchor is no longer active. Prediction %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) clearPredictionsForAnchor:v5];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (id)deduplicatedPredictions:(id)predictions
@@ -637,96 +629,89 @@ void __61__ATXAnchorModelPredictionScheduler_deduplicatedPredictions___block_inv
 
 - (void)logPredictionsGeneratedMetricsWithAnchorModelPredictions:(id)predictions
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v5 = [predictionsCopy countByEnumeratingWithState:&v33 objects:v51 count:16];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v5 = [predictionsCopy countByEnumeratingWithState:&v29 objects:v47 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
-    v8 = off_278593000;
-    v29 = predictionsCopy;
+    v7 = *v30;
+    v25 = predictionsCopy;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v34 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(predictionsCopy);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
-        v11 = v8[352];
-        v12 = objc_opt_new();
-        anchorType = [v10 anchorType];
-        [v12 setAnchorType:anchorType];
+        v9 = *(*(&v29 + 1) + 8 * v8);
+        v10 = objc_opt_new();
+        anchorType = [v9 anchorType];
+        [v10 setAnchorType:anchorType];
 
-        [v10 score];
-        [v12 setScore:?];
-        candidateType = [v10 candidateType];
-        [v12 setCandidateType:candidateType];
+        [v9 score];
+        [v10 setScore:?];
+        candidateType = [v9 candidateType];
+        [v10 setCandidateType:candidateType];
 
-        offsetFromAnchorToShowPrediction = [v10 offsetFromAnchorToShowPrediction];
+        offsetFromAnchorToShowPrediction = [v9 offsetFromAnchorToShowPrediction];
         [offsetFromAnchorToShowPrediction startSecondsAfterAnchor];
-        [v12 setSecondsAfterAnchorStart:v16];
+        [v10 setSecondsAfterAnchorStart:v14];
 
-        offsetFromAnchorToShowPrediction2 = [v10 offsetFromAnchorToShowPrediction];
+        offsetFromAnchorToShowPrediction2 = [v9 offsetFromAnchorToShowPrediction];
         [offsetFromAnchorToShowPrediction2 endSecondsAfterAnchor];
-        [v12 setSecondsAfterAnchorEnd:v18];
+        [v10 setSecondsAfterAnchorEnd:v16];
 
         abGroup = [(ATXAnchorModelHyperParameters *)self->_hyperParameters abGroup];
-        [v12 setAbGroup:abGroup];
+        [v10 setAbGroup:abGroup];
 
-        [(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v12];
-        v20 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v18 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v10]);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v21 = objc_opt_class();
-          v32 = NSStringFromClass(v21);
-          anchorType2 = [v12 anchorType];
-          candidateType2 = [v12 candidateType];
-          [v12 score];
-          v25 = v24;
-          secondsAfterAnchorStart = [v12 secondsAfterAnchorStart];
-          secondsAfterAnchorEnd = [v12 secondsAfterAnchorEnd];
-          abGroup2 = [v12 abGroup];
+          v19 = objc_opt_class();
+          v28 = NSStringFromClass(v19);
+          anchorType2 = [v10 anchorType];
+          candidateType2 = [v10 candidateType];
+          [v10 score];
+          v23 = v22;
+          secondsAfterAnchorStart = [v10 secondsAfterAnchorStart];
+          secondsAfterAnchorEnd = [v10 secondsAfterAnchorEnd];
+          abGroup2 = [v10 abGroup];
           *buf = 138413826;
-          v38 = v32;
-          v39 = 2112;
-          v40 = anchorType2;
-          v27 = anchorType2;
-          v41 = 2112;
-          v42 = candidateType2;
-          v43 = 2048;
-          v44 = v25;
-          v45 = 1024;
-          v46 = secondsAfterAnchorStart;
-          v8 = off_278593000;
-          v47 = 1024;
-          v48 = secondsAfterAnchorEnd;
-          v49 = 2112;
-          v50 = abGroup2;
-          _os_log_debug_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPredictionsGeneratedTracker with anchorType: %@ candidateType: %@ score: %f secondsAfterAnchorStart: %u secondsAfterAnchorEnd: %u abGroup: %@", buf, 0x40u);
+          v34 = v28;
+          v35 = 2112;
+          v36 = anchorType2;
+          v37 = 2112;
+          v38 = candidateType2;
+          v39 = 2048;
+          v40 = v23;
+          v41 = 1024;
+          v42 = secondsAfterAnchorStart;
+          v43 = 1024;
+          v44 = secondsAfterAnchorEnd;
+          v45 = 2112;
+          v46 = abGroup2;
+          _os_log_debug_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPredictionsGeneratedTracker with anchorType: %@ candidateType: %@ score: %f secondsAfterAnchorStart: %u secondsAfterAnchorEnd: %u abGroup: %@", buf, 0x40u);
 
-          predictionsCopy = v29;
+          predictionsCopy = v25;
         }
 
-        ++v9;
+        ++v8;
       }
 
-      while (v6 != v9);
-      v6 = [predictionsCopy countByEnumeratingWithState:&v33 objects:v51 count:16];
+      while (v6 != v8);
+      v6 = [predictionsCopy countByEnumeratingWithState:&v29 objects:v47 count:16];
     }
 
     while (v6);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

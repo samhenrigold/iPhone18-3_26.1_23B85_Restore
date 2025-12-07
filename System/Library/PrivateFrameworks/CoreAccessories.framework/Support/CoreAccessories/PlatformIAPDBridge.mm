@@ -1209,7 +1209,7 @@ LABEL_116:
   {
     v6 = [v4 objectForKey:ACCPlatformIAPDPort_EndpointUUID];
     EndpointWithUUID = acc_manager_getEndpointWithUUID(v6);
-    acc_manager_enableLockoutForTransportType(EndpointWithUUID[6], 6u);
+    acc_manager_enableLockoutForTransportType(EndpointWithUUID[6], 6);
     if (gLogObjects && gNumLogObjects >= 7)
     {
       v8 = *(gLogObjects + 48);
@@ -1822,12 +1822,78 @@ void __68__PlatformIAPDBridge__handleAuthenticationState_forPortID_certData___bl
 {
   dictionaryCopy = dictionary;
   v6 = [gCoreAccessoriesEndpointMap objectForKey:endpoint->var2];
-  var3 = endpoint->var3;
-  p_var3 = &endpoint->var3;
-  if (var3 == 8)
+  if (endpoint->var3 == 8)
   {
-    v9 = ACCPlatformIAPDPort_ConnectionUUID;
-    v10 = [dictionaryCopy objectForKey:ACCPlatformIAPDPort_ConnectionUUID];
+    v7 = ACCPlatformIAPDPort_ConnectionUUID;
+    v8 = [dictionaryCopy objectForKey:ACCPlatformIAPDPort_ConnectionUUID];
+    if (gLogObjects)
+    {
+      v9 = gNumLogObjects < 7;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    if (v9)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v13 = &_os_log_default;
+      v10 = &_os_log_default;
+    }
+
+    else
+    {
+      v13 = *(gLogObjects + 48);
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v25 = v8;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[#iapd Bridge] iAP1 USB Host connectionUUID = %@", buf, 0xCu);
+    }
+
+    v22 = v7;
+    v23 = v8;
+    v14 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v15 = +[NSNotificationCenter defaultCenter];
+    [v15 postNotificationName:ACCPlatformIAPDPort_RequestPrimaryPort object:0 userInfo:v14];
+
+    v16 = gPrimaryPortNumber;
+    if (gLogObjects && gNumLogObjects >= 7)
+    {
+      v17 = *(gLogObjects + 48);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v17 = &_os_log_default;
+      v18 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      *buf = 134217984;
+      v25 = v16;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "[#iapd Bridge] Returning primaryPortNumber %llu for USBHost endpoint type", buf, 0xCu);
+    }
+
+    v19 = 2;
+  }
+
+  else
+  {
     if (gLogObjects)
     {
       v11 = gNumLogObjects < 7;
@@ -1845,96 +1911,28 @@ void __68__PlatformIAPDBridge__handleAuthenticationState_forPortID_certData___bl
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v15 = &_os_log_default;
+      v8 = &_os_log_default;
       v12 = &_os_log_default;
     }
 
     else
     {
-      v15 = *(gLogObjects + 48);
+      v8 = *(gLogObjects + 48);
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      *buf = 138412290;
-      v27 = v10;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "[#iapd Bridge] iAP1 USB Host connectionUUID = %@", buf, 0xCu);
+      [PlatformIAPDBridge _generateIAPDPortInfoForDictionary:fromEndpoint:];
     }
 
-    v24 = v9;
-    v25 = v10;
-    v16 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v17 = +[NSNotificationCenter defaultCenter];
-    [v17 postNotificationName:ACCPlatformIAPDPort_RequestPrimaryPort object:0 userInfo:v16];
-
-    v18 = gPrimaryPortNumber;
-    if (gLogObjects && gNumLogObjects >= 7)
-    {
-      v19 = *(gLogObjects + 48);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        platform_connectionInfo_configStreamGetCategories_cold_2();
-      }
-
-      v19 = &_os_log_default;
-      v20 = &_os_log_default;
-    }
-
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
-    {
-      *buf = 134217984;
-      v27 = v18;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "[#iapd Bridge] Returning primaryPortNumber %llu for USBHost endpoint type", buf, 0xCu);
-    }
-
-    v21 = 2;
+    v16 = 0;
+    v19 = 0;
   }
 
-  else
-  {
-    if (gLogObjects)
-    {
-      v13 = gNumLogObjects < 7;
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-
-    if (v13)
-    {
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        platform_connectionInfo_configStreamGetCategories_cold_2();
-      }
-
-      v10 = &_os_log_default;
-      v14 = &_os_log_default;
-    }
-
-    else
-    {
-      v10 = *(gLogObjects + 48);
-    }
-
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-    {
-      [PlatformIAPDBridge _generateIAPDPortInfoForDictionary:? fromEndpoint:?];
-    }
-
-    v18 = 0;
-    v21 = 0;
-  }
-
-  v22 = [NSNumber numberWithUnsignedLongLong:v21];
-  v23 = [NSNumber numberWithUnsignedLongLong:v18];
-  [v6 setObject:v22 forKey:@"ACCPlatformIAPDBridge_PortNumber"];
-  [v6 setObject:v23 forKey:ACCPlatformIAPDBridge_PrimaryPortNumber];
+  v20 = [NSNumber numberWithUnsignedLongLong:v19];
+  v21 = [NSNumber numberWithUnsignedLongLong:v16];
+  [v6 setObject:v20 forKey:@"ACCPlatformIAPDBridge_PortNumber"];
+  [v6 setObject:v21 forKey:ACCPlatformIAPDBridge_PrimaryPortNumber];
 }
 
 - (void)_generateIAPDPortTypeForDictionary:(id)dictionary fromEndpoint:(ACCEndpoint_s *)endpoint
@@ -2369,7 +2367,7 @@ LABEL_56:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_5_9();
-        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v8, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v9, v10, v11, v12, v13[0]);
+        OUTLINED_FUNCTION_2_0(&_mh_execute_header, &_os_log_default, v8, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v9, v10, v11, v12);
       }
 
       v7 = &_os_log_default;
@@ -2442,13 +2440,6 @@ void __26__PlatformIAPDBridge_init__block_invoke_cold_2()
   v3 = 2048;
   v4 = v0;
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "[#iapd Bridge] found endpointUUID %@ for portID %llu, handle port lockout", v2, 0x16u);
-}
-
-- (void)_generateIAPDPortInfoForDictionary:(int *)a1 fromEndpoint:.cold.2(int *a1)
-{
-  v6 = *a1;
-  OUTLINED_FUNCTION_3_13();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 @end

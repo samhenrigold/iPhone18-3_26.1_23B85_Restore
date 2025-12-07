@@ -12,7 +12,8 @@
   layoutCopy = layout;
   spritesCopy = sprites;
   selfCopy = self;
-  LOBYTE(self) = sub_1A44AB448(engineCopy, layoutCopy, spritesCopy);
+  sub_1A44AB448(engineCopy, layoutCopy, spritesCopy);
+  LOBYTE(self) = v12;
 
   return self & 1;
 }

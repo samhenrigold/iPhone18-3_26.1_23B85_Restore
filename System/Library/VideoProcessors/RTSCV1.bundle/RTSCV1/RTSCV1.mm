@@ -2,14 +2,14 @@ uint64_t portIndexFromPortType(const void *a1, int *a2)
 {
   if (!a1)
   {
-    portIndexFromPortType_cold_2(&v7);
-    return v7;
+    portIndexFromPortType_cold_2(&v9);
+    return v9;
   }
 
   if (!a2)
   {
-    portIndexFromPortType_cold_1(&v6);
-    return v6;
+    portIndexFromPortType_cold_1(&v8);
+    return v8;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingCamera))
@@ -22,50 +22,50 @@ uint64_t portIndexFromPortType(const void *a1, int *a2)
   if (CFEqual(a1, kFigCapturePortType_BackFacingTelephotoCamera))
   {
     result = 0;
-    v5 = 1;
+    v6 = 1;
 LABEL_17:
-    *a2 = v5;
+    *a2 = v6;
     return result;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingSuperWideCamera))
   {
     result = 0;
-    v5 = 2;
+    v6 = 2;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingCamera))
   {
     result = 0;
-    v5 = 3;
+    v6 = 3;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingSuperWideCamera))
   {
     result = 0;
-    v5 = 4;
+    v6 = 4;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingInfraredCamera))
   {
     result = 0;
-    v5 = 5;
+    v6 = 5;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingSparseTimeOfFlightCamera))
   {
     result = 0;
-    v5 = 6;
+    v6 = 6;
     goto LABEL_17;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954513, "(Fig)", 93, v2);
 }
 
 uint64_t FigMotionISPMotionDataFromCFData(const __CFData *a1, const UInt8 **a2)
@@ -109,37 +109,47 @@ uint64_t FigMotionISPMotionDataFromCFData(const __CFData *a1, const UInt8 **a2)
   return result;
 }
 
-uint64_t FigMotionGetSensorValidCropRect(const __CFDictionary *a1)
+uint64_t FigMotionGetSensorValidCropRect(const __CFDictionary *a1, uint64_t a2)
 {
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SensorRawValidBufferRect))
+  if (!CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SensorRawValidBufferRect))
   {
-    if (!FigCFDictionaryGetCGRectIfPresent())
+    if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_TotalSensorCropRect))
     {
-      goto LABEL_10;
+      if (!FigCFDictionaryGetCGRectIfPresent())
+      {
+        v4 = 381;
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      if (!CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_RawCropRect))
+      {
+        v4 = 393;
+        goto LABEL_12;
+      }
+
+      if (!FigCFDictionaryGetCGRectIfPresent())
+      {
+        v4 = 388;
+        goto LABEL_12;
+      }
     }
 
     return 0;
   }
 
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_TotalSensorCropRect))
-  {
-    if (!FigCFDictionaryGetCGRectIfPresent())
-    {
-      goto LABEL_10;
-    }
-
-    return 0;
-  }
-
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_RawCropRect) && FigCFDictionaryGetCGRectIfPresent())
+  if (FigCFDictionaryGetCGRectIfPresent())
   {
     return 0;
   }
 
-LABEL_10:
-  fig_log_get_emitter();
+  v4 = 373;
+LABEL_12:
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954516, "(Fig)", v4, v2);
 }
 
 uint64_t FigMotionComputeFramePTSOffsetFromISPCrop(const __CFDictionary *a1, double *a2)
@@ -147,15 +157,15 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop(const __CFDictionary *a1, dou
   v15 = 0;
   if (!a1 || !a2)
   {
-    FigMotionComputeFramePTSOffsetFromISPCrop_cold_6(v12);
-    return LODWORD(v12[0]);
+    FigMotionComputeFramePTSOffsetFromISPCrop_cold_6(v13);
+    return LODWORD(v13[0]);
   }
 
   Value = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_RollingShutterSkew);
   if (!Value)
   {
-    FigMotionComputeFramePTSOffsetFromISPCrop_cold_5(v12);
-    return LODWORD(v12[0]);
+    FigMotionComputeFramePTSOffsetFromISPCrop_cold_5(v13);
+    return LODWORD(v13[0]);
   }
 
   valuePtr = 0;
@@ -163,56 +173,57 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop(const __CFDictionary *a1, dou
   v5 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_RawSensorHeight);
   if (!v5)
   {
-    FigMotionComputeFramePTSOffsetFromISPCrop_cold_4(v12);
-    return LODWORD(v12[0]);
+    FigMotionComputeFramePTSOffsetFromISPCrop_cold_4(v13);
+    return LODWORD(v13[0]);
   }
 
   CFNumberGetValue(v5, kCFNumberSInt32Type, &v15);
   if (v15 <= 0)
   {
-    FigMotionComputeFramePTSOffsetFromISPCrop_cold_3(v12);
-    return LODWORD(v12[0]);
+    FigMotionComputeFramePTSOffsetFromISPCrop_cold_3(v13);
+    return LODWORD(v13[0]);
   }
 
   size = CGRectZero.size;
   origin = CGRectZero.origin;
-  v13 = CGRectZero.origin;
-  v14 = size;
-  SensorValidCropRect = FigMotionGetSensorValidCropRect(a1);
+  v14[0] = CGRectZero.origin;
+  v14[1] = size;
+  SensorValidCropRect = FigMotionGetSensorValidCropRect(a1, v14);
   if (SensorValidCropRect)
   {
-    v8 = SensorValidCropRect;
+    v9 = SensorValidCropRect;
     FigMotionComputeFramePTSOffsetFromISPCrop_cold_1();
   }
 
   else
   {
+    v7 = *(v14 + 1);
     if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SensorReadoutRect))
     {
-      v12[0] = origin;
-      v12[1] = size;
+      v13[0] = origin;
+      v13[1] = size;
       if (!FigCFDictionaryGetCGRectIfPresent())
       {
-        FigMotionComputeFramePTSOffsetFromISPCrop_cold_2(v12, &v17);
+        FigMotionComputeFramePTSOffsetFromISPCrop_cold_2(v13, &v17);
         return v17;
       }
 
-      v7 = *(v12 + 1);
+      v8 = *(v13 + 1);
     }
 
     else
     {
-      v7 = 0.0;
+      v8 = 0.0;
     }
 
-    v8 = 0;
-    *a2 = (v13.y - v7) * valuePtr / (v15 * 1000000.0);
+    v9 = 0;
+    *a2 = (v7 - v8) * valuePtr / (v15 * 1000000.0);
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t FigMotionGetMotionDataFromISP(CFDictionaryRef theDict, float64x2_t *a2, uint64_t a3, int a4, int *a5, float32x2_t *a6, uint64_t a7, int a8, int *a9)
+uint64_t FigMotionGetMotionDataFromISP(CFDictionaryRef theDict, float64x2_t *a2, uint64_t a3, int a4, int *a5, float32x2_t *a6, uint64_t a7, uint64_t a8, int *a9)
 {
   if (!theDict)
   {
@@ -220,72 +231,70 @@ uint64_t FigMotionGetMotionDataFromISP(CFDictionaryRef theDict, float64x2_t *a2,
     return LODWORD(time.value);
   }
 
+  v9 = a8;
   if (a2 && a5)
   {
     Value = CFDictionaryGetValue(theDict, kFigCaptureStreamMetadata_ISPMotionData);
     if (Value)
     {
-      v41 = 0;
-      v18 = FigMotionISPMotionDataFromCFData(Value, &v41);
+      v40 = 0;
+      v18 = FigMotionISPMotionDataFromCFData(Value, &v40);
       if (v18)
       {
-        ISPHallData = v18;
-        FigMotionGetMotionDataFromISP_cold_1();
-        return ISPHallData;
+        v34 = v18;
+        FigMotionGetMotionDataFromISP_cold_1(v18);
+        return v34;
       }
 
-      v20 = v41;
-      LODWORD(v21) = *(v41 + 1);
-      if (v21 >= a4)
+      LODWORD(v20) = *(v40 + 1);
+      if (v20 >= a4)
       {
-        LODWORD(v21) = a4;
+        LODWORD(v20) = a4;
       }
 
-      *a5 = v21;
-      if (v21 >= 1)
+      *a5 = v20;
+      if (v20 >= 1)
       {
-        v22 = 0;
-        v23 = (a3 + 8);
-        v24 = a2 + 1;
-        v25 = 0;
-        v26 = 0.0;
-        v27 = 44;
-        v39 = vdupq_n_s64(0x3E10000000000000uLL);
-        v28 = vdup_n_s32(0x37800000u);
+        v21 = 0;
+        v22 = (a3 + 8);
+        v23 = a2 + 1;
+        v24 = 0;
+        v25 = 0.0;
+        v26 = 44;
+        v38 = vdupq_n_s64(0x3E10000000000000uLL);
+        v27 = vdup_n_s32(0x37800000u);
         do
         {
-          v29 = *&v20[v27 - 36];
-          v30 = FigHostTimeToNanoseconds();
-          CMTimeMake(&time, v30, 1000000000);
-          v24[-1].f64[1] = CMTimeGetSeconds(&time);
-          v20 = v41;
-          v31 = &v41[v27];
-          v32 = *&v41[v27 - 24];
-          v33.i64[0] = v32;
-          v33.i64[1] = SHIDWORD(v32);
-          *v24 = vmulq_f64(vcvtq_f64_s64(v33), v39);
-          v34 = *(v31 - 2);
-          v33.i64[0] = v34;
-          v33.i64[1] = SHIDWORD(v34);
-          v24[1] = vmulq_f64(vcvtq_f64_s64(v33), v39);
-          v19 = vmul_f32(vcvt_f32_s32(*(v31 - 2)), v28);
-          v35 = *v31 * 0.000015259;
+          v28 = FigHostTimeToNanoseconds();
+          CMTimeMake(&time, v28, 1000000000);
+          v23[-1].f64[1] = CMTimeGetSeconds(&time);
+          v29 = &v40[v26];
+          v30 = *&v40[v26 - 24];
+          v31.i64[0] = v30;
+          v31.i64[1] = SHIDWORD(v30);
+          *v23 = vmulq_f64(vcvtq_f64_s64(v31), v38);
+          v32 = *(v29 - 2);
+          v31.i64[0] = v32;
+          v31.i64[1] = SHIDWORD(v32);
+          v23[1] = vmulq_f64(vcvtq_f64_s64(v31), v38);
+          v19 = vmul_f32(vcvt_f32_s32(*(v29 - 2)), v27);
+          v33 = *v29 * 0.000015259;
           if (a3)
           {
-            *(v23 - 1) = v19;
-            *v23 = v35;
+            *(v22 - 1) = v19;
+            *v22 = v33;
           }
 
-          v25 = vadd_f32(v25, v19);
-          v26 = v26 + v35;
-          ++v22;
-          v21 = *a5;
+          v24 = vadd_f32(v24, v19);
+          v25 = v25 + v33;
+          ++v21;
+          v20 = *a5;
+          v22 += 3;
           v23 += 3;
-          v24 += 3;
-          v27 += 40;
+          v26 += 40;
         }
 
-        while (v22 < v21);
+        while (v21 < v20);
         if (!a6)
         {
           goto LABEL_19;
@@ -294,16 +303,16 @@ uint64_t FigMotionGetMotionDataFromISP(CFDictionaryRef theDict, float64x2_t *a2,
         goto LABEL_17;
       }
 
-      v25 = 0;
-      v26 = 0.0;
+      v24 = 0;
+      v25 = 0.0;
       if (a6)
       {
 LABEL_17:
-        if (v21)
+        if (v20)
         {
-          v19.f32[0] = v21;
-          *a6 = vdiv_f32(v25, vdup_lane_s32(v19, 0));
-          a6[1].f32[0] = v26 / v21;
+          v19.f32[0] = v20;
+          *a6 = vdiv_f32(v24, vdup_lane_s32(v19, 0));
+          a6[1].f32[0] = v25 / v20;
         }
       }
     }
@@ -315,27 +324,28 @@ LABEL_17:
   }
 
 LABEL_19:
-  ISPHallData = 0;
+  v34 = 0;
   if (a7 && a9)
   {
-    v37 = CFDictionaryGetValue(theDict, kFigCaptureStreamMetadata_ISPHallData);
-    if (v37)
+    v35 = CFDictionaryGetValue(theDict, kFigCaptureStreamMetadata_ISPHallData);
+    if (v35)
     {
-      ISPHallData = FigMotionGetISPHallData(v37, a7, a9, a8);
+      ISPHallData = FigMotionGetISPHallData(v35, a7, a9, v9);
+      v34 = ISPHallData;
       if (ISPHallData)
       {
-        FigMotionGetMotionDataFromISP_cold_2();
+        FigMotionGetMotionDataFromISP_cold_2(ISPHallData);
       }
     }
 
     else
     {
-      ISPHallData = 0;
+      v34 = 0;
       *a9 = 0;
     }
   }
 
-  return ISPHallData;
+  return v34;
 }
 
 uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a4)
@@ -348,7 +358,7 @@ uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a
 
   else
   {
-    v9 = Length;
+    v10 = Length;
     BytePtr = CFDataGetBytePtr(a1);
     if (*BytePtr >= 2u)
     {
@@ -357,13 +367,13 @@ uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a
 
     else
     {
-      v11 = 16;
+      v12 = 16;
       if (*BytePtr == 1)
       {
-        v11 = 24;
+        v12 = 24;
       }
 
-      if (v9 == v11 * *(BytePtr + 1) + 8)
+      if (v10 == v12 * *(BytePtr + 1) + 8)
       {
         if (a3)
         {
@@ -383,7 +393,7 @@ LABEL_26:
   if (LODWORD(time.value))
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", value_low, v4, v25, time.value, time.timescale, time.epoch, v27, v28);
     return value_low;
   }
 
@@ -394,25 +404,24 @@ LABEL_26:
   }
 
 LABEL_7:
-  v12 = *(BytePtr + 1);
-  if (v12 >= a4)
+  v13 = *(BytePtr + 1);
+  if (v13 >= a4)
   {
-    v12 = a4;
+    v13 = a4;
   }
 
-  *a3 = v12;
+  *a3 = v13;
   if (*BytePtr == 1)
   {
-    if (v12 >= 1)
+    if (v13 >= 1)
     {
       v19 = 0;
       v20 = (BytePtr + 16);
       v21 = (a2 + 12);
       do
       {
-        v22 = *(v20 - 1);
-        v23 = FigHostTimeToNanoseconds();
-        CMTimeMake(&time, v23, 1000000000);
+        v22 = FigHostTimeToNanoseconds();
+        CMTimeMake(&time, v22, 1000000000);
         *(v21 - 3) = CMTimeGetSeconds(&time);
         *(v21 - 1) = *v20 * 0.0039062;
         *v21 = v20[1] * 0.0039062;
@@ -434,27 +443,26 @@ LABEL_7:
       return 4294954515;
     }
 
-    if (v12 >= 1)
+    if (v13 >= 1)
     {
-      v13 = 0;
-      v14 = (a2 + 16);
-      v15 = (BytePtr + 20);
+      v14 = 0;
+      v15 = (a2 + 16);
+      v16 = (BytePtr + 20);
       do
       {
-        v16 = *(v15 - 3);
         v17 = FigHostTimeToNanoseconds();
         CMTimeMake(&time, v17, 1000000000);
-        *(v14 - 2) = CMTimeGetSeconds(&time);
-        *(v14 - 2) = *(v15 - 1) * 0.0039062;
-        v18 = *v15;
-        v15 += 4;
-        *(v14 - 1) = v18 * 0.0039062;
-        *v14 = 0.0;
-        v14 += 3;
-        ++v13;
+        *(v15 - 2) = CMTimeGetSeconds(&time);
+        *(v15 - 2) = *(v16 - 1) * 0.0039062;
+        v18 = *v16;
+        v16 += 4;
+        *(v15 - 1) = v18 * 0.0039062;
+        *v15 = 0.0;
+        v15 += 3;
+        ++v14;
       }
 
-      while (v13 < *a3);
+      while (v14 < *a3);
     }
   }
 
@@ -540,7 +548,7 @@ void FigMotionComputeQuaternionForTimeStamp(uint64_t a1, void *a2, char *a3, dou
       if (vabdd_f64(v20, v17) > 0.000001)
       {
         v33 = (a4 - v17) / (v20 - v17);
-        FigMotionInterpolateQuaternionsByAngle(a1 + 2056 + 32 * v21, (a1 + 2056 + 32 * v19), v33);
+        FigMotionInterpolateQuaternionsByAngle(a1 + 2056 + 32 * v21, v33, (a1 + 2056 + 32 * v19));
         *a2 = v34;
         a2[1] = v35;
         a2[2] = v36;
@@ -607,46 +615,38 @@ uint64_t low_freq_error_logging()
   return result;
 }
 
-void FigMotionInterpolateQuaternionsByAngle(uint64_t a1, double *a2, float a3)
+void FigMotionInterpolateQuaternionsByAngle(uint64_t a1, float a2, double *a3)
 {
-  v22 = *a1;
-  v23 = vnegq_f64(*(a1 + 8));
-  v24 = -*(a1 + 24);
-  v5 = FigMotionMultiplyQuaternions(&v22, a2);
+  v18 = *a1;
+  v19 = vnegq_f64(*(a1 + 8));
+  v20 = -*(a1 + 24);
+  v5 = FigMotionMultiplyQuaternions(&v18, a3);
   v8 = v7;
   v10 = v9;
   if (fabs(v5) <= 1.0)
   {
-    v15 = v6;
-    v16 = acos(v5);
-    v17 = sin(v16);
-    v18 = a3;
-    v19 = v16 * v18;
-    if (v17 <= 0.00000001)
+    v11 = v6;
+    v12 = acos(v5);
+    v13 = sin(v12);
+    v14 = a2;
+    v15 = v12 * v14;
+    if (v13 <= 0.00000001)
     {
-      cosval = cos(v19);
+      cosval = cos(v15);
     }
 
     else
     {
-      v20 = __sincos_stret(v19);
-      cosval = v20.__cosval;
-      v18 = v20.__sinval / v17;
+      v16 = __sincos_stret(v15);
+      cosval = v16.__cosval;
+      v14 = v16.__sinval / v13;
     }
 
-    v22 = cosval;
-    v23.f64[0] = v8 * v18;
-    v23.f64[1] = v10 * v18;
-    v24 = v15 * v18;
-    FigMotionMultiplyQuaternions(a1, &v22);
-  }
-
-  else
-  {
-    v11 = *a1;
-    v12 = *(a1 + 8);
-    v13 = *(a1 + 16);
-    v14 = *(a1 + 24);
+    v18 = cosval;
+    v19.f64[0] = v8 * v14;
+    v19.f64[1] = v10 * v14;
+    v20 = v11 * v14;
+    FigMotionMultiplyQuaternions(a1, &v18);
   }
 }
 
@@ -841,12 +841,12 @@ uint64_t OUTLINED_FUNCTION_4()
   return fig_log_get_emitter();
 }
 
-void sub_2AF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2AF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = RTSCProcessorV1;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1145,9 +1145,9 @@ uint64_t portIndexFromPortType_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1156,9 +1156,9 @@ uint64_t portIndexFromPortType_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1167,9 +1167,9 @@ uint64_t FigMotionISPMotionDataFromCFData_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1178,9 +1178,9 @@ uint64_t FigMotionISPMotionDataFromCFData_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1189,9 +1189,9 @@ uint64_t FigMotionISPMotionDataFromCFData_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1200,9 +1200,9 @@ uint64_t FigMotionISPMotionDataFromCFData_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1211,27 +1211,20 @@ uint64_t FigMotionISPMotionDataFromCFData_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_2(uint64_t a1, _DWORD *a2)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
   *a2 = result;
   return result;
 }
@@ -1240,9 +1233,9 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1251,9 +1244,9 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1262,9 +1255,9 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1273,38 +1266,32 @@ uint64_t FigMotionComputeFramePTSOffsetFromISPCrop_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
 
-uint64_t FigMotionGetMotionDataFromISP_cold_1()
+uint64_t FigMotionGetMotionDataFromISP_cold_1(int a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2();
-  FigDebugAssert3();
+  v3 = OUTLINED_FUNCTION_2();
+  FigDebugAssert3(v3);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2();
-  return FigDebugAssert3();
-}
-
-uint64_t FigMotionGetMotionDataFromISP_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  v6 = a1;
+  v4 = OUTLINED_FUNCTION_2();
+  return FigDebugAssert3(v4, v6, v1);
 }
 
 uint64_t FigMotionGetMotionDataFromISP_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1313,9 +1300,9 @@ uint64_t FigMotionGetISPHallData_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1324,9 +1311,9 @@ uint64_t FigMotionGetISPHallData_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1335,9 +1322,9 @@ uint64_t FigMotionGetISPHallData_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1346,9 +1333,9 @@ uint64_t FigMotionGetISPHallData_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1357,9 +1344,9 @@ uint64_t FigMotionComputeLensMovementAndSagForTimeStamp_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1368,9 +1355,9 @@ uint64_t FigMotionNormalizeQuaternion_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -1379,9 +1366,9 @@ uint64_t FigMotionNormalizeQuaternion_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }

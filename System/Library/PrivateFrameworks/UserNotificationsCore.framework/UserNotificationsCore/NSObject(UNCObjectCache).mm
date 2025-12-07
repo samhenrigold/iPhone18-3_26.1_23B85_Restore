@@ -23,9 +23,9 @@
 
 - (uint64_t)unc_objectCache
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 unc_objectCache];
+  return [v1 unc_objectCache];
 }
 
 @end

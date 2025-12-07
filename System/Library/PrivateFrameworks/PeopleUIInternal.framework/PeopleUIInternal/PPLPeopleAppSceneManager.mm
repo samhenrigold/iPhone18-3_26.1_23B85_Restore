@@ -4,6 +4,7 @@
 - (id)watchdogPolicyForProcess:(id)process eventContext:(id)context;
 - (void)_configureSceneForRequester:(id)requester;
 - (void)_createSceneForRequester:(id)requester;
+- (void)_launchPeopleAppIfNeededWithForegroundPriority:(BOOL)priority;
 - (void)_sendSceneToBackground;
 - (void)_updateSceneSettingsForRequester:(id)requester;
 - (void)_updateTraitCollection;
@@ -36,12 +37,11 @@
 
 void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc(objc_opt_class());
-  v5 = +[PPLPeopleAppLauncher sharedLauncher];
-  v3 = [v2 initWithAppLauncher:v5];
-  v4 = sharedSceneManager___sharedSceneManager;
-  sharedSceneManager___sharedSceneManager = v3;
+  v1 = objc_alloc(objc_opt_class());
+  v4 = +[PPLPeopleAppLauncher sharedLauncher];
+  v2 = [v1 initWithAppLauncher:v4];
+  v3 = sharedSceneManager___sharedSceneManager;
+  sharedSceneManager___sharedSceneManager = v2;
 }
 
 - (PPLPeopleAppSceneManager)initWithAppLauncher:(id)launcher
@@ -146,11 +146,11 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
   transaction = [(PPLPeopleAppSceneManager *)self transaction];
   [transaction removeObserver:self];
 
-  v6 = PPLPeopleViewServiceLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PPLPeopleViewServiceLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 0;
-    _os_log_impl(&dword_25E21C000, v6, OS_LOG_TYPE_DEFAULT, "scene invalidated", v19, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_25E21C000, v7, OS_LOG_TYPE_DEFAULT, "scene invalidated", v21, 2u);
   }
 
   sceneRequesters = [(PPLPeopleAppSceneManager *)self sceneRequesters];
@@ -159,10 +159,10 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
 
   if (lastObject)
   {
-    v10 = PPLPeopleViewServiceLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = PPLPeopleViewServiceLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(PPLPeopleAppSceneManager *)v10 sceneDidInvalidate:v11, v12, v13, v14, v15, v16, v17];
+      [(PPLPeopleAppSceneManager *)v12 sceneDidInvalidate:v13, v14, v15, v16, v17, v18, v19];
     }
 
     scene2 = [(PPLPeopleAppSceneManager *)self scene];
@@ -180,14 +180,14 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
 
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v8 = PPLPeopleViewServiceLog();
+  v8 = PPLPeopleViewServiceLog(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[PPLPeopleAppSceneManager scene:didUpdateClientSettingsWithDiff:oldClientSettings:transitionContext:]";
-    _os_log_impl(&dword_25E21C000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[PPLPeopleAppSceneManager scene:didUpdateClientSettingsWithDiff:oldClientSettings:transitionContext:]";
+    _os_log_impl(&dword_25E21C000, v8, OS_LOG_TYPE_DEFAULT, "%s", &v13, 0xCu);
   }
 
   objc_opt_class();
@@ -203,13 +203,11 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
       [lastObject sceneManager:self sceneDidRequestDismissal:scene];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)watchdogPolicyForProcess:(id)process eventContext:(id)context
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([contextCopy event] == 1 || objc_msgSend(contextCopy, "event") == 2)
   {
@@ -220,16 +218,21 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
   {
     v6 = MEMORY[0x277D0AD88];
     FBSProcessResourceAllowanceMakeWithRealTimeInterval();
-    v7 = [v6 provisionWithAllowance:v12];
+    v7 = [v6 provisionWithAllowance:v11];
     v8 = MEMORY[0x277D0AD98];
-    v13[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v5 = [v8 policyWithProvisions:v9];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
+}
+
+- (void)_launchPeopleAppIfNeededWithForegroundPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  peopleAppLauncher = [(PPLPeopleAppSceneManager *)self peopleAppLauncher];
+  [peopleAppLauncher launchPeopleAppIfNeededWithForegroundPriority:priorityCopy];
 }
 
 - (void)_configureSceneForRequester:(id)requester
@@ -239,13 +242,13 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
   scene = [(PPLPeopleAppSceneManager *)self scene];
   if (scene && (v6 = scene, -[PPLPeopleAppSceneManager scene](self, "scene"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isValid], v7, v6, (v8 & 1) != 0))
   {
-    v9 = PPLPeopleViewServiceLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PPLPeopleViewServiceLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       scene2 = [(PPLPeopleAppSceneManager *)self scene];
       v12 = 138412290;
       v13 = scene2;
-      _os_log_impl(&dword_25E21C000, v9, OS_LOG_TYPE_DEFAULT, "Current scene %@", &v12, 0xCu);
+      _os_log_impl(&dword_25E21C000, v10, OS_LOG_TYPE_DEFAULT, "Current scene %@", &v12, 0xCu);
     }
 
     [(PPLPeopleAppSceneManager *)self _updateSceneSettingsForRequester:requesterCopy];
@@ -255,8 +258,6 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
   {
     [(PPLPeopleAppSceneManager *)self _createSceneForRequester:requesterCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createSceneForRequester:(id)requester
@@ -277,7 +278,7 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
 
   if (transaction)
   {
-    personURL = PPLPeopleViewServiceLog();
+    personURL = PPLPeopleViewServiceLog(v7);
     if (os_log_type_enabled(personURL, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
@@ -288,109 +289,109 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
   else
   {
     personURL = [requesterCopy personURL];
-    v8 = PPLPeopleViewServiceLog();
-    v9 = v8;
+    v9 = PPLPeopleViewServiceLog(personURL);
+    v10 = v9;
     if (personURL)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_25E21C000, v9, OS_LOG_TYPE_DEFAULT, "setup new transaction", &buf, 2u);
+        _os_log_impl(&dword_25E21C000, v10, OS_LOG_TYPE_DEFAULT, "setup new transaction", &buf, 2u);
       }
 
-      v10 = objc_alloc(MEMORY[0x277D0AA80]);
-      v11 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.PeopleViewService"];
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke;
-      v63[3] = &unk_279A0DCF8;
-      v63[4] = self;
-      v63[5] = v5;
-      v12 = [v10 initWithProcessIdentity:v11 executionContextProvider:v63];
-      [(PPLPeopleAppSceneManager *)self setTransaction:v12];
+      v11 = objc_alloc(MEMORY[0x277D0AA80]);
+      v12 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.PeopleViewService"];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke;
+      v64[3] = &unk_279A0DCF8;
+      v64[4] = self;
+      v64[5] = v5;
+      v13 = [v11 initWithProcessIdentity:v12 executionContextProvider:v64];
+      [(PPLPeopleAppSceneManager *)self setTransaction:v13];
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter addObserver:self selector:sel__updateTraitCollection name:*MEMORY[0x277D77548] object:0];
 
       objc_initWeak(&buf, self);
       transaction2 = [(PPLPeopleAppSceneManager *)self transaction];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke_2;
-      v59[3] = &unk_279A0DD48;
-      objc_copyWeak(&v61, &buf);
-      v15 = requesterCopy;
-      v60 = v15;
-      [transaction2 setCompletionBlock:v59];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke_2;
+      v60[3] = &unk_279A0DD48;
+      objc_copyWeak(&v62, &buf);
+      v16 = requesterCopy;
+      v61 = v16;
+      [transaction2 setCompletionBlock:v60];
 
-      v56 = objc_alloc_init(PPLPeopleEntitySceneSpecification);
-      v16 = objc_alloc_init([(PPLPeopleEntitySceneSpecification *)v56 settingsClass]);
-      v17 = [v16 mutableCopy];
+      v57 = objc_alloc_init(PPLPeopleEntitySceneSpecification);
+      v17 = objc_alloc_init([(PPLPeopleEntitySceneSpecification *)v57 settingsClass]);
+      v18 = [v17 mutableCopy];
 
       mainConfiguration = [MEMORY[0x277D0AA90] mainConfiguration];
-      [v17 setDisplayConfiguration:mainConfiguration];
+      [v18 setDisplayConfiguration:mainConfiguration];
 
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       traitCollection = [mainScreen traitCollection];
-      [v17 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
+      [v18 setUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
 
-      [v17 setForeground:requesterCopy != 0];
+      [v18 setForeground:requesterCopy != 0];
       if (requesterCopy)
       {
-        [v15 initialSceneFrame];
-        v22 = v21;
-        v24 = v23;
-        [v15 sceneSafeAreaInsetPortrait];
-        v26 = v25;
-        v28 = v27;
-        v30 = v29;
-        v32 = v31;
+        [v16 initialSceneFrame];
+        v23 = v22;
+        v25 = v24;
+        [v16 sceneSafeAreaInsetPortrait];
+        v27 = v26;
+        v29 = v28;
+        v31 = v30;
+        v33 = v32;
       }
 
       else
       {
         mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
         [mainScreen2 bounds];
-        v22 = v41;
-        v24 = v42;
-        v26 = *MEMORY[0x277D768C8];
-        v28 = *(MEMORY[0x277D768C8] + 8);
-        v30 = *(MEMORY[0x277D768C8] + 16);
-        v32 = *(MEMORY[0x277D768C8] + 24);
+        v23 = v42;
+        v25 = v43;
+        v27 = *MEMORY[0x277D768C8];
+        v29 = *(MEMORY[0x277D768C8] + 8);
+        v31 = *(MEMORY[0x277D768C8] + 16);
+        v33 = *(MEMORY[0x277D768C8] + 24);
       }
 
-      [v17 setFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), v22, v24}];
-      [v17 setInterfaceOrientationMode:0];
-      [v17 setInterfaceOrientation:1];
-      [v17 setForcedStatusBarForegroundTransparent:1];
-      [v17 setSafeAreaInsetsPortrait:{v26, v28, v30, v32}];
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke_18;
-      v57[3] = &unk_279A0DD70;
-      v55 = v17;
-      v58 = v55;
-      v43 = MEMORY[0x25F8AFCD0](v57);
-      v43[2](v43, 1);
-      v43[2](v43, 2);
-      v43[2](v43, 4);
-      v43[2](v43, 3);
-      v44 = objc_alloc_init([(UIApplicationSceneSpecification *)v56 clientSettingsClass]);
-      v45 = [v44 mutableCopy];
+      [v18 setFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), v23, v25}];
+      [v18 setInterfaceOrientationMode:0];
+      [v18 setInterfaceOrientation:1];
+      [v18 setForcedStatusBarForegroundTransparent:1];
+      [v18 setSafeAreaInsetsPortrait:{v27, v29, v31, v33}];
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke_18;
+      v58[3] = &unk_279A0DD70;
+      v56 = v18;
+      v59 = v56;
+      v44 = MEMORY[0x25F8AFCD0](v58);
+      v44[2](v44, 1);
+      v44[2](v44, 2);
+      v44[2](v44, 4);
+      v44[2](v44, 3);
+      v45 = objc_alloc_init([(UIApplicationSceneSpecification *)v57 clientSettingsClass]);
+      v46 = [v45 mutableCopy];
 
-      [v45 setStatusBarHidden:1];
-      [v45 setSupportedInterfaceOrientations:2];
-      v46 = [objc_alloc(MEMORY[0x277D0AD50]) initWithSpecification:v56];
-      [v46 setSettings:v55];
-      [v46 setClientSettings:v45];
-      v47 = [objc_alloc(MEMORY[0x277D757D0]) initWithURL:personURL];
-      v48 = objc_alloc_init([(UIApplicationSceneSpecification *)v56 transitionContextClass]);
-      v49 = [MEMORY[0x277CBEB98] setWithObject:v47];
-      [v48 setActions:v49];
+      [v46 setStatusBarHidden:1];
+      [v46 setSupportedInterfaceOrientations:2];
+      v47 = [objc_alloc(MEMORY[0x277D0AD50]) initWithSpecification:v57];
+      [v47 setSettings:v56];
+      [v47 setClientSettings:v46];
+      v48 = [objc_alloc(MEMORY[0x277D757D0]) initWithURL:personURL];
+      v49 = objc_alloc_init([(UIApplicationSceneSpecification *)v57 transitionContextClass]);
+      v50 = [MEMORY[0x277CBEB98] setWithObject:v48];
+      [v49 setActions:v50];
 
       transaction3 = [(PPLPeopleAppSceneManager *)self transaction];
-      v51 = [MEMORY[0x277D0ADC0] identityForIdentifier:@"com.apple.PeopleViewService" workspaceIdentifier:@"com.apple.PeopleViewService"];
-      [transaction3 updateSceneWithIdentity:v51 parameters:v46 transitionContext:v48];
+      v52 = [MEMORY[0x277D0ADC0] identityForIdentifier:@"com.apple.PeopleViewService" workspaceIdentifier:@"com.apple.PeopleViewService"];
+      [transaction3 updateSceneWithIdentity:v52 parameters:v47 transitionContext:v49];
 
       transaction4 = [(PPLPeopleAppSceneManager *)self transaction];
       [transaction4 addObserver:self];
@@ -401,15 +402,15 @@ void __46__PPLPeopleAppSceneManager_sharedSceneManager__block_invoke(uint64_t a1
       transaction6 = [(PPLPeopleAppSceneManager *)self transaction];
       [transaction6 setWaitsForSceneCommits:1];
 
-      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v62);
       objc_destroyWeak(&buf);
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(PPLPeopleAppSceneManager *)v9 _createSceneForRequester:v33, v34, v35, v36, v37, v38, v39];
+        [(PPLPeopleAppSceneManager *)v10 _createSceneForRequester:v34, v35, v36, v37, v38, v39, v40];
       }
     }
   }
@@ -427,8 +428,7 @@ id __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke(uint64
 void __53__PPLPeopleAppSceneManager__createSceneForRequester___block_invoke_2(uint64_t a1, char a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained setTransaction:0];
-  v5 = PPLPeopleViewServiceLog();
+  v5 = PPLPeopleViewServiceLog([WeakRetained setTransaction:0]);
   v6 = v5;
   if (a2)
   {
@@ -535,7 +535,7 @@ void __61__PPLPeopleAppSceneManager__updateSceneSettingsForRequester___block_inv
 
 - (void)_sendSceneToBackground
 {
-  v3 = PPLPeopleViewServiceLog();
+  v3 = PPLPeopleViewServiceLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

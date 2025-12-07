@@ -84,22 +84,20 @@
 
 + (id)appendBundleIdentifierIfNecessary:(id)necessary toPath:(id)path
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = pathCopy;
   if (necessary)
   {
-    v13[0] = @"/";
-    v13[1] = necessary;
+    v12[0] = @"/";
+    v12[1] = necessary;
     v7 = MEMORY[0x277CBEA60];
     necessaryCopy = necessary;
-    v9 = [v7 arrayWithObjects:v13 count:2];
+    v9 = [v7 arrayWithObjects:v12 count:2];
 
     v10 = [v9 componentsJoinedByString:&stru_28635B3F0];
     v6 = [pathCopy stringByAppendingString:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

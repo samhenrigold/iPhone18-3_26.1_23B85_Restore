@@ -41,7 +41,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getDisplayNamesForBundleID: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_1002406D8(v11, dCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -65,7 +65,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getDisplayNamesForBundleURL: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_100240B70(v11, lCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -89,7 +89,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getEmailAddressForBundleID: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_100240EAC(v11, dCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -113,7 +113,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getEmailAddressForBundleURL: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_1002411B0(v11, lCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -137,7 +137,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getFeedbackMetadataForBundleID: %{public}@ for client: %{public}@", &v12, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   sub_1002414B4(v11, dCopy, v7, handlerCopy);
 }
 
@@ -160,7 +160,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getFeedbackMetadataForBundleURL: %{public}@ for client: %{public}@", &v12, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100241884(v11, lCopy, v7, handlerCopy);
 }
 
@@ -183,7 +183,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getLaunchInfoForBundleID: %{public}@ for client: %{public}@", &v12, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100241C54(v11, dCopy, v7, handlerCopy);
 }
 
@@ -206,7 +206,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getLaunchInfoForBundleURL: %{public}@ for client: %{public}@", &v12, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   sub_1002420A4(v11, lCopy, v7, handlerCopy);
 }
 
@@ -229,7 +229,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ getLaunchInfoForVersion: %{public}@ for client: %{public}@", &v12, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   sub_1002424F4(v11, versionCopy, v7, handlerCopy);
 }
 
@@ -252,7 +252,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ isFeedbackEnabledForBundleID: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_1002427A4(v11, dCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -276,7 +276,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ isFeedbackEnabledForBundleURL: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_100242AC4(v11, lCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -300,7 +300,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ isLaunchScreenEnabledForBundleID: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_100242CE4(v11, dCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -324,7 +324,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ isLaunchScreenEnabledForBundleURL: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_1002404C0();
+  v11 = sub_1002404C0(TestFlightFeedbackManager);
   v12 = sub_100242F8C(v11, lCopy, v7);
   handlerCopy[2](handlerCopy, v12);
 }
@@ -348,7 +348,7 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ setFeedbackEnabled:forVersion: %{public}@ for client: %{public}@", &v14, 0x20u);
   }
 
-  v13 = sub_1002404C0();
+  v13 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100243D30(v13, enabled, versionCopy, v9, handlerCopy);
 }
 
@@ -372,7 +372,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ setLaunchInfo: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v12 = sub_1002404C0();
+  v12 = sub_1002404C0(TestFlightFeedbackManager);
   sub_10024412C(v12, infoCopy, v7, handlerCopy);
 }
 
@@ -395,7 +395,7 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ setLaunchScreenEnabled:forVersion: %{public}@ for client: %{public}@", &v14, 0x20u);
   }
 
-  v13 = sub_1002404C0();
+  v13 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100244530(v13, enabled, versionCopy, v9, handlerCopy);
 }
 
@@ -419,7 +419,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ submitFeedback: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v12 = sub_1002404C0();
+  v12 = sub_1002404C0(TestFlightFeedbackManager);
   sub_10024492C(v12, feedbackCopy, v7, handlerCopy);
 }
 
@@ -443,7 +443,7 @@
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ submitFeedback:bundleURL %{public}@ for client: %{public}@", &v15, 0x20u);
   }
 
-  v14 = sub_1002404C0();
+  v14 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100245288(v14, feedbackCopy, lCopy, v10, handlerCopy);
 }
 
@@ -467,7 +467,7 @@
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ updateTestNotes:forVersion: %{public}@ for client: %{public}@", &v15, 0x20u);
   }
 
-  v14 = sub_1002404C0();
+  v14 = sub_1002404C0(TestFlightFeedbackManager);
   sub_1002453AC(v14, notesCopy, versionCopy, v10, handlerCopy);
 }
 

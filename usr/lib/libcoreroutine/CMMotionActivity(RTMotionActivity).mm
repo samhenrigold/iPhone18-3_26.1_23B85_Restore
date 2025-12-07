@@ -1,7 +1,7 @@
 @interface CMMotionActivity(RTMotionActivity)
+- (char)rtMotionActivityConfidence;
 - (id)description;
 - (uint64_t)rtMotionActivityType;
-- (unint64_t)rtMotionActivityConfidence;
 @end
 
 @implementation CMMotionActivity(RTMotionActivity)
@@ -89,12 +89,12 @@
   return 6;
 }
 
-- (unint64_t)rtMotionActivityConfidence
+- (char)rtMotionActivityConfidence
 {
   confidence = [self confidence];
   if (confidence < 3)
   {
-    return confidence + 1;
+    return (confidence + 1);
   }
 
   else

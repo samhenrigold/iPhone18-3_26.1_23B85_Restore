@@ -16,9 +16,9 @@
 
 - (void)run
 {
-  objc_opt_self();
-  v2 = sub_10029869C();
-  sub_100299BA0(v2);
+  v2 = objc_opt_self();
+  v3 = sub_10029869C(v2);
+  sub_100299BA0(v3);
 }
 
 - (_TtC9appstored19CacheDeleteActivity)init

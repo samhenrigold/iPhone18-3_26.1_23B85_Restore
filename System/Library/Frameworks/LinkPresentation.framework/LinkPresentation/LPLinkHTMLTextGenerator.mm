@@ -51,29 +51,29 @@
 {
   propertiesCopy = properties;
   lCopy = l;
-  LPWebLock(lCopy, v7);
-  v8 = objc_alloc_init(MEMORY[0x1E69E2FB8]);
+  LPWebLock();
+  v7 = objc_alloc_init(MEMORY[0x1E69E2FB8]);
   webView = self->_webView;
-  self->_webView = v8;
+  self->_webView = v7;
 
   mainFrame = [(WebView *)self->_webView mainFrame];
   [mainFrame loadHTMLString:&stru_1F2447CF0 baseURL:0];
 
-  v11 = [LPLinkHTMLGenerator alloc];
+  v10 = [LPLinkHTMLGenerator alloc];
   mainFrame2 = [(WebView *)self->_webView mainFrame];
   dOMDocument = [mainFrame2 DOMDocument];
   if (propertiesCopy)
   {
-    v14 = [(LPLinkHTMLGenerator *)v11 initWithPresentationProperties:propertiesCopy URL:lCopy document:dOMDocument];
+    v13 = [(LPLinkHTMLGenerator *)v10 initWithPresentationProperties:propertiesCopy URL:lCopy document:dOMDocument];
   }
 
   else
   {
-    v14 = [(LPLinkHTMLGenerator *)v11 initWithURL:lCopy document:dOMDocument];
+    v13 = [(LPLinkHTMLGenerator *)v10 initWithURL:lCopy document:dOMDocument];
   }
 
   DOMGenerator = self->_DOMGenerator;
-  self->_DOMGenerator = v14;
+  self->_DOMGenerator = v13;
 
   [(LPLinkHTMLGenerator *)self->_DOMGenerator setDelegate:self];
 }
@@ -87,7 +87,7 @@
 
 - (void)_generateDOMDocumentBody
 {
-  LPWebLock(self, a2);
+  LPWebLock();
   documentFragment = [(LPLinkHTMLGenerator *)self->_DOMGenerator documentFragment];
   mainFrame = [(WebView *)self->_webView mainFrame];
   dOMDocument = [mainFrame DOMDocument];

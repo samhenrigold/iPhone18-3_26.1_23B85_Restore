@@ -242,7 +242,7 @@
 
 - (uint64_t)setStartSampleIndex:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -254,17 +254,17 @@
     {
       if (a2 >= 0x3FFFFFFF)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "startSampleIndex is %lu", buf, 0xCu);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "startSampleIndex is %lu", buf, 0xCu);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(851, "startSampleIndex is %lu", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(851, "startSampleIndex is %lu", a2);
         _os_crash();
         __break(1u);
       }
@@ -275,13 +275,12 @@
     *(result + 12) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)setEndSampleIndex:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -293,17 +292,17 @@
     {
       if (a2 >= 0x3FFFFFFF)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "endSampleIndex is %lu", buf, 0xCu);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "endSampleIndex is %lu", buf, 0xCu);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(866, "endSampleIndex is %lu", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(866, "endSampleIndex is %lu", a2);
         _os_crash();
         __break(1u);
       }
@@ -314,13 +313,12 @@
     *(result + 16) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)setCpuNum:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == -1)
@@ -332,17 +330,17 @@
     {
       if (a2 >= 0xFF)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "cpuNum is %u", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "cpuNum is %u", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(885, "cpuNum is %u", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(885, "cpuNum is %u", a2);
         _os_crash();
         __break(1u);
       }
@@ -353,13 +351,12 @@
     *(result + 8) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (int)setBasePriority:(int *)result
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = a2;
@@ -370,9 +367,9 @@
       v5 = _sa_logt();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7[0] = 67109120;
-        v7[1] = v2;
-        _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "basePriority %d", v7, 8u);
+        v6[0] = 67109120;
+        v6[1] = v2;
+        _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "basePriority %d", v6, 8u);
       }
 
       result = __error();
@@ -383,13 +380,12 @@
     *(v3 + 9) = v2;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (int)setScheduledPriority:(int *)result
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = a2;
@@ -400,9 +396,9 @@
       v5 = _sa_logt();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7[0] = 67109120;
-        v7[1] = v2;
-        _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "scheduledPriority %d", v7, 8u);
+        v6[0] = 67109120;
+        v6[1] = v2;
+        _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "scheduledPriority %d", v6, 8u);
       }
 
       result = __error();
@@ -413,7 +409,6 @@
     *(v3 + 10) = v2;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -432,7 +427,7 @@
 
 - (uint64_t)setThreadQos:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -444,17 +439,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadQos %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadQos %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(938, "threadQos %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(938, "threadQos %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -465,7 +460,6 @@
     *(result + 11) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -484,7 +478,7 @@
 
 - (uint64_t)setThreadRequestedQos:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -496,17 +490,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadRequestedQos %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadRequestedQos %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(939, "threadRequestedQos %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(939, "threadRequestedQos %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -517,7 +511,6 @@
     *(result + 11) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -536,7 +529,7 @@
 
 - (uint64_t)setThreadRequestedQosOverride:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -548,17 +541,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadRequestedQosOverride %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadRequestedQosOverride %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(940, "threadRequestedQosOverride %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(940, "threadRequestedQosOverride %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -569,7 +562,6 @@
     *(result + 21) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -588,7 +580,7 @@
 
 - (uint64_t)setThreadQosPromote:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -600,17 +592,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadQosPromote %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadQosPromote %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(941, "threadQosPromote %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(941, "threadQosPromote %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -621,7 +613,6 @@
     *(result + 21) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -640,7 +631,7 @@
 
 - (uint64_t)setThreadQosKEventOverride:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -652,17 +643,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadQosKEventOverride %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadQosKEventOverride %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(942, "threadQosKEventOverride %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(942, "threadQosKEventOverride %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -673,7 +664,6 @@
     *(result + 22) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -692,7 +682,7 @@
 
 - (uint64_t)setThreadQosWorkQueueOverride:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -704,17 +694,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadQosWorkQueueOverride %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadQosWorkQueueOverride %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(943, "threadQosWorkQueueOverride %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(943, "threadQosWorkQueueOverride %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -725,7 +715,6 @@
     *(result + 22) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -744,7 +733,7 @@
 
 - (uint64_t)setThreadQosWorkloopServicerOverride:(uint64_t)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     if (a2 == 125)
@@ -756,17 +745,17 @@
     {
       if (a2 >= 7)
       {
-        v5 = *__error();
-        v6 = _sa_logt();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = *__error();
+        v5 = _sa_logt();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v14 = a2;
-          _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "threadQosWorkloopServicerOverride %d", buf, 8u);
+          v7 = a2;
+          _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "threadQosWorkloopServicerOverride %d", buf, 8u);
         }
 
-        *__error() = v5;
-        _SASetCrashLogMessage(944, "threadQosWorkloopServicerOverride %d", v7, v8, v9, v10, v11, v12, a2);
+        *__error() = v4;
+        _SASetCrashLogMessage(944, "threadQosWorkloopServicerOverride %d", a2);
         _os_crash();
         __break(1u);
       }
@@ -777,7 +766,6 @@
     *(result + 23) = v3;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -791,22 +779,22 @@
 
 - (unint64_t)sampleCountInSampleIndexRangeStart:(unint64_t)start end:(unint64_t)end
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (start != 0x7FFFFFFFFFFFFFFFLL && end != 0x7FFFFFFFFFFFFFFFLL && start > end)
   {
-    v20 = *__error();
+    v19 = *__error();
     p_super = _sa_logt();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       startCopy = start;
-      v39 = 2048;
+      v25 = 2048;
       endCopy = end;
       _os_log_error_impl(&dword_1E0E2F000, p_super, OS_LOG_TYPE_ERROR, "startSampleIndexCap %lu > endSampleIndexCap %lu", buf, 0x16u);
     }
 
-    *__error() = v20;
-    _SASetCrashLogMessage(1057, "startSampleIndexCap %lu > endSampleIndexCap %lu", v21, v22, v23, v24, v25, v26, start);
+    *__error() = v19;
+    _SASetCrashLogMessage(1057, "startSampleIndexCap %lu > endSampleIndexCap %lu", start, end);
     _os_crash();
     __break(1u);
     goto LABEL_29;
@@ -817,26 +805,24 @@
   endSampleIndex = [p_super endSampleIndex];
   if (startSampleIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
-    result = endSampleIndex == 0x7FFFFFFFFFFFFFFFLL;
-    goto LABEL_25;
+    return endSampleIndex == 0x7FFFFFFFFFFFFFFFLL;
   }
 
   if (endSampleIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_29:
-    v27 = *__error();
-    v28 = _sa_logt();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v20 = *__error();
+    v21 = _sa_logt();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       startSampleIndex2 = [p_super startSampleIndex];
       *buf = 134217984;
       startCopy = startSampleIndex2;
-      _os_log_error_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_ERROR, "endSampleIndex NSNotFound, startSampleIndex %lu", buf, 0xCu);
+      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "endSampleIndex NSNotFound, startSampleIndex %lu", buf, 0xCu);
     }
 
-    *__error() = v27;
-    startSampleIndex3 = [p_super startSampleIndex];
-    _SASetCrashLogMessage(1060, "endSampleIndex NSNotFound, startSampleIndex %lu", v31, v32, v33, v34, v35, v36, startSampleIndex3);
+    *__error() = v20;
+    _SASetCrashLogMessage(1060, "endSampleIndex NSNotFound, startSampleIndex %lu", [p_super startSampleIndex]);
     _os_crash();
     __break(1u);
   }
@@ -862,37 +848,33 @@ LABEL_29:
     v14 = endCopy2;
   }
 
-  startSampleIndex4 = [p_super startSampleIndex];
-  if (startSampleIndex4 <= start)
+  startSampleIndex3 = [p_super startSampleIndex];
+  if (startSampleIndex3 <= start)
   {
     startCopy2 = start;
   }
 
   else
   {
-    startCopy2 = startSampleIndex4;
+    startCopy2 = startSampleIndex3;
   }
 
   if (start == 0x7FFFFFFFFFFFFFFFLL)
   {
-    startCopy2 = startSampleIndex4;
+    startCopy2 = startSampleIndex3;
   }
 
   v17 = v14 >= startCopy2;
   v18 = v14 - startCopy2;
   if (v17)
   {
-    result = v18 + 1;
+    return v18 + 1;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-LABEL_25:
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (SAThreadState)initWithStartTimestamp:(id)timestamp endTimestamp:(id)endTimestamp startSampleIndex:(unint64_t)index endSampleIndex:(unint64_t)sampleIndex
@@ -1013,7 +995,6 @@ LABEL_25:
     else
     {
       v17->_systemTimeInNs = __udivti3();
-      v21 = v2->ths_user_time;
       ths_user_time = __udivti3();
     }
 
@@ -1031,18 +1012,18 @@ LABEL_25:
     *(v18 + 24) = v2->ths_io_tier;
     if (v2->ths_last_run_time + 1 >= 2)
     {
-      v22 = [SATimestamp timestampWithMachAbsTime:"timestampWithMachAbsTime:machAbsTimeSec:machContTime:machContTimeSec:wallTime:" machAbsTimeSec:0.0 machContTime:0.0 machContTimeSec:0.0 wallTime:?];
-      v23 = *(v18 + 168);
-      *(v18 + 168) = v22;
+      v21 = [SATimestamp timestampWithMachAbsTime:"timestampWithMachAbsTime:machAbsTimeSec:machContTime:machContTimeSec:wallTime:" machAbsTimeSec:0.0 machContTime:0.0 machContTimeSec:0.0 wallTime:?];
+      v22 = *(v18 + 168);
+      *(v18 + 168) = v21;
 
       [*(v18 + 168) guessMissingTimesBasedOnTimestamp:timestamp];
     }
 
     if (v2->ths_last_made_runnable_time + 1 >= 2)
     {
-      v24 = [SATimestamp timestampWithMachAbsTime:"timestampWithMachAbsTime:machAbsTimeSec:machContTime:machContTimeSec:wallTime:" machAbsTimeSec:0.0 machContTime:0.0 machContTimeSec:0.0 wallTime:?];
-      v25 = *(v18 + 176);
-      *(v18 + 176) = v24;
+      v23 = [SATimestamp timestampWithMachAbsTime:"timestampWithMachAbsTime:machAbsTimeSec:machContTime:machContTimeSec:wallTime:" machAbsTimeSec:0.0 machContTime:0.0 machContTimeSec:0.0 wallTime:?];
+      v24 = *(v18 + 176);
+      *(v18 + 176) = v23;
 
       [*(v18 + 176) guessMissingTimesBasedOnTimestamp:timestamp];
     }
@@ -1096,9 +1077,9 @@ LABEL_19:
       if ((ths_ss_flags & 0x800) == 0)
       {
 LABEL_21:
-        v27 = [name copy];
-        v28 = *(v18 + 104);
-        *(v18 + 104) = v27;
+        v26 = [name copy];
+        v27 = *(v18 + 104);
+        *(v18 + 104) = v26;
 
         return v18;
       }
@@ -1320,7 +1301,6 @@ LABEL_13:
   else
   {
     v13->_systemTimeInNs = __udivti3();
-    v17 = *(&v1->var5 + 4);
     v16 = __udivti3();
   }
 
@@ -1386,13 +1366,13 @@ LABEL_15:
     *(v14 + 19) |= 0x40u;
   }
 
-  v20 = BYTE4(v1->var33);
-  v19 = &v1->var33 + 4;
-  if (v20)
+  v19 = BYTE4(v1->var33);
+  v18 = &v1->var33 + 4;
+  if (v19)
   {
-    v21 = SANSStringForCString(v19);
-    v22 = *(v14 + 104);
-    *(v14 + 104) = v21;
+    v20 = SANSStringForCString(v18);
+    v21 = *(v14 + 104);
+    *(v14 + 104) = v20;
   }
 
   return v14;
@@ -1571,23 +1551,13 @@ LABEL_16:
 
 - (id)stackWithBacktraceStyle:(unint64_t)style ignoringKernelStackWithLeafFrame:(id)frame
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ((style & 0x19) == 0 && self->_leafKernelFrame != frame)
   {
     instruction = [frame instruction];
-    if (!instruction)
+    if (!instruction || (v18 = instruction, [frame instruction], v19 = objc_claimAutoreleasedReturnValue(), -[SAFrame instruction](self->_leafKernelFrame, "instruction"), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v19 != v20))
     {
-      goto LABEL_24;
-    }
-
-    v18 = instruction;
-    instruction2 = [frame instruction];
-    instruction3 = [(SAFrame *)self->_leafKernelFrame instruction];
-
-    if (instruction2 != instruction3)
-    {
-LABEL_24:
       v21 = self->_leafKernelFrame;
       if (v21)
       {
@@ -1604,33 +1574,33 @@ LABEL_24:
               v26 = v24;
               if (v24 && (v27 = objc_getProperty(v24, v25, 16, 1), v28 = [v27 count], v27, v28))
               {
-                v75 = 0u;
-                v76 = 0u;
-                v73 = 0u;
-                v74 = 0u;
-                v71 = v26;
+                v68 = 0u;
+                v69 = 0u;
+                v66 = 0u;
+                v67 = 0u;
+                v64 = v26;
                 v30 = objc_getProperty(v26, v29, 16, 1);
                 reverseObjectEnumerator = [v30 reverseObjectEnumerator];
 
-                v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v73 objects:v79 count:16];
+                v32 = [reverseObjectEnumerator countByEnumeratingWithState:&v66 objects:v72 count:16];
                 if (v32)
                 {
                   v34 = v32;
-                  v35 = *v74;
+                  v35 = *v67;
                   do
                   {
                     v36 = 0;
                     do
                     {
-                      if (*v74 != v35)
+                      if (*v67 != v35)
                       {
                         objc_enumerationMutation(reverseObjectEnumerator);
                       }
 
-                      v37 = *(*(&v73 + 1) + 8 * v36);
+                      v37 = *(*(&v66 + 1) + 8 * v36);
                       if (v37)
                       {
-                        Property = objc_getProperty(*(*(&v73 + 1) + 8 * v36), v33, 16, 1);
+                        Property = objc_getProperty(*(*(&v66 + 1) + 8 * v36), v33, 16, 1);
                       }
 
                       else
@@ -1690,7 +1660,7 @@ LABEL_24:
                     }
 
                     while (v36 != v34);
-                    v49 = [reverseObjectEnumerator countByEnumeratingWithState:&v73 objects:v79 count:16];
+                    v49 = [reverseObjectEnumerator countByEnumeratingWithState:&v66 objects:v72 count:16];
                     v34 = v49;
                   }
 
@@ -1698,7 +1668,7 @@ LABEL_24:
                 }
 
                 self = selfCopy;
-                v26 = v71;
+                v26 = v64;
               }
 
               else
@@ -1730,17 +1700,17 @@ LABEL_24:
   {
     if ((style & 8) != 0 && (style & 0x14) != 0)
     {
-      v62 = *__error();
-      v63 = _sa_logt();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v61 = *__error();
+      v62 = _sa_logt();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
         styleCopy2 = style;
-        _os_log_error_impl(&dword_1E0E2F000, v63, OS_LOG_TYPE_ERROR, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", buf, 0xCu);
+        _os_log_error_impl(&dword_1E0E2F000, v62, OS_LOG_TYPE_ERROR, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", buf, 0xCu);
       }
 
-      *__error() = v62;
-      _SASetCrashLogMessage(1736, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", v64, v65, v66, v67, v68, v69, style);
+      *__error() = v61;
+      _SASetCrashLogMessage(1736, "backtrace style specified both swift async only and prefer/only C root frames: 0x%llx", style);
       _os_crash();
       __break(1u);
     }
@@ -1845,8 +1815,6 @@ LABEL_62:
       [v7 addObject:v58];
     }
   }
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1979,28 +1947,26 @@ LABEL_62:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(SAThreadState *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v18 = *__error();
-    v19 = _sa_logt();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = *__error();
+    v18 = _sa_logt();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = [(SAThreadState *)self debugDescription];
+      v19 = [(SAThreadState *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v20 UTF8String];
-      v31 = 2048;
+      uTF8String = [v19 UTF8String];
+      v23 = 2048;
       sizeInBytesForSerializedVersion = [(SAThreadState *)self sizeInBytesForSerializedVersion];
-      v33 = 2048;
+      v25 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v18;
-    v21 = [(SAThreadState *)self debugDescription];
-    uTF8String2 = [v21 UTF8String];
-    [(SAThreadState *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(4857, "%s: size %lu != buffer length %lu", v23, v24, v25, v26, v27, v28, uTF8String2);
+    *__error() = v17;
+    v20 = [(SAThreadState *)self debugDescription];
+    _SASetCrashLogMessage(4857, "%s: size %lu != buffer length %lu", [v20 UTF8String], -[SAThreadState sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -2070,7 +2036,6 @@ LABEL_62:
   *(&buffer->var32 + 3) = [(SAThreadState *)self originPid];
   *(&buffer->var35 + 1) = [(SAThreadState *)self proximatePid];
   *(&buffer->var35 + 5) = SASerializableIndexForPointerFromSerializationDictionary(self->_exclavesInfo, dictionary);
-  v16 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -2105,7 +2070,7 @@ LABEL_62:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (*buffer >= 0xBu)
   {
     goto LABEL_52;
@@ -2113,35 +2078,35 @@ LABEL_62:
 
   if (length <= 0x93)
   {
-    v24 = *__error();
-    v25 = _sa_logt();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v23 = *__error();
+    v24 = _sa_logt();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 134218240;
-      *&v81[4] = length;
-      *&v81[12] = 2048;
-      *&v81[14] = 148;
-      _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState struct %lu", v81, 0x16u);
+      *v38 = 134218240;
+      *&v38[4] = length;
+      *&v38[12] = 2048;
+      *&v38[14] = 148;
+      _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState struct %lu", v38, 0x16u);
     }
 
-    *__error() = v24;
-    _SASetCrashLogMessage(4956, "bufferLength %lu < serialized SAThreadState struct %lu", v26, v27, v28, v29, v30, v31, length);
+    *__error() = v23;
+    _SASetCrashLogMessage(4956, "bufferLength %lu < serialized SAThreadState struct %lu", length, 148);
     _os_crash();
     __break(1u);
 LABEL_34:
-    v32 = *__error();
-    v33 = _sa_logt();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v25 = *__error();
+    v26 = _sa_logt();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 134218240;
-      *&v81[4] = length;
-      *&v81[12] = 2048;
-      *&v81[14] = 164;
-      _os_log_error_impl(&dword_1E0E2F000, v33, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v81, 0x16u);
+      *v38 = 134218240;
+      *&v38[4] = length;
+      *&v38[12] = 2048;
+      *&v38[14] = 164;
+      _os_log_error_impl(&dword_1E0E2F000, v26, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v38, 0x16u);
     }
 
-    *__error() = v32;
-    _SASetCrashLogMessage(5019, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v34, v35, v36, v37, v38, v39, length);
+    *__error() = v25;
+    _SASetCrashLogMessage(5019, "bufferLength %lu < serialized SAThreadState v3 struct %lu", length, 164);
     _os_crash();
     __break(1u);
     goto LABEL_37;
@@ -2164,35 +2129,35 @@ LABEL_34:
     if (length <= 0xA3)
     {
 LABEL_37:
-      v40 = *__error();
-      v41 = _sa_logt();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v27 = *__error();
+      v28 = _sa_logt();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        *v81 = 134218240;
-        *&v81[4] = length;
-        *&v81[12] = 2048;
-        *&v81[14] = 164;
-        _os_log_error_impl(&dword_1E0E2F000, v41, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v81, 0x16u);
+        *v38 = 134218240;
+        *&v38[4] = length;
+        *&v38[12] = 2048;
+        *&v38[14] = 164;
+        _os_log_error_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v38, 0x16u);
       }
 
-      *__error() = v40;
-      _SASetCrashLogMessage(4967, "bufferLength %lu < serialized SAThreadState v3 struct %lu", v42, v43, v44, v45, v46, v47, length);
+      *__error() = v27;
+      _SASetCrashLogMessage(4967, "bufferLength %lu < serialized SAThreadState v3 struct %lu", length, 164);
       _os_crash();
       __break(1u);
 LABEL_40:
-      v48 = *__error();
-      v49 = _sa_logt();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v29 = *__error();
+      v30 = _sa_logt();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        *v81 = 134218240;
-        *&v81[4] = length;
-        *&v81[12] = 2048;
-        *&v81[14] = 167;
-        _os_log_error_impl(&dword_1E0E2F000, v49, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v4 struct %lu", v81, 0x16u);
+        *v38 = 134218240;
+        *&v38[4] = length;
+        *&v38[12] = 2048;
+        *&v38[14] = 167;
+        _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v4 struct %lu", v38, 0x16u);
       }
 
-      *__error() = v48;
-      _SASetCrashLogMessage(5026, "bufferLength %lu < serialized SAThreadState v4 struct %lu", v50, v51, v52, v53, v54, v55, length);
+      *__error() = v29;
+      _SASetCrashLogMessage(5026, "bufferLength %lu < serialized SAThreadState v4 struct %lu", length, 167);
       _os_crash();
       __break(1u);
       goto LABEL_43;
@@ -2204,19 +2169,19 @@ LABEL_40:
       if (length <= 0xD6)
       {
 LABEL_43:
-        v56 = *__error();
-        v57 = _sa_logt();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v31 = *__error();
+        v32 = _sa_logt();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          *v81 = 134218240;
-          *&v81[4] = length;
-          *&v81[12] = 2048;
-          *&v81[14] = 215;
-          _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v10 struct %lu", v81, 0x16u);
+          *v38 = 134218240;
+          *&v38[4] = length;
+          *&v38[12] = 2048;
+          *&v38[14] = 215;
+          _os_log_error_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v10 struct %lu", v38, 0x16u);
         }
 
-        *__error() = v56;
-        _SASetCrashLogMessage(4974, "bufferLength %lu < serialized SAThreadState v10 struct %lu", v58, v59, v60, v61, v62, v63, length);
+        *__error() = v31;
+        _SASetCrashLogMessage(4974, "bufferLength %lu < serialized SAThreadState v10 struct %lu", length, 215);
         _os_crash();
         __break(1u);
         goto LABEL_46;
@@ -2233,9 +2198,9 @@ LABEL_12:
   if (v10)
   {
     v11 = *(buffer + 145);
-    *v81 = v10;
-    *&v81[8] = SAThreadStateMicrostackshot;
-    v12 = objc_msgSendSuper2(v81, sel_init);
+    *v38 = v10;
+    *&v38[8] = SAThreadStateMicrostackshot;
+    v12 = objc_msgSendSuper2(v38, sel_init);
     v6 = v12;
     if (v12)
     {
@@ -2293,7 +2258,7 @@ LABEL_15:
   *(v6 + 19) = *(v6 + 19) & 0xBF | (4 * *(buffer + 146)) & 0x40;
   if (*(buffer + 1) < 3u)
   {
-    goto LABEL_30;
+    return v6;
   }
 
   if (length <= 0xA3)
@@ -2304,7 +2269,7 @@ LABEL_15:
   [(SAThreadState *)v6 setCpuNum:?];
   if (*(buffer + 1) < 4u)
   {
-    goto LABEL_30;
+    return v6;
   }
 
   if (length <= 0xA6)
@@ -2318,46 +2283,46 @@ LABEL_15:
   v6->_ioTier = v6->_ioTier & 0xF7 | (*(buffer + 146) >> 2) & 8;
   if (*(buffer + 1) < 6u)
   {
-    goto LABEL_30;
+    return v6;
   }
 
   if (length <= 0xBA)
   {
 LABEL_46:
-    v64 = *__error();
-    v65 = _sa_logt();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v33 = *__error();
+    v34 = _sa_logt();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 134218240;
-      *&v81[4] = length;
-      *&v81[12] = 2048;
-      *&v81[14] = 187;
-      _os_log_error_impl(&dword_1E0E2F000, v65, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v6 struct %lu", v81, 0x16u);
+      *v38 = 134218240;
+      *&v38[4] = length;
+      *&v38[12] = 2048;
+      *&v38[14] = 187;
+      _os_log_error_impl(&dword_1E0E2F000, v34, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v6 struct %lu", v38, 0x16u);
     }
 
-    *__error() = v64;
-    _SASetCrashLogMessage(5036, "bufferLength %lu < serialized SAThreadState v6 struct %lu", v66, v67, v68, v69, v70, v71, length);
+    *__error() = v33;
+    _SASetCrashLogMessage(5036, "bufferLength %lu < serialized SAThreadState v6 struct %lu", length, 187);
     _os_crash();
     __break(1u);
 LABEL_49:
-    v72 = *__error();
-    v73 = _sa_logt();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+    v35 = *__error();
+    v36 = _sa_logt();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      *v81 = 134218240;
-      *&v81[4] = length;
-      *&v81[12] = 2048;
-      *&v81[14] = 191;
-      _os_log_error_impl(&dword_1E0E2F000, v73, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v7 struct %lu", v81, 0x16u);
+      *v38 = 134218240;
+      *&v38[4] = length;
+      *&v38[12] = 2048;
+      *&v38[14] = 191;
+      _os_log_error_impl(&dword_1E0E2F000, v36, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v7 struct %lu", v38, 0x16u);
     }
 
-    *__error() = v72;
-    _SASetCrashLogMessage(5043, "bufferLength %lu < serialized SAThreadState v7 struct %lu", v74, v75, v76, v77, v78, v79, length);
+    *__error() = v35;
+    _SASetCrashLogMessage(5043, "bufferLength %lu < serialized SAThreadState v7 struct %lu", length, 191);
     _os_crash();
     __break(1u);
 LABEL_52:
-    v80 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThreadState version" userInfo:0];
-    objc_exception_throw(v80);
+    v37 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThreadState version" userInfo:0];
+    objc_exception_throw(v37);
   }
 
   v6->_originPid = *(buffer + 183);
@@ -2366,20 +2331,18 @@ LABEL_52:
     if (length > 0xBE)
     {
       v6->_proximatePid = *(buffer + 187);
-      goto LABEL_30;
+      return v6;
     }
 
     goto LABEL_49;
   }
 
-LABEL_30:
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   if (*buffer >= 0xBu)
   {
     goto LABEL_30;
@@ -2387,22 +2350,88 @@ LABEL_30:
 
   if (length <= 0x93)
   {
+    v61 = *__error();
+    v62 = _sa_logt();
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      lengthCopy5 = length;
+      v74 = 2048;
+      v75 = 148;
+      _os_log_error_impl(&dword_1E0E2F000, v62, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState struct %lu", buf, 0x16u);
+    }
+
+    *__error() = v61;
+    _SASetCrashLogMessage(5056, "bufferLength %lu < serialized SAThreadState struct %lu", length, 148);
+    _os_crash();
+    __break(1u);
+LABEL_18:
     v63 = *__error();
     v64 = _sa_logt();
     if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy5 = length;
-      v106 = 2048;
-      v107 = 148;
-      _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState struct %lu", buf, 0x16u);
+      v74 = 2048;
+      v75 = 156;
+      _os_log_error_impl(&dword_1E0E2F000, v64, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v2 struct %lu", buf, 0x16u);
     }
 
     *__error() = v63;
-    _SASetCrashLogMessage(5056, "bufferLength %lu < serialized SAThreadState struct %lu", v65, v66, v67, v68, v69, v70, length);
+    _SASetCrashLogMessage(5073, "bufferLength %lu < serialized SAThreadState v2 struct %lu", length, 156);
     _os_crash();
     __break(1u);
-    goto LABEL_18;
+LABEL_21:
+    v65 = *__error();
+    v66 = _sa_logt();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      lengthCopy5 = length;
+      v74 = 2048;
+      v75 = 183;
+      _os_log_error_impl(&dword_1E0E2F000, v66, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v5 struct %lu", buf, 0x16u);
+    }
+
+    *__error() = v65;
+    _SASetCrashLogMessage(5079, "bufferLength %lu < serialized SAThreadState v5 struct %lu", length, 183);
+    _os_crash();
+    __break(1u);
+LABEL_24:
+    v67 = *__error();
+    v68 = _sa_logt();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      lengthCopy5 = length;
+      v74 = 2048;
+      v75 = 199;
+      _os_log_error_impl(&dword_1E0E2F000, v68, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v8 struct %lu", buf, 0x16u);
+    }
+
+    *__error() = v67;
+    _SASetCrashLogMessage(5087, "bufferLength %lu < serialized SAThreadState v8 struct %lu", length, 199);
+    _os_crash();
+    __break(1u);
+LABEL_27:
+    v69 = *__error();
+    v70 = _sa_logt();
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      lengthCopy5 = length;
+      v74 = 2048;
+      v75 = 207;
+      _os_log_error_impl(&dword_1E0E2F000, v70, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v9 struct %lu", buf, 0x16u);
+    }
+
+    *__error() = v69;
+    _SASetCrashLogMessage(5093, "bufferLength %lu < serialized SAThreadState v9 struct %lu", length, 207);
+    _os_crash();
+    __break(1u);
+LABEL_30:
+    v71 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThreadState version" userInfo:0];
+    objc_exception_throw(v71);
   }
 
   v11 = *(buffer + 2);
@@ -2454,30 +2483,12 @@ LABEL_30:
 
   if (*(buffer + 1) < 2u)
   {
-LABEL_14:
-    v62 = *MEMORY[0x1E69E9840];
     return;
   }
 
   if (length <= 0x9B)
   {
-LABEL_18:
-    v71 = *__error();
-    v72 = _sa_logt();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218240;
-      lengthCopy5 = length;
-      v106 = 2048;
-      v107 = 156;
-      _os_log_error_impl(&dword_1E0E2F000, v72, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v2 struct %lu", buf, 0x16u);
-    }
-
-    *__error() = v71;
-    _SASetCrashLogMessage(5073, "bufferLength %lu < serialized SAThreadState v2 struct %lu", v73, v74, v75, v76, v77, v78, length);
-    _os_crash();
-    __break(1u);
-    goto LABEL_21;
+    goto LABEL_18;
   }
 
   v42 = *(buffer + 148);
@@ -2488,28 +2499,12 @@ LABEL_18:
 
   if (*(buffer + 1) < 5u)
   {
-    goto LABEL_14;
+    return;
   }
 
   if (length <= 0xB6)
   {
-LABEL_21:
-    v79 = *__error();
-    v80 = _sa_logt();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218240;
-      lengthCopy5 = length;
-      v106 = 2048;
-      v107 = 183;
-      _os_log_error_impl(&dword_1E0E2F000, v80, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v5 struct %lu", buf, 0x16u);
-    }
-
-    *__error() = v79;
-    _SASetCrashLogMessage(5079, "bufferLength %lu < serialized SAThreadState v5 struct %lu", v81, v82, v83, v84, v85, v86, length);
-    _os_crash();
-    __break(1u);
-    goto LABEL_24;
+    goto LABEL_21;
   }
 
   v46 = *(buffer + 167);
@@ -2525,28 +2520,12 @@ LABEL_21:
 
   if (*(buffer + 1) < 8u)
   {
-    goto LABEL_14;
+    return;
   }
 
   if (length <= 0xC6)
   {
-LABEL_24:
-    v87 = *__error();
-    v88 = _sa_logt();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218240;
-      lengthCopy5 = length;
-      v106 = 2048;
-      v107 = 199;
-      _os_log_error_impl(&dword_1E0E2F000, v88, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v8 struct %lu", buf, 0x16u);
-    }
-
-    *__error() = v87;
-    _SASetCrashLogMessage(5087, "bufferLength %lu < serialized SAThreadState v8 struct %lu", v89, v90, v91, v92, v93, v94, length);
-    _os_crash();
-    __break(1u);
-    goto LABEL_27;
+    goto LABEL_24;
   }
 
   v53 = *(buffer + 191);
@@ -2557,30 +2536,12 @@ LABEL_24:
 
   if (*(buffer + 1) < 9u)
   {
-    goto LABEL_14;
+    return;
   }
 
   if (length <= 0xCE)
   {
-LABEL_27:
-    v95 = *__error();
-    v96 = _sa_logt();
-    if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218240;
-      lengthCopy5 = length;
-      v106 = 2048;
-      v107 = 207;
-      _os_log_error_impl(&dword_1E0E2F000, v96, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAThreadState v9 struct %lu", buf, 0x16u);
-    }
-
-    *__error() = v95;
-    _SASetCrashLogMessage(5093, "bufferLength %lu < serialized SAThreadState v9 struct %lu", v97, v98, v99, v100, v101, v102, length);
-    _os_crash();
-    __break(1u);
-LABEL_30:
-    v103 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAThreadState version" userInfo:0];
-    objc_exception_throw(v103);
+    goto LABEL_27;
   }
 
   v57 = *(buffer + 199);
@@ -2588,7 +2549,6 @@ LABEL_30:
   v59 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v57, dictionary, bufferDictionary, v58, 0);
   timestampLastRan = self->_timestampLastRan;
   self->_timestampLastRan = v59;
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 + (id)stateWithoutReferencesFromPAStyleSerializedThread:(uint64_t)thread

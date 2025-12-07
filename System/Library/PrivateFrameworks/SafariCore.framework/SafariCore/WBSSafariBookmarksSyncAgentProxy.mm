@@ -2,6 +2,7 @@
 + (id)sharedProxy;
 - (WBSSafariBookmarksSyncAgentProxy)init;
 - (void)beginMigrationFromDAV;
+- (void)clearLocalDataIncludingMigrationState:(BOOL)state completionHandler:(id)handler;
 - (void)clearServerChangeTokenWithCompletionHandler:(id)handler;
 - (void)collectDiagnosticsDataWithCompletionHandler:(id)handler;
 - (void)dealloc;
@@ -13,6 +14,7 @@
 - (void)deleteDevicesWithUUIDStrings:(id)strings completionHandler:(id)handler;
 - (void)deletePerSiteSettingsSyncData;
 - (void)deleteTabGroupEntitiesWithUUIDStrings:(id)strings completionHandler:(id)handler;
+- (void)dumpCloudKitDataPrintByDates:(BOOL)dates liveOnly:(BOOL)only printTree:(BOOL)tree printPlist:(BOOL)plist writeToFile:(BOOL)file atFileURL:(id)l completionHandler:(id)handler;
 - (void)fetchCloudSettingsChangesImmediately;
 - (void)fetchCloudTabDevicesAndCloseRequests;
 - (void)fetchProfileEntitiesWithCompletion:(id)completion;
@@ -34,6 +36,8 @@
 - (void)saveExtensionDeviceWithDictionaryRepresentation:(id)representation completionHandler:(id)handler;
 - (void)saveExtensionStatesWithDictionaryRepresentation:(id)representation forDevice:(id)device completionHandler:(id)handler;
 - (void)saveTabsForCurrentDeviceWithDictionaryRepresentation:(id)representation deviceUUIDString:(id)string completionHandler:(id)handler;
+- (void)scheduleCloudBackgroundImageSaveWithURL:(id)l isLightAppearance:(BOOL)appearance successCompletionHandler:(id)handler;
+- (void)setUsesOpportunisticPushTopic:(BOOL)topic;
 - (void)syncDownSafariPerSiteSettingsSyncWithCompletion:(id)completion;
 - (void)syncDownSafariSettingsSyncWithCompletion:(id)completion;
 - (void)syncScribbleFeedbackUp:(id)up withCompletion:(id)completion;
@@ -69,10 +73,10 @@ void __47__WBSSafariBookmarksSyncAgentProxy_sharedProxy__block_invoke()
 
 - (WBSSafariBookmarksSyncAgentProxy)init
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = WBSSafariBookmarksSyncAgentProxy;
-  v2 = [(WBSSafariBookmarksSyncAgentProxy *)&v15 init];
+  v15[2] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = WBSSafariBookmarksSyncAgentProxy;
+  v2 = [(WBSSafariBookmarksSyncAgentProxy *)&v14 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.SafariBookmarksSyncAgent" options:0];
@@ -81,9 +85,9 @@ void __47__WBSSafariBookmarksSyncAgentProxy_sharedProxy__block_invoke()
 
     v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F30A1300];
     v6 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v8 = [v6 setWithArray:v7];
 
     [v5 setClasses:v8 forSelector:sel_fetchSyncedCloudTabDevicesAndCloseRequestsWithCompletionHandler_ argumentIndex:0 ofReply:1];
@@ -91,19 +95,18 @@ void __47__WBSSafariBookmarksSyncAgentProxy_sharedProxy__block_invoke()
     [v5 setClasses:v8 forSelector:sel_getCloudTabDevicesWithCompletionHandler_ argumentIndex:0 ofReply:1];
     [(NSXPCConnection *)v2->_safariBookmarksSyncAgentConnection setRemoteObjectInterface:v5];
     objc_initWeak(&location, v2);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __40__WBSSafariBookmarksSyncAgentProxy_init__block_invoke;
-    v12[3] = &unk_1E7CF15E8;
-    objc_copyWeak(&v13, &location);
-    [(NSXPCConnection *)v2->_safariBookmarksSyncAgentConnection setInvalidationHandler:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __40__WBSSafariBookmarksSyncAgentProxy_init__block_invoke;
+    v11[3] = &unk_1E7CF15E8;
+    objc_copyWeak(&v12, &location);
+    [(NSXPCConnection *)v2->_safariBookmarksSyncAgentConnection setInvalidationHandler:v11];
     [(NSXPCConnection *)v2->_safariBookmarksSyncAgentConnection resume];
     v9 = v2;
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -150,6 +153,14 @@ void __40__WBSSafariBookmarksSyncAgentProxy_init__block_invoke(uint64_t a1)
   _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
   remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
   [remoteObjectProxy registerForPushNotificationsIfNeeded];
+}
+
+- (void)setUsesOpportunisticPushTopic:(BOOL)topic
+{
+  topicCopy = topic;
+  _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
+  remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
+  [remoteObjectProxy setUsesOpportunisticPushTopic:topicCopy];
 }
 
 - (void)userAccountDidChange:(int64_t)change
@@ -333,6 +344,16 @@ uint64_t __124__WBSSafariBookmarksSyncAgentProxy_saveTabsForCurrentDeviceWithDic
   [remoteObjectProxy deleteBackgroundImageFromCloudKitWithCompletionHandler:handlerCopy];
 }
 
+- (void)scheduleCloudBackgroundImageSaveWithURL:(id)l isLightAppearance:(BOOL)appearance successCompletionHandler:(id)handler
+{
+  appearanceCopy = appearance;
+  handlerCopy = handler;
+  lCopy = l;
+  _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
+  remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
+  [remoteObjectProxy scheduleCloudBackgroundImageSaveWithURL:lCopy isLightAppearance:appearanceCopy successCompletionHandler:handlerCopy];
+}
+
 - (void)triggerImmediateBackgroundImageSaveIfApplicable
 {
   _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
@@ -464,12 +485,34 @@ uint64_t __124__WBSSafariBookmarksSyncAgentProxy_saveTabsForCurrentDeviceWithDic
   [remoteObjectProxy deleteCloudExtensionStatesDatabaseWithCompletionHandler:handlerCopy];
 }
 
+- (void)dumpCloudKitDataPrintByDates:(BOOL)dates liveOnly:(BOOL)only printTree:(BOOL)tree printPlist:(BOOL)plist writeToFile:(BOOL)file atFileURL:(id)l completionHandler:(id)handler
+{
+  fileCopy = file;
+  plistCopy = plist;
+  treeCopy = tree;
+  onlyCopy = only;
+  handlerCopy = handler;
+  lCopy = l;
+  _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
+  remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
+  [remoteObjectProxy dumpCloudKitDataPrintByDates:treeCopy liveOnly:onlyCopy printTree:treeCopy printPlist:plistCopy writeToFile:fileCopy atFileURL:lCopy completionHandler:handlerCopy];
+}
+
 - (void)resetToDAVDatabaseWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
   _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
   remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
   [remoteObjectProxy resetToDAVDatabaseWithCompletionHandler:handlerCopy];
+}
+
+- (void)clearLocalDataIncludingMigrationState:(BOOL)state completionHandler:(id)handler
+{
+  stateCopy = state;
+  handlerCopy = handler;
+  _safariBookmarksSyncAgentConnection = [(WBSSafariBookmarksSyncAgentProxy *)self _safariBookmarksSyncAgentConnection];
+  remoteObjectProxy = [_safariBookmarksSyncAgentConnection remoteObjectProxy];
+  [remoteObjectProxy clearLocalDataIncludingMigrationState:stateCopy completionHandler:handlerCopy];
 }
 
 - (void)generateDAVServerIDsForExistingBookmarksWithCompletionHandler:(id)handler

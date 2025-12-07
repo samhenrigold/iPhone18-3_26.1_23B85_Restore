@@ -53,15 +53,15 @@
 
 - (BOOL)_createSessionForNEConfiguration:(id)configuration queue:(id)queue
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   queueCopy = queue;
   v8 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
   {
-    v49 = 138412290;
-    v50 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "NEStateRelay: Configuration: %@", &v49, 0xCu);
+    v48 = 138412290;
+    v49 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "NEStateRelay: Configuration: %@", &v48, 0xCu);
   }
 
   v9 = [configurationCopy VPN];
@@ -94,11 +94,11 @@
 
     v42 = v41;
     identifier2 = [configurationCopy identifier];
-    v49 = 138412290;
-    v50 = identifier2;
+    v48 = 138412290;
+    v49 = identifier2;
     v44 = "NEStateRelay: Failed to create an NE session to monitor VPN connection: %@";
 LABEL_33:
-    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, v44, &v49, 0xCu);
+    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, v44, &v48, 0xCu);
 
     goto LABEL_34;
   }
@@ -117,9 +117,9 @@ LABEL_33:
   {
     v18 = v17;
     identifier3 = [configurationCopy identifier];
-    v49 = 138412290;
-    v50 = identifier3;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor VPN connection: %@", &v49, 0xCu);
+    v48 = 138412290;
+    v49 = identifier3;
+    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor VPN connection: %@", &v48, 0xCu);
   }
 
 LABEL_12:
@@ -145,8 +145,8 @@ LABEL_12:
 
     v42 = v45;
     identifier2 = [configurationCopy identifier];
-    v49 = 138412290;
-    v50 = identifier2;
+    v48 = 138412290;
+    v49 = identifier2;
     v44 = "NEStateRelay: Failed to create an NE session to monitor Content Filter connection: %@";
     goto LABEL_33;
   }
@@ -165,9 +165,9 @@ LABEL_12:
   {
     v28 = v27;
     identifier5 = [configurationCopy identifier];
-    v49 = 138412290;
-    v50 = identifier5;
-    _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor Content Filter connection: %@", &v49, 0xCu);
+    v48 = 138412290;
+    v49 = identifier5;
+    _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor Content Filter connection: %@", &v48, 0xCu);
   }
 
 LABEL_19:
@@ -196,9 +196,9 @@ LABEL_19:
       {
         v38 = v37;
         identifier7 = [configurationCopy identifier];
-        v49 = 138412290;
-        v50 = identifier7;
-        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor DNS Proxy connection: %@", &v49, 0xCu);
+        v48 = 138412290;
+        v49 = identifier7;
+        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, "NEStateRelay: Created an NE session to monitor DNS Proxy connection: %@", &v48, 0xCu);
       }
 
       goto LABEL_26;
@@ -209,8 +209,8 @@ LABEL_19:
     {
       v42 = v46;
       identifier2 = [configurationCopy identifier];
-      v49 = 138412290;
-      v50 = identifier2;
+      v48 = 138412290;
+      v49 = identifier2;
       v44 = "NEStateRelay: Failed to create an NE session to monitor DNS Proxy connection: %@";
       goto LABEL_33;
     }
@@ -224,14 +224,13 @@ LABEL_26:
   v40 = 1;
 LABEL_35:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
   contextCopy = context;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -241,11 +240,11 @@ LABEL_35:
   {
     if (v14)
     {
-      v33 = 138412546;
-      v34 = pathCopy;
-      v35 = 2112;
-      v36 = objectCopy;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "NEStateRelay: Update for keypath %@ of object %@", &v33, 0x16u);
+      v32 = 138412546;
+      v33 = pathCopy;
+      v34 = 2112;
+      v35 = objectCopy;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "NEStateRelay: Update for keypath %@ of object %@", &v32, 0x16u);
     }
 
     v15 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
@@ -259,15 +258,15 @@ LABEL_11:
         goto LABEL_14;
       }
 
-      v33 = 138412546;
-      v34 = pathCopy;
-      v35 = 2112;
-      v36 = objectCopy;
+      v32 = 138412546;
+      v33 = pathCopy;
+      v34 = 2112;
+      v35 = objectCopy;
       v17 = "NEStateRelay: Ignoring null value for keypath %@ of object %@";
       v18 = v16;
       v19 = 22;
 LABEL_10:
-      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, v17, &v33, v19);
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, v17, &v32, v19);
       goto LABEL_11;
     }
 
@@ -281,17 +280,17 @@ LABEL_10:
         }
 
         [(NetworkExtensionStateRelay *)self setDnsProxyConnected:bOOLValue];
-        v30 = otherLogHandle;
+        v29 = otherLogHandle;
         if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
         {
           goto LABEL_11;
         }
 
-        v23 = v30;
+        v22 = v29;
         dnsProxyConnected = [(NetworkExtensionStateRelay *)self dnsProxyConnected];
-        v33 = 67109120;
-        LODWORD(v34) = dnsProxyConnected;
-        v25 = "NEStateRelay: DNS proxy state changed to %u";
+        v32 = 67109120;
+        LODWORD(v33) = dnsProxyConnected;
+        v24 = "NEStateRelay: DNS proxy state changed to %u";
         break;
       case 3:
         bOOLValue2 = [v15 BOOLValue];
@@ -301,17 +300,17 @@ LABEL_10:
         }
 
         [(NetworkExtensionStateRelay *)self setContentFilterConnected:bOOLValue2];
-        v27 = otherLogHandle;
+        v26 = otherLogHandle;
         if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
         {
           goto LABEL_11;
         }
 
-        v23 = v27;
+        v22 = v26;
         contentFilterConnected = [(NetworkExtensionStateRelay *)self contentFilterConnected];
-        v33 = 67109120;
-        LODWORD(v34) = contentFilterConnected;
-        v25 = "NEStateRelay: Content filter state changed to %u";
+        v32 = 67109120;
+        LODWORD(v33) = contentFilterConnected;
+        v24 = "NEStateRelay: Content filter state changed to %u";
         break;
       case 2:
         bOOLValue3 = [v15 BOOLValue];
@@ -321,46 +320,44 @@ LABEL_10:
         }
 
         [(NetworkExtensionStateRelay *)self setVpnConnected:bOOLValue3];
-        v22 = otherLogHandle;
+        v21 = otherLogHandle;
         if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
         {
           goto LABEL_11;
         }
 
-        v23 = v22;
+        v22 = v21;
         vpnConnected = [(NetworkExtensionStateRelay *)self vpnConnected];
-        v33 = 67109120;
-        LODWORD(v34) = vpnConnected;
-        v25 = "NEStateRelay: VPN state changed to %u";
+        v32 = 67109120;
+        LODWORD(v33) = vpnConnected;
+        v24 = "NEStateRelay: VPN state changed to %u";
         break;
       default:
-        v32 = otherLogHandle;
+        v31 = otherLogHandle;
         if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_11;
         }
 
-        LOWORD(v33) = 0;
+        LOWORD(v32) = 0;
         v17 = "NEStateRelay: Invalid context string passed to KVO.";
-        v18 = v32;
+        v18 = v31;
         v19 = 2;
         goto LABEL_10;
     }
 
-    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, v25, &v33, 8u);
+    _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, v24, &v32, 8u);
 
     goto LABEL_11;
   }
 
   if (v14)
   {
-    LOWORD(v33) = 0;
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "NEStateRelay: Skipping observation of invalid value", &v33, 2u);
+    LOWORD(v32) = 0;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "NEStateRelay: Skipping observation of invalid value", &v32, 2u);
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setupNetworkExtensionSessionMonitors:(id)monitors
@@ -395,7 +392,7 @@ LABEL_14:
 
 void __68__NetworkExtensionStateRelay__setupNetworkExtensionSessionMonitors___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -404,7 +401,7 @@ void __68__NetworkExtensionStateRelay__setupNetworkExtensionSessionMonitors___bl
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v6;
+      v23 = v6;
       v8 = "NEStateRelay: Failed to load Network Extension configuration with error: %@.";
       v9 = v7;
       v10 = OS_LOG_TYPE_DEFAULT;
@@ -432,28 +429,28 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v12 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v12 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(a1 + 32) _createSessionForNEConfiguration:*(*(&v18 + 1) + 8 * i) queue:*(a1 + 40)];
+          [*(a1 + 32) _createSessionForNEConfiguration:*(*(&v17 + 1) + 8 * i) queue:*(a1 + 40)];
         }
 
-        v13 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
@@ -463,8 +460,6 @@ LABEL_4:
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUpNEConfigurationChangedWatcher:(id)watcher
@@ -490,55 +485,53 @@ LABEL_16:
 
 void __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___block_invoke_2;
-        v14[3] = &unk_27898F208;
-        v13 = *(a1 + 32);
-        v11 = v13.i64[0];
-        v15 = vextq_s8(v13, v13, 8uLL);
-        [WeakRetained loadConfigurationWithID:v10 withCompletionQueue:v11 handler:v14];
+        v10 = *(*(&v15 + 1) + 8 * v9);
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___block_invoke_2;
+        v13[3] = &unk_27898F208;
+        v12 = *(a1 + 32);
+        v11 = v12.i64[0];
+        v14 = vextq_s8(v12, v12, 8uLL);
+        [WeakRetained loadConfigurationWithID:v10 withCompletionQueue:v11 handler:v13];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -555,7 +548,7 @@ void __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___bloc
       goto LABEL_9;
     }
 
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v8 = "NEStateRelay: No NEConfiguration to update.";
     v9 = v12;
     v10 = OS_LOG_TYPE_DEBUG;
@@ -566,115 +559,111 @@ void __66__NetworkExtensionStateRelay__setUpNEConfigurationChangedWatcher___bloc
   v7 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v6;
+    v13 = 138412290;
+    v14 = v6;
     v8 = "NEStateRelay: Failed to load Network Extension configuration: loadConfigurationWithID failed. error: %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
     v11 = 12;
 LABEL_4:
-    _os_log_impl(&dword_23255B000, v9, v10, v8, &v14, v11);
+    _os_log_impl(&dword_23255B000, v9, v10, v8, &v13, v11);
   }
 
 LABEL_9:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeNESessionWatchers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v3 = self->_vpnConnSessions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       v7 = 0;
       do
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v27 + 1) + 8 * v7++) removeObserver:self forKeyPath:@"connected"];
+        [*(*(&v26 + 1) + 8 * v7++) removeObserver:self forKeyPath:@"connected"];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v5);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = self->_contentFilterSessions;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v23 + 1) + 8 * v12++) removeObserver:self forKeyPath:@"connected"];
+        [*(*(&v22 + 1) + 8 * v12++) removeObserver:self forKeyPath:@"connected"];
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v32 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = self->_dnsProxySessions;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v19 + 1) + 8 * v17++) removeObserver:self forKeyPath:{@"connected", v19}];
+        [*(*(&v18 + 1) + 8 * v17++) removeObserver:self forKeyPath:{@"connected", v18}];
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v19 objects:v31 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v30 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

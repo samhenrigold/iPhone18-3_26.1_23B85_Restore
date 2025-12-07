@@ -369,7 +369,7 @@ LABEL_14:
     }
   }
 
-  v13 = +[NSFileManager defaultManager];
+  v13 = [NSFileManager defaultManager:*v19];
   v14 = [v13 createFileAtPath:fileCopy contents:0 attributes:0];
 
   if (v14)

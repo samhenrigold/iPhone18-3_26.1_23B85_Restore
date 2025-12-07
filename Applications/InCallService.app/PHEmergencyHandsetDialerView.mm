@@ -69,32 +69,32 @@
 
 - (id)newCallButton
 {
-  v3 = sub_10001A58C();
-  if (v3 && [v3 shouldUseRTT])
+  v3 = sub_10001A58C(self);
+  if (v3 && (v4 = [v3 shouldUseRTT], v4))
   {
-    v4 = sub_1000A68B8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000A68B8(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Using RTT for emergency call button", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Using RTT for emergency call button", v11, 2u);
     }
 
-    v5 = 2;
+    v6 = 2;
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  v6 = [PHBottomBarButtonConfiguration alloc];
+  v7 = [PHBottomBarButtonConfiguration alloc];
   [(PHEmergencyHandsetDialerView *)self callButtonDiameter];
-  v7 = [v6 initWithAction:v5 diameter:2 callState:?];
-  v8 = [[PHBottomBarButton alloc] initWithConfiguration:v7 appType:2];
-  [v8 setTitle:0 forState:0];
-  [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v8 = [v7 initWithAction:v6 diameter:2 callState:?];
+  v9 = [[PHBottomBarButton alloc] initWithConfiguration:v8 appType:2];
+  [v9 setTitle:0 forState:0];
+  [v9 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  return v8;
+  return v9;
 }
 
 - (id)numberPadButtonsForCharacters:(id)characters

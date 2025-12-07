@@ -41,9 +41,9 @@
   index = [(NUTileInfo *)self index];
   v6 = [(NUTileInfo *)self size];
   v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%ld, %ld}", v6, v7];
-  [(NUTileInfo *)self frameRect];
+  objc_msgSend_frameRect(self);
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{origin={%ld, %ld} size={%ld, %ld}}]", v13, v14, v15];
-  [(NUTileInfo *)self contentRect];
+  objc_msgSend_contentRect(self);
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{origin={%ld, %ld} size={%ld, %ld}}]", v13, v14, v15];
   v11 = [v3 stringWithFormat:@"<%@:%p> index=%ld, size=%@, frameRect=%@, contentRect=%@", v4, self, index, v8, v9, v10];
 

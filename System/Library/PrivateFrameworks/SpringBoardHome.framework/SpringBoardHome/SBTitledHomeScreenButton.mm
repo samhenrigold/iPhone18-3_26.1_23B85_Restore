@@ -418,7 +418,7 @@ LABEL_43:
   v49 = 0u;
   v50 = 0u;
   v48 = 0u;
-  [(SBTitledHomeScreenButton *)self metrics];
+  objc_msgSend_metrics(self);
   [(SBTitledHomeScreenButton *)self preferredContentFittingSize];
   v6 = 0.0;
   v8 = v7 - 0.0;
@@ -560,7 +560,7 @@ uint64_t __50__SBTitledHomeScreenButton_contentImageWithTitle___block_invoke(uin
 
   else
   {
-    [(SBTitledHomeScreenButton *)self metrics:0];
+    objc_msgSend_metrics(self, 0, 0, 0, 0, 0);
     content = [MEMORY[0x1E69DCAD8] configurationWithPointSize:5 weight:0.0];
     v6 = MEMORY[0x1E69DCAB8];
     content2 = [(SBTitledHomeScreenButton *)self content];
@@ -624,7 +624,7 @@ void __47__SBTitledHomeScreenButton_defaultContentImage__block_invoke_2()
 {
   v6 = MEMORY[0x1E69DCDC0];
   regionCopy = region;
-  [(SBTitledHomeScreenButton *)self bounds];
+  objc_msgSend_bounds(self);
   v9 = v8;
   v11 = v10;
   v13 = v12;

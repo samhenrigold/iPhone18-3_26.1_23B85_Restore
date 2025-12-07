@@ -1,223 +1,3 @@
-uint64_t @objc closure #1 in ProcessingServerCoreConnection.isUIActive()(const void *a1, void *a2)
-{
-  v2[2] = a2;
-  v2[3] = _Block_copy(a1);
-  a2;
-  v4 = swift_task_alloc();
-  v2[4] = v4;
-  *v4 = v2;
-  v4[1] = @objc closure #1 in ProcessingServerCoreConnection.isUIActive();
-
-  return ProcessingServerCoreConnection.isUIActive()();
-}
-
-uint64_t @objc closure #1 in ProcessingServerCoreConnection.isUIActive()(void *a1)
-{
-  v3 = v1;
-  v5 = *v2;
-  v6 = *(*v2 + 32);
-  v7 = *(*v2 + 16);
-  v8 = *v2;
-
-  v9 = *(v5 + 24);
-  if (v3)
-  {
-    v10 = _convertErrorToNSError(_:)();
-
-    (v9)[2](v9, 0, v10);
-
-    _Block_release(v9);
-  }
-
-  else
-  {
-    (v9)[2](v9, a1, 0);
-    _Block_release(v9);
-  }
-
-  v11 = *(v8 + 8);
-
-  return v11();
-}
-
-uint64_t partial apply for @objc closure #1 in ProcessingServerCoreConnection.isUIActive()()
-{
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = partial apply for closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:);
-
-  return @objc closure #1 in ProcessingServerCoreConnection.isUIActive()(v2, v3);
-}
-
-uint64_t _sIeghH_IeAgH_TR(uint64_t a1, uint64_t a2, int *a3)
-{
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = partial apply for closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:);
-
-  return v7();
-}
-
-uint64_t _sIeghH_IeAgH_TRTA()
-{
-  v2 = v0[2];
-  v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = partial apply for closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:);
-
-  return _sIeghH_IeAgH_TR(v2, v3, v5);
-}
-
-uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
-{
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:)partial apply;
-
-  return v8();
-}
-
-uint64_t _sIeAgH_ytIeAgHr_TRTA(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = partial apply for closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:);
-
-  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v7);
-}
-
-uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8, v11);
-  v13 = v26 - v12;
-  outlined init with copy of TaskPriority?(a3, v26 - v12);
-  v14 = type metadata accessor for TaskPriority();
-  v15 = *(v14 - 8);
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
-  {
-    outlined destroy of TaskPriority?(v13, &_sScPSgMd, &_sScPSgMR);
-    if (*(a5 + 16))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    v17 = 0;
-    v19 = 0;
-    if (a2)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_8;
-  }
-
-  TaskPriority.rawValue.getter();
-  (*(v15 + 8))(v13, v14);
-  if (!*(a5 + 16))
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v16 = *(a5 + 24);
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v17 = dispatch thunk of Actor.unownedExecutor.getter();
-  v19 = v18;
-  swift_unknownObjectRelease();
-  if (a2)
-  {
-LABEL_4:
-    v20 = String.utf8CString.getter() + 32;
-    v21 = swift_allocObject();
-    *(v21 + 16) = a4;
-    *(v21 + 24) = a5;
-
-    if (v19 | v17)
-    {
-      v27[0] = 0;
-      v27[1] = 0;
-      v22 = v27;
-      v27[2] = v17;
-      v27[3] = v19;
-    }
-
-    else
-    {
-      v22 = 0;
-    }
-
-    v26[1] = 7;
-    v26[2] = v22;
-    v26[3] = v20;
-    v24 = swift_task_create();
-
-    outlined destroy of TaskPriority?(a3, &_sScPSgMd, &_sScPSgMR);
-
-    return v24;
-  }
-
-LABEL_8:
-  outlined destroy of TaskPriority?(a3, &_sScPSgMd, &_sScPSgMR);
-  v23 = swift_allocObject();
-  *(v23 + 16) = a4;
-  *(v23 + 24) = a5;
-  if (v19 | v17)
-  {
-    v27[4] = 0;
-    v27[5] = 0;
-    v27[6] = v17;
-    v27[7] = v19;
-  }
-
-  return swift_task_create();
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = partial apply for closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:);
-
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA_36(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = closure #1 in static MOFeedbackAssistant.triggerFeedbackAssistantFlow(flowIdentifier:)partial apply;
-
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
-}
-
 uint64_t partial apply for @objc closure #1 in ProcessingServerCoreConnection.runNotificationServicing(for:)()
 {
   v2 = v0[2];
@@ -284,9 +64,7 @@ uint64_t partial apply for @objc closure #1 in ProcessingServerCoreConnection.cl
 
 uint64_t objectdestroy_22Tm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 48, 7);
 }
@@ -301,12 +79,11 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t type metadata accessor for RBSAttribute(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for RBSAttribute(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -346,7 +123,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -383,11 +159,26 @@ id MOWeatherData.__allocating_init(temperature:windSpeed:weatherSummry:symbolNam
 uint64_t key path setter for MOWeatherData.temperature : MOWeatherData(uint64_t a1, void **a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4, v6);
-  v8 = &v11 - v7;
-  (*(v9 + 16))(&v11 - v7, a1);
-  return (*((swift_isaMask & **a2) + 0x78))(v8);
+  __chkstk_darwin(v4, v5);
+  v7 = &v10 - v6;
+  (*(v8 + 16))(&v10 - v6, a1);
+  return (*((swift_isaMask & **a2) + 0x78))(v7);
+}
+
+Class @objc MOWeatherData.temperature.getter(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7, v9);
+  v11 = &v15 - v10;
+  v12 = *a5;
+  swift_beginAccess();
+  (*(v8 + 16))(v11, a1 + v12, v7);
+  v17 = Measurement._bridgeToObjectiveC()();
+  isa = v17.super.isa;
+  (*(v8 + 8))(v11, v7, *&v17._doubleValue);
+
+  return isa;
 }
 
 uint64_t MOWeatherData.temperature.getter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -410,23 +201,19 @@ uint64_t MOWeatherData.temperature.setter(uint64_t a1, uint64_t *a2, uint64_t *a
 uint64_t key path setter for MOWeatherData.windSpeed : MOWeatherData(uint64_t a1, void **a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo11NSUnitSpeedCGMd, &_s10Foundation11MeasurementVySo11NSUnitSpeedCGMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4, v6);
-  v8 = &v11 - v7;
-  (*(v9 + 16))(&v11 - v7, a1);
-  return (*((swift_isaMask & **a2) + 0x90))(v8);
+  __chkstk_darwin(v4, v5);
+  v7 = &v10 - v6;
+  (*(v8 + 16))(&v10 - v6, a1);
+  return (*((swift_isaMask & **a2) + 0x90))(v7);
 }
 
 id @objc MOWeatherData.weatherSummary.getter(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = (a1 + *a3);
   swift_beginAccess();
-  v5 = *v3;
-  v4 = v3[1];
 
-  v6 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v6;
+  return v3;
 }
 
 uint64_t @objc MOWeatherData.weatherSummary.setter(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -435,7 +222,6 @@ uint64_t @objc MOWeatherData.weatherSummary.setter(uint64_t a1, uint64_t a2, uin
   v8 = v7;
   v9 = (a1 + *a4);
   swift_beginAccess();
-  v10 = v9[1];
   *v9 = v6;
   v9[1] = v8;
 }
@@ -457,14 +243,14 @@ id MOWeatherData.init(temperature:windSpeed:weatherSummry:symbolName:)(uint64_t 
   *v18 = a5;
   *(v18 + 1) = a6;
   v23.receiver = v6;
-  v23.super_class = type metadata accessor for MOWeatherData();
+  v23.super_class = type metadata accessor for MOWeatherData(0);
   v19 = objc_msgSendSuper2(&v23, "init");
   (*(v16 + 8))(a2, v15);
   (*(v13 + 8))(a1, v12);
   return v19;
 }
 
-uint64_t type metadata accessor for MOWeatherData()
+uint64_t type metadata accessor for MOWeatherData(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MOWeatherData;
   if (!type metadata singleton initialization cache for MOWeatherData)
@@ -494,26 +280,24 @@ Swift::String __swiftcall MOWeatherData.getSymbolName()()
 id MOWeatherData.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOWeatherData();
+  v2.super_class = type metadata accessor for MOWeatherData(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-void type metadata completion function for MOWeatherData()
+void type metadata completion function for MOWeatherData(uint64_t a1)
 {
   type metadata accessor for Measurement<NSUnitTemperature>(319, &lazy cache variable for type metadata for Measurement<NSUnitTemperature>, &lazy cache variable for type metadata for NSUnitTemperature, NSUnitTemperature_ptr);
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
     type metadata accessor for Measurement<NSUnitTemperature>(319, &lazy cache variable for type metadata for Measurement<NSUnitSpeed>, &lazy cache variable for type metadata for NSUnitSpeed, NSUnitSpeed_ptr);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void type metadata accessor for Measurement<NSUnitTemperature>(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t *a4)
+void type metadata accessor for Measurement<NSUnitTemperature>(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (!*a2)
   {
@@ -530,17 +314,15 @@ uint64_t MOAppCategoryUsage.category.getter()
 {
   v1 = (v0 + OBJC_IVAR____TtC8momentsd18MOAppCategoryUsage_category);
   swift_beginAccess();
-  v3 = *v1;
-  v2 = v1[1];
+  v2 = *v1;
 
-  return v3;
+  return v2;
 }
 
 uint64_t MOAppCategoryUsage.category.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + OBJC_IVAR____TtC8momentsd18MOAppCategoryUsage_category);
   swift_beginAccess();
-  v6 = v5[1];
   *v5 = a1;
   v5[1] = a2;
 }
@@ -598,18 +380,10 @@ id MOAppCategoryUsage.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t MOAppUsageAggregation.categoryUsages.getter()
-{
-  v1 = OBJC_IVAR____TtC8momentsd21MOAppUsageAggregation_categoryUsages;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-}
-
 uint64_t MOAppUsageAggregation.categoryUsages.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC8momentsd21MOAppUsageAggregation_categoryUsages;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -633,11 +407,10 @@ uint64_t MOAppUsageAggregation.dateInterval.setter(uint64_t a1)
 uint64_t key path setter for MOAppUsageAggregation.dateInterval : MOAppUsageAggregation(uint64_t a1, void **a2)
 {
   v4 = type metadata accessor for DateInterval();
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4, v6);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v8, a1);
-  return (*((swift_isaMask & **a2) + 0x88))(v8);
+  __chkstk_darwin(v4, v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v8 + 16))(v7, a1);
+  return (*((swift_isaMask & **a2) + 0x88))(v7);
 }
 
 uint64_t MOAppUsageAggregation.longestActivity.getter@<X0>(uint64_t a1@<X8>)
@@ -672,11 +445,10 @@ uint64_t outlined assign with take of DateInterval?(uint64_t a1, uint64_t a2)
 uint64_t key path setter for MOAppUsageAggregation.longestActivity : MOAppUsageAggregation(uint64_t a1, void **a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8, v6);
-  v8 = &v10 - v7;
-  outlined init with copy of DateInterval?(a1, &v10 - v7);
-  return (*((swift_isaMask & **a2) + 0xA0))(v8);
+  __chkstk_darwin(v4 - 8, v5);
+  v7 = &v9 - v6;
+  outlined init with copy of DateInterval?(a1, &v9 - v6);
+  return (*((swift_isaMask & **a2) + 0xA0))(v7);
 }
 
 id MOAppUsageAggregation.__allocating_init(categoryUsages:dateInterval:longestActivity:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -718,7 +490,7 @@ id MOAppUsageAggregation.init(categoryUsages:dateInterval:longestActivity:)(uint
   outlined assign with copy of DateInterval?(a3, &v3[v8]);
   swift_endAccess();
   v13.receiver = v3;
-  v13.super_class = type metadata accessor for MOAppUsageAggregation();
+  v13.super_class = type metadata accessor for MOAppUsageAggregation(0);
   v11 = objc_msgSendSuper2(&v13, "init");
   outlined destroy of DateInterval?(a3);
   (*(v10 + 8))(a2, v9);
@@ -743,73 +515,70 @@ Swift::OpaquePointer_optional __swiftcall MOAppUsageAggregation.getCategoryUsage
 id MOAppUsageAggregation.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for MOAppUsageAggregation();
+  v2.super_class = type metadata accessor for MOAppUsageAggregation(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-void type metadata completion function for MOAppUsageAggregation()
+void type metadata completion function for MOAppUsageAggregation(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for DateInterval();
-  if (v1 <= 0x3F)
+  type metadata accessor for DateInterval();
+  if (v2 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    type metadata accessor for DateInterval?();
+    type metadata accessor for DateInterval?(319, v2);
     if (v3 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void type metadata accessor for DateInterval?()
+void type metadata accessor for DateInterval?(uint64_t a1, uint64_t a2)
 {
   if (!lazy cache variable for type metadata for DateInterval?)
   {
     type metadata accessor for DateInterval();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v2 = type metadata accessor for Optional();
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for DateInterval?);
+      atomic_store(v2, &lazy cache variable for type metadata for DateInterval?);
     }
   }
 }
 
 uint64_t MOScreenTimeProvider.fetchHourlyAppUsage(startDate:endDate:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v30 = a3;
-  v31 = a4;
+  v29 = a3;
+  v30 = a4;
   v6 = type metadata accessor for Date();
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   v10 = __chkstk_darwin(v6, v9);
-  v11 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10, v12);
-  v14 = &v30 - v13;
+  v14 = &v29 - v13;
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  __chkstk_darwin(v15 - 8, v17);
-  v19 = &v30 - v18;
-  v20 = type metadata accessor for TaskPriority();
-  (*(*(v20 - 8) + 56))(v19, 1, 1, v20);
-  v21 = *(v7 + 16);
-  v21(v14, a1, v6);
-  v21(v11, a2, v6);
-  v22 = *(v7 + 80);
-  v23 = (v22 + 32) & ~v22;
-  v24 = (v8 + v22 + v23) & ~v22;
-  v25 = swift_allocObject();
-  *(v25 + 16) = 0;
-  *(v25 + 24) = 0;
-  v26 = *(v7 + 32);
-  v26(v25 + v23, v14, v6);
-  v26(v25 + v24, v11, v6);
-  v27 = (v25 + ((v8 + v24 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v28 = v31;
-  *v27 = v30;
-  v27[1] = v28;
+  __chkstk_darwin(v15 - 8, v16);
+  v18 = &v29 - v17;
+  v19 = type metadata accessor for TaskPriority();
+  (*(*(v19 - 8) + 56))(v18, 1, 1, v19);
+  v20 = *(v7 + 16);
+  v20(v14, a1, v6);
+  v20(v11, a2, v6);
+  v21 = *(v7 + 80);
+  v22 = (v21 + 32) & ~v21;
+  v23 = (v8 + v21 + v22) & ~v21;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 0;
+  *(v24 + 24) = 0;
+  v25 = *(v7 + 32);
+  v25(v24 + v22, v14, v6);
+  v25(v24 + v23, v11, v6);
+  v26 = (v24 + ((v8 + v23 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v27 = v30;
+  *v26 = v29;
+  v26[1] = v27;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v19, &async function pointer to partial apply for closure #1 in MOScreenTimeProvider.fetchHourlyAppUsage(startDate:endDate:completion:), v25);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v18, &async function pointer to partial apply for closure #1 in MOScreenTimeProvider.fetchHourlyAppUsage(startDate:endDate:completion:), v24);
 }
 
 uint64_t closure #1 in MOScreenTimeProvider.fetchHourlyAppUsage(startDate:endDate:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -818,67 +587,49 @@ uint64_t closure #1 in MOScreenTimeProvider.fetchHourlyAppUsage(startDate:endDat
   v7[15] = a7;
   v7[12] = a4;
   v7[13] = a5;
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
   v7[16] = swift_task_alloc();
-  v9 = type metadata accessor for _DeviceActivityData.CategoryActivity();
-  v7[17] = v9;
-  v10 = *(v9 - 8);
-  v7[18] = v10;
-  v11 = *(v10 + 64) + 15;
+  v8 = type metadata accessor for _DeviceActivityData.CategoryActivity();
+  v7[17] = v8;
+  v7[18] = *(v8 - 8);
   v7[19] = swift_task_alloc();
-  v12 = type metadata accessor for _DeviceActivityData.ActivitySegment();
-  v7[20] = v12;
-  v13 = *(v12 - 8);
-  v7[21] = v13;
-  v14 = *(v13 + 64) + 15;
+  v9 = type metadata accessor for _DeviceActivityData.ActivitySegment();
+  v7[20] = v9;
+  v7[21] = *(v9 - 8);
   v7[22] = swift_task_alloc();
-  v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity01_aB4DataV0B7SegmentVSgMd, &_s14DeviceActivity01_aB4DataV0B7SegmentVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity01_aB4DataV0B7SegmentVSgMd, &_s14DeviceActivity01_aB4DataV0B7SegmentVSgMR);
   v7[23] = swift_task_alloc();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity01_aB7ResultsVyAA01_aB4DataV0B7SegmentVGMd, &_s14DeviceActivity01_aB7ResultsVyAA01_aB4DataV0B7SegmentVGMR);
-  v7[24] = v16;
-  v17 = *(v16 - 8);
-  v7[25] = v17;
-  v18 = *(v17 + 64) + 15;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity01_aB7ResultsVyAA01_aB4DataV0B7SegmentVGMd, &_s14DeviceActivity01_aB7ResultsVyAA01_aB4DataV0B7SegmentVGMR);
+  v7[24] = v10;
+  v7[25] = *(v10 - 8);
   v7[26] = swift_task_alloc();
-  v19 = type metadata accessor for _DeviceActivityData();
-  v7[27] = v19;
-  v20 = *(v19 - 8);
-  v7[28] = v20;
-  v21 = *(v20 + 64) + 15;
+  v11 = type metadata accessor for _DeviceActivityData();
+  v7[27] = v11;
+  v7[28] = *(v11 - 8);
   v7[29] = swift_task_alloc();
   v7[30] = swift_task_alloc();
-  v22 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity0aB6FilterV7DevicesVSgMd, &_s14DeviceActivity0aB6FilterV7DevicesVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s14DeviceActivity0aB6FilterV7DevicesVSgMd, &_s14DeviceActivity0aB6FilterV7DevicesVSgMR);
   v7[31] = swift_task_alloc();
-  v23 = type metadata accessor for DeviceActivityFilter.SegmentInterval();
-  v7[32] = v23;
-  v24 = *(v23 - 8);
-  v7[33] = v24;
-  v25 = *(v24 + 64) + 15;
+  v12 = type metadata accessor for DeviceActivityFilter.SegmentInterval();
+  v7[32] = v12;
+  v7[33] = *(v12 - 8);
   v7[34] = swift_task_alloc();
-  v26 = type metadata accessor for DeviceActivityFilter();
-  v7[35] = v26;
-  v27 = *(v26 - 8);
-  v7[36] = v27;
-  v28 = *(v27 + 64) + 15;
+  v13 = type metadata accessor for DeviceActivityFilter();
+  v7[35] = v13;
+  v7[36] = *(v13 - 8);
   v7[37] = swift_task_alloc();
-  v29 = type metadata accessor for DeviceActivityDataSource();
-  v7[38] = v29;
-  v30 = *(v29 - 8);
-  v7[39] = v30;
-  v31 = *(v30 + 64) + 15;
+  v14 = type metadata accessor for DeviceActivityDataSource();
+  v7[38] = v14;
+  v7[39] = *(v14 - 8);
   v7[40] = swift_task_alloc();
-  v32 = type metadata accessor for Date();
-  v7[41] = v32;
-  v33 = *(v32 - 8);
-  v7[42] = v33;
-  v34 = *(v33 + 64) + 15;
+  v15 = type metadata accessor for Date();
+  v7[41] = v15;
+  v7[42] = *(v15 - 8);
   v7[43] = swift_task_alloc();
   v7[44] = swift_task_alloc();
-  v35 = type metadata accessor for DateInterval();
-  v7[45] = v35;
-  v36 = *(v35 - 8);
-  v7[46] = v36;
-  v37 = *(v36 + 64) + 15;
+  v16 = type metadata accessor for DateInterval();
+  v7[45] = v16;
+  v7[46] = *(v16 - 8);
   v7[47] = swift_task_alloc();
   v7[48] = swift_task_alloc();
   v7[49] = swift_task_alloc();
@@ -930,12 +681,10 @@ uint64_t objectdestroyTm_3()
   v5 = *(v2 + 64);
   v6 = (v5 + v3 + v4) & ~v3;
   v7 = (v5 + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v9 = *(v2 + 8);
-  v9(v0 + v4, v1);
-  v9(v0 + v6, v1);
-  v10 = *(v0 + v7 + 8);
+  v8 = *(v2 + 8);
+  v8(v0 + v4, v1);
+  v8(v0 + v6, v1);
 
   return _swift_deallocObject(v0, v7 + 16, v3 | 7);
 }
@@ -1019,7 +768,7 @@ void sub_1002398F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1094,7 +843,7 @@ void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *resu
   return result;
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1114,7 +863,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<outlierScore>::__assign_with_size[abi:ne200100]<outlierScore*,outlierScore*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<outlierScore>::__assign_with_size[abi:ne200100]<outlierScore*,outlierScore*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1178,20 +927,20 @@ void *std::vector<outlierScore>::__assign_with_size[abi:ne200100]<outlierScore*,
       v12 = v6[1];
     }
 
-    v15 = a3 - v14;
+    v15 = (a3 - v14);
     if (a3 != v14)
     {
-      result = memmove(v12, v14, v15 - 4);
+      result = memmove(v12, v14, (v15 - 4));
     }
 
-    v16 = &v12[v15];
+    v16 = &v15[v12];
   }
 
   v6[1] = v16;
   return result;
 }
 
-void std::vector<outlierScore>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<outlierScore>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1211,7 +960,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<outlierScore>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1462,20 +1211,20 @@ void sub_100239FE0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<cluster *>::resize(void *a1, unint64_t a2)
+void std::vector<cluster *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<cluster *>::__append(a1, a2 - v2);
+    std::vector<cluster *>::__append(result, a2 - v2);
   }
 }
 
@@ -1508,16 +1257,16 @@ std::logic_error *std::invalid_argument::invalid_argument[abi:ne200100](std::log
   return result;
 }
 
-void cluster::propagate(cluster *this)
+void cluster::propagate(uint64_t this)
 {
-  v1 = *(this + 13);
+  v1 = *(this + 104);
   if (v1)
   {
-    v2 = *(this + 12);
+    v2 = *(this + 96);
     if (v2 == 1.79769313e308)
     {
-      v2 = *(this + 2);
-      *(this + 12) = v2;
+      v2 = *(this + 16);
+      *(this + 96) = v2;
     }
 
     if (v2 < *(v1 + 96))
@@ -1525,11 +1274,11 @@ void cluster::propagate(cluster *this)
       *(v1 + 96) = v2;
     }
 
-    v3 = *(this + 10);
-    if ((*(this + 120) & 1) == 0 || (v4 = *(this + 11), v3 > v4))
+    v3 = *(this + 40);
+    if ((*(this + 120) & 1) == 0 || (v4 = *(this + 44), v3 > v4))
     {
       *(v1 + 44) += v3;
-      v5 = *(this + 14) + *(v1 + 32);
+      v5 = *(this + 112) + *(v1 + 32);
 LABEL_9:
       *(v1 + 32) = v5;
       v13 = this;
@@ -1544,8 +1293,8 @@ LABEL_9:
         return;
       }
 
-      v10 = *(this + 14);
-      v11 = *(this + 4);
+      v10 = *(this + 112);
+      v11 = *(this + 32);
       *(v1 + 44) += v3;
       v12 = *(v1 + 32);
       if (v10 >= v11)
@@ -1560,15 +1309,15 @@ LABEL_9:
     else
     {
       *(v1 + 44) += v4;
-      v6 = *(this + 4) + *(v1 + 32);
+      v6 = *(this + 32) + *(v1 + 32);
     }
 
     *(v1 + 32) = v6;
     v7 = *(v1 + 80);
-    v8 = *(this + 9);
-    v9 = *(this + 10);
+    v8 = *(this + 72);
+    v9 = *(this + 80);
 
-    std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cluster **>,std::__wrap_iter<cluster **>>(v1 + 72, v7, v8, v9, (v9 - v8) >> 3);
+    std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cluster **>,std::__wrap_iter<cluster **>>((v1 + 72), v7, v8, v9, (v9 - v8) >> 3);
   }
 }
 
@@ -1640,7 +1389,7 @@ uint64_t *cluster::addPointsToVirtualChildCluster(uint64_t *result, void *a2)
     v4 = result;
     do
     {
-      result = std::__tree<int>::__emplace_unique_key_args<int,int const&>((v4 + 6), v3 + 7);
+      result = std::__tree<int>::__emplace_unique_key_args<int,int const&>((v4 + 6), v3 + 7, v3 + 7);
       v5 = *(v3 + 1);
       if (v5)
       {
@@ -1714,10 +1463,10 @@ void cluster::releaseVirtualChildCluster(cluster *this)
   *(v1 - 1) = v1;
 }
 
-uint64_t *std::unique_ptr<cluster>::~unique_ptr[abi:ne200100](uint64_t *result)
+uint64_t *std::unique_ptr<cluster>::~unique_ptr[abi:ne200100](uint64_t *a1)
 {
-  v1 = *result;
-  *result = 0;
+  v1 = *a1;
+  *a1 = 0;
   if (v1)
   {
     v2 = *(v1 + 72);
@@ -1731,7 +1480,7 @@ uint64_t *std::unique_ptr<cluster>::~unique_ptr[abi:ne200100](uint64_t *result)
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<cluster *>::__append(uint64_t a1, unint64_t a2)
@@ -1807,7 +1556,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<cluster *>>(uint64_t 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cluster **>,std::__wrap_iter<cluster **>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<cluster **>,std::__wrap_iter<cluster **>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -1816,8 +1565,8 @@ char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -1855,23 +1604,24 @@ char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -1886,14 +1636,14 @@ char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -1908,11 +1658,11 @@ char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -1932,7 +1682,7 @@ char *std::vector<cluster *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -1979,48 +1729,48 @@ void std::__tree<int>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<int>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<int>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2046,12 +1796,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2065,22 +1815,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2114,13 +1864,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2207,10 +1957,10 @@ uint64_t bitSet::get(bitSet *this, int a2)
   }
 }
 
-void bitSet::set(bitSet *this, int a2)
+void bitSet::set(uint64_t *this, int a2)
 {
   v3 = a2;
-  if (*(this + 1) <= a2)
+  if (this[1] <= a2)
   {
     std::vector<BOOL>::resize(this, a2 + 64, 0);
   }
@@ -2218,25 +1968,25 @@ void bitSet::set(bitSet *this, int a2)
   *(*this + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v3;
 }
 
-void bitSet::ensure(bitSet *this, int a2)
+void bitSet::ensure(uint64_t *this, int a2)
 {
-  if (*(this + 1) <= a2)
+  if (this[1] <= a2)
   {
     std::vector<BOOL>::resize(this, a2 + 64, 0);
   }
 }
 
-void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
+void std::vector<BOOL>::resize(uint64_t *result, unint64_t a2, int a3)
 {
-  v4 = *(a1 + 8);
+  v4 = result[1];
   v5 = a2 - v4;
   if (a2 <= v4)
   {
-    *(a1 + 8) = a2;
+    result[1] = a2;
     return;
   }
 
-  v7 = *(a1 + 16);
+  v7 = result[2];
   v8 = v7 << 6;
   if (v7 << 6 < v5 || v4 > (v7 << 6) - v5)
   {
@@ -2264,19 +2014,19 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
     }
 
     std::vector<BOOL>::reserve(&v20, v11);
-    v12 = *a1;
-    v13 = *(a1 + 8);
+    v12 = *result;
+    v13 = result[1];
     *&v21 = v13 + v5;
     v22 = v20;
     v23 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22, &v18);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v18, v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22);
     v14 = v18;
     LODWORD(v15) = v19;
-    v16 = *a1;
-    *a1 = v20;
+    v16 = *result;
+    *result = v20;
     v20 = v16;
-    v17 = *(a1 + 8);
-    *(a1 + 8) = v21;
+    v17 = *(result + 1);
+    *(result + 1) = v21;
     v21 = v17;
     if (v16)
     {
@@ -2295,9 +2045,9 @@ LABEL_16:
     return;
   }
 
-  v14 = *a1 + 8 * (v4 >> 6);
-  v15 = *(a1 + 8) & 0x3FLL;
-  *(a1 + 8) = a2;
+  v14 = (*result + 8 * (v4 >> 6));
+  v15 = result[1] & 0x3F;
+  result[1] = a2;
   if (a3)
   {
     goto LABEL_16;
@@ -2319,9 +2069,9 @@ void sub_10023AF84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -2332,8 +2082,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_10023B044(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -2346,7 +2094,7 @@ void sub_10023B044(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2366,7 +2114,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -2388,9 +2136,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -2398,7 +2146,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -2483,23 +2231,23 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a4 + 24) = v6;
 }
 
-unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t *__src@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t **__return_ptr a1@<X8>, unint64_t *__src@<X0>, unsigned int a3@<W1>, uint64_t a4@<X2>, unsigned int a5@<W3>, uint64_t a6@<X4>)
 {
-  v8 = a4 - a2 + 8 * (a3 - __src);
+  v8 = a5 - a3 + 8 * (a4 - __src);
   if (v8 <= 0)
   {
-    v16 = *a5;
+    v16 = *a6;
   }
 
   else
   {
     v9 = __src;
-    __src = *a5;
-    if (a2)
+    __src = *a6;
+    if (a3)
     {
-      if (v8 >= (64 - a2))
+      if (v8 >= (64 - a3))
       {
-        v10 = 64 - a2;
+        v10 = 64 - a3;
       }
 
       else
@@ -2509,11 +2257,11 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
 
       v8 -= v10;
       v11 = *v9++;
-      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2);
-      v12 = v10 + *(a5 + 8);
+      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3);
+      v12 = v10 + *(a6 + 8);
       __src = (__src + ((v12 >> 3) & 0x3FFFFFF8));
-      *a5 = __src;
-      *(a5 + 8) = v12 & 0x3F;
+      *a6 = __src;
+      *(a6 + 8) = v12 & 0x3F;
     }
 
     if (v8 >= 0)
@@ -2530,21 +2278,21 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
     if ((v8 + 63) >= 0x7F)
     {
       memmove(__src, v9, 8 * v14);
-      __src = *a5;
+      __src = *a6;
     }
 
     v15 = v8 - (v14 << 6);
     v16 = &__src[v14];
-    *a5 = v16;
+    *a6 = v16;
     if (v15 >= 1)
     {
       *v16 = *v16 & ~(0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8)) | v9[v14] & (0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8));
-      *(a5 + 8) = v15;
+      *(a6 + 8) = v15;
     }
   }
 
-  *a6 = v16;
-  *(a6 + 8) = *(a5 + 8);
+  *a1 = v16;
+  *(a1 + 2) = *(a6 + 8);
   return __src;
 }
 
@@ -2650,7 +2398,7 @@ void undirectedGraph::quicksortByEdgeWeight(undirectedGraph *this)
         *(__p[0] + v3) = v7 - 1;
       }
 
-      if (v7 < (v5 - 1))
+      if (v7 < v5 - 1)
       {
         *(v9[0] + ++v3) = v7 + 1;
         *(__p[0] + v3) = v5;
@@ -2682,9 +2430,9 @@ void sub_10023B658(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t undirectedGraph::selectPivotIndex(undirectedGraph *this, uint64_t a2, unsigned int a3)
+uint64_t undirectedGraph::selectPivotIndex(undirectedGraph *this, uint64_t a2, int a3)
 {
-  if ((a2 - a3) < 2)
+  if (a2 - a3 < 2)
   {
     return a2;
   }
@@ -2819,17 +2567,17 @@ double undirectedGraph::swapEdges(undirectedGraph *this, int a2, int a3)
   return result;
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_10023B8C0(_Unwind_Exception *exception_object)
@@ -3230,18 +2978,18 @@ void sub_10023BF28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void hdbscanStar::hdbscanAlgorithm::computeHierarchyAndClusterTree(undirectedGraph *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, cluster_factory *a8)
+void hdbscanStar::hdbscanAlgorithm::computeHierarchyAndClusterTree(undirectedGraph *a1, int a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, void *a7, cluster_factory *a8)
 {
   undirectedGraph::getNumEdges(a1);
   NumVertices = undirectedGraph::getNumVertices(a1);
-  std::vector<int>::vector[abi:ne200100](&v19, NumVertices);
+  std::vector<int>::vector[abi:ne200100](&v20, NumVertices);
   v10 = undirectedGraph::getNumVertices(a1);
-  std::vector<int>::vector[abi:ne200100](&v17, v10);
-  v11 = v17;
-  if (v18 != v17)
+  std::vector<int>::vector[abi:ne200100](&v18, v10);
+  v11 = v18;
+  if (v19 != v18)
   {
-    v12 = v18 - v17;
-    v13 = v19;
+    v12 = v19 - v18;
+    v13 = v20;
     if (v12 <= 1)
     {
       v12 = 1;
@@ -3257,10 +3005,10 @@ void hdbscanStar::hdbscanAlgorithm::computeHierarchyAndClusterTree(undirectedGra
     while (v12);
   }
 
-  v16 = 0;
-  std::vector<cluster *>::push_back[abi:ne200100](a7, &v16);
-  undirectedGraph::getNumVertices(a1);
-  cluster_factory::createNewCluster(a8, 1, 0, NAN);
+  v17 = 0;
+  std::vector<cluster *>::push_back[abi:ne200100](a7, &v17);
+  v14 = undirectedGraph::getNumVertices(a1);
+  cluster_factory::createNewCluster(a8, 1, 0, NAN, v14);
 }
 
 void sub_10023CD04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40)
@@ -3292,19 +3040,19 @@ void sub_10023CD04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void hdbscanStar::hdbscanAlgorithm::calculateNumConstraintsSatisfied(void *a1, void *a2, uint64_t **a3, void *a4)
+void hdbscanStar::hdbscanAlgorithm::calculateNumConstraintsSatisfied(void *result, void *a2, uint64_t **a3, void *a4)
 {
   v4 = *a3;
   v5 = a3[1];
   if (v5 != *a3)
   {
-    v8 = a1;
+    v8 = result;
     v67 = 0;
     v68 = 0;
     v69 = 0;
-    v9 = a1 + 1;
-    v10 = *a1;
-    if (*a1 != a1 + 1)
+    v9 = result + 1;
+    v10 = *result;
+    if (*result != result + 1)
     {
       do
       {
@@ -3372,7 +3120,7 @@ void hdbscanStar::hdbscanAlgorithm::calculateNumConstraintsSatisfied(void *a1, v
       do
       {
         v17 = *v4;
-        v66 = *(v4 + 2);
+        v66 = *(v4 + 8);
         v65 = v17;
         v18 = *(*a4 + 4 * hdbscanConstraint::getPointA(&v65));
         v19 = *(*a4 + 4 * hdbscanConstraint::getPointB(&v65));
@@ -3636,7 +3384,7 @@ LABEL_63:
         }
 
 LABEL_64:
-        v4 = (v4 + 12);
+        v4 += 12;
       }
 
       while (v4 != v5);
@@ -3683,15 +3431,15 @@ LABEL_64:
   }
 }
 
-void sub_10023D36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11)
+void sub_10023D36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   cluster::~cluster(&a11);
-  a11 = (v11 - 112);
+  a11 = v11 - 112;
   std::vector<cluster>::__destroy_vector::operator()[abi:ne200100](&a11);
   _Unwind_Resume(a1);
 }
 
-uint64_t hdbscanStar::hdbscanAlgorithm::createNewCluster(uint64_t a1, uint64_t *a2, cluster *this, int a4, cluster_factory *a5, double a6)
+cluster *hdbscanStar::hdbscanAlgorithm::createNewCluster(uint64_t a1, uint64_t *a2, cluster *this, int a4, cluster_factory *a5, double a6)
 {
   v11 = *a1;
   if (*a1 != a1 + 8)
@@ -3735,7 +3483,7 @@ uint64_t hdbscanStar::hdbscanAlgorithm::createNewCluster(uint64_t a1, uint64_t *
   {
     v16 = *(a1 + 16);
 
-    cluster_factory::createNewCluster(a5, a4, this, a6);
+    cluster_factory::createNewCluster(a5, a4, this, a6, v16);
   }
 
   std::set<int>::set[abi:ne200100](v18, a1);
@@ -3744,7 +3492,7 @@ uint64_t hdbscanStar::hdbscanAlgorithm::createNewCluster(uint64_t a1, uint64_t *
   return 0;
 }
 
-uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -3755,21 +3503,21 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uin
   else
   {
     std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-void hdbscanStar::hdbscanAlgorithm::findProminentClusters(uint64_t a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t *a4@<X8>)
+void hdbscanStar::hdbscanAlgorithm::findProminentClusters(int a1@<W2>, uint64_t *a2@<X8>, uint64_t a3@<X0>, void *a4@<X1>)
 {
-  v7 = *(*a1 + 8);
+  v7 = *(*a3 + 8);
   v34 = 0;
   v35 = 0;
   v33 = 0;
   std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>(&v33, *(v7 + 72), *(v7 + 80), (*(v7 + 80) - *(v7 + 72)) >> 3);
-  std::vector<int>::vector[abi:ne200100](a4, a3);
+  std::vector<int>::vector[abi:ne200100](a2, a1);
   v31 = 0;
   v32 = 0;
   v30 = &v31;
@@ -3795,7 +3543,7 @@ void hdbscanStar::hdbscanAlgorithm::findProminentClusters(uint64_t a1@<X0>, void
       }
 
       __p = &v24;
-      v12 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v30, &v24);
+      v12 = std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v30, &v24, &std::piecewise_construct, &__p);
       std::vector<int>::push_back[abi:ne200100](v12 + 5, (*v8 + 124));
       v8 += 8;
     }
@@ -3810,11 +3558,11 @@ void hdbscanStar::hdbscanAlgorithm::findProminentClusters(uint64_t a1@<X0>, void
       std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v30[5], v30[6], (v30[6] - v30[5]) >> 2);
       v14 = *(v13 + 8);
       std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__erase_unique<int>(&v30, v13 + 8);
-      v15 = (*a2 + 24 * v14);
+      v15 = *a4 + 24 * v14;
       v25 = 0;
       v26 = 0;
       v24 = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v24, *v15, v15[1], (v15[1] - *v15) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v24, *v15, *(v15 + 8), (*(v15 + 8) - *v15) >> 2);
       v16 = v24;
       if (v25 != v24)
       {
@@ -3822,7 +3570,7 @@ void hdbscanStar::hdbscanAlgorithm::findProminentClusters(uint64_t a1@<X0>, void
         v18 = (v25 - v24) >> 2;
         v19 = __p;
         v20 = v28;
-        v21 = *a4;
+        v21 = *a2;
         if (v18 <= 1)
         {
           v18 = 1;
@@ -3888,7 +3636,7 @@ void sub_10023D788(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3937,7 +3685,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -3948,7 +3696,7 @@ void hdbscanStar::hdbscanAlgorithm::findMembershipScore(void *a1@<X0>, uint64_t 
   v5 = a1[1] - *a1;
   v6 = v5 >> 2;
   __src = 0x7FEFFFFFFFFFFFFFLL;
-  std::vector<double>::vector[abi:ne200100](a3, (v5 >> 2));
+  std::vector<double>::vector[abi:ne200100](a3, (v5 >> 2), &__src);
   if (v6 >= 1)
   {
     v7 = 0;
@@ -4194,9 +3942,9 @@ void sub_10023DBB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t hdbscanStar::hdbscanAlgorithm::propagateTree(uint64_t **a1)
 {
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v17 = &v18;
+  v16 = &v17;
   memset(__p, 0, sizeof(__p));
   v1 = *a1;
   v2 = a1[1];
@@ -4210,19 +3958,19 @@ uint64_t hdbscanStar::hdbscanAlgorithm::propagateTree(uint64_t **a1)
     v3 = *v1;
     if (*v1 && (*(v3 + 120) & 1) == 0)
     {
-      v15 = *(v3 + 124);
-      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v17, &v15);
-      v13 = v15;
-      v14 = v3;
-      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(&v17, &v13);
-      bitSet::set(__p, v15);
+      v14 = *(v3 + 124);
+      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v16, &v14);
+      LODWORD(v13) = v14;
+      *(&v13 + 1) = v3;
+      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(&v16, &v13, &v13);
+      bitSet::set(__p, v14);
     }
 
     ++v1;
   }
 
   while (v1 != v2);
-  if (!v19)
+  if (!v18)
   {
 LABEL_17:
     v4 = 0;
@@ -4233,9 +3981,9 @@ LABEL_17:
     v4 = 0;
     do
     {
-      v5 = v18;
-      v6 = &v18;
-      if (v18)
+      v5 = v17;
+      v6 = &v17;
+      if (v17)
       {
         do
         {
@@ -4259,27 +4007,27 @@ LABEL_17:
       }
 
       v9 = v7[5];
-      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v17, v7 + 8);
+      std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v16, v7 + 8);
       cluster::propagate(v9);
       v10 = *(v9 + 112) == INFINITY;
       v11 = *(v9 + 104);
       if (v11)
       {
-        v15 = *(v11 + 124);
-        if ((bitSet::get(__p, v15) & 1) == 0)
+        v14 = *(v11 + 124);
+        if ((bitSet::get(__p, v14) & 1) == 0)
         {
-          std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v17, &v15);
-          v13 = v15;
-          v14 = v11;
-          std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(&v17, &v13);
-          bitSet::set(__p, v15);
+          std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(&v16, &v14);
+          LODWORD(v13) = v14;
+          *(&v13 + 1) = v11;
+          std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(&v16, &v13, &v13);
+          bitSet::set(__p, v14);
         }
       }
 
       v4 |= v10;
     }
 
-    while (v19);
+    while (v18);
   }
 
   if (__p[0])
@@ -4287,11 +4035,11 @@ LABEL_17:
     operator delete(__p[0]);
   }
 
-  std::__tree<int>::destroy(&v17, v18);
+  std::__tree<int>::destroy(&v16, v17);
   return v4 & 1;
 }
 
-void sub_10023DD80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, char a16, void *a17)
+void sub_10023DD80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   if (__p)
   {
@@ -4424,10 +4172,10 @@ void sub_10023DFC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<cluster>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<cluster>::push_back[abi:ne200100](unint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<cluster>::__emplace_back_slow_path<cluster const&>(a1, a2);
   }
@@ -4438,7 +4186,7 @@ uint64_t std::vector<cluster>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     result = v3 + 136;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -4454,29 +4202,17 @@ void cluster::~cluster(cluster *this)
   std::__tree<int>::destroy(this + 48, *(this + 7));
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_10023E0C8(_Unwind_Exception *exception_object)
@@ -4491,7 +4227,7 @@ void sub_10023E0C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4549,8 +4285,8 @@ uint64_t undirectedGraph::undirectedGraph(uint64_t a1, int a2, char **a3, char *
     v15 = (v13 >> 3) & 0x7FFFFFFF;
     do
     {
-      std::vector<int>::push_back[abi:ne200100]((*v12 + 24 * *(*v9 + v14)), &(*v11)[v14]);
-      v16 = *&(*v11)[v14];
+      std::vector<int>::push_back[abi:ne200100]((*v12 + 24 * *(*v9 + v14)), (*v11 + v14));
+      v16 = *(*v11 + v14);
       if (*(*v9 + v14) != v16)
       {
         std::vector<int>::push_back[abi:ne200100]((*v12 + 24 * v16), (*v9 + v14));
@@ -4566,29 +4302,29 @@ uint64_t undirectedGraph::undirectedGraph(uint64_t a1, int a2, char **a3, char *
   return a1;
 }
 
-void sub_10023E2B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10023E2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](va);
-  v7 = *v5;
-  if (*v5)
+  v8 = *v6;
+  if (*v6)
   {
-    v2[8] = v7;
-    operator delete(v7);
-  }
-
-  v8 = *v4;
-  if (*v4)
-  {
-    v2[5] = v8;
+    v3[8] = v8;
     operator delete(v8);
   }
 
-  v9 = *v3;
-  if (*v3)
+  v9 = *v5;
+  if (*v5)
   {
-    v2[2] = v9;
+    v3[5] = v9;
     operator delete(v9);
+  }
+
+  v10 = *v4;
+  if (*v4)
+  {
+    v3[2] = v10;
+    operator delete(v10);
   }
 
   _Unwind_Resume(a1);
@@ -4769,32 +4505,32 @@ void *std::__list_imp<int>::clear(void *result)
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3, *a2, a2[1], (a2[1] - *a2) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -4818,16 +4554,16 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -4836,14 +4572,14 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   return v8;
 }
 
-void sub_10023E7D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10023E7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4865,7 +4601,7 @@ void sub_10023E848(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<cluster *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<cluster *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4873,6 +4609,19 @@ void std::vector<cluster *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2
   }
 
   std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_10023E95C(_Unwind_Exception *exception_object)
@@ -4887,18 +4636,18 @@ void sub_10023E95C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,false>(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,false>(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v8 = (a2 - 24);
   v74 = (a2 - 48);
   v9 = (a2 - 72);
-  v10 = a1;
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = a2 - v10;
     v14 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v10) >> 3);
@@ -4956,27 +4705,27 @@ LABEL_10:
     if (v13 >= 0xC01)
     {
       v17 = outlierScore::operator<(v10 + 24 * v15, v10);
-      v18 = outlierScore::operator<(a2 - 24, a1 + 24 * v15);
+      v18 = outlierScore::operator<(a2 - 24, result + 24 * v15);
       if (v17)
       {
         if (v18)
         {
-          v100 = *(a1 + 16);
-          v76 = *a1;
+          v100 = *(result + 16);
+          v76 = *result;
           v19 = *v8;
-          *(a1 + 16) = *(a2 - 8);
-          *a1 = v19;
+          *(result + 16) = *(a2 - 8);
+          *result = v19;
           goto LABEL_27;
         }
 
-        v106 = *(a1 + 16);
-        v82 = *a1;
+        v106 = *(result + 16);
+        v82 = *result;
         v27 = *v16;
-        *(a1 + 16) = *(v16 + 16);
-        *a1 = v27;
+        *(result + 16) = *(v16 + 16);
+        *result = v27;
         *(v16 + 16) = v106;
         *v16 = v82;
-        if (outlierScore::operator<(a2 - 24, a1 + 24 * v15))
+        if (outlierScore::operator<(a2 - 24, result + 24 * v15))
         {
           v100 = *(v16 + 16);
           v76 = *v16;
@@ -4998,49 +4747,49 @@ LABEL_27:
         *v16 = v23;
         *v8 = v78;
         *(a2 - 8) = v102;
-        if (outlierScore::operator<(a1 + 24 * v15, a1))
+        if (outlierScore::operator<(result + 24 * v15, result))
         {
-          v103 = *(a1 + 16);
-          v79 = *a1;
+          v103 = *(result + 16);
+          v79 = *result;
           v24 = *v16;
-          *(a1 + 16) = *(v16 + 16);
-          *a1 = v24;
+          *(result + 16) = *(v16 + 16);
+          *result = v24;
           *(v16 + 16) = v103;
           *v16 = v79;
         }
       }
 
-      v29 = a1 + 24 * v15 - 24;
-      v30 = outlierScore::operator<(v29, a1 + 24);
+      v29 = result + 24 * v15 - 24;
+      v30 = outlierScore::operator<(v29, result + 24);
       v31 = outlierScore::operator<(v74, v29);
       if (v30)
       {
         if (v31)
         {
-          v32 = *(a1 + 24);
-          v33 = *(a1 + 40);
+          v32 = *(result + 24);
+          v33 = *(result + 40);
           v34 = *(a2 - 32);
-          *(a1 + 24) = *v74;
-          *(a1 + 40) = v34;
+          *(result + 24) = *v74;
+          *(result + 40) = v34;
           *(a2 - 32) = v33;
           *v74 = v32;
         }
 
         else
         {
-          v86 = *(a1 + 24);
-          v110 = *(a1 + 40);
-          v39 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v39;
-          *(a1 + 24 * v15 - 8) = v110;
+          v86 = *(result + 24);
+          v110 = *(result + 40);
+          v39 = *(result + 24 * v15 - 8);
+          *(result + 24) = *v29;
+          *(result + 40) = v39;
+          *(result + 24 * v15 - 8) = v110;
           *v29 = v86;
           if (outlierScore::operator<(v74, v29))
           {
-            v111 = *(a1 + 24 * v15 - 8);
+            v111 = *(result + 24 * v15 - 8);
             v87 = *v29;
             v40 = *v74;
-            *(a1 + 24 * v15 - 8) = *(a2 - 32);
+            *(result + 24 * v15 - 8) = *(a2 - 32);
             *v29 = v40;
             *v74 = v87;
             *(a2 - 32) = v111;
@@ -5050,48 +4799,48 @@ LABEL_27:
 
       else if (v31)
       {
-        v107 = *(a1 + 24 * v15 - 8);
+        v107 = *(result + 24 * v15 - 8);
         v83 = *v29;
         v35 = *v74;
-        *(a1 + 24 * v15 - 8) = *(a2 - 32);
+        *(result + 24 * v15 - 8) = *(a2 - 32);
         *v29 = v35;
         *v74 = v83;
         *(a2 - 32) = v107;
-        if (outlierScore::operator<(v29, a1 + 24))
+        if (outlierScore::operator<(v29, result + 24))
         {
-          v84 = *(a1 + 24);
-          v108 = *(a1 + 40);
-          v36 = *(a1 + 24 * v15 - 8);
-          *(a1 + 24) = *v29;
-          *(a1 + 40) = v36;
-          *(a1 + 24 * v15 - 8) = v108;
+          v84 = *(result + 24);
+          v108 = *(result + 40);
+          v36 = *(result + 24 * v15 - 8);
+          *(result + 24) = *v29;
+          *(result + 40) = v36;
+          *(result + 24 * v15 - 8) = v108;
           *v29 = v84;
         }
       }
 
-      v41 = a1 + 24 * v15;
-      v42 = outlierScore::operator<(v41 + 24, a1 + 48);
+      v41 = result + 24 * v15;
+      v42 = outlierScore::operator<(v41 + 24, result + 48);
       v43 = outlierScore::operator<(a2 - 72, v41 + 24);
       if (v42)
       {
         if (v43)
         {
-          v44 = *(a1 + 48);
-          v45 = *(a1 + 64);
+          v44 = *(result + 48);
+          v45 = *(result + 64);
           v46 = *(a2 - 56);
-          *(a1 + 48) = *v9;
-          *(a1 + 64) = v46;
+          *(result + 48) = *v9;
+          *(result + 64) = v46;
           *(a2 - 56) = v45;
           *v9 = v44;
         }
 
         else
         {
-          v90 = *(a1 + 48);
-          v114 = *(a1 + 64);
+          v90 = *(result + 48);
+          v114 = *(result + 64);
           v49 = *(v41 + 40);
-          *(a1 + 48) = *(v41 + 24);
-          *(a1 + 64) = v49;
+          *(result + 48) = *(v41 + 24);
+          *(result + 64) = v49;
           *(v41 + 40) = v114;
           *(v41 + 24) = v90;
           if (outlierScore::operator<(a2 - 72, v41 + 24))
@@ -5116,13 +4865,13 @@ LABEL_27:
         *(v41 + 24) = v47;
         *v9 = v88;
         *(a2 - 56) = v112;
-        if (outlierScore::operator<(v41 + 24, a1 + 48))
+        if (outlierScore::operator<(v41 + 24, result + 48))
         {
-          v89 = *(a1 + 48);
-          v113 = *(a1 + 64);
+          v89 = *(result + 48);
+          v113 = *(result + 64);
           v48 = *(v41 + 40);
-          *(a1 + 48) = *(v41 + 24);
-          *(a1 + 64) = v48;
+          *(result + 48) = *(v41 + 24);
+          *(result + 64) = v48;
           *(v41 + 40) = v113;
           *(v41 + 24) = v89;
         }
@@ -5178,18 +4927,18 @@ LABEL_55:
         }
       }
 
-      v120 = *(a1 + 16);
-      v96 = *a1;
+      v120 = *(result + 16);
+      v96 = *result;
       v53 = *v16;
-      *(a1 + 16) = *(v16 + 16);
-      *a1 = v53;
+      *(result + 16) = *(v16 + 16);
+      *result = v53;
       *(v16 + 16) = v120;
       *v16 = v96;
       goto LABEL_57;
     }
 
     v20 = outlierScore::operator<(v10, v10 + 24 * v15);
-    v21 = outlierScore::operator<(a2 - 24, a1);
+    v21 = outlierScore::operator<(a2 - 24, result);
     if (v20)
     {
       if (v21)
@@ -5207,59 +4956,59 @@ LABEL_36:
 
       v109 = *(v16 + 16);
       v85 = *v16;
-      v37 = *a1;
-      *(v16 + 16) = *(a1 + 16);
+      v37 = *result;
+      *(v16 + 16) = *(result + 16);
       *v16 = v37;
-      *(a1 + 16) = v109;
-      *a1 = v85;
-      if (outlierScore::operator<(a2 - 24, a1))
+      *(result + 16) = v109;
+      *result = v85;
+      if (outlierScore::operator<(a2 - 24, result))
       {
-        v101 = *(a1 + 16);
-        v77 = *a1;
+        v101 = *(result + 16);
+        v77 = *result;
         v38 = *v8;
-        *(a1 + 16) = *(a2 - 8);
-        *a1 = v38;
+        *(result + 16) = *(a2 - 8);
+        *result = v38;
         goto LABEL_36;
       }
     }
 
     else if (v21)
     {
-      v104 = *(a1 + 16);
-      v80 = *a1;
+      v104 = *(result + 16);
+      v80 = *result;
       v25 = *v8;
-      *(a1 + 16) = *(a2 - 8);
-      *a1 = v25;
+      *(result + 16) = *(a2 - 8);
+      *result = v25;
       *v8 = v80;
       *(a2 - 8) = v104;
-      if (outlierScore::operator<(a1, a1 + 24 * v15))
+      if (outlierScore::operator<(result, result + 24 * v15))
       {
         v105 = *(v16 + 16);
         v81 = *v16;
-        v26 = *a1;
-        *(v16 + 16) = *(a1 + 16);
+        v26 = *result;
+        *(v16 + 16) = *(result + 16);
         *v16 = v26;
-        *(a1 + 16) = v105;
-        *a1 = v81;
+        *(result + 16) = v105;
+        *result = v81;
       }
     }
 
 LABEL_57:
-    if ((a5 & 1) == 0 && !outlierScore::operator<(a1 - 24, a1))
+    if ((a5 & 1) == 0 && !outlierScore::operator<(result - 24, result))
     {
-      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(a1, a2);
+      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(result, a2);
       goto LABEL_64;
     }
 
-    v54 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(a1, a2);
+    v54 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(result, a2);
     if ((v55 & 1) == 0)
     {
       goto LABEL_62;
     }
 
-    v56 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(a1, v54);
-    v10 = v54 + 24;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(v54 + 24, a2))
+    v56 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(result, v54);
+    v10 = (v54 + 24);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>((v54 + 24), a2))
     {
       a4 = -v12;
       a2 = v54;
@@ -5275,8 +5024,8 @@ LABEL_57:
     if (!v56)
     {
 LABEL_62:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,false>(a1, v54, a3, -v12, a5 & 1);
-      v10 = v54 + 24;
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,false>(result, v54, a3, -v12, a5 & 1);
+      v10 = (v54 + 24);
 LABEL_64:
       a5 = 0;
       a4 = -v12;
@@ -5289,13 +5038,13 @@ LABEL_64:
     if (v14 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(v10, v10 + 24, v10 + 48, a2 - 24);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(v10, (v10 + 24), (v10 + 48), (a2 - 24));
       return;
     }
 
     if (v14 == 5)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(v10, v10 + 24, v10 + 48, v10 + 72);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(v10, (v10 + 24), (v10 + 48), (v10 + 72));
       if (!outlierScore::operator<(a2 - 24, v10 + 72))
       {
         return;
@@ -5397,7 +5146,7 @@ LABEL_76:
   }
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
   v8 = outlierScore::operator<(a2, a1);
   v9 = outlierScore::operator<(a3, a2);
@@ -5406,30 +5155,30 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> 
     if (v9)
     {
       v10 = *a1;
-      v11 = *(a1 + 16);
-      v12 = *(a3 + 16);
+      v11 = a1[1].n128_u64[0];
+      v12 = a3[1].n128_u32[0];
       *a1 = *a3;
-      *(a1 + 16) = v12;
+      a1[1].n128_u32[0] = v12;
 LABEL_9:
-      *(a3 + 16) = v11;
+      a3[1].n128_u32[0] = v11;
       *a3 = v10;
       goto LABEL_10;
     }
 
     v19 = *a1;
-    v20 = *(a1 + 16);
-    v21 = *(a2 + 16);
+    v20 = a1[1].n128_u64[0];
+    v21 = a2[1].n128_u32[0];
     *a1 = *a2;
-    *(a1 + 16) = v21;
-    *(a2 + 16) = v20;
+    a1[1].n128_u32[0] = v21;
+    a2[1].n128_u32[0] = v20;
     *a2 = v19;
     if (outlierScore::operator<(a3, a2))
     {
       v10 = *a2;
-      v11 = *(a2 + 16);
-      v22 = *(a3 + 16);
+      v11 = a2[1].n128_u64[0];
+      v22 = a3[1].n128_u32[0];
       *a2 = *a3;
-      *(a2 + 16) = v22;
+      a2[1].n128_u32[0] = v22;
       goto LABEL_9;
     }
   }
@@ -5437,20 +5186,20 @@ LABEL_9:
   else if (v9)
   {
     v13 = *a2;
-    v14 = *(a2 + 16);
-    v15 = *(a3 + 16);
+    v14 = a2[1].n128_u64[0];
+    v15 = a3[1].n128_u32[0];
     *a2 = *a3;
-    *(a2 + 16) = v15;
-    *(a3 + 16) = v14;
+    a2[1].n128_u32[0] = v15;
+    a3[1].n128_u32[0] = v14;
     *a3 = v13;
     if (outlierScore::operator<(a2, a1))
     {
       v16 = *a1;
-      v17 = *(a1 + 16);
-      v18 = *(a2 + 16);
+      v17 = a1[1].n128_u64[0];
+      v18 = a2[1].n128_u32[0];
       *a1 = *a2;
-      *(a1 + 16) = v18;
-      *(a2 + 16) = v17;
+      a1[1].n128_u32[0] = v18;
+      a2[1].n128_u32[0] = v17;
       *a2 = v16;
     }
   }
@@ -5459,29 +5208,29 @@ LABEL_10:
   if (outlierScore::operator<(a4, a3))
   {
     v24 = *a3;
-    v25 = *(a3 + 16);
-    v26 = *(a4 + 16);
+    v25 = a3[1].n128_i64[0];
+    v26 = a4[1].n128_u32[0];
     *a3 = *a4;
-    *(a3 + 16) = v26;
-    *(a4 + 16) = v25;
+    a3[1].n128_u32[0] = v26;
+    a4[1].n128_u32[0] = v25;
     *a4 = v24;
     if (outlierScore::operator<(a3, a2))
     {
       v27 = *a2;
-      v28 = *(a2 + 16);
-      v29 = *(a3 + 16);
+      v28 = a2[1].n128_u64[0];
+      v29 = a3[1].n128_u32[0];
       *a2 = *a3;
-      *(a2 + 16) = v29;
-      *(a3 + 16) = v28;
+      a2[1].n128_u32[0] = v29;
+      a3[1].n128_u32[0] = v28;
       *a3 = v27;
       if (outlierScore::operator<(a2, a1))
       {
         result = *a1;
-        v30 = *(a1 + 16);
-        v31 = *(a2 + 16);
+        v30 = a1[1].n128_u64[0];
+        v31 = a2[1].n128_u32[0];
         *a1 = *a2;
-        *(a1 + 16) = v31;
-        *(a2 + 16) = v30;
+        a1[1].n128_u32[0] = v31;
+        a2[1].n128_u32[0] = v30;
         *a2 = result;
       }
     }
@@ -5593,11 +5342,11 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,st
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(unint64_t a1, unint64_t a2)
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(__int128 *a1, unint64_t a2)
 {
   v2 = a2;
   v14 = *a1;
-  v15 = *(a1 + 16);
+  v15 = *(a1 + 2);
   if (outlierScore::operator<(&v14, a2 - 24))
   {
     v4 = a1;
@@ -5663,10 +5412,10 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   }
 
   v10 = (v4 - 24);
-  if (v4 - 24 != a1)
+  if ((v4 - 24) != a1)
   {
     v11 = *v10;
-    *(a1 + 16) = *(v4 - 8);
+    *(a1 + 4) = *(v4 - 8);
     *a1 = v11;
   }
 
@@ -5676,7 +5425,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v4;
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(__int128 *a1, unint64_t a2)
+char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,outlierScore *,std::__less<void,void> &>(char *a1, unint64_t a2)
 {
   v4 = 0;
   v15 = *a1;
@@ -5686,9 +5435,9 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
     v4 += 24;
   }
 
-  while (outlierScore::operator<(a1 + v4, &v15));
-  v5 = a1 + v4;
-  v6 = a1 + v4 - 24;
+  while (outlierScore::operator<(&a1[v4], &v15));
+  v5 = &a1[v4];
+  v6 = &a1[v4 - 24];
   if (v4 == 24)
   {
     do
@@ -5716,17 +5465,17 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
 
   if (v5 < a2)
   {
-    v7 = a1 + v4;
+    v7 = &a1[v4];
     v8 = a2;
     do
     {
       v17 = *v7;
       v9 = v17;
-      v18 = *(v7 + 16);
+      v18 = *(v7 + 2);
       v10 = v18;
       v11 = *(v8 + 16);
       *v7 = *v8;
-      *(v7 + 16) = v11;
+      *(v7 + 4) = v11;
       *(v8 + 16) = v10;
       *v8 = v9;
       do
@@ -5750,12 +5499,12 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   if (v6 != a1)
   {
     v12 = *v6;
-    *(a1 + 4) = *(v6 + 16);
+    *(a1 + 4) = *(v6 + 4);
     *a1 = v12;
   }
 
   v13 = v15;
-  *(v6 + 16) = v16;
+  *(v6 + 4) = v16;
   *v6 = v13;
   return v6;
 }
@@ -5820,11 +5569,11 @@ LABEL_16:
         *v5 = v24;
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(a1, a1 + 24, a1 + 48, a2 - 24);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
         return 1;
       case 5:
         v6 = a2 - 24;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(a1, a1 + 24, a1 + 48, a1 + 72);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72));
         if (!outlierScore::operator<(v6, a1 + 72))
         {
           return 1;
@@ -6051,7 +5800,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
     if (v8 >= 25)
     {
       v17 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v18 = a2 - 24;
+      v18 = (a2 - 24);
       do
       {
         v23 = *a1;
@@ -6066,14 +5815,14 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
         else
         {
           v20 = *v18;
-          *(v19 + 4) = *(v18 + 16);
+          *(v19 + 4) = *(v18 + 4);
           *v19 = v20;
           *v18 = v23;
-          *(v18 + 16) = v24;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(a1, v19 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v19 - a1 + 24) >> 3));
+          *(v18 + 4) = v24;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(a1, (v19 + 24), a4, 0xAAAAAAAAAAAAAAABLL * (&v19[-a1 + 24] >> 3));
         }
 
-        v18 -= 24;
+        v18 = (v18 - 24);
       }
 
       while (v17-- > 2);
@@ -6144,20 +5893,20 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(__int128 *a1, uint64_t a2, uint64_t a3)
+char *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,outlierScore *>(__int128 *a1, uint64_t a2, uint64_t a3)
 {
   v5 = 0;
   v6 = (a3 - 2) / 2;
   do
   {
     v7 = a1 + 24 * v5;
-    v8 = (v7 + 24);
+    v8 = v7 + 24;
     v9 = (2 * v5) | 1;
     v10 = 2 * v5 + 2;
     if (v10 < a3)
     {
-      v11 = (v7 + 48);
-      if (outlierScore::operator<(v7 + 24, v7 + 48))
+      v11 = v7 + 48;
+      if (outlierScore::operator<((v7 + 24), (v7 + 48)))
       {
         v8 = v11;
         v9 = v10;
@@ -6226,7 +5975,7 @@ __n128 std::vector<cluster>::__construct_one_at_end[abi:ne200100]<cluster const&
   *(v4 + 72) = 0;
   *(v4 + 80) = 0;
   *(v4 + 88) = 0;
-  std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>(v4 + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
+  std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>((v4 + 72), *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
   result = a2[6];
   v8 = a2[7];
   *(v4 + 128) = *(a2 + 32);
@@ -6243,21 +5992,21 @@ void sub_1002402FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<cluster>::__emplace_back_slow_path<cluster const&>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<cluster>::__emplace_back_slow_path<cluster const&>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xF0F0F0F0F0F0F0F1 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xF0F0F0F0F0F0F0F1 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x1E1E1E1E1E1E1E1)
   {
     std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xE1E1E1E1E1E1E1E2 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xE1E1E1E1E1E1E1E2 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xE1E1E1E1E1E1E1E2 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xE1E1E1E1E1E1E1E2 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xF0F0F0F0F0F0F0F1 * ((*(a1 + 16) - *a1) >> 3) >= 0xF0F0F0F0F0F0F0)
+  if (0xF0F0F0F0F0F0F0F1 * ((a1[2] - *a1) >> 3) >= 0xF0F0F0F0F0F0F0)
   {
     v6 = 0x1E1E1E1E1E1E1E1;
   }
@@ -6286,21 +6035,21 @@ uint64_t std::vector<cluster>::__emplace_back_slow_path<cluster const&>(uint64_t
   *(v7 + 72) = 0;
   *(v7 + 80) = 0;
   *(v7 + 88) = 0;
-  std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>(v7 + 72, *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
+  std::vector<cluster *>::__init_with_size[abi:ne200100]<cluster **,cluster **>((v7 + 72), *(a2 + 9), *(a2 + 10), (*(a2 + 10) - *(a2 + 9)) >> 3);
   v10 = a2[6];
   v11 = a2[7];
   *(v7 + 128) = *(a2 + 32);
   *(v7 + 96) = v10;
   *(v7 + 112) = v11;
   *&v20 = v20 + 136;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = v19 + *a1 - v12;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cluster>,cluster*>(a1, *a1, v12, v13);
   v14 = *a1;
   *a1 = v13;
-  v15 = *(a1 + 16);
+  v15 = a1[2];
   v17 = v20;
-  *(a1 + 8) = v20;
+  *(a1 + 1) = v20;
   *&v20 = v14;
   *(&v20 + 1) = v15;
   v18 = v14;
@@ -6309,10 +6058,10 @@ uint64_t std::vector<cluster>::__emplace_back_slow_path<cluster const&>(uint64_t
   return v17;
 }
 
-void sub_100240478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100240478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  std::__tree<int>::destroy(v4 + 48, *(v4 + 56));
+  va_start(va, a7);
+  std::__tree<int>::destroy(v7 + 48, *(v7 + 56));
   std::__split_buffer<cluster>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6381,8 +6130,7 @@ __n128 std::construct_at[abi:ne200100]<cluster,cluster,cluster*>(uint64_t a1, __
   *(a1 + 88) = 0;
   *(a1 + 72) = *(a2 + 72);
   *(a1 + 88) = *(a2 + 11);
-  *(a2 + 9) = 0;
-  *(a2 + 10) = 0;
+  *(a2 + 72) = 0uLL;
   *(a2 + 11) = 0;
   result = a2[6];
   v9 = a2[7];
@@ -6579,31 +6327,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -6612,185 +6359,185 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>>(void *result, int *a2, int *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -6814,7 +6561,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
         v9 = a2;
         do
         {
-          *(v8 + 7) = *(v9 + 7);
+          *(v8 + 7) = v9[7];
           std::__tree<int>::__node_insert_multi(v5, v8);
           v8 = v13;
           v14 = v13;
@@ -6823,7 +6570,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
             v13 = std::__tree<int>::_DetachedTreeCache::__detach_next(v13);
           }
 
-          v10 = v9[1];
+          v10 = *(v9 + 1);
           if (v10)
           {
             do
@@ -6839,7 +6586,7 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
           {
             do
             {
-              a2 = v9[2];
+              a2 = *(v9 + 2);
               v11 = *a2 == v9;
               v9 = a2;
             }
@@ -6864,23 +6611,23 @@ uint64_t **std::__tree<int>::__assign_multi<std::__tree_const_iterator<int,std::
 
   if (a2 != a3)
   {
-    std::__tree<int>::__emplace_multi<int const&>();
+    std::__tree<int>::__emplace_multi<int const&>(v5, a2 + 7);
   }
 
   return result;
 }
 
-void sub_100240C44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100240C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<int>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<int>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<int>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -6910,7 +6657,7 @@ uint64_t std::__tree<int>::__node_insert_multi(uint64_t **a1, uint64_t a2)
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -7007,7 +6754,7 @@ uint64_t *std::list<int>::__assign_with_sentinel[abi:ne200100]<std::__list_const
   }
 }
 
-uint64_t std::list<int>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::list<int>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
@@ -7070,41 +6817,41 @@ void std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compar
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_compare<int,std::__value_type<int,std::vector<int>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7155,28 +6902,28 @@ uint64_t *std::__tree<std::__value_type<int,std::vector<int>>,std::__map_value_c
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(uint64_t a1, int *a2)
+uint64_t std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__erase_unique<int>(uint64_t **a1, int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    if (*(v2 + 32) >= v3)
+    if (*(v2 + 8) >= v3)
     {
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * (*(v2 + 32) < v3));
+    v2 = v2[*(v2 + 8) < v3];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 32))
+  if (v4 == a1 + 1 || v3 < *(v4 + 8))
   {
     return 0;
   }
@@ -7186,41 +6933,41 @@ uint64_t std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<i
   return 1;
 }
 
-uint64_t *std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,cluster *>,std::__map_value_compare<int,std::__value_type<int,cluster *>,std::less<int>,true>,std::allocator<std::__value_type<int,cluster *>>>::__emplace_unique_key_args<int,std::pair<int const,cluster *>>(uint64_t a1, int *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -7244,7 +6991,7 @@ uint64_t std::set<int>::insert[abi:ne200100]<std::__tree_const_iterator<int,std:
     v5 = result;
     do
     {
-      result = std::__tree<int>::__emplace_hint_unique_key_args<int,int const&>(v5, v5 + 1, v4 + 7);
+      result = std::__tree<int>::__emplace_hint_unique_key_args<int,int const&>(v5, (v5 + 8), v4 + 7, v4 + 7);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -7278,20 +7025,20 @@ uint64_t std::set<int>::insert[abi:ne200100]<std::__tree_const_iterator<int,std:
   return result;
 }
 
-uint64_t std::__tree<int>::__emplace_hint_unique_key_args<int,int const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<int>::__emplace_hint_unique_key_args<int,int const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<int>::__find_equal<int>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<int>::__find_equal<int>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<int>::__find_equal<int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<int>::__find_equal<int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -7318,7 +7065,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -7379,7 +7126,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -7458,7 +7205,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -7514,9 +7261,9 @@ void Hdbscan::execute(char ***a1, int a2, int a3, std::string *__str)
   v14 = v15;
   __src = 0;
   v12 = 0;
-  if (&v17[3] != (a1 + 10))
+  if ((&v17[1] + 8) != a1 + 10)
   {
-    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(&v17[3], a1[10], a1[11], 0xAAAAAAAAAAAAAAABLL * (a1[11] - a1[10]));
+    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(&v17[1] + 8, a1[10], a1[11], 0xAAAAAAAAAAAAAAABLL * (a1[11] - a1[10]));
   }
 
   v19 = a2;
@@ -7536,7 +7283,7 @@ void Hdbscan::execute(char ***a1, int a2, int a3, std::string *__str)
   hdbscanRunner::run(v10);
 }
 
-void sub_100241C38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, char a37, void *a38)
+void sub_100241C38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, uint64_t a37, void *a38)
 {
   hdbscanParameters::~hdbscanParameters(&a10);
   if (__p)
@@ -7573,88 +7320,80 @@ void hdbscanParameters::~hdbscanParameters(hdbscanParameters *this)
 
 void Hdbscan::displayResult(Hdbscan *this)
 {
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v14, *this, *(this + 1), (*(this + 1) - *this) >> 2);
+  v17 = 0;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v21 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v19, *this, *(this + 1), (*(this + 1) - *this) >> 2);
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  std::vector<outlierScore>::__init_with_size[abi:ne200100]<outlierScore*,outlierScore*>(&v22, *(this + 3), *(this + 4), 0xAAAAAAAAAAAAAAABLL * ((*(this + 4) - *(this + 3)) >> 3));
+  std::vector<outlierScore>::__init_with_size[abi:ne200100]<outlierScore*,outlierScore*>(&v17, *(this + 3), *(this + 4), 0xAAAAAAAAAAAAAAABLL * ((*(this + 4) - *(this + 3)) >> 3));
   __p = 0;
-  v26 = 0;
-  v27 = 0;
+  v21 = 0;
+  v22 = 0;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&__p, *(this + 6), *(this + 7), (*(this + 7) - *(this + 6)) >> 3);
-  v28 = *(this + 72);
+  v23 = *(this + 72);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&std::cout, "HDBSCAN clustering for ", 23);
-  v2 = (*(this + 14) - *(this + 13)) >> 3;
-  v3 = std::ostream::operator<<();
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " objects.", 9);
-  std::ios_base::getloc((v4 + *(*v4 - 24)));
-  v5 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v5->__vftable[2].~facet_0)(v5, 10);
-  std::locale::~locale(&v29);
+  v2 = std::ostream::operator<<();
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, " objects.", 9);
+  std::ios_base::getloc((v3 + *(*v3 - 24)));
+  v4 = std::locale::use_facet(&v24, &std::ctype<char>::id);
+  (v4->__vftable[2].~facet_0)(v4, 10);
+  std::locale::~locale(&v24);
   std::ostream::put();
   std::ostream::flush();
-  v6 = v19;
-  if (v20 != v19)
+  if (v15 != v14)
   {
-    v7 = 0;
-    v8 = 1;
+    v5 = 1;
     do
     {
-      v9 = v6[v7];
-      v10 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " ", 1);
-      v7 = v8;
-      v6 = v19;
-      ++v8;
+      v6 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " ", 1);
+      v7 = v5++;
     }
 
-    while (v7 < (v20 - v19) >> 2);
+    while (v7 < (v15 - v14) >> 2);
   }
 
   std::ios_base::getloc((&std::cout + std::cout.__vftable[-2].~basic_ostream_0));
-  v11 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v11->__vftable[2].~facet_0)(v11, 10);
-  std::locale::~locale(&v29);
+  v8 = std::locale::use_facet(&v24, &std::ctype<char>::id);
+  (v8->__vftable[2].~facet_0)(v8, 10);
+  std::locale::~locale(&v24);
   std::ostream::put();
   std::ostream::flush();
   std::ios_base::getloc((&std::cout + std::cout.__vftable[-2].~basic_ostream_0));
-  v12 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v12->__vftable[2].~facet_0)(v12, 10);
-  std::locale::~locale(&v29);
+  v9 = std::locale::use_facet(&v24, &std::ctype<char>::id);
+  (v9->__vftable[2].~facet_0)(v9, 10);
+  std::locale::~locale(&v24);
   std::ostream::put();
   std::ostream::flush();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&std::cout, "The Clustering contains ", 24);
-  v13 = *(this + 57);
-  v14 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " clusters with ", 15);
-  v15 = *(this + 56);
-  v16 = std::ostream::operator<<();
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " noise Points.", 14);
-  std::ios_base::getloc((v17 + *(*v17 - 24)));
-  v18 = std::locale::use_facet(&v29, &std::ctype<char>::id);
-  (v18->__vftable[2].~facet_0)(v18, 10);
-  std::locale::~locale(&v29);
+  v10 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " clusters with ", 15);
+  v11 = std::ostream::operator<<();
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " noise Points.", 14);
+  std::ios_base::getloc((v12 + *(*v12 - 24)));
+  v13 = std::locale::use_facet(&v24, &std::ctype<char>::id);
+  (v13->__vftable[2].~facet_0)(v13, 10);
+  std::locale::~locale(&v24);
   std::ostream::put();
   std::ostream::flush();
   if (__p)
   {
-    v26 = __p;
+    v21 = __p;
     operator delete(__p);
   }
 
-  if (v22)
+  if (v17)
   {
-    v23 = v22;
-    operator delete(v22);
+    v18 = v17;
+    operator delete(v17);
   }
 
-  if (v19)
+  if (v14)
   {
-    v20 = v19;
-    operator delete(v19);
+    v15 = v14;
+    operator delete(v14);
   }
 }
 
@@ -7673,21 +7412,21 @@ void sub_1002420C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<double>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -7703,15 +7442,15 @@ void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vec
     std::vector<std::vector<double>>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -7729,13 +7468,13 @@ void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vec
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -7751,7 +7490,7 @@ void std::vector<std::vector<double>>::__vdeallocate(uint64_t *a1)
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -7783,7 +7522,7 @@ void hdbscanParameters::hdbscanParameters(hdbscanParameters *this, const hdbscan
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(this + 24, *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 3));
+  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(this + 3, *(a2 + 3), *(a2 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 4) - *(a2 + 3)) >> 3));
   if (*(a2 + 71) < 0)
   {
     std::string::__init_copy_ctor_external(this + 2, *(a2 + 6), *(a2 + 7));
@@ -7801,12 +7540,12 @@ void hdbscanParameters::hdbscanParameters(hdbscanParameters *this, const hdbscan
   *(this + 9) = v5;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(this + 80, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 2));
+  std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(this + 10, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 2));
 }
 
-void sub_100242440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100242440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -7830,7 +7569,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7852,7 +7591,7 @@ void sub_100242588(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<hdbscanConstraint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<hdbscanConstraint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -7896,7 +7635,7 @@ void hdbscanResult::~hdbscanResult(hdbscanResult *this)
   }
 }
 
-uint64_t std::vector<outlierScore>::__init_with_size[abi:ne200100]<outlierScore*,outlierScore*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<outlierScore>::__init_with_size[abi:ne200100]<outlierScore*,outlierScore*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7918,41 +7657,41 @@ void sub_1002426FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7965,16 +7704,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8091,121 +7830,121 @@ void sub_100242B5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void hdbscanRunner::run(uint64_t a1)
 {
-  v2 = *(a1 + 32) - *(a1 + 24);
-  if (!v2)
+  v3 = *(a1 + 32) - *(a1 + 24);
+  if (!v3)
   {
-    v2 = *(a1 + 8) - *a1;
+    v3 = *(a1 + 8) - *a1;
   }
 
-  v3 = 0xAAAAAAAAAAAAAAABLL * (v2 >> 3);
-  hdbscanResult::hdbscanResult(&v64);
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = v3;
-  if (v5 == *a1)
+  v4 = 0xAAAAAAAAAAAAAAABLL * (v3 >> 3);
+  hdbscanResult::hdbscanResult(&v65);
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  v7 = v4;
+  if (v6 == *a1)
   {
-    std::vector<std::vector<double>>::vector[abi:ne200100](&v41, v3);
-    if (v3 >= 1)
+    std::vector<std::vector<double>>::vector[abi:ne200100](&v42, v4);
+    if (v4 >= 1)
     {
-      v7 = 0;
-      v8 = (a1 + 48);
+      v8 = 0;
+      v9 = (a1 + 48);
       while (1)
       {
-        v9 = v6;
-        std::vector<double>::resize(&v41[3 * v7], v6);
-        if (v7)
+        v10 = v7;
+        std::vector<double>::resize(&v42[3 * v8], v7);
+        if (v8)
         {
           break;
         }
 
 LABEL_44:
-        ++v7;
-        v6 = v9;
-        if (v7 == (v3 & 0x7FFFFFFF))
+        ++v8;
+        v7 = v10;
+        if (v8 == (v4 & 0x7FFFFFFF))
         {
           goto LABEL_45;
         }
       }
 
-      v10 = 0;
       v11 = 0;
+      v12 = 0;
       while (*(a1 + 71) < 0)
       {
-        v12 = *(a1 + 56);
-        if (!v12)
+        v13 = *(a1 + 56);
+        if (!v13)
         {
           goto LABEL_23;
         }
 
-        if (v12 == 9)
+        if (v13 == 9)
         {
-          v13 = *v8;
-          if (**v8 != 0x616564696C637545 || *(*v8 + 8) != 110)
+          v14 = *v9;
+          if (**v9 != 0x616564696C637545 || *(*v9 + 8) != 110)
           {
 LABEL_35:
-            v23 = *v13;
-            v24 = *(v13 + 8);
-            if (v23 != 0x61747461686E614DLL || v24 != 110)
+            v24 = *v14;
+            v25 = *(v14 + 8);
+            if (v24 != 0x61747461686E614DLL || v25 != 110)
             {
               goto LABEL_29;
             }
 
-            v44 = &off_100341658;
-            v26 = (*(a1 + 24) + 24 * v7);
-            v51 = 0;
-            v49 = 0;
+            v45 = &off_100341658;
+            v27 = *(a1 + 24) + 24 * v8;
+            v52 = 0;
             v50 = 0;
-            std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v49, *v26, v26[1], (v26[1] - *v26) >> 3);
-            v27 = (*(a1 + 24) + v10);
-            v48 = 0;
-            v46 = 0;
+            v51 = 0;
+            std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v50, *v27, *(v27 + 8), (*(v27 + 8) - *v27) >> 3);
+            v28 = *(a1 + 24) + v11;
+            v49 = 0;
             v47 = 0;
-            std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v46, *v27, v27[1], (v27[1] - *v27) >> 3);
-            v17 = ManhattanDistance::computeDistance(&v44, &v49, &v46);
-            if (v46)
+            v48 = 0;
+            std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v47, *v28, *(v28 + 8), (*(v28 + 8) - *v28) >> 3);
+            v18 = ManhattanDistance::computeDistance(&v45, &v50, &v47);
+            if (v47)
             {
-              v47 = v46;
-              operator delete(v46);
+              v48 = v47;
+              operator delete(v47);
             }
 
-            v18 = v49;
-            if (v49)
+            v19 = v50;
+            if (v50)
             {
-              v50 = v49;
+              v51 = v50;
 LABEL_27:
-              operator delete(v18);
+              operator delete(v19);
             }
 
 LABEL_28:
-            v21 = v41;
-            *(v41[3 * v7] + v11) = v17;
-            *(v21[v10 / 8] + v7) = v17;
+            v22 = v42;
+            *&v42[3 * v8][8 * v12] = v18;
+            *(v22[v11 / 8] + v8) = v18;
             goto LABEL_29;
           }
 
 LABEL_19:
-          v44 = &off_100341608;
-          v15 = (*(a1 + 24) + 24 * v7);
-          v56 = 0;
+          v45 = &off_100341608;
+          v16 = *(a1 + 24) + 24 * v8;
           v57 = 0;
+          v58 = 0;
+          v56 = 0;
+          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v56, *v16, *(v16 + 8), (*(v16 + 8) - *v16) >> 3);
+          v17 = *(a1 + 24) + v11;
           v55 = 0;
-          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v55, *v15, v15[1], (v15[1] - *v15) >> 3);
-          v16 = (*(a1 + 24) + v10);
-          v54 = 0;
           __p = 0;
-          v53 = 0;
-          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&__p, *v16, v16[1], (v16[1] - *v16) >> 3);
-          v17 = EuclideanDistance::computeDistance(&v44, &v55, &__p);
+          v54 = 0;
+          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&__p, *v17, *(v17 + 8), (*(v17 + 8) - *v17) >> 3);
+          v18 = EuclideanDistance::computeDistance(&v45, &v56, &__p);
           if (__p)
           {
-            v53 = __p;
+            v54 = __p;
             operator delete(__p);
           }
 
-          v18 = v55;
-          if (v55)
+          v19 = v56;
+          if (v56)
           {
-            v56 = v55;
+            v57 = v56;
             goto LABEL_27;
           }
 
@@ -8213,9 +7952,9 @@ LABEL_19:
         }
 
 LABEL_29:
-        ++v11;
-        v10 += 24;
-        if (v7 == v11)
+        ++v12;
+        v11 += 24;
+        if (v8 == v12)
         {
           goto LABEL_44;
         }
@@ -8229,37 +7968,37 @@ LABEL_29:
         }
 
 LABEL_23:
-        v44 = &off_100341608;
-        v19 = (*(a1 + 24) + 24 * v7);
-        v62 = 0;
+        v45 = &off_100341608;
+        v20 = *(a1 + 24) + 24 * v8;
         v63 = 0;
-        v61 = 0;
-        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v61, *v19, v19[1], (v19[1] - *v19) >> 3);
-        v20 = (*(a1 + 24) + v10);
-        v59 = 0;
+        v64 = 0;
+        v62 = 0;
+        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v62, *v20, *(v20 + 8), (*(v20 + 8) - *v20) >> 3);
+        v21 = *(a1 + 24) + v11;
         v60 = 0;
-        v58 = 0;
-        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v58, *v20, v20[1], (v20[1] - *v20) >> 3);
-        v17 = EuclideanDistance::computeDistance(&v44, &v61, &v58);
-        if (v58)
+        v61 = 0;
+        v59 = 0;
+        std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v59, *v21, *(v21 + 8), (*(v21 + 8) - *v21) >> 3);
+        v18 = EuclideanDistance::computeDistance(&v45, &v62, &v59);
+        if (v59)
         {
-          v59 = v58;
-          operator delete(v58);
+          v60 = v59;
+          operator delete(v59);
         }
 
-        v18 = v61;
-        if (v61)
+        v19 = v62;
+        if (v62)
         {
-          v62 = v61;
+          v63 = v62;
           goto LABEL_27;
         }
 
         goto LABEL_28;
       }
 
-      v22 = *v8 == 0x616564696C637545 && *(a1 + 56) == 110;
-      v13 = (a1 + 48);
-      if (!v22)
+      v23 = *v9 == 0x616564696C637545 && *(a1 + 56) == 110;
+      v14 = (a1 + 48);
+      if (!v23)
       {
         goto LABEL_35;
       }
@@ -8268,49 +8007,49 @@ LABEL_23:
     }
 
 LABEL_45:
-    if (&v41 != a1)
+    if (&v42 != a1)
     {
-      std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(a1, v41, v42, 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 3));
+      std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(a1, v42, v43, 0xAAAAAAAAAAAAAAABLL * ((v43 - v42) >> 3));
     }
 
-    v44 = &v41;
-    std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v44);
-    v4 = *a1;
-    v5 = *(a1 + 8);
+    v45 = &v42;
+    std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v45);
+    v5 = *a1;
+    v6 = *(a1 + 8);
   }
 
-  memset(v43, 0, sizeof(v43));
-  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v43, v4, v5, 0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3));
-  hdbscanStar::hdbscanAlgorithm::calculateCoreDistances(v43, *(a1 + 72), &v44);
-  v41 = v43;
-  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v41);
-  memset(v40, 0, sizeof(v40));
-  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v40, *a1, *(a1 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3));
-  v37 = 0;
+  memset(v44, 0, sizeof(v44));
+  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v44, v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 3));
+  hdbscanStar::hdbscanAlgorithm::calculateCoreDistances(v44, *(a1 + 72), &v45);
+  v42 = v44;
+  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v42);
+  memset(v41, 0, sizeof(v41));
+  std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(v41, *a1, *(a1 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3));
   v38 = 0;
   v39 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v37, v44, v45, (v45 - v44) >> 3);
-  hdbscanStar::hdbscanAlgorithm::constructMst(v40, &v37, 1, &v41);
-  if (v37)
+  v40 = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v38, v45, v46, (v46 - v45) >> 3);
+  hdbscanStar::hdbscanAlgorithm::constructMst(v41, &v38, 1, &v42);
+  if (v38)
   {
-    v38 = v37;
-    operator delete(v37);
+    v39 = v38;
+    operator delete(v38);
   }
 
-  v36 = v40;
-  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v36);
-  undirectedGraph::quicksortByEdgeWeight(&v41);
-  std::vector<double>::vector[abi:ne200100](&v36, v6);
-  std::vector<int>::vector[abi:ne200100](&v35, v6);
+  v37 = v41;
+  std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&v37);
+  undirectedGraph::quicksortByEdgeWeight(&v42);
+  std::vector<double>::vector[abi:ne200100](&v37, v7);
+  std::vector<int>::vector[abi:ne200100](&v36, v7);
+  memset(v35, 0, sizeof(v35));
   memset(v34, 0, sizeof(v34));
   memset(v33, 0, sizeof(v33));
+  v29 = *(a1 + 76);
+  v30 = *(a1 + 80);
+  v31 = *(a1 + 88);
   memset(v32, 0, sizeof(v32));
-  v28 = *(a1 + 76);
-  v29 = *(a1 + 80);
-  v30 = *(a1 + 88);
-  memset(v31, 0, sizeof(v31));
-  std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(v31, v29, v30, 0xAAAAAAAAAAAAAAABLL * ((v30 - v29) >> 2));
-  hdbscanStar::hdbscanAlgorithm::computeHierarchyAndClusterTree(&v41, v28, v31, v34, &v36, &v35, v33, v32);
+  std::vector<hdbscanConstraint>::__init_with_size[abi:ne200100]<hdbscanConstraint*,hdbscanConstraint*>(v32, v30, v31, 0xAAAAAAAAAAAAAAABLL * ((v31 - v30) >> 2));
+  hdbscanStar::hdbscanAlgorithm::computeHierarchyAndClusterTree(&v42, v29, v32, v35, &v37, &v36, v34, v33);
 }
 
 void sub_100243324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -8398,20 +8137,20 @@ id _MOErrorInvalidParameterCreate(uint64_t a1)
 
 void main_cold_1()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_4(&_mh_execute_header, v2, v3, "Unable to getrlimit: [%i] %s", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&_mh_execute_header, v1, v2, "Unable to getrlimit: [%i] %s", v3, v4, v5, v6);
 }
 
 void main_cold_2()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_4(&_mh_execute_header, v2, v3, "Unable to setrlimit: [%i] %s", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&_mh_execute_header, v1, v2, "Unable to setrlimit: [%i] %s", v3, v4, v5, v6);
 }
 
 void main_cold_4(NSObject *a1)

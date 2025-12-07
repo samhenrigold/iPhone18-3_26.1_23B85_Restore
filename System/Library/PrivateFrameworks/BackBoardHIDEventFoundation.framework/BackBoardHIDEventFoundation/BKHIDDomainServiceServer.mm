@@ -15,28 +15,26 @@
 
 - (void)rejectIncomingServiceConnection:(id)connection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connection = [connectionCopy connection];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
     serviceName = self->_serviceName;
-    v9 = 138543618;
-    v10 = serviceName;
-    v11 = 2114;
-    v12 = connectionCopy;
-    _os_log_debug_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEBUG, "invalidating connection (%{public}@) - %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = serviceName;
+    v10 = 2114;
+    v11 = connectionCopy;
+    _os_log_debug_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEBUG, "invalidating connection (%{public}@) - %{public}@", &v8, 0x16u);
   }
 
   [connection invalidate];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptIncomingServiceConnection:(id)connection
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connection = [connectionCopy connection];
   remoteToken = [connection remoteToken];
@@ -55,17 +53,16 @@
 
   [(BSMutableIntegerMap *)lock_activeConnectionsByPID setObject:connection forKey:v7];
   os_unfair_lock_unlock(&self->_lock);
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     queue = self->_queue;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __60__BKHIDDomainServiceServer_acceptIncomingServiceConnection___block_invoke;
-    v19 = &unk_2784F7270;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __60__BKHIDDomainServiceServer_acceptIncomingServiceConnection___block_invoke;
+    v17 = &unk_2784F7270;
     selfCopy = self;
-    v21 = connection;
-    [(BSServiceDispatchQueue *)queue performAsyncAndWait:&v16];
+    v19 = connection;
+    [(BSServiceDispatchQueue *)queue performAsyncAndWait:&v14];
   }
 
   log = self->_log;
@@ -73,15 +70,13 @@
   {
     serviceName = self->_serviceName;
     *buf = 138543618;
-    v23 = serviceName;
-    v24 = 2114;
-    v25 = connectionCopy;
+    v21 = serviceName;
+    v22 = 2114;
+    v23 = connectionCopy;
     _os_log_debug_impl(&dword_223CBE000, log, OS_LOG_TYPE_DEBUG, "activating connection (%{public}@) - %{public}@", buf, 0x16u);
   }
 
   [connection activate];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)didRespondBlockForConnection:(id)connection
@@ -190,8 +185,8 @@ uint64_t __57__BKHIDDomainServiceServer_didRespondBlockForConnection___block_inv
 
 void __55__BKHIDDomainServiceServer_enumerateUserInfoWithBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = a3;
-  v4 = [v10 userInfo];
+  v9 = a3;
+  v4 = [v9 userInfo];
   v5 = objc_opt_class();
   v6 = v4;
   if (v5)
@@ -216,7 +211,6 @@ void __55__BKHIDDomainServiceServer_enumerateUserInfoWithBlock___block_invoke(ui
 
   if (v8)
   {
-    v9 = v8[2];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -416,19 +410,19 @@ void __55__BKHIDDomainServiceServer_enumerateUserInfoWithBlock___block_invoke(ui
 
 void __155__BKHIDDomainServiceServer_initWithDelegate_incomingServiceConnectionHandler_serverTarget_serverProtocol_clientProtocol_serviceName_queue_log_entitlement___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v23 = a2;
+  v28 = *MEMORY[0x277D85DE8];
+  v22 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
   {
     if ([*(WeakRetained + 12) hasBeenSignalled])
     {
-      [v23 invalidate];
+      [v22 invalidate];
       goto LABEL_23;
     }
 
-    v5 = v23;
+    v5 = v22;
     v6 = [v5 remoteToken];
     v7 = [v6 pid];
     v8 = v4[7];
@@ -465,8 +459,8 @@ void __155__BKHIDDomainServiceServer_initWithDelegate_incomingServiceConnectionH
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __54__BKHIDDomainServiceServer__handleIncomingConnection___block_invoke;
-        v25 = &unk_2784F6298;
-        v26 = v4;
+        v24 = &unk_2784F6298;
+        v25 = v4;
         [v5 configure:buf];
         v9 = [[BKHIDDomainIncomingServiceConnection alloc] initWithConnection:v5 log:v4[7]];
         [(BKHIDDomainIncomingServiceConnection *)v9 setHandler:v4];
@@ -488,9 +482,9 @@ void __155__BKHIDDomainServiceServer_initWithDelegate_incomingServiceConnectionH
             v20 = v4[7];
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              *v27 = 138543362;
-              v28 = v16;
-              _os_log_error_impl(&dword_223CBE000, v20, OS_LOG_TYPE_ERROR, "cannot get remote process for connection %{public}@", v27, 0xCu);
+              *v26 = 138543362;
+              v27 = v16;
+              _os_log_error_impl(&dword_223CBE000, v20, OS_LOG_TYPE_ERROR, "cannot get remote process for connection %{public}@", v26, 0xCu);
             }
 
             [(BKHIDDomainIncomingServiceConnection *)v16 rejectConnection];
@@ -515,11 +509,11 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v22 = v4[8];
+      v21 = v4[8];
       *buf = 138543618;
       *&buf[4] = v5;
       *&buf[12] = 2114;
-      *&buf[14] = v22;
+      *&buf[14] = v21;
       v12 = "cannot connect to '%{public}@': missing entitlement %{public}@";
       v13 = v15;
       v14 = 22;
@@ -530,8 +524,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BKHIDDomainServiceServer__handleIncomingConnection___block_invoke(uint64_t a1, void *a2)
@@ -554,17 +546,17 @@ void __54__BKHIDDomainServiceServer__handleIncomingConnection___block_invoke(uin
 
 void __54__BKHIDDomainServiceServer__handleIncomingConnection___block_invoke_2(uint64_t a1, void *a2)
 {
-  *&v17[5] = *MEMORY[0x277D85DE8];
+  *&v15[5] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(v4 + 56);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v16 = 138543362;
-    *v17 = v3;
-    _os_log_error_impl(&dword_223CBE000, v5, OS_LOG_TYPE_ERROR, "invalidated connection %{public}@", &v16, 0xCu);
+    v14 = 138543362;
+    *v15 = v3;
+    _os_log_error_impl(&dword_223CBE000, v5, OS_LOG_TYPE_ERROR, "invalidated connection %{public}@", &v14, 0xCu);
     v4 = *(a1 + 32);
-    v13 = v3;
+    v11 = v3;
     if (!v4)
     {
       goto LABEL_7;
@@ -585,27 +577,24 @@ void __54__BKHIDDomainServiceServer__handleIncomingConnection___block_invoke_2(u
   v10 = *(v4 + 56);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v10;
-    v15 = [v3 remoteTarget];
-    v16 = 67109378;
-    v17[0] = v9;
-    LOWORD(v17[1]) = 2114;
-    *(&v17[1] + 2) = v15;
-    _os_log_debug_impl(&dword_223CBE000, v14, OS_LOG_TYPE_DEBUG, "removing connection pid:%d remote target: %{public}@", &v16, 0x12u);
+    v12 = v10;
+    v13 = [v3 remoteTarget];
+    v14 = 67109378;
+    v15[0] = v9;
+    LOWORD(v15[1]) = 2114;
+    *(&v15[1] + 2) = v13;
+    _os_log_debug_impl(&dword_223CBE000, v12, OS_LOG_TYPE_DEBUG, "removing connection pid:%d remote target: %{public}@", &v14, 0x12u);
   }
 
   os_unfair_lock_lock((v4 + 88));
   [*(v4 + 80) removeObjectForKey:v9];
   os_unfair_lock_unlock((v4 + 88));
-  v11 = *(v4 + 16);
   if (objc_opt_respondsToSelector())
   {
     [*(v4 + 16) connectionDidTerminate:v3];
   }
 
 LABEL_7:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

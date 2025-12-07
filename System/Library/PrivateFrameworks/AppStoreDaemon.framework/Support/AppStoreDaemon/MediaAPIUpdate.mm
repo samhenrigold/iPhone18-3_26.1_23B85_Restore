@@ -25,9 +25,9 @@
 
 - (_TtC9appstored14MediaAPIUpdate)initWithDatabaseID:(int64_t)d propertyValues:(id)values externalPropertyValues:(id)propertyValues
 {
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  return sub_10017A848(d);
+  v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  return sub_10017A848(d, v6, v7);
 }
 
 + (Class)databaseEntityClass
@@ -74,7 +74,7 @@
 
 - (NSDate)currentVersionReleaseDate
 {
-  v3 = sub_100085D40(&qword_10059CB40);
+  v3 = sub_100085D40(&qword_10059CB40, &qword_100434710);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -168,7 +168,7 @@
 
 - (NSDate)discoveredDate
 {
-  v3 = sub_100085D40(&qword_10059CB40);
+  v3 = sub_100085D40(&qword_10059CB40, &qword_100434710);
   v4 = __chkstk_darwin(v3 - 8);
   v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);

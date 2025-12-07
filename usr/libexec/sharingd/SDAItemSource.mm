@@ -158,7 +158,7 @@
 
 - (id)activityViewControllerLinkPresentationMetadata:(id)metadata
 {
-  v4 = objc_alloc_init(off_100972CE8());
+  v4 = objc_alloc_init(off_100972CE8(self, a2, metadata));
   if (self->_previewImage)
   {
     v5 = [objc_alloc(off_100972CF0()) initWithPlatformImage:self->_previewImage];

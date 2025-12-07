@@ -31,83 +31,34 @@
 
 - (void)dealloc
 {
-  p_domainContext = &self->_domainContext;
-  domain = [(FPXDomainContext *)self->_domainContext domain];
-  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
-  userPersonaUniqueString = [currentPersona userPersonaUniqueString];
-  if ([personaIdentifier isEqualToString:userPersonaUniqueString])
-  {
-  }
+  [currentPersona userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  domain = [OUTLINED_FUNCTION_5_4() domain];
+  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
 
-  else
-  {
-    [MEMORY[0x1E69DF068] sharedManager];
-    v9 = v15 = domain;
-    currentPersona2 = [v9 currentPersona];
-    userPersonaUniqueString2 = [currentPersona2 userPersonaUniqueString];
-    domain2 = [(FPXDomainContext *)*p_domainContext domain];
-    personaIdentifier2 = [domain2 personaIdentifier];
-
-    if (userPersonaUniqueString2 != personaIdentifier2)
-    {
-      v13 = fp_current_or_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        [(FPXSearchEnumerator *)self dealloc];
-      }
-
-      exit(1);
-    }
-  }
-
-  [(FPXSearchEnumerator *)self invalidateVendorEnumeration];
-  v16.receiver = self;
-  v16.super_class = FPXSearchEnumerator;
-  [(FPXSearchEnumerator *)&v16 dealloc];
+  OUTLINED_FUNCTION_31();
 }
 
 - (void)_invalidateSync
 {
-  dispatch_assert_queue_V2(self->_queue);
-  v3 = [(FPXDomainContext *)self->_domainContext log];
-  v4 = fpfs_adopt_log(v3);
-
-  domain = [(FPXDomainContext *)self->_domainContext domain];
-  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
-  userPersonaUniqueString = [currentPersona userPersonaUniqueString];
-  if ([personaIdentifier isEqualToString:userPersonaUniqueString])
-  {
-  }
+  [currentPersona userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  domain = [OUTLINED_FUNCTION_5_4() domain];
+  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
 
-  else
-  {
-    [MEMORY[0x1E69DF068] sharedManager];
-    v10 = v17 = domain;
-    currentPersona2 = [v10 currentPersona];
-    userPersonaUniqueString2 = [currentPersona2 userPersonaUniqueString];
-    domain2 = [(FPXDomainContext *)self->_domainContext domain];
-    personaIdentifier2 = [domain2 personaIdentifier];
-
-    if (userPersonaUniqueString2 != personaIdentifier2)
-    {
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        [(FPXSearchEnumerator *)self _invalidateSync];
-      }
-
-      exit(1);
-    }
-  }
-
-  extensionContext = [(FPXDomainContext *)self->_domainContext extensionContext];
-  [extensionContext searchEnumeratorWasInvalidated:self];
-
-  [(FPXSearchEnumerator *)self invalidateVendorEnumeration];
+  OUTLINED_FUNCTION_31();
 }
 
 - (void)invalidate
@@ -123,23 +74,23 @@
 
 - (void)invalidateVendorEnumeration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_vendorEnumerator)
   {
     section = __fp_create_section();
-    v8 = section;
+    v7 = section;
     v4 = fp_current_or_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       vendorEnumerator = selfCopy->_vendorEnumerator;
       *buf = 134218498;
-      v10 = section;
-      v11 = 2112;
-      v12 = selfCopy;
-      v13 = 2112;
-      v14 = vendorEnumerator;
+      v9 = section;
+      v10 = 2112;
+      v11 = selfCopy;
+      v12 = 2112;
+      v13 = vendorEnumerator;
       _os_log_debug_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@: invalidating vendor enumeration: %@", buf, 0x20u);
     }
 
@@ -147,12 +98,10 @@
     v5 = selfCopy->_vendorEnumerator;
     selfCopy->_vendorEnumerator = 0;
 
-    __fp_leave_section_Debug(&v8);
+    __fp_leave_section_Debug(&v7);
   }
 
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateSearchResultsForObserver:(id)observer startingAtPage:(id)page

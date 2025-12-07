@@ -38,12 +38,12 @@
   v12 = HGObject::operator new(0x1A0uLL);
   HgcOverexposureCheck::HgcOverexposureCheck(v12);
   (*(*v12 + 120))(v12, 0, v59);
-  if ((atomic_load_explicit(&_MergedGlobals_6, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_6, memory_order_acquire) & 1) == 0)
   {
     [PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:];
   }
 
-  if ((atomic_load_explicit(&qword_280C5CC98, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5CC98, memory_order_acquire) & 1) == 0)
   {
     [PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:];
   }
@@ -67,16 +67,16 @@
   }
 
   v13.n128_u32[0] = *v15;
-  v16 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsHDR[1];
+  v16 = [PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsHDR + 4;
   if (!isRec2020LinearColorSpace)
   {
-    v16 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsSDR[1];
+    v16 = [PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsSDR + 4;
   }
 
-  v17 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsHDR[2];
+  v17 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsHDR[1];
   if (!isRec2020LinearColorSpace)
   {
-    v17 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsSDR[2];
+    v17 = &[PVSaturationZebraEffect hgNodeForTime:inputs:renderer:igContext:]::luminanceCoefficientsSDR[1];
   }
 
   v14.n128_u32[0] = *v16;
@@ -111,7 +111,7 @@ LABEL_18:
     v55 = v53.n128_u64[0];
     v56 = v53.n128_u32[2];
     v54 = 2;
-    PCColorUtil::transform(&v54, &v55, v22, 0, cgColorSpace, 1, &v57);
+    PCColorUtil::transform(&v57, &v54, &v55, v22, 0, cgColorSpace, 1);
     v52 = v57;
     *&v25 = __PAIR64__(HIDWORD(v57), v58);
     v51 = v25;
@@ -182,21 +182,21 @@ LABEL_19:
 
 - (void)hgNodeForTime:inputs:renderer:igContext:.cold.1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_6))
+  if (__cxa_guard_acquire(_MergedGlobals_6))
   {
     xmmword_280C5CCA0 = kPCChromaticities_ITU_R709_2;
     unk_280C5CCB0 = *&qword_26034C278;
-    __cxa_guard_release(&_MergedGlobals_6);
+    __cxa_guard_release(_MergedGlobals_6);
   }
 }
 
 - (void)hgNodeForTime:inputs:renderer:igContext:.cold.2()
 {
-  if (__cxa_guard_acquire(&qword_280C5CC98))
+  if (__cxa_guard_acquire(byte_280C5CC98))
   {
     unk_280C5CCC0 = kPCChromaticities_ITU_R2020;
     unk_280C5CCD0 = *&dword_26034C2F8;
-    __cxa_guard_release(&qword_280C5CC98);
+    __cxa_guard_release(byte_280C5CC98);
   }
 }
 

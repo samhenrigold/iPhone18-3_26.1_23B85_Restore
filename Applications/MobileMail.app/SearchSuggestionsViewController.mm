@@ -199,7 +199,7 @@
   _objc_release(self);
   _objc_release(result);
   sub_10040BD3C();
-  sub_10025C9B0(&qword_1006DBCE8);
+  sub_10025C9B0(&qword_1006DBCE8, &qword_10050AB00);
   sub_10040BDA0();
   v7.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -259,7 +259,7 @@
 {
   _objc_retain(avoidance);
   _objc_retain(self);
-  sub_1004218D4(overlap.origin.x, overlap.origin.y, overlap.size.width, overlap.size.height);
+  sub_1004218D4(avoidance, overlap.origin.x, overlap.origin.y, overlap.size.width, overlap.size.height);
   _objc_release(self);
   _objc_release(avoidance);
 }

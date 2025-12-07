@@ -28,35 +28,35 @@
 
 void __44__LNCodableValueType_objectClassesForCoding__block_invoke()
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v0 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{objc_opt_class(), 0}];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = +[LNCodableValueType supportedValueTypes];
   v2 = [v1 allValues];
 
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [v0 addObject:{objc_msgSend(*(*(&v10 + 1) + 8 * v6++), "objectClassSubclass")}];
+        [v0 addObject:{objc_msgSend(*(*(&v9 + 1) + 8 * v6++), "objectClassSubclass")}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -65,20 +65,18 @@ void __44__LNCodableValueType_objectClassesForCoding__block_invoke()
   v7 = [v0 copy];
   v8 = objectClassesForCoding_objectClassesForCoding;
   objectClassesForCoding_objectClassesForCoding = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (Class)objectClassSubclass
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v16[0] = v4;
+  v15[0] = v4;
   identifier = [(LNCodableValueType *)self identifier];
   v6 = [identifier stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-  v16[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
 
   v8 = [v7 componentsJoinedByString:@"_"];
   v9 = NSClassFromString(v8);
@@ -107,8 +105,6 @@ void __44__LNCodableValueType_objectClassesForCoding__block_invoke()
   }
 
   v13 = v10;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

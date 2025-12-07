@@ -77,7 +77,7 @@
 
 void __54__BBSettingsGateway__ensureBBServerSettingsConnection__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 8))
   {
     v2 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.bulletinboard.settingsconnection" options:0];
@@ -97,27 +97,25 @@ void __54__BBSettingsGateway__ensureBBServerSettingsConnection__block_invoke(uin
     [*(*(a1 + 32) + 8) setInterruptionHandler:&__block_literal_global_119];
     objc_initWeak(&location, *(a1 + 32));
     v9 = *(*(a1 + 32) + 8);
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __54__BBSettingsGateway__ensureBBServerSettingsConnection__block_invoke_120;
-    v16 = &unk_278D2B250;
-    objc_copyWeak(&v17, &location);
-    [v9 setInvalidationHandler:&v13];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __54__BBSettingsGateway__ensureBBServerSettingsConnection__block_invoke_120;
+    v15 = &unk_278D2B250;
+    objc_copyWeak(&v16, &location);
+    [v9 setInvalidationHandler:&v12];
     [*(*(a1 + 32) + 8) resume];
     v10 = BBLogPersistence;
     if (os_log_type_enabled(BBLogPersistence, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(*(a1 + 32) + 8);
       *buf = 138412290;
-      v20 = v11;
+      v19 = v11;
       _os_log_impl(&dword_241EFF000, v10, OS_LOG_TYPE_DEFAULT, "BBSettingsGateway: Created BBServer connection %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)effectiveGlobalAnnounceSetting
@@ -356,106 +354,104 @@ uint64_t __36__BBSettingsGateway_clientInterface__block_invoke()
 
 void __36__BBSettingsGateway_serverInterface__block_invoke()
 {
-  v62[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285434768];
   v1 = serverInterface___interface;
   serverInterface___interface = v0;
 
   v2 = serverInterface___interface;
   v3 = MEMORY[0x277CBEB98];
-  v62[0] = objc_opt_class();
-  v62[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v61[0] = objc_opt_class();
+  v61[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_getSectionInfoWithHandler_ argumentIndex:0 ofReply:1];
 
   v6 = serverInterface___interface;
   v7 = MEMORY[0x277CBEB98];
-  v61[0] = objc_opt_class();
-  v61[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+  v60[0] = objc_opt_class();
+  v60[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
   v9 = [v7 setWithArray:v8];
   [v6 setClasses:v9 forSelector:sel_getEffectiveSectionInfoWithHandler_ argumentIndex:0 ofReply:1];
 
   v10 = serverInterface___interface;
   v11 = MEMORY[0x277CBEB98];
-  v60 = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+  v59 = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
   v13 = [v11 setWithArray:v12];
   [v10 setClasses:v13 forSelector:sel_getSectionInfoForSectionID_withHandler_ argumentIndex:0 ofReply:1];
 
   v14 = serverInterface___interface;
   v15 = MEMORY[0x277CBEB98];
-  v59 = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+  v58 = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
   v17 = [v15 setWithArray:v16];
   [v14 setClasses:v17 forSelector:sel_getEffectiveSectionInfoForSectionID_withHandler_ argumentIndex:0 ofReply:1];
 
   v18 = serverInterface___interface;
   v19 = MEMORY[0x277CBEB98];
-  v58[0] = objc_opt_class();
-  v58[1] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  v57[0] = objc_opt_class();
+  v57[1] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
   v21 = [v19 setWithArray:v20];
   [v18 setClasses:v21 forSelector:sel_getSectionInfoForSectionIDs_withHandler_ argumentIndex:0 ofReply:0];
 
   v22 = serverInterface___interface;
   v23 = MEMORY[0x277CBEB98];
-  v57[0] = objc_opt_class();
-  v57[1] = objc_opt_class();
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = objc_opt_class();
+  v56[1] = objc_opt_class();
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   v25 = [v23 setWithArray:v24];
   [v22 setClasses:v25 forSelector:sel_getSectionInfoForSectionIDs_withHandler_ argumentIndex:0 ofReply:1];
 
   v26 = serverInterface___interface;
   v27 = MEMORY[0x277CBEB98];
-  v56[0] = objc_opt_class();
-  v56[1] = objc_opt_class();
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+  v55[0] = objc_opt_class();
+  v55[1] = objc_opt_class();
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   v29 = [v27 setWithArray:v28];
   [v26 setClasses:v29 forSelector:sel_getEffectiveSectionInfoForSectionIDs_withHandler_ argumentIndex:0 ofReply:1];
 
   v30 = serverInterface___interface;
   v31 = MEMORY[0x277CBEB98];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
   v33 = [v31 setWithArray:v32];
   [v30 setClasses:v33 forSelector:sel_getSectionInfoForActiveSectionsWithHandler_ argumentIndex:0 ofReply:1];
 
   v34 = serverInterface___interface;
   v35 = MEMORY[0x277CBEB98];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
   v37 = [v35 setWithArray:v36];
   [v34 setClasses:v37 forSelector:sel_getActiveSectionIDsWithHandler_ argumentIndex:0 ofReply:1];
 
   v38 = serverInterface___interface;
   v39 = MEMORY[0x277CBEB98];
-  v53[0] = objc_opt_class();
-  v53[1] = objc_opt_class();
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+  v52[0] = objc_opt_class();
+  v52[1] = objc_opt_class();
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
   v41 = [v39 setWithArray:v40];
   [v38 setClasses:v41 forSelector:sel_getSectionIDsWithHandler_ argumentIndex:0 ofReply:1];
 
   v42 = serverInterface___interface;
   v43 = MEMORY[0x277CBEB98];
-  v52[0] = objc_opt_class();
-  v52[1] = objc_opt_class();
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+  v51[0] = objc_opt_class();
+  v51[1] = objc_opt_class();
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
   v45 = [v43 setWithArray:v44];
   [v42 setClasses:v45 forSelector:sel_getEffectiveGlobalScheduledDeliveryTimesWithHandler_ argumentIndex:0 ofReply:1];
 
   v46 = serverInterface___interface;
   v47 = MEMORY[0x277CBEB98];
-  v51[0] = objc_opt_class();
-  v51[1] = objc_opt_class();
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+  v50[0] = objc_opt_class();
+  v50[1] = objc_opt_class();
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
   v49 = [v47 setWithArray:v48];
   [v46 setClasses:v49 forSelector:sel_setEffectiveGlobalScheduledDeliveryTimes_withHandler_ argumentIndex:0 ofReply:0];
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (BBSettingsGateway)initWithQueue:(id)queue
@@ -586,25 +582,23 @@ void __44__BBSettingsGateway_allEffectiveSectionInfo__block_invoke(uint64_t a1, 
 
 void __44__BBSettingsGateway_allEffectiveSectionInfo__block_invoke_124(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v12 = 134218242;
-    v13 = [v5 count];
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld effective section infos [ error: %{public}@ ]", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = [v5 count];
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld effective section infos [ error: %{public}@ ]", &v11, 0x16u);
   }
 
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allSectionInfo
@@ -648,25 +642,23 @@ void __35__BBSettingsGateway_allSectionInfo__block_invoke(uint64_t a1, void *a2)
 
 void __35__BBSettingsGateway_allSectionInfo__block_invoke_128(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v12 = 134218242;
-    v13 = [v5 count];
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section infos [ error: %{public}@ ]", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = [v5 count];
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section infos [ error: %{public}@ ]", &v11, 0x16u);
   }
 
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSectionInfoWithCompletion:(id)completion
@@ -732,23 +724,21 @@ void __50__BBSettingsGateway_getSectionInfoWithCompletion___block_invoke_130(uin
 
 void __50__BBSettingsGateway_getSectionInfoWithCompletion___block_invoke_131(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v10 = 134218242;
-    v11 = [v5 count];
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section infos [ error: %{public}@ ]", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = [v5 count];
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section infos [ error: %{public}@ ]", &v9, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sectionInfoForSectionIDs:(id)ds
@@ -793,22 +783,20 @@ void __46__BBSettingsGateway_sectionInfoForSectionIDs___block_invoke(uint64_t a1
 
 void __46__BBSettingsGateway_sectionInfoForSectionIDs___block_invoke_134(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    v9 = 134217984;
-    v10 = [v3 count];
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld section infos", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [v3 count];
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld section infos", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSectionInfoForSectionIDs:(id)ds withCompletion:(id)completion
@@ -891,22 +879,20 @@ void __54__BBSettingsGateway_effectiveSectionInfoForSectionID___block_invoke(uin
 
 void __54__BBSettingsGateway_effectiveSectionInfoForSectionID___block_invoke_137(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 40) != 0;
-    v9 = 134217984;
-    v10 = v5;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Got effective section info [ result: %ld ]", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v5;
+    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Got effective section info [ result: %ld ]", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)effectiveSectionInfoForSectionIDs:(id)ds
@@ -951,22 +937,20 @@ void __55__BBSettingsGateway_effectiveSectionInfoForSectionIDs___block_invoke(ui
 
 void __55__BBSettingsGateway_effectiveSectionInfoForSectionIDs___block_invoke_141(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    v9 = 134217984;
-    v10 = [v3 count];
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld effective section infos", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [v3 count];
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld effective section infos", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveSectionInfoForSectionIDs:(id)ds withCompletion:(id)completion
@@ -1042,22 +1026,20 @@ void __45__BBSettingsGateway_sectionInfoForSectionID___block_invoke(uint64_t a1,
 
 void __45__BBSettingsGateway_sectionInfoForSectionID___block_invoke_144(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 32) + 8) + 40) != 0;
-    v9 = 134217984;
-    v10 = v5;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Got section infos [ result: %ld ]", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v5;
+    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Got section infos [ result: %ld ]", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSectionInfoForSectionID:(id)d withCompletion:(id)completion
@@ -1163,22 +1145,20 @@ void __38__BBSettingsGateway_activeSectionInfo__block_invoke(uint64_t a1, void *
 
 void __38__BBSettingsGateway_activeSectionInfo__block_invoke_147(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    v9 = 134217984;
-    v10 = [v3 count];
-    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld section infos", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [v3 count];
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Got %ld section infos", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allActiveSectionIDs
@@ -1266,25 +1246,23 @@ void __34__BBSettingsGateway_allSectionIDs__block_invoke(uint64_t a1, void *a2)
 
 void __34__BBSettingsGateway_allSectionIDs__block_invoke_154(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v12 = 134218242;
-    v13 = [v5 count];
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section IDs [ error: %{public}@ ]", &v12, 0x16u);
+    v11 = 134218242;
+    v12 = [v5 count];
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Got %ld section IDs [ error: %{public}@ ]", &v11, 0x16u);
   }
 
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSectionInfoForActiveSectionsWithCompletion:(id)completion
@@ -1397,23 +1375,21 @@ void __58__BBSettingsGateway_effectiveGlobalContentPreviewsSetting__block_invoke
 
 void __58__BBSettingsGateway_effectiveGlobalContentPreviewsSetting__block_invoke_162(uint64_t a1, unint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBContentPreviewSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalContentPreviewSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalContentPreviewSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalContentPreviewsSettingWithCompletion:(id)completion
@@ -1505,23 +1481,21 @@ void __51__BBSettingsGateway_effectiveGlobalAnnounceSetting__block_invoke(uint64
 
 void __51__BBSettingsGateway_effectiveGlobalAnnounceSetting__block_invoke_172(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBAnnounceSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalAnnounceSettingWithCompletion:(id)completion
@@ -1578,23 +1552,21 @@ void __61__BBSettingsGateway_effectiveGlobalAnnounceHeadphonesSetting__block_inv
 
 void __61__BBSettingsGateway_effectiveGlobalAnnounceHeadphonesSetting__block_invoke_180(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBAnnounceSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceHeadphonesSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceHeadphonesSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalAnnounceHeadphonesSettingWithCompletion:(id)completion
@@ -1651,23 +1623,21 @@ void __58__BBSettingsGateway_effectiveGlobalAnnounceCarPlaySetting__block_invoke
 
 void __58__BBSettingsGateway_effectiveGlobalAnnounceCarPlaySetting__block_invoke_188(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBAnnounceCarPlaySetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceCarPlaySetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalAnnounceCarPlaySetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalAnnounceCarPlaySettingWithCompletion:(id)completion
@@ -1724,23 +1694,21 @@ void __60__BBSettingsGateway_effectiveGlobalScheduledDeliverySetting__block_invo
 
 void __60__BBSettingsGateway_effectiveGlobalScheduledDeliverySetting__block_invoke_196(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBScheduledDeliverySetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliverySetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliverySetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalScheduledDeliverySettingWithCompletion:(id)completion
@@ -1798,22 +1766,20 @@ void __58__BBSettingsGateway_effectiveGlobalScheduledDeliveryTimes__block_invoke
 
 void __58__BBSettingsGateway_effectiveGlobalScheduledDeliveryTimes__block_invoke_204(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliveryTimes (sync) [ error: %{public}@ ]", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliveryTimes (sync) [ error: %{public}@ ]", &v10, 0xCu);
   }
 
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v5;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalScheduledDeliveryTimesWithCompletion:(id)completion
@@ -1873,23 +1839,21 @@ void __75__BBSettingsGateway_effectiveGlobalScheduledDeliveryShowNextSummarySett
 
 void __75__BBSettingsGateway_effectiveGlobalScheduledDeliveryShowNextSummarySetting__block_invoke_212(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBSystemSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliveryShowNextSummarySetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalScheduledDeliveryShowNextSummarySetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalScheduledDeliveryShowNextSummarySettingWithCompletion:(id)completion
@@ -1946,23 +1910,21 @@ void __71__BBSettingsGateway_effectiveGlobalNotificationListDisplayStyleSetting_
 
 void __71__BBSettingsGateway_effectiveGlobalNotificationListDisplayStyleSetting__block_invoke_220(uint64_t a1, unint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBNotificationListDisplayStyleSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalNotificationListDisplayStyleSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalNotificationListDisplayStyleSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalNotificationListDisplayStyleSettingWithCompletion:(id)completion
@@ -2019,23 +1981,21 @@ void __56__BBSettingsGateway_effectiveGlobalSummarizationSetting__block_invoke(u
 
 void __56__BBSettingsGateway_effectiveGlobalSummarizationSetting__block_invoke_228(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBSystemSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalSummarizationSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalSummarizationSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalSummarizationSettingWithCompletion:(id)completion
@@ -2092,23 +2052,21 @@ void __53__BBSettingsGateway_effectiveGlobalHighlightsSetting__block_invoke(uint
 
 void __53__BBSettingsGateway_effectiveGlobalHighlightsSetting__block_invoke_236(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     v8 = BBStringFromBBSystemSetting(a2);
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalHighlightsSetting (sync) [ result: %@, error: %{public}@ ]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Got effectiveGlobalHighlightsSetting (sync) [ result: %@, error: %{public}@ ]", &v9, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getEffectiveGlobalHighlightsSettingWithCompletion:(id)completion
@@ -2157,230 +2115,6 @@ void __71__BBSettingsGateway_getEffectiveGlobalHighlightsSettingWithCompletion__
   _ensureBBServerSettingsConnection = [(BBSettingsGateway *)self _ensureBBServerSettingsConnection];
   remoteObjectProxy = [_ensureBBServerSettingsConnection remoteObjectProxy];
   [remoteObjectProxy refreshSectionInfo];
-}
-
-void __44__BBSettingsGateway_allEffectiveSectionInfo__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting all effective section infos failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __35__BBSettingsGateway_allSectionInfo__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting all section infos failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __46__BBSettingsGateway_sectionInfoForSectionIDs___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting requested section infos failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__BBSettingsGateway_effectiveSectionInfoForSectionID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting requested effective section info failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BBSettingsGateway_effectiveSectionInfoForSectionIDs___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting requested effective section infos failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __40__BBSettingsGateway_allActiveSectionIDs__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting all active section IDs failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __40__BBSettingsGateway_allActiveSectionIDs__block_invoke_150_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Error getting active section IDs: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __34__BBSettingsGateway_allSectionIDs__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting requested all section IDs failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__BBSettingsGateway_setEffectiveGlobalContentPreviewsSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Setting effectiveGlobalContentPreviewSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__BBSettingsGateway_effectiveGlobalContentPreviewsSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalContentPreviewSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BBSettingsGateway_setEffectiveGlobalAnnounceSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set setEffectiveGlobalAnnounceSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__BBSettingsGateway_effectiveGlobalAnnounceSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalAnnounceSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BBSettingsGateway_setEffectiveGlobalAnnounceHeadphonesSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalAnnounceHeadphonesSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__BBSettingsGateway_effectiveGlobalAnnounceHeadphonesSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalAnnounceHeadphonesSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__BBSettingsGateway_setEffectiveGlobalAnnounceCarPlaySetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalAnnounceCarPlaySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__BBSettingsGateway_effectiveGlobalAnnounceCarPlaySetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalAnnounceCarPlaySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__BBSettingsGateway_setEffectiveGlobalScheduledDeliverySetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalScheduledDeliverySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BBSettingsGateway_effectiveGlobalScheduledDeliverySetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalScheduledDeliverySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__BBSettingsGateway_setEffectiveGlobalScheduledDeliveryTimes___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalScheduledDeliveryTimes (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__BBSettingsGateway_effectiveGlobalScheduledDeliveryTimes__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalScheduledDeliveryTimes (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __79__BBSettingsGateway_setEffectiveGlobalScheduledDeliveryShowNextSummarySetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalScheduledDeliveryShowNextSummarySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __75__BBSettingsGateway_effectiveGlobalScheduledDeliveryShowNextSummarySetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalScheduledDeliveryShowNextSummarySetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __75__BBSettingsGateway_setEffectiveGlobalNotificationListDisplayStyleSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set effectiveGlobalNotificationListDisplayStyleSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__BBSettingsGateway_effectiveGlobalNotificationListDisplayStyleSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalNotificationListDisplayStyleSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BBSettingsGateway_setEffectiveGlobalSummarizationSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set setEffectiveGlobalSummarizationSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __56__BBSettingsGateway_effectiveGlobalSummarizationSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalSummarizationSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__BBSettingsGateway_setEffectiveGlobalHighlightsSetting___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Set setEffectiveGlobalHighlightsSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__BBSettingsGateway_effectiveGlobalHighlightsSetting__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_241EFF000, v0, v1, "Getting effectiveGlobalHighlightsSetting (sync) failed with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

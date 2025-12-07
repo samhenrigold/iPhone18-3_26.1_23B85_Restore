@@ -107,9 +107,9 @@ void __24__EFNetworkStatus_wired__block_invoke()
 - (EFNetworkStatus)initWithPathMonitor:(id)monitor
 {
   monitorCopy = monitor;
-  v25.receiver = self;
-  v25.super_class = EFNetworkStatus;
-  v6 = [(EFNetworkStatus *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = EFNetworkStatus;
+  v6 = [(EFNetworkStatus *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -125,15 +125,15 @@ void __24__EFNetworkStatus_wired__block_invoke()
     v12 = [objc_alloc(MEMORY[0x1E696AB38]) initWithCondition:0];
     objc_initWeak(&location, v12);
     objc_initWeak(&from, v7);
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __39__EFNetworkStatus_initWithPathMonitor___block_invoke;
-    v20 = &unk_1E8248E00;
-    objc_copyWeak(&v21, &location);
-    objc_copyWeak(&v22, &from);
-    nw_path_monitor_set_update_handler(monitorCopy, &v17);
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __39__EFNetworkStatus_initWithPathMonitor___block_invoke;
+    v21 = &unk_1E8248E00;
+    objc_copyWeak(&v22, &location);
+    objc_copyWeak(&v23, &from);
+    nw_path_monitor_set_update_handler(monitorCopy, &v18);
     nw_path_monitor_start(monitorCopy);
-    v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:{1.0, v17, v18, v19, v20}];
+    v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:{1.0, v18, v19, v20, v21}];
     v14 = [v12 lockWhenCondition:1 beforeDate:v13];
 
     if (v14)
@@ -143,15 +143,15 @@ void __24__EFNetworkStatus_wired__block_invoke()
 
     else
     {
-      v15 = _ef_log_EFNetworkStatus();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v16 = _ef_log_EFNetworkStatus(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [EFNetworkStatus initWithPathMonitor:v15];
+        [EFNetworkStatus initWithPathMonitor:v16];
       }
     }
 
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&v22);
-    objc_destroyWeak(&v21);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }

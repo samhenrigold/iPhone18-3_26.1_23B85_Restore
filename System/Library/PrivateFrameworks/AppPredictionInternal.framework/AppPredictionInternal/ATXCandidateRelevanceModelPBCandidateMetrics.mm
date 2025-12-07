@@ -500,12 +500,11 @@ LABEL_17:
 {
   toCopy = to;
   has = self->_has;
-  v21 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    candidateNumberOfPositiveSamples = self->_candidateNumberOfPositiveSamples;
     PBDataWriterWriteUint32Field();
-    toCopy = v21;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -524,9 +523,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  candidateNumberOfSamples = self->_candidateNumberOfSamples;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -540,9 +538,8 @@ LABEL_4:
   }
 
 LABEL_24:
-  candidateNumberOfDaysWithPositiveSamples = self->_candidateNumberOfDaysWithPositiveSamples;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -556,9 +553,8 @@ LABEL_5:
   }
 
 LABEL_25:
-  candidateNumberOfModelWeights = self->_candidateNumberOfModelWeights;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -572,9 +568,8 @@ LABEL_6:
   }
 
 LABEL_26:
-  candidateNumberOfNonZeroModelWeights = self->_candidateNumberOfNonZeroModelWeights;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -588,9 +583,8 @@ LABEL_7:
   }
 
 LABEL_27:
-  candidateShadowLaunchPercentage = self->_candidateShadowLaunchPercentage;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -604,9 +598,8 @@ LABEL_8:
   }
 
 LABEL_28:
-  candidateShadowShownPercentage = self->_candidateShadowShownPercentage;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -620,9 +613,8 @@ LABEL_9:
   }
 
 LABEL_29:
-  candidateShadowPrecision = self->_candidateShadowPrecision;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -636,9 +628,8 @@ LABEL_10:
   }
 
 LABEL_30:
-  candidateShadowRecall = self->_candidateShadowRecall;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -652,9 +643,8 @@ LABEL_11:
   }
 
 LABEL_31:
-  candidateShadowF1 = self->_candidateShadowF1;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -668,9 +658,8 @@ LABEL_12:
   }
 
 LABEL_32:
-  candidateUILaunchPercentage = self->_candidateUILaunchPercentage;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x4000) == 0)
   {
@@ -684,9 +673,8 @@ LABEL_13:
   }
 
 LABEL_33:
-  candidateUIShownPercentage = self->_candidateUIShownPercentage;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x1000) == 0)
   {
@@ -700,9 +688,8 @@ LABEL_14:
   }
 
 LABEL_34:
-  candidateUIPrecision = self->_candidateUIPrecision;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x2000) == 0)
   {
@@ -716,22 +703,20 @@ LABEL_15:
   }
 
 LABEL_35:
-  candidateUIRecall = self->_candidateUIRecall;
   PBDataWriterWriteFloatField();
-  toCopy = v21;
+  toCopy = v6;
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_16:
-    candidateUIF1 = self->_candidateUIF1;
     PBDataWriterWriteFloatField();
-    toCopy = v21;
+    toCopy = v6;
   }
 
 LABEL_17:
   if (self->_candidateIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v21;
+    toCopy = v6;
   }
 }
 

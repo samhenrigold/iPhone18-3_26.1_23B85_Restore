@@ -27,13 +27,13 @@
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5PeerDatabaseResponsePayload initWithRequest", &unk_1000CB00F, buf, 2u);
   }
 
-  v64.receiver = self;
-  v64.super_class = W5PeerDatabaseResponsePayload;
-  v7 = [(W5PeerDatabaseResponsePayload *)&v64 init];
+  v66.receiver = self;
+  v66.super_class = W5PeerDatabaseResponsePayload;
+  v7 = [(W5PeerDatabaseResponsePayload *)&v66 init];
   if (!v7 || (v8 = [requestCopy objectForKey:@"version"], (v7->_version = v8) == 0))
   {
     v23 = 0;
-    goto LABEL_46;
+    goto LABEL_47;
   }
 
   v9 = [requestCopy objectForKey:@"status"];
@@ -44,32 +44,32 @@
   }
 
   context = v5;
-  v60 = requestCopy;
-  v58 = v10;
+  v62 = requestCopy;
+  v60 = v10;
   if (![(NSNumber *)v7->_version isEqualToNumber:&off_1000EFBA8])
   {
     if (![(NSNumber *)v7->_version isEqualToNumber:&off_1000EFBC0])
     {
-      goto LABEL_51;
+      goto LABEL_52;
     }
 
     v11 = [requestCopy objectForKey:@"peerDatabaseResultsUncompressed"];
 
     if (v11)
     {
-      v61 = [requestCopy objectForKey:@"peerDatabaseResultsUncompressed"];
-      if (v61)
+      v63 = [requestCopy objectForKey:@"peerDatabaseResultsUncompressed"];
+      if (v63)
       {
-        v56 = v7;
+        v58 = v7;
         v12 = sub_100098A04();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [v61 length];
+          v13 = [v63 length];
           *buf = 136315394;
-          v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-          v67 = 2048;
-          v68 = v13;
-          _os_log_send_and_compose_impl();
+          v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+          v69 = 2048;
+          v70 = v13;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: Uncompressed databaseData size is %zd", buf, 22);
         }
 
         v14 = objc_opt_class();
@@ -80,54 +80,78 @@
         v19 = objc_opt_class();
         v20 = objc_opt_class();
         getPairOfBuffersFromPool = [NSSet setWithObjects:v14, v15, v16, v17, v18, v19, v20, objc_opt_class(), 0];
-        v62 = 0;
-        v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:getPairOfBuffersFromPool fromData:v61 error:&v62];
-        v23 = v62;
-        v7 = v56;
+        v64 = 0;
+        v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:getPairOfBuffersFromPool fromData:v63 error:&v64];
+        v23 = v64;
+        v7 = v58;
         goto LABEL_26;
       }
 
-      goto LABEL_51;
+      goto LABEL_52;
     }
 
     v24 = [requestCopy objectForKey:@"peerDatabaseResults"];
 
     if (!v24)
     {
-      goto LABEL_51;
+      goto LABEL_52;
     }
   }
 
-  v61 = [requestCopy objectForKey:@"peerDatabaseResults"];
-  if (!v61)
+  v63 = [requestCopy objectForKey:@"peerDatabaseResults"];
+  if (!v63)
   {
-LABEL_51:
+LABEL_52:
     getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_44;
+      *buf = 136315138;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: Failed to find kW5PeerResponsePeerDatabaseResultsUncompressedKey or kW5PeerResponsePeerDatabaseResultsKey", buf);
     }
 
-    *buf = 136315138;
-    v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-    goto LABEL_40;
+LABEL_45:
+    v23 = 0;
+LABEL_46:
+
+LABEL_47:
+    v51 = sub_100098A04();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      v69 = 2112;
+      v70 = v23;
+      LODWORD(v56) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v51, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: init error (error='%@'", buf, v56);
+    }
+
+    v52 = sub_10009A49C();
+    if (os_signpost_enabled(v52))
+    {
+      *buf = 138412290;
+      v68 = v23;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v52, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5PeerDatabaseResponsePayload initWithRequest", "Error=%@", buf, 0xCu);
+    }
+
+    v53 = [NSString stringWithFormat:@"%s: BOOL Expression FALSE", "[W5PeerDatabaseResponsePayload initWithRequest:]"];
+    v54 = [NSException exceptionWithName:NSInternalInconsistencyException reason:v53 userInfo:0];
+    v55 = v54;
+
+    objc_exception_throw(v54);
   }
 
   if (!compression_decode_scratch_buffer_size(COMPRESSION_LZFSE))
   {
     getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_44:
-      v23 = 0;
-      goto LABEL_45;
+      *buf = 136315138;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: scratchLengthBytes get sizeof failed", buf);
     }
 
-    *buf = 136315138;
-    v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-LABEL_40:
-    _os_log_send_and_compose_impl();
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
   v25 = +[W5BufferPool sharedW5BufferPool];
@@ -139,31 +163,31 @@ LABEL_40:
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-      _os_log_send_and_compose_impl();
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v50, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: getPairOfBuffersFromPool returned less than 2 buffers", buf);
     }
 
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
   firstObject = [getPairOfBuffersFromPool firstObject];
   lastObject = [getPairOfBuffersFromPool lastObject];
-  v28 = compression_decode_buffer([firstObject mutableBytes], objc_msgSend(firstObject, "length"), objc_msgSend(v61, "bytes"), objc_msgSend(v61, "length"), objc_msgSend(lastObject, "mutableBytes"), COMPRESSION_LZFSE);
+  v28 = compression_decode_buffer([firstObject mutableBytes], objc_msgSend(firstObject, "length"), objc_msgSend(v63, "bytes"), objc_msgSend(v63, "length"), objc_msgSend(lastObject, "mutableBytes"), COMPRESSION_LZFSE);
   v29 = sub_100098A04();
   v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
   if (v28)
   {
-    v57 = v7;
+    v59 = v7;
     if (v30)
     {
-      v31 = [v61 length];
+      v31 = [v63 length];
       *buf = 136315650;
-      v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-      v67 = 2048;
-      v68 = v28;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
       v69 = 2048;
-      v70 = v31;
-      _os_log_send_and_compose_impl();
+      v70 = v28;
+      v71 = 2048;
+      v72 = v31;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: compression_decode_buffer databaseData to Size of %zd, from size %zd", buf, 32, v57);
     }
 
     [firstObject setLength:v28];
@@ -175,24 +199,24 @@ LABEL_40:
     v37 = objc_opt_class();
     v38 = objc_opt_class();
     v29 = [NSSet setWithObjects:v32, v33, v34, v35, v36, v37, v38, objc_opt_class(), 0];
-    v63 = 0;
-    v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v29 fromData:firstObject error:&v63];
-    v23 = v63;
-    v7 = v57;
+    v65 = 0;
+    v22 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v29 fromData:firstObject error:&v65];
+    v23 = v65;
+    v7 = v59;
   }
 
   else
   {
     if (v30)
     {
-      v39 = [v61 length];
+      v39 = [v63 length];
       *buf = 136315650;
-      v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-      v67 = 2048;
-      v68 = 0;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
       v69 = 2048;
-      v70 = v39;
-      _os_log_send_and_compose_impl();
+      v70 = 0;
+      v71 = 2048;
+      v72 = v39;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v29, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: compression_decode_buffer databaseData to Size of %zd, from size %zd", buf, 32, v57);
     }
 
     v22 = 0;
@@ -211,10 +235,15 @@ LABEL_26:
     getPairOfBuffersFromPool = sub_100098A04();
     if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_37;
+      *buf = 136315394;
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      v69 = 2112;
+      v70 = v23;
+      LODWORD(v56) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE to NSKeyedUnarchiver databaseData error='%@'", buf, v56);
     }
 
-    goto LABEL_45;
+    goto LABEL_46;
   }
 
   v42 = [(W5PeerDatabaseResponsePayload *)v7 convertCSVArrayToKeyValueDictArray:v22];
@@ -228,50 +257,26 @@ LABEL_26:
   {
     if (v45)
     {
-LABEL_37:
       *buf = 136315394;
-      v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-      v67 = 2112;
-      v68 = v23;
-      _os_log_send_and_compose_impl();
+      v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+      v69 = 2112;
+      v70 = v23;
+      LODWORD(v56) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: _fetchedResults is nil error='%@'", buf, v56);
     }
 
-LABEL_45:
-
-LABEL_46:
-    v51 = sub_100098A04();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-      v67 = 2112;
-      v68 = v23;
-      _os_log_send_and_compose_impl();
-    }
-
-    v52 = sub_10009A49C();
-    if (os_signpost_enabled(v52))
-    {
-      *buf = 138412290;
-      v66 = v23;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v52, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5PeerDatabaseResponsePayload initWithRequest", "Error=%@", buf, 0xCu);
-    }
-
-    v53 = [NSString stringWithFormat:@"%s: BOOL Expression FALSE", "[W5PeerDatabaseResponsePayload initWithRequest:]"];
-    v54 = [NSException exceptionWithName:NSInternalInconsistencyException reason:v53 userInfo:0];
-    v55 = v54;
-
-    objc_exception_throw(v54);
+    goto LABEL_46;
   }
 
   if (v45)
   {
-    v46 = [v61 length];
+    v46 = [v63 length];
     *buf = 136315394;
-    v66 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
-    v67 = 2048;
-    v68 = v46;
-    _os_log_send_and_compose_impl();
+    v68 = "[W5PeerDatabaseResponsePayload initWithRequest:]";
+    v69 = 2048;
+    v70 = v46;
+    LODWORD(v56) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: W5PeerDatabaseResponsePayload sizeof databaseData %ld bytes", buf, v56);
   }
 
   v47 = sub_10009A49C();
@@ -545,16 +550,14 @@ LABEL_46:
     status = [(W5PeerDatabaseResponsePayload *)self status];
     fetchedResults = [(W5PeerDatabaseResponsePayload *)self fetchedResults];
     *buf = 136315906;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    v60 = 2112;
-    v61 = version;
-    v62 = 2048;
-    v63 = status;
-    v64 = 2112;
-    v65 = fetchedResults;
-    LODWORD(v54) = 42;
-    v51 = buf;
-    _os_log_send_and_compose_impl();
+    v57 = "[W5PeerDatabaseResponsePayload encode]";
+    v58 = 2112;
+    v59 = version;
+    v60 = 2048;
+    v61 = status;
+    v62 = 2112;
+    v63 = fetchedResults;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: version='%@', status=%ld, peerDatabase='%@'", buf, 42);
   }
 
   version2 = [(W5PeerDatabaseResponsePayload *)self version];
@@ -562,17 +565,14 @@ LABEL_46:
   if (!version2)
   {
     getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_56;
+      *buf = 136315138;
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad version", buf);
     }
 
-    *buf = 136315138;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    LODWORD(v54) = 12;
-LABEL_55:
-    _os_log_send_and_compose_impl();
-    goto LABEL_56;
+    goto LABEL_55;
   }
 
   version3 = [(W5PeerDatabaseResponsePayload *)self version];
@@ -581,14 +581,13 @@ LABEL_55:
   if (![(W5PeerDatabaseResponsePayload *)self status])
   {
     getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_56;
+      *buf = 136315138;
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad status", buf);
     }
 
-    *buf = 136315138;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    LODWORD(v54) = 12;
     goto LABEL_55;
   }
 
@@ -603,113 +602,96 @@ LABEL_55:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v59 = "[W5PeerDatabaseResponsePayload encode]";
-      LODWORD(v54) = 12;
-      v51 = buf;
-      _os_log_send_and_compose_impl();
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad fetchedResults", buf);
     }
-  }
-
-  v15 = [(W5PeerDatabaseResponsePayload *)self fetchedResults:v51];
-
-  if (!v15)
-  {
-    getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_56;
-    }
-
-    *buf = 136315138;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    LODWORD(v54) = 12;
-    goto LABEL_55;
   }
 
   fetchedResults3 = [(W5PeerDatabaseResponsePayload *)self fetchedResults];
-  v17 = [(W5PeerDatabaseResponsePayload *)self convertKeyValueDictArrayToCSVArray:fetchedResults3];
+
+  if (!fetchedResults3)
+  {
+    getPairOfBuffersFromPool = sub_100098A04();
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad fetchedResults", buf);
+    }
+
+    goto LABEL_55;
+  }
 
   fetchedResults4 = [(W5PeerDatabaseResponsePayload *)self fetchedResults];
-  if (fetchedResults4)
+  v17 = [(W5PeerDatabaseResponsePayload *)self convertKeyValueDictArrayToCSVArray:fetchedResults4];
+
+  fetchedResults5 = [(W5PeerDatabaseResponsePayload *)self fetchedResults];
+  if (!fetchedResults5)
   {
-    v19 = fetchedResults4;
-    if (v17)
+LABEL_20:
+    if (!v17)
     {
-      v20 = [v17 count];
-
-      if (v20)
+      getPairOfBuffersFromPool = sub_100098A04();
+      if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_21;
+        *buf = 136315138;
+        v57 = "[W5PeerDatabaseResponsePayload encode]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad csvDictArray", buf);
       }
+
+      goto LABEL_55;
     }
 
-    else
-    {
-    }
+    goto LABEL_21;
+  }
 
+  v19 = fetchedResults5;
+  if (!v17)
+  {
+
+LABEL_17:
     v21 = sub_100098A04();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       fetchedResults = self->_fetchedResults;
       *buf = 136315650;
-      v59 = "[W5PeerDatabaseResponsePayload encode]";
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      v58 = 2112;
+      v59 = v17;
       v60 = 2112;
-      v61 = v17;
-      v62 = 2112;
-      v63 = fetchedResults;
-      LODWORD(v54) = 32;
-      v52 = buf;
-      _os_log_send_and_compose_impl();
+      v61 = fetchedResults;
+      LODWORD(v51) = 32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: bad csvDictArray: %@ from fetchedResults: %@", buf, v51);
     }
+
+    goto LABEL_20;
   }
 
-  if (!v17)
-  {
-    getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_56;
-    }
+  v20 = [v17 count];
 
-    *buf = 136315138;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    LODWORD(v54) = 12;
-    goto LABEL_55;
+  if (!v20)
+  {
+    goto LABEL_17;
   }
 
 LABEL_21:
-  v57 = 0;
-  v23 = [NSKeyedArchiver archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v57, v52, v54];
-  v24 = v57;
+  v55 = 0;
+  v23 = [NSKeyedArchiver archivedDataWithRootObject:v17 requiringSecureCoding:1 error:&v55];
+  v24 = v55;
   if (!(v23 | v24))
   {
     getPairOfBuffersFromPool = sub_100098A04();
     if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v59 = "[W5PeerDatabaseResponsePayload encode]";
-      v60 = 2112;
-      v61 = 0;
-      LODWORD(v54) = 22;
-      goto LABEL_55;
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      v58 = 2112;
+      v59 = 0;
+      LODWORD(v51) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: to encode W5PeerDatabaseResponsePayload databaseData with error='%@'", buf, v51);
     }
 
-LABEL_56:
-
-    v45 = sub_10009A49C();
-    if (os_signpost_enabled(v45))
-    {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v45, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5PeerDatabaseResponsePayload encode", "Error", buf, 2u);
-    }
-
-    v46 = NSInternalInconsistencyException;
-    [NSString stringWithFormat:@"%s: BOOL Expression FALSE", "[W5PeerDatabaseResponsePayload encode]", v54];
-    v47 = LABEL_59:;
-    v48 = [NSException exceptionWithName:v46 reason:v47 userInfo:0];
-    v49 = v48;
-
-    objc_exception_throw(v48);
+    goto LABEL_55;
   }
 
   v25 = v24;
@@ -735,17 +717,16 @@ LABEL_23:
       if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v59 = "[W5PeerDatabaseResponsePayload encode]";
-        LODWORD(v54) = 12;
-        _os_log_send_and_compose_impl();
+        v57 = "[W5PeerDatabaseResponsePayload encode]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v50, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: getPairOfBuffersFromPool returned less than 2 buffers", buf);
       }
 
-      goto LABEL_56;
+      goto LABEL_55;
     }
 
-    v56 = v3;
+    v54 = v3;
     firstObject = [getPairOfBuffersFromPool firstObject];
-    v55 = getPairOfBuffersFromPool;
+    v53 = getPairOfBuffersFromPool;
     lastObject = [getPairOfBuffersFromPool lastObject];
     compression_encode_scratch_buffer_size(COMPRESSION_LZFSE);
     v30 = compression_encode_buffer([firstObject mutableBytes], objc_msgSend(firstObject, "length"), objc_msgSend(v23, "bytes"), objc_msgSend(v23, "length"), objc_msgSend(lastObject, "mutableBytes"), COMPRESSION_LZFSE);
@@ -757,14 +738,13 @@ LABEL_23:
       {
         v33 = [v23 length];
         *buf = 136315650;
-        v59 = "[W5PeerDatabaseResponsePayload encode]";
+        v57 = "[W5PeerDatabaseResponsePayload encode]";
+        v58 = 2048;
+        v59 = v30;
         v60 = 2048;
-        v61 = v30;
-        v62 = 2048;
-        v63 = v33;
-        LODWORD(v54) = 32;
-        v53 = buf;
-        _os_log_send_and_compose_impl();
+        v61 = v33;
+        LODWORD(v51) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v31, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: compression_encode_buffer databaseData to Size of %zd, original databaseData.length %zd", buf, v51, v52);
       }
 
       v31 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [firstObject mutableBytes], v30);
@@ -777,16 +757,15 @@ LABEL_23:
       v37 = [firstObject length];
       v38 = [lastObject length];
       *buf = 136315906;
-      v59 = "[W5PeerDatabaseResponsePayload encode]";
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      v58 = 2048;
+      v59 = v36;
       v60 = 2048;
-      v61 = v36;
+      v61 = v37;
       v62 = 2048;
-      v63 = v37;
-      v64 = 2048;
-      v65 = v38;
-      LODWORD(v54) = 42;
-      v53 = buf;
-      _os_log_send_and_compose_impl();
+      v63 = v38;
+      LODWORD(v51) = 42;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v31, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: FAILURE: compression_encode_buffer to compress databaseData %zd into size %zd with scratch size %zd", buf, v51, v52, v53);
     }
 
     v39 = +[W5BufferPool sharedW5BufferPool];
@@ -795,7 +774,7 @@ LABEL_23:
     v40 = +[W5BufferPool sharedW5BufferPool];
     [v40 returnBufferToPool:lastObject];
 
-    v3 = v56;
+    v3 = v54;
   }
 
   else
@@ -805,19 +784,18 @@ LABEL_23:
     {
       v35 = [v23 length];
       *buf = 136315394;
-      v59 = "[W5PeerDatabaseResponsePayload encode]";
-      v60 = 2048;
-      v61 = v35;
-      LODWORD(v54) = 22;
-      v53 = buf;
-      _os_log_send_and_compose_impl();
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      v58 = 2048;
+      v59 = v35;
+      LODWORD(v51) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v34, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: Uncompressed databaseData to size %zd", buf, v51);
     }
 
     [v4 setObject:v23 forKey:@"peerDatabaseResultsUncompressed"];
   }
 
 LABEL_36:
-  v41 = [v4 objectForKeyedSubscript:{@"peerDatabaseResults", v53, v54}];
+  v41 = [v4 objectForKeyedSubscript:@"peerDatabaseResults"];
   if (v41)
   {
 
@@ -829,15 +807,29 @@ LABEL_36:
   if (!v42)
   {
     getPairOfBuffersFromPool = sub_100098A04();
-    if (!os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(getPairOfBuffersFromPool, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_56;
+      *buf = 136315138;
+      v57 = "[W5PeerDatabaseResponsePayload encode]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, getPairOfBuffersFromPool, 0, "[wifivelocity] W5PeerDatabaseResponsePayload %s: Failed to form kW5PeerResponsePeerDatabaseResultsKey or kW5PeerResponsePeerDatabaseResultsUncompressedKey", buf);
     }
 
-    *buf = 136315138;
-    v59 = "[W5PeerDatabaseResponsePayload encode]";
-    LODWORD(v54) = 12;
-    goto LABEL_55;
+LABEL_55:
+
+    v45 = sub_10009A49C();
+    if (os_signpost_enabled(v45))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v45, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5PeerDatabaseResponsePayload encode", "Error", buf, 2u);
+    }
+
+    v46 = NSInternalInconsistencyException;
+    [NSString stringWithFormat:@"%s: BOOL Expression FALSE", "[W5PeerDatabaseResponsePayload encode]"];
+    v47 = LABEL_58:;
+    v48 = [NSException exceptionWithName:v46 reason:v47 userInfo:0];
+    v49 = v48;
+
+    objc_exception_throw(v48);
   }
 
 LABEL_39:
@@ -851,8 +843,8 @@ LABEL_39:
   if (![v4 count])
   {
     v46 = NSInternalInconsistencyException;
-    [NSString stringWithFormat:@"%s: empty payload", "[W5PeerDatabaseResponsePayload encode]", v54];
-    goto LABEL_59;
+    [NSString stringWithFormat:@"%s: empty payload", "[W5PeerDatabaseResponsePayload encode]"];
+    goto LABEL_58;
   }
 
   objc_autoreleasePoolPop(v3);

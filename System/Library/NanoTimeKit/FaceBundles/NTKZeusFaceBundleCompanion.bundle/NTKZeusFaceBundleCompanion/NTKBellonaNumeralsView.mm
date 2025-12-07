@@ -50,7 +50,7 @@
 - (void)_createDigits
 {
   sub_4080(self->_device, __src);
-  memcpy(&unk_580E0, __src, 0x230uLL);
+  memcpy(dbl_580E0, __src, sizeof(dbl_580E0));
   _filledDigitLayers = [(NTKBellonaNumeralsView *)self _filledDigitLayers];
   filledHourMarkers = self->_filledHourMarkers;
   self->_filledHourMarkers = _filledDigitLayers;
@@ -160,7 +160,7 @@
     [v14 sizeToFit];
     if (v14)
     {
-      [v14 transform];
+      objc_msgSend_transform(v14);
     }
 
     else
@@ -176,7 +176,7 @@
     {
       if (v14)
       {
-        [v14 transform];
+        objc_msgSend_transform(v14);
       }
 
       else
@@ -238,7 +238,7 @@
     [v9 sizeToFit];
     if (v9)
     {
-      [v9 transform];
+      objc_msgSend_transform(v9);
     }
 
     else
@@ -254,7 +254,7 @@
     {
       if (v9)
       {
-        [v9 transform];
+        objc_msgSend_transform(v9);
       }
 
       else

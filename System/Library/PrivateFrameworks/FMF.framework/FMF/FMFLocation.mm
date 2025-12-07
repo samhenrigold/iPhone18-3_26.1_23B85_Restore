@@ -6,6 +6,7 @@
 - (CLLocationCoordinate2D)coordinate;
 - (FMFLocation)initWithCoder:(id)coder;
 - (FMFLocation)initWithDictionary:(id)dictionary forHandle:(id)handle maxLocatingInterval:(double)interval TTL:(double)l;
+- (FMFLocation)initWithHandle:(id)handle locationType:(int64_t)type location:(id)location activityState:(int64_t)state label:(id)label locatingInProgress:(BOOL)progress shortAddress:(id)address longAddress:(id)self0 placemark:(id)self1;
 - (FMFLocation)initWithLatitude:(double)latitude longitude:(double)longitude;
 - (NSString)description;
 - (NSString)shortAddress;
@@ -335,6 +336,45 @@ LABEL_61:
   [(FMFLocation *)v7 setCoordinate:?];
 
   return v7;
+}
+
+- (FMFLocation)initWithHandle:(id)handle locationType:(int64_t)type location:(id)location activityState:(int64_t)state label:(id)label locatingInProgress:(BOOL)progress shortAddress:(id)address longAddress:(id)self0 placemark:(id)self1
+{
+  progressCopy = progress;
+  placemarkCopy = placemark;
+  longAddressCopy = longAddress;
+  addressCopy = address;
+  labelCopy = label;
+  locationCopy = location;
+  handleCopy = handle;
+  v23 = objc_alloc_init(objc_opt_class());
+  [(FMFLocation *)v23 setHandle:handleCopy];
+
+  [(FMFLocation *)v23 setLocationType:type];
+  [(FMFLocation *)v23 setLocation:locationCopy];
+  [(FMFLocation *)v23 setActivityState:state];
+  [(FMFLocation *)v23 setLabel:labelCopy];
+
+  [(FMFLocation *)v23 setLocatingInProgress:progressCopy];
+  [(FMFLocation *)v23 setShortAddressString:addressCopy];
+
+  [(FMFLocation *)v23 setLongAddress:longAddressCopy];
+  timestamp = [locationCopy timestamp];
+  [(FMFLocation *)v23 setTimestamp:timestamp];
+
+  [(FMFLocation *)v23 setMaxLocatingInterval:3.40282347e38];
+  [(FMFLocation *)v23 setTTL:3.40282347e38];
+  [(FMFLocation *)v23 setDistance:3.40282347e38];
+  [(FMFLocation *)v23 setDistanceDescription:0];
+  [(FMFLocation *)v23 setAge:0];
+  [locationCopy coordinate];
+  v26 = v25;
+  v28 = v27;
+
+  [(FMFLocation *)v23 setCoordinate:v26, v28];
+  [(FMFLocation *)v23 setPlacemark:placemarkCopy];
+
+  return v23;
 }
 
 - (NSString)description
@@ -880,53 +920,50 @@ LABEL_6:
 
 - (void)resetLocateInProgress:(id)progress
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = LogCategory_Daemon();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     handle = [(FMFLocation *)self handle];
-    v7 = 138412290;
-    v8 = handle;
-    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "resetLocateInProgress_fired: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = handle;
+    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "resetLocateInProgress_fired: %@", &v6, 0xCu);
   }
 
   [(FMFLocation *)self setLocatingInProgress:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetLocateInProgressTimer
 {
   v17 = *MEMORY[0x277D85DE8];
-  [(FMFLocation *)self maxLocatingInterval];
-  if (v3 > 0.0)
+  maxLocatingInterval = [(FMFLocation *)self maxLocatingInterval];
+  if (v4 > 0.0)
   {
-    v4 = v3;
-    v5 = LogCategory_Daemon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = v4;
+    v6 = LogCategory_Daemon(maxLocatingInterval);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       handle = [(FMFLocation *)self handle];
       *buf = 134218498;
-      v12 = v4;
+      v12 = v5;
       v13 = 2112;
       v14 = handle;
       v15 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "resetLocateInProgressTimerForSeconds: %f forHandle: %@ location: %@", buf, 0x20u);
+      _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "resetLocateInProgressTimerForSeconds: %f forHandle: %@ location: %@", buf, 0x20u);
     }
 
     objc_initWeak(buf, self);
-    v7 = dispatch_time(0, (v4 * 1000000000.0));
+    v8 = dispatch_time(0, (v5 * 1000000000.0));
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __41__FMFLocation_resetLocateInProgressTimer__block_invoke;
     block[3] = &unk_278FDE498;
     objc_copyWeak(&v10, buf);
-    dispatch_after(v7, MEMORY[0x277D85CD0], block);
+    dispatch_after(v8, MEMORY[0x277D85CD0], block);
     objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__FMFLocation_resetLocateInProgressTimer__block_invoke(uint64_t a1)
@@ -1061,27 +1098,29 @@ LABEL_12:
 - (BOOL)isValid
 {
   timestamp = [(FMFLocation *)self timestamp];
-  if (!timestamp)
+  result = 1;
+  if (timestamp)
   {
-    return 1;
+    v4 = timestamp;
+    [(FMFLocation *)self TTL];
+    v6 = v5;
+
+    if (v6 > 0.0)
+    {
+      date = [MEMORY[0x277CBEAA8] date];
+      timestamp2 = [(FMFLocation *)self timestamp];
+      [date timeIntervalSinceDate:timestamp2];
+      v10 = v9;
+
+      [(FMFLocation *)self TTL];
+      if (v10 >= v11)
+      {
+        return 0;
+      }
+    }
   }
 
-  v4 = timestamp;
-  [(FMFLocation *)self TTL];
-  v6 = v5;
-
-  if (v6 <= 0.0)
-  {
-    return 1;
-  }
-
-  date = [MEMORY[0x277CBEAA8] date];
-  timestamp2 = [(FMFLocation *)self timestamp];
-  [date timeIntervalSinceDate:timestamp2];
-  v10 = v9;
-
-  [(FMFLocation *)self TTL];
-  return v10 < v11;
+  return result;
 }
 
 - (BOOL)isMoreRecentThan:(id)than

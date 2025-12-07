@@ -7,7 +7,7 @@
 
 - (id)serializeWebContentConfiguration:(id)configuration
 {
-  v106[2] = *MEMORY[0x1E69E9840];
+  v105[2] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (configurationCopy)
   {
@@ -117,54 +117,54 @@
     {
       dictionary3 = [MEMORY[0x1E695DF90] dictionary];
       dataSources2 = [configurationCopy dataSources];
-      v99[0] = MEMORY[0x1E69E9820];
-      v99[1] = 3221225472;
-      v99[2] = __62__SWConfigurationSerializer_serializeWebContentConfiguration___block_invoke;
-      v99[3] = &unk_1E84DB658;
-      v100 = dictionary3;
+      v98[0] = MEMORY[0x1E69E9820];
+      v98[1] = 3221225472;
+      v98[2] = __62__SWConfigurationSerializer_serializeWebContentConfiguration___block_invoke;
+      v98[3] = &unk_1E84DB658;
+      v99 = dictionary3;
       v41 = dictionary3;
-      [dataSources2 enumerateKeysAndObjectsUsingBlock:v99];
+      [dataSources2 enumerateKeysAndObjectsUsingBlock:v98];
 
       [dictionary setObject:v41 forKey:@"dataSources"];
     }
 
-    v105[0] = @"width";
+    v104[0] = @"width";
     v42 = MEMORY[0x1E696AD98];
     layoutGuide = [configurationCopy layoutGuide];
     [layoutGuide bounds];
     v45 = [v42 numberWithDouble:v44];
-    v105[1] = @"height";
-    v106[0] = v45;
+    v104[1] = @"height";
+    v105[0] = v45;
     v46 = MEMORY[0x1E696AD98];
     layoutGuide2 = [configurationCopy layoutGuide];
     [layoutGuide2 bounds];
     v49 = [v46 numberWithDouble:v48];
-    v106[1] = v49;
-    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:v105 count:2];
+    v105[1] = v49;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:2];
 
     [dictionary setObject:v50 forKey:@"canvasSize"];
-    v96 = v50;
-    v104[0] = v50;
-    v103[0] = @"canvasSize";
-    v103[1] = @"contentFrame";
+    v95 = v50;
+    v103[0] = v50;
+    v102[0] = @"canvasSize";
+    v102[1] = @"contentFrame";
     layoutGuide3 = [configurationCopy layoutGuide];
     [layoutGuide3 contentFrame];
     v52 = selfCopy;
     v53 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
-    v104[1] = v53;
-    v103[2] = @"contentSafeAreaFrame";
+    v103[1] = v53;
+    v102[2] = @"contentSafeAreaFrame";
     layoutGuide4 = [configurationCopy layoutGuide];
     [layoutGuide4 contentSafeAreaFrame];
     v55 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
-    v104[2] = v55;
-    v103[3] = @"systemSafeAreaFrame";
+    v103[2] = v55;
+    v102[3] = @"systemSafeAreaFrame";
     layoutGuide5 = [configurationCopy layoutGuide];
     [layoutGuide5 systemSafeAreaFrame];
     v57 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
-    v104[3] = v57;
-    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:4];
+    v103[3] = v57;
+    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:4];
 
-    v95 = v58;
+    v94 = v58;
     [dictionary setObject:v58 forKey:@"layoutGuide"];
     layoutGuide6 = [configurationCopy layoutGuide];
     [layoutGuide6 contentFrame];
@@ -176,36 +176,36 @@
     if (keyboardConfiguration)
     {
       [configurationCopy keyboardConfiguration];
-      v62 = v94 = v60;
-      v101[0] = @"keyboardFrame";
+      v62 = v93 = v60;
+      v100[0] = @"keyboardFrame";
       [v62 keyboardFrame];
-      v93 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
-      v102[0] = v93;
-      v101[1] = @"inputAccessoryViewFrame";
+      v92 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
+      v101[0] = v92;
+      v100[1] = @"inputAccessoryViewFrame";
       [v62 inputAccessoryViewFrame];
       v63 = [(SWConfigurationSerializer *)selfCopy serializedRectFromCGRect:?];
-      v102[1] = v63;
-      v101[2] = @"isKeyboardSplit";
+      v101[1] = v63;
+      v100[2] = @"isKeyboardSplit";
       v64 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v62, "isKeyboardSplit")}];
-      v102[2] = v64;
-      v101[3] = @"isKeyboardFloating";
+      v101[2] = v64;
+      v100[3] = @"isKeyboardFloating";
       v65 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v62, "isKeyboardFloating")}];
-      v102[3] = v65;
-      v101[4] = @"isHardwareKeyboard";
+      v101[3] = v65;
+      v100[4] = @"isHardwareKeyboard";
       v66 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v62, "isHardwareKeyboard")}];
-      v102[4] = v66;
-      v101[5] = @"isKeyboardVisible";
+      v101[4] = v66;
+      v100[5] = @"isKeyboardVisible";
       v67 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v62, "isKeyboardVisible")}];
-      v102[5] = v67;
-      v101[6] = @"isPencilInputExpected";
+      v101[5] = v67;
+      v100[6] = @"isPencilInputExpected";
       v68 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v62, "isPencilInputExpected")}];
-      v102[6] = v68;
-      v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:7];
+      v101[6] = v68;
+      v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:7];
 
       v52 = selfCopy;
       [dictionary setObject:v69 forKey:@"keyboardInfo"];
 
-      v60 = v94;
+      v60 = v93;
     }
 
     v70 = -[SWConfigurationSerializer isNetworkReachableForStatus:](v52, "isNetworkReachableForStatus:", [configurationCopy networkStatus]);
@@ -257,8 +257,8 @@
     v88 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(configurationCopy, "supportsLiveActivities")}];
     [dictionary setObject:v88 forKey:@"supportsLiveActivities"];
 
-    v98 = 0;
-    v89 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v98];
+    v97 = 0;
+    v89 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v97];
     if (v89)
     {
       v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v89 encoding:4];
@@ -276,8 +276,6 @@
     v90 = 0;
   }
 
-  v91 = *MEMORY[0x1E69E9840];
-
   return v90;
 }
 
@@ -294,22 +292,20 @@ void __62__SWConfigurationSerializer_serializeWebContentConfiguration___block_in
   height = rect.size.height;
   width = rect.size.width;
   y = rect.origin.y;
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"x";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"x";
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:rect.origin.x];
-  v14[0] = v6;
-  v13[1] = @"y";
+  v13[0] = v6;
+  v12[1] = @"y";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:y];
-  v14[1] = v7;
-  v13[2] = @"width";
+  v13[1] = v7;
+  v12[2] = @"width";
   v8 = [MEMORY[0x1E696AD98] numberWithDouble:width];
-  v14[2] = v8;
-  v13[3] = @"height";
+  v13[2] = v8;
+  v12[3] = @"height";
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:height];
-  v14[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

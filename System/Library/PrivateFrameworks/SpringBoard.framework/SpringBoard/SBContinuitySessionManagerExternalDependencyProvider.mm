@@ -13,25 +13,26 @@ void __61___SBContinuitySessionManagerExternalDependencyProvider_init__block_inv
 
 void __80___SBContinuitySessionManagerExternalDependencyProvider__setResourceHintActive___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (([*(*(a1 + 32) + 24) updateState:*(a1 + 40)] & 1) == 0)
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = [*(*(a1 + 32) + 24) updateState:*(a1 + 40)];
+  if ((v2 & 1) == 0)
   {
-    v2 = SBLogContinuitySession();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogContinuitySession(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 40))
       {
-        v3 = @"started";
+        v4 = @"started";
       }
 
       else
       {
-        v3 = @"ended";
+        v4 = @"ended";
       }
 
-      v4 = 138543362;
-      v5 = v3;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Updating resource hint for continuity session %{public}@ returned NO ?!?!?!", &v4, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Updating resource hint for continuity session %{public}@ returned NO ?!?!?!", &v5, 0xCu);
     }
   }
 }
@@ -52,14 +53,14 @@ void __80___SBContinuitySessionManagerExternalDependencyProvider__setRestriction
   }
 
   v3 = [MEMORY[0x277D262A0] sharedConnection];
-  v6 = 0;
-  [v3 applyRestrictionDictionary:v2 clientType:@"com.apple.springboard" clientUUID:@"com.apple.springboard.continuityRestrictions" localizedClientDescription:0 localizedWarningMessage:0 outRestrictionChanged:0 outEffectiveSettingsChanged:0 outError:&v6];
-  v4 = v6;
+  v7 = 0;
+  [v3 applyRestrictionDictionary:v2 clientType:@"com.apple.springboard" clientUUID:@"com.apple.springboard.continuityRestrictions" localizedClientDescription:0 localizedWarningMessage:0 outRestrictionChanged:0 outEffectiveSettingsChanged:0 outError:&v7];
+  v4 = v7;
 
   if (v4)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SBLogContinuitySession(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __80___SBContinuitySessionManagerExternalDependencyProvider__setRestrictionsActive___block_invoke_cold_1(v1);
     }

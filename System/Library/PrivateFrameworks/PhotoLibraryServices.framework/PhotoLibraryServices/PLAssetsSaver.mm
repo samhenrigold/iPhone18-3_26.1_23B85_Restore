@@ -97,7 +97,7 @@ void __53__PLAssetsSaver_validateAvalanches_inLibraryWithURL___block_invoke_2(ui
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if (v7 && ([v7 objectForKeyedSubscript:@"avalancheStackAssetMap"], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
+  if (v7 && ([v7 objectForKeyedSubscript:@"avalancheStackAssetMap"], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_count(v10), v10, v11))
   {
     v12 = PLCameraConnectionKitGetLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -175,141 +175,141 @@ void __53__PLAssetsSaver_validateAvalanches_inLibraryWithURL___block_invoke_2(ui
   [mEMORY[0x1E69BF2B0] checkPhotosAccessAllowedWithScope:1 handler:v18];
 }
 
-void __61__PLAssetsSaver__saveVideoAtPath_properties_completionBlock___block_invoke(uint64_t a1)
+void __61__PLAssetsSaver__saveVideoAtPath_properties_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (PLPhotosAccessAllowed())
   {
-    v2 = [MEMORY[0x1E695DF90] dictionary];
-    v3 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0608]];
-    if (v3)
+    v3 = [MEMORY[0x1E695DF90] dictionary];
+    v4 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0608]];
+    if (v4)
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = MEMORY[0x1E695E110];
+      v5 = MEMORY[0x1E695E110];
     }
 
-    v35 = v4;
-    [v2 setObject:? forKey:?];
-    [v2 setObject:*MEMORY[0x1E69C0488] forKey:*MEMORY[0x1E69C0410]];
-    v5 = *(a1 + 40);
-    if (!v5)
+    v36 = v5;
+    [v3 setObject:? forKey:?];
+    [v3 setObject:*MEMORY[0x1E69C0488] forKey:*MEMORY[0x1E69C0410]];
+    v6 = *(a1 + 40);
+    if (!v6)
     {
       goto LABEL_13;
     }
 
-    [v2 setObject:v5 forKey:*MEMORY[0x1E69C05A0]];
-    v6 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A0]];
-    v7 = v6;
-    if (v6)
+    [v3 setObject:v6 forKey:*MEMORY[0x1E69C05A0]];
+    v7 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A0]];
+    v8 = v7;
+    if (v7)
     {
-      v8 = v6;
+      v9 = v7;
     }
 
     else
     {
-      v8 = [*(a1 + 40) pathExtension];
-      if (!v8)
+      v9 = [*(a1 + 40) pathExtension];
+      if (!v9)
       {
 LABEL_12:
 
 LABEL_13:
-        v11 = [MEMORY[0x1E696AD98] numberWithBool:1];
-        [v2 setObject:v11 forKey:*MEMORY[0x1E69C02F8]];
-
         v12 = [MEMORY[0x1E696AD98] numberWithBool:1];
-        [v2 setObject:v12 forKey:*MEMORY[0x1E69C0580]];
+        [v3 setObject:v12 forKey:*MEMORY[0x1E69C02F8]];
 
-        v13 = objc_alloc(MEMORY[0x1E69C0718]);
-        v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(a1 + 40)];
-        v15 = [*(a1 + 48) _photoLibrary];
-        v16 = [v15 libraryBundle];
-        v17 = [v16 timeZoneLookup];
-        v18 = [v13 initWithAVURL:v14 options:12 timeZoneLookup:v17];
+        v13 = [MEMORY[0x1E696AD98] numberWithBool:1];
+        [v3 setObject:v13 forKey:*MEMORY[0x1E69C0580]];
 
-        v34 = v18;
-        v19 = [v18 utcCreationDate];
-        if (!v19)
+        v14 = objc_alloc(MEMORY[0x1E69C0718]);
+        v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(a1 + 40)];
+        v16 = [*(a1 + 48) _photoLibrary];
+        v17 = [v16 libraryBundle];
+        v18 = [v17 timeZoneLookup];
+        v19 = [v14 initWithAVURL:v15 options:12 timeZoneLookup:v18];
+
+        v35 = v19;
+        v20 = [v19 utcCreationDate];
+        if (!v20)
         {
-          v19 = [MEMORY[0x1E695DF00] date];
+          v20 = [MEMORY[0x1E695DF00] date];
         }
 
-        [v2 setObject:v19 forKey:*MEMORY[0x1E69C0398]];
-        v20 = [MEMORY[0x1E696AD98] numberWithBool:0];
-        [v2 setObject:v20 forKey:*MEMORY[0x1E69C0550]];
+        [v3 setObject:v20 forKey:*MEMORY[0x1E69C0398]];
+        v21 = [MEMORY[0x1E696AD98] numberWithBool:0];
+        [v3 setObject:v21 forKey:*MEMORY[0x1E69C0550]];
 
-        v21 = *MEMORY[0x1E69C0320];
-        v22 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0320]];
-        if (v22)
+        v22 = *MEMORY[0x1E69C0320];
+        v23 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0320]];
+        if (v23)
         {
-          [v2 setObject:v22 forKey:v21];
+          [v3 setObject:v23 forKey:v22];
         }
 
-        v23 = *MEMORY[0x1E69C0318];
-        v24 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0318]];
-        if (v24)
-        {
-          [v2 setObject:v24 forKey:v23];
-        }
-
-        v25 = [*(a1 + 32) objectForKey:@"ImportedBy"];
+        v24 = *MEMORY[0x1E69C0318];
+        v25 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0318]];
         if (v25)
         {
-          [v2 setObject:v25 forKey:@"ImportedBy"];
+          [v3 setObject:v25 forKey:v24];
         }
 
-        v26 = *MEMORY[0x1E69C03B8];
-        v27 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03B8]];
-        if (v27)
+        v26 = [*(a1 + 32) objectForKey:@"ImportedBy"];
+        if (v26)
         {
-          [v2 setObject:v27 forKey:v26];
+          [v3 setObject:v26 forKey:@"ImportedBy"];
         }
 
-        v28 = *MEMORY[0x1E69C04B0];
-        v29 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04B0]];
-        if (v29)
+        v27 = *MEMORY[0x1E69C03B8];
+        v28 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03B8]];
+        if (v28)
         {
-          [v2 setObject:v29 forKey:v28];
+          [v3 setObject:v28 forKey:v27];
         }
 
-        v30 = *MEMORY[0x1E69C0390];
-        v31 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0390]];
-        if (v31)
+        v29 = *MEMORY[0x1E69C04B0];
+        v30 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C04B0]];
+        if (v30)
         {
-          [v2 setObject:v31 forKey:v30];
+          [v3 setObject:v30 forKey:v29];
+        }
+
+        v31 = *MEMORY[0x1E69C0390];
+        v32 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0390]];
+        if (v32)
+        {
+          [v3 setObject:v32 forKey:v31];
         }
 
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __61__PLAssetsSaver__saveVideoAtPath_properties_completionBlock___block_invoke_2;
         aBlock[3] = &unk_1E7565E98;
-        v32 = *(a1 + 56);
+        v33 = *(a1 + 56);
         aBlock[4] = *(a1 + 48);
-        v38 = v32;
-        v33 = _Block_copy(aBlock);
-        [*(a1 + 48) _queueJobDictionary:v2 completionBlock:v33];
+        v39 = v33;
+        v34 = _Block_copy(aBlock);
+        [*(a1 + 48) _queueJobDictionary:v3 completionBlock:v34];
 
-        v10 = v35;
+        v11 = v36;
         goto LABEL_28;
       }
     }
 
-    [v2 setObject:v8 forKey:*MEMORY[0x1E69C03D0]];
+    [v3 setObject:v9 forKey:*MEMORY[0x1E69C03D0]];
 
     goto LABEL_12;
   }
 
-  v2 = [objc_opt_class() publicAssetsLibraryErrorFromPrivateDomain:*MEMORY[0x1E69BFF48] withPrivateCode:-3001];
-  v9 = *(a1 + 56);
-  if (v9)
+  v3 = [objc_opt_class() publicAssetsLibraryErrorFromPrivateDomain:*MEMORY[0x1E69BFF48] withPrivateCode:-3001];
+  v10 = *(a1 + 56);
+  if (v10)
   {
-    v36 = v9;
-    v2 = v2;
+    v37 = v10;
+    v3 = v3;
     pl_dispatch_async();
 
-    v10 = v36;
+    v11 = v37;
 LABEL_28:
   }
 }
@@ -359,211 +359,211 @@ void __61__PLAssetsSaver__saveVideoAtPath_properties_completionBlock___block_inv
   [mEMORY[0x1E69BF2B0] checkPhotosAccessAllowedWithScope:1 handler:v19];
 }
 
-void __65__PLAssetsSaver__saveImage_imageData_properties_completionBlock___block_invoke(uint64_t a1)
+void __65__PLAssetsSaver__saveImage_imageData_properties_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (PLPhotosAccessAllowed())
   {
-    v2 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02B0]];
-    v3 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A0]];
-    v47 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A8]];
-    v38 = *MEMORY[0x1E69C0320];
-    v4 = [*(a1 + 32) objectForKey:?];
-    v39 = *MEMORY[0x1E69C0318];
+    v3 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02B0]];
+    v4 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A0]];
+    v48 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C02A8]];
+    v39 = *MEMORY[0x1E69C0320];
+    v5 = [*(a1 + 32) objectForKey:?];
+    v40 = *MEMORY[0x1E69C0318];
+    v45 = [*(a1 + 32) objectForKey:?];
+    v6 = *MEMORY[0x1E69C03B8];
+    v47 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03B8]];
+    v37 = *MEMORY[0x1E69C04B0];
     v44 = [*(a1 + 32) objectForKey:?];
-    v5 = *MEMORY[0x1E69C03B8];
-    v46 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C03B8]];
-    v36 = *MEMORY[0x1E69C04B0];
+    v38 = *MEMORY[0x1E69C0380];
     v43 = [*(a1 + 32) objectForKey:?];
-    v37 = *MEMORY[0x1E69C0380];
+    v7 = *MEMORY[0x1E69C0390];
+    v46 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0390]];
+    v36 = *MEMORY[0x1E69C0398];
     v42 = [*(a1 + 32) objectForKey:?];
-    v6 = *MEMORY[0x1E69C0390];
-    v45 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0390]];
-    v35 = *MEMORY[0x1E69C0398];
-    v41 = [*(a1 + 32) objectForKey:?];
-    v7 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0608]];
-    v8 = [*(a1 + 32) objectForKey:@"ImportedBy"];
-    v9 = [MEMORY[0x1E695DF90] dictionary];
-    v10 = v9;
-    if (v7)
+    v8 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0608]];
+    v9 = [*(a1 + 32) objectForKey:@"ImportedBy"];
+    v10 = [MEMORY[0x1E695DF90] dictionary];
+    v11 = v10;
+    if (v8)
     {
-      v11 = v7;
+      v12 = v8;
     }
 
     else
     {
-      v11 = MEMORY[0x1E695E110];
+      v12 = MEMORY[0x1E695E110];
     }
 
-    v12 = v4;
-    v40 = v11;
-    [v9 setObject:? forKey:?];
-    if (!v8)
+    v13 = v5;
+    v41 = v12;
+    [v10 setObject:? forKey:?];
+    if (!v9)
     {
 LABEL_15:
-      [v10 setObject:*MEMORY[0x1E69C0458] forKey:*MEMORY[0x1E69C0410]];
-      v17 = *(a1 + 40);
-      if (v17)
+      [v11 setObject:*MEMORY[0x1E69C0458] forKey:*MEMORY[0x1E69C0410]];
+      v18 = *(a1 + 40);
+      if (v18)
       {
-        [v10 setObject:v17 forKey:*MEMORY[0x1E69C03F8]];
-        v18 = v47;
+        [v11 setObject:v18 forKey:*MEMORY[0x1E69C03F8]];
+        v19 = v48;
       }
 
       else
       {
-        v19 = v46;
-        v18 = v47;
+        v20 = v47;
+        v19 = v48;
         if (!*(a1 + 48))
         {
 LABEL_25:
-          if (v2)
-          {
-            [v10 setObject:v2 forKey:*MEMORY[0x1E69C0570]];
-          }
-
           if (v3)
           {
-            [v10 setObject:v3 forKey:*MEMORY[0x1E69C03D0]];
+            [v11 setObject:v3 forKey:*MEMORY[0x1E69C0570]];
           }
 
-          if (v18)
+          if (v4)
           {
-            [v10 setObject:v18 forKey:*MEMORY[0x1E69C03C8]];
+            [v11 setObject:v4 forKey:*MEMORY[0x1E69C03D0]];
           }
 
           if (v19)
           {
-            [v10 setObject:v19 forKey:v5];
+            [v11 setObject:v19 forKey:*MEMORY[0x1E69C03C8]];
           }
 
-          if (v45)
+          if (v20)
           {
-            [v10 setObject:v45 forKey:v6];
+            [v11 setObject:v20 forKey:v6];
           }
 
-          v25 = [MEMORY[0x1E696AD98] numberWithBool:0];
-          [v10 setObject:v25 forKey:*MEMORY[0x1E69C0550]];
-
-          v26 = *MEMORY[0x1E69C0558];
-          v27 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0558]];
-
-          if (v27)
+          if (v46)
           {
-            [v10 addEntriesFromDictionary:*(a1 + 32)];
+            [v11 setObject:v46 forKey:v7];
+          }
+
+          v26 = [MEMORY[0x1E696AD98] numberWithBool:0];
+          [v11 setObject:v26 forKey:*MEMORY[0x1E69C0550]];
+
+          v27 = *MEMORY[0x1E69C0558];
+          v28 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0558]];
+
+          if (v28)
+          {
+            [v11 addEntriesFromDictionary:*(a1 + 32)];
           }
 
           else
           {
-            v28 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(MEMORY[0x1E69BF328], "defaultSavedAssetTypeForPLAssetsSaver")}];
-            [v10 setObject:v28 forKey:v26];
+            v29 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(MEMORY[0x1E69BF328], "defaultSavedAssetTypeForPLAssetsSaver")}];
+            [v11 setObject:v29 forKey:v27];
           }
 
-          v29 = [MEMORY[0x1E696AD98] numberWithBool:1];
-          [v10 setObject:v29 forKey:*MEMORY[0x1E69C02F8]];
+          v30 = [MEMORY[0x1E696AD98] numberWithBool:1];
+          [v11 setObject:v30 forKey:*MEMORY[0x1E69C02F8]];
 
-          if (v12)
+          if (v13)
           {
-            [v10 setObject:v12 forKey:v38];
+            [v11 setObject:v13 forKey:v39];
           }
 
+          if (v45)
+          {
+            [v11 setObject:v45 forKey:v40];
+          }
+
+          v15 = v3;
           if (v44)
           {
-            [v10 setObject:v44 forKey:v39];
+            [v11 setObject:v44 forKey:v37];
           }
 
-          v14 = v2;
+          v31 = v13;
           if (v43)
           {
-            [v10 setObject:v43 forKey:v36];
+            [v11 setObject:v43 forKey:v38];
           }
 
-          v30 = v12;
+          v17 = v4;
           if (v42)
           {
-            [v10 setObject:v42 forKey:v37];
-          }
-
-          v16 = v3;
-          if (v41)
-          {
-            [v10 setObject:v41 forKey:v35];
+            [v11 setObject:v42 forKey:v36];
           }
 
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __65__PLAssetsSaver__saveImage_imageData_properties_completionBlock___block_invoke_98;
           aBlock[3] = &unk_1E7565E98;
-          v31 = *(a1 + 64);
+          v32 = *(a1 + 64);
           aBlock[4] = *(a1 + 56);
-          v50 = v31;
-          v32 = _Block_copy(aBlock);
-          [*(a1 + 56) _queueJobDictionary:v10 completionBlock:v32];
+          v51 = v32;
+          v33 = _Block_copy(aBlock);
+          [*(a1 + 56) _queueJobDictionary:v11 completionBlock:v33];
 
           goto LABEL_49;
         }
 
-        v34 = DCIM_CGImageRefFromPLImage();
+        v35 = DCIM_CGImageRefFromPLImage();
         MEMORY[0x19EAED900](*(a1 + 48));
-        v33 = PLExifOrientationFromImageOrientation();
-        v20 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0300]];
-        v21 = v20;
-        if (v20)
+        v34 = PLExifOrientationFromImageOrientation();
+        v21 = [*(a1 + 32) objectForKey:*MEMORY[0x1E69C0300]];
+        v22 = v21;
+        if (v21)
         {
-          v22 = [v20 intValue] == 10;
+          v23 = [v21 intValue] == 10;
         }
 
         else
         {
-          v22 = 0;
+          v23 = 0;
         }
 
-        v23 = [MEMORY[0x1E69C08F0] typeWithIdentifier:v2];
-        v24 = imageDataFromImageRef(v34, v23, v33, v22);
-        if (v24)
+        v24 = [MEMORY[0x1E69C08F0] typeWithIdentifier:v3];
+        v25 = imageDataFromImageRef(v35, v24, v34, v23);
+        if (v25)
         {
-          [v10 setObject:v24 forKey:*MEMORY[0x1E69C03F8]];
+          [v11 setObject:v25 forKey:*MEMORY[0x1E69C03F8]];
         }
 
-        v18 = v47;
-        v12 = v4;
+        v19 = v48;
+        v13 = v5;
       }
 
-      v19 = v46;
+      v20 = v47;
       goto LABEL_25;
     }
 
-    if ([v4 hasPrefix:@"com.apple."])
+    if ([v5 hasPrefix:@"com.apple."])
     {
-      if ([v8 intValue] == 3)
+      if ([v9 intValue] == 3)
       {
-        v13 = &unk_1F0FBAD68;
+        v14 = &unk_1F0FBAD68;
 LABEL_13:
 
-        v8 = v13;
+        v9 = v14;
         goto LABEL_14;
       }
 
-      if ([v8 intValue] == 6)
+      if ([v9 intValue] == 6)
       {
-        v13 = &unk_1F0FBAD80;
+        v14 = &unk_1F0FBAD80;
         goto LABEL_13;
       }
     }
 
 LABEL_14:
-    [v10 setObject:v8 forKey:@"ImportedBy"];
+    [v11 setObject:v9 forKey:@"ImportedBy"];
 
     goto LABEL_15;
   }
 
-  v14 = [objc_opt_class() publicAssetsLibraryErrorFromPrivateDomain:*MEMORY[0x1E69BFF48] withPrivateCode:-3001];
-  v15 = *(a1 + 64);
-  if (v15)
+  v15 = [objc_opt_class() publicAssetsLibraryErrorFromPrivateDomain:*MEMORY[0x1E69BFF48] withPrivateCode:-3001];
+  v16 = *(a1 + 64);
+  if (v16)
   {
-    v48 = v15;
-    v14 = v14;
+    v49 = v16;
+    v15 = v15;
     pl_dispatch_async();
 
-    v16 = v48;
+    v17 = v49;
 LABEL_49:
   }
 }
@@ -808,9 +808,9 @@ LABEL_7:
   {
     CFRetain(surface);
     v25 = [dictionaryCopy objectForKey:*v21];
-    v26 = [v25 isEqualToString:*MEMORY[0x1E69C0458]];
+    isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-    if (v26)
+    if (isEqualToString)
     {
       [(PLAssetsSaver *)self _setIsTakingPhoto:1];
     }
@@ -1272,7 +1272,7 @@ LABEL_12:
   errorCopy = error;
   domain = [errorCopy domain];
   code = [errorCopy code];
-  if ([domain isEqualToString:*MEMORY[0x1E69BFF48]])
+  if (objc_msgSend_isEqualToString_(domain))
   {
     if (code <= 12)
     {
@@ -1312,7 +1312,7 @@ LABEL_22:
     goto LABEL_26;
   }
 
-  if (![domain isEqualToString:@"ALAssetsLibraryErrorDomain"])
+  if (!objc_msgSend_isEqualToString_(domain))
   {
     goto LABEL_15;
   }

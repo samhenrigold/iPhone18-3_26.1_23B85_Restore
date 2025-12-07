@@ -65,10 +65,10 @@
 
 - (void)layoutSubviews
 {
-  v43[1] = *MEMORY[0x1E69E9840];
-  v42.receiver = self;
-  v42.super_class = MRUViewServiceRoutingHeaderView;
-  [(MRUViewServiceRoutingHeaderView *)&v42 layoutSubviews];
+  v45[1] = *MEMORY[0x1E69E9840];
+  v44.receiver = self;
+  v44.super_class = MRUViewServiceRoutingHeaderView;
+  [(MRUViewServiceRoutingHeaderView *)&v44 layoutSubviews];
   [(MRUViewServiceRoutingHeaderView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -78,21 +78,21 @@
   [traitCollection displayScale];
   v13 = 1.0 / v12;
 
-  v44.origin.x = v4;
-  v44.origin.y = v6;
-  v44.size.width = v8;
-  v44.size.height = v10;
-  MinX = CGRectGetMinX(v44);
-  v45.origin.x = v4;
-  v45.origin.y = v6;
-  v45.size.width = v8;
-  v45.size.height = v10;
-  v15 = CGRectGetMaxY(v45) - v13;
   v46.origin.x = v4;
   v46.origin.y = v6;
   v46.size.width = v8;
   v46.size.height = v10;
-  [(UIView *)self->_separatorView setFrame:MinX, v15, CGRectGetWidth(v46), v13];
+  MinX = CGRectGetMinX(v46);
+  v47.origin.x = v4;
+  v47.origin.y = v6;
+  v47.size.width = v8;
+  v47.size.height = v10;
+  v15 = CGRectGetMaxY(v47) - v13;
+  v48.origin.x = v4;
+  v48.origin.y = v6;
+  v48.size.width = v8;
+  v48.size.height = v10;
+  [(UIView *)self->_separatorView setFrame:MinX, v15, CGRectGetWidth(v48), v13];
   UIRectInset();
   v17 = v16;
   v19 = v18;
@@ -108,19 +108,19 @@
     v24 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:4 weight:3 scale:17.0];
     v25 = MEMORY[0x1E69DCAD8];
     systemWhiteColor = [MEMORY[0x1E69DC888] systemWhiteColor];
-    v43[0] = systemWhiteColor;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+    v45[0] = systemWhiteColor;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
     v28 = [v25 configurationWithPaletteColors:v27];
     v29 = [v24 configurationByApplyingConfiguration:v28];
     [(UIImageView *)self->_imageView setPreferredSymbolConfiguration:v29];
   }
 
   [(UIImageView *)self->_imageView sizeThatFits:v21, v23];
-  v47.origin.x = v17;
-  v47.origin.y = v19;
-  v47.size.width = v21;
-  v47.size.height = v23;
-  CGRectGetMinY(v47);
+  v49.origin.x = v17;
+  v49.origin.y = v19;
+  v49.size.width = v21;
+  v49.size.height = v23;
+  CGRectGetMinY(v49);
   UIRectCenteredXInRect();
   [(UIImageView *)self->_imageView setFrame:?];
   UIRectInset();
@@ -129,23 +129,23 @@
   v35 = v34;
   v37 = v36;
   [(UILabel *)self->_titleLabel sizeThatFits:v34, v36];
-  MRUSizeCeilToViewScale(self);
-  v39 = v38;
-  v48.origin.x = v31;
-  v48.origin.y = v33;
-  v48.size.width = v35;
-  v48.size.height = v37;
-  v40 = CGRectGetMinX(v48);
-  v49.origin.x = v31;
-  v49.origin.y = v33;
-  v49.size.width = v35;
-  v49.size.height = v37;
-  MinY = CGRectGetMinY(v49);
+  MRUSizeCeilToViewScale(self, v38, v39);
+  v41 = v40;
   v50.origin.x = v31;
   v50.origin.y = v33;
   v50.size.width = v35;
   v50.size.height = v37;
-  [(UILabel *)self->_titleLabel setFrame:v40, MinY, CGRectGetWidth(v50), v39];
+  v42 = CGRectGetMinX(v50);
+  v51.origin.x = v31;
+  v51.origin.y = v33;
+  v51.size.width = v35;
+  v51.size.height = v37;
+  MinY = CGRectGetMinY(v51);
+  v52.origin.x = v31;
+  v52.origin.y = v33;
+  v52.size.width = v35;
+  v52.size.height = v37;
+  [(UILabel *)self->_titleLabel setFrame:v42, MinY, CGRectGetWidth(v52), v41];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -162,11 +162,11 @@
   v12 = v10 - v11;
   v13 = v9 + v11;
   [(UILabel *)self->_titleLabel sizeThatFits:width, v12];
-  MRUSizeCeilToViewScale(self);
-  v15 = v13 + v14;
-  v16 = width;
-  result.height = v15;
-  result.width = v16;
+  MRUSizeCeilToViewScale(self, v14, v15);
+  v17 = v13 + v16;
+  v18 = width;
+  result.height = v17;
+  result.width = v18;
   return result;
 }
 

@@ -49,43 +49,43 @@ uint64_t __38__FLUIHelperController_sharedInstance__block_invoke()
   completionCopy = completion;
   notificationCopy = notification;
   connection = [(FLUIHelperController *)self connection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke;
-  v15[3] = &unk_278852F30;
-  v15[4] = self;
-  v9 = [connection remoteObjectProxyWithErrorHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke;
+  v16[3] = &unk_278852F30;
+  v16[4] = self;
+  v9 = [connection remoteObjectProxyWithErrorHandler:v16];
 
-  v10 = _FLLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _FLLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Showing password change", buf, 2u);
+    _os_log_impl(&dword_22E696000, v11, OS_LOG_TYPE_DEFAULT, "Showing password change", buf, 2u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_3;
-  v12[3] = &unk_278852AA8;
-  v13 = completionCopy;
-  v11 = completionCopy;
-  [v9 showHSA2LoginNotification:notificationCopy completion:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_3;
+  v13[3] = &unk_278852AA8;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [v9 showHSA2LoginNotification:notificationCopy completion:v13];
 }
 
 void __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _FLLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _FLLogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_cold_1(a1);
+    __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_cold_1();
   }
 }
 
 void __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _FLLogSystem();
+  v6 = _FLLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -104,43 +104,43 @@ void __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___bloc
   completionCopy = completion;
   dCopy = d;
   connection = [(FLUIHelperController *)self connection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke;
-  v15[3] = &unk_278852F30;
-  v15[4] = self;
-  v9 = [connection remoteObjectProxyWithErrorHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke;
+  v16[3] = &unk_278852F30;
+  v16[4] = self;
+  v9 = [connection remoteObjectProxyWithErrorHandler:v16];
 
-  v10 = _FLLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _FLLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Showing password change", buf, 2u);
+    _os_log_impl(&dword_22E696000, v11, OS_LOG_TYPE_DEFAULT, "Showing password change", buf, 2u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_5;
-  v12[3] = &unk_278852AA8;
-  v13 = completionCopy;
-  v11 = completionCopy;
-  [v9 showHSA2ChangePasswordForAppleID:dCopy completion:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_5;
+  v13[3] = &unk_278852AA8;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [v9 showHSA2ChangePasswordForAppleID:dCopy completion:v13];
 }
 
 void __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _FLLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _FLLogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_cold_1(a1);
+    __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_cold_1();
   }
 }
 
 void __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _FLLogSystem();
+  v6 = _FLLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -160,43 +160,43 @@ void __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___bl
   notificationCopy = notification;
   codeCopy = code;
   connection = [(FLUIHelperController *)self connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke;
-  v18[3] = &unk_278852F30;
-  v18[4] = self;
-  v12 = [connection remoteObjectProxyWithErrorHandler:v18];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke;
+  v19[3] = &unk_278852F30;
+  v19[4] = self;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v19];
 
-  v13 = _FLLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _FLLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22E696000, v13, OS_LOG_TYPE_DEFAULT, "Showing login code", buf, 2u);
+    _os_log_impl(&dword_22E696000, v14, OS_LOG_TYPE_DEFAULT, "Showing login code", buf, 2u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_6;
-  v15[3] = &unk_278852AA8;
-  v16 = completionCopy;
-  v14 = completionCopy;
-  [v12 showHSA2LoginCode:codeCopy withNotification:notificationCopy completion:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_6;
+  v16[3] = &unk_278852AA8;
+  v17 = completionCopy;
+  v15 = completionCopy;
+  [v12 showHSA2LoginCode:codeCopy withNotification:notificationCopy completion:v16];
 }
 
 void __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _FLLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _FLLogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_cold_1(a1);
+    __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_cold_1();
   }
 }
 
 void __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _FLLogSystem();
+  v6 = _FLLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -226,11 +226,11 @@ void __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion__
 
 void __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessageID___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _FLLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _FLLogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessageID___block_invoke_cold_1(a1);
+    __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessageID___block_invoke_cold_1();
   }
 }
 
@@ -280,15 +280,15 @@ void __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessag
   return v10;
 }
 
-uint64_t __34__FLUIHelperController_connection__block_invoke(uint64_t result)
+void *__34__FLUIHelperController_connection__block_invoke(void *result)
 {
-  v1 = result + 32;
-  if (*(*(*(result + 32) + 8) + 40))
+  v1 = result + 4;
+  if (*(*(result[4] + 8) + 40))
   {
-    v2 = _FLLogSystem();
+    v2 = _FLLogSystem(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __22__FLDaemon_connection__block_invoke_cold_1(v1);
+      __22__FLDaemon_connection__block_invoke_cold_1();
     }
 
     [*(*(*(*v1 + 8) + 40) + 8) lock];
@@ -302,15 +302,15 @@ uint64_t __34__FLUIHelperController_connection__block_invoke(uint64_t result)
   return result;
 }
 
-uint64_t __34__FLUIHelperController_connection__block_invoke_9(uint64_t result)
+void *__34__FLUIHelperController_connection__block_invoke_9(void *result)
 {
-  v1 = result + 32;
-  if (*(*(*(result + 32) + 8) + 40))
+  v1 = result + 4;
+  if (*(*(result[4] + 8) + 40))
   {
-    v2 = _FLLogSystem();
+    v2 = _FLLogSystem(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __22__FLDaemon_connection__block_invoke_6_cold_1(v1);
+      __22__FLDaemon_connection__block_invoke_6_cold_1();
     }
 
     [*(*(*(*v1 + 8) + 40) + 8) lock];
@@ -324,36 +324,32 @@ uint64_t __34__FLUIHelperController_connection__block_invoke_9(uint64_t result)
   return result;
 }
 
-void __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_cold_1(uint64_t a1)
+void __66__FLUIHelperController_showUIForHSA2LoginNotification_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_22E696000, v1, v2, "%@: Error from UI Helper process while displaying HSA2 login notification - %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_22E696000, v0, v1, "%@: Error from UI Helper process while displaying HSA2 login notification - %@");
 }
 
-void __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_cold_1(uint64_t a1)
+void __68__FLUIHelperController_showHSA2PasswordChangeForAppleID_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_22E696000, v1, v2, "%@: Error from UI Helper process while displaying HSA2 login password change - %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_22E696000, v0, v1, "%@: Error from UI Helper process while displaying HSA2 login password change - %@");
 }
 
-void __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_cold_1(uint64_t a1)
+void __71__FLUIHelperController_showUIForHSA2LoginCode_notification_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_22E696000, v1, v2, "%@: Error from UI Helper process while displaying HSA2 login code - %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_22E696000, v0, v1, "%@: Error from UI Helper process while displaying HSA2 login code - %@");
 }
 
-void __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessageID___block_invoke_cold_1(uint64_t a1)
+void __76__FLUIHelperController_tearDownUIForHSA2LoginNotificationWithPushMessageID___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_22E696000, v1, v2, "%@: Error from UI Helper process while tearing down HSA2 login notification - %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_22E696000, v0, v1, "%@: Error from UI Helper process while tearing down HSA2 login notification - %@");
 }
 
 @end

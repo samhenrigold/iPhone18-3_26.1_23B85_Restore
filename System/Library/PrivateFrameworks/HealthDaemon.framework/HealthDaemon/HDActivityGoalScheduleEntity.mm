@@ -9,20 +9,18 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[10] = *MEMORY[0x277D85DE8];
+  v27[10] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -33,26 +31,26 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDActivityGoalScheduleEntity.m" lineNumber:65 description:{@"Subclasses must override %s", "+[HDActivityGoalScheduleEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"goal_type";
-  v28[2] = @"unit_string";
-  v28[3] = @"monday_goal";
-  v28[4] = @"tuesday_goal";
-  v28[5] = @"wednesday_goal";
-  v28[6] = @"thursday_goal";
-  v28[7] = @"friday_goal";
-  v28[8] = @"saturday_goal";
-  v28[9] = @"sunday_goal";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:10];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __94__HDActivityGoalScheduleEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"goal_type";
+  v27[2] = @"unit_string";
+  v27[3] = @"monday_goal";
+  v27[4] = @"tuesday_goal";
+  v27[5] = @"wednesday_goal";
+  v27[6] = @"thursday_goal";
+  v27[7] = @"friday_goal";
+  v27[8] = @"saturday_goal";
+  v27[9] = @"sunday_goal";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:10];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __94__HDActivityGoalScheduleEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -66,7 +64,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

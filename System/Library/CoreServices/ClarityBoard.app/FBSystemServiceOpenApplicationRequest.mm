@@ -6,7 +6,7 @@
 
 - (NSString)systemServiceDescription
 {
-  sub_10002C9FC(0, &qword_10032EF80);
+  sub_10002C9FC(0, &qword_10032EF80, FBSystemServiceOpenApplicationRequest_ptr);
   OpenApplicationVerifierRequest.verifierDescription.getter();
   v2 = String._bridgeToObjectiveC()();
 

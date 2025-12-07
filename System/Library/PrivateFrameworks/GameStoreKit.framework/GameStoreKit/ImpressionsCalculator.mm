@@ -20,15 +20,16 @@
   }
 
   *(&self->super.isa + OBJC_IVAR____TtC12GameStoreKit21ImpressionsCalculator_wasVisibleBeforeGoingIntoBackground) = v4 & 1;
-  ImpressionsCalculator.isVisible.setter();
+  ImpressionsCalculator.isVisible.setter(0);
 }
 
 - (void)applicationWillEnterForegroundWithNote:(id)note
 {
-  if (*(&self->super.isa + OBJC_IVAR____TtC12GameStoreKit21ImpressionsCalculator_wasVisibleBeforeGoingIntoBackground) != 2)
+  v3 = *(&self->super.isa + OBJC_IVAR____TtC12GameStoreKit21ImpressionsCalculator_wasVisibleBeforeGoingIntoBackground);
+  if (v3 != 2)
   {
 
-    ImpressionsCalculator.isVisible.setter();
+    ImpressionsCalculator.isVisible.setter(v3 & 1);
   }
 }
 

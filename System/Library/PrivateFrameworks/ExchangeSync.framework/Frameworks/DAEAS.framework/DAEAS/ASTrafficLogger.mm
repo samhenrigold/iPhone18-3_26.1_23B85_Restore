@@ -125,7 +125,7 @@ void __46__ASTrafficLogger__moveLogFileContentsAtPath___block_invoke(uint64_t a1
 
 - (void)logWBXMLData:(id)data
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (dataCopy)
@@ -193,30 +193,32 @@ void __46__ASTrafficLogger__moveLogFileContentsAtPath___block_invoke(uint64_t a1
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logPlainTextData:(id)data
 {
-  dataCopy = data;
-  if (dataCopy)
+  lookasideFileHandle = data;
+  v5 = lookasideFileHandle;
+  if (lookasideFileHandle)
   {
-    v8 = dataCopy;
-    if ([dataCopy length])
+    v8 = lookasideFileHandle;
+    lookasideFileHandle = [lookasideFileHandle length];
+    v5 = v8;
+    if (lookasideFileHandle)
     {
       lookasideFileHandle = self->_lookasideFileHandle;
-      if (lookasideFileHandle || !self->_lookasideFilePath && ([(ASTrafficLogger *)self _openLookasideFile], (lookasideFileHandle = self->_lookasideFileHandle) != 0))
+      if (lookasideFileHandle || !self->_lookasideFilePath && ([(ASTrafficLogger *)self _openLookasideFile], v5 = v8, (lookasideFileHandle = self->_lookasideFileHandle) != 0))
       {
-        write([(NSFileHandle *)lookasideFileHandle fileDescriptor], "TEXT_CHUNK", 0xAuLL);
+        write([lookasideFileHandle fileDescriptor], "TEXT_CHUNK", 0xAuLL);
         fileDescriptor = [(NSFileHandle *)self->_lookasideFileHandle fileDescriptor];
         v7 = v8;
-        write(fileDescriptor, [v8 bytes], objc_msgSend(v8, "length"));
+        lookasideFileHandle = write(fileDescriptor, [v8 bytes], objc_msgSend(v8, "length"));
+        v5 = v8;
       }
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](lookasideFileHandle, v5);
 }
 
 @end

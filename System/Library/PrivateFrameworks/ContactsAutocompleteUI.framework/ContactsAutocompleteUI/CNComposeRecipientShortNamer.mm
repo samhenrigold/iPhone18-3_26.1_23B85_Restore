@@ -28,9 +28,11 @@
 
 uint64_t __38__CNComposeRecipientShortNamer_os_log__block_invoke()
 {
-  os_log_cn_once_object_1_0 = os_log_create("com.apple.contacts.autocomplete.ui", "composerecipient");
+  v0 = os_log_create("com.apple.contacts.autocomplete.ui", "composerecipient");
+  v1 = os_log_cn_once_object_1_0;
+  os_log_cn_once_object_1_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (__CFString)shortNameForComposeRecipient:(uint64_t)recipient

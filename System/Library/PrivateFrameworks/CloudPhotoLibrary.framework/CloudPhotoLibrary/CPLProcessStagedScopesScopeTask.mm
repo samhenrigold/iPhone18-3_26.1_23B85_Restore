@@ -184,7 +184,7 @@ void __41__CPLProcessStagedScopesScopeTask_launch__block_invoke(uint64_t a1)
 
 void __41__CPLProcessStagedScopesScopeTask_launch__block_invoke_2(uint64_t a1, void *a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) isScopeValidInTransaction:v3])
   {
@@ -195,7 +195,7 @@ void __41__CPLProcessStagedScopesScopeTask_launch__block_invoke_2(uint64_t a1, v
       {
         v5 = [*(a1 + 32) scope];
         *buf = 138412290;
-        v60 = v5;
+        v59 = v5;
         _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@ is staged and needs to be cleaned-up first", buf, 0xCu);
       }
     }
@@ -259,11 +259,11 @@ void __41__CPLProcessStagedScopesScopeTask_launch__block_invoke_2(uint64_t a1, v
             v24 = *(v23 + 144);
             v25 = *(v23 + 128);
             *buf = 138412802;
-            v60 = v7;
-            v61 = 2112;
-            v62 = v24;
-            v63 = 2112;
-            v64 = v25;
+            v59 = v7;
+            v60 = 2112;
+            v61 = v24;
+            v62 = 2112;
+            v63 = v25;
             _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%@ is staged to %@ but %@ is disabled so the staging zone will just be considered as read-only too", buf, 0x20u);
           }
         }
@@ -298,11 +298,11 @@ LABEL_47:
           v38 = *(v37 + 144);
           v39 = *(v37 + 128);
           *buf = 138412802;
-          v60 = v7;
-          v61 = 2112;
-          v62 = v38;
-          v63 = 2112;
-          v64 = v39;
+          v59 = v7;
+          v60 = 2112;
+          v61 = v38;
+          v62 = 2112;
+          v63 = v39;
           _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, "%@ is staged to %@ and needs to be cleaned-up to %@ allowing metadata sync", buf, 0x20u);
         }
       }
@@ -316,24 +316,24 @@ LABEL_47:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v45 = __CPLTaskOSLogDomain_21318();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        v44 = __CPLTaskOSLogDomain_21318();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          v46 = objc_opt_class();
+          v45 = objc_opt_class();
           *buf = 138412546;
-          v60 = v7;
-          v61 = 2112;
-          v62 = v46;
-          v47 = v46;
-          _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_ERROR, "Unexpected scope change class for %@: %@", buf, 0x16u);
+          v59 = v7;
+          v60 = 2112;
+          v61 = v45;
+          v46 = v45;
+          _os_log_impl(&dword_1DC05A000, v44, OS_LOG_TYPE_ERROR, "Unexpected scope change class for %@: %@", buf, 0x16u);
         }
       }
 
-      v48 = [MEMORY[0x1E696AAA8] currentHandler];
-      v49 = *(a1 + 56);
-      v50 = *(a1 + 32);
-      v51 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
-      [v48 handleFailureInMethod:v49 object:v50 file:v51 lineNumber:377 description:{@"Unexpected scope change class for %@: %@", v7, objc_opt_class()}];
+      v47 = [MEMORY[0x1E696AAA8] currentHandler];
+      v48 = *(a1 + 56);
+      v49 = *(a1 + 32);
+      v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
+      [v47 handleFailureInMethod:v48 object:v49 file:v50 lineNumber:377 description:{@"Unexpected scope change class for %@: %@", v7, objc_opt_class()}];
 
       goto LABEL_66;
     }
@@ -363,40 +363,40 @@ LABEL_35:
 
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v56 = __CPLTaskOSLogDomain_21318();
-                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+                v55 = __CPLTaskOSLogDomain_21318();
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v60 = v7;
-                  _os_log_impl(&dword_1DC05A000, v56, OS_LOG_TYPE_ERROR, "We should have a destination scope for %@ at this point", buf, 0xCu);
+                  v59 = v7;
+                  _os_log_impl(&dword_1DC05A000, v55, OS_LOG_TYPE_ERROR, "We should have a destination scope for %@ at this point", buf, 0xCu);
                 }
               }
 
-              v48 = [MEMORY[0x1E696AAA8] currentHandler];
-              v57 = *(a1 + 56);
-              v58 = *(a1 + 32);
-              v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
-              [v48 handleFailureInMethod:v57 object:v58 file:v55 lineNumber:409 description:{@"We should have a destination scope for %@ at this point", v7}];
+              v47 = [MEMORY[0x1E696AAA8] currentHandler];
+              v56 = *(a1 + 56);
+              v57 = *(a1 + 32);
+              v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
+              [v47 handleFailureInMethod:v56 object:v57 file:v54 lineNumber:409 description:{@"We should have a destination scope for %@ at this point", v7}];
             }
 
             else
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v52 = __CPLTaskOSLogDomain_21318();
-                if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+                v51 = __CPLTaskOSLogDomain_21318();
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v60 = v7;
-                  _os_log_impl(&dword_1DC05A000, v52, OS_LOG_TYPE_ERROR, "We should have a staging scope for %@ at this point", buf, 0xCu);
+                  v59 = v7;
+                  _os_log_impl(&dword_1DC05A000, v51, OS_LOG_TYPE_ERROR, "We should have a staging scope for %@ at this point", buf, 0xCu);
                 }
               }
 
-              v48 = [MEMORY[0x1E696AAA8] currentHandler];
-              v53 = *(a1 + 56);
-              v54 = *(a1 + 32);
-              v55 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
-              [v48 handleFailureInMethod:v53 object:v54 file:v55 lineNumber:408 description:{@"We should have a staging scope for %@ at this point", v7}];
+              v47 = [MEMORY[0x1E696AAA8] currentHandler];
+              v52 = *(a1 + 56);
+              v53 = *(a1 + 32);
+              v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
+              [v47 handleFailureInMethod:v52 object:v53 file:v54 lineNumber:408 description:{@"We should have a staging scope for %@ at this point", v7}];
             }
 
 LABEL_66:
@@ -441,9 +441,9 @@ LABEL_45:
         if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v60 = v7;
-          v61 = 2112;
-          v62 = v21;
+          v59 = v7;
+          v60 = 2112;
+          v61 = v21;
           _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_ERROR, "%@ needs to be cleaned-up but there is not staging scope available:\n%@", buf, 0x16u);
         }
       }
@@ -458,45 +458,44 @@ LABEL_45:
   [v26 taskDidFinishWithError:v27];
 
 LABEL_48:
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupStagedScopeInTransaction:(id)transaction store:(id)store
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
   transport = [engineLibrary transport];
 
   scopes = [storeCopy scopes];
-  v23 = transport;
+  v22 = transport;
   v9 = [[CPLTransportScopeMapping alloc] initWithTranslator:transport];
   transportScopeMapping = self->_transportScopeMapping;
   self->_transportScopeMapping = v9;
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   destinationScope = self->_destinationScope;
-  v33[0] = self->_stagingScope;
-  v33[1] = destinationScope;
-  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
-  v12 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v32[0] = self->_stagingScope;
+  v32[1] = destinationScope;
+  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v12 = [obj countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         v17 = [scopes transportScopeForScope:v16];
         if (!v17)
         {
@@ -507,9 +506,9 @@ LABEL_48:
             {
               scope = [(CPLEngineScopedTask *)self scope];
               *buf = 138412546;
-              v30 = v16;
-              v31 = 2112;
-              v32 = scope;
+              v29 = v16;
+              v30 = 2112;
+              v31 = scope;
               _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "Transport scope for %@ is unknown. Can't clean-up %@", buf, 0x16u);
             }
           }
@@ -534,7 +533,7 @@ LABEL_48:
         [(CPLTransportScopeMapping *)self->_transportScopeMapping addTransportScope:v18 forScope:v16];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v13 = [obj countByEnumeratingWithState:&v24 objects:v33 count:16];
       if (v13)
       {
         continue;
@@ -546,8 +545,6 @@ LABEL_48:
 
   [(CPLProcessStagedScopesScopeTask *)self _checkDestinationAndProcessCleanup];
 LABEL_19:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkDestinationAndProcessCleanup
@@ -571,7 +568,7 @@ LABEL_19:
 
 void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) engineLibrary];
   v4 = [v3 scheduler];
@@ -581,78 +578,75 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
   v6 = *v2;
   if (v5)
   {
-    v29 = +[CPLErrors operationCancelledError];
-    [v6 taskDidFinishWithError:v29];
-    v7 = *MEMORY[0x1E69E9840];
+    v27 = +[CPLErrors operationCancelledError];
+    [v6 taskDidFinishWithError:v27];
   }
 
   else
   {
-    v8 = [*v2 engineLibrary];
-    v9 = [v8 transport];
+    v7 = [*v2 engineLibrary];
+    v8 = [v7 transport];
 
-    v10 = [v9 createGroupForStagedScopeCleanup];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 200);
-    *(v11 + 200) = v10;
+    v9 = [v8 createGroupForStagedScopeCleanup];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 200);
+    *(v10 + 200) = v9;
 
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x3032000000;
-    v36[3] = __Block_byref_object_copy__21371;
-    v36[4] = __Block_byref_object_dispose__21372;
-    v37 = 0;
     v34[0] = 0;
     v34[1] = v34;
-    v34[2] = 0x2020000000;
-    v35 = 1;
-    v13 = *(a1 + 32);
-    v14 = v13[20];
-    v15 = v13[16];
-    v16 = v13[17];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__block_invoke_52;
-    v30[3] = &unk_1E861FC08;
-    v30[4] = v13;
-    v17 = v9;
-    v31 = v17;
-    v32 = v36;
-    v33 = v34;
-    v18 = [v17 getScopeInfoWithTransportScope:v14 scope:v15 previousScopeChange:v16 completionHandler:v30];
-    v19 = *(a1 + 32);
-    v20 = *(v19 + 176);
-    *(v19 + 176) = v18;
+    v34[2] = 0x3032000000;
+    v34[3] = __Block_byref_object_copy__21371;
+    v34[4] = __Block_byref_object_dispose__21372;
+    v35 = 0;
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x2020000000;
+    v33 = 1;
+    v12 = *(a1 + 32);
+    v13 = v12[20];
+    v14 = v12[16];
+    v15 = v12[17];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__block_invoke_52;
+    v28[3] = &unk_1E861FC08;
+    v28[4] = v12;
+    v16 = v8;
+    v29 = v16;
+    v30 = v34;
+    v31 = v32;
+    v17 = [v16 getScopeInfoWithTransportScope:v13 scope:v14 previousScopeChange:v15 completionHandler:v28];
+    v18 = *(a1 + 32);
+    v19 = *(v18 + 176);
+    *(v18 + 176) = v17;
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = __CPLTaskOSLogDomain_21318();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = __CPLTaskOSLogDomain_21318();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a1 + 32);
-        v23 = v22[16];
-        v24 = [v22 scope];
-        v25 = *(a1 + 32);
-        v26 = *(v25 + 144);
-        v27 = *(v25 + 128);
+        v21 = *(a1 + 32);
+        v22 = v21[16];
+        v23 = [v21 scope];
+        v24 = *(a1 + 32);
+        v25 = *(v24 + 144);
+        v26 = *(v24 + 128);
         *buf = 138413058;
+        v37 = v22;
+        v38 = 2112;
         v39 = v23;
         v40 = 2112;
-        v41 = v24;
+        v41 = v25;
         v42 = 2112;
         v43 = v26;
-        v44 = 2112;
-        v45 = v27;
-        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Checking %@ before clean-up of %@ (%@ -> %@)", buf, 0x2Au);
+        _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_DEFAULT, "Checking %@ before clean-up of %@ (%@ -> %@)", buf, 0x2Au);
       }
     }
 
     [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 176) withTransportGroup:*(*(a1 + 32) + 200)];
 
+    _Block_object_dispose(v32, 8);
     _Block_object_dispose(v34, 8);
-    _Block_object_dispose(v36, 8);
-
-    v28 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -738,8 +732,8 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
 
 void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__block_invoke_3(void *a1, void *a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v43 = a1[12];
+  v47 = *MEMORY[0x1E69E9840];
+  v42 = a1[12];
   v3 = a1[4];
   v4 = a1[5];
   v5 = v3[16];
@@ -750,7 +744,7 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
   v10 = a1[9];
   v11 = a2;
   v12 = [v3 session];
-  [CPLScopeUpdateScopeTask updateScopeWithNewScopeType:v43 scope:v5 updatedScopeChange:v4 updatedFlags:v7 oldTransportScope:v6 updatedTransportScope:v8 shouldUpdateTransportScope:&__block_literal_global_21378 store:v9 transport:v10 session:v12 inTransaction:v11];
+  [CPLScopeUpdateScopeTask updateScopeWithNewScopeType:v42 scope:v5 updatedScopeChange:v4 updatedFlags:v7 oldTransportScope:v6 updatedTransportScope:v8 shouldUpdateTransportScope:&__block_literal_global_21378 store:v9 transport:v10 session:v12 inTransaction:v11];
 
   v13 = [v11 error];
 
@@ -775,9 +769,9 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
             v21 = v20[16];
             v22 = [v20 scope];
             *buf = 138412546;
-            v45 = v21;
-            v46 = 2112;
-            v47 = v22;
+            v44 = v21;
+            v45 = 2112;
+            v46 = v22;
             _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "%@ has become invalid as a destination to clean-up %@", buf, 0x16u);
           }
         }
@@ -800,9 +794,9 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
             v33 = v32[16];
             v34 = [v32 scope];
             *buf = 138412546;
-            v45 = v33;
-            v46 = 2112;
-            v47 = v34;
+            v44 = v33;
+            v45 = 2112;
+            v46 = v34;
             _os_log_impl(&dword_1DC05A000, v31, OS_LOG_TYPE_DEFAULT, "%@ is disabled and thus not a good destination to clean-up %@", buf, 0x16u);
           }
         }
@@ -821,9 +815,9 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
             v37 = v36[16];
             v38 = [v36 scope];
             *buf = 138412546;
-            v45 = v37;
-            v46 = 2112;
-            v47 = v38;
+            v44 = v37;
+            v45 = 2112;
+            v46 = v38;
             _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_DEFAULT, "%@ is ready to be the destination to clean-up %@", buf, 0x16u);
           }
         }
@@ -844,8 +838,6 @@ void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__b
       *(v29 + 40) = v28;
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CPLProcessStagedScopesScopeTask__checkDestinationAndProcessCleanup__block_invoke_61(uint64_t a1, void *a2)
@@ -896,68 +888,65 @@ LABEL_7:
 
 void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isCancelled];
   v3 = *(a1 + 32);
   if (v2)
   {
-    v24 = +[CPLErrors operationCancelledError];
+    v22 = +[CPLErrors operationCancelledError];
     [v3 taskDidFinishWithError:?];
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v5 = [*(a1 + 32) engineLibrary];
-    v6 = [v5 transport];
+    v4 = [*(a1 + 32) engineLibrary];
+    v5 = [v4 transport];
 
-    v7 = [v6 createGroupForStagedScopeCleanup];
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 200);
-    *(v8 + 200) = v7;
+    v6 = [v5 createGroupForStagedScopeCleanup];
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 200);
+    *(v7 + 200) = v6;
 
-    v10 = [*(a1 + 32) scope];
-    v11 = *(a1 + 32);
-    v12 = v11[18];
-    v13 = v11[16];
-    v14 = v11[19];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_2;
-    v26[3] = &unk_1E861FB70;
-    v26[4] = v11;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_2_47;
-    v25[3] = &unk_1E8620A88;
-    v25[4] = v11;
-    v15 = [v6 cleanupStagedScope:v10 stagingScope:v12 destinationScope:v13 transportScopeMapping:v14 progressHandler:v26 completionHandler:v25];
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 184);
-    *(v16 + 184) = v15;
+    v9 = [*(a1 + 32) scope];
+    v10 = *(a1 + 32);
+    v11 = v10[18];
+    v12 = v10[16];
+    v13 = v10[19];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_2;
+    v24[3] = &unk_1E861FB70;
+    v24[4] = v10;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_2_47;
+    v23[3] = &unk_1E8620A88;
+    v23[4] = v10;
+    v14 = [v5 cleanupStagedScope:v9 stagingScope:v11 destinationScope:v12 transportScopeMapping:v13 progressHandler:v24 completionHandler:v23];
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 184);
+    *(v15 + 184) = v14;
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLTaskOSLogDomain_21318();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = __CPLTaskOSLogDomain_21318();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [*(a1 + 32) scope];
-        v20 = *(a1 + 32);
-        v21 = *(v20 + 144);
-        v22 = *(v20 + 128);
+        v18 = [*(a1 + 32) scope];
+        v19 = *(a1 + 32);
+        v20 = *(v19 + 144);
+        v21 = *(v19 + 128);
         *buf = 138412802;
-        v28 = v19;
+        v26 = v18;
+        v27 = 2112;
+        v28 = v20;
         v29 = 2112;
         v30 = v21;
-        v31 = 2112;
-        v32 = v22;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "Launching clean-up process of %@ (%@ -> %@)", buf, 0x20u);
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Launching clean-up process of %@ (%@ -> %@)", buf, 0x20u);
       }
     }
 
     [*(a1 + 32) launchTransportTask:*(*(a1 + 32) + 184) withTransportGroup:*(*(a1 + 32) + 200)];
-
-    v23 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -1008,7 +997,7 @@ void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_2_4
 
 uint64_t __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_3_48(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 184);
   *(v2 + 184) = 0;
@@ -1025,7 +1014,7 @@ uint64_t __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke
         {
           v6 = [*(a1 + 32) scope];
           *buf = 138412290;
-          v26 = v6;
+          v25 = v6;
           _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Clean-up of %@ is not implemented. Disabling metadata sync until some other device actually do the work", buf, 0xCu);
         }
       }
@@ -1053,13 +1042,13 @@ uint64_t __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke
           v22 = *(v20 + 144);
           v23 = *(v20 + 128);
           *buf = 138413058;
-          v26 = v19;
-          v27 = 2112;
-          v28 = v22;
-          v29 = 2112;
-          v30 = v23;
-          v31 = 2112;
-          v32 = v21;
+          v25 = v19;
+          v26 = 2112;
+          v27 = v22;
+          v28 = 2112;
+          v29 = v23;
+          v30 = 2112;
+          v31 = v21;
           _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Clean-up of %@ (%@ -> %@) failed: %@", buf, 0x2Au);
         }
       }
@@ -1068,7 +1057,7 @@ uint64_t __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke
       v11 = *(a1 + 40);
     }
 
-    result = [v10 taskDidFinishWithError:v11];
+    return [v10 taskDidFinishWithError:v11];
   }
 
   else
@@ -1083,27 +1072,24 @@ uint64_t __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke
         v15 = *(v14 + 144);
         v16 = *(v14 + 128);
         *buf = 138413058;
-        v26 = v13;
-        v27 = 2112;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v16;
-        v31 = 2112;
-        v32 = v15;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v15;
+        v28 = 2112;
+        v29 = v16;
+        v30 = 2112;
+        v31 = v15;
         _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Clean-up of %@ (%@ -> %@) finished. Deleting %@ now", buf, 0x2Au);
       }
     }
 
-    result = [*(a1 + 32) _deleteStagingScopeIfNecessary];
+    return [*(a1 + 32) _deleteStagingScopeIfNecessary];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 184))
   {
@@ -1115,9 +1101,9 @@ void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_3(u
         v4 = [*(a1 + 32) scope];
         v5 = *(a1 + 40);
         *buf = 138412546;
-        v12 = v4;
-        v13 = 2048;
-        v14 = v5;
+        v11 = v4;
+        v12 = 2048;
+        v13 = v5;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Estimated remaining count of records to clean-up %@: %lu", buf, 0x16u);
       }
 
@@ -1127,12 +1113,12 @@ void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_3(u
     v6 = *(a1 + 48);
     if (v6)
     {
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_40;
-      v10[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
-      v10[4] = v6;
-      [v2 withThroughputReporter:v10];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_40;
+      v9[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
+      v9[4] = v6;
+      [v2 withThroughputReporter:v9];
       v2 = *(a1 + 32);
     }
 
@@ -1143,8 +1129,6 @@ void __54__CPLProcessStagedScopesScopeTask__startActualCleanup__block_invoke_3(u
       [v8 setEstimatedCountOfRemainingRecordsDuringSharedLibraryExit:v7];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteStagingScopeIfNecessary
@@ -1227,7 +1211,7 @@ void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block
 
 void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_3(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 192);
   *(v2 + 192) = 0;
@@ -1242,9 +1226,9 @@ void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block
         v5 = *(a1 + 40);
         v6 = *(*(a1 + 32) + 144);
         *buf = 138412546;
-        v20 = v6;
-        v21 = 2112;
-        v22 = v5;
+        v19 = v6;
+        v20 = 2112;
+        v21 = v5;
         _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Failed to delete %@: %@", buf, 0x16u);
       }
     }
@@ -1261,24 +1245,22 @@ void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block
     v9 = [v8 store];
 
     v10 = [v9 scopes];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_27;
-    v16[3] = &unk_1E86205B8;
-    v17 = *(a1 + 32);
-    v18 = v10;
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
-    v15[2] = __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_31;
-    v15[3] = &unk_1E861FB20;
+    v15[2] = __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_27;
+    v15[3] = &unk_1E86205B8;
+    v16 = *(a1 + 32);
+    v17 = v10;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_31;
+    v14[3] = &unk_1E861FB20;
     v11 = *(a1 + 48);
-    v15[4] = v17;
-    v15[5] = v11;
+    v14[4] = v16;
+    v14[5] = v11;
     v12 = v10;
-    v13 = [v9 performWriteTransactionWithBlock:v16 completionHandler:v15];
+    v13 = [v9 performWriteTransactionWithBlock:v15 completionHandler:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_27(uint64_t a1, void *a2)
@@ -1295,40 +1277,40 @@ void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block
 
 void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_31(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v21 = a2;
+  v27 = *MEMORY[0x1E69E9840];
+  v20 = a2;
   v3 = [*(a1 + 32) delegate];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = __CPLTaskOSLogDomain_21318();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = __CPLTaskOSLogDomain_21318();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
-        v10 = objc_opt_class();
-        v11 = *(a1 + 32);
-        v12 = v10;
-        v13 = [v11 delegate];
+        v8 = *(a1 + 32);
+        v9 = objc_opt_class();
+        v10 = *(a1 + 32);
+        v11 = v9;
+        v12 = [v10 delegate];
         *buf = 138412802;
-        v23 = v9;
-        v24 = 2112;
-        v25 = v10;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Delegate of %@ is supposed to be %@ but is %@", buf, 0x20u);
+        v22 = v8;
+        v23 = 2112;
+        v24 = v9;
+        v25 = 2112;
+        v26 = v12;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Delegate of %@ is supposed to be %@ but is %@", buf, 0x20u);
       }
     }
 
-    v14 = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
-    v18 = *(a1 + 32);
-    v19 = objc_opt_class();
-    v20 = [*(a1 + 32) delegate];
-    [v14 handleFailureInMethod:v15 object:v16 file:v17 lineNumber:166 description:{@"Delegate of %@ is supposed to be %@ but is %@", v18, v19, v20}];
+    v13 = [MEMORY[0x1E696AAA8] currentHandler];
+    v15 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLProcessStagedScopesTask.m"];
+    v17 = *(a1 + 32);
+    v18 = objc_opt_class();
+    v19 = [*(a1 + 32) delegate];
+    [v13 handleFailureInMethod:v14 object:v15 file:v16 lineNumber:166 description:{@"Delegate of %@ is supposed to be %@ but is %@", v17, v18, v19}];
 
     abort();
   }
@@ -1337,24 +1319,22 @@ void __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block
   [v3 didProcessStagedScope:v4];
 
   v5 = *(a1 + 32);
-  v6 = [v21 error];
+  v6 = [v20 error];
   [v5 taskDidFinishWithError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_2_28(uint64_t a1, uint64_t a2)
+void *__65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__block_invoke_2_28(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = __CPLTaskOSLogDomain_21318();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(a1 + 32) + 144);
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Marking %@ as deleted", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Marking %@ as deleted", &v11, 0xCu);
     }
   }
 
@@ -1367,9 +1347,9 @@ uint64_t __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__b
       v8 = __CPLTaskOSLogDomain_21318();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Removing staged flag from %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Removing staged flag from %@", &v11, 0xCu);
       }
     }
 
@@ -1383,9 +1363,9 @@ uint64_t __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__b
       v9 = __CPLTaskOSLogDomain_21318();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup tasks for %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup tasks for %@", &v11, 0xCu);
       }
     }
 
@@ -1395,8 +1375,7 @@ uint64_t __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__b
 
       if (v10)
       {
-        result = [*(a1 + 40) setScopeHasChangesToPullFromTransport:*(*(a1 + 32) + 128) error:a2];
-        goto LABEL_20;
+        return [*(a1 + 40) setScopeHasChangesToPullFromTransport:*(*(a1 + 32) + 128) error:a2];
       }
     }
 
@@ -1405,11 +1384,9 @@ uint64_t __65__CPLProcessStagedScopesScopeTask__deleteStagingScopeIfNecessary__b
 LABEL_18:
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_20:
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 

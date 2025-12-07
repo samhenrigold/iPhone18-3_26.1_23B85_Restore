@@ -25,7 +25,7 @@
 
   if (v3)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -42,7 +42,7 @@
   ObjectType = swift_getObjectType();
   if (isa)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;

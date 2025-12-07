@@ -1,5 +1,6 @@
 @interface ECMessageBodyOriginalTextSubparser
 - (BOOL)_isElementQuotedForwardSeparator:(id)separator;
+- (void)_consumeAnyLastTextElementAsAttribution:(BOOL)attribution;
 - (void)_consumeTextElement:(id)element isAttribution:(BOOL)attribution;
 - (void)dealloc;
 - (void)messageBodyParser:(id)parser foundMessageBodyElement:(id)element;
@@ -77,6 +78,45 @@
 
     self->_foundText = 1;
   }
+}
+
+- (void)_consumeAnyLastTextElementAsAttribution:(BOOL)attribution
+{
+  attributionCopy = attribution;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  lastTextElements = self->_lastTextElements;
+  v6 = [(NSMutableArray *)lastTextElements countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v12;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(lastTextElements);
+        }
+
+        v10 = *(*(&v11 + 1) + 8 * i);
+        [(ECMessageBodyOriginalTextSubparser *)self _consumeTextElement:v10 isAttribution:attributionCopy];
+        [v10 releaseExternally];
+      }
+
+      v7 = [(NSMutableArray *)lastTextElements countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
+
+  [(NSMutableArray *)self->_lastTextElements removeAllObjects];
+  [(ECMessageBodyElement_Private *)self->_lastNonWhitespaceTextElement releaseExternally];
+  self->_lastNonWhitespaceTextElement = 0;
 }
 
 - (void)messageBodyParser:(id)parser foundMessageBodyElement:(id)element

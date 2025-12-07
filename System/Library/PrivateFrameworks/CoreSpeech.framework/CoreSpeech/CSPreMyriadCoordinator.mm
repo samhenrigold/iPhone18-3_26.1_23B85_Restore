@@ -426,40 +426,29 @@
 {
   eventCopy = event;
   v4 = eventCopy;
-  if (!eventCopy)
+  v12 = 0;
+  if (eventCopy)
   {
-    goto LABEL_6;
-  }
+    v5 = kVTEIfirstPassTriggerSource;
+    v6 = [eventCopy objectForKeyedSubscript:kVTEIfirstPassTriggerSource];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = [v4 objectForKeyedSubscript:v5];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
 
-  v5 = kVTEIfirstPassTriggerSource;
-  v6 = [eventCopy objectForKeyedSubscript:kVTEIfirstPassTriggerSource];
-  if (!v6)
-  {
-    goto LABEL_6;
-  }
+      if (isKindOfClass)
+      {
+        v10 = [v4 objectForKeyedSubscript:v5];
+        v11 = [v10 isEqualToString:kVTEIFirstPassTriggeredFromRemora];
 
-  v7 = v6;
-  v8 = [v4 objectForKeyedSubscript:v5];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v10 = [v4 objectForKeyedSubscript:v5];
-  v11 = [v10 isEqualToString:kVTEIFirstPassTriggeredFromRemora];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v12 = 0;
+        if (v11)
+        {
+          v12 = 1;
+        }
+      }
+    }
   }
 
   return v12;
@@ -469,40 +458,29 @@ LABEL_6:
 {
   eventCopy = event;
   v4 = eventCopy;
-  if (!eventCopy)
+  v12 = 0;
+  if (eventCopy)
   {
-    goto LABEL_6;
-  }
+    v5 = kVTEIfirstPassTriggerSource;
+    v6 = [eventCopy objectForKeyedSubscript:kVTEIfirstPassTriggerSource];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = [v4 objectForKeyedSubscript:v5];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
 
-  v5 = kVTEIfirstPassTriggerSource;
-  v6 = [eventCopy objectForKeyedSubscript:kVTEIfirstPassTriggerSource];
-  if (!v6)
-  {
-    goto LABEL_6;
-  }
+      if (isKindOfClass)
+      {
+        v10 = [v4 objectForKeyedSubscript:v5];
+        v11 = [v10 isEqualToString:kVTEIFirstPassTriggeredFromApplicationProcessor];
 
-  v7 = v6;
-  v8 = [v4 objectForKeyedSubscript:v5];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v10 = [v4 objectForKeyedSubscript:v5];
-  v11 = [v10 isEqualToString:kVTEIFirstPassTriggeredFromApplicationProcessor];
-
-  if (v11)
-  {
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v12 = 0;
+        if (v11)
+        {
+          v12 = 1;
+        }
+      }
+    }
   }
 
   return v12;

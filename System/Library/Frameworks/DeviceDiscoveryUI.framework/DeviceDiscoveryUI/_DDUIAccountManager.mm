@@ -31,7 +31,7 @@
 
 - (void)altDsidForiCloudAccount:(id)account completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   completionCopy = completion;
   v8 = *MEMORY[0x277D04790];
@@ -39,7 +39,7 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = accountCopy;
+    v17 = accountCopy;
     _os_log_impl(&dword_238060000, v9, OS_LOG_TYPE_DEFAULT, "Fetching altDSID for account %@", buf, 0xCu);
   }
 
@@ -54,7 +54,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_238060000, v12, OS_LOG_TYPE_DEFAULT, "Found cached altDSID %@", buf, 0xCu);
       }
 
@@ -63,14 +63,14 @@
 
     else
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __58___DDUIAccountManager_altDsidForiCloudAccount_completion___block_invoke;
-      v14[3] = &unk_278A48290;
-      v14[4] = self;
-      v15 = accountCopy;
-      v16 = completionCopy;
-      [(_DDUIAccountManager *)self _updateMemberDataForiCloudAccount:v15 completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __58___DDUIAccountManager_altDsidForiCloudAccount_completion___block_invoke;
+      v13[3] = &unk_278A48290;
+      v13[4] = self;
+      v14 = accountCopy;
+      v15 = completionCopy;
+      [(_DDUIAccountManager *)self _updateMemberDataForiCloudAccount:v14 completion:v13];
     }
   }
 
@@ -78,13 +78,11 @@
   {
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nameComponentsForiCloudAccount:(id)account completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   completionCopy = completion;
   v8 = *MEMORY[0x277D04790];
@@ -92,7 +90,7 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = accountCopy;
+    v17 = accountCopy;
     _os_log_impl(&dword_238060000, v9, OS_LOG_TYPE_DEFAULT, "Fetching name components for account %@", buf, 0xCu);
   }
 
@@ -107,7 +105,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_impl(&dword_238060000, v12, OS_LOG_TYPE_DEFAULT, "Found cached components %@", buf, 0xCu);
       }
 
@@ -116,14 +114,14 @@
 
     else
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __65___DDUIAccountManager_nameComponentsForiCloudAccount_completion___block_invoke;
-      v14[3] = &unk_278A48290;
-      v14[4] = self;
-      v15 = accountCopy;
-      v16 = completionCopy;
-      [(_DDUIAccountManager *)self _updateMemberDataForiCloudAccount:v15 completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __65___DDUIAccountManager_nameComponentsForiCloudAccount_completion___block_invoke;
+      v13[3] = &unk_278A48290;
+      v13[4] = self;
+      v14 = accountCopy;
+      v15 = completionCopy;
+      [(_DDUIAccountManager *)self _updateMemberDataForiCloudAccount:v14 completion:v13];
     }
   }
 
@@ -131,13 +129,11 @@
   {
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMemberDataForiCloudAccount:(id)account completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   completionCopy = completion;
   v8 = *MEMORY[0x277D04790];
@@ -145,23 +141,23 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = accountCopy;
+    v16 = accountCopy;
     _os_log_impl(&dword_238060000, v9, OS_LOG_TYPE_DEFAULT, "Fetching account details for %@", buf, 0xCu);
   }
 
   if ([(_DDUIAccountManager *)self enabled])
   {
     objc_initWeak(buf, self);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __68___DDUIAccountManager__updateMemberDataForiCloudAccount_completion___block_invoke;
-    v12[3] = &unk_278A482B8;
-    objc_copyWeak(&v15, buf);
-    v13 = accountCopy;
-    v14 = completionCopy;
-    [(_DDUIAccountManager *)self _findMemberForiCloudAccount:v13 completionHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __68___DDUIAccountManager__updateMemberDataForiCloudAccount_completion___block_invoke;
+    v11[3] = &unk_278A482B8;
+    objc_copyWeak(&v14, buf);
+    v12 = accountCopy;
+    v13 = completionCopy;
+    [(_DDUIAccountManager *)self _findMemberForiCloudAccount:v12 completionHandler:v11];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
@@ -174,8 +170,6 @@
       _os_log_impl(&dword_238060000, v10, OS_LOG_TYPE_DEFAULT, "_NWUIAccountManager is disabled, early returning...", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_findMemberForiCloudAccount:(id)account completionHandler:(id)handler

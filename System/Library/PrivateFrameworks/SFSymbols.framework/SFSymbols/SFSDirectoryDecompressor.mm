@@ -16,20 +16,20 @@
     goto LABEL_24;
   }
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v11 = getAADecompressionInputStreamOpenSymbolLoc_ptr;
-  v38 = getAADecompressionInputStreamOpenSymbolLoc_ptr;
+  v39 = getAADecompressionInputStreamOpenSymbolLoc_ptr;
   if (!getAADecompressionInputStreamOpenSymbolLoc_ptr)
   {
     v12 = libAppleArchiveLibrary();
-    v36[3] = dlsym(v12, "AADecompressionInputStreamOpen");
-    getAADecompressionInputStreamOpenSymbolLoc_ptr = v36[3];
-    v11 = v36[3];
+    v37[3] = dlsym(v12, "AADecompressionInputStreamOpen");
+    getAADecompressionInputStreamOpenSymbolLoc_ptr = v37[3];
+    v11 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v11)
   {
     +[SFSDirectoryCompressor compressDirectoryAtURL:intoURL:withDenylist:error:];
@@ -47,20 +47,20 @@ LABEL_23:
   }
 
   v14 = v13;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v15 = getAADecodeArchiveInputStreamOpenSymbolLoc_ptr;
-  v38 = getAADecodeArchiveInputStreamOpenSymbolLoc_ptr;
+  v39 = getAADecodeArchiveInputStreamOpenSymbolLoc_ptr;
   if (!getAADecodeArchiveInputStreamOpenSymbolLoc_ptr)
   {
     v16 = libAppleArchiveLibrary();
-    v36[3] = dlsym(v16, "AADecodeArchiveInputStreamOpen");
-    getAADecodeArchiveInputStreamOpenSymbolLoc_ptr = v36[3];
-    v15 = v36[3];
+    v37[3] = dlsym(v16, "AADecodeArchiveInputStreamOpen");
+    getAADecodeArchiveInputStreamOpenSymbolLoc_ptr = v37[3];
+    v15 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v15)
   {
     goto LABEL_27;
@@ -94,20 +94,20 @@ LABEL_21:
 
   path3 = [rLCopy path];
   fileSystemRepresentation = [path3 fileSystemRepresentation];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v26 = getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr;
-  v38 = getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr;
+  v39 = getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr;
   if (!getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr)
   {
     v27 = libAppleArchiveLibrary();
-    v36[3] = dlsym(v27, "AAExtractArchiveOutputStreamOpen");
-    getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr = v36[3];
-    v26 = v36[3];
+    v37[3] = dlsym(v27, "AAExtractArchiveOutputStreamOpen");
+    getAAExtractArchiveOutputStreamOpenSymbolLoc_ptr = v37[3];
+    v26 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v26)
   {
 LABEL_28:
@@ -122,26 +122,27 @@ LABEL_28:
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v29 = getAAArchiveStreamProcessSymbolLoc_ptr;
-  v38 = getAAArchiveStreamProcessSymbolLoc_ptr;
+  v39 = getAAArchiveStreamProcessSymbolLoc_ptr;
   if (!getAAArchiveStreamProcessSymbolLoc_ptr)
   {
     v30 = libAppleArchiveLibrary();
-    v36[3] = dlsym(v30, "AAArchiveStreamProcess");
-    getAAArchiveStreamProcessSymbolLoc_ptr = v36[3];
-    v29 = v36[3];
+    v37[3] = dlsym(v30, "AAArchiveStreamProcess");
+    getAAArchiveStreamProcessSymbolLoc_ptr = v37[3];
+    v29 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v29)
   {
 LABEL_29:
-    v34 = +[SFSDirectoryCompressor compressDirectoryAtURL:intoURL:withDenylist:error:];
-    _Block_object_dispose(&v35, 8);
-    _Unwind_Resume(v34);
+    +[SFSDirectoryCompressor compressDirectoryAtURL:intoURL:withDenylist:error:];
+    v35 = v34;
+    _Block_object_dispose(&v36, 8);
+    _Unwind_Resume(v35);
   }
 
   v31 = (v29)(v18, v28, 0, 0, 0, 0);

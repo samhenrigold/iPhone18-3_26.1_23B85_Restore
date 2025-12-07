@@ -13,6 +13,7 @@
 - (void)setupWithInputs:(id)inputs responder:(id)responder;
 - (void)start;
 - (void)teardown;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -30,7 +31,7 @@
     *&buf[12] = 2112;
     *&buf[14] = inputsCopy;
     *&buf[22] = 2112;
-    v30 = responderCopy;
+    v38 = responderCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: %@, %@", buf, 0x20u);
   }
 
@@ -53,10 +54,10 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Register physical button events", buf, 2u);
   }
 
-  if (!sub_1000086F8())
+  if (!sub_1000086F8(0))
   {
-    v13 = handleForCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v20 = handleForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10000D2E4();
     }
@@ -67,34 +68,34 @@
     [(StartPreflightViewController *)self setFinished:1];
   }
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
-  v15 = qword_10001DEA8;
-  v28 = qword_10001DEA8;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2050000000;
+  v22 = qword_10001DEA8;
+  v36 = qword_10001DEA8;
   if (!qword_10001DEA8)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10000883C;
-    v30 = &unk_1000189F8;
-    v31 = &v25;
-    sub_10000883C(buf);
-    v15 = v26[3];
+    v38 = &unk_1000189F8;
+    v39 = &v33;
+    sub_10000883C(buf, v13, v14, v15, v16, v17, v18, v19, v30);
+    v22 = v34[3];
   }
 
-  v16 = v15;
-  _Block_object_dispose(&v25, 8);
-  v17 = objc_opt_new();
-  [(StartPreflightViewController *)self setButtonEventMonitor:v17];
+  v23 = v22;
+  _Block_object_dispose(&v33, 8);
+  v24 = objc_opt_new();
+  [(StartPreflightViewController *)self setButtonEventMonitor:v24];
 
   buttonEventMonitor = [(StartPreflightViewController *)self buttonEventMonitor];
-  LODWORD(v17) = buttonEventMonitor == 0;
+  LODWORD(v24) = buttonEventMonitor == 0;
 
-  if (v17)
+  if (v24)
   {
-    v19 = handleForCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v26 = handleForCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_10000D318();
     }
@@ -107,18 +108,18 @@
 
   objc_initWeak(buf, self);
   buttonEventMonitor2 = [(StartPreflightViewController *)self buttonEventMonitor];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100006028;
-  v23[3] = &unk_100018948;
-  objc_copyWeak(&v24, buf);
-  [buttonEventMonitor2 startWithPriority:200 completion:v23];
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100006028;
+  v31[3] = &unk_100018948;
+  objc_copyWeak(&v32, buf);
+  [buttonEventMonitor2 startWithPriority:200 completion:v31];
 
-  v22 = dispatch_semaphore_create(0);
-  [(StartPreflightViewController *)self setUiNeededKnownSemaphore:v22];
+  v29 = dispatch_semaphore_create(0);
+  [(StartPreflightViewController *)self setUiNeededKnownSemaphore:v29];
 
   [(StartPreflightViewController *)self setActivationLockChallengeNeeded:0];
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(buf);
 }
 
@@ -241,6 +242,20 @@ LABEL_13:
   {
     *buf = 136315138;
     v6 = "[StartPreflightViewController viewDidLoad]";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = StartPreflightViewController;
+  [(StartPreflightViewController *)&v4 viewDidAppear:appear];
+  v3 = handleForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v6 = "[StartPreflightViewController viewDidAppear:]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 }

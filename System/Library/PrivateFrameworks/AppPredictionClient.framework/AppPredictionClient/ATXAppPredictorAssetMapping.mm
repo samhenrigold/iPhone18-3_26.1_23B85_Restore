@@ -155,7 +155,7 @@ void __61__ATXAppPredictorAssetMapping_sharedInstanceWithMobileAssets__block_inv
     [(ATXAppPredictorAssetMapping *)a2 getAssetFileAndSubscoreForConsumerSubType:?];
   }
 
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [(ATXAppPredictorAssetMapping *)v5 getAssetFileAndSubscoreForConsumerSubType:v7, v8, v9, v10, v11, v12, v13];
@@ -172,7 +172,7 @@ LABEL_7:
 
   else
   {
-    v14 = __atxlog_handle_default();
+    v14 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [(ATXAppPredictorAssetMapping *)v14 getAssetFileAndSubscoreForConsumerSubType:v19, v20, v21, v22, v23, v24, v25];
@@ -252,7 +252,7 @@ LABEL_7:
         v9 = &stru_1F3E050C8;
         if ((v8 & 1) == 0)
         {
-          v10 = [v32 containsObject:v7];
+          v10 = objc_msgSend_containsObject_(v32);
           v11 = @" (INVALID SUBTYPE)";
           if (v10)
           {
@@ -286,7 +286,7 @@ LABEL_7:
 
         v20 = v19;
 
-        if ([v39 containsObject:v16])
+        if (objc_msgSend_containsObject_(v39))
         {
           v40 = [[ATXAssetsABHelper alloc] initWithAssetsForResource:v16 ofType:@"plist" specifiedABGroup:0];
           abGroupContents = [(ATXAssetsABHelper *)v40 abGroupContents];
@@ -295,7 +295,7 @@ LABEL_22:
           goto LABEL_25;
         }
 
-        if ([v34 containsObject:v16])
+        if (objc_msgSend_containsObject_(v34))
         {
           abGroupContents = 0;
           v40 = 0;
@@ -348,16 +348,44 @@ LABEL_25:
   return v36;
 }
 
+- (void)initWithUseMobileAssets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, MEMORY[0x1E69E9C10], a3, "ATXAppPredictorAssetMapping, error unarchiving data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)initWithUseMobileAssets:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"ATXAppPredictorAssetMapping.m" lineNumber:61 description:@"Could not load ATXAppPredictorAssetMapping data"];
 }
 
+- (void)initWithUseMobileAssets:(uint64_t)a3 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, MEMORY[0x1E69E9C10], a3, "ATXAppPredictorAssetMapping:initWithUseMobileAssets error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)getAssetFileAndSubscoreForConsumerSubType:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"ATXAppPredictorAssetMapping.m" lineNumber:101 description:@"Could not find a consumerSubType mapping because an empty consumerSubTypeString was nil"];
+}
+
+- (void)getAssetFileAndSubscoreForConsumerSubType:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "Could not find a consumerSubType mapping for %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)getAssetFileAndSubscoreForConsumerSubType:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"__Default";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "Could not even find a consumerSubType mapping for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -14,6 +14,7 @@
 - (void)queryMA;
 - (void)queryMetadata;
 - (void)retryWithBackoff:(id)backoff;
+- (void)setUserInitiated:(BOOL)initiated;
 - (void)triggerUserInitiatedSync;
 @end
 
@@ -22,9 +23,9 @@
 - (SESMobileAssetClient)initWithManager:(id)manager
 {
   managerCopy = manager;
-  v27.receiver = self;
-  v27.super_class = SESMobileAssetClient;
-  v5 = [(SESMobileAssetClient *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SESMobileAssetClient;
+  v5 = [(SESMobileAssetClient *)&v26 init];
   if (v5)
   {
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -74,22 +75,21 @@
       [userDefaults3 setObject:v15 forKey:@"debug.mobileasset.currentCompatibilityVersion"];
     }
 
-    queue = v5->_queue;
-    v21 = _NSConcreteStackBlock;
-    v22 = 3221225472;
-    v23 = sub_100051550;
-    v24 = &unk_1004C0900;
-    v25 = v5;
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_100051550;
+    v23 = &unk_1004C0900;
+    v24 = v5;
     os_state_add_handler();
-    v17 = v5->_queue;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100051558;
-    v19[3] = &unk_1004C08D8;
-    v20 = v25;
-    dispatch_async(v17, v19);
+    queue = v5->_queue;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100051558;
+    v18[3] = &unk_1004C08D8;
+    v19 = v24;
+    dispatch_async(queue, v18);
 
-    p_super = &v25->super;
+    p_super = &v24->super;
 LABEL_10:
   }
 
@@ -654,6 +654,16 @@ LABEL_8:
   block[3] = &unk_1004C08D8;
   block[4] = self;
   dispatch_async(queue, block);
+}
+
+- (void)setUserInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  dispatch_assert_queue_V2(self->_queue);
+  self->_userInitiated = initiatedCopy;
+  userDefaults = self->_userDefaults;
+
+  [(NSUserDefaults *)userDefaults setBool:initiatedCopy forKey:@"mobileasset.isUserInitiated"];
 }
 
 + (unint64_t)getWeeksTryingToDownload

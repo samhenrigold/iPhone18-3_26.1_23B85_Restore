@@ -22,7 +22,7 @@
   cardCopy = card;
   selfCopy = self;
   sub_100502158(cardCopy, v6, v7);
-  sub_10001835C(v6);
+  sub_10001835C(v6, v7);
 }
 
 @end

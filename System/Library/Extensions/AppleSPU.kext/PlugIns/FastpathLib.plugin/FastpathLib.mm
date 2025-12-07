@@ -265,15 +265,15 @@ uint64_t FastpathDriver::GetQueueSize(FastpathDriver *this)
   }
 }
 
-uint64_t FastpathDriver::Read(FastpathDriver *this, unsigned int a2, char *a3, unint64_t a4, unint64_t *a5)
+uint64_t FastpathDriver::Read(FastpathDriver *this, unsigned int a2, _OWORD *a3, unint64_t a4, unint64_t *a5)
 {
   v18 = a4;
   *a3 = 0u;
-  *(a3 + 1) = 0u;
-  *(a3 + 2) = 0u;
-  *(a3 + 3) = 0u;
-  *(a3 + 4) = 0u;
-  *(a3 + 5) = 0u;
+  a3[1] = 0u;
+  a3[2] = 0u;
+  a3[3] = 0u;
+  a3[4] = 0u;
+  a3[5] = 0u;
   if (*(this + 10))
   {
     if (sub_1080(this + 88, &v18, a2, a3, a3 + 10))
@@ -346,11 +346,11 @@ uint64_t sub_1080(uint64_t a1, unint64_t *a2, unint64_t a3, unint64_t *a4, uint6
   return v10;
 }
 
-__n128 FastpathDriver::AddLogEntry(FastpathDriver *this, uint64_t a2, __int16 a3, __int16 a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+__n128 FastpathDriver::AddLogEntry(FastpathDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
   if (*(this + 32))
   {
-    v20 = &a6;
+    v20 = &a9;
     FastpathDriver::InitLogEntry(this, &v18, a3, a4);
     if (a5)
     {
@@ -969,10 +969,11 @@ BOOL sub_1BB0@<W0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_1BD0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1BD0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x36u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x36u);
 }
 
 void sub_1BF0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1065,11 +1066,12 @@ void sub_1E7C(uint64_t a1)
 {
   if (sub_1BB0(a1, __stack_chk_guard))
   {
+    v7 = 136316418;
     sub_1B80();
     sub_1B6C();
     sub_1B90();
     sub_1BA0();
-    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, 2u);
+    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, v7);
   }
 
   sub_1C08();
@@ -1079,11 +1081,12 @@ void sub_1F20(uint64_t a1)
 {
   if (sub_1BB0(a1, __stack_chk_guard))
   {
+    v7 = 136316418;
     sub_1B80();
     sub_1B6C();
     sub_1B90();
     sub_1BA0();
-    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, 2u);
+    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, v7);
   }
 
   sub_1C08();
@@ -1093,11 +1096,12 @@ void sub_1FC4(uint64_t a1)
 {
   if (sub_1BB0(a1, __stack_chk_guard))
   {
+    v7 = 136316418;
     sub_1B80();
     sub_1B6C();
     sub_1B90();
     sub_1BA0();
-    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, 2u);
+    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, v7);
   }
 
   sub_1C08();
@@ -1107,11 +1111,12 @@ void sub_2068(uint64_t a1)
 {
   if (sub_1BB0(a1, __stack_chk_guard))
   {
+    v7 = 136316418;
     sub_1B80();
     sub_1B6C();
     sub_1B90();
     sub_1BA0();
-    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, 2u);
+    sub_1BD0(&dword_0, v1, v2, "%s: AssertMacros: %s, %s file: %s, line: %d value:%x\n", v3, v4, v5, v6, v7);
   }
 
   sub_1C08();

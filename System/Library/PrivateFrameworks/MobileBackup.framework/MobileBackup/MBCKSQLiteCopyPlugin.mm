@@ -21,8 +21,8 @@
       v11 = 1024;
       v12 = v6;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to create the directory at %{public}@: %{errno}d", buf, 0x12u);
-      v8 = *__error();
-      _MBLog();
+      v7 = __error();
+      _MBLog(@"E ", "Failed to create the directory at %{public}@: %{errno}d", sqliteCopyDirectory, *v7);
     }
   }
 
@@ -48,8 +48,8 @@
       v38 = 1024;
       LODWORD(v39) = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to lstat %{public}@: %{errno}d", buf, 0x12u);
-      v25 = *__error();
-      _MBLog();
+      v11 = __error();
+      _MBLog(@"E ", "Failed to lstat %{public}@: %{errno}d", sqliteCopyDirectory, *v11);
     }
   }
 
@@ -58,68 +58,68 @@
     v27 = engineCopy;
     v9 = +[NSFileManager defaultManager];
     v34 = errorCopy;
-    v11 = [v9 contentsOfDirectoryAtPath:sqliteCopyDirectory error:&v34];
+    v12 = [v9 contentsOfDirectoryAtPath:sqliteCopyDirectory error:&v34];
     v26 = v34;
 
     v32 = 0u;
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v30 objects:v40 count:16];
-    if (v13)
+    v13 = v12;
+    v14 = [v13 countByEnumeratingWithState:&v30 objects:v40 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v31;
+      v15 = v14;
+      v16 = *v31;
       do
       {
-        for (i = 0; i != v14; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v31 != v15)
+          if (*v31 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * i);
-          v18 = objc_autoreleasePoolPush();
-          v19 = [sqliteCopyDirectory stringByAppendingPathComponent:v17];
+          v18 = *(*(&v30 + 1) + 8 * i);
+          v19 = objc_autoreleasePoolPush();
+          v20 = [sqliteCopyDirectory stringByAppendingPathComponent:v18];
           v29 = 0;
-          if ([v9 fileExistsAtPath:v19 isDirectory:&v29]&& (v29 & 1) == 0)
+          if ([v9 fileExistsAtPath:v20 isDirectory:&v29]&& (v29 & 1) == 0)
           {
-            v20 = MBGetDefaultLog();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            v21 = MBGetDefaultLog();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v37 = v19;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "MBCKSQLiteCopyPlugin: Removing %@", buf, 0xCu);
-              _MBLog();
+              v37 = v20;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "MBCKSQLiteCopyPlugin: Removing %@", buf, 0xCu);
+              _MBLog(@"I ", "MBCKSQLiteCopyPlugin: Removing %@", v20);
             }
 
             v28 = 0;
-            v21 = [v9 removeItemAtPath:v19 error:&v28];
-            v22 = v28;
-            if ((v21 & 1) == 0)
+            v22 = [v9 removeItemAtPath:v20 error:&v28];
+            v23 = v28;
+            if ((v22 & 1) == 0)
             {
-              v23 = MBGetDefaultLog();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v24 = MBGetDefaultLog();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v37 = v19;
+                v37 = v20;
                 v38 = 2112;
-                v39 = v22;
-                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "MBCKSQLiteCopyPlugin: Unable to remove %@: %@", buf, 0x16u);
-                _MBLog();
+                v39 = v23;
+                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "MBCKSQLiteCopyPlugin: Unable to remove %@: %@", buf, 0x16u);
+                _MBLog(@"E ", "MBCKSQLiteCopyPlugin: Unable to remove %@: %@", v20, v23);
               }
             }
           }
 
-          objc_autoreleasePoolPop(v18);
+          objc_autoreleasePoolPop(v19);
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     errorCopy = v26;

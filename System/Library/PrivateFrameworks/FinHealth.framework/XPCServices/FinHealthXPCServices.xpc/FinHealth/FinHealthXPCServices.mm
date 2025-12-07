@@ -1,6 +1,7 @@
 @interface FinHealthXPCServices
 - (FinHealthXPCServices)initWithConnection:(id)connection;
 - (void)_processFHTransactions:(id)transactions deferFeatureComputation:(BOOL)computation completion:(id)completion;
+- (void)_processTransactionsFromWallet:(id)wallet deferFeatureComputation:(BOOL)computation;
 - (void)_sendTransactionFeaturesForApplication:(id)application withCompletion:(id)completion;
 - (void)aggregateFeaturesWithProcessSource:(id)source completion:(id)completion;
 - (void)allInsightsForDateRange:(id)range endDate:(id)date insightTypeItems:(id)items trendWindow:(int64_t)window sourceId:(id)id accountType:(int64_t)type completion:(id)completion;
@@ -303,6 +304,60 @@ LABEL_22:
 
       v12 = [NSError errorWithDomain:FHErrorDomain code:10012 userInfo:0];
       (completionCopy)[2](completionCopy, 0, v12);
+    }
+  }
+}
+
+- (void)_processTransactionsFromWallet:(id)wallet deferFeatureComputation:(BOOL)computation
+{
+  computationCopy = computation;
+  walletCopy = wallet;
+  if ([walletCopy count])
+  {
+    v7 = objc_opt_new();
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v8 = walletCopy;
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v16;
+      do
+      {
+        v12 = 0;
+        do
+        {
+          if (*v16 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v13 = TransactionFromPKPaymentTransaction();
+          [v7 addObject:v13];
+
+          ++v12;
+        }
+
+        while (v10 != v12);
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v10);
+    }
+
+    [(FinHealthXPCServices *)self _processFHTransactions:v7 deferFeatureComputation:computationCopy completion:&stru_100020E80];
+  }
+
+  else
+  {
+    v7 = FinHealthLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Transaction count is 0.", v14, 2u);
     }
   }
 }

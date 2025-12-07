@@ -16,35 +16,35 @@
 
 - (void)ef_renderSQLExpressionInto:()EFSQLExpressable conjoiner:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   selfCopy = self;
   v9 = v6;
   v10 = v7;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v11 = selfCopy;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = 0;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       v15 = 0;
       v16 = -v13;
-      v22 = v13 + v12;
+      v21 = v13 + v12;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * v15);
+        v17 = *(*(&v22 + 1) + 8 * v15);
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -64,45 +64,43 @@
       }
 
       while (v12 != v15);
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
-      v13 = v22;
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = v21;
     }
 
     while (v12);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ef_renderSQLExpressionInto:()EFSQLExpressable
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   selfCopy = self;
   v6 = v4;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = selfCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       v12 = -v9;
-      v18 = v9 + v8;
+      v17 = v9 + v8;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * v11);
+        v13 = *(*(&v18 + 1) + 8 * v11);
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -122,14 +120,12 @@
       }
 
       while (v8 != v11);
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      v9 = v18;
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = v17;
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

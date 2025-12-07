@@ -142,7 +142,7 @@ LABEL_9:
 
     else
     {
-      v22 = IMCommonCoreBundle();
+      v22 = IMCommonCoreBundle(0);
       v23 = [v22 localizedStringForKey:@"Multiple" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
       v36 = v23;
       array = [NSArray arrayWithObjects:&v36 count:1];
@@ -784,15 +784,16 @@ LABEL_15:
 
 - (id)actionTextWithType:(int64_t)type
 {
-  if ([(AEUserPublishingProductProfile *)self isPreorder])
+  isPreorder = [(AEUserPublishingProductProfile *)self isPreorder];
+  if (isPreorder)
   {
     if (type < 3)
     {
-      v5 = off_2C9550;
+      v6 = off_2C9550;
 LABEL_11:
-      v10 = v5[type];
-      v11 = IMCommonCoreBundle();
-      v8 = [v11 localizedStringForKey:v10 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+      v11 = v6[type];
+      v12 = IMCommonCoreBundle(isPreorder);
+      v9 = [v12 localizedStringForKey:v11 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
       goto LABEL_12;
     }
@@ -801,33 +802,33 @@ LABEL_11:
   }
 
   priceString = [(AEUserPublishingProductProfile *)self priceString];
-  v7 = [priceString length];
+  v8 = [priceString length];
 
-  if (v7)
+  if (v8)
   {
     if (type < 3)
     {
-      v5 = off_2C9568;
+      v6 = off_2C9568;
       goto LABEL_11;
     }
 
 LABEL_7:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_12;
   }
 
   offer = [(AEUserPublishingProductProfile *)self offer];
 
-  v8 = 0;
+  v9 = 0;
   if (offer && type <= 2)
   {
-    v5 = off_2C9580;
+    v6 = off_2C9580;
     goto LABEL_11;
   }
 
 LABEL_12:
 
-  return v8;
+  return v9;
 }
 
 - (int64_t)offerType

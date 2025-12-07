@@ -32,10 +32,11 @@
   else
   {
     v8 = 0;
+    v7 = 0;
   }
 
   v9 = [(BKDebugBoolDefaultSwitch *)self initWithInitialValue:valueCopy synchronize:v8 action:0];
-  sub_100007020(v6);
+  sub_100007020(v6, v7);
   _Block_release(v8);
   return v9;
 }

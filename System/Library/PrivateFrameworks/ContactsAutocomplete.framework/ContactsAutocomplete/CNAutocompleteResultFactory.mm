@@ -14,6 +14,7 @@
 - (id)localContactResultWithDisplayName:(id)name value:(id)value nameComponents:(id)components contactIdentifier:(id)identifier;
 - (id)localGroupResultWithDisplayName:(id)name groupIdentifier:(id)identifier;
 - (id)localGroupResultWithDisplayName:(id)name groupIdentifier:(id)identifier membersProvider:(id)provider;
+- (id)recentResultWithDisplayName:(id)name value:(id)value lastSendingAddress:(id)address dateCount:(unint64_t)count date:(id)date group:(BOOL)group completesChosenGroup:(BOOL)chosenGroup;
 - (id)suggestedResultWithDisplayName:(id)name value:(id)value nameComponents:(id)components;
 - (void)applyLastSendingAddressBitToResult:(id)result;
 - (void)applyPreferredDomainBitToResult:(id)result;
@@ -86,6 +87,23 @@
   [v9 setMembersProvider:providerCopy];
 
   [v9 setSourceType:16];
+
+  return v9;
+}
+
+- (id)recentResultWithDisplayName:(id)name value:(id)value lastSendingAddress:(id)address dateCount:(unint64_t)count date:(id)date group:(BOOL)group completesChosenGroup:(BOOL)chosenGroup
+{
+  if (count < 5)
+  {
+    LOBYTE(v11) = chosenGroup;
+    [CNAutocompleteResultFactory infrequentRecentResultWithDisplayName:"infrequentRecentResultWithDisplayName:value:lastSendingAddress:dateCount:date:group:completesChosenGroup:" value:name lastSendingAddress:value dateCount:address date:v11 group:? completesChosenGroup:?];
+  }
+
+  else
+  {
+    [(CNAutocompleteResultFactory *)self frequentRecentResultWithDisplayName:name value:value lastSendingAddress:address date:date group:group completesChosenGroup:chosenGroup];
+  }
+  v9 = ;
 
   return v9;
 }
@@ -260,7 +278,6 @@
 - (void)applyPreferredDomainBitToResult:(id)result
 {
   resultCopy = result;
-  preferredDomain = self->_preferredDomain;
   if (((*(*MEMORY[0x277CFBD30] + 16))() & 1) == 0)
   {
     value = [resultCopy value];
@@ -278,32 +295,31 @@
 - (void)applyLastSendingAddressBitToResult:(id)result
 {
   resultCopy = result;
-  sendingAddress = self->_sendingAddress;
   if (((*(*MEMORY[0x277CFBD30] + 16))() & 1) == 0)
   {
     objc_opt_class();
-    v5 = resultCopy;
+    v4 = resultCopy;
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
+      v5 = v4;
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = v6;
+    v6 = v5;
 
-    if (v7)
+    if (v6)
     {
-      v8 = self->_sendingAddress;
-      lastSendingAddress = [v7 lastSendingAddress];
-      LODWORD(v8) = [(NSString *)v8 _cn_caseInsensitiveIsEqual:lastSendingAddress];
+      sendingAddress = self->_sendingAddress;
+      lastSendingAddress = [v6 lastSendingAddress];
+      LODWORD(sendingAddress) = [(NSString *)sendingAddress _cn_caseInsensitiveIsEqual:lastSendingAddress];
 
-      if (v8)
+      if (sendingAddress)
       {
-        [v7 setMatchesSendingAddress:1];
+        [v6 setMatchesSendingAddress:1];
       }
     }
   }

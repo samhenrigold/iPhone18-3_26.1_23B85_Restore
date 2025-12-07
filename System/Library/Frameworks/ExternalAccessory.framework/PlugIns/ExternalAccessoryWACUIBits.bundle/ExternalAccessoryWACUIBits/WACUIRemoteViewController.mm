@@ -2,11 +2,19 @@
 - (EAWiFiUnconfiguredAccessoryBrowserManager)parent;
 - (void)_signalPresentationComplete;
 - (void)backendFoundNewWACDevices:(id)devices andRemovedWACDevices:(id)cDevices;
+- (void)dismissWithStatus:(int)status;
 - (void)updateState:(int64_t)state;
 - (void)wifiDidShutdown;
 @end
 
 @implementation WACUIRemoteViewController
+
+- (void)dismissWithStatus:(int)status
+{
+  v3 = *&status;
+  WeakRetained = objc_loadWeakRetained(&self->_parent);
+  [WeakRetained dismissWithStatus:v3];
+}
 
 - (void)updateState:(int64_t)state
 {

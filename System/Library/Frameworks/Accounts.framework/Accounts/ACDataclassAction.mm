@@ -64,11 +64,11 @@
 
 - (ACDataclassAction)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = ACDataclassAction;
-  v5 = [(ACDataclassAction *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = ACDataclassAction;
+  v5 = [(ACDataclassAction *)&v18 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"type"];
@@ -78,9 +78,9 @@
     v5->_isDestructive = [v7 BOOLValue];
 
     v8 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"affectedContainers"];
     affectedContainers = v5->_affectedContainers;
@@ -95,7 +95,6 @@
     v5->_undoAlertMessage = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

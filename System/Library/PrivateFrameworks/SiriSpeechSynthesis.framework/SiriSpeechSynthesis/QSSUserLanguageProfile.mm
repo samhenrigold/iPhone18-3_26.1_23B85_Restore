@@ -144,11 +144,7 @@ uint64_t __44__QSSUserLanguageProfile_addObjectToBuffer___block_invoke(uint64_t 
 
 - (void)profile_blob:(id)profile_blob
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   profile_blobCopy = profile_blob;
-  v7 = *root[*v5[4].var0 + *root[*v5[4].var0].var0].var0;
-  v8 = profile_blobCopy;
   (*(profile_blob + 2))();
 }
 

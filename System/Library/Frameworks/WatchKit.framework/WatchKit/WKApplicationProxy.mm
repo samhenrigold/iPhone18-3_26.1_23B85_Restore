@@ -21,40 +21,40 @@
 
 + (id)applicationsForContainerProxy:(id)proxy
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
-  v34 = 0;
+  v33 = 0;
   bundleURL = [proxyCopy bundleURL];
   path = [bundleURL path];
   v7 = [path stringByAppendingPathComponent:@"Watch"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  LODWORD(path) = [defaultManager fileExistsAtPath:v7 isDirectory:&v34];
-  v9 = v34;
+  LODWORD(path) = [defaultManager fileExistsAtPath:v7 isDirectory:&v33];
+  v9 = v33;
 
   if (!path || (v9 & 1) == 0)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     plugInKitPlugins = [proxyCopy plugInKitPlugins];
-    v18 = [plugInKitPlugins countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v18 = [plugInKitPlugins countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
       selfCopy = self;
-      v20 = *v31;
+      v20 = *v30;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(plugInKitPlugins);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v29 + 1) + 8 * i);
           protocol = [v22 protocol];
           v24 = [protocol isEqualToString:@"com.apple.watchkit"];
 
@@ -79,7 +79,7 @@
           }
         }
 
-        v19 = [plugInKitPlugins countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v19 = [plugInKitPlugins countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v19)
         {
           continue;
@@ -112,7 +112,6 @@ LABEL_13:
 LABEL_17:
 
 LABEL_18:
-  v27 = *MEMORY[0x277D85DE8];
 
   return array;
 }

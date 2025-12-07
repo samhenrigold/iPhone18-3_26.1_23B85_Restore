@@ -609,7 +609,7 @@ LABEL_7:
 
 - (BOOL)setUpAudioRulesWithConfiguration:(id)configuration
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if ([(VCAudioRuleCollection *)self setUpForcedPayload])
   {
 LABEL_14:
@@ -651,14 +651,14 @@ LABEL_14:
             if (os_log_type_enabled(*v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 136316162;
-              v55 = v41;
-              v56 = 2080;
-              v57 = "[VCAudioRuleCollection setUpAudioRulesWithConfiguration:]";
-              v58 = 1024;
-              v59 = 283;
-              v60 = 2080;
-              configurationCopy2 = "";
-              v62 = 2080;
+              *&buf[4] = v41;
+              *&buf[12] = 2080;
+              *&buf[14] = "[VCAudioRuleCollection setUpAudioRulesWithConfiguration:]";
+              *&buf[22] = 1024;
+              LODWORD(v55) = 283;
+              WORD2(v55) = 2080;
+              *(&v55 + 6) = "";
+              HIWORD(v55) = 2080;
               selfCopy = v39;
               _os_log_error_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_ERROR, " [%s] %s:%d %s %s", buf, 0x30u);
             }
@@ -677,28 +677,28 @@ LABEL_14:
 
   +[VCAudioRuleCollection restrictPayloads:forChannelCount:](VCAudioRuleCollection, "restrictPayloads:forChannelCount:", v6, [configuration channelCount]);
   v7 = [(VCAudioRuleCollection *)self payloadsForAudioSwitchingWithConfiguration:configuration];
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v15 = OUTLINED_FUNCTION_2_9(v7, v8, v9, v10, v11, v12, v13, v14, v44, v46, v48, v50, __lasts, __str);
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v15 = OUTLINED_FUNCTION_2_9(v7, v8, v9, v10, v11, v12, v13, v14, v44, v46, v48, v50, __lasts, __str, *buf, *&buf[8], *&buf[16], v55, *(&v55 + 1), selfCopy, v57, *(&v57 + 1));
   if (v15)
   {
     v16 = v15;
-    v17 = *v67;
+    v17 = *v59;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v67 != v17)
+        if (*v59 != v17)
         {
           objc_enumerationMutation(v6);
         }
 
-        v19 = -[VCAudioRuleCollection addAudioPayload:isSecondary:sbr:](self, "addAudioPayload:isSecondary:sbr:", [*(*(&v66 + 1) + 8 * i) unsignedIntValue], objc_msgSend(v7, "containsObject:", *(*(&v66 + 1) + 8 * i)), self->_usesSBR);
+        v19 = -[VCAudioRuleCollection addAudioPayload:isSecondary:sbr:](self, "addAudioPayload:isSecondary:sbr:", [*(*(&v58 + 1) + 8 * i) unsignedIntValue], objc_msgSend(v7, "containsObject:", *(*(&v58 + 1) + 8 * i)), self->_usesSBR);
       }
 
-      v16 = OUTLINED_FUNCTION_2_9(v19, v20, v21, v22, v23, v24, v25, v26, v45, v47, v49, v51, __lasts, __str);
+      v16 = OUTLINED_FUNCTION_2_9(v19, v20, v21, v22, v23, v24, v25, v26, v45, v47, v49, v51, __lasts, __str, *buf, *&buf[8], *&buf[16], v55, *(&v55 + 1), selfCopy, v57, *(&v57 + 1));
     }
 
     while (v16);
@@ -735,14 +735,14 @@ LABEL_14:
     }
 
     *buf = 136316418;
-    v55 = v35;
-    v56 = 2080;
+    *&buf[4] = v35;
+    *&buf[12] = 2080;
     OUTLINED_FUNCTION_0_4();
-    configurationCopy2 = v29;
-    v62 = 2048;
+    *(&v55 + 6) = v29;
+    HIWORD(v55) = 2048;
     selfCopy = self;
-    v64 = v37;
-    configurationCopy = configuration;
+    LOWORD(v57) = v37;
+    *(&v57 + 2) = configuration;
     v32 = " [%s] %s:%d %@(%p) Failed to configure any payloads for configuration=%@";
     v33 = v36;
     v34 = 58;
@@ -760,10 +760,10 @@ LABEL_14:
     }
 
     *buf = 136315906;
-    v55 = v30;
-    v56 = 2080;
+    *&buf[4] = v30;
+    *&buf[12] = 2080;
     OUTLINED_FUNCTION_0_4();
-    configurationCopy2 = configuration;
+    *(&v55 + 6) = configuration;
     v32 = " [%s] %s:%d Failed to configure any payloads for configuration=%@";
     v33 = v31;
     v34 = 38;

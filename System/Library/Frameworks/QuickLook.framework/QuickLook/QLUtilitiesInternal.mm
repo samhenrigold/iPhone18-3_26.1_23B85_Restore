@@ -5,6 +5,7 @@
 + (id)appIdentifierFromTeamAppTuple:(id)tuple processName:(id)name;
 + (id)getCurrentApplicationBundleIdentifier;
 + (id)getCurrentApplicationBundleIdentifierUsingEntitlement;
++ (void)performOpenInWithFileURL:(id)l claimBinding:(id)binding additionalLaunchServicesOptions:(id)options isContentManaged:(BOOL)managed completion:(id)completion;
 @end
 
 @implementation QLUtilitiesInternal
@@ -127,6 +128,49 @@ uint64_t __65__QLUtilitiesInternal_appIdentifierFromTeamAppTuple_processName___b
   appIdentifierFromTeamAppTuple_processName____regex = v0;
 
   return MEMORY[0x2821F96F8](v0, v1);
+}
+
++ (void)performOpenInWithFileURL:(id)l claimBinding:(id)binding additionalLaunchServicesOptions:(id)options isContentManaged:(BOOL)managed completion:(id)completion
+{
+  managedCopy = managed;
+  v32[2] = *MEMORY[0x277D85DE8];
+  lCopy = l;
+  optionsCopy = options;
+  completionCopy = completion;
+  v14 = MEMORY[0x277CBEB38];
+  v15 = *MEMORY[0x277D0AC70];
+  v31[0] = *MEMORY[0x277D0AC58];
+  v31[1] = v15;
+  v32[0] = MEMORY[0x277CBEC38];
+  v32[1] = MEMORY[0x277CBEC38];
+  v16 = MEMORY[0x277CBEAC0];
+  bindingCopy = binding;
+  v18 = [v16 dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v19 = [v14 dictionaryWithDictionary:v18];
+
+  if (optionsCopy)
+  {
+    [v19 addEntriesFromDictionary:optionsCopy];
+  }
+
+  startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
+  defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
+  bundleRecord = [bindingCopy bundleRecord];
+
+  bundleIdentifier = [bundleRecord bundleIdentifier];
+  v24 = [defaultWorkspace operationToOpenResource:lCopy usingApplication:bundleIdentifier uniqueDocumentIdentifier:0 isContentManaged:managedCopy sourceAuditToken:0 userInfo:0 options:v19 delegate:0];
+
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __121__QLUtilitiesInternal_performOpenInWithFileURL_claimBinding_additionalLaunchServicesOptions_isContentManaged_completion___block_invoke;
+  v27[3] = &unk_278B58488;
+  v30 = startAccessingSecurityScopedResource;
+  v28 = lCopy;
+  v29 = completionCopy;
+  v25 = completionCopy;
+  v26 = lCopy;
+  [v24 setCompletionBlock:v27];
+  [v24 start];
 }
 
 uint64_t __121__QLUtilitiesInternal_performOpenInWithFileURL_claimBinding_additionalLaunchServicesOptions_isContentManaged_completion___block_invoke(uint64_t a1)

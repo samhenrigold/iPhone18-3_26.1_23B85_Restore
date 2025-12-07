@@ -179,7 +179,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBDeleteTimerIntent *)self hasDeleteMultiple])
   {
-    deleteMultiple = self->_deleteMultiple;
     PBDataWriterWriteBOOLField();
   }
 
@@ -193,13 +192,13 @@ LABEL_17:
 
   targetTimer = [(_INPBDeleteTimerIntent *)self targetTimer];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (targetTimer)
   {
     targetTimer2 = [(_INPBDeleteTimerIntent *)self targetTimer];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 

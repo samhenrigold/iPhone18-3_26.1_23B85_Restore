@@ -85,14 +85,8 @@ LABEL_11:
 
 - (void)reloadViewElementData
 {
-  if (os_variant_has_internal_content() && _os_feature_enabled_impl())
-  {
-    v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-    if (v2)
-    {
-      [(SKUIIndexBarEntryListController *)v2 reloadViewElementData:v3];
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryListController reloadViewElementData]";
 }
 
 - (id)targetIndexBarEntryIDForEntryDescriptorAtIndex:(int64_t)index returningRelativeSectionIndex:(int64_t *)sectionIndex
@@ -126,6 +120,30 @@ LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
++ (void)entryListControllerForEntryViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryListController entryListControllerForEntryViewElement:]";
+}
+
++ (void)entryListControllerForEntryListViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntryListController entryListControllerForEntryListViewElement:]";
+}
+
+- (void)entryDescriptorAtIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryListController entryDescriptorAtIndex:]";
+}
+
+- (void)targetIndexBarEntryIDForEntryDescriptorAtIndex:(uint64_t)a3 returningRelativeSectionIndex:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntryListController targetIndexBarEntryIDForEntryDescriptorAtIndex:returningRelativeSectionIndex:]";
 }
 
 @end

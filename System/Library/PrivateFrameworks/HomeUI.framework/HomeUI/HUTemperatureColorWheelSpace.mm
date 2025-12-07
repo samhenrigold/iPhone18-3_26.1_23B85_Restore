@@ -188,7 +188,7 @@ void __59__HUTemperatureColorWheelSpace_coordinateForColor_isValid___block_invok
         dispatch_once(&qword_281122078, &__block_literal_global_82_1);
       }
 
-      HUApproximatelyInverseCubicBezierWithSamples(v5, &HULowTemperatureSmoothingBezierCurvePoints, &unk_281122120, 20);
+      HUApproximatelyInverseCubicBezierWithSamples(v5, HULowTemperatureSmoothingBezierCurvePoints, &unk_281122120, 20);
     }
   }
 
@@ -201,7 +201,7 @@ void __59__HUTemperatureColorWheelSpace_coordinateForColor_isValid___block_invok
       dispatch_once(&_MergedGlobals_636, &__block_literal_global_268);
     }
 
-    HUApproximatelyInverseCubicBezierWithSamples(v3, &HUHighTemperatureSmoothingBezierCurvePoints, &unk_281122080, 20);
+    HUApproximatelyInverseCubicBezierWithSamples(v3, HUHighTemperatureSmoothingBezierCurvePoints, &unk_281122080, 20);
   }
 }
 

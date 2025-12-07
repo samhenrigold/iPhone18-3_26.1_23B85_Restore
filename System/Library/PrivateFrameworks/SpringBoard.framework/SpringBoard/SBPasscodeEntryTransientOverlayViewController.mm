@@ -621,14 +621,14 @@ uint64_t __101__SBPasscodeEntryTransientOverlayViewController_newTransientOverla
   }
 }
 
-uint64_t __73__SBPasscodeEntryTransientOverlayViewController__attemptUnlock_passcode___block_invoke(uint64_t a1)
+void *__73__SBPasscodeEntryTransientOverlayViewController__attemptUnlock_passcode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) resetForSuccess];
   *(*(a1 + 40) + 1416) = 0;
   return result;
 }
 
-uint64_t __73__SBPasscodeEntryTransientOverlayViewController__attemptUnlock_passcode___block_invoke_2(uint64_t a1)
+void *__73__SBPasscodeEntryTransientOverlayViewController__attemptUnlock_passcode___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) resetForFailedPasscode];
   *(*(a1 + 40) + 1416) = 0;
@@ -679,7 +679,7 @@ void __101__SBPasscodeEntryTransientOverlayViewController__passcodeLockViewPassc
   pearlSettings = self->_pearlSettings;
   if (pearlSettings)
   {
-    [(CSLockScreenPearlSettings *)pearlSettings proudLockControllerViewControllerConfiguration];
+    objc_msgSend_proudLockControllerViewControllerConfiguration(pearlSettings, a2);
   }
 
   passcodeView = [(SBUIPasscodeViewWithLockScreenStyle *)self->_passcodeView passcodeView];

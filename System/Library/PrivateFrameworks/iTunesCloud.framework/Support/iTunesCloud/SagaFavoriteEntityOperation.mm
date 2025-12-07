@@ -202,14 +202,14 @@ LABEL_12:
   v4 = musicLibrary;
   if (self->_adamID)
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100048760;
-    v13[3] = &unk_1001DEDD0;
-    v13[4] = self;
-    v14 = musicLibrary;
-    [v14 performDatabaseTransactionWithBlock:v13];
-    v5 = v14;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100048760;
+    v12[3] = &unk_1001DEDD0;
+    v12[4] = self;
+    v13 = musicLibrary;
+    [v13 performDatabaseTransactionWithBlock:v12];
+    v5 = v13;
 LABEL_5:
 
     goto LABEL_6;
@@ -217,32 +217,31 @@ LABEL_5:
 
   if (self->_artistCloudLibraryID)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100048994;
-    v11[3] = &unk_1001DEDD0;
-    v11[4] = self;
-    v12 = musicLibrary;
-    [v12 performDatabaseTransactionWithBlock:v11];
-    v5 = v12;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100048994;
+    v10[3] = &unk_1001DEDD0;
+    v10[4] = self;
+    v11 = musicLibrary;
+    [v11 performDatabaseTransactionWithBlock:v10];
+    v5 = v11;
     goto LABEL_5;
   }
 
   v6 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    entityType = self->_entityType;
-    v8 = NSStringFromICFavoriteMediaEntityType();
+    v7 = NSStringFromICFavoriteMediaEntityType();
     adamID = self->_adamID;
     artistCloudLibraryID = self->_artistCloudLibraryID;
     *buf = 138544130;
     selfCopy = self;
-    v17 = 2114;
-    v18 = v8;
-    v19 = 2048;
-    v20 = adamID;
-    v21 = 2114;
-    v22 = artistCloudLibraryID;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2048;
+    v19 = adamID;
+    v20 = 2114;
+    v21 = artistCloudLibraryID;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@ Invalid identifier to revert favoriting entityType=%{public}@, adamID=%lld, cloudUniversalLibraryID=%{public}@", buf, 0x2Au);
   }
 
@@ -255,14 +254,14 @@ LABEL_6:
   v4 = musicLibrary;
   if (self->_adamID)
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100048DA8;
-    v13[3] = &unk_1001DEDD0;
-    v13[4] = self;
-    v14 = musicLibrary;
-    [v14 performDatabaseTransactionWithBlock:v13];
-    v5 = v14;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100048DA8;
+    v12[3] = &unk_1001DEDD0;
+    v12[4] = self;
+    v13 = musicLibrary;
+    [v13 performDatabaseTransactionWithBlock:v12];
+    v5 = v13;
 LABEL_5:
 
     goto LABEL_6;
@@ -270,32 +269,31 @@ LABEL_5:
 
   if (self->_albumCloudLibraryID)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000490B4;
-    v11[3] = &unk_1001DEDD0;
-    v11[4] = self;
-    v12 = musicLibrary;
-    [v12 performDatabaseTransactionWithBlock:v11];
-    v5 = v12;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000490B4;
+    v10[3] = &unk_1001DEDD0;
+    v10[4] = self;
+    v11 = musicLibrary;
+    [v11 performDatabaseTransactionWithBlock:v10];
+    v5 = v11;
     goto LABEL_5;
   }
 
   v6 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    entityType = self->_entityType;
-    v8 = NSStringFromICFavoriteMediaEntityType();
+    v7 = NSStringFromICFavoriteMediaEntityType();
     adamID = self->_adamID;
     albumCloudLibraryID = self->_albumCloudLibraryID;
     *buf = 138544130;
     selfCopy = self;
-    v17 = 2114;
-    v18 = v8;
-    v19 = 2048;
-    v20 = adamID;
-    v21 = 2114;
-    v22 = albumCloudLibraryID;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2048;
+    v19 = adamID;
+    v20 = 2114;
+    v21 = albumCloudLibraryID;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@ Invalid identifier to revert favoriting entityType=%{public}@, adamID=%lld, cloudLibraryID=%{public}@", buf, 0x2Au);
   }
 
@@ -307,12 +305,12 @@ LABEL_6:
   if (self->_globalPlaylistID)
   {
     v3 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyStoreCloudID equalToInt64:0];
-    v33[0] = v3;
+    v32[0] = v3;
     v4 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyCloudGlobalID equalToValue:self->_globalPlaylistID];
-    v33[1] = v4;
+    v32[1] = v4;
     v5 = [ML3ComparisonPredicate predicateWithProperty:ML3ContainerPropertyContainerPersistentId equalToInt64:self->_persistentID];
-    v33[2] = v5;
-    v6 = [NSArray arrayWithObjects:v33 count:3];
+    v32[2] = v5;
+    v6 = [NSArray arrayWithObjects:v32 count:3];
     v7 = [ML3AllCompoundPredicate predicateMatchingPredicates:v6];
 
     musicLibrary = [(CloudLibraryOperation *)self musicLibrary];
@@ -328,16 +326,16 @@ LABEL_6:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           globalPlaylistID = self->_globalPlaylistID;
-          v25 = 138543618;
+          v24 = 138543618;
           selfCopy4 = self;
-          v27 = 2114;
-          v28 = globalPlaylistID;
+          v26 = 2114;
+          v27 = globalPlaylistID;
           v14 = "%{public}@ Deleted playlist with global id: %{public}@";
           v15 = v12;
           v16 = OS_LOG_TYPE_DEFAULT;
           v17 = 22;
 LABEL_13:
-          _os_log_impl(&_mh_execute_header, v15, v16, v14, &v25, v17);
+          _os_log_impl(&_mh_execute_header, v15, v16, v14, &v24, v17);
         }
 
 LABEL_14:
@@ -350,14 +348,14 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v23 = self->_globalPlaylistID;
+      v22 = self->_globalPlaylistID;
       persistentID = self->_persistentID;
-      v25 = 138543874;
+      v24 = 138543874;
       selfCopy4 = self;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2048;
-      v30 = persistentID;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2048;
+      v29 = persistentID;
       v14 = "%{public}@ Failed to delete playlist with global id: %{public}@, persistentID=%lld";
       v15 = v12;
       v16 = OS_LOG_TYPE_ERROR;
@@ -371,14 +369,14 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v21 = self->_globalPlaylistID;
-      v22 = self->_persistentID;
-      v25 = 138543874;
+      v20 = self->_globalPlaylistID;
+      v21 = self->_persistentID;
+      v24 = 138543874;
       selfCopy4 = self;
-      v27 = 2114;
-      v28 = v21;
-      v29 = 2048;
-      v30 = v22;
+      v26 = 2114;
+      v27 = v20;
+      v28 = 2048;
+      v29 = v21;
       v14 = "%{public}@ Could not find a pending playlist to delete with global id: %{public}@, persistentID=%lld";
       v15 = v12;
       v16 = OS_LOG_TYPE_DEFAULT;
@@ -391,19 +389,18 @@ LABEL_14:
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    entityType = self->_entityType;
     v9 = NSStringFromICFavoriteMediaEntityType();
     adamID = self->_adamID;
-    v20 = self->_globalPlaylistID;
-    v25 = 138544130;
+    v19 = self->_globalPlaylistID;
+    v24 = 138544130;
     selfCopy4 = self;
-    v27 = 2114;
-    v28 = v9;
-    v29 = 2048;
-    v30 = adamID;
-    v31 = 2114;
-    v32 = v20;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Invalid identifier to revert favoriting entityType=%{public}@, adamID=%lld, gobalPlaylistID=%{public}@", &v25, 0x2Au);
+    v26 = 2114;
+    v27 = v9;
+    v28 = 2048;
+    v29 = adamID;
+    v30 = 2114;
+    v31 = v19;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Invalid identifier to revert favoriting entityType=%{public}@, adamID=%lld, gobalPlaylistID=%{public}@", &v24, 0x2Au);
 LABEL_15:
   }
 }
@@ -414,12 +411,12 @@ LABEL_15:
   v4 = musicLibrary;
   if (self->_adamID)
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100049824;
-    v10[3] = &unk_1001DEE98;
-    v10[4] = self;
-    [musicLibrary performDatabaseTransactionWithBlock:v10];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100049824;
+    v9[3] = &unk_1001DEE98;
+    v9[4] = self;
+    [musicLibrary performDatabaseTransactionWithBlock:v9];
   }
 
   else
@@ -427,18 +424,17 @@ LABEL_15:
     v5 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      entityType = self->_entityType;
-      v7 = NSStringFromICFavoriteMediaEntityType();
+      v6 = NSStringFromICFavoriteMediaEntityType();
       adamID = self->_adamID;
       persistentID = self->_persistentID;
       *buf = 138544130;
       selfCopy = self;
-      v13 = 2114;
-      v14 = v7;
-      v15 = 2048;
-      v16 = adamID;
-      v17 = 2048;
-      v18 = persistentID;
+      v12 = 2114;
+      v13 = v6;
+      v14 = 2048;
+      v15 = adamID;
+      v16 = 2048;
+      v17 = persistentID;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@ Invalid identifier to revert favoriting entityType=%{public}@, adamID=%lld, persistentID=%lld", buf, 0x2Au);
     }
   }
@@ -449,44 +445,43 @@ LABEL_15:
   v3 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    entityType = self->_entityType;
-    v5 = NSStringFromICFavoriteMediaEntityType();
+    v4 = NSStringFromICFavoriteMediaEntityType();
     adamID = self->_adamID;
     globalPlaylistID = self->_globalPlaylistID;
     albumCloudLibraryID = self->_albumCloudLibraryID;
     artistCloudLibraryID = self->_artistCloudLibraryID;
-    v11 = 138544642;
+    v10 = 138544642;
     selfCopy = self;
-    v13 = 2114;
-    v14 = v5;
-    v15 = 2048;
-    v16 = adamID;
-    v17 = 2114;
-    v18 = globalPlaylistID;
-    v19 = 2114;
-    v20 = albumCloudLibraryID;
-    v21 = 2114;
-    v22 = artistCloudLibraryID;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Processing failed response for entity type=%{public}@, storeID:%lld, globalPlaylistID:%{public}@, cloudAlbumID=%{public}@, cloudArtistID=%{public}@", &v11, 0x3Eu);
+    v12 = 2114;
+    v13 = v4;
+    v14 = 2048;
+    v15 = adamID;
+    v16 = 2114;
+    v17 = globalPlaylistID;
+    v18 = 2114;
+    v19 = albumCloudLibraryID;
+    v20 = 2114;
+    v21 = artistCloudLibraryID;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Processing failed response for entity type=%{public}@, storeID:%lld, globalPlaylistID:%{public}@, cloudAlbumID=%{public}@, cloudArtistID=%{public}@", &v10, 0x3Eu);
   }
 
-  v10 = self->_entityType;
-  if (v10 > 1)
+  entityType = self->_entityType;
+  if (entityType > 1)
   {
-    if (v10 == 2)
+    if (entityType == 2)
     {
       [(SagaFavoriteEntityOperation *)self _revertFavoritingEntityTypeArtist];
     }
 
-    else if (v10 == 3)
+    else if (entityType == 3)
     {
       [(SagaFavoriteEntityOperation *)self _revertFavoritingEntityTypeAlbum];
     }
   }
 
-  else if (v10)
+  else if (entityType)
   {
-    if (v10 == 1)
+    if (entityType == 1)
     {
       [(SagaFavoriteEntityOperation *)self _revertFavoritingEntityTypePlaylist];
     }
@@ -506,8 +501,7 @@ LABEL_15:
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    entityType = self->_entityType;
-    v9 = NSStringFromICFavoriteMediaEntityType();
+    v8 = NSStringFromICFavoriteMediaEntityType();
     adamID = self->_adamID;
     globalPlaylistID = self->_globalPlaylistID;
     albumCloudLibraryID = self->_albumCloudLibraryID;
@@ -517,38 +511,38 @@ LABEL_15:
     *&buf[12] = 2114;
     *&buf[14] = addedItems;
     *&buf[22] = 2114;
-    v40 = v9;
-    *v41 = 2048;
-    *&v41[2] = adamID;
-    *&v41[10] = 2114;
-    *&v41[12] = globalPlaylistID;
-    v42 = 2114;
-    v43 = albumCloudLibraryID;
-    v44 = 2114;
-    v45 = artistCloudLibraryID;
+    v39 = v8;
+    *v40 = 2048;
+    *&v40[2] = adamID;
+    *&v40[10] = 2114;
+    *&v40[12] = globalPlaylistID;
+    v41 = 2114;
+    v42 = albumCloudLibraryID;
+    v43 = 2114;
+    v44 = artistCloudLibraryID;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Processing success response with addedItems=%{public}@ for entity type=%{public}@, storeID:%lld, globalPlaylistID:%{public}@, cloudAlbumID=%{public}@, cloudArtistID=%{public}@", buf, 0x48u);
   }
 
-  v14 = self->_entityType;
-  if (v14 > 1)
+  entityType = self->_entityType;
+  if (entityType > 1)
   {
-    if (v14 == 2)
+    if (entityType == 2)
     {
       goto LABEL_29;
     }
 
-    if (v14 != 3)
+    if (entityType != 3)
     {
 LABEL_15:
-      v20 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v21 = self->_entityType;
+        v20 = self->_entityType;
         *buf = 138543618;
         *&buf[4] = self;
         *&buf[12] = 1024;
-        *&buf[14] = v21;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@ EntityType=%d is not supported", buf, 0x12u);
+        *&buf[14] = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ EntityType=%d is not supported", buf, 0x12u);
       }
 
       goto LABEL_29;
@@ -556,37 +550,37 @@ LABEL_15:
 
     if (self->_adamID)
     {
-      v18 = [NSNumber numberWithLongLong:?];
-      v19 = [addedItems objectForKey:v18];
+      v17 = [NSNumber numberWithLongLong:?];
+      v18 = [addedItems objectForKey:v17];
 
       if (_NSIsNSString())
       {
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_10004A40C;
-        v29[3] = &unk_1001DF3A0;
-        v29[4] = self;
-        v30 = v19;
-        v31 = musicLibrary;
-        [v31 performDatabaseTransactionWithBlock:v29];
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = sub_10004A40C;
+        v28[3] = &unk_1001DF3A0;
+        v28[4] = self;
+        v29 = v18;
+        v30 = musicLibrary;
+        [v30 performDatabaseTransactionWithBlock:v28];
       }
 
       else
       {
-        v26 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v25 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v27 = self->_adamID;
+          v26 = self->_adamID;
           persistentID = self->_persistentID;
           *buf = 138544130;
           *&buf[4] = self;
           *&buf[12] = 2048;
-          *&buf[14] = v27;
+          *&buf[14] = v26;
           *&buf[22] = 2048;
-          v40 = persistentID;
-          *v41 = 2114;
-          *&v41[2] = v19;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}@ Could not set cloud_library_id for album with adamID=%lld, persistentID=%lld as cloudid=%{public}@ is not a string", buf, 0x2Au);
+          v39 = persistentID;
+          *v40 = 2114;
+          *&v40[2] = v18;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%{public}@ Could not set cloud_library_id for album with adamID=%lld, persistentID=%lld as cloudid=%{public}@ is not a string", buf, 0x2Au);
         }
       }
     }
@@ -594,34 +588,34 @@ LABEL_15:
 
   else
   {
-    if (v14)
+    if (entityType)
     {
-      if (v14 == 1)
+      if (entityType == 1)
       {
         if (self->_globalPlaylistID)
         {
-          v15 = [addedItems objectForKey:?];
+          v14 = [addedItems objectForKey:?];
           if (_NSIsNSNumber())
           {
-            longLongValue = [v15 longLongValue];
+            longLongValue = [v14 longLongValue];
             _containerPidsMatchingRequestGlobalPlaylistID = [(SagaFavoriteEntityOperation *)self _containerPidsMatchingRequestGlobalPlaylistID];
             if ([_containerPidsMatchingRequestGlobalPlaylistID count])
             {
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x2020000000;
-              LOBYTE(v40) = 0;
-              v32[0] = _NSConcreteStackBlock;
-              v32[1] = 3221225472;
-              v32[2] = sub_10004A2A8;
-              v32[3] = &unk_1001DAD10;
-              v32[4] = self;
+              LOBYTE(v39) = 0;
+              v31[0] = _NSConcreteStackBlock;
+              v31[1] = 3221225472;
+              v31[2] = sub_10004A2A8;
+              v31[3] = &unk_1001DAD10;
+              v31[4] = self;
               _containerPidsMatchingRequestGlobalPlaylistID = _containerPidsMatchingRequestGlobalPlaylistID;
-              v33 = _containerPidsMatchingRequestGlobalPlaylistID;
-              v35 = buf;
-              v36 = longLongValue;
-              v34 = musicLibrary;
-              [v34 performDatabaseTransactionWithBlock:v32];
+              v32 = _containerPidsMatchingRequestGlobalPlaylistID;
+              v34 = buf;
+              v35 = longLongValue;
+              v33 = musicLibrary;
+              [v33 performDatabaseTransactionWithBlock:v31];
 
               _Block_object_dispose(buf, 8);
             }
@@ -632,13 +626,13 @@ LABEL_15:
             _containerPidsMatchingRequestGlobalPlaylistID = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
             if (os_log_type_enabled(_containerPidsMatchingRequestGlobalPlaylistID, OS_LOG_TYPE_ERROR))
             {
-              v25 = self->_globalPlaylistID;
+              v24 = self->_globalPlaylistID;
               *buf = 138543874;
               *&buf[4] = self;
               *&buf[12] = 2114;
-              *&buf[14] = v25;
+              *&buf[14] = v24;
               *&buf[22] = 2114;
-              v40 = v15;
+              v39 = v14;
               _os_log_impl(&_mh_execute_header, _containerPidsMatchingRequestGlobalPlaylistID, OS_LOG_TYPE_ERROR, "%{public}@ Could not set store_cloud_id for playlist with globalID=%{public}@ as cloudid=%{public}@ is not a number", buf, 0x20u);
             }
           }
@@ -658,26 +652,26 @@ LABEL_15:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v40 = sub_10004A178;
-      *v41 = sub_10004A188;
-      *&v41[8] = +[NSMutableSet set];
-      v23 = [ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertySubscriptionStoreItemID equalToInt64:self->_adamID];
-      v24 = [ML3Track allItemsQueryWithLibrary:musicLibrary predicate:v23 orderingTerms:&__NSArray0__struct usingSections:0];
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = sub_10004A190;
-      v38[3] = &unk_1001DB578;
-      v38[4] = buf;
-      [v24 enumeratePersistentIDsUsingBlock:v38];
+      v39 = sub_10004A178;
+      *v40 = sub_10004A188;
+      *&v40[8] = +[NSMutableSet set];
+      v22 = [ML3ComparisonPredicate predicateWithProperty:ML3TrackPropertySubscriptionStoreItemID equalToInt64:self->_adamID];
+      v23 = [ML3Track allItemsQueryWithLibrary:musicLibrary predicate:v22 orderingTerms:&__NSArray0__struct usingSections:0];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_10004A190;
+      v37[3] = &unk_1001DB578;
+      v37[4] = buf;
+      [v23 enumeratePersistentIDsUsingBlock:v37];
       if ([*(*&buf[8] + 40) count])
       {
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = sub_10004A1F8;
-        v37[3] = &unk_1001DF6B8;
-        v37[4] = self;
-        v37[5] = buf;
-        [musicLibrary performDatabaseTransactionWithBlock:v37];
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_10004A1F8;
+        v36[3] = &unk_1001DF6B8;
+        v36[4] = self;
+        v36[5] = buf;
+        [musicLibrary performDatabaseTransactionWithBlock:v36];
       }
 
       _Block_object_dispose(buf, 8);
@@ -938,12 +932,10 @@ LABEL_45:
   globalPlaylistID = self->_globalPlaylistID;
   albumCloudLibraryID = self->_albumCloudLibraryID;
   artistCloudLibraryID = self->_artistCloudLibraryID;
-  entityType = self->_entityType;
-  v8 = NSStringFromICFavoriteMediaEntityType();
-  persistentID = self->_persistentID;
-  v10 = [NSString stringWithFormat:@"<SagaFavoriteEntityOperation=%p, adamID=%lld, globalPlaylistID=%@, albumCloudLibraryID=%@, artistCloudLibraryID=%@, entityType=%@, _persistentID=%lld, timeStamp=%@>", self, adamID, globalPlaylistID, albumCloudLibraryID, artistCloudLibraryID, v8, persistentID, self->_timeStamp];
+  v7 = NSStringFromICFavoriteMediaEntityType();
+  v8 = [NSString stringWithFormat:@"<SagaFavoriteEntityOperation=%p, adamID=%lld, globalPlaylistID=%@, albumCloudLibraryID=%@, artistCloudLibraryID=%@, entityType=%@, _persistentID=%lld, timeStamp=%@>", self, adamID, globalPlaylistID, albumCloudLibraryID, artistCloudLibraryID, v7, self->_persistentID, self->_timeStamp];
 
-  return v10;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder

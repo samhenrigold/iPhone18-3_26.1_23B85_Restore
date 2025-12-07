@@ -3,7 +3,7 @@
 
 @implementation AXSLiveTranscriptionEnabled
 
-uint64_t ___AXSLiveTranscriptionEnabled_block_invoke()
+void *___AXSLiveTranscriptionEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

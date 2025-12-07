@@ -12,9 +12,9 @@
 
 - (APCarPlayAVVCPlugin)initWithPluginDelegate:(id)delegate
 {
-  v25.receiver = self;
-  v25.super_class = APCarPlayAVVCPlugin;
-  v4 = [(APCarPlayAVVCPlugin *)&v25 init];
+  v31.receiver = self;
+  v31.super_class = APCarPlayAVVCPlugin;
+  v4 = [(APCarPlayAVVCPlugin *)&v31 init];
   v5 = v4;
   if (!v4)
   {
@@ -26,9 +26,9 @@
   v5->_devices = v6;
   if (!v6)
   {
-    v17 = 114;
+    v23 = 114;
 LABEL_20:
-    sub_347C(v17, v5);
+    sub_347C(v23, v5);
     return 0;
   }
 
@@ -36,7 +36,7 @@ LABEL_20:
   v5->_devicesQueue = v7;
   if (!v7)
   {
-    v17 = 117;
+    v23 = 117;
     goto LABEL_20;
   }
 
@@ -45,11 +45,15 @@ LABEL_20:
   v5->_isAVOutputDeviceEnabled = v8;
   if (v8)
   {
-    if ([objc_msgSend(+[AVOutputContext sharedSystemRemoteDisplayContext](AVOutputContext "sharedSystemRemoteDisplayContext")] == &dword_0 + 2)
+    v9 = [objc_msgSend(+[AVOutputContext sharedSystemRemoteDisplayContext](AVOutputContext "sharedSystemRemoteDisplayContext")];
+    if (v9 == &dword_0 + 2)
     {
-      if (dword_C9B0 <= 50 && (dword_C9B0 != -1 || _LogCategory_Initialize()))
+      if (dword_C9B0 <= 50)
       {
-        sub_341C();
+        if (dword_C9B0 != -1 || (v9 = _LogCategory_Initialize(), v9))
+        {
+          sub_341C(v9, v10, v11);
+        }
       }
 
       devicesQueue = v5->_devicesQueue;
@@ -64,18 +68,18 @@ LABEL_20:
     objc_initWeak(&location, v5);
     objc_initWeak(&from, v5->_devicesQueue);
     v5->_sharedSystemRemoteDisplayContext = +[AVOutputContext sharedSystemRemoteDisplayContext];
-    v10 = +[NSNotificationCenter defaultCenter];
-    v11 = AVOutputContextOutputDeviceDidChangeNotification;
+    v13 = +[NSNotificationCenter defaultCenter];
+    v14 = AVOutputContextOutputDeviceDidChangeNotification;
     sharedSystemRemoteDisplayContext = v5->_sharedSystemRemoteDisplayContext;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1214;
-    v19[3] = &unk_83B0;
-    objc_copyWeak(&v20, &location);
-    objc_copyWeak(&v21, &from);
-    v5->_observer = [(NSNotificationCenter *)v10 addObserverForName:v11 object:sharedSystemRemoteDisplayContext queue:0 usingBlock:v19];
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v20);
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_1214;
+    v25[3] = &unk_83B0;
+    objc_copyWeak(&v26, &location);
+    objc_copyWeak(&v27, &from);
+    v5->_observer = [(NSNotificationCenter *)v13 addObserverForName:v14 object:sharedSystemRemoteDisplayContext queue:0 usingBlock:v25];
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -84,20 +88,23 @@ LABEL_20:
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v5, sub_13C4, kFigEndpointNotification_EndpointActivated, 0, 0);
-    v14 = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(v14, v5, sub_13C4, kFigEndpointNotification_EndpointDeactivated, 0, 0);
-    v15 = v5->_devicesQueue;
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_13CC;
-    v18[3] = &unk_8388;
-    v18[4] = v5;
-    dispatch_sync(v15, v18);
+    v20 = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(v20, v5, sub_13C4, kFigEndpointNotification_EndpointDeactivated, 0, 0);
+    v21 = v5->_devicesQueue;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_13CC;
+    v24[3] = &unk_8388;
+    v24[4] = v5;
+    dispatch_sync(v21, v24);
   }
 
-  if (dword_C9B0 <= 50 && (dword_C9B0 != -1 || _LogCategory_Initialize()))
+  if (dword_C9B0 <= 50)
   {
-    sub_344C();
+    if (dword_C9B0 != -1 || (v16 = _LogCategory_Initialize(), v16))
+    {
+      sub_344C(v16, v17, v18);
+    }
   }
 
   return v5;
@@ -158,7 +165,7 @@ LABEL_20:
 {
   if (dword_C9B0 <= 30 && (dword_C9B0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_C9B0, "[APCarPlayAVVCPlugin handleNotification:fromObject:]", 33554462, "CarPlayAVVCPlugin: Received notification %@ for device %lx\n", notification, object);
   }
 
   selfCopy = self;
@@ -181,9 +188,10 @@ LABEL_20:
   {
     Default = CFAllocatorGetDefault();
     v3 = CFDictionaryCreate(Default, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    if (FigXPCRemoteClientCreate() && dword_C9B0 <= 90 && (dword_C9B0 != -1 || _LogCategory_Initialize()))
+    v4 = FigXPCRemoteClientCreate();
+    if (v4 && dword_C9B0 <= 90 && ((v5 = v4, dword_C9B0 != -1) || _LogCategory_Initialize()))
     {
-      sub_34F0();
+      sub_34F0(v5);
       if (!v3)
       {
         return;
@@ -217,12 +225,12 @@ LABEL_20:
 
       if (dword_C9B0 <= 50 && (dword_C9B0 != -1 || _LogCategory_Initialize()))
       {
-        v7 = v4;
+        v8 = v4;
         deviceIdentifier = [(APCarPlayAVVCDevice *)v4 deviceIdentifier];
-        sub_18FC();
+        sub_18FC(&dword_C9B0, "[APCarPlayAVVCPlugin createNewDevice]", v6, "CarPlayAVVCPlugin: Publishing device %{ptr} with id %'@\n");
       }
 
-      [(AVAudioRemoteInputPluginDelegate *)self->_delegate inputPlugin:self didPublishDevice:v4, v7, deviceIdentifier];
+      [(AVAudioRemoteInputPluginDelegate *)self->_delegate inputPlugin:self didPublishDevice:v4, v8, deviceIdentifier];
       return 0;
     }
 
@@ -248,7 +256,7 @@ LABEL_20:
     {
       deviceCopy = device;
       deviceIdentifier = [device deviceIdentifier];
-      sub_18FC();
+      sub_18FC(&dword_C9B0, "[APCarPlayAVVCPlugin destroyDevice:]", v6, "CarPlayAVVCPlugin: Destroying and un-publishing device %{ptr} with id %'@\n");
     }
 
     [(AVAudioRemoteInputPluginDelegate *)self->_delegate inputPlugin:self didUnpublishDevice:device, deviceCopy, deviceIdentifier];

@@ -86,12 +86,12 @@
       sub_10130DA10(v14);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Copy should never be nil.", v15, v16, v17, v18, v19, v20, v21, "[TSUNormalizedSandboxedURL copyWithZone:]");
-    v22 = [NSString stringWithUTF8String:"[TSUNormalizedSandboxedURL copyWithZone:]"];
-    v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLSandboxedURL.m"];
-    [CRLAssertionHandler handleFailureInFunction:v22 file:v23 lineNumber:178 isFatal:1 description:"Copy should never be nil."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Copy should never be nil.", "[TSUNormalizedSandboxedURL copyWithZone:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLSandboxedURL.m", 178);
+    v15 = [NSString stringWithUTF8String:"[TSUNormalizedSandboxedURL copyWithZone:]"];
+    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLSandboxedURL.m"];
+    [CRLAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:178 isFatal:1 description:"Copy should never be nil."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v24, v25);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v17, v18);
     abort();
   }
 

@@ -7,6 +7,7 @@
 - (BOOL)historyAllowsOutrankForSSID:(id)d;
 - (CellOutrankHandler)init;
 - (id)_WRMStatusString:(id)string status:(unint64_t)status timestamp:(double)timestamp;
+- (id)_getState:(BOOL)state;
 - (int)cellOutrankReportableTransitionPrimaryReason;
 - (int)configureFromPrefs:(id)prefs;
 - (void)_administrativeDisable;
@@ -16,6 +17,7 @@
 - (void)_generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block;
 - (void)_initializeUserFlowMonitor;
 - (void)_refreshWifiShimItems;
+- (void)_setScrutinizerRequired:(BOOL)required;
 - (void)_updateWiFi:(id)fi;
 - (void)armedStateEntryAction;
 - (void)checkEnablement;
@@ -27,6 +29,7 @@
 - (void)idleStateEntryAction;
 - (void)ingestCurrentState;
 - (void)initializeHistory;
+- (void)newSTMState:(unsigned int)state fromDeviceState:(id)deviceState;
 - (void)noteOutrankEvent:(unint64_t)event;
 - (void)noteStateChange:(id)change new:(id)new old:(id)old;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -37,6 +40,7 @@
 - (void)resetHistoryForSSID:(id)d;
 - (void)restoreDefaults;
 - (void)setCellOutrankReport:(unint64_t)report;
+- (void)setCellOutranksWiFi:(BOOL)fi;
 - (void)setConfiguration:(id)configuration;
 - (void)setHistoryForSSID:(id)d;
 - (void)setNonIdle:(BOOL)idle;
@@ -69,7 +73,7 @@
 
 - (void)ingestCurrentState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   atomic_store(0, &self->_pendingStateChanges);
   stateWatcher = self->_stateWatcher;
   v4 = objc_alloc_init(COSMStateSummary);
@@ -85,7 +89,7 @@
     {
       stateOverridePars = self->_stateOverridePars;
       *buf = 138543362;
-      v15 = stateOverridePars;
+      v14 = stateOverridePars;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "COSM: applying override for testing %{public}@", buf, 0xCu);
     }
 
@@ -112,7 +116,7 @@
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSM: ingestCurrentState %@", buf, 0xCu);
   }
 
@@ -133,13 +137,11 @@
   {
     [(CellOutrankHandler *)self newSTMState:v11 fromDeviceState:v5];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64_t a1, int token)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   state64 = 0;
   state = notify_get_state(token, &state64);
   v4 = outrankLogHandle;
@@ -149,7 +151,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v10) = v5;
+      LODWORD(v9) = v5;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Failed to get the state for com.apple.WRM.iRAT_event.linkRecommendation (%u)", buf, 8u);
     }
   }
@@ -159,7 +161,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v10 = state64;
+      v9 = state64;
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "COSM WRM notification 0x%llx", buf, 0xCu);
     }
 
@@ -170,8 +172,6 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     *(*(a1 + 32) + 440) = v6;
     [*(a1 + 32) handleWRMState:state64];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int)cellOutrankReportableTransitionPrimaryReason
@@ -319,9 +319,209 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
   return v12;
 }
 
+- (id)_getState:(BOOL)state
+{
+  stateCopy = state;
+  v66 = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  if (self->_administrativeState == 2)
+  {
+    overrideParsingErrorString = @"COSM administratively disabled";
+LABEL_48:
+    [v5 addObject:overrideParsingErrorString];
+    goto LABEL_49;
+  }
+
+  v54 = objc_alloc(MEMORY[0x277CCACA8]);
+  cellOutrankReported = [(CellOutrankHandler *)self cellOutrankReported];
+  cellOutranksWiFi = [(CellOutrankHandler *)self cellOutranksWiFi];
+  cellOutrankEffective = [(CellOutrankController *)self->_cellOutrankController cellOutrankEffective];
+  cellOutrankIcon = [(CellOutrankController *)self->_cellOutrankController cellOutrankIcon];
+  nonIdle = [(CellOutrankHandler *)self nonIdle];
+  pollingRequested = [(CellOutrankHandler *)self pollingRequested];
+  v10 = +[CellOutrankForceSPIHandler sharedInstance];
+  cellOutrankForcedViaSPI = [v10 cellOutrankForcedViaSPI];
+  cellOutrankLastReport = self->_cellOutrankLastReport;
+  if (cellOutrankLastReport)
+  {
+    v13 = [COSMStateSummary summaryFromFlags:self->_cellOutrankLastReport];
+  }
+
+  else
+  {
+    v13 = &stru_2847966D8;
+  }
+
+  v14 = [v54 initWithFormat:@"COSM Outrank BOOLean reported to WRM: %d to controller: %d icon req %d actual %d nonIdle: %d  polling: %d forced %d report: 0x%llx %@", cellOutrankReported, cellOutranksWiFi, cellOutrankEffective, cellOutrankIcon, nonIdle, pollingRequested, cellOutrankForcedViaSPI, cellOutrankLastReport, v13];
+  [v5 addObject:v14];
+
+  if (cellOutrankLastReport)
+  {
+  }
+
+  cellOutrankHandlerSTM = self->_cellOutrankHandlerSTM;
+  if (cellOutrankHandlerSTM)
+  {
+    v16 = [(CellOutrankHandlerSTM *)cellOutrankHandlerSTM getState:stateCopy];
+    [v5 addObjectsFromArray:v16];
+  }
+
+  if (self->_latestWRMStatusTimestamp > 0.0)
+  {
+    v17 = [(CellOutrankHandler *)self _WRMStatusString:@"Latest       " status:self->_latestWRMStatus timestamp:?];
+    [v5 addObject:v17];
+  }
+
+  if (self->_previousWRMStatusTimestamp > 0.0)
+  {
+    v18 = [(CellOutrankHandler *)self _WRMStatusString:@"Previous     " status:self->_previousWRMStatus timestamp:?];
+    [v5 addObject:v18];
+  }
+
+  if (self->_initialWRMStatusTimestamp > 0.0)
+  {
+    v19 = [(CellOutrankHandler *)self _WRMStatusString:@"Initial      " status:self->_initialWRMStatus timestamp:?];
+    [v5 addObject:v19];
+  }
+
+  if (self->_overrideWRMStatusTimestamp > 0.0)
+  {
+    if (self->_overrideWRMStatus)
+    {
+      v20 = [CellOutrankHandler _WRMStatusString:"_WRMStatusString:status:timestamp:" status:@"Override !!! " timestamp:?];
+      [v5 addObject:v20];
+    }
+
+    else
+    {
+      v21 = objc_alloc(MEMORY[0x277CCACA8]);
+      v20 = dateStringMillisecondsFromReferenceInterval(self->_overrideWRMStatusTimestamp);
+      v22 = [v21 initWithFormat:@"COSM WRM Override Removed !!! at %@", v20];
+      [v5 addObject:v22];
+    }
+  }
+
+  cellOutrankController = self->_cellOutrankController;
+  if (cellOutrankController)
+  {
+    v24 = [(CellOutrankController *)cellOutrankController getState:stateCopy];
+    [v5 addObjectsFromArray:v24];
+  }
+
+  userFlowMonitor = self->_userFlowMonitor;
+  if (userFlowMonitor)
+  {
+    getState = [(TrafficMonitor *)userFlowMonitor getState];
+    [v5 addObjectsFromArray:getState];
+  }
+
+  mediaDownloadMonitor = self->_mediaDownloadMonitor;
+  if (mediaDownloadMonitor)
+  {
+    getState2 = [(CoreMediaDownloadMonitor *)mediaDownloadMonitor getState];
+    [v5 addObjectsFromArray:getState2];
+  }
+
+  outrankMetrics = self->_outrankMetrics;
+  if (outrankMetrics)
+  {
+    v30 = [(CellOutrankMetrics *)outrankMetrics getState:stateCopy];
+    [v5 addObjectsFromArray:v30];
+  }
+
+  wifiThroughputAdviser = self->_wifiThroughputAdviser;
+  if (wifiThroughputAdviser)
+  {
+    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+    v32 = [(WiFiThroughputAdviser *)wifiThroughputAdviser getStateAt:?];
+    [v5 addObjectsFromArray:v32];
+  }
+
+  stateOverridePars = self->_stateOverridePars;
+  if (stateOverridePars)
+  {
+    v34 = v5;
+    selfCopy = self;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    obj = stateOverridePars;
+    v36 = [(NSDictionary *)obj countByEnumeratingWithState:&v60 objects:v65 count:16];
+    if (v36)
+    {
+      v37 = v36;
+      v38 = *v61;
+      do
+      {
+        for (i = 0; i != v37; ++i)
+        {
+          if (*v61 != v38)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v40 = *(*(&v60 + 1) + 8 * i);
+          v41 = objc_alloc(MEMORY[0x277CCACA8]);
+          v42 = [(NSDictionary *)selfCopy->_stateOverridePars objectForKeyedSubscript:v40];
+          v43 = [v41 initWithFormat:@"COSM     Overriding    %@  ->  %@", v40, v42];
+
+          [v34 addObject:v43];
+        }
+
+        v37 = [(NSDictionary *)obj countByEnumeratingWithState:&v60 objects:v65 count:16];
+      }
+
+      while (v37);
+    }
+
+    self = selfCopy;
+    v5 = v34;
+  }
+
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v44 = self->_reportedABCCases;
+  v45 = [(NSMutableSet *)v44 countByEnumeratingWithState:&v56 objects:v64 count:16];
+  if (v45)
+  {
+    v46 = v45;
+    v47 = *v57;
+    do
+    {
+      for (j = 0; j != v46; ++j)
+      {
+        if (*v57 != v47)
+        {
+          objc_enumerationMutation(v44);
+        }
+
+        v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"COSM **** ABC Case noted for <%@> ****", *(*(&v56 + 1) + 8 * j)];
+        [v5 addObject:v49];
+      }
+
+      v46 = [(NSMutableSet *)v44 countByEnumeratingWithState:&v56 objects:v64 count:16];
+    }
+
+    while (v46);
+  }
+
+  overrideParsingErrorString = self->_overrideParsingErrorString;
+  if (overrideParsingErrorString)
+  {
+    goto LABEL_48;
+  }
+
+LABEL_49:
+
+  return v5;
+}
+
 - (void)_dumpState
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -336,25 +536,25 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     }
 
     *buf = 136315138;
-    v19 = v4;
+    v18 = v4;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "COSM top level administrative state: %s", buf, 0xCu);
   }
 
   v5 = [(CellOutrankHandler *)self _getState:0];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
@@ -362,33 +562,31 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
         v10 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = *(*(&v13 + 1) + 8 * i);
+          v11 = *(*(&v12 + 1) + 8 * i);
           *buf = 138412290;
-          v19 = v11;
+          v18 = v11;
           _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   uuidCopy = uuid;
   blockCopy = block;
   v11 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 134217984;
+    v16 = 134217984;
     idCopy = id;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSM _generateInfoForId %lld", &v17, 0xCu);
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSM _generateInfoForId %lld", &v16, 0xCu);
   }
 
   if (id - 13 > 1)
@@ -416,8 +614,6 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     dictionary = [MEMORY[0x277CBEAA8] date];
     (*(blockCopy + 2))(blockCopy, 0, "CellOutrankHandlerDetails  details", dictionary, "collected on demand", 0, date);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateInfoForId:(unint64_t)id context:(const char *)context uuid:(id)uuid completionBlock:(id)block
@@ -441,7 +637,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
 
 - (void)setCellOutrankReport:(unint64_t)report
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   cellOutrankReported = [(CellOutrankHandler *)self cellOutrankReported];
   if (report)
   {
@@ -459,13 +655,13 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       cellOutrankLastReport = self->_cellOutrankLastReport;
-      v13 = 136315650;
-      v14 = v6;
-      v15 = 2048;
+      v12 = 136315650;
+      v13 = v6;
+      v14 = 2048;
       reportCopy2 = report;
-      v17 = 2048;
-      v18 = cellOutrankLastReport;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "setCellOutrankReport attempt to duplicate outrank %s report, new 0x%llx old 0x%llx", &v13, 0x20u);
+      v16 = 2048;
+      v17 = cellOutrankLastReport;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "setCellOutrankReport attempt to duplicate outrank %s report, new 0x%llx old 0x%llx", &v12, 0x20u);
     }
   }
 
@@ -478,46 +674,75 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     {
       v8 = v7;
       v9 = [COSMStateSummary summaryFromFlags:report];
-      v13 = 136315650;
-      v14 = v6;
-      v15 = 2048;
+      v12 = 136315650;
+      v13 = v6;
+      v14 = 2048;
       reportCopy2 = report;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM Sent outrank %s notification with contents 0x%llx %@", &v13, 0x20u);
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM Sent outrank %s notification with contents 0x%llx %@", &v12, 0x20u);
     }
 
     self->_cellOutrankLastReport = report;
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)setCellOutranksWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    cellOutranksWiFi = self->_cellOutranksWiFi;
+    v7[0] = 67109376;
+    v7[1] = cellOutranksWiFi;
+    v8 = 1024;
+    v9 = fiCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSM setCellOutranksWiFi %d -> %d", v7, 0xEu);
+  }
+
+  if (self->_cellOutranksWiFi != fiCopy)
+  {
+    [(CellOutrankController *)self->_cellOutrankController setCellOutranksWiFi:fiCopy];
+    [(CellOutrankHandler *)self willChangeValueForKey:@"cellOutranksWiFi"];
+    self->_cellOutranksWiFi = fiCopy;
+    [(CellOutrankHandler *)self didChangeValueForKey:@"cellOutranksWiFi"];
+  }
 }
 
 - (void)setNonIdle:(BOOL)idle
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_nonIdle != idle)
   {
     idleCopy = idle;
     v5 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v7[0] = 67109120;
-      v7[1] = idleCopy;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSM setNonIdle to %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = idleCopy;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSM setNonIdle to %d", v6, 8u);
     }
 
     [(CellOutrankHandler *)self willChangeValueForKey:@"nonIdle"];
     self->_nonIdle = idleCopy;
     [(CellOutrankHandler *)self didChangeValueForKey:@"nonIdle"];
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)_setScrutinizerRequired:(BOOL)required
+{
+  requiredCopy = required;
+  v4 = +[FlowScrutinizer sharedInstance];
+  [v4 expectedTransferScrutinyOnBehalfOf:@"COSM" required:requiredCopy];
+  [v4 cellFlowScrutinyOnBehalfOf:@"COSM" required:requiredCopy];
+  [v4 wifiFlowScrutinyOnBehalfOf:@"COSM" required:requiredCopy];
 }
 
 - (void)setPollingRequested:(BOOL)requested
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_pollingRequested != requested)
   {
     requestedCopy = requested;
@@ -525,7 +750,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v15 = requestedCopy;
+      v14 = requestedCopy;
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSM setPollingRequested to %d", buf, 8u);
     }
 
@@ -538,12 +763,12 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
       v7 = +[FlowRefreshScheduler sharedInstance];
       queue = [v7 queue];
       v9 = queue;
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __42__CellOutrankHandler_setPollingRequested___block_invoke;
-      v13[3] = &unk_27898A0C8;
-      v13[4] = self;
-      v10 = v13;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __42__CellOutrankHandler_setPollingRequested___block_invoke;
+      v12[3] = &unk_27898A0C8;
+      v12[4] = self;
+      v10 = v12;
     }
 
     else
@@ -554,20 +779,18 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_2_677(uint64
       v7 = +[FlowRefreshScheduler sharedInstance];
       queue = [v7 queue];
       v9 = queue;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __42__CellOutrankHandler_setPollingRequested___block_invoke_2;
-      v12[3] = &unk_27898A0C8;
-      v12[4] = self;
-      v10 = v12;
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __42__CellOutrankHandler_setPollingRequested___block_invoke_2;
+      v11[3] = &unk_27898A0C8;
+      v11[4] = self;
+      v10 = v11;
     }
 
     dispatch_async(queue, v10);
 
     self->_pollingRequested = requestedCopy;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CellOutrankHandler_setPollingRequested___block_invoke(uint64_t a1)
@@ -597,13 +820,13 @@ void __42__CellOutrankHandler_setPollingRequested___block_invoke_2(uint64_t a1)
 
 - (void)outrankStateExitAction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     v4 = v3;
     *buf = 67109120;
-    LODWORD(v14) = [(CellOutrankHandler *)self cellOutrankReported];
+    LODWORD(v13) = [(CellOutrankHandler *)self cellOutrankReported];
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "COSM outrankStateExitAction, self.cellOutrankReported is %d", buf, 8u);
   }
 
@@ -621,7 +844,7 @@ void __42__CellOutrankHandler_setPollingRequested___block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "COSM outrankStateExitAction, set dampening timer to %f", buf, 0xCu);
   }
 
@@ -633,8 +856,6 @@ void __42__CellOutrankHandler_setPollingRequested___block_invoke_2(uint64_t a1)
   block[3] = &unk_27898A0C8;
   block[4] = self;
   dispatch_after(v9, queue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__CellOutrankHandler_outrankStateExitAction__block_invoke(uint64_t a1)
@@ -668,13 +889,13 @@ uint64_t __44__CellOutrankHandler_outrankStateExitAction__block_invoke(uint64_t 
 
 - (void)entryActionForState:(unsigned int)state
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = state;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "COSM: entryActionForState: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = state;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "COSM: entryActionForState: %d", v6, 8u);
   }
 
   switch(state)
@@ -689,13 +910,46 @@ uint64_t __44__CellOutrankHandler_outrankStateExitAction__block_invoke(uint64_t 
       [(CellOutrankHandler *)self idleStateEntryAction];
       break;
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)newSTMState:(unsigned int)state fromDeviceState:(id)deviceState
+{
+  v4 = *&state;
+  v11 = *MEMORY[0x277D85DE8];
+  deviceStateCopy = deviceState;
+  if (self->_currentCOSMState == 2)
+  {
+    [(CellOutrankHandler *)self armedStateExitAction];
+  }
+
+  if (v4 == 3)
+  {
+    self->_cellOutrankLastEntryReport = self->_latestReasonFlags;
+  }
+
+  else if (self->_currentCOSMState == 3)
+  {
+    self->_cellOutrankLastExitReport = self->_latestReasonFlags;
+    [(CellOutrankHandler *)self outrankStateExitAction];
+  }
+
+  [(CellOutrankHandler *)self entryActionForState:v4];
+  self->_currentCOSMState = v4;
+  v7 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    outrankMetrics = self->_outrankMetrics;
+    v9 = 134217984;
+    v10 = outrankMetrics;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "COSM: newSTMState calling metrics at %p", &v9, 0xCu);
+  }
+
+  [(CellOutrankMetrics *)self->_outrankMetrics noteSTMState:self->_currentCOSMState flags:self->_latestReasonFlags wrmStatus:self->_latestWRMStatus];
 }
 
 - (void)handleWRMState:(unint64_t)state
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = BYTE1(state);
   v6 = BYTE5(state);
   v7 = HIWORD(state) & 1;
@@ -704,20 +958,20 @@ uint64_t __44__CellOutrankHandler_outrankStateExitAction__block_invoke(uint64_t 
   {
     *buf = 134219776;
     stateCopy = state;
-    v22 = 1024;
+    v21 = 1024;
     stateCopy2 = state;
-    v24 = 1024;
-    v25 = v5;
-    v26 = 1024;
-    v27 = BYTE2(state);
-    v28 = 1024;
-    v29 = BYTE3(state);
-    v30 = 1024;
-    v31 = BYTE4(state);
-    v32 = 1024;
-    v33 = v6;
-    v34 = 1024;
-    v35 = v7;
+    v23 = 1024;
+    v24 = v5;
+    v25 = 1024;
+    v26 = BYTE2(state);
+    v27 = 1024;
+    v28 = BYTE3(state);
+    v29 = 1024;
+    v30 = BYTE4(state);
+    v31 = 1024;
+    v32 = v6;
+    v33 = 1024;
+    v34 = v7;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM: handleWRMState link incoming 0x%llx  xpref %d wifi score %d confidence %d cell score %d confidence %d is5GAvailable %d isPrivateNetwork %d", buf, 0x36u);
   }
 
@@ -733,25 +987,25 @@ uint64_t __44__CellOutrankHandler_outrankStateExitAction__block_invoke(uint64_t 
 
       else
       {
-        v15 = outrankLogHandle;
+        v14 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState moving to cell status bad, set timer", buf, 2u);
+          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState moving to cell status bad, set timer", buf, 2u);
         }
 
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-        self->_cellWRMDeclareProlongedBadAt = v16 + self->_cellWRMProlongedBadInterval;
-        v17 = dispatch_time(0, (self->_cellWRMProlongedBadInterval * 1000000000.0));
+        self->_cellWRMDeclareProlongedBadAt = v15 + self->_cellWRMProlongedBadInterval;
+        v16 = dispatch_time(0, (self->_cellWRMProlongedBadInterval * 1000000000.0));
         queue = [(ExpertSystemHandlerCore *)self queue];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __37__CellOutrankHandler_handleWRMState___block_invoke;
-        v19[3] = &unk_27898AFE0;
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __37__CellOutrankHandler_handleWRMState___block_invoke;
+        v18[3] = &unk_27898AFE0;
         v9 = 3;
-        v19[4] = self;
-        v19[5] = 3;
-        dispatch_after(v17, queue, v19);
+        v18[4] = self;
+        v18[5] = 3;
+        dispatch_after(v16, queue, v18);
       }
 
       goto LABEL_12;
@@ -795,12 +1049,11 @@ LABEL_12:
   }
 
   [(MiscStateRelay *)self->_miscStateRelay setWifiWRMStatus:v13];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __37__CellOutrankHandler_handleWRMState___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v3 = v2;
   v4 = *(*(a1 + 32) + 200);
@@ -810,8 +1063,8 @@ void __37__CellOutrankHandler_handleWRMState___block_invoke(uint64_t a1)
     v6 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState after delay, bad cell status was prolonged", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState after delay, bad cell status was prolonged", &v9, 2u);
     }
 
     [*(*(a1 + 32) + 80) setCellWRMStatusProlongedBad:1];
@@ -823,20 +1076,18 @@ void __37__CellOutrankHandler_handleWRMState___block_invoke(uint64_t a1)
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v8 = *(*(a1 + 32) + 200);
-      v10 = 134218240;
-      v11 = v8;
-      v12 = 2048;
-      v13 = v3;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState no action after delay, _cellWRMDeclareProlongedBadAt is %.3f, time-now %.3f", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = v8;
+      v11 = 2048;
+      v12 = v3;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "COSM: handleWRMState no action after delay, _cellWRMDeclareProlongedBadAt is %.3f, time-now %.3f", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteOutrankEvent:(unint64_t)event
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_administrativeState == 1)
   {
     v5 = outrankLogHandle;
@@ -844,9 +1095,9 @@ void __37__CellOutrankHandler_handleWRMState___block_invoke(uint64_t a1)
     {
       v6 = v5;
       v7 = outrankHandlerEventToString(event);
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "COSM: noteOutrankEvent %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "COSM: noteOutrankEvent %@", &v9, 0xCu);
     }
 
     eventSummary = self->_eventSummary;
@@ -903,8 +1154,6 @@ void __37__CellOutrankHandler_handleWRMState___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)noteOutrankEvent:(unint64_t)event
@@ -928,7 +1177,7 @@ void __39__CellOutrankHandler_noteOutrankEvent___block_invoke(uint64_t a1)
 
 - (void)noteStateChange:(id)change new:(id)new old:(id)old
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   newCopy = new;
   oldCopy = old;
@@ -937,13 +1186,13 @@ void __39__CellOutrankHandler_noteOutrankEvent___block_invoke(uint64_t a1)
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 67109890;
-    v18 = add;
-    v19 = 2112;
-    v20 = changeCopy;
-    v21 = 2112;
-    v22 = oldCopy;
-    v23 = 2112;
-    v24 = newCopy;
+    v17 = add;
+    v18 = 2112;
+    v19 = changeCopy;
+    v20 = 2112;
+    v21 = oldCopy;
+    v22 = 2112;
+    v23 = newCopy;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "COSM: noteStateChange, pending %d   %@ from %@ -> %@", buf, 0x26u);
   }
 
@@ -958,25 +1207,21 @@ void __39__CellOutrankHandler_noteOutrankEvent___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_after(v13, queue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     v3 = atomic_load((*(a1 + 32) + 260));
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "COSM: after delay, handle %d pending changes", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "COSM: after delay, handle %d pending changes", v5, 8u);
   }
 
-  result = [*(a1 + 32) ingestCurrentState];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) ingestCurrentState];
 }
 
 - (void)wifiShim_InfraAdminDisable:(id)disable bssid:(id)bssid
@@ -998,7 +1243,7 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
 - (void)wifiShim_CurrentAssociationChanged:(BOOL)changed associationInfo:(id)info
 {
   changedCopy = changed;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1009,14 +1254,12 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
       v8 = &stru_2847966D8;
     }
 
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: wifiShim_CurrentAssociationChanged has %@association", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: wifiShim_CurrentAssociationChanged has %@association", &v9, 0xCu);
   }
 
   [(CellOutrankHandler *)self updateForAssociation:infoCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshWifiShimItems
@@ -1027,7 +1270,7 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
 
 - (void)updateForAssociation:(id)association
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   associationCopy = association;
   v5 = associationCopy;
   if (associationCopy)
@@ -1110,43 +1353,43 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
       wifiGoodSecurity = [(MiscStateRelay *)self->_miscStateRelay wifiGoodSecurity];
       wifiManuallyJoined = [(MiscStateRelay *)self->_miscStateRelay wifiManuallyJoined];
       wifiPublic = [(MiscStateRelay *)self->_miscStateRelay wifiPublic];
-      v30 = bOOLValue2;
+      v29 = bOOLValue2;
       wifiProfileBased = [(MiscStateRelay *)self->_miscStateRelay wifiProfileBased];
       LODWORD(v23) = [(MiscStateRelay *)self->_miscStateRelay wifiHotspot20];
       wifiAlwaysOutrank = [(MiscStateRelay *)self->_miscStateRelay wifiAlwaysOutrank];
       wifiNeverOutrank = [(MiscStateRelay *)self->_miscStateRelay wifiNeverOutrank];
       *buf = 67112960;
-      v39 = 1;
-      v40 = 1024;
-      v41 = wifiActive;
-      v42 = 1024;
-      v43 = wifiSporadic;
-      v44 = 1024;
-      v45 = knowableSporadic;
-      v46 = 1024;
-      v47 = knownSporadic;
-      v48 = 1024;
-      v49 = firstAttachment2;
-      v50 = 1024;
-      v51 = wifiGoodSecurity;
-      v52 = 1024;
-      v53 = wifiManuallyJoined;
-      v54 = 1024;
-      v55 = bOOLValue;
-      v56 = 1024;
-      v57 = v19;
-      v58 = 1024;
-      v59 = wifiPublic;
-      v60 = 1024;
-      v61 = wifiProfileBased;
-      v62 = 1024;
-      v63 = v23;
-      v64 = 1024;
-      v65 = v30;
-      v66 = 1024;
-      v67 = wifiAlwaysOutrank;
-      v68 = 1024;
-      v69 = wifiNeverOutrank;
+      v38 = 1;
+      v39 = 1024;
+      v40 = wifiActive;
+      v41 = 1024;
+      v42 = wifiSporadic;
+      v43 = 1024;
+      v44 = knowableSporadic;
+      v45 = 1024;
+      v46 = knownSporadic;
+      v47 = 1024;
+      v48 = firstAttachment2;
+      v49 = 1024;
+      v50 = wifiGoodSecurity;
+      v51 = 1024;
+      v52 = wifiManuallyJoined;
+      v53 = 1024;
+      v54 = bOOLValue;
+      v55 = 1024;
+      v56 = v19;
+      v57 = 1024;
+      v58 = wifiPublic;
+      v59 = 1024;
+      v60 = wifiProfileBased;
+      v61 = 1024;
+      v62 = v23;
+      v63 = 1024;
+      v64 = v29;
+      v65 = 1024;
+      v66 = wifiAlwaysOutrank;
+      v67 = 1024;
+      v68 = wifiNeverOutrank;
       _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_DEFAULT, "COSM: updateForAssociation %d active %d sporadic %d (known:%d spor:%d 1st:%d) goodsecurity %d man join %d (m:%d d:%d) public %d prof-base %d hspot20 %d carrier %d (always %d never %d) ", buf, 0x62u);
     }
   }
@@ -1163,24 +1406,22 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
     [(MiscStateRelay *)self->_miscStateRelay setWifiSporadic:0];
     [(MiscStateRelay *)self->_miscStateRelay setWifiManuallyJoined:0];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWiFi:(id)fi
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fiCopy = fi;
   v5 = [fiCopy objectForKeyedSubscript:@"State"];
   bOOLValue = [v5 BOOLValue];
 
   if (bOOLValue)
   {
-    v23 = 0;
+    v22 = 0;
     v7 = [fiCopy objectForKeyedSubscript:@"Detail"];
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    memset(v26, 0, sizeof(v26));
+    memset(v25, 0, sizeof(v25));
     uTF8String = [v7 UTF8String];
     if (!uTF8String)
     {
@@ -1191,7 +1432,7 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
     while (1)
     {
       v10 = *(uTF8String + v9);
-      v26[v9] = v10;
+      v25[v9] = v10;
       if (!v10)
       {
         break;
@@ -1199,15 +1440,15 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
 
       if (++v9 == 63)
       {
-        HIBYTE(v28) = 0;
+        HIBYTE(v27) = 0;
         break;
       }
     }
 
-    if ([NetworkEpoch parsePrimaryKeyStr:v26 majorIDLengthInBytes:&v23 + 4 minorIDLengthInBytes:&v23]&& SHIDWORD(v23) <= 63)
+    if ([NetworkEpoch parsePrimaryKeyStr:v25 majorIDLengthInBytes:&v22 + 4 minorIDLengthInBytes:&v22]&& SHIDWORD(v22) <= 63)
     {
-      v26[SHIDWORD(v23)] = 0;
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v26];
+      v25[SHIDWORD(v22)] = 0;
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v25];
     }
 
     else
@@ -1216,7 +1457,7 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v25 = v7;
+        v24 = v7;
         _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "COSM WiFi epoch, failed to parse: %{private}@", buf, 0xCu);
       }
 
@@ -1236,20 +1477,20 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       v16 = self->_wifiRelay;
-      *v26 = 138412290;
-      *&v26[4] = v16;
-      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSM _updateWiFi: _wifiRelay has no interfaceName %@", v26, 0xCu);
+      *v25 = 138412290;
+      *&v25[4] = v16;
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSM _updateWiFi: _wifiRelay has no interfaceName %@", v25, 0xCu);
     }
   }
 
   v17 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v26 = 67109379;
-    *&v26[4] = bOOLValue;
-    *&v26[8] = 2113;
-    *&v26[10] = v11;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM WiFi epoch, state: %d, clear SSID: %{private}@)", v26, 0x12u);
+    *v25 = 67109379;
+    *&v25[4] = bOOLValue;
+    *&v25[8] = 2113;
+    *&v25[10] = v11;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM WiFi epoch, state: %d, clear SSID: %{private}@)", v25, 0x12u);
   }
 
   queue = [(ExpertSystemHandlerCore *)self queue];
@@ -1258,16 +1499,14 @@ uint64_t __46__CellOutrankHandler_noteStateChange_new_old___block_invoke(uint64_
   block[2] = __34__CellOutrankHandler__updateWiFi___block_invoke;
   block[3] = &unk_27898A7D0;
   block[4] = self;
-  v22 = v11;
+  v21 = v11;
   v19 = v11;
   dispatch_async(queue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __34__CellOutrankHandler__updateWiFi___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 192);
   if (v2 && *(a1 + 40) && ([v2 isEqualToString:?] & 1) == 0)
   {
@@ -1275,21 +1514,20 @@ void __34__CellOutrankHandler__updateWiFi___block_invoke(uint64_t a1)
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
-      v6 = 138477827;
-      v7 = v4;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "COSM: received SSID change to %{private}@", &v6, 0xCu);
+      v5 = 138477827;
+      v6 = v4;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "COSM: received SSID change to %{private}@", &v5, 0xCu);
     }
 
     [*(*(a1 + 32) + 240) setWifiChangedSSIDEvent:1];
   }
 
   objc_storeStrong((*(a1 + 32) + 192), *(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -1301,11 +1539,11 @@ void __34__CellOutrankHandler__updateWiFi___block_invoke(uint64_t a1)
     v15 = [changeCopy objectForKeyedSubscript:v13];
     v16 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
     *buf = 138412802;
-    v48 = pathCopy;
-    v49 = 2112;
-    v50 = v15;
-    v51 = 2112;
-    v52 = v16;
+    v47 = pathCopy;
+    v48 = 2112;
+    v49 = v15;
+    v50 = 2112;
+    v51 = v16;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "COSM: observe keyPath %@   %@ -> %@", buf, 0x20u);
   }
 
@@ -1351,13 +1589,13 @@ void __34__CellOutrankHandler__updateWiFi___block_invoke(uint64_t a1)
     bOOLValue = [v17 BOOLValue];
     queue = [(ExpertSystemHandlerCore *)self queue];
     v21 = queue;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke;
-    v45[3] = &unk_27898A3A0;
-    v46 = bOOLValue;
-    v45[4] = self;
-    v22 = v45;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke;
+    v44[3] = &unk_27898A3A0;
+    v45 = bOOLValue;
+    v44[4] = self;
+    v22 = v44;
     goto LABEL_16;
   }
 
@@ -1382,7 +1620,7 @@ void __34__CellOutrankHandler__updateWiFi___block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_634;
     block[3] = &unk_27898A3A0;
-    v44 = bOOLValue2;
+    v43 = bOOLValue2;
     block[4] = self;
     v22 = block;
 LABEL_16:
@@ -1409,7 +1647,7 @@ LABEL_16:
     {
       firstAttachment = [(NetworkStateRelay *)self->_wifiRelay firstAttachment];
 LABEL_46:
-      v26 = firstAttachment;
+      v25 = firstAttachment;
       goto LABEL_47;
     }
 
@@ -1437,9 +1675,9 @@ LABEL_46:
     }
 
 LABEL_30:
-    v26 = 1;
+    v25 = 1;
 LABEL_47:
-    [(MiscStateRelay *)self->_miscStateRelay setWifiSporadic:v26];
+    [(MiscStateRelay *)self->_miscStateRelay setWifiSporadic:v25];
     goto LABEL_24;
   }
 
@@ -1451,19 +1689,19 @@ LABEL_47:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v27 = v17;
-        -[MiscStateRelay setWifiHome:](self->_miscStateRelay, "setWifiHome:", [v27 integerValue] == 0);
-        v28 = outrankLogHandle;
+        v26 = v17;
+        -[MiscStateRelay setWifiHome:](self->_miscStateRelay, "setWifiHome:", [v26 integerValue] == 0);
+        v27 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
         {
           miscStateRelay = self->_miscStateRelay;
-          v30 = v28;
+          v29 = v27;
           wifiHome = [(MiscStateRelay *)miscStateRelay wifiHome];
           *buf = 138412547;
-          v48 = v27;
-          v49 = 1029;
-          LODWORD(v50) = wifiHome;
-          _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, "LOI change from WiFi State Relay %@ results in wifiHome: %{sensitive}d", buf, 0x12u);
+          v47 = v26;
+          v48 = 1029;
+          LODWORD(v49) = wifiHome;
+          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_INFO, "LOI change from WiFi State Relay %@ results in wifiHome: %{sensitive}d", buf, 0x12u);
         }
       }
     }
@@ -1476,23 +1714,23 @@ LABEL_47:
     v17 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
     if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v17];
+      v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v17];
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
     queue2 = [(ExpertSystemHandlerCore *)self queue];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_636;
-    v41[3] = &unk_27898A7D0;
-    v41[4] = self;
-    v42 = v32;
-    v36 = v32;
-    dispatch_async(queue2, v41);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_636;
+    v40[3] = &unk_27898A7D0;
+    v40[4] = self;
+    v41 = v31;
+    v35 = v31;
+    dispatch_async(queue2, v40);
 
     goto LABEL_24;
   }
@@ -1501,14 +1739,14 @@ LABEL_47:
   {
     queue3 = [(ExpertSystemHandlerCore *)self queue];
     v17 = queue3;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2_637;
-    v40[3] = &unk_27898A0C8;
-    v40[4] = self;
-    v34 = v40;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2_637;
+    v39[3] = &unk_27898A0C8;
+    v39[4] = self;
+    v33 = v39;
 LABEL_50:
-    dispatch_async(queue3, v34);
+    dispatch_async(queue3, v33);
     goto LABEL_24;
   }
 
@@ -1516,12 +1754,12 @@ LABEL_50:
   {
     queue3 = [(ExpertSystemHandlerCore *)self queue];
     v17 = queue3;
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_3;
-    v39[3] = &unk_27898A0C8;
-    v39[4] = self;
-    v34 = v39;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_3;
+    v38[3] = &unk_27898A0C8;
+    v38[4] = self;
+    v33 = v38;
     goto LABEL_50;
   }
 
@@ -1537,12 +1775,12 @@ LABEL_50:
     if (objc_opt_isKindOfClass())
     {
       bOOLValue3 = [v17 BOOLValue];
-      v38 = outrankLogHandle;
+      v37 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v48) = bOOLValue3;
-        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEFAULT, "COSM: LOIUseAuthorized changed %d", buf, 8u);
+        LODWORD(v47) = bOOLValue3;
+        _os_log_impl(&dword_23255B000, v37, OS_LOG_TYPE_DEFAULT, "COSM: LOIUseAuthorized changed %d", buf, 8u);
       }
 
       if (bOOLValue3 != [(MiscStateRelay *)self->_miscStateRelay LOIUseAuthorized])
@@ -1555,12 +1793,11 @@ LABEL_50:
 LABEL_24:
 
 LABEL_25:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 32);
   if (v1 != *(v2 + 216))
@@ -1590,7 +1827,7 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
         {
           v9 = *(*(a1 + 32) + 208);
           *buf = 134217984;
-          v13 = v9;
+          v12 = v9;
           _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM: handle dnsOut (false) from wifiRelay, clearing _wifiDNSDeclareProlongedOutAt, currently %.3f", buf, 0xCu);
         }
 
@@ -1601,13 +1838,11 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
       *(*(a1 + 32) + 208) = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v3 = v2;
   v4 = *(a1 + 32);
@@ -1619,9 +1854,9 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v8 = v3 - *(*(a1 + 32) + 208) + *(*(a1 + 32) + 328);
-      v15 = 134217984;
-      *v16 = v8;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle dnsOut (true) from wifiRelay,  after delay, bad DNS status was prolonged for %.3f seconds", &v15, 0xCu);
+      v14 = 134217984;
+      *v15 = v8;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle dnsOut (true) from wifiRelay,  after delay, bad DNS status was prolonged for %.3f seconds", &v14, 0xCu);
     }
 
     [*(*(a1 + 32) + 80) setWifiDnsProlongedOut:1];
@@ -1642,24 +1877,22 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
         v13 = 0.0;
       }
 
-      v15 = 67109888;
-      *v16 = v11;
-      *&v16[4] = 2048;
-      *&v16[6] = v12;
-      v17 = 2048;
-      v18 = v3;
-      v19 = 2048;
-      v20 = v13;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle dnsOut (true) from wifiRelay, no action after delay, dnsOut now %d   _wifiDNSDeclareProlongedOutAt is %.3f, time-now %.3f, requires %.3f secs", &v15, 0x26u);
+      v14 = 67109888;
+      *v15 = v11;
+      *&v15[4] = 2048;
+      *&v15[6] = v12;
+      v16 = 2048;
+      v17 = v3;
+      v18 = 2048;
+      v19 = v13;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle dnsOut (true) from wifiRelay, no action after delay, dnsOut now %d   _wifiDNSDeclareProlongedOutAt is %.3f, time-now %.3f, requires %.3f secs", &v14, 0x26u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_634(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   v2 = *(a1 + 32);
   if (v1 != *(v2 + 232))
@@ -1689,7 +1922,7 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
         {
           v9 = *(*(a1 + 32) + 224);
           *buf = 134217984;
-          v13 = v9;
+          v12 = v9;
           _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM: handle wifiPolledFlowsCurrentlyBad (false) from wifiRelay, clearing _wifiPolledFlowProlongedBadAt, currently %.3f", buf, 0xCu);
         }
 
@@ -1700,13 +1933,11 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
       *(*(a1 + 32) + 224) = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_2_635(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v3 = v2;
   v4 = *(a1 + 32);
@@ -1718,9 +1949,9 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v8 = v3 - *(*(a1 + 32) + 224) + *(*(a1 + 32) + 336);
-      v15 = 134217984;
-      *v16 = v8;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle wifiPolledFlowsCurrentlyBad (true) from miscStateRelay,  after delay, bad  status was prolonged for %.3f seconds", &v15, 0xCu);
+      v14 = 134217984;
+      *v15 = v8;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle wifiPolledFlowsCurrentlyBad (true) from miscStateRelay,  after delay, bad  status was prolonged for %.3f seconds", &v14, 0xCu);
     }
 
     [*(*(a1 + 32) + 80) setWifiPolledFlowsProlongedBad:1];
@@ -1741,30 +1972,28 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
         v13 = 0.0;
       }
 
-      v15 = 67109888;
-      *v16 = v11;
-      *&v16[4] = 2048;
-      *&v16[6] = v12;
-      v17 = 2048;
-      v18 = v3;
-      v19 = 2048;
-      v20 = v13;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle wifiPolledFlowsCurrentlyBad (true) from miscStateRelay, no action after delay, current bad now %d _wifiPolledFlowProlongedBadAt is %.3f, time-now %.3f, requires %.3f secs", &v15, 0x26u);
+      v14 = 67109888;
+      *v15 = v11;
+      *&v15[4] = 2048;
+      *&v15[6] = v12;
+      v16 = 2048;
+      v17 = v3;
+      v18 = 2048;
+      v19 = v13;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: delayed handle wifiPolledFlowsCurrentlyBad (true) from miscStateRelay, no action after delay, current bad now %d _wifiPolledFlowProlongedBadAt is %.3f, time-now %.3f, requires %.3f secs", &v14, 0x26u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkUniqueStallCountOnInterfaceType:(int64_t)type stallType:(unint64_t)stallType
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 67109376;
     typeCopy = type;
-    v19 = 1024;
+    v18 = 1024;
     stallTypeCopy = stallType;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "COSM: checkUniqueStallCountOnInterfaceType %d stallType %d", buf, 0xEu);
   }
@@ -1781,12 +2010,12 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
       dataStallThreshold = self->_dataStallThreshold;
       *buf = 67109888;
       typeCopy = v9;
-      v19 = 1024;
+      v18 = 1024;
       stallTypeCopy = dataStallForegroundOnly;
-      v21 = 2048;
-      v22 = dataStallConsiderationTime;
-      v23 = 1024;
-      v24 = dataStallThreshold;
+      v20 = 2048;
+      v21 = dataStallConsiderationTime;
+      v22 = 1024;
+      v23 = dataStallThreshold;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "COSM: checkUniqueStallCountOnInterfaceType has %d uniques for fg %d since %.3f, threshold %d", buf, 0x1Eu);
     }
 
@@ -1801,13 +2030,11 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
       dispatch_async(queue, block);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkEnablement
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = +[SystemSettingsRelay defaultRelay];
   cellOutrankEnabled = [v3 cellOutrankEnabled];
 
@@ -1823,9 +2050,9 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v13 = cellOutrankEnabled;
-        v14 = 1024;
-        v15 = cellOutrankForcedViaSPI;
+        v12 = cellOutrankEnabled;
+        v13 = 1024;
+        v14 = cellOutrankForcedViaSPI;
         _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: cellOutrankEnabled configuration causes _administrativeEnable, enabled %d via force SPI %d", buf, 0xEu);
       }
 
@@ -1854,8 +2081,6 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
 
     [(CellOutrankHandler *)self _administrativeDisable];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeUserFlowMonitor
@@ -1874,23 +2099,22 @@ void __69__CellOutrankHandler_observeValueForKeyPath_ofObject_change_context___b
 
 unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [TrackedFlow foregroundNonLocalUsageGrandTallyAfterAdding:0];
   v1 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
-    v4 = 134217984;
-    v5 = v0;
-    _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_INFO, "COSM user flow monitor fetch block returns %lld", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = v0;
+    _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_INFO, "COSM user flow monitor fetch block returns %lld", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 - (void)_completeInitialization
 {
-  v99[12] = *MEMORY[0x277D85DE8];
+  v98[12] = *MEMORY[0x277D85DE8];
   v3 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -1902,8 +2126,8 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
   cellRelay = self->_cellRelay;
   self->_cellRelay = v4;
 
-  v77 = +[CellFallbackHandler sharedInstance];
-  v78 = +[PowerStateRelay defaultRelay];
+  v76 = +[CellFallbackHandler sharedInstance];
+  v77 = +[PowerStateRelay defaultRelay];
   v6 = [NetworkStateRelay getStateRelayFor:3];
   wifiRelay = self->_wifiRelay;
   self->_wifiRelay = v6;
@@ -1958,21 +2182,21 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
   self->_ctShim = v32;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v85[0] = MEMORY[0x277D85DD0];
-  v85[1] = 3221225472;
-  v85[2] = __45__CellOutrankHandler__completeInitialization__block_invoke;
-  v85[3] = &unk_27898A690;
-  v85[4] = self;
-  v35 = [defaultCenter addObserverForName:@"kNotificationNewConnectivityEpochWiFi" object:0 queue:0 usingBlock:v85];
+  v84[0] = MEMORY[0x277D85DD0];
+  v84[1] = 3221225472;
+  v84[2] = __45__CellOutrankHandler__completeInitialization__block_invoke;
+  v84[3] = &unk_27898A690;
+  v84[4] = self;
+  v35 = [defaultCenter addObserverForName:@"kNotificationNewConnectivityEpochWiFi" object:0 queue:0 usingBlock:v84];
   wifiEpochObserver = self->_wifiEpochObserver;
   self->_wifiEpochObserver = v35;
 
-  v84[0] = MEMORY[0x277D85DD0];
-  v84[1] = 3221225472;
-  v84[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_2;
-  v84[3] = &unk_27898A690;
-  v84[4] = self;
-  v37 = [defaultCenter addObserverForName:@"kNotificationCaptivityIndeterminate" object:0 queue:0 usingBlock:v84];
+  v83[0] = MEMORY[0x277D85DD0];
+  v83[1] = 3221225472;
+  v83[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_2;
+  v83[3] = &unk_27898A690;
+  v83[4] = self;
+  v37 = [defaultCenter addObserverForName:@"kNotificationCaptivityIndeterminate" object:0 queue:0 usingBlock:v83];
   captivityIndeterminateObserver = self->_captivityIndeterminateObserver;
   self->_captivityIndeterminateObserver = v37;
 
@@ -1980,17 +2204,17 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
   wifiThroughputAdviser = self->_wifiThroughputAdviser;
   self->_wifiThroughputAdviser = v39;
 
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_654;
-  v83[3] = &unk_27898A690;
-  v41 = v77;
-  v83[4] = self;
-  v42 = [defaultCenter addObserverForName:@"kNotificationPolledFlowAssessment" object:0 queue:0 usingBlock:v83];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_654;
+  v82[3] = &unk_27898A690;
+  v41 = v76;
+  v82[4] = self;
+  v42 = [defaultCenter addObserverForName:@"kNotificationPolledFlowAssessment" object:0 queue:0 usingBlock:v82];
   polledFlowObserver = self->_polledFlowObserver;
   self->_polledFlowObserver = v42;
 
-  if (self->_cellRelay && self->_wifiRelay && v77 && v78 && self->_mediaDownloadMonitor && self->_userFlowMonitor && self->_trialExperimentHandler)
+  if (self->_cellRelay && self->_wifiRelay && v76 && v77 && self->_mediaDownloadMonitor && self->_userFlowMonitor && self->_trialExperimentHandler)
   {
     v44 = [CellOutrankHandlerSTM alloc];
     queue4 = [(ExpertSystemHandlerCore *)self queue];
@@ -2008,39 +2232,39 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
     if (v50)
     {
       v51 = self->_cellRelay;
-      v98[0] = @"CellRelay";
-      v98[1] = @"CMdlRelay";
+      v97[0] = @"CellRelay";
+      v97[1] = @"CMdlRelay";
       v52 = self->_mediaDownloadMonitor;
-      v99[0] = v51;
-      v99[1] = v52;
+      v98[0] = v51;
+      v98[1] = v52;
       v53 = self->_locationRelay;
-      v98[2] = @"LocationRelay";
-      v98[3] = @"EventRelay";
+      v97[2] = @"LocationRelay";
+      v97[3] = @"EventRelay";
       v54 = self->_eventSummary;
-      v99[2] = v53;
-      v99[3] = v54;
+      v98[2] = v53;
+      v98[3] = v54;
       miscStateRelay = self->_miscStateRelay;
-      v98[4] = @"MiscRelay";
-      v98[5] = @"PowerRelay";
-      v99[4] = miscStateRelay;
-      v99[5] = v78;
-      v99[6] = v77;
-      v98[6] = @"RnfRelay";
-      v98[7] = @"SPIRelay";
+      v97[4] = @"MiscRelay";
+      v97[5] = @"PowerRelay";
+      v98[4] = miscStateRelay;
+      v98[5] = v77;
+      v98[6] = v76;
+      v97[6] = @"RnfRelay";
+      v97[7] = @"SPIRelay";
       v56 = +[CellOutrankForceSPIHandler sharedInstance];
       v57 = self->_trialExperimentHandler;
       userFlowMonitor = self->_userFlowMonitor;
-      v99[7] = v56;
-      v99[8] = v57;
+      v98[7] = v56;
+      v98[8] = v57;
       v59 = self->_wifiRelay;
-      v98[8] = @"TrialRelay";
-      v98[9] = @"UserFlowMonitor";
-      v99[9] = userFlowMonitor;
-      v99[10] = v59;
-      v98[10] = @"WiFiRelay";
-      v98[11] = @"WiFiTputAdviser";
-      v99[11] = self->_wifiThroughputAdviser;
-      v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:12];
+      v97[8] = @"TrialRelay";
+      v97[9] = @"UserFlowMonitor";
+      v98[9] = userFlowMonitor;
+      v98[10] = v59;
+      v97[10] = @"WiFiRelay";
+      v97[11] = @"WiFiTputAdviser";
+      v98[11] = self->_wifiThroughputAdviser;
+      v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:12];
       [(StateWatcher *)v50 configureWatchList:&unk_2847EF3B8 changeList:&unk_2847EF430 sourceList:v60];
 
       [(StateWatcher *)self->_stateWatcher setDelegate:self];
@@ -2059,18 +2283,18 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
     if (shared_prefs_store)
     {
       v62 = shared_prefs_store;
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_662;
-      v82[3] = &unk_27898A0A0;
-      v82[4] = self;
-      prefs_add_client(shared_prefs_store, "cosm_override_params", v82);
       v81[0] = MEMORY[0x277D85DD0];
       v81[1] = 3221225472;
-      v81[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_674;
+      v81[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_662;
       v81[3] = &unk_27898A0A0;
       v81[4] = self;
-      prefs_add_client(v62, kCellOutrankParamsName, v81);
+      prefs_add_client(shared_prefs_store, "cosm_override_params", v81);
+      v80[0] = MEMORY[0x277D85DD0];
+      v80[1] = 3221225472;
+      v80[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_674;
+      v80[3] = &unk_27898A0A0;
+      v80[4] = self;
+      prefs_add_client(v62, kCellOutrankParamsName, v80);
     }
 
     queue5 = [(ExpertSystemHandlerCore *)self queue];
@@ -2087,7 +2311,7 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v87) = v64;
+        LODWORD(v86) = v64;
         _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_ERROR, "Failed to register for com.apple.WRM.iRAT_event.linkRecommendation (%u)", buf, 8u);
       }
     }
@@ -2101,7 +2325,7 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v87) = v68;
+        LODWORD(v86) = v68;
         _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_ERROR, "Failed to get initial state for com.apple.WRM.iRAT_event.linkRecommendation (%u)", buf, 8u);
       }
     }
@@ -2111,18 +2335,18 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v87 = state64;
+        v86 = state64;
         _os_log_impl(&dword_23255B000, v67, OS_LOG_TYPE_DEFAULT, "COSM initial WRM notification 0x%llx", buf, 0xCu);
       }
 
       self->_initialWRMStatus = state64;
       [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-      self->_initialWRMStatusTimestamp = v76;
+      self->_initialWRMStatusTimestamp = v75;
       self->_latestWRMStatus = state64;
       [(CellOutrankHandler *)self handleWRMState:?];
     }
 
-    v41 = v77;
+    v41 = v76;
   }
 
   else
@@ -2135,17 +2359,17 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
       v72 = self->_mediaDownloadMonitor;
       v73 = self->_userFlowMonitor;
       *buf = 134219264;
-      v87 = v70;
-      v88 = 2048;
-      v89 = v71;
-      v90 = 2048;
-      v91 = v77;
-      v92 = 2048;
-      v93 = v78;
-      v94 = 2048;
-      v95 = v72;
-      v96 = 2048;
-      v97 = v73;
+      v86 = v70;
+      v87 = 2048;
+      v88 = v71;
+      v89 = 2048;
+      v90 = v76;
+      v91 = 2048;
+      v92 = v77;
+      v93 = 2048;
+      v94 = v72;
+      v95 = 2048;
+      v96 = v73;
       _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_ERROR, "COSM init failed, at least one of the relays missing (cell/wifi/rnf/power/nobackhaul/dload/userflows): %p,%p,%p,%p,%p,%p", buf, 0x3Eu);
     }
   }
@@ -2156,8 +2380,6 @@ unint64_t __48__CellOutrankHandler__initializeUserFlowMonitor__block_invoke()
     *buf = 0;
     _os_log_impl(&dword_23255B000, v74, OS_LOG_TYPE_DEFAULT, "COSM: _completeInitialization exit", buf, 2u);
   }
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CellOutrankHandler__completeInitialization__block_invoke(uint64_t a1, void *a2)
@@ -2200,7 +2422,7 @@ uint64_t __45__CellOutrankHandler__completeInitialization__block_invoke_3(uint64
 
 void __45__CellOutrankHandler__completeInitialization__block_invoke_654(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [a2 userInfo];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
   v5 = [v3 objectForKeyedSubscript:v4];
@@ -2213,26 +2435,24 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_654(uint64_t
     {
       v8 = v7;
       *buf = 67109120;
-      v14 = [v5 intValue];
+      v13 = [v5 intValue];
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "COSM kNotificationPolledFlowAssessment delivers value %d", buf, 8u);
     }
 
     v9 = [*(a1 + 32) queue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_655;
-    v11[3] = &unk_27898A3A0;
-    v11[4] = *(a1 + 32);
-    v12 = v6;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_655;
+    v10[3] = &unk_27898A3A0;
+    v10[4] = *(a1 + 32);
+    v11 = v6;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __45__CellOutrankHandler__completeInitialization__block_invoke_655(uint64_t a1)
+void *__45__CellOutrankHandler__completeInitialization__block_invoke_655(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = [*(*(a1 + 32) + 80) wifiPolledFlowsCurrentlyBad];
   if (*(a1 + 40) != result)
   {
@@ -2240,21 +2460,20 @@ uint64_t __45__CellOutrankHandler__completeInitialization__block_invoke_655(uint
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 40);
-      v6[0] = 67109120;
-      v6[1] = v4;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "COSM kNotificationPolledFlowAssessment changes currently bad to %d", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v4;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "COSM kNotificationPolledFlowAssessment changes currently bad to %d", v5, 8u);
     }
 
-    result = [*(*(a1 + 32) + 80) setWifiPolledFlowsCurrentlyBad:*(a1 + 40)];
+    return [*(*(a1 + 32) + 80) setWifiPolledFlowsCurrentlyBad:*(a1 + 40)];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __45__CellOutrankHandler__completeInitialization__block_invoke_662(uint64_t a1, uint64_t a2, void *a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (!v4 || MEMORY[0x238389170](v4) != MEMORY[0x277D86468])
@@ -2275,7 +2494,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_662(uint64_t
   }
 
   v7 = v5;
-  v48 = a1;
+  v47 = a1;
   v8 = _CFXPCCreateCFObjectFromXPCObject();
   outCount = 0;
   v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -2303,44 +2522,44 @@ LABEL_11:
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v63 = v8;
+    v62 = v8;
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "Processing cosm_override_params %@", buf, 0xCu);
   }
 
-  a1 = v48;
-  v16 = *(v48 + 32);
+  a1 = v47;
+  v16 = *(v47 + 32);
   v17 = *(v16 + 496);
   *(v16 + 496) = 0;
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v18 = v8;
-  v53 = [v18 countByEnumeratingWithState:&v57 objects:v70 count:16];
-  if (!v53)
+  v52 = [v18 countByEnumeratingWithState:&v56 objects:v69 count:16];
+  if (!v52)
   {
 
     v5 = v7;
     goto LABEL_35;
   }
 
-  v47 = v4;
-  v52 = *v58;
+  v46 = v4;
+  v51 = *v57;
   v5 = v7;
-  v49 = v9;
-  v50 = v18;
-  v51 = v7;
+  v48 = v9;
+  v49 = v18;
+  v50 = v7;
   while (2)
   {
-    for (j = 0; j != v53; ++j)
+    for (j = 0; j != v52; ++j)
     {
-      if (*v58 != v52)
+      if (*v57 != v51)
       {
         objc_enumerationMutation(v18);
       }
 
-      v20 = *(*(&v57 + 1) + 8 * j);
+      v20 = *(*(&v56 + 1) + 8 * j);
       v21 = [v9 containsObject:v20];
       v22 = outrankLogHandle;
       if ((v21 & 1) == 0)
@@ -2348,16 +2567,16 @@ LABEL_11:
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v63 = v20;
+          v62 = v20;
           _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Attempting to set invalid key %@ for cosm_override_params", buf, 0xCu);
         }
 
-        v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Attempted to set invalid key %@ for cosm_override_params", v20];
-        v39 = *(v48 + 32);
-        v40 = *(v39 + 496);
-        *(v39 + 496) = v38;
+        v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Attempted to set invalid key %@ for cosm_override_params", v20];
+        v38 = *(v47 + 32);
+        v39 = *(v38 + 496);
+        *(v38 + 496) = v37;
 
-        v4 = v47;
+        v4 = v46;
         goto LABEL_36;
       }
 
@@ -2366,9 +2585,9 @@ LABEL_11:
         v23 = v22;
         v24 = [v18 objectForKeyedSubscript:v20];
         *buf = 138412546;
-        v63 = v20;
-        v64 = 2112;
-        v65 = v24;
+        v62 = v20;
+        v63 = 2112;
+        v64 = v24;
         _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "Validated key %@ for cosm_override_params, object %@", buf, 0x16u);
       }
 
@@ -2391,57 +2610,57 @@ LABEL_11:
             if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138413058;
-              v63 = v20;
-              v64 = 2080;
-              v65 = v28;
-              v66 = 2048;
-              v67 = v29;
-              v68 = 2112;
-              v69 = v25;
+              v62 = v20;
+              v63 = 2080;
+              v64 = v28;
+              v65 = 2048;
+              v66 = v29;
+              v67 = 2112;
+              v68 = v25;
               _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, "Converting string value for key %@ string %s to int %lld nsnumber %@", buf, 0x2Au);
             }
 
-            v5 = v51;
-            v9 = v49;
-            v18 = v50;
+            v5 = v50;
+            v9 = v48;
+            v18 = v49;
             goto LABEL_29;
           }
 
-          v43 = outrankLogHandle;
+          v42 = outrankLogHandle;
           if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v63 = v20;
-            v64 = 2112;
-            v65 = v26;
-            _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_ERROR, "Failed to convert string value for key %@ object %@ to nsnumber", buf, 0x16u);
+            v62 = v20;
+            v63 = 2112;
+            v64 = v26;
+            _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_ERROR, "Failed to convert string value for key %@ object %@ to nsnumber", buf, 0x16u);
           }
 
-          v42 = @"Failed to convert string value for key %@ object %@ to nsnumber";
+          v41 = @"Failed to convert string value for key %@ object %@ to nsnumber";
         }
 
         else
         {
-          v41 = outrankLogHandle;
+          v40 = outrankLogHandle;
           if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v63 = v20;
-            v64 = 2112;
-            v65 = v26;
-            _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "Failed to convert string value for key %@ object %@ to nsnumber, no string start", buf, 0x16u);
+            v62 = v20;
+            v63 = 2112;
+            v64 = v26;
+            _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_ERROR, "Failed to convert string value for key %@ object %@ to nsnumber, no string start", buf, 0x16u);
           }
 
-          v42 = @"Failed to convert string value for key %@ object %@ to nsnumber, no string start";
+          v41 = @"Failed to convert string value for key %@ object %@ to nsnumber, no string start";
         }
 
-        v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v42, v20, v26];
-        v45 = *(v48 + 32);
-        v46 = *(v45 + 496);
-        *(v45 + 496) = v44;
+        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v41, v20, v26];
+        v44 = *(v47 + 32);
+        v45 = *(v44 + 496);
+        *(v44 + 496) = v43;
 
-        v4 = v47;
-        v5 = v51;
+        v4 = v46;
+        v5 = v50;
         goto LABEL_36;
       }
 
@@ -2453,15 +2672,15 @@ LABEL_29:
         v32 = v31;
         v33 = [v5 objectForKeyedSubscript:v20];
         *buf = 138412546;
-        v63 = v20;
-        v64 = 2112;
-        v65 = v33;
+        v62 = v20;
+        v63 = 2112;
+        v64 = v33;
         _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "cosm_override_params key %@ now has value %@", buf, 0x16u);
       }
     }
 
-    v53 = [v18 countByEnumeratingWithState:&v57 objects:v70 count:16];
-    if (v53)
+    v52 = [v18 countByEnumeratingWithState:&v56 objects:v69 count:16];
+    if (v52)
     {
       continue;
     }
@@ -2469,8 +2688,8 @@ LABEL_29:
     break;
   }
 
-  v4 = v47;
-  a1 = v48;
+  v4 = v46;
+  a1 = v47;
 LABEL_35:
   v34 = [*(a1 + 32) queue];
   block[0] = MEMORY[0x277D85DD0];
@@ -2479,51 +2698,48 @@ LABEL_35:
   block[3] = &unk_27898A7D0;
   v35 = v5;
   v36 = *(a1 + 32);
-  v55 = v35;
-  v56 = v36;
+  v54 = v35;
+  v55 = v36;
   dispatch_async(v34, block);
 
-  v18 = v55;
+  v18 = v54;
 LABEL_36:
 
 LABEL_37:
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__CellOutrankHandler__completeInitialization__block_invoke_672(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "cosm_override_params, set override to %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "cosm_override_params, set override to %@", &v5, 0xCu);
   }
 
   objc_storeStrong((*(a1 + 40) + 408), *(a1 + 32));
-  result = [*(a1 + 40) ingestCurrentState];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) ingestCurrentState];
 }
 
 void __45__CellOutrankHandler__completeInitialization__block_invoke_674(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86468])
   {
     v7 = _CFXPCCreateCFObjectFromXPCObject();
-    v11 = outrankLogHandle;
+    v10 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = kCellOutrankParamsName;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Processing %s %@", buf, 0x16u);
+      v16 = kCellOutrankParamsName;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Processing %s %@", buf, 0x16u);
     }
   }
 
@@ -2533,26 +2749,24 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_674(uint64_t
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = kCellOutrankParamsName;
+      v16 = kCellOutrankParamsName;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Processing removal of %s", buf, 0xCu);
     }
 
-    v14 = @"restoreDefaults";
-    v15 = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = @"restoreDefaults";
+    v14 = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   }
 
   v8 = [*(a1 + 32) queue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_675;
-  v12[3] = &unk_27898A7D0;
-  v12[4] = *(a1 + 32);
-  v13 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__CellOutrankHandler__completeInitialization__block_invoke_675;
+  v11[3] = &unk_27898A7D0;
+  v11[4] = *(a1 + 32);
+  v12 = v7;
   v9 = v7;
-  dispatch_async(v8, v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v8, v11);
 }
 
 - (void)restoreDefaults
@@ -2601,7 +2815,7 @@ void __45__CellOutrankHandler__completeInitialization__block_invoke_674(uint64_t
 
 void __39__CellOutrankHandler_initializeHistory__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D6B500];
   v3 = +[SystemSettingsRelay defaultRelay];
   v4 = [v3 symptomEvaluatorDatabaseContainerPath];
@@ -2623,9 +2837,9 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke(uint64_t a1)
     *(v13 + 520) = v12;
 
     v15 = *(*(a1 + 32) + 520);
-    v30 = 0;
-    v16 = [v15 exportAndUnarchiveItemUnderName:@"CELL_OUTRANK_HISTORY" lastUpdated:&v30 verificationBlock:&__block_literal_global_683];
-    v17 = v30;
+    v29 = 0;
+    v16 = [v15 exportAndUnarchiveItemUnderName:@"CELL_OUTRANK_HISTORY" lastUpdated:&v29 verificationBlock:&__block_literal_global_683];
+    v17 = v29;
     v18 = *(a1 + 32);
     v19 = *(v18 + 504);
     *(v18 + 504) = v16;
@@ -2639,16 +2853,16 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke(uint64_t a1)
       {
         v23 = *(*(a1 + 32) + 504);
         *buf = 138477827;
-        v32 = v23;
+        v31 = v23;
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "COSM: Retrieved persisted history: %{private}@", buf, 0xCu);
       }
 
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __39__CellOutrankHandler_initializeHistory__block_invoke_691;
-      v29[3] = &unk_27898A0C8;
-      v29[4] = *(a1 + 32);
-      [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"COSM.Cleanup" queue:MEMORY[0x277D85CD0] activity:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __39__CellOutrankHandler_initializeHistory__block_invoke_691;
+      v28[3] = &unk_27898A0C8;
+      v28[4] = *(a1 + 32);
+      [(PeriodicMaintenanceActivity *)DailyMaintenanceActivity registerPeriodicActivityWithIdentifier:@"COSM.Cleanup" queue:MEMORY[0x277D85CD0] activity:v28];
     }
 
     else
@@ -2675,13 +2889,11 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke(uint64_t a1)
       _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "COSM: Unable to provide persistence, fatal initialization failure", buf, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2694,28 +2906,28 @@ uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1,
       if (objc_opt_isKindOfClass())
       {
         v5 = v4;
-        *&v25 = 0;
-        *(&v25 + 1) = &v25;
-        v26 = 0x2020000000;
-        v27 = 0;
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __39__CellOutrankHandler_initializeHistory__block_invoke_685;
-        v18[3] = &unk_27898B070;
-        v18[4] = &v25;
-        v6 = [v5 indexOfObjectPassingTest:v18];
-        if (v6 == 0x7FFFFFFFFFFFFFFFLL || *(*(&v25 + 1) + 24) == 1)
+        *&v24 = 0;
+        *(&v24 + 1) = &v24;
+        v25 = 0x2020000000;
+        v26 = 0;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __39__CellOutrankHandler_initializeHistory__block_invoke_685;
+        v17[3] = &unk_27898B070;
+        v17[4] = &v24;
+        v6 = [v5 indexOfObjectPassingTest:v17];
+        if (v6 == 0x7FFFFFFFFFFFFFFFLL || *(*(&v24 + 1) + 24) == 1)
         {
           v7 = outrankLogHandle;
           if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
           {
-            v8 = *(*(&v25 + 1) + 24);
+            v8 = *(*(&v24 + 1) + 24);
             *buf = 67109635;
-            v20 = v6 == 0x7FFFFFFFFFFFFFFFLL;
-            v21 = 1024;
-            v22 = v8;
-            v23 = 2113;
-            v24 = v3;
+            v19 = v6 == 0x7FFFFFFFFFFFFFFFLL;
+            v20 = 1024;
+            v21 = v8;
+            v22 = 2113;
+            v23 = v3;
             _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "COSM: Got persisted history but it's old/corrupted: %d/%d, zapping it %{private}@", buf, 0x18u);
           }
 
@@ -2727,7 +2939,7 @@ uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1,
           v9 = 1;
         }
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
       }
 
       else
@@ -2735,8 +2947,8 @@ uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1,
         v15 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v25) = 0;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSM: Cannot get keys from dict?!, removed", &v25, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSM: Cannot get keys from dict?!, removed", &v24, 2u);
         }
 
         v9 = 0;
@@ -2748,8 +2960,8 @@ uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1,
       v14 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSM: Empty persistent state?!, removed", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSM: Empty persistent state?!, removed", &v24, 2u);
       }
 
       v9 = 0;
@@ -2764,15 +2976,14 @@ uint64_t __39__CellOutrankHandler_initializeHistory__block_invoke_2(uint64_t a1,
       v11 = v10;
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      LODWORD(v25) = 138412290;
-      *(&v25 + 4) = v13;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "COSM: Corrupted persistent state??, removed (%@)", &v25, 0xCu);
+      LODWORD(v24) = 138412290;
+      *(&v24 + 4) = v13;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "COSM: Corrupted persistent state??, removed (%@)", &v24, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2804,31 +3015,31 @@ BOOL __39__CellOutrankHandler_initializeHistory__block_invoke_685(uint64_t a1, v
 
 void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:0];
+  v24 = *MEMORY[0x277D85DE8];
+  v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:0];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = *(*(a1 + 32) + 504);
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       v8 = v5;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * v7);
+        v9 = *(*(&v17 + 1) + 8 * v7);
         v5 = [*(*(a1 + 32) + 504) objectForKeyedSubscript:v9];
 
         [v5 doubleValue];
@@ -2836,7 +3047,7 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
         [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
         if (v11 <= v12)
         {
-          [v17 addObject:v9];
+          [v16 addObject:v9];
         }
 
         ++v7;
@@ -2844,23 +3055,23 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       }
 
       while (v4 != v7);
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v4);
   }
 
-  if ([v17 count])
+  if ([v16 count])
   {
     v13 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v23 = v17;
+      v22 = v16;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "COSM: clearing out partial history for SSIDs: %{private}@", buf, 0xCu);
     }
 
-    [*(*(a1 + 32) + 504) removeObjectsForKeys:v17];
+    [*(*(a1 + 32) + 504) removeObjectsForKeys:v16];
     if (([*(*(a1 + 32) + 520) archiveAndImportItemUnderName:@"CELL_OUTRANK_HISTORY" item:*(*(a1 + 32) + 504)] & 1) == 0)
     {
       v14 = outrankLogHandle;
@@ -2868,18 +3079,16 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       {
         v15 = *(*(a1 + 32) + 504);
         *buf = 138477827;
-        v23 = v15;
+        v22 = v15;
         _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSM: Failed to clear out partial history: %{private}@", buf, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)historyAllowsOutrankForSSID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
@@ -2898,11 +3107,11 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       {
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 138478083;
-          v19 = dCopy;
-          v20 = 2112;
-          v21 = v8;
-          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSM: historyAllowsOutrankForSSID: %{private}@ too soon after manual join, ok at %@", &v18, 0x16u);
+          v17 = 138478083;
+          v18 = dCopy;
+          v19 = 2112;
+          v20 = v8;
+          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSM: historyAllowsOutrankForSSID: %{private}@ too soon after manual join, ok at %@", &v17, 0x16u);
         }
       }
 
@@ -2910,11 +3119,11 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       {
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
         {
-          v18 = 138478083;
-          v19 = dCopy;
-          v20 = 2112;
-          v21 = v8;
-          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "COSM: historyAllowsOutrankForSSID: %{private}@ ok now, previous was %@", &v18, 0x16u);
+          v17 = 138478083;
+          v18 = dCopy;
+          v19 = 2112;
+          v20 = v8;
+          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "COSM: historyAllowsOutrankForSSID: %{private}@ ok now, previous was %@", &v17, 0x16u);
         }
 
         [(CellOutrankHandler *)self resetHistoryForSSID:dCopy];
@@ -2927,9 +3136,9 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       v12 = 1;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
       {
-        v18 = 138477827;
-        v19 = dCopy;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "COSM: historyAllowsOutrankForSSID: %{private}@ no manual join history", &v18, 0xCu);
+        v17 = 138477827;
+        v18 = dCopy;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "COSM: historyAllowsOutrankForSSID: %{private}@ no manual join history", &v17, 0xCu);
       }
     }
   }
@@ -2939,20 +3148,19 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
     v14 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSM: historyAllowsOutrankForSSID: SSID is nil!", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSM: historyAllowsOutrankForSSID: SSID is nil!", &v17, 2u);
     }
 
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)setHistoryForSSID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   autoupdatingCurrentCalendar = [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
@@ -2968,13 +3176,13 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
     v14 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138478339;
-      v20 = dCopy;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v8;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "COSM: Updating persist history for %{private}@, from %@ to good again at: %@", &v19, 0x20u);
+      v18 = 138478339;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v8;
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "COSM: Updating persist history for %{private}@, from %@ to good again at: %@", &v18, 0x20u);
     }
 
     v15 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
@@ -2986,27 +3194,25 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
         history = self->_history;
-        v19 = 138477827;
-        v20 = history;
-        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "COSM: Failed to persist history: %{private}@", &v19, 0xCu);
+        v18 = 138477827;
+        v19 = history;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "COSM: Failed to persist history: %{private}@", &v18, 0xCu);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetHistoryForSSID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(NSMutableDictionary *)self->_history removeObjectForKey:dCopy];
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138477827;
-    v10 = dCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "COSM: Nuking persist history for %{private}@", &v9, 0xCu);
+    v8 = 138477827;
+    v9 = dCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "COSM: Nuking persist history for %{private}@", &v8, 0xCu);
   }
 
   if (![(ImpoExpoService *)self->_ieService archiveAndImportItemUnderName:@"CELL_OUTRANK_HISTORY" item:self->_history])
@@ -3015,13 +3221,11 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       history = self->_history;
-      v9 = 138477827;
-      v10 = history;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "COSM: Failed to nuke history: %{private}@", &v9, 0xCu);
+      v8 = 138477827;
+      v9 = history;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "COSM: Failed to nuke history: %{private}@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryHomeLOIRefresh:(BOOL)refresh
@@ -3037,17 +3241,17 @@ void __39__CellOutrankHandler_initializeHistory__block_invoke_691(uint64_t a1)
   [(LocationStateRelay *)locationRelay determineIfLocationOfInterestIsKnownOfType:0 queue:queue reply:v7];
 }
 
-uint64_t __42__CellOutrankHandler_queryHomeLOIRefresh___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__42__CellOutrankHandler_queryHomeLOIRefresh___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109376;
-    v11[1] = a2;
-    v12 = 1024;
-    v13 = a3;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "queryHomeLOIRefresh isAuth:%d isLOIKnown:%d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = a2;
+    v11 = 1024;
+    v12 = a3;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "queryHomeLOIRefresh isAuth:%d isLOIKnown:%d", v10, 0xEu);
   }
 
   [*(*(a1 + 32) + 80) setLOIUseAuthorized:a2];
@@ -3059,7 +3263,7 @@ uint64_t __42__CellOutrankHandler_queryHomeLOIRefresh___block_invoke(uint64_t a1
       if (*(a1 + 40) == 1)
       {
         [*(a1 + 32) stopObservingLOIChanges];
-        result = [NetworkAnalyticsEngine refreshLOIForInterfaceType:3];
+        return [NetworkAnalyticsEngine refreshLOIForInterfaceType:3];
       }
     }
 
@@ -3068,11 +3272,11 @@ uint64_t __42__CellOutrankHandler_queryHomeLOIRefresh___block_invoke(uint64_t a1
       v9 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11[0]) = 0;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: Home LOI is not known. Registering for updates from CR", v11, 2u);
+        LOWORD(v10[0]) = 0;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM: Home LOI is not known. Registering for updates from CR", v10, 2u);
       }
 
-      result = [*(a1 + 32) startObservingLOIChanges];
+      return [*(a1 + 32) startObservingLOIChanges];
     }
   }
 
@@ -3081,14 +3285,13 @@ uint64_t __42__CellOutrankHandler_queryHomeLOIRefresh___block_invoke(uint64_t a1
     v8 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM: LOI use not authorized", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSM: LOI use not authorized", v10, 2u);
     }
 
-    result = [*(*(a1 + 32) + 80) setHomeLocationIsKnown:0];
+    return [*(*(a1 + 32) + 80) setHomeLocationIsKnown:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3289,14 +3492,14 @@ uint64_t __45__CellOutrankHandler_internalStateDictionary__block_invoke(uint64_t
 
 - (void)setConfiguration:(id)configuration
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543362;
-    v19 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CellOutrankHandler new configuration parameters %{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CellOutrankHandler new configuration parameters %{public}@", &v17, 0xCu);
   }
 
   [configurationCopy extractKey:@"minDampening" toDouble:&self->_minDampeningInterval defaultTo:1.0];
@@ -3372,14 +3575,12 @@ uint64_t __45__CellOutrankHandler_internalStateDictionary__block_invoke(uint64_t
   {
     [(CellOutrankHandler *)self restoreDefaults];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportOutrankABCCase:(id)case singleShot:(BOOL)shot
 {
   shotCopy = shot;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   [(NSMutableSet *)self->_reportedABCCases addObject:caseCopy];
   v7 = +[SystemSettingsRelay defaultRelay];
@@ -3396,7 +3597,7 @@ uint64_t __45__CellOutrankHandler_internalStateDictionary__block_invoke(uint64_t
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v21 = caseCopy;
+          v20 = caseCopy;
           v11 = "COSM ABC case additional instance skipped for %@";
 LABEL_10:
           _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
@@ -3410,7 +3611,7 @@ LABEL_10:
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v21 = caseCopy;
+          v20 = caseCopy;
           _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "COSM ABC case for %@", buf, 0xCu);
         }
 
@@ -3419,13 +3620,13 @@ LABEL_10:
         if (v13)
         {
           v15 = [v13 signatureWithDomain:*MEMORY[0x277D6B020] type:*MEMORY[0x277D6B220] subType:@"CellOutrank" subtypeContext:caseCopy detectedProcess:@"symptomsd" triggerThresholdValues:0];
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __54__CellOutrankHandler_reportOutrankABCCase_singleShot___block_invoke;
-          v17[3] = &unk_27898B0C0;
-          v18 = caseCopy;
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __54__CellOutrankHandler_reportOutrankABCCase_singleShot___block_invoke;
+          v16[3] = &unk_27898B0C0;
+          v17 = caseCopy;
           selfCopy = self;
-          [v14 snapshotWithSignature:v15 duration:0 events:0 payload:0 actions:v17 reply:0.0];
+          [v14 snapshotWithSignature:v15 duration:0 events:0 payload:0 actions:v16 reply:0.0];
         }
       }
 
@@ -3441,19 +3642,17 @@ LABEL_10:
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v21 = caseCopy;
+    v20 = caseCopy;
     v11 = "COSM ABC unavailable, suppress report for %@";
     goto LABEL_10;
   }
 
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __54__CellOutrankHandler_reportOutrankABCCase_singleShot___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B198]];
   v5 = [v4 BOOLValue];
@@ -3464,11 +3663,11 @@ void __54__CellOutrankHandler_reportOutrankABCCase_singleShot___block_invoke(uin
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSM ABC case %{public}@ response: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSM ABC case %{public}@ response: %@", &v9, 0x16u);
     }
 
     [*(*(a1 + 40) + 488) addObject:*(a1 + 32)];
@@ -3477,14 +3676,12 @@ void __54__CellOutrankHandler_reportOutrankABCCase_singleShot___block_invoke(uin
   else if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
   {
     v8 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "COSM ABC case %{public}@ not accepted. response: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "COSM ABC case %{public}@ not accepted. response: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CellOutrankHandler_sharedInstance__block_invoke(uint64_t a1)

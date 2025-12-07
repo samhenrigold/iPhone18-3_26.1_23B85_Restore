@@ -2909,7 +2909,7 @@ void MixViterbiProd::MixViterbiProd(uint64_t a1, uint64_t *a2, uint64_t *a3, int
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1 + 24, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((a1 + 24), *a3, a3[1], (a3[1] - *a3) >> 2);
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
@@ -3770,7 +3770,7 @@ _DWORD *MixViterbiProd::copyFloat32RingBufToVector(_DWORD *result, uint64_t *a2,
   return result;
 }
 
-void MixViterbiProd::updateDecode_Post(uint64_t a1, uint64_t *a2, uint64_t *a3, char ***a4, int a5)
+void MixViterbiProd::updateDecode_Post(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t **a4, int a5)
 {
   v6 = *(a1 + 216);
   v7 = (a5 - v6);
@@ -4223,7 +4223,7 @@ void addGenericBoxPropToDescription(NSMutableDictionary *,DSPGraph::Box &,unsign
   v8 = (*(**a1 + 296))(*a1, a2, *a1[1], *a1[2]);
   if (v9)
   {
-    v10 = MEMORY[0x1EEE9AC00](v8);
+    v10.n128_f64[0] = MEMORY[0x1EEE9AC00](v8);
     v12 = &v16 - ((v11 + 15) & 0x1FFFFFFF0);
     HIDWORD(v17) = v13;
     if (!(*(**a1 + 304))(v10))
@@ -4241,7 +4241,7 @@ void addSpecificBoxPropToDescription(NSMutableDictionary *,DSPGraph::Box &,unsig
   v8 = (*(**a1 + 296))(*a1, a2, *a1[1], *a1[2]);
   if (v9)
   {
-    v10 = MEMORY[0x1EEE9AC00](v8);
+    v10.n128_f64[0] = MEMORY[0x1EEE9AC00](v8);
     v12 = &v16 - ((v11 + 15) & 0x1FFFFFFF0);
     HIDWORD(v17) = v13;
     if (!(*(**a1 + 304))(v10))
@@ -4581,7 +4581,7 @@ uint64_t AUSM::AtomicProperty<AUSM::ExclusionZone::ePreset>::~AtomicProperty(uin
   return a1;
 }
 
-void AUSM::CFURLPropertyCStringInterface::printValue(AUSM::CFURLPropertyCStringInterface *this@<X0>, _BYTE *a2@<X8>)
+void AUSM::CFURLPropertyCStringInterface::printValue(AUSM::CFURLPropertyCStringInterface *this@<X0>, void *a2@<X8>)
 {
   AUSM::AppleSauceCFWithMutex<__CFURL const*>::load(&anURL, *(this + 6));
   v3 = anURL;
@@ -5067,7 +5067,7 @@ void AUSM::CFURLPropertyCStringInterface::~CFURLPropertyCStringInterface(void **
   }
 }
 
-void AUSM::CFProperty<__CFURL const*>::printValue(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void AUSM::CFProperty<__CFURL const*>::printValue(uint64_t a1@<X0>, void *a2@<X8>)
 {
   AUSM::AppleSauceCFWithMutex<__CFURL const*>::load(&anURL, *(a1 + 48));
   v3 = anURL;
@@ -5376,7 +5376,7 @@ LABEL_7:
   }
 }
 
-_BYTE *AUSM::AtomicProperty<BOOL>::printValue@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *AUSM::AtomicProperty<BOOL>::printValue@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v2 = atomic_load(*(a1 + 48));
   if (v2)
@@ -7913,11 +7913,11 @@ LABEL_181:
         v65 = this;
         while (1)
         {
-          v66 = &kAllPassFilterLengthsForReverbSend + 12 * v63 + 12 * (*(v65 + 191) - 25 * ((*(v65 + 191) + v63) / 0x19));
+          v66 = (&kAllPassFilterLengthsForReverbSend + 12 * v63 + 12 * (*(v65 + 191) - 25 * ((*(v65 + 191) + v63) / 0x19)));
           v93[0] = 0;
           v93[1] = 0;
           v94 = 0;
-          std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(v93, v66, (v66 + 12), 3uLL);
+          std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(v93, v66, v66 + 3, 3uLL);
           AUSpatialMixerV2ChannelProcessor::setDecorrFilterLengthsOnReverbSend(*(*v90 + 8 * v62), v93);
           v67 = *(*v90 + 8 * v62);
           AUSM::InputGeometry::getExclusionZones(&buf, this + 1408);
@@ -9514,30 +9514,30 @@ void sub_1DDE33E24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(void **this)
+uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(AUSpatialMixerV2InputElement *this)
 {
   v34 = *MEMORY[0x1E69E9840];
   IsUsingTDesign = AUSpatialMixerV2InputElement::IsUsingTDesign(this);
-  v2 = atomic_load(this[133] + 779);
+  v2 = atomic_load((*(this + 133) + 3116));
   if (AUSpatialMixerV2InputElement::ShouldUseOBHD(this))
   {
     v3 = 0;
   }
 
-  else if (*(this + 1808) == 1 && this[227])
+  else if (*(this + 1808) == 1 && *(this + 227))
   {
     v3 = 1;
   }
 
   else
   {
-    v3 = atomic_load(this[133] + 780);
+    v3 = atomic_load((*(this + 133) + 3120));
   }
 
-  v4 = atomic_load(this[133] + 781);
-  v5 = atomic_load(this[133] + 782);
-  v6 = atomic_load(this[133] + 784);
-  v7 = atomic_load(this[133] + 3132);
+  v4 = atomic_load((*(this + 133) + 3124));
+  v5 = atomic_load((*(this + 133) + 3128));
+  v6 = atomic_load((*(this + 133) + 3136));
+  v7 = atomic_load((*(this + 133) + 3132));
   if (getAUSMV2Log(void)::onceToken != -1)
   {
     dispatch_once(&getAUSMV2Log(void)::onceToken, &__block_literal_global_9299);
@@ -9546,7 +9546,7 @@ uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(void **this)
   v8 = getAUSMV2Log(void)::gLog;
   if (os_log_type_enabled(getAUSMV2Log(void)::gLog, OS_LOG_TYPE_DEBUG))
   {
-    v26 = this + 215;
+    v26 = (this + 1720);
     if (*(this + 1743) < 0)
     {
       v26 = *v26;
@@ -9561,19 +9561,19 @@ uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(void **this)
     _os_log_debug_impl(&dword_1DDB85000, v8, OS_LOG_TYPE_DEBUG, "[%s|%s] output type: %u", buf, 0x1Cu);
   }
 
-  if (*(this + 1808) == 1 && !this[229])
+  if (*(this + 1808) == 1 && !*(this + 229))
   {
-    ausdk::AUChannelLayout::AUChannelLayout(buf, (this + 222));
+    ausdk::AUChannelLayout::AUChannelLayout(buf, (this + 1776));
   }
 
   else
   {
-    ausdk::AUChannelLayout::AUChannelLayout(buf, (this + 15));
+    ausdk::AUChannelLayout::AUChannelLayout(buf, (this + 120));
   }
 
   AUSpatialMixerV2InputElement::GetMatrixMixOutputLayout(__p, this);
   v9 = AUSpatialMixerV2InputElement::GetMatrixMixOutputType(this);
-  Element = ausdk::AUScope::GetElement((this[27] + 128), 0);
+  Element = ausdk::AUScope::GetElement((*(this + 27) + 128), 0);
   if (!Element)
   {
     ausdk::Throw(0xFFFFD583);
@@ -9590,9 +9590,9 @@ uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(void **this)
   }
 
   *(this + 1136) = 0;
-  v12 = (this + 135);
-  ausdk::AUChannelLayout::CopyStorage((this + 135), buf);
-  ausdk::AUChannelLayout::CopyStorage((this + 138), __p);
+  v12 = (this + 1080);
+  ausdk::AUChannelLayout::CopyStorage((this + 1080), buf);
+  ausdk::AUChannelLayout::CopyStorage((this + 1104), __p);
   v14 = v7 & 1;
   *(this + 268) = v9;
   if (**buf == 0x10000)
@@ -9637,9 +9637,9 @@ uint64_t AUSpatialMixerV2InputElement::UpdateMatrixMix(void **this)
   }
 
   *(this + 313) = v17;
-  this[147] = this[146];
-  this[150] = this[149];
-  this[144] = this[143];
+  *(this + 147) = *(this + 146);
+  *(this + 150) = *(this + 149);
+  *(this + 144) = *(this + 143);
   if (v9 > 2)
   {
     if ((v9 - 4) < 2)
@@ -9660,7 +9660,7 @@ LABEL_38:
         v20 = 0;
 LABEL_54:
         *(this + 1137) = v20;
-        HOADecoders = AUSM::MatrixMix::createHOADecoders((this + 134), IsUsingTDesign, v11);
+        HOADecoders = AUSM::MatrixMix::createHOADecoders((this + 1072), IsUsingTDesign, v11);
         goto LABEL_59;
       }
     }
@@ -9680,7 +9680,7 @@ LABEL_55:
   {
     *(this + 1137) = 0;
     *(this + 283) = v15;
-    if (ausdk::ACL::operator==(this[138], this[135]))
+    if (ausdk::ACL::operator==(*(this + 138), *(this + 135)))
     {
       goto LABEL_61;
     }
@@ -9694,11 +9694,11 @@ LABEL_55:
     if (!os_log_type_enabled(getAUSMV2Log(void)::gLog, OS_LOG_TYPE_DEBUG))
     {
 LABEL_50:
-      ausdk::AUChannelLayout::CopyStorage((this + 138), (this + 135));
+      ausdk::AUChannelLayout::CopyStorage((this + 1104), (this + 1080));
       goto LABEL_61;
     }
 
-    v22 = this + 153;
+    v22 = (this + 1224);
     if (*(this + 1247) < 0)
     {
       v22 = *v22;
@@ -9717,7 +9717,7 @@ LABEL_72:
   {
     *(this + 1137) = 1;
     *(this + 283) = 1;
-    if (ausdk::ACL::operator==(this[138], this[135]))
+    if (ausdk::ACL::operator==(*(this + 138), *(this + 135)))
     {
       goto LABEL_61;
     }
@@ -9733,7 +9733,7 @@ LABEL_72:
       goto LABEL_50;
     }
 
-    v22 = this + 153;
+    v22 = (this + 1224);
     if (*(this + 1247) < 0)
     {
       v22 = *v22;
@@ -9743,7 +9743,7 @@ LABEL_72:
   }
 
   *(this + 1137) = 1;
-  v18 = this[138];
+  v18 = *(this + 138);
   if (*v18 == 0x10000)
   {
     v13 = vcnt_s8(v18[1]);
@@ -9762,19 +9762,19 @@ LABEL_72:
   }
 
   *(this + 283) = v19;
-  *inSpecifier = this[135];
+  *inSpecifier = *(this + 135);
   *&inSpecifier[8] = v18;
   ioPropertyDataSize = 0;
   std::vector<float>::assign(this + 146, (v15 * v19), &ioPropertyDataSize, v13);
   ioPropertyDataSize = 4 * *(this + 282) * *(this + 283);
-  HOADecoders = AudioFormatGetProperty(0x6D6D6170u, 0x10u, inSpecifier, &ioPropertyDataSize, this[146]);
+  HOADecoders = AudioFormatGetProperty(0x6D6D6170u, 0x10u, inSpecifier, &ioPropertyDataSize, *(this + 146));
 LABEL_59:
   v24 = HOADecoders;
   if (HOADecoders)
   {
-    this[147] = this[146];
-    this[150] = this[149];
-    this[144] = this[143];
+    *(this + 147) = *(this + 146);
+    *(this + 150) = *(this + 149);
+    *(this + 144) = *(this + 143);
     goto LABEL_62;
   }
 

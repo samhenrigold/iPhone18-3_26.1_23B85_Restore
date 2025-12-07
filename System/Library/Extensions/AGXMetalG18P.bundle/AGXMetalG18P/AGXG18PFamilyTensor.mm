@@ -84,11 +84,11 @@
   impl = self->_impl;
   if (impl)
   {
-    if (*(impl + 10) && (*(impl + 56) & 1) == 0)
+    if (impl[10] && (impl[14] & 1) == 0)
     {
       v5 = *(impl + 6);
       os_unfair_lock_lock(v5 + 194);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(impl + 6) + 720, *(impl + 10), *(impl + 10) + *(impl + 11) - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(impl + 6) + 720, impl[10], impl[10] + impl[11] - 1);
       os_unfair_lock_unlock(v5 + 194);
     }
 

@@ -23,9 +23,11 @@
 
 uint64_t __29__MSDLogModel_sharedInstance__block_invoke()
 {
-  sharedInstance_shared_0 = objc_alloc_init(MSDLogModel);
+  v0 = objc_alloc_init(MSDLogModel);
+  v1 = sharedInstance_shared_0;
+  sharedInstance_shared_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)logWithFormat:(id)format andArgs:(char *)args

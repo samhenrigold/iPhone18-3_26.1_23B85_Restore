@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)outcomeAsString:(int)string;
+- (id)requestStateAsString:(int)string;
 - (int)StringAsOutcome:(id)outcome;
 - (int)StringAsRequestState:(id)state;
 - (int)outcome;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)outcomeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27899F8B8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOutcome:(id)outcome
@@ -97,6 +114,143 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)requestStateAsString:(int)string
+{
+  if (string <= 4351)
+  {
+    if (string > 4099)
+    {
+      if (string <= 4101)
+      {
+        if (string == 4100)
+        {
+          v4 = @"REJECTED_SIGNATURE_CAP";
+        }
+
+        else
+        {
+          v4 = @"REJECTED_SIGNATURE_RANDOM_DOWNSAMPLING";
+        }
+
+        return v4;
+      }
+
+      if (string == 4102)
+      {
+        v4 = @"REJECTED_TOTAL_CAP";
+
+        return v4;
+      }
+
+      if (string == 4103)
+      {
+        v4 = @"REJECTED_DISABLED_SERVICE";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string > 4097)
+      {
+        if (string == 4098)
+        {
+          v4 = @"REJECTED_RESOURCE_RANDOM_DOWNSAMPLING";
+        }
+
+        else
+        {
+          v4 = @"REJECTED_SIGNATURE_HYSTERESIS";
+        }
+
+        return v4;
+      }
+
+      if (string == 4096)
+      {
+        v4 = @"REJECTED_RESOURCE_HYSTERESIS";
+
+        return v4;
+      }
+
+      if (string == 4097)
+      {
+        v4 = @"REJECTED_RESOURCE_CAP";
+
+        return v4;
+      }
+    }
+
+LABEL_71:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 4355)
+  {
+    if (string > 4353)
+    {
+      if (string == 4354)
+      {
+        v4 = @"ERROR_LOG_CULLED";
+      }
+
+      else
+      {
+        v4 = @"ERROR_UPLOAD_ATTEMPTS_FAILED";
+      }
+    }
+
+    else if (string == 4352)
+    {
+      v4 = @"ERROR_ON_RECEIPT_WORK_FAILURE";
+    }
+
+    else
+    {
+      v4 = @"REJECTED_REJECTED_BY_DS";
+    }
+  }
+
+  else if (string <= 4357)
+  {
+    if (string == 4356)
+    {
+      v4 = @"REJECTED_CUSTOMER_DISABLED";
+    }
+
+    else
+    {
+      v4 = @"ERROR_LOG_EXCEEDS_CAP";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 0x1106:
+        v4 = @"ERROR_INVALID_TRANSITION";
+
+        break;
+      case 0x1107:
+        v4 = @"ERROR_LOG_STATE_UPDATE_FAILURE";
+
+        break;
+      case 0x2000:
+        v4 = @"SUCCESS_UPLOADED";
+
+        return v4;
+      default:
+        goto LABEL_71;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsRequestState:(id)state
@@ -388,12 +542,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    outcome = self->_outcome;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -412,15 +565,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  requestState = self->_requestState;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    count = self->_count;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

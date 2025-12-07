@@ -104,26 +104,29 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1909E7EB8(disappear);
+  sub_1909E7EB8(disappearCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1909E8004(appear);
+  sub_1909E8004(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1909E8134(appear);
+  sub_1909E8134(appearCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1909E8270();
+  sub_1909E8270(selfCopy);
 }
 
 - (UIEdgeInsets)_edgeInsetsForChildViewController:(id)controller insetsAreAbsolute:(BOOL *)absolute
@@ -177,7 +180,7 @@
 - (void)setShowingDarkEffect:(BOOL)effect isInDarkMode:(BOOL)mode
 {
   selfCopy = self;
-  sub_1909E8F88();
+  sub_1909E8F88(effect, mode);
 }
 
 - (_UIRemoteViewController)_containedRemoteViewController

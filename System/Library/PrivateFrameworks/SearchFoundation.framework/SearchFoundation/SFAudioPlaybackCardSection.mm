@@ -13,11 +13,11 @@
 
 - (SFAudioPlaybackCardSection)initWithProtobuf:(id)protobuf
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v72.receiver = self;
-  v72.super_class = SFAudioPlaybackCardSection;
-  v5 = [(SFCardSection *)&v72 init];
+  v71.receiver = self;
+  v71.super_class = SFAudioPlaybackCardSection;
+  v5 = [(SFCardSection *)&v71 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v68 objects:v75 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v67 objects:v74 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v69;
+      v11 = *v68;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v69 != v11)
+          if (*v68 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v68 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v67 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v68 objects:v75 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v67 objects:v74 count:16];
       }
 
       while (v10);
@@ -134,33 +134,33 @@
       v25 = 0;
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     playCommands2 = [protobufCopy playCommands];
-    v27 = [playCommands2 countByEnumeratingWithState:&v64 objects:v74 count:16];
+    v27 = [playCommands2 countByEnumeratingWithState:&v63 objects:v73 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v65;
+      v29 = *v64;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v65 != v29)
+          if (*v64 != v29)
           {
             objc_enumerationMutation(playCommands2);
           }
 
-          v31 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v64 + 1) + 8 * j)];
+          v31 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v63 + 1) + 8 * j)];
           if (v31)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [playCommands2 countByEnumeratingWithState:&v64 objects:v74 count:16];
+        v28 = [playCommands2 countByEnumeratingWithState:&v63 objects:v73 count:16];
       }
 
       while (v28);
@@ -168,7 +168,7 @@
 
     [(SFAudioPlaybackCardSection *)v5 setPlayCommands:v25];
     stopCommands = [protobufCopy stopCommands];
-    v59 = v5;
+    v58 = v5;
     if (stopCommands)
     {
       v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -179,40 +179,40 @@
       v33 = 0;
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     stopCommands2 = [protobufCopy stopCommands];
-    v35 = [stopCommands2 countByEnumeratingWithState:&v60 objects:v73 count:16];
+    v35 = [stopCommands2 countByEnumeratingWithState:&v59 objects:v72 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v61;
+      v37 = *v60;
       do
       {
         for (k = 0; k != v36; ++k)
         {
-          if (*v61 != v37)
+          if (*v60 != v37)
           {
             objc_enumerationMutation(stopCommands2);
           }
 
-          v39 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v60 + 1) + 8 * k)];
+          v39 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v59 + 1) + 8 * k)];
           if (v39)
           {
             [v33 addObject:v39];
           }
         }
 
-        v36 = [stopCommands2 countByEnumeratingWithState:&v60 objects:v73 count:16];
+        v36 = [stopCommands2 countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
       while (v36);
     }
 
-    v5 = v59;
-    [(SFAudioPlaybackCardSection *)v59 setStopCommands:v33];
+    v5 = v58;
+    [(SFAudioPlaybackCardSection *)v58 setStopCommands:v33];
     detailText = [protobufCopy detailText];
 
     if (detailText)
@@ -220,7 +220,7 @@
       v41 = [SFRichText alloc];
       detailText2 = [protobufCopy detailText];
       v43 = [(SFRichText *)v41 initWithProtobuf:detailText2];
-      [(SFAudioPlaybackCardSection *)v59 setDetailText:v43];
+      [(SFAudioPlaybackCardSection *)v58 setDetailText:v43];
     }
 
     title = [protobufCopy title];
@@ -230,7 +230,7 @@
       v45 = [SFRichText alloc];
       title2 = [protobufCopy title];
       v47 = [(SFRichText *)v45 initWithProtobuf:title2];
-      [(SFAudioPlaybackCardSection *)v59 setTitle:v47];
+      [(SFAudioPlaybackCardSection *)v58 setTitle:v47];
     }
 
     subtitle = [protobufCopy subtitle];
@@ -240,7 +240,7 @@
       v49 = [SFRichText alloc];
       subtitle2 = [protobufCopy subtitle];
       v51 = [(SFRichText *)v49 initWithProtobuf:subtitle2];
-      [(SFAudioPlaybackCardSection *)v59 setSubtitle:v51];
+      [(SFAudioPlaybackCardSection *)v58 setSubtitle:v51];
     }
 
     thumbnail = [protobufCopy thumbnail];
@@ -250,13 +250,12 @@
       v53 = [SFImage alloc];
       thumbnail2 = [protobufCopy thumbnail];
       v55 = [(SFImage *)v53 initWithProtobuf:thumbnail2];
-      [(SFAudioPlaybackCardSection *)v59 setThumbnail:v55];
+      [(SFAudioPlaybackCardSection *)v58 setThumbnail:v55];
     }
 
-    v56 = v59;
+    v56 = v58;
   }
 
-  v57 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -368,6 +367,7 @@
   if ((punchoutPickerTitle != 0) == (punchoutPickerTitle2 == 0))
   {
     *(v114 + 4) = 0;
+    *(&v114[2] + 4) = 0;
     memset(v113, 0, sizeof(v113));
     v10 = 0;
     v11 = 0;
@@ -381,7 +381,7 @@
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    *(&v114[1] + 4) = 1uLL;
+    *(&v114[1] + 4) = 1;
     goto LABEL_16;
   }
 

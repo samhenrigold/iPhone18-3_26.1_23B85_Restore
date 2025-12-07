@@ -14,7 +14,7 @@
 
 + (unsigned)getSuccessfulTailspinSaves:(id *)saves
 {
-  v4 = sub_100004D34();
+  v4 = sub_100004D34(self);
   v5 = qword_100067820;
   qword_100067820 = v4;
 
@@ -31,7 +31,7 @@
     {
       +[HTHangreporterKickstartTelemetry _resetKeysForTailspinProcessingTelemetry];
       v8 = [NSString stringWithFormat:@"Invalid class type %@ for key (%@): value (%@) pair. Values in %@ domain were modified", objc_opt_class(), @"successfulTailspinSaves", v6, @"com.apple.hangtracer"];
-      v9 = sub_100003824();
+      v9 = sub_100003824(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         sub_10002F724();
@@ -59,37 +59,38 @@
 
 + (void)incrementSuccessfulTailspinSaves
 {
-  v2 = sub_100004D34();
+  v2 = sub_100004D34(self);
   v3 = qword_100067820;
   qword_100067820 = v2;
 
   v4 = [qword_100067820 objectForKey:@"successfulTailspinSaves"];
   if (!v4)
   {
-    v7 = qword_100067820;
-    v6 = 1;
+    v8 = qword_100067820;
+    v7 = 1;
     goto LABEL_6;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     unsignedIntValue = [v4 unsignedIntValue];
     if (unsignedIntValue != -2)
     {
-      v6 = unsignedIntValue + 1;
-      v7 = qword_100067820;
+      v7 = unsignedIntValue + 1;
+      v8 = qword_100067820;
 LABEL_6:
-      [v7 setInteger:v6 forKey:@"successfulTailspinSaves"];
+      [v8 setInteger:v7 forKey:@"successfulTailspinSaves"];
     }
   }
 
   else
   {
-    v8 = sub_100003824();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = sub_100003824(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_10002F798();
+      sub_10002F798(v4);
     }
 
     +[HTHangreporterKickstartTelemetry _resetKeysForTailspinProcessingTelemetry];
@@ -98,7 +99,7 @@ LABEL_6:
 
 + (void)_resetSuccessfulTailspinSaves
 {
-  v2 = sub_100004D34();
+  v2 = sub_100004D34(self);
   v3 = qword_100067820;
   qword_100067820 = v2;
 
@@ -109,7 +110,7 @@ LABEL_6:
 
 + (unsigned)getHangreporterTailspinsProcessed:(id *)processed
 {
-  v4 = sub_100004D34();
+  v4 = sub_100004D34(self);
   v5 = qword_100067820;
   qword_100067820 = v4;
 
@@ -126,7 +127,7 @@ LABEL_6:
     {
       +[HTHangreporterKickstartTelemetry _resetKeysForTailspinProcessingTelemetry];
       v8 = [NSString stringWithFormat:@"Invalid class type %@ for key (%@): value (%@) pair. Values in %@ domain were modified", objc_opt_class(), @"tailspinsProcessed", v6, @"com.apple.hangtracer"];
-      v9 = sub_100003824();
+      v9 = sub_100003824(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         sub_10002F834();
@@ -154,37 +155,38 @@ LABEL_6:
 
 + (void)incrementHangreporterTailspinsProcessed
 {
-  v2 = sub_100004D34();
+  v2 = sub_100004D34(self);
   v3 = qword_100067820;
   qword_100067820 = v2;
 
   v4 = [qword_100067820 objectForKey:@"tailspinsProcessed"];
   if (!v4)
   {
-    v7 = qword_100067820;
-    v6 = 1;
+    v8 = qword_100067820;
+    v7 = 1;
     goto LABEL_6;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     unsignedIntValue = [v4 unsignedIntValue];
     if (unsignedIntValue != -2)
     {
-      v6 = unsignedIntValue + 1;
-      v7 = qword_100067820;
+      v7 = unsignedIntValue + 1;
+      v8 = qword_100067820;
 LABEL_6:
-      [v7 setInteger:v6 forKey:@"tailspinsProcessed"];
+      [v8 setInteger:v7 forKey:@"tailspinsProcessed"];
     }
   }
 
   else
   {
-    v8 = sub_100003824();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = sub_100003824(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_10002F798();
+      sub_10002F798(v4);
     }
 
     +[HTHangreporterKickstartTelemetry _resetKeysForTailspinProcessingTelemetry];
@@ -193,7 +195,7 @@ LABEL_6:
 
 + (void)_resetHangreporterTailspinsProcessed
 {
-  v2 = sub_100004D34();
+  v2 = sub_100004D34(self);
   v3 = qword_100067820;
   qword_100067820 = v2;
 
@@ -257,13 +259,13 @@ LABEL_6:
               }
 
               eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"oldestTailspinCreationSeconds", eventCopy];
-              v29 = NSLocalizedDescriptionKey;
-              v30 = eventCopy;
-              v26 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-              v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v26];
+              v36 = NSLocalizedDescriptionKey;
+              v37 = eventCopy;
+              v32 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+              v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v32];
 
-              v20 = sub_100003824();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v21 = sub_100003824(v33);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 sub_10002F8A8(v15);
               }
@@ -272,13 +274,13 @@ LABEL_6:
             else
             {
               eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"tailspinsOverReportingThresholds", eventCopy];
-              v31 = NSLocalizedDescriptionKey;
-              v32 = eventCopy;
-              v25 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-              v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v25];
+              v38 = NSLocalizedDescriptionKey;
+              v39 = eventCopy;
+              v30 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+              v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v30];
 
-              v20 = sub_100003824();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v21 = sub_100003824(v31);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 sub_10002F8A8(v15);
               }
@@ -288,13 +290,13 @@ LABEL_6:
           else
           {
             eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"tailspinsInSpool", eventCopy];
-            v33 = NSLocalizedDescriptionKey;
-            v34 = eventCopy;
-            v24 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-            v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v24];
+            v40 = NSLocalizedDescriptionKey;
+            v41 = eventCopy;
+            v28 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+            v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v28];
 
-            v20 = sub_100003824();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = sub_100003824(v29);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               sub_10002F8A8(v15);
             }
@@ -304,13 +306,13 @@ LABEL_6:
         else
         {
           eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"tailspinsUnprocessed", eventCopy];
-          v35 = NSLocalizedDescriptionKey;
-          v36 = eventCopy;
-          v23 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-          v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v23];
+          v42 = NSLocalizedDescriptionKey;
+          v43 = eventCopy;
+          v26 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+          v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v26];
 
-          v20 = sub_100003824();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = sub_100003824(v27);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             sub_10002F8A8(v15);
           }
@@ -320,13 +322,13 @@ LABEL_6:
       else
       {
         eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"tailspinsProcessed", eventCopy];
-        v37 = NSLocalizedDescriptionKey;
-        v38 = eventCopy;
-        v22 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-        v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v22];
+        v44 = NSLocalizedDescriptionKey;
+        v45 = eventCopy;
+        v24 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v24];
 
-        v20 = sub_100003824();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = sub_100003824(v25);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           sub_10002F8A8(v15);
         }
@@ -336,13 +338,13 @@ LABEL_6:
     else
     {
       eventCopy = [NSString stringWithFormat:@"Missing value for key (%@) from tailspinDataDict: %@", @"successfulTailspinSaves", eventCopy];
-      v39 = NSLocalizedDescriptionKey;
-      v40 = eventCopy;
-      v21 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v21];
+      v46 = NSLocalizedDescriptionKey;
+      v47 = eventCopy;
+      v22 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:1 userInfo:v22];
 
-      v20 = sub_100003824();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_100003824(v23);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10002F8A8(v15);
       }
@@ -354,13 +356,13 @@ LABEL_6:
     v18 = +[HTPrefs sharedPrefs];
     eventCopy = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"HTPrefs shouldEmitTelemetry=%d, telemetry emission disabled", [v18 shouldEmitTelemetry]);
 
-    v41 = NSLocalizedDescriptionKey;
-    v42 = eventCopy;
-    v19 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v48 = NSLocalizedDescriptionKey;
+    v49 = eventCopy;
+    v19 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     v15 = [NSError errorWithDomain:@"com.apple.hangtracer.telemetry.error" code:2 userInfo:v19];
 
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100003824(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_10002F8A8(v15);
     }
@@ -368,7 +370,7 @@ LABEL_6:
 
   if (error)
   {
-    v27 = v15;
+    v34 = v15;
     v17 = 0;
     *error = v15;
   }
@@ -385,16 +387,17 @@ LABEL_26:
 
 + (BOOL)collectTailspinSpoolData:(id *)data error:(id *)error
 {
-  v79 = 0;
-  v6 = sub_100019568("hangreporter", &v79);
-  v7 = v79;
+  v90 = 0;
+  v6 = sub_100019568("hangreporter", &v90);
+  v7 = v90;
+  v8 = v7;
   if (v6 >= 1)
   {
-    v8 = sub_100003824();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003824(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Hangreporter is alive, not attempting to emit telemetry.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Hangreporter is alive, not attempting to emit telemetry.", buf, 2u);
     }
 
 LABEL_4:
@@ -402,11 +405,11 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v11 = sub_100003824();
-  v12 = v11;
-  if (v7)
+  v12 = sub_100003824(v7);
+  v13 = v12;
+  if (v8)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10002F938();
     }
@@ -414,259 +417,261 @@ LABEL_4:
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v81 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
-    v82 = 1024;
-    LODWORD(v83) = v6;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: No error flag set in pidForProcessName with return value=%d. Hangreporter is not alive.", buf, 0x12u);
+    v92 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
+    v93 = 1024;
+    LODWORD(v94) = v6;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s: No error flag set in pidForProcessName with return value=%d. Hangreporter is not alive.", buf, 0x12u);
   }
 
-  v78 = 0;
-  v14 = [HTHangreporterKickstartTelemetry getSuccessfulTailspinSaves:&v78];
-  v15 = v78;
-  if (v14 == -1)
+  v89 = 0;
+  v15 = [HTHangreporterKickstartTelemetry getSuccessfulTailspinSaves:&v89];
+  v16 = v89;
+  v17 = v16;
+  if (v15 == -1)
   {
-    v17 = sub_100003824();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sub_100003824(v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10002FB48();
     }
 
     if (error)
     {
-      v18 = v15;
-      v9 = 0;
-      *error = v15;
+      v21 = v17;
+      v10 = 0;
+      *error = v17;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     goto LABEL_74;
   }
 
-  v77 = v15;
-  v16 = [HTHangreporterKickstartTelemetry getHangreporterTailspinsProcessed:&v77];
-  v7 = v77;
+  v88 = v16;
+  v18 = [HTHangreporterKickstartTelemetry getHangreporterTailspinsProcessed:&v88];
+  v8 = v88;
 
-  if (v16 != -1)
+  if (v18 != -1)
   {
-    if (v14 < v16)
+    if (v15 < v18)
     {
-      v8 = sub_100003824();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = sub_100003824(v19);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        sub_10002FA50(v16, v14, v8);
+        sub_10002FA50(v18, v15, v9);
       }
 
       goto LABEL_4;
     }
 
     +[NSFileManager defaultManager];
-    v68 = v76 = v7;
-    v19 = [v68 contentsOfDirectoryAtPath:@"/var/root/Library/Caches/hangtracerd/spool" error:&v76];
-    v15 = v76;
+    v79 = v87 = v8;
+    v22 = [v79 contentsOfDirectoryAtPath:@"/var/root/Library/Caches/hangtracerd/spool" error:&v87];
+    v17 = v87;
 
-    v9 = v19 != 0;
-    if (v19)
+    v10 = v22 != 0;
+    if (v22)
     {
-      v64 = v14 - v16;
-      v65 = v16;
-      v66 = v14;
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      obj = v19;
-      v20 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
-      if (!v20)
+      v75 = v15 - v18;
+      v76 = v18;
+      v77 = v15;
+      v85 = 0u;
+      v86 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      obj = v22;
+      v24 = [obj countByEnumeratingWithState:&v83 objects:v97 count:16];
+      if (!v24)
       {
-        v69 = 0;
-        v24 = 0.0;
+        v80 = 0;
+        v28 = 0.0;
         goto LABEL_72;
       }
 
-      v22 = v20;
-      v69 = 0;
-      v23 = *v73;
-      v24 = 0.0;
-      *&v21 = 138412290;
-      v63 = v21;
-      v25 = v68;
+      v26 = v24;
+      v80 = 0;
+      v27 = *v84;
+      v28 = 0.0;
+      *&v25 = 138412290;
+      v74 = v25;
+      v29 = v79;
       while (1)
       {
-        v26 = 0;
+        v30 = 0;
         do
         {
-          if (*v73 != v23)
+          if (*v84 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v72 + 1) + 8 * v26);
-          pathExtension = [v27 pathExtension];
-          v29 = [pathExtension isEqualToString:@"tailspin"];
+          v31 = *(*(&v83 + 1) + 8 * v30);
+          pathExtension = [v31 pathExtension];
+          v33 = [pathExtension isEqualToString:@"tailspin"];
 
-          if ((v29 & 1) == 0)
+          if ((v33 & 1) == 0)
           {
-            v30 = sub_100003824();
-            if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v36 = sub_100003824(v34);
+            if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
               goto LABEL_45;
             }
 
             *buf = 138412546;
-            v81 = v27;
-            v82 = 2080;
-            v83 = "/var/root/Library/Caches/hangtracerd/spool";
-            v35 = v30;
-            v36 = "Skipping non-tailspin file %@ in directory %s";
+            v92 = v31;
+            v93 = 2080;
+            v94 = "/var/root/Library/Caches/hangtracerd/spool";
+            v43 = v36;
+            v44 = "Skipping non-tailspin file %@ in directory %s";
 LABEL_41:
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, v36, buf, 0x16u);
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, v44, buf, 0x16u);
             goto LABEL_45;
           }
 
-          if ([v27 rangeOfString:@"processing.tailspin"] != 0x7FFFFFFFFFFFFFFFLL)
+          v35 = [v31 rangeOfString:@"processing.tailspin"];
+          if (v35 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v30 = sub_100003824();
-            if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v36 = sub_100003824(v35);
+            if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
               goto LABEL_45;
             }
 
             *buf = 138412546;
-            v81 = v27;
-            v82 = 2080;
-            v83 = "/var/root/Library/Caches/hangtracerd/spool";
-            v35 = v30;
-            v36 = "Skipping abandoned tailspin file %@ in directory %s";
+            v92 = v31;
+            v93 = 2080;
+            v94 = "/var/root/Library/Caches/hangtracerd/spool";
+            v43 = v36;
+            v44 = "Skipping abandoned tailspin file %@ in directory %s";
             goto LABEL_41;
           }
 
-          v30 = [@"/var/root/Library/Caches/hangtracerd/spool" stringByAppendingPathComponent:v27];
-          v71 = v15;
-          v31 = [v25 attributesOfItemAtPath:v30 error:&v71];
-          v32 = v71;
+          v36 = [@"/var/root/Library/Caches/hangtracerd/spool" stringByAppendingPathComponent:v31];
+          v82 = v17;
+          v37 = [v29 attributesOfItemAtPath:v36 error:&v82];
+          v38 = v82;
 
-          if (v31)
+          if (v37)
           {
-            v33 = [v31 objectForKeyedSubscript:NSFileType];
+            v40 = [v37 objectForKeyedSubscript:NSFileType];
 
-            if (v33 != NSFileTypeRegular)
+            if (v40 != NSFileTypeRegular)
             {
-              v34 = sub_100003824();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+              v42 = sub_100003824(v41);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v81 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
-                v82 = 2112;
-                v83 = v30;
-                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%s: Skipping non-regular file at path:%@", buf, 0x16u);
+                v92 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
+                v93 = 2112;
+                v94 = v36;
+                _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "%s: Skipping non-regular file at path:%@", buf, 0x16u);
               }
 
               goto LABEL_43;
             }
 
-            v37 = [v31 objectForKeyedSubscript:NSFileCreationDate];
+            v45 = [v37 objectForKeyedSubscript:NSFileCreationDate];
 
-            if (v37)
+            if (v45)
             {
-              v38 = sub_100003824();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+              v47 = sub_100003824(v46);
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                v81 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
-                v82 = 2112;
-                v83 = v30;
-                v84 = 2080;
-                v85 = "/var/root/Library/Caches/hangtracerd/spool";
-                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%s: Found tailspin file: %@ in spool directory: %s", buf, 0x20u);
+                v92 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
+                v93 = 2112;
+                v94 = v36;
+                v95 = 2080;
+                v96 = "/var/root/Library/Caches/hangtracerd/spool";
+                _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%s: Found tailspin file: %@ in spool directory: %s", buf, 0x20u);
               }
 
-              v39 = +[NSDate date];
-              v40 = [v31 objectForKeyedSubscript:NSFileCreationDate];
-              [v39 timeIntervalSinceDate:v40];
-              v42 = v41;
+              v48 = +[NSDate date];
+              v49 = [v37 objectForKeyedSubscript:NSFileCreationDate];
+              [v48 timeIntervalSinceDate:v49];
+              v51 = v50;
 
-              if (v42 > v24)
+              if (v51 > v28)
               {
-                v43 = sub_100003824();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+                v53 = sub_100003824(v52);
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v81 = v30;
-                  v82 = 2048;
-                  v83 = *&v42;
-                  _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Updating oldest tailspin to %@, creation time was %f seconds before now", buf, 0x16u);
+                  v92 = v36;
+                  v93 = 2048;
+                  v94 = *&v51;
+                  _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Updating oldest tailspin to %@, creation time was %f seconds before now", buf, 0x16u);
                 }
 
-                v24 = v42;
+                v28 = v51;
               }
 
-              ++HIDWORD(v69);
-              v44 = +[HTPrefs sharedPrefs];
-              [v44 tailspinReportingThresholdSec];
-              v46 = v45;
+              ++HIDWORD(v80);
+              v54 = +[HTPrefs sharedPrefs];
+              [v54 tailspinReportingThresholdSec];
+              v56 = v55;
 
-              if (v42 < v46)
+              if (v51 < v56)
               {
-                v25 = v68;
+                v29 = v79;
                 goto LABEL_44;
               }
 
-              v50 = v69 + 1;
-              v34 = sub_100003824();
-              LODWORD(v69) = v69 + 1;
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v61 = v80 + 1;
+              v42 = sub_100003824(v57);
+              LODWORD(v80) = v80 + 1;
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
               {
-                v67 = +[HTPrefs sharedPrefs];
-                [v67 tailspinReportingThresholdSec];
+                v78 = +[HTPrefs sharedPrefs];
+                [v78 tailspinReportingThresholdSec];
                 *buf = 138412802;
-                v81 = v30;
-                v82 = 2048;
-                v83 = v51;
-                v84 = 1024;
-                LODWORD(v85) = v50;
-                _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Found tailspin: %@ over the threshold limit of %f seconds. Incrementing number of tailspins in spool over the reporting limit to %d", buf, 0x1Cu);
+                v92 = v36;
+                v93 = 2048;
+                v94 = v62;
+                v95 = 1024;
+                LODWORD(v96) = v61;
+                _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Found tailspin: %@ over the threshold limit of %f seconds. Incrementing number of tailspins in spool over the reporting limit to %d", buf, 0x1Cu);
               }
 
-              v25 = v68;
+              v29 = v79;
             }
 
             else
             {
-              v34 = sub_100003824();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v42 = sub_100003824(v46);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
               {
-                *buf = v63;
-                v81 = v30;
-                v47 = v34;
-                v48 = "Failed to fetch creation date for file %@";
-                v49 = 12;
+                *buf = v74;
+                v92 = v36;
+                v58 = v42;
+                v59 = "Failed to fetch creation date for file %@";
+                v60 = 12;
 LABEL_62:
-                _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, v48, buf, v49);
+                _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, v59, buf, v60);
               }
             }
           }
 
           else
           {
-            v34 = sub_100003824();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v42 = sub_100003824(v39);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v81 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
-              v82 = 2112;
-              v83 = v30;
-              v84 = 2112;
-              v85 = v32;
-              v47 = v34;
-              v48 = "%s: Unable to get file attributes of file at path:%@ with error: %@";
-              v49 = 32;
+              v92 = "+[HTHangreporterKickstartTelemetry collectTailspinSpoolData:error:]";
+              v93 = 2112;
+              v94 = v36;
+              v95 = 2112;
+              v96 = v38;
+              v58 = v42;
+              v59 = "%s: Unable to get file attributes of file at path:%@ with error: %@";
+              v60 = 32;
               goto LABEL_62;
             }
           }
@@ -674,71 +679,71 @@ LABEL_62:
 LABEL_43:
 
 LABEL_44:
-          v15 = v32;
+          v17 = v38;
 LABEL_45:
 
-          v26 = v26 + 1;
+          v30 = v30 + 1;
         }
 
-        while (v22 != v26);
-        v52 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
-        v22 = v52;
-        if (!v52)
+        while (v26 != v30);
+        v63 = [obj countByEnumeratingWithState:&v83 objects:v97 count:16];
+        v26 = v63;
+        if (!v63)
         {
 LABEL_72:
 
-          v55 = +[NSMutableDictionary dictionary];
-          v56 = [NSNumber numberWithUnsignedInt:v66];
-          [v55 setObject:v56 forKey:@"successfulTailspinSaves"];
+          v66 = +[NSMutableDictionary dictionary];
+          v67 = [NSNumber numberWithUnsignedInt:v77];
+          [v66 setObject:v67 forKey:@"successfulTailspinSaves"];
 
-          v57 = [NSNumber numberWithUnsignedInt:v65];
-          [v55 setObject:v57 forKey:@"tailspinsProcessed"];
+          v68 = [NSNumber numberWithUnsignedInt:v76];
+          [v66 setObject:v68 forKey:@"tailspinsProcessed"];
 
-          v58 = [NSNumber numberWithUnsignedInt:v64];
-          [v55 setObject:v58 forKey:@"tailspinsUnprocessed"];
+          v69 = [NSNumber numberWithUnsignedInt:v75];
+          [v66 setObject:v69 forKey:@"tailspinsUnprocessed"];
 
-          v59 = [NSNumber numberWithUnsignedInt:HIDWORD(v69)];
-          [v55 setObject:v59 forKey:@"tailspinsInSpool"];
+          v70 = [NSNumber numberWithUnsignedInt:HIDWORD(v80)];
+          [v66 setObject:v70 forKey:@"tailspinsInSpool"];
 
-          v60 = [NSNumber numberWithDouble:v24];
-          [v55 setObject:v60 forKey:@"oldestTailspinCreationSeconds"];
+          v71 = [NSNumber numberWithDouble:v28];
+          [v66 setObject:v71 forKey:@"oldestTailspinCreationSeconds"];
 
-          v61 = [NSNumber numberWithUnsignedInt:v69];
-          [v55 setObject:v61 forKey:@"tailspinsOverReportingThresholds"];
+          v72 = [NSNumber numberWithUnsignedInt:v80];
+          [v66 setObject:v72 forKey:@"tailspinsOverReportingThresholds"];
 
-          v62 = v55;
-          *data = v55;
+          v73 = v66;
+          *data = v66;
 
-          v9 = v19 != 0;
+          v10 = v22 != 0;
           goto LABEL_73;
         }
       }
     }
 
-    if (v15)
+    if (v17)
     {
-      v53 = sub_100003824();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v64 = sub_100003824(v23);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         sub_10002F9B4();
       }
 
       if (error)
       {
-        v54 = v15;
-        *error = v15;
+        v65 = v17;
+        *error = v17;
       }
     }
 
 LABEL_73:
 
 LABEL_74:
-    v7 = v15;
+    v8 = v17;
     goto LABEL_6;
   }
 
-  v12 = sub_100003824();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = sub_100003824(v19);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     sub_10002FAD8();
   }
@@ -747,17 +752,17 @@ LABEL_10:
 
   if (error)
   {
-    v13 = v7;
-    v9 = 0;
-    *error = v7;
+    v14 = v8;
+    v10 = 0;
+    *error = v8;
     goto LABEL_6;
   }
 
 LABEL_5:
-  v9 = 0;
+  v10 = 0;
 LABEL_6:
 
-  return v9;
+  return v10;
 }
 
 @end

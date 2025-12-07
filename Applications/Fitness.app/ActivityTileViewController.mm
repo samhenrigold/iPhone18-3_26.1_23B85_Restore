@@ -72,14 +72,15 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100272FC8(appear);
+  sub_100272FC8(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1002731D0(disappear);
+  sub_1002731D0(disappear, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -89,8 +90,8 @@
   v7.super_class = type metadata accessor for ActivityTileViewController();
   v4 = v7.receiver;
   [(ActivityTileViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_100281448(&qword_1008E4EF0, v5, type metadata accessor for ActivityTileViewController);
-  sub_100281448(&qword_1008E4EF8, v6, type metadata accessor for ActivityTileViewController);
+  sub_100281448(&qword_1008E4EF0, v5, type metadata accessor for ActivityTileViewController, &unk_1006E3208);
+  sub_100281448(&qword_1008E4EF8, v6, type metadata accessor for ActivityTileViewController, &unk_1006E3198);
   MetricResignActiveObserving<>.removeResignActiveObserver()();
 }
 
@@ -128,11 +129,11 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (&v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_100273E6C(viewCopy);
+  v12 = sub_100273E6C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -173,7 +174,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100281F58();
+  sub_100281F58(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -326,7 +327,7 @@
 
 - (void)showWorkoutWithId:(id)id activityId:(id)activityId page:(id)page
 {
-  v8 = sub_100140278(&unk_1008DB8A0);
+  v8 = sub_100140278(&unk_1008DB8A0, qword_1006DBA20);
   __chkstk_darwin(v8 - 8);
   v10 = &v19 - v9;
   v11 = type metadata accessor for UUID();
@@ -360,7 +361,7 @@
   selfCopy = self;
   sub_10027BC18(v14, v10, v16, page);
 
-  sub_10000EA04(v10, &unk_1008DB8A0);
+  sub_10000EA04(v10, &unk_1008DB8A0, qword_1006DBA20);
   (*(v12 + 8))(v14, v11);
 }
 

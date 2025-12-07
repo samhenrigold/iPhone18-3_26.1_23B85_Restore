@@ -76,7 +76,7 @@
 
 - (void)handler:(id)handler incomingReachabilityRequest:(id)request fromToken:(id)token fromIdentifier:(id)identifier toIdentifier:(id)toIdentifier messageGUID:(id)d
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   requestCopy = request;
   tokenCopy = token;
@@ -100,7 +100,7 @@
     {
       serviceName2 = [requestCopy serviceName];
       *buf = 138412290;
-      v40 = serviceName2;
+      v39 = serviceName2;
       _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Dropping incoming reachability request for unknown service name %@", buf, 0xCu);
     }
 
@@ -125,7 +125,7 @@ LABEL_15:
     {
       serviceName3 = [requestCopy serviceName];
       *buf = 138412290;
-      v40 = serviceName3;
+      v39 = serviceName3;
       _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Dropping incoming reachability request for service %@ as it does not support relayed reachability", buf, 0xCu);
     }
 
@@ -140,11 +140,11 @@ LABEL_15:
       serviceName4 = [requestCopy serviceName];
       handles = [requestCopy handles];
       *buf = 138412802;
-      v40 = serviceName4;
-      v41 = 2112;
-      v42 = tokenCopy;
-      v43 = 2112;
-      v44 = handles;
+      v39 = serviceName4;
+      v40 = 2112;
+      v41 = tokenCopy;
+      v42 = 2112;
+      v43 = handles;
       _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Kicking off incoming reachability request for service %@ from token %@ for handles %@", buf, 0x20u);
     }
   }
@@ -160,7 +160,6 @@ LABEL_15:
   [v19 calculateReachabilityWithRequest:v31 responseHandler:v32];
 
 LABEL_16:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handler:(id)handler incomingReachabilityResponse:(id)response fromToken:(id)token messageGUID:(id)d
@@ -186,7 +185,7 @@ LABEL_16:
 
 - (BOOL)_dedupeRequestIfNeeded:(id)needed responseHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   handlerCopy = handler;
   queue = [(IMDRelayServiceReachabilityController *)self queue];
@@ -208,13 +207,13 @@ LABEL_16:
           handleIDs = [neededCopy handleIDs];
           requestID = [neededCopy requestID];
           requestID2 = [v11 requestID];
-          v22 = 138412802;
-          v23 = handleIDs;
-          v24 = 2112;
-          v25 = requestID;
-          v26 = 2112;
-          v27 = requestID2;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Asked to calculate reachability for %@ with ID %@, found similar in-progress request with ID %@ - will piggyback off of existing request instead of starting a new one.", &v22, 0x20u);
+          v21 = 138412802;
+          v22 = handleIDs;
+          v23 = 2112;
+          v24 = requestID;
+          v25 = 2112;
+          v26 = requestID2;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Asked to calculate reachability for %@ with ID %@, found similar in-progress request with ID %@ - will piggyback off of existing request instead of starting a new one.", &v21, 0x20u);
         }
       }
 
@@ -241,13 +240,12 @@ LABEL_16:
     v12 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_calculateReachabilityWithRequest:(id)request responseHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   queue = [(IMDRelayServiceReachabilityController *)self queue];
@@ -279,13 +277,13 @@ LABEL_16:
         requestID3 = [requestCopy requestID];
         serviceName2 = [requestCopy serviceName];
         handleIDs2 = [requestCopy handleIDs];
-        v31 = 138412802;
-        v32 = requestID3;
-        v33 = 2112;
-        v34 = serviceName2;
-        v35 = 2112;
-        v36 = handleIDs2;
-        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Sending reachability request with ID %@ for service %@ for handles %@", &v31, 0x20u);
+        v30 = 138412802;
+        v31 = requestID3;
+        v32 = 2112;
+        v33 = serviceName2;
+        v34 = 2112;
+        v35 = handleIDs2;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Sending reachability request with ID %@ for service %@ for handles %@", &v30, 0x20u);
       }
     }
 
@@ -300,13 +298,11 @@ LABEL_16:
 
     [(IMDRelayServiceReachabilityController *)self _startCleanupTimerIfNeeded];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleReachabilityResult:(id)result messageID:(id)d fromToken:(id)token
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   dCopy = d;
   tokenCopy = token;
@@ -320,26 +316,26 @@ LABEL_16:
   {
     if (tokenCopy)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       sentToDevices = [v12 sentToDevices];
-      v14 = [sentToDevices countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v14 = [sentToDevices countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v14)
       {
-        v15 = *v30;
+        v15 = *v29;
         while (2)
         {
           v16 = 0;
           do
           {
-            if (*v30 != v15)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(sentToDevices);
             }
 
-            pushToken = [*(*(&v29 + 1) + 8 * v16) pushToken];
+            pushToken = [*(*(&v28 + 1) + 8 * v16) pushToken];
             v18 = [pushToken isEqualToData:tokenCopy];
 
             if (v18)
@@ -352,7 +348,7 @@ LABEL_16:
           }
 
           while (v14 != v16);
-          v14 = [sentToDevices countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v14 = [sentToDevices countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v14)
           {
             continue;
@@ -368,7 +364,7 @@ LABEL_16:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v34 = tokenCopy;
+          v33 = tokenCopy;
           _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Dropping incoming reachability result from unexpected push token %@", buf, 0xCu);
         }
       }
@@ -383,9 +379,9 @@ LABEL_20:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v34 = dCopy;
-          v35 = 2112;
-          v36 = resultCopy;
+          v33 = dCopy;
+          v34 = 2112;
+          v35 = resultCopy;
           _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Handling reachability result for request ID %@ result %@", buf, 0x16u);
         }
       }
@@ -403,12 +399,12 @@ LABEL_20:
       date = [MEMORY[0x277CBEAA8] date];
       [v12 setLastUpdateTime:date];
 
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = sub_22B6E73D0;
-      v27[3] = &unk_278708848;
-      v28 = resultCopy;
-      [v12 enumerateResponseHandlersWithBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = sub_22B6E73D0;
+      v26[3] = &unk_278708848;
+      v27 = resultCopy;
+      [v12 enumerateResponseHandlersWithBlock:v26];
       [(IMDRelayServiceReachabilityController *)self _stopCleanupTimerIfNeeded];
     }
   }
@@ -419,12 +415,10 @@ LABEL_20:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v34 = dCopy;
+      v33 = dCopy;
       _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Dropping incoming reachability result for untracked request ID %@", buf, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startCleanupTimerIfNeeded
@@ -496,7 +490,7 @@ LABEL_20:
 
 - (void)_timeoutPendingRequest:(id)request
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   createIncompleteFinalResult = [requestCopy createIncompleteFinalResult];
   if (IMOSLoggingEnabled())
@@ -505,43 +499,41 @@ LABEL_20:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       requestID = [requestCopy requestID];
-      v10 = 138412290;
-      v11 = requestID;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Timing out pending reachability request with ID %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = requestID;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Timing out pending reachability request with ID %@", &v9, 0xCu);
     }
   }
 
   requestID2 = [requestCopy requestID];
   [(IMDRelayServiceReachabilityController *)self _handleReachabilityResult:createIncompleteFinalResult messageID:requestID2 fromToken:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_expiredRequests
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = *MEMORY[0x277D85DE8];
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   pendingRequests = [(IMDRelayServiceReachabilityController *)self pendingRequests];
   allValues = [pendingRequests allValues];
 
-  v5 = [allValues countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         lastUpdateTime = [v8 lastUpdateTime];
         [lastUpdateTime timeIntervalSinceNow];
         v11 = v10 < 0.0;
@@ -557,7 +549,7 @@ LABEL_20:
           }
 
 LABEL_10:
-          [v20 addObject:v8];
+          [v19 addObject:v8];
           continue;
         }
 
@@ -567,68 +559,64 @@ LABEL_10:
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  if ([v20 count] && IMOSLoggingEnabled())
+  if ([v19 count] && IMOSLoggingEnabled())
   {
     v15 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v16 = [v20 count];
+      v16 = [v19 count];
       *buf = 134217984;
-      v26 = v16;
+      v25 = v16;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Found %ld expired reachability requests", buf, 0xCu);
     }
   }
 
-  v17 = [v20 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [v19 copy];
 
   return v17;
 }
 
 - (void)_timeoutPendingRequests
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(IMDRelayServiceReachabilityController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   _expiredRequests = [(IMDRelayServiceReachabilityController *)self _expiredRequests];
-  v5 = [_expiredRequests countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [_expiredRequests countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(_expiredRequests);
         }
 
-        [(IMDRelayServiceReachabilityController *)self _timeoutPendingRequest:*(*(&v10 + 1) + 8 * v8++)];
+        [(IMDRelayServiceReachabilityController *)self _timeoutPendingRequest:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [_expiredRequests countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [_expiredRequests countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

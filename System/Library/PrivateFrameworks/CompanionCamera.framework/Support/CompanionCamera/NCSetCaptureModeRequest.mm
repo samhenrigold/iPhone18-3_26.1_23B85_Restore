@@ -1,5 +1,6 @@
 @interface NCSetCaptureModeRequest
 - (BOOL)isEqual:(id)equal;
+- (id)captureModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)captureModeAsString:(int)string
+{
+  if (string < 0xD && ((0x1FABu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100034FF0 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCaptureMode:(id)mode
@@ -124,7 +140,6 @@
 {
   if (*&self->_has)
   {
-    captureMode = self->_captureMode;
     PBDataWriterWriteInt32Field();
   }
 }

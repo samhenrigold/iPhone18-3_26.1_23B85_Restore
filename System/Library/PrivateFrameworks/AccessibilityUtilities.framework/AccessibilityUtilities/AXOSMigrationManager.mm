@@ -36,9 +36,9 @@
 
 - (CGColor)convertColor:(int64_t)color
 {
-  v3 = sub_18B2A2494(color);
+  v4 = sub_18B2A2494(color, v3);
 
-  return v3;
+  return v4;
 }
 
 - (id)generatePackage
@@ -73,7 +73,7 @@
   selfCopy = self;
   sub_18B2A1AD4();
 
-  sub_18B2862C0(0, &qword_1EA9B73C8);
+  sub_18B2862C0(0, &qword_1EA9B73C8, off_1E71E7F88);
   v3 = sub_18B2C99D4();
 
   return v3;
@@ -83,7 +83,7 @@
 {
   styleCopy = style;
   [styleCopy integerValue];
-  sub_18B2862C0(0, &qword_1ED653B98);
+  sub_18B2862C0(0, &qword_1ED653B98, 0x1E696AD98);
   v4 = sub_18B2C9BE4();
 
   return v4;

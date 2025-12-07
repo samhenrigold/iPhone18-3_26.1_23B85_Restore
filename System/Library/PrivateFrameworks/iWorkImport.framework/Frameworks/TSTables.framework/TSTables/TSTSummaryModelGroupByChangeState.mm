@@ -13,83 +13,83 @@
   end = self->_summaryRowHeightList.__end_;
   if (begin != end)
   {
-    v10 = *(message + 6);
+    v9 = *(message + 6);
     do
     {
-      v11 = *begin;
-      if (v10 == *(message + 7))
+      v10 = *begin;
+      if (v9 == *(message + 7))
       {
-        sub_2212A3D38(message + 6, v10 + 1);
+        sub_2212A3D38(message + 6, v9 + 1);
       }
 
-      *(*(message + 4) + 8 * v10++) = v11;
-      *(message + 6) = v10;
+      *(*(message + 4) + 8 * v9++) = v10;
+      *(message + 6) = v9;
       ++begin;
     }
 
     while (begin != end);
   }
 
-  v12 = self->_labelRowHeightList.__begin_;
-  v13 = self->_labelRowHeightList.__end_;
-  if (v12 != v13)
+  v11 = self->_labelRowHeightList.__begin_;
+  v12 = self->_labelRowHeightList.__end_;
+  if (v11 != v12)
   {
-    v14 = *(message + 10);
+    v13 = *(message + 10);
     do
     {
-      v15 = *v12;
-      if (v14 == *(message + 11))
+      v14 = *v11;
+      if (v13 == *(message + 11))
       {
-        sub_2212A3D38(message + 10, v14 + 1);
+        sub_2212A3D38(message + 10, v13 + 1);
       }
 
-      *(*(message + 6) + 8 * v14++) = v15;
-      *(message + 10) = v14;
-      ++v12;
+      *(*(message + 6) + 8 * v13++) = v14;
+      *(message + 10) = v13;
+      ++v11;
     }
 
-    while (v12 != v13);
+    while (v11 != v12);
   }
 
-  v16 = self->_labelRowVisibilityList.__begin_;
-  v17 = self->_labelRowVisibilityList.__end_;
-  if (v16 != v17)
+  v15 = self->_labelRowVisibilityList.__begin_;
+  v16 = self->_labelRowVisibilityList.__end_;
+  if (v15 != v16)
   {
-    v18 = *(message + 14);
+    v17 = *(message + 14);
     do
     {
-      v19 = *v16;
-      if (v18 == *(message + 15))
+      v18 = *v15;
+      if (v17 == *(message + 15))
       {
-        sub_2210BBC64(message + 14, v18 + 1);
+        sub_2210BBC64(message + 14, v17 + 1);
       }
 
-      *(*(message + 8) + 4 * v18++) = v19;
-      *(message + 14) = v18;
-      ++v16;
+      *(*(message + 8) + 4 * v17++) = v18;
+      *(message + 14) = v17;
+      ++v15;
     }
 
-    while (v16 != v17);
+    while (v15 != v16);
   }
 
   cellMap = self->_cellMap;
   if (cellMap)
   {
     *(message + 4) |= 1u;
-    v21 = *(message + 9);
-    if (!v21)
+    v20 = *(message + 9);
+    if (!v20)
     {
-      v22 = *(message + 1);
-      if (v22)
+      v21 = *(message + 1);
+      if (v21)
       {
-        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+        v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v21 = MEMORY[0x223DA0390](v22);
-      *(message + 9) = v21;
+      v20 = MEMORY[0x223DA0390](v21);
+      *(message + 9) = v20;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v6, cellMap, v21, v7);
+    objc_msgSend_setStrongReference_message_(archiverCopy, v6, cellMap, v20);
   }
 }
 

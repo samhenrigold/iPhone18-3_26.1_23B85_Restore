@@ -65,58 +65,61 @@
 
 uint64_t __25__GKDevice_currentDevice__block_invoke(uint64_t a1)
 {
-  currentDevice_sCurrentDevice = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = currentDevice_sCurrentDevice;
+  currentDevice_sCurrentDevice = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (GKDevice)init
 {
-  v12.receiver = self;
-  v12.super_class = GKDevice;
-  v2 = [(GKDevice *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = GKDevice;
+  v2 = [(GKDevice *)&v13 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = GKGameKitBundle();
-    v4 = v3;
-    if (v3)
+    v4 = GKGameKitBundle(v2);
+    v5 = v4;
+    if (v4)
     {
-      infoDictionary = [v3 infoDictionary];
-      v6 = [infoDictionary objectForKey:*MEMORY[0x277CBED58]];
+      infoDictionary = [v4 infoDictionary];
+      v7 = [infoDictionary objectForKey:*MEMORY[0x277CBED58]];
 
-      v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"GameKit-%@", v6];
-      gameKitVersion = v2->_gameKitVersion;
-      v2->_gameKitVersion = v7;
+      v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"GameKit-%@", v7];
+      gameKitVersion = v3->_gameKitVersion;
+      v3->_gameKitVersion = v8;
     }
 
-    v2->_gameKitAvailable = 1;
-    [(GKDevice *)v2 _initPlatform];
-    if (!v2->_deviceType)
+    v3->_gameKitAvailable = 1;
+    [(GKDevice *)v3 _initPlatform];
+    if (!v3->_deviceType)
     {
-      v2->_deviceType = @"Unknown";
+      v3->_deviceType = @"Unknown";
     }
 
-    if (!v2->_buildVersion)
+    if (!v3->_buildVersion)
     {
-      v2->_buildVersion = @"Unknown";
+      v3->_buildVersion = @"Unknown";
     }
 
-    if (!v2->_osVersion)
+    if (!v3->_osVersion)
     {
-      v2->_osVersion = @"Unknown";
+      v3->_osVersion = @"Unknown";
     }
 
-    if (!v2->_gameKitVersion)
+    if (!v3->_gameKitVersion)
     {
-      v2->_gameKitVersion = @"Unknown";
+      v3->_gameKitVersion = @"Unknown";
     }
 
-    v9 = [GKDevice zeroOutVersionWithDeviceType:v2->_deviceType];
-    versionlessDeviceType = v2->_versionlessDeviceType;
-    v2->_versionlessDeviceType = v9;
+    v10 = [GKDevice zeroOutVersionWithDeviceType:v3->_deviceType];
+    versionlessDeviceType = v3->_versionlessDeviceType;
+    v3->_versionlessDeviceType = v10;
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)userAgentWithProcessName:(id)name protocolVersion:(id)version
@@ -212,13 +215,13 @@ uint64_t __25__GKDevice_currentDevice__block_invoke(uint64_t a1)
 
 - (void)_initPlatform
 {
-  v24[5] = *MEMORY[0x277D85DE8];
-  v24[0] = @"ProductType";
-  v24[1] = @"ProductVersion";
-  v24[2] = @"BuildVersion";
-  v24[3] = @"ipad";
-  v24[4] = @"gamekit";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
+  v23[5] = *MEMORY[0x277D85DE8];
+  v23[0] = @"ProductType";
+  v23[1] = @"ProductVersion";
+  v23[2] = @"BuildVersion";
+  v23[3] = @"ipad";
+  v23[4] = @"gamekit";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
   v4 = MGCopyMultipleAnswers();
   v5 = [v4 objectForKeyedSubscript:@"ProductType"];
   deviceType = self->_deviceType;
@@ -247,16 +250,14 @@ uint64_t __25__GKDevice_currentDevice__block_invoke(uint64_t a1)
     v14 = self->_deviceType;
     v15 = self->_osVersion;
     v16 = self->_buildVersion;
-    v18 = 138412802;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v15;
-    v22 = 2112;
-    v23 = v16;
-    _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "Game Center DeviceType:%@, OS:%@ Build:%@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v15;
+    v21 = 2112;
+    v22 = v16;
+    _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "Game Center DeviceType:%@, OS:%@ Build:%@", &v17, 0x20u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__GKDevice_PlatformDependent___platformUDID__block_invoke()
@@ -297,11 +298,11 @@ void __50__GKDevice_PlatformDependent__isDevelopmentDevice__block_invoke()
 + (id)zeroOutVersionWithDeviceType:(id)type
 {
   v3 = sub_227A724EC();
-  static GKDevice.zeroOutVersion(deviceType:)(v3);
+  static GKDevice.zeroOutVersion(deviceType:)(v3, v4);
 
-  v4 = sub_227A724BC();
+  v5 = sub_227A724BC();
 
-  return v4;
+  return v5;
 }
 
 @end

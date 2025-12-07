@@ -70,33 +70,33 @@
 
 - (id)encodeAttributeWithError:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
-  v39 = 0;
+  v41[1] = *MEMORY[0x277D85DE8];
+  v38 = 0;
   bytes = 0;
   asn1AlgId = [(MSAlgorithmIdentifier *)self->_bodyHashAlgorithm asn1AlgId];
   var1 = asn1AlgId->var1;
   var0 = asn1AlgId->var0;
-  v34 = var1;
+  v33 = var1;
   asn1AlgId2 = [(MSAlgorithmIdentifier *)self->_signatureAlgorithm asn1AlgId];
   v8 = asn1AlgId2->var1;
-  v35 = asn1AlgId2->var0;
-  v36 = v8;
+  v34 = asn1AlgId2->var0;
+  v35 = v8;
   asn1AlgId3 = [(MSAlgorithmIdentifier *)self->_signedAttrsHashAlgorithm asn1AlgId];
   v10 = asn1AlgId3->var1;
-  v37 = asn1AlgId3->var0;
-  v38 = v10;
+  v36 = asn1AlgId3->var0;
+  v37 = v10;
   WeakRetained = objc_loadWeakRetained(&self->_signedAttrsHash);
 
   if (WeakRetained)
   {
     v12 = objc_loadWeakRetained(&self->_signedAttrsHash);
-    v39 = [v12 length];
+    v38 = [v12 length];
 
     v13 = objc_loadWeakRetained(&self->_signedAttrsHash);
     bytes = [v13 bytes];
   }
 
-  v32 = 0;
+  v31 = 0;
   v14 = length_MultipleSignatures(&var0);
   v15 = [MEMORY[0x277CBEB28] dataWithLength:v14];
   if (!v15)
@@ -111,7 +111,7 @@
   }
 
   v16 = v15;
-  v17 = encode_MultipleSignatures([v15 mutableBytes] + v14 - 1, v14, &var0, &v32);
+  v17 = encode_MultipleSignatures([v15 mutableBytes] + v14 - 1, v14, &var0, &v31);
   if (v17)
   {
     v18 = v17;
@@ -126,18 +126,18 @@ LABEL_7:
 
 LABEL_6:
     v20 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA450];
-    v42[0] = @"Failed encoding type MultipleSignatures";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA450];
+    v41[0] = @"Failed encoding type MultipleSignatures";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     *error = [v20 errorWithDomain:@"com.apple.HeimASN1" code:v19 userInfo:v21];
 
     goto LABEL_7;
   }
 
-  if (v14 != v32)
+  if (v14 != v31)
   {
-    v28 = asn1_abort();
-    return [(MSCMSMultipleSignaturesAttribute *)v28 initWithAttribute:v29 error:v30, v31];
+    v27 = asn1_abort();
+    return [(MSCMSMultipleSignaturesAttribute *)v27 initWithAttribute:v28 error:v29, v30];
   }
 
 LABEL_11:
@@ -145,8 +145,6 @@ LABEL_11:
   v23 = [MSOID OIDWithString:@"1.2.840.113549.1.9.2.51" error:error];
   v24 = [MEMORY[0x277CBEA60] arrayWithObject:v16];
   v25 = [(MSCMSAttribute *)v22 initWithAttributeType:v23 values:v24];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -198,7 +196,7 @@ LABEL_11:
   memset(v33, 0, sizeof(v33));
   attributeValues2 = [attributeCopy attributeValues];
   v13 = [attributeValues2 objectAtIndex:0];
-  v14 = nsheim_decode_MultipleSignatures(v13);
+  v14 = nsheim_decode_MultipleSignatures(v13, v33);
 
   if (!v14)
   {
@@ -231,7 +229,7 @@ LABEL_17:
         }
 
 LABEL_19:
-        free_MultipleSignatures();
+        free_MultipleSignatures(v33);
         v19 = v7;
 
         goto LABEL_20;

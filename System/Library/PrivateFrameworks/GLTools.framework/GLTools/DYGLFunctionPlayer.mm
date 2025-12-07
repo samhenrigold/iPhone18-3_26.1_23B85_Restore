@@ -45,12 +45,11 @@
   *(&self->super.super.isa + *MEMORY[0x277D0AF78]) = d;
   self->_ctx = [context dy_platformContext];
   self->_gli_ctx = GLIContextFromEAGLContext();
-  ctx = self->_ctx;
   self->_disp = GLCFrontDispatch();
   newContextInfo = [(DYGLFunctionPlayer *)self newContextInfo];
   contextCopy = context;
-  v12 = newContextInfo[9];
-  if (v12 != contextCopy)
+  v11 = newContextInfo[9];
+  if (v11 != contextCopy)
   {
 
     newContextInfo[9] = contextCopy;
@@ -63,9 +62,9 @@
   size = self->_contextInfoMap.__table_.__bucket_list_.__deleter_.__size_;
   if (size)
   {
-    v15 = vcnt_s8(size);
-    v15.i16[0] = vaddlv_u8(v15);
-    if (v15.u32[0] > 1uLL)
+    v14 = vcnt_s8(size);
+    v14.i16[0] = vaddlv_u8(v14);
+    if (v14.u32[0] > 1uLL)
     {
       dCopy2 = d;
       if (size <= d)
@@ -79,33 +78,33 @@
       dCopy2 = (size - 1) & d;
     }
 
-    v17 = p_contextInfoMap->__table_.__bucket_list_.__ptr_[dCopy2];
-    if (v17)
+    v16 = *(*p_contextInfoMap + 8 * dCopy2);
+    if (v16)
     {
-      v18 = *v17;
-      if (v18)
+      v17 = *v16;
+      if (v17)
       {
-        if (v15.u32[0] < 2uLL)
+        if (v14.u32[0] < 2uLL)
         {
-          v19 = size - 1;
+          v18 = size - 1;
           while (1)
           {
-            v21 = v18[1];
-            if (v21 == d)
+            v20 = v17[1];
+            if (v20 == d)
             {
-              if (v18[2] == d)
+              if (v17[2] == d)
               {
                 goto LABEL_32;
               }
             }
 
-            else if ((v21 & v19) != dCopy2)
+            else if ((v20 & v18) != dCopy2)
             {
               goto LABEL_24;
             }
 
-            v18 = *v18;
-            if (!v18)
+            v17 = *v17;
+            if (!v17)
             {
               goto LABEL_24;
             }
@@ -114,10 +113,10 @@
 
         do
         {
-          v20 = v18[1];
-          if (v20 == d)
+          v19 = v17[1];
+          if (v19 == d)
           {
-            if (v18[2] == d)
+            if (v17[2] == d)
             {
 LABEL_32:
               __assert_rtn("[DYGLFunctionPlayer updateCurrentStateWithNewContext:contextID:sharegroupID:]", &unk_24C0EEB1F, 0, "_contextInfoMap.find(contextID) == _contextInfoMap.end()");
@@ -126,30 +125,33 @@ LABEL_32:
 
           else
           {
-            if (v20 >= size)
+            if (v19 >= size)
             {
-              v20 %= size;
+              v19 %= size;
             }
 
-            if (v20 != dCopy2)
+            if (v19 != dCopy2)
             {
               break;
             }
           }
 
-          v18 = *v18;
+          v17 = *v17;
         }
 
-        while (v18);
+        while (v17);
       }
     }
   }
 
 LABEL_24:
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>(p_contextInfoMap, &dCopy);
-  if (newContextInfo)
+  v30 = newContextInfo;
+  std::__hash_table<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,std::unique_ptr<GPUTools::Playback::GL::ContextInfo>>(p_contextInfoMap, &dCopy, &dCopy, &v30);
+  v21 = v30;
+  v30 = 0;
+  if (v21)
   {
-    (*(*newContextInfo + 8))(newContextInfo);
+    (*(*v21 + 8))(v21);
   }
 
   v22 = objc_opt_new();
@@ -175,7 +177,7 @@ LABEL_24:
   {
     v27 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:1];
     v28 = objc_alloc(MEMORY[0x277CBEB38]);
-    v29 = [v28 initWithObjectsAndKeys:{v27, @"ref_count", 0, 0, dCopy}];
+    v29 = [v28 initWithObjectsAndKeys:{v27, @"ref_count", 0, v30, dCopy}];
     self->_sharegroup_dict = v29;
     [(DYIntKeyedDictionary *)self->_sharegroupMap setObject:v29 forIntKey:iD];
 
@@ -480,18 +482,13 @@ LABEL_14:
 - (void)_dispatchGLFunction
 {
   v3 = *MEMORY[0x277D0AFA0];
-  v4 = **(&self->super.super.isa + v3);
   [(DYFunctionPlayer *)self processArguments];
-  disp = self->_disp;
-  gli_ctx = self->_gli_ctx;
-  v7 = *MEMORY[0x277D0AF68];
-  v8 = *MEMORY[0x277D0AFA8];
-  v9 = *(&self->super.super.isa + v8);
+  v4 = *MEMORY[0x277D0AFA8];
   dy_dispatch();
   if (((*(&self->super.super.isa + v3))[23] & 0x10) != 0)
   {
-    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:(*(&self->super.super.isa + v3))[3] encoding:1];
-    NSMapInsert(*(&self->super.super.isa + *MEMORY[0x277D0AFB0]), v10, **(&self->super.super.isa + v8));
+    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:(*(&self->super.super.isa + v3))[3] encoding:1];
+    NSMapInsert(*(&self->super.super.isa + *MEMORY[0x277D0AFB0]), v5, **(&self->super.super.isa + v4));
   }
 }
 
@@ -506,8 +503,8 @@ LABEL_14:
     {
       v31 = **(v4 + 72);
       disp = self->_disp;
-      *&v63 = 0;
-      (disp->get_buffer_pointerv)(self->_gli_ctx, v31, 35005, &v63);
+      *&v61 = 0;
+      (disp->get_buffer_pointerv)(self->_gli_ctx, v31, 35005, &v61);
       v33 = *(v4 + 118);
       if ((v33 & 0x28) != 0)
       {
@@ -515,18 +512,18 @@ LABEL_14:
         v35 = *(v4 + 96);
         if ((v33 & 8) != 0)
         {
-          [(DYCaptureStore *)captureStore readDataForFilenameBuffer:v35 buffer:**(v4 + 120) + v63 size:**(v4 + 144) error:0];
+          [(DYCaptureStore *)captureStore readDataForFilenameBuffer:v35 buffer:**(v4 + 120) + v61 size:**(v4 + 144) error:0];
         }
 
         else
         {
-          [(DYCaptureStore *)captureStore readDataForFilePosition:*v35 buffer:**(v4 + 120) + v63 size:**(v4 + 144) error:0];
+          [(DYCaptureStore *)captureStore readDataForFilePosition:*v35 buffer:**(v4 + 120) + v61 size:**(v4 + 144) error:0];
         }
       }
 
       else
       {
-        memcpy((**(v4 + 120) + v63), *(v4 + 96), **(v4 + 144));
+        memcpy((**(v4 + 120) + v61), *(v4 + 96), **(v4 + 144));
       }
 
       return;
@@ -551,9 +548,9 @@ LABEL_14:
     v9 = *(v4 + 72);
     if ((v7 & 8) != 0)
     {
-      [(DYCaptureStore *)captureStore2 getInfo:&v63 forFilenameBuffer:v9 error:0];
-      v10 = DWORD1(v64);
-      v11 = (DWORD1(v64) + 15) & 0x1FFFFFFF0;
+      [(DYCaptureStore *)captureStore2 getInfo:&v61 forFilenameBuffer:v9 error:0];
+      v10 = DWORD1(v62);
+      v11 = (DWORD1(v62) + 15) & 0x1FFFFFFF0;
       v12 = currentContextInfo[6];
       if (v12)
       {
@@ -563,9 +560,9 @@ LABEL_14:
 
     else
     {
-      [(DYCaptureStore *)captureStore2 getInfo:&v63 forFilePosition:*v9 error:0];
-      v10 = DWORD1(v64);
-      v11 = (DWORD1(v64) + 15) & 0x1FFFFFFF0;
+      [(DYCaptureStore *)captureStore2 getInfo:&v61 forFilePosition:*v9 error:0];
+      v10 = DWORD1(v62);
+      v11 = (DWORD1(v62) + 15) & 0x1FFFFFFF0;
       v12 = currentContextInfo[6];
       if (v12)
       {
@@ -576,20 +573,19 @@ LABEL_7:
           operator new();
         }
 
-        v66 = 0;
+        v64 = 0;
         captureStore3 = [(DYFunctionPlayer *)self captureStore];
-        if ([(DYCaptureStore *)captureStore3 readDataForFilePosition:v63 buffer:v13[4] + *v13 size:v10 error:&v66]== -1)
+        if ([(DYCaptureStore *)captureStore3 readDataForFilePosition:v61 buffer:v13[4] + *v13 size:v10 error:&v64]== -1)
         {
-          v62 = *MEMORY[0x277D0B240];
           _DYOLog();
         }
 
         else
         {
-          v60 = v13[4];
-          v61 = ((v11 + v13[5] - 1) & -v13[5]) + v60;
-          v13[3] = v60;
-          v13[4] = v61;
+          v59 = v13[4];
+          v60 = ((v11 + v13[5] - 1) & -v13[5]) + v59;
+          v13[3] = v59;
+          v13[4] = v60;
         }
 
         return;
@@ -624,9 +620,9 @@ LABEL_7:
     v23 = ((*v22 + v22[5] - 1) & -v22[5]) - *v22;
     v22[3] = v23;
     v22[4] = v23;
-    v64 = 0u;
-    v65 = 0u;
+    v62 = 0u;
     v63 = 0u;
+    v61 = 0u;
     v24 = v14[3];
     if (v24 == v19)
     {
@@ -705,38 +701,37 @@ LABEL_42:
         std::__split_buffer<std::unique_ptr<GPUTools::VMBuffer> *,std::allocator<std::unique_ptr<GPUTools::VMBuffer> *>>::shrink_to_fit((v14 + 1));
         *(v14 + 3) = 0u;
         *(v14 + 1) = 0u;
-        v63 = 0u;
-        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
         *v17 = 0;
         v14[6] = 0;
-        v65 = 0uLL;
-        std::stack<std::unique_ptr<GPUTools::VMBuffer>>::~stack(&v63);
-        v53 = *(v14 + 1);
-        v54 = v14[3];
-        v55 = v14[2];
-        *&v63 = v22;
-        if (v54 == v55)
+        v63 = 0uLL;
+        std::stack<std::unique_ptr<GPUTools::VMBuffer>>::~stack(&v61);
+        v53 = v14[3];
+        v54 = v14[2];
+        *&v61 = v22;
+        if (v53 == v54)
         {
-          v56 = 0;
+          v55 = 0;
         }
 
         else
         {
-          v56 = ((v54 - v55) << 6) - 1;
+          v55 = ((v53 - v54) << 6) - 1;
         }
 
-        v57 = v14[6];
-        v58 = v57 + v14[5];
-        if (v56 == v58)
+        v56 = v14[6];
+        v57 = v56 + v14[5];
+        if (v55 == v57)
         {
           std::deque<std::unique_ptr<GPUTools::VMBuffer>>::__add_back_capacity(v14 + 1);
-          v55 = v14[2];
-          v57 = v14[6];
-          v58 = v14[5] + v57;
+          v54 = v14[2];
+          v56 = v14[6];
+          v57 = v14[5] + v56;
         }
 
-        *(*(v55 + ((v58 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v58 & 0x1FF)) = v22;
-        v14[6] = v57 + 1;
+        *(*(v54 + ((v57 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v57 & 0x1FF)) = v22;
+        v14[6] = v56 + 1;
         return;
       }
 
@@ -821,10 +816,9 @@ LABEL_42:
   }
 
   *(a2 + 1464) = GLIContextFromEAGLContext();
-  v8 = *(a2 + 1432);
-  v9 = GLCFrontDispatch();
+  v8 = GLCFrontDispatch();
   result = 0;
-  *a4 = v9;
+  *a4 = v8;
   return result;
 }
 

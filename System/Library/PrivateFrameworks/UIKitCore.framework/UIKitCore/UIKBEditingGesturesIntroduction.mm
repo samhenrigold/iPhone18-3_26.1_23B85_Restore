@@ -26,7 +26,7 @@
   else
   {
     v6 = +[UIKeyboard keyboardBundleIdentifier];
-    v5 = [v6 isEqualToString:@"com.apple.purplebuddy"] ^ 1;
+    v5 = objc_msgSend_isEqualToString_(v6) ^ 1;
   }
 
   return v5;

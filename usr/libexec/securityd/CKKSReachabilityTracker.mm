@@ -6,6 +6,7 @@
 - (id)description;
 - (void)_onQueueResetReachabilityDependency;
 - (void)_onQueueRunReachabilityDependency;
+- (void)_onqueueSetNetworkReachability:(BOOL)reachability;
 - (void)setNetworkReachability:(BOOL)reachability;
 @end
 
@@ -21,6 +22,30 @@
   v6[4] = self;
   reachabilityCopy = reachability;
   dispatch_sync(queue, v6);
+}
+
+- (void)_onqueueSetNetworkReachability:(BOOL)reachability
+{
+  reachabilityCopy = reachability;
+  queue = [(CKKSReachabilityTracker *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  LODWORD(queue) = [(CKKSReachabilityTracker *)self haveNetwork];
+  [(CKKSReachabilityTracker *)self setHaveNetwork:reachabilityCopy];
+  if (queue != [(CKKSReachabilityTracker *)self haveNetwork])
+  {
+    if ([(CKKSReachabilityTracker *)self haveNetwork])
+    {
+
+      [(CKKSReachabilityTracker *)self _onQueueRunReachabilityDependency];
+    }
+
+    else
+    {
+
+      [(CKKSReachabilityTracker *)self _onQueueResetReachabilityDependency];
+    }
+  }
 }
 
 - (void)_onQueueResetReachabilityDependency

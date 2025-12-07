@@ -1,11 +1,19 @@
 @interface HIDApplePencilGen2Device
 - (HIDApplePencilGen2Device)initWithProperties:(id)properties reports:(id)reports loggingIdentifier:(id)identifier;
 - (id)desiredConnectionParameters;
+- (id)newDeviceMgntDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newForceDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newTouchDevice:(id)device keyholeID:(unsigned __int8)d;
 - (id)newUserDevices:(id)devices;
+- (id)newWakeDevice:(id)device keyholeID:(unsigned __int8)d;
 - (int)stictionCollection;
+- (void)authCompleted:(BOOL)completed;
 - (void)authFailureNotification;
 - (void)authSuccessNotification;
+- (void)chargeStateCollection:(BOOL)collection;
+- (void)chargerStateChanged:(unsigned __int8)changed;
 - (void)handleAnalyticsData:(unsigned __int8)data data:(const void *)a4 length:(unint64_t)length;
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp;
 - (void)maybeQueryOOBPAndSendStatus;
 - (void)notifyPencilOnChargerState:(BOOL)state;
 - (void)pairingInfoCompleted;
@@ -38,32 +46,7 @@
   v26.super_class = HIDApplePencilGen2Device;
   v10 = [(HIDApplePencilDevice *)&v26 initWithProperties:propertiesCopy reports:reports loggingIdentifier:identifier];
   v12 = v10;
-  if (!v10)
-  {
-    goto LABEL_5;
-  }
-
-  LODWORD(v11) = 15.0;
-  [(HIDApplePencilGen2Device *)v10 setPreferredInterval:v11];
-  [(HIDApplePencilGen2Device *)v12 setPreferredPeripheralLatency:6];
-  [(HIDApplePencilGen2Device *)v12 setMaxPeripheralLatency:100];
-  v13 = -[HIDTimestampSync initWithBtClockMask:]([HIDTimestampSync alloc], "initWithBtClockMask:", [objc_opt_class() btClockMask]);
-  timestampSync = v12->_timestampSync;
-  v12->_timestampSync = v13;
-
-  if (!v12->_timestampSync)
-  {
-    goto LABEL_5;
-  }
-
-  v15 = [HIDChargerNotifier alloc];
-  queue = [(HIDApplePencilDevice *)v12 queue];
-  v17 = [(HIDChargerNotifier *)v15 initWithQueue:queue];
-  chargerNotifier = v12->_chargerNotifier;
-  v12->_chargerNotifier = v17;
-
-  v19 = v12->_chargerNotifier;
-  if (v19)
+  if (v10 && (LODWORD(v11) = 15.0, -[HIDApplePencilGen2Device setPreferredInterval:](v10, "setPreferredInterval:", v11), -[HIDApplePencilGen2Device setPreferredPeripheralLatency:](v12, "setPreferredPeripheralLatency:", 6), -[HIDApplePencilGen2Device setMaxPeripheralLatency:](v12, "setMaxPeripheralLatency:", 100), v13 = -[HIDTimestampSync initWithBtClockMask:]([HIDTimestampSync alloc], "initWithBtClockMask:", [objc_opt_class() btClockMask]), timestampSync = v12->_timestampSync, v12->_timestampSync = v13, timestampSync, v12->_timestampSync) && (v15 = [HIDChargerNotifier alloc], -[HIDApplePencilDevice queue](v12, "queue"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[HIDChargerNotifier initWithQueue:](v15, "initWithQueue:", v16), chargerNotifier = v12->_chargerNotifier, v12->_chargerNotifier = v17, chargerNotifier, v16, (v19 = v12->_chargerNotifier) != 0))
   {
     [(HIDChargerNotifier *)v19 setDelegate:v12];
     objc_storeStrong(&v12->_properties, properties);
@@ -82,11 +65,46 @@
 
   else
   {
-LABEL_5:
     v24 = 0;
   }
 
   return v24;
+}
+
+- (id)newDeviceMgntDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  dCopy = d;
+  deviceCopy = device;
+  v7 = objc_alloc_init(NSMutableDictionary);
+  [v7 addEntriesFromDictionary:deviceCopy];
+
+  [v7 setObject:&off_1000C4150 forKeyedSubscript:@"ExtendedData"];
+  v10[0] = xmmword_1000920A2;
+  *(v10 + 14) = *(&xmmword_1000920A2 + 14);
+  v8 = [(HIDApplePencilDevice *)self newUserDevice:v7 descriptor:v10 descriptorLength:30 keyholeID:dCopy];
+
+  return v8;
+}
+
+- (id)newForceDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5[0] = xmmword_1000920C0;
+  *(v5 + 9) = *(&xmmword_1000920C0 + 9);
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:v5 descriptorLength:25 keyholeID:d];
+}
+
+- (id)newTouchDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  *v5 = xmmword_1000920D9;
+  *&v5[15] = 0xC002810001000077;
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:v5 descriptorLength:23 keyholeID:d];
+}
+
+- (id)newWakeDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5[0] = xmmword_1000920F0;
+  *(v5 + 12) = *(&xmmword_1000920F0 + 12);
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:v5 descriptorLength:28 keyholeID:d];
 }
 
 - (id)newUserDevices:(id)devices
@@ -158,6 +176,106 @@ LABEL_6:
   [(HIDApplePencilDevice *)&v5 stop];
 }
 
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp
+{
+  dCopy = d;
+  dataCopy = data;
+  v9 = [dataCopy length];
+  bytes = [dataCopy bytes];
+  v29 = dataCopy;
+  if ([dataCopy length] && *bytes == 189)
+  {
+    v11 = v9 - 1;
+    if (v11)
+    {
+      v12 = (bytes + 1);
+      while (1)
+      {
+        v34 = 0;
+        if (v11 <= 7)
+        {
+          break;
+        }
+
+        v15 = *v12;
+        v14 = v12 + 1;
+        v13 = v15;
+        v34 = v15;
+        v16 = v11 - 8;
+        v17 = ((v15 & 0xF00 | BYTE2(v15)) - 1);
+        if (v16 < v17)
+        {
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+          {
+            sub_1000784F4();
+          }
+
+          goto LABEL_16;
+        }
+
+        v30 = v16;
+        v33 = 0;
+        v32 = v17;
+        v18 = [[NSMutableData alloc] initWithCapacity:{v17 + 13, v29}];
+        [v18 appendBytes:&v34 + 7 length:1];
+        if ((*(&v34 + 3) & 0x80000000) == 0)
+        {
+          [v18 appendBytes:&v34 + 3 length:4];
+          timestampSync = [(HIDApplePencilGen2Device *)self timestampSync];
+          v33 = [timestampSync applyTimestampOffset:? precise:?];
+
+          [v18 appendBytes:&v33 length:8];
+        }
+
+        v20 = (v13 >> 12) & 0xFFFFF00F | (16 * v13);
+        [v18 appendBytes:v14 length:v32];
+        v21 = 0;
+        v31 = (v14 + v32);
+        do
+        {
+          if ((v20 >> v21))
+          {
+            -[HIDApplePencilGen2Device handleAnalyticsData:data:length:](self, "handleAnalyticsData:data:length:", v21, [v18 bytes], objc_msgSend(v18, "length"));
+            userDevices = self->_userDevices;
+            v23 = [NSNumber numberWithUnsignedChar:v21];
+            v24 = [(NSDictionary *)userDevices objectForKeyedSubscript:v23];
+            [v24 handleInputReport:objc_msgSend(v18 reportLength:"bytes") timestamp:{objc_msgSend(v18, "length"), timestamp}];
+
+            -[HIDApplePencilGen2Device checkAndLogHostInputReportCollision:reportID:](self, "checkAndLogHostInputReportCollision:reportID:", v21, *[v18 bytes]);
+          }
+
+          ++v21;
+        }
+
+        while (v21 != 12);
+        v11 = v30 - v32;
+
+        v12 = v31;
+        if (v30 == v32)
+        {
+          goto LABEL_16;
+        }
+      }
+
+      v28 = qword_1000DDBC8;
+      if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+      {
+        sub_10007856C(v11, v28);
+      }
+    }
+  }
+
+  else
+  {
+    v25 = self->_userDevices;
+    dataCopy = [NSNumber numberWithUnsignedChar:dCopy, dataCopy];
+    v27 = [(NSDictionary *)v25 objectForKeyedSubscript:dataCopy];
+    [v27 handleInputReport:objc_msgSend(dataCopy reportLength:"bytes") timestamp:{objc_msgSend(dataCopy, "length"), timestamp}];
+  }
+
+LABEL_16:
+}
+
 - (void)handleAnalyticsData:(unsigned __int8)data data:(const void *)a4 length:(unint64_t)length
 {
   if (!data && length == 5 && *a4 == 68)
@@ -197,6 +315,78 @@ LABEL_6:
   [timestampSync processTimestampSync:unsignedIntegerValue phase:unsignedIntegerValue2];
 }
 
+- (void)chargerStateChanged:(unsigned __int8)changed
+{
+  changedCopy = changed;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    loggingIdentifier = [(HIDApplePencilDevice *)self loggingIdentifier];
+    v8 = [HIDChargerNotifier stateToStr:changedCopy];
+    v20 = 138412546;
+    v21 = loggingIdentifier;
+    v22 = 2112;
+    v23 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ received HID charger notification: %@", &v20, 0x16u);
+  }
+
+  if (changedCopy == 3)
+  {
+    v9 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v20) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Ignoring no accessories notification", &v20, 2u);
+    }
+  }
+
+  else
+  {
+    v10 = +[NSUserDefaults standardUserDefaults];
+    v11 = [v10 BOOLForKey:@"enableBTSyncBeforeConnectionParametersUpdate"];
+
+    if (v11)
+    {
+      v13 = +[BTLEXpcServer instance];
+      btSyncPeriod = [(HIDApplePencilDevice *)self btSyncPeriod];
+      peripheral = [(HIDBluetoothDevice *)self peripheral];
+      [v13 sendEnableBTSyncMsg:btSyncPeriod forPeer:peripheral];
+    }
+
+    v16 = changedCopy == 1;
+    v17 = changedCopy == 1;
+    LODWORD(v12) = 1110704128;
+    if (v16)
+    {
+      v18 = 1;
+    }
+
+    else
+    {
+      *&v12 = 15.0;
+      v18 = 6;
+    }
+
+    if (v16)
+    {
+      v19 = 1;
+    }
+
+    else
+    {
+      v19 = 100;
+    }
+
+    [(HIDApplePencilGen2Device *)self setPreferredInterval:v12];
+    [(HIDApplePencilGen2Device *)self setPreferredPeripheralLatency:v18];
+    [(HIDApplePencilGen2Device *)self setMaxPeripheralLatency:v19];
+    [(HIDBluetoothDevice *)self notifyDesiredConnectionParametersDidChange];
+    [(HIDApplePencilGen2Device *)self notifyPencilOnChargerState:v17];
+    [(HIDApplePencilGen2Device *)self chargeStateCollection:v17];
+  }
+}
+
 - (void)notifyPencilOnChargerState:(BOOL)state
 {
   stateCopy = state;
@@ -225,6 +415,71 @@ LABEL_6:
     v11[1] = stateCopy;
     deviceMgntUserDevice = [(HIDApplePencilGen2Device *)self deviceMgntUserDevice];
     [deviceMgntUserDevice setReport:v11 reportLength:2 reportID:192 reportType:2];
+  }
+}
+
+- (void)chargeStateCollection:(BOOL)collection
+{
+  collectionCopy = collection;
+  memset(v25, 0, sizeof(v25));
+  v16 = 512;
+  v5 = [(NSDictionary *)self->_userDevices objectForKeyedSubscript:&off_1000C3CC0];
+  v6 = [v5 getReport:v25 reportLength:&v16 reportID:35 reportType:2];
+
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100078718();
+    if (v6)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else if (v6)
+  {
+    goto LABEL_7;
+  }
+
+  if (v16 > 1)
+  {
+    LOBYTE(v7) = BYTE1(v25[0]);
+    v8 = fmin(v7, 100.0);
+    v23[0] = @"ChargeState";
+    v9 = [NSNumber numberWithDouble:v8];
+    v23[1] = @"AttachState";
+    v24[0] = v9;
+    v10 = [NSNumber numberWithBool:collectionCopy];
+    v24[1] = v10;
+    v11 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+
+    [(HIDApplePencilDevice *)self sendAnalyticsEvent:@"com.apple.MConnector.ChargeState" withPayload:v11];
+    v12 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+    {
+      LOBYTE(v13) = BYTE1(v25[0]);
+      v14 = v13;
+      v15 = "detached";
+      *buf = 134218498;
+      v18 = v8;
+      if (collectionCopy)
+      {
+        v15 = "attached";
+      }
+
+      v19 = 2048;
+      v20 = v14;
+      v21 = 2080;
+      v22 = v15;
+      _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "chargeStateCollection: battery level %lf%% (raw: %lf%%) when %s", buf, 0x20u);
+    }
+
+    return;
+  }
+
+LABEL_7:
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+  {
+    sub_100078790();
   }
 }
 
@@ -369,7 +624,7 @@ LABEL_6:
 
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000789E4(&v16);
+    sub_1000789E4();
     if (v4)
     {
       return v4;
@@ -386,7 +641,7 @@ LABEL_6:
 
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100078A5C(&v17);
+    sub_100078A5C();
     if (v4)
     {
       return v4;
@@ -441,7 +696,7 @@ LABEL_6:
 
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100078AD4(&v17);
+    sub_100078AD4();
     if (v4)
     {
       return v4;
@@ -562,6 +817,36 @@ LABEL_6:
   dispatch_async(queue, block);
 }
 
+- (void)authCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    loggingIdentifier = [(HIDApplePencilDevice *)self loggingIdentifier];
+    v9 = 138412546;
+    v10 = loggingIdentifier;
+    v11 = 1024;
+    v12 = completedCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ authCompleted: %{BOOL}d", &v9, 0x12u);
+  }
+
+  [(HIDChargerNotifier *)self->_chargerNotifier setBTAuthState:completedCopy];
+  v8 = 1;
+  if (!completedCopy)
+  {
+    v8 = 2;
+  }
+
+  self->_authStatus = v8;
+  [(HIDApplePencilGen2Device *)self maybeQueryOOBPAndSendStatus];
+  if (completedCopy)
+  {
+    [(HIDApplePencilGen2Device *)self publishProperties];
+  }
+}
+
 - (void)maybeQueryOOBPAndSendStatus
 {
   v3 = qword_1000DDBC8;
@@ -605,7 +890,7 @@ LABEL_6:
 
       else if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_100078BC0(&v12);
+        sub_100078BC0();
       }
     }
   }

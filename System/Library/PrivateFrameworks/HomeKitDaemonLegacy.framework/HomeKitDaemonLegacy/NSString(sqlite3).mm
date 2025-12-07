@@ -1,10 +1,10 @@
 @interface NSString(sqlite3)
-+ (id)stringWithSQLite3Column:()sqlite3 column:;
++ (unsigned)stringWithSQLite3Column:()sqlite3 column:;
 @end
 
 @implementation NSString(sqlite3)
 
-+ (id)stringWithSQLite3Column:()sqlite3 column:
++ (unsigned)stringWithSQLite3Column:()sqlite3 column:
 {
   v4 = sqlite3_column_text(a3, iCol);
   if (v4)

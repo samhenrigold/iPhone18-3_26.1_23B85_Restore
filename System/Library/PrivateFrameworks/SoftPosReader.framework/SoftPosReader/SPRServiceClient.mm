@@ -68,16 +68,16 @@
 
 - (BOOL)abortAndReturnError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_connection(self, a2, error, v3, v4);
   v12 = objc_msgSend_processIdentifier(v7, v8, v9, v10, v11);
 
   v17 = objc_msgSend_xpcClient(MEMORY[0x277D498B8], v13, v14, v15, v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v33[0] = 67109120;
-    v33[1] = v12;
-    _os_log_impl(&dword_26A93A000, v17, OS_LOG_TYPE_INFO, "Terminating daemon (PID=%d) with SIGABRT...", v33, 8u);
+    v32[0] = 67109120;
+    v32[1] = v12;
+    _os_log_impl(&dword_26A93A000, v17, OS_LOG_TYPE_INFO, "Terminating daemon (PID=%d) with SIGABRT...", v32, 8u);
   }
 
   v22 = terminate_with_reason();
@@ -98,23 +98,21 @@
     objc_msgSend_sleepForTimeInterval_(MEMORY[0x277CCACC8], v27, v28, v29, v30, 0.5);
   }
 
-  result = v22 == 0;
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return v22 == 0;
 }
 
 - (BOOL)jetsamAndReturnError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_connection(self, a2, error, v3, v4);
   v12 = objc_msgSend_processIdentifier(v7, v8, v9, v10, v11);
 
   v17 = objc_msgSend_xpcClient(MEMORY[0x277D498B8], v13, v14, v15, v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v33[0] = 67109120;
-    v33[1] = v12;
-    _os_log_impl(&dword_26A93A000, v17, OS_LOG_TYPE_INFO, "Terminating daemon (PID=%d) with Jetsam...", v33, 8u);
+    v32[0] = 67109120;
+    v32[1] = v12;
+    _os_log_impl(&dword_26A93A000, v17, OS_LOG_TYPE_INFO, "Terminating daemon (PID=%d) with Jetsam...", v32, 8u);
   }
 
   v22 = terminate_with_reason();
@@ -135,9 +133,7 @@
     objc_msgSend_sleepForTimeInterval_(MEMORY[0x277CCACC8], v27, v28, v29, v30, 0.5);
   }
 
-  result = v22 == 0;
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return v22 == 0;
 }
 
 @end

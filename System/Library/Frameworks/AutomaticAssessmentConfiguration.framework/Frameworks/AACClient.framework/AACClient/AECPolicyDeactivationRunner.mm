@@ -17,7 +17,8 @@
   _Block_copy(v4);
   v9 = v8(v6, v7);
   v10 = v9;
-  if (v11)
+  v12 = v11;
+  if (v13)
   {
     _Block_release(v4);
     (v10)(sub_236E037F4, v5);
@@ -31,7 +32,7 @@
     _Block_release(v4);
   }
 
-  sub_236E05D38();
+  sub_236E05D38(v10, v12);
 }
 
 @end

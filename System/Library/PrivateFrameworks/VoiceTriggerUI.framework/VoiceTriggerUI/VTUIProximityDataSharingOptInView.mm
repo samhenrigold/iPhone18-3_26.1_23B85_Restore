@@ -23,13 +23,13 @@
 
 - (void)_setupContent
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v61 = 136315138;
-    v62 = "[VTUIProximityDataSharingOptInView _setupContent]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v61, 0xCu);
+    v60 = 136315138;
+    v61 = "[VTUIProximityDataSharingOptInView _setupContent]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v60, 0xCu);
   }
 
   v4 = +[VTUIStyle sharedStyle];
@@ -154,15 +154,14 @@
   [titleLabel4 setNumberOfLines:0];
 
   [(VTUIProximityContainerView *)self->_containerView addSubview:self->_notNowButton];
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupPortraitConstraints
 {
-  v168[5] = *MEMORY[0x277D85DE8];
+  v167[5] = *MEMORY[0x277D85DE8];
   safeAreaLayoutGuide = [(VTUIProximityDataSharingOptInView *)self safeAreaLayoutGuide];
   safeAreaLayoutGuide2 = [(VTUIProximityContainerView *)self->_containerView safeAreaLayoutGuide];
-  v157 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v156 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = +[VTUIStyle sharedStyle];
   bottomAnchor = [(VTUIProximityContainerView *)self->_containerView bottomAnchor];
   bottomAnchor2 = [(VTUIProximityDataSharingOptInView *)self bottomAnchor];
@@ -184,21 +183,21 @@
   v17 = [heightAnchor constraintGreaterThanOrEqualToConstant:?];
 
   heightAnchor2 = [(VTUIProximityContainerView *)self->_containerView heightAnchor];
-  v155 = safeAreaLayoutGuide;
+  v154 = safeAreaLayoutGuide;
   heightAnchor3 = [safeAreaLayoutGuide heightAnchor];
   v20 = [heightAnchor2 constraintLessThanOrEqualToAnchor:heightAnchor3 constant:0.0];
 
-  v154 = v8;
-  v168[0] = v8;
-  v168[1] = v11;
-  v152 = v17;
-  v153 = v15;
-  v168[2] = v15;
-  v168[3] = v17;
-  v151 = v20;
-  v168[4] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v168 count:5];
-  [v157 addObjectsFromArray:v21];
+  v153 = v8;
+  v167[0] = v8;
+  v167[1] = v11;
+  v151 = v17;
+  v152 = v15;
+  v167[2] = v15;
+  v167[3] = v17;
+  v150 = v20;
+  v167[4] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:5];
+  [v156 addObjectsFromArray:v21];
 
   topAnchor = [(UIScrollView *)self->_scrollView topAnchor];
   topAnchor2 = [safeAreaLayoutGuide2 topAnchor];
@@ -218,16 +217,16 @@
   bottomAnchor4 = [(UIButton *)self->_aboutLink bottomAnchor];
   v34 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:0.0];
 
-  v149 = v27;
-  v150 = v24;
-  v167[0] = v24;
-  v167[1] = v27;
-  v147 = v34;
-  v148 = v31;
-  v167[2] = v31;
-  v167[3] = v34;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:4];
-  [v157 addObjectsFromArray:v35];
+  v148 = v27;
+  v149 = v24;
+  v166[0] = v24;
+  v166[1] = v27;
+  v146 = v34;
+  v147 = v31;
+  v166[2] = v31;
+  v166[3] = v34;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v166 count:4];
+  [v156 addObjectsFromArray:v35];
 
   firstBaselineAnchor = [(UILabel *)self->_titleLabel firstBaselineAnchor];
   topAnchor3 = [(UIScrollView *)self->_scrollView topAnchor];
@@ -246,14 +245,14 @@
   [v4 proxTrailing];
   v48 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6 constant:-v47];
 
-  v145 = v44;
-  v146 = v41;
-  v166[0] = v41;
-  v166[1] = v44;
-  v144 = v48;
-  v166[2] = v48;
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v166 count:3];
-  [v157 addObjectsFromArray:v49];
+  v144 = v44;
+  v145 = v41;
+  v165[0] = v41;
+  v165[1] = v44;
+  v143 = v48;
+  v165[2] = v48;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v165 count:3];
+  [v156 addObjectsFromArray:v49];
 
   centerYAnchor = [(UIButton *)self->_dismissButton centerYAnchor];
   topAnchor4 = [safeAreaLayoutGuide2 topAnchor];
@@ -273,16 +272,16 @@
   [v4 proxTrainingDismissButtonWidthOrHeight];
   v59 = [heightAnchor4 constraintEqualToConstant:?];
 
-  v142 = v55;
-  v143 = v52;
-  v165[0] = v52;
-  v165[1] = v55;
-  v140 = v59;
-  v141 = v57;
-  v165[2] = v57;
-  v165[3] = v59;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v165 count:4];
-  [v157 addObjectsFromArray:v60];
+  v141 = v55;
+  v142 = v52;
+  v164[0] = v52;
+  v164[1] = v55;
+  v139 = v59;
+  v140 = v57;
+  v164[2] = v57;
+  v164[3] = v59;
+  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v164 count:4];
+  [v156 addObjectsFromArray:v60];
 
   topAnchor5 = [(UILabel *)self->_subtitleLabel topAnchor];
   bottomAnchor5 = [(UILabel *)self->_titleLabel bottomAnchor];
@@ -304,16 +303,16 @@
   [v4 proxPrimaryButtonHeight];
   v74 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7 constant:-v73];
 
-  v138 = v66;
-  v139 = v63;
-  v164[0] = v63;
-  v164[1] = v66;
-  v136 = v74;
-  v137 = v70;
-  v164[2] = v70;
-  v164[3] = v74;
-  v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v164 count:4];
-  [v157 addObjectsFromArray:v75];
+  v137 = v66;
+  v138 = v63;
+  v163[0] = v63;
+  v163[1] = v66;
+  v135 = v74;
+  v136 = v70;
+  v163[2] = v70;
+  v163[3] = v74;
+  v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v163 count:4];
+  [v156 addObjectsFromArray:v75];
 
   leadingAnchor9 = [(UIButton *)self->_aboutLink leadingAnchor];
   leadingAnchor10 = [safeAreaLayoutGuide2 leadingAnchor];
@@ -335,24 +334,24 @@
     [v4 proxPrimaryButtonHeight];
     v87 = [heightAnchor5 constraintEqualToConstant:?];
 
-    v163[0] = v78;
-    v163[1] = v82;
-    v163[2] = v85;
-    v163[3] = v87;
-    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v163 count:4];
-    [v157 addObjectsFromArray:v88];
+    v162[0] = v78;
+    v162[1] = v82;
+    v162[2] = v85;
+    v162[3] = v87;
+    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v162 count:4];
+    [v156 addObjectsFromArray:v88];
   }
 
   else
   {
-    v162[0] = v78;
-    v162[1] = v82;
-    v162[2] = v85;
-    v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v162 count:3];
-    [v157 addObjectsFromArray:v87];
+    v161[0] = v78;
+    v161[1] = v82;
+    v161[2] = v85;
+    v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:3];
+    [v156 addObjectsFromArray:v87];
   }
 
-  v134 = v78;
+  v133 = v78;
 
   leadingAnchor11 = [(VTUIButton *)self->_notNowButton leadingAnchor];
   leadingAnchor12 = [safeAreaLayoutGuide2 leadingAnchor];
@@ -377,13 +376,13 @@
     [v4 proxPrimaryButtonHeight];
     v103 = [heightAnchor6 constraintEqualToConstant:?];
 
-    v161[0] = v91;
-    v161[1] = v95;
+    v160[0] = v91;
+    v160[1] = v95;
     v104 = v95;
-    v161[2] = v101;
-    v161[3] = v103;
-    v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:4];
-    [v157 addObjectsFromArray:v105];
+    v160[2] = v101;
+    v160[3] = v103;
+    v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:4];
+    [v156 addObjectsFromArray:v105];
   }
 
   else
@@ -393,12 +392,12 @@
     [v4 proxTrainingDismissButtonVerticalPaddingBottom];
     v101 = [v106 constraintEqualToAnchor:bottomAnchor10 constant:-v108];
 
-    v160[0] = v91;
-    v160[1] = v95;
+    v159[0] = v91;
+    v159[1] = v95;
     v104 = v95;
-    v160[2] = v101;
-    v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:3];
-    [v157 addObjectsFromArray:v103];
+    v159[2] = v101;
+    v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v159 count:3];
+    [v156 addObjectsFromArray:v103];
   }
 
   leadingAnchor13 = [(VTUIButton *)self->_shareButton leadingAnchor];
@@ -424,8 +423,8 @@
     [v4 proxPrimaryButtonHeight];
     v123 = [heightAnchor7 constraintEqualToConstant:?];
 
-    v159 = v111;
-    v124 = &v159;
+    v158 = v111;
+    v124 = &v158;
   }
 
   else
@@ -439,20 +438,18 @@
     [v4 proxPrimaryButtonHeight];
     v123 = [heightAnchor8 constraintEqualToConstant:?];
 
-    v158 = v111;
-    v124 = &v158;
+    v157 = v111;
+    v124 = &v157;
   }
 
   v124[1] = v115;
   v124[2] = v121;
   v124[3] = v123;
   v129 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
-  [v157 addObjectsFromArray:v129];
+  [v156 addObjectsFromArray:v129];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v157];
-  [(VTUIProximityDataSharingOptInView *)self addConstraints:v157];
-
-  v130 = *MEMORY[0x277D85DE8];
+  [MEMORY[0x277CCAAD0] activateConstraints:v156];
+  [(VTUIProximityDataSharingOptInView *)self addConstraints:v156];
 }
 
 @end

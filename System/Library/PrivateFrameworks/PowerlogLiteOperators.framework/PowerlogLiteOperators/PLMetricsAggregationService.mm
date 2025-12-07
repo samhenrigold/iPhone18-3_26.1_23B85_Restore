@@ -61,7 +61,7 @@ LABEL_7:
 
 - (void)toggleMetricsAggregation:(BOOL)aggregation
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if (aggregation)
   {
     v4 = PLLogCommon();
@@ -81,20 +81,20 @@ LABEL_7:
     v11 = [v9 arrayWithObject:v10];
 
     pluggedInCriterion = [MEMORY[0x277D3F130] pluggedInCriterion];
-    v21[0] = pluggedInCriterion;
+    v20[0] = pluggedInCriterion;
     displayOffCriterion = [MEMORY[0x277D3F130] displayOffCriterion];
-    v21[1] = displayOffCriterion;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[1] = displayOffCriterion;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     [v11 addObjectsFromArray:v14];
 
     mEMORY[0x277D3F140] = [MEMORY[0x277D3F140] sharedInstance];
     workQueue = [(PLOperator *)self workQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __56__PLMetricsAggregationService_toggleMetricsAggregation___block_invoke;
-    v19[3] = &unk_27825A740;
-    v19[4] = self;
-    [mEMORY[0x277D3F140] scheduleActivityWithIdentifier:@"com.apple.powerlogd.PLAggregateDictionaryService.dailyTasks" withCriteria:v11 withMustRunCriterion:0 withQueue:workQueue withInterruptBlock:0 withActivityBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __56__PLMetricsAggregationService_toggleMetricsAggregation___block_invoke;
+    v18[3] = &unk_27825A740;
+    v18[4] = self;
+    [mEMORY[0x277D3F140] scheduleActivityWithIdentifier:@"com.apple.powerlogd.PLAggregateDictionaryService.dailyTasks" withCriteria:v11 withMustRunCriterion:0 withQueue:workQueue withInterruptBlock:0 withActivityBlock:v18];
   }
 
   else
@@ -109,8 +109,6 @@ LABEL_7:
       _os_log_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_INFO, "metrics aggregation disabled", buf, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PLMetricsAggregationService_toggleMetricsAggregation___block_invoke(uint64_t a1, uint64_t a2)
@@ -275,25 +273,25 @@ void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke(uint6
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_38(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) != 0 || +[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable"))
   {
     v2 = PLLogCommon();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for today", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for today", v6, 2u);
     }
 
-    v8[0] = @"AppAnalyticsEnabled";
+    v7[0] = @"AppAnalyticsEnabled";
     v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D3F258], "isAppAnalyticsEnabled")}];
-    v9[0] = v3;
-    v8[1] = @"MetrickitClientsAvailable";
+    v8[0] = v3;
+    v7[1] = @"MetrickitClientsAvailable";
     v4 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-    v8[2] = @"today";
-    v9[1] = v4;
-    v9[2] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v7[2] = @"today";
+    v8[1] = v4;
+    v8[2] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
     [*(a1 + 32) createMetricsFile:v5];
   }
@@ -303,17 +301,45 @@ void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_38(ui
     v5 = PLLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v6, 2u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_53(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
+  if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) == 0)
+  {
+    v2 = PLLogCommon();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v6, 2u);
+    }
+  }
+
+  v7[0] = @"AppAnalyticsEnabled";
+  v7[1] = @"MetrickitClientsAvailable";
+  v8[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
+  v8[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+
+  v5 = PLLogCommon();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "creating metrics file", v6, 2u);
+  }
+
+  [*(a1 + 32) createMetricsFile:v4];
+}
+
+void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_57(uint64_t a1)
+{
+  v9[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) == 0)
   {
     v2 = PLLogCommon();
@@ -324,79 +350,47 @@ void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_53(ui
     }
   }
 
-  v8[0] = @"AppAnalyticsEnabled";
-  v8[1] = @"MetrickitClientsAvailable";
-  v9[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-  v9[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v5 = PLLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    *v7 = 0;
-    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "creating metrics file", v7, 2u);
-  }
-
-  [*(a1 + 32) createMetricsFile:v4];
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_57(uint64_t a1)
-{
-  v10[3] = *MEMORY[0x277D85DE8];
-  if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) == 0)
-  {
-    v2 = PLLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      *v8 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v8, 2u);
-    }
-  }
-
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for today", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for today", v7, 2u);
   }
 
   v4 = MEMORY[0x277CBEC38];
-  v10[0] = MEMORY[0x277CBEC38];
-  v9[0] = @"AppAnalyticsEnabled";
-  v9[1] = @"MetrickitClientsAvailable";
+  v9[0] = MEMORY[0x277CBEC38];
+  v8[0] = @"AppAnalyticsEnabled";
+  v8[1] = @"MetrickitClientsAvailable";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-  v9[2] = @"today";
-  v10[1] = v5;
-  v10[2] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8[2] = @"today";
+  v9[1] = v5;
+  v9[2] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   [*(a1 + 32) createMetricsFile:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_61(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) != 0 || +[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable"))
   {
     v2 = PLLogCommon();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 24hrs", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 24hrs", v6, 2u);
     }
 
-    v8[0] = @"AppAnalyticsEnabled";
+    v7[0] = @"AppAnalyticsEnabled";
     v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D3F258], "isAppAnalyticsEnabled")}];
-    v9[0] = v3;
-    v8[1] = @"MetrickitClientsAvailable";
+    v8[0] = v3;
+    v7[1] = @"MetrickitClientsAvailable";
     v4 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-    v8[2] = @"last24hrs";
-    v9[1] = v4;
-    v9[2] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v7[2] = @"last24hrs";
+    v8[1] = v4;
+    v8[2] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
     [*(a1 + 32) createMetricsFile:v5];
   }
@@ -406,69 +400,66 @@ void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_61(ui
     v5 = PLLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v6, 2u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_68(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) == 0)
   {
     v2 = PLLogCommon();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v7, 2u);
     }
   }
 
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 24hrs", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 24hrs", v7, 2u);
   }
 
   v4 = MEMORY[0x277CBEC38];
-  v10[0] = MEMORY[0x277CBEC38];
-  v9[0] = @"AppAnalyticsEnabled";
-  v9[1] = @"MetrickitClientsAvailable";
+  v9[0] = MEMORY[0x277CBEC38];
+  v8[0] = @"AppAnalyticsEnabled";
+  v8[1] = @"MetrickitClientsAvailable";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-  v9[2] = @"last24hrs";
-  v10[1] = v5;
-  v10[2] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8[2] = @"last24hrs";
+  v9[1] = v5;
+  v9[2] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   [*(a1 + 32) createMetricsFile:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_72(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) != 0 || +[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable"))
   {
     v2 = PLLogCommon();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 1hrs", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 1hrs", v6, 2u);
     }
 
-    v8[0] = @"AppAnalyticsEnabled";
+    v7[0] = @"AppAnalyticsEnabled";
     v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D3F258], "isAppAnalyticsEnabled")}];
-    v9[0] = v3;
-    v8[1] = @"MetrickitClientsAvailable";
+    v8[0] = v3;
+    v7[1] = @"MetrickitClientsAvailable";
     v4 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-    v8[2] = @"last1hr";
-    v9[1] = v4;
-    v9[2] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v7[2] = @"last1hr";
+    v8[1] = v4;
+    v8[2] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
     [*(a1 + 32) createMetricsFile:v5];
   }
@@ -478,67 +469,62 @@ void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_72(ui
     v5 = PLLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "metrics file notification ignored", v6, 2u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_79(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F258] isAppAnalyticsEnabled] & 1) == 0)
   {
     v2 = PLLogCommon();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "metrics creation forced", v7, 2u);
     }
   }
 
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 1hrs", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEFAULT, "creating metrics file for last 1hrs", v7, 2u);
   }
 
   v4 = MEMORY[0x277CBEC38];
-  v10[0] = MEMORY[0x277CBEC38];
-  v9[0] = @"AppAnalyticsEnabled";
-  v9[1] = @"MetrickitClientsAvailable";
+  v9[0] = MEMORY[0x277CBEC38];
+  v8[0] = @"AppAnalyticsEnabled";
+  v8[1] = @"MetrickitClientsAvailable";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-  v9[2] = @"last1hr";
-  v10[1] = v5;
-  v10[2] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8[2] = @"last1hr";
+  v9[1] = v5;
+  v9[2] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   [*(a1 + 32) createMetricsFile:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 id __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_95()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"AppAnalyticsEnabled";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AppAnalyticsEnabled";
   v0 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D3F258], "isAppAnalyticsEnabled")}];
-  v5[1] = @"MetrickitClientsAvailable";
-  v6[0] = v0;
+  v4[1] = @"MetrickitClientsAvailable";
+  v5[0] = v0;
   v1 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 - (void)createMetricsFile:(id)file
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v4 = PLLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -570,13 +556,13 @@ id __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_95()
     {
       if (!fileCopy)
       {
-        v20[0] = @"AppAnalyticsEnabled";
+        v19[0] = @"AppAnalyticsEnabled";
         v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(MEMORY[0x277D3F258], "isAppAnalyticsEnabled")}];
-        v21[0] = v7;
-        v20[1] = @"MetrickitClientsAvailable";
+        v20[0] = v7;
+        v19[1] = @"MetrickitClientsAvailable";
         v8 = [MEMORY[0x277CCABB0] numberWithBool:{+[PLMetricsAggregationService metrickitClientsAvailable](PLMetricsAggregationService, "metrickitClientsAvailable")}];
-        v21[1] = v8;
-        fileCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v20[1] = v8;
+        fileCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
       }
 
       v6 = PLQueryRegistered();
@@ -584,7 +570,7 @@ id __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_95()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19[0] = v6;
+        v18[0] = v6;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "Response to metrics file: %@", buf, 0xCu);
       }
 
@@ -592,11 +578,11 @@ id __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_95()
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         isAppAnalyticsEnabled = [MEMORY[0x277D3F258] isAppAnalyticsEnabled];
-        v15 = +[PLMetricsAggregationService metrickitClientsAvailable];
+        v14 = +[PLMetricsAggregationService metrickitClientsAvailable];
         *buf = 67109376;
-        LODWORD(v19[0]) = isAppAnalyticsEnabled;
-        WORD2(v19[0]) = 1024;
-        *(v19 + 6) = v15;
+        LODWORD(v18[0]) = isAppAnalyticsEnabled;
+        WORD2(v18[0]) = 1024;
+        *(v18 + 6) = v14;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "AppAnalyticsEnabled : %d, MetrickitClientsAvailable : %d", buf, 0xEu);
       }
 
@@ -610,13 +596,11 @@ id __52__PLMetricsAggregationService_setupMetricsListeners__block_invoke_95()
         block[2] = __49__PLMetricsAggregationService_createMetricsFile___block_invoke;
         block[3] = &unk_2782591D0;
         v6 = v6;
-        v17 = v6;
+        v16 = v6;
         dispatch_async(v12, block);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t a1)
@@ -637,7 +621,7 @@ void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t
 
 - (void)logEventNoneSessionsFile
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [defaultManager contentsOfDirectoryAtPath:@"/var/mobile/Library/Logs/CrashReporter/" error:0];
   v5 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self BEGINSWITH[cd] 'log-power-'"];
@@ -648,12 +632,12 @@ void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t
     goto LABEL_33;
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (!v8)
   {
     v10 = v7;
@@ -661,28 +645,28 @@ void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t
   }
 
   v9 = v8;
-  v38 = v6;
-  v39 = v4;
+  v37 = v6;
+  v38 = v4;
   v10 = 0;
-  v44 = *v50;
+  v43 = *v49;
   v11 = 0.0;
   selfCopy = self;
-  v41 = defaultManager;
-  v43 = v7;
+  v40 = defaultManager;
+  v42 = v7;
   do
   {
     v12 = 0;
     do
     {
-      if (*v50 != v44)
+      if (*v49 != v43)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingString:*(*(&v49 + 1) + 8 * v12)];
-      v48 = 0;
-      v14 = [defaultManager attributesOfItemAtPath:v13 error:&v48];
-      v15 = v48;
+      v13 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingString:*(*(&v48 + 1) + 8 * v12)];
+      v47 = 0;
+      v14 = [defaultManager attributesOfItemAtPath:v13 error:&v47];
+      v15 = v47;
       if (!v15)
       {
         fileModificationDate = [v14 fileModificationDate];
@@ -715,7 +699,7 @@ void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t
 
         if (_MergedGlobals_1_6 == 1)
         {
-          v42 = v10;
+          v41 = v10;
           v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Reading file error: %@", v15];
           v18 = MEMORY[0x277D3F178];
           v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLMetricsAggregationService.m"];
@@ -727,16 +711,16 @@ void __49__PLMetricsAggregationService_createMetricsFile___block_invoke(uint64_t
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v54 = v17;
+            v53 = v17;
             _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
-          defaultManager = v41;
-          v10 = v42;
+          defaultManager = v40;
+          v10 = v41;
           self = selfCopy;
 LABEL_17:
 
-          v7 = v43;
+          v7 = v42;
         }
       }
 
@@ -746,19 +730,19 @@ LABEL_18:
     }
 
     while (v9 != v12);
-    v9 = [v7 countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v48 objects:v54 count:16];
   }
 
   while (v9);
 
-  v6 = v38;
-  v4 = v39;
+  v6 = v37;
+  v4 = v38;
   if (v10)
   {
     v26 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:@"PLAggregateDictionaryService_EventNone_SessionsFile"];
-    v46 = 0;
-    v27 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v10 encoding:4 error:&v46];
-    v28 = v46;
+    v45 = 0;
+    v27 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v10 encoding:4 error:&v45];
+    v28 = v45;
     [v26 setObject:v27 forKeyedSubscript:@"SessionsFileData"];
 
     if (v28)
@@ -766,14 +750,14 @@ LABEL_18:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v29 = objc_opt_class();
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke_131;
-        v45[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v45[4] = v29;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke_131;
+        v44[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v44[4] = v29;
         if (qword_2811F3F20 != -1)
         {
-          dispatch_once(&qword_2811F3F20, v45);
+          dispatch_once(&qword_2811F3F20, v44);
         }
 
         if (byte_2811F3F11 == 1)
@@ -790,11 +774,11 @@ LABEL_18:
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v54 = v31;
+            v53 = v31;
             _os_log_debug_impl(&dword_21A4C6000, v36, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
-          defaultManager = v41;
+          defaultManager = v40;
           v10 = v30;
         }
       }
@@ -809,18 +793,16 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke(uint64_t a1)
+void *__55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_6 = result;
   return result;
 }
 
-uint64_t __55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke_131(uint64_t a1)
+void *__55__PLMetricsAggregationService_logEventNoneSessionsFile__block_invoke_131(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F3F11 = result;

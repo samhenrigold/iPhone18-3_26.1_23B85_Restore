@@ -129,9 +129,9 @@
 - (void)carouselView:(id)view didSelectItemAtIndex:(unint64_t)index
 {
   OUTLINED_FUNCTION_23_17();
-  v6 = v5;
-  v7 = v4;
-  sub_1E37CA220();
+  v7 = v6;
+  v8 = v5;
+  sub_1E37CA220(v8, v4);
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location

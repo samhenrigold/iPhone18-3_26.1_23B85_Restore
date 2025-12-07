@@ -262,25 +262,27 @@ LABEL_12:
     return 0;
   }
 
-  v5 = objc_opt_new();
-  if (v5)
+  v20 = v3;
+  v21 = v4;
+  v7 = objc_opt_new();
+  if (v7)
   {
-    v6 = v5;
-    [v5 setWireMemory:1];
-    [v6 setResourceOptions:512];
-    [v6 setLabel:@"FigMetalAllocator_SoftLTM"];
+    v8 = v7;
+    [v7 setWireMemory:1];
+    [v8 setResourceOptions:512];
+    [v8 setLabel:@"FigMetalAllocator_SoftLTM"];
     externalMemoryResource = self->_externalMemoryResource;
     if (externalMemoryResource)
     {
       allocatorBackend = [(CMIExternalMemoryResource *)externalMemoryResource allocatorBackend];
-      v9 = allocatorBackend;
+      v11 = allocatorBackend;
       if (allocatorBackend)
       {
-        [v6 setMemSize:{objc_msgSend(allocatorBackend, "memSize")}];
+        [v8 setMemSize:{objc_msgSend(allocatorBackend, "memSize")}];
         allocator = [(FigMetalContext *)self->_metalContext allocator];
-        v11 = [allocator setupWithDescriptor:v6 allocatorBackend:v9];
+        v13 = [allocator setupWithDescriptor:v8 allocatorBackend:v11];
 
-        if (!v11)
+        if (!v13)
         {
 
 LABEL_12:
@@ -310,18 +312,20 @@ LABEL_12:
         allocatorForceSize = 56180736;
       }
 
-      [v6 setMemSize:allocatorForceSize];
-      [v6 setWireMemory:self->_allocatorWireMemory];
+      [v8 setMemSize:allocatorForceSize];
+      [v8 setWireMemory:self->_allocatorWireMemory];
       allocator2 = [(FigMetalContext *)self->_metalContext allocator];
-      v14 = [allocator2 setupWithDescriptor:v6];
+      v16 = [allocator2 setupWithDescriptor:v8];
 
-      if (!v14)
+      if (!v16)
       {
         goto LABEL_12;
       }
 
-      v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v19 = 0;
+      v18 = 0;
+      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
@@ -727,7 +731,7 @@ LABEL_61:
     if (v81)
     {
       v107 = v81;
-      [LTMProcessor process];
+      [(LTMProcessor *)v81 process];
       goto LABEL_101;
     }
 
@@ -960,7 +964,7 @@ LABEL_81:
   inLumaTex = [(LTMIBPParams *)self->_ltmParams inLumaTex];
   if (inLumaTex)
   {
-    v6 = inLumaTex;
+    v7 = inLumaTex;
     inChromaTex = [(LTMIBPParams *)self->_ltmParams inChromaTex];
 
     if (inChromaTex)
@@ -971,9 +975,9 @@ LABEL_81:
       {
         inLumaTex2 = [(LTMIBPParams *)self->_ltmParams inLumaTex];
         inChromaTex2 = [(LTMIBPParams *)self->_ltmParams inChromaTex];
-        v11 = [(LTMProcessor *)self createLTMInTextureFromLuma:inLumaTex2 chroma:inChromaTex2];
+        v12 = [(LTMProcessor *)self createLTMInTextureFromLuma:inLumaTex2 chroma:inChromaTex2];
 
-        if (!v11)
+        if (!v12)
         {
           [LTMProcessor generateLinearRGBATexture:];
         }
@@ -983,7 +987,7 @@ LABEL_81:
 
       [LTMProcessor generateLinearRGBATexture:];
 LABEL_12:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_15;
     }
   }
@@ -992,9 +996,11 @@ LABEL_12:
 
   if (!inRGBAFloatTex2)
   {
-    FigDebugAssert3();
-    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v20, v21, v22, v23, v24, v25);
+    v27 = 0;
+    v26 = 0;
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     goto LABEL_11;
   }
 
@@ -1010,8 +1016,10 @@ LABEL_12:
   if (inChromaTex3)
   {
 LABEL_9:
-    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v27 = 0;
+    v26 = 0;
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 LABEL_11:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
@@ -1019,17 +1027,17 @@ LABEL_11:
   }
 
   inRGBAFloatTex3 = [(LTMIBPParams *)self->_ltmParams inRGBAFloatTex];
-  *&v17 = texture;
-  v11 = [(LTMProcessor *)self createLTMInTextureFromRGBAFloatTex:inRGBAFloatTex3 undoScaleDown:v17];
+  *&v18 = texture;
+  v12 = [(LTMProcessor *)self createLTMInTextureFromRGBAFloatTex:inRGBAFloatTex3 undoScaleDown:v18];
 
-  if (!v11)
+  if (!v12)
   {
     [LTMProcessor generateLinearRGBATexture:];
   }
 
 LABEL_15:
 
-  return v11;
+  return v12;
 }
 
 - (id)createIntermediateRGBAMetalTexture:(id)texture width:(unint64_t)width height:(unint64_t)height
@@ -1768,10 +1776,11 @@ LABEL_14:
 
         else
         {
-          v11 = [(LTMProcessor *)self getLTMTuningFromTuningParams:&params[1].flashMixPercentage[254] from:v10];
-          if (v11)
+          v15 = [(LTMProcessor *)self getLTMTuningFromTuningParams:&params[1].flashMixPercentage[254] from:v10];
+          v11 = v15;
+          if (v15)
           {
-            [LTMProcessor setLTMComputeTuningParams:from:];
+            [LTMProcessor setLTMComputeTuningParams:v15 from:?];
           }
 
           else
@@ -2027,999 +2036,1475 @@ LABEL_30:
 - (void)initWithCommandQueue:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor initWithCommandQueue:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: LTMIBPParams is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithCommandQueue:.cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor initWithCommandQueue:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext.allocator is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithCommandQueue:.cold.6()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor initWithCommandQueue:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithCommandQueue:.cold.7()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor initWithCommandQueue:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Couldn't get LTM bundle.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithCommandQueue:.cold.8()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor initWithCommandQueue:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: LTMProcessor is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)createShaders:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createShaders:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: SoftLTM::ltmApplyGlobalCCM is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)createShaders:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createShaders:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: SoftLTM::ltmDehaze is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)createShaders:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createShaders:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: SoftLTM::ltmCompressHighlight is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)createShaders:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createShaders:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: SoftLTM::_ltmDownsampleRGBAFloatToRGB is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)createShaders:.cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createShaders:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: SoftLTM::_ltmDownsampleYCbCrToRGB is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)prepareToProcess:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor prepareToProcess:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: FigMetalAllocator setupWithDescriptor:allocatorBackend failed", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)prepareToProcess:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor prepareToProcess:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: allocatorBackend is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)prepareToProcess:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor prepareToProcess:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: allocatorDesc is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)process
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor process]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: LTMExtractMetadata is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)generateLinearRGBATexture:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor generateLinearRGBATexture:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Wrong input textures", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)createIntermediateRGBAMetalTexture:width:height:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createIntermediateRGBAMetalTexture:width:height:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Texture is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)createIntermediateRGBAMetalTexture:width:height:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createIntermediateRGBAMetalTexture:width:height:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Texture descriptor is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)createLTMInTextureFromLuma:chroma:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createLTMInTextureFromLuma:chroma:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: inChromaTex is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)createLTMInTextureFromLuma:chroma:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createLTMInTextureFromLuma:chroma:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: inLumaTex is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)createLTMInTextureFromRGBAFloatTex:undoScaleDown:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor createLTMInTextureFromRGBAFloatTex:undoScaleDown:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: The input image is nil", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)_compressHighlight:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _compressHighlight:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_compressHighlight:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _compressHighlight:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdBuf is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_compressHighlight:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _compressHighlight:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: compressionCurveTex is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_compressHighlight:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _compressHighlight:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: compressionCurveTexDesc is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_dehaze:hazeValues:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _dehaze:hazeValues:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_dehaze:hazeValues:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _dehaze:hazeValues:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdBuf is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_dehaze:hazeValues:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _dehaze:hazeValues:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: dehazedRGBATexture is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_applyGlobalCCM:globalCCM:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _applyGlobalCCM:globalCCM:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdEnc is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_applyGlobalCCM:globalCCM:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _applyGlobalCCM:globalCCM:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: cmdBuf is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)_applyGlobalCCM:globalCCM:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor _applyGlobalCCM:globalCCM:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: colorCorrectedRGBATexture is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read reluC1 field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read reluC2 field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read reluC3 field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.4()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read reluC4 field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.5()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read reluC5 field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.6()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sr_min field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.7()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sr_var field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.8()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sr_pow field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.9()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sr_sat field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)setDehazeTuningParamsFrom:.cold.10()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor setDehazeTuningParamsFrom:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read min_display_black field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.1()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read histDampingExponentHighlight field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.2()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read histDampingExponentMax field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.3()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read hmaxHeadroom field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.4()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read maxPaddingRange field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.5()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read dispRangeActiveRatio field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.6()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sceneBlackRatio field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.7()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sceneBlackRatioDark field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.8()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sceneBgOffset field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.9()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read desatStrength field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.10()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read minFlareDark field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.11()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read shadowSuppressBase field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.12()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read shadowSuppressMax field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.13()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read shadowSuppressEITAdj field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.14()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read minSceneLux field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.15()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read histSmoothingMax field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.16()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read smoothingStrength field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.17()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read dispRangeDarkRatio field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.18()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sceneModelSmoothing field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.19()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read nonFaceRatioFloor field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.20()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read fstart field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.21()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read shadowDesat field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.22()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read darkSceneLux field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.23()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read ambientViewingLux field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.24()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read ambientViewingChromaticityX field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.25()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read ambientViewingChromaticityY field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.26()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read sceneBlackMax field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.27()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read dispLum field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)getLTMTuningFromTuningParams:from:.cold.28()
 {
   OUTLINED_FUNCTION_0_0();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMProcessor getLTMTuningFromTuningParams:from:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: Could not read dispBlack field", v25, v27, v29, v31);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_3_1();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_3_1(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 @end

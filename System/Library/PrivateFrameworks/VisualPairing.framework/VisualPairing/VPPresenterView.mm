@@ -73,13 +73,19 @@
   codeCopy = code;
   if (gLogCategory_PV <= 30 && (gLogCategory_PV != -1 || _LogCategory_Initialize()))
   {
-    IsAppleInternalBuild();
-    LogPrintF();
+    v5 = IsAppleInternalBuild();
+    v6 = @"*";
+    if (v5)
+    {
+      v6 = codeCopy;
+    }
+
+    LogPrintF(&gLogCategory_PV, "[VPPresenterView setVerificationCode:]", 30, "Change verification code: '%@'\n", v6);
   }
 
   verificationCode = self->_verificationCode;
   self->_verificationCode = codeCopy;
-  v6 = codeCopy;
+  v8 = codeCopy;
 
   watermarkPixelBuffers = self->_watermarkPixelBuffers;
   self->_watermarkPixelBuffers = 0;
@@ -95,31 +101,16 @@
 {
   if (gLogCategory_PV <= 30 && (gLogCategory_PV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_PV, "[VPPresenterView start]", 30, "Start\n");
   }
 
   self->_started = 1;
   if ([(NSString *)self->_verificationCode length])
   {
     *&v3 = self->_watermarkOpacityMultiplier;
-    v22 = 0;
-    if (self->_watermarkPixelBuffers)
+    v21 = 0;
+    if (self->_watermarkPixelBuffers || (v13 = [(NSString *)self->_verificationCode UTF8String], [(VPPresenterView *)self bounds], v15 = v14, [(VPPresenterView *)self bounds], v17 = VPCreateWatermarkPixelBuffers(v13, 0xFFFFFFFFFFFFFFFFLL, v15, v16, 32, self->_watermarkScaleFactor, &v21), watermarkPixelBuffers = self->_watermarkPixelBuffers, self->_watermarkPixelBuffers = v17, watermarkPixelBuffers, (v19 = v21) == 0))
     {
-      goto LABEL_22;
-    }
-
-    uTF8String = [(NSString *)self->_verificationCode UTF8String];
-    [(VPPresenterView *)self bounds];
-    v16 = v15;
-    [(VPPresenterView *)self bounds];
-    watermarkOpacityMultiplier = self->_watermarkOpacityMultiplier;
-    v19 = VPCreateWatermarkPixelBuffers(uTF8String, 0xFFFFFFFFFFFFFFFFLL, v16, v17, 32, self->_watermarkScaleFactor, &v22);
-    watermarkPixelBuffers = self->_watermarkPixelBuffers;
-    self->_watermarkPixelBuffers = v19;
-
-    if (!v22)
-    {
-LABEL_22:
       if (!self->_watermarkLayer)
       {
         layer = [MEMORY[0x277CD9ED0] layer];
@@ -155,15 +146,25 @@ LABEL_22:
         handler[3] = &unk_279E320C8;
         handler[4] = self;
         dispatch_source_set_event_handler(v12, handler);
-        v13 = self->_watermarkStepTimer;
         CUDispatchTimerSet();
         dispatch_resume(self->_watermarkStepTimer);
       }
     }
 
-    else if (gLogCategory_PV <= 60 && (gLogCategory_PV != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_PV <= 60)
     {
-      LogPrintF();
+      if (gLogCategory_PV != -1)
+      {
+LABEL_16:
+        LogPrintF(&gLogCategory_PV, "[VPPresenterView start]", 60, "### Start failed: %#m\n", v19);
+        return;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v19 = v21;
+        goto LABEL_16;
+      }
     }
   }
 }
@@ -172,7 +173,7 @@ LABEL_22:
 {
   if (self->_started && gLogCategory_PV <= 30 && (gLogCategory_PV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_PV, "[VPPresenterView stop]", 30, "Stop\n");
   }
 
   self->_started = 0;

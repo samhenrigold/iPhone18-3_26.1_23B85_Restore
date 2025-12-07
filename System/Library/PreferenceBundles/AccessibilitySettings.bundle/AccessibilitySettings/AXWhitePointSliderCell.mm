@@ -49,19 +49,19 @@
 {
   slider = [(AXWhitePointSliderCell *)self slider];
   [slider value];
-  v5 = AXFormatFloatWithPercentage();
-  [(AXWhitePointSliderCell *)self setLabelText:v5];
+  v6 = AXFormatFloatWithPercentage(v5);
+  [(AXWhitePointSliderCell *)self setLabelText:v6];
 
-  v6 = objc_initWeak(&location, self);
+  v7 = objc_initWeak(&location, self);
   slider2 = [(AXWhitePointSliderCell *)self slider];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = __53__AXWhitePointSliderCell__updateRightLabelWithValue___block_invoke;
-  v8[3] = &unk_255F00;
-  objc_copyWeak(&v9, &location);
-  [slider2 _setAccessibilityValueBlock:v8];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = __53__AXWhitePointSliderCell__updateRightLabelWithValue___block_invoke;
+  v9[3] = &unk_255F00;
+  objc_copyWeak(&v10, &location);
+  [slider2 _setAccessibilityValueBlock:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 
@@ -70,9 +70,9 @@ id __53__AXWhitePointSliderCell__updateRightLabelWithValue___block_invoke(uint64
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained slider];
   [v2 value];
-  v3 = AXFormatFloatWithPercentage();
+  v4 = AXFormatFloatWithPercentage(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)handleSliderBeingDragged:(id)dragged

@@ -12,8 +12,10 @@
 - (REMListAppearanceContextChangeItem)appearanceContext;
 - (REMListAutoCategorizeContextChangeItem)autoCategorizeContextChangeItem;
 - (REMListCalDAVNotificationContextChangeItem)calDAVNotificationContext;
+- (REMListChangeItem)initWithObjectID:(id)d name:(id)name insertIntoAccountChangeItem:(id)item isGroup:(BOOL)group withParentList:(id)list;
 - (REMListChangeItem)initWithObjectID:(id)d name:(id)name insertIntoListSublistContextChangeItem:(id)item;
 - (REMListChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities changedKeysObserver:(id)observer;
+- (REMListChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities observeInitialValues:(BOOL)values;
 - (REMListGroceryContextChangeItem)groceryContextChangeItem;
 - (REMListSectionContextChangeItem)sectionsContextChangeItem;
 - (REMListShareeContextChangeItem)shareeContext;
@@ -33,8 +35,10 @@
 - (void)_testingOnly_setReminderIDsMergeableOrder:(id)order;
 - (void)accountCapabilities;
 - (void)copyListDataFrom:(id)from;
+- (void)insertReminderChangeItem:(id)item adjacentToReminderChangeItem:(id)changeItem isAfter:(BOOL)after withParentReminderChangeItem:(id)reminderChangeItem;
 - (void)lowLevelAddReminderIDToOrdering:(id)ordering withParentReminderChangeItem:(id)item;
 - (void)setDaDisplayOrder:(int64_t)order;
+- (void)setDaIsNotificationsCollection:(BOOL)collection;
 - (void)setIsPinned:(BOOL)pinned;
 - (void)setValue:(id)value forUndefinedKey:(id)key;
 - (void)undeleteReminderWithID:(id)d usingUndo:(id)undo;
@@ -98,6 +102,55 @@
   return selfCopy;
 }
 
+- (REMListChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities observeInitialValues:(BOOL)values
+{
+  valuesCopy = values;
+  capabilitiesCopy = capabilities;
+  requestCopy = request;
+  v12 = [storage copy];
+  v13 = [REMChangedKeysObserver alloc];
+  v14 = [(REMChangedKeysObserver *)v13 initWithTarget:v12 keysToObserve:__sKeysToObserve_3 includeInitial:valuesCopy];
+  v15 = [(REMListChangeItem *)self initWithSaveRequest:requestCopy storage:v12 accountCapabilities:capabilitiesCopy changedKeysObserver:v14];
+
+  return v15;
+}
+
+- (REMListChangeItem)initWithObjectID:(id)d name:(id)name insertIntoAccountChangeItem:(id)item isGroup:(BOOL)group withParentList:(id)list
+{
+  groupCopy = group;
+  dCopy = d;
+  nameCopy = name;
+  itemCopy = item;
+  listCopy = list;
+  if (listCopy && groupCopy)
+  {
+    v16 = +[REMLogStore write];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    {
+      [REMListChangeItem initWithObjectID:name:insertIntoAccountChangeItem:isGroup:withParentList:];
+    }
+  }
+
+  v17 = [REMListStorage alloc];
+  objectID = [itemCopy objectID];
+  orderedSet = [MEMORY[0x1E695DFB8] orderedSet];
+  v20 = [(REMListStorage *)v17 initWithObjectID:dCopy accountID:objectID name:nameCopy isGroup:groupCopy reminderIDsMergeableOrdering:orderedSet];
+
+  objectID2 = [itemCopy objectID];
+  [(REMListStorage *)v20 setParentAccountID:objectID2];
+
+  objectID3 = [listCopy objectID];
+  [(REMListStorage *)v20 setParentListID:objectID3];
+
+  [(REMListStorage *)v20 setDaDisplayOrder:0];
+  [itemCopy lowLevelAddMergeableOrderingNodeIDToOrdering:dCopy withParentMergeableOrderingNode:listCopy];
+  saveRequest = [itemCopy saveRequest];
+  capabilities = [itemCopy capabilities];
+  v25 = [(REMListChangeItem *)self initWithSaveRequest:saveRequest storage:v20 accountCapabilities:capabilities observeInitialValues:1];
+
+  return v25;
+}
+
 - (REMListChangeItem)initWithObjectID:(id)d name:(id)name insertIntoListSublistContextChangeItem:(id)item
 {
   itemCopy = item;
@@ -116,19 +169,8 @@
 - (REMAccountCapabilities)accountCapabilities
 {
   storage = [(REMListChangeItem *)self storage];
-  if (!storage)
+  if (!storage || (v4 = storage, -[REMListChangeItem saveRequest](self, "saveRequest"), v5 = objc_claimAutoreleasedReturnValue(), -[REMListChangeItem objectID](self, "objectID"), v6 = objc_claimAutoreleasedReturnValue(), [v5 _trackedAccountCapabilitiesForObjectID:v6], v7 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, !v7))
   {
-    goto LABEL_3;
-  }
-
-  v4 = storage;
-  saveRequest = [(REMListChangeItem *)self saveRequest];
-  objectID = [(REMListChangeItem *)self objectID];
-  v7 = [saveRequest _trackedAccountCapabilitiesForObjectID:objectID];
-
-  if (!v7)
-  {
-LABEL_3:
     v8 = +[REMLogStore write];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
@@ -494,39 +536,37 @@ LABEL_22:
 
 void __57__REMListChangeItem_undeleteRemindersWithoutUndoWithIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addObject:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [v3 addObject:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)undeleteRemindersWithoutUndoWithIDs:(id)ds isCalDAV:(BOOL)v
@@ -540,9 +580,135 @@ void __57__REMListChangeItem_undeleteRemindersWithoutUndoWithIDs___block_invoke(
   }
 }
 
+- (void)insertReminderChangeItem:(id)item adjacentToReminderChangeItem:(id)changeItem isAfter:(BOOL)after withParentReminderChangeItem:(id)reminderChangeItem
+{
+  afterCopy = after;
+  itemCopy = item;
+  changeItemCopy = changeItem;
+  reminderChangeItemCopy = reminderChangeItem;
+  saveRequest = [itemCopy saveRequest];
+  saveRequest2 = [(REMListChangeItem *)self saveRequest];
+
+  if (saveRequest != saveRequest2)
+  {
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    saveRequest3 = [itemCopy saveRequest];
+    saveRequest4 = [(REMListChangeItem *)self saveRequest];
+    [v15 raise:v16 format:{@"Original reminder has incorrect save request {original: %@, saveRequest: %@, expectedSaveRequest: %@}", itemCopy, saveRequest3, saveRequest4}];
+  }
+
+  accountID = [itemCopy accountID];
+  accountID2 = [(REMListChangeItem *)self accountID];
+  v21 = [accountID isEqual:accountID2];
+
+  if ((v21 & 1) == 0)
+  {
+    v22 = +[REMLogStore write];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    {
+      [REMListChangeItem insertReminderChangeItem:adjacentToReminderChangeItem:isAfter:withParentReminderChangeItem:];
+    }
+  }
+
+  accountCapabilities = [(REMListChangeItem *)self accountCapabilities];
+  if (([accountCapabilities supportsMoveAcrossLists]& 1) != 0)
+  {
+    goto LABEL_12;
+  }
+
+  listID = [itemCopy listID];
+  if (!listID)
+  {
+    goto LABEL_12;
+  }
+
+  v25 = listID;
+  listID2 = [itemCopy listID];
+  objectID = [(REMListChangeItem *)self objectID];
+  v28 = [listID2 isEqual:objectID];
+
+  if ((v28 & 1) == 0)
+  {
+    accountCapabilities = +[REMLogStore write];
+    if (os_log_type_enabled(accountCapabilities, OS_LOG_TYPE_FAULT))
+    {
+      [REMListChangeItem insertReminderChangeItem:itemCopy adjacentToReminderChangeItem:self isAfter:? withParentReminderChangeItem:?];
+    }
+
+LABEL_12:
+  }
+
+  accountCapabilities2 = [(REMListChangeItem *)self accountCapabilities];
+  if (([accountCapabilities2 supportsMoveAcrossSharedLists]& 1) == 0)
+  {
+    listID3 = [itemCopy listID];
+    if (listID3)
+    {
+      v31 = listID3;
+      listID4 = [itemCopy listID];
+      objectID2 = [(REMListChangeItem *)self objectID];
+      if ([listID4 isEqual:objectID2])
+      {
+      }
+
+      else
+      {
+        listChangeItem = [itemCopy listChangeItem];
+        if ([listChangeItem isShared])
+        {
+        }
+
+        else
+        {
+          isShared = [(REMListChangeItem *)self isShared];
+
+          if (!isShared)
+          {
+            goto LABEL_23;
+          }
+        }
+
+        accountCapabilities2 = +[REMLogStore write];
+        if (os_log_type_enabled(accountCapabilities2, OS_LOG_TYPE_FAULT))
+        {
+          [REMListChangeItem insertReminderChangeItem:itemCopy adjacentToReminderChangeItem:self isAfter:? withParentReminderChangeItem:?];
+        }
+      }
+    }
+  }
+
+LABEL_23:
+  if (itemCopy != changeItemCopy)
+  {
+LABEL_24:
+    [(REMListChangeItem *)self _reassignReminderChangeItem:itemCopy withParentReminderChangeItem:reminderChangeItemCopy];
+    [(REMListChangeItem *)self _lowLevelAddReminderChangeItemToOrdering:itemCopy atIndexOfSibling:changeItemCopy isAfter:afterCopy withParent:reminderChangeItemCopy];
+    goto LABEL_27;
+  }
+
+  parentReminderID = [itemCopy parentReminderID];
+  if (reminderChangeItemCopy | parentReminderID)
+  {
+    v36 = parentReminderID;
+    parentReminderID2 = [itemCopy parentReminderID];
+    objectID3 = [reminderChangeItemCopy objectID];
+    v39 = [parentReminderID2 isEqual:objectID3];
+
+    if ((v39 & 1) == 0)
+    {
+
+      changeItemCopy = 0;
+      goto LABEL_24;
+    }
+  }
+
+LABEL_27:
+}
+
 - (void)lowLevelAddReminderIDToOrdering:(id)ordering withParentReminderChangeItem:(id)item
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   orderingCopy = ordering;
   itemCopy = item;
   v8 = itemCopy;
@@ -562,11 +728,11 @@ void __57__REMListChangeItem_undeleteRemindersWithoutUndoWithIDs___block_invoke(
         objectID2 = [(REMListChangeItem *)self objectID];
         objectID3 = [v10 objectID];
         *buf = 138412802;
-        v23 = objectID2;
-        v24 = 2112;
-        v25 = orderingCopy;
-        v26 = 2112;
-        v27 = objectID3;
+        v22 = objectID2;
+        v23 = 2112;
+        v24 = orderingCopy;
+        v25 = 2112;
+        v26 = objectID3;
         _os_log_fault_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_FAULT, "Tried to add a new subtask with a parent reminder but could not find the parent reminder in the list's reminder IDs ordering {listID: %@, reminderID: %@, parentReminderID: %@}.", buf, 0x20u);
       }
     }
@@ -577,16 +743,14 @@ void __57__REMListChangeItem_undeleteRemindersWithoutUndoWithIDs___block_invoke(
     }
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __82__REMListChangeItem_lowLevelAddReminderIDToOrdering_withParentReminderChangeItem___block_invoke;
-  v19[3] = &unk_1E7509750;
-  v20 = orderingCopy;
-  v21 = v9;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __82__REMListChangeItem_lowLevelAddReminderIDToOrdering_withParentReminderChangeItem___block_invoke;
+  v18[3] = &unk_1E7509750;
+  v19 = orderingCopy;
+  v20 = v9;
   v15 = orderingCopy;
-  [(REMListChangeItem *)self _editReminderIDsOrderingUsingBlock:v19];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [(REMListChangeItem *)self _editReminderIDsOrderingUsingBlock:v18];
 }
 
 void __82__REMListChangeItem_lowLevelAddReminderIDToOrdering_withParentReminderChangeItem___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -613,17 +777,17 @@ void __82__REMListChangeItem_lowLevelAddReminderIDToOrdering_withParentReminderC
 
 - (id)lowLevelRemoveReminderIDFromOrdering:(id)ordering
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   orderingCopy = ordering;
   reminderIDsMergeableOrdering = [(REMListChangeItem *)self reminderIDsMergeableOrdering];
   v6 = [reminderIDsMergeableOrdering indexOfObject:orderingCopy];
 
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__13;
-  v20 = __Block_byref_object_dispose__13;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__13;
+  v19 = __Block_byref_object_dispose__13;
+  v20 = 0;
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = +[REMLogStore write];
@@ -636,21 +800,19 @@ void __82__REMListChangeItem_lowLevelAddReminderIDToOrdering_withParentReminderC
 
   else
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __58__REMListChangeItem_lowLevelRemoveReminderIDFromOrdering___block_invoke;
-    v12[3] = &unk_1E75097A0;
-    v15 = v6;
-    v13 = orderingCopy;
-    v14 = &v16;
-    [(REMListChangeItem *)self _editReminderIDsOrderingUsingBlock:v12];
-    v7 = v13;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__REMListChangeItem_lowLevelRemoveReminderIDFromOrdering___block_invoke;
+    v11[3] = &unk_1E75097A0;
+    v14 = v6;
+    v12 = orderingCopy;
+    v13 = &v15;
+    [(REMListChangeItem *)self _editReminderIDsOrderingUsingBlock:v11];
+    v7 = v12;
   }
 
-  v9 = v17[5];
-  _Block_object_dispose(&v16, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   return v9;
 }
@@ -705,39 +867,37 @@ void __58__REMListChangeItem_lowLevelRemoveReminderIDFromOrdering___block_invoke
 
 void __50__REMListChangeItem__lowLevelApplyUndoToOrdering___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = [*(a1 + 32) undoBlocks];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v8++) + 16))();
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_lowLevelAddReminderIDToOrdering:(id)ordering relativeToSiblingID:(id)d isAfter:(BOOL)after
@@ -837,6 +997,31 @@ void __82__REMListChangeItem__lowLevelAddReminderIDToOrdering_relativeToSiblingI
       [REMListChangeItem setDaDisplayOrder:?];
       changedKeysObserver = v11;
     }
+  }
+}
+
+- (void)setDaIsNotificationsCollection:(BOOL)collection
+{
+  collectionCopy = collection;
+  storage = [(REMListChangeItem *)self storage];
+  daIsNotificationsCollection = [storage daIsNotificationsCollection];
+
+  if (daIsNotificationsCollection != collectionCopy)
+  {
+    saveRequest = [(REMListChangeItem *)self saveRequest];
+    v8 = [saveRequest _updateAccountWithListChangeItem:self];
+
+    if (!v8)
+    {
+      [REMListChangeItem setDaIsNotificationsCollection:];
+    }
+
+    [v8 setListsDADisplayOrderChanged:1];
+    storage2 = [(REMListChangeItem *)self storage];
+    [storage2 setDaIsNotificationsCollection:collectionCopy];
+
+    changedKeysObserver = [(REMListChangeItem *)self changedKeysObserver];
+    [changedKeysObserver keyDidChange:@"daIsNotificationsCollection"];
   }
 }
 
@@ -955,32 +1140,21 @@ void __82__REMListChangeItem__lowLevelAddReminderIDToOrdering_relativeToSiblingI
   siblingCopy = sibling;
   parentCopy = parent;
   listID = [orderingCopy listID];
-  if (!listID)
+  if (!listID || (v14 = listID, [orderingCopy listID], v15 = objc_claimAutoreleasedReturnValue(), -[REMListChangeItem objectID](self, "objectID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v14, (v17 & 1) == 0))
   {
-    goto LABEL_23;
-  }
-
-  v14 = listID;
-  listID2 = [orderingCopy listID];
-  objectID = [(REMListChangeItem *)self objectID];
-  v17 = [listID2 isEqual:objectID];
-
-  if ((v17 & 1) == 0)
-  {
-LABEL_23:
     [REMListChangeItem _lowLevelAddReminderChangeItemToOrdering:atIndexOfSibling:isAfter:withParent:];
   }
 
-  objectID2 = [orderingCopy objectID];
+  objectID = [orderingCopy objectID];
   v19 = siblingCopy;
   if (!v19)
   {
     goto LABEL_15;
   }
 
-  listID3 = [orderingCopy listID];
-  listID4 = [v19 listID];
-  v22 = [listID3 isEqual:listID4];
+  listID2 = [orderingCopy listID];
+  listID3 = [v19 listID];
+  v22 = [listID2 isEqual:listID3];
 
   if (!v22)
   {
@@ -1014,8 +1188,8 @@ LABEL_23:
   }
 
   reminderIDsMergeableOrdering = [(REMListChangeItem *)self reminderIDsMergeableOrdering];
-  objectID3 = [v19 objectID];
-  v29 = [reminderIDsMergeableOrdering indexOfObject:objectID3];
+  objectID2 = [v19 objectID];
+  v29 = [reminderIDsMergeableOrdering indexOfObject:objectID2];
 
   if (v29 != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -1035,9 +1209,9 @@ LABEL_15:
   {
     v32 = parentCopy;
     reminderIDsMergeableOrdering2 = [(REMListChangeItem *)self reminderIDsMergeableOrdering];
-    objectID4 = [v32 objectID];
+    objectID3 = [v32 objectID];
 
-    v35 = [reminderIDsMergeableOrdering2 indexOfObject:objectID4];
+    v35 = [reminderIDsMergeableOrdering2 indexOfObject:objectID3];
     if (v35 != 0x7FFFFFFFFFFFFFFFLL && !afterCopy)
     {
       v31 = v35 + 1;
@@ -1049,10 +1223,10 @@ LABEL_21:
   v39[1] = 3221225472;
   v39[2] = __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfSibling_isAfter_withParent___block_invoke;
   v39[3] = &unk_1E75097C8;
-  v40 = objectID2;
+  v40 = objectID;
   v41 = v31;
   v42 = afterCopy;
-  v37 = objectID2;
+  v37 = objectID;
   [(REMListChangeItem *)self _editReminderIDsOrderingUsingBlock:v39];
 }
 
@@ -1087,7 +1261,7 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
 
 - (void)_editReminderIDsOrderingUsingBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   saveRequest = [(REMListChangeItem *)self saveRequest];
   isSaved = [saveRequest isSaved];
@@ -1097,8 +1271,8 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
     v7 = +[REMLogStore write];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_INFO, "REMSaveRequest.isSaved MUST be FALSE", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_INFO, "REMSaveRequest.isSaved MUST be FALSE", &v23, 2u);
     }
   }
 
@@ -1123,13 +1297,13 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
       objectID = [(REMListChangeItem *)self objectID];
       saveRequest3 = [(REMListChangeItem *)self saveRequest];
       v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
-      v24 = 138412802;
-      v25 = objectID;
-      v26 = 2112;
-      v27 = saveRequest3;
-      v28 = 2112;
-      v29 = v19;
-      _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_INFO, "REMListChangeItem updated storage.reminderIDsMergeableOrdering {objectID: %@, saveReq: %@, ordering.count: %@}", &v24, 0x20u);
+      v23 = 138412802;
+      v24 = objectID;
+      v25 = 2112;
+      v26 = saveRequest3;
+      v27 = 2112;
+      v28 = v19;
+      _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_INFO, "REMListChangeItem updated storage.reminderIDsMergeableOrdering {objectID: %@, saveReq: %@, ordering.count: %@}", &v23, 0x20u);
     }
 
     if ([dictionary count])
@@ -1144,8 +1318,6 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
     changedKeysObserver = [(REMListChangeItem *)self changedKeysObserver];
     [changedKeysObserver keyDidChange:@"reminderIDsMergeableOrdering"];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resolutionTokenKeyForChangedKey:(id)key
@@ -1243,85 +1415,46 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
   return v2;
 }
 
-- (void)initWithObjectID:name:insertIntoAccountChangeItem:isGroup:withParentList:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Tried to initialize a nested group {listChangeItem: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)accountCapabilities
 {
-  v8 = *MEMORY[0x1E69E9840];
   objectID = [self objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)optimisticallyInsertReminderIDToOrderingForReminderChangeItemBeingSaved:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "objectID of reminderChangeItem does not exist in its listChangeItem.reminderIDsMergeableOrdering {objectID: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)optimisticallyInsertReminderIDToOrderingForReminderChangeItemBeingSaved:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Unexpected index of objectID in reminderIDsMergeableOrdering {index: %ld}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)optimisticallyInsertReminderIDToOrderingForReminderChangeItemBeingSaved:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 saveRequest];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertReminderChangeItem:adjacentToReminderChangeItem:isAfter:withParentReminderChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 accountID];
   v3 = [v0 accountID];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertReminderChangeItem:(uint64_t)a1 adjacentToReminderChangeItem:(void *)a2 isAfter:withParentReminderChangeItem:.cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 accountID];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertReminderChangeItem:(uint64_t)a1 adjacentToReminderChangeItem:(void *)a2 isAfter:withParentReminderChangeItem:.cold.3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 accountID];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lowLevelRemoveReminderIDFromOrdering:(uint8_t *)buf .cold.1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -1357,13 +1490,10 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
 
 - (void)setIsPinned:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lowLevelAddReminderChangeItemToOrdering:atIndexOfSibling:isAfter:withParent:.cold.1()
@@ -1374,14 +1504,6 @@ void __98__REMListChangeItem__lowLevelAddReminderChangeItemToOrdering_atIndexOfS
     OUTLINED_FUNCTION_0_2();
     _os_log_fault_impl(v1, v2, v3, v4, v5, 2u);
   }
-}
-
-- (void)_lowLevelAddReminderChangeItemToOrdering:atIndexOfSibling:isAfter:withParent:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_3(&dword_19A0DB000, v0, v1, "Failed to find the insert after index of the given sibling reminder -- Appending to the end {objectID: %@}.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

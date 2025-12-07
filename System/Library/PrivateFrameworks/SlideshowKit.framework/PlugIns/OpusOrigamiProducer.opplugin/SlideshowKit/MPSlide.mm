@@ -282,7 +282,7 @@
   v7 = -1.0;
   if (self->_duration != -1.0)
   {
-    [(MPSlide *)self duration];
+    objc_msgSend_duration(self, -1.0);
   }
 
   [(MPSlide *)self setDuration:v7];

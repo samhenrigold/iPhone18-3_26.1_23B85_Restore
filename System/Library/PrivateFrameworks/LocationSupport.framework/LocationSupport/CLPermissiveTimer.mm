@@ -17,16 +17,16 @@
 - (void)shouldFire
 {
   os_unfair_lock_lock(&unk_1ED5FAD70);
-  [(CLPermissiveTimer *)self dbgAssertInside];
-  handler = [(CLTimer *)self handler];
+  objc_msgSend_dbgAssertInside(self, v3, v4);
+  v7 = objc_msgSend_handler(self, v5, v6);
 
-  if (handler)
+  if (v7)
   {
-    handler2 = [(CLTimer *)self handler];
-    v5 = [handler2 copy];
+    v10 = objc_msgSend_handler(self, v8, v9);
+    v13 = objc_msgSend_copy(v10, v11, v12);
 
     os_unfair_lock_unlock(&unk_1ED5FAD70);
-    v5[2]();
+    v13[2]();
   }
 
   else

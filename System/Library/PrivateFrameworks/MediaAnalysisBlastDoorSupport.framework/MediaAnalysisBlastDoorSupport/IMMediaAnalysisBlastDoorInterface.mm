@@ -2,6 +2,7 @@
 - (IMMediaAnalysisBlastDoorInterface)init;
 - (id)generateImagePreviewForFileURL:(id)l maxPixelDimension:(float)dimension scale:(float)scale error:(id *)error;
 - (void)generateMetadataforAttachmentWithfileURL:(id)l resultHandler:(id)handler;
+- (void)generateMovieFramesForAttachmentWithFileURL:(id)l targetPixelWidth:(int64_t)width targetPixelHeight:(int64_t)height frameLimit:(int64_t)limit uniformSampling:(BOOL)sampling framesPerSync:(int64_t)sync appliesPreferredTrackTransform:(BOOL)transform resultHandler:(id)self0;
 - (void)generateMoviePreviewForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension minThumbnailPxSize:(CGSize)size scale:(float)scale resultHandler:(id)handler;
 @end
 
@@ -9,10 +10,10 @@
 
 - (IMMediaAnalysisBlastDoorInterface)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = IMMediaAnalysisBlastDoorInterface;
-  v2 = [(IMMediaAnalysisBlastDoorInterface *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = IMMediaAnalysisBlastDoorInterface;
+  v2 = [(IMMediaAnalysisBlastDoorInterface *)&v6 init];
   if (v2)
   {
     v3 = objc_alloc_init(IMMediaAnalysisBlastDoorInterfaceInternal);
@@ -20,7 +21,6 @@
     v2->_interface = v3;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -45,6 +45,16 @@
   *&v15 = dimension;
   *&v16 = scale;
   [interface generateMoviePreviewForAttachmentWithFileURL:lCopy maxPixelDimension:handlerCopy minThumbnailPxSize:v15 scale:width resultHandler:{height, v16}];
+}
+
+- (void)generateMovieFramesForAttachmentWithFileURL:(id)l targetPixelWidth:(int64_t)width targetPixelHeight:(int64_t)height frameLimit:(int64_t)limit uniformSampling:(BOOL)sampling framesPerSync:(int64_t)sync appliesPreferredTrackTransform:(BOOL)transform resultHandler:(id)self0
+{
+  samplingCopy = sampling;
+  handlerCopy = handler;
+  lCopy = l;
+  interface = [(IMMediaAnalysisBlastDoorInterface *)self interface];
+  LOBYTE(v19) = transform;
+  [interface generateMovieFramesForAttachmentWithFileURL:lCopy targetPixelWidth:width targetPixelHeight:height frameLimit:limit uniformSampling:samplingCopy framesPerSync:sync appliesPreferredTrackTransform:v19 resultHandler:handlerCopy];
 }
 
 - (void)generateMetadataforAttachmentWithfileURL:(id)l resultHandler:(id)handler

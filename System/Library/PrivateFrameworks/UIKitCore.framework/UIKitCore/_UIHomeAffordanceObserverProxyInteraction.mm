@@ -2,10 +2,10 @@
 - (NSString)debugDescription;
 - (UIView)view;
 - (_UIHomeAffordanceObserverProxyInteraction)init;
+- (id)_disableCoalescedFrameEvaluation;
 - (id)succinctDescription;
-- (uint64_t)_configureCoalescedFrameEvaluationDisplayLinkForScreen:(id *)screen;
-- (uint64_t)_disableCoalescedFrameEvaluation;
 - (void)_coalescedFrameEvaluationDisplayLinkTicked:(id)ticked;
+- (void)_configureCoalescedFrameEvaluationDisplayLinkForScreen:(id *)screen;
 - (void)_didMoveFromWindow:(id)window toWindow:(id)toWindow;
 - (void)_geometryChanged:(id *)changed forAncestor:(id)ancestor;
 - (void)_notifier:(id)_notifier homeAffordanceDoubleTapGestureDidSucceed:(BOOL)succeed;
@@ -23,13 +23,13 @@
 
 @implementation _UIHomeAffordanceObserverProxyInteraction
 
-- (uint64_t)_disableCoalescedFrameEvaluation
+- (id)_disableCoalescedFrameEvaluation
 {
   v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    if (*(result + 24))
+    if (result[3])
     {
       CategoryCachedImpl = __UILogGetCategoryCachedImpl("HomeAffordanceObservation", &_disableCoalescedFrameEvaluation___s_category);
       if (*CategoryCachedImpl)
@@ -47,7 +47,7 @@
     }
 
     *(v1 + 24) &= ~1u;
-    return [*(v1 + 64) setPaused:1];
+    return [v1[8] setPaused:1];
   }
 
   return result;
@@ -142,7 +142,7 @@ LABEL_4:
     width = change.size.width;
     y = change.origin.y;
     x = change.origin.x;
-    [(_UIHomeAffordanceObserverProxyInteraction *)self _disableCoalescedFrameEvaluation];
+    [(_UIHomeAffordanceObserverProxyInteraction *)&self->super.isa _disableCoalescedFrameEvaluation];
     v28.origin.x = x;
     v28.origin.y = y;
     v28.size.width = width;
@@ -237,7 +237,7 @@ LABEL_4:
 {
   v23 = *MEMORY[0x1E69E9840];
   interactionFlags = self->_interactionFlags;
-  [(_UIHomeAffordanceObserverProxyInteraction *)self _disableCoalescedFrameEvaluation];
+  [(_UIHomeAffordanceObserverProxyInteraction *)&self->super.isa _disableCoalescedFrameEvaluation];
   if ((interactionFlags & 1) != 0 && self->_homeAffordanceRegistrationToken)
   {
     CategoryCachedImpl = __UILogGetCategoryCachedImpl("HomeAffordanceObservation", &_coalescedFrameEvaluationDisplayLinkTicked____s_category);
@@ -271,7 +271,7 @@ LABEL_4:
   }
 }
 
-- (uint64_t)_configureCoalescedFrameEvaluationDisplayLinkForScreen:(id *)screen
+- (void)_configureCoalescedFrameEvaluationDisplayLinkForScreen:(id *)screen
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = screen[8];
@@ -322,15 +322,15 @@ LABEL_4:
     v8 = a2;
     if (v39 == v8)
     {
-      v9 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v9 = 0;
+      isEqual = 0;
       if (v8 && v39)
       {
-        v9 = [v39 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v39);
       }
     }
 
@@ -426,7 +426,7 @@ LABEL_4:
       }
     }
 
-    if ((v9 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       if (v39)
       {

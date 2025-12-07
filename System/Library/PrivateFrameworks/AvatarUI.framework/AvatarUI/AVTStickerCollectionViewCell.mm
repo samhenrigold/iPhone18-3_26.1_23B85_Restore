@@ -180,8 +180,7 @@ id __46__AVTStickerCollectionViewCell_initWithFrame___block_invoke(uint64_t a1)
     v6 = v5 + -15.0;
     [(AVTStickerCollectionViewCell *)self bounds];
     v7 = [v4 initWithFrame:{0.0, v6}];
-    [(UILabel *)v7 setAutoresizingMask:10];
-    v8 = AVTAvatarUIBundle();
+    v8 = AVTAvatarUIBundle([(UILabel *)v7 setAutoresizingMask:10]);
     v9 = [v8 localizedStringForKey:@"STICKER_PRERELEASE" value:&stru_1F39618F0 table:@"Localized"];
     [(UILabel *)v7 setText:v9];
 

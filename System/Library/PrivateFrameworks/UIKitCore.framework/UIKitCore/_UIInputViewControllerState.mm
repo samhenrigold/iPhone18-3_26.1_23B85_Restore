@@ -151,9 +151,9 @@
     v5 = equalCopy;
     documentState = [(_UIInputViewControllerState *)self documentState];
     documentState2 = [v5 documentState];
-    v8 = [documentState isEqual:documentState2];
+    isEqual = objc_msgSend_isEqual_(documentState);
 
-    if (v8 && (-[_UIInputViewControllerState textInputTraits](self, "textInputTraits"), v9 = objc_claimAutoreleasedReturnValue(), [v5 textInputTraits], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v11) && (-[_UIInputViewControllerState documentInputMode](self, "documentInputMode"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "documentInputMode"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14) && (-[_UIInputViewControllerState documentIdentifier](self, "documentIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "documentIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v17))
+    if (isEqual && (-[_UIInputViewControllerState textInputTraits](self, "textInputTraits"), v9 = objc_claimAutoreleasedReturnValue(), [v5 textInputTraits], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_isEqual_(v9), v10, v9, v11) && (-[_UIInputViewControllerState documentInputMode](self, "documentInputMode"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "documentInputMode"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend_isEqual_(v12), v13, v12, v14) && (-[_UIInputViewControllerState documentIdentifier](self, "documentIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "documentIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_isEqual_(v15), v16, v15, v17))
     {
       needsInputModeSwitchKey = [(_UIInputViewControllerState *)self needsInputModeSwitchKey];
       v19 = needsInputModeSwitchKey ^ [v5 needsInputModeSwitchKey] ^ 1;

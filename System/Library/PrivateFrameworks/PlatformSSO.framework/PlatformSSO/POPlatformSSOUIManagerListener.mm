@@ -24,7 +24,7 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = PO_LOG_POAgentListener();
+  v8 = PO_LOG_POAgentListener(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POPlatformSSOListener listener:shouldAcceptNewConnection:];

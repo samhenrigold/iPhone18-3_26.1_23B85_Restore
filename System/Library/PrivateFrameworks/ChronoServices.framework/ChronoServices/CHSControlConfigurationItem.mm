@@ -12,12 +12,10 @@
 
 - (NSString)uniqueIdentifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___CHSControlConfigurationItem__uniqueIdentifier);
-  v3 = *&self->_uniqueIdentifier[OBJC_IVAR___CHSControlConfigurationItem__uniqueIdentifier];
 
-  v4 = sub_195FA0888();
+  v2 = sub_195FA0888();
 
-  return v4;
+  return v2;
 }
 
 - (CHSControlConfigurationItem)initWithUniqueIdentifier:(id)identifier controlIdentity:(id)identity location:(int64_t)location

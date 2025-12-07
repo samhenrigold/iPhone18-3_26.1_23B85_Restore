@@ -31,7 +31,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0x2C6, @"[%@ gradientFilterWithSources:] Error: the MPSNNInitialGradient filter doesn't have a corresponding gradient filter.\n", v4, v5, v6, v7);
   }
 
   return 0;
@@ -46,7 +46,7 @@
   {
     if (v11 != gradientCopy && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSNNLossNode.mm", 0x2D3, @"Error: the MPSNNInitialGradient filter doesn't have a corresponding gradient filter.", v14, v15, v16, v17);
     }
   }
 

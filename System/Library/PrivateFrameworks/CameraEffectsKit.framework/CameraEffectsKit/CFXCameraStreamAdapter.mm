@@ -20,7 +20,7 @@
 
     [v11 setOrientation:orientation];
     [v11 setPixelBuffer:{objc_msgSend(dataCopy, "pixelBuffer")}];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [v11 setTimestamp:?];
     [v11 setRequiresFaceTracking:{objc_msgSend(compositionCopy, "requiresFaceTracking")}];
     v39[0] = MEMORY[0x277D85DD0];
@@ -39,7 +39,7 @@
   {
     v11 = objc_opt_new();
     [v11 setPixelBuffer:{objc_msgSend(dataCopy, "pixelBuffer")}];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     [v11 setTimestamp:?];
     [v11 setCaptureFramesPerSecond:{objc_msgSend(dataCopy, "captureFramesPerSecond")}];
     [dataCopy cameraIntrinsics];

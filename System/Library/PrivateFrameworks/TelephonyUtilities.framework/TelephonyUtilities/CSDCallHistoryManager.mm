@@ -117,7 +117,7 @@
 - (void)handleCallHistoryDatabaseChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004778();
+  v5 = sub_100004778(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

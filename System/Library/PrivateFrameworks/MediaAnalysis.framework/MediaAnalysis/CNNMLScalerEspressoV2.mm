@@ -103,26 +103,26 @@ LABEL_22:
 
 - (int)inferenceWithPixelBuffer:(__CVBuffer *)buffer toDestinationPixelBuffer:(__CVBuffer *)pixelBuffer
 {
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(self);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingInference", "", &v23, 2u);
+    LOWORD(v25) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingInference", "", &v25, 2u);
   }
 
-  v11 = [(CNNMLScalerEspressoV2 *)self prepareInput:buffer withChannels:4];
-  if (!v11)
+  v12 = [(CNNMLScalerEspressoV2 *)self prepareInput:buffer withChannels:4];
+  if (!v12)
   {
     inputsType = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 inputsType];
-    v13 = [inputsType objectAtIndexedSubscript:0];
-    unsignedIntValue = [v13 unsignedIntValue];
+    v14 = [inputsType objectAtIndexedSubscript:0];
+    unsignedIntValue = [v14 unsignedIntValue];
 
-    v11 = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 espressoForward:[(VCPEspressoV2Data *)self->_inputData getData:unsignedIntValue]];
-    if (!v11)
+    v12 = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 espressoForward:[(VCPEspressoV2Data *)self->_inputData getData:unsignedIntValue]];
+    if (!v12)
     {
       outputsSize = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputsSize];
       if ([outputsSize count])
@@ -130,28 +130,28 @@ LABEL_22:
         modelEspressoV2 = self->_modelEspressoV2;
         if (modelEspressoV2)
         {
-          [(VCPCNNModelEspressoV2 *)modelEspressoV2 outputs];
-          v20 = v23;
-          v19 = v24;
-          v26 = &v23;
-          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v26);
-          if (v19 != v20)
+          objc_msgSend_outputs(modelEspressoV2);
+          v21 = v25;
+          v20 = v26;
+          v28 = &v25;
+          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v28);
+          if (v20 != v21)
           {
-            [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
-            v15 = [(CNNMLScalerEspressoV2 *)self copyOutput:*v23 pixelbuffer:pixelBuffer];
-            v26 = &v23;
-            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v26);
-            if (!v15)
+            objc_msgSend_outputs(self->_modelEspressoV2);
+            v16 = [(CNNMLScalerEspressoV2 *)self copyOutput:*v25 pixelbuffer:pixelBuffer];
+            v28 = &v25;
+            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v28);
+            if (!v16)
             {
-              v21 = VCPSignPostLog();
-              v22 = v21;
-              if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+              v23 = VCPSignPostLog(v22);
+              v24 = v23;
+              if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
               {
-                LOWORD(v23) = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLScalingInference", "", &v23, 2u);
+                LOWORD(v25) = 0;
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLScalingInference", "", &v25, 2u);
               }
 
-              v15 = 0;
+              v16 = 0;
             }
 
             goto LABEL_18;
@@ -160,22 +160,22 @@ LABEL_22:
 
         else
         {
-          v23 = 0;
-          v24 = 0;
           v25 = 0;
-          v26 = &v23;
-          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v26);
+          v26 = 0;
+          v27 = 0;
+          v28 = &v25;
+          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v28);
         }
       }
 
-      v15 = 1;
+      v16 = 1;
 LABEL_18:
 
-      return v15;
+      return v16;
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (int)configInput:(int)input
@@ -210,16 +210,16 @@ LABEL_18:
 
 - (int)prepareInput:(__CVBuffer *)input withChannels:(int)channels
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v7 = VCPSignPostLog();
+  v52 = *MEMORY[0x1E69E9840];
+  v7 = VCPSignPostLog(self);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingPrepareInput", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingPrepareInput", "", buf, 2u);
   }
 
   Width = CVPixelBufferGetWidth(input);
@@ -235,185 +235,78 @@ LABEL_18:
   unlockFlags = 1;
   if (input)
   {
-    v14 = Height;
-    v15 = CVPixelBufferLockBaseAddress(input, 1uLL);
-    *buf = v15;
-    if (!v15 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (*v46 = 134218240, v47 = pixelBuffer, v48 = 1024, v49 = v15, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", v46, 0x12u), (v15 = *buf) == 0))
+    v15 = Height;
+    v16 = CVPixelBufferLockBaseAddress(input, 1uLL);
+    *buf = v16;
+    if (!v16 || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (*v48 = 134218240, v49 = pixelBuffer, v50 = 1024, v51 = v16, _os_log_error_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to lock CVPixelBuffer (%p, %d)", v48, 0x12u), (v16 = *buf) == 0))
     {
-      v34 = v8 - 1;
-      v35 = v8;
+      v36 = v8 - 1;
+      v37 = v8;
       BaseAddress = CVPixelBufferGetBaseAddress(input);
       BytesPerRow = CVPixelBufferGetBytesPerRow(input);
-      if (v14 >= 1)
-      {
-        v19 = 0;
-        v41 = inputWidth * inputHeight;
-        v42 = 0;
-        v40 = 2 * inputWidth * inputHeight;
-        v20 = 3 * inputWidth * inputHeight;
-        v36 = v14 & 0x7FFFFFFF;
-        v37 = BytesPerRow;
-        do
-        {
-          v39 = v19;
-          if (Width >= 1)
-          {
-            v21 = 0;
-            v23 = v41;
-            v22 = v42;
-            v24 = v40;
-            v25 = v20;
-            do
-            {
-              LOBYTE(v18) = BaseAddress[v21 + 2];
-              *&v18 = LODWORD(v18) / 255.0;
-              [(VCPEspressoV2Data *)self->_inputData setValueFP:v22 atIndex:v18, v34, v35];
-              LOBYTE(v26) = BaseAddress[v21 + 1];
-              *&v27 = v26 / 255.0;
-              [(VCPEspressoV2Data *)self->_inputData setValueFP:v23 atIndex:v27];
-              LOBYTE(v28) = BaseAddress[v21];
-              *&v29 = v28 / 255.0;
-              [(VCPEspressoV2Data *)self->_inputData setValueFP:v24 atIndex:v29];
-              LODWORD(v30) = 1.0;
-              [(VCPEspressoV2Data *)self->_inputData setValueFP:v25 atIndex:v30];
-              v21 += 4;
-              ++v25;
-              ++v24;
-              ++v23;
-              ++v22;
-            }
-
-            while (4 * Width != v21);
-          }
-
-          BaseAddress += v37;
-          v19 = v39 + 1;
-          v20 += Width;
-          v40 += Width;
-          v41 += Width;
-          v42 += Width;
-        }
-
-        while (v39 + 1 != v36);
-      }
-
-      v15 = CVPixelBufferLock::Unlock(buf);
-      if (!v15)
-      {
-        v31 = VCPSignPostLog();
-        v32 = v31;
-        if (v34 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
-        {
-          *v46 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v35, "VCPMADMLScalingPrepareInput", "", v46, 2u);
-        }
-
-        v15 = 0;
-      }
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
-    }
-
-    v15 = -50;
-    *buf = -50;
-  }
-
-  if (pixelBuffer && !*buf && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
-  }
-
-  return v15;
-}
-
-- (int)copyOutput:(id)output pixelbuffer:(__CVBuffer *)pixelbuffer
-{
-  outputCopy = output;
-  v7 = VCPSignPostLog();
-  v8 = os_signpost_id_generate(v7);
-
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingCopyOutput", "", buf, 2u);
-  }
-
-  Width = CVPixelBufferGetWidth(pixelbuffer);
-  Height = CVPixelBufferGetHeight(pixelbuffer);
-  outputWidth = self->_outputWidth;
-  outputHeight = self->_outputHeight;
-  pixelBuffer = pixelbuffer;
-  unlockFlags = 1;
-  if (pixelbuffer)
-  {
-    v15 = Height;
-    v16 = CVPixelBufferLockBaseAddress(pixelbuffer, 1uLL);
-    *buf = v16;
-    if (v16)
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        [VCPImageConverter convertImage:yuvFrame:];
-      }
-    }
-
-    else
-    {
-      BaseAddress = CVPixelBufferGetBaseAddress(pixelbuffer);
-      BytesPerRow = CVPixelBufferGetBytesPerRow(pixelbuffer);
-      v19 = [outputCopy getData:2];
       if (v15 >= 1)
       {
         v20 = 0;
-        v21 = v19 + 4 * outputWidth * outputHeight;
-        v22 = v19 + 8 * outputWidth * outputHeight;
-        v23 = v19 + 12 * outputWidth * outputHeight;
-        v24 = 4 * Width;
+        v43 = inputWidth * inputHeight;
+        v44 = 0;
+        v42 = 2 * inputWidth * inputHeight;
+        v21 = 3 * inputWidth * inputHeight;
+        v38 = v15 & 0x7FFFFFFF;
+        v39 = BytesPerRow;
         do
         {
+          v41 = v20;
           if (Width >= 1)
           {
-            v25 = 0;
+            v22 = 0;
+            v24 = v43;
+            v23 = v44;
+            v25 = v42;
+            v26 = v21;
             do
             {
-              BaseAddress[v25 + 2] = (*(v19 + v25) * 255.0);
-              BaseAddress[v25 + 1] = (*(v21 + v25) * 255.0);
-              BaseAddress[v25] = (*(v22 + v25) * 255.0);
-              BaseAddress[v25 + 3] = (*(v23 + v25) * 255.0);
-              v25 += 4;
+              LOBYTE(v19) = BaseAddress[v22 + 2];
+              *&v19 = LODWORD(v19) / 255.0;
+              [(VCPEspressoV2Data *)self->_inputData setValueFP:v23 atIndex:v19, v36, v37];
+              LOBYTE(v27) = BaseAddress[v22 + 1];
+              *&v28 = v27 / 255.0;
+              [(VCPEspressoV2Data *)self->_inputData setValueFP:v24 atIndex:v28];
+              LOBYTE(v29) = BaseAddress[v22];
+              *&v30 = v29 / 255.0;
+              [(VCPEspressoV2Data *)self->_inputData setValueFP:v25 atIndex:v30];
+              LODWORD(v31) = 1.0;
+              [(VCPEspressoV2Data *)self->_inputData setValueFP:v26 atIndex:v31];
+              v22 += 4;
+              ++v26;
+              ++v25;
+              ++v24;
+              ++v23;
             }
 
-            while (v24 != v25);
+            while (4 * Width != v22);
           }
 
-          BaseAddress += BytesPerRow;
-          ++v20;
-          v19 += v24;
-          v21 += v24;
-          v22 += v24;
-          v23 += v24;
+          BaseAddress += v39;
+          v20 = v41 + 1;
+          v21 += Width;
+          v42 += Width;
+          v43 += Width;
+          v44 += Width;
         }
 
-        while (v20 != (v15 & 0x7FFFFFFF));
+        while (v41 + 1 != v38);
       }
 
-      v16 = CVPixelBufferLock::Unlock(buf);
-      if (!v16)
+      v32 = CVPixelBufferLock::Unlock(buf);
+      v16 = v32;
+      if (!v32)
       {
-        v26 = VCPSignPostLog();
-        v27 = v26;
-        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+        v33 = VCPSignPostLog(v32);
+        v34 = v33;
+        if (v36 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
         {
-          *v29 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLScalingCopyOutput", "", v29, 2u);
+          *v48 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, v37, "VCPMADMLScalingPrepareInput", "", v48, 2u);
         }
 
         v16 = 0;
@@ -438,6 +331,115 @@ LABEL_18:
   }
 
   return v16;
+}
+
+- (int)copyOutput:(id)output pixelbuffer:(__CVBuffer *)pixelbuffer
+{
+  outputCopy = output;
+  v7 = VCPSignPostLog(outputCopy);
+  v8 = os_signpost_id_generate(v7);
+
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADMLScalingCopyOutput", "", buf, 2u);
+  }
+
+  Width = CVPixelBufferGetWidth(pixelbuffer);
+  Height = CVPixelBufferGetHeight(pixelbuffer);
+  outputWidth = self->_outputWidth;
+  outputHeight = self->_outputHeight;
+  pixelBuffer = pixelbuffer;
+  unlockFlags = 1;
+  if (pixelbuffer)
+  {
+    v16 = Height;
+    v17 = CVPixelBufferLockBaseAddress(pixelbuffer, 1uLL);
+    *buf = v17;
+    if (v17)
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        [VCPImageConverter convertImage:yuvFrame:];
+      }
+    }
+
+    else
+    {
+      BaseAddress = CVPixelBufferGetBaseAddress(pixelbuffer);
+      BytesPerRow = CVPixelBufferGetBytesPerRow(pixelbuffer);
+      v20 = [outputCopy getData:2];
+      if (v16 >= 1)
+      {
+        v21 = 0;
+        v22 = v20 + 4 * outputWidth * outputHeight;
+        v23 = v20 + 8 * outputWidth * outputHeight;
+        v24 = v20 + 12 * outputWidth * outputHeight;
+        v25 = 4 * Width;
+        do
+        {
+          if (Width >= 1)
+          {
+            v26 = 0;
+            do
+            {
+              BaseAddress[v26 + 2] = (*(v20 + v26) * 255.0);
+              BaseAddress[v26 + 1] = (*(v22 + v26) * 255.0);
+              BaseAddress[v26] = (*(v23 + v26) * 255.0);
+              BaseAddress[v26 + 3] = (*(v24 + v26) * 255.0);
+              v26 += 4;
+            }
+
+            while (v25 != v26);
+          }
+
+          BaseAddress += BytesPerRow;
+          ++v21;
+          v20 += v25;
+          v22 += v25;
+          v23 += v25;
+          v24 += v25;
+        }
+
+        while (v21 != (v16 & 0x7FFFFFFF));
+      }
+
+      v27 = CVPixelBufferLock::Unlock(buf);
+      v17 = v27;
+      if (!v27)
+      {
+        v28 = VCPSignPostLog(v27);
+        v29 = v28;
+        if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+        {
+          v31[0] = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADMLScalingCopyOutput", "", v31, 2u);
+        }
+
+        v17 = 0;
+      }
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
+    }
+
+    v17 = -50;
+    *buf = -50;
+  }
+
+  if (pixelBuffer && !*buf && CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    [VCPVideoCNNAnalyzer copyImage:withChannels:settling:];
+  }
+
+  return v17;
 }
 
 @end

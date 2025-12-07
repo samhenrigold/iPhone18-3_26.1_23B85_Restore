@@ -7,12 +7,15 @@
 - (id)bearerUniformCallerIdentifierData;
 - (id)bearerUriSchemesSupportedListData;
 - (id)callControlPointOptionalOpcodesData;
+- (id)callControlResultCodeToString:(unsigned __int8)string;
 - (id)callProviderIdentifierFromTBSURIScheme:(id)scheme;
 - (id)callStateData;
 - (id)contentControlIdData;
 - (id)getCallInfoWithSharedCallIndex:(unsigned __int8)index;
 - (id)incomingCallData;
+- (id)opcodesToString:(unsigned __int8)string;
 - (id)statusFlagsData;
+- (id)terminationReasonToString:(unsigned __int8)string;
 - (void)callControlPointNotification:(unsigned __int8)notification callIndex:(unsigned __int8)index result:(unsigned __int8)result;
 - (void)handleCallControlPointWrite:(id)write;
 - (void)handleOriginateCallRequest:(id)request;
@@ -1315,6 +1318,51 @@ LABEL_11:
   objc_sync_exit(syncObject);
 
   return v13;
+}
+
+- (id)opcodesToString:(unsigned __int8)string
+{
+  if (string >= 6u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN TBS CALL CONTROL OPCODE: %u", string];
+  }
+
+  else
+  {
+    string = off_100095BE8[string];
+  }
+
+  return string;
+}
+
+- (id)terminationReasonToString:(unsigned __int8)string
+{
+  if (string >= 0xAu)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN TBS TERMINATION REASON: %u", string];
+  }
+
+  else
+  {
+    string = off_100095C18[string];
+  }
+
+  return string;
+}
+
+- (id)callControlResultCodeToString:(unsigned __int8)string
+{
+  if (string >= 7u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN TBS CALL CONTROL RESULT CODE: %u", string];
+  }
+
+  else
+  {
+    string = off_100095C68[string];
+  }
+
+  return string;
 }
 
 @end

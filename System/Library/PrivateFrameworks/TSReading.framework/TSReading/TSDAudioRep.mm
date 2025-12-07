@@ -311,26 +311,26 @@
   [(TSDRep *)self layerFrameInScaledCanvasRelativeToParent];
   v9 = TSDCenterOfRect(v5, v6, v7, v8);
   v11 = TSDRectWithCenterAndSize(v9, v10, 130.0);
-  v15 = TSDRoundedRect(v11, v12, v13, v14);
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v22 = TSDCenterOfRect(v15, v16, v18, v20);
-  v24 = v23;
+  v16 = TSDRoundedRect(v12, v11, v13, v14, v15);
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v23 = TSDCenterOfRect(v16, v17, v19, v21);
+  v25 = v24;
   [layout position];
-  if (v26 != v22 || v25 != v24)
+  if (v27 != v23 || v26 != v25)
   {
-    [layout setPosition:{v22, v24}];
+    [layout setPosition:{v23, v25}];
   }
 
   [layout bounds];
-  v33.origin.x = v15;
-  v33.origin.y = v17;
-  v33.size.width = v19;
-  v33.size.height = v21;
-  if (!CGRectEqualToRect(v32, v33))
+  v34.origin.x = v16;
+  v34.origin.y = v18;
+  v34.size.width = v20;
+  v34.size.height = v22;
+  if (!CGRectEqualToRect(v33, v34))
   {
-    [layout setBounds:{v15, v17, v19, v21}];
+    [layout setBounds:{v16, v18, v20, v22}];
   }
 
   if ([(TSDAudioRep *)self p_shouldShowPlayPauseLayers])
@@ -338,14 +338,14 @@
     [MEMORY[0x277CD9FF0] begin];
     [MEMORY[0x277CD9FF0] setDisableActions:1];
     [layout position];
-    v29 = v28 + 31.0;
+    v30 = v29 + 31.0;
     [layout position];
-    [(TSKAVPlayerController *)self->mPlayerController setPosition:v29];
+    [(TSKAVPlayerController *)self->mPlayerController setPosition:v30];
     [layout position];
     [(CALayer *)self->mPlayPauseButtonLayer setPosition:?];
-    v30 = MEMORY[0x277CD9FF0];
+    v31 = MEMORY[0x277CD9FF0];
 
-    [v30 commit];
+    [v31 commit];
   }
 }
 
@@ -520,35 +520,35 @@ LABEL_15:
     goto LABEL_18;
   }
 
-  v11 = @"sf_canvas_audio_play-N";
+  v13 = @"sf_canvas_audio_play-N";
   if (pressedCopy)
   {
-    v11 = @"sf_canvas_audio_play-P";
+    v13 = @"sf_canvas_audio_play-P";
   }
 
-  v12 = @"sf_canvas_audio_pause-P";
+  v14 = @"sf_canvas_audio_pause-P";
   if (!pressedCopy)
   {
-    v12 = @"sf_canvas_audio_pause-N";
+    v14 = @"sf_canvas_audio_pause-N";
   }
 
   if (playingCopy)
   {
-    v9 = v12;
+    v9 = v14;
   }
 
   else
   {
-    v9 = v11;
+    v9 = v13;
   }
 
 LABEL_18:
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:1];
-  -[CALayer setContents:](self->mPlayPauseButtonLayer, "setContents:", [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:v9 inBundle:{TSDBundle()), "CGImage"}]);
-  v10 = MEMORY[0x277CD9FF0];
+  v10 = [MEMORY[0x277CD9FF0] setDisableActions:1];
+  -[CALayer setContents:](self->mPlayPauseButtonLayer, "setContents:", [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:v9 inBundle:{TSDBundle(v10, v11)), "CGImage"}]);
+  v12 = MEMORY[0x277CD9FF0];
 
-  [v10 commit];
+  [v12 commit];
 }
 
 - (float)volume

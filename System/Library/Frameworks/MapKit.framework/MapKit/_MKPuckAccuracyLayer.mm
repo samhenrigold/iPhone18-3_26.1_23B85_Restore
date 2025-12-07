@@ -350,7 +350,7 @@
       v38 = self->_ring;
       if (v38)
       {
-        [(CALayer *)v38 transform];
+        objc_msgSend_transform(v38);
       }
 
       else

@@ -108,7 +108,7 @@
   innerImageView = self->_innerImageView;
   if (innerImageView)
   {
-    [(SUUIImageView *)innerImageView transform];
+    objc_msgSend_transform(innerImageView);
   }
 
   else

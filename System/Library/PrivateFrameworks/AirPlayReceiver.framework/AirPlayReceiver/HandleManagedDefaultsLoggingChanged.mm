@@ -3,11 +3,11 @@
 
 @implementation HandleManagedDefaultsLoggingChanged
 
-uint64_t ___HandleManagedDefaultsLoggingChanged_block_invoke()
+uint64_t ___HandleManagedDefaultsLoggingChanged_block_invoke(uint64_t a1)
 {
-  v0 = IsAppleInternalBuild();
+  v1 = IsAppleInternalBuild();
   result = LogControl();
-  if (v0)
+  if (v1)
   {
 
     return LogControl();

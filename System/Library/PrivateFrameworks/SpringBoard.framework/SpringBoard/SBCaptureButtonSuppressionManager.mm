@@ -2,7 +2,7 @@
 - (BOOL)isInCameraCapturePose;
 - (SBCaptureButtonLowLatencyPose)lowLatencyPose;
 - (SBCaptureButtonSuppressionManager)init;
-- (uint64_t)removeObserver:(uint64_t)result;
+- (id)removeObserver:(id *)result;
 - (unint64_t)cameraCapturePoseType;
 - (void)_notifyObserversOfSuppressionState;
 - (void)_subscribeToViewObstructedUpdates;
@@ -42,7 +42,7 @@
   if (self->_suppressionState != state)
   {
     self->_suppressionState = state;
-    v5 = SBLogCameraCaptureSuppression();
+    v5 = SBLogCameraCaptureSuppression(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = NSStringFromSBCaptureButtonSuppressionState(state);
@@ -148,40 +148,40 @@
 
 - (void)_subscribeToViewObstructedUpdates
 {
-  if ([MEMORY[0x277CC1D50] isAvailable])
+  isAvailable = [MEMORY[0x277CC1D50] isAvailable];
+  if (isAvailable)
   {
     if (!self->_suppressionManager)
     {
-      v4 = [objc_alloc(MEMORY[0x277CC1D50]) initWithClientType:4];
+      v5 = [objc_alloc(MEMORY[0x277CC1D50]) initWithClientType:4];
       suppressionManager = self->_suppressionManager;
-      self->_suppressionManager = v4;
+      self->_suppressionManager = v5;
 
-      [(CMSuppressionManager *)self->_suppressionManager startService];
-      v6 = SBLogCameraCaptureSuppression();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = SBLogCameraCaptureSuppression([(CMSuppressionManager *)self->_suppressionManager startService]);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Enabling View Obstructed updates using AlwaysOnVO | FaceDown", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Enabling View Obstructed updates using AlwaysOnVO | FaceDown", buf, 2u);
       }
 
-      v7 = self->_suppressionManager;
+      v8 = self->_suppressionManager;
       mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __70__SBCaptureButtonSuppressionManager__subscribeToViewObstructedUpdates__block_invoke;
-      v10[3] = &unk_2783BD280;
-      v10[4] = self;
-      v10[5] = a2;
-      [(CMSuppressionManager *)v7 startSuppressionUpdatesToQueue:mainQueue withOptions:24 withHandler:v10];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __70__SBCaptureButtonSuppressionManager__subscribeToViewObstructedUpdates__block_invoke;
+      v11[3] = &unk_2783BD280;
+      v11[4] = self;
+      v11[5] = a2;
+      [(CMSuppressionManager *)v8 startSuppressionUpdatesToQueue:mainQueue withOptions:24 withHandler:v11];
     }
   }
 
   else
   {
-    v9 = SBLogCameraCaptureSuppression();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogCameraCaptureSuppression(isAvailable);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(SBCaptureButtonSuppressionManager *)v9 _subscribeToViewObstructedUpdates];
+      [(SBCaptureButtonSuppressionManager *)v10 _subscribeToViewObstructedUpdates];
     }
 
     self->_suppressionState = 0;
@@ -190,29 +190,29 @@
 
 void __70__SBCaptureButtonSuppressionManager__subscribeToViewObstructedUpdates__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = (a1 + 32);
   *(*(a1 + 32) + 48) = 0;
-  v8 = SBLogCameraCaptureSuppression();
+  v8 = SBLogCameraCaptureSuppression(v6);
   v9 = v8;
   if (!v5 || v6)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v18 = *v7;
-      v19 = [v6 localizedDescription];
-      v20 = [v6 localizedFailureReason];
-      v21 = 138544130;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v5;
-      v25 = 2114;
-      v26 = v19;
-      v27 = 2114;
-      v28 = v20;
-      _os_log_fault_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_FAULT, "(%{public}@) suppression event error - event:%{public}@ error:%{public}@ reason:%{public}@", &v21, 0x2Au);
+      v19 = *v7;
+      v20 = [v6 localizedDescription];
+      v21 = [v6 localizedFailureReason];
+      v22 = 138544130;
+      v23 = v19;
+      v24 = 2114;
+      v25 = v5;
+      v26 = 2114;
+      v27 = v20;
+      v28 = 2114;
+      v29 = v21;
+      _os_log_fault_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_FAULT, "(%{public}@) suppression event error - event:%{public}@ error:%{public}@ reason:%{public}@", &v22, 0x2Au);
     }
 
     goto LABEL_14;
@@ -221,11 +221,11 @@ void __70__SBCaptureButtonSuppressionManager__subscribeToViewObstructedUpdates__
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *v7;
-    v21 = 138543618;
-    v22 = v10;
-    v23 = 2114;
-    v24 = v5;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) suppression event: %{public}@", &v21, 0x16u);
+    v22 = 138543618;
+    v23 = v10;
+    v24 = 2114;
+    v25 = v5;
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) suppression event: %{public}@", &v22, 0x16u);
   }
 
   v11 = [v5 type];
@@ -233,22 +233,22 @@ void __70__SBCaptureButtonSuppressionManager__subscribeToViewObstructedUpdates__
   switch(v11)
   {
     case 1:
-      v15 = 0;
+      v16 = 0;
 LABEL_19:
-      *(*v7 + 6) = v15;
+      *(*v7 + 6) = v16;
       goto LABEL_20;
     case 2:
-      [v5 timeSinceLastFacedownStatic];
-      v15 = v14;
-      v16 = SBLogCameraCaptureSuppression();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v14 = [v5 timeSinceLastFacedownStatic];
+      v16 = v15;
+      v17 = SBLogCameraCaptureSuppression(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *v7;
-        v21 = 138543618;
-        v22 = v17;
-        v23 = 2048;
-        v24 = v15;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "(%{public}@) time since last face down: %g", &v21, 0x16u);
+        v18 = *v7;
+        v22 = 138543618;
+        v23 = v18;
+        v24 = 2048;
+        v25 = v16;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) time since last face down: %g", &v22, 0x16u);
       }
 
       goto LABEL_19;
@@ -275,7 +275,7 @@ LABEL_20:
 {
   if (self->_suppressionManager)
   {
-    v3 = SBLogCameraCaptureSuppression();
+    v3 = SBLogCameraCaptureSuppression(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -289,11 +289,11 @@ LABEL_20:
   }
 }
 
-- (uint64_t)removeObserver:(uint64_t)result
+- (id)removeObserver:(id *)result
 {
   if (result)
   {
-    return [*(result + 16) removeObject:a2];
+    return [result[2] removeObject:a2];
   }
 
   return result;

@@ -64,25 +64,25 @@
 void __45__PSAccountSecurityController_viewDidAppear___block_invoke(uint64_t a1)
 {
   v2 = PSSecureBackupAccountInfo(0, 0);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v3 = getkSecureBackupRecordStatusKeySymbolLoc_ptr;
-  v24 = getkSecureBackupRecordStatusKeySymbolLoc_ptr;
+  v25 = getkSecureBackupRecordStatusKeySymbolLoc_ptr;
   if (!getkSecureBackupRecordStatusKeySymbolLoc_ptr)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getkSecureBackupRecordStatusKeySymbolLoc_block_invoke;
-    v19 = &unk_1E71DBC78;
-    v20 = &v21;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getkSecureBackupRecordStatusKeySymbolLoc_block_invoke;
+    v20 = &unk_1E71DBC78;
+    v21 = &v22;
     v4 = CloudServicesLibrary_0();
-    v22[3] = dlsym(v4, "kSecureBackupRecordStatusKey");
-    getkSecureBackupRecordStatusKeySymbolLoc_ptr = *(v20[1] + 24);
-    v3 = v22[3];
+    v23[3] = dlsym(v4, "kSecureBackupRecordStatusKey");
+    getkSecureBackupRecordStatusKeySymbolLoc_ptr = *(v21[1] + 24);
+    v3 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v3)
   {
     [PSContactsAuthorizationLevelController dealloc];
@@ -93,25 +93,25 @@ LABEL_16:
 
   v5 = *v3;
   v6 = [v2 objectForKey:v5];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v7 = getkSecureBackupRecordStatusInvalidSymbolLoc_ptr;
-  v24 = getkSecureBackupRecordStatusInvalidSymbolLoc_ptr;
+  v25 = getkSecureBackupRecordStatusInvalidSymbolLoc_ptr;
   if (!getkSecureBackupRecordStatusInvalidSymbolLoc_ptr)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getkSecureBackupRecordStatusInvalidSymbolLoc_block_invoke;
-    v19 = &unk_1E71DBC78;
-    v20 = &v21;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getkSecureBackupRecordStatusInvalidSymbolLoc_block_invoke;
+    v20 = &unk_1E71DBC78;
+    v21 = &v22;
     v8 = CloudServicesLibrary_0();
-    v22[3] = dlsym(v8, "kSecureBackupRecordStatusInvalid");
-    getkSecureBackupRecordStatusInvalidSymbolLoc_ptr = *(v20[1] + 24);
-    v7 = v22[3];
+    v23[3] = dlsym(v8, "kSecureBackupRecordStatusInvalid");
+    getkSecureBackupRecordStatusInvalidSymbolLoc_ptr = *(v21[1] + 24);
+    v7 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v7)
   {
     goto LABEL_16;
@@ -122,40 +122,41 @@ LABEL_16:
   {
 
 LABEL_13:
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __45__PSAccountSecurityController_viewDidAppear___block_invoke_2;
-    v15[3] = &unk_1E71DBE20;
-    v15[4] = *(a1 + 32);
-    dispatch_async(MEMORY[0x1E69E96A0], v15);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __45__PSAccountSecurityController_viewDidAppear___block_invoke_2;
+    v16[3] = &unk_1E71DBE20;
+    v16[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x1E69E96A0], v16);
     goto LABEL_14;
   }
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v10 = getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr;
-  v24 = getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr;
+  v25 = getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr;
   if (!getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr)
   {
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __getkSecureBackupEscrowTrustStatusKeySymbolLoc_block_invoke;
-    v19 = &unk_1E71DBC78;
-    v20 = &v21;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __getkSecureBackupEscrowTrustStatusKeySymbolLoc_block_invoke;
+    v20 = &unk_1E71DBC78;
+    v21 = &v22;
     v11 = CloudServicesLibrary_0();
-    v22[3] = dlsym(v11, "kSecureBackupEscrowTrustStatusKey");
-    getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr = *(v20[1] + 24);
-    v10 = v22[3];
+    v23[3] = dlsym(v11, "kSecureBackupEscrowTrustStatusKey");
+    getkSecureBackupEscrowTrustStatusKeySymbolLoc_ptr = *(v21[1] + 24);
+    v10 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v10)
   {
 LABEL_17:
-    v14 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v21, 8);
-    _Unwind_Resume(v14);
+    [PSContactsAuthorizationLevelController dealloc];
+    v15 = v14;
+    _Block_object_dispose(&v22, 8);
+    _Unwind_Resume(v15);
   }
 
   v12 = [v2 objectForKey:*v10];
@@ -217,16 +218,16 @@ LABEL_14:
 
 void __41__PSAccountSecurityController_specifiers__block_invoke(uint64_t a1)
 {
+  v18 = 0;
   v17 = 0;
-  v16[1] = 0;
-  CircleMembershipStatus = PSKeychainSyncGetCircleMembershipStatus(&v17 + 1, &v17);
-  v3 = 0;
+  CircleMembershipStatus = PSKeychainSyncGetCircleMembershipStatus(&v18 + 1, &v18, &v17);
+  v3 = v17;
   v4 = v3;
   if (CircleMembershipStatus)
   {
-    v16[0] = v3;
-    v5 = PSSecureBackupAccountInfo(v16, 1);
-    v6 = v16[0];
+    v16 = v3;
+    v5 = PSSecureBackupAccountInfo(&v16, 1);
+    v6 = v16;
 
     v4 = v6;
   }
@@ -245,7 +246,7 @@ void __41__PSAccountSecurityController_specifiers__block_invoke(uint64_t a1)
   v11 = v4;
   v12 = v7;
   v13 = v5;
-  v15 = v17;
+  v15 = v18;
   v8 = v5;
   v9 = v4;
   dispatch_async(MEMORY[0x1E69E96A0], block);
@@ -364,20 +365,20 @@ LABEL_28:
     }
 
     v6 = *(a1 + 48);
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x2020000000;
+    v61 = 0;
+    v62 = &v61;
+    v63 = 0x2020000000;
     v7 = getkSecureBackupIsEnabledKeySymbolLoc_ptr;
-    v63 = getkSecureBackupIsEnabledKeySymbolLoc_ptr;
+    v64 = getkSecureBackupIsEnabledKeySymbolLoc_ptr;
     if (!getkSecureBackupIsEnabledKeySymbolLoc_ptr)
     {
       v8 = CloudServicesLibrary_0();
-      v61[3] = dlsym(v8, "kSecureBackupIsEnabledKey");
-      getkSecureBackupIsEnabledKeySymbolLoc_ptr = v61[3];
-      v7 = v61[3];
+      v62[3] = dlsym(v8, "kSecureBackupIsEnabledKey");
+      getkSecureBackupIsEnabledKeySymbolLoc_ptr = v62[3];
+      v7 = v62[3];
     }
 
-    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v61, 8);
     if (v7)
     {
       v9 = *v7;
@@ -390,20 +391,20 @@ LABEL_28:
       }
 
       v11 = *(a1 + 48);
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2020000000;
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x2020000000;
       v12 = getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr;
-      v63 = getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr;
+      v64 = getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr;
       if (!getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr)
       {
         v13 = CloudServicesLibrary_0();
-        v61[3] = dlsym(v13, "kSecureBackupUsesRandomPassphraseKey");
-        getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr = v61[3];
-        v12 = v61[3];
+        v62[3] = dlsym(v13, "kSecureBackupUsesRandomPassphraseKey");
+        getkSecureBackupUsesRandomPassphraseKeySymbolLoc_ptr = v62[3];
+        v12 = v62[3];
       }
 
-      _Block_object_dispose(&v60, 8);
+      _Block_object_dispose(&v61, 8);
       if (v12)
       {
         v14 = [v11 objectForKey:*v12];
@@ -412,20 +413,20 @@ LABEL_28:
         v16 = *(a1 + 48);
         v17 = getkSecureBackupMetadataKey();
         v18 = [v16 objectForKey:v17];
-        v60 = 0;
-        v61 = &v60;
-        v62 = 0x2020000000;
+        v61 = 0;
+        v62 = &v61;
+        v63 = 0x2020000000;
         v19 = getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr;
-        v63 = getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr;
+        v64 = getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr;
         if (!getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr)
         {
           v20 = CloudServicesLibrary_0();
-          v61[3] = dlsym(v20, "kSecureBackupUsesComplexPassphraseKey");
-          getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr = v61[3];
-          v19 = v61[3];
+          v62[3] = dlsym(v20, "kSecureBackupUsesComplexPassphraseKey");
+          getkSecureBackupUsesComplexPassphraseKeySymbolLoc_ptr = v62[3];
+          v19 = v62[3];
         }
 
-        _Block_object_dispose(&v60, 8);
+        _Block_object_dispose(&v61, 8);
         if (v19)
         {
           v21 = [v18 objectForKey:*v19];
@@ -434,20 +435,20 @@ LABEL_28:
           v23 = *(a1 + 48);
           v24 = getkSecureBackupMetadataKey();
           v25 = [v23 objectForKey:v24];
-          v60 = 0;
-          v61 = &v60;
-          v62 = 0x2020000000;
+          v61 = 0;
+          v62 = &v61;
+          v63 = 0x2020000000;
           v26 = getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr;
-          v63 = getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr;
+          v64 = getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr;
           if (!getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr)
           {
             v27 = CloudServicesLibrary_0();
-            v61[3] = dlsym(v27, "kSecureBackupUsesNumericPassphraseKey");
-            getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr = v61[3];
-            v26 = v61[3];
+            v62[3] = dlsym(v27, "kSecureBackupUsesNumericPassphraseKey");
+            getkSecureBackupUsesNumericPassphraseKeySymbolLoc_ptr = v62[3];
+            v26 = v62[3];
           }
 
-          _Block_object_dispose(&v60, 8);
+          _Block_object_dispose(&v61, 8);
           if (v26)
           {
             v28 = [v25 objectForKey:*v26];
@@ -468,9 +469,10 @@ LABEL_28:
           }
 
 LABEL_50:
-          v58 = [PSContactsAuthorizationLevelController dealloc];
-          _Block_object_dispose(&v60, 8);
-          _Unwind_Resume(v58);
+          [PSContactsAuthorizationLevelController dealloc];
+          v59 = v58;
+          _Block_object_dispose(&v61, 8);
+          _Unwind_Resume(v59);
         }
 
 LABEL_49:
@@ -488,8 +490,8 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  v59 = [*(a1 + 32) domain];
-  if ([v59 isEqualToString:*MEMORY[0x1E697AB38]])
+  v60 = [*(a1 + 32) domain];
+  if ([v60 isEqualToString:*MEMORY[0x1E697AB38]])
   {
     if ([*(a1 + 32) code] == 1)
     {
@@ -710,7 +712,7 @@ void __46__PSAccountSecurityController_disableRecovery__block_invoke_2(uint64_t 
   {
     *(*(a1 + 40) + 1512) = 0;
     v13 = 0;
-    if (PSKeychainSyncGetCircleMembershipStatus(0, &v13))
+    if (PSKeychainSyncGetCircleMembershipStatus(0, &v13, 0))
     {
       v7 = *(*(a1 + 40) + 1456);
       v8 = [MEMORY[0x1E696AD98] numberWithBool:v13];
@@ -883,15 +885,16 @@ void __80__PSAccountSecurityController_keychainSyncController_didFinishWithResul
 
 void __51__PSAccountSecurityController_saveSMSTargetChanges__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v74[5] = *MEMORY[0x1E69E9840];
+  v75[5] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
     v6 = [*(*(a1 + 32) + 1488) unformattedPhoneNumber];
     v7 = [*(*(a1 + 32) + 1488) countryInfo];
+    v63 = 0;
     v62 = 0;
-    CircleMembershipStatus = PSKeychainSyncGetCircleMembershipStatus(&v62 + 1, &v62);
-    v9 = 0;
+    CircleMembershipStatus = PSKeychainSyncGetCircleMembershipStatus(&v63 + 1, &v63, &v62);
+    v9 = v62;
     v10 = v9;
     if (!CircleMembershipStatus)
     {
@@ -901,142 +904,142 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    if (HIBYTE(v62) != 1 || v62 != 1)
+    if (HIBYTE(v63) != 1 || v63 != 1)
     {
       goto LABEL_28;
     }
 
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x2020000000;
+    v69 = 0;
+    v70 = &v69;
+    v71 = 0x2020000000;
     v11 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0;
-    v71 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0;
+    v72 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0;
     if (!getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0)
     {
-      v63 = MEMORY[0x1E69E9820];
-      v64 = 3221225472;
-      v65 = __getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_block_invoke_0;
-      v66 = &unk_1E71DBC78;
-      v67 = &v68;
+      v64 = MEMORY[0x1E69E9820];
+      v65 = 3221225472;
+      v66 = __getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_block_invoke_0;
+      v67 = &unk_1E71DBC78;
+      v68 = &v69;
       v12 = CloudServicesLibrary_0();
       v13 = dlsym(v12, "kSecureBackupSMSTargetPhoneNumberKey");
-      *(v67[1] + 24) = v13;
-      getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0 = *(v67[1] + 24);
-      v11 = v69[3];
+      *(v68[1] + 24) = v13;
+      getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr_0 = *(v68[1] + 24);
+      v11 = v70[3];
     }
 
-    _Block_object_dispose(&v68, 8);
+    _Block_object_dispose(&v69, 8);
     if (v11)
     {
       v56 = *v11;
-      v74[0] = v6;
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x2020000000;
+      v75[0] = v6;
+      v69 = 0;
+      v70 = &v69;
+      v71 = 0x2020000000;
       v14 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0;
-      v71 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0;
-      v72[0] = v56;
+      v72 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0;
+      v73[0] = v56;
       if (!getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0)
       {
-        v63 = MEMORY[0x1E69E9820];
-        v64 = 3221225472;
-        v65 = __getkSecureBackupCountryDialCodeKeySymbolLoc_block_invoke_0;
-        v66 = &unk_1E71DBC78;
-        v67 = &v68;
+        v64 = MEMORY[0x1E69E9820];
+        v65 = 3221225472;
+        v66 = __getkSecureBackupCountryDialCodeKeySymbolLoc_block_invoke_0;
+        v67 = &unk_1E71DBC78;
+        v68 = &v69;
         v15 = CloudServicesLibrary_0();
         v16 = dlsym(v15, "kSecureBackupCountryDialCodeKey");
-        *(v67[1] + 24) = v16;
-        getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0 = *(v67[1] + 24);
-        v14 = v69[3];
+        *(v68[1] + 24) = v16;
+        getkSecureBackupCountryDialCodeKeySymbolLoc_ptr_0 = *(v68[1] + 24);
+        v14 = v70[3];
       }
 
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v69, 8);
       if (v14)
       {
         v55 = *v14;
-        v72[1] = v55;
+        v73[1] = v55;
         v60 = [v7 dialingPrefix];
-        v74[1] = v60;
-        v68 = 0;
-        v69 = &v68;
-        v70 = 0x2020000000;
+        v75[1] = v60;
+        v69 = 0;
+        v70 = &v69;
+        v71 = 0x2020000000;
         v17 = getkSecureBackupCountryCodeKeySymbolLoc_ptr_0;
-        v71 = getkSecureBackupCountryCodeKeySymbolLoc_ptr_0;
+        v72 = getkSecureBackupCountryCodeKeySymbolLoc_ptr_0;
         if (!getkSecureBackupCountryCodeKeySymbolLoc_ptr_0)
         {
-          v63 = MEMORY[0x1E69E9820];
-          v64 = 3221225472;
-          v65 = __getkSecureBackupCountryCodeKeySymbolLoc_block_invoke_0;
-          v66 = &unk_1E71DBC78;
-          v67 = &v68;
+          v64 = MEMORY[0x1E69E9820];
+          v65 = 3221225472;
+          v66 = __getkSecureBackupCountryCodeKeySymbolLoc_block_invoke_0;
+          v67 = &unk_1E71DBC78;
+          v68 = &v69;
           v18 = CloudServicesLibrary_0();
           v19 = dlsym(v18, "kSecureBackupCountryCodeKey");
-          *(v67[1] + 24) = v19;
-          getkSecureBackupCountryCodeKeySymbolLoc_ptr_0 = *(v67[1] + 24);
-          v17 = v69[3];
+          *(v68[1] + 24) = v19;
+          getkSecureBackupCountryCodeKeySymbolLoc_ptr_0 = *(v68[1] + 24);
+          v17 = v70[3];
         }
 
-        _Block_object_dispose(&v68, 8);
+        _Block_object_dispose(&v69, 8);
         if (v17)
         {
           v54 = *v17;
-          v72[2] = v54;
+          v73[2] = v54;
           v58 = [v7 countryCode];
-          v74[2] = v58;
-          v68 = 0;
-          v69 = &v68;
-          v70 = 0x2020000000;
+          v75[2] = v58;
+          v69 = 0;
+          v70 = &v69;
+          v71 = 0x2020000000;
           v20 = getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr;
-          v71 = getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr;
+          v72 = getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr;
           if (!getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr)
           {
-            v63 = MEMORY[0x1E69E9820];
-            v64 = 3221225472;
-            v65 = __getkSecureBackupAuthenticationAppleIDSymbolLoc_block_invoke;
-            v66 = &unk_1E71DBC78;
-            v67 = &v68;
+            v64 = MEMORY[0x1E69E9820];
+            v65 = 3221225472;
+            v66 = __getkSecureBackupAuthenticationAppleIDSymbolLoc_block_invoke;
+            v67 = &unk_1E71DBC78;
+            v68 = &v69;
             v21 = CloudServicesLibrary_0();
             v22 = dlsym(v21, "kSecureBackupAuthenticationAppleID");
-            *(v67[1] + 24) = v22;
-            getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr = *(v67[1] + 24);
-            v20 = v69[3];
+            *(v68[1] + 24) = v22;
+            getkSecureBackupAuthenticationAppleIDSymbolLoc_ptr = *(v68[1] + 24);
+            v20 = v70[3];
           }
 
-          _Block_object_dispose(&v68, 8);
+          _Block_object_dispose(&v69, 8);
           if (v20)
           {
             v23 = *v20;
-            v72[3] = v23;
+            v73[3] = v23;
             v24 = [*(*(a1 + 32) + 1520) appleIDUsername];
-            v74[3] = v24;
-            v68 = 0;
-            v69 = &v68;
-            v70 = 0x2020000000;
+            v75[3] = v24;
+            v69 = 0;
+            v70 = &v69;
+            v71 = 0x2020000000;
             v25 = getkSecureBackupAuthenticationPasswordSymbolLoc_ptr;
-            v71 = getkSecureBackupAuthenticationPasswordSymbolLoc_ptr;
+            v72 = getkSecureBackupAuthenticationPasswordSymbolLoc_ptr;
             if (!getkSecureBackupAuthenticationPasswordSymbolLoc_ptr)
             {
-              v63 = MEMORY[0x1E69E9820];
-              v64 = 3221225472;
-              v65 = __getkSecureBackupAuthenticationPasswordSymbolLoc_block_invoke;
-              v66 = &unk_1E71DBC78;
-              v67 = &v68;
+              v64 = MEMORY[0x1E69E9820];
+              v65 = 3221225472;
+              v66 = __getkSecureBackupAuthenticationPasswordSymbolLoc_block_invoke;
+              v67 = &unk_1E71DBC78;
+              v68 = &v69;
               v26 = CloudServicesLibrary_0();
               v27 = dlsym(v26, "kSecureBackupAuthenticationPassword");
-              *(v67[1] + 24) = v27;
-              getkSecureBackupAuthenticationPasswordSymbolLoc_ptr = *(v67[1] + 24);
-              v25 = v69[3];
+              *(v68[1] + 24) = v27;
+              getkSecureBackupAuthenticationPasswordSymbolLoc_ptr = *(v68[1] + 24);
+              v25 = v70[3];
             }
 
-            _Block_object_dispose(&v68, 8);
+            _Block_object_dispose(&v69, 8);
             if (v25)
             {
-              v73 = *v25;
+              v74 = *v25;
               v28 = *(*(a1 + 32) + 1520);
-              v29 = v73;
+              v29 = v74;
               v30 = [v28 appleIDPasswordOrEquivalentToken];
-              v74[4] = v30;
-              v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v72 count:5];
+              v75[4] = v30;
+              v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v73 count:5];
 
               v61 = objc_alloc_init(getSecureBackupClass());
               v31 = [v61 changeSMSTargetWithInfo:v57];
@@ -1050,26 +1053,26 @@ LABEL_28:
 
               NSLog(&cfstr_FailedToChange.isa, v31);
               v33 = [v32 domain];
-              v68 = 0;
-              v69 = &v68;
-              v70 = 0x2020000000;
+              v69 = 0;
+              v70 = &v69;
+              v71 = 0x2020000000;
               v34 = getkSecureBackupErrorDomainSymbolLoc_ptr;
-              v71 = getkSecureBackupErrorDomainSymbolLoc_ptr;
+              v72 = getkSecureBackupErrorDomainSymbolLoc_ptr;
               if (!getkSecureBackupErrorDomainSymbolLoc_ptr)
               {
-                v63 = MEMORY[0x1E69E9820];
-                v64 = 3221225472;
-                v65 = __getkSecureBackupErrorDomainSymbolLoc_block_invoke;
-                v66 = &unk_1E71DBC78;
-                v67 = &v68;
+                v64 = MEMORY[0x1E69E9820];
+                v65 = 3221225472;
+                v66 = __getkSecureBackupErrorDomainSymbolLoc_block_invoke;
+                v67 = &unk_1E71DBC78;
+                v68 = &v69;
                 v35 = CloudServicesLibrary_0();
                 v36 = dlsym(v35, "kSecureBackupErrorDomain");
-                *(v67[1] + 24) = v36;
-                getkSecureBackupErrorDomainSymbolLoc_ptr = *(v67[1] + 24);
-                v34 = v69[3];
+                *(v68[1] + 24) = v36;
+                getkSecureBackupErrorDomainSymbolLoc_ptr = *(v68[1] + 24);
+                v34 = v70[3];
               }
 
-              _Block_object_dispose(&v68, 8);
+              _Block_object_dispose(&v69, 8);
               if (v34)
               {
                 if ([v33 isEqualToString:*v34])

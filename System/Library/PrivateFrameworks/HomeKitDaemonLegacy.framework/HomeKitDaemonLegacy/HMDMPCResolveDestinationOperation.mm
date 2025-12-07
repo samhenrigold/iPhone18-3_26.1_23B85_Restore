@@ -1,5 +1,6 @@
 @interface HMDMPCResolveDestinationOperation
 + (id)logCategory;
+- (HMDMPCResolveDestinationOperation)initWithHashedRouteIDs:(id)ds mediaApplicationDestination:(int64_t)destination mediaApplicationIdentifier:(id)identifier forceSingleGroup:(BOOL)group completion:(id)completion;
 - (HMDMPCResolveDestinationOperation)initWithHashedRouteIDs:(id)ds mediaApplicationDestination:(int64_t)destination mediaApplicationIdentifier:(id)identifier forceSingleGroup:(BOOL)group completion:(id)completion remoteControlDestinationFactory:(id)factory;
 - (NSArray)attributeDescriptions;
 - (NSString)shortDescription;
@@ -11,14 +12,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   hashedRouteIDs = [(HMDMPCResolveDestinationOperation *)self hashedRouteIDs];
   v5 = [v3 initWithName:@"Hashed Route IDs" value:hashedRouteIDs];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -78,7 +77,7 @@ void __56__HMDMPCResolveDestinationOperation_setCompletionBlock___block_invoke(u
 
 - (void)main
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   mediaApplicationDestination = [(HMDMPCResolveDestinationOperation *)self mediaApplicationDestination];
   if (!self)
   {
@@ -112,9 +111,9 @@ LABEL_14:
       v18 = HMFGetLogIdentifier();
       v19 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDMPCResolveDestinationOperation mediaApplicationDestination](selfCopy2, "mediaApplicationDestination")}];
       *buf = 138543618;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v19;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v19;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unknown destination %@ for resolve destination operation, using system media destination", buf, 0x16u);
     }
 
@@ -134,9 +133,9 @@ LABEL_13:
     v9 = HMFGetLogIdentifier();
     mediaApplicationIdentifier = [(HMDMPCResolveDestinationOperation *)selfCopy3 mediaApplicationIdentifier];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = mediaApplicationIdentifier;
+    v24 = v9;
+    v25 = 2112;
+    v26 = mediaApplicationIdentifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Using custom media application destination for bundle identifier %@", buf, 0x16u);
   }
 
@@ -148,19 +147,17 @@ LABEL_13:
 LABEL_15:
   remoteControlDestinationFactory2 = [(HMDMPCResolveDestinationOperation *)self remoteControlDestinationFactory];
   hashedRouteIDs = [(HMDMPCResolveDestinationOperation *)self hashedRouteIDs];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __41__HMDMPCResolveDestinationOperation_main__block_invoke;
-  v23[3] = &unk_27972AC10;
-  v23[4] = self;
-  [remoteControlDestinationFactory2 resolveMPCDestination:v13 withHashedRouteIdentifiers:hashedRouteIDs audioRoutingInfo:0 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __41__HMDMPCResolveDestinationOperation_main__block_invoke;
+  v22[3] = &unk_27972AC10;
+  v22[4] = self;
+  [remoteControlDestinationFactory2 resolveMPCDestination:v13 withHashedRouteIdentifiers:hashedRouteIDs audioRoutingInfo:0 completion:v22];
 }
 
 void __41__HMDMPCResolveDestinationOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = v3;
@@ -191,11 +188,11 @@ void __41__HMDMPCResolveDestinationOperation_main__block_invoke(uint64_t a1, voi
         v17 = [v4 outputDeviceUIDs];
         v18 = [v16 numberWithUnsignedInteger:{objc_msgSend(v17, "count")}];
         *buf = 138543874;
-        v29 = v12;
-        v30 = 2112;
-        v31 = v15;
-        v32 = 2112;
-        v33 = v18;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v18;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unable to resolve hashed media profiles given %@ hashedRouteIDs, resolved to %@", buf, 0x20u);
       }
 
@@ -213,8 +210,6 @@ void __41__HMDMPCResolveDestinationOperation_main__block_invoke(uint64_t a1, voi
       [v10 cancelWithError:v26];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMPCResolveDestinationOperation)initWithHashedRouteIDs:(id)ds mediaApplicationDestination:(int64_t)destination mediaApplicationIdentifier:(id)identifier forceSingleGroup:(BOOL)group completion:(id)completion remoteControlDestinationFactory:(id)factory
@@ -244,6 +239,18 @@ void __41__HMDMPCResolveDestinationOperation_main__block_invoke(uint64_t a1, voi
   return v20;
 }
 
+- (HMDMPCResolveDestinationOperation)initWithHashedRouteIDs:(id)ds mediaApplicationDestination:(int64_t)destination mediaApplicationIdentifier:(id)identifier forceSingleGroup:(BOOL)group completion:(id)completion
+{
+  groupCopy = group;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  dsCopy = ds;
+  v15 = objc_alloc_init(HMDMPCAssistantRemoteControlDestinationFactory);
+  v16 = [(HMDMPCResolveDestinationOperation *)self initWithHashedRouteIDs:dsCopy mediaApplicationDestination:destination mediaApplicationIdentifier:identifierCopy forceSingleGroup:groupCopy completion:completionCopy remoteControlDestinationFactory:v15];
+
+  return v16;
+}
+
 + (id)logCategory
 {
   if (logCategory__hmf_once_t3_101396 != -1)
@@ -258,12 +265,11 @@ void __41__HMDMPCResolveDestinationOperation_main__block_invoke(uint64_t a1, voi
 
 uint64_t __48__HMDMPCResolveDestinationOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_101398;
-  logCategory__hmf_once_v4_101398 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_101398;
+  logCategory__hmf_once_v4_101398 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

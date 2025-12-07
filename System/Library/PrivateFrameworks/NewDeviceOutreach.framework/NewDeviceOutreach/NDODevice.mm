@@ -5,6 +5,7 @@
 + (NDODevice)deviceWithName:(id)name serialNumber:(id)number activationDate:(id)date deviceType:(unint64_t)type productID:(id)d productName:(id)productName;
 + (NDODevice)deviceWithName:(id)name serialNumber:(id)number activationDate:(id)date deviceType:(unint64_t)type productID:(id)d productName:(id)productName color:(id)color enclosureColor:(id)self0 coverGlassColor:(id)self1;
 + (NDODevice)deviceWithName:(id)name serialNumber:(id)number activationDate:(id)date deviceType:(unint64_t)type productID:(id)d productName:(id)productName isVisibleInCC:(BOOL)c;
++ (id)watchDeviceWithName:(id)name serialNumber:(id)number activationDate:(id)date isActive:(BOOL)active productID:(id)d productName:(id)productName isAltAccount:(BOOL)account;
 - (NDODevice)initWithCoder:(id)coder;
 - (NDODevice)initWithName:(id)name serialNumber:(id)number activationDate:(id)date deviceType:(unint64_t)type productID:(id)d productName:(id)productName color:(id)color enclosureColor:(id)self0 coverGlassColor:(id)self1 isVisibleInCC:(BOOL)self2 cachingPolicy:(BOOL)self3;
 - (NSString)description;
@@ -15,6 +16,16 @@
 @end
 
 @implementation NDODevice
+
++ (id)watchDeviceWithName:(id)name serialNumber:(id)number activationDate:(id)date isActive:(BOOL)active productID:(id)d productName:(id)productName isAltAccount:(BOOL)account
+{
+  activeCopy = active;
+  v10 = [NDODevice deviceWithName:name serialNumber:number activationDate:date deviceType:1 productID:d productName:productName];
+  [v10 setIsActiveWatch:activeCopy];
+  [v10 setIsAltAccountWatch:account];
+
+  return v10;
+}
 
 + (NDODevice)deviceWithName:(id)name serialNumber:(id)number activationDate:(id)date deviceType:(unint64_t)type
 {

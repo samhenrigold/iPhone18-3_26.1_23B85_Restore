@@ -45,7 +45,7 @@
 
 + (BOOL)isOpticalFlowForTextEnabled
 {
-  v2 = vk_supportsOpticalFlowTracking();
+  v2 = vk_supportsOpticalFlowTracking(self, a2);
   if (v2)
   {
     if (vk_isInternalBuild())
@@ -165,9 +165,9 @@ void __38__VKKeyboardCameraViewController_init__block_invoke_3(uint64_t a1, void
 
 - (void)viewDidLoad
 {
-  v17.receiver = self;
-  v17.super_class = VKKeyboardCameraViewController;
-  [(VKKeyboardCameraViewController *)&v17 viewDidLoad];
+  v15.receiver = self;
+  v15.super_class = VKKeyboardCameraViewController;
+  [(VKKeyboardCameraViewController *)&v15 viewDidLoad];
   [(VKKeyboardCameraViewController *)self setPreviousString:&stru_1F2C04538];
   view = [(VKKeyboardCameraViewController *)self view];
   [view setUserInteractionEnabled:1];
@@ -192,21 +192,20 @@ void __38__VKKeyboardCameraViewController_init__block_invoke_3(uint64_t a1, void
   v9 = objc_alloc_init(VKKeyboardCameraGuidanceView);
   [(VKKeyboardCameraGuidanceView *)v9 setTranslatesAutoresizingMaskIntoConstraints:0];
   [view addSubview:v9];
-  v10 = [(VKKeyboardCameraViewController *)self setGuidanceView:v9];
-  if (vk_solariumEnabled(v10, v11))
+  if (vk_solariumEnabled([(VKKeyboardCameraViewController *)self setGuidanceView:v9]))
   {
     [(UIView *)v9 vk_setGlassBackgroundWithType:0 tintColor:0 flexible:0];
     [(VKKeyboardCameraGuidanceView *)v9 setOverrideUserInterfaceStyle:2];
   }
 
-  v12 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel_onTap_];
-  [(VKKeyboardCameraViewController *)self setTapGestureRecognizer:v12];
+  v10 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel_onTap_];
+  [(VKKeyboardCameraViewController *)self setTapGestureRecognizer:v10];
 
   tapGestureRecognizer = [(VKKeyboardCameraViewController *)self tapGestureRecognizer];
   [view addGestureRecognizer:tapGestureRecognizer];
 
-  v14 = [objc_alloc(MEMORY[0x1E69DCD80]) initWithTarget:self action:sel_onPinch_];
-  [(VKKeyboardCameraViewController *)self setPinchGestureRecognizer:v14];
+  v12 = [objc_alloc(MEMORY[0x1E69DCD80]) initWithTarget:self action:sel_onPinch_];
+  [(VKKeyboardCameraViewController *)self setPinchGestureRecognizer:v12];
 
   view2 = [(VKKeyboardCameraViewController *)self view];
   pinchGestureRecognizer = [(VKKeyboardCameraViewController *)self pinchGestureRecognizer];
@@ -500,11 +499,11 @@ void __72__VKKeyboardCameraViewController_clearFoundItemAndRemoveLiftTextButton_
   v51 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
   [v8 addObject:v51];
 
-  LODWORD(centerYAnchor) = vk_solariumEnabled(v52, v53);
+  LODWORD(centerYAnchor) = vk_solariumEnabled(v52);
   widthAnchor5 = [guidanceView widthAnchor];
   widthAnchor6 = [view widthAnchor];
-  v56 = [widthAnchor5 constraintLessThanOrEqualToAnchor:widthAnchor6 multiplier:0.666666667];
-  [v8 addObject:v56];
+  v55 = [widthAnchor5 constraintLessThanOrEqualToAnchor:widthAnchor6 multiplier:0.666666667];
+  [v8 addObject:v55];
 
   if (centerYAnchor)
   {
@@ -519,14 +518,14 @@ void __72__VKKeyboardCameraViewController_clearFoundItemAndRemoveLiftTextButton_
     centerYAnchor3 = [guidanceView firstBaselineAnchor];
     centerYAnchor4 = [closeButton uiButton];
     firstBaselineAnchor = [centerYAnchor4 firstBaselineAnchor];
-    v60 = [centerYAnchor3 constraintEqualToAnchor:firstBaselineAnchor];
-    [v8 addObject:v60];
+    v59 = [centerYAnchor3 constraintEqualToAnchor:firstBaselineAnchor];
+    [v8 addObject:v59];
   }
 
   centerXAnchor3 = [guidanceView centerXAnchor];
   centerXAnchor4 = [view centerXAnchor];
-  v63 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  [v8 addObject:v63];
+  v62 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  [v8 addObject:v62];
 
   [MEMORY[0x1E696ACD8] activateConstraints:v8];
 }
@@ -1029,15 +1028,15 @@ LABEL_14:
   }
 }
 
-void __59__VKKeyboardCameraViewController_startTimeWithoutTextTimer__block_invoke(uint64_t a1)
+void __59__VKKeyboardCameraViewController_startTimeWithoutTextTimer__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = VKBundle();
-  v3 = [*(a1 + 32) findTextLocalizedStringKey];
+  v3 = VKBundle();
   v4 = [*(a1 + 32) findTextLocalizedStringKey];
-  v6 = [v2 localizedStringForKey:v3 value:v4 table:@"Localizable"];
+  v5 = [*(a1 + 32) findTextLocalizedStringKey];
+  v7 = [v3 localizedStringForKey:v4 value:v5 table:@"Localizable"];
 
-  v5 = [*(a1 + 32) guidanceView];
-  [v5 showGuidanceWithText:v6];
+  v6 = [*(a1 + 32) guidanceView];
+  [v6 showGuidanceWithText:v7];
 
   [*(a1 + 32) setTimeWithoutTextTimer:0];
 }

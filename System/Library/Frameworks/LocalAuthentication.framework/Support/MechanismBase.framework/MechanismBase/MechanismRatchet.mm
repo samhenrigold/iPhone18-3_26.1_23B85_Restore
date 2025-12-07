@@ -13,6 +13,7 @@
 - (void)_startObservingRatchetState;
 - (void)_stopObservingRatchetState;
 - (void)finishRunWithResult:(id)result error:(id)error;
+- (void)finishRunWithResult:(id)result error:(id)error skipReply:(BOOL)reply;
 - (void)handleUIEvent:(int64_t)event params:(id)params;
 - (void)notificationCenter:(id)center didReceiveNotification:(__CFString *)notification;
 - (void)runWithHints:(id)hints eventsDelegate:(id)delegate reply:(id)reply;
@@ -106,6 +107,17 @@ LABEL_6:
   [(MechanismBase *)&v8 finishRunWithResult:resultCopy error:errorCopy];
 }
 
+- (void)finishRunWithResult:(id)result error:(id)error skipReply:(BOOL)reply
+{
+  replyCopy = reply;
+  errorCopy = error;
+  resultCopy = result;
+  [(MechanismRatchet *)self _stopObservingRatchetState];
+  v10.receiver = self;
+  v10.super_class = MechanismRatchet;
+  [(MechanismBase *)&v10 finishRunWithResult:resultCopy error:errorCopy skipReply:replyCopy];
+}
+
 - (void)_finishInState:(id)state result:(id)result error:(id)error retryStrategy:(int64_t)strategy
 {
   stateCopy = state;
@@ -167,7 +179,7 @@ LABEL_6:
 
 void __40__MechanismRatchet__runWithShowUIBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -176,28 +188,26 @@ void __40__MechanismRatchet__runWithShowUIBlock___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = WeakRetained;
+      v11 = WeakRetained;
       _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "%@ Will perform ratchet state query", buf, 0xCu);
     }
 
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_16;
-    v7[3] = &unk_278A62BA0;
-    objc_copyWeak(&v10, (a1 + 40));
-    v8 = v3;
-    v9 = *(a1 + 32);
-    [WeakRetained _ratchetStateCompositeWithCompletion:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_16;
+    v6[3] = &unk_278A62BA0;
+    objc_copyWeak(&v9, (a1 + 40));
+    v7 = v3;
+    v8 = *(a1 + 32);
+    [WeakRetained _ratchetStateCompositeWithCompletion:v6];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40__MechanismRatchet__runWithShowUIBlock___block_invoke_16(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -218,9 +228,9 @@ LABEL_8:
     {
       v12 = [v5 ratchetState];
       *buf = 138412546;
-      v31 = v8;
-      v32 = 2114;
-      v33 = v12;
+      v30 = v8;
+      v31 = 2114;
+      v32 = v12;
       _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "%@ Did finish ratchet state query %{public}@", buf, 0x16u);
     }
 
@@ -235,14 +245,14 @@ LABEL_7:
 
     if ([v8 _shouldAddRatchetCredential])
     {
-      v14 = v8[34];
-      v29 = 0;
-      v15 = [v14 addCredential:22 scope:1 error:&v29];
-      v6 = v29;
-      if ((v15 & 1) == 0)
+      v13 = v8[34];
+      v28 = 0;
+      v14 = [v13 addCredential:22 scope:1 error:&v28];
+      v6 = v28;
+      if ((v14 & 1) == 0)
       {
-        v16 = LACLogDTOUI();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = LACLogDTOUI();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           __40__MechanismRatchet__runWithShowUIBlock___block_invoke_16_cold_1();
         }
@@ -256,68 +266,68 @@ LABEL_7:
       v6 = 0;
     }
 
-    v17 = [MechanismRatchetFlow alloc];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_18;
-    v26[3] = &unk_278A62B78;
-    v18 = v5;
-    v27 = v18;
-    v28 = v8;
-    v19 = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_18(v26);
-    v20 = [(MechanismRatchetFlow *)v17 initWithParams:v19];
+    v16 = [MechanismRatchetFlow alloc];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_18;
+    v25[3] = &unk_278A62B78;
+    v17 = v5;
+    v26 = v17;
+    v27 = v8;
+    v18 = __40__MechanismRatchet__runWithShowUIBlock___block_invoke_18(v25);
+    v19 = [(MechanismRatchetFlow *)v16 initWithParams:v18];
 
-    if ([(MechanismRatchetFlow *)v20 shouldFinishSuccessfullyWithoutUI])
+    if ([(MechanismRatchetFlow *)v19 shouldFinishSuccessfullyWithoutUI])
     {
-      v21 = LACLogDTOUI();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = LACLogDTOUI();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = v8;
-        _os_log_impl(&dword_238B95000, v21, OS_LOG_TYPE_DEFAULT, "%@ Skipping UI presentation and finishing with success", buf, 0xCu);
+        v30 = v8;
+        _os_log_impl(&dword_238B95000, v20, OS_LOG_TYPE_DEFAULT, "%@ Skipping UI presentation and finishing with success", buf, 0xCu);
       }
 
-      [v8 _finishInState:v18 result:MEMORY[0x277CBEC10]];
+      [v8 _finishInState:v17 result:MEMORY[0x277CBEC10]];
     }
 
     else
     {
-      v22 = [(MechanismRatchetFlow *)v20 shouldFinishWithoutUI];
-      v23 = LACLogDTOUI();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-      if (v22)
+      v21 = [(MechanismRatchetFlow *)v19 shouldFinishWithoutUI];
+      v22 = LACLogDTOUI();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+      if (v21)
       {
-        if (v24)
+        if (v23)
         {
-          v25 = [v18 ratchetState];
+          v24 = [v17 ratchetState];
           *buf = 138412546;
-          v31 = v8;
-          v32 = 2112;
-          v33 = v25;
-          _os_log_impl(&dword_238B95000, v23, OS_LOG_TYPE_DEFAULT, "%@ Skipping UI presentation and finishing with state: %@", buf, 0x16u);
+          v30 = v8;
+          v31 = 2112;
+          v32 = v24;
+          _os_log_impl(&dword_238B95000, v22, OS_LOG_TYPE_DEFAULT, "%@ Skipping UI presentation and finishing with state: %@", buf, 0x16u);
         }
 
-        [v8 _finishInState:v18];
+        [v8 _finishInState:v17];
       }
 
       else
       {
-        if (v24)
+        if (v23)
         {
           *buf = 138412290;
-          v31 = v8;
-          _os_log_impl(&dword_238B95000, v23, OS_LOG_TYPE_DEFAULT, "%@ Will proceed with UI presentation", buf, 0xCu);
+          v30 = v8;
+          _os_log_impl(&dword_238B95000, v22, OS_LOG_TYPE_DEFAULT, "%@ Will proceed with UI presentation", buf, 0xCu);
         }
 
-        if ([(MechanismRatchetFlow *)v20 needsCountdownUI])
+        if ([(MechanismRatchetFlow *)v19 needsCountdownUI])
         {
-          [(MechanismRatchetFlow *)v20 countdownDuration];
+          [(MechanismRatchetFlow *)v19 countdownDuration];
           [v8 setCoolOffDuration:?];
         }
 
-        if ([(MechanismRatchetFlow *)v20 needsGracePeriodUI])
+        if ([(MechanismRatchetFlow *)v19 needsGracePeriodUI])
         {
-          [(MechanismRatchetFlow *)v20 gracePeriodDuration];
+          [(MechanismRatchetFlow *)v19 gracePeriodDuration];
           [v8 setGracePeriodDuration:?];
         }
 
@@ -328,8 +338,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 MutableMechanismRatchetFlowParams *__40__MechanismRatchet__runWithShowUIBlock___block_invoke_18(uint64_t a1)
@@ -564,25 +572,24 @@ LABEL_7:
 
 void __69__MechanismRatchet__addBiometryConfirmationCredentialWithCompletion___block_invoke(uint64_t a1, int a2, int a3, uint64_t a4, void *a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v8 = a5;
   v9 = LACLogDTOUI();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138413058;
-    v13 = v10;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 1024;
-    v17 = a3;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_238B95000, v9, OS_LOG_TYPE_DEFAULT, "%@ preflew policy with status: %d, policySatisfied: %d, error: %@", &v12, 0x22u);
+    v11 = 138413058;
+    v12 = v10;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 1024;
+    v16 = a3;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_238B95000, v9, OS_LOG_TYPE_DEFAULT, "%@ preflew policy with status: %d, policySatisfied: %d, error: %@", &v11, 0x22u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isStateSatisfiable:(id)satisfiable
@@ -596,23 +603,19 @@ void __69__MechanismRatchet__addBiometryConfirmationCredentialWithCompletion___b
 - (void)notificationCenter:(id)center didReceiveNotification:(__CFString *)notification
 {
   centerCopy = center;
-  if (self->_notificationCenter == centerCopy)
+  if (self->_notificationCenter == centerCopy && LACDarwinNotificationsEqual())
   {
-    v6 = *MEMORY[0x277D23E50];
-    if (LACDarwinNotificationsEqual())
-    {
-      objc_initWeak(&location, self);
-      queue = [MEMORY[0x277CD47C8] queue];
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __62__MechanismRatchet_notificationCenter_didReceiveNotification___block_invoke;
-      v8[3] = &unk_278A626F0;
-      objc_copyWeak(&v9, &location);
-      dispatch_async(queue, v8);
+    objc_initWeak(&location, self);
+    queue = [MEMORY[0x277CD47C8] queue];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __62__MechanismRatchet_notificationCenter_didReceiveNotification___block_invoke;
+    v7[3] = &unk_278A626F0;
+    objc_copyWeak(&v8, &location);
+    dispatch_async(queue, v7);
 
-      objc_destroyWeak(&v9);
-      objc_destroyWeak(&location);
-    }
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&location);
   }
 }
 
@@ -667,18 +670,16 @@ void __62__MechanismRatchet_notificationCenter_didReceiveNotification___block_in
 
 - (NSString)description
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"coolOffDuration: %.2f", *&self->_coolOffDuration];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"ACMRequirement: %@", self->_requirement];
-  v12[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v7 componentsJoinedByString:@" "];;
   v9 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v8];;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -692,20 +693,18 @@ void __62__MechanismRatchet_notificationCenter_didReceiveNotification___block_in
 
 void __40__MechanismRatchet__runWithShowUIBlock___block_invoke_16_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v3 = 22;
-  _os_log_error_impl(&dword_238B95000, v0, OS_LOG_TYPE_ERROR, "%@ Could not add credential(%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 22;
+  _os_log_error_impl(&dword_238B95000, v0, OS_LOG_TYPE_ERROR, "%@ Could not add credential(%d)", v1, 0x12u);
 }
 
 - (void)_addBiometryConfirmationCredentialWithCompletion:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v3 = 23;
-  _os_log_error_impl(&dword_238B95000, v0, OS_LOG_TYPE_ERROR, "%@ could not add credential(%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 23;
+  _os_log_error_impl(&dword_238B95000, v0, OS_LOG_TYPE_ERROR, "%@ could not add credential(%d)", v1, 0x12u);
 }
 
 @end

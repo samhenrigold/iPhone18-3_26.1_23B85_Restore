@@ -28,12 +28,11 @@
 
 void __50__DBTDuxburyFormatTextNode_LaTeXCommandForString___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v5 = [NSBundle bundleForClass:objc_opt_class()];
-  v2 = [v5 pathForResource:@"LaTeX" ofType:@"plist"];
-  v3 = [NSDictionary dictionaryWithContentsOfFile:v2];
-  v4 = LaTeXCommandForString__Commands;
-  LaTeXCommandForString__Commands = v3;
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v1 = [v4 pathForResource:@"LaTeX" ofType:@"plist"];
+  v2 = [NSDictionary dictionaryWithContentsOfFile:v1];
+  v3 = LaTeXCommandForString__Commands;
+  LaTeXCommandForString__Commands = v2;
 }
 
 - (DBTDuxburyFormatTextNode)initWithText:(id)text

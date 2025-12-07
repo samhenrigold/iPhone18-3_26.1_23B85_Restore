@@ -7,6 +7,7 @@
 - (SKDaemonConnection)initWithConnection:(id)connection;
 - (id)_safe_object:(id)_safe_object;
 - (id)eraseWithEraser:(id)eraser reply:(id)reply;
+- (id)preflightRequestWithDiskDict:(id)dict entitlementLevel:(int64_t)level completionUUID:(id)d prettyFunc:(const char *)func authorizationNeeded:(BOOL)needed failResGenFunc:(id)genFunc;
 - (id)preflightRequestWithDiskDict:(id)dict entitlementLevel:(int64_t)level completionUUID:(id)d prettyFunc:(const char *)func requireRoot:(BOOL)root failResGenFunc:(id)genFunc;
 - (id)preflightRequestWithDiskDict:(id)dict entitlementLevel:(int64_t)level prettyFunc:(const char *)func;
 - (id)preflightRequestWithDisksArr:(id)arr entitlementLevel:(int64_t)level completionUUID:(id)d prettyFunc:(const char *)func requireRootForInternal:(BOOL)internal failResGenFunc:(id)genFunc;
@@ -152,7 +153,7 @@ LABEL_14:
     *(v5 + 6) = [connectionCopy effectiveGroupIdentifier];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -324,6 +325,44 @@ LABEL_17:
   }
 
   return v17;
+}
+
+- (id)preflightRequestWithDiskDict:(id)dict entitlementLevel:(int64_t)level completionUUID:(id)d prettyFunc:(const char *)func authorizationNeeded:(BOOL)needed failResGenFunc:(id)genFunc
+{
+  neededCopy = needed;
+  dictCopy = dict;
+  dCopy = d;
+  genFuncCopy = genFunc;
+  v17 = sub_10000BFD0();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v24 = 138412802;
+    v25 = dictCopy;
+    v26 = 2080;
+    funcCopy = func;
+    v28 = 2114;
+    v29 = dCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Preflight for %@ at %s with UUID: %{public}@", &v24, 0x20u);
+  }
+
+  v18 = +[SKDaemonManager sharedManager];
+  v19 = [v18 knownDiskForDictionary:dictCopy];
+
+  if ([(SKDaemonConnection *)self preflightRequestWithSKDisk:v19 entitlementLevel:level completionUUID:dCopy prettyFunc:func authorizationNeeded:neededCopy])
+  {
+    v20 = v19;
+  }
+
+  else
+  {
+    progressHandler = self->_progressHandler;
+    v22 = genFuncCopy[2](genFuncCopy);
+    [(SKHelperClientProtocol *)progressHandler requestWithUUID:dCopy didCompleteWithResult:v22];
+
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 - (id)preflightRequestWithDisksArr:(id)arr entitlementLevel:(int64_t)level completionUUID:(id)d prettyFunc:(const char *)func requireRootForInternal:(BOOL)internal failResGenFunc:(id)genFunc

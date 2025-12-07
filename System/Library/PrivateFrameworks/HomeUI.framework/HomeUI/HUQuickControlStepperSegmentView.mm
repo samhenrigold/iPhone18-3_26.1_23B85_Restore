@@ -99,7 +99,7 @@
   [(HUQuickControlStepperSegmentView *)self _updateTitleLabel];
 }
 
-uint64_t __64__HUQuickControlStepperSegmentView_setIsSegmentViewHighlighted___block_invoke(uint64_t a1)
+void *__64__HUQuickControlStepperSegmentView_setIsSegmentViewHighlighted___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) reachabilityState];
   if (result == 2)

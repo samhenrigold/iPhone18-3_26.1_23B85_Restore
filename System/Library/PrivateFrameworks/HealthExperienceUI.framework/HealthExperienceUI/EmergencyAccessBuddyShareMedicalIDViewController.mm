@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EmergencyAccessBuddyShareMedicalIDViewController();
+  v5.super_class = type metadata accessor for EmergencyAccessBuddyShareMedicalIDViewController(0);
   v2 = v5.receiver;
   [(OBBaseWelcomeController *)&v5 viewDidLoad];
   sub_1BA400100();
@@ -31,7 +31,7 @@
   makeViewController = [objc_opt_self() makeViewController];
   [(EmergencyAccessBuddyShareMedicalIDViewController *)selfCopy presentViewController:makeViewController animated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1(&v6);
+  __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
 - (void)didTapCancel:(id)cancel
@@ -42,7 +42,7 @@
   swift_unknownObjectRelease();
   sub_1BA400A34();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI48EmergencyAccessBuddyShareMedicalIDViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

@@ -87,7 +87,7 @@
   else
   {
     v6.receiver = self;
-    v6.super_class = type metadata accessor for StickerEffectView();
+    v6.super_class = type metadata accessor for StickerEffectView(0);
     [(VKCStickerEffectViewInternal *)&v6 intrinsicContentSize];
   }
 

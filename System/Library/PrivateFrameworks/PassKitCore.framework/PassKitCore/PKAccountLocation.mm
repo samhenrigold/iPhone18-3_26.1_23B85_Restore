@@ -28,9 +28,9 @@
     goto LABEL_11;
   }
 
-  v9 = [@"wallet" isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(@"wallet");
 
-  if (v9)
+  if (isEqualToString)
   {
 LABEL_4:
     v10 = 1;
@@ -38,14 +38,14 @@ LABEL_4:
   }
 
   v11 = v8;
-  if (v11 == @"settings" || (v12 = v11, v13 = [@"settings" isEqualToString:v11], v12, (v13 & 1) != 0))
+  if (v11 == @"settings" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(@"settings"), v12, (v13 & 1) != 0))
   {
     v10 = 2;
     goto LABEL_12;
   }
 
   v14 = v12;
-  if (v14 == @"walletWatch" || (v15 = v14, v16 = [@"walletWatch" isEqualToString:v14], v15, v16))
+  if (v14 == @"walletWatch" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(@"walletWatch"), v15, v16))
   {
     v10 = 3;
   }
@@ -64,7 +64,7 @@ LABEL_12:
   {
     if (v17)
     {
-      v19 = [@"appleCardDashboard" isEqualToString:v17];
+      v19 = objc_msgSend_isEqualToString_(@"appleCardDashboard");
 
       if (v19)
       {
@@ -72,28 +72,28 @@ LABEL_12:
       }
 
       v21 = v18;
-      if (v21 == @"appleCardRewardsAndOffers" || (v22 = v21, v23 = [@"appleCardRewardsAndOffers" isEqualToString:v21], v22, (v23 & 1) != 0))
+      if (v21 == @"appleCardRewardsAndOffers" || (v22 = v21, v23 = objc_msgSend_isEqualToString_(@"appleCardRewardsAndOffers"), v22, (v23 & 1) != 0))
       {
         v20 = 2;
         goto LABEL_29;
       }
 
       v24 = v22;
-      if (v24 == @"savingsDashboard" || (v25 = v24, v26 = [@"savingsDashboard" isEqualToString:v24], v25, (v26 & 1) != 0))
+      if (v24 == @"savingsDashboard" || (v25 = v24, v26 = objc_msgSend_isEqualToString_(@"savingsDashboard"), v25, (v26 & 1) != 0))
       {
         v20 = 3;
         goto LABEL_29;
       }
 
       v27 = v25;
-      if (v27 == @"savingsDetails" || (v28 = v27, v29 = [@"savingsDetails" isEqualToString:v27], v28, (v29 & 1) != 0))
+      if (v27 == @"savingsDetails" || (v28 = v27, v29 = objc_msgSend_isEqualToString_(@"savingsDetails"), v28, (v29 & 1) != 0))
       {
         v20 = 4;
         goto LABEL_29;
       }
 
       v30 = v28;
-      if (v30 == @"settings" || (v31 = v30, v32 = [@"settings" isEqualToString:v30], v31, v32))
+      if (v30 == @"settings" || (v31 = v30, v32 = objc_msgSend_isEqualToString_(@"settings"), v31, v32))
       {
         v20 = 5;
         goto LABEL_29;

@@ -10,11 +10,11 @@
 
 - (LACUIKeyboardLayoutGuide)initWithView:(id)view
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   viewCopy = view;
-  v21.receiver = self;
-  v21.super_class = LACUIKeyboardLayoutGuide;
-  v5 = [(LACUIKeyboardLayoutGuide *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = LACUIKeyboardLayoutGuide;
+  v5 = [(LACUIKeyboardLayoutGuide *)&v20 init];
   if (v5)
   {
     [viewCopy addLayoutGuide:v5];
@@ -22,28 +22,27 @@
     [(LACUIKeyboardLayoutGuide *)v5 _defaultHeightConstant];
     obj = [heightAnchor constraintEqualToConstant:?];
 
-    v18 = MEMORY[0x277CCAAD0];
+    v17 = MEMORY[0x277CCAAD0];
     bottomAnchor = [(LACUIKeyboardLayoutGuide *)v5 bottomAnchor];
     bottomAnchor2 = [viewCopy bottomAnchor];
     v7 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v22[0] = v7;
+    v21[0] = v7;
     leadingAnchor = [(LACUIKeyboardLayoutGuide *)v5 leadingAnchor];
     leadingAnchor2 = [viewCopy leadingAnchor];
     v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v22[1] = v10;
+    v21[1] = v10;
     trailingAnchor = [(LACUIKeyboardLayoutGuide *)v5 trailingAnchor];
     trailingAnchor2 = [viewCopy trailingAnchor];
     v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v22[2] = v13;
-    v22[3] = obj;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-    [v18 activateConstraints:v14];
+    v21[2] = v13;
+    v21[3] = obj;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+    [v17 activateConstraints:v14];
 
     objc_storeWeak(&v5->_keyboardLayoutHeightLC, obj);
     [(LACUIKeyboardLayoutGuide *)v5 _setupKeyboardObservers];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -61,27 +60,25 @@
 
 - (void)_handleKeyboardFrameChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = LACLogKeyboard();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = changeCopy;
+    v11 = changeCopy;
     _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "Did receive keyboard notification: %{public}@", buf, 0xCu);
   }
 
   v6 = dispatch_time(0, 20000000);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __55__LACUIKeyboardLayoutGuide__handleKeyboardFrameChange___block_invoke;
-  v9[3] = &unk_27981E870;
-  v9[4] = self;
-  v10 = changeCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __55__LACUIKeyboardLayoutGuide__handleKeyboardFrameChange___block_invoke;
+  v8[3] = &unk_27981E870;
+  v8[4] = self;
+  v9 = changeCopy;
   v7 = changeCopy;
-  dispatch_after(v6, MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_after(v6, MEMORY[0x277D85CD0], v8);
 }
 
 void __55__LACUIKeyboardLayoutGuide__handleKeyboardFrameChange___block_invoke(uint64_t a1)

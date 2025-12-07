@@ -25,7 +25,7 @@
 
 - (void)startStoryIfNeededWith:(_TtC9appstored12SkannerEvent *)with forAdvertisedAppAdamID:(int64_t)d completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -53,7 +53,7 @@
 
 - (void)logEvent:(_TtC9appstored12SkannerEvent *)event forAdvertisedAppAdamID:(int64_t)d completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -81,7 +81,7 @@
 
 - (void)logEvent:(_TtC9appstored12SkannerEvent *)event forAdvertisedAppAdamID:(int64_t)d synchronizeWithSnout:(BOOL)snout completionHandler:(id)handler
 {
-  v11 = sub_100085D40(&qword_10059C3E0);
+  v11 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v11 - 8);
   v13 = &v21 - v12;
   v14 = _Block_copy(handler);
@@ -110,7 +110,7 @@
 
 - (void)logEvents:(NSArray *)events forAdvertisedAppAdamID:(int64_t)d completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -138,7 +138,7 @@
 
 - (void)completeStoryForAdvertisedAppAdamID:(int64_t)d completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -164,7 +164,7 @@
 
 - (void)flushPendingEventsWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -35,7 +35,7 @@
   locationCopy = location;
   selfCopy = self;
   sub_1AD3CCF5C(necessary, location, v8, v9);
-  sub_1AD3C5FB8(v8);
+  sub_1AD3C5FB8(v8, v9);
 }
 
 - (_PKAccountDeviceEventReporter)init

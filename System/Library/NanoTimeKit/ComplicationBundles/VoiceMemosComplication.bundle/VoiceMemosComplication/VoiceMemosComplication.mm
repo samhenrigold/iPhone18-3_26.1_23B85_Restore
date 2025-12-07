@@ -19,16 +19,16 @@ void sub_BF8(id a1)
   _objc_release_x1();
 }
 
-id sub_C54()
+id sub_C54(uint64_t a1)
 {
   if (qword_82D0 != -1)
   {
     sub_15A4();
   }
 
-  v1 = qword_82C8;
+  v2 = qword_82C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_C98(id a1)

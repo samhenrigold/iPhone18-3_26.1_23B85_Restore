@@ -109,9 +109,9 @@ LABEL_13:
     if (v10)
     {
       memset(&v25, 0, sizeof(v25));
-      [v10 timeRange];
+      objc_msgSend_timeRange(v10);
       lhs = buf[0];
-      [v11 timeRange];
+      objc_msgSend_timeRange(v11);
       rhs = v22[1];
       CMTimeAdd(&v25, &lhs, &rhs);
       v12 = MEMORY[0x1E6987E68];

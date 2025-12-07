@@ -13,9 +13,9 @@
     +[TUCallProviderManager(NanoPhone) nph_localProviderManager];
   }
 
-  v1 = nph_localProviderManager_localProviderManager;
+  v2 = nph_localProviderManager_localProviderManager;
 
-  return v1;
+  return v2;
 }
 
 + (id)nph_pairedHostDeviceProviderManager
@@ -25,9 +25,9 @@
     +[TUCallProviderManager(NanoPhone) nph_pairedHostDeviceProviderManager];
   }
 
-  v1 = nph_pairedHostDeviceProviderManager_pairedHostDeviceProviderManager;
+  v2 = nph_pairedHostDeviceProviderManager_pairedHostDeviceProviderManager;
 
-  return v1;
+  return v2;
 }
 
 + (id)nph_currentProviderManager

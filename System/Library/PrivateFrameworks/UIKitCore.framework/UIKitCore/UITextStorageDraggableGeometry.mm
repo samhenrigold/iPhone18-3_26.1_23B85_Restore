@@ -728,7 +728,7 @@ LABEL_27:
           v50 = v49;
           if (v49)
           {
-            [(UIImage *)v49 _calculateEdgeStatistics];
+            objc_msgSend__calculateEdgeStatistics(v49);
           }
 
           v67 = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];

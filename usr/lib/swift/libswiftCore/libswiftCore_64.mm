@@ -275,9 +275,9 @@ LABEL_22:
   return v9;
 }
 
-uint64_t specialized static String._fromLargeUTF8Repairing(uninitializedCapacity:initializingWith:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t (*a6)(void))
+uint64_t specialized static String._fromLargeUTF8Repairing(uninitializedCapacity:initializingWith:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v9 = a6();
+  v9 = a6(a1, a2, a3, a4);
   if (v7)
   {
     return v6;
@@ -1811,7 +1811,7 @@ uint64_t lazy protocol witness table accessor for type Unicode.UTF16.ForwardPars
   return result;
 }
 
-Swift::UInt64 specialized String.Index.init(_:within:)(Swift::String::Index a1, unint64_t a2, unint64_t a3)
+uint64_t specialized String.Index.init(_:within:)(Swift::String::Index a1, unint64_t a2, unint64_t a3)
 {
   rawBits = a1._rawBits;
   v5 = (a2 >> 59) & 1;
@@ -1838,6 +1838,7 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::String::Index a1, 
   }
 }
 
+Swift::UInt64 specialized String.Index.init(_:within:)(Swift::String::Index a1, unint64_t a2, unint64_t a3)
 {
   v3 = (a2 >> 59) & 1;
   if ((a3 & 0x1000000000000000) == 0)
@@ -1893,7 +1894,7 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::String::Index a1, 
   return rawBits;
 }
 
-Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, unint64_t a2, unint64_t a3)
+Swift::UInt64 specialized String.Index.init(_:within:)(Swift::String::Index rawBits, unint64_t a2, unint64_t a3)
 {
   v3 = (a2 >> 59) & 1;
   if ((a3 & 0x1000000000000000) == 0)
@@ -1901,11 +1902,11 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, un
     LOBYTE(v3) = 1;
   }
 
-  if ((rawBits & 0xC) == 4 << v3)
+  if ((rawBits._rawBits & 0xC) == 4 << v3)
   {
     v11 = a2;
     v12 = a3;
-    rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(rawBits)._rawBits;
+    rawBits._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(rawBits)._rawBits;
     a2 = v11;
     a3 = v12;
   }
@@ -1916,7 +1917,7 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, un
     v4 = a2 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v4 < rawBits >> 16)
+  if (v4 < rawBits._rawBits >> 16)
   {
     a3;
     return 0;
@@ -1924,21 +1925,21 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, un
 
   if ((a3 & 0x1000000000000000) != 0)
   {
-    v7 = rawBits;
+    v7 = rawBits._rawBits;
     v8 = a3;
-    v9 = specialized String.Index._foreignIsWithin(_:)(rawBits);
+    v9 = specialized String.Index._foreignIsWithin(_:)(rawBits._rawBits);
   }
 
   else
   {
-    if ((rawBits & 0xC000) != 0)
+    if ((rawBits._rawBits & 0xC000) != 0)
     {
-      v6 = rawBits;
+      v6 = rawBits._rawBits;
       a3;
       return v6;
     }
 
-    v7 = rawBits;
+    v7 = rawBits._rawBits;
     v8 = a3;
     v9 = _StringGuts.isOnUnicodeScalarBoundary(_:)(rawBits);
   }
@@ -1960,11 +1961,11 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, un
     LOBYTE(v3) = 1;
   }
 
-  if ((rawBits & 0xC) == 4 << v3)
+  if ((rawBits._rawBits & 0xC) == 4 << v3)
   {
     v9 = a2;
     v10 = a3;
-    rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(rawBits)._rawBits;
+    rawBits._rawBits = _StringGuts._slowEnsureMatchingEncoding(_:)(rawBits)._rawBits;
     a2 = v9;
     a3 = v10;
   }
@@ -1975,9 +1976,9 @@ Swift::UInt64 specialized String.Index.init(_:within:)(Swift::UInt64 rawBits, un
     v4 = a2 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v4 >= rawBits >> 16)
+  if (v4 >= rawBits._rawBits >> 16)
   {
-    v5 = rawBits;
+    v5 = rawBits._rawBits;
     v6 = a3;
     v7 = _StringGuts.isOnUnicodeScalarBoundary(_:)(rawBits);
     v6;
@@ -4098,7 +4099,7 @@ uint64_t specialized Substring.init(cString:)(char *a1)
 
   v3 = v2;
   v4 = validateUTF8(_:)(a1, v2);
-  if (v4 < 0)
+  if ((v4 & 0x8000000000000000) != 0)
   {
     repairUTF8(_:firstKnownBrokenRange:)(a1, v3, v5, v6);
   }
@@ -4111,9 +4112,9 @@ uint64_t specialized Substring.init(cString:)(char *a1)
   return 15;
 }
 
-Swift::UInt64 specialized Substring.init(_:)(Swift::UInt64 result, Swift::String::Index a2)
+Swift::String::Index specialized Substring.init(_:)(Swift::String::Index result, Swift::String::Index a2)
 {
-  if (result)
+  if (result._rawBits)
   {
     if (a2._rawBits)
     {
@@ -4121,17 +4122,17 @@ Swift::UInt64 specialized Substring.init(_:)(Swift::UInt64 result, Swift::String
     }
 
 LABEL_5:
-    v5 = result;
+    rawBits = result._rawBits;
     _StringGuts.scalarAlignSlow(_:)(a2);
-    return v5;
+    return rawBits;
   }
 
-  v2 = result;
-  rawBits = a2._rawBits;
+  v2 = result._rawBits;
+  v3 = a2._rawBits;
   v4._rawBits = _StringGuts.scalarAlignSlow(_:)(result)._rawBits;
-  a2._rawBits = rawBits;
-  result = v2 & 0xC | v4._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
-  if ((rawBits & 1) == 0)
+  a2._rawBits = v3;
+  result._rawBits = v2 & 0xC | v4._rawBits & 0xFFFFFFFFFFFFFFF3 | 1;
+  if ((v3 & 1) == 0)
   {
     goto LABEL_5;
   }
@@ -4173,39 +4174,39 @@ uint64_t lazy protocol witness table accessor for type UInt32 and conformance UI
   return result;
 }
 
-void *specialized _SwiftNSMutableArray.countByEnumerating(with:objects:count:)(uint64_t a1)
+void *specialized _SwiftNSMutableArray.countByEnumerating(with:objects:count:)(uint64_t a1, uint64_t a2)
 {
-  v2 = 0;
-  *&v8[8] = *(a1 + 24);
-  *&v8[24] = *(a1 + 40);
-  *&v8[40] = *(a1 + 56);
+  v3 = 0;
+  *&v9[8] = *(a1 + 24);
+  *&v9[24] = *(a1 + 40);
+  *&v9[40] = *(a1 + 56);
   if (!*a1)
   {
-    v3 = *(v1 + 16);
-    v4 = MEMORY[0x1EEE9AC00](a1);
-    if ((v3 & 0x8000000000000000) != 0 || (v3 & 0x4000000000000000) != 0)
+    v4 = *(v2 + 16);
+    v5 = MEMORY[0x1EEE9AC00](a1, a2);
+    if ((v4 & 0x8000000000000000) != 0 || (v4 & 0x4000000000000000) != 0)
     {
-      v6 = v3;
-      v2 = _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5yXl_SiTg581_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_yXl_SiTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyyXlSiIsgyrzo_Tf1cn_nTf4ng_n(v6, partial apply for closure #1 in _SwiftNSMutableArray.countByEnumerating(with:objects:count:));
+      v7 = v4;
+      v3 = _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq5yXl_SiTg581_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_yXl_SiTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyyXlSiIsgyrzo_Tf1cn_nTf4ng_n(v7, partial apply for closure #1 in _SwiftNSMutableArray.countByEnumerating(with:objects:count:));
     }
 
     else
     {
-      v2 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      *(&v7 + 1) = (v3 & 0xFFFFFFFFFFFFFF8) + 32;
-      *v8 = &_fastEnumerationStorageMutationsTarget;
-      *&v7 = 1;
-      v4[2] = *&v8[16];
-      v4[3] = *&v8[32];
-      *v4 = v7;
-      v4[1] = *v8;
-      v3;
+      v3 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      *(&v8 + 1) = (v4 & 0xFFFFFFFFFFFFFF8) + 32;
+      *v9 = &_fastEnumerationStorageMutationsTarget;
+      *&v8 = 1;
+      v5[2] = *&v9[16];
+      v5[3] = *&v9[32];
+      *v5 = v8;
+      v5[1] = *v9;
+      v4;
     }
 
-    v3;
+    v4;
   }
 
-  return v2;
+  return v3;
 }
 
 __objc2_class **specialized _SwiftNSMutableArray.copy(with:)()
@@ -4244,7 +4245,7 @@ __objc2_class **specialized _SwiftNSMutableArray.copy(with:)()
     _orphanedFoundationSubclassesReparented = 1;
     if (*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v5 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
+      v5 = canonical specialized generic type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>(0);
       v1;
       _swift_setClassMetadata(v5, (v1 & 0xFFFFFFFFFFFFFF8));
       swift_bridgeObjectRelease_n(v1, 2);
@@ -4769,7 +4770,7 @@ LABEL_104:
   return v7;
 }
 
-unint64_t specialized UnsafeRawPointer._decodeCharacter(endingAt:limitedBy:)(uint64_t a1, uint64_t a2)
+unint64_t specialized UnsafeRawPointer._decodeCharacter(endingAt:limitedBy:)(Swift::Int a1, uint64_t a2)
 {
   v4 = specialized UnsafeRawPointer._previousCharacterStart(_:limitedBy:)(a1, a2);
   if (v4 > a1)
@@ -4793,7 +4794,7 @@ LABEL_17:
   }
 
   v8 = validateUTF8(_:)((a2 + v4), v7);
-  if (v8 < 0)
+  if ((v8 & 0x8000000000000000) != 0)
   {
     v12 = repairUTF8(_:firstKnownBrokenRange:)((a2 + v5), v7, v9, v10);
   }
@@ -4855,7 +4856,7 @@ uint64_t lazy protocol witness table accessor for type Int? and conformance <A> 
     v3[1] = v0;
     v3[2] = v1;
     v3[0] = &protocol witness table for Int;
-    result = swift_getWitnessTable(protocol conformance descriptor for <A> A?, &unk_1EEEBE0E0, v3);
+    result = swift_getWitnessTable(protocol conformance descriptor for <A> A?, byte_1EEEBE0E0, v3);
     atomic_store(result, &lazy protocol witness table cache variable for type Int? and conformance <A> A?);
   }
 
@@ -4869,27 +4870,27 @@ uint64_t lazy protocol witness table accessor for type Int? and conformance <A> 
     v3[1] = v0;
     v3[2] = v1;
     v3[0] = &protocol witness table for Int;
-    result = swift_getWitnessTable(protocol conformance descriptor for <A> A?, &unk_1EEEBE0E0, v3);
+    result = swift_getWitnessTable(protocol conformance descriptor for <A> A?, byte_1EEEBE0E0, v3);
     atomic_store(result, &lazy protocol witness table cache variable for type Int? and conformance <A> A?);
   }
 
   return result;
 }
 
-void partial apply for closure #1 in _myers<A, B>(from:to:using:)(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+void partial apply for closure #1 in _myers<A, B>(from:to:using:)(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  partial apply for closure #1 in _myers<A, B>(from:to:using:)(a1, a2);
+  partial apply for closure #1 in _myers<A, B>(from:to:using:)(a1, a2, a3);
 }
 
 {
-  closure #1 in _myers<A, B>(from:to:using:)(a1, *(v2 + 48), *(v2 + 16), *(v2 + 24), *(v2 + 32), a2);
+  closure #1 in _myers<A, B>(from:to:using:)(a1, a2, *(v3 + 48), *(v3 + 16), *(v3 + 24), *(v3 + 32), a3);
 }
 
 uint64_t partial apply for implicit closure #1 in BidirectionalCollection<>.difference<A>(from:)(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[6];
+  v5 = *(v2 + 48);
   v6 = *(v5 + 8);
-  swift_getAssociatedTypeWitness(0, *(*(v2[4] + 8) + 8), v2[2], &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
+  swift_getAssociatedTypeWitness(0, *(*(*(v2 + 32) + 8) + 8), *(v2 + 16), &protocol requirements base descriptor for Sequence, associated type descriptor for Sequence.Element);
   return v6(a1, a2, v7, v5) & 1;
 }
 
@@ -4938,7 +4939,7 @@ uint64_t lazy protocol witness table accessor for type Int64 and conformance Int
   return result;
 }
 
-uint64_t specialized static Unicode.UTF16.encode(_:into:)(unsigned int a1, void (*a2)(__int16 *))
+uint64_t specialized static Unicode.UTF16.encode(_:into:)(unsigned int a1, uint64_t (*a2)(__int16 *))
 {
   if (HIWORD(a1))
   {
@@ -4946,231 +4947,233 @@ uint64_t specialized static Unicode.UTF16.encode(_:into:)(unsigned int a1, void 
     v6 = ((a1 + 983040) >> 10) & 0x3FF | 0xD800;
     a2(&v6);
     v5 = HIWORD(v3);
-    return (a2)(&v5);
+    return a2(&v5);
   }
 
   else
   {
     v6 = a1;
-    return (a2)(&v6);
+    return a2(&v6);
   }
 }
 
-uint64_t specialized Duration.init(_:scale:)(Swift::UInt64 a1, double a2)
+uint64_t specialized Duration.init(_:scale:)(Swift::UInt64 a1, __n128 a2)
 {
-  v4 = trunc(a2);
-  _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs7_Int128V_SdTt1g5(&v99, v4);
-  if (v101)
+  v3 = a2.n128_f64[0];
+  v4 = trunc(a2.n128_f64[0]);
+  a2.n128_f64[0] = v4;
+  _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs7_Int128V_SdTt1g5(&v100, a2);
+  if (v102)
   {
-    v10 = _StringGuts.init(_initialCapacity:)(80);
-    v12 = v11;
-    v99 = v10;
+    v11 = _StringGuts.init(_initialCapacity:)(80);
+    v13 = v12;
     v100 = v11;
+    v101 = v12;
     TypeName = swift_getTypeName(&type metadata for Double, 0);
-    if (v14 < 0)
+    if (v15 < 0)
     {
       goto LABEL_66;
     }
 
-    v15 = TypeName;
-    v16 = v14;
-    v17 = validateUTF8(_:)(TypeName, v14);
-    if (v17 < 0)
+    v16 = TypeName;
+    v17 = v15;
+    v18 = validateUTF8(_:)(TypeName, v15);
+    if ((v18 & 0x8000000000000000) != 0)
     {
-      v21 = repairUTF8(_:firstKnownBrokenRange:)(v15, v16, v18, v19);
+      v22 = repairUTF8(_:firstKnownBrokenRange:)(v16, v17, v19, v20);
     }
 
     else
     {
-      v21 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v15, v16, v17 & 1, v20);
+      v22 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v16, v17, v18 & 1, v21);
     }
 
-    v31 = v21;
     v32 = v22;
-    v33 = HIBYTE(v12) & 0xF;
-    if ((v12 & 0x2000000000000000) == 0)
+    v33 = v23;
+    v34 = HIBYTE(v13) & 0xF;
+    if ((v13 & 0x2000000000000000) == 0)
     {
-      v33 = v10 & 0xFFFFFFFFFFFFLL;
+      v34 = v11 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v33 && (v10 & ~v12 & 0x2000000000000000) == 0)
+    if (!v34 && (v11 & ~v13 & 0x2000000000000000) == 0)
     {
-      v12;
-      v99 = v31;
+      v13;
       v100 = v32;
+      v101 = v33;
       goto LABEL_22;
     }
 
-    if ((v12 & 0x2000000000000000) != 0)
+    if ((v13 & 0x2000000000000000) != 0)
     {
-      if ((v22 & 0x2000000000000000) != 0)
+      if ((v23 & 0x2000000000000000) != 0)
       {
-        v43 = specialized _SmallString.init(_:appending:)(v10, v12, v21, v22);
-        if ((v45 & 1) == 0)
+        v44 = specialized _SmallString.init(_:appending:)(v11, v13, v22, v23);
+        if ((v46 & 1) == 0)
         {
-          v95 = v43;
           v96 = v44;
-          v12;
-          v32;
-          v99 = v95;
+          v97 = v45;
+          v13;
+          v33;
           v100 = v96;
+          v101 = v97;
+          v33 = v97;
           v32 = v96;
-          v31 = v95;
 LABEL_22:
-          v46 = HIBYTE(v32) & 0xF;
-          if ((v32 & 0x2000000000000000) == 0)
+          v47 = HIBYTE(v33) & 0xF;
+          if ((v33 & 0x2000000000000000) == 0)
           {
-            v46 = v31 & 0xFFFFFFFFFFFFLL;
+            v47 = v32 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (v46 || (v31 & ~v32 & 0x2000000000000000) != 0)
+          if (v47 || (v32 & ~v33 & 0x2000000000000000) != 0)
           {
-            if ((0x800000018066D440 & 0x2000000000000000 & v32) != 0 && (v47 = specialized _SmallString.init(_:appending:)(v31, v32, 0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000), (v49 & 1) == 0))
+            if ((0x800000018066D440 & 0x2000000000000000 & v33) != 0 && (v48 = specialized _SmallString.init(_:appending:)(v32, v33, 0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000), (v50 & 1) == 0))
             {
-              v51 = v47;
               v52 = v48;
-              v32;
+              v53 = v49;
+              v33;
               0x800000018066D440 | 0x8000000000000000;
-              v99 = v51;
               v100 = v52;
+              v101 = v53;
             }
 
             else
             {
               if ((0x800000018066D440 & 0x2000000000000000) != 0)
               {
-                v50 = (0x800000018066D440 >> 56) & 0xF;
+                v51 = (0x800000018066D440 >> 56) & 0xF;
               }
 
               else
               {
-                v50 = 30;
+                v51 = 30;
               }
 
-              _StringGuts.append(_:)(0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000, 0, v50, v34, v35, v36, v37, v38, v39, v40, v41);
+              _StringGuts.append(_:)(0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000, 0, v51, v35, v36, v37, v38, v39, v40, v41, v42);
               0x800000018066D440 | 0x8000000000000000;
             }
           }
 
           else
           {
-            v32;
-            v99 = 0xD00000000000001ELL;
-            v100 = 0x800000018066D440 | 0x8000000000000000;
+            v33;
+            v100 = 0xD00000000000001ELL;
+            v101 = 0x800000018066D440 | 0x8000000000000000;
           }
 
-          v53 = swift_getTypeName(&type metadata for _Int128, 0);
-          if ((v54 & 0x8000000000000000) == 0)
+          v54 = swift_getTypeName(&type metadata for _Int128, 0);
+          if ((v55 & 0x8000000000000000) == 0)
           {
-            v55 = v53;
             v56 = v54;
-            v57 = validateUTF8(_:)(v53, v54);
-            if (v57 < 0)
+            v57 = v55;
+            v58 = validateUTF8(_:)(v54, v55);
+            if ((v58 & 0x8000000000000000) != 0)
             {
-              v61 = repairUTF8(_:firstKnownBrokenRange:)(v55, v56, v58, v59);
+              v62 = repairUTF8(_:firstKnownBrokenRange:)(v56, v57, v59, v60);
             }
 
             else
             {
-              v61 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v55, v56, v57 & 1, v60);
+              v62 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v56, v57, v58 & 1, v61);
             }
 
-            v71 = v61;
             v72 = v62;
-            v73 = v100;
-            v74 = HIBYTE(v100) & 0xF;
-            if ((v100 & 0x2000000000000000) == 0)
+            v73 = v63;
+            v74 = v101;
+            v75 = HIBYTE(v101) & 0xF;
+            if ((v101 & 0x2000000000000000) == 0)
             {
-              v74 = v99 & 0xFFFFFFFFFFFFLL;
+              v75 = v100 & 0xFFFFFFFFFFFFLL;
             }
 
-            if (!v74 && (v99 & ~v100 & 0x2000000000000000) == 0)
+            if (!v75 && (v100 & ~v101 & 0x2000000000000000) == 0)
             {
-              v100;
-              v99 = v71;
+              v101;
               v100 = v72;
+              v101 = v73;
               goto LABEL_51;
             }
 
-            if ((v100 & 0x2000000000000000) != 0)
+            if ((v101 & 0x2000000000000000) != 0)
             {
-              if ((v62 & 0x2000000000000000) != 0)
+              if ((v63 & 0x2000000000000000) != 0)
               {
-                v84 = specialized _SmallString.init(_:appending:)(v99, v100, v61, v62);
-                if ((v86 & 1) == 0)
+                v85 = specialized _SmallString.init(_:appending:)(v100, v101, v62, v63);
+                if ((v87 & 1) == 0)
                 {
-                  v97 = v84;
                   v98 = v85;
+                  v99 = v86;
+                  v74;
                   v73;
-                  v72;
-                  v99 = v97;
                   v100 = v98;
+                  v101 = v99;
+                  v73 = v99;
                   v72 = v98;
-                  v71 = v97;
 LABEL_51:
-                  v87 = 0x800000018066D460 | 0x8000000000000000;
-                  v88 = HIBYTE(v72) & 0xF;
-                  if ((v72 & 0x2000000000000000) == 0)
+                  v88 = 0x800000018066D460 | 0x8000000000000000;
+                  v89 = HIBYTE(v73) & 0xF;
+                  if ((v73 & 0x2000000000000000) == 0)
                   {
-                    v88 = v71 & 0xFFFFFFFFFFFFLL;
+                    v89 = v72 & 0xFFFFFFFFFFFFLL;
                   }
 
-                  if (v88 || (v71 & ~v72 & 0x2000000000000000) != 0)
+                  if (v89 || (v72 & ~v73 & 0x2000000000000000) != 0)
                   {
-                    if ((0x800000018066D460 & 0x2000000000000000 & v72) != 0 && (v90 = specialized _SmallString.init(_:appending:)(v71, v72, 0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000), (v92 & 1) == 0))
+                    if ((0x800000018066D460 & 0x2000000000000000 & v73) != 0 && (v91 = specialized _SmallString.init(_:appending:)(v72, v73, 0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000), (v93 & 1) == 0))
                     {
-                      v89 = v90;
-                      v94 = v91;
-                      v72;
+                      v90 = v91;
+                      v95 = v92;
+                      v73;
                       0x800000018066D460 | 0x8000000000000000;
-                      v87 = v94;
+                      v88 = v95;
                     }
 
                     else
                     {
                       if ((0x800000018066D460 & 0x2000000000000000) != 0)
                       {
-                        v93 = (0x800000018066D460 >> 56) & 0xF;
+                        v94 = (0x800000018066D460 >> 56) & 0xF;
                       }
 
                       else
                       {
-                        v93 = 46;
+                        v94 = 46;
                       }
 
-                      _StringGuts.append(_:)(0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000, 0, v93, v75, v76, v77, v78, v79, v80, v81, v82);
+                      _StringGuts.append(_:)(0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000, 0, v94, v76, v77, v78, v79, v80, v81, v82, v83);
                       0x800000018066D460 | 0x8000000000000000;
-                      v89 = v99;
-                      v87 = v100;
+                      v90 = v100;
+                      v88 = v101;
                     }
                   }
 
                   else
                   {
-                    v72;
-                    v89 = 0xD00000000000002ELL;
+                    v73;
+                    v90 = 0xD00000000000002ELL;
                   }
 
-                  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v89, v87, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL);
+                  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v90, v88, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL, 0);
                 }
 
                 goto LABEL_49;
               }
             }
 
-            else if ((v62 & 0x2000000000000000) != 0)
+            else if ((v63 & 0x2000000000000000) != 0)
             {
 LABEL_49:
-              v83 = HIBYTE(v72) & 0xF;
+              v84 = HIBYTE(v73) & 0xF;
               goto LABEL_50;
             }
 
-            v83 = v61 & 0xFFFFFFFFFFFFLL;
+            v84 = v62 & 0xFFFFFFFFFFFFLL;
 LABEL_50:
-            _StringGuts.append(_:)(v71, v72, 0, v83, v63, v64, v65, v66, v67, v68, v69, v70);
-            v72;
-            v71 = v99;
+            _StringGuts.append(_:)(v72, v73, 0, v84, v64, v65, v66, v67, v68, v69, v70, v71);
+            v73;
             v72 = v100;
+            v73 = v101;
             goto LABEL_51;
           }
 
@@ -5182,32 +5185,33 @@ LABEL_66:
       }
     }
 
-    else if ((v22 & 0x2000000000000000) != 0)
+    else if ((v23 & 0x2000000000000000) != 0)
     {
 LABEL_20:
-      v42 = HIBYTE(v32) & 0xF;
+      v43 = HIBYTE(v33) & 0xF;
       goto LABEL_21;
     }
 
-    v42 = v21 & 0xFFFFFFFFFFFFLL;
+    v43 = v22 & 0xFFFFFFFFFFFFLL;
 LABEL_21:
-    _StringGuts.append(_:)(v31, v32, 0, v42, v23, v24, v25, v26, v27, v28, v29, v30);
-    v32;
-    v31 = v99;
+    _StringGuts.append(_:)(v32, v33, 0, v43, v24, v25, v26, v27, v28, v29, v30, v31);
+    v33;
     v32 = v100;
+    v33 = v101;
     goto LABEL_22;
   }
 
-  v102 = _Int128.multipliedReportingOverflow(by:)(a1);
-  if (v102.overflow)
+  v103 = _Int128.multipliedReportingOverflow(by:)(a1);
+  if (v103.overflow)
   {
     _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  low = v102.partialValue.low;
-  high = v102.partialValue.high;
-  v7 = _ss17FixedWidthIntegerPsEyxqd__cSBRd__lufCs7_Int128V_SdTt1g5(round((a2 - v4) * a1));
-  return specialized static _Int128.+ infix(_:_:)(low, high, v7, v8);
+  low = v103.partialValue.low;
+  high = v103.partialValue.high;
+  v5.n128_f64[0] = round((v3 - v4) * a1);
+  v8 = _ss17FixedWidthIntegerPsEyxqd__cSBRd__lufCs7_Int128V_SdTt1g5(v5);
+  return specialized static _Int128.+ infix(_:_:)(low, high, v8, v9);
 }
 
 uint64_t specialized Duration.init(from:)(uint64_t *a1)
@@ -5229,221 +5233,222 @@ uint64_t specialized Duration.init(from:)(uint64_t *a1)
   return v8;
 }
 
-uint64_t specialized static Duration./ infix(_:_:)(unint64_t a1, uint64_t a2, double a3)
+uint64_t specialized static Duration./ infix(_:_:)(int64_t a1, uint64_t a2, double a3)
 {
-  _sSBss17FixedWidthInteger14RawSignificandRpzrlE8_convert4fromx5value_Sb5exacttqd___tSzRd__lFZSd_s7_Int128VTt1g5(&v94, a1, a2);
-  _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs7_Int128V_SdTt1g5(&v94, v94 / a3);
-  if (v96)
+  _sSBss17FixedWidthInteger14RawSignificandRpzrlE8_convert4fromx5value_Sb5exacttqd___tSzRd__lFZSd_s7_Int128VTt1g5(&v95, a1, a2);
+  v4.n128_f64[0] = v95 / a3;
+  _ss17FixedWidthIntegerPsE8_convert4fromxSg5value_Sb5exacttqd___tSBRd__lFZs7_Int128V_SdTt1g5(&v95, v4);
+  if (v97)
   {
-    *&v5 = COERCE_DOUBLE(_StringGuts.init(_initialCapacity:)(80));
-    v7 = v6;
-    v94 = *&v5;
-    v95 = v6;
+    *&v6 = COERCE_DOUBLE(_StringGuts.init(_initialCapacity:)(80));
+    v8 = v7;
+    v95 = *&v6;
+    v96 = v7;
     TypeName = swift_getTypeName(&type metadata for Double, 0);
-    if (v9 < 0)
+    if (v10 < 0)
     {
       goto LABEL_64;
     }
 
-    v10 = TypeName;
-    v11 = v9;
-    v12 = validateUTF8(_:)(TypeName, v9);
-    if (v12 < 0)
+    v11 = TypeName;
+    v12 = v10;
+    v13 = validateUTF8(_:)(TypeName, v10);
+    if ((v13 & 0x8000000000000000) != 0)
     {
-      v16 = repairUTF8(_:firstKnownBrokenRange:)(v10, v11, v13, v14);
+      v17 = repairUTF8(_:firstKnownBrokenRange:)(v11, v12, v14, v15);
     }
 
     else
     {
-      v16 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v10, v11, v12 & 1, v15);
+      v17 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v11, v12, v13 & 1, v16);
     }
 
-    v26 = v16;
     v27 = v17;
-    v28 = HIBYTE(v7) & 0xF;
-    if ((v7 & 0x2000000000000000) == 0)
+    v28 = v18;
+    v29 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
     {
-      v28 = v5 & 0xFFFFFFFFFFFFLL;
+      v29 = v6 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v28 && (v5 & ~v7 & 0x2000000000000000) == 0)
+    if (!v29 && (v6 & ~v8 & 0x2000000000000000) == 0)
     {
-      v7;
-      v94 = *&v26;
-      v95 = v27;
+      v8;
+      v95 = *&v27;
+      v96 = v28;
       goto LABEL_20;
     }
 
-    if ((v7 & 0x2000000000000000) != 0)
+    if ((v8 & 0x2000000000000000) != 0)
     {
-      if ((v17 & 0x2000000000000000) != 0)
+      if ((v18 & 0x2000000000000000) != 0)
       {
-        v38 = specialized _SmallString.init(_:appending:)(v5, v7, v16, v17);
-        if ((v40 & 1) == 0)
+        v39 = specialized _SmallString.init(_:appending:)(v6, v8, v17, v18);
+        if ((v41 & 1) == 0)
         {
-          v90 = *&v38;
-          v91 = v39;
-          v7;
-          v27;
-          v94 = v90;
+          v91 = *&v39;
+          v92 = v40;
+          v8;
+          v28;
           v95 = v91;
-          v27 = v91;
-          *&v26 = v90;
+          v96 = v92;
+          v28 = v92;
+          *&v27 = v91;
 LABEL_20:
-          v41 = HIBYTE(v27) & 0xF;
-          if ((v27 & 0x2000000000000000) == 0)
+          v42 = HIBYTE(v28) & 0xF;
+          if ((v28 & 0x2000000000000000) == 0)
           {
-            v41 = v26 & 0xFFFFFFFFFFFFLL;
+            v42 = v27 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (v41 || (v26 & ~v27 & 0x2000000000000000) != 0)
+          if (v42 || (v27 & ~v28 & 0x2000000000000000) != 0)
           {
-            if ((0x800000018066D440 & 0x2000000000000000 & v27) != 0 && (v42 = specialized _SmallString.init(_:appending:)(v26, v27, 0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000), (v44 & 1) == 0))
+            if ((0x800000018066D440 & 0x2000000000000000 & v28) != 0 && (v43 = specialized _SmallString.init(_:appending:)(v27, v28, 0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000), (v45 & 1) == 0))
             {
-              v46 = *&v42;
-              v47 = v43;
-              v27;
+              v47 = *&v43;
+              v48 = v44;
+              v28;
               0x800000018066D440 | 0x8000000000000000;
-              v94 = v46;
               v95 = v47;
+              v96 = v48;
             }
 
             else
             {
               if ((0x800000018066D440 & 0x2000000000000000) != 0)
               {
-                v45 = (0x800000018066D440 >> 56) & 0xF;
+                v46 = (0x800000018066D440 >> 56) & 0xF;
               }
 
               else
               {
-                v45 = 30;
+                v46 = 30;
               }
 
-              _StringGuts.append(_:)(0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000, 0, v45, v29, v30, v31, v32, v33, v34, v35, v36);
+              _StringGuts.append(_:)(0xD00000000000001ELL, 0x800000018066D440 | 0x8000000000000000, 0, v46, v30, v31, v32, v33, v34, v35, v36, v37);
               0x800000018066D440 | 0x8000000000000000;
             }
           }
 
           else
           {
-            v27;
-            v94 = -2.31584178e77;
-            v95 = 0x800000018066D440 | 0x8000000000000000;
+            v28;
+            v95 = -2.31584178e77;
+            v96 = 0x800000018066D440 | 0x8000000000000000;
           }
 
-          v48 = swift_getTypeName(&type metadata for _Int128, 0);
-          if ((v49 & 0x8000000000000000) == 0)
+          v49 = swift_getTypeName(&type metadata for _Int128, 0);
+          if ((v50 & 0x8000000000000000) == 0)
           {
-            v50 = v48;
             v51 = v49;
-            v52 = validateUTF8(_:)(v48, v49);
-            if (v52 < 0)
+            v52 = v50;
+            v53 = validateUTF8(_:)(v49, v50);
+            if ((v53 & 0x8000000000000000) != 0)
             {
-              v56 = repairUTF8(_:firstKnownBrokenRange:)(v50, v51, v53, v54);
+              v57 = repairUTF8(_:firstKnownBrokenRange:)(v51, v52, v54, v55);
             }
 
             else
             {
-              v56 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v50, v51, v52 & 1, v55);
+              v57 = specialized static String._uncheckedFromUTF8(_:isASCII:)(v51, v52, v53 & 1, v56);
             }
 
-            v66 = v56;
             v67 = v57;
-            v68 = v95;
-            v69 = HIBYTE(v95) & 0xF;
-            if ((v95 & 0x2000000000000000) == 0)
+            v68 = v58;
+            v69 = v96;
+            v70 = HIBYTE(v96) & 0xF;
+            if ((v96 & 0x2000000000000000) == 0)
             {
-              v69 = *&v94 & 0xFFFFFFFFFFFFLL;
+              v70 = *&v95 & 0xFFFFFFFFFFFFLL;
             }
 
-            if (!v69 && (*&v94 & ~v95 & 0x2000000000000000) == 0)
+            if (!v70 && (*&v95 & ~v96 & 0x2000000000000000) == 0)
             {
-              v95;
-              v94 = *&v66;
-              v95 = v67;
+              v96;
+              v95 = *&v67;
+              v96 = v68;
               goto LABEL_49;
             }
 
-            if ((v95 & 0x2000000000000000) != 0)
+            if ((v96 & 0x2000000000000000) != 0)
             {
-              if ((v57 & 0x2000000000000000) != 0)
+              if ((v58 & 0x2000000000000000) != 0)
               {
-                v79 = specialized _SmallString.init(_:appending:)(*&v94, v95, v56, v57);
-                if ((v81 & 1) == 0)
+                v80 = specialized _SmallString.init(_:appending:)(*&v95, v96, v57, v58);
+                if ((v82 & 1) == 0)
                 {
-                  v92 = *&v79;
-                  v93 = v80;
+                  v93 = *&v80;
+                  v94 = v81;
+                  v69;
                   v68;
-                  v67;
-                  v94 = v92;
                   v95 = v93;
-                  v67 = v93;
-                  *&v66 = v92;
+                  v96 = v94;
+                  v68 = v94;
+                  *&v67 = v93;
 LABEL_49:
-                  v82 = 0x800000018066D460 | 0x8000000000000000;
-                  v83 = HIBYTE(v67) & 0xF;
-                  if ((v67 & 0x2000000000000000) == 0)
+                  v83 = 0x800000018066D460 | 0x8000000000000000;
+                  v84 = HIBYTE(v68) & 0xF;
+                  if ((v68 & 0x2000000000000000) == 0)
                   {
-                    v83 = v66 & 0xFFFFFFFFFFFFLL;
+                    v84 = v67 & 0xFFFFFFFFFFFFLL;
                   }
 
-                  if (v83 || (v66 & ~v67 & 0x2000000000000000) != 0)
+                  if (v84 || (v67 & ~v68 & 0x2000000000000000) != 0)
                   {
-                    if ((0x800000018066D460 & 0x2000000000000000 & v67) != 0 && (v85 = specialized _SmallString.init(_:appending:)(v66, v67, 0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000), (v87 & 1) == 0))
+                    if ((0x800000018066D460 & 0x2000000000000000 & v68) != 0 && (v86 = specialized _SmallString.init(_:appending:)(v67, v68, 0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000), (v88 & 1) == 0))
                     {
-                      v84 = v85;
-                      v89 = v86;
-                      v67;
+                      v85 = v86;
+                      v90 = v87;
+                      v68;
                       0x800000018066D460 | 0x8000000000000000;
-                      v82 = v89;
+                      v83 = v90;
                     }
 
                     else
                     {
                       if ((0x800000018066D460 & 0x2000000000000000) != 0)
                       {
-                        v88 = (0x800000018066D460 >> 56) & 0xF;
+                        v89 = (0x800000018066D460 >> 56) & 0xF;
                       }
 
                       else
                       {
-                        v88 = 46;
+                        v89 = 46;
                       }
 
-                      _StringGuts.append(_:)(0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000, 0, v88, v70, v71, v72, v73, v74, v75, v76, v77);
+                      _StringGuts.append(_:)(0xD00000000000002ELL, 0x800000018066D460 | 0x8000000000000000, 0, v89, v71, v72, v73, v74, v75, v76, v77, v78);
                       0x800000018066D460 | 0x8000000000000000;
-                      v84 = *&v94;
-                      v82 = v95;
+                      v85 = *&v95;
+                      v83 = v96;
                     }
                   }
 
                   else
                   {
-                    v67;
-                    v84 = 0xD00000000000002ELL;
+                    v68;
+                    v85 = 0xD00000000000002ELL;
                   }
 
-                  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v84, v82, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL);
+                  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v85, v83, "Swift/Integers.swift", 0x14uLL, 2, 0xAB4uLL, 0);
                 }
 
                 goto LABEL_47;
               }
             }
 
-            else if ((v57 & 0x2000000000000000) != 0)
+            else if ((v58 & 0x2000000000000000) != 0)
             {
 LABEL_47:
-              v78 = HIBYTE(v67) & 0xF;
+              v79 = HIBYTE(v68) & 0xF;
               goto LABEL_48;
             }
 
-            v78 = v56 & 0xFFFFFFFFFFFFLL;
+            v79 = v57 & 0xFFFFFFFFFFFFLL;
 LABEL_48:
-            _StringGuts.append(_:)(v66, v67, 0, v78, v58, v59, v60, v61, v62, v63, v64, v65);
-            v67;
-            *&v66 = v94;
-            v67 = v95;
+            _StringGuts.append(_:)(v67, v68, 0, v79, v59, v60, v61, v62, v63, v64, v65, v66);
+            v68;
+            *&v67 = v95;
+            v68 = v96;
             goto LABEL_49;
           }
 
@@ -5455,35 +5460,35 @@ LABEL_64:
       }
     }
 
-    else if ((v17 & 0x2000000000000000) != 0)
+    else if ((v18 & 0x2000000000000000) != 0)
     {
 LABEL_18:
-      v37 = HIBYTE(v27) & 0xF;
+      v38 = HIBYTE(v28) & 0xF;
       goto LABEL_19;
     }
 
-    v37 = v16 & 0xFFFFFFFFFFFFLL;
+    v38 = v17 & 0xFFFFFFFFFFFFLL;
 LABEL_19:
-    _StringGuts.append(_:)(v26, v27, 0, v37, v18, v19, v20, v21, v22, v23, v24, v25);
-    v27;
-    *&v26 = v94;
-    v27 = v95;
+    _StringGuts.append(_:)(v27, v28, 0, v38, v19, v20, v21, v22, v23, v24, v25, v26);
+    v28;
+    *&v27 = v95;
+    v28 = v96;
     goto LABEL_20;
   }
 
-  return *&v94;
+  return *&v95;
 }
 
-int **specialized Int128.init<A>(_:)(uint64_t a1, const char *a2, uint64_t a3)
+int **specialized Int128.init<A>(_:)(uint64_t a1, Class *a2, uint64_t a3)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = 4;
   (*(*(v7 + 16) + 304))(&v11);
   result = Int128.init<A>(exactly:)(v6, a2, a3);
   if (v9)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000051, 0x80000001806718B0, "Swift/Int128.swift", 0x12uLL, 2, 0xDAuLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000051, 0x80000001806718B0, "Swift/Int128.swift", 0x12uLL, 2, 0xDAuLL, 0);
   }
 
   return result;
@@ -5497,16 +5502,16 @@ void sub_1806220AC()
   swift_deallocObject(v0);
 }
 
-uint64_t specialized UInt128.init<A>(_:)(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t specialized UInt128.init<A>(_:)(uint64_t a1, Class *a2, uint64_t a3)
 {
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = 4;
   (*(*(v7 + 16) + 304))(&v11);
   result = UInt128.init<A>(exactly:)(v6, a2, a3);
   if (v9)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, 0x8000000180671820, "Swift/UInt128.swift", 0x13uLL, 2, 0xCFuLL);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, 0x8000000180671820, "Swift/UInt128.swift", 0x13uLL, 2, 0xCFuLL, 0);
   }
 
   return result;
@@ -5519,7 +5524,7 @@ void sub_1806221F0()
   swift_deallocObject(v0);
 }
 
-__int16 specialized Float16.init(sign:exponent:significand:)@<H0>(char a1@<W0>, uint64_t a2@<X1>, float a3@<S0>)
+__int16 specialized Float16.init(sign:exponent:significand:)@<H0>(char a1@<W0>, unint64_t a2@<X1>, float a3@<S0>)
 {
   *&result = -*&a3;
   if ((a1 & 1) == 0)
@@ -5583,7 +5588,7 @@ __int16 specialized Float16.init(sign:exponent:significand:)@<H0>(char a1@<W0>, 
   return result;
 }
 
-float specialized Float.init(sign:exponent:significand:)(char a1, uint64_t a2, float a3)
+float specialized Float.init(sign:exponent:significand:)(char a1, unint64_t a2, float a3)
 {
   result = -a3;
   if ((a1 & 1) == 0)
@@ -5647,7 +5652,7 @@ float specialized Float.init(sign:exponent:significand:)(char a1, uint64_t a2, f
   return result;
 }
 
-double specialized Double.init(sign:exponent:significand:)(char a1, uint64_t a2, double a3)
+double specialized Double.init(sign:exponent:significand:)(char a1, unint64_t a2, double a3)
 {
   result = -a3;
   if ((a1 & 1) == 0)
@@ -5717,7 +5722,7 @@ uint64_t partial apply for thunk for @callee_guaranteed (@unowned UnsafeMutableB
 }
 
 {
-  result = (*(v3 + 40))();
+  result = (*(v3 + 40))(a1, a2);
   if (v4)
   {
     *a3 = v4;
@@ -5896,7 +5901,7 @@ uint64_t specialized SIMD4.lowHalf.setter(uint64_t a1, uint64_t a2, uint64_t a3,
   v24 = a4;
   v23[1] = a1;
   v5 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *(v8 + 24);
   swift_getAssociatedTypeWitness(255, v9, v5, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD2Storage);
@@ -5926,7 +5931,7 @@ uint64_t specialized SIMD8.lowHalf.setter(uint64_t a1, uint64_t a2, uint64_t a3,
   v37 = a4;
   v40 = a1;
   v6 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *(v9 + 24);
   swift_getAssociatedTypeWitness(255, v10, v6, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
@@ -5967,7 +5972,7 @@ uint64_t specialized SIMD16.lowHalf.setter(uint64_t a1, uint64_t a2)
 {
   v21 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD8Storage);
@@ -5996,7 +6001,7 @@ uint64_t specialized SIMD16.highHalf.setter(uint64_t a1, uint64_t a2)
 {
   v19 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &AssociatedConformanceWitness - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD8Storage);
@@ -6025,7 +6030,7 @@ uint64_t specialized SIMD16.evenHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD8Storage);
@@ -6058,7 +6063,7 @@ uint64_t specialized SIMD16.oddHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD8Storage);
@@ -6088,7 +6093,7 @@ uint64_t specialized SIMD32.lowHalf.setter(uint64_t a1, uint64_t a2)
 {
   v21 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
@@ -6117,7 +6122,7 @@ uint64_t specialized SIMD32.highHalf.setter(uint64_t a1, uint64_t a2)
 {
   v19 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &AssociatedConformanceWitness - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
@@ -6146,7 +6151,7 @@ uint64_t specialized SIMD32.evenHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
@@ -6179,7 +6184,7 @@ uint64_t specialized SIMD32.oddHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
@@ -6209,7 +6214,7 @@ uint64_t specialized SIMD64.lowHalf.setter(uint64_t a1, uint64_t a2)
 {
   v21 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
@@ -6238,7 +6243,7 @@ uint64_t specialized SIMD64.highHalf.setter(uint64_t a1, uint64_t a2)
 {
   v19 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &AssociatedConformanceWitness - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
@@ -6267,7 +6272,7 @@ uint64_t specialized SIMD64.evenHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
@@ -6300,7 +6305,7 @@ uint64_t specialized SIMD64.oddHalf.setter(uint64_t a1, uint64_t a2)
 {
   v23 = a1;
   v2 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 24);
   swift_getAssociatedTypeWitness(255, v6, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
@@ -6326,7 +6331,7 @@ uint64_t specialized SIMD64.oddHalf.setter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _ArrayBuffer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for _ArrayBuffer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for _ArrayBuffer<A>, protocol conformance descriptor for _ArrayBuffer<A>);
 }
@@ -6349,21 +6354,21 @@ unint64_t instantiation function for generic protocol witness table for _ArrayBu
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, int *a2, uint64_t a3)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, int *a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
     v6[0] = &protocol witness table for Int;
     v6[1] = lazy protocol witness table accessor for type Int and conformance Int(0, a2, a3);
-    result = swift_getWitnessTable(a2, &unk_1EEEBBF38, v6);
+    result = swift_getWitnessTable(a2, word_1EEEBBF38, v6);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for [A](uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for [A](uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for [A], protocol conformance descriptor for [A]);
 }
@@ -6386,7 +6391,7 @@ unint64_t instantiation function for generic protocol witness table for [A](uint
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> [A](uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> [A](uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> [A], a2, &v5);
@@ -6394,7 +6399,7 @@ unint64_t instantiation function for generic protocol witness table for <A> [A](
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for ArraySlice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for ArraySlice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for ArraySlice<A>, protocol conformance descriptor for ArraySlice<A>);
 }
@@ -6417,7 +6422,7 @@ unint64_t instantiation function for generic protocol witness table for ArraySli
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> ArraySlice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> ArraySlice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> ArraySlice<A>, a2, &v5);
@@ -6430,7 +6435,7 @@ uint64_t lazy protocol witness table accessor for type CollectionOfOne<UInt8> an
   result = lazy protocol witness table cache variable for type CollectionOfOne<UInt8> and conformance CollectionOfOne<A>;
   if (!lazy protocol witness table cache variable for type CollectionOfOne<UInt8> and conformance CollectionOfOne<A>)
   {
-    result = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, &unk_1EEEBBD60, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, word_1EEEBBD60, a3);
     atomic_store(result, &lazy protocol witness table cache variable for type CollectionOfOne<UInt8> and conformance CollectionOfOne<A>);
   }
 
@@ -6466,7 +6471,7 @@ uint64_t lazy protocol witness table accessor for type _SliceBuffer<Swift.AnyObj
   result = lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>;
   if (!lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>)
   {
-    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, &unk_1EEEBBCC8, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, word_1EEEBBCC8, a3);
     atomic_store(result, &lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>);
   }
 
@@ -6477,7 +6482,7 @@ uint64_t lazy protocol witness table accessor for type _SliceBuffer<Swift.AnyObj
   result = lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>;
   if (!lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>)
   {
-    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, &unk_1EEEBBCC8, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, word_1EEEBBCC8, a3);
     atomic_store(result, &lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>);
   }
 
@@ -6488,7 +6493,7 @@ uint64_t lazy protocol witness table accessor for type _SliceBuffer<Swift.AnyObj
   result = lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>;
   if (!lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>)
   {
-    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, &unk_1EEEBBCC8, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for _SliceBuffer<A>, word_1EEEBBCC8, a3);
     atomic_store(result, &lazy protocol witness table cache variable for type _SliceBuffer<Swift.AnyObject> and conformance _SliceBuffer<A>);
   }
 
@@ -6548,7 +6553,7 @@ uint64_t lazy protocol witness table accessor for type _CocoaArrayWrapper and co
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for ContiguousArray<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for ContiguousArray<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for ContiguousArray<A>, protocol conformance descriptor for ContiguousArray<A>);
 }
@@ -6571,7 +6576,7 @@ unint64_t instantiation function for generic protocol witness table for Contiguo
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> ContiguousArray<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> ContiguousArray<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> ContiguousArray<A>, a2, &v5);
@@ -6579,7 +6584,7 @@ unint64_t instantiation function for generic protocol witness table for <A> Cont
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> ClosedRange<A>(uint64_t a1, unint64_t a2, __int128 *a3)
+unint64_t instantiation function for generic protocol witness table for <> ClosedRange<A>(uint64_t a1, unsigned __int16 *a2, __int128 *a3)
 {
   v5 = *a3;
   result = swift_getWitnessTable(protocol conformance descriptor for <> ClosedRange<A>, a2, &v5);
@@ -6601,7 +6606,7 @@ unint64_t instantiation function for generic protocol witness table for <> Close
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _ContiguousArrayBuffer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for _ContiguousArrayBuffer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for _ContiguousArrayBuffer<A>, protocol conformance descriptor for _ContiguousArrayBuffer<A>);
 }
@@ -6624,7 +6629,7 @@ unint64_t instantiation function for generic protocol witness table for _Contigu
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> DiscontiguousSlice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> DiscontiguousSlice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <> DiscontiguousSlice<A>, a2, &v5);
@@ -6638,14 +6643,14 @@ unint64_t instantiation function for generic protocol witness table for <> Disco
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for DiscontiguousSlice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for DiscontiguousSlice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for DiscontiguousSlice<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazyDropWhileSequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> LazyDropWhileSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for LazyDropWhileSequence<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6659,7 +6664,7 @@ unint64_t instantiation function for generic protocol witness table for <> LazyD
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for EmptyCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for EmptyCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for EmptyCollection<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6678,7 +6683,7 @@ unint64_t instantiation function for generic protocol witness table for EmptyCol
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> EnumeratedSequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> EnumeratedSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for EnumeratedSequence<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6692,7 +6697,7 @@ unint64_t instantiation function for generic protocol witness table for <> Enume
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> EnumeratedSequence<A>(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t instantiation function for generic protocol witness table for <> EnumeratedSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t *a3)
 {
   v5 = *a3;
   result = swift_getWitnessTable(protocol conformance descriptor for <> EnumeratedSequence<A>, a2, &v5);
@@ -6700,7 +6705,7 @@ unint64_t instantiation function for generic protocol witness table for <> Enume
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for AnyCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for AnyCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for AnyCollection<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6713,7 +6718,7 @@ unint64_t instantiation function for generic protocol witness table for AnyColle
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for AnyBidirectionalCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for AnyBidirectionalCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for AnyBidirectionalCollection<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6726,7 +6731,7 @@ unint64_t instantiation function for generic protocol witness table for AnyBidir
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for AnyRandomAccessCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for AnyRandomAccessCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for AnyRandomAccessCollection<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6745,7 +6750,7 @@ unint64_t instantiation function for generic protocol witness table for AnyRando
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazyFilterSequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> LazyFilterSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for LazyFilterSequence<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6759,28 +6764,28 @@ unint64_t instantiation function for generic protocol witness table for <> LazyF
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> FlattenSequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> FlattenSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for FlattenSequence<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> ClosedRange<A>(unint64_t a1, unint64_t a2, uint64_t a3, int *a4, int *a5)
+unint64_t associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> ClosedRange<A>(unsigned __int16 *a1, unsigned __int16 *a2, uint64_t a3, int *a4, int *a5)
 {
   v9 = vextq_s8(*(a3 - 16), *(a3 - 16), 8uLL);
   WitnessTable = swift_getWitnessTable(a4, a2, &v9);
   return swift_getWitnessTable(a5, a1, &WitnessTable);
 }
 
-unint64_t instantiation function for generic protocol witness table for DefaultIndices<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for DefaultIndices<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for DefaultIndices<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> DefaultIndices<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> DefaultIndices<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for DefaultIndices<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6794,7 +6799,7 @@ unint64_t instantiation function for generic protocol witness table for <> Defau
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for KeyValuePairs<A, B>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for KeyValuePairs<A, B>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for KeyValuePairs<A, B>, a2, a3);
   *(a1 + 8) = result;
@@ -6813,7 +6818,7 @@ unint64_t instantiation function for generic protocol witness table for KeyValue
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazySequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> LazySequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for LazySequence<A>, a2, a3);
   *(a1 + 8) = result;
@@ -6834,7 +6839,7 @@ unint64_t instantiation function for generic protocol witness table for <> LazyS
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazyMapSequence<A, B>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> LazyMapSequence<A, B>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for LazyMapSequence<A, B>, a2, a3);
   *(a1 + 8) = result;
@@ -7045,7 +7050,7 @@ uint64_t instantiation function for generic protocol witness table for Unicode.S
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> A?(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> A?(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> A?, a2, &v5);
@@ -7053,7 +7058,7 @@ unint64_t instantiation function for generic protocol witness table for <A> A?(u
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazyPrefixWhileSequence<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> LazyPrefixWhileSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for LazyPrefixWhileSequence<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7067,7 +7072,7 @@ unint64_t instantiation function for generic protocol witness table for <> LazyP
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> LazyDropWhileSequence<A>(uint64_t a1, unint64_t a2, uint64_t *a3, int *a4, int *a5)
+unint64_t instantiation function for generic protocol witness table for <> LazyDropWhileSequence<A>(uint64_t a1, unsigned __int16 *a2, uint64_t *a3, int *a4, int *a5)
 {
   v10 = *a3;
   *(a1 + 8) = swift_getWitnessTable(a4, a2, &v10);
@@ -7076,7 +7081,7 @@ unint64_t instantiation function for generic protocol witness table for <> LazyD
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> Range<A>(uint64_t a1, unint64_t a2, __int128 *a3)
+unint64_t instantiation function for generic protocol witness table for <> Range<A>(uint64_t a1, unsigned __int16 *a2, __int128 *a3)
 {
   v5 = *a3;
   result = swift_getWitnessTable(protocol conformance descriptor for <> Range<A>, a2, &v5);
@@ -7098,7 +7103,7 @@ unint64_t instantiation function for generic protocol witness table for <> Range
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for RangeSet<A>.Ranges(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for RangeSet<A>.Ranges(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for RangeSet<A>.Ranges, a2, a3);
   *(a1 + 8) = result;
@@ -7117,7 +7122,7 @@ unint64_t instantiation function for generic protocol witness table for RangeSet
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for Repeated<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for Repeated<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for Repeated<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7136,7 +7141,7 @@ unint64_t instantiation function for generic protocol witness table for Repeated
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> FlattenSequence<A>(uint64_t a1, unint64_t a2, void *a3, int *a4)
+unint64_t instantiation function for generic protocol witness table for <> FlattenSequence<A>(uint64_t a1, unsigned __int16 *a2, void *a3, int *a4)
 {
   v5 = *(a3[1] + 8);
   v7[0] = *(*a3 + 8);
@@ -7146,7 +7151,7 @@ unint64_t instantiation function for generic protocol witness table for <> Flatt
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for ReversedCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for ReversedCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for ReversedCollection<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7159,21 +7164,21 @@ unint64_t instantiation function for generic protocol witness table for Reversed
   return result;
 }
 
-unint64_t associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> DiscontiguousSlice<A>(unint64_t a1, unint64_t a2, uint64_t a3, int *a4, int *a5)
+unint64_t associated type witness table accessor for Collection.Indices : BidirectionalCollection in <> DiscontiguousSlice<A>(unsigned __int16 *a1, unsigned __int16 *a2, uint64_t a3, int *a4, int *a5)
 {
   v9 = *(a3 - 8);
   WitnessTable = swift_getWitnessTable(a4, a2, &v9);
   return swift_getWitnessTable(a5, a1, &WitnessTable);
 }
 
-unint64_t instantiation function for generic protocol witness table for <> ReversedCollection<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> ReversedCollection<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for ReversedCollection<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for Set<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for Set<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for Set<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7186,14 +7191,14 @@ unint64_t instantiation function for generic protocol witness table for Set<A>(u
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for Slice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for Slice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for Slice<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <> Slice<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <> Slice<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for Slice<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7732,7 +7737,7 @@ uint64_t instantiation function for generic protocol witness table for Substring
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _UIntBuffer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for _UIntBuffer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for _UIntBuffer<A>, a2, a3);
   *(a1 + 8) = result;
@@ -7859,7 +7864,7 @@ uint64_t lazy protocol witness table accessor for type CollectionOfOne<UInt32> a
   result = lazy protocol witness table cache variable for type CollectionOfOne<UInt32> and conformance CollectionOfOne<A>;
   if (!lazy protocol witness table cache variable for type CollectionOfOne<UInt32> and conformance CollectionOfOne<A>)
   {
-    result = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, &unk_1EEEBBC38, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, word_1EEEBBC38, a3);
     atomic_store(result, &lazy protocol witness table cache variable for type CollectionOfOne<UInt32> and conformance CollectionOfOne<A>);
   }
 
@@ -8001,14 +8006,14 @@ uint64_t instantiation function for generic protocol witness table for _ValidUTF
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for CollectionDifference<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for CollectionDifference<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for CollectionDifference<A>, a2, a3);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> CollectionDifference<A>.Change(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> CollectionDifference<A>.Change(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> CollectionDifference<A>.Change, a2, &v5);
@@ -8016,7 +8021,7 @@ unint64_t instantiation function for generic protocol witness table for <A> Coll
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for <A> CollectionDifference<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for <A> CollectionDifference<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   v5 = *(*a3 + 8);
   result = swift_getWitnessTable(protocol conformance descriptor for <A> CollectionDifference<A>, a2, &v5);
@@ -8024,7 +8029,7 @@ unint64_t instantiation function for generic protocol witness table for <A> Coll
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for CollectionOfOne<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for CollectionOfOne<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for CollectionOfOne<A>, a2, a3);
   *(a1 + 8) = result;
@@ -8141,7 +8146,7 @@ uint64_t instantiation function for generic protocol witness table for Int128(ui
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _SliceBuffer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for _SliceBuffer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   return instantiation function for generic protocol witness table for _ArrayBuffer<A>(a1, a2, a3, protocol conformance descriptor for _SliceBuffer<A>, protocol conformance descriptor for _SliceBuffer<A>);
 }
@@ -8164,7 +8169,7 @@ unint64_t instantiation function for generic protocol witness table for _SliceBu
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for _ArrayBuffer<A>(uint64_t a1, unint64_t a2, uint64_t a3, int *a4, int *a5)
+unint64_t instantiation function for generic protocol witness table for _ArrayBuffer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int *a4, int *a5)
 {
   *(a1 + 8) = swift_getWitnessTable(a4, a2, a3);
   result = swift_getWitnessTable(a5, a2, v8);
@@ -9441,7 +9446,7 @@ uint64_t instantiation function for generic protocol witness table for Int(uint6
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for UnsafeMutableBufferPointer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for UnsafeMutableBufferPointer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for UnsafeMutableBufferPointer<A>, a2, a3);
   *(a1 + 8) = result;
@@ -9460,7 +9465,7 @@ unint64_t instantiation function for generic protocol witness table for UnsafeMu
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for UnsafeBufferPointer<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+unint64_t instantiation function for generic protocol witness table for UnsafeBufferPointer<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   result = swift_getWitnessTable(protocol conformance descriptor for UnsafeBufferPointer<A>, a2, a3);
   *(a1 + 8) = result;
@@ -9661,7 +9666,7 @@ uint64_t instantiation function for generic protocol witness table for UnsafeRaw
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for SIMD2<A>(uint64_t a1, unint64_t a2, uint64_t a3, int *a4, int *a5)
+unint64_t instantiation function for generic protocol witness table for SIMD2<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int *a4, int *a5)
 {
   *(a1 + 32) = swift_getWitnessTable(a4, a2, a3);
   result = swift_getWitnessTable(a5, a2, v8);
@@ -9669,7 +9674,7 @@ unint64_t instantiation function for generic protocol witness table for SIMD2<A>
   return result;
 }
 
-uint64_t associated type witness table accessor for SIMDStorage.Scalar : Decodable in SIMD2<A>(const char *a1, uint64_t a2, uint64_t a3, _DWORD *a4)
+unint64_t associated type witness table accessor for SIMDStorage.Scalar : Decodable in SIMD2<A>(Class *a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v6 = *(a2 + 24);
   swift_getAssociatedTypeWitness(255, v6, a1, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
@@ -9749,119 +9754,119 @@ void *assignWithTake for Character(void *a1, void *a2)
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encode(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 40))();
+  return (*(a4 + 40))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 72))();
+  return (*(a4 + 72))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 80))();
+  return (*(a4 + 80))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 88))();
+  return (*(a4 + 88))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 96))();
+  return (*(a4 + 96))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 104))();
+  return (*(a4 + 104))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 120))();
+  return (*(a4 + 120))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 128))();
+  return (*(a4 + 128))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 136))();
+  return (*(a4 + 136))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 144))();
+  return (*(a4 + 144))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 152))();
+  return (*(a4 + 152))(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encode(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  return (*(a5 + 48))();
+  return (*(a5 + 48))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 112))();
+  return (*(a5 + 112))(a1, a2, a3, a4);
 }
 
 {
-  return (*(a5 + 160))();
+  return (*(a5 + 160))(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encode(_:forKey:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return (*(a3 + 56))();
+  return (*(a3 + 56))(a1, a2);
 }
 
 {
-  return (*(a3 + 64))();
+  return (*(a3 + 64))(a1, a2);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encodeIfPresent(_:forKey:)(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  return (*(a5 + 200))(a1, a2 & 1);
+  return (*(a5 + 200))(a1, a2 & 1, a3, a4);
 }
 
 {
-  return (*(a5 + 216))(a1, a2 & 1);
+  return (*(a5 + 216))(a1, a2 & 1, a3, a4);
 }
 
 {
-  return (*(a5 + 248))(a1, a2 & 1);
+  return (*(a5 + 248))(a1, a2 & 1, a3, a4);
 }
 
 {
-  return (*(a5 + 264))(a1, a2 & 1);
+  return (*(a5 + 264))(a1, a2 & 1, a3, a4);
 }
 
 {
-  return (*(a5 + 296))(a1, a2 & 1);
+  return (*(a5 + 296))(a1, a2 & 1, a3, a4);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encodeIfPresent(_:forKey:)(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 208))(a1 | ((HIDWORD(a1) & 1) << 32));
+  return (*(a4 + 208))(a1 | ((HIDWORD(a1) & 1) << 32), a2, a3);
 }
 
 {
-  return (*(a4 + 240))(a1 | ((HIDWORD(a1) & 1) << 32));
+  return (*(a4 + 240))(a1 | ((HIDWORD(a1) & 1) << 32), a2, a3);
 }
 
 {
-  return (*(a4 + 288))(a1 | ((HIDWORD(a1) & 1) << 32));
+  return (*(a4 + 288))(a1 | ((HIDWORD(a1) & 1) << 32), a2, a3);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encodeIfPresent(_:forKey:)(__int16 a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 224))(a1 & 0x1FF);
+  return (*(a4 + 224))(a1 & 0x1FF, a2, a3);
 }
 
 {
-  return (*(a4 + 272))(a1 & 0x1FF);
+  return (*(a4 + 272))(a1 & 0x1FF, a2, a3);
 }
 
 uint64_t dispatch thunk of KeyedEncodingContainerProtocol.encodeIfPresent(_:forKey:)(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 232))(a1 & 0x1FFFF);
+  return (*(a4 + 232))(a1 & 0x1FFFF, a2, a3);
 }
 
 {
-  return (*(a4 + 280))(a1 & 0x1FFFF);
+  return (*(a4 + 280))(a1 & 0x1FFFF, a2, a3);
 }

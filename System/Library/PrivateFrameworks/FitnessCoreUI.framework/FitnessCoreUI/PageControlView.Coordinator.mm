@@ -19,7 +19,7 @@
   selfCopy = self;
   [senderCopy currentPage];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7ADC08);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7ADC08, &qword_20C3EE020);
   sub_20C3E8ADC();
 }
 

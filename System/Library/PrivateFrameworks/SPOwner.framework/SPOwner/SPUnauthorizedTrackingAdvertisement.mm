@@ -3,6 +3,8 @@
 - (NSData)address;
 - (NSData)data;
 - (SPUnauthorizedTrackingAdvertisement)initWithAddress:(id)address advertisementData:(id)data rssi:(int64_t)rssi scanDate:(id)date;
+- (SPUnauthorizedTrackingAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date;
+- (SPUnauthorizedTrackingAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date isPosh:(BOOL)posh networkID:(unsigned __int8)self0;
 - (SPUnauthorizedTrackingAdvertisement)initWithCoder:(id)coder;
 - (id)description;
 - (unint64_t)hash;
@@ -20,6 +22,45 @@
   v14 = [(SPUnauthorizedTrackingAdvertisement *)self initWithAddress:addressCopy advertisementData:dataCopy status:0 reserved:v13 rssi:rssi scanDate:dateCopy];
 
   return v14;
+}
+
+- (SPUnauthorizedTrackingAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date
+{
+  statusCopy = status;
+  dateCopy = date;
+  dataCopy = data;
+  addressCopy = address;
+  v16 = objc_opt_new();
+  LOWORD(v19) = 0;
+  v17 = [(SPUnauthorizedTrackingAdvertisement *)self initWithAddress:addressCopy advertisementData:dataCopy status:statusCopy reserved:v16 rssi:rssi scanDate:dateCopy isPosh:v19 networkID:?];
+
+  return v17;
+}
+
+- (SPUnauthorizedTrackingAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date isPosh:(BOOL)posh networkID:(unsigned __int8)self0
+{
+  statusCopy = status;
+  addressCopy = address;
+  dataCopy = data;
+  reservedCopy = reserved;
+  dateCopy = date;
+  v23.receiver = self;
+  v23.super_class = SPUnauthorizedTrackingAdvertisement;
+  v20 = [(SPUnauthorizedTrackingAdvertisement *)&v23 init];
+  v21 = v20;
+  if (v20)
+  {
+    [(SPUnauthorizedTrackingAdvertisement *)v20 set_address:addressCopy];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setAdvertisementData:dataCopy];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setStatus:statusCopy];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setReserved:reservedCopy];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setRssi:rssi];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setScanDate:dateCopy];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setIsPosh:posh];
+    [(SPUnauthorizedTrackingAdvertisement *)v21 setNetworkID:d];
+  }
+
+  return v21;
 }
 
 - (SPUnauthorizedTrackingAdvertisement)initWithCoder:(id)coder

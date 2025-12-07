@@ -49,7 +49,7 @@
 
 + (id)localDeviceConnectionWithXPCConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (connection)
   {
     v3 = MEMORY[0x277D03678];
@@ -66,9 +66,9 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         string = xpc_dictionary_get_string(v9, *MEMORY[0x277D86400]);
-        v13 = 136315138;
-        v14 = string;
-        _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "xpc error: %s", &v13, 0xCu);
+        v12 = 136315138;
+        v13 = string;
+        _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "xpc error: %s", &v12, 0xCu);
       }
 
       v6 = 0;
@@ -79,8 +79,6 @@
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

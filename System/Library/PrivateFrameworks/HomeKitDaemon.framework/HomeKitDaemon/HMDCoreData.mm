@@ -8,8 +8,9 @@
 + (NSPersistentStoreDescription)localStoreDescription;
 + (NSPersistentStoreDescription)workingStoreDescription;
 + (NSURL)managedObjectModelURL;
-+ (__CFString)afterTimeInterval:(double)interval;
++ (__CFString)afterTimeInterval:(uint64_t)interval;
 + (id)_storeDescriptionForConfiguration:(void *)configuration storeName:;
++ (id)createWithPersistentStoreDescriptions:(id)descriptions notificationCenter:(id)center userDefaults:(id)defaults automaticallyAttachSetupVouchers:(BOOL)vouchers;
 + (id)createWithPersistentStoreDescriptions:(uint64_t)descriptions;
 + (id)getPersistentCloudKitContainerOptionsForStore:(id)store userDefaults:(id)defaults;
 + (id)logCategory;
@@ -31,6 +32,7 @@
 - (id)_applyVoucherForModel:(id)model modelID:(id)d eventType:(int64_t)type storeType:(unint64_t)storeType;
 - (id)_currentNotificationListeners;
 - (id)contextWithHomeUUID:(id)d;
+- (id)dumpCloudKitConfiguration:(BOOL)configuration localConfiguration:(BOOL)localConfiguration workingConfiguration:(BOOL)workingConfiguration includeFakeModels:(BOOL)models context:(id)context error:(id *)error;
 - (id)dumpConfiguration:(id)configuration includeFakeModels:(BOOL)models context:(id)context error:(id *)error;
 - (id)initWithPersistentStoreDescriptions:(void *)descriptions notificationCenter:(void *)center userDefaults:(uint64_t)defaults automaticallyAttachSetupVouchers:;
 - (id)newManagedObjectContext;
@@ -87,7 +89,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   fireCopy = fire;
   dispatch_assert_queue_V2(queue);
@@ -110,11 +112,11 @@
         {
           v12 = HMFGetLogIdentifier();
           activityLogEvent = selfCopy->_activityLogEvent;
-          v19 = 138543618;
-          v20 = v12;
-          v21 = 2112;
-          v22 = activityLogEvent;
-          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Cloudkit setup activity timedout. Submit cloudkit setup activity metric %@", &v19, 0x16u);
+          v18 = 138543618;
+          v19 = v12;
+          v20 = 2112;
+          v21 = activityLogEvent;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Cloudkit setup activity timedout. Submit cloudkit setup activity metric %@", &v18, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -133,8 +135,6 @@
 
     objc_storeStrong(&self->_activityTimedOutTimer, 0);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePersistentCloudKitContainerActivityChangedNotification:(id)notification
@@ -153,7 +153,7 @@
 
 void __77__HMDCoreData__handlePersistentCloudKitContainerActivityChangedNotification___block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1 && (*(v1 + 36) & 1) != 0)
   {
@@ -170,9 +170,9 @@ void __77__HMDCoreData__handlePersistentCloudKitContainerActivityChangedNotifica
         v30 = HMFGetLogIdentifier();
         v31 = *(a1 + 40);
         *buf = 138543618;
-        v75 = v30;
-        v76 = 2112;
-        v77 = v31;
+        v74 = v30;
+        v75 = 2112;
+        v76 = v31;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@No activityDictionary for notification: %@", buf, 0x16u);
       }
 
@@ -192,9 +192,9 @@ void __77__HMDCoreData__handlePersistentCloudKitContainerActivityChangedNotifica
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v75 = v35;
-        v76 = 2112;
-        v77 = v4;
+        v74 = v35;
+        v75 = 2112;
+        v76 = v4;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@No activity type for activityDictionary: %@", buf, 0x16u);
       }
 
@@ -243,15 +243,15 @@ void __77__HMDCoreData__handlePersistentCloudKitContainerActivityChangedNotifica
             {
               v24 = HMFGetLogIdentifier();
               v25 = *(v21 + 21);
-              v73 = v25;
+              v72 = v25;
               v26 = [(HMDCoreDataCloudKitSetupActivity *)v10 error];
               *buf = 138543874;
-              v75 = v24;
-              v76 = 2112;
-              v77 = v25;
+              v74 = v24;
+              v75 = 2112;
+              v76 = v25;
               v16 = &OBJC_IVAR___HMDHAPAccessory__accessoryFlags;
-              v78 = 2112;
-              v79 = v26;
+              v77 = 2112;
+              v78 = v26;
               _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Submit cloudkit setup activity metric %@, with error: %@", buf, 0x20u);
 
 LABEL_36:
@@ -263,9 +263,9 @@ LABEL_36:
             v24 = HMFGetLogIdentifier();
             v67 = *(v21 + 21);
             *buf = 138543618;
-            v75 = v24;
-            v76 = 2112;
-            v77 = v67;
+            v74 = v24;
+            v75 = 2112;
+            v76 = v67;
             _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Submit cloudkit setup activity metric %@", buf, 0x16u);
             goto LABEL_36;
           }
@@ -295,7 +295,7 @@ LABEL_40:
         {
           v54 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v75 = v54;
+          v74 = v54;
           _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_ERROR, "%{public}@Cloudkit setup activity is ongoing", buf, 0xCu);
         }
 
@@ -335,7 +335,7 @@ LABEL_32:
 LABEL_41:
 
 LABEL_42:
-        goto LABEL_43;
+        return;
       }
 
       v38 = *(a1 + 32);
@@ -363,7 +363,7 @@ LABEL_42:
         {
           v59 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v75 = v59;
+          v74 = v59;
           _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_ERROR, "%{public}@Received setup-phase of different Cloudkit setup activity", buf, 0xCu);
         }
 
@@ -405,9 +405,60 @@ LABEL_42:
 
     goto LABEL_40;
   }
+}
 
-LABEL_43:
-  v72 = *MEMORY[0x277D85DE8];
+- (id)dumpCloudKitConfiguration:(BOOL)configuration localConfiguration:(BOOL)localConfiguration workingConfiguration:(BOOL)workingConfiguration includeFakeModels:(BOOL)models context:(id)context error:(id *)error
+{
+  modelsCopy = models;
+  workingConfigurationCopy = workingConfiguration;
+  localConfigurationCopy = localConfiguration;
+  configurationCopy = configuration;
+  contextCopy = context;
+  workingConfigurationCopy = [MEMORY[0x277CBEB18] arrayWithCapacity:localConfigurationCopy + configurationCopy + workingConfigurationCopy];
+  if (localConfigurationCopy)
+  {
+    v16 = [(HMDCoreData *)self dumpConfiguration:@"Local" includeFakeModels:1 context:contextCopy error:error];
+    if (!v16)
+    {
+      goto LABEL_11;
+    }
+
+    v17 = v16;
+    [workingConfigurationCopy addObject:v16];
+  }
+
+  if (workingConfigurationCopy)
+  {
+    v18 = [(HMDCoreData *)self dumpConfiguration:@"Working" includeFakeModels:1 context:contextCopy error:error];
+    if (v18)
+    {
+      v19 = v18;
+      [workingConfigurationCopy addObject:v18];
+
+      goto LABEL_7;
+    }
+
+LABEL_11:
+    v20 = 0;
+    goto LABEL_12;
+  }
+
+LABEL_7:
+  if (configurationCopy)
+  {
+    v20 = [(HMDCoreData *)self dumpConfiguration:@"CloudKit" includeFakeModels:modelsCopy context:contextCopy error:error];
+    if (!v20)
+    {
+      goto LABEL_12;
+    }
+
+    [workingConfigurationCopy addObject:v20];
+  }
+
+  v20 = [workingConfigurationCopy componentsJoinedByString:@"\n"];
+LABEL_12:
+
+  return v20;
 }
 
 - (id)dumpConfiguration:(id)configuration includeFakeModels:(BOOL)models context:(id)context error:(id *)error
@@ -800,7 +851,7 @@ void __38__HMDCoreData_newManagedObjectContext__block_invoke(uint64_t a1)
 
 - (void)_handleDidResetSyncNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = reasonFromResetSyncNotification(notificationCopy);
   v6 = stringFromResetSyncReason(v5);
@@ -810,11 +861,11 @@ void __38__HMDCoreData_newManagedObjectContext__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2114;
-    v17 = v6;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Core Data has finished resetting all of our CloudKit data with reason: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v6;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Core Data has finished resetting all of our CloudKit data with reason: %{public}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -825,13 +876,11 @@ void __38__HMDCoreData_newManagedObjectContext__block_invoke(uint64_t a1)
     v12 = +[HMDMetricsManager sharedLogEventSubmitter];
     [v12 submitLogEvent:v11];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleWillResetSyncNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = reasonFromResetSyncNotification(notificationCopy);
   v6 = stringFromResetSyncReason(v5);
@@ -841,15 +890,14 @@ void __38__HMDCoreData_newManagedObjectContext__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Core Data is about to reset all of our CloudKit data with reason: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Core Data is about to reset all of our CloudKit data with reason: %{public}@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)expireStoreSetupVouchers
@@ -861,7 +909,7 @@ void __38__HMDCoreData_newManagedObjectContext__block_invoke(uint64_t a1)
 
 - (void)_expireStoreSetupVouchersForType:(uint64_t)type storeType:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock_with_options();
@@ -931,12 +979,12 @@ LABEL_14:
           v14 = @"CloudShared";
         }
 
-        v27 = 138543618;
-        v28 = v12;
-        v29 = 2112;
-        v30 = v14;
+        v26 = 138543618;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v14;
         v15 = v14;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring both export and import store setup vouchers for %@ store", &v27, 0x16u);
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring both export and import store setup vouchers for %@ store", &v26, 0x16u);
       }
     }
 
@@ -955,12 +1003,12 @@ LABEL_14:
           v19 = @"CloudShared";
         }
 
-        v27 = 138543618;
-        v28 = v17;
-        v29 = 2112;
-        v30 = v19;
+        v26 = 138543618;
+        v27 = v17;
+        v28 = 2112;
+        v29 = v19;
         v20 = v19;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring export store setup vouchers for %@ store", &v27, 0x16u);
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring export store setup vouchers for %@ store", &v26, 0x16u);
       }
     }
 
@@ -970,7 +1018,7 @@ LABEL_14:
       {
 LABEL_31:
 
-        goto LABEL_32;
+        return;
       }
 
       v9 = objc_autoreleasePoolPush();
@@ -986,12 +1034,12 @@ LABEL_31:
           v24 = @"CloudShared";
         }
 
-        v27 = 138543618;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v24;
+        v26 = 138543618;
+        v27 = v22;
+        v28 = 2112;
+        v29 = v24;
         v25 = v24;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring import store setup vouchers for %@ store", &v27, 0x16u);
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Expiring import store setup vouchers for %@ store", &v26, 0x16u);
       }
     }
 
@@ -1000,9 +1048,6 @@ LABEL_31:
     [(HMDCoreData *)self _expireActivityVoucher:v8];
     goto LABEL_31;
   }
-
-LABEL_32:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPrivateStoreSetupExportVoucher:(uint64_t)voucher
@@ -1037,7 +1082,7 @@ LABEL_32:
 
 - (void)_handleCloudKitSetupEvent:(id)event
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   endDate = [eventCopy endDate];
 
@@ -1050,7 +1095,7 @@ LABEL_32:
     {
       storeIdentifier = [eventCopy storeIdentifier];
       [eventCopy succeeded];
-      v46 = HMFBooleanToString();
+      v45 = HMFBooleanToString();
       error = [eventCopy error];
       if (error)
       {
@@ -1078,13 +1123,13 @@ LABEL_32:
       }
       v22 = ;
       *buf = 138413058;
-      v49 = storeIdentifier;
-      v50 = 2112;
-      v51 = v46;
-      v52 = 2112;
-      v53 = null;
-      v54 = 2112;
-      v55 = v22;
+      v48 = storeIdentifier;
+      v49 = 2112;
+      v50 = v45;
+      v51 = 2112;
+      v52 = null;
+      v53 = 2112;
+      v54 = v22;
       _os_signpost_emit_with_name_impl(&dword_229538000, v8, OS_SIGNPOST_INTERVAL_END, setupSignpostID, "CoreDataCloudTransformSetup", "storeIdentifier=%{signpost.description:attribute}@ succeeded=%{signpost.description:attribute}@ errorCode=%{signpost.description:attribute}@ errorDomain=%{signpost.description:attribute}@ ", buf, 0x2Au);
       if (error3)
       {
@@ -1136,11 +1181,11 @@ LABEL_28:
             storeIdentifier3 = [eventCopy storeIdentifier];
             v40 = [HMDCoreData afterTimeInterval:v27];
             *buf = 138543874;
-            v49 = v38;
-            v50 = 2114;
-            v51 = storeIdentifier3;
-            v52 = 2112;
-            v53 = v40;
+            v48 = v38;
+            v49 = 2114;
+            v50 = storeIdentifier3;
+            v51 = 2112;
+            v52 = v40;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Finished setup for store with identifier %{public}@ %@", buf, 0x20u);
 
 LABEL_33:
@@ -1154,13 +1199,13 @@ LABEL_33:
           error6 = [eventCopy error];
           v43 = [HMDCoreData afterTimeInterval:v27];
           *buf = 138544130;
-          v49 = v38;
-          v50 = 2114;
-          v51 = storeIdentifier4;
-          v52 = 2114;
-          v53 = error6;
-          v54 = 2112;
-          v55 = v43;
+          v48 = v38;
+          v49 = 2114;
+          v50 = storeIdentifier4;
+          v51 = 2114;
+          v52 = error6;
+          v53 = 2112;
+          v54 = v43;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Setup failed for store with identifier %{public}@: %{public}@ %@", buf, 0x2Au);
 
           goto LABEL_33;
@@ -1196,9 +1241,9 @@ LABEL_33:
     v16 = HMFGetLogIdentifier();
     storeIdentifier5 = [eventCopy storeIdentifier];
     *buf = 138543618;
-    v49 = v16;
-    v50 = 2114;
-    v51 = storeIdentifier5;
+    v48 = v16;
+    v49 = 2114;
+    v50 = storeIdentifier5;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Beginning setup for store with identifier %{public}@", buf, 0x16u);
   }
 
@@ -1209,35 +1254,33 @@ LABEL_33:
     v19 = logger;
     storeIdentifier6 = [eventCopy storeIdentifier];
     *buf = 138412290;
-    v49 = storeIdentifier6;
+    v48 = storeIdentifier6;
     _os_signpost_emit_with_name_impl(&dword_229538000, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CoreDataCloudTransformSetup", "storeIdentifier=%{signpost.description:attribute}@ ", buf, 0xCu);
   }
 
   selfCopy2->_setupSignpostID = 0xEEEEB0B5B2B2EEEELL;
 LABEL_35:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
-+ (__CFString)afterTimeInterval:(double)interval
++ (__CFString)afterTimeInterval:(uint64_t)interval
 {
   objc_opt_self();
-  if (interval <= 0.0)
+  if (a2 <= 0.0)
   {
-    v2 = &stru_283CF9D50;
+    v3 = &stru_283CF9D50;
   }
 
   else
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"after: %fs", *&interval];
+    v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"after: %fs", *&a2];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)_handlePersistentCloudKitContainerEventChangedNotification:(id)notification
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = *MEMORY[0x277CBE1F8];
@@ -1269,11 +1312,11 @@ LABEL_35:
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v40 = v21;
-        v41 = 2114;
-        v42 = v6;
-        v43 = 2112;
-        v44 = notificationCopy;
+        v39 = v21;
+        v40 = 2114;
+        v41 = v6;
+        v42 = 2112;
+        v43 = notificationCopy;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type for '%{public}@' in notification: %@", buf, 0x20u);
       }
 
@@ -1336,18 +1379,18 @@ LABEL_28:
     }
 
     _currentNotificationListeners = [(HMDCoreData *)self _currentNotificationListeners];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotification___block_invoke;
-    v33[3] = &unk_278677878;
-    v37 = endDate == 0;
-    v38 = v22;
-    v33[4] = self;
-    v36 = v27;
-    v34 = storeIdentifier;
-    v35 = error;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotification___block_invoke;
+    v32[3] = &unk_278677878;
+    v36 = endDate == 0;
+    v37 = v22;
+    v32[4] = self;
+    v35 = v27;
+    v33 = storeIdentifier;
+    v34 = error;
     v31 = error;
-    [_currentNotificationListeners hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+    [_currentNotificationListeners hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
 
     goto LABEL_27;
   }
@@ -1359,18 +1402,16 @@ LABEL_28:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v40 = v17;
-    v41 = 2114;
-    v42 = v6;
-    v43 = 2112;
-    v44 = notificationCopy;
+    v39 = v17;
+    v40 = 2114;
+    v41 = v6;
+    v42 = 2112;
+    v43 = notificationCopy;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@No '%{public}@' for notification: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
 LABEL_29:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_storeTypeForStoreIdentifier:(uint64_t)identifier
@@ -1440,21 +1481,19 @@ LABEL_29:
 void __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotification___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 65);
-  v5 = v3;
   if (*(a1 + 64) == 1)
   {
     if (*(a1 + 65))
     {
       if (objc_opt_respondsToSelector())
       {
-        [v5 coreData:*(a1 + 32) cloudKitImportStartedForStoreWithIdentifier:*(a1 + 40)];
+        [v3 coreData:*(a1 + 32) cloudKitImportStartedForStoreWithIdentifier:*(a1 + 40)];
       }
     }
 
     else if (objc_opt_respondsToSelector())
     {
-      [v5 coreData:*(a1 + 32) cloudKitExportStartedForStoreWithIdentifier:*(a1 + 40)];
+      [v3 coreData:*(a1 + 32) cloudKitExportStartedForStoreWithIdentifier:*(a1 + 40)];
     }
   }
 
@@ -1462,19 +1501,19 @@ void __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotificatio
   {
     if (objc_opt_respondsToSelector())
     {
-      [v5 coreData:*(a1 + 32) cloudKitImportFinishedForStoreWithIdentifier:*(a1 + 40) duration:*(a1 + 48) error:*(a1 + 56)];
+      [v3 coreData:*(a1 + 32) cloudKitImportFinishedForStoreWithIdentifier:*(a1 + 40) duration:*(a1 + 48) error:*(a1 + 56)];
     }
   }
 
   else if (objc_opt_respondsToSelector())
   {
-    [v5 coreData:*(a1 + 32) cloudKitExportFinishedForStoreWithIdentifier:*(a1 + 40) duration:*(a1 + 48) error:*(a1 + 56)];
+    [v3 coreData:*(a1 + 32) cloudKitExportFinishedForStoreWithIdentifier:*(a1 + 40) duration:*(a1 + 48) error:*(a1 + 56)];
   }
 }
 
 - (void)_handleChangeNotification:(id)notification
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CBE300]];
@@ -1501,10 +1540,10 @@ void __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotificatio
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __51__HMDCoreData__handleChangeForStoreWithIdentifier___block_invoke;
-      v23 = &unk_278677850;
+      v22 = &unk_278677850;
       selfCopy = self;
       v11 = v9;
-      v25 = v11;
+      v24 = v11;
       [_currentNotificationListeners hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
       workingStore = [(HMDCoreData *)self workingStore];
       identifier = [workingStore identifier];
@@ -1547,8 +1586,6 @@ void __74__HMDCoreData__handlePersistentCloudKitContainerEventChangedNotificatio
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDCoreData__handleChangeForStoreWithIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -1578,7 +1615,7 @@ void __51__HMDCoreData__handleChangeForStoreWithIdentifier___block_invoke(uint64
 
 void __48__HMDCoreData__checkFirstCloudKitImportComplete__block_invoke(uint64_t a1)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1586,25 +1623,25 @@ void __48__HMDCoreData__checkFirstCloudKitImportComplete__block_invoke(uint64_t 
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v5;
+    v34 = v5;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Fetching cloud sync metadata", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = +[MKFCloudSyncMetadata fetchRequest];
-  v39[0] = @"historyTokenForCloudStore";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = @"historyTokenForCloudStore";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
   [v6 setPropertiesToFetch:v7];
 
   v8 = [*(a1 + 32) workingStore];
-  v38 = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+  v37 = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   [v6 setAffectedStores:v9];
 
   v10 = *(a1 + 40);
-  v33 = 0;
-  v11 = [v10 executeFetchRequest:v6 error:&v33];
-  v12 = v33;
+  v32 = 0;
+  v11 = [v10 executeFetchRequest:v6 error:&v32];
+  v12 = v32;
   if (v11)
   {
     if ([v11 count] < 2)
@@ -1619,9 +1656,9 @@ void __48__HMDCoreData__checkFirstCloudKitImportComplete__block_invoke(uint64_t 
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v16;
-      v36 = 2114;
-      v37 = v11;
+      v34 = v16;
+      v35 = 2114;
+      v36 = v11;
       v17 = "%{public}@Fetched too many cloud sync metadata objects: %{public}@";
       v18 = v15;
       v19 = OS_LOG_TYPE_FAULT;
@@ -1639,9 +1676,9 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v16;
-      v36 = 2114;
-      v37 = v12;
+      v34 = v16;
+      v35 = 2114;
+      v36 = v12;
       v17 = "%{public}@Failed to fetch cloud sync metadata: %{public}@";
       v18 = v15;
       v19 = OS_LOG_TYPE_ERROR;
@@ -1664,7 +1701,7 @@ LABEL_11:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v25;
+      v34 = v25;
       v26 = "%{public}@Cloud sync has previous history token";
 LABEL_21:
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, v26, buf, 0xCu);
@@ -1685,7 +1722,7 @@ LABEL_21:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v25;
+      v34 = v25;
       v26 = "%{public}@Not using CloudKit so marking first import complete";
       goto LABEL_21;
     }
@@ -1704,105 +1741,99 @@ LABEL_22:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v31;
+    v34 = v31;
     _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@No previous cloud sync token, waiting for initial import", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v28);
 LABEL_23:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markFirstCloudKitImportComplete
 {
-  v26 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v24 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_17:
-    v16 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  os_unfair_lock_lock_with_options();
-  os_unfair_lock_assert_owner((self + 16));
-  if (*(self + 32) != 1)
-  {
+    os_unfair_lock_lock_with_options();
     os_unfair_lock_assert_owner((self + 16));
-    *(self + 32) = 1;
-    os_unfair_lock_unlock((self + 16));
-    allContexts = [self allContexts];
-    if ([allContexts count])
+    if (*(self + 32) == 1)
     {
-      v4 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v6 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        v7 = HMFGetLogIdentifier();
-        v8 = [allContexts count];
-        v9 = [allContexts count];
-        v10 = "s";
-        *buf = 138543874;
-        v21 = v7;
-        if (v9 == 1)
-        {
-          v10 = "";
-        }
 
-        v22 = 2048;
-        v23 = v8;
-        v24 = 2080;
-        v25 = v10;
-        _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Flushing %ld context%s before resolving first CloudKit import promise", buf, 0x20u);
-      }
-
-      objc_autoreleasePoolPop(v4);
-      v11 = dispatch_group_create();
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke;
-      v18[3] = &unk_2786778A0;
-      v18[4] = selfCopy;
-      v19 = v11;
-      v12 = v11;
-      [allContexts hmf_enumerateWithAutoreleasePoolUsingBlock:v18];
-      v13 = __ROR8__(HMDCurrentQOSWithFloor() - 9, 3);
-      if (v13 > 3)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        v14 = qword_22A587548[v13];
-      }
-
-      v15 = dispatch_get_global_queue(v14, 0);
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_367;
-      block[3] = &unk_27868A728;
-      block[4] = selfCopy;
-      dispatch_group_notify(v12, v15, block);
+      os_unfair_lock_unlock((self + 16));
     }
 
     else
     {
-      [(HMDCoreData *)self _resolveFirstCloudKitImportPromise];
+      os_unfair_lock_assert_owner((self + 16));
+      *(self + 32) = 1;
+      os_unfair_lock_unlock((self + 16));
+      allContexts = [self allContexts];
+      if ([allContexts count])
+      {
+        v3 = objc_autoreleasePoolPush();
+        selfCopy = self;
+        v5 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+        {
+          v6 = HMFGetLogIdentifier();
+          v7 = [allContexts count];
+          v8 = [allContexts count];
+          v9 = "s";
+          *buf = 138543874;
+          v19 = v6;
+          if (v8 == 1)
+          {
+            v9 = "";
+          }
+
+          v20 = 2048;
+          v21 = v7;
+          v22 = 2080;
+          v23 = v9;
+          _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Flushing %ld context%s before resolving first CloudKit import promise", buf, 0x20u);
+        }
+
+        objc_autoreleasePoolPop(v3);
+        v10 = dispatch_group_create();
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke;
+        v16[3] = &unk_2786778A0;
+        v16[4] = selfCopy;
+        v17 = v10;
+        v11 = v10;
+        [allContexts hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
+        v12 = __ROR8__(HMDCurrentQOSWithFloor() - 9, 3);
+        if (v12 > 3)
+        {
+          v13 = 0;
+        }
+
+        else
+        {
+          v13 = qword_22A587548[v12];
+        }
+
+        v14 = dispatch_get_global_queue(v13, 0);
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_367;
+        block[3] = &unk_27868A728;
+        block[4] = selfCopy;
+        dispatch_group_notify(v11, v14, block);
+      }
+
+      else
+      {
+        [(HMDCoreData *)self _resolveFirstCloudKitImportPromise];
+      }
     }
-
-    goto LABEL_17;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-
-  os_unfair_lock_unlock((self + 16));
 }
 
 - (void)_resolveFirstCloudKitImportPromise
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = objc_autoreleasePoolPush();
@@ -1811,17 +1842,17 @@ LABEL_17:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@First CloudKit import promise resolved", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@First CloudKit import promise resolved", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
     v6 = selfCopy[1];
     if (os_signpost_enabled(v6))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_229538000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CoreDataFirstImportComplete", "", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_signpost_emit_with_name_impl(&dword_229538000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CoreDataFirstImportComplete", "", &v11, 2u);
     }
 
     v7 = selfCopy[16];
@@ -1834,13 +1865,11 @@ LABEL_17:
     [currentAccessorySetupMetricDispatcher markSetupEndStage:13 error:0];
     [currentAccessorySetupMetricDispatcher markSetupBeginStage:7 error:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1850,31 +1879,29 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke(uint64_t a
     v7 = HMFGetLogIdentifier();
     v8 = [v3 name];
     *buf = 138543618;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Flushing '%@' context before resolving first CloudKit import promise", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   dispatch_group_enter(*(a1 + 40));
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365;
-  v12[3] = &unk_27868A010;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365;
+  v11[3] = &unk_27868A010;
   v9 = *(a1 + 40);
-  v12[4] = *(a1 + 32);
-  v13 = v3;
-  v14 = v9;
+  v11[4] = *(a1 + 32);
+  v12 = v3;
+  v13 = v9;
   v10 = v3;
-  [v10 performBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v10 performBlock:v11];
 }
 
 void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1882,16 +1909,15 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) name];
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Flushed '%@' context", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Flushed '%@' context", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   dispatch_group_leave(*(a1 + 48));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopWatchingManagedObjectChanges
@@ -1925,7 +1951,7 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64
 
 - (void)startLoadingStores
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (self->_automaticallyAttachSetupVouchers && self->_isUsingLiveCloudKit)
@@ -1943,8 +1969,8 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __23__HMDCoreData__preLoad__block_invoke;
-    v84 = &unk_278677788;
-    LOBYTE(v86) = v3;
+    v83 = &unk_278677788;
+    LOBYTE(v85) = v3;
     selfCopy = self;
     [persistentStoreDescriptions hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
 
@@ -1965,20 +1991,20 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64
     activityLogEvent = self->_activityLogEvent;
     self->_activityLogEvent = 0;
 
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x3032000000;
-    v72 = __Block_byref_object_copy__94354;
-    v73 = __Block_byref_object_dispose__94355;
-    v74 = 0;
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x2020000000;
     v68 = 0;
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x2020000000;
-    v64 = 4;
+    v69 = &v68;
+    v70 = 0x3032000000;
+    v71 = __Block_byref_object_copy__94354;
+    v72 = __Block_byref_object_dispose__94355;
+    v73 = 0;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x2020000000;
+    v67 = 0;
+    v60 = 0;
+    v61 = &v60;
+    v62 = 0x2020000000;
+    v63 = 4;
     v10 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v12 = HMFGetOSLogHandle();
@@ -1999,100 +2025,83 @@ void __47__HMDCoreData__markFirstCloudKitImportComplete__block_invoke_365(uint64
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __20__HMDCoreData__load__block_invoke;
-    v84 = &unk_2786777B0;
+    v83 = &unk_2786777B0;
     selfCopy = selfCopy2;
-    v86 = &v69;
-    v87 = &v61;
-    v88 = &v65;
+    v85 = &v68;
+    v86 = &v60;
+    v87 = &v64;
     [container3 loadPersistentStoresWithCompletionHandler:buf];
 
-    v17 = v70[5];
+    v17 = v69[5];
     if (v17)
     {
-      v18 = v62[3];
+      v18 = v61[3];
       v19 = v17;
       v20 = [[HMDCoreDataLoadErrorLogEvent alloc] initWithReason:v18];
       [(HMMLogEvent *)v20 setError:v19];
 
       [HMDMetricsManager submitMinimalCoreAnalyticsEvent:v20];
       v21 = +[HMDMetricsManager defaultRadarInitiator];
-      LOBYTE(v60) = 1;
-      [v21 requestRadarWithDisplayReason:@"persistent stores failed to load" radarTitle:@"Failed to load persistent stores" componentName:@"HomeKit" componentVersion:@"Data Model" componentID:834211 attachments:0 waitForResponse:v60];
+      LOBYTE(v59) = 1;
+      [v21 requestRadarWithDisplayReason:@"persistent stores failed to load" radarTitle:@"Failed to load persistent stores" componentName:@"HomeKit" componentVersion:@"Data Model" componentID:834211 attachments:0 waitForResponse:v59];
     }
 
-    if (v66[3])
+    if (v65[3])
     {
       [HMDResetConfigPostCleanup writePostCleanupRecordWithReason:7 steps:?];
       v22 = +[HMDMainDriver driver];
       [v22 relaunch];
     }
 
-    else if (v70[5])
+    else if (v69[5])
     {
-      v53 = objc_autoreleasePoolPush();
-      v54 = selfCopy2;
-      v55 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+      v52 = objc_autoreleasePoolPush();
+      v53 = selfCopy2;
+      v54 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
       {
-        v56 = HMFGetLogIdentifier();
-        domain = [v70[5] domain];
-        code = [v70[5] code];
-        v59 = v70[5];
-        *v75 = 138544130;
-        v76 = v56;
-        v77 = 2114;
-        v78 = domain;
-        v79 = 2048;
-        v80 = code;
-        v81 = 2112;
-        v82 = v59;
-        _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_FAULT, "%{public}@Failed to load persistent container (%{public}@: %zd): %@", v75, 0x2Au);
+        v55 = HMFGetLogIdentifier();
+        domain = [v69[5] domain];
+        code = [v69[5] code];
+        v58 = v69[5];
+        *v74 = 138544130;
+        v75 = v55;
+        v76 = 2114;
+        v77 = domain;
+        v78 = 2048;
+        v79 = code;
+        v80 = 2112;
+        v81 = v58;
+        _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_FAULT, "%{public}@Failed to load persistent container (%{public}@: %zd): %@", v74, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v53);
-      if ([v70[5] code] == 256)
+      objc_autoreleasePoolPop(v52);
+      if ([v69[5] code] == 256)
       {
-        [(HMDCoreData *)v54 _submitABCEventFailedToLoadPersistentWithReason:v70[5] withError:?];
+        [(HMDCoreData *)v53 _submitABCEventFailedToLoadPersistentWithReason:v69[5] withError:?];
       }
 
       _Exit(1);
     }
 
-    _Block_object_dispose(&v61, 8);
-    _Block_object_dispose(&v65, 8);
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v68, 8);
 
     coordinator = [(HMDCoreData *)selfCopy2 coordinator];
     persistentStores = [coordinator persistentStores];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __24__HMDCoreData__postLoad__block_invoke;
-    v84 = &unk_278677800;
+    v83 = &unk_278677800;
     selfCopy = selfCopy2;
     [persistentStores hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
 
     workingStore = [(HMDCoreData *)selfCopy2 workingStore];
     LODWORD(coordinator) = workingStore == 0;
 
-    if (coordinator)
+    if (coordinator || ([(HMDCoreData *)selfCopy2 cloudPrivateStore], v26 = objc_claimAutoreleasedReturnValue(), v27 = v26 == 0, v26, v27) || ([(HMDCoreData *)selfCopy2 cloudSharedStore], v28 = objc_claimAutoreleasedReturnValue(), v29 = v28 == 0, v28, v29) || ([(HMDCoreData *)selfCopy2 localStore], v30 = objc_claimAutoreleasedReturnValue(), v31 = v30 == 0, v30, v31))
     {
-      goto LABEL_34;
-    }
-
-    cloudPrivateStore = [(HMDCoreData *)selfCopy2 cloudPrivateStore];
-    v27 = cloudPrivateStore == 0;
-
-    if (v27)
-    {
-      goto LABEL_34;
-    }
-
-    cloudSharedStore = [(HMDCoreData *)selfCopy2 cloudSharedStore];
-    v29 = cloudSharedStore == 0;
-
-    if (v29 || ([(HMDCoreData *)selfCopy2 localStore], v30 = objc_claimAutoreleasedReturnValue(), v31 = v30 == 0, v30, v31))
-    {
-LABEL_34:
       _HMFPreconditionFailure();
       __break(1u);
       return;
@@ -2143,14 +2152,12 @@ LABEL_34:
     }
   }
 
-  v52 = *MEMORY[0x277D85DE8];
-
   [(HMDCoreData *)self _checkFirstCloudKitImportComplete];
 }
 
 void __24__HMDCoreData__postLoad__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 configurationName];
   v6 = [v5 isEqualToString:@"Working"];
@@ -2171,15 +2178,15 @@ void __24__HMDCoreData__postLoad__block_invoke(uint64_t a1, void *a2)
       v11 = HMFGetLogIdentifier();
       v12 = [v4 identifier];
       v13 = [v4 URL];
-      v25 = 138543874;
-      v26 = v11;
-      v27 = 2114;
-      v28 = v12;
-      v29 = 2114;
-      v30 = v13;
+      v24 = 138543874;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v12;
+      v28 = 2114;
+      v29 = v13;
       v14 = "%{public}@Found working store with identifier %{public}@ at '%{public}@'";
 LABEL_11:
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, v14, &v25, 0x20u);
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, v14, &v24, 0x20u);
 
 LABEL_12:
     }
@@ -2206,12 +2213,12 @@ LABEL_12:
         v11 = HMFGetLogIdentifier();
         v12 = [v4 identifier];
         v13 = [v4 URL];
-        v25 = 138543874;
-        v26 = v11;
-        v27 = 2114;
-        v28 = v12;
-        v29 = 2114;
-        v30 = v13;
+        v24 = 138543874;
+        v25 = v11;
+        v26 = 2114;
+        v27 = v12;
+        v28 = 2114;
+        v29 = v13;
         v14 = "%{public}@Found local store with identifier %{public}@ at '%{public}@'";
         goto LABEL_11;
       }
@@ -2219,10 +2226,10 @@ LABEL_12:
 
     else
     {
-      v19 = [v4 configurationName];
-      v20 = [v19 isEqualToString:@"CloudKit"];
+      v18 = [v4 configurationName];
+      v19 = [v18 isEqualToString:@"CloudKit"];
 
-      if ((v20 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
         v8 = objc_autoreleasePoolPush();
         v9 = *(a1 + 32);
@@ -2233,24 +2240,24 @@ LABEL_12:
         }
 
         v11 = HMFGetLogIdentifier();
-        v25 = 138543618;
-        v26 = v11;
-        v27 = 2114;
-        v28 = v4;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Found store with unexpected configuration: %{public}@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v11;
+        v26 = 2114;
+        v27 = v4;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Found store with unexpected configuration: %{public}@", &v24, 0x16u);
         goto LABEL_12;
       }
 
-      v21 = [v4 URL];
-      v22 = [v21 lastPathComponent];
-      v23 = [v22 containsString:@"shared"];
+      v20 = [v4 URL];
+      v21 = [v20 lastPathComponent];
+      v22 = [v21 containsString:@"shared"];
 
-      v24 = *(a1 + 32);
-      if (v23)
+      v23 = *(a1 + 32);
+      if (v22)
       {
-        if (v24)
+        if (v23)
         {
-          objc_storeStrong((v24 + 96), a2);
+          objc_storeStrong((v23 + 96), a2);
         }
 
         v8 = objc_autoreleasePoolPush();
@@ -2261,12 +2268,12 @@ LABEL_12:
           v11 = HMFGetLogIdentifier();
           v12 = [v4 identifier];
           v13 = [v4 URL];
-          v25 = 138543874;
-          v26 = v11;
-          v27 = 2114;
-          v28 = v12;
-          v29 = 2114;
-          v30 = v13;
+          v24 = 138543874;
+          v25 = v11;
+          v26 = 2114;
+          v27 = v12;
+          v28 = 2114;
+          v29 = v13;
           v14 = "%{public}@Found shared cloud store with identifier %{public}@ at '%{public}@'";
           goto LABEL_11;
         }
@@ -2274,9 +2281,9 @@ LABEL_12:
 
       else
       {
-        if (v24)
+        if (v23)
         {
-          objc_storeStrong((v24 + 88), a2);
+          objc_storeStrong((v23 + 88), a2);
         }
 
         v8 = objc_autoreleasePoolPush();
@@ -2287,12 +2294,12 @@ LABEL_12:
           v11 = HMFGetLogIdentifier();
           v12 = [v4 identifier];
           v13 = [v4 URL];
-          v25 = 138543874;
-          v26 = v11;
-          v27 = 2114;
-          v28 = v12;
-          v29 = 2114;
-          v30 = v13;
+          v24 = 138543874;
+          v25 = v11;
+          v26 = 2114;
+          v27 = v12;
+          v28 = 2114;
+          v29 = v13;
           v14 = "%{public}@Found private cloud store with identifier %{public}@ at '%{public}@'";
           goto LABEL_11;
         }
@@ -2303,12 +2310,11 @@ LABEL_12:
 LABEL_13:
 
   objc_autoreleasePoolPop(v8);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 cloudKitContainerOptions];
@@ -2324,13 +2330,13 @@ void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v5 URL];
-      v48 = 138543874;
-      v49 = v12;
-      v50 = 2114;
-      v51 = v13;
-      v52 = 2112;
-      v53 = v6;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to load persistent store at '%{public}@': %@", &v48, 0x20u);
+      v47 = 138543874;
+      v48 = v12;
+      v49 = 2114;
+      v50 = v13;
+      v51 = 2112;
+      v52 = v6;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to load persistent store at '%{public}@': %@", &v47, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -2356,9 +2362,9 @@ void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           v22 = HMFGetLogIdentifier();
-          v48 = 138543362;
-          v49 = v22;
-          _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for cloudkit stores", &v48, 0xCu);
+          v47 = 138543362;
+          v48 = v22;
+          _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for cloudkit stores", &v47, 0xCu);
         }
 
         objc_autoreleasePoolPop(v19);
@@ -2379,9 +2385,9 @@ void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             v36 = HMFGetLogIdentifier();
-            v48 = 138543362;
-            v49 = v36;
-            _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for local store", &v48, 0xCu);
+            v47 = 138543362;
+            v48 = v36;
+            _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for local store", &v47, 0xCu);
           }
 
           objc_autoreleasePoolPop(v33);
@@ -2403,9 +2409,9 @@ void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
             if (v42)
             {
               v43 = HMFGetLogIdentifier();
-              v48 = 138543362;
-              v49 = v43;
-              _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for working store", &v48, 0xCu);
+              v47 = 138543362;
+              v48 = v43;
+              _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Will clean up with steps for working store", &v47, 0xCu);
             }
 
             objc_autoreleasePoolPop(v39);
@@ -2420,13 +2426,13 @@ void __20__HMDCoreData__load__block_invoke(uint64_t a1, void *a2, void *a3)
               v44 = HMFGetLogIdentifier();
               v45 = [v5 URL];
               v46 = [v5 configuration];
-              v48 = 138543874;
-              v49 = v44;
-              v50 = 2114;
-              v51 = v45;
-              v52 = 2114;
-              v53 = v46;
-              _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Can't decide cleanup steps - unknown store configuration '%{public}@': %{public}@", &v48, 0x20u);
+              v47 = 138543874;
+              v48 = v44;
+              v49 = 2114;
+              v50 = v45;
+              v51 = 2114;
+              v52 = v46;
+              _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Can't decide cleanup steps - unknown store configuration '%{public}@': %{public}@", &v47, 0x20u);
             }
 
             objc_autoreleasePoolPop(v39);
@@ -2449,9 +2455,9 @@ LABEL_29:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         v30 = HMFGetLogIdentifier();
-        v48 = 138543362;
-        v49 = v30;
-        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_FAULT, "%{public}@Disk full error. Exit.", &v48, 0xCu);
+        v47 = 138543362;
+        v48 = v30;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_FAULT, "%{public}@Disk full error. Exit.", &v47, 0xCu);
       }
 
       objc_autoreleasePoolPop(v27);
@@ -2467,24 +2473,22 @@ LABEL_29:
     {
       v25 = HMFGetLogIdentifier();
       v26 = [v5 URL];
-      v48 = 138543618;
-      v49 = v25;
-      v50 = 2114;
-      v51 = v26;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Loaded persistent store at '%{public}@'", &v48, 0x16u);
+      v47 = 138543618;
+      v48 = v25;
+      v49 = 2114;
+      v50 = v26;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Loaded persistent store at '%{public}@'", &v47, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
 LABEL_30:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitABCEventFailedToLoadPersistentWithReason:(void *)reason withError:
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   processInfo = [MEMORY[0x277D0F8E0] processInfo];
   v7 = objc_alloc(MEMORY[0x277D6AFC8]);
@@ -2519,23 +2523,23 @@ LABEL_30:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v34 = v18;
-    v35 = 2112;
-    v36 = v11;
+    v33 = v18;
+    v34 = 2112;
+    v35 = v11;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Submitting ABC event with signature: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
   v19 = dispatch_group_create();
   dispatch_group_enter(v19);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __73__HMDCoreData__submitABCEventFailedToLoadPersistentWithReason_withError___block_invoke;
-  v31[3] = &unk_278682C28;
-  v31[4] = selfCopy;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __73__HMDCoreData__submitABCEventFailedToLoadPersistentWithReason_withError___block_invoke;
+  v30[3] = &unk_278682C28;
+  v30[4] = selfCopy;
   v20 = v19;
-  v32 = v20;
-  if (([v9 snapshotWithSignature:v11 duration:0 event:0 payload:v31 reply:15.0] & 1) == 0)
+  v31 = v20;
+  if (([v9 snapshotWithSignature:v11 duration:0 event:0 payload:v30 reply:15.0] & 1) == 0)
   {
     v21 = objc_autoreleasePoolPush();
     v22 = selfCopy;
@@ -2544,7 +2548,7 @@ LABEL_30:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v24;
+      v33 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to submit ABC event", buf, 0xCu);
     }
 
@@ -2561,19 +2565,17 @@ LABEL_30:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v29;
+      v33 = v29;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Timed out waiting for ABC event submission to finish", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDCoreData__submitABCEventFailedToLoadPersistentWithReason_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2581,22 +2583,20 @@ void __73__HMDCoreData__submitABCEventFailedToLoadPersistentWithReason_withError
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@ABC event submission finished with response: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@ABC event submission finished with response: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   dispatch_group_leave(*(a1 + 40));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __23__HMDCoreData__preLoad__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 40) == 1)
@@ -2605,101 +2605,97 @@ void __23__HMDCoreData__preLoad__block_invoke(uint64_t a1, void *a2)
 
     if (v5)
     {
-      v6 = *(a1 + 32);
-      v7 = [objc_opt_class() userInitiatedVoucherWithLabel:@"Setup export voucher" forEventsOfType:2 affectingObjectsMatching:0];
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() userInitiatedVoucherWithLabel:@"Setup import voucher" forEventsOfType:1 affectingObjectsMatching:0];
-      v10 = [v4 URL];
-      v11 = [v10 lastPathComponent];
-      v12 = [v11 hasSuffix:@"core-cloudkit.sqlite"];
+      v6 = [objc_opt_class() userInitiatedVoucherWithLabel:@"Setup export voucher" forEventsOfType:2 affectingObjectsMatching:0];
+      v7 = [objc_opt_class() userInitiatedVoucherWithLabel:@"Setup import voucher" forEventsOfType:1 affectingObjectsMatching:0];
+      v8 = [v4 URL];
+      v9 = [v8 lastPathComponent];
+      v10 = [v9 hasSuffix:@"core-cloudkit.sqlite"];
 
-      if (v12)
+      if (v10)
       {
-        v13 = *(a1 + 32);
+        v11 = *(a1 + 32);
         os_unfair_lock_lock_with_options();
-        [(HMDCoreData *)*(a1 + 32) setPrivateStoreSetupExportVoucher:v7];
-        v14 = *(a1 + 32);
-        if (v14)
+        [(HMDCoreData *)*(a1 + 32) setPrivateStoreSetupExportVoucher:v6];
+        v12 = *(a1 + 32);
+        if (v12)
         {
-          objc_storeStrong((v14 + 48), v9);
+          objc_storeStrong((v12 + 48), v7);
         }
 
-        os_unfair_lock_unlock(v13 + 4);
-        v15 = objc_autoreleasePoolPush();
-        v16 = *(a1 + 32);
-        v17 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        os_unfair_lock_unlock(v11 + 4);
+        v13 = objc_autoreleasePoolPush();
+        v14 = *(a1 + 32);
+        v15 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = HMFGetLogIdentifier();
+          v16 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v32 = v18;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Attaching setup vouchers for private cloud store", buf, 0xCu);
+          v29 = v16;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Attaching setup vouchers for private cloud store", buf, 0xCu);
         }
       }
 
       else
       {
-        v19 = [v4 URL];
-        v20 = [v19 lastPathComponent];
-        v21 = [v20 hasSuffix:@"core-cloudkit-shared.sqlite"];
+        v17 = [v4 URL];
+        v18 = [v17 lastPathComponent];
+        v19 = [v18 hasSuffix:@"core-cloudkit-shared.sqlite"];
 
-        if (v21)
+        if (v19)
         {
-          v22 = *(a1 + 32);
+          v20 = *(a1 + 32);
           os_unfair_lock_lock_with_options();
-          [(HMDCoreData *)*(a1 + 32) setSharedStoreSetupExportVoucher:v7];
-          v23 = *(a1 + 32);
-          if (v23)
+          [(HMDCoreData *)*(a1 + 32) setSharedStoreSetupExportVoucher:v6];
+          v21 = *(a1 + 32);
+          if (v21)
           {
-            objc_storeStrong((v23 + 64), v9);
+            objc_storeStrong((v21 + 64), v7);
           }
 
-          os_unfair_lock_unlock(v22 + 4);
-          v15 = objc_autoreleasePoolPush();
-          v16 = *(a1 + 32);
-          v17 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          os_unfair_lock_unlock(v20 + 4);
+          v13 = objc_autoreleasePoolPush();
+          v14 = *(a1 + 32);
+          v15 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = HMFGetLogIdentifier();
+            v22 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v32 = v24;
-            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Attaching setup vouchers for shared cloud store", buf, 0xCu);
+            v29 = v22;
+            _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Attaching setup vouchers for shared cloud store", buf, 0xCu);
           }
         }
 
         else
         {
-          v15 = objc_autoreleasePoolPush();
-          v16 = *(a1 + 32);
-          v17 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v13 = objc_autoreleasePoolPush();
+          v14 = *(a1 + 32);
+          v15 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v25 = HMFGetLogIdentifier();
-            v26 = [v4 URL];
+            v23 = HMFGetLogIdentifier();
+            v24 = [v4 URL];
             *buf = 138543618;
-            v32 = v25;
-            v33 = 2114;
-            v34 = v26;
-            _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Attaching setup vouchers to unexpected store at '%{public}@'", buf, 0x16u);
+            v29 = v23;
+            v30 = 2114;
+            v31 = v24;
+            _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Attaching setup vouchers to unexpected store at '%{public}@'", buf, 0x16u);
           }
         }
       }
 
-      objc_autoreleasePoolPop(v15);
-      v30[0] = v7;
-      v30[1] = v9;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
-      v28 = [v4 cloudKitContainerOptions];
-      [v28 setActivityVouchers:v27];
+      objc_autoreleasePoolPop(v13);
+      v27[0] = v6;
+      v27[1] = v7;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26 = [v4 cloudKitContainerOptions];
+      [v26 setActivityVouchers:v25];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldPruneCloudStoreHistory
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   userDefaults = [(HMDCoreData *)self userDefaults];
   v4 = [userDefaults objectForKey:@"cloudStoreHistoryPruneRanHomeKitVersionKey"];
 
@@ -2740,13 +2736,13 @@ void __23__HMDCoreData__preLoad__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v19 = 138543874;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v6;
-      v23 = 2114;
-      v24 = v10;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Cloud store history was already pruned on version %{public}@ at %{public}@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v6;
+      v22 = 2114;
+      v23 = v10;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Cloud store history was already pruned on version %{public}@ at %{public}@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2759,7 +2755,6 @@ void __23__HMDCoreData__preLoad__block_invoke(uint64_t a1, void *a2)
     v15 = [productInfo productPlatform] == 3;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2789,13 +2784,13 @@ void __23__HMDCoreData__preLoad__block_invoke(uint64_t a1, void *a2)
 
 void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterThan_storeType___block_invoke(uint64_t a1)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v2 = +[MKFCloudSyncMetadata fetchRequest];
   [v2 setReturnsObjectsAsFaults:0];
   v3 = *(a1 + 32);
-  v69 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v69];
-  v5 = v69;
+  v68 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v68];
+  v5 = v68;
   if (v4)
   {
     if ([(__CFString *)v4 count])
@@ -2809,9 +2804,9 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
         {
           v9 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v71 = v9;
-          v72 = 2114;
-          v73 = v4;
+          v70 = v9;
+          v71 = 2114;
+          v72 = v4;
           _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@More than one MKFCloudSyncMetadata object (using first): %{public}@", buf, 0x16u);
         }
 
@@ -2844,9 +2839,9 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
             }
 
             *buf = 138543618;
-            v71 = v34;
-            v72 = 2112;
-            v73 = v37;
+            v70 = v34;
+            v71 = 2112;
+            v72 = v37;
             _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Do not support to prune %@ store", buf, 0x16u);
           }
 
@@ -2869,7 +2864,7 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
       v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
       if (v22)
       {
-        v67 = v11;
+        v66 = v11;
         if (v26)
         {
           v27 = HMFGetLogIdentifier();
@@ -2887,13 +2882,13 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
 
           v42 = *(a1 + 64);
           *buf = 138544130;
-          v71 = v27;
-          v72 = 2112;
-          v73 = v30;
-          v74 = 2114;
-          v75 = *&v22;
-          v76 = 2050;
-          v77 = v42;
+          v70 = v27;
+          v71 = 2112;
+          v72 = v30;
+          v73 = 2114;
+          v74 = *&v22;
+          v75 = 2050;
+          v76 = v42;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Will prune %@ store history before history token %{public}@ when history percentage is > %{public}zd%%", buf, 0x2Au);
         }
 
@@ -2902,9 +2897,9 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
         v44 = v43;
         v45 = [MEMORY[0x277CBE4B0] deleteHistoryBeforeToken:v22 whenHistoryPercentageOfStoreIsGreaterThan:*(a1 + 64)];
         v46 = *(a1 + 32);
-        v68 = v5;
-        v47 = [v46 executeRequest:v45 error:&v68];
-        v48 = v68;
+        v67 = v5;
+        v47 = [v46 executeRequest:v45 error:&v67];
+        v48 = v67;
 
         if (v48)
         {
@@ -2927,11 +2922,11 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
             }
 
             *buf = 138543874;
-            v71 = v52;
-            v72 = 2112;
-            v73 = v55;
-            v74 = 2114;
-            v75 = *&v48;
+            v70 = v52;
+            v71 = 2112;
+            v72 = v55;
+            v73 = 2114;
+            v74 = *&v48;
             _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Pruning %@ store history failed with %{public}@", buf, 0x20u);
           }
 
@@ -2962,11 +2957,11 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
             }
 
             *buf = 138543874;
-            v71 = v62;
-            v72 = 2112;
-            v73 = v65;
-            v74 = 2050;
-            v75 = v61;
+            v70 = v62;
+            v71 = 2112;
+            v72 = v65;
+            v73 = 2050;
+            v74 = v61;
             _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_INFO, "%{public}@Successfully pruned %@ store history in %{public}.3lf seconds", buf, 0x20u);
           }
 
@@ -2975,7 +2970,7 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
         }
 
         v5 = v48;
-        v11 = v67;
+        v11 = v66;
       }
 
       else
@@ -2996,9 +2991,9 @@ void __85__HMDCoreData__pruneStoreHistoryWhenHistoryPercentageOfStoreIsGreaterTh
           }
 
           *buf = 138543618;
-          v71 = v38;
-          v72 = 2112;
-          v73 = v41;
+          v70 = v38;
+          v71 = 2112;
+          v72 = v41;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@No last history token for %@ store, this must be a new device", buf, 0x16u);
         }
 
@@ -3018,7 +3013,7 @@ LABEL_49:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v21;
+      v70 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@No MKFCloudSyncMetadata found, this must be a new device", buf, 0xCu);
     }
 
@@ -3035,9 +3030,9 @@ LABEL_49:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v71 = v17;
-      v72 = 2114;
-      v73 = v5;
+      v70 = v17;
+      v71 = 2114;
+      v72 = v5;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch MKFCloudSyncMetadata: %{public}@", buf, 0x16u);
     }
 
@@ -3045,13 +3040,11 @@ LABEL_49:
   }
 
 LABEL_50:
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldPruneWorkingStoreHistory
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   userDefaults = [(HMDCoreData *)self userDefaults];
   v4 = [userDefaults objectForKey:@"workingStoreHistoryPruneRanHomeKitVersionKey"];
 
@@ -3092,13 +3085,13 @@ LABEL_50:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v6;
-      v24 = 2114;
-      v25 = v10;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Working store history was already pruned on version %{public}@ at %{public}@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v6;
+      v23 = 2114;
+      v24 = v10;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Working store history was already pruned on version %{public}@ at %{public}@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -3120,7 +3113,6 @@ LABEL_50:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -3200,15 +3192,14 @@ void __106__HMDCoreData_initWithCloudKitContainer_notificationCenter_userDefault
 
 void __26__HMDCoreData_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v102;
-  logCategory__hmf_once_v102 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v102;
+  logCategory__hmf_once_v102 = v0;
 }
 
 + (uint64_t)isError:(void *)error domain:(void *)domain fromError:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domainCopy = domain;
   v8 = objc_opt_self();
@@ -3253,7 +3244,7 @@ void __26__HMDCoreData_logCategory__block_invoke()
     }
 
     while (!v18);
-    v19 = [array copy];
+    v19 = objc_msgSend_copy(array);
   }
 
   else
@@ -3268,30 +3259,29 @@ void __26__HMDCoreData_logCategory__block_invoke()
   {
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v33 = v23;
-    v34 = 2112;
-    v35 = v19;
+    v32 = v23;
+    v33 = 2112;
+    v34 = v19;
     _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@all underlying errors : %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __40__HMDCoreData_isError_domain_fromError___block_invoke;
-  v28[3] = &unk_2786777D8;
-  v29 = errorCopy;
-  v30 = a2;
-  v31 = v21;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __40__HMDCoreData_isError_domain_fromError___block_invoke;
+  v27[3] = &unk_2786777D8;
+  v28 = errorCopy;
+  v29 = a2;
+  v30 = v21;
   v24 = errorCopy;
-  v25 = [v19 na_any:v28];
+  v25 = [v19 na_any:v27];
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 BOOL __40__HMDCoreData_isError_domain_fromError___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 domain];
   if ([v4 isEqualToString:*(a1 + 32)])
@@ -3335,15 +3325,15 @@ BOOL __40__HMDCoreData_isError_domain_fromError___block_invoke(uint64_t a1, void
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 32);
-      v19 = 138544130;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v3;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Found the %@ error domain and error code : %@, %@", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v3;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Found the %@ error domain and error code : %@, %@", &v18, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -3356,49 +3346,45 @@ BOOL __40__HMDCoreData_isError_domain_fromError___block_invoke(uint64_t a1, void
   }
 
 LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (NSArray)defaultPersistentStoreDescriptions
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   cloudPrivateStoreDescription = [self cloudPrivateStoreDescription];
-  v10[0] = cloudPrivateStoreDescription;
+  v9[0] = cloudPrivateStoreDescription;
   cloudSharedStoreDescription = [self cloudSharedStoreDescription];
-  v10[1] = cloudSharedStoreDescription;
+  v9[1] = cloudSharedStoreDescription;
   localStoreDescription = [self localStoreDescription];
-  v10[2] = localStoreDescription;
+  v9[2] = localStoreDescription;
   workingStoreDescription = [self workingStoreDescription];
-  v10[3] = workingStoreDescription;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[3] = workingStoreDescription;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   return v7;
 }
 
 + (NSPersistentStoreDescription)workingStoreDescription
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [self storeNameForConfiguration:@"core.sqlite"];
   v4 = [(HMDCoreData *)self _storeDescriptionForConfiguration:v3 storeName:?];
 
   [v4 setOption:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE270]];
-  v9 = *MEMORY[0x277CBE208];
+  v8 = *MEMORY[0x277CBE208];
   entitiesExcludedFromWorkingStoreHistory = [self entitiesExcludedFromWorkingStoreHistory];
-  v10[0] = entitiesExcludedFromWorkingStoreHistory;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = entitiesExcludedFromWorkingStoreHistory;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [v4 setOption:v6 forKey:*MEMORY[0x277CBE210]];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)_storeDescriptionForConfiguration:(void *)configuration storeName:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a2;
   configurationCopy = configuration;
   v6 = objc_opt_self();
@@ -3422,20 +3408,18 @@ LABEL_14:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543874;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v4;
-      v23 = 2112;
-      v24 = configurationCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Disabling automatic store migration for: [%@ / %@]", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v4;
+      v22 = 2112;
+      v23 = configurationCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Disabling automatic store migration for: [%@ / %@]", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
     [v11 setShouldMigrateStoreAutomatically:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3477,7 +3461,7 @@ LABEL_14:
 
 + (id)getPersistentCloudKitContainerOptionsForStore:(id)store userDefaults:(id)defaults
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   defaultsCopy = defaults;
   objc_opt_self();
@@ -3501,17 +3485,15 @@ LABEL_14:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = storeCopy;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@CloudKitContainerOptions contain activityVouchers for: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = storeCopy;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@CloudKitContainerOptions contain activityVouchers for: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3534,6 +3516,17 @@ LABEL_14:
   return v6;
 }
 
++ (id)createWithPersistentStoreDescriptions:(id)descriptions notificationCenter:(id)center userDefaults:(id)defaults automaticallyAttachSetupVouchers:(BOOL)vouchers
+{
+  vouchersCopy = vouchers;
+  defaultsCopy = defaults;
+  centerCopy = center;
+  descriptionsCopy = descriptions;
+  v13 = [(HMDCoreData *)[self alloc] initWithPersistentStoreDescriptions:descriptionsCopy notificationCenter:centerCopy userDefaults:defaultsCopy automaticallyAttachSetupVouchers:vouchersCopy];
+
+  return v13;
+}
+
 - (id)initWithPersistentStoreDescriptions:(void *)descriptions notificationCenter:(void *)center userDefaults:(uint64_t)defaults automaticallyAttachSetupVouchers:
 {
   if (!self)
@@ -3551,7 +3544,7 @@ LABEL_14:
   v16 = +[HMDCoreData managedObjectModel];
   v17 = [v13 initWithName:v15 managedObjectModel:v16];
 
-  v18 = [v12 copy];
+  v18 = objc_msgSend_copy(v12);
   [v17 setPersistentStoreDescriptions:v18];
 
   v19 = [self initWithCloudKitContainer:v17 notificationCenter:descriptionsCopy userDefaults:centerCopy automaticallyAttachSetupVouchers:defaults];
@@ -3579,14 +3572,14 @@ LABEL_14:
 
 void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) defaultPersistentStoreDescriptions];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2;
-  v10[3] = &__block_descriptor_40_e45_v32__0__NSPersistentStoreDescription_8Q16_B24l;
-  v10[4] = *(a1 + 32);
-  [v2 hmf_enumerateWithAutoreleasePoolUsingBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2;
+  v9[3] = &__block_descriptor_40_e45_v32__0__NSPersistentStoreDescription_8Q16_B24l;
+  v9[4] = *(a1 + 32);
+  [v2 hmf_enumerateWithAutoreleasePoolUsingBlock:v9];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
   v5 = HMFGetOSLogHandle();
@@ -3594,7 +3587,7 @@ void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke(uint64_t 
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating HMDCoreData instance without Live CloudKit", buf, 0xCu);
   }
 
@@ -3605,13 +3598,11 @@ void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke(uint64_t 
 
   [_sharedInstance startWatchingManagedObjectChanges];
   [_sharedInstance startLoadingStores];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3619,17 +3610,15 @@ void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2(uint64_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Not configuring [%@] with cloud kit container options", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Not configuring [%@] with cloud kit container options", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [v3 setCloudKitContainerOptions:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createWithPersistentStoreDescriptions:(uint64_t)descriptions
@@ -3645,7 +3634,7 @@ void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2(uint64_
 
 + (BOOL)isUsingProductionObjectModel
 {
-  v3 = +[HMDCoreData productionManagedObjectModelURL];
+  v3 = +[(HMDCoreData *)self];
   managedObjectModelURL = [self managedObjectModelURL];
   v5 = HMFEqualObjects();
 
@@ -3654,25 +3643,25 @@ void __48__HMDCoreData_sharedInstanceWithoutLiveCloudKit__block_invoke_2(uint64_
 
 + (id)productionManagedObjectModelURL
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__HMDCoreData_productionManagedObjectModelURL__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (productionManagedObjectModelURL_onceTokenForBundle != -1)
   {
     dispatch_once(&productionManagedObjectModelURL_onceTokenForBundle, block);
   }
 
-  v1 = productionManagedObjectModelURL_sProductionURL;
+  v2 = productionManagedObjectModelURL_sProductionURL;
 
-  return v1;
+  return v2;
 }
 
 void __46__HMDCoreData_productionManagedObjectModelURL__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:*(a1 + 32)];
   v3 = [v2 URLForResource:@"HomeKitCoreDataModel" withExtension:@"momd"];
   v4 = productionManagedObjectModelURL_sProductionURL;
@@ -3680,67 +3669,65 @@ void __46__HMDCoreData_productionManagedObjectModelURL__block_invoke(uint64_t a1
 
   if (!productionManagedObjectModelURL_sProductionURL)
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_self();
-    *v21 = MEMORY[0x277D85DD0];
-    *&v21[8] = 3221225472;
-    *&v21[16] = __47__HMDCoreData_developmentManagedObjectModelURL__block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0l;
-    *v23 = v6;
+    v5 = objc_opt_self();
+    *v19 = MEMORY[0x277D85DD0];
+    *&v19[8] = 3221225472;
+    *&v19[16] = __47__HMDCoreData_developmentManagedObjectModelURL__block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0l;
+    *v21 = v5;
     if (developmentManagedObjectModelURL_onceTokenForBundle != -1)
     {
-      dispatch_once(&developmentManagedObjectModelURL_onceTokenForBundle, v21);
+      dispatch_once(&developmentManagedObjectModelURL_onceTokenForBundle, v19);
     }
 
-    v7 = developmentManagedObjectModelURL_developmentManagedObjectModelURL;
-    v8 = [v7 path];
+    v6 = developmentManagedObjectModelURL_developmentManagedObjectModelURL;
+    v7 = [v6 path];
 
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 32);
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v8 = objc_autoreleasePoolPush();
+    v9 = *(a1 + 32);
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier();
-      *v21 = 138544386;
-      *&v21[4] = v12;
-      *&v21[12] = 2112;
-      *&v21[14] = @"HomeKitCoreDataModel";
-      *&v21[22] = 2112;
-      v22 = @"momd";
-      *v23 = 2112;
-      *&v23[2] = v2;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Failed to find [%@.%@] in bundle [%@]. Going to look into development momd directory: %@", v21, 0x34u);
+      v11 = HMFGetLogIdentifier();
+      *v19 = 138544386;
+      *&v19[4] = v11;
+      *&v19[12] = 2112;
+      *&v19[14] = @"HomeKitCoreDataModel";
+      *&v19[22] = 2112;
+      v20 = @"momd";
+      *v21 = 2112;
+      *&v21[2] = v2;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to find [%@.%@] in bundle [%@]. Going to look into development momd directory: %@", v19, 0x34u);
     }
 
-    objc_autoreleasePoolPop(v9);
-    v13 = [MEMORY[0x277CCA8D8] pathForResource:@"Production" ofType:@"mom" inDirectory:v8];
-    v14 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v13];
-    v15 = productionManagedObjectModelURL_sProductionURL;
-    productionManagedObjectModelURL_sProductionURL = v14;
+    objc_autoreleasePoolPop(v8);
+    v12 = [MEMORY[0x277CCA8D8] pathForResource:@"Production" ofType:@"mom" inDirectory:v7];
+    v13 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v12];
+    v14 = productionManagedObjectModelURL_sProductionURL;
+    productionManagedObjectModelURL_sProductionURL = v13;
   }
 
-  v16 = objc_autoreleasePoolPush();
-  v17 = *(a1 + 32);
-  v18 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v15 = objc_autoreleasePoolPush();
+  v16 = *(a1 + 32);
+  v17 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v19 = HMFGetLogIdentifier();
-    *v21 = 138543618;
-    *&v21[4] = v19;
-    *&v21[12] = 2112;
-    *&v21[14] = productionManagedObjectModelURL_sProductionURL;
-    _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Production URL: %@", v21, 0x16u);
+    v18 = HMFGetLogIdentifier();
+    *v19 = 138543618;
+    *&v19[4] = v18;
+    *&v19[12] = 2112;
+    *&v19[14] = productionManagedObjectModelURL_sProductionURL;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Production URL: %@", v19, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v16);
-  v20 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v15);
 }
 
 void __47__HMDCoreData_developmentManagedObjectModelURL__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:*(a1 + 32)];
   v3 = [v2 URLForResource:@"HomeKitCoreDataModel-Development" withExtension:@"momd"];
   v4 = developmentManagedObjectModelURL_developmentManagedObjectModelURL;
@@ -3752,15 +3739,14 @@ void __47__HMDCoreData_developmentManagedObjectModelURL__block_invoke(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = developmentManagedObjectModelURL_developmentManagedObjectModelURL;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Development URL: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = developmentManagedObjectModelURL_developmentManagedObjectModelURL;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Development URL: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (NSURL)managedObjectModelURL
@@ -3782,44 +3768,39 @@ void __47__HMDCoreData_developmentManagedObjectModelURL__block_invoke(uint64_t a
 
 void __36__HMDCoreData_managedObjectModelURL__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = +[HMDFeaturesDataSource defaultDataSource];
-  v3 = *(a1 + 32);
-  v13 = v2;
-  v4 = objc_opt_self();
+  v18 = *MEMORY[0x277D85DE8];
+  v9 = +[HMDFeaturesDataSource defaultDataSource];
+  v2 = objc_opt_self();
   if (isInternalBuild())
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = v4;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v3 = objc_autoreleasePoolPush();
+    v4 = v2;
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier();
+      v6 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v13;
-      v18 = 1024;
-      v19 = 0;
-      v20 = 1024;
-      v21 = 0;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%@, HomeAS: %{BOOL}d, C: %{BOOL}d", buf, 0x22u);
+      v11 = v6;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 1024;
+      v15 = 0;
+      v16 = 1024;
+      v17 = 0;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@%@, HomeAS: %{BOOL}d, C: %{BOOL}d", buf, 0x22u);
     }
 
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v3);
   }
 
-  v9 = *(a1 + 32);
-  v10 = +[HMDCoreData productionManagedObjectModelURL];
-  v11 = managedObjectModelURL_managedObjectModelURL;
-  managedObjectModelURL_managedObjectModelURL = v10;
+  v7 = +[(HMDCoreData *)*(a1];
+  v8 = managedObjectModelURL_managedObjectModelURL;
+  managedObjectModelURL_managedObjectModelURL = v7;
 
   if (!managedObjectModelURL_managedObjectModelURL)
   {
     _HMFPreconditionFailure();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (NSManagedObjectModel)managedObjectModel
@@ -3841,7 +3822,7 @@ void __36__HMDCoreData_managedObjectModelURL__block_invoke(uint64_t a1)
 
 void __33__HMDCoreData_managedObjectModel__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) managedObjectModelURL];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -3849,11 +3830,11 @@ void __33__HMDCoreData_managedObjectModel__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v2;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Using : %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Using : %{public}@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -3867,7 +3848,6 @@ void __33__HMDCoreData_managedObjectModel__block_invoke(uint64_t a1)
   managedObjectModel_model = v7;
 
   [managedObjectModel_model hmd_makeImmutable];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)cleanUpSharedInstance
@@ -3879,23 +3859,22 @@ void __33__HMDCoreData_managedObjectModel__block_invoke(uint64_t a1)
 
 uint64_t __29__HMDCoreData_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = [v2 defaultPersistentStoreDescriptions];
-  v4 = [(HMDCoreData *)v2 createWithPersistentStoreDescriptions:v3];
+  v1 = objc_opt_self();
+  v2 = [v1 defaultPersistentStoreDescriptions];
+  v3 = [(HMDCoreData *)v1 createWithPersistentStoreDescriptions:v2];
 
-  v5 = _sharedInstance;
-  _sharedInstance = v4;
+  v4 = _sharedInstance;
+  _sharedInstance = v3;
 
   [_sharedInstance startWatchingManagedObjectChanges];
-  v6 = _sharedInstance;
+  v5 = _sharedInstance;
 
-  return [v6 startLoadingStores];
+  return [v5 startLoadingStores];
 }
 
 - (id)_applyVoucherForModel:(id)model modelID:(id)d eventType:(int64_t)type storeType:(unint64_t)storeType
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   dCopy = d;
   if (storeType == 1)
@@ -3922,7 +3901,7 @@ LABEL_7:
     [v15 setPredicate:dCopy];
   }
 
-  v26 = modelCopy;
+  v25 = modelCopy;
   v17 = [objc_opt_class() userInitiatedVoucherWithLabel:name forEventsOfType:type affectingObjectsMatching:v15];
   v18 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3931,23 +3910,21 @@ LABEL_7:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v29 = v21;
-    v30 = 2114;
-    v31 = name;
-    v32 = 2112;
-    v33 = dCopy;
-    v34 = 2048;
+    v28 = v21;
+    v29 = 2114;
+    v30 = name;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 2048;
     typeCopy = type;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@applyVoucherForModel: %{public}@, modelID: %@, eventType: %zd", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v18);
   container = [(HMDCoreData *)selfCopy container];
-  v27 = v13;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = v13;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   [container applyActivityVoucher:v17 toStores:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

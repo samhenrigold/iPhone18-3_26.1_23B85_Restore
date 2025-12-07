@@ -28,19 +28,19 @@
 
 - (void)signalReindexItemsIfNeededForErrorsByItem:(id)item
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v5 = objc_opt_new();
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke;
-  v34[3] = &unk_1E793E0F8;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke;
+  v33[3] = &unk_1E793E0F8;
   v6 = v5;
-  v35 = v6;
-  [itemCopy enumerateKeysAndObjectsUsingBlock:v34];
+  v34 = v6;
+  [itemCopy enumerateKeysAndObjectsUsingBlock:v33];
   if ([v6 count])
   {
-    v27 = itemCopy;
+    v26 = itemCopy;
     v7 = fp_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
@@ -48,28 +48,28 @@
     }
 
     v8 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     items = [(FPTransformOperation *)self items];
     v10 = [items copy];
 
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v31;
+      v13 = *v30;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           itemIdentifier = [v15 itemIdentifier];
           if ([v6 containsObject:itemIdentifier])
           {
@@ -100,25 +100,23 @@
           [v22 addObject:coreSpotlightIdentifier];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
       }
 
       while (v12);
     }
 
     daemonConnection = [objc_opt_class() daemonConnection];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke_371;
-    v28[3] = &unk_1E7939C00;
-    v29 = v8;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke_371;
+    v27[3] = &unk_1E7939C00;
+    v28 = v8;
     v25 = v8;
-    [daemonConnection signalReindexCSIdentifiersByProviderDomainID:v25 indexReason:5 completionHandler:v28];
+    [daemonConnection signalReindexCSIdentifiersByProviderDomainID:v25 indexReason:5 completionHandler:v27];
 
-    itemCopy = v27;
+    itemCopy = v26;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -288,36 +286,28 @@ void __34__FPTransformOperation_actionMain__block_invoke_2(uint64_t a1, void *a2
 
 - (void)signalReindexItemsIfNeededForErrorsByItem:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Index out of sync. Forcing reindex of %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Index out of sync. Forcing reindex of %@", v1, 0xCu);
 }
 
 void __66__FPTransformOperation_signalReindexItemsIfNeededForErrorsByItem___block_invoke_371_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_10_4();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __34__FPTransformOperation_actionMain__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

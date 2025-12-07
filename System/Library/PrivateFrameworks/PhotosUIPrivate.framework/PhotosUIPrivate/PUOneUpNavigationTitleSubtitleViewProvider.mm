@@ -21,7 +21,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B383D4A4();
+  sub_1B383D4A4(delegate);
 }
 
 - (PUOneUpNavigationTitleSubtitleViewDelegate)viewDelegate
@@ -36,7 +36,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B383D7AC();
+  sub_1B383D7AC(delegate);
 }
 
 - (void)setTitleContentMode:(int64_t)mode
@@ -48,7 +48,7 @@
 - (PUOneUpNavigationTitleSubtitleView)titleSubtitleView
 {
   selfCopy = self;
-  v3 = sub_1B383DA6C();
+  v3 = sub_1B383DA6C(selfCopy);
 
   return v3;
 }

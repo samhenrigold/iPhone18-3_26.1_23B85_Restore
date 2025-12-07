@@ -1,6 +1,7 @@
 @interface ASDFollowUpViewController
 - (ASDFollowUpViewController)init;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -24,6 +25,13 @@
   v4 = +[UIColor clearColor];
   view2 = [(ASDFollowUpViewController *)self view];
   [view2 setBackgroundColor:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = ASDFollowUpViewController;
+  [(ASDFollowUpViewController *)&v3 viewDidAppear:appear];
 }
 
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion

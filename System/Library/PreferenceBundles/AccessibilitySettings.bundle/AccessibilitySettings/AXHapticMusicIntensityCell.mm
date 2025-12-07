@@ -30,11 +30,11 @@
   v7 = _Block_copy(setter);
   *(swift_allocObject() + 16) = v6;
   *(swift_allocObject() + 16) = v7;
-  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9830);
-  v9[4] = sub_162D0C(&qword_2B9838, &qword_2B9830);
+  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2B9830, qword_1DD100);
+  v9[4] = sub_162D0C(&qword_2B9838, &qword_2B9830, qword_1DD100, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   __swift_allocate_boxed_opaque_existential_1(v9);
-  type metadata accessor for IntensitySelection();
-  sub_18F2F0(&qword_2B9840, type metadata accessor for IntensitySelection);
+  type metadata accessor for IntensitySelection(0);
+  sub_18F2F0(&qword_2B9840, type metadata accessor for IntensitySelection, &unk_1DD154);
   selfCopy = self;
   sub_19B804();
   sub_19C3F4();
@@ -43,7 +43,7 @@
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
   sub_1845C4();
-  sub_18F2F0(&qword_2B9850, sub_1845C4);
+  sub_18F2F0(&qword_2B9850, sub_1845C4, &protocol conformance descriptor for NSObject);
   sub_19C174();
   eventCopy = event;
   selfCopy = self;

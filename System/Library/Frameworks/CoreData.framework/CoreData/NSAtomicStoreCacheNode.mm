@@ -89,7 +89,7 @@
 
   propertyCache = self->_propertyCache;
 
-  return [(NSMutableDictionary *)propertyCache valueForKey:key];
+  return objc_msgSend_valueForKey_(propertyCache);
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key

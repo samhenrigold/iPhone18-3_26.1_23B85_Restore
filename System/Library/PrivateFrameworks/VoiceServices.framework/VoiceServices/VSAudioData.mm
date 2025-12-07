@@ -89,12 +89,12 @@
 - (void)concatenateWithAudio:(id)audio
 {
   audioCopy = audio;
-  [(VSAudioData *)self asbd];
+  objc_msgSend_asbd(self);
   if (!v22)
   {
     if (audioCopy)
     {
-      [audioCopy asbd];
+      objc_msgSend_asbd(audioCopy);
     }
 
     else
@@ -153,7 +153,7 @@
   v4 = [[VSAudioData allocWithZone:?]];
   if (v4)
   {
-    [(VSAudioData *)self asbd];
+    objc_msgSend_asbd(self);
     v10[0] = v12;
     v10[1] = v13;
     v11 = v14;
@@ -173,22 +173,22 @@
 
 - (unsigned)totalFrames
 {
-  [(VSAudioData *)self asbd];
+  objc_msgSend_asbd(self, a2);
   if (v11 == 1819304813)
   {
     audioData = [(VSAudioData *)self audioData];
     v4 = [audioData length];
-    [(VSAudioData *)self asbd];
+    objc_msgSend_asbd(self);
     v5 = v4 / v10;
   }
 
   else
   {
-    [(VSAudioData *)self asbd];
+    objc_msgSend_asbd(self);
     if (v9 == 1869641075)
     {
       packetCount = [(VSAudioData *)self packetCount];
-      [(VSAudioData *)self asbd];
+      objc_msgSend_asbd(self);
       return v8 * packetCount;
     }
 
@@ -203,19 +203,19 @@
 
 - (double)duration
 {
-  [(VSAudioData *)self asbd];
+  objc_msgSend_asbd(self, a2);
   if (v20 == 1819304813)
   {
-    [(VSAudioData *)self asbd];
-    [(VSAudioData *)self asbd];
+    objc_msgSend_asbd(self);
+    objc_msgSend_asbd(self);
     LODWORD(v3) = v18;
     v4 = 0.0;
     if (v19 * v3 != 0.0)
     {
       audioData = [(VSAudioData *)self audioData];
       v6 = [audioData length];
-      [(VSAudioData *)self asbd];
-      [(VSAudioData *)self asbd];
+      objc_msgSend_asbd(self);
+      objc_msgSend_asbd(self);
       LODWORD(v7) = v16;
       v4 = v6 / (v17 * v7);
     }
@@ -223,18 +223,18 @@
 
   else
   {
-    [(VSAudioData *)self asbd];
+    objc_msgSend_asbd(self);
     v4 = 0.0;
     if (v15 == 1869641075)
     {
-      [(VSAudioData *)self asbd];
+      objc_msgSend_asbd(self);
       if (v14 != 0.0)
       {
         packetCount = [(VSAudioData *)self packetCount];
-        [(VSAudioData *)self asbd];
+        objc_msgSend_asbd(self);
         LODWORD(v9) = v13;
         v10 = packetCount * v9;
-        [(VSAudioData *)self asbd];
+        objc_msgSend_asbd(self);
         return v10 / v12;
       }
     }

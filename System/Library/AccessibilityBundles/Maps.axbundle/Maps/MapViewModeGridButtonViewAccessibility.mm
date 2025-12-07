@@ -41,7 +41,7 @@
 
 - (id)accessibilityCustomActions
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   objc_initWeak(&location, self);
   _accessibilityViewModel = [(MapViewModeGridButtonViewAccessibility *)self _accessibilityViewModel];
   v4 = [_accessibilityViewModel safeValueForKey:@"overflowMenu"];
@@ -49,16 +49,16 @@
   {
     v5 = objc_alloc(MEMORY[0x29EDC78E0]);
     v6 = AXMapsLocString(@"ADDITIONAL_FILTERS");
-    v11 = MEMORY[0x29EDCA5F8];
-    v12 = 3221225472;
-    v13 = __68__MapViewModeGridButtonViewAccessibility_accessibilityCustomActions__block_invoke;
-    v14 = &unk_29F2CC4B8;
-    objc_copyWeak(&v15, &location);
-    v7 = [v5 initWithName:v6 actionHandler:&v11];
-    v17[0] = v7;
-    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:{1, v11, v12, v13, v14}];
+    v10 = MEMORY[0x29EDCA5F8];
+    v11 = 3221225472;
+    v12 = __68__MapViewModeGridButtonViewAccessibility_accessibilityCustomActions__block_invoke;
+    v13 = &unk_29F2CC4B8;
+    objc_copyWeak(&v14, &location);
+    v7 = [v5 initWithName:v6 actionHandler:&v10];
+    v16[0] = v7;
+    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:{1, v10, v11, v12, v13}];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
   }
 
   else
@@ -67,7 +67,6 @@
   }
 
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

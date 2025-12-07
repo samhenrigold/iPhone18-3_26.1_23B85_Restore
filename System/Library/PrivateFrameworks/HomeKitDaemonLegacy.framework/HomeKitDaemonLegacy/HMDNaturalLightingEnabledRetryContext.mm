@@ -7,22 +7,20 @@
 
 - (id)attributeDescriptions
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", self];
   v4 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:@"Identifier" value:v3];
-  v14[0] = v4;
+  v13[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDNaturalLightingEnabledRetryContext *)self naturalLightingEnabled];
   v6 = HMFBooleanToString();
   v7 = [v5 initWithName:@"Natural Lighting Enabled" value:v6];
-  v14[1] = v7;
+  v13[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDNaturalLightingEnabledRetryContext retryCount](self, "retryCount")}];
   v10 = [v8 initWithName:@"Retry Count" value:v9];
-  v14[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
 
   return v11;
 }

@@ -65,7 +65,7 @@ LABEL_5:
   v6.super_class = SBFullScreenToSplitViewSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v6 transitionWillBegin];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:10 updateMode:4];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -97,7 +97,7 @@ LABEL_5:
   }
 
   v9 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v10 = SBAppendSwitcherModifierResponse(v9, v5);
+  v10 = SBAppendSwitcherModifierResponse();
 
   return v10;
 }

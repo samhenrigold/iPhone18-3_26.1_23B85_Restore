@@ -664,11 +664,11 @@ void __66__PKPassTransitProductsViewController__actionHandlerForIndexPath___bloc
   }
 }
 
-uint64_t __66__PKPassTransitProductsViewController__actionHandlerForIndexPath___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__66__PKPassTransitProductsViewController__actionHandlerForIndexPath___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;

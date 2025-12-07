@@ -116,15 +116,15 @@
 
 - (id)executeFetchRequest:(id)request afterDelay:(double)delay delegate:(id)delegate
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   delegateCopy = delegate;
-  v10 = CNALoggingContextDebug();
+  v10 = CNALoggingContextDebug(delegateCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138478083;
-    v44 = requestCopy;
-    v45 = 2048;
+    v46 = requestCopy;
+    v47 = 2048;
     delayCopy = delay;
     _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Scheduling request %{private}@ after delay (%.3fs)", buf, 0x16u);
   }
@@ -138,35 +138,36 @@
     searchString = [requestCopy searchString];
     [reproStringRecorder recordString:searchString];
 
-    v15 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = CNALoggingContextDebug(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       reproStringRecorder2 = [(CNAutocompleteStore *)self reproStringRecorder];
       reproString = [reproStringRecorder2 reproString];
       *buf = 138412290;
-      v44 = reproString;
-      _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEFAULT, "Repro string: %@", buf, 0xCu);
+      v46 = reproString;
+      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Repro string: %@", buf, 0xCu);
     }
   }
 
-  v18 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = CNALoggingContextDebug(v13);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     currentFetchToken = [(CNAutocompleteStore *)self currentFetchToken];
     *buf = 134217984;
-    v44 = currentFetchToken;
-    _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Cancelling current fetch token (%p)", buf, 0xCu);
+    v46 = currentFetchToken;
+    _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, "Cancelling current fetch token (%p)", buf, 0xCu);
   }
 
   currentFetchToken2 = [(CNAutocompleteStore *)self currentFetchToken];
   [currentFetchToken2 cancel];
 
-  v21 = objc_alloc_init(MEMORY[0x277CFBDC8]);
-  [(CNAutocompleteStore *)self setCurrentFetchToken:v21];
-  v42 = 0;
-  v22 = [requestCopy isValid:&v42];
-  v23 = v42;
-  if (v22)
+  v23 = objc_alloc_init(MEMORY[0x277CFBDC8]);
+  [(CNAutocompleteStore *)self setCurrentFetchToken:v23];
+  v44 = 0;
+  v24 = [requestCopy isValid:&v44];
+  v25 = v44;
+  v26 = v25;
+  if (v24)
   {
     userSession = [(CNAutocompleteStore *)self userSession];
     [userSession willStartExecutingRequest:requestCopy];
@@ -174,46 +175,44 @@
     objc_initWeak(buf, self);
     currentFetchToken3 = [(CNAutocompleteStore *)self currentFetchToken];
     scheduler = [(CNAutocompleteStore *)self scheduler];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_invoke_2;
-    v34[3] = &unk_2781C4070;
-    objc_copyWeak(&v37, buf);
-    v35 = requestCopy;
-    v36 = delegateCopy;
-    v27 = [scheduler afterDelay:v34 performBlock:delay];
-    [currentFetchToken3 addCancelable:v27];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_invoke_2;
+    v36[3] = &unk_2781C4070;
+    objc_copyWeak(&v39, buf);
+    v37 = requestCopy;
+    v38 = delegateCopy;
+    v30 = [scheduler afterDelay:v36 performBlock:delay];
+    [currentFetchToken3 addCancelable:v30];
 
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v28 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v31 = CNALoggingContextDebug(v25);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v44 = requestCopy;
-      v45 = 2112;
-      delayCopy = *&v23;
-      _os_log_impl(&dword_2155FE000, v28, OS_LOG_TYPE_DEFAULT, "Fetch request is not valid: %@, error:%@, stopping.", buf, 0x16u);
+      v46 = requestCopy;
+      v47 = 2112;
+      delayCopy = *&v26;
+      _os_log_impl(&dword_2155FE000, v31, OS_LOG_TYPE_DEFAULT, "Fetch request is not valid: %@, error:%@, stopping.", buf, 0x16u);
     }
 
     scheduler2 = [(CNAutocompleteStore *)self scheduler];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_invoke;
-    v38[3] = &unk_2781C4048;
-    v39 = delegateCopy;
-    v40 = v21;
-    v41 = v23;
-    v30 = [scheduler2 afterDelay:v38 performBlock:0.0];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_invoke;
+    v40[3] = &unk_2781C4048;
+    v41 = delegateCopy;
+    v42 = v23;
+    v43 = v26;
+    v33 = [scheduler2 afterDelay:v40 performBlock:0.0];
   }
 
   currentFetchToken4 = [(CNAutocompleteStore *)self currentFetchToken];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return currentFetchToken4;
 }
@@ -248,7 +247,7 @@ void __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_i
   v33 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   delegateCopy = delegate;
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(delegateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -264,6 +263,7 @@ void __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_i
   v28 = 0;
   v11 = [requestCopy isValid:&v28];
   v12 = v28;
+  v13 = v12;
   if (v11)
   {
     userSession = [(CNAutocompleteStore *)self userSession];
@@ -271,22 +271,22 @@ void __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_i
 
     queryHelper = [(CNAutocompleteStore *)self queryHelper];
     currentFetchToken2 = [(CNAutocompleteStore *)self currentFetchToken];
-    v16 = [queryHelper executeFetchRequest:requestCopy delegate:delegateCopy delegateToken:currentFetchToken2];
+    v17 = [queryHelper executeFetchRequest:requestCopy delegate:delegateCopy delegateToken:currentFetchToken2];
 
     currentFetchToken3 = [(CNAutocompleteStore *)self currentFetchToken];
-    [currentFetchToken3 addCancelable:v16];
+    [currentFetchToken3 addCancelable:v17];
   }
 
   else
   {
-    v18 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = CNALoggingContextDebug(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v30 = requestCopy;
       v31 = 2112;
-      v32 = v12;
-      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Fetch request is not valid: %@, error:%@, stopping.", buf, 0x16u);
+      v32 = v13;
+      _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_DEFAULT, "Fetch request is not valid: %@, error:%@, stopping.", buf, 0x16u);
     }
 
     scheduler = [(CNAutocompleteStore *)self scheduler];
@@ -296,15 +296,13 @@ void __63__CNAutocompleteStore_executeFetchRequest_afterDelay_delegate___block_i
     v24[3] = &unk_2781C4048;
     v25 = delegateCopy;
     v26 = v10;
-    v27 = v12;
-    v20 = [scheduler afterDelay:v24 performBlock:0.0];
+    v27 = v13;
+    v21 = [scheduler afterDelay:v24 performBlock:0.0];
 
-    v16 = v25;
+    v17 = v25;
   }
 
   currentFetchToken4 = [(CNAutocompleteStore *)self currentFetchToken];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return currentFetchToken4;
 }

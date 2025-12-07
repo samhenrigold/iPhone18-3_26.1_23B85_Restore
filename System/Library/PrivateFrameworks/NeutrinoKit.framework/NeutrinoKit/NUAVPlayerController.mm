@@ -251,7 +251,7 @@ LABEL_14:
   v6 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -292,14 +292,12 @@ LABEL_14:
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
-  [player currentTime];
+  objc_msgSend_currentTime(player);
   if (retstr->var2)
   {
-    v10 = *&retstr->var0;
-    var3 = retstr->var3;
-    [(NUAVPlayerController *)self _effectiveTimeForTime:&v10];
-    *&retstr->var0 = v12;
-    v7 = v13;
+    objc_msgSend__effectiveTimeForTime_(self, retstr->var0, *&retstr->var1, retstr->var3);
+    *&retstr->var0 = v10;
+    v7 = v11;
 LABEL_5:
     retstr->var3 = v7;
   }
@@ -358,7 +356,7 @@ void __40__NUAVPlayerController__addTimeObserver__block_invoke(uint64_t a1, uint
       v7 = v6;
       if (v6)
       {
-        [v6 duration];
+        objc_msgSend_duration(v6);
       }
 
       else
@@ -367,8 +365,7 @@ void __40__NUAVPlayerController__addTimeObserver__block_invoke(uint64_t a1, uint
       }
 
       memset(&v10[32], 0, 24);
-      *v10 = *a2;
-      [v5 _effectiveTimeForTime:v10];
+      objc_msgSend__effectiveTimeForTime_(v5, *a2, *(a2 + 8), *(a2 + 16));
       v8 = objc_loadWeakRetained((a1 + 40));
       *v10 = *&v10[32];
       Seconds = CMTimeGetSeconds(v10);
@@ -457,7 +454,7 @@ uint64_t __50__NUAVPlayerController__notifyPlaybackTimeChange___block_invoke(uin
     videoAsset = self->_videoAsset;
     if (videoAsset)
     {
-      [(AVAsset *)videoAsset duration];
+      objc_msgSend_duration(videoAsset);
     }
 
     v29 = *seek;
@@ -479,7 +476,7 @@ uint64_t __50__NUAVPlayerController__notifyPlaybackTimeChange___block_invoke(uin
 
     else
     {
-      [currentItem duration];
+      objc_msgSend_duration(currentItem);
     }
 
     self->_currentSeekTime = v29;
@@ -575,7 +572,7 @@ uint64_t __88__NUAVPlayerController_seek_toleranceBefore_toleranceAfter_forceSee
   if (currentItem)
   {
     memset(&v13, 0, sizeof(v13));
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
     memset(&v12, 0, sizeof(v12));
     CMTimeMake(&v12, 10, 1);
     memset(&v11, 0, sizeof(v11));
@@ -607,9 +604,9 @@ uint64_t __88__NUAVPlayerController_seek_toleranceBefore_toleranceAfter_forceSee
   if (currentItem)
   {
     memset(&v12[1], 0, sizeof(CMTime));
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
     memset(v12, 0, 24);
-    [v5 currentTime];
+    objc_msgSend_currentTime(v5);
     memset(&v11, 0, sizeof(v11));
     CMTimeMake(&v11, 30, 1);
     memset(&v10, 0, sizeof(v10));

@@ -32,23 +32,23 @@
 
 - (MAAutoAssetSetAtomicEntry)initWithCoder:(id)coder
 {
-  v20[8] = *MEMORY[0x1E69E9840];
+  v19[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = MAAutoAssetSetAtomicEntry;
-  v5 = [(MAAutoAssetSetAtomicEntry *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MAAutoAssetSetAtomicEntry;
+  v5 = [(MAAutoAssetSetAtomicEntry *)&v18 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v20[2] = objc_opt_class();
-    v20[3] = objc_opt_class();
-    v20[4] = objc_opt_class();
-    v20[5] = objc_opt_class();
-    v20[6] = objc_opt_class();
-    v20[7] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:8];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v19[2] = objc_opt_class();
+    v19[3] = objc_opt_class();
+    v19[4] = objc_opt_class();
+    v19[5] = objc_opt_class();
+    v19[6] = objc_opt_class();
+    v19[7] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:8];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fullAssetSelector"];
@@ -70,7 +70,6 @@
     v5->_inhibitedFromEmergencyRemoval = [coderCopy decodeBoolForKey:@"inhibitedFromEmergencyRemoval"];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
